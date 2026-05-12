@@ -13,8 +13,8 @@ export default function PrivacyPage() {
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
       <header className="mb-10">
-        <p className="text-xs uppercase tracking-widest text-brand-300">Legale</p>
-        <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-white">
+        <p className="text-xs uppercase tracking-widest text-brand-500">Legale</p>
+        <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-ink-50">
           Privacy Policy
         </h1>
         <p className="mt-3 text-sm text-ink-400">
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
               ["Migliorare l'esperienza", "diagnosticare problemi tecnici quando ce li segnali via email"],
             ]}
           />
-          <p className="text-white font-medium">
+          <p className="text-ink-50 font-medium">
             Non vendiamo, non condividiamo e non utilizziamo i tuoi dati per pubblicità o marketing.
           </p>
         </Section>
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
           />
           <p>
             Per esercitare questi diritti, scrivici a{" "}
-            <a className="text-brand-300 hover:text-brand-200 underline underline-offset-4" href="mailto:privacy@fitmesh.fit">
+            <a className="text-brand-500 hover:text-brand-400 underline underline-offset-4" href="mailto:privacy@fitmesh.fit">
               privacy@fitmesh.fit
             </a>
             . Rispondiamo entro 30 giorni.
@@ -168,7 +168,7 @@ export default function PrivacyPage() {
             rettifica, cancellazione, limitazione del trattamento, portabilità dei dati e
             opposizione al trattamento dei tuoi dati personali. Puoi inoltre presentare reclamo
             all'Autorità Garante per la Protezione dei Dati Personali ({" "}
-            <a className="text-brand-300 hover:text-brand-200 underline underline-offset-4" href="https://www.garanteprivacy.it/">
+            <a className="text-brand-500 hover:text-brand-400 underline underline-offset-4" href="https://www.garanteprivacy.it/">
               garanteprivacy.it
             </a>
             ).
@@ -176,32 +176,32 @@ export default function PrivacyPage() {
         </Section>
 
         <Section title="12. Contatti">
-          <div className="rounded-2xl border hairline bg-ink-900/40 p-6">
+          <div className="rounded-[14px] border hairline bg-ink-800/40 p-6">
             <p className="text-ink-200">
               Per domande, richieste o preoccupazioni:
             </p>
             <ul className="mt-3 space-y-1.5 text-sm">
               <li>
                 <span className="text-ink-400">Privacy:</span>{" "}
-                <a className="text-brand-300 hover:text-brand-200" href="mailto:privacy@fitmesh.fit">
+                <a className="text-brand-500 hover:text-brand-400" href="mailto:privacy@fitmesh.fit">
                   privacy@fitmesh.fit
                 </a>
               </li>
               <li>
                 <span className="text-ink-400">Supporto:</span>{" "}
-                <a className="text-brand-300 hover:text-brand-200" href="mailto:support@fitmesh.fit">
+                <a className="text-brand-500 hover:text-brand-400" href="mailto:support@fitmesh.fit">
                   support@fitmesh.fit
                 </a>
               </li>
               <li>
                 <span className="text-ink-400">Generale:</span>{" "}
-                <a className="text-brand-300 hover:text-brand-200" href="mailto:hello@fitmesh.fit">
+                <a className="text-brand-500 hover:text-brand-400" href="mailto:hello@fitmesh.fit">
                   hello@fitmesh.fit
                 </a>
               </li>
               <li>
                 <span className="text-ink-400">Sito web:</span>{" "}
-                <a className="text-brand-300 hover:text-brand-200" href="https://www.fitmesh.fit">
+                <a className="text-brand-500 hover:text-brand-400" href="https://www.fitmesh.fit">
                   www.fitmesh.fit
                 </a>
               </li>
@@ -229,7 +229,7 @@ export default function PrivacyPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="text-xl sm:text-2xl font-semibold text-white border-b hairline pb-3 mb-4">
+      <h2 className="text-xl sm:text-2xl font-semibold text-ink-50 border-b hairline pb-3 mb-4">
         {title}
       </h2>
       <div className="space-y-3">{children}</div>
@@ -242,9 +242,9 @@ function List({ items }: { items: Array<[string, string]> }) {
     <ul className="space-y-2 mt-3">
       {items.map(([term, def]) => (
         <li key={term} className="flex gap-2">
-          <span className="text-brand-300 mt-0.5">•</span>
+          <span className="text-brand-500 mt-0.5">•</span>
           <span>
-            <strong className="text-white">{term}:</strong> <span className="text-ink-200">{def}</span>
+            <strong className="text-ink-50">{term}:</strong> <span className="text-ink-200">{def}</span>
           </span>
         </li>
       ))}
