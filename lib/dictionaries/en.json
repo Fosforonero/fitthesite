@@ -1,0 +1,86 @@
+{
+  "nav": {
+    "support": "Support",
+    "privacy": "Privacy",
+    "download": "Download"
+  },
+  "hero": {
+    "badge": "Available on Android · iOS coming soon",
+    "heading_1": "Your smartwatch data,",
+    "heading_accent": "on a premium dashboard.",
+    "description": "FitMesh Sync reads steps, heart rate, sleep and calories from your Galaxy Watch or Wear OS and surfaces them on a personal web dashboard. No opaque clouds, no ad trackers, no social logins.",
+    "cta_secondary": "Learn more",
+    "pricing": "One-time purchase €3.49 · or €0.99 every 6 months · secure payment via Google Play",
+    "coming_soon": "Coming Soon"
+  },
+  "features": {
+    "kicker": "Features",
+    "heading": "Everything your smartwatch records, organized and visualized.",
+    "items": [
+      {
+        "title": "Steps & distance",
+        "desc": "Auto-sync with Health Connect and Samsung Health. Runs in the background, even with your phone locked."
+      },
+      {
+        "title": "Heart rate & VO₂ max",
+        "desc": "Daily average, min/max range, resting heart rate. Spot trends in your cardiovascular health over time."
+      },
+      {
+        "title": "Sleep with stages",
+        "desc": "Total duration, deep, REM, light, awake. Color-coded bar and instant quality badge."
+      },
+      {
+        "title": "Calories & activity",
+        "desc": "Active and basal calories, route, elevation, floors climbed. Walks in green, workouts in red."
+      },
+      {
+        "title": "Your own dashboard",
+        "desc": "Your data lives on the server you pick — not on a third-party cloud. Access from any browser, no social account required."
+      },
+      {
+        "title": "Built for caregivers",
+        "desc": "Advanced mode coming soon: family group with morning sync alerts when an elderly relative goes silent."
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "Privacy-first",
+    "heading": "Your health data is not a product.",
+    "description": "FitMesh Sync never sells, shares or profiles. Your data stays on the server you choose — your home NAS, your VPS, or our shared endpoint. You decide in the app settings.",
+    "cta": "Read the Privacy Policy"
+  },
+  "final_cta": {
+    "heading": "Ready to start?",
+    "description": "Download the app, grant Health Connect permissions, and in 30 seconds your data is live."
+  },
+  "footer": {
+    "tagline": "Sync your smartwatch data to a premium dashboard of your own. Privacy-first. No opaque clouds, no ad trackers.",
+    "product": "Product",
+    "legal": "Legal",
+    "rights": "All rights reserved.",
+    "made_with": "Made with care in Italy",
+    "links": {
+      "features": "Features",
+      "download": "Download",
+      "support": "Support",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "cookies": "Cookie Policy"
+    }
+  },
+  "cookie_banner": {
+    "title": "Cookies & privacy",
+    "description": "We use strictly necessary cookies for the site to function and, with your consent, Google Analytics to learn how to improve the product. No advertising or profiling cookies.",
+    "details_link": "Details",
+    "accept": "Accept all",
+    "reject": "Reject optional"
+  },
+  "legal": {
+    "last_updated": "Last updated",
+    "privacy_title": "Privacy Policy",
+    "terms_title": "Terms of Service",
+    "cookies_title": "Cookie Policy",
+    "support_title": "Frequently Asked Questions",
+    "section": "Legal"
+  }
+}

@@ -1,13 +1,39 @@
 import type { MetadataRoute } from "next";
+import { locales } from "@/lib/i18n";
 
+const BASE = "https://www.fitmesh.fit";
+
+/**
+ * Sitemap multi-locale con hreflang alternates per ogni URL.
+ * Google usa <xhtml:link rel="alternate" hreflang="..."> emessi automaticamente
+ * da Next.js a partire dal campo `alternates.languages` qui sotto.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://www.fitmesh.fit";
   const now = new Date();
-  return [
-    { url: `${base}/`, lastModified: now, changeFrequency: "monthly", priority: 1.0 },
-    { url: `${base}/support`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${base}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${base}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
-    { url: `${base}/cookies`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
+  const routes: Array<{ path: string; changeFrequency: "monthly" | "yearly"; priority: number }> = [
+    { path: "",         changeFrequency: "monthly", priority: 1.0 },
+    { path: "/support", changeFrequency: "monthly", priority: 0.7 },
+    { path: "/privacy", changeFrequency: "yearly",  priority: 0.5 },
+    { path: "/terms",   changeFrequency: "yearly",  priority: 0.5 },
+    { path: "/cookies", changeFrequency: "yearly",  priority: 0.4 },
   ];
+
+  const entries: MetadataRoute.Sitemap = [];
+  for (const r of routes) {
+    for (const lc of locales) {
+      entries.push({
+        url: `${BASE}/${lc}${r.path}`,
+        lastModified: now,
+        changeFrequency: r.changeFrequency,
+        priority: r.priority,
+        alternates: {
+          languages: Object.fromEntries([
+            ...locales.map((l) => [l, `${BASE}/${l}${r.path}`]),
+            ["x-default", `${BASE}/it${r.path}`],
+          ]),
+        },
+      });
+    }
+  }
+  return entries;
 }

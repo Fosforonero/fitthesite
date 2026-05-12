@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { locales, type Locale, defaultLocale } from "@/lib/i18n";
+import type { Dictionary } from "@/lib/i18n";
 
 declare global {
   interface Window {
@@ -11,10 +14,7 @@ declare global {
 
 const STORAGE_KEY = "fitmesh_cookie_consent";
 
-type Consent = {
-  analytics: boolean;
-  ts: number;
-};
+type Consent = { analytics: boolean; ts: number };
 
 function updateGtagConsent(granted: boolean) {
   try {
@@ -34,20 +34,25 @@ function persist(consent: Consent) {
   }
 }
 
-export default function CookieBanner() {
+export default function CookieBanner({ dict }: { dict: Dictionary }) {
   const [visible, setVisible] = useState(false);
+  const pathname = usePathname() || "/";
+
+  // Derive locale from URL prefix for the "Details" link
+  const localeFromPath: Locale =
+    (locales as readonly string[]).find((l) => pathname.startsWith(`/${l}`)) as Locale | undefined ??
+    defaultLocale;
 
   useEffect(() => {
     try {
       const stored = window.localStorage.getItem(STORAGE_KEY);
       if (stored) {
         const parsed: Consent = JSON.parse(stored);
-        // Replay consent into gtag in case the layout script loaded before us
         updateGtagConsent(!!parsed.analytics);
         return;
       }
     } catch {
-      /* fall through to show banner */
+      /* fall through */
     }
     setVisible(true);
   }, []);
@@ -71,21 +76,21 @@ export default function CookieBanner() {
   return (
     <div
       role="dialog"
-      aria-label="Preferenze cookie"
+      aria-label={dict.cookie_banner.title}
       className="fixed inset-x-0 bottom-0 z-[60] px-4 pb-4 sm:px-6 sm:pb-6 pointer-events-none"
     >
       <div className="max-w-3xl mx-auto pointer-events-auto">
         <div className="rounded-card border border-divider bg-bg-card/95 backdrop-blur-md shadow-card-hi p-5 sm:p-6">
           <h2 className="font-display text-base font-semibold text-text-primary">
-            Cookie e privacy
+            {dict.cookie_banner.title}
           </h2>
           <p className="mt-2 text-sm text-text-secondary leading-relaxed">
-            Usiamo cookie tecnici essenziali (indispensabili per il sito) e, con il tuo
-            consenso, <strong className="text-text-primary">Google Analytics</strong> per
-            capire come migliorare il prodotto. Nessun cookie pubblicitario o di profilazione.
-            {" "}
-            <Link href="/cookies" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
-              Dettagli
+            {dict.cookie_banner.description}{" "}
+            <Link
+              href={`/${localeFromPath}/cookies`}
+              className="text-brand-aqua hover:text-brand-blue underline underline-offset-4"
+            >
+              {dict.cookie_banner.details_link}
             </Link>
             .
           </p>
@@ -96,14 +101,14 @@ export default function CookieBanner() {
               onClick={rejectOptional}
               className="px-5 py-2.5 rounded-pill border border-divider text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition"
             >
-              Rifiuta opzionali
+              {dict.cookie_banner.reject}
             </button>
             <button
               type="button"
               onClick={acceptAll}
               className="px-6 py-2.5 rounded-pill btn-cta text-sm"
             >
-              Accetta tutto
+              {dict.cookie_banner.accept}
             </button>
           </div>
         </div>

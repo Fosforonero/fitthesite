@@ -1,0 +1,86 @@
+{
+  "nav": {
+    "support": "Supporto",
+    "privacy": "Privacy",
+    "download": "Scarica"
+  },
+  "hero": {
+    "badge": "Disponibile su Android · iOS in arrivo",
+    "heading_1": "I dati del tuo smartwatch,",
+    "heading_accent": "una dashboard premium.",
+    "description": "FitMesh Sync legge passi, battito, sonno e calorie dal tuo Galaxy Watch o Wear OS e li mette su una dashboard web personale. Senza cloud opachi, senza tracker pubblicitari, senza account social.",
+    "cta_secondary": "Scopri di più",
+    "pricing": "Acquisto unico €3,49 · oppure €0,99 ogni 6 mesi · pagamento sicuro Google Play",
+    "coming_soon": "In arrivo"
+  },
+  "features": {
+    "kicker": "Funzionalità",
+    "heading": "Tutto quello che il tuo smartwatch raccoglie, ordinato e visualizzato.",
+    "items": [
+      {
+        "title": "Passi & distanza",
+        "desc": "Sincronizzazione automatica con Health Connect e Samsung Health. Anche in background, anche quando il telefono è bloccato."
+      },
+      {
+        "title": "Battito e VO₂ max",
+        "desc": "Media giornaliera, range min/max, frequenza a riposo. Vedi i pattern del tuo cuore nel tempo."
+      },
+      {
+        "title": "Sonno con fasi",
+        "desc": "Durata totale, profondo, REM, leggero, sveglio. Barra colorata e badge qualità immediato."
+      },
+      {
+        "title": "Calorie e attività",
+        "desc": "Calorie attive e basali, percorso, dislivello, scale. Camminate in verde, allenamenti in rosso."
+      },
+      {
+        "title": "Dashboard tua",
+        "desc": "I dati vivono sul tuo server, non su un cloud di terzi. Accedi da browser ovunque, senza account social."
+      },
+      {
+        "title": "Pensato per i caregiver",
+        "desc": "Modalità avanzata in arrivo: gruppo famiglia con notifiche se un anziano non sincronizza al mattino."
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "Privacy-first",
+    "heading": "I tuoi dati di salute non sono un prodotto.",
+    "description": "FitMesh Sync non vende, non condivide, non profila. I dati restano sul server che scegli tu — che sia il tuo NAS di casa, una VPS o il nostro endpoint condiviso, decidi tu nelle impostazioni dell'app.",
+    "cta": "Leggi la Privacy Policy"
+  },
+  "final_cta": {
+    "heading": "Pronto a iniziare?",
+    "description": "Scarica l'app, autorizza Health Connect, e in 30 secondi i tuoi dati sono live."
+  },
+  "footer": {
+    "tagline": "Sincronizza i dati del tuo smartwatch su una dashboard premium tua. Privacy-first. Niente cloud opachi, niente tracker pubblicitari.",
+    "product": "Prodotto",
+    "legal": "Legale",
+    "rights": "Tutti i diritti riservati.",
+    "made_with": "Made with care in Italy",
+    "links": {
+      "features": "Funzionalità",
+      "download": "Scarica",
+      "support": "Supporto",
+      "privacy": "Privacy Policy",
+      "terms": "Termini di servizio",
+      "cookies": "Cookie Policy"
+    }
+  },
+  "cookie_banner": {
+    "title": "Cookie e privacy",
+    "description": "Usiamo cookie tecnici essenziali (indispensabili per il sito) e, con il tuo consenso, Google Analytics per capire come migliorare il prodotto. Nessun cookie pubblicitario o di profilazione.",
+    "details_link": "Dettagli",
+    "accept": "Accetta tutto",
+    "reject": "Rifiuta opzionali"
+  },
+  "legal": {
+    "last_updated": "Ultimo aggiornamento",
+    "privacy_title": "Privacy Policy",
+    "terms_title": "Termini di Servizio",
+    "cookies_title": "Cookie Policy",
+    "support_title": "Domande frequenti",
+    "section": "Legale"
+  }
+}

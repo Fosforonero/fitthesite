@@ -1,23 +1,80 @@
 /**
- * FM monogram + soundwave — vector reproduction of the brand mark.
- * Uses the brand gradient (green → aqua → blue) defined in design-tokens.css.
+ * FitMesh Sync — Logo component.
  *
- * Use size={28} in the header, size={64} for the hero, etc.
- * If a raster logo (PNG) is later added to /public/logo.png we can swap to next/image.
+ * Variants:
+ *   - "mark"        : just the FM monogram square (SVG inline, no asset needed)
+ *   - "horizontal"  : full horizontal logo  (FM mark + divider + "FitMesh SYNC")
+ *                     ▸ uses `/logo-horizontal.png` — il file deve essere
+ *                       presente in /public con sfondo trasparente o navy.
+ *                       Misura consigliata: 1920×800 px (4× retina).
+ *   - "wordmark"    : solo testo "FitMesh Sync" in font display (no asset)
+ *
+ * For app icons / OG images we use SVG/runtime generation (see app/icon.tsx,
+ * app/apple-icon.tsx, app/opengraph-image.tsx) — that path doesn't depend on
+ * the PNG existing.
  */
-export default function Logo({
-  size = 32,
-  withWordmark = false,
-  className = "",
-}: {
-  size?: number;
-  withWordmark?: boolean;
+
+import Image from "next/image";
+
+type Variant = "mark" | "horizontal" | "wordmark";
+
+type Props = {
+  variant?: Variant;
+  size?: number; // for mark/wordmark: pixel height; for horizontal: pixel height (width auto)
   className?: string;
-}) {
+  priority?: boolean;
+};
+
+export default function Logo({
+  variant = "mark",
+  size = 32,
+  className = "",
+  priority = false,
+}: Props) {
+  if (variant === "horizontal") {
+    // Aspect ratio ~ 1920/800 = 2.4 from the provided artwork.
+    const height = size;
+    const width = Math.round(size * 2.4);
+    return (
+      <Image
+        src="/logo-horizontal.png"
+        alt="FitMesh Sync"
+        width={width}
+        height={height}
+        priority={priority}
+        className={`inline-block h-auto w-auto max-h-[${size}px] ${className}`}
+        style={{ height: size }}
+      />
+    );
+  }
+
+  if (variant === "wordmark") {
+    return (
+      <span
+        className={`inline-flex flex-col leading-none ${className}`}
+        style={{ fontSize: size * 0.6 }}
+      >
+        <span className="font-display font-semibold tracking-tight text-text-primary">
+          FitMesh
+        </span>
+        <span
+          className="text-text-muted uppercase mt-0.5"
+          style={{
+            fontSize: size * 0.22,
+            letterSpacing: "0.3em",
+          }}
+        >
+          Sync
+        </span>
+      </span>
+    );
+  }
+
+  // ── "mark" variant: inline SVG of the FM monogram + soundwave ──
   const id = `fm-grad-${size}`;
   return (
     <span
-      className={`inline-flex items-center gap-2 ${className}`}
+      className={`inline-flex items-center ${className}`}
       aria-label="FitMesh Sync"
     >
       <svg
@@ -37,22 +94,15 @@ export default function Logo({
           </linearGradient>
         </defs>
 
-        {/* Rounded square backdrop (deep ink) */}
         <rect x="2" y="2" width="60" height="60" rx="14" fill="#0A0F1F" />
         <rect x="2" y="2" width="60" height="60" rx="14" stroke="rgba(255,255,255,0.06)" />
 
         {/* F (stylized) */}
-        <path
-          d="M14 16 H30 V22 H20 V29 H28 V35 H20 V48 H14 Z"
-          fill={`url(#${id})`}
-        />
-        {/* M (right side, stylized as triangular peak) */}
-        <path
-          d="M32 48 V16 L40 30 L48 16 V48 H42 V30 L40 33 L38 30 V48 Z"
-          fill={`url(#${id})`}
-        />
+        <path d="M14 16 H30 V22 H20 V29 H28 V35 H20 V48 H14 Z" fill={`url(#${id})`} />
+        {/* M (right-side) */}
+        <path d="M32 48 V16 L40 30 L48 16 V48 H42 V30 L40 33 L38 30 V48 Z" fill={`url(#${id})`} />
 
-        {/* Soundwave bars in the center */}
+        {/* Soundwave bars */}
         <g fill={`url(#${id})`}>
           <rect x="27" y="40" width="2.5" height="8"  rx="1.25" />
           <rect x="31" y="36" width="2.5" height="14" rx="1.25" />
@@ -60,17 +110,6 @@ export default function Logo({
           <rect x="39" y="34" width="2.5" height="16" rx="1.25" />
         </g>
       </svg>
-
-      {withWordmark && (
-        <span className="flex flex-col leading-none">
-          <span className="font-display font-semibold tracking-tight text-text-primary text-base">
-            FitMesh
-          </span>
-          <span className="text-[9px] tracking-[0.3em] text-text-muted uppercase mt-0.5">
-            Sync
-          </span>
-        </span>
-      )}
     </span>
   );
 }
