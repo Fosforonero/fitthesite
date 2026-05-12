@@ -3,7 +3,36 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 const STORAGE_KEY = "fitmesh_cookie_consent";
+
+type Consent = {
+  analytics: boolean;
+  ts: number;
+};
+
+function updateGtagConsent(granted: boolean) {
+  try {
+    window.gtag?.("consent", "update", {
+      analytics_storage: granted ? "granted" : "denied",
+    });
+  } catch {
+    /* silent */
+  }
+}
+
+function persist(consent: Consent) {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
+  } catch {
+    /* silent */
+  }
+}
 
 export default function CookieBanner() {
   const [visible, setVisible] = useState(false);
@@ -11,22 +40,29 @@ export default function CookieBanner() {
   useEffect(() => {
     try {
       const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (!stored) setVisible(true);
+      if (stored) {
+        const parsed: Consent = JSON.parse(stored);
+        // Replay consent into gtag in case the layout script loaded before us
+        updateGtagConsent(!!parsed.analytics);
+        return;
+      }
     } catch {
-      // localStorage unavailable (incognito, etc.) — show once per session
-      setVisible(true);
+      /* fall through to show banner */
     }
+    setVisible(true);
   }, []);
 
-  const dismiss = () => {
-    try {
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({ accepted: true, ts: Date.now() }),
-      );
-    } catch {
-      // ignore
-    }
+  const acceptAll = () => {
+    const consent: Consent = { analytics: true, ts: Date.now() };
+    persist(consent);
+    updateGtagConsent(true);
+    setVisible(false);
+  };
+
+  const rejectOptional = () => {
+    const consent: Consent = { analytics: false, ts: Date.now() };
+    persist(consent);
+    updateGtagConsent(false);
     setVisible(false);
   };
 
@@ -35,39 +71,39 @@ export default function CookieBanner() {
   return (
     <div
       role="dialog"
-      aria-label="Avviso cookie"
+      aria-label="Preferenze cookie"
       className="fixed inset-x-0 bottom-0 z-[60] px-4 pb-4 sm:px-6 sm:pb-6 pointer-events-none"
     >
-      <div className="max-w-4xl mx-auto pointer-events-auto">
-        <div className="rounded-[14px] border hairline bg-ink-800/95 backdrop-blur-md shadow-2xl shadow-black/40 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center gap-4">
-          <div className="flex-1 text-sm text-ink-200 leading-relaxed">
-            <p>
-              Usiamo solo cookie tecnici essenziali per il funzionamento del sito
-              (Vercel hosting). <strong className="text-ink-50">Nessun tracker pubblicitario</strong>,
-              nessun analytics di profilazione, nessun cookie di terze parti.
-              {" "}
-              <Link
-                href="/cookies"
-                className="text-brand-500 hover:text-brand-400 underline underline-offset-4"
-              >
-                Maggiori info
-              </Link>
-              .
-            </p>
-          </div>
-          <div className="flex gap-2 shrink-0">
-            <Link
-              href="/cookies"
-              className="px-4 py-2 rounded-full border hairline text-sm text-ink-200 hover:text-ink-50 hover:bg-white/5 transition"
-            >
+      <div className="max-w-3xl mx-auto pointer-events-auto">
+        <div className="rounded-card border border-divider bg-bg-card/95 backdrop-blur-md shadow-card-hi p-5 sm:p-6">
+          <h2 className="font-display text-base font-semibold text-text-primary">
+            Cookie e privacy
+          </h2>
+          <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+            Usiamo cookie tecnici essenziali (indispensabili per il sito) e, con il tuo
+            consenso, <strong className="text-text-primary">Google Analytics</strong> per
+            capire come migliorare il prodotto. Nessun cookie pubblicitario o di profilazione.
+            {" "}
+            <Link href="/cookies" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
               Dettagli
             </Link>
+            .
+          </p>
+
+          <div className="mt-5 flex flex-col-reverse sm:flex-row sm:items-center gap-2 sm:gap-3 sm:justify-end">
             <button
               type="button"
-              onClick={dismiss}
-              className="px-5 py-2 rounded-full bg-brand-500 text-ink-50 text-sm font-medium hover:bg-brand-600 transition"
+              onClick={rejectOptional}
+              className="px-5 py-2.5 rounded-pill border border-divider text-sm text-text-secondary hover:text-text-primary hover:bg-white/5 transition"
             >
-              Ho capito
+              Rifiuta opzionali
+            </button>
+            <button
+              type="button"
+              onClick={acceptAll}
+              className="px-6 py-2.5 rounded-pill btn-cta text-sm"
+            >
+              Accetta tutto
             </button>
           </div>
         </div>

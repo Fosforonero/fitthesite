@@ -1,0 +1,88 @@
+/**
+ * FitMesh Sync — Design Tokens
+ * Versione: 1.0
+ *
+ * Questo file espone i token come CSS variables.
+ * È la fonte di verità portabile tra: sito Next.js, dashboard web,
+ * app Android (via WebView), futuro client iOS.
+ *
+ * NON modificare valori qui senza aggiornare prima BRAND.md.
+ */
+
+:root {
+  /* ── BRAND COLORS ───────────────────────────────────────────────── */
+  --fm-brand-green:    #7CFF5B;
+  --fm-brand-aqua:     #21E6C1;
+  --fm-brand-blue:     #1DA1FF;
+  --fm-brand-deep:     #006BFF;
+
+  /* ── SURFACES ───────────────────────────────────────────────────── */
+  --fm-bg:             #050816;
+  --fm-bg-secondary:   #0B1023;
+  --fm-bg-card:        #12182B;
+  --fm-bg-elevated:    #1A2238;
+  --fm-divider:        #24304A;
+
+  /* ── TEXT ───────────────────────────────────────────────────────── */
+  --fm-text-primary:   #FFFFFF;
+  --fm-text-secondary: #B7C2D8;
+  --fm-text-muted:     #7F8AA3;
+  --fm-text-disabled:  #556078;
+
+  /* ── SEMANTIC ───────────────────────────────────────────────────── */
+  --fm-success:        #31E981;
+  --fm-warning:        #FFB547;
+  --fm-error:          #FF5C7A;
+  --fm-info:           #38BDF8;
+
+  /* ── GRADIENTS ──────────────────────────────────────────────────── */
+  --fm-gradient-brand: linear-gradient(135deg, #7CFF5B 0%, #21E6C1 45%, #1DA1FF 100%);
+  --fm-gradient-cta:   linear-gradient(90deg,  #21E6C1 0%, #1DA1FF 100%);
+  --fm-gradient-page:  linear-gradient(180deg, #0B1023 0%, #050816 100%);
+
+  /* ── SPACING (4-pt baseline) ────────────────────────────────────── */
+  --fm-space-1:  4px;
+  --fm-space-2:  8px;
+  --fm-space-3:  12px;
+  --fm-space-4:  16px;
+  --fm-space-5:  20px;
+  --fm-space-6:  24px;
+  --fm-space-8:  32px;
+  --fm-space-10: 40px;
+  --fm-space-12: 48px;
+  --fm-space-16: 64px;
+  --fm-space-20: 80px;
+
+  /* ── RADIUS ─────────────────────────────────────────────────────── */
+  --fm-radius-sm:   8px;
+  --fm-radius:      14px;     /* default */
+  --fm-radius-card: 20px;
+  --fm-radius-pill: 999px;
+
+  /* ── ELEVATION (soft, no neon) ──────────────────────────────────── */
+  --fm-shadow-card:  0 1px 0 rgba(255,255,255,0.04) inset, 0 8px 24px -12px rgba(0,0,0,0.6);
+  --fm-shadow-hi:    0 1px 0 rgba(255,255,255,0.06) inset, 0 16px 40px -16px rgba(0,0,0,0.7);
+  --fm-shadow-cta:   0 6px 24px -8px rgba(33,230,193,0.35), 0 2px 0 rgba(255,255,255,0.06) inset;
+
+  /* ── MOTION ─────────────────────────────────────────────────────── */
+  --fm-ease-ios:     cubic-bezier(0.32, 0.72, 0, 1);
+  --fm-duration-fast:   150ms;
+  --fm-duration-normal: 220ms;
+  --fm-duration-slow:   400ms;
+
+  /* ── TYPOGRAPHY (set via next/font on the site) ────────────────── */
+  --fm-font-display: "Space Grotesk", Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fm-font-body:    Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+/**
+ * Accessibility: rispetta prefers-reduced-motion.
+ * Tutti i componenti devono usare le variabili di durata sopra.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --fm-duration-fast:   0ms;
+    --fm-duration-normal: 0ms;
+    --fm-duration-slow:   0ms;
+  }
+}

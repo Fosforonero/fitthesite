@@ -1,14 +1,16 @@
+@import "./design-tokens.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-}
+:root { color-scheme: dark; }
 
 html, body {
-  background: #0f1419;          /* --bg from dashboard */
-  color: #e7ecf3;               /* --text */
+  background: var(--fm-bg);
+  color: var(--fm-text-primary);
+  font-family: var(--fm-font-body);
+  font-feature-settings: "cv11", "ss01", "ss03", "ss04";
 }
 
 * {
@@ -16,15 +18,58 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle restrained backdrop — matches the dashboard's understated dark feel */
-.bg-radial-fade {
+/* Soft page-level glow backdrop using brand colors at very low opacity */
+.bg-page {
   background:
-    radial-gradient(720px 480px at 50% -8%,  rgba(61, 139, 253, 0.14), transparent 60%),
-    radial-gradient(640px 420px at 100% 110%, rgba(167, 139, 250, 0.08), transparent 60%),
-    #0f1419;
+    radial-gradient(780px 480px at 50% -10%,  rgba(33, 230, 193, 0.08), transparent 60%),
+    radial-gradient(640px 420px at 100% 110%, rgba(29, 161, 255, 0.06), transparent 60%),
+    linear-gradient(180deg, #0B1023 0%, #050816 100%);
 }
 
-/* Hairline divider — uses --border (#2d3a4d) */
-.hairline {
-  border-color: #2d3a4d;
+.hairline { border-color: var(--fm-divider); }
+
+/* Brand gradient text helper */
+.text-brand-gradient {
+  background-image: var(--fm-gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* CTA button base — usable as className=".btn-cta" */
+.btn-cta {
+  background-image: var(--fm-gradient-cta);
+  color: #03121f;
+  box-shadow: var(--fm-shadow-cta);
+  font-weight: 600;
+  transition: transform var(--fm-duration-fast) var(--fm-ease-ios),
+              filter var(--fm-duration-fast) var(--fm-ease-ios);
+}
+.btn-cta:hover { filter: brightness(1.05); }
+.btn-cta:active { transform: translateY(1px); }
+
+/* Card base */
+.card {
+  background-color: var(--fm-bg-card);
+  border: 1px solid var(--fm-divider);
+  border-radius: var(--fm-radius-card);
+  box-shadow: var(--fm-shadow-card);
+  transition: background-color var(--fm-duration-fast) var(--fm-ease-ios),
+              border-color var(--fm-duration-fast) var(--fm-ease-ios);
+}
+.card:hover {
+  background-color: var(--fm-bg-elevated);
+}
+
+/* Selection */
+::selection {
+  background: rgba(33, 230, 193, 0.35);
+  color: #03121f;
+}
+
+/* Focus ring — accessible, uses brand aqua */
+:where(button, a, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--fm-brand-aqua);
+  outline-offset: 2px;
+  border-radius: 6px;
 }

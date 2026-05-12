@@ -45,15 +45,15 @@ export default function SupportPage() {
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
       <header className="mb-10">
-        <p className="text-xs uppercase tracking-widest text-brand-500">Supporto</p>
-        <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-ink-50">
+        <p className="text-xs uppercase tracking-widest text-brand-blue">Supporto</p>
+        <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-text-primary">
           Domande frequenti
         </h1>
-        <p className="mt-3 text-ink-300">
+        <p className="mt-3 text-text-muted">
           Le risposte ai problemi più comuni. Se non trovi quello che cerchi,{" "}
           <a
             href="mailto:support@fitmesh.fit"
-            className="text-brand-500 hover:text-brand-400 underline underline-offset-4"
+            className="text-brand-blue hover:text-brand-aqua underline underline-offset-4"
           >
             scrivici a support@fitmesh.fit
           </a>
@@ -65,38 +65,38 @@ export default function SupportPage() {
         {faqs.map((faq) => (
           <details
             key={faq.q}
-            className="group rounded-[14px] border hairline bg-ink-800/40 p-5 open:bg-ink-800/70 transition"
+            className="group rounded-[14px] border border-divider bg-bg-card/60 p-5 open:bg-bg-elevated/80 transition"
           >
-            <summary className="cursor-pointer list-none flex items-start justify-between gap-3 text-ink-50 font-medium">
+            <summary className="cursor-pointer list-none flex items-start justify-between gap-3 text-text-primary font-medium">
               <span>{faq.q}</span>
               <span
                 aria-hidden
-                className="mt-1 text-ink-400 group-open:rotate-45 transition-transform"
+                className="mt-1 text-text-muted group-open:rotate-45 transition-transform"
               >
                 +
               </span>
             </summary>
-            <p className="mt-3 text-ink-300 text-sm leading-relaxed">{faq.a}</p>
+            <p className="mt-3 text-text-muted text-sm leading-relaxed">{faq.a}</p>
           </details>
         ))}
       </section>
 
       <section className="mt-16">
-        <div className="rounded-[14px] border hairline bg-gradient-to-br from-ink-900/60 to-ink-900 p-8">
-          <h2 className="text-2xl font-semibold text-ink-50">Hai un'altra domanda?</h2>
-          <p className="mt-3 text-ink-300">
+        <div className="rounded-[14px] border border-divider bg-gradient-to-br from-bg-card to-bg-secondary p-8">
+          <h2 className="text-2xl font-semibold text-text-primary">Hai un'altra domanda?</h2>
+          <p className="mt-3 text-text-muted">
             Scrivici. Rispondiamo personalmente entro 48 ore (di solito molto prima).
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <a
               href="mailto:support@fitmesh.fit?subject=FitMesh%20%E2%80%94%20Supporto"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[14px] bg-brand-500 text-ink-50 font-medium hover:bg-brand-600 transition"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[14px] bg-brand-blue text-text-primary font-medium hover:bg-brand-deep transition"
             >
               Scrivi a support@fitmesh.fit
             </a>
             <a
               href="mailto:hello@fitmesh.fit?subject=FitMesh%20%E2%80%94%20Hello"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[14px] border hairline text-ink-50 hover:bg-white/5 transition"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[14px] border border-divider text-text-primary hover:bg-white/5 transition"
             >
               hello@fitmesh.fit
             </a>

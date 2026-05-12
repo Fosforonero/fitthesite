@@ -12,19 +12,19 @@ export default function TermsPage() {
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
       <header className="mb-10">
-        <p className="text-xs uppercase tracking-widest text-brand-500">Legale</p>
-        <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-ink-50">
+        <p className="text-xs uppercase tracking-widest text-brand-blue">Legale</p>
+        <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-text-primary">
           Termini di Servizio
         </h1>
-        <p className="mt-3 text-sm text-ink-300">Ultimo aggiornamento: {LAST_UPDATED}</p>
+        <p className="mt-3 text-sm text-text-muted">Ultimo aggiornamento: {LAST_UPDATED}</p>
       </header>
 
-      <div className="space-y-10 text-ink-200 leading-relaxed">
+      <div className="space-y-10 text-text-secondary leading-relaxed">
         <Section title="1. Accettazione dei termini">
           <p>
             I presenti Termini di Servizio ("Termini") regolano l'uso dell'applicazione mobile
             FitMesh (<em>com.fitmeshsync.app</em>), del sito{" "}
-            <code className="text-brand-500">fitmesh.fit</code> e dei servizi correlati
+            <code className="text-brand-blue">fitmesh.fit</code> e dei servizi correlati
             (collettivamente, il "Servizio"), forniti da Matteo Pizzi ("noi", "nostro").
           </p>
           <p>
@@ -45,14 +45,14 @@ export default function TermsPage() {
         <Section title="3. Disclaimer salute — IMPORTANTE">
           <Callout variant="warning">
             <p>
-              <strong className="text-ink-50">FitMesh NON è un dispositivo medico.</strong> Non
+              <strong className="text-text-primary">FitMesh NON è un dispositivo medico.</strong> Non
               fornisce diagnosi, terapie, raccomandazioni mediche o sostituisce in alcun modo
               il parere di un medico qualificato.
             </p>
             <p className="mt-3">
               I dati visualizzati sono valori grezzi forniti dal tuo smartwatch e da Health Connect:
               possono contenere errori, ritardi, valori mancanti o anomali dovuti a problemi di
-              sensore, posizionamento del dispositivo, condizioni ambientali. <strong className="text-ink-50">
+              sensore, posizionamento del dispositivo, condizioni ambientali. <strong className="text-text-primary">
               Non utilizzare FitMesh per decisioni sanitarie critiche.</strong>
             </p>
             <p className="mt-3">
@@ -78,7 +78,7 @@ export default function TermsPage() {
               "Sovraccaricare deliberatamente i nostri server con richieste eccessive",
             ].map((rule) => (
               <li key={rule} className="flex gap-2">
-                <span className="text-danger mt-0.5">✗</span>
+                <span className="text-error mt-0.5">✗</span>
                 <span>{rule}</span>
               </li>
             ))}
@@ -92,7 +92,7 @@ export default function TermsPage() {
             utilizzato per associare i dati al tuo dispositivo sul server scelto.
           </p>
           <p>
-            <strong className="text-ink-50">Sei tu il responsabile dei tuoi dati.</strong> Conserva
+            <strong className="text-text-primary">Sei tu il responsabile dei tuoi dati.</strong> Conserva
             il tuo Device ID se intendi spostare l'app su un nuovo telefono. Il nostro server
             pubblico è fornito come servizio gratuito ma <em>best-effort</em>: non garantiamo
             backup, non garantiamo retention permanente, e potremmo cancellare dati inattivi da
@@ -107,16 +107,16 @@ export default function TermsPage() {
           </p>
           <ul className="space-y-2 mt-3">
             <li className="flex gap-2">
-              <span className="text-brand-500 mt-0.5">•</span>
+              <span className="text-brand-blue mt-0.5">•</span>
               <span>
-                <strong className="text-ink-50">Acquisto unico — €3,49 una tantum:</strong> sblocca
+                <strong className="text-text-primary">Acquisto unico — €3,49 una tantum:</strong> sblocca
                 permanentemente tutte le funzionalità Pro sull'account Google associato.
               </span>
             </li>
             <li className="flex gap-2">
-              <span className="text-brand-500 mt-0.5">•</span>
+              <span className="text-brand-blue mt-0.5">•</span>
               <span>
-                <strong className="text-ink-50">Abbonamento — €0,99 ogni 6 mesi:</strong> rinnovo
+                <strong className="text-text-primary">Abbonamento — €0,99 ogni 6 mesi:</strong> rinnovo
                 automatico fino a cancellazione. Puoi annullare in qualsiasi momento dalle
                 impostazioni Google Play.
               </span>
@@ -128,7 +128,7 @@ export default function TermsPage() {
               href="https://play.google.com/intl/it/about/play-terms/"
               target="_blank"
               rel="noopener"
-              className="text-brand-500 hover:text-brand-400 underline underline-offset-4"
+              className="text-brand-blue hover:text-brand-aqua underline underline-offset-4"
             >
               Termini Google Play
             </a>
@@ -139,7 +139,7 @@ export default function TermsPage() {
         <Section title="7. Diritto di recesso (UE)">
           <p>
             Se sei un consumatore residente nell'Unione Europea, hai diritto di recedere dall'acquisto
-            entro <strong className="text-ink-50">14 giorni</strong> dalla data dell'acquisto senza
+            entro <strong className="text-text-primary">14 giorni</strong> dalla data dell'acquisto senza
             dover fornire motivazione (Direttiva 2011/83/UE).
           </p>
           <p>
@@ -149,14 +149,14 @@ export default function TermsPage() {
               href="https://support.google.com/googleplay/answer/2479637"
               target="_blank"
               rel="noopener"
-              className="text-brand-500 hover:text-brand-400 underline underline-offset-4"
+              className="text-brand-blue hover:text-brand-aqua underline underline-offset-4"
             >
               support.google.com/googleplay/answer/2479637
             </a>
             .
           </p>
           <p>
-            <strong className="text-ink-50">Nota:</strong> il diritto di recesso si perde se hai
+            <strong className="text-text-primary">Nota:</strong> il diritto di recesso si perde se hai
             iniziato a utilizzare attivamente le funzionalità Pro durante i 14 giorni e ne accetti
             espressamente l'esecuzione immediata al momento dell'acquisto (clausola standard Google Play).
           </p>
@@ -223,7 +223,7 @@ export default function TermsPage() {
             qualsiasi procedura legale, contattaci a{" "}
             <a
               href="mailto:hello@fitmesh.fit"
-              className="text-brand-500 hover:text-brand-400 underline underline-offset-4"
+              className="text-brand-blue hover:text-brand-aqua underline underline-offset-4"
             >
               hello@fitmesh.fit
             </a>
@@ -236,7 +236,7 @@ export default function TermsPage() {
               href="https://ec.europa.eu/consumers/odr"
               target="_blank"
               rel="noopener"
-              className="text-brand-500 hover:text-brand-400 underline underline-offset-4"
+              className="text-brand-blue hover:text-brand-aqua underline underline-offset-4"
             >
               ec.europa.eu/consumers/odr
             </a>
@@ -266,33 +266,33 @@ export default function TermsPage() {
         </Section>
 
         <Section title="15. Contatti">
-          <div className="rounded-[14px] border hairline bg-ink-800/40 p-6">
+          <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
             <p>
-              <strong className="text-ink-50">Titolare del Servizio:</strong> Matteo Pizzi
+              <strong className="text-text-primary">Titolare del Servizio:</strong> Matteo Pizzi
             </p>
             <ul className="mt-3 space-y-1.5 text-sm">
               <li>
-                <span className="text-ink-300">Email generale:</span>{" "}
+                <span className="text-text-muted">Email generale:</span>{" "}
                 <a
-                  className="text-brand-500 hover:text-brand-400"
+                  className="text-brand-blue hover:text-brand-aqua"
                   href="mailto:hello@fitmesh.fit"
                 >
                   hello@fitmesh.fit
                 </a>
               </li>
               <li>
-                <span className="text-ink-300">Supporto:</span>{" "}
+                <span className="text-text-muted">Supporto:</span>{" "}
                 <a
-                  className="text-brand-500 hover:text-brand-400"
+                  className="text-brand-blue hover:text-brand-aqua"
                   href="mailto:support@fitmesh.fit"
                 >
                   support@fitmesh.fit
                 </a>
               </li>
               <li>
-                <span className="text-ink-300">Privacy/Legale:</span>{" "}
+                <span className="text-text-muted">Privacy/Legale:</span>{" "}
                 <a
-                  className="text-brand-500 hover:text-brand-400"
+                  className="text-brand-blue hover:text-brand-aqua"
                   href="mailto:privacy@fitmesh.fit"
                 >
                   privacy@fitmesh.fit
@@ -303,8 +303,8 @@ export default function TermsPage() {
         </Section>
       </div>
 
-      <hr className="my-12 border-white/10" />
-      <p className="text-center text-xs text-ink-300">
+      <hr className="my-12 border-divider" />
+      <p className="text-center text-xs text-text-muted">
         © {new Date().getFullYear()} FitMesh. Tutti i diritti riservati.
       </p>
     </article>
@@ -314,7 +314,7 @@ export default function TermsPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="text-xl sm:text-2xl font-semibold text-ink-50 border-b hairline pb-3 mb-4">
+      <h2 className="text-xl sm:text-2xl font-semibold text-text-primary border-b border-divider pb-3 mb-4">
         {title}
       </h2>
       <div className="space-y-3">{children}</div>
@@ -331,10 +331,10 @@ function Callout({
 }) {
   const tone =
     variant === "warning"
-      ? "border-warning bg-warning/5"
-      : "border-brand-500 bg-brand-500/5";
+      ? "border-warning bg-warning/10"
+      : "border-brand-blue bg-brand-aqua/10";
   return (
-    <div className={`mt-4 rounded-[14px] border-l-4 ${tone} px-5 py-4 text-sm text-ink-200`}>
+    <div className={`mt-4 rounded-[14px] border-l-4 ${tone} px-5 py-4 text-sm text-text-secondary`}>
       {children}
     </div>
   );

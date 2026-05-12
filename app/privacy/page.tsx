@@ -13,16 +13,16 @@ export default function PrivacyPage() {
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
       <header className="mb-10">
-        <p className="text-xs uppercase tracking-widest text-brand-500">Legale</p>
-        <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-ink-50">
+        <p className="text-xs uppercase tracking-widest text-brand-blue">Legale</p>
+        <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-tight text-text-primary">
           Privacy Policy
         </h1>
-        <p className="mt-3 text-sm text-ink-400">
+        <p className="mt-3 text-sm text-text-muted">
           Ultimo aggiornamento: {LAST_UPDATED}
         </p>
       </header>
 
-      <div className="prose-fitmesh space-y-10 text-ink-200 leading-relaxed">
+      <div className="prose-fitmesh space-y-10 text-text-secondary leading-relaxed">
         <Section title="1. Introduzione">
           <p>
             FitMesh ("noi", "nostro", "l'app") rispetta la tua privacy e si impegna a proteggere
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
               ["Migliorare l'esperienza", "diagnosticare problemi tecnici quando ce li segnali via email"],
             ]}
           />
-          <p className="text-ink-50 font-medium">
+          <p className="text-text-primary font-medium">
             Non vendiamo, non condividiamo e non utilizziamo i tuoi dati per pubblicità o marketing.
           </p>
         </Section>
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
           />
           <p>
             Per esercitare questi diritti, scrivici a{" "}
-            <a className="text-brand-500 hover:text-brand-400 underline underline-offset-4" href="mailto:privacy@fitmesh.fit">
+            <a className="text-brand-blue hover:text-brand-aqua underline underline-offset-4" href="mailto:privacy@fitmesh.fit">
               privacy@fitmesh.fit
             </a>
             . Rispondiamo entro 30 giorni.
@@ -130,17 +130,24 @@ export default function PrivacyPage() {
         </Section>
 
         <Section title="8. Dati di terze parti">
-          <p>FitMesh si integra con i seguenti servizi di terze parti per leggere i dati di salute:</p>
+          <p>FitMesh si integra con i seguenti servizi di terze parti:</p>
           <List
             items={[
               ["Health Connect (Google)", "servizio ufficiale Android per dati di salute, soggetto alla policy di Google"],
               ["Samsung Health Data SDK", "API ufficiale Samsung per Galaxy Watch, soggetto alla policy di Samsung"],
               ["Google Play Billing", "per gestione acquisti in-app, soggetto alla policy di Google"],
+              ["Google Analytics 4 (solo sito web, opt-in)", "analytics anonimi del sito fitmesh.fit, attivati solo dopo consenso esplicito tramite banner cookie. Vedi la Cookie Policy per i dettagli tecnici"],
+              ["Vercel", "hosting del sito web fitmesh.fit, soggetto alla policy di Vercel"],
             ]}
           />
           <p>
             L'utilizzo di questi servizi è soggetto alle rispettive Privacy Policy. Ti consigliamo di
-            consultarle per comprendere come gestiscono i tuoi dati.
+            consultarle per comprendere come gestiscono i tuoi dati. Maggiori dettagli sull'utilizzo
+            di Google Analytics nella nostra{" "}
+            <a href="/cookies" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
+              Cookie Policy
+            </a>
+            .
           </p>
         </Section>
 
@@ -168,7 +175,7 @@ export default function PrivacyPage() {
             rettifica, cancellazione, limitazione del trattamento, portabilità dei dati e
             opposizione al trattamento dei tuoi dati personali. Puoi inoltre presentare reclamo
             all'Autorità Garante per la Protezione dei Dati Personali ({" "}
-            <a className="text-brand-500 hover:text-brand-400 underline underline-offset-4" href="https://www.garanteprivacy.it/">
+            <a className="text-brand-blue hover:text-brand-aqua underline underline-offset-4" href="https://www.garanteprivacy.it/">
               garanteprivacy.it
             </a>
             ).
@@ -176,32 +183,32 @@ export default function PrivacyPage() {
         </Section>
 
         <Section title="12. Contatti">
-          <div className="rounded-[14px] border hairline bg-ink-800/40 p-6">
-            <p className="text-ink-200">
+          <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
+            <p className="text-text-secondary">
               Per domande, richieste o preoccupazioni:
             </p>
             <ul className="mt-3 space-y-1.5 text-sm">
               <li>
-                <span className="text-ink-400">Privacy:</span>{" "}
-                <a className="text-brand-500 hover:text-brand-400" href="mailto:privacy@fitmesh.fit">
+                <span className="text-text-muted">Privacy:</span>{" "}
+                <a className="text-brand-blue hover:text-brand-aqua" href="mailto:privacy@fitmesh.fit">
                   privacy@fitmesh.fit
                 </a>
               </li>
               <li>
-                <span className="text-ink-400">Supporto:</span>{" "}
-                <a className="text-brand-500 hover:text-brand-400" href="mailto:support@fitmesh.fit">
+                <span className="text-text-muted">Supporto:</span>{" "}
+                <a className="text-brand-blue hover:text-brand-aqua" href="mailto:support@fitmesh.fit">
                   support@fitmesh.fit
                 </a>
               </li>
               <li>
-                <span className="text-ink-400">Generale:</span>{" "}
-                <a className="text-brand-500 hover:text-brand-400" href="mailto:hello@fitmesh.fit">
+                <span className="text-text-muted">Generale:</span>{" "}
+                <a className="text-brand-blue hover:text-brand-aqua" href="mailto:hello@fitmesh.fit">
                   hello@fitmesh.fit
                 </a>
               </li>
               <li>
-                <span className="text-ink-400">Sito web:</span>{" "}
-                <a className="text-brand-500 hover:text-brand-400" href="https://www.fitmesh.fit">
+                <span className="text-text-muted">Sito web:</span>{" "}
+                <a className="text-brand-blue hover:text-brand-aqua" href="https://www.fitmesh.fit">
                   www.fitmesh.fit
                 </a>
               </li>
@@ -218,8 +225,8 @@ export default function PrivacyPage() {
         </Section>
       </div>
 
-      <hr className="my-12 border-white/10" />
-      <p className="text-center text-xs text-ink-400">
+      <hr className="my-12 border-divider" />
+      <p className="text-center text-xs text-text-muted">
         © {new Date().getFullYear()} FitMesh. Tutti i diritti riservati.
       </p>
     </article>
@@ -229,7 +236,7 @@ export default function PrivacyPage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="text-xl sm:text-2xl font-semibold text-ink-50 border-b hairline pb-3 mb-4">
+      <h2 className="text-xl sm:text-2xl font-semibold text-text-primary border-b border-divider pb-3 mb-4">
         {title}
       </h2>
       <div className="space-y-3">{children}</div>
@@ -242,9 +249,9 @@ function List({ items }: { items: Array<[string, string]> }) {
     <ul className="space-y-2 mt-3">
       {items.map(([term, def]) => (
         <li key={term} className="flex gap-2">
-          <span className="text-brand-500 mt-0.5">•</span>
+          <span className="text-brand-blue mt-0.5">•</span>
           <span>
-            <strong className="text-ink-50">{term}:</strong> <span className="text-ink-200">{def}</span>
+            <strong className="text-text-primary">{term}:</strong> <span className="text-text-secondary">{def}</span>
           </span>
         </li>
       ))}
@@ -254,7 +261,7 @@ function List({ items }: { items: Array<[string, string]> }) {
 
 function Callout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mt-4 rounded-xl border-l-4 border-brand-400 bg-brand-500/5 px-4 py-3 text-sm text-ink-200">
+    <div className="mt-4 rounded-xl border-l-4 border-brand-aqua bg-brand-aqua/10 px-4 py-3 text-sm text-text-secondary">
       {children}
     </div>
   );
