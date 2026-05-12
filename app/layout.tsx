@@ -47,6 +47,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="it" className={`${inter.variable} ${grotesk.variable}`}>
       <head>
+        {/* Preload the horizontal logo (above-the-fold in Header on every page).
+            fetchpriority=high tells the browser to start the request immediately
+            after parsing the HTML — eliminates the round-trip after CSS parse. */}
+        <link
+          rel="preload"
+          as="image"
+          href="/logo-horizontal.webp"
+          type="image/webp"
+          fetchPriority="high"
+        />
+
         {/* GA4 with Consent Mode v2 — applies to ALL pages regardless of locale.
             See BRAND.md §15. */}
         <Script id="gtag-consent-default" strategy="beforeInteractive">{`

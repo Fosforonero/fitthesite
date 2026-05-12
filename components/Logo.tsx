@@ -27,19 +27,26 @@ export default function Logo({
   priority = false,
 }: Props) {
   if (variant === "horizontal") {
-    // SVG is served as-is by Next.js. Plain <img> avoids next/image overhead
-    // (no rasterization needed for vector art) and lets the SVG scale crisply.
+    // Aspect ratio del logo orizzontale: 1600×420 ≈ 3.81:1
+    // Serviamo WebP (più piccolo, glyph fissi) con fallback SVG.
+    // Explicit width+height eliminano il CLS (Cumulative Layout Shift) — SEO win.
+    const aspectRatio = 1600 / 420;
+    const width = Math.round(size * aspectRatio);
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src="/logo-horizontal.svg"
-        alt="FitMesh Sync"
-        height={size}
-        style={{ height: size, width: "auto" }}
-        className={`inline-block ${className}`}
-        loading={priority ? "eager" : "lazy"}
-        decoding="async"
-      />
+      <picture className={`inline-block ${className}`}>
+        <source srcSet="/logo-horizontal.webp" type="image/webp" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/logo-horizontal.svg"
+          alt="FitMesh Sync — wearable data sync to personal dashboard"
+          width={width}
+          height={size}
+          style={{ height: size, width: "auto" }}
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          decoding="async"
+        />
+      </picture>
     );
   }
 
