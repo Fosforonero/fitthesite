@@ -3,18 +3,13 @@
  *
  * Variants:
  *   - "mark"        : just the FM monogram square (SVG inline, no asset needed)
- *   - "horizontal"  : full horizontal logo  (FM mark + divider + "FitMesh SYNC")
- *                     ▸ uses `/logo-horizontal.png` — il file deve essere
- *                       presente in /public con sfondo trasparente o navy.
- *                       Misura consigliata: 1920×800 px (4× retina).
+ *   - "horizontal"  : full horizontal logo (FM mark + divider + "FitMesh SYNC")
+ *                     ▸ uses `/logo-horizontal.svg` (vector, scales perfectly)
  *   - "wordmark"    : solo testo "FitMesh Sync" in font display (no asset)
  *
- * For app icons / OG images we use SVG/runtime generation (see app/icon.tsx,
- * app/apple-icon.tsx, app/opengraph-image.tsx) — that path doesn't depend on
- * the PNG existing.
+ * For app icons / OG images we use static PNGs (app/icon.png, apple-icon.png)
+ * + dynamic OG image generation (app/opengraph-image.tsx).
  */
-
-import Image from "next/image";
 
 type Variant = "mark" | "horizontal" | "wordmark";
 
@@ -32,18 +27,18 @@ export default function Logo({
   priority = false,
 }: Props) {
   if (variant === "horizontal") {
-    // Aspect ratio ~ 1920/800 = 2.4 from the provided artwork.
-    const height = size;
-    const width = Math.round(size * 2.4);
+    // SVG is served as-is by Next.js. Plain <img> avoids next/image overhead
+    // (no rasterization needed for vector art) and lets the SVG scale crisply.
     return (
-      <Image
-        src="/logo-horizontal.png"
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src="/logo-horizontal.svg"
         alt="FitMesh Sync"
-        width={width}
-        height={height}
-        priority={priority}
-        className={`inline-block h-auto w-auto max-h-[${size}px] ${className}`}
-        style={{ height: size }}
+        height={size}
+        style={{ height: size, width: "auto" }}
+        className={`inline-block ${className}`}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
       />
     );
   }
