@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body {
+  background: #080b12;
+  color: #e4e7ec;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle gradient backdrop */
+.bg-radial-fade {
+  background:
+    radial-gradient(900px 600px at 50% -10%, rgba(56, 146, 246, 0.20), transparent 60%),
+    radial-gradient(800px 500px at 100% 100%, rgba(167, 139, 250, 0.12), transparent 60%),
+    #080b12;
+}
+
+/* Hairline divider used across cards */
+.hairline {
+  border-color: rgba(255,255,255,0.08);
+}
