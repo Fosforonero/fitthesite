@@ -2,20 +2,27 @@
  * FitMesh Sync — Logo component.
  *
  * Variants:
- *   - "mark"        : just the FM monogram square (SVG inline, no asset needed)
- *   - "horizontal"  : full horizontal logo (FM mark + divider + "FitMesh SYNC")
- *                     ▸ uses `/logo-horizontal.svg` (vector, scales perfectly)
- *   - "wordmark"    : solo testo "FitMesh Sync" in font display (no asset)
+ *   - "mark"        : FM monogram square, inline SVG, scales perfectly
+ *   - "horizontal"  : full horizontal logo, WebP from /public/logo-horizontal.webp
+ *   - "wordmark"    : text-only "FitMesh Sync" in display font
  *
- * For app icons / OG images we use static PNGs (app/icon.png, apple-icon.png)
- * + dynamic OG image generation (app/opengraph-image.tsx).
+ * Per la variante "horizontal" usiamo <img> diretto sul WebP. WebP è supportato
+ * dal 98%+ dei browser (Safari 14+, Chrome, Firefox, Edge). Niente <picture>:
+ * il fallback SVG dipendeva dai font system, causando rendering inconsistente
+ * mentre Inter/Space Grotesk si caricavano.
  */
 
 type Variant = "mark" | "horizontal" | "wordmark";
 
+// Intrinsic dimensions del logo orizzontale (esattamente come renderizzato
+// dal file SVG sorgente). Servono al browser per riservare lo spazio e
+// calcolare l'aspect ratio prima di scaricare l'immagine — zero CLS.
+const LOGO_HORIZONTAL_W = 1600;
+const LOGO_HORIZONTAL_H = 420;
+
 type Props = {
   variant?: Variant;
-  size?: number; // for mark/wordmark: pixel height; for horizontal: pixel height (width auto)
+  size?: number;
   className?: string;
   priority?: boolean;
 };
@@ -27,26 +34,24 @@ export default function Logo({
   priority = false,
 }: Props) {
   if (variant === "horizontal") {
-    // Aspect ratio del logo orizzontale: 1600×420 ≈ 3.81:1
-    // Serviamo WebP (più piccolo, glyph fissi) con fallback SVG.
-    // Explicit width+height eliminano il CLS (Cumulative Layout Shift) — SEO win.
-    const aspectRatio = 1600 / 420;
-    const width = Math.round(size * aspectRatio);
     return (
-      <picture className={`inline-block ${className}`}>
-        <source srcSet="/logo-horizontal.webp" type="image/webp" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/logo-horizontal.svg"
-          alt="FitMesh Sync — wearable data sync to personal dashboard"
-          width={width}
-          height={size}
-          style={{ height: size, width: "auto" }}
-          loading={priority ? "eager" : "lazy"}
-          fetchPriority={priority ? "high" : "auto"}
-          decoding="async"
-        />
-      </picture>
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src="/logo-horizontal.webp"
+        alt="FitMesh Sync — wearable data sync to personal dashboard"
+        width={LOGO_HORIZONTAL_W}
+        height={LOGO_HORIZONTAL_H}
+        className={className}
+        style={{
+          display: "block",
+          height: `${size}px`,
+          width: "auto",
+          maxWidth: "100%",
+        }}
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
+        decoding="async"
+      />
     );
   }
 
@@ -99,12 +104,9 @@ export default function Logo({
         <rect x="2" y="2" width="60" height="60" rx="14" fill="#0A0F1F" />
         <rect x="2" y="2" width="60" height="60" rx="14" stroke="rgba(255,255,255,0.06)" />
 
-        {/* F (stylized) */}
         <path d="M14 16 H30 V22 H20 V29 H28 V35 H20 V48 H14 Z" fill={`url(#${id})`} />
-        {/* M (right-side) */}
         <path d="M32 48 V16 L40 30 L48 16 V48 H42 V30 L40 33 L38 30 V48 Z" fill={`url(#${id})`} />
 
-        {/* Soundwave bars */}
         <g fill={`url(#${id})`}>
           <rect x="27" y="40" width="2.5" height="8"  rx="1.25" />
           <rect x="31" y="36" width="2.5" height="14" rx="1.25" />
