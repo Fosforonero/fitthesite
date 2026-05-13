@@ -82,5 +82,98 @@
     "cookies_title": "Cookie Policy",
     "support_title": "Frequently Asked Questions",
     "section": "Legal"
+  },
+  "auth": {
+    "login": {
+      "heading": "Sign in to FitMesh",
+      "subheading": "We'll send you a link via email. No passwords to remember.",
+      "email_label": "Email",
+      "email_placeholder": "you@email.com",
+      "submit": "Send me the sign-in link",
+      "sending": "Sending…",
+      "success_title": "Check your email",
+      "success_body": "We sent you a sign-in link. Open the email and click to enter.",
+      "try_again": "Send again",
+      "disclaimer": "By signing in you accept our Terms and Privacy Policy. Your health data is never shared, never used for medical advice."
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "devices": "Devices",
+      "settings": "Settings",
+      "logout": "Sign out"
+    },
+    "disclaimer": "The data shown is informational only. FitMesh is not a medical device and does not replace professional medical advice.",
+    "dashboard": {
+      "welcome": "Welcome",
+      "steps": "Steps today",
+      "heart_rate": "Average BPM",
+      "sleep": "Sleep",
+      "no_data": "No device connected"
+    },
+    "next_step": {
+      "title": "Get started: connect your first device",
+      "body": "Go to 'Devices' and generate a pairing code. Then enter it in the FitMesh app on your phone.",
+      "cta": "Connect device →"
+    },
+    "devices": {
+      "heading": "Your devices",
+      "subheading": "Smartwatches and phones connected to your account.",
+      "add_title": "Add device",
+      "add_body": "Generate a code and enter it in the FitMesh Sync app to connect a new phone.",
+      "add_cta": "Generate code",
+      "coming_soon": "(coming soon)",
+      "list_title": "Connected devices",
+      "empty": "No devices connected yet.",
+      "error": "Error loading devices.",
+      "revoked": "revoked",
+      "last_sync": "Last sync",
+      "never": "never"
+    },
+    "settings": {
+      "heading": "Settings",
+      "profile_heading": "Profile",
+      "display_name": "Name",
+      "locale": "Language",
+      "timezone": "Time zone",
+      "member_since": "Member since",
+      "privacy_heading": "Privacy & data",
+      "privacy_body": "Your health data is never shared, never processed for medical purposes, never used to produce medical advice. Only for your personal dashboard and gamification.",
+      "export": "Export my data",
+      "danger_heading": "Danger zone",
+      "delete_description": "Permanently delete your account and all associated data. You have 24h to cancel via email.",
+      "delete_cta": "Delete my account",
+      "delete_confirm_title": "Are you really sure?",
+      "delete_confirm_body": "These will be permanently deleted: profile, all health data, connected devices, workout sessions. These will be kept anonymized for compliance: technical logs (90 days) and admin audit (5 years).",
+      "delete_confirm_input": "To confirm, type DELETE",
+      "delete_confirm_submit": "Confirm deletion",
+      "cancel": "Cancel",
+      "delete_scheduled_title": "Request received",
+      "delete_scheduled_body": "You will receive an email with the link to cancel. If you do nothing within 24h, your account will be permanently deleted."
+    }
+  },
+  "admin": {
+    "banner": "ADMIN MODE — your actions are tracked",
+    "nav": {
+      "overview": "Overview",
+      "users": "Users",
+      "devices": "Devices",
+      "events": "Events",
+      "exit": "Exit admin"
+    },
+    "overview": {
+      "heading": "Overview",
+      "subheading": "System status, aggregate metrics, no personal health data.",
+      "total_users": "Total users",
+      "active_7d": "Active 7d",
+      "active_30d": "Active 30d",
+      "new_7d": "New 7d",
+      "total_devices": "Total devices",
+      "active_devices": "Active devices",
+      "syncs_24h": "Syncs 24h",
+      "failed_syncs_24h": "Failed syncs 24h"
+    },
+    "privacy_notice": "Privacy: this dashboard only shows metadata and aggregate metrics. Users' health data is NOT accessible to any admin (enforced via Postgres RLS)."
   }
 }
