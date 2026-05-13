@@ -34,6 +34,16 @@ export const metadata: Metadata = {
   verification: {
     google: "EvwBVKmgChv3GxUVdL6lPEoaHc_ZeHSf1Y9G6F9RZf0",
   },
+  // Next.js auto-rileva app/icon.png e app/apple-icon.png ma esplicitiamo
+  // i sizes per browser legacy + iOS home screen sharpness.
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png", sizes: "any" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export const viewport: Viewport = {
