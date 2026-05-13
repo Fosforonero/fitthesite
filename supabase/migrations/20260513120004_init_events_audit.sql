@@ -24,9 +24,12 @@ create index sync_events_device_created_idx
   on public.sync_events (device_id, created_at desc);
 create index sync_events_user_created_idx
   on public.sync_events (user_id, created_at desc);
-create index sync_events_type_recent_idx
-  on public.sync_events (event_type, created_at desc)
-  where created_at > now() - interval '30 days';
+-- Indice su event_type+created_at. Non possiamo usare partial index con
+-- `where created_at > now() - interval '30 days'` perché `now()` non è
+-- IMMUTABLE (Postgres rifiuta con errore 42P17). L'indice full-table è
+-- accettabile dato che la tabella ha retention 90 giorni.
+create index sync_events_type_idx
+  on public.sync_events (event_type, created_at desc);
 
 comment on table public.sync_events is
   'Eventi tecnici diagnosticabili. NO health data, NO PII oltre user_id/device_id.';
