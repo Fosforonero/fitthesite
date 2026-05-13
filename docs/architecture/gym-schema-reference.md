@@ -20,11 +20,18 @@ Riferimento rapido per Sprint 1+ implementatori. Per la spec completa vedi
 | `disqualifications` | Squalifica trainer | Self select, owner select, INSERT via function |
 | `b2c_subscriptions` | Subs consumer (sub+lifetime+trial 7gg) | Self read, INSERT service_role + grant_b2c_trial |
 
-## View
+## Leaderboard function (NON view)
 
-- `challenge_leaderboard_v` — privacy-safe SELECT: maschera ex-member ("Ex-membro")
-  e account eliminati ("Account eliminato"). Sempre usare questa view nel client,
-  mai SELECT diretta su `challenge_scores` JOIN `profiles`.
+- `challenge_leaderboard(p_challenge_id uuid)` — RPC privacy-safe.
+  Maschera ex-member ("Ex-membro") e account eliminati ("Account eliminato").
+  Verifica che il caller sia partecipante/owner/admin, altrimenti raise.
+  Sempre usare questa funzione nel client (Supabase RPC), mai SELECT diretta
+  su `challenge_scores` JOIN `profiles`.
+
+  Storia: la view `challenge_leaderboard_v` originale (migration 009,
+  `security_invoker=on`) era rotta dalle profiles RLS — ogni co-partecipante
+  appariva come "Account eliminato". Sostituita da questa funzione SECURITY
+  DEFINER in migration 013.
 
 ## Gateway functions (chiamabili da client `to authenticated`)
 
@@ -51,10 +58,19 @@ Riferimento rapido per Sprint 1+ implementatori. Per la spec completa vedi
 
 ### Leaderboard di una challenge (mostra a un partecipante)
 
+Tramite Supabase RPC (lato client):
+
+```typescript
+const { data, error } = await supabase
+  .rpc('challenge_leaderboard', { p_challenge_id: challengeId });
+// data: { user_id, display_name, score, rank, updated_at }[]
+```
+
+Equivalente SQL diretto (server-side):
+
 ```sql
-select display_name, score, rank
-from public.challenge_leaderboard_v
-where challenge_id = $1
+select user_id, display_name, score, rank
+from public.challenge_leaderboard(p_challenge_id => $1)
 order by rank nulls last
 limit 50;
 ```
