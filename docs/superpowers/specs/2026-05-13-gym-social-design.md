@@ -141,6 +141,13 @@ create table public.challenges (
   metric text not null check (metric in (
     'steps','distance_m','active_minutes','calories_kcal','workouts_count'
   )),
+  -- activity_filter: optional restrizioni sul tipo di workout che conta nella
+  -- challenge (ispirato a Health Sync). Shape JSON:
+  -- {"activity_types": ["running","cycling"],
+  --  "min_duration_min": 10,
+  --  "min_distance_m": 100}
+  -- Default '{}'::jsonb = nessun filtro, ogni workout valido conta.
+  activity_filter jsonb not null default '{}'::jsonb,
   participant_type text not null check (participant_type in (
     'individual','team','gym_vs_gym'
   )),
@@ -158,7 +165,7 @@ create table public.challenges (
 create table public.b2c_subscriptions (
   user_id uuid primary key references public.profiles(id) on delete cascade,
   billing_source text not null
-    check (billing_source in ('google_play','apple_iap','stripe')),
+    check (billing_source in ('google_play','apple_iap','stripe','trial')),
   external_product_id text not null,
   external_subscription_id text not null,
   active_until timestamptz not null,
@@ -223,6 +230,7 @@ sensibili passano da funzioni `SECURITY DEFINER` con validazione completa.
 - `leave_challenge(challenge_id uuid)` — abbandono
 - `disqualify_participant(challenge_id, user_id, reason)` — owner only
 - `rotate_invite_code(gym_id uuid)` — owner only
+- `grant_b2c_trial()` — idempotente, attiva trial 7gg per il caller se mai consumato
 
 **Policies chiave**:
 
@@ -474,6 +482,71 @@ Da aggiungere alla pagina privacy:
 - Sezione "Partecipazione a challenge palestra"
 - Cosa la palestra vede, quanto a lungo, come revocare
 - Distinzione tra dati personali (mai condivisi) e score aggregati di challenge (condivisi solo per quella challenge)
+
+---
+
+## 8bis. Feature ispirate a Health Sync
+
+Decisioni di design influenzate dal benchmark Health Sync (concorrente
+indiretto sul sync layer, da cui prendiamo le scelte migliori):
+
+### Activity filter per challenge
+
+Le challenge supportano filtri opzionali sul tipo di workout che conta.
+Esempio: "Challenge corsa 100km in 7 giorni" filtra solo `running`, esclude
+`walking` e `cycling`. Inoltre l'owner può richiedere durata minima (es. solo
+sessioni > 10 min) e distanza minima (es. solo > 1km) per evitare gaming
+con micro-sessioni.
+
+Schema: `challenges.activity_filter jsonb not null default '{}'::jsonb` con
+shape:
+
+```json
+{
+  "activity_types": ["running", "cycling"],
+  "min_duration_min": 10,
+  "min_distance_m": 100
+}
+```
+
+Default `'{}'::jsonb` = nessun filtro applicato.
+
+Il cron `refresh_challenge_scores` (Sprint 2) leggerà il filter e applicherà
+sui `workouts`/`fitness_metrics` prima dell'aggregazione. Combinato con i
+`metric_caps` globali/per-gym, questa è la stack anti-cheat MVP.
+
+### B2C trial 7 giorni (one-time per device)
+
+Al primo install dell'app FitMesh, l'utente B2C riceve **7 giorni di premium
+gratuiti** per provare challenge pubbliche + dashboard avanzata + storico
+illimitato. Allo scadere ritorna free, può comprare 0,99€/6mo o 3,99€ lifetime.
+
+**Implementazione**:
+- Tabella `b2c_subscriptions` supporta `billing_source='trial'`
+- Gateway function `grant_b2c_trial()` (in migration 012) crea la row al primo
+  install se l'utente NON ha già un sub e NON ha già consumato un trial
+- `external_subscription_id = 'trial-<user_id>'` (unique)
+- `active_until = now() + interval '7 days'`, `state='active'`, `auto_renewing=false`
+- La funzione `has_premium_access()` la rispetta automaticamente (è una row
+  valida in `b2c_subscriptions`)
+- Quando il trial scade, il daily cron marca `state='expired'` come per qualsiasi
+  sub (la riga resta — questo blocca un secondo trial sullo stesso user)
+- Anti-abuso secondario: client passa `installation_id` (Android Installations
+  API o hash device) al backend per evitare multi-account farming. Deferred a Sprint 4.
+
+### Sync storico al join di una challenge — DEFERRED v2
+
+Quando un membro joina una challenge in corso, opzionalmente il backend può
+sincronizzare gli ultimi N giorni della sua attività per "tornare in pari" con
+chi era dentro dall'inizio. Vantaggio: less FOMO, più engagement. Rischio:
+back-fill gaming. **Non in MVP** — valutiamo dopo i primi feedback palestre.
+
+### Multi-source (Garmin / Polar / Fitbit) — DEFERRED v2
+
+Health Sync vive di multi-source. Noi partiamo solo Health Connect + Samsung
+Health SDK perché coprono ~85% del mercato Android e sono già integrati nell'app
+mobile. Aggiungere Garmin/Polar/Fitbit è uno sprint dedicato per ciascuno
+(integrazione OAuth + API quotas + mapping campi). **Roadmap v2**.
 
 ---
 

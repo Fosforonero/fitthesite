@@ -477,6 +477,11 @@ create table public.challenges (
   metric text not null check (metric in (
     'steps','distance_m','active_minutes','calories_kcal','workouts_count'
   )),
+  -- activity_filter: optional restrizioni sul tipo di workout che conta nella
+  -- challenge. Esempio: {"activity_types":["running"],"min_duration_min":10,
+  -- "min_distance_m":100}. Default '{}'::jsonb = nessun filtro.
+  -- Il cron refresh_challenge_scores (Sprint 2) applica il filter sui workouts.
+  activity_filter jsonb not null default '{}'::jsonb,
   participant_type text not null check (participant_type in (
     'individual','team','gym_vs_gym'
   )),
@@ -892,8 +897,9 @@ EOF
 
 create table public.b2c_subscriptions (
   user_id uuid primary key references public.profiles(id) on delete cascade,
+  -- 'trial' = 7gg gratis al primo install (one-time per user).
   billing_source text not null
-    check (billing_source in ('google_play','apple_iap','stripe')),
+    check (billing_source in ('google_play','apple_iap','stripe','trial')),
   external_product_id text not null,
   external_subscription_id text not null,
   external_order_id text,
@@ -1324,7 +1330,68 @@ comment on function public.rotate_invite_code is
   'Genera nuovo invite_code 6-char. Solo owner.';
 ```
 
-- [ ] **Step 5.7: Commit migration 012**
+- [ ] **Step 5.7: `grant_b2c_trial()` — attiva trial 7gg one-time**
+
+```sql
+-- ─── grant_b2c_trial() — trial premium 7gg one-time ───────
+-- Idempotente. Crea row b2c_subscriptions con billing_source='trial'
+-- se il caller non ha mai consumato un trial né ha sub attiva.
+-- Ritorna TRUE se trial concesso ora, FALSE se già esistente.
+create or replace function public.grant_b2c_trial()
+returns boolean
+language plpgsql
+security definer
+set search_path = public, auth
+as $$
+declare
+  v_user_id uuid;
+  v_existing record;
+begin
+  v_user_id := auth.uid();
+  if v_user_id is null then
+    raise exception 'Not authenticated' using errcode = '42501';
+  end if;
+
+  -- Verifica no row preesistente (trial già consumato o sub attiva/scaduta)
+  select billing_source, state, active_until into v_existing
+  from public.b2c_subscriptions
+  where user_id = v_user_id;
+
+  if v_existing is not null then
+    -- Trial già consumato (anche scaduto) blocca un secondo trial.
+    -- Sub paying esistente: non sovrascrivere.
+    return false;
+  end if;
+
+  insert into public.b2c_subscriptions (
+    user_id,
+    billing_source,
+    external_product_id,
+    external_subscription_id,
+    active_until,
+    auto_renewing,
+    state
+  ) values (
+    v_user_id,
+    'trial',
+    'fitmesh_b2c_trial_7d',
+    'trial-' || v_user_id::text,
+    now() + interval '7 days',
+    false,
+    'active'
+  );
+
+  return true;
+end;
+$$;
+
+grant execute on function public.grant_b2c_trial() to authenticated;
+
+comment on function public.grant_b2c_trial is
+  'Trial premium 7gg one-time. Idempotente: blocca un secondo trial sullo stesso user.';
+```
+
+- [ ] **Step 5.8: Commit migration 012**
 
 ```bash
 git add supabase/migrations/20260514120005_gym_gateway_functions.sql
@@ -1337,6 +1404,7 @@ feat(migration-012): SECURITY DEFINER gateway functions
 - leave_challenge(id) — abbandono
 - disqualify_participant(challenge_id, user_id, reason) — owner only
 - rotate_invite_code(gym_id) — rigenera 6-char con retry su collisione
+- grant_b2c_trial() — trial premium 7gg one-time per user
 
 Tutte SET search_path = public, auth + raise exception con errcode coerenti.
 
@@ -1682,7 +1750,7 @@ L'utente conferma Sprint 0 chiuso quando:
 3. ✅ Query SQL `select count(*) from information_schema.tables where table_schema='public'` ritorna almeno **12 nuove tabelle**
 4. ✅ Seed `gym_tiers` ha 4 righe (base/advanced/premium/custom)
 5. ✅ Seed `metric_caps` ha 5 righe global
-6. ✅ Funzioni SECURITY DEFINER 9 totali (3 helper + 6 gateway), tutte con `set search_path = public, auth`
+6. ✅ Funzioni SECURITY DEFINER 10 totali (3 helper + 7 gateway incluso `grant_b2c_trial`), tutte con `set search_path = public, auth`
 7. ✅ `database.types.ts` rigenerato e `npx tsc --noEmit` passa senza errori
 8. ✅ `docs/architecture/gym-schema-reference.md` esiste
 9. ✅ 7 commit puliti sul branch (uno per migration + 1 types + 1 doc) — nessun `--no-verify`, nessun hooks skip
