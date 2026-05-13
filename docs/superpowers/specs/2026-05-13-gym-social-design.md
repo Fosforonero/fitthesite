@@ -299,7 +299,7 @@ create policy "gym owner select members"
 |--------------------------------------|------|---------------------|--------------------------|
 | Sync HC / Samsung Health             | ✅    | ✅                   | ✅                        |
 | Dashboard personale base             | ✅    | ✅                   | ✅                        |
-| Storico 30gg                         | ✅    | ✅                   | ✅                        |
+| Storico 7gg                          | ✅    | ✅                   | ✅                        |
 | Storico illimitato                   | ❌    | ✅                   | ✅                        |
 | Dashboard avanzata                   | ❌    | ✅                   | ✅                        |
 | Challenge pubbliche B2C              | ❌    | ✅                   | ✅                        |
