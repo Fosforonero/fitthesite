@@ -13,8 +13,9 @@ FitMesh pivota da app fitness personale a **social network B2B2C centrato sulle 
 Le palestre sono clienti SaaS che pagano un abbonamento mensile (3 tier + 1 custom),
 attivano i loro membri tramite codice o email, e creano sfide/leaderboard per
 engagement. I membri usano l'app gratis finché sono attivi in una palestra pagante.
-I membri non in palestra possono sottoscrivere un abbonamento simbolico (1,98€/anno
-via Google Play / Apple IAP) per sbloccare le funzioni avanzate.
+I membri non in palestra possono sottoscrivere un abbonamento simbolico (modello
+HealthSync: 0,99€/6mesi rinnovabile **oppure** 3,99€ lifetime una tantum) via
+Google Play / Apple IAP per sbloccare le funzioni avanzate.
 
 Privacy resta strict: la palestra **non** vede metriche personali per default —
 solo identità del membro. La condivisione avviene solo per partecipazione esplicita
@@ -34,8 +35,9 @@ successiva — lo schema attuale (`caregiver_links`) viene mantenuto.
   CrossFit, personal trainer indipendente con clienti propri.
 - **Gym-covered Member** — membro attivo di una palestra pagante. Usa l'app
   gratis con tier premium. Non si occupa di billing.
-- **B2C Self-pay Member** — non in palestra, paga 1,98€/anno per sbloccare
-  challenge pubbliche e dashboard avanzata.
+- **B2C Self-pay Member** — non in palestra. Due opzioni: 0,99€ ogni 6 mesi
+  (renewable) o 3,99€ lifetime una tantum. Sblocca challenge pubbliche e
+  dashboard avanzata.
 - **B2C Free Member** — non in palestra, no abbonamento. Solo sync + dashboard
   base. Non partecipa a challenge.
 - **FitMesh Admin** — supporto/operations interno. Non vede mai dati fitness
@@ -51,8 +53,9 @@ successiva — lo schema attuale (`caregiver_links`) viene mantenuto.
    palestra → opt-in con device picker → push notification quando challenge inizia/finisce.
 4. **Owner Stripe Checkout** → upgrade da Base a Advanced → tier features
    sbloccate immediatamente.
-5. **B2C member non in palestra acquista 1,98€/anno via Google Play** →
-   verifica receipt server-side → accesso premium + partecipazione challenge pubbliche.
+5. **B2C member non in palestra sceglie tra Premium 6 mesi (0,99€) o Lifetime
+   (3,99€) via Google Play** → verifica receipt server-side → accesso premium
+   + partecipazione challenge pubbliche.
 6. **Palestra non paga rinnovo** → grace 7gg → status='lapsed' → membri ricevono
    push "la tua palestra non è più attiva" → opzioni: self-pay o restare free.
 
@@ -290,18 +293,29 @@ create policy "gym owner select members"
 | Priority support                          | ❌          | ❌              | ✅              | dedicato |
 | Trial 30gg                                | ✅          | ✅              | ✅              | n/a    |
 
-### Tier B2C
+### Tier B2C (modello HealthSync: 2 opzioni acquisto)
 
-| Feature                              | Free | Premium 1,98€/anno |
-|--------------------------------------|------|---------------------|
-| Sync HC / Samsung Health             | ✅    | ✅                   |
-| Dashboard personale base             | ✅    | ✅                   |
-| Storico 30gg                         | ✅    | ✅                   |
-| Storico illimitato                   | ❌    | ✅                   |
-| Dashboard avanzata                   | ❌    | ✅                   |
-| Challenge pubbliche B2C              | ❌    | ✅                   |
-| Crea 1 challenge personale           | ❌    | ✅                   |
-| Iscriversi a palestra (premium incl.) | ✅    | ✅                   |
+| Feature                              | Free | Premium 6mo (0,99€) | Premium Lifetime (3,99€) |
+|--------------------------------------|------|---------------------|--------------------------|
+| Sync HC / Samsung Health             | ✅    | ✅                   | ✅                        |
+| Dashboard personale base             | ✅    | ✅                   | ✅                        |
+| Storico 30gg                         | ✅    | ✅                   | ✅                        |
+| Storico illimitato                   | ❌    | ✅                   | ✅                        |
+| Dashboard avanzata                   | ❌    | ✅                   | ✅                        |
+| Challenge pubbliche B2C              | ❌    | ✅                   | ✅                        |
+| Crea 1 challenge personale           | ❌    | ✅                   | ✅                        |
+| Iscriversi a palestra (premium incl.) | ✅    | ✅                   | ✅                        |
+| Rinnovo                              | n/a  | ogni 6 mesi auto    | mai (lifetime)            |
+
+**Google Play product mapping**:
+- Subscription product `fitmesh_b2c_semi_annual` (0,99€/6 mesi, auto-renewing)
+- One-time non-consumable `fitmesh_b2c_lifetime` (3,99€)
+
+**Schema `b2c_subscriptions` per Lifetime**:
+- `billing_source='google_play'`, `external_product_id='fitmesh_b2c_lifetime'`
+- `auto_renewing=false`, `state='active'`
+- `active_until = '9999-12-31 23:59:59+00'::timestamptz` (sentinel "mai scade")
+- L'app può rilevare lifetime via `active_until > now() + interval '100 years'`
 
 ### Billing flow palestra (Stripe)
 
@@ -321,14 +335,22 @@ create policy "gym owner select members"
 ### Billing flow membro B2C (Google Play)
 
 ```
-1. Member tap "Sblocca challenge — 1,98€/anno" nell'app
-2. BillingClient.launchBillingFlow → Play Billing native sheet
+1. Member tap "Sblocca premium" nell'app → bottom sheet con 2 opzioni:
+   "0,99€ ogni 6 mesi" oppure "3,99€ una tantum, mai più"
+2. BillingClient.launchBillingFlow con SKU scelto:
+   - 'fitmesh_b2c_semi_annual' (subscription)
+   - 'fitmesh_b2c_lifetime' (in-app product non-consumable)
 3. Purchase ricevuto → POST /api/billing/google-play/verify
-4. Backend verifica con Google Play Developer API
-5. Insert/update b2c_subscriptions
+4. Backend verifica con Google Play Developer API (verifica diversa per
+   subscription product vs in-app product)
+5. Insert/update b2c_subscriptions:
+   - Subscription: active_until = expiryTimeMillis, auto_renewing dal flag Google
+   - Lifetime: active_until = '9999-12-31', auto_renewing=false, state='active'
 6. RTDN Pub/Sub → webhook /api/billing/google-play/rtdn
-   - Aggiorna state su SUBSCRIPTION_RENEWED / CANCELED / ON_HOLD / etc
-7. Daily cron mark expired (active_until < now())
+   - Solo per subscription: SUBSCRIPTION_RENEWED / CANCELED / ON_HOLD / etc
+   - Lifetime non riceve RTDN (è purchase one-shot)
+7. Daily cron mark expired SOLO se NON è lifetime:
+   delete from where active_until < now() and active_until < '9999-01-01'
 ```
 
 **Stato palestra → effetto membri**:
