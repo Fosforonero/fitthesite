@@ -534,19 +534,80 @@ illimitato. Allo scadere ritorna free, può comprare 0,99€/6mo o 3,99€ lifet
 - Anti-abuso secondario: client passa `installation_id` (Android Installations
   API o hash device) al backend per evitare multi-account farming. Deferred a Sprint 4.
 
-### Sync storico al join di una challenge — DEFERRED v2
+### Historical sync — PROMOSSA A MVP (premium da tier Base in su)
 
-Quando un membro joina una challenge in corso, opzionalmente il backend può
-sincronizzare gli ultimi N giorni della sua attività per "tornare in pari" con
-chi era dentro dall'inizio. Vantaggio: less FOMO, più engagement. Rischio:
-back-fill gaming. **Non in MVP** — valutiamo dopo i primi feedback palestre.
+**User story**: "Voglio sincronizzare i dati di ieri (o di una settimana) che
+non sono mai stati syncati perché ero offline / app disinstallata / nuovo device."
 
-### Multi-source (Garmin / Polar / Fitbit) — DEFERRED v2
+**Premium gate**: feature disponibile per utenti con `has_premium_access()=true`
+— quindi membri di palestre attive (Base/Advanced/Premium/Custom) E B2C
+self-pay (subscription o lifetime) E utenti in trial 7gg. Esclusi: utenti free
+B2C senza palestra.
 
-Health Sync vive di multi-source. Noi partiamo solo Health Connect + Samsung
-Health SDK perché coprono ~85% del mercato Android e sono già integrati nell'app
-mobile. Aggiungere Garmin/Polar/Fitbit è uno sprint dedicato per ciascuno
-(integrazione OAuth + API quotas + mapping campi). **Roadmap v2**.
+**UI in-app** (Sprint 4 Android Flutter):
+- Schermata "Sync storico" accessibile da Settings o Dashboard
+- Date picker singolo: "Sincronizza giorno X"
+- Date range picker: "Sincronizza dal X al Y" (max 30 giorni per chiamata)
+- Bottone "Avvia" che mostra progress ("Giorno 2026-05-10... ok · 8243 passi")
+- Free tier: bottone disabilitato + CTA paywall "Sblocca con Premium"
+
+**Backend Health Connect**: lettura via
+`TimeRangeFilter.between(startInstant, endInstant)`. Il vincolo HC è ~365 giorni
+indietro (default). Per range > 30 giorni → chunk in sotto-range per evitare
+timeout / memory.
+
+**Server-side**:
+- Nuovo campo `health_sync_payloads.is_historical boolean default false`
+- Endpoint nuovo `/api/v1/sync/historical` (oppure `/api/v1/sync` con `mode: 'backfill'` nel payload)
+- Server salva normalmente, ma con `is_historical=true` per audit
+- Throttle: rate limit per device (max 30 chiamate historical/ora) anti-abuso
+
+**Anti-cheat per challenge**:
+- I record `is_historical=true` arrivati DOPO che una challenge è iniziata
+  contano solo se la finestra (`window_start_ms`, `window_end_ms`) è dentro
+  il periodo della challenge
+- Per challenge "rolling 24h" o simili, considerare se l'inserimento storico è
+  ammesso (es. blocca per challenge in corso, ammetti per challenge passate)
+
+**Quota tier** (proposta):
+- Base: ultimi 30 giorni indietro
+- Advanced: ultimi 90 giorni
+- Premium: ultimi 365 giorni (full HC limit)
+- Custom: unlimited
+- B2C self-pay (sub+lifetime+trial): ultimi 90 giorni
+
+### Health Connect bidirectional — PROMOSSA A MVP (fast-follow Sprint 4)
+
+**User story**: "I miei dati FitMesh sono visibili in Google Fit / Samsung Health
+/ app terze parti via Health Connect, in modo silenzioso e bidirezionale."
+
+**Razionale Google Fit**: Google ha annunciato la **deprecazione delle Google
+Fit REST API entro fine 2025**, transizione completa a Health Connect.
+Implementare integrazione diretta Google Fit OAuth è codice throw-away.
+Invece: **Health Connect è il nuovo standard cross-app Android**. Google Fit,
+Samsung Health, MyFitnessPal e altre app leggono da HC nativamente.
+
+**Implementazione** (Sprint 4 Android Flutter):
+- READ da HC: già implementato ✅
+- WRITE su HC: aggiungere `HealthConnectClient.insertRecords(...)` per i dati
+  che l'app ottiene da fonti future (Garmin OAuth?, file upload?, manual entry?)
+- Permessi: WRITE-permission specifici per ogni tipo (steps, heart rate, ecc.)
+- UX: switch in Settings "Scrivi i miei dati in Health Connect" (default ON
+  per utenti che hanno concesso WRITE permission)
+
+**Premium gate**: solo per utenti premium. Free B2C: read-only da HC.
+
+**Out of scope**: integrazione diretta Google Fit API (deprecated), Garmin OAuth
+(stack dedicato, roadmap v3+), Polar/Fitbit (idem).
+
+### Multi-source (Garmin / Polar / Fitbit) — DEFERRED v3
+
+Health Sync vive di multi-source. Noi partiamo solo Health Connect (con WRITE
+bidirezionale verso HC, che funziona da hub per Samsung Health, Google Fit,
+Fitbit Connect, ecc.) — copre ~90% dei device popolari indirettamente.
+Integrazione diretta Garmin OAuth o Polar Flow è uno sprint dedicato per
+ciascuno (OAuth flow + API quotas + mapping campi + token refresh).
+**Roadmap v3+** (dopo che gym-social è validato in produzione).
 
 ---
 
