@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
-import PlayStoreButton from "@/components/PlayStoreButton";
+import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 
 const KPI_COLORS = ["#1DA1FF", "#FF5C7A", "#A78BFA", "#FFB547", "#7CFF5B", "#38BDF8"];
@@ -14,10 +14,6 @@ export default async function Home({
   const { locale } = await params;
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
-  const playLabels =
-    lc === "en"
-      ? { small: "GET IT ON", store: "Google Play", soon: "Coming Soon" }
-      : { small: "Disponibile su", store: "Google Play", soon: "In arrivo" };
 
   return (
     <>
@@ -42,12 +38,7 @@ export default async function Home({
             </p>
 
             <div id="download" className="mt-8 flex flex-wrap items-center gap-3">
-              <PlayStoreButton
-                disabled
-                comingSoonLabel={playLabels.soon}
-                smallLabel={playLabels.small}
-                storeLabel={playLabels.store}
-              />
+              <StoreButtonsRow locale={lc} />
               <a
                 href="#features"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-pill border border-divider text-text-primary font-medium hover:bg-white/5 transition"
@@ -195,12 +186,7 @@ export default async function Home({
             {t.final_cta.description}
           </p>
           <div className="mt-8 flex justify-center">
-            <PlayStoreButton
-              disabled
-              comingSoonLabel={playLabels.soon}
-              smallLabel={playLabels.small}
-              storeLabel={playLabels.store}
-            />
+            <StoreButtonsRow locale={lc} className="justify-center" />
           </div>
         </div>
       </section>

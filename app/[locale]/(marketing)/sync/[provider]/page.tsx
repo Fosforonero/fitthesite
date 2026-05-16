@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import PlayStoreButton from "@/components/PlayStoreButton";
+import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import {
   PROVIDERS,
@@ -190,12 +190,7 @@ export default async function ProviderLanding({
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               {isLive ? (
-                <PlayStoreButton
-                  disabled
-                  comingSoonLabel={t("In arrivo", "Coming Soon")}
-                  smallLabel={t("Disponibile su", "GET IT ON")}
-                  storeLabel="Google Play"
-                />
+                <StoreButtonsRow locale={lc} />
               ) : (
                 <a
                   href={waitlistHref}
@@ -447,12 +442,7 @@ export default async function ProviderLanding({
         </p>
         <div className="mt-8 flex justify-center">
           {isLive ? (
-            <PlayStoreButton
-              disabled
-              comingSoonLabel={t("In arrivo", "Coming Soon")}
-              smallLabel={t("Disponibile su", "GET IT ON")}
-              storeLabel="Google Play"
-            />
+            <StoreButtonsRow locale={lc} className="justify-center" />
           ) : (
             <a
               href={waitlistHref}

@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const routes: Array<{ path: string; changeFrequency: "monthly" | "yearly" | "weekly"; priority: number }> = [
     { path: "",              changeFrequency: "monthly", priority: 1.0 },
+    { path: "/about",        changeFrequency: "monthly", priority: 0.85 },
     { path: "/integrations", changeFrequency: "weekly",  priority: 0.9 },
     { path: "/support",      changeFrequency: "monthly", priority: 0.7 },
     { path: "/privacy",      changeFrequency: "yearly",  priority: 0.5 },
