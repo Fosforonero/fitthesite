@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import { getDictionary, locales, type Locale } from '@/lib/i18n';
+import { GeneratePairingCode } from './GeneratePairingCode';
 
 export const dynamic = 'force-dynamic';
 
@@ -54,19 +55,35 @@ export default async function DevicesPage({
           {t.app?.devices?.add_title ?? 'Aggiungi dispositivo'}
         </h2>
         <p className="mt-2 text-sm text-text-secondary">
-          {t.app?.devices?.add_body ??
-            'Genera un codice e inseriscilo nell\'app FitMesh Sync per collegare un nuovo telefono.'}
+          {lc === 'it'
+            ? 'Genera un codice e inseriscilo nell\'app FitMesh Sync per collegare un nuovo telefono o smartwatch. Il codice è valido 5 minuti.'
+            : 'Generate a code and enter it in the FitMesh Sync app to pair a new phone or smartwatch. The code is valid for 5 minutes.'}
         </p>
-        <button
-          type="button"
-          disabled
-          className="mt-4 px-5 py-2.5 rounded-pill border border-divider text-text-muted text-sm cursor-not-allowed"
-        >
-          {t.app?.devices?.add_cta ?? 'Genera codice'}
-          <span className="ml-2 text-xs text-text-muted">
-            {t.app?.devices?.coming_soon ?? '(in arrivo)'}
-          </span>
-        </button>
+        <GeneratePairingCode
+          translations={
+            lc === 'it'
+              ? {
+                  title: 'Aggiungi dispositivo',
+                  body: '',
+                  cta_generate: 'Genera codice',
+                  cta_regenerate: 'Genera nuovo codice',
+                  code_shown_help: 'Inserisci questo codice nell\'app',
+                  expires_in: 'Scade in {seconds}s',
+                  expired: 'Codice scaduto. Genera un nuovo codice per riprovare.',
+                  error: 'Errore generazione codice',
+                }
+              : {
+                  title: 'Add device',
+                  body: '',
+                  cta_generate: 'Generate code',
+                  cta_regenerate: 'Generate new code',
+                  code_shown_help: 'Enter this code in the app',
+                  expires_in: 'Expires in {seconds}s',
+                  expired: 'Code expired. Generate a new code to retry.',
+                  error: 'Code generation failed',
+                }
+          }
+        />
       </div>
 
       <div>
