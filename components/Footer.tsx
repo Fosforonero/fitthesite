@@ -29,6 +29,11 @@ export default function Footer({
             <li><a href={`/${locale}#features`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.features}</a></li>
             <li><Link href={`/${locale}/integrations`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Integrazioni" : "Integrations"}</Link></li>
             <li><Link href={`/${locale}/about`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Chi siamo" : "About"}</Link></li>
+            <li>
+              <Link href={`/${locale}/beta`} className="text-accent hover:text-accent/80 transition font-medium">
+                {locale === "it" ? "Beta · 100 founder gratis" : "Beta · 100 founders free"}
+              </Link>
+            </li>
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
             <li><Link href={`/${locale}/support`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>
           </ul>
