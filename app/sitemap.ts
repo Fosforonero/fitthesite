@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
+import { PROVIDERS } from "@/lib/providers/data";
 
 const BASE = "https://www.fitmesh.fit";
 
@@ -10,13 +11,24 @@ const BASE = "https://www.fitmesh.fit";
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const routes: Array<{ path: string; changeFrequency: "monthly" | "yearly"; priority: number }> = [
-    { path: "",         changeFrequency: "monthly", priority: 1.0 },
-    { path: "/support", changeFrequency: "monthly", priority: 0.7 },
-    { path: "/privacy", changeFrequency: "yearly",  priority: 0.5 },
-    { path: "/terms",   changeFrequency: "yearly",  priority: 0.5 },
-    { path: "/cookies", changeFrequency: "yearly",  priority: 0.4 },
+  const routes: Array<{ path: string; changeFrequency: "monthly" | "yearly" | "weekly"; priority: number }> = [
+    { path: "",              changeFrequency: "monthly", priority: 1.0 },
+    { path: "/about",        changeFrequency: "monthly", priority: 0.85 },
+    { path: "/integrations", changeFrequency: "weekly",  priority: 0.9 },
+    { path: "/support",      changeFrequency: "monthly", priority: 0.7 },
+    { path: "/privacy",      changeFrequency: "yearly",  priority: 0.5 },
+    { path: "/terms",        changeFrequency: "yearly",  priority: 0.5 },
+    { path: "/cookies",      changeFrequency: "yearly",  priority: 0.4 },
   ];
+
+  // Una landing per provider — priorità 0.8 (alta: pagine SEO-target)
+  for (const p of PROVIDERS) {
+    routes.push({
+      path: `/sync/${p.slug}`,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    });
+  }
 
   const entries: MetadataRoute.Sitemap = [];
   for (const r of routes) {

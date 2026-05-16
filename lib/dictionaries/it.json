@@ -10,7 +10,7 @@
     "heading_accent": "una dashboard premium.",
     "description": "FitMesh Sync legge passi, battito, sonno e calorie dal tuo Galaxy Watch o Wear OS e li mette su una dashboard web personale. Senza cloud opachi, senza tracker pubblicitari, senza account social.",
     "cta_secondary": "Scopri di più",
-    "pricing": "Acquisto unico €3,49 · oppure €0,99 ogni 6 mesi · pagamento sicuro Google Play",
+    "pricing": "Acquisto unico €3,99 · pagamento sicuro Google Play",
     "coming_soon": "In arrivo"
   },
   "features": {
@@ -82,5 +82,98 @@
     "cookies_title": "Cookie Policy",
     "support_title": "Domande frequenti",
     "section": "Legale"
+  },
+  "auth": {
+    "login": {
+      "heading": "Accedi a FitMesh",
+      "subheading": "Ti mandiamo un link via email. Niente password da ricordare.",
+      "email_label": "Email",
+      "email_placeholder": "tua@email.it",
+      "submit": "Inviami il link di accesso",
+      "sending": "Invio in corso…",
+      "success_title": "Controlla la tua email",
+      "success_body": "Abbiamo inviato un link di accesso. Apri l'email e clicca per entrare.",
+      "try_again": "Manda di nuovo",
+      "disclaimer": "Accedendo accetti i nostri Termini e la Privacy Policy. I tuoi dati di salute non vengono condivisi né trattati a scopi medici."
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "devices": "Dispositivi",
+      "settings": "Impostazioni",
+      "logout": "Esci"
+    },
+    "disclaimer": "I dati mostrati sono solo informativi. FitMesh non è un dispositivo medico e non sostituisce il parere medico professionale.",
+    "dashboard": {
+      "welcome": "Benvenuto",
+      "steps": "Passi oggi",
+      "heart_rate": "BPM medio",
+      "sleep": "Sonno",
+      "no_data": "Nessun dispositivo collegato"
+    },
+    "next_step": {
+      "title": "Inizia: collega il tuo primo dispositivo",
+      "body": "Vai in 'Dispositivi' e genera un codice di pairing. Poi inseriscilo nell'app FitMesh sul tuo telefono.",
+      "cta": "Collega dispositivo →"
+    },
+    "devices": {
+      "heading": "I tuoi dispositivi",
+      "subheading": "Smartwatch e telefoni collegati al tuo account.",
+      "add_title": "Aggiungi dispositivo",
+      "add_body": "Genera un codice e inseriscilo nell'app FitMesh Sync per collegare un nuovo telefono.",
+      "add_cta": "Genera codice",
+      "coming_soon": "(in arrivo)",
+      "list_title": "Dispositivi collegati",
+      "empty": "Nessun dispositivo collegato ancora.",
+      "error": "Errore caricamento dispositivi.",
+      "revoked": "revocato",
+      "last_sync": "Ultimo sync",
+      "never": "mai"
+    },
+    "settings": {
+      "heading": "Impostazioni",
+      "profile_heading": "Profilo",
+      "display_name": "Nome",
+      "locale": "Lingua",
+      "timezone": "Fuso orario",
+      "member_since": "Membro dal",
+      "privacy_heading": "Privacy & dati",
+      "privacy_body": "I tuoi dati di salute non vengono mai condivisi, non sono trattati a scopi medici, non vengono usati per produrre pareri medici. Tutto solo per la tua dashboard personale e gamification.",
+      "export": "Esporta i miei dati",
+      "danger_heading": "Zona pericolo",
+      "delete_description": "Elimina permanentemente il tuo account e tutti i dati associati. Hai 24h per annullare via email.",
+      "delete_cta": "Cancella il mio account",
+      "delete_confirm_title": "Sei davvero sicuro?",
+      "delete_confirm_body": "Verranno eliminati permanentemente: profilo, tutti i dati di salute, dispositivi collegati, sessioni di allenamento. Verranno conservati anonimizzati per compliance: log tecnici (90gg) e audit admin (5 anni).",
+      "delete_confirm_input": "Per confermare, digita CANCELLA",
+      "delete_confirm_submit": "Conferma cancellazione",
+      "cancel": "Annulla",
+      "delete_scheduled_title": "Richiesta ricevuta",
+      "delete_scheduled_body": "Riceverai un'email con il link per annullare. Se non fai nulla entro 24h, il tuo account verrà eliminato permanentemente."
+    }
+  },
+  "admin": {
+    "banner": "ADMIN MODE — i tuoi accessi sono tracciati",
+    "nav": {
+      "overview": "Overview",
+      "users": "Utenti",
+      "devices": "Dispositivi",
+      "events": "Eventi",
+      "exit": "Esci da admin"
+    },
+    "overview": {
+      "heading": "Overview",
+      "subheading": "Stato del sistema, metriche aggregate, no dati salute personali.",
+      "total_users": "Utenti totali",
+      "active_7d": "Attivi 7gg",
+      "active_30d": "Attivi 30gg",
+      "new_7d": "Nuovi 7gg",
+      "total_devices": "Device totali",
+      "active_devices": "Device attivi",
+      "syncs_24h": "Sync 24h",
+      "failed_syncs_24h": "Sync falliti 24h"
+    },
+    "privacy_notice": "Privacy: questa dashboard mostra solo metadata e metriche aggregate. I dati di salute degli utenti NON sono accessibili a nessun admin (enforced via Postgres RLS)."
   }
 }
