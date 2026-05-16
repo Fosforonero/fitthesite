@@ -22,7 +22,10 @@ const nextConfig = {
       permanent: true,
     });
     return [
-      it('/privacy'),
+      // /privacy → EN: usato da Google Play Console + audience globale.
+      // I link IT-specifici (Header app, footer) puntano già a /it/privacy.
+      { source: '/privacy', destination: '/en/privacy', permanent: true },
+      // Gli altri restano su IT (default brand-side, target user italiani).
       it('/terms'),
       it('/cookies'),
       it('/support'),
