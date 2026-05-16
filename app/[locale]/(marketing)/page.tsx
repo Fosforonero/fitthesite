@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import PlayStoreButton from "@/components/PlayStoreButton";
+import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 
 const KPI_COLORS = ["#1DA1FF", "#FF5C7A", "#A78BFA", "#FFB547", "#7CFF5B", "#38BDF8"];
 
@@ -93,6 +94,60 @@ export default async function Home({
               <p className="mt-2 text-sm text-text-secondary leading-relaxed">{f.desc}</p>
             </article>
           ))}
+        </div>
+      </section>
+
+      {/* Integrations strip — drives SEO to /sync/[provider] landings */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-24">
+        <div className="flex items-end justify-between gap-4 flex-wrap mb-8">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
+              {lc === "it" ? "Integrazioni" : "Integrations"}
+            </p>
+            <h2 className="mt-3 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl">
+              {lc === "it"
+                ? "Funziona con quello che hai già."
+                : "Works with what you already have."}
+            </h2>
+          </div>
+          <Link
+            href={`/${lc}/integrations`}
+            className="text-sm text-brand-aqua hover:text-brand-green transition"
+          >
+            {lc === "it" ? "Vedi tutte →" : "See all →"}
+          </Link>
+        </div>
+
+        <div className="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+          {PROVIDERS.map((p) => {
+            const st = statusLabel(p.status, lc);
+            return (
+              <Link
+                key={p.slug}
+                href={`/${lc}/sync/${p.slug}`}
+                className="card p-4 hover:-translate-y-0.5 transition-transform flex flex-col items-center text-center gap-2"
+              >
+                <span
+                  className="w-12 h-12 rounded-full flex items-center justify-center font-display text-base font-bold text-white"
+                  style={{
+                    background: `linear-gradient(135deg, ${p.brandColor}, ${p.brandColor}cc)`,
+                    boxShadow: `0 6px 16px -8px ${p.brandColor}88`,
+                  }}
+                >
+                  {p.initial}
+                </span>
+                <p className="text-xs font-medium text-text-primary leading-tight">
+                  {p.name}
+                </p>
+                <span
+                  className="text-[9px] uppercase tracking-wider font-semibold"
+                  style={{ color: st.color }}
+                >
+                  {st.text}
+                </span>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
