@@ -12,8 +12,7 @@ const FAQ_IT = [
   { q: "Quanto consuma di batteria?", a: "Circa 1-2% al giorno con sync ogni 30 minuti. È sotto la soglia di rilevamento di Android come «app che drena la batteria». Se vedi consumi anomali, probabilmente Health Connect stesso sta indicizzando — non FitMesh Sync." },
   { q: "Funziona offline?", a: "L'app raccoglie e mette in coda i dati anche senza rete. Appena torni online, sincronizza automaticamente tutto l'arretrato. La dashboard web invece richiede connessione internet attiva." },
   { q: "Posso usare un server privato?", a: "Sì, su richiesta. Per esigenze enterprise (RSA, cliniche, studi medici, gruppi famiglia con dati segregati) configuriamo un server dedicato con il tuo dominio, backup gestiti e SLA dedicato. Scrivi a sales@fitmesh.fit indicando volume utenti previsto e requisiti di conservazione dati." },
-  { q: "Cosa cambia tra acquisto unico e abbonamento?", a: "Nulla, sono solo due modalità di pagamento per la stessa funzionalità Pro. Acquisto unico €3,49 una tantum, o €0,99 ogni 6 mesi se preferisci spalmare il costo." },
-  { q: "Posso annullare l'abbonamento?", a: "Sì, in qualsiasi momento dalle impostazioni Google Play → Pagamenti e abbonamenti. Continuerai a usare le funzioni Pro fino alla fine del periodo pagato." },
+  { q: "Quanto costa FitMesh Sync?", a: "€3,99 una tantum. Acquisto unico via Google Play Billing — niente abbonamento, niente rinnovi automatici, niente sorprese in fattura." },
   { q: "Ho cambiato telefono. Perdo i miei dati?", a: "No. I dati sono sul server, non sul telefono. Reinstalla l'app, fai login (o inserisci il tuo device ID precedente nelle impostazioni se hai un account avanzato) e ritrovi tutto." },
   { q: "Supporto iOS?", a: "In sviluppo. iOS arriverà nel 2026 con la stessa architettura: app nativa SwiftUI che legge da Apple HealthKit. Iscriviti via hello@fitmesh.fit per essere avvisato." },
 ];
@@ -26,8 +25,7 @@ const FAQ_EN = [
   { q: "How much battery does it use?", a: "About 1-2% per day with 30-minute sync intervals. Below Android's threshold for «battery draining apps». If you see abnormal drain, Health Connect itself is likely indexing — not FitMesh Sync." },
   { q: "Does it work offline?", a: "The app collects and queues data even without network. As soon as you're back online, it syncs all the backlog automatically. The web dashboard, however, requires an active internet connection." },
   { q: "Can I have my own private server?", a: "Yes, on request. For enterprise needs (nursing homes, clinics, medical practices, family groups with segregated data) we deploy a dedicated server with your domain, managed backups and a dedicated SLA. Email sales@fitmesh.fit with expected user volume and data retention requirements." },
-  { q: "What's the difference between one-time purchase and subscription?", a: "Nothing — they unlock the same Pro features, just two payment options. One-time €3.49, or €0.99 every 6 months if you prefer spreading the cost." },
-  { q: "Can I cancel my subscription?", a: "Yes, anytime from Google Play settings → Payments and subscriptions. You'll keep Pro features until the end of the paid period." },
+  { q: "How much does FitMesh Sync cost?", a: "€3.99 one-time. Single purchase via Google Play Billing — no subscription, no auto-renewals, no billing surprises." },
   { q: "I switched phones. Do I lose my data?", a: "No. Data is on the server, not the phone. Reinstall the app, log in (or enter your previous device ID in settings if you have an advanced account) and you get everything back." },
   { q: "iOS support?", a: "In development. iOS will arrive in 2026 with the same architecture: native SwiftUI app reading from Apple HealthKit. Subscribe via hello@fitmesh.fit to be notified." },
 ];

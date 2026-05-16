@@ -2,23 +2,19 @@
  * FitMesh Sync — Logo component.
  *
  * Variants:
- *   - "mark"        : FM monogram square, inline SVG, scales perfectly
- *   - "horizontal"  : full horizontal logo, WebP from /public/logo-horizontal.webp
- *   - "wordmark"    : text-only "FitMesh Sync" in display font
+ *   - "mark"        : FM monogram square (PNG from /public/icon-square.png)
+ *   - "horizontal"  : monogramma + divider + wordmark — composto al runtime
+ *                     per evitare deformazioni di un asset SVG/WebP statico
+ *   - "wordmark"    : text-only "FitMesh Sync"
  *
- * Per la variante "horizontal" usiamo <img> diretto sul WebP. WebP è supportato
- * dal 98%+ dei browser (Safari 14+, Chrome, Firefox, Edge). Niente <picture>:
- * il fallback SVG dipendeva dai font system, causando rendering inconsistente
- * mentre Inter/Space Grotesk si caricavano.
+ * La variante "horizontal" v2 (post-2026-05-16) NON usa più
+ * `/logo-horizontal.webp` perché il file SVG sorgente aveva una "M"
+ * deformata + spaziature errate. Ora compose: <img mark> + line divider +
+ * text wordmark, garantendo coerenza visiva con l'app icon e responsive
+ * scaling preciso a qualsiasi size.
  */
 
 type Variant = "mark" | "horizontal" | "wordmark";
-
-// Intrinsic dimensions del logo orizzontale (esattamente come renderizzato
-// dal file SVG sorgente). Servono al browser per riservare lo spazio e
-// calcolare l'aspect ratio prima di scaricare l'immagine — zero CLS.
-const LOGO_HORIZONTAL_W = 1600;
-const LOGO_HORIZONTAL_H = 420;
 
 type Props = {
   variant?: Variant;
@@ -34,24 +30,62 @@ export default function Logo({
   priority = false,
 }: Props) {
   if (variant === "horizontal") {
+    // Composite: monogramma (1:1) + divider verticale + wordmark a 2 righe.
+    // Tutti i sizing sono in funzione di `size` per scalabilità precisa.
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src="/logo-horizontal.webp"
-        alt="FitMesh Sync — wearable data sync to personal dashboard"
-        width={LOGO_HORIZONTAL_W}
-        height={LOGO_HORIZONTAL_H}
-        className={className}
-        style={{
-          display: "block",
-          height: `${size}px`,
-          width: "auto",
-          maxWidth: "100%",
-        }}
-        loading={priority ? "eager" : "lazy"}
-        fetchPriority={priority ? "high" : "auto"}
-        decoding="async"
-      />
+      <span
+        className={`inline-flex items-center ${className}`}
+        style={{ gap: `${size * 0.35}px`, height: `${size}px` }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/icon-square.png"
+          alt="FitMesh Sync"
+          width={size}
+          height={size}
+          style={{
+            display: "block",
+            width: `${size}px`,
+            height: `${size}px`,
+            flexShrink: 0,
+          }}
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          decoding="async"
+        />
+        <span
+          aria-hidden
+          style={{
+            display: "inline-block",
+            width: "1px",
+            height: `${size * 0.7}px`,
+            background: "rgba(183, 194, 216, 0.4)",
+            flexShrink: 0,
+          }}
+        />
+        <span
+          className="inline-flex flex-col leading-none"
+          style={{ flexShrink: 0 }}
+        >
+          <span
+            className="font-display font-semibold tracking-tight text-text-primary"
+            style={{ fontSize: `${size * 0.6}px`, lineHeight: 1 }}
+          >
+            FitMesh
+          </span>
+          <span
+            className="font-display uppercase text-brand-aqua"
+            style={{
+              fontSize: `${size * 0.24}px`,
+              letterSpacing: "0.32em",
+              marginTop: `${size * 0.12}px`,
+              fontWeight: 500,
+            }}
+          >
+            Sync
+          </span>
+        </span>
+      </span>
     );
   }
 

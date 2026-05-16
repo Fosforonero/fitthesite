@@ -57,14 +57,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="it" className={`${inter.variable} ${grotesk.variable}`}>
       <head>
-        {/* Preload the horizontal logo (above-the-fold in Header on every page).
-            fetchpriority=high tells the browser to start the request immediately
-            after parsing the HTML — eliminates the round-trip after CSS parse. */}
+        {/* Preload del monogramma FM (above-the-fold nell'Header — usato dal
+            componente Logo variant="horizontal" che ora compose icon-square +
+            wordmark testuale invece di un file logo-horizontal statico). */}
         <link
           rel="preload"
           as="image"
-          href="/logo-horizontal.webp"
-          type="image/webp"
+          href="/icon-square.png"
+          type="image/png"
           fetchPriority="high"
         />
 

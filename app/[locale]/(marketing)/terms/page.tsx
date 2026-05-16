@@ -143,10 +143,7 @@ function TermsIT() {
         <p>FitMesh Sync offre funzionalità avanzate ("Pro") tramite acquisto in-app gestito da Google Play Billing:</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Acquisto unico — €3,49 una tantum:</strong> sblocca permanentemente tutte le funzionalità Pro sull'account Google associato.</span>
-          </li>
-          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Abbonamento — €0,99 ogni 6 mesi:</strong> rinnovo automatico fino a cancellazione. Annullabile in qualsiasi momento dalle impostazioni Google Play.</span>
+            <span><strong className="text-text-primary">Acquisto unico — €3,99 una tantum:</strong> sblocca permanentemente tutte le funzionalità Pro sull'account Google associato. Nessun abbonamento, nessun rinnovo automatico.</span>
           </li>
         </ul>
         <p>
@@ -333,10 +330,7 @@ function TermsEN() {
         <p>FitMesh Sync offers advanced ("Pro") features via in-app purchase managed by Google Play Billing:</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">One-time purchase — €3.49:</strong> unlocks Pro features permanently on the associated Google account.</span>
-          </li>
-          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Subscription — €0.99 every 6 months:</strong> auto-renews until cancelled. Cancellable any time from Google Play settings.</span>
+            <span><strong className="text-text-primary">One-time purchase — €3.99:</strong> unlocks Pro features permanently on the associated Google account. No subscription, no auto-renewal.</span>
           </li>
         </ul>
         <p>

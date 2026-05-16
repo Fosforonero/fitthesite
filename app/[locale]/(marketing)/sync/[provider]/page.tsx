@@ -102,7 +102,7 @@ export default async function ProviderLanding({
     description: p.longDesc[lc],
     url: `${SITE_URL}${path}`,
     inLanguage: lc === "it" ? "it-IT" : "en-US",
-    offers: { "@type": "Offer", price: "3.49", priceCurrency: "EUR" },
+    offers: { "@type": "Offer", price: "3.99", priceCurrency: "EUR" },
     downloadUrl: PLAY_URL,
   };
 
