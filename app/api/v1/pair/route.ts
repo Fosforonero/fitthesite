@@ -26,7 +26,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
-import { createAdminClient } from "@/lib/supabase/admin";
 import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
 
 // database.types stale — vedi commento in sync/route.ts
@@ -65,7 +64,7 @@ export async function POST(req: Request) {
   }
   const p = parsed.data;
 
-  const admin = createAdminClient() as unknown as Sb;
+  const admin = auth.supabase as unknown as Sb;
 
   // ── 1. Valida codice ────────────────────────────────────────────────
   const { data: codeRow, error: codeErr } = await admin

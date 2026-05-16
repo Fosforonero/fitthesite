@@ -6,11 +6,11 @@
  *   registrato in `devices` per questo user. Se non trovato → 404 (forza pair).
  *
  * Flow:
- *   1. requireUser(req) → userId
+ *   1. requireUser(req) → userId + user-bound supabase client
  *   2. extract fingerprint header → lookup devices(user_id, fingerprint, NOT revoked)
  *   3. validate payload con Zod
- *   4. INSERT in fitness_metrics via service_role (RLS bypass — sicuro perché
- *      user_id è già stato verificato JWT-side)
+ *   4. INSERT in fitness_metrics via user-bound client (RLS policy
+ *      "users insert own metrics" enforced — migration 007)
  *   5. INSERT in workouts per ogni exercise_session (se presente)
  *   6. UPDATE devices.last_seen_at + app_version + os_version
  *
@@ -24,12 +24,11 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
-import { createAdminClient } from "@/lib/supabase/admin";
 import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
 
 // Cast a SupabaseClient generico (senza Database) perché i types non sono
-// ancora rigenerati post-migrations 003-006. Da rimuovere quando avremo fatto
-// `npm run supabase:gen-types`.
+// ancora rigenerati post-migrations 003-007. Da rimuovere quando avremo
+// fatto `npm run supabase:gen-types`.
 type Sb = SupabaseClient;
 
 const exerciseSessionSchema = z.object({
@@ -92,13 +91,13 @@ export async function POST(req: Request) {
   const auth = await requireUser(req);
   if (auth instanceof Response) return auth;
   const { userId } = auth;
+  const sb = auth.supabase as unknown as Sb;
 
   // ── 2. Device lookup ────────────────────────────────────────────────
   const fingerprint = req.headers.get("x-device-fingerprint");
   if (!fingerprint) return jsonError(400, "missing_device_fingerprint");
 
-  const admin = createAdminClient() as unknown as Sb;
-  const { data: device, error: devErr } = await admin
+  const { data: device, error: devErr } = await sb
     .from("devices")
     .select("id")
     .eq("user_id", userId)
@@ -124,7 +123,7 @@ export async function POST(req: Request) {
   const p = parsed.data;
 
   // ── 4. INSERT fitness_metrics ──────────────────────────────────────
-  const { data: inserted, error: insErr } = await admin
+  const { data: inserted, error: insErr } = await sb
     .from("fitness_metrics")
     .insert({
       user_id: userId,
@@ -183,11 +182,11 @@ export async function POST(req: Request) {
       pace_sec_per_km: s.paceSecPerKm ?? null,
     }));
     // best-effort: anche se workouts fail, il sync principale resta valido
-    await admin.from("workouts").insert(workoutRows);
+    await sb.from("workouts").insert(workoutRows);
   }
 
   // ── 6. Touch device.last_seen_at + app/os version ──────────────────
-  await admin
+  await sb
     .from("devices")
     .update({
       last_seen_at: new Date().toISOString(),

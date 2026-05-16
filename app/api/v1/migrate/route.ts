@@ -29,7 +29,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
-import { createAdminClient } from "@/lib/supabase/admin";
 import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
 
 // database.types stale — vedi sync/route.ts
@@ -64,7 +63,7 @@ export async function POST(req: Request) {
   }
   const { oldDeviceId, deviceFingerprint } = parsed.data;
 
-  const admin = createAdminClient() as unknown as Sb;
+  const admin = auth.supabase as unknown as Sb;
 
   // ── Verifica che il fingerprint corrisponda a un device dell'utente ──
   const { data: device } = await admin

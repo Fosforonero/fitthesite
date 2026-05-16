@@ -16,7 +16,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { createClient } from "@/lib/supabase/server";
-import { createAdminClient } from "@/lib/supabase/admin";
 import { jsonError, jsonOk } from "@/lib/api/auth-helpers";
 
 // database.types stale — vedi sync/route.ts
@@ -31,19 +30,21 @@ function generate6Digit(): string {
 }
 
 export async function POST() {
-  // Auth via cookie (web flow)
+  // Auth via cookie (web flow). Il client `user` è già user-bound — rispetta
+  // la RLS dell'utente loggato. Migration 007 ha aggiunto la INSERT policy
+  // "users insert own pairing codes" → no più service_role necessario.
   const user = await createClient();
   const { data: { user: u } } = await user.auth.getUser();
   if (!u) return jsonError(401, "unauthenticated");
 
-  const admin = createAdminClient() as unknown as Sb;
+  const sb = user as unknown as Sb;
 
   // ── Retry su collision codice (improbabile ma possibile) ───────────
   for (let attempt = 0; attempt < 5; attempt++) {
     const code = generate6Digit();
     const expiresAt = new Date(Date.now() + 5 * 60 * 1000).toISOString();
 
-    const { error } = await admin
+    const { error } = await sb
       .from("device_pairing_codes")
       .insert({
         code,

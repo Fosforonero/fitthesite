@@ -1,22 +1,20 @@
 /**
  * Helpers per autenticazione Bearer JWT nelle API route mobile-facing.
  *
- * La differenza vs `lib/supabase/server.ts`: quel modulo legge la sessione da
- * cookie httpOnly (browser-based flow). Qui invece l'app Flutter passa il JWT
- * come header `Authorization: Bearer <token>`.
+ * Il client Flutter passa il JWT come `Authorization: Bearer <token>`.
+ * Qui validiamo + creiamo un client Supabase **user-bound** (anon key +
+ * Bearer JWT come header globale) che rispetta la RLS dell'utente come se
+ * fosse loggato via cookie. Tutti gli INSERT/UPDATE rispettano le policy
+ * con `WITH CHECK (user_id = auth.uid())` (vedi migration 007).
  *
- * Pattern standard:
- *
- *   import { requireUser } from '@/lib/api/auth-helpers';
- *
- *   export async function POST(req: Request) {
- *     const auth = await requireUser(req);
- *     if (auth instanceof Response) return auth; // 401
- *     const { userId, jwt } = auth;
- *     // ... usa userId per scrivere su DB tramite admin client
- *   }
+ * NIENTE service_role: non lo usiamo MAI nelle route mobile-facing.
+ * Bypassa la RLS e introduce un secret in più da gestire. Per scrivere
+ * record propri basta il client user-bound.
  */
-import { createClient } from "@supabase/supabase-js";
+import {
+  createClient,
+  type SupabaseClient,
+} from "@supabase/supabase-js";
 
 import type { Database } from "@/lib/supabase/database.types";
 
@@ -32,14 +30,20 @@ export type AuthOk = {
   userId: string;
   jwt: string;
   email: string | null;
+  /**
+   * Client Supabase user-bound: anon + Bearer JWT header. Rispetta RLS.
+   * Usalo per SELECT/INSERT/UPDATE su tabelle con policy `user_id = auth.uid()`.
+   */
+  supabase: SupabaseClient;
 };
 
 /**
- * Verifica il JWT e ritorna l'user, oppure ritorna direttamente una Response
- * 401 da rispedire al client. Il chiamante deve fare:
+ * Verifica il JWT e ritorna l'user + un client Supabase user-bound, oppure
+ * una Response 401. Il chiamante deve fare:
  *
  *   const auth = await requireUser(req);
  *   if (auth instanceof Response) return auth;
+ *   const { userId, supabase } = auth;
  *
  * Validazione fatta lato Supabase Auth (signature + expiry + revocation).
  */
@@ -55,11 +59,11 @@ export async function requireUser(req: Request): Promise<AuthOk | Response> {
     return jsonError(500, "supabase_env_misconfigured");
   }
 
-  // Per validare il JWT usiamo getUser(token) — fa una request a Supabase Auth
-  // che verifica signature + expiry + revoke list. NON usiamo decodifica locale
-  // perché un JWT scaduto/revocato non deve essere accettato.
+  // Client user-bound: passa il Bearer JWT come header globale. Tutte le
+  // query rispetteranno la RLS dell'utente (auth.uid() ritorna il suo id).
   const supabase = createClient<Database>(url, anon, {
     auth: { autoRefreshToken: false, persistSession: false },
+    global: { headers: { Authorization: `Bearer ${token}` } },
   });
 
   const { data, error } = await supabase.auth.getUser(token);
@@ -71,6 +75,7 @@ export async function requireUser(req: Request): Promise<AuthOk | Response> {
     userId: data.user.id,
     jwt: token,
     email: data.user.email ?? null,
+    supabase,
   };
 }
 
