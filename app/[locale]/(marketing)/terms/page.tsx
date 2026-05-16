@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { locales, type Locale, getDictionary } from "@/lib/i18n";
 import { LegalPage, Section, Callout } from "@/components/legal/LegalLayout";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 const SITE_URL = "https://www.fitmesh.fit";
 const LAST_UPDATED_IT = "12 maggio 2026";
@@ -43,10 +44,14 @@ export default async function TermsPage({
   const t = await getDictionary(lc);
   const lastUpdated = `${t.legal.last_updated}: ${lc === "it" ? LAST_UPDATED_IT : LAST_UPDATED_EN}`;
 
+  const crumbName = lc === "it" ? "Termini di Servizio" : "Terms of Service";
   return (
-    <LegalPage kicker={t.legal.section} title={t.legal.terms_title} lastUpdated={lastUpdated}>
-      {lc === "it" ? <TermsIT /> : <TermsEN />}
-    </LegalPage>
+    <>
+      <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/terms` }]} locale={lc} />
+      <LegalPage kicker={t.legal.section} title={t.legal.terms_title} lastUpdated={lastUpdated}>
+        {lc === "it" ? <TermsIT /> : <TermsEN />}
+      </LegalPage>
+    </>
   );
 }
 

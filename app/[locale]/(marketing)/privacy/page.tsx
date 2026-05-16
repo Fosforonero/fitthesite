@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { locales, type Locale, getDictionary } from "@/lib/i18n";
 import { LegalPage, Section, List, Callout } from "@/components/legal/LegalLayout";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 const SITE_URL = "https://www.fitmesh.fit";
 const LAST_UPDATED_IT = "12 maggio 2026";
@@ -44,9 +45,12 @@ export default async function PrivacyPage({
   const lastUpdated = `${t.legal.last_updated}: ${lc === "it" ? LAST_UPDATED_IT : LAST_UPDATED_EN}`;
 
   return (
-    <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
-      {lc === "it" ? <PrivacyIT /> : <PrivacyEN />}
-    </LegalPage>
+    <>
+      <Breadcrumbs items={[{ name: "Privacy Policy", path: `/${lc}/privacy` }]} locale={lc} />
+      <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
+        {lc === "it" ? <PrivacyIT /> : <PrivacyEN />}
+      </LegalPage>
+    </>
   );
 }
 

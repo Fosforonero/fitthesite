@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { locales, type Locale, getDictionary } from "@/lib/i18n";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -94,8 +95,10 @@ export default async function SupportPage({
     ? "Email support@fitmesh.fit"
     : "Scrivi a support@fitmesh.fit";
 
+  const crumbName = lc === "en" ? "Support" : "Supporto";
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+      <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/support` }]} locale={lc} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { locales, type Locale, getDictionary } from "@/lib/i18n";
 import { LegalPage, Section } from "@/components/legal/LegalLayout";
+import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 const SITE_URL = "https://www.fitmesh.fit";
 const LAST_UPDATED_IT = "12 maggio 2026";
@@ -43,9 +44,12 @@ export default async function CookiesPage({
   const t = await getDictionary(lc);
   const lastUpdated = `${t.legal.last_updated}: ${lc === "it" ? LAST_UPDATED_IT : LAST_UPDATED_EN}`;
   return (
-    <LegalPage kicker={t.legal.section} title={t.legal.cookies_title} lastUpdated={lastUpdated}>
-      {lc === "it" ? <CookiesIT /> : <CookiesEN />}
-    </LegalPage>
+    <>
+      <Breadcrumbs items={[{ name: "Cookie Policy", path: `/${lc}/cookies` }]} locale={lc} />
+      <LegalPage kicker={t.legal.section} title={t.legal.cookies_title} lastUpdated={lastUpdated}>
+        {lc === "it" ? <CookiesIT /> : <CookiesEN />}
+      </LegalPage>
+    </>
   );
 }
 
