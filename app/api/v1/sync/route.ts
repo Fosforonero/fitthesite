@@ -80,7 +80,19 @@ const payloadSchema = z.object({
   intradayHr: z.unknown().nullish(),
   intradayCalories: z.unknown().nullish(),
   sleepStages: z.unknown().nullish(),
-  exerciseSessionsJson: z.array(exerciseSessionSchema).nullish(),
+  // L'app Flutter serializza exercise_sessions come JSON STRING (legacy
+  // dal Kotlin v2.8.x). Preprocess: se arriva come string, parsa; altrimenti
+  // passa through. Robusto a entrambi i formati.
+  exerciseSessionsJson: z
+    .preprocess((val) => {
+      if (typeof val !== "string") return val;
+      try {
+        return JSON.parse(val);
+      } catch {
+        return null;
+      }
+    }, z.array(exerciseSessionSchema).nullish())
+    .nullish(),
   sourceDevice: z.string().nullish(),
   sourcePackage: z.string().nullish(),
   // Metadata client (opzionale, per UPDATE devices)
