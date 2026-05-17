@@ -245,11 +245,11 @@ const IT = {
     },
     {
       q: "Cosa fate con i miei dati?",
-      a: "Niente di strano. I dati di salute restano sul tuo telefono + un mirror cifrato sul nostro backend (Supabase, Frankfurt UE) accessibile solo a te tramite il tuo login. Mai venduti, mai usati per AI training, mai condivisi con terzi. Privacy Policy completa: fitmesh.fit/it/privacy",
+      a: "I tuoi dati salute sono protetti, conservati su server europei e accessibili solo a te tramite il tuo account. Non vengono mai venduti né condivisi con terzi. Dettagli completi: fitmesh.fit/it/privacy",
     },
     {
       q: "Posso disiscrivermi?",
-      a: "Sì, in qualsiasi momento, scrivendo a mat.pizzi@gmail.com. Cancello l'account + tutti i dati entro 48h.",
+      a: "Sì, in qualsiasi momento, scrivendo a privacy@fitmesh.fit. Cancelliamo l'account e tutti i dati entro 48h, come previsto dal GDPR.",
     },
   ],
 };
@@ -326,11 +326,11 @@ const EN = {
     },
     {
       q: "What do you do with my data?",
-      a: "Nothing weird. Health data stays on your phone + an encrypted mirror on our backend (Supabase, Frankfurt EU) accessible only to you via your login. Never sold, never used for AI training, never shared with third parties. Full Privacy Policy: fitmesh.fit/en/privacy",
+      a: "Your health data is protected, stored on European servers, and accessible only to you via your account. Never sold or shared with third parties. Full details: fitmesh.fit/en/privacy",
     },
     {
       q: "Can I unsubscribe?",
-      a: "Yes, anytime, by writing to mat.pizzi@gmail.com. I delete the account + all data within 48h.",
+      a: "Yes, anytime, by writing to privacy@fitmesh.fit. We delete the account and all data within 48h, as required by GDPR.",
     },
   ],
 };
