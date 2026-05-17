@@ -64,9 +64,11 @@ const payloadSchema = z.object({
   sleepStartMillis: z.number().int().nullish(),
   sleepEndMillis: z.number().int().nullish(),
   distanceMeters: z.number().nullish(),
-  hrvRmssd: z.number().int().nullish(),
+  // Health Connect emette HRV come float (es. 45.3 ms) ma la colonna DB è
+  // integer. Accetto float, arrotondo prima dell'insert. Stesso per floors.
+  hrvRmssd: z.number().nullish(),
   vo2Max: z.number().nullish(),
-  floorsClimbed: z.number().int().nullish(),
+  floorsClimbed: z.number().nullish(),
   elevationGainedMeters: z.number().nullish(),
   skinTemperatureC: z.number().nullish(),
   weightKg: z.number().nullish(),
@@ -118,6 +120,11 @@ export async function POST(req: Request) {
 
   const parsed = payloadSchema.safeParse(body);
   if (!parsed.success) {
+    // Log dettagli validation per debug futuro (visibile in Vercel logs).
+    console.error("[sync] invalid_payload", {
+      issues: parsed.error.issues,
+      sampleKeys: Object.keys(body as object).slice(0, 30),
+    });
     return jsonError(400, "invalid_payload", parsed.error.flatten());
   }
   const p = parsed.data;
@@ -143,9 +150,10 @@ export async function POST(req: Request) {
       sleep_start_ms: p.sleepStartMillis ?? null,
       sleep_end_ms: p.sleepEndMillis ?? null,
       distance_meters: p.distanceMeters ?? null,
-      hrv_rmssd: p.hrvRmssd ?? null,
+      hrv_rmssd: p.hrvRmssd == null ? null : Math.round(p.hrvRmssd),
       vo2_max: p.vo2Max ?? null,
-      floors_climbed: p.floorsClimbed ?? null,
+      floors_climbed:
+        p.floorsClimbed == null ? null : Math.round(p.floorsClimbed),
       elevation_gained_meters: p.elevationGainedMeters ?? null,
       skin_temperature_c: p.skinTemperatureC ?? null,
       weight_kg: p.weightKg ?? null,
