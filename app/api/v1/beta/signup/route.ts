@@ -32,6 +32,7 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 import { jsonError, jsonOk } from "@/lib/api/auth-helpers";
+import { isDisposableEmail } from "@/lib/api/disposable-emails";
 
 // ── Validazione body ────────────────────────────────────────────────────
 const payloadSchema = z.object({
@@ -141,6 +142,16 @@ export async function POST(req: Request) {
     if (elapsed < 1500 || elapsed > 24 * 60 * 60 * 1000) {
       return jsonError(403, "bot_detected");
     }
+  }
+
+  // ── 4b. Blocco email disposable (10minutemail, mailinator, …) ──────
+  // Sia email primary che google_email; il check è server-side anti-bypass
+  // (il form fa il check client-side ma un bot può saltarlo).
+  if (isDisposableEmail(p.email)) {
+    return jsonError(400, "disposable_email");
+  }
+  if (p.google_email && isDisposableEmail(p.google_email)) {
+    return jsonError(400, "disposable_google_email");
   }
 
   // ── 5. Rate limit per-IP ────────────────────────────────────────────

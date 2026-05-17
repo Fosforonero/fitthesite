@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+import { isDisposableEmail } from "@/lib/api/disposable-emails";
 
 type Status = "idle" | "submitting" | "success" | "error";
 type Locale = "it" | "en";
@@ -15,10 +17,21 @@ const T: Record<Locale, Record<string, string>> = {
     emailPh: "tu@esempio.it",
     emailInvalid: "Inserisci un'email valida (es. nome@dominio.it)",
     emailRequired: "L'email è obbligatoria",
+    emailDisposable:
+      "Le email temporanee (10minutemail, mailinator, ecc.) non sono ammesse. Usa la tua email reale.",
+    emailDuplicate:
+      "Questa email è già in lista. Se non hai ricevuto risposta, scrivi a beta@fitmesh.fit.",
+    emailChecking: "Controllo disponibilità…",
+    emailOk: "Email valida e disponibile",
     googleLabel: "Email del tuo account Google (se diversa)",
-    googleHelp: "Quella che usi sul Play Store — ti aggiungeremo manualmente alla lista beta.",
+    googleHelp:
+      "Quella che usi sul Play Store — ti aggiungeremo manualmente alla lista beta.",
     googlePh: "tu@gmail.com",
     googleInvalid: "Inserisci un'email Google valida",
+    googleDisposable:
+      "Anche per l'account Google servono email reali (no temp-mail).",
+    googleDuplicate: "Questa email Google è già registrata da un altro founder.",
+    googleOk: "Email Google valida",
     reasonLabel: "Perché ti interessa FitMesh? (opzionale)",
     reasonPh: "Es. ho Galaxy Watch 7 e Samsung Health mi limita…",
     reasonCounter: "caratteri",
@@ -41,9 +54,12 @@ const T: Record<Locale, Record<string, string>> = {
     errorGeneric: "Qualcosa è andato storto. Riprova fra poco.",
     errorBot: "Verifica anti-bot fallita. Ricarica la pagina e riprova.",
     errorRate: "Troppe richieste. Riprova fra qualche minuto.",
+    errorDisposable:
+      "Email temporanea non ammessa. Usa la tua email reale per riceverci.",
     consentLabel: "Ho letto e accetto la",
     consentLink: "Privacy Policy",
-    consentRequired: "Per inviare la richiesta devi accettare la Privacy Policy",
+    consentRequired:
+      "Per inviare la richiesta devi accettare la Privacy Policy",
     legalText:
       "Salviamo email + meta dati per gestire la lista beta. Niente marketing. Cancellazione su richiesta a",
     legalEmail: "privacy@fitmesh.fit",
@@ -53,10 +69,21 @@ const T: Record<Locale, Record<string, string>> = {
     emailPh: "you@example.com",
     emailInvalid: "Enter a valid email (e.g. name@domain.com)",
     emailRequired: "Email is required",
+    emailDisposable:
+      "Disposable email addresses (10minutemail, mailinator, etc.) are not allowed. Use your real email.",
+    emailDuplicate:
+      "This email is already on the list. If you didn't receive a reply, email beta@fitmesh.fit.",
+    emailChecking: "Checking availability…",
+    emailOk: "Email valid and available",
     googleLabel: "Your Google account email (if different)",
-    googleHelp: "The one you use on Play Store — we'll manually add you to the beta tester list.",
+    googleHelp:
+      "The one you use on Play Store — we'll manually add you to the beta tester list.",
     googlePh: "you@gmail.com",
     googleInvalid: "Enter a valid Google email",
+    googleDisposable:
+      "Google account also needs a real email (no temp-mail).",
+    googleDuplicate: "This Google email is already registered by another founder.",
+    googleOk: "Google email valid",
     reasonLabel: "Why are you interested in FitMesh? (optional)",
     reasonPh: "E.g. I have a Galaxy Watch 7 and Samsung Health is too limited…",
     reasonCounter: "characters",
@@ -79,6 +106,8 @@ const T: Record<Locale, Record<string, string>> = {
     errorGeneric: "Something went wrong. Please try again later.",
     errorBot: "Anti-bot check failed. Reload the page and try again.",
     errorRate: "Too many requests. Try again in a few minutes.",
+    errorDisposable:
+      "Disposable email not allowed. Use your real email so we can reach you.",
     consentLabel: "I have read and accept the",
     consentLink: "Privacy Policy",
     consentRequired: "You must accept the Privacy Policy to submit",
@@ -107,21 +136,31 @@ const DEVICES = [
 // RFC 5322 simplified — sufficiente per UX. Validazione strong è server-side.
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-type FieldState = "empty" | "valid" | "invalid";
+// Stati esaustivi per ogni campo email.
+type EmailFieldState =
+  | "empty"
+  | "invalid_syntax"
+  | "disposable"
+  | "checking"
+  | "duplicate"
+  | "valid";
 
-function emailState(value: string, required: boolean): FieldState {
-  const v = value.trim();
-  if (!v) return required ? "empty" : "valid";
-  return EMAIL_RE.test(v) ? "valid" : "invalid";
+function syntaxValid(email: string): boolean {
+  return EMAIL_RE.test(email.trim());
 }
 
-function borderClass(state: FieldState, touched: boolean): string {
+function borderClass(state: EmailFieldState, touched: boolean): string {
   if (!touched) return "border-bg-elevated focus:border-accent";
   switch (state) {
     case "valid":
       return "border-emerald-500/60 focus:border-emerald-400";
-    case "invalid":
+    case "checking":
+      return "border-amber-400/50 focus:border-amber-400";
+    case "invalid_syntax":
+    case "disposable":
+    case "duplicate":
       return "border-red-500/70 focus:border-red-400";
+    case "empty":
     default:
       return "border-red-500/40 focus:border-red-400";
   }
@@ -131,13 +170,19 @@ export default function BetaSignupForm({ locale }: Props) {
   const t = T[locale];
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [spots, setSpots] = useState<{ taken: number; total: number } | null>(null);
+  const [spots, setSpots] = useState<{ taken: number; total: number } | null>(
+    null,
+  );
 
   // Field values
   const [email, setEmail] = useState("");
   const [googleEmail, setGoogleEmail] = useState("");
   const [reason, setReason] = useState("");
   const [consent, setConsent] = useState(false);
+
+  // Email validation states (avanzato: include check API)
+  const [emailState, setEmailState] = useState<EmailFieldState>("empty");
+  const [googleState, setGoogleState] = useState<EmailFieldState>("valid"); // optional → default valid
 
   // Touched flags (mostra validation solo dopo blur o submit)
   const [touched, setTouched] = useState({
@@ -146,9 +191,13 @@ export default function BetaSignupForm({ locale }: Props) {
     consent: false,
   });
 
-  // Anti-bot: timestamp mount + honeypot (vedi onSubmit)
+  // Anti-bot
   const mountedAt = useRef<number>(Date.now());
   const honeypotRef = useRef<HTMLInputElement>(null);
+
+  // Debounce timers per email checks
+  const emailDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const googleDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     fetch("/api/v1/beta/spots")
@@ -157,28 +206,96 @@ export default function BetaSignupForm({ locale }: Props) {
       .catch(() => {});
   }, []);
 
-  const emailSt = useMemo(() => emailState(email, true), [email]);
-  const googleSt = useMemo(() => emailState(googleEmail, false), [googleEmail]);
-  const consentSt: FieldState = consent ? "valid" : "empty";
+  /** Live check: chiama /api/v1/beta/check-email, aggiorna lo stato del campo. */
+  const checkEmail = useCallback(
+    async (
+      value: string,
+      field: "email" | "google_email",
+      setState: (s: EmailFieldState) => void,
+      isRequired: boolean,
+    ) => {
+      const v = value.trim();
+      if (!v) {
+        setState(isRequired ? "empty" : "valid");
+        return;
+      }
+      if (!syntaxValid(v)) {
+        setState("invalid_syntax");
+        return;
+      }
+      if (isDisposableEmail(v)) {
+        setState("disposable");
+        return;
+      }
+      setState("checking");
+      try {
+        const res = await fetch(
+          `/api/v1/beta/check-email?email=${encodeURIComponent(v)}&field=${field}`,
+        );
+        if (!res.ok) {
+          // Non blocca l'utente: assume valido finché il signup non dirà altrimenti
+          setState("valid");
+          return;
+        }
+        const data = (await res.json()) as {
+          valid: boolean;
+          exists: boolean;
+          disposable: boolean;
+        };
+        if (data.disposable) setState("disposable");
+        else if (data.exists) setState("duplicate");
+        else if (!data.valid) setState("invalid_syntax");
+        else setState("valid");
+      } catch {
+        // Network error → degrade graceful
+        setState("valid");
+      }
+    },
+    [],
+  );
 
+  // Trigger check con debounce 600ms quando l'utente smette di digitare
+  useEffect(() => {
+    if (emailDebounce.current) clearTimeout(emailDebounce.current);
+    emailDebounce.current = setTimeout(() => {
+      checkEmail(email, "email", setEmailState, true);
+    }, 600);
+    return () => {
+      if (emailDebounce.current) clearTimeout(emailDebounce.current);
+    };
+  }, [email, checkEmail]);
+
+  useEffect(() => {
+    if (googleDebounce.current) clearTimeout(googleDebounce.current);
+    googleDebounce.current = setTimeout(() => {
+      checkEmail(googleEmail, "google_email", setGoogleState, false);
+    }, 600);
+    return () => {
+      if (googleDebounce.current) clearTimeout(googleDebounce.current);
+    };
+  }, [googleEmail, checkEmail]);
+
+  const consentSt = consent ? "valid" : "empty";
   const formValid =
-    emailSt === "valid" && googleSt !== "invalid" && consent;
+    emailState === "valid" &&
+    (googleEmail.trim() === "" || googleState === "valid") &&
+    consent;
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Forza touched per evidenziare errori se l'utente preme submit subito
     setTouched({ email: true, googleEmail: true, consent: true });
 
+    // Se gli stati sono "checking" attendiamo un attimo (race condition raro)
+    if (emailState === "checking" || googleState === "checking") {
+      return;
+    }
     if (!formValid) return;
 
-    // Anti-bot honeypot: se il campo nascosto contiene qualcosa, abort silenzioso
     if (honeypotRef.current && honeypotRef.current.value !== "") {
       setStatus("error");
       setErrorMsg(t.errorBot);
       return;
     }
-
-    // Anti-bot timing: form compilato in < 1.5s è quasi sicuramente un bot
     const elapsed = Date.now() - mountedAt.current;
     if (elapsed < 1500) {
       setStatus("error");
@@ -192,11 +309,12 @@ export default function BetaSignupForm({ locale }: Props) {
     const fd = new FormData(e.currentTarget);
     const payload = {
       email: email.trim().toLowerCase(),
-      google_email: googleEmail.trim() ? googleEmail.trim().toLowerCase() : null,
+      google_email: googleEmail.trim()
+        ? googleEmail.trim().toLowerCase()
+        : null,
       reason: reason.trim() || null,
       referral: String(fd.get("referral") || "") || null,
       device_brand: String(fd.get("device_brand") || "") || null,
-      // Anti-bot metadata: server li verifica
       _form_loaded_at: mountedAt.current,
       _hp: honeypotRef.current?.value ?? "",
     };
@@ -206,7 +324,6 @@ export default function BetaSignupForm({ locale }: Props) {
         method: "POST",
         headers: {
           "content-type": "application/json",
-          // Anti-CSRF lite: identifica esplicitamente la richiesta come AJAX same-origin
           "x-requested-with": "fetch",
         },
         body: JSON.stringify(payload),
@@ -220,6 +337,7 @@ export default function BetaSignupForm({ locale }: Props) {
       if (res.status === 409) {
         setStatus("error");
         setErrorMsg(t.errorAlready);
+        setEmailState("duplicate");
         return;
       }
       if (res.status === 429) {
@@ -227,13 +345,29 @@ export default function BetaSignupForm({ locale }: Props) {
         setErrorMsg(t.errorRate);
         return;
       }
+      if (res.status === 400 && typeof body?.error === "string") {
+        if (body.error.startsWith("disposable_")) {
+          setStatus("error");
+          setErrorMsg(t.errorDisposable);
+          if (body.error === "disposable_google_email") {
+            setGoogleState("disposable");
+          } else {
+            setEmailState("disposable");
+          }
+          return;
+        }
+      }
       if (res.status === 403 || res.status === 400) {
         setStatus("error");
-        setErrorMsg(body.error === "bot_detected" ? t.errorBot : t.errorGeneric);
+        setErrorMsg(
+          body?.error === "bot_detected" ? t.errorBot : t.errorGeneric,
+        );
         return;
       }
       setStatus("error");
-      setErrorMsg(body.error ? `${t.errorGeneric} (${body.error})` : t.errorGeneric);
+      setErrorMsg(
+        body?.error ? `${t.errorGeneric} (${body.error})` : t.errorGeneric,
+      );
     } catch {
       setStatus("error");
       setErrorMsg(t.errorGeneric);
@@ -244,7 +378,9 @@ export default function BetaSignupForm({ locale }: Props) {
     return (
       <div className="rounded-2xl border border-accent/40 bg-accent/10 p-8 text-center">
         <div className="mb-3 text-5xl">🎉</div>
-        <h3 className="mb-2 text-2xl font-bold text-text-primary">{t.successTitle}</h3>
+        <h3 className="mb-2 text-2xl font-bold text-text-primary">
+          {t.successTitle}
+        </h3>
         <p className="text-text-secondary">{t.successText}</p>
       </div>
     );
@@ -266,7 +402,7 @@ export default function BetaSignupForm({ locale }: Props) {
         </div>
       )}
 
-      {/* Honeypot: nascosto a utenti reali (CSS + aria-hidden), bot lo riempiono */}
+      {/* Honeypot anti-bot */}
       <div
         aria-hidden="true"
         style={{
@@ -290,7 +426,10 @@ export default function BetaSignupForm({ locale }: Props) {
 
       {/* Email principale */}
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-text-primary">
+        <label
+          htmlFor="email"
+          className="mb-1.5 block text-sm font-medium text-text-primary"
+        >
           {t.emailLabel} <span className="text-accent">*</span>
         </label>
         <input
@@ -301,17 +440,20 @@ export default function BetaSignupForm({ locale }: Props) {
           autoComplete="email"
           inputMode="email"
           maxLength={120}
-          aria-invalid={touched.email && emailSt !== "valid"}
+          aria-invalid={touched.email && emailState !== "valid"}
           aria-describedby="email-help"
           placeholder={t.emailPh}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          onBlur={() => setTouched((t) => ({ ...t, email: true }))}
-          className={`${inputBase} ${borderClass(emailSt, touched.email)}`}
+          onBlur={() => setTouched((tt) => ({ ...tt, email: true }))}
+          className={`${inputBase} ${borderClass(emailState, touched.email)}`}
         />
-        {touched.email && emailSt !== "valid" && (
-          <p id="email-help" className="mt-1.5 text-xs text-red-400">
-            {emailSt === "empty" ? t.emailRequired : t.emailInvalid}
+        {(touched.email || emailState === "valid") && (
+          <p
+            id="email-help"
+            className={`mt-1.5 text-xs ${emailMessageClass(emailState)}`}
+          >
+            {emailMessageText(emailState, t)}
           </p>
         )}
       </div>
@@ -331,16 +473,18 @@ export default function BetaSignupForm({ locale }: Props) {
           autoComplete="email"
           inputMode="email"
           maxLength={120}
-          aria-invalid={touched.googleEmail && googleSt === "invalid"}
+          aria-invalid={touched.googleEmail && googleState !== "valid"}
           placeholder={t.googlePh}
           value={googleEmail}
           onChange={(e) => setGoogleEmail(e.target.value)}
-          onBlur={() => setTouched((t) => ({ ...t, googleEmail: true }))}
-          className={`${inputBase} ${borderClass(googleSt, touched.googleEmail)}`}
+          onBlur={() => setTouched((tt) => ({ ...tt, googleEmail: true }))}
+          className={`${inputBase} ${borderClass(googleState, touched.googleEmail && googleEmail.trim() !== "")}`}
         />
         <p className="mt-1.5 text-xs text-text-muted">{t.googleHelp}</p>
-        {touched.googleEmail && googleSt === "invalid" && (
-          <p className="mt-1 text-xs text-red-400">{t.googleInvalid}</p>
+        {googleEmail.trim() !== "" && (touched.googleEmail || googleState !== "valid") && (
+          <p className={`mt-1 text-xs ${googleMessageClass(googleState)}`}>
+            {googleMessageText(googleState, t)}
+          </p>
         )}
       </div>
 
@@ -368,7 +512,10 @@ export default function BetaSignupForm({ locale }: Props) {
 
       {/* Referral */}
       <div>
-        <label htmlFor="referral" className="mb-1.5 block text-sm font-medium text-text-primary">
+        <label
+          htmlFor="referral"
+          className="mb-1.5 block text-sm font-medium text-text-primary"
+        >
           {t.referralLabel}
         </label>
         <select
@@ -388,7 +535,10 @@ export default function BetaSignupForm({ locale }: Props) {
 
       {/* Reason */}
       <div>
-        <label htmlFor="reason" className="mb-1.5 block text-sm font-medium text-text-primary">
+        <label
+          htmlFor="reason"
+          className="mb-1.5 block text-sm font-medium text-text-primary"
+        >
           {t.reasonLabel}
         </label>
         <textarea
@@ -414,9 +564,9 @@ export default function BetaSignupForm({ locale }: Props) {
             checked={consent}
             onChange={(e) => {
               setConsent(e.target.checked);
-              setTouched((t) => ({ ...t, consent: true }));
+              setTouched((tt) => ({ ...tt, consent: true }));
             }}
-            onBlur={() => setTouched((t) => ({ ...t, consent: true }))}
+            onBlur={() => setTouched((tt) => ({ ...tt, consent: true }))}
             className={`mt-0.5 h-5 w-5 cursor-pointer rounded border-2 bg-bg-elevated/40 accent-accent ${
               touched.consent && !consent ? "border-red-500/70" : "border-bg-elevated"
             }`}
@@ -436,14 +586,14 @@ export default function BetaSignupForm({ locale }: Props) {
             <span className="text-accent">*</span>
           </span>
         </label>
-        {touched.consent && !consent && (
+        {touched.consent && consentSt !== "valid" && (
           <p className="ml-8 mt-1 text-xs text-red-400">{t.consentRequired}</p>
         )}
       </div>
 
       <button
         type="submit"
-        disabled={status === "submitting"}
+        disabled={status === "submitting" || emailState === "checking" || googleState === "checking"}
         className="w-full rounded-xl bg-gradient-to-r from-accent-2 via-accent to-accent-3 px-6 py-4 font-semibold text-bg shadow-lg shadow-accent/20 transition-opacity hover:opacity-90 disabled:opacity-50"
       >
         {status === "submitting" ? t.submitting : t.submit}
@@ -466,4 +616,73 @@ export default function BetaSignupForm({ locale }: Props) {
       </p>
     </form>
   );
+
+  // ── Helpers di rendering messaggi ─────────────────────────────────────
+
+  function emailMessageText(s: EmailFieldState, tt: Record<string, string>): string {
+    switch (s) {
+      case "empty":
+        return tt.emailRequired;
+      case "invalid_syntax":
+        return tt.emailInvalid;
+      case "disposable":
+        return tt.emailDisposable;
+      case "duplicate":
+        return tt.emailDuplicate;
+      case "checking":
+        return tt.emailChecking;
+      case "valid":
+        return tt.emailOk;
+      default:
+        return "";
+    }
+  }
+
+  function emailMessageClass(s: EmailFieldState): string {
+    switch (s) {
+      case "valid":
+        return "text-emerald-400";
+      case "checking":
+        return "text-amber-400";
+      case "empty":
+      case "invalid_syntax":
+      case "disposable":
+      case "duplicate":
+        return "text-red-400";
+      default:
+        return "text-text-muted";
+    }
+  }
+
+  function googleMessageText(s: EmailFieldState, tt: Record<string, string>): string {
+    switch (s) {
+      case "invalid_syntax":
+        return tt.googleInvalid;
+      case "disposable":
+        return tt.googleDisposable;
+      case "duplicate":
+        return tt.googleDuplicate;
+      case "checking":
+        return tt.emailChecking;
+      case "valid":
+        return tt.googleOk;
+      default:
+        return "";
+    }
+  }
+
+  function googleMessageClass(s: EmailFieldState): string {
+    switch (s) {
+      case "valid":
+        return "text-emerald-400";
+      case "checking":
+        return "text-amber-400";
+      case "invalid_syntax":
+      case "disposable":
+      case "duplicate":
+        return "text-red-400";
+      default:
+        return "text-text-muted";
+    }
+  }
 }
