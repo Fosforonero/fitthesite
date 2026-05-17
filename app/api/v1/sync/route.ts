@@ -31,6 +31,16 @@ import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
 // fatto `npm run supabase:gen-types`.
 type Sb = SupabaseClient;
 
+/** Parsa stringhe JSON in oggetti, passa through se già objects/arrays. */
+function _parseJsonString(val: unknown): unknown {
+  if (typeof val !== "string") return val;
+  try {
+    return JSON.parse(val);
+  } catch {
+    return null;
+  }
+}
+
 const exerciseSessionSchema = z.object({
   type: z.string().optional(),
   title: z.string().optional(),
@@ -75,7 +85,24 @@ const payloadSchema = z.object({
   heightCm: z.number().nullish(),
   bmi: z.number().nullish(),
   respiratoryRate: z.number().nullish(),
-  // Breakdown intraday (JSONB)
+  // Breakdown intraday (JSONB). L'app Flutter li manda come stringhe JSON
+  // (legacy Kotlin format) con suffisso "Json". Accettiamo entrambi via
+  // preprocess che parsa string → object.
+  // Backward-compat: accettiamo anche i nomi senza suffisso "Json".
+  intradayStepsJson: z
+    .preprocess(_parseJsonString, z.unknown())
+    .nullish(),
+  intradayHrJson: z
+    .preprocess(_parseJsonString, z.unknown())
+    .nullish(),
+  intradayCaloriesJson: z
+    .preprocess(_parseJsonString, z.unknown())
+    .nullish(),
+  sleepStagesJson: z
+    .preprocess(_parseJsonString, z.unknown())
+    .nullish(),
+  // Alias senza suffisso (per future versioni app che potrebbero spedire
+  // come array nativi invece che string).
   intradaySteps: z.unknown().nullish(),
   intradayHr: z.unknown().nullish(),
   intradayCalories: z.unknown().nullish(),
@@ -171,10 +198,11 @@ export async function POST(req: Request) {
       weight_kg: p.weightKg ?? null,
       height_cm: p.heightCm ?? null,
       bmi: p.bmi ?? null,
-      intraday_steps: p.intradaySteps ?? null,
-      intraday_hr: p.intradayHr ?? null,
-      intraday_calories: p.intradayCalories ?? null,
-      sleep_stages: p.sleepStages ?? null,
+      // Preferisci alias *Json (Kotlin format) ma fallback a non-Json.
+      intraday_steps: p.intradayStepsJson ?? p.intradaySteps ?? null,
+      intraday_hr: p.intradayHrJson ?? p.intradayHr ?? null,
+      intraday_calories: p.intradayCaloriesJson ?? p.intradayCalories ?? null,
+      sleep_stages: p.sleepStagesJson ?? p.sleepStages ?? null,
       exercise_sessions: p.exerciseSessionsJson ?? null,
       source_device: p.sourceDevice ?? null,
       source_package: p.sourcePackage ?? null,
