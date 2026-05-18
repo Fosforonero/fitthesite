@@ -15,6 +15,23 @@ const nextConfig = {
    * solo GET (browser, crawler) la differenza pratica è zero, ma 308 è
    * tecnicamente più corretto per "questo URL ha trovato casa altrove".
    */
+  /**
+   * Rewrites — mappa "magic paths" a route handlers che Next.js può compilare.
+   *
+   * Next.js App Router non supporta cartelle con `.` (es. `.well-known`)
+   * come segmenti di route. Per servire i Digital Asset Links Android
+   * richiesti a `/.well-known/assetlinks.json`, abbiamo un route handler
+   * standard in `app/api/assetlinks/route.ts` e qui mappiamo l'URL pubblico.
+   */
+  async rewrites() {
+    return [
+      {
+        source: '/.well-known/assetlinks.json',
+        destination: '/api/assetlinks',
+      },
+    ];
+  },
+
   async redirects() {
     const it = (path) => ({
       source: path,

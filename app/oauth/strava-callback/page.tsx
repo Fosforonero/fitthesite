@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 /**
@@ -15,8 +15,19 @@ import { useSearchParams } from 'next/navigation';
  * assetlinks verification fallita):
  *   Mostriamo questa pagina + tentativo di deep link custom scheme
  *   `fitmeshsync://strava?code=...` (intent filter Android backup).
+ *
+ * NB: useSearchParams() richiede Suspense boundary in Next.js 15+ per
+ * supportare il streaming SSR — wrappiamo il client component qua sotto.
  */
 export default function StravaCallback() {
+  return (
+    <Suspense fallback={<LoadingShell />}>
+      <CallbackHandler />
+    </Suspense>
+  );
+}
+
+function CallbackHandler() {
   const params = useSearchParams();
   const code = params.get('code');
   const state = params.get('state');
@@ -31,52 +42,63 @@ export default function StravaCallback() {
 
   if (error) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-zinc-50 px-6">
-        <div className="max-w-md text-center">
-          <h1 className="text-2xl font-semibold text-red-600">
-            Connessione Strava fallita
-          </h1>
-          <p className="mt-4 text-zinc-700">
-            Errore restituito da Strava: <code className="bg-red-50 px-2 py-0.5 rounded">{error}</code>
-          </p>
-          <p className="mt-6 text-sm text-zinc-500">
-            Torna nell&apos;app FitMesh Sync e riprova la connessione da
-            Impostazioni → Dispositivi connessi.
-          </p>
-        </div>
-      </main>
+      <Shell>
+        <h1 className="text-2xl font-semibold text-red-600">
+          Connessione Strava fallita
+        </h1>
+        <p className="mt-4 text-zinc-700">
+          Errore restituito da Strava:{' '}
+          <code className="bg-red-50 px-2 py-0.5 rounded">{error}</code>
+        </p>
+        <p className="mt-6 text-sm text-zinc-500">
+          Torna nell&apos;app FitMesh Sync e riprova la connessione da
+          Impostazioni → Dispositivi connessi.
+        </p>
+      </Shell>
     );
   }
 
   if (!code) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-zinc-50 px-6">
-        <div className="max-w-md text-center">
-          <h1 className="text-2xl font-semibold">Callback OAuth incompleto</h1>
-          <p className="mt-4 text-zinc-700">
-            Mancano i parametri necessari. Apri FitMesh Sync e riprova la
-            connessione Strava.
-          </p>
-        </div>
-      </main>
+      <Shell>
+        <h1 className="text-2xl font-semibold">Callback OAuth incompleto</h1>
+        <p className="mt-4 text-zinc-700">
+          Mancano i parametri necessari. Apri FitMesh Sync e riprova la
+          connessione Strava.
+        </p>
+      </Shell>
     );
   }
 
   return (
+    <Shell>
+      <div className="inline-block w-12 h-12 border-4 border-zinc-200 border-t-zinc-900 rounded-full animate-spin" />
+      <h1 className="mt-6 text-2xl font-semibold text-zinc-900">
+        Apertura FitMesh Sync…
+      </h1>
+      <p className="mt-4 text-zinc-700">
+        Stiamo aprendo la tua app per completare la connessione Strava.
+      </p>
+      <p className="mt-4 text-sm text-zinc-500">
+        Se non si apre automaticamente entro qualche secondo, torna manualmente
+        all&apos;app: lo stato connessione si aggiornerà al prossimo avvio.
+      </p>
+    </Shell>
+  );
+}
+
+function LoadingShell() {
+  return (
+    <Shell>
+      <div className="inline-block w-12 h-12 border-4 border-zinc-200 border-t-zinc-900 rounded-full animate-spin" />
+    </Shell>
+  );
+}
+
+function Shell({ children }: { children: React.ReactNode }) {
+  return (
     <main className="min-h-screen flex items-center justify-center bg-zinc-50 px-6">
-      <div className="max-w-md text-center">
-        <div className="inline-block w-12 h-12 border-4 border-zinc-200 border-t-zinc-900 rounded-full animate-spin" />
-        <h1 className="mt-6 text-2xl font-semibold text-zinc-900">
-          Apertura FitMesh Sync…
-        </h1>
-        <p className="mt-4 text-zinc-700">
-          Stiamo aprendo la tua app per completare la connessione Strava.
-        </p>
-        <p className="mt-4 text-sm text-zinc-500">
-          Se non si apre automaticamente entro qualche secondo, torna manualmente
-          all&apos;app: lo stato connessione si aggiornerà al prossimo avvio.
-        </p>
-      </div>
+      <div className="max-w-md text-center">{children}</div>
     </main>
   );
 }
