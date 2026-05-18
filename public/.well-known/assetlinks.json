@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.fitmeshsync.app",
+      "sha256_cert_fingerprints": [
+        "52:E0:FC:C3:A2:33:AC:88:66:AC:23:E0:3E:1E:57:55:0D:C9:BC:21:36:C7:1C:D1:24:CC:A7:94:39:FF:BA:2C"
+      ]
+    }
+  }
+]
