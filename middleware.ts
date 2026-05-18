@@ -93,7 +93,10 @@ export async function middleware(request: NextRequest) {
 export const config = {
   // Match tutte le route eccetto asset statici, _next, e file pubblici.
   matcher: [
-    // Esclude: asset statici, /mockups (route interna per screenshot generator).
-    '/((?!_next/static|_next/image|favicon.ico|logo-.*|mockups|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
+    // Esclude: asset statici, /mockups (route interna per screenshot generator),
+    // /.well-known/* (asset links Android, OpenID discovery, ecc — devono essere
+    // serviti senza cookie refresh Supabase), /oauth/* (callback redirect dei
+    // provider OAuth, devono essere puliti e veloci).
+    '/((?!_next/static|_next/image|favicon.ico|logo-.*|mockups|\\.well-known|oauth|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
   ],
 };
