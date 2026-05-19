@@ -1,44 +1,55 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import { useBetaSpots } from "@/lib/hooks/useBetaSpots";
 import type { Locale } from "@/lib/i18n";
 
+/**
+ * BetaPopup — slide-in toast notification-style (bottom-right desktop,
+ * bottom-full mobile). Non blocca il contenuto, dismissibile con X,
+ * animazione gentile rispettando prefers-reduced-motion.
+ *
+ * Trigger: 12s timer OR 55% scroll, whichever first.
+ * Snooze: 14gg dopo dismiss (CTA click o X).
+ * Auto-hide se spots === 0 (full state).
+ */
 const STORAGE_KEY = "fitmesh_beta_popup_dismissed_at";
-const DISMISS_TTL_MS = 7 * 24 * 60 * 60 * 1000;
-const TIME_TRIGGER_MS = 5000;
-const SCROLL_TRIGGER_PCT = 40;
+const DISMISS_TTL_MS = 14 * 24 * 60 * 60 * 1000;
+const TIME_TRIGGER_MS = 12_000;
+const SCROLL_TRIGGER_PCT = 55;
 
 type Copy = {
   kicker: string;
-  title: (left: number) => string;
-  titleFew: (left: number) => string;
+  titleNormal: (left: number) => string;
+  titleUrgent: (left: number) => string;
   body: string;
   cta: string;
-  dismiss: string;
   closeAria: string;
+  liveAria: (left: number, total: number) => string;
 };
 
 const COPY: Record<Locale, Copy> = {
   it: {
     kicker: "Beta privata",
-    title: (left) => `Solo ${left} posti gratis a vita`,
-    titleFew: (left) => `Solo ${left} posti rimasti — corri`,
-    body: "100 founder ricevono l'app prima del lancio pubblico e tutte le feature gratis per sempre. Niente abbonamento, mai.",
-    cta: "Voglio essere founder",
-    dismiss: "Non ora",
-    closeAria: "Chiudi",
+    titleNormal: (left) => `${left} posti founder gratis a vita`,
+    titleUrgent: (left) => `Solo ${left} posti rimasti`,
+    body: "Tutte le feature sbloccate. Niente abbonamento, mai.",
+    cta: "Diventa founder",
+    closeAria: "Chiudi notifica",
+    liveAria: (left, total) =>
+      `Beta privata: ${left} su ${total} posti gratis a vita rimasti`,
   },
   en: {
     kicker: "Private beta",
-    title: (left) => `Only ${left} free-forever spots left`,
-    titleFew: (left) => `Only ${left} spots left — hurry`,
-    body: "100 founders get the app before public launch and every feature free forever. No subscription, ever.",
+    titleNormal: (left) => `${left} free-forever founder spots`,
+    titleUrgent: (left) => `Only ${left} spots left`,
+    body: "All features unlocked. No subscription, ever.",
     cta: "Become a founder",
-    dismiss: "Not now",
-    closeAria: "Close",
+    closeAria: "Close notification",
+    liveAria: (left, total) =>
+      `Private beta: ${left} of ${total} free-forever spots left`,
   },
 };
 
@@ -66,27 +77,29 @@ export default function BetaPopup({ locale }: { locale: Locale }) {
   const spots = useBetaSpots();
   const [visible, setVisible] = useState(false);
   const [armed, setArmed] = useState(false);
+  const dismissedThisSession = useRef(false);
 
-  // Arming: decide se abilitare i trigger. Skippa se già dismessa <7gg
-  // o se la beta è full (in quel caso il popup non serve, c'è waitlist).
+  // Arm: skippa se gia' dismessa entro 14gg.
   useEffect(() => {
     if (isRecentlyDismissed()) return;
     setArmed(true);
   }, []);
 
-  // Trigger: timer + scroll. Mostra il popup al primo che scatta.
+  // Trigger: 12s timer OR 55% scroll.
   useEffect(() => {
-    if (!armed || visible) return;
+    if (!armed || visible || dismissedThisSession.current) return;
     if (spots.data?.isFull) return;
 
-    const timeoutId = window.setTimeout(() => setVisible(true), TIME_TRIGGER_MS);
+    const timeoutId = window.setTimeout(() => {
+      if (!dismissedThisSession.current) setVisible(true);
+    }, TIME_TRIGGER_MS);
 
     const onScroll = () => {
       const scrolled = window.scrollY + window.innerHeight;
       const total = document.documentElement.scrollHeight;
       if (total <= 0) return;
       const pct = (scrolled / total) * 100;
-      if (pct >= SCROLL_TRIGGER_PCT) {
+      if (pct >= SCROLL_TRIGGER_PCT && !dismissedThisSession.current) {
         setVisible(true);
         window.removeEventListener("scroll", onScroll);
         window.clearTimeout(timeoutId);
@@ -100,109 +113,136 @@ export default function BetaPopup({ locale }: { locale: Locale }) {
     };
   }, [armed, visible, spots.data?.isFull]);
 
-  // Auto-hide se diventa full mentre il popup è già aperto
+  // Auto-hide se diventa full mentre aperto
   useEffect(() => {
     if (visible && spots.data?.isFull) setVisible(false);
   }, [visible, spots.data?.isFull]);
 
-  // Body scroll lock quando modal aperta
+  // ESC chiude
   useEffect(() => {
     if (!visible) return;
-    const original = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = original;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") dismiss();
     };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
 
   if (!visible || !spots.data || spots.data.isFull) return null;
 
   const left = spots.data.spotsLeft;
+  const total = spots.data.total;
+  const taken = spots.data.taken;
   const copy = COPY[locale];
-  const title = left <= 20 ? copy.titleFew(left) : copy.title(left);
+  const urgent = left <= 20;
+  const title = urgent ? copy.titleUrgent(left) : copy.titleNormal(left);
 
-  const dismiss = () => {
+  function dismiss() {
     markDismissed();
+    dismissedThisSession.current = true;
     setVisible(false);
-  };
+  }
+
+  // CTA click: chiude PRIMA di navigare (no flash di popup ancora visibile)
+  function onCtaClick() {
+    markDismissed();
+    dismissedThisSession.current = true;
+    setVisible(false);
+  }
+
+  const pct = Math.min(100, Math.max(0, (taken / total) * 100));
 
   return (
     <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={copy.kicker}
-      className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6"
+      role="region"
+      aria-label={copy.liveAria(left, total)}
+      className="fitmesh-beta-popup fixed z-[70] bottom-4 right-4 left-4 sm:left-auto sm:bottom-6 sm:right-6 sm:max-w-sm"
     >
-      {/* Backdrop */}
-      <button
-        type="button"
-        aria-label={copy.closeAria}
-        onClick={dismiss}
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-      />
+      <style>{`
+        @keyframes fm-popup-in {
+          from { opacity: 0; transform: translateY(16px) scale(0.98); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .fitmesh-beta-popup {
+          animation: fm-popup-in 320ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .fitmesh-beta-popup { animation: none; }
+        }
+      `}</style>
 
-      {/* Card */}
-      <div className="relative w-full max-w-md rounded-2xl border border-divider bg-bg-card shadow-2xl p-6 sm:p-8">
+      <div
+        className="relative rounded-2xl border border-divider/80 bg-bg-card/95 backdrop-blur-xl shadow-2xl shadow-black/40 overflow-hidden"
+      >
+        {/* Decorative ambient glow */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-20 -right-16 w-48 h-48 rounded-full bg-accent/20 blur-3xl"
+        />
+
+        {/* Close button */}
         <button
           type="button"
           aria-label={copy.closeAria}
           onClick={dismiss}
-          className="absolute top-3 right-3 w-8 h-8 inline-flex items-center justify-center rounded-full text-text-muted hover:text-text-primary hover:bg-white/5 transition"
+          className="absolute top-2.5 right-2.5 w-7 h-7 inline-flex items-center justify-center rounded-full text-text-muted hover:text-text-primary hover:bg-white/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent transition"
         >
-          <span aria-hidden className="text-lg leading-none">×</span>
+          <span aria-hidden className="text-base leading-none">×</span>
         </button>
 
-        <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-          {copy.kicker}
-        </p>
+        <div className="relative p-5 pr-12">
+          {/* Kicker */}
+          <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold flex items-center gap-2">
+            <span aria-hidden className="w-1 h-1 rounded-full bg-brand-aqua animate-pulse" />
+            {copy.kicker}
+          </p>
 
-        <h2 className="mt-3 font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary leading-tight">
-          {title}
-        </h2>
+          {/* Title */}
+          <h2 className="mt-2.5 font-display text-lg font-semibold tracking-tight text-text-primary leading-snug">
+            {title}
+          </h2>
 
-        {/* Counter progress */}
-        <div className="mt-5">
-          <div className="flex items-baseline gap-2 text-sm">
-            <span className="font-mono text-accent text-lg font-semibold">
-              {spots.data.taken}
-            </span>
-            <span className="text-text-muted">/</span>
-            <span className="font-mono text-text-secondary">
-              {spots.data.total}
-            </span>
-            <span className="text-text-muted ml-1">
-              {locale === "it" ? "posti occupati" : "spots taken"}
-            </span>
-          </div>
-          <div className="mt-2 h-1.5 rounded-full bg-bg-secondary overflow-hidden">
+          {/* Progress bar */}
+          <div className="mt-3.5">
+            <div className="flex items-center justify-between text-[11px] tabular-nums">
+              <span className="text-text-muted">
+                <span className="font-mono text-text-secondary">{taken}</span>
+                <span className="text-text-muted/60">/{total}</span>
+              </span>
+              <span className={urgent ? "text-accent font-medium" : "text-text-muted"}>
+                {left} {locale === "it" ? "rimasti" : "left"}
+              </span>
+            </div>
             <div
-              className="h-full bg-gradient-to-r from-brand-aqua to-accent transition-all"
-              style={{
-                width: `${(spots.data.taken / spots.data.total) * 100}%`,
-              }}
-            />
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={total}
+              aria-valuenow={taken}
+              aria-label={copy.liveAria(left, total)}
+              className="mt-1.5 h-1 rounded-full bg-bg-secondary/80 overflow-hidden"
+            >
+              <div
+                className="h-full bg-gradient-to-r from-brand-aqua via-accent to-brand-green transition-all"
+                style={{ width: `${pct}%` }}
+              />
+            </div>
           </div>
-        </div>
 
-        <p className="mt-5 text-text-secondary leading-relaxed text-sm">
-          {copy.body}
-        </p>
+          {/* Body */}
+          <p className="mt-3 text-xs text-text-secondary leading-relaxed">
+            {copy.body}
+          </p>
 
-        <div className="mt-6 flex flex-col gap-2.5">
+          {/* CTA */}
           <Link
             href={`/${locale}/beta`}
-            onClick={() => markDismissed()}
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-pill btn-cta text-sm font-medium"
+            onClick={onCtaClick}
+            className="mt-4 inline-flex w-full items-center justify-center gap-1.5 px-4 py-2.5 rounded-full bg-text-primary text-bg hover:bg-text-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-card text-sm font-semibold transition"
           >
-            {copy.cta}
+            <span>{copy.cta}</span>
+            <span aria-hidden>→</span>
           </Link>
-          <button
-            type="button"
-            onClick={dismiss}
-            className="text-text-muted hover:text-text-secondary transition text-xs"
-          >
-            {copy.dismiss}
-          </button>
         </div>
       </div>
     </div>

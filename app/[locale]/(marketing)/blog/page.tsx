@@ -49,7 +49,8 @@ export default async function BlogIndex({
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const posts = await listPosts(lc);
 
-  const heading = lc === "it" ? "Blog" : "Blog";
+  const heading = "Blog";
+  const kicker = lc === "it" ? "Pensieri & guide" : "Thoughts & guides";
   const sub = lc === "it"
     ? "Articoli tecnico-divulgativi su salute digitale, smartwatch e privacy."
     : "Technical and educational posts on digital health, smartwatches and privacy.";
@@ -59,63 +60,85 @@ export default async function BlogIndex({
   const minutesLabel = lc === "it" ? "min di lettura" : "min read";
 
   return (
-    <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
-      <Breadcrumbs locale={lc} items={[{ name: heading, path: `/${lc}/blog` }]} />
+    <article className="relative overflow-hidden">
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -top-32 -right-40 w-[500px] h-[500px] rounded-full bg-brand-aqua/8 blur-[120px]" />
+      </div>
 
-      <header className="mt-8 mb-12">
-        <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-          {heading}
-        </p>
-        <h1 className="mt-3 font-display text-3xl sm:text-4xl font-semibold tracking-tight text-text-primary">
-          {heading}
-        </h1>
-        <p className="mt-3 text-text-secondary">{sub}</p>
-      </header>
+      <div className="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 pt-10 pb-32">
+        <Breadcrumbs locale={lc} items={[{ name: heading, path: `/${lc}/blog` }]} />
 
-      {posts.length === 0 ? (
-        <p className="text-text-muted">{emptyMsg}</p>
-      ) : (
-        <ul className="space-y-6">
-          {posts.map((p) => (
-            <li
-              key={p.slug}
-              className="rounded-2xl border border-divider bg-bg-card/40 p-6 hover:border-accent/30 transition"
-            >
-              <Link href={`/${lc}/blog/${p.slug}`} className="block">
-                <p className="text-xs text-text-muted flex items-center gap-3">
-                  <time dateTime={p.date}>
-                    {new Date(p.date).toLocaleDateString(lc === "it" ? "it-IT" : "en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </time>
-                  <span aria-hidden>·</span>
-                  <span>{p.readingMinutes} {minutesLabel}</span>
-                </p>
-                <h2 className="mt-2 font-display text-xl sm:text-2xl font-semibold text-text-primary hover:text-accent transition leading-snug">
-                  {p.title}
-                </h2>
-                <p className="mt-2 text-sm text-text-secondary leading-relaxed">
-                  {p.description}
-                </p>
-                {p.tags && p.tags.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {p.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="inline-flex px-2 py-0.5 rounded-pill border border-divider text-[10px] text-text-muted"
-                      >
-                        {t}
-                      </span>
-                    ))}
+        <header className="mt-12 sm:mt-16 mb-20 max-w-3xl">
+          <p className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-divider bg-bg-secondary/40 text-[11px] uppercase tracking-[0.18em] text-brand-aqua font-semibold">
+            <span aria-hidden className="w-1 h-1 rounded-full bg-brand-aqua" />
+            {kicker}
+          </p>
+          <h1 className="mt-6 font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tighter text-text-primary leading-[1.05]">
+            {heading}
+          </h1>
+          <p className="mt-6 text-lg sm:text-xl text-text-secondary leading-relaxed max-w-2xl">
+            {sub}
+          </p>
+        </header>
+
+        {posts.length === 0 ? (
+          <p className="text-text-muted text-lg">{emptyMsg}</p>
+        ) : (
+          <ul className="space-y-5 sm:space-y-6">
+            {posts.map((p, idx) => (
+              <li key={p.slug}>
+                <Link
+                  href={`/${lc}/blog/${p.slug}`}
+                  className="group block rounded-3xl border border-divider bg-bg-card/40 backdrop-blur-sm p-7 sm:p-9 transition-all duration-300 hover:border-accent/40 hover:bg-bg-card/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+                >
+                  <div className="flex items-center gap-3 text-xs text-text-muted tabular-nums">
+                    <time dateTime={p.date}>
+                      {new Date(p.date).toLocaleDateString(lc === "it" ? "it-IT" : "en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </time>
+                    <span aria-hidden className="text-text-muted/40">·</span>
+                    <span>{p.readingMinutes} {minutesLabel}</span>
+                    {idx === 0 && (
+                      <>
+                        <span aria-hidden className="text-text-muted/40">·</span>
+                        <span className="inline-flex items-center gap-1.5 text-accent">
+                          <span aria-hidden className="w-1 h-1 rounded-full bg-accent animate-pulse" />
+                          {lc === "it" ? "Nuovo" : "New"}
+                        </span>
+                      </>
+                    )}
                   </div>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+                  <h2 className="mt-4 font-display text-2xl sm:text-3xl font-semibold text-text-primary group-hover:text-accent transition-colors leading-tight tracking-tight">
+                    {p.title}
+                  </h2>
+                  <p className="mt-3 text-[15px] sm:text-base text-text-secondary leading-relaxed max-w-2xl">
+                    {p.description}
+                  </p>
+                  {p.tags && p.tags.length > 0 && (
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {p.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="inline-flex px-2.5 py-0.5 rounded-full border border-divider text-[11px] text-text-muted"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  <div className="mt-5 inline-flex items-center gap-1.5 text-sm text-accent font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                    {lc === "it" ? "Leggi" : "Read"}
+                    <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </article>
   );
 }
