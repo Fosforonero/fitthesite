@@ -66,22 +66,22 @@ export default async function Page({
           },
           {
             icon: "🔒",
-            title: "Niente cloud opachi",
-            body: "I tuoi dati non passano da Google Fit, Fitbit Cloud o backend di terze parti. Vanno direttamente dal telefono al tuo server — RGPD-compliant by design.",
+            title: "Privacy by design",
+            body: "I tuoi dati non passano da cloud di terze parti. Vanno direttamente dal telefono al nostro backend in EU. Mai venduti, mai condivisi.",
           },
           {
             icon: "📊",
             title: "Grafici intraday + sleep stages",
-            body: "Battito ora-per-ora, fasi del sonno con CustomPainter, sforzo qualitativo per workout calcolato sulla tua FC max stimata. Stesso dettaglio delle app premium, in interfaccia tua.",
+            body: "FC ora-per-ora, fasi del sonno, sforzo qualitativo per sessione calcolato sulla tua FC max stimata, splits per km. Stesso dettaglio delle piattaforme premium.",
           },
           {
             icon: "🚀",
             title: "Veloce e leggero",
-            body: "Sync in background efficiente (≈1-2% batteria/giorno). App nativa Flutter ottimizzata: apertura <1s, swipe fluido tra giorni e periodi.",
+            body: "Sync in background efficiente (≈1-2% batteria/giorno). App nativa ottimizzata: apertura <1s, swipe fluido tra giorni e periodi.",
           },
         ]}
         howTitle="Come funziona"
-        howBody="Health Connect è l'hub salute di Google su Android. Quando il tuo smartwatch Wear OS sincronizza dati (passi, battito, sonno, workout), li scrive su Health Connect. FitMesh Sync li legge da lì e li manda al tuo server, dove vengono visualizzati nella dashboard. Niente integrazioni separate per brand, niente account multipli."
+        howBody="Health Connect è l'hub salute di Google su Android. Quando il tuo smartwatch Wear OS sincronizza dati (passi, FC, sonno, sessioni di allenamento), li scrive su Health Connect. FitMesh Sync li legge da lì, li invia al backend EU e li mostra in dashboard. Niente integrazioni separate per brand, niente account multipli."
         faqTitle="Domande frequenti"
         faqs={[
           {
@@ -131,22 +131,22 @@ export default async function Page({
         },
         {
           icon: "🔒",
-          title: "No opaque clouds",
-          body: "Your data doesn't pass through Google Fit, Fitbit Cloud or third-party backends. It goes straight from phone to your server — GDPR-compliant by design.",
+          title: "Privacy by design",
+          body: "Your data doesn't pass through third-party clouds. It goes straight from phone to our EU backend. Never sold, never shared.",
         },
         {
           icon: "📊",
           title: "Intraday charts + sleep stages",
-          body: "Hour-by-hour heart rate, sleep stages via CustomPainter, qualitative workout effort computed against your estimated max HR. Premium-app detail, in our interface.",
+          body: "Hour-by-hour HR, sleep stages, qualitative session effort computed against your estimated max HR, splits per km. Premium-platform detail.",
         },
         {
           icon: "🚀",
           title: "Fast and lightweight",
-          body: "Efficient background sync (≈1-2% battery/day). Native Flutter app optimized: <1s open time, fluid swipe between days and periods.",
+          body: "Efficient background sync (≈1-2% battery/day). Native app optimized: <1s open time, fluid swipe between days and periods.",
         },
       ]}
       howTitle="How it works"
-      howBody="Health Connect is Google's health data hub on Android. When your Wear OS watch syncs data (steps, heart rate, sleep, workouts), it writes to Health Connect. FitMesh Sync reads from there and sends data to your server, where it's visualized in the dashboard. No per-brand integrations, no multiple accounts."
+      howBody="Health Connect is Google's health data hub on Android. When your Wear OS watch syncs data (steps, HR, sleep, training sessions), it writes to Health Connect. FitMesh Sync reads from there, sends data to the EU backend, and visualizes it in the dashboard. No per-brand integrations, no multiple accounts."
       faqTitle="FAQ"
       faqs={[
         {

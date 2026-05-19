@@ -35,12 +35,12 @@
         "desc": "Active and basal calories, route, elevation, floors climbed. Walks in green, workouts in red."
       },
       {
-        "title": "Your own dashboard",
-        "desc": "Your data lives on the server you pick — not on a third-party cloud. Access from any browser, no social account required."
+        "title": "Premium dashboard",
+        "desc": "Intraday charts, sleep stages, training effort per session. Same depth as top apps, in our interface."
       },
       {
-        "title": "Built for caregivers",
-        "desc": "Advanced mode coming soon: family group with morning sync alerts when an elderly relative goes silent."
+        "title": "Privacy by design",
+        "desc": "Your data lives on Supabase Postgres in EU. No opaque clouds, no telemetry selling, no ad trackers."
       }
     ]
   },

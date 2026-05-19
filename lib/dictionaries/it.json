@@ -35,12 +35,12 @@
         "desc": "Calorie attive e basali, percorso, dislivello, scale. Camminate in verde, allenamenti in rosso."
       },
       {
-        "title": "Dashboard tua",
-        "desc": "I dati vivono sul tuo server, non su un cloud di terzi. Accedi da browser ovunque, senza account social."
+        "title": "Dashboard premium",
+        "desc": "Grafici intraday, fasi del sonno, sforzo per allenamento. Stesso dettaglio delle app top, in interfaccia tua."
       },
       {
-        "title": "Pensato per i caregiver",
-        "desc": "Modalità avanzata in arrivo: gruppo famiglia con notifiche se un anziano non sincronizza al mattino."
+        "title": "Privacy by design",
+        "desc": "I tuoi dati vivono su Supabase Postgres EU. Niente cloud opachi, niente vendita di telemetria, niente tracker pubblicitari."
       }
     ]
   },

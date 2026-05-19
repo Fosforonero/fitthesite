@@ -141,8 +141,8 @@ export default async function AboutPage({
         </ul>
         <p className="mt-5 text-text-secondary leading-relaxed">
           {t(
-            "I dati vengono inviati al server che configuri tu: il nostro endpoint condiviso (default), una tua VPS, un NAS di casa o qualsiasi server FitMesh che può girare in self-hosting. Tu decidi dove vivono i tuoi dati di salute.",
-            "Data is sent to the server you configure: our shared endpoint (default), your VPS, a home NAS, or any FitMesh-compatible server you self-host. You decide where your health data lives.",
+            "I dati vengono inviati al backend FitMesh su Supabase Postgres in region EU (Frankfurt). Niente cloud opachi, niente telemetria venduta, niente tracker pubblicitari — sono dati salute, vivono dove ti aspetti che vivano.",
+            "Data is sent to the FitMesh backend on Supabase Postgres in the EU region (Frankfurt). No opaque clouds, no telemetry selling, no ad trackers — health data lives where you'd expect it to live.",
           )}
         </p>
 
@@ -288,17 +288,21 @@ export default async function AboutPage({
           </p>
         </div>
 
-        {/* ─── Famiglia / caregiver ─── */}
+        {/* ─── Roadmap: famiglia (FUTURO) ─── */}
         <h2
           id="family"
-          className="mt-16 font-display text-display font-semibold tracking-tightest text-text-primary"
+          className="mt-16 font-display text-display font-semibold tracking-tightest text-text-primary flex items-center gap-3 flex-wrap"
         >
-          {t("Modalità famiglia — in arrivo", "Family mode — coming soon")}
+          <span>{t("Modalità famiglia", "Family mode")}</span>
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-warning/40 bg-warning/10 text-[11px] uppercase tracking-[0.18em] text-warning font-semibold">
+            <span aria-hidden className="w-1 h-1 rounded-full bg-warning" />
+            {t("In roadmap · Q4 2026", "Roadmap · Q4 2026")}
+          </span>
         </h2>
         <p className="mt-4 text-text-secondary leading-relaxed">
           {t(
-            "Dal Q4 2026 attiveremo il gruppo famiglia: aggiungi parenti (es. un genitore anziano) e ricevi notifica se non sincronizzano al mattino. Pensato per chi vuole tenere d'occhio i propri cari senza diventare invasivo. Compliance GDPR esplicita: ogni utente del gruppo deve dare consenso scritto in-app per condividere i propri dati col caregiver.",
-            "From Q4 2026 we'll enable family groups: add relatives (e.g. an elderly parent) and get notified if they don't sync in the morning. Built for people who want to keep an eye on loved ones without being invasive. Explicit GDPR compliance: each group member must give written in-app consent to share their data with the caregiver.",
+            "Feature non ancora disponibile. È in roadmap per fine 2026: gruppo famiglia in cui aggiungi un parente (es. un genitore anziano) e ricevi notifica se non sincronizza al mattino. Ogni utente del gruppo darà consenso esplicito in-app prima di condividere i propri dati. Niente sorveglianza forzata.",
+            "Feature not available yet. On the roadmap for late 2026: family group where you add a relative (e.g. an elderly parent) and get notified if they don't sync in the morning. Each group member will give explicit in-app consent before sharing data. No forced surveillance.",
           )}
         </p>
 

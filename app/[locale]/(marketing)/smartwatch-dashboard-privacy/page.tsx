@@ -62,35 +62,35 @@ export default async function Page({
           {
             icon: "🇪🇺",
             title: "Server EU, GDPR by design",
-            body: "Il backend gira su Supabase Postgres region EU (Frankfurt). I tuoi dati salute non lasciano mai l'Europa. RGPD compliance non è un dipartimento legale: è codice.",
+            body: "Il backend gira in region EU (Frankfurt). I tuoi dati salute non lasciano mai l'Europa. Compliance GDPR scritta nel codice, non in un policy PDF.",
           },
           {
             icon: "🚫",
             title: "Zero telemetria, zero tracker",
-            body: "Niente Google Analytics su pagine app, niente Facebook Pixel, niente Hotjar. Cookie banner offre solo strict-necessary by default. L'app native non manda crash report a terzi.",
+            body: "Niente Google Analytics su pagine app, niente Facebook Pixel, niente Hotjar. Cookie banner solo strict-necessary di default. L'app non manda crash report a terzi.",
           },
           {
             icon: "🔐",
             title: "Tu sei l'unico proprietario",
-            body: "Esporti tutti i tuoi dati in JSON quando vuoi (RGPD art.20 portability). Cancelli tutto in 48h (art.17 right to be forgotten). Niente lock-in.",
+            body: "Esporti tutti i tuoi dati in JSON quando vuoi (GDPR art. 20). Cancelli tutto in 48h (art. 17). Niente lock-in, mai.",
           },
           {
-            icon: "🏥",
-            title: "Self-hosted disponibile",
-            body: "Se sei medico, RSA o gruppo famiglia con esigenze enterprise, deploy on-premise sul tuo server con il tuo dominio. SLA dedicato, backup gestiti. Scrivi a sales@fitmesh.fit.",
+            icon: "🛡️",
+            title: "Isolamento a livello DB",
+            body: "Solo tu vedi i tuoi record. La separazione tra utenti è garantita a livello database, non solo applicazione — anche un bug nell'app non può esporre dati di altri.",
           },
         ]}
         howTitle="Come proteggiamo i tuoi dati"
-        howBody="I dati vengono letti dal tuo smartwatch via Health Connect (Android) e mandati direttamente al backend FitMesh su Supabase (Postgres EU) via HTTPS con Bearer JWT. La RLS (Row-Level Security) di Postgres garantisce che solo tu possa leggere i tuoi record. Niente intermediari, niente ETL su data warehouse di terzi, niente backup esposti. La password keystore è in clear sul tuo telefono (Android Keystore hardware-backed) — non sui nostri server."
+        howBody="I dati vengono letti dal tuo smartwatch via Health Connect e inviati direttamente al backend FitMesh in EU su connessione cifrata. Sono accessibili solo a te, sempre. Niente intermediari, niente warehouse di terzi, niente integrazioni pubblicitarie. Cancellazione completa in 48h, export in qualsiasi momento."
         faqTitle="Domande frequenti su privacy"
         faqs={[
           {
             q: "Dove sono salvati i miei dati?",
-            a: "Su Supabase Postgres in region eu-central-1 (Frankfurt). I dati di salute non lasciano mai l'Unione Europea. Backup automatici nello stesso region, retention 7 giorni.",
+            a: "Su server EU (Frankfurt). I dati salute non lasciano mai l'Unione Europea. Backup automatici giornalieri nella stessa region, retention 7 giorni.",
           },
           {
             q: "Vendete o condividete i miei dati?",
-            a: "Mai. Non vendiamo dati a broker, assicurazioni, ricercatori o pubblicitari. Non li aggreghiamo per benchmark venduti. Non li condividiamo con terzi (eccetto Supabase come hosting tecnico).",
+            a: "Mai. Non vendiamo dati a broker, assicurazioni, ricercatori o pubblicitari. Non li aggreghiamo per benchmark venduti. L'unico fornitore tecnico che li tocca è il provider di hosting cloud (EU), strettamente per archiviazione.",
           },
           {
             q: "Come faccio a cancellare i miei dati?",
@@ -131,35 +131,35 @@ export default async function Page({
         {
           icon: "🇪🇺",
           title: "EU servers, GDPR by design",
-          body: "Backend runs on Supabase Postgres EU region (Frankfurt). Your health data never leaves Europe. GDPR compliance isn't a legal department: it's code.",
+          body: "Backend runs in the EU region (Frankfurt). Your health data never leaves Europe. GDPR compliance written in code, not in a policy PDF.",
         },
         {
           icon: "🚫",
           title: "Zero telemetry, zero trackers",
-          body: "No Google Analytics on app pages, no Facebook Pixel, no Hotjar. Cookie banner defaults to strict-necessary only. Native app doesn't send crash reports to third parties.",
+          body: "No Google Analytics on app pages, no Facebook Pixel, no Hotjar. Cookie banner defaults to strict-necessary only. The app doesn't send crash reports to third parties.",
         },
         {
           icon: "🔐",
           title: "You're the only owner",
-          body: "Export all your data as JSON whenever (GDPR art.20 portability). Delete everything in 48h (art.17 right to be forgotten). No lock-in.",
+          body: "Export all your data as JSON whenever (GDPR art. 20). Delete everything within 48h (art. 17). No lock-in, ever.",
         },
         {
-          icon: "🏥",
-          title: "Self-hosted available",
-          body: "If you're a doctor, nursing home or family group with enterprise needs, deploy on-premise on your server with your domain. Dedicated SLA, managed backups. Email sales@fitmesh.fit.",
+          icon: "🛡️",
+          title: "DB-level isolation",
+          body: "Only you see your records. User separation is guaranteed at the database level, not just the application — even a bug in the app can't expose other users' data.",
         },
       ]}
       howTitle="How we protect your data"
-      howBody="Data is read from your smartwatch via Health Connect (Android) and sent directly to the FitMesh backend on Supabase (EU Postgres) via HTTPS with Bearer JWT. Postgres RLS (Row-Level Security) guarantees only you can read your records. No middlemen, no ETL to third-party data warehouses, no exposed backups. Your keystore password is in clear on your phone (hardware-backed Android Keystore) — never on our servers."
+      howBody="Data is read from your smartwatch via Health Connect and sent directly to the FitMesh backend in the EU over an encrypted connection. Accessible only by you, always. No middlemen, no third-party warehouses, no advertising integrations. Full deletion in 48h, export at any time."
       faqTitle="Privacy FAQ"
       faqs={[
         {
           q: "Where is my data stored?",
-          a: "On Supabase Postgres in region eu-central-1 (Frankfurt). Health data never leaves the EU. Automatic backups in the same region, 7-day retention.",
+          a: "On EU servers (Frankfurt). Health data never leaves the EU. Automatic daily backups in the same region, 7-day retention.",
         },
         {
           q: "Do you sell or share my data?",
-          a: "Never. We don't sell data to brokers, insurers, researchers or advertisers. We don't aggregate for sold benchmarks. We don't share with third parties (except Supabase as technical hosting).",
+          a: "Never. We don't sell data to brokers, insurers, researchers or advertisers. We don't aggregate for sold benchmarks. The only technical vendor that touches them is the cloud hosting provider (EU), strictly for storage.",
         },
         {
           q: "How do I delete my data?",

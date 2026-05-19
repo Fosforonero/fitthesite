@@ -180,7 +180,7 @@ export default async function DevicesPage({
         h1: "Tutti gli smartwatch che parlano Health Connect funzionano con FitMesh Sync.",
         sub: "Samsung Galaxy Watch ha integrazione nativa con SDK dedicata. Tutti gli altri orologi maggiori (Xiaomi, Amazfit, Huawei, Garmin, Fitbit, Pixel Watch, Polar, Withings) sincronizzano tramite Health Connect, l'hub salute di Google. Per le Mi Band vecchie esiste un bridge open-source.",
         howItWorksTitle: "Come funziona",
-        howItWorksBody: "Health Connect è l'hub di salute di Android. Qualsiasi app che scrive lì — Mi Fitness, Zepp, Huawei Health, Garmin Connect, Fitbit, Polar Flow — viene letta automaticamente da FitMesh Sync. Niente integrazioni separate, niente account social, niente dati che escono dal tuo telefono fino a quando non li mandi tu sul tuo server.",
+        howItWorksBody: "Health Connect è l'hub di salute di Android. Qualsiasi app che scrive lì — Mi Fitness, Zepp, Huawei Health, Garmin Connect, Fitbit, Polar Flow — viene letta automaticamente da FitMesh Sync. Niente integrazioni separate, niente account social, niente dati che escono dal tuo telefono fino a quando non li sincronizzi con la dashboard.",
         tableTitle: "Tabella di compatibilità",
         tierFull: "Supporto completo",
         tierCore: "Metriche di base",

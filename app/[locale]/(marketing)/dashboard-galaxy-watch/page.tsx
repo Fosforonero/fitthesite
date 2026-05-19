@@ -55,24 +55,24 @@ export default async function Page({
         slug={SLUG}
         kicker="Galaxy Watch dashboard"
         h1="La dashboard premium per il tuo Galaxy Watch."
-        sub="Tutti i dati del tuo Galaxy Watch in un'unica dashboard personale — passi, sonno, battito, sforzo, VO₂ max — accessibile da web e app, senza cloud opachi e senza pubblicità."
+        sub="Tutti i dati del tuo Galaxy Watch in un'unica dashboard personale — passi, FC media e zone, sonno con fasi, splits per km, VO₂ max, HRV notturna — accessibile da web e app, senza cloud opachi e senza pubblicità."
         painTitle="Dati frammentati, app pesanti, privacy a metà"
-        painBody="I dati del tuo orologio sono spesso bloccati dentro app proprietarie che cambiano interfaccia ogni 6 mesi, vendono telemetria a terze parti e ti chiedono un account per ogni metrica. Tu vuoi solo vedere i tuoi numeri, senza intermediari."
+        painBody="I dati del tuo orologio sono spesso bloccati dentro app proprietarie che cambiano interfaccia ogni 6 mesi, vendono telemetria a terze parti e ti chiedono un account per ogni metrica. Tu vuoi solo vedere i tuoi numeri — pace, splits, recupero notturno — senza intermediari."
         pillars={[
           {
             icon: "🔒",
-            title: "Privacy-first",
-            body: "I tuoi dati salute vivono sul tuo server (o su Supabase Postgres EU se preferisci). Niente cloud opachi, niente vendita di telemetria, niente tracker pubblicitari.",
+            title: "Privacy by design",
+            body: "I tuoi dati salute restano in Europa, su server EU. Mai venduti, mai condivisi, mai usati per pubblicità. Solo tu li vedi.",
           },
           {
             icon: "📊",
             title: "Dashboard nativa premium",
-            body: "Grafici intraday del battito, fasi del sonno, sforzo qualitativo per workout, splits per km. Stesso livello di dettaglio delle app top, in interfaccia tua.",
+            body: "FC intraday minuto-per-minuto, fasi del sonno, sforzo qualitativo per sessione, splits per km, cadenza, dislivello. Lo stesso livello delle piattaforme top, in interfaccia tua.",
           },
           {
             icon: "🔄",
-            title: "Integrazione Samsung Health diretta",
-            body: "FitMesh legge sia da Samsung Health SDK sia da Health Connect. Per Galaxy Watch ottieni il massimo: SpO₂, HRV notturna, temperatura pelle, fasi sonno complete.",
+            title: "Integrazione Galaxy Watch diretta",
+            body: "Per Galaxy Watch leggiamo direttamente da Samsung Health: ottieni metriche che le app generiche non vedono — SpO₂ continua, HRV notturna, temperatura pelle, fasi sonno granulari.",
           },
           {
             icon: "💸",
@@ -81,7 +81,7 @@ export default async function Page({
           },
         ]}
         howTitle="Come funziona"
-        howBody="FitMesh Sync legge i dati del tuo Galaxy Watch dal Samsung Health Data SDK (integrazione nativa) o da Health Connect (l'hub di salute Android). I dati vengono sincronizzati sul tuo server e visualizzati nella dashboard. Niente di più — niente social network, niente challenge forzate, niente notifiche pushy. Solo i tuoi numeri."
+        howBody="Il tuo Galaxy Watch raccoglie dati che Samsung Health archivia. FitMesh Sync li legge, li manda al nostro backend in EU e li mostra in dashboard. Niente social network, niente challenge forzate, niente notifiche pushy. Solo i tuoi numeri, organizzati come ti servono."
         faqTitle="Domande frequenti"
         faqs={[
           {
@@ -120,24 +120,24 @@ export default async function Page({
       slug={SLUG}
       kicker="Galaxy Watch dashboard"
       h1="The premium dashboard for your Galaxy Watch."
-      sub="All your Galaxy Watch data in one personal dashboard — steps, sleep, heart rate, effort, VO₂ max — accessible from web and app, without opaque clouds and without ads."
+      sub="All your Galaxy Watch data in one personal dashboard — steps, HR zones, sleep stages, splits per km, VO₂ max, nightly HRV — accessible from web and app, without opaque clouds and without ads."
       painTitle="Fragmented data, heavy apps, half-baked privacy"
-      painBody="Your watch's data is often locked inside proprietary apps that change UI every 6 months, sell telemetry to third parties, and demand an account for every metric. You just want to see your numbers — without middlemen."
+      painBody="Your watch's data is often locked inside proprietary apps that change UI every 6 months, sell telemetry to third parties, and demand an account for every metric. You just want to see your numbers — pace, splits, recovery — without middlemen."
       pillars={[
         {
           icon: "🔒",
-          title: "Privacy-first",
-          body: "Your health data lives on your server (or on Supabase Postgres EU if you prefer). No opaque clouds, no telemetry selling, no ad trackers.",
+          title: "Privacy by design",
+          body: "Your health data stays in Europe, on EU servers. Never sold, never shared, never used for advertising. Only you see it.",
         },
         {
           icon: "📊",
           title: "Premium native dashboard",
-          body: "Intraday heart rate charts, sleep stages, qualitative effort per workout, splits per km. Same detail level as top apps, in our interface.",
+          body: "Minute-by-minute HR, sleep stages, qualitative effort per session, splits per km, cadence, elevation. Same level as the top platforms, in our interface.",
         },
         {
           icon: "🔄",
-          title: "Direct Samsung Health integration",
-          body: "FitMesh reads from both Samsung Health Data SDK and Health Connect. For Galaxy Watch you get the most: SpO₂, nightly HRV, skin temperature, full sleep stages.",
+          title: "Direct Galaxy Watch integration",
+          body: "For Galaxy Watch we read directly from Samsung Health: you get metrics generic apps don't see — continuous SpO₂, nightly HRV, skin temperature, granular sleep stages.",
         },
         {
           icon: "💸",
@@ -146,7 +146,7 @@ export default async function Page({
         },
       ]}
       howTitle="How it works"
-      howBody="FitMesh Sync reads your Galaxy Watch data from the Samsung Health Data SDK (native integration) or from Health Connect (Android's health hub). Data is synced to your server and visualized in the dashboard. Nothing more — no social network, no forced challenges, no pushy notifications. Just your numbers."
+      howBody="Your Galaxy Watch collects data that Samsung Health stores. FitMesh Sync reads it, sends it to our EU backend, and shows it in the dashboard. No social network, no forced challenges, no pushy notifications. Just your numbers, organized the way you need."
       faqTitle="FAQ"
       faqs={[
         {
