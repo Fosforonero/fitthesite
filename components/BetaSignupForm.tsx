@@ -30,8 +30,13 @@ const T: Record<Locale, Record<string, string>> = {
     referralSearch: "Ricerca Google",
     referralPress: "Articolo / blog",
     referralOther: "Altro",
-    deviceLabel: "Smartwatch principale (opzionale)",
+    deviceLabel: "Il tuo smartwatch principale",
     deviceSelect: "Seleziona…",
+    deviceRequired: "FitMesh sincronizza dati da smartwatch — seleziona il tuo modello",
+    osLabel: "Sistema operativo del telefono",
+    osAndroid: "Android",
+    osIos: "iOS",
+    osIosNote: "FitMesh per iOS arriverà nel 2026 — la beta attuale è solo Android. Resti comunque in lista d'attesa, ti scriviamo prima quando lanciamo iOS.",
     submit: "Voglio essere founder",
     submitting: "Invio…",
     successTitle: "Sei in lista!",
@@ -68,8 +73,13 @@ const T: Record<Locale, Record<string, string>> = {
     referralSearch: "Google search",
     referralPress: "Article / blog",
     referralOther: "Other",
-    deviceLabel: "Main smartwatch (optional)",
+    deviceLabel: "Your main smartwatch",
     deviceSelect: "Select…",
+    deviceRequired: "FitMesh syncs data from a smartwatch — please pick your model",
+    osLabel: "Phone operating system",
+    osAndroid: "Android",
+    osIos: "iOS",
+    osIosNote: "FitMesh for iOS arrives in 2026 — the current beta is Android only. You stay on the waitlist anyway and we'll email you first when iOS launches.",
     submit: "I want to be a founder",
     submitting: "Submitting…",
     successTitle: "You're on the list!",
@@ -88,20 +98,47 @@ const T: Record<Locale, Record<string, string>> = {
   },
 };
 
-const DEVICES = [
+const ANDROID_DEVICES = [
   "Samsung Galaxy Watch 4",
   "Samsung Galaxy Watch 5",
   "Samsung Galaxy Watch 6",
   "Samsung Galaxy Watch 7",
   "Samsung Galaxy Watch Ultra",
+  "Samsung Galaxy Fit3",
   "Google Pixel Watch",
   "Google Pixel Watch 2",
   "Google Pixel Watch 3",
-  "Fitbit Sense / Versa",
-  "OnePlus Watch",
-  "Xiaomi Mi Watch",
+  "Fitbit Sense / Versa / Charge",
+  "OnePlus Watch / Watch 2",
+  "Mobvoi TicWatch Pro / Atlas",
+  "Xiaomi Mi Watch / Smart Band",
+  "Amazfit / Zepp",
+  "Huawei Watch GT / Band",
+  "Garmin (Forerunner, Fenix, Venu, Vivoactive)",
+  "Polar (Vantage, Pacer, Ignite)",
+  "Suunto (Vertical, Race, 9 Peak)",
+  "Coros (Pace, Apex, Vertix)",
+  "Withings (ScanWatch, Steel HR)",
+  "Oura Ring",
   "Other Wear OS",
-  "Other Android",
+  "Other Android-compatible",
+];
+
+const IOS_DEVICES = [
+  "Apple Watch Series 4",
+  "Apple Watch Series 5",
+  "Apple Watch SE / SE 2",
+  "Apple Watch Series 6",
+  "Apple Watch Series 7",
+  "Apple Watch Series 8",
+  "Apple Watch Series 9",
+  "Apple Watch Series 10",
+  "Apple Watch Ultra / Ultra 2",
+  "Garmin (iOS)",
+  "Polar (iOS)",
+  "Suunto (iOS)",
+  "Oura Ring (iOS)",
+  "Other Apple HealthKit-compatible",
 ];
 
 // RFC 5322 simplified — sufficiente per UX. Validazione strong è server-side.
@@ -138,12 +175,15 @@ export default function BetaSignupForm({ locale }: Props) {
   const [googleEmail, setGoogleEmail] = useState("");
   const [reason, setReason] = useState("");
   const [consent, setConsent] = useState(false);
+  const [os, setOs] = useState<"android" | "ios">("android");
+  const [deviceBrand, setDeviceBrand] = useState("");
 
   // Touched flags (mostra validation solo dopo blur o submit)
   const [touched, setTouched] = useState({
     email: false,
     googleEmail: false,
     consent: false,
+    deviceBrand: false,
   });
 
   // Anti-bot: timestamp mount + honeypot (vedi onSubmit)
@@ -160,14 +200,16 @@ export default function BetaSignupForm({ locale }: Props) {
   const emailSt = useMemo(() => emailState(email, true), [email]);
   const googleSt = useMemo(() => emailState(googleEmail, false), [googleEmail]);
   const consentSt: FieldState = consent ? "valid" : "empty";
+  const deviceSt: FieldState = deviceBrand ? "valid" : "empty";
+  const availableDevices = os === "ios" ? IOS_DEVICES : ANDROID_DEVICES;
 
   const formValid =
-    emailSt === "valid" && googleSt !== "invalid" && consent;
+    emailSt === "valid" && googleSt !== "invalid" && consent && deviceBrand !== "";
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     // Forza touched per evidenziare errori se l'utente preme submit subito
-    setTouched({ email: true, googleEmail: true, consent: true });
+    setTouched({ email: true, googleEmail: true, consent: true, deviceBrand: true });
 
     if (!formValid) return;
 
@@ -190,12 +232,15 @@ export default function BetaSignupForm({ locale }: Props) {
     setErrorMsg(null);
 
     const fd = new FormData(e.currentTarget);
+    // Pre-pendiamo l'OS al device per facilitare segmentation lato admin
+    // (es. "Android · Galaxy Watch 7" vs "iOS · Apple Watch Series 9").
+    const osLabel = os === "ios" ? "iOS" : "Android";
     const payload = {
       email: email.trim().toLowerCase(),
       google_email: googleEmail.trim() ? googleEmail.trim().toLowerCase() : null,
       reason: reason.trim() || null,
       referral: String(fd.get("referral") || "") || null,
-      device_brand: String(fd.get("device_brand") || "") || null,
+      device_brand: `${osLabel} · ${deviceBrand}`,
       // Anti-bot metadata: server li verifica
       _form_loaded_at: mountedAt.current,
       _hp: honeypotRef.current?.value ?? "",
@@ -344,26 +389,84 @@ export default function BetaSignupForm({ locale }: Props) {
         )}
       </div>
 
-      {/* Smartwatch */}
+      {/* OS selector — Android-only beta, iOS in waitlist */}
+      <div>
+        <fieldset>
+          <legend className="mb-2 block text-sm font-medium text-text-primary">
+            {t.osLabel}
+          </legend>
+          <div className="grid grid-cols-2 gap-2.5">
+            {(["android", "ios"] as const).map((value) => {
+              const checked = os === value;
+              const label = value === "android" ? t.osAndroid : t.osIos;
+              return (
+                <label
+                  key={value}
+                  className={`relative cursor-pointer rounded-xl border px-4 py-3 text-sm font-medium transition ${
+                    checked
+                      ? "border-accent bg-accent/10 text-text-primary"
+                      : "border-bg-elevated bg-transparent text-text-secondary hover:border-divider hover:text-text-primary"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="os"
+                    value={value}
+                    checked={checked}
+                    onChange={() => {
+                      setOs(value);
+                      setDeviceBrand("");
+                      setTouched((p) => ({ ...p, deviceBrand: false }));
+                    }}
+                    className="absolute opacity-0 pointer-events-none"
+                  />
+                  {label}
+                </label>
+              );
+            })}
+          </div>
+          {os === "ios" && (
+            <p
+              role="status"
+              className="mt-2 rounded-xl border border-warning/40 bg-warning/10 px-3.5 py-2.5 text-xs leading-relaxed text-warning"
+            >
+              {t.osIosNote}
+            </p>
+          )}
+        </fieldset>
+      </div>
+
+      {/* Smartwatch — REQUIRED */}
       <div>
         <label
           htmlFor="device_brand"
           className="mb-1.5 block text-sm font-medium text-text-primary"
         >
-          {t.deviceLabel}
+          {t.deviceLabel} <span className="text-accent" aria-hidden>*</span>
         </label>
         <select
           id="device_brand"
           name="device_brand"
-          className={`${inputBase} border-bg-elevated focus:border-accent`}
+          required
+          value={deviceBrand}
+          onChange={(e) => setDeviceBrand(e.target.value)}
+          onBlur={() => setTouched((p) => ({ ...p, deviceBrand: true }))}
+          aria-invalid={touched.deviceBrand && deviceSt === "empty"}
+          aria-describedby={touched.deviceBrand && deviceSt === "empty" ? "device_brand_err" : undefined}
+          className={`${inputBase} ${borderClass(deviceSt, touched.deviceBrand)}`}
         >
           <option value="">{t.deviceSelect}</option>
-          {DEVICES.map((d) => (
+          {availableDevices.map((d) => (
             <option key={d} value={d}>
               {d}
             </option>
           ))}
         </select>
+        {touched.deviceBrand && deviceSt === "empty" && (
+          <p id="device_brand_err" className="mt-1 text-xs text-red-400">
+            {t.deviceRequired}
+          </p>
+        )}
       </div>
 
       {/* Referral */}

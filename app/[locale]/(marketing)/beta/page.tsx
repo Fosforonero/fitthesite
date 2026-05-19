@@ -111,9 +111,15 @@ export default async function BetaPage({
 
         {/* Hero */}
         <header className="mb-16 mt-8 text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-accent">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
-            {t.kicker}
+          <div className="mb-3 flex flex-wrap items-center justify-center gap-2">
+            <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-accent">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
+              {t.kicker}
+            </div>
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-warning/40 bg-warning/10 px-3 py-1.5 text-xs font-medium uppercase tracking-wider text-warning">
+              <span aria-hidden>📱</span>
+              {lc === "it" ? "Solo Android · iOS in arrivo" : "Android only · iOS coming"}
+            </div>
           </div>
           <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
             {t.h1_a}{" "}
