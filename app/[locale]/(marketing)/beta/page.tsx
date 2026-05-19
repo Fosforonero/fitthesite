@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import BetaSignupForm from "@/components/BetaSignupForm";
+import BetaFormSwitcher from "@/components/BetaFormSwitcher";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
@@ -129,7 +129,7 @@ export default async function BetaPage({
         <section className="rounded-3xl border border-bg-elevated bg-bg-elevated/30 p-8 md:p-10">
           <h2 className="mb-2 text-2xl font-bold text-text-primary">{t.formTitle}</h2>
           <p className="mb-8 text-text-secondary">{t.formSub}</p>
-          <BetaSignupForm locale={lc} />
+          <BetaFormSwitcher locale={lc} />
         </section>
 
         {/* What happens next */}

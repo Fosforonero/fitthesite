@@ -1,13 +1,10 @@
 /**
- * Database types — placeholder iniziale.
+ * Database types — generati da Supabase project xcdyhkuyxukaifhhtadr.
  *
- * Quando il DB Supabase è pronto, rigenera con:
- *   npm run supabase:gen-types
- * (richiede `supabase link --project-ref <ref>` la prima volta)
+ * Rigenera con: `supabase gen types typescript --project-id xcdyhkuyxukaifhhtadr`
+ * o via MCP `mcp__plugin_supabase_supabase__generate_typescript_types`.
  *
- * I types qui sotto coprono SOLO le RPC functions che usiamo da Server Components
- * subito (admin overview, is_admin). Tutte le altre tabelle restano `unknown`
- * fino al gen-types reale.
+ * Ultima generazione: 2026-05-19 (post migration 010_system_notifications).
  */
 
 export type Json =
@@ -16,142 +13,373 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[];
-
-type AdminOverviewRow = {
-  total_users: number;
-  active_users_7d: number;
-  active_users_30d: number;
-  new_users_7d: number;
-  total_devices: number;
-  active_devices: number;
-  syncs_24h: number;
-  failed_syncs_24h: number;
-};
-
-type DailyAggregateRow = {
-  day: string;
-  active_users: number;
-  active_devices: number;
-  total_syncs: number;
-};
-
-type BrandDistributionRow = {
-  brand: string;
-  count: number;
-};
-
-type TopErrorsRow = {
-  error_code: string;
-  occurrences: number;
-};
-
-type DeviceRow = {
-  id: string;
-  user_id: string;
-  device_fingerprint: string;
-  device_name: string | null;
-  device_brand: string | null;
-  source_type: string;
-  app_version: string | null;
-  os_version: string | null;
-  paired_at: string;
-  last_seen_at: string | null;
-  revoked_at: string | null;
-  revoked_by: string | null;
-  revoked_reason: string | null;
-};
-
-type ProfileRow = {
-  id: string;
-  email: string;
-  display_name: string | null;
-  locale: string;
-  time_zone: string;
-  privacy_accepted_at: string | null;
-  terms_accepted_at: string | null;
-  not_medical_disclaimer_accepted_at: string | null;
-  created_at: string;
-  updated_at: string;
-};
-
-type PrivacyConsentsRow = {
-  user_id: string;
-  marketing_emails: boolean;
-  analytics_anonymous: boolean;
-  caregiver_share: boolean;
-  data_export_requested_at: string | null;
-  data_export_completed_at: string | null;
-  data_deletion_requested_at: string | null;
-  data_deletion_completed_at: string | null;
-  updated_at: string;
-};
-
-type AuditLogsInsert = {
-  user_id?: string | null;
-  action: string;
-  detail?: Json;
-  ip?: string | null;
-  user_agent?: string | null;
-};
+  | Json[]
 
 export type Database = {
+  __InternalSupabase: {
+    PostgrestVersion: "14.5"
+  }
   public: {
     Tables: {
-      profiles: {
-        Row: ProfileRow;
-        Insert: Partial<ProfileRow> & { id: string; email: string };
-        Update: Partial<ProfileRow>;
-      };
-      devices: {
-        Row: DeviceRow;
-        Insert: Omit<DeviceRow, 'id' | 'paired_at'> & {
-          id?: string;
-          paired_at?: string;
-        };
-        Update: Partial<DeviceRow>;
-      };
-      privacy_consents: {
-        Row: PrivacyConsentsRow;
-        Insert: Partial<PrivacyConsentsRow> & { user_id: string };
-        Update: Partial<PrivacyConsentsRow>;
-      };
+      admin_events: {
+        Row: {
+          action: string
+          admin_id: string
+          created_at: string
+          detail: Json | null
+          id: number
+          target_device_id: string | null
+          target_user_id: string | null
+        }
+        Insert: {
+          action: string
+          admin_id: string
+          created_at?: string
+          detail?: Json | null
+          id?: number
+          target_device_id?: string | null
+          target_user_id?: string | null
+        }
+        Update: {
+          action?: string
+          admin_id?: string
+          created_at?: string
+          detail?: Json | null
+          id?: number
+          target_device_id?: string | null
+          target_user_id?: string | null
+        }
+        Relationships: []
+      }
       audit_logs: {
-        Row: AuditLogsInsert & {
-          id: number;
-          created_at: string;
-        };
-        Insert: AuditLogsInsert;
-        Update: Partial<AuditLogsInsert>;
-      };
-    };
-    Views: Record<string, never>;
+        Row: {
+          action: string
+          created_at: string
+          detail: Json | null
+          id: number
+          ip: unknown
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          detail?: Json | null
+          id?: number
+          ip?: unknown
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          detail?: Json | null
+          id?: number
+          ip?: unknown
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      beta_signups: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          created_at: string
+          device_brand: string | null
+          email: string
+          founder_number: number | null
+          google_email: string | null
+          id: string
+          reason: string | null
+          referral: string | null
+          signup_ip: unknown
+          signup_ua: string | null
+          status: Database["public"]["Enums"]["beta_signup_status"]
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          device_brand?: string | null
+          email: string
+          founder_number?: number | null
+          google_email?: string | null
+          id?: string
+          reason?: string | null
+          referral?: string | null
+          signup_ip?: unknown
+          signup_ua?: string | null
+          status?: Database["public"]["Enums"]["beta_signup_status"]
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          created_at?: string
+          device_brand?: string | null
+          email?: string
+          founder_number?: number | null
+          google_email?: string | null
+          id?: string
+          reason?: string | null
+          referral?: string | null
+          signup_ip?: unknown
+          signup_ua?: string | null
+          status?: Database["public"]["Enums"]["beta_signup_status"]
+        }
+        Relationships: []
+      }
+      beta_waitlist: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          locale: string
+          notified_at: string | null
+          notify_when_open: boolean
+          referral: string | null
+          signup_ip: string | null
+          signup_ua: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          locale?: string
+          notified_at?: string | null
+          notify_when_open?: boolean
+          referral?: string | null
+          signup_ip?: string | null
+          signup_ua?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          locale?: string
+          notified_at?: string | null
+          notify_when_open?: boolean
+          referral?: string | null
+          signup_ip?: string | null
+          signup_ua?: string | null
+        }
+        Relationships: []
+      }
+      devices: {
+        Row: {
+          app_version: string | null
+          device_brand: string | null
+          device_fingerprint: string
+          device_name: string | null
+          id: string
+          last_seen_at: string | null
+          os_version: string | null
+          paired_at: string
+          revoked_at: string | null
+          revoked_by: string | null
+          revoked_reason: string | null
+          source_type: string
+          user_id: string
+        }
+        Insert: {
+          app_version?: string | null
+          device_brand?: string | null
+          device_fingerprint: string
+          device_name?: string | null
+          id?: string
+          last_seen_at?: string | null
+          os_version?: string | null
+          paired_at?: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          revoked_reason?: string | null
+          source_type: string
+          user_id: string
+        }
+        Update: {
+          app_version?: string | null
+          device_brand?: string | null
+          device_fingerprint?: string
+          device_name?: string | null
+          id?: string
+          last_seen_at?: string | null
+          os_version?: string | null
+          paired_at?: string
+          revoked_at?: string | null
+          revoked_by?: string | null
+          revoked_reason?: string | null
+          source_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      privacy_consents: {
+        Row: {
+          analytics_anonymous: boolean
+          caregiver_share: boolean
+          data_deletion_completed_at: string | null
+          data_deletion_requested_at: string | null
+          data_export_completed_at: string | null
+          data_export_requested_at: string | null
+          marketing_emails: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          analytics_anonymous?: boolean
+          caregiver_share?: boolean
+          data_deletion_completed_at?: string | null
+          data_deletion_requested_at?: string | null
+          data_export_completed_at?: string | null
+          data_export_requested_at?: string | null
+          marketing_emails?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          analytics_anonymous?: boolean
+          caregiver_share?: boolean
+          data_deletion_completed_at?: string | null
+          data_deletion_requested_at?: string | null
+          data_export_completed_at?: string | null
+          data_export_requested_at?: string | null
+          marketing_emails?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          email: string
+          id: string
+          locale: string
+          not_medical_disclaimer_accepted_at: string | null
+          privacy_accepted_at: string | null
+          terms_accepted_at: string | null
+          time_zone: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          email: string
+          id: string
+          locale?: string
+          not_medical_disclaimer_accepted_at?: string | null
+          privacy_accepted_at?: string | null
+          terms_accepted_at?: string | null
+          time_zone?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          email?: string
+          id?: string
+          locale?: string
+          not_medical_disclaimer_accepted_at?: string | null
+          privacy_accepted_at?: string | null
+          terms_accepted_at?: string | null
+          time_zone?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      system_notifications: {
+        Row: {
+          detail: Json | null
+          key: string
+          sent_at: string
+        }
+        Insert: {
+          detail?: Json | null
+          key: string
+          sent_at?: string
+        }
+        Update: {
+          detail?: Json | null
+          key?: string
+          sent_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          granted_at: string
+          granted_by: string | null
+          note: string | null
+          role: string
+          user_id: string
+        }
+        Insert: {
+          granted_at?: string
+          granted_by?: string | null
+          note?: string | null
+          role: string
+          user_id: string
+        }
+        Update: {
+          granted_at?: string
+          granted_by?: string | null
+          note?: string | null
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+    }
+    Views: Record<string, never>
     Functions: {
-      is_admin: {
-        Args: Record<string, never>;
-        Returns: boolean;
-      };
-      has_role: {
-        Args: { check_role: string };
-        Returns: boolean;
-      };
+      get_beta_spots_taken: { Args: Record<string, never>; Returns: number }
+      is_admin: { Args: Record<string, never>; Returns: boolean }
+      has_role: { Args: { check_role: string }; Returns: boolean }
       admin_overview: {
-        Args: Record<string, never>;
-        Returns: AdminOverviewRow[];
-      };
+        Args: Record<string, never>
+        Returns: {
+          active_devices: number
+          active_users_30d: number
+          active_users_7d: number
+          failed_syncs_24h: number
+          new_users_7d: number
+          syncs_24h: number
+          total_devices: number
+          total_users: number
+        }[]
+      }
       admin_daily_aggregate: {
-        Args: Record<string, never>;
-        Returns: DailyAggregateRow[];
-      };
+        Args: Record<string, never>
+        Returns: {
+          active_devices: number
+          active_users: number
+          day: string
+          total_syncs: number
+        }[]
+      }
       admin_device_brand_distribution: {
-        Args: Record<string, never>;
-        Returns: BrandDistributionRow[];
-      };
+        Args: Record<string, never>
+        Returns: {
+          brand: string
+          count: number
+        }[]
+      }
       admin_top_errors: {
-        Args: { p_days?: number };
-        Returns: TopErrorsRow[];
-      };
-    };
-    Enums: Record<string, never>;
-  };
-};
+        Args: { p_days?: number }
+        Returns: {
+          error_code: string
+          occurrences: number
+        }[]
+      }
+    }
+    Enums: {
+      beta_signup_status:
+        | "pending"
+        | "approved"
+        | "activated"
+        | "rejected"
+        | "expired"
+    }
+  }
+}

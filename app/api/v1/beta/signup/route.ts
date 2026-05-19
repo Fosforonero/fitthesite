@@ -32,6 +32,7 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 import { jsonError, jsonOk } from "@/lib/api/auth-helpers";
+import { maybeNotifyBetaFull } from "@/lib/notifications/notify-beta-full";
 
 // ── Validazione body ────────────────────────────────────────────────────
 const payloadSchema = z.object({
@@ -180,6 +181,11 @@ export async function POST(req: Request) {
     if (error.code === "23505") return jsonError(409, "already_signed_up");
     return jsonError(500, "insert_failed", error.message);
   }
+
+  // Best-effort: notifica admin se questo signup ha riempito i 100 posti.
+  // Idempotente via system_notifications marker, no-op se RESEND_API_KEY
+  // mancante. Non bloccante per la response al client.
+  void maybeNotifyBetaFull();
 
   return jsonOk({ id: (data as { id: string } | null)?.id }, 201);
 }
