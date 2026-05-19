@@ -75,10 +75,26 @@ export default async function BetaPage({
       <JsonLd
         data={{
           "@context": "https://schema.org",
-          "@type": "WebPage",
-          name: t.metaTitle,
-          description: t.metaDesc,
-          url: `${SITE_URL}/${lc}/beta`,
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": `${SITE_URL}/${lc}/beta#webpage`,
+              name: t.metaTitle,
+              description: t.metaDesc,
+              url: `${SITE_URL}/${lc}/beta`,
+              inLanguage: lc === "it" ? "it-IT" : "en-US",
+            },
+            {
+              "@type": "FAQPage",
+              "@id": `${SITE_URL}/${lc}/beta#faq`,
+              inLanguage: lc === "it" ? "it-IT" : "en-US",
+              mainEntity: t.faqs.map((f) => ({
+                "@type": "Question",
+                name: f.q,
+                acceptedAnswer: { "@type": "Answer", text: f.a },
+              })),
+            },
+          ],
         }}
       />
 
