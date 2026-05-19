@@ -42,10 +42,10 @@ export default function Header({
             {dict.nav.devices}
           </Link>
           <Link
-            href={`/${locale}/blog`}
+            href={`/${locale}/field-notes`}
             className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden lg:inline-block"
           >
-            Blog
+            Field Notes
           </Link>
           <Link
             href={`/${locale}/support`}

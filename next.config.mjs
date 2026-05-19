@@ -54,6 +54,20 @@ const nextConfig = {
         destination: '/it/sync/:slug',
         permanent: true,
       },
+      // Rebrand "Blog" → "Field Notes" (2026-05-19): mantieni SEO continuity
+      // per qualsiasi link esterno o crawler che avesse indicizzato /blog.
+      {
+        source: '/:locale(it|en)/blog',
+        destination: '/:locale/field-notes',
+        permanent: true,
+      },
+      {
+        source: '/:locale(it|en)/blog/:slug',
+        destination: '/:locale/field-notes/:slug',
+        permanent: true,
+      },
+      { source: '/blog', destination: '/it/field-notes', permanent: true },
+      { source: '/blog/:slug', destination: '/it/field-notes/:slug', permanent: true },
     ];
   },
 };

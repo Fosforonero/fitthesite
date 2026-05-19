@@ -22,7 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/wear-os-dashboard",            changeFrequency: "monthly", priority: 0.85 },
     { path: "/smartwatch-dashboard-privacy", changeFrequency: "monthly", priority: 0.85 },
     { path: "/beta",                         changeFrequency: "weekly",  priority: 0.95 },
-    { path: "/blog",                         changeFrequency: "weekly",  priority: 0.75 },
+    { path: "/field-notes",                  changeFrequency: "weekly",  priority: 0.75 },
     { path: "/support",                      changeFrequency: "monthly", priority: 0.7 },
     { path: "/privacy",                      changeFrequency: "yearly",  priority: 0.5 },
     { path: "/terms",                        changeFrequency: "yearly",  priority: 0.5 },
@@ -47,7 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Blog posts: una entry per (slug, locale) presente sul filesystem.
   for (const post of blogSlugs) {
     entries.push({
-      url: `${BASE}/${post.locale}/blog/${post.slug}`,
+      url: `${BASE}/${post.locale}/field-notes/${post.slug}`,
       lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,

@@ -13,34 +13,34 @@ export async function generateMetadata(
   const { locale } = await params;
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const titles: Record<Locale, string> = {
-    it: "Blog FitMesh Sync — guide, divulgazione e tecnica",
-    en: "FitMesh Sync Blog — guides, deep dives and technical posts",
+    it: "Field Notes — FitMesh Sync",
+    en: "Field Notes — FitMesh Sync",
   };
   const desc: Record<Locale, string> = {
-    it: "Articoli tecnico-divulgativi su salute digitale, smartwatch, sincronizzazione dati e privacy. Pubblicati dal team FitMesh.",
-    en: "Technical and educational posts on digital health, smartwatches, data sync and privacy. Published by the FitMesh team.",
+    it: "Note tecniche e divulgative su salute digitale, smartwatch, sport science e privacy dei dati. Dal team FitMesh.",
+    en: "Technical and educational notes on digital health, smartwatches, sport science and data privacy. From the FitMesh team.",
   };
   return {
     title: titles[lc],
     description: desc[lc],
     alternates: {
-      canonical: `${SITE_URL}/${lc}/blog`,
+      canonical: `${SITE_URL}/${lc}/field-notes`,
       languages: {
-        it: `${SITE_URL}/it/blog`,
-        en: `${SITE_URL}/en/blog`,
-        "x-default": `${SITE_URL}/it/blog`,
+        it: `${SITE_URL}/it/field-notes`,
+        en: `${SITE_URL}/en/field-notes`,
+        "x-default": `${SITE_URL}/it/field-notes`,
       },
     },
     openGraph: {
       title: titles[lc],
       description: desc[lc],
-      url: `${SITE_URL}/${lc}/blog`,
+      url: `${SITE_URL}/${lc}/field-notes`,
       type: "website",
     },
   };
 }
 
-export default async function BlogIndex({
+export default async function FieldNotesIndex({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -49,14 +49,14 @@ export default async function BlogIndex({
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const posts = await listPosts(lc);
 
-  const heading = "Blog";
-  const kicker = lc === "it" ? "Pensieri & guide" : "Thoughts & guides";
+  const heading = "Field Notes";
+  const kicker = lc === "it" ? "Note dal campo" : "Notes from the field";
   const sub = lc === "it"
-    ? "Articoli tecnico-divulgativi su salute digitale, smartwatch e privacy."
-    : "Technical and educational posts on digital health, smartwatches and privacy.";
+    ? "Approfondimenti tecnici e divulgativi su sport science, dati salute, smartwatch e privacy. Senza fronzoli."
+    : "Technical deep dives on sport science, health data, smartwatches and privacy. No fluff.";
   const emptyMsg = lc === "it"
-    ? "Ancora niente articoli in questa lingua. Torna presto."
-    : "No posts in this language yet. Come back soon.";
+    ? "Ancora niente note in questa lingua. Torna presto."
+    : "No notes in this language yet. Come back soon.";
   const minutesLabel = lc === "it" ? "min di lettura" : "min read";
 
   return (
@@ -66,11 +66,10 @@ export default async function BlogIndex({
       </div>
 
       <div className="max-w-4xl mx-auto px-5 sm:px-8 lg:px-12 pt-10 pb-32">
-        <Breadcrumbs locale={lc} items={[{ name: heading, path: `/${lc}/blog` }]} />
+        <Breadcrumbs locale={lc} items={[{ name: heading, path: `/${lc}/field-notes` }]} />
 
         <header className="mt-12 sm:mt-16 mb-20 max-w-3xl">
-          <p className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-divider bg-bg-secondary/40 text-[11px] uppercase tracking-[0.18em] text-brand-aqua font-semibold">
-            <span aria-hidden className="w-1 h-1 rounded-full bg-brand-aqua" />
+          <p className="eyebrow">
             {kicker}
           </p>
           <h1 className="mt-6 font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tighter text-text-primary leading-[1.05]">
@@ -88,7 +87,7 @@ export default async function BlogIndex({
             {posts.map((p, idx) => (
               <li key={p.slug}>
                 <Link
-                  href={`/${lc}/blog/${p.slug}`}
+                  href={`/${lc}/field-notes/${p.slug}`}
                   className="group block rounded-3xl border border-divider bg-bg-card/40 backdrop-blur-sm p-7 sm:p-9 transition-all duration-300 hover:border-accent/40 hover:bg-bg-card/60 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
                 >
                   <div className="flex items-center gap-3 text-xs text-text-muted tabular-nums">

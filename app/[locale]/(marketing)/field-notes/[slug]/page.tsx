@@ -27,7 +27,7 @@ export async function generateMetadata(
     title: post.title,
     description: post.description,
     alternates: {
-      canonical: `${SITE_URL}/${lc}/blog/${slug}`,
+      canonical: `${SITE_URL}/${lc}/field-notes/${slug}`,
     },
     openGraph: {
       title: post.title,
@@ -36,7 +36,7 @@ export async function generateMetadata(
       publishedTime: post.date,
       authors: post.author ? [post.author] : undefined,
       tags: post.tags,
-      url: `${SITE_URL}/${lc}/blog/${slug}`,
+      url: `${SITE_URL}/${lc}/field-notes/${slug}`,
     },
     twitter: {
       card: "summary_large_image",
@@ -126,7 +126,7 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const minutesLabel = lc === "it" ? "min di lettura" : "min read";
-  const backLabel = lc === "it" ? "Torna al blog" : "Back to blog";
+  const backLabel = lc === "it" ? "Torna a Field Notes" : "Back to Field Notes";
   const ctaTitle = lc === "it" ? "Vuoi provare FitMesh Sync?" : "Want to try FitMesh Sync?";
   const ctaBody = lc === "it"
     ? "100 founder ricevono l'app gratis a vita. Beta privata aperta ora."
@@ -144,7 +144,7 @@ export default async function BlogPostPage({
       ? { "@type": "Person", name: post.author }
       : { "@type": "Organization", name: "FitMesh Sync", url: SITE_URL },
     publisher: { "@id": `${SITE_URL}#organization` },
-    mainEntityOfPage: `${SITE_URL}/${lc}/blog/${slug}`,
+    mainEntityOfPage: `${SITE_URL}/${lc}/field-notes/${slug}`,
   };
 
   return (
@@ -159,8 +159,8 @@ export default async function BlogPostPage({
         <Breadcrumbs
           locale={lc}
           items={[
-            { name: "Blog", path: `/${lc}/blog` },
-            { name: post.title, path: `/${lc}/blog/${slug}` },
+            { name: "Field Notes", path: `/${lc}/field-notes` },
+            { name: post.title, path: `/${lc}/field-notes/${slug}` },
           ]}
         />
 
@@ -250,7 +250,7 @@ export default async function BlogPostPage({
 
         <nav className="mt-16">
           <Link
-            href={`/${lc}/blog`}
+            href={`/${lc}/field-notes`}
             className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded"
           >
             <span aria-hidden>←</span>
