@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
-import { locales } from "@/lib/i18n";
+import { locales, type Locale } from "@/lib/i18n";
 import { PROVIDERS } from "@/lib/providers/data";
+import { listAllSlugs } from "@/lib/blog/loader";
 
 const BASE = "https://www.fitmesh.fit";
 
@@ -9,7 +10,7 @@ const BASE = "https://www.fitmesh.fit";
  * Google usa <xhtml:link rel="alternate" hreflang="..."> emessi automaticamente
  * da Next.js a partire dal campo `alternates.languages` qui sotto.
  */
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const routes: Array<{ path: string; changeFrequency: "monthly" | "yearly" | "weekly"; priority: number }> = [
     { path: "",                              changeFrequency: "monthly", priority: 1.0 },
@@ -21,6 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/wear-os-dashboard",            changeFrequency: "monthly", priority: 0.85 },
     { path: "/smartwatch-dashboard-privacy", changeFrequency: "monthly", priority: 0.85 },
     { path: "/beta",                         changeFrequency: "weekly",  priority: 0.95 },
+    { path: "/blog",                         changeFrequency: "weekly",  priority: 0.75 },
     { path: "/support",                      changeFrequency: "monthly", priority: 0.7 },
     { path: "/privacy",                      changeFrequency: "yearly",  priority: 0.5 },
     { path: "/terms",                        changeFrequency: "yearly",  priority: 0.5 },
@@ -36,7 +38,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     });
   }
 
+  // Articoli blog — emessi per locale specifica (no hreflang alternates
+  // perche' ogni articolo esiste solo in IT o solo in EN, raramente entrambi).
+  const blogSlugs = await listAllSlugs();
+
   const entries: MetadataRoute.Sitemap = [];
+
+  // Blog posts: una entry per (slug, locale) presente sul filesystem.
+  for (const post of blogSlugs) {
+    entries.push({
+      url: `${BASE}/${post.locale}/blog/${post.slug}`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    });
+  }
   for (const r of routes) {
     for (const lc of locales) {
       entries.push({
