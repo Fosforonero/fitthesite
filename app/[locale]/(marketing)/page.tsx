@@ -18,49 +18,53 @@ export default async function Home({
 
   return (
     <>
-      {/* Hero — 2 columns on lg+ */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-16">
-        <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          {/* Left: text & CTAs */}
-          <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-pill border border-divider bg-bg-secondary/40 text-xs text-text-secondary">
-              <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-              {t.hero.badge}
+      {/* Hero — 2 columns on lg+. Subtle grid pattern in background per profondita'. */}
+      <section className="relative overflow-hidden">
+        <div aria-hidden className="absolute inset-0 bg-grid-soft opacity-50 pointer-events-none [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
+        <div aria-hidden className="pointer-events-none absolute -top-32 right-[10%] w-[500px] h-[500px] rounded-full bg-brand-aqua/8 blur-[120px]" />
+        <div aria-hidden className="pointer-events-none absolute top-[300px] -left-32 w-[400px] h-[400px] rounded-full bg-brand-blue/8 blur-[120px]" />
+
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-8 lg:px-12 pt-16 sm:pt-24 pb-20 sm:pb-28">
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+            {/* Left: text & CTAs */}
+            <div className="lg:col-span-7">
+              <span className="eyebrow text-success">
+                {t.hero.badge}
+              </span>
+
+              <h1 className="mt-7 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-2xl leading-[1.02]">
+                {t.hero.heading_1}
+                <br className="hidden sm:inline" />{" "}
+                <span className="text-brand-gradient">{t.hero.heading_accent}</span>
+              </h1>
+
+              <p className="mt-7 text-lg sm:text-xl text-text-secondary max-w-xl leading-relaxed">
+                {t.hero.description}
+              </p>
+
+              {/* Primary CTA: pre-launch e' il beta program. Quando Play Store
+                  e' live in produzione, ripristina StoreButtonsRow come primary. */}
+              <div className="mt-10">
+                <HeroBetaCTA locale={lc} />
+              </div>
+
+              <div id="download" className="mt-7 flex flex-wrap items-center gap-3">
+                <StoreButtonsRow locale={lc} />
+                <a
+                  href="#features"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full btn-secondary text-sm"
+                >
+                  {t.hero.cta_secondary}
+                </a>
+              </div>
+
+              <p className="mt-6 text-xs text-text-muted">{t.hero.pricing}</p>
             </div>
 
-            <h1 className="mt-6 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-2xl">
-              {t.hero.heading_1}
-              <br className="hidden sm:inline" />{" "}
-              <span className="text-brand-gradient">{t.hero.heading_accent}</span>
-            </h1>
-
-            <p className="mt-6 text-lg text-text-secondary max-w-xl leading-relaxed">
-              {t.hero.description}
-            </p>
-
-            {/* Primary CTA: pre-launch è il beta program (drive a sblocco
-                100 tester Play Store closed→open). Quando Play Store è live
-                in produzione, riportare StoreButtonsRow come primary. */}
-            <div className="mt-8">
-              <HeroBetaCTA locale={lc} />
+            {/* Right: phone mockup */}
+            <div className="lg:col-span-5">
+              <HeroVisual locale={lc} />
             </div>
-
-            <div id="download" className="mt-6 flex flex-wrap items-center gap-3">
-              <StoreButtonsRow locale={lc} />
-              <a
-                href="#features"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-pill border border-divider text-text-secondary hover:text-text-primary hover:bg-white/5 transition text-sm"
-              >
-                {t.hero.cta_secondary}
-              </a>
-            </div>
-
-            <p className="mt-5 text-xs text-text-muted">{t.hero.pricing}</p>
-          </div>
-
-          {/* Right: phone mockup */}
-          <div className="lg:col-span-5">
-            <HeroVisual locale={lc} />
           </div>
         </div>
       </section>

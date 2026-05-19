@@ -28,7 +28,7 @@ html, body {
 
 .hairline { border-color: var(--fm-divider); }
 
-/* Brand gradient text helper */
+/* Brand gradient text helper — use SPARINGLY (hero accent words, key moments) */
 .text-brand-gradient {
   background-image: var(--fm-gradient-brand);
   -webkit-background-clip: text;
@@ -36,17 +36,48 @@ html, body {
   color: transparent;
 }
 
-/* CTA button base — usable as className=".btn-cta" */
+/* ── Button hierarchy ──────────────────────────────────────────────
+ * .btn-cta       — primary, gradient fill (hero, conversion moments)
+ * .btn-secondary — outline, neutral (alongside primary)
+ * .btn-tertiary  — text-link feel, no border (in-flow actions)
+ */
 .btn-cta {
   background-image: var(--fm-gradient-cta);
   color: #03121f;
   box-shadow: var(--fm-shadow-cta);
   font-weight: 600;
   transition: transform var(--fm-duration-fast) var(--fm-ease-ios),
-              filter var(--fm-duration-fast) var(--fm-ease-ios);
+              filter var(--fm-duration-fast) var(--fm-ease-ios),
+              box-shadow var(--fm-duration-normal) var(--fm-ease-ios);
 }
-.btn-cta:hover { filter: brightness(1.05); }
+.btn-cta:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 10px 32px -8px rgba(33, 230, 193, 0.5), 0 2px 0 rgba(255, 255, 255, 0.08) inset;
+}
 .btn-cta:active { transform: translateY(1px); }
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.04);
+  color: var(--fm-text-primary);
+  border: 1px solid var(--fm-divider);
+  font-weight: 500;
+  transition: background-color var(--fm-duration-fast) var(--fm-ease-ios),
+              border-color var(--fm-duration-fast) var(--fm-ease-ios),
+              transform var(--fm-duration-fast) var(--fm-ease-ios);
+}
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(33, 230, 193, 0.35);
+}
+.btn-secondary:active { transform: translateY(1px); }
+
+.btn-tertiary {
+  background-color: transparent;
+  color: var(--fm-brand-aqua);
+  font-weight: 500;
+  transition: color var(--fm-duration-fast) var(--fm-ease-ios);
+}
+.btn-tertiary:hover { color: var(--fm-brand-blue); }
 
 /* Card base */
 .card {
@@ -59,6 +90,51 @@ html, body {
 }
 .card:hover {
   background-color: var(--fm-bg-elevated);
+}
+
+/* ── Decorative grid pattern ──────────────────────────────────────
+ * Background con `.bg-grid-soft` — griglia 24px estremamente sottile.
+ * Da' profondita' compositiva senza distrarre.
+ */
+.bg-grid-soft {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ── Eyebrow chip standard ────────────────────────────────────────
+ * Pattern "small uppercase tracked label" usato in cima ad ogni sezione.
+ * Sostituisce le varie inline-flex con border + padding scritte a mano.
+ */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--fm-divider);
+  background-color: rgba(11, 16, 35, 0.4);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--fm-brand-aqua);
+}
+.eyebrow::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background-color: currentColor;
+}
+
+/* ── Hairline divider con gradient soft ──────────────────────────
+ * Per sezioni che vogliono separazione visibile ma elegante.
+ */
+.divider-soft {
+  height: 1px;
+  background-image: linear-gradient(to right, transparent, var(--fm-divider) 20%, var(--fm-divider) 80%, transparent);
 }
 
 /* Selection */
