@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
+import BetaNavCTA from "./BetaNavCTA";
 import type { Dictionary, Locale } from "@/lib/i18n";
 
 export default function Header({
@@ -52,12 +53,7 @@ export default function Header({
           >
             {dict.nav.privacy}
           </Link>
-          <a
-            href="#download"
-            className="ml-1 inline-flex items-center px-4 py-1.5 rounded-pill btn-cta text-sm"
-          >
-            {dict.nav.download}
-          </a>
+          <BetaNavCTA locale={locale} />
           <LanguageSwitcher current={locale} />
         </nav>
       </div>

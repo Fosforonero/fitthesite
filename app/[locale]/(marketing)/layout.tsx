@@ -4,6 +4,8 @@ import { locales, type Locale, ogLocale, getDictionary } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
+import BetaStickyBanner from "@/components/BetaStickyBanner";
+import BetaPopup from "@/components/BetaPopup";
 import { JsonLd } from "@/components/seo/JsonLd";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -138,10 +140,12 @@ export default async function LocaleLayout({
   return (
     <>
       <JsonLd data={jsonLd} />
+      <BetaStickyBanner locale={lc} />
       <Header dict={dict} locale={lc} />
       <main className="flex-1">{children}</main>
       <Footer dict={dict} locale={lc} />
       <CookieBanner dict={dict} />
+      <BetaPopup locale={lc} />
     </>
   );
 }

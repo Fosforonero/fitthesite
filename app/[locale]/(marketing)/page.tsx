@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
+import HeroBetaCTA from "@/components/HeroBetaCTA";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 
 const KPI_COLORS = ["#1DA1FF", "#FF5C7A", "#A78BFA", "#FFB547", "#7CFF5B", "#38BDF8"];
@@ -37,11 +38,18 @@ export default async function Home({
               {t.hero.description}
             </p>
 
-            <div id="download" className="mt-8 flex flex-wrap items-center gap-3">
+            {/* Primary CTA: pre-launch è il beta program (drive a sblocco
+                100 tester Play Store closed→open). Quando Play Store è live
+                in produzione, riportare StoreButtonsRow come primary. */}
+            <div className="mt-8">
+              <HeroBetaCTA locale={lc} />
+            </div>
+
+            <div id="download" className="mt-6 flex flex-wrap items-center gap-3">
               <StoreButtonsRow locale={lc} />
               <a
                 href="#features"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-pill border border-divider text-text-primary font-medium hover:bg-white/5 transition"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-pill border border-divider text-text-secondary hover:text-text-primary hover:bg-white/5 transition text-sm"
               >
                 {t.hero.cta_secondary}
               </a>
