@@ -35,6 +35,12 @@ export default function Header({
             {locale === "it" ? "Integrazioni" : "Integrations"}
           </Link>
           <Link
+            href={`/${locale}/devices`}
+            className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden sm:inline-block"
+          >
+            {dict.nav.devices}
+          </Link>
+          <Link
             href={`/${locale}/support`}
             className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden sm:inline-block"
           >

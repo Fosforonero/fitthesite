@@ -2,7 +2,8 @@
   "nav": {
     "support": "Supporto",
     "privacy": "Privacy",
-    "download": "Scarica"
+    "download": "Scarica",
+    "devices": "Device"
   },
   "hero": {
     "badge": "Disponibile su Android · iOS in arrivo",
@@ -63,6 +64,7 @@
       "features": "Funzionalità",
       "download": "Scarica",
       "support": "Supporto",
+      "devices": "Device supportati",
       "privacy": "Privacy Policy",
       "terms": "Termini di servizio",
       "cookies": "Cookie Policy"

@@ -35,6 +35,7 @@ export default function Footer({
               </Link>
             </li>
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
+            <li><Link href={`/${locale}/devices`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.devices}</Link></li>
             <li><Link href={`/${locale}/support`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>
           </ul>
         </div>

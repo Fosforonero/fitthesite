@@ -55,6 +55,7 @@ export type Dictionary = {
     support: string;
     privacy: string;
     download: string;
+    devices: string;
   };
   hero: {
     badge: string;
@@ -90,6 +91,7 @@ export type Dictionary = {
       features: string;
       download: string;
       support: string;
+      devices: string;
       privacy: string;
       terms: string;
       cookies: string;

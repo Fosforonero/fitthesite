@@ -2,7 +2,8 @@
   "nav": {
     "support": "Support",
     "privacy": "Privacy",
-    "download": "Download"
+    "download": "Download",
+    "devices": "Devices"
   },
   "hero": {
     "badge": "Available on Android · iOS coming soon",
@@ -63,6 +64,7 @@
       "features": "Features",
       "download": "Download",
       "support": "Support",
+      "devices": "Supported devices",
       "privacy": "Privacy Policy",
       "terms": "Terms of Service",
       "cookies": "Cookie Policy"
