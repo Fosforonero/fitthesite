@@ -76,7 +76,7 @@ const config: Config = {
 
       fontSize: {
         // Modular scale — type system from BRAND.md
-        "display-xl": ["clamp(2.75rem, 6vw, 4.25rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
+        "display-xl": ["clamp(2rem, 6vw, 4.25rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
         "display-lg": ["clamp(2.25rem, 5vw, 3.25rem)", { lineHeight: "1.08", letterSpacing: "-0.02em" }],
         "display":    ["clamp(1.875rem, 4vw, 2.5rem)",  { lineHeight: "1.1",  letterSpacing: "-0.015em" }],
         "metric":     ["clamp(1.75rem, 3.5vw, 2.25rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],

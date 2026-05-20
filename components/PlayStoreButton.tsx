@@ -81,7 +81,7 @@ export default function PlayStoreButton({
 
       {disabled && (
         <span
-          className="absolute -top-2 -right-2 px-2 py-0.5 rounded-pill
+          className="absolute -top-2 right-0 px-2 py-0.5 rounded-pill
                      bg-brand-aqua text-[10px] font-semibold uppercase tracking-wider
                      text-[#03121f] shadow-card"
         >

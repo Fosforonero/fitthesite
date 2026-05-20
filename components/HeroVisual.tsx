@@ -59,7 +59,7 @@ export default function HeroVisual({ locale = "it" }: { locale?: "it" | "en" }) 
   const t = locale === "en" ? ENStrings : ITStrings;
 
   return (
-    <div className="relative w-full max-w-[460px] mx-auto lg:mx-0 h-[640px] lg:h-[720px]">
+    <div className="relative w-full max-w-[460px] mx-auto lg:mx-0 h-[520px] sm:h-[640px] lg:h-[720px]">
       {/* Brand gradient glow */}
       <div
         aria-hidden
@@ -81,7 +81,9 @@ export default function HeroVisual({ locale = "it" }: { locale?: "it" | "en" }) 
       </div>
 
       {/* ── Phone A (front, Dashboard) ── */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 w-[290px] sm:w-[310px] aspect-[9/19] z-10">
+      {/* w-[240px] su mobile (h ≈ 506px) per stare nel container h-[520px]
+          senza bleed sotto. sm+ torna a 310px. */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 w-[240px] sm:w-[310px] aspect-[9/19] z-10">
         <PhoneFrame primary>
           <DashboardScreen t={t} />
         </PhoneFrame>

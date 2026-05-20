@@ -71,7 +71,10 @@ export default async function BetaPage({
   const t = lc === "it" ? IT : EN;
 
   return (
-    <main className="relative overflow-hidden bg-bg pb-32 pt-24 text-text-primary md:pt-32">
+    // <div> e non <main>: il layout (marketing)/layout.tsx wrappa gia' i
+    // children in un <main>. Nesting di landmark rompe WCAG e da'
+    // comportamenti incerti agli screen reader iOS/Android.
+    <div className="relative overflow-hidden bg-bg pb-32 pt-24 text-text-primary md:pt-32">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -169,7 +172,7 @@ export default async function BetaPage({
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }
 
