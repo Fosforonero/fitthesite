@@ -250,8 +250,10 @@ export default function BetaSignupForm({ locale }: Props) {
     );
   }
 
+  // `appearance-none` necessario per i <select>: iOS Safari altrimenti ignora
+  // bg-color e border-radius e usa il nativo grigio chiaro (rompe dark theme).
   const inputBase =
-    "w-full rounded-xl border bg-bg-elevated/30 px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none transition-colors";
+    "w-full appearance-none rounded-xl border bg-bg-elevated/30 px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none transition-colors";
 
   return (
     <form onSubmit={onSubmit} className="space-y-5" noValidate>

@@ -71,6 +71,27 @@ export default function CookieBanner({ dict }: { dict: Dictionary }) {
     setVisible(false);
   };
 
+  // Mobile: aggiungi padding-bottom al body finche' il banner e' visibile,
+  // altrimenti la barra fixed copre le CTA in fondo (es. StoreButtonsRow
+  // su homepage). Su sm+ il banner sta in un max-w-3xl e non c'e' overlap.
+  useEffect(() => {
+    if (!visible) return;
+    if (typeof window === "undefined") return;
+    const apply = () => {
+      if (window.innerWidth < 640) {
+        document.body.style.paddingBottom = "200px";
+      } else {
+        document.body.style.paddingBottom = "";
+      }
+    };
+    apply();
+    window.addEventListener("resize", apply);
+    return () => {
+      document.body.style.paddingBottom = "";
+      window.removeEventListener("resize", apply);
+    };
+  }, [visible]);
+
   if (!visible) return null;
 
   return (
