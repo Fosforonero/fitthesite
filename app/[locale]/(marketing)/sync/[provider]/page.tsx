@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Fragment, type ReactNode } from "react";
 import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -17,6 +18,24 @@ import {
 const SITE_URL = "https://www.fitmesh.fit";
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
 const WAITLIST_EMAIL = "waitlist@fitmesh.fit";
+
+/**
+ * Render minimale `**bold**` markdown → <strong>. No HTML injection: usa solo
+ * componenti React, mai dangerouslySetInnerHTML. Input controllato da data.ts.
+ */
+function renderInlineBold(text: string): ReactNode[] {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={i} className="text-text-primary">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <Fragment key={i}>{part}</Fragment>;
+  });
+}
 
 export function generateStaticParams() {
   return PROVIDERS.flatMap((p) =>
@@ -365,6 +384,70 @@ export default async function ProviderLanding({
           <p className="mt-3 text-text-secondary leading-relaxed">{p.techNote[lc]}</p>
         </div>
       </section>
+
+      {/* SETUP GUIDE (optional) */}
+      {p.setupGuide && (
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-12">
+          <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
+            {t(`Come collegare ${p.name}`, `How to connect ${p.name}`)}
+          </h2>
+
+          <h3 className="mt-8 text-lg font-semibold text-text-primary">
+            {t("Setup in 5 minuti", "5-minute setup")}
+          </h3>
+          <ol className="mt-4 space-y-3 text-text-secondary">
+            {p.setupGuide.steps[lc].map((step, i) => (
+              <li key={i} className="flex gap-4">
+                <span className="flex-none w-7 h-7 rounded-full bg-brand-aqua/15 text-brand-aqua text-sm font-semibold flex items-center justify-center">
+                  {i + 1}
+                </span>
+                <span className="leading-relaxed">{renderInlineBold(step)}</span>
+              </li>
+            ))}
+          </ol>
+
+          <h3 className="mt-10 text-lg font-semibold text-text-primary">
+            {t("Cosa viene sincronizzato", "What gets synced")}
+          </h3>
+          <ul className="mt-4 grid gap-2 sm:grid-cols-2 text-text-secondary">
+            {p.setupGuide.syncedData[lc].map((d, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-brand-aqua mt-1">•</span>
+                <span>{d}</span>
+              </li>
+            ))}
+          </ul>
+
+          <h3 className="mt-10 text-lg font-semibold text-text-primary">
+            {t("Risoluzione problemi", "Troubleshooting")}
+          </h3>
+          <div className="mt-4 space-y-3">
+            {p.setupGuide.troubleshooting.map((tr, i) => (
+              <details
+                key={i}
+                className="card p-5 group [&_summary::-webkit-details-marker]:hidden"
+              >
+                <summary className="cursor-pointer flex items-start justify-between gap-4 text-text-primary font-medium">
+                  <span>{tr.q[lc]}</span>
+                  <span className="text-text-muted text-xl leading-none group-open:rotate-45 transition-transform">
+                    +
+                  </span>
+                </summary>
+                <p className="mt-3 text-sm text-text-secondary leading-relaxed">{tr.a[lc]}</p>
+              </details>
+            ))}
+          </div>
+
+          <div className="mt-10 rounded-card border border-divider bg-bg-card/60 p-5">
+            <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
+              {t("Note tecniche", "Technical notes")}
+            </p>
+            <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+              {p.setupGuide.technicalNotes[lc]}
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       {p.faqs.length > 0 && (

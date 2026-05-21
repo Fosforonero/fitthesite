@@ -12,10 +12,13 @@
  *   401 missing/invalid token
  *   409 fingerprint_already_paired_other_user
  */
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
 import { createAdminClient } from "@/lib/supabase/admin";
+
+type Sb = SupabaseClient;
 
 const payloadSchema = z.object({
   device_fingerprint: z.string().min(8).max(128),
@@ -49,7 +52,7 @@ export async function POST(req: Request) {
   }
   const p = parsed.data;
 
-  const admin = createAdminClient();
+  const admin = createAdminClient() as unknown as Sb;
 
   const { data: existingRaw, error: lookupErr } = await admin
     .from("devices")

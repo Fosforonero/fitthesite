@@ -69,6 +69,22 @@ export interface Provider {
     /** Lista cose che l'OAuth aggiungerà (1 riga ognuna). */
     oauthAdds: { it: string[]; en: string[] };
   };
+  /** Guida step-by-step opzionale renderizzata tra tech note e FAQ. */
+  setupGuide?: ProviderSetupGuide;
+}
+
+export interface ProviderSetupGuide {
+  /** Passi numerati (5 step ideale). Markdown bold inline OK via **text**. */
+  steps: { it: string[]; en: string[] };
+  /** Cosa viene sincronizzato (bullet list). */
+  syncedData: { it: string[]; en: string[] };
+  /** Troubleshooting Q&A (3 ideale). */
+  troubleshooting: Array<{
+    q: { it: string; en: string };
+    a: { it: string; en: string };
+  }>;
+  /** Note tecniche conclusive (1 paragrafo). */
+  technicalNotes: { it: string; en: string };
 }
 
 const STD_DATA_TYPES = (extras: Record<string, boolean> = {}) => [
@@ -182,6 +198,82 @@ export const PROVIDERS: Provider[] = [
         "galaxy watch web dashboard",
         "galaxy watch health data",
       ],
+    },
+    setupGuide: {
+      steps: {
+        it: [
+          "Installa **Health Connect** dal Play Store (preinstallato su Android 14+).",
+          "Aggiorna **Samsung Health** all'ultima versione e apri l'app almeno una volta.",
+          "Apri Samsung Health → menu ☰ → Impostazioni → Health Connect → tocca **Autorizza** e abilita lettura/scrittura per passi, BPM, sonno, calorie, distanza, allenamenti, SpO₂.",
+          "Installa **FitMesh Sync** dal Play Store e accedi con Google.",
+          "Concedi a FitMesh i permessi Health Connect richiesti al primo avvio. Premi **Sincronizza ora** per il backfill iniziale.",
+        ],
+        en: [
+          "Install **Health Connect** from the Play Store (preinstalled on Android 14+).",
+          "Update **Samsung Health** to the latest version and open it at least once.",
+          "Open Samsung Health → ☰ menu → Settings → Health Connect → tap **Allow** and enable read/write for steps, heart rate, sleep, calories, distance, workouts, SpO₂.",
+          "Install **FitMesh Sync** from the Play Store and sign in with Google.",
+          "Grant FitMesh the requested Health Connect permissions on first launch. Tap **Sync now** for the initial backfill.",
+        ],
+      },
+      syncedData: {
+        it: [
+          "Passi giornalieri e per intervallo",
+          "Frequenza cardiaca (media, riposo, sample continuo)",
+          "Sonno con fasi (Profondo, REM, Leggero, Sveglio)",
+          "Calorie attive e basali",
+          "Distanza percorsa",
+          "Allenamenti (tipo, durata, kcal, BPM medio)",
+          "SpO₂ — saturazione ossigeno notturna",
+          "VO₂ max (se misurato dal Watch)",
+        ],
+        en: [
+          "Daily and intraday steps",
+          "Heart rate (average, resting, continuous samples)",
+          "Sleep with stages (Deep, REM, Light, Awake)",
+          "Active and basal calories",
+          "Distance",
+          "Workouts (type, duration, kcal, average BPM)",
+          "SpO₂ — overnight blood oxygen",
+          "VO₂ max (when measured by the Watch)",
+        ],
+      },
+      troubleshooting: [
+        {
+          q: {
+            it: "Non vedo i miei dati su FitMesh",
+            en: "I don't see my data in FitMesh",
+          },
+          a: {
+            it: "Torna in Samsung Health → Impostazioni → Health Connect → verifica che FitMesh sia nella lista app autorizzate.",
+            en: "Go back to Samsung Health → Settings → Health Connect → make sure FitMesh is in the authorized apps list.",
+          },
+        },
+        {
+          q: {
+            it: "I dati arrivano in ritardo",
+            en: "Data arrives late",
+          },
+          a: {
+            it: "Samsung Health spinge su Health Connect ogni 15 minuti circa. Per forzare un push immediato apri Samsung Health, scorri verso il basso sulla home, poi torna su FitMesh e premi 'Sincronizza ora'.",
+            en: "Samsung Health pushes to Health Connect roughly every 15 minutes. To force an immediate push open Samsung Health, pull down to refresh, then return to FitMesh and tap 'Sync now'.",
+          },
+        },
+        {
+          q: {
+            it: "Vedo i passi ma non il sonno",
+            en: "I see steps but not sleep",
+          },
+          a: {
+            it: "In Samsung Health → Impostazioni → Health Connect controlla che il permesso 'Sonno' sia attivo. È un permesso separato e di default non è incluso nel 'Concedi tutto'.",
+            en: "In Samsung Health → Settings → Health Connect verify that the 'Sleep' permission is enabled. It's a separate permission and is not included in 'Allow all' by default.",
+          },
+        },
+      ],
+      technicalNotes: {
+        it: "Connessione via Health Connect, no OAuth. Latenza tipica 5–15 minuti dal Watch alla dashboard. Granularità: passi e BPM per minuto, sonno per fase, allenamenti per sessione. I dati restano sul telefono e vengono inviati solo al backend Supabase del tuo account FitMesh.",
+        en: "Connection via Health Connect, no OAuth. Typical latency 5–15 minutes from Watch to dashboard. Granularity: steps and heart rate per minute, sleep per stage, workouts per session. Data stays on your phone and is only sent to your FitMesh account's Supabase backend.",
+      },
     },
   },
   {
