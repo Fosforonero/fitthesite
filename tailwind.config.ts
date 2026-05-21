@@ -45,6 +45,10 @@ const config: Config = {
         warning: "#FFB547",
         error:   "#FF5C7A",
         info:    "#38BDF8",
+
+        accent:     "#21E6C1",
+        "accent-2": "#7CFF5B",
+        "accent-3": "#1DA1FF",
       },
 
       backgroundImage: {

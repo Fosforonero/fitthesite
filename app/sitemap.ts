@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "",              changeFrequency: "monthly", priority: 1.0 },
     { path: "/about",        changeFrequency: "monthly", priority: 0.85 },
     { path: "/integrations", changeFrequency: "weekly",  priority: 0.9 },
+    { path: "/beta",         changeFrequency: "weekly",  priority: 0.95 },
     { path: "/support",      changeFrequency: "monthly", priority: 0.7 },
     { path: "/privacy",      changeFrequency: "yearly",  priority: 0.5 },
     { path: "/terms",        changeFrequency: "yearly",  priority: 0.5 },
