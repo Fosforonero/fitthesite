@@ -3,6 +3,7 @@ import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
+import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
 
 const KPI_COLORS = ["#21E6C1", "#7CFF5B", "#1DA1FF", "#A78BFA", "#FFB547", "#FF5C7A"];
 
@@ -444,6 +445,72 @@ export default async function Home({
           </div>
         </div>
       </section>
+
+      {/* ════════════════════════════════════════════════════════════════
+       *  APPROFONDISCI — pillar + top article (internal linking SEO)
+       *  ════════════════════════════════════════════════════════════ */}
+      {(() => {
+        const featuredSlugs = [
+          "guida-sync-wearable-2026",
+          "scegliere-smartwatch-dati-2026",
+          "alternative-health-sync-2026",
+        ];
+        const featured = featuredSlugs
+          .map((s) => BLOG_POSTS_BY_SLUG[s])
+          .filter((p): p is NonNullable<typeof p> => p !== undefined);
+        if (featured.length === 0) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
+            <div className="flex items-end justify-between gap-4 flex-wrap mb-10">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
+                  {lc === "it" ? "Approfondisci" : "Read more"}
+                </p>
+                <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
+                  {lc === "it"
+                    ? "Guide e confronti per scegliere bene."
+                    : "Guides and comparisons to choose well."}
+                </h2>
+              </div>
+              <Link
+                href={`/${lc}/blog`}
+                className="group inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition"
+              >
+                {lc === "it" ? "Tutti gli articoli" : "All articles"}
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </Link>
+            </div>
+            <div className="grid gap-5 md:grid-cols-3">
+              {featured.map((post, i) => (
+                <Link
+                  key={post.slug}
+                  href={`/${lc}/blog/${post.slug}`}
+                  className="card-glass p-7 group hover:-translate-y-0.5 transition-transform flex flex-col"
+                  data-reveal
+                  style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
+                >
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
+                    {post.pillar
+                      ? (lc === "it" ? "Pilastro" : "Pillar")
+                      : (lc === "it" ? "Guida" : "Guide")}
+                    {" · "}
+                    {post.readMinutes} min
+                  </p>
+                  <h3 className="mt-3 font-display text-lg font-semibold text-text-primary group-hover:text-brand-aqua transition leading-snug">
+                    {post.hero.title[lc]}
+                  </h3>
+                  <p className="mt-3 text-sm text-text-secondary leading-relaxed line-clamp-3 flex-1">
+                    {post.hero.subtitle[lc]}
+                  </p>
+                  <span className="mt-4 text-xs text-brand-aqua font-medium inline-flex items-center gap-1">
+                    {lc === "it" ? "Leggi" : "Read"} →
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* ════════════════════════════════════════════════════════════════
        *  FINAL CTA — full-width spotlight

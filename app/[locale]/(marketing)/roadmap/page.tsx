@@ -455,6 +455,16 @@ export default async function RoadmapPage({
               "The \"Q3 / Q4 2026\" dates indicate target release windows. Some integrations depend on partner approvals (e.g. Garmin Developer Program, Huawei Health Kit) and may slip. We update this page each sprint — if anything looks stale, tell us.",
             )}
           </p>
+          <Link
+            href={`/${lc}/blog/gdpr-dati-fitness-smartwatch`}
+            className="mt-5 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
+          >
+            {t(
+              "GDPR e dati fitness: dove finiscono i dati del tuo smartwatch",
+              "GDPR and fitness data: where your smartwatch data ends up",
+            )}
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </Link>
         </div>
       </section>
 

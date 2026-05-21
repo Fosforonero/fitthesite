@@ -268,6 +268,16 @@ export default async function IntegrationsHub({
               "Any app or smartwatch that writes to Health Connect is automatically readable by FitMesh — Huawei Health, Mobvoi, OnePlus Health, Coros, Withings (partial), Garmin Connect (partial), Polar Flow (partial). Dedicated OAuth integrations add the advanced data (Training Load, Body Battery, GPS tracks) that Health Connect doesn't expose.",
             )}
           </p>
+          <Link
+            href={`/${lc}/blog/guida-sync-wearable-2026`}
+            className="mt-6 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
+          >
+            {t(
+              "Approfondisci nella guida completa al sync wearable",
+              "Read the complete guide to wearable sync",
+            )}
+            <span className="transition-transform group-hover:translate-x-1">→</span>
+          </Link>
         </div>
       </section>
 

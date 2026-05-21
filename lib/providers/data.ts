@@ -71,6 +71,12 @@ export interface Provider {
   };
   /** Guida step-by-step opzionale renderizzata tra tech note e FAQ. */
   setupGuide?: ProviderSetupGuide;
+  /**
+   * Slug di articoli blog correlati (renderizzati come card "Approfondisci"
+   * in fondo alla landing). Internal linking SEO: distribuisce link equity
+   * dalle landing /sync ai cornerstone /blog.
+   */
+  relatedBlogSlugs?: string[];
 }
 
 export interface ProviderSetupGuide {
@@ -275,6 +281,7 @@ export const PROVIDERS: Provider[] = [
         en: "Connection via Health Connect, no OAuth. Typical latency 5–15 minutes from Watch to dashboard. Granularity: steps and heart rate per minute, sleep per stage, workouts per session. Data stays on your phone and is only sent to your FitMesh account's Supabase backend.",
       },
     },
+    relatedBlogSlugs: ["backup-galaxy-watch-pc", "guida-sync-wearable-2026"],
   },
   {
     slug: "wear-os",
@@ -508,6 +515,7 @@ export const PROVIDERS: Provider[] = [
         "amazfit web dashboard",
       ],
     },
+    relatedBlogSlugs: ["vedere-dati-wearable-browser-pc", "guida-sync-wearable-2026"],
   },
 
   // ── Roadmap: OAuth-based integrations ───────────────────────────────────
@@ -677,6 +685,7 @@ export const PROVIDERS: Provider[] = [
         en: "Sync chain: Fitbit device → Fitbit app → Health Connect → FitMesh. Typical latency 15–30 minutes. Historical backfill beyond 30 days requires the official Fitbit Web API OAuth, on the Q3 2026 roadmap.",
       },
     },
+    relatedBlogSlugs: ["esportare-dati-fitbit-google", "alternative-health-sync-2026"],
   },
   {
     slug: "garmin",
@@ -850,6 +859,7 @@ export const PROVIDERS: Provider[] = [
         en: "Today: Garmin Connect → Health Connect bridge, typical latency 15–30 minutes, daily granularity. Q3 2026: official OAuth 2.0 + Garmin Health API with new-activity webhooks, second-by-second heart rate, full GPS tracks, 12-month backfill on first connect.",
       },
     },
+    relatedBlogSlugs: ["scegliere-smartwatch-dati-2026", "guida-sync-wearable-2026"],
   },
   {
     slug: "strava",
@@ -1105,6 +1115,7 @@ export const PROVIDERS: Provider[] = [
       it: ["sincronizzare withings dashboard", "withings health connect", "withings body composition android"],
       en: ["sync withings dashboard", "withings health connect", "withings body composition android"],
     },
+    relatedBlogSlugs: ["gdpr-dati-fitness-smartwatch", "guida-sync-wearable-2026"],
   },
   {
     slug: "huawei",

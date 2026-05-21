@@ -14,6 +14,8 @@ import {
   statusLabel,
   type Provider,
 } from "@/lib/providers/data";
+import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
+import { categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
 
 const SITE_URL = "https://www.fitmesh.fit";
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
@@ -493,6 +495,46 @@ export default async function ProviderLanding({
           </div>
         </section>
       )}
+
+      {/* APPROFONDISCI — internal linking ai blog post correlati */}
+      {p.relatedBlogSlugs && p.relatedBlogSlugs.length > 0 && (() => {
+        const relatedPosts = p.relatedBlogSlugs
+          .map((s) => BLOG_POSTS_BY_SLUG[s])
+          .filter((post): post is NonNullable<typeof post> => post !== undefined);
+        if (relatedPosts.length === 0) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
+            <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
+              {t("Approfondisci", "Read more")}
+            </h2>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {relatedPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/${lc}/blog/${post.slug}`}
+                  className="card p-6 hover:-translate-y-0.5 transition-transform group"
+                >
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
+                    {post.pillar
+                      ? t("Pilastro · ", "Pillar · ")
+                      : ""}
+                    {blogCategoryLabel(post.category, lc)}
+                  </p>
+                  <h3 className="mt-2 font-display text-lg font-semibold text-text-primary group-hover:text-brand-aqua transition">
+                    {post.hero.title[lc]}
+                  </h3>
+                  <p className="mt-2 text-sm text-text-secondary leading-relaxed line-clamp-3">
+                    {post.hero.subtitle[lc]}
+                  </p>
+                  <p className="mt-3 text-xs text-text-muted">
+                    {post.readMinutes} {t("min di lettura", "min read")}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* RELATED */}
       {relatedProviders.length > 0 && (
