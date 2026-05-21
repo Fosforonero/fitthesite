@@ -171,9 +171,13 @@ export default async function ProviderLanding({
       />
 
       {/* HERO */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-12">
+      <section className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-16">
+        <div
+          aria-hidden
+          className="halo-conic absolute left-1/2 top-0 -z-10 h-[420px] w-[680px] -translate-x-1/2 opacity-50 animate-float"
+        />
         <div className="grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7" data-reveal>
             <div className="flex flex-wrap items-center gap-2">
               <span
                 className="inline-flex items-center gap-2 px-3 py-1 rounded-pill border text-xs font-medium"
@@ -245,23 +249,39 @@ export default async function ProviderLanding({
           </div>
 
           {/* Provider monogram card */}
-          <div className="lg:col-span-5">
-            <div className="card p-10 flex flex-col items-center justify-center min-h-[280px] relative overflow-hidden">
+          <div className="lg:col-span-5" data-reveal style={{ "--reveal-delay": "120ms" } as React.CSSProperties}>
+            <div className="card-glass p-10 flex flex-col items-center justify-center min-h-[300px] relative overflow-hidden">
               <div
                 aria-hidden
-                className="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-20 blur-3xl"
+                className="absolute -top-28 -right-28 w-80 h-80 rounded-full opacity-30 blur-3xl"
                 style={{ background: p.brandColor }}
               />
               <div
-                className="w-28 h-28 rounded-full flex items-center justify-center font-display text-5xl font-bold text-white relative"
-                style={{
-                  background: `linear-gradient(135deg, ${p.brandColor}, ${p.brandColor}cc)`,
-                  boxShadow: `0 16px 40px -16px ${p.brandColor}88`,
-                }}
-              >
-                {p.initial}
+                aria-hidden
+                className="absolute -bottom-20 -left-20 w-56 h-56 rounded-full opacity-20 blur-3xl"
+                style={{ background: p.brandColor }}
+              />
+              {/* Animated ring around the monogram */}
+              <div className="relative">
+                <div
+                  aria-hidden
+                  className="absolute inset-0 -m-3 rounded-full opacity-60 animate-pulse"
+                  style={{
+                    background: `conic-gradient(from 0deg, ${p.brandColor}00, ${p.brandColor}66, ${p.brandColor}00)`,
+                    filter: "blur(6px)",
+                  }}
+                />
+                <div
+                  className="relative w-28 h-28 rounded-full flex items-center justify-center font-display text-5xl font-bold text-white"
+                  style={{
+                    background: `linear-gradient(135deg, ${p.brandColor}, ${p.brandColor}cc)`,
+                    boxShadow: `0 16px 40px -16px ${p.brandColor}88, inset 0 1px 0 rgba(255,255,255,0.25)`,
+                  }}
+                >
+                  {p.initial}
+                </div>
               </div>
-              <p className="mt-6 font-display text-2xl font-semibold text-text-primary relative">
+              <p className="mt-7 font-display text-2xl font-semibold text-text-primary relative tracking-tight">
                 {p.name}
               </p>
               <p className="mt-1 text-sm text-text-muted relative">{p.vendor}</p>

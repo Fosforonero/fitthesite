@@ -74,7 +74,7 @@ export default async function BetaPage({
     // <div> e non <main>: il layout (marketing)/layout.tsx wrappa gia' i
     // children in un <main>. Nesting di landmark rompe WCAG e da'
     // comportamenti incerti agli screen reader iOS/Android.
-    <div className="relative overflow-hidden bg-bg pb-32 pt-24 text-text-primary md:pt-32">
+    <div className="relative overflow-hidden pb-32 pt-20 text-text-primary md:pt-28">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -85,10 +85,11 @@ export default async function BetaPage({
         }}
       />
 
-      {/* Glow background */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[500px] bg-gradient-to-b from-accent/10 via-transparent to-transparent" />
-      <div className="pointer-events-none absolute -left-32 top-40 -z-10 h-96 w-96 rounded-full bg-accent-2/20 blur-3xl" />
-      <div className="pointer-events-none absolute -right-32 top-80 -z-10 h-96 w-96 rounded-full bg-accent-3/20 blur-3xl" />
+      {/* Page-local atmospheric layers (sopra al MarketingBackdrop globale) */}
+      <div
+        aria-hidden
+        className="halo-conic pointer-events-none absolute left-1/2 top-0 -z-10 h-[520px] w-[720px] -translate-x-1/2 opacity-70 animate-float"
+      />
 
       <div className="mx-auto max-w-3xl px-6">
         <Breadcrumbs
@@ -97,56 +98,98 @@ export default async function BetaPage({
         />
 
         {/* Hero */}
-        <header className="mb-16 mt-8 text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-accent">
-            <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
+        <header className="mb-16 mt-8 text-center" data-reveal>
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent backdrop-blur-sm">
+            <span className="relative flex w-2 h-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animate-ping" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
+            </span>
             {t.kicker}
           </div>
-          <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
+          <h1 className="font-display text-balance text-4xl font-semibold leading-[1.05] tracking-tightest md:text-5xl lg:text-display-xl">
             {t.h1_a}{" "}
-            <span className="bg-gradient-to-r from-accent-2 via-accent to-accent-3 bg-clip-text text-transparent">
+            <span className="text-brand-gradient">
               {t.h1_b}
             </span>
             {t.h1_c && <> {t.h1_c}</>}
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-text-secondary md:text-xl">
+          <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl">
             {t.sub}
           </p>
         </header>
 
         {/* Perks */}
-        <section className="mb-16 grid gap-4 sm:grid-cols-3">
-          {t.perks.map((perk) => (
-            <div
-              key={perk.title}
-              className="rounded-2xl border border-bg-elevated bg-bg-elevated/40 p-5"
-            >
-              <div className="mb-2 text-2xl">{perk.emoji}</div>
-              <h3 className="mb-1 font-semibold text-text-primary">{perk.title}</h3>
-              <p className="text-sm text-text-secondary">{perk.desc}</p>
-            </div>
-          ))}
+        <section className="mb-16 grid gap-4 sm:grid-cols-3" data-reveal style={{ "--reveal-delay": "150ms" } as React.CSSProperties}>
+          {t.perks.map((perk, i) => {
+            const color = ["#7CFF5B", "#21E6C1", "#1DA1FF"][i];
+            return (
+              <div
+                key={perk.title}
+                className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 overflow-hidden hover:-translate-y-1 transition-all duration-300"
+              >
+                <div
+                  aria-hidden
+                  className="absolute -top-16 -right-12 w-40 h-40 rounded-full blur-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+                  style={{ background: color }}
+                />
+                <div
+                  className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-2xl text-xl"
+                  style={{
+                    background: `linear-gradient(135deg, ${color}22, ${color}08)`,
+                    boxShadow: `inset 0 0 0 1px ${color}33`,
+                  }}
+                >
+                  {perk.emoji}
+                </div>
+                <h3 className="relative font-display text-lg font-semibold text-text-primary">{perk.title}</h3>
+                <p className="relative mt-2 text-sm leading-relaxed text-text-secondary">{perk.desc}</p>
+              </div>
+            );
+          })}
         </section>
 
-        {/* Form */}
-        <section className="rounded-3xl border border-bg-elevated bg-bg-elevated/30 p-8 md:p-10">
-          <h2 className="mb-2 text-2xl font-bold text-text-primary">{t.formTitle}</h2>
-          <p className="mb-8 text-text-secondary">{t.formSub}</p>
-          <BetaSignupForm locale={lc} />
+        {/* Form — promosso a card-glass per essere il focus */}
+        <section
+          className="card-glass p-8 md:p-10 relative overflow-hidden"
+          data-reveal
+        >
+          <div
+            aria-hidden
+            className="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-25 blur-3xl"
+            style={{ background: "radial-gradient(circle, #21E6C1 0%, transparent 70%)" }}
+          />
+          <div className="relative">
+            <h2 className="font-display text-2xl font-semibold text-text-primary tracking-tight">{t.formTitle}</h2>
+            <p className="mt-2 mb-8 text-text-secondary">{t.formSub}</p>
+            <BetaSignupForm locale={lc} />
+          </div>
         </section>
 
         {/* What happens next */}
-        <section className="mt-16">
-          <h2 className="mb-6 text-2xl font-bold text-text-primary">{t.nextTitle}</h2>
-          <ol className="space-y-4">
+        <section className="mt-20" data-reveal>
+          <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
+            {lc === "it" ? "Processo" : "Process"}
+          </p>
+          <h2 className="mt-3 mb-8 font-display text-display font-semibold tracking-tightest text-text-primary">{t.nextTitle}</h2>
+          <ol className="space-y-3">
             {t.nextSteps.map((step, i) => (
-              <li key={step.title} className="flex gap-4">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/15 font-mono text-sm font-bold text-accent">
-                  {i + 1}
+              <li
+                key={step.title}
+                className="group flex gap-5 rounded-2xl border border-white/[0.05] bg-white/[0.015] p-5 hover:bg-white/[0.03] hover:border-white/[0.1] transition-all"
+              >
+                <div
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl font-display text-sm font-bold"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(33,230,193,0.18), rgba(124,255,91,0.08))",
+                    boxShadow: "inset 0 0 0 1px rgba(33,230,193,0.30)",
+                    color: "#21E6C1",
+                  }}
+                >
+                  {String(i + 1).padStart(2, "0")}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-text-primary">{step.title}</h3>
-                  <p className="text-sm text-text-secondary">{step.desc}</p>
+                  <h3 className="font-display text-base font-semibold text-text-primary">{step.title}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-text-secondary">{step.desc}</p>
                 </div>
               </li>
             ))}
@@ -154,17 +197,20 @@ export default async function BetaPage({
         </section>
 
         {/* FAQ */}
-        <section className="mt-16">
-          <h2 className="mb-6 text-2xl font-bold text-text-primary">{t.faqTitle}</h2>
-          <div className="space-y-4">
+        <section className="mt-20" data-reveal>
+          <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
+            FAQ
+          </p>
+          <h2 className="mt-3 mb-8 font-display text-display font-semibold tracking-tightest text-text-primary">{t.faqTitle}</h2>
+          <div className="space-y-3">
             {t.faqs.map((faq) => (
               <details
                 key={faq.q}
-                className="group rounded-2xl border border-bg-elevated bg-bg-elevated/30 p-5"
+                className="group card p-5 [&_summary::-webkit-details-marker]:hidden"
               >
-                <summary className="flex cursor-pointer items-center justify-between font-medium text-text-primary">
+                <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium text-text-primary">
                   {faq.q}
-                  <span className="text-accent transition-transform group-open:rotate-45">+</span>
+                  <span className="text-brand-aqua text-xl leading-none transition-transform duration-300 group-open:rotate-45">+</span>
                 </summary>
                 <p className="mt-3 text-sm leading-relaxed text-text-secondary">{faq.a}</p>
               </details>

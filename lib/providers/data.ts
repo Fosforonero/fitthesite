@@ -330,6 +330,138 @@ export const PROVIDERS: Provider[] = [
     },
   },
   {
+    slug: "pixel-watch",
+    name: "Pixel Watch",
+    vendor: "Google",
+    category: "smartwatch",
+    status: "live",
+    brandColor: "#4285F4",
+    initial: "P",
+    tagline: {
+      it: "Pixel Watch 1/2/3 su dashboard personale via Fitbit + Health Connect.",
+      en: "Pixel Watch 1/2/3 on a personal dashboard via Fitbit + Health Connect.",
+    },
+    longDesc: {
+      it: "Il Pixel Watch usa l'app Fitbit come backend ufficiale: i dati di passi, BPM, sonno e calorie passano dal Watch a Fitbit, da Fitbit a Health Connect, e da lì FitMesh li legge automaticamente. Funziona con Pixel Watch 1, 2 e 3, senza OAuth, senza chiavi API, in un setup di 5 minuti.",
+      en: "The Pixel Watch uses the Fitbit app as its official backend: steps, heart rate, sleep and calories flow from the Watch to Fitbit, from Fitbit to Health Connect, and from there FitMesh reads them automatically. Works with Pixel Watch 1, 2 and 3, no OAuth, no API keys, 5-minute setup.",
+    },
+    techNote: {
+      it: "Catena di sync: Pixel Watch → app Fitbit → Health Connect → FitMesh. Latenza tipica 15–30 minuti. Le fasi di sonno REM/Deep/Light dettagliate richiedono l'OAuth Fitbit Web API (Q3 2026).",
+      en: "Sync chain: Pixel Watch → Fitbit app → Health Connect → FitMesh. Typical latency 15–30 minutes. Detailed REM/Deep/Light sleep stages require Fitbit Web API OAuth (Q3 2026).",
+    },
+    dataTypes: STD_DATA_TYPES({ vo2max: false, spo2: true }),
+    faqs: [
+      {
+        q: {
+          it: "Devo installare l'app Fitbit?",
+          en: "Do I need the Fitbit app?",
+        },
+        a: {
+          it: "Sì — il Pixel Watch usa Fitbit come app companion ufficiale. Senza Fitbit installato i dati non vengono sincronizzati. Una volta connessa Fitbit a Health Connect, FitMesh legge tutto automaticamente.",
+          en: "Yes — Pixel Watch uses Fitbit as the official companion app. Without Fitbit installed data isn't synced. Once Fitbit is connected to Health Connect, FitMesh reads everything automatically.",
+        },
+      },
+      {
+        q: {
+          it: "Perché non vedo le fasi del sonno (REM/Deep/Light)?",
+          en: "Why can't I see sleep stages (REM/Deep/Light)?",
+        },
+        a: {
+          it: "Via Health Connect Fitbit espone il sonno solo come durata totale. Le fasi REM/Deep/Light/Awake arriveranno con l'OAuth Fitbit Web API previsto per Q3 2026.",
+          en: "Via Health Connect Fitbit only exposes sleep as total duration. REM/Deep/Light/Awake stages will arrive with the planned Fitbit Web API OAuth (Q3 2026).",
+        },
+      },
+    ],
+    seoKeywords: {
+      it: [
+        "sincronizzare pixel watch dashboard",
+        "pixel watch health connect",
+        "pixel watch alternativa fitbit",
+        "esportare dati pixel watch",
+      ],
+      en: [
+        "sync pixel watch dashboard",
+        "pixel watch health connect",
+        "pixel watch fitbit alternative",
+        "export pixel watch data",
+      ],
+    },
+    setupGuide: {
+      steps: {
+        it: [
+          "Installa **Health Connect** dal Play Store (preinstallato su Android 14+).",
+          "Installa o aggiorna l'app **Fitbit** sul telefono Android associato al Pixel Watch (il Pixel Watch usa Fitbit come backend).",
+          "Apri Fitbit → tab **You** (in basso a destra) → **Health Connect** → tocca **Connetti** e autorizza la scrittura di passi, BPM, sonno, calorie, distanza, allenamenti.",
+          "Installa **FitMesh Sync** dal Play Store e accedi con Google.",
+          "Concedi i permessi Health Connect richiesti da FitMesh al primo avvio, poi premi **Sincronizza ora**.",
+        ],
+        en: [
+          "Install **Health Connect** from the Play Store (preinstalled on Android 14+).",
+          "Install or update the **Fitbit app** on the Android phone paired with your Pixel Watch (Pixel Watch uses Fitbit as its backend).",
+          "Open Fitbit → **You** tab (bottom right) → **Health Connect** → tap **Connect** and authorize write access for steps, heart rate, sleep, calories, distance, workouts.",
+          "Install **FitMesh Sync** from the Play Store and sign in with Google.",
+          "Grant the Health Connect permissions FitMesh requests on first launch, then tap **Sync now**.",
+        ],
+      },
+      syncedData: {
+        it: [
+          "Passi giornalieri",
+          "Frequenza cardiaca (media, riposo, sample)",
+          "Sonno (durata totale e ora inizio/fine)",
+          "Calorie attive e basali",
+          "Distanza",
+          "Allenamenti (tipo, durata, kcal)",
+          "SpO₂ notturno (se attivato nel Pixel Watch)",
+        ],
+        en: [
+          "Daily steps",
+          "Heart rate (average, resting, samples)",
+          "Sleep (total duration and start/end time)",
+          "Active and basal calories",
+          "Distance",
+          "Workouts (type, duration, kcal)",
+          "Overnight SpO₂ (if enabled on the Pixel Watch)",
+        ],
+      },
+      troubleshooting: [
+        {
+          q: {
+            it: "Non vedo i miei dati su FitMesh",
+            en: "I don't see my data in FitMesh",
+          },
+          a: {
+            it: "Verifica che la connessione Fitbit → Health Connect sia attiva: Fitbit → You → Health Connect → stato 'Connesso'. Se non lo è, tocca 'Connetti' e riautorizza.",
+            en: "Confirm that the Fitbit → Health Connect connection is active: Fitbit → You → Health Connect → status 'Connected'. If not, tap 'Connect' and re-authorize.",
+          },
+        },
+        {
+          q: {
+            it: "I dati arrivano in ritardo",
+            en: "Data arrives late",
+          },
+          a: {
+            it: "Comportamento normale: la sync Pixel Watch → Fitbit → Health Connect ha un delay tipico di 15–30 minuti. Per accelerare apri Fitbit, refresh manuale (pull-to-refresh), poi 'Sincronizza ora' in FitMesh.",
+            en: "Expected behavior: Pixel Watch → Fitbit → Health Connect typically has a 15–30 minute delay. To speed it up open Fitbit, pull down to refresh, then tap 'Sync now' in FitMesh.",
+          },
+        },
+        {
+          q: {
+            it: "Vedo passi e BPM ma non le fasi di sonno",
+            en: "I see steps and heart rate but no sleep stages",
+          },
+          a: {
+            it: "Via Health Connect Fitbit espone il sonno come durata totale, non come fasi REM/Deep/Light. Le fasi arriveranno con l'OAuth Fitbit Web API previsto in roadmap.",
+            en: "Via Health Connect Fitbit exposes sleep as total duration, not REM/Deep/Light stages. Stages will arrive with the planned Fitbit Web API OAuth integration.",
+          },
+        },
+      ],
+      technicalNotes: {
+        it: "Catena di sync: Pixel Watch → Fitbit app → Health Connect → FitMesh. No OAuth, no chiavi API. Latenza tipica 15–30 minuti. Granularità: passi giornalieri, BPM per minuto, sonno per sessione. I dati restano sul telefono e vengono inviati solo al backend Supabase del tuo account FitMesh.",
+        en: "Sync chain: Pixel Watch → Fitbit app → Health Connect → FitMesh. No OAuth, no API keys. Typical latency 15–30 minutes. Granularity: daily steps, heart rate per minute, sleep per session. Data stays on your phone and is only sent to your FitMesh account's Supabase backend.",
+      },
+    },
+  },
+  {
     slug: "xiaomi-mi-band",
     name: "Mi Band & Xiaomi Watch",
     vendor: "Xiaomi",
@@ -471,6 +603,80 @@ export const PROVIDERS: Provider[] = [
         "fitbit to galaxy watch",
       ],
     },
+    setupGuide: {
+      steps: {
+        it: [
+          "Verifica i requisiti: **Android 10 o superiore** e app **Fitbit versione 4.10** o superiore.",
+          "Installa **Health Connect** dal Play Store (preinstallato su Android 14+).",
+          "Apri l'app Fitbit → tab **You** in basso a destra → **Health Connect** → tocca **Connetti** e autorizza la scrittura.",
+          "Installa **FitMesh Sync** dal Play Store e accedi con Google.",
+          "Concedi a FitMesh i permessi Health Connect richiesti, poi premi **Sincronizza ora**.",
+        ],
+        en: [
+          "Check requirements: **Android 10 or higher** and **Fitbit app version 4.10** or higher.",
+          "Install **Health Connect** from the Play Store (preinstalled on Android 14+).",
+          "Open the Fitbit app → **You** tab (bottom right) → **Health Connect** → tap **Connect** and authorize write access.",
+          "Install **FitMesh Sync** from the Play Store and sign in with Google.",
+          "Grant FitMesh the requested Health Connect permissions, then tap **Sync now**.",
+        ],
+      },
+      syncedData: {
+        it: [
+          "Passi giornalieri",
+          "Frequenza cardiaca (media, riposo, sample)",
+          "Sonno (durata totale, ora inizio/fine)",
+          "Calorie attive e basali",
+          "Distanza",
+          "Allenamenti base (tipo, durata, kcal, BPM medio)",
+          "SpO₂ notturno (se supportato dal device)",
+        ],
+        en: [
+          "Daily steps",
+          "Heart rate (average, resting, samples)",
+          "Sleep (total duration, start/end time)",
+          "Active and basal calories",
+          "Distance",
+          "Basic workouts (type, duration, kcal, average BPM)",
+          "Overnight SpO₂ (when supported by the device)",
+        ],
+      },
+      troubleshooting: [
+        {
+          q: {
+            it: "Non vedo i miei dati su FitMesh",
+            en: "I don't see my data in FitMesh",
+          },
+          a: {
+            it: "Il bridge Fitbit → Health Connect non è automatico al 100%. Apri Fitbit → You → Health Connect e verifica che lo stato sia 'Connesso'. Se non lo è, tocca 'Connetti' e riautorizza i permessi.",
+            en: "The Fitbit → Health Connect bridge isn't fully automatic. Open Fitbit → You → Health Connect and check that status reads 'Connected'. If not, tap 'Connect' and re-authorize permissions.",
+          },
+        },
+        {
+          q: {
+            it: "I dati arrivano in ritardo",
+            en: "Data arrives late",
+          },
+          a: {
+            it: "L'app Fitbit fa polling sul cloud ogni 15 minuti. Per forzare un sync scorri verso il basso sulla home Fitbit per il refresh manuale, poi premi 'Sincronizza ora' su FitMesh.",
+            en: "The Fitbit app polls the cloud every 15 minutes. To force a sync pull down on the Fitbit home for manual refresh, then tap 'Sync now' in FitMesh.",
+          },
+        },
+        {
+          q: {
+            it: "Vedo passi e BPM ma non le fasi di sonno",
+            en: "I see steps and heart rate but no sleep stages",
+          },
+          a: {
+            it: "Via Health Connect Fitbit espone solo la durata totale del sonno, non le fasi REM/Deep/Light. Le fasi dettagliate arriveranno con l'OAuth Fitbit Web API previsto per Q3 2026.",
+            en: "Via Health Connect Fitbit only exposes total sleep duration, not REM/Deep/Light stages. Detailed stages will arrive with the planned Fitbit Web API OAuth (Q3 2026).",
+          },
+        },
+      ],
+      technicalNotes: {
+        it: "Catena di sync: Fitbit device → app Fitbit → Health Connect → FitMesh. Latenza tipica 15–30 minuti. Per backfill storico oltre 30 giorni serve l'OAuth Fitbit Web API ufficiale, in roadmap Q3 2026.",
+        en: "Sync chain: Fitbit device → Fitbit app → Health Connect → FitMesh. Typical latency 15–30 minutes. Historical backfill beyond 30 days requires the official Fitbit Web API OAuth, on the Q3 2026 roadmap.",
+      },
+    },
   },
   {
     slug: "garmin",
@@ -567,6 +773,82 @@ export const PROVIDERS: Provider[] = [
         "export garmin data",
         "garmin to samsung health",
       ],
+    },
+    setupGuide: {
+      steps: {
+        it: [
+          "Verifica i requisiti: **Android 10+** e app **Garmin Connect** installata con almeno un device già accoppiato.",
+          "Installa **Health Connect** dal Play Store (preinstallato su Android 14+).",
+          "Apri Garmin Connect → menu ☰ → **Impostazioni** → **Partner connessi** → **Health Connect** → tocca **Connetti** e abilita lettura/scrittura per passi, BPM, sonno, calorie, distanza, allenamenti.",
+          "Installa **FitMesh Sync** dal Play Store e accedi con Google.",
+          "Concedi a FitMesh i permessi Health Connect richiesti al primo avvio, poi premi **Sincronizza ora**.",
+          "(Opzionale) Iscriviti alla waitlist per l'**OAuth Garmin Health API** (Q3 2026) e sbloccare Body Battery, Training Load e GPS dettagliato.",
+        ],
+        en: [
+          "Check requirements: **Android 10+** and **Garmin Connect** app installed with at least one paired device.",
+          "Install **Health Connect** from the Play Store (preinstalled on Android 14+).",
+          "Open Garmin Connect → ☰ menu → **Settings** → **Connected Partners** → **Health Connect** → tap **Connect** and enable read/write for steps, heart rate, sleep, calories, distance, workouts.",
+          "Install **FitMesh Sync** from the Play Store and sign in with Google.",
+          "Grant FitMesh the requested Health Connect permissions on first launch, then tap **Sync now**.",
+          "(Optional) Join the waitlist for the **Garmin Health API OAuth** (Q3 2026) to unlock Body Battery, Training Load and detailed GPS.",
+        ],
+      },
+      syncedData: {
+        it: [
+          "Passi giornalieri e per intervallo",
+          "Frequenza cardiaca media + zone HR",
+          "Sonno (durata totale, no fasi)",
+          "Calorie attive e basali",
+          "Distanza giornaliera",
+          "Allenamenti base (tipo, durata, kcal)",
+          "Body Battery, Training Load, GPS dettagliato → Q3 2026 via OAuth",
+        ],
+        en: [
+          "Daily and intraday steps",
+          "Average heart rate + HR zones",
+          "Sleep (total duration, no stages)",
+          "Active and basal calories",
+          "Daily distance",
+          "Basic workouts (type, duration, kcal)",
+          "Body Battery, Training Load, detailed GPS → Q3 2026 via OAuth",
+        ],
+      },
+      troubleshooting: [
+        {
+          q: {
+            it: "Voglio Body Battery e Training Load oggi",
+            en: "I want Body Battery and Training Load today",
+          },
+          a: {
+            it: "Non è possibile via Health Connect: queste sono metriche proprietarie Garmin non esposte all'API HC. L'integrazione nativa via OAuth Garmin Health API è in roadmap Q3 2026 (in attesa di approvazione Garmin Developer Program).",
+            en: "Not possible via Health Connect: these are proprietary Garmin metrics not exposed to the HC API. Native integration via Garmin Health API OAuth is on the Q3 2026 roadmap (pending Garmin Developer Program approval).",
+          },
+        },
+        {
+          q: {
+            it: "Vedo i passi ma non gli allenamenti",
+            en: "I see steps but not workouts",
+          },
+          a: {
+            it: "In Garmin Connect → Impostazioni → Partner connessi → Health Connect verifica che il permesso 'Allenamenti' (Exercise) sia attivo. È un permesso separato dai passi.",
+            en: "In Garmin Connect → Settings → Connected Partners → Health Connect verify that the 'Exercise' permission is enabled. It's separate from steps.",
+          },
+        },
+        {
+          q: {
+            it: "Quando arriva l'invito all'OAuth?",
+            en: "When do I get the OAuth invite?",
+          },
+          a: {
+            it: "L'invito alla beta OAuth Garmin parte da Q3 2026 in waves, in ordine cronologico di iscrizione alla waitlist. L'approvazione finale dipende dal Garmin Developer Program.",
+            en: "OAuth Garmin beta invites roll out from Q3 2026 in waves, in waitlist signup order. Final approval depends on Garmin Developer Program.",
+          },
+        },
+      ],
+      technicalNotes: {
+        it: "Oggi: bridge Garmin Connect → Health Connect, latenza tipica 15–30 minuti, granularità giornaliera. Q3 2026: OAuth 2.0 + Garmin Health API ufficiale con webhook su nuove attività, BPM secondo per secondo, GPS track completo, backfill 12 mesi al primo connect.",
+        en: "Today: Garmin Connect → Health Connect bridge, typical latency 15–30 minutes, daily granularity. Q3 2026: official OAuth 2.0 + Garmin Health API with new-activity webhooks, second-by-second heart rate, full GPS tracks, 12-month backfill on first connect.",
+      },
     },
   },
   {
@@ -822,6 +1104,138 @@ export const PROVIDERS: Provider[] = [
     seoKeywords: {
       it: ["sincronizzare withings dashboard", "withings health connect", "withings body composition android"],
       en: ["sync withings dashboard", "withings health connect", "withings body composition android"],
+    },
+  },
+  {
+    slug: "huawei",
+    name: "Huawei Health",
+    vendor: "Huawei",
+    category: "wearable",
+    status: "roadmap-q4",
+    brandColor: "#CF0A2C",
+    initial: "H",
+    tagline: {
+      it: "Huawei Watch GT, Band, Watch Ultimate: integrazione nativa via Huawei Health Kit — Q4 2026.",
+      en: "Huawei Watch GT, Band, Watch Ultimate: native integration via Huawei Health Kit — Q4 2026.",
+    },
+    longDesc: {
+      it: "Huawei Health non scrive su Health Connect per limiti di compatibilità con Huawei Mobile Services. Per portare i dati dei tuoi Watch GT, Band, Watch Fit, Watch Ultimate su FitMesh stiamo costruendo l'integrazione nativa via Huawei Health Kit (OAuth ufficiale), prevista per Q4 2026. Iscriviti alla waitlist per la beta chiusa.",
+      en: "Huawei Health doesn't write to Health Connect due to Huawei Mobile Services compatibility limits. To bring data from your Watch GT, Band, Watch Fit, Watch Ultimate into FitMesh we're building a native integration via Huawei Health Kit (official OAuth), planned for Q4 2026. Join the waitlist for the closed beta.",
+    },
+    techNote: {
+      it: "Roadmap Q4 2026: OAuth 2.0 + Huawei Health Kit REST API. Polling 30 min. Backfill 12 mesi al primo connect, compatibilmente con i limiti dell'API Huawei.",
+      en: "Q4 2026 roadmap: OAuth 2.0 + Huawei Health Kit REST API. 30-min polling. 12-month backfill on first connect, subject to Huawei API limits.",
+    },
+    dataTypes: STD_DATA_TYPES({ vo2max: true, spo2: true }),
+    faqs: [
+      {
+        q: {
+          it: "Perché non funziona già via Health Connect?",
+          en: "Why doesn't it work via Health Connect today?",
+        },
+        a: {
+          it: "Huawei Health non espone dati a Health Connect: l'app Huawei è progettata per l'ecosistema Huawei Mobile Services e non integra le API HC di Google. Per garantire qualità dati uniforme integriamo direttamente con l'API ufficiale Huawei Health Kit.",
+          en: "Huawei Health doesn't expose data to Health Connect: the Huawei app is built for the Huawei Mobile Services ecosystem and doesn't integrate Google's HC APIs. To ensure consistent data quality we're integrating directly with the official Huawei Health Kit API.",
+        },
+      },
+      {
+        q: {
+          it: "Quando arriva il mio invito alla beta?",
+          en: "When do I get my beta invite?",
+        },
+        a: {
+          it: "Beta in waves da Q4 2026, in ordine cronologico di iscrizione alla waitlist. Riceverai una mail con il link al download della build beta.",
+          en: "Beta in waves starting Q4 2026, in waitlist signup order. You'll get an email with a link to download the beta build.",
+        },
+      },
+    ],
+    seoKeywords: {
+      it: [
+        "sincronizzare huawei health dashboard",
+        "huawei watch gt dashboard",
+        "huawei health kit oauth",
+        "huawei band export dati",
+      ],
+      en: [
+        "sync huawei health dashboard",
+        "huawei watch gt dashboard",
+        "huawei health kit oauth",
+        "huawei band export data",
+      ],
+    },
+    setupGuide: {
+      steps: {
+        it: [
+          "**Iscriviti alla beta waitlist** dalla CTA principale qui sotto.",
+          "Conferma l'iscrizione dalla mail che ti inviamo.",
+          "Verifica i requisiti: **Huawei Health installato**, Huawei ID attivo, almeno un device Huawei sincronizzato negli ultimi 30 giorni.",
+          "**Attendi l'invito** alla beta chiusa, in distribuzione da Q4 2026.",
+          "Al lancio: aggiorna **FitMesh Sync**, tocca **Collega Huawei** e completa l'OAuth Huawei Health Kit.",
+        ],
+        en: [
+          "**Join the beta waitlist** from the main CTA below.",
+          "Confirm your subscription from the email we send you.",
+          "Check requirements: **Huawei Health installed**, active Huawei ID, at least one Huawei device paired and synced within the last 30 days.",
+          "**Wait for your beta invite**, rolling out from Q4 2026.",
+          "At launch: update **FitMesh Sync**, tap **Connect Huawei** and complete the Huawei Health Kit OAuth flow.",
+        ],
+      },
+      syncedData: {
+        it: [
+          "Passi giornalieri",
+          "Frequenza cardiaca (media, riposo, continua)",
+          "Sonno con fasi (TruSleep)",
+          "Calorie attive e basali",
+          "Distanza e GPS",
+          "Allenamenti (tipo, durata, kcal, BPM medio)",
+          "SpO₂",
+        ],
+        en: [
+          "Daily steps",
+          "Heart rate (average, resting, continuous)",
+          "Sleep with stages (TruSleep)",
+          "Active and basal calories",
+          "Distance and GPS",
+          "Workouts (type, duration, kcal, average BPM)",
+          "SpO₂",
+        ],
+      },
+      troubleshooting: [
+        {
+          q: {
+            it: "Voglio i miei dati Huawei su FitMesh oggi",
+            en: "I want my Huawei data in FitMesh today",
+          },
+          a: {
+            it: "Non è possibile oggi: Huawei Health non scrive su Health Connect. L'integrazione nativa via Huawei Health Kit è in roadmap Q4 2026. Iscriviti alla waitlist per l'invito alla beta chiusa.",
+            en: "Not possible today: Huawei Health doesn't write to Health Connect. Native integration via Huawei Health Kit is on the Q4 2026 roadmap. Join the waitlist for the closed beta invite.",
+          },
+        },
+        {
+          q: {
+            it: "Posso usare un'app di terze parti come ponte?",
+            en: "Can I use a third-party bridge app?",
+          },
+          a: {
+            it: "Sconsigliato: le app di bridge non ufficiali (Health Sync, ecc.) spesso violano i ToS di Huawei e hanno qualità dati instabile. Meglio aspettare l'integrazione nativa Q4 2026.",
+            en: "Not recommended: unofficial bridge apps (Health Sync, etc.) often violate Huawei's ToS and have unstable data quality. Better to wait for the native Q4 2026 integration.",
+          },
+        },
+        {
+          q: {
+            it: "Quale Huawei sarà supportato al lancio?",
+            en: "Which Huawei devices will be supported at launch?",
+          },
+          a: {
+            it: "Tutti i wearable Huawei compatibili con Huawei Health Kit: Watch GT 2/3/4/5, Watch Ultimate, Watch Fit 2/3, Band 7/8/9. La copertura completa sarà confermata in beta.",
+            en: "All Huawei wearables compatible with Huawei Health Kit: Watch GT 2/3/4/5, Watch Ultimate, Watch Fit 2/3, Band 7/8/9. Full coverage will be confirmed during beta.",
+          },
+        },
+      ],
+      technicalNotes: {
+        it: "Roadmap Q4 2026: OAuth 2.0 + Huawei Health Kit REST API. Polling 30 min. Granularità: passi per ora, BPM per sample, sonno per fase TruSleep. Backfill 12 mesi al primo connect, compatibilmente con i limiti dell'API Huawei.",
+        en: "Q4 2026 roadmap: OAuth 2.0 + Huawei Health Kit REST API. 30-min polling. Granularity: steps per hour, heart rate per sample, sleep per TruSleep stage. 12-month backfill on first connect, subject to Huawei API limits.",
+      },
     },
   },
 ];

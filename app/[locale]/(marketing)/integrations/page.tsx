@@ -119,11 +119,15 @@ export default async function IntegrationsHub({
       />
 
       {/* HERO */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-12">
-        <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
+      <section className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-16" data-reveal>
+        <div
+          aria-hidden
+          className="halo-conic absolute left-1/2 top-0 -z-10 h-[400px] w-[640px] -translate-x-1/2 opacity-50 animate-float"
+        />
+        <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
           {t("Integrazioni", "Integrations")}
         </p>
-        <h1 className="mt-3 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-3xl">
+        <h1 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-3xl text-balance">
           {t(
             "Uno smartwatch, una piattaforma. ",
             "One watch, one platform. ",
@@ -132,36 +136,84 @@ export default async function IntegrationsHub({
             {t("Tutti i tuoi dati salute insieme.", "All your health data together.")}
           </span>
         </h1>
-        <p className="mt-6 text-lg text-text-secondary max-w-2xl">
+        <p className="mt-7 text-lg text-text-secondary max-w-2xl leading-relaxed">
           {t(
             `FitMesh Sync supporta nativamente ${liveCount} sorgenti via Health Connect e ne aggiungerà altre ${roadmapCount} via OAuth ufficiale. Lista completa con stato aggiornato.`,
             `FitMesh Sync natively supports ${liveCount} sources via Health Connect and ${roadmapCount} more are coming via official OAuth. Complete list with current status.`,
           )}
         </p>
+
+        {/* Inline stats row */}
+        <ul className="mt-10 flex flex-wrap gap-x-10 gap-y-4 text-left">
+          <li>
+            <p className="font-display text-3xl font-semibold text-text-primary tracking-tightest">
+              {liveCount}<span className="text-brand-green">·</span>
+            </p>
+            <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-text-muted leading-tight">
+              {t("Live oggi", "Live today")}
+            </p>
+          </li>
+          <li>
+            <p className="font-display text-3xl font-semibold text-text-primary tracking-tightest">
+              {roadmapCount}+
+            </p>
+            <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-text-muted leading-tight">
+              {t("In roadmap", "In roadmap")}
+            </p>
+          </li>
+          <li>
+            <p className="font-display text-3xl font-semibold text-text-primary tracking-tightest">
+              {PROVIDERS.length}
+            </p>
+            <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-text-muted leading-tight">
+              {t("Totale supportate", "Total supported")}
+            </p>
+          </li>
+        </ul>
       </section>
 
       {/* GROUPED LIST */}
-      {grouped.map((group) => (
+      {grouped.map((group, gi) => (
         <section
           key={group.category}
           className="max-w-6xl mx-auto px-4 sm:px-6 pt-4 pb-12"
+          data-reveal
+          style={{ "--reveal-delay": `${gi * 80}ms` } as React.CSSProperties}
         >
-          <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-            {group.label}
-          </h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden
+              className="inline-block h-px flex-1 max-w-[60px]"
+              style={{
+                background:
+                  "linear-gradient(90deg, rgba(33,230,193,0.5), transparent)",
+              }}
+            />
+            <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
+              {group.label}
+            </h2>
+            <span className="text-xs text-text-muted font-mono">
+              {String(group.items.length).padStart(2, "0")}
+            </span>
+          </div>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {group.items.map((p) => {
               const status = statusLabel(p.status, lc);
               return (
                 <Link
                   key={p.slug}
                   href={`/${lc}/sync/${p.slug}`}
-                  className="card p-6 hover:-translate-y-0.5 transition-transform"
+                  className="group relative card p-6 overflow-hidden hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="flex items-center justify-between gap-3">
+                  <div
+                    aria-hidden
+                    className="absolute -top-20 -right-16 w-48 h-48 rounded-full blur-3xl opacity-0 group-hover:opacity-25 transition-opacity duration-500"
+                    style={{ background: p.brandColor }}
+                  />
+                  <div className="relative flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
                       <span
-                        className="w-12 h-12 rounded-full flex items-center justify-center font-display text-lg font-bold text-white flex-shrink-0"
+                        className="w-12 h-12 rounded-full flex items-center justify-center font-display text-lg font-bold text-white flex-shrink-0 transition-transform duration-300 group-hover:scale-110"
                         style={{
                           background: `linear-gradient(135deg, ${p.brandColor}, ${p.brandColor}cc)`,
                           boxShadow: `0 8px 20px -10px ${p.brandColor}88`,
@@ -186,7 +238,7 @@ export default async function IntegrationsHub({
                       {status.text}
                     </span>
                   </div>
-                  <p className="mt-4 text-sm text-text-secondary leading-relaxed">
+                  <p className="relative mt-4 text-sm text-text-secondary leading-relaxed">
                     {p.tagline[lc]}
                   </p>
                 </Link>

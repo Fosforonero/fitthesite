@@ -18,47 +18,153 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Soft page-level glow backdrop using brand colors at very low opacity */
+/* ─────────────────────────────────────────────────────────────────────
+ * Page background — multi-layer atmospheric mesh.
+ * Profondità reale invece di una singola sfumatura piatta. Combinazione
+ * di radial-gradients morbidi (colori brand a basso alpha) + noise grain
+ * via SVG inline (vedi .grain). Animate con grain shift impercettibile.
+ * ──────────────────────────────────────────────────────────────────── */
 .bg-page {
   background:
-    radial-gradient(780px 480px at 50% -10%,  rgba(33, 230, 193, 0.08), transparent 60%),
-    radial-gradient(640px 420px at 100% 110%, rgba(29, 161, 255, 0.06), transparent 60%),
+    radial-gradient(900px 540px at 18% -8%,  rgba(124, 255, 91, 0.10), transparent 60%),
+    radial-gradient(820px 520px at 92% 6%,   rgba(33, 230, 193, 0.12), transparent 62%),
+    radial-gradient(720px 480px at 50% 120%, rgba(29, 161, 255, 0.10), transparent 65%),
     linear-gradient(180deg, #0B1023 0%, #050816 100%);
+}
+
+/* SVG noise overlay — usable as <div class="grain" /> over any container.
+ * Pure CSS, no external assets. The fractal noise pattern is encoded as
+ * data-URI. Si applica via ::before per non interferire col layout. */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Conic-gradient halo, used as decoration in hero/CTA cards */
+.halo-conic {
+  background:
+    conic-gradient(from 200deg at 50% 50%,
+      rgba(124, 255, 91, 0.0) 0deg,
+      rgba(124, 255, 91, 0.18) 60deg,
+      rgba(33, 230, 193, 0.22) 140deg,
+      rgba(29, 161, 255, 0.20) 220deg,
+      rgba(124, 255, 91, 0.0) 360deg);
+  filter: blur(48px);
 }
 
 .hairline { border-color: var(--fm-divider); }
 
-/* Brand gradient text helper */
+/* Brand gradient text helper — ora con sottile animazione "shimmer" */
 .text-brand-gradient {
   background-image: var(--fm-gradient-brand);
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  animation: fm-shimmer 8s ease-in-out infinite alternate;
+}
+@keyframes fm-shimmer {
+  0%   { background-position:   0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
-/* CTA button base — usable as className=".btn-cta" */
+/* CTA button base — ora con micro-press, scale e gradient shimmer on hover */
 .btn-cta {
+  position: relative;
   background-image: var(--fm-gradient-cta);
+  background-size: 200% 100%;
+  background-position: 0% 50%;
   color: #03121f;
   box-shadow: var(--fm-shadow-cta);
   font-weight: 600;
-  transition: transform var(--fm-duration-fast) var(--fm-ease-ios),
-              filter var(--fm-duration-fast) var(--fm-ease-ios);
+  transition:
+    transform var(--fm-duration-fast) var(--fm-ease-ios),
+    filter var(--fm-duration-fast) var(--fm-ease-ios),
+    background-position var(--fm-duration-slow) var(--fm-ease-ios),
+    box-shadow var(--fm-duration-normal) var(--fm-ease-ios);
 }
-.btn-cta:hover { filter: brightness(1.05); }
-.btn-cta:active { transform: translateY(1px); }
+.btn-cta:hover {
+  filter: brightness(1.08);
+  background-position: 100% 50%;
+  box-shadow:
+    0 10px 32px -10px rgba(33,230,193,0.55),
+    0 2px 0 rgba(255,255,255,0.10) inset;
+}
+.btn-cta:active { transform: translateY(1px) scale(0.985); }
 
-/* Card base */
+/* Ghost button — dark outlined CTA per azioni secondarie */
+.btn-ghost {
+  border: 1px solid var(--fm-divider);
+  color: var(--fm-text-primary);
+  background: rgba(255,255,255,0.02);
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+  transition: background var(--fm-duration-fast) var(--fm-ease-ios),
+              border-color var(--fm-duration-fast) var(--fm-ease-ios),
+              transform var(--fm-duration-fast) var(--fm-ease-ios);
+}
+.btn-ghost:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(33, 230, 193, 0.45);
+}
+.btn-ghost:active { transform: translateY(1px); }
+
+/* Card base — ora con bordo accent al hover e lift sottile */
 .card {
   background-color: var(--fm-bg-card);
   border: 1px solid var(--fm-divider);
   border-radius: var(--fm-radius-card);
   box-shadow: var(--fm-shadow-card);
   transition: background-color var(--fm-duration-fast) var(--fm-ease-ios),
-              border-color var(--fm-duration-fast) var(--fm-ease-ios);
+              border-color var(--fm-duration-fast) var(--fm-ease-ios),
+              transform var(--fm-duration-fast) var(--fm-ease-ios),
+              box-shadow var(--fm-duration-normal) var(--fm-ease-ios);
 }
 .card:hover {
   background-color: var(--fm-bg-elevated);
+  border-color: rgba(33, 230, 193, 0.25);
+  box-shadow: var(--fm-shadow-hi);
+}
+
+/* Premium "glass" card variant — usata in hero / CTA finale */
+.card-glass {
+  position: relative;
+  border-radius: var(--fm-radius-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0) 60%),
+    rgba(18, 24, 43, 0.55);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 24px 60px -30px rgba(0,0,0,0.8);
+}
+.card-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background:
+    linear-gradient(135deg, rgba(124,255,91,0.35), rgba(33,230,193,0.25) 40%, rgba(29,161,255,0.30) 100%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.45;
 }
 
 /* Selection */
@@ -72,4 +178,58 @@ html, body {
   outline: 2px solid var(--fm-brand-aqua);
   outline-offset: 2px;
   border-radius: 6px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Subtle reveal-on-load. Sections that opt in via [data-reveal] fade
+ * up in sequence. No JS. Triggers immediately on first paint.
+ * ──────────────────────────────────────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fm-reveal 0.9s var(--fm-ease-ios) forwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+@keyframes fm-reveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating slow drift — usato per decoration orbs nei background */
+@keyframes fm-float {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(8px, -12px, 0) scale(1.04); }
+}
+.animate-float { animation: fm-float 12s ease-in-out infinite; }
+
+/* Marquee for logo cloud ticker */
+@keyframes fm-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee { animation: fm-marquee 38s linear infinite; }
+
+/* Caret blink for typewriter accents */
+@keyframes fm-caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.caret-blink { animation: fm-caret-blink 1.05s steps(2, end) infinite; }
+
+/* Glow ring for primary KPI dots */
+@keyframes fm-glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(49, 233, 129, 0.45); }
+  60%      { box-shadow: 0 0 0 10px rgba(49, 233, 129, 0); }
+}
+.glow-pulse { animation: fm-glow-pulse 2.2s ease-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .animate-float,
+  .animate-marquee,
+  .text-brand-gradient,
+  .glow-pulse,
+  .caret-blink {
+    animation: none !important;
+  }
+  [data-reveal] { opacity: 1; transform: none; }
 }
