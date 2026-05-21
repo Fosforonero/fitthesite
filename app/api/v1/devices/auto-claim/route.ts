@@ -51,7 +51,7 @@ export async function POST(req: Request) {
 
   const admin = createAdminClient();
 
-  const { data: existing, error: lookupErr } = await admin
+  const { data: existingRaw, error: lookupErr } = await admin
     .from("devices")
     .select("id, user_id")
     .eq("device_fingerprint", p.device_fingerprint)
@@ -61,6 +61,8 @@ export async function POST(req: Request) {
   if (lookupErr) {
     return jsonError(500, "device_lookup_failed", lookupErr.message);
   }
+
+  const existing = existingRaw as { id: string; user_id: string } | null;
 
   if (existing) {
     if (existing.user_id !== userId) {
@@ -100,5 +102,6 @@ export async function POST(req: Request) {
     return jsonError(500, "device_insert_failed", insErr.message);
   }
 
-  return jsonOk({ deviceId: newDevice.id, created: true });
+  const created = newDevice as { id: string } | null;
+  return jsonOk({ deviceId: created?.id, created: true });
 }
