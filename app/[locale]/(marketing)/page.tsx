@@ -267,17 +267,7 @@ export default async function Home({
           </h2>
         </div>
 
-        <div className="mt-14 relative grid gap-6 md:grid-cols-3">
-          {/* Dashed connector line — only on md+ */}
-          <div
-            aria-hidden
-            className="hidden md:block absolute top-12 left-[16.66%] right-[16.66%] h-px"
-            style={{
-              backgroundImage:
-                "linear-gradient(90deg, transparent 0%, rgba(33,230,193,0.5) 50%, transparent 100%)",
-            }}
-          />
-
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
           {(lc === "it"
             ? [
                 { n: 1, t: "Scarica & autorizza", d: "Installa l'app dal Play Store, dai accesso a Health Connect." },

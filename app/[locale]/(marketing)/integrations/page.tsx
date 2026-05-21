@@ -89,7 +89,9 @@ export default async function IntegrationsHub({
     items: PROVIDERS.filter((p) => p.category === category),
   })).filter((g) => g.items.length > 0);
 
-  const liveCount = PROVIDERS.filter((p) => p.status === "live").length;
+  const liveCount = PROVIDERS.filter(
+    (p) => p.status === "live" || p.status === "live-basic",
+  ).length;
   const roadmapCount = PROVIDERS.filter((p) =>
     p.status.startsWith("roadmap"),
   ).length;
