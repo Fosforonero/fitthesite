@@ -49,6 +49,12 @@ export default function Header({
             {locale === "it" ? "Roadmap" : "Roadmap"}
           </Link>
           <Link
+            href={`/${locale}/blog`}
+            className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden md:inline-block"
+          >
+            Blog
+          </Link>
+          <Link
             href={`/${locale}/beta`}
             className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden sm:inline-block relative"
           >

@@ -1,0 +1,59 @@
+/**
+ * Indice del blog: aggrega tutti i post di `lib/blog/posts/*.ts`.
+ *
+ * Pattern: ogni post è un modulo TS che esporta `post: BlogPost`. Qui li
+ * importiamo, li ordiniamo per `publishedAt` desc, e forniamo helper di
+ * accesso (by-slug, by-category, related).
+ *
+ * Quando aggiungi un articolo:
+ *   1. Crea `lib/blog/posts/{slug}.ts` con `export const post: BlogPost = {...}`
+ *   2. Importalo qui sotto e aggiungilo a `RAW_POSTS`
+ *   3. Il resto (route, sitemap, indici) si aggiorna automaticamente
+ */
+
+import type { BlogPost, BlogCategory } from "./types";
+import { post as guidaSyncWearable2026 } from "./posts/guida-sync-wearable-2026";
+import { post as scegliereSmartwatchDati2026 } from "./posts/scegliere-smartwatch-dati-2026";
+import { post as healthConnectVsSamsungHealth } from "./posts/health-connect-vs-samsung-health";
+import { post as backupGalaxyWatchPc } from "./posts/backup-galaxy-watch-pc";
+import { post as esportareDatiFitbitGoogle } from "./posts/esportare-dati-fitbit-google";
+import { post as vedereDatiWearableBrowserPc } from "./posts/vedere-dati-wearable-browser-pc";
+import { post as alternativeHealthSync2026 } from "./posts/alternative-health-sync-2026";
+import { post as gdprDatiFitnessSmartwatch } from "./posts/gdpr-dati-fitness-smartwatch";
+
+const RAW_POSTS: BlogPost[] = [
+  guidaSyncWearable2026,
+  scegliereSmartwatchDati2026,
+  healthConnectVsSamsungHealth,
+  backupGalaxyWatchPc,
+  esportareDatiFitbitGoogle,
+  vedereDatiWearableBrowserPc,
+  alternativeHealthSync2026,
+  gdprDatiFitnessSmartwatch,
+];
+
+/** Ordinati per data publish desc (più recente prima). */
+export const BLOG_POSTS: BlogPost[] = [...RAW_POSTS].sort((a, b) =>
+  b.publishedAt.localeCompare(a.publishedAt),
+);
+
+export const BLOG_POSTS_BY_SLUG: Record<string, BlogPost> = Object.fromEntries(
+  BLOG_POSTS.map((p) => [p.slug, p]),
+);
+
+export const BLOG_SLUGS: string[] = BLOG_POSTS.map((p) => p.slug);
+
+export function postsByCategory(c: BlogCategory): BlogPost[] {
+  return BLOG_POSTS.filter((p) => p.category === c);
+}
+
+/** Risolve gli slug di related in oggetti `BlogPost`. Filtra slug invalidi. */
+export function relatedPosts(slugs: string[] | undefined): BlogPost[] {
+  if (!slugs?.length) return [];
+  return slugs
+    .map((s) => BLOG_POSTS_BY_SLUG[s])
+    .filter((p): p is BlogPost => Boolean(p));
+}
+
+export type { BlogPost, BlogCategory } from "./types";
+export { categoryLabel } from "./types";
