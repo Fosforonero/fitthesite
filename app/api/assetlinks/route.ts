@@ -21,7 +21,10 @@ const assetLinks = [
       namespace: 'android_app',
       package_name: 'com.fitmeshsync.app',
       sha256_cert_fingerprints: [
-        '52:E0:FC:C3:A2:33:AC:88:66:AC:23:E0:3E:1E:57:55:0D:C9:BC:21:36:C7:1C:D1:24:CC:A7:94:39:FF:BA:2C',
+        '52:E0:FC:C3:A2:33:AC:88:66:AC:23:E0:3E:1E:57:55:0D:C9:BC:21:36:C7:1C:D1:24:CC:A7:94:39:FF:BA:2C', // local keystore (debug + sideload)
+        // TODO(release): Aggiungere SHA-256 Play App Signing (Play Console → Setup → App integrity →
+        // App signing → SHA-256 certificate fingerprint). Senza questa SHA App Links NON
+        // verifica per installazioni dal Play Store (Google ri-firma gli APK).
       ],
     },
   },
