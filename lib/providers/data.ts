@@ -21,7 +21,8 @@ export type ProviderCategory =
   | "smartwatch"
   | "fitness-platform"
   | "health-platform"
-  | "wearable";
+  | "wearable"
+  | "phone-only";
 
 export interface ProviderFAQ {
   q: { it: string; en: string };
@@ -1515,6 +1516,147 @@ export const PROVIDERS: Provider[] = [
       },
     },
   },
+
+  // ── Phone-only (no wearable required) ───────────────────────────────────
+  {
+    slug: "smartphone-android",
+    name: "Smartphone Android",
+    vendor: "Health Connect",
+    category: "phone-only",
+    status: "live",
+    brandColor: "#21E6C1",
+    initial: "📱",
+    tagline: {
+      it: "Niente smartwatch? Funziona già — passi e attività dal telefono via Health Connect.",
+      en: "No smartwatch? It already works — steps and activity from your phone via Health Connect.",
+    },
+    longDesc: {
+      it: "FitMesh Sync legge i dati salute direttamente dal telefono tramite Health Connect — passi del pedometro Android, frequenza cardiaca da app come Samsung Health in modalità telefono-only, dati Google Fit e inserimenti manuali. Nessuno smartwatch necessario: se il tuo telefono scrive su Health Connect, FitMesh li legge.",
+      en: "FitMesh Sync reads health data directly from your phone via Health Connect — Android pedometer steps, heart rate from apps like Samsung Health in phone-only mode, Google Fit data and manual entries. No smartwatch required: if your phone writes to Health Connect, FitMesh reads it.",
+    },
+    techNote: {
+      it: "Health Connect aggrega tutte le sorgenti disponibili sul telefono. Nessun OAuth, nessuna chiave API. Basta concedere i permessi Health Connect a FitMesh al primo avvio.",
+      en: "Health Connect aggregates all available sources on the phone. No OAuth, no API keys. Just grant Health Connect permissions to FitMesh on first launch.",
+    },
+    dataTypes: STD_DATA_TYPES({
+      steps: true,
+      hr: true,
+      sleep: true,
+      calories: true,
+      distance: true,
+      workouts: true,
+      vo2max: false,
+      spo2: false,
+    }),
+    faqs: [
+      {
+        q: {
+          it: "Funziona senza nessun smartwatch?",
+          en: "Does it work without any smartwatch?",
+        },
+        a: {
+          it: "Sì. FitMesh legge i dati che il tuo telefono scrive su Health Connect — passi del pedometro integrato, attività registrate manualmente, dati di app come Samsung Health o Google Fit in modalità telefono. Non hai bisogno di un orologio.",
+          en: "Yes. FitMesh reads the data your phone writes to Health Connect — steps from the built-in pedometer, manually logged activities, data from apps like Samsung Health or Google Fit in phone mode. You don't need a watch.",
+        },
+      },
+      {
+        q: {
+          it: "Che dati vedo senza smartwatch?",
+          en: "What data do I see without a smartwatch?",
+        },
+        a: {
+          it: "Dipende dalle app installate: con Samsung Health (modalità solo telefono) vedi passi, calorie stimate e frequenza cardiaca manuale. Con Google Fit vedi passi e attività. Gli inserimenti manuali (peso, sonno, acqua) appaiono sempre.",
+          en: "It depends on the apps you have installed: with Samsung Health (phone-only mode) you see steps, estimated calories and manual heart rate. With Google Fit you see steps and activities. Manual entries (weight, sleep, water) always appear.",
+        },
+      },
+    ],
+    seoKeywords: {
+      it: [
+        "fitmesh senza smartwatch",
+        "health connect solo telefono",
+        "passi android senza orologio",
+        "pedometro android dashboard",
+      ],
+      en: [
+        "fitmesh without smartwatch",
+        "health connect phone only",
+        "android steps without watch",
+        "android pedometer dashboard",
+      ],
+    },
+    setupGuide: {
+      steps: {
+        it: [
+          "Installa **Health Connect** dal Play Store (preinstallato su Android 14+).",
+          "Assicurati che le app che vuoi usare (Samsung Health, Google Fit, ecc.) abbiano i permessi di scrittura su Health Connect attivi.",
+          "Installa **FitMesh Sync** dal Play Store e accedi con Google.",
+          "Al primo avvio scegli **'Solo telefono'** nella schermata di benvenuto.",
+          "Concedi i permessi Health Connect richiesti e premi **Sincronizza ora**.",
+        ],
+        en: [
+          "Install **Health Connect** from the Play Store (preinstalled on Android 14+).",
+          "Make sure the apps you want to use (Samsung Health, Google Fit, etc.) have Health Connect write permissions enabled.",
+          "Install **FitMesh Sync** from the Play Store and sign in with Google.",
+          "On first launch, choose **'Phone only'** on the welcome screen.",
+          "Grant the requested Health Connect permissions and tap **Sync now**.",
+        ],
+      },
+      syncedData: {
+        it: [
+          "Passi giornalieri (pedometro Android)",
+          "Frequenza cardiaca (da app companion o inserimento manuale)",
+          "Sonno (inserimento manuale o app compatibile)",
+          "Calorie stimate",
+          "Distanza",
+          "Allenamenti registrati manualmente o da app fitness",
+        ],
+        en: [
+          "Daily steps (Android pedometer)",
+          "Heart rate (from companion apps or manual entry)",
+          "Sleep (manual entry or compatible app)",
+          "Estimated calories",
+          "Distance",
+          "Workouts logged manually or from fitness apps",
+        ],
+      },
+      troubleshooting: [
+        {
+          q: {
+            it: "Non vedo i miei passi",
+            en: "I don't see my steps",
+          },
+          a: {
+            it: "Verifica che Health Connect → Permessi → FitMesh Sync → Passi sia abilitato. Se hai Samsung Health o Google Fit installati, verifica anche che abbiano i permessi di scrittura per i passi in Health Connect.",
+            en: "Check that Health Connect → Permissions → FitMesh Sync → Steps is enabled. If you have Samsung Health or Google Fit installed, also verify they have write permissions for steps in Health Connect.",
+          },
+        },
+        {
+          q: {
+            it: "Vedo meno dati rispetto a chi ha uno smartwatch",
+            en: "I see less data than someone with a smartwatch",
+          },
+          a: {
+            it: "Corretto: un wearable aggiunge sensori continui (BPM 24/7, SpO₂, fasi sonno automatiche). Il telefono offre i dati di base — ma per molti utenti è sufficiente per tracciare i passi giornalieri e le attività.",
+            en: "Correct: a wearable adds continuous sensors (24/7 heart rate, SpO₂, automatic sleep stages). The phone offers basic data — but for many users it's enough to track daily steps and activities.",
+          },
+        },
+        {
+          q: {
+            it: "Posso aggiungere uno smartwatch in un secondo momento?",
+            en: "Can I add a smartwatch later?",
+          },
+          a: {
+            it: "Sì. Basta collegare il tuo wearable a Health Connect (via Samsung Health, Zepp, OHealth o altra app companion) e FitMesh leggerà automaticamente i nuovi dati. Puoi cambiare la modalità da Impostazioni in qualsiasi momento.",
+            en: "Yes. Just connect your wearable to Health Connect (via Samsung Health, Zepp, OHealth or another companion app) and FitMesh will automatically read the new data. You can change the mode in Settings at any time.",
+          },
+        },
+      ],
+      technicalNotes: {
+        it: "Connessione via Health Connect, nessun OAuth. I dati del telefono (pedometro, app fitness) vengono letti esattamente come quelli di un wearable — Health Connect astrae la sorgente. La qualità e la granularità dei dati dipende dalle app installate e dai sensori del dispositivo.",
+        en: "Connection via Health Connect, no OAuth. Phone data (pedometer, fitness apps) is read exactly like wearable data — Health Connect abstracts the source. Data quality and granularity depend on the apps installed and the device's sensors.",
+      },
+    },
+  },
 ];
 
 export const PROVIDERS_BY_SLUG: Record<string, Provider> = Object.fromEntries(
@@ -1557,6 +1699,7 @@ export function categoryLabel(
       en: "Health platform",
     },
     wearable: { it: "Wearable", en: "Wearable" },
+    "phone-only": { it: "Solo telefono", en: "Phone-only" },
   };
   return map[category][lc];
 }

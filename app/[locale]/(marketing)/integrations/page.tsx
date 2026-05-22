@@ -70,6 +70,7 @@ const CATEGORY_ORDER: ProviderCategory[] = [
   "wearable",
   "fitness-platform",
   "health-platform",
+  "phone-only",
 ];
 
 export default async function IntegrationsHub({
