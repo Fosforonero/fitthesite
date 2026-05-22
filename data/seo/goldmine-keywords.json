@@ -1,0 +1,211 @@
+{
+  "categories": [
+    {
+      "name": "Come funziona X",
+      "keywords": [
+        {
+          "query": "come funziona health connect",
+          "volume_estimate": 22000,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "cos'è la HRV",
+          "volume_estimate": 18000,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "how does health connect work",
+          "volume_estimate": 33000,
+          "difficulty": "medium",
+          "locale": "en",
+          "covered": false
+        },
+        {
+          "query": "come funziona la sincronizzazione garmin",
+          "volume_estimate": 9500,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "what is HRV and why does it matter",
+          "volume_estimate": 27000,
+          "difficulty": "low",
+          "locale": "en",
+          "covered": false
+        },
+        {
+          "query": "how does samsung health sync work",
+          "volume_estimate": 12000,
+          "difficulty": "low",
+          "locale": "en",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "name": "Significato di X",
+      "keywords": [
+        {
+          "query": "HRV significato sport",
+          "volume_estimate": 14000,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "passi giornalieri significato",
+          "volume_estimate": 8500,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "VO2 max significato corsa",
+          "volume_estimate": 11000,
+          "difficulty": "medium",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "resting heart rate meaning fitness",
+          "volume_estimate": 19000,
+          "difficulty": "medium",
+          "locale": "en",
+          "covered": false
+        },
+        {
+          "query": "sleep score meaning garmin fitbit",
+          "volume_estimate": 15000,
+          "difficulty": "low",
+          "locale": "en",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "name": "Problema X",
+      "keywords": [
+        {
+          "query": "health connect non sincronizza",
+          "volume_estimate": 16000,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "garmin non si connette al telefono",
+          "volume_estimate": 12500,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "fitbit data not syncing android",
+          "volume_estimate": 24000,
+          "difficulty": "low",
+          "locale": "en",
+          "covered": false
+        },
+        {
+          "query": "samsung health not syncing with google fit",
+          "volume_estimate": 18500,
+          "difficulty": "low",
+          "locale": "en",
+          "covered": false
+        },
+        {
+          "query": "health connect dati mancanti",
+          "volume_estimate": 7000,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "name": "Esportare X",
+      "keywords": [
+        {
+          "query": "esportare dati garmin connect",
+          "volume_estimate": 9200,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "esportare dati samsung health",
+          "volume_estimate": 8100,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "export fitbit data to google health",
+          "volume_estimate": 21000,
+          "difficulty": "medium",
+          "locale": "en",
+          "covered": false
+        },
+        {
+          "query": "export garmin data to apple health",
+          "volume_estimate": 17500,
+          "difficulty": "medium",
+          "locale": "en",
+          "covered": false
+        },
+        {
+          "query": "come esportare dati salute android",
+          "volume_estimate": 6800,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": false
+        }
+      ]
+    },
+    {
+      "name": "Migliore X per Y",
+      "keywords": [
+        {
+          "query": "migliore app sincronizzazione salute android",
+          "volume_estimate": 13000,
+          "difficulty": "medium",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "migliore smartwatch monitoraggio HRV",
+          "volume_estimate": 10500,
+          "difficulty": "medium",
+          "locale": "it",
+          "covered": false
+        },
+        {
+          "query": "best health data sync app android",
+          "volume_estimate": 28000,
+          "difficulty": "medium",
+          "locale": "en",
+          "covered": false
+        },
+        {
+          "query": "best app to sync garmin with google health",
+          "volume_estimate": 15500,
+          "difficulty": "low",
+          "locale": "en",
+          "covered": false
+        },
+        {
+          "query": "best fitness tracker for health connect",
+          "volume_estimate": 22000,
+          "difficulty": "medium",
+          "locale": "en",
+          "covered": false
+        }
+      ]
+    }
+  ]
+}

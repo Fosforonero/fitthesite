@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.97.1",
+    "@octokit/rest": "^22.0.1",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.105.4",
+    "fast-xml-parser": "^5.8.0",
     "firebase-admin": "^13.10.0",
+    "googleapis": "^172.0.0",
     "jose": "^4.15.4",
     "next": "^15.1.6",
     "react": "^19.0.0",

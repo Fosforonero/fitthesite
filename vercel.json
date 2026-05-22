@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/internal/seo-ops/daily-check",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/internal/seo-ops/weekly-content",
+      "schedule": "0 6 * * 1"
+    }
+  ]
+}
