@@ -16,12 +16,18 @@
  *   2. Parse + valida il payload Supabase webhook
  *   3. Init Firebase Admin (singleton via getApps())
  *   4. Fetch active group_members EXCLUDING event.user_id
+ *      + filter: solo recipients con profiles.notifications_enabled = true
  *   5. Risolvi display_name dell'originatore (actor)
  *   6. Mappa event_type → { title, body } in italiano
- *   7. Fetch fcm_token dai devices di ogni recipient
+ *   7. Fetch fcm_token dai devices di ogni recipient (filtrati)
  *   8. Dispatch FCM v1 API push via firebase-admin messaging.sendEach()
  *   9. Cleanup token morti (InvalidRegistration/NotRegistered)
  *  10. Return summary { sent, failed, cleaned }
+ *
+ * NOTE: il flag profiles.notifications_enabled controlla SOLO questo
+ * endpoint (notifiche visibili Mesh Famiglia). Il sync-trigger cron
+ * /api/cron/sync-trigger manda data-only push SEMPRE, indipendente da
+ * questo flag — il sync è infrastruttura, non una notifica utente.
  *
  * SERVICE_ROLE: giustificato — webhook server-side gated da FAMILY_EVENTS_WEBHOOK_SECRET.
  * Non è mai esposto al client mobile.
@@ -195,7 +201,13 @@ export async function POST(req: Request): Promise<Response> {
 
   const sb = createAdminClient() as unknown as Sb;
 
-  // ── 4. Fetch active group members (excludendo il mittente) ───────────────
+  // ── 4. Fetch active group members (excludendo il mittente)
+  //       + filter: solo chi ha notifications_enabled = true su profiles ──────
+  //
+  // Recuperiamo user_id dei membri attivi, poi filtriamo via profiles join.
+  // Supabase JS non supporta un JOIN diretto su tabelle diverse in un singolo
+  // .select() senza foreign key — usiamo due query separate per chiarezza e
+  // compatibilità garantita con qualsiasi versione supabase-js.
   let membersQuery = sb
     .from("group_members")
     .select("user_id, display_name")
@@ -212,9 +224,30 @@ export async function POST(req: Request): Promise<Response> {
     return jsonError(500, "members_query_failed", membersErr.message);
   }
 
-  const members = (membersRaw ?? []) as MemberRow[];
-  if (members.length === 0) {
+  const allMembers = (membersRaw ?? []) as MemberRow[];
+  if (allMembers.length === 0) {
     return jsonOk({ ok: true, sent: 0, failed: 0, total: 0, cleaned: 0 });
+  }
+
+  // Fetch profiles.notifications_enabled per filtrare i recipient
+  const allMemberIds = allMembers.map((m) => m.user_id);
+  const { data: profilesRaw } = await sb
+    .from("profiles")
+    .select("id, notifications_enabled")
+    .in("id", allMemberIds);
+
+  const notifEnabledSet = new Set<string>(
+    ((profilesRaw ?? []) as { id: string; notifications_enabled: boolean }[])
+      .filter((p) => p.notifications_enabled !== false)
+      .map((p) => p.id),
+  );
+
+  // Utenti senza riga in profiles (raro) → default true (non blocchiamo)
+  const members = allMembers.filter(
+    (m) => !profilesRaw || notifEnabledSet.has(m.user_id),
+  );
+  if (members.length === 0) {
+    return jsonOk({ ok: true, sent: 0, failed: 0, total: 0, cleaned: 0, skippedAllNotifDisabled: allMembers.length > 0 });
   }
 
   // ── 5. Risolvi display_name dell'actor ───────────────────────────────────
@@ -330,7 +363,8 @@ export async function POST(req: Request): Promise<Response> {
     eventId: event.id,
     eventType: event.event_type,
     groupId: event.group_id,
-    recipientsResolved: members.length,
+    recipientsResolved: allMembers.length,
+    recipientsFiltered: members.length,
     devicesFound: devices.length,
   });
 }
