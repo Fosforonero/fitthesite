@@ -38,7 +38,7 @@ export default function Header({
         <nav className="flex items-center gap-1 sm:gap-1.5 text-sm">
           <Link
             href={`/${locale}/integrations`}
-            className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition"
+            className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden md:inline-block"
           >
             {locale === "it" ? "Integrazioni" : "Integrations"}
           </Link>
