@@ -517,6 +517,139 @@ export const PROVIDERS: Provider[] = [
     },
     relatedBlogSlugs: ["vedere-dati-wearable-browser-pc", "guida-sync-wearable-2026"],
   },
+  {
+    slug: "oneplus-health",
+    name: "OnePlus Health",
+    vendor: "OnePlus",
+    category: "smartwatch",
+    status: "live",
+    brandColor: "#EB0028",
+    initial: "O",
+    tagline: {
+      it: "OnePlus Watch e OnePlus Band via OHealth + Health Connect.",
+      en: "OnePlus Watch and OnePlus Band via OHealth + Health Connect.",
+    },
+    longDesc: {
+      it: "OHealth (l'app companion ufficiale di OnePlus Watch e OnePlus Band) scrive su Health Connect: passi, BPM, sonno, calorie e allenamenti diventano leggibili da FitMesh senza OAuth e senza chiavi API. Funziona sia con OnePlus Watch 2/2R sia con OnePlus Band — confermato da founder beta su OnePlus Watch nel maggio 2026.",
+      en: "OHealth (the official companion app for OnePlus Watch and OnePlus Band) writes to Health Connect: steps, heart rate, sleep, calories and workouts become readable by FitMesh without OAuth or API keys. Works with OnePlus Watch 2/2R and OnePlus Band — confirmed by a beta founder on OnePlus Watch in May 2026.",
+    },
+    techNote: {
+      it: "Catena di sync: OnePlus Watch → OHealth → Health Connect (chiamata 'Connessione salute' in italiano) → FitMesh. Latenza tipica 5–15 minuti. La sync di sonno e BPM con granularità per minuto richiede OHealth aggiornata all'ultima versione.",
+      en: "Sync chain: OnePlus Watch → OHealth → Health Connect → FitMesh. Typical latency 5–15 minutes. Per-minute sleep and heart rate granularity requires the latest OHealth version.",
+    },
+    dataTypes: STD_DATA_TYPES({ vo2max: false, spo2: true }),
+    faqs: [
+      {
+        q: {
+          it: "OHealth supporta davvero Health Connect?",
+          en: "Does OHealth really support Health Connect?",
+        },
+        a: {
+          it: "Sì, dal 2024 OHealth integra la 'Connessione salute' di Android. Devi solo aprire OHealth → Profilo → Connessione salute (Health Connect) e autorizzare la scrittura. Dopo, FitMesh legge tutto in automatico.",
+          en: "Yes, since 2024 OHealth integrates Android's Health Connect. Just open OHealth → Profile → Health Connect and authorize write access. After that, FitMesh reads everything automatically.",
+        },
+      },
+      {
+        q: {
+          it: "Funziona anche con OnePlus Band?",
+          en: "Does it work with OnePlus Band too?",
+        },
+        a: {
+          it: "Sì, OnePlus Band sincronizza con OHealth come OnePlus Watch. I dati di passi, sonno e BPM passano da OHealth a Health Connect e da lì a FitMesh.",
+          en: "Yes, OnePlus Band syncs with OHealth just like OnePlus Watch. Steps, sleep and heart rate flow from OHealth to Health Connect and then to FitMesh.",
+        },
+      },
+    ],
+    seoKeywords: {
+      it: [
+        "sincronizzare oneplus watch dashboard",
+        "ohealth health connect",
+        "oneplus band dashboard",
+        "esportare dati oneplus watch",
+      ],
+      en: [
+        "sync oneplus watch dashboard",
+        "ohealth health connect",
+        "oneplus band dashboard",
+        "export oneplus watch data",
+      ],
+    },
+    setupGuide: {
+      steps: {
+        it: [
+          "Installa o aggiorna **OHealth** dal Play Store (l'app companion ufficiale del OnePlus Watch/Band).",
+          "Installa **Health Connect** dal Play Store (preinstallato su Android 14+).",
+          "Apri **OHealth** → tab **Profilo** (in basso a destra) → **Connessione salute** (Health Connect) → tocca **Connetti** e autorizza la scrittura di passi, BPM, sonno, calorie, allenamenti.",
+          "Installa **FitMesh Sync** dal Play Store e accedi con Google o email.",
+          "Concedi i permessi Health Connect richiesti da FitMesh al primo avvio, poi premi **Sincronizza ora**.",
+        ],
+        en: [
+          "Install or update **OHealth** from the Play Store (the official OnePlus Watch/Band companion app).",
+          "Install **Health Connect** from the Play Store (preinstalled on Android 14+).",
+          "Open **OHealth** → **Profile** tab (bottom right) → **Health Connect** → tap **Connect** and authorize write access for steps, heart rate, sleep, calories, workouts.",
+          "Install **FitMesh Sync** from the Play Store and sign in with Google or email.",
+          "Grant the Health Connect permissions FitMesh requests on first launch, then tap **Sync now**.",
+        ],
+      },
+      syncedData: {
+        it: [
+          "Passi giornalieri",
+          "Frequenza cardiaca (media, riposo, sample per minuto)",
+          "Sonno (durata totale e ora inizio/fine)",
+          "Calorie attive e basali",
+          "Distanza",
+          "Allenamenti (tipo, durata, kcal)",
+          "SpO₂ notturno (se attivato su OnePlus Watch)",
+        ],
+        en: [
+          "Daily steps",
+          "Heart rate (average, resting, per-minute samples)",
+          "Sleep (total duration and start/end time)",
+          "Active and basal calories",
+          "Distance",
+          "Workouts (type, duration, kcal)",
+          "Overnight SpO₂ (if enabled on OnePlus Watch)",
+        ],
+      },
+      troubleshooting: [
+        {
+          q: {
+            it: "Non vedo dati su FitMesh dopo aver collegato OHealth",
+            en: "I don't see data in FitMesh after connecting OHealth",
+          },
+          a: {
+            it: "Apri OHealth → Profilo → Connessione salute e verifica che lo stato sia 'Connesso'. Se no, riconnetti e autorizza tutti i permessi. Poi forza una sync manuale in OHealth (pull-to-refresh sulla home).",
+            en: "Open OHealth → Profile → Health Connect and check that the status is 'Connected'. If not, reconnect and authorize all permissions. Then force a manual sync in OHealth (pull-to-refresh on home).",
+          },
+        },
+        {
+          q: {
+            it: "Vedo passi ma non sonno o BPM",
+            en: "I see steps but no sleep or heart rate",
+          },
+          a: {
+            it: "Sonno e BPM richiedono permessi separati in Health Connect. Vai in Health Connect (impostazioni Android → App → Connessione salute) → Permessi → OHealth → spunta sonno e frequenza cardiaca.",
+            en: "Sleep and heart rate require separate Health Connect permissions. Go to Health Connect (Android Settings → Apps → Health Connect) → Permissions → OHealth → enable Sleep and Heart rate.",
+          },
+        },
+        {
+          q: {
+            it: "Latenza alta tra Watch e FitMesh",
+            en: "High latency between Watch and FitMesh",
+          },
+          a: {
+            it: "Tipica catena OnePlus Watch → OHealth → Health Connect richiede 5–15 minuti. Per accelerare apri OHealth, refresh manuale, poi 'Sincronizza ora' in FitMesh.",
+            en: "Typical chain OnePlus Watch → OHealth → Health Connect takes 5–15 minutes. To speed it up open OHealth, manual refresh, then 'Sync now' in FitMesh.",
+          },
+        },
+      ],
+      technicalNotes: {
+        it: "Catena di sync: OnePlus Watch/Band → OHealth → Health Connect → FitMesh. No OAuth, no chiavi API. Latenza tipica 5–15 minuti. Granularità: passi giornalieri, BPM per minuto, sonno per sessione. Confermato funzionante su OnePlus Watch 2 in maggio 2026 (founder beta). I dati restano sul telefono e vengono inviati solo al backend Supabase del tuo account FitMesh.",
+        en: "Sync chain: OnePlus Watch/Band → OHealth → Health Connect → FitMesh. No OAuth, no API keys. Typical latency 5–15 minutes. Granularity: daily steps, per-minute heart rate, per-session sleep. Confirmed working on OnePlus Watch 2 in May 2026 (beta founder). Data stays on your phone and is only sent to your FitMesh account's Supabase backend.",
+      },
+    },
+    relatedBlogSlugs: ["guida-sync-wearable-2026", "vedere-dati-wearable-browser-pc"],
+  },
 
   // ── Roadmap: OAuth-based integrations ───────────────────────────────────
   {
