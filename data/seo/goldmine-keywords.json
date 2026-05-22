@@ -8,14 +8,18 @@
           "volume_estimate": 22000,
           "difficulty": "low",
           "locale": "it",
-          "covered": false
+          "covered": true,
+          "slug": "come-funziona-health-connect",
+          "covered_at": "2026-05-22"
         },
         {
           "query": "cos'è la HRV",
           "volume_estimate": 18000,
           "difficulty": "low",
           "locale": "it",
-          "covered": false
+          "covered": true,
+          "slug": "hrv-cose-significato-valori",
+          "covered_at": "2026-05-22"
         },
         {
           "query": "how does health connect work",
@@ -55,7 +59,9 @@
           "volume_estimate": 14000,
           "difficulty": "low",
           "locale": "it",
-          "covered": false
+          "covered": true,
+          "slug": "hrv-cose-significato-valori",
+          "covered_at": "2026-05-22"
         },
         {
           "query": "passi giornalieri significato",
@@ -90,6 +96,24 @@
     {
       "name": "Problema X",
       "keywords": [
+        {
+          "query": "passi non si sincronizzano galaxy watch",
+          "volume_estimate": 12000,
+          "difficulty": "medium",
+          "locale": "it",
+          "covered": true,
+          "slug": "passi-non-si-sincronizzano-galaxy-watch",
+          "covered_at": "2026-05-22"
+        },
+        {
+          "query": "samsung health non sincronizza passi",
+          "volume_estimate": 12000,
+          "difficulty": "medium",
+          "locale": "it",
+          "covered": true,
+          "slug": "passi-non-si-sincronizzano-galaxy-watch",
+          "covered_at": "2026-05-22"
+        },
         {
           "query": "health connect non sincronizza",
           "volume_estimate": 16000,

@@ -20,6 +20,9 @@ import { post as esportareDatiFitbitGoogle } from "./posts/esportare-dati-fitbit
 import { post as vedereDatiWearableBrowserPc } from "./posts/vedere-dati-wearable-browser-pc";
 import { post as alternativeHealthSync2026 } from "./posts/alternative-health-sync-2026";
 import { post as gdprDatiFitnessSmartwatch } from "./posts/gdpr-dati-fitness-smartwatch";
+import { post as comeFunzionaHealthConnect } from "./posts/come-funziona-health-connect";
+import { post as hrvCoeSignificatoValori } from "./posts/hrv-cose-significato-valori";
+import { post as passiNonSiSincronizzanoGalaxyWatch } from "./posts/passi-non-si-sincronizzano-galaxy-watch";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -30,6 +33,9 @@ const RAW_POSTS: BlogPost[] = [
   vedereDatiWearableBrowserPc,
   alternativeHealthSync2026,
   gdprDatiFitnessSmartwatch,
+  comeFunzionaHealthConnect,
+  hrvCoeSignificatoValori,
+  passiNonSiSincronizzanoGalaxyWatch,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
