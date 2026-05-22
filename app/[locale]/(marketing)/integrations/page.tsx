@@ -264,8 +264,8 @@ export default async function IntegrationsHub({
           </h2>
           <p className="mt-4 text-text-secondary max-w-2xl leading-relaxed">
             {t(
-              "Qualsiasi app o smartwatch che scriva su Health Connect è automaticamente leggibile da FitMesh — Huawei Health, Mobvoi, OnePlus Health, Coros, Withings (parziale), Garmin Connect (parziale), Polar Flow (parziale). Le integrazioni OAuth dedicate aggiungono dati avanzati (Training Load, Body Battery, GPS track) che Health Connect non espone.",
-              "Any app or smartwatch that writes to Health Connect is automatically readable by FitMesh — Huawei Health, Mobvoi, OnePlus Health, Coros, Withings (partial), Garmin Connect (partial), Polar Flow (partial). Dedicated OAuth integrations add the advanced data (Training Load, Body Battery, GPS tracks) that Health Connect doesn't expose.",
+              "Qualsiasi app o smartwatch che scriva su Health Connect è automaticamente leggibile da FitMesh — Huawei Health, Mobvoi, OnePlus Health, Zepp / Amazfit (modelli moderni), Coros, Withings (parziale), Garmin Connect (parziale), Polar Flow (parziale). Le integrazioni OAuth dedicate aggiungono dati avanzati (Training Load, Body Battery, GPS track) che Health Connect non espone.",
+              "Any app or smartwatch that writes to Health Connect is automatically readable by FitMesh — Huawei Health, Mobvoi, OnePlus Health, Zepp / Amazfit (modern models), Coros, Withings (partial), Garmin Connect (partial), Polar Flow (partial). Dedicated OAuth integrations add the advanced data (Training Load, Body Battery, GPS tracks) that Health Connect doesn't expose.",
             )}
           </p>
           <Link

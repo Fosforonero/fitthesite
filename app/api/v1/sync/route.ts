@@ -85,6 +85,15 @@ const payloadSchema = z.object({
   heightCm: z.number().nullish(),
   bmi: z.number().nullish(),
   respiratoryRate: z.number().nullish(),
+  // v3.0.0+86 (Sprint 6 gap closure vs Health Sync).
+  // Tutti optional/nullable: utenti senza BPM/Libre/MyFitnessPal vedono nulla
+  // in dashboard ma il sync resta valido per le altre metriche.
+  bloodPressureSystolic: z.number().nullish(),
+  bloodPressureDiastolic: z.number().nullish(),
+  glucoseMgDl: z.number().nullish(),
+  waterMl: z.number().int().nullish(),
+  respiratoryRateBpm: z.number().nullish(),
+  nutritionKcalIn: z.number().nullish(),
   // Breakdown intraday (JSONB). L'app Flutter li manda come stringhe JSON
   // (legacy Kotlin format) con suffisso "Json". Accettiamo entrambi via
   // preprocess che parsa string → object.
@@ -206,6 +215,15 @@ export async function POST(req: Request) {
       exercise_sessions: p.exerciseSessionsJson ?? null,
       source_device: p.sourceDevice ?? null,
       source_package: p.sourcePackage ?? null,
+      // v3.0.0+86 — gap closure. Pattern cast come `auto-claim/route.ts`:
+      // colonne aggiunte dopo i types generati, cast a Sb mantiene compatibilità.
+      blood_pressure_systolic: p.bloodPressureSystolic ?? null,
+      blood_pressure_diastolic: p.bloodPressureDiastolic ?? null,
+      blood_glucose_mgdl: p.glucoseMgDl ?? null,
+      water_ml: p.waterMl ?? null,
+      // respiratoryRateBpm preferito sul legacy respiratoryRate (alias).
+      respiratory_rate_bpm: p.respiratoryRateBpm ?? p.respiratoryRate ?? null,
+      nutrition_kcal_in: p.nutritionKcalIn ?? null,
     })
     .select("id")
     .single();

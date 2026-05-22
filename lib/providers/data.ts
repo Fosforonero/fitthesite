@@ -650,6 +650,139 @@ export const PROVIDERS: Provider[] = [
     },
     relatedBlogSlugs: ["guida-sync-wearable-2026", "vedere-dati-wearable-browser-pc"],
   },
+  {
+    slug: "amazfit-zepp",
+    name: "Amazfit & Zepp",
+    vendor: "Zepp Health (ex Huami)",
+    category: "wearable",
+    status: "live",
+    brandColor: "#00B956",
+    initial: "Z",
+    tagline: {
+      it: "Amazfit Bip 5/GTS 4/GTR 4/T-Rex Ultra via Zepp + Health Connect.",
+      en: "Amazfit Bip 5/GTS 4/GTR 4/T-Rex Ultra via Zepp + Health Connect.",
+    },
+    longDesc: {
+      it: "L'app Zepp (ex Amazfit, ex Mi Fit prima ancora) scrive su Health Connect dal 2024 per la maggior parte dei modelli moderni. Funziona out-of-the-box con Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro: passi, BPM, sonno, calorie e allenamenti diventano leggibili da FitMesh senza OAuth e senza chiavi API. I modelli più vecchi (Bip 3, GTR 3, GTS 2) NON supportano Health Connect nativamente — restano legati alla loro versione storica dell'app Zepp e per ora non hanno path di sync supportato.",
+      en: "The Zepp app (formerly Amazfit, formerly Mi Fit before that) writes to Health Connect since 2024 for most modern models. Works out-of-the-box with Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro: steps, heart rate, sleep, calories and workouts become readable by FitMesh without OAuth or API keys. Older models (Bip 3, GTR 3, GTS 2) do NOT support Health Connect natively — they remain tied to their historical Zepp app version and currently have no supported sync path.",
+    },
+    techNote: {
+      it: "Catena di sync: Amazfit (modello moderno) → app Zepp → Health Connect (chiamata 'Connessione salute' in italiano) → FitMesh. Latenza tipica 15–30 minuti. Per sonno e BPM con granularità per minuto serve Zepp aggiornata all'ultima versione e Android 10+.",
+      en: "Sync chain: Amazfit (modern model) → Zepp app → Health Connect → FitMesh. Typical latency 15–30 minutes. Per-minute sleep and heart rate granularity requires the latest Zepp app version and Android 10+.",
+    },
+    dataTypes: STD_DATA_TYPES({ spo2: true, vo2max: false }),
+    faqs: [
+      {
+        q: {
+          it: "Funziona con Bip 3?",
+          en: "Does it work with Bip 3?",
+        },
+        a: {
+          it: "No. Amazfit Bip 3 (e altri modelli pre-2023 come Bip U, GTR 3, GTS 2) restano legati a versioni più vecchie dell'app Zepp che non scrivono su Health Connect. Niente Health Connect = niente FitMesh. Soluzione: passa a un modello supportato (Bip 5 in su) oppure attendi un eventuale OAuth Zepp ufficiale (non in roadmap a oggi).",
+          en: "No. The Amazfit Bip 3 (and other pre-2023 models like Bip U, GTR 3, GTS 2) are tied to older Zepp app versions that do not write to Health Connect. No Health Connect = no FitMesh. Workaround: switch to a supported model (Bip 5 and newer) or wait for an eventual official Zepp OAuth (not on the roadmap today).",
+        },
+      },
+      {
+        q: {
+          it: "Differenze tra Amazfit moderni e vecchi",
+          en: "Differences between modern and old Amazfit",
+        },
+        a: {
+          it: "Modelli moderni (Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro, dal 2023 in poi) usano la nuova app Zepp con bridge Health Connect: FitMesh legge tutto in automatico. Modelli pre-2023 (Bip 3, GTR 3, GTS 2, ecc.) usano un fork separato dell'app e non hanno bridge HC: per ora non sono supportati.",
+          en: "Modern models (Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro, from 2023 onward) use the new Zepp app with Health Connect bridge: FitMesh reads everything automatically. Pre-2023 models (Bip 3, GTR 3, GTS 2, etc.) use a separate fork of the app with no HC bridge: not supported for now.",
+        },
+      },
+    ],
+    seoKeywords: {
+      it: [
+        "amazfit dashboard web",
+        "zepp health connect",
+        "sincronizzare amazfit android",
+        "amazfit gtr 4 dashboard",
+      ],
+      en: [
+        "amazfit web dashboard",
+        "zepp health connect",
+        "sync amazfit android",
+        "amazfit gtr 4 dashboard",
+      ],
+    },
+    setupGuide: {
+      steps: {
+        it: [
+          "Verifica che il tuo Amazfit sia un modello moderno: **Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro** o più recente. I modelli pre-2023 (Bip 3, GTR 3, GTS 2) NON sono supportati.",
+          "Installa o aggiorna **Zepp** dal Play Store (l'app companion ufficiale Amazfit, ex Mi Fit).",
+          "Installa **Health Connect** dal Play Store (preinstallato su Android 14+).",
+          "Apri **Zepp** → tab **Profilo** in basso a destra → **Impostazioni** → **App di terze parti** (o **Servizi salute**) → **Health Connect** / **Connessione salute** → tocca **Connetti** e autorizza la scrittura di passi, BPM, sonno, calorie, allenamenti.",
+          "Installa **FitMesh Sync** dal Play Store, accedi con Google o email, concedi i permessi Health Connect e premi **Sincronizza ora**.",
+        ],
+        en: [
+          "Check that your Amazfit is a modern model: **Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro** or newer. Pre-2023 models (Bip 3, GTR 3, GTS 2) are NOT supported.",
+          "Install or update **Zepp** from the Play Store (the official Amazfit companion app, formerly Mi Fit).",
+          "Install **Health Connect** from the Play Store (preinstalled on Android 14+).",
+          "Open **Zepp** → **Profile** tab (bottom right) → **Settings** → **Third-party apps** (or **Health services**) → **Health Connect** → tap **Connect** and authorize write access for steps, heart rate, sleep, calories, workouts.",
+          "Install **FitMesh Sync** from the Play Store, sign in with Google or email, grant the Health Connect permissions and tap **Sync now**.",
+        ],
+      },
+      syncedData: {
+        it: [
+          "Passi giornalieri",
+          "Frequenza cardiaca (media, riposo, sample per minuto)",
+          "Sonno (durata totale e ora inizio/fine)",
+          "Calorie attive e basali",
+          "Distanza",
+          "Allenamenti (tipo, durata, kcal)",
+          "SpO₂ notturno (se supportato dal modello)",
+        ],
+        en: [
+          "Daily steps",
+          "Heart rate (average, resting, per-minute samples)",
+          "Sleep (total duration and start/end time)",
+          "Active and basal calories",
+          "Distance",
+          "Workouts (type, duration, kcal)",
+          "Overnight SpO₂ (if supported by the model)",
+        ],
+      },
+      troubleshooting: [
+        {
+          q: {
+            it: "Ho un Bip 3 / GTR 3 / GTS 2: non vedo l'opzione Health Connect in Zepp",
+            en: "I have a Bip 3 / GTR 3 / GTS 2: I don't see the Health Connect option in Zepp",
+          },
+          a: {
+            it: "Corretto: i modelli Amazfit pre-2023 usano una versione storica dell'app Zepp senza bridge Health Connect. Non c'è workaround supportato oggi. Per portare quei dati su FitMesh serve passare a un modello supportato oppure attendere un eventuale OAuth ufficiale Zepp (non in roadmap).",
+            en: "Correct: pre-2023 Amazfit models use a legacy Zepp app version with no Health Connect bridge. No supported workaround today. To bring that data into FitMesh you'd need to switch to a supported model or wait for an eventual official Zepp OAuth (not on the roadmap).",
+          },
+        },
+        {
+          q: {
+            it: "Connessione Zepp ↔ Health Connect attiva ma non vedo dati su FitMesh",
+            en: "Zepp ↔ Health Connect connection is active but I see no data in FitMesh",
+          },
+          a: {
+            it: "Apri Zepp e forza un refresh manuale (pull-to-refresh sulla home) — Zepp polla il braccialetto via Bluetooth e può tardare. Poi in FitMesh premi 'Sincronizza ora'. Verifica anche in Health Connect (Impostazioni Android → App → Connessione salute) che Zepp abbia i permessi di scrittura per i tipi che ti interessano (passi, sonno, BPM).",
+            en: "Open Zepp and force a manual refresh (pull-to-refresh on home) — Zepp polls the wearable over Bluetooth and can lag. Then tap 'Sync now' in FitMesh. Also check in Health Connect (Android Settings → Apps → Health Connect) that Zepp has write permission for the metrics you care about (steps, sleep, heart rate).",
+          },
+        },
+        {
+          q: {
+            it: "Sonno frammentato o duplicato dopo il sync",
+            en: "Fragmented or duplicated sleep after sync",
+          },
+          a: {
+            it: "Zepp scrive ogni sessione di sonno come segmento separato — se hai più sveglie nottturne possono apparire più segmenti. FitMesh applica deduplica per tuple `(start, end, stage)` esatte. Se vedi ancora duplicati controlla che non sia attivo un altro tracker (Galaxy Watch, Mi Band) sullo stesso giorno: in tal caso usa 'Risoluzione conflitti dati' nelle impostazioni FitMesh per scegliere la sorgente prioritaria.",
+            en: "Zepp writes each sleep session as a separate segment — multiple night wake-ups may surface as multiple segments. FitMesh dedupes exact `(start, end, stage)` tuples. If duplicates persist, check that no other tracker (Galaxy Watch, Mi Band) is active on the same day: if so, use 'Data conflict resolution' in FitMesh settings to pick the priority source.",
+          },
+        },
+      ],
+      technicalNotes: {
+        it: "Catena di sync: Amazfit (modello moderno) → app Zepp → Health Connect → FitMesh. No OAuth, no chiavi API. Latenza tipica 15–30 minuti. Granularità: passi giornalieri, BPM per minuto, sonno per sessione, allenamenti come record discreti. I modelli pre-2023 (Bip 3, GTR 3, GTS 2) restano fuori scope perché la loro versione storica dell'app Zepp non scrive su Health Connect. I dati restano sul telefono e vengono inviati solo al backend Supabase del tuo account FitMesh.",
+        en: "Sync chain: Amazfit (modern model) → Zepp app → Health Connect → FitMesh. No OAuth, no API keys. Typical latency 15–30 minutes. Granularity: daily steps, per-minute heart rate, per-session sleep, workouts as discrete records. Pre-2023 models (Bip 3, GTR 3, GTS 2) are out of scope because their legacy Zepp app version does not write to Health Connect. Data stays on your phone and is only sent to your FitMesh account's Supabase backend.",
+      },
+    },
+    relatedBlogSlugs: ["guida-sync-wearable-2026", "vedere-dati-wearable-browser-pc"],
+  },
 
   // ── Roadmap: OAuth-based integrations ───────────────────────────────────
   {
