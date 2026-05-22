@@ -48,7 +48,14 @@ function detectLocale(pathname: string): string {
 }
 
 export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({ request });
+  // Inject locale into a custom request header so the root layout can set
+  // <html lang> correctly without duplicating the detection logic.
+  // We clone the existing headers and add our custom one, then pass to
+  // NextResponse.next so Server Components can read it via headers().
+  const detectedLocale = detectLocale(request.nextUrl.pathname);
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-fitmesh-locale', detectedLocale);
+  let response = NextResponse.next({ request: { headers: requestHeaders } });
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

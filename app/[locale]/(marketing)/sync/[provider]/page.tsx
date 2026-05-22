@@ -143,6 +143,29 @@ export default async function ProviderLanding({
         }
       : null;
 
+  // HowTo JSON-LD — emitted only when a setup guide with steps exists.
+  // Makes the page eligible for Google HowTo rich results on setup-intent queries.
+  const howToLd =
+    p.setupGuide && p.setupGuide.steps[lc].length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name:
+            lc === "it"
+              ? `Come connettere ${p.name} a FitMesh Sync`
+              : `How to connect ${p.name} to FitMesh Sync`,
+          description: p.longDesc[lc],
+          inLanguage: lc === "it" ? "it-IT" : "en-US",
+          step: p.setupGuide.steps[lc].map((stepText, i) => ({
+            "@type": "HowToStep",
+            position: i + 1,
+            // Strip inline bold markdown (**text**) for plain-text schema output.
+            name: stepText.replace(/\*\*([^*]+)\*\*/g, "$1").slice(0, 80),
+            text: stepText.replace(/\*\*([^*]+)\*\*/g, "$1"),
+          })),
+        }
+      : null;
+
   // ── UI ───────────────────────────────────────────────────────────────
   const relatedProviders = PROVIDERS.filter(
     (x) => x.slug !== p.slug && x.category === p.category,
@@ -164,6 +187,7 @@ export default async function ProviderLanding({
     <>
       <JsonLd data={softwareLd} />
       {faqLd && <JsonLd data={faqLd} />}
+      {howToLd && <JsonLd data={howToLd} />}
       <Breadcrumbs
         items={[
           { name: t("Integrazioni", "Integrations"), path: `/${lc}/integrations` },
