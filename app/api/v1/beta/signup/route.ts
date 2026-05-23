@@ -161,7 +161,10 @@ export async function POST(req: Request) {
 
   const ua = req.headers.get("user-agent")?.slice(0, 500) ?? null;
 
-  const { data, error } = await supabase
+  // NB: no .select() — anon non ha SELECT policy (l'INSERT è permesso ma il
+  // re-read postgrest fallirebbe con "row-level security policy violation".
+  // L'id non serve al client; per l'admin lo recupera da Supabase dashboard.
+  const { error } = await supabase
     .from("beta_signups")
     .insert({
       email: p.email,
@@ -172,14 +175,12 @@ export async function POST(req: Request) {
       // Salviamo solo l'hash, non l'IP raw (GDPR data minimization)
       signup_ip: ipHash,
       signup_ua: ua,
-    })
-    .select("id")
-    .single();
+    });
 
   if (error) {
     if (error.code === "23505") return jsonError(409, "already_signed_up");
     return jsonError(500, "insert_failed", error.message);
   }
 
-  return jsonOk({ id: (data as { id: string } | null)?.id }, 201);
+  return jsonOk({ ok: true }, 201);
 }
