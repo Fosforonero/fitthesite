@@ -89,9 +89,20 @@ export default function Footer({
       <div className="border-t border-white/[0.06]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-text-muted">
           <span>© {new Date().getFullYear()} FitMesh Sync. {dict.footer.rights}</span>
-          <span className="inline-flex items-center gap-2">
+          <span className="inline-flex items-center gap-2 text-center">
             <span className="w-1 h-1 rounded-full bg-brand-green animate-pulse" />
             {dict.footer.made_with}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span>{dict.footer.fosforonero_label}</span>
+            <a
+              href="https://www.fosforonero.com"
+              target="_blank"
+              rel="noopener"
+              className="font-medium text-text-secondary hover:text-text-primary transition underline decoration-text-muted/40 underline-offset-2"
+            >
+              Fosforonero
+            </a>
           </span>
         </div>
       </div>
