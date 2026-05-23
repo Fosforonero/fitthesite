@@ -12,7 +12,7 @@ import { jsonError, jsonOk } from "@/lib/api/auth-helpers";
 import { runSEOWatchAgent } from "@/lib/seo-ops/agents/watch";
 
 export const dynamic = "force-dynamic";
-export const maxDuration = 300; // 5 minutes — sitemap crawl + PSI calls can be slow
+export const maxDuration = 60; // 5 minutes — sitemap crawl + PSI calls can be slow
 
 function verifyCronSecret(req: Request): boolean {
   const secret = process.env.CRON_SECRET;

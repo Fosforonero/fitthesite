@@ -11,7 +11,7 @@ import { jsonError, jsonOk } from "@/lib/api/auth-helpers";
 import { runSEOContentAgent } from "@/lib/seo-ops/agents/content";
 
 export const dynamic = "force-dynamic";
-export const maxDuration = 300; // 5 minutes — 3x Claude calls + GitHub API
+export const maxDuration = 60; // 5 minutes — 3x Claude calls + GitHub API
 
 function verifyCronSecret(req: Request): boolean {
   const secret = process.env.CRON_SECRET;
