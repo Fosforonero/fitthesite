@@ -4,6 +4,27 @@ Una riga per release. Le release del sito sono indipendenti da quelle dell'app.
 
 ---
 
+## v0.3.0 — 2026-05-23 sera · Welcome email cron + Vercel deploy crisis risolta + Fosforonero footer
+
+### Aggiunto
+- **Welcome email cron** (`/api/cron/beta-welcome-emails`): cron daily 10:00 UTC che pesca da Supabase `beta_signups` i pending senza `welcome_sent_at`, manda welcome email via Resend (template `beta-welcome.ts`), aggiorna `welcome_sent_at` sui successi. Rate-limit 50/tick per non saturare Resend free tier. Auth via `CRON_SECRET` bearer header.
+- **IndexNow daily cron** (`/api/cron/indexnow-daily`): pinging Bing/Yandex/Naver/Seznam di blog posts modificati ultimi 7gg + pagine core IT/EN. Schedule `30 6 * * *`.
+- **Fosforonero brand umbrella link** nel footer (`components/Footer.tsx`): `Un progetto di Fosforonero` → `https://www.fosforonero.com`. Reciprocità SEO con sito brand (quando esisterà).
+- **12 articoli goldmine** SEO (Lane A): batch 1 + batch 2, IT+EN, ~289K vol/mese aggregato.
+
+### Risolto (DOPO ORE di debug)
+- **Vercel deploy stuck PENDING infinito** (root cause finalmente identificato): Vercel Hobby plan permette solo cron **daily**. Il cron `0 * * * *` (hourly) faceva fallire SILENZIOSAMENTE tutti i deploy successivi al suo merge — nessun error visibile né nel dashboard né nei build logs, deployment resta in PENDING per sempre. Scoperto lanciando `vercel deploy --prod --yes` da CLI locale (Node 24 via nvm) che ha sputato l'error chiaro. Fix: schedule `0 * * * *` → `0 10 * * *`.
+- **`ERR_PNPM_OUTDATED_LOCKFILE`** che bloccava i deploy: aggiunto `installCommand: pnpm install --no-frozen-lockfile` in `vercel.json` (safety net permanente — `pnpm` non disponibile sul mac dev con Node 14).
+- **Beta signup form 500 error**: due bug cascade — `signup_ip` era `inet` ma il client mandava hash hex (migration `beta_signups_ip_hash_text`) + `.select("id")` post-insert falliva RLS (anon non ha SELECT policy, rimosso).
+- **Welcome cron TS error** `Property 'founder_number' does not exist on type 'never'`: cast `createAdminClient() as unknown as Sb` (pattern noto del progetto per database.types stale).
+
+### Note operative
+- Welcome email cron è DEPLOYED ma non operativo finché non si setta `RESEND_API_KEY` env su Vercel + verify domain `fitmesh.fit` su Resend.
+- Strava OAuth proxy (`/api/v1/oauth/strava/`) DEPLOYED ma non operativo finché non si setta `STRAVA_CLIENT_SECRET` env.
+- Deploy production live: `dpl_GZpTTu9TGTjVE3ecKe4rqhEPa3qJ` (commit `a810a29`).
+
+---
+
 ## v0.2.1 — 2026-05-16 · Reposition: Fitbit/Garmin/Polar/Withings → "Works via Health Connect"
 
 **Insight strategico:** dal 2024 le app ufficiali di Fitbit, Garmin Connect, Polar Flow e Withings Health Mate scrivono automaticamente su Health Connect. Questo significa che FitMesh già supporta questi brand al livello base (passi, BPM, sonno totale, calorie) — senza aspettare le integrazioni OAuth dedicate. La copy precedente li marcava come "non disponibile / iscriviti waitlist", sottovalutando di fatto il prodotto.
