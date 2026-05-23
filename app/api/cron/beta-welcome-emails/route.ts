@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendEmail } from "@/lib/email/resend";
@@ -6,6 +7,8 @@ import { betaWelcomeEmail } from "@/lib/email/templates/beta-welcome";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
+
+type Sb = SupabaseClient;
 
 export async function GET(req: Request) {
   // Auth: Vercel cron injects Authorization: Bearer <CRON_SECRET>
@@ -16,7 +19,9 @@ export async function GET(req: Request) {
     }
   }
 
-  const sb = createAdminClient();
+  // Cast as Sb perche' database.types stale non include beta_signups columns
+  // (founder_number, welcome_sent_at). Pattern coerente con altri route.
+  const sb = createAdminClient() as unknown as Sb;
 
   // Query pending signups that haven't received a welcome email yet.
   // Rate-limited to 50 per tick so we don't blow up Resend's free tier.
