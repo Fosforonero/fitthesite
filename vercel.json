@@ -1,10 +1,6 @@
 {
   "crons": [
     {
-      "path": "/api/cron/beta-welcome-emails",
-      "schedule": "0 * * * *"
-    },
-    {
       "path": "/api/cron/indexnow-daily",
       "schedule": "30 6 * * *"
     }
