@@ -1,20 +1,12 @@
 {
   "crons": [
     {
-      "path": "/api/internal/seo-ops/daily-check",
-      "schedule": "0 6 * * *"
-    },
-    {
-      "path": "/api/internal/seo-ops/weekly-content",
-      "schedule": "0 6 * * 1"
+      "path": "/api/cron/beta-welcome-emails",
+      "schedule": "0 * * * *"
     },
     {
       "path": "/api/cron/indexnow-daily",
       "schedule": "30 6 * * *"
-    },
-    {
-      "path": "/api/cron/beta-welcome-emails",
-      "schedule": "*/10 * * * *"
     }
   ]
 }
