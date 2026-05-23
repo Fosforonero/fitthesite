@@ -86,6 +86,7 @@ export type Dictionary = {
     legal: string;
     rights: string;
     made_with: string;
+    fosforonero_label: string;
     links: {
       features: string;
       download: string;
