@@ -230,6 +230,100 @@ fitthesite/
     └── alert/route.ts
 ```
 
+## IndexNow
+
+### What it is
+
+IndexNow is a push-notification protocol for search engines: instead of waiting for Bing, Yandex, Naver, or Seznam to crawl the site on their schedule, we tell them immediately when a page is created or updated. They index it faster — often within minutes.
+
+**Google does NOT officially participate in IndexNow** (they use their own crawl signals + Search Console). However, IndexNow aggregates signals across all participating engines, and Google has stated they observe these aggregate patterns. Indirect benefit is possible; direct Google indexing requires the Search Console URL Inspection API or sitemap freshness.
+
+### Key file
+
+The API key file is committed at `public/aed642d85d1553233bd5fdec165b1d94.txt` and served at:
+
+```
+https://www.fitmesh.fit/aed642d85d1553233bd5fdec165b1d94.txt
+```
+
+The same key is hardcoded in `lib/seo/indexnow.ts`. Do not change or delete the public file.
+
+### How it works
+
+**Automatic (Vercel Cron — daily at 06:30 UTC):**
+
+```
+[Vercel Cron daily 06:30 UTC] ──→ GET /api/cron/indexnow-daily
+                                       ↓
+                                  Builds URL list:
+                                  - All blog posts updated in last 7 days (IT + EN)
+                                  - Core pages: homepage + /integrations (IT + EN, always)
+                                       ↓
+                                  POST https://api.indexnow.org/IndexNow
+                                       ↓
+                                  Returns { ok, total, status }
+```
+
+Auth: `CRON_SECRET` header (same as other crons). If `CRON_SECRET` is unset (local dev), no auth required.
+
+**Manual trigger (ad-hoc ping):**
+
+```
+POST /api/internal/seo-ops/indexnow-ping
+Authorization: Bearer SEO_OPS_ALERT_SECRET
+Content-Type: application/json
+
+{ "urls": ["https://www.fitmesh.fit/it/blog/my-new-post", ...] }
+```
+
+Auth: `SEO_OPS_ALERT_SECRET`. Max 10,000 URLs per call (IndexNow API limit).
+
+### Test manuale (curl)
+
+```bash
+# Manual ping for specific URLs
+curl -X POST https://www.fitmesh.fit/api/internal/seo-ops/indexnow-ping \
+  -H "Authorization: Bearer YOUR_SEO_OPS_ALERT_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "urls": [
+      "https://www.fitmesh.fit/it/blog/guida-sync-wearable-2026",
+      "https://www.fitmesh.fit/en/blog/guida-sync-wearable-2026"
+    ]
+  }'
+
+# Expected response: { "ok": true, "status": 200 } or { "ok": true, "status": 202 }
+```
+
+```bash
+# Trigger the daily cron manually (local dev — no auth needed if CRON_SECRET unset)
+curl http://localhost:3000/api/cron/indexnow-daily
+
+# In production:
+curl https://www.fitmesh.fit/api/cron/indexnow-daily \
+  -H "Authorization: Bearer YOUR_CRON_SECRET"
+```
+
+### IndexNow HTTP status codes
+
+| Status | Meaning |
+|---|---|
+| 200 | OK — URLs accepted |
+| 202 | Accepted — queued for processing |
+| 400 | Bad request — malformed body or empty URL list |
+| 403 | Forbidden — API key invalid or key file not accessible |
+| 422 | Unprocessable — URLs don't match the declared host |
+
+### When to trigger manually
+
+- After merging a SEO content PR (weekly-content creates articles that need immediate indexing)
+- After fixing a broken URL or redirect
+- After publishing a major page update outside the 7-day window
+
+### Google Search Console note
+
+Google ignores IndexNow. To accelerate Google indexing of specific pages, use the GSC URL Inspection API manually via the Search Console UI, or wait for the sitemap to be re-crawled (Googlebot typically re-crawls the sitemap within 24–48h of a new deploy).
+
 ## Known Limitations
 
 1. **Vercel filesystem is read-only** — `docs/seo/` reports are written in development only. In production, consider writing to Supabase Storage or logging to Vercel instead. The snapshots (`data/seo/snapshots/`) are also ephemeral in serverless.
