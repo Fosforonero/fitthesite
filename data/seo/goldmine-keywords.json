@@ -162,7 +162,9 @@
           "volume_estimate": 18500,
           "difficulty": "low",
           "locale": "en",
-          "covered": false
+          "covered": true,
+          "slug": "sync-samsung-health-to-google-fit",
+          "covered_at": "2026-05-23"
         },
         {
           "query": "health connect dati mancanti",
@@ -181,7 +183,18 @@
           "volume_estimate": 9200,
           "difficulty": "low",
           "locale": "it",
-          "covered": false
+          "covered": true,
+          "slug": "esportare-dati-garmin",
+          "covered_at": "2026-05-23"
+        },
+        {
+          "query": "scaricare allenamenti garmin connect",
+          "volume_estimate": 12000,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": true,
+          "slug": "esportare-dati-garmin",
+          "covered_at": "2026-05-23"
         },
         {
           "query": "esportare dati samsung health",
@@ -198,11 +211,22 @@
           "covered": false
         },
         {
-          "query": "export garmin data to apple health",
-          "volume_estimate": 17500,
+          "query": "export garmin data",
+          "volume_estimate": 20000,
           "difficulty": "medium",
           "locale": "en",
-          "covered": false
+          "covered": true,
+          "slug": "how-to-export-garmin-data",
+          "covered_at": "2026-05-23"
+        },
+        {
+          "query": "download garmin connect activities",
+          "volume_estimate": 20000,
+          "difficulty": "medium",
+          "locale": "en",
+          "covered": true,
+          "slug": "how-to-export-garmin-data",
+          "covered_at": "2026-05-23"
         },
         {
           "query": "come esportare dati salute android",
@@ -250,6 +274,88 @@
           "difficulty": "medium",
           "locale": "en",
           "covered": false
+        }
+      ]
+    },
+    {
+      "name": "Smartwatch per target specifici",
+      "keywords": [
+        {
+          "query": "smartwatch per anziani",
+          "volume_estimate": 25000,
+          "difficulty": "medium",
+          "locale": "it",
+          "covered": true,
+          "slug": "smartwatch-per-anziani-guida",
+          "covered_at": "2026-05-23"
+        },
+        {
+          "query": "miglior smartwatch anziani 2026",
+          "volume_estimate": 25000,
+          "difficulty": "medium",
+          "locale": "it",
+          "covered": true,
+          "slug": "smartwatch-per-anziani-guida",
+          "covered_at": "2026-05-23"
+        },
+        {
+          "query": "best smartwatch for elderly",
+          "volume_estimate": 40000,
+          "difficulty": "medium",
+          "locale": "en",
+          "covered": true,
+          "slug": "best-smartwatch-for-elderly",
+          "covered_at": "2026-05-23"
+        },
+        {
+          "query": "smartwatch for seniors with health monitoring",
+          "volume_estimate": 40000,
+          "difficulty": "medium",
+          "locale": "en",
+          "covered": true,
+          "slug": "best-smartwatch-for-elderly",
+          "covered_at": "2026-05-23"
+        }
+      ]
+    },
+    {
+      "name": "Sync inter-piattaforma",
+      "keywords": [
+        {
+          "query": "sync samsung health google fit",
+          "volume_estimate": 15000,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": true,
+          "slug": "sync-samsung-health-google-fit",
+          "covered_at": "2026-05-23"
+        },
+        {
+          "query": "sincronizzare samsung health google fit",
+          "volume_estimate": 15000,
+          "difficulty": "low",
+          "locale": "it",
+          "covered": true,
+          "slug": "sync-samsung-health-google-fit",
+          "covered_at": "2026-05-23"
+        },
+        {
+          "query": "sync samsung health to google fit",
+          "volume_estimate": 25000,
+          "difficulty": "low",
+          "locale": "en",
+          "covered": true,
+          "slug": "sync-samsung-health-to-google-fit",
+          "covered_at": "2026-05-23"
+        },
+        {
+          "query": "transfer samsung health data",
+          "volume_estimate": 25000,
+          "difficulty": "low",
+          "locale": "en",
+          "covered": true,
+          "slug": "sync-samsung-health-to-google-fit",
+          "covered_at": "2026-05-23"
         }
       ]
     }

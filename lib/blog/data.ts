@@ -26,6 +26,13 @@ import { post as passiNonSiSincronizzanoGalaxyWatch } from "./posts/passi-non-si
 import { post as howDoesHealthConnectWork } from "./posts/how-does-health-connect-work";
 import { post as whatIsHrvHeartRateVariability } from "./posts/what-is-hrv-heart-rate-variability";
 import { post as galaxyWatchStepsNotSyncing } from "./posts/galaxy-watch-steps-not-syncing";
+// Goldmine batch 2
+import { post as smartwatchPerAnzianiGuida } from "./posts/smartwatch-per-anziani-guida";
+import { post as esportareDatiGarmin } from "./posts/esportare-dati-garmin";
+import { post as syncSamsungHealthGoogleFit } from "./posts/sync-samsung-health-google-fit";
+import { post as bestSmartwatchForElderly } from "./posts/best-smartwatch-for-elderly";
+import { post as howToExportGarminData } from "./posts/how-to-export-garmin-data";
+import { post as syncSamsungHealthToGoogleFit } from "./posts/sync-samsung-health-to-google-fit";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -42,6 +49,13 @@ const RAW_POSTS: BlogPost[] = [
   howDoesHealthConnectWork,
   whatIsHrvHeartRateVariability,
   galaxyWatchStepsNotSyncing,
+  // Goldmine batch 2
+  smartwatchPerAnzianiGuida,
+  esportareDatiGarmin,
+  syncSamsungHealthGoogleFit,
+  bestSmartwatchForElderly,
+  howToExportGarminData,
+  syncSamsungHealthToGoogleFit,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
