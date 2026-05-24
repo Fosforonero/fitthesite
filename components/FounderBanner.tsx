@@ -50,28 +50,28 @@ export default async function FounderBanner({ locale }: { locale: string }) {
   return (
     <Link
       href={`/${locale}/beta`}
-      className="group block border-y border-white/[0.06] bg-gradient-to-r from-brand-green/[0.04] via-brand-aqua/[0.06] to-brand-green/[0.04] hover:via-brand-aqua/[0.12] transition-colors"
+      className="group block border-y border-brand-aqua/30 bg-gradient-to-r from-brand-green/20 via-brand-aqua/30 to-brand-green/20 hover:via-brand-aqua/40 transition-colors shadow-[0_0_40px_-12px_rgba(33,230,193,0.35)]"
       aria-label={headline}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-center gap-3 text-sm">
-        <span className="relative flex w-2 h-2 shrink-0">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-center gap-3 text-sm sm:text-base">
+        <span className="relative flex w-2.5 h-2.5 shrink-0">
           <span
             className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${full ? "bg-text-muted" : "bg-brand-green animate-ping"}`}
           />
           <span
-            className={`relative inline-flex rounded-full h-2 w-2 ${full ? "bg-text-muted" : "bg-brand-green"}`}
+            className={`relative inline-flex rounded-full h-2.5 w-2.5 ${full ? "bg-text-muted" : "bg-brand-green"}`}
           />
         </span>
-        <span className="text-text-secondary">
-          <span className="font-mono text-brand-aqua font-semibold">{remaining}</span>
+        <span className="text-text-primary font-medium">
+          <span className="font-mono text-brand-aqua font-bold text-base sm:text-lg">{remaining}</span>
           <span className="mx-1.5 text-text-muted">/</span>
-          <span className="font-mono">{TOTAL_SPOTS}</span>
+          <span className="font-mono text-text-secondary">{TOTAL_SPOTS}</span>
           <span className="ml-2 hidden sm:inline">{headline}</span>
           <span className="ml-2 sm:hidden">
-            {locale === "it" ? "posti rimasti" : "spots left"}
+            {locale === "it" ? "posti founder gratis" : "free founder spots"}
           </span>
         </span>
-        <span className="hidden md:inline-flex items-center gap-1 text-brand-aqua font-medium transition-transform group-hover:translate-x-1">
+        <span className="hidden md:inline-flex items-center gap-1 text-brand-aqua font-semibold transition-transform group-hover:translate-x-1">
           {cta}
           <span aria-hidden>→</span>
         </span>
