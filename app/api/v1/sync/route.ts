@@ -131,6 +131,11 @@ const payloadSchema = z.object({
     .nullish(),
   sourceDevice: z.string().nullish(),
   sourcePackage: z.string().nullish(),
+  // v101 — multi-source HR picker
+  hrSourceName: z.string().max(120).nullish(),
+  hrSourceQuality: z
+    .enum(["premium", "standard", "basic", "unknown"])
+    .nullish(),
   // Metadata client (opzionale, per UPDATE devices)
   appVersion: z.string().nullish(),
   osVersion: z.string().nullish(),
@@ -215,6 +220,8 @@ export async function POST(req: Request) {
       exercise_sessions: p.exerciseSessionsJson ?? null,
       source_device: p.sourceDevice ?? null,
       source_package: p.sourcePackage ?? null,
+      hr_source_name: p.hrSourceName ?? null,
+      hr_source_quality: p.hrSourceQuality ?? null,
       // v3.0.0+86 — gap closure. Pattern cast come `auto-claim/route.ts`:
       // colonne aggiunte dopo i types generati, cast a Sb mantiene compatibilità.
       blood_pressure_systolic: p.bloodPressureSystolic ?? null,
