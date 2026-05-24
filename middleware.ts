@@ -47,12 +47,51 @@ function detectLocale(pathname: string): string {
   return 'it';
 }
 
+// Path prefixes che NON richiedono il locale prefix (route top-level non-i18n).
+const NON_LOCALIZED_PREFIXES = ['/api', '/oauth', '/mockups', '/_next', '/.well-known'] as const;
+
+function needsLocalePrefix(pathname: string): boolean {
+  // Root path '/' lo lasciamo intoccato (la page.tsx top-level fa il redirect).
+  if (pathname === '/') return false;
+  // Skip route non localizzate.
+  if (NON_LOCALIZED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
+    return false;
+  }
+  // Skip asset statici (anche se il matcher dovrebbe gia' escluderli).
+  if (/\.(svg|png|jpg|jpeg|gif|webp|ico|txt|xml|json)$/i.test(pathname)) return false;
+  // Gia' ha un locale prefix.
+  if (LOCALES.some((l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`))) return false;
+  return true;
+}
+
+function bestLocaleFromAcceptLanguage(header: string | null): string {
+  if (!header) return 'it';
+  const lower = header.toLowerCase();
+  // Prima preferenza vince. Default 'it' (mercato primario).
+  if (lower.startsWith('it') || lower.includes(',it')) return 'it';
+  if (lower.startsWith('en') || lower.includes(',en')) return 'en';
+  return 'it';
+}
+
 export async function middleware(request: NextRequest) {
+  // Redirect deeplink senza locale (es. share URL "/famiglia/join/CODE") al
+  // path localizzato corretto. Risolve il 404 quando l'app condivide URL
+  // senza prefix locale. Fa il redirect PRIMA del refresh sessione per
+  // evitare di sprecare round-trip Supabase su una request che cambia URL.
+  const { pathname, search } = request.nextUrl;
+  if (needsLocalePrefix(pathname)) {
+    const locale = bestLocaleFromAcceptLanguage(request.headers.get('accept-language'));
+    const url = request.nextUrl.clone();
+    url.pathname = `/${locale}${pathname}`;
+    return NextResponse.redirect(url);
+  }
+
   // Inject locale into a custom request header so the root layout can set
   // <html lang> correctly without duplicating the detection logic.
   // We clone the existing headers and add our custom one, then pass to
   // NextResponse.next so Server Components can read it via headers().
-  const detectedLocale = detectLocale(request.nextUrl.pathname);
+  const detectedLocale = detectLocale(pathname);
+  void search; // already preserved by NextResponse.next
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-fitmesh-locale', detectedLocale);
   let response = NextResponse.next({ request: { headers: requestHeaders } });
@@ -83,8 +122,6 @@ export async function middleware(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const { pathname } = request.nextUrl;
 
   if (isProtected(pathname) && !user) {
     const locale = detectLocale(pathname);
