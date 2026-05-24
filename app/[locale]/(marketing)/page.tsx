@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
+import FounderBanner from "@/components/FounderBanner";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
 
@@ -154,6 +155,9 @@ export default async function Home({
           </div>
         </div>
       </section>
+
+      {/* Fascia founder dinamica: X/100 posti disponibili → /beta. */}
+      <FounderBanner locale={lc} />
 
       {/* ════════════════════════════════════════════════════════════════
        *  LOGO CLOUD — marquee infinito dei provider supportati.
