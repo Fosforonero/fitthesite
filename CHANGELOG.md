@@ -4,6 +4,32 @@ Una riga per release. Le release del sito sono indipendenti da quelle dell'app.
 
 ---
 
+## v0.4.0 — 2026-05-24 · Fascia founder home + sync v2 API + landing Mesh Famiglia + SEO hardening
+
+### Aggiunto
+- **Fascia founder dinamica in home** (`components/FounderBanner.tsx`): Server Component che fetcha `get_beta_spots_taken()` RPC con cache ISR 60s, mostra "Restano X/100 posti founder gratis per sempre" cliccabile → `/[locale]/beta`. Gradient brand verde→aqua, soft glow, dot ping animato. Riposiziona come "Beta esaurita — lista d'attesa" quando counter raggiunge 100.
+- **Landing `/[locale]/famiglia`** (Mesh Famiglia marketing): cluster keyword "monitorare salute genitori anziani / famiglia" — zero competitor diretti in IT. Struttura hero + 3 personas (genitori anziani / figli teen / partner) + 3-step how + 2-col privacy + tech stack + pricing + 6 FAQ + final CTA. Hreflang IT/EN completo. JSON-LD WebPage + FAQPage. Linkata da Footer e sitemap (priority 0.95).
+- **`public/llms.txt`** (standard 2025 AI crawler): description product + use cases + URL chiave + technical facts per AI overviews accurate + sezione "what FitMesh is NOT" per disambiguazione (vs Health Sync clone, vs medical device, vs location tracker).
+- **JSON-LD audit completo + 5 upgrade**:
+  - WebSite ora ha `SearchAction` (sitelinks search box eligibility)
+  - MobileApplication ora ha `screenshot` + `featureList` (5 voci IT/EN) + `softwareVersion: "3.2.2"` + `operatingSystem: "Android 8.0 and up"`
+  - Organization estesa con `sameAs` Play Store + Fosforonero brand + `founder: Person Matteo Pizzi` + `foundingDate: 2026-04` + `areaServed: [IT, EU]`
+  - Home page WebPage + BreadcrumbList specifici linkati al @graph layout via @id
+  - Support page uniformata a `<JsonLd>` component (era inline raw `<script>`)
+- **Sync route `/api/v1/sync`** accetta `hrSourceName` + `hrSourceQuality` (app v101 multi-source HR picker). Insert in fitness_metrics + Zod schema esteso (backward-compatible).
+
+### Risolto
+- **Link Mesh Famiglia 404**: app generava `fitmesh.fit/famiglia/join/CODE` (senza prefix locale) ma route è `/[locale]/famiglia/join/[code]`. Middleware Next.js esteso con `needsLocalePrefix()` + `bestLocaleFromAcceptLanguage()`: ogni path non localizzato (escluso /api, /oauth, /mockups, /_next, /.well-known, asset) viene redirected a `/{best-locale}{path}`. Risolve anche futuri share URL di blog/articoli senza dover toccare app code.
+- **Fascia founder gradient invisibile** (prima release): era 4-6% opacity, ora 20-30% + bordo aqua/30 + soft glow + font sm:text-lg per counter. Da fascia sussurrata a fascia che cattura l'occhio.
+
+### Note operative
+- Deploy `9f593e0` live (commit feat SEO drop)
+- Counter founder mostra "Restano 83/100" — 17 founder seeded da migration v100
+- Welcome email cron DEPLOYATA (route 401 = auth richiesta) ma NON operativa finché manca env `RESEND_API_KEY` + verify dominio `fitmesh.fit` su Resend
+- Strava OAuth proxy DEPLOYATO ma NON operativo finché manca env `STRAVA_CLIENT_SECRET`
+
+---
+
 ## v0.3.0 — 2026-05-23 sera · Welcome email cron + Vercel deploy crisis risolta + Fosforonero footer
 
 ### Aggiunto
