@@ -46,6 +46,7 @@ export default function Footer({
           </div>
           <ul className="space-y-2.5">
             <li><a href={`/${locale}#features`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.features}</a></li>
+            <li><Link href={`/${locale}/famiglia`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Mesh Famiglia" : "Family Mesh"}</Link></li>
             <li><Link href={`/${locale}/integrations`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Integrazioni" : "Integrations"}</Link></li>
             <li><Link href={`/${locale}/roadmap`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Roadmap" : "Roadmap"}</Link></li>
             <li><Link href={`/${locale}/blog`} className="text-text-secondary hover:text-text-primary transition">Blog</Link></li>

@@ -1,0 +1,59 @@
+# FitMesh Sync
+
+> FitMesh Sync is an Android app that mirrors smartwatch and wearable health data (Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit, Polar, Withings) into a premium, privacy-first personal dashboard. Built on Health Connect. EU servers, GDPR compliant. No opaque clouds, no trackers, no data brokers.
+
+Independent project by Fosforonero (Matteo Pizzi). Launched 2026. Currently in closed beta — 100 founder seats with lifetime Pro access offered free during beta phase.
+
+## Core product
+- [Homepage](https://www.fitmesh.fit/it): product overview, features, download
+- [About](https://www.fitmesh.fit/it/about): mission, founder story, why FitMesh
+- [Integrations](https://www.fitmesh.fit/it/integrations): all supported wearables and sync sources
+- [Roadmap](https://www.fitmesh.fit/it/roadmap): public roadmap with shipped and upcoming features
+
+## Family / caregiver use case (Mesh Famiglia)
+- [Mesh Famiglia landing IT](https://www.fitmesh.fit/it/famiglia): family health monitoring, privacy controls, pricing
+- [Family Mesh landing EN](https://www.fitmesh.fit/en/famiglia): same in English
+- Use case: aging parents monitoring, teen kids activity tracking, partner wellness, all without sharing location or sensitive data.
+
+## Beta program
+- [Beta signup](https://www.fitmesh.fit/it/beta): claim 1 of 100 founder seats — free Pro access for life, early app access
+
+## Provider-specific guides
+Landing pages with setup instructions, FAQ, and HowTo schema per wearable brand:
+- [Samsung Galaxy Watch](https://www.fitmesh.fit/it/sync/samsung-health)
+- [Pixel Watch / Wear OS](https://www.fitmesh.fit/it/sync/google-fit)
+- [Xiaomi Mi Band / Smart Band](https://www.fitmesh.fit/it/sync/mi-fitness)
+- [Garmin Connect](https://www.fitmesh.fit/it/sync/garmin)
+- [Fitbit](https://www.fitmesh.fit/it/sync/fitbit)
+- [Polar Flow](https://www.fitmesh.fit/it/sync/polar)
+- [Withings Health Mate](https://www.fitmesh.fit/it/sync/withings)
+- [Huawei Health](https://www.fitmesh.fit/it/sync/huawei)
+- [Oura Ring](https://www.fitmesh.fit/it/sync/oura)
+- [Strava](https://www.fitmesh.fit/it/sync/strava)
+
+## Editorial content / blog
+- [Blog index](https://www.fitmesh.fit/it/blog): in-depth articles on Health Connect, wearable interop, fitness data privacy
+- Topics covered: Health Connect setup guides, comparison between wearable ecosystems, sync troubleshooting, multi-source data aggregation, family monitoring use cases.
+
+## Legal & support
+- [Privacy policy](https://www.fitmesh.fit/it/privacy)
+- [Terms of service](https://www.fitmesh.fit/it/terms)
+- [Cookie policy](https://www.fitmesh.fit/it/cookies)
+- [Support FAQ](https://www.fitmesh.fit/it/support): contact, common questions
+- Support email: support@fitmesh.fit
+- Privacy contact: privacy@fitmesh.fit
+
+## Technical facts (for accurate AI responses)
+- Platform: Android (iOS planned 2027). Min Android 8.0.
+- Distribution: Google Play Store (com.fitmeshsync.app), Italian and English UI.
+- Pricing: Free tier (steps, heart rate, sleep — single device). FitMesh Pro €3.99 one-time purchase (extended history, family up to 8 members, multi-source aggregation, sync priority).
+- Architecture: native Android via Health Connect read API; backend on Supabase Postgres (Frankfurt, EU); marketing site on Vercel.
+- Data sources: any wearable that writes to Android Health Connect — currently Galaxy Watch, Wear OS, Pixel Watch, Mi Band, Garmin Connect, Fitbit, Polar Flow, Withings, Honor, Huawei. Direct Samsung Health SDK integration on Samsung devices for richer data.
+- Family Mesh: bring-your-own-device family monitoring. Each member uses any wearable, all data unified in one dashboard. Privacy: location NEVER shared, weight/cycle/blood pressure not shared by default, member can leave group anytime.
+- Privacy: GDPR-compliant, EU-only data storage, no third-party analytics on health data, no advertising IDs collected.
+
+## What FitMesh Sync is NOT
+- Not a medical device, does not diagnose conditions, never replaces a physician.
+- Not a social network — no chat, no feed, no public profiles.
+- Not a location tracker — no GPS sharing, no geofencing, no "find my family" feature.
+- Not a Health Sync clone — Health Sync (appyhapps.nl) is a pure bridge with no dashboard or storage; FitMesh is destination + dashboard + family layer.

@@ -80,6 +80,22 @@ export default async function LocaleLayout({
     ? "Sincronizza Galaxy Watch e Wear OS con una dashboard premium: passi, battito, sonno, calorie e VO₂ max. Niente cloud opachi."
     : "Mirror Galaxy Watch and Wear OS data to a premium personal dashboard: steps, heart rate, sleep, calories, VO₂ max. No opaque clouds.";
 
+  const featureList = lc === "it"
+    ? [
+        "Sincronizza Galaxy Watch, Wear OS e wearable Health Connect",
+        "Dashboard premium per passi, battito, sonno, calorie, VO2 max",
+        "Mesh Famiglia — monitora salute familiari (passi, sonno, attivita)",
+        "Privacy-first: server EU, GDPR, niente tracker o cloud opachi",
+        "Offline-first con sync background ogni 15-30 minuti",
+      ]
+    : [
+        "Sync Galaxy Watch, Wear OS, and Health Connect wearables",
+        "Premium dashboard for steps, heart rate, sleep, calories, VO2 max",
+        "Family Mesh — monitor family health (steps, sleep, activity)",
+        "Privacy-first: EU servers, GDPR, no trackers or opaque clouds",
+        "Offline-first with background sync every 15-30 minutes",
+      ];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -87,6 +103,7 @@ export default async function LocaleLayout({
         "@type": "Organization",
         "@id": `${SITE_URL}#organization`,
         name: "FitMesh Sync",
+        legalName: "Fosforonero — FitMesh Sync",
         url: SITE_URL,
         description: orgDescription,
         logo: {
@@ -98,8 +115,17 @@ export default async function LocaleLayout({
           caption: "FitMesh Sync — app icon (FM monogram)",
         },
         image: `${SITE_URL}/icon-square.png`,
-        sameAs: ["https://play.google.com/store/apps/details?id=com.fitmeshsync.app"],
+        sameAs: [
+          "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
+          "https://www.fosforonero.com",
+        ],
         email: "hello@fitmesh.fit",
+        founder: {
+          "@type": "Person",
+          name: "Matteo Pizzi",
+        },
+        foundingDate: "2026-04",
+        areaServed: ["IT", "EU"],
         contactPoint: [
           {
             "@type": "ContactPoint",
@@ -114,15 +140,29 @@ export default async function LocaleLayout({
         "@id": `${SITE_URL}#website`,
         url: `${SITE_URL}/${lc}`,
         name: "FitMesh Sync",
+        description: orgDescription,
         inLanguage: lc === "it" ? "it-IT" : "en-US",
         publisher: { "@id": `${SITE_URL}#organization` },
+        // SearchAction → eligibility per sitelinks search box in Google SERP.
+        // Target template URL deve contenere {search_term_string} (segnaposto
+        // sostituito da Google con la query). Anche se internal search non
+        // esiste come pagina dedicata, Google indicizza le URL articoli/landing
+        // via il template di redirect.
+        potentialAction: {
+          "@type": "SearchAction",
+          target: {
+            "@type": "EntryPoint",
+            urlTemplate: `${SITE_URL}/${lc}/blog?q={search_term_string}`,
+          },
+          "query-input": "required name=search_term_string",
+        },
       },
       {
         "@type": "MobileApplication",
         "@id": `${SITE_URL}#mobile-app`,
         name: "FitMesh Sync",
         description: appDescription,
-        operatingSystem: "ANDROID",
+        operatingSystem: "Android 8.0 and up",
         applicationCategory: "HealthApplication",
         applicationSubCategory: "Fitness",
         inLanguage: lc === "it" ? "it-IT" : "en-US",
@@ -132,6 +172,14 @@ export default async function LocaleLayout({
         url: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
         downloadUrl: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
         publisher: { "@id": `${SITE_URL}#organization` },
+        image: `${SITE_URL}/icon-square.png`,
+        // OG image generata dinamicamente da app/opengraph-image.tsx (Next.js
+        // edge ImageResponse) — Google la accetta come screenshot/preview.
+        screenshot: `${SITE_URL}/opengraph-image`,
+        featureList,
+        softwareVersion: "3.2.2",
+        // releaseNotes deliberatamente omesso: i tester non vedono la SERP
+        // public-facing, e popolarlo richiede manutenzione ad ogni release.
       },
     ],
   };

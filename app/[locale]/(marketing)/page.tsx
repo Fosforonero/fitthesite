@@ -3,8 +3,11 @@ import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import FounderBanner from "@/components/FounderBanner";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
+
+const SITE_URL = "https://www.fitmesh.fit";
 
 const KPI_COLORS = ["#21E6C1", "#7CFF5B", "#1DA1FF", "#A78BFA", "#FFB547", "#FF5C7A"];
 
@@ -71,8 +74,47 @@ export default async function Home({
     ...PROVIDERS, // duplicate for seamless marquee
   ];
 
+  // JSON-LD WebPage specifico per la home: linka esplicitamente l'@graph
+  // (Org + WebSite + MobileApp) del layout via @id reference, e dichiara
+  // primaryImageOfPage + isPartOf per knowledge graph cleaner.
+  const homeLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/${lc}#webpage`,
+    url: `${SITE_URL}/${lc}`,
+    name: lc === "it"
+      ? "FitMesh Sync — Sincronizza il tuo smartwatch a una dashboard personale"
+      : "FitMesh Sync — Sync your smartwatch to a personal dashboard",
+    description: lc === "it"
+      ? "FitMesh Sync sincronizza Galaxy Watch e Wear OS con una dashboard premium privacy-first: passi, battito, sonno, calorie, VO2 max."
+      : "FitMesh Sync mirrors Galaxy Watch and Wear OS to a privacy-first premium dashboard: steps, heart rate, sleep, calories, VO2 max.",
+    inLanguage: lc === "it" ? "it-IT" : "en-US",
+    isPartOf: { "@id": `${SITE_URL}#website` },
+    about: { "@id": `${SITE_URL}#mobile-app` },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/opengraph-image`,
+    },
+    breadcrumb: { "@id": `${SITE_URL}/${lc}#breadcrumb` },
+  };
+  const homeBreadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "@id": `${SITE_URL}/${lc}#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: lc === "it" ? "Home" : "Home",
+        item: `${SITE_URL}/${lc}`,
+      },
+    ],
+  };
+
   return (
     <>
+      <JsonLd data={homeLd} />
+      <JsonLd data={homeBreadcrumbLd} />
       {/* ════════════════════════════════════════════════════════════════
        *  HERO
        *  Composizione asimmetrica: testo 7 colonne a sinistra, visual 5
