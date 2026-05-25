@@ -58,6 +58,9 @@ export default async function AdminLayout({
             <Link href={`/${lc}/admin/events`} className="px-3 py-2 rounded-pill hover:bg-white/5 text-text-secondary">
               {t.admin?.nav?.events ?? 'Eventi'}
             </Link>
+            <Link href={`/${lc}/admin/beta`} className="px-3 py-2 rounded-pill hover:bg-white/5 text-text-secondary">
+              Beta
+            </Link>
             <Link href={`/${lc}/app`} className="px-3 py-2 rounded-pill hover:bg-white/5 text-text-muted">
               {t.admin?.nav?.exit ?? 'Esci da admin'}
             </Link>

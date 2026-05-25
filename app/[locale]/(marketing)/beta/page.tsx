@@ -274,7 +274,7 @@ const IT = {
   faqs: [
     {
       q: "Cosa significa esattamente 'gratis per sempre'?",
-      a: "Significa che quando aprirò i pagamenti (€3,99 acquisto unico, €0,99/6 mesi), il tuo account avrà un flag founder=true e non vedrà mai un paywall. Anche le feature Pro future (es. sync iOS, family monitoring) saranno incluse senza limiti né scadenza.",
+      a: "Significa che quando aprirò i pagamenti (€3,99 acquisto unico, €1,19/6 mesi), il tuo account avrà un flag founder=true e non vedrà mai un paywall. Anche le feature Pro future (es. sync iOS, family monitoring) saranno incluse senza limiti né scadenza.",
     },
     {
       q: "Perché ti serve la mia email Google e non solo quella di contatto?",
@@ -355,7 +355,7 @@ const EN = {
   faqs: [
     {
       q: "What does 'free forever' actually mean?",
-      a: "When I open payments (€3.99 one-time, €0.99/6mo), your account gets a founder=true flag and never sees a paywall. Future Pro features (e.g. iOS sync, family monitoring) are included with no limits or expiry.",
+      a: "When I open payments (€3.99 one-time, €1.19/6mo), your account gets a founder=true flag and never sees a paywall. Future Pro features (e.g. iOS sync, family monitoring) are included with no limits or expiry.",
     },
     {
       q: "Why do you need my Google email separately from the contact email?",

@@ -10,7 +10,9 @@ import { createClient } from "@supabase/supabase-js";
 
 import { jsonError, jsonOk } from "@/lib/api/auth-helpers";
 
-export const revalidate = 30; // cache 30s, social proof non deve essere realtime
+// v104: live (revalidate=0). L'utente vuole vedere il counter scalare
+// appena qualcuno si iscrive. Costo Supabase trascurabile (RPC lightweight).
+export const revalidate = 0;
 
 export async function GET() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

@@ -12,8 +12,10 @@ import Link from "next/link";
 import { createClient } from "@supabase/supabase-js";
 
 const TOTAL_SPOTS = 100;
-// Cache 60s: social proof non richiede realtime, riduce carico Supabase.
-export const revalidate = 60;
+// v104: revalidate=0 (live fresh ad ogni request). Sito beta a basso traffico,
+// l'utente vuole vedere il counter aggiornarsi appena qualcuno si iscrive.
+// Il costo Supabase e' trascurabile (1 RPC SECURITY DEFINER lightweight).
+export const revalidate = 0;
 
 async function fetchSpotsTaken(): Promise<number | null> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
