@@ -27,6 +27,17 @@ import { locales, type Locale, ogLocale } from "@/lib/i18n";
 const SITE_URL = "https://www.fitmesh.fit";
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
 
+/**
+ * Mesh Famiglia feature temporaneamente sospesa lato app (FeatureFlags
+ * meshFamigliaEnabled=false) finché l'app non è live su entrambi gli store
+ * (Android Play Store + iOS App Store). Quando l'app raggiunge entrambi
+ * gli store: flip a `false` per riattivare la landing piena.
+ *
+ * Mantenuto l'URL stabile per SEO (Google ha già indicizzato) ma il body
+ * mostra uno stato "in arrivo" con CTA waitlist via /it/beta.
+ */
+const COMING_SOON = true;
+
 const COPY = {
   it: {
     hero_kicker: "Mesh Famiglia",
@@ -275,12 +286,20 @@ export async function generateMetadata({
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
 
-  const title = lc === "it"
-    ? "Mesh Famiglia — Monitora la salute dei tuoi cari | FitMesh Sync"
-    : "Family Mesh — Monitor your loved ones' health | FitMesh Sync";
-  const description = lc === "it"
-    ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, gratis fino a 3 membri, niente posizione condivisa."
-    : "Family Mesh lets you see steps, sleep, and heart rate of parents, partners or kids in one dashboard. Privacy-first, free up to 3 members, no location sharing.";
+  const title = COMING_SOON
+    ? (lc === "it"
+        ? "Mesh Famiglia — In arrivo | FitMesh Sync"
+        : "Family Mesh — Coming soon | FitMesh Sync")
+    : (lc === "it"
+        ? "Mesh Famiglia — Monitora la salute dei tuoi cari | FitMesh Sync"
+        : "Family Mesh — Monitor your loved ones' health | FitMesh Sync");
+  const description = COMING_SOON
+    ? (lc === "it"
+        ? "Mesh Famiglia: monitora passi, sonno e battito dei tuoi cari in un'unica dashboard privacy-first. Feature in arrivo nei prossimi mesi — iscriviti alla waitlist per essere avvisato al lancio."
+        : "Family Mesh: monitor steps, sleep and heart rate of your loved ones in one privacy-first dashboard. Coming in the next months — join the waitlist to be notified at launch.")
+    : (lc === "it"
+        ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, gratis fino a 3 membri, niente posizione condivisa."
+        : "Family Mesh lets you see steps, sleep, and heart rate of parents, partners or kids in one dashboard. Privacy-first, free up to 3 members, no location sharing.");
 
   return {
     title,
@@ -312,10 +331,10 @@ export default async function FamigliaLanding({
   const { locale } = await params;
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
-  const t = COPY[lc];
   const path = `/${lc}/famiglia`;
+  const crumbName = lc === "it" ? "Mesh Famiglia" : "Family Mesh";
 
-  // JSON-LD WebPage + Family-specific SoftwareApplication + FAQ
+  // JSON-LD WebPage — usato in entrambi gli stati (full + coming-soon).
   const webPageLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -332,6 +351,11 @@ export default async function FamigliaLanding({
     about: { "@id": `${SITE_URL}#mobile-app` },
   };
 
+  if (COMING_SOON) {
+    return <ComingSoonState lc={lc} crumbName={crumbName} path={path} webPageLd={webPageLd} />;
+  }
+
+  const t = COPY[lc];
   const faqLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -341,8 +365,6 @@ export default async function FamigliaLanding({
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
   };
-
-  const crumbName = lc === "it" ? "Mesh Famiglia" : "Family Mesh";
 
   return (
     <article className="relative">
@@ -547,6 +569,140 @@ export default async function FamigliaLanding({
             {lc === "it" ? "Anteprima su Play Store" : "Preview on Play Store"}
           </a>
         </p>
+      </section>
+    </article>
+  );
+}
+
+/**
+ * Stato "in arrivo" della landing /famiglia. Mostrato quando COMING_SOON=true.
+ * URL stabile per SEO (no redirect, no 404), preserva canonical e WebPage
+ * JSON-LD. CTA → /[locale]/beta come waitlist proxy.
+ */
+function ComingSoonState({
+  lc,
+  crumbName,
+  path,
+  webPageLd,
+}: {
+  lc: Locale;
+  crumbName: string;
+  path: string;
+  webPageLd: Record<string, unknown>;
+}) {
+  const copy = lc === "it"
+    ? {
+        kicker: "Mesh Famiglia",
+        h1: "In arrivo: monitora la salute dei tuoi cari, privacy-first",
+        sub: "Stiamo finendo Mesh Famiglia: una dashboard per vedere passi, sonno e battito di genitori, partner o figli — senza posizione condivisa, senza ads. Aprirà quando FitMesh Sync sarà disponibile su entrambi gli store (Android + iOS). Iscriviti alla waitlist per essere avvisato al lancio.",
+        cta: "Iscriviti alla waitlist",
+        secondary: "Nel frattempo: scarica FitMesh Sync su Android",
+        why_h2: "Perché serve",
+        why_items: [
+          {
+            title: "Genitori anziani autonomi",
+            body: "Vorresti sapere se tuo padre o tua madre ha camminato oggi, se ha dormito bene, se la frequenza cardiaca è stabile — senza chiedere ogni giorno e senza app invasive.",
+          },
+          {
+            title: "Privacy by design",
+            body: "Niente posizione GPS condivisa, niente broker dati, niente profilazione ads. Dati cifrati, server in Europa (Francoforte), GDPR-compliant.",
+          },
+          {
+            title: "Multi-vendor, niente lock-in",
+            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura — qualsiasi wearable supportato da Health Connect (Android) o HealthKit (iOS, in arrivo).",
+          },
+        ],
+        availability_h2: "Quando arriva",
+        availability_body: "Mesh Famiglia richiede l'app pubblicata su entrambi gli store per funzionare end-to-end (il familiare che inviti deve poter installare da Play Store o App Store). Android è già live in beta; iOS è in sviluppo. Rilascio Mesh Famiglia previsto quando entrambe le piattaforme sono in produzione.",
+      }
+    : {
+        kicker: "Family Mesh",
+        h1: "Coming soon: monitor your loved ones' health, privacy-first",
+        sub: "We're finishing Family Mesh: a dashboard to see steps, sleep, and heart rate of parents, partners, or kids — no location sharing, no ads. It will launch once FitMesh Sync is available on both stores (Android + iOS). Join the waitlist to be notified at launch.",
+        cta: "Join the waitlist",
+        secondary: "Meanwhile: download FitMesh Sync on Android",
+        why_h2: "Why it matters",
+        why_items: [
+          {
+            title: "Independent elderly parents",
+            body: "You'd like to know if your father or mother walked today, slept well, has a stable resting heart rate — without asking every day and without invasive apps.",
+          },
+          {
+            title: "Privacy by design",
+            body: "No GPS location sharing, no data brokers, no ad profiling. Data encrypted, servers in Europe (Frankfurt), GDPR-compliant.",
+          },
+          {
+            title: "Multi-vendor, no lock-in",
+            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura — any wearable supported by Health Connect (Android) or HealthKit (iOS, coming).",
+          },
+        ],
+        availability_h2: "When it arrives",
+        availability_body: "Family Mesh requires the app published on both stores to work end-to-end (the family member you invite must be able to install from Play Store or App Store). Android is already live in beta; iOS is in development. Family Mesh release planned once both platforms are in production.",
+      };
+
+  return (
+    <article className="relative">
+      <JsonLd data={webPageLd} />
+      <Breadcrumbs items={[{ name: crumbName, path }]} locale={lc} />
+
+      <section className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-12 pb-16 sm:pt-20 sm:pb-20 text-center">
+        <p className="text-[10px] uppercase tracking-[0.24em] text-brand-aqua font-semibold">
+          {copy.kicker} · {lc === "it" ? "In arrivo" : "Coming soon"}
+        </p>
+        <h1 className="mt-4 font-display text-display-lg sm:text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
+          {copy.h1}
+        </h1>
+        <p className="mt-6 text-base sm:text-lg text-text-secondary leading-relaxed text-balance">
+          {copy.sub}
+        </p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <Link
+            href={`/${lc}/beta`}
+            className="inline-flex items-center justify-center rounded-full bg-brand-aqua text-bg-base px-6 py-3 text-sm font-semibold hover:bg-brand-aqua/90 transition"
+          >
+            {copy.cta}
+          </Link>
+          <a
+            href={PLAY_URL}
+            target="_blank"
+            rel="noopener"
+            className="inline-flex items-center justify-center rounded-full border border-text-muted/30 text-text-primary px-6 py-3 text-sm hover:bg-text-muted/10 transition"
+          >
+            {copy.secondary}
+          </a>
+        </div>
+        <div className="mt-8">
+          <TrustBadges locale={lc} variant="compact" />
+        </div>
+      </section>
+
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+        <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary text-center">
+          {copy.why_h2}
+        </h2>
+        <div className="mt-8 grid sm:grid-cols-3 gap-6">
+          {copy.why_items.map((item) => (
+            <div key={item.title} className="rounded-2xl border border-text-muted/15 bg-bg-elevated/40 p-5">
+              <h3 className="font-display text-lg font-semibold text-text-primary">{item.title}</h3>
+              <p className="mt-2 text-sm text-text-secondary leading-relaxed">{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12 text-center">
+        <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
+          {copy.availability_h2}
+        </h2>
+        <p className="mt-5 text-text-secondary leading-relaxed">{copy.availability_body}</p>
+        <div className="mt-8">
+          <Link
+            href={`/${lc}/beta`}
+            className="inline-flex items-center justify-center rounded-full bg-brand-aqua text-bg-base px-6 py-3 text-sm font-semibold hover:bg-brand-aqua/90 transition"
+          >
+            {copy.cta}
+          </Link>
+        </div>
       </section>
     </article>
   );
