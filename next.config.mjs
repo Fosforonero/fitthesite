@@ -29,6 +29,12 @@ const nextConfig = {
         source: '/.well-known/assetlinks.json',
         destination: '/api/assetlinks',
       },
+      // iOS Universal Links: Apple cerca questo file SENZA estensione su
+      // /.well-known/apple-app-site-association. Niente redirect ammessi.
+      {
+        source: '/.well-known/apple-app-site-association',
+        destination: '/api/apple-app-site-association',
+      },
     ];
   },
 
