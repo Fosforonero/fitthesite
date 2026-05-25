@@ -26,7 +26,15 @@ export default async function AdminLayout({
     redirect(`/${lc}/auth/login?next=/${lc}/admin`);
   }
 
-  // Check ruolo admin via RPC RLS-safe
+  // Hard email whitelist (defense-in-depth): SOLO mat.pizzi@gmail.com.
+  // Coordina con public.is_admin() che ha lo stesso check email server-side.
+  // Anche se la RPC fallisse, questo guard blocca prima del render.
+  const ADMIN_EMAIL = 'mat.pizzi@gmail.com';
+  if ((user.email ?? '').toLowerCase() !== ADMIN_EMAIL) {
+    redirect(`/${lc}/app`);
+  }
+
+  // Check ruolo admin via RPC RLS-safe (secondo strato).
   const { data: isAdmin } = await supabase.rpc('is_admin');
   if (!isAdmin) {
     redirect(`/${lc}/app`);
