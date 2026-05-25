@@ -14,7 +14,35 @@ import {
 } from "@/lib/blog/data";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const AUTHOR_NAME = "FitMesh Sync";
+
+/**
+ * Author info — Person Matteo Pizzi.
+ *
+ * E-E-A-T (Experience-Expertise-Authoritativeness-Trustworthiness) e' un
+ * fattore SEO critico per i topic YMYL ("Your Money or Your Life") come
+ * salute/fitness. Google penalizza articoli salute con `author: Organization`
+ * generico; preferisce `author: Person` con bio reale + social profili
+ * verificati (sameAs).
+ *
+ * Per cambiare autore (es. ospiti): override `post.authorOverride` nel
+ * blog data model (TODO se serve).
+ */
+const AUTHOR = {
+  name: "Matteo Pizzi",
+  jobTitle: "Founder & Solo Dev, FitMesh Sync · Fosforonero",
+  bioIt:
+    "Sviluppatore software italiano. Ho costruito FitMesh Sync per riempire il vuoto tra il mio smartwatch e una vera dashboard personale. Privacy-first, indie, server EU.",
+  bioEn:
+    "Italian software developer. I built FitMesh Sync to fill the gap between my smartwatch and a real personal dashboard. Privacy-first, indie, EU servers.",
+  url: `${SITE_URL}/it/about`,
+  // sameAs: profili pubblici per verifica autorevolezza. Vuoto = aggiungi
+  // LinkedIn/Twitter quando disponibili (Matteo ha LinkedIn personale?).
+  sameAs: [
+    "https://www.fosforonero.com",
+  ],
+};
+// Publisher Organization name (per JSON-LD Article.publisher).
+const PUBLISHER_NAME = "FitMesh Sync";
 
 export function generateStaticParams() {
   return BLOG_POSTS.flatMap((p) =>
@@ -63,7 +91,7 @@ export async function generateMetadata({
       alternateLocale: locales.filter((l) => l !== lc).map((l) => ogLocale[l]),
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
-      authors: [AUTHOR_NAME],
+      authors: [AUTHOR.name],
     },
     twitter: {
       card: "summary_large_image",
@@ -85,6 +113,9 @@ const I18N = {
     disclaimerHeading: "Disclaimer",
     disclaimer: (brands: string[]) =>
       `FitMesh Sync è un prodotto indipendente. ${brands.join(", ")}${brands.length > 1 ? " sono marchi" : " è un marchio"} dei rispettivi proprietari. Questo articolo non implica affiliazione né sponsorizzazione.`,
+    medicalDisclaimerHeading: "Avviso medico",
+    medicalDisclaimer:
+      "Le informazioni in questo articolo hanno scopo informativo e non sostituiscono il parere del tuo medico, farmacista o professionista sanitario. FitMesh Sync è un'app fitness/wellness, non un dispositivo medico, e non diagnostica né cura patologie. In caso di sintomi, dubbi clinici o decisioni terapeutiche consulta sempre il tuo medico di base.",
   },
   en: {
     backToBlog: "← All articles",
@@ -97,6 +128,9 @@ const I18N = {
     disclaimerHeading: "Disclaimer",
     disclaimer: (brands: string[]) =>
       `FitMesh Sync is an independent product. ${brands.join(", ")} ${brands.length > 1 ? "are trademarks" : "is a trademark"} of their respective owners. This article implies no affiliation or sponsorship.`,
+    medicalDisclaimerHeading: "Medical disclaimer",
+    medicalDisclaimer:
+      "The information in this article is for informational purposes only and does not replace advice from your physician, pharmacist or healthcare professional. FitMesh Sync is a fitness/wellness app, not a medical device, and does not diagnose or treat any conditions. For symptoms, clinical questions or treatment decisions always consult your primary care physician.",
   },
 } as const;
 
@@ -136,14 +170,20 @@ export default async function BlogArticle({
     dateModified: post.updatedAt,
     url: `${SITE_URL}${path}`,
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}${path}` },
+    // E-E-A-T critical su YMYL: author Person con bio + sameAs.
+    // Google penalizza articoli salute con author=Organization generico.
     author: {
-      "@type": "Organization",
-      name: AUTHOR_NAME,
-      url: SITE_URL,
+      "@type": "Person",
+      "@id": `${SITE_URL}/it/about#matteo-pizzi`,
+      name: AUTHOR.name,
+      jobTitle: AUTHOR.jobTitle,
+      description: lc === "it" ? AUTHOR.bioIt : AUTHOR.bioEn,
+      url: AUTHOR.url,
+      sameAs: AUTHOR.sameAs,
     },
     publisher: {
       "@type": "Organization",
-      name: AUTHOR_NAME,
+      name: PUBLISHER_NAME,
       url: SITE_URL,
       logo: {
         "@type": "ImageObject",
@@ -274,6 +314,53 @@ export default async function BlogArticle({
             </div>
           </section>
         )}
+
+        {/* MEDICAL DISCLAIMER (YMYL). Sempre visibile, anche se l'articolo non
+           menziona brand. Richiesto da E-E-A-T Google su topic salute. */}
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-8">
+          <div className="rounded-card border border-warning/30 bg-warning/[0.04] p-5">
+            <p className="text-[10px] uppercase tracking-[0.22em] text-warning font-semibold flex items-center gap-2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5" aria-hidden>
+                <path d="M12 2L2 22h20L12 2z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <circle cx="12" cy="17" r="1" />
+              </svg>
+              {t.medicalDisclaimerHeading}
+            </p>
+            <p className="mt-2 text-xs text-text-secondary leading-relaxed">
+              {t.medicalDisclaimer}
+            </p>
+          </div>
+        </section>
+
+        {/* AUTHOR BIO CARD — E-E-A-T (YMYL salute). Aiuta Google e i lettori
+           a capire chi scrive: nome, ruolo, link About. */}
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-2 pb-8">
+          <div className="rounded-card border border-divider bg-bg-card/40 p-5 sm:p-6 flex gap-4 items-start">
+            <div className="shrink-0 w-12 h-12 rounded-full bg-brand-aqua/15 border border-brand-aqua/30 flex items-center justify-center text-brand-aqua font-display font-bold text-lg">
+              M
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
+                {lc === "it" ? "Scritto da" : "Written by"}
+              </p>
+              <p className="mt-1 font-display font-bold text-text-primary">
+                {AUTHOR.name}
+              </p>
+              <p className="mt-0.5 text-xs text-text-muted">{AUTHOR.jobTitle}</p>
+              <p className="mt-3 text-sm text-text-secondary leading-relaxed">
+                {lc === "it" ? AUTHOR.bioIt : AUTHOR.bioEn}
+              </p>
+              <Link
+                href={`/${lc}/about`}
+                className="mt-3 inline-flex items-center gap-1 text-xs text-brand-aqua hover:text-brand-green transition font-medium"
+              >
+                {lc === "it" ? "Di più sul progetto" : "More about the project"}{" "}
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </div>
+        </section>
 
         {/* RELATED */}
         {related.length > 0 && (

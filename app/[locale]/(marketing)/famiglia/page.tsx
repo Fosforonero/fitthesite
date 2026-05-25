@@ -21,6 +21,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
+import TrustBadges from "@/components/TrustBadges";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -491,6 +492,11 @@ export default async function FamigliaLanding({
           {t.pricing_h2}
         </h2>
         <p className="mt-5 text-text-secondary leading-relaxed">{t.pricing_body}</p>
+      </section>
+
+      {/* Trust badges (E-E-A-T per topic YMYL salute familiare). */}
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-8">
+        <TrustBadges locale={lc} />
       </section>
 
       {/* FAQ */}

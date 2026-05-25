@@ -3,6 +3,7 @@ import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import FounderBanner from "@/components/FounderBanner";
+import TrustBadges from "@/components/TrustBadges";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
@@ -196,6 +197,11 @@ export default async function Home({
             <HeroVisual locale={lc} />
           </div>
         </div>
+      </section>
+
+      {/* Trust signals (E-E-A-T): Made in Italy · EU servers · GDPR · Indie. */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-8">
+        <TrustBadges locale={lc} />
       </section>
 
       {/* Fascia founder dinamica: X/100 posti disponibili → /beta. */}

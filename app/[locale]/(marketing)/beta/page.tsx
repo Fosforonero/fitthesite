@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import BetaSignupForm from "@/components/BetaSignupForm";
+import TrustBadges from "@/components/TrustBadges";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
@@ -163,6 +164,11 @@ export default async function BetaPage({
             <p className="mt-2 mb-8 text-text-secondary">{t.formSub}</p>
             <BetaSignupForm locale={lc} />
           </div>
+        </section>
+
+        {/* Trust badges — rinforza affidabilita' subito sotto il form signup. */}
+        <section className="mt-6">
+          <TrustBadges locale={lc} variant="compact" />
         </section>
 
         {/* What happens next */}
