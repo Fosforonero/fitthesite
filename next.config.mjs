@@ -44,6 +44,32 @@ const nextConfig = {
       destination: `/it${path}`,
       permanent: true,
     });
+
+    // Blog cannibalization cleanup (2026-05-25): 5 coppie di slug duplicati
+    // creati come "versione EN" che in realtà servivano lo stesso contenuto
+    // bilingue → 4 URL competing per stessa keyword IT. Killiamo i 5 slug
+    // "EN-named" e redirect 308 ai winner IT-named (canonical brand-side).
+    // Per ogni coppia loser → winner, redirect su entrambi i locale.
+    const cannibalRedirect = (loser, winner) => [
+      {
+        source: `/it/blog/${loser}`,
+        destination: `/it/blog/${winner}`,
+        permanent: true,
+      },
+      {
+        source: `/en/blog/${loser}`,
+        destination: `/en/blog/${winner}`,
+        permanent: true,
+      },
+    ];
+    const cannibalRedirects = [
+      ...cannibalRedirect('how-does-health-connect-work', 'come-funziona-health-connect'),
+      ...cannibalRedirect('what-is-hrv-heart-rate-variability', 'hrv-cose-significato-valori'),
+      ...cannibalRedirect('galaxy-watch-steps-not-syncing', 'passi-non-si-sincronizzano-galaxy-watch'),
+      ...cannibalRedirect('how-to-export-garmin-data', 'esportare-dati-garmin'),
+      ...cannibalRedirect('sync-samsung-health-to-google-fit', 'sync-samsung-health-google-fit'),
+    ];
+
     return [
       // /privacy → EN: usato da Google Play Console + audience globale.
       // I link IT-specifici (Header app, footer) puntano già a /it/privacy.
@@ -60,6 +86,8 @@ const nextConfig = {
         destination: '/it/sync/:slug',
         permanent: true,
       },
+      // Blog cannibalization cleanup (vedi sopra).
+      ...cannibalRedirects,
     ];
   },
 };
