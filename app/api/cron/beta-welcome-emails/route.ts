@@ -47,7 +47,15 @@ export async function GET(req: Request) {
   let failed = 0;
   const failures: { email: string; error: string }[] = [];
 
-  for (const row of pendings) {
+  // Resend free tier rate limit: 5 req/sec. Throttle a 4 req/sec con sleep
+  // 250ms tra invii consecutivi. Senza, in burst > 5 destinatari ottenevamo
+  // 429 rate_limit_exceeded (visto al primo run cron live: 1/17 fallita).
+  const RESEND_RATE_DELAY_MS = 250;
+  const sleep = (ms: number) =>
+    new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+  for (let i = 0; i < pendings.length; i++) {
+    const row = pendings[i]!;
     // Default to "it" — primary target market. When a locale field is added
     // to beta_signups, replace this with row.locale.
     const locale: "it" | "en" = "it";
@@ -75,6 +83,9 @@ export async function GET(req: Request) {
       failed++;
       failures.push({ email: row.email, error: result.error ?? "unknown" });
     }
+
+    // Throttle: aspetta 250ms prima del prossimo invio (no sleep dopo l'ultimo).
+    if (i < pendings.length - 1) await sleep(RESEND_RATE_DELAY_MS);
   }
 
   return NextResponse.json({
