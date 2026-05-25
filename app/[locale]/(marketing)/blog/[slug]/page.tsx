@@ -69,8 +69,10 @@ export async function generateMetadata({
     ...post.secondaryKeywords[lc],
   ].join(", ");
 
+  // Brand suffix corto (10c) per stare entro 65c totali raccomandati Bing/Google.
+  // Vedi fitmesh-growth SKILL → publishing pipeline step 1 (title length guardrail).
   return {
-    title: `${title} — FitMesh Blog`,
+    title: `${title} · FitMesh`,
     description,
     keywords,
     alternates: {

@@ -56,10 +56,12 @@ export async function generateMetadata({
   const p = PROVIDERS_BY_SLUG[provider];
   if (!p) return {};
 
+  // Title compatto (≤65c) per Bing/Google. Description copre il claim
+  // "dashboard salute personale" più descrittivo. Vedi fitmesh-growth SKILL.
   const title =
     lc === "it"
-      ? `Sincronizza ${p.name} a FitMesh — Dashboard salute personale`
-      : `Sync ${p.name} to FitMesh — Personal Health Dashboard`;
+      ? `Sincronizza ${p.name} a FitMesh Sync`
+      : `Sync ${p.name} to FitMesh Sync`;
   const description = p.tagline[lc];
 
   const path = `/${lc}/sync/${p.slug}`;

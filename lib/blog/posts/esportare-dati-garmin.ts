@@ -33,7 +33,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Guida", en: "Guide" },
     title: {
-      it: "Esportare dati Garmin: GPX, TCX, FIT e CSV — guida completa",
+      it: "Esportare dati Garmin: GPX, TCX, FIT, CSV",
       en: "Exporting Garmin data: GPX, TCX, FIT and CSV — complete guide",
     },
     subtitle: {

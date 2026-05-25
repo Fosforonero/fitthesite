@@ -33,7 +33,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Risoluzione problemi", en: "Troubleshooting" },
     title: {
-      it: "Passi Galaxy Watch non sincronizzati: come risolvere (guida 2026)",
+      it: "Galaxy Watch: passi non sincronizzati, come risolvere",
       en: "Galaxy Watch steps not syncing: how to fix it (2026 guide)",
     },
     subtitle: {

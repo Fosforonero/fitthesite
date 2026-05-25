@@ -31,7 +31,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Confronto", en: "Comparison" },
     title: {
-      it: "Health Connect vs Samsung Health: differenze, quando usare cosa nel 2026",
+      it: "Health Connect vs Samsung Health: differenze 2026",
       en: "Health Connect vs Samsung Health: differences and when to use which in 2026",
     },
     subtitle: {

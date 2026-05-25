@@ -31,7 +31,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Guida pratica", en: "Practical guide" },
     title: {
-      it: "Vedere passi, sonno e battito del wearable da browser desktop",
+      it: "Vedere dati wearable da browser desktop",
       en: "Viewing steps, sleep and heart rate from your wearable on a desktop browser",
     },
     subtitle: {

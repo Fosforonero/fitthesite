@@ -32,7 +32,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Guida", en: "Guide" },
     title: {
-      it: "Sync Samsung Health e Google Fit nel 2026: cosa funziona davvero",
+      it: "Sync Samsung Health ↔ Google Fit nel 2026",
       en: "Syncing Samsung Health and Google Fit in 2026: what actually works",
     },
     subtitle: {

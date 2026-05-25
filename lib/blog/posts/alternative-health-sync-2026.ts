@@ -31,7 +31,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Confronto", en: "Comparison" },
     title: {
-      it: "App alternative a Health Sync nel 2026: confronto onesto",
+      it: "Alternative a Health Sync 2026: confronto onesto",
       en: "Apps alternative to Health Sync in 2026: an honest comparison",
     },
     subtitle: {

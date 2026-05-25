@@ -31,7 +31,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Guida pratica", en: "Practical guide" },
     title: {
-      it: "Come fare backup dati Galaxy Watch su PC senza Samsung Cloud",
+      it: "Backup Galaxy Watch su PC senza Samsung Cloud",
       en: "How to back up Galaxy Watch data on PC without Samsung Cloud",
     },
     subtitle: {

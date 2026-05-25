@@ -31,7 +31,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Ecosistema", en: "Ecosystem" },
     title: {
-      it: "Esportare dati Fitbit dopo l'acquisizione Google: guida pratica",
+      it: "Esportare dati Fitbit dopo l'acquisto Google",
       en: "Exporting Fitbit data after the Google acquisition: practical guide",
     },
     subtitle: {

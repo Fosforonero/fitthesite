@@ -33,7 +33,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Guida", en: "Guide" },
     title: {
-      it: "Come funziona Health Connect: guida completa per Android",
+      it: "Come funziona Health Connect: guida Android 2026",
       en: "How Health Connect works: the complete guide for Android",
     },
     subtitle: {

@@ -37,7 +37,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Guida pilastro", en: "Pillar guide" },
     title: {
-      it: "Come scegliere uno smartwatch per chi vuole controllo dei propri dati",
+      it: "Smartwatch e controllo dei dati: come scegliere",
       en: "How to choose a smartwatch when you want control over your data",
     },
     subtitle: {

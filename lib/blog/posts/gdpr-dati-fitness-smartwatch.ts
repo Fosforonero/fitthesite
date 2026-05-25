@@ -31,7 +31,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Privacy", en: "Privacy" },
     title: {
-      it: "GDPR e dati fitness: dove finiscono i dati del tuo smartwatch",
+      it: "GDPR e dati fitness: dove finiscono i tuoi dati",
       en: "GDPR and fitness data: where your smartwatch data actually ends up",
     },
     subtitle: {

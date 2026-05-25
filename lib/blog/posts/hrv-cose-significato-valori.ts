@@ -33,7 +33,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Guida", en: "Guide" },
     title: {
-      it: "Cos'è la HRV: significato, valori normali e come leggerla",
+      it: "Cos'è la HRV: significato e valori normali",
       en: "What is HRV: meaning, normal values and how to read it",
     },
     subtitle: {
