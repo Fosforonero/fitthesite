@@ -85,7 +85,7 @@ const payloadSchema = z.object({
   heightCm: z.number().nullish(),
   bmi: z.number().nullish(),
   respiratoryRate: z.number().nullish(),
-  // v3.0.0+86 (Sprint 6 gap closure vs Health Sync).
+  // v3.0.0+86 (Sprint 6: copertura metriche estese).
   // Tutti optional/nullable: utenti senza BPM/Libre/MyFitnessPal vedono nulla
   // in dashboard ma il sync resta valido per le altre metriche.
   bloodPressureSystolic: z.number().nullish(),

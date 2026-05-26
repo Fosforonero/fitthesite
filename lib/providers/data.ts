@@ -1495,8 +1495,8 @@ export const PROVIDERS: Provider[] = [
             en: "Can I use a third-party bridge app?",
           },
           a: {
-            it: "Sconsigliato: le app di bridge non ufficiali (Health Sync, ecc.) spesso violano i ToS di Huawei e hanno qualità dati instabile. Meglio aspettare l'integrazione nativa Q4 2026.",
-            en: "Not recommended: unofficial bridge apps (Health Sync, etc.) often violate Huawei's ToS and have unstable data quality. Better to wait for the native Q4 2026 integration.",
+            it: "Le bridge app cloud-to-cloud per Huawei richiedono setup tecnico avanzato e la qualità dei dati può variare nel tempo (Huawei non offre API pubbliche ufficiali per terze parti su Health Drive). Noi consigliamo di aspettare l'integrazione nativa via OAuth Huawei Cloud Health, in roadmap per Q4 2026.",
+            en: "Cloud-to-cloud bridge apps for Huawei require advanced technical setup and data quality may vary over time (Huawei doesn't offer official public APIs for third parties on Health Drive). We recommend waiting for the native integration via Huawei Cloud Health OAuth, in roadmap for Q4 2026.",
           },
         },
         {

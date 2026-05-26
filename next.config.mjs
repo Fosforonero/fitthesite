@@ -70,6 +70,18 @@ const nextConfig = {
       ...cannibalRedirect('sync-samsung-health-to-google-fit', 'sync-samsung-health-google-fit'),
     ];
 
+    // Brand standalone cleanup (2026-05-26): rimossi LP e blog post che
+    // posizionavano FitMesh come "alternativa a X". Redirect 308 verso
+    // target sensati per preservare link juice + traffic esistente.
+    const standaloneRedirects = [
+      // LP killata: era /lp/health-sync-alternative
+      { source: '/it/lp/health-sync-alternative', destination: '/it/integrations', permanent: true },
+      { source: '/en/lp/health-sync-alternative', destination: '/en/integrations', permanent: true },
+      // Blog post riscritto: alternative-health-sync-2026 -> alternative-app-sync-wearable-2026
+      { source: '/it/blog/alternative-health-sync-2026', destination: '/it/blog/alternative-app-sync-wearable-2026', permanent: true },
+      { source: '/en/blog/alternative-health-sync-2026', destination: '/en/blog/alternative-app-sync-wearable-2026', permanent: true },
+    ];
+
     return [
       // /privacy → EN: usato da Google Play Console + audience globale.
       // I link IT-specifici (Header app, footer) puntano già a /it/privacy.
@@ -88,6 +100,8 @@ const nextConfig = {
       },
       // Blog cannibalization cleanup (vedi sopra).
       ...cannibalRedirects,
+      // Brand standalone cleanup (vedi sopra).
+      ...standaloneRedirects,
     ];
   },
 };

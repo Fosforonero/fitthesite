@@ -18,7 +18,7 @@ import { post as healthConnectVsSamsungHealth } from "./posts/health-connect-vs-
 import { post as backupGalaxyWatchPc } from "./posts/backup-galaxy-watch-pc";
 import { post as esportareDatiFitbitGoogle } from "./posts/esportare-dati-fitbit-google";
 import { post as vedereDatiWearableBrowserPc } from "./posts/vedere-dati-wearable-browser-pc";
-import { post as alternativeHealthSync2026 } from "./posts/alternative-health-sync-2026";
+import { post as alternativeAppSyncWearable2026 } from "./posts/alternative-app-sync-wearable-2026";
 import { post as gdprDatiFitnessSmartwatch } from "./posts/gdpr-dati-fitness-smartwatch";
 import { post as comeFunzionaHealthConnect } from "./posts/come-funziona-health-connect";
 import { post as hrvCoeSignificatoValori } from "./posts/hrv-cose-significato-valori";
@@ -36,7 +36,7 @@ const RAW_POSTS: BlogPost[] = [
   backupGalaxyWatchPc,
   esportareDatiFitbitGoogle,
   vedereDatiWearableBrowserPc,
-  alternativeHealthSync2026,
+  alternativeAppSyncWearable2026,
   gdprDatiFitnessSmartwatch,
   comeFunzionaHealthConnect,
   hrvCoeSignificatoValori,

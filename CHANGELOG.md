@@ -9,7 +9,7 @@ Una riga per release. Le release del sito sono indipendenti da quelle dell'app.
 ### Aggiunto
 - **Fascia founder dinamica in home** (`components/FounderBanner.tsx`): Server Component che fetcha `get_beta_spots_taken()` RPC con cache ISR 60s, mostra "Restano X/100 posti founder gratis per sempre" cliccabile → `/[locale]/beta`. Gradient brand verde→aqua, soft glow, dot ping animato. Riposiziona come "Beta esaurita — lista d'attesa" quando counter raggiunge 100.
 - **Landing `/[locale]/famiglia`** (Mesh Famiglia marketing): cluster keyword "monitorare salute genitori anziani / famiglia" — zero competitor diretti in IT. Struttura hero + 3 personas (genitori anziani / figli teen / partner) + 3-step how + 2-col privacy + tech stack + pricing + 6 FAQ + final CTA. Hreflang IT/EN completo. JSON-LD WebPage + FAQPage. Linkata da Footer e sitemap (priority 0.95).
-- **`public/llms.txt`** (standard 2025 AI crawler): description product + use cases + URL chiave + technical facts per AI overviews accurate + sezione "what FitMesh is NOT" per disambiguazione (vs Health Sync clone, vs medical device, vs location tracker).
+- **`public/llms.txt`** (standard 2025 AI crawler): description product + use cases + URL chiave + technical facts per AI overviews accurate + sezione "what FitMesh is NOT" per disambiguazione (vs bridge app cloud-to-cloud, vs medical device, vs location tracker).
 - **JSON-LD audit completo + 5 upgrade**:
   - WebSite ora ha `SearchAction` (sitelinks search box eligibility)
   - MobileApplication ora ha `screenshot` + `featureList` (5 voci IT/EN) + `softwareVersion: "3.2.2"` + `operatingSystem: "Android 8.0 and up"`
@@ -96,7 +96,7 @@ Una riga per release. Le release del sito sono indipendenti da quelle dell'app.
 ### Note implementazione
 - Niente loghi proprietari di terze parti — usato monogramma lettera + colore brand. I marchi sono citati nominativamente per identificazione (uso descrittivo, non confondibile).
 - Waitlist = `mailto:waitlist@fitmesh.fit?subject=...&body=...` con prefill localizzato. Form DB-backed rimandato a v0.3 (richiede tabella Supabase + RLS).
-- Pagina di confronto con competitor (Health Sync) inizialmente prototipata e poi **scartata** per scelta di posizionamento (no name-and-shame, no menzioni dirette).
+- Pagina di confronto diretto con competitor inizialmente prototipata e poi **scartata** per scelta di posizionamento (brand standalone, no menzioni dirette di concorrenti).
 
 ### Risultati attesi (3-6 mesi)
 - ~20-30 keyword long-tail in top-10 Google (provider × locale × modifier "sincronizzare/sync/dashboard/export").

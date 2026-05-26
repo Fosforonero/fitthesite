@@ -381,7 +381,7 @@ export const post: BlogPost = {
           "**Fitbit dopo Google**: dopo l'acquisizione di Fitbit da parte di Google nel 2021 e la migrazione account 2022–2023, ci sono cambiamenti significativi nel modo di esportare. Vedi [Esportare dati Fitbit dopo l'acquisizione Google](/it/blog/esportare-dati-fitbit-google).",
           "**Health Connect vs Samsung Health**: due livelli che lavorano insieme. Quando usare cosa lo spieghiamo in [Health Connect vs Samsung Health 2026](/it/blog/health-connect-vs-samsung-health).",
           "**Dashboard browser**: se vuoi vedere passi/sonno/BPM su PC senza app mobile, la strada non è ovvia ma esiste. Guida in [Vedere dati wearable da browser](/it/blog/vedere-dati-wearable-browser-pc).",
-          "**Alternative a Health Sync**: la categoria 'app ponte tra ecosistemi' è in pieno cambiamento. Confronto onesto in [Alternative Health Sync 2026](/it/blog/alternative-health-sync-2026).",
+          "**Bridge app cloud-to-cloud**: la categoria 'app ponte tra ecosistemi' è in pieno cambiamento. Panorama completo in [Alternative app sync wearable 2026](/it/blog/alternative-app-sync-wearable-2026).",
           "**GDPR pratica**: dove finiscono BPM e sonno secondo le privacy policy effettive. Vedi [GDPR dati fitness](/it/blog/gdpr-dati-fitness-smartwatch).",
         ],
         en: [
@@ -389,7 +389,7 @@ export const post: BlogPost = {
           "**Fitbit after Google**: after Google's 2021 acquisition of Fitbit and the 2022–2023 account migration, there are significant changes in how to export. See [Exporting Fitbit data after Google acquisition](/en/blog/esportare-dati-fitbit-google).",
           "**Health Connect vs Samsung Health**: two layers that work together. When to use what we explain in [Health Connect vs Samsung Health 2026](/en/blog/health-connect-vs-samsung-health).",
           "**Browser dashboard**: if you want to see steps/sleep/HR on a PC without a mobile app, the path isn't obvious but it exists. Guide in [Viewing wearable data from a browser](/en/blog/vedere-dati-wearable-browser-pc).",
-          "**Health Sync alternatives**: the 'bridge between ecosystems' category is changing rapidly. Honest comparison in [Health Sync alternatives 2026](/en/blog/alternative-health-sync-2026).",
+          "**Cloud-to-cloud bridge apps**: the 'bridge between ecosystems' category is changing rapidly. Full landscape in [Wearable sync alternatives 2026](/en/blog/alternative-app-sync-wearable-2026).",
           "**GDPR in practice**: where heart rate and sleep actually end up according to real privacy policies. See [GDPR and fitness data](/en/blog/gdpr-dati-fitness-smartwatch).",
         ],
       },
