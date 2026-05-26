@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useCallback, useState, useTransition } from 'react';
 import { z } from 'zod';
 
+import { TurnstileWidget } from '@/components/TurnstileWidget';
 import { createClient } from '@/lib/supabase/client';
 
 const emailSchema = z.string().email();
@@ -29,6 +30,17 @@ export function LoginForm({ locale, nextPath, translations, initialError }: Prop
   const [phase, setPhase] = useState<Phase>(initialError ? 'error' : 'idle');
   const [errorMessage, setErrorMessage] = useState<string | null>(initialError);
   const [isPending, startTransition] = useTransition();
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
+  const handleCaptchaToken = useCallback((token: string) => {
+    setCaptchaToken(token);
+  }, []);
+  const handleCaptchaError = useCallback(() => {
+    setCaptchaToken(null);
+  }, []);
+  const handleCaptchaExpire = useCallback(() => {
+    setCaptchaToken(null);
+  }, []);
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,6 +50,16 @@ export function LoginForm({ locale, nextPath, translations, initialError }: Prop
     if (!parsed.success) {
       setPhase('error');
       setErrorMessage('Email non valida');
+      return;
+    }
+
+    if (!captchaToken) {
+      setPhase('error');
+      setErrorMessage(
+        locale === 'en'
+          ? 'Please complete the captcha verification'
+          : 'Completa la verifica captcha',
+      );
       return;
     }
 
@@ -52,8 +74,11 @@ export function LoginForm({ locale, nextPath, translations, initialError }: Prop
 
       const { error } = await supabase.auth.signInWithOtp({
         email: parsed.data,
-        options: { emailRedirectTo: redirectTo },
+        options: { emailRedirectTo: redirectTo, captchaToken },
       });
+
+      // Reset captcha token comunque: Turnstile token e' one-shot.
+      setCaptchaToken(null);
 
       if (error) {
         setPhase('error');
@@ -102,6 +127,13 @@ export function LoginForm({ locale, nextPath, translations, initialError }: Prop
         />
       </div>
 
+      <TurnstileWidget
+        locale={locale}
+        onToken={handleCaptchaToken}
+        onError={handleCaptchaError}
+        onExpire={handleCaptchaExpire}
+      />
+
       {errorMessage && (
         <p role="alert" className="text-sm text-error">
           {errorMessage}
@@ -110,7 +142,7 @@ export function LoginForm({ locale, nextPath, translations, initialError }: Prop
 
       <button
         type="submit"
-        disabled={isPending}
+        disabled={isPending || !captchaToken}
         className="w-full px-5 py-3 rounded-pill bg-brand-gradient text-bg-dark font-semibold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isPending ? translations.sendingLabel : translations.submitLabel}

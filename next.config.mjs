@@ -36,11 +36,12 @@ const nextConfig = {
   async headers() {
     const csp = [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://*.vercel-scripts.com https://va.vercel-scripts.com",
+      "script-src 'self' 'unsafe-inline' https://*.vercel-scripts.com https://va.vercel-scripts.com https://challenges.cloudflare.com",
       "style-src 'self' 'unsafe-inline'",
       "img-src 'self' data: blob: https:",
       "font-src 'self' data:",
-      "connect-src 'self' https://xcdyhkuyxukaifhhtadr.supabase.co https://api.resend.com https://*.vercel-scripts.com https://vitals.vercel-insights.com https://www.strava.com",
+      "connect-src 'self' https://xcdyhkuyxukaifhhtadr.supabase.co https://api.resend.com https://*.vercel-scripts.com https://vitals.vercel-insights.com https://www.strava.com https://challenges.cloudflare.com",
+      "frame-src https://challenges.cloudflare.com",
       "frame-ancestors 'none'",
       "form-action 'self'",
       "base-uri 'self'",
