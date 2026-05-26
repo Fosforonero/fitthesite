@@ -23,6 +23,48 @@ const nextConfig = {
    * richiesti a `/.well-known/assetlinks.json`, abbiamo un route handler
    * standard in `app/api/assetlinks/route.ts` e qui mappiamo l'URL pubblico.
    */
+  /**
+   * Security headers (cybersec audit 2026-05-26, P0-004).
+   *
+   * CSP: 'unsafe-inline' presente per script/style perche' Next.js bootstrap
+   * + Vercel Analytics + tag JSON-LD inline non funzionerebbero senza.
+   * Migrazione a strict-dynamic + nonces e' lavoro futuro.
+   * connect-src include Supabase project + Resend (welcome email cron) +
+   * Vercel insights. Aggiungere domini OAuth (Strava, Garmin, ecc.) qui
+   * quando vengono integrati.
+   */
+  async headers() {
+    const csp = [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' https://*.vercel-scripts.com https://va.vercel-scripts.com",
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: blob: https:",
+      "font-src 'self' data:",
+      "connect-src 'self' https://xcdyhkuyxukaifhhtadr.supabase.co https://api.resend.com https://*.vercel-scripts.com https://vitals.vercel-insights.com https://www.strava.com",
+      "frame-ancestors 'none'",
+      "form-action 'self'",
+      "base-uri 'self'",
+      "object-src 'none'",
+    ].join('; ');
+
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'DENY' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=(), interest-cohort=()' },
+          // CSP in Report-Only per 1-2 settimane: vediamo eventuali violazioni
+          // in console browser senza rompere il sito. Quando confermato pulito,
+          // sostituire la chiave con 'Content-Security-Policy' (enforce).
+          { key: 'Content-Security-Policy-Report-Only', value: csp },
+        ],
+      },
+    ];
+  },
+
   async rewrites() {
     return [
       {
