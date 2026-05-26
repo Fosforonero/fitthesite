@@ -1,0 +1,60 @@
+# FCM sync trigger — invoca /api/cron/sync-trigger ogni 30 min.
+#
+# Vercel Hobby plan limita cron a daily-only, max 2/project (gia' al limite).
+# GitHub Actions schedule e' gratis, no limit di frequency, e fornisce
+# audit log delle esecuzioni nel tab Actions del repo.
+#
+# Security: nessun input untrusted (no github.event.*), solo secrets repo
+# passati via env vars (mai inline nel run script).
+#
+# Secrets richiesti nel repo (Settings → Secrets and variables → Actions):
+#   FITMESH_CRON_SECRET — stesso valore della env var Vercel CRON_SECRET
+
+name: FCM sync trigger
+
+on:
+  schedule:
+    # Ogni 30 min. Cron expression GH Actions e' UTC.
+    # GH Actions schedule ha drift di 5-15 min e puo' essere skippato durante
+    # incident infra GitHub. Per use case "sync background" e' tollerabile.
+    - cron: '*/30 * * * *'
+  # Manual trigger button su GitHub Actions tab per testing.
+  workflow_dispatch:
+
+concurrency:
+  group: fcm-sync-trigger
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Call sync-trigger endpoint
+        env:
+          CRON_SECRET: ${{ secrets.FITMESH_CRON_SECRET }}
+          ENDPOINT_URL: https://www.fitmesh.fit/api/cron/sync-trigger
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "::error::FITMESH_CRON_SECRET repo secret non configurato"
+            exit 1
+          fi
+
+          HTTP_CODE=$(curl -s -o /tmp/response.json -w "%{http_code}" \
+            -X POST "$ENDPOINT_URL" \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            -H "Content-Type: application/json" \
+            --max-time 60)
+
+          echo "HTTP $HTTP_CODE"
+          echo "Response body:"
+          cat /tmp/response.json
+          echo ""
+
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::Endpoint returned HTTP $HTTP_CODE"
+            exit 1
+          fi
