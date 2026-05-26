@@ -88,11 +88,26 @@ export async function GET(req: Request) {
     if (i < pendings.length - 1) await sleep(RESEND_RATE_DELAY_MS);
   }
 
+  // Piggyback: cleanup rate_limit_buckets vecchi (>1h) per evitare growth
+  // unbounded della tabella. Hobby plan limita a 2 cron/project (gia' al
+  // limite con welcome-emails + indexnow-daily), quindi riusiamo questo
+  // slot daily invece di aggiungere un terzo cron.
+  let rateLimitRowsDeleted: number | null = null;
+  try {
+    const { data: cleanupResult } = await sb.rpc("rate_limit_cleanup");
+    if (typeof cleanupResult === "number") {
+      rateLimitRowsDeleted = cleanupResult;
+    }
+  } catch {
+    // Non bloccare la cron per cleanup failure — best-effort.
+  }
+
   return NextResponse.json({
     ok: true,
     sent,
     failed,
     total: pendings.length,
+    rateLimitRowsDeleted,
     ...(failed > 0 ? { failures } : {}),
   });
 }

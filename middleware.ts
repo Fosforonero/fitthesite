@@ -16,6 +16,12 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { type NextRequest, NextResponse } from 'next/server';
 
+import {
+  buildRateLimitResponse,
+  limitSignup,
+  limitSync,
+} from '@/lib/rate-limit/limiter';
+
 type CookieToSet = { name: string; value: string; options: CookieOptions };
 
 const PROTECTED_PREFIXES = ['/app', '/admin'] as const;
@@ -74,11 +80,27 @@ function bestLocaleFromAcceptLanguage(header: string | null): string {
 }
 
 export async function middleware(request: NextRequest) {
+  const { pathname, search } = request.nextUrl;
+
+  // Rate limit FIRST (P0-001 cybersec): blocca abuse-via-curl prima di
+  // sprecare round-trip Supabase auth refresh. Fail-open su errore Supabase.
+  // Solo route ad alto rischio. Resto del traffico passa through.
+  if (pathname === '/api/v1/sync') {
+    const result = await limitSync(request);
+    if (!result.allowed) {
+      return buildRateLimitResponse(result);
+    }
+  } else if (pathname === '/api/v1/beta/signup') {
+    const result = await limitSignup(request);
+    if (!result.allowed) {
+      return buildRateLimitResponse(result);
+    }
+  }
+
   // Redirect deeplink senza locale (es. share URL "/famiglia/join/CODE") al
   // path localizzato corretto. Risolve il 404 quando l'app condivide URL
   // senza prefix locale. Fa il redirect PRIMA del refresh sessione per
   // evitare di sprecare round-trip Supabase su una request che cambia URL.
-  const { pathname, search } = request.nextUrl;
   if (needsLocalePrefix(pathname)) {
     const locale = bestLocaleFromAcceptLanguage(request.headers.get('accept-language'));
     const url = request.nextUrl.clone();
