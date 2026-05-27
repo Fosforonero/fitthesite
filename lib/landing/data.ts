@@ -175,8 +175,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Does FitMesh Sync replace Samsung Health?",
         },
         a: {
-          it: "No, lavora insieme. Samsung Health continua a ricevere dati dal Watch. FitMesh legge una copia da Health Connect e la mostra sulla dashboard web. Sono complementari.",
-          en: "No, they work together. Samsung Health keeps receiving data from the Watch. FitMesh reads a copy from Health Connect and shows it on the web dashboard. They're complementary.",
+          it: "No, lavora insieme. Samsung Health continua a ricevere dati dal Watch. FitMesh ne legge una copia e la mostra sulla dashboard web. Sono complementari.",
+          en: "No, they work together. Samsung Health keeps receiving data from the Watch. FitMesh reads a copy and shows it on the web dashboard. They're complementary.",
+        },
+      },
+      {
+        q: {
+          it: "E se Samsung Health non condivide tutto con Health Connect?",
+          en: "What if Samsung Health doesn't share everything with Health Connect?",
+        },
+        a: {
+          it: "Su telefoni Samsung FitMesh legge i dati direttamente da Samsung Health, oltre che da Health Connect. Così recupera anche le metriche che Samsung Health spesso non passa a Health Connect — in particolare frequenza cardiaca e sonno — più allenamenti, peso, pressione, glicemia e altro quando disponibili. Basta concedere i permessi di lettura una volta dalle impostazioni dell'app.",
+          en: "On Samsung phones FitMesh reads data directly from Samsung Health, in addition to Health Connect. This recovers metrics that Samsung Health often doesn't pass to Health Connect — especially heart rate and sleep — plus workouts, weight, blood pressure, glucose and more when available. Just grant read permission once from the app settings.",
         },
       },
       {
