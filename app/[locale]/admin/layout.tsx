@@ -26,11 +26,11 @@ export default async function AdminLayout({
     redirect(`/${lc}/auth/login?next=/${lc}/admin`);
   }
 
-  // Hard email whitelist (defense-in-depth): SOLO mat.pizzi@gmail.com.
-  // Coordina con public.is_admin() che ha lo stesso check email server-side.
+  // Hard email whitelist (defense-in-depth): gatekeeper prima della RPC.
+  // Coordina con public.is_admin() (ruolo in user_roles) come secondo strato.
   // Anche se la RPC fallisse, questo guard blocca prima del render.
-  const ADMIN_EMAIL = 'mat.pizzi@gmail.com';
-  if ((user.email ?? '').toLowerCase() !== ADMIN_EMAIL) {
+  const ADMIN_EMAILS = ['mat.pizzi@gmail.com', 'genghi77@gmail.com'];
+  if (!ADMIN_EMAILS.includes((user.email ?? '').toLowerCase())) {
     redirect(`/${lc}/app`);
   }
 
