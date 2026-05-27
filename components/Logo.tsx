@@ -39,7 +39,7 @@ export default function Logo({
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/icon-square.png"
+          src="/icon-square-128.png"
           alt="FitMesh Sync"
           width={size}
           height={size}
