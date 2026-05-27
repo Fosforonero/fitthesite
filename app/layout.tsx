@@ -68,7 +68,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link
           rel="preload"
           as="image"
-          href="/icon-square.png"
+          href="/icon-square-128.png"
           type="image/png"
           fetchPriority="high"
         />
