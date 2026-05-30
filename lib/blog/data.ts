@@ -28,6 +28,10 @@ import { post as smartwatchPerAnzianiGuida } from "./posts/smartwatch-per-anzian
 import { post as esportareDatiGarmin } from "./posts/esportare-dati-garmin";
 import { post as syncSamsungHealthGoogleFit } from "./posts/sync-samsung-health-google-fit";
 import { post as bestSmartwatchForElderly } from "./posts/best-smartwatch-for-elderly";
+// Batch 3
+import { post as smartwatchEstate2026 } from "./posts/smartwatch-estate-2026";
+import { post as healthConnectNotSyncing } from "./posts/health-connect-not-syncing";
+import { post as howToExportAppleHealthData } from "./posts/how-to-export-apple-health-data";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -46,6 +50,10 @@ const RAW_POSTS: BlogPost[] = [
   esportareDatiGarmin,
   syncSamsungHealthGoogleFit,
   bestSmartwatchForElderly,
+  // Batch 3
+  smartwatchEstate2026,
+  healthConnectNotSyncing,
+  howToExportAppleHealthData,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
