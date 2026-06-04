@@ -1,62 +1,55 @@
 /**
- * HeroVisual — two-phone hero mockup, pixel-perfect CSS replica of the actual
- * FitMesh Sync Android app. Pure HTML/SVG, no rasterized assets.
+ * HeroVisual — two-phone hero mockup, pixel-perfect CSS replica of the
+ * redesigned FitMesh Sync app (v3.4+). Pure HTML/SVG, no rasterized assets.
  *
- * Layout:
- *  - Front phone: Dashboard fragment (KPI grid, sleep card, weekly chart)
- *  - Back phone:  Storico screen (WebView dashboard with hourly BPM bars)
- *                 — partially visible behind the front one, gives depth.
- *
- * Visual quality goal: looks like a real screenshot, not a wireframe.
+ * Front phone: Dashboard — ReadinessHero (ring + pill + mini-tiles) + GoalsCard
+ * Back phone:  History — 24-bar intraday HR chart (zone-colored)
  */
 
 type Strings = {
-  status: string;
+  dateLabel: string;
+  greeting: string;
+  statusLabel: string;
+  insight: string;
   steps: string;
-  bpm: string;
-  calories: string;
+  activeCal: string;
   sleep: string;
-  today: string;
-  sleepLabel: string;
-  good: string;
-  weekly: string;
-  lastSync: string;
-  hourly: string;
+  resting: string;
   history: string;
+  hrLabel: string;
+  hourly: string;
 };
 
 const ITStrings: Strings = {
-  status: "Sincronizzato",
+  dateLabel: "MER, 4 GIU",
+  greeting: "Buongiorno",
+  statusLabel: "Ottima forma",
+  insight: "HRV in salita — recupero ottimo oggi.",
   steps: "Passi",
-  bpm: "Battito",
-  calories: "Calorie",
+  activeCal: "Cal. attive",
   sleep: "Sonno",
-  today: "oggi",
-  sleepLabel: "questa notte",
-  good: "Buono",
-  weekly: "Settimanale",
-  lastSync: "5m fa",
-  hourly: "Orario",
+  resting: "Riposo",
   history: "Storico",
+  hrLabel: "Battito",
+  hourly: "Orario",
 };
 
 const ENStrings: Strings = {
-  status: "Synced",
+  dateLabel: "WED, 4 JUN",
+  greeting: "Good morning",
+  statusLabel: "Great shape",
+  insight: "HRV trending up — solid recovery today.",
   steps: "Steps",
-  bpm: "Heart rate",
-  calories: "Calories",
+  activeCal: "Active cal.",
   sleep: "Sleep",
-  today: "today",
-  sleepLabel: "last night",
-  good: "Good",
-  weekly: "Weekly",
-  lastSync: "5m ago",
-  hourly: "Hourly",
+  resting: "Resting",
   history: "History",
+  hrLabel: "Heart rate",
+  hourly: "Hourly",
 };
 
-export default function HeroVisual({ locale = "it" }: { locale?: "it" | "en" }) {
-  const t = locale === "en" ? ENStrings : ITStrings;
+export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) {
+  const t = locale === "it" ? ITStrings : ENStrings;
 
   return (
     <div className="relative w-full max-w-[460px] mx-auto lg:mx-0 h-[520px] sm:h-[640px] lg:h-[720px]">
@@ -70,7 +63,7 @@ export default function HeroVisual({ locale = "it" }: { locale?: "it" | "en" }) 
         }}
       />
 
-      {/* ── Phone B (background, History screen with hourly BPM chart) ── */}
+      {/* ── Phone B (background, History screen) ── */}
       <div
         className="absolute hidden sm:block top-[60px] -right-[40px] lg:right-[-30px] w-[240px] aspect-[9/19] rotate-[6deg] origin-bottom-left z-0 opacity-90"
         aria-hidden
@@ -81,8 +74,6 @@ export default function HeroVisual({ locale = "it" }: { locale?: "it" | "en" }) 
       </div>
 
       {/* ── Phone A (front, Dashboard) ── */}
-      {/* w-[240px] su mobile (h ≈ 506px) per stare nel container h-[520px]
-          senza bleed sotto. sm+ torna a 310px. */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 w-[240px] sm:w-[310px] aspect-[9/19] z-10">
         <PhoneFrame primary>
           <DashboardScreen t={t} />
@@ -120,7 +111,7 @@ export default function HeroVisual({ locale = "it" }: { locale?: "it" | "en" }) 
   );
 }
 
-/* ───────── Subcomponents ───────── */
+/* ───────── Phone shell ───────── */
 
 function PhoneFrame({
   children,
@@ -132,7 +123,9 @@ function PhoneFrame({
   return (
     <div
       className={`relative w-full h-full rounded-[44px] p-[3px] bg-gradient-to-b from-white/25 to-white/5 ${
-        primary ? "shadow-[0_40px_120px_-20px_rgba(0,0,0,0.85)]" : "shadow-[0_20px_60px_-20px_rgba(0,0,0,0.75)]"
+        primary
+          ? "shadow-[0_40px_120px_-20px_rgba(0,0,0,0.85)]"
+          : "shadow-[0_20px_60px_-20px_rgba(0,0,0,0.75)]"
       }`}
     >
       <div className="absolute inset-[3px] rounded-[42px] bg-[#04070f] overflow-hidden">
@@ -145,14 +138,12 @@ function PhoneFrame({
         <div className="absolute top-0 inset-x-0 px-5 pt-[10px] flex items-center justify-between z-30 text-[10px] text-text-primary font-medium">
           <span>9:41</span>
           <div className="flex items-center gap-1">
-            {/* Signal */}
             <svg viewBox="0 0 18 12" className="w-[14px] h-[10px]" fill="currentColor" aria-hidden>
               <rect x="0"  y="8" width="3" height="4" rx="0.5" />
               <rect x="5"  y="5" width="3" height="7" rx="0.5" />
               <rect x="10" y="2" width="3" height="10" rx="0.5" />
               <rect x="15" y="0" width="3" height="12" rx="0.5" opacity=".4" />
             </svg>
-            {/* Battery */}
             <svg viewBox="0 0 24 12" className="w-[18px] h-[9px]" fill="currentColor" aria-hidden>
               <rect x="0.5" y="0.5" width="20" height="11" rx="2.5" fill="none" stroke="currentColor" opacity=".5" />
               <rect x="2"   y="2"   width="13" height="8"  rx="1.5" />
@@ -161,114 +152,209 @@ function PhoneFrame({
           </div>
         </div>
         {children}
-        {/* Home indicator */}
         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[100px] h-[4px] rounded-full bg-white/30" />
       </div>
     </div>
   );
 }
 
+/* ───────── Dashboard screen (front phone) ───────── */
+
 function DashboardScreen({ t }: { t: Strings }) {
+  // Ring: circumference = 2π×30 ≈ 188.5. readiness=78 → offset = 188.5×0.22 ≈ 41
+  const circumference = 188.5;
+  const readiness = 78;
+  const dashOffset = circumference * (1 - readiness / 100);
+
   return (
-    <div className="absolute inset-0 pt-[44px] pb-3 px-3.5 flex flex-col gap-2.5">
-      {/* Header: device + sync + history button */}
-      <div className="flex items-start justify-between">
-        <div>
-          <div className="font-display text-[15px] font-semibold tracking-tight text-text-primary leading-tight">
-            Galaxy Watch
-          </div>
-          <div className="text-[10px] text-text-muted mt-0.5">
-            {t.status} · {t.lastSync}
-          </div>
-        </div>
-        <span className="text-[9px] font-medium px-2 py-1 rounded-pill border border-divider text-text-secondary">
-          {t.history}
-        </span>
-      </div>
-
-      {/* OGGI label + live pill */}
-      <div className="flex items-center justify-between mt-0.5">
-        <span className="text-[9px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-          {t.today}
-        </span>
-        <span
-          className="inline-flex items-center gap-1 px-1.5 py-[1px] rounded-pill text-[8px] font-bold uppercase tracking-wider"
-          style={{ background: "rgba(49, 233, 129, 0.15)", color: "#31E981" }}
-        >
-          <span className="w-1 h-1 rounded-full" style={{ background: "#31E981", boxShadow: "0 0 6px #31E981" }} />
-          Live
-        </span>
-      </div>
-
-      {/* KPI grid 2x2 */}
-      <div className="grid grid-cols-2 gap-1.5">
-        <KpiTile label={t.steps}    value="8.524"    color="#1DA1FF" hint={t.today} />
-        <KpiTile label={t.bpm}      value="72"        unit="bpm"    color="#FF5C7A" hint="60-105" />
-        <KpiTile label={t.calories} value="480"       unit="kcal"   color="#FFB547" hint={t.today} />
-        <KpiTile label={t.sleep}    value="7h13"      color="#21E6C1" hint={t.good} hintColor="#21E6C1" />
-      </div>
-
-      {/* Sleep mini-card with stages bar */}
-      <div className="rounded-[12px] bg-[#12182B] border border-[#24304A] p-2.5">
-        <div className="flex items-center justify-between">
-          <span className="text-[9px] uppercase tracking-[0.16em] text-text-muted font-semibold">
-            {t.sleep}
-          </span>
-          <span
-            className="text-[8px] font-bold px-1.5 py-[1px] rounded-pill"
-            style={{ background: "rgba(167,139,250,0.18)", color: "#A78BFA" }}
+    <div className="absolute inset-0 pt-[44px] pb-3 px-3.5 flex flex-col gap-2 overflow-hidden">
+      {/* Header: date + greeting + bell + avatar */}
+      <div className="flex items-center gap-2 mt-1">
+        <div className="flex-1">
+          <div
+            className="text-[8px] font-medium tracking-[0.5px] uppercase"
+            style={{ color: "#8E97A8" }}
           >
-            {t.good}
-          </span>
+            {t.dateLabel}
+          </div>
+          <div className="font-display text-[13px] font-semibold tracking-tight text-text-primary leading-tight mt-[1px]">
+            {t.greeting}
+          </div>
         </div>
-        <div className="mt-1 flex items-baseline gap-1">
-          <span className="font-display text-[16px] font-semibold text-text-primary tracking-tightest leading-none">
-            7h 13m
-          </span>
-          <span className="text-[9px] text-text-muted">·</span>
-          <span className="text-[9px] text-text-muted">{t.sleepLabel}</span>
+        {/* Bell + badge */}
+        <div className="relative mr-1">
+          <svg
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#8E97A8"
+            strokeWidth="2"
+            strokeLinecap="round"
+          >
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+          <span
+            className="absolute -top-[2px] -right-[2px] w-[6px] h-[6px] rounded-full"
+            style={{ background: "#FF5C7A", border: "1.5px solid #04070f" }}
+          />
         </div>
-        <div className="mt-1.5 flex h-[5px] rounded-full overflow-hidden">
-          <span className="flex-[18]" style={{ background: "#1DA1FF" }} />
-          <span className="flex-[22]" style={{ background: "#A78BFA" }} />
-          <span className="flex-[55]" style={{ background: "#60A5FA" }} />
-          <span className="flex-[5]"  style={{ background: "#FF5C7A" }} />
+        {/* Avatar */}
+        <div
+          className="w-[24px] h-[24px] rounded-full flex items-center justify-center"
+          style={{
+            background: "rgba(33,230,193,0.15)",
+            border: "1.5px solid rgba(33,230,193,0.4)",
+          }}
+        >
+          <span className="text-[10px] font-bold" style={{ color: "#21E6C1" }}>
+            M
+          </span>
         </div>
       </div>
 
-      {/* Weekly mini chart */}
-      <div className="rounded-[12px] bg-[#12182B] border border-[#24304A] p-2.5 flex-1 flex flex-col min-h-0">
-        <div className="flex items-center justify-between">
-          <span className="text-[9px] uppercase tracking-[0.16em] text-text-muted font-semibold">
-            {t.weekly}
-          </span>
-          <span className="text-[9px] text-success font-bold">+12%</span>
-        </div>
-        <div className="mt-1.5 flex items-end justify-between gap-[3px] flex-1">
-          {[40, 70, 55, 80, 65, 90, 78].map((h, i) => (
+      {/* ── Readiness Hero ── */}
+      <div
+        className="rounded-[14px] p-2.5"
+        style={{
+          background: "linear-gradient(160deg, #16203a, #0f1730)",
+          border: "1px solid rgba(255,255,255,0.10)",
+        }}
+      >
+        <div className="flex items-center gap-2.5">
+          {/* Animated ring */}
+          <div className="relative w-[68px] h-[68px] flex-shrink-0">
+            <svg
+              viewBox="0 0 72 72"
+              className="w-full h-full"
+              style={{ transform: "rotate(-90deg)" }}
+            >
+              {/* Track */}
+              <circle
+                cx="36" cy="36" r="30"
+                fill="none"
+                stroke="rgba(255,255,255,0.08)"
+                strokeWidth="6"
+              />
+              {/* Progress — aqua glow */}
+              <circle
+                cx="36" cy="36" r="30"
+                fill="none"
+                stroke="#21E6C1"
+                strokeWidth="6"
+                strokeLinecap="round"
+                strokeDasharray={circumference}
+                strokeDashoffset={dashOffset}
+                style={{ filter: "drop-shadow(0 0 4px rgba(33,230,193,0.6))" }}
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span
+                className="font-display font-bold leading-none"
+                style={{ fontSize: 20, color: "#fff", letterSpacing: -1 }}
+              >
+                {readiness}
+              </span>
+              <span
+                className="font-semibold tracking-wider"
+                style={{ fontSize: 6, color: "#8E97A8", marginTop: 1 }}
+              >
+                READINESS
+              </span>
+            </div>
+          </div>
+
+          {/* Status + insight */}
+          <div className="flex-1 min-w-0">
             <span
-              key={i}
-              className="flex-1 rounded-[2px]"
-              style={{
-                height: `${h}%`,
-                background:
-                  i === 6
-                    ? "linear-gradient(180deg, #21E6C1, #1DA1FF)"
-                    : "rgba(120, 160, 220, 0.16)",
-              }}
-            />
+              className="inline-flex items-center gap-1 rounded-full px-2 py-[2px] text-[8px] font-bold"
+              style={{ background: "rgba(124,255,91,0.13)", color: "#7CFF5B" }}
+            >
+              <span
+                className="w-[5px] h-[5px] rounded-full"
+                style={{ background: "#7CFF5B" }}
+              />
+              {t.statusLabel}
+            </span>
+            <p
+              className="mt-1 leading-[1.4]"
+              style={{ fontSize: 8, color: "#B8C0D4" }}
+            >
+              {t.insight}
+            </p>
+          </div>
+        </div>
+
+        {/* 3 mini-tiles */}
+        <div className="flex gap-1.5 mt-2">
+          {[
+            { label: "HRV", value: "64 ms" },
+            { label: t.sleep, value: "7h 12m" },
+            { label: t.resting, value: "58 bpm" },
+          ].map(({ label, value }) => (
+            <div
+              key={label}
+              className="flex-1 rounded-[8px] px-1.5 py-1.5"
+              style={{ background: "rgba(255,255,255,0.04)" }}
+            >
+              <div
+                className="font-semibold"
+                style={{ fontSize: 7, color: "#8E97A8" }}
+              >
+                {label}
+              </div>
+              <div
+                className="font-bold text-white mt-[2px]"
+                style={{ fontSize: 9 }}
+              >
+                {value}
+              </div>
+            </div>
           ))}
         </div>
-        <div className="mt-1 flex justify-between text-[8px] text-text-muted">
-          <span>L</span><span>M</span><span>M</span><span>G</span><span>V</span><span>S</span><span>D</span>
-        </div>
+      </div>
+
+      {/* ── Goals card ── */}
+      <div
+        className="rounded-[12px] px-2.5 py-2 flex flex-col gap-2.5"
+        style={{ background: "rgba(26,34,56,0.90)" }}
+      >
+        {[
+          { label: t.steps,     value: "8,524",  goal: "10k",  pct: 85,  color: "#21E6C1" },
+          { label: t.activeCal, value: "480",     goal: "520 kcal", pct: 92, color: "#FF5C7A" },
+        ].map(({ label, value, goal, pct, color }) => (
+          <div key={label}>
+            <div className="flex items-center justify-between mb-1">
+              <span style={{ fontSize: 8, color: "#8E97A8" }}>{label}</span>
+              <span style={{ fontSize: 8, color: "#fff", fontWeight: 600 }}>
+                {value}
+                <span style={{ color: "#8E97A8", fontWeight: 400 }}> / {goal}</span>
+              </span>
+            </div>
+            <div
+              className="rounded-full overflow-hidden"
+              style={{ height: 6, background: "rgba(255,255,255,0.06)" }}
+            >
+              <div
+                className="h-full rounded-full"
+                style={{
+                  width: `${pct}%`,
+                  background: color,
+                  boxShadow: `0 0 8px ${color}66`,
+                }}
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
 }
 
+/* ───────── History screen (back phone) ───────── */
+
 function HistoryScreen({ t }: { t: Strings }) {
-  // Activity-context colored hourly bars (mimics the new dashboard chart)
   const colors = [
     "#A78BFA", "#A78BFA", "#A78BFA", "#A78BFA", "#A78BFA", "#A78BFA",
     "#1DA1FF", "#1DA1FF", "#21E6C1", "#7CFF5B", "#7CFF5B", "#21E6C1",
@@ -294,14 +380,12 @@ function HistoryScreen({ t }: { t: Strings }) {
       <div className="rounded-[10px] bg-[#12182B] border border-[#24304A] p-2 flex-1 flex flex-col">
         <div className="flex items-center justify-between">
           <span className="text-[8px] uppercase tracking-wider text-text-muted font-semibold">
-            {t.bpm} · {t.hourly}
+            {t.hrLabel} · {t.hourly}
           </span>
           <span className="text-[8px] text-text-secondary font-medium">72 bpm</span>
         </div>
 
-        {/* Hourly bars */}
         <div className="mt-2 flex items-end justify-between gap-[1px] flex-1 relative">
-          {/* Resting baseline */}
           <div
             aria-hidden
             className="absolute left-0 right-0 border-t border-dashed"
@@ -311,27 +395,21 @@ function HistoryScreen({ t }: { t: Strings }) {
             <span
               key={i}
               className="flex-1 rounded-[1px]"
-              style={{
-                height: `${heights[i]}%`,
-                background: c,
-                minWidth: "2px",
-              }}
+              style={{ height: `${heights[i]}%`, background: c, minWidth: "2px" }}
             />
           ))}
         </div>
 
-        {/* X-axis */}
         <div className="mt-1 flex justify-between text-[7px] text-text-muted">
           <span>0</span><span>6</span><span>12</span><span>18</span><span>24</span>
         </div>
 
-        {/* Legend */}
         <div className="mt-2 flex flex-wrap gap-1 text-[7px] text-text-muted">
           {[
-            { l: "Sleep",    c: "#A78BFA" },
-            { l: "Rest",     c: "#1DA1FF" },
-            { l: "Active",   c: "#21E6C1" },
-            { l: "Workout",  c: "#7CFF5B" },
+            { l: "Sleep",   c: "#A78BFA" },
+            { l: "Rest",    c: "#1DA1FF" },
+            { l: "Active",  c: "#21E6C1" },
+            { l: "Workout", c: "#7CFF5B" },
           ].map((it) => (
             <span key={it.l} className="inline-flex items-center gap-[3px]">
               <span className="w-[5px] h-[5px] rounded-full" style={{ background: it.c }} />
@@ -340,41 +418,6 @@ function HistoryScreen({ t }: { t: Strings }) {
           ))}
         </div>
       </div>
-    </div>
-  );
-}
-
-function KpiTile({
-  label, value, unit, color, hint, hintColor,
-}: {
-  label: string; value: string; unit?: string; color: string;
-  hint?: string; hintColor?: string;
-}) {
-  return (
-    <div className="rounded-[11px] bg-[#12182B] border border-[#24304A] p-2">
-      <div className="flex items-center justify-between">
-        <span className="text-[8px] uppercase tracking-[0.14em] text-text-muted font-semibold">
-          {label}
-        </span>
-        <span
-          className="w-1.5 h-1.5 rounded-full"
-          style={{ background: color, boxShadow: `0 0 6px ${color}99` }}
-        />
-      </div>
-      <div className="mt-1 flex items-baseline gap-0.5">
-        <span className="font-display text-[15px] font-semibold text-text-primary tracking-tightest leading-none">
-          {value}
-        </span>
-        {unit && <span className="text-[8px] text-text-muted">{unit}</span>}
-      </div>
-      {hint && (
-        <div
-          className="text-[8px] mt-0.5 font-medium"
-          style={{ color: hintColor ?? "var(--fm-text-muted)" }}
-        >
-          {hint}
-        </div>
-      )}
     </div>
   );
 }

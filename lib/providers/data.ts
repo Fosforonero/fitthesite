@@ -1272,6 +1272,158 @@ export const PROVIDERS: Provider[] = [
     },
   },
   {
+    slug: "suunto",
+    name: "Suunto",
+    vendor: "Suunto",
+    category: "wearable",
+    status: "beta",
+    brandColor: "#FF7A45",
+    initial: "S",
+    tagline: {
+      it: "Suunto Race, Peak, Vertical, Trail: integrazione OAuth diretta — sync attività, sonno e recupero.",
+      en: "Suunto Race, Peak, Vertical, Trail: direct OAuth integration — sync activity, sleep and recovery.",
+    },
+    longDesc: {
+      it: "FitMesh Sync integra Suunto direttamente tramite la Suunto Cloud API — senza passare da Health Connect. Dopo il collegamento OAuth, i dati di attività, sonno e recupero vengono scaricati automaticamente via webhook in tempo reale. Suunto Race, Peak, Vertical, Trail e tutti i modelli compatibili con la Suunto Cloud API sono supportati.",
+      en: "FitMesh Sync integrates Suunto directly via the Suunto Cloud API — no Health Connect required. After the OAuth connection, activity, sleep and recovery data is pulled automatically via real-time webhooks. Suunto Race, Peak, Vertical, Trail and all Suunto Cloud API-compatible models are supported.",
+    },
+    techNote: {
+      it: "Integrazione diretta: OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (activity, sleep, recovery, workout). Il client_secret è gestito server-side su Vercel — mai nel binario dell'app. Webhook real-time su nuove attività.",
+      en: "Direct integration: OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (activity, sleep, recovery, workout). The client_secret is handled server-side on Vercel — never in the app binary. Real-time webhooks on new activities.",
+    },
+    dataTypes: STD_DATA_TYPES({
+      steps: true,
+      hr: true,
+      sleep: true,
+      calories: true,
+      distance: true,
+      workouts: true,
+      vo2max: true,
+      spo2: false,
+    }),
+    faqs: [
+      {
+        q: {
+          it: "Quali Suunto sono supportati?",
+          en: "Which Suunto devices are supported?",
+        },
+        a: {
+          it: "Tutti i modelli compatibili con la Suunto app e la Suunto Cloud API: Race, Peak, Vertical, Trail, 9 Baro, 5 Peak, Spartan Ultra/Trainer, Ambit4. È sufficiente avere l'app Suunto sul telefono con l'account attivo.",
+          en: "All models compatible with the Suunto app and Suunto Cloud API: Race, Peak, Vertical, Trail, 9 Baro, 5 Peak, Spartan Ultra/Trainer, Ambit4. You just need the Suunto app on your phone with an active account.",
+        },
+      },
+      {
+        q: {
+          it: "Perché non passa da Health Connect come Garmin o Polar?",
+          en: "Why doesn't it go through Health Connect like Garmin or Polar?",
+        },
+        a: {
+          it: "L'app Suunto non scrive su Health Connect. Usiamo quindi l'integrazione ufficiale Suunto Cloud API — che è più completa: include dati di recupero e metriche avanzate non accessibili via Health Connect.",
+          en: "The Suunto app does not write to Health Connect. We therefore use the official Suunto Cloud API integration — which is more complete: it includes recovery data and advanced metrics not accessible via Health Connect.",
+        },
+      },
+      {
+        q: {
+          it: "Vedo i dati di recupero Suunto?",
+          en: "Do I see Suunto recovery data?",
+        },
+        a: {
+          it: "Sì — l'API Suunto espone il Recovery Score giornaliero, incluso lo status generale. FitMesh lo mostra nella sezione 'Vitali' della dashboard.",
+          en: "Yes — the Suunto API exposes the daily Recovery Score, including overall status. FitMesh displays it in the 'Vitals' section of the dashboard.",
+        },
+      },
+    ],
+    seoKeywords: {
+      it: [
+        "sincronizzare suunto dashboard",
+        "suunto cloud api sync",
+        "suunto race peak vertical dashboard",
+        "esportare dati suunto",
+      ],
+      en: [
+        "sync suunto dashboard",
+        "suunto cloud api sync",
+        "suunto race peak vertical dashboard",
+        "export suunto data",
+      ],
+    },
+    setupGuide: {
+      steps: {
+        it: [
+          "Installa **FitMesh Sync** dal Play Store e accedi con Google o email.",
+          "Apri **Impostazioni** → **Dispositivi & sync** → **Provider esterni** → tocca **Suunto**.",
+          "Tocca **Collega Suunto** — verrai reindirizzato alla pagina login Suunto.",
+          "Accedi con le tue credenziali Suunto e **Autorizza** FitMesh ad accedere ai dati.",
+          "Attendi il primo sync (15–60 secondi). Le nuove attività sincronizzano automaticamente via webhook.",
+        ],
+        en: [
+          "Install **FitMesh Sync** from the Play Store and sign in with Google or email.",
+          "Open **Settings** → **Devices & sync** → **External providers** → tap **Suunto**.",
+          "Tap **Connect Suunto** — you'll be redirected to the Suunto login page.",
+          "Sign in with your Suunto credentials and **Authorize** FitMesh to access your data.",
+          "Wait for the first sync (15–60 seconds). New activities sync automatically via webhook.",
+        ],
+      },
+      syncedData: {
+        it: [
+          "Passi giornalieri e distanza",
+          "Frequenza cardiaca (media, max, campioni continui)",
+          "Calorie attive per sessione",
+          "Sonno (durata totale e inizio/fine)",
+          "Recovery Score giornaliero",
+          "Allenamenti (tipo, durata, distanza, kcal, BPM medio/max)",
+          "VO₂ max stimato",
+        ],
+        en: [
+          "Daily steps and distance",
+          "Heart rate (average, max, continuous samples)",
+          "Active calories per session",
+          "Sleep (total duration and start/end time)",
+          "Daily Recovery Score",
+          "Workouts (type, duration, distance, kcal, average/max HR)",
+          "Estimated VO₂ max",
+        ],
+      },
+      troubleshooting: [
+        {
+          q: {
+            it: "Non vedo dati dopo aver collegato Suunto",
+            en: "I don't see data after connecting Suunto",
+          },
+          a: {
+            it: "Assicurati che il tuo Suunto abbia effettuato almeno un sync con l'app Suunto prima di collegare FitMesh. I webhook arrivano solo su nuove attività registrate dopo il collegamento; per i dati passati usa 'Ricostruisci storico' nelle impostazioni.",
+            en: "Make sure your Suunto has synced at least once with the Suunto app before connecting FitMesh. Webhooks only fire on new activities recorded after the connection; for past data use 'Rebuild history' in settings.",
+          },
+        },
+        {
+          q: {
+            it: "La connessione OAuth è scaduta",
+            en: "The OAuth connection has expired",
+          },
+          a: {
+            it: "I token Suunto scadono ogni 12 ore. FitMesh li rinnova automaticamente in background. Se vedi 'Token scaduto' nelle impostazioni, tocca 'Ricollega Suunto' per eseguire un nuovo OAuth.",
+            en: "Suunto tokens expire every 12 hours. FitMesh renews them automatically in the background. If you see 'Token expired' in settings, tap 'Reconnect Suunto' to run a new OAuth flow.",
+          },
+        },
+        {
+          q: {
+            it: "Posso collegare Suunto e un Galaxy Watch insieme?",
+            en: "Can I connect Suunto and a Galaxy Watch together?",
+          },
+          a: {
+            it: "Sì — FitMesh gestisce sorgenti multiple. Galaxy Watch arriva via Health Connect, Suunto via API diretta. Per le metriche condivise (passi, BPM) FitMesh usa una logica di priorità configurabile nelle impostazioni.",
+            en: "Yes — FitMesh handles multiple sources. Galaxy Watch arrives via Health Connect, Suunto via direct API. For shared metrics (steps, heart rate) FitMesh uses a configurable priority logic in settings.",
+          },
+        },
+      ],
+      technicalNotes: {
+        it: "Integrazione diretta Suunto Cloud API (non Health Connect). OAuth 2.0 Authorization Code + PKCE. Il client_secret è server-side su Vercel (mai nell'app). Token access: 12h, refresh: 30 giorni. Webhook real-time su nuovi workout, dati sleep/activity/recovery via polling orario come backup. Backfill: ultimi 30 giorni al primo connect.",
+        en: "Direct Suunto Cloud API integration (not Health Connect). OAuth 2.0 Authorization Code + PKCE. The client_secret is server-side on Vercel (never in the app). Access token: 12h, refresh: 30 days. Real-time webhooks on new workouts, sleep/activity/recovery via hourly polling as backup. Backfill: last 30 days on first connect.",
+      },
+    },
+    relatedBlogSlugs: ["guida-sync-wearable-2026", "scegliere-smartwatch-dati-2026"],
+  },
+  {
     slug: "oura",
     name: "Oura Ring",
     vendor: "Oura",
