@@ -32,6 +32,8 @@ import { post as bestSmartwatchForElderly } from "./posts/best-smartwatch-for-el
 import { post as smartwatchEstate2026 } from "./posts/smartwatch-estate-2026";
 import { post as healthConnectNotSyncing } from "./posts/health-connect-not-syncing";
 import { post as howToExportAppleHealthData } from "./posts/how-to-export-apple-health-data";
+// Batch 4
+import { post as fitbitDataNotSyncingAndroid } from "./posts/fitbit-data-not-syncing-android";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -54,6 +56,8 @@ const RAW_POSTS: BlogPost[] = [
   smartwatchEstate2026,
   healthConnectNotSyncing,
   howToExportAppleHealthData,
+  // Batch 4
+  fitbitDataNotSyncingAndroid,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
