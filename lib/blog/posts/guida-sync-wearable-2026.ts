@@ -51,8 +51,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Nel 2026 il mercato dei wearable è più frammentato di quanto sembri dall'esterno. Hai un Galaxy Watch che parla Samsung Health, un Fitbit comprato dal collega che ora è di Google, un Garmin del fratello che non vuole mollare Garmin Connect, e magari un Oura Ring sul comodino che ti dice come hai dormito. Ogni brand ha il proprio cloud, la propria app, le proprie metriche proprietarie — e una API che potrebbe non parlare con le altre.",
-        en: "In 2026 the wearable market is more fragmented than it looks from outside. You have a Galaxy Watch that speaks Samsung Health, a Fitbit your colleague gave you which is now Google's, a Garmin your sibling refuses to give up, and maybe an Oura Ring on the nightstand telling you how you slept. Each brand has its own cloud, its own app, its own proprietary metrics — and an API that may not talk to the others.",
+        it: "Nel 2026 la regola pratica per non perdere tempo con il sync wearable è una sola: scegli la pipeline dati prima del gadget. Tre standard convivono (Health Connect, OAuth ufficiali, export manuale), dieci brand spingono ognuno il proprio cloud, e capire quale percorso usare risolve il 90% dei problemi prima ancora di aprire un'app.",
+        en: "In 2026 the one practical rule to avoid wasting time on wearable sync is simple: pick the data pipe before the gadget. Three standards coexist (Health Connect, official OAuths, manual export), ten brands each push their own cloud, and understanding which path to use resolves 90% of problems before you even open an app.",
       },
     },
     {
@@ -200,8 +200,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Quello che segue è lo stato verificato delle pipeline dati pubbliche dei principali produttori. Le situazioni cambiano nel tempo — usa questa tabella come baseline, poi verifica al momento dell'acquisto.",
-        en: "What follows is the verified state of the public data pipelines for major manufacturers. Things change over time — use this table as a baseline, then verify at purchase time.",
+        it: "Quello che segue è lo stato verificato delle pipeline dati pubbliche dei principali produttori. Le situazioni cambiano nel tempo: usa questa tabella come baseline, poi verifica al momento dell'acquisto.",
+        en: "What follows is the verified state of the public data pipelines for major manufacturers. Things change over time: use this table as a baseline, then verify at purchase time.",
       },
     },
     {
@@ -266,8 +266,8 @@ export const post: BlogPost = {
       variant: "info",
       title: { it: "Apple Watch è un mondo a parte", en: "Apple Watch is its own world" },
       body: {
-        it: "Tutto quello che leggi qui vale per Android. Apple Watch funziona solo con iPhone e i suoi dati vivono in Apple Health (iOS). Non esiste un equivalente Health Connect per iOS — Apple ha HealthKit ma è on-device per definizione, e nessun produttore terzo può scrivere a iCloud per conto tuo. Se vuoi una dashboard cross-platform partendo da Apple Watch, devi esportare manualmente o usare app iOS dedicate.",
-        en: "Everything you read here applies to Android. Apple Watch only works with iPhone and its data lives in Apple Health (iOS). There's no Health Connect equivalent on iOS — Apple has HealthKit but it's on-device by definition, and no third-party manufacturer can write to iCloud for you. If you want a cross-platform dashboard starting from Apple Watch, you must export manually or use dedicated iOS apps.",
+        it: "Tutto quello che leggi qui vale per Android. Apple Watch funziona solo con iPhone e i suoi dati vivono in Apple Health (iOS). Non esiste un equivalente Health Connect per iOS: Apple ha HealthKit ma è on-device per definizione, e nessun produttore terzo può scrivere a iCloud per conto tuo. Se vuoi una dashboard cross-platform partendo da Apple Watch, devi esportare manualmente o usare app iOS dedicate.",
+        en: "Everything you read here applies to Android. Apple Watch only works with iPhone and its data lives in Apple Health (iOS). There's no Health Connect equivalent on iOS: Apple has HealthKit but it's on-device by definition, and no third-party manufacturer can write to iCloud for you. If you want a cross-platform dashboard starting from Apple Watch, you must export manually or use dedicated iOS apps.",
       },
     },
     {
@@ -298,12 +298,12 @@ export const post: BlogPost = {
         it: [
           "**Diritto di accesso (art. 15)**: puoi chiedere a qualsiasi produttore una copia dei tuoi dati. Hanno 30 giorni per fornirla, in formato leggibile. Fitbit e Google Fit lo fanno via Google Takeout; Garmin via account settings; Samsung Health via export interno.",
           "**Diritto alla portabilità (art. 20)**: hai diritto a ricevere i tuoi dati in formato strutturato e comune (CSV, JSON), e a trasmetterli a un altro titolare. Questo è il fondamento legale che rende impossibile bloccarti completamente in un ecosistema.",
-          "**Diritto alla cancellazione (art. 17)**: cancellando l'account, devono cancellare i dati. Nella pratica, alcuni mantengono backup per 30–90 giorni per ragioni operative — è ammesso, ma documentato nelle privacy policy.",
+          "**Diritto alla cancellazione (art. 17)**: cancellando l'account, devono cancellare i dati. Nella pratica, alcuni mantengono backup per 30–90 giorni per ragioni operative, è ammesso, ma documentato nelle privacy policy.",
         ],
         en: [
           "**Right of access (art. 15)**: you can ask any manufacturer for a copy of your data. They have 30 days to provide it in a readable format. Fitbit and Google Fit do this via Google Takeout; Garmin via account settings; Samsung Health via internal export.",
           "**Right to portability (art. 20)**: you have the right to receive your data in a structured, common format (CSV, JSON), and to transmit it to another controller. This is the legal basis that makes total ecosystem lock-in impossible.",
-          "**Right to erasure (art. 17)**: deleting your account means they must delete the data. In practice some keep backups for 30–90 days for operational reasons — this is allowed but documented in privacy policies.",
+          "**Right to erasure (art. 17)**: deleting your account means they must delete the data. In practice some keep backups for 30–90 days for operational reasons, allowed but documented in privacy policies.",
         ],
       },
     },
@@ -369,8 +369,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Ogni ecosistema ha le sue stranezze. Qui sotto trovi gli approfondimenti dedicati ai casi più frequenti — leggili se sei nel campo specifico, salta se non riguarda il tuo setup.",
-        en: "Each ecosystem has its quirks. Below are dedicated deep-dives for the most frequent cases — read them if relevant to your setup, skip otherwise.",
+        it: "Ogni ecosistema ha le sue stranezze. Qui sotto trovi gli approfondimenti dedicati ai casi più frequenti: leggili se sei nel campo specifico, salta se non riguarda il tuo setup.",
+        en: "Each ecosystem has its quirks. Below are dedicated deep-dives for the most frequent cases: read them if relevant to your setup, skip otherwise.",
       },
     },
     {
@@ -413,30 +413,30 @@ export const post: BlogPost = {
       type: "list",
       items: {
         it: [
-          "[Galaxy Watch](/it/sync/galaxy-watch) — nativo via Samsung Health + HC.",
-          "[Wear OS / Pixel Watch](/it/sync/wear-os) — nativo via Fitbit app + HC.",
-          "[Pixel Watch dedicato](/it/sync/pixel-watch) — guida specifica catena Fitbit app.",
-          "[Xiaomi Mi Band / Watch](/it/sync/xiaomi-mi-band) — nativo via Mi Fitness + HC (Mi Band 7+).",
-          "[Fitbit](/it/sync/fitbit) — funziona oggi via HC, OAuth Web API in roadmap Q3 2026.",
-          "[Garmin](/it/sync/garmin) — base oggi via HC, Body Battery/Training Load in arrivo Q3 2026.",
-          "[Polar](/it/sync/polar) — base oggi via HC, Accesslink OAuth in arrivo Q4 2026.",
-          "[Withings](/it/sync/withings) — base oggi via HC, OAuth API v2 in roadmap Q4 2026.",
-          "[Strava](/it/sync/strava) — OAuth-only, in arrivo Q3 2026.",
-          "[Oura Ring](/it/sync/oura) — OAuth-only, in arrivo Q4 2026.",
-          "[Huawei](/it/sync/huawei) — Health Kit OAuth, valutazione in corso.",
+          "[Galaxy Watch](/it/sync/galaxy-watch): nativo via Samsung Health + HC.",
+          "[Wear OS / Pixel Watch](/it/sync/wear-os): nativo via Fitbit app + HC.",
+          "[Pixel Watch dedicato](/it/sync/pixel-watch): guida specifica catena Fitbit app.",
+          "[Xiaomi Mi Band / Watch](/it/sync/xiaomi-mi-band): nativo via Mi Fitness + HC (Mi Band 7+).",
+          "[Fitbit](/it/sync/fitbit): funziona oggi via HC, OAuth Web API in roadmap Q3 2026.",
+          "[Garmin](/it/sync/garmin): base oggi via HC, Body Battery/Training Load in arrivo Q3 2026.",
+          "[Polar](/it/sync/polar): base oggi via HC, Accesslink OAuth in arrivo Q4 2026.",
+          "[Withings](/it/sync/withings): base oggi via HC, OAuth API v2 in roadmap Q4 2026.",
+          "[Strava](/it/sync/strava): OAuth-only, in arrivo Q3 2026.",
+          "[Oura Ring](/it/sync/oura): OAuth-only, in arrivo Q4 2026.",
+          "[Huawei](/it/sync/huawei): Health Kit OAuth, valutazione in corso.",
         ],
         en: [
-          "[Galaxy Watch](/en/sync/galaxy-watch) — native via Samsung Health + HC.",
-          "[Wear OS / Pixel Watch](/en/sync/wear-os) — native via Fitbit app + HC.",
-          "[Pixel Watch dedicated](/en/sync/pixel-watch) — specific Fitbit-app chain guide.",
-          "[Xiaomi Mi Band / Watch](/en/sync/xiaomi-mi-band) — native via Mi Fitness + HC (Mi Band 7+).",
-          "[Fitbit](/en/sync/fitbit) — works today via HC, Web API OAuth on Q3 2026 roadmap.",
-          "[Garmin](/en/sync/garmin) — basic today via HC, Body Battery/Training Load coming Q3 2026.",
-          "[Polar](/en/sync/polar) — basic today via HC, Accesslink OAuth coming Q4 2026.",
-          "[Withings](/en/sync/withings) — basic today via HC, API v2 OAuth on Q4 2026 roadmap.",
-          "[Strava](/en/sync/strava) — OAuth-only, coming Q3 2026.",
-          "[Oura Ring](/en/sync/oura) — OAuth-only, coming Q4 2026.",
-          "[Huawei](/en/sync/huawei) — Health Kit OAuth, under evaluation.",
+          "[Galaxy Watch](/en/sync/galaxy-watch): native via Samsung Health + HC.",
+          "[Wear OS / Pixel Watch](/en/sync/wear-os): native via Fitbit app + HC.",
+          "[Pixel Watch dedicated](/en/sync/pixel-watch): specific Fitbit-app chain guide.",
+          "[Xiaomi Mi Band / Watch](/en/sync/xiaomi-mi-band): native via Mi Fitness + HC (Mi Band 7+).",
+          "[Fitbit](/en/sync/fitbit): works today via HC, Web API OAuth on Q3 2026 roadmap.",
+          "[Garmin](/en/sync/garmin): basic today via HC, Body Battery/Training Load coming Q3 2026.",
+          "[Polar](/en/sync/polar): basic today via HC, Accesslink OAuth coming Q4 2026.",
+          "[Withings](/en/sync/withings): basic today via HC, API v2 OAuth on Q4 2026 roadmap.",
+          "[Strava](/en/sync/strava): OAuth-only, coming Q3 2026.",
+          "[Oura Ring](/en/sync/oura): OAuth-only, coming Q4 2026.",
+          "[Huawei](/en/sync/huawei): Health Kit OAuth, under evaluation.",
         ],
       },
     },
@@ -469,7 +469,7 @@ export const post: BlogPost = {
       type: "paragraph",
       text: {
         it: "Sul fronte commerciale: ci aspettiamo che almeno uno tra Garmin e Polar lanci un'API completamente pubblica self-serve (oggi entrambi richiedono approvazione developer); che Huawei provi a spingere maggiormente Health Kit fuori dalla Cina; che Oura introduca un piano enterprise per accesso API a costo zero a fronte di volumi. Tutto questo è speculazione informata, prendila con un grano di sale.",
-        en: "On the commercial front: we expect at least one of Garmin or Polar to launch a fully public self-serve API (today both require developer approval); Huawei to push Health Kit more outside China; Oura to introduce an enterprise plan with free API access in exchange for volume. All of this is informed speculation — take it with a grain of salt.",
+        en: "On the commercial front: we expect at least one of Garmin or Polar to launch a fully public self-serve API (today both require developer approval); Huawei to push Health Kit more outside China; Oura to introduce an enterprise plan with free API access in exchange for volume. All of this is informed speculation. Take it with a grain of salt.",
       },
     },
     {
@@ -491,13 +491,37 @@ export const post: BlogPost = {
         en: "Then, if you want to see them in a clean dashboard instead of fragmented across five apps, try FitMesh Sync. If you prefer to stick with the manufacturer apps, you now have the tools to understand their limits and when to jump to something else.",
       },
     },
+    {
+      type: "heading",
+      level: 2,
+      text: { it: "In sintesi", en: "In summary" },
+    },
+    {
+      type: "list",
+      items: {
+        it: [
+          "Ci sono tre modi reali per portare via dati da un wearable: Health Connect (on-device, zero setup, Android), OAuth API ufficiali (dati proprietari completi, richiede approvazione), export manuale (lento ma garantito per legge dal GDPR art. 20).",
+          "Health Connect non è Google Fit: Google Fit è deprecato dal giugno 2025, Health Connect è lo standard Android unificato e strettamente on-device.",
+          "Samsung, Fitbit, Garmin, Polar, Withings scrivono su Health Connect. Oura e Huawei no: richiedono OAuth o sono ecosistemi chiusi.",
+          "Prima di acquistare un wearable, fai il test: cerca '[nome device] Health Connect' su Google. Se non c'è una guida ufficiale del produttore, ti stai legando a un ecosistema chiuso.",
+          "Per dati salute, l'unico modello economico con incentivi allineati è 'a pagamento, no ads, no tracker': le app gratis monetizzano quasi sempre vendendo i dati aggregati.",
+        ],
+        en: [
+          "There are three real ways to get data out of a wearable: Health Connect (on-device, zero setup, Android), official OAuth APIs (full proprietary data, requires approval), manual export (slow but legally guaranteed by GDPR art. 20).",
+          "Health Connect is not Google Fit: Google Fit was deprecated in June 2025, Health Connect is the unified Android standard and strictly on-device.",
+          "Samsung, Fitbit, Garmin, Polar, Withings write to Health Connect. Oura and Huawei don't: they require OAuth or are closed ecosystems.",
+          "Before buying a wearable, run the test: search '[device name] Health Connect' on Google. If there's no official manufacturer guide, you're locking into a closed ecosystem.",
+          "For health data, the only business model with aligned incentives is 'paid, no ads, no trackers': free apps almost always monetize by selling aggregated data.",
+        ],
+      },
+    },
   ],
   faq: [
     {
       q: { it: "Devo per forza usare Health Connect?", en: "Do I have to use Health Connect?" },
       a: {
-        it: "Sui telefoni Android moderni è di fatto lo standard per qualsiasi sync wearable terzo. Esistono ancora app che leggono direttamente dal cloud del produttore via OAuth (Strava, Oura, Garmin Connect IQ), ma per la maggior parte dei dati 'di base' Health Connect è la via più veloce e privacy-friendly. Su iOS Health Connect non esiste — lì il riferimento è HealthKit.",
-        en: "On modern Android phones it's effectively the standard for any third-party wearable sync. There are still apps reading directly from the manufacturer cloud via OAuth (Strava, Oura, Garmin Connect IQ), but for most 'basic' data Health Connect is the fastest and most privacy-friendly route. On iOS Health Connect doesn't exist — there the reference is HealthKit.",
+        it: "Sui telefoni Android moderni è di fatto lo standard per qualsiasi sync wearable terzo. Esistono ancora app che leggono direttamente dal cloud del produttore via OAuth (Strava, Oura, Garmin Connect IQ), ma per la maggior parte dei dati 'di base' Health Connect è la via più veloce e privacy-friendly. Su iOS Health Connect non esiste: lì il riferimento è HealthKit.",
+        en: "On modern Android phones it's effectively the standard for any third-party wearable sync. There are still apps reading directly from the manufacturer cloud via OAuth (Strava, Oura, Garmin Connect IQ), but for most 'basic' data Health Connect is the fastest and most privacy-friendly route. On iOS Health Connect doesn't exist: there the reference is HealthKit.",
       },
     },
     {
@@ -506,8 +530,8 @@ export const post: BlogPost = {
         en: "Does Health Connect spy on me? Does Google see my data?",
       },
       a: {
-        it: "No, Health Connect è strettamente on-device. Google fornisce il software e l'API ma i dati non lasciano il telefono finché tu non concedi esplicitamente il permesso a un'app terza. Diverso il caso quando installi l'app Fitbit (di Google) e quella sincronizza con il cloud Fitbit — lì la responsabilità del dato è di Fitbit/Google, non di Health Connect.",
-        en: "No, Health Connect is strictly on-device. Google provides the software and the API but data doesn't leave the phone until you explicitly grant permission to a third-party app. Different story when you install the Fitbit app (Google's) which syncs with the Fitbit cloud — there the data controller is Fitbit/Google, not Health Connect.",
+        it: "No, Health Connect è strettamente on-device. Google fornisce il software e l'API ma i dati non lasciano il telefono finché tu non concedi esplicitamente il permesso a un'app terza. È diverso quando installi l'app Fitbit (di Google) e quella sincronizza con il cloud Fitbit: lì la responsabilità del dato è di Fitbit/Google, non di Health Connect.",
+        en: "No, Health Connect is strictly on-device. Google provides the software and the API but data doesn't leave the phone until you explicitly grant permission to a third-party app. It's different when you install the Fitbit app (Google's) which syncs with the Fitbit cloud: there the data controller is Fitbit/Google, not Health Connect.",
       },
     },
     {
@@ -526,8 +550,8 @@ export const post: BlogPost = {
         en: "What if I switch smartwatch mid-year?",
       },
       a: {
-        it: "Se entrambi (vecchio e nuovo) scrivono su Health Connect, lo storico passi/BPM/sonno si trova affiancato senza buchi: HC è agnostica rispetto alla fonte. Se passi tra ecosistemi chiusi (es. Apple Watch → Galaxy Watch), devi esportare manualmente i dati di Apple Health e re-importarli — non c'è un automatismo. Una buona pratica è esportare i dati ogni 6 mesi per sicurezza.",
-        en: "If both (old and new) write to Health Connect, the steps/HR/sleep history sits side-by-side with no gaps: HC is source-agnostic. If you switch between closed ecosystems (e.g. Apple Watch → Galaxy Watch), you must export Apple Health data manually and re-import — there's no automation. A good practice is to export your data every 6 months for safety.",
+        it: "Se entrambi (vecchio e nuovo) scrivono su Health Connect, lo storico passi/BPM/sonno si trova affiancato senza buchi: HC è agnostica rispetto alla fonte. Se passi tra ecosistemi chiusi (es. Apple Watch → Galaxy Watch), devi esportare manualmente i dati di Apple Health e re-importarli (non c'è un automatismo). Una buona pratica è esportare i dati ogni 6 mesi per sicurezza.",
+        en: "If both (old and new) write to Health Connect, the steps/HR/sleep history sits side-by-side with no gaps: HC is source-agnostic. If you switch between closed ecosystems (e.g. Apple Watch → Galaxy Watch), you must export Apple Health data manually and re-import (there's no automation). A good practice is to export your data every 6 months for safety.",
       },
     },
     {

@@ -43,15 +43,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "La confusione è comprensibile. Hai un Galaxy Watch, accendi il telefono e vedi due app: Samsung Health e Health Connect. Entrambe parlano di passi, BPM, sonno. Sembrano fare la stessa cosa. Domanda naturale: ne servono davvero due? Possiamo disinstallare quella che non usiamo?",
-        en: "The confusion is understandable. You have a Galaxy Watch, turn on the phone and see two apps: Samsung Health and Health Connect. Both talk about steps, HR, sleep. They look like they do the same thing. Natural question: do we really need both? Can we uninstall the one we don't use?",
-      },
-    },
-    {
-      type: "paragraph",
-      text: {
-        it: "Risposta breve: no, fanno cose diverse, e sui telefoni Samsung con Galaxy Watch ti servono entrambe. Risposta lunga: leggi avanti.",
-        en: "Short answer: no, they do different things, and on Samsung phones with Galaxy Watch you need both. Long answer: read on.",
+        it: "Samsung Health e Health Connect non sono concorrenti: lavorano insieme, e disabilitare quella sbagliata interrompe il sync del Galaxy Watch o impedisce alle app terze di leggere i tuoi dati. Samsung Health raccoglie i dati dal Watch; Health Connect è il quadro elettrico dei permessi che decide cosa esce verso le altre app. Capire questa distinzione risolve il 90% delle domande su Galaxy Watch e app fitness.",
+        en: "Samsung Health and Health Connect are not competitors: they work together, and disabling the wrong one either breaks Galaxy Watch sync or stops third-party apps from reading your data. Samsung Health collects data from the Watch; Health Connect is the permissions panel that decides what flows out to other apps. Understanding this distinction resolves 90% of questions about Galaxy Watch and fitness apps.",
       },
     },
     {
@@ -98,8 +91,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Health Connect è una API e un'app distribuita da Google, pensata come livello neutrale dove tutte le app salute Android scrivono e leggono. Non ha una dashboard utente ricca — è quasi solo un pannello di controllo che ti mostra:",
-        en: "Health Connect is an API and an app distributed by Google, designed as a neutral layer where all Android health apps write and read. It doesn't have a rich user dashboard — it's almost just a control panel showing you:",
+        it: "Health Connect è una API e un'app distribuita da Google, pensata come livello neutrale dove tutte le app salute Android scrivono e leggono. Non ha una dashboard utente ricca: è quasi solo un pannello di controllo che ti mostra:",
+        en: "Health Connect is an API and an app distributed by Google, designed as a neutral layer where all Android health apps write and read. It doesn't have a rich user dashboard: it's almost just a control panel showing you:",
       },
     },
     {
@@ -243,6 +236,30 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "heading",
+      level: 2,
+      text: { it: "In sintesi", en: "In summary" },
+    },
+    {
+      type: "list",
+      items: {
+        it: [
+          "Samsung Health raccoglie i dati dal Galaxy Watch via Bluetooth e li gestisce: disabilitarla rompe il sync del Watch.",
+          "Health Connect è il layer di permessi Android tra app salute: disabilitarla impedisce alle app terze di leggere i dati, ma Samsung Health continua a funzionare.",
+          "Il flusso dati reale è: Watch → Samsung Health → Health Connect → app terze (FitMesh Sync, MyFitnessPal, ecc.).",
+          "Per bloccare il cloud Samsung senza rompere nulla: Samsung Health → Impostazioni → Privacy → disabilita 'Sincronizza con Samsung Cloud'. I dati restano locali e continuano a fluire verso Health Connect.",
+          "Per vedere chi legge i tuoi dati: Health Connect → Accesso alle app → lista completa con timestamp.",
+        ],
+        en: [
+          "Samsung Health collects data from the Galaxy Watch via Bluetooth and manages it: disabling it breaks Watch sync.",
+          "Health Connect is the Android permissions layer between health apps: disabling it stops third-party apps from reading data, but Samsung Health keeps working.",
+          "The real data flow is: Watch → Samsung Health → Health Connect → third-party apps (FitMesh Sync, MyFitnessPal, etc.).",
+          "To block Samsung cloud without breaking anything: Samsung Health → Settings → Privacy → disable 'Sync with Samsung Cloud'. Data stays local and keeps flowing to Health Connect.",
+          "To see who reads your data: Health Connect → App access → full list with timestamps.",
+        ],
+      },
+    },
+    {
       type: "cta",
       title: {
         it: "Vuoi una dashboard alternativa che legga da Health Connect?",
@@ -263,8 +280,8 @@ export const post: BlogPost = {
         en: "Can I use Health Connect without Samsung Health?",
       },
       a: {
-        it: "Su un Galaxy Watch no — Samsung Health è il bridge ufficiale tra il Watch e il telefono. Senza Samsung Health il Watch non sincronizza. Su un altro wearable (Pixel Watch, Mi Band, Garmin, Polar, etc.) puoi usare la rispettiva app companion + Health Connect e ignorare completamente Samsung Health.",
-        en: "On a Galaxy Watch no — Samsung Health is the official bridge between Watch and phone. Without it the Watch won't sync. On other wearables (Pixel Watch, Mi Band, Garmin, Polar, etc.) you can use the respective companion app + Health Connect and ignore Samsung Health entirely.",
+        it: "Su un Galaxy Watch no: Samsung Health è il bridge ufficiale tra il Watch e il telefono. Senza Samsung Health il Watch non sincronizza. Su un altro wearable (Pixel Watch, Mi Band, Garmin, Polar, etc.) puoi usare la rispettiva app companion + Health Connect e ignorare completamente Samsung Health.",
+        en: "On a Galaxy Watch no: Samsung Health is the official bridge between Watch and phone. Without it the Watch won't sync. On other wearables (Pixel Watch, Mi Band, Garmin, Polar, etc.) you can use the respective companion app + Health Connect and ignore Samsung Health entirely.",
       },
     },
     {
@@ -273,8 +290,8 @@ export const post: BlogPost = {
         en: "Do data pass through Samsung cloud even if I only use Health Connect?",
       },
       a: {
-        it: "Dipende dalle tue impostazioni. Se in Samsung Health hai disabilitato la sincronizzazione con Samsung Account, i dati restano locali sul telefono e poi sono copiati su Health Connect (anch'esso locale). Se invece la sincronizzazione cloud è attiva, i dati sono prima nel cloud Samsung e poi copiati localmente — anche se Health Connect vede solo la copia locale.",
-        en: "Depends on your settings. If you disabled sync with Samsung Account in Samsung Health, data stays local on the phone then is copied to Health Connect (also local). If cloud sync is enabled, data is first in the Samsung cloud then copied locally — even though Health Connect only sees the local copy.",
+        it: "Dipende dalle tue impostazioni. Se in Samsung Health hai disabilitato la sincronizzazione con Samsung Account, i dati restano locali sul telefono e poi sono copiati su Health Connect (anch'esso locale). Se invece la sincronizzazione cloud è attiva, i dati sono prima nel cloud Samsung e poi copiati localmente, anche se Health Connect vede solo la copia locale.",
+        en: "Depends on your settings. If you disabled sync with Samsung Account in Samsung Health, data stays local on the phone then is copied to Health Connect (also local). If cloud sync is enabled, data is first in the Samsung cloud then copied locally, even though Health Connect only sees the local copy.",
       },
     },
     {

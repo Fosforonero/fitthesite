@@ -43,8 +43,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "I dati del tuo smartwatch — frequenza cardiaca, sonno, ciclo mestruale, peso, attività — non sono dati come gli altri. Il GDPR li categorizza come 'dati relativi alla salute' (art. 4, n. 15) e li sottopone a regole più severe rispetto a indirizzo email o cronologia di acquisto. Questo articolo spiega cosa significa in pratica per te se vivi in Europa, e come comportarsi nei confronti dei produttori.",
-        en: "Your smartwatch data — heart rate, sleep, menstrual cycle, weight, activity — isn't like other data. GDPR categorizes it as 'health-related data' (art. 4, no. 15) and subjects it to stricter rules than email addresses or purchase history. This article explains what that means in practice if you live in Europe, and how to behave with manufacturers.",
+        it: "I dati del tuo smartwatch (frequenza cardiaca, sonno, ciclo mestruale, peso, attività) sono dati sanitari secondo il GDPR art. 4 n. 15: il regolamento li sottopone a regole più severe rispetto a email o cronologia di acquisto, e ogni brand che li raccoglie deve rispettare obblighi precisi nei confronti degli utenti europei. Questo articolo spiega cosa significano questi obblighi in pratica e come far valere i tuoi diritti.",
+        en: "Your smartwatch data (heart rate, sleep, menstrual cycle, weight, activity) qualifies as health data under GDPR art. 4 no. 15: the regulation subjects it to stricter rules than email addresses or purchase history, and every brand collecting it must meet precise obligations toward European users. This article explains what those obligations mean in practice and how to exercise your rights.",
       },
     },
     {
@@ -55,8 +55,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Categoria 'speciale' (art. 9) — il trattamento è in principio vietato salvo eccezioni esplicite. Le eccezioni rilevanti per smartwatch sono due: consenso esplicito (art. 9.2.a) e finalità di assistenza/medicina del lavoro/sanità pubblica (9.2.h-i). Praticamente tutti i produttori consumer si basano sul consenso esplicito che dai accettando i ToS al primo avvio.",
-        en: "'Special' category (art. 9) — processing is in principle forbidden except for explicit exceptions. The relevant exceptions for smartwatches are two: explicit consent (art. 9.2.a) and care/occupational medicine/public health purposes (9.2.h-i). Practically all consumer manufacturers rely on the explicit consent you give when accepting ToS at first launch.",
+        it: "Categoria 'speciale' (art. 9): il trattamento è in principio vietato salvo eccezioni esplicite. Le eccezioni rilevanti per smartwatch sono due: consenso esplicito (art. 9.2.a) e finalità di assistenza/medicina del lavoro/sanità pubblica (9.2.h-i). Praticamente tutti i produttori consumer si basano sul consenso esplicito che dai accettando i ToS al primo avvio.",
+        en: "'Special' category (art. 9): processing is in principle forbidden except for explicit exceptions. The relevant exceptions for smartwatches are two: explicit consent (art. 9.2.a) and care/occupational medicine/public health purposes (9.2.h-i). Practically all consumer manufacturers rely on the explicit consent you give when accepting ToS at first launch.",
       },
     },
     {
@@ -68,7 +68,7 @@ export const post: BlogPost = {
           "Sonno per fasi (REM, Deep, Light, Awake): dato sanitario.",
           "ECG: dato sanitario medicale.",
           "SpO₂: dato sanitario.",
-          "Passi giornalieri: borderline — alcuni Garanti li classificano come sanitari se collegati a una persona identificabile, altri come dati personali standard.",
+          "Passi giornalieri: borderline. Alcuni Garanti li classificano come sanitari se collegati a una persona identificabile, altri come dati personali standard.",
           "GPS track allenamenti: dati personali (non sanitari di per sé), ma profilo localizzato che può rivelare residenza/luogo di lavoro/abitudini.",
         ],
         en: [
@@ -77,7 +77,7 @@ export const post: BlogPost = {
           "Sleep by stages (REM, Deep, Light, Awake): health data.",
           "ECG: medical health data.",
           "SpO₂: health data.",
-          "Daily steps: borderline — some DPAs classify them as health if linked to an identifiable person, others as standard personal data.",
+          "Daily steps: borderline. Some DPAs classify them as health if linked to an identifiable person, others as standard personal data.",
           "Workout GPS tracks: personal data (not health-related per se), but a localized profile that can reveal residence/workplace/habits.",
         ],
       },
@@ -186,7 +186,7 @@ export const post: BlogPost = {
           "Withings: tramite account.withings.com → privacy.",
           "Oura: tramite cloud.ouraring.com → settings → export.",
           "Xiaomi: tramite privacy.mi.com.",
-          "Per ogni altro: email a privacy@[brand].com — sono tenuti a fornire un canale.",
+          "Per ogni altro: email a privacy@[brand].com (sono tenuti a fornire un canale).",
         ],
         en: [
           "Apple: via privacy.apple.com (Health iCloud data included).",
@@ -197,7 +197,7 @@ export const post: BlogPost = {
           "Withings: via account.withings.com → privacy.",
           "Oura: via cloud.ouraring.com → settings → export.",
           "Xiaomi: via privacy.mi.com.",
-          "For any other: email privacy@[brand].com — they must provide a channel.",
+          "For any other: email privacy@[brand].com (they must provide a channel).",
         ],
       },
     },
@@ -209,8 +209,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Specifico per i dati che hai fornito (volontariamente o tramite uso del servizio). I dati derivati o aggregati dal titolare possono non essere inclusi. In formato 'strutturato, di uso comune e leggibile da dispositivo automatico' — di solito CSV o JSON. Questa è la base legale che rende possibile cambiare ecosistema senza perdere lo storico.",
-        en: "Specific to data you provided (voluntarily or via service use). Data derived or aggregated by the controller may not be included. In 'structured, commonly used and machine-readable format' — usually CSV or JSON. This is the legal basis enabling ecosystem switches without losing history.",
+        it: "Specifico per i dati che hai fornito (volontariamente o tramite uso del servizio). I dati derivati o aggregati dal titolare possono non essere inclusi. In formato 'strutturato, di uso comune e leggibile da dispositivo automatico', di solito CSV o JSON. Questa è la base legale che rende possibile cambiare ecosistema senza perdere lo storico.",
+        en: "Specific to data you provided (voluntarily or via service use). Data derived or aggregated by the controller may not be included. In 'structured, commonly used and machine-readable format', usually CSV or JSON. This is the legal basis enabling ecosystem switches without losing history.",
       },
     },
     {
@@ -235,6 +235,15 @@ export const post: BlogPost = {
       text: {
         it: "Per trattamenti basati su legittimo interesse (profilazione marketing, analytics aggregati non essenziali), puoi opporti in qualsiasi momento. Il titolare deve fermare il trattamento o dimostrare un interesse prevalente. Quasi sempre è la base legale dei programmi 'condividi dati anonimi per migliorare il servizio'.",
         en: "For processing based on legitimate interest (marketing profiling, non-essential aggregated analytics), you can object at any time. The controller must stop processing or prove an overriding interest. Almost always the legal basis for 'share anonymous data to improve service' programs.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "tip",
+      title: { it: "La vera priorità: il consenso bundled è la pratica più sleale", en: "The real priority: bundled consent is the most unfair practice" },
+      body: {
+        it: "Nella nostra lettura di decine di privacy policy wearable, il problema più diffuso non è dove stanno i server: è il consenso bundled. Accettare i termini di servizio di un'app dovrebbe essere separato dall'accedere al trattamento dei tuoi dati sanitari per analytics e ricerca. Quasi nessun brand lo fa in modo corretto. Se puoi fare una sola cosa, fai questa: dopo l'installazione, vai in Impostazioni → Privacy e revoca ogni consenso opzionale che non riguarda il funzionamento core del servizio.",
+        en: "In our reading of dozens of wearable privacy policies, the most widespread problem is not where the servers are: it's bundled consent. Accepting a service's terms should be separate from consenting to your health data being processed for analytics and research. Almost no brand does this correctly. If you can do one thing, do this: after installation, go to Settings → Privacy and revoke every optional consent that doesn't relate to core service functionality.",
       },
     },
     {
@@ -269,6 +278,30 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "heading",
+      level: 2,
+      text: { it: "In sintesi", en: "In summary" },
+    },
+    {
+      type: "list",
+      items: {
+        it: [
+          "Frequenza cardiaca, sonno, ciclo mestruale e SpO₂ sono dati sanitari 'speciali' sotto GDPR art. 9: il consenso deve essere esplicito e granulare, non un generico 'accetta tutto'.",
+          "I server di quasi tutti i brand non sono in Europa: Apple, Google/Fitbit, Garmin, Samsung trasferiscono dati verso gli USA con meccanismi SCC o DPF. Huawei e Xiaomi trasferiscono verso Asia con garanzie più deboli.",
+          "Hai tre diritti pratici da esercitare subito: accesso (copia dei dati in 30 giorni, gratis), portabilità (formato CSV/JSON per cambiare ecosistema), cancellazione (chiudendo l'account).",
+          "Bandiera rossa nelle privacy policy: 'condividiamo con partner di ricerca' bundled in un consenso unico, o 'personalizzazione pubblicitaria' per dati salute.",
+          "Health Connect è il setup Android più privacy-friendly disponibile: i dati restano on-device, ogni app chiede permesso per tipo di dato.",
+        ],
+        en: [
+          "Heart rate, sleep, menstrual cycle and SpO₂ are 'special' health data under GDPR art. 9: consent must be explicit and granular, not a generic 'accept all'.",
+          "Almost no major brand has servers in Europe: Apple, Google/Fitbit, Garmin, Samsung transfer data to the USA via SCC or DPF mechanisms. Huawei and Xiaomi transfer to Asia with weaker guarantees.",
+          "You have three practical rights to exercise now: access (data copy within 30 days, free), portability (CSV/JSON format to switch ecosystems), erasure (by closing your account).",
+          "Red flag in privacy policies: 'we share with research partners' bundled in a single consent, or 'advertising personalization' for health data.",
+          "Health Connect is the most privacy-friendly Android setup available: data stays on-device, every app must request permission per data type.",
+        ],
+      },
+    },
+    {
       type: "cta",
       title: {
         it: "Vuoi una soluzione che minimizza la pipeline dati?",
@@ -289,8 +322,8 @@ export const post: BlogPost = {
         en: "Can I sue a brand if it violates GDPR?",
       },
       a: {
-        it: "In Europa la via standard è il reclamo al Garante nazionale della protezione dei dati (in Italia: GPDP — www.garanteprivacy.it). Gratuito, il Garante può aprire istruttoria e sanzionare. L'azione civile diretta è possibile ma costosa; conviene se hai subito un danno concreto e quantificabile (es. data breach con identità rubata).",
-        en: "In Europe the standard route is a complaint to the national Data Protection Authority (Italy: GPDP — www.garanteprivacy.it). Free, the authority can open an investigation and fine. Direct civil action is possible but costly; worth it if you suffered concrete quantifiable damage (e.g. data breach with identity theft).",
+        it: "In Europa la via standard è il reclamo al Garante nazionale della protezione dei dati (in Italia: GPDP, www.garanteprivacy.it). Gratuito, il Garante può aprire istruttoria e sanzionare. L'azione civile diretta è possibile ma costosa; conviene se hai subito un danno concreto e quantificabile (es. data breach con identità rubata).",
+        en: "In Europe the standard route is a complaint to the national Data Protection Authority (Italy: GPDP, www.garanteprivacy.it). Free, the authority can open an investigation and fine. Direct civil action is possible but costly; worth it if you suffered concrete quantifiable damage (e.g. data breach with identity theft).",
       },
     },
     {

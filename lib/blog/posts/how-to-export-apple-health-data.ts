@@ -46,8 +46,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Ogni volta che l'Apple Watch misura la tua frequenza cardiaca, registra un passo o rileva un ciclo di sonno, il dato finisce in Apple Health. Dopo anni di utilizzo puoi avere milioni di record. Il problema: Apple Health non ha una web dashboard. I dati stanno nell'app sul telefono, e per portarli su PC o vederli in un browser serve un percorso preciso.",
-        en: "Every time Apple Watch measures your heart rate, records a step, or detects a sleep cycle, the data goes into Apple Health. After years of use you can have millions of records. The problem: Apple Health has no web dashboard. The data sits in the app on your phone, and getting it to a PC or browser requires a specific path.",
+        it: "Apple Health raccoglie anni di dati salute sul tuo iPhone ma non ha una web dashboard: per vederli su computer o condividerli servono passaggi precisi. Ci sono tre metodi, ognuno con un diverso compromesso tra completezza e semplicità. Questa guida li copre tutti in ordine di facilità, dal più immediato al più tecnico.",
+        en: "Apple Health collects years of health data on your iPhone but has no web dashboard: getting that data to a computer or sharing it requires specific steps. There are three methods, each with a different tradeoff between completeness and simplicity. This guide covers all of them, easiest first.",
       },
     },
     {
@@ -61,8 +61,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Apple Health include un export nativo che produce un file ZIP con tutti i tuoi dati in formato XML. È il metodo più completo — include letteralmente ogni record — ma il file risultante è difficile da leggere senza strumenti aggiuntivi.",
-        en: "Apple Health includes a native export that produces a ZIP file with all your data in XML format. It's the most complete method — includes literally every record — but the resulting file is hard to read without additional tools.",
+        it: "Apple Health include un export nativo che produce un file ZIP con tutti i tuoi dati in formato XML. È il metodo più completo: include letteralmente ogni record, ma il file risultante è difficile da leggere senza strumenti aggiuntivi.",
+        en: "Apple Health includes a native export that produces a ZIP file with all your data in XML format. It's the most complete method: includes literally every record, but the resulting file is hard to read without additional tools.",
       },
     },
     {
@@ -95,8 +95,8 @@ export const post: BlogPost = {
         en: "The XML file can be huge",
       },
       body: {
-        it: "Dopo 3-4 anni di Apple Watch, l'export XML può pesare 500MB-2GB decompresso. Non aprirlo con un editor di testo normale — va in crash. Usa gli strumenti gratuiti descritti sotto, o importalo in Python/R per analisi avanzate.",
-        en: "After 3-4 years of Apple Watch, the XML export can be 500MB-2GB uncompressed. Don't open it with a regular text editor — it'll crash. Use the free tools described below, or import it in Python/R for advanced analysis.",
+        it: "Dopo 3-4 anni di Apple Watch, l'export XML può pesare 500MB-2GB decompresso. Non aprirlo con un editor di testo normale: va in crash. Usa gli strumenti gratuiti descritti sotto, o importalo in Python/R per analisi avanzate.",
+        en: "After 3-4 years of Apple Watch, the XML export can be 500MB-2GB uncompressed. Don't open it with a regular text editor: it'll crash. Use the free tools described below, or import it in Python/R for advanced analysis.",
       },
     },
     {
@@ -166,15 +166,15 @@ export const post: BlogPost = {
       type: "heading",
       level: 2,
       text: {
-        it: "Metodo 3: Dashboard web — la via più comoda (iOS in arrivo)",
-        en: "Method 3: Web dashboard — the most convenient way (iOS coming)",
+        it: "Metodo 3: Dashboard web: la via più comoda (iOS in arrivo)",
+        en: "Method 3: Web dashboard, the most convenient way (iOS coming)",
       },
     },
     {
       type: "paragraph",
       text: {
-        it: "L'opzione più comoda — avere i dati Apple Health su una dashboard web accessibile da qualsiasi browser, senza dover fare export manuali ogni volta — richiede un'app che legga Apple Health e la sincronizzi nel cloud.",
-        en: "The most convenient option — having Apple Health data on a web dashboard accessible from any browser, without manual exports every time — requires an app that reads Apple Health and syncs it to the cloud.",
+        it: "L'opzione più comoda (avere i dati Apple Health su una dashboard web accessibile da qualsiasi browser senza dover fare export manuali ogni volta) richiede un'app che legga Apple Health e la sincronizzi nel cloud.",
+        en: "The most convenient option (having Apple Health data on a web dashboard accessible from any browser, without manual exports every time) requires an app that reads Apple Health and syncs it to the cloud.",
       },
     },
     {
@@ -194,6 +194,15 @@ export const post: BlogPost = {
       body: {
         it: "Molti utenti usano un iPhone ma hanno un wearable Android (es. Galaxy Watch). In questo caso i dati del wearable passano prima dall'app companion su Android, poi eventualmente su Health Connect. Con FitMesh Sync Android puoi già sincronizzare quei dati su web. La versione iOS aggiungerà il supporto per la lettura diretta da Apple Health.",
         en: "Many users have an iPhone but an Android wearable (e.g. Galaxy Watch). In this case wearable data first passes through the companion app on Android, then optionally to Health Connect. With FitMesh Sync Android you can already sync that data to the web. The iOS version will add support for reading directly from Apple Health.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "tip",
+      title: { it: "Perché dovresti esportare i dati adesso, non quando smetti di usare Apple Watch", en: "Why you should export your data now, not when you stop using Apple Watch" },
+      body: {
+        it: "L'errore più comune che vediamo: le persone esportano Apple Health solo quando cambiano telefono o ecosistema, e spesso scoprono che mesi di dati sono andati persi (backup iCloud non configurato, device reset). Esporta i dati ogni 6 mesi come routine: il file ZIP di Apple Health è il tuo backup assicurativo contro qualsiasi cambio futuro di dispositivo, piattaforma, o policy Apple.",
+        en: "The most common mistake we see: people export Apple Health data only when switching phones or ecosystems, and often discover months of data are gone (iCloud backup not configured, device reset). Export your data every 6 months as a routine: the Apple Health ZIP file is your insurance backup against any future device change, platform switch, or Apple policy change.",
       },
     },
     {
@@ -236,10 +245,34 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "heading",
+      level: 2,
+      text: { it: "In sintesi", en: "In summary" },
+    },
+    {
+      type: "list",
+      items: {
+        it: [
+          "Il metodo più completo è l'export XML nativo (Salute → profilo → Esporta tutti i dati): contiene ogni record con timestamp, ma il file può pesare 2 GB e non è leggibile direttamente.",
+          "Per leggere l'XML su PC servono strumenti aggiuntivi: script Python open-source su GitHub, o Apple Shortcuts per metriche specifiche.",
+          "Per condividere dati specifici con un medico, usa l'export per singola metrica direttamente dal grafico in Salute: produce un CSV pulito.",
+          "Il file XML non è criptato: trattalo come un documento medico sensibile, non caricarlo su cloud pubblici.",
+          "La via più comoda (dashboard web senza export manuale) richiede un'app che legga da HealthKit e sincronizzi in background: FitMesh iOS è in sviluppo per questo.",
+        ],
+        en: [
+          "The most complete method is the native XML export (Health → profile → Export All Health Data): contains every record with timestamps, but the file can be 2 GB and isn't readable directly.",
+          "Reading the XML on a PC requires additional tools: open-source Python scripts on GitHub, or Apple Shortcuts for specific metrics.",
+          "For sharing specific data with a doctor, use the per-metric export directly from the chart in Health: produces a clean CSV.",
+          "The XML file is unencrypted: treat it like a sensitive medical document, don't upload it to public cloud services.",
+          "The most convenient path (web dashboard without manual exports) requires an app that reads from HealthKit and syncs in the background: FitMesh iOS is in development for this.",
+        ],
+      },
+    },
+    {
       type: "cta",
       title: {
-        it: "Dashboard web per iPhone — unisciti alla lista d'attesa iOS",
-        en: "Web dashboard for iPhone — join the iOS waitlist",
+        it: "Dashboard web per iPhone: unisciti alla lista d'attesa iOS",
+        en: "Web dashboard for iPhone: join the iOS waitlist",
       },
       body: {
         it: "FitMesh Sync sta arrivando su iPhone. L'app leggerà i dati da Apple Health e li sincronizzerà automaticamente su web, senza export manuali. Entra in beta gratis e sarai tra i primi a provarla.",
@@ -262,8 +295,8 @@ export const post: BlogPost = {
         en: "Is Apple Health export safe for privacy?",
       },
       a: {
-        it: "Il file XML è non criptato — chiunque lo riceva può leggere tutti i tuoi dati salute. Trattalo come un documento medico sensibile. Non caricarlo su servizi cloud pubblici, non mandarlo via email non criptata. Se usi AirDrop o cavi USB su Mac, la trasmissione è crittografata.",
-        en: "The XML file is unencrypted — anyone who receives it can read all your health data. Treat it like a sensitive medical document. Don't upload it to public cloud services, don't send it via unencrypted email. AirDrop or USB cable to Mac are encrypted transfers.",
+        it: "Il file XML non è criptato: chiunque lo riceva può leggere tutti i tuoi dati salute. Trattalo come un documento medico sensibile. Non caricarlo su servizi cloud pubblici, non mandarlo via email non criptata. Se usi AirDrop o cavi USB su Mac, la trasmissione è crittografata.",
+        en: "The XML file is unencrypted: anyone who receives it can read all your health data. Treat it like a sensitive medical document. Don't upload it to public cloud services, don't send it via unencrypted email. AirDrop or USB cable to Mac are encrypted transfers.",
       },
     },
     {
@@ -272,8 +305,8 @@ export const post: BlogPost = {
         en: "Can I import Apple Health data into Google Fit or Health Connect?",
       },
       a: {
-        it: "Direttamente no — Apple Health e Health Connect/Google Fit sono sistemi separati e non hanno import nativo dall'uno all'altro. Esistono script Python open-source che leggono l'export XML Apple Health e lo scrivono su Health Connect via API, ma richiedono setup tecnico. Per gli allenamenti specifici (es. da Garmin), Garmin Connect sincronizza sia con Apple Health che con Health Connect — è la via più pulita per chi ha device multi-piattaforma.",
-        en: "Not directly — Apple Health and Health Connect/Google Fit are separate systems with no native import from one to the other. Open-source Python scripts exist that read the Apple Health XML export and write it to Health Connect via API, but they require technical setup. For specific workouts (e.g. from Garmin), Garmin Connect syncs with both Apple Health and Health Connect — the cleanest path for multi-platform device users.",
+        it: "Direttamente no: Apple Health e Health Connect/Google Fit sono sistemi separati e non hanno import nativo dall'uno all'altro. Esistono script Python open-source che leggono l'export XML Apple Health e lo scrivono su Health Connect via API, ma richiedono setup tecnico. Per gli allenamenti specifici (es. da Garmin), Garmin Connect sincronizza sia con Apple Health che con Health Connect: è la via più pulita per chi ha device multi-piattaforma.",
+        en: "Not directly: Apple Health and Health Connect/Google Fit are separate systems with no native import from one to the other. Open-source Python scripts exist that read the Apple Health XML export and write it to Health Connect via API, but they require technical setup. For specific workouts (e.g. from Garmin), Garmin Connect syncs with both Apple Health and Health Connect, the cleanest path for multi-platform device users.",
       },
     },
     {
@@ -292,8 +325,8 @@ export const post: BlogPost = {
         en: "Can I automate monthly exports?",
       },
       a: {
-        it: "Tramite l'export XML nativo no — va fatto manualmente ogni volta. Tramite Apple Shortcuts puoi automatizzare l'estrazione di metriche specifiche (es. 'esporta i passi di questa settimana in CSV') e inviarle a te stesso via email o salvarle su iCloud. Per un backup automatico completo, la strada è un'app che si connette a HealthKit e sincronizza in background — che è esattamente quello che FitMesh iOS farà.",
-        en: "Via native XML export, no — it must be done manually each time. Via Apple Shortcuts you can automate extraction of specific metrics (e.g. 'export this week's steps to CSV') and send them to yourself via email or save to iCloud. For a full automatic backup, the path is an app that connects to HealthKit and syncs in the background — which is exactly what FitMesh iOS will do.",
+        it: "Tramite l'export XML nativo no: va fatto manualmente ogni volta. Tramite Apple Shortcuts puoi automatizzare l'estrazione di metriche specifiche (es. 'esporta i passi di questa settimana in CSV') e inviarle a te stesso via email o salvarle su iCloud. Per un backup automatico completo, la strada è un'app che si connette a HealthKit e sincronizza in background (che è esattamente quello che FitMesh iOS farà).",
+        en: "Via native XML export, no: it must be done manually each time. Via Apple Shortcuts you can automate extraction of specific metrics (e.g. 'export this week's steps to CSV') and send them to yourself via email or save to iCloud. For a full automatic backup, the path is an app that connects to HealthKit and syncs in the background, which is exactly what FitMesh iOS will do.",
       },
     },
   ],
