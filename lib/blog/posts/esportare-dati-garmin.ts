@@ -45,8 +45,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Hai migliaia di allenamenti su Garmin Connect e vuoi portarli su Strava, analizzarli su uno strumento terzo, fare un backup autonomo, o semplicemente smettere di dipendere da un solo cloud proprietario. I dati ci sono — Garmin lo permette. Ma il processo non è sempre immediato come si spera, e ci sono differenze importanti tra l'app mobile e il sito web, e tra i vari formati disponibili.",
-        en: "You have thousands of workouts on Garmin Connect and you want to transfer them to Strava, analyze them on a third-party tool, do an independent backup, or simply stop depending on a single proprietary cloud. The data is there — Garmin allows it. But the process isn't always as immediate as you'd hope, and there are important differences between the mobile app and website, and between the various available formats.",
+        it: "Garmin tiene i tuoi allenamenti nel proprio cloud, ma i dati sono tuoi e puoi portarli fuori in tre modi: export singola attività, export massivo dell'intera storia, o integrazione API continua verso Strava e altri. Il processo non è sempre immediato come si spera, e ci sono differenze importanti tra l'app mobile (che non esporta nulla) e il sito web, e tra i vari formati disponibili.",
+        en: "Garmin keeps your workouts in its own cloud, but the data is yours and you can take it out three ways: single activity export, bulk export of the full history, or continuous API integration to Strava and others. The process isn't always as immediate as you'd hope, and there are important differences between the mobile app (which exports nothing) and the website, and between the various available formats.",
       },
     },
     {
@@ -60,8 +60,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Questo è il metodo più diretto per estrarre un'attività specifica. Funziona solo dal sito web — non dall'app mobile. L'app Garmin Connect per Android e iOS non ha la funzione di export individuale.",
-        en: "This is the most direct method for extracting a specific activity. It works only from the website — not the mobile app. The Garmin Connect Android and iOS app doesn't have individual export functionality.",
+        it: "Questo è il metodo più diretto per estrarre un'attività specifica. Funziona solo dal sito web, non dall'app mobile. L'app Garmin Connect per Android e iOS non ha la funzione di export individuale.",
+        en: "This is the most direct method for extracting a specific activity. It works only from the website, not the mobile app. The Garmin Connect Android and iOS app doesn't have individual export functionality.",
       },
     },
     {
@@ -99,8 +99,8 @@ export const post: BlogPost = {
       type: "heading",
       level: 2,
       text: {
-        it: "Formati di export: GPX, TCX, FIT, CSV — quale scegliere",
-        en: "Export formats: GPX, TCX, FIT, CSV — which to choose",
+        it: "Formati di export: GPX, TCX, FIT, CSV: quale scegliere",
+        en: "Export formats: GPX, TCX, FIT, CSV: which to choose",
       },
     },
     {
@@ -142,8 +142,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Per importare un allenamento su Strava, TCX o GPX vanno bene entrambi — Strava li supporta. Per un backup completo che ti permetta di reimportare in futuro o analizzare con tool come GoldenCheetah o Intervals.icu, il FIT originale è la scelta migliore anche se meno leggibile direttamente.",
-        en: "For importing a workout into Strava, both TCX and GPX work fine — Strava supports them. For a complete backup that lets you re-import later or analyze with tools like GoldenCheetah or Intervals.icu, the original FIT file is the best choice even if less directly readable.",
+        it: "Per importare un allenamento su Strava, TCX o GPX vanno bene entrambi: Strava li supporta. Per un backup completo che ti permetta di reimportare in futuro o analizzare con tool come GoldenCheetah o Intervals.icu, il FIT originale è la scelta migliore anche se meno leggibile direttamente.",
+        en: "For importing a workout into Strava, both TCX and GPX work fine: Strava supports them. For a complete backup that lets you re-import later or analyze with tools like GoldenCheetah or Intervals.icu, the original FIT file is the best choice even if less directly readable.",
       },
     },
     {
@@ -157,8 +157,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Per scaricare l'intera storia degli allenamenti in un colpo solo, Garmin ha una funzione di export massivo. Questo è l'equivalente Garmin di un \"Google Takeout\" — ti dà tutto, non solo le attività.",
-        en: "To download the entire workout history at once, Garmin has a bulk export function. This is Garmin's equivalent of a 'Google Takeout' — it gives you everything, not just activities.",
+        it: "Per scaricare l'intera storia degli allenamenti in un colpo solo, Garmin ha una funzione di export massivo. Questo è l'equivalente Garmin di un \"Google Takeout\": ti dà tutto, non solo le attività.",
+        en: "To download the entire workout history at once, Garmin has a bulk export function. This is Garmin's equivalent of a 'Google Takeout': it gives you everything, not just activities.",
       },
     },
     {
@@ -203,8 +203,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Se hai bisogno di un flusso continuo di dati — non un export una tantum ma ogni allenamento che finisce su Garmin Compare viene automaticamente inviato da qualche parte — la strada è la Garmin Health API o la Connect API. Attenzione però: non è una strada self-service.",
-        en: "If you need a continuous data flow — not a one-time export but every workout that lands on Garmin Connect automatically sent somewhere — the path is the Garmin Health API or Connect API. But beware: this is not a self-service path.",
+        it: "Se hai bisogno di un flusso continuo di dati (non un export una tantum, ma ogni allenamento che finisce su Garmin Connect viene automaticamente inviato da qualche parte), la strada è la Garmin Health API o la Connect API. Attenzione però: non è una strada self-service.",
+        en: "If you need a continuous data flow (not a one-time export, but every workout that lands on Garmin Connect automatically sent somewhere), the path is the Garmin Health API or Connect API. But beware: this is not a self-service path.",
       },
     },
     {
@@ -275,14 +275,43 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "callout",
+      variant: "tip",
+      title: { it: "La nostra posizione netta sui formati di export", en: "Our clear stance on export formats" },
+      body: {
+        it: "Usa sempre FIT come formato di backup primario, non GPX. Il FIT contiene dati che GPX non può rappresentare (Training Load, Body Battery, potenza running, dati proprietari Garmin) e permette re-import completo in Garmin Connect o in tool come GoldenCheetah e Intervals.icu. Il GPX è comodo per la condivisione e l'import su Strava, ma come archivio è una copia degradata. Il costo in storage è trascurabile: non c'è ragione per accontentarsi del formato meno completo.",
+        en: "Always use FIT as your primary backup format, not GPX. FIT contains data that GPX cannot represent (Training Load, Body Battery, running power, Garmin proprietary data) and allows full re-import into Garmin Connect or tools like GoldenCheetah and Intervals.icu. GPX is convenient for sharing and Strava import, but as an archive it's a degraded copy. The storage cost is negligible: there is no reason to settle for the less complete format.",
+      },
+    },
+    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary" } },
+    {
+      type: "list",
+      items: {
+        it: [
+          "L'export di singole attività richiede il sito web connect.garmin.com: l'app mobile Garmin Connect non esporta file in nessun formato.",
+          "Per backup completo scegli il formato FIT originale: contiene tutti i dati proprietari Garmin che GPX e TCX non preservano.",
+          "L'export massivo (Impostazioni Account → Esporta i tuoi dati) scarica tutta la storia in un archivio ZIP, tipicamente entro 24-48 ore.",
+          "Garmin non scrive dati di allenamento completi su Health Connect: per attività GPS serve l'integrazione diretta con la Garmin Connect API.",
+          "Prima di cancellare l'account Garmin, esegui sempre un export massivo: i dati vengono eliminati definitivamente alla chiusura.",
+        ],
+        en: [
+          "Single activity export requires the connect.garmin.com website: the Garmin Connect mobile app exports no files in any format.",
+          "For complete backup choose the original FIT format: it contains all Garmin proprietary data that GPX and TCX do not preserve.",
+          "Bulk export (Account Settings → Export Your Data) downloads the full history in a ZIP archive, typically within 24-48 hours.",
+          "Garmin does not write complete workout data to Health Connect: for GPS activities you need direct Garmin Connect API integration.",
+          "Before deleting your Garmin account, always run a bulk export first: data is permanently deleted upon account closure.",
+        ],
+      },
+    },
+    {
       type: "cta",
       title: {
         it: "Vuoi portare gli allenamenti Garmin in una dashboard centralizzata?",
         en: "Want to bring Garmin workouts into a centralized dashboard?",
       },
       body: {
-        it: "Tra le opzioni che semplificano questo c'è FitMesh Sync: si integra con Garmin Connect via API ufficiale e porta i tuoi allenamenti in una dashboard web accessibile da browser — senza dover esportare file manualmente ogni volta.",
-        en: "Among the options that simplify this is FitMesh Sync: it integrates with Garmin Connect via the official API and brings your workouts to a browser-accessible web dashboard — without having to manually export files each time.",
+        it: "Tra le opzioni che semplificano questo c'è FitMesh Sync: si integra con Garmin Connect via API ufficiale e porta i tuoi allenamenti in una dashboard web accessibile da browser, senza dover esportare file manualmente ogni volta.",
+        en: "Among the options that simplify this is FitMesh Sync: it integrates with Garmin Connect via the official API and brings your workouts to a browser-accessible web dashboard, without having to manually export files each time.",
       },
       ctaLabel: {
         it: "Vedi integrazione Garmin su FitMesh →",
@@ -311,8 +340,8 @@ export const post: BlogPost = {
         en: "What's the difference between GPX and FIT when exporting from Garmin?",
       },
       a: {
-        it: "FIT è il formato nativo Garmin — contiene tutti i dati originali inclusi metriche proprietarie come Training Load, Body Battery, e i dati di potenza running se il tuo dispositivo li supporta. GPX è uno standard aperto che contiene GPS track e frequenza cardiaca ma perde alcune informazioni proprietarie. Per backup completo usa FIT; per condivisione o import in Strava, GPX o TCX vanno bene entrambi.",
-        en: "FIT is Garmin's native format — it contains all original data including proprietary metrics like Training Load, Body Battery, and running power data if your device supports it. GPX is an open standard that contains GPS track and heart rate but loses some proprietary information. For complete backup use FIT; for sharing or Strava import, both GPX or TCX work fine.",
+        it: "FIT è il formato nativo Garmin: contiene tutti i dati originali inclusi metriche proprietarie come Training Load, Body Battery, e i dati di potenza running se il tuo dispositivo li supporta. GPX è uno standard aperto che contiene GPS track e frequenza cardiaca ma perde alcune informazioni proprietarie. Per backup completo usa FIT; per condivisione o import in Strava, GPX o TCX vanno bene entrambi.",
+        en: "FIT is Garmin's native format: it contains all original data including proprietary metrics like Training Load, Body Battery, and running power data if your device supports it. GPX is an open standard that contains GPS track and heart rate but loses some proprietary information. For complete backup use FIT; for sharing or Strava import, both GPX or TCX work fine.",
       },
     },
     {
@@ -331,8 +360,8 @@ export const post: BlogPost = {
         en: "Is Garmin data deleted if I stop paying for Garmin Connect?",
       },
       a: {
-        it: "Garmin Connect è gratuito — non c'è un abbonamento base per il cloud. Alcune funzionalità avanzate come le mappe di copertura o le analisi avanzate richiedono piani premium, ma i dati di allenamento sono conservati gratuitamente. Se cancelli l'account, i dati vengono eliminati — ecco perché fare un export prima è importante.",
-        en: "Garmin Connect is free — there's no basic subscription for the cloud. Some advanced features like coverage maps or advanced analytics require premium plans, but workout data is stored for free. If you delete the account, data is deleted — which is why doing an export first is important.",
+        it: "Garmin Connect è gratuito: non c'è un abbonamento base per il cloud. Alcune funzionalità avanzate come le mappe di copertura o le analisi avanzate richiedono piani premium, ma i dati di allenamento sono conservati gratuitamente. Se cancelli l'account, i dati vengono eliminati: ecco perché fare un export prima è importante.",
+        en: "Garmin Connect is free: there's no basic subscription for the cloud. Some advanced features like coverage maps or advanced analytics require premium plans, but workout data is stored for free. If you delete the account, data is deleted, which is why doing an export first is important.",
       },
     },
     {
@@ -341,8 +370,8 @@ export const post: BlogPost = {
         en: "Can I import data from an old Garmin to a new one without losing history?",
       },
       a: {
-        it: "Sì, ma solo la storia su Garmin Connect (cloud) — non quella sul dispositivo fisico. Quando colleghi un nuovo Garmin allo stesso account Garmin Connect, vedi tutta la tua storia precedente. I file FIT sul vecchio dispositivo (nella cartella Activities della scheda micro-SD o della memoria interna) non vengono automaticamente copiati sul nuovo. Puoi importarli manualmente su Garmin Connect via sito web.",
-        en: "Yes, but only the history on Garmin Connect (cloud) — not the one on the physical device. When you connect a new Garmin to the same Garmin Connect account, you see all your previous history. FIT files on the old device (in the Activities folder on the micro-SD or internal memory) are not automatically copied to the new one. You can import them manually on Garmin Connect via the website.",
+        it: "Sì, ma solo la storia su Garmin Connect (cloud), non quella sul dispositivo fisico. Quando colleghi un nuovo Garmin allo stesso account Garmin Connect, vedi tutta la tua storia precedente. I file FIT sul vecchio dispositivo (nella cartella Activities della scheda micro-SD o della memoria interna) non vengono automaticamente copiati sul nuovo. Puoi importarli manualmente su Garmin Connect via sito web.",
+        en: "Yes, but only the history on Garmin Connect (cloud), not the one on the physical device. When you connect a new Garmin to the same Garmin Connect account, you see all your previous history. FIT files on the old device (in the Activities folder on the micro-SD or internal memory) are not automatically copied to the new one. You can import them manually on Garmin Connect via the website.",
       },
     },
   ],

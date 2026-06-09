@@ -43,8 +43,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Vuoi una copia dei dati del tuo Galaxy Watch sul computer. Non ti fidi del solo cloud Samsung, o stai cambiando ecosistema, o hai semplicemente bisogno di analizzare i tuoi BPM in Excel. Le opzioni reali sono quattro, e nessuna è 'un click'. Ti spieghiamo cosa funziona, cosa è scomodo, e quando vale ognuna.",
-        en: "You want a copy of your Galaxy Watch data on your computer. You don't trust Samsung cloud alone, or you're switching ecosystems, or you simply need to analyze your HR in Excel. There are four real options, and none is 'one click'. We explain what works, what's clunky, and when each is worth it.",
+        it: "Ci sono quattro modi reali per fare backup dei dati Galaxy Watch su PC, e scegliere quello giusto dipende da un solo fattore: hai bisogno di un archivio storico completo o di un flusso continuo automatizzato? Per archivio storico, l'export interno di Samsung Health genera un pacchetto CSV completo in pochi passaggi. Per flusso continuo, Health Connect collegato a un'app terza è l'unica strada che non richiede ripetizioni manuali.",
+        en: "There are four real ways to back up Galaxy Watch data to PC, and choosing the right one depends on a single factor: do you need a complete historical archive or a continuous automated flow? For a historical archive, Samsung Health's internal export generates a complete CSV package in a few steps. For a continuous flow, Health Connect linked to a third-party app is the only path that doesn't require manual repetition.",
       },
     },
     {
@@ -146,8 +146,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Vincolo: questa via funziona per dati che Samsung Health scrive su Health Connect — quindi passi, BPM, sonno (totale e fasi base), calorie, distanza, allenamenti. Per dati proprietari Samsung come Body Composition o Stress Score continuo serve sempre l'export interno di Samsung Health.",
-        en: "Caveat: this path works for data Samsung Health writes to Health Connect — so steps, HR, sleep (total and basic stages), calories, distance, workouts. For Samsung-proprietary data like Body Composition or continuous Stress Score you'll always need Samsung Health's internal export.",
+        it: "Vincolo: questa via funziona per dati che Samsung Health scrive su Health Connect (quindi passi, BPM, sonno, calorie, distanza, allenamenti). Per dati proprietari Samsung come Body Composition o Stress Score continuo serve sempre l'export interno di Samsung Health.",
+        en: "Caveat: this path works for data Samsung Health writes to Health Connect (so steps, HR, sleep, calories, distance, workouts). For Samsung-proprietary data like Body Composition or continuous Stress Score you'll always need Samsung Health's internal export.",
       },
     },
     {
@@ -158,8 +158,17 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Per i più tecnici: i dati Samsung Health risiedono sul telefono in un database SQLite. Con un cavo USB, ADB attivato in opzioni sviluppatore, e un tool come adb backup oppure root puoi estrarre il file e leggerlo direttamente. Sconsigliato a chi non sa cosa significa 'developer options' — è facile fare danni e c'è rischio di violare i ToS.",
-        en: "For the more technical: Samsung Health data lives on the phone in a SQLite database. With a USB cable, ADB enabled in developer options, and a tool like adb backup or root you can extract the file and read it directly. Not recommended if you don't know what 'developer options' means — easy to break things and risks violating ToS.",
+        it: "Per i più tecnici: i dati Samsung Health risiedono sul telefono in un database SQLite. Con un cavo USB, ADB attivato in opzioni sviluppatore, e un tool come adb backup oppure root puoi estrarre il file e leggerlo direttamente. Sconsigliato a chi non sa cosa significa 'developer options': è facile fare danni e c'è rischio di violare i ToS.",
+        en: "For the more technical: Samsung Health data lives on the phone in a SQLite database. With a USB cable, ADB enabled in developer options, and a tool like adb backup or root you can extract the file and read it directly. Not recommended if you don't know what 'developer options' means: easy to break things and risks violating ToS.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "tip",
+      title: { it: "La scelta che consigliamo", en: "Our recommended choice" },
+      body: {
+        it: "Per la maggior parte degli utenti Galaxy Watch, la combinazione giusta è: export Samsung Health una volta l'anno per archivio storico completo, più Health Connect collegato a FitMesh Sync per il monitoraggio continuo. L'ADB e la richiesta GDPR sono strumenti per casi limite, non per uso quotidiano. Non cercare la soluzione 'perfetta' con automazione totale: per i dati proprietari Samsung (Body Composition, Stress Score continuo) l'export manuale periodico è e resterà necessario.",
+        en: "For most Galaxy Watch users, the right combination is: Samsung Health export once a year for complete historical archive, plus Health Connect linked to FitMesh Sync for continuous monitoring. ADB and GDPR requests are tools for edge cases, not daily use. Don't look for the 'perfect' fully automated solution: for Samsung-proprietary data (Body Composition, continuous Stress Score), periodic manual export is and will remain necessary.",
       },
     },
     {
@@ -193,6 +202,30 @@ export const post: BlogPost = {
       ],
     },
     {
+      type: "heading",
+      level: 2,
+      text: { it: "In sintesi", en: "In summary" },
+    },
+    {
+      type: "list",
+      items: {
+        it: [
+          "L'export interno di Samsung Health (Impostazioni → Scarica dati personali) è il metodo più completo e gratuito: genera un pacchetto CSV con tutta la storia.",
+          "Health Connect collegato a un'app terza è l'unica opzione con automazione reale: i dati fluiscono senza intervento manuale, ma copre solo i tipi di dato che Samsung Health scrive su HC.",
+          "La richiesta GDPR è più ampia dell'export interno (include metadati e log), ma richiede fino a 30 giorni: usarla solo per archivio pre-chiusura account.",
+          "ADB è per utenti tecnici: accesso diretto al database SQLite, massima completezza, alto rischio se non si sa cosa si fa.",
+          "I dati proprietari Samsung (Body Composition, Stress Score continuo) non passano per Health Connect: per quelli serve sempre l'export manuale.",
+        ],
+        en: [
+          "Samsung Health's internal export (Settings → Download personal data) is the most complete and free method: generates a CSV package with your entire history.",
+          "Health Connect linked to a third-party app is the only option with real automation: data flows without manual intervention, but covers only data types Samsung Health writes to HC.",
+          "The GDPR request is broader than the internal export (includes metadata and access logs), but takes up to 30 days: use it only for archive before closing an account.",
+          "ADB is for technical users: direct access to the SQLite database, maximum completeness, high risk if you don't know what you're doing.",
+          "Samsung-proprietary data (Body Composition, continuous Stress Score) doesn't pass through Health Connect: manual export is always needed for those.",
+        ],
+      },
+    },
+    {
       type: "cta",
       title: {
         it: "Cerchi una dashboard web pronta per i dati Galaxy Watch?",
@@ -223,8 +256,8 @@ export const post: BlogPost = {
         en: "Can I back up without authenticating with Samsung Account?",
       },
       a: {
-        it: "Per l'export interno di Samsung Health la password è richiesta. Per la via Health Connect + app terza no — basta il permesso Android. È l'unica strada che non passa dall'account Samsung.",
-        en: "For Samsung Health's internal export the password is required. For the Health Connect + third-party app path no — Android permission is enough. It's the only route bypassing the Samsung account.",
+        it: "Per l'export interno di Samsung Health la password è richiesta. Per la via Health Connect + app terza no: basta il permesso Android. È l'unica strada che non passa dall'account Samsung.",
+        en: "For Samsung Health's internal export the password is required. For the Health Connect + third-party app path no: Android permission is enough. It's the only route bypassing the Samsung account.",
       },
     },
     {

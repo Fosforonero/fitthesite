@@ -43,8 +43,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Cercando 'best smartwatch for elderly' online si trovano decine di liste con i soliti nomi ripetuti. Quello che manca quasi sempre è la risposta alla domanda reale: perché la nonna dovrebbe indossarlo ogni giorno, anche quando non glielo chiedi? Questo articolo affronta quella domanda prima ancora di nominare modelli specifici.",
-        en: "Searching 'best smartwatch for elderly' online turns up dozens of lists with the same names repeated. What's almost always missing is the answer to the real question: why would grandma wear it every day, even when no one asks her to? This article tackles that question before naming specific models.",
+        it: "Uno smartwatch indossato ogni giorno vale infinitamente di più di uno con mille funzionalità che finisce in un cassetto: questo è il principio da cui partire per scegliere il miglior smartwatch per un anziano. Nel 2026, Apple Watch SE 2 LTE con Family Setup e Samsung Galaxy Watch 7 LTE sono le scelte più solide per sicurezza e monitoraggio cardiaco, ma la scelta giusta dipende dallo scenario prioritario: cadute, salute passiva, connessione familiare, o anziano ancora attivo.",
+        en: "A smartwatch worn every day is worth infinitely more than a thousand-feature device that ends up in a drawer: that's the principle to start from when choosing the best smartwatch for an elderly person. In 2026, Apple Watch SE 2 LTE with Family Setup and Samsung Galaxy Watch 7 LTE are the strongest choices for safety and cardiac monitoring, but the right pick depends on the priority scenario: falls, passive health, family connection, or still-active elderly.",
       },
     },
     {
@@ -90,15 +90,15 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Tutti gli smartwatch moderni con rilevamento cadute usano una combinazione di accelerometro a tre assi e giroscopio per identificare il pattern di caduta: accelerazione rapida verso il basso, impatto brusco, seguito da immobilità. Quando il pattern corrisponde a una caduta, il watch vibra e visualizza un alert — se non c'è risposta entro 30-60 secondi, parte la chiamata d'emergenza.",
-        en: "All modern smartwatches with fall detection use a combination of three-axis accelerometer and gyroscope to identify the fall pattern: rapid downward acceleration, sharp impact, followed by stillness. When the pattern matches a fall, the watch vibrates and shows an alert — if there's no response within 30-60 seconds, the emergency call is placed.",
+        it: "Tutti gli smartwatch moderni con rilevamento cadute usano una combinazione di accelerometro a tre assi e giroscopio per identificare il pattern di caduta: accelerazione rapida verso il basso, impatto brusco, seguito da immobilità. Quando il pattern corrisponde a una caduta, il watch vibra e visualizza un alert. Se non c'è risposta entro 30-60 secondi, parte la chiamata d'emergenza.",
+        en: "All modern smartwatches with fall detection use a combination of three-axis accelerometer and gyroscope to identify the fall pattern: rapid downward acceleration, sharp impact, followed by stillness. When the pattern matches a fall, the watch vibrates and shows an alert. If there's no response within 30-60 seconds, the emergency call is placed.",
       },
     },
     {
       type: "paragraph",
       text: {
-        it: "Dove i dispositivi differiscono è nella qualità degli algoritmi e nella calibrazione. Apple e Samsung hanno investito anni di R&D e test su larga scala — i loro algoritmi distinguono meglio tra 'caduta vera' e 'gesto brusco'. Dispositivi economici o di brand sconosciuti spesso hanno algoritmi poco calibrati, con due risultati possibili: falsi positivi (alarm quando non c'è caduta) o, peggio, falsi negativi (caduta reale non rilevata).",
-        en: "Where devices differ is in algorithm quality and calibration. Apple and Samsung have invested years of R&D and large-scale testing — their algorithms better distinguish between a 'real fall' and a 'sudden movement'. Budget devices or unknown brands often have poorly calibrated algorithms, with two possible outcomes: false positives (alarm when there's no fall) or, worse, false negatives (real fall not detected).",
+        it: "Dove i dispositivi differiscono è nella qualità degli algoritmi e nella calibrazione. Apple e Samsung hanno investito anni di R&D e test su larga scala: i loro algoritmi distinguono meglio tra 'caduta vera' e 'gesto brusco'. Dispositivi economici o di brand sconosciuti spesso hanno algoritmi poco calibrati, con due risultati possibili: falsi positivi (alarm quando non c'è caduta) o, peggio, falsi negativi (caduta reale non rilevata).",
+        en: "Where devices differ is in algorithm quality and calibration. Apple and Samsung have invested years of R&D and large-scale testing: their algorithms better distinguish between a 'real fall' and a 'sudden movement'. Budget devices or unknown brands often have poorly calibrated algorithms, with two possible outcomes: false positives (alarm when there's no fall) or, worse, false negatives (real fall not detected).",
       },
     },
     {
@@ -106,8 +106,8 @@ export const post: BlogPost = {
       variant: "info",
       title: { it: "LTE è non-negoziabile per chi vive solo", en: "LTE is non-negotiable for those living alone" },
       body: {
-        it: "Un modello Bluetooth-only funziona come estensione del telefono — quando il telefono è lontano, il watch non può chiamare. Per un anziano che vive da solo, questo gap è inaccettabile dal punto di vista della sicurezza. Il modello LTE costa tipicamente $50-100 in più e richiede un piano dati supplementare (~$10-15/mese), ma è lo scenario in cui 'vale ogni centesimo' non è marketing: è realtà.",
-        en: "A Bluetooth-only model works as a phone extension — when the phone is far away, the watch can't call. For an elderly person living alone, this gap is unacceptable from a safety perspective. The LTE model typically costs $50-100 more and requires an additional data plan (~$10-15/month), but this is the scenario where 'worth every penny' isn't marketing: it's reality.",
+        it: "Un modello Bluetooth-only funziona come estensione del telefono: quando il telefono è lontano, il watch non può chiamare. Per un anziano che vive da solo, questo gap è inaccettabile dal punto di vista della sicurezza. Il modello LTE costa tipicamente $50-100 in più e richiede un piano dati supplementare (~$10-15/mese), ma è lo scenario in cui 'vale ogni centesimo' non è marketing: è realtà.",
+        en: "A Bluetooth-only model works as a phone extension: when the phone is far away, the watch can't call. For an elderly person living alone, this gap is unacceptable from a safety perspective. The LTE model typically costs $50-100 more and requires an additional data plan (~$10-15/month), but this is the scenario where 'worth every penny' isn't marketing: it's reality.",
       },
     },
     {
@@ -180,14 +180,14 @@ export const post: BlogPost = {
         it: [
           "Il familiare caregiver ha un iPhone (almeno iPhone 6s con iOS 14).",
           "Si configura il nuovo Apple Watch con Family Setup dall'app Watch sul proprio iPhone.",
-          "Il Watch per il nonno ottiene la sua eSIM — può chiamare e ricevere chiamate anche senza telefono vicino.",
+          "Il Watch per il nonno ottiene la sua eSIM: può chiamare e ricevere chiamate anche senza telefono vicino.",
           "Cadute, SOS, e health alerts arrivano sull'iPhone del caregiver.",
           "Il nonno può chiamare direttamente i contatti preferiti toccando un'icona sul Watch.",
         ],
         en: [
           "The caregiver family member has an iPhone (at least iPhone 6s with iOS 14).",
           "Set up the new Apple Watch with Family Setup from the Watch app on your iPhone.",
-          "Grandpa's Watch gets its own eSIM — can make and receive calls even without a nearby phone.",
+          "Grandpa's Watch gets its own eSIM: it can make and receive calls even without a nearby phone.",
           "Falls, SOS, and health alerts arrive on the caregiver's iPhone.",
           "Grandpa can call preferred contacts directly by tapping an icon on the Watch.",
         ],
@@ -213,13 +213,13 @@ export const post: BlogPost = {
       items: {
         it: [
           "**Frequenza cardiaca continua**: tutti i modelli sopra elencati la misurano. Utile per vedere trend e anomalie evidenti.",
-          "**ECG single-lead**: Apple Watch Series 4+ e Samsung Galaxy Watch 4+ hanno questa funzione. Può rilevare fibrillazione atriale (AFib) — ma è uno strumento di screening, non diagnostico. Mostralo sempre al medico.",
+          "**ECG single-lead**: Apple Watch Series 4+ e Samsung Galaxy Watch 4+ hanno questa funzione. Può rilevare fibrillazione atriale (AFib), ma è uno strumento di screening, non diagnostico. Mostralo sempre al medico.",
           "**Avvisi di frequenza alta/bassa**: configurabili su Apple Watch e Samsung Galaxy Watch. Notifica se il BPM supera o scende sotto soglie impostate.",
           "**Non sostituisce dispositivi medici**: uno smartwatch non è un monitor Holter, non fa ecocardiogramma, non misura la pressione arteriosa con sensore dedicato. Complementa il monitoraggio medico, non lo sostituisce.",
         ],
         en: [
           "**Continuous heart rate**: all models listed above measure it. Useful for seeing trends and obvious anomalies.",
-          "**Single-lead ECG**: Apple Watch Series 4+ and Samsung Galaxy Watch 4+ have this feature. Can detect atrial fibrillation (AFib) — but it's a screening tool, not diagnostic. Always show results to a doctor.",
+          "**Single-lead ECG**: Apple Watch Series 4+ and Samsung Galaxy Watch 4+ have this feature. Can detect atrial fibrillation (AFib), but it's a screening tool, not diagnostic. Always show results to a doctor.",
           "**High/low heart rate alerts**: configurable on Apple Watch and Samsung Galaxy Watch. Notifies when BPM exceeds or drops below set thresholds.",
           "**Doesn't replace medical devices**: a smartwatch is not a Holter monitor, doesn't do echocardiogram, doesn't measure blood pressure with a dedicated sensor. It complements medical monitoring, doesn't replace it.",
         ],
@@ -257,6 +257,41 @@ export const post: BlogPost = {
           "**First week: just clock and steps**. Don't overwhelm with notifications, fitness goals, rings to close. Habit comes before functionality.",
           "**Weekly check-in call**: in the first 30 days, make a weekly call asking how the device is going. Fix problems immediately.",
           "**Don't use the word 'monitor'**: 'The watch lets us know if you need help' is much better than 'So we can monitor how you're doing'.",
+        ],
+      },
+    },
+    {
+      type: "callout",
+      variant: "tip",
+      title: { it: "La nostra posizione netta", en: "Our clear stance" },
+      body: {
+        it: "Evita i dispositivi 'smartwatch per anziani' di brand non riconoscibili sotto i $100. Invariabilmente hanno sensori di scarsa qualità, firmware non aggiornato, e il produttore scompare dopo 12-18 mesi. La sicurezza di un familiare non è il posto dove risparmiare $150. Apple Watch SE 2 LTE o Samsung Galaxy Watch 7 LTE costano di più, ma sono le uniche opzioni con algoritmi di fall detection testati su scala reale e un ecosistema di aggiornamenti garantito per anni.",
+        en: "Avoid 'elderly smartwatch' devices from unrecognizable brands under $100. They invariably have poor-quality sensors, outdated firmware, and the manufacturer disappears after 12-18 months. A family member's safety is not the place to save $150. Apple Watch SE 2 LTE or Samsung Galaxy Watch 7 LTE cost more, but they're the only options with fall detection algorithms tested at real scale and an update ecosystem guaranteed for years.",
+      },
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: { it: "In sintesi", en: "In summary" },
+    },
+    {
+      type: "list",
+      items: {
+        it: [
+          "Un dispositivo indossato ogni giorno supera sempre uno con più funzioni ma lasciato in un cassetto: semplicità e comfort vengono prima delle specifiche.",
+          "Per anziani che vivono soli, LTE non è opzionale: senza LTE il watch non può chiamare quando il telefono è lontano.",
+          "Apple Watch SE 2 LTE con Family Setup è la scelta migliore per famiglie iPhone: permette di collegare il watch del nonno al telefono di un figlio senza che il nonno abbia un iPhone.",
+          "Samsung Galaxy Watch 7 LTE è la scelta migliore per famiglie Android: ECG, fall detection, e ampio ecosistema di app.",
+          "I brand economici sotto i $100 sono da evitare per la sicurezza: algoritmi poco calibrati e aggiornamenti assenti rendono il fall detection inaffidabile.",
+          "Il setup iniziale fatto dal caregiver e la prima settimana senza sovraccarico di notifiche sono i fattori che determinano se il dispositivo verrà davvero indossato.",
+        ],
+        en: [
+          "A device worn every day always beats one with more features left in a drawer: simplicity and comfort come before specs.",
+          "For elderly living alone, LTE is not optional: without LTE the watch can't call when the phone is far away.",
+          "Apple Watch SE 2 LTE with Family Setup is the best choice for iPhone families: it allows linking grandpa's watch to a child's phone without grandpa needing an iPhone.",
+          "Samsung Galaxy Watch 7 LTE is the best choice for Android families: ECG, fall detection, and a broad app ecosystem.",
+          "Budget brands under $100 should be avoided for safety: poorly calibrated algorithms and absent updates make fall detection unreliable.",
+          "Caregiver-done initial setup and the first week without notification overload are the factors that determine whether the device will actually be worn.",
         ],
       },
     },
@@ -317,8 +352,8 @@ export const post: BlogPost = {
         en: "Can fall detection be accidentally disabled?",
       },
       a: {
-        it: "Sì — è possibile disabilitarlo dall'app companion (Watch o Samsung Health). Per Apple Watch, vai in Impostazioni → SOS emergenza → Rilevamento cadute: assicurati sia attivo. Alcuni anziani lo disabilitano accidentalmente esplorando le impostazioni. Per Apple Watch, la funzione in modalità 'Over 55' (impostabile nelle preferenze di accessibilità del Watch) rende il rilevamento sempre attivo con opzioni di disattivazione più difficili da raggiungere.",
-        en: "Yes — it's possible to disable it from the companion app (Watch or Samsung Health). For Apple Watch, go to Settings → Emergency SOS → Fall Detection: make sure it's on. Some elderly people accidentally disable it while exploring settings. For Apple Watch, the feature in 'Over 55' mode (settable in Watch accessibility preferences) keeps detection always active with harder-to-reach disable options.",
+        it: "Sì, è possibile disabilitarlo dall'app companion (Watch o Samsung Health). Per Apple Watch, vai in Impostazioni → SOS emergenza → Rilevamento cadute: assicurati sia attivo. Alcuni anziani lo disabilitano accidentalmente esplorando le impostazioni. Per Apple Watch, la funzione in modalità 'Over 55' (impostabile nelle preferenze di accessibilità del Watch) rende il rilevamento sempre attivo con opzioni di disattivazione più difficili da raggiungere.",
+        en: "Yes, it's possible to disable it from the companion app (Watch or Samsung Health). For Apple Watch, go to Settings → Emergency SOS → Fall Detection: make sure it's on. Some elderly people accidentally disable it while exploring settings. For Apple Watch, the feature in 'Over 55' mode (settable in Watch accessibility preferences) keeps detection always active with harder-to-reach disable options.",
       },
     },
     {
@@ -327,8 +362,8 @@ export const post: BlogPost = {
         en: "Can a smartwatch detect a heart attack?",
       },
       a: {
-        it: "Non direttamente. Uno smartwatch non può rilevare un infarto (STEMI, NSTEMI) — richiederebbe un ECG a 12 derivazioni. Può però rilevare anomalie del ritmo (come fibrillazione atriale) che sono fattori di rischio, e può alertare se il soggetto cade o perde conoscenza. Apple Watch e Samsung Galaxy Watch con ECG single-lead possono mostrare variazioni del segmento ST, ma il rilevamento automatico di attacchi cardiaci non è certificato su nessun dispositivo consumer attuale.",
-        en: "Not directly. A smartwatch cannot detect a heart attack (STEMI, NSTEMI) — that would require a 12-lead ECG. It can detect rhythm abnormalities (like atrial fibrillation) which are risk factors, and can alert if the person falls or loses consciousness. Apple Watch and Samsung Galaxy Watch with single-lead ECG can show ST segment variations, but automatic heart attack detection is not certified on any current consumer device.",
+        it: "Non direttamente. Uno smartwatch non può rilevare un infarto (STEMI, NSTEMI): richiederebbe un ECG a 12 derivazioni. Può però rilevare anomalie del ritmo (come fibrillazione atriale) che sono fattori di rischio, e può alertare se il soggetto cade o perde conoscenza. Apple Watch e Samsung Galaxy Watch con ECG single-lead possono mostrare variazioni del segmento ST, ma il rilevamento automatico di attacchi cardiaci non è certificato su nessun dispositivo consumer attuale.",
+        en: "Not directly. A smartwatch cannot detect a heart attack (STEMI, NSTEMI): that would require a 12-lead ECG. It can detect rhythm abnormalities (like atrial fibrillation) which are risk factors, and can alert if the person falls or loses consciousness. Apple Watch and Samsung Galaxy Watch with single-lead ECG can show ST segment variations, but automatic heart attack detection is not certified on any current consumer device.",
       },
     },
   ],

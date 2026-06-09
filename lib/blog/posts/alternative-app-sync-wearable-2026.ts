@@ -43,8 +43,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "La categoria delle app che fanno da ponte tra ecosistemi salute incompatibili (Samsung Health, Fitbit, Garmin, Strava, MyFitnessPal) esiste da anni e ha lavorato bene come bridge cloud-to-cloud. Con l'arrivo di Health Connect come standard Android (dal 2024) il panorama è cambiato: alcune funzioni di queste app diventano superflue, altre restano insostituibili. Vediamo le opzioni reali nel 2026.",
-        en: "The category of apps that bridge incompatible health ecosystems (Samsung Health, Fitbit, Garmin, Strava, MyFitnessPal) has existed for years and worked well as a cloud-to-cloud bridge. With Health Connect arriving as the Android standard (since 2024) the landscape shifted: some functions became redundant, others remain irreplaceable. Let's look at the real options in 2026.",
+        it: "Nel 2026 le app ponte tra ecosistemi salute Android si dividono in tre categorie distinte: bridge cloud-to-cloud, Health Connect built-in (gratuito e già nel sistema operativo), e dashboard unificate. Scegliere quella sbagliata significa pagare per qualcosa che Android già fa gratis, o viceversa aspettarsi funzionalità che non esistono. La categoria (Samsung Health, Fitbit, Garmin, Strava, MyFitnessPal) esiste da anni, ma l'arrivo di Health Connect come standard Android ha reso alcune funzioni superflue e altre insostituibili.",
+        en: "In 2026 Android health bridge apps fall into three distinct categories: cloud-to-cloud bridges, built-in Health Connect (free and already in the OS), and unified dashboards. Picking the wrong one means paying for something Android already does for free, or expecting features that don't exist. The category (Samsung Health, Fitbit, Garmin, Strava, MyFitnessPal) has existed for years, but Health Connect arriving as the Android standard made some functions redundant and others irreplaceable.",
       },
     },
     {
@@ -55,8 +55,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Per chi non le ha mai usate: una bridge app ti chiede di autorizzare due ecosistemi (es. Garmin Connect → Samsung Health), e replica costantemente i dati da uno all'altro. Non è una dashboard — è un sync engine in background. Sostiene cicli OAuth multipli, gestisce mapping di tipi di dato tra schemi diversi, fa backfill storico.",
-        en: "For those who never used one: a bridge app asks you to authorize two ecosystems (e.g. Garmin Connect → Samsung Health), and continuously replicates data from one to the other. It's not a dashboard — it's a background sync engine. It handles multiple OAuth cycles, manages data type mapping between different schemas, does historical backfill.",
+        it: "Per chi non le ha mai usate: una bridge app ti chiede di autorizzare due ecosistemi (es. Garmin Connect → Samsung Health), e replica costantemente i dati da uno all'altro. Non è una dashboard: è un sync engine in background. Sostiene cicli OAuth multipli, gestisce mapping di tipi di dato tra schemi diversi, fa backfill storico.",
+        en: "For those who never used one: a bridge app asks you to authorize two ecosystems (e.g. Garmin Connect → Samsung Health), and continuously replicates data from one to the other. It's not a dashboard: it's a background sync engine. It handles multiple OAuth cycles, manages data type mapping between different schemas, does historical backfill.",
       },
     },
     {
@@ -207,6 +207,15 @@ export const post: BlogPost = {
       ],
     },
     {
+      type: "callout",
+      variant: "tip",
+      title: { it: "Opinione diretta", en: "Direct opinion" },
+      body: {
+        it: "Se usi un wearable Android e il tuo unico obiettivo è far parlare due app (es. Samsung Health e MyFitnessPal), smetti di cercare una bridge app: Health Connect già risolve questo gratuitamente. Le bridge app cloud-to-cloud hanno ancora senso per sync esotici tra piattaforme diverse, ma per il 90% degli utenti Android nel 2026 sono uno strato inutile che aggiunge complessità e potenziali punti di rottura.",
+        en: "If you use an Android wearable and your only goal is to make two apps talk (e.g. Samsung Health and MyFitnessPal), stop looking for a bridge app: Health Connect already solves this for free. Cloud-to-cloud bridge apps still make sense for exotic cross-platform syncs, but for 90% of Android users in 2026 they're an unnecessary layer adding complexity and potential failure points.",
+      },
+    },
+    {
       type: "heading",
       level: 2,
       text: { it: "Cosa scegliere, in pratica", en: "What to choose, practically" },
@@ -231,6 +240,30 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "heading",
+      level: 2,
+      text: { it: "In sintesi", en: "In summary" },
+    },
+    {
+      type: "list",
+      items: {
+        it: [
+          "Health Connect (Android built-in) copre il 90% degli scenari di sync tra app Android: niente app extra, niente abbonamenti.",
+          "Le integrazioni native dei produttori (Garmin, Polar, Suunto verso Strava) sono gratis e più affidabili di qualsiasi bridge app terza.",
+          "Le bridge app cloud-to-cloud restano utili solo per sync esotici non coperti da integrazioni native.",
+          "Per una dashboard unificata cross-source (non solo sync), servono tool dedicati come FitMesh Sync, Welltory o Heads Up Health.",
+          "App totalmente gratis senza modello di business chiaro tipicamente monetizzano i dati: il modello 'paga una volta' è più sostenibile per dati sensibili come quelli salute.",
+        ],
+        en: [
+          "Health Connect (Android built-in) covers 90% of Android app sync scenarios: no extra apps, no subscriptions.",
+          "Native manufacturer integrations (Garmin, Polar, Suunto to Strava) are free and more reliable than any third-party bridge app.",
+          "Cloud-to-cloud bridge apps remain useful only for exotic syncs not covered by native integrations.",
+          "For a unified cross-source dashboard (not just sync), dedicated tools like FitMesh Sync, Welltory or Heads Up Health are needed.",
+          "Totally free apps without a clear business model typically monetize data: the 'pay once' model is more sustainable for sensitive health data.",
+        ],
+      },
+    },
+    {
       type: "cta",
       title: {
         it: "Vuoi provare la nostra dashboard unificata?",
@@ -251,8 +284,8 @@ export const post: BlogPost = {
         en: "Are classic bridge apps still useful in 2026?",
       },
       a: {
-        it: "Per la loro specifica nicchia (sync background tra cloud diversi su Android quando Health Connect non basta), restano solide. Per la maggior parte degli use case 2026 esistono alternative migliori — Health Connect built-in per sync tra app Android, dashboard unificate per visualizzazione, integrazioni produttore native per sync cloud-to-cloud comuni.",
-        en: "For their specific niche (background sync between different clouds on Android when Health Connect isn't enough), they remain solid. For most 2026 use cases there are better alternatives — Health Connect built-in for Android app sync, unified dashboards for visualization, native manufacturer integrations for common cloud-to-cloud syncs.",
+        it: "Per la loro specifica nicchia (sync background tra cloud diversi su Android quando Health Connect non basta), restano solide. Per la maggior parte degli use case 2026 esistono alternative migliori: Health Connect built-in per sync tra app Android, dashboard unificate per visualizzazione, integrazioni produttore native per sync cloud-to-cloud comuni.",
+        en: "For their specific niche (background sync between different clouds on Android when Health Connect isn't enough), they remain solid. For most 2026 use cases there are better alternatives: Health Connect built-in for Android app sync, unified dashboards for visualization, native manufacturer integrations for common cloud-to-cloud syncs.",
       },
     },
     {

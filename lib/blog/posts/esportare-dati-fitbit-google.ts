@@ -43,8 +43,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "La storia recente di Fitbit è anche la storia delle ansie dei suoi utenti. Acquisizione da Google nel 2021, promesse iniziali di non usare i dati per ads, migrazione obbligatoria a Google Account nel 2023, sostituzione progressiva di Fitbit.com con tooling Google. Ogni passaggio ha mosso il pannello del controllo dati un po' più verso Mountain View. Se hai un Fitbit (o un Pixel Watch, che usa Fitbit come backend) ha senso fare il punto su come stanno le cose oggi.",
-        en: "Fitbit's recent history is also its users' anxiety story. Google acquisition in 2021, initial promises not to use data for ads, mandatory Google Account migration in 2023, progressive replacement of Fitbit.com with Google tooling. Each step moved the data control panel a bit more towards Mountain View. If you have a Fitbit (or a Pixel Watch, which uses Fitbit as backend) it makes sense to assess where things stand today.",
+        it: "Esportare i dati Fitbit nel 2026 è più semplice di quanto sembri, ma richiede di capire una cosa fondamentale: dopo l'acquisizione Google e la migrazione forzata del 2023, i tuoi dati Fitbit vivono nell'infrastruttura Google e si scaricano via Google Takeout. Il vecchio portale Fitbit.com è sparito. Questa guida mostra le due strade principali: Google Takeout per l'archivio storico completo, Health Connect per il flusso quotidiano verso app terze.",
+        en: "Exporting Fitbit data in 2026 is simpler than it looks, but requires understanding one key thing: after the Google acquisition and forced 2023 migration, your Fitbit data lives in Google infrastructure and downloads via Google Takeout. The old Fitbit.com portal is gone. This guide covers the two main paths: Google Takeout for the full historical archive, Health Connect for the daily flow to third-party apps.",
       },
     },
     {
@@ -99,14 +99,14 @@ export const post: BlogPost = {
         it: [
           "Vai su takeout.google.com e accedi con il Google Account collegato al Fitbit.",
           "Clicca 'Deseleziona tutto', poi cerca 'Fitbit' nella lista e selezionalo.",
-          "Espandi i sotto-elementi (Activity, Sleep, Heart Rate, etc.) — puoi scegliere granularmente quali tipi includere.",
+          "Espandi i sotto-elementi (Activity, Sleep, Heart Rate, etc.): puoi scegliere granularmente quali tipi includere.",
           "Scegli formato esportazione (JSON consigliato, CSV per la maggior parte dei dati di attività) e destinazione (download diretto, Drive, Dropbox, OneDrive).",
           "Avvia l'export. I tempi vanno da minuti (account piccolo) a ore (anni di dati granulari). Riceverai un'email quando è pronto.",
         ],
         en: [
           "Go to takeout.google.com and sign in with the Google Account linked to Fitbit.",
           "Click 'Deselect all', then search 'Fitbit' in the list and select it.",
-          "Expand sub-items (Activity, Sleep, Heart Rate, etc.) — you can choose granularly which types to include.",
+          "Expand sub-items (Activity, Sleep, Heart Rate, etc.): you can choose granularly which types to include.",
           "Pick export format (JSON recommended, CSV for most activity data) and destination (direct download, Drive, Dropbox, OneDrive).",
           "Start the export. Times range from minutes (small account) to hours (years of granular data). You'll get an email when ready.",
         ],
@@ -194,6 +194,39 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "callout",
+      variant: "tip",
+      title: { it: "La nostra posizione sull'ecosistema Fitbit-Google", en: "Our take on the Fitbit-Google ecosystem" },
+      body: {
+        it: "Se usi Fitbit principalmente per passi, BPM e sonno e non hai bisogno delle funzionalità premium Fitbit, ha senso considerare un'alternativa che ti dia più controllo sui dati. La dipendenza da un singolo ecosistema Google (dove la policy può cambiare e il servizio può essere dismesso) è un rischio reale per chi si affida a questi dati nel tempo. Esporta regolarmente via Takeout e considera di affiancare una dashboard alternativa che legga da Health Connect: ti dà una copia indipendente e accesso da browser senza passare per i server Google.",
+        en: "If you use Fitbit primarily for steps, HR and sleep and don't need premium Fitbit features, it makes sense to consider an alternative that gives you more data control. Dependence on a single Google ecosystem (where policy can change and the service can be discontinued) is a real risk for those who rely on this data over time. Export regularly via Takeout and consider adding an alternative dashboard that reads from Health Connect: it gives you an independent copy and browser access without going through Google's servers.",
+      },
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: { it: "In sintesi", en: "In summary" },
+    },
+    {
+      type: "list",
+      items: {
+        it: [
+          "Dopo la migrazione del 2023, i dati Fitbit vivono su Google: l'export si fa via Google Takeout (takeout.google.com), non più da Fitbit.com.",
+          "Google Takeout è il metodo più completo: include tutta la storia in JSON/CSV, dalle attività al sonno agli HR a cadenza per minuto.",
+          "Health Connect è il metodo per il flusso continuo: dall'app Fitbit vers HC, qualsiasi app Android con permessi HC può leggere i dati in tempo reale.",
+          "Limite HC per Fitbit: le fasi del sonno (REM/Deep/Light) non sono esposte in modo granulare via HC. GPS e VO₂ max richiedono la Fitbit Web API.",
+          "Prima di chiudere l'account: esporta via Takeout, poi richiedi la cancellazione GDPR. Mai nell'ordine inverso.",
+        ],
+        en: [
+          "After the 2023 migration, Fitbit data lives on Google: export goes via Google Takeout (takeout.google.com), no longer from Fitbit.com.",
+          "Google Takeout is the most complete method: includes the full history in JSON/CSV, from activities to sleep to per-minute HR.",
+          "Health Connect is the method for continuous flow: from the Fitbit app to HC, any Android app with HC permissions can read data in real time.",
+          "HC limit for Fitbit: sleep phases (REM/Deep/Light) are not exposed granularly via HC. GPS and VO₂ max require the Fitbit Web API.",
+          "Before closing the account: export via Takeout, then request GDPR deletion. Never in the reverse order.",
+        ],
+      },
+    },
+    {
       type: "cta",
       title: {
         it: "Tieni il Fitbit ma vuoi una dashboard alternativa?",
@@ -214,8 +247,8 @@ export const post: BlogPost = {
         en: "If I haven't migrated to a Google Account, can I still log in?",
       },
       a: {
-        it: "Dal 2025 i Fitbit Account legacy non sono più supportati. Se hai un dispositivo Fitbit attivo dovresti aver ricevuto multiple richieste di migrazione. Se hai mancato la finestra, contatta il supporto Fitbit per ripristinare l'accesso — è ancora possibile ma può richiedere verifica identità.",
-        en: "Since 2025 legacy Fitbit Accounts are no longer supported. If you have an active Fitbit device you should have received multiple migration requests. If you missed the window, contact Fitbit support to restore access — it's still possible but may require ID verification.",
+        it: "Dal 2025 i Fitbit Account legacy non sono più supportati. Se hai un dispositivo Fitbit attivo dovresti aver ricevuto multiple richieste di migrazione. Se hai mancato la finestra, contatta il supporto Fitbit per ripristinare l'accesso: è ancora possibile ma può richiedere verifica identità.",
+        en: "Since 2025 legacy Fitbit Accounts are no longer supported. If you have an active Fitbit device you should have received multiple migration requests. If you missed the window, contact Fitbit support to restore access: it's still possible but may require ID verification.",
       },
     },
     {
@@ -224,8 +257,8 @@ export const post: BlogPost = {
         en: "Does Google use my Fitbit data for advertising?",
       },
       a: {
-        it: "La privacy policy attuale di Fitbit (gestita da Google) dichiara che i dati salute non sono usati per Google Ads. Questa è anche una condizione imposta dalle authority europee al momento dell'approvazione dell'acquisizione (impegni vincolanti fino al 2031). Tecnicamente Google può cambiare la policy in futuro per nuovi dati raccolti — ma con preavviso e opt-out.",
-        en: "Fitbit's current privacy policy (Google-managed) states health data isn't used for Google Ads. This is also a condition imposed by European authorities at acquisition approval (binding commitments until 2031). Technically Google can change the policy in the future for newly collected data — but with prior notice and opt-out.",
+        it: "La privacy policy attuale di Fitbit (gestita da Google) dichiara che i dati salute non sono usati per Google Ads. Questa è anche una condizione imposta dalle authority europee al momento dell'approvazione dell'acquisizione (impegni vincolanti fino al 2031). Tecnicamente Google può cambiare la policy in futuro per nuovi dati raccolti, ma con preavviso e opt-out.",
+        en: "Fitbit's current privacy policy (Google-managed) states health data isn't used for Google Ads. This is also a condition imposed by European authorities at acquisition approval (binding commitments until 2031). Technically Google can change the policy in the future for newly collected data, but with prior notice and opt-out.",
       },
     },
     {
@@ -234,8 +267,8 @@ export const post: BlogPost = {
         en: "Can I transfer Fitbit data to a Galaxy Watch?",
       },
       a: {
-        it: "Direttamente no — non c'è importazione nativa in Samsung Health. Hai due strade. Una: esporta da Takeout, mantieni i file come archivio (non visualizzabili in Samsung Health). Due: via Health Connect, lo storico recente Fitbit (60–90 giorni tipici) compare in HC e Samsung Health può leggerli. Lo storico più vecchio richiede lavoro manuale.",
-        en: "Directly no — there's no native import in Samsung Health. Two paths. One: export from Takeout, keep files as archive (not viewable in Samsung Health). Two: via Health Connect, recent Fitbit history (typical 60–90 days) appears in HC and Samsung Health can read it. Older history requires manual work.",
+        it: "Direttamente no: non c'è importazione nativa in Samsung Health. Hai due strade. Una: esporta da Takeout, mantieni i file come archivio (non visualizzabili in Samsung Health). Due: via Health Connect, lo storico recente Fitbit (60–90 giorni tipici) compare in HC e Samsung Health può leggerli. Lo storico più vecchio richiede lavoro manuale.",
+        en: "Directly no: there's no native import in Samsung Health. Two paths. One: export from Takeout, keep files as archive (not viewable in Samsung Health). Two: via Health Connect, recent Fitbit history (typical 60–90 days) appears in HC and Samsung Health can read it. Older history requires manual work.",
       },
     },
   ],
