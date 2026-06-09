@@ -44,8 +44,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Maria ha 78 anni, vive da sola dopo la morte del marito, e ha avuto un episodio cardiaco lieve l'anno scorso. Suo figlio Luca abita a 300 km di distanza e si sveglia ogni mattina chiedendosi se la madre stia bene. Non è una situazione rara — è quella di milioni di famiglie italiane. Uno smartwatch non risolve tutto, ma può fare la differenza tra una caduta scoperta dopo ore e un intervento tempestivo. La scelta però va fatta bene: un dispositivo sbagliato viene tolto dopo tre giorni.",
-        en: "Maria is 78, lives alone after her husband's passing, and had a mild cardiac episode last year. Her son Luca lives 300 km away and wakes up every morning wondering if his mother is okay. This isn't a rare situation — it's the reality for millions of families. A smartwatch doesn't fix everything, but it can make the difference between a fall discovered hours later and a timely response. But the choice needs to be made carefully: the wrong device gets taken off after three days.",
+        it: "Per uno smartwatch da anziani la variabile più importante non è il numero di funzionalità: è che venga indossato ogni giorno. Rilevamento cadute affidabile, LTE per chiamare senza il telefono vicino, batteria da almeno 2-3 giorni e uno schermo leggibile senza occhiali sono i quattro requisiti non negoziabili. Tutto il resto è marketing. Un dispositivo sbagliato viene tolto dopo tre giorni.",
+        en: "For an elderly person's smartwatch the most important variable isn't the number of features: it's that the device gets worn every day. Reliable fall detection, LTE to call without a nearby phone, at least 2-3 day battery, and a screen readable without glasses are the four non-negotiable requirements. Everything else is marketing. The wrong device gets taken off after three days.",
       },
     },
     {
@@ -70,14 +70,14 @@ export const post: BlogPost = {
           "**Schermo leggibile senza occhiali**: display AMOLED grande (almeno 1.4 pollici) con font scalabile. Non tutti i produttori permettono di aumentare abbastanza la dimensione del testo.",
           "**Batteria che dura almeno 2-3 giorni**: un anziano non dovrebbe dover ricordare di caricare il dispositivo ogni notte. Galaxy Watch 7 dura circa 40 ore, Garmin Vivoactive 5 circa 11 giorni.",
           "**Rilevamento cadute affidabile**: le specifiche dicono tutti \"sì\" ma la qualità varia enormemente. Apple Watch Series 9 e Samsung Galaxy Watch 7 hanno meccanismi con accelerometro e giroscopio testati clinicamente. Gli smartwatch economici generici spesso hanno falsi negativi alti.",
-          "**Tasto SOS fisico**: non solo digitale — deve essere accessibile anche se la persona è disorientata o con le mani tremanti.",
+          "**Tasto SOS fisico**: non solo digitale. Deve essere accessibile anche se la persona è disorientata o con le mani tremanti.",
           "**Numero di Wi-Fi o LTE**: se la persona si allontana dal telefono, il watch deve poter chiamare autonomamente.",
         ],
         en: [
           "**Readable screen without glasses**: large AMOLED display (at least 1.4 inches) with scalable font. Not all manufacturers allow increasing text size enough.",
           "**Battery lasting at least 2-3 days**: an elderly person shouldn't have to remember to charge the device every night. Galaxy Watch 7 lasts about 40 hours, Garmin Vivoactive 5 about 11 days.",
           "**Reliable fall detection**: specs all say 'yes' but quality varies enormously. Apple Watch Series 9 and Samsung Galaxy Watch 7 have clinically tested accelerometer and gyroscope mechanisms. Generic budget smartwatches often have high false negatives.",
-          "**Physical SOS button**: not just digital — must be accessible even if the person is disoriented or has trembling hands.",
+          "**Physical SOS button**: not just digital. Must be accessible even if the person is disoriented or has trembling hands.",
           "**Wi-Fi or LTE number**: if the person moves away from their phone, the watch must be able to call independently.",
         ],
       },
@@ -109,8 +109,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "La realtà pratica è più sfumata. Il rilevamento funziona bene per cadute \"classiche\" — svenimento o inciampo su superficie dura. Funziona peggio per cadute lente (es. scivolare su una sedia), cadute in acqua (vasca da bagno, problema comune negli anziani), o situazioni in cui la persona cade ma rimane parzialmente eretta. Anche i falsi positivi esistono — attività fisiche intense possono occasionalmente triggerare l'allarme.",
-        en: "The practical reality is more nuanced. Detection works well for 'classic' falls — fainting or tripping on hard surfaces. It works less well for slow falls (e.g. sliding off a chair), falls in water (bathtub, a common problem for elderly), or situations where the person falls but remains partially upright. False positives also exist — intense physical activities can occasionally trigger the alarm.",
+        it: "La realtà pratica è più sfumata. Il rilevamento funziona bene per cadute \"classiche\" (svenimento o inciampo su superficie dura). Funziona peggio per cadute lente (es. scivolare su una sedia), cadute in acqua (vasca da bagno, problema comune negli anziani), o situazioni in cui la persona cade ma rimane parzialmente eretta. Anche i falsi positivi esistono: attività fisiche intense possono occasionalmente triggerare l'allarme.",
+        en: "The practical reality is more nuanced. Detection works well for 'classic' falls (fainting or tripping on hard surfaces). It works less well for slow falls (e.g. sliding off a chair), falls in water (bathtub, a common problem for elderly), or situations where the person falls but remains partially upright. False positives also exist: intense physical activities can occasionally trigger the alarm.",
       },
     },
     {
@@ -184,15 +184,15 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Tutti gli smartwatch moderni misurano la frequenza cardiaca via fotopletismografia (PPG) — un sensore LED verde sul fondo del watch rileva le variazioni di volume del sangue nei capillari. Per un anziano con cardiopatia, questo non sostituisce un Holter o un elettrocardiogramma continuo, ma può rilevare aritmie evidenti e trend anomali.",
-        en: "All modern smartwatches measure heart rate via photoplethysmography (PPG) — a green LED sensor on the watch's back detects blood volume variations in capillaries. For an elderly person with heart disease, this doesn't replace a Holter monitor or continuous ECG, but it can detect obvious arrhythmias and abnormal trends.",
+        it: "Tutti gli smartwatch moderni misurano la frequenza cardiaca via fotopletismografia (PPG): un sensore LED verde sul fondo del watch rileva le variazioni di volume del sangue nei capillari. Per un anziano con cardiopatia, questo non sostituisce un Holter o un elettrocardiogramma continuo, ma può rilevare aritmie evidenti e trend anomali.",
+        en: "All modern smartwatches measure heart rate via photoplethysmography (PPG): a green LED sensor on the watch's back detects blood volume variations in capillaries. For an elderly person with heart disease, this doesn't replace a Holter monitor or continuous ECG, but it can detect obvious arrhythmias and abnormal trends.",
       },
     },
     {
       type: "paragraph",
       text: {
-        it: "Apple Watch Series 9 e Samsung Galaxy Watch 7 includono anche ECG a singola derivazione (tramite i contatti metallici del watch e il dito). Questa funzione può rilevare fibrillazione atriale, che è particolarmente rilevante negli anziani. Importante però: questi ECG non sono dispositivi medici certificati nel senso pieno del termine — sono strumenti di screening, non diagnosi. Vanno sempre portati all'attenzione di un medico.",
-        en: "Apple Watch Series 9 and Samsung Galaxy Watch 7 also include single-lead ECG (via the watch's metal contacts and a finger). This feature can detect atrial fibrillation, which is particularly relevant for elderly users. Important though: these ECGs are not certified medical devices in the full sense — they're screening tools, not diagnostic ones. Results should always be reviewed by a doctor.",
+        it: "Apple Watch Series 9 e Samsung Galaxy Watch 7 includono anche ECG a singola derivazione (tramite i contatti metallici del watch e il dito). Questa funzione può rilevare fibrillazione atriale, che è particolarmente rilevante negli anziani. Importante però: questi ECG non sono dispositivi medici certificati nel senso pieno del termine. Sono strumenti di screening, non di diagnosi. Vanno sempre portati all'attenzione di un medico.",
+        en: "Apple Watch Series 9 and Samsung Galaxy Watch 7 also include single-lead ECG (via the watch's metal contacts and a finger). This feature can detect atrial fibrillation, which is particularly relevant for elderly users. Important though: these ECGs are not certified medical devices in the full sense. They are screening tools, not diagnostic ones. Results should always be reviewed by a doctor.",
       },
     },
     {
@@ -215,15 +215,15 @@ export const post: BlogPost = {
       items: {
         it: [
           "**Samsung Galaxy Watch + Family Sharing**: Samsung Health permette la condivisione di dati con familiari definiti. Si configura dall'app Samsung Health → Profilo → Famiglia. Passaggi, frequenza cardiaca, e dati di sonno sono condivisibili.",
-          "**Apple Watch + Family Setup**: Apple permette di agganciare un Apple Watch a un iPhone familiare. Il nonno non ha bisogno di un iPhone proprio — i dati fluiscono all'iPhone del familiare caregiver.",
+          "**Apple Watch + Family Setup**: Apple permette di agganciare un Apple Watch a un iPhone familiare. Il nonno non ha bisogno di un iPhone proprio: i dati fluiscono all'iPhone del familiare caregiver.",
           "**Garmin**: la condivisione familiare è limitata. Garmin Connect permette di seguire gli \"amici\" e vedere alcune statistiche, ma non c'è un feature di caregiver dedicato.",
-          "**Soluzioni terze**: app come FitMesh Sync permettono di aggregare dati salute da dispositivi diversi e renderli accessibili su dashboard web — utile se la famiglia usa brand diversi o vuole una vista unificata.",
+          "**Soluzioni terze**: app come FitMesh Sync permettono di aggregare dati salute da dispositivi diversi e renderli accessibili su dashboard web, utile se la famiglia usa brand diversi o vuole una vista unificata.",
         ],
         en: [
           "**Samsung Galaxy Watch + Family Sharing**: Samsung Health allows data sharing with defined family members. Configure via Samsung Health app → Profile → Family. Steps, heart rate, and sleep data are shareable.",
-          "**Apple Watch + Family Setup**: Apple allows attaching an Apple Watch to a family iPhone. Grandpa doesn't need his own iPhone — data flows to the caregiver family member's iPhone.",
+          "**Apple Watch + Family Setup**: Apple allows attaching an Apple Watch to a family iPhone. Grandpa doesn't need his own iPhone: data flows to the caregiver family member's iPhone.",
           "**Garmin**: family sharing is limited. Garmin Connect lets you follow 'friends' and see some statistics, but there's no dedicated caregiver feature.",
-          "**Third-party solutions**: apps like FitMesh Sync allow aggregating health data from different devices and making it accessible via web dashboard — useful if the family uses different brands or wants a unified view.",
+          "**Third-party solutions**: apps like FitMesh Sync allow aggregating health data from different devices and making it accessible via web dashboard, useful if the family uses different brands or wants a unified view.",
         ],
       },
     },
@@ -238,8 +238,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Comprare il dispositivo giusto è la metà del lavoro. L'altra metà è l'adozione — e gli anziani spesso resistono a nuova tecnologia per ragioni comprensibili: paura di sbagliare, disagio estetico, sensazione di essere \"controllati\". Alcune strategie che funzionano nella pratica:",
-        en: "Buying the right device is half the work. The other half is adoption — and elderly people often resist new technology for understandable reasons: fear of making mistakes, aesthetic discomfort, feeling of being 'monitored'. Some strategies that work in practice:",
+        it: "Comprare il dispositivo giusto è la metà del lavoro. L'altra metà è l'adozione, e gli anziani spesso resistono a nuova tecnologia per ragioni comprensibili: paura di sbagliare, disagio estetico, sensazione di essere \"controllati\". Alcune strategie che funzionano nella pratica:",
+        en: "Buying the right device is half the work. The other half is adoption, and elderly people often resist new technology for understandable reasons: fear of making mistakes, aesthetic discomfort, feeling of being 'monitored'. Some strategies that work in practice:",
       },
     },
     {
@@ -259,6 +259,35 @@ export const post: BlogPost = {
           "**Choose the right band**: for elderly with arthritis, magnetic or easy-fit closure bands are much more practical than standard pin clasps.",
           "**Set a charging routine**: if battery life is short, create a fixed routine (e.g. every evening at 9pm while watching TV). A dead device is a useless device.",
           "**Try it yourself for a week**: if you can't figure out how it works on your own, how can you expect an elderly person to?",
+        ],
+      },
+    },
+    {
+      type: "callout",
+      variant: "tip",
+      title: { it: "La scelta che consiglio senza esitare", en: "The choice I recommend without hesitation" },
+      body: {
+        it: "Per un anziano con Android, il Galaxy Watch 7 LTE batte qualsiasi alternativa nella stessa fascia. Il rilevamento cadute è testato clinicamente, LTE garantisce la chiamata di emergenza anche senza il telefono vicino, e Samsung Health Family Sharing permette al caregiver di vedere i dati da remoto. Costa di più, ma per questo uso specifico vale ogni euro.",
+        en: "For an elderly person on Android, the Galaxy Watch 7 LTE beats any alternative in the same price range. Fall detection is clinically tested, LTE ensures the emergency call even without a nearby phone, and Samsung Health Family Sharing lets the caregiver see data remotely. It costs more, but for this specific use case it's worth every euro.",
+      },
+    },
+    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary" } },
+    {
+      type: "list",
+      items: {
+        it: [
+          "Il fattore decisivo non è la lista funzioni: è che il dispositivo venga indossato ogni giorno. Usabilità e batteria lunga battono qualsiasi feature avanzata.",
+          "LTE non è opzionale se l'anziano si muove in autonomia senza portare il telefono sempre con sé.",
+          "Il rilevamento cadute funziona bene per cadute classiche, peggio per cadute lente o in acqua: abbinalo a un bottone fisso in bagno per copertura completa.",
+          "Gli ECG integrati (Apple Watch Series 9, Galaxy Watch 7) sono strumenti di screening della fibrillazione atriale, non dispositivi medici certificati: ogni risultato anomalo va portato al medico.",
+          "Adozione conta quanto la scelta: presentalo come device che aiuta l'anziano, non come sistema di controllo. Inizia con solo ora e passi, aggiungi funzioni gradualmente.",
+        ],
+        en: [
+          "The decisive factor is not the feature list: it's that the device gets worn every day. Usability and long battery beat any advanced feature.",
+          "LTE is not optional if the elderly person moves around independently without always carrying their phone.",
+          "Fall detection works well for classic falls, worse for slow falls or in water: pair it with a fixed bathroom button for complete coverage.",
+          "Built-in ECGs (Apple Watch Series 9, Galaxy Watch 7) are atrial fibrillation screening tools, not certified medical devices: any abnormal result should be shown to a doctor.",
+          "Adoption matters as much as the choice: present it as a device that helps the elderly person, not as a monitoring system. Start with just time and steps, add features gradually.",
         ],
       },
     },
@@ -289,8 +318,8 @@ export const post: BlogPost = {
         en: "Can a smartwatch really save an elderly person's life?",
       },
       a: {
-        it: "Ci sono casi documentati in cui il rilevamento cadute ha allertato i soccorsi in tempo — Apple ha pubblicato alcune di queste storie. Tuttavia lo smartwatch non è un dispositivo medico certificato e non sostituisce altri sistemi di sicurezza (es. tele-sorveglianza professionale, sistemi di alert fisso). È uno strato aggiuntivo di sicurezza, non una soluzione completa. La sua efficacia dipende anche dall'essere sempre indossato e con batteria carica.",
-        en: "There are documented cases where fall detection has alerted rescuers in time — Apple has published some of these stories. However, a smartwatch is not a certified medical device and doesn't replace other safety systems (e.g. professional telecare, fixed alert systems). It's an additional safety layer, not a complete solution. Its effectiveness also depends on being always worn with a charged battery.",
+        it: "Ci sono casi documentati in cui il rilevamento cadute ha allertato i soccorsi in tempo (Apple ha pubblicato alcune di queste storie). Tuttavia lo smartwatch non è un dispositivo medico certificato e non sostituisce altri sistemi di sicurezza (es. tele-sorveglianza professionale, sistemi di alert fisso). È uno strato aggiuntivo di sicurezza, non una soluzione completa. La sua efficacia dipende anche dall'essere sempre indossato e con batteria carica.",
+        en: "There are documented cases where fall detection has alerted rescuers in time (Apple has published some of these stories). However, a smartwatch is not a certified medical device and doesn't replace other safety systems (e.g. professional telecare, fixed alert systems). It's an additional safety layer, not a complete solution. Its effectiveness also depends on being always worn with a charged battery.",
       },
     },
     {

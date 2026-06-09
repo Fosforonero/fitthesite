@@ -44,8 +44,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Se stai cercando come sincronizzare Samsung Health con Google Fit, probabilmente hai già notato che il vecchio metodo non funziona più. E se hai letto guide scritte prima del 2024, quelle istruzioni sono probabilmente obsolete. Questo articolo spiega la situazione reale nel 2026: perché il sync diretto è sparito, cosa c'è al suo posto, e cosa puoi aspettarti dal workaround via Health Connect.",
-        en: "If you're looking for how to sync Samsung Health with Google Fit, you've probably already noticed the old method doesn't work anymore. And if you've read guides written before 2024, those instructions are likely outdated. This article explains the real situation in 2026: why direct sync disappeared, what replaced it, and what to expect from the Health Connect workaround.",
+        it: "Il sync diretto Samsung Health con Google Fit non esiste più dal 2024: Google ha deprecato Google Fit e spostato l'intero ecosistema Android su Health Connect. Il workaround funzionante oggi è Samsung Health che scrive su Health Connect, con le altre app che leggono da lì. Funziona per la maggior parte dei dati standard, con alcune eccezioni note che spieghiamo in questo articolo.",
+        en: "Direct Samsung Health to Google Fit sync has not existed since 2024: Google deprecated Google Fit and moved the entire Android ecosystem to Health Connect. The working workaround today is Samsung Health writing to Health Connect, with other apps reading from there. It works for most standard data, with some known exceptions explained in this article.",
       },
     },
     {
@@ -59,8 +59,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Google Fit esisteva come API di scambio dati salute per Android dal 2014. Nel 2022, Google ha annunciato che avrebbe spostato tutto l'ecosistema su Health Connect — la nuova piattaforma on-device che sostituisce il ruolo che aveva Google Fit come intermediario cloud. L'integrazione diretta Samsung Health ↔ Google Fit è stata dismessa nel corso del 2024, quando Google ha ufficialmente smesso di sviluppare Google Fit come prodotto.",
-        en: "Google Fit existed as an Android health data exchange API since 2014. In 2022, Google announced it would move the entire ecosystem to Health Connect — the new on-device platform replacing Google Fit's role as cloud intermediary. The direct Samsung Health ↔ Google Fit integration was discontinued during 2024, when Google officially stopped developing Google Fit as a product.",
+        it: "Google Fit esisteva come API di scambio dati salute per Android dal 2014. Nel 2022, Google ha annunciato che avrebbe spostato tutto l'ecosistema su Health Connect, la nuova piattaforma on-device che sostituisce il ruolo che aveva Google Fit come intermediario cloud. L'integrazione diretta Samsung Health ↔ Google Fit è stata dismessa nel corso del 2024, quando Google ha ufficialmente smesso di sviluppare Google Fit come prodotto.",
+        en: "Google Fit existed as an Android health data exchange API since 2014. In 2022, Google announced it would move the entire ecosystem to Health Connect, the new on-device platform replacing Google Fit's role as cloud intermediary. The direct Samsung Health ↔ Google Fit integration was discontinued during 2024, when Google officially stopped developing Google Fit as a product.",
       },
     },
     {
@@ -90,8 +90,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Se la tua esigenza è che i dati di Samsung Health (Galaxy Watch) siano leggibili da un'altra app che prima usava Google Fit, il percorso è questo. Funziona per la maggior parte dei dati — con alcune eccezioni che spieghiamo dopo.",
-        en: "If your need is for Samsung Health (Galaxy Watch) data to be readable by another app that previously used Google Fit, here's the path. It works for most data — with some exceptions we explain after.",
+        it: "Se la tua esigenza è che i dati di Samsung Health (Galaxy Watch) siano leggibili da un'altra app che prima usava Google Fit, il percorso è questo. Funziona per la maggior parte dei dati, con alcune eccezioni che spieghiamo dopo.",
+        en: "If your need is for Samsung Health (Galaxy Watch) data to be readable by another app that previously used Google Fit, here's the path. It works for most data, with some exceptions we explain after.",
       },
     },
     {
@@ -164,7 +164,7 @@ export const post: BlogPost = {
           "Samsung Score e metriche proprietarie Samsung",
           "Dati GPS completi degli allenamenti (traccia, velocità per km)",
           "Energy score e Recovery metrics di Samsung Health",
-          "Fasi di sonno granulari (REM vs profondo vs leggero) — esposte in forma aggregata",
+          "Fasi di sonno granulari (REM vs profondo vs leggero): esposte solo in forma aggregata",
           "Dati storici precedenti all'autorizzazione HC (non retroattivi)",
           "Body Battery e metriche di stress proprietarie",
         ],
@@ -172,7 +172,7 @@ export const post: BlogPost = {
           "Samsung Score and Samsung proprietary metrics",
           "Full workout GPS data (track, pace per km)",
           "Samsung Health Energy score and Recovery metrics",
-          "Granular sleep phases (REM vs deep vs light) — exposed in aggregate form",
+          "Granular sleep phases (REM vs deep vs light): exposed in aggregate form only",
           "Historical data predating HC authorization (not retroactive)",
           "Body Battery and proprietary stress metrics",
         ],
@@ -231,16 +231,45 @@ export const post: BlogPost = {
         it: [
           "**Samsung Health non appare in Health Connect**: apri Samsung Health → Impostazioni → Gestione dati → Health Connect → attiva la sincronizzazione. Se ancora non appare, aggiorna Samsung Health a l'ultima versione.",
           "**I passi ci sono ma le attività no**: Samsung Health espone i passi automaticamente, ma le sessioni di allenamento richiedono autorizzazioni separate. In Health Connect → Autorizzazioni app → Samsung Health, verifica che 'Allenamento' sia abilitato in scrittura.",
-          "**I dati appaiono in ritardo**: il sync tra Samsung Health e Health Connect non è in tempo reale — avviene periodicamente, di solito ogni 30-60 minuti. Puoi accelerarlo aprendo manualmente Samsung Health.",
+          "**I dati appaiono in ritardo**: il sync tra Samsung Health e Health Connect non è in tempo reale. Avviene periodicamente, di solito ogni 30-60 minuti. Puoi accelerarlo aprendo manualmente Samsung Health.",
           "**I dati storici mancano**: Health Connect non sincronizza retroattivamente. Le attività di prima dell'autorizzazione non appariranno. Usa l'export manuale di Samsung Health per recuperare lo storico.",
-          "**App di destinazione non vede niente**: verifica che l'app abbia il permesso di LETTURA su Health Connect — non basta che Samsung Health abbia il permesso di scrittura.",
+          "**App di destinazione non vede niente**: verifica che l'app abbia il permesso di LETTURA su Health Connect. Non basta che Samsung Health abbia il permesso di scrittura.",
         ],
         en: [
           "**Samsung Health doesn't appear in Health Connect**: open Samsung Health → Settings → Data management → Health Connect → enable sync. If it still doesn't appear, update Samsung Health to the latest version.",
           "**Steps are there but activities aren't**: Samsung Health exposes steps automatically, but workout sessions require separate permissions. In Health Connect → App permissions → Samsung Health, verify 'Exercise' is enabled for writing.",
-          "**Data appears delayed**: sync between Samsung Health and Health Connect isn't real-time — it happens periodically, usually every 30-60 minutes. You can speed it up by manually opening Samsung Health.",
+          "**Data appears delayed**: sync between Samsung Health and Health Connect isn't real-time. It happens periodically, usually every 30-60 minutes. You can speed it up by manually opening Samsung Health.",
           "**Historical data is missing**: Health Connect doesn't sync retroactively. Activities before authorization won't appear. Use Samsung Health manual export to recover historical data.",
-          "**Destination app sees nothing**: verify the app has READ permission on Health Connect — Samsung Health having write permission isn't enough.",
+          "**Destination app sees nothing**: verify the app has READ permission on Health Connect. Samsung Health having write permission isn't enough.",
+        ],
+      },
+    },
+    {
+      type: "callout",
+      variant: "tip",
+      title: { it: "Il segnale che stai perdendo tempo", en: "The sign you're wasting time" },
+      body: {
+        it: "Se la tua app di destinazione non supporta ancora Health Connect nel 2026, non è un problema di configurazione: è un'app abbandonata. Due anni dopo la deprecazione di Google Fit, qualsiasi app attivamente mantenuta ha già implementato il supporto HC. Cambia app invece di cercare workaround per un prodotto che non riceve aggiornamenti.",
+        en: "If your destination app still doesn't support Health Connect in 2026, this isn't a configuration problem: it's an abandoned app. Two years after Google Fit's deprecation, any actively maintained app has already implemented HC support. Switch apps instead of hunting for workarounds for a product that no longer receives updates.",
+      },
+    },
+    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary" } },
+    {
+      type: "list",
+      items: {
+        it: [
+          "Il sync diretto Samsung Health→Google Fit non esiste più dal 2024: Google ha deprecato Google Fit e spostato l'ecosistema Android su Health Connect.",
+          "Il percorso corretto oggi è: Samsung Health scrive su Health Connect, le app di destinazione leggono da Health Connect. Funziona per la maggior parte dei dati standard.",
+          "Dati non disponibili via Health Connect: metriche proprietarie Samsung, GPS dettagliato degli allenamenti, dati storici precedenti all'autorizzazione.",
+          "Se l'app di destinazione non supporta Health Connect nel 2026, probabilmente non viene mantenuta: considera di cambiarla.",
+          "I dati storici in Samsung Health sono al sicuro nel cloud Samsung indipendentemente da Google Fit. Per portarli altrove usa l'export manuale (CSV/XML).",
+        ],
+        en: [
+          "Direct Samsung Health to Google Fit sync has not existed since 2024: Google deprecated Google Fit and moved the Android ecosystem to Health Connect.",
+          "The correct path today is: Samsung Health writes to Health Connect, destination apps read from Health Connect. Works for most standard data.",
+          "Data not available via Health Connect: Samsung proprietary metrics, detailed workout GPS, historical data predating authorization.",
+          "If the destination app doesn't support Health Connect in 2026, it's probably not being maintained: consider switching.",
+          "Historical data in Samsung Health is safe in Samsung cloud independent of Google Fit. To port it elsewhere, use manual export (CSV/XML).",
         ],
       },
     },
@@ -311,8 +340,8 @@ export const post: BlogPost = {
         en: "Can Samsung Health sync directly with Google Health?",
       },
       a: {
-        it: "Google Health non è una piattaforma pubblica separata — è il marchio ombrello per i prodotti salute di Google (che include Health Connect, Fitbit, Google Fit). Il punto di integrazione tecnico è Health Connect. Samsung Health scrive su Health Connect, e qualsiasi app (incluse quelle di Google) può leggere da lì. Non esiste un sync diretto Samsung Health → un cloud Google specifico al di fuori di questo meccanismo.",
-        en: "Google Health isn't a separate public platform — it's the umbrella brand for Google's health products (which includes Health Connect, Fitbit, Google Fit). The technical integration point is Health Connect. Samsung Health writes to Health Connect, and any app (including Google's) can read from there. There's no direct Samsung Health → specific Google cloud sync outside this mechanism.",
+        it: "Google Health non è una piattaforma pubblica separata: è il marchio ombrello per i prodotti salute di Google (che include Health Connect, Fitbit, Google Fit). Il punto di integrazione tecnico è Health Connect. Samsung Health scrive su Health Connect, e qualsiasi app (incluse quelle di Google) può leggere da lì. Non esiste un sync diretto Samsung Health → un cloud Google specifico al di fuori di questo meccanismo.",
+        en: "Google Health isn't a separate public platform: it's the umbrella brand for Google's health products (which includes Health Connect, Fitbit, Google Fit). The technical integration point is Health Connect. Samsung Health writes to Health Connect, and any app (including Google's) can read from there. There's no direct Samsung Health → specific Google cloud sync outside this mechanism.",
       },
     },
   ],

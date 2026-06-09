@@ -46,8 +46,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "In estate il wearable vive condizioni che in inverno non affronta mai: immersioni in piscina o al mare, esposizione al sole per ore, sudore intenso, sbalzi di temperatura tra esterno e aria condizionata. E poi c'è il problema dati: sei in vacanza, non hai wifi stabile, torni a casa e il tuo storico ha un buco di due settimane. Questa guida risponde a tutto questo in modo diretto.",
-        en: "In summer, wearables face conditions they never see in winter: pool or sea dips, hours of sun exposure, intense sweat, temperature swings between outdoor heat and air conditioning. Then there's the data problem: you're on vacation, WiFi is unreliable, you get home and your history has a two-week gap. This guide addresses all of this directly.",
+        it: "L'estate è il periodo più duro per uno smartwatch: piscine, caldo sopra i 35°C e wifi assente in vacanza mettono a rischio sia il dispositivo che la continuità dei tuoi dati. Un rating 5ATM basta per nuotare, Health Connect salva i dati offline in locale, e tre accorgimenti sulla batteria evitano che l'autonomia crolli del 25%. Questa guida risponde a tutto questo in modo diretto.",
+        en: "Summer is the hardest season for a smartwatch: pools, heat above 35°C, and absent WiFi on vacation put both the device and your data continuity at risk. A 5ATM rating is enough for swimming, Health Connect saves data locally offline, and three battery habits prevent a 25% autonomy drop. This guide addresses all of this directly.",
       },
     },
     {
@@ -106,8 +106,8 @@ export const post: BlogPost = {
         en: "Saltwater is more corrosive than freshwater",
       },
       body: {
-        it: "Se nuoti in mare, sciacqua il watch con acqua dolce dopo ogni immersione — anche se è certificato 5ATM. Il sale corrosivo nel tempo deteriora le guarnizioni e i sensori ottici. La stessa precauzione vale per la crema solare: non applicarla direttamente sotto il watch.",
-        en: "If you swim in the sea, rinse the watch with fresh water after every dip — even if it's 5ATM certified. Salt gradually corrodes seals and optical sensors. The same applies to sunscreen: don't apply it directly under the watch.",
+        it: "Se nuoti in mare, sciacqua il watch con acqua dolce dopo ogni immersione, anche se è certificato 5ATM. Il sale corrosivo nel tempo deteriora le guarnizioni e i sensori ottici. La stessa precauzione vale per la crema solare: non applicarla direttamente sotto il watch.",
+        en: "If you swim in the sea, rinse the watch with fresh water after every dip, even if it's 5ATM certified. Salt gradually corrodes seals and optical sensors. The same applies to sunscreen: don't apply it directly under the watch.",
       },
     },
     {
@@ -121,8 +121,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Le batterie agli ioni di litio lavorano in modo ottimale tra 16°C e 22°C. Sopra i 35°C — temperatura tipica di una giornata estiva con il watch al sole — l'autonomia cala del 15-25% e la degradazione a lungo termine accelera. Non ci sono trucchi magici, ma ci sono abitudini che aiutano:",
-        en: "Lithium-ion batteries work optimally between 16°C and 22°C. Above 35°C — typical on a summer day with the watch in the sun — autonomy drops 15-25% and long-term degradation accelerates. There are no magic tricks, but there are habits that help:",
+        it: "Le batterie agli ioni di litio lavorano in modo ottimale tra 16°C e 22°C. Sopra i 35°C (temperatura tipica di una giornata estiva con il watch al sole) l'autonomia cala del 15-25% e la degradazione a lungo termine accelera. Non ci sono trucchi magici, ma ci sono abitudini che aiutano:",
+        en: "Lithium-ion batteries work optimally between 16°C and 22°C. Above 35°C (typical on a summer day with the watch in the sun) autonomy drops 15-25% and long-term degradation accelerates. There are no magic tricks, but there are habits that help:",
       },
     },
     {
@@ -155,8 +155,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Se usi Health Connect, le buone notizie: Health Connect è on-device. I tuoi dati di passi, sonno, frequenza cardiaca vengono scritti localmente anche senza internet — non perdono nulla finché il telefono funziona. Il problema arriva quando usi un'app di sync cloud che non riesce a inviare i dati: se l'app ha logica di retry limitata, dopo alcuni giorni senza connessione potrebbe saltare dei record.",
-        en: "If you use Health Connect, good news: Health Connect is on-device. Your steps, sleep, and heart rate data are written locally even without internet — nothing is lost as long as your phone works. The problem comes when you use a cloud sync app that can't send data: if the app has limited retry logic, after a few days offline it might skip records.",
+        it: "Se usi Health Connect, le buone notizie: Health Connect è on-device. I tuoi dati di passi, sonno, frequenza cardiaca vengono scritti localmente anche senza internet. Non perdono nulla finché il telefono funziona. Il problema arriva quando usi un'app di sync cloud che non riesce a inviare i dati: se l'app ha logica di retry limitata, dopo alcuni giorni senza connessione potrebbe saltare dei record.",
+        en: "If you use Health Connect, good news: Health Connect is on-device. Your steps, sleep, and heart rate data are written locally even without internet. Nothing is lost as long as your phone works. The problem comes when you use a cloud sync app that can't send data: if the app has limited retry logic, after a few days offline it might skip records.",
       },
     },
     {
@@ -183,18 +183,18 @@ export const post: BlogPost = {
       type: "list",
       items: {
         it: [
-          "**Beach + casual**: Galaxy Watch 7 / Pixel Watch 3 — ottimo equilibrio waterproofing (5ATM), design da indossare tutto il giorno, AMOLED visibile al sole, Health Connect nativo.",
-          "**Nuoto + triathlon**: Garmin Forerunner 165 / 265 — GPS multi-band, 5ATM, metriche specifiche nuoto (vasche, stile), autonomia 11-13 giorni in smartwatch mode.",
-          "**Trekking + montagna**: Garmin Instinct 2 — MIL-STD-810H, 10ATM, altimetro barometrico, bussola, autonomia fino a 28 giorni.",
-          "**Salute passiva + eleganza**: Oura Ring — nessun schermo, impermeabile, rileva sonno e recupero in modo discreto. Perfetto se vuoi dati senza portare un watch in spiaggia.",
-          "**Budget estivo**: Xiaomi Mi Band 9 Pro — 5ATM, GPS, SpO2, autonomia 14 giorni, meno di €60. Fa quasi tutto quello che serve per un'estate.",
+          "**Beach + casual**: Galaxy Watch 7 / Pixel Watch 3: ottimo equilibrio waterproofing (5ATM), design da indossare tutto il giorno, AMOLED visibile al sole, Health Connect nativo.",
+          "**Nuoto + triathlon**: Garmin Forerunner 165 / 265: GPS multi-band, 5ATM, metriche specifiche nuoto (vasche, stile), autonomia 11-13 giorni in smartwatch mode.",
+          "**Trekking + montagna**: Garmin Instinct 2: MIL-STD-810H, 10ATM, altimetro barometrico, bussola, autonomia fino a 28 giorni.",
+          "**Salute passiva + eleganza**: Oura Ring: nessun schermo, impermeabile, rileva sonno e recupero in modo discreto. Perfetto se vuoi dati senza portare un watch in spiaggia.",
+          "**Budget estivo**: Xiaomi Mi Band 9 Pro: 5ATM, GPS, SpO2, autonomia 14 giorni, meno di €60. Fa quasi tutto quello che serve per un'estate.",
         ],
         en: [
-          "**Beach + casual**: Galaxy Watch 7 / Pixel Watch 3 — great waterproofing balance (5ATM), all-day wearable design, AMOLED visible in sun, native Health Connect.",
-          "**Swimming + triathlon**: Garmin Forerunner 165 / 265 — multi-band GPS, 5ATM, swim-specific metrics (laps, stroke), 11-13 day autonomy in smartwatch mode.",
-          "**Trekking + mountains**: Garmin Instinct 2 — MIL-STD-810H, 10ATM, barometric altimeter, compass, up to 28 days battery.",
-          "**Passive health + elegance**: Oura Ring — no screen, waterproof, tracks sleep and recovery discreetly. Perfect if you want data without wearing a watch at the beach.",
-          "**Budget summer pick**: Xiaomi Mi Band 9 Pro — 5ATM, GPS, SpO2, 14-day battery, under €60. Does almost everything you need for a summer.",
+          "**Beach + casual**: Galaxy Watch 7 / Pixel Watch 3: great waterproofing balance (5ATM), all-day wearable design, AMOLED visible in sun, native Health Connect.",
+          "**Swimming + triathlon**: Garmin Forerunner 165 / 265: multi-band GPS, 5ATM, swim-specific metrics (laps, stroke), 11-13 day autonomy in smartwatch mode.",
+          "**Trekking + mountains**: Garmin Instinct 2: MIL-STD-810H, 10ATM, barometric altimeter, compass, up to 28 days battery.",
+          "**Passive health + elegance**: Oura Ring: no screen, waterproof, tracks sleep and recovery discreetly. Perfect if you want data without wearing a watch at the beach.",
+          "**Budget summer pick**: Xiaomi Mi Band 9 Pro: 5ATM, GPS, SpO2, 14-day battery, under €60. Does almost everything you need for a summer.",
         ],
       },
     },
@@ -212,14 +212,43 @@ export const post: BlogPost = {
         it: [
           "**Idratazione + frequenza cardiaca a riposo**: un BPM a riposo più alto del solito (>10 bpm rispetto alla tua baseline) può essere un segnale di disidratazione o eccessivo stress termico.",
           "**SpO2 in quota**: se vai in montagna sopra i 2000m, la saturazione ossigeno è un indicatore utile di adattamento altitudinale.",
-          "**Variabilità frequenza cardiaca (HRV)**: in estate l'HRV tende a peggiorare con il caldo — un buon tracker (Oura, Garmin Fenix, Galaxy Watch 6+) te lo mostra ogni mattina.",
+          "**Variabilità frequenza cardiaca (HRV)**: in estate l'HRV tende a peggiorare con il caldo. Un buon tracker (Oura, Garmin Fenix, Galaxy Watch 6+) te lo mostra ogni mattina.",
           "**Qualità del sonno senza aria condizionata**: il caldo disturba le fasi di sonno profondo. Avere i dati ti aiuta a capire se conviene investire in un ventilatore, cambiare orario di sonno, o adattare l'allenamento serale.",
         ],
         en: [
           "**Hydration + resting heart rate**: a resting HR higher than usual (>10 bpm above your baseline) can signal dehydration or excessive heat stress.",
           "**SpO2 at altitude**: if you go above 2000m, blood oxygen saturation is a useful indicator of altitude adaptation.",
-          "**Heart rate variability (HRV)**: in summer HRV tends to worsen with heat — a good tracker (Oura, Garmin Fenix, Galaxy Watch 6+) shows you every morning.",
+          "**Heart rate variability (HRV)**: in summer HRV tends to worsen with heat. A good tracker (Oura, Garmin Fenix, Galaxy Watch 6+) shows you every morning.",
           "**Sleep quality without AC**: heat disrupts deep sleep phases. Having the data helps you understand whether to invest in a fan, change sleep time, or adjust evening training.",
+        ],
+      },
+    },
+    {
+      type: "callout",
+      variant: "tip",
+      title: { it: "Il consiglio che fa la differenza in vacanza", en: "The advice that makes the difference on vacation" },
+      body: {
+        it: "Non portare il caricabatterie del watch vicino alla spiaggia o lasciarlo in auto al sole: è il modo più rapido per dimezzare la vita della batteria in modo permanente. Carica sempre all'ombra, preferibilmente di notte. È banale ma il 90% delle lamentele su 'batteria peggiorata d'estate' ha questa origine.",
+        en: "Don't bring the watch charger near the beach or leave it in a sun-baked car: this is the fastest way to permanently halve battery life. Always charge in the shade, preferably at night. It sounds obvious, but 90% of 'battery got worse in summer' complaints trace back to exactly this.",
+      },
+    },
+    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary" } },
+    {
+      type: "list",
+      items: {
+        it: [
+          "Per il nuoto serve almeno 5ATM: IP68 non è sufficiente per nuotare in modo continuativo. Sciacqua sempre con acqua dolce dopo il mare.",
+          "Il caldo sopra i 35°C riduce l'autonomia del 15-25%: disabilita always-on display, passa da HR continua a ogni 10 minuti, e non caricare al sole.",
+          "Health Connect è on-device: i dati si accumulano in locale anche senza internet e si sincronizzano appena torni connesso. Nessun buco nello storico.",
+          "Per la salute estiva, monitora BPM a riposo (segnale di disidratazione se sale >10 bpm dalla baseline) e HRV mattutino (cala con il caldo).",
+          "Budget estivo imbattibile: Xiaomi Mi Band 9 Pro (sotto €60, 5ATM, 14 giorni di autonomia) copre il 90% dei casi d'uso vacanza.",
+        ],
+        en: [
+          "Swimming requires at least 5ATM: IP68 is not enough for continuous swimming. Always rinse with fresh water after the sea.",
+          "Heat above 35°C reduces autonomy by 15-25%: disable always-on display, switch from continuous HR to every 10 minutes, and never charge in the sun.",
+          "Health Connect is on-device: data accumulates locally even without internet and syncs as soon as you reconnect. No gaps in history.",
+          "For summer health tracking, monitor resting HR (signal of dehydration if it rises >10 bpm from baseline) and morning HRV (drops with heat).",
+          "Unbeatable summer budget pick: Xiaomi Mi Band 9 Pro (under €60, 5ATM, 14-day battery) covers 90% of vacation use cases.",
         ],
       },
     },
@@ -270,8 +299,8 @@ export const post: BlogPost = {
         en: "Does Health Connect work without internet?",
       },
       a: {
-        it: "Sì. Health Connect è completamente on-device — scrive e legge dati in locale sul telefono Android. Internet è necessario solo per sincronizzare quei dati verso un cloud o un'app server-side (come FitMesh Sync). Se sei in vacanza senza connessione, i tuoi dati si accumulano localmente e vengono inviati appena torni online.",
-        en: "Yes. Health Connect is completely on-device — it writes and reads data locally on the Android phone. Internet is only needed to sync that data to a cloud or server-side app (like FitMesh Sync). If you're on vacation without connection, your data accumulates locally and is sent as soon as you're online again.",
+        it: "Sì. Health Connect è completamente on-device: scrive e legge dati in locale sul telefono Android. Internet è necessario solo per sincronizzare quei dati verso un cloud o un'app server-side (come FitMesh Sync). Se sei in vacanza senza connessione, i tuoi dati si accumulano localmente e vengono inviati appena torni online.",
+        en: "Yes. Health Connect is completely on-device: it writes and reads data locally on the Android phone. Internet is only needed to sync that data to a cloud or server-side app (like FitMesh Sync). If you're on vacation without connection, your data accumulates locally and is sent as soon as you're online again.",
       },
     },
     {

@@ -43,8 +43,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Negli anni 2014–2019 era normale loggarsi a Fitbit.com, Polar Flow web, Garmin Connect web e vedere tutto il proprio storico su PC. Negli ultimi 5 anni la tendenza è cambiata: l'esperienza primaria si è spostata sulle app mobile, le web dashboard sono state ridotte (Fitbit.com decommissionato, Samsung Health web mai esistito davvero per Galaxy Watch). Se vuoi una dashboard browser nel 2026, devi cercare attivamente.",
-        en: "In 2014–2019 it was normal to log into Fitbit.com, Polar Flow web, Garmin Connect web and see your full history on PC. The trend changed in the last 5 years: primary experience moved to mobile apps, web dashboards were trimmed (Fitbit.com decommissioned, Samsung Health web never really existed for Galaxy Watch). If you want a browser dashboard in 2026, you have to actively look.",
+        it: "La maggior parte dei produttori di wearable ha smesso di investire sulle web dashboard: Fitbit.com è stato smantellato, Samsung Health non ha mai offerto una vera dashboard web, Apple Health è iOS-only per design. Garmin, Polar, Withings e Oura sono le eccezioni con web dashboard ufficiali ancora attive. Per tutti gli altri (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch) esistono tre vie alternative che funzionano davvero nel 2026.",
+        en: "Most wearable manufacturers have stopped investing in web dashboards: Fitbit.com was decommissioned, Samsung Health never offered a real web dashboard, Apple Health is iOS-only by design. Garmin, Polar, Withings and Oura are the exceptions with official web dashboards still active. For everyone else (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch) there are three alternative paths that actually work in 2026.",
       },
     },
     {
@@ -128,8 +128,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Esistono app che leggono via Health Connect (Android) o HealthKit (iOS via iCloud sync separato) e mostrano i dati su una dashboard web associata al tuo account. FitMesh Sync è la nostra soluzione: app Android che legge da Health Connect e push i dati al backend, poi web dashboard accessibile da qualsiasi browser con login Google/Apple. Esistono alternative — alcune più consumer (Welltory), altre più tecniche (Heads Up Health).",
-        en: "There are apps reading via Health Connect (Android) or HealthKit (iOS via separate iCloud sync) and showing data on a web dashboard tied to your account. FitMesh Sync is our solution: Android app reading from Health Connect and pushing data to backend, then web dashboard accessible from any browser with Google/Apple login. There are alternatives — some more consumer (Welltory), others more technical (Heads Up Health).",
+        it: "Esistono app che leggono via Health Connect (Android) o HealthKit (iOS via iCloud sync separato) e mostrano i dati su una dashboard web associata al tuo account. FitMesh Sync è la nostra soluzione: app Android che legge da Health Connect e push i dati al backend, poi web dashboard accessibile da qualsiasi browser con login Google/Apple. Esistono alternative, alcune più consumer (Welltory), altre più tecniche (Heads Up Health).",
+        en: "There are apps reading via Health Connect (Android) or HealthKit (iOS via separate iCloud sync) and showing data on a web dashboard tied to your account. FitMesh Sync is our solution: Android app reading from Health Connect and pushing data to backend, then web dashboard accessible from any browser with Google/Apple login. There are alternatives, some more consumer (Welltory), others more technical (Heads Up Health).",
       },
     },
     {
@@ -179,6 +179,35 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "callout",
+      variant: "tip",
+      title: { it: "Il momento migliore per scegliere la via giusta", en: "The best time to pick the right path" },
+      body: {
+        it: "Se hai un Galaxy Watch o un Pixel Watch, smetti di aspettare una dashboard ufficiale Samsung o Google: non arriverà. Questi brand hanno deliberatamente scelto di non investire nel web. La soluzione via app terza con Health Connect è matura e stabile nel 2026. Non è un workaround temporaneo: è il percorso corretto a lungo termine per questi ecosistemi.",
+        en: "If you have a Galaxy Watch or Pixel Watch, stop waiting for an official Samsung or Google dashboard: it's not coming. These brands have deliberately chosen not to invest in the web. The third-party app via Health Connect solution is mature and stable in 2026. It's not a temporary workaround: it's the correct long-term path for these ecosystems.",
+      },
+    },
+    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary" } },
+    {
+      type: "list",
+      items: {
+        it: [
+          "I brand con web dashboard ufficiale attiva nel 2026: Garmin (connect.garmin.com), Polar (flow.polar.com), Withings, Oura, Whoop, Strava.",
+          "Samsung Health, Apple Health, Fitbit e Xiaomi Mi Fitness non hanno web dashboard: servono app terze o self-hosting.",
+          "Via Health Connect (Android): app terze come FitMesh Sync leggono i dati e li mostrano su web. Soluzione matura, setup in meno di 5 minuti.",
+          "Via self-hosted (Raspberry Pi, NAS, Grafana): controllo totale, nessun cloud, ma curva di apprendimento alta. Consigliato solo a utenti tecnici.",
+          "Via Google Sheets: funziona per dati aggregati (passi, peso, sonno giornaliero) ma non scala a dati intraday ad alta frequenza.",
+        ],
+        en: [
+          "Brands with active official web dashboards in 2026: Garmin (connect.garmin.com), Polar (flow.polar.com), Withings, Oura, Whoop, Strava.",
+          "Samsung Health, Apple Health, Fitbit, and Xiaomi Mi Fitness have no web dashboard: third-party apps or self-hosting are required.",
+          "Via Health Connect (Android): third-party apps like FitMesh Sync read data and display it on the web. Mature solution, setup in under 5 minutes.",
+          "Via self-hosted (Raspberry Pi, NAS, Grafana): total control, no cloud, but high learning curve. Recommended only for technical users.",
+          "Via Google Sheets: works for aggregated data (steps, weight, daily sleep) but doesn't scale to high-frequency intraday data.",
+        ],
+      },
+    },
+    {
       type: "cta",
       title: {
         it: "Cerchi una web dashboard pronta per Galaxy/Pixel/Fitbit/Mi Band?",
@@ -219,8 +248,8 @@ export const post: BlogPost = {
         en: "Can third-party apps show historical data too?",
       },
       a: {
-        it: "Dipende. Via Health Connect lo storico disponibile è quello che le app produttore hanno scritto su HC — tipicamente 30–90 giorni indietro al primo connect. Per storico più profondo serve l'export manuale del produttore o (dove esiste) l'OAuth ufficiale con backfill 6–12 mesi.",
-        en: "Depends. Via Health Connect the available history is what manufacturer apps wrote to HC — typically 30–90 days back at first connect. For deeper history you need manufacturer manual export or (where it exists) official OAuth with 6–12 month backfill.",
+        it: "Dipende. Via Health Connect lo storico disponibile è quello che le app produttore hanno scritto su HC: tipicamente 30–90 giorni indietro al primo connect. Per storico più profondo serve l'export manuale del produttore o (dove esiste) l'OAuth ufficiale con backfill 6–12 mesi.",
+        en: "Depends. Via Health Connect the available history is what manufacturer apps wrote to HC: typically 30–90 days back at first connect. For deeper history you need manufacturer manual export or (where it exists) official OAuth with 6–12 month backfill.",
       },
     },
   ],

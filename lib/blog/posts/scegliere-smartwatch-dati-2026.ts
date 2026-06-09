@@ -49,8 +49,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Le recensioni di smartwatch parlano quasi tutte dello stesso show: batteria, autonomia GPS, sensori, ghiera, anelli di chiusura attività. Pochissime parlano di chi possiede davvero i tuoi dati, di quanto sia facile portarli via, di quanto cambi un'API quando il produttore viene comprato. Questa guida prova a colmare quel buco: ti dà i criteri per scegliere un wearable partendo dal controllo dei dati invece che dalle feature di marketing.",
-        en: "Smartwatch reviews almost all play the same show: battery, GPS endurance, sensors, bezel, activity rings. Very few discuss who actually owns your data, how easy it is to take it out, how an API changes when the manufacturer gets acquired. This guide tries to fill that gap: it gives you criteria to choose a wearable starting from data control instead of marketing features.",
+        it: "Il criterio più importante per scegliere uno smartwatch nel 2026 non è la batteria né i sensori: è il controllo che avrai sui tuoi dati tra due anni. Privacy strutturale, esportabilità reale e lock-in evitabili determinano se il tuo wearable sarà ancora utile quando cambi telefono, brand o abbonamento. Questa guida ti dà i criteri concreti per scegliere partendo da questi fattori invece che dalle feature di marketing.",
+        en: "The most important criterion for choosing a smartwatch in 2026 is not battery life or sensors: it's the control you'll have over your data two years from now. Structural privacy, real exportability, and avoidable lock-in determine whether your wearable will still be useful when you change phones, brands, or subscriptions. This guide gives you concrete criteria to choose starting from these factors instead of marketing features.",
       },
     },
     {
@@ -112,8 +112,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Prima di guardare i modelli, identifica in quale profilo ti riconosci. Sono semplificazioni — la realtà è sfumata, ma aiutano a tagliare il rumore.",
-        en: "Before looking at models, identify which profile you recognize yourself in. They're simplifications — reality is fuzzy, but they help cut noise.",
+        it: "Prima di guardare i modelli, identifica in quale profilo ti riconosci. Sono semplificazioni (la realtà è sfumata) ma aiutano a tagliare il rumore.",
+        en: "Before looking at models, identify which profile you recognize yourself in. They're simplifications (reality is fuzzy) but they help cut noise.",
       },
     },
     {
@@ -163,13 +163,13 @@ export const post: BlogPost = {
         it: [
           "**Default**: Oura Ring Gen 4. Sensori sonno top di gamma, API ufficiale, abbonamento mensile (caveat: dati pieni vincolati al pagamento).",
           "**Alternativa**: Whoop 4.0. Solo abbonamento, no display, focus pure su HRV/recovery. Esportazione disponibile ma limitata.",
-          "**Per chi vuole anche orologio**: Garmin Venu 3 o Forerunner 265 — Sleep Score Garmin + HRV nightly senza vincoli subscription.",
+          "**Per chi vuole anche orologio**: Garmin Venu 3 o Forerunner 265: Sleep Score Garmin + HRV nightly senza vincoli subscription.",
           "**Bilance e bilance smart**: aggiungi Withings Body Comp o Body Cardio. Health Mate ha esportazione completa e API stabile.",
         ],
         en: [
           "**Default**: Oura Ring Gen 4. Top-tier sleep sensors, official API, monthly subscription (caveat: full data behind paywall).",
           "**Alternative**: Whoop 4.0. Subscription-only, no display, pure HRV/recovery focus. Export available but limited.",
-          "**For those who want a watch too**: Garmin Venu 3 or Forerunner 265 — Garmin Sleep Score + nightly HRV without subscription lock.",
+          "**For those who want a watch too**: Garmin Venu 3 or Forerunner 265: Garmin Sleep Score + nightly HRV without subscription lock.",
           "**Smart scales**: add Withings Body Comp or Body Cardio. Health Mate has full export and stable API.",
         ],
       },
@@ -182,8 +182,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Cammini, fai palestra leggera, monitori passi e sonno, vuoi notifiche al polso. Non ti servono Body Battery o Training Readiness — ti serve qualcosa che funzioni 5 giorni senza ricarica e non ti faccia perdere tempo. Il controllo dati lo vuoi 'just in case', non come priorità quotidiana.",
-        en: "You walk, do light gym, track steps and sleep, want wrist notifications. You don't need Body Battery or Training Readiness — you need something that lasts 5 days without charging and doesn't waste your time. Data control is 'just in case', not a daily priority.",
+        it: "Cammini, fai palestra leggera, monitori passi e sonno, vuoi notifiche al polso. Non ti servono Body Battery o Training Readiness: ti serve qualcosa che funzioni 5 giorni senza ricarica e non ti faccia perdere tempo. Il controllo dati lo vuoi 'just in case', non come priorità quotidiana.",
+        en: "You walk, do light gym, track steps and sleep, want wrist notifications. You don't need Body Battery or Training Readiness: you need something that lasts 5 days without charging and doesn't waste your time. Data control is 'just in case', not a daily priority.",
       },
     },
     {
@@ -191,13 +191,13 @@ export const post: BlogPost = {
       items: {
         it: [
           "**Default Android**: Galaxy Watch 7 o Watch Ultra. Health Connect nativo, ecosistema Samsung Health solido, ottimo rapporto qualità/prezzo.",
-          "**Default iOS**: Apple Watch SE (3a gen) — non hai alternativa equivalente come integrazione iPhone.",
+          "**Default iOS**: Apple Watch SE (3a gen): non hai alternativa equivalente come integrazione iPhone.",
           "**Budget Android**: Xiaomi Mi Band 9 o Xiaomi Watch Active. Mi Fitness scrive su Health Connect, costo basso, autonomia eccellente.",
           "**Pixel native**: Pixel Watch 3 se sei già nel Google ecosystem. Caveat: usa Fitbit come backend, quindi sei doppiamente dipendente da Google.",
         ],
         en: [
           "**Default Android**: Galaxy Watch 7 or Watch Ultra. Native Health Connect, solid Samsung Health ecosystem, great value.",
-          "**Default iOS**: Apple Watch SE (3rd gen) — no equivalent alternative as iPhone integration.",
+          "**Default iOS**: Apple Watch SE (3rd gen): no equivalent alternative as iPhone integration.",
           "**Budget Android**: Xiaomi Mi Band 9 or Xiaomi Watch Active. Mi Fitness writes to Health Connect, low cost, excellent battery life.",
           "**Pixel native**: Pixel Watch 3 if you're already in Google ecosystem. Caveat: uses Fitbit as backend, so doubly dependent on Google.",
         ],
@@ -221,14 +221,14 @@ export const post: BlogPost = {
         it: [
           "**Default**: Apple Watch SE o Series 10 con Family Setup. ECG, rilevamento caduta, Emergency SOS sono affidabili. Ecosistema chiuso ma in questo caso è feature, non bug.",
           "**Alternativa Android**: Galaxy Watch 7 con ECG. Samsung Health ha condivisione caregivers in alcuni paesi.",
-          "**Per condivisione dati medici**: Withings ScanWatch 2 — ECG + SpO₂ continui, integrazione referti via Health Mate, ben accettata da medici europei.",
-          "**Bambini**: dispositivi dedicati (Garmin Bounce, Fitbit Ace) — sono privacy-bounded per design, no social, no chat aperte.",
+          "**Per condivisione dati medici**: Withings ScanWatch 2: ECG + SpO₂ continui, integrazione referti via Health Mate, ben accettata da medici europei.",
+          "**Bambini**: dispositivi dedicati (Garmin Bounce, Fitbit Ace): sono privacy-bounded per design, no social, no chat aperte.",
         ],
         en: [
           "**Default**: Apple Watch SE or Series 10 with Family Setup. ECG, fall detection, Emergency SOS are reliable. Closed ecosystem but here it's a feature, not a bug.",
           "**Android alternative**: Galaxy Watch 7 with ECG. Samsung Health has caregiver sharing in some countries.",
-          "**For sharing medical data**: Withings ScanWatch 2 — continuous ECG + SpO₂, report integration via Health Mate, well accepted by European doctors.",
-          "**Kids**: dedicated devices (Garmin Bounce, Fitbit Ace) — privacy-bounded by design, no social, no open chat.",
+          "**For sharing medical data**: Withings ScanWatch 2: continuous ECG + SpO₂, report integration via Health Mate, well accepted by European doctors.",
+          "**Kids**: dedicated devices (Garmin Bounce, Fitbit Ace): privacy-bounded by design, no social, no open chat.",
         ],
       },
     },
@@ -303,13 +303,13 @@ export const post: BlogPost = {
         it: [
           "Whoop 4.0 (~€30/mese)",
           "Oura Ring Gen 4 (~€6/mese per dati pieni)",
-          "Fitbit Premium (~€10/mese — abbonamento opzionale ma alcune feature vincolate)",
+          "Fitbit Premium (~€10/mese, abbonamento opzionale ma alcune feature vincolate)",
           "Garmin Connect+ (opzionale, ~€8/mese, AI coaching)",
         ],
         en: [
           "Whoop 4.0 (~€30/month)",
           "Oura Ring Gen 4 (~€6/month for full data)",
-          "Fitbit Premium (~€10/month — optional but some features locked)",
+          "Fitbit Premium (~€10/month, optional but some features locked)",
           "Garmin Connect+ (optional, ~€8/month, AI coaching)",
         ],
       },
@@ -331,8 +331,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Quando compri uno smartwatch, non compri solo il device — sposi anche un'app companion, un cloud, e tipicamente un telefono. Quanto ti costa cambiare ecosystem tra due anni?",
-        en: "When you buy a smartwatch, you don't just buy the device — you also marry a companion app, a cloud, and typically a phone. How much does it cost to switch ecosystems two years from now?",
+        it: "Quando compri uno smartwatch, non compri solo il device: sposi anche un'app companion, un cloud, e tipicamente un telefono. Quanto ti costa cambiare ecosystem tra due anni?",
+        en: "When you buy a smartwatch, you don't just buy the device: you also marry a companion app, a cloud, and typically a phone. How much does it cost to switch ecosystems two years from now?",
       },
     },
     {
@@ -342,14 +342,14 @@ export const post: BlogPost = {
           "**Apple Watch → Android**: ~100% perdita storico (Apple Health è iOS-only, no export verso Android leggibile). Hard lock-in.",
           "**Galaxy Watch → altro Android**: storico Samsung Health esportabile in CSV, importabile in Health Connect. Soft lock-in, gestibile.",
           "**Garmin Watch → altro brand**: esportazione FIT/GPX completa, ma metriche proprietarie (Body Battery, Training Status) non hanno equivalenti diretti. Lock-in medio.",
-          "**Fitbit → altro**: Google Takeout funziona, dati in JSON. Lock-in basso (per ora — dipende dalle decisioni Google).",
+          "**Fitbit → altro**: Google Takeout funziona, dati in JSON. Lock-in basso (per ora, dipende dalle decisioni Google).",
           "**Oura → altro**: API ufficiale fornisce dati completi a chi li sa scaricare. Lock-in tecnico basso, ma psicologico alto (le metriche Oura sono distintive).",
         ],
         en: [
           "**Apple Watch → Android**: ~100% history loss (Apple Health is iOS-only, no readable Android export). Hard lock-in.",
           "**Galaxy Watch → other Android**: Samsung Health history exportable as CSV, importable into Health Connect. Soft lock-in, manageable.",
           "**Garmin Watch → other brand**: full FIT/GPX export, but proprietary metrics (Body Battery, Training Status) have no direct equivalents. Medium lock-in.",
-          "**Fitbit → other**: Google Takeout works, data in JSON. Low lock-in (for now — depends on Google's decisions).",
+          "**Fitbit → other**: Google Takeout works, data in JSON. Low lock-in (for now, depends on Google's decisions).",
           "**Oura → other**: official API provides full data to those who know how to download it. Low technical lock-in, but high psychological (Oura metrics are distinctive).",
         ],
       },
@@ -372,16 +372,45 @@ export const post: BlogPost = {
         it: [
           "Se fossi un runner serio Android: Garmin Forerunner 265 + Withings Body Comp per il peso.",
           "Se fossi sleep nerd: Oura Ring Gen 4 + un Galaxy Watch 7 per activity/notifiche. Combo costosa ma copre tutto.",
-          "Se fossi daily user Android con budget: Xiaomi Mi Band 9 — €50, sincronizza via Health Connect, fa il 90% di quel che serve.",
+          "Se fossi daily user Android con budget: Xiaomi Mi Band 9 (€50), sincronizza via Health Connect, fa il 90% di quel che serve.",
           "Se fossi daily user iOS: Apple Watch SE 3a gen. Accetta il lock-in come prezzo della comodità.",
           "Se monitorassi un genitore: Apple Watch o Withings ScanWatch 2, in base al telefono di chi indossa.",
         ],
         en: [
           "If I were a serious Android runner: Garmin Forerunner 265 + Withings Body Comp for weight.",
           "If I were a sleep nerd: Oura Ring Gen 4 + a Galaxy Watch 7 for activity/notifications. Pricey combo but covers everything.",
-          "If I were a budget Android daily user: Xiaomi Mi Band 9 — €50, syncs via Health Connect, does 90% of what's needed.",
+          "If I were a budget Android daily user: Xiaomi Mi Band 9 (€50), syncs via Health Connect, does 90% of what's needed.",
           "If I were an iOS daily user: Apple Watch SE 3rd gen. Accept lock-in as the price of convenience.",
           "If I were monitoring a parent: Apple Watch or Withings ScanWatch 2, depending on the wearer's phone.",
+        ],
+      },
+    },
+    {
+      type: "callout",
+      variant: "tip",
+      title: { it: "La mia raccomandazione diretta", en: "My direct recommendation" },
+      body: {
+        it: "Se sei su Android e non sei un atleta serio, il Xiaomi Mi Band 9 a 50€ fa il 90% di quel che serve. Il lock-in è minimo (scrive su Health Connect), la batteria dura 14 giorni e non hai nulla da perdere se cambi idea. Spendere di più ha senso solo se sai esattamente quale metrica aggiuntiva ti serve e perché.",
+        en: "If you're on Android and not a serious athlete, the Xiaomi Mi Band 9 at €50 does 90% of what's needed. Lock-in is minimal (writes to Health Connect), battery lasts 14 days, and you have nothing to lose if you change your mind. Spending more only makes sense if you know exactly which additional metric you need and why.",
+      },
+    },
+    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary" } },
+    {
+      type: "list",
+      items: {
+        it: [
+          "'Controllo dei dati' significa cinque cose distinte: esportabilità nativa, trasparenza pipeline, granularità permessi, interoperabilità e resilienza al cambio. Privacy e controllo non sono la stessa cosa.",
+          "Apple Watch ha privacy forte ma lock-in durissimo (iOS-only, nessun export web). Garmin ha più apertura ma meno privacy commerciale. Scegli in base alla tua vera minaccia.",
+          "I modelli subscription (Whoop, Oura) legano l'accesso allo storico al pagamento ricorrente: valuta il costo totale su 5 anni, non il prezzo mensile.",
+          "Il lock-in Apple Watch→Android è quasi totale (100% perdita storico). Galaxy Watch→altro Android è soft e gestibile. Garmin→altro brand è medio.",
+          "Prima di comprare, installa l'app companion e cerca '[modello] data export' nelle FAQ ufficiali. Se non trovi risposta in 5 minuti, è una bandiera rossa.",
+        ],
+        en: [
+          "'Data control' means five distinct things: native exportability, pipeline transparency, permission granularity, interoperability, and switch resilience. Privacy and control are not the same.",
+          "Apple Watch has strong privacy but hard lock-in (iOS-only, no web export). Garmin has more openness but less commercial privacy. Choose based on your actual threat.",
+          "Subscription models (Whoop, Oura) tie historical data access to recurring payment: calculate total cost over 5 years, not monthly price.",
+          "Apple Watch to Android lock-in is near-total (100% history loss). Galaxy Watch to other Android is soft and manageable. Garmin to other brand is medium.",
+          "Before buying, install the companion app and search '[model] data export' in official FAQs. If you can't find an answer in 5 minutes, that's a red flag.",
         ],
       },
     },
