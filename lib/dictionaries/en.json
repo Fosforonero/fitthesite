@@ -180,11 +180,11 @@
   "showcase": {
     "kicker": "The app",
     "heading": "See FitMesh in action",
-    "sub": "The Android app interface, shown with demo data.",
+    "sub": "Real screens from the Android app, straight from the phone.",
     "captions": {
-      "multiDevice": "Every device, one view",
-      "family": "Family Mesh",
-      "insights": "Insights & trends"
+      "sleep": "Sleep stages & heart health",
+      "trends": "Steps & calories trends",
+      "vitals": "SpO₂ & advanced metrics"
     }
   }
 }

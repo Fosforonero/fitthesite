@@ -1,22 +1,17 @@
 /**
- * HeroVisual — two-phone hero con i mockup REALI dell'app (gli stessi
- * componenti React di /mockups/<screen>, scalati via CSS transform).
+ * HeroVisual — two-phone hero con SCREENSHOT REALI dell'app Android
+ * (catturati da device, stessi asset della scheda Play Store).
  *
- * Front phone: DashboardMockup (passi, metriche, sync footer)
- * Back phone:  MultiDeviceMockup (vista globale multi-device)
+ * Front phone: dashboard (saluto, tile metriche, Recovery Index)
+ * Back phone:  confronto settimanale + allenamenti + battito
  *
- * Niente asset raster: i mockup sono 1080×1920 px fissi, qui resi a
- * scala fissa per breakpoint (mobile/desktop) dentro cornici phone.
+ * Asset: public/screens/*.jpg, 720×1440 (ratio 1:2).
  */
 
-import {
-  DashboardMockup,
-  MultiDeviceMockup,
-} from "@/app/mockups/[screen]/screens";
+import Image from "next/image";
 
 export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) {
-  // I mockup sono in italiano (lingua primaria dell'app); il badge "Dati
-  // dimostrativi" è interno al mockup. `locale` resta per compat call-site.
+  // Gli screenshot sono in italiano (lingua primaria dell'app).
   void locale;
 
   return (
@@ -31,28 +26,21 @@ export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) 
         }}
       />
 
-      {/* ── Phone B (retro, vista multi-device) ── */}
+      {/* ── Phone B (retro, settimana + battito) ── */}
       <div
-        className="absolute hidden sm:block top-[70px] -right-[36px] lg:right-[-26px] rotate-[6deg] origin-bottom-left z-0 opacity-90"
+        className="absolute hidden sm:block top-[70px] -right-[36px] lg:right-[-26px] w-[226px] rotate-[6deg] origin-bottom-left z-0 opacity-90"
         aria-hidden
       >
-        <HeroPhone scale={0.21}>
-          <MultiDeviceMockup />
-        </HeroPhone>
+        <PhoneFrame src="/screens/week.jpg" alt="" priority={false} />
       </div>
 
       {/* ── Phone A (fronte, dashboard) ── */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 z-10">
-        <div className="block sm:hidden">
-          <HeroPhone scale={0.235}>
-            <DashboardMockup />
-          </HeroPhone>
-        </div>
-        <div className="hidden sm:block">
-          <HeroPhone scale={0.29}>
-            <DashboardMockup />
-          </HeroPhone>
-        </div>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 w-[254px] sm:w-[312px] z-10">
+        <PhoneFrame
+          src="/screens/dashboard.jpg"
+          alt="Dashboard FitMesh Sync: passi, battito, calorie, sonno e Recovery Index"
+          priority
+        />
       </div>
 
       {/* Soundwave floating decoration */}
@@ -86,36 +74,34 @@ export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) 
   );
 }
 
-/* ───────── Phone shell con mockup 1080×1920 scalato ───────── */
+/* ───────── Phone shell: cornice + screenshot 1:2 ───────── */
 
-function HeroPhone({
-  scale,
-  children,
+export function PhoneFrame({
+  src,
+  alt,
+  priority = false,
 }: {
-  scale: number;
-  children: React.ReactNode;
+  src: string;
+  alt: string;
+  priority?: boolean;
 }) {
-  const W = Math.round(1080 * scale);
-  const H = Math.round(1920 * scale);
-
   return (
-    <div
-      className="relative rounded-[40px] p-[3px] bg-gradient-to-b from-white/25 to-white/5 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.85)]"
-      style={{ width: W + 6, height: H + 6 }}
-    >
-      <div className="absolute inset-[3px] rounded-[37px] overflow-hidden bg-[#04070f]">
-        <div
-          style={{
-            width: 1080,
-            height: 1920,
-            transform: `scale(${scale})`,
-            transformOrigin: "top left",
-          }}
-        >
-          {children}
-        </div>
+    <div className="relative rounded-[38px] p-[3px] bg-gradient-to-b from-white/25 to-white/5 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.85)]">
+      <div className="relative rounded-[35px] overflow-hidden bg-[#04070f]">
+        <Image
+          src={src}
+          alt={alt}
+          width={720}
+          height={1440}
+          priority={priority}
+          className="w-full h-auto block"
+          sizes="(max-width: 640px) 254px, 312px"
+        />
         {/* Home indicator */}
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[90px] h-[4px] rounded-full bg-white/30" />
+        <div
+          aria-hidden
+          className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-[80px] h-[4px] rounded-full bg-white/30"
+        />
       </div>
     </div>
   );

@@ -13,6 +13,9 @@ import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 const TOTAL_SPOTS = 1000;
+// I 17 beta tester della closed beta sono i primi founder: occupano slot
+// anche se i loro grant non hanno note='founder-launch' (sono pro a vita).
+const LEGACY_FOUNDERS = 17;
 // Live fresh ad ogni request: il counter deve muoversi appena qualcuno
 // si registra. Costo trascurabile (1 count su tabella piccola).
 export const revalidate = 0;
@@ -32,7 +35,7 @@ async function fetchSlotsTaken(): Promise<number | null> {
 }
 
 export default async function FounderBanner({ locale }: { locale: string }) {
-  const taken = (await fetchSlotsTaken()) ?? 0;
+  const taken = ((await fetchSlotsTaken()) ?? 0) + LEGACY_FOUNDERS;
   const remaining = Math.max(0, TOTAL_SPOTS - taken);
   const full = remaining === 0;
 

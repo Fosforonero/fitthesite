@@ -1,21 +1,16 @@
 /**
  * MockupShowcase — sezione home "Guarda FitMesh in azione".
  *
- * Embedda i mockup screen (1080×1920 px fissi, vedi app/mockups) scalati
- * via CSS transform dentro cornici phone. Server component puro: nessun
- * asset raster, gli stessi componenti React usati per /mockups/<screen>.
+ * Screenshot REALI dell'app Android (stessi asset della scheda Play Store),
+ * dentro cornici phone. Vedi public/screens/*.jpg (720×1440).
  */
 
-import {
-  FamilyMockup,
-  InsightsMockup,
-  MultiDeviceMockup,
-} from "@/app/mockups/[screen]/screens";
+import { PhoneFrame } from "@/components/HeroVisual";
 
 type Captions = {
-  multiDevice: string;
-  family: string;
-  insights: string;
+  sleep: string;
+  trends: string;
+  vitals: string;
 };
 
 export default function MockupShowcase({
@@ -30,9 +25,9 @@ export default function MockupShowcase({
   captions: Captions;
 }) {
   const screens = [
-    { caption: captions.multiDevice, Screen: MultiDeviceMockup, href: "/mockups/multi-device" },
-    { caption: captions.family, Screen: FamilyMockup, href: "/mockups/family" },
-    { caption: captions.insights, Screen: InsightsMockup, href: "/mockups/insights" },
+    { caption: captions.sleep, src: "/screens/sleep.jpg" },
+    { caption: captions.trends, src: "/screens/trends.jpg" },
+    { caption: captions.vitals, src: "/screens/vitals.jpg" },
   ];
 
   return (
@@ -48,16 +43,14 @@ export default function MockupShowcase({
       </div>
 
       <div className="mt-14 grid gap-10 sm:gap-6 sm:grid-cols-3 justify-items-center">
-        {screens.map(({ caption, Screen }, i) => (
+        {screens.map(({ caption, src }, i) => (
           <figure
-            key={caption}
+            key={src}
             data-reveal
             style={{ "--reveal-delay": `${i * 120}ms` } as React.CSSProperties}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center w-full max-w-[270px]"
           >
-            <PhoneShell>
-              <Screen />
-            </PhoneShell>
+            <PhoneFrame src={src} alt={caption} />
             <figcaption className="mt-5 text-sm font-medium text-text-secondary">
               {caption}
             </figcaption>
@@ -65,35 +58,5 @@ export default function MockupShowcase({
         ))}
       </div>
     </section>
-  );
-}
-
-/**
- * Cornice phone con contenuto 1080×1920 scalato.
- * Scale 0.24 → 259×461 px circa: leggibile su desktop, 1 colonna su mobile.
- */
-function PhoneShell({ children }: { children: React.ReactNode }) {
-  const SCALE = 0.24;
-  const W = 1080 * SCALE;
-  const H = 1920 * SCALE;
-
-  return (
-    <div
-      className="relative rounded-[36px] p-[3px] bg-gradient-to-b from-white/25 to-white/5 shadow-[0_30px_90px_-25px_rgba(0,0,0,0.85)]"
-      style={{ width: W + 6, height: H + 6 }}
-    >
-      <div className="absolute inset-[3px] rounded-[33px] overflow-hidden bg-[#04070f]">
-        <div
-          style={{
-            width: 1080,
-            height: 1920,
-            transform: `scale(${SCALE})`,
-            transformOrigin: "top left",
-          }}
-        >
-          {children}
-        </div>
-      </div>
-    </div>
   );
 }
