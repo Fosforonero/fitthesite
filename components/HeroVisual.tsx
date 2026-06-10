@@ -97,6 +97,15 @@ export function PhoneFrame({
           className="w-full h-auto block"
           sizes="(max-width: 640px) 254px, 312px"
         />
+        {/* Fade bottom: lo screenshot è tagliato a metà card — la sfumatura
+            verso il nero del frame nasconde il taglio in modo naturale. */}
+        <div
+          aria-hidden
+          className="absolute bottom-0 inset-x-0 h-[56px]"
+          style={{
+            background: "linear-gradient(180deg, transparent 0%, #04070f 85%)",
+          }}
+        />
         {/* Home indicator */}
         <div
           aria-hidden
