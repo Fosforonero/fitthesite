@@ -2,10 +2,14 @@ import { notFound } from "next/navigation";
 
 import {
   DashboardMockup,
+  FamilyMockup,
+  InsightsMockup,
   IntegrationsMockup,
+  MultiDeviceMockup,
   OnboardingMockup,
   PairingMockup,
   SettingsMockup,
+  SyncCenterMockup,
   SyncMockup,
 } from "./screens";
 
@@ -28,6 +32,10 @@ const SCREENS = {
   onboarding: OnboardingMockup,
   pairing: PairingMockup,
   integrations: IntegrationsMockup,
+  "multi-device": MultiDeviceMockup,
+  family: FamilyMockup,
+  "sync-center": SyncCenterMockup,
+  insights: InsightsMockup,
 } as const;
 
 export function generateStaticParams() {

@@ -4,6 +4,21 @@ Una riga per release. Le release del sito sono indipendenti da quelle dell'app.
 
 ---
 
+## v0.5.0 — 2026-06-10 · Messaging dashboard globale multi-device + showcase mockup in home
+
+### Aggiunto
+- **Sezione showcase in home** (`components/MockupShowcase.tsx`): "Guarda FitMesh in azione / See FitMesh in action" con 3 mockup app (multi-device, Mesh Famiglia, insights) renderizzati dagli stessi componenti React di `/mockups/<screen>` scalati via CSS in cornici phone. Nessun asset raster.
+- **4 nuovi mockup screen** in `app/mockups/[screen]/screens.tsx`: `multi-device` (vista globale aggregata + lista device + priorità sorgenti), `family` (Mesh Famiglia con membri fittizi Matteo Rossi/Giulia Bianchi/Luca Ferri), `sync-center` (stato provider + storico sync), `insights` (readiness ring + trend 7gg + VO₂ max). Tutti con label discreta "Dati dimostrativi". Dati mock canonici: 8.742 passi, 58 bpm riposo, 7h 42m sonno, readiness 82, HRV 64 ms.
+- **Migration `20260610120001_user_roles_expiry.sql`**: colonna `expires_at` su `user_roles` + funzione `grant_pro_until_to_email()` per reward pre-registrazione Play Store (1 anno Pro). Da applicare manualmente.
+
+### Cambiato
+- **Hero home riposizionato multi-device** (Task 5 sprint): H1 "Una dashboard globale per tutti i tuoi dispositivi", description con Galaxy Watch/Wear OS/Health Connect/provider cloud in una vista unica. IT+EN.
+- **Feature card "Dashboard tua" → "Dashboard globale multi-device"**: merge sorgenti, dedup, best-value per metrica.
+- **Meta title/description + JSON-LD home** allineati al messaging dashboard globale.
+- Mockup `dashboard` aggiornato ai dati mock canonici (8.742 passi, sonno 7h 42m, 642 kcal).
+
+---
+
 ## v0.4.0 — 2026-05-24 · Fascia founder home + sync v2 API + landing Mesh Famiglia + SEO hardening
 
 ### Aggiunto

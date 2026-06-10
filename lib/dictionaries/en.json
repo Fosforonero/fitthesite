@@ -6,9 +6,9 @@
   },
   "hero": {
     "badge": "Available on Android · iOS coming soon",
-    "heading_1": "Your smartwatch data,",
-    "heading_accent": "on a premium dashboard.",
-    "description": "FitMesh Sync reads steps, heart rate, sleep and calories from your Galaxy Watch or Wear OS and surfaces them on a personal web dashboard. No opaque clouds, no ad trackers, no social logins.",
+    "heading_1": "One global dashboard",
+    "heading_accent": "for all your devices.",
+    "description": "Bring Galaxy Watch, Wear OS, Health Connect and cloud providers into one view. Steps, sleep, heart rate, recovery and trends — without jumping between apps.",
     "cta_secondary": "Learn more",
     "pricing": "One-time purchase €3.99 · secure payment via Google Play",
     "coming_soon": "Coming Soon"
@@ -34,8 +34,8 @@
         "desc": "Active and basal calories, route, elevation, floors climbed. Walks in green, workouts in red."
       },
       {
-        "title": "Your own dashboard",
-        "desc": "Your data lives on the server you pick — not on a third-party cloud. Access from any browser, no social account required."
+        "title": "Global multi-device dashboard",
+        "desc": "Multiple watches, multiple providers, one view. FitMesh merges sources, deduplicates data and keeps the best value for every metric."
       },
       {
         "title": "Built for caregivers",
@@ -176,5 +176,15 @@
       "failed_syncs_24h": "Failed syncs 24h"
     },
     "privacy_notice": "Privacy: this dashboard only shows metadata and aggregate metrics. Users' health data is NOT accessible to any admin (enforced via Postgres RLS)."
+  },
+  "showcase": {
+    "kicker": "The app",
+    "heading": "See FitMesh in action",
+    "sub": "The Android app interface, shown with demo data.",
+    "captions": {
+      "multiDevice": "Every device, one view",
+      "family": "Family Mesh",
+      "insights": "Insights & trends"
+    }
   }
 }

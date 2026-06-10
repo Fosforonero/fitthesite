@@ -6,9 +6,9 @@
   },
   "hero": {
     "badge": "Disponibile su Android · iOS in arrivo",
-    "heading_1": "I dati del tuo smartwatch,",
-    "heading_accent": "una dashboard premium.",
-    "description": "FitMesh Sync legge passi, battito, sonno e calorie dal tuo Galaxy Watch o Wear OS e li mette su una dashboard web personale. Senza cloud opachi, senza tracker pubblicitari, senza account social.",
+    "heading_1": "Una dashboard globale",
+    "heading_accent": "per tutti i tuoi dispositivi.",
+    "description": "Unisci Galaxy Watch, Wear OS, Health Connect e provider cloud in una vista unica. Passi, sonno, battito, recupero e trend — senza saltare tra app diverse.",
     "cta_secondary": "Scopri di più",
     "pricing": "Acquisto unico €3,99 · pagamento sicuro Google Play",
     "coming_soon": "In arrivo"
@@ -34,8 +34,8 @@
         "desc": "Calorie attive e basali, percorso, dislivello, scale. Camminate in verde, allenamenti in rosso."
       },
       {
-        "title": "Dashboard tua",
-        "desc": "I dati vivono sul tuo server, non su un cloud di terzi. Accedi da browser ovunque, senza account social."
+        "title": "Dashboard globale multi-device",
+        "desc": "Più orologi, più provider, una sola vista. FitMesh unisce le sorgenti, deduplica i dati e tiene il valore migliore per ogni metrica."
       },
       {
         "title": "Pensato per i caregiver",
@@ -176,5 +176,15 @@
       "failed_syncs_24h": "Sync falliti 24h"
     },
     "privacy_notice": "Privacy: questa dashboard mostra solo metadata e metriche aggregate. I dati di salute degli utenti NON sono accessibili a nessun admin (enforced via Postgres RLS)."
+  },
+  "showcase": {
+    "kicker": "L'app",
+    "heading": "Guarda FitMesh in azione",
+    "sub": "L'interfaccia dell'app Android, con dati dimostrativi.",
+    "captions": {
+      "multiDevice": "Tutti i device, una vista",
+      "family": "Mesh Famiglia",
+      "insights": "Insights e trend"
+    }
   }
 }

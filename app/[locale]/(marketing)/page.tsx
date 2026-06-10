@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
+import MockupShowcase from "@/components/MockupShowcase";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import FounderBanner from "@/components/FounderBanner";
 import TrustBadges from "@/components/TrustBadges";
@@ -87,8 +88,8 @@ export default async function Home({
       ? "FitMesh Sync — Sincronizza il tuo smartwatch a una dashboard personale"
       : "FitMesh Sync — Sync your smartwatch to a personal dashboard",
     description: lc === "it"
-      ? "FitMesh Sync sincronizza Galaxy Watch e Wear OS con una dashboard premium privacy-first: passi, battito, sonno, calorie, VO2 max."
-      : "FitMesh Sync mirrors Galaxy Watch and Wear OS to a privacy-first premium dashboard: steps, heart rate, sleep, calories, VO2 max.",
+      ? "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in una dashboard globale privacy-first: passi, battito, sonno, recupero e trend."
+      : "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one privacy-first global dashboard: steps, heart rate, sleep, recovery and trends.",
     inLanguage: lc === "it" ? "it-IT" : "en-US",
     isPartOf: { "@id": `${SITE_URL}#website` },
     about: { "@id": `${SITE_URL}#mobile-app` },
@@ -244,6 +245,17 @@ export default async function Home({
         <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-bg to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-bg to-transparent" />
       </section>
+
+      {/* ════════════════════════════════════════════════════════════════
+       *  SHOWCASE — mockup app reali (multi-device, famiglia, insights),
+       *  stessi componenti React di /mockups/<screen> scalati via CSS.
+       *  ════════════════════════════════════════════════════════════ */}
+      <MockupShowcase
+        kicker={t.showcase.kicker}
+        heading={t.showcase.heading}
+        sub={t.showcase.sub}
+        captions={t.showcase.captions}
+      />
 
       {/* ════════════════════════════════════════════════════════════════
        *  FEATURES — Bento-ish grid (asimmetria controllata)

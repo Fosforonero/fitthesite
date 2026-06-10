@@ -23,12 +23,12 @@ export async function generateMetadata(
   const lc = locale as Locale;
 
   const titles: Record<Locale, string> = {
-    it: "FitMesh Sync — Sincronizza il tuo smartwatch a una dashboard personale",
-    en: "FitMesh Sync — Sync your smartwatch to a personal dashboard",
+    it: "FitMesh Sync — Una dashboard globale per tutti i tuoi dispositivi",
+    en: "FitMesh Sync — One global dashboard for all your devices",
   };
   const descriptions: Record<Locale, string> = {
-    it: "FitMesh Sync sincronizza Galaxy Watch e Wear OS con una dashboard premium: passi, battito, sonno, calorie e VO₂ max. Privacy-first, niente cloud opachi, niente tracker.",
-    en: "FitMesh Sync mirrors Galaxy Watch and Wear OS data to a premium personal dashboard: steps, heart rate, sleep, calories, VO₂ max. Privacy-first. No opaque clouds. No trackers.",
+    it: "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in una dashboard globale: passi, battito, sonno, recupero e trend. Privacy-first, niente tracker.",
+    en: "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one global dashboard: steps, heart rate, sleep, recovery, trends. Privacy-first. No trackers.",
   };
 
   return {
