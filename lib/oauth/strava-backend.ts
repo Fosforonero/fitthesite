@@ -6,6 +6,10 @@
  * lato server per non duplicare configurazione.
  */
 
+// Rate limit + extractIp sono condivisi tra tutti i provider OAuth.
+// Re-export per non cambiare gli import delle route esistenti.
+export { checkRateLimit, extractIp } from "./shared";
+
 const STRAVA_TOKEN_URL = "https://www.strava.com/api/v3/oauth/token";
 
 /** Legge env vars obbligatorie; lancia se mancanti (fail-fast a runtime). */
@@ -95,45 +99,4 @@ export class StravaApiError extends Error {
     super(`Strava API error ${stravaStatus}: ${stravaBody}`);
     this.name = "StravaApiError";
   }
-}
-
-// ─── Rate limit in-memory per IP ────────────────────────────────────────────
-// Semplice sliding-window per prevenire abusi. Non persistente tra cold starts
-// Vercel (serverless), ma sufficiente per protezione base.
-// Per protezione forte in produzione usare Upstash Redis + @upstash/ratelimit.
-
-const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minuto
-const RATE_LIMIT_MAX = 10; // max 10 richieste/minuto per IP
-
-type RateLimitEntry = { count: number; windowStart: number };
-const _rateLimitStore = new Map<string, RateLimitEntry>();
-
-/**
- * Controlla il rate limit per l'IP dato.
- * Ritorna `true` se la richiesta è permessa, `false` se va bloccata.
- */
-export function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const entry = _rateLimitStore.get(ip);
-
-  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
-    _rateLimitStore.set(ip, { count: 1, windowStart: now });
-    return true;
-  }
-
-  if (entry.count >= RATE_LIMIT_MAX) {
-    return false;
-  }
-
-  entry.count++;
-  return true;
-}
-
-/** Estrae l'IP dalla Request (Vercel + standard headers). */
-export function extractIp(req: Request): string {
-  return (
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    req.headers.get("x-real-ip") ??
-    "unknown"
-  );
 }

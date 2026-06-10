@@ -9,6 +9,10 @@
  *   Content-Type: application/x-www-form-urlencoded
  */
 
+// Rate limit + extractIp sono condivisi tra tutti i provider OAuth.
+// Re-export per non cambiare gli import delle route esistenti.
+export { checkRateLimit, extractIp } from "./shared";
+
 const SUUNTO_TOKEN_URL = "https://cloudapi-oauth.suunto.com/oauth/token";
 export const SUUNTO_REDIRECT_URI =
   "https://www.fitmesh.fit/api/v1/oauth/suunto/callback";
@@ -145,31 +149,4 @@ export class SuuntoApiError extends Error {
     super(`Suunto API error ${suuntoStatus}: ${suuntoBody}`);
     this.name = "SuuntoApiError";
   }
-}
-
-// ─── Rate limit in-memory per IP ────────────────────────────────────────────
-const RATE_LIMIT_WINDOW_MS = 60_000;
-const RATE_LIMIT_MAX = 10;
-
-type RateLimitEntry = { count: number; windowStart: number };
-const _rateLimitStore = new Map<string, RateLimitEntry>();
-
-export function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const entry = _rateLimitStore.get(ip);
-  if (!entry || now - entry.windowStart > RATE_LIMIT_WINDOW_MS) {
-    _rateLimitStore.set(ip, { count: 1, windowStart: now });
-    return true;
-  }
-  if (entry.count >= RATE_LIMIT_MAX) return false;
-  entry.count++;
-  return true;
-}
-
-export function extractIp(req: Request): string {
-  return (
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    req.headers.get("x-real-ip") ??
-    "unknown"
-  );
 }
