@@ -163,13 +163,14 @@ function buildNotification(
 // ─── Route handler ────────────────────────────────────────────────────────────
 
 export async function POST(req: Request): Promise<Response> {
-  // ── 1. Verifica webhook secret ───────────────────────────────────────────
+  // ── 1. Verifica webhook secret (fail-closed: senza secret configurato
+  // l'endpoint NON è eseguibile — fa fan-out push con service_role) ─────────
   const webhookSecret = process.env.FAMILY_EVENTS_WEBHOOK_SECRET;
-  if (webhookSecret) {
-    const header = req.headers.get("x-webhook-secret");
-    if (header !== webhookSecret) {
-      return jsonError(401, "unauthorized_webhook");
-    }
+  if (!webhookSecret) {
+    return jsonError(500, "webhook_misconfigured");
+  }
+  if (req.headers.get("x-webhook-secret") !== webhookSecret) {
+    return jsonError(401, "unauthorized_webhook");
   }
 
   // ── 2. Parse payload ────────────────────────────────────────────────────

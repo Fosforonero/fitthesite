@@ -1,6 +1,13 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
+  // Lockfile multipli nelle directory genitrici facevano inferire a Next una
+  // workspace root sbagliata (file tracing/output errati). Root esplicita.
+  outputFileTracingRoot: path.dirname(fileURLToPath(import.meta.url)),
 
   /**
    * Redirect 308 permanenti per gli URL marketing senza prefix locale.

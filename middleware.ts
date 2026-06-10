@@ -18,6 +18,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 import {
   buildRateLimitResponse,
+  limitInvitePreview,
   limitSignup,
   limitSync,
 } from '@/lib/rate-limit/limiter';
@@ -92,6 +93,16 @@ export async function middleware(request: NextRequest) {
     }
   } else if (pathname === '/api/v1/beta/signup') {
     const result = await limitSignup(request);
+    if (!result.allowed) {
+      return buildRateLimitResponse(result);
+    }
+  } else if (
+    // Anti-enumerazione codici invito MESH-XXXX: copre sia l'API preview
+    // sia la pagina join (Server Component che fa la stessa query).
+    pathname.startsWith('/api/v1/invites/') ||
+    stripLocale(pathname).startsWith('/famiglia/join/')
+  ) {
+    const result = await limitInvitePreview(request);
     if (!result.allowed) {
       return buildRateLimitResponse(result);
     }

@@ -7,6 +7,11 @@
  *
  * TODO: parsing payload + fetch dati via 247 Data API + upsert Supabase.
  * Richiede tabella provider_tokens per recuperare access_token per utente.
+ *
+ * ⚠️ SECURITY GATE (audit 2026-06-10): endpoint pubblico SENZA verifica
+ * firma/secret. Finché è uno stub log-only è innocuo, ma NON implementare
+ * il data-processing senza prima aggiungere autenticazione del webhook
+ * (HMAC/secret Suunto) — altrimenti diventa un vettore di iniezione dati.
  */
 export const dynamic = "force-dynamic";
 

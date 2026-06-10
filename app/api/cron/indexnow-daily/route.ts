@@ -8,11 +8,13 @@ const SITE_URL = "https://www.fitmesh.fit";
 const LOCALES = ["it", "en"] as const;
 
 export async function GET(req: Request) {
+  // Fail-closed: senza CRON_SECRET configurato l'endpoint resta inaccessibile.
   const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret) {
-    if (req.headers.get("authorization") !== `Bearer ${cronSecret}`) {
-      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-    }
+  if (!cronSecret) {
+    return NextResponse.json({ error: "cron_misconfigured" }, { status: 500 });
+  }
+  if (req.headers.get("authorization") !== `Bearer ${cronSecret}`) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
   const urls: string[] = [];

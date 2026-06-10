@@ -39,13 +39,18 @@ const payloadSchema = z.object({
   deviceFingerprint: z.string().min(8).max(128),
 });
 
-const OVH_BASE = process.env.OVH_LEGACY_BASE_URL ?? "http://51.178.43.134:3000";
+// Niente fallback hardcoded HTTP-cleartext: i dati salute legacy non devono
+// MAI transitare in chiaro. Senza env var l'endpoint risponde 503.
+const OVH_BASE = process.env.OVH_LEGACY_BASE_URL ?? "";
 const PAGE_SIZE = 200;
 const MAX_PAGES = 5;
 
 type LegacyRecord = Record<string, unknown>;
 
 export async function POST(req: Request) {
+  if (!OVH_BASE || !OVH_BASE.startsWith("https://")) {
+    return jsonError(503, "legacy_migration_unavailable");
+  }
   const auth = await requireUser(req);
   if (auth instanceof Response) return auth;
   const { userId } = auth;

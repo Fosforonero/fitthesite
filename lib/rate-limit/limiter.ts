@@ -141,6 +141,16 @@ export async function limitSignup(req: Request): Promise<LimitResult> {
   return callRateLimitRpc(key, 10, 60);
 }
 
+/**
+ * Rate limit per preview/join inviti famiglia. 20 req/min per IP.
+ * Endpoint pubblici (service_role server-side) con namespace codici piccolo
+ * (MESH-XXXX): senza limite sono enumerabili via brute-force.
+ */
+export async function limitInvitePreview(req: Request): Promise<LimitResult> {
+  const key = `invite:ip:${getClientIp(req)}`;
+  return callRateLimitRpc(key, 20, 60);
+}
+
 /** Costruisce response 429 standard con headers RateLimit-*. */
 export function buildRateLimitResponse(result: LimitResult): Response {
   return new Response(

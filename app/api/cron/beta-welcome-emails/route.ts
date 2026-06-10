@@ -11,12 +11,15 @@ export const maxDuration = 60;
 type Sb = SupabaseClient;
 
 export async function GET(req: Request) {
-  // Auth: Vercel cron injects Authorization: Bearer <CRON_SECRET>
+  // Auth: Vercel cron injects Authorization: Bearer <CRON_SECRET>.
+  // Fail-closed: senza secret configurato l'endpoint resta inaccessibile
+  // (manda email via Resend + scrive con service_role).
   const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret) {
-    if (req.headers.get("authorization") !== `Bearer ${cronSecret}`) {
-      return NextResponse.json({ error: "unauthorized" }, { status: 401 });
-    }
+  if (!cronSecret) {
+    return NextResponse.json({ error: "cron_misconfigured" }, { status: 500 });
+  }
+  if (req.headers.get("authorization") !== `Bearer ${cronSecret}`) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
   // Cast as Sb perche' database.types stale non include beta_signups columns

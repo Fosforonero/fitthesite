@@ -164,6 +164,13 @@ export async function POST(req: Request) {
   if (!device) return jsonError(404, "device_not_paired");
 
   // ── 3. Validation payload ──────────────────────────────────────────
+  // Guardia memory-DoS: req.json() carica tutto in RAM prima di Zod. Un
+  // payload legittimo (snapshot giornaliera + intraday + workout) sta ben
+  // sotto i 500KB; oltre 2MB è patologico → 413 prima del parse.
+  const contentLength = Number(req.headers.get("content-length") ?? 0);
+  if (contentLength > 2 * 1024 * 1024) {
+    return jsonError(413, "payload_too_large");
+  }
   let body: unknown;
   try {
     body = await req.json();
