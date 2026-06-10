@@ -17,7 +17,7 @@ import PlayStoreButton from "./PlayStoreButton";
 type Props = {
   /** Locale per i label localizzati ("In arrivo" vs "Coming Soon"). */
   locale: "it" | "en";
-  /** Forza il Play Store disabled (default true finché non lanciamo). */
+  /** Forza il Play Store disabled (default false — app live su Play Store). */
   playDisabled?: boolean;
   /** Classi extra sul wrapper flex. */
   className?: string;
@@ -26,7 +26,7 @@ type Props = {
 
 export default function StoreButtonsRow({
   locale,
-  playDisabled = true,
+  playDisabled = false,
   className = "",
   style,
 }: Props) {

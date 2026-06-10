@@ -229,10 +229,10 @@ export default async function BetaPage({
 }
 
 const IT = {
-  metaTitle: "FitMesh Sync Beta — 100 founder gratis per sempre",
+  metaTitle: "FitMesh Sync Founder — 100 posti, gratis per sempre",
   metaDesc:
-    "Diventa uno dei primi 100 founder di FitMesh Sync. App prima del lancio + tutte le feature gratis a vita.",
-  kicker: "Beta privata · 100 posti",
+    "Diventa uno dei 100 founder di FitMesh Sync. Tutte le feature gratis a vita, accesso prioritario alla versione iOS.",
+  kicker: "Founder · 100 posti",
   h1_a: "Diventa uno dei primi",
   h1_b: "100 founder",
   h1_c: "di FitMesh Sync",
@@ -246,8 +246,8 @@ const IT = {
     },
     {
       emoji: "⚡",
-      title: "Accesso anticipato",
-      desc: "Hai l'app prima di tutti, mesi prima del lancio pubblico sul Play Store.",
+      title: "Primo su iOS",
+      desc: "Android è già live. I founder ricevono l'accesso alla versione iOS non appena esce, prima di chiunque altro.",
     },
     {
       emoji: "🛠️",
@@ -264,8 +264,8 @@ const IT = {
       desc: "Conferma se sei tra i 100 (o se la lista è piena ti metto in lista d'attesa).",
     },
     {
-      title: "Aggiungo la tua email Google alla lista Closed Beta",
-      desc: "Riceverai un link Play Store per installare FitMesh Sync. Funziona solo con la tua email Google.",
+      title: "Scarichi l'app su Play Store",
+      desc: "FitMesh Sync è disponibile su Google Play. Installa l'app e accedi — l'account viene riconosciuto come founder al primo login.",
     },
     {
       title: "Installi l'app, ti registri, sblocchi tutto",
@@ -283,16 +283,16 @@ const IT = {
       a: "Significa che quando aprirò i pagamenti (€3,99 acquisto unico, €1,19/6 mesi), il tuo account avrà un flag founder=true e non vedrà mai un paywall. Anche le feature Pro future (es. sync iOS, family monitoring) saranno incluse senza limiti né scadenza.",
     },
     {
-      q: "Perché ti serve la mia email Google e non solo quella di contatto?",
-      a: "Google Play Closed Testing funziona per email-allowlist: solo le email aggiunte alla lista 'tester' possono installare l'app. Se la tua email personale è diversa dall'account Google del telefono, ho bisogno di entrambe.",
+      q: "Perché ti serve la mia email Google?",
+      a: "Serve per legare il tuo account al flag founder=true nel database. Quando accedi con quell'email, l'app riconosce il tuo status e disabilita il paywall automaticamente.",
     },
     {
-      q: "Quando esce la Beta?",
-      a: "L'AAB è già pronto e questa settimana lo carico su Google Play Closed Testing. Da quel momento aggiungo i founder a batch, man mano che approvo le richieste.",
+      q: "L'app Android è disponibile adesso?",
+      a: "Sì. FitMesh Sync è live su Google Play. Scaricala, registrati e il tuo account founder viene riconosciuto al primo login.",
     },
     {
       q: "E se non vengo selezionato?",
-      a: "Ti metto in lista d'attesa. Se un founder esce dalla beta o se passiamo a Open Testing (illimitato), sei tra i primi a essere chiamato. In ogni caso al lancio pubblico hai diritto a uno sconto founder.",
+      a: "Ti metto in lista d'attesa. Quando si libera un posto o alla notifica iOS, sei tra i primi a essere chiamato. In ogni caso al lancio pubblico iOS hai diritto a uno sconto founder.",
     },
     {
       q: "Quali wearable supporta?",
@@ -310,10 +310,10 @@ const IT = {
 };
 
 const EN = {
-  metaTitle: "FitMesh Sync Beta — 100 founders, free forever",
+  metaTitle: "FitMesh Sync Founder — 100 spots, free forever",
   metaDesc:
-    "Become one of the first 100 founders of FitMesh Sync. Early access + all features free for life.",
-  kicker: "Private beta · 100 spots",
+    "Become one of 100 founders of FitMesh Sync. All features free for life, priority iOS access when it launches.",
+  kicker: "Founder · 100 spots",
   h1_a: "Become one of the first",
   h1_b: "100 founders",
   h1_c: "of FitMesh Sync",
@@ -327,8 +327,8 @@ const EN = {
     },
     {
       emoji: "⚡",
-      title: "Early access",
-      desc: "Get the app before anyone, months before public launch on the Play Store.",
+      title: "First on iOS",
+      desc: "Android is already live. Founders get iOS access the moment it launches, before anyone else.",
     },
     {
       emoji: "🛠️",
@@ -345,8 +345,8 @@ const EN = {
       desc: "Confirms whether you made the 100 (or puts you on the waiting list if full).",
     },
     {
-      title: "I add your Google email to the Closed Beta list",
-      desc: "You'll get a Play Store link to install FitMesh Sync. Works only with your Google email.",
+      title: "Download the app on Play Store",
+      desc: "FitMesh Sync is live on Google Play. Install it, sign in — your account is recognised as founder on first login.",
     },
     {
       title: "You install the app, sign up, unlock everything",
@@ -364,16 +364,16 @@ const EN = {
       a: "When I open payments (€3.99 one-time, €1.19/6mo), your account gets a founder=true flag and never sees a paywall. Future Pro features (e.g. iOS sync, family monitoring) are included with no limits or expiry.",
     },
     {
-      q: "Why do you need my Google email separately from the contact email?",
-      a: "Google Play Closed Testing works as an email-allowlist: only emails added to the 'tester' list can install the app. If your personal email differs from your phone's Google account, I need both.",
+      q: "Why do you need my Google email?",
+      a: "It links your account to the founder=true flag in the database. When you sign in with that email, the app recognises your status and disables the paywall automatically.",
     },
     {
-      q: "When does the Beta launch?",
-      a: "The AAB is ready and this week I'm uploading it to Google Play Closed Testing. From there I add founders in batches as I approve requests.",
+      q: "Is the Android app available now?",
+      a: "Yes. FitMesh Sync is live on Google Play. Download it, sign up, and your founder account is recognised on first login.",
     },
     {
       q: "What if I'm not selected?",
-      a: "I put you on the waiting list. If a founder drops off or we move to Open Testing (unlimited), you're first in line. Either way at public launch you'll get a founder discount.",
+      a: "I put you on the waiting list. When a spot opens up or the iOS notification goes out, you're first in line. Either way you'll get a founder discount at iOS public launch.",
     },
     {
       q: "Which wearables are supported?",

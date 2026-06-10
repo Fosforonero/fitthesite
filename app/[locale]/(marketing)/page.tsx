@@ -463,12 +463,12 @@ export default async function Home({
               {(lc === "it"
                 ? [
                     { t: "Server in UE", d: "Postgres su infrastruttura europea. Niente trasferimenti USA." },
-                    { t: "Zero tracker pubblicitari", d: "Solo GA4 anonimizzato con consenso esplicito. Niente Meta/TikTok pixel." },
+                    { t: "Zero tracker pubblicitari", d: "I tuoi dati salute non alimentano nessun algoritmo pubblicitario. Niente profilazione, niente dati condivisi con terzi." },
                     { t: "Cancellazione in 48h", d: "Un click in app, e tutto è cancellato. Compliance GDPR completa." },
                   ]
                 : [
                     { t: "EU servers", d: "Postgres on European infrastructure. No US transfers." },
-                    { t: "Zero ad trackers", d: "Only anonymized GA4 with explicit consent. No Meta/TikTok pixels." },
+                    { t: "Zero ad trackers", d: "Your health data feeds no advertising algorithm. No cross-site tracking, no third-party data sharing." },
                     { t: "Delete in 48h", d: "One click in-app, everything gone. Full GDPR compliance." },
                   ]
               ).map((p) => (
@@ -575,7 +575,7 @@ export default async function Home({
           />
           <div className="relative">
             <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-              {lc === "it" ? "Prossima beta · 100 founder" : "Next beta · 100 founders"}
+              {lc === "it" ? "Android live · iOS in arrivo · 100 founder" : "Android live · iOS coming · 100 founders"}
             </p>
             <h2 className="mt-4 font-display text-display-lg font-semibold tracking-tightest text-text-primary text-balance">
               {t.final_cta.heading}
