@@ -173,9 +173,55 @@ export default async function LocaleLayout({
         downloadUrl: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
         publisher: { "@id": `${SITE_URL}#organization` },
         image: `${SITE_URL}/icon-square.png`,
-        // OG image generata dinamicamente da app/opengraph-image.tsx (Next.js
-        // edge ImageResponse) — Google la accetta come screenshot/preview.
-        screenshot: `${SITE_URL}/opengraph-image`,
+        // Screenshot reali dell'app (stessi asset di hero/showcase), dichiarati
+        // come ImageObject con caption: segnale forte per SERP e AI engines.
+        screenshot: [
+          {
+            "@type": "ImageObject",
+            url: `${SITE_URL}/screens/${lc}/dashboard.jpg`,
+            caption: lc === "it"
+              ? "Dashboard FitMesh Sync: passi, battito, calorie, sonno e Recovery Index"
+              : "FitMesh Sync dashboard: steps, heart rate, calories, sleep and Recovery Index",
+            width: 720,
+            height: 1440,
+          },
+          {
+            "@type": "ImageObject",
+            url: `${SITE_URL}/screens/${lc}/sleep.jpg`,
+            caption: lc === "it"
+              ? "Sonno con fasi (profondo, REM, leggero) e salute del cuore"
+              : "Sleep stages (deep, REM, light) and heart health",
+            width: 720,
+            height: 1440,
+          },
+          {
+            "@type": "ImageObject",
+            url: `${SITE_URL}/screens/${lc}/week.jpg`,
+            caption: lc === "it"
+              ? "Confronto settimanale: passi, sonno, calorie e battito medio"
+              : "Week-over-week comparison: steps, sleep, calories and average heart rate",
+            width: 720,
+            height: 1440,
+          },
+          {
+            "@type": "ImageObject",
+            url: `${SITE_URL}/screens/${lc}/trends.jpg`,
+            caption: lc === "it"
+              ? "Trend di passi e calorie negli ultimi 7 giorni"
+              : "Steps and calories trends over the last 7 days",
+            width: 720,
+            height: 1440,
+          },
+          {
+            "@type": "ImageObject",
+            url: `${SITE_URL}/screens/${lc}/vitals.jpg`,
+            caption: lc === "it"
+              ? "SpO₂, piani saliti e metriche avanzate"
+              : "SpO₂, floors climbed and advanced metrics",
+            width: 720,
+            height: 1440,
+          },
+        ],
         featureList,
         softwareVersion: "3.2.2",
         // releaseNotes deliberatamente omesso: i tester non vedono la SERP

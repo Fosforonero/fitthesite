@@ -13,6 +13,10 @@ import Image from "next/image";
 export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) {
   // Screenshot per-locale: catturati dall'app con la lingua corrispondente.
   const base = `/screens/${locale === "it" ? "it" : "en"}`;
+  const dashAlt =
+    locale === "it"
+      ? "Dashboard dell'app FitMesh Sync con passi, battito, calorie, sonno e Recovery Index"
+      : "FitMesh Sync app dashboard with steps, heart rate, calories, sleep and Recovery Index";
 
   return (
     <div className="relative w-full max-w-[460px] mx-auto lg:mx-0 h-[520px] sm:h-[640px] lg:h-[720px]">
@@ -38,7 +42,7 @@ export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) 
       <div className="absolute top-0 left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 w-[254px] sm:w-[312px] z-10">
         <PhoneFrame
           src={`${base}/dashboard.jpg`}
-          alt="FitMesh Sync dashboard"
+          alt={dashAlt}
           priority
         />
       </div>
