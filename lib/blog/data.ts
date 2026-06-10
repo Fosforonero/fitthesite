@@ -35,6 +35,8 @@ import { post as howToExportAppleHealthData } from "./posts/how-to-export-apple-
 // Batch 4
 import { post as fitbitDataNotSyncingAndroid } from "./posts/fitbit-data-not-syncing-android";
 import { post as bestHealthDataSyncAppAndroid } from "./posts/best-health-data-sync-app-android";
+// Batch 5
+import { post as piuSmartwatchInsiemeDatiDoppi } from "./posts/piu-smartwatch-insieme-dati-doppi";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -60,6 +62,8 @@ const RAW_POSTS: BlogPost[] = [
   // Batch 4
   fitbitDataNotSyncingAndroid,
   bestHealthDataSyncAppAndroid,
+  // Batch 5
+  piuSmartwatchInsiemeDatiDoppi,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
