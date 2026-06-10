@@ -251,6 +251,7 @@ export default async function Home({
        *  stessi componenti React di /mockups/<screen> scalati via CSS.
        *  ════════════════════════════════════════════════════════════ */}
       <MockupShowcase
+        locale={lc}
         kicker={t.showcase.kicker}
         heading={t.showcase.heading}
         sub={t.showcase.sub}

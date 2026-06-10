@@ -14,20 +14,23 @@ type Captions = {
 };
 
 export default function MockupShowcase({
+  locale,
   kicker,
   heading,
   sub,
   captions,
 }: {
+  locale: string;
   kicker: string;
   heading: string;
   sub: string;
   captions: Captions;
 }) {
+  const base = `/screens/${locale === "it" ? "it" : "en"}`;
   const screens = [
-    { caption: captions.sleep, src: "/screens/sleep.jpg" },
-    { caption: captions.trends, src: "/screens/trends.jpg" },
-    { caption: captions.vitals, src: "/screens/vitals.jpg" },
+    { caption: captions.sleep, src: `${base}/sleep.jpg` },
+    { caption: captions.trends, src: `${base}/trends.jpg` },
+    { caption: captions.vitals, src: `${base}/vitals.jpg` },
   ];
 
   return (
