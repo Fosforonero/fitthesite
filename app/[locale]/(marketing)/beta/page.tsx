@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import BetaSignupForm from "@/components/BetaSignupForm";
+import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -24,12 +25,12 @@ export async function generateMetadata({
 
   const title =
     lc === "it"
-      ? "FitMesh Sync Beta — 100 founder gratis per sempre"
-      : "FitMesh Sync Beta — 100 founders, free forever";
+      ? "FitMesh Sync Founder — 1 anno di Pro gratis ai primi 1000"
+      : "FitMesh Sync Founder — 1 year of Pro free for the first 1000";
   const description =
     lc === "it"
-      ? "Diventa uno dei primi 100 founder di FitMesh Sync. Ricevi l'app prima del lancio pubblico, sblocchi tutte le feature gratis a vita, ci aiuti a renderla migliore."
-      : "Become one of the first 100 founders of FitMesh Sync. Get the app before public launch, all features unlocked free forever, and help us make it better.";
+      ? "Scarica FitMesh Sync da Google Play e crea l'account: i primi 1000 ricevono un anno di Pro completo in regalo, attivato automaticamente. Più accesso prioritario alla versione iOS."
+      : "Download FitMesh Sync on Google Play and create your account: the first 1000 get a full year of Pro free, activated automatically. Plus priority access to the iOS version.";
 
   const path = `/${lc}/beta`;
   return {
@@ -95,7 +96,7 @@ export default async function BetaPage({
       <div className="mx-auto max-w-3xl px-6">
         <Breadcrumbs
           locale={lc}
-          items={[{ name: "Beta", path: `/${lc}/beta` }]}
+          items={[{ name: "Founder", path: `/${lc}/beta` }]}
         />
 
         {/* Hero */}
@@ -117,6 +118,12 @@ export default async function BetaPage({
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl">
             {t.sub}
           </p>
+
+          {/* CTA primaria: il founder si attiva scaricando l'app, non con un form */}
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <StoreButtonsRow locale={lc} />
+          </div>
+          <p className="mt-4 text-xs text-text-muted">{t.ctaNote}</p>
         </header>
 
         {/* Perks */}
@@ -149,30 +156,8 @@ export default async function BetaPage({
           })}
         </section>
 
-        {/* Form — promosso a card-glass per essere il focus */}
-        <section
-          className="card-glass p-8 md:p-10 relative overflow-hidden"
-          data-reveal
-        >
-          <div
-            aria-hidden
-            className="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-25 blur-3xl"
-            style={{ background: "radial-gradient(circle, #21E6C1 0%, transparent 70%)" }}
-          />
-          <div className="relative">
-            <h2 className="font-display text-2xl font-semibold text-text-primary tracking-tight">{t.formTitle}</h2>
-            <p className="mt-2 mb-8 text-text-secondary">{t.formSub}</p>
-            <BetaSignupForm locale={lc} />
-          </div>
-        </section>
-
-        {/* Trust badges — rinforza affidabilita' subito sotto il form signup. */}
-        <section className="mt-6">
-          <TrustBadges locale={lc} variant="compact" />
-        </section>
-
         {/* What happens next */}
-        <section className="mt-20" data-reveal>
+        <section className="mb-20" data-reveal>
           <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
             {lc === "it" ? "Processo" : "Process"}
           </p>
@@ -202,6 +187,28 @@ export default async function BetaPage({
           </ol>
         </section>
 
+        {/* Form — riposizionato: lista d'attesa iOS (i founder hanno priorità) */}
+        <section
+          className="card-glass p-8 md:p-10 relative overflow-hidden"
+          data-reveal
+        >
+          <div
+            aria-hidden
+            className="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-25 blur-3xl"
+            style={{ background: "radial-gradient(circle, #21E6C1 0%, transparent 70%)" }}
+          />
+          <div className="relative">
+            <h2 className="font-display text-2xl font-semibold text-text-primary tracking-tight">{t.formTitle}</h2>
+            <p className="mt-2 mb-8 text-text-secondary">{t.formSub}</p>
+            <BetaSignupForm locale={lc} />
+          </div>
+        </section>
+
+        {/* Trust badges — rinforza affidabilita' subito sotto il form. */}
+        <section className="mt-6">
+          <TrustBadges locale={lc} variant="compact" />
+        </section>
+
         {/* FAQ */}
         <section className="mt-20" data-reveal>
           <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
@@ -229,20 +236,21 @@ export default async function BetaPage({
 }
 
 const IT = {
-  metaTitle: "FitMesh Sync Founder — 100 posti, gratis per sempre",
+  metaTitle: "FitMesh Sync Founder — 1 anno di Pro gratis ai primi 1000",
   metaDesc:
-    "Diventa uno dei 100 founder di FitMesh Sync. Tutte le feature gratis a vita, accesso prioritario alla versione iOS.",
-  kicker: "Founder · 100 posti",
+    "Scarica l'app, crea l'account: i primi 1000 ricevono un anno di Pro completo, attivato automaticamente. Più accesso prioritario a iOS.",
+  kicker: "Founder · 1000 posti",
   h1_a: "Diventa uno dei primi",
-  h1_b: "100 founder",
+  h1_b: "1000 founder",
   h1_c: "di FitMesh Sync",
   sub:
-    "Accesso anticipato all'app, tutte le feature sbloccate per sempre, e il tuo nome nella lista dei pionieri che hanno reso FitMesh quello che diventerà.",
+    "Nessuna selezione, nessuna attesa: scarichi l'app, crei l'account e un anno di Pro completo si attiva da solo. Vale per i primi 1000 account registrati.",
+  ctaNote: "Niente carta, niente abbonamento: alla scadenza non paghi nulla.",
   perks: [
     {
       emoji: "🎁",
-      title: "Free for life",
-      desc: "Mai più paywall. Tutte le feature presenti e future incluse, anche €3,99 Pro.",
+      title: "1 anno di Pro gratis",
+      desc: "Si attiva automaticamente alla registrazione. Storico illimitato, Mesh Famiglia, tutte le feature Pro incluse.",
     },
     {
       emoji: "⚡",
@@ -252,47 +260,48 @@ const IT = {
     {
       emoji: "🛠️",
       title: "Voce diretta",
-      desc: "Tu suggerisci, io ascolto. Le feature più richieste dai founder hanno priorità.",
+      desc: "Tu suggerisci, io ascolto. Le feature più richieste dai founder hanno priorità nella roadmap.",
     },
   ],
-  formTitle: "Richiedi un posto founder",
-  formSub: "Compila i campi qui sotto. Ti contatto entro 48h se ti includo nei 100.",
-  nextTitle: "Cosa succede dopo",
+  formTitle: "Vuoi FitMesh anche su iPhone?",
+  formSub:
+    "Lascia l'email e ti avviso al lancio iOS — i founder hanno accesso prioritario alla prima build.",
+  nextTitle: "Come funziona",
   nextSteps: [
     {
-      title: "Ti rispondo via email entro 48h",
-      desc: "Conferma se sei tra i 100 (o se la lista è piena ti metto in lista d'attesa).",
+      title: "Scarichi l'app da Google Play",
+      desc: "FitMesh Sync è live. Nessuna richiesta da compilare, nessuna approvazione da aspettare.",
     },
     {
-      title: "Scarichi l'app su Play Store",
-      desc: "FitMesh Sync è disponibile su Google Play. Installa l'app e accedi — l'account viene riconosciuto come founder al primo login.",
+      title: "Crei l'account",
+      desc: "Email o Google Sign-In. Se sei tra i primi 1000, il Pro si attiva da solo: nella schermata Pro vedi \"Founder · Pro fino al [data]\".",
     },
     {
-      title: "Installi l'app, ti registri, sblocchi tutto",
-      desc: "Al primo login l'app riconosce che sei founder e disabilita il paywall a vita.",
+      title: "Un anno di Pro completo, senza vincoli",
+      desc: "Niente carta, niente rinnovo automatico. Alla scadenza scegli tu: resti sul piano gratuito o passi a Pro (€1,19/6 mesi).",
     },
     {
-      title: "Usi l'app e mi mandi feedback",
-      desc: "Quando trovi bug o hai idee, mi scrivi (email/Telegram). Le release seguenti includono le tue richieste.",
+      title: "Mi mandi feedback quando vuoi",
+      desc: "Bug o idee? Scrivimi. Le release seguenti includono le richieste dei founder.",
     },
   ],
   faqTitle: "Domande frequenti",
   faqs: [
     {
-      q: "Cosa significa esattamente 'gratis per sempre'?",
-      a: "Significa che quando aprirò i pagamenti (€3,99 acquisto unico, €1,19/6 mesi), il tuo account avrà un flag founder=true e non vedrà mai un paywall. Anche le feature Pro future (es. sync iOS, family monitoring) saranno incluse senza limiti né scadenza.",
+      q: "Cosa include l'anno di Pro gratis?",
+      a: "Tutto quello che include Pro: storico illimitato (oltre i 14 giorni del piano free), Mesh Famiglia, esportazione dati completa e tutte le feature Pro che usciranno durante l'anno. Per 12 mesi dalla registrazione.",
     },
     {
-      q: "Perché ti serve la mia email Google?",
-      a: "Serve per legare il tuo account al flag founder=true nel database. Quando accedi con quell'email, l'app riconosce il tuo status e disabilita il paywall automaticamente.",
+      q: "Come so se sono tra i primi 1000?",
+      a: "Il contatore in homepage mostra i posti rimasti in tempo reale. In ogni caso lo vedi subito nell'app: se il grant è attivo, la schermata Pro mostra \"Founder · Pro fino al [data]\".",
     },
     {
-      q: "L'app Android è disponibile adesso?",
-      a: "Sì. FitMesh Sync è live su Google Play. Scaricala, registrati e il tuo account founder viene riconosciuto al primo login.",
+      q: "Cosa succede alla scadenza dell'anno?",
+      a: "Nessun addebito: non chiediamo la carta. L'account passa semplicemente al piano gratuito (ultimi 14 giorni di storico). Se vuoi continuare con Pro: €1,19 ogni 6 mesi o €3,99 acquisto unico.",
     },
     {
-      q: "E se non vengo selezionato?",
-      a: "Ti metto in lista d'attesa. Quando si libera un posto o alla notifica iOS, sei tra i primi a essere chiamato. In ogni caso al lancio pubblico iOS hai diritto a uno sconto founder.",
+      q: "E i primi 100 beta tester?",
+      a: "Chi è entrato nella closed beta mantiene il Pro a vita, come promesso. Il programma founder da 1000 posti è il passo successivo, legato al lancio pubblico.",
     },
     {
       q: "Quali wearable supporta?",
@@ -303,27 +312,28 @@ const IT = {
       a: "I tuoi dati salute sono protetti, conservati su server europei e accessibili solo a te tramite il tuo account. Non vengono mai venduti né condivisi con terzi. Dettagli completi: fitmesh.fit/it/privacy",
     },
     {
-      q: "Posso disiscrivermi?",
-      a: "Sì, in qualsiasi momento, scrivendo a privacy@fitmesh.fit. Cancelliamo l'account e tutti i dati entro 48h, come previsto dal GDPR.",
+      q: "Posso cancellare l'account?",
+      a: "Sì, in qualsiasi momento, direttamente dall'app o scrivendo a privacy@fitmesh.fit. Cancelliamo account e dati entro 48h, come previsto dal GDPR.",
     },
   ],
 };
 
 const EN = {
-  metaTitle: "FitMesh Sync Founder — 100 spots, free forever",
+  metaTitle: "FitMesh Sync Founder — 1 year of Pro free for the first 1000",
   metaDesc:
-    "Become one of 100 founders of FitMesh Sync. All features free for life, priority iOS access when it launches.",
-  kicker: "Founder · 100 spots",
+    "Download the app, create your account: the first 1000 get a full year of Pro, activated automatically. Plus priority iOS access.",
+  kicker: "Founder · 1000 seats",
   h1_a: "Become one of the first",
-  h1_b: "100 founders",
+  h1_b: "1000 founders",
   h1_c: "of FitMesh Sync",
   sub:
-    "Early access to the app, all features unlocked forever, and your name on the list of pioneers who shaped what FitMesh will become.",
+    "No selection, no waiting: download the app, create your account, and a full year of Pro activates by itself. Valid for the first 1000 registered accounts.",
+  ctaNote: "No card, no subscription: when the year ends you pay nothing.",
   perks: [
     {
       emoji: "🎁",
-      title: "Free for life",
-      desc: "No more paywall. All current and future features included, even €3.99 Pro.",
+      title: "1 year of Pro free",
+      desc: "Activates automatically at sign-up. Unlimited history, Family Mesh, every Pro feature included.",
     },
     {
       emoji: "⚡",
@@ -336,44 +346,45 @@ const EN = {
       desc: "You suggest, I listen. Founder-requested features take priority in the roadmap.",
     },
   ],
-  formTitle: "Claim a founder spot",
-  formSub: "Fill in the form below. I'll get back to you within 48h if you make the 100.",
-  nextTitle: "What happens next",
+  formTitle: "Want FitMesh on iPhone too?",
+  formSub:
+    "Leave your email and I'll ping you at iOS launch — founders get priority access to the first build.",
+  nextTitle: "How it works",
   nextSteps: [
     {
-      title: "I'll email you within 48h",
-      desc: "Confirms whether you made the 100 (or puts you on the waiting list if full).",
+      title: "Download the app from Google Play",
+      desc: "FitMesh Sync is live. No application to fill in, no approval to wait for.",
     },
     {
-      title: "Download the app on Play Store",
-      desc: "FitMesh Sync is live on Google Play. Install it, sign in — your account is recognised as founder on first login.",
+      title: "Create your account",
+      desc: "Email or Google Sign-In. If you're among the first 1000, Pro activates by itself: the Pro screen shows \"Founder · Pro until [date]\".",
     },
     {
-      title: "You install the app, sign up, unlock everything",
-      desc: "On first login the app detects you're a founder and disables paywall for life.",
+      title: "A full year of Pro, no strings",
+      desc: "No card, no auto-renewal. When it expires you choose: stay on the free plan or go Pro (€1.19/6 months).",
     },
     {
-      title: "You use the app and send feedback",
-      desc: "When you find bugs or have ideas, write me (email/Telegram). Next releases ship your requests.",
+      title: "Send feedback whenever you like",
+      desc: "Bugs or ideas? Write me. Following releases ship founder requests.",
     },
   ],
   faqTitle: "FAQ",
   faqs: [
     {
-      q: "What does 'free forever' actually mean?",
-      a: "When I open payments (€3.99 one-time, €1.19/6mo), your account gets a founder=true flag and never sees a paywall. Future Pro features (e.g. iOS sync, family monitoring) are included with no limits or expiry.",
+      q: "What does the free Pro year include?",
+      a: "Everything Pro includes: unlimited history (beyond the free plan's 14 days), Family Mesh, full data export, and every Pro feature shipped during the year. For 12 months from sign-up.",
     },
     {
-      q: "Why do you need my Google email?",
-      a: "It links your account to the founder=true flag in the database. When you sign in with that email, the app recognises your status and disables the paywall automatically.",
+      q: "How do I know if I'm in the first 1000?",
+      a: "The homepage counter shows remaining seats in real time. Either way you'll see it in the app: if the grant is active, the Pro screen shows \"Founder · Pro until [date]\".",
     },
     {
-      q: "Is the Android app available now?",
-      a: "Yes. FitMesh Sync is live on Google Play. Download it, sign up, and your founder account is recognised on first login.",
+      q: "What happens when the year ends?",
+      a: "No charge: we never ask for a card. Your account simply moves to the free plan (last 14 days of history). To keep Pro: €1.19 every 6 months or €3.99 one-time.",
     },
     {
-      q: "What if I'm not selected?",
-      a: "I put you on the waiting list. When a spot opens up or the iOS notification goes out, you're first in line. Either way you'll get a founder discount at iOS public launch.",
+      q: "What about the first 100 beta testers?",
+      a: "Closed-beta members keep Pro for life, as promised. The 1000-seat founder program is the next step, tied to the public launch.",
     },
     {
       q: "Which wearables are supported?",
@@ -384,8 +395,8 @@ const EN = {
       a: "Your health data is protected, stored on European servers, and accessible only to you via your account. Never sold or shared with third parties. Full details: fitmesh.fit/en/privacy",
     },
     {
-      q: "Can I unsubscribe?",
-      a: "Yes, anytime, by writing to privacy@fitmesh.fit. We delete the account and all data within 48h, as required by GDPR.",
+      q: "Can I delete my account?",
+      a: "Yes, anytime, directly from the app or by writing to privacy@fitmesh.fit. We delete the account and all data within 48h, as required by GDPR.",
     },
   ],
 };

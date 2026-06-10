@@ -157,7 +157,7 @@ export default async function Home({
                 href={`/${lc}/beta`}
                 className="group inline-flex items-center gap-2 px-5 py-3 rounded-pill btn-ghost text-sm"
               >
-                {lc === "it" ? "Entra in beta" : "Join the beta"}
+                {lc === "it" ? "Diventa founder" : "Become a founder"}
                 <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
               </Link>
             </div>
@@ -168,7 +168,7 @@ export default async function Home({
             <ul className="mt-10 grid grid-cols-3 max-w-md gap-6 text-left">
               <li>
                 <p className="font-display text-2xl font-semibold text-text-primary tracking-tightest">
-                  100<span className="text-brand-aqua">·</span>
+                  1000<span className="text-brand-aqua">·</span>
                 </p>
                 <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
                   {lc === "it" ? "Founder slot" : "Founder seats"}
@@ -205,7 +205,7 @@ export default async function Home({
         <TrustBadges locale={lc} />
       </section>
 
-      {/* Fascia founder dinamica: X/100 posti disponibili → /beta. */}
+      {/* Fascia founder dinamica: X/1000 posti (1 anno Pro gratis) → /beta. */}
       <FounderBanner locale={lc} />
 
       {/* ════════════════════════════════════════════════════════════════
@@ -587,7 +587,7 @@ export default async function Home({
           />
           <div className="relative">
             <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-              {lc === "it" ? "Android live · iOS in arrivo · 100 founder" : "Android live · iOS coming · 100 founders"}
+              {lc === "it" ? "Android live · iOS in arrivo · 1000 founder" : "Android live · iOS coming · 1000 founders"}
             </p>
             <h2 className="mt-4 font-display text-display-lg font-semibold tracking-tightest text-text-primary text-balance">
               {t.final_cta.heading}

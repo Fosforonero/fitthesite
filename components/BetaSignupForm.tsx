@@ -32,11 +32,11 @@ const T: Record<Locale, Record<string, string>> = {
     referralOther: "Altro",
     deviceLabel: "Smartwatch principale (opzionale)",
     deviceSelect: "Seleziona…",
-    submit: "Voglio essere founder",
+    submit: "Avvisami al lancio iOS",
     submitting: "Invio…",
     successTitle: "Sei in lista!",
     successText:
-      "Ti contattiamo via email entro 48h. Se approvato sei tra i primi 100 founder e l'app è tua gratis per sempre.",
+      "Ti scrivo appena la versione iOS è disponibile — i founder ricevono l'accesso per primi.",
     errorAlready: "Sei già registrato con questa email.",
     errorGeneric: "Qualcosa è andato storto. Riprova fra poco.",
     errorBot: "Verifica anti-bot fallita. Ricarica la pagina e riprova.",
@@ -70,11 +70,11 @@ const T: Record<Locale, Record<string, string>> = {
     referralOther: "Other",
     deviceLabel: "Main smartwatch (optional)",
     deviceSelect: "Select…",
-    submit: "I want to be a founder",
+    submit: "Notify me at iOS launch",
     submitting: "Submitting…",
     successTitle: "You're on the list!",
     successText:
-      "We'll email you within 48h. If approved you're one of the first 100 founders and the app is yours free forever.",
+      "I'll email you the moment the iOS version is available — founders get access first.",
     errorAlready: "You're already signed up with this email.",
     errorGeneric: "Something went wrong. Please try again later.",
     errorBot: "Anti-bot check failed. Reload the page and try again.",
@@ -257,17 +257,6 @@ export default function BetaSignupForm({ locale }: Props) {
 
   return (
     <form onSubmit={onSubmit} className="space-y-5" noValidate>
-      {spots && (
-        <div className="rounded-xl border border-bg-elevated bg-bg-elevated/40 px-4 py-3 text-center text-sm text-text-secondary">
-          <span className="font-mono text-accent">{spots.taken}</span>
-          <span className="mx-1 text-text-muted">/</span>
-          <span className="font-mono">{spots.total}</span>
-          <span className="ml-2">
-            {locale === "it" ? "posti founder occupati" : "founder spots taken"}
-          </span>
-        </div>
-      )}
-
       {/* Honeypot: nascosto a utenti reali (CSS + aria-hidden), bot lo riempiono */}
       <div
         aria-hidden="true"

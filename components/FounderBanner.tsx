@@ -2,52 +2,50 @@
  * FounderBanner — fascia sotto l'hero con counter live dei posti founder
  * rimasti, cliccabile per portare alla pagina /[locale]/beta.
  *
- * Server Component: fetch diretto della RPC `get_beta_spots_taken()` con
- * client Supabase anon. ISR via `revalidate` per non picchiare il DB ad
- * ogni request (numero non deve essere realtime).
+ * Programma founder (dal lancio pubblico Android): i primi 1000 account
+ * ricevono 1 anno di Pro gratis, auto-grantato alla registrazione dal
+ * trigger Supabase `on_profile_created_founder`.
  *
- * Se la fetch fallisce, renderizza fallback statico "100 posti" cliccabile.
+ * Server Component: conta i grant `note='founder-launch'` via service role
+ * (nessuna RPC anon esposta). Se la fetch fallisce, fallback statico.
  */
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
+import { createAdminClient } from "@/lib/supabase/admin";
 
-const TOTAL_SPOTS = 100;
-// v104: revalidate=0 (live fresh ad ogni request). Sito beta a basso traffico,
-// l'utente vuole vedere il counter aggiornarsi appena qualcuno si iscrive.
-// Il costo Supabase e' trascurabile (1 RPC SECURITY DEFINER lightweight).
+const TOTAL_SPOTS = 1000;
+// Live fresh ad ogni request: il counter deve muoversi appena qualcuno
+// si registra. Costo trascurabile (1 count su tabella piccola).
 export const revalidate = 0;
 
-async function fetchSpotsTaken(): Promise<number | null> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anon) return null;
+async function fetchSlotsTaken(): Promise<number | null> {
   try {
-    const sb = createClient(url, anon, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    });
-    const { data, error } = await sb.rpc("get_beta_spots_taken");
-    if (error || typeof data !== "number") return null;
-    return data;
+    const admin = createAdminClient();
+    const { count, error } = await admin
+      .from("user_roles")
+      .select("*", { count: "exact", head: true })
+      .eq("note", "founder-launch");
+    if (error || typeof count !== "number") return null;
+    return count;
   } catch {
     return null;
   }
 }
 
 export default async function FounderBanner({ locale }: { locale: string }) {
-  const taken = (await fetchSpotsTaken()) ?? 0;
+  const taken = (await fetchSlotsTaken()) ?? 0;
   const remaining = Math.max(0, TOTAL_SPOTS - taken);
   const full = remaining === 0;
 
-  // Copy adattiva: se pieno, riposiziona come "lista d'attesa".
+  // Copy adattiva: se pieno, il programma founder è chiuso.
   const headline = full
     ? locale === "it"
-      ? "Beta esaurita — entra in lista d'attesa"
-      : "Beta sold out — join the waitlist"
+      ? "Founder al completo — scarica l'app su Play Store"
+      : "Founder program full — get the app on Play Store"
     : locale === "it"
-      ? `Restano ${remaining} dei ${TOTAL_SPOTS} posti founder · gratis per sempre`
-      : `${remaining} of ${TOTAL_SPOTS} founder seats left · free forever`;
+      ? `Restano ${remaining} dei ${TOTAL_SPOTS} posti founder · 1 anno di Pro gratis`
+      : `${remaining} of ${TOTAL_SPOTS} founder seats left · 1 year of Pro free`;
 
-  const cta = locale === "it" ? "Richiedi il tuo posto" : "Claim your seat";
+  const cta = locale === "it" ? "Diventa founder" : "Become a founder";
 
   return (
     <Link
@@ -70,7 +68,7 @@ export default async function FounderBanner({ locale }: { locale: string }) {
           <span className="font-mono text-text-secondary">{TOTAL_SPOTS}</span>
           <span className="ml-2 hidden sm:inline">{headline}</span>
           <span className="ml-2 sm:hidden">
-            {locale === "it" ? "posti founder gratis" : "free founder spots"}
+            {locale === "it" ? "founder · 1 anno Pro gratis" : "founders · 1 year Pro free"}
           </span>
         </span>
         <span className="hidden md:inline-flex items-center gap-1 text-brand-aqua font-semibold transition-transform group-hover:translate-x-1">
