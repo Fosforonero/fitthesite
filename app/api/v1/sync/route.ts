@@ -77,6 +77,7 @@ const payloadSchema = z.object({
   // Health Connect emette HRV come float (es. 45.3 ms) ma la colonna DB è
   // integer. Accetto float, arrotondo prima dell'insert. Stesso per floors.
   hrvRmssd: z.number().nullish(),
+  stressAvg: z.number().nullish(),
   vo2Max: z.number().nullish(),
   floorsClimbed: z.number().nullish(),
   elevationGainedMeters: z.number().nullish(),
@@ -211,6 +212,7 @@ export async function POST(req: Request) {
       sleep_end_ms: p.sleepEndMillis ?? null,
       distance_meters: p.distanceMeters ?? null,
       hrv_rmssd: p.hrvRmssd == null ? null : Math.round(p.hrvRmssd),
+      stress_avg: p.stressAvg == null ? null : Math.round(p.stressAvg),
       vo2_max: p.vo2Max ?? null,
       floors_climbed:
         p.floorsClimbed == null ? null : Math.round(p.floorsClimbed),
