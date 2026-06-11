@@ -15,7 +15,8 @@ export type ProviderStatus =
   | "live-basic" // Funziona oggi via Health Connect al livello base, OAuth ufficiale in arrivo per dati avanzati
   | "beta" // Implementato ma in test
   | "roadmap-q3" // Pianificato Q3 2026 (NO path HC, serve OAuth)
-  | "roadmap-q4"; // Pianificato Q4 2026 (NO path HC, serve OAuth)
+  | "roadmap-q4" // Pianificato Q4 2026 (NO path HC, serve OAuth)
+  | "coming-soon"; // In arrivo (data TBD — es. BLE diretto, feature sperimentali)
 
 export type ProviderCategory =
   | "smartwatch"
@@ -1809,6 +1810,109 @@ export const PROVIDERS: Provider[] = [
       },
     },
   },
+
+  // ── Anelli smart BLE diretto (in arrivo) ────────────────────────────────
+  {
+    slug: "colmi-ring",
+    name: "Colmi Ring",
+    vendor: "Colmi",
+    category: "wearable",
+    status: "coming-soon",
+    brandColor: "#7CFF5B",
+    initial: "C",
+    tagline: {
+      it: "Colmi R02/R03 e anelli compatibili: dati direttamente in FitMesh via Bluetooth, senza app companion.",
+      en: "Colmi R02/R03 and compatible rings: data straight into FitMesh via Bluetooth, no companion app needed.",
+    },
+    longDesc: {
+      it: "FitMesh Sync sta per supportare gli anelli smart Colmi R02 e R03 (e i cloni OEM con lo stesso protocollo BLE) tramite connessione Bluetooth diretta. L'app legge l'anello senza bisogno dell'app companion del produttore: passi, distanza, calorie, battito cardiaco (log giornaliero + FC a riposo), SpO2, HRV, stress e batteria entrano direttamente nella tua dashboard multi-device. Il dato notturno dell'anello si fonde con quello diurno dello smartwatch senza doppi conteggi.",
+      en: "FitMesh Sync is about to support Colmi R02 and R03 smart rings (and OEM clones sharing the same BLE protocol) via direct Bluetooth connection. The app reads the ring without needing the manufacturer's companion app: steps, distance, calories, heart rate (daily log + resting HR), SpO2, HRV, stress and battery feed directly into your multi-device dashboard. Nightly ring data merges with daytime smartwatch data — no double counting.",
+    },
+    techNote: {
+      it: "Lettura BLE diretta (no Health Connect, no app OEM). FitMesh si connette all'anello come dispositivo Bluetooth, scarica i dati grezzi e li integra nella dashboard multi-sorgente (fusione anello+smartwatch: l'anello copre la notte e le metriche che lo smartwatch non ha). In arrivo: sonno con fasi.",
+      en: "Direct BLE read (no Health Connect, no OEM app). FitMesh connects to the ring as a Bluetooth device, downloads raw data and merges it into the multi-source dashboard (ring+smartwatch fusion: the ring covers nighttime and metrics the smartwatch lacks). Coming soon: sleep staging.",
+    },
+    dataTypes: [
+      { key: "steps", label: { it: "Passi", en: "Steps" }, supported: true },
+      { key: "hr", label: { it: "Frequenza cardiaca", en: "Heart rate" }, supported: true },
+      { key: "sleep", label: { it: "Sonno con fasi", en: "Sleep with stages" }, supported: false },
+      { key: "calories", label: { it: "Calorie", en: "Calories" }, supported: true },
+      { key: "distance", label: { it: "Distanza", en: "Distance" }, supported: true },
+      { key: "workouts", label: { it: "Allenamenti", en: "Workouts" }, supported: false },
+      { key: "spo2", label: { it: "SpO₂", en: "SpO₂" }, supported: true },
+      { key: "hrv", label: { it: "HRV", en: "HRV" }, supported: true },
+      { key: "stress", label: { it: "Stress", en: "Stress" }, supported: true },
+    ],
+    faqs: [
+      {
+        q: {
+          it: "Funziona anche con il Colmi R03 e i cloni OEM?",
+          en: "Does it work with the Colmi R03 and OEM clones too?",
+        },
+        a: {
+          it: "Sì. FitMesh usa il protocollo BLE condiviso da Colmi R02, R03 e diversi anelli OEM che usano lo stesso firmware. Se il tuo anello usa l'app QRing o un'app companion identica per interfaccia, è probabile che sia compatibile.",
+          en: "Yes. FitMesh uses the BLE protocol shared by the Colmi R02, R03 and several OEM rings that run the same firmware. If your ring uses the QRing app or a companion app identical in interface, it's likely compatible.",
+        },
+      },
+      {
+        q: {
+          it: "Devo tenere installata l'app del produttore?",
+          en: "Do I need to keep the manufacturer's app installed?",
+        },
+        a: {
+          it: "No. FitMesh Sync si connette all'anello via Bluetooth diretto e scarica i dati autonomamente. L'app companion del produttore non è richiesta e puoi disinstallarla se preferisci.",
+          en: "No. FitMesh Sync connects directly to the ring over Bluetooth and downloads data on its own. The manufacturer's companion app is not required and you can uninstall it if you prefer.",
+        },
+      },
+      {
+        q: {
+          it: "Quanto dura la batteria dell'anello con FitMesh?",
+          en: "How does FitMesh affect the ring's battery life?",
+        },
+        a: {
+          it: "FitMesh scarica i dati in batch quando l'anello è nelle vicinanze, senza mantenere una connessione BLE continua. L'impatto sulla batteria dell'anello è minimo (il Colmi R02 arriva tipicamente a 5–7 giorni di autonomia).",
+          en: "FitMesh downloads data in batches when the ring is nearby, without maintaining a continuous BLE connection. The impact on ring battery life is minimal (the Colmi R02 typically achieves 5–7 days of battery life).",
+        },
+      },
+      {
+        q: {
+          it: "Quanto sono precisi i dati di battito e SpO₂?",
+          en: "How accurate are the heart rate and SpO₂ readings?",
+        },
+        a: {
+          it: "Gli anelli Colmi R02/R03 stimano battito e SpO₂ tramite sensori PPG ottici. I dati sono informativi: utili per monitorare trend giornalieri e notturni, ma non sostituiscono dispositivi medici certificati. Per uso clinico consultare sempre un medico.",
+          en: "Colmi R02/R03 rings estimate heart rate and SpO₂ via optical PPG sensors. The data is informational: useful for tracking daily and nightly trends, but not a replacement for certified medical devices. Always consult a healthcare professional for clinical use.",
+        },
+      },
+      {
+        q: {
+          it: "I miei dati restano privati?",
+          en: "Is my data private?",
+        },
+        a: {
+          it: "Sì. I dati dell'anello vengono letti via Bluetooth direttamente dal telefono e inviati solo al backend Supabase del tuo account FitMesh (server in EU). Non passano dai server del produttore dell'anello.",
+          en: "Yes. Ring data is read via Bluetooth directly by the phone and sent only to your FitMesh account's Supabase backend (EU servers). It does not pass through the ring manufacturer's servers.",
+        },
+      },
+    ],
+    seoKeywords: {
+      it: [
+        "colmi r02 app",
+        "colmi r02 dati dashboard",
+        "anello smart economico app",
+        "colmi r02 italiano",
+        "colmi ring fitmesh",
+      ],
+      en: [
+        "colmi r02 app alternative",
+        "colmi r02 export data",
+        "colmi ring sync",
+        "budget smart ring dashboard",
+        "colmi ring fitmesh",
+      ],
+    },
+    relatedBlogSlugs: ["colmi-ring-fitmesh"],
+  },
 ];
 
 export const PROVIDERS_BY_SLUG: Record<string, Provider> = Object.fromEntries(
@@ -1831,6 +1935,7 @@ export function statusLabel(
     beta: { it: "Beta", en: "Beta", color: "#FFB547" },
     "roadmap-q3": { it: "In arrivo Q3 2026", en: "Coming Q3 2026", color: "#38BDF8" },
     "roadmap-q4": { it: "In arrivo Q4 2026", en: "Coming Q4 2026", color: "#A78BFA" },
+    "coming-soon": { it: "In arrivo", en: "Coming soon", color: "#7CFF5B" },
   };
   const entry = map[status];
   return { text: entry[lc], color: entry.color };
