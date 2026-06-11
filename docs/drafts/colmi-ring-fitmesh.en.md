@@ -107,3 +107,11 @@ FitMesh Sync is in private beta. The first 1,000 users get 1 year of Pro for fre
 - Multi-device fusion (ring overnight, smartwatch during the day) eliminates double counting and unifies everything in one dashboard.
 - Data goes to your FitMesh account in the EU, not to the ring manufacturer's servers.
 - Feature not released yet: sign up for the [beta](/beta) to get access at launch.
+
+<!-- TODO publish: aggiungere sezione "Batteria e notifiche" — FitMesh mostra
+il livello batteria dell'anello con indicatore colorato (verde >50%, giallo
+20-49%, rosso <20%) e una stima di autonomia calcolata sul consumo reale.
+Notifiche automatiche: carica completa (100%), batteria al 50% e al 25%.
+Stress: l'anello stima il livello di stress (0-100) — metrica che gli
+smartwatch via Health Connect non forniscono. EN: battery color indicator,
+real drain-based ETA, charge/50%/25% notifications, stress estimate. -->

@@ -119,3 +119,11 @@ I dati raccolt prima che la batteria si esaurisca vengono salvati nella memoria 
 ---
 
 FitMesh Sync è in beta privata. I primi 1000 utenti ottengono 1 anno di Pro gratis. Iscriviti alla beta su [fitmesh.fit/beta](/beta).
+
+<!-- TODO publish: aggiungere sezione "Batteria e notifiche" — FitMesh mostra
+il livello batteria dell'anello con indicatore colorato (verde >50%, giallo
+20-49%, rosso <20%) e una stima di autonomia calcolata sul consumo reale.
+Notifiche automatiche: carica completa (100%), batteria al 50% e al 25%.
+Stress: l'anello stima il livello di stress (0-100) — metrica che gli
+smartwatch via Health Connect non forniscono. EN: battery color indicator,
+real drain-based ETA, charge/50%/25% notifications, stress estimate. -->
