@@ -37,6 +37,8 @@ import { post as fitbitDataNotSyncingAndroid } from "./posts/fitbit-data-not-syn
 import { post as bestHealthDataSyncAppAndroid } from "./posts/best-health-data-sync-app-android";
 // Batch 5
 import { post as piuSmartwatchInsiemeDatiDoppi } from "./posts/piu-smartwatch-insieme-dati-doppi";
+// Pillar Colmi
+import { post as colmiRingFitmesh } from "./posts/colmi-ring-fitmesh";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -64,6 +66,8 @@ const RAW_POSTS: BlogPost[] = [
   bestHealthDataSyncAppAndroid,
   // Batch 5
   piuSmartwatchInsiemeDatiDoppi,
+  // Pillar Colmi
+  colmiRingFitmesh,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
