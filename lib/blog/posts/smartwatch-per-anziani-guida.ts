@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-23",
   updatedAt: "2026-05-23",
   readMinutes: 10,
+  tldr: {
+    it: [
+      "Il fattore decisivo non è la lista funzioni: è che il dispositivo venga indossato ogni giorno. Usabilità e batteria lunga battono qualsiasi feature avanzata.",
+      "L'LTE non è opzionale se l'anziano si muove in autonomia senza portare sempre il telefono con sé.",
+      "Il rilevamento cadute funziona bene per le cadute classiche, peggio per quelle lente o in acqua: abbinalo a un bottone fisso in bagno.",
+      "Gli ECG integrati (Apple Watch Series 9, Galaxy Watch 7) sono strumenti di screening della fibrillazione atriale, non dispositivi medici certificati.",
+      "L'adozione conta quanto la scelta: presentalo come device che aiuta l'anziano, parti da ora e passi, aggiungi funzioni gradualmente.",
+    ],
+    en: [
+      "The decisive factor is not the feature list: it is that the device gets worn every day. Usability and long battery beat any advanced feature.",
+      "LTE is not optional if the elderly person moves around independently without always carrying their phone.",
+      "Fall detection works well for classic falls, worse for slow falls or in water: pair it with a fixed bathroom button.",
+      "Built-in ECGs (Apple Watch Series 9, Galaxy Watch 7) are atrial fibrillation screening tools, not certified medical devices.",
+      "Adoption matters as much as the choice: present it as a device that helps them, start with time and steps, add features gradually.",
+    ],
+  },
   primaryKeyword: {
     it: "smartwatch per anziani",
     en: "smartwatch for elderly",

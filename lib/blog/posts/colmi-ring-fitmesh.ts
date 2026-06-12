@@ -12,6 +12,22 @@ export const post: BlogPost = {
   updatedAt: "2026-06-12",
   pillar: true,
   readMinutes: 12,
+  tldr: {
+    it: [
+      "Colmi R02/R03 e cloni OEM si collegano a FitMesh via Bluetooth diretto: nessuna app del produttore necessaria.",
+      "Metriche lette: passi, distanza, calorie, battito, FC a riposo, SpO2, HRV, stress (0-100) e sonno con fasi.",
+      "L'anello è specialista del sonno: di notte prevale, di giorno vince lo smartwatch — la fusione multi-device elimina i doppi conteggi.",
+      "Batteria con indicatore colorato, stima autonomia reale e notifiche a 100%/50%/25%.",
+      "I dati restano sul tuo account FitMesh in EU, non sui server del produttore.",
+    ],
+    en: [
+      "Colmi R02/R03 and OEM clones connect to FitMesh over direct Bluetooth — no manufacturer app required.",
+      "Metrics read: steps, distance, calories, heart rate, resting HR, SpO2, HRV, stress (0-100) and sleep with stages.",
+      "The ring is the sleep specialist: it wins overnight, the smartwatch wins during the day — multi-device fusion removes double counting.",
+      "Color-coded battery indicator, real runtime estimate and notifications at 100%/50%/25%.",
+      "Data stays on your FitMesh account in the EU, not on the manufacturer's servers.",
+    ],
+  },
   primaryKeyword: {
     it: "colmi r02 app dati dashboard",
     en: "colmi r02 app data dashboard",
@@ -67,8 +83,8 @@ export const post: BlogPost = {
         en: "TL;DR",
       },
       body: {
-        it: "Colmi R02/R03 e cloni OEM compatibili si collegano a FitMesh Sync via Bluetooth diretto. Nessuna app companion richiesta. Metriche disponibili: passi, distanza, calorie, battito, FC a riposo, SpO2, HRV, stress (0-100), batteria con indicatore colorato. Sonno con fasi in arrivo a breve. La fusione multi-device elimina i doppi conteggi tra anello notturno e smartwatch diurno.",
-        en: "Colmi R02/R03 and compatible OEM clones connect to FitMesh Sync via direct Bluetooth. No companion app required. Available metrics: steps, distance, calories, heart rate, resting HR, SpO2, HRV, stress (0-100), color-coded battery indicator. Sleep staging coming soon. Multi-device fusion eliminates double counting between nighttime ring and daytime smartwatch.",
+        it: "Colmi R02/R03 e cloni OEM compatibili si collegano a FitMesh Sync via Bluetooth diretto. Nessuna app companion richiesta. Metriche disponibili: passi, distanza, calorie, battito, FC a riposo, SpO2, HRV, stress (0-100), sonno con fasi (leggero, profondo, REM, veglia), batteria con indicatore colorato. La fusione multi-device elimina i doppi conteggi tra anello notturno e smartwatch diurno.",
+        en: "Colmi R02/R03 and compatible OEM clones connect to FitMesh Sync via direct Bluetooth. No companion app required. Available metrics: steps, distance, calories, heart rate, resting HR, SpO2, HRV, stress (0-100), sleep with stages (light, deep, REM, awake), color-coded battery indicator. Multi-device fusion eliminates double counting between nighttime ring and daytime smartwatch.",
       },
     },
     {
@@ -161,8 +177,16 @@ export const post: BlogPost = {
           ],
         },
         {
-          it: ["Sonno con fasi", "In arrivo a breve", "Prossimo aggiornamento"],
-          en: ["Sleep with stages", "Coming soon", "Next update"],
+          it: [
+            "Sonno con fasi",
+            "Sì",
+            "Leggero, profondo, REM e veglia — l'anello è specialista del sonno e prevale di notte",
+          ],
+          en: [
+            "Sleep with stages",
+            "Yes",
+            "Light, deep, REM and awake — the ring is the sleep specialist and wins overnight",
+          ],
         },
       ],
     },
@@ -355,8 +379,8 @@ export const post: BlogPost = {
       type: "list",
       items: {
         it: [
-          "Il Colmi R02/R03 e i cloni OEM compatibili si collegheranno a FitMesh Sync via Bluetooth diretto, senza app del produttore.",
-          "Metriche lette: passi, distanza, calorie, battito, FC a riposo, SpO2, HRV, stress (0-100), batteria. Sonno con fasi in arrivo a breve.",
+          "Il Colmi R02/R03 e i cloni OEM compatibili si collegano a FitMesh Sync via Bluetooth diretto, senza app del produttore.",
+          "Metriche lette: passi, distanza, calorie, battito, FC a riposo, SpO2, HRV, stress (0-100), sonno con fasi (leggero, profondo, REM, veglia), batteria.",
           "L'indicatore batteria è colorato (verde >50%, giallo 20-49%, rosso <20%) con stima di autonomia sul consumo reale e notifiche a carica completa, 50% e 25%.",
           "Lo stress 0-100 è una metrica esclusiva dell'anello che gli smartwatch non espongono via Health Connect.",
           "La fusione multi-device (anello di notte, smartwatch di giorno) elimina i doppi conteggi e unifica tutto in una dashboard.",

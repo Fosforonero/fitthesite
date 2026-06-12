@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-30",
   updatedAt: "2026-05-30",
   readMinutes: 8,
+  tldr: {
+    it: [
+      "Il 90% dei problemi si risolve con tre azioni: controllare i permessi in Health Connect, disabilitare l'ottimizzazione batteria per le app coinvolte, forzare l'apertura dell'app sorgente.",
+      "L'ottimizzazione batteria è la causa numero uno (circa 60% dei casi): blocca il sync in background, non è un bug di Health Connect.",
+      "Su Samsung, il fix specifico è disconnettere e riconnettere la pipeline Samsung Health → Health Connect dalle impostazioni.",
+      "Svuotare la cache di Health Connect non cancella i dati: è sicuro e risolve spesso gli errori di stato corrotto.",
+      "I dati non sincronizzati si accumulano localmente: una volta risolto il problema, il backfill avviene automaticamente.",
+    ],
+    en: [
+      "90% of problems are solved by three actions: check permissions in Health Connect, disable battery optimization for the apps involved, force-open the source app.",
+      "Battery optimization is the number one cause (about 60% of cases): it blocks background sync, it's not a Health Connect bug.",
+      "On Samsung, the specific fix is disconnecting and reconnecting the Samsung Health → Health Connect pipeline from settings.",
+      "Clearing the Health Connect cache does not delete your data: it's safe and often fixes corrupted state errors.",
+      "Unsynced data accumulates locally: once the problem is resolved, backfill happens automatically.",
+    ],
+  },
   primaryKeyword: {
     it: "health connect non si sincronizza",
     en: "health connect not syncing",

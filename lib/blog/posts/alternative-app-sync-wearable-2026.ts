@@ -6,6 +6,20 @@ export const post: BlogPost = {
   publishedAt: "2026-05-21",
   updatedAt: "2026-05-26",
   readMinutes: 9,
+  tldr: {
+    it: [
+      "Health Connect, integrato in Android, copre circa il 90% degli scenari di sync tra app: gratis e senza abbonamenti.",
+      "Le integrazioni native dei produttori (Garmin, Polar, Suunto verso Strava) sono gratuite e affidabili per il sync cloud-to-cloud comune.",
+      "Le bridge app cloud-to-cloud restano utili per i sync esotici non coperti dalle integrazioni native.",
+      "Per una dashboard unificata cross-source servono strumenti dedicati come FitMesh Sync (pagamento una tantum, no ads), Welltory o Heads Up Health.",
+    ],
+    en: [
+      "Health Connect, built into Android, covers about 90% of app-to-app sync scenarios: free and subscription-free.",
+      "Native manufacturer integrations (Garmin, Polar, Suunto to Strava) are free and reliable for common cloud-to-cloud sync.",
+      "Cloud-to-cloud bridge apps remain useful for exotic syncs not covered by native integrations.",
+      "For a unified cross-source dashboard you need dedicated tools like FitMesh Sync (one-time payment, no ads), Welltory or Heads Up Health.",
+    ],
+  },
   primaryKeyword: {
     it: "alternative app sync wearable",
     en: "wearable sync apps alternatives",

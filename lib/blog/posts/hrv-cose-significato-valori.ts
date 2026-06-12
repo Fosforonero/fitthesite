@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-22",
   updatedAt: "2026-05-22",
   readMinutes: 10,
+  tldr: {
+    it: [
+      "La HRV misura la variazione negli intervalli tra battiti (millisecondi), non la frequenza media: una variabilità alta indica un sistema nervoso autonomo in equilibrio, non un problema cardiaco.",
+      "Il valore assoluto conta poco: un atleta di 40 anni può avere 85 ms e un sedentario 35 ms, entrambi normali per chi sono. Il dato utile è il tuo trend personale su 2-4 settimane.",
+      "La misura più affidabile è quella notturna, quando il movimento non disturba il sensore PPG.",
+      "I valori di Garmin, Oura, Samsung e Polar non sono direttamente comparabili: usano algoritmi diversi. Scegli un dispositivo di riferimento e non mischiare i numeri.",
+      "Per migliorare la HRV nel tempo: sonno regolare, attività aerobica moderata, riduzione dell'alcol. Non esistono hack rapidi: i cambiamenti richiedono settimane.",
+    ],
+    en: [
+      "HRV measures variation in beat intervals (milliseconds), not average heart rate: high variability indicates a balanced autonomic nervous system, not a cardiac problem.",
+      "The absolute value matters little: a 40-year-old athlete may have 85 ms and a sedentary person 35 ms, both normal for who they are. The useful data is your personal trend over 2-4 weeks.",
+      "The most reliable measurement is overnight, when movement doesn't disturb the PPG sensor.",
+      "Garmin, Oura, Samsung and Polar values are not directly comparable: they use different algorithms. Pick one reference device and don't mix numbers.",
+      "To improve HRV over time: regular sleep, moderate aerobic activity, alcohol reduction. There are no quick hacks: changes take weeks.",
+    ],
+  },
   primaryKeyword: {
     it: "cos'è la HRV",
     en: "what is HRV",

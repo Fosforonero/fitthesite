@@ -102,6 +102,12 @@ export interface BlogPost {
   secondaryKeywords: { it: string[]; en: string[] };
   /** Tempo lettura stimato in minuti (calcolato a mano, no auto). */
   readMinutes: number;
+  /**
+   * TL;DR: 3-5 bullet che riassumono l'articolo, mostrati in un box in cima
+   * (subito dopo l'header), stile blog Claude. Dà il "succo" in 10 secondi.
+   * Opzionale per retrocompatibilità; il box si mostra solo se presente.
+   */
+  tldr?: LocalizedList;
   /** Sezioni in ordine sequenziale. Render top-to-bottom. */
   body: BlogSection[];
   /** FAQ section (renderizzata come <details>) + JSON-LD FAQPage. */

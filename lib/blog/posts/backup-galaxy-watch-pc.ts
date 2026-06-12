@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-21",
   updatedAt: "2026-05-21",
   readMinutes: 9,
+  tldr: {
+    it: [
+      "L'export interno di Samsung Health (Impostazioni → Scarica dati personali) è il metodo più completo e gratuito: genera un pacchetto CSV con tutta la storia.",
+      "Health Connect collegato a un'app terza è l'unica via con automazione reale, ma copre solo i tipi di dato che Samsung Health scrive su HC.",
+      "La richiesta GDPR è più ampia dell'export interno (include metadati e log), ma richiede fino a 30 giorni: utile per l'archivio pre-chiusura account.",
+      "ADB è per utenti tecnici: accesso diretto al database SQLite, massima completezza, alto rischio se non si sa cosa si fa.",
+      "I dati proprietari Samsung (Body Composition, Stress Score continuo) non passano per Health Connect: per quelli serve sempre l'export manuale.",
+    ],
+    en: [
+      "Samsung Health's internal export (Settings → Download personal data) is the most complete and free method: it generates a CSV package with your entire history.",
+      "Health Connect linked to a third-party app is the only path with real automation, but covers only the data types Samsung Health writes to HC.",
+      "The GDPR request is broader than the internal export (includes metadata and logs), but takes up to 30 days: useful for an archive before closing the account.",
+      "ADB is for technical users: direct access to the SQLite database, maximum completeness, high risk if you don't know what you're doing.",
+      "Samsung-proprietary data (Body Composition, continuous Stress Score) doesn't pass through Health Connect: manual export is always needed for those.",
+    ],
+  },
   primaryKeyword: {
     it: "backup galaxy watch pc",
     en: "galaxy watch backup pc",

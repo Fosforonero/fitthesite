@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-21",
   updatedAt: "2026-05-21",
   readMinutes: 8,
+  tldr: {
+    it: [
+      "Dopo la migrazione del 2023, i dati Fitbit vivono su Google: l'export si fa via Google Takeout (takeout.google.com), non più da Fitbit.com.",
+      "Google Takeout è il metodo più completo: include tutta la storia in JSON/CSV, dalle attività al sonno agli HR a cadenza per minuto.",
+      "Health Connect è il metodo per il flusso continuo: dall'app Fitbit a HC, qualsiasi app Android con permessi HC può leggere i dati.",
+      "Limite HC per Fitbit: le fasi del sonno (REM/Deep/Light) non sono esposte in modo granulare; GPS e VO₂ max richiedono la Fitbit Web API.",
+      "Prima di chiudere l'account: esporta via Takeout, poi richiedi la cancellazione GDPR. Mai nell'ordine inverso.",
+    ],
+    en: [
+      "After the 2023 migration, Fitbit data lives on Google: export goes via Google Takeout (takeout.google.com), no longer from Fitbit.com.",
+      "Google Takeout is the most complete method: it includes the full history in JSON/CSV, from activities to sleep to per-minute HR.",
+      "Health Connect is the method for continuous flow: from the Fitbit app to HC, any Android app with HC permissions can read the data.",
+      "HC limit for Fitbit: sleep phases (REM/Deep/Light) are not exposed granularly; GPS and VO₂ max require the Fitbit Web API.",
+      "Before closing the account: export via Takeout, then request GDPR deletion. Never in the reverse order.",
+    ],
+  },
   primaryKeyword: {
     it: "esportare dati fitbit dopo google",
     en: "export fitbit data after google",

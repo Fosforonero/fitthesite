@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-22",
   updatedAt: "2026-05-22",
   readMinutes: 8,
+  tldr: {
+    it: [
+      "La catena di sync ha cinque passaggi: Watch→Bluetooth→Samsung Health→Health Connect→app terza. Il problema si trova quasi sempre al secondo o quarto.",
+      "Causa numero uno: l'ottimizzazione batteria Android sospende Samsung Health in background. Disabilitala per Samsung Health e Galaxy Wearable.",
+      "Su One UI controlla anche 'Avvio app' e abilita manualmente avvio automatico e in background.",
+      "I dati storici non si sincronizzano retroattivamente su Health Connect: il passato resta in Samsung Health.",
+      "Se tutto fallisce, 'Cancella cache' (non i dati) di Samsung Health e riavvia.",
+    ],
+    en: [
+      "The sync chain has five steps: Watch→Bluetooth→Samsung Health→Health Connect→third-party app. The break is almost always at the second or fourth.",
+      "Cause number one: Android battery optimization suspends Samsung Health in background. Disable it for Samsung Health and Galaxy Wearable.",
+      "On One UI, also check 'App launch' and manually enable auto-launch and background launch.",
+      "Historical data does not sync retroactively to Health Connect: the past stays in Samsung Health.",
+      "If everything fails, 'Clear cache' (not data) on Samsung Health and restart.",
+    ],
+  },
   primaryKeyword: {
     it: "passi non si sincronizzano galaxy watch",
     en: "steps not syncing galaxy watch",

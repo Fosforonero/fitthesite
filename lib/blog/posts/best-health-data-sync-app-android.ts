@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-06-08",
   updatedAt: "2026-06-08",
   readMinutes: 8,
+  tldr: {
+    it: [
+      "Health Connect è il layer di dati standard su Android: la migliore app di sync è quella che lo legge nativamente.",
+      "I problemi più comuni non sono funzionalità mancanti, ma dati duplicati e sync che si rompono dopo un aggiornamento Android o del wearable.",
+      "Prima verifica: controlla se l'app appare nella lista permessi di Health Connect. Se non c'è, non installarla.",
+      "App che richiedono Bluetooth sempre attivo o che leggono via scraping sono fragili per costruzione.",
+      "Per utenti UE, verificare dove vengono processati i dati non è opzionale: i dati salute sono dati sensibili ai sensi del GDPR.",
+    ],
+    en: [
+      "Health Connect is the standard data layer on Android: the best sync app is one that reads from it natively.",
+      "The most common problems aren't missing features, but duplicate data and syncs that break after an Android or wearable update.",
+      "First check: see if the app appears in Health Connect's permissions list. If it's not there, don't install it.",
+      "Apps that require always-on Bluetooth or read via scraping are fragile by construction.",
+      "For EU users, verifying where data is processed is not optional: health data is sensitive data under GDPR.",
+    ],
+  },
   primaryKeyword: {
     it: "migliore app sincronizzazione salute android",
     en: "best health data sync app android",

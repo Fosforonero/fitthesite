@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-22",
   updatedAt: "2026-05-22",
   readMinutes: 9,
+  tldr: {
+    it: [
+      "Health Connect è un database locale on-device: i dati non escono verso Google per via di HC stesso. La privacy dipende dalle app che leggono da HC.",
+      "Il flusso tipico è: sensori Watch → app companion (Samsung Health, Fitbit) → Health Connect → app terze. Ogni step richiede permessi espliciti.",
+      "Garmin non scrive su Health Connect in modo nativo: le app che vogliono dati Garmin devono integrarsi con la Garmin Connect API separatamente.",
+      "Health Connect non sincronizza retroattivamente: i dati precedenti all'autorizzazione restano solo nell'app companion originale.",
+      "Il problema di sync più comune non è un bug hardware: è un permesso mancante in Health Connect. Verifica lì per primo.",
+    ],
+    en: [
+      "Health Connect is a local on-device database: data doesn't leave to Google via HC itself. Privacy depends on the apps reading from HC.",
+      "The typical flow is: Watch sensors → companion app (Samsung Health, Fitbit) → Health Connect → third-party apps. Each step requires explicit permissions.",
+      "Garmin doesn't write to Health Connect natively: apps wanting Garmin data must integrate with the Garmin Connect API separately.",
+      "Health Connect doesn't sync retroactively: data predating the authorization stays only in the original companion app.",
+      "The most common sync problem isn't a hardware bug: it's a missing permission in Health Connect. Check there first.",
+    ],
+  },
   primaryKeyword: {
     it: "come funziona health connect",
     en: "how does health connect work",

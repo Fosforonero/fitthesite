@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-23",
   updatedAt: "2026-05-23",
   readMinutes: 9,
+  tldr: {
+    it: [
+      "L'export di singole attività richiede il sito web connect.garmin.com: l'app mobile Garmin Connect non esporta file in nessun formato.",
+      "Per il backup completo scegli il formato FIT originale: contiene tutti i dati proprietari Garmin che GPX e TCX non preservano.",
+      "L'export massivo (Impostazioni Account → Esporta i tuoi dati) scarica tutta la storia in un archivio ZIP, tipicamente entro 24-48 ore.",
+      "Garmin non scrive dati di allenamento completi su Health Connect: per le attività GPS serve l'integrazione diretta con la Garmin Connect API.",
+      "Prima di cancellare l'account Garmin, esegui sempre un export massivo: i dati vengono eliminati definitivamente alla chiusura.",
+    ],
+    en: [
+      "Single activity export requires the connect.garmin.com website: the Garmin Connect mobile app exports no files in any format.",
+      "For a complete backup choose the original FIT format: it contains all Garmin proprietary data that GPX and TCX do not preserve.",
+      "Bulk export (Account Settings → Export Your Data) downloads the full history in a ZIP archive, typically within 24-48 hours.",
+      "Garmin does not write complete workout data to Health Connect: for GPS activities you need direct Garmin Connect API integration.",
+      "Before deleting your Garmin account, always run a bulk export first: data is permanently deleted upon account closure.",
+    ],
+  },
   primaryKeyword: {
     it: "esportare dati garmin",
     en: "export garmin data",

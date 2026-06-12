@@ -13,6 +13,22 @@ export const post: BlogPost = {
   updatedAt: "2026-06-10",
   pillar: true,
   readMinutes: 16,
+  tldr: {
+    it: [
+      "Health Connect non deduplica: è un database neutro per sorgente e ogni app scrive in modo indipendente. La logica di dedup deve stare nell'app che aggrega.",
+      "I tre problemi tipici: passi duplicati da record cumulativi sovrapposti, sessioni di sonno duplicate, frequenza cardiaca media inquinata da contesti diversi.",
+      "La strategia corretta combina tre tecniche: winner-takes-all per finestra temporale (HR), slot-merge a 15 minuti (passi), clustering con priorità sorgente (sonno).",
+      "Due cose richiedono configurazione manuale: quale dispositivo indossi di notte e disabilitare Google Fit come sorgente di scrittura se ancora attivo.",
+      "FitMesh Sync applica questa deduplicazione in automatico e separa sempre HR a riposo da HR di allenamento.",
+    ],
+    en: [
+      "Health Connect does not deduplicate: it is a source-neutral database and each app writes independently. Dedup logic must live in the aggregating app.",
+      "Three typical problems: duplicate steps from overlapping cumulative records, duplicate sleep sessions, average heart rate contaminated by different contexts.",
+      "The correct strategy combines three techniques: winner-takes-all by time window (HR), 15-minute slot-merge (steps), clustering with source priority (sleep).",
+      "Two things require manual configuration: which device you wear at night and disabling Google Fit as a write source if still active.",
+      "FitMesh Sync applies this deduplication automatically and always separates resting HR from workout HR.",
+    ],
+  },
   primaryKeyword: {
     it: "più smartwatch insieme dati doppi deduplicazione",
     en: "multiple smartwatches duplicate data deduplication",

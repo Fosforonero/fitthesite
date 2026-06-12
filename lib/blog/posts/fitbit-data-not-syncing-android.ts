@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-06-08",
   updatedAt: "2026-06-08",
   readMinutes: 7,
+  tldr: {
+    it: [
+      "Nel 95% dei casi il problema non è Fitbit ma un permesso mancante in Health Connect.",
+      "Fitbit scrive su Health Connect solo se abiliti la scrittura manualmente nelle sue impostazioni.",
+      "L'app di destinazione ha bisogno di un permesso di lettura separato e indipendente da quello di Fitbit.",
+      "Health Connect non sincronizza i dati storici: solo dal momento dell'autorizzazione in avanti.",
+      "Alcuni Fitbit di vecchia generazione scrivono su Google Fit, non su Health Connect: aggiorna il firmware o verifica la compatibilità.",
+    ],
+    en: [
+      "In 95% of cases the problem isn't Fitbit but a missing permission in Health Connect.",
+      "Fitbit writes to Health Connect only if you enable writing manually in its settings.",
+      "The destination app needs its own read permission, separate and independent from Fitbit's.",
+      "Health Connect doesn't sync historical data: only from the moment of authorization onwards.",
+      "Some older Fitbit models write to Google Fit, not Health Connect: update the firmware or check compatibility.",
+    ],
+  },
   primaryKeyword: {
     it: "fitbit non si sincronizza android",
     en: "fitbit data not syncing android",

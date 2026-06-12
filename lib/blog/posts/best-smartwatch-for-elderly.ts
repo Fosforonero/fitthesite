@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-23",
   updatedAt: "2026-05-23",
   readMinutes: 11,
+  tldr: {
+    it: [
+      "Un dispositivo indossato ogni giorno supera sempre uno con più funzioni ma lasciato nel cassetto: semplicità e comfort vengono prima delle specifiche.",
+      "Per anziani che vivono soli, LTE non è opzionale: senza LTE il watch non può chiamare quando il telefono è lontano.",
+      "Apple Watch SE 2 LTE con Family Setup è la scelta migliore per famiglie iPhone; Samsung Galaxy Watch 7 LTE per famiglie Android (ECG e fall detection).",
+      "I brand economici sotto i 100$ sono da evitare per la sicurezza: algoritmi poco calibrati rendono il fall detection inaffidabile.",
+      "Setup iniziale fatto dal caregiver e prima settimana senza sovraccarico di notifiche determinano se il dispositivo verrà davvero indossato.",
+    ],
+    en: [
+      "A device worn every day always beats one with more features left in a drawer: simplicity and comfort come before specs.",
+      "For elderly living alone, LTE is not optional: without LTE the watch can't call when the phone is far away.",
+      "Apple Watch SE 2 LTE with Family Setup is the best choice for iPhone families; Samsung Galaxy Watch 7 LTE for Android families (ECG and fall detection).",
+      "Budget brands under $100 should be avoided for safety: poorly calibrated algorithms make fall detection unreliable.",
+      "Caregiver-done initial setup and a first week without notification overload determine whether the device will actually be worn.",
+    ],
+  },
   primaryKeyword: {
     it: "miglior smartwatch anziani",
     en: "best smartwatch for elderly",

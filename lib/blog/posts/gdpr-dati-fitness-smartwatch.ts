@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-21",
   updatedAt: "2026-05-21",
   readMinutes: 10,
+  tldr: {
+    it: [
+      "Frequenza cardiaca, sonno, ciclo mestruale e SpO₂ sono dati sanitari 'speciali' sotto GDPR art. 9: il consenso deve essere esplicito e granulare, non un generico 'accetta tutto'.",
+      "I server di quasi tutti i brand non sono in Europa: Apple, Google/Fitbit, Garmin e Samsung trasferiscono verso gli USA con meccanismi SCC o DPF.",
+      "Hai tre diritti pratici da esercitare subito: accesso (copia in 30 giorni, gratis), portabilità (CSV/JSON) e cancellazione.",
+      "Bandiera rossa nelle privacy policy: 'condivisione con partner di ricerca' bundled in un consenso unico, o 'personalizzazione pubblicitaria' per dati salute.",
+      "Health Connect è il setup Android più privacy-friendly: i dati restano on-device e ogni app chiede permesso per tipo di dato.",
+    ],
+    en: [
+      "Heart rate, sleep, menstrual cycle and SpO₂ are 'special' health data under GDPR art. 9: consent must be explicit and granular, not a generic 'accept all'.",
+      "Almost no major brand has servers in Europe: Apple, Google/Fitbit, Garmin and Samsung transfer to the USA via SCC or DPF mechanisms.",
+      "You have three practical rights to exercise now: access (copy within 30 days, free), portability (CSV/JSON) and erasure.",
+      "Red flag in privacy policies: 'sharing with research partners' bundled in a single consent, or 'advertising personalization' for health data.",
+      "Health Connect is the most privacy-friendly Android setup: data stays on-device and every app must request permission per data type.",
+    ],
+  },
   primaryKeyword: {
     it: "gdpr dati fitness",
     en: "gdpr fitness data",

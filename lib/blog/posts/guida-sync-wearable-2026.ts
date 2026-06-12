@@ -12,6 +12,22 @@ export const post: BlogPost = {
   updatedAt: "2026-05-21",
   pillar: true,
   readMinutes: 14,
+  tldr: {
+    it: [
+      "Regola pratica del 2026: scegli la pipeline dati prima del gadget. Risolve il 90% dei problemi prima di aprire un'app.",
+      "Tre modi reali per portare via i dati: Health Connect (on-device, Android), OAuth API ufficiali (dati proprietari completi, richiede approvazione), export manuale (lento ma garantito dal GDPR art. 20).",
+      "Health Connect non è Google Fit: Google Fit è deprecato da giugno 2025, Health Connect è lo standard Android unificato e strettamente on-device.",
+      "Samsung, Fitbit, Garmin, Polar e Withings scrivono su Health Connect; Oura e Huawei richiedono OAuth o sono ecosistemi chiusi.",
+      "Per dati salute, l'unico modello con incentivi allineati è 'a pagamento, no ads, no tracker': le app gratis monetizzano spesso vendendo dati aggregati.",
+    ],
+    en: [
+      "The 2026 practical rule: pick the data pipe before the gadget. It resolves 90% of problems before you open an app.",
+      "Three real ways to get data out: Health Connect (on-device, Android), official OAuth APIs (full proprietary data, requires approval), manual export (slow but guaranteed by GDPR art. 20).",
+      "Health Connect is not Google Fit: Google Fit was deprecated in June 2025, Health Connect is the unified Android standard and strictly on-device.",
+      "Samsung, Fitbit, Garmin, Polar and Withings write to Health Connect; Oura and Huawei require OAuth or are closed ecosystems.",
+      "For health data, the only business model with aligned incentives is 'paid, no ads, no trackers': free apps often monetize by selling aggregated data.",
+    ],
+  },
   primaryKeyword: {
     it: "sincronizzare smartwatch dashboard",
     en: "sync smartwatch dashboard",

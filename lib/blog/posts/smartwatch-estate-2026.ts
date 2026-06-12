@@ -7,6 +7,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-30",
   updatedAt: "2026-05-30",
   readMinutes: 9,
+  tldr: {
+    it: [
+      "Per nuotare serve almeno 5ATM: IP68 non basta per il nuoto continuativo. Sciacqua sempre con acqua dolce dopo il mare.",
+      "Il caldo sopra i 35°C riduce l'autonomia del 15-25%: disabilita l'always-on display, passa la frequenza cardiaca a ogni 10 minuti e non caricare al sole.",
+      "Health Connect è on-device: i dati si accumulano in locale anche senza internet e si sincronizzano appena torni connesso. Nessun buco nello storico.",
+      "Per la salute estiva monitora la frequenza cardiaca a riposo (segnale di disidratazione se sale oltre 10 bpm dalla baseline) e l'HRV mattutino.",
+      "Budget estivo: Xiaomi Mi Band 9 Pro (sotto 60 euro, 5ATM, 14 giorni di autonomia) copre il 90% dei casi d'uso in vacanza.",
+    ],
+    en: [
+      "Swimming requires at least 5ATM: IP68 is not enough for continuous swimming. Always rinse with fresh water after the sea.",
+      "Heat above 35°C cuts autonomy by 15-25%: disable always-on display, switch heart rate to every 10 minutes and never charge in the sun.",
+      "Health Connect is on-device: data accumulates locally even without internet and syncs as soon as you reconnect. No gaps in history.",
+      "For summer health, monitor resting heart rate (a dehydration signal if it rises over 10 bpm from baseline) and morning HRV.",
+      "Summer budget pick: Xiaomi Mi Band 9 Pro (under 60 euros, 5ATM, 14-day battery) covers 90% of vacation use cases.",
+    ],
+  },
   primaryKeyword: {
     it: "smartwatch estate 2026",
     en: "smartwatch summer 2026",

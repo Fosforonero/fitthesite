@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-21",
   updatedAt: "2026-05-21",
   readMinutes: 7,
+  tldr: {
+    it: [
+      "Brand con web dashboard ufficiale attiva nel 2026: Garmin, Polar, Withings, Oura, Whoop e Strava.",
+      "Samsung Health, Apple Health, Fitbit e Xiaomi Mi Fitness non hanno web dashboard: servono app terze o self-hosting.",
+      "Via Health Connect (Android): app terze come FitMesh Sync leggono i dati e li mostrano su web. Soluzione matura, setup in pochi minuti.",
+      "Via self-hosted (Raspberry Pi, NAS, Grafana): controllo totale e nessun cloud, ma curva di apprendimento alta. Solo per utenti tecnici.",
+      "Via Google Sheets: funziona per dati aggregati (passi, peso, sonno giornaliero) ma non scala ai dati intraday ad alta frequenza.",
+    ],
+    en: [
+      "Brands with an active official web dashboard in 2026: Garmin, Polar, Withings, Oura, Whoop and Strava.",
+      "Samsung Health, Apple Health, Fitbit and Xiaomi Mi Fitness have no web dashboard: third-party apps or self-hosting are required.",
+      "Via Health Connect (Android): third-party apps like FitMesh Sync read the data and show it on the web. Mature solution, setup in minutes.",
+      "Via self-hosted (Raspberry Pi, NAS, Grafana): total control and no cloud, but a high learning curve. Technical users only.",
+      "Via Google Sheets: works for aggregated data (steps, weight, daily sleep) but does not scale to high-frequency intraday data.",
+    ],
+  },
   primaryKeyword: {
     it: "vedere dati smartwatch su pc",
     en: "view smartwatch data on pc",

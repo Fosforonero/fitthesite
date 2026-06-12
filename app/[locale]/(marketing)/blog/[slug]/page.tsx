@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogRenderer } from "@/components/blog/BlogRenderer";
+import { ArticleMeta } from "@/components/blog/ArticleMeta";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import {
   BLOG_POSTS,
@@ -110,6 +111,12 @@ const I18N = {
     readMin: (m: number) => `${m} min di lettura`,
     publishedOn: "Pubblicato",
     updated: "Aggiornato",
+    metaCategory: "Categoria",
+    metaReadTime: "Lettura",
+    metaDate: "Data",
+    metaShare: "Condividi",
+    metaCopied: "Copiato!",
+    tldrLabel: "In breve",
     faqHeading: "Domande frequenti",
     relatedHeading: "Continua a leggere",
     disclaimerHeading: "Disclaimer",
@@ -125,6 +132,12 @@ const I18N = {
     readMin: (m: number) => `${m} min read`,
     publishedOn: "Published",
     updated: "Updated",
+    metaCategory: "Category",
+    metaReadTime: "Reading time",
+    metaDate: "Date",
+    metaShare: "Share",
+    metaCopied: "Copied!",
+    tldrLabel: "TL;DR",
     faqHeading: "Frequently asked questions",
     relatedHeading: "Keep reading",
     disclaimerHeading: "Disclaimer",
@@ -239,18 +252,13 @@ export default async function BlogArticle({
           >
             {t.backToBlog}
           </Link>
-          <div className="mt-6 flex flex-wrap items-center gap-2 text-xs">
-            {post.pillar && (
-              <span className="px-2 py-0.5 rounded-pill border border-brand-aqua/40 bg-brand-aqua/10 text-brand-aqua font-medium">
+          {post.pillar && (
+            <div className="mt-6">
+              <span className="px-2 py-0.5 rounded-pill border border-brand-aqua/40 bg-brand-aqua/10 text-brand-aqua font-medium text-xs">
                 {t.pillarLabel}
               </span>
-            )}
-            <span className="px-2 py-0.5 rounded-pill border border-divider bg-bg-secondary/40 text-text-secondary">
-              {categoryLabel(post.category, lc)}
-            </span>
-            <span className="text-text-muted">·</span>
-            <span className="text-text-muted">{t.readMin(post.readMinutes)}</span>
-          </div>
+            </div>
+          )}
           <p className="mt-5 text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
             {post.hero.kicker[lc]}
           </p>
@@ -260,16 +268,51 @@ export default async function BlogArticle({
           <p className="mt-5 text-lg text-text-secondary leading-relaxed">
             {post.hero.subtitle[lc]}
           </p>
-          <p className="mt-6 text-xs text-text-muted">
-            {t.publishedOn} {formatDate(post.publishedAt, lc)}
-            {post.updatedAt !== post.publishedAt && (
-              <>
-                {" · "}
-                {t.updated} {formatDate(post.updatedAt, lc)}
-              </>
-            )}
-          </p>
+          <ArticleMeta
+            shareLabel={t.metaShare}
+            copiedLabel={t.metaCopied}
+            items={[
+              {
+                icon: "category",
+                label: t.metaCategory,
+                value: categoryLabel(post.category, lc),
+              },
+              {
+                icon: "date",
+                label: t.metaDate,
+                value: formatDate(post.publishedAt, lc),
+              },
+              {
+                icon: "clock",
+                label: t.metaReadTime,
+                value: t.readMin(post.readMinutes),
+              },
+            ]}
+          />
         </header>
+
+        {/* TL;DR — il succo in 10 secondi, stile Claude. Solo se presente. */}
+        {post.tldr && post.tldr[lc].length > 0 && (
+          <div className="max-w-3xl mx-auto px-4 sm:px-6">
+            <div className="rounded-card border border-brand-aqua/30 bg-gradient-to-br from-brand-aqua/[0.07] to-bg-card p-5 sm:p-6">
+              <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
+                {t.tldrLabel}
+              </p>
+              <ul className="mt-3 space-y-2">
+                {post.tldr[lc].map((point, i) => (
+                  <li key={i} className="flex gap-2.5 text-text-secondary leading-relaxed">
+                    <span aria-hidden className="text-brand-aqua mt-1.5 flex-none">
+                      <svg width="6" height="6" viewBox="0 0 6 6" aria-hidden>
+                        <circle cx="3" cy="3" r="3" fill="currentColor" />
+                      </svg>
+                    </span>
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
 
         {/* BODY */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4">

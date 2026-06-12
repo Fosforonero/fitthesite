@@ -12,6 +12,22 @@ export const post: BlogPost = {
   updatedAt: "2026-05-21",
   pillar: true,
   readMinutes: 15,
+  tldr: {
+    it: [
+      "'Controllo dei dati' significa cinque cose distinte: esportabilità nativa, trasparenza pipeline, granularità permessi, interoperabilità e resilienza al cambio.",
+      "Privacy e controllo non coincidono: Apple Watch ha privacy forte ma lock-in iOS-only; Garmin è più aperto all'esportazione ma meno riservato sul piano commerciale.",
+      "I modelli subscription (Whoop, Oura) legano l'accesso allo storico al pagamento: valuta il costo totale su 5 anni, non il prezzo mensile.",
+      "Il lock-in Apple Watch→Android è quasi totale; Galaxy Watch→altro Android è gestibile; Garmin→altro brand è medio.",
+      "Prima di comprare: installa l'app companion e cerca '[modello] data export' nelle FAQ ufficiali. Nessuna risposta in 5 minuti è una bandiera rossa.",
+    ],
+    en: [
+      "'Data control' means five distinct things: native exportability, pipeline transparency, permission granularity, interoperability and switch resilience.",
+      "Privacy and control are not the same: Apple Watch has strong privacy but iOS-only lock-in; Garmin is more open to export but less private commercially.",
+      "Subscription models (Whoop, Oura) tie history access to payment: calculate total cost over 5 years, not monthly price.",
+      "Apple Watch to Android lock-in is near-total; Galaxy Watch to other Android is manageable; Garmin to another brand is medium.",
+      "Before buying: install the companion app and search '[model] data export' in official FAQs. No answer in 5 minutes is a red flag.",
+    ],
+  },
   primaryKeyword: {
     it: "come scegliere smartwatch dati personali",
     en: "how to choose a smartwatch for personal data",

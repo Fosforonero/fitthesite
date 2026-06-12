@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-30",
   updatedAt: "2026-05-30",
   readMinutes: 7,
+  tldr: {
+    it: [
+      "Il metodo più completo è l'export XML nativo (Salute → profilo → Esporta tutti i dati): contiene ogni record, ma il file può pesare fino a 2 GB e non è leggibile direttamente.",
+      "Per leggere l'XML su PC servono strumenti aggiuntivi: script Python open-source o Apple Shortcuts per metriche specifiche.",
+      "Per condividere dati specifici con un medico, usa l'export per singola metrica direttamente dal grafico in Salute: produce un CSV pulito.",
+      "Il file XML non è criptato: trattalo come un documento medico sensibile e non caricarlo su cloud pubblici.",
+      "La via più comoda è una dashboard web senza export manuale: serve un'app che legga da HealthKit e sincronizzi in background. FitMesh iOS è in sviluppo per questo.",
+    ],
+    en: [
+      "The most complete method is the native XML export (Health → profile → Export All Health Data): it contains every record, but the file can reach 2 GB and isn't readable directly.",
+      "Reading the XML on a PC requires additional tools: open-source Python scripts or Apple Shortcuts for specific metrics.",
+      "For sharing specific data with a doctor, use the per-metric export directly from the chart in Health: it produces a clean CSV.",
+      "The XML file is unencrypted: treat it like a sensitive medical document and don't upload it to public cloud services.",
+      "The most convenient path is a web dashboard without manual exports: it needs an app that reads from HealthKit and syncs in the background. FitMesh iOS is in development for this.",
+    ],
+  },
   primaryKeyword: {
     it: "esportare dati apple health",
     en: "how to export apple health data",

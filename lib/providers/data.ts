@@ -1817,7 +1817,7 @@ export const PROVIDERS: Provider[] = [
     name: "Colmi Ring",
     vendor: "Colmi",
     category: "wearable",
-    status: "coming-soon",
+    status: "live",
     brandColor: "#7CFF5B",
     initial: "C",
     tagline: {
@@ -1825,17 +1825,17 @@ export const PROVIDERS: Provider[] = [
       en: "Colmi R02/R03 and compatible rings: data straight into FitMesh via Bluetooth, no companion app needed.",
     },
     longDesc: {
-      it: "FitMesh Sync sta per supportare gli anelli smart Colmi R02 e R03 (e i cloni OEM con lo stesso protocollo BLE) tramite connessione Bluetooth diretta. L'app legge l'anello senza bisogno dell'app companion del produttore: passi, distanza, calorie, battito cardiaco (log giornaliero + FC a riposo), SpO2, HRV, stress e batteria entrano direttamente nella tua dashboard multi-device. Il dato notturno dell'anello si fonde con quello diurno dello smartwatch senza doppi conteggi.",
-      en: "FitMesh Sync is about to support Colmi R02 and R03 smart rings (and OEM clones sharing the same BLE protocol) via direct Bluetooth connection. The app reads the ring without needing the manufacturer's companion app: steps, distance, calories, heart rate (daily log + resting HR), SpO2, HRV, stress and battery feed directly into your multi-device dashboard. Nightly ring data merges with daytime smartwatch data — no double counting.",
+      it: "FitMesh Sync supporta gli anelli smart Colmi R02 e R03 (e i cloni OEM con lo stesso protocollo BLE) tramite connessione Bluetooth diretta. L'app legge l'anello senza bisogno dell'app companion del produttore: passi, distanza, calorie, battito cardiaco (log giornaliero + FC a riposo), SpO2, HRV, stress, sonno con fasi e batteria entrano direttamente nella tua dashboard multi-device. Il dato notturno dell'anello si fonde con quello diurno dello smartwatch senza doppi conteggi.",
+      en: "FitMesh Sync supports Colmi R02 and R03 smart rings (and OEM clones sharing the same BLE protocol) via direct Bluetooth connection. The app reads the ring without needing the manufacturer's companion app: steps, distance, calories, heart rate (daily log + resting HR), SpO2, HRV, stress, sleep with stages and battery feed directly into your multi-device dashboard. Nightly ring data merges with daytime smartwatch data — no double counting.",
     },
     techNote: {
-      it: "Lettura BLE diretta (no Health Connect, no app OEM). FitMesh si connette all'anello come dispositivo Bluetooth, scarica i dati grezzi e li integra nella dashboard multi-sorgente (fusione anello+smartwatch: l'anello copre la notte e le metriche che lo smartwatch non ha). In arrivo: sonno con fasi.",
-      en: "Direct BLE read (no Health Connect, no OEM app). FitMesh connects to the ring as a Bluetooth device, downloads raw data and merges it into the multi-source dashboard (ring+smartwatch fusion: the ring covers nighttime and metrics the smartwatch lacks). Coming soon: sleep staging.",
+      it: "Lettura BLE diretta (no Health Connect, no app OEM). FitMesh si connette all'anello come dispositivo Bluetooth, scarica i dati grezzi e li integra nella dashboard multi-sorgente (fusione anello+smartwatch: l'anello copre la notte e le metriche che lo smartwatch non ha). Sonno con fasi: l'anello è specialista e prevale di notte.",
+      en: "Direct BLE read (no Health Connect, no OEM app). FitMesh connects to the ring as a Bluetooth device, downloads raw data and merges it into the multi-source dashboard (ring+smartwatch fusion: the ring covers nighttime and metrics the smartwatch lacks). Sleep with stages: the ring is the specialist and wins overnight.",
     },
     dataTypes: [
       { key: "steps", label: { it: "Passi", en: "Steps" }, supported: true },
       { key: "hr", label: { it: "Frequenza cardiaca", en: "Heart rate" }, supported: true },
-      { key: "sleep", label: { it: "Sonno con fasi", en: "Sleep with stages" }, supported: false },
+      { key: "sleep", label: { it: "Sonno con fasi", en: "Sleep with stages" }, supported: true },
       { key: "calories", label: { it: "Calorie", en: "Calories" }, supported: true },
       { key: "distance", label: { it: "Distanza", en: "Distance" }, supported: true },
       { key: "workouts", label: { it: "Allenamenti", en: "Workouts" }, supported: false },

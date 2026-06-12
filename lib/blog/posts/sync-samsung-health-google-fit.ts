@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-23",
   updatedAt: "2026-05-23",
   readMinutes: 8,
+  tldr: {
+    it: [
+      "Il sync diretto Samsung Health→Google Fit non esiste più dal 2024: Google ha deprecato Google Fit e spostato l'ecosistema Android su Health Connect.",
+      "Il percorso corretto oggi: Samsung Health scrive su Health Connect, le app di destinazione leggono da lì. Funziona per la maggior parte dei dati standard.",
+      "Non disponibili via Health Connect: metriche proprietarie Samsung, GPS dettagliato degli allenamenti, dati storici precedenti all'autorizzazione.",
+      "Se l'app di destinazione non supporta Health Connect nel 2026, probabilmente non viene mantenuta: valuta di cambiarla.",
+      "I dati storici in Samsung Health restano al sicuro nel cloud Samsung. Per portarli altrove usa l'export manuale (CSV/XML).",
+    ],
+    en: [
+      "Direct Samsung Health to Google Fit sync has not existed since 2024: Google deprecated Google Fit and moved the Android ecosystem to Health Connect.",
+      "The correct path today: Samsung Health writes to Health Connect, destination apps read from there. Works for most standard data.",
+      "Not available via Health Connect: Samsung proprietary metrics, detailed workout GPS, historical data predating authorization.",
+      "If the destination app does not support Health Connect in 2026, it is probably not maintained: consider switching.",
+      "Historical data in Samsung Health stays safe in Samsung cloud. To port it elsewhere, use manual export (CSV/XML).",
+    ],
+  },
   primaryKeyword: {
     it: "sync samsung health google fit",
     en: "sync samsung health google fit",

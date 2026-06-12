@@ -6,6 +6,22 @@ export const post: BlogPost = {
   publishedAt: "2026-05-21",
   updatedAt: "2026-05-21",
   readMinutes: 8,
+  tldr: {
+    it: [
+      "Samsung Health e Health Connect non sono concorrenti: lavorano insieme.",
+      "Samsung Health raccoglie i dati dal Galaxy Watch via Bluetooth: disabilitarla rompe il sync del Watch.",
+      "Health Connect è il layer di permessi Android tra app salute: disabilitarla impedisce alle app terze di leggere i dati, ma Samsung Health continua a funzionare.",
+      "Il flusso reale è: Watch → Samsung Health → Health Connect → app terze.",
+      "Per bloccare il cloud Samsung senza rompere nulla: Samsung Health → Impostazioni → Privacy → disabilita la sincronizzazione con Samsung Cloud. I dati restano locali e continuano a fluire verso Health Connect.",
+    ],
+    en: [
+      "Samsung Health and Health Connect are not competitors: they work together.",
+      "Samsung Health collects data from the Galaxy Watch via Bluetooth: disabling it breaks Watch sync.",
+      "Health Connect is the Android permissions layer between health apps: disabling it stops third-party apps from reading data, but Samsung Health keeps working.",
+      "The real flow is: Watch → Samsung Health → Health Connect → third-party apps.",
+      "To block the Samsung cloud without breaking anything: Samsung Health → Settings → Privacy → disable sync with Samsung Cloud. Data stays local and keeps flowing to Health Connect.",
+    ],
+  },
   primaryKeyword: {
     it: "health connect vs samsung health",
     en: "health connect vs samsung health",
