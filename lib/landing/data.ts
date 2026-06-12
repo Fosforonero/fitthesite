@@ -902,14 +902,14 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         items: {
           it: [
             "**Un account, due app** — lo stesso account FitMesh funziona su Android e iPhone. Non serve creare profili separati né sincronizzare manualmente: la dashboard web mostra sempre i dati più aggiornati, da qualsiasi dispositivo.",
-            "**Android: lettura nativa da Health Connect** — su Android, FitMesh legge dati da Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, e qualsiasi app che scriva su Health Connect. Sync automatico in background ogni 15 minuti.",
+            "**Android: lettura nativa da Health Connect** — su Android, FitMesh legge dati da Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, e qualsiasi app che scriva su Health Connect. I dati si aggiornano in automatico in background.",
             "**iOS: lettura nativa da Apple Salute (HealthKit)** — su iPhone, FitMesh accede ad Apple Salute con i permessi che tu scegli. Legge ciò che Apple Salute già raccoglie: passi da iPhone, dati da Apple Watch, e da qualsiasi app autorizzata.",
             "**Anello Colmi su entrambe le piattaforme** — l'anello smart Colmi si connette via Bluetooth all'app FitMesh, sia su Android che su iPhone. I dati (sonno con fasi, passi, frequenza cardiaca) vengono sincronizzati all'account cloud e, su iOS, scritti dentro Apple Salute.",
             "**Cloud EU, GDPR** — tutti i dati sono archiviati su server in EU (Frankfurt). Crittografia in transito e a riposo, Row Level Security, cancellazione completa account on-demand.",
           ],
           en: [
             "**One account, two apps** — the same FitMesh account works on Android and iPhone. No separate profiles or manual syncing: the web dashboard always shows the most recent data, from any device.",
-            "**Android: native read from Health Connect** — on Android, FitMesh reads data from Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, and any app writing to Health Connect. Automatic background sync every 15 minutes.",
+            "**Android: native read from Health Connect** — on Android, FitMesh reads data from Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, and any app writing to Health Connect. Data updates automatically in the background.",
             "**iOS: native read from Apple Health (HealthKit)** — on iPhone, FitMesh accesses Apple Health with permissions you choose. Reads what Apple Health already collects: iPhone steps, Apple Watch data, and any authorized app.",
             "**Colmi ring on both platforms** — the Colmi smart ring connects via Bluetooth to the FitMesh app, on both Android and iPhone. Data (sleep with phases, steps, heart rate) is synced to your cloud account and, on iOS, written into Apple Health.",
             "**EU cloud, GDPR** — all data is stored on EU servers (Frankfurt). Encryption in transit and at rest, Row Level Security, full on-demand account deletion.",
@@ -935,12 +935,12 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         type: "callout",
         variant: "info",
         title: {
-          it: "Come evita i duplicati",
-          en: "How duplicates are avoided",
+          it: "Niente doppioni",
+          en: "No duplicates",
         },
         body: {
-          it: "FitMesh scrive in Apple Salute solo i dati che provengono dall'anello Colmi — con la fonte esplicitamente identificata come 'FitMesh Sync'. Apple Salute gestisce automaticamente la deduplicazione quando più fonti scrivono lo stesso tipo di dato (es. passi): mostra il valore prioritario senza sommare. Niente doppioni.",
-          en: "FitMesh writes to Apple Health only data coming from the Colmi ring — with the source explicitly identified as 'FitMesh Sync'. Apple Health automatically handles deduplication when multiple sources write the same data type (e.g. steps): it shows the priority value without adding them together. No duplicates.",
+          it: "Se Apple Salute ha già quei dati (ad esempio da Apple Watch), FitMesh non li riscrive. Niente doppioni.",
+          en: "If Apple Health already has that data (for example from Apple Watch), FitMesh won't rewrite it. No duplicates.",
         },
       },
       {
@@ -1056,8 +1056,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "If I already have data on iPhone, will it be duplicated with Android data?",
         },
         a: {
-          it: "No. FitMesh scrive in Apple Salute identificando esplicitamente 'FitMesh Sync' come fonte. Apple Salute gestisce la deduplicazione automaticamente: quando più fonti scrivono lo stesso tipo di dato, mostra il valore prioritario senza sommarli. I dati nati su iPhone (Apple Watch, ecc.) restano separati da quelli scritti da FitMesh.",
-          en: "No. FitMesh writes to Apple Health with 'FitMesh Sync' explicitly identified as the source. Apple Health handles deduplication automatically: when multiple sources write the same data type, it shows the priority value without adding them. Data originating on iPhone (Apple Watch, etc.) stays separate from data written by FitMesh.",
+          it: "No. FitMesh controlla prima se Apple Salute ha già quei dati. Se ci sono già (da Apple Watch o da qualsiasi altra app), FitMesh non li riscrive. I dati originati su iPhone restano separati da quelli scritti da FitMesh.",
+          en: "No. FitMesh checks first whether Apple Health already has that data. If it's already there (from Apple Watch or any other app), FitMesh won't rewrite it. Data from iPhone stays separate from data written by FitMesh.",
         },
       },
       {

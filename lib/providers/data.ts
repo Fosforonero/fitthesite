@@ -1924,12 +1924,12 @@ export const PROVIDERS: Provider[] = [
     brandColor: "#FF2D55",
     initial: "🍎",
     tagline: {
-      it: "App iOS in beta TestFlight — uscita App Store imminente. Legge Apple Health, scrive dati di wearable Android in Apple Salute (opt-in, zero duplicati).",
-      en: "iOS app in TestFlight beta — App Store launch imminent. Reads Apple Health, writes Android wearable data to Apple Health (opt-in, zero duplicates).",
+      it: "App iOS in beta TestFlight — uscita App Store imminente. Legge Apple Salute, scrive dati di wearable Android in Apple Salute (opt-in, niente doppioni).",
+      en: "iOS app in TestFlight beta — App Store launch imminent. Reads Apple Health, writes Android wearable data into Apple Health (opt-in, no duplicates).",
     },
     longDesc: {
-      it: "FitMesh Sync è in arrivo su iPhone — la beta TestFlight è attiva e la submission App Store è in corso. L'app iOS legge i dati da Apple Health / HealthKit (passi, frequenza cardiaca, sonno con fasi, SpO₂, calorie) e li mostra nella stessa dashboard unificata che già conosci su Android. Feature di punta: il ponte di scrittura Apple Salute (opt-in) porta i dati dei wearable Android (Galaxy Watch, anello Colmi, qualsiasi device che scrive su Health Connect) dentro l'app Salute di iPhone, con logica idempotente che garantisce zero duplicati. Un account FitMesh funziona su Android, iPhone e web.",
-      en: "FitMesh Sync is coming to iPhone — the TestFlight beta is active and App Store submission is underway. The iOS app reads data from Apple Health / HealthKit (steps, heart rate, sleep with stages, SpO₂, calories) and shows it in the same unified dashboard you already know from Android. Flagship feature: the Apple Health write bridge (opt-in) brings data from Android wearables (Galaxy Watch, Colmi ring, any device writing to Health Connect) into the iPhone Health app, with idempotent logic that guarantees zero duplicates. One FitMesh account works on Android, iPhone and web.",
+      it: "FitMesh Sync è in arrivo su iPhone — la beta TestFlight è attiva e la submission App Store è in corso. L'app iOS legge i dati da Apple Health / HealthKit (passi, frequenza cardiaca, sonno con fasi, SpO₂, calorie) e li mostra nella stessa dashboard unificata che già conosci su Android. Feature di punta: il ponte di scrittura Apple Salute (opt-in) porta i dati dei wearable Android (Galaxy Watch, anello Colmi, qualsiasi device che scrive su Health Connect) dentro l'app Salute di iPhone, senza creare doppioni. Un account FitMesh funziona su Android, iPhone e web.",
+      en: "FitMesh Sync is coming to iPhone — the TestFlight beta is active and App Store submission is underway. The iOS app reads data from Apple Health / HealthKit (steps, heart rate, sleep with stages, SpO₂, calories) and shows it in the same unified dashboard you already know from Android. Flagship feature: the Apple Health write bridge (opt-in) brings data from Android wearables (Galaxy Watch, Colmi ring, any device writing to Health Connect) into the iPhone Health app, without creating duplicates. One FitMesh account works on Android, iPhone and web.",
     },
     techNote: {
       it: "Lettura via HealthKit API (iOS). Scrittura idempotente su Apple Health: verifica l'esistenza di dati sovrapposti prima di scrivere qualsiasi sample — scrive solo dove Apple Salute non ha già copertura da un'altra sorgente. Dati in transito e a riposo su cloud EU, cifrati. Permessi HealthKit granulari: richesti solo i tipi di dato che l'utente ha configurato.",
@@ -1962,8 +1962,8 @@ export const PROVIDERS: Provider[] = [
           en: "Does the write bridge overwrite Apple Watch data?",
         },
         a: {
-          it: "No. Il bridge usa logica idempotente: controlla se Apple Health ha già dati da qualsiasi sorgente per quella fascia oraria. Se Apple Watch ha già registrato sonno o passi per quell'intervallo, il bridge non tocca nulla. Scrive solo dove non c'è copertura esistente.",
-          en: "No. The bridge uses idempotent logic: it checks whether Apple Health already has data from any source for that time slot. If Apple Watch has already recorded sleep or steps for that interval, the bridge doesn't touch anything. It only writes where there's no existing coverage.",
+          it: "No. FitMesh controlla prima se Apple Salute ha già dei dati per quella fascia oraria. Se Apple Watch ha già registrato sonno o passi per quell'intervallo, il bridge non tocca nulla. Scrive solo dove non c'è copertura esistente.",
+          en: "No. FitMesh checks first whether Apple Health already has data for that time slot. If Apple Watch has already recorded sleep or steps for that interval, the bridge doesn't touch anything. It only writes where there's no existing coverage.",
         },
       },
       {
@@ -2069,8 +2069,8 @@ export const PROVIDERS: Provider[] = [
             en: "I see duplicate data in Apple Health",
           },
           a: {
-            it: "Il bridge è progettato per evitare duplicati, ma in casi rari (es. reset di permessi o dati pre-esistenti da app diverse) potrebbe apparire sovrapposizione. In Apple Salute → categoria → Modifica sorgenti puoi gestire la priorità delle sorgenti. Se il problema persiste, disattiva il bridge, cancella le voci FitMesh Sync dalla categoria, e riattiva il bridge.",
-            en: "The bridge is designed to prevent duplicates, but in rare cases (e.g. permission resets or pre-existing data from different apps) overlap may appear. In Apple Health → category → Edit Data Sources you can manage source priority. If the issue persists, deactivate the bridge, delete FitMesh Sync entries from that category, and reactivate the bridge.",
+            it: "FitMesh è pensato per non creare doppioni, ma in casi rari (ad esempio dopo un reset dei permessi) può capitare che compaiano voci duplicate. In Apple Salute → categoria → Modifica sorgenti puoi gestire la priorità delle sorgenti. Se il problema persiste, disattiva il bridge, cancella le voci FitMesh Sync dalla categoria, e riattiva il bridge.",
+            en: "FitMesh is designed to avoid duplicates, but in rare cases (for example after a permission reset) duplicate entries may appear. In Apple Health → category → Edit Data Sources you can manage source priority. If the issue persists, deactivate the bridge, delete FitMesh Sync entries from that category, and reactivate the bridge.",
           },
         },
       ],

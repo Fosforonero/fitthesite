@@ -12,14 +12,14 @@ export const post: BlogPost = {
       "Un solo account funziona su Android e iPhone insieme: la dashboard è identica su entrambi i telefoni, i dati vengono dallo stesso cloud EU.",
       "Feature di punta: il ponte di scrittura Apple Salute (opt-in) — i dati del tuo smartwatch Android o anello smart arrivano via cloud FitMesh e vengono scritti in Apple Salute, senza duplicati.",
       "Chi ha due telefoni (es. Android + iPhone) vede il sonno dell'anello e i passi del watch direttamente dentro l'app Apple Salute/Fitness.",
-      "Dati in cloud EU, GDPR, zero vendita a terzi. Il ponte è opt-in e idempotente: si scrive solo dove Apple Salute non ha già dati di altre sorgenti.",
+      "Dati in cloud EU, GDPR, zero vendita a terzi. Il ponte è opt-in: se Apple Salute ha già quei dati, FitMesh non li riscrive. Niente doppioni.",
     ],
     en: [
       "FitMesh Sync is now in TestFlight beta on iPhone: Google or Apple login, Apple Health/HealthKit reading, cloud sync, Colmi ring via Bluetooth. App Store launch imminent.",
       "One account works across Android and iPhone: the dashboard is identical on both phones, data comes from the same EU cloud.",
       "Flagship feature: the Apple Health write bridge (opt-in) — data from your Android smartwatch or smart ring arrives via FitMesh cloud and gets written into Apple Health, with no duplicates.",
       "Users with two phones (e.g. Android + iPhone) see ring sleep and watch steps directly inside the Apple Health/Fitness app.",
-      "EU cloud, GDPR, zero third-party data sales. The bridge is opt-in and idempotent: it only writes where Apple Health has no data from other sources.",
+      "EU cloud, GDPR, zero third-party data sales. The bridge is opt-in: if Apple Health already has that data, FitMesh won't rewrite it. No duplicates.",
     ],
   },
   primaryKeyword: {
@@ -79,7 +79,7 @@ export const post: BlogPost = {
         it: [
           "**Login Google e Sign in with Apple**: stesso account che usi su Android, zero doppioni.",
           "**Lettura Apple Health / HealthKit**: passi, frequenza cardiaca, sonno con fasi, SpO₂, calorie, distanza — tutto quello che il tuo iPhone o Apple Watch scrive in Apple Salute è visibile in FitMesh.",
-          "**Sync cloud EU**: i dati vengono sincronizzati sullo stesso backend che serve l'app Android, in datacenter EU, GDPR.",
+          "**Sync cloud EU**: i dati vengono sincronizzati sullo stesso server che serve l'app Android — datacenter EU, GDPR.",
           "**Anello Colmi via Bluetooth**: se hai un anello smart Colmi R02/R03, l'app iOS lo legge via BLE diretto come fa quella Android.",
           "**Dashboard unificata**: la stessa interfaccia che conosci su Android, con trend giornalieri, settimana in review, confronto multi-sorgente.",
           "**Ponte di scrittura Apple Salute** (opt-in): i dati degli altri device collegati al tuo account FitMesh vengono scritti in Apple Salute — dettaglio completo nella sezione dedicata.",
@@ -87,7 +87,7 @@ export const post: BlogPost = {
         en: [
           "**Google login and Sign in with Apple**: same account you use on Android, zero duplicates.",
           "**Apple Health / HealthKit reading**: steps, heart rate, sleep with stages, SpO₂, calories, distance — everything your iPhone or Apple Watch writes to Apple Health is visible in FitMesh.",
-          "**EU cloud sync**: data is synced to the same backend serving the Android app, in EU datacenters, GDPR.",
+          "**EU cloud sync**: data is synced to the same server serving the Android app — EU datacenters, GDPR.",
           "**Colmi ring via Bluetooth**: if you have a Colmi R02/R03 smart ring, the iOS app reads it via direct BLE like the Android version does.",
           "**Unified dashboard**: the same interface you know from Android, with daily trends, week-in-review, multi-source comparison.",
           "**Apple Health write bridge** (opt-in): data from other devices connected to your FitMesh account gets written into Apple Health — full details in the dedicated section.",
@@ -114,8 +114,8 @@ export const post: BlogPost = {
       variant: "info",
       title: { it: "Come funziona il cross-device", en: "How cross-device works" },
       body: {
-        it: "Ogni device scrive i propri dati sul cloud FitMesh (EU). La dashboard li legge tutti, applica la logica di priorità sorgente (per evitare doppi conteggi dove c'è sovrapposizione) e mostra un unico flusso coerente. Non importa da quale telefono apri l'app: vedi sempre lo stesso dataset.",
-        en: "Each device writes its data to the FitMesh EU cloud. The dashboard reads all of them, applies source priority logic (to avoid double-counting where there's overlap) and shows a single coherent stream. It doesn't matter which phone you open the app on: you always see the same dataset.",
+        it: "Ogni device scrive i propri dati sul cloud FitMesh (EU). La dashboard li legge tutti, mostra i dati da tutte le sorgenti senza sommare due volte la stessa attività, e ti mostra un unico flusso coerente. Non importa da quale telefono apri l'app: vedi sempre lo stesso dataset.",
+        en: "Each device writes its data to the FitMesh EU cloud. The dashboard reads all of them, shows data from all sources without double-counting the same activity, and shows a single coherent stream. It doesn't matter which phone you open the app on: you always see the same dataset.",
       },
     },
     {
@@ -139,13 +139,13 @@ export const post: BlogPost = {
         it: [
           "**Sonno con fasi complete**: profondo, leggero, REM — non solo la durata totale, ma le fasi dettagliate del tuo anello o watch Android, visibili in Apple Salute come se fossero stati registrati dall'iPhone.",
           "**Passi e attività**: i passi del Galaxy Watch o del wearable Android finiscono nei tuoi totali Apple Fitness senza che tu debba fare nulla.",
-          "**Zero duplicati**: il bridge usa una logica idempotente — scrive solo nei slot temporali dove Apple Salute non ha già dati di un'altra sorgente. Se Apple Watch ha già registrato la stessa ora, il ponte non sovrascrive.",
+          "**Zero duplicati**: se Apple Salute ha già qualcosa per quell'orario (da Apple Watch o qualsiasi altra app), FitMesh non lo tocca.",
           "**Completamente opt-in**: si attiva dalle impostazioni iOS di FitMesh, disattivabile in qualsiasi momento.",
         ],
         en: [
           "**Sleep with full stages**: deep, light, REM — not just total duration, but the detailed stages from your Android ring or watch, visible in Apple Health as if recorded by iPhone.",
           "**Steps and activity**: steps from Galaxy Watch or Android wearable land in your Apple Fitness totals without you having to do anything.",
-          "**Zero duplicates**: the bridge uses idempotent logic — it only writes to time slots where Apple Health has no data from another source. If Apple Watch already recorded the same hour, the bridge doesn't overwrite.",
+          "**Zero duplicates**: if Apple Health already has something for that time slot (from Apple Watch or any other app), FitMesh doesn't touch it.",
           "**Fully opt-in**: activated from FitMesh iOS settings, can be turned off at any time.",
         ],
       },
@@ -214,13 +214,13 @@ export const post: BlogPost = {
         it: [
           "FitMesh Sync è in beta TestFlight su iPhone, con uscita App Store imminente.",
           "Un account, due telefoni: la stessa dashboard su Android e iPhone, dati dallo stesso cloud EU.",
-          "Il ponte di scrittura Apple Salute (opt-in, idempotente) porta i dati del tuo wearable Android dentro l'app Salute di iPhone — sonno con fasi, passi, attività, senza duplicati.",
+          "Il ponte Apple Salute (opt-in) porta i dati del tuo wearable Android dentro l'app Salute di iPhone — sonno con fasi, passi, attività, senza doppioni.",
           "Privacy EU/GDPR: nessuna vendita di dati, bridge opt-in, revocabile in qualsiasi momento.",
         ],
         en: [
           "FitMesh Sync is in TestFlight beta on iPhone, with App Store launch imminent.",
           "One account, two phones: the same dashboard on Android and iPhone, data from the same EU cloud.",
-          "The Apple Health write bridge (opt-in, idempotent) brings your Android wearable data into the iPhone Health app — sleep with stages, steps, activity, no duplicates.",
+          "The Apple Health bridge (opt-in) brings your Android wearable data into the iPhone Health app — sleep with stages, steps, activity, no duplicates.",
           "EU/GDPR privacy: no data sales, opt-in bridge, revocable at any time.",
         ],
       },
@@ -282,8 +282,8 @@ export const post: BlogPost = {
         en: "If I have both Apple Watch and Galaxy Watch, will there be duplicates?",
       },
       a: {
-        it: "No. Il ponte usa logica idempotente: verifica prima se Apple Health ha già un dato per quella fascia oraria da un'altra sorgente. Se Apple Watch ha già registrato sonno dalle 23:00 alle 07:00, il bridge non scrive nulla per quelle ore. Si scrive solo dove non c'è già copertura.",
-        en: "No. The bridge uses idempotent logic: it checks first whether Apple Health already has data for that time slot from another source. If Apple Watch has already recorded sleep from 11pm to 7am, the bridge writes nothing for those hours. It only writes where there's no existing coverage.",
+        it: "No. FitMesh controlla prima se Apple Salute ha già qualcosa per quella fascia oraria. Se Apple Watch ha già registrato sonno dalle 23:00 alle 07:00, il bridge non scrive nulla per quelle ore. Si scrive solo dove non c'è già copertura.",
+        en: "No. FitMesh checks first whether Apple Health already has something for that time slot. If Apple Watch has already recorded sleep from 11pm to 7am, the bridge writes nothing for those hours. It only writes where there's no existing coverage.",
       },
     },
     {
