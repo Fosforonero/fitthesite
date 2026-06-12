@@ -1913,6 +1913,178 @@ export const PROVIDERS: Provider[] = [
     },
     relatedBlogSlugs: ["colmi-ring-fitmesh"],
   },
+
+  // ── iOS / Apple Health ───────────────────────────────────────────────────
+  {
+    slug: "apple-health",
+    name: "Apple Health",
+    vendor: "Apple",
+    category: "health-platform",
+    status: "beta",
+    brandColor: "#FF2D55",
+    initial: "🍎",
+    tagline: {
+      it: "App iOS in beta TestFlight — uscita App Store imminente. Legge Apple Health, scrive dati di wearable Android in Apple Salute (opt-in, zero duplicati).",
+      en: "iOS app in TestFlight beta — App Store launch imminent. Reads Apple Health, writes Android wearable data to Apple Health (opt-in, zero duplicates).",
+    },
+    longDesc: {
+      it: "FitMesh Sync è in arrivo su iPhone — la beta TestFlight è attiva e la submission App Store è in corso. L'app iOS legge i dati da Apple Health / HealthKit (passi, frequenza cardiaca, sonno con fasi, SpO₂, calorie) e li mostra nella stessa dashboard unificata che già conosci su Android. Feature di punta: il ponte di scrittura Apple Salute (opt-in) porta i dati dei wearable Android (Galaxy Watch, anello Colmi, qualsiasi device che scrive su Health Connect) dentro l'app Salute di iPhone, con logica idempotente che garantisce zero duplicati. Un account FitMesh funziona su Android, iPhone e web.",
+      en: "FitMesh Sync is coming to iPhone — the TestFlight beta is active and App Store submission is underway. The iOS app reads data from Apple Health / HealthKit (steps, heart rate, sleep with stages, SpO₂, calories) and shows it in the same unified dashboard you already know from Android. Flagship feature: the Apple Health write bridge (opt-in) brings data from Android wearables (Galaxy Watch, Colmi ring, any device writing to Health Connect) into the iPhone Health app, with idempotent logic that guarantees zero duplicates. One FitMesh account works on Android, iPhone and web.",
+    },
+    techNote: {
+      it: "Lettura via HealthKit API (iOS). Scrittura idempotente su Apple Health: verifica l'esistenza di dati sovrapposti prima di scrivere qualsiasi sample — scrive solo dove Apple Salute non ha già copertura da un'altra sorgente. Dati in transito e a riposo su cloud EU, cifrati. Permessi HealthKit granulari: richesti solo i tipi di dato che l'utente ha configurato.",
+      en: "Read via HealthKit API (iOS). Idempotent write to Apple Health: checks for overlapping data before writing any sample — only writes where Apple Health has no existing coverage from another source. Data in transit and at rest on EU cloud, encrypted. Granular HealthKit permissions: only the data types the user has configured are requested.",
+    },
+    dataTypes: [
+      { key: "steps", label: { it: "Passi", en: "Steps" }, supported: true },
+      { key: "hr", label: { it: "Frequenza cardiaca", en: "Heart rate" }, supported: true },
+      { key: "sleep", label: { it: "Sonno con fasi", en: "Sleep with stages" }, supported: true },
+      { key: "calories", label: { it: "Calorie", en: "Calories" }, supported: true },
+      { key: "distance", label: { it: "Distanza", en: "Distance" }, supported: true },
+      { key: "workouts", label: { it: "Allenamenti", en: "Workouts" }, supported: true },
+      { key: "spo2", label: { it: "SpO₂", en: "SpO₂" }, supported: true },
+      { key: "hrv", label: { it: "HRV", en: "HRV" }, supported: true },
+    ],
+    faqs: [
+      {
+        q: {
+          it: "FitMesh iOS è già disponibile sull'App Store?",
+          en: "Is FitMesh iOS already available on the App Store?",
+        },
+        a: {
+          it: "Non ancora. L'app è in beta TestFlight e in submission su App Store. L'uscita è imminente. Nel frattempo puoi iscriverti alla beta dalla pagina /beta per ricevere l'accesso TestFlight.",
+          en: "Not yet. The app is in TestFlight beta and in App Store submission. Launch is imminent. In the meantime you can sign up for the beta from the /beta page to receive TestFlight access.",
+        },
+      },
+      {
+        q: {
+          it: "Il ponte di scrittura sovrascrive i dati di Apple Watch?",
+          en: "Does the write bridge overwrite Apple Watch data?",
+        },
+        a: {
+          it: "No. Il bridge usa logica idempotente: controlla se Apple Health ha già dati da qualsiasi sorgente per quella fascia oraria. Se Apple Watch ha già registrato sonno o passi per quell'intervallo, il bridge non tocca nulla. Scrive solo dove non c'è copertura esistente.",
+          en: "No. The bridge uses idempotent logic: it checks whether Apple Health already has data from any source for that time slot. If Apple Watch has already recorded sleep or steps for that interval, the bridge doesn't touch anything. It only writes where there's no existing coverage.",
+        },
+      },
+      {
+        q: {
+          it: "Ho sia Android che iPhone. Come funziona con un account solo?",
+          en: "I have both Android and iPhone. How does it work with one account?",
+        },
+        a: {
+          it: "Accedi con lo stesso account Google o Apple su entrambi i telefoni. I dati di tutti i device collegati (Galaxy Watch su Android, Apple Watch su iPhone, anello Colmi) confluiscono nella stessa dashboard. Il ponte opt-in può poi scrivere i dati Android su Apple Salute, così li vedi anche nell'app Salute di iPhone.",
+          en: "Sign in with the same Google or Apple account on both phones. Data from all connected devices (Galaxy Watch on Android, Apple Watch on iPhone, Colmi ring) feeds into the same dashboard. The opt-in bridge can then write Android data to Apple Health, so you see it in the iPhone Health app too.",
+        },
+      },
+      {
+        q: {
+          it: "I miei dati Apple Health finiscono su server di terzi?",
+          en: "Does my Apple Health data end up on third-party servers?",
+        },
+        a: {
+          it: "I dati transitano sul cloud FitMesh (datacenter EU, cifrati in transito e a riposo). FitMesh non vende dati a terzi e non li usa per addestrare modelli. Puoi revocare i permessi HealthKit da iPhone Impostazioni in qualsiasi momento, e richiedere la cancellazione dei dati dal cloud tramite le impostazioni dell'account.",
+          en: "Data transits through FitMesh cloud (EU datacenter, encrypted in transit and at rest). FitMesh doesn't sell data to third parties and doesn't use it to train models. You can revoke HealthKit permissions from iPhone Settings at any time, and request data deletion from the cloud via account settings.",
+        },
+      },
+    ],
+    seoKeywords: {
+      it: [
+        "fitmesh sync iphone",
+        "apple health dashboard web",
+        "sincronizzare wearable android apple salute",
+        "ponte apple salute android",
+        "app salute iphone smartwatch android",
+      ],
+      en: [
+        "fitmesh sync iphone",
+        "apple health web dashboard",
+        "sync android wearable apple health",
+        "apple health bridge android",
+        "iphone health app android smartwatch",
+      ],
+    },
+    setupGuide: {
+      steps: {
+        it: [
+          "**Iscriviti alla beta** dalla pagina /beta di questo sito — ricevi l'invito TestFlight entro 24 ore.",
+          "Installa **FitMesh Sync** tramite il link TestFlight nell'email ricevuta.",
+          "Accedi con lo stesso **account Google o Apple** che usi (o hai) su Android.",
+          "Concedi i **permessi HealthKit** richiesti (puoi scegliere tipo per tipo).",
+          "Facoltativo: attiva il **Ponte di scrittura Apple Salute** da Impostazioni → Apple Health per ricevere i dati dei device Android in Apple Salute.",
+        ],
+        en: [
+          "**Sign up for the beta** from the /beta page on this site — you'll get a TestFlight invite within 24 hours.",
+          "Install **FitMesh Sync** via the TestFlight link in the email you receive.",
+          "Sign in with the same **Google or Apple account** you use (or have) on Android.",
+          "Grant the requested **HealthKit permissions** (you can choose type by type).",
+          "Optional: activate the **Apple Health write bridge** from Settings → Apple Health to receive Android device data in Apple Health.",
+        ],
+      },
+      syncedData: {
+        it: [
+          "Passi e distanza",
+          "Frequenza cardiaca (campioni + a riposo)",
+          "Sonno con fasi (profondo, leggero, REM, veglia)",
+          "Calorie attive",
+          "SpO₂",
+          "HRV",
+          "Allenamenti (tipo, durata, kcal, BPM medio)",
+          "Dati da wearable Android (via ponte, opt-in)",
+        ],
+        en: [
+          "Steps and distance",
+          "Heart rate (samples + resting)",
+          "Sleep with stages (deep, light, REM, awake)",
+          "Active calories",
+          "SpO₂",
+          "HRV",
+          "Workouts (type, duration, kcal, average BPM)",
+          "Data from Android wearables (via bridge, opt-in)",
+        ],
+      },
+      troubleshooting: [
+        {
+          q: {
+            it: "Non vedo i miei dati Apple Watch in FitMesh",
+            en: "I don't see my Apple Watch data in FitMesh",
+          },
+          a: {
+            it: "Verifica che FitMesh Sync abbia i permessi HealthKit attivi: iPhone Impostazioni → Privacy e sicurezza → Salute → FitMesh Sync. Controlla che i tipi di dato che vuoi siano abilitati in lettura. Se i permessi sono ok, prova a chiudere e riaprire l'app.",
+            en: "Check that FitMesh Sync has HealthKit permissions enabled: iPhone Settings → Privacy & Security → Health → FitMesh Sync. Verify the data types you want are enabled for reading. If permissions are correct, try closing and reopening the app.",
+          },
+        },
+        {
+          q: {
+            it: "Il ponte non scrive i dati in Apple Salute",
+            en: "The bridge isn't writing data to Apple Health",
+          },
+          a: {
+            it: "Verifica che: (1) il ponte sia attivo da Impostazioni → Apple Health → Ponte di scrittura; (2) FitMesh abbia i permessi HealthKit in scrittura per i tipi di dato selezionati; (3) l'app Android abbia sincronizzato dati recenti sul cloud (controlla la data dell'ultima sync nell'app Android). Se i dati Android sono già presenti sul cloud, il bridge li scriverà alla prossima apertura dell'app iOS.",
+            en: "Check that: (1) the bridge is active from Settings → Apple Health → Write Bridge; (2) FitMesh has HealthKit write permissions for the selected data types; (3) the Android app has synced recent data to the cloud (check the last sync date in the Android app). If Android data is already on the cloud, the bridge will write it at the next iOS app open.",
+          },
+        },
+        {
+          q: {
+            it: "Vedo dati duplicati in Apple Salute",
+            en: "I see duplicate data in Apple Health",
+          },
+          a: {
+            it: "Il bridge è progettato per evitare duplicati, ma in casi rari (es. reset di permessi o dati pre-esistenti da app diverse) potrebbe apparire sovrapposizione. In Apple Salute → categoria → Modifica sorgenti puoi gestire la priorità delle sorgenti. Se il problema persiste, disattiva il bridge, cancella le voci FitMesh Sync dalla categoria, e riattiva il bridge.",
+            en: "The bridge is designed to prevent duplicates, but in rare cases (e.g. permission resets or pre-existing data from different apps) overlap may appear. In Apple Health → category → Edit Data Sources you can manage source priority. If the issue persists, deactivate the bridge, delete FitMesh Sync entries from that category, and reactivate the bridge.",
+          },
+        },
+      ],
+      technicalNotes: {
+        it: "Lettura tramite HealthKit API standard (iOS 16+). Scrittura idempotente: prima di ogni batch, query HealthKit per sample sovrapposti nello stesso intervallo e stesso HKSampleType. Scrittura solo sugli slot scoperti. Cloud FitMesh EU: datacenter certificati, TLS 1.3 in transito, AES-256 a riposo. Beta TestFlight attiva; uscita App Store imminente.",
+        en: "Reading via standard HealthKit API (iOS 16+). Idempotent writing: before each batch, HealthKit query for overlapping samples in the same interval and same HKSampleType. Writing only to uncovered slots. FitMesh EU cloud: certified datacenters, TLS 1.3 in transit, AES-256 at rest. TestFlight beta active; App Store launch imminent.",
+      },
+    },
+    relatedBlogSlugs: [
+      "fitmesh-arriva-su-iphone",
+      "dati-anello-smart-apple-salute",
+      "how-to-export-apple-health-data",
+    ],
+  },
 ];
 
 export const PROVIDERS_BY_SLUG: Record<string, Provider> = Object.fromEntries(

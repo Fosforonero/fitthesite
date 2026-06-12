@@ -12,14 +12,14 @@ export const post: BlogPost = {
       "Per leggere l'XML su PC servono strumenti aggiuntivi: script Python open-source o Apple Shortcuts per metriche specifiche.",
       "Per condividere dati specifici con un medico, usa l'export per singola metrica direttamente dal grafico in Salute: produce un CSV pulito.",
       "Il file XML non è criptato: trattalo come un documento medico sensibile e non caricarlo su cloud pubblici.",
-      "La via più comoda è una dashboard web senza export manuale: serve un'app che legga da HealthKit e sincronizzi in background. FitMesh iOS è in sviluppo per questo.",
+      "La via più comoda è una dashboard web senza export manuale: serve un'app che legga da HealthKit e sincronizzi in background. FitMesh iOS è in beta TestFlight — uscita App Store imminente.",
     ],
     en: [
       "The most complete method is the native XML export (Health → profile → Export All Health Data): it contains every record, but the file can reach 2 GB and isn't readable directly.",
       "Reading the XML on a PC requires additional tools: open-source Python scripts or Apple Shortcuts for specific metrics.",
       "For sharing specific data with a doctor, use the per-metric export directly from the chart in Health: it produces a clean CSV.",
       "The XML file is unencrypted: treat it like a sensitive medical document and don't upload it to public cloud services.",
-      "The most convenient path is a web dashboard without manual exports: it needs an app that reads from HealthKit and syncs in the background. FitMesh iOS is in development for this.",
+      "The most convenient path is a web dashboard without manual exports: it needs an app that reads from HealthKit and syncs in the background. FitMesh iOS is in beta on TestFlight — App Store launch imminent.",
     ],
   },
   primaryKeyword: {
@@ -196,8 +196,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "FitMesh Sync sta sviluppando questa esatta funzione per iOS. L'app iPhone leggerà i dati da Apple Health (HealthKit), li sincronizzerà automaticamente e li mostrerà sulla stessa dashboard web che già usiamo per Android. Se hai un iPhone e usi Apple Watch, Garmin, o qualsiasi wearable che scrive su Apple Health, potrai accedere ai tuoi dati da browser senza export manuali.",
-        en: "FitMesh Sync is building this exact feature for iOS. The iPhone app will read data from Apple Health (HealthKit), sync it automatically, and display it on the same web dashboard already used for Android. If you have an iPhone and use Apple Watch, Garmin, or any wearable that writes to Apple Health, you'll be able to access your data from a browser without manual exports.",
+        it: "FitMesh Sync è in arrivo su iPhone — la beta TestFlight è attiva e l'uscita App Store è imminente. L'app iPhone legge i dati da Apple Health (HealthKit), li sincronizza automaticamente e li mostra sulla stessa dashboard web che già usiamo per Android. Feature extra: il ponte di scrittura (opt-in) porta i dati dei wearable Android direttamente in Apple Salute — utile se hai sia un dispositivo Android che un iPhone.",
+        en: "FitMesh Sync is arriving on iPhone — the TestFlight beta is active and the App Store launch is imminent. The iPhone app reads data from Apple Health (HealthKit), syncs it automatically, and displays it on the same web dashboard already used for Android. Extra feature: the write bridge (opt-in) brings Android wearable data directly into Apple Health — useful if you have both an Android device and an iPhone.",
       },
     },
     {
@@ -208,8 +208,8 @@ export const post: BlogPost = {
         en: "If you have both iPhone and Android",
       },
       body: {
-        it: "Molti utenti usano un iPhone ma hanno un wearable Android (es. Galaxy Watch). In questo caso i dati del wearable passano prima dall'app companion su Android, poi eventualmente su Health Connect. Con FitMesh Sync Android puoi già sincronizzare quei dati su web. La versione iOS aggiungerà il supporto per la lettura diretta da Apple Health.",
-        en: "Many users have an iPhone but an Android wearable (e.g. Galaxy Watch). In this case wearable data first passes through the companion app on Android, then optionally to Health Connect. With FitMesh Sync Android you can already sync that data to the web. The iOS version will add support for reading directly from Apple Health.",
+        it: "Molti utenti usano un iPhone ma hanno un wearable Android (es. Galaxy Watch o un anello smart). Con FitMesh Sync Android puoi già sincronizzare quei dati su web. La versione iOS (beta ora, App Store imminente) aggiunge anche il ponte di scrittura opt-in: i dati del wearable Android vengono scritti direttamente in Apple Salute, così li vedi nell'app Salute di iPhone senza alcun export manuale.",
+        en: "Many users have an iPhone but an Android wearable (e.g. Galaxy Watch or a smart ring). With FitMesh Sync Android you can already sync that data to the web. The iOS version (in beta now, App Store coming soon) also adds the opt-in write bridge: Android wearable data gets written directly into Apple Health, so you see it in the iPhone Health app without any manual export.",
       },
     },
     {
@@ -273,14 +273,14 @@ export const post: BlogPost = {
           "Per leggere l'XML su PC servono strumenti aggiuntivi: script Python open-source su GitHub, o Apple Shortcuts per metriche specifiche.",
           "Per condividere dati specifici con un medico, usa l'export per singola metrica direttamente dal grafico in Salute: produce un CSV pulito.",
           "Il file XML non è criptato: trattalo come un documento medico sensibile, non caricarlo su cloud pubblici.",
-          "La via più comoda (dashboard web senza export manuale) richiede un'app che legga da HealthKit e sincronizzi in background: FitMesh iOS è in sviluppo per questo.",
+          "La via più comoda (dashboard web senza export manuale) richiede un'app che legga da HealthKit e sincronizzi in background: FitMesh iOS è in beta TestFlight, uscita App Store imminente.",
         ],
         en: [
           "The most complete method is the native XML export (Health → profile → Export All Health Data): contains every record with timestamps, but the file can be 2 GB and isn't readable directly.",
           "Reading the XML on a PC requires additional tools: open-source Python scripts on GitHub, or Apple Shortcuts for specific metrics.",
           "For sharing specific data with a doctor, use the per-metric export directly from the chart in Health: produces a clean CSV.",
           "The XML file is unencrypted: treat it like a sensitive medical document, don't upload it to public cloud services.",
-          "The most convenient path (web dashboard without manual exports) requires an app that reads from HealthKit and syncs in the background: FitMesh iOS is in development for this.",
+          "The most convenient path (web dashboard without manual exports) requires an app that reads from HealthKit and syncs in the background: FitMesh iOS is in TestFlight beta, App Store launch imminent.",
         ],
       },
     },
@@ -291,8 +291,8 @@ export const post: BlogPost = {
         en: "Web dashboard for iPhone: join the iOS waitlist",
       },
       body: {
-        it: "FitMesh Sync sta arrivando su iPhone. L'app leggerà i dati da Apple Health e li sincronizzerà automaticamente su web, senza export manuali. Entra in beta gratis e sarai tra i primi a provarla.",
-        en: "FitMesh Sync is coming to iPhone. The app will read data from Apple Health and sync it automatically to the web, no manual exports needed. Join the free beta and be among the first to try it.",
+        it: "FitMesh Sync è in beta TestFlight su iPhone — uscita App Store imminente. L'app legge i dati da Apple Health e li sincronizza automaticamente su web, senza export manuali. Entra in beta gratis e sarai tra i primi a provarla. Bonus: il ponte di scrittura (opt-in) porta anche i dati dei wearable Android dentro Apple Salute.",
+        en: "FitMesh Sync is in TestFlight beta on iPhone — App Store launch imminent. The app reads data from Apple Health and syncs it automatically to the web, no manual exports needed. Join the free beta and be among the first to try it. Bonus: the write bridge (opt-in) also brings Android wearable data into Apple Health.",
       },
       ctaLabel: {
         it: "Entra in beta iOS →",
@@ -347,8 +347,9 @@ export const post: BlogPost = {
     },
   ],
   related: [
+    "fitmesh-arriva-su-iphone",
+    "dati-anello-smart-apple-salute",
     "guida-sync-wearable-2026",
-    "vedere-dati-wearable-browser-pc",
     "gdpr-dati-fitness-smartwatch",
   ],
   brandsMentioned: ["Apple", "Google"],

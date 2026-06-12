@@ -39,6 +39,9 @@ import { post as bestHealthDataSyncAppAndroid } from "./posts/best-health-data-s
 import { post as piuSmartwatchInsiemeDatiDoppi } from "./posts/piu-smartwatch-insieme-dati-doppi";
 // Pillar Colmi
 import { post as colmiRingFitmesh } from "./posts/colmi-ring-fitmesh";
+// iOS launch batch
+import { post as fitmeshArrivaSuIphone } from "./posts/fitmesh-arriva-su-iphone";
+import { post as datiAnelloSmartAppleSalute } from "./posts/dati-anello-smart-apple-salute";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -68,6 +71,9 @@ const RAW_POSTS: BlogPost[] = [
   piuSmartwatchInsiemeDatiDoppi,
   // Pillar Colmi
   colmiRingFitmesh,
+  // iOS launch batch
+  fitmeshArrivaSuIphone,
+  datiAnelloSmartAppleSalute,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
