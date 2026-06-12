@@ -7,6 +7,7 @@ import TrustBadges from "@/components/TrustBadges";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { PRICING } from "@/lib/pricing";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -278,7 +279,7 @@ const IT = {
     },
     {
       title: "Un anno di Pro completo, senza vincoli",
-      desc: "Niente carta, niente rinnovo automatico. Alla scadenza scegli tu: resti sul piano gratuito o passi a Pro (€1,19/6 mesi).",
+      desc: `Niente carta, niente rinnovo automatico. Alla scadenza scegli tu: resti sul piano gratuito o passi a Pro (${PRICING.subSixMonthsLabel.it}).`,
     },
     {
       title: "Mi mandi feedback quando vuoi",
@@ -297,7 +298,7 @@ const IT = {
     },
     {
       q: "Cosa succede alla scadenza dell'anno?",
-      a: "Nessun addebito: non chiediamo la carta. L'account passa semplicemente al piano gratuito (ultimi 14 giorni di storico). Se vuoi continuare con Pro: €1,19 ogni 6 mesi o acquisto unico (€3,99 su Android · €4,99 su iPhone).",
+      a: `Nessun addebito: non chiediamo la carta. L'account passa semplicemente al piano gratuito (ultimi 14 giorni di storico). Se vuoi continuare con Pro: ${PRICING.subSixMonthsFull.it} o acquisto unico (${PRICING.lifetimeBoth.it}).`,
     },
     {
       q: "E i primi 100 beta tester?",
@@ -361,7 +362,7 @@ const EN = {
     },
     {
       title: "A full year of Pro, no strings",
-      desc: "No card, no auto-renewal. When it expires you choose: stay on the free plan or go Pro (€1.19/6 months).",
+      desc: `No card, no auto-renewal. When it expires you choose: stay on the free plan or go Pro (${PRICING.subSixMonthsLabel.en}).`,
     },
     {
       title: "Send feedback whenever you like",
@@ -380,7 +381,7 @@ const EN = {
     },
     {
       q: "What happens when the year ends?",
-      a: "No charge: we never ask for a card. Your account simply moves to the free plan (last 14 days of history). To keep Pro: €1.19 every 6 months or one-time (€3.99 on Android · €4.99 on iPhone).",
+      a: `No charge: we never ask for a card. Your account simply moves to the free plan (last 14 days of history). To keep Pro: ${PRICING.subSixMonthsFull.en} or one-time (${PRICING.lifetimeBoth.en}).`,
     },
     {
       q: "What about the first 100 beta testers?",
