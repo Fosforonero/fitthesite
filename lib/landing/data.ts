@@ -818,6 +818,282 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     brandsMentioned: ["Polar", "Samsung", "Google", "Garmin"],
   },
 
+  // ── 7. Due telefoni, una salute (cross-device) ────────────────────────
+  {
+    slug: "due-telefoni",
+    publishedAt: "2026-06-12",
+    updatedAt: "2026-06-12",
+    primaryKeyword: {
+      it: "fitmesh su due telefoni",
+      en: "fitmesh two phones one account",
+    },
+    secondaryKeywords: {
+      it: [
+        "android e iphone stessa app salute",
+        "sincronizzare dati salute android iphone",
+        "colmi ring android iphone",
+        "apple health android dati smartwatch",
+        "bridge apple salute fitmesh",
+        "dashboard salute multi-dispositivo",
+      ],
+      en: [
+        "android iphone same health app",
+        "sync health data android iphone",
+        "colmi ring android iphone",
+        "apple health android smartwatch data",
+        "apple health bridge fitmesh",
+        "multi device health dashboard",
+      ],
+    },
+    metaDescription: {
+      it: "Stesso account FitMesh su Android e iPhone: una dashboard salute unificata, cloud EU, GDPR. Ponte Apple Salute incluso: sonno e passi dall'anello smart su iOS — senza duplicati.",
+      en: "Same FitMesh account on Android and iPhone: one unified health dashboard, EU cloud, GDPR. Apple Health bridge included: sleep and steps from your smart ring on iOS — no duplicates.",
+    },
+    hero: {
+      kicker: {
+        it: "Due telefoni, una salute",
+        en: "Two phones, one health",
+      },
+      title: {
+        it: "Android e iPhone insieme: stessa dashboard, stessi dati",
+        en: "Android and iPhone together: same dashboard, same data",
+      },
+      subtitle: {
+        it: "Un account FitMesh funziona su entrambi i telefoni. I dati del tuo anello smart Colmi arrivano su iPhone via Bluetooth — e vengono scritti dentro Apple Salute così li vedi anche nell'ecosistema Apple. Cloud EU, GDPR, nessun duplicato.",
+        en: "One FitMesh account works on both phones. Your Colmi smart ring data reaches iPhone over Bluetooth — and gets written into Apple Health so you see it across the Apple ecosystem too. EU cloud, GDPR, no duplicates.",
+      },
+      primaryCta: {
+        label: { it: "Entra in beta gratis", en: "Join the free beta" },
+        href: { it: "/it/beta", en: "/en/beta" },
+      },
+      secondaryCta: {
+        label: {
+          it: "Vedi tutte le integrazioni",
+          en: "See all integrations",
+        },
+        href: { it: "/it/integrations", en: "/en/integrations" },
+      },
+    },
+    body: [
+      {
+        type: "paragraph",
+        text: {
+          it: "Molte persone usano due telefoni: uno Android di lavoro e un iPhone personale, o viceversa. Oppure hai cambiato sistema operativo e vuoi portare lo storico dei tuoi dati salute. O ancora, vuoi che i dati del tuo anello smart Colmi — connesso via Bluetooth all'Android — compaiano anche su iPhone, dentro Apple Salute, senza passare per export manuali.",
+          en: "Many people use two phones: one Android for work and an iPhone personally, or the other way around. Or you've switched operating systems and want to carry your health data history. Or you want your Colmi smart ring data — connected via Bluetooth to Android — to show up on iPhone too, inside Apple Health, without manual exports.",
+        },
+      },
+      {
+        type: "paragraph",
+        text: {
+          it: "FitMesh Sync risolve tutto questo con un'unica struttura: un account cloud, due app (Android già disponibile, iOS in beta), un ponte verso Apple Salute. I dati sono tuoi, archiviati in EU, accessibili da qualsiasi browser.",
+          en: "FitMesh Sync solves all of this with one structure: one cloud account, two apps (Android already available, iOS in beta), one bridge to Apple Health. The data is yours, stored in the EU, accessible from any browser.",
+        },
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: {
+          it: "Come funziona il multi-device",
+          en: "How multi-device works",
+        },
+      },
+      {
+        type: "list",
+        items: {
+          it: [
+            "**Un account, due app** — lo stesso account FitMesh funziona su Android e iPhone. Non serve creare profili separati né sincronizzare manualmente: la dashboard web mostra sempre i dati più aggiornati, da qualsiasi dispositivo.",
+            "**Android: lettura nativa da Health Connect** — su Android, FitMesh legge dati da Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, e qualsiasi app che scriva su Health Connect. Sync automatico in background ogni 15 minuti.",
+            "**iOS: lettura nativa da Apple Salute (HealthKit)** — su iPhone, FitMesh accede ad Apple Salute con i permessi che tu scegli. Legge ciò che Apple Salute già raccoglie: passi da iPhone, dati da Apple Watch, e da qualsiasi app autorizzata.",
+            "**Anello Colmi su entrambe le piattaforme** — l'anello smart Colmi si connette via Bluetooth all'app FitMesh, sia su Android che su iPhone. I dati (sonno con fasi, passi, frequenza cardiaca) vengono sincronizzati all'account cloud e, su iOS, scritti dentro Apple Salute.",
+            "**Cloud EU, GDPR** — tutti i dati sono archiviati su server in EU (Frankfurt). Crittografia in transito e a riposo, Row Level Security, cancellazione completa account on-demand.",
+          ],
+          en: [
+            "**One account, two apps** — the same FitMesh account works on Android and iPhone. No separate profiles or manual syncing: the web dashboard always shows the most recent data, from any device.",
+            "**Android: native read from Health Connect** — on Android, FitMesh reads data from Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, and any app writing to Health Connect. Automatic background sync every 15 minutes.",
+            "**iOS: native read from Apple Health (HealthKit)** — on iPhone, FitMesh accesses Apple Health with permissions you choose. Reads what Apple Health already collects: iPhone steps, Apple Watch data, and any authorized app.",
+            "**Colmi ring on both platforms** — the Colmi smart ring connects via Bluetooth to the FitMesh app, on both Android and iPhone. Data (sleep with phases, steps, heart rate) is synced to your cloud account and, on iOS, written into Apple Health.",
+            "**EU cloud, GDPR** — all data is stored on EU servers (Frankfurt). Encryption in transit and at rest, Row Level Security, full on-demand account deletion.",
+          ],
+        },
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: {
+          it: "Il ponte Apple Salute (opt-in iOS)",
+          en: "The Apple Health bridge (iOS opt-in)",
+        },
+      },
+      {
+        type: "paragraph",
+        text: {
+          it: "Il punto più richiesto: \"i dati del mio anello Android compaiono su Apple Salute?\". Sì — con il ponte FitMesh. Quando usi FitMesh su iPhone e hai un anello Colmi, l'app scrive i dati su Apple Salute: sonno con fasi (leggero, profondo, REM), passi, frequenza cardiaca. Così li vedi nell'app Salute di Apple, in Fitness, e in qualsiasi altra app autorizzata ad Apple Salute.",
+          en: "The most requested point: \"does my Android ring data show up in Apple Health?\". Yes — via the FitMesh bridge. When you use FitMesh on iPhone with a Colmi ring, the app writes data into Apple Health: sleep with phases (light, deep, REM), steps, heart rate. So you see them in Apple's Health app, in Fitness, and in any other app authorized to Apple Health.",
+        },
+      },
+      {
+        type: "callout",
+        variant: "info",
+        title: {
+          it: "Come evita i duplicati",
+          en: "How duplicates are avoided",
+        },
+        body: {
+          it: "FitMesh scrive in Apple Salute solo i dati che provengono dall'anello Colmi — con la fonte esplicitamente identificata come 'FitMesh Sync'. Apple Salute gestisce automaticamente la deduplicazione quando più fonti scrivono lo stesso tipo di dato (es. passi): mostra il valore prioritario senza sommare. Niente doppioni.",
+          en: "FitMesh writes to Apple Health only data coming from the Colmi ring — with the source explicitly identified as 'FitMesh Sync'. Apple Health automatically handles deduplication when multiple sources write the same data type (e.g. steps): it shows the priority value without adding them together. No duplicates.",
+        },
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: {
+          it: "Cosa FitMesh non fa (onestà prima di tutto)",
+          en: "What FitMesh doesn't do (honesty first)",
+        },
+      },
+      {
+        type: "list",
+        items: {
+          it: [
+            "**Non scrive su Health Connect** — la scrittura su Health Connect (Android) è in roadmap, ma non è ancora disponibile. FitMesh oggi legge da Health Connect, non ci scrive.",
+            "**Il sync iOS non è in tempo reale** — su iPhone, il sync in background è periodico (ogni 15-30 minuti circa), come imposto dal sistema operativo iOS. Non aspettarti aggiornamenti al secondo.",
+            "**L'app iOS non è ancora su App Store** — FitMesh iOS è in beta attiva su TestFlight. Puoi iscriverti alla lista beta su /beta — riceverai l'accesso non appena disponibile.",
+          ],
+          en: [
+            "**Does not write to Health Connect** — writing to Health Connect (Android) is on the roadmap, but not yet available. FitMesh today reads from Health Connect, it doesn't write to it.",
+            "**iOS sync is not real-time** — on iPhone, background sync is periodic (roughly every 15-30 minutes), as enforced by the iOS operating system. Don't expect second-by-second updates.",
+            "**iOS app is not yet on the App Store** — FitMesh iOS is in active beta on TestFlight. You can join the beta waitlist at /beta — you'll get access as soon as it's available.",
+          ],
+        },
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: {
+          it: "Compatibilità attuale",
+          en: "Current compatibility",
+        },
+      },
+      {
+        type: "table",
+        caption: {
+          it: "Funzionalità disponibili oggi (giugno 2026)",
+          en: "Features available today (June 2026)",
+        },
+        headers: {
+          it: ["Funzione", "Android", "iPhone (beta)"],
+          en: ["Feature", "Android", "iPhone (beta)"],
+        },
+        rows: [
+          {
+            it: ["Account cloud condiviso", "✓", "✓"],
+            en: ["Shared cloud account", "✓", "✓"],
+          },
+          {
+            it: ["Dashboard web", "✓", "✓"],
+            en: ["Web dashboard", "✓", "✓"],
+          },
+          {
+            it: ["Lettura Health Connect", "✓", "—"],
+            en: ["Read from Health Connect", "✓", "—"],
+          },
+          {
+            it: ["Lettura Apple Salute", "—", "✓"],
+            en: ["Read from Apple Health", "—", "✓"],
+          },
+          {
+            it: ["Anello Colmi via Bluetooth", "✓", "✓ (beta)"],
+            en: ["Colmi ring via Bluetooth", "✓", "✓ (beta)"],
+          },
+          {
+            it: ["Scrittura su Apple Salute", "—", "✓ (beta)"],
+            en: ["Write to Apple Health", "—", "✓ (beta)"],
+          },
+          {
+            it: ["Scrittura su Health Connect", "roadmap", "—"],
+            en: ["Write to Health Connect", "roadmap", "—"],
+          },
+        ],
+      },
+      {
+        type: "cta",
+        title: {
+          it: "Inizia con Android, aggiungi iPhone quando è pronto",
+          en: "Start with Android, add iPhone when it's ready",
+        },
+        body: {
+          it: "FitMesh Android è disponibile ora su Google Play — scarica, connetti il tuo anello o wearable, e la dashboard è subito attiva. Iscriviti alla beta iOS per ricevere l'accesso appena i posti si aprono.",
+          en: "FitMesh Android is available now on Google Play — download, connect your ring or wearable, and the dashboard is immediately active. Join the iOS beta to get access as soon as spots open.",
+        },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →" },
+        ctaHref: { it: "/it/beta", en: "/en/beta" },
+      },
+    ],
+    faq: [
+      {
+        q: {
+          it: "Posso usare FitMesh su due telefoni contemporaneamente?",
+          en: "Can I use FitMesh on two phones at the same time?",
+        },
+        a: {
+          it: "Sì. Lo stesso account FitMesh funziona su Android e iPhone in parallelo. I dati di entrambi i dispositivi confluiscono nella stessa dashboard cloud — non devi fare nulla di speciale, basta accedere con lo stesso account su entrambi.",
+          en: "Yes. The same FitMesh account works on Android and iPhone in parallel. Data from both devices flows into the same cloud dashboard — you don't need to do anything special, just log in with the same account on both.",
+        },
+      },
+      {
+        q: {
+          it: "I dati del mio smartwatch Android compaiono su Apple Salute?",
+          en: "Does my Android smartwatch data show up in Apple Health?",
+        },
+        a: {
+          it: "Per l'anello smart Colmi: sì. FitMesh iOS (beta) scrive i dati dell'anello Colmi dentro Apple Salute — sonno con fasi, passi, frequenza cardiaca. Per gli smartwatch Android che passano per Health Connect (Galaxy Watch, Garmin, ecc.): il passaggio diretto Health Connect → Apple Salute non è disponibile oggi, ma è in roadmap.",
+          en: "For the Colmi smart ring: yes. FitMesh iOS (beta) writes Colmi ring data into Apple Health — sleep with phases, steps, heart rate. For Android smartwatches that go through Health Connect (Galaxy Watch, Garmin, etc.): the direct Health Connect → Apple Health bridge is not available today, but is on the roadmap.",
+        },
+      },
+      {
+        q: {
+          it: "Se ho già dati su iPhone, vengono duplicati con quelli Android?",
+          en: "If I already have data on iPhone, will it be duplicated with Android data?",
+        },
+        a: {
+          it: "No. FitMesh scrive in Apple Salute identificando esplicitamente 'FitMesh Sync' come fonte. Apple Salute gestisce la deduplicazione automaticamente: quando più fonti scrivono lo stesso tipo di dato, mostra il valore prioritario senza sommarli. I dati nati su iPhone (Apple Watch, ecc.) restano separati da quelli scritti da FitMesh.",
+          en: "No. FitMesh writes to Apple Health with 'FitMesh Sync' explicitly identified as the source. Apple Health handles deduplication automatically: when multiple sources write the same data type, it shows the priority value without adding them. Data originating on iPhone (Apple Watch, etc.) stays separate from data written by FitMesh.",
+        },
+      },
+      {
+        q: {
+          it: "FitMesh iOS è disponibile su App Store?",
+          en: "Is FitMesh iOS available on the App Store?",
+        },
+        a: {
+          it: "Non ancora. FitMesh iOS è in beta attiva su TestFlight. Iscriviti alla lista beta su fitmesh.fit/it/beta — riceverai un'email con il link TestFlight non appena i posti sono disponibili. L'uscita su App Store è pianificata dopo il completamento della beta.",
+          en: "Not yet. FitMesh iOS is in active beta on TestFlight. Join the beta waitlist at fitmesh.fit/en/beta — you'll receive an email with the TestFlight link as soon as spots are available. App Store release is planned after the beta is complete.",
+        },
+      },
+      {
+        q: {
+          it: "I miei dati salute sono al sicuro se uso due telefoni?",
+          en: "Is my health data safe when using two phones?",
+        },
+        a: {
+          it: "Sì. Tutti i dati sono archiviati su un unico server EU (Frankfurt), crittografati in transito (HTTPS) e a riposo. Ogni account è isolato con Row Level Security — nessun altro utente può vedere i tuoi dati. Puoi cancellare tutto in qualsiasi momento dalla sezione 'Elimina account e dati' nell'app.",
+          en: "Yes. All data is stored on a single EU server (Frankfurt), encrypted in transit (HTTPS) and at rest. Each account is isolated with Row Level Security — no other user can see your data. You can delete everything at any time from the 'Delete account and data' section in the app.",
+        },
+      },
+      {
+        q: {
+          it: "L'anello Colmi funziona sia su Android che su iPhone?",
+          en: "Does the Colmi ring work on both Android and iPhone?",
+        },
+        a: {
+          it: "Sì. L'anello Colmi si connette via Bluetooth all'app FitMesh su entrambe le piattaforme. Su Android è già disponibile in produzione. Su iPhone è nella beta attiva — iscriviti per accedere. I dati raccolti dall'anello (sonno con fasi, passi, BPM) vengono sincronizzati all'account cloud e, su iOS, scritti dentro Apple Salute.",
+          en: "Yes. The Colmi ring connects via Bluetooth to the FitMesh app on both platforms. On Android it's already available in production. On iPhone it's in the active beta — join to get access. Data collected by the ring (sleep with phases, steps, BPM) is synced to your cloud account and, on iOS, written into Apple Health.",
+        },
+      },
+    ],
+    brandsMentioned: ["Apple", "Google", "Colmi"],
+  },
+
   // ── 6. Apple Health Export ────────────────────────────────────────────
   {
     slug: "apple-health-export",
@@ -926,8 +1202,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Already available on Android",
         },
         body: {
-          it: "FitMesh Sync è già disponibile su Android via Health Connect. Se hai un telefono Android con Galaxy Watch, Garmin, Fitbit o Pixel Watch, puoi iniziare subito. La versione iOS è in sviluppo attivo — iscriviti alla beta per essere tra i primi.",
-          en: "FitMesh Sync is already available on Android via Health Connect. If you have an Android phone with Galaxy Watch, Garmin, Fitbit, or Pixel Watch, you can start right now. The iOS version is in active development — join the beta to be among the first.",
+          it: "FitMesh Sync è già disponibile su Android via Health Connect. Se hai un telefono Android con Galaxy Watch, Garmin, Fitbit o Pixel Watch, puoi iniziare subito. La versione iOS è in sviluppo attivo — iscriviti alla beta per essere tra i primi. Hai sia un Android che un iPhone? Leggi come funziona il multi-device su /it/lp/due-telefoni.",
+          en: "FitMesh Sync is already available on Android via Health Connect. If you have an Android phone with Galaxy Watch, Garmin, Fitbit, or Pixel Watch, you can start right now. The iOS version is in active development — join the beta to be among the first. Have both Android and iPhone? Read how multi-device works at /en/lp/due-telefoni.",
         },
       },
       {
