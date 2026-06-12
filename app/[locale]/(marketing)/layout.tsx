@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import MarketingBackdrop from "@/components/MarketingBackdrop";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -167,7 +168,7 @@ export default async function LocaleLayout({
         applicationSubCategory: "Fitness",
         inLanguage: lc === "it" ? "it-IT" : "en-US",
         offers: [
-          { "@type": "Offer", price: "3.99", priceCurrency: "EUR", category: "Onetime purchase" },
+          { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR", category: "Onetime purchase" },
         ],
         url: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
         downloadUrl: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",

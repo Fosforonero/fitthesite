@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { PRICE_LIFETIME_ANDROID_RAW, PRICING } from "@/lib/pricing";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -28,8 +29,8 @@ export async function generateMetadata({
       : "About FitMesh Sync — The privacy-first health dashboard";
   const description =
     lc === "it"
-      ? "FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard premium tutta tua. Privacy-first, acquisto unico da €3,99, niente cloud opachi."
-      : "FitMesh Sync mirrors your smartwatch data to a premium dashboard that's all yours. Privacy-first, one-time from €3.99, no opaque clouds.";
+      ? `FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard premium tutta tua. Privacy-first, acquisto unico ${PRICING.fromLifetime.it}, niente cloud opachi.`
+      : `FitMesh Sync mirrors your smartwatch data to a premium dashboard that's all yours. Privacy-first, one-time ${PRICING.fromLifetime.en}, no opaque clouds.`;
 
   const path = `/${lc}/about`;
   return {
@@ -79,7 +80,7 @@ export default async function AboutPage({
       name: "FitMesh Sync",
       applicationCategory: "HealthApplication",
       operatingSystem: "ANDROID",
-      offers: { "@type": "Offer", price: "3.99", priceCurrency: "EUR" },
+      offers: { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR" },
     },
   };
 
@@ -272,7 +273,7 @@ export default async function AboutPage({
             {t("Acquisto unico", "One-time purchase")}
           </p>
           <p className="mt-2 font-display text-display font-bold text-text-primary">
-            {lc === "it" ? "€3,99 Android · €4,99 iPhone" : "€3.99 Android · €4.99 iPhone"}
+            {PRICING.lifetimeBothShort[lc]}
           </p>
           <p className="mt-2 text-text-secondary leading-relaxed">
             {t(

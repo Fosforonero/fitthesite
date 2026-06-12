@@ -16,6 +16,7 @@ import {
 } from "@/lib/providers/data";
 import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
 import { categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
+import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
 
 const SITE_URL = "https://www.fitmesh.fit";
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
@@ -125,7 +126,7 @@ export default async function ProviderLanding({
     description: p.longDesc[lc],
     url: `${SITE_URL}${path}`,
     inLanguage: lc === "it" ? "it-IT" : "en-US",
-    offers: { "@type": "Offer", price: "3.99", priceCurrency: "EUR" },
+    offers: { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR" },
     downloadUrl: PLAY_URL,
   };
 
