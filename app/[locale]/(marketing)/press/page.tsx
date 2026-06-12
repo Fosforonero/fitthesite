@@ -19,6 +19,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import TrustBadges from "@/components/TrustBadges";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { PRICING } from "@/lib/pricing";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -64,7 +65,7 @@ const COPY = {
       { label: "Country", value: "Italia · server UE (Francoforte)" },
       { label: "Tecnologie", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Wearable supportati", value: "9+ brand via Health Connect, espandibili" },
-      { label: "Pricing", value: "Free tier + Pro da €3.99 una tantum (Android €3.99 · iPhone €4.99) o €1.19/6 mesi" },
+      { label: "Pricing", value: `Free tier + Pro ${PRICING.fromLifetime.it} una tantum (Android ${PRICING.lifetimeAndroid.it} · iPhone ${PRICING.lifetimeIos.it}) o ${PRICING.subSixMonthsLabel.it}` },
       { label: "Posti founder", value: "100 a vita gratis (beta)" },
       { label: "Team", value: "Indie / solo dev (Fosforonero, Matteo Pizzi)" },
       { label: "Categoria Play Store", value: "Health & Fitness" },
@@ -150,7 +151,7 @@ const COPY = {
       { label: "Country", value: "Italy · EU servers (Frankfurt)" },
       { label: "Tech stack", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Wearables supported", value: "9+ brands via Health Connect, expandable" },
-      { label: "Pricing", value: "Free tier + Pro from €3.99 one-time (Android €3.99 · iPhone €4.99) or €1.19/6mo" },
+      { label: "Pricing", value: `Free tier + Pro ${PRICING.fromLifetime.en} one-time (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) or ${PRICING.subSixMonthsLabel.en}` },
       { label: "Founder seats", value: "100 lifetime-free (beta)" },
       { label: "Team", value: "Indie / solo dev (Fosforonero, Matteo Pizzi)" },
       { label: "Play Store category", value: "Health & Fitness" },
