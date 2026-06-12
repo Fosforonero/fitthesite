@@ -22,6 +22,10 @@ import { z } from "zod";
 
 import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
 import {
+  readAppleSharedSecret,
+  validateAppleReceipt,
+} from "@/lib/billing/app-store";
+import {
   type GoogleProductPurchase,
   type GoogleSubscriptionPurchase,
   readServiceAccount,
@@ -39,13 +43,17 @@ const KNOWN_PRODUCTS = new Set<string>([PRODUCT_LIFETIME, PRODUCT_SUBSCRIPTION])
 
 const payloadSchema = z.object({
   product_id: z.string().min(1).max(80),
-  purchase_token: z.string().min(8).max(2048),
+  // Android: purchase token Play (~150 char). iOS: l'intera ricevuta
+  // App Store in base64 — può superare i 100KB, da qui il max largo.
+  purchase_token: z.string().min(8).max(500_000),
   package_name: z.string().min(3).max(120),
+  // Default android per retro-compatibilità coi client v137- già in giro.
+  platform: z.enum(["android", "ios"]).default("android"),
 });
 
 type SubRow = {
   user_id: string;
-  billing_source: "google_play";
+  billing_source: "google_play" | "apple_iap";
   external_product_id: string;
   external_subscription_id: string;
   external_order_id: string | null;
@@ -156,11 +164,70 @@ export async function POST(req: Request): Promise<Response> {
   if (!parsed.success) {
     return jsonError(400, "invalid_payload", parsed.error.flatten());
   }
-  const { product_id, purchase_token, package_name } = parsed.data;
+  const { product_id, purchase_token, package_name, platform } = parsed.data;
   if (!KNOWN_PRODUCTS.has(product_id)) {
     return jsonError(400, "unknown_product");
   }
 
+  const admin = createAdminClient() as unknown as Sb;
+  const isSubscription = product_id === PRODUCT_SUBSCRIPTION;
+
+  // ── Ramo Apple (iOS) ─────────────────────────────────────────────────
+  if (platform === "ios") {
+    if (!readAppleSharedSecret()) {
+      console.warn("[Billing] APPLE_SHARED_SECRET missing — iOS IAP validation disabled");
+      return jsonError(503, "app_store_not_configured");
+    }
+    try {
+      const result = await validateAppleReceipt({
+        receiptData: purchase_token,
+        productId: product_id,
+      });
+      if (result.kind === "ok") {
+        const tx = result.tx;
+        const expiresMs = tx.expires_date_ms ? Number(tx.expires_date_ms) : null;
+        const expired = isSubscription && expiresMs !== null && expiresMs < Date.now();
+        const row: SubRow = {
+          user_id: userId,
+          billing_source: "apple_iap",
+          external_product_id: product_id,
+          // original_transaction_id è stabile attraverso i rinnovi → chiave
+          // idempotente naturale (la ricevuta intera cambia a ogni rinnovo).
+          external_subscription_id: tx.original_transaction_id,
+          external_order_id: tx.transaction_id ?? null,
+          active_until: isSubscription
+            ? new Date(expiresMs ?? Date.now()).toISOString()
+            : LIFETIME_SENTINEL,
+          auto_renewing: isSubscription ? result.autoRenewing : false,
+          state: expired ? "expired" : "active",
+          // Mai l'intera ricevuta (100KB+): solo la transazione rilevante.
+          raw_payload: { tx, environment: result.environment },
+          last_notification_at: new Date().toISOString(),
+        };
+        const err = await upsertSubscription(admin, row);
+        if (err) return jsonError(500, "upsert_failed", err);
+        return jsonOk({
+          state: row.state,
+          active_until: row.active_until,
+          source: "apple_iap",
+          auto_renewing: row.auto_renewing,
+        });
+      }
+      if (result.kind === "not_found") {
+        return jsonError(400, "purchase_not_in_receipt");
+      }
+      console.warn(
+        `[Billing] apple_validation_failed status=${result.status} body=${result.body.slice(0, 200)}`,
+      );
+      return jsonError(502, "apple_validation_failed", { status: result.status });
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      console.error(`[Billing] apple internal error: ${msg}`);
+      return jsonError(500, "internal", msg);
+    }
+  }
+
+  // ── Ramo Google (Android) ────────────────────────────────────────────
   // Fallback graceful: env var non settata. Restituiamo 503 con messaggio
   // chiaro così il client può comportarsi di conseguenza (in dev cade su
   // grant in-memory client-side).
@@ -170,9 +237,6 @@ export async function POST(req: Request): Promise<Response> {
     );
     return jsonError(503, "google_play_not_configured");
   }
-
-  const admin = createAdminClient() as unknown as Sb;
-  const isSubscription = product_id === PRODUCT_SUBSCRIPTION;
 
   try {
     if (isSubscription) {
