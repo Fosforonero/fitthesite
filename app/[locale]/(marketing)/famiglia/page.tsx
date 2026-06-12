@@ -116,7 +116,7 @@ const COPY = {
     pricing_kicker: "Quanto costa",
     pricing_h2: "Gratis fino a 3 membri",
     pricing_body:
-      "Il piano gratuito copre te + 2 familiari (3 totali). Con FitMesh Pro (€3.99 una tantum) sblocchi fino a 8 membri, storico esteso, e priorita' sync. Niente subscription, niente trial scaduti, niente carte di credito richieste.",
+      "Il piano gratuito copre te + 2 familiari (3 totali). Con FitMesh Pro (acquisto unico: €3,99 su Android · €4,99 su iPhone) sblocchi fino a 8 membri, storico esteso, e priorita' sync. Niente subscription, niente trial scaduti, niente carte di credito richieste.",
     faq_kicker: "Domande comuni",
     faq_h2: "Dubbi e risposte",
     faqs: [
@@ -148,7 +148,7 @@ const COPY = {
       {
         q: "Quante persone posso invitare?",
         a:
-          "Piano gratuito: 3 totali (incluso te). Piano Pro €3.99 una tantum: fino a 8 membri.",
+          "Piano gratuito: 3 totali (incluso te). Piano Pro (€3,99 Android · €4,99 iPhone): fino a 8 membri.",
       },
     ],
     final_cta_h2: "Inizia oggi — 3 minuti per creare il primo gruppo",
@@ -232,7 +232,7 @@ const COPY = {
     pricing_kicker: "What it costs",
     pricing_h2: "Free up to 3 members",
     pricing_body:
-      "Free plan covers you + 2 family members (3 total). With FitMesh Pro (€3.99 one-time) you unlock up to 8 members, extended history, and sync priority. No subscription, no expired trials, no credit card required.",
+      "Free plan covers you + 2 family members (3 total). With FitMesh Pro (one-time: €3.99 on Android · €4.99 on iPhone) you unlock up to 8 members, extended history, and sync priority. No subscription, no expired trials, no credit card required.",
     faq_kicker: "Common questions",
     faq_h2: "FAQs",
     faqs: [
@@ -264,7 +264,7 @@ const COPY = {
       {
         q: "How many people can I invite?",
         a:
-          "Free plan: 3 total (including you). Pro €3.99 one-time: up to 8 members.",
+          "Free plan: 3 total (including you). Pro (€3.99 Android · €4.99 iPhone): up to 8 members.",
       },
     ],
     final_cta_h2: "Start today — 3 minutes to create your first group",

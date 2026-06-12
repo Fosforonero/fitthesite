@@ -651,7 +651,7 @@ export function OnboardingMockup() {
           className="mt-10"
           style={{ fontSize: "20px", color: "#7F8AA3" }}
         >
-          €3,99 acquisto unico · No abbonamento
+          da €3,99 acquisto unico · No abbonamento
         </p>
       </div>
     </div>

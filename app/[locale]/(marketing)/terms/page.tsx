@@ -143,7 +143,7 @@ function TermsIT() {
         <p>FitMesh Sync offre funzionalità avanzate ("Pro") tramite acquisto in-app gestito da Google Play Billing:</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Acquisto unico — €3,99 una tantum:</strong> sblocca permanentemente tutte le funzionalità Pro sull'account Google associato. Nessun abbonamento, nessun rinnovo automatico.</span>
+            <span><strong className="text-text-primary">Acquisto unico — €3,99 su Android (€4,99 su iPhone):</strong> sblocca permanentemente tutte le funzionalità Pro sull'account associato. Nessun abbonamento, nessun rinnovo automatico.</span>
           </li>
         </ul>
         <p>
@@ -330,7 +330,7 @@ function TermsEN() {
         <p>FitMesh Sync offers advanced ("Pro") features via in-app purchase managed by Google Play Billing:</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">One-time purchase — €3.99:</strong> unlocks Pro features permanently on the associated Google account. No subscription, no auto-renewal.</span>
+            <span><strong className="text-text-primary">One-time purchase — €3.99 on Android (€4.99 on iPhone):</strong> unlocks Pro features permanently on the associated account. No subscription, no auto-renewal.</span>
           </li>
         </ul>
         <p>

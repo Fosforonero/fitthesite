@@ -608,8 +608,8 @@ export default async function Home({
             </div>
             <p className="mt-6 text-xs text-text-muted">
               {lc === "it"
-                ? "Free for life per i primi 100. Acquisto unico €3,99 dopo il lancio pubblico."
-                : "Free for life for the first 100. €3.99 one-time after public launch."}
+                ? "Free for life per i primi 100. Acquisto unico da €3,99 dopo il lancio pubblico."
+                : "Free for life for the first 100. One-time from €3.99 after public launch."}
             </p>
           </div>
         </div>

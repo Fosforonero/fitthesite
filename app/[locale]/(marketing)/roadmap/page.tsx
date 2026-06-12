@@ -137,8 +137,8 @@ const COLUMNS: RoadmapColumn[] = [
         status: "live",
         title: { it: "Trial gratuito 7 giorni", en: "7-day free trial" },
         desc: {
-          it: "Una settimana per provare tutto senza inserire dati di pagamento. Acquisto unico €3,99 al termine, niente subscription.",
-          en: "One week to try everything without entering payment details. €3.99 one-time purchase after, no subscription.",
+          it: "Una settimana per provare tutto senza inserire dati di pagamento. Acquisto unico da €3,99 al termine, niente subscription.",
+          en: "One week to try everything without entering payment details. One-time from €3.99 after, no subscription.",
         },
       },
     ],

@@ -28,8 +28,8 @@ export async function generateMetadata({
       : "About FitMesh Sync — The privacy-first health dashboard";
   const description =
     lc === "it"
-      ? "FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard premium tutta tua. Privacy-first, acquisto unico €3,99, niente cloud opachi."
-      : "FitMesh Sync mirrors your smartwatch data to a premium dashboard that's all yours. Privacy-first, €3.99 one-time, no opaque clouds.";
+      ? "FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard premium tutta tua. Privacy-first, acquisto unico da €3,99, niente cloud opachi."
+      : "FitMesh Sync mirrors your smartwatch data to a premium dashboard that's all yours. Privacy-first, one-time from €3.99, no opaque clouds.";
 
   const path = `/${lc}/about`;
   return {
@@ -272,12 +272,12 @@ export default async function AboutPage({
             {t("Acquisto unico", "One-time purchase")}
           </p>
           <p className="mt-2 font-display text-display font-bold text-text-primary">
-            €3,99
+            {lc === "it" ? "€3,99 Android · €4,99 iPhone" : "€3.99 Android · €4.99 iPhone"}
           </p>
           <p className="mt-2 text-text-secondary leading-relaxed">
             {t(
-              "Pay-once, own-forever. Niente abbonamento. Niente rinnovo automatico. Niente surprise alla prossima fattura. Acquisto gestito da Google Play Billing.",
-              "Pay-once, own-forever. No subscription. No auto-renewal. No surprise on your next bill. Purchase handled by Google Play Billing.",
+              "Pay-once, own-forever. Niente abbonamento. Niente rinnovo automatico. Niente surprise alla prossima fattura.",
+              "Pay-once, own-forever. No subscription. No auto-renewal. No surprise on your next bill.",
             )}
           </p>
           <p className="mt-3 text-sm text-text-muted">

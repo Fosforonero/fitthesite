@@ -297,7 +297,7 @@ const IT = {
     },
     {
       q: "Cosa succede alla scadenza dell'anno?",
-      a: "Nessun addebito: non chiediamo la carta. L'account passa semplicemente al piano gratuito (ultimi 14 giorni di storico). Se vuoi continuare con Pro: €1,19 ogni 6 mesi o €3,99 acquisto unico.",
+      a: "Nessun addebito: non chiediamo la carta. L'account passa semplicemente al piano gratuito (ultimi 14 giorni di storico). Se vuoi continuare con Pro: €1,19 ogni 6 mesi o acquisto unico (€3,99 su Android · €4,99 su iPhone).",
     },
     {
       q: "E i primi 100 beta tester?",
@@ -380,7 +380,7 @@ const EN = {
     },
     {
       q: "What happens when the year ends?",
-      a: "No charge: we never ask for a card. Your account simply moves to the free plan (last 14 days of history). To keep Pro: €1.19 every 6 months or €3.99 one-time.",
+      a: "No charge: we never ask for a card. Your account simply moves to the free plan (last 14 days of history). To keep Pro: €1.19 every 6 months or one-time (€3.99 on Android · €4.99 on iPhone).",
     },
     {
       q: "What about the first 100 beta testers?",
