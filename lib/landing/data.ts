@@ -1094,6 +1094,267 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     brandsMentioned: ["Apple", "Google", "Colmi"],
   },
 
+  // ── 8. Anello smart Colmi + FitMesh (conversion landing) ─────────────
+  {
+    slug: "anello-smart-sonno",
+    relatedProvider: "colmi-ring",
+    publishedAt: "2026-06-13",
+    updatedAt: "2026-06-13",
+    primaryKeyword: {
+      it: "anello smart sonno colmi fitmesh",
+      en: "colmi smart ring sleep fitmesh",
+    },
+    secondaryKeywords: {
+      it: [
+        "anello colmi senza app produttore",
+        "anello smart passi battito spo2 android",
+        "colmi ring dashboard web",
+        "anello smart ios android stessa app",
+        "colmi ring apple salute",
+      ],
+      en: [
+        "colmi ring without manufacturer app",
+        "smart ring steps heart rate spo2 android",
+        "colmi ring web dashboard",
+        "smart ring ios android same app",
+        "colmi ring apple health",
+      ],
+    },
+    metaDescription: {
+      it: "FitMesh Sync legge l'anello Colmi via Bluetooth: passi, battito, SpO2, sonno con fasi, stress, batteria. Dashboard web su Android e, presto, su iPhone. Senza app del produttore.",
+      en: "FitMesh Sync reads your Colmi ring via Bluetooth: steps, heart rate, SpO2, sleep with stages, stress, battery. Web dashboard on Android and, soon, iPhone. No manufacturer app needed.",
+    },
+    hero: {
+      kicker: { it: "Anello Colmi + FitMesh Sync", en: "Colmi Ring + FitMesh Sync" },
+      title: {
+        it: "Il tuo anello Colmi su una dashboard web, senza l'app del produttore",
+        en: "Your Colmi ring on a web dashboard, no manufacturer app required",
+      },
+      subtitle: {
+        it: "FitMesh Sync si collega direttamente al tuo anello Colmi via Bluetooth e raccoglie passi, battito cardiaco, SpO2, sonno con fasi, stress e livello batteria. I dati appaiono su una dashboard web accessibile da qualsiasi browser, uniti a quelli del tuo smartwatch, senza doppioni.",
+        en: "FitMesh Sync connects directly to your Colmi ring via Bluetooth and collects steps, heart rate, SpO2, sleep with stages, stress, and battery level. Data appears on a web dashboard accessible from any browser, merged with your smartwatch data, with no duplicates.",
+      },
+      primaryCta: {
+        label: { it: "Entra in beta gratis", en: "Join the free beta" },
+        href: { it: "/it/beta", en: "/en/beta" },
+      },
+      secondaryCta: {
+        label: { it: "Leggi la guida completa", en: "Read the full guide" },
+        href: {
+          it: "/it/blog/colmi-ring-fitmesh",
+          en: "/en/blog/colmi-ring-fitmesh",
+        },
+      },
+    },
+    body: [
+      {
+        type: "paragraph",
+        text: {
+          it: "Gli anelli Colmi offrono un monitoraggio continuo discreto: li indossi giorno e notte, tracciano il sonno con le fasi (leggero, profondo, REM), il battito cardiaco, la saturazione dell'ossigeno nel sangue e il livello di stress, senza che tu debba ricordarti di attivare niente. Il problema con molti anelli economici è l'app del produttore: spesso è scarna, i dati restano chiusi, non c'è integrazione con lo smartwatch che usi di giorno e non esiste una dashboard web decente.",
+          en: "Colmi rings offer discreet continuous monitoring: you wear them day and night, tracking sleep with stages (light, deep, REM), heart rate, blood oxygen saturation, and stress level, with nothing to manually activate. The problem with many budget rings is the manufacturer app: often sparse, data stays locked in, there's no integration with the smartwatch you use during the day, and there's no decent web dashboard.",
+        },
+      },
+      {
+        type: "paragraph",
+        text: {
+          it: "FitMesh Sync risolve esattamente questo. Invece di usare l'app Colmi, usi FitMesh: si collega direttamente all'anello via Bluetooth, scarica i dati, li manda al cloud EU e li mostra su una dashboard web unificata con gli altri tuoi wearable.",
+          en: "FitMesh Sync solves exactly this. Instead of using the Colmi app, you use FitMesh: it connects directly to the ring via Bluetooth, pulls the data, sends it to the EU cloud, and shows it on a unified web dashboard alongside your other wearables.",
+        },
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: {
+          it: "Cosa legge FitMesh dall'anello Colmi",
+          en: "What FitMesh reads from the Colmi ring",
+        },
+      },
+      {
+        type: "list",
+        items: {
+          it: [
+            "**Passi**: conteggio giornaliero e per intervallo orario",
+            "**Frequenza cardiaca**: campioni continui e media giornaliera",
+            "**SpO2**: saturazione dell'ossigeno nel sangue",
+            "**Sonno con fasi**: durata totale, Leggero, Profondo, REM, Sveglio",
+            "**Stress**: punteggio basato sulla variabilità cardiaca",
+            "**Batteria**: livello di carica residua dell'anello",
+          ],
+          en: [
+            "**Steps**: daily count and hourly interval breakdown",
+            "**Heart rate**: continuous samples and daily average",
+            "**SpO2**: blood oxygen saturation",
+            "**Sleep with stages**: total duration, Light, Deep, REM, Awake",
+            "**Stress**: score based on heart rate variability",
+            "**Battery**: remaining charge level of the ring",
+          ],
+        },
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: {
+          it: "Dashboard unificata: anello + smartwatch, zero doppioni",
+          en: "Unified dashboard: ring + smartwatch, zero duplicates",
+        },
+      },
+      {
+        type: "paragraph",
+        text: {
+          it: "Molti usano l'anello di notte (per il sonno) e lo smartwatch di giorno (per sport e notifiche). FitMesh li mette insieme in un'unica vista: il sonno viene dall'anello Colmi, i passi e gli allenamenti dal watch. Quando le stesse misure arrivano da due fonti, FitMesh applica un meccanismo anti-duplicato: non somma due volte lo stesso passo.",
+          en: "Many people use the ring at night (for sleep) and the smartwatch during the day (for sport and notifications). FitMesh puts them together in a single view: sleep comes from the Colmi ring, steps and workouts from the watch. When the same measurement arrives from two sources, FitMesh applies a deduplication mechanism: the same step is never counted twice.",
+        },
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: {
+          it: "Come funziona: setup in 3 passi",
+          en: "How it works: 3-step setup",
+        },
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: {
+          it: [
+            "Installa **FitMesh Sync** dal Play Store e accedi con Google.",
+            "Apri la sezione **Anello** nell'app e tieni l'anello Colmi vicino al telefono: FitMesh lo trova via Bluetooth e si accoppia in automatico.",
+            "Apri la **dashboard web** (link nell'app oppure accedi da browser): passi, sonno e battito sono già visibili.",
+          ],
+          en: [
+            "Install **FitMesh Sync** from the Play Store and sign in with Google.",
+            "Open the **Ring** section in the app and keep the Colmi ring near your phone: FitMesh finds it via Bluetooth and pairs automatically.",
+            "Open the **web dashboard** (link in the app or sign in from a browser): steps, sleep, and heart rate are already visible.",
+          ],
+        },
+      },
+      {
+        type: "heading",
+        level: 2,
+        text: {
+          it: "Compatibilità: cosa funziona oggi",
+          en: "Compatibility: what works today",
+        },
+      },
+      {
+        type: "table",
+        caption: {
+          it: "Stato di compatibilità (giugno 2026)",
+          en: "Compatibility status (June 2026)",
+        },
+        headers: {
+          it: ["Funzione", "Android", "iPhone"],
+          en: ["Feature", "Android", "iPhone"],
+        },
+        rows: [
+          {
+            it: ["Connessione Bluetooth all'anello Colmi", "Disponibile", "In arrivo (beta)"],
+            en: ["Bluetooth connection to Colmi ring", "Available", "Coming soon (beta)"],
+          },
+          {
+            it: ["Passi, battito, SpO2, stress, batteria", "Disponibile", "In arrivo (beta)"],
+            en: ["Steps, heart rate, SpO2, stress, battery", "Available", "Coming soon (beta)"],
+          },
+          {
+            it: ["Sonno con fasi (Leggero, Profondo, REM)", "Disponibile", "In arrivo (beta)"],
+            en: ["Sleep with stages (Light, Deep, REM)", "Available", "Coming soon (beta)"],
+          },
+          {
+            it: ["Dashboard web (stesso account)", "Disponibile", "Disponibile"],
+            en: ["Web dashboard (same account)", "Available", "Available"],
+          },
+          {
+            it: ["Scrittura su Apple Salute", "n/a", "In arrivo (beta)"],
+            en: ["Write to Apple Health", "n/a", "Coming soon (beta)"],
+          },
+          {
+            it: ["Unione con dati smartwatch (no doppioni)", "Disponibile", "In arrivo (beta)"],
+            en: ["Merge with smartwatch data (no duplicates)", "Available", "Coming soon (beta)"],
+          },
+        ],
+      },
+      {
+        type: "callout",
+        variant: "info",
+        title: {
+          it: "Anello Colmi su iPhone: in arrivo",
+          en: "Colmi ring on iPhone: coming soon",
+        },
+        body: {
+          it: "L'app FitMesh iOS supporta l'anello Colmi via Bluetooth ed è in fase di revisione per l'App Store. Con un unico account FitMesh, i dati dell'anello si vedono su entrambi i telefoni e vengono scritti dentro Apple Salute (ponte opzionale). Iscriviti alla beta su /it/beta per ricevere l'accesso non appena disponibile.",
+          en: "The FitMesh iOS app supports the Colmi ring via Bluetooth and is under App Store review. With one FitMesh account, ring data is visible on both phones and written into Apple Health (optional bridge). Join the beta at /en/beta to get access as soon as it's available.",
+        },
+      },
+      {
+        type: "cta",
+        title: {
+          it: "Pronto a usare il tuo anello Colmi senza l'app del produttore?",
+          en: "Ready to use your Colmi ring without the manufacturer app?",
+        },
+        body: {
+          it: "100 posti founder gratis durante la beta. App Android disponibile ora su Play Store, dashboard web inclusa.",
+          en: "100 free founder spots during beta. Android app available now on Play Store, web dashboard included.",
+        },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →" },
+        ctaHref: { it: "/it/beta", en: "/en/beta" },
+      },
+    ],
+    faq: [
+      {
+        q: {
+          it: "Devo tenere l'app Colmi sul telefono?",
+          en: "Do I need to keep the Colmi app on my phone?",
+        },
+        a: {
+          it: "No. FitMesh Sync si connette direttamente all'anello via Bluetooth, quindi l'app del produttore non è necessaria. Puoi disinstallarla se vuoi. FitMesh raccoglie i dati in autonomia e li invia alla dashboard web.",
+          en: "No. FitMesh Sync connects directly to the ring via Bluetooth, so the manufacturer app is not needed. You can uninstall it if you want. FitMesh collects data independently and sends it to the web dashboard.",
+        },
+      },
+      {
+        q: {
+          it: "Quali modelli Colmi sono supportati?",
+          en: "Which Colmi models are supported?",
+        },
+        a: {
+          it: "FitMesh supporta i modelli Colmi più diffusi che usano il protocollo Bluetooth standard, inclusi i modelli della serie R (R02, R06, R08, R09, R10) e altri con funzionalità simili. La compatibilità viene ampliata progressivamente. Se il tuo modello non compare, iscriviti alla beta e segnalacelo: aggiungiamo i modelli richiesti in priorità.",
+          en: "FitMesh supports the most common Colmi models using the standard Bluetooth protocol, including R-series models (R02, R06, R08, R09, R10) and others with similar features. Compatibility is expanded progressively. If your model isn't listed, join the beta and let us know: requested models are prioritized.",
+        },
+      },
+      {
+        q: {
+          it: "Se ho anche uno smartwatch, i passi vengono contati due volte?",
+          en: "If I also have a smartwatch, will steps be counted twice?",
+        },
+        a: {
+          it: "No. FitMesh applica una logica anti-duplicato: se lo stesso intervallo temporale ha dati sia dall'anello sia dallo smartwatch, viene usata la fonte con il dato migliore (o più recente), non la somma. L'obiettivo è avere un conteggio corretto, non gonfiato.",
+          en: "No. FitMesh applies a deduplication logic: if the same time interval has data from both the ring and the smartwatch, the source with the better (or more recent) data is used, not the sum. The goal is an accurate count, not an inflated one.",
+        },
+      },
+      {
+        q: {
+          it: "I dati del sonno compaiono su Apple Salute?",
+          en: "Does sleep data appear in Apple Health?",
+        },
+        a: {
+          it: "Su Android, i dati vengono archiviati nel cloud FitMesh e mostrati sulla dashboard web. Su iPhone, l'app FitMesh iOS (in arrivo) scrive il sonno con fasi, i passi e il battito cardiaco dentro Apple Salute, rendendoli visibili nell'app Salute di Apple e in qualsiasi altra app che legge da Apple Salute. Non sono disponibili su App Store in questo momento: iscriviti alla beta per l'accesso anticipato.",
+          en: "On Android, data is stored in the FitMesh cloud and shown on the web dashboard. On iPhone, the FitMesh iOS app (coming soon) writes sleep with stages, steps, and heart rate into Apple Health, making them visible in Apple's Health app and in any app reading from Apple Health. Not available on the App Store at this time: join the beta for early access.",
+        },
+      },
+      {
+        q: {
+          it: "FitMesh può fare affermazioni mediche sui dati SpO2 o stress?",
+          en: "Can FitMesh make medical claims about SpO2 or stress data?",
+        },
+        a: {
+          it: "No. I dati di SpO2 e stress forniti dall'anello Colmi sono misurazioni consumer per il monitoraggio personale del benessere, non strumenti diagnostici. FitMesh li mostra così come arrivano dall'anello. Per qualsiasi valutazione clinica, rivolgiti a un professionista sanitario.",
+          en: "No. SpO2 and stress data from the Colmi ring are consumer-grade measurements for personal wellness monitoring, not diagnostic tools. FitMesh displays them as received from the ring. For any clinical assessment, consult a healthcare professional.",
+        },
+      },
+    ],
+    brandsMentioned: ["Colmi", "Apple", "Google"],
+  },
+
   // ── 6. Apple Health Export ────────────────────────────────────────────
   {
     slug: "apple-health-export",
