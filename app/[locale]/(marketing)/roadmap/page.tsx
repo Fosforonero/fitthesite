@@ -155,6 +155,14 @@ const COLUMNS: RoadmapColumn[] = [
     items: [
       {
         status: "in-progress",
+        title: { it: "App iOS (Apple Salute)", en: "iOS app (Apple Health)" },
+        desc: {
+          it: "App per iPhone pronta: lettura Apple Salute e un ponte che porta in Apple Salute i dati di Galaxy Watch e anello Colmi. Lancio su App Store imminente.",
+          en: "iPhone app ready: Apple Health read, plus a bridge that brings Galaxy Watch and Colmi ring data into Apple Health. App Store launch imminent.",
+        },
+      },
+      {
+        status: "in-progress",
         title: { it: "Landing Pixel Watch dedicata", en: "Dedicated Pixel Watch landing" },
         desc: {
           it: "Pagina /sync/pixel-watch con setup guide specifico e troubleshooting Fitbit → Health Connect dedicato.",
@@ -198,7 +206,7 @@ const COLUMNS: RoadmapColumn[] = [
   {
     id: "q3-2026",
     kicker: { it: "Q3 2026", en: "Q3 2026" },
-    title: { it: "OAuth nativi e prima onda iOS", en: "Native OAuth and first iOS wave" },
+    title: { it: "Integrazioni OAuth native", en: "Native OAuth integrations" },
     caption: {
       it: "Integrazioni che richiedono OAuth ufficiale e approvazione partner. Date soggette ai loro processi.",
       en: "Integrations that require official OAuth and partner approval. Dates subject to their processes.",
@@ -235,14 +243,6 @@ const COLUMNS: RoadmapColumn[] = [
         desc: {
           it: "ECG dettagliato + rilevamento FA, Sleep Mat con fasi, Pulse Wave Velocity, trend lungo periodo composizione corporea.",
           en: "Detailed ECG + AFib detection, Sleep Mat with stages, Pulse Wave Velocity, long-term body composition trends.",
-        },
-      },
-      {
-        status: "planned",
-        title: { it: "App iOS (HealthKit)", en: "iOS app (HealthKit)" },
-        desc: {
-          it: "Prima onda dell'app iOS con HealthKit: Apple Watch, iPhone, e bridge a tutte le sorgenti che già scrivono in HK.",
-          en: "First iOS app wave with HealthKit: Apple Watch, iPhone, and bridge to every source that already writes into HK.",
         },
       },
     ],
