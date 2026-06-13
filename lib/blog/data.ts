@@ -45,6 +45,12 @@ import { post as datiAnelloSmartAppleSalute } from "./posts/dati-anello-smart-ap
 // Novità (release notes / sezione /novita)
 import { post as novitaAnelloColmiSonno } from "./posts/novita-anello-colmi-sonno";
 import { post as novitaDashboardMultiDevice } from "./posts/novita-dashboard-multi-device";
+// Cluster anello smart
+import { post as anelloVsSmartwatch } from "./posts/anello-vs-smartwatch";
+import { post as miglioriAnelliEconomici } from "./posts/migliori-anelli-economici";
+import { post as tracciareSonnoAnello } from "./posts/tracciare-sonno-anello";
+import { post as colmiR02Setup } from "./posts/colmi-r02-setup";
+import { post as syncThemAll } from "./posts/sync-them-all";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -80,6 +86,12 @@ const RAW_POSTS: BlogPost[] = [
   // Novità (release notes)
   novitaAnelloColmiSonno,
   novitaDashboardMultiDevice,
+  // Cluster anello smart
+  anelloVsSmartwatch,
+  miglioriAnelliEconomici,
+  tracciareSonnoAnello,
+  colmiR02Setup,
+  syncThemAll,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
