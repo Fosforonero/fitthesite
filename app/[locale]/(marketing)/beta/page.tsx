@@ -266,7 +266,7 @@ const IT = {
   ],
   formTitle: "Vuoi FitMesh anche su iPhone?",
   formSub:
-    "Lascia l'email e ti avviso al lancio iOS — i founder hanno accesso prioritario alla prima build.",
+    "Lascia l'email e ti avviso al lancio iOS: i founder hanno accesso prioritario alla prima build.",
   nextTitle: "Come funziona",
   nextSteps: [
     {
@@ -349,7 +349,7 @@ const EN = {
   ],
   formTitle: "Want FitMesh on iPhone too?",
   formSub:
-    "Leave your email and I'll ping you at iOS launch — founders get priority access to the first build.",
+    "Leave your email and I'll ping you at iOS launch: founders get priority access to the first build.",
   nextTitle: "How it works",
   nextSteps: [
     {

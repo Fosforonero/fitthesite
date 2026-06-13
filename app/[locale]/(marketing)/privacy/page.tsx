@@ -210,14 +210,14 @@ function PrivacyIT() {
       <Section title="11. Dati di terze parti (responsabili del trattamento)">
         <p>FitMesh Sync utilizza i seguenti responsabili del trattamento (Data Processors):</p>
         <List items={[
-          ["Health Connect (Google LLC)", "fonte dati di salute Android — letti localmente, non comunicati a Google da noi"],
-          ["Samsung Health Data SDK (Samsung Electronics)", "fonte dati Galaxy Watch — letti localmente"],
-          ["Supabase Inc.", "database PostgreSQL gestito + Auth (Francoforte, DE) — DPA firmato"],
-          ["Vercel Inc.", "hosting API serverless (USA, edge globale) — DPA firmato + SCC"],
-          ["Resend, Inc.", "delivery email transazionali (USA) — DPA + SCC"],
-          ["Google LLC (Firebase Cloud Messaging)", "trasporto notifiche push (USA) — DPA + SCC + DPF"],
-          ["Google LLC (Google Sign-In, opzionale)", "autenticazione OAuth (USA) — DPA + SCC + DPF"],
-          ["Google LLC (Google Play Billing)", "gestione acquisti in-app — soggetto a Google Play Terms"],
+          ["Health Connect (Google LLC)", "fonte dati di salute Android, letti localmente, non comunicati a Google da noi"],
+          ["Samsung Health Data SDK (Samsung Electronics)", "fonte dati Galaxy Watch, letti localmente"],
+          ["Supabase Inc.", "database PostgreSQL gestito + Auth (Francoforte, DE), DPA firmato"],
+          ["Vercel Inc.", "hosting API serverless (USA, edge globale), DPA firmato + SCC"],
+          ["Resend, Inc.", "delivery email transazionali (USA), DPA + SCC"],
+          ["Google LLC (Firebase Cloud Messaging)", "trasporto notifiche push (USA), DPA + SCC + DPF"],
+          ["Google LLC (Google Sign-In, opzionale)", "autenticazione OAuth (USA), DPA + SCC + DPF"],
+          ["Google LLC (Google Play Billing)", "gestione acquisti in-app, soggetto a Google Play Terms"],
           ["Google Analytics 4 (solo sito web, opt-in)", "analytics anonimi attivati solo dopo consenso esplicito tramite cookie banner"],
         ]} />
         <p>
@@ -419,14 +419,14 @@ function PrivacyEN() {
       <Section title="11. Third-party processors">
         <p>FitMesh Sync uses the following data processors:</p>
         <List items={[
-          ["Health Connect (Google LLC)", "Android health data source — read locally, not communicated by us to Google"],
-          ["Samsung Health Data SDK (Samsung Electronics)", "Galaxy Watch data source — read locally"],
-          ["Supabase Inc.", "managed PostgreSQL + Auth (Frankfurt, DE) — DPA signed"],
-          ["Vercel Inc.", "serverless API hosting (US, global edge) — DPA signed + SCC"],
-          ["Resend, Inc.", "transactional email delivery (US) — DPA + SCC"],
-          ["Google LLC (Firebase Cloud Messaging)", "push notification transport (US) — DPA + SCC + DPF"],
-          ["Google LLC (Google Sign-In, optional)", "OAuth authentication (US) — DPA + SCC + DPF"],
-          ["Google LLC (Google Play Billing)", "in-app purchase handling — subject to Google Play Terms"],
+          ["Health Connect (Google LLC)", "Android health data source, read locally, not communicated by us to Google"],
+          ["Samsung Health Data SDK (Samsung Electronics)", "Galaxy Watch data source, read locally"],
+          ["Supabase Inc.", "managed PostgreSQL + Auth (Frankfurt, DE), DPA signed"],
+          ["Vercel Inc.", "serverless API hosting (US, global edge), DPA signed + SCC"],
+          ["Resend, Inc.", "transactional email delivery (US), DPA + SCC"],
+          ["Google LLC (Firebase Cloud Messaging)", "push notification transport (US), DPA + SCC + DPF"],
+          ["Google LLC (Google Sign-In, optional)", "OAuth authentication (US), DPA + SCC + DPF"],
+          ["Google LLC (Google Play Billing)", "in-app purchase handling, subject to Google Play Terms"],
           ["Google Analytics 4 (website only, opt-in)", "anonymous analytics enabled only after explicit consent via the cookie banner"],
         ]} />
         <p>

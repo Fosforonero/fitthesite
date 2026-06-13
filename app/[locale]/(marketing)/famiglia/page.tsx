@@ -57,7 +57,7 @@ const COPY = {
       {
         title: "Famiglia con figli adolescenti",
         body:
-          "Tuo figlio ha la Mi Band. Tu vuoi che si muova, dorma abbastanza, non strapazzi il cuore allenandosi senza sapere. Vedi i suoi dati salute nella tua app — niente social, niente chat, solo numeri.",
+          "Tuo figlio ha la Mi Band. Tu vuoi che si muova, dorma abbastanza, non strapazzi il cuore allenandosi senza sapere. Vedi i suoi dati salute nella tua app: niente social, niente chat, solo numeri.",
       },
       {
         title: "Partner / coniugi",
@@ -151,7 +151,7 @@ const COPY = {
           "Piano gratuito: 3 totali (incluso te). Piano Pro (€3,99 Android · €4,99 iPhone): fino a 8 membri.",
       },
     ],
-    final_cta_h2: "Inizia oggi — 3 minuti per creare il primo gruppo",
+    final_cta_h2: "Inizia oggi: 3 minuti per creare il primo gruppo",
     final_cta_body:
       "Scarica FitMesh dal Play Store, crea il gruppo famiglia, condividi il link con chi vuoi. Funziona subito, anche se i tuoi familiari non aprono l'app per giorni.",
   },
@@ -173,7 +173,7 @@ const COPY = {
       {
         title: "Families with teenagers",
         body:
-          "Your kid has the Mi Band. You want them to move, sleep enough, not overdo workouts blindly. See their health data in your app — no social, no chats, just numbers.",
+          "Your kid has the Mi Band. You want them to move, sleep enough, not overdo workouts blindly. See their health data in your app: no social, no chats, just numbers.",
       },
       {
         title: "Partners / spouses",
@@ -267,7 +267,7 @@ const COPY = {
           "Free plan: 3 total (including you). Pro (€3.99 Android · €4.99 iPhone): up to 8 members.",
       },
     ],
-    final_cta_h2: "Start today — 3 minutes to create your first group",
+    final_cta_h2: "Start today: 3 minutes to create your first group",
     final_cta_body:
       "Download FitMesh from Play Store, create the family group, share the link with anyone. It works immediately, even if your family members don't open the app for days.",
   },
@@ -295,8 +295,8 @@ export async function generateMetadata({
         : "Family Mesh — Monitor your loved ones' health | FitMesh Sync");
   const description = COMING_SOON
     ? (lc === "it"
-        ? "Mesh Famiglia: monitora passi, sonno e battito dei tuoi cari in un'unica dashboard privacy-first. Feature in arrivo nei prossimi mesi — iscriviti alla waitlist per essere avvisato al lancio."
-        : "Family Mesh: monitor steps, sleep and heart rate of your loved ones in one privacy-first dashboard. Coming in the next months — join the waitlist to be notified at launch.")
+        ? "Mesh Famiglia: monitora passi, sonno e battito dei tuoi cari in un'unica dashboard privacy-first. Feature in arrivo nei prossimi mesi: iscriviti alla waitlist per essere avvisato al lancio."
+        : "Family Mesh: monitor steps, sleep and heart rate of your loved ones in one privacy-first dashboard. Coming in the next months: join the waitlist to be notified at launch.")
     : (lc === "it"
         ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, gratis fino a 3 membri, niente posizione condivisa."
         : "Family Mesh lets you see steps, sleep, and heart rate of parents, partners or kids in one dashboard. Privacy-first, free up to 3 members, no location sharing.");
@@ -594,14 +594,14 @@ function ComingSoonState({
     ? {
         kicker: "Mesh Famiglia",
         h1: "In arrivo: monitora la salute dei tuoi cari, privacy-first",
-        sub: "Stiamo finendo Mesh Famiglia: una dashboard per vedere passi, sonno e battito di genitori, partner o figli — senza posizione condivisa, senza ads. Aprirà quando FitMesh Sync sarà disponibile su entrambi gli store (Android + iOS). Iscriviti alla waitlist per essere avvisato al lancio.",
+        sub: "Stiamo finendo Mesh Famiglia: una dashboard per vedere passi, sonno e battito di genitori, partner o figli, senza posizione condivisa, senza ads. Aprirà quando FitMesh Sync sarà disponibile su entrambi gli store (Android + iOS). Iscriviti alla waitlist per essere avvisato al lancio.",
         cta: "Iscriviti alla waitlist",
         secondary: "Nel frattempo: scarica FitMesh Sync su Android",
         why_h2: "Perché serve",
         why_items: [
           {
             title: "Genitori anziani autonomi",
-            body: "Vorresti sapere se tuo padre o tua madre ha camminato oggi, se ha dormito bene, se la frequenza cardiaca è stabile — senza chiedere ogni giorno e senza app invasive.",
+            body: "Vorresti sapere se tuo padre o tua madre ha camminato oggi, se ha dormito bene, se la frequenza cardiaca è stabile, senza chiedere ogni giorno e senza app invasive.",
           },
           {
             title: "Privacy by design",
@@ -609,7 +609,7 @@ function ComingSoonState({
           },
           {
             title: "Multi-vendor, niente lock-in",
-            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura — qualsiasi wearable supportato da Health Connect (Android) o HealthKit (iOS, in arrivo).",
+            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: qualsiasi wearable supportato da Health Connect (Android) o HealthKit (iOS, in arrivo).",
           },
         ],
         availability_h2: "Quando arriva",
@@ -618,14 +618,14 @@ function ComingSoonState({
     : {
         kicker: "Family Mesh",
         h1: "Coming soon: monitor your loved ones' health, privacy-first",
-        sub: "We're finishing Family Mesh: a dashboard to see steps, sleep, and heart rate of parents, partners, or kids — no location sharing, no ads. It will launch once FitMesh Sync is available on both stores (Android + iOS). Join the waitlist to be notified at launch.",
+        sub: "We're finishing Family Mesh: a dashboard to see steps, sleep, and heart rate of parents, partners, or kids, with no location sharing and no ads. It will launch once FitMesh Sync is available on both stores (Android + iOS). Join the waitlist to be notified at launch.",
         cta: "Join the waitlist",
         secondary: "Meanwhile: download FitMesh Sync on Android",
         why_h2: "Why it matters",
         why_items: [
           {
             title: "Independent elderly parents",
-            body: "You'd like to know if your father or mother walked today, slept well, has a stable resting heart rate — without asking every day and without invasive apps.",
+            body: "You'd like to know if your father or mother walked today, slept well, has a stable resting heart rate, without asking every day and without invasive apps.",
           },
           {
             title: "Privacy by design",
@@ -633,7 +633,7 @@ function ComingSoonState({
           },
           {
             title: "Multi-vendor, no lock-in",
-            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura — any wearable supported by Health Connect (Android) or HealthKit (iOS, coming).",
+            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: any wearable supported by Health Connect (Android) or HealthKit (iOS, coming).",
           },
         ],
         availability_h2: "When it arrives",

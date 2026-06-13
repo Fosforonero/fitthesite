@@ -8,14 +8,14 @@ export const post: BlogPost = {
   readMinutes: 8,
   tldr: {
     it: [
-      "FitMesh Sync legge i dati del tuo anello smart o smartwatch Android, li sincronizza sul cloud EU, e li scrive in Apple Salute via HealthKit — così chi ha due telefoni vede tutto in un posto solo.",
+      "FitMesh Sync legge i dati del tuo anello smart o smartwatch Android, li sincronizza sul cloud EU, e li scrive in Apple Salute via HealthKit: così chi ha due telefoni vede tutto in un posto solo.",
       "Il ponte è opt-in: se Apple Salute ha già quei dati (per esempio da Apple Watch), FitMesh non li riscrive. Niente doppioni.",
       "Sonno con fasi complete (profondo, leggero, REM): l'anello è specialista notturno e le fasi vengono scritte in Apple Salute esattamente come le registra il sensore.",
       "Privacy EU/GDPR: tutti i dati transitano su cloud in datacenter EU. FitMesh non vende dati e non li usa per addestrare modelli.",
       "Il bridge funziona in background: nessun export manuale, nessuna app companion del produttore richiesta su iPhone.",
     ],
     en: [
-      "FitMesh Sync reads data from your smart ring or Android smartwatch, syncs it to EU cloud, and writes it into Apple Health via HealthKit — so users with two phones see everything in one place.",
+      "FitMesh Sync reads data from your smart ring or Android smartwatch, syncs it to EU cloud, and writes it into Apple Health via HealthKit: so users with two phones see everything in one place.",
       "The bridge is opt-in: if Apple Health already has that data (for example from Apple Watch), FitMesh won't rewrite it. No duplicates.",
       "Sleep with full stages (deep, light, REM): the ring is a nighttime specialist and stages are written to Apple Health exactly as recorded by the sensor.",
       "EU/GDPR privacy: all data transits through EU datacenter cloud. FitMesh doesn't sell data or use it to train models.",
@@ -110,7 +110,7 @@ export const post: BlogPost = {
           "**App iOS attiva**: quando apri FitMesh su iPhone (o l'app è attiva in background), controlla quali dati sono disponibili sul cloud per il tuo account.",
           "**Controllo doppioni**: per ogni dato disponibile, l'app controlla se Apple Salute ha già qualcosa per quella fascia oraria. Se sì, salta. Se no, scrive.",
           "**Scrittura mirata**: scrive su Apple Salute solo i dati mancanti. Se Apple Watch ha già registrato il sonno dalle 23:00 alle 07:00, FitMesh non tocca quelle ore.",
-          "**Visibilità immediata**: dopo la scrittura, i dati compaiono nell'app Salute di iPhone come qualsiasi altra voce HealthKit — con la sorgente chiaramente indicata come FitMesh Sync.",
+          "**Visibilità immediata**: dopo la scrittura, i dati compaiono nell'app Salute di iPhone come qualsiasi altra voce HealthKit, con la sorgente chiaramente indicata come FitMesh Sync.",
         ],
         en: [
           "**Collection on Android**: FitMesh Sync reads data from your Android wearable (via Health Connect for Galaxy Watch, via Bluetooth for the Colmi ring) and uploads it to EU cloud.",
@@ -118,7 +118,7 @@ export const post: BlogPost = {
           "**iOS app active**: when you open FitMesh on iPhone (or the app is active in background), it checks what data is available in the cloud for your account.",
           "**Duplicate check**: for each available piece of data, the app checks whether Apple Health already has something for that time slot. If yes, it skips. If no, it writes.",
           "**Targeted writing**: writes to Apple Health only the missing data. If Apple Watch has already recorded sleep from 11pm to 7am, FitMesh doesn't touch those hours.",
-          "**Immediate visibility**: after writing, data appears in the iPhone Health app like any other HealthKit entry — with the source clearly shown as FitMesh Sync.",
+          "**Immediate visibility**: after writing, data appears in the iPhone Health app like any other HealthKit entry, with the source clearly shown as FitMesh Sync.",
         ],
       },
     },
@@ -160,8 +160,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Gli anelli smart come il Colmi R02/R03 sono pensati per la notte: misurano sonno, SpO₂, frequenza cardiaca e variabilità mentre dormi, senza il peso di un orologio al polso. Le fasi registrate dall'anello (sonno profondo, leggero, REM, veglia) compaiono in Apple Salute nel grafico Sonno — esattamente come se li avesse registrati Apple Watch.",
-        en: "Smart rings like the Colmi R02/R03 are built for nighttime: they measure sleep, SpO₂, heart rate and variability while you sleep, without the bulk of a watch on your wrist. The stages recorded by the ring (deep, light, REM, awake) show up in Apple Health in the Sleep chart — just as if Apple Watch had recorded them.",
+        it: "Gli anelli smart come il Colmi R02/R03 sono pensati per la notte: misurano sonno, SpO₂, frequenza cardiaca e variabilità mentre dormi, senza il peso di un orologio al polso. Le fasi registrate dall'anello (sonno profondo, leggero, REM, veglia) compaiono in Apple Salute nel grafico Sonno, esattamente come se li avesse registrati Apple Watch.",
+        en: "Smart rings like the Colmi R02/R03 are built for nighttime: they measure sleep, SpO₂, heart rate and variability while you sleep, without the bulk of a watch on your wrist. The stages recorded by the ring (deep, light, REM, awake) show up in Apple Health in the Sleep chart, just as if Apple Watch had recorded them.",
       },
     },
     {

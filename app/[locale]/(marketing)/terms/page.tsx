@@ -89,7 +89,7 @@ function TermsIT() {
         </p>
       </Section>
 
-      <Section title="3. Disclaimer salute — IMPORTANTE">
+      <Section title="3. Disclaimer salute (IMPORTANTE)">
         <Callout variant="warning">
           <p>
             <strong className="text-text-primary">FitMesh Sync NON è un dispositivo medico.</strong>{" "}
@@ -143,7 +143,7 @@ function TermsIT() {
         <p>FitMesh Sync offre funzionalità avanzate ("Pro") tramite acquisto in-app gestito da Google Play Billing:</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Acquisto unico — €3,99 su Android (€4,99 su iPhone):</strong> sblocca permanentemente tutte le funzionalità Pro sull'account associato. Nessun abbonamento, nessun rinnovo automatico.</span>
+            <span><strong className="text-text-primary">Acquisto unico, €3,99 su Android (€4,99 su iPhone):</strong> sblocca permanentemente tutte le funzionalità Pro sull'account associato. Nessun abbonamento, nessun rinnovo automatico.</span>
           </li>
         </ul>
         <p>
@@ -224,7 +224,7 @@ function TermsIT() {
         <p>
           Cerchiamo sempre di risolvere informalmente. Contattaci a{" "}
           <a href="mailto:hello@fitmesh.fit" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">hello@fitmesh.fit</a>
-          {" "}— rispondiamo entro 30 giorni.
+          {": rispondiamo entro 30 giorni."}
         </p>
         <p>
           Per i consumatori UE è disponibile la piattaforma ODR:{" "}
@@ -278,7 +278,7 @@ function TermsEN() {
         </p>
       </Section>
 
-      <Section title="3. Health disclaimer — IMPORTANT">
+      <Section title="3. Health disclaimer (IMPORTANT)">
         <Callout variant="warning">
           <p>
             <strong className="text-text-primary">FitMesh Sync is NOT a medical device.</strong>{" "}
@@ -330,7 +330,7 @@ function TermsEN() {
         <p>FitMesh Sync offers advanced ("Pro") features via in-app purchase managed by Google Play Billing:</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">One-time purchase — €3.99 on Android (€4.99 on iPhone):</strong> unlocks Pro features permanently on the associated account. No subscription, no auto-renewal.</span>
+            <span><strong className="text-text-primary">One-time purchase, €3.99 on Android (€4.99 on iPhone):</strong> unlocks Pro features permanently on the associated account. No subscription, no auto-renewal.</span>
           </li>
         </ul>
         <p>
@@ -409,7 +409,7 @@ function TermsEN() {
         <p>
           We try to resolve disputes informally. Contact us at{" "}
           <a href="mailto:hello@fitmesh.fit" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">hello@fitmesh.fit</a>
-          {" "}— we respond within 30 days.
+          {": we respond within 30 days."}
         </p>
         <p>
           EU consumers may also use the ODR platform:{" "}

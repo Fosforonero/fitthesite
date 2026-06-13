@@ -52,16 +52,16 @@ export const post: BlogPost = {
       en: "Best health data sync app for Android: 2026 guide",
     },
     subtitle: {
-      it: "Health Connect è la presa a muro. Un'app che si collega direttamente legge tutto quello che il tuo wearable ha scritto lì. Un'app che lo bypassa ha bisogno di un cavo proprietario per ogni dispositivo — e quel cavo si rompe di continuo.",
-      en: "Health Connect is the socket in the wall. An app that plugs in directly reads everything your wearable wrote there. An app that bypasses it needs its own cable to every single device — and that cable breaks constantly.",
+      it: "Health Connect è la presa a muro. Un'app che si collega direttamente legge tutto quello che il tuo wearable ha scritto lì. Un'app che lo bypassa ha bisogno di un cavo proprietario per ogni dispositivo, e quel cavo si rompe di continuo.",
+      en: "Health Connect is the socket in the wall. An app that plugs in directly reads everything your wearable wrote there. An app that bypasses it needs its own cable to every single device, and that cable breaks constantly.",
     },
   },
   body: [
     {
       type: "paragraph",
       text: {
-        it: "La migliore app di sincronizzazione salute per Android è quella che legge da Health Connect nativamente — perché è lì che vivono davvero i dati del tuo wearable. Non in un cloud proprietario del produttore, non in un'API che cambia senza preavviso: in Health Connect, il layer di dati che Google ha costruito esattamente per questo scopo. Tutto il resto è un workaround, e i workaround si rompono.",
-        en: "The best health sync app for Android is the one that reads from Health Connect natively — because that's where your wearable data actually lives. Not in a manufacturer's proprietary cloud, not in an API that changes without warning: in Health Connect, the data layer Google built exactly for this purpose. Everything else is a workaround, and workarounds break.",
+        it: "La migliore app di sincronizzazione salute per Android è quella che legge da Health Connect nativamente, perché è lì che vivono davvero i dati del tuo wearable. Non in un cloud proprietario del produttore, non in un'API che cambia senza preavviso: in Health Connect, il layer di dati che Google ha costruito esattamente per questo scopo. Tutto il resto è un workaround, e i workaround si rompono.",
+        en: "The best health sync app for Android is the one that reads from Health Connect natively, because that's where your wearable data actually lives. Not in a manufacturer's proprietary cloud, not in an API that changes without warning: in Health Connect, the data layer Google built exactly for this purpose. Everything else is a workaround, and workarounds break.",
       },
     },
     {
@@ -84,14 +84,14 @@ export const post: BlogPost = {
       items: {
         it: [
           "**Integrazione nativa con Health Connect**: l'app deve leggere da Health Connect direttamente, senza richiedere un bridge, un'app secondaria, o un processo Bluetooth sempre attivo. Questo è il requisito minimo nel 2026.",
-          "**Copertura dei tipi di dati**: passi, frequenza cardiaca, sonno, SpO2, calorie, HRV — un'app seria li copre tutti. Alcune app sincronizzano solo passi e frequenza cardiaca e nascondono il gap nelle FAQ.",
+          "**Copertura dei tipi di dati**: passi, frequenza cardiaca, sonno, SpO2, calorie, HRV: un'app seria li copre tutti. Alcune app sincronizzano solo passi e frequenza cardiaca e nascondono il gap nelle FAQ.",
           "**Privacy e storage dei dati (UE)**: se sei in Europa, i tuoi dati salute rientrano nel GDPR. Un'app che processa tutto su server negli USA senza adeguata base legale è un rischio. Controlla dove vengono memorizzati i dati e se c'è un'informativa chiara.",
           "**Qualità della dashboard**: sincronizzare i dati senza poterli leggere bene è mezzo lavoro. La dashboard deve mostrare trend nel tempo, non solo l'ultimo valore registrato.",
           "**Assenza di bug di doppio conteggio**: questo è il problema più sottile e più comune. Quando Samsung Health, Google Fit e Health Connect registrano tutti lo stesso allenamento, un'app poco attenta ti mostra 20.000 passi al posto di 10.000. Va testato esplicitamente.",
         ],
         en: [
           "**Native Health Connect integration**: the app must read from Health Connect directly, without requiring a bridge, a secondary app, or an always-on Bluetooth process. This is the minimum bar in 2026.",
-          "**Data type coverage**: steps, heart rate, sleep, SpO2, calories, HRV — a serious app covers all of them. Some apps only sync steps and heart rate and bury the gap in the FAQ.",
+          "**Data type coverage**: steps, heart rate, sleep, SpO2, calories, HRV: a serious app covers all of them. Some apps only sync steps and heart rate and bury the gap in the FAQ.",
           "**Privacy and data storage (EU)**: if you're in Europe, your health data falls under GDPR. An app that processes everything on US servers without a proper legal basis is a risk. Check where data is stored and whether there's a clear privacy policy.",
           "**Dashboard quality**: syncing data without being able to read it well is half a job. The dashboard must show trends over time, not just the last recorded value.",
           "**No double-counting bugs**: this is the most subtle and most common problem. When Samsung Health, Google Fit, and Health Connect all log the same workout, a careless app shows you 20,000 steps instead of 10,000. It needs to be tested explicitly.",
@@ -118,14 +118,14 @@ export const post: BlogPost = {
       items: {
         it: [
           "**App che sincronizzano via screenshot o scraping dell'interfaccia**: alcune app leggono i dati aprendo in background un'altra app e \"guardando\" i valori a schermo. Quando Samsung aggiorna la grafica, tutto smette di funzionare. È un'architettura fragile per definizione.",
-          "**App che richiedono Bluetooth sempre attivo**: se il telefono deve stare vicino al wearable 24 ore su 24 per sincronizzare, non è una sync app — è un relay in tempo reale. Oltre a consumare batteria, basta allontanarsi dal telefono per perdere dati.",
-          "**App che non gestiscono i record duplicati di Samsung Health**: Samsung Health scrive in Health Connect, ma a volte scrive anche su Google Fit, e a volte scrive la stessa sessione due volte con timestamp leggermente diversi. Un'app che non deduplica esplicitamente produrrà metriche gonfiate — a volte di un fattore 2.",
+          "**App che richiedono Bluetooth sempre attivo**: se il telefono deve stare vicino al wearable 24 ore su 24 per sincronizzare, non è una sync app, è un relay in tempo reale. Oltre a consumare batteria, basta allontanarsi dal telefono per perdere dati.",
+          "**App che non gestiscono i record duplicati di Samsung Health**: Samsung Health scrive in Health Connect, ma a volte scrive anche su Google Fit, e a volte scrive la stessa sessione due volte con timestamp leggermente diversi. Un'app che non deduplica esplicitamente produrrà metriche gonfiate, a volte di un fattore 2.",
           "**App senza aggiornamenti negli ultimi 6 mesi**: Health Connect ha subito cambiamenti significativi nelle permission API tra Android 13 e 14. Un'app non aggiornata potrebbe funzionare ma leggere dati incompleti senza avvisarti.",
         ],
         en: [
           "**Apps that sync via screenshot or interface scraping**: some apps read data by opening another app in the background and \"looking at\" the values on screen. When Samsung updates its UI, everything stops working. It's a fragile architecture by definition.",
-          "**Apps that require always-on Bluetooth**: if your phone needs to stay close to your wearable 24 hours a day to sync, it's not a sync app — it's a real-time relay. Beyond draining battery, just walking away from your phone means losing data.",
-          "**Apps that don't handle Samsung Health's duplicate records**: Samsung Health writes to Health Connect, but sometimes also writes to Google Fit, and sometimes writes the same session twice with slightly different timestamps. An app that doesn't explicitly deduplicate will produce inflated metrics — sometimes by a factor of 2.",
+          "**Apps that require always-on Bluetooth**: if your phone needs to stay close to your wearable 24 hours a day to sync, it's not a sync app, it's a real-time relay. Beyond draining battery, just walking away from your phone means losing data.",
+          "**Apps that don't handle Samsung Health's duplicate records**: Samsung Health writes to Health Connect, but sometimes also writes to Google Fit, and sometimes writes the same session twice with slightly different timestamps. An app that doesn't explicitly deduplicate will produce inflated metrics, sometimes by a factor of 2.",
           "**Apps with no updates in the last 6 months**: Health Connect underwent significant permission API changes between Android 13 and 14. An outdated app might work but read incomplete data without telling you.",
         ],
       },
@@ -138,8 +138,8 @@ export const post: BlogPost = {
         en: "My clear stance",
       },
       body: {
-        it: "Le app che saltano Health Connect e si affidano a scraping Bluetooth o API proprietarie saranno sempre fragili. L'integrazione con Health Connect è il requisito minimo per un'app di sincronizzazione che vale la pena usare nel 2026. Non è una preferenza tecnica — è l'unico approccio che sopravvive agli aggiornamenti dei produttori.",
-        en: "Apps that skip Health Connect and rely on Bluetooth scraping or proprietary APIs will always be fragile. Health Connect integration is the minimum bar for a sync app worth using in 2026. This isn't a technical preference — it's the only approach that survives manufacturer updates.",
+        it: "Le app che saltano Health Connect e si affidano a scraping Bluetooth o API proprietarie saranno sempre fragili. L'integrazione con Health Connect è il requisito minimo per un'app di sincronizzazione che vale la pena usare nel 2026. Non è una preferenza tecnica: è l'unico approccio che sopravvive agli aggiornamenti dei produttori.",
+        en: "Apps that skip Health Connect and rely on Bluetooth scraping or proprietary APIs will always be fragile. Health Connect integration is the minimum bar for a sync app worth using in 2026. This isn't a technical preference: it's the only approach that survives manufacturer updates.",
       },
     },
     {
@@ -244,8 +244,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "FitMesh Sync è una delle app Android che legge da Health Connect nativamente: riceve dati da Galaxy Watch, Garmin, e qualsiasi wearable che scriva in Health Connect, li aggrega senza duplicati, e li mostra in una dashboard web accessibile da browser. I dati vengono processati su server europei con GDPR compliance esplicita. Non è l'unica opzione in questa categoria, ma è un buon esempio di come un'app di sync dovrebbe funzionare tecnicamente — senza Bluetooth sempre acceso, senza scraping, senza API proprietarie.",
-        en: "FitMesh Sync is one of the Android apps that reads from Health Connect natively: it receives data from Galaxy Watch, Garmin, and any wearable that writes to Health Connect, aggregates it without duplicates, and shows it in a browser-accessible web dashboard. Data is processed on European servers with explicit GDPR compliance. It's not the only option in this category, but it's a good example of how a sync app should work technically — no always-on Bluetooth, no scraping, no proprietary APIs.",
+        it: "FitMesh Sync è una delle app Android che legge da Health Connect nativamente: riceve dati da Galaxy Watch, Garmin, e qualsiasi wearable che scriva in Health Connect, li aggrega senza duplicati, e li mostra in una dashboard web accessibile da browser. I dati vengono processati su server europei con GDPR compliance esplicita. Non è l'unica opzione in questa categoria, ma è un buon esempio di come un'app di sync dovrebbe funzionare tecnicamente: niente Bluetooth sempre acceso, niente scraping, niente API proprietarie.",
+        en: "FitMesh Sync is one of the Android apps that reads from Health Connect natively: it receives data from Galaxy Watch, Garmin, and any wearable that writes to Health Connect, aggregates it without duplicates, and shows it in a browser-accessible web dashboard. Data is processed on European servers with explicit GDPR compliance. It's not the only option in this category, but it's a good example of how a sync app should work technically: no always-on Bluetooth, no scraping, no proprietary APIs.",
       },
     },
     {
@@ -260,17 +260,17 @@ export const post: BlogPost = {
       type: "list",
       items: {
         it: [
-          "Health Connect è il layer di dati standard su Android — un'app che non lo usa nativamente parte già svantaggiata.",
+          "Health Connect è il layer di dati standard su Android: un'app che non lo usa nativamente parte già svantaggiata.",
           "I problemi più comuni non sono mancanza di funzionalità, ma dati duplicati e sync che smettono di funzionare dopo un aggiornamento Android o del wearable.",
           "Prima cosa che controllo: se l'app appare nella lista permessi di Health Connect. Se non c'è, non installo.",
-          "App che richiedono Bluetooth sempre attivo o che leggono via scraping sono fragili per costruzione — evitarle.",
+          "App che richiedono Bluetooth sempre attivo o che leggono via scraping sono fragili per costruzione. Evitarle.",
           "Per utenti EU, verificare dove vengono processati i dati è un passo non opzionale: i dati salute sono dati sensibili ai sensi del GDPR.",
         ],
         en: [
-          "Health Connect is the standard data layer on Android — an app that doesn't use it natively starts at a disadvantage.",
+          "Health Connect is the standard data layer on Android: an app that doesn't use it natively starts at a disadvantage.",
           "The most common problems aren't missing features, but duplicate data and syncs that break after an Android or wearable update.",
           "The first thing I check: whether the app appears in Health Connect's permissions list. If it's not there, I don't install.",
-          "Apps that require always-on Bluetooth or read via scraping are fragile by construction — avoid them.",
+          "Apps that require always-on Bluetooth or read via scraping are fragile by construction. Avoid them.",
           "For EU users, verifying where data is processed is a non-optional step: health data is sensitive data under GDPR.",
         ],
       },
@@ -302,8 +302,8 @@ export const post: BlogPost = {
         en: "What's the difference between Health Connect and Google Fit?",
       },
       a: {
-        it: "Google Fit era il vecchio standard di Google per i dati fitness — un'app con cloud storage proprietario. Health Connect è il sostituto: un layer di dati locale sul dispositivo, più privato, con permessi granulari per app. Dal 2024 Google ha spostato ufficialmente tutto l'ecosistema su Health Connect. Se un'app ancora cita Google Fit come integrazione principale, probabilmente non è aggiornata.",
-        en: "Google Fit was Google's old standard for fitness data — an app with proprietary cloud storage. Health Connect is the replacement: a local data layer on the device, more private, with granular per-app permissions. Since 2024, Google has officially moved the entire ecosystem to Health Connect. If an app still cites Google Fit as its primary integration, it's probably not up to date.",
+        it: "Google Fit era il vecchio standard di Google per i dati fitness, un'app con cloud storage proprietario. Health Connect è il sostituto: un layer di dati locale sul dispositivo, più privato, con permessi granulari per app. Dal 2024 Google ha spostato ufficialmente tutto l'ecosistema su Health Connect. Se un'app ancora cita Google Fit come integrazione principale, probabilmente non è aggiornata.",
+        en: "Google Fit was Google's old standard for fitness data, an app with proprietary cloud storage. Health Connect is the replacement: a local data layer on the device, more private, with granular per-app permissions. Since 2024, Google has officially moved the entire ecosystem to Health Connect. If an app still cites Google Fit as its primary integration, it's probably not up to date.",
       },
     },
     {
@@ -342,8 +342,8 @@ export const post: BlogPost = {
         en: "Does Garmin sync with Health Connect?",
       },
       a: {
-        it: "Sì, dal 2023 Garmin Connect scrive i dati in Health Connect su Android. La sincronizzazione include passi, frequenza cardiaca, sonno, calorie e allenamenti. L'HRV di Garmin (HRV Status) viene scritto in Health Connect come dato di variabilità della frequenza cardiaca, ma non tutte le app di terze parti lo leggono correttamente — è un campo relativamente nuovo nell'API di Health Connect.",
-        en: "Yes, since 2023 Garmin Connect writes data to Health Connect on Android. The sync includes steps, heart rate, sleep, calories, and workouts. Garmin's HRV (HRV Status) is written to Health Connect as heart rate variability data, but not all third-party apps read it correctly — it's a relatively new field in the Health Connect API.",
+        it: "Sì, dal 2023 Garmin Connect scrive i dati in Health Connect su Android. La sincronizzazione include passi, frequenza cardiaca, sonno, calorie e allenamenti. L'HRV di Garmin (HRV Status) viene scritto in Health Connect come dato di variabilità della frequenza cardiaca, ma non tutte le app di terze parti lo leggono correttamente: è un campo relativamente nuovo nell'API di Health Connect.",
+        en: "Yes, since 2023 Garmin Connect writes data to Health Connect on Android. The sync includes steps, heart rate, sleep, calories, and workouts. Garmin's HRV (HRV Status) is written to Health Connect as heart rate variability data, but not all third-party apps read it correctly: it's a relatively new field in the Health Connect API.",
       },
     },
   ],

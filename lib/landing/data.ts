@@ -83,8 +83,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       {
         type: "paragraph",
         text: {
-          it: "Il Galaxy Watch è ottimo, Samsung Health è completo, ma se vuoi i tuoi dati fuori dal cloud Samsung — per archivio, per analisi su PC, per fare confronti tra anni — la strada nativa è clunky. Devi aprire l'app, andare in impostazioni, scaricare l'export, aspettare l'email, decomprimere, importare in Excel. Ogni volta da capo.",
-          en: "Galaxy Watch is great, Samsung Health is comprehensive, but if you want your data out of Samsung cloud — for archive, for PC analysis, for cross-year comparisons — the native path is clunky. You open the app, go to settings, download the export, wait for the email, unzip, import to Excel. Every single time.",
+          it: "Il Galaxy Watch è ottimo, Samsung Health è completo, ma se vuoi i tuoi dati fuori dal cloud Samsung (per archivio, per analisi su PC, per fare confronti tra anni), la strada nativa è clunky. Devi aprire l'app, andare in impostazioni, scaricare l'export, aspettare l'email, decomprimere, importare in Excel. Ogni volta da capo.",
+          en: "Galaxy Watch is great, Samsung Health is comprehensive, but if you want your data out of Samsung cloud (for archive, for PC analysis, for cross-year comparisons), the native path is clunky. You open the app, go to settings, download the export, wait for the email, unzip, import to Excel. Every single time.",
         },
       },
       {
@@ -185,8 +185,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "What if Samsung Health doesn't share everything with Health Connect?",
         },
         a: {
-          it: "Su telefoni Samsung FitMesh legge i dati direttamente da Samsung Health, oltre che da Health Connect. Così recupera anche le metriche che Samsung Health spesso non passa a Health Connect — in particolare frequenza cardiaca e sonno — più allenamenti, peso, pressione, glicemia e altro quando disponibili. Basta concedere i permessi di lettura una volta dalle impostazioni dell'app.",
-          en: "On Samsung phones FitMesh reads data directly from Samsung Health, in addition to Health Connect. This recovers metrics that Samsung Health often doesn't pass to Health Connect — especially heart rate and sleep — plus workouts, weight, blood pressure, glucose and more when available. Just grant read permission once from the app settings.",
+          it: "Su telefoni Samsung FitMesh legge i dati direttamente da Samsung Health, oltre che da Health Connect. Così recupera anche le metriche che Samsung Health spesso non passa a Health Connect (in particolare frequenza cardiaca e sonno), più allenamenti, peso, pressione, glicemia e altro quando disponibili. Basta concedere i permessi di lettura una volta dalle impostazioni dell'app.",
+          en: "On Samsung phones FitMesh reads data directly from Samsung Health, in addition to Health Connect. This recovers metrics that Samsung Health often doesn't pass to Health Connect (especially heart rate and sleep), plus workouts, weight, blood pressure, glucose and more when available. Just grant read permission once from the app settings.",
         },
       },
       {
@@ -292,8 +292,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       {
         type: "paragraph",
         text: {
-          it: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace, e Pixel Watch (1, 2, 3) — tutti funzionano oggi via il bridge automatico Fitbit app → Health Connect. Setup di 5 minuti, una volta sola.",
-          en: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace, and Pixel Watch (1, 2, 3) — all work today via the automatic Fitbit app → Health Connect bridge. 5-minute setup, once.",
+          it: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace, e Pixel Watch (1, 2, 3): tutti funzionano oggi via il bridge automatico Fitbit app → Health Connect. Setup di 5 minuti, una volta sola.",
+          en: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace, and Pixel Watch (1, 2, 3): all work today via the automatic Fitbit app → Health Connect bridge. 5-minute setup, once.",
         },
       },
       {
@@ -408,13 +408,13 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         type: "list",
         items: {
           it: [
-            "Legge i dati Garmin via Health Connect (passi, BPM, sonno totale, calorie, distanza, allenamenti base) — funziona oggi.",
+            "Legge i dati Garmin via Health Connect (passi, BPM, sonno totale, calorie, distanza, allenamenti base): funziona oggi.",
             "Roadmap Q3 2026: integrazione OAuth Garmin Health API per Body Battery, Training Load, Recovery Time, Stress Score e GPS dettagliato.",
             "Dashboard web cross-source: Garmin a fianco di Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura quando attivi.",
             "Esportazione CSV/JSON dei dati raccolti.",
           ],
           en: [
-            "Reads Garmin data via Health Connect (steps, HR, total sleep, calories, distance, basic workouts) — works today.",
+            "Reads Garmin data via Health Connect (steps, HR, total sleep, calories, distance, basic workouts): works today.",
             "Q3 2026 roadmap: Garmin Health API OAuth integration for Body Battery, Training Load, Recovery Time, Stress Score, and detailed GPS.",
             "Cross-source web dashboard: Garmin alongside Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura when active.",
             "CSV/JSON export of collected data.",
@@ -451,8 +451,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Will I see Body Battery and Training Load?",
         },
         a: {
-          it: "Non oggi — sono metriche proprietarie Garmin non esposte via Health Connect. Saranno disponibili con l'integrazione OAuth Garmin Health API, in roadmap per Q3 2026 (dipende dall'approvazione Garmin Developer Program).",
-          en: "Not today — they're proprietary Garmin metrics not exposed via Health Connect. They'll be available with the Garmin Health API OAuth integration, on the Q3 2026 roadmap (depends on Garmin Developer Program approval).",
+          it: "Non oggi: sono metriche proprietarie Garmin non esposte via Health Connect. Saranno disponibili con l'integrazione OAuth Garmin Health API, in roadmap per Q3 2026 (dipende dall'approvazione Garmin Developer Program).",
+          en: "Not today: they're proprietary Garmin metrics not exposed via Health Connect. They'll be available with the Garmin Health API OAuth integration, on the Q3 2026 roadmap (depends on Garmin Developer Program approval).",
         },
       },
       {
@@ -530,8 +530,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       {
         type: "paragraph",
         text: {
-          it: "Oura Ring è apprezzato da atleti, biohacker e chi vuole monitorare sonno e recupero in modo discreto — niente schermo, niente notifiche, solo sensori. Il problema classico: i dati di Oura rimangono nell'app Oura e nel cloud Oura. Se vuoi vederli su PC, confrontarli con i dati del tuo Galaxy Watch, o avere un backup indipendente, non hai opzioni native facili.",
-          en: "Oura Ring is loved by athletes, biohackers, and anyone who wants to monitor sleep and recovery discreetly — no screen, no notifications, just sensors. The classic problem: Oura data stays in the Oura app and Oura cloud. If you want to view it on a PC, compare it with your Galaxy Watch data, or have an independent backup, there are no easy native options.",
+          it: "Oura Ring è apprezzato da atleti, biohacker e chi vuole monitorare sonno e recupero in modo discreto: niente schermo, niente notifiche, solo sensori. Il problema classico: i dati di Oura rimangono nell'app Oura e nel cloud Oura. Se vuoi vederli su PC, confrontarli con i dati del tuo Galaxy Watch, o avere un backup indipendente, non hai opzioni native facili.",
+          en: "Oura Ring is loved by athletes, biohackers, and anyone who wants to monitor sleep and recovery discreetly: no screen, no notifications, just sensors. The classic problem: Oura data stays in the Oura app and Oura cloud. If you want to view it on a PC, compare it with your Galaxy Watch data, or have an independent backup, there are no easy native options.",
         },
       },
       {
@@ -621,8 +621,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Will I see Oura's Readiness Score?",
         },
         a: {
-          it: "Non oggi — il Readiness Score è una metrica proprietaria Oura non esposta via Health Connect. È in roadmap con l'integrazione OAuth dell'API Oura. Oggi via HC vedi sonno con fasi, passi e calorie.",
-          en: "Not today — Readiness Score is a proprietary Oura metric not exposed via Health Connect. It's on the roadmap with OAuth Oura API integration. Today via HC you see sleep with stages, steps, and calories.",
+          it: "Non oggi: il Readiness Score è una metrica proprietaria Oura non esposta via Health Connect. È in roadmap con l'integrazione OAuth dell'API Oura. Oggi via HC vedi sonno con fasi, passi e calorie.",
+          en: "Not today: Readiness Score is a proprietary Oura metric not exposed via Health Connect. It's on the roadmap with OAuth Oura API integration. Today via HC you see sleep with stages, steps, and calories.",
         },
       },
       {
@@ -631,8 +631,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Does it work with Oura Ring 3 and 4?",
         },
         a: {
-          it: "Sì, entrambe le generazioni supportano Health Connect via app Oura su Android. L'Oura Ring 4 ha sensori migliorati per temperatura corporea e SpO2 — queste metriche avanzate saranno disponibili con l'integrazione API Oura in roadmap.",
-          en: "Yes, both generations support Health Connect via the Oura Android app. Oura Ring 4 has improved sensors for body temperature and SpO2 — these advanced metrics will be available with the roadmap Oura API integration.",
+          it: "Sì, entrambe le generazioni supportano Health Connect via app Oura su Android. L'Oura Ring 4 ha sensori migliorati per temperatura corporea e SpO2: queste metriche avanzate saranno disponibili con l'integrazione API Oura in roadmap.",
+          en: "Yes, both generations support Health Connect via the Oura Android app. Oura Ring 4 has improved sensors for body temperature and SpO2: these advanced metrics will be available with the roadmap Oura API integration.",
         },
       },
       {
@@ -641,8 +641,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Do I need an Oura subscription to use FitMesh?",
         },
         a: {
-          it: "Per i dati via Health Connect (che sono quelli disponibili oggi), no — Health Connect funziona indipendentemente dall'abbonamento Oura. Per le metriche avanzate tramite API Oura (Readiness Score, HRV dettagliato), potrebbe essere richiesto un account Oura attivo.",
-          en: "For Health Connect data (available today), no — Health Connect works independently of Oura subscription. For advanced metrics via Oura API (Readiness Score, detailed HRV), an active Oura account may be required.",
+          it: "Per i dati via Health Connect (che sono quelli disponibili oggi), no: Health Connect funziona indipendentemente dall'abbonamento Oura. Per le metriche avanzate tramite API Oura (Readiness Score, HRV dettagliato), potrebbe essere richiesto un account Oura attivo.",
+          en: "For Health Connect data (available today), no: Health Connect works independently of Oura subscription. For advanced metrics via Oura API (Readiness Score, detailed HRV), an active Oura account may be required.",
         },
       },
     ],
@@ -744,13 +744,13 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         type: "list",
         items: {
           it: [
-            "**Triatleti e runner con più device**: Polar per gli allenamenti specifici, Galaxy Watch o altro per la quotidianità — FitMesh li unifica.",
+            "**Triatleti e runner con più device**: Polar per gli allenamenti specifici, Galaxy Watch o altro per la quotidianità: FitMesh li unifica.",
             "**Chi vuole backup indipendente da Polar**: storico allenamenti in un cloud europeo (Frankfurt) che non dipende da decision aziendali di Polar.",
             "**Chi analizza i dati su PC**: dashboard web accessibile da browser, senza aprire l'app Polar su telefono.",
             "**Chi usa Polar senza abbonamento premium**: FitMesh non richiede Polar premium per i dati via Health Connect.",
           ],
           en: [
-            "**Triathletes and runners with multiple devices**: Polar for specific training, Galaxy Watch or other for daily wear — FitMesh unifies them.",
+            "**Triathletes and runners with multiple devices**: Polar for specific training, Galaxy Watch or other for daily wear: FitMesh unifies them.",
             "**Those wanting independent Polar backup**: workout history in a European cloud (Frankfurt) not dependent on Polar's corporate decisions.",
             "**Those who analyze data on PC**: browser-accessible web dashboard, without opening the Polar app on phone.",
             "**Those using Polar without premium subscription**: FitMesh doesn't require Polar premium for data via Health Connect.",
@@ -765,8 +765,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Polar Accesslink API is in the roadmap",
         },
         body: {
-          it: "Le metriche avanzate Polar (Training Load, Nightly Recharge, Recovery Pro) non passano via Health Connect — sono proprietarie. L'integrazione via Polar Accesslink API è in roadmap per Q4 2026, dipende dall'approvazione del Polar Developer Program.",
-          en: "Advanced Polar metrics (Training Load, Nightly Recharge, Recovery Pro) don't pass via Health Connect — they're proprietary. Integration via Polar Accesslink API is in the Q4 2026 roadmap, subject to Polar Developer Program approval.",
+          it: "Le metriche avanzate Polar (Training Load, Nightly Recharge, Recovery Pro) non passano via Health Connect: sono proprietarie. L'integrazione via Polar Accesslink API è in roadmap per Q4 2026, dipende dall'approvazione del Polar Developer Program.",
+          en: "Advanced Polar metrics (Training Load, Nightly Recharge, Recovery Pro) don't pass via Health Connect: they're proprietary. Integration via Polar Accesslink API is in the Q4 2026 roadmap, subject to Polar Developer Program approval.",
         },
       },
       {
@@ -800,8 +800,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Will I see Training Load and Nightly Recharge?",
         },
         a: {
-          it: "Non oggi — sono metriche proprietarie Polar non esposte via Health Connect. Saranno disponibili con l'integrazione Polar Accesslink API in roadmap. Oggi via Health Connect vedi frequenza cardiaca, allenamenti, passi e sonno base.",
-          en: "Not today — they're proprietary Polar metrics not exposed via Health Connect. They'll be available with the roadmap Polar Accesslink API integration. Today via Health Connect you see heart rate, workouts, steps, and basic sleep.",
+          it: "Non oggi: sono metriche proprietarie Polar non esposte via Health Connect. Saranno disponibili con l'integrazione Polar Accesslink API in roadmap. Oggi via Health Connect vedi frequenza cardiaca, allenamenti, passi e sonno base.",
+          en: "Not today: they're proprietary Polar metrics not exposed via Health Connect. They'll be available with the roadmap Polar Accesslink API integration. Today via Health Connect you see heart rate, workouts, steps, and basic sleep.",
         },
       },
       {
@@ -846,8 +846,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       ],
     },
     metaDescription: {
-      it: "Stesso account FitMesh su Android e iPhone: una dashboard salute unificata, cloud EU, GDPR. Ponte Apple Salute incluso: sonno e passi dall'anello smart su iOS — senza duplicati.",
-      en: "Same FitMesh account on Android and iPhone: one unified health dashboard, EU cloud, GDPR. Apple Health bridge included: sleep and steps from your smart ring on iOS — no duplicates.",
+      it: "Stesso account FitMesh su Android e iPhone: una dashboard salute unificata, cloud EU, GDPR. Ponte Apple Salute incluso: sonno e passi dall'anello smart su iOS, senza duplicati.",
+      en: "Same FitMesh account on Android and iPhone: one unified health dashboard, EU cloud, GDPR. Apple Health bridge included: sleep and steps from your smart ring on iOS, no duplicates.",
     },
     hero: {
       kicker: {
@@ -859,8 +859,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         en: "Android and iPhone together: same dashboard, same data",
       },
       subtitle: {
-        it: "Un account FitMesh funziona su entrambi i telefoni. I dati del tuo anello smart Colmi arrivano su iPhone via Bluetooth — e vengono scritti dentro Apple Salute così li vedi anche nell'ecosistema Apple. Cloud EU, GDPR, nessun duplicato.",
-        en: "One FitMesh account works on both phones. Your Colmi smart ring data reaches iPhone over Bluetooth — and gets written into Apple Health so you see it across the Apple ecosystem too. EU cloud, GDPR, no duplicates.",
+        it: "Un account FitMesh funziona su entrambi i telefoni. I dati del tuo anello smart Colmi arrivano su iPhone via Bluetooth e vengono scritti dentro Apple Salute, così li vedi anche nell'ecosistema Apple. Cloud EU, GDPR, nessun duplicato.",
+        en: "One FitMesh account works on both phones. Your Colmi smart ring data reaches iPhone over Bluetooth and gets written into Apple Health, so you see it across the Apple ecosystem too. EU cloud, GDPR, no duplicates.",
       },
       primaryCta: {
         label: { it: "Entra in beta gratis", en: "Join the free beta" },
@@ -878,8 +878,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       {
         type: "paragraph",
         text: {
-          it: "Molte persone usano due telefoni: uno Android di lavoro e un iPhone personale, o viceversa. Oppure hai cambiato sistema operativo e vuoi portare lo storico dei tuoi dati salute. O ancora, vuoi che i dati del tuo anello smart Colmi — connesso via Bluetooth all'Android — compaiano anche su iPhone, dentro Apple Salute, senza passare per export manuali.",
-          en: "Many people use two phones: one Android for work and an iPhone personally, or the other way around. Or you've switched operating systems and want to carry your health data history. Or you want your Colmi smart ring data — connected via Bluetooth to Android — to show up on iPhone too, inside Apple Health, without manual exports.",
+          it: "Molte persone usano due telefoni: uno Android di lavoro e un iPhone personale, o viceversa. Oppure hai cambiato sistema operativo e vuoi portare lo storico dei tuoi dati salute. O ancora, vuoi che i dati del tuo anello smart Colmi (connesso via Bluetooth all'Android) compaiano anche su iPhone, dentro Apple Salute, senza passare per export manuali.",
+          en: "Many people use two phones: one Android for work and an iPhone personally, or the other way around. Or you've switched operating systems and want to carry your health data history. Or you want your Colmi smart ring data (connected via Bluetooth to Android) to show up on iPhone too, inside Apple Health, without manual exports.",
         },
       },
       {
@@ -901,18 +901,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         type: "list",
         items: {
           it: [
-            "**Un account, due app** — lo stesso account FitMesh funziona su Android e iPhone. Non serve creare profili separati né sincronizzare manualmente: la dashboard web mostra sempre i dati più aggiornati, da qualsiasi dispositivo.",
-            "**Android: lettura nativa da Health Connect** — su Android, FitMesh legge dati da Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, e qualsiasi app che scriva su Health Connect. I dati si aggiornano in automatico in background.",
-            "**iOS: lettura nativa da Apple Salute (HealthKit)** — su iPhone, FitMesh accede ad Apple Salute con i permessi che tu scegli. Legge ciò che Apple Salute già raccoglie: passi da iPhone, dati da Apple Watch, e da qualsiasi app autorizzata.",
-            "**Anello Colmi su entrambe le piattaforme** — l'anello smart Colmi si connette via Bluetooth all'app FitMesh, sia su Android che su iPhone. I dati (sonno con fasi, passi, frequenza cardiaca) vengono sincronizzati all'account cloud e, su iOS, scritti dentro Apple Salute.",
-            "**Cloud EU, GDPR** — tutti i dati sono archiviati su server in EU (Frankfurt). Crittografia in transito e a riposo, Row Level Security, cancellazione completa account on-demand.",
+            "**Un account, due app**: lo stesso account FitMesh funziona su Android e iPhone. Non serve creare profili separati né sincronizzare manualmente: la dashboard web mostra sempre i dati più aggiornati, da qualsiasi dispositivo.",
+            "**Android: lettura nativa da Health Connect**: su Android, FitMesh legge dati da Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, e qualsiasi app che scriva su Health Connect. I dati si aggiornano in automatico in background.",
+            "**iOS: lettura nativa da Apple Salute (HealthKit)**: su iPhone, FitMesh accede ad Apple Salute con i permessi che tu scegli. Legge ciò che Apple Salute già raccoglie: passi da iPhone, dati da Apple Watch, e da qualsiasi app autorizzata.",
+            "**Anello Colmi su entrambe le piattaforme**: l'anello smart Colmi si connette via Bluetooth all'app FitMesh, sia su Android che su iPhone. I dati (sonno con fasi, passi, frequenza cardiaca) vengono sincronizzati all'account cloud e, su iOS, scritti dentro Apple Salute.",
+            "**Cloud EU, GDPR**: tutti i dati sono archiviati su server in EU (Frankfurt). Crittografia in transito e a riposo, Row Level Security, cancellazione completa account on-demand.",
           ],
           en: [
-            "**One account, two apps** — the same FitMesh account works on Android and iPhone. No separate profiles or manual syncing: the web dashboard always shows the most recent data, from any device.",
-            "**Android: native read from Health Connect** — on Android, FitMesh reads data from Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, and any app writing to Health Connect. Data updates automatically in the background.",
-            "**iOS: native read from Apple Health (HealthKit)** — on iPhone, FitMesh accesses Apple Health with permissions you choose. Reads what Apple Health already collects: iPhone steps, Apple Watch data, and any authorized app.",
-            "**Colmi ring on both platforms** — the Colmi smart ring connects via Bluetooth to the FitMesh app, on both Android and iPhone. Data (sleep with phases, steps, heart rate) is synced to your cloud account and, on iOS, written into Apple Health.",
-            "**EU cloud, GDPR** — all data is stored on EU servers (Frankfurt). Encryption in transit and at rest, Row Level Security, full on-demand account deletion.",
+            "**One account, two apps**: the same FitMesh account works on Android and iPhone. No separate profiles or manual syncing: the web dashboard always shows the most recent data, from any device.",
+            "**Android: native read from Health Connect**: on Android, FitMesh reads data from Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, and any app writing to Health Connect. Data updates automatically in the background.",
+            "**iOS: native read from Apple Health (HealthKit)**: on iPhone, FitMesh accesses Apple Health with permissions you choose. Reads what Apple Health already collects: iPhone steps, Apple Watch data, and any authorized app.",
+            "**Colmi ring on both platforms**: the Colmi smart ring connects via Bluetooth to the FitMesh app, on both Android and iPhone. Data (sleep with phases, steps, heart rate) is synced to your cloud account and, on iOS, written into Apple Health.",
+            "**EU cloud, GDPR**: all data is stored on EU servers (Frankfurt). Encryption in transit and at rest, Row Level Security, full on-demand account deletion.",
           ],
         },
       },
@@ -927,8 +927,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       {
         type: "paragraph",
         text: {
-          it: "Il punto più richiesto: \"i dati del mio anello Android compaiono su Apple Salute?\". Sì — con il ponte FitMesh. Quando usi FitMesh su iPhone e hai un anello Colmi, l'app scrive i dati su Apple Salute: sonno con fasi (leggero, profondo, REM), passi, frequenza cardiaca. Così li vedi nell'app Salute di Apple, in Fitness, e in qualsiasi altra app autorizzata ad Apple Salute.",
-          en: "The most requested point: \"does my Android ring data show up in Apple Health?\". Yes — via the FitMesh bridge. When you use FitMesh on iPhone with a Colmi ring, the app writes data into Apple Health: sleep with phases (light, deep, REM), steps, heart rate. So you see them in Apple's Health app, in Fitness, and in any other app authorized to Apple Health.",
+          it: "Il punto più richiesto: \"i dati del mio anello Android compaiono su Apple Salute?\". Sì, tramite il ponte FitMesh. Quando usi FitMesh su iPhone e hai un anello Colmi, l'app scrive i dati su Apple Salute: sonno con fasi (leggero, profondo, REM), passi, frequenza cardiaca. Così li vedi nell'app Salute di Apple, in Fitness, e in qualsiasi altra app autorizzata ad Apple Salute.",
+          en: "The most requested point: \"does my Android ring data show up in Apple Health?\". Yes, via the FitMesh bridge. When you use FitMesh on iPhone with a Colmi ring, the app writes data into Apple Health: sleep with phases (light, deep, REM), steps, heart rate. So you see them in Apple's Health app, in Fitness, and in any other app authorized to Apple Health.",
         },
       },
       {
@@ -955,14 +955,14 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         type: "list",
         items: {
           it: [
-            "**Non scrive su Health Connect** — la scrittura su Health Connect (Android) è in roadmap, ma non è ancora disponibile. FitMesh oggi legge da Health Connect, non ci scrive.",
-            "**Il sync iOS non è in tempo reale** — su iPhone, il sync in background è periodico (ogni 15-30 minuti circa), come imposto dal sistema operativo iOS. Non aspettarti aggiornamenti al secondo.",
-            "**L'app iOS non è ancora su App Store** — FitMesh iOS è in beta attiva su TestFlight. Puoi iscriverti alla lista beta su /beta — riceverai l'accesso non appena disponibile.",
+            "**Non scrive su Health Connect**: la scrittura su Health Connect (Android) è in roadmap, ma non è ancora disponibile. FitMesh oggi legge da Health Connect, non ci scrive.",
+            "**Il sync iOS non è in tempo reale**: su iPhone, il sync in background è periodico (ogni 15-30 minuti circa), come imposto dal sistema operativo iOS. Non aspettarti aggiornamenti al secondo.",
+            "**L'app iOS non è ancora su App Store**: FitMesh iOS è in beta attiva su TestFlight. Puoi iscriverti alla lista beta su /beta; riceverai l'accesso non appena disponibile.",
           ],
           en: [
-            "**Does not write to Health Connect** — writing to Health Connect (Android) is on the roadmap, but not yet available. FitMesh today reads from Health Connect, it doesn't write to it.",
-            "**iOS sync is not real-time** — on iPhone, background sync is periodic (roughly every 15-30 minutes), as enforced by the iOS operating system. Don't expect second-by-second updates.",
-            "**iOS app is not yet on the App Store** — FitMesh iOS is in active beta on TestFlight. You can join the beta waitlist at /beta — you'll get access as soon as it's available.",
+            "**Does not write to Health Connect**: writing to Health Connect (Android) is on the roadmap, but not yet available. FitMesh today reads from Health Connect, it doesn't write to it.",
+            "**iOS sync is not real-time**: on iPhone, background sync is periodic (roughly every 15-30 minutes), as enforced by the iOS operating system. Don't expect second-by-second updates.",
+            "**iOS app is not yet on the App Store**: FitMesh iOS is in active beta on TestFlight. You can join the beta waitlist at /beta; you'll get access as soon as it's available.",
           ],
         },
       },
@@ -1022,8 +1022,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Start with Android, add iPhone when it's ready",
         },
         body: {
-          it: "FitMesh Android è disponibile ora su Google Play — scarica, connetti il tuo anello o wearable, e la dashboard è subito attiva. Iscriviti alla beta iOS per ricevere l'accesso appena i posti si aprono.",
-          en: "FitMesh Android is available now on Google Play — download, connect your ring or wearable, and the dashboard is immediately active. Join the iOS beta to get access as soon as spots open.",
+          it: "FitMesh Android è disponibile ora su Google Play: scarica, connetti il tuo anello o wearable, e la dashboard è subito attiva. Iscriviti alla beta iOS per ricevere l'accesso appena i posti si aprono.",
+          en: "FitMesh Android is available now on Google Play: download, connect your ring or wearable, and the dashboard is immediately active. Join the iOS beta to get access as soon as spots open.",
         },
         ctaLabel: { it: "Entra in beta →", en: "Join beta →" },
         ctaHref: { it: "/it/beta", en: "/en/beta" },
@@ -1036,8 +1036,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Can I use FitMesh on two phones at the same time?",
         },
         a: {
-          it: "Sì. Lo stesso account FitMesh funziona su Android e iPhone in parallelo. I dati di entrambi i dispositivi confluiscono nella stessa dashboard cloud — non devi fare nulla di speciale, basta accedere con lo stesso account su entrambi.",
-          en: "Yes. The same FitMesh account works on Android and iPhone in parallel. Data from both devices flows into the same cloud dashboard — you don't need to do anything special, just log in with the same account on both.",
+          it: "Sì. Lo stesso account FitMesh funziona su Android e iPhone in parallelo. I dati di entrambi i dispositivi confluiscono nella stessa dashboard cloud: non devi fare nulla di speciale, basta accedere con lo stesso account su entrambi.",
+          en: "Yes. The same FitMesh account works on Android and iPhone in parallel. Data from both devices flows into the same cloud dashboard: you don't need to do anything special, just log in with the same account on both.",
         },
       },
       {
@@ -1046,8 +1046,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Does my Android smartwatch data show up in Apple Health?",
         },
         a: {
-          it: "Per l'anello smart Colmi: sì. FitMesh iOS (beta) scrive i dati dell'anello Colmi dentro Apple Salute — sonno con fasi, passi, frequenza cardiaca. Per gli smartwatch Android che passano per Health Connect (Galaxy Watch, Garmin, ecc.): il passaggio diretto Health Connect → Apple Salute non è disponibile oggi, ma è in roadmap.",
-          en: "For the Colmi smart ring: yes. FitMesh iOS (beta) writes Colmi ring data into Apple Health — sleep with phases, steps, heart rate. For Android smartwatches that go through Health Connect (Galaxy Watch, Garmin, etc.): the direct Health Connect → Apple Health bridge is not available today, but is on the roadmap.",
+          it: "Per l'anello smart Colmi: sì. FitMesh iOS (beta) scrive i dati dell'anello Colmi dentro Apple Salute (sonno con fasi, passi, frequenza cardiaca). Per gli smartwatch Android che passano per Health Connect (Galaxy Watch, Garmin, ecc.): il passaggio diretto Health Connect → Apple Salute non è disponibile oggi, ma è in roadmap.",
+          en: "For the Colmi smart ring: yes. FitMesh iOS (beta) writes Colmi ring data into Apple Health (sleep with phases, steps, heart rate). For Android smartwatches that go through Health Connect (Galaxy Watch, Garmin, etc.): the direct Health Connect → Apple Health bridge is not available today, but is on the roadmap.",
         },
       },
       {
@@ -1066,8 +1066,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Is FitMesh iOS available on the App Store?",
         },
         a: {
-          it: "Non ancora. FitMesh iOS è in beta attiva su TestFlight. Iscriviti alla lista beta su fitmesh.fit/it/beta — riceverai un'email con il link TestFlight non appena i posti sono disponibili. L'uscita su App Store è pianificata dopo il completamento della beta.",
-          en: "Not yet. FitMesh iOS is in active beta on TestFlight. Join the beta waitlist at fitmesh.fit/en/beta — you'll receive an email with the TestFlight link as soon as spots are available. App Store release is planned after the beta is complete.",
+          it: "Non ancora. FitMesh iOS è in beta attiva su TestFlight. Iscriviti alla lista beta su fitmesh.fit/it/beta: riceverai un'email con il link TestFlight non appena i posti sono disponibili. L'uscita su App Store è pianificata dopo il completamento della beta.",
+          en: "Not yet. FitMesh iOS is in active beta on TestFlight. Join the beta waitlist at fitmesh.fit/en/beta: you'll receive an email with the TestFlight link as soon as spots are available. App Store release is planned after the beta is complete.",
         },
       },
       {
@@ -1076,8 +1076,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Is my health data safe when using two phones?",
         },
         a: {
-          it: "Sì. Tutti i dati sono archiviati su un unico server EU (Frankfurt), crittografati in transito (HTTPS) e a riposo. Ogni account è isolato con Row Level Security — nessun altro utente può vedere i tuoi dati. Puoi cancellare tutto in qualsiasi momento dalla sezione 'Elimina account e dati' nell'app.",
-          en: "Yes. All data is stored on a single EU server (Frankfurt), encrypted in transit (HTTPS) and at rest. Each account is isolated with Row Level Security — no other user can see your data. You can delete everything at any time from the 'Delete account and data' section in the app.",
+          it: "Sì. Tutti i dati sono archiviati su un unico server EU (Frankfurt), crittografati in transito (HTTPS) e a riposo. Ogni account è isolato con Row Level Security: nessun altro utente può vedere i tuoi dati. Puoi cancellare tutto in qualsiasi momento dalla sezione 'Elimina account e dati' nell'app.",
+          en: "Yes. All data is stored on a single EU server (Frankfurt), encrypted in transit (HTTPS) and at rest. Each account is isolated with Row Level Security: no other user can see your data. You can delete everything at any time from the 'Delete account and data' section in the app.",
         },
       },
       {
@@ -1086,8 +1086,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Does the Colmi ring work on both Android and iPhone?",
         },
         a: {
-          it: "Sì. L'anello Colmi si connette via Bluetooth all'app FitMesh su entrambe le piattaforme. Su Android è già disponibile in produzione. Su iPhone è nella beta attiva — iscriviti per accedere. I dati raccolti dall'anello (sonno con fasi, passi, BPM) vengono sincronizzati all'account cloud e, su iOS, scritti dentro Apple Salute.",
-          en: "Yes. The Colmi ring connects via Bluetooth to the FitMesh app on both platforms. On Android it's already available in production. On iPhone it's in the active beta — join to get access. Data collected by the ring (sleep with phases, steps, BPM) is synced to your cloud account and, on iOS, written into Apple Health.",
+          it: "Sì. L'anello Colmi si connette via Bluetooth all'app FitMesh su entrambe le piattaforme. Su Android è già disponibile in produzione. Su iPhone è nella beta attiva: iscriviti per accedere. I dati raccolti dall'anello (sonno con fasi, passi, BPM) vengono sincronizzati all'account cloud e, su iOS, scritti dentro Apple Salute.",
+          en: "Yes. The Colmi ring connects via Bluetooth to the FitMesh app on both platforms. On Android it's already available in production. On iPhone it's in the active beta: join to get access. Data collected by the ring (sleep with phases, steps, BPM) is synced to your cloud account and, on iOS, written into Apple Health.",
         },
       },
     ],
@@ -1118,18 +1118,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       ],
     },
     metaDescription: {
-      it: "Dashboard web per Apple Health in arrivo su iOS: visualizza passi, sonno, frequenza cardiaca da iPhone su browser. FitMesh iOS beta — iscriviti ora.",
-      en: "Web dashboard for Apple Health coming to iOS: view steps, sleep, heart rate from iPhone in a browser. FitMesh iOS beta — sign up now.",
+      it: "Dashboard web per Apple Health in arrivo su iOS: visualizza passi, sonno, frequenza cardiaca da iPhone su browser. FitMesh iOS beta: iscriviti ora.",
+      en: "Web dashboard for Apple Health coming to iOS: view steps, sleep, heart rate from iPhone in a browser. FitMesh iOS beta: sign up now.",
     },
     hero: {
       kicker: { it: "FitMesh iOS", en: "FitMesh iOS" },
       title: {
-        it: "Dashboard web per Apple Health — FitMesh iOS in arrivo",
-        en: "Web dashboard for Apple Health — FitMesh iOS coming soon",
+        it: "Dashboard web per Apple Health: FitMesh iOS in arrivo",
+        en: "Web dashboard for Apple Health: FitMesh iOS coming soon",
       },
       subtitle: {
-        it: "I tuoi dati da Apple Watch, Garmin, Oura e tutti i wearable che scrivono su Apple Health — su una dashboard web accessibile da qualsiasi browser, senza export manuali.",
-        en: "Your data from Apple Watch, Garmin, Oura, and all wearables writing to Apple Health — on a web dashboard accessible from any browser, no manual exports needed.",
+        it: "I tuoi dati da Apple Watch, Garmin, Oura e tutti i wearable che scrivono su Apple Health, su una dashboard web accessibile da qualsiasi browser, senza export manuali.",
+        en: "Your data from Apple Watch, Garmin, Oura, and all wearables writing to Apple Health, on a web dashboard accessible from any browser, no manual exports needed.",
       },
       primaryCta: {
         label: { it: "Unisciti alla beta iOS", en: "Join iOS beta" },
@@ -1140,8 +1140,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       {
         type: "paragraph",
         text: {
-          it: "Apple Health è il sistema più completo per raccogliere dati salute su iPhone. Il problema storico: i dati restano nell'app, senza una web dashboard nativa. Puoi fare l'export XML manuale — ma è un file tecnico che richiede strumenti per essere letto, e devi rifarlo ogni volta. FitMesh iOS cambierà questa situazione.",
-          en: "Apple Health is the most comprehensive system for collecting health data on iPhone. The long-standing problem: data stays in the app, with no native web dashboard. You can do a manual XML export — but it's a technical file requiring tools to read, and you have to redo it every time. FitMesh iOS will change this.",
+          it: "Apple Health è il sistema più completo per raccogliere dati salute su iPhone. Il problema storico: i dati restano nell'app, senza una web dashboard nativa. Puoi fare l'export XML manuale, ma è un file tecnico che richiede strumenti per essere letto, e devi rifarlo ogni volta. FitMesh iOS cambierà questa situazione.",
+          en: "Apple Health is the most comprehensive system for collecting health data on iPhone. The long-standing problem: data stays in the app, with no native web dashboard. You can do a manual XML export, but it's a technical file requiring tools to read, and you have to redo it every time. FitMesh iOS will change this.",
         },
       },
       {
@@ -1156,16 +1156,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         type: "list",
         items: {
           it: [
-            "**Installi FitMesh Sync su iPhone** — concedi i permessi HealthKit per i tipi di dati che vuoi sincronizzare.",
-            "**Sync automatico in background** — FitMesh legge i dati da Apple Health e li invia alla dashboard cloud senza che tu debba fare niente.",
-            "**Accedi alla dashboard da qualsiasi browser** — stesso account, stessi dati, da PC, tablet o telefono.",
-            "**Multi-wearable unificato** — Apple Watch, Garmin, Oura, Fitbit: se scrivono su Apple Health, FitMesh li aggrega insieme.",
+            "**Installi FitMesh Sync su iPhone**: concedi i permessi HealthKit per i tipi di dati che vuoi sincronizzare.",
+            "**Sync automatico in background**: FitMesh legge i dati da Apple Health e li invia alla dashboard cloud senza che tu debba fare niente.",
+            "**Accedi alla dashboard da qualsiasi browser**: stesso account, stessi dati, da PC, tablet o telefono.",
+            "**Multi-wearable unificato**: Apple Watch, Garmin, Oura, Fitbit, se scrivono su Apple Health, FitMesh li aggrega insieme.",
           ],
           en: [
-            "**Install FitMesh Sync on iPhone** — grant HealthKit permissions for the data types you want to sync.",
-            "**Automatic background sync** — FitMesh reads data from Apple Health and sends it to the cloud dashboard without you doing anything.",
-            "**Access dashboard from any browser** — same account, same data, from PC, tablet, or phone.",
-            "**Unified multi-wearable** — Apple Watch, Garmin, Oura, Fitbit: if they write to Apple Health, FitMesh aggregates them together.",
+            "**Install FitMesh Sync on iPhone**: grant HealthKit permissions for the data types you want to sync.",
+            "**Automatic background sync**: FitMesh reads data from Apple Health and sends it to the cloud dashboard without you doing anything.",
+            "**Access dashboard from any browser**: same account, same data, from PC, tablet, or phone.",
+            "**Unified multi-wearable**: Apple Watch, Garmin, Oura, Fitbit, if they write to Apple Health, FitMesh aggregates them together.",
           ],
         },
       },
@@ -1182,13 +1182,13 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         items: {
           it: [
             "**Utenti iPhone + Apple Watch**: storico dati su web, accessibile da PC senza dover usare l'app Health.",
-            "**Multi-wearable su iPhone**: Garmin per running + Apple Watch per quotidiano — FitMesh li unifica.",
+            "**Multi-wearable su iPhone**: Garmin per running + Apple Watch per quotidiano, FitMesh li unifica.",
             "**Caregiver di familiari con iPhone**: dashboard condivisa per vedere i dati salute di chi si vuole bene.",
             "**Chi vuole backup indipendente**: copia dei propri dati Apple Health su server EU (Frankfurt), non nel cloud Apple.",
           ],
           en: [
             "**iPhone + Apple Watch users**: web history accessible from a PC without using the Health app.",
-            "**Multi-wearable on iPhone**: Garmin for running + Apple Watch for daily — FitMesh unifies them.",
+            "**Multi-wearable on iPhone**: Garmin for running + Apple Watch for daily, FitMesh unifies them.",
             "**Caregivers of iPhone family members**: shared dashboard to view health data of loved ones.",
             "**Those wanting independent backup**: copy of Apple Health data on EU server (Frankfurt), not in Apple cloud.",
           ],
@@ -1202,15 +1202,15 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Already available on Android",
         },
         body: {
-          it: "FitMesh Sync è già disponibile su Android via Health Connect. Se hai un telefono Android con Galaxy Watch, Garmin, Fitbit o Pixel Watch, puoi iniziare subito. La versione iOS è in sviluppo attivo — iscriviti alla beta per essere tra i primi. Hai sia un Android che un iPhone? Leggi come funziona il multi-device su /it/lp/due-telefoni.",
-          en: "FitMesh Sync is already available on Android via Health Connect. If you have an Android phone with Galaxy Watch, Garmin, Fitbit, or Pixel Watch, you can start right now. The iOS version is in active development — join the beta to be among the first. Have both Android and iPhone? Read how multi-device works at /en/lp/due-telefoni.",
+          it: "FitMesh Sync è già disponibile su Android via Health Connect. Se hai un telefono Android con Galaxy Watch, Garmin, Fitbit o Pixel Watch, puoi iniziare subito. La versione iOS è in sviluppo attivo: iscriviti alla beta per essere tra i primi. Hai sia un Android che un iPhone? Leggi come funziona il multi-device su /it/lp/due-telefoni.",
+          en: "FitMesh Sync is already available on Android via Health Connect. If you have an Android phone with Galaxy Watch, Garmin, Fitbit, or Pixel Watch, you can start right now. The iOS version is in active development: join the beta to be among the first. Have both Android and iPhone? Read how multi-device works at /en/lp/due-telefoni.",
         },
       },
       {
         type: "cta",
         title: {
-          it: "Iscriviti alla beta iOS — posti limitati",
-          en: "Join the iOS beta — limited spots",
+          it: "Iscriviti alla beta iOS (posti limitati)",
+          en: "Join the iOS beta (limited spots)",
         },
         body: {
           it: "Stiamo costruendo FitMesh iOS per portare Apple Health su web. Iscriviti ora e sarai tra i primi a ricevere l'accesso quando sarà pronto.",
@@ -1227,8 +1227,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "When is FitMesh coming to iOS?",
         },
         a: {
-          it: "È in sviluppo attivo. La versione beta iOS sarà disponibile dopo il completamento del processo Apple Developer Program e TestFlight. Iscriviti alla lista beta — riceverai un'email non appena i posti saranno disponibili.",
-          en: "It's in active development. The iOS beta will be available after completing the Apple Developer Program and TestFlight process. Join the beta list — you'll receive an email as soon as spots are available.",
+          it: "È in sviluppo attivo. La versione beta iOS sarà disponibile dopo il completamento del processo Apple Developer Program e TestFlight. Iscriviti alla lista beta: riceverai un'email non appena i posti saranno disponibili.",
+          en: "It's in active development. The iOS beta will be available after completing the Apple Developer Program and TestFlight process. Join the beta list: you'll receive an email as soon as spots are available.",
         },
       },
       {
@@ -1237,8 +1237,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Does FitMesh iOS require a subscription?",
         },
         a: {
-          it: "Durante la beta è gratuito — 100 posti founder. Il modello post-beta è in definizione. L'obiettivo è rimanere accessibile: una dashboard salute non dovrebbe costare quanto un servizio di streaming.",
-          en: "During beta it's free — 100 founder spots. The post-beta model is being defined. The goal is to remain accessible: a health dashboard shouldn't cost as much as a streaming service.",
+          it: "Durante la beta è gratuito, 100 posti founder. Il modello post-beta è in definizione. L'obiettivo è rimanere accessibile: una dashboard salute non dovrebbe costare quanto un servizio di streaming.",
+          en: "During beta it's free, 100 founder spots. The post-beta model is being defined. The goal is to remain accessible: a health dashboard shouldn't cost as much as a streaming service.",
         },
       },
       {
@@ -1247,8 +1247,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           en: "Is my Apple Health data safe with FitMesh?",
         },
         a: {
-          it: "I dati vengono trasmessi su HTTPS e archiviati in un database Postgres protetto da RLS (Row Level Security) — ogni utente vede solo i propri dati. Il server è in EU (Frankfurt). Puoi cancellare tutto dai nostri server in qualsiasi momento con 'Elimina account e dati' nell'app. La privacy policy è consultabile su fitmesh.fit.",
-          en: "Data is transmitted over HTTPS and stored in a Postgres database protected by RLS (Row Level Security) — each user sees only their own data. Server is in the EU (Frankfurt). You can delete everything from our servers at any time with 'Delete account and data' in the app. Privacy policy is available at fitmesh.fit.",
+          it: "I dati vengono trasmessi su HTTPS e archiviati in un database Postgres protetto da RLS (Row Level Security): ogni utente vede solo i propri dati. Il server è in EU (Frankfurt). Puoi cancellare tutto dai nostri server in qualsiasi momento con 'Elimina account e dati' nell'app. La privacy policy è consultabile su fitmesh.fit.",
+          en: "Data is transmitted over HTTPS and stored in a Postgres database protected by RLS (Row Level Security): each user sees only their own data. Server is in the EU (Frankfurt). You can delete everything from our servers at any time with 'Delete account and data' in the app. Privacy policy is available at fitmesh.fit.",
         },
       },
     ],

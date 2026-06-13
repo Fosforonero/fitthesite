@@ -42,8 +42,8 @@ export default async function FounderBanner({ locale }: { locale: string }) {
   // Copy adattiva: se pieno, il programma founder è chiuso.
   const headline = full
     ? locale === "it"
-      ? "Founder al completo — scarica l'app su Play Store"
-      : "Founder program full — get the app on Play Store"
+      ? "Founder al completo: scarica l'app su Play Store"
+      : "Founder program full: get the app on Play Store"
     : locale === "it"
       ? `Restano ${remaining} dei ${TOTAL_SPOTS} posti founder · 1 anno di Pro gratis`
       : `${remaining} of ${TOTAL_SPOTS} founder seats left · 1 year of Pro free`;

@@ -16,14 +16,14 @@ export const post: BlogPost = {
     it: [
       "Colmi R02/R03 e cloni OEM si collegano a FitMesh via Bluetooth diretto: nessuna app del produttore necessaria.",
       "Metriche lette: passi, distanza, calorie, battito, FC a riposo, SpO2, HRV, stress (0-100) e sonno con fasi.",
-      "L'anello è specialista del sonno: di notte prevale, di giorno vince lo smartwatch — la fusione multi-device elimina i doppi conteggi.",
+      "L'anello è specialista del sonno: di notte prevale, di giorno vince lo smartwatch. La fusione multi-device elimina i doppi conteggi.",
       "Batteria con indicatore colorato, stima autonomia reale e notifiche a 100%/50%/25%.",
       "I dati restano sul tuo account FitMesh in EU, non sui server del produttore.",
     ],
     en: [
-      "Colmi R02/R03 and OEM clones connect to FitMesh over direct Bluetooth — no manufacturer app required.",
+      "Colmi R02/R03 and OEM clones connect to FitMesh over direct Bluetooth, no manufacturer app required.",
       "Metrics read: steps, distance, calories, heart rate, resting HR, SpO2, HRV, stress (0-100) and sleep with stages.",
-      "The ring is the sleep specialist: it wins overnight, the smartwatch wins during the day — multi-device fusion removes double counting.",
+      "The ring is the sleep specialist: it wins overnight, the smartwatch wins during the day. Multi-device fusion removes double counting.",
       "Color-coded battery indicator, real runtime estimate and notifications at 100%/50%/25%.",
       "Data stays on your FitMesh account in the EU, not on the manufacturer's servers.",
     ],
@@ -64,7 +64,7 @@ export const post: BlogPost = {
     },
     subtitle: {
       it: "Il Colmi R02 misura passi, battito, SpO2, HRV, stress e batteria. Il problema è che i dati restano chiusi nell'app del produttore. FitMesh Sync si connette all'anello via Bluetooth diretto e integra tutto nella tua dashboard, senza app companion.",
-      en: "The Colmi R02 measures steps, heart rate, SpO2, HRV, stress and battery. The catch: data is locked inside the manufacturer's companion app. FitMesh Sync connects directly over Bluetooth and merges everything into your dashboard — no companion app required.",
+      en: "The Colmi R02 measures steps, heart rate, SpO2, HRV, stress and battery. The catch: data is locked inside the manufacturer's companion app. FitMesh Sync connects directly over Bluetooth and merges everything into your dashboard, no companion app required.",
     },
   },
   body: [
@@ -72,7 +72,7 @@ export const post: BlogPost = {
       type: "paragraph",
       text: {
         it: "Il Colmi R02 è l'anello smart più venduto su Amazon Italia sotto i 30 euro. Misura le stesse metriche degli anelli da tre-quattrocento euro: battito cardiaco continuo via PPG ottico, SpO2 notturno, HRV, passi, distanza, calorie, livello di stress, e batteria che dura 5-7 giorni. Il problema è uno solo: i dati restano chiusi nell'app del produttore, separati da tutto il resto. FitMesh Sync risolve questo con una connessione Bluetooth diretta all'anello, senza bisogno dell'app companion, e integra i dati in una dashboard unica insieme al tuo smartwatch.",
-        en: "The Colmi R02 is the best-selling smart ring on Amazon under €30. It tracks the same metrics as rings three or four times the price: continuous heart rate via optical PPG, overnight SpO2, HRV, steps, distance, calories, stress score, and a battery that typically lasts 5 to 7 days. The catch is one thing: the data is locked inside the manufacturer's companion app, disconnected from everything else. FitMesh Sync fixes this with a direct Bluetooth connection to the ring — no companion app needed — and merges the data into a single dashboard alongside your smartwatch.",
+        en: "The Colmi R02 is the best-selling smart ring on Amazon under €30. It tracks the same metrics as rings three or four times the price: continuous heart rate via optical PPG, overnight SpO2, HRV, steps, distance, calories, stress score, and a battery that typically lasts 5 to 7 days. The catch is one thing: the data is locked inside the manufacturer's companion app, disconnected from everything else. FitMesh Sync fixes this with a direct Bluetooth connection to the ring (no companion app needed) and merges the data into a single dashboard alongside your smartwatch.",
       },
     },
     {
@@ -106,7 +106,7 @@ export const post: BlogPost = {
       type: "paragraph",
       text: {
         it: "Ci sono cloni OEM con nomi diversi (il tuo anello potrebbe usare l'app QRing o un'interfaccia identica) che condividono lo stesso firmware e lo stesso protocollo: sono tutti compatibili con l'integrazione FitMesh. Il motivo per cui questi anelli si sono moltiplicati non è un mistero: il form factor dell'anello funziona meglio dello smartwatch per dormire. Nessun cinturino, nessun peso al polso, nessuna necessità di rimuoverlo. Per le metriche notturne (HRV, SpO2, battito a riposo) l'anello batte il watch sul comfort, non sulla precisione dei sensori.",
-        en: "There are OEM clones sold under different names — your ring might use the QRing app or an interface that looks identical — that share the same firmware and protocol: all compatible with the FitMesh integration. Why did these rings multiply so fast? The form factor simply works better for sleep than a smartwatch does. No strap, no weight on the wrist, no need to remove it. For overnight metrics (HRV, SpO2, resting heart rate) the ring wins on comfort, not necessarily on sensor accuracy.",
+        en: "There are OEM clones sold under different names (your ring might use the QRing app or an interface that looks identical) that share the same firmware and protocol: all compatible with the FitMesh integration. Why did these rings multiply so fast? The form factor simply works better for sleep than a smartwatch does. No strap, no weight on the wrist, no need to remove it. For overnight metrics (HRV, SpO2, resting heart rate) the ring wins on comfort, not necessarily on sensor accuracy.",
       },
     },
     {
@@ -180,12 +180,12 @@ export const post: BlogPost = {
           it: [
             "Sonno con fasi",
             "Sì",
-            "Leggero, profondo, REM e veglia — l'anello è specialista del sonno e prevale di notte",
+            "Leggero, profondo, REM e veglia: l'anello è specialista del sonno e prevale di notte",
           ],
           en: [
             "Sleep with stages",
             "Yes",
-            "Light, deep, REM and awake — the ring is the sleep specialist and wins overnight",
+            "Light, deep, REM and awake: the ring is the sleep specialist and wins overnight",
           ],
         },
       ],
@@ -209,7 +209,7 @@ export const post: BlogPost = {
       type: "paragraph",
       text: {
         it: "Il risultato pratico: se hai anche uno smartwatch, finisci per tenere due app aperte, cercare di incrociare manualmente i dati, e perdere il valore di entrambi i device. L'anello di notte, il watch di giorno: ha senso solo se i dati confluiscono in un unico posto.",
-        en: "The practical result: if you also own a smartwatch, you end up opening two apps, manually trying to piece together what happened during the day, and losing the combined value of both devices. Ring at night, watch during the day — it only makes sense if the data ends up in one place.",
+        en: "The practical result: if you also own a smartwatch, you end up opening two apps, manually trying to piece together what happened during the day, and losing the combined value of both devices. Ring at night, watch during the day: it only makes sense if the data ends up in one place.",
       },
     },
     {
@@ -260,8 +260,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "FitMesh Sync legge il livello di carica dell'anello ad ogni sincronizzazione e lo mostra nella dashboard con un indicatore colorato: verde quando la batteria supera il 50%, giallo nella fascia 20-49%, rosso sotto il 20%. Insieme al valore percentuale, la dashboard calcola una stima di autonomia residua basata sul consumo reale degli ultimi giorni — non un valore fisso da datasheet, ma una previsione calibrata sull'uso effettivo.",
-        en: "FitMesh Sync reads the ring's charge level at every sync and displays it in the dashboard with a color-coded indicator: green when battery is above 50%, yellow in the 20–49% range, red below 20%. Alongside the percentage, the dashboard calculates a remaining runtime estimate based on real drain over recent days — not a fixed spec-sheet value, but a prediction calibrated to actual usage.",
+        it: "FitMesh Sync legge il livello di carica dell'anello ad ogni sincronizzazione e lo mostra nella dashboard con un indicatore colorato: verde quando la batteria supera il 50%, giallo nella fascia 20-49%, rosso sotto il 20%. Insieme al valore percentuale, la dashboard calcola una stima di autonomia residua basata sul consumo reale degli ultimi giorni, non un valore fisso da datasheet, ma una previsione calibrata sull'uso effettivo.",
+        en: "FitMesh Sync reads the ring's charge level at every sync and displays it in the dashboard with a color-coded indicator: green when battery is above 50%, yellow in the 20–49% range, red below 20%. Alongside the percentage, the dashboard calculates a remaining runtime estimate based on real drain over recent days, not a fixed spec-sheet value, but a prediction calibrated to actual usage.",
       },
     },
     {
@@ -387,7 +387,7 @@ export const post: BlogPost = {
           "I dati vanno sul tuo account FitMesh in EU, non sui server del produttore dell'anello.",
         ],
         en: [
-          "Colmi R02/R03 and compatible OEM clones will connect to FitMesh Sync via direct Bluetooth — no companion app required.",
+          "Colmi R02/R03 and compatible OEM clones will connect to FitMesh Sync via direct Bluetooth, no companion app required.",
           "Metrics read: steps, distance, calories, heart rate, resting HR, SpO2, HRV, stress (0-100), battery. Sleep staging coming soon.",
           "Battery indicator is color-coded (green >50%, yellow 20-49%, red <20%) with real drain-based runtime estimate and notifications at full charge, 50%, and 25%.",
           "The 0-100 stress score is an exclusive ring metric that smartwatches don't expose via Health Connect.",

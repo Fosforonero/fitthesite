@@ -608,8 +608,8 @@ export default async function ProviderLanding({
                 "Download FitMesh Sync, grant Health Connect permissions, and your data is live in 30 seconds.",
               )
             : t(
-                `Lascia la tua email e ti avvisiamo non appena l'integrazione ${p.name} sarà disponibile. Niente newsletter, niente spam — solo l'annuncio.`,
-                `Drop your email and we'll notify you as soon as the ${p.name} integration lands. No newsletter, no spam — just the announcement.`,
+                `Lascia la tua email e ti avvisiamo non appena l'integrazione ${p.name} sarà disponibile. Niente newsletter, niente spam: solo l'annuncio.`,
+                `Drop your email and we'll notify you as soon as the ${p.name} integration lands. No newsletter, no spam: just the announcement.`,
               )}
         </p>
         <div className="mt-8 flex justify-center">

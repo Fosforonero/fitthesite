@@ -113,8 +113,8 @@ const COLUMNS: RoadmapColumn[] = [
         status: "live",
         title: { it: "Dashboard web nativa", en: "Native web dashboard" },
         desc: {
-          it: "Vista personale con trend giornalieri e settimanali, breakdown allenamenti, fasi sonno, zone HR — server-side rendered e privacy-first.",
-          en: "Personal view with daily and weekly trends, workout breakdowns, sleep stages, HR zones — server-side rendered and privacy-first.",
+          it: "Vista personale con trend giornalieri e settimanali, breakdown allenamenti, fasi sonno, zone HR. Server-side rendered e privacy-first.",
+          en: "Personal view with daily and weekly trends, workout breakdowns, sleep stages, HR zones. Server-side rendered and privacy-first.",
         },
       },
       {
@@ -129,8 +129,8 @@ const COLUMNS: RoadmapColumn[] = [
         status: "live",
         title: { it: "Notifiche push FCM", en: "FCM push notifications" },
         desc: {
-          it: "Notifiche programmate per highlight settimanali, soglie HR e promemoria sync — opt-in, mai marketing.",
-          en: "Scheduled notifications for weekly highlights, HR thresholds and sync reminders — opt-in, never marketing.",
+          it: "Notifiche programmate per highlight settimanali, soglie HR e promemoria sync (opt-in, mai marketing).",
+          en: "Scheduled notifications for weekly highlights, HR thresholds and sync reminders (opt-in, never marketing).",
         },
       },
       {
@@ -181,8 +181,8 @@ const COLUMNS: RoadmapColumn[] = [
         status: "in-progress",
         title: { it: "Attività mensile e annuale", en: "Monthly and yearly activity" },
         desc: {
-          it: "Aggregazioni temporali oltre la settimana — heat map mensile, totali annuali per allenamento, confronto anno-su-anno.",
-          en: "Time aggregations beyond the week — monthly heat map, yearly totals per workout, year-over-year comparison.",
+          it: "Aggregazioni temporali oltre la settimana: heat map mensile, totali annuali per allenamento, confronto anno-su-anno.",
+          en: "Time aggregations beyond the week: monthly heat map, yearly totals per workout, year-over-year comparison.",
         },
       },
       {
@@ -277,8 +277,8 @@ const COLUMNS: RoadmapColumn[] = [
         status: "exploration",
         title: { it: "Export FIT / TCX / GPX", en: "FIT / TCX / GPX export" },
         desc: {
-          it: "Esportazione singole attività in formati standard fitness — utili per re-importare in Strava, Garmin Connect, TrainingPeaks.",
-          en: "Export individual activities in standard fitness formats — useful for re-importing into Strava, Garmin Connect, TrainingPeaks.",
+          it: "Esportazione singole attività in formati standard fitness, utili per re-importare in Strava, Garmin Connect, TrainingPeaks.",
+          en: "Export individual activities in standard fitness formats, useful for re-importing into Strava, Garmin Connect, TrainingPeaks.",
         },
       },
       {
@@ -452,7 +452,7 @@ export default async function RoadmapPage({
           <p className="mt-3 text-sm text-text-secondary leading-relaxed">
             {t(
               "Le date \"Q3 / Q4 2026\" indicano la finestra di rilascio target. Alcune integrazioni dipendono da approvazioni partner (es. Garmin Developer Program, Huawei Health Kit) e possono slittare. Aggiorniamo questa pagina ogni sprint: se vedi qualcosa di obsoleto, scrivici.",
-              "The \"Q3 / Q4 2026\" dates indicate target release windows. Some integrations depend on partner approvals (e.g. Garmin Developer Program, Huawei Health Kit) and may slip. We update this page each sprint — if anything looks stale, tell us.",
+              "The \"Q3 / Q4 2026\" dates indicate target release windows. Some integrations depend on partner approvals (e.g. Garmin Developer Program, Huawei Health Kit) and may slip. We update this page each sprint: if anything looks stale, tell us.",
             )}
           </p>
           <Link
@@ -475,8 +475,8 @@ export default async function RoadmapPage({
         </h2>
         <p className="mt-4 text-text-secondary max-w-xl mx-auto">
           {t(
-            "Le richieste utente pesano sulla priorità delle prossime sprint. Scrivici cosa vorresti vedere e perché — leggiamo tutto.",
-            "User requests drive the next sprint priorities. Tell us what you'd like to see and why — we read everything.",
+            "Le richieste utente pesano sulla priorità delle prossime sprint. Scrivici cosa vorresti vedere e perché: leggiamo tutto.",
+            "User requests drive the next sprint priorities. Tell us what you'd like to see and why: we read everything.",
           )}
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">

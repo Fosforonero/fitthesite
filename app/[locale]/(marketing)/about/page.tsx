@@ -156,8 +156,8 @@ export default async function AboutPage({
         </h2>
         <p className="mt-4 text-text-secondary leading-relaxed">
           {t(
-            "Tutto ciò che scrive su Health Connect è supportato nativamente — quindi praticamente ogni smartwatch in commercio dal 2024:",
-            "Anything that writes to Health Connect is supported natively — practically every smartwatch on the market since 2024:",
+            "Tutto ciò che scrive su Health Connect è supportato nativamente, quindi praticamente ogni smartwatch in commercio dal 2024:",
+            "Anything that writes to Health Connect is supported natively, practically every smartwatch on the market since 2024:",
           )}
         </p>
         <div className="mt-5 grid sm:grid-cols-2 gap-3 text-sm">
@@ -249,8 +249,8 @@ export default async function AboutPage({
             privacy@fitmesh.fit
           </a>
           {t(
-            " e in 7 giorni tutto è eliminato (anche i backup). Conformità GDPR completa — vedi ",
-            " and within 7 days everything is gone (backups included). Full GDPR compliance — see ",
+            " e in 7 giorni tutto è eliminato (anche i backup). Conformità GDPR completa: vedi ",
+            " and within 7 days everything is gone (backups included). Full GDPR compliance: see ",
           )}
           <Link
             href={`/${lc}/privacy`}
@@ -294,7 +294,7 @@ export default async function AboutPage({
           id="family"
           className="mt-16 font-display text-display font-semibold tracking-tightest text-text-primary"
         >
-          {t("Modalità famiglia — in arrivo", "Family mode — coming soon")}
+          {t("Modalità famiglia (in arrivo)", "Family mode (coming soon)")}
         </h2>
         <p className="mt-4 text-text-secondary leading-relaxed">
           {t(
@@ -318,8 +318,8 @@ export default async function AboutPage({
         </p>
         <p className="mt-4 text-text-secondary leading-relaxed">
           {t(
-            "Lo sviluppo è open source per le componenti che non toccano dati utente (sito, schema database, API specs). Il codice client app resta privato per ora — diventerà open source nel Q4 2026, una volta validato il modello di business.",
-            "Development is open source for components that don't touch user data (site, database schema, API specs). The client app code remains private for now — it will go open source in Q4 2026, once the business model is validated.",
+            "Lo sviluppo è open source per le componenti che non toccano dati utente (sito, schema database, API specs). Il codice client app resta privato per ora: diventerà open source nel Q4 2026, una volta validato il modello di business.",
+            "Development is open source for components that don't touch user data (site, database schema, API specs). The client app code remains private for now: it will go open source in Q4 2026, once the business model is validated.",
           )}
         </p>
         <p className="mt-4 text-text-secondary leading-relaxed">

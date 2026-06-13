@@ -49,8 +49,8 @@ export const post: BlogPost = {
       en: "Wearable sync app alternatives in 2026: full landscape",
     },
     subtitle: {
-      it: "Da anni la categoria 'app ponte' è popolata. Con l'arrivo di Health Connect il panorama è cambiato — vediamo cosa esiste oggi e quando ognuna ha senso.",
-      en: "The 'bridge app' category has been crowded for years. With Health Connect arriving the landscape shifted — let's see what exists today and when each makes sense.",
+      it: "Da anni la categoria 'app ponte' è popolata. Con l'arrivo di Health Connect il panorama è cambiato: vediamo cosa esiste oggi e quando ognuna ha senso.",
+      en: "The 'bridge app' category has been crowded for years. With Health Connect arriving the landscape shifted: let's see what exists today and when each makes sense.",
     },
   },
   body: [

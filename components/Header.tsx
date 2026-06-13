@@ -24,7 +24,7 @@ export default function Header({
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
         <Link
           href={`/${locale}`}
-          aria-label="FitMesh Sync — home"
+          aria-label="FitMesh Sync, home"
           className="flex items-center group"
         >
           <span className="sm:hidden">

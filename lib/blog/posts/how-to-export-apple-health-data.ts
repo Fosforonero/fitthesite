@@ -12,14 +12,14 @@ export const post: BlogPost = {
       "Per leggere l'XML su PC servono strumenti aggiuntivi: script Python open-source o Apple Shortcuts per metriche specifiche.",
       "Per condividere dati specifici con un medico, usa l'export per singola metrica direttamente dal grafico in Salute: produce un CSV pulito.",
       "Il file XML non è criptato: trattalo come un documento medico sensibile e non caricarlo su cloud pubblici.",
-      "La via più comoda è una dashboard web senza export manuale: serve un'app che legga da HealthKit e sincronizzi in background. FitMesh iOS è in beta TestFlight — uscita App Store imminente.",
+      "La via più comoda è una dashboard web senza export manuale: serve un'app che legga da HealthKit e sincronizzi in background. FitMesh iOS è in beta TestFlight, uscita App Store imminente.",
     ],
     en: [
       "The most complete method is the native XML export (Health → profile → Export All Health Data): it contains every record, but the file can reach 2 GB and isn't readable directly.",
       "Reading the XML on a PC requires additional tools: open-source Python scripts or Apple Shortcuts for specific metrics.",
       "For sharing specific data with a doctor, use the per-metric export directly from the chart in Health: it produces a clean CSV.",
       "The XML file is unencrypted: treat it like a sensitive medical document and don't upload it to public cloud services.",
-      "The most convenient path is a web dashboard without manual exports: it needs an app that reads from HealthKit and syncs in the background. FitMesh iOS is in beta on TestFlight — App Store launch imminent.",
+      "The most convenient path is a web dashboard without manual exports: it needs an app that reads from HealthKit and syncs in the background. FitMesh iOS is in beta on TestFlight, App Store launch imminent.",
     ],
   },
   primaryKeyword: {
@@ -196,8 +196,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "FitMesh Sync è in arrivo su iPhone — la beta TestFlight è attiva e l'uscita App Store è imminente. L'app iPhone legge i dati da Apple Health (HealthKit), li sincronizza automaticamente e li mostra sulla stessa dashboard web che già usiamo per Android. Feature extra: il ponte di scrittura (opt-in) porta i dati dei wearable Android direttamente in Apple Salute — utile se hai sia un dispositivo Android che un iPhone.",
-        en: "FitMesh Sync is arriving on iPhone — the TestFlight beta is active and the App Store launch is imminent. The iPhone app reads data from Apple Health (HealthKit), syncs it automatically, and displays it on the same web dashboard already used for Android. Extra feature: the write bridge (opt-in) brings Android wearable data directly into Apple Health — useful if you have both an Android device and an iPhone.",
+        it: "FitMesh Sync è in arrivo su iPhone: la beta TestFlight è attiva e l'uscita App Store è imminente. L'app iPhone legge i dati da Apple Health (HealthKit), li sincronizza automaticamente e li mostra sulla stessa dashboard web che già usiamo per Android. Feature extra: il ponte di scrittura (opt-in) porta i dati dei wearable Android direttamente in Apple Salute, utile se hai sia un dispositivo Android che un iPhone.",
+        en: "FitMesh Sync is arriving on iPhone: the TestFlight beta is active and the App Store launch is imminent. The iPhone app reads data from Apple Health (HealthKit), syncs it automatically, and displays it on the same web dashboard already used for Android. Extra feature: the write bridge (opt-in) brings Android wearable data directly into Apple Health, useful if you have both an Android device and an iPhone.",
       },
     },
     {
@@ -291,8 +291,8 @@ export const post: BlogPost = {
         en: "Web dashboard for iPhone: join the iOS waitlist",
       },
       body: {
-        it: "FitMesh Sync è in beta TestFlight su iPhone — uscita App Store imminente. L'app legge i dati da Apple Health e li sincronizza automaticamente su web, senza export manuali. Entra in beta gratis e sarai tra i primi a provarla. Bonus: il ponte di scrittura (opt-in) porta anche i dati dei wearable Android dentro Apple Salute.",
-        en: "FitMesh Sync is in TestFlight beta on iPhone — App Store launch imminent. The app reads data from Apple Health and syncs it automatically to the web, no manual exports needed. Join the free beta and be among the first to try it. Bonus: the write bridge (opt-in) also brings Android wearable data into Apple Health.",
+        it: "FitMesh Sync è in beta TestFlight su iPhone, uscita App Store imminente. L'app legge i dati da Apple Health e li sincronizza automaticamente su web, senza export manuali. Entra in beta gratis e sarai tra i primi a provarla. Bonus: il ponte di scrittura (opt-in) porta anche i dati dei wearable Android dentro Apple Salute.",
+        en: "FitMesh Sync is in TestFlight beta on iPhone, App Store launch imminent. The app reads data from Apple Health and syncs it automatically to the web, no manual exports needed. Join the free beta and be among the first to try it. Bonus: the write bridge (opt-in) also brings Android wearable data into Apple Health.",
       },
       ctaLabel: {
         it: "Entra in beta iOS →",

@@ -8,7 +8,7 @@
     "badge": "Available on Android · iOS coming soon",
     "heading_1": "One global dashboard",
     "heading_accent": "for all your devices.",
-    "description": "Bring Galaxy Watch, Wear OS, Health Connect and cloud providers into one view. Steps, sleep, heart rate, recovery and trends — without jumping between apps.",
+    "description": "Bring Galaxy Watch, Wear OS, Health Connect and cloud providers into one view. Steps, sleep, heart rate, recovery and trends, without jumping between apps.",
     "cta_secondary": "Learn more",
     "pricing": "One-time from €3.99, or €1.19 every 6 months · secure payment",
     "coming_soon": "Coming Soon"
@@ -46,7 +46,7 @@
   "privacy_block": {
     "kicker": "Privacy-first",
     "heading": "Your health data is not a product.",
-    "description": "FitMesh Sync never sells, shares or profiles. Your data stays on the server you choose — your home NAS, your VPS, or our shared endpoint. You decide in the app settings.",
+    "description": "FitMesh Sync never sells, shares or profiles. Your data stays on the server you choose (your home NAS, your VPS, or our shared endpoint). You decide in the app settings.",
     "cta": "Read the Privacy Policy"
   },
   "final_cta": {

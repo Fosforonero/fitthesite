@@ -53,8 +53,8 @@ export const post: BlogPost = {
       en: "What is HRV: meaning, normal values and how to read it",
     },
     subtitle: {
-      it: "La variabilità della frequenza cardiaca (HRV) è una delle metriche più fraintese negli smartwatch. Non misura quanto batte il cuore, ma quanto irregolarmente — e quella irregolarità è in realtà un segnale di salute. Ecco cosa significa davvero, come si interpretano i valori, e perché il confronto con gli altri è quasi sempre inutile.",
-      en: "Heart rate variability (HRV) is one of the most misunderstood metrics in smartwatches. It doesn't measure how fast the heart beats, but how irregularly — and that irregularity is actually a health signal. Here's what it really means, how to interpret values, and why comparing yourself to others is almost always useless.",
+      it: "La variabilità della frequenza cardiaca (HRV) è una delle metriche più fraintese negli smartwatch. Non misura quanto batte il cuore, ma quanto irregolarmente: e quella irregolarità è in realtà un segnale di salute. Ecco cosa significa davvero, come si interpretano i valori, e perché il confronto con gli altri è quasi sempre inutile.",
+      en: "Heart rate variability (HRV) is one of the most misunderstood metrics in smartwatches. It doesn't measure how fast the heart beats, but how irregularly: and that irregularity is actually a health signal. Here's what it really means, how to interpret values, and why comparing yourself to others is almost always useless.",
     },
   },
   body: [

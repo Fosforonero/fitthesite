@@ -157,8 +157,8 @@ export const PROVIDERS: Provider[] = [
       en: "FitMesh Sync reads your Samsung Galaxy Watch data via Samsung Health + Health Connect and surfaces it on a personal web dashboard: steps, heart rate, sleep stages, workouts, calories, VO₂ max. No opaque clouds, no social accounts, no ads.",
     },
     techNote: {
-      it: "Connessione nativa via Health Connect — non richiede login OAuth. I dati restano sul telefono e vengono inviati solo al server che scegli tu nelle impostazioni.",
-      en: "Native connection via Health Connect — no OAuth login required. Data stays on your phone and is only sent to the server you choose in settings.",
+      it: "Connessione nativa via Health Connect, non richiede login OAuth. I dati restano sul telefono e vengono inviati solo al server che scegli tu nelle impostazioni.",
+      en: "Native connection via Health Connect, no OAuth login required. Data stays on your phone and is only sent to the server you choose in settings.",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: true, spo2: true }),
     faqs: [
@@ -232,7 +232,7 @@ export const PROVIDERS: Provider[] = [
           "Calorie attive e basali",
           "Distanza percorsa",
           "Allenamenti (tipo, durata, kcal, BPM medio)",
-          "SpO₂ — saturazione ossigeno notturna",
+          "SpO₂: saturazione ossigeno notturna",
           "VO₂ max (se misurato dal Watch)",
         ],
         en: [
@@ -242,7 +242,7 @@ export const PROVIDERS: Provider[] = [
           "Active and basal calories",
           "Distance",
           "Workouts (type, duration, kcal, average BPM)",
-          "SpO₂ — overnight blood oxygen",
+          "SpO₂: overnight blood oxygen",
           "VO₂ max (when measured by the Watch)",
         ],
       },
@@ -298,8 +298,8 @@ export const PROVIDERS: Provider[] = [
       en: "Pixel Watch and any Wear OS on a personal dashboard. Privacy-first.",
     },
     longDesc: {
-      it: "FitMesh Sync supporta tutti gli smartwatch Wear OS — Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6 — leggendoli via Health Connect. I dati raccolti dal sensore vanno direttamente nella tua dashboard, senza passare da Google Fit o cloud terzi.",
-      en: "FitMesh Sync supports every Wear OS smartwatch — Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6 — reading them via Health Connect. Sensor data goes straight to your dashboard without routing through Google Fit or any third-party cloud.",
+      it: "FitMesh Sync supporta tutti gli smartwatch Wear OS (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) leggendoli via Health Connect. I dati raccolti dal sensore vanno direttamente nella tua dashboard, senza passare da Google Fit o cloud terzi.",
+      en: "FitMesh Sync supports every Wear OS smartwatch (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) reading them via Health Connect. Sensor data goes straight to your dashboard without routing through Google Fit or any third-party cloud.",
     },
     techNote: {
       it: "Health Connect è lo standard ufficiale Android per i dati di salute, sostituendo Google Fit dal 2025. FitMesh si integra senza chiavi API né OAuth.",
@@ -366,8 +366,8 @@ export const PROVIDERS: Provider[] = [
           en: "Do I need the Fitbit app?",
         },
         a: {
-          it: "Sì — il Pixel Watch usa Fitbit come app companion ufficiale. Senza Fitbit installato i dati non vengono sincronizzati. Una volta connessa Fitbit a Health Connect, FitMesh legge tutto automaticamente.",
-          en: "Yes — Pixel Watch uses Fitbit as the official companion app. Without Fitbit installed data isn't synced. Once Fitbit is connected to Health Connect, FitMesh reads everything automatically.",
+          it: "Sì: il Pixel Watch usa Fitbit come app companion ufficiale. Senza Fitbit installato i dati non vengono sincronizzati. Una volta connessa Fitbit a Health Connect, FitMesh legge tutto automaticamente.",
+          en: "Yes: Pixel Watch uses Fitbit as the official companion app. Without Fitbit installed data isn't synced. Once Fitbit is connected to Health Connect, FitMesh reads everything automatically.",
         },
       },
       {
@@ -483,8 +483,8 @@ export const PROVIDERS: Provider[] = [
       en: "Mi Band 7/8/9 and Xiaomi Watch S/Active via Mi Fitness + Health Connect.",
     },
     longDesc: {
-      it: "Se hai Mi Band 7, 8 o 9 — oppure Xiaomi Watch S1/S2/Active — FitMesh legge i tuoi dati attraverso Mi Fitness (che scrive su Health Connect dal 2024). Funziona anche con Redmi Smart Band e Amazfit (via Zepp).",
-      en: "If you own Mi Band 7, 8 or 9 — or Xiaomi Watch S1/S2/Active — FitMesh reads your data through Mi Fitness (which writes to Health Connect since 2024). Also works with Redmi Smart Band and Amazfit (via Zepp).",
+      it: "Se hai Mi Band 7, 8 o 9 (oppure Xiaomi Watch S1/S2/Active), FitMesh legge i tuoi dati attraverso Mi Fitness (che scrive su Health Connect dal 2024). Funziona anche con Redmi Smart Band e Amazfit (via Zepp).",
+      en: "If you own Mi Band 7, 8 or 9 (or Xiaomi Watch S1/S2/Active), FitMesh reads your data through Mi Fitness (which writes to Health Connect since 2024). Also works with Redmi Smart Band and Amazfit (via Zepp).",
     },
     techNote: {
       it: "Richiede Mi Fitness ≥ versione che supporta Health Connect (controlla aggiornamento). Per Amazfit serve Zepp app con sync Health Connect abilitato nelle impostazioni.",
@@ -498,8 +498,8 @@ export const PROVIDERS: Provider[] = [
           en: "Does it work with Mi Band 6 or older?",
         },
         a: {
-          it: "Solo se Mi Fitness su quel telefono supporta Health Connect. Mi Band 5 e 6 storicamente usano Mi Fit (vecchia app) che non scrive su Health Connect — meglio Mi Band 7 o superiore.",
-          en: "Only if Mi Fitness on that phone supports Health Connect. Mi Band 5 and 6 historically use Mi Fit (the old app) which doesn't write to Health Connect — Mi Band 7 or newer is recommended.",
+          it: "Solo se Mi Fitness su quel telefono supporta Health Connect. Mi Band 5 e 6 storicamente usano Mi Fit (vecchia app) che non scrive su Health Connect: meglio Mi Band 7 o superiore.",
+          en: "Only if Mi Fitness on that phone supports Health Connect. Mi Band 5 and 6 historically use Mi Fit (the old app) which doesn't write to Health Connect: Mi Band 7 or newer is recommended.",
         },
       },
     ],
@@ -532,8 +532,8 @@ export const PROVIDERS: Provider[] = [
       en: "OnePlus Watch and OnePlus Band via OHealth + Health Connect.",
     },
     longDesc: {
-      it: "OHealth (l'app companion ufficiale di OnePlus Watch e OnePlus Band) scrive su Health Connect: passi, BPM, sonno, calorie e allenamenti diventano leggibili da FitMesh senza OAuth e senza chiavi API. Funziona sia con OnePlus Watch 2/2R sia con OnePlus Band — confermato da founder beta su OnePlus Watch nel maggio 2026.",
-      en: "OHealth (the official companion app for OnePlus Watch and OnePlus Band) writes to Health Connect: steps, heart rate, sleep, calories and workouts become readable by FitMesh without OAuth or API keys. Works with OnePlus Watch 2/2R and OnePlus Band — confirmed by a beta founder on OnePlus Watch in May 2026.",
+      it: "OHealth (l'app companion ufficiale di OnePlus Watch e OnePlus Band) scrive su Health Connect: passi, BPM, sonno, calorie e allenamenti diventano leggibili da FitMesh senza OAuth e senza chiavi API. Funziona sia con OnePlus Watch 2/2R sia con OnePlus Band, confermato da founder beta su OnePlus Watch nel maggio 2026.",
+      en: "OHealth (the official companion app for OnePlus Watch and OnePlus Band) writes to Health Connect: steps, heart rate, sleep, calories and workouts become readable by FitMesh without OAuth or API keys. Works with OnePlus Watch 2/2R and OnePlus Band, confirmed by a beta founder on OnePlus Watch in May 2026.",
     },
     techNote: {
       it: "Catena di sync: OnePlus Watch → OHealth → Health Connect (chiamata 'Connessione salute' in italiano) → FitMesh. Latenza tipica 5–15 minuti. La sync di sonno e BPM con granularità per minuto richiede OHealth aggiornata all'ultima versione.",
@@ -665,8 +665,8 @@ export const PROVIDERS: Provider[] = [
       en: "Amazfit Bip 5/GTS 4/GTR 4/T-Rex Ultra via Zepp + Health Connect.",
     },
     longDesc: {
-      it: "L'app Zepp (ex Amazfit, ex Mi Fit prima ancora) scrive su Health Connect dal 2024 per la maggior parte dei modelli moderni. Funziona out-of-the-box con Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro: passi, BPM, sonno, calorie e allenamenti diventano leggibili da FitMesh senza OAuth e senza chiavi API. I modelli più vecchi (Bip 3, GTR 3, GTS 2) NON supportano Health Connect nativamente — restano legati alla loro versione storica dell'app Zepp e per ora non hanno path di sync supportato.",
-      en: "The Zepp app (formerly Amazfit, formerly Mi Fit before that) writes to Health Connect since 2024 for most modern models. Works out-of-the-box with Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro: steps, heart rate, sleep, calories and workouts become readable by FitMesh without OAuth or API keys. Older models (Bip 3, GTR 3, GTS 2) do NOT support Health Connect natively — they remain tied to their historical Zepp app version and currently have no supported sync path.",
+      it: "L'app Zepp (ex Amazfit, ex Mi Fit prima ancora) scrive su Health Connect dal 2024 per la maggior parte dei modelli moderni. Funziona out-of-the-box con Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro: passi, BPM, sonno, calorie e allenamenti diventano leggibili da FitMesh senza OAuth e senza chiavi API. I modelli più vecchi (Bip 3, GTR 3, GTS 2) NON supportano Health Connect nativamente: restano legati alla loro versione storica dell'app Zepp e per ora non hanno path di sync supportato.",
+      en: "The Zepp app (formerly Amazfit, formerly Mi Fit before that) writes to Health Connect since 2024 for most modern models. Works out-of-the-box with Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro: steps, heart rate, sleep, calories and workouts become readable by FitMesh without OAuth or API keys. Older models (Bip 3, GTR 3, GTS 2) do NOT support Health Connect natively: they remain tied to their historical Zepp app version and currently have no supported sync path.",
     },
     techNote: {
       it: "Catena di sync: Amazfit (modello moderno) → app Zepp → Health Connect (chiamata 'Connessione salute' in italiano) → FitMesh. Latenza tipica 15–30 minuti. Per sonno e BPM con granularità per minuto serve Zepp aggiornata all'ultima versione e Android 10+.",
@@ -763,8 +763,8 @@ export const PROVIDERS: Provider[] = [
             en: "Zepp ↔ Health Connect connection is active but I see no data in FitMesh",
           },
           a: {
-            it: "Apri Zepp e forza un refresh manuale (pull-to-refresh sulla home) — Zepp polla il braccialetto via Bluetooth e può tardare. Poi in FitMesh premi 'Sincronizza ora'. Verifica anche in Health Connect (Impostazioni Android → App → Connessione salute) che Zepp abbia i permessi di scrittura per i tipi che ti interessano (passi, sonno, BPM).",
-            en: "Open Zepp and force a manual refresh (pull-to-refresh on home) — Zepp polls the wearable over Bluetooth and can lag. Then tap 'Sync now' in FitMesh. Also check in Health Connect (Android Settings → Apps → Health Connect) that Zepp has write permission for the metrics you care about (steps, sleep, heart rate).",
+            it: "Apri Zepp e forza un refresh manuale (pull-to-refresh sulla home): Zepp polla il braccialetto via Bluetooth e può tardare. Poi in FitMesh premi 'Sincronizza ora'. Verifica anche in Health Connect (Impostazioni Android → App → Connessione salute) che Zepp abbia i permessi di scrittura per i tipi che ti interessano (passi, sonno, BPM).",
+            en: "Open Zepp and force a manual refresh (pull-to-refresh on home): Zepp polls the wearable over Bluetooth and can lag. Then tap 'Sync now' in FitMesh. Also check in Health Connect (Android Settings → Apps → Health Connect) that Zepp has write permission for the metrics you care about (steps, sleep, heart rate).",
           },
         },
         {
@@ -773,8 +773,8 @@ export const PROVIDERS: Provider[] = [
             en: "Fragmented or duplicated sleep after sync",
           },
           a: {
-            it: "Zepp scrive ogni sessione di sonno come segmento separato — se hai più sveglie nottturne possono apparire più segmenti. FitMesh applica deduplica per tuple `(start, end, stage)` esatte. Se vedi ancora duplicati controlla che non sia attivo un altro tracker (Galaxy Watch, Mi Band) sullo stesso giorno: in tal caso usa 'Risoluzione conflitti dati' nelle impostazioni FitMesh per scegliere la sorgente prioritaria.",
-            en: "Zepp writes each sleep session as a separate segment — multiple night wake-ups may surface as multiple segments. FitMesh dedupes exact `(start, end, stage)` tuples. If duplicates persist, check that no other tracker (Galaxy Watch, Mi Band) is active on the same day: if so, use 'Data conflict resolution' in FitMesh settings to pick the priority source.",
+            it: "Zepp scrive ogni sessione di sonno come segmento separato: se hai più sveglie notturne possono apparire più segmenti. FitMesh applica deduplica per tuple `(start, end, stage)` esatte. Se vedi ancora duplicati controlla che non sia attivo un altro tracker (Galaxy Watch, Mi Band) sullo stesso giorno: in tal caso usa 'Risoluzione conflitti dati' nelle impostazioni FitMesh per scegliere la sorgente prioritaria.",
+            en: "Zepp writes each sleep session as a separate segment: multiple night wake-ups may surface as multiple segments. FitMesh dedupes exact `(start, end, stage)` tuples. If duplicates persist, check that no other tracker (Galaxy Watch, Mi Band) is active on the same day: if so, use 'Data conflict resolution' in FitMesh settings to pick the priority source.",
           },
         },
       ],
@@ -800,8 +800,8 @@ export const PROVIDERS: Provider[] = [
       en: "Fitbit Charge / Inspire / Sense / Versa: works today via Health Connect.",
     },
     longDesc: {
-      it: "Dal 2024 l'app Fitbit scrive automaticamente su Health Connect — quindi FitMesh legge già i tuoi dati Fitbit (passi, BPM, sonno totale, calorie) senza configurazioni extra. Per dati avanzati come le fasi di sonno dettagliate e gli allenamenti con GPS track stiamo costruendo l'integrazione OAuth ufficiale Fitbit Web API, prevista per Q3 2026.",
-      en: "Since 2024 the Fitbit app writes to Health Connect automatically — so FitMesh already reads your Fitbit data (steps, heart rate, total sleep, calories) without extra setup. For advanced data like detailed sleep stages and workouts with GPS tracks we're building the official Fitbit Web API OAuth integration, planned for Q3 2026.",
+      it: "Dal 2024 l'app Fitbit scrive automaticamente su Health Connect, quindi FitMesh legge già i tuoi dati Fitbit (passi, BPM, sonno totale, calorie) senza configurazioni extra. Per dati avanzati come le fasi di sonno dettagliate e gli allenamenti con GPS track stiamo costruendo l'integrazione OAuth ufficiale Fitbit Web API, prevista per Q3 2026.",
+      en: "Since 2024 the Fitbit app writes to Health Connect automatically, so FitMesh already reads your Fitbit data (steps, heart rate, total sleep, calories) without extra setup. For advanced data like detailed sleep stages and workouts with GPS tracks we're building the official Fitbit Web API OAuth integration, planned for Q3 2026.",
     },
     techNote: {
       it: "Oggi: bridge automatico via app Fitbit → Health Connect. Q3 2026: OAuth 2.0 + Fitbit Web API per backfill storico 12 mesi e dati granulari.",
@@ -850,8 +850,8 @@ export const PROVIDERS: Provider[] = [
           en: "Does it work today without any setup?",
         },
         a: {
-          it: "Sì — se hai l'app Fitbit installata sul telefono Android e Health Connect abilitato, FitMesh legge automaticamente passi, BPM, sonno e calorie. Il bridge Fitbit → Health Connect è stato aggiunto da Google nel 2024 ed è attivo di default.",
-          en: "Yes — if you have the Fitbit app installed on Android with Health Connect enabled, FitMesh automatically reads steps, heart rate, sleep and calories. The Fitbit → Health Connect bridge was added by Google in 2024 and is on by default.",
+          it: "Sì: se hai l'app Fitbit installata sul telefono Android e Health Connect abilitato, FitMesh legge automaticamente passi, BPM, sonno e calorie. Il bridge Fitbit → Health Connect è stato aggiunto da Google nel 2024 ed è attivo di default.",
+          en: "Yes: if you have the Fitbit app installed on Android with Health Connect enabled, FitMesh automatically reads steps, heart rate, sleep and calories. The Fitbit → Health Connect bridge was added by Google in 2024 and is on by default.",
         },
       },
       {
@@ -968,8 +968,8 @@ export const PROVIDERS: Provider[] = [
       en: "Forerunner, Fenix, Venu, Epix work today via Garmin Connect → Health Connect.",
     },
     longDesc: {
-      it: "Dal 2024 Garmin Connect scrive su Health Connect — i tuoi dati Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct sono già leggibili da FitMesh oggi (passi, BPM, sonno, calorie, distanza, allenamenti base). Per Body Battery, Training Load, Recovery Time, Stress Score e GPS dettagliato stiamo costruendo l'integrazione OAuth ufficiale Garmin Health API, prevista per Q3 2026.",
-      en: "Since 2024 Garmin Connect writes to Health Connect — your Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct data is already readable by FitMesh today (steps, heart rate, sleep, calories, distance, basic workouts). For Body Battery, Training Load, Recovery Time, Stress Score and detailed GPS we're building the official Garmin Health API OAuth integration, planned for Q3 2026.",
+      it: "Dal 2024 Garmin Connect scrive su Health Connect, quindi i tuoi dati Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct sono già leggibili da FitMesh oggi (passi, BPM, sonno, calorie, distanza, allenamenti base). Per Body Battery, Training Load, Recovery Time, Stress Score e GPS dettagliato stiamo costruendo l'integrazione OAuth ufficiale Garmin Health API, prevista per Q3 2026.",
+      en: "Since 2024 Garmin Connect writes to Health Connect, so your Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct data is already readable by FitMesh today (steps, heart rate, sleep, calories, distance, basic workouts). For Body Battery, Training Load, Recovery Time, Stress Score and detailed GPS we're building the official Garmin Health API OAuth integration, planned for Q3 2026.",
     },
     techNote: {
       it: "Oggi: bridge automatico via Garmin Connect app → Health Connect. Q3 2026: OAuth 2.0 + Garmin Health API per metriche performance avanzate (richiede approvazione Garmin Developer Program).",
@@ -1032,8 +1032,8 @@ export const PROVIDERS: Provider[] = [
           en: "Will I see Body Battery and Training Load?",
         },
         a: {
-          it: "Non oggi — Health Connect non espone queste metriche proprietarie Garmin. Saranno disponibili con l'OAuth ufficiale previsto per Q3 2026.",
-          en: "Not today — Health Connect doesn't expose these proprietary Garmin metrics. They'll be available with the official OAuth planned for Q3 2026.",
+          it: "Non oggi: Health Connect non espone queste metriche proprietarie Garmin. Saranno disponibili con l'OAuth ufficiale previsto per Q3 2026.",
+          en: "Not today: Health Connect doesn't expose these proprietary Garmin metrics. They'll be available with the official OAuth planned for Q3 2026.",
         },
       },
     ],
@@ -1138,12 +1138,12 @@ export const PROVIDERS: Provider[] = [
     brandColor: "#FC4C02",
     initial: "S",
     tagline: {
-      it: "Tutte le tue attività Strava in un'unica dashboard salute — Q3 2026.",
-      en: "All your Strava activities in one health dashboard — Q3 2026.",
+      it: "Tutte le tue attività Strava in un'unica dashboard salute. Disponibile Q3 2026.",
+      en: "All your Strava activities in one health dashboard. Coming Q3 2026.",
     },
     longDesc: {
-      it: "L'integrazione Strava porterà tutte le tue corse, pedalate, nuotate e camminate sulla dashboard FitMesh — con GPS track, dislivello, ritmo medio, calorie e frequenza cardiaca per ogni segmento. Anche le attività manuali e gli allenamenti in palestra.",
-      en: "The Strava integration will pull every run, ride, swim and walk onto your FitMesh dashboard — with GPS tracks, elevation, average pace, calories and heart rate for each segment. Manual activities and gym workouts included.",
+      it: "L'integrazione Strava porterà tutte le tue corse, pedalate, nuotate e camminate sulla dashboard FitMesh, con GPS track, dislivello, ritmo medio, calorie e frequenza cardiaca per ogni segmento. Anche le attività manuali e gli allenamenti in palestra.",
+      en: "The Strava integration will pull every run, ride, swim and walk onto your FitMesh dashboard, with GPS tracks, elevation, average pace, calories and heart rate for each segment. Manual activities and gym workouts included.",
     },
     techNote: {
       it: "OAuth 2.0 + Strava API v3. Webhook subscription per sync near-real-time. Quota gratuita 1000 attività/24h, sufficiente per uso personale.",
@@ -1161,8 +1161,8 @@ export const PROVIDERS: Provider[] = [
           en: "Will it import all my Strava history?",
         },
         a: {
-          it: "Sì — al primo OAuth puoi scegliere quante attività importare (ultimi 3/6/12 mesi o tutto lo storico). Default: 12 mesi.",
-          en: "Yes — at the first OAuth you choose how many activities to import (last 3/6/12 months or full history). Default: 12 months.",
+          it: "Sì: al primo OAuth puoi scegliere quante attività importare (ultimi 3/6/12 mesi o tutto lo storico). Default: 12 mesi.",
+          en: "Yes: at the first OAuth you choose how many activities to import (last 3/6/12 months or full history). Default: 12 months.",
         },
       },
       {
@@ -1171,8 +1171,8 @@ export const PROVIDERS: Provider[] = [
           en: "Does it replace Strava or work alongside?",
         },
         a: {
-          it: "Solo lettura — FitMesh non modifica nulla su Strava. Tu continui ad usare Strava normalmente, FitMesh aggiunge solo una vista unificata con i dati salute del watch.",
-          en: "Read-only — FitMesh changes nothing on Strava. You keep using Strava normally; FitMesh just adds a unified view alongside your watch health data.",
+          it: "Solo lettura: FitMesh non modifica nulla su Strava. Tu continui ad usare Strava normalmente, FitMesh aggiunge solo una vista unificata con i dati salute del watch.",
+          en: "Read-only: FitMesh changes nothing on Strava. You keep using Strava normally; FitMesh just adds a unified view alongside your watch health data.",
         },
       },
     ],
@@ -1202,8 +1202,8 @@ export const PROVIDERS: Provider[] = [
       en: "Polar Vantage, Grit X, Ignite work today via Polar Flow → Health Connect.",
     },
     longDesc: {
-      it: "Dal 2024 Polar Flow scrive su Health Connect — quindi Vantage V/M, Grit X Pro, Ignite 3, Pacer Pro e la fascia toracica H10 sono già leggibili da FitMesh oggi al livello base. Per Recovery Pro, ZoneOptimizer, Nightly Recharge e dati cardio secondo per secondo serve l'OAuth Polar Accesslink, in arrivo Q4 2026.",
-      en: "Since 2024 Polar Flow writes to Health Connect — so Vantage V/M, Grit X Pro, Ignite 3, Pacer Pro and the H10 chest strap are already readable by FitMesh today at the basic level. For Recovery Pro, ZoneOptimizer, Nightly Recharge and per-second cardio data we need Polar Accesslink OAuth, coming Q4 2026.",
+      it: "Dal 2024 Polar Flow scrive su Health Connect, quindi Vantage V/M, Grit X Pro, Ignite 3, Pacer Pro e la fascia toracica H10 sono già leggibili da FitMesh oggi al livello base. Per Recovery Pro, ZoneOptimizer, Nightly Recharge e dati cardio secondo per secondo serve l'OAuth Polar Accesslink, in arrivo Q4 2026.",
+      en: "Since 2024 Polar Flow writes to Health Connect, so Vantage V/M, Grit X Pro, Ignite 3, Pacer Pro and the H10 chest strap are already readable by FitMesh today at the basic level. For Recovery Pro, ZoneOptimizer, Nightly Recharge and per-second cardio data we need Polar Accesslink OAuth, coming Q4 2026.",
     },
     techNote: {
       it: "Oggi: bridge via Polar Flow → Health Connect. Q4 2026: OAuth 2.0 + Polar Accesslink API per Recovery Pro/Nightly Recharge e dati HRV intra-workout.",
@@ -1263,7 +1263,7 @@ export const PROVIDERS: Provider[] = [
         },
         a: {
           it: "Sì, la H10 abbinata a Polar Flow scrive su Health Connect i dati base degli allenamenti. Il battito secondo per secondo intra-workout arriverà con l'OAuth Accesslink.",
-          en: "Yes — H10 paired with Polar Flow writes basic workout data to Health Connect. Per-second intra-workout heart rate will come with the Accesslink OAuth.",
+          en: "Yes: H10 paired with Polar Flow writes basic workout data to Health Connect. Per-second intra-workout heart rate will come with the Accesslink OAuth.",
         },
       },
     ],
@@ -1281,16 +1281,16 @@ export const PROVIDERS: Provider[] = [
     brandColor: "#FF7A45",
     initial: "S",
     tagline: {
-      it: "Suunto Race, Peak, Vertical, Trail: integrazione OAuth diretta — sync attività, sonno e recupero.",
-      en: "Suunto Race, Peak, Vertical, Trail: direct OAuth integration — sync activity, sleep and recovery.",
+      it: "Suunto Race, Peak, Vertical, Trail: integrazione OAuth diretta per sync attività, sonno e recupero.",
+      en: "Suunto Race, Peak, Vertical, Trail: direct OAuth integration for syncing activity, sleep and recovery.",
     },
     longDesc: {
-      it: "FitMesh Sync integra Suunto direttamente tramite la Suunto Cloud API — senza passare da Health Connect. Dopo il collegamento OAuth, i dati di attività, sonno e recupero vengono scaricati automaticamente via webhook in tempo reale. Suunto Race, Peak, Vertical, Trail e tutti i modelli compatibili con la Suunto Cloud API sono supportati.",
-      en: "FitMesh Sync integrates Suunto directly via the Suunto Cloud API — no Health Connect required. After the OAuth connection, activity, sleep and recovery data is pulled automatically via real-time webhooks. Suunto Race, Peak, Vertical, Trail and all Suunto Cloud API-compatible models are supported.",
+      it: "FitMesh Sync integra Suunto direttamente tramite la Suunto Cloud API, senza passare da Health Connect. Dopo il collegamento OAuth, i dati di attività, sonno e recupero vengono scaricati automaticamente via webhook in tempo reale. Suunto Race, Peak, Vertical, Trail e tutti i modelli compatibili con la Suunto Cloud API sono supportati.",
+      en: "FitMesh Sync integrates Suunto directly via the Suunto Cloud API, no Health Connect required. After the OAuth connection, activity, sleep and recovery data is pulled automatically via real-time webhooks. Suunto Race, Peak, Vertical, Trail and all Suunto Cloud API-compatible models are supported.",
     },
     techNote: {
-      it: "Integrazione diretta: OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (activity, sleep, recovery, workout). Il client_secret è gestito server-side su Vercel — mai nel binario dell'app. Webhook real-time su nuove attività.",
-      en: "Direct integration: OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (activity, sleep, recovery, workout). The client_secret is handled server-side on Vercel — never in the app binary. Real-time webhooks on new activities.",
+      it: "Integrazione diretta: OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (activity, sleep, recovery, workout). Il client_secret è gestito server-side su Vercel, mai nel binario dell'app. Webhook real-time su nuove attività.",
+      en: "Direct integration: OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (activity, sleep, recovery, workout). The client_secret is handled server-side on Vercel, never in the app binary. Real-time webhooks on new activities.",
     },
     dataTypes: STD_DATA_TYPES({
       steps: true,
@@ -1319,8 +1319,8 @@ export const PROVIDERS: Provider[] = [
           en: "Why doesn't it go through Health Connect like Garmin or Polar?",
         },
         a: {
-          it: "L'app Suunto non scrive su Health Connect. Usiamo quindi l'integrazione ufficiale Suunto Cloud API — che è più completa: include dati di recupero e metriche avanzate non accessibili via Health Connect.",
-          en: "The Suunto app does not write to Health Connect. We therefore use the official Suunto Cloud API integration — which is more complete: it includes recovery data and advanced metrics not accessible via Health Connect.",
+          it: "L'app Suunto non scrive su Health Connect. Usiamo quindi l'integrazione ufficiale Suunto Cloud API, più completa: include dati di recupero e metriche avanzate non accessibili via Health Connect.",
+          en: "The Suunto app does not write to Health Connect. We therefore use the official Suunto Cloud API integration, which is more complete: it includes recovery data and advanced metrics not accessible via Health Connect.",
         },
       },
       {
@@ -1329,8 +1329,8 @@ export const PROVIDERS: Provider[] = [
           en: "Do I see Suunto recovery data?",
         },
         a: {
-          it: "Sì — l'API Suunto espone il Recovery Score giornaliero, incluso lo status generale. FitMesh lo mostra nella sezione 'Vitali' della dashboard.",
-          en: "Yes — the Suunto API exposes the daily Recovery Score, including overall status. FitMesh displays it in the 'Vitals' section of the dashboard.",
+          it: "Sì: l'API Suunto espone il Recovery Score giornaliero, incluso lo status generale. FitMesh lo mostra nella sezione 'Vitali' della dashboard.",
+          en: "Yes: the Suunto API exposes the daily Recovery Score, including overall status. FitMesh displays it in the 'Vitals' section of the dashboard.",
         },
       },
     ],
@@ -1353,14 +1353,14 @@ export const PROVIDERS: Provider[] = [
         it: [
           "Installa **FitMesh Sync** dal Play Store e accedi con Google o email.",
           "Apri **Impostazioni** → **Dispositivi & sync** → **Provider esterni** → tocca **Suunto**.",
-          "Tocca **Collega Suunto** — verrai reindirizzato alla pagina login Suunto.",
+          "Tocca **Collega Suunto**: verrai reindirizzato alla pagina login Suunto.",
           "Accedi con le tue credenziali Suunto e **Autorizza** FitMesh ad accedere ai dati.",
           "Attendi il primo sync (15–60 secondi). Le nuove attività sincronizzano automaticamente via webhook.",
         ],
         en: [
           "Install **FitMesh Sync** from the Play Store and sign in with Google or email.",
           "Open **Settings** → **Devices & sync** → **External providers** → tap **Suunto**.",
-          "Tap **Connect Suunto** — you'll be redirected to the Suunto login page.",
+          "Tap **Connect Suunto**: you'll be redirected to the Suunto login page.",
           "Sign in with your Suunto credentials and **Authorize** FitMesh to access your data.",
           "Wait for the first sync (15–60 seconds). New activities sync automatically via webhook.",
         ],
@@ -1412,8 +1412,8 @@ export const PROVIDERS: Provider[] = [
             en: "Can I connect Suunto and a Galaxy Watch together?",
           },
           a: {
-            it: "Sì — FitMesh gestisce sorgenti multiple. Galaxy Watch arriva via Health Connect, Suunto via API diretta. Per le metriche condivise (passi, BPM) FitMesh usa una logica di priorità configurabile nelle impostazioni.",
-            en: "Yes — FitMesh handles multiple sources. Galaxy Watch arrives via Health Connect, Suunto via direct API. For shared metrics (steps, heart rate) FitMesh uses a configurable priority logic in settings.",
+            it: "Sì: FitMesh gestisce sorgenti multiple. Galaxy Watch arriva via Health Connect, Suunto via API diretta. Per le metriche condivise (passi, BPM) FitMesh usa una logica di priorità configurabile nelle impostazioni.",
+            en: "Yes: FitMesh handles multiple sources. Galaxy Watch arrives via Health Connect, Suunto via direct API. For shared metrics (steps, heart rate) FitMesh uses a configurable priority logic in settings.",
           },
         },
       ],
@@ -1433,12 +1433,12 @@ export const PROVIDERS: Provider[] = [
     brandColor: "#8E8E93",
     initial: "O",
     tagline: {
-      it: "Oura Ring Gen 3 e Gen 4: sonno e readiness su dashboard unificata — Q4 2026.",
-      en: "Oura Ring Gen 3 and Gen 4: sleep and readiness on a unified dashboard — Q4 2026.",
+      it: "Oura Ring Gen 3 e Gen 4: sonno e readiness su dashboard unificata. Disponibile Q4 2026.",
+      en: "Oura Ring Gen 3 and Gen 4: sleep and readiness on a unified dashboard. Coming Q4 2026.",
     },
     longDesc: {
-      it: "L'integrazione Oura porterà i dati di sonno avanzati, Readiness Score, Activity Score e HRV notturno del tuo Oura Ring sulla dashboard FitMesh — utile soprattutto se combini Oura (sonno) con un Galaxy Watch o Garmin (attività).",
-      en: "The Oura integration will bring advanced sleep data, Readiness Score, Activity Score and overnight HRV from your Oura Ring onto FitMesh — particularly useful if you combine Oura (sleep) with a Galaxy Watch or Garmin (activity).",
+      it: "L'integrazione Oura porterà i dati di sonno avanzati, Readiness Score, Activity Score e HRV notturno del tuo Oura Ring sulla dashboard FitMesh, utile soprattutto se combini Oura (sonno) con un Galaxy Watch o Garmin (attività).",
+      en: "The Oura integration will bring advanced sleep data, Readiness Score, Activity Score and overnight HRV from your Oura Ring onto FitMesh, particularly useful if you combine Oura (sleep) with a Galaxy Watch or Garmin (activity).",
     },
     techNote: {
       it: "OAuth 2.0 + Oura Cloud API v2. Polling 30 min. Backfill 12 mesi al primo connect.",
@@ -1470,8 +1470,8 @@ export const PROVIDERS: Provider[] = [
       en: "Withings scales, ScanWatch, Body+ already work via Health Mate → Health Connect.",
     },
     longDesc: {
-      it: "Health Mate scrive su Health Connect dal 2024 — quindi peso, composizione corporea (Body+/Body Comp), passi (ScanWatch), pressione arteriosa (BPM Connect) sono già leggibili da FitMesh oggi. Per ECG dettagliato, rilevamento FA e dati Sleep Mat granulari serve l'OAuth Withings API v2, in arrivo Q4 2026.",
-      en: "Health Mate writes to Health Connect since 2024 — so weight, body composition (Body+/Body Comp), steps (ScanWatch), blood pressure (BPM Connect) are already readable by FitMesh today. For detailed ECG, AFib detection and granular Sleep Mat data we need Withings API v2 OAuth, coming Q4 2026.",
+      it: "Health Mate scrive su Health Connect dal 2024, quindi peso, composizione corporea (Body+/Body Comp), passi (ScanWatch), pressione arteriosa (BPM Connect) sono già leggibili da FitMesh oggi. Per ECG dettagliato, rilevamento FA e dati Sleep Mat granulari serve l'OAuth Withings API v2, in arrivo Q4 2026.",
+      en: "Health Mate writes to Health Connect since 2024, so weight, body composition (Body+/Body Comp), steps (ScanWatch), blood pressure (BPM Connect) are already readable by FitMesh today. For detailed ECG, AFib detection and granular Sleep Mat data we need Withings API v2 OAuth, coming Q4 2026.",
     },
     techNote: {
       it: "Oggi: bridge via Health Mate → Health Connect. Q4 2026: OAuth 2.0 + Withings API v2 con webhook su nuove misure.",
@@ -1526,8 +1526,8 @@ export const PROVIDERS: Provider[] = [
           en: "Can I weigh in and see weight on the dashboard?",
         },
         a: {
-          it: "Sì — Body+ e Body Comp scrivono peso, % grasso, % massa muscolare su Health Connect. FitMesh li mostra automaticamente nel pannello composizione corporea.",
-          en: "Yes — Body+ and Body Comp write weight, body fat % and muscle mass to Health Connect. FitMesh shows them automatically in the body composition panel.",
+          it: "Sì: Body+ e Body Comp scrivono peso, % grasso, % massa muscolare su Health Connect. FitMesh li mostra automaticamente nel pannello composizione corporea.",
+          en: "Yes: Body+ and Body Comp write weight, body fat % and muscle mass to Health Connect. FitMesh shows them automatically in the body composition panel.",
         },
       },
     ],
@@ -1546,8 +1546,8 @@ export const PROVIDERS: Provider[] = [
     brandColor: "#CF0A2C",
     initial: "H",
     tagline: {
-      it: "Huawei Watch GT, Band, Watch Ultimate: integrazione nativa via Huawei Health Kit — Q4 2026.",
-      en: "Huawei Watch GT, Band, Watch Ultimate: native integration via Huawei Health Kit — Q4 2026.",
+      it: "Huawei Watch GT, Band, Watch Ultimate: integrazione nativa via Huawei Health Kit. Disponibile Q4 2026.",
+      en: "Huawei Watch GT, Band, Watch Ultimate: native integration via Huawei Health Kit. Coming Q4 2026.",
     },
     longDesc: {
       it: "Huawei Health non scrive su Health Connect per limiti di compatibilità con Huawei Mobile Services. Per portare i dati dei tuoi Watch GT, Band, Watch Fit, Watch Ultimate su FitMesh stiamo costruendo l'integrazione nativa via Huawei Health Kit (OAuth ufficiale), prevista per Q4 2026. Iscriviti alla waitlist per la beta chiusa.",
@@ -1680,12 +1680,12 @@ export const PROVIDERS: Provider[] = [
     brandColor: "#21E6C1",
     initial: "📱",
     tagline: {
-      it: "Niente smartwatch? Funziona già — passi e attività dal telefono via Health Connect.",
-      en: "No smartwatch? It already works — steps and activity from your phone via Health Connect.",
+      it: "Niente smartwatch? Funziona già: passi e attività dal telefono via Health Connect.",
+      en: "No smartwatch? It already works: steps and activity from your phone via Health Connect.",
     },
     longDesc: {
-      it: "FitMesh Sync legge i dati salute direttamente dal telefono tramite Health Connect — passi del pedometro Android, frequenza cardiaca da app come Samsung Health in modalità telefono-only, dati Google Fit e inserimenti manuali. Nessuno smartwatch necessario: se il tuo telefono scrive su Health Connect, FitMesh li legge.",
-      en: "FitMesh Sync reads health data directly from your phone via Health Connect — Android pedometer steps, heart rate from apps like Samsung Health in phone-only mode, Google Fit data and manual entries. No smartwatch required: if your phone writes to Health Connect, FitMesh reads it.",
+      it: "FitMesh Sync legge i dati salute direttamente dal telefono tramite Health Connect: passi del pedometro Android, frequenza cardiaca da app come Samsung Health in modalità telefono-only, dati Google Fit e inserimenti manuali. Nessuno smartwatch necessario: se il tuo telefono scrive su Health Connect, FitMesh li legge.",
+      en: "FitMesh Sync reads health data directly from your phone via Health Connect: Android pedometer steps, heart rate from apps like Samsung Health in phone-only mode, Google Fit data and manual entries. No smartwatch required: if your phone writes to Health Connect, FitMesh reads it.",
     },
     techNote: {
       it: "Health Connect aggrega tutte le sorgenti disponibili sul telefono. Nessun OAuth, nessuna chiave API. Basta concedere i permessi Health Connect a FitMesh al primo avvio.",
@@ -1708,8 +1708,8 @@ export const PROVIDERS: Provider[] = [
           en: "Does it work without any smartwatch?",
         },
         a: {
-          it: "Sì. FitMesh legge i dati che il tuo telefono scrive su Health Connect — passi del pedometro integrato, attività registrate manualmente, dati di app come Samsung Health o Google Fit in modalità telefono. Non hai bisogno di un orologio.",
-          en: "Yes. FitMesh reads the data your phone writes to Health Connect — steps from the built-in pedometer, manually logged activities, data from apps like Samsung Health or Google Fit in phone mode. You don't need a watch.",
+          it: "Sì. FitMesh legge i dati che il tuo telefono scrive su Health Connect: passi del pedometro integrato, attività registrate manualmente, dati di app come Samsung Health o Google Fit in modalità telefono. Non hai bisogno di un orologio.",
+          en: "Yes. FitMesh reads the data your phone writes to Health Connect: steps from the built-in pedometer, manually logged activities, data from apps like Samsung Health or Google Fit in phone mode. You don't need a watch.",
         },
       },
       {
@@ -1789,8 +1789,8 @@ export const PROVIDERS: Provider[] = [
             en: "I see less data than someone with a smartwatch",
           },
           a: {
-            it: "Corretto: un wearable aggiunge sensori continui (BPM 24/7, SpO₂, fasi sonno automatiche). Il telefono offre i dati di base — ma per molti utenti è sufficiente per tracciare i passi giornalieri e le attività.",
-            en: "Correct: a wearable adds continuous sensors (24/7 heart rate, SpO₂, automatic sleep stages). The phone offers basic data — but for many users it's enough to track daily steps and activities.",
+            it: "Corretto: un wearable aggiunge sensori continui (BPM 24/7, SpO₂, fasi sonno automatiche). Il telefono offre i dati di base, ma per molti utenti è sufficiente per tracciare i passi giornalieri e le attività.",
+            en: "Correct: a wearable adds continuous sensors (24/7 heart rate, SpO₂, automatic sleep stages). The phone offers basic data, but for many users it's enough to track daily steps and activities.",
           },
         },
         {
@@ -1805,8 +1805,8 @@ export const PROVIDERS: Provider[] = [
         },
       ],
       technicalNotes: {
-        it: "Connessione via Health Connect, nessun OAuth. I dati del telefono (pedometro, app fitness) vengono letti esattamente come quelli di un wearable — Health Connect astrae la sorgente. La qualità e la granularità dei dati dipende dalle app installate e dai sensori del dispositivo.",
-        en: "Connection via Health Connect, no OAuth. Phone data (pedometer, fitness apps) is read exactly like wearable data — Health Connect abstracts the source. Data quality and granularity depend on the apps installed and the device's sensors.",
+        it: "Connessione via Health Connect, nessun OAuth. I dati del telefono (pedometro, app fitness) vengono letti esattamente come quelli di un wearable: Health Connect astrae la sorgente. La qualità e la granularità dei dati dipende dalle app installate e dai sensori del dispositivo.",
+        en: "Connection via Health Connect, no OAuth. Phone data (pedometer, fitness apps) is read exactly like wearable data: Health Connect abstracts the source. Data quality and granularity depend on the apps installed and the device's sensors.",
       },
     },
   },
@@ -1826,7 +1826,7 @@ export const PROVIDERS: Provider[] = [
     },
     longDesc: {
       it: "FitMesh Sync supporta gli anelli smart Colmi R02 e R03 (e i cloni OEM con lo stesso protocollo BLE) tramite connessione Bluetooth diretta. L'app legge l'anello senza bisogno dell'app companion del produttore: passi, distanza, calorie, battito cardiaco (log giornaliero + FC a riposo), SpO2, HRV, stress, sonno con fasi e batteria entrano direttamente nella tua dashboard multi-device. Il dato notturno dell'anello si fonde con quello diurno dello smartwatch senza doppi conteggi.",
-      en: "FitMesh Sync supports Colmi R02 and R03 smart rings (and OEM clones sharing the same BLE protocol) via direct Bluetooth connection. The app reads the ring without needing the manufacturer's companion app: steps, distance, calories, heart rate (daily log + resting HR), SpO2, HRV, stress, sleep with stages and battery feed directly into your multi-device dashboard. Nightly ring data merges with daytime smartwatch data — no double counting.",
+      en: "FitMesh Sync supports Colmi R02 and R03 smart rings (and OEM clones sharing the same BLE protocol) via direct Bluetooth connection. The app reads the ring without needing the manufacturer's companion app: steps, distance, calories, heart rate (daily log + resting HR), SpO2, HRV, stress, sleep with stages and battery feed directly into your multi-device dashboard. Nightly ring data merges with daytime smartwatch data, no double counting.",
     },
     techNote: {
       it: "Lettura BLE diretta (no Health Connect, no app OEM). FitMesh si connette all'anello come dispositivo Bluetooth, scarica i dati grezzi e li integra nella dashboard multi-sorgente (fusione anello+smartwatch: l'anello copre la notte e le metriche che lo smartwatch non ha). Sonno con fasi: l'anello è specialista e prevale di notte.",
@@ -1924,16 +1924,16 @@ export const PROVIDERS: Provider[] = [
     brandColor: "#FF2D55",
     initial: "🍎",
     tagline: {
-      it: "App iOS in beta TestFlight — uscita App Store imminente. Legge Apple Salute, scrive dati di wearable Android in Apple Salute (opt-in, niente doppioni).",
-      en: "iOS app in TestFlight beta — App Store launch imminent. Reads Apple Health, writes Android wearable data into Apple Health (opt-in, no duplicates).",
+      it: "App iOS in beta TestFlight, uscita App Store imminente. Legge Apple Salute, scrive dati di wearable Android in Apple Salute (opt-in, niente doppioni).",
+      en: "iOS app in TestFlight beta, App Store launch imminent. Reads Apple Health, writes Android wearable data into Apple Health (opt-in, no duplicates).",
     },
     longDesc: {
-      it: "FitMesh Sync è in arrivo su iPhone — la beta TestFlight è attiva e la submission App Store è in corso. L'app iOS legge i dati da Apple Health / HealthKit (passi, frequenza cardiaca, sonno con fasi, SpO₂, calorie) e li mostra nella stessa dashboard unificata che già conosci su Android. Feature di punta: il ponte di scrittura Apple Salute (opt-in) porta i dati dei wearable Android (Galaxy Watch, anello Colmi, qualsiasi device che scrive su Health Connect) dentro l'app Salute di iPhone, senza creare doppioni. Un account FitMesh funziona su Android, iPhone e web.",
-      en: "FitMesh Sync is coming to iPhone — the TestFlight beta is active and App Store submission is underway. The iOS app reads data from Apple Health / HealthKit (steps, heart rate, sleep with stages, SpO₂, calories) and shows it in the same unified dashboard you already know from Android. Flagship feature: the Apple Health write bridge (opt-in) brings data from Android wearables (Galaxy Watch, Colmi ring, any device writing to Health Connect) into the iPhone Health app, without creating duplicates. One FitMesh account works on Android, iPhone and web.",
+      it: "FitMesh Sync è in arrivo su iPhone: la beta TestFlight è attiva e la submission App Store è in corso. L'app iOS legge i dati da Apple Health / HealthKit (passi, frequenza cardiaca, sonno con fasi, SpO₂, calorie) e li mostra nella stessa dashboard unificata che già conosci su Android. Feature di punta: il ponte di scrittura Apple Salute (opt-in) porta i dati dei wearable Android (Galaxy Watch, anello Colmi, qualsiasi device che scrive su Health Connect) dentro l'app Salute di iPhone, senza creare doppioni. Un account FitMesh funziona su Android, iPhone e web.",
+      en: "FitMesh Sync is coming to iPhone: the TestFlight beta is active and App Store submission is underway. The iOS app reads data from Apple Health / HealthKit (steps, heart rate, sleep with stages, SpO₂, calories) and shows it in the same unified dashboard you already know from Android. Flagship feature: the Apple Health write bridge (opt-in) brings data from Android wearables (Galaxy Watch, Colmi ring, any device writing to Health Connect) into the iPhone Health app, without creating duplicates. One FitMesh account works on Android, iPhone and web.",
     },
     techNote: {
-      it: "Lettura via HealthKit API (iOS). Scrittura idempotente su Apple Health: verifica l'esistenza di dati sovrapposti prima di scrivere qualsiasi sample — scrive solo dove Apple Salute non ha già copertura da un'altra sorgente. Dati in transito e a riposo su cloud EU, cifrati. Permessi HealthKit granulari: richesti solo i tipi di dato che l'utente ha configurato.",
-      en: "Read via HealthKit API (iOS). Idempotent write to Apple Health: checks for overlapping data before writing any sample — only writes where Apple Health has no existing coverage from another source. Data in transit and at rest on EU cloud, encrypted. Granular HealthKit permissions: only the data types the user has configured are requested.",
+      it: "Lettura via HealthKit API (iOS). Scrittura idempotente su Apple Health: verifica l'esistenza di dati sovrapposti prima di scrivere qualsiasi sample e scrive solo dove Apple Salute non ha già copertura da un'altra sorgente. Dati in transito e a riposo su cloud EU, cifrati. Permessi HealthKit granulari: richiesti solo i tipi di dato che l'utente ha configurato.",
+      en: "Read via HealthKit API (iOS). Idempotent write to Apple Health: checks for overlapping data before writing any sample and only writes where Apple Health has no existing coverage from another source. Data in transit and at rest on EU cloud, encrypted. Granular HealthKit permissions: only the data types the user has configured are requested.",
     },
     dataTypes: [
       { key: "steps", label: { it: "Passi", en: "Steps" }, supported: true },
@@ -2006,14 +2006,14 @@ export const PROVIDERS: Provider[] = [
     setupGuide: {
       steps: {
         it: [
-          "**Iscriviti alla beta** dalla pagina /beta di questo sito — ricevi l'invito TestFlight entro 24 ore.",
+          "**Iscriviti alla beta** dalla pagina /beta di questo sito: ricevi l'invito TestFlight entro 24 ore.",
           "Installa **FitMesh Sync** tramite il link TestFlight nell'email ricevuta.",
           "Accedi con lo stesso **account Google o Apple** che usi (o hai) su Android.",
           "Concedi i **permessi HealthKit** richiesti (puoi scegliere tipo per tipo).",
           "Facoltativo: attiva il **Ponte di scrittura Apple Salute** da Impostazioni → Apple Health per ricevere i dati dei device Android in Apple Salute.",
         ],
         en: [
-          "**Sign up for the beta** from the /beta page on this site — you'll get a TestFlight invite within 24 hours.",
+          "**Sign up for the beta** from the /beta page on this site: you'll get a TestFlight invite within 24 hours.",
           "Install **FitMesh Sync** via the TestFlight link in the email you receive.",
           "Sign in with the same **Google or Apple account** you use (or have) on Android.",
           "Grant the requested **HealthKit permissions** (you can choose type by type).",

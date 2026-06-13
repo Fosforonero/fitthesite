@@ -26,7 +26,7 @@ const SITE_URL = "https://www.fitmesh.fit";
 const COPY = {
   it: {
     kicker: "Press & Media kit",
-    h1: "FitMesh Sync — risorse per giornalisti, blogger, creator",
+    h1: "FitMesh Sync: risorse per giornalisti, blogger, creator",
     sub:
       "Tutto quello che ti serve per scrivere o parlare di FitMesh Sync. Copia-incolla, scarica gli asset, niente email obbligatoria.",
 
@@ -35,7 +35,7 @@ const COPY = {
       "Per interviste, demo guidate, asset alta risoluzione o domande tecniche:",
     contactEmail: "press@fitmesh.fit",
     contactAltEmail: "hello@fitmesh.fit",
-    contactPersonLine: "Matteo Pizzi — founder, sviluppatore unico",
+    contactPersonLine: "Matteo Pizzi, founder, sviluppatore unico",
 
     taglineTitle: "Tagline (1 riga)",
     tagline:
@@ -50,12 +50,12 @@ const COPY = {
     blurb100: {
       title: "100 parole",
       body:
-        "FitMesh Sync è un'app Android sviluppata in Italia da Matteo Pizzi (Fosforonero) per unificare in una sola dashboard premium i dati di salute provenienti da tutti gli smartwatch e fitness band sul mercato. Lavora come destinazione di Health Connect, quindi è compatibile out-of-the-box con Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei e Oura — senza bisogno di OAuth per ognuno. Privacy-first: server EU, GDPR, zero broker dati. Disponibile in beta privata da maggio 2026; in roadmap la versione iOS e la funzione Mesh Famiglia per il caregiving familiare.",
+        "FitMesh Sync è un'app Android sviluppata in Italia da Matteo Pizzi (Fosforonero) per unificare in una sola dashboard premium i dati di salute provenienti da tutti gli smartwatch e fitness band sul mercato. Lavora come destinazione di Health Connect, quindi è compatibile out-of-the-box con Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei e Oura, senza bisogno di OAuth per ognuno. Privacy-first: server EU, GDPR, zero broker dati. Disponibile in beta privata da maggio 2026; in roadmap la versione iOS e la funzione Mesh Famiglia per il caregiving familiare.",
     },
     blurb200: {
       title: "200 parole (profilo completo)",
       body:
-        "FitMesh Sync nasce in Italia nel 2026 dalla frustrazione di uno sviluppatore — Matteo Pizzi, studio Fosforonero — che possiede un Galaxy Watch, la moglie usa una Mi Band, la madre un Withings. Ogni brand chiude i propri dati nella propria app. Nessuno offre una vista unificata premium. FitMesh risolve esattamente questo: leggendo da Health Connect (lo standard Android che dal 2024 raccoglie i dati di praticamente tutti i wearable), aggrega passi, frequenza cardiaca, sonno, calorie, workout e altre metriche in una dashboard nativa Flutter pensata per la lettura quotidiana, non per il sysadmin. Privacy-first dal primo commit: server europei (Supabase Francoforte), GDPR-compliance reale, zero broker dati, zero tracker. La differenziazione strategica rispetto alle bridge app cloud-to-cloud del settore è che FitMesh non è un router silenzioso di dati — è una destinazione: i dati sono archiviati, visualizzati con grafici curati, e nel medio termine condivisibili tra membri famiglia (Mesh Famiglia, in roadmap) per scenari caregiver. L'app è in beta privata con 100 posti founder a vita gratis; iOS arriva nel 2027.",
+        "FitMesh Sync nasce in Italia nel 2026 dalla frustrazione di uno sviluppatore (Matteo Pizzi, studio Fosforonero) che possiede un Galaxy Watch, la moglie usa una Mi Band, la madre un Withings. Ogni brand chiude i propri dati nella propria app. Nessuno offre una vista unificata premium. FitMesh risolve esattamente questo: leggendo da Health Connect (lo standard Android che dal 2024 raccoglie i dati di praticamente tutti i wearable), aggrega passi, frequenza cardiaca, sonno, calorie, workout e altre metriche in una dashboard nativa Flutter pensata per la lettura quotidiana, non per il sysadmin. Privacy-first dal primo commit: server europei (Supabase Francoforte), GDPR-compliance reale, zero broker dati, zero tracker. La differenziazione strategica rispetto alle bridge app cloud-to-cloud del settore è che FitMesh non è un router silenzioso di dati: è una destinazione. I dati sono archiviati, visualizzati con grafici curati, e nel medio termine condivisibili tra membri famiglia (Mesh Famiglia, in roadmap) per scenari caregiver. L'app è in beta privata con 100 posti founder a vita gratis; iOS arriva nel 2027.",
     },
 
     keyFactsTitle: "Key facts",
@@ -98,7 +98,7 @@ const COPY = {
     storyAnglesTitle: "Angoli editoriali interessanti",
     storyAngles: [
       "Indie dev italiano costruisce un'alternativa europea privacy-first ai walled garden di Samsung/Apple/Google Fit",
-      "Come Health Connect ha cambiato l'ecosistema wearable Android dal 2024 — e cosa significa per consumer e dev",
+      "Come Health Connect ha cambiato l'ecosistema wearable Android dal 2024, e cosa significa per consumer e dev",
       "Caregiver tech: monitorare la salute di genitori anziani senza GPS né app invasive (la roadmap Mesh Famiglia)",
       "Beta program founder a vita gratis: alternativa all'hype subscription anche su app fitness",
       "Sviluppare un'app salute in Italia: GDPR, server EU, sovranità dati come differenziatore",
@@ -112,7 +112,7 @@ const COPY = {
   },
   en: {
     kicker: "Press & Media kit",
-    h1: "FitMesh Sync — resources for journalists, bloggers, creators",
+    h1: "FitMesh Sync: resources for journalists, bloggers, creators",
     sub:
       "Everything you need to write or talk about FitMesh Sync. Copy-paste ready, asset downloads, no email required.",
 
@@ -121,7 +121,7 @@ const COPY = {
       "For interviews, guided demos, high-res assets or technical questions:",
     contactEmail: "press@fitmesh.fit",
     contactAltEmail: "hello@fitmesh.fit",
-    contactPersonLine: "Matteo Pizzi — founder, solo developer",
+    contactPersonLine: "Matteo Pizzi, founder, solo developer",
 
     taglineTitle: "Tagline (1 line)",
     tagline:
@@ -136,12 +136,12 @@ const COPY = {
     blurb100: {
       title: "100 words",
       body:
-        "FitMesh Sync is an Android app developed in Italy by Matteo Pizzi (Fosforonero) to unify in a single premium dashboard the health data coming from every smartwatch and fitness band on the market. It works as a Health Connect destination — so it is compatible out-of-the-box with Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei and Oura — without requiring per-brand OAuth. Privacy-first: EU servers, GDPR, no data brokers. Available in private beta since May 2026; iOS version and Family Mesh feature for family caregiving are in the roadmap.",
+        "FitMesh Sync is an Android app developed in Italy by Matteo Pizzi (Fosforonero) to unify in a single premium dashboard the health data coming from every smartwatch and fitness band on the market. It works as a Health Connect destination, compatible out-of-the-box with Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei and Oura, without requiring per-brand OAuth. Privacy-first: EU servers, GDPR, no data brokers. Available in private beta since May 2026; iOS version and Family Mesh feature for family caregiving are in the roadmap.",
     },
     blurb200: {
       title: "200 words (full profile)",
       body:
-        "FitMesh Sync was born in Italy in 2026 from the frustration of one developer — Matteo Pizzi, studio Fosforonero — who owns a Galaxy Watch, his wife uses a Mi Band, his mother a Withings. Every brand locks its own data inside its own app. Nobody offers a unified premium view. FitMesh solves exactly this: by reading from Health Connect (the Android standard that since 2024 collects data from virtually all wearables), it aggregates steps, heart rate, sleep, calories, workouts and other metrics into a native Flutter dashboard designed for daily reading, not for sysadmins. Privacy-first from the first commit: European servers (Supabase Frankfurt), real GDPR compliance, no data brokers, no trackers. The strategic differentiation versus cloud-to-cloud bridge apps in the category is that FitMesh is not a silent data router — it is a destination: data is stored, visualized with curated charts, and in the medium term shared between family members (Family Mesh, roadmap) for caregiver scenarios. The app is in private beta with 100 lifetime-free founder seats; iOS is coming in 2027.",
+        "FitMesh Sync was born in Italy in 2026 from the frustration of one developer (Matteo Pizzi, studio Fosforonero) who owns a Galaxy Watch, his wife uses a Mi Band, his mother a Withings. Every brand locks its own data inside its own app. Nobody offers a unified premium view. FitMesh solves exactly this: by reading from Health Connect (the Android standard that since 2024 collects data from virtually all wearables), it aggregates steps, heart rate, sleep, calories, workouts and other metrics into a native Flutter dashboard designed for daily reading, not for sysadmins. Privacy-first from the first commit: European servers (Supabase Frankfurt), real GDPR compliance, no data brokers, no trackers. The strategic differentiation versus cloud-to-cloud bridge apps in the category is that FitMesh is not a silent data router: it is a destination. Data is stored, visualized with curated charts, and in the medium term shared between family members (Family Mesh, roadmap) for caregiver scenarios. The app is in private beta with 100 lifetime-free founder seats; iOS is coming in 2027.",
     },
 
     keyFactsTitle: "Key facts",
@@ -184,7 +184,7 @@ const COPY = {
     storyAnglesTitle: "Interesting editorial angles",
     storyAngles: [
       "Italian indie dev builds a privacy-first European alternative to Samsung/Apple/Google Fit walled gardens",
-      "How Health Connect changed the Android wearable ecosystem since 2024 — and what it means for consumers and devs",
+      "How Health Connect changed the Android wearable ecosystem since 2024, and what it means for consumers and devs",
       "Caregiver tech: monitoring aging parents' health without GPS or invasive apps (the Family Mesh roadmap)",
       "Lifetime-free founder beta program: an alternative to subscription hype, even in fitness apps",
       "Building a health app in Italy: GDPR, EU servers, data sovereignty as a differentiator",

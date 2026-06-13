@@ -53,8 +53,8 @@ export const post: BlogPost = {
       en: "Galaxy Watch steps not syncing: how to fix it (2026 guide)",
     },
     subtitle: {
-      it: "Il Galaxy Watch conta i passi sul polso, ma Samsung Health o un'altra app non li vede? Il problema ha cause precise — non è magia. Questa guida ti porta dalla diagnosi alla soluzione in ordine di probabilità, senza perdere tempo con le soluzioni sbagliate.",
-      en: "Your Galaxy Watch counts steps on the wrist, but Samsung Health or another app doesn't see them? The problem has precise causes — it's not magic. This guide takes you from diagnosis to solution in order of probability, without wasting time on wrong fixes.",
+      it: "Il Galaxy Watch conta i passi sul polso, ma Samsung Health o un'altra app non li vede? Il problema ha cause precise, non è magia. Questa guida ti porta dalla diagnosi alla soluzione in ordine di probabilità, senza perdere tempo con le soluzioni sbagliate.",
+      en: "Your Galaxy Watch counts steps on the wrist, but Samsung Health or another app doesn't see them? The problem has precise causes, it's not magic. This guide takes you from diagnosis to solution in order of probability, without wasting time on wrong fixes.",
     },
   },
   body: [

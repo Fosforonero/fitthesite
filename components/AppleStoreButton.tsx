@@ -69,7 +69,7 @@ export default function AppleStoreButton({
       <span
         role="link"
         aria-disabled="true"
-        aria-label={`${storeLabel} — ${comingSoonLabel}`}
+        aria-label={`${storeLabel}, ${comingSoonLabel}`}
         className={sharedClass}
       >
         {inner}

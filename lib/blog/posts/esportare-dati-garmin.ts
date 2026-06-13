@@ -43,18 +43,18 @@ export const post: BlogPost = {
     ],
   },
   metaDescription: {
-    it: "Come esportare dati Garmin: guida pratica per scaricare allenamenti in GPX, TCX, FIT e CSV da Garmin Connect — sito web, app mobile e API. Pro e contro di ogni metodo.",
-    en: "How to export Garmin data: practical guide to downloading activities in GPX, TCX, FIT and CSV from Garmin Connect — website, mobile app and API. Pros and cons of each method.",
+    it: "Come esportare dati Garmin: guida pratica per scaricare allenamenti in GPX, TCX, FIT e CSV da Garmin Connect (sito web, app mobile e API). Pro e contro di ogni metodo.",
+    en: "How to export Garmin data: practical guide to downloading activities in GPX, TCX, FIT and CSV from Garmin Connect (website, mobile app and API). Pros and cons of each method.",
   },
   hero: {
     kicker: { it: "Guida", en: "Guide" },
     title: {
       it: "Esportare dati Garmin: GPX, TCX, FIT, CSV",
-      en: "Exporting Garmin data: GPX, TCX, FIT and CSV — complete guide",
+      en: "Exporting Garmin data: GPX, TCX, FIT and CSV, a complete guide",
     },
     subtitle: {
-      it: "Garmin tiene i tuoi allenamenti nel proprio cloud, ma i dati sono tuoi. Ecco tutti i modi per tirarli fuori — e gli onesti limiti di ciascuno.",
-      en: "Garmin keeps your workouts in its own cloud, but the data is yours. Here are all the ways to get it out — and the honest limitations of each.",
+      it: "Garmin tiene i tuoi allenamenti nel proprio cloud, ma i dati sono tuoi. Ecco tutti i modi per tirarli fuori, con gli onesti limiti di ciascuno.",
+      en: "Garmin keeps your workouts in its own cloud, but the data is yours. Here are all the ways to get it out, with the honest limitations of each.",
     },
   },
   body: [
