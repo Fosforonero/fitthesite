@@ -42,6 +42,9 @@ import { post as colmiRingFitmesh } from "./posts/colmi-ring-fitmesh";
 // iOS launch batch
 import { post as fitmeshArrivaSuIphone } from "./posts/fitmesh-arriva-su-iphone";
 import { post as datiAnelloSmartAppleSalute } from "./posts/dati-anello-smart-apple-salute";
+// Novità (release notes / sezione /novita)
+import { post as novitaAnelloColmiSonno } from "./posts/novita-anello-colmi-sonno";
+import { post as novitaDashboardMultiDevice } from "./posts/novita-dashboard-multi-device";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -74,6 +77,9 @@ const RAW_POSTS: BlogPost[] = [
   // iOS launch batch
   fitmeshArrivaSuIphone,
   datiAnelloSmartAppleSalute,
+  // Novità (release notes)
+  novitaAnelloColmiSonno,
+  novitaDashboardMultiDevice,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

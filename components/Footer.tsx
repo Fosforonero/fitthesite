@@ -51,6 +51,7 @@ export default function Footer({
             <li><Link href={`/${locale}/integrations`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Integrazioni" : "Integrations"}</Link></li>
             <li><Link href={`/${locale}/roadmap`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Roadmap" : "Roadmap"}</Link></li>
             <li><Link href={`/${locale}/blog`} className="text-text-secondary hover:text-text-primary transition">Blog</Link></li>
+            <li><Link href={`/${locale}/novita`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Novità" : "What's New"}</Link></li>
             <li><Link href={`/${locale}/about`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Chi siamo" : "About"}</Link></li>
             <li><Link href={`/${locale}/press`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Press" : "Press"}</Link></li>
             <li>

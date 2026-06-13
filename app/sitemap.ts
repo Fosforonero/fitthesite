@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/roadmap",      changeFrequency: "weekly",  priority: 0.6 },
     { path: "/beta",         changeFrequency: "weekly",  priority: 0.95 },
     { path: "/blog",         changeFrequency: "daily",   priority: 0.85 },
+    { path: "/novita",       changeFrequency: "weekly",  priority: 0.8 },
     { path: "/support",      changeFrequency: "monthly", priority: 0.7 },
     { path: "/privacy",      changeFrequency: "yearly",  priority: 0.5 },
     { path: "/terms",        changeFrequency: "yearly",  priority: 0.5 },

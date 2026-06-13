@@ -20,7 +20,8 @@ export type BlogCategory =
   | "guides" // cornerstone + supporting how-to
   | "comparisons" // compare 1 vs 1
   | "privacy" // GDPR, data handling
-  | "ecosystem"; // brand ecosystem moves (Google buys Fitbit, etc.)
+  | "ecosystem" // brand ecosystem moves (Google buys Fitbit, etc.)
+  | "news"; // release notes / novità app (sezione /novita)
 
 export interface BlogQA {
   q: Localized;
@@ -128,6 +129,7 @@ export const CATEGORY_LABEL: Record<BlogCategory, Localized> = {
   comparisons: { it: "Confronto", en: "Comparison" },
   privacy: { it: "Privacy", en: "Privacy" },
   ecosystem: { it: "Ecosistema", en: "Ecosystem" },
+  news: { it: "Novità", en: "What's New" },
 };
 
 export function categoryLabel(c: BlogCategory, lc: Locale): string {
