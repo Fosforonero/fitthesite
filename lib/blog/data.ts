@@ -51,6 +51,8 @@ import { post as miglioriAnelliEconomici } from "./posts/migliori-anelli-economi
 import { post as tracciareSonnoAnello } from "./posts/tracciare-sonno-anello";
 import { post as colmiR02Setup } from "./posts/colmi-r02-setup";
 import { post as syncThemAll } from "./posts/sync-them-all";
+// Novità: fonte del dato (provenienza per-dispositivo)
+import { post as novitaFonteDelDato } from "./posts/novita-fonte-del-dato";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -92,6 +94,7 @@ const RAW_POSTS: BlogPost[] = [
   tracciareSonnoAnello,
   colmiR02Setup,
   syncThemAll,
+  novitaFonteDelDato,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

@@ -10,7 +10,7 @@ export const post: BlogPost = {
   slug: "piu-smartwatch-insieme-dati-doppi",
   category: "guides",
   publishedAt: "2026-06-10",
-  updatedAt: "2026-06-10",
+  updatedAt: "2026-06-14",
   pillar: true,
   readMinutes: 16,
   tldr: {
@@ -579,6 +579,7 @@ export const post: BlogPost = {
     },
   ],
   related: [
+    "novita-fonte-del-dato",
     "best-health-data-sync-app-android",
     "come-funziona-health-connect",
     "hrv-cose-significato-valori",

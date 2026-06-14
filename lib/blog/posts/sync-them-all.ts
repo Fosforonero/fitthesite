@@ -9,7 +9,7 @@ export const post: BlogPost = {
   slug: "sync-them-all",
   category: "ecosystem",
   publishedAt: "2026-06-13",
-  updatedAt: "2026-06-13",
+  updatedAt: "2026-06-14",
   readMinutes: 6,
   ldType: "Article",
 
@@ -322,6 +322,7 @@ export const post: BlogPost = {
   ],
 
   related: [
+    "novita-fonte-del-dato",
     "colmi-ring-fitmesh",
     "piu-smartwatch-insieme-dati-doppi",
     "anello-vs-smartwatch",
