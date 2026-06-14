@@ -25,6 +25,11 @@ export default buildConfig({
   admin: {
     user: Users.slug,
   },
+  // Admin Payload su /cms (NON /admin): evita la collisione con l'admin beta
+  // esistente del sito (/[locale]/admin) e con il middleware i18n.
+  routes: {
+    admin: '/cms',
+  },
   collections: [Users, Posts, Media],
   localization: {
     locales: [

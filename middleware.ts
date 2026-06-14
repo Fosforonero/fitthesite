@@ -55,7 +55,7 @@ function detectLocale(pathname: string): string {
 }
 
 // Path prefixes che NON richiedono il locale prefix (route top-level non-i18n).
-const NON_LOCALIZED_PREFIXES = ['/api', '/oauth', '/mockups', '/_next', '/.well-known'] as const;
+const NON_LOCALIZED_PREFIXES = ['/api', '/cms', '/oauth', '/mockups', '/_next', '/.well-known'] as const;
 
 function needsLocalePrefix(pathname: string): boolean {
   // Root path '/' lo lasciamo intoccato (la page.tsx top-level fa il redirect).
