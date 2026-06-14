@@ -53,6 +53,8 @@ import { post as colmiR02Setup } from "./posts/colmi-r02-setup";
 import { post as syncThemAll } from "./posts/sync-them-all";
 // Novità: fonte del dato (provenienza per-dispositivo)
 import { post as novitaFonteDelDato } from "./posts/novita-fonte-del-dato";
+// Novità: lancio su Google Play
+import { post as fitmeshSyncDisponibileGooglePlay } from "./posts/fitmesh-sync-disponibile-google-play";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
