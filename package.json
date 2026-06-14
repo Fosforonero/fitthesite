@@ -9,11 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@payloadcms/db-postgres": "^3.85.1",
+    "@payloadcms/next": "^3.85.1",
+    "@payloadcms/richtext-lexical": "^3.85.1",
+    "@payloadcms/ui": "^3.85.1",
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.105.4",
     "firebase-admin": "^13.10.0",
     "jose": "^4.15.4",
     "next": "^15.1.6",
+    "payload": "^3.85.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "zod": "^3.25.76"

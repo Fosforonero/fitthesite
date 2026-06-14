@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { withPayload } from '@payloadcms/next/withPayload';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -177,4 +178,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);
