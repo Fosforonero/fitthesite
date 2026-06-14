@@ -133,6 +133,27 @@ const nextConfig = {
     ];
 
     return [
+      // App Links / Universal Links: l'apex `fitmesh.fit` deve poter servire
+      // `/.well-known/*` SENZA redirect — Android (assetlinks.json) e Apple
+      // (apple-app-site-association) NON seguono i redirect quando verificano
+      // la proprietà del dominio. Per tutto il resto l'apex resta rediretto a
+      // www (canonical SEO, 308 via `permanent`), così le pagine non vengono
+      // duplicate.
+      // NB OPERATIVO (Vercel): il dominio `fitmesh.fit` NON deve essere in
+      // "Redirect to www.fitmesh.fit" ma ASSEGNATO al progetto, altrimenti il
+      // redirect Vercel a monte vince e questa regola non viene mai raggiunta.
+      {
+        source: "/",
+        has: [{ type: "host", value: "fitmesh.fit" }],
+        destination: "https://www.fitmesh.fit/",
+        permanent: true,
+      },
+      {
+        source: "/:path((?!\\.well-known).*)",
+        has: [{ type: "host", value: "fitmesh.fit" }],
+        destination: "https://www.fitmesh.fit/:path",
+        permanent: true,
+      },
       // /privacy → EN: usato da Google Play Console + audience globale.
       // I link IT-specifici (Header app, footer) puntano già a /it/privacy.
       { source: '/privacy', destination: '/en/privacy', permanent: true },
