@@ -1,4 +1,9 @@
+# pnpm 11: autorizza i build script (postinstall) di queste dipendenze.
+# Senza, i build vengono "ignorati" (ERR_PNPM_IGNORED_BUILDS) e l'install fallisce.
+# esbuild arriva con Payload (serve al loader della config TS); sharp agli upload
+# immagine del CMS; firebase/util e protobufjs erano già dipendenze del sito.
 allowBuilds:
-  '@firebase/util': set this to true or false
-  protobufjs: set this to true or false
-  sharp: set this to true or false
+  '@firebase/util': true
+  esbuild: true
+  protobufjs: true
+  sharp: true
