@@ -11,7 +11,7 @@
    - **Public bucket: ON** (le immagini vanno servite direttamente)
 2. **Project Settings → Storage → S3 Connection → Enable** → **New access key**
    - Copia: Access key ID + Secret access key
-   - Endpoint: `https://xcdyhkuyxukaifhhtadr.supabase.co/storage/v1/s3`
+   - Endpoint: `https://xcdyhkuyxukaifhhtadr.storage.supabase.co/storage/v1/s3`
    - Region: quella del progetto (es. `eu-central-1`)
 
 > Alternativa: Cloudflare R2 (no costi egress). Stessi 5 env, endpoint R2.
@@ -23,7 +23,7 @@
 | `PAYLOAD_SECRET` | stringa random: `openssl rand -base64 32` |
 | `DATABASE_URI` | **pooler** Supabase, porta 6543, transaction mode: `postgresql://postgres.xcdyhkuyxukaifhhtadr:<PASSWORD>@aws-0-<region>.pooler.supabase.com:6543/postgres` |
 | `S3_BUCKET` | `cms-media` |
-| `S3_ENDPOINT` | `https://xcdyhkuyxukaifhhtadr.supabase.co/storage/v1/s3` |
+| `S3_ENDPOINT` | `https://xcdyhkuyxukaifhhtadr.storage.supabase.co/storage/v1/s3` |
 | `S3_REGION` | es. `eu-central-1` |
 | `S3_ACCESS_KEY_ID` | dal passo A.2 |
 | `S3_SECRET_ACCESS_KEY` | dal passo A.2 |
