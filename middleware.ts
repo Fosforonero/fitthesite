@@ -27,7 +27,7 @@ type CookieToSet = { name: string; value: string; options: CookieOptions };
 
 const PROTECTED_PREFIXES = ['/app', '/admin'] as const;
 
-const LOCALES = ['it', 'en'] as const;
+const LOCALES = ['it', 'en', 'es'] as const;
 
 function stripLocale(pathname: string): string {
   for (const locale of LOCALES) {
@@ -76,6 +76,7 @@ function bestLocaleFromAcceptLanguage(header: string | null): string {
   const lower = header.toLowerCase();
   // Prima preferenza vince. Default 'it' (mercato primario).
   if (lower.startsWith('it') || lower.includes(',it')) return 'it';
+  if (lower.startsWith('es') || lower.includes(',es')) return 'es';
   if (lower.startsWith('en') || lower.includes(',en')) return 'en';
   return 'it';
 }
