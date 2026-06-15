@@ -211,9 +211,6 @@ export default async function Home({
         <TrustBadges locale={lc === "it" ? "it" : "en"} />
       </section>
 
-      {/* Fascia founder dinamica: X/1000 posti (1 anno Pro gratis) → /beta. */}
-      <FounderBanner locale={lc} />
-
       {/* ════════════════════════════════════════════════════════════════
        *  LOGO CLOUD — marquee infinito dei provider supportati.
        *  Niente loghi reali (rischio TM); usiamo i monogrammi colorati
