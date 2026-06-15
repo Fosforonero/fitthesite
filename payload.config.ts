@@ -2,7 +2,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { postgresAdapter } from '@payloadcms/db-postgres';
+import { resendAdapter } from '@payloadcms/email-resend';
 import { lexicalEditor } from '@payloadcms/richtext-lexical';
+import { s3Storage } from '@payloadcms/storage-s3';
 import { buildConfig } from 'payload';
 
 import { Media } from './cms/collections/Media';
@@ -41,11 +43,40 @@ export default buildConfig({
     fallback: true,
   },
   editor: lexicalEditor(),
+  // Email: Resend in produzione (chiave già usata per le mail beta). Senza
+  // RESEND_API_KEY (dev) Payload scrive le email in console.
+  email: process.env.RESEND_API_KEY
+    ? resendAdapter({
+        defaultFromAddress: 'no-reply@fitmesh.fit',
+        defaultFromName: 'FitMesh Sync',
+        apiKey: process.env.RESEND_API_KEY,
+      })
+    : undefined,
   secret: process.env.PAYLOAD_SECRET || '',
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URI || '' },
     schemaName: 'payload',
   }),
+  // Storage Media: S3-compatibile (Supabase Storage / R2 / S3) in produzione,
+  // perché Vercel non ha disco persistente. Gated da S3_BUCKET: senza (dev) usa
+  // il disco locale. Endpoint + credenziali via env (da impostare su Vercel).
+  plugins: process.env.S3_BUCKET
+    ? [
+        s3Storage({
+          collections: { media: true },
+          bucket: process.env.S3_BUCKET,
+          config: {
+            endpoint: process.env.S3_ENDPOINT,
+            region: process.env.S3_REGION ?? 'auto',
+            forcePathStyle: true,
+            credentials: {
+              accessKeyId: process.env.S3_ACCESS_KEY_ID ?? '',
+              secretAccessKey: process.env.S3_SECRET_ACCESS_KEY ?? '',
+            },
+          },
+        }),
+      ]
+    : [],
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
