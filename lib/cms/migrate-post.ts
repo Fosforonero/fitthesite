@@ -6,7 +6,7 @@ import type { BlogPost, BlogSection } from '@/lib/blog/types';
  * Lo slug per ora è condiviso (EN riusa quello IT, com'era); gli slug ES/EN
  * dedicati si assegneranno dopo nel CMS.
  */
-type L = 'it' | 'en';
+type L = 'it' | 'en' | 'es';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Block = Record<string, any>;
@@ -94,48 +94,55 @@ function blockNode(fields: Block): LexNode {
  * SEO (callout/table/comparison/cta) restano nodi `block` con gli STESSI campi
  * prodotti in precedenza. `id` deterministico per blocco: `${lc}-${index}`.
  */
+// Accesso es-safe: se manca `es` (es. campi non tradotti o tipi solo it/en
+// come ctaHref/secondaryKeywords) cade su en, poi it.
+const pick = (o: { it: string; en: string; es?: string }, lc: L): string =>
+  o[lc] ?? o.en ?? o.it;
+const pickL = (o: { it: string[]; en: string[]; es?: string[] }, lc: L): string[] =>
+  o[lc] ?? o.en ?? o.it;
+
 export function sectionsToLexical(body: BlogSection[], lc: L): LexNode {
   const children: LexNode[] = body.map((s, index): LexNode => {
     switch (s.type) {
       case 'heading':
-        return headingNode(s.level, s.text[lc]);
+        return headingNode(s.level, pick(s.text, lc));
       case 'paragraph':
-        return paragraphNode(s.text[lc]);
+        return paragraphNode(pick(s.text, lc));
       case 'list':
-        return listNode(s.ordered ?? false, s.items[lc]);
+        return listNode(s.ordered ?? false, pickL(s.items, lc));
       case 'callout':
         return blockNode({
           id: `${lc}-${index}`,
           blockType: 'callout',
           variant: s.variant,
-          title: s.title?.[lc],
-          body: s.body[lc],
+          title: s.title ? pick(s.title, lc) : undefined,
+          body: pick(s.body, lc),
         });
       case 'table':
         return blockNode({
           id: `${lc}-${index}`,
           blockType: 'table',
-          caption: s.caption?.[lc],
-          headers: s.headers[lc].map((header) => ({ header })),
-          rows: s.rows.map((r) => ({ cells: r[lc].map((value) => ({ value })) })),
+          caption: s.caption ? pick(s.caption, lc) : undefined,
+          headers: pickL(s.headers, lc).map((header) => ({ header })),
+          rows: s.rows.map((r) => ({ cells: pickL(r, lc).map((value) => ({ value })) })),
         });
       case 'comparison':
         return blockNode({
           id: `${lc}-${index}`,
           blockType: 'comparison',
-          aTitle: s.aTitle[lc],
-          aItems: s.aItems[lc].map((item) => ({ item })),
-          bTitle: s.bTitle[lc],
-          bItems: s.bItems[lc].map((item) => ({ item })),
+          aTitle: pick(s.aTitle, lc),
+          aItems: pickL(s.aItems, lc).map((item) => ({ item })),
+          bTitle: pick(s.bTitle, lc),
+          bItems: pickL(s.bItems, lc).map((item) => ({ item })),
         });
       case 'cta':
         return blockNode({
           id: `${lc}-${index}`,
           blockType: 'cta',
-          title: s.title[lc],
-          body: s.body[lc],
-          ctaLabel: s.ctaLabel[lc],
-          ctaHref: s.ctaHref[lc],
+          title: pick(s.title, lc),
+          body: pick(s.body, lc),
+          ctaLabel: pick(s.ctaLabel, lc),
+          ctaHref: pick(s.ctaHref, lc),
         });
     }
   });
@@ -158,7 +165,9 @@ function localeData(p: BlogPost, lc: L): Block {
     slug: p.slug,
     metaDescription: p.metaDescription[lc],
     primaryKeyword: p.primaryKeyword[lc],
-    secondaryKeywords: (p.secondaryKeywords[lc] ?? []).map((kw) => ({ kw })),
+    secondaryKeywords: (
+      (p.secondaryKeywords as Record<string, string[] | undefined>)[lc] ?? []
+    ).map((kw) => ({ kw })),
     tldr: (p.tldr?.[lc] ?? []).map((point) => ({ point })),
     hero: {
       kicker: p.hero.kicker[lc],
