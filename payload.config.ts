@@ -26,6 +26,19 @@ const dirname = path.dirname(fileURLToPath(import.meta.url));
 export default buildConfig({
   admin: {
     user: Users.slug,
+    // Branding FitMesh: logo + icona custom al posto di quelli Payload.
+    components: {
+      graphics: {
+        Logo: '/cms/components/Logo#Logo',
+        Icon: '/cms/components/Icon#Icon',
+      },
+    },
+    meta: {
+      titleSuffix: ' · FitMesh Sync',
+      icons: [{ rel: 'icon', type: 'image/png', url: '/icon-square-128.png' }],
+    },
+    // baseDir per risolvere i path dei componenti custom nell'importMap.
+    importMap: { baseDir: dirname },
   },
   // Admin Payload su /cms (NON /admin): evita la collisione con l'admin beta
   // esistente del sito (/[locale]/admin) e con il middleware i18n.

@@ -1,1 +1,36 @@
-/* Stili custom admin Payload (vuoto per ora). */
+/* Branding admin FitMesh — accenti brand sopra il design system Payload.
+   Conservativo: tocca solo bottoni primari, login e nav, non i token globali. */
+
+:root {
+  --fm-teal: #21e6c1;
+  --fm-green: #7cff5b;
+  --fm-ink: #050816;
+}
+
+/* Bottoni primari: gradiente brand FitMesh, testo scuro leggibile. */
+.btn--style-primary {
+  --bg-color: var(--fm-teal);
+  background: linear-gradient(120deg, var(--fm-teal), var(--fm-green));
+  color: var(--fm-ink);
+  border: none;
+
+  &:hover,
+  &:focus {
+    filter: brightness(1.05);
+    color: var(--fm-ink);
+  }
+}
+
+/* Login: logo più arioso. */
+.login__wrap {
+  .graphic-logo,
+  .login__brand {
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Voce di nav attiva: accento teal del brand. */
+.nav .nav__link.active,
+.nav .nav__link--active {
+  box-shadow: inset 2px 0 0 var(--fm-teal);
+}
