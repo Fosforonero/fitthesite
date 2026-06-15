@@ -10,16 +10,6 @@ const nextConfig = {
   // workspace root sbagliata (file tracing/output errati). Root esplicita.
   outputFileTracingRoot: path.dirname(fileURLToPath(import.meta.url)),
 
-  // TEMP (debug importMap Payload): disabilita la cache persistente webpack.
-  // Su Vercel l'admin /cms renderizzava vuoto (getFromImportMap not found)
-  // mentre in locale con build pulito funziona: sospetto cache build Vercel
-  // che riusa la compilazione di quando l'importMap era vuoto. Forziamo un
-  // build pulito. Da rimuovere una volta verificato.
-  webpack: (config) => {
-    config.cache = false;
-    return config;
-  },
-
   /**
    * Redirect 308 permanenti per gli URL marketing senza prefix locale.
    *
