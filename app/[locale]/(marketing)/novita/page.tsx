@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
-import { postsByCategory } from "@/lib/blog/data";
+import { getPostsByCategory } from "@/lib/blog/payload-source";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -96,7 +96,7 @@ export default async function NovitaIndex({
   const lc = locale as Locale;
   const t = I18N[lc];
 
-  const posts = postsByCategory("news");
+  const posts = await getPostsByCategory("news");
 
   const collectionLd = {
     "@context": "https://schema.org",

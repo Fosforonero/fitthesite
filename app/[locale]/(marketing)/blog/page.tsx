@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
-import { BLOG_POSTS, categoryLabel } from "@/lib/blog/data";
+import { categoryLabel } from "@/lib/blog/types";
+import { getBlogPosts } from "@/lib/blog/payload-source";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -106,8 +107,9 @@ export default async function BlogIndex({
   const lc = locale as Locale;
   const t = I18N[lc];
 
-  const pillars = BLOG_POSTS.filter((p) => p.pillar);
-  const others = BLOG_POSTS.filter((p) => !p.pillar);
+  const posts = await getBlogPosts();
+  const pillars = posts.filter((p) => p.pillar);
+  const others = posts.filter((p) => !p.pillar);
 
   // JSON-LD Blog schema con ItemList di tutti gli articoli.
   const itemListLd = {
@@ -117,7 +119,7 @@ export default async function BlogIndex({
     name: lc === "it" ? "Blog FitMesh Sync" : "FitMesh Sync Blog",
     inLanguage: lc === "it" ? "it-IT" : "en-US",
     url: `${SITE_URL}/${lc}/blog`,
-    blogPost: BLOG_POSTS.map((p) => ({
+    blogPost: posts.map((p) => ({
       "@type": "BlogPosting",
       headline: p.hero.title[lc],
       url: `${SITE_URL}/${lc}/blog/${p.slug}`,

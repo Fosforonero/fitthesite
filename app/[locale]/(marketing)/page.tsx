@@ -7,7 +7,7 @@ import FounderBanner from "@/components/FounderBanner";
 import TrustBadges from "@/components/TrustBadges";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
-import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
+import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -69,6 +69,7 @@ export default async function Home({
   const { locale } = await params;
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
+  const postsBySlug = await getBlogPostsBySlug();
 
   // Curated subset (live + headline) for the inline ticker
   const tickerProviders = [
@@ -521,7 +522,7 @@ export default async function Home({
           "alternative-health-sync-2026",
         ];
         const featured = featuredSlugs
-          .map((s) => BLOG_POSTS_BY_SLUG[s])
+          .map((s) => postsBySlug[s])
           .filter((p): p is NonNullable<typeof p> => p !== undefined);
         if (featured.length === 0) return null;
         return (

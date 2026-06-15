@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { pingIndexNow } from "@/lib/seo/indexnow";
-import { BLOG_POSTS } from "@/lib/blog/data";
+import { getBlogPosts } from "@/lib/blog/payload-source";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +22,7 @@ export async function GET(req: Request) {
 
   // Blog posts updated in the last 7 days — ping both IT and EN URLs
   // (BlogPost is bilingual: same slug served under /it/ and /en/)
-  for (const post of BLOG_POSTS) {
+  for (const post of await getBlogPosts()) {
     const updated = new Date(post.updatedAt ?? post.publishedAt).getTime();
     if (updated > sevenDaysAgo) {
       for (const locale of LOCALES) {

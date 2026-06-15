@@ -14,7 +14,7 @@ import {
   statusLabel,
   type Provider,
 } from "@/lib/providers/data";
-import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
+import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
 import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
 
@@ -105,6 +105,7 @@ export default async function ProviderLanding({
   const lc = locale as Locale;
   const p = PROVIDERS_BY_SLUG[provider];
   if (!p) notFound();
+  const postsBySlug = await getBlogPostsBySlug();
 
   // "isLive" = CTA primaria è Play Store. Sia `live` (nativo) sia `live-basic`
   // (via HC) sono usabili oggi → entrambi mostrano il bottone Play Store.
@@ -526,7 +527,7 @@ export default async function ProviderLanding({
       {/* APPROFONDISCI — internal linking ai blog post correlati */}
       {p.relatedBlogSlugs && p.relatedBlogSlugs.length > 0 && (() => {
         const relatedPosts = p.relatedBlogSlugs
-          .map((s) => BLOG_POSTS_BY_SLUG[s])
+          .map((s) => postsBySlug[s])
           .filter((post): post is NonNullable<typeof post> => post !== undefined);
         if (relatedPosts.length === 0) return null;
         return (

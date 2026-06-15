@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { locales } from "@/lib/i18n";
 import { PROVIDERS } from "@/lib/providers/data";
-import { BLOG_POSTS } from "@/lib/blog/data";
+import { getBlogPosts } from "@/lib/blog/payload-source";
 import { LANDING_PAGES } from "@/lib/landing/data";
 
 const BASE = "https://www.fitmesh.fit";
@@ -19,7 +19,7 @@ type ChangeFreq = "monthly" | "yearly" | "weekly" | "daily";
  *  - Blog index (/blog) + articoli (/blog/[slug]) — 1 + 8 × 2 locales
  *  - Landing high-intent (/lp/[slug]) — 4 × 2 locales
  */
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const routes: Array<{
     path: string;
@@ -53,7 +53,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Articoli blog — priorità 0.7, daily (perché lo stato delle integrazioni e
   // delle policy brand può cambiare e gli articoli vanno rivisitati spesso).
-  for (const p of BLOG_POSTS) {
+  for (const p of await getBlogPosts()) {
     routes.push({
       path: `/blog/${p.slug}`,
       changeFrequency: "daily",

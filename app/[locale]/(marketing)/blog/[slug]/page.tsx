@@ -7,12 +7,12 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogRenderer } from "@/components/blog/BlogRenderer";
 import { ArticleMeta } from "@/components/blog/ArticleMeta";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { categoryLabel } from "@/lib/blog/types";
 import {
-  BLOG_POSTS,
-  BLOG_POSTS_BY_SLUG,
-  categoryLabel,
-  relatedPosts,
-} from "@/lib/blog/data";
+  getBlogPostBySlug,
+  getBlogSlugs,
+  getRelatedPosts,
+} from "@/lib/blog/payload-source";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -45,9 +45,10 @@ const AUTHOR = {
 // Publisher Organization name (per JSON-LD Article.publisher).
 const PUBLISHER_NAME = "FitMesh Sync";
 
-export function generateStaticParams() {
-  return BLOG_POSTS.flatMap((p) =>
-    locales.map((locale) => ({ locale, slug: p.slug })),
+export async function generateStaticParams() {
+  const slugs = await getBlogSlugs();
+  return slugs.flatMap((slug) =>
+    locales.map((locale) => ({ locale, slug })),
   );
 }
 
@@ -59,7 +60,7 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
-  const post = BLOG_POSTS_BY_SLUG[slug];
+  const post = await getBlogPostBySlug(slug);
   if (!post) return {};
 
   const path = `/${lc}/blog/${post.slug}`;
@@ -166,7 +167,7 @@ export default async function BlogArticle({
   const { locale, slug } = await params;
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
-  const post = BLOG_POSTS_BY_SLUG[slug];
+  const post = await getBlogPostBySlug(slug);
   if (!post) notFound();
   const t = I18N[lc];
 
@@ -225,7 +226,7 @@ export default async function BlogArticle({
         }
       : null;
 
-  const related = relatedPosts(post.related);
+  const related = await getRelatedPosts(post.related);
 
   return (
     <>
