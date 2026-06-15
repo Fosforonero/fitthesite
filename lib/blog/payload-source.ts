@@ -11,8 +11,9 @@ import type { BlogCategory, BlogPost, BlogSection, Localized } from './types';
  * su Vercel non è configurato; appena c'è, legge dal CMS.
  *
  * Legge con `locale: 'all'` → i campi localizzati arrivano come `{it,en,es}`,
- * quasi identici alla forma `Localized` di `BlogPost`. Il corpo (blocchi) viene
- * "zippato" per indice tra it/en per ricostruire `BlogSection[]` bilingue.
+ * quasi identici alla forma `Localized` di `BlogPost`. Il corpo ora è un richText
+ * lexical per lingua: si mappano i nodi `body.root.children` (it/en) verso
+ * `BlogSection[]` e si "zippano" per indice per ricostruire la forma bilingue.
  */
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,51 +30,76 @@ function LList(itArr: Any, enArr: Any, map: (x: Any) => string) {
   return { it, en };
 }
 
+/**
+ * Estrae il testo da un nodo lexical concatenando i text node figli; i run con
+ * `format & 1` (bold) vengono ri-avvolti in `**...**` così il `BlogRenderer`
+ * esistente li renderizza in grassetto (light-markdown).
+ */
+function inlineText(node: Any): string {
+  const children = (node?.children ?? []) as Any[];
+  return children
+    .map((c) => {
+      const t = (c?.text ?? '') as string;
+      return (Number(c?.format) & 1) === 1 ? `**${t}**` : t;
+    })
+    .join('');
+}
+
 function sectionFrom(it: Any, en: Any): BlogSection | null {
   if (!it) return null;
-  switch (it.blockType as string) {
-    case 'heading':
-      return { type: 'heading', level: Number(it.level) === 3 ? 3 : 2, text: L(it.text, en?.text) };
-    case 'paragraph':
-      return { type: 'paragraph', text: L(it.text, en?.text) };
-    case 'list':
-      return {
-        type: 'list',
-        ordered: Boolean(it.ordered),
-        items: LList(it.items, en?.items, (x) => x.item),
-      };
+  const type = it.type as string;
+  if (type === 'heading') {
+    const level = String(it.tag) === 'h3' ? 3 : 2;
+    return { type: 'heading', level, text: L(inlineText(it), en && inlineText(en)) };
+  }
+  if (type === 'paragraph') {
+    return { type: 'paragraph', text: L(inlineText(it), en && inlineText(en)) };
+  }
+  if (type === 'list') {
+    const items = (li: Any) => ((li?.children ?? []) as Any[]).map((item) => inlineText(item));
+    return {
+      type: 'list',
+      ordered: it.listType === 'number',
+      items: { it: items(it), en: items(en ?? it) },
+    };
+  }
+  if (type !== 'block') return null;
+
+  const f = (it.fields ?? {}) as Any;
+  const ef = (en?.fields ?? undefined) as Any;
+  switch (f.blockType as string) {
     case 'callout':
       return {
         type: 'callout',
-        variant: it.variant,
-        ...(it.title != null ? { title: L(it.title, en?.title) } : {}),
-        body: L(it.body, en?.body),
+        variant: f.variant,
+        ...(f.title != null ? { title: L(f.title, ef?.title) } : {}),
+        body: L(f.body, ef?.body),
       };
     case 'table':
       return {
         type: 'table',
-        ...(it.caption != null ? { caption: L(it.caption, en?.caption) } : {}),
-        headers: LList(it.headers, en?.headers, (h) => h.header),
-        rows: ((it.rows ?? []) as Any[]).map((r, i) => ({
+        ...(f.caption != null ? { caption: L(f.caption, ef?.caption) } : {}),
+        headers: LList(f.headers, ef?.headers, (h) => h.header),
+        rows: ((f.rows ?? []) as Any[]).map((r, i) => ({
           it: ((r.cells ?? []) as Any[]).map((c) => c.value),
-          en: (((en?.rows?.[i]?.cells ?? r.cells) ?? []) as Any[]).map((c) => c.value),
+          en: (((ef?.rows?.[i]?.cells ?? r.cells) ?? []) as Any[]).map((c) => c.value),
         })),
       };
     case 'comparison':
       return {
         type: 'comparison',
-        aTitle: L(it.aTitle, en?.aTitle),
-        aItems: LList(it.aItems, en?.aItems, (x) => x.item),
-        bTitle: L(it.bTitle, en?.bTitle),
-        bItems: LList(it.bItems, en?.bItems, (x) => x.item),
+        aTitle: L(f.aTitle, ef?.aTitle),
+        aItems: LList(f.aItems, ef?.aItems, (x) => x.item),
+        bTitle: L(f.bTitle, ef?.bTitle),
+        bItems: LList(f.bItems, ef?.bItems, (x) => x.item),
       };
     case 'cta':
       return {
         type: 'cta',
-        title: L(it.title, en?.title),
-        body: L(it.body, en?.body),
-        ctaLabel: L(it.ctaLabel, en?.ctaLabel),
-        ctaHref: L(it.ctaHref, en?.ctaHref),
+        title: L(f.title, ef?.title),
+        body: L(f.body, ef?.body),
+        ctaLabel: L(f.ctaLabel, ef?.ctaLabel),
+        ctaHref: L(f.ctaHref, ef?.ctaHref),
       };
     default:
       return null;
@@ -81,8 +107,8 @@ function sectionFrom(it: Any, en: Any): BlogSection | null {
 }
 
 function docToBlogPost(doc: Any): BlogPost {
-  const itBody = (doc.body?.it ?? []) as Any[];
-  const enBody = (doc.body?.en ?? []) as Any[];
+  const itBody = (doc.body?.it?.root?.children ?? []) as Any[];
+  const enBody = (doc.body?.en?.root?.children ?? []) as Any[];
   const body = itBody
     .map((b, i) => sectionFrom(b, enBody[i]))
     .filter((s): s is BlogSection => s !== null);

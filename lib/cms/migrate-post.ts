@@ -10,52 +10,146 @@ type L = 'it' | 'en';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Block = Record<string, any>;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type LexNode = Record<string, any>;
 
-function blocksFor(body: BlogSection[], lc: L): Block[] {
-  return body.map((s): Block => {
+/**
+ * Parser inline per il light-markdown `**bold**`: divide la stringa sui run
+ * `**...**` e produce text node lexical alternando `format:0` (normale) e
+ * `format:1` (bold). Gli asterischi vengono rimossi.
+ */
+function textNodes(raw: string): LexNode[] {
+  const out: LexNode[] = [];
+  // Split mantenendo i delimitatori: i segmenti dispari sono i bold.
+  const parts = (raw ?? '').split(/\*\*(.+?)\*\*/g);
+  parts.forEach((part, i) => {
+    if (part === '') return;
+    out.push({
+      type: 'text',
+      text: part,
+      detail: 0,
+      format: i % 2 === 1 ? 1 : 0,
+      mode: 'normal',
+      style: '',
+      version: 1,
+    });
+  });
+  return out;
+}
+
+function paragraphNode(text: string): LexNode {
+  return {
+    type: 'paragraph',
+    format: '',
+    indent: 0,
+    version: 1,
+    direction: 'ltr',
+    textFormat: 0,
+    children: textNodes(text),
+  };
+}
+
+function headingNode(level: 2 | 3, text: string): LexNode {
+  return {
+    type: 'heading',
+    tag: `h${level}`,
+    format: '',
+    indent: 0,
+    version: 1,
+    direction: 'ltr',
+    children: textNodes(text),
+  };
+}
+
+function listNode(ordered: boolean, items: string[]): LexNode {
+  return {
+    type: 'list',
+    listType: ordered ? 'number' : 'bullet',
+    tag: ordered ? 'ol' : 'ul',
+    start: 1,
+    format: '',
+    indent: 0,
+    version: 1,
+    direction: 'ltr',
+    children: items.map((item, i) => ({
+      type: 'listitem',
+      value: i + 1,
+      format: '',
+      indent: 0,
+      version: 1,
+      direction: 'ltr',
+      children: textNodes(item),
+    })),
+  };
+}
+
+/** Wrappa i campi di un blocco SEO in un nodo lexical `block` (version 2). */
+function blockNode(fields: Block): LexNode {
+  return { type: 'block', format: '', version: 2, fields };
+}
+
+/**
+ * Converte `BlogSection[]` nel valore richText lexical atteso da Payload per
+ * una data lingua. Heading/paragraph/list diventano nodi nativi; i 4 blocchi
+ * SEO (callout/table/comparison/cta) restano nodi `block` con gli STESSI campi
+ * prodotti in precedenza. `id` deterministico per blocco: `${lc}-${index}`.
+ */
+export function sectionsToLexical(body: BlogSection[], lc: L): LexNode {
+  const children: LexNode[] = body.map((s, index): LexNode => {
     switch (s.type) {
       case 'heading':
-        return { blockType: 'heading', level: String(s.level), text: s.text[lc] };
+        return headingNode(s.level, s.text[lc]);
       case 'paragraph':
-        return { blockType: 'paragraph', text: s.text[lc] };
+        return paragraphNode(s.text[lc]);
       case 'list':
-        return {
-          blockType: 'list',
-          ordered: s.ordered ?? false,
-          items: s.items[lc].map((item) => ({ item })),
-        };
+        return listNode(s.ordered ?? false, s.items[lc]);
       case 'callout':
-        return {
+        return blockNode({
+          id: `${lc}-${index}`,
           blockType: 'callout',
           variant: s.variant,
           title: s.title?.[lc],
           body: s.body[lc],
-        };
+        });
       case 'table':
-        return {
+        return blockNode({
+          id: `${lc}-${index}`,
           blockType: 'table',
           caption: s.caption?.[lc],
           headers: s.headers[lc].map((header) => ({ header })),
           rows: s.rows.map((r) => ({ cells: r[lc].map((value) => ({ value })) })),
-        };
+        });
       case 'comparison':
-        return {
+        return blockNode({
+          id: `${lc}-${index}`,
           blockType: 'comparison',
           aTitle: s.aTitle[lc],
           aItems: s.aItems[lc].map((item) => ({ item })),
           bTitle: s.bTitle[lc],
           bItems: s.bItems[lc].map((item) => ({ item })),
-        };
+        });
       case 'cta':
-        return {
+        return blockNode({
+          id: `${lc}-${index}`,
           blockType: 'cta',
           title: s.title[lc],
           body: s.body[lc],
           ctaLabel: s.ctaLabel[lc],
           ctaHref: s.ctaHref[lc],
-        };
+        });
     }
   });
+
+  return {
+    root: {
+      type: 'root',
+      format: '',
+      indent: 0,
+      version: 1,
+      direction: 'ltr',
+      children,
+    },
+  };
 }
 
 function localeData(p: BlogPost, lc: L): Block {
@@ -71,7 +165,7 @@ function localeData(p: BlogPost, lc: L): Block {
       title: p.hero.title[lc],
       subtitle: p.hero.subtitle[lc],
     },
-    body: blocksFor(p.body, lc),
+    body: sectionsToLexical(p.body, lc),
     faq: (p.faq ?? []).map((f) => ({ q: f.q[lc], a: f.a[lc] })),
   };
 }

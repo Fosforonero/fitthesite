@@ -56,12 +56,13 @@ export default buildConfig({
   db: postgresAdapter({
     pool: { connectionString: process.env.DATABASE_URI || '' },
     schemaName: 'payload',
-    // `push` crea/sincronizza lo schema da solo (default: solo dev). Lo teniamo
-    // attivo anche in prod per il PRIMO deploy, perché la generazione delle
-    // migration via CLI è bloccata dalla quirk tsx+Node24. TODO: passare alle
-    // migration Payload (payload migrate) quando il runner CLI è sistemato, e
-    // mettere `push: process.env.NODE_ENV !== 'production'`.
-    push: true,
+    // `push` (sync schema Drizzle automatico) DISABILITATO: non funziona sul
+    // pooler transaction Supabase in serverless e, peggio, in dev contro il DB
+    // di produzione tenta DROP distruttivi (es. body blocks→richText voleva
+    // droppare le tabelle posts_blocks_* con i dati). Lo schema si gestisce a
+    // mano via `apply_migration` (Supabase MCP). TODO: migration Payload vere
+    // quando il runner CLI tsx è sistemato.
+    push: false,
   }),
   // Storage Media: S3-compatibile (Supabase Storage / R2 / S3) in produzione,
   // perché Vercel non ha disco persistente. Gated da S3_BUCKET: senza (dev) usa

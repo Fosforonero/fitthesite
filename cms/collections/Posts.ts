@@ -1,43 +1,12 @@
+import { BlocksFeature, lexicalEditor } from '@payloadcms/richtext-lexical';
 import type { Block, CollectionConfig } from 'payload';
 
-/// Blocchi del corpo articolo: rispecchiano 1:1 i variant di `BlogSection`
-/// (`lib/blog/types.ts`) così la migrazione è fedele e il `BlogRenderer`
-/// esistente resta valido. Il campo `body` è `localized: true` a livello di
-/// array → ogni lingua ha la sua sequenza di blocchi (la migrazione popola
+/// Blocchi SEO embeddabili nel richText lexical del corpo articolo: rispecchiano
+/// 1:1 i variant non-nativi di `BlogSection` (`lib/blog/types.ts`). Heading,
+/// paragraph e list ora sono feature native del lexical editor; questi 4 blocchi
+/// (callout/table/comparison/cta) restano blocchi inseribili. Il campo `body` è
+/// `localized: true` → ogni lingua ha il suo richText (la migrazione popola
 /// it/en; le altre lingue ereditano EN via fallback finché non tradotte).
-
-const HeadingBlock: Block = {
-  slug: 'heading',
-  fields: [
-    {
-      name: 'level',
-      type: 'select',
-      defaultValue: '2',
-      options: [
-        { label: 'H2', value: '2' },
-        { label: 'H3', value: '3' },
-      ],
-    },
-    { name: 'text', type: 'text', required: true },
-  ],
-};
-
-const ParagraphBlock: Block = {
-  slug: 'paragraph',
-  fields: [{ name: 'text', type: 'textarea', required: true }],
-};
-
-const ListBlock: Block = {
-  slug: 'list',
-  fields: [
-    { name: 'ordered', type: 'checkbox', defaultValue: false },
-    {
-      name: 'items',
-      type: 'array',
-      fields: [{ name: 'item', type: 'text', required: true }],
-    },
-  ],
-};
 
 const CalloutBlock: Block = {
   slug: 'callout',
@@ -178,17 +147,14 @@ export const Posts: CollectionConfig = {
     },
     {
       name: 'body',
-      type: 'blocks',
+      type: 'richText',
       localized: true,
-      blocks: [
-        HeadingBlock,
-        ParagraphBlock,
-        ListBlock,
-        CalloutBlock,
-        TableBlock,
-        ComparisonBlock,
-        CtaBlock,
-      ],
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          BlocksFeature({ blocks: [CalloutBlock, TableBlock, ComparisonBlock, CtaBlock] }),
+        ],
+      }),
     },
     {
       name: 'faq',
