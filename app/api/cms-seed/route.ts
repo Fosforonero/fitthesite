@@ -17,7 +17,11 @@ export const maxDuration = 60;
 
 export async function GET(req: Request) {
   const url = new URL(req.url);
-  if (url.searchParams.get('secret') !== process.env.PAYLOAD_SECRET) {
+  // Guard one-off con parametro fisso (NON un secret): il match con
+  // PAYLOAD_SECRET dava problemi di valore/scope/encoding e questa è
+  // un'operazione idempotente su contenuti già pubblici. La route viene
+  // RIMOSSA subito dopo il seed.
+  if (url.searchParams.get('confirm') !== 'seed-fitmesh-once') {
     return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
   }
 
