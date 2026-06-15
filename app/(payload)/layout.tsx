@@ -7,6 +7,10 @@ import { handleServerFunctions, RootLayout } from '@payloadcms/next/layouts'
 import React from 'react'
 
 import { importMap } from './cms/importMap.js'
+// CSS base dell'admin Payload (definisce le variabili tema sotto [data-theme]).
+// Senza questo import l'admin si monta ma è senza stili (dashboard "spaccata").
+// Riga del template standard Payload che mancava nel layout generato.
+import '@payloadcms/next/css'
 import './custom.scss'
 
 type Args = {
