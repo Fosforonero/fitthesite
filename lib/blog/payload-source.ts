@@ -164,11 +164,18 @@ async function loadFromPayload(): Promise<BlogPost[] | null> {
 
 /** Tutti i post (CMS se disponibile, altrimenti i moduli TS). Ordine desc per data. */
 export function getBlogPosts(): Promise<BlogPost[]> {
-  memo ??= loadFromPayload().then((cms) =>
-    cms && cms.length > 0
-      ? [...cms].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
-      : BLOG_POSTS,
-  );
+  // Merge: CMS (sorgente editabile, vince sui conflitti per slug) + i post TS
+  // versionati non ancora migrati nel CMS. Così i nuovi articoli aggiunti in
+  // `lib/blog/posts/*` compaiono subito, e quelli editati nel CMS restano la
+  // versione buona. Se il CMS non risponde, fallback ai soli moduli TS.
+  memo ??= loadFromPayload().then((cms) => {
+    if (!cms || cms.length === 0) return BLOG_POSTS;
+    const cmsSlugs = new Set(cms.map((p) => p.slug));
+    const tsOnly = BLOG_POSTS.filter((p) => !cmsSlugs.has(p.slug));
+    return [...cms, ...tsOnly].sort((a, b) =>
+      b.publishedAt.localeCompare(a.publishedAt),
+    );
+  });
   return memo;
 }
 

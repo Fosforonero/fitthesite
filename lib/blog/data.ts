@@ -55,6 +55,8 @@ import { post as syncThemAll } from "./posts/sync-them-all";
 import { post as novitaFonteDelDato } from "./posts/novita-fonte-del-dato";
 // Novità: lancio su Google Play
 import { post as fitmeshSyncDisponibileGooglePlay } from "./posts/fitmesh-sync-disponibile-google-play";
+// Google Fit cierra: alternativas y Health Connect
+import { post as googleFitCierra } from "./posts/google-fit-cierra-alternativas-health-connect";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -97,6 +99,9 @@ const RAW_POSTS: BlogPost[] = [
   colmiR02Setup,
   syncThemAll,
   novitaFonteDelDato,
+  fitmeshSyncDisponibileGooglePlay,
+  // Google Fit cierra
+  googleFitCierra,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
