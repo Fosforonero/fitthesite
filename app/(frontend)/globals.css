@@ -11,6 +11,10 @@ html, body {
   color: var(--fm-text-primary);
   font-family: var(--fm-font-body);
   font-feature-settings: "cv11", "ss01", "ss03", "ss04";
+  /* Contiene gli sbordi decorativi (glow, halo, telefoni che sbucano) che su
+     mobile causavano scroll/gap orizzontale a destra. `clip` (non `hidden`)
+     NON rompe `position: sticky` e non crea un contenitore di scroll. */
+  overflow-x: clip;
 }
 
 * {

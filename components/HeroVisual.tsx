@@ -23,7 +23,7 @@ export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) 
       {/* Brand gradient glow */}
       <div
         aria-hidden
-        className="absolute -inset-16 -z-10 blur-[80px] opacity-50"
+        className="absolute inset-x-0 -inset-y-16 -z-10 blur-[80px] opacity-50"
         style={{
           background:
             "radial-gradient(60% 60% at 70% 30%, #21E6C1 0%, transparent 60%), radial-gradient(60% 60% at 30% 80%, #1DA1FF 0%, transparent 65%)",
