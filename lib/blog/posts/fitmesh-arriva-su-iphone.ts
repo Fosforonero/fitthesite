@@ -21,10 +21,18 @@ export const post: BlogPost = {
       "Users with two phones (e.g. Android + iPhone) see ring sleep and watch steps directly inside the Apple Health/Fitness app.",
       "EU cloud, GDPR, zero third-party data sales. The bridge is opt-in: if Apple Health already has that data, FitMesh won't rewrite it. No duplicates.",
     ],
+    es: [
+      "FitMesh Sync ya está en beta TestFlight en iPhone: inicio de sesión con Google o Apple, lectura de Apple Health/HealthKit, sincronización en la nube, anillo Colmi vía Bluetooth. Lanzamiento en App Store inminente.",
+      "Una sola cuenta funciona en Android e iPhone a la vez: el panel es idéntico en ambos teléfonos y los datos provienen de la misma nube EU.",
+      "Función estrella: el puente de escritura a Apple Salud (opt-in). Los datos de tu smartwatch Android o anillo inteligente llegan a través de la nube de FitMesh y se escriben en Apple Salud, sin duplicados.",
+      "Si tienes dos teléfonos (por ejemplo, Android + iPhone), verás el sueño del anillo y los pasos del reloj directamente dentro de la app Apple Salud/Fitness.",
+      "Datos en nube EU, GDPR, cero venta a terceros. El puente es opt-in: si Apple Salud ya tiene esos datos, FitMesh no los vuelve a escribir. Sin duplicados.",
+    ],
   },
   primaryKeyword: {
     it: "fitmesh sync iphone",
     en: "fitmesh sync iphone",
+    es: "fitmesh sync iphone",
   },
   secondaryKeywords: {
     it: [
@@ -45,16 +53,19 @@ export const post: BlogPost = {
   metaDescription: {
     it: "FitMesh Sync arriva su iPhone: beta TestFlight attiva, App Store imminente. Un account, Android + iPhone insieme. Feature esclusiva: ponte di scrittura Apple Salute per i dati del tuo wearable Android.",
     en: "FitMesh Sync arrives on iPhone: TestFlight beta active, App Store launch imminent. One account, Android + iPhone together. Flagship feature: Apple Health write bridge for your Android wearable data.",
+    es: "FitMesh Sync llega a iPhone: beta TestFlight activa, lanzamiento en App Store inminente. Una cuenta, Android + iPhone juntos. Función exclusiva: puente de escritura a Apple Salud para los datos de tu wearable Android.",
   },
   hero: {
-    kicker: { it: "Annuncio", en: "Announcement" },
+    kicker: { it: "Annuncio", en: "Announcement", es: "Anuncio" },
     title: {
       it: "FitMesh Sync arriva su iPhone",
       en: "FitMesh Sync arrives on iPhone",
+      es: "FitMesh Sync llega a iPhone",
     },
     subtitle: {
       it: "Dopo mesi di sviluppo, l'app iOS è in beta TestFlight e in submission su App Store. Un account, Android e iPhone insieme. E una feature nuova: i dati del tuo wearable Android scritti direttamente in Apple Salute.",
       en: "After months of development, the iOS app is in TestFlight beta and in App Store submission. One account, Android and iPhone together. And a new feature: your Android wearable data written directly into Apple Health.",
+      es: "Después de meses de desarrollo, la app para iOS está en beta TestFlight y en proceso de revisión en App Store. Una cuenta, Android e iPhone juntos. Y una función nueva: los datos de tu wearable Android escritos directamente en Apple Salud.",
     },
   },
   body: [
@@ -63,6 +74,7 @@ export const post: BlogPost = {
       text: {
         it: "Oggi, 12 giugno 2026, FitMesh Sync funziona su iPhone. L'app è in beta TestFlight, in submission su App Store, e già testata sul campo con login Google e Apple, lettura completa di Apple Health, sync cloud e connessione BLE all'anello Colmi. Non è una demo: è l'app reale, con tutte le funzionalità che già conosci dalla versione Android.",
         en: "Today, June 12 2026, FitMesh Sync works on iPhone. The app is in TestFlight beta, in App Store submission, and already field-tested with Google and Apple login, full Apple Health reading, cloud sync and BLE connection to the Colmi ring. This isn't a demo: it's the real app, with all the features you already know from the Android version.",
+        es: "Hoy, 12 de junio de 2026, FitMesh Sync funciona en iPhone. La app está en beta TestFlight, en proceso de revisión en App Store, y ya probada en campo con inicio de sesión Google y Apple, lectura completa de Apple Health, sincronización en la nube y conexión BLE al anillo Colmi. No es una demo: es la app real, con todas las funciones que ya conoces de la versión Android.",
       },
     },
     {
@@ -71,6 +83,7 @@ export const post: BlogPost = {
       text: {
         it: "Cosa funziona oggi in beta",
         en: "What works today in beta",
+        es: "Qué funciona hoy en la beta",
       },
     },
     {
@@ -92,6 +105,14 @@ export const post: BlogPost = {
           "**Unified dashboard**: the same interface you know from Android, with daily trends, week-in-review, multi-source comparison.",
           "**Apple Health write bridge** (opt-in): data from other devices connected to your FitMesh account gets written into Apple Health. Full details in the dedicated section.",
         ],
+        es: [
+          "**Inicio de sesión con Google e Iniciar sesión con Apple**: la misma cuenta que usas en Android, sin duplicados.",
+          "**Lectura de Apple Health / HealthKit**: pasos, frecuencia cardíaca, sueño con fases, SpO₂, calorías, distancia. Todo lo que tu iPhone o Apple Watch escribe en Apple Salud es visible en FitMesh.",
+          "**Sincronización en nube EU**: los datos se sincronizan en el mismo servidor que usa la app Android (centros de datos EU, GDPR).",
+          "**Anillo Colmi vía Bluetooth**: si tienes un anillo inteligente Colmi R02/R03, la app para iOS lo lee mediante BLE directo, igual que la versión Android.",
+          "**Panel unificado**: la misma interfaz que conoces en Android, con tendencias diarias, resumen semanal y comparación entre varias fuentes.",
+          "**Puente de escritura a Apple Salud** (opt-in): los datos de los demás dispositivos conectados a tu cuenta de FitMesh se escriben en Apple Salud. Todos los detalles en la sección dedicada.",
+        ],
       },
     },
     {
@@ -100,6 +121,7 @@ export const post: BlogPost = {
       text: {
         it: "Un account, Android e iPhone insieme",
         en: "One account, Android and iPhone together",
+        es: "Una cuenta, Android e iPhone juntos",
       },
     },
     {
@@ -107,15 +129,17 @@ export const post: BlogPost = {
       text: {
         it: "La cosa che più mi piaceva risolvere era questa: hai due telefoni, una dashboard. Accedi con lo stesso account su Android e su iPhone: i dati di tutti i device collegati (Galaxy Watch, anello Colmi, Apple Watch, qualsiasi wearable che scrivi su Health Connect o Apple Health) confluiscono in un'unica dashboard, accessibile da entrambi i telefoni e da qualsiasi browser web.",
         en: "The thing I most wanted to solve was this: you have two phones, one dashboard. Sign in with the same account on Android and iPhone: data from all connected devices (Galaxy Watch, Colmi ring, Apple Watch, any wearable writing to Health Connect or Apple Health) feeds into one unified dashboard, accessible from both phones and any web browser.",
+        es: "Lo que más quería resolver era esto: tienes dos teléfonos, un solo panel. Inicia sesión con la misma cuenta en Android e iPhone: los datos de todos los dispositivos conectados (Galaxy Watch, anillo Colmi, Apple Watch, cualquier wearable que escriba en Health Connect o Apple Health) se reúnen en un único panel, accesible desde ambos teléfonos y desde cualquier navegador web.",
       },
     },
     {
       type: "callout",
       variant: "info",
-      title: { it: "Come funziona il cross-device", en: "How cross-device works" },
+      title: { it: "Come funziona il cross-device", en: "How cross-device works", es: "Cómo funciona el uso entre dispositivos" },
       body: {
         it: "Ogni device scrive i propri dati sul cloud FitMesh (EU). La dashboard li legge tutti, mostra i dati da tutte le sorgenti senza sommare due volte la stessa attività, e ti mostra un unico flusso coerente. Non importa da quale telefono apri l'app: vedi sempre lo stesso dataset.",
         en: "Each device writes its data to the FitMesh EU cloud. The dashboard reads all of them, shows data from all sources without double-counting the same activity, and shows a single coherent stream. It doesn't matter which phone you open the app on: you always see the same dataset.",
+        es: "Cada dispositivo escribe sus datos en la nube EU de FitMesh. El panel los lee todos, muestra los datos de todas las fuentes sin contar dos veces la misma actividad, y te presenta un único flujo coherente. No importa desde qué teléfono abras la app: siempre ves el mismo conjunto de datos.",
       },
     },
     {
@@ -124,6 +148,7 @@ export const post: BlogPost = {
       text: {
         it: "Il ponte di scrittura Apple Salute: i dati del tuo wearable Android dentro Apple Health",
         en: "The Apple Health write bridge: your Android wearable data inside Apple Health",
+        es: "El puente de escritura a Apple Salud: los datos de tu wearable Android dentro de Apple Health",
       },
     },
     {
@@ -131,6 +156,7 @@ export const post: BlogPost = {
       text: {
         it: "Questa è la feature che ho trovato più utile in test. Se hai un Galaxy Watch o un anello smart accoppiato con il telefono Android, e apri l'app Salute sull'iPhone, quei dati non ci sono. Il ponte di scrittura Apple Salute risolve questo: i dati raccolti dagli altri device del tuo account FitMesh (smartwatch Android, anello Colmi, qualsiasi sorgente già collegata) arrivano via cloud e vengono scritti in Apple Salute, opt-in.",
         en: "This is the feature I found most useful in testing. If you have a Galaxy Watch or smart ring paired with your Android phone, and open the Health app on iPhone, those data aren't there. The Apple Health write bridge solves this: data collected from other devices on your FitMesh account (Android smartwatch, Colmi ring, any already-connected source) arrives via cloud and gets written into Apple Health, opt-in.",
+        es: "Esta es la función que encontré más útil durante las pruebas. Si tienes un Galaxy Watch o un anillo inteligente vinculado a tu teléfono Android y abres la app Salud en el iPhone, esos datos no aparecen. El puente de escritura a Apple Salud resuelve esto: los datos recogidos por los demás dispositivos de tu cuenta FitMesh (smartwatch Android, anillo Colmi, cualquier fuente ya conectada) llegan a través de la nube y se escriben en Apple Salud, de forma opt-in.",
       },
     },
     {
@@ -148,6 +174,12 @@ export const post: BlogPost = {
           "**Zero duplicates**: if Apple Health already has something for that time slot (from Apple Watch or any other app), FitMesh doesn't touch it.",
           "**Fully opt-in**: activated from FitMesh iOS settings, can be turned off at any time.",
         ],
+        es: [
+          "**Sueño con fases completas**: profundo, ligero, REM. No solo la duración total, sino las fases detalladas de tu anillo o reloj Android, visibles en Apple Salud como si hubieran sido registradas por el iPhone.",
+          "**Pasos y actividad**: los pasos del Galaxy Watch o del wearable Android se suman a tus totales de Apple Fitness sin que tengas que hacer nada.",
+          "**Cero duplicados**: si Apple Salud ya tiene datos para ese intervalo de tiempo (de Apple Watch o de cualquier otra app), FitMesh no los toca.",
+          "**Completamente opt-in**: se activa desde los ajustes de FitMesh en iOS y se puede desactivar en cualquier momento.",
+        ],
       },
     },
     {
@@ -156,10 +188,12 @@ export const post: BlogPost = {
       title: {
         it: "Caso d'uso tipico: Galaxy Watch + iPhone",
         en: "Typical use case: Galaxy Watch + iPhone",
+        es: "Caso de uso típico: Galaxy Watch + iPhone",
       },
       body: {
         it: "Usi un Galaxy Watch accoppiato col telefono Android, ma il telefono principale è l'iPhone. Prima: i dati del Watch erano visibili solo in Samsung Health su Android. Ora: FitMesh li legge su Android, li sincronizza sul cloud EU, e l'app iOS li scrive in Apple Salute, compresi gli stage del sonno. Il tuo iPhone Fitness vede tutto.",
         en: "You use a Galaxy Watch paired to Android, but your main phone is iPhone. Before: Watch data was only visible in Samsung Health on Android. Now: FitMesh reads them on Android, syncs to EU cloud, and the iOS app writes them into Apple Health, including sleep stages. Your iPhone Fitness sees everything.",
+        es: "Usas un Galaxy Watch vinculado al teléfono Android, pero tu teléfono principal es el iPhone. Antes: los datos del Watch solo eran visibles en Samsung Health en Android. Ahora: FitMesh los lee en Android, los sincroniza en la nube EU, y la app para iOS los escribe en Apple Salud, incluidas las fases del sueño. Tu iPhone y Fitness lo ven todo.",
       },
     },
     {
@@ -168,6 +202,7 @@ export const post: BlogPost = {
       text: {
         it: "Privacy e sicurezza",
         en: "Privacy and security",
+        es: "Privacidad y seguridad",
       },
     },
     {
@@ -175,6 +210,7 @@ export const post: BlogPost = {
       text: {
         it: "Tutti i dati transitano e vengono archiviati su cloud in datacenter EU, conformi GDPR. FitMesh non vende dati a terzi e non li usa per addestrare modelli. Il ponte di scrittura Apple Salute è opt-in: se non lo attivi, l'app iOS legge da Apple Health ma non scrive nulla. Puoi revocare i permessi HealthKit dall'app Impostazioni iPhone in qualsiasi momento.",
         en: "All data transits and is stored in EU datacenter cloud, GDPR compliant. FitMesh doesn't sell data to third parties and doesn't use it to train models. The Apple Health write bridge is opt-in: if you don't activate it, the iOS app reads from Apple Health but writes nothing. You can revoke HealthKit permissions from iPhone Settings at any time.",
+        es: "Todos los datos se transmiten y almacenan en centros de datos EU conformes con el GDPR. FitMesh no vende datos a terceros ni los utiliza para entrenar modelos. El puente de escritura a Apple Salud es opt-in: si no lo activas, la app para iOS lee de Apple Health pero no escribe nada. Puedes revocar los permisos de HealthKit desde los Ajustes del iPhone en cualquier momento.",
       },
     },
     {
@@ -183,6 +219,7 @@ export const post: BlogPost = {
       text: {
         it: "Come entrare in beta",
         en: "How to join the beta",
+        es: "Cómo unirte a la beta",
       },
     },
     {
@@ -201,12 +238,18 @@ export const post: BlogPost = {
           "Sign in with the same Google or Apple account you use (or would use) on Android.",
           "Enable the Apple Health bridge from Settings if you want to write data from Android devices.",
         ],
+        es: [
+          "Regístrate en la beta desde la página /beta de este sitio: te enviaremos la invitación de TestFlight.",
+          "Instala la app mediante el enlace de TestFlight que recibirás por correo electrónico.",
+          "Inicia sesión con la misma cuenta de Google o Apple que usas (o que usarías) en Android.",
+          "Activa el puente de Apple Salud desde los Ajustes si quieres escribir los datos de los dispositivos Android.",
+        ],
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "In sintesi", en: "In summary" },
+      text: { it: "In sintesi", en: "In summary", es: "En resumen" },
     },
     {
       type: "list",
@@ -223,6 +266,12 @@ export const post: BlogPost = {
           "The Apple Health bridge (opt-in) brings your Android wearable data into the iPhone Health app: sleep with stages, steps, activity, no duplicates.",
           "EU/GDPR privacy: no data sales, opt-in bridge, revocable at any time.",
         ],
+        es: [
+          "FitMesh Sync está en beta TestFlight en iPhone, con lanzamiento en App Store inminente.",
+          "Una cuenta, dos teléfonos: el mismo panel en Android e iPhone, datos desde la misma nube EU.",
+          "El puente de Apple Salud (opt-in) lleva los datos de tu wearable Android a la app Salud del iPhone: sueño con fases, pasos, actividad, sin duplicados.",
+          "Privacidad EU/GDPR: sin venta de datos, puente opt-in, revocable en cualquier momento.",
+        ],
       },
     },
     {
@@ -230,14 +279,17 @@ export const post: BlogPost = {
       title: {
         it: "Entra in beta iOS (posti limitati)",
         en: "Join the iOS beta (limited spots)",
+        es: "Únete a la beta de iOS (plazas limitadas)",
       },
       body: {
         it: "La beta TestFlight è aperta. Iscriviti dalla pagina beta e ricevi il link di installazione entro 24 ore. L'uscita su App Store è imminente.",
         en: "The TestFlight beta is open. Sign up from the beta page and receive your installation link within 24 hours. App Store launch is imminent.",
+        es: "La beta TestFlight está abierta. Regístrate desde la página beta y recibe tu enlace de instalación en menos de 24 horas. El lanzamiento en App Store es inminente.",
       },
       ctaLabel: {
         it: "Iscriviti alla beta iOS →",
         en: "Join the iOS beta →",
+        es: "Únete a la beta de iOS →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -250,50 +302,60 @@ export const post: BlogPost = {
       q: {
         it: "FitMesh iOS è già sull'App Store?",
         en: "Is FitMesh iOS already on the App Store?",
+        es: "¿FitMesh para iOS ya está en el App Store?",
       },
       a: {
         it: "Non ancora. L'app è in beta TestFlight e in submission su App Store. L'uscita è imminente. Nel frattempo puoi iscriverti alla beta dalla pagina /beta e ricevere l'accesso TestFlight.",
         en: "Not yet. The app is in TestFlight beta and in App Store submission. Launch is imminent. In the meantime you can sign up for the beta from the /beta page and receive TestFlight access.",
+        es: "Todavía no. La app está en beta TestFlight y en proceso de revisión en App Store. El lanzamiento es inminente. Mientras tanto, puedes registrarte en la beta desde la página /beta y recibir acceso a TestFlight.",
       },
     },
     {
       q: {
         it: "Devo creare un nuovo account per iOS?",
         en: "Do I need to create a new account for iOS?",
+        es: "¿Necesito crear una cuenta nueva para iOS?",
       },
       a: {
         it: "No. Usa lo stesso account Google o Apple che hai su Android (o che crei per la prima volta). Un account FitMesh funziona su tutti i device: Android, iPhone e dashboard web.",
         en: "No. Use the same Google or Apple account you have on Android (or that you're creating for the first time). One FitMesh account works on all devices: Android, iPhone and web dashboard.",
+        es: "No. Usa la misma cuenta de Google o Apple que tienes en Android (o que estás creando por primera vez). Una cuenta de FitMesh funciona en todos los dispositivos: Android, iPhone y panel web.",
       },
     },
     {
       q: {
         it: "Il ponte Apple Salute funziona in entrambe le direzioni?",
         en: "Does the Apple Health bridge work in both directions?",
+        es: "¿El puente de Apple Salud funciona en ambas direcciones?",
       },
       a: {
         it: "Il ponte di scrittura porta dati dai device Android verso Apple Salute. La lettura da Apple Salute (per vedere i dati di Apple Watch o dei wearable iOS) funziona sempre, indipendentemente dal bridge. In sintesi: FitMesh legge da Apple Health (sempre), e può scrivere su Apple Health (opt-in) i dati raccolti dagli altri device del tuo account.",
         en: "The write bridge brings data from Android devices to Apple Health. Reading from Apple Health (to see Apple Watch or iOS wearable data) always works, regardless of the bridge. In short: FitMesh reads from Apple Health (always), and can write to Apple Health (opt-in) data collected from other devices on your account.",
+        es: "El puente de escritura lleva datos desde los dispositivos Android hacia Apple Salud. La lectura de Apple Salud (para ver los datos de Apple Watch o de wearables iOS) siempre funciona, independientemente del puente. En resumen: FitMesh lee de Apple Health (siempre) y puede escribir en Apple Health (opt-in) los datos recogidos por los demás dispositivos de tu cuenta.",
       },
     },
     {
       q: {
         it: "Se ho sia Apple Watch che Galaxy Watch, ci sono duplicati?",
         en: "If I have both Apple Watch and Galaxy Watch, will there be duplicates?",
+        es: "Si tengo tanto Apple Watch como Galaxy Watch, ¿habrá duplicados?",
       },
       a: {
         it: "No. FitMesh controlla prima se Apple Salute ha già qualcosa per quella fascia oraria. Se Apple Watch ha già registrato sonno dalle 23:00 alle 07:00, il bridge non scrive nulla per quelle ore. Si scrive solo dove non c'è già copertura.",
         en: "No. FitMesh checks first whether Apple Health already has something for that time slot. If Apple Watch has already recorded sleep from 11pm to 7am, the bridge writes nothing for those hours. It only writes where there's no existing coverage.",
+        es: "No. FitMesh comprueba primero si Apple Salud ya tiene datos para ese intervalo de tiempo. Si Apple Watch ya registró el sueño de las 23:00 a las 07:00, el puente no escribe nada para esas horas. Solo escribe donde no hay cobertura existente.",
       },
     },
     {
       q: {
         it: "Quali device Android funzionano con il ponte Apple Salute?",
         en: "Which Android devices work with the Apple Health bridge?",
+        es: "¿Qué dispositivos Android funcionan con el puente de Apple Salud?",
       },
       a: {
         it: "Tutti i device già supportati da FitMesh su Android: Galaxy Watch (via Samsung Health e Health Connect), anelli Colmi R02/R03 via BLE, e qualsiasi wearable che scrive su Health Connect. I dati di questi device vengono sincronizzati sul cloud FitMesh e possono essere scritti su Apple Health dall'app iOS.",
         en: "All devices already supported by FitMesh on Android: Galaxy Watch (via Samsung Health and Health Connect), Colmi R02/R03 rings via BLE, and any wearable writing to Health Connect. Data from these devices is synced to the FitMesh cloud and can be written to Apple Health by the iOS app.",
+        es: "Todos los dispositivos ya compatibles con FitMesh en Android: Galaxy Watch (a través de Samsung Health y Health Connect), anillos Colmi R02/R03 vía BLE, y cualquier wearable que escriba en Health Connect. Los datos de estos dispositivos se sincronizan en la nube de FitMesh y pueden ser escritos en Apple Health por la app para iOS.",
       },
     },
   ],

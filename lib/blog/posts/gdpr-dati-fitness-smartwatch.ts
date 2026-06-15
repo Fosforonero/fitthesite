@@ -21,10 +21,18 @@ export const post: BlogPost = {
       "Red flag in privacy policies: 'sharing with research partners' bundled in a single consent, or 'advertising personalization' for health data.",
       "Health Connect is the most privacy-friendly Android setup: data stays on-device and every app must request permission per data type.",
     ],
+    es: [
+      "La frecuencia cardíaca, el sueño, el ciclo menstrual y el SpO₂ son datos de salud 'especiales' bajo el GDPR art. 9: el consentimiento debe ser explícito y granular, no un genérico 'aceptar todo'.",
+      "Casi ninguna marca importante tiene servidores en Europa: Apple, Google/Fitbit, Garmin y Samsung transfieren datos a EE. UU. mediante mecanismos SCC o DPF.",
+      "Tienes tres derechos prácticos que puedes ejercer ahora: acceso (copia en 30 días, gratis), portabilidad (CSV/JSON) y supresión.",
+      "Señal de alerta en las políticas de privacidad: 'compartir con socios de investigación' incluido en un único consentimiento, o 'personalización publicitaria' para datos de salud.",
+      "Health Connect es la configuración Android más respetuosa con la privacidad: los datos permanecen en el dispositivo y cada app solicita permiso por tipo de dato.",
+    ],
   },
   primaryKeyword: {
     it: "gdpr dati fitness",
     en: "gdpr fitness data",
+    es: "gdpr datos fitness",
   },
   secondaryKeywords: {
     it: [
@@ -43,16 +51,19 @@ export const post: BlogPost = {
   metaDescription: {
     it: "Dove finiscono i dati del tuo smartwatch sotto GDPR: cosa sono dati sanitari, basi legali, diritti reali, e come ogni grande brand gestisce i tuoi BPM nella pratica.",
     en: "Where your smartwatch data ends up under GDPR: what counts as health data, legal bases, actual rights, and how each major brand handles your heart rate in practice.",
+    es: "Dónde van los datos de tu smartwatch según el GDPR: qué se considera dato de salud, bases legales, derechos reales y cómo cada gran marca gestiona tu frecuencia cardíaca en la práctica.",
   },
   hero: {
-    kicker: { it: "Privacy", en: "Privacy" },
+    kicker: { it: "Privacy", en: "Privacy", es: "Privacidad" },
     title: {
       it: "GDPR e dati fitness: dove finiscono i tuoi dati",
       en: "GDPR and fitness data: where your smartwatch data actually ends up",
+      es: "GDPR y datos fitness: dónde van realmente los datos de tu smartwatch",
     },
     subtitle: {
       it: "Cosa dice il regolamento, cosa fanno davvero i brand, e cosa puoi pretendere se sei in Europa. Senza isteria, con esempi concreti.",
       en: "What the regulation says, what brands actually do, and what you can demand if you're in Europe. No hysteria, concrete examples.",
+      es: "Qué dice el reglamento, qué hacen realmente las marcas y qué puedes exigir si estás en Europa. Sin alarmismo, con ejemplos concretos.",
     },
   },
   body: [
@@ -61,18 +72,24 @@ export const post: BlogPost = {
       text: {
         it: "I dati del tuo smartwatch (frequenza cardiaca, sonno, ciclo mestruale, peso, attività) sono dati sanitari secondo il GDPR art. 4 n. 15: il regolamento li sottopone a regole più severe rispetto a email o cronologia di acquisto, e ogni brand che li raccoglie deve rispettare obblighi precisi nei confronti degli utenti europei. Questo articolo spiega cosa significano questi obblighi in pratica e come far valere i tuoi diritti.",
         en: "Your smartwatch data (heart rate, sleep, menstrual cycle, weight, activity) qualifies as health data under GDPR art. 4 no. 15: the regulation subjects it to stricter rules than email addresses or purchase history, and every brand collecting it must meet precise obligations toward European users. This article explains what those obligations mean in practice and how to exercise your rights.",
+        es: "Los datos de tu smartwatch (frecuencia cardíaca, sueño, ciclo menstrual, peso, actividad) son datos de salud según el GDPR art. 4 n. 15: el reglamento los somete a normas más estrictas que las direcciones de correo electrónico o el historial de compras, y cada marca que los recopila debe cumplir obligaciones precisas frente a los usuarios europeos. Este artículo explica qué significan esas obligaciones en la práctica y cómo hacer valer tus derechos.",
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Cosa conta come 'dato sanitario' secondo GDPR", en: "What counts as 'health data' under GDPR" },
+      text: {
+        it: "Cosa conta come 'dato sanitario' secondo GDPR",
+        en: "What counts as 'health data' under GDPR",
+        es: "Qué se considera 'dato de salud' según el GDPR",
+      },
     },
     {
       type: "paragraph",
       text: {
         it: "Categoria 'speciale' (art. 9): il trattamento è in principio vietato salvo eccezioni esplicite. Le eccezioni rilevanti per smartwatch sono due: consenso esplicito (art. 9.2.a) e finalità di assistenza/medicina del lavoro/sanità pubblica (9.2.h-i). Praticamente tutti i produttori consumer si basano sul consenso esplicito che dai accettando i ToS al primo avvio.",
         en: "'Special' category (art. 9): processing is in principle forbidden except for explicit exceptions. The relevant exceptions for smartwatches are two: explicit consent (art. 9.2.a) and care/occupational medicine/public health purposes (9.2.h-i). Practically all consumer manufacturers rely on the explicit consent you give when accepting ToS at first launch.",
+        es: "Categoría 'especial' (art. 9): el tratamiento está en principio prohibido salvo excepciones explícitas. Las excepciones relevantes para los smartwatches son dos: consentimiento explícito (art. 9.2.a) y finalidades de asistencia sanitaria/medicina laboral/salud pública (9.2.h-i). Prácticamente todos los fabricantes de consumo se basan en el consentimiento explícito que otorgas al aceptar los términos de servicio en el primer inicio.",
       },
     },
     {
@@ -96,27 +113,46 @@ export const post: BlogPost = {
           "Daily steps: borderline. Some DPAs classify them as health if linked to an identifiable person, others as standard personal data.",
           "Workout GPS tracks: personal data (not health-related per se), but a localized profile that can reveal residence/workplace/habits.",
         ],
+        es: [
+          "Frecuencia cardíaca: dato de salud.",
+          "Ciclo menstrual (Cycle Tracking de Apple Watch, Cycle de Withings, etc.): dato de salud sensible.",
+          "Sueño por fases (REM, profundo, ligero, despierto): dato de salud.",
+          "ECG: dato de salud médico.",
+          "SpO₂: dato de salud.",
+          "Pasos diarios: zona gris. Algunas autoridades de protección de datos los clasifican como sanitarios si están vinculados a una persona identificable; otras, como datos personales estándar.",
+          "Registros GPS de entrenamientos: datos personales (no sanitarios en sí mismos), pero un perfil localizado que puede revelar residencia, lugar de trabajo y hábitos.",
+        ],
       },
     },
     {
       type: "callout",
       variant: "info",
-      title: { it: "Perché conta la classificazione", en: "Why classification matters" },
+      title: {
+        it: "Perché conta la classificazione",
+        en: "Why classification matters",
+        es: "Por qué importa la clasificación",
+      },
       body: {
         it: "Per i dati sanitari il consenso deve essere informato, specifico, granulare e revocabile. 'Accetta tutto' su un wall di consenso scuro non è valido. Se un brand cinese o americano tratta i tuoi dati sanitari con una clausola unica generica, è probabilmente in violazione del GDPR, indipendentemente da dove sia il server.",
         en: "For health data consent must be informed, specific, granular and revocable. 'Accept all' on a dark consent wall isn't valid. If a Chinese or American brand processes your health data under a single generic clause, it's likely in GDPR violation, regardless of where the server is.",
+        es: "Para los datos de salud, el consentimiento debe ser informado, específico, granular y revocable. 'Aceptar todo' en una pantalla de consentimiento opaca no es válido. Si una marca china o estadounidense trata tus datos de salud con una cláusula genérica única, probablemente está incumpliendo el GDPR, independientemente de dónde estén sus servidores.",
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Dove finiscono fisicamente i tuoi dati", en: "Where your data physically ends up" },
+      text: {
+        it: "Dove finiscono fisicamente i tuoi dati",
+        en: "Where your data physically ends up",
+        es: "Dónde van físicamente tus datos",
+      },
     },
     {
       type: "paragraph",
       text: {
         it: "La privacy policy di ogni brand dichiara in che paesi sono ospitati i server. Riepilogo basato sulle policy pubbliche al 2026:",
         en: "Each brand's privacy policy declares which countries host servers. Summary based on public policies as of 2026:",
+        es: "La política de privacidad de cada marca declara en qué países están alojados los servidores. Resumen basado en las políticas públicas a fecha de 2026:",
       },
     },
     {
@@ -124,70 +160,94 @@ export const post: BlogPost = {
       headers: {
         it: ["Brand", "Server primari dati EU", "Trasferimenti fuori UE"],
         en: ["Brand", "Primary EU data servers", "Non-EU transfers"],
+        es: ["Marca", "Servidores primarios de datos UE", "Transferencias fuera de la UE"],
       },
       rows: [
         {
           it: ["Apple", "Irlanda + Danimarca", "USA per processing analytics (SCC)"],
           en: ["Apple", "Ireland + Denmark", "USA for analytics processing (SCC)"],
+          es: ["Apple", "Irlanda + Dinamarca", "EE. UU. para procesamiento de analíticas (SCC)"],
         },
         {
           it: ["Google (Fitbit/Pixel)", "Belgio + Olanda + Finlandia", "USA (DPF + SCC)"],
           en: ["Google (Fitbit/Pixel)", "Belgium + Netherlands + Finland", "USA (DPF + SCC)"],
+          es: ["Google (Fitbit/Pixel)", "Bélgica + Países Bajos + Finlandia", "EE. UU. (DPF + SCC)"],
         },
         {
           it: ["Samsung", "Olanda + Germania", "Sud Corea per backup; USA per Health Cloud (SCC)"],
           en: ["Samsung", "Netherlands + Germany", "South Korea for backup; USA for Health Cloud (SCC)"],
+          es: ["Samsung", "Países Bajos + Alemania", "Corea del Sur para copias de seguridad; EE. UU. para Health Cloud (SCC)"],
         },
         {
           it: ["Garmin", "Olanda + Stati Uniti", "USA come default (SCC + DPF)"],
           en: ["Garmin", "Netherlands + USA", "USA as default (SCC + DPF)"],
+          es: ["Garmin", "Países Bajos + EE. UU.", "EE. UU. por defecto (SCC + DPF)"],
         },
         {
           it: ["Polar", "Finlandia", "Limitati a processing analytics"],
           en: ["Polar", "Finland", "Limited to analytics processing"],
+          es: ["Polar", "Finlandia", "Limitadas al procesamiento de analíticas"],
         },
         {
           it: ["Withings", "Francia", "Limitati"],
           en: ["Withings", "France", "Limited"],
+          es: ["Withings", "Francia", "Limitadas"],
         },
         {
           it: ["Oura", "Irlanda", "USA per processing (SCC)"],
           en: ["Oura", "Ireland", "USA for processing (SCC)"],
+          es: ["Oura", "Irlanda", "EE. UU. para procesamiento (SCC)"],
         },
         {
           it: ["Xiaomi", "Germania", "Singapore + Cina (con SCC; con riserve interpretative GDPR)"],
           en: ["Xiaomi", "Germany", "Singapore + China (with SCC; with GDPR interpretation caveats)"],
+          es: ["Xiaomi", "Alemania", "Singapur + China (con SCC; con reservas interpretativas del GDPR)"],
         },
         {
           it: ["Huawei", "Olanda + Germania", "Cina (situazione complessa, leggere TOS)"],
           en: ["Huawei", "Netherlands + Germany", "China (complex situation, read TOS)"],
+          es: ["Huawei", "Países Bajos + Alemania", "China (situación compleja, leer los términos de servicio)"],
         },
       ],
     },
     {
       type: "callout",
       variant: "warning",
-      title: { it: "USA e Cina hanno regimi diversi", en: "USA and China have different regimes" },
+      title: {
+        it: "USA e Cina hanno regimi diversi",
+        en: "USA and China have different regimes",
+        es: "EE. UU. y China tienen marcos legales diferentes",
+      },
       body: {
         it: "Trasferimenti USA dopo Schrems II sono ammessi via Data Privacy Framework (luglio 2023, sotto rinegoziazione) o Standard Contractual Clauses. Trasferimenti verso Cina sono molto più problematici: il framework legale cinese (Cybersecurity Law + DSL + PIPL) consente accesso governativo ai dati ospitati su server cinesi senza garanzie equivalenti GDPR. Per dati sanitari, valuta caso per caso.",
         en: "USA transfers after Schrems II are allowed via Data Privacy Framework (July 2023, under renegotiation) or Standard Contractual Clauses. Transfers to China are much more problematic: the Chinese legal framework (Cybersecurity Law + DSL + PIPL) allows government access to data hosted on Chinese servers without GDPR-equivalent guarantees. For health data, evaluate case by case.",
+        es: "Las transferencias a EE. UU. tras Schrems II están permitidas mediante el Data Privacy Framework (julio de 2023, en renegociación) o las Standard Contractual Clauses. Las transferencias a China son mucho más problemáticas: el marco legal chino (Cybersecurity Law + DSL + PIPL) permite el acceso gubernamental a los datos alojados en servidores chinos sin garantías equivalentes al GDPR. Para datos de salud, evalúa caso por caso.",
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "I tuoi diritti, in pratica", en: "Your rights, in practice" },
+      text: {
+        it: "I tuoi diritti, in pratica",
+        en: "Your rights, in practice",
+        es: "Tus derechos, en la práctica",
+      },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Diritto di accesso (art. 15)", en: "Right of access (art. 15)" },
+      text: {
+        it: "Diritto di accesso (art. 15)",
+        en: "Right of access (art. 15)",
+        es: "Derecho de acceso (art. 15)",
+      },
     },
     {
       type: "paragraph",
       text: {
         it: "Puoi chiedere a qualsiasi titolare una copia di tutti i dati che ha su di te. Hanno 30 giorni (estendibili a 90 in casi complessi). Gratis. Il dataset deve essere intelligibile (no dump binari indecifrabili).",
         en: "You can ask any controller for a copy of all data they have about you. They have 30 days (extendible to 90 in complex cases). Free. The dataset must be intelligible (no indecipherable binary dumps).",
+        es: "Puedes solicitar a cualquier responsable del tratamiento una copia de todos los datos que tiene sobre ti. Tienen 30 días para responder (ampliables a 90 en casos complejos). Sin coste. El conjunto de datos debe ser inteligible (no valen volcados binarios indescifrables).",
       },
     },
     {
@@ -215,63 +275,99 @@ export const post: BlogPost = {
           "Xiaomi: via privacy.mi.com.",
           "For any other: email privacy@[brand].com (they must provide a channel).",
         ],
+        es: [
+          "Apple: a través de privacy.apple.com (incluye datos de Health en iCloud).",
+          "Google/Fitbit: a través de takeout.google.com.",
+          "Samsung: a través de privacy.samsung.com/es/privacy-rights.",
+          "Garmin: desde el panel de cuenta → Privacy → 'Export data'.",
+          "Polar: a través de flow.polar.com → ajustes del perfil.",
+          "Withings: a través de account.withings.com → privacidad.",
+          "Oura: a través de cloud.ouraring.com → settings → export.",
+          "Xiaomi: a través de privacy.mi.com.",
+          "Para cualquier otra marca: escribe a privacy@[marca].com (están obligados a ofrecer un canal).",
+        ],
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Diritto alla portabilità (art. 20)", en: "Right to portability (art. 20)" },
+      text: {
+        it: "Diritto alla portabilità (art. 20)",
+        en: "Right to portability (art. 20)",
+        es: "Derecho a la portabilidad (art. 20)",
+      },
     },
     {
       type: "paragraph",
       text: {
         it: "Specifico per i dati che hai fornito (volontariamente o tramite uso del servizio). I dati derivati o aggregati dal titolare possono non essere inclusi. In formato 'strutturato, di uso comune e leggibile da dispositivo automatico', di solito CSV o JSON. Questa è la base legale che rende possibile cambiare ecosistema senza perdere lo storico.",
         en: "Specific to data you provided (voluntarily or via service use). Data derived or aggregated by the controller may not be included. In 'structured, commonly used and machine-readable format', usually CSV or JSON. This is the legal basis enabling ecosystem switches without losing history.",
+        es: "Aplica específicamente a los datos que tú has proporcionado (de forma voluntaria o mediante el uso del servicio). Los datos derivados o agregados por el responsable pueden no estar incluidos. El formato debe ser 'estructurado, de uso común y legible por máquina', generalmente CSV o JSON. Esta es la base legal que hace posible cambiar de ecosistema sin perder el historial.",
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Diritto alla cancellazione (art. 17)", en: "Right to erasure (art. 17)" },
+      text: {
+        it: "Diritto alla cancellazione (art. 17)",
+        en: "Right to erasure (art. 17)",
+        es: "Derecho de supresión (art. 17)",
+      },
     },
     {
       type: "paragraph",
       text: {
         it: "Chiudendo l'account, i dati devono essere cancellati. Quasi tutti i brand mantengono backup operativi per 30–180 giorni dopo cancellazione (devono dichiararlo). Per dati anonimizzati e aggregati per ricerca/improvement la cancellazione può non essere obbligatoria.",
         en: "Closing the account, data must be deleted. Almost all brands keep operational backups for 30–180 days post-deletion (must be declared). For anonymized and aggregated data for research/improvement, deletion may not be mandatory.",
+        es: "Al cerrar la cuenta, los datos deben eliminarse. Casi todas las marcas conservan copias de seguridad operativas durante 30 a 180 días tras la eliminación (deben declararlo). Para los datos anonimizados y agregados con fines de investigación o mejora del servicio, la supresión puede no ser obligatoria.",
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Diritto di opposizione (art. 21)", en: "Right to object (art. 21)" },
+      text: {
+        it: "Diritto di opposizione (art. 21)",
+        en: "Right to object (art. 21)",
+        es: "Derecho de oposición (art. 21)",
+      },
     },
     {
       type: "paragraph",
       text: {
         it: "Per trattamenti basati su legittimo interesse (profilazione marketing, analytics aggregati non essenziali), puoi opporti in qualsiasi momento. Il titolare deve fermare il trattamento o dimostrare un interesse prevalente. Quasi sempre è la base legale dei programmi 'condividi dati anonimi per migliorare il servizio'.",
         en: "For processing based on legitimate interest (marketing profiling, non-essential aggregated analytics), you can object at any time. The controller must stop processing or prove an overriding interest. Almost always the legal basis for 'share anonymous data to improve service' programs.",
+        es: "Para los tratamientos basados en interés legítimo (perfilado de marketing, analíticas agregadas no esenciales), puedes oponerte en cualquier momento. El responsable debe cesar el tratamiento o demostrar un interés prevalente. Esta es casi siempre la base legal de los programas de 'compartir datos anónimos para mejorar el servicio'.",
       },
     },
     {
       type: "callout",
       variant: "tip",
-      title: { it: "La vera priorità: il consenso bundled è la pratica più sleale", en: "The real priority: bundled consent is the most unfair practice" },
+      title: {
+        it: "La vera priorità: il consenso bundled è la pratica più sleale",
+        en: "The real priority: bundled consent is the most unfair practice",
+        es: "La prioridad real: el consentimiento agrupado es la práctica más desleal",
+      },
       body: {
         it: "Nella nostra lettura di decine di privacy policy wearable, il problema più diffuso non è dove stanno i server: è il consenso bundled. Accettare i termini di servizio di un'app dovrebbe essere separato dall'accedere al trattamento dei tuoi dati sanitari per analytics e ricerca. Quasi nessun brand lo fa in modo corretto. Se puoi fare una sola cosa, fai questa: dopo l'installazione, vai in Impostazioni → Privacy e revoca ogni consenso opzionale che non riguarda il funzionamento core del servizio.",
         en: "In our reading of dozens of wearable privacy policies, the most widespread problem is not where the servers are: it's bundled consent. Accepting a service's terms should be separate from consenting to your health data being processed for analytics and research. Almost no brand does this correctly. If you can do one thing, do this: after installation, go to Settings → Privacy and revoke every optional consent that doesn't relate to core service functionality.",
+        es: "Tras revisar decenas de políticas de privacidad de wearables, el problema más extendido no es dónde están los servidores: es el consentimiento agrupado. Aceptar los términos de servicio de una app debería ser independiente de consentir el tratamiento de tus datos de salud para analíticas e investigación. Casi ninguna marca lo hace correctamente. Si solo puedes hacer una cosa, haz esta: tras la instalación, ve a Ajustes → Privacidad y revoca todos los consentimientos opcionales que no sean necesarios para el funcionamiento básico del servicio.",
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Bandiere rosse nelle privacy policy", en: "Red flags in privacy policies" },
+      text: {
+        it: "Bandiere rosse nelle privacy policy",
+        en: "Red flags in privacy policies",
+        es: "Señales de alerta en las políticas de privacidad",
+      },
     },
     {
       type: "paragraph",
       text: {
         it: "Quando leggi la privacy policy di un brand wearable prima di acquistare, cerca queste parole-chiave. Sono indicatori di pratiche più o meno aggressive.",
         en: "When reading a wearable brand's privacy policy before buying, search these keywords. They're indicators of more or less aggressive practices.",
+        es: "Cuando leas la política de privacidad de una marca de wearables antes de comprar, busca estas palabras clave. Son indicadores de prácticas más o menos agresivas.",
       },
     },
     {
@@ -291,12 +387,23 @@ export const post: BlogPost = {
           "**'Advertising personalization'** → forbidden for health data (Apple, Google/Fitbit expressly declare they don't do it thanks to regulatory commitments). If you find this clause for health data, switch brand.",
           "**Servers in China without GDPR mention** → for European use almost always a legal problem.",
         ],
+        es: [
+          "**'Compartimos datos con socios de investigación'** → ¿consentimiento opt-in granular? Sí = correcto. Agrupado en 'aceptar todo' = señal de alerta.",
+          "**'Datos agregados y anonimizados'** → la anonimización es reversible en conjuntos de datos múltiples. Si es posible, haz opt-out.",
+          "**'Para mejorar nuestros servicios y los de nuestros socios'** → 'socios' es una vaguedad sospechosa.",
+          "**'Personalización publicitaria'** → está prohibida para datos de salud (Apple y Google/Fitbit declaran expresamente que no lo hacen gracias a compromisos regulatorios). Si encuentras esta cláusula referida a datos de salud, cambia de marca.",
+          "**Servidores en China sin mención al GDPR** → para uso en Europa es casi siempre un problema legal.",
+        ],
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "In sintesi", en: "In summary" },
+      text: {
+        it: "In sintesi",
+        en: "In summary",
+        es: "En resumen",
+      },
     },
     {
       type: "list",
@@ -315,6 +422,13 @@ export const post: BlogPost = {
           "Red flag in privacy policies: 'we share with research partners' bundled in a single consent, or 'advertising personalization' for health data.",
           "Health Connect is the most privacy-friendly Android setup available: data stays on-device, every app must request permission per data type.",
         ],
+        es: [
+          "La frecuencia cardíaca, el sueño, el ciclo menstrual y el SpO₂ son datos de salud 'especiales' bajo el GDPR art. 9: el consentimiento debe ser explícito y granular, no un genérico 'aceptar todo'.",
+          "Casi ninguna marca importante tiene servidores en Europa: Apple, Google/Fitbit, Garmin y Samsung transfieren datos a EE. UU. mediante mecanismos SCC o DPF. Huawei y Xiaomi transfieren a Asia con garantías más débiles.",
+          "Tienes tres derechos prácticos que puedes ejercer ahora: acceso (copia de datos en 30 días, gratis), portabilidad (formato CSV/JSON para cambiar de ecosistema) y supresión (cerrando la cuenta).",
+          "Señal de alerta en las políticas de privacidad: 'compartimos con socios de investigación' incluido en un único consentimiento, o 'personalización publicitaria' para datos de salud.",
+          "Health Connect es la configuración Android más respetuosa con la privacidad disponible: los datos permanecen en el dispositivo y cada app solicita permiso por tipo de dato.",
+        ],
       },
     },
     {
@@ -322,10 +436,12 @@ export const post: BlogPost = {
       title: {
         it: "Vuoi una soluzione che minimizza la pipeline dati?",
         en: "Want a solution minimizing the data pipeline?",
+        es: "¿Quieres una solución que minimice la cadena de datos?",
       },
       body: {
         it: "FitMesh Sync legge da Health Connect (on-device) e archivia su backend Supabase ospitato in UE (Francoforte). Nessun ad-tech, nessun reseller di dati, accesso e cancellazione a un click.",
         en: "FitMesh Sync reads from Health Connect (on-device) and stores on a Supabase backend hosted in the EU (Frankfurt). No ad-tech, no data reseller, one-click access and deletion.",
+        es: "FitMesh Sync lee desde Health Connect (en el dispositivo) y almacena los datos en un backend Supabase alojado en la UE (Fráncfort). Sin ad-tech, sin reventa de datos, acceso y eliminación en un clic.",
       },
       ctaLabel: { it: "Leggi la nostra privacy", en: "Read our privacy" },
       ctaHref: { it: "/it/privacy", en: "/en/privacy" },
@@ -336,30 +452,36 @@ export const post: BlogPost = {
       q: {
         it: "Posso citare un brand in giudizio se viola il GDPR?",
         en: "Can I sue a brand if it violates GDPR?",
+        es: "¿Puedo denunciar a una marca si incumple el GDPR?",
       },
       a: {
         it: "In Europa la via standard è il reclamo al Garante nazionale della protezione dei dati (in Italia: GPDP, www.garanteprivacy.it). Gratuito, il Garante può aprire istruttoria e sanzionare. L'azione civile diretta è possibile ma costosa; conviene se hai subito un danno concreto e quantificabile (es. data breach con identità rubata).",
         en: "In Europe the standard route is a complaint to the national Data Protection Authority (Italy: GPDP, www.garanteprivacy.it). Free, the authority can open an investigation and fine. Direct civil action is possible but costly; worth it if you suffered concrete quantifiable damage (e.g. data breach with identity theft).",
+        es: "En Europa, la vía habitual es presentar una reclamación ante la autoridad nacional de protección de datos de tu país. Es gratuito y la autoridad puede abrir una investigación e imponer sanciones. La acción civil directa es posible, pero costosa; merece la pena si has sufrido un daño concreto y cuantificable (por ejemplo, una filtración de datos con robo de identidad).",
       },
     },
     {
       q: {
         it: "Health Connect è sicuro per dati sanitari?",
         en: "Is Health Connect safe for health data?",
+        es: "¿Es Health Connect seguro para datos de salud?",
       },
       a: {
         it: "Strutturalmente sì, è il setup più privacy-friendly disponibile su Android. I dati restano sul telefono, ogni app deve chiedere permesso esplicito per tipo di dato, c'è log di accesso. Resta importante valutare quali app autorizzi: una volta che un'app legge da HC, può poi caricare quei dati altrove (è il caso di MyFitnessPal o app coaching che mandano dati al loro cloud).",
         en: "Structurally yes, it's the most privacy-friendly setup available on Android. Data stays on the phone, every app must request explicit permission per data type, access is logged. Still important to evaluate which apps you authorize: once an app reads from HC, it can then upload data elsewhere (case of MyFitnessPal or coaching apps sending data to their cloud).",
+        es: "Estructuralmente sí, es la configuración más respetuosa con la privacidad disponible en Android. Los datos permanecen en el teléfono, cada app debe solicitar permiso explícito por tipo de dato y los accesos quedan registrados. Sigue siendo importante evaluar qué apps autorizas: una vez que una app lee desde Health Connect, puede subir esos datos a otro lugar (como ocurre con algunas apps de entrenamiento que envían datos a su propio servidor).",
       },
     },
     {
       q: {
         it: "L'app FitMesh Sync è conforme al GDPR?",
         en: "Is the FitMesh Sync app GDPR-compliant?",
+        es: "¿La app FitMesh Sync cumple con el GDPR?",
       },
       a: {
         it: "Sì. Privacy policy esplicita, server backend ospitati su Supabase Frankfurt (UE), consenso granulare in app, cancellazione dati one-click da impostazioni, nessuna condivisione con terze parti per ad-tech, nessun tracker analytics intrusivo. Architettura privacy-by-design.",
         en: "Yes. Explicit privacy policy, backend on Supabase Frankfurt (EU), granular in-app consent, one-click data deletion from settings, no third-party ad-tech sharing, no intrusive analytics trackers. Privacy-by-design architecture.",
+        es: "Sí. Política de privacidad explícita, backend alojado en Supabase Fráncfort (UE), consentimiento granular en la app, eliminación de datos en un clic desde los ajustes, sin compartir datos con terceros para ad-tech y sin rastreadores de analíticas intrusivos. Arquitectura privacy-by-design.",
       },
     },
   ],

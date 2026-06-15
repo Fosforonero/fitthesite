@@ -10,6 +10,7 @@ export const post: BlogPost = {
   primaryKeyword: {
     it: "anello Colmi sonno",
     en: "Colmi ring sleep",
+    es: "anillo Colmi sueño",
   },
   secondaryKeywords: {
     it: [
@@ -30,6 +31,7 @@ export const post: BlogPost = {
   metaDescription: {
     it: "FitMesh Sync ora legge l'anello Colmi via Bluetooth: sonno con fasi, batteria sempre visibile, funzione Trova anello. E 7 giorni di dati sbloccano 6 mesi di Pro gratis.",
     en: "FitMesh Sync now reads the Colmi ring via Bluetooth: sleep with stages, battery always visible, Find ring feature. And 7 days of data unlock 6 months of Pro free.",
+    es: "FitMesh Sync ya lee el anillo Colmi por Bluetooth: sueño con fases, batería siempre visible, función Encuentra tu anillo. Y 7 días de datos desbloquean 6 meses de Pro gratis.",
   },
   tldr: {
     it: [
@@ -44,16 +46,24 @@ export const post: BlogPost = {
       "Ring battery is always shown prominently and the Find ring feature makes it blink for easy identification.",
       "Launch milestone: 7 days of real data from the ring unlock 6 months of Pro subscription free.",
     ],
+    es: [
+      "El anillo Colmi se conecta directamente a FitMesh Sync por Bluetooth, sin necesidad de apps intermediarias.",
+      "El sueño se registra con las fases completas: profundo, REM y ligero, visibles en el panel.",
+      "La batería del anillo siempre aparece destacada y la función 'Encuentra tu anillo' lo hace parpadear para localizarlo.",
+      "Hito de lanzamiento: 7 días de datos reales desde el anillo desbloquean 6 meses de suscripción Pro gratis.",
+    ],
   },
   hero: {
-    kicker: { it: "Novità", en: "What's New" },
+    kicker: { it: "Novità", en: "What's New", es: "Novedades" },
     title: {
       it: "L'anello Colmi entra in FitMesh Sync: sonno, batteria e Trova anello",
       en: "Colmi ring joins FitMesh Sync: sleep stages, battery, and Find ring",
+      es: "El anillo Colmi llega a FitMesh Sync: fases del sueño, batería y Encuentra tu anillo",
     },
     subtitle: {
       it: "Con l'ultimo aggiornamento, FitMesh Sync legge direttamente l'anello Colmi: fasi del sonno complete, batteria sempre sotto controllo, e una funzione per trovarlo quando lo metti da qualche parte. Piu un traguardo speciale per chi inizia subito.",
       en: "With the latest update, FitMesh Sync reads the Colmi ring directly: full sleep stages, battery always in sight, and a feature to locate it when you put it down somewhere. Plus a special milestone for those who start right away.",
+      es: "Con la última actualización, FitMesh Sync lee directamente el anillo Colmi: fases del sueño completas, batería siempre a la vista y una función para encontrarlo cuando lo dejas en algún lugar. Además, un hito especial para quienes empiezan ahora.",
     },
   },
   body: [
@@ -62,6 +72,7 @@ export const post: BlogPost = {
       text: {
         it: "Noi di FitMesh Sync abbiamo lavorato a lungo su questa integrazione, e oggi e pronta. L'anello Colmi si connette direttamente all'app via Bluetooth: niente app di terze parti nel mezzo, niente passaggi manuali. Una volta abbinato, l'anello porta i suoi dati nella stessa dashboard dove gia vivono i dati del tuo smartwatch.",
         en: "We at FitMesh Sync have worked on this integration for a long time, and today it is ready. The Colmi ring connects directly to the app via Bluetooth: no third-party apps in between, no manual steps. Once paired, the ring brings its data into the same dashboard where your smartwatch data already lives.",
+        es: "En FitMesh Sync hemos trabajado durante mucho tiempo en esta integración, y hoy está lista. El anillo Colmi se conecta directamente a la app por Bluetooth: sin apps de terceros en el medio, sin pasos manuales. Una vez vinculado, el anillo lleva sus datos al mismo panel donde ya viven los datos de tu smartwatch.",
       },
     },
     {
@@ -70,6 +81,7 @@ export const post: BlogPost = {
       text: {
         it: "Sonno con fasi: profondo, REM e leggero",
         en: "Sleep with stages: deep, REM and light",
+        es: "Sueño con fases: profundo, REM y ligero",
       },
     },
     {
@@ -77,6 +89,7 @@ export const post: BlogPost = {
       text: {
         it: "Il dato piu richiesto era il sonno dettagliato, e l'anello Colmi lo porta con tre livelli: sonno profondo, REM e leggero. Ogni mattina trovi nella dashboard la suddivisione completa della notte, con i minuti per ciascuna fase. I dati si integrano con quelli degli altri dispositivi collegati senza doppi conteggi: se indossi anche uno smartwatch, FitMesh Sync tiene il valore migliore e non somma erroneamente le stesse ore.",
         en: "The most requested data point was detailed sleep, and the Colmi ring delivers it with three levels: deep, REM and light sleep. Every morning you find a complete breakdown of the night in the dashboard, with minutes for each stage. The data integrates with those from other connected devices without double counting: if you also wear a smartwatch, FitMesh Sync keeps the best value and does not erroneously sum the same hours.",
+        es: "El dato más solicitado era el sueño detallado, y el anillo Colmi lo aporta con tres niveles: sueño profundo, REM y ligero. Cada mañana encuentras en el panel el desglose completo de la noche, con los minutos de cada fase. Los datos se integran con los de los demás dispositivos conectados sin duplicaciones: si también llevas un smartwatch, FitMesh Sync conserva el mejor valor y no suma erróneamente las mismas horas.",
       },
     },
     {
@@ -85,10 +98,12 @@ export const post: BlogPost = {
       title: {
         it: "Vuoi sapere come configurare l'anello al meglio?",
         en: "Want to know how to set up the ring optimally?",
+        es: "¿Quieres saber cómo configurar el anillo de la mejor manera?",
       },
       body: {
         it: "Abbiamo scritto una [guida completa all'anello Colmi](/it/blog/colmi-ring-fitmesh) che copre abbinamento, permessi, risoluzione dei problemi piu comuni e consigli sul porto dell'anello per la migliore qualita del dato.",
         en: "We have written a [full Colmi ring guide](/en/blog/colmi-ring-fitmesh) that covers pairing, permissions, solving the most common issues, and tips on wearing the ring for the best data quality.",
+        es: "Hemos escrito una [guía completa del anillo Colmi](/es/blog/colmi-ring-fitmesh) que cubre el emparejamiento, los permisos, la solución de los problemas más comunes y consejos sobre cómo llevar el anillo para obtener la mejor calidad de datos.",
       },
     },
     {
@@ -97,6 +112,7 @@ export const post: BlogPost = {
       text: {
         it: "Tre novita pratiche nell'app",
         en: "Three practical new features in the app",
+        es: "Tres novedades prácticas en la app",
       },
     },
     {
@@ -112,6 +128,11 @@ export const post: BlogPost = {
           "**Find ring.** Did you put the ring down and cannot find it? One tap in the app makes it blink for a few seconds so you locate it right away.",
           "**No double counting.** The ring is added to already-present sources, but FitMesh Sync handles overlaps: each metric is counted only once, with the most accurate source available.",
         ],
+        es: [
+          "**Batería siempre visible.** El nivel de carga del anillo aparece en la pantalla principal: no necesitas abrir ninguna app aparte para saber cuándo es hora de cargarlo.",
+          "**Encuentra tu anillo.** ¿Dejaste el anillo en algún lugar y no lo encuentras? Un toque en la app lo hace parpadear unos segundos para que lo localices de inmediato.",
+          "**Sin duplicación de datos.** El anillo se suma a las fuentes ya existentes, pero FitMesh Sync gestiona las superposiciones: cada métrica se cuenta una sola vez, con la fuente más precisa disponible.",
+        ],
       },
     },
     {
@@ -120,6 +141,7 @@ export const post: BlogPost = {
       text: {
         it: "Traguardo lancio: 7 giorni di dati reali, 6 mesi di Pro gratis",
         en: "Launch milestone: 7 days of real data, 6 months of Pro free",
+        es: "Hito de lanzamiento: 7 días de datos reales, 6 meses de Pro gratis",
       },
     },
     {
@@ -127,6 +149,7 @@ export const post: BlogPost = {
       text: {
         it: "Per celebrare il lancio abbiamo aggiunto un traguardo speciale: collega l'anello Colmi e registra 7 giorni consecutivi di dati reali nell'app. Quando raggiungi il traguardo, sblocchi automaticamente 6 mesi di abbonamento Pro senza costi. L'offerta e valida per chi attiva la connessione con l'anello entro il periodo di lancio.",
         en: "To celebrate the launch we have added a special milestone: connect the Colmi ring and record 7 consecutive days of real data in the app. When you reach the milestone, you automatically unlock 6 months of Pro subscription at no cost. The offer is valid for those who activate the ring connection within the launch period.",
+        es: "Para celebrar el lanzamiento hemos añadido un hito especial: conecta el anillo Colmi y registra 7 días consecutivos de datos reales en la app. Cuando alcances el hito, desbloqueas automáticamente 6 meses de suscripción Pro sin coste. La oferta es válida para quienes activen la conexión con el anillo dentro del período de lanzamiento.",
       },
     },
     {
@@ -135,10 +158,12 @@ export const post: BlogPost = {
       title: {
         it: "Come funziona il conteggio dei 7 giorni",
         en: "How the 7-day count works",
+        es: "Cómo funciona el conteo de los 7 días",
       },
       body: {
         it: "Servono 7 giorni con almeno un dato registrato dall'anello Colmi, non necessariamente consecutivi nella stessa settimana. L'app mostra il progresso nel pannello Traguardi. Ai 7 giorni, il Pro si attiva in automatico senza che tu faccia nulla.",
         en: "You need 7 days with at least one data point recorded from the Colmi ring, not necessarily consecutive in the same week. The app shows progress in the Milestones panel. At 7 days, Pro activates automatically without any action on your part.",
+        es: "Necesitas 7 días con al menos un dato registrado desde el anillo Colmi, no necesariamente consecutivos en la misma semana. La app muestra el progreso en el panel de Hitos. Al llegar a los 7 días, el Pro se activa automáticamente sin que tengas que hacer nada.",
       },
     },
     {
@@ -147,6 +172,7 @@ export const post: BlogPost = {
       text: {
         it: "Come iniziare",
         en: "How to get started",
+        es: "Cómo empezar",
       },
     },
     {
@@ -167,6 +193,13 @@ export const post: BlogPost = {
           "Follow the Bluetooth pairing instructions: usually takes 30 seconds.",
           "The previous night's data arrives in the dashboard as soon as synchronization is complete.",
         ],
+        es: [
+          "Actualiza FitMesh Sync a la última versión disponible.",
+          "Abre la app y ve a la sección Dispositivos.",
+          "Toca 'Añadir dispositivo' y elige Anillo Colmi de la lista.",
+          "Sigue las instrucciones de emparejamiento Bluetooth: normalmente basta con 30 segundos.",
+          "Los datos de la noche anterior llegan al panel en cuanto la sincronización se completa.",
+        ],
       },
     },
     {
@@ -174,14 +207,17 @@ export const post: BlogPost = {
       title: {
         it: "Prova FitMesh Sync con il tuo anello Colmi",
         en: "Try FitMesh Sync with your Colmi ring",
+        es: "Prueba FitMesh Sync con tu anillo Colmi",
       },
       body: {
         it: "Entra nella beta, collega l'anello e inizia a raccogliere i tuoi 7 giorni. Sei mesi di Pro ti aspettano.",
         en: "Join the beta, connect the ring, and start collecting your 7 days. Six months of Pro are waiting for you.",
+        es: "Únete a la beta, conecta el anillo y empieza a acumular tus 7 días. Seis meses de Pro te esperan.",
       },
       ctaLabel: {
         it: "Inizia la beta gratuita",
         en: "Start the free beta",
+        es: "Empieza la beta gratuita",
       },
       ctaHref: {
         it: "/it/beta",
@@ -194,30 +230,36 @@ export const post: BlogPost = {
       q: {
         it: "L'anello Colmi funziona su iPhone o solo su Android?",
         en: "Does the Colmi ring work on iPhone or only on Android?",
+        es: "¿El anillo Colmi funciona en iPhone o solo en Android?",
       },
       a: {
         it: "FitMesh Sync con l'anello Colmi funziona su entrambe le piattaforme. Su Android i dati possono passare anche per Health Connect se preferisci. Su iPhone si integra con Apple Salute. La connessione Bluetooth diretta e disponibile su entrambi i sistemi.",
         en: "FitMesh Sync with the Colmi ring works on both platforms. On Android data can also go through Health Connect if you prefer. On iPhone it integrates with Apple Health. The direct Bluetooth connection is available on both systems.",
+        es: "FitMesh Sync con el anillo Colmi funciona en ambas plataformas. En Android los datos también pueden pasar por Health Connect si lo prefieres. En iPhone se integra con Apple Health. La conexión Bluetooth directa está disponible en los dos sistemas.",
       },
     },
     {
       q: {
         it: "Se indosso anche uno smartwatch, i dati del sonno si duplicano?",
         en: "If I also wear a smartwatch, does sleep data get duplicated?",
+        es: "Si también llevo un smartwatch, ¿los datos del sueño se duplican?",
       },
       a: {
         it: "No. FitMesh Sync riconosce le sovrapposizioni temporali e tiene un solo valore per ogni metrica, preferendo la fonte piu dettagliata disponibile. Se sia l'anello che lo smartwatch registrano la stessa notte, l'app usa i dati con le fasi piu complete senza sommare le ore.",
         en: "No. FitMesh Sync recognizes temporal overlaps and keeps a single value for each metric, preferring the most detailed source available. If both the ring and the smartwatch record the same night, the app uses the data with the most complete stages without summing the hours.",
+        es: "No. FitMesh Sync detecta las superposiciones temporales y conserva un único valor por cada métrica, dando prioridad a la fuente más detallada disponible. Si tanto el anillo como el smartwatch registran la misma noche, la app usa los datos con las fases más completas sin sumar las horas.",
       },
     },
     {
       q: {
         it: "Il traguardo dei 7 giorni vale anche per chi aveva gia l'app prima?",
         en: "Does the 7-day milestone apply to existing users too?",
+        es: "¿El hito de los 7 días también aplica a quienes ya tenían la app antes?",
       },
       a: {
         it: "Si, il traguardo e disponibile per tutti gli utenti che connettono l'anello Colmi entro il periodo di lancio, indipendentemente da quando hanno scaricato l'app. I 7 giorni si contano dalla prima sincronizzazione con l'anello.",
         en: "Yes, the milestone is available to all users who connect the Colmi ring within the launch period, regardless of when they downloaded the app. The 7 days are counted from the first sync with the ring.",
+        es: "Sí, el hito está disponible para todos los usuarios que conecten el anillo Colmi dentro del período de lanzamiento, independientemente de cuándo hayan descargado la app. Los 7 días se cuentan desde la primera sincronización con el anillo.",
       },
     },
   ],
