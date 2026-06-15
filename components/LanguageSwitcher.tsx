@@ -10,7 +10,7 @@ export default function LanguageSwitcher({ current }: { current: Locale }) {
   // Replace the leading /it or /en segment with the target locale
   const pathFor = (target: Locale) => {
     const parts = pathname.split("/");
-    if (parts[1] === "it" || parts[1] === "en") {
+    if (parts[1] === "it" || parts[1] === "en" || parts[1] === "es") {
       parts[1] = target;
     } else {
       parts.splice(1, 0, target);

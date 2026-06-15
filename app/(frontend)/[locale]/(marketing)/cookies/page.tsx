@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 const SITE_URL = "https://www.fitmesh.fit";
 const LAST_UPDATED_IT = "12 maggio 2026";
 const LAST_UPDATED_EN = "May 12, 2026";
+const LAST_UPDATED_ES = "12 de mayo de 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -14,10 +15,12 @@ export async function generateMetadata(
   const titles: Record<Locale, string> = {
     it: "Cookie Policy",
     en: "Cookie Policy",
+    es: "Política de cookies",
   };
   const desc: Record<Locale, string> = {
     it: "Quali cookie usa fitmesh.fit e perché. Cookie tecnici essenziali + Google Analytics 4 con consenso esplicito.",
     en: "Which cookies fitmesh.fit uses and why. Strictly necessary cookies + Google Analytics 4 with explicit consent.",
+    es: "Qué cookies usa fitmesh.fit y por qué. Cookies técnicas esenciales más Google Analytics 4 con consentimiento explícito.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
@@ -28,6 +31,7 @@ export async function generateMetadata(
       languages: {
         it: `${SITE_URL}/it/cookies`,
         en: `${SITE_URL}/en/cookies`,
+        es: `${SITE_URL}/es/cookies`,
         "x-default": `${SITE_URL}/it/cookies`,
       },
     },
@@ -42,12 +46,12 @@ export default async function CookiesPage({
   const { locale } = await params;
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
-  const lastUpdated = `${t.legal.last_updated}: ${lc === "it" ? LAST_UPDATED_IT : LAST_UPDATED_EN}`;
+  const lastUpdated = `${t.legal.last_updated}: ${lc === "it" ? LAST_UPDATED_IT : lc === "es" ? LAST_UPDATED_ES : LAST_UPDATED_EN}`;
   return (
     <>
       <Breadcrumbs items={[{ name: "Cookie Policy", path: `/${lc}/cookies` }]} locale={lc} />
       <LegalPage kicker={t.legal.section} title={t.legal.cookies_title} lastUpdated={lastUpdated}>
-        {lc === "it" ? <CookiesIT /> : <CookiesEN />}
+        {lc === "it" ? <CookiesIT /> : lc === "es" ? <CookiesES /> : <CookiesEN />}
       </LegalPage>
     </>
   );
@@ -234,6 +238,91 @@ function CookiesEN() {
       <Section title="Contact">
         <p>
           For Cookie Policy questions:{" "}
+          <a href="mailto:privacy@fitmesh.fit" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">privacy@fitmesh.fit</a>.
+        </p>
+      </Section>
+    </>
+  );
+}
+
+function CookiesES() {
+  return (
+    <>
+      <Section title="En resumen">
+        <p>
+          fitmesh.fit usa <strong className="text-text-primary">cookies técnicas esenciales</strong> para
+          funcionar correctamente y, <strong className="text-text-primary">solo después de tu consentimiento
+          explícito a través del banner</strong>, Google Analytics 4 para entender cómo los usuarios
+          utilizan el sitio de forma agregada y mejorar el producto.
+        </p>
+        <p>
+          <strong className="text-text-primary">No usamos cookies publicitarias</strong>, no creamos
+          perfiles de usuario, no vendemos datos y no mostramos publicidad.
+        </p>
+      </Section>
+
+      <Section title="Cookies que usamos">
+        <div className="overflow-x-auto -mx-4 sm:mx-0">
+          <table className="min-w-full text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-divider">
+                <Th>Nombre</Th><Th>Categoría</Th><Th>Duración</Th><Th>Finalidad</Th>
+              </tr>
+            </thead>
+            <tbody>
+              <Row name="fitmesh_cookie_consent" type="localStorage" category="Técnica" duration="Persistente" scope="Guarda tu elección en el banner de cookies. No contiene datos personales." />
+              <Row name="_ga" type="cookie" category="Analítica (opcional)" duration="2 años" scope="Google Analytics 4: identifica visitantes de forma anónima. Se carga SOLO tras «Aceptar todo»." />
+              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analítica (opcional)" duration="2 años" scope="Google Analytics 4: persistencia de sesión. Se carga SOLO tras «Aceptar todo»." />
+              <Row name="Cookies técnicas de Vercel" type="cookie" category="Técnica" duration="Sesión" scope="Equilibrio de carga y prevención de abusos de la plataforma de alojamiento." />
+            </tbody>
+          </table>
+        </div>
+      </Section>
+
+      <Section title="Google Analytics 4 — detalles">
+        <p>
+          Usamos Google Analytics 4 (propiedad{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) con
+          configuración compatible con el RGPD: <strong className="text-text-primary">Consent Mode v2</strong>,
+          anonimización de IP (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
+          señales publicitarias desactivadas. Información completa sobre el uso de datos por parte de Google:{" "}
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
+        </p>
+      </Section>
+
+      <Section title="Qué NO usamos">
+        <ul className="space-y-2 mt-3">
+          {[
+            "Meta Pixel, TikTok Pixel, LinkedIn Insight, Google Ads",
+            "Cookies de elaboración de perfiles de comportamiento",
+            "Cookies publicitarias de terceros",
+            "Huella digital del navegador (fingerprinting)",
+            "Balizas o píxeles de seguimiento en correos electrónicos",
+            "Grabación de sesiones (Hotjar, FullStory, etc.)",
+          ].map((item) => (
+            <li key={item} className="flex gap-2"><span className="text-error mt-0.5">✗</span><span>{item}</span></li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section title="Cómo gestionar tu consentimiento">
+        <p>
+          Tienes el control total. Para cambiar tu elección: herramientas de desarrollo del navegador
+          (F12) → "Application" → localStorage de fitmesh.fit → elimina{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">fitmesh_cookie_consent</code>.
+          En tu próxima visita, el banner volverá a aparecer.
+        </p>
+        <p>
+          Para desactivar GA en todos los sitios, puedes instalar el{" "}
+          <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
+            complemento de inhabilitación para la Web de Google Analytics
+          </a>.
+        </p>
+      </Section>
+
+      <Section title="Contacto">
+        <p>
+          Para cualquier pregunta sobre esta Política de cookies:{" "}
           <a href="mailto:privacy@fitmesh.fit" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">privacy@fitmesh.fit</a>.
         </p>
       </Section>

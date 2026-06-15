@@ -8,6 +8,7 @@ import TrustBadges from "@/components/TrustBadges";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
+import { tl } from "@/lib/blog/types";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -87,11 +88,15 @@ export default async function Home({
     url: `${SITE_URL}/${lc}`,
     name: lc === "it"
       ? "FitMesh Sync — Sincronizza il tuo smartwatch a una dashboard personale"
+      : lc === "es"
+      ? "FitMesh Sync — Sincroniza tu smartwatch en un panel personal"
       : "FitMesh Sync — Sync your smartwatch to a personal dashboard",
     description: lc === "it"
       ? "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in una dashboard globale privacy-first: passi, battito, sonno, recupero e trend."
+      : lc === "es"
+      ? "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect y proveedores en la nube en un panel global centrado en la privacidad: pasos, frecuencia cardíaca, sueño, recuperación y tendencias."
       : "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one privacy-first global dashboard: steps, heart rate, sleep, recovery and trends.",
-    inLanguage: lc === "it" ? "it-IT" : "en-US",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
     isPartOf: { "@id": `${SITE_URL}#website` },
     about: { "@id": `${SITE_URL}#mobile-app` },
     primaryImageOfPage: {
@@ -158,7 +163,7 @@ export default async function Home({
                 href={`/${lc}/beta`}
                 className="group inline-flex items-center gap-2 px-5 py-3 rounded-pill btn-ghost text-sm"
               >
-                {lc === "it" ? "Diventa founder" : "Become a founder"}
+                {lc === "it" ? "Diventa founder" : lc === "es" ? "Conviértete en founder" : "Become a founder"}
                 <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
               </Link>
             </div>
@@ -172,7 +177,7 @@ export default async function Home({
                   1000<span className="text-brand-aqua">·</span>
                 </p>
                 <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
-                  {lc === "it" ? "Founder slot" : "Founder seats"}
+                  {lc === "it" ? "Founder slot" : lc === "es" ? "Plazas founder" : "Founder seats"}
                 </p>
               </li>
               <li>
@@ -180,7 +185,7 @@ export default async function Home({
                   {PROVIDERS.length}+
                 </p>
                 <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
-                  {lc === "it" ? "Wearable supportati" : "Wearables supported"}
+                  {lc === "it" ? "Wearable supportati" : lc === "es" ? "Wearables compatibles" : "Wearables supported"}
                 </p>
               </li>
               <li>
@@ -188,7 +193,7 @@ export default async function Home({
                   🇪🇺
                 </p>
                 <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
-                  {lc === "it" ? "Server in UE · GDPR" : "EU servers · GDPR"}
+                  {lc === "it" ? "Server in UE · GDPR" : lc === "es" ? "Servidores en la UE · GDPR" : "EU servers · GDPR"}
                 </p>
               </li>
             </ul>
@@ -196,14 +201,14 @@ export default async function Home({
 
           {/* Right: phone mockup */}
           <div className="lg:col-span-5" data-reveal style={{ "--reveal-delay": "150ms" } as React.CSSProperties}>
-            <HeroVisual locale={lc} />
+            <HeroVisual locale={lc === "it" ? "it" : "en"} />
           </div>
         </div>
       </section>
 
       {/* Trust signals (E-E-A-T): Made in Italy · EU servers · GDPR · Indie. */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-8">
-        <TrustBadges locale={lc} />
+        <TrustBadges locale={lc === "it" ? "it" : "en"} />
       </section>
 
       {/* Fascia founder dinamica: X/1000 posti (1 anno Pro gratis) → /beta. */}
@@ -216,7 +221,7 @@ export default async function Home({
        *  ════════════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden border-y border-white/[0.05] bg-white/[0.015] py-8" data-reveal>
         <p className="text-center text-[10px] uppercase tracking-[0.28em] text-text-muted font-semibold mb-6">
-          {lc === "it" ? "Compatibile con" : "Works with"}
+          {lc === "it" ? "Compatibile con" : lc === "es" ? "Compatible con" : "Works with"}
         </p>
         <div
           className="relative flex gap-10 sm:gap-14 animate-marquee whitespace-nowrap"
@@ -325,11 +330,13 @@ export default async function Home({
       <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
         <div className="max-w-2xl">
           <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-            {lc === "it" ? "Come funziona" : "How it works"}
+            {lc === "it" ? "Come funziona" : lc === "es" ? "Cómo funciona" : "How it works"}
           </p>
           <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
             {lc === "it"
               ? "Trenta secondi. Niente di più."
+              : lc === "es"
+              ? "Treinta segundos. Nada más."
               : "Thirty seconds. Nothing more."}
           </h2>
         </div>
@@ -340,6 +347,12 @@ export default async function Home({
                 { n: 1, t: "Scarica & autorizza", d: "Installa l'app dal Play Store, dai accesso a Health Connect." },
                 { n: 2, t: "FitMesh legge tutto", d: "Passi, battito, sonno, calorie. Anche in background, anche notte." },
                 { n: 3, t: "La tua dashboard è live", d: "Apri il browser da qualsiasi device. Niente account social, niente cloud opachi." },
+              ]
+            : lc === "es"
+            ? [
+                { n: 1, t: "Descarga y autoriza", d: "Instala la app desde Play Store y permite el acceso a Health Connect." },
+                { n: 2, t: "FitMesh lo lee todo", d: "Pasos, frecuencia cardíaca, sueño, calorías. En segundo plano, incluso de noche." },
+                { n: 3, t: "Tu panel está en vivo", d: "Ábrelo desde cualquier navegador. Sin cuentas sociales, sin nubes opacas." },
               ]
             : [
                 { n: 1, t: "Download & grant", d: "Install the app from Play Store, allow Health Connect access." },
@@ -379,11 +392,13 @@ export default async function Home({
         <div className="flex items-end justify-between gap-4 flex-wrap mb-10">
           <div>
             <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-              {lc === "it" ? "Integrazioni" : "Integrations"}
+              {lc === "it" ? "Integrazioni" : lc === "es" ? "Integraciones" : "Integrations"}
             </p>
             <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
               {lc === "it"
                 ? "Funziona con quello che hai già."
+                : lc === "es"
+                ? "Funciona con lo que ya tienes."
                 : "Works with what you already have."}
             </h2>
           </div>
@@ -391,7 +406,7 @@ export default async function Home({
             href={`/${lc}/integrations`}
             className="group inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition"
           >
-            {lc === "it" ? "Vedi tutte" : "See all"}
+            {lc === "it" ? "Vedi tutte" : lc === "es" ? "Ver todas" : "See all"}
             <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
           </Link>
         </div>
@@ -480,6 +495,12 @@ export default async function Home({
                     { t: "Zero tracker pubblicitari", d: "I tuoi dati salute non alimentano nessun algoritmo pubblicitario. Niente profilazione, niente dati condivisi con terzi." },
                     { t: "Cancellazione in 48h", d: "Un click in app, e tutto è cancellato. Compliance GDPR completa." },
                   ]
+                : lc === "es"
+                ? [
+                    { t: "Servidores en la UE", d: "Postgres en infraestructura europea. Sin transferencias a EE. UU." },
+                    { t: "Cero rastreadores publicitarios", d: "Tus datos de salud no alimentan ningún algoritmo publicitario. Sin perfilado, sin datos compartidos con terceros." },
+                    { t: "Eliminación en 48 h", d: "Un clic en la app y todo desaparece. Cumplimiento total del RGPD." },
+                  ]
                 : [
                     { t: "EU servers", d: "Postgres on European infrastructure. No US transfers." },
                     { t: "Zero ad trackers", d: "Your health data feeds no advertising algorithm. No cross-site tracking, no third-party data sharing." },
@@ -530,11 +551,13 @@ export default async function Home({
             <div className="flex items-end justify-between gap-4 flex-wrap mb-10">
               <div>
                 <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-                  {lc === "it" ? "Approfondisci" : "Read more"}
+                  {lc === "it" ? "Approfondisci" : lc === "es" ? "Más información" : "Read more"}
                 </p>
                 <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
                   {lc === "it"
                     ? "Guide e confronti per scegliere bene."
+                    : lc === "es"
+                    ? "Guías y comparativas para elegir bien."
                     : "Guides and comparisons to choose well."}
                 </h2>
               </div>
@@ -542,7 +565,7 @@ export default async function Home({
                 href={`/${lc}/blog`}
                 className="group inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition"
               >
-                {lc === "it" ? "Tutti gli articoli" : "All articles"}
+                {lc === "it" ? "Tutti gli articoli" : lc === "es" ? "Todos los artículos" : "All articles"}
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </Link>
             </div>
@@ -557,19 +580,19 @@ export default async function Home({
                 >
                   <p className="text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
                     {post.pillar
-                      ? (lc === "it" ? "Pilastro" : "Pillar")
-                      : (lc === "it" ? "Guida" : "Guide")}
+                      ? (lc === "it" ? "Pilastro" : lc === "es" ? "Pilar" : "Pillar")
+                      : (lc === "it" ? "Guida" : lc === "es" ? "Guía" : "Guide")}
                     {" · "}
                     {post.readMinutes} min
                   </p>
                   <h3 className="mt-3 font-display text-lg font-semibold text-text-primary group-hover:text-brand-aqua transition leading-snug">
-                    {post.hero.title[lc]}
+                    {tl(post.hero.title, lc)}
                   </h3>
                   <p className="mt-3 text-sm text-text-secondary leading-relaxed line-clamp-3 flex-1">
-                    {post.hero.subtitle[lc]}
+                    {tl(post.hero.subtitle, lc)}
                   </p>
                   <span className="mt-4 text-xs text-brand-aqua font-medium inline-flex items-center gap-1">
-                    {lc === "it" ? "Leggi" : "Read"} →
+                    {lc === "it" ? "Leggi" : lc === "es" ? "Leer" : "Read"} →
                   </span>
                 </Link>
               ))}
@@ -589,7 +612,7 @@ export default async function Home({
           />
           <div className="relative">
             <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-              {lc === "it" ? "Android live · iOS in arrivo · 1000 founder" : "Android live · iOS coming · 1000 founders"}
+              {lc === "it" ? "Android live · iOS in arrivo · 1000 founder" : lc === "es" ? "Android disponible · iOS próximamente · 1000 founders" : "Android live · iOS coming · 1000 founders"}
             </p>
             <h2 className="mt-4 font-display text-display-lg font-semibold tracking-tightest text-text-primary text-balance">
               {t.final_cta.heading}
@@ -602,7 +625,7 @@ export default async function Home({
                 href={`/${lc}/beta`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-pill btn-cta text-sm"
               >
-                {lc === "it" ? "Voglio essere founder" : "I want to be a founder"}
+                {lc === "it" ? "Voglio essere founder" : lc === "es" ? "Quiero ser founder" : "I want to be a founder"}
                 <span aria-hidden>→</span>
               </Link>
               <StoreButtonsRow locale={lc} className="justify-center" />
@@ -610,6 +633,8 @@ export default async function Home({
             <p className="mt-6 text-xs text-text-muted">
               {lc === "it"
                 ? "Free for life per i primi 100. Acquisto unico da €3,99 dopo il lancio pubblico."
+                : lc === "es"
+                ? "Gratis de por vida para los primeros 100. Pago único desde 3,99 € tras el lanzamiento público."
                 : "Free for life for the first 100. One-time from €3.99 after public launch."}
             </p>
           </div>

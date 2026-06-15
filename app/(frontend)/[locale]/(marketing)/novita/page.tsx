@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { getPostsByCategory } from "@/lib/blog/payload-source";
+import { tl } from "@/lib/blog/types";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -25,11 +26,15 @@ export async function generateMetadata({
   const title =
     lc === "it"
       ? "Novità FitMesh Sync — cosa cambia a ogni aggiornamento"
-      : "FitMesh Sync What's New — every update explained";
+      : lc === "es"
+        ? "Novedades de FitMesh Sync: todo lo que cambia en cada actualización"
+        : "FitMesh Sync What's New — every update explained";
   const description =
     lc === "it"
       ? "Le novità di FitMesh Sync versione dopo versione: nuove funzioni, dispositivi supportati e miglioramenti. In chiaro, senza gergo tecnico."
-      : "FitMesh Sync news release after release: new features, supported devices and improvements. Plain language, no technical jargon.";
+      : lc === "es"
+        ? "Las novedades de FitMesh Sync actualización tras actualización: nuevas funciones, dispositivos compatibles y mejoras. En claro, sin tecnicismos."
+        : "FitMesh Sync news release after release: new features, supported devices and improvements. Plain language, no technical jargon.";
 
   const path = `/${lc}/novita`;
   return {
@@ -40,6 +45,7 @@ export async function generateMetadata({
       languages: {
         it: `${SITE_URL}/it/novita`,
         en: `${SITE_URL}/en/novita`,
+        es: `${SITE_URL}/es/novita`,
         "x-default": `${SITE_URL}/it/novita`,
       },
     },
@@ -56,7 +62,18 @@ export async function generateMetadata({
   };
 }
 
-const I18N = {
+const I18N: Record<
+  Locale,
+  {
+    kicker: string;
+    heading: string;
+    headingAccent: string;
+    lead: string;
+    readMin: (m: number) => string;
+    explore: string;
+    empty: string;
+  }
+> = {
   it: {
     kicker: "Novità",
     heading: "Le novità di FitMesh Sync",
@@ -75,11 +92,21 @@ const I18N = {
     explore: "Read →",
     empty: "The first updates are coming soon. Check back shortly.",
   },
-} as const;
+  es: {
+    kicker: "Novedades",
+    heading: "Las novedades de FitMesh Sync",
+    headingAccent: "actualización tras actualización",
+    lead: "Todo lo que hemos añadido y mejorado en cada actualización de la app: nuevas funciones, dispositivos compatibles y qué cambia para ti. Sin tecnicismos.",
+    readMin: (m: number) => `${m} min de lectura`,
+    explore: "Leer →",
+    empty: "Las primeras novedades llegan próximamente. Vuelve pronto.",
+  },
+};
 
 function formatDate(iso: string, lc: Locale): string {
   const d = new Date(iso);
-  return d.toLocaleDateString(lc === "it" ? "it-IT" : "en-US", {
+  const bcp47 = lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US";
+  return d.toLocaleDateString(bcp47, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -102,8 +129,13 @@ export default async function NovitaIndex({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     "@id": `${SITE_URL}/${lc}/novita#collection`,
-    name: lc === "it" ? "Novità FitMesh Sync" : "FitMesh Sync What's New",
-    inLanguage: lc === "it" ? "it-IT" : "en-US",
+    name:
+      lc === "it"
+        ? "Novità FitMesh Sync"
+        : lc === "es"
+          ? "Novedades de FitMesh Sync"
+          : "FitMesh Sync What's New",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
     url: `${SITE_URL}/${lc}/novita`,
     mainEntity: {
       "@type": "ItemList",
@@ -111,7 +143,7 @@ export default async function NovitaIndex({
         "@type": "ListItem",
         position: i + 1,
         url: `${SITE_URL}/${lc}/blog/${p.slug}`,
-        name: p.hero.title[lc],
+        name: tl(p.hero.title, lc),
       })),
     },
   };
@@ -164,10 +196,10 @@ export default async function NovitaIndex({
                   </span>
                 </div>
                 <h2 className="mt-3 font-display text-lg font-semibold tracking-tight text-text-primary group-hover:text-brand-aqua transition leading-snug">
-                  {p.hero.title[lc]}
+                  {tl(p.hero.title, lc)}
                 </h2>
                 <p className="mt-2 text-sm text-text-secondary leading-relaxed line-clamp-3 flex-1">
-                  {p.hero.subtitle[lc]}
+                  {tl(p.hero.subtitle, lc)}
                 </p>
                 <p className="mt-4 inline-flex items-center text-sm font-semibold text-brand-aqua">
                   {t.explore}

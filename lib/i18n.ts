@@ -1,23 +1,25 @@
 /**
  * FitMesh Sync — i18n configuration.
  *
- * Locales gestite: italiano (default, brand language) e inglese.
+ * Locales gestite: italiano (default, brand language), inglese e spagnolo.
  * Aggiungere un nuovo locale = aggiungere voce qui + dictionary in dictionaries/
- * + EN content nei page component conditionali.
+ * + content nei page component conditionali.
  */
 
-export const locales = ["it", "en"] as const;
+export const locales = ["it", "en", "es"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "it";
 
 export const localeNames: Record<Locale, string> = {
   it: "Italiano",
   en: "English",
+  es: "Español",
 };
 
 export const localeFlags: Record<Locale, string> = {
   it: "🇮🇹",
   en: "🇬🇧",
+  es: "🇪🇸",
 };
 
 /**
@@ -26,6 +28,7 @@ export const localeFlags: Record<Locale, string> = {
 export const ogLocale: Record<Locale, string> = {
   it: "it_IT",
   en: "en_US",
+  es: "es_ES",
 };
 
 /**
@@ -34,6 +37,7 @@ export const ogLocale: Record<Locale, string> = {
 export const htmlLang: Record<Locale, string> = {
   it: "it",
   en: "en",
+  es: "es",
 };
 
 /**

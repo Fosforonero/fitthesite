@@ -196,6 +196,92 @@ const COPY = {
     sitemapNote:
       "Need specific links? You can find everything at fitmesh.fit (home, /en/famiglia for the caregiver use case, /en/blog for technical articles, /en/about for the project story).",
   },
+  es: {
+    kicker: "Press & Media kit",
+    h1: "FitMesh Sync: recursos para periodistas, bloggers y creadores",
+    sub:
+      "Todo lo que necesitas para escribir o hablar sobre FitMesh Sync. Listo para copiar y pegar, descarga de recursos, sin correo obligatorio.",
+
+    contactTitle: "Contacto de prensa directo",
+    contactBody:
+      "Para entrevistas, demostraciones guiadas, recursos en alta resolución o preguntas técnicas:",
+    contactEmail: "press@fitmesh.fit",
+    contactAltEmail: "hello@fitmesh.fit",
+    contactPersonLine: "Matteo Pizzi, fundador, desarrollador en solitario",
+
+    taglineTitle: "Tagline (1 línea)",
+    tagline:
+      "FitMesh Sync es el panel premium con privacidad por diseño para los datos de salud de todos los smartwatches de tu familia, creado en Italia por un desarrollador independiente.",
+
+    blurbsTitle: "Descripción breve (50, 100, 200 palabras)",
+    blurb50: {
+      title: "50 palabras",
+      body:
+        "FitMesh Sync es una app Android que unifica los datos de salud de Galaxy Watch, Mi Band, Polar, Garmin, Fitbit y otros wearables en un único panel premium. Privacidad por diseño, servidores en la UE, desarrollada en Italia. Funciona con Health Connect sin rastreadores ni intermediarios de datos. Disponible en Google Play desde junio de 2026; versión iOS próximamente.",
+    },
+    blurb100: {
+      title: "100 palabras",
+      body:
+        "FitMesh Sync es una app Android desarrollada en Italia por Matteo Pizzi (Fosforonero) para unificar en un solo panel premium los datos de salud de todos los smartwatches y pulseras de actividad del mercado. Funciona como destino de Health Connect, por lo que es compatible de entrada con Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei y Oura, sin necesidad de autenticación individual por marca. Privacidad por diseño: servidores en la UE, cumplimiento del RGPD, sin intermediarios de datos. Disponible en Google Play desde junio de 2026; la versión iOS y la función Mesh Familia para el cuidado familiar llegan próximamente.",
+    },
+    blurb200: {
+      title: "200 palabras (perfil completo)",
+      body:
+        "FitMesh Sync nació en Italia en 2026 de la frustración de un desarrollador (Matteo Pizzi, estudio Fosforonero) que tiene un Galaxy Watch, cuya esposa usa una Mi Band y cuya madre tiene un Withings. Cada marca encierra sus datos en su propia app. Nadie ofrece una vista unificada premium. FitMesh resuelve exactamente eso: leyendo desde Health Connect (el estándar Android que desde 2024 recoge datos de prácticamente todos los wearables), agrega pasos, frecuencia cardíaca, sueño, calorías, entrenamientos y otras métricas en un panel nativo Flutter pensado para la lectura diaria, no para administradores de sistemas. Privacidad por diseño desde el primer commit: servidores europeos (Supabase Fráncfort), cumplimiento real del RGPD, sin intermediarios de datos, sin rastreadores. La diferenciación estratégica frente a las apps puente entre ecosistemas de salud del sector es que FitMesh no es un enrutador silencioso de datos: es un destino. Los datos se almacenan, se visualizan con gráficas cuidadas y, a medio plazo, se podrán compartir entre los miembros de la familia (Mesh Familia, en la hoja de ruta) para escenarios de cuidadores. La app está disponible en Google Play: los primeros 100 fundadores obtienen Pro de por vida gratis, los 1.000 siguientes un año de Pro. La versión iOS llegará próximamente.",
+    },
+
+    keyFactsTitle: "Datos clave",
+    keyFacts: [
+      { label: "Lanzamiento", value: "Disponible en Google Play desde junio de 2026 · iOS próximamente" },
+      { label: "Plataformas", value: "Android (iOS próximamente)" },
+      { label: "País", value: "Italia · servidores en la UE (Fráncfort)" },
+      { label: "Tecnologías", value: "Flutter · Health Connect · Supabase · Next.js" },
+      { label: "Wearables compatibles", value: "Más de 9 marcas vía Health Connect, ampliable" },
+      { label: "Precio", value: `Nivel gratuito + Pro desde €3,99 pago único (Android €3,99 · iPhone €4,99) o €1,19/6 meses` },
+      { label: "Plazas fundador", value: "Primeros 100 con Pro de por vida gratis · 1.000 con 1 año de Pro" },
+      { label: "Equipo", value: "Indie / desarrollador en solitario (Fosforonero, Matteo Pizzi)" },
+      { label: "Categoría en Google Play", value: "Salud y bienestar" },
+    ],
+
+    founderTitle: "Fundador",
+    founderName: "Matteo Pizzi",
+    founderRole: "Fundador y desarrollador en solitario · Fosforonero",
+    founderBio:
+      "Desarrollador de software italiano, creó FitMesh Sync para cubrir el vacío entre los wearables y un panel personal. Toda la app, el backend y el sitio son desarrollados y mantenidos por él. Enfoque de privacidad por diseño e independencia total.",
+
+    assetsTitle: "Recursos descargables",
+    assets: [
+      {
+        label: "Logo / icono cuadrado (PNG 1254×1254)",
+        href: "/icon-square.png",
+      },
+      {
+        label: "Imagen Open Graph (1200×630, dinámica)",
+        href: "/opengraph-image",
+      },
+      {
+        label: "Apple touch icon (PNG)",
+        href: "/apple-icon.png",
+      },
+    ],
+    assetsNote:
+      "Para capturas de pantalla de la app, mockups, vídeo o materiales de marca personalizados, escribe a press@fitmesh.fit; respondemos en 24 h.",
+
+    storyAnglesTitle: "Ángulos editoriales interesantes",
+    storyAngles: [
+      "Un desarrollador indie italiano crea una alternativa europea con privacidad por diseño a los jardines cerrados de Samsung, Apple y Google Fit",
+      "Cómo Health Connect transformó el ecosistema de wearables Android desde 2024, y qué significa para usuarios y desarrolladores",
+      "Tecnología para cuidadores: monitoriza la salud de tus familiares mayores sin GPS ni apps invasivas (la hoja de ruta de Mesh Familia)",
+      "Programa beta con Plaza Fundador de por vida gratis: una alternativa al modelo de suscripción, también en apps de salud",
+      "Desarrollar una app de salud en Italia: RGPD, servidores en la UE y soberanía de datos como diferenciador",
+    ],
+
+    trademarkNote:
+      "FitMesh Sync es marca registrada de Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit y otras marcas citadas son marcas registradas de sus respectivos propietarios; su uso en esta página y en los materiales de FitMesh no implica ninguna afiliación ni patrocinio.",
+
+    sitemapNote:
+      "¿Necesitas enlaces concretos? Encuentra todo en fitmesh.fit (inicio, /es/famiglia para el caso de uso de cuidadores, /es/blog para artículos técnicos, /es/about para la historia del proyecto).",
+  },
 } as const;
 
 export function generateStaticParams() {
@@ -211,11 +297,11 @@ export async function generateMetadata({
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
 
-  const title = lc === "it"
-    ? "Press & Media Kit — FitMesh Sync"
-    : "Press & Media Kit — FitMesh Sync";
+  const title = "Press & Media Kit — FitMesh Sync";
   const description = lc === "it"
     ? "Risorse per giornalisti, blogger e creator che scrivono di FitMesh Sync: tagline, descrizioni copia-incolla, asset, founder bio, contatto stampa diretto."
+    : lc === "es"
+    ? "Recursos para periodistas, bloggers y creadores que escriben sobre FitMesh Sync: tagline, descripciones para copiar y pegar, recursos, bio del fundador y contacto de prensa directo."
     : "Resources for journalists, bloggers and creators writing about FitMesh Sync: tagline, copy-paste descriptions, assets, founder bio, direct press contact.";
 
   return {
@@ -226,6 +312,7 @@ export async function generateMetadata({
       languages: {
         it: `${SITE_URL}/it/press`,
         en: `${SITE_URL}/en/press`,
+        es: `${SITE_URL}/es/press`,
         "x-default": `${SITE_URL}/it/press`,
       },
     },
@@ -257,8 +344,8 @@ export default async function PressPage({
     "@type": "WebPage",
     "@id": `${SITE_URL}${path}#webpage`,
     url: `${SITE_URL}${path}`,
-    name: lc === "it" ? "Press & Media Kit — FitMesh Sync" : "Press & Media Kit — FitMesh Sync",
-    inLanguage: lc === "it" ? "it-IT" : "en-US",
+    name: "Press & Media Kit — FitMesh Sync",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
     isPartOf: { "@id": `${SITE_URL}#website` },
     about: { "@id": `${SITE_URL}#organization` },
   };
@@ -296,7 +383,7 @@ export default async function PressPage({
               {t.contactEmail}
             </a>
             <span className="ml-2 text-text-muted text-sm">
-              ({lc === "it" ? "oppure" : "or"}{" "}
+              ({lc === "it" ? "oppure" : lc === "es" ? "o" : "or"}{" "}
               <a
                 href={`mailto:${t.contactAltEmail}`}
                 className="text-text-secondary underline hover:text-text-primary"
@@ -411,7 +498,7 @@ export default async function PressPage({
 
       {/* TRUST */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-8">
-        <TrustBadges locale={lc} />
+        <TrustBadges locale={lc === "it" ? "it" : "en"} />
       </section>
 
       {/* TRADEMARK + SITEMAP NOTE */}
@@ -425,7 +512,7 @@ export default async function PressPage({
           </p>
           <p className="text-xs text-text-muted">
             <Link href={`/${lc}/about`} className="text-text-secondary underline hover:text-text-primary">
-              {lc === "it" ? "Più sul progetto →" : "More about the project →"}
+              {lc === "it" ? "Più sul progetto →" : lc === "es" ? "Más sobre el proyecto →" : "More about the project →"}
             </Link>
           </p>
         </div>

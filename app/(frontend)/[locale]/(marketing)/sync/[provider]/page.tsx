@@ -10,12 +10,10 @@ import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import {
   PROVIDERS,
   PROVIDERS_BY_SLUG,
-  categoryLabel,
-  statusLabel,
   type Provider,
 } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
-import { categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
+import { tl, tll, categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
 import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -40,6 +38,77 @@ function renderInlineBold(text: string): ReactNode[] {
   });
 }
 
+/** Localised status label with es fallback. */
+function statusLabel(
+  status: Provider["status"],
+  lc: Locale,
+): { text: string; color: string } {
+  const map: Record<
+    Provider["status"],
+    { it: string; en: string; es: string; color: string }
+  > = {
+    live: {
+      it: "Disponibile ora",
+      en: "Available now",
+      es: "Disponible ahora",
+      color: "#31E981",
+    },
+    "live-basic": {
+      it: "Funziona via Health Connect",
+      en: "Works via Health Connect",
+      es: "Funciona via Health Connect",
+      color: "#21E6C1",
+    },
+    beta: { it: "Beta", en: "Beta", es: "Beta", color: "#FFB547" },
+    "roadmap-q3": {
+      it: "In arrivo Q3 2026",
+      en: "Coming Q3 2026",
+      es: "Próximamente Q3 2026",
+      color: "#38BDF8",
+    },
+    "roadmap-q4": {
+      it: "In arrivo Q4 2026",
+      en: "Coming Q4 2026",
+      es: "Próximamente Q4 2026",
+      color: "#A78BFA",
+    },
+    "coming-soon": {
+      it: "In arrivo",
+      en: "Coming soon",
+      es: "Próximamente",
+      color: "#7CFF5B",
+    },
+  };
+  const entry = map[status];
+  return { text: entry[lc] ?? entry.en, color: entry.color };
+}
+
+/** Localised category label with es fallback. */
+function categoryLabel(
+  category: Provider["category"],
+  lc: Locale,
+): string {
+  const map: Record<
+    Provider["category"],
+    { it: string; en: string; es: string }
+  > = {
+    smartwatch: { it: "Smartwatch", en: "Smartwatch", es: "Smartwatch" },
+    "fitness-platform": {
+      it: "Piattaforma fitness",
+      en: "Fitness platform",
+      es: "Plataforma de fitness",
+    },
+    "health-platform": {
+      it: "Piattaforma salute",
+      en: "Health platform",
+      es: "Plataforma de salud",
+    },
+    wearable: { it: "Wearable", en: "Wearable", es: "Wearable" },
+    "phone-only": { it: "Solo telefono", en: "Phone-only", es: "Solo teléfono" },
+  };
+  return map[category][lc] ?? map[category].en;
+}
+
 export function generateStaticParams() {
   return PROVIDERS.flatMap((p) =>
     locales.map((locale) => ({ locale, provider: p.slug })),
@@ -62,19 +131,22 @@ export async function generateMetadata({
   const title =
     lc === "it"
       ? `Sincronizza ${p.name} a FitMesh Sync`
-      : `Sync ${p.name} to FitMesh Sync`;
-  const description = p.tagline[lc];
+      : lc === "es"
+        ? `Sincroniza ${p.name} con FitMesh Sync`
+        : `Sync ${p.name} to FitMesh Sync`;
+  const description = tl(p.tagline, lc);
 
   const path = `/${lc}/sync/${p.slug}`;
   return {
     title,
     description,
-    keywords: p.seoKeywords[lc].join(", "),
+    keywords: tll(p.seoKeywords, lc).join(", "),
     alternates: {
       canonical: `${SITE_URL}${path}`,
       languages: {
         it: `${SITE_URL}/it/sync/${p.slug}`,
         en: `${SITE_URL}/en/sync/${p.slug}`,
+        es: `${SITE_URL}/es/sync/${p.slug}`,
         "x-default": `${SITE_URL}/it/sync/${p.slug}`,
       },
     },
@@ -114,7 +186,9 @@ export default async function ProviderLanding({
   const status = statusLabel(p.status, lc);
   const category = categoryLabel(p.category, lc);
 
-  const t = (it: string, en: string) => (lc === "it" ? it : en);
+  /** Helper per stringhe inline con tre locale. */
+  const t = (it: string, en: string, es: string) =>
+    lc === "it" ? it : lc === "es" ? es : en;
 
   // ── JSON-LD ──────────────────────────────────────────────────────────
   const path = `/${lc}/sync/${p.slug}`;
@@ -124,9 +198,9 @@ export default async function ProviderLanding({
     name: `FitMesh Sync — ${p.name}`,
     applicationCategory: "HealthApplication",
     operatingSystem: "ANDROID",
-    description: p.longDesc[lc],
+    description: tl(p.longDesc, lc),
     url: `${SITE_URL}${path}`,
-    inLanguage: lc === "it" ? "it-IT" : "en-US",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
     offers: { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR" },
     downloadUrl: PLAY_URL,
   };
@@ -138,10 +212,10 @@ export default async function ProviderLanding({
           "@type": "FAQPage",
           mainEntity: p.faqs.map((f) => ({
             "@type": "Question",
-            name: f.q[lc],
+            name: tl(f.q, lc),
             acceptedAnswer: {
               "@type": "Answer",
-              text: f.a[lc],
+              text: tl(f.a, lc),
             },
           })),
         }
@@ -149,18 +223,20 @@ export default async function ProviderLanding({
 
   // HowTo JSON-LD — emitted only when a setup guide with steps exists.
   // Makes the page eligible for Google HowTo rich results on setup-intent queries.
+  const howToSteps = p.setupGuide ? tll(p.setupGuide.steps, lc) : [];
   const howToLd =
-    p.setupGuide && p.setupGuide.steps[lc].length > 0
+    p.setupGuide && howToSteps.length > 0
       ? {
           "@context": "https://schema.org",
           "@type": "HowTo",
-          name:
-            lc === "it"
-              ? `Come connettere ${p.name} a FitMesh Sync`
-              : `How to connect ${p.name} to FitMesh Sync`,
-          description: p.longDesc[lc],
-          inLanguage: lc === "it" ? "it-IT" : "en-US",
-          step: p.setupGuide.steps[lc].map((stepText, i) => ({
+          name: t(
+            `Come connettere ${p.name} a FitMesh Sync`,
+            `How to connect ${p.name} to FitMesh Sync`,
+            `Cómo conectar ${p.name} con FitMesh Sync`,
+          ),
+          description: tl(p.longDesc, lc),
+          inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
+          step: howToSteps.map((stepText, i) => ({
             "@type": "HowToStep",
             position: i + 1,
             // Strip inline bold markdown (**text**) for plain-text schema output.
@@ -176,14 +252,14 @@ export default async function ProviderLanding({
   ).slice(0, 3);
 
   const waitlistSubject = encodeURIComponent(
-    lc === "it"
-      ? `Waitlist ${p.name} — FitMesh Sync`
-      : `Waitlist ${p.name} — FitMesh Sync`,
+    `Waitlist ${p.name} — FitMesh Sync`,
   );
   const waitlistBody = encodeURIComponent(
-    lc === "it"
-      ? `Ciao!\n\nVoglio essere avvisato/a quando l'integrazione con ${p.name} sarà disponibile.\n\nLa mia email:\n`
-      : `Hi!\n\nPlease notify me when the ${p.name} integration becomes available.\n\nMy email:\n`,
+    t(
+      `Ciao!\n\nVoglio essere avvisato/a quando l'integrazione con ${p.name} sarà disponibile.\n\nLa mia email:\n`,
+      `Hi!\n\nPlease notify me when the ${p.name} integration becomes available.\n\nMy email:\n`,
+      `Hola!\n\nQuiero que me avisen cuando la integración con ${p.name} esté disponible.\n\nMi correo:\n`,
+    ),
   );
   const waitlistHref = `mailto:${WAITLIST_EMAIL}?subject=${waitlistSubject}&body=${waitlistBody}`;
 
@@ -194,7 +270,10 @@ export default async function ProviderLanding({
       {howToLd && <JsonLd data={howToLd} />}
       <Breadcrumbs
         items={[
-          { name: t("Integrazioni", "Integrations"), path: `/${lc}/integrations` },
+          {
+            name: t("Integrazioni", "Integrations", "Integraciones"),
+            path: `/${lc}/integrations`,
+          },
           { name: p.name, path },
         ]}
         locale={lc}
@@ -231,14 +310,14 @@ export default async function ProviderLanding({
             </div>
 
             <h1 className="mt-5 font-display text-display-xl font-semibold tracking-tightest text-text-primary">
-              {t(`Sincronizza ${p.name}`, `Sync ${p.name}`)}{" "}
+              {t(`Sincronizza ${p.name}`, `Sync ${p.name}`, `Sincroniza ${p.name}`)}{" "}
               <span className="text-brand-gradient">
-                {t("alla tua dashboard", "to your dashboard")}
+                {t("alla tua dashboard", "to your dashboard", "con tu panel")}
               </span>
             </h1>
 
             <p className="mt-6 text-lg text-text-secondary max-w-xl leading-relaxed">
-              {p.longDesc[lc]}
+              {tl(p.longDesc, lc)}
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
@@ -249,7 +328,7 @@ export default async function ProviderLanding({
                   href={waitlistHref}
                   className="inline-flex items-center px-5 py-3 rounded-pill btn-cta text-sm font-semibold"
                 >
-                  {t("Avvisami al lancio", "Get notified at launch")}
+                  {t("Avvisami al lancio", "Get notified at launch", "Avísame cuando esté disponible")}
                 </a>
               )}
               {isLiveBasic && (
@@ -257,7 +336,11 @@ export default async function ProviderLanding({
                   href={waitlistHref}
                   className="inline-flex items-center px-5 py-3 rounded-pill border border-divider text-text-primary font-medium hover:bg-white/5 transition"
                 >
-                  {t("Avvisami per i dati avanzati", "Notify me for advanced data")}
+                  {t(
+                    "Avvisami per i dati avanzati",
+                    "Notify me for advanced data",
+                    "Avísame para los datos avanzados",
+                  )}
                 </a>
               )}
               {!isLiveBasic && (
@@ -265,7 +348,11 @@ export default async function ProviderLanding({
                   href={`/${lc}/integrations`}
                   className="inline-flex items-center px-5 py-3 rounded-pill border border-divider text-text-primary font-medium hover:bg-white/5 transition"
                 >
-                  {t("Vedi tutte le integrazioni", "See all integrations")}
+                  {t(
+                    "Vedi tutte le integrazioni",
+                    "See all integrations",
+                    "Ver todas las integraciones",
+                  )}
                 </Link>
               )}
             </div>
@@ -274,6 +361,7 @@ export default async function ProviderLanding({
               {t(
                 "FitMesh Sync è un prodotto indipendente. I marchi citati appartengono ai rispettivi proprietari e questa pagina non implica affiliazione o sponsorizzazione.",
                 "FitMesh Sync is an independent product. Trademarks belong to their respective owners; this page implies no affiliation or sponsorship.",
+                "FitMesh Sync es un producto independiente. Las marcas mencionadas pertenecen a sus respectivos propietarios y esta página no implica ninguna afiliación ni patrocinio.",
               )}
             </p>
           </div>
@@ -323,12 +411,13 @@ export default async function ProviderLanding({
       {/* DATA TYPES GRID */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
         <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-          {t("Dati supportati", "Supported data")}
+          {t("Dati supportati", "Supported data", "Datos disponibles")}
         </h2>
         <p className="mt-2 text-text-secondary max-w-2xl">
           {t(
             "I tipi di dato che FitMesh può leggere da questa integrazione. Pallino verde = supportato, grigio = non disponibile da questa fonte.",
             "The data types FitMesh can read from this integration. Green dot = supported, grey = not available from this source.",
+            "Los tipos de datos que FitMesh puede leer de esta integración. Punto verde = disponible, gris = no disponible desde esta fuente.",
           )}
         </p>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -346,7 +435,7 @@ export default async function ProviderLanding({
                   boxShadow: d.supported ? "0 0 10px #31E98155" : "none",
                 }}
               />
-              <span className="text-sm text-text-primary">{d.label[lc]}</span>
+              <span className="text-sm text-text-primary">{tl(d.label, lc)}</span>
             </div>
           ))}
         </div>
@@ -364,16 +453,17 @@ export default async function ProviderLanding({
               />
               <div className="relative">
                 <p className="text-[10px] uppercase tracking-[0.22em] text-success font-semibold">
-                  {t("Funziona oggi", "Works today")}
+                  {t("Funziona oggi", "Works today", "Funciona hoy")}
                 </p>
                 <h2 className="mt-2 font-display text-xl font-semibold text-text-primary">
                   {t(
                     "Via Health Connect, senza configurazione extra",
                     "Via Health Connect, no extra setup",
+                    "Via Health Connect, sin configuración adicional",
                   )}
                 </h2>
                 <ul className="mt-5 space-y-2">
-                  {p.viaHC.worksNow[lc].map((item) => (
+                  {tll(p.viaHC.worksNow, lc).map((item) => (
                     <li
                       key={item}
                       className="flex items-start gap-2 text-sm text-text-secondary"
@@ -395,15 +485,20 @@ export default async function ProviderLanding({
               <div className="relative">
                 <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
                   {t(
-                    `OAuth ufficiale — ${p.viaHC.oauthEta[lc]}`,
-                    `Official OAuth — ${p.viaHC.oauthEta[lc]}`,
+                    `OAuth ufficiale — ${tl(p.viaHC.oauthEta, lc)}`,
+                    `Official OAuth — ${tl(p.viaHC.oauthEta, lc)}`,
+                    `OAuth oficial: ${tl(p.viaHC.oauthEta, lc)}`,
                   )}
                 </p>
                 <h2 className="mt-2 font-display text-xl font-semibold text-text-primary">
-                  {t("Cosa aggiungerà l'integrazione diretta", "What the direct integration will add")}
+                  {t(
+                    "Cosa aggiungerà l'integrazione diretta",
+                    "What the direct integration will add",
+                    "Qué agregará la integración directa",
+                  )}
                 </h2>
                 <ul className="mt-5 space-y-2">
-                  {p.viaHC.oauthAdds[lc].map((item) => (
+                  {tll(p.viaHC.oauthAdds, lc).map((item) => (
                     <li
                       key={item}
                       className="flex items-start gap-2 text-sm text-text-secondary"
@@ -417,7 +512,11 @@ export default async function ProviderLanding({
                   href={waitlistHref}
                   className="mt-6 inline-flex items-center text-xs text-brand-aqua hover:text-brand-green transition"
                 >
-                  {t("Avvisami quando disponibile →", "Notify me when available →")}
+                  {t(
+                    "Avvisami quando disponibile →",
+                    "Notify me when available →",
+                    "Avísame cuando esté disponible →",
+                  )}
                 </a>
               </div>
             </div>
@@ -429,9 +528,9 @@ export default async function ProviderLanding({
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
         <div className="rounded-card border border-divider bg-gradient-to-br from-bg-card to-bg-secondary p-6 sm:p-8">
           <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-            {t("Nota tecnica", "Technical note")}
+            {t("Nota tecnica", "Technical note", "Nota técnica")}
           </p>
-          <p className="mt-3 text-text-secondary leading-relaxed">{p.techNote[lc]}</p>
+          <p className="mt-3 text-text-secondary leading-relaxed">{tl(p.techNote, lc)}</p>
         </div>
       </section>
 
@@ -439,14 +538,18 @@ export default async function ProviderLanding({
       {p.setupGuide && (
         <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-12">
           <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-            {t(`Come collegare ${p.name}`, `How to connect ${p.name}`)}
+            {t(
+              `Come collegare ${p.name}`,
+              `How to connect ${p.name}`,
+              `Cómo conectar ${p.name}`,
+            )}
           </h2>
 
           <h3 className="mt-8 text-lg font-semibold text-text-primary">
-            {t("Setup in 5 minuti", "5-minute setup")}
+            {t("Setup in 5 minuti", "5-minute setup", "Configuración en 5 minutos")}
           </h3>
           <ol className="mt-4 space-y-3 text-text-secondary">
-            {p.setupGuide.steps[lc].map((step, i) => (
+            {tll(p.setupGuide.steps, lc).map((step, i) => (
               <li key={i} className="flex gap-4">
                 <span className="flex-none w-7 h-7 rounded-full bg-brand-aqua/15 text-brand-aqua text-sm font-semibold flex items-center justify-center">
                   {i + 1}
@@ -457,10 +560,10 @@ export default async function ProviderLanding({
           </ol>
 
           <h3 className="mt-10 text-lg font-semibold text-text-primary">
-            {t("Cosa viene sincronizzato", "What gets synced")}
+            {t("Cosa viene sincronizzato", "What gets synced", "Qué se sincroniza")}
           </h3>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2 text-text-secondary">
-            {p.setupGuide.syncedData[lc].map((d, i) => (
+            {tll(p.setupGuide.syncedData, lc).map((d, i) => (
               <li key={i} className="flex items-start gap-2">
                 <span className="text-brand-aqua mt-1">•</span>
                 <span>{d}</span>
@@ -469,7 +572,7 @@ export default async function ProviderLanding({
           </ul>
 
           <h3 className="mt-10 text-lg font-semibold text-text-primary">
-            {t("Risoluzione problemi", "Troubleshooting")}
+            {t("Risoluzione problemi", "Troubleshooting", "Solución de problemas")}
           </h3>
           <div className="mt-4 space-y-3">
             {p.setupGuide.troubleshooting.map((tr, i) => (
@@ -478,22 +581,22 @@ export default async function ProviderLanding({
                 className="card p-5 group [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="cursor-pointer flex items-start justify-between gap-4 text-text-primary font-medium">
-                  <span>{tr.q[lc]}</span>
+                  <span>{tl(tr.q, lc)}</span>
                   <span className="text-text-muted text-xl leading-none group-open:rotate-45 transition-transform">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 text-sm text-text-secondary leading-relaxed">{tr.a[lc]}</p>
+                <p className="mt-3 text-sm text-text-secondary leading-relaxed">{tl(tr.a, lc)}</p>
               </details>
             ))}
           </div>
 
           <div className="mt-10 rounded-card border border-divider bg-bg-card/60 p-5">
             <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-              {t("Note tecniche", "Technical notes")}
+              {t("Note tecniche", "Technical notes", "Notas técnicas")}
             </p>
             <p className="mt-2 text-sm text-text-secondary leading-relaxed">
-              {p.setupGuide.technicalNotes[lc]}
+              {tl(p.setupGuide.technicalNotes, lc)}
             </p>
           </div>
         </section>
@@ -503,7 +606,7 @@ export default async function ProviderLanding({
       {p.faqs.length > 0 && (
         <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-12">
           <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-            {t("Domande frequenti", "Frequently asked questions")}
+            {t("Domande frequenti", "Frequently asked questions", "Preguntas frecuentes")}
           </h2>
           <div className="mt-8 space-y-4">
             {p.faqs.map((f, i) => (
@@ -512,12 +615,12 @@ export default async function ProviderLanding({
                 className="card p-5 group [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="cursor-pointer flex items-start justify-between gap-4 text-text-primary font-medium">
-                  <span>{f.q[lc]}</span>
+                  <span>{tl(f.q, lc)}</span>
                   <span className="text-text-muted text-xl leading-none group-open:rotate-45 transition-transform">
                     +
                   </span>
                 </summary>
-                <p className="mt-3 text-sm text-text-secondary leading-relaxed">{f.a[lc]}</p>
+                <p className="mt-3 text-sm text-text-secondary leading-relaxed">{tl(f.a, lc)}</p>
               </details>
             ))}
           </div>
@@ -533,7 +636,7 @@ export default async function ProviderLanding({
         return (
           <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
             <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-              {t("Approfondisci", "Read more")}
+              {t("Approfondisci", "Read more", "Saber más")}
             </h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {relatedPosts.map((post) => (
@@ -544,18 +647,18 @@ export default async function ProviderLanding({
                 >
                   <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
                     {post.pillar
-                      ? t("Pilastro · ", "Pillar · ")
+                      ? t("Pilastro · ", "Pillar · ", "Referencia · ")
                       : ""}
                     {blogCategoryLabel(post.category, lc)}
                   </p>
                   <h3 className="mt-2 font-display text-lg font-semibold text-text-primary group-hover:text-brand-aqua transition">
-                    {post.hero.title[lc]}
+                    {tl(post.hero.title, lc)}
                   </h3>
                   <p className="mt-2 text-sm text-text-secondary leading-relaxed line-clamp-3">
-                    {post.hero.subtitle[lc]}
+                    {tl(post.hero.subtitle, lc)}
                   </p>
                   <p className="mt-3 text-xs text-text-muted">
-                    {post.readMinutes} {t("min di lettura", "min read")}
+                    {post.readMinutes} {t("min di lettura", "min read", "min de lectura")}
                   </p>
                 </Link>
               ))}
@@ -568,7 +671,7 @@ export default async function ProviderLanding({
       {relatedProviders.length > 0 && (
         <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
           <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-            {t("Anche queste integrazioni", "Related integrations")}
+            {t("Anche queste integrazioni", "Related integrations", "Integraciones relacionadas")}
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {relatedProviders.map((r) => (
@@ -599,18 +702,20 @@ export default async function ProviderLanding({
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-20 text-center">
         <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
           {isLive
-            ? t("Pronto a iniziare?", "Ready to start?")
-            : t("Vuoi essere avvisato?", "Want to be notified?")}
+            ? t("Pronto a iniziare?", "Ready to start?", "¿Listo para empezar?")
+            : t("Vuoi essere avvisato?", "Want to be notified?", "¿Quieres que te avisemos?")}
         </h2>
         <p className="mt-4 text-text-secondary max-w-xl mx-auto">
           {isLive
             ? t(
                 "Scarica FitMesh Sync, autorizza Health Connect, e in 30 secondi i tuoi dati sono live.",
                 "Download FitMesh Sync, grant Health Connect permissions, and your data is live in 30 seconds.",
+                "Descarga FitMesh Sync, autoriza Health Connect y en 30 segundos tus datos estarán disponibles.",
               )
             : t(
                 `Lascia la tua email e ti avvisiamo non appena l'integrazione ${p.name} sarà disponibile. Niente newsletter, niente spam: solo l'annuncio.`,
                 `Drop your email and we'll notify you as soon as the ${p.name} integration lands. No newsletter, no spam: just the announcement.`,
+                `Deja tu correo y te avisaremos en cuanto la integración con ${p.name} esté disponible. Sin boletines, sin spam: solo el aviso.`,
               )}
         </p>
         <div className="mt-8 flex justify-center">
@@ -621,7 +726,7 @@ export default async function ProviderLanding({
               href={waitlistHref}
               className="inline-flex items-center px-6 py-3 rounded-pill btn-cta text-sm font-semibold"
             >
-              {t("Avvisami al lancio", "Get notified at launch")}
+              {t("Avvisami al lancio", "Get notified at launch", "Avísame cuando esté disponible")}
             </a>
           )}
         </div>

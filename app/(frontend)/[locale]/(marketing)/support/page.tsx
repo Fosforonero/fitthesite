@@ -31,14 +31,28 @@ const FAQ_EN = [
   { q: "iOS support?", a: "In development. iOS will arrive in 2026 with the same architecture: native SwiftUI app reading from Apple HealthKit. Subscribe via hello@fitmesh.fit to be notified." },
 ];
 
+const FAQ_ES = [
+  {
+    q: "La app no muestra datos. ¿Qué hago?",
+    a: "Verifica en este orden: (1) ¿Tienes Health Connect instalado desde Google Play? (2) ¿Concediste el permiso «Leer datos en segundo plano» dentro de Health Connect? (3) Pulsa «Sincronizar ahora» en los ajustes. Si el problema persiste, escríbenos adjuntando una captura de pantalla del panel «Estado».",
+  },
+  { q: "¿Cuánta batería consume?", a: "Aproximadamente un 1-2% al día con sincronizaciones cada 30 minutos. Está por debajo del umbral que Android considera como apps que drenan la batería. Si ves un consumo anormal, lo más probable es que sea Health Connect indexando datos, no FitMesh Sync." },
+  { q: "¿Funciona sin conexión?", a: "La app recopila y pone en cola los datos aunque no tengas red. En cuanto recuperas la conexión, sincroniza todo el historial acumulado de forma automática. El panel web, en cambio, requiere conexión a internet activa." },
+  { q: "¿Puedo usar un servidor privado?", a: "Sí, bajo petición. Para necesidades empresariales (residencias, clínicas, consultorios, grupos familiares con datos segregados) configuramos un servidor dedicado con tu dominio, copias de seguridad gestionadas y un SLA dedicado. Escribe a sales@fitmesh.fit indicando el volumen de usuarios previsto y los requisitos de conservación de datos." },
+  { q: "¿Cuánto cuesta FitMesh Sync?", a: "3,99 € en Android · 4,99 € en iPhone: pago único, sin suscripción, sin renovaciones automáticas, sin sorpresas en la factura." },
+  { q: "Cambié de teléfono. ¿Pierdo mis datos?", a: "No. Los datos están en el servidor, no en el teléfono. Reinstala la app, inicia sesión (o introduce tu ID de dispositivo anterior en los ajustes si tienes una cuenta avanzada) y recuperas todo." },
+  { q: "¿Habrá soporte para iOS?", a: "Está en desarrollo. iOS llegará en 2026 con la misma arquitectura: una app nativa SwiftUI que lee desde Apple HealthKit. Suscríbete en hello@fitmesh.fit para recibir un aviso." },
+];
+
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params;
-  const titles: Record<Locale, string> = { it: "Supporto", en: "Support" };
+  const titles: Record<Locale, string> = { it: "Supporto", en: "Support", es: "Soporte" };
   const desc: Record<Locale, string> = {
     it: "FAQ, troubleshooting e contatti per FitMesh Sync. Risposte rapide ai problemi più comuni.",
     en: "FAQ, troubleshooting and contacts for FitMesh Sync. Quick answers to the most common questions.",
+    es: "Preguntas frecuentes, solución de problemas y contacto para FitMesh Sync. Respuestas rápidas a las dudas más habituales.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
@@ -49,6 +63,7 @@ export async function generateMetadata(
       languages: {
         it: `${SITE_URL}/it/support`,
         en: `${SITE_URL}/en/support`,
+        es: `${SITE_URL}/es/support`,
         "x-default": `${SITE_URL}/it/support`,
       },
     },
@@ -63,13 +78,13 @@ export default async function SupportPage({
   const { locale } = await params;
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
-  const faqs = lc === "en" ? FAQ_EN : FAQ_IT;
+  const faqs = lc === "en" ? FAQ_EN : lc === "es" ? FAQ_ES : FAQ_IT;
 
   // Structured data — FAQPage for Google rich result
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    inLanguage: lc === "it" ? "it-IT" : "en-US",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
@@ -79,22 +94,34 @@ export default async function SupportPage({
 
   const subtitle = lc === "en"
     ? "The answers to the most common issues. If you can't find what you're looking for,"
+    : lc === "es"
+    ? "Respuestas a las dudas más habituales. Si no encuentras lo que buscas,"
     : "Le risposte ai problemi più comuni. Se non trovi quello che cerchi,";
 
   const writeUsLabel = lc === "en"
     ? "write to support@fitmesh.fit"
+    : lc === "es"
+    ? "escríbenos a support@fitmesh.fit"
     : "scrivici a support@fitmesh.fit";
 
-  const moreQuestionsHeading = lc === "en" ? "Have another question?" : "Hai un'altra domanda?";
+  const moreQuestionsHeading = lc === "en"
+    ? "Have another question?"
+    : lc === "es"
+    ? "¿Tienes alguna otra duda?"
+    : "Hai un'altra domanda?";
   const moreQuestionsDesc = lc === "en"
     ? "Drop us a line. We respond personally within 48 hours (usually much sooner)."
+    : lc === "es"
+    ? "Escríbenos. Respondemos personalmente en menos de 48 horas (normalmente mucho antes)."
     : "Scrivici. Rispondiamo personalmente entro 48 ore (di solito molto prima).";
 
   const ctaPrimary = lc === "en"
     ? "Email support@fitmesh.fit"
+    : lc === "es"
+    ? "Escribe a support@fitmesh.fit"
     : "Scrivi a support@fitmesh.fit";
 
-  const crumbName = lc === "en" ? "Support" : "Supporto";
+  const crumbName = lc === "en" ? "Support" : lc === "es" ? "Soporte" : "Supporto";
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
       <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/support` }]} locale={lc} />

@@ -16,7 +16,7 @@ import PlayStoreButton from "./PlayStoreButton";
 
 type Props = {
   /** Locale per i label localizzati ("In arrivo" vs "Coming Soon"). */
-  locale: "it" | "en";
+  locale: "it" | "en" | "es";
   /** Forza il Play Store disabled (default false — app live su Play Store). */
   playDisabled?: boolean;
   /** Classi extra sul wrapper flex. */
@@ -33,10 +33,14 @@ export default function StoreButtonsRow({
   const playLabels =
     locale === "en"
       ? { small: "GET IT ON", store: "Google Play", soon: "Coming Soon" }
+      : locale === "es"
+      ? { small: "Disponible en", store: "Google Play", soon: "Próximamente" }
       : { small: "Disponibile su", store: "Google Play", soon: "In arrivo" };
   const appleLabels =
     locale === "en"
       ? { small: "Download on the", store: "App Store", soon: "Coming Soon" }
+      : locale === "es"
+      ? { small: "Descarga en", store: "App Store", soon: "Próximamente" }
       : { small: "Scarica su", store: "App Store", soon: "In arrivo" };
 
   return (

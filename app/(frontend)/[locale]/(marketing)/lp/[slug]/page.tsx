@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogRenderer } from "@/components/blog/BlogRenderer";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { tl } from "@/lib/blog/types";
 import { LANDING_PAGES, LANDING_PAGES_BY_SLUG } from "@/lib/landing/data";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -29,18 +30,20 @@ export async function generateMetadata({
   if (!lp) return {};
 
   const path = `/${lc}/lp/${lp.slug}`;
-  const title = lp.hero.title[lc];
-  const description = lp.metaDescription[lc];
+  const title = tl(lp.hero.title, lc);
+  const description = tl(lp.metaDescription, lc);
+  const secKw = (lp.secondaryKeywords as Record<string, string[] | undefined>)[lc] ?? lp.secondaryKeywords.en;
 
   return {
     title: `${title} — FitMesh Sync`,
     description,
-    keywords: [lp.primaryKeyword[lc], ...lp.secondaryKeywords[lc]].join(", "),
+    keywords: [tl(lp.primaryKeyword, lc), ...secKw].join(", "),
     alternates: {
       canonical: `${SITE_URL}${path}`,
       languages: {
         it: `${SITE_URL}/it/lp/${lp.slug}`,
         en: `${SITE_URL}/en/lp/${lp.slug}`,
+        es: `${SITE_URL}/es/lp/${lp.slug}`,
         "x-default": `${SITE_URL}/it/lp/${lp.slug}`,
       },
     },
@@ -61,7 +64,13 @@ export async function generateMetadata({
   };
 }
 
-const I18N = {
+const I18N: Record<Locale, {
+  faqHeading: string;
+  disclaimerHeading: string;
+  disclaimer: (brands: string[]) => string;
+  finalCtaHeading: string;
+  finalCtaSubheading: string;
+}> = {
   it: {
     faqHeading: "Domande frequenti",
     disclaimerHeading: "Disclaimer",
@@ -78,7 +87,15 @@ const I18N = {
     finalCtaHeading: "Ready to start?",
     finalCtaSubheading: "Download FitMesh Sync on your Android phone. The web dashboard is included.",
   },
-} as const;
+  es: {
+    faqHeading: "Preguntas frecuentes",
+    disclaimerHeading: "Aviso legal",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync es un producto independiente. ${brands.join(", ")} ${brands.length > 1 ? "son marcas registradas" : "es una marca registrada"} de sus respectivos propietarios. Esta página no implica afiliación ni patrocinio.`,
+    finalCtaHeading: "¿Listo para empezar?",
+    finalCtaSubheading: "Descarga FitMesh Sync en tu teléfono Android. El panel web está incluido.",
+  },
+};
 
 export default async function LandingPage({
   params,
@@ -99,10 +116,10 @@ export default async function LandingPage({
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": `${SITE_URL}${path}#webpage`,
-    name: lp.hero.title[lc],
-    description: lp.metaDescription[lc],
+    name: tl(lp.hero.title, lc),
+    description: tl(lp.metaDescription, lc),
     url: `${SITE_URL}${path}`,
-    inLanguage: lc === "it" ? "it-IT" : "en-US",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
     datePublished: lp.publishedAt,
     dateModified: lp.updatedAt,
     isPartOf: { "@id": `${SITE_URL}#website` },
@@ -115,24 +132,24 @@ export default async function LandingPage({
           "@type": "FAQPage",
           mainEntity: lp.faq.map((f) => ({
             "@type": "Question",
-            name: f.q[lc],
+            name: tl(f.q, lc),
             acceptedAnswer: {
               "@type": "Answer",
-              text: f.a[lc],
+              text: tl(f.a, lc),
             },
           })),
         }
       : null;
 
-  const primaryHref = lp.hero.primaryCta.href[lc];
-  const secondaryHref = lp.hero.secondaryCta?.href[lc];
+  const primaryHref = tl(lp.hero.primaryCta.href, lc);
+  const secondaryHref = lp.hero.secondaryCta ? tl(lp.hero.secondaryCta.href, lc) : undefined;
 
   return (
     <>
       <JsonLd data={webPageLd} />
       {faqLd && <JsonLd data={faqLd} />}
       <Breadcrumbs
-        items={[{ name: lp.hero.title[lc], path }]}
+        items={[{ name: tl(lp.hero.title, lc), path }]}
         locale={lc}
       />
 
@@ -143,27 +160,27 @@ export default async function LandingPage({
           className="halo-conic absolute left-1/2 top-0 -z-10 h-[420px] w-[680px] -translate-x-1/2 opacity-40 animate-float"
         />
         <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-          {lp.hero.kicker[lc]}
+          {tl(lp.hero.kicker, lc)}
         </p>
         <h1 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-3xl leading-[1.1]">
-          {lp.hero.title[lc]}
+          {tl(lp.hero.title, lc)}
         </h1>
         <p className="mt-6 text-lg text-text-secondary max-w-2xl leading-relaxed">
-          {lp.hero.subtitle[lc]}
+          {tl(lp.hero.subtitle, lc)}
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Link
             href={primaryHref}
             className="inline-flex items-center px-6 py-3 rounded-pill btn-cta text-sm font-semibold"
           >
-            {lp.hero.primaryCta.label[lc]}
+            {tl(lp.hero.primaryCta.label, lc)}
           </Link>
           {secondaryHref && lp.hero.secondaryCta && (
             <Link
               href={secondaryHref}
               className="inline-flex items-center px-6 py-3 rounded-pill border border-divider text-text-primary font-medium hover:bg-white/5 transition"
             >
-              {lp.hero.secondaryCta.label[lc]}
+              {tl(lp.hero.secondaryCta.label, lc)}
             </Link>
           )}
         </div>
@@ -187,13 +204,13 @@ export default async function LandingPage({
                 className="card p-5 group [&_summary::-webkit-details-marker]:hidden"
               >
                 <summary className="cursor-pointer flex items-start justify-between gap-4 text-text-primary font-medium">
-                  <span>{f.q[lc]}</span>
+                  <span>{tl(f.q, lc)}</span>
                   <span className="text-text-muted text-xl leading-none group-open:rotate-45 transition-transform">
                     +
                   </span>
                 </summary>
                 <p className="mt-3 text-sm text-text-secondary leading-relaxed">
-                  {f.a[lc]}
+                  {tl(f.a, lc)}
                 </p>
               </details>
             ))}

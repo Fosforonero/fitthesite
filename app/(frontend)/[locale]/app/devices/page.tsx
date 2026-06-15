@@ -57,6 +57,8 @@ export default async function DevicesPage({
         <p className="mt-2 text-sm text-text-secondary">
           {lc === 'it'
             ? 'Genera un codice e inseriscilo nell\'app FitMesh Sync per collegare un nuovo telefono o smartwatch. Il codice è valido 5 minuti.'
+            : lc === 'es'
+            ? 'Genera un código e introdúcelo en la app FitMesh Sync para conectar un nuevo teléfono o smartwatch. El código es válido durante 5 minutos.'
             : 'Generate a code and enter it in the FitMesh Sync app to pair a new phone or smartwatch. The code is valid for 5 minutes.'}
         </p>
         <GeneratePairingCode
@@ -71,6 +73,17 @@ export default async function DevicesPage({
                   expires_in: 'Scade in {seconds}s',
                   expired: 'Codice scaduto. Genera un nuovo codice per riprovare.',
                   error: 'Errore generazione codice',
+                }
+              : lc === 'es'
+              ? {
+                  title: 'Añadir dispositivo',
+                  body: '',
+                  cta_generate: 'Generar código',
+                  cta_regenerate: 'Generar nuevo código',
+                  code_shown_help: 'Introduce este código en la app',
+                  expires_in: 'Caduca en {seconds}s',
+                  expired: 'Código caducado. Genera un nuevo código para volver a intentarlo.',
+                  error: 'Error al generar el código',
                 }
               : {
                   title: 'Add device',

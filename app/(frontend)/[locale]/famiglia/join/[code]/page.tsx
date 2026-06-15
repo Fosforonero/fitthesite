@@ -82,7 +82,7 @@ export default async function JoinFamilyPage({
   const { locale, code } = await params;
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
-  const t = (it: string, en: string) => (lc === "it" ? it : en);
+  const t = (it: string, en: string, es: string) => (lc === "it" ? it : lc === "es" ? es : en);
 
   const preview = await fetchPreview(code);
   const isError = "error" in preview;
@@ -94,54 +94,55 @@ export default async function JoinFamilyPage({
   return (
     <main className="mx-auto max-w-md px-6 py-12">
       <h1 className="text-3xl font-semibold mb-4">
-        {isError ? t("Invito non valido", "Invalid invite") : t("Sei stato invitato", "You're invited")}
+        {isError ? t("Invito non valido", "Invalid invite", "Invitación no válida") : t("Sei stato invitato", "You're invited", "Te han invitado")}
       </h1>
 
       {isError ? (
         <div className="rounded-lg border border-red-500/30 bg-red-500/5 p-4">
           <p>{
-            (preview as { error: string }).error === "expired" ? t("Questo invito è scaduto.", "This invite has expired.") :
-            (preview as { error: string }).error === "exhausted" ? t("Invito già utilizzato.", "Invite already used.") :
-            (preview as { error: string }).error === "invalid_format" ? t("Formato codice non valido.", "Invalid code format.") :
-            t("Codice non trovato. Chiedi un nuovo invito.", "Code not found. Ask for a new invite.")
+            (preview as { error: string }).error === "expired" ? t("Questo invito è scaduto.", "This invite has expired.", "Esta invitación ha caducado.") :
+            (preview as { error: string }).error === "exhausted" ? t("Invito già utilizzato.", "Invite already used.", "La invitación ya fue utilizada.") :
+            (preview as { error: string }).error === "invalid_format" ? t("Formato codice non valido.", "Invalid code format.", "Formato de código no válido.") :
+            t("Codice non trovato. Chiedi un nuovo invito.", "Code not found. Ask for a new invite.", "Código no encontrado. Pide una nueva invitación.")
           }</p>
         </div>
       ) : (
         <div className="space-y-6">
           <div className="rounded-lg border border-divider p-4">
-            <p className="text-sm text-text-muted">{t("Famiglia", "Family")}</p>
+            <p className="text-sm text-text-muted">{t("Famiglia", "Family", "Familia")}</p>
             <p className="text-xl font-semibold">{(preview as InvitePreview).groupName}</p>
             {(preview as InvitePreview).ownerDisplayName && (
               <p className="text-sm text-text-muted mt-1">
-                {t("Creata da", "Created by")} {(preview as InvitePreview).ownerDisplayName}
+                {t("Creata da", "Created by", "Creada por")} {(preview as InvitePreview).ownerDisplayName}
               </p>
             )}
             <p className="text-sm text-text-muted mt-1">
-              {(preview as InvitePreview).membersCount} {t("membri", "members")}
+              {(preview as InvitePreview).membersCount} {t("membri", "members", "miembros")}
             </p>
           </div>
 
           <div className="space-y-3">
             <a href={universalUrl}
                className="block w-full rounded-pill bg-brand-aqua px-6 py-3 text-center font-semibold text-bg-dark">
-              {t("Apri in FitMesh (se installata)", "Open in FitMesh (if installed)")}
+              {t("Apri in FitMesh (se installata)", "Open in FitMesh (if installed)", "Abrir en FitMesh (si está instalada)")}
             </a>
             <a href={playStoreUrl}
                className="block w-full rounded-pill border border-brand-aqua px-6 py-3 text-center font-semibold text-brand-aqua">
-              {t("Installa FitMesh per unirti", "Install FitMesh to join")}
+              {t("Installa FitMesh per unirti", "Install FitMesh to join", "Instala FitMesh para unirte")}
             </a>
           </div>
 
           <div className="rounded-lg border border-divider p-4">
             <p className="text-xs text-text-muted mb-2">
-              {t("Oppure inserisci manualmente in app:", "Or enter manually in app:")}
+              {t("Oppure inserisci manualmente in app:", "Or enter manually in app:", "O introdúcelo manualmente en la app:")}
             </p>
             <p className="font-mono text-lg font-bold tracking-wider">{code}</p>
           </div>
 
           <p className="text-xs text-text-muted">
             {t("Dopo l'unione, condividerai per default: passi, sonno, frequenza cardiaca, attività. Modifica nelle impostazioni.",
-               "After joining you'll share by default: steps, sleep, heart rate, activity. Change in settings.")}
+               "After joining you'll share by default: steps, sleep, heart rate, activity. Change in settings.",
+               "Al unirte, compartirás por defecto: pasos, sueño, frecuencia cardíaca, actividad. Puedes cambiarlo en ajustes.")}
           </p>
         </div>
       )}

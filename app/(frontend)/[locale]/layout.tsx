@@ -23,10 +23,12 @@ export async function generateMetadata({
   const titles: Record<Locale, string> = {
     it: 'FitMesh Sync — Sincronizza il tuo smartwatch a una dashboard personale',
     en: 'FitMesh Sync — Sync your smartwatch to a personal dashboard',
+    es: 'FitMesh Sync — Sincroniza tu smartwatch con un panel personal',
   };
   const descriptions: Record<Locale, string> = {
     it: 'FitMesh Sync sincronizza Galaxy Watch e Wear OS con una dashboard premium: passi, battito, sonno, calorie e VO₂ max. Privacy-first, niente cloud opachi, niente tracker.',
     en: 'FitMesh Sync mirrors Galaxy Watch and Wear OS data to a premium personal dashboard: steps, heart rate, sleep, calories, VO₂ max. Privacy-first. No opaque clouds. No trackers.',
+    es: 'FitMesh Sync sincroniza Galaxy Watch y Wear OS con un panel premium: pasos, frecuencia cardíaca, sueño, calorías y VO₂ máx. Centrado en tu privacidad, sin nubes opacas ni rastreadores.',
   };
 
   return {
@@ -37,6 +39,7 @@ export async function generateMetadata({
       languages: {
         it: `${SITE_URL}/it`,
         en: `${SITE_URL}/en`,
+        es: `${SITE_URL}/es`,
         'x-default': `${SITE_URL}/it`,
       },
     },

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
 
 import type { BlogSection } from "@/lib/blog/types";
+import { tl, tll } from "@/lib/blog/types";
 import type { Locale } from "@/lib/i18n";
 
 /**
@@ -133,7 +134,7 @@ export function BlogRenderer({
                   key={i}
                   className="mt-12 mb-4 font-display text-display font-semibold tracking-tightest text-text-primary scroll-mt-24"
                 >
-                  {s.text[locale]}
+                  {tl(s.text, locale)}
                 </h2>
               );
             }
@@ -142,7 +143,7 @@ export function BlogRenderer({
                 key={i}
                 className="mt-8 mb-3 font-display text-2xl font-semibold tracking-tight text-text-primary scroll-mt-24"
               >
-                {s.text[locale]}
+                {tl(s.text, locale)}
               </h3>
             );
 
@@ -152,12 +153,12 @@ export function BlogRenderer({
                 key={i}
                 className="my-5 text-text-secondary leading-relaxed text-base sm:text-[17px]"
               >
-                {renderMarkdownInline(s.text[locale])}
+                {renderMarkdownInline(tl(s.text, locale))}
               </p>
             );
 
           case "list": {
-            const items = s.items[locale];
+            const items = tll(s.items, locale);
             if (s.ordered) {
               return (
                 <ol key={i} className="my-5 space-y-2 list-decimal pl-5 marker:text-brand-aqua">
@@ -191,8 +192,8 @@ export function BlogRenderer({
               <CalloutBox
                 key={i}
                 variant={s.variant}
-                title={s.title?.[locale]}
-                body={s.body[locale]}
+                title={s.title ? tl(s.title, locale) : undefined}
+                body={tl(s.body, locale)}
               />
             );
 
@@ -202,7 +203,7 @@ export function BlogRenderer({
                 <table className="w-full text-sm border-collapse min-w-[640px]">
                   <thead>
                     <tr className="border-b border-divider">
-                      {s.headers[locale].map((h, j) => (
+                      {tll(s.headers, locale).map((h, j) => (
                         <th
                           key={j}
                           className="text-left py-3 px-3 sm:px-4 font-semibold text-text-primary text-[13px] uppercase tracking-wider"
@@ -218,7 +219,7 @@ export function BlogRenderer({
                         key={j}
                         className="border-b border-divider/50 hover:bg-white/[0.02]"
                       >
-                        {row[locale].map((cell, k) => (
+                        {tll(row, locale).map((cell, k) => (
                           <td
                             key={k}
                             className="py-3 px-3 sm:px-4 text-text-secondary leading-relaxed align-top"
@@ -232,7 +233,7 @@ export function BlogRenderer({
                 </table>
                 {s.caption && (
                   <figcaption className="mt-3 text-xs text-text-muted px-4 sm:px-0">
-                    {s.caption[locale]}
+                    {tl(s.caption, locale)}
                   </figcaption>
                 )}
               </figure>
@@ -246,10 +247,10 @@ export function BlogRenderer({
                     A
                   </p>
                   <h4 className="mt-2 font-display text-lg font-semibold text-text-primary">
-                    {s.aTitle[locale]}
+                    {tl(s.aTitle, locale)}
                   </h4>
                   <ul className="mt-4 space-y-2 text-sm">
-                    {s.aItems[locale].map((it, j) => (
+                    {tll(s.aItems, locale).map((it, j) => (
                       <li
                         key={j}
                         className="flex items-start gap-2 text-text-secondary leading-relaxed"
@@ -265,10 +266,10 @@ export function BlogRenderer({
                     B
                   </p>
                   <h4 className="mt-2 font-display text-lg font-semibold text-text-primary">
-                    {s.bTitle[locale]}
+                    {tl(s.bTitle, locale)}
                   </h4>
                   <ul className="mt-4 space-y-2 text-sm">
-                    {s.bItems[locale].map((it, j) => (
+                    {tll(s.bItems, locale).map((it, j) => (
                       <li
                         key={j}
                         className="flex items-start gap-2 text-text-secondary leading-relaxed"
@@ -283,7 +284,8 @@ export function BlogRenderer({
             );
 
           case "cta": {
-            const href = s.ctaHref[locale];
+            // ctaHref is typed as { it: string; en: string } — use en as fallback for es
+            const href = (s.ctaHref as Record<string, string | undefined>)[locale] ?? s.ctaHref.en;
             const isInternal = href.startsWith("/");
             return (
               <aside
@@ -291,10 +293,10 @@ export function BlogRenderer({
                 className="my-10 rounded-card border border-divider bg-gradient-to-br from-brand-aqua/10 to-brand-green/5 p-6 sm:p-8"
               >
                 <h4 className="font-display text-xl sm:text-2xl font-semibold text-text-primary tracking-tight">
-                  {s.title[locale]}
+                  {tl(s.title, locale)}
                 </h4>
                 <p className="mt-3 text-text-secondary leading-relaxed">
-                  {renderMarkdownInline(s.body[locale])}
+                  {renderMarkdownInline(tl(s.body, locale))}
                 </p>
                 <div className="mt-5">
                   {isInternal ? (
@@ -302,7 +304,7 @@ export function BlogRenderer({
                       href={href}
                       className="inline-flex items-center px-5 py-2.5 rounded-pill btn-cta text-sm font-semibold"
                     >
-                      {s.ctaLabel[locale]}
+                      {tl(s.ctaLabel, locale)}
                     </Link>
                   ) : (
                     <a
@@ -311,7 +313,7 @@ export function BlogRenderer({
                       rel="noopener noreferrer"
                       className="inline-flex items-center px-5 py-2.5 rounded-pill btn-cta text-sm font-semibold"
                     >
-                      {s.ctaLabel[locale]}
+                      {tl(s.ctaLabel, locale)}
                     </a>
                   )}
                 </div>

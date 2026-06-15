@@ -271,6 +271,122 @@ const COPY = {
     final_cta_body:
       "Download FitMesh from Play Store, create the family group, share the link with anyone. It works immediately, even if your family members don't open the app for days.",
   },
+  es: {
+    hero_kicker: "Mesh Familia",
+    hero_h1: "Sabe si tus seres queridos están bien, sin preguntarlo cada día",
+    hero_sub:
+      "Creas un grupo, invitas a quien quieras (padres, pareja, hijos) y ves en un solo panel quién caminó hoy, quién durmió poco, quién tuvo una frecuencia cardíaca inusual. Privacidad primero: cada persona elige qué compartir.",
+    cta_primary: "Descarga la app",
+    cta_secondary: "Cómo funciona",
+    why_kicker: "Por qué lo necesitas",
+    why_h2: "Tres formas de estar cerca de quienes importan",
+    why_items: [
+      {
+        title: "Personas mayores independientes",
+        body:
+          "Tu madre vive sola y lleva el Galaxy Watch que le regalaste. No quieres ser invasivo, pero te gustaría saber si ha dejado de caminar o si su frecuencia cardíaca en reposo cambia. Mesh Familia te lo dice sin que ella tenga que abrir ninguna app ni enviarte mensajes.",
+      },
+      {
+        title: "Familia con hijos adolescentes",
+        body:
+          "Tu hijo tiene la Mi Band. Quieres que se mueva, que duerma lo suficiente, que no fuerce el corazón entrenando sin control. Ves sus datos de salud en tu app: sin redes sociales, sin chats, solo números.",
+      },
+      {
+        title: "Parejas",
+        body:
+          "Trabajáis en lugares distintos y os veis por la noche. Saber que ella ha dado sus 8.000 pasos o que él durmió bien es una pequeña forma de cuidarse a distancia.",
+      },
+    ],
+    how_kicker: "Cómo funciona",
+    how_h2: "Tres pasos, dos minutos",
+    how_steps: [
+      {
+        title: "Crea el grupo familiar",
+        body:
+          "En la app FitMesh, toca 'Mesh Familia' → 'Crear grupo'. Ponle un nombre (por ejemplo, 'Familia García'). Tú eres el administrador.",
+      },
+      {
+        title: "Invita a quien quieras por enlace",
+        body:
+          "La app genera un código MESH-XXXX y un enlace que puedes compartir (WhatsApp, SMS, correo). Quien lo toca descarga la app gratis y se une. Hasta 3 miembros gratis, 8 con FitMesh Pro.",
+      },
+      {
+        title: "Cada uno elige qué compartir",
+        body:
+          "Compartido por defecto: pasos, sueño, frecuencia cardíaca en reposo, nivel de actividad. NO compartido por defecto: peso, presión arterial, ciclo menstrual, glucosa, ubicación. Se puede cambiar en cualquier momento desde la app.",
+      },
+    ],
+    privacy_kicker: "Privacidad y control",
+    privacy_h2: "Lo que ves y lo que NUNCA verás",
+    privacy_columns: [
+      {
+        title: "Qué ve el administrador del grupo",
+        items: [
+          "El nombre que eligió el miembro (por ejemplo, 'Mamá', 'Luis')",
+          "Recuento diario de pasos",
+          "Horas totales de sueño",
+          "Frecuencia cardíaca media y en reposo",
+          "Nivel de actividad genérico (bajo/medio/alto)",
+        ],
+        color: "brand-aqua",
+      },
+      {
+        title: "Lo que NUNCA verá",
+        items: [
+          "Ubicación geográfica del miembro",
+          "Peso y composición corporal",
+          "Ciclo menstrual",
+          "Presión arterial, glucosa y datos médicos sensibles",
+          "Notificaciones, mensajes y contactos del teléfono",
+        ],
+        color: "brand-green",
+      },
+    ],
+    techstack_h2: "Compatible con todos los wearables que ya tienes",
+    techstack_body:
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Si alguno de vosotros tiene un wearable diferente, basta con que escriba los datos en Health Connect (lo hacen todas las marcas principales desde 2024). Sin ataduras a ninguna marca.",
+    pricing_kicker: "Cuánto cuesta",
+    pricing_h2: "Gratis hasta 3 miembros",
+    pricing_body:
+      "El plan gratuito incluye tú + 2 familiares (3 en total). Con FitMesh Pro (pago único: 3,99 € en Android · 4,99 € en iPhone) desbloqueas hasta 8 miembros, historial ampliado y sincronización prioritaria. Sin suscripción, sin periodos de prueba caducados, sin tarjeta de crédito.",
+    faq_kicker: "Preguntas frecuentes",
+    faq_h2: "Dudas y respuestas",
+    faqs: [
+      {
+        q: "Mi madre/mi padre no sabe mucho de tecnología. ¿Puede usarla?",
+        a:
+          "Sí. Una vez instalada la app y tocado el enlace de invitación que le envías, no tiene que hacer nada más. La app sincroniza sola en segundo plano. Tú ves sus datos desde tu app. Él o ella no necesita volver a abrirla nunca más.",
+      },
+      {
+        q: "¿Puedo ver la ubicación de los miembros de la familia?",
+        a:
+          "No, nunca. FitMesh Sync no recopila ni comparte datos de ubicación. Si necesitas eso, usa una app dedicada como Google Family Link.",
+      },
+      {
+        q: "¿Qué pasa si un miembro quiere salir del grupo?",
+        a:
+          "Desde su teléfono: Mesh Familia → Ajustes del grupo → Salir del grupo. Sus datos históricos se eliminan de la vista de los demás de forma inmediata. No se necesita autorización del administrador.",
+      },
+      {
+        q: "¿Los datos de salud de mis familiares están seguros?",
+        a:
+          "Sí. Todo cifrado mediante HTTPS/TLS. Almacenamiento en Supabase EU (Fráncfort). Acceso restringido al grupo específico mediante Row-Level Security en Postgres. Sin intermediarios de datos, sin publicidad basada en perfiles. Cumplimiento total del RGPD.",
+      },
+      {
+        q: "¿Es un dispositivo médico?",
+        a:
+          "No. FitMesh Sync es una app de fitness y bienestar. NO sustituye a un médico ni detecta enfermedades. Ante cualquier duda sobre tu salud, consulta siempre a tu médico.",
+      },
+      {
+        q: "¿A cuántas personas puedo invitar?",
+        a:
+          "Plan gratuito: 3 en total (incluido tú). Plan Pro (3,99 € Android · 4,99 € iPhone): hasta 8 miembros.",
+      },
+    ],
+    final_cta_h2: "Empieza hoy: 3 minutos para crear tu primer grupo",
+    final_cta_body:
+      "Descarga FitMesh desde Play Store, crea el grupo familiar y comparte el enlace con quien quieras. Funciona de inmediato, aunque tus familiares no abran la app en días.",
+  },
 } as const;
 
 export function generateStaticParams() {
@@ -289,16 +405,24 @@ export async function generateMetadata({
   const title = COMING_SOON
     ? (lc === "it"
         ? "Mesh Famiglia — In arrivo | FitMesh Sync"
+        : lc === "es"
+        ? "Mesh Familia — Próximamente | FitMesh Sync"
         : "Family Mesh — Coming soon | FitMesh Sync")
     : (lc === "it"
         ? "Mesh Famiglia — Monitora la salute dei tuoi cari | FitMesh Sync"
+        : lc === "es"
+        ? "Mesh Familia — Controla la salud de tus seres queridos | FitMesh Sync"
         : "Family Mesh — Monitor your loved ones' health | FitMesh Sync");
   const description = COMING_SOON
     ? (lc === "it"
         ? "Mesh Famiglia: monitora passi, sonno e battito dei tuoi cari in un'unica dashboard privacy-first. Feature in arrivo nei prossimi mesi: iscriviti alla waitlist per essere avvisato al lancio."
+        : lc === "es"
+        ? "Mesh Familia: controla pasos, sueño y frecuencia cardíaca de tus seres queridos en un panel privado. Próximamente: únete a la lista de espera para recibir aviso en el lanzamiento."
         : "Family Mesh: monitor steps, sleep and heart rate of your loved ones in one privacy-first dashboard. Coming in the next months: join the waitlist to be notified at launch.")
     : (lc === "it"
         ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, gratis fino a 3 membri, niente posizione condivisa."
+        : lc === "es"
+        ? "Mesh Familia te permite ver pasos, sueño y frecuencia cardíaca de padres, pareja o hijos en un solo panel. Privacidad primero, gratis hasta 3 miembros, sin ubicación compartida."
         : "Family Mesh lets you see steps, sleep, and heart rate of parents, partners or kids in one dashboard. Privacy-first, free up to 3 members, no location sharing.");
 
   return {
@@ -309,6 +433,7 @@ export async function generateMetadata({
       languages: {
         it: `${SITE_URL}/it/famiglia`,
         en: `${SITE_URL}/en/famiglia`,
+        es: `${SITE_URL}/es/famiglia`,
         "x-default": `${SITE_URL}/it/famiglia`,
       },
     },
@@ -332,7 +457,7 @@ export default async function FamigliaLanding({
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
   const path = `/${lc}/famiglia`;
-  const crumbName = lc === "it" ? "Mesh Famiglia" : "Family Mesh";
+  const crumbName = lc === "it" ? "Mesh Famiglia" : lc === "es" ? "Mesh Familia" : "Family Mesh";
 
   // JSON-LD WebPage — usato in entrambi gli stati (full + coming-soon).
   const webPageLd = {
@@ -342,11 +467,15 @@ export default async function FamigliaLanding({
     url: `${SITE_URL}${path}`,
     name: lc === "it"
       ? "Mesh Famiglia — Monitora la salute dei tuoi cari"
+      : lc === "es"
+      ? "Mesh Familia — Controla la salud de tus seres queridos"
       : "Family Mesh — Monitor your loved ones' health",
     description: lc === "it"
       ? "Crea un gruppo famiglia, invita genitori/partner/figli, vedi passi/sonno/battito di ognuno in una dashboard. Privacy-first."
+      : lc === "es"
+      ? "Crea un grupo familiar, invita a padres/pareja/hijos, ve pasos/sueño/frecuencia cardíaca de cada uno en un panel. Privacidad primero."
       : "Create a family group, invite parents/partner/kids, see steps/sleep/heart rate of each in one dashboard. Privacy-first.",
-    inLanguage: lc === "it" ? "it-IT" : "en-US",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
     isPartOf: { "@id": `${SITE_URL}#website` },
     about: { "@id": `${SITE_URL}#mobile-app` },
   };
@@ -500,7 +629,7 @@ export default async function FamigliaLanding({
           href={`/${lc}/integrations`}
           className="mt-6 inline-flex items-center gap-1.5 text-brand-aqua hover:text-brand-green transition text-sm font-medium"
         >
-          {lc === "it" ? "Vedi tutti i wearable supportati" : "See all supported wearables"}
+          {lc === "it" ? "Vedi tutti i wearable supportati" : lc === "es" ? "Ver todos los wearables compatibles" : "See all supported wearables"}
           <span aria-hidden>→</span>
         </Link>
       </section>
@@ -518,7 +647,7 @@ export default async function FamigliaLanding({
 
       {/* Trust badges (E-E-A-T per topic YMYL salute familiare). */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-8">
-        <TrustBadges locale={lc} />
+        <TrustBadges locale={lc === "it" ? "it" : "en"} />
       </section>
 
       {/* FAQ */}
@@ -562,11 +691,13 @@ export default async function FamigliaLanding({
         <p className="mt-5 text-xs text-text-muted">
           {lc === "it"
             ? "Niente carta di credito · 3 membri gratis a vita"
+            : lc === "es"
+            ? "Sin tarjeta de crédito · 3 miembros gratis de por vida"
             : "No credit card · 3 members free forever"}
         </p>
         <p className="mt-3 text-xs text-text-muted">
           <a href={PLAY_URL} target="_blank" rel="noopener" className="underline hover:text-text-secondary">
-            {lc === "it" ? "Anteprima su Play Store" : "Preview on Play Store"}
+            {lc === "it" ? "Anteprima su Play Store" : lc === "es" ? "Vista previa en Play Store" : "Preview on Play Store"}
           </a>
         </p>
       </section>
@@ -615,6 +746,31 @@ function ComingSoonState({
         availability_h2: "Quando arriva",
         availability_body: "Mesh Famiglia richiede l'app pubblicata su entrambi gli store per funzionare end-to-end (il familiare che inviti deve poter installare da Play Store o App Store). Android è già live in beta; iOS è in sviluppo. Rilascio Mesh Famiglia previsto quando entrambe le piattaforme sono in produzione.",
       }
+    : lc === "es"
+    ? {
+        kicker: "Mesh Familia",
+        h1: "Próximamente: controla la salud de tus seres queridos, con privacidad primero",
+        sub: "Estamos terminando Mesh Familia: un panel para ver pasos, sueño y frecuencia cardíaca de padres, pareja o hijos, sin ubicación compartida y sin publicidad. Se lanzará cuando FitMesh Sync esté disponible en ambas tiendas (Android + iOS). Únete a la lista de espera para recibir aviso en el lanzamiento.",
+        cta: "Únete a la lista de espera",
+        secondary: "Mientras tanto: descarga FitMesh Sync en Android",
+        why_h2: "Por qué lo necesitas",
+        why_items: [
+          {
+            title: "Personas mayores independientes",
+            body: "Te gustaría saber si tu padre o tu madre caminó hoy, si durmió bien, si su frecuencia cardíaca en reposo es estable, sin preguntarlo cada día y sin apps invasivas.",
+          },
+          {
+            title: "Privacidad por diseño",
+            body: "Sin ubicación GPS compartida, sin intermediarios de datos, sin publicidad basada en perfiles. Datos cifrados, servidores en Europa (Fráncfort), cumple el RGPD.",
+          },
+          {
+            title: "Multi-dispositivo, sin ataduras",
+            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: cualquier wearable compatible con Health Connect (Android) o HealthKit (iOS, próximamente).",
+          },
+        ],
+        availability_h2: "Cuándo llega",
+        availability_body: "Mesh Familia requiere que la app esté publicada en ambas tiendas para funcionar de extremo a extremo (el familiar que invites debe poder instalarla desde Play Store o App Store). Android ya está disponible en beta; iOS está en desarrollo. El lanzamiento de Mesh Familia está previsto cuando ambas plataformas estén en producción.",
+      }
     : {
         kicker: "Family Mesh",
         h1: "Coming soon: monitor your loved ones' health, privacy-first",
@@ -647,7 +803,7 @@ function ComingSoonState({
 
       <section className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-12 pb-16 sm:pt-20 sm:pb-20 text-center">
         <p className="text-[10px] uppercase tracking-[0.24em] text-brand-aqua font-semibold">
-          {copy.kicker} · {lc === "it" ? "In arrivo" : "Coming soon"}
+          {copy.kicker} · {lc === "it" ? "In arrivo" : lc === "es" ? "Próximamente" : "Coming soon"}
         </p>
         <h1 className="mt-4 font-display text-display-lg sm:text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
           {copy.h1}
@@ -672,7 +828,7 @@ function ComingSoonState({
           </a>
         </div>
         <div className="mt-8">
-          <TrustBadges locale={lc} variant="compact" />
+          <TrustBadges locale={lc === "it" ? "it" : "en"} variant="compact" />
         </div>
       </section>
 

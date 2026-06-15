@@ -27,10 +27,14 @@ export async function generateMetadata({
   const title =
     lc === "it"
       ? "FitMesh Sync Founder — 1 anno di Pro gratis ai primi 1000"
+      : lc === "es"
+      ? "FitMesh Sync Founder — 1 año de Pro gratis para los primeros 1000"
       : "FitMesh Sync Founder — 1 year of Pro free for the first 1000";
   const description =
     lc === "it"
       ? "Scarica FitMesh Sync da Google Play e crea l'account: i primi 1000 ricevono un anno di Pro completo in regalo, attivato automaticamente. Più accesso prioritario alla versione iOS."
+      : lc === "es"
+      ? "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben un año completo de Pro gratis, activado automáticamente. Además, acceso prioritario a la versión iOS."
       : "Download FitMesh Sync on Google Play and create your account: the first 1000 get a full year of Pro free, activated automatically. Plus priority access to the iOS version.";
 
   const path = `/${lc}/beta`;
@@ -42,6 +46,7 @@ export async function generateMetadata({
       languages: {
         it: `${SITE_URL}/it/beta`,
         en: `${SITE_URL}/en/beta`,
+        es: `${SITE_URL}/es/beta`,
         "x-default": `${SITE_URL}/it/beta`,
       },
     },
@@ -71,7 +76,9 @@ export default async function BetaPage({
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
 
-  const t = lc === "it" ? IT : EN;
+  const t = lc === "it" ? IT : lc === "es" ? ES : EN;
+  // Components not yet translated to ES fall back to EN
+  const lcBilingual: "it" | "en" = lc === "it" ? "it" : "en";
 
   return (
     // <div> e non <main>: il layout (marketing)/layout.tsx wrappa gia' i
@@ -96,7 +103,7 @@ export default async function BetaPage({
 
       <div className="mx-auto max-w-3xl px-6">
         <Breadcrumbs
-          locale={lc}
+          locale={lcBilingual}
           items={[{ name: "Founder", path: `/${lc}/beta` }]}
         />
 
@@ -122,7 +129,7 @@ export default async function BetaPage({
 
           {/* CTA primaria: il founder si attiva scaricando l'app, non con un form */}
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <StoreButtonsRow locale={lc} />
+            <StoreButtonsRow locale={lcBilingual} />
           </div>
           <p className="mt-4 text-xs text-text-muted">{t.ctaNote}</p>
         </header>
@@ -160,7 +167,7 @@ export default async function BetaPage({
         {/* What happens next */}
         <section className="mb-20" data-reveal>
           <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-            {lc === "it" ? "Processo" : "Process"}
+            {lc === "it" ? "Proceso" : lc === "es" ? "Proceso" : "Process"}
           </p>
           <h2 className="mt-3 mb-8 font-display text-display font-semibold tracking-tightest text-text-primary">{t.nextTitle}</h2>
           <ol className="space-y-3">
@@ -201,13 +208,13 @@ export default async function BetaPage({
           <div className="relative">
             <h2 className="font-display text-2xl font-semibold text-text-primary tracking-tight">{t.formTitle}</h2>
             <p className="mt-2 mb-8 text-text-secondary">{t.formSub}</p>
-            <BetaSignupForm locale={lc} />
+            <BetaSignupForm locale={lcBilingual} />
           </div>
         </section>
 
         {/* Trust badges — rinforza affidabilita' subito sotto il form. */}
         <section className="mt-6">
-          <TrustBadges locale={lc} variant="compact" />
+          <TrustBadges locale={lcBilingual} variant="compact" />
         </section>
 
         {/* FAQ */}
@@ -315,6 +322,89 @@ const IT = {
     {
       q: "Posso cancellare l'account?",
       a: "Sì, in qualsiasi momento, direttamente dall'app o scrivendo a privacy@fitmesh.fit. Cancelliamo account e dati entro 48h, come previsto dal GDPR.",
+    },
+  ],
+};
+
+const ES = {
+  metaTitle: "FitMesh Sync Founder — 1 año de Pro gratis para los primeros 1000",
+  metaDesc:
+    "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben un año completo de Pro gratis, activado automáticamente. Además, acceso prioritario a la versión iOS.",
+  kicker: "Founder · 1000 plazas",
+  h1_a: "Sé uno de los primeros",
+  h1_b: "1000 founders",
+  h1_c: "de FitMesh Sync",
+  sub:
+    "Sin selección, sin espera: descarga la app, crea tu cuenta y un año de Pro completo se activa solo. Válido para las primeras 1000 cuentas registradas.",
+  ctaNote: "Sin tarjeta, sin suscripción: cuando termina el año no pagas nada.",
+  perks: [
+    {
+      emoji: "🎁",
+      title: "1 año de Pro gratis",
+      desc: "Se activa automáticamente al registrarte. Historial ilimitado, Mesh Familia, todas las funciones Pro incluidas.",
+    },
+    {
+      emoji: "⚡",
+      title: "Primero en iOS",
+      desc: "Android ya está disponible. Los founders reciben acceso a la versión iOS en cuanto se lanza, antes que nadie.",
+    },
+    {
+      emoji: "🛠️",
+      title: "Voz directa",
+      desc: "Tú sugieres, yo escucho. Las funciones más solicitadas por los founders tienen prioridad en la hoja de ruta.",
+    },
+  ],
+  formTitle: "¿Quieres FitMesh también en iPhone?",
+  formSub:
+    "Deja tu email y te aviso cuando salga en iOS: los founders tienen acceso prioritario a la primera versión.",
+  nextTitle: "Cómo funciona",
+  nextSteps: [
+    {
+      title: "Descarga la app desde Google Play",
+      desc: "FitMesh Sync ya está disponible. Sin formularios que rellenar, sin aprobaciones que esperar.",
+    },
+    {
+      title: "Crea tu cuenta",
+      desc: "Con email o Google Sign-In. Si estás entre los primeros 1000, el Pro se activa solo: en la pantalla Pro verás \"Founder · Pro hasta [fecha]\".",
+    },
+    {
+      title: "Un año de Pro completo, sin compromisos",
+      desc: `Sin tarjeta, sin renovación automática. Al vencer, tú decides: te quedas en el plan gratuito o pasas a Pro (${PRICING.subSixMonthsLabel.en}).`,
+    },
+    {
+      title: "Envíame tu opinión cuando quieras",
+      desc: "¿Un error o una idea? Escríbeme. Las siguientes versiones incorporan las peticiones de los founders.",
+    },
+  ],
+  faqTitle: "Preguntas frecuentes",
+  faqs: [
+    {
+      q: "¿Qué incluye el año de Pro gratis?",
+      a: "Todo lo que incluye Pro: historial ilimitado (más allá de los 14 días del plan gratuito), Mesh Familia, exportación completa de datos y todas las funciones Pro que se publiquen durante el año. Durante 12 meses desde el registro.",
+    },
+    {
+      q: "¿Cómo sé si estoy entre los primeros 1000?",
+      a: "El contador en la página principal muestra las plazas restantes en tiempo real. De todos modos lo verás directamente en la app: si el acceso está activo, la pantalla Pro mostrará \"Founder · Pro hasta [fecha]\".",
+    },
+    {
+      q: "¿Qué pasa cuando termina el año?",
+      a: `Sin cargos: nunca pedimos la tarjeta. Tu cuenta pasa simplemente al plan gratuito (últimos 14 días de historial). Si quieres seguir con Pro: ${PRICING.subSixMonthsFull.en} o pago único (${PRICING.lifetimeBoth.en}).`,
+    },
+    {
+      q: "¿Y los primeros 100 beta testers?",
+      a: "Los miembros de la beta cerrada mantienen Pro de por vida, como se prometió. El programa founder de 1000 plazas es el siguiente paso, vinculado al lanzamiento público.",
+    },
+    {
+      q: "¿Qué wearables son compatibles?",
+      a: "Todos los dispositivos compatibles con Health Connect (Android 8+): Galaxy Watch 4/5/6/7/Ultra, Google Pixel Watch, Fitbit (vía Health Connect), Garmin (vía Connect), Polar y cualquier otro que escriba en Health Connect. Para Samsung Galaxy Watch también existe la integración directa con Samsung Health.",
+    },
+    {
+      q: "¿Qué hacéis con mis datos?",
+      a: "Tus datos de salud no son un producto. Se almacenan en servidores europeos y solo tú puedes acceder a ellos a través de tu cuenta. Nunca se venden ni se comparten con terceros. Más detalles en: fitmesh.fit/es/privacy",
+    },
+    {
+      q: "¿Puedo eliminar mi cuenta?",
+      a: "Sí, en cualquier momento, directamente desde la app o escribiendo a privacy@fitmesh.fit. Eliminamos la cuenta y todos los datos en un plazo de 48h, conforme al GDPR.",
     },
   ],
 };

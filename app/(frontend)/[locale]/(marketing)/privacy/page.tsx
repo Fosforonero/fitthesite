@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 const SITE_URL = "https://www.fitmesh.fit";
 const LAST_UPDATED_IT = "21 maggio 2026";
 const LAST_UPDATED_EN = "May 21, 2026";
+const LAST_UPDATED_ES = "21 de mayo de 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -14,10 +15,12 @@ export async function generateMetadata(
   const titles: Record<Locale, string> = {
     it: "Privacy Policy",
     en: "Privacy Policy",
+    es: "Política de privacidad",
   };
   const desc: Record<Locale, string> = {
     it: "Come FitMesh Sync raccoglie, utilizza e protegge i dati di salute. Conforme GDPR.",
     en: "How FitMesh Sync collects, uses and safeguards health data. GDPR compliant.",
+    es: "Cómo FitMesh Sync recopila, utiliza y protege tus datos de salud. Cumple el RGPD.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
@@ -28,6 +31,7 @@ export async function generateMetadata(
       languages: {
         it: `${SITE_URL}/it/privacy`,
         en: `${SITE_URL}/en/privacy`,
+        es: `${SITE_URL}/es/privacy`,
         "x-default": `${SITE_URL}/it/privacy`,
       },
     },
@@ -42,13 +46,13 @@ export default async function PrivacyPage({
   const { locale } = await params;
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
-  const lastUpdated = `${t.legal.last_updated}: ${lc === "it" ? LAST_UPDATED_IT : LAST_UPDATED_EN}`;
+  const lastUpdated = `${t.legal.last_updated}: ${lc === "it" ? LAST_UPDATED_IT : lc === "es" ? LAST_UPDATED_ES : LAST_UPDATED_EN}`;
 
   return (
     <>
       <Breadcrumbs items={[{ name: "Privacy Policy", path: `/${lc}/privacy` }]} locale={lc} />
       <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
-        {lc === "it" ? <PrivacyIT /> : <PrivacyEN />}
+        {lc === "it" ? <PrivacyIT /> : lc === "es" ? <PrivacyES /> : <PrivacyEN />}
       </LegalPage>
     </>
   );
@@ -466,6 +470,223 @@ function PrivacyEN() {
             <li><span className="text-text-muted">Support:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:support@fitmesh.fit">support@fitmesh.fit</a></li>
             <li><span className="text-text-muted">General:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:hello@fitmesh.fit">hello@fitmesh.fit</a></li>
             <li><span className="text-text-muted">Web:</span> <a className="text-brand-aqua hover:text-brand-blue" href="https://www.fitmesh.fit">www.fitmesh.fit</a></li>
+          </ul>
+        </div>
+      </Section>
+    </>
+  );
+}
+
+function PrivacyES() {
+  return (
+    <>
+      <Section title="1. Responsable del tratamiento">
+        <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
+          <ul className="space-y-1.5 text-sm">
+            <li><span className="text-text-muted">Responsable:</span> Matteo Pizzi, persona física titular de FitMesh Sync</li>
+            <li><span className="text-text-muted">Contacto de privacidad:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:privacy@fitmesh.fit">privacy@fitmesh.fit</a></li>
+            <li><span className="text-text-muted">DPO (Delegado de Protección de Datos):</span> no designado. El tratamiento no entra en los supuestos de designación obligatoria del art. 37 RGPD (autoridad pública, supervisión sistemática a gran escala, categorías especiales a gran escala). Para cualquier consulta sobre privacidad, usa el correo indicado arriba.</li>
+          </ul>
+        </div>
+      </Section>
+
+      <Section title="2. Introducción">
+        <p>
+          FitMesh Sync ("nosotros", "nuestra", "la app") respeta tu privacidad y se compromete a
+          proteger tus datos personales. Esta Política de privacidad explica cómo recopilamos,
+          utilizamos y protegemos la información de salud cuando usas nuestra aplicación móvil
+          FitMesh Sync (<em>com.fitmeshsync.app</em> en Google Play).
+        </p>
+        <p>
+          Base jurídica del tratamiento: art. 6(1)(b) RGPD (ejecución del servicio solicitado por
+          el usuario) y art. 9(2)(a) RGPD (consentimiento explícito para el tratamiento de datos
+          relativos a la salud, otorgado mediante los permisos de Health Connect/Samsung Health
+          dentro de la app).
+        </p>
+      </Section>
+
+      <Section title="3. Información que recopilamos">
+        <p>
+          FitMesh Sync lee los siguientes datos de salud desde tu dispositivo Android a través de
+          servicios autorizados (Health Connect, Samsung Health Data SDK):
+        </p>
+        <List items={[
+          ["Actividad física", "pasos, distancia recorrida, calorías quemadas (activas y totales), pisos subidos"],
+          ["Frecuencia cardíaca", "media, rango mínimo/máximo, frecuencia cardíaca en reposo, HRV"],
+          ["Sueño", "duración total, fases (profundo, REM, ligero, despierto), horarios de inicio y fin"],
+          ["Composición corporal", "peso, altura, IMC (si los facilita el usuario)"],
+          ["Otros parámetros", "saturación de oxígeno (SpO₂), VO₂ máx, temperatura cutánea, desnivel"],
+          ["Sesiones de entrenamiento", "tipo de actividad, duración, distancia, calorías"],
+          ["Cuenta", "dirección de correo electrónico (para autenticación mediante Supabase Auth) e identificador de dispositivo"],
+        ]} />
+        <Callout>
+          Importante: estos datos se leen únicamente desde los servicios de salud ya presentes en
+          tu dispositivo y solo después de que hayas concedido explícitamente los permisos
+          necesarios.
+        </Callout>
+      </Section>
+
+      <Section title="4. Cómo utilizamos los datos">
+        <p>Los datos recopilados se utilizan exclusivamente para:</p>
+        <List items={[
+          ["Sincronización", "recibir y almacenar tus métricas de salud en nuestro backend en la nube"],
+          ["Visualización", "mostrar los datos en el panel de la app"],
+          ["Soporte", "diagnosticar problemas técnicos cuando nos los comunicas por correo electrónico"],
+          ["Notificaciones", "enviarte recordatorios configurables (p. ej., avisos de sincronización) mediante Firebase Cloud Messaging"],
+        ]} />
+        <p className="text-text-primary font-medium">
+          No vendemos, compartimos ni utilizamos tus datos con fines publicitarios o de marketing.
+          No existe ninguna elaboración de perfiles automatizada que produzca efectos jurídicos sobre el usuario.
+        </p>
+      </Section>
+
+      <Section title="5. Dónde se almacenan los datos">
+        <p>
+          Los datos sincronizados se envían al backend de FitMesh Sync alojado en:
+        </p>
+        <List items={[
+          ["Vercel Inc.", "alojamiento de la API serverless de fitmesh.fit (región preferida: Europa fra1; algunas funciones edge se ejecutan en la región más cercana al usuario)"],
+          ["Supabase Inc.", "base de datos PostgreSQL gestionada + autenticación + almacenamiento (proyecto en región UE, eu-central-1 Fráncfort)"],
+        ]} />
+        <p>
+          Los datos permanecen en tu dispositivo Android en una caché local hasta el momento de la
+          sincronización. Tras confirmar la recepción, la caché local se vacía.
+        </p>
+      </Section>
+
+      <Section title="6. Transferencias internacionales de datos (fuera de la UE)">
+        <p>
+          La base de datos principal (Supabase Postgres) está alojada en la Unión Europea
+          (Fráncfort, Alemania). Sin embargo, algunos servicios auxiliares implican una
+          transferencia a terceros países (en particular, Estados Unidos):
+        </p>
+        <List items={[
+          ["Vercel (EE. UU.)", "edge runtime y registro de solicitudes. Transferencia basada en las Cláusulas Contractuales Tipo (CCT) aprobadas por la Comisión Europea (Decisión 2021/914) y en el Addendum de Procesamiento de Datos firmado con Vercel"],
+          ["Resend (EE. UU.)", "envío de correos transaccionales (confirmación de registro beta, comunicaciones de soporte). Transferencia basada en CCT + DPA"],
+          ["Firebase Cloud Messaging (Google LLC, EE. UU.)", "transporte de notificaciones push. Google se adhiere a las CCT + Marco de Privacidad de Datos UE-EE. UU."],
+          ["Google Sign-In (Google LLC, EE. UU.)", "autenticación opcional mediante cuenta de Google. Transferencia basada en CCT + DPF"],
+        ]} />
+        <p>
+          Antes de transferir datos a EE. UU. realizamos una Evaluación de Impacto de la
+          Transferencia: los datos transferidos son limitados y no incluyen identificadores
+          biométricos puros; las CCT incluyen cláusulas de suspensión en caso de solicitudes de
+          autoridades gubernamentales; los proveedores elegidos se adhieren al Marco de Privacidad
+          de Datos UE-EE. UU. cuando está disponible.
+        </p>
+      </Section>
+
+      <Section title="7. Conservación de los datos">
+        <List items={[
+          ["Métricas de salud", "conservadas mientras la cuenta del usuario esté activa. Eliminadas en un plazo de 30 días desde la solicitud de cancelación de la cuenta o desde la desinstalación confirmada"],
+          ["Registros de aplicación y sincronización", "conservados 90 días con fines de diagnóstico y, después, eliminados automáticamente"],
+          ["Correos de contacto (privacidad/soporte)", "conservados 24 meses para garantizar la continuidad del soporte y, después, eliminados"],
+          ["Copias de seguridad de la base de datos", "rotación de 7 días en la recuperación point-in-time de Supabase"],
+          ["Datos de registro beta", "conservados hasta el lanzamiento público y, después, anonimizados o eliminados"],
+        ]} />
+      </Section>
+
+      <Section title="8. Permisos requeridos">
+        <p>FitMesh Sync requiere los siguientes permisos:</p>
+        <List items={[
+          ["Health Connect", "para leer los datos de salud del sistema operativo Android"],
+          ["Samsung Health (opcional)", "si tienes un Galaxy Watch, para obtener datos adicionales que Health Connect no expone"],
+          ["Acceso a Internet", "para sincronizar los datos con el backend de FitMesh Sync"],
+          ["Sincronización en segundo plano", "para enviar datos periódicamente incluso cuando la app está cerrada"],
+          ["Notificaciones", "para recibir recordatorios de sincronización y avisos del sistema"],
+          ["Exención de optimización de batería", "para garantizar la sincronización regular (obligatorio en Android 14+)"],
+        ]} />
+        <p>
+          Todos los permisos se solicitan de forma explícita y puedes revocarlos en cualquier
+          momento desde los ajustes del dispositivo o de la aplicación.
+        </p>
+      </Section>
+
+      <Section title="9. Seguridad de los datos">
+        <List items={[
+          ["Transporte", "todos los datos se transmiten mediante HTTPS/TLS 1.2+ hacia fitmesh.fit"],
+          ["Persistencia local", "la caché local se vacía tras la confirmación de envío por parte del servidor"],
+          ["Tokens de autenticación", "JWT de Supabase almacenados en el Android Keystore (flutter_secure_storage)"],
+          ["Seguridad a nivel de fila (RLS)", "cada usuario solo puede leer y escribir sus propias filas (políticas RLS de Supabase en todas las tablas expuestas)"],
+          ["Sin rastreadores de terceros en la app", "no incluimos SDKs de analítica, publicidad ni elaboración de perfiles en la app"],
+        ]} />
+      </Section>
+
+      <Section title="10. Tus derechos">
+        <p>De conformidad con el RGPD, tienes derecho a:</p>
+        <List items={[
+          ["Acceder", "solicitar una copia de tus datos almacenados en nuestros sistemas"],
+          ["Rectificar", "corregir datos inexactos o incompletos"],
+          ["Suprimir", "solicitar la eliminación completa de tu cuenta y de los datos asociados"],
+          ["Limitar", "solicitar la limitación del tratamiento en casos específicos"],
+          ["Portabilidad", "recibir tus datos en formato JSON estructurado"],
+          ["Oponerte", "oponerte al tratamiento por motivos legítimos"],
+          ["Retirar el consentimiento", "deshabilitar los permisos de acceso a los datos de salud en cualquier momento (la retirada no afecta a la licitud del tratamiento realizado antes de la misma)"],
+        ]} />
+        <p>
+          Para ejercer estos derechos, escríbenos a{" "}
+          <a className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" href="mailto:privacy@fitmesh.fit">
+            privacy@fitmesh.fit
+          </a>
+          . Respondemos en un plazo de 30 días, conforme al art. 12 RGPD.
+        </p>
+      </Section>
+
+      <Section title="11. Terceros encargados del tratamiento">
+        <p>FitMesh Sync utiliza los siguientes encargados del tratamiento:</p>
+        <List items={[
+          ["Health Connect (Google LLC)", "fuente de datos de salud Android, leídos localmente, no comunicados por nosotros a Google"],
+          ["Samsung Health Data SDK (Samsung Electronics)", "fuente de datos de Galaxy Watch, leídos localmente"],
+          ["Supabase Inc.", "PostgreSQL gestionado + Auth (Fráncfort, DE), DPA firmado"],
+          ["Vercel Inc.", "alojamiento de API serverless (EE. UU., edge global), DPA firmado + CCT"],
+          ["Resend, Inc.", "envío de correos transaccionales (EE. UU.), DPA + CCT"],
+          ["Google LLC (Firebase Cloud Messaging)", "transporte de notificaciones push (EE. UU.), DPA + CCT + DPF"],
+          ["Google LLC (Google Sign-In, opcional)", "autenticación OAuth (EE. UU.), DPA + CCT + DPF"],
+          ["Google LLC (Google Play Billing)", "gestión de compras en la app, sujeto a los Términos de Google Play"],
+          ["Google Analytics 4 (solo sitio web, opt-in)", "analítica anónima activada únicamente tras el consentimiento explícito mediante el banner de cookies"],
+        ]} />
+        <p>
+          Más detalles sobre las cookies del sitio web en nuestra{" "}
+          <a href="/es/cookies" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Política de cookies</a>.
+        </p>
+      </Section>
+
+      <Section title="12. Cambios">
+        <p>
+          Podemos actualizar esta Política de privacidad de vez en cuando. Para cambios
+          significativos, te notificaremos por correo electrónico o mediante un aviso en la app
+          antes de la próxima sincronización. La fecha de última actualización aparece en la parte
+          superior de esta página.
+        </p>
+      </Section>
+
+      <Section title="13. Menores">
+        <p>
+          FitMesh Sync no está destinada a usuarios menores de 16 años (edad mínima de consentimiento
+          digital según el art. 8 RGPD). No recopilamos conscientemente datos personales de menores
+          de 16 años sin el consentimiento de quien ejerza la patria potestad o tutela.
+        </p>
+      </Section>
+
+      <Section title="14. Reclamaciones ante la autoridad de control">
+        <p>
+          Si consideras que el tratamiento de tus datos infringe el RGPD, puedes presentar una
+          reclamación ante la autoridad de protección de datos de tu país. Para residentes en
+          Italia, la autoridad competente es el Garante per la Protezione dei Dati Personali{" "}
+          <a className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" href="https://www.garanteprivacy.it/" target="_blank" rel="noopener">
+            garanteprivacy.it
+          </a>
+          . Si resides en otro Estado miembro de la UE, puedes dirigirte a tu autoridad nacional
+          competente.
+        </p>
+      </Section>
+
+      <Section title="15. Contacto">
+        <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
+          <ul className="space-y-1.5 text-sm">
+            <li><span className="text-text-muted">Privacidad:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:privacy@fitmesh.fit">privacy@fitmesh.fit</a></li>
+            <li><span className="text-text-muted">Soporte:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:support@fitmesh.fit">support@fitmesh.fit</a></li>
+            <li><span className="text-text-muted">General:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:hello@fitmesh.fit">hello@fitmesh.fit</a></li>
+            <li><span className="text-text-muted">Sitio web:</span> <a className="text-brand-aqua hover:text-brand-blue" href="https://www.fitmesh.fit">www.fitmesh.fit</a></li>
           </ul>
         </div>
       </Section>

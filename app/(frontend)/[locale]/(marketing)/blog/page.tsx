@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
-import { categoryLabel } from "@/lib/blog/types";
+import { categoryLabel, tl } from "@/lib/blog/types";
 import { getBlogPosts } from "@/lib/blog/payload-source";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -26,11 +26,15 @@ export async function generateMetadata({
   const title =
     lc === "it"
       ? "Blog FitMesh — Sync wearable, Health Connect, privacy salute"
-      : "FitMesh Blog — Wearable sync, Health Connect, health privacy";
+      : lc === "es"
+        ? "Blog FitMesh — Sincronización de wearables, Health Connect, privacidad de salud"
+        : "FitMesh Blog — Wearable sync, Health Connect, health privacy";
   const description =
     lc === "it"
       ? "Guide oneste su sync wearable, Health Connect, esportazione dati Galaxy Watch / Fitbit / Garmin, GDPR e privacy. Niente hype, solo informazioni utili."
-      : "Honest guides on wearable sync, Health Connect, Galaxy Watch / Fitbit / Garmin data export, GDPR and privacy. No hype, just useful information.";
+      : lc === "es"
+        ? "Guías honestas sobre sincronización de wearables, Health Connect, exportación de datos de Galaxy Watch y Garmin, GDPR y privacidad. Sin hype, solo información útil."
+        : "Honest guides on wearable sync, Health Connect, Galaxy Watch / Fitbit / Garmin data export, GDPR and privacy. No hype, just useful information.";
 
   const path = `/${lc}/blog`;
   return {
@@ -41,6 +45,7 @@ export async function generateMetadata({
       languages: {
         it: `${SITE_URL}/it/blog`,
         en: `${SITE_URL}/en/blog`,
+        es: `${SITE_URL}/es/blog`,
         "x-default": `${SITE_URL}/it/blog`,
       },
     },
@@ -86,11 +91,24 @@ const I18N = {
     sectionPillar: "Pillar guides",
     sectionRecent: "All articles",
   },
-} as const;
+  es: {
+    kicker: "Blog",
+    heading: "Guías honestas sobre sincronización de wearables",
+    headingAccent: "y tus datos de salud",
+    lead: "Sin hype ni reseñas de relleno. Explicamos qué funciona de verdad en 2026: Health Connect, exportación de datos, autorizaciones oficiales, GDPR y cómo elegir el ecosistema adecuado.",
+    pillarLabel: "Guía principal",
+    readMin: (m: number) => `${m} min de lectura`,
+    publishedOn: "Publicado el",
+    explore: "Leer →",
+    sectionPillar: "Guías principales",
+    sectionRecent: "Todos los artículos",
+  },
+};
 
 function formatDate(iso: string, lc: Locale): string {
   const d = new Date(iso);
-  return d.toLocaleDateString(lc === "it" ? "it-IT" : "en-US", {
+  const locale = lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US";
+  return d.toLocaleDateString(locale, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -116,16 +134,16 @@ export default async function BlogIndex({
     "@context": "https://schema.org",
     "@type": "Blog",
     "@id": `${SITE_URL}/${lc}/blog#blog`,
-    name: lc === "it" ? "Blog FitMesh Sync" : "FitMesh Sync Blog",
-    inLanguage: lc === "it" ? "it-IT" : "en-US",
+    name: lc === "it" ? "Blog FitMesh Sync" : lc === "es" ? "Blog FitMesh Sync" : "FitMesh Sync Blog",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
     url: `${SITE_URL}/${lc}/blog`,
     blogPost: posts.map((p) => ({
       "@type": "BlogPosting",
-      headline: p.hero.title[lc],
+      headline: tl(p.hero.title, lc),
       url: `${SITE_URL}/${lc}/blog/${p.slug}`,
       datePublished: p.publishedAt,
       dateModified: p.updatedAt,
-      description: p.metaDescription[lc],
+      description: tl(p.metaDescription, lc),
     })),
   };
 
@@ -183,10 +201,10 @@ export default async function BlogIndex({
                     <span className="text-text-muted">{t.readMin(p.readMinutes)}</span>
                   </div>
                   <h3 className="mt-4 font-display text-2xl sm:text-3xl font-semibold tracking-tightest text-text-primary group-hover:text-brand-aqua transition">
-                    {p.hero.title[lc]}
+                    {tl(p.hero.title, lc)}
                   </h3>
                   <p className="mt-3 text-text-secondary leading-relaxed line-clamp-3">
-                    {p.hero.subtitle[lc]}
+                    {tl(p.hero.subtitle, lc)}
                   </p>
                   <p className="mt-5 inline-flex items-center text-sm font-semibold text-brand-aqua">
                     {t.explore}
@@ -218,10 +236,10 @@ export default async function BlogIndex({
                 <span className="text-text-muted">{t.readMin(p.readMinutes)}</span>
               </div>
               <h3 className="mt-3 font-display text-lg font-semibold tracking-tight text-text-primary group-hover:text-brand-aqua transition leading-snug">
-                {p.hero.title[lc]}
+                {tl(p.hero.title, lc)}
               </h3>
               <p className="mt-2 text-sm text-text-secondary leading-relaxed line-clamp-3 flex-1">
-                {p.hero.subtitle[lc]}
+                {tl(p.hero.subtitle, lc)}
               </p>
               <p className="mt-4 text-xs text-text-muted">
                 {formatDate(p.publishedAt, lc)}

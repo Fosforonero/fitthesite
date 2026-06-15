@@ -31,6 +31,24 @@ export default async function ResetPasswordPage({
         errorGeneric: 'Errore durante il salvataggio. Riprova o richiedi un nuovo link.',
         backToLogin: 'Torna alla home',
       }
+    : lc === 'es'
+    ? {
+        title: 'Establece una nueva contraseña',
+        subtitle:
+          'Elige una nueva contraseña para tu cuenta de FitMesh. Después de guardarla, vuelve a la app e inicia sesión.',
+        passwordLabel: 'Nueva contraseña',
+        passwordPlaceholder: 'Al menos 8 caracteres',
+        confirmLabel: 'Confirma la contraseña',
+        submit: 'Guardar nueva contraseña',
+        saving: 'Guardando…',
+        success: 'Contraseña actualizada. Vuelve a la app FitMesh e inicia sesión con tu nueva contraseña.',
+        errorTooShort: 'La contraseña debe tener al menos 8 caracteres.',
+        errorMismatch: 'Las dos contraseñas no coinciden.',
+        errorMissingToken:
+          'El enlace de restablecimiento no es válido o ha caducado. Solicita uno nuevo desde la app (¿Olvidaste tu contraseña?).',
+        errorGeneric: 'Error al guardar. Vuelve a intentarlo o solicita un nuevo enlace.',
+        backToLogin: 'Volver al inicio',
+      }
     : {
         title: 'Set a new password',
         subtitle:

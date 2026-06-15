@@ -26,8 +26,8 @@ export type ProviderCategory =
   | "phone-only";
 
 export interface ProviderFAQ {
-  q: { it: string; en: string };
-  a: { it: string; en: string };
+  q: { it: string; en: string; es?: string };
+  a: { it: string; en: string; es?: string };
 }
 
 export interface Provider {
@@ -44,32 +44,32 @@ export interface Provider {
   /** Lettera o emoji per il monogramma (no logo proprietario per ora). */
   initial: string;
   /** Tagline breve mostrata nelle card hub e nelle meta description. */
-  tagline: { it: string; en: string };
+  tagline: { it: string; en: string; es?: string };
   /** Long description per la landing (1-2 paragrafi). */
-  longDesc: { it: string; en: string };
+  longDesc: { it: string; en: string; es?: string };
   /** Note tecniche sulla modalità di connessione (Health Connect / API diretta / etc.). */
-  techNote: { it: string; en: string };
+  techNote: { it: string; en: string; es?: string };
   /** Tipi di dato supportati o pianificati (mostrati come pill). */
   dataTypes: Array<{
     key: string;
-    label: { it: string; en: string };
+    label: { it: string; en: string; es?: string };
     supported: boolean;
   }>;
   /** FAQ specifiche del provider (per JSON-LD FAQPage + render). */
   faqs: ProviderFAQ[];
   /** Keyword principali per il <meta description> e l'H1. */
-  seoKeywords: { it: string[]; en: string[] };
+  seoKeywords: { it: string[]; en: string[]; es?: string[] };
   /**
    * Solo per status="live-basic": dettagli su cosa funziona oggi via Health Connect
    * e cosa aggiungerà l'integrazione OAuth ufficiale.
    */
   viaHC?: {
     /** ETA OAuth ufficiale (es. "Q3 2026"). */
-    oauthEta: { it: string; en: string };
+    oauthEta: { it: string; en: string; es?: string };
     /** Lista cose che funzionano già via HC (1 riga ognuna). */
-    worksNow: { it: string[]; en: string[] };
+    worksNow: { it: string[]; en: string[]; es?: string[] };
     /** Lista cose che l'OAuth aggiungerà (1 riga ognuna). */
-    oauthAdds: { it: string[]; en: string[] };
+    oauthAdds: { it: string[]; en: string[]; es?: string[] };
   };
   /** Guida step-by-step opzionale renderizzata tra tech note e FAQ. */
   setupGuide?: ProviderSetupGuide;
@@ -83,57 +83,57 @@ export interface Provider {
 
 export interface ProviderSetupGuide {
   /** Passi numerati (5 step ideale). Markdown bold inline OK via **text**. */
-  steps: { it: string[]; en: string[] };
+  steps: { it: string[]; en: string[]; es?: string[] };
   /** Cosa viene sincronizzato (bullet list). */
-  syncedData: { it: string[]; en: string[] };
+  syncedData: { it: string[]; en: string[]; es?: string[] };
   /** Troubleshooting Q&A (3 ideale). */
   troubleshooting: Array<{
-    q: { it: string; en: string };
-    a: { it: string; en: string };
+    q: { it: string; en: string; es?: string };
+    a: { it: string; en: string; es?: string };
   }>;
   /** Note tecniche conclusive (1 paragrafo). */
-  technicalNotes: { it: string; en: string };
+  technicalNotes: { it: string; en: string; es?: string };
 }
 
 const STD_DATA_TYPES = (extras: Record<string, boolean> = {}) => [
   {
     key: "steps",
-    label: { it: "Passi", en: "Steps" },
+    label: { it: "Passi", en: "Steps", es: "Pasos" },
     supported: extras.steps ?? true,
   },
   {
     key: "hr",
-    label: { it: "Frequenza cardiaca", en: "Heart rate" },
+    label: { it: "Frequenza cardiaca", en: "Heart rate", es: "Frecuencia cardíaca" },
     supported: extras.hr ?? true,
   },
   {
     key: "sleep",
-    label: { it: "Sonno con fasi", en: "Sleep with stages" },
+    label: { it: "Sonno con fasi", en: "Sleep with stages", es: "Sueño con fases" },
     supported: extras.sleep ?? true,
   },
   {
     key: "calories",
-    label: { it: "Calorie", en: "Calories" },
+    label: { it: "Calorie", en: "Calories", es: "Calorías" },
     supported: extras.calories ?? true,
   },
   {
     key: "distance",
-    label: { it: "Distanza & GPS", en: "Distance & GPS" },
+    label: { it: "Distanza & GPS", en: "Distance & GPS", es: "Distancia y GPS" },
     supported: extras.distance ?? true,
   },
   {
     key: "workouts",
-    label: { it: "Allenamenti", en: "Workouts" },
+    label: { it: "Allenamenti", en: "Workouts", es: "Entrenamientos" },
     supported: extras.workouts ?? true,
   },
   {
     key: "vo2max",
-    label: { it: "VO₂ max", en: "VO₂ max" },
+    label: { it: "VO₂ max", en: "VO₂ max", es: "VO₂ máx" },
     supported: extras.vo2max ?? false,
   },
   {
     key: "spo2",
-    label: { it: "SpO₂", en: "SpO₂" },
+    label: { it: "SpO₂", en: "SpO₂", es: "SpO₂" },
     supported: extras.spo2 ?? false,
   },
 ];
@@ -151,14 +151,17 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Galaxy Watch 4/5/6/7/Ultra su dashboard personale. Setup in 30 secondi.",
       en: "Galaxy Watch 4/5/6/7/Ultra on a personal dashboard. 30-second setup.",
+      es: "Galaxy Watch 4/5/6/7/Ultra en tu panel personal. Configuración en 30 segundos.",
     },
     longDesc: {
       it: "FitMesh Sync legge i dati del tuo Samsung Galaxy Watch tramite Samsung Health + Health Connect e li mostra su una dashboard web personale: passi, battito, sonno con fasi, allenamenti, calorie, VO₂ max. Niente cloud opachi, niente account social, niente pubblicità.",
       en: "FitMesh Sync reads your Samsung Galaxy Watch data via Samsung Health + Health Connect and surfaces it on a personal web dashboard: steps, heart rate, sleep stages, workouts, calories, VO₂ max. No opaque clouds, no social accounts, no ads.",
+      es: "FitMesh Sync lee los datos de tu Samsung Galaxy Watch a través de Samsung Health y Health Connect, y los muestra en un panel web personal: pasos, frecuencia cardíaca, fases del sueño, entrenamientos, calorías y VO₂ máx. Sin nubes opacas, sin cuentas sociales, sin publicidad.",
     },
     techNote: {
       it: "Connessione nativa via Health Connect, non richiede login OAuth. I dati restano sul telefono e vengono inviati solo al server che scegli tu nelle impostazioni.",
       en: "Native connection via Health Connect, no OAuth login required. Data stays on your phone and is only sent to the server you choose in settings.",
+      es: "Conexión nativa a través de Health Connect, sin necesidad de inicio de sesión OAuth. Los datos permanecen en tu dispositivo y solo se envían al servidor que tú elijas en los ajustes.",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: true, spo2: true }),
     faqs: [
@@ -166,30 +169,36 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Funziona con Galaxy Watch 4?",
           en: "Does it work with Galaxy Watch 4?",
+          es: "¿Funciona con el Galaxy Watch 4?",
         },
         a: {
           it: "Sì. Tutti i Galaxy Watch dal 4 in poi (Watch 4, 5, 5 Pro, 6, 6 Classic, 7, Ultra) sono supportati nativamente perché scrivono su Samsung Health, che FitMesh legge via Health Connect.",
           en: "Yes. All Galaxy Watch models from 4 onwards (Watch 4, 5, 5 Pro, 6, 6 Classic, 7, Ultra) are supported natively because they write to Samsung Health, which FitMesh reads via Health Connect.",
+          es: "Sí. Todos los Galaxy Watch desde el 4 en adelante (Watch 4, 5, 5 Pro, 6, 6 Classic, 7, Ultra) son compatibles de forma nativa porque escriben en Samsung Health, que FitMesh lee a través de Health Connect.",
         },
       },
       {
         q: {
           it: "Devo installare Samsung Health?",
           en: "Do I need to install Samsung Health?",
+          es: "¿Necesito instalar Samsung Health?",
         },
         a: {
           it: "Sì. Samsung Health è il bridge che il tuo Galaxy Watch usa per scrivere su Health Connect. È già preinstallato sui telefoni Samsung. Su altri Android Samsung Health è gratis dal Play Store.",
           en: "Yes. Samsung Health is the bridge your Galaxy Watch uses to write to Health Connect. It's preinstalled on Samsung phones. On other Android devices Samsung Health is free on the Play Store.",
+          es: "Sí. Samsung Health es el puente que usa tu Galaxy Watch para escribir en Health Connect. Viene preinstalado en los teléfonos Samsung. En otros dispositivos Android, Samsung Health es gratis en Google Play.",
         },
       },
       {
         q: {
           it: "I dati arrivano in tempo reale?",
           en: "Is the data real-time?",
+          es: "¿Los datos se actualizan en tiempo real?",
         },
         a: {
           it: "Il sync è automatico ogni 15 minuti in background, oltre a un sync immediato all'apertura dell'app. Per dati istantanei puoi premere 'Sincronizza ora' nel menu.",
           en: "Sync runs automatically every 15 minutes in the background, plus an instant sync when you open the app. For real-time data tap 'Sync now' in the menu.",
+          es: "La sincronización se ejecuta automáticamente cada 15 minutos en segundo plano, además de una sincronización inmediata al abrir la app. Para datos al instante, pulsa 'Sincronizar ahora' en el menú.",
         },
       },
     ],
@@ -205,6 +214,12 @@ export const PROVIDERS: Provider[] = [
         "samsung health export data",
         "galaxy watch web dashboard",
         "galaxy watch health data",
+      ],
+      es: [
+        "sincronizar galaxy watch panel",
+        "exportar datos samsung health",
+        "galaxy watch panel web",
+        "datos de salud galaxy watch",
       ],
     },
     setupGuide: {
@@ -222,6 +237,13 @@ export const PROVIDERS: Provider[] = [
           "Open Samsung Health → ☰ menu → Settings → Health Connect → tap **Allow** and enable read/write for steps, heart rate, sleep, calories, distance, workouts, SpO₂.",
           "Install **FitMesh Sync** from the Play Store and sign in with Google.",
           "Grant FitMesh the requested Health Connect permissions on first launch. Tap **Sync now** for the initial backfill.",
+        ],
+        es: [
+          "Instala **Health Connect** desde Google Play (preinstalado en Android 14+).",
+          "Actualiza **Samsung Health** a la última versión y ábrelo al menos una vez.",
+          "Abre Samsung Health → menú ☰ → Ajustes → Health Connect → pulsa **Autorizar** y activa lectura/escritura para pasos, BPM, sueño, calorías, distancia, entrenamientos y SpO₂.",
+          "Instala **FitMesh Sync** desde Google Play e inicia sesión con Google.",
+          "Concede a FitMesh los permisos de Health Connect solicitados en el primer inicio. Pulsa **Sincronizar ahora** para la carga inicial de datos.",
         ],
       },
       syncedData: {
@@ -245,42 +267,59 @@ export const PROVIDERS: Provider[] = [
           "SpO₂: overnight blood oxygen",
           "VO₂ max (when measured by the Watch)",
         ],
+        es: [
+          "Pasos diarios e intradiarios",
+          "Frecuencia cardíaca (media, en reposo, muestras continuas)",
+          "Sueño con fases (profundo, REM, ligero, despierto)",
+          "Calorías activas y basales",
+          "Distancia recorrida",
+          "Entrenamientos (tipo, duración, kcal, BPM medio)",
+          "SpO₂: saturación de oxígeno nocturna",
+          "VO₂ máx (si lo mide el Watch)",
+        ],
       },
       troubleshooting: [
         {
           q: {
             it: "Non vedo i miei dati su FitMesh",
             en: "I don't see my data in FitMesh",
+            es: "No veo mis datos en FitMesh",
           },
           a: {
             it: "Torna in Samsung Health → Impostazioni → Health Connect → verifica che FitMesh sia nella lista app autorizzate.",
             en: "Go back to Samsung Health → Settings → Health Connect → make sure FitMesh is in the authorized apps list.",
+            es: "Ve a Samsung Health → Ajustes → Health Connect y verifica que FitMesh aparezca en la lista de apps autorizadas.",
           },
         },
         {
           q: {
             it: "I dati arrivano in ritardo",
             en: "Data arrives late",
+            es: "Los datos llegan con retraso",
           },
           a: {
             it: "Samsung Health spinge su Health Connect ogni 15 minuti circa. Per forzare un push immediato apri Samsung Health, scorri verso il basso sulla home, poi torna su FitMesh e premi 'Sincronizza ora'.",
             en: "Samsung Health pushes to Health Connect roughly every 15 minutes. To force an immediate push open Samsung Health, pull down to refresh, then return to FitMesh and tap 'Sync now'.",
+            es: "Samsung Health envía datos a Health Connect aproximadamente cada 15 minutos. Para forzar una actualización inmediata, abre Samsung Health, desliza hacia abajo en la pantalla principal y luego vuelve a FitMesh y pulsa 'Sincronizar ahora'.",
           },
         },
         {
           q: {
             it: "Vedo i passi ma non il sonno",
             en: "I see steps but not sleep",
+            es: "Veo los pasos pero no el sueño",
           },
           a: {
             it: "In Samsung Health → Impostazioni → Health Connect controlla che il permesso 'Sonno' sia attivo. È un permesso separato e di default non è incluso nel 'Concedi tutto'.",
             en: "In Samsung Health → Settings → Health Connect verify that the 'Sleep' permission is enabled. It's a separate permission and is not included in 'Allow all' by default.",
+            es: "En Samsung Health → Ajustes → Health Connect, comprueba que el permiso 'Sueño' esté activo. Es un permiso independiente y por defecto no está incluido en 'Autorizar todo'.",
           },
         },
       ],
       technicalNotes: {
         it: "Connessione via Health Connect, no OAuth. Latenza tipica 5–15 minuti dal Watch alla dashboard. Granularità: passi e BPM per minuto, sonno per fase, allenamenti per sessione. I dati restano sul telefono e vengono inviati solo al backend Supabase del tuo account FitMesh.",
         en: "Connection via Health Connect, no OAuth. Typical latency 5–15 minutes from Watch to dashboard. Granularity: steps and heart rate per minute, sleep per stage, workouts per session. Data stays on your phone and is only sent to your FitMesh account's Supabase backend.",
+        es: "Conexión a través de Health Connect, sin OAuth. Latencia típica de 5 a 15 minutos desde el Watch hasta el panel. Granularidad: pasos y BPM por minuto, sueño por fase, entrenamientos por sesión. Los datos permanecen en tu dispositivo y solo se envían al backend Supabase de tu cuenta FitMesh.",
       },
     },
     relatedBlogSlugs: ["backup-galaxy-watch-pc", "guida-sync-wearable-2026"],
@@ -296,32 +335,38 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Pixel Watch e qualsiasi Wear OS su dashboard personale. Privacy-first.",
       en: "Pixel Watch and any Wear OS on a personal dashboard. Privacy-first.",
+      es: "Pixel Watch y cualquier Wear OS en tu panel personal. Privacidad ante todo.",
     },
     longDesc: {
       it: "FitMesh Sync supporta tutti gli smartwatch Wear OS (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) leggendoli via Health Connect. I dati raccolti dal sensore vanno direttamente nella tua dashboard, senza passare da Google Fit o cloud terzi.",
       en: "FitMesh Sync supports every Wear OS smartwatch (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) reading them via Health Connect. Sensor data goes straight to your dashboard without routing through Google Fit or any third-party cloud.",
+      es: "FitMesh Sync es compatible con todos los smartwatch Wear OS (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) leyendo los datos a través de Health Connect. La información de los sensores llega directamente a tu panel, sin pasar por Google Fit ni por ninguna nube de terceros.",
     },
     techNote: {
       it: "Health Connect è lo standard ufficiale Android per i dati di salute, sostituendo Google Fit dal 2025. FitMesh si integra senza chiavi API né OAuth.",
       en: "Health Connect is the official Android standard for health data, replacing Google Fit since 2025. FitMesh integrates without API keys or OAuth.",
+      es: "Health Connect es el estándar oficial de Android para los datos de salud, sustituyendo a Google Fit desde 2025. FitMesh se integra sin claves de API ni OAuth.",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: true, spo2: true }),
     faqs: [
       {
-        q: { it: "Funziona col Pixel Watch?", en: "Does it work with Pixel Watch?" },
+        q: { it: "Funziona col Pixel Watch?", en: "Does it work with Pixel Watch?", es: "¿Funciona con el Pixel Watch?" },
         a: {
           it: "Sì, Pixel Watch 1, 2 e 3 sono supportati nativamente. I dati passano via Fitbit (app) → Health Connect → FitMesh.",
           en: "Yes, Pixel Watch 1, 2 and 3 are natively supported. Data flows via Fitbit app → Health Connect → FitMesh.",
+          es: "Sí, Pixel Watch 1, 2 y 3 son compatibles de forma nativa. Los datos fluyen a través de la app Fitbit → Health Connect → FitMesh.",
         },
       },
       {
         q: {
           it: "Serve Google Fit?",
           en: "Do I need Google Fit?",
+          es: "¿Necesito Google Fit?",
         },
         a: {
           it: "No, Google Fit non è più richiesto. Health Connect è il bridge ufficiale dal 2025. Se hai ancora Google Fit installato puoi disinstallarlo.",
           en: "No, Google Fit is no longer required. Health Connect is the official bridge from 2025 onwards. If you still have Google Fit installed you can uninstall it.",
+          es: "No, Google Fit ya no es necesario. Health Connect es el puente oficial desde 2025. Si todavía tienes Google Fit instalado, puedes desinstalarlo.",
         },
       },
     ],
@@ -334,6 +379,11 @@ export const PROVIDERS: Provider[] = [
       en: [
         "sync wear os dashboard",
         "pixel watch web dashboard",
+        "wear os health connect",
+      ],
+      es: [
+        "sincronizar wear os panel",
+        "pixel watch panel web",
         "wear os health connect",
       ],
     },
@@ -349,14 +399,17 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Pixel Watch 1/2/3 su dashboard personale via Fitbit + Health Connect.",
       en: "Pixel Watch 1/2/3 on a personal dashboard via Fitbit + Health Connect.",
+      es: "Pixel Watch 1/2/3 en tu panel personal vía Fitbit y Health Connect.",
     },
     longDesc: {
       it: "Il Pixel Watch usa l'app Fitbit come backend ufficiale: i dati di passi, BPM, sonno e calorie passano dal Watch a Fitbit, da Fitbit a Health Connect, e da lì FitMesh li legge automaticamente. Funziona con Pixel Watch 1, 2 e 3, senza OAuth, senza chiavi API, in un setup di 5 minuti.",
       en: "The Pixel Watch uses the Fitbit app as its official backend: steps, heart rate, sleep and calories flow from the Watch to Fitbit, from Fitbit to Health Connect, and from there FitMesh reads them automatically. Works with Pixel Watch 1, 2 and 3, no OAuth, no API keys, 5-minute setup.",
+      es: "El Pixel Watch usa la app Fitbit como backend oficial: pasos, frecuencia cardíaca, sueño y calorías fluyen del Watch a Fitbit, de Fitbit a Health Connect y desde allí FitMesh los lee automáticamente. Compatible con Pixel Watch 1, 2 y 3, sin OAuth, sin claves de API, configuración en 5 minutos.",
     },
     techNote: {
       it: "Catena di sync: Pixel Watch → app Fitbit → Health Connect → FitMesh. Latenza tipica 15–30 minuti. Le fasi di sonno REM/Deep/Light dettagliate richiedono l'OAuth Fitbit Web API (Q3 2026).",
       en: "Sync chain: Pixel Watch → Fitbit app → Health Connect → FitMesh. Typical latency 15–30 minutes. Detailed REM/Deep/Light sleep stages require Fitbit Web API OAuth (Q3 2026).",
+      es: "Cadena de sincronización: Pixel Watch → app Fitbit → Health Connect → FitMesh. Latencia típica de 15 a 30 minutos. Las fases de sueño detalladas (REM/profundo/ligero) requieren el OAuth de la Fitbit Web API (Q3 2026).",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: false, spo2: true }),
     faqs: [
@@ -364,20 +417,24 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Devo installare l'app Fitbit?",
           en: "Do I need the Fitbit app?",
+          es: "¿Necesito la app de Fitbit?",
         },
         a: {
           it: "Sì: il Pixel Watch usa Fitbit come app companion ufficiale. Senza Fitbit installato i dati non vengono sincronizzati. Una volta connessa Fitbit a Health Connect, FitMesh legge tutto automaticamente.",
           en: "Yes: Pixel Watch uses Fitbit as the official companion app. Without Fitbit installed data isn't synced. Once Fitbit is connected to Health Connect, FitMesh reads everything automatically.",
+          es: "Sí: el Pixel Watch usa Fitbit como app companion oficial. Sin Fitbit instalado, los datos no se sincronizan. Una vez que conectas Fitbit a Health Connect, FitMesh lee todo automáticamente.",
         },
       },
       {
         q: {
           it: "Perché non vedo le fasi del sonno (REM/Deep/Light)?",
           en: "Why can't I see sleep stages (REM/Deep/Light)?",
+          es: "¿Por qué no veo las fases del sueño (REM/profundo/ligero)?",
         },
         a: {
           it: "Via Health Connect Fitbit espone il sonno solo come durata totale. Le fasi REM/Deep/Light/Awake arriveranno con l'OAuth Fitbit Web API previsto per Q3 2026.",
           en: "Via Health Connect Fitbit only exposes sleep as total duration. REM/Deep/Light/Awake stages will arrive with the planned Fitbit Web API OAuth (Q3 2026).",
+          es: "A través de Health Connect, Fitbit solo expone el sueño como duración total. Las fases REM/profundo/ligero/despierto llegarán con el OAuth de la Fitbit Web API previsto para el Q3 2026.",
         },
       },
     ],
@@ -393,6 +450,12 @@ export const PROVIDERS: Provider[] = [
         "pixel watch health connect",
         "pixel watch fitbit alternative",
         "export pixel watch data",
+      ],
+      es: [
+        "sincronizar pixel watch panel",
+        "pixel watch health connect",
+        "alternativa fitbit pixel watch",
+        "exportar datos pixel watch",
       ],
     },
     setupGuide: {
@@ -2097,17 +2160,18 @@ export function statusLabel(
   status: ProviderStatus,
   lc: Locale,
 ): { text: string; color: string } {
-  const map: Record<ProviderStatus, { it: string; en: string; color: string }> = {
-    live: { it: "Disponibile ora", en: "Available now", color: "#31E981" },
+  const map: Record<ProviderStatus, { it: string; en: string; es: string; color: string }> = {
+    live: { it: "Disponibile ora", en: "Available now", es: "Disponible ahora", color: "#31E981" },
     "live-basic": {
       it: "Funziona via Health Connect",
       en: "Works via Health Connect",
+      es: "Funciona vía Health Connect",
       color: "#21E6C1",
     },
-    beta: { it: "Beta", en: "Beta", color: "#FFB547" },
-    "roadmap-q3": { it: "In arrivo Q3 2026", en: "Coming Q3 2026", color: "#38BDF8" },
-    "roadmap-q4": { it: "In arrivo Q4 2026", en: "Coming Q4 2026", color: "#A78BFA" },
-    "coming-soon": { it: "In arrivo", en: "Coming soon", color: "#7CFF5B" },
+    beta: { it: "Beta", en: "Beta", es: "Beta", color: "#FFB547" },
+    "roadmap-q3": { it: "In arrivo Q3 2026", en: "Coming Q3 2026", es: "Próximamente 3T 2026", color: "#38BDF8" },
+    "roadmap-q4": { it: "In arrivo Q4 2026", en: "Coming Q4 2026", es: "Próximamente 4T 2026", color: "#A78BFA" },
+    "coming-soon": { it: "In arrivo", en: "Coming soon", es: "Próximamente", color: "#7CFF5B" },
   };
   const entry = map[status];
   return { text: entry[lc], color: entry.color };
@@ -2117,18 +2181,20 @@ export function categoryLabel(
   category: ProviderCategory,
   lc: Locale,
 ): string {
-  const map: Record<ProviderCategory, { it: string; en: string }> = {
-    smartwatch: { it: "Smartwatch", en: "Smartwatch" },
+  const map: Record<ProviderCategory, { it: string; en: string; es: string }> = {
+    smartwatch: { it: "Smartwatch", en: "Smartwatch", es: "Smartwatch" },
     "fitness-platform": {
       it: "Piattaforma fitness",
       en: "Fitness platform",
+      es: "Plataforma fitness",
     },
     "health-platform": {
       it: "Piattaforma salute",
       en: "Health platform",
+      es: "Plataforma de salud",
     },
-    wearable: { it: "Wearable", en: "Wearable" },
-    "phone-only": { it: "Solo telefono", en: "Phone-only" },
+    wearable: { it: "Wearable", en: "Wearable", es: "Wearable" },
+    "phone-only": { it: "Solo telefono", en: "Phone-only", es: "Solo teléfono" },
   };
   return map[category][lc];
 }

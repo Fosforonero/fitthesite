@@ -6,6 +6,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 const SITE_URL = "https://www.fitmesh.fit";
 const LAST_UPDATED_IT = "12 maggio 2026";
 const LAST_UPDATED_EN = "May 12, 2026";
+const LAST_UPDATED_ES = "12 de mayo de 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -14,10 +15,12 @@ export async function generateMetadata(
   const titles: Record<Locale, string> = {
     it: "Termini di Servizio",
     en: "Terms of Service",
+    es: "Términos del Servicio",
   };
   const desc: Record<Locale, string> = {
     it: "Termini e condizioni d'uso di FitMesh Sync: licenza, acquisti, disclaimer salute, recesso UE, limitazione di responsabilità.",
     en: "FitMesh Sync terms and conditions: license, purchases, health disclaimer, EU right of withdrawal, liability cap.",
+    es: "Términos y condiciones de uso de FitMesh Sync: licencia, compras, aviso de salud, desistimiento UE y limitación de responsabilidad.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
@@ -28,6 +31,7 @@ export async function generateMetadata(
       languages: {
         it: `${SITE_URL}/it/terms`,
         en: `${SITE_URL}/en/terms`,
+        es: `${SITE_URL}/es/terms`,
         "x-default": `${SITE_URL}/it/terms`,
       },
     },
@@ -42,14 +46,14 @@ export default async function TermsPage({
   const { locale } = await params;
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
-  const lastUpdated = `${t.legal.last_updated}: ${lc === "it" ? LAST_UPDATED_IT : LAST_UPDATED_EN}`;
+  const lastUpdated = `${t.legal.last_updated}: ${lc === "it" ? LAST_UPDATED_IT : lc === "es" ? LAST_UPDATED_ES : LAST_UPDATED_EN}`;
 
-  const crumbName = lc === "it" ? "Termini di Servizio" : "Terms of Service";
+  const crumbName = lc === "it" ? "Termini di Servizio" : lc === "es" ? "Términos del Servicio" : "Terms of Service";
   return (
     <>
       <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/terms` }]} locale={lc} />
       <LegalPage kicker={t.legal.section} title={t.legal.terms_title} lastUpdated={lastUpdated}>
-        {lc === "it" ? <TermsIT /> : <TermsEN />}
+        {lc === "it" ? <TermsIT /> : lc === "es" ? <TermsES /> : <TermsEN />}
       </LegalPage>
     </>
   );
@@ -435,6 +439,199 @@ function TermsEN() {
             <li><span className="text-text-muted">Email:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:hello@fitmesh.fit">hello@fitmesh.fit</a></li>
             <li><span className="text-text-muted">Support:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:support@fitmesh.fit">support@fitmesh.fit</a></li>
             <li><span className="text-text-muted">Privacy/Legal:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:privacy@fitmesh.fit">privacy@fitmesh.fit</a></li>
+          </ul>
+        </div>
+      </Section>
+    </>
+  );
+}
+
+function TermsES() {
+  return (
+    <>
+      <Section title="1. Aceptación de los términos">
+        <p>
+          Estos Términos del Servicio ("Términos") rigen el uso de la app FitMesh Sync
+          (<em>com.fitmeshsync.app</em>), del sitio{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">fitmesh.fit</code>{" "}
+          y de los servicios relacionados (en conjunto, el "Servicio"), proporcionados por Matteo Pizzi.
+        </p>
+        <p>Al usar el Servicio, aceptas estos Términos en su totalidad.</p>
+      </Section>
+
+      <Section title="2. Qué es FitMesh Sync">
+        <p>
+          FitMesh Sync es una aplicación que lee datos de salud de tu dispositivo Android (a través
+          de Health Connect y el Samsung Health Data SDK) y los sincroniza con el servidor que
+          elijas, permitiéndote consultarlos en un panel web personal.
+        </p>
+      </Section>
+
+      <Section title="3. Aviso sobre salud (IMPORTANTE)">
+        <Callout variant="warning">
+          <p>
+            <strong className="text-text-primary">FitMesh Sync NO es un dispositivo médico.</strong>{" "}
+            No ofrece diagnósticos, terapias, recomendaciones médicas ni sustituye en ningún caso
+            la opinión de un profesional de la salud cualificado.
+          </p>
+          <p className="mt-3">
+            Los datos que se muestran son valores en bruto proporcionados por tu smartwatch y
+            Health Connect: pueden contener errores, retrasos, valores ausentes o anómalos.{" "}
+            <strong className="text-text-primary">
+              No uses FitMesh Sync para tomar decisiones críticas sobre tu salud.
+            </strong>
+          </p>
+          <p className="mt-3">
+            Ante cualquier problema de salud, consulta siempre a un médico. En caso de emergencia,
+            llama al 112 (UE) o al número de emergencias local.
+          </p>
+        </Callout>
+      </Section>
+
+      <Section title="4. Licencia de uso">
+        <p>
+          Te concedemos una licencia personal, no exclusiva, intransferible y revocable para
+          instalar y utilizar la app en los dispositivos Android de tu propiedad o bajo tu control,
+          exclusivamente para uso personal.
+        </p>
+        <p>No puedes:</p>
+        <Forbidden items={[
+          "Descompilar, desensamblar o aplicar ingeniería inversa a la app, salvo en los casos permitidos por la ley",
+          "Revender, sublicenciar o redistribuir la app",
+          "Usar el Servicio para actividades ilegales o para vulnerar derechos de terceros",
+          "Intentar acceder a los datos de otros usuarios en nuestro servidor público",
+          "Sobrecargar deliberadamente nuestros servidores con solicitudes excesivas",
+        ]} />
+      </Section>
+
+      <Section title="5. Cuenta y datos">
+        <p>
+          FitMesh Sync no requiere el registro de una cuenta tradicional. Cada instalación genera
+          un identificador único del dispositivo (UUID o Android ID) que se utiliza para asociar
+          tus datos con tu dispositivo en el servidor elegido.
+        </p>
+        <p>
+          <strong className="text-text-primary">Eres responsable de tus datos.</strong>{" "}
+          Conserva tu Device ID si tienes previsto trasladar la app a un teléfono nuevo. Nuestro
+          servidor público se ofrece como servicio gratuito con disponibilidad razonable: no
+          garantizamos copias de seguridad, no garantizamos retención permanente, y podríamos
+          eliminar datos inactivos durante más de 12 meses previo aviso.
+        </p>
+      </Section>
+
+      <Section title="6. Compras en la app">
+        <p>FitMesh Sync ofrece funciones avanzadas ("Pro") mediante compra integrada gestionada por Google Play Billing:</p>
+        <ul className="space-y-2 mt-3">
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Pago único, 3,99 € en Android (4,99 € en iPhone):</strong> desbloquea de forma permanente todas las funciones Pro en la cuenta asociada. Sin suscripción, sin renovación automática.</span>
+          </li>
+        </ul>
+        <p>
+          Todos los pagos son gestionados por Google y están sujetos a los{" "}
+          <a href="https://play.google.com/intl/es/about/play-terms/" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
+            Términos de Google Play
+          </a>
+          . No tenemos acceso a tus datos de pago.
+        </p>
+      </Section>
+
+      <Section title="7. Derecho de desistimiento (UE)">
+        <p>
+          Si eres consumidor residente en la Unión Europea, tienes derecho a desistir de la compra
+          en un plazo de <strong className="text-text-primary">14 días</strong> sin necesidad de
+          indicar ningún motivo (Directiva 2011/83/UE).
+        </p>
+        <p>
+          Para ejercer el desistimiento en compras de Google Play, utiliza el procedimiento oficial
+          de reembolso:{" "}
+          <a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
+            support.google.com/googleplay/answer/2479637
+          </a>
+          .
+        </p>
+        <p>
+          <strong className="text-text-primary">Nota:</strong> el derecho de desistimiento se pierde
+          si has comenzado a usar las funciones Pro durante esos 14 días y has aceptado
+          expresamente la ejecución inmediata en el momento de la compra (cláusula estándar de
+          Google Play).
+        </p>
+      </Section>
+
+      <Section title="8. Disponibilidad del Servicio">
+        <p>
+          Hacemos todo lo posible para mantener el Servicio disponible las 24 horas del día, los
+          7 días de la semana, pero no podemos garantizar un funcionamiento ininterrumpido.
+          Tareas de mantenimiento, fallos de hardware o interrupciones de los proveedores pueden
+          ocasionar cortes temporales.
+        </p>
+        <p>
+          No somos responsables de las pérdidas ocasionadas por interrupciones del Servicio. Te
+          recomendamos no utilizar FitMesh Sync como única copia de seguridad de tus datos de
+          salud.
+        </p>
+      </Section>
+
+      <Section title="9. Cambios en el Servicio">
+        <p>
+          Podemos modificar, suspender o interrumpir partes del Servicio. Para cambios relevantes
+          que afecten a funciones de pago, te avisaremos con al menos 30 días de antelación.
+        </p>
+        <p>
+          En caso de interrupción total del Servicio, te daremos al menos 60 días para exportar
+          tus datos y reembolsaremos cualquier suscripción activa de forma proporcional.
+        </p>
+      </Section>
+
+      <Section title="10. Limitación de responsabilidad">
+        <p>
+          En la medida permitida por la ley aplicable, FitMesh Sync se proporciona "tal cual", sin
+          garantías expresas ni implícitas. En ningún caso seremos responsables de daños indirectos,
+          incidentales, especiales o derivados. Nuestra responsabilidad total hacia ti no podrá
+          superar el importe que hayas pagado en los últimos 12 meses.
+        </p>
+        <p>
+          Estas limitaciones no se aplican a los daños causados por nuestra negligencia grave, dolo
+          o en los casos en que la ley aplicable no lo permita.
+        </p>
+      </Section>
+
+      <Section title="11. Propiedad intelectual">
+        <p>
+          La marca "FitMesh Sync", el logotipo y el diseño de la app y el sitio son de nuestra
+          propiedad. Los datos de salud que sincronizas siguen siendo tuyos.
+        </p>
+      </Section>
+
+      <Section title="12. Resolución de conflictos">
+        <p>
+          Siempre intentamos resolver cualquier problema de forma amistosa. Puedes contactarnos en{" "}
+          <a href="mailto:hello@fitmesh.fit" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">hello@fitmesh.fit</a>
+          {": respondemos en un plazo de 30 días."}
+        </p>
+        <p>
+          Los consumidores de la UE también pueden recurrir a la plataforma ODR:{" "}
+          <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
+            ec.europa.eu/consumers/odr
+          </a>
+          .
+        </p>
+      </Section>
+
+      <Section title="13. Ley aplicable y jurisdicción">
+        <p>
+          Estos Términos se rigen por la ley italiana. Para los consumidores de la UE se mantienen
+          las protecciones obligatorias previstas por la ley de su país de residencia. Jurisdicción:
+          tribunal del domicilio del consumidor (consumidores de la UE) o Milán (Italia).
+        </p>
+      </Section>
+
+      <Section title="14. Contacto">
+        <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
+          <p><strong className="text-text-primary">Responsable del servicio:</strong> Matteo Pizzi</p>
+          <ul className="mt-3 space-y-1.5 text-sm">
+            <li><span className="text-text-muted">Email:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:hello@fitmesh.fit">hello@fitmesh.fit</a></li>
+            <li><span className="text-text-muted">Soporte:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:support@fitmesh.fit">support@fitmesh.fit</a></li>
+            <li><span className="text-text-muted">Privacidad/Legal:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:privacy@fitmesh.fit">privacy@fitmesh.fit</a></li>
           </ul>
         </div>
       </Section>

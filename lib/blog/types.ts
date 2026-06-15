@@ -13,8 +13,23 @@
  */
 import type { Locale } from "@/lib/i18n";
 
-export type Localized = { it: string; en: string };
-export type LocalizedList = { it: string[]; en: string[] };
+export type Localized = { it: string; en: string; es?: string };
+export type LocalizedList = { it: string[]; en: string[]; es?: string[] };
+
+/**
+ * Accessor con fallback `es -> en -> it` per stringhe localizzate. Finché i dati
+ * TS non hanno la variante `es`, ricade su `en` (poi `it`), così tutto compila.
+ */
+export function tl(l: Localized, lc: Locale): string {
+  return (l as Record<string, string | undefined>)[lc] ?? l.en ?? l.it;
+}
+
+/**
+ * Accessor con fallback `es -> en -> it` per liste localizzate.
+ */
+export function tll(l: LocalizedList, lc: Locale): string[] {
+  return (l as Record<string, string[] | undefined>)[lc] ?? l.en ?? l.it;
+}
 
 export type BlogCategory =
   | "guides" // cornerstone + supporting how-to
@@ -133,5 +148,5 @@ export const CATEGORY_LABEL: Record<BlogCategory, Localized> = {
 };
 
 export function categoryLabel(c: BlogCategory, lc: Locale): string {
-  return CATEGORY_LABEL[c][lc];
+  return tl(CATEGORY_LABEL[c], lc);
 }

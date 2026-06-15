@@ -26,7 +26,7 @@ export function Breadcrumbs({
   locale,
 }: {
   items: BreadcrumbItem[];
-  locale: "it" | "en";
+  locale: "it" | "en" | "es";
 }) {
   const homeName = locale === "it" ? "Home" : "Home";
   const all: BreadcrumbItem[] = [

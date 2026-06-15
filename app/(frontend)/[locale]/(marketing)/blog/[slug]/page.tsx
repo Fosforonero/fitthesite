@@ -7,7 +7,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogRenderer } from "@/components/blog/BlogRenderer";
 import { ArticleMeta } from "@/components/blog/ArticleMeta";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
-import { categoryLabel } from "@/lib/blog/types";
+import { categoryLabel, tl, tll } from "@/lib/blog/types";
 import {
   getBlogPostBySlug,
   getBlogSlugs,
@@ -35,6 +35,8 @@ const AUTHOR = {
     "Sviluppatore software italiano. Ho costruito FitMesh Sync per riempire il vuoto tra il mio smartwatch e una vera dashboard personale. Privacy-first, indie, server EU.",
   bioEn:
     "Italian software developer. I built FitMesh Sync to fill the gap between my smartwatch and a real personal dashboard. Privacy-first, indie, EU servers.",
+  bioEs:
+    "Desarrollador de software italiano. Construí FitMesh Sync para cubrir el espacio entre mi smartwatch y un panel personal real. Privacidad ante todo, indie, servidores en la UE.",
   url: `${SITE_URL}/it/about`,
   // sameAs: profili pubblici per verifica autorevolezza. Vuoto = aggiungi
   // LinkedIn/Twitter quando disponibili (Matteo ha LinkedIn personale?).
@@ -64,12 +66,13 @@ export async function generateMetadata({
   if (!post) return {};
 
   const path = `/${lc}/blog/${post.slug}`;
-  const title = post.hero.title[lc];
-  const description = post.metaDescription[lc];
-  const keywords = [
-    post.primaryKeyword[lc],
-    ...post.secondaryKeywords[lc],
-  ].join(", ");
+  const title = tl(post.hero.title, lc);
+  const description = tl(post.metaDescription, lc);
+  const secondaryKw = tll(
+    { it: post.secondaryKeywords.it, en: post.secondaryKeywords.en },
+    lc,
+  );
+  const keywords = [tl(post.primaryKeyword, lc), ...secondaryKw].join(", ");
 
   // Brand suffix corto (10c) per stare entro 65c totali raccomandati Bing/Google.
   // Vedi fitmesh-growth SKILL → publishing pipeline step 1 (title length guardrail).
@@ -82,6 +85,7 @@ export async function generateMetadata({
       languages: {
         it: `${SITE_URL}/it/blog/${post.slug}`,
         en: `${SITE_URL}/en/blog/${post.slug}`,
+        es: `${SITE_URL}/es/blog/${post.slug}`,
         "x-default": `${SITE_URL}/it/blog/${post.slug}`,
       },
     },
@@ -148,11 +152,33 @@ const I18N = {
     medicalDisclaimer:
       "The information in this article is for informational purposes only and does not replace advice from your physician, pharmacist or healthcare professional. FitMesh Sync is a fitness/wellness app, not a medical device, and does not diagnose or treat any conditions. For symptoms, clinical questions or treatment decisions always consult your primary care physician.",
   },
+  es: {
+    backToBlog: "← Todos los artículos",
+    pillarLabel: "Artículo principal",
+    readMin: (m: number) => `${m} min de lectura`,
+    publishedOn: "Publicado",
+    updated: "Actualizado",
+    metaCategory: "Categoría",
+    metaReadTime: "Tiempo de lectura",
+    metaDate: "Fecha",
+    metaShare: "Compartir",
+    metaCopied: "¡Copiado!",
+    tldrLabel: "En resumen",
+    faqHeading: "Preguntas frecuentes",
+    relatedHeading: "Sigue leyendo",
+    disclaimerHeading: "Aviso legal",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync es un producto independiente. ${brands.join(", ")} ${brands.length > 1 ? "son marcas comerciales" : "es una marca comercial"} de sus respectivos propietarios. Este artículo no implica ninguna afiliación ni patrocinio.`,
+    medicalDisclaimerHeading: "Aviso de salud",
+    medicalDisclaimer:
+      "La información de este artículo tiene fines informativos y no reemplaza el consejo de tu médico, farmacéutico u otro profesional de la salud. FitMesh Sync es una app de fitness y bienestar, no un dispositivo médico, y no diagnostica ni trata enfermedades. Ante síntomas, dudas clínicas o decisiones de tratamiento, consulta siempre a tu médico.",
+  },
 } as const;
 
 function formatDate(iso: string, lc: Locale): string {
   const d = new Date(iso);
-  return d.toLocaleDateString(lc === "it" ? "it-IT" : "en-US", {
+  const bcp47 = lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US";
+  return d.toLocaleDateString(bcp47, {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -179,9 +205,9 @@ export default async function BlogArticle({
     "@context": "https://schema.org",
     "@type": ldType,
     "@id": `${SITE_URL}${path}#article`,
-    headline: post.hero.title[lc],
-    description: post.metaDescription[lc],
-    inLanguage: lc === "it" ? "it-IT" : "en-US",
+    headline: tl(post.hero.title, lc),
+    description: tl(post.metaDescription, lc),
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     url: `${SITE_URL}${path}`,
@@ -193,7 +219,8 @@ export default async function BlogArticle({
       "@id": `${SITE_URL}/it/about#matteo-pizzi`,
       name: AUTHOR.name,
       jobTitle: AUTHOR.jobTitle,
-      description: lc === "it" ? AUTHOR.bioIt : AUTHOR.bioEn,
+      description:
+        lc === "it" ? AUTHOR.bioIt : lc === "es" ? AUTHOR.bioEs : AUTHOR.bioEn,
       url: AUTHOR.url,
       sameAs: AUTHOR.sameAs,
     },
@@ -206,7 +233,10 @@ export default async function BlogArticle({
         url: `${SITE_URL}/icon-square.png`,
       },
     },
-    keywords: [post.primaryKeyword[lc], ...post.secondaryKeywords[lc]].join(", "),
+    keywords: [
+      tl(post.primaryKeyword, lc),
+      ...tll({ it: post.secondaryKeywords.it, en: post.secondaryKeywords.en }, lc),
+    ].join(", "),
     articleSection: categoryLabel(post.category, lc),
   };
 
@@ -217,10 +247,10 @@ export default async function BlogArticle({
           "@type": "FAQPage",
           mainEntity: post.faq.map((f) => ({
             "@type": "Question",
-            name: f.q[lc],
+            name: tl(f.q, lc),
             acceptedAnswer: {
               "@type": "Answer",
-              text: f.a[lc],
+              text: tl(f.a, lc),
             },
           })),
         }
@@ -235,7 +265,7 @@ export default async function BlogArticle({
       <Breadcrumbs
         items={[
           { name: "Blog", path: `/${lc}/blog` },
-          { name: post.hero.title[lc], path },
+          { name: tl(post.hero.title, lc), path },
         ]}
         locale={lc}
       />
@@ -261,13 +291,13 @@ export default async function BlogArticle({
             </div>
           )}
           <p className="mt-5 text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-            {post.hero.kicker[lc]}
+            {tl(post.hero.kicker, lc)}
           </p>
           <h1 className="mt-3 font-display text-display-xl font-semibold tracking-tightest text-text-primary leading-[1.1]">
-            {post.hero.title[lc]}
+            {tl(post.hero.title, lc)}
           </h1>
           <p className="mt-5 text-lg text-text-secondary leading-relaxed">
-            {post.hero.subtitle[lc]}
+            {tl(post.hero.subtitle, lc)}
           </p>
           <ArticleMeta
             shareLabel={t.metaShare}
@@ -293,14 +323,14 @@ export default async function BlogArticle({
         </header>
 
         {/* TL;DR — il succo in 10 secondi, stile Claude. Solo se presente. */}
-        {post.tldr && post.tldr[lc].length > 0 && (
+        {post.tldr && tll(post.tldr, lc).length > 0 && (
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
             <div className="rounded-card border border-brand-aqua/30 bg-gradient-to-br from-brand-aqua/[0.07] to-bg-card p-5 sm:p-6">
               <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
                 {t.tldrLabel}
               </p>
               <ul className="mt-3 space-y-2">
-                {post.tldr[lc].map((point, i) => (
+                {tll(post.tldr, lc).map((point, i) => (
                   <li key={i} className="flex gap-2.5 text-text-secondary leading-relaxed">
                     <span aria-hidden className="text-brand-aqua mt-1.5 flex-none">
                       <svg width="6" height="6" viewBox="0 0 6 6" aria-hidden>
@@ -333,13 +363,13 @@ export default async function BlogArticle({
                   className="card p-5 group [&_summary::-webkit-details-marker]:hidden"
                 >
                   <summary className="cursor-pointer flex items-start justify-between gap-4 text-text-primary font-medium">
-                    <span>{f.q[lc]}</span>
+                    <span>{tl(f.q, lc)}</span>
                     <span className="text-text-muted text-xl leading-none group-open:rotate-45 transition-transform">
                       +
                     </span>
                   </summary>
                   <p className="mt-3 text-sm text-text-secondary leading-relaxed">
-                    {f.a[lc]}
+                    {tl(f.a, lc)}
                   </p>
                 </details>
               ))}
@@ -388,20 +418,24 @@ export default async function BlogArticle({
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
-                {lc === "it" ? "Scritto da" : "Written by"}
+                {lc === "it" ? "Scritto da" : lc === "es" ? "Escrito por" : "Written by"}
               </p>
               <p className="mt-1 font-display font-bold text-text-primary">
                 {AUTHOR.name}
               </p>
               <p className="mt-0.5 text-xs text-text-muted">{AUTHOR.jobTitle}</p>
               <p className="mt-3 text-sm text-text-secondary leading-relaxed">
-                {lc === "it" ? AUTHOR.bioIt : AUTHOR.bioEn}
+                {lc === "it" ? AUTHOR.bioIt : lc === "es" ? AUTHOR.bioEs : AUTHOR.bioEn}
               </p>
               <Link
                 href={`/${lc}/about`}
                 className="mt-3 inline-flex items-center gap-1 text-xs text-brand-aqua hover:text-brand-green transition font-medium"
               >
-                {lc === "it" ? "Di più sul progetto" : "More about the project"}{" "}
+                {lc === "it"
+                  ? "Di più sul progetto"
+                  : lc === "es"
+                    ? "Más sobre el proyecto"
+                    : "More about the project"}{" "}
                 <span aria-hidden>→</span>
               </Link>
             </div>
@@ -425,10 +459,10 @@ export default async function BlogArticle({
                     {categoryLabel(r.category, lc)}
                   </p>
                   <h3 className="mt-2 font-display text-lg font-semibold tracking-tight text-text-primary group-hover:text-brand-aqua transition leading-snug">
-                    {r.hero.title[lc]}
+                    {tl(r.hero.title, lc)}
                   </h3>
                   <p className="mt-2 text-sm text-text-secondary leading-relaxed line-clamp-2">
-                    {r.hero.subtitle[lc]}
+                    {tl(r.hero.subtitle, lc)}
                   </p>
                 </Link>
               ))}
