@@ -1,7 +1,115 @@
-import type { CollectionConfig } from 'payload';
+import type { Block, CollectionConfig } from 'payload';
+
+/// Blocchi del corpo articolo: rispecchiano 1:1 i variant di `BlogSection`
+/// (`lib/blog/types.ts`) così la migrazione è fedele e il `BlogRenderer`
+/// esistente resta valido. Il campo `body` è `localized: true` a livello di
+/// array → ogni lingua ha la sua sequenza di blocchi (la migrazione popola
+/// it/en; le altre lingue ereditano EN via fallback finché non tradotte).
+
+const HeadingBlock: Block = {
+  slug: 'heading',
+  fields: [
+    {
+      name: 'level',
+      type: 'select',
+      defaultValue: '2',
+      options: [
+        { label: 'H2', value: '2' },
+        { label: 'H3', value: '3' },
+      ],
+    },
+    { name: 'text', type: 'text', required: true },
+  ],
+};
+
+const ParagraphBlock: Block = {
+  slug: 'paragraph',
+  fields: [{ name: 'text', type: 'textarea', required: true }],
+};
+
+const ListBlock: Block = {
+  slug: 'list',
+  fields: [
+    { name: 'ordered', type: 'checkbox', defaultValue: false },
+    {
+      name: 'items',
+      type: 'array',
+      fields: [{ name: 'item', type: 'text', required: true }],
+    },
+  ],
+};
+
+const CalloutBlock: Block = {
+  slug: 'callout',
+  fields: [
+    {
+      name: 'variant',
+      type: 'select',
+      defaultValue: 'info',
+      options: [
+        { label: 'Info', value: 'info' },
+        { label: 'Warning', value: 'warning' },
+        { label: 'Tip', value: 'tip' },
+      ],
+    },
+    { name: 'title', type: 'text' },
+    { name: 'body', type: 'textarea', required: true },
+  ],
+};
+
+const TableBlock: Block = {
+  slug: 'table',
+  fields: [
+    { name: 'caption', type: 'text' },
+    {
+      name: 'headers',
+      type: 'array',
+      fields: [{ name: 'header', type: 'text', required: true }],
+    },
+    {
+      name: 'rows',
+      type: 'array',
+      fields: [
+        {
+          name: 'cells',
+          type: 'array',
+          fields: [{ name: 'value', type: 'text' }],
+        },
+      ],
+    },
+  ],
+};
+
+const ComparisonBlock: Block = {
+  slug: 'comparison',
+  fields: [
+    { name: 'aTitle', type: 'text', required: true },
+    {
+      name: 'aItems',
+      type: 'array',
+      fields: [{ name: 'item', type: 'text', required: true }],
+    },
+    { name: 'bTitle', type: 'text', required: true },
+    {
+      name: 'bItems',
+      type: 'array',
+      fields: [{ name: 'item', type: 'text', required: true }],
+    },
+  ],
+};
+
+const CtaBlock: Block = {
+  slug: 'cta',
+  fields: [
+    { name: 'title', type: 'text', required: true },
+    { name: 'body', type: 'textarea', required: true },
+    { name: 'ctaLabel', type: 'text', required: true },
+    { name: 'ctaHref', type: 'text', required: true },
+  ],
+};
 
 /**
- * Articoli del blog/novità. Rispecchia il tipo `BlogPost` attuale
+ * Articoli del blog/novità. Rispecchia il tipo `BlogPost`
  * (`lib/blog/types.ts`) così la migrazione dai moduli TS è 1:1.
  *
  * Campi `localized: true` = tradotti per lingua. Lo `slug` è localizzato →
@@ -44,7 +152,15 @@ export const Posts: CollectionConfig = {
     { name: 'updatedAtContent', type: 'date' },
     { name: 'readMinutes', type: 'number' },
     { name: 'pillar', type: 'checkbox', defaultValue: false },
+    { name: 'ldType', type: 'text', defaultValue: 'BlogPosting' },
     { name: 'metaDescription', type: 'textarea', localized: true },
+    { name: 'primaryKeyword', type: 'text', localized: true },
+    {
+      name: 'secondaryKeywords',
+      type: 'array',
+      localized: true,
+      fields: [{ name: 'kw', type: 'text', required: true }],
+    },
     {
       name: 'tldr',
       type: 'array',
@@ -60,7 +176,20 @@ export const Posts: CollectionConfig = {
         { name: 'subtitle', type: 'textarea', localized: true },
       ],
     },
-    { name: 'body', type: 'richText', localized: true },
+    {
+      name: 'body',
+      type: 'blocks',
+      localized: true,
+      blocks: [
+        HeadingBlock,
+        ParagraphBlock,
+        ListBlock,
+        CalloutBlock,
+        TableBlock,
+        ComparisonBlock,
+        CtaBlock,
+      ],
+    },
     {
       name: 'faq',
       type: 'array',
@@ -76,6 +205,11 @@ export const Posts: CollectionConfig = {
       type: 'text',
       hasMany: true,
       admin: { description: 'Slug degli articoli correlati.' },
+    },
+    {
+      name: 'brandsMentioned',
+      type: 'array',
+      fields: [{ name: 'brand', type: 'text', required: true }],
     },
   ],
 };
