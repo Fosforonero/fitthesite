@@ -4,9 +4,9 @@ import { LegalPage, Section, List, Callout } from "@/components/legal/LegalLayou
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "21 maggio 2026";
-const LAST_UPDATED_EN = "May 21, 2026";
-const LAST_UPDATED_ES = "21 de mayo de 2026";
+const LAST_UPDATED_IT = "16 giugno 2026";
+const LAST_UPDATED_EN = "June 16, 2026";
+const LAST_UPDATED_ES = "16 de junio de 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -157,7 +157,7 @@ function PrivacyIT() {
 
       <Section title="7. Conservazione dei dati (retention)">
         <List items={[
-          ["Metriche di salute", "conservate finché l'account utente è attivo. Cancellate entro 30 giorni dalla richiesta di cancellazione dell'account o dalla disinstallazione confermata"],
+          ["Metriche di salute", "conservate finché l'account utente è attivo. La cancellazione dell'account viene eseguita automaticamente entro 24 ore dalla richiesta (processo pianificato attivo), che elimina definitivamente i dati di salute associati"],
           ["Log applicativi e sync log", "conservati 90 giorni a fini di troubleshooting, poi eliminati automaticamente"],
           ["Email di contatto (privacy/support)", "conservate 24 mesi per garantire continuità del supporto, poi cancellate"],
           ["Backup database", "rotazione 7 giorni su backup Supabase point-in-time recovery"],
@@ -196,14 +196,15 @@ function PrivacyIT() {
         <List items={[
           ["Accedere", "richiedere una copia dei tuoi dati salvati sui nostri sistemi"],
           ["Rettificare", "correggere dati inesatti o incompleti"],
-          ["Cancellare", "richiedere la cancellazione completa del tuo account e dei dati associati"],
+          ["Cancellare", "richiedere la cancellazione completa del tuo account e dei dati associati. La richiesta viene eseguita automaticamente entro 24 ore"],
           ["Limitare", "richiedere la limitazione del trattamento in casi specifici"],
-          ["Portabilità", "ricevere i tuoi dati in formato JSON strutturato"],
+          ["Portabilità", "esportare tutti i tuoi dati in autonomia, in formato JSON strutturato, dalla pagina export disponibile nell'area utente (/app/export)"],
           ["Opporsi", "opporti al trattamento per motivi legittimi"],
           ["Revocare il consenso", "disabilitare i permessi di accesso ai dati di salute in qualsiasi momento (la revoca non pregiudica la liceità del trattamento svolto prima della revoca)"],
         ]} />
         <p>
-          Per esercitare questi diritti, scrivici a{" "}
+          Puoi esercitare in autonomia i diritti di portabilità (export dati) e di cancellazione
+          direttamente dall'area utente. Per gli altri diritti, o se preferisci, scrivici a{" "}
           <a className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" href="mailto:privacy@fitmesh.fit">
             privacy@fitmesh.fit
           </a>
@@ -366,7 +367,7 @@ function PrivacyEN() {
 
       <Section title="7. Data retention">
         <List items={[
-          ["Health metrics", "kept while the user account is active. Deleted within 30 days of an account-deletion request or confirmed uninstall"],
+          ["Health metrics", "kept while the user account is active. Account deletion runs automatically within 24 hours of the request (active scheduled job), permanently erasing the associated health data"],
           ["Application and sync logs", "kept for 90 days for troubleshooting, then automatically purged"],
           ["Contact emails (privacy/support)", "kept for 24 months to ensure support continuity, then deleted"],
           ["Database backups", "7-day rotation on Supabase point-in-time recovery"],
@@ -405,14 +406,15 @@ function PrivacyEN() {
         <List items={[
           ["Access", "request a copy of your data stored on our systems"],
           ["Rectify", "correct inaccurate or incomplete data"],
-          ["Delete", "request full deletion of your account and associated data"],
+          ["Delete", "request full deletion of your account and associated data. The request is executed automatically within 24 hours"],
           ["Restrict", "request restriction of processing in specific cases"],
-          ["Portability", "receive your data in a structured JSON format"],
+          ["Portability", "export all of your data yourself, in a structured JSON format, from the export page in the user area (/app/export)"],
           ["Object", "object to processing for legitimate reasons"],
           ["Withdraw consent", "disable health-data permissions at any time (withdrawal does not affect the lawfulness of processing before withdrawal)"],
         ]} />
         <p>
-          To exercise these rights, email us at{" "}
+          You can exercise the portability (data export) and deletion rights yourself directly from
+          the user area. For the other rights, or if you prefer, email us at{" "}
           <a className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" href="mailto:privacy@fitmesh.fit">
             privacy@fitmesh.fit
           </a>
@@ -577,7 +579,7 @@ function PrivacyES() {
 
       <Section title="7. Conservación de los datos">
         <List items={[
-          ["Métricas de salud", "conservadas mientras la cuenta del usuario esté activa. Eliminadas en un plazo de 30 días desde la solicitud de cancelación de la cuenta o desde la desinstalación confirmada"],
+          ["Métricas de salud", "conservadas mientras la cuenta del usuario esté activa. La eliminación de la cuenta se ejecuta automáticamente en un plazo de 24 horas desde la solicitud (proceso programado activo), que borra de forma definitiva los datos de salud asociados"],
           ["Registros de aplicación y sincronización", "conservados 90 días con fines de diagnóstico y, después, eliminados automáticamente"],
           ["Correos de contacto (privacidad/soporte)", "conservados 24 meses para garantizar la continuidad del soporte y, después, eliminados"],
           ["Copias de seguridad de la base de datos", "rotación de 7 días en la recuperación point-in-time de Supabase"],
@@ -616,14 +618,16 @@ function PrivacyES() {
         <List items={[
           ["Acceder", "solicitar una copia de tus datos almacenados en nuestros sistemas"],
           ["Rectificar", "corregir datos inexactos o incompletos"],
-          ["Suprimir", "solicitar la eliminación completa de tu cuenta y de los datos asociados"],
+          ["Suprimir", "solicitar la eliminación completa de tu cuenta y de los datos asociados. La solicitud se ejecuta automáticamente en un plazo de 24 horas"],
           ["Limitar", "solicitar la limitación del tratamiento en casos específicos"],
-          ["Portabilidad", "recibir tus datos en formato JSON estructurado"],
+          ["Portabilidad", "exportar todos tus datos por ti mismo, en formato JSON estructurado, desde la página de exportación disponible en el área de usuario (/app/export)"],
           ["Oponerte", "oponerte al tratamiento por motivos legítimos"],
           ["Retirar el consentimiento", "deshabilitar los permisos de acceso a los datos de salud en cualquier momento (la retirada no afecta a la licitud del tratamiento realizado antes de la misma)"],
         ]} />
         <p>
-          Para ejercer estos derechos, escríbenos a{" "}
+          Puedes ejercer por ti mismo los derechos de portabilidad (exportación de datos) y de
+          supresión directamente desde el área de usuario. Para los demás derechos, o si lo
+          prefieres, escríbenos a{" "}
           <a className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" href="mailto:privacy@fitmesh.fit">
             privacy@fitmesh.fit
           </a>

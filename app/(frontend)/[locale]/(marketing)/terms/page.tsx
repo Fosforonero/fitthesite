@@ -4,9 +4,9 @@ import { LegalPage, Section, Callout } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "12 maggio 2026";
-const LAST_UPDATED_EN = "May 12, 2026";
-const LAST_UPDATED_ES = "12 de mayo de 2026";
+const LAST_UPDATED_IT = "16 giugno 2026";
+const LAST_UPDATED_EN = "June 16, 2026";
+const LAST_UPDATED_ES = "16 de junio de 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -140,6 +140,12 @@ function TermsIT() {
           pubblico è fornito come servizio gratuito ma <em>best-effort</em>: non garantiamo backup,
           non garantiamo retention permanente, e potremmo cancellare dati inattivi da oltre 12 mesi
           previa notifica.
+        </p>
+        <p>
+          Puoi esportare tutti i tuoi dati in formato JSON e richiedere la cancellazione dell'account
+          in autonomia dall'area utente. La cancellazione viene eseguita automaticamente entro 24 ore
+          e rimuove definitivamente i dati associati. Maggiori dettagli nella{" "}
+          <a href="/it/privacy" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Privacy Policy</a>.
         </p>
       </Section>
 
@@ -327,6 +333,12 @@ function TermsEN() {
           your Device ID if you plan to move the app to a new phone. Our public server is offered
           as a free best-effort service: we do not guarantee backups, do not guarantee permanent
           retention, and may delete data inactive for over 12 months with prior notice.
+        </p>
+        <p>
+          You can export all of your data in JSON format and request account deletion yourself from
+          the user area. Deletion runs automatically within 24 hours and permanently removes the
+          associated data. More details in our{" "}
+          <a href="/en/privacy" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Privacy Policy</a>.
         </p>
       </Section>
 
@@ -516,6 +528,12 @@ function TermsES() {
           servidor público se ofrece como servicio gratuito con disponibilidad razonable: no
           garantizamos copias de seguridad, no garantizamos retención permanente, y podríamos
           eliminar datos inactivos durante más de 12 meses previo aviso.
+        </p>
+        <p>
+          Puedes exportar todos tus datos en formato JSON y solicitar la eliminación de la cuenta
+          por ti mismo desde el área de usuario. La eliminación se ejecuta automáticamente en un
+          plazo de 24 horas y borra de forma definitiva los datos asociados. Más detalles en nuestra{" "}
+          <a href="/es/privacy" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Política de privacidad</a>.
         </p>
       </Section>
 
