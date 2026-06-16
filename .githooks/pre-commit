@@ -22,7 +22,7 @@ done <<< "$staged"
 key_re='-----BEGIN ([A-Z ]+ )?PRIVATE KEY-----'
 while IFS= read -r f; do
   [ -z "$f" ] && continue
-  if git show ":$f" 2>/dev/null | grep -qE "$key_re"; then
+  if git show ":$f" 2>/dev/null | grep -qE -- "$key_re"; then
     echo "❌ BLOCCATO (chiave privata in: $f)"
     fail=1
   fi
