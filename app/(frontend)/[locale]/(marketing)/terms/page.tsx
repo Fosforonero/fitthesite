@@ -130,14 +130,15 @@ function TermsIT() {
 
       <Section title="5. Account e dati">
         <p>
-          FitMesh Sync non richiede registrazione di un account tradizionale. Ogni installazione
-          genera un identificativo univoco del dispositivo (UUID o Android ID) usato per associare
-          i dati al tuo dispositivo sul server scelto.
+          Per usare la dashboard e sincronizzare i tuoi dati serve un account: accedi con un link via
+          email o con Google (autenticazione gestita da Supabase Auth). L'app sul telefono si collega
+          al tuo account tramite un codice di pairing; a ogni dispositivo è associato un identificativo
+          univoco (Device ID) usato per distinguere le sorgenti dei dati.
         </p>
         <p>
           <strong className="text-text-primary">Sei tu il responsabile dei tuoi dati.</strong>{" "}
-          Conserva il tuo Device ID se intendi spostare l'app su un nuovo telefono. Il nostro server
-          pubblico è fornito come servizio gratuito ma <em>best-effort</em>: non garantiamo backup,
+          I dati sono legati al tuo account, quindi puoi cambiare telefono ricollegandolo allo stesso
+          account. Il nostro server è fornito come servizio ma <em>best-effort</em>: non garantiamo backup,
           non garantiamo retention permanente, e potremmo cancellare dati inattivi da oltre 12 mesi
           previa notifica.
         </p>
@@ -324,15 +325,16 @@ function TermsEN() {
 
       <Section title="5. Account and data">
         <p>
-          FitMesh Sync does not require a traditional account. Each install generates a unique
-          device identifier (UUID or Android ID) used to associate data with your device on the
-          chosen server.
+          Using the dashboard and syncing your data requires an account: you sign in with an email
+          link or with Google (authentication handled by Supabase Auth). The phone app connects to
+          your account through a pairing code; each device gets a unique identifier (Device ID) used
+          to tell data sources apart.
         </p>
         <p>
-          <strong className="text-text-primary">You are responsible for your data.</strong> Keep
-          your Device ID if you plan to move the app to a new phone. Our public server is offered
-          as a free best-effort service: we do not guarantee backups, do not guarantee permanent
-          retention, and may delete data inactive for over 12 months with prior notice.
+          <strong className="text-text-primary">You are responsible for your data.</strong> Your data
+          is tied to your account, so you can switch phones by re-linking them to the same account. Our
+          server is offered as a best-effort service: we do not guarantee backups, do not guarantee
+          permanent retention, and may delete data inactive for over 12 months with prior notice.
         </p>
         <p>
           You can export all of your data in JSON format and request account deletion yourself from
@@ -518,16 +520,17 @@ function TermsES() {
 
       <Section title="5. Cuenta y datos">
         <p>
-          FitMesh Sync no requiere el registro de una cuenta tradicional. Cada instalación genera
-          un identificador único del dispositivo (UUID o Android ID) que se utiliza para asociar
-          tus datos con tu dispositivo en el servidor elegido.
+          Para usar el panel y sincronizar tus datos necesitas una cuenta: inicias sesión con un
+          enlace por email o con Google (autenticación gestionada por Supabase Auth). La app del
+          teléfono se conecta a tu cuenta mediante un código de emparejamiento; cada dispositivo
+          tiene un identificador único (Device ID) que sirve para distinguir las fuentes de datos.
         </p>
         <p>
           <strong className="text-text-primary">Eres responsable de tus datos.</strong>{" "}
-          Conserva tu Device ID si tienes previsto trasladar la app a un teléfono nuevo. Nuestro
-          servidor público se ofrece como servicio gratuito con disponibilidad razonable: no
-          garantizamos copias de seguridad, no garantizamos retención permanente, y podríamos
-          eliminar datos inactivos durante más de 12 meses previo aviso.
+          Tus datos están vinculados a tu cuenta, así que puedes cambiar de teléfono volviéndolo a
+          vincular a la misma cuenta. Nuestro servidor se ofrece como servicio con disponibilidad
+          razonable: no garantizamos copias de seguridad, no garantizamos retención permanente, y
+          podríamos eliminar datos inactivos durante más de 12 meses previo aviso.
         </p>
         <p>
           Puedes exportar todos tus datos en formato JSON y solicitar la eliminación de la cuenta
