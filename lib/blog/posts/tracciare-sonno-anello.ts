@@ -494,6 +494,6 @@ export const post: BlogPost = {
       },
     },
   ],
-  related: ["colmi-ring-fitmesh", "anello-vs-smartwatch", "hrv-cose-significato-valori"],
+  related: ["anello-smart-guida-completa", "colmi-ring-fitmesh", "anello-vs-smartwatch", "hrv-cose-significato-valori"],
   brandsMentioned: ["Colmi"],
 };

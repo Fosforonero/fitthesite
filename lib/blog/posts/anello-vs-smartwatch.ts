@@ -394,7 +394,7 @@ export const post: BlogPost = {
       },
     },
   ],
-  related: ["colmi-ring-fitmesh", "tracciare-sonno-anello", "migliori-anelli-economici"],
+  related: ["anello-smart-guida-completa", "colmi-ring-fitmesh", "tracciare-sonno-anello", "migliori-anelli-economici"],
   brandsMentioned: ["Colmi"],
   ldType: "BlogPosting",
 };

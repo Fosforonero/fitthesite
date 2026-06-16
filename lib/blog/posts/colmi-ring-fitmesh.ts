@@ -538,6 +538,7 @@ export const post: BlogPost = {
     },
   ],
   related: [
+    "anello-smart-guida-completa",
     "tracciare-sonno-anello",
     "anello-vs-smartwatch",
     "colmi-r02-setup",

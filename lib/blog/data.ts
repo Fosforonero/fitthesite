@@ -47,6 +47,7 @@ import { post as novitaAnelloColmiSonno } from "./posts/novita-anello-colmi-sonn
 import { post as novitaDashboardMultiDevice } from "./posts/novita-dashboard-multi-device";
 // Cluster anello smart
 import { post as anelloVsSmartwatch } from "./posts/anello-vs-smartwatch";
+import { post as anelloSmartGuidaCompleta } from "./posts/anello-smart-guida-completa";
 import { post as miglioriAnelliEconomici } from "./posts/migliori-anelli-economici";
 import { post as tracciareSonnoAnello } from "./posts/tracciare-sonno-anello";
 import { post as colmiR02Setup } from "./posts/colmi-r02-setup";
@@ -93,6 +94,7 @@ const RAW_POSTS: BlogPost[] = [
   novitaAnelloColmiSonno,
   novitaDashboardMultiDevice,
   // Cluster anello smart
+  anelloSmartGuidaCompleta,
   anelloVsSmartwatch,
   miglioriAnelliEconomici,
   tracciareSonnoAnello,
