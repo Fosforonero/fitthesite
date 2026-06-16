@@ -1,22 +1,26 @@
 /**
  * POST /api/v1/suunto/webhook/recovery
  *
- * Suunto chiama questo endpoint quando nuovi dati 247 recovery sono
- * disponibili per un utente connesso.
+ * Suunto chiama questo endpoint quando nuovi dati recovery sono disponibili.
+ * Risponde sempre 200 (Suunto disabilita le notifiche se non riceve 200).
  *
- * ⚠️ SECURITY GATE (audit 2026-06-10): endpoint pubblico SENZA verifica
- * firma/secret. Finché è uno stub log-only è innocuo, ma NON implementare
- * il data-processing senza prima aggiungere autenticazione del webhook
- * (HMAC/secret Suunto) — altrimenti diventa un vettore di iniezione dati.
+ * SECURITY GATE (audit P1, 2026-06-16): il webhook è pubblico. Il
+ * data-processing (parse + fetch 247 API + upsert Supabase) va messo SOLO
+ * dentro `if (v.ok)`: senza firma/secret valido non si scrive nulla.
+ * Configurare `SUUNTO_WEBHOOK_SECRET` su Vercel quando si collega Suunto.
  */
+import { verifySuuntoWebhook } from "@/lib/api/suunto-webhook";
+
 export const dynamic = "force-dynamic";
 
 export async function POST(req: Request): Promise<Response> {
-  try {
-    const body = await req.json();
-    console.log("[suunto/webhook/recovery] received:", JSON.stringify(body).slice(0, 200));
-  } catch {
-    console.log("[suunto/webhook/recovery] received non-JSON payload");
+  const raw = await req.text();
+  const v = verifySuuntoWebhook(req, raw);
+  if (v.ok) {
+    // TODO: parse `raw` + fetch Suunto 247 Data API + upsert Supabase.
+    console.log("[suunto/webhook/recovery] verified:", raw.slice(0, 200));
+  } else {
+    console.warn("[suunto/webhook/recovery] unverified webhook ignored:", v.reason);
   }
   return new Response(null, { status: 200 });
 }
