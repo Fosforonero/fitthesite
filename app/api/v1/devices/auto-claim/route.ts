@@ -12,13 +12,9 @@
  *   401 missing/invalid token
  *   409 fingerprint_already_paired_other_user
  */
-import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
-import { createAdminClient } from "@/lib/supabase/admin";
-
-type Sb = SupabaseClient;
 
 const payloadSchema = z.object({
   device_fingerprint: z.string().min(8).max(128),
@@ -37,7 +33,7 @@ const payloadSchema = z.object({
 export async function POST(req: Request) {
   const auth = await requireUser(req);
   if (auth instanceof Response) return auth;
-  const { userId } = auth;
+  const { userId, supabase } = auth;
 
   let body: unknown;
   try {
@@ -52,11 +48,13 @@ export async function POST(req: Request) {
   }
   const p = parsed.data;
 
-  const admin = createAdminClient() as unknown as Sb;
-
-  const { data: existingRaw, error: lookupErr } = await admin
+  // Client user-bound (RLS): niente service_role. Il lookup vede solo i device
+  // dell'utente; se il fingerprint appartiene a un altro utente la RLS lo
+  // nasconde e la collisione cross-user viene gestita dall'unique index
+  // `devices_fingerprint_active_uniq` (23505) all'insert.
+  const { data: existingRaw, error: lookupErr } = await supabase
     .from("devices")
-    .select("id, user_id")
+    .select("id")
     .eq("device_fingerprint", p.device_fingerprint)
     .is("revoked_at", null)
     .maybeSingle();
@@ -65,13 +63,10 @@ export async function POST(req: Request) {
     return jsonError(500, "device_lookup_failed", lookupErr.message);
   }
 
-  const existing = existingRaw as { id: string; user_id: string } | null;
+  const existing = existingRaw as { id: string } | null;
 
   if (existing) {
-    if (existing.user_id !== userId) {
-      return jsonError(409, "fingerprint_already_paired_other_user");
-    }
-    await admin
+    await supabase
       .from("devices")
       .update({
         device_name: p.device_name ?? null,
@@ -84,7 +79,7 @@ export async function POST(req: Request) {
     return jsonOk({ deviceId: existing.id, created: false });
   }
 
-  const { data: newDevice, error: insErr } = await admin
+  const { data: newDevice, error: insErr } = await supabase
     .from("devices")
     .insert({
       user_id: userId,
