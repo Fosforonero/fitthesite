@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# FitMesh pre-commit guard (audit sicurezza 2026-06).
+# Blocca: artifact/keystore/.env/google-services + chiavi private nel contenuto.
+# Bypass d'emergenza (sconsigliato): git commit --no-verify
+set -uo pipefail
+
+fail=0
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$staged" ] && exit 0
+
+# 1) File mai committabili (artifact di build, keystore, env, secret di config).
+blocked_re='\.(jks|keystore|aab|apk|p12|mobileprovision)$|(^|/)\.env($|\.)|google-services\.json$|GoogleService-Info\.plist$'
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  if printf '%s' "$f" | grep -qiE "$blocked_re"; then
+    echo "❌ BLOCCATO (file artifact/secret): $f"
+    fail=1
+  fi
+done <<< "$staged"
+
+# 2) Chiavi private nel contenuto staged (zero falsi positivi attesi).
+key_re='-----BEGIN ([A-Z ]+ )?PRIVATE KEY-----'
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  if git show ":$f" 2>/dev/null | grep -qE "$key_re"; then
+    echo "❌ BLOCCATO (chiave privata in: $f)"
+    fail=1
+  fi
+done <<< "$staged"
+
+if [ "$fail" -ne 0 ]; then
+  echo "── Pre-commit FitMesh: commit annullato (vedi sopra)."
+  exit 1
+fi
+
+# 3) Solo fitthesite: verifica che le route mobile siano gated (no service_role
+#    senza allowlist, webhook con verifica). Non blocca se lo script manca.
+if [ -f "scripts/check-mobile-routes.mjs" ] && command -v node >/dev/null 2>&1; then
+  node scripts/check-mobile-routes.mjs || { echo "── Route mobile non conformi."; exit 1; }
+fi
+
+exit 0
