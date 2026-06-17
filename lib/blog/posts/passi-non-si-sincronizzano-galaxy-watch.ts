@@ -73,6 +73,20 @@ export const post: BlogPost = {
       "samsung health steps wrong",
       "galaxy watch troubleshooting",
     ],
+    pt: [
+      "samsung health não sincroniza passos",
+      "galaxy watch passos não contados",
+      "galaxy watch dados não sincronizados",
+      "samsung health passos errados",
+      "galaxy watch solução de problemas",
+    ],
+    fr: [
+      "samsung health ne synchronise pas les pas",
+      "galaxy watch pas non comptés",
+      "galaxy watch données non synchronisées",
+      "samsung health pas erronés",
+      "galaxy watch dépannage",
+    ],
   },
   metaDescription: {
     it: "Passi Galaxy Watch non sincronizzati su Samsung Health? Guida passo-passo per risolvere: permessi, Health Connect, Bluetooth, ottimizzazione batteria, e i casi estremi. Con soluzione per ogni scenario.",

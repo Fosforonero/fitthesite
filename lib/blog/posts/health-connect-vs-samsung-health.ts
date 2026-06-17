@@ -71,6 +71,18 @@ export const post: BlogPost = {
       "samsung health 2026",
       "samsung health export data",
     ],
+    pt: [
+      "samsung health ou health connect",
+      "health connect funciona com galaxy watch",
+      "samsung health 2026",
+      "samsung health exportar dados",
+    ],
+    fr: [
+      "samsung health ou health connect",
+      "health connect fonctionne avec galaxy watch",
+      "samsung health 2026",
+      "samsung health exporter les données",
+    ],
   },
   metaDescription: {
     it: "Health Connect vs Samsung Health spiegati semplicemente: a cosa servono, perché lavorano insieme, e quando usare cosa nel 2026. Galaxy Watch incluso.",

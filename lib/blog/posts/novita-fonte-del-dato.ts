@@ -30,6 +30,20 @@ export const post: BlogPost = {
       "FitMesh Sync data transparency",
       "merge wearable data without duplicates",
     ],
+    pt: [
+      "fonte dos dados de saúde",
+      "relógio e anel juntos",
+      "passos contados uma só vez",
+      "FitMesh Sync transparência de dados",
+      "unir dados wearable sem duplicatas",
+    ],
+    fr: [
+      "source des données de santé",
+      "montre et bague ensemble",
+      "pas comptés une seule fois",
+      "FitMesh Sync transparence des données",
+      "fusionner les données wearable sans doublons",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync ora mostra da quale dispositivo arriva ogni dato salute: orologio, anello o altro. Una vista unica, senza doppioni, sempre chiara su chi misura cosa.",

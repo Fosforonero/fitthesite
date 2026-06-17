@@ -79,6 +79,20 @@ export const post: BlogPost = {
       "gdpr fitness data",
       "personal health dashboard",
     ],
+    pt: [
+      "health connect 2026",
+      "samsung health export",
+      "oauth wearable",
+      "gdpr dados fitness",
+      "painel de saúde pessoal",
+    ],
+    fr: [
+      "health connect 2026",
+      "samsung health export",
+      "oauth wearable",
+      "rgpd données fitness",
+      "tableau de bord santé personnel",
+    ],
   },
   metaDescription: {
     it: "Tutto quello che ti serve per sincronizzare il tuo wearable nel 2026: Health Connect, Samsung Health, OAuth ufficiali, GDPR, e come confrontare le opzioni senza farsi fregare.",

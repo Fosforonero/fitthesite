@@ -72,6 +72,22 @@ export const post: BlogPost = {
       "colmi ring fitmesh",
       "colmi r02 how it works",
     ],
+    pt: [
+      "colmi r02 configuração",
+      "colmi r02 instruções em português",
+      "colmi r02 como usar",
+      "colmi r02 setup",
+      "colmi r02 como funciona",
+      "anel colmi fitmesh",
+    ],
+    fr: [
+      "colmi r02 configuration",
+      "colmi r02 instructions en français",
+      "colmi r02 comment utiliser",
+      "colmi r02 paramétrage",
+      "colmi r02 comment ça marche",
+      "bague colmi fitmesh",
+    ],
   },
   tldr: {
     it: [

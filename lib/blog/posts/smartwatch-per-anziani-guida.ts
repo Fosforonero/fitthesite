@@ -72,6 +72,20 @@ export const post: BlogPost = {
       "smartwatch heart rate monitoring seniors",
       "easy to use smartwatch elderly",
     ],
+    pt: [
+      "melhor smartwatch para idosos 2026",
+      "smartwatch para avô avó",
+      "smartwatch detecção de quedas idosos",
+      "smartwatch frequência cardíaca idosos",
+      "smartwatch fácil de usar idosos",
+    ],
+    fr: [
+      "meilleure montre connectée pour seniors 2026",
+      "montre connectée pour grand-parent",
+      "montre connectée détection de chutes seniors",
+      "montre connectée fréquence cardiaque seniors",
+      "montre connectée facile à utiliser seniors",
+    ],
   },
   metaDescription: {
     it: "Guida completa agli smartwatch per anziani nel 2026: cosa guardare davvero (rilevamento cadute, SOS, facilità d'uso, durata batteria), cosa evitare, e come scegliere senza spendere troppo.",

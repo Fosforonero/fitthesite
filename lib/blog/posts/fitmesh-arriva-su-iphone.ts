@@ -54,6 +54,8 @@ export const post: BlogPost = {
     it: "fitmesh sync iphone",
     en: "fitmesh sync iphone",
     es: "fitmesh sync iphone",
+    pt: "fitmesh sync iphone",
+    fr: "fitmesh sync iphone",
   },
   secondaryKeywords: {
     it: [
@@ -69,6 +71,20 @@ export const post: BlogPost = {
       "write android data to apple health",
       "apple health bridge wearable",
       "health dashboard iphone",
+    ],
+    pt: [
+      "fitmesh ios beta",
+      "app saúde iphone smartwatch android",
+      "sincronizar smartwatch android apple saúde",
+      "ponte apple saúde wearable android",
+      "painel de saúde iphone",
+    ],
+    fr: [
+      "fitmesh ios beta",
+      "app santé iphone smartwatch android",
+      "synchroniser smartwatch android apple santé",
+      "passerelle apple santé wearable android",
+      "tableau de bord santé iphone",
     ],
   },
   metaDescription: {

@@ -71,6 +71,18 @@ export const post: BlogPost = {
       "smartwatch gdpr",
       "fitness data deletion right",
     ],
+    pt: [
+      "privacidade dados de saúde smartwatch",
+      "onde param os dados do fitbit",
+      "smartwatch gdpr",
+      "direito de exclusão dados fitness",
+    ],
+    fr: [
+      "confidentialité données de santé smartwatch",
+      "où vont les données fitbit",
+      "smartwatch rgpd",
+      "droit à l'effacement des données fitness",
+    ],
   },
   metaDescription: {
     it: "Dove finiscono i dati del tuo smartwatch sotto GDPR: cosa sono dati sanitari, basi legali, diritti reali, e come ogni grande brand gestisce i tuoi BPM nella pratica.",

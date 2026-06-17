@@ -30,6 +30,20 @@ export const post: BlogPost = {
       "find my Colmi ring",
       "free Pro badge FitMesh",
     ],
+    pt: [
+      "anel inteligente fases do sono",
+      "Colmi ring FitMesh",
+      "monitoramento sono profundo REM",
+      "encontrar anel Colmi",
+      "badge Pro grátis FitMesh",
+    ],
+    fr: [
+      "bague connectée phases du sommeil",
+      "Colmi ring FitMesh",
+      "suivi sommeil profond REM",
+      "localiser ma bague Colmi",
+      "badge Pro gratuit FitMesh",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync ora legge l'anello Colmi via Bluetooth: sonno con fasi, batteria sempre visibile, funzione Trova anello. E 7 giorni di dati sbloccano 6 mesi di Pro gratis.",

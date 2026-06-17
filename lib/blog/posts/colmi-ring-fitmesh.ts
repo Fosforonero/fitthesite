@@ -60,6 +60,8 @@ export const post: BlogPost = {
     it: "colmi r02 app dati dashboard",
     en: "colmi r02 app data dashboard",
     es: "colmi r02 app datos panel",
+    pt: "colmi r02 app dados painel",
+    fr: "colmi r02 app données tableau de bord",
   },
   secondaryKeywords: {
     it: [
@@ -79,6 +81,24 @@ export const post: BlogPost = {
       "smart ring health data",
       "qring alternative",
       "colmi ring no companion app",
+    ],
+    pt: [
+      "colmi r02 português",
+      "anel inteligente barato app",
+      "painel colmi ring",
+      "anel inteligente bluetooth android",
+      "dados colmi r03",
+      "alternativa qring",
+      "anel inteligente sem app companion",
+    ],
+    fr: [
+      "colmi r02 français",
+      "bague connectée pas chère app",
+      "tableau de bord colmi ring",
+      "bague connectée bluetooth android",
+      "données colmi r03",
+      "alternative qring",
+      "bague connectée sans app companion",
     ],
   },
   metaDescription: {

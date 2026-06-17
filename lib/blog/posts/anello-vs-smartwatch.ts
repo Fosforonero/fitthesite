@@ -63,6 +63,22 @@ export const post: BlogPost = {
       "smart ring worth it",
       "budget smart ring",
     ],
+    pt: [
+      "diferença anel inteligente smartwatch",
+      "anel inteligente vale a pena",
+      "anel inteligente vs smartwatch",
+      "anel inteligente comparado ao smartwatch",
+      "quando usar anel inteligente",
+      "anel inteligente barato",
+    ],
+    fr: [
+      "différence bague connectée montre connectée",
+      "la bague connectée en vaut-elle la peine",
+      "bague connectée vs montre connectée",
+      "bague connectée comparée à la montre",
+      "quand utiliser une bague connectée",
+      "bague connectée pas chère",
+    ],
   },
   tldr: {
     it: [

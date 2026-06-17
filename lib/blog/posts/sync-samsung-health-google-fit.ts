@@ -72,6 +72,20 @@ export const post: BlogPost = {
       "transfer samsung health data to google",
       "samsung health google fit 2026",
     ],
+    pt: [
+      "sincronizar samsung health google fit",
+      "samsung health google fit 2026",
+      "health connect samsung health google",
+      "transferir dados samsung health",
+      "samsung health google fit solução",
+    ],
+    fr: [
+      "synchroniser samsung health google fit",
+      "samsung health google fit 2026",
+      "health connect samsung health google",
+      "transférer les données samsung health",
+      "samsung health google fit solution",
+    ],
   },
   metaDescription: {
     it: "Sync Samsung Health → Google Fit nel 2026: il sync diretto non esiste più, ma c'è un workaround via Health Connect. Spiegazione onesta di cosa funziona, cosa no, e perché.",

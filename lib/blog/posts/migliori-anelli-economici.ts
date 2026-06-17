@@ -74,6 +74,24 @@ export const post: BlogPost = {
       "colmi r02 review",
       "smart ring buying guide",
     ],
+    pt: [
+      "melhor anel inteligente barato",
+      "melhor anel inteligente 2026",
+      "preço anel inteligente",
+      "anel inteligente abaixo de 50 euros",
+      "smart ring barato",
+      "colmi r02 preço",
+      "guia de compra anel inteligente",
+    ],
+    fr: [
+      "meilleure bague connectée pas chère",
+      "meilleure bague connectée 2026",
+      "prix bague connectée",
+      "bague connectée moins de 50 euros",
+      "bague connectée petit budget",
+      "colmi r02 prix",
+      "guide d'achat bague connectée",
+    ],
   },
   tldr: {
     it: [

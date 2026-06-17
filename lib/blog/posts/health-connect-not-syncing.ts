@@ -74,6 +74,20 @@ export const post: BlogPost = {
       "health connect sync fix 2026",
       "google health connect troubleshooting",
     ],
+    pt: [
+      "health connect não funciona",
+      "health connect dados faltando",
+      "samsung health não sincroniza com health connect",
+      "passos não aparecem no health connect",
+      "como resolver health connect",
+    ],
+    fr: [
+      "health connect ne fonctionne pas",
+      "health connect données manquantes",
+      "samsung health ne synchronise pas avec health connect",
+      "pas non affichés dans health connect",
+      "comment résoudre health connect",
+    ],
   },
   metaDescription: {
     it: "Health Connect non si sincronizza? Ecco 7 soluzioni verificate: permessi, ottimizzazione batteria, cache, impostazioni Samsung Health. Guida completa 2026.",

@@ -73,6 +73,20 @@ export const post: BlogPost = {
       "how to get android sleep data into apple health",
       "fitmesh apple health write bridge",
     ],
+    pt: [
+      "gravar dados wearable android no apple saúde",
+      "ponte apple saúde smartwatch android",
+      "anel inteligente iphone apple health",
+      "como levar sono android para apple saúde",
+      "fitmesh ponte apple health",
+    ],
+    fr: [
+      "écrire les données wearable android dans apple santé",
+      "passerelle apple santé smartwatch android",
+      "bague connectée iphone apple health",
+      "comment importer le sommeil android dans apple santé",
+      "fitmesh passerelle apple health",
+    ],
   },
   metaDescription: {
     it: "Come FitMesh Sync porta i dati del tuo anello smart o smartwatch Android dentro Apple Salute: bridge opt-in, zero duplicati, sonno con fasi. Privacy EU, GDPR. Guida completa.",

@@ -30,6 +30,20 @@ export const post: BlogPost = {
       "Android wearable health data",
       "how to migrate from Google Fit",
     ],
+    pt: [
+      "Google Fit descontinuado 2026",
+      "alternativa Google Fit Android",
+      "migração Health Connect",
+      "wearable Android dados de saúde",
+      "como migrar do Google Fit",
+    ],
+    fr: [
+      "Google Fit abandonné 2026",
+      "alternative Google Fit Android",
+      "migration Health Connect",
+      "wearable Android données de santé",
+      "comment migrer depuis Google Fit",
+    ],
   },
   metaDescription: {
     it: "Google Fit sta chiudendo le sue API nel 2026: cosa cambia per chi usa wearable Android, perché Health Connect è il successore ufficiale, e come FitMesh Sync aiuta a unire tutti i dispositivi in un unico pannello.",

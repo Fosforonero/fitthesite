@@ -74,6 +74,20 @@ export const post: BlogPost = {
       "apple health backup",
       "view apple health data on computer",
     ],
+    pt: [
+      "exportar apple health para pc",
+      "baixar dados apple health",
+      "apple health export csv",
+      "ver dados apple health no navegador",
+      "backup apple health",
+    ],
+    fr: [
+      "exporter apple health vers pc",
+      "télécharger les données apple health",
+      "apple health export csv",
+      "voir les données apple health dans le navigateur",
+      "sauvegarde apple health",
+    ],
   },
   metaDescription: {
     it: "Come esportare i dati Apple Health su PC o web nel 2026: export XML nativo, lettura con strumenti gratuiti, e dashboard web per iPhone. Guida completa.",

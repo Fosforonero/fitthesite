@@ -48,6 +48,8 @@ export const post: BlogPost = {
     it: "alternative app sync wearable",
     en: "wearable sync apps alternatives",
     es: "alternativas apps sincronización wearable",
+    pt: "alternativas apps sincronização wearable",
+    fr: "alternatives applications synchronisation wearable",
   },
   secondaryKeywords: {
     it: [
@@ -61,6 +63,18 @@ export const post: BlogPost = {
       "android health data bridge",
       "sync samsung health garmin",
       "unified wearable dashboard",
+    ],
+    pt: [
+      "app sync wearable android",
+      "ponte de dados de saúde android",
+      "sincronizar samsung health garmin",
+      "painel wearable unificado",
+    ],
+    fr: [
+      "app sync wearable android",
+      "passerelle données santé android",
+      "synchroniser samsung health garmin",
+      "tableau de bord wearable unifié",
     ],
   },
   metaDescription: {

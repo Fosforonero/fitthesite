@@ -73,6 +73,20 @@ export const post: BlogPost = {
       "garmin data csv",
       "transfer garmin data to another app",
     ],
+    pt: [
+      "baixar atividades garmin connect",
+      "garmin export gpx tcx fit",
+      "garmin connect baixar atividades",
+      "dados garmin csv",
+      "transferir dados garmin para outro app",
+    ],
+    fr: [
+      "télécharger les activités garmin connect",
+      "garmin export gpx tcx fit",
+      "garmin connect télécharger activités",
+      "données garmin csv",
+      "transférer les données garmin vers une autre app",
+    ],
   },
   metaDescription: {
     it: "Come esportare dati Garmin: guida pratica per scaricare allenamenti in GPX, TCX, FIT e CSV da Garmin Connect (sito web, app mobile e API). Pro e contro di ogni metodo.",

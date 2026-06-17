@@ -67,22 +67,28 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       fr: "Sauvegarde automatique des données Galaxy Watch sur votre propre tableau de bord, sans Samsung Cloud. Configuration en 30 secondes via Health Connect. La confidentialité avant tout.",
     },
     hero: {
-      kicker: { it: "Backup Galaxy Watch", en: "Galaxy Watch backup" },
+      kicker: { it: "Backup Galaxy Watch", en: "Galaxy Watch backup", de: "Galaxy Watch Backup", pt: "Backup do Galaxy Watch", fr: "Sauvegarde Galaxy Watch" },
       title: {
         it: "Backup automatico Galaxy Watch, fuori da Samsung Cloud",
         en: "Automatic Galaxy Watch backup, outside Samsung Cloud",
+        de: "Automatisches Galaxy Watch Backup, außerhalb von Samsung Cloud",
+        pt: "Backup automático do Galaxy Watch, fora do Samsung Cloud",
+        fr: "Sauvegarde automatique Galaxy Watch, hors Samsung Cloud",
       },
       subtitle: {
         it: "Passi, BPM, sonno, allenamenti del tuo Galaxy Watch su una dashboard web tua. Setup di 30 secondi via Health Connect, niente account aggiuntivi.",
         en: "Steps, HR, sleep, workouts from your Galaxy Watch on a web dashboard you own. 30-second setup via Health Connect, no extra accounts.",
+        de: "Schritte, BPM, Schlaf, Trainings deines Galaxy Watch auf deinem eigenen Web-Dashboard. Einrichtung in 30 Sekunden via Health Connect, keine zusätzlichen Konten.",
+        pt: "Passos, BPM, sono, treinos do seu Galaxy Watch em um painel web seu. Configuração em 30 segundos via Health Connect, sem contas extras.",
+        fr: "Pas, BPM, sommeil, séances d'entraînement de votre Galaxy Watch sur votre propre tableau de bord web. Configuration en 30 secondes via Health Connect, aucun compte supplémentaire.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta" },
-        href: { it: "/it/beta", en: "/en/beta" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Vedi tutte le integrazioni", en: "See all integrations" },
-        href: { it: "/it/sync/galaxy-watch", en: "/en/sync/galaxy-watch" },
+        label: { it: "Vedi tutte le integrazioni", en: "See all integrations", de: "Alle Integrationen ansehen", pt: "Ver todas as integrações", fr: "Voir toutes les intégrations" },
+        href: { it: "/it/sync/galaxy-watch", en: "/en/sync/galaxy-watch", de: "/de/sync/galaxy-watch", pt: "/pt/sync/galaxy-watch", fr: "/fr/sync/galaxy-watch" },
       },
     },
     body: [
@@ -91,6 +97,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Il Galaxy Watch è ottimo, Samsung Health è completo, ma se vuoi i tuoi dati fuori dal cloud Samsung (per archivio, per analisi su PC, per fare confronti tra anni), la strada nativa è clunky. Devi aprire l'app, andare in impostazioni, scaricare l'export, aspettare l'email, decomprimere, importare in Excel. Ogni volta da capo.",
           en: "Galaxy Watch is great, Samsung Health is comprehensive, but if you want your data out of Samsung cloud (for archive, for PC analysis, for cross-year comparisons), the native path is clunky. You open the app, go to settings, download the export, wait for the email, unzip, import to Excel. Every single time.",
+          de: "Galaxy Watch ist hervorragend, Samsung Health ist umfassend, aber wenn du deine Daten aus der Samsung Cloud herausbekommen möchtest (für Archivierung, PC-Analyse oder Jahresvergleiche), ist der native Weg umständlich. Du öffnest die App, gehst in die Einstellungen, lädst den Export herunter, wartest auf die E-Mail, entpackst die Datei und importierst sie in Excel. Jedes Mal von vorne.",
+          pt: "O Galaxy Watch é ótimo, o Samsung Health é completo, mas se você quer seus dados fora da nuvem Samsung (para arquivo, análise no PC ou comparações entre anos), o caminho nativo é trabalhoso. Você abre o app, vai nas configurações, baixa o export, espera o e-mail, descompacta e importa no Excel. Tudo de novo a cada vez.",
+          fr: "Le Galaxy Watch est excellent, Samsung Health est complet, mais si vous voulez récupérer vos données hors du cloud Samsung (pour archivage, analyse sur PC ou comparaisons annuelles), le chemin natif est fastidieux. Vous ouvrez l'application, allez dans les paramètres, téléchargez l'export, attendez l'e-mail, décompressez et importez dans Excel. À recommencer à chaque fois.",
         },
       },
       {
@@ -98,12 +107,15 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "FitMesh Sync è la via automatica. Installi l'app Android, dai il permesso Health Connect, e da quel momento i dati del Galaxy Watch sono mirrorati su una dashboard web che apri da qualsiasi browser. Sync automatico ogni 15 minuti, nessuna manualità.",
           en: "FitMesh Sync is the automatic path. Install the Android app, grant the Health Connect permission, and from then on your Galaxy Watch data is mirrored to a web dashboard you open from any browser. Automatic sync every 15 minutes, zero manual work.",
+          de: "FitMesh Sync ist der automatische Weg. Installiere die Android-App, erteile die Health Connect-Berechtigung, und von da an werden deine Galaxy Watch-Daten auf ein Web-Dashboard gespiegelt, das du von jedem Browser aus öffnest. Automatische Synchronisierung alle 15 Minuten, kein manueller Aufwand.",
+          pt: "FitMesh Sync é o caminho automático. Instale o app Android, conceda a permissão do Health Connect e, a partir daí, os dados do Galaxy Watch são espelhados em um painel web que você acessa de qualquer navegador. Sincronização automática a cada 15 minutos, sem nenhum trabalho manual.",
+          fr: "FitMesh Sync est la solution automatique. Installez l'application Android, accordez l'autorisation Health Connect, et dès lors vos données Galaxy Watch sont reflétées sur un tableau de bord web accessible depuis n'importe quel navigateur. Synchronisation automatique toutes les 15 minutes, sans aucune manipulation.",
         },
       },
       {
         type: "heading",
         level: 2,
-        text: { it: "Cosa viene salvato", en: "What gets saved" },
+        text: { it: "Cosa viene salvato", en: "What gets saved", de: "Was gespeichert wird", pt: "O que é salvo", fr: "Ce qui est sauvegardé" },
       },
       {
         type: "list",
@@ -128,12 +140,42 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "SpO₂ (if your Watch measures it)",
             "VO₂ max (when measured)",
           ],
+          de: [
+            "Tägliche Schritte und stündliche Intervalle",
+            "Herzfrequenz: Durchschnitt, Ruhewert und kontinuierliche Messungen",
+            "Schlaf mit Phasen (Tiefschlaf, REM, Leichtschlaf, Wach)",
+            "Trainings mit Typ, Dauer, kcal, Durchschnittspuls",
+            "Aktive Kalorien und Grundumsatz-Kalorien",
+            "Zurückgelegte Distanz",
+            "SpO₂ (wenn deine Watch es misst)",
+            "VO₂ max (wenn gemessen)",
+          ],
+          pt: [
+            "Passos diários e por intervalo horário",
+            "Frequência cardíaca: média, repouso e amostras contínuas",
+            "Sono com fases (Profundo, REM, Leve, Acordado)",
+            "Treinos com tipo, duração, kcal, BPM médio",
+            "Calorias ativas e basais",
+            "Distância percorrida",
+            "SpO₂ (se o seu Watch mede)",
+            "VO₂ max (quando medido)",
+          ],
+          fr: [
+            "Pas journaliers et par intervalle horaire",
+            "Fréquence cardiaque : moyenne, repos et mesures continues",
+            "Sommeil avec phases (Profond, REM, Léger, Éveillé)",
+            "Séances d'entraînement avec type, durée, kcal, FC moyenne",
+            "Calories actives et de base",
+            "Distance parcourue",
+            "SpO₂ (si votre Watch le mesure)",
+            "VO₂ max (si mesuré)",
+          ],
         },
       },
       {
         type: "heading",
         level: 2,
-        text: { it: "Setup in 3 step", en: "Setup in 3 steps" },
+        text: { it: "Setup in 3 step", en: "Setup in 3 steps", de: "Einrichtung in 3 Schritten", pt: "Configuração em 3 passos", fr: "Configuration en 3 étapes" },
       },
       {
         type: "list",
@@ -149,15 +191,33 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "Open Samsung Health → Settings → Health Connect → authorize FitMesh for the data types you want to save.",
             "Open the web dashboard (link in the app or sign in with the same Google). Your data is there.",
           ],
+          de: [
+            "Installiere FitMesh Sync aus dem Play Store und melde dich mit Google an.",
+            "Öffne Samsung Health → Einstellungen → Health Connect → autorisiere FitMesh für die Daten, die du speichern möchtest.",
+            "Öffne das Web-Dashboard (Link in der App oder melde dich mit demselben Google-Konto an). Deine Daten sind dort.",
+          ],
+          pt: [
+            "Instale FitMesh Sync na Play Store e entre com o Google.",
+            "Abra o Samsung Health → Configurações → Health Connect → autorize o FitMesh para os tipos de dados que deseja salvar.",
+            "Abra o painel web (link no app ou entre com o mesmo Google). Seus dados estão lá.",
+          ],
+          fr: [
+            "Installez FitMesh Sync depuis le Play Store et connectez-vous avec Google.",
+            "Ouvrez Samsung Health → Paramètres → Health Connect → autorisez FitMesh pour les types de données à sauvegarder.",
+            "Ouvrez le tableau de bord web (lien dans l'application ou connectez-vous avec le même compte Google). Vos données sont là.",
+          ],
         },
       },
       {
         type: "callout",
         variant: "tip",
-        title: { it: "Senza dipendenze da Samsung Cloud", en: "No Samsung Cloud dependency" },
+        title: { it: "Senza dipendenze da Samsung Cloud", en: "No Samsung Cloud dependency", de: "Keine Abhängigkeit von Samsung Cloud", pt: "Sem dependência do Samsung Cloud", fr: "Aucune dépendance à Samsung Cloud" },
         body: {
           it: "FitMesh Sync legge da Health Connect, che è strettamente on-device. Non passa dal cloud Samsung. Puoi disabilitare la sincronizzazione Samsung Account in Samsung Health e FitMesh continua a funzionare.",
           en: "FitMesh Sync reads from Health Connect, which is strictly on-device. It doesn't pass through Samsung cloud. You can disable Samsung Account sync in Samsung Health and FitMesh keeps working.",
+          de: "FitMesh Sync liest aus Health Connect, das strikt geräteseitig ist. Es läuft nicht über die Samsung Cloud. Du kannst die Samsung Account-Synchronisierung in Samsung Health deaktivieren, und FitMesh funktioniert weiterhin.",
+          pt: "FitMesh Sync lê do Health Connect, que funciona estritamente no dispositivo. Não passa pela nuvem Samsung. Você pode desativar a sincronização com a Samsung Account no Samsung Health e o FitMesh continuará funcionando.",
+          fr: "FitMesh Sync lit les données depuis Health Connect, qui fonctionne strictement sur l'appareil. Il ne transite pas par le cloud Samsung. Vous pouvez désactiver la synchronisation du compte Samsung dans Samsung Health, et FitMesh continue de fonctionner.",
         },
       },
       {
@@ -165,13 +225,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Pronto al backup automatico?",
           en: "Ready for automatic backup?",
+          de: "Bereit für automatisches Backup?",
+          pt: "Pronto para o backup automático?",
+          fr: "Prêt pour la sauvegarde automatique ?",
         },
         body: {
           it: "100 posti founder gratis durante la beta. App Android sul Play Store + dashboard web inclusa.",
           en: "100 free founder seats during beta. Android app on Play Store + web dashboard included.",
+          de: "100 kostenlose Founder-Plätze während der Beta. Android-App im Play Store und Web-Dashboard inklusive.",
+          pt: "100 vagas founder grátis durante a beta. App Android na Play Store e painel web incluídos.",
+          fr: "100 places founder gratuites pendant la bêta. Application Android sur le Play Store et tableau de bord web inclus.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →" },
-        ctaHref: { it: "/it/beta", en: "/en/beta" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
     faq: [
@@ -179,20 +245,32 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         q: {
           it: "FitMesh Sync sostituisce Samsung Health?",
           en: "Does FitMesh Sync replace Samsung Health?",
+          de: "Ersetzt FitMesh Sync Samsung Health?",
+          pt: "FitMesh Sync substitui o Samsung Health?",
+          fr: "FitMesh Sync remplace-t-il Samsung Health ?",
         },
         a: {
           it: "No, lavora insieme. Samsung Health continua a ricevere dati dal Watch. FitMesh ne legge una copia e la mostra sulla dashboard web. Sono complementari.",
           en: "No, they work together. Samsung Health keeps receiving data from the Watch. FitMesh reads a copy and shows it on the web dashboard. They're complementary.",
+          de: "Nein, sie arbeiten zusammen. Samsung Health empfängt weiterhin Daten von der Watch. FitMesh liest eine Kopie davon und zeigt sie auf dem Web-Dashboard an. Sie ergänzen sich.",
+          pt: "Não, eles funcionam juntos. O Samsung Health continua recebendo dados do Watch. FitMesh lê uma cópia e a exibe no painel web. São complementares.",
+          fr: "Non, ils fonctionnent ensemble. Samsung Health continue de recevoir les données de la Watch. FitMesh en lit une copie et l'affiche sur le tableau de bord web. Ils sont complémentaires.",
         },
       },
       {
         q: {
           it: "E se Samsung Health non condivide tutto con Health Connect?",
           en: "What if Samsung Health doesn't share everything with Health Connect?",
+          de: "Was ist, wenn Samsung Health nicht alles mit Health Connect teilt?",
+          pt: "E se o Samsung Health não compartilhar tudo com o Health Connect?",
+          fr: "Et si Samsung Health ne partage pas tout avec Health Connect ?",
         },
         a: {
           it: "Su telefoni Samsung FitMesh legge i dati direttamente da Samsung Health, oltre che da Health Connect. Così recupera anche le metriche che Samsung Health spesso non passa a Health Connect (in particolare frequenza cardiaca e sonno), più allenamenti, peso, pressione, glicemia e altro quando disponibili. Basta concedere i permessi di lettura una volta dalle impostazioni dell'app.",
           en: "On Samsung phones FitMesh reads data directly from Samsung Health, in addition to Health Connect. This recovers metrics that Samsung Health often doesn't pass to Health Connect (especially heart rate and sleep), plus workouts, weight, blood pressure, glucose and more when available. Just grant read permission once from the app settings.",
+          de: "Auf Samsung-Telefonen liest FitMesh Daten direkt aus Samsung Health, zusätzlich zu Health Connect. So werden auch Messwerte erfasst, die Samsung Health häufig nicht an Health Connect weitergibt (insbesondere Herzfrequenz und Schlaf), sowie Trainings, Gewicht, Blutdruck, Blutzucker und mehr, wenn verfügbar. Erteile die Leseberechtigung einmalig in den App-Einstellungen.",
+          pt: "Em telefones Samsung, o FitMesh lê dados diretamente do Samsung Health, além do Health Connect. Assim, recupera também as métricas que o Samsung Health frequentemente não repassa ao Health Connect (especialmente frequência cardíaca e sono), além de treinos, peso, pressão arterial, glicemia e mais, quando disponíveis. Basta conceder a permissão de leitura uma vez nas configurações do app.",
+          fr: "Sur les téléphones Samsung, FitMesh lit les données directement depuis Samsung Health, en plus de Health Connect. Cela permet de récupérer aussi les métriques que Samsung Health ne transmet souvent pas à Health Connect (notamment la fréquence cardiaque et le sommeil), ainsi que les séances d'entraînement, le poids, la tension artérielle, la glycémie et d'autres données disponibles. Il suffit d'accorder l'autorisation de lecture une fois dans les paramètres de l'application.",
         },
       },
       {
@@ -228,6 +306,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     primaryKeyword: {
       it: "esportare dati fitbit google",
       en: "export fitbit data google",
+      de: "Fitbit-Daten exportieren Google",
+      pt: "exportar dados fitbit google",
+      fr: "exporter données fitbit google",
     },
     secondaryKeywords: {
       it: ["alternativa dashboard fitbit", "vedere dati fitbit senza app", "fitbit web 2026"],
@@ -236,24 +317,33 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "Vuoi esportare e visualizzare i dati Fitbit dopo l'acquisizione Google? Dashboard web alternativa via Health Connect, niente Fitbit Premium, privacy-first.",
       en: "Want to export and view Fitbit data after Google acquisition? Alternative web dashboard via Health Connect, no Fitbit Premium, privacy-first.",
+      de: "Möchtest du deine Fitbit-Daten nach der Google-Übernahme exportieren und anzeigen? Alternative Web-Dashboard via Health Connect, ohne Fitbit Premium, Privacy-first.",
+      pt: "Quer exportar e visualizar os dados do Fitbit após a aquisição pelo Google? Painel web alternativo via Health Connect, sem Fitbit Premium, privacidade em primeiro lugar.",
+      fr: "Vous souhaitez exporter vos données Fitbit après l'acquisition par Google ? Tableau de bord web alternatif via Health Connect, sans Fitbit Premium, confidentialité en priorité.",
     },
     hero: {
-      kicker: { it: "Fitbit dopo Google", en: "Fitbit after Google" },
+      kicker: { it: "Fitbit dopo Google", en: "Fitbit after Google", de: "Fitbit nach Google", pt: "Fitbit após o Google", fr: "Fitbit après Google" },
       title: {
         it: "Dashboard alternativa Fitbit, senza dipendenza da Google",
         en: "Alternative Fitbit dashboard, free from Google dependency",
+        de: "Alternatives Fitbit-Dashboard, frei von Google-Abhängigkeit",
+        pt: "Painel alternativo do Fitbit, sem dependência do Google",
+        fr: "Tableau de bord Fitbit alternatif, sans dépendance à Google",
       },
       subtitle: {
         it: "Fitbit.com è stato smantellato, Fitbit Premium ti spinge a pagare per le funzioni di sempre. Esporta i tuoi dati Fitbit su una dashboard web tua, via Health Connect.",
         en: "Fitbit.com was decommissioned, Fitbit Premium pushes you to pay for the features you always had. Export your Fitbit data to a dashboard you own, via Health Connect.",
+        de: "Fitbit.com wurde abgeschaltet, Fitbit Premium drängt dich dazu, für gewohnte Funktionen zu bezahlen. Exportiere deine Fitbit-Daten auf dein eigenes Web-Dashboard, via Health Connect.",
+        pt: "O Fitbit.com foi desativado, o Fitbit Premium empurra você a pagar por funções que sempre existiram. Exporte seus dados do Fitbit para um painel web seu, via Health Connect.",
+        fr: "Fitbit.com a été supprimé, Fitbit Premium vous pousse à payer pour des fonctionnalités que vous aviez toujours. Exportez vos données Fitbit sur votre propre tableau de bord web, via Health Connect.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta" },
-        href: { it: "/it/beta", en: "/en/beta" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Vedi integrazione Fitbit", en: "See Fitbit integration" },
-        href: { it: "/it/sync/fitbit", en: "/en/sync/fitbit" },
+        label: { it: "Vedi integrazione Fitbit", en: "See Fitbit integration", de: "Fitbit-Integration ansehen", pt: "Ver integração Fitbit", fr: "Voir l'intégration Fitbit" },
+        href: { it: "/it/sync/fitbit", en: "/en/sync/fitbit", de: "/de/sync/fitbit", pt: "/pt/sync/fitbit", fr: "/fr/sync/fitbit" },
       },
     },
     body: [
@@ -262,12 +352,15 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Dopo l'acquisizione Fitbit da parte di Google nel 2021 e la migrazione obbligatoria a Google Account nel 2023, l'esperienza Fitbit è cambiata: web dashboard rimosse, alcune feature spinte dietro Premium, accesso ai dati storici sempre più mediato dall'ecosystem Google. Se vuoi continuare a usare il tuo Fitbit ma con maggiore controllo dati, c'è una strada pulita: Health Connect + dashboard alternativa.",
           en: "After Google's 2021 Fitbit acquisition and the 2023 mandatory Google Account migration, the Fitbit experience changed: web dashboards removed, some features pushed behind Premium, access to historical data increasingly mediated by Google ecosystem. If you want to keep using your Fitbit with more data control, there's a clean path: Health Connect + alternative dashboard.",
+          de: "Nach der Übernahme von Fitbit durch Google im Jahr 2021 und der obligatorischen Migration auf Google-Konten im Jahr 2023 hat sich die Fitbit-Erfahrung verändert: Web-Dashboards wurden entfernt, einige Funktionen hinter Premium verschoben, der Zugriff auf historische Daten zunehmend durch das Google-Ökosystem vermittelt. Wenn du Fitbit weiterhin mit mehr Datenkontrolle nutzen möchtest, gibt es einen sauberen Weg: Health Connect und ein alternatives Dashboard.",
+          pt: "Após a aquisição do Fitbit pelo Google em 2021 e a migração obrigatória para a conta Google em 2023, a experiência Fitbit mudou: painéis web removidos, algumas funcionalidades colocadas atrás do Premium, acesso aos dados históricos cada vez mais mediado pelo ecossistema Google. Se você quer continuar usando o Fitbit com mais controle sobre seus dados, há um caminho limpo: Health Connect e painel alternativo.",
+          fr: "Après l'acquisition de Fitbit par Google en 2021 et la migration obligatoire vers un compte Google en 2023, l'expérience Fitbit a changé : les tableaux de bord web ont été supprimés, certaines fonctionnalités placées derrière Premium, l'accès aux données historiques de plus en plus médiatisé par l'écosystème Google. Si vous souhaitez continuer à utiliser Fitbit avec plus de contrôle sur vos données, il existe une solution propre : Health Connect et un tableau de bord alternatif.",
         },
       },
       {
         type: "heading",
         level: 2,
-        text: { it: "Cosa otteni con FitMesh Sync", en: "What you get with FitMesh Sync" },
+        text: { it: "Cosa otteni con FitMesh Sync", en: "What you get with FitMesh Sync", de: "Was du mit FitMesh Sync bekommst", pt: "O que você obtém com FitMesh Sync", fr: "Ce que vous obtenez avec FitMesh Sync" },
       },
       {
         type: "list",
@@ -288,27 +381,57 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "No Fitbit Premium, no FitMesh subscription",
             "Roadmap: Fitbit Web API OAuth integration for detailed sleep stages and 12-month backfill",
           ],
+          de: [
+            "Übersichtliches Web-Dashboard, zugänglich von PC, Tablet und Smartphone",
+            "Automatische Synchronisierung via Health Connect (Fitbit App → HC → FitMesh)",
+            "Lokaler Verlauf auf unserem EU-Backend (Frankfurt) gespeichert",
+            "Datenexport als CSV/JSON, wann immer du möchtest",
+            "Kein Fitbit Premium, kein FitMesh-Abonnement",
+            "Roadmap: OAuth Fitbit Web API-Integration für detaillierte Schlafphasen und 12-Monate-Backfill",
+          ],
+          pt: [
+            "Painel web limpo acessível de PC, tablet e celular",
+            "Sincronização automática via Health Connect (app Fitbit → HC → FitMesh)",
+            "Histórico local armazenado no nosso backend EU (Frankfurt)",
+            "Export de dados em CSV/JSON quando quiser",
+            "Sem Fitbit Premium, sem assinatura FitMesh",
+            "Roadmap: integração OAuth Fitbit Web API para fases do sono detalhadas e backfill de 12 meses",
+          ],
+          fr: [
+            "Tableau de bord web clair accessible depuis PC, tablette et téléphone",
+            "Synchronisation automatique via Health Connect (app Fitbit → HC → FitMesh)",
+            "Historique local stocké sur notre backend EU (Frankfurt)",
+            "Export des données en CSV/JSON quand vous le souhaitez",
+            "Sans Fitbit Premium, sans abonnement FitMesh",
+            "Feuille de route : intégration OAuth Fitbit Web API pour les phases de sommeil détaillées et le backfill 12 mois",
+          ],
         },
       },
       {
         type: "heading",
         level: 2,
-        text: { it: "Funziona con qualsiasi Fitbit moderno", en: "Works with any modern Fitbit" },
+        text: { it: "Funziona con qualsiasi Fitbit moderno", en: "Works with any modern Fitbit", de: "Funktioniert mit jedem modernen Fitbit", pt: "Funciona com qualquer Fitbit moderno", fr: "Fonctionne avec n'importe quel Fitbit récent" },
       },
       {
         type: "paragraph",
         text: {
           it: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace, e Pixel Watch (1, 2, 3): tutti funzionano oggi via il bridge automatico Fitbit app → Health Connect. Setup di 5 minuti, una volta sola.",
           en: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace, and Pixel Watch (1, 2, 3): all work today via the automatic Fitbit app → Health Connect bridge. 5-minute setup, once.",
+          de: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace und Pixel Watch (1, 2, 3): alle funktionieren heute über die automatische Bridge Fitbit App → Health Connect. Einmalige Einrichtung in 5 Minuten.",
+          pt: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace e Pixel Watch (1, 2, 3): todos funcionam hoje via o bridge automático Fitbit app → Health Connect. Configuração de 5 minutos, uma única vez.",
+          fr: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace et Pixel Watch (1, 2, 3) : tous fonctionnent aujourd'hui via le pont automatique app Fitbit → Health Connect. Configuration de 5 minutes, une seule fois.",
         },
       },
       {
         type: "callout",
         variant: "info",
-        title: { it: "Per chi stessa per lasciare Fitbit", en: "If you're about to leave Fitbit" },
+        title: { it: "Per chi stessa per lasciare Fitbit", en: "If you're about to leave Fitbit", de: "Wenn du Fitbit gerade verlassen möchtest", pt: "Se você está prestes a deixar o Fitbit", fr: "Si vous êtes sur le point de quitter Fitbit" },
         body: {
           it: "Anche se hai deciso di passare a Garmin, Apple Watch o Galaxy Watch, conviene salvare lo storico Fitbit ora. FitMesh tiene una copia sul tuo account, accessibile anche dopo che hai chiuso quello Fitbit/Google.",
           en: "Even if you've decided to switch to Garmin, Apple Watch or Galaxy Watch, save your Fitbit history now. FitMesh keeps a copy on your account, accessible even after you close your Fitbit/Google one.",
+          de: "Auch wenn du dich entschieden hast, zu Garmin, Apple Watch oder Galaxy Watch zu wechseln, lohnt es sich, deinen Fitbit-Verlauf jetzt zu sichern. FitMesh bewahrt eine Kopie in deinem Konto, die auch nach dem Schließen deines Fitbit/Google-Kontos zugänglich bleibt.",
+          pt: "Mesmo que você tenha decidido migrar para Garmin, Apple Watch ou Galaxy Watch, vale a pena salvar seu histórico do Fitbit agora. FitMesh guarda uma cópia na sua conta, acessível mesmo depois de fechar a conta Fitbit/Google.",
+          fr: "Même si vous avez décidé de passer à Garmin, Apple Watch ou Galaxy Watch, il vaut la peine de sauvegarder votre historique Fitbit maintenant. FitMesh en conserve une copie sur votre compte, accessible même après la fermeture de votre compte Fitbit/Google.",
         },
       },
       {
@@ -316,13 +439,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Riprendi controllo del tuo Fitbit",
           en: "Take back control of your Fitbit",
+          de: "Nimm die Kontrolle über dein Fitbit zurück",
+          pt: "Retome o controle do seu Fitbit",
+          fr: "Reprenez le contrôle de votre Fitbit",
         },
         body: {
           it: "Gratis durante la beta per i primi 100 founder. App Android + dashboard web.",
           en: "Free during beta for the first 100 founders. Android app + web dashboard.",
+          de: "Kostenlos während der Beta für die ersten 100 Founder. Android-App und Web-Dashboard.",
+          pt: "Grátis durante a beta para os primeiros 100 founders. App Android e painel web.",
+          fr: "Gratuit pendant la bêta pour les 100 premiers founders. Application Android et tableau de bord web.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →" },
-        ctaHref: { it: "/it/beta", en: "/en/beta" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
     faq: [
@@ -330,30 +459,48 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         q: {
           it: "Vedo le fasi di sonno REM/Deep/Light?",
           en: "Do I see REM/Deep/Light sleep stages?",
+          de: "Sehe ich die Schlafphasen REM/Tief/Leicht?",
+          pt: "Verei as fases do sono REM/Profundo/Leve?",
+          fr: "Vais-je voir les phases de sommeil REM/Profond/Léger ?",
         },
         a: {
           it: "Oggi via Health Connect Fitbit espone solo la durata totale del sonno. Le fasi dettagliate arriveranno con l'integrazione OAuth Fitbit Web API, prevista per Q3 2026. La data total è comunque visibile da subito.",
           en: "Today via Health Connect Fitbit only exposes total sleep duration. Detailed stages will arrive with the Fitbit Web API OAuth integration, planned for Q3 2026. Total duration is visible from day one.",
+          de: "Aktuell gibt Fitbit via Health Connect nur die Gesamtschlafdauer weiter. Detaillierte Schlafphasen werden mit der Fitbit Web API OAuth-Integration verfügbar, die für Q3 2026 geplant ist. Die Gesamtdauer ist ab dem ersten Tag sichtbar.",
+          pt: "Hoje, via Health Connect, o Fitbit expõe apenas a duração total do sono. As fases detalhadas chegarão com a integração OAuth da Fitbit Web API, prevista para o Q3 2026. A duração total já é visível desde o primeiro dia.",
+          fr: "Aujourd'hui via Health Connect, Fitbit n'expose que la durée totale du sommeil. Les phases détaillées seront disponibles avec l'intégration OAuth Fitbit Web API, prévue pour le T3 2026. La durée totale est visible dès le premier jour.",
         },
       },
       {
         q: {
           it: "FitMesh può cancellare i miei dati se cambio idea?",
           en: "Can FitMesh delete my data if I change my mind?",
+          de: "Kann FitMesh meine Daten löschen, wenn ich meine Meinung ändere?",
+          pt: "O FitMesh pode excluir meus dados se eu mudar de ideia?",
+          fr: "FitMesh peut-il supprimer mes données si je change d'avis ?",
         },
         a: {
           it: "Sì. Dalle impostazioni 'Elimina account e dati' cancella tutto dai nostri server. I dati nel cloud Fitbit/Google e sul tuo dispositivo restano intatti (puoi gestirli separatamente).",
           en: "Yes. Settings → 'Delete account and data' wipes everything from our servers. Data in Fitbit/Google cloud and on your device remains untouched (manage separately).",
+          de: "Ja. Einstellungen → 'Konto und Daten löschen' entfernt alles von unseren Servern. Daten im Fitbit/Google-Cloud und auf deinem Gerät bleiben unberührt (diese kannst du separat verwalten).",
+          pt: "Sim. Configurações → 'Excluir conta e dados' apaga tudo dos nossos servidores. Os dados no cloud Fitbit/Google e no seu dispositivo permanecem intactos (gerencie-os separadamente).",
+          fr: "Oui. Paramètres → 'Supprimer le compte et les données' efface tout de nos serveurs. Les données dans le cloud Fitbit/Google et sur votre appareil restent intactes (à gérer séparément).",
         },
       },
       {
         q: {
           it: "Devo cancellare il Fitbit Account?",
           en: "Do I have to delete my Fitbit Account?",
+          de: "Muss ich meinen Fitbit Account löschen?",
+          pt: "Preciso excluir minha conta Fitbit?",
+          fr: "Dois-je supprimer mon compte Fitbit ?",
         },
         a: {
           it: "No. FitMesh affianca, non sostituisce. Continuano a funzionare Fitbit app + le sue feature di sempre. FitMesh aggiunge solo la dashboard web alternativa e l'export.",
           en: "No. FitMesh adds to, doesn't replace. Fitbit app + all its existing features keep working. FitMesh just adds the alternative web dashboard and export.",
+          de: "Nein. FitMesh ergänzt, ersetzt nicht. Die Fitbit-App und all ihre bestehenden Funktionen funktionieren weiterhin. FitMesh fügt nur das alternative Web-Dashboard und den Export hinzu.",
+          pt: "Não. FitMesh complementa, não substitui. O app Fitbit e todos os seus recursos existentes continuam funcionando. FitMesh apenas adiciona o painel web alternativo e o export.",
+          fr: "Non. FitMesh complète, ne remplace pas. L'application Fitbit et toutes ses fonctionnalités continuent de fonctionner. FitMesh ajoute simplement le tableau de bord web alternatif et l'export.",
         },
       },
     ],
@@ -369,6 +516,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     primaryKeyword: {
       it: "garmin connect pc",
       en: "garmin connect pc",
+      de: "Garmin Connect PC",
+      pt: "garmin connect pc",
+      fr: "garmin connect pc",
     },
     secondaryKeywords: {
       it: ["dashboard garmin browser", "garmin connect alternativa", "vedere dati garmin"],
@@ -377,24 +527,33 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "Dashboard Garmin alternativa accessibile da PC, in aggiunta a Garmin Connect web. Cross-sync con Galaxy Watch, Oura, Fitbit. Setup via Health Connect.",
       en: "Alternative Garmin dashboard accessible from PC, in addition to Garmin Connect web. Cross-sync with Galaxy Watch, Oura, Fitbit. Setup via Health Connect.",
+      de: "Alternatives Garmin-Dashboard, zugänglich vom PC, zusätzlich zu Garmin Connect Web. Cross-Sync mit Galaxy Watch, Oura, Fitbit. Einrichtung via Health Connect.",
+      pt: "Painel alternativo do Garmin acessível pelo PC, além do Garmin Connect web. Cross-sync com Galaxy Watch, Oura, Fitbit. Configuração via Health Connect.",
+      fr: "Tableau de bord Garmin alternatif accessible depuis PC, en complément de Garmin Connect web. Synchronisation croisée avec Galaxy Watch, Oura, Fitbit. Configuration via Health Connect.",
     },
     hero: {
-      kicker: { it: "Garmin su PC", en: "Garmin on PC" },
+      kicker: { it: "Garmin su PC", en: "Garmin on PC", de: "Garmin auf dem PC", pt: "Garmin no PC", fr: "Garmin sur PC" },
       title: {
         it: "Garmin su una dashboard tua, accanto agli altri wearable",
         en: "Garmin on a dashboard you own, alongside other wearables",
+        de: "Garmin auf deinem eigenen Dashboard, neben anderen Wearables",
+        pt: "Garmin em um painel seu, ao lado dos outros wearables",
+        fr: "Garmin sur votre propre tableau de bord, aux côtés des autres appareils connectés",
       },
       subtitle: {
         it: "Garmin Connect web funziona, ma è isolato. Se hai anche un Galaxy Watch per la quotidianità o un Oura per il sonno, vuoi vederli insieme. FitMesh Sync li unifica.",
         en: "Garmin Connect web works, but it's isolated. If you also have a Galaxy Watch for daily wear or an Oura for sleep, you want them together. FitMesh Sync unifies them.",
+        de: "Garmin Connect Web funktioniert, aber es ist isoliert. Wenn du auch eine Galaxy Watch für den Alltag oder einen Oura für den Schlaf hast, möchtest du sie zusammen sehen. FitMesh Sync vereint sie.",
+        pt: "O Garmin Connect web funciona, mas é isolado. Se você também tem um Galaxy Watch para o dia a dia ou um Oura para o sono, quer vê-los juntos. FitMesh Sync os unifica.",
+        fr: "Garmin Connect web fonctionne, mais il est isolé. Si vous avez aussi une Galaxy Watch pour le quotidien ou un Oura pour le sommeil, vous voulez les voir ensemble. FitMesh Sync les unifie.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta" },
-        href: { it: "/it/beta", en: "/en/beta" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Vedi integrazione Garmin", en: "See Garmin integration" },
-        href: { it: "/it/sync/garmin", en: "/en/sync/garmin" },
+        label: { it: "Vedi integrazione Garmin", en: "See Garmin integration", de: "Garmin-Integration ansehen", pt: "Ver integração Garmin", fr: "Voir l'intégration Garmin" },
+        href: { it: "/it/sync/garmin", en: "/en/sync/garmin", de: "/de/sync/garmin", pt: "/pt/sync/garmin", fr: "/fr/sync/garmin" },
       },
     },
     body: [
@@ -403,12 +562,15 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Garmin Connect è una delle migliori web dashboard wearable ancora in piedi nel 2026. Per chi usa solo Garmin va benissimo. Il problema arriva quando hai anche un Galaxy Watch (perché alla sera vuoi un orologio normale), un Oura Ring (perché segui meglio il sonno), o vuoi che i tuoi dati Garmin compaiano in un'app salute unificata. Garmin Connect è chiuso al suo silos.",
           en: "Garmin Connect is one of the best wearable web dashboards still standing in 2026. For Garmin-only users it's perfect. The problem comes when you also have a Galaxy Watch (because in the evening you want a regular watch), an Oura Ring (because you track sleep more carefully), or want your Garmin data to appear in a unified health app. Garmin Connect is closed to its silo.",
+          de: "Garmin Connect ist eines der besten Wearable-Web-Dashboards, das 2026 noch existiert. Für reine Garmin-Nutzer ist es perfekt. Das Problem entsteht, wenn du auch eine Galaxy Watch hast (weil du abends eine normale Uhr willst), einen Oura Ring (weil du den Schlaf genauer verfolgst) oder deine Garmin-Daten in einer einheitlichen Health-App sehen möchtest. Garmin Connect bleibt in seinem eigenen Silo.",
+          pt: "O Garmin Connect é um dos melhores painéis web para wearables ainda em pé em 2026. Para quem usa só Garmin, é perfeito. O problema aparece quando você também tem um Galaxy Watch (porque à noite quer um relógio normal), um Oura Ring (porque acompanha melhor o sono) ou quer que seus dados Garmin apareçam em um app de saúde unificado. O Garmin Connect é fechado no seu próprio silo.",
+          fr: "Garmin Connect est l'un des meilleurs tableaux de bord web pour appareils connectés encore en activité en 2026. Pour les utilisateurs exclusifs de Garmin, c'est parfait. Le problème survient quand vous avez aussi une Galaxy Watch (parce que le soir vous voulez une montre classique), un Oura Ring (parce que vous suivez mieux votre sommeil) ou que vous voulez voir vos données Garmin dans une application de santé unifiée. Garmin Connect reste fermé dans son propre silo.",
         },
       },
       {
         type: "heading",
         level: 2,
-        text: { it: "Cosa fa FitMesh con Garmin", en: "What FitMesh does with Garmin" },
+        text: { it: "Cosa fa FitMesh con Garmin", en: "What FitMesh does with Garmin", de: "Was FitMesh mit Garmin macht", pt: "O que FitMesh faz com o Garmin", fr: "Ce que FitMesh fait avec Garmin" },
       },
       {
         type: "list",
@@ -425,15 +587,36 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "Cross-source web dashboard: Garmin alongside Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura when active.",
             "CSV/JSON export of collected data.",
           ],
+          de: [
+            "Liest Garmin-Daten via Health Connect (Schritte, BPM, Gesamtschlaf, Kalorien, Distanz, Basis-Trainings): funktioniert heute.",
+            "Roadmap Q3 2026: OAuth-Integration der Garmin Health API für Body Battery, Training Load, Recovery Time, Stress Score und detailliertes GPS.",
+            "Cross-Source-Web-Dashboard: Garmin neben Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura, wenn aktiv.",
+            "CSV/JSON-Export der gesammelten Daten.",
+          ],
+          pt: [
+            "Lê dados do Garmin via Health Connect (passos, BPM, sono total, calorias, distância, treinos básicos): funciona hoje.",
+            "Roadmap Q3 2026: integração OAuth da Garmin Health API para Body Battery, Training Load, Recovery Time, Stress Score e GPS detalhado.",
+            "Painel web multi-fonte: Garmin ao lado de Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura quando ativos.",
+            "Export de dados em CSV/JSON.",
+          ],
+          fr: [
+            "Lit les données Garmin via Health Connect (pas, BPM, sommeil total, calories, distance, séances de base) : fonctionne aujourd'hui.",
+            "Feuille de route T3 2026 : intégration OAuth Garmin Health API pour Body Battery, Training Load, Recovery Time, Stress Score et GPS détaillé.",
+            "Tableau de bord web multi-sources : Garmin aux côtés de Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura lorsqu'ils sont actifs.",
+            "Export des données collectées en CSV/JSON.",
+          ],
         },
       },
       {
         type: "callout",
         variant: "tip",
-        title: { it: "Per chi gestisce più wearable", en: "For multi-wearable users" },
+        title: { it: "Per chi gestisce più wearable", en: "For multi-wearable users", de: "Für Nutzer mit mehreren Wearables", pt: "Para usuários com múltiplos wearables", fr: "Pour les utilisateurs multi-appareils" },
         body: {
           it: "Atleta con Garmin per gli allenamenti + Galaxy Watch per la quotidianità? Coppia Oura Ring di notte + Garmin di giorno? FitMesh ti dà una vista unica senza che tu debba scegliere.",
           en: "Athlete with Garmin for workouts + Galaxy Watch daily? Oura Ring at night + Garmin by day? FitMesh gives you a single view without forcing you to choose.",
+          de: "Athleten mit Garmin für Trainings und Galaxy Watch im Alltag? Oura Ring nachts und Garmin tagsüber? FitMesh gibt dir eine einheitliche Ansicht, ohne dass du dich entscheiden musst.",
+          pt: "Atleta com Garmin para os treinos e Galaxy Watch no dia a dia? Oura Ring à noite e Garmin durante o dia? FitMesh te dá uma visão única sem que você precise escolher.",
+          fr: "Sportif avec Garmin pour les entraînements et Galaxy Watch au quotidien ? Oura Ring la nuit et Garmin le jour ? FitMesh vous offre une vue unifiée sans que vous ayez à choisir.",
         },
       },
       {
@@ -441,13 +624,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Garmin + altri wearable, una dashboard sola",
           en: "Garmin + other wearables, one single dashboard",
+          de: "Garmin + andere Wearables, ein einziges Dashboard",
+          pt: "Garmin + outros wearables, um único painel",
+          fr: "Garmin + autres appareils connectés, un seul tableau de bord",
         },
         body: {
           it: "Gratis durante la beta per i primi 100 founder. Funziona oggi via Health Connect.",
           en: "Free during beta for the first 100 founders. Works today via Health Connect.",
+          de: "Kostenlos während der Beta für die ersten 100 Founder. Funktioniert heute via Health Connect.",
+          pt: "Grátis durante a beta para os primeiros 100 founders. Funciona hoje via Health Connect.",
+          fr: "Gratuit pendant la bêta pour les 100 premiers founders. Fonctionne aujourd'hui via Health Connect.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →" },
-        ctaHref: { it: "/it/beta", en: "/en/beta" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
     faq: [
@@ -455,30 +644,48 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         q: {
           it: "Vedrò Body Battery e Training Load?",
           en: "Will I see Body Battery and Training Load?",
+          de: "Werde ich Body Battery und Training Load sehen?",
+          pt: "Verei Body Battery e Training Load?",
+          fr: "Vais-je voir Body Battery et Training Load ?",
         },
         a: {
           it: "Non oggi: sono metriche proprietarie Garmin non esposte via Health Connect. Saranno disponibili con l'integrazione OAuth Garmin Health API, in roadmap per Q3 2026 (dipende dall'approvazione Garmin Developer Program).",
           en: "Not today: they're proprietary Garmin metrics not exposed via Health Connect. They'll be available with the Garmin Health API OAuth integration, on the Q3 2026 roadmap (depends on Garmin Developer Program approval).",
+          de: "Nicht heute: Das sind proprietäre Garmin-Metriken, die nicht über Health Connect verfügbar sind. Sie werden mit der OAuth-Integration der Garmin Health API verfügbar, die für Q3 2026 geplant ist (abhängig von der Genehmigung des Garmin Developer Program).",
+          pt: "Não hoje: são métricas proprietárias do Garmin não expostas via Health Connect. Estarão disponíveis com a integração OAuth da Garmin Health API, prevista para o Q3 2026 (sujeito à aprovação do Garmin Developer Program).",
+          fr: "Pas aujourd'hui : ce sont des métriques propriétaires Garmin non exposées via Health Connect. Elles seront disponibles avec l'intégration OAuth Garmin Health API, prévue pour le T3 2026 (sous réserve de l'approbation du Garmin Developer Program).",
         },
       },
       {
         q: {
           it: "Quali Garmin sono supportati?",
           en: "Which Garmin watches are supported?",
+          de: "Welche Garmin-Geräte werden unterstützt?",
+          pt: "Quais dispositivos Garmin são compatíveis?",
+          fr: "Quels appareils Garmin sont pris en charge ?",
         },
         a: {
           it: "Tutti i Garmin compatibili con Garmin Connect Android (dal 2018 in poi): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Verifica che 'Sincronizza con Health Connect' sia attivo nelle impostazioni Garmin Connect.",
           en: "Every Garmin compatible with Garmin Connect Android (from 2018 onwards): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Check that 'Sync with Health Connect' is enabled in Garmin Connect settings.",
+          de: "Alle Garmin-Geräte, die mit Garmin Connect Android kompatibel sind (ab 2018): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Prüfe, ob 'Mit Health Connect synchronisieren' in den Garmin Connect-Einstellungen aktiviert ist.",
+          pt: "Todos os dispositivos Garmin compatíveis com o Garmin Connect Android (a partir de 2018): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Verifique se 'Sincronizar com Health Connect' está ativado nas configurações do Garmin Connect.",
+          fr: "Tous les appareils Garmin compatibles avec Garmin Connect Android (à partir de 2018) : Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Vérifiez que 'Synchroniser avec Health Connect' est activé dans les paramètres Garmin Connect.",
         },
       },
       {
         q: {
           it: "Sostituisce Garmin Connect?",
           en: "Does it replace Garmin Connect?",
+          de: "Ersetzt es Garmin Connect?",
+          pt: "Substitui o Garmin Connect?",
+          fr: "Cela remplace-t-il Garmin Connect ?",
         },
         a: {
           it: "No, è complementare. Garmin Connect è il punto di riferimento per analisi Garmin-specifiche (Training Effect, Recovery Time, mappe GPS). FitMesh affianca una vista cross-source per chi ha più wearable.",
           en: "No, it's complementary. Garmin Connect remains the reference for Garmin-specific analysis (Training Effect, Recovery Time, GPS maps). FitMesh adds a cross-source view for multi-wearable users.",
+          de: "Nein, es ergänzt ihn. Garmin Connect bleibt die Referenz für Garmin-spezifische Analysen (Training Effect, Recovery Time, GPS-Karten). FitMesh ergänzt eine Cross-Source-Ansicht für Nutzer mit mehreren Wearables.",
+          pt: "Não, é complementar. O Garmin Connect continua sendo a referência para análises específicas do Garmin (Training Effect, Recovery Time, mapas GPS). FitMesh adiciona uma visão multi-fonte para usuários com vários wearables.",
+          fr: "Non, c'est complémentaire. Garmin Connect reste la référence pour les analyses spécifiques à Garmin (Training Effect, Recovery Time, cartes GPS). FitMesh ajoute une vue multi-sources pour les utilisateurs de plusieurs appareils connectés.",
         },
       },
     ],
@@ -494,6 +701,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     primaryKeyword: {
       it: "sync dati oura ring",
       en: "sync oura ring data",
+      de: "Oura Ring synchronisieren",
+      pt: "sincronizar dados oura ring",
+      fr: "synchroniser données oura ring",
     },
     secondaryKeywords: {
       it: [
@@ -512,24 +722,33 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "Dashboard web per Oura Ring: sincronizza sonno, HRV e recupero su una piattaforma tua, senza dipendere dall'app Oura. Setup via Health Connect su Android.",
       en: "Web dashboard for Oura Ring: sync sleep, HRV and recovery to a platform you own, without depending on the Oura app. Health Connect setup on Android.",
+      de: "Web-Dashboard für Oura Ring: synchronisiere Schlaf, HRV und Erholung auf einer Plattform, die dir gehört, ohne von der Oura-App abhängig zu sein. Einrichtung via Health Connect auf Android.",
+      pt: "Painel web para Oura Ring: sincronize sono, HRV e recuperação em uma plataforma sua, sem depender do app Oura. Configuração via Health Connect no Android.",
+      fr: "Tableau de bord web pour Oura Ring : synchronisez sommeil, HRV et récupération sur une plateforme qui vous appartient, sans dépendre de l'application Oura. Configuration via Health Connect sur Android.",
     },
     hero: {
-      kicker: { it: "Oura Ring + FitMesh", en: "Oura Ring + FitMesh" },
+      kicker: { it: "Oura Ring + FitMesh", en: "Oura Ring + FitMesh", de: "Oura Ring + FitMesh", pt: "Oura Ring + FitMesh", fr: "Oura Ring + FitMesh" },
       title: {
         it: "Dashboard web per Oura Ring: sonno e recupero fuori dal silo Oura",
         en: "Web dashboard for Oura Ring: sleep and recovery outside the Oura silo",
+        de: "Web-Dashboard für Oura Ring: Schlaf und Erholung außerhalb des Oura-Silos",
+        pt: "Painel web para Oura Ring: sono e recuperação fora do silo Oura",
+        fr: "Tableau de bord web pour Oura Ring : sommeil et récupération hors du silo Oura",
       },
       subtitle: {
         it: "Oura è tra i migliori anelli smart per sonno e recupero, ma i tuoi dati stanno chiusi nell'app Oura. Con FitMesh puoi vederli su web insieme agli altri wearable.",
         en: "Oura is among the best smart rings for sleep and recovery, but your data is locked in the Oura app. With FitMesh you can view it on the web alongside your other wearables.",
+        de: "Oura gehört zu den besten Smart-Ringen für Schlaf und Erholung, aber deine Daten bleiben in der Oura-App gesperrt. Mit FitMesh kannst du sie im Web zusammen mit deinen anderen Wearables ansehen.",
+        pt: "Oura está entre os melhores anéis inteligentes para sono e recuperação, mas seus dados ficam presos no app Oura. Com FitMesh você pode vê-los na web junto com os outros wearables.",
+        fr: "Oura est parmi les meilleures bagues connectées pour le sommeil et la récupération, mais vos données restent enfermées dans l'application Oura. Avec FitMesh, vous pouvez les voir sur le web aux côtés de vos autres appareils.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta" },
-        href: { it: "/it/beta", en: "/en/beta" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Vedi integrazione Oura", en: "See Oura integration" },
-        href: { it: "/it/sync/oura", en: "/en/sync/oura" },
+        label: { it: "Vedi integrazione Oura", en: "See Oura integration", de: "Oura-Integration ansehen", pt: "Ver integração Oura", fr: "Voir l'intégration Oura" },
+        href: { it: "/it/sync/oura", en: "/en/sync/oura", de: "/de/sync/oura", pt: "/pt/sync/oura", fr: "/fr/sync/oura" },
       },
     },
     body: [
@@ -538,6 +757,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Oura Ring è apprezzato da atleti, biohacker e chi vuole monitorare sonno e recupero in modo discreto: niente schermo, niente notifiche, solo sensori. Il problema classico: i dati di Oura rimangono nell'app Oura e nel cloud Oura. Se vuoi vederli su PC, confrontarli con i dati del tuo Galaxy Watch, o avere un backup indipendente, non hai opzioni native facili.",
           en: "Oura Ring is loved by athletes, biohackers, and anyone who wants to monitor sleep and recovery discreetly: no screen, no notifications, just sensors. The classic problem: Oura data stays in the Oura app and Oura cloud. If you want to view it on a PC, compare it with your Galaxy Watch data, or have an independent backup, there are no easy native options.",
+          de: "Der Oura Ring wird von Athleten, Biohackern und allen geschätzt, die Schlaf und Erholung diskret überwachen möchten: kein Bildschirm, keine Benachrichtigungen, nur Sensoren. Das klassische Problem: Oura-Daten bleiben in der Oura-App und in der Oura-Cloud. Wenn du sie auf dem PC ansehen, mit deinen Galaxy Watch-Daten vergleichen oder ein unabhängiges Backup haben möchtest, gibt es keine einfachen nativen Optionen.",
+          pt: "O Oura Ring é muito apreciado por atletas, biohackers e quem quer monitorar sono e recuperação de forma discreta: sem tela, sem notificações, apenas sensores. O problema clássico: os dados do Oura ficam no app Oura e na nuvem Oura. Se você quer vê-los no PC, comparar com os dados do seu Galaxy Watch ou ter um backup independente, não há opções nativas fáceis.",
+          fr: "L'Oura Ring est apprécié des athlètes, biohackers et de quiconque souhaite surveiller sommeil et récupération discrètement : pas d'écran, pas de notifications, juste des capteurs. Le problème classique : les données Oura restent dans l'application Oura et le cloud Oura. Si vous voulez les consulter sur PC, les comparer avec vos données Galaxy Watch ou disposer d'une sauvegarde indépendante, il n'existe pas d'option native simple.",
         },
       },
       {
@@ -546,6 +768,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Come funziona oggi: Oura → Health Connect → FitMesh",
           en: "How it works today: Oura → Health Connect → FitMesh",
+          de: "So funktioniert es heute: Oura → Health Connect → FitMesh",
+          pt: "Como funciona hoje: Oura → Health Connect → FitMesh",
+          fr: "Comment ça fonctionne aujourd'hui : Oura → Health Connect → FitMesh",
         },
       },
       {
@@ -553,6 +778,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "L'app Oura su Android scrive alcuni dati su Health Connect: passi, calorie, sonno (durata totale e fasi base). FitMesh legge da Health Connect, quindi riceve questi dati automaticamente una volta che il collegamento è configurato.",
           en: "The Oura app on Android writes some data to Health Connect: steps, calories, sleep (total duration and basic stages). FitMesh reads from Health Connect, so it receives this data automatically once the connection is configured.",
+          de: "Die Oura-App auf Android schreibt einige Daten in Health Connect: Schritte, Kalorien, Schlaf (Gesamtdauer und Basisphasen). FitMesh liest aus Health Connect, sodass es diese Daten automatisch empfängt, sobald die Verbindung konfiguriert ist.",
+          pt: "O app Oura no Android escreve alguns dados no Health Connect: passos, calorias, sono (duração total e fases básicas). FitMesh lê do Health Connect, então recebe esses dados automaticamente assim que a conexão é configurada.",
+          fr: "L'application Oura sur Android écrit certaines données dans Health Connect : pas, calories, sommeil (durée totale et phases de base). FitMesh lit depuis Health Connect, il reçoit donc ces données automatiquement une fois la connexion configurée.",
         },
       },
       {
@@ -566,6 +794,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Available today via Health Connect**: steps, calories, total sleep with stages (Deep, REM, Light, Awake)",
             "**In roadmap**: direct Oura API integration for Readiness Score, detailed HRV, nightly body temperature, SpO2 trend",
           ],
+          de: [
+            "**Heute verfügbar via Health Connect**: Schritte, Kalorien, Gesamtschlaf mit Phasen (Tiefschlaf, REM, Leichtschlaf, Wach)",
+            "**In der Roadmap**: direkte Oura API-Integration für Readiness Score, detailliertes HRV, nächtliche Körpertemperatur, SpO₂-Trend",
+          ],
+          pt: [
+            "**Disponível hoje via Health Connect**: passos, calorias, sono total com fases (Profundo, REM, Leve, Acordado)",
+            "**Em roadmap**: integração direta com a API Oura para Readiness Score, HRV detalhado, temperatura corporal noturna, tendência de SpO₂",
+          ],
+          fr: [
+            "**Disponible aujourd'hui via Health Connect** : pas, calories, sommeil total avec phases (Profond, REM, Léger, Éveillé)",
+            "**En feuille de route** : intégration directe de l'API Oura pour le Readiness Score, HRV détaillé, température corporelle nocturne, tendance SpO₂",
+          ],
         },
       },
       {
@@ -574,6 +814,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Setup in 4 passi",
           en: "Setup in 4 steps",
+          de: "Einrichtung in 4 Schritten",
+          pt: "Configuração em 4 passos",
+          fr: "Configuration en 4 étapes",
         },
       },
       {
@@ -592,6 +835,24 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "In **Health Connect** → App permissions → FitMesh Sync → grant read access for Sleep, Steps, Calories, Heart Rate.",
             "Open the **FitMesh dashboard** on the web: your Oura data is there alongside other wearables.",
           ],
+          de: [
+            "Installiere **FitMesh Sync** aus dem Play Store und melde dich mit Google an.",
+            "Öffne die **Oura-App** auf Android → Einstellungen → Health Connect → aktiviere die Synchronisierung für Schlaf, Schritte, Kalorien.",
+            "In **Health Connect** → App-Zugriff und Daten → FitMesh Sync → erteile Lesezugriff für Schlaf, Schritte, Kalorien, Herzfrequenz.",
+            "Öffne das **FitMesh-Dashboard** im Web: Deine Oura-Daten sind dort, neben anderen Wearables.",
+          ],
+          pt: [
+            "Instale o **FitMesh Sync** na Play Store e entre com o Google.",
+            "Abra o **app Oura** no Android → Configurações → Health Connect → ative a sincronização para Sono, Passos, Calorias.",
+            "Em **Health Connect** → Permissões de apps → FitMesh Sync → conceda acesso de leitura para Sono, Passos, Calorias, Frequência cardíaca.",
+            "Abra o **painel FitMesh** na web: seus dados do Oura estão lá, ao lado dos outros wearables.",
+          ],
+          fr: [
+            "Installez **FitMesh Sync** depuis le Play Store et connectez-vous avec Google.",
+            "Ouvrez l'**application Oura** sur Android → Paramètres → Health Connect → activez la synchronisation pour Sommeil, Pas, Calories.",
+            "Dans **Health Connect** → Accès des applications → FitMesh Sync → accordez l'accès en lecture pour Sommeil, Pas, Calories, Fréquence cardiaque.",
+            "Ouvrez le **tableau de bord FitMesh** sur le web : vos données Oura sont là, aux côtés de vos autres appareils.",
+          ],
         },
       },
       {
@@ -600,10 +861,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Multi-wearable: Oura + Galaxy Watch insieme",
           en: "Multi-wearable: Oura + Galaxy Watch together",
+          de: "Multi-Wearable: Oura + Galaxy Watch zusammen",
+          pt: "Multi-wearable: Oura + Galaxy Watch juntos",
+          fr: "Multi-appareils : Oura + Galaxy Watch ensemble",
         },
         body: {
           it: "Molti usano Oura di notte (per sonno e recupero) e un Galaxy Watch o Garmin di giorno (per sport e notifiche). FitMesh unifica tutti e due in una dashboard: il tuo Readiness Score Oura (quando disponibile via API) insieme ai passi e agli allenamenti del Watch.",
           en: "Many people use Oura at night (for sleep and recovery) and a Galaxy Watch or Garmin during the day (for sport and notifications). FitMesh unifies both in one dashboard: your Oura Readiness Score (when available via API) alongside Watch steps and workouts.",
+          de: "Viele nutzen Oura nachts (für Schlaf und Erholung) und eine Galaxy Watch oder Garmin tagsüber (für Sport und Benachrichtigungen). FitMesh vereint beide in einem Dashboard: deinen Oura Readiness Score (wenn über API verfügbar) zusammen mit den Schritten und Trainings der Watch.",
+          pt: "Muitas pessoas usam Oura à noite (para sono e recuperação) e um Galaxy Watch ou Garmin durante o dia (para esporte e notificações). FitMesh unifica os dois em um painel: seu Oura Readiness Score (quando disponível via API) junto com os passos e treinos do Watch.",
+          fr: "Beaucoup utilisent Oura la nuit (pour le sommeil et la récupération) et une Galaxy Watch ou Garmin pendant la journée (pour le sport et les notifications). FitMesh les unifie dans un tableau de bord : votre Oura Readiness Score (lorsque disponible via API) avec les pas et séances d'entraînement de la montre.",
         },
       },
       {
@@ -611,13 +878,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Tieni i tuoi dati Oura su una piattaforma tua",
           en: "Keep your Oura data on a platform you own",
+          de: "Behalte deine Oura-Daten auf einer Plattform, die dir gehört",
+          pt: "Mantenha seus dados Oura em uma plataforma sua",
+          fr: "Gardez vos données Oura sur une plateforme qui vous appartient",
         },
         body: {
           it: "100 posti founder gratis durante la beta. App Android + dashboard web. Sync automatico da Oura via Health Connect, roadmap API Oura per metriche avanzate.",
           en: "100 free founder seats during beta. Android app + web dashboard. Automatic sync from Oura via Health Connect, Oura API roadmap for advanced metrics.",
+          de: "100 kostenlose Founder-Plätze während der Beta. Android-App und Web-Dashboard. Automatische Synchronisierung von Oura via Health Connect, Oura API-Roadmap für erweiterte Metriken.",
+          pt: "100 vagas founder grátis durante a beta. App Android e painel web. Sincronização automática do Oura via Health Connect, roadmap da API Oura para métricas avançadas.",
+          fr: "100 places founder gratuites pendant la bêta. Application Android et tableau de bord web. Synchronisation automatique depuis Oura via Health Connect, feuille de route API Oura pour les métriques avancées.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →" },
-        ctaHref: { it: "/it/beta", en: "/en/beta" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
     faq: [
@@ -625,30 +898,48 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         q: {
           it: "Vedrò il Readiness Score di Oura?",
           en: "Will I see Oura's Readiness Score?",
+          de: "Werde ich den Oura Readiness Score sehen?",
+          pt: "Verei o Readiness Score do Oura?",
+          fr: "Vais-je voir le Readiness Score d'Oura ?",
         },
         a: {
           it: "Non oggi: il Readiness Score è una metrica proprietaria Oura non esposta via Health Connect. È in roadmap con l'integrazione OAuth dell'API Oura. Oggi via HC vedi sonno con fasi, passi e calorie.",
           en: "Not today: Readiness Score is a proprietary Oura metric not exposed via Health Connect. It's on the roadmap with OAuth Oura API integration. Today via HC you see sleep with stages, steps, and calories.",
+          de: "Nicht heute: Der Readiness Score ist eine proprietäre Oura-Metrik, die nicht über Health Connect verfügbar ist. Er ist in der Roadmap mit der OAuth Oura API-Integration. Heute siehst du via Health Connect Schlaf mit Phasen, Schritte und Kalorien.",
+          pt: "Não hoje: o Readiness Score é uma métrica proprietária do Oura não exposta via Health Connect. Está na roadmap com a integração OAuth da API Oura. Hoje via Health Connect você vê sono com fases, passos e calorias.",
+          fr: "Pas aujourd'hui : le Readiness Score est une métrique propriétaire Oura non exposée via Health Connect. Il est prévu dans la feuille de route avec l'intégration OAuth de l'API Oura. Aujourd'hui via Health Connect, vous voyez le sommeil avec ses phases, les pas et les calories.",
         },
       },
       {
         q: {
           it: "Funziona con Oura Ring 3 e 4?",
           en: "Does it work with Oura Ring 3 and 4?",
+          de: "Funktioniert es mit Oura Ring 3 und 4?",
+          pt: "Funciona com o Oura Ring 3 e 4?",
+          fr: "Fonctionne-t-il avec Oura Ring 3 et 4 ?",
         },
         a: {
           it: "Sì, entrambe le generazioni supportano Health Connect via app Oura su Android. L'Oura Ring 4 ha sensori migliorati per temperatura corporea e SpO2: queste metriche avanzate saranno disponibili con l'integrazione API Oura in roadmap.",
           en: "Yes, both generations support Health Connect via the Oura Android app. Oura Ring 4 has improved sensors for body temperature and SpO2: these advanced metrics will be available with the roadmap Oura API integration.",
+          de: "Ja, beide Generationen unterstützen Health Connect über die Oura Android-App. Der Oura Ring 4 verfügt über verbesserte Sensoren für Körpertemperatur und SpO₂: Diese erweiterten Metriken werden mit der Oura API-Integration in der Roadmap verfügbar.",
+          pt: "Sim, ambas as gerações suportam Health Connect via app Oura no Android. O Oura Ring 4 tem sensores melhorados para temperatura corporal e SpO₂: essas métricas avançadas estarão disponíveis com a integração da API Oura prevista na roadmap.",
+          fr: "Oui, les deux générations prennent en charge Health Connect via l'application Oura sur Android. L'Oura Ring 4 dispose de capteurs améliorés pour la température corporelle et SpO₂ : ces métriques avancées seront disponibles avec l'intégration API Oura prévue dans la feuille de route.",
         },
       },
       {
         q: {
           it: "Ho bisogno di abbonamento Oura per usare FitMesh?",
           en: "Do I need an Oura subscription to use FitMesh?",
+          de: "Brauche ich ein Oura-Abonnement, um FitMesh zu verwenden?",
+          pt: "Preciso de assinatura Oura para usar o FitMesh?",
+          fr: "Ai-je besoin d'un abonnement Oura pour utiliser FitMesh ?",
         },
         a: {
           it: "Per i dati via Health Connect (che sono quelli disponibili oggi), no: Health Connect funziona indipendentemente dall'abbonamento Oura. Per le metriche avanzate tramite API Oura (Readiness Score, HRV dettagliato), potrebbe essere richiesto un account Oura attivo.",
           en: "For Health Connect data (available today), no: Health Connect works independently of Oura subscription. For advanced metrics via Oura API (Readiness Score, detailed HRV), an active Oura account may be required.",
+          de: "Für die Daten via Health Connect (die heute verfügbar sind), nein: Health Connect funktioniert unabhängig vom Oura-Abonnement. Für erweiterte Metriken über die Oura API (Readiness Score, detailliertes HRV) könnte ein aktives Oura-Konto erforderlich sein.",
+          pt: "Para os dados via Health Connect (disponíveis hoje), não: o Health Connect funciona independentemente da assinatura Oura. Para métricas avançadas via API Oura (Readiness Score, HRV detalhado), pode ser necessário uma conta Oura ativa.",
+          fr: "Pour les données via Health Connect (disponibles aujourd'hui), non : Health Connect fonctionne indépendamment de l'abonnement Oura. Pour les métriques avancées via l'API Oura (Readiness Score, HRV détaillé), un compte Oura actif pourrait être requis.",
         },
       },
     ],
@@ -664,6 +955,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     primaryKeyword: {
       it: "sync dati polar flow",
       en: "export polar flow data",
+      de: "Polar Flow Daten exportieren",
+      pt: "exportar dados polar flow",
+      fr: "exporter données polar flow",
     },
     secondaryKeywords: {
       it: [
@@ -682,24 +976,33 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "Dashboard web per Polar Flow: sincronizza allenamenti, frequenza cardiaca e recupero Polar su una piattaforma tua. Setup via Health Connect su Android.",
       en: "Web dashboard for Polar Flow: sync Polar workouts, heart rate and recovery to a platform you own. Health Connect setup on Android.",
+      de: "Web-Dashboard für Polar Flow: synchronisiere Polar-Trainings, Herzfrequenz und Erholung auf einer Plattform, die dir gehört. Einrichtung via Health Connect auf Android.",
+      pt: "Painel web para Polar Flow: sincronize treinos, frequência cardíaca e recuperação do Polar em uma plataforma sua. Configuração via Health Connect no Android.",
+      fr: "Tableau de bord web pour Polar Flow : synchronisez vos séances d'entraînement Polar, fréquence cardiaque et récupération sur une plateforme qui vous appartient. Configuration via Health Connect sur Android.",
     },
     hero: {
-      kicker: { it: "Polar + FitMesh", en: "Polar + FitMesh" },
+      kicker: { it: "Polar + FitMesh", en: "Polar + FitMesh", de: "Polar + FitMesh", pt: "Polar + FitMesh", fr: "Polar + FitMesh" },
       title: {
         it: "Dashboard web per Polar Flow: i tuoi dati Polar fuori dal silo",
         en: "Web dashboard for Polar Flow: your Polar data outside the silo",
+        de: "Web-Dashboard für Polar Flow: Deine Polar-Daten außerhalb des Silos",
+        pt: "Painel web para Polar Flow: seus dados Polar fora do silo",
+        fr: "Tableau de bord web pour Polar Flow : vos données Polar hors du silo",
       },
       subtitle: {
         it: "Polar Flow è una piattaforma solida per atleti di endurance, ma i tuoi dati restano chiusi nel cloud Polar. FitMesh li porta su web insieme agli altri wearable.",
         en: "Polar Flow is a solid platform for endurance athletes, but your data stays locked in the Polar cloud. FitMesh brings it to the web alongside your other wearables.",
+        de: "Polar Flow ist eine solide Plattform für Ausdauersportler, aber deine Daten bleiben im Polar-Cloud gesperrt. FitMesh bringt sie ins Web, zusammen mit deinen anderen Wearables.",
+        pt: "O Polar Flow é uma plataforma sólida para atletas de endurance, mas seus dados ficam presos na nuvem Polar. FitMesh os traz para a web junto com os outros wearables.",
+        fr: "Polar Flow est une plateforme solide pour les athlètes d'endurance, mais vos données restent enfermées dans le cloud Polar. FitMesh les amène sur le web aux côtés de vos autres appareils.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta" },
-        href: { it: "/it/beta", en: "/en/beta" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Vedi integrazione Polar", en: "See Polar integration" },
-        href: { it: "/it/sync/polar", en: "/en/sync/polar" },
+        label: { it: "Vedi integrazione Polar", en: "See Polar integration", de: "Polar-Integration ansehen", pt: "Ver integração Polar", fr: "Voir l'intégration Polar" },
+        href: { it: "/it/sync/polar", en: "/en/sync/polar", de: "/de/sync/polar", pt: "/pt/sync/polar", fr: "/fr/sync/polar" },
       },
     },
     body: [
@@ -708,6 +1011,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Polar è storica nell'endurance sport: cardiofrequenzimetri, GPS per ciclismo e running, analisi del carico allenamento. Il problema comune è lo stesso di molti brand sportivi: i dati vivono in Polar Flow e in Polar Flow soltanto. Se hai anche un Galaxy Watch per la quotidianità, o vuoi vedere tutti i tuoi dati in un unico posto su PC, Polar non ti aiuta in modo nativo.",
           en: "Polar has a long history in endurance sport: heart rate monitors, GPS for cycling and running, training load analysis. The common problem is the same as many sports brands: data lives in Polar Flow and Polar Flow only. If you also have a Galaxy Watch for daily wear, or want all your data in one place on a PC, Polar doesn't help you natively.",
+          de: "Polar hat eine lange Geschichte im Ausdauersport: Herzfrequenzmessgeräte, GPS für Radfahren und Laufen, Trainingsbelastungsanalyse. Das häufige Problem ist dasselbe wie bei vielen Sportmarken: Die Daten leben in Polar Flow und nur in Polar Flow. Wenn du auch eine Galaxy Watch für den Alltag hast oder alle deine Daten an einem Ort auf dem PC sehen möchtest, hilft Polar nicht von Haus aus.",
+          pt: "Polar tem uma longa história no esporte de endurance: monitores de frequência cardíaca, GPS para ciclismo e corrida, análise de carga de treino. O problema comum é o mesmo de muitas marcas esportivas: os dados vivem no Polar Flow e apenas no Polar Flow. Se você também tem um Galaxy Watch para o dia a dia ou quer ver todos os seus dados em um único lugar no PC, o Polar não ajuda de forma nativa.",
+          fr: "Polar a une longue histoire dans le sport d'endurance : moniteurs de fréquence cardiaque, GPS pour le cyclisme et la course, analyse de la charge d'entraînement. Le problème courant est le même que pour de nombreuses marques sportives : les données vivent dans Polar Flow et uniquement dans Polar Flow. Si vous avez aussi une Galaxy Watch pour le quotidien ou souhaitez voir toutes vos données en un seul endroit sur PC, Polar ne vous aide pas nativement.",
         },
       },
       {
@@ -716,6 +1022,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Come funziona oggi: Polar → Health Connect → FitMesh",
           en: "How it works today: Polar → Health Connect → FitMesh",
+          de: "So funktioniert es heute: Polar → Health Connect → FitMesh",
+          pt: "Como funciona hoje: Polar → Health Connect → FitMesh",
+          fr: "Comment ça fonctionne aujourd'hui : Polar → Health Connect → FitMesh",
         },
       },
       {
@@ -723,6 +1032,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "L'app Polar Flow su Android sincronizza passi, frequenza cardiaca e allenamenti su Health Connect. FitMesh legge da Health Connect, quindi riceve questi dati in automatico.",
           en: "The Polar Flow app on Android syncs steps, heart rate, and workouts to Health Connect. FitMesh reads from Health Connect, so it receives this data automatically.",
+          de: "Die Polar Flow-App auf Android synchronisiert Schritte, Herzfrequenz und Trainings mit Health Connect. FitMesh liest aus Health Connect und empfängt diese Daten dadurch automatisch.",
+          pt: "O app Polar Flow no Android sincroniza passos, frequência cardíaca e treinos no Health Connect. FitMesh lê do Health Connect e recebe esses dados automaticamente.",
+          fr: "L'application Polar Flow sur Android synchronise les pas, la fréquence cardiaque et les séances d'entraînement avec Health Connect. FitMesh lit depuis Health Connect et reçoit donc ces données automatiquement.",
         },
       },
       {
@@ -736,6 +1048,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Available today via Health Connect**: steps, heart rate (average and samples), calories, workouts (type, duration, average HR, kcal), basic sleep",
             "**In roadmap**: OAuth Polar Accesslink API integration for Training Load, Nightly Recharge, Recovery Pro, orthostatic test",
           ],
+          de: [
+            "**Heute verfügbar via Health Connect**: Schritte, Herzfrequenz (Durchschnitt und Messungen), Kalorien, Trainings (Typ, Dauer, Durchschnittspuls, kcal), Basisschlaf",
+            "**In der Roadmap**: OAuth Polar Accesslink API-Integration für Training Load, Nightly Recharge, Recovery Pro, Orthostase-Test",
+          ],
+          pt: [
+            "**Disponível hoje via Health Connect**: passos, frequência cardíaca (média e amostras), calorias, treinos (tipo, duração, BPM médio, kcal), sono básico",
+            "**Em roadmap**: integração OAuth da API Polar Accesslink para Training Load, Nightly Recharge, Recovery Pro, teste ortostático",
+          ],
+          fr: [
+            "**Disponible aujourd'hui via Health Connect** : pas, fréquence cardiaque (moyenne et mesures), calories, séances d'entraînement (type, durée, FC moyenne, kcal), sommeil de base",
+            "**En feuille de route** : intégration OAuth API Polar Accesslink pour Training Load, Nightly Recharge, Recovery Pro, test orthostatique",
+          ],
         },
       },
       {
@@ -744,6 +1068,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Chi trae più vantaggio da questa integrazione",
           en: "Who benefits most from this integration",
+          de: "Wer am meisten von dieser Integration profitiert",
+          pt: "Quem se beneficia mais desta integração",
+          fr: "Qui bénéficie le plus de cette intégration",
         },
       },
       {
@@ -761,6 +1088,24 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Those who analyze data on PC**: browser-accessible web dashboard, without opening the Polar app on phone.",
             "**Those using Polar without premium subscription**: FitMesh doesn't require Polar premium for data via Health Connect.",
           ],
+          de: [
+            "**Triathleten und Läufer mit mehreren Geräten**: Polar für spezifische Trainings, Galaxy Watch oder anderes für den Alltag: FitMesh vereint sie.",
+            "**Wer ein unabhängiges Polar-Backup möchte**: Trainingshistorie in einer europäischen Cloud (Frankfurt), die nicht von Polars Unternehmensentscheidungen abhängt.",
+            "**Wer Daten auf dem PC analysiert**: über den Browser zugängliches Web-Dashboard, ohne die Polar-App auf dem Telefon zu öffnen.",
+            "**Wer Polar ohne Premium-Abonnement nutzt**: FitMesh benötigt kein Polar-Premium für Daten via Health Connect.",
+          ],
+          pt: [
+            "**Triatletas e corredores com vários dispositivos**: Polar para treinos específicos, Galaxy Watch ou outro para o dia a dia: FitMesh os unifica.",
+            "**Quem quer backup independente do Polar**: histórico de treinos em uma nuvem europeia (Frankfurt) que não depende das decisões da empresa Polar.",
+            "**Quem analisa dados no PC**: painel web acessível pelo navegador, sem abrir o app Polar no telefone.",
+            "**Quem usa Polar sem assinatura premium**: FitMesh não requer Polar premium para dados via Health Connect.",
+          ],
+          fr: [
+            "**Triathlètes et coureurs avec plusieurs appareils** : Polar pour les entraînements spécifiques, Galaxy Watch ou autre pour le quotidien : FitMesh les unifie.",
+            "**Ceux qui souhaitent une sauvegarde indépendante de Polar** : historique des entraînements dans un cloud européen (Frankfurt) sans dépendre des décisions d'entreprise de Polar.",
+            "**Ceux qui analysent les données sur PC** : tableau de bord web accessible depuis un navigateur, sans ouvrir l'application Polar sur le téléphone.",
+            "**Ceux qui utilisent Polar sans abonnement premium** : FitMesh ne nécessite pas Polar premium pour les données via Health Connect.",
+          ],
         },
       },
       {
@@ -769,10 +1114,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Polar Accesslink API è in roadmap",
           en: "Polar Accesslink API is in the roadmap",
+          de: "Polar Accesslink API ist in der Roadmap",
+          pt: "A API Polar Accesslink está na roadmap",
+          fr: "L'API Polar Accesslink est dans la feuille de route",
         },
         body: {
           it: "Le metriche avanzate Polar (Training Load, Nightly Recharge, Recovery Pro) non passano via Health Connect: sono proprietarie. L'integrazione via Polar Accesslink API è in roadmap per Q4 2026, dipende dall'approvazione del Polar Developer Program.",
           en: "Advanced Polar metrics (Training Load, Nightly Recharge, Recovery Pro) don't pass via Health Connect: they're proprietary. Integration via Polar Accesslink API is in the Q4 2026 roadmap, subject to Polar Developer Program approval.",
+          de: "Erweiterte Polar-Metriken (Training Load, Nightly Recharge, Recovery Pro) sind nicht über Health Connect verfügbar: Sie sind proprietär. Die Integration über die Polar Accesslink API ist für Q4 2026 in der Roadmap geplant, vorbehaltlich der Genehmigung des Polar Developer Program.",
+          pt: "As métricas avançadas do Polar (Training Load, Nightly Recharge, Recovery Pro) não passam via Health Connect: são proprietárias. A integração via API Polar Accesslink está na roadmap para o Q4 2026, sujeita à aprovação do Polar Developer Program.",
+          fr: "Les métriques avancées Polar (Training Load, Nightly Recharge, Recovery Pro) ne transitent pas via Health Connect : elles sont propriétaires. L'intégration via l'API Polar Accesslink est prévue dans la feuille de route pour le T4 2026, sous réserve de l'approbation du Polar Developer Program.",
         },
       },
       {
@@ -780,13 +1131,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "I tuoi dati Polar su una dashboard tua",
           en: "Your Polar data on a dashboard you own",
+          de: "Deine Polar-Daten auf einem Dashboard, das dir gehört",
+          pt: "Seus dados Polar em um painel seu",
+          fr: "Vos données Polar sur un tableau de bord qui vous appartient",
         },
         body: {
           it: "100 posti founder gratis durante la beta. App Android + dashboard web. Sync automatico da Polar Flow via Health Connect.",
           en: "100 free founder seats during beta. Android app + web dashboard. Automatic sync from Polar Flow via Health Connect.",
+          de: "100 kostenlose Founder-Plätze während der Beta. Android-App und Web-Dashboard. Automatische Synchronisierung von Polar Flow via Health Connect.",
+          pt: "100 vagas founder grátis durante a beta. App Android e painel web. Sincronização automática do Polar Flow via Health Connect.",
+          fr: "100 places founder gratuites pendant la bêta. Application Android et tableau de bord web. Synchronisation automatique depuis Polar Flow via Health Connect.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →" },
-        ctaHref: { it: "/it/beta", en: "/en/beta" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
     faq: [
@@ -794,30 +1151,48 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         q: {
           it: "Quale Polar è compatibile?",
           en: "Which Polar devices are compatible?",
+          de: "Welche Polar-Geräte sind kompatibel?",
+          pt: "Quais dispositivos Polar são compatíveis?",
+          fr: "Quels appareils Polar sont compatibles ?",
         },
         a: {
           it: "Tutti i dispositivi Polar compatibili con l'app Polar Flow su Android: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite, e modelli precedenti. L'unico requisito è che la sincronizzazione avvenga tramite app Polar Flow su Android con Health Connect abilitato.",
           en: "All Polar devices compatible with the Polar Flow app on Android: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite, and older models. The only requirement is sync happening via the Polar Flow Android app with Health Connect enabled.",
+          de: "Alle Polar-Geräte, die mit der Polar Flow-App auf Android kompatibel sind: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite und ältere Modelle. Die einzige Voraussetzung ist die Synchronisierung über die Polar Flow Android-App mit aktiviertem Health Connect.",
+          pt: "Todos os dispositivos Polar compatíveis com o app Polar Flow no Android: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite e modelos anteriores. O único requisito é que a sincronização aconteça pelo app Polar Flow no Android com Health Connect ativado.",
+          fr: "Tous les appareils Polar compatibles avec l'application Polar Flow sur Android : Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite et modèles plus anciens. La seule condition est que la synchronisation se fasse via l'application Polar Flow sur Android avec Health Connect activé.",
         },
       },
       {
         q: {
           it: "Vedrò Training Load e Nightly Recharge?",
           en: "Will I see Training Load and Nightly Recharge?",
+          de: "Werde ich Training Load und Nightly Recharge sehen?",
+          pt: "Verei Training Load e Nightly Recharge?",
+          fr: "Vais-je voir Training Load et Nightly Recharge ?",
         },
         a: {
           it: "Non oggi: sono metriche proprietarie Polar non esposte via Health Connect. Saranno disponibili con l'integrazione Polar Accesslink API in roadmap. Oggi via Health Connect vedi frequenza cardiaca, allenamenti, passi e sonno base.",
           en: "Not today: they're proprietary Polar metrics not exposed via Health Connect. They'll be available with the roadmap Polar Accesslink API integration. Today via Health Connect you see heart rate, workouts, steps, and basic sleep.",
+          de: "Nicht heute: Das sind proprietäre Polar-Metriken, die nicht über Health Connect verfügbar sind. Sie werden mit der Polar Accesslink API-Integration in der Roadmap verfügbar. Heute siehst du via Health Connect Herzfrequenz, Trainings, Schritte und Basisschlaf.",
+          pt: "Não hoje: são métricas proprietárias do Polar não expostas via Health Connect. Estarão disponíveis com a integração da API Polar Accesslink na roadmap. Hoje via Health Connect você vê frequência cardíaca, treinos, passos e sono básico.",
+          fr: "Pas aujourd'hui : ce sont des métriques propriétaires Polar non exposées via Health Connect. Elles seront disponibles avec l'intégration de l'API Polar Accesslink dans la feuille de route. Aujourd'hui via Health Connect, vous voyez la fréquence cardiaque, les séances d'entraînement, les pas et le sommeil de base.",
         },
       },
       {
         q: {
           it: "Polar si sovrappone a Garmin? Quale scelgo?",
           en: "Does Polar overlap with Garmin? Which should I choose?",
+          de: "Überschneidet sich Polar mit Garmin? Welches soll ich wählen?",
+          pt: "Polar se sobrepõe ao Garmin? Qual escolho?",
+          fr: "Polar chevauche-t-il Garmin ? Lequel choisir ?",
         },
         a: {
           it: "Dipende dal tuo uso principale. Polar è tradizionalmente forte in running e ciclismo con analisi cardio avanzata (zone HR, soglia lattato). Garmin è più completo per sport di outdoor e ha ecosystem più ampio. Entrambi si integrano con FitMesh via Health Connect, quindi puoi usarli in parallelo se hai device di entrambi i brand.",
           en: "Depends on your primary use. Polar is traditionally strong in running and cycling with advanced cardio analysis (HR zones, lactate threshold). Garmin is more complete for outdoor sports with a broader ecosystem. Both integrate with FitMesh via Health Connect, so you can use them in parallel if you have devices from both brands.",
+          de: "Das hängt von deinem Haupteinsatz ab. Polar ist traditionell stark im Laufen und Radfahren mit fortgeschrittener Herzfrequenzanalyse (HF-Zonen, Laktatschwelle). Garmin ist umfassender für Outdoor-Sportarten mit einem breiteren Ökosystem. Beide integrieren sich mit FitMesh via Health Connect, sodass du sie parallel nutzen kannst, wenn du Geräte beider Marken hast.",
+          pt: "Depende do seu uso principal. Polar é tradicionalmente forte em corrida e ciclismo com análise cardíaca avançada (zonas de FC, limiar de lactato). Garmin é mais completo para esportes ao ar livre com um ecossistema mais amplo. Ambos se integram com FitMesh via Health Connect, então você pode usá-los em paralelo se tiver dispositivos de ambas as marcas.",
+          fr: "Cela dépend de votre usage principal. Polar est traditionnellement fort en course à pied et cyclisme avec une analyse cardiaque avancée (zones FC, seuil lactique). Garmin est plus complet pour les sports outdoor avec un écosystème plus large. Les deux s'intègrent avec FitMesh via Health Connect, vous pouvez donc les utiliser en parallèle si vous avez des appareils des deux marques.",
         },
       },
     ],

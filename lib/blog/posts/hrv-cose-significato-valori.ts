@@ -73,6 +73,20 @@ export const post: BlogPost = {
       "low HRV what it means",
       "HRV smartwatch",
     ],
+    pt: [
+      "HRV valores normais",
+      "variabilidade da frequência cardíaca",
+      "HRV significado esporte",
+      "HRV baixa o que significa",
+      "HRV smartwatch",
+    ],
+    fr: [
+      "VFC valeurs normales",
+      "variabilité de la fréquence cardiaque",
+      "VFC signification sport",
+      "VFC basse que signifie",
+      "VFC montre connectée",
+    ],
   },
   metaDescription: {
     it: "Cos'è la HRV (variabilità della frequenza cardiaca), come si misurano i valori normali per età, cosa significa quando è alta o bassa, e come leggerla sul tuo wearable nel 2026.",

@@ -73,6 +73,20 @@ export const post: BlogPost = {
       "health connect api",
       "how to use health connect",
     ],
+    pt: [
+      "health connect android",
+      "permissões health connect",
+      "health connect dados de saúde",
+      "health connect api",
+      "como usar health connect",
+    ],
+    fr: [
+      "health connect android",
+      "autorisations health connect",
+      "health connect données de santé",
+      "health connect api",
+      "comment utiliser health connect",
+    ],
   },
   metaDescription: {
     it: "Come funziona Health Connect spiegato in modo chiaro: cos'è, come gestisce i permessi tra app, cosa può e non può fare, e perché è fondamentale per i wearable Android nel 2026.",

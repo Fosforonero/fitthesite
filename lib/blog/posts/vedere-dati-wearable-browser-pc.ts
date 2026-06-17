@@ -54,6 +54,8 @@ export const post: BlogPost = {
     it: "vedere dati smartwatch su pc",
     en: "view smartwatch data on pc",
     es: "ver datos smartwatch en pc",
+    pt: "ver dados do smartwatch no pc",
+    fr: "voir les données du smartwatch sur pc",
   },
   secondaryKeywords: {
     it: [
@@ -67,6 +69,18 @@ export const post: BlogPost = {
       "smartwatch web dashboard",
       "view steps pc",
       "view sleep computer",
+    ],
+    pt: [
+      "painel wearable navegador",
+      "painel web smartwatch",
+      "ver passos no pc",
+      "ver sono no computador",
+    ],
+    fr: [
+      "tableau de bord wearable navigateur",
+      "tableau de bord web smartwatch",
+      "voir les pas sur pc",
+      "voir le sommeil sur ordinateur",
     ],
   },
   metaDescription: {

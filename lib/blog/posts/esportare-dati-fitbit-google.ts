@@ -71,6 +71,18 @@ export const post: BlogPost = {
       "download fitbit data",
       "fitbit data history",
     ],
+    pt: [
+      "fitbit google takeout",
+      "migração de conta fitbit",
+      "baixar dados fitbit",
+      "histórico de dados fitbit",
+    ],
+    fr: [
+      "fitbit google takeout",
+      "migration de compte fitbit",
+      "télécharger les données fitbit",
+      "historique des données fitbit",
+    ],
   },
   metaDescription: {
     it: "Dopo l'acquisizione Fitbit da parte di Google: come esportare i tuoi dati Fitbit nel 2026, cosa cambia se hai migrato a Google Account, alternative pratiche.",

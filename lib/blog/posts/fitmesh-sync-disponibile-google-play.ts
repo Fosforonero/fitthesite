@@ -30,6 +30,20 @@ export const post: BlogPost = {
       "wearable data app",
       "free year of Pro founder",
     ],
+    pt: [
+      "app para unir dados do smartwatch",
+      "painel de saúde Android",
+      "baixar FitMesh Sync",
+      "app de dados wearable",
+      "um ano de Pro grátis founder",
+    ],
+    fr: [
+      "app pour unifier les données du smartwatch",
+      "tableau de bord santé Android",
+      "télécharger FitMesh Sync",
+      "app de données wearable",
+      "un an de Pro gratuit founder",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync è disponibile su Google Play: unisci i dati di smartwatch e anello in un'unica dashboard, con i tuoi dati su server in Europa. La versione iPhone arriva tra pochi giorni.",

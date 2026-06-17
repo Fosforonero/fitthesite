@@ -72,6 +72,22 @@ export const post: BlogPost = {
       "budget smart ring",
       "smart ring heart rate",
     ],
+    pt: [
+      "o que o anel inteligente mede",
+      "como funciona o anel inteligente",
+      "como escolher anel inteligente",
+      "anel inteligente monitoramento do sono",
+      "anel inteligente barato",
+      "anel inteligente frequência cardíaca",
+    ],
+    fr: [
+      "que mesure une bague connectée",
+      "comment fonctionne une bague connectée",
+      "comment choisir une bague connectée",
+      "bague connectée suivi du sommeil",
+      "bague connectée pas chère",
+      "bague connectée fréquence cardiaque",
+    ],
   },
   tldr: {
     it: [

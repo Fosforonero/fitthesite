@@ -74,6 +74,20 @@ export const post: BlogPost = {
       "best smartwatch for beach 2026",
       "smartwatch swimming waterproof",
     ],
+    pt: [
+      "smartwatch à prova d'água natação",
+      "smartwatch calor bateria",
+      "sincronizar dados de saúde nas férias",
+      "smartwatch praia 2026",
+      "smartwatch à prova d'água verão",
+    ],
+    fr: [
+      "montre connectée étanche natation",
+      "montre connectée chaleur batterie",
+      "synchroniser les données de santé en vacances",
+      "montre connectée plage 2026",
+      "montre connectée étanche été",
+    ],
   },
   metaDescription: {
     it: "Smartwatch in estate 2026: resistenza all'acqua, autonomia sotto il sole, e come non perdere i tuoi dati salute in vacanza. Guida pratica con consigli reali.",

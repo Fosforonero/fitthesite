@@ -30,6 +30,20 @@ export const post: BlogPost = {
       "aggregate wearable data",
       "steps counted only once",
     ],
+    pt: [
+      "dados de vários smartwatches em um painel",
+      "sem duplicatas de dados wearable",
+      "painel FitMesh Sync",
+      "agregar dados wearable",
+      "passos contados uma só vez",
+    ],
+    fr: [
+      "données de plusieurs smartwatchs dans un tableau de bord",
+      "pas de doublons de données wearable",
+      "tableau de bord FitMesh Sync",
+      "agréger les données wearable",
+      "pas comptés une seule fois",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync lancia la dashboard multi dispositivo: orologi e anello in un'unica vista, senza doppioni. Ogni metrica viene tenuta una volta sola, con la fonte migliore disponibile.",

@@ -77,6 +77,24 @@ export const post: BlogPost = {
       "health data hub",
       "one account all health devices",
     ],
+    pt: [
+      "painel wearable único",
+      "unir dados de smartwatch",
+      "sincronizar vários smartwatches",
+      "app para todos os wearables",
+      "app de saúde multi-dispositivo",
+      "fusão de dados wearable",
+      "uma conta para todos os dispositivos de saúde",
+    ],
+    fr: [
+      "tableau de bord wearable unique",
+      "unifier les données de smartwatch",
+      "synchroniser plusieurs smartwatchs",
+      "app pour tous les wearables",
+      "app de santé multi-appareils",
+      "fusion des données wearable",
+      "un compte pour tous les appareils de santé",
+    ],
   },
 
   tldr: {

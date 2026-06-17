@@ -54,6 +54,8 @@ export const post: BlogPost = {
     it: "fitbit non si sincronizza android",
     en: "fitbit data not syncing android",
     es: "fitbit no sincroniza datos android",
+    pt: "fitbit não sincroniza dados android",
+    fr: "fitbit ne se synchronise pas android",
   },
   secondaryKeywords: {
     it: [
@@ -69,6 +71,20 @@ export const post: BlogPost = {
       "fitbit health connect permissions",
       "fitbit google fit android",
       "fitbit sync not working",
+    ],
+    pt: [
+      "fitbit health connect android",
+      "fitbit não sincroniza dados",
+      "permissões fitbit health connect",
+      "fitbit google fit android",
+      "sincronização fitbit não funciona",
+    ],
+    fr: [
+      "fitbit health connect android",
+      "fitbit ne synchronise pas les données",
+      "autorisations fitbit health connect",
+      "fitbit google fit android",
+      "synchronisation fitbit ne fonctionne pas",
     ],
   },
   metaDescription: {
