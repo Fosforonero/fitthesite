@@ -95,6 +95,30 @@ const I18N: Record<Locale, {
     finalCtaHeading: "¿Listo para empezar?",
     finalCtaSubheading: "Descarga FitMesh Sync en tu teléfono Android. El panel web está incluido.",
   },
+  de: {
+    faqHeading: "Häufig gestellte Fragen",
+    disclaimerHeading: "Haftungsausschluss",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync ist ein unabhängiges Produkt. ${brands.join(", ")} ${brands.length > 1 ? "sind Marken" : "ist eine Marke"} der jeweiligen Eigentümer. Diese Seite impliziert keine Zugehörigkeit oder Unterstützung.`,
+    finalCtaHeading: "Bereit loszulegen?",
+    finalCtaSubheading: "Lade FitMesh Sync auf dein Android-Telefon herunter. Das Web-Dashboard ist inklusive.",
+  },
+  pt: {
+    faqHeading: "Perguntas frequentes",
+    disclaimerHeading: "Aviso legal",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync é um produto independente. ${brands.join(", ")} ${brands.length > 1 ? "são marcas registradas" : "é uma marca registrada"} de seus respectivos proprietários. Esta página não implica afiliação ou patrocínio.`,
+    finalCtaHeading: "Pronto para começar?",
+    finalCtaSubheading: "Baixe FitMesh Sync no seu celular Android. O painel web está incluído.",
+  },
+  fr: {
+    faqHeading: "Questions fréquentes",
+    disclaimerHeading: "Avis de non-responsabilité",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync est un produit indépendant. ${brands.join(", ")} ${brands.length > 1 ? "sont des marques" : "est une marque"} de leurs propriétaires respectifs. Cette page n'implique aucune affiliation ni parrainage.`,
+    finalCtaHeading: "Prêt à commencer ?",
+    finalCtaSubheading: "Téléchargez FitMesh Sync sur votre téléphone Android. Le tableau de bord web est inclus.",
+  },
 };
 
 export default async function LandingPage({

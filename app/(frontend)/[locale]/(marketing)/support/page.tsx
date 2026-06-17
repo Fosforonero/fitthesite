@@ -44,15 +44,57 @@ const FAQ_ES = [
   { q: "¿Habrá soporte para iOS?", a: "Está en desarrollo. iOS llegará en 2026 con la misma arquitectura: una app nativa SwiftUI que lee desde Apple HealthKit. Suscríbete en hello@fitmesh.fit para recibir un aviso." },
 ];
 
+const FAQ_DE = [
+  {
+    q: "Die App zeigt keine Daten an. Was soll ich tun?",
+    a: "Prüfe der Reihe nach: (1) Ist Health Connect aus dem Play Store installiert? (2) Hast du in Health Connect die Berechtigung «Daten im Hintergrund lesen» erteilt? (3) Tippe in den Einstellungen auf «Jetzt synchronisieren». Wenn das Problem weiterhin besteht, schreib uns mit einem Screenshot des Bereichs «Status».",
+  },
+  { q: "Wie viel Akku verbraucht die App?", a: "Ungefähr 1-2% pro Tag bei einer Synchronisierung alle 30 Minuten. Das liegt unter der Schwelle, ab der Android eine App als akkuhungrig einstuft. Wenn du einen ungewöhnlich hohen Verbrauch siehst, indiziert wahrscheinlich Health Connect selbst Daten, nicht FitMesh Sync." },
+  { q: "Funktioniert die App offline?", a: "Die App erfasst und speichert Daten auch ohne Netzwerkverbindung in einer Warteschlange. Sobald du wieder online bist, synchronisiert sie den gesamten Rückstand automatisch. Das Web-Dashboard benötigt hingegen eine aktive Internetverbindung." },
+  { q: "Kann ich einen eigenen privaten Server nutzen?", a: "Ja, auf Anfrage. Für Unternehmensanforderungen (Pflegeheime, Kliniken, Arztpraxen, Familiengruppen mit getrennten Daten) richten wir einen dedizierten Server mit deiner Domain, verwalteten Backups und einem dedizierten SLA ein. Schreib uns an sales@fitmesh.fit und gib die erwartete Nutzeranzahl sowie deine Anforderungen zur Datenspeicherung an." },
+  { q: "Was kostet FitMesh Sync?", a: "3,99 € auf Android · 4,99 € auf iPhone: Einmalkauf, kein Abonnement, keine automatischen Verlängerungen, keine Überraschungen auf der Rechnung." },
+  { q: "Ich habe mein Telefon gewechselt. Verliere ich meine Daten?", a: "Nein. Die Daten liegen auf dem Server, nicht auf dem Gerät. Installiere die App neu, melde dich an (oder gib in den Einstellungen deine vorherige Geräte-ID ein, falls du ein erweitertes Konto hast) und du findest alles wieder." },
+  { q: "Gibt es iOS-Unterstützung?", a: "In Entwicklung. iOS wird 2026 mit derselben Architektur erscheinen: eine native SwiftUI-App, die Daten aus Apple HealthKit liest. Melde dich über hello@fitmesh.fit an, um benachrichtigt zu werden." },
+];
+
+const FAQ_PT = [
+  {
+    q: "O app não mostra dados. O que faço?",
+    a: "Verifique nesta ordem: (1) O Health Connect está instalado pela Google Play? (2) Você concedeu a permissão «Ler dados em segundo plano» dentro do Health Connect? (3) Toque em «Sincronizar agora» nas configurações. Se o problema persistir, entre em contato conosco enviando uma captura de tela do painel «Status».",
+  },
+  { q: "Quanto de bateria o app consome?", a: "Cerca de 1-2% por dia com sincronizações a cada 30 minutos. Abaixo do limite que o Android considera como apps que drenam a bateria. Se você notar um consumo anormal, provavelmente é o próprio Health Connect indexando dados, não o FitMesh Sync." },
+  { q: "Funciona sem conexão?", a: "O app coleta e coloca os dados em fila mesmo sem rede. Assim que você voltar a ficar online, ele sincroniza todo o histórico acumulado automaticamente. O painel web, no entanto, requer uma conexão ativa com a internet." },
+  { q: "Posso usar um servidor privado?", a: "Sim, sob solicitação. Para necessidades corporativas (casas de repouso, clínicas, consultórios, grupos familiares com dados separados) configuramos um servidor dedicado com seu domínio, backups gerenciados e um SLA dedicado. Escreva para sales@fitmesh.fit informando o volume de usuários esperado e os requisitos de retenção de dados." },
+  { q: "Quanto custa o FitMesh Sync?", a: "€3,99 no Android · €4,99 no iPhone: compra única, sem assinatura, sem renovações automáticas, sem surpresas na fatura." },
+  { q: "Troquei de celular. Perco meus dados?", a: "Não. Os dados estão no servidor, não no celular. Reinstale o app, faça login (ou insira seu ID de dispositivo anterior nas configurações se você tiver uma conta avançada) e encontrará tudo de volta." },
+  { q: "Haverá suporte para iOS?", a: "Em desenvolvimento. O iOS chegará em 2026 com a mesma arquitetura: um app nativo SwiftUI que lê dados do Apple HealthKit. Inscreva-se em hello@fitmesh.fit para ser avisado." },
+];
+
+const FAQ_FR = [
+  {
+    q: "L'application n'affiche aucune donnée. Que faire ?",
+    a: "Vérifiez dans cet ordre : (1) Health Connect est-il installé depuis le Play Store ? (2) Avez-vous accordé l'autorisation «Lire les données en arrière-plan» dans Health Connect ? (3) Appuyez sur «Synchroniser maintenant» dans les paramètres. Si le problème persiste, écrivez-nous en joignant une capture d'écran du panneau «Statut».",
+  },
+  { q: "Quelle est la consommation de batterie ?", a: "Environ 1 à 2 % par jour avec des synchronisations toutes les 30 minutes. En dessous du seuil qu'Android considère comme des applications énergivores. Si vous constatez une consommation anormale, c'est probablement Health Connect lui-même qui indexe des données, et non FitMesh Sync." },
+  { q: "L'application fonctionne-t-elle hors ligne ?", a: "L'application collecte et met en file d'attente les données même sans réseau. Dès que vous êtes de nouveau connecté, elle synchronise automatiquement tout l'arriéré. Le tableau de bord web, en revanche, nécessite une connexion internet active." },
+  { q: "Puis-je utiliser un serveur privé ?", a: "Oui, sur demande. Pour les besoins des entreprises (maisons de retraite, cliniques, cabinets médicaux, groupes familiaux avec données séparées), nous déployons un serveur dédié avec votre domaine, des sauvegardes gérées et un SLA dédié. Écrivez à sales@fitmesh.fit en indiquant le volume d'utilisateurs prévu et vos exigences de conservation des données." },
+  { q: "Combien coûte FitMesh Sync ?", a: "3,99 € sur Android · 4,99 € sur iPhone : achat unique, sans abonnement, sans renouvellements automatiques, sans mauvaises surprises sur la facture." },
+  { q: "J'ai changé de téléphone. Vais-je perdre mes données ?", a: "Non. Les données sont sur le serveur, pas sur le téléphone. Réinstallez l'application, connectez-vous (ou saisissez votre identifiant d'appareil précédent dans les paramètres si vous avez un compte avancé) et vous retrouvez tout." },
+  { q: "Y aura-t-il une prise en charge iOS ?", a: "En cours de développement. iOS arrivera en 2026 avec la même architecture : une application native SwiftUI qui lit les données depuis Apple HealthKit. Inscrivez-vous via hello@fitmesh.fit pour être informé." },
+];
+
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params;
-  const titles: Record<Locale, string> = { it: "Supporto", en: "Support", es: "Soporte" };
+  const titles: Record<Locale, string> = { it: "Supporto", en: "Support", es: "Soporte", de: "Support", pt: "Suporte", fr: "Assistance" };
   const desc: Record<Locale, string> = {
     it: "FAQ, troubleshooting e contatti per FitMesh Sync. Risposte rapide ai problemi più comuni.",
     en: "FAQ, troubleshooting and contacts for FitMesh Sync. Quick answers to the most common questions.",
     es: "Preguntas frecuentes, solución de problemas y contacto para FitMesh Sync. Respuestas rápidas a las dudas más habituales.",
+    de: "Häufige Fragen, Fehlerbehebung und Kontakt für FitMesh Sync. Schnelle Antworten auf die häufigsten Probleme.",
+    pt: "Perguntas frequentes, solução de problemas e contato do FitMesh Sync. Respostas rápidas para as dúvidas mais comuns.",
+    fr: "FAQ, dépannage et contact pour FitMesh Sync. Réponses rapides aux questions les plus fréquentes.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
@@ -64,6 +106,9 @@ export async function generateMetadata(
         it: `${SITE_URL}/it/support`,
         en: `${SITE_URL}/en/support`,
         es: `${SITE_URL}/es/support`,
+        de: `${SITE_URL}/de/support`,
+        pt: `${SITE_URL}/pt/support`,
+        fr: `${SITE_URL}/fr/support`,
         "x-default": `${SITE_URL}/it/support`,
       },
     },
@@ -78,13 +123,13 @@ export default async function SupportPage({
   const { locale } = await params;
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
-  const faqs = lc === "en" ? FAQ_EN : lc === "es" ? FAQ_ES : FAQ_IT;
+  const faqs = lc === "en" ? FAQ_EN : lc === "es" ? FAQ_ES : lc === "de" ? FAQ_DE : lc === "pt" ? FAQ_PT : lc === "fr" ? FAQ_FR : FAQ_IT;
 
   // Structured data — FAQPage for Google rich result
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : "en-US",
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
@@ -96,32 +141,62 @@ export default async function SupportPage({
     ? "The answers to the most common issues. If you can't find what you're looking for,"
     : lc === "es"
     ? "Respuestas a las dudas más habituales. Si no encuentras lo que buscas,"
+    : lc === "de"
+    ? "Antworten auf die häufigsten Fragen. Wenn du nicht findest, was du suchst,"
+    : lc === "pt"
+    ? "Respostas para as dúvidas mais comuns. Se você não encontrar o que procura,"
+    : lc === "fr"
+    ? "Les réponses aux questions les plus fréquentes. Si vous ne trouvez pas ce que vous cherchez,"
     : "Le risposte ai problemi più comuni. Se non trovi quello che cerchi,";
 
   const writeUsLabel = lc === "en"
     ? "write to support@fitmesh.fit"
     : lc === "es"
     ? "escríbenos a support@fitmesh.fit"
+    : lc === "de"
+    ? "schreib uns an support@fitmesh.fit"
+    : lc === "pt"
+    ? "escreva para support@fitmesh.fit"
+    : lc === "fr"
+    ? "écrivez-nous à support@fitmesh.fit"
     : "scrivici a support@fitmesh.fit";
 
   const moreQuestionsHeading = lc === "en"
     ? "Have another question?"
     : lc === "es"
     ? "¿Tienes alguna otra duda?"
+    : lc === "de"
+    ? "Noch eine Frage?"
+    : lc === "pt"
+    ? "Tem outra dúvida?"
+    : lc === "fr"
+    ? "Vous avez une autre question ?"
     : "Hai un'altra domanda?";
   const moreQuestionsDesc = lc === "en"
     ? "Drop us a line. We respond personally within 48 hours (usually much sooner)."
     : lc === "es"
     ? "Escríbenos. Respondemos personalmente en menos de 48 horas (normalmente mucho antes)."
+    : lc === "de"
+    ? "Schreib uns. Wir antworten persönlich innerhalb von 48 Stunden (meistens viel früher)."
+    : lc === "pt"
+    ? "Fale com a gente. Respondemos pessoalmente em até 48 horas (geralmente muito antes)."
+    : lc === "fr"
+    ? "Contactez-nous. Nous répondons personnellement en moins de 48 heures (souvent bien avant)."
     : "Scrivici. Rispondiamo personalmente entro 48 ore (di solito molto prima).";
 
   const ctaPrimary = lc === "en"
     ? "Email support@fitmesh.fit"
     : lc === "es"
     ? "Escribe a support@fitmesh.fit"
+    : lc === "de"
+    ? "Schreib an support@fitmesh.fit"
+    : lc === "pt"
+    ? "Escreva para support@fitmesh.fit"
+    : lc === "fr"
+    ? "Écrire à support@fitmesh.fit"
     : "Scrivi a support@fitmesh.fit";
 
-  const crumbName = lc === "en" ? "Support" : lc === "es" ? "Soporte" : "Supporto";
+  const crumbName = lc === "en" ? "Support" : lc === "es" ? "Soporte" : lc === "de" ? "Support" : lc === "pt" ? "Suporte" : lc === "fr" ? "Assistance" : "Supporto";
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
       <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/support` }]} locale={lc} />

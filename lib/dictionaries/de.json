@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "support": "Support",
+    "privacy": "Datenschutz",
+    "download": "Herunterladen"
+  },
+  "hero": {
+    "badge": "Verfügbar auf Android · iOS demnächst verfügbar",
+    "heading_1": "Eine globale Dashboard",
+    "heading_accent": "für alle deine Geräte.",
+    "description": "Verbinde Galaxy Watch, Wear OS, Health Connect und Cloud-Anbieter in einer einzigen Ansicht. Schritte, Schlaf, Herzfrequenz, Erholung und Trends, ohne zwischen verschiedenen Apps zu wechseln.",
+    "cta_secondary": "Mehr erfahren",
+    "pricing": "Einmalkauf ab 3,99 €, oder 1,19 € alle 6 Monate · sichere Zahlung",
+    "coming_soon": "Demnächst verfügbar"
+  },
+  "features": {
+    "kicker": "Funktionen",
+    "heading": "Alles, was dein Smartwatch aufzeichnet, geordnet und visualisiert.",
+    "items": [
+      {
+        "title": "Schritte und Distanz",
+        "desc": "Automatische Synchronisierung mit Health Connect und Samsung Health. Auch im Hintergrund, auch wenn das Telefon gesperrt ist."
+      },
+      {
+        "title": "Herzfrequenz und VO₂ max",
+        "desc": "Tagesdurchschnitt, Min/Max-Bereich, Ruheherzfrequenz. Beobachte die Muster deines Herzens im Zeitverlauf."
+      },
+      {
+        "title": "Schlaf mit Schlafphasen",
+        "desc": "Gesamtdauer, Tiefschlaf, REM, Leichtschlaf, Wachphasen. Farbbalken und sofortiges Qualitätsbadge."
+      },
+      {
+        "title": "Kalorien und Aktivität",
+        "desc": "Aktive Kalorien und Grundumsatz-Kalorien, Strecke, Höhenunterschied, Etagen. Spaziergänge in Grün, Workouts in Rot."
+      },
+      {
+        "title": "Globale Multi-Gerät-Dashboard",
+        "desc": "Mehrere Uhren, mehrere Anbieter, eine einzige Ansicht. FitMesh führt die Quellen zusammen, entfernt doppelte Daten und behält den besten Wert für jede Metrik."
+      },
+      {
+        "title": "Gedacht für Betreuungspersonen",
+        "desc": "Erweiterter Modus demnächst verfügbar: Familiengruppe mit Benachrichtigungen, wenn ältere Erwachsene morgens nicht synchronisieren."
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "Datenschutz an erster Stelle",
+    "heading": "Deine Gesundheitsdaten sind kein Produkt.",
+    "description": "FitMesh Sync verkauft nicht, teilt nicht, erstellt keine Profile. Die Daten bleiben auf dem Server, den du wählst (dein Heim-NAS, dein VPS oder unser gemeinsamer Endpunkt): du entscheidest in den Einstellungen der App.",
+    "cta": "Datenschutzerklärung lesen"
+  },
+  "final_cta": {
+    "heading": "Bereit loszulegen?",
+    "description": "Lade die App herunter, autorisiere Health Connect, und in 30 Sekunden sind deine Daten live."
+  },
+  "footer": {
+    "tagline": "Synchronisiere die Daten deines Smartwatchs auf einer Premium-Dashboard, die dir gehört. Datenschutz an erster Stelle. Keine undurchsichtigen Clouds, keine Werbe-Tracker.",
+    "product": "Produkt",
+    "legal": "Rechtliches",
+    "rights": "Alle Rechte vorbehalten.",
+    "made_with": "Mit Sorgfalt gemacht in Italien",
+    "fosforonero_label": "Ein Projekt von",
+    "links": {
+      "features": "Funktionen",
+      "download": "Herunterladen",
+      "support": "Support",
+      "privacy": "Datenschutzerklärung",
+      "terms": "Nutzungsbedingungen",
+      "cookies": "Cookie-Richtlinie"
+    }
+  },
+  "cookie_banner": {
+    "title": "Cookies und Datenschutz",
+    "description": "Wir verwenden technisch notwendige Cookies (unverzichtbar für die Website) und, mit deiner Zustimmung, Google Analytics, um zu verstehen, wie wir das Produkt verbessern können. Keine Werbe- oder Profilierungs-Cookies.",
+    "details_link": "Details",
+    "accept": "Alle akzeptieren",
+    "reject": "Optionale ablehnen"
+  },
+  "legal": {
+    "last_updated": "Letzte Aktualisierung",
+    "privacy_title": "Datenschutzerklärung",
+    "terms_title": "Nutzungsbedingungen",
+    "cookies_title": "Cookie-Richtlinie",
+    "support_title": "Häufig gestellte Fragen",
+    "section": "Rechtliches"
+  },
+  "auth": {
+    "login": {
+      "heading": "Bei FitMesh anmelden",
+      "subheading": "Wir senden dir einen Link per E-Mail. Kein Passwort zum Merken.",
+      "email_label": "E-Mail",
+      "email_placeholder": "deine@email.de",
+      "submit": "Anmelde-Link senden",
+      "sending": "Wird gesendet…",
+      "success_title": "Überprüfe deine E-Mail",
+      "success_body": "Wir haben dir einen Anmelde-Link gesendet. Öffne die E-Mail und klicke zum Anmelden.",
+      "try_again": "Erneut senden",
+      "disclaimer": "Mit der Anmeldung stimmst du unseren Nutzungsbedingungen und der Datenschutzerklärung zu. Deine Gesundheitsdaten werden weder weitergegeben noch für medizinische Zwecke verarbeitet."
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "devices": "Geräte",
+      "settings": "Einstellungen",
+      "logout": "Abmelden"
+    },
+    "disclaimer": "Die angezeigten Daten dienen nur zur Information. FitMesh ist kein Medizinprodukt und ersetzt nicht den Rat eines Arztes.",
+    "dashboard": {
+      "welcome": "Willkommen",
+      "steps": "Heutige Schritte",
+      "heart_rate": "Durchschnittliche BPM",
+      "sleep": "Schlaf",
+      "no_data": "Kein Gerät verbunden"
+    },
+    "next_step": {
+      "title": "Loslegen: verbinde dein erstes Gerät",
+      "body": "Gehe zu 'Geräte' und generiere einen Pairing-Code. Gib diesen dann in der FitMesh App auf deinem Telefon ein.",
+      "cta": "Gerät verbinden →"
+    },
+    "devices": {
+      "heading": "Deine Geräte",
+      "subheading": "Smartwatches und Telefone, die mit deinem Konto verbunden sind.",
+      "add_title": "Gerät hinzufügen",
+      "add_body": "Generiere einen Code und gib ihn in der FitMesh Sync App ein, um ein neues Telefon zu verbinden.",
+      "add_cta": "Code generieren",
+      "coming_soon": "(demnächst verfügbar)",
+      "list_title": "Verbundene Geräte",
+      "empty": "Noch kein Gerät verbunden.",
+      "error": "Fehler beim Laden der Geräte.",
+      "revoked": "widerrufen",
+      "last_sync": "Letzte Synchronisierung",
+      "never": "nie"
+    },
+    "settings": {
+      "heading": "Einstellungen",
+      "profile_heading": "Profil",
+      "display_name": "Name",
+      "locale": "Sprache",
+      "timezone": "Zeitzone",
+      "member_since": "Mitglied seit",
+      "privacy_heading": "Datenschutz und Daten",
+      "privacy_body": "Deine Gesundheitsdaten werden niemals weitergegeben, nicht für medizinische Zwecke verarbeitet und nicht zur Erstellung medizinischer Aussagen verwendet. Alles dient ausschließlich deiner persönlichen Dashboard und Gamification.",
+      "export": "Meine Daten exportieren",
+      "danger_heading": "Gefahrenzone",
+      "delete_description": "Lösche dein Konto und alle zugehörigen Daten dauerhaft. Du hast 24 Stunden Zeit, den Vorgang per E-Mail abzubrechen.",
+      "delete_cta": "Mein Konto löschen",
+      "delete_confirm_title": "Bist du wirklich sicher?",
+      "delete_confirm_body": "Folgendes wird dauerhaft gelöscht: Profil, alle Gesundheitsdaten, verbundene Geräte, Trainingseinheiten. Zur Einhaltung gesetzlicher Vorschriften anonymisiert aufbewahrt: technische Protokolle (90 Tage) und Admin-Audit (5 Jahre).",
+      "delete_confirm_input": "Zur Bestätigung tippe LÖSCHEN",
+      "delete_confirm_submit": "Löschung bestätigen",
+      "cancel": "Abbrechen",
+      "delete_scheduled_title": "Anfrage eingegangen",
+      "delete_scheduled_body": "Du erhältst eine E-Mail mit dem Link zum Abbrechen. Wenn du innerhalb von 24 Stunden nichts unternimmst, wird dein Konto dauerhaft gelöscht."
+    }
+  },
+  "admin": {
+    "banner": "ADMIN-MODUS — deine Zugriffe werden protokolliert",
+    "nav": {
+      "overview": "Übersicht",
+      "users": "Benutzer",
+      "devices": "Geräte",
+      "events": "Ereignisse",
+      "exit": "Admin verlassen"
+    },
+    "overview": {
+      "heading": "Übersicht",
+      "subheading": "Systemstatus, aggregierte Metriken, keine persönlichen Gesundheitsdaten.",
+      "total_users": "Benutzer gesamt",
+      "active_7d": "Aktiv (7 Tage)",
+      "active_30d": "Aktiv (30 Tage)",
+      "new_7d": "Neu (7 Tage)",
+      "total_devices": "Geräte gesamt",
+      "active_devices": "Aktive Geräte",
+      "syncs_24h": "Synchronisierungen (24 Std.)",
+      "failed_syncs_24h": "Fehlgeschlagene Synchronisierungen (24 Std.)"
+    },
+    "privacy_notice": "Datenschutz: Diese Dashboard zeigt nur Metadaten und aggregierte Metriken. Gesundheitsdaten der Benutzer sind für keinen Admin zugänglich (durchgesetzt via Postgres RLS)."
+  },
+  "showcase": {
+    "kicker": "Die App",
+    "heading": "Sieh FitMesh in Aktion",
+    "sub": "Echte Bildschirmfotos der Android-App, direkt vom Telefon.",
+    "captions": {
+      "sleep": "Schlaf mit Schlafphasen und Herzgesundheit",
+      "trends": "Trends für Schritte und Kalorien",
+      "vitals": "SpO₂ und erweiterte Metriken"
+    }
+  }
+}

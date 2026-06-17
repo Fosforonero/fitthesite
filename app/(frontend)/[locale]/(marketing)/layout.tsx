@@ -27,11 +27,17 @@ export async function generateMetadata(
     it: "FitMesh Sync — Una dashboard globale per tutti i tuoi dispositivi",
     en: "FitMesh Sync — One global dashboard for all your devices",
     es: "FitMesh Sync — Un panel global para todos tus dispositivos",
+    de: "FitMesh Sync — Ein globales Dashboard für alle deine Geräte",
+    pt: "FitMesh Sync — Um painel global para todos os seus dispositivos",
+    fr: "FitMesh Sync — Un tableau de bord global pour tous vos appareils",
   };
   const descriptions: Record<Locale, string> = {
     it: "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in una dashboard globale: passi, battito, sonno, recupero e trend. Privacy-first, niente tracker.",
     en: "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one global dashboard: steps, heart rate, sleep, recovery, trends. Privacy-first. No trackers.",
     es: "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect y proveedores en la nube en un panel global: pasos, frecuencia cardíaca, sueño, recuperación y tendencias. Centrado en tu privacidad, sin rastreadores.",
+    de: "FitMesh Sync verbindet Galaxy Watch, Wear OS, Health Connect und Cloud-Dienste in einem globalen Dashboard: Schritte, Herzfrequenz, Schlaf, Erholung und Trends. Datenschutz-first. Keine Tracker.",
+    pt: "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect e provedores em nuvem em um painel global: passos, frequência cardíaca, sono, recuperação e tendências. Privacidade em primeiro lugar. Sem rastreadores.",
+    fr: "FitMesh Sync regroupe Galaxy Watch, Wear OS, Health Connect et les services cloud dans un tableau de bord global: pas, fréquence cardiaque, sommeil, récupération et tendances. Confidentialité avant tout. Sans traceurs.",
   };
 
   return {
@@ -43,6 +49,9 @@ export async function generateMetadata(
         it: `${SITE_URL}/it`,
         en: `${SITE_URL}/en`,
         es: `${SITE_URL}/es`,
+        de: `${SITE_URL}/de`,
+        pt: `${SITE_URL}/pt`,
+        fr: `${SITE_URL}/fr`,
         "x-default": `${SITE_URL}/it`,
       },
     },

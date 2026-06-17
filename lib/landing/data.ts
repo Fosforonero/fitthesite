@@ -43,6 +43,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     primaryKeyword: {
       it: "backup galaxy watch",
       en: "galaxy watch backup",
+      de: "Galaxy Watch Backup",
+      pt: "backup galaxy watch",
+      fr: "sauvegarde galaxy watch",
     },
     secondaryKeywords: {
       it: [
@@ -59,6 +62,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "Backup automatico dei dati Galaxy Watch su una dashboard tua, senza Samsung Cloud. Setup in 30 secondi via Health Connect. Privacy-first.",
       en: "Automatic backup of Galaxy Watch data on a dashboard you own, without Samsung Cloud. 30-second setup via Health Connect. Privacy-first.",
+      de: "Automatisches Backup deiner Galaxy Watch-Daten auf deinem eigenen Dashboard, ohne Samsung Cloud. Einrichtung in 30 Sekunden via Health Connect. Privacy-first.",
+      pt: "Backup automático dos dados do Galaxy Watch em um painel seu, sem Samsung Cloud. Configuração em 30 segundos via Health Connect. Privacidade em primeiro lugar.",
+      fr: "Sauvegarde automatique des données Galaxy Watch sur votre propre tableau de bord, sans Samsung Cloud. Configuration en 30 secondes via Health Connect. La confidentialité avant tout.",
     },
     hero: {
       kicker: { it: "Backup Galaxy Watch", en: "Galaxy Watch backup" },

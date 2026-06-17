@@ -2160,18 +2160,24 @@ export function statusLabel(
   status: ProviderStatus,
   lc: Locale,
 ): { text: string; color: string } {
-  const map: Record<ProviderStatus, { it: string; en: string; es: string; color: string }> = {
-    live: { it: "Disponibile ora", en: "Available now", es: "Disponible ahora", color: "#31E981" },
+  const map: Record<
+    ProviderStatus,
+    { it: string; en: string; es: string; de: string; pt: string; fr: string; color: string }
+  > = {
+    live: { it: "Disponibile ora", en: "Available now", es: "Disponible ahora", de: "Jetzt verfügbar", pt: "Disponível agora", fr: "Disponible maintenant", color: "#31E981" },
     "live-basic": {
       it: "Funziona via Health Connect",
       en: "Works via Health Connect",
       es: "Funciona vía Health Connect",
+      de: "Funktioniert über Health Connect",
+      pt: "Funciona via Health Connect",
+      fr: "Fonctionne via Health Connect",
       color: "#21E6C1",
     },
-    beta: { it: "Beta", en: "Beta", es: "Beta", color: "#FFB547" },
-    "roadmap-q3": { it: "In arrivo Q3 2026", en: "Coming Q3 2026", es: "Próximamente 3T 2026", color: "#38BDF8" },
-    "roadmap-q4": { it: "In arrivo Q4 2026", en: "Coming Q4 2026", es: "Próximamente 4T 2026", color: "#A78BFA" },
-    "coming-soon": { it: "In arrivo", en: "Coming soon", es: "Próximamente", color: "#7CFF5B" },
+    beta: { it: "Beta", en: "Beta", es: "Beta", de: "Beta", pt: "Beta", fr: "Beta", color: "#FFB547" },
+    "roadmap-q3": { it: "In arrivo Q3 2026", en: "Coming Q3 2026", es: "Próximamente 3T 2026", de: "Kommt Q3 2026", pt: "Em breve 3T 2026", fr: "Bientôt T3 2026", color: "#38BDF8" },
+    "roadmap-q4": { it: "In arrivo Q4 2026", en: "Coming Q4 2026", es: "Próximamente 4T 2026", de: "Kommt Q4 2026", pt: "Em breve 4T 2026", fr: "Bientôt T4 2026", color: "#A78BFA" },
+    "coming-soon": { it: "In arrivo", en: "Coming soon", es: "Próximamente", de: "Demnächst", pt: "Em breve", fr: "Bientôt disponible", color: "#7CFF5B" },
   };
   const entry = map[status];
   return { text: entry[lc], color: entry.color };
@@ -2181,20 +2187,29 @@ export function categoryLabel(
   category: ProviderCategory,
   lc: Locale,
 ): string {
-  const map: Record<ProviderCategory, { it: string; en: string; es: string }> = {
-    smartwatch: { it: "Smartwatch", en: "Smartwatch", es: "Smartwatch" },
+  const map: Record<
+    ProviderCategory,
+    { it: string; en: string; es: string; de: string; pt: string; fr: string }
+  > = {
+    smartwatch: { it: "Smartwatch", en: "Smartwatch", es: "Smartwatch", de: "Smartwatch", pt: "Smartwatch", fr: "Montre connectée" },
     "fitness-platform": {
       it: "Piattaforma fitness",
       en: "Fitness platform",
       es: "Plataforma fitness",
+      de: "Fitness-Plattform",
+      pt: "Plataforma de fitness",
+      fr: "Plateforme fitness",
     },
     "health-platform": {
       it: "Piattaforma salute",
       en: "Health platform",
       es: "Plataforma de salud",
+      de: "Gesundheitsplattform",
+      pt: "Plataforma de saúde",
+      fr: "Plateforme santé",
     },
-    wearable: { it: "Wearable", en: "Wearable", es: "Wearable" },
-    "phone-only": { it: "Solo telefono", en: "Phone-only", es: "Solo teléfono" },
+    wearable: { it: "Wearable", en: "Wearable", es: "Wearable", de: "Wearable", pt: "Wearable", fr: "Wearable" },
+    "phone-only": { it: "Solo telefono", en: "Phone-only", es: "Solo teléfono", de: "Nur Smartphone", pt: "Somente telefone", fr: "Téléphone uniquement" },
   };
   return map[category][lc];
 }

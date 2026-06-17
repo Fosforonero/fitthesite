@@ -112,7 +112,7 @@ export default async function SettingsPage({
           confirmInputLabel:
             t.app?.settings?.delete_confirm_input ??
             'Per confermare, digita "CANCELLA"',
-          confirmKeyword: lc === 'es' ? 'ELIMINAR' : lc === 'en' ? 'DELETE' : 'CANCELLA',
+          confirmKeyword: { it: 'CANCELLA', en: 'DELETE', es: 'ELIMINAR', de: 'LÖSCHEN', pt: 'EXCLUIR', fr: 'SUPPRIMER' }[lc],
           confirmSubmit: t.app?.settings?.delete_confirm_submit ?? 'Conferma cancellazione',
           cancelLabel: t.app?.settings?.cancel ?? 'Annulla',
           scheduledTitle:

@@ -11,12 +11,13 @@
  */
 import type { CSSProperties } from "react";
 
+import type { Locale } from "@/lib/i18n";
 import AppleStoreButton from "./AppleStoreButton";
 import PlayStoreButton from "./PlayStoreButton";
 
 type Props = {
   /** Locale per i label localizzati ("In arrivo" vs "Coming Soon"). */
-  locale: "it" | "en" | "es";
+  locale: Locale;
   /** Forza il Play Store disabled (default false — app live su Play Store). */
   playDisabled?: boolean;
   /** Classi extra sul wrapper flex. */
@@ -30,18 +31,22 @@ export default function StoreButtonsRow({
   className = "",
   style,
 }: Props) {
-  const playLabels =
-    locale === "en"
-      ? { small: "GET IT ON", store: "Google Play", soon: "Coming Soon" }
-      : locale === "es"
-      ? { small: "Disponible en", store: "Google Play", soon: "Próximamente" }
-      : { small: "Disponibile su", store: "Google Play", soon: "In arrivo" };
-  const appleLabels =
-    locale === "en"
-      ? { small: "Download on the", store: "App Store", soon: "Coming Soon" }
-      : locale === "es"
-      ? { small: "Descarga en", store: "App Store", soon: "Próximamente" }
-      : { small: "Scarica su", store: "App Store", soon: "In arrivo" };
+  const playLabels = {
+    it: { small: "Disponibile su", store: "Google Play", soon: "In arrivo" },
+    en: { small: "GET IT ON", store: "Google Play", soon: "Coming Soon" },
+    es: { small: "Disponible en", store: "Google Play", soon: "Próximamente" },
+    de: { small: "Jetzt bei", store: "Google Play", soon: "Demnächst" },
+    pt: { small: "Disponível no", store: "Google Play", soon: "Em breve" },
+    fr: { small: "Disponible sur", store: "Google Play", soon: "Bientôt disponible" },
+  }[locale];
+  const appleLabels = {
+    it: { small: "Scarica su", store: "App Store", soon: "In arrivo" },
+    en: { small: "Download on the", store: "App Store", soon: "Coming Soon" },
+    es: { small: "Descarga en", store: "App Store", soon: "Próximamente" },
+    de: { small: "Laden im", store: "App Store", soon: "Demnächst" },
+    pt: { small: "Baixar na", store: "App Store", soon: "Em breve" },
+    fr: { small: "Télécharger dans l'", store: "App Store", soon: "Bientôt disponible" },
+  }[locale];
 
   return (
     <div

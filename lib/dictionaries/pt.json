@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "support": "Suporte",
+    "privacy": "Privacidade",
+    "download": "Baixar"
+  },
+  "hero": {
+    "badge": "Disponível no Android · iOS em breve",
+    "heading_1": "Um painel global",
+    "heading_accent": "para todos os seus dispositivos.",
+    "description": "Reúna Galaxy Watch, Wear OS, Health Connect e provedores na nuvem em uma só visualização. Passos, sono, frequência cardíaca, recuperação e tendências, sem precisar alternar entre diferentes apps.",
+    "cta_secondary": "Saiba mais",
+    "pricing": "Compra única a partir de €3,99, ou €1,19 a cada 6 meses · pagamento seguro",
+    "coming_soon": "Em breve"
+  },
+  "features": {
+    "kicker": "Funcionalidades",
+    "heading": "Tudo o que seu smartwatch registra, organizado e visualizado.",
+    "items": [
+      {
+        "title": "Passos e distância",
+        "desc": "Sincronização automática com Health Connect e Samsung Health. Também em segundo plano, mesmo com o celular bloqueado."
+      },
+      {
+        "title": "Frequência cardíaca e VO₂ máx",
+        "desc": "Média diária, faixa mín/máx, frequência cardíaca em repouso. Acompanhe os padrões do seu coração ao longo do tempo."
+      },
+      {
+        "title": "Sono com fases",
+        "desc": "Duração total, profundo, REM, leve, acordado. Barra colorida e indicador de qualidade imediato."
+      },
+      {
+        "title": "Calorias e atividade",
+        "desc": "Calorias ativas e basais, percurso, desnível, andares. Caminhadas em verde, treinos em vermelho."
+      },
+      {
+        "title": "Painel global multidispositivo",
+        "desc": "Vários relógios, vários provedores, uma só visualização. FitMesh une as fontes, elimina dados duplicados e mantém o melhor valor para cada métrica."
+      },
+      {
+        "title": "Pensado para cuidadores",
+        "desc": "Modo avançado em breve: grupo familiar com avisos caso uma pessoa idosa não sincronize pela manhã."
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "Privacidade em primeiro lugar",
+    "heading": "Seus dados de saúde não são um produto.",
+    "description": "FitMesh Sync não vende, não compartilha, não perfila. Os dados ficam no servidor que você escolher (seu NAS em casa, seu VPS ou nosso endpoint compartilhado): você decide nas configurações do app.",
+    "cta": "Leia a Política de Privacidade"
+  },
+  "final_cta": {
+    "heading": "Pronto para começar?",
+    "description": "Baixe o app, autorize o Health Connect e em 30 segundos seus dados estão em tempo real."
+  },
+  "footer": {
+    "tagline": "Sincronize os dados do seu smartwatch em um painel premium que é seu. Privacidade em primeiro lugar. Sem nuvens opacas, sem rastreadores de publicidade.",
+    "product": "Produto",
+    "legal": "Legal",
+    "rights": "Todos os direitos reservados.",
+    "made_with": "Feito com carinho na Itália",
+    "fosforonero_label": "Um projeto de",
+    "links": {
+      "features": "Funcionalidades",
+      "download": "Baixar",
+      "support": "Suporte",
+      "privacy": "Política de Privacidade",
+      "terms": "Termos de Serviço",
+      "cookies": "Política de Cookies"
+    }
+  },
+  "cookie_banner": {
+    "title": "Cookies e privacidade",
+    "description": "Usamos cookies técnicos essenciais (indispensáveis para o site) e, com o seu consentimento, Google Analytics para entender como melhorar o produto. Nenhum cookie publicitário ou de perfilamento.",
+    "details_link": "Detalhes",
+    "accept": "Aceitar tudo",
+    "reject": "Recusar opcionais"
+  },
+  "legal": {
+    "last_updated": "Última atualização",
+    "privacy_title": "Política de Privacidade",
+    "terms_title": "Termos de Serviço",
+    "cookies_title": "Política de Cookies",
+    "support_title": "Perguntas frequentes",
+    "section": "Legal"
+  },
+  "auth": {
+    "login": {
+      "heading": "Entre no FitMesh",
+      "subheading": "Enviamos um link por e-mail. Sem senhas para lembrar.",
+      "email_label": "E-mail",
+      "email_placeholder": "voce@email.com",
+      "submit": "Enviar o link de acesso",
+      "sending": "Enviando…",
+      "success_title": "Verifique seu e-mail",
+      "success_body": "Enviamos um link de acesso. Abra o e-mail e clique para entrar.",
+      "try_again": "Enviar novamente",
+      "disclaimer": "Ao entrar, você aceita nossos Termos e a Política de Privacidade. Seus dados de saúde não são compartilhados nem usados para fins médicos."
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "Painel",
+      "devices": "Dispositivos",
+      "settings": "Configurações",
+      "logout": "Sair"
+    },
+    "disclaimer": "Os dados exibidos são apenas informativos. FitMesh não é um dispositivo médico e não substitui a orientação de um profissional de saúde.",
+    "dashboard": {
+      "welcome": "Bem-vindo",
+      "steps": "Passos hoje",
+      "heart_rate": "BPM médio",
+      "sleep": "Sono",
+      "no_data": "Nenhum dispositivo conectado"
+    },
+    "next_step": {
+      "title": "Comece: conecte seu primeiro dispositivo",
+      "body": "Acesse 'Dispositivos' e gere um código de emparelhamento. Em seguida, insira-o no app FitMesh do seu celular.",
+      "cta": "Conectar dispositivo →"
+    },
+    "devices": {
+      "heading": "Seus dispositivos",
+      "subheading": "Smartwatches e celulares conectados à sua conta.",
+      "add_title": "Adicionar dispositivo",
+      "add_body": "Gere um código e insira-o no app FitMesh Sync para conectar um novo celular.",
+      "add_cta": "Gerar código",
+      "coming_soon": "(em breve)",
+      "list_title": "Dispositivos conectados",
+      "empty": "Ainda não há nenhum dispositivo conectado.",
+      "error": "Erro ao carregar os dispositivos.",
+      "revoked": "revogado",
+      "last_sync": "Última sincronização",
+      "never": "nunca"
+    },
+    "settings": {
+      "heading": "Configurações",
+      "profile_heading": "Perfil",
+      "display_name": "Nome",
+      "locale": "Idioma",
+      "timezone": "Fuso horário",
+      "member_since": "Membro desde",
+      "privacy_heading": "Privacidade e dados",
+      "privacy_body": "Seus dados de saúde nunca são compartilhados, não são usados para fins médicos nem para gerar pareceres médicos. Tudo apenas para seu painel pessoal e gamificação.",
+      "export": "Exportar meus dados",
+      "danger_heading": "Zona de perigo",
+      "delete_description": "Exclui permanentemente sua conta e todos os dados associados. Você tem 24 horas para cancelar por e-mail.",
+      "delete_cta": "Excluir minha conta",
+      "delete_confirm_title": "Você tem certeza absoluta?",
+      "delete_confirm_body": "Serão excluídos permanentemente: perfil, todos os dados de saúde, dispositivos conectados, sessões de treino. Serão mantidos de forma anonimizada por conformidade legal: logs técnicos (90 dias) e auditoria de admin (5 anos).",
+      "delete_confirm_input": "Para confirmar, digite EXCLUIR",
+      "delete_confirm_submit": "Confirmar exclusão",
+      "cancel": "Cancelar",
+      "delete_scheduled_title": "Solicitação recebida",
+      "delete_scheduled_body": "Você receberá um e-mail com o link para cancelar. Se não fizer nada em 24 horas, sua conta será excluída permanentemente."
+    }
+  },
+  "admin": {
+    "banner": "MODO ADMIN — seus acessos estão sendo registrados",
+    "nav": {
+      "overview": "Resumo",
+      "users": "Usuários",
+      "devices": "Dispositivos",
+      "events": "Eventos",
+      "exit": "Sair do admin"
+    },
+    "overview": {
+      "heading": "Resumo",
+      "subheading": "Status do sistema, métricas agregadas, sem dados de saúde pessoais.",
+      "total_users": "Total de usuários",
+      "active_7d": "Ativos em 7 dias",
+      "active_30d": "Ativos em 30 dias",
+      "new_7d": "Novos em 7 dias",
+      "total_devices": "Total de dispositivos",
+      "active_devices": "Dispositivos ativos",
+      "syncs_24h": "Sincronizações em 24 h",
+      "failed_syncs_24h": "Sincronizações falhas em 24 h"
+    },
+    "privacy_notice": "Privacidade: este painel exibe apenas metadados e métricas agregadas. Os dados de saúde dos usuários NÃO são acessíveis a nenhum admin (garantido via Postgres RLS)."
+  },
+  "showcase": {
+    "kicker": "O app",
+    "heading": "Veja o FitMesh em ação",
+    "sub": "Telas reais do app Android, direto do celular.",
+    "captions": {
+      "sleep": "Sono com fases e saúde do coração",
+      "trends": "Tendências de passos e calorias",
+      "vitals": "SpO₂ e métricas avançadas"
+    }
+  }
+}

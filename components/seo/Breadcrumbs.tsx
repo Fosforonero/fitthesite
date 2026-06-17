@@ -1,3 +1,4 @@
+import type { Locale } from "@/lib/i18n";
 import { JsonLd } from "./JsonLd";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -26,7 +27,7 @@ export function Breadcrumbs({
   locale,
 }: {
   items: BreadcrumbItem[];
-  locale: "it" | "en" | "es";
+  locale: Locale;
 }) {
   const homeName = locale === "it" ? "Home" : "Home";
   const all: BreadcrumbItem[] = [

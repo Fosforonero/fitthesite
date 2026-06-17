@@ -32,13 +32,25 @@ export async function generateMetadata({
       ? "Integrazioni — FitMesh Sync"
       : lc === "es"
         ? "Integraciones — FitMesh Sync"
-        : "Integrations — FitMesh Sync";
+        : lc === "de"
+          ? "Integrationen — FitMesh Sync"
+          : lc === "pt"
+            ? "Integrações — FitMesh Sync"
+            : lc === "fr"
+              ? "Intégrations — FitMesh Sync"
+              : "Integrations — FitMesh Sync";
   const description =
     lc === "it"
       ? "Tutte le integrazioni di FitMesh Sync: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Stato live e roadmap aggiornata."
       : lc === "es"
         ? "Todas las integraciones de FitMesh Sync: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Estado actual y hoja de ruta."
-        : "All FitMesh Sync integrations: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Live status and roadmap.";
+        : lc === "de"
+          ? "Alle Integrationen von FitMesh Sync: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Aktueller Status und Roadmap."
+          : lc === "pt"
+            ? "Todas as integrações do FitMesh Sync: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Status atual e roteiro de novidades."
+            : lc === "fr"
+              ? "Toutes les intégrations de FitMesh Sync : Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Statut en direct et feuille de route."
+              : "All FitMesh Sync integrations: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Live status and roadmap.";
 
   const path = `/${lc}/integrations`;
   return {
@@ -50,6 +62,9 @@ export async function generateMetadata({
         it: `${SITE_URL}/it/integrations`,
         en: `${SITE_URL}/en/integrations`,
         es: `${SITE_URL}/es/integrations`,
+        de: `${SITE_URL}/de/integrations`,
+        pt: `${SITE_URL}/pt/integrations`,
+        fr: `${SITE_URL}/fr/integrations`,
         "x-default": `${SITE_URL}/it/integrations`,
       },
     },
@@ -86,8 +101,8 @@ export default async function IntegrationsHub({
   const { locale } = await params;
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
-  const t = (it: string, en: string, es?: string) =>
-    lc === "it" ? it : lc === "es" ? (es ?? en) : en;
+  const t = (it: string, en: string, es?: string, de?: string, pt?: string, fr?: string) =>
+    lc === "it" ? it : lc === "es" ? (es ?? en) : lc === "de" ? (de ?? en) : lc === "pt" ? (pt ?? en) : lc === "fr" ? (fr ?? en) : en;
   // For data.ts fields that only have { it, en } keys, fall back to "en" for "es"
   const lcData: "it" | "en" = lc === "it" ? "it" : "en";
 
@@ -109,9 +124,9 @@ export default async function IntegrationsHub({
   const collectionLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: t("Integrazioni FitMesh Sync", "FitMesh Sync Integrations", "Integraciones FitMesh Sync"),
+    name: t("Integrazioni FitMesh Sync", "FitMesh Sync Integrations", "Integraciones FitMesh Sync", "FitMesh Sync Integrationen", "Integrações FitMesh Sync", "Intégrations FitMesh Sync"),
     url: `${SITE_URL}/${lc}/integrations`,
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : "en-US",
     hasPart: PROVIDERS.map((p) => ({
       "@type": "SoftwareApplication",
       name: `FitMesh Sync — ${p.name}`,
@@ -125,7 +140,7 @@ export default async function IntegrationsHub({
     <>
       <JsonLd data={collectionLd} />
       <Breadcrumbs
-        items={[{ name: t("Integrazioni", "Integrations", "Integraciones"), path: `/${lc}/integrations` }]}
+        items={[{ name: t("Integrazioni", "Integrations", "Integraciones", "Integrationen", "Integrações", "Intégrations"), path: `/${lc}/integrations` }]}
         locale={lcData}
       />
 
@@ -136,16 +151,26 @@ export default async function IntegrationsHub({
           className="halo-conic absolute left-1/2 top-0 -z-10 h-[400px] w-[640px] -translate-x-1/2 opacity-50 animate-float"
         />
         <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-          {t("Integrazioni", "Integrations", "Integraciones")}
+          {t("Integrazioni", "Integrations", "Integraciones", "Integrationen", "Integrações", "Intégrations")}
         </p>
         <h1 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-3xl text-balance">
           {t(
             "Uno smartwatch, una piattaforma. ",
             "One watch, one platform. ",
             "Un smartwatch, una plataforma. ",
+            "Eine Smartwatch, eine Plattform. ",
+            "Um smartwatch, uma plataforma. ",
+            "Une montre connectée, une plateforme. ",
           )}
           <span className="text-brand-gradient">
-            {t("Tutti i tuoi dati salute insieme.", "All your health data together.", "Todos tus datos de salud, juntos.")}
+            {t(
+              "Tutti i tuoi dati salute insieme.",
+              "All your health data together.",
+              "Todos tus datos de salud, juntos.",
+              "Alle deine Gesundheitsdaten an einem Ort.",
+              "Todos os seus dados de saúde reunidos.",
+              "Toutes vos données de santé au même endroit.",
+            )}
           </span>
         </h1>
         <p className="mt-7 text-lg text-text-secondary max-w-2xl leading-relaxed">
@@ -153,6 +178,9 @@ export default async function IntegrationsHub({
             `FitMesh Sync supporta nativamente ${liveCount} sorgenti via Health Connect e ne aggiungerà altre ${roadmapCount} via OAuth ufficiale. Lista completa con stato aggiornato.`,
             `FitMesh Sync natively supports ${liveCount} sources via Health Connect and ${roadmapCount} more are coming via official OAuth. Complete list with current status.`,
             `FitMesh Sync es compatible de forma nativa con ${liveCount} fuentes a través de Health Connect y añadirá ${roadmapCount} más por OAuth oficial. Lista completa con el estado actual.`,
+            `FitMesh Sync unterstützt nativ ${liveCount} Quellen über Health Connect und ${roadmapCount} weitere kommen per offizieller OAuth-Anbindung. Vollständige Liste mit aktuellem Status.`,
+            `FitMesh Sync é compatível nativamente com ${liveCount} fontes via Health Connect e mais ${roadmapCount} chegarão via OAuth oficial. Lista completa com o status atual.`,
+            `FitMesh Sync prend en charge nativement ${liveCount} sources via Health Connect et ${roadmapCount} autres sont en cours d'intégration via OAuth officiel. Liste complète avec le statut actuel.`,
           )}
         </p>
 
@@ -163,7 +191,7 @@ export default async function IntegrationsHub({
               {liveCount}<span className="text-brand-green">·</span>
             </p>
             <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-text-muted leading-tight">
-              {t("Live oggi", "Live today", "Disponibles hoy")}
+              {t("Live oggi", "Live today", "Disponibles hoy", "Jetzt live", "Disponíveis hoje", "Disponibles aujourd'hui")}
             </p>
           </li>
           <li>
@@ -171,7 +199,7 @@ export default async function IntegrationsHub({
               {roadmapCount}+
             </p>
             <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-text-muted leading-tight">
-              {t("In roadmap", "In roadmap", "En hoja de ruta")}
+              {t("In roadmap", "In roadmap", "En hoja de ruta", "In der Roadmap", "No roadmap", "Dans la feuille de route")}
             </p>
           </li>
           <li>

@@ -97,7 +97,7 @@ export type BlogSection =
       title: Localized;
       body: Localized;
       ctaLabel: Localized;
-      ctaHref: { it: string; en: string };
+      ctaHref: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
     };
 
 /**
@@ -129,7 +129,7 @@ export interface BlogPost {
   /** Parola/frase chiave principale (per `keywords` meta). */
   primaryKeyword: Localized;
   /** Secondary keywords mostrate in meta keywords. */
-  secondaryKeywords: { it: string[]; en: string[] };
+  secondaryKeywords: LocalizedList;
   /** Tempo lettura stimato in minuti (calcolato a mano, no auto). */
   readMinutes: number;
   /**

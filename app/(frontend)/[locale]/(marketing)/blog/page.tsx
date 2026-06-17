@@ -28,13 +28,25 @@ export async function generateMetadata({
       ? "Blog FitMesh — Sync wearable, Health Connect, privacy salute"
       : lc === "es"
         ? "Blog FitMesh — Sincronización de wearables, Health Connect, privacidad de salud"
-        : "FitMesh Blog — Wearable sync, Health Connect, health privacy";
+        : lc === "de"
+          ? "FitMesh Blog — Wearable-Synchronisierung, Health Connect, Gesundheits-Datenschutz"
+          : lc === "pt"
+            ? "Blog FitMesh — Sincronização de wearables, Health Connect, privacidade de saúde"
+            : lc === "fr"
+              ? "Blog FitMesh — Synchronisation wearable, Health Connect, confidentialité santé"
+              : "FitMesh Blog — Wearable sync, Health Connect, health privacy";
   const description =
     lc === "it"
       ? "Guide oneste su sync wearable, Health Connect, esportazione dati Galaxy Watch / Fitbit / Garmin, GDPR e privacy. Niente hype, solo informazioni utili."
       : lc === "es"
         ? "Guías honestas sobre sincronización de wearables, Health Connect, exportación de datos de Galaxy Watch y Garmin, GDPR y privacidad. Sin hype, solo información útil."
-        : "Honest guides on wearable sync, Health Connect, Galaxy Watch / Fitbit / Garmin data export, GDPR and privacy. No hype, just useful information.";
+        : lc === "de"
+          ? "Ehrliche Ratgeber zu Wearable-Synchronisierung, Health Connect, Datenexport für Galaxy Watch und Garmin, DSGVO und Datenschutz. Kein Hype, nur nützliche Informationen."
+          : lc === "pt"
+            ? "Guias honestos sobre sincronização de wearables, Health Connect, exportação de dados do Galaxy Watch e Garmin, LGPD e privacidade. Sem hype, só informação útil."
+            : lc === "fr"
+              ? "Guides honnêtes sur la synchronisation de wearables, Health Connect, l'export de données Galaxy Watch et Garmin, le RGPD et la confidentialité. Sans hype, juste des informations utiles."
+              : "Honest guides on wearable sync, Health Connect, Galaxy Watch / Fitbit / Garmin data export, GDPR and privacy. No hype, just useful information.";
 
   const path = `/${lc}/blog`;
   return {
@@ -46,6 +58,9 @@ export async function generateMetadata({
         it: `${SITE_URL}/it/blog`,
         en: `${SITE_URL}/en/blog`,
         es: `${SITE_URL}/es/blog`,
+        de: `${SITE_URL}/de/blog`,
+        pt: `${SITE_URL}/pt/blog`,
+        fr: `${SITE_URL}/fr/blog`,
         "x-default": `${SITE_URL}/it/blog`,
       },
     },
@@ -103,11 +118,53 @@ const I18N = {
     sectionPillar: "Guías principales",
     sectionRecent: "Todos los artículos",
   },
+  de: {
+    kicker: "Blog",
+    heading: "Ehrliche Ratgeber zur Wearable-Synchronisierung",
+    headingAccent: "und deine Gesundheitsdaten",
+    lead: "Kein Hype, keine oberflächlichen Rezensionen. Wir erklären, was 2026 wirklich funktioniert: Health Connect, Datenexport, offizielle Autorisierungen, DSGVO und die Wahl des richtigen Ökosystems.",
+    pillarLabel: "Hauptartikel",
+    readMin: (m: number) => `${m} Min. Lesezeit`,
+    publishedOn: "Veröffentlicht am",
+    explore: "Lesen →",
+    sectionPillar: "Hauptartikel",
+    sectionRecent: "Alle Artikel",
+  },
+  pt: {
+    kicker: "Blog",
+    heading: "Guias honestos sobre sincronização de wearables",
+    headingAccent: "e seus dados de saúde",
+    lead: "Sem hype, sem resenhas superficiais. Explicamos o que realmente funciona em 2026: Health Connect, exportação de dados, autorizações oficiais, LGPD e como escolher o ecossistema certo.",
+    pillarLabel: "Guia principal",
+    readMin: (m: number) => `${m} min de leitura`,
+    publishedOn: "Publicado em",
+    explore: "Ler →",
+    sectionPillar: "Guias principais",
+    sectionRecent: "Todos os artigos",
+  },
+  fr: {
+    kicker: "Blog",
+    heading: "Guides honnêtes sur la synchronisation des wearables",
+    headingAccent: "et vos données de santé",
+    lead: "Sans hype ni critiques expéditives. Nous expliquons ce qui fonctionne vraiment en 2026 : Health Connect, export de données, autorisations officielles, RGPD et comment choisir le bon écosystème.",
+    pillarLabel: "Guide pilier",
+    readMin: (m: number) => `${m} min de lecture`,
+    publishedOn: "Publié le",
+    explore: "Lire →",
+    sectionPillar: "Guides piliers",
+    sectionRecent: "Tous les articles",
+  },
 };
 
 function formatDate(iso: string, lc: Locale): string {
   const d = new Date(iso);
-  const locale = lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US";
+  const locale =
+    lc === "it" ? "it-IT" :
+    lc === "es" ? "es-ES" :
+    lc === "de" ? "de-DE" :
+    lc === "pt" ? "pt-BR" :
+    lc === "fr" ? "fr-FR" :
+    "en-US";
   return d.toLocaleDateString(locale, {
     year: "numeric",
     month: "long",
@@ -134,8 +191,14 @@ export default async function BlogIndex({
     "@context": "https://schema.org",
     "@type": "Blog",
     "@id": `${SITE_URL}/${lc}/blog#blog`,
-    name: lc === "it" ? "Blog FitMesh Sync" : lc === "es" ? "Blog FitMesh Sync" : "FitMesh Sync Blog",
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
+    name: "FitMesh Sync Blog",
+    inLanguage:
+      lc === "it" ? "it-IT" :
+      lc === "es" ? "es-ES" :
+      lc === "de" ? "de-DE" :
+      lc === "pt" ? "pt-BR" :
+      lc === "fr" ? "fr-FR" :
+      "en-US",
     url: `${SITE_URL}/${lc}/blog`,
     blogPost: posts.map((p) => ({
       "@type": "BlogPosting",

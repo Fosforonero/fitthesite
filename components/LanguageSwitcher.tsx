@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { locales, localeNames, localeFlags, type Locale } from "@/lib/i18n";
 
 /**
- * Selettore lingua a tendina (it/en/es). Mostra la lingua corrente; al click
+ * Selettore lingua a tendina (tutte le lingue in `locales`). Mostra la lingua corrente; al click
  * apre il menu con le altre. Chiude su click-fuori e su Esc.
  */
 export default function LanguageSwitcher({ current }: { current: Locale }) {
@@ -30,10 +30,12 @@ export default function LanguageSwitcher({ current }: { current: Locale }) {
     };
   }, [open]);
 
-  // Sostituisce il segmento /it|/en|/es iniziale con la lingua target.
+  // Sostituisce il segmento lingua iniziale (qualsiasi locale supportato) con
+  // la lingua target; se manca, lo inserisce. Usa l'elenco centrale `locales`
+  // così resta valido aggiungendo nuove lingue (de/pt/fr/...).
   const pathFor = (target: Locale) => {
     const parts = pathname.split("/");
-    if (parts[1] === "it" || parts[1] === "en" || parts[1] === "es") {
+    if (locales.includes(parts[1] as Locale)) {
       parts[1] = target;
     } else {
       parts.splice(1, 0, target);

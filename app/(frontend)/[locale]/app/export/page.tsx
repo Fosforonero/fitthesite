@@ -37,6 +37,36 @@ const L = {
     doneBody: 'El archivo con tus datos se ha descargado.',
     errorTitle: 'Error',
   },
+  de: {
+    back: '← Einstellungen',
+    heading: 'Meine Daten exportieren',
+    body: 'Lade eine vollständige Kopie deiner Daten (Profil, Geräte, Metriken, Workouts, Einwilligungen) als JSON herunter. Recht auf Datenübertragbarkeit (DSGVO Art. 20).',
+    cta: 'Meine Daten herunterladen (JSON)',
+    working: 'Wird vorbereitet…',
+    doneTitle: 'Download gestartet',
+    doneBody: 'Die Datei mit deinen Daten wurde heruntergeladen.',
+    errorTitle: 'Fehler',
+  },
+  pt: {
+    back: '← Configurações',
+    heading: 'Exportar meus dados',
+    body: 'Baixe uma cópia completa dos seus dados (perfil, dispositivos, métricas, treinos, consentimentos) em formato JSON. Direito à portabilidade (GDPR art. 20).',
+    cta: 'Baixar meus dados (JSON)',
+    working: 'Preparando…',
+    doneTitle: 'Download iniciado',
+    doneBody: 'O arquivo com seus dados foi baixado.',
+    errorTitle: 'Erro',
+  },
+  fr: {
+    back: '← Réglages',
+    heading: 'Exporter mes données',
+    body: 'Téléchargez une copie complète de vos données (profil, appareils, mesures, entraînements, consentements) au format JSON. Droit à la portabilité (RGPD art. 20).',
+    cta: 'Télécharger mes données (JSON)',
+    working: 'Préparation…',
+    doneTitle: 'Téléchargement lancé',
+    doneBody: 'Le fichier avec vos données a été téléchargé.',
+    errorTitle: 'Erreur',
+  },
 } as const;
 
 export default async function ExportPage({

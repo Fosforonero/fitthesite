@@ -101,6 +101,33 @@ const I18N: Record<
     explore: "Leer →",
     empty: "Las primeras novedades llegan próximamente. Vuelve pronto.",
   },
+  de: {
+    kicker: "Neuigkeiten",
+    heading: "Was ist neu bei FitMesh Sync",
+    headingAccent: "Update für Update",
+    lead: "Was wir bei jedem App-Update hinzugefügt und verbessert haben: neue Funktionen, unterstützte Geräte und was sich für dich ändert. Klar erklärt, ohne Fachjargon.",
+    readMin: (m: number) => `${m} Min. Lesezeit`,
+    explore: "Lesen →",
+    empty: "Die ersten Neuigkeiten kommen in Kürze. Schau bald wieder vorbei.",
+  },
+  pt: {
+    kicker: "Novidades",
+    heading: "As novidades do FitMesh Sync",
+    headingAccent: "atualização após atualização",
+    lead: "Tudo o que adicionamos e melhoramos em cada atualização do app: novas funções, dispositivos compatíveis e o que muda para você. Em linguagem clara, sem jargão técnico.",
+    readMin: (m: number) => `${m} min de leitura`,
+    explore: "Ler →",
+    empty: "As primeiras novidades chegam em breve. Volte logo.",
+  },
+  fr: {
+    kicker: "Nouveautés",
+    heading: "Les nouveautés de FitMesh Sync",
+    headingAccent: "mise à jour après mise à jour",
+    lead: "Tout ce que nous avons ajouté et amélioré à chaque mise à jour de l'app : nouvelles fonctions, appareils compatibles et ce qui change pour vous. En clair, sans jargon technique.",
+    readMin: (m: number) => `${m} min de lecture`,
+    explore: "Lire →",
+    empty: "Les premières nouveautés arrivent bientôt. Revenez vite.",
+  },
 };
 
 function formatDate(iso: string, lc: Locale): string {

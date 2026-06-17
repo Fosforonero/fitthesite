@@ -15,6 +15,8 @@
  * ──────────────────────────────────────────────────────────────────────────
  */
 
+import type { Locale } from "@/lib/i18n";
+
 // ── Valori numerici raw (usati nei JSON-LD schema.org) ────────────────────
 /** Prezzo Android lifetime in euro (valore numerico grezzo per JSON-LD) */
 export const PRICE_LIFETIME_ANDROID_RAW = "3.99" as const;
@@ -31,16 +33,28 @@ export const PRICING = {
   subSixMonths: {
     it: "€1,19",
     en: "€1.19",
+    es: "€1,19",
+    de: "€1,19",
+    pt: "€1,19",
+    fr: "€1,19",
   },
   /** Acquisto unico su Android (Play Store) */
   lifetimeAndroid: {
     it: "€3,99",
     en: "€3.99",
+    es: "€3,99",
+    de: "€3,99",
+    pt: "€3,99",
+    fr: "€3,99",
   },
   /** Acquisto unico su iPhone (App Store) */
   lifetimeIos: {
     it: "€4,99",
     en: "€4.99",
+    es: "€4,99",
+    de: "€4,99",
+    pt: "€4,99",
+    fr: "€4,99",
   },
 
   // ── Frasi composte riusabili ─────────────────────────────────────────
@@ -49,30 +63,50 @@ export const PRICING = {
   lifetimeBoth: {
     it: "€3,99 su Android · €4,99 su iPhone",
     en: "€3.99 on Android · €4.99 on iPhone",
+    es: "€3,99 en Android · €4,99 en iPhone",
+    de: "€3,99 auf Android · €4,99 auf iPhone",
+    pt: "€3,99 no Android · €4,99 no iPhone",
+    fr: "€3,99 sur Android · €4,99 sur iPhone",
   },
   /** "€3,99 Android · €4,99 iPhone" (versione compatta senza preposizione) */
   lifetimeBothShort: {
     it: "€3,99 Android · €4,99 iPhone",
     en: "€3.99 Android · €4.99 iPhone",
+    es: "€3,99 Android · €4,99 iPhone",
+    de: "€3,99 Android · €4,99 iPhone",
+    pt: "€3,99 Android · €4,99 iPhone",
+    fr: "€3,99 Android · €4,99 iPhone",
   },
   /** "da €3,99" / "from €3.99" — per contesti che citano solo il prezzo minimo */
   fromLifetime: {
     it: "da €3,99",
     en: "from €3.99",
+    es: "desde €3,99",
+    de: "ab €3,99",
+    pt: "a partir de €3,99",
+    fr: "à partir de €3,99",
   },
   /** "€1,19/6 mesi" / "€1.19/6mo" */
   subSixMonthsLabel: {
     it: "€1,19/6 mesi",
     en: "€1.19/6mo",
+    es: "€1,19/6 meses",
+    de: "€1,19/6 Monate",
+    pt: "€1,19/6 meses",
+    fr: "€1,19/6 mois",
   },
   /** "€1,19 ogni 6 mesi" / "€1.19 every 6 months" */
   subSixMonthsFull: {
     it: "€1,19 ogni 6 mesi",
     en: "€1.19 every 6 months",
+    es: "€1,19 cada 6 meses",
+    de: "€1,19 alle 6 Monate",
+    pt: "€1,19 a cada 6 meses",
+    fr: "€1,19 tous les 6 mois",
   },
 } as const;
 
 /** Helper: ritorna la stringa display per la locale corrente */
-export function p(key: keyof typeof PRICING, locale: "it" | "en"): string {
+export function p(key: keyof typeof PRICING, locale: Locale): string {
   return PRICING[key][locale];
 }

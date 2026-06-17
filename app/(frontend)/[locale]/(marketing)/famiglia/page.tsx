@@ -387,6 +387,354 @@ const COPY = {
     final_cta_body:
       "Descarga FitMesh desde Play Store, crea el grupo familiar y comparte el enlace con quien quieras. Funciona de inmediato, aunque tus familiares no abran la app en días.",
   },
+  de: {
+    hero_kicker: "Mesh Familie",
+    hero_h1: "Sieh, wie es deinen Liebsten geht, ohne täglich nachfragen zu müssen",
+    hero_sub:
+      "Du erstellst eine Gruppe, lädst ein, wen du möchtest (Eltern, Partner, Kinder), und siehst in einem Dashboard, wer heute gelaufen ist, wer schlecht geschlafen hat, wessen Herzfrequenz gestiegen ist. Datenschutz an erster Stelle: Jeder entscheidet selbst, was er teilt.",
+    cta_primary: "App herunterladen",
+    cta_secondary: "So funktioniert es",
+    why_kicker: "Warum es wichtig ist",
+    why_h2: "Drei Wege, nah bei denen zu sein, die dir wichtig sind",
+    why_items: [
+      {
+        title: "Selbstständige ältere Eltern",
+        body:
+          "Deine Mutter lebt allein und trägt die Galaxy Watch, die du ihr geschenkt hast. Du möchtest nicht aufdringlich sein, aber du würdest gerne wissen, ob sie aufgehört hat zu laufen oder ob sich ihre Ruheherzfrequenz verändert. Mesh Familie informiert dich, ohne dass sie eine App öffnen oder dir schreiben muss.",
+      },
+      {
+        title: "Familie mit Teenagern",
+        body:
+          "Dein Kind hat ein Mi Band. Du möchtest, dass es sich bewegt, ausreichend schläft und sein Herz beim Training nicht überlastet. Sieh seine Gesundheitsdaten in deiner App: kein Social Media, kein Chat, nur Zahlen.",
+      },
+      {
+        title: "Partner und Eheleute",
+        body:
+          "Ihr arbeitet an verschiedenen Orten und seht euch abends. Zu wissen, dass sie ihre 8.000 Schritte gemacht hat oder dass er gut geschlafen hat, ist eine kleine Art, sich aus der Ferne umeinander zu kümmern.",
+      },
+    ],
+    how_kicker: "So funktioniert es",
+    how_h2: "Drei Schritte, zwei Minuten",
+    how_steps: [
+      {
+        title: "Familiengruppe erstellen",
+        body:
+          "In der FitMesh App auf 'Mesh Familie' tippen → 'Gruppe erstellen'. Gib ihr einen Namen (z. B. 'Familie Müller'). Du bist der Admin.",
+      },
+      {
+        title: "Per Link einladen",
+        body:
+          "Die App generiert einen MESH-XXXX-Code und einen teilbaren Link (WhatsApp, SMS, E-Mail). Wer darauf tippt, lädt die App kostenlos herunter und tritt bei. Bis zu 3 Mitglieder kostenlos, 8 mit FitMesh Pro.",
+      },
+      {
+        title: "Jeder wählt, was er teilt",
+        body:
+          "Standardmäßig geteilt: Schritte, Schlaf, Ruheherzfrequenz, Aktivitätslevel. NICHT standardmäßig geteilt: Gewicht, Blutdruck, Zyklus, Blutzucker, Standort. Jederzeit in der App änderbar.",
+      },
+    ],
+    privacy_kicker: "Datenschutz und Kontrolle",
+    privacy_h2: "Was du siehst und was du NIEMALS siehst",
+    privacy_columns: [
+      {
+        title: "Was der Gruppen-Admin sieht",
+        items: [
+          "Name, den das Mitglied gewählt hat (z. B. 'Mama', 'Luca')",
+          "Tägliche Schrittanzahl",
+          "Gesamte Schlafdauer in Stunden",
+          "Durchschnittliche Herzfrequenz und Ruheherzfrequenz",
+          "Allgemeines Aktivitätslevel (niedrig/mittel/hoch)",
+        ],
+        color: "brand-aqua",
+      },
+      {
+        title: "Was NIEMALS sichtbar ist",
+        items: [
+          "Geografischer Standort der Mitglieder",
+          "Gewicht und Körperzusammensetzung",
+          "Menstruationszyklus",
+          "Blutdruck, Blutzucker und sensible Gesundheitsdaten",
+          "Benachrichtigungen, Nachrichten und Telefonkontakte",
+        ],
+        color: "brand-green",
+      },
+    ],
+    techstack_h2: "Funktioniert mit allen Wearables, die ihr bereits besitzt",
+    techstack_body:
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Falls jemand aus eurer Gruppe ein anderes Wearable hat, muss es nur Daten an Health Connect übermitteln (das tun alle großen Marken seit 2024). Kein Markenzwang.",
+    pricing_kicker: "Was es kostet",
+    pricing_h2: "Kostenlos für bis zu 3 Mitglieder",
+    pricing_body:
+      "Der kostenlose Plan umfasst dich plus 2 Familienmitglieder (3 insgesamt). Mit FitMesh Pro (Einmalkauf: 3,99 € auf Android · 4,99 € auf iPhone) schaltest du bis zu 8 Mitglieder, einen erweiterten Verlauf und Sync-Priorität frei. Kein Abonnement, keine abgelaufenen Testphasen, keine Kreditkarte erforderlich.",
+    faq_kicker: "Häufige Fragen",
+    faq_h2: "Fragen und Antworten",
+    faqs: [
+      {
+        q: "Meine Mutter/mein Vater ist nicht technikaffin. Kann sie/er die App nutzen?",
+        a:
+          "Ja. Sobald die App installiert ist und sie/er auf den Einladungslink tippt, den du sendest, ist nichts weiter nötig. Die App synchronisiert automatisch im Hintergrund. Du siehst ihre/seine Daten in deiner App. Sie/er muss die App nie wieder öffnen.",
+      },
+      {
+        q: "Kann ich den Standort der Familienmitglieder sehen?",
+        a:
+          "Nein, niemals. FitMesh Sync erfasst oder teilt keine Standortdaten. Falls du das benötigst, verwende eine spezialisierte App wie Google Family Link.",
+      },
+      {
+        q: "Was passiert, wenn ein Mitglied die Gruppe verlassen möchte?",
+        a:
+          "Auf seinem Telefon: Mesh Familie → Gruppeneinstellungen → Gruppe verlassen. Seine historischen Daten werden sofort aus der Ansicht der anderen Mitglieder entfernt. Keine Admin-Genehmigung erforderlich.",
+      },
+      {
+        q: "Sind die Gesundheitsdaten meiner Familie sicher?",
+        a:
+          "Ja. Alles ist via HTTPS/TLS verschlüsselt. Speicherung auf Supabase EU (Frankfurt). Zugriff auf die jeweilige Gruppe beschränkt via Row-Level Security in Postgres. Keine Datenhändler, keine profilbasierte Werbung. Volle DSGVO-Konformität.",
+      },
+      {
+        q: "Ist dies ein Medizinprodukt?",
+        a:
+          "Nein. FitMesh Sync ist eine Fitness- und Wellness-App. Sie ersetzt KEINEN Arzt und stellt keine Diagnosen. Bei gesundheitlichen Fragen wende dich stets an deinen Hausarzt.",
+      },
+      {
+        q: "Wie viele Personen kann ich einladen?",
+        a:
+          "Kostenloser Plan: 3 insgesamt (inkl. du). Pro (3,99 € Android · 4,99 € iPhone): bis zu 8 Mitglieder.",
+      },
+    ],
+    final_cta_h2: "Starte heute: 3 Minuten bis zur ersten Gruppe",
+    final_cta_body:
+      "Lade FitMesh aus dem Play Store herunter, erstelle die Familiengruppe und teile den Link mit wem du möchtest. Es funktioniert sofort, auch wenn deine Familienmitglieder die App tagelang nicht öffnen.",
+  },
+  pt: {
+    hero_kicker: "Mesh Família",
+    hero_h1: "Veja como seus entes queridos estão, sem precisar perguntar todo dia",
+    hero_sub:
+      "Você cria um grupo, convida quem quiser (pais, parceiro, filhos) e vê em um único painel quem caminhou hoje, quem dormiu pouco, quem teve a frequência cardíaca elevada. Privacidade em primeiro lugar: cada pessoa escolhe o que compartilhar.",
+    cta_primary: "Baixe o app",
+    cta_secondary: "Como funciona",
+    why_kicker: "Por que faz diferença",
+    why_h2: "Três formas de estar perto de quem importa",
+    why_items: [
+      {
+        title: "Pais idosos independentes",
+        body:
+          "Sua mãe mora sozinha e usa o Galaxy Watch que você deu de presente. Você não quer ser invasivo, mas gostaria de saber se ela parou de caminhar ou se a frequência cardíaca em repouso mudou. O Mesh Família te avisa sem que ela precise abrir nenhum app ou te mandar mensagem.",
+      },
+      {
+        title: "Família com filhos adolescentes",
+        body:
+          "Seu filho tem uma Mi Band. Você quer que ele se mexa, durma bem e não sobrecarregue o coração se exercitando sem controle. Veja os dados de saúde dele no seu app: sem redes sociais, sem chats, só números.",
+      },
+      {
+        title: "Casais e parceiros",
+        body:
+          "Vocês trabalham em lugares diferentes e se veem à noite. Saber que ela completou os 8.000 passos ou que ele dormiu bem é uma pequena forma de cuidar um do outro à distância.",
+      },
+    ],
+    how_kicker: "Como funciona",
+    how_h2: "Três passos, dois minutos",
+    how_steps: [
+      {
+        title: "Crie o grupo familiar",
+        body:
+          "No app FitMesh, toque em 'Mesh Família' → 'Criar grupo'. Dê um nome (por exemplo, 'Família Silva'). Você é o administrador.",
+      },
+      {
+        title: "Convide quem quiser por link",
+        body:
+          "O app gera um código MESH-XXXX e um link para compartilhar (WhatsApp, SMS, e-mail). Quem clicar baixa o app gratuitamente e entra no grupo. Até 3 membros grátis, 8 com FitMesh Pro.",
+      },
+      {
+        title: "Cada um escolhe o que compartilhar",
+        body:
+          "Compartilhado por padrão: passos, sono, frequência cardíaca em repouso, nível de atividade. NÃO compartilhado por padrão: peso, pressão arterial, ciclo menstrual, glicemia, localização. Pode ser alterado a qualquer momento no app.",
+      },
+    ],
+    privacy_kicker: "Privacidade e controle",
+    privacy_h2: "O que você vê e o que você NUNCA vê",
+    privacy_columns: [
+      {
+        title: "O que o administrador do grupo vê",
+        items: [
+          "Nome que o membro escolheu (por exemplo, 'Mãe', 'Lucas')",
+          "Contagem diária de passos",
+          "Total de horas de sono",
+          "Frequência cardíaca média e em repouso",
+          "Nível de atividade genérico (baixo/médio/alto)",
+        ],
+        color: "brand-aqua",
+      },
+      {
+        title: "O que NUNCA é visível",
+        items: [
+          "Localização geográfica dos membros",
+          "Peso e composição corporal",
+          "Ciclo menstrual",
+          "Pressão arterial, glicemia e dados de saúde sensíveis",
+          "Notificações, mensagens e contatos do telefone",
+        ],
+        color: "brand-green",
+      },
+    ],
+    techstack_h2: "Funciona com todos os wearables que você já tem",
+    techstack_body:
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Se alguém do grupo tiver um wearable diferente, basta que ele grave os dados no Health Connect (todas as marcas principais fazem isso desde 2024). Sem vínculo com nenhuma marca.",
+    pricing_kicker: "Quanto custa",
+    pricing_h2: "Grátis para até 3 membros",
+    pricing_body:
+      "O plano gratuito inclui você mais 2 familiares (3 no total). Com FitMesh Pro (compra única: R$ ou €3,99 no Android · €4,99 no iPhone) você desbloqueia até 8 membros, histórico estendido e prioridade de sincronização. Sem assinatura, sem períodos de teste expirados, sem cartão de crédito.",
+    faq_kicker: "Perguntas frequentes",
+    faq_h2: "Dúvidas e respostas",
+    faqs: [
+      {
+        q: "Minha mãe/meu pai não tem muita familiaridade com tecnologia. Consegue usar?",
+        a:
+          "Sim. Depois de instalar o app e tocar no link de convite que você envia, ela/ele não precisa fazer mais nada. O app sincroniza automaticamente em segundo plano. Você vê os dados dela/dele no seu app. Ela/ele nunca mais precisa abrir nada.",
+      },
+      {
+        q: "Posso ver a localização dos membros da família?",
+        a:
+          "Não, nunca. FitMesh Sync não coleta nem compartilha dados de localização. Se precisar disso, use um app dedicado como o Google Family Link.",
+      },
+      {
+        q: "O que acontece se um membro quiser sair do grupo?",
+        a:
+          "No celular dele: Mesh Família → Configurações do grupo → Sair do grupo. Os dados históricos dele são removidos da visualização dos outros imediatamente. Nenhuma aprovação do administrador é necessária.",
+      },
+      {
+        q: "Os dados de saúde da minha família estão seguros?",
+        a:
+          "Sim. Tudo criptografado via HTTPS/TLS. Armazenamento no Supabase EU (Frankfurt). Acesso restrito ao grupo específico via Row-Level Security no Postgres. Sem corretores de dados, sem publicidade baseada em perfil. Total conformidade com o LGPD e GDPR.",
+      },
+      {
+        q: "Isso é um dispositivo médico?",
+        a:
+          "Não. FitMesh Sync é um app de fitness e bem-estar. NÃO substitui um médico nem detecta doenças. Em caso de dúvidas sobre sua saúde, consulte sempre seu médico.",
+      },
+      {
+        q: "Quantas pessoas posso convidar?",
+        a:
+          "Plano gratuito: 3 no total (incluindo você). Pro (€3,99 Android · €4,99 iPhone): até 8 membros.",
+      },
+    ],
+    final_cta_h2: "Comece hoje: 3 minutos para criar seu primeiro grupo",
+    final_cta_body:
+      "Baixe o FitMesh na Play Store, crie o grupo familiar e compartilhe o link com quem quiser. Funciona imediatamente, mesmo que seus familiares não abram o app por dias.",
+  },
+  fr: {
+    hero_kicker: "Mesh Famille",
+    hero_h1: "Voyez si vos proches vont bien, sans leur demander chaque jour",
+    hero_sub:
+      "Vous créez un groupe, invitez qui vous voulez (parents, partenaire, enfants) et voyez dans un seul tableau de bord qui a marché aujourd'hui, qui a mal dormi, dont la fréquence cardiaque a augmenté. La confidentialité d'abord: chacun choisit ce qu'il partage.",
+    cta_primary: "Téléchargez l'app",
+    cta_secondary: "Comment ça marche",
+    why_kicker: "Pourquoi c'est utile",
+    why_h2: "Trois façons de rester proches de ceux qui comptent",
+    why_items: [
+      {
+        title: "Parents âgés autonomes",
+        body:
+          "Votre mère vit seule et porte la Galaxy Watch que vous lui avez offerte. Vous ne voulez pas être intrusif, mais vous aimeriez savoir si elle a arrêté de marcher ou si sa fréquence cardiaque au repos change. Mesh Famille vous le dit sans qu'elle ait besoin d'ouvrir une application ou de vous envoyer un message.",
+      },
+      {
+        title: "Famille avec des adolescents",
+        body:
+          "Votre enfant a un Mi Band. Vous voulez qu'il bouge, dorme suffisamment et ne surcharge pas son coeur à l'entraînement. Consultez ses données de santé dans votre app: pas de réseaux sociaux, pas de chats, juste des chiffres.",
+      },
+      {
+        title: "Partenaires et conjoints",
+        body:
+          "Vous travaillez à des endroits différents et vous vous retrouvez le soir. Savoir qu'elle a atteint ses 8 000 pas ou qu'il a bien dormi est une petite façon de prendre soin l'un de l'autre à distance.",
+      },
+    ],
+    how_kicker: "Comment ça marche",
+    how_h2: "Trois étapes, deux minutes",
+    how_steps: [
+      {
+        title: "Créez le groupe familial",
+        body:
+          "Dans l'app FitMesh, touchez 'Mesh Famille' → 'Créer un groupe'. Donnez-lui un nom (par exemple, 'Famille Martin'). Vous êtes l'administrateur.",
+      },
+      {
+        title: "Invitez qui vous voulez via un lien",
+        body:
+          "L'app génère un code MESH-XXXX et un lien partageable (WhatsApp, SMS, e-mail). Celui qui clique télécharge l'app gratuitement et rejoint le groupe. Jusqu'à 3 membres gratuits, 8 avec FitMesh Pro.",
+      },
+      {
+        title: "Chacun choisit ce qu'il partage",
+        body:
+          "Partagé par défaut: pas, sommeil, fréquence cardiaque au repos, niveau d'activité. NON partagé par défaut: poids, tension artérielle, cycle menstruel, glycémie, localisation. Modifiable à tout moment depuis l'app.",
+      },
+    ],
+    privacy_kicker: "Confidentialité et contrôle",
+    privacy_h2: "Ce que vous voyez et ce que vous ne verrez JAMAIS",
+    privacy_columns: [
+      {
+        title: "Ce que l'administrateur du groupe voit",
+        items: [
+          "Le nom que le membre a choisi (par exemple, 'Maman', 'Luca')",
+          "Nombre de pas quotidien",
+          "Heures totales de sommeil",
+          "Fréquence cardiaque moyenne et au repos",
+          "Niveau d'activité générique (faible/moyen/élevé)",
+        ],
+        color: "brand-aqua",
+      },
+      {
+        title: "Ce qui n'est JAMAIS visible",
+        items: [
+          "Localisation géographique des membres",
+          "Poids et composition corporelle",
+          "Cycle menstruel",
+          "Tension artérielle, glycémie et données de santé sensibles",
+          "Notifications, messages et contacts du téléphone",
+        ],
+        color: "brand-green",
+      },
+    ],
+    techstack_h2: "Compatible avec tous les appareils connectés que vous possédez déjà",
+    techstack_body:
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Si l'un d'entre vous possède un appareil différent, il lui suffit d'écrire les données sur Health Connect (toutes les grandes marques le font depuis 2024). Aucun engagement envers une marque.",
+    pricing_kicker: "Combien ça coûte",
+    pricing_h2: "Gratuit jusqu'à 3 membres",
+    pricing_body:
+      "Le plan gratuit couvre vous plus 2 membres de la famille (3 au total). Avec FitMesh Pro (achat unique: 3,99 € sur Android · 4,99 € sur iPhone) vous débloquez jusqu'à 8 membres, un historique étendu et la priorité de synchronisation. Sans abonnement, sans essais expirés, sans carte de crédit requise.",
+    faq_kicker: "Questions fréquentes",
+    faq_h2: "Questions et réponses",
+    faqs: [
+      {
+        q: "Ma mère/mon père n'est pas à l'aise avec la technologie. Peut-il ou elle l'utiliser?",
+        a:
+          "Oui. Une fois l'app installée et le lien d'invitation que vous envoyez touché, il n'y a rien d'autre à faire. L'app synchronise automatiquement en arrière-plan. Vous voyez ses données dans votre app. Il ou elle n'a plus jamais besoin de l'ouvrir.",
+      },
+      {
+        q: "Puis-je voir la localisation des membres de la famille?",
+        a:
+          "Non, jamais. FitMesh Sync ne collecte ni ne partage de données de localisation. Si vous avez besoin de cela, utilisez une application dédiée comme Google Family Link.",
+      },
+      {
+        q: "Que se passe-t-il si un membre veut quitter le groupe?",
+        a:
+          "Depuis son téléphone: Mesh Famille → Paramètres du groupe → Quitter le groupe. Ses données historiques sont supprimées de la vue des autres membres immédiatement. Aucune approbation de l'administrateur n'est requise.",
+      },
+      {
+        q: "Les données de santé de ma famille sont-elles en sécurité?",
+        a:
+          "Oui. Tout est chiffré via HTTPS/TLS. Stockage sur Supabase EU (Francfort). Accès limité au groupe spécifique via Row-Level Security dans Postgres. Aucun courtier de données, aucune publicité profilée. Conformité totale au RGPD.",
+      },
+      {
+        q: "Est-ce un dispositif médical?",
+        a:
+          "Non. FitMesh Sync est une application de fitness et de bien-être. Elle ne remplace PAS un médecin et ne pose pas de diagnostics. Pour toute question de santé, consultez toujours votre médecin.",
+      },
+      {
+        q: "Combien de personnes puis-je inviter?",
+        a:
+          "Plan gratuit: 3 au total (vous inclus). Pro (3,99 € Android · 4,99 € iPhone): jusqu'à 8 membres.",
+      },
+    ],
+    final_cta_h2: "Commencez aujourd'hui: 3 minutes pour créer votre premier groupe",
+    final_cta_body:
+      "Téléchargez FitMesh depuis le Play Store, créez le groupe familial et partagez le lien avec qui vous voulez. Ça fonctionne immédiatement, même si vos proches n'ouvrent pas l'app pendant des jours.",
+  },
 } as const;
 
 export function generateStaticParams() {
@@ -407,22 +755,46 @@ export async function generateMetadata({
         ? "Mesh Famiglia — In arrivo | FitMesh Sync"
         : lc === "es"
         ? "Mesh Familia — Próximamente | FitMesh Sync"
+        : lc === "de"
+        ? "Mesh Familie — Demnächst verfügbar | FitMesh Sync"
+        : lc === "pt"
+        ? "Mesh Família — Em breve | FitMesh Sync"
+        : lc === "fr"
+        ? "Mesh Famille — Bientôt disponible | FitMesh Sync"
         : "Family Mesh — Coming soon | FitMesh Sync")
     : (lc === "it"
         ? "Mesh Famiglia — Monitora la salute dei tuoi cari | FitMesh Sync"
         : lc === "es"
         ? "Mesh Familia — Controla la salud de tus seres queridos | FitMesh Sync"
+        : lc === "de"
+        ? "Mesh Familie — Überwache die Gesundheit deiner Liebsten | FitMesh Sync"
+        : lc === "pt"
+        ? "Mesh Família — Acompanhe a saúde de quem você ama | FitMesh Sync"
+        : lc === "fr"
+        ? "Mesh Famille — Suivez la santé de vos proches | FitMesh Sync"
         : "Family Mesh — Monitor your loved ones' health | FitMesh Sync");
   const description = COMING_SOON
     ? (lc === "it"
         ? "Mesh Famiglia: monitora passi, sonno e battito dei tuoi cari in un'unica dashboard privacy-first. Feature in arrivo nei prossimi mesi: iscriviti alla waitlist per essere avvisato al lancio."
         : lc === "es"
         ? "Mesh Familia: controla pasos, sueño y frecuencia cardíaca de tus seres queridos en un panel privado. Próximamente: únete a la lista de espera para recibir aviso en el lanzamiento."
+        : lc === "de"
+        ? "Mesh Familie: Schritte, Schlaf und Herzfrequenz deiner Liebsten in einem datenschutzfreundlichen Dashboard. Demnächst verfügbar: Trage dich in die Warteliste ein und erhalte eine Benachrichtigung zum Launch."
+        : lc === "pt"
+        ? "Mesh Família: acompanhe passos, sono e frequência cardíaca de quem você ama em um painel com privacidade em primeiro lugar. Em breve: entre na lista de espera para ser avisado no lançamento."
+        : lc === "fr"
+        ? "Mesh Famille: suivez les pas, le sommeil et la fréquence cardiaque de vos proches dans un tableau de bord axé sur la confidentialité. Bientôt disponible: rejoignez la liste d'attente pour être informé au lancement."
         : "Family Mesh: monitor steps, sleep and heart rate of your loved ones in one privacy-first dashboard. Coming in the next months: join the waitlist to be notified at launch.")
     : (lc === "it"
         ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, gratis fino a 3 membri, niente posizione condivisa."
         : lc === "es"
         ? "Mesh Familia te permite ver pasos, sueño y frecuencia cardíaca de padres, pareja o hijos en un solo panel. Privacidad primero, gratis hasta 3 miembros, sin ubicación compartida."
+        : lc === "de"
+        ? "Mesh Familie zeigt dir Schritte, Schlaf und Herzfrequenz von Eltern, Partner oder Kindern in einem Dashboard. Datenschutz an erster Stelle, kostenlos für bis zu 3 Mitglieder, kein Standort geteilt."
+        : lc === "pt"
+        ? "Mesh Família permite ver passos, sono e frequência cardíaca de pais, parceiro ou filhos em um único painel. Privacidade em primeiro lugar, grátis para até 3 membros, sem compartilhamento de localização."
+        : lc === "fr"
+        ? "Mesh Famille vous permet de voir les pas, le sommeil et la fréquence cardiaque de parents, partenaire ou enfants dans un tableau de bord. Confidentialité d'abord, gratuit pour 3 membres, sans localisation partagée."
         : "Family Mesh lets you see steps, sleep, and heart rate of parents, partners or kids in one dashboard. Privacy-first, free up to 3 members, no location sharing.");
 
   return {
@@ -457,7 +829,13 @@ export default async function FamigliaLanding({
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
   const path = `/${lc}/famiglia`;
-  const crumbName = lc === "it" ? "Mesh Famiglia" : lc === "es" ? "Mesh Familia" : "Family Mesh";
+  const crumbName =
+    lc === "it" ? "Mesh Famiglia"
+    : lc === "es" ? "Mesh Familia"
+    : lc === "de" ? "Mesh Familie"
+    : lc === "pt" ? "Mesh Família"
+    : lc === "fr" ? "Mesh Famille"
+    : "Family Mesh";
 
   // JSON-LD WebPage — usato in entrambi gli stati (full + coming-soon).
   const webPageLd = {
@@ -629,7 +1007,12 @@ export default async function FamigliaLanding({
           href={`/${lc}/integrations`}
           className="mt-6 inline-flex items-center gap-1.5 text-brand-aqua hover:text-brand-green transition text-sm font-medium"
         >
-          {lc === "it" ? "Vedi tutti i wearable supportati" : lc === "es" ? "Ver todos los wearables compatibles" : "See all supported wearables"}
+          {lc === "it" ? "Vedi tutti i wearable supportati"
+            : lc === "es" ? "Ver todos los wearables compatibles"
+            : lc === "de" ? "Alle unterstützten Wearables ansehen"
+            : lc === "pt" ? "Ver todos os wearables compatíveis"
+            : lc === "fr" ? "Voir tous les appareils connectés compatibles"
+            : "See all supported wearables"}
           <span aria-hidden>→</span>
         </Link>
       </section>
