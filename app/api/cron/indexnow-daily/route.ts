@@ -5,7 +5,7 @@ import { getBlogPosts } from "@/lib/blog/payload-source";
 export const dynamic = "force-dynamic";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LOCALES = ["it", "en", "es"] as const;
+const LOCALES = ["it", "en", "es", "de", "pt", "fr"] as const;
 
 export async function GET(req: Request) {
   // Fail-closed: senza CRON_SECRET configurato l'endpoint resta inaccessibile.

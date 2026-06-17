@@ -6,7 +6,7 @@
  * + content nei page component conditionali.
  */
 
-export const locales = ["it", "en", "es"] as const;
+export const locales = ["it", "en", "es", "de", "pt", "fr"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "it";
 
@@ -14,30 +14,43 @@ export const localeNames: Record<Locale, string> = {
   it: "Italiano",
   en: "English",
   es: "Español",
+  de: "Deutsch",
+  pt: "Português",
+  fr: "Français",
 };
 
 export const localeFlags: Record<Locale, string> = {
   it: "🇮🇹",
   en: "🇬🇧",
   es: "🇪🇸",
+  de: "🇩🇪",
+  pt: "🇧🇷",
+  fr: "🇫🇷",
 };
 
 /**
  * OpenGraph locale identifiers (full BCP 47-ish format expected by Facebook).
+ * pt → pt_BR: il mercato target lusofono principale è il Brasile.
  */
 export const ogLocale: Record<Locale, string> = {
   it: "it_IT",
   en: "en_US",
   es: "es_ES",
+  de: "de_DE",
+  pt: "pt_BR",
+  fr: "fr_FR",
 };
 
 /**
- * HTML `<html lang>` attribute value.
+ * HTML `<html lang>` attribute value. pt → pt-BR (targeting Brasile).
  */
 export const htmlLang: Record<Locale, string> = {
   it: "it",
   en: "en",
   es: "es",
+  de: "de",
+  pt: "pt-BR",
+  fr: "fr",
 };
 
 /**

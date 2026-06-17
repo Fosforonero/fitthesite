@@ -13,8 +13,22 @@
  */
 import type { Locale } from "@/lib/i18n";
 
-export type Localized = { it: string; en: string; es?: string };
-export type LocalizedList = { it: string[]; en: string[]; es?: string[] };
+export type Localized = {
+  it: string;
+  en: string;
+  es?: string;
+  de?: string;
+  pt?: string;
+  fr?: string;
+};
+export type LocalizedList = {
+  it: string[];
+  en: string[];
+  es?: string[];
+  de?: string[];
+  pt?: string[];
+  fr?: string[];
+};
 
 /**
  * Accessor con fallback `es -> en -> it` per stringhe localizzate. Finché i dati
@@ -140,11 +154,11 @@ export interface BlogPost {
 }
 
 export const CATEGORY_LABEL: Record<BlogCategory, Localized> = {
-  guides: { it: "Guida", en: "Guide" },
-  comparisons: { it: "Confronto", en: "Comparison" },
-  privacy: { it: "Privacy", en: "Privacy" },
-  ecosystem: { it: "Ecosistema", en: "Ecosystem" },
-  news: { it: "Novità", en: "What's New" },
+  guides: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide" },
+  comparisons: { it: "Confronto", en: "Comparison", es: "Comparativa", de: "Vergleich", pt: "Comparação", fr: "Comparatif" },
+  privacy: { it: "Privacy", en: "Privacy", es: "Privacidad", de: "Datenschutz", pt: "Privacidade", fr: "Confidentialité" },
+  ecosystem: { it: "Ecosistema", en: "Ecosystem", es: "Ecosistema", de: "Ökosystem", pt: "Ecossistema", fr: "Écosystème" },
+  news: { it: "Novità", en: "What's New", es: "Novedades", de: "Neuigkeiten", pt: "Novidades", fr: "Nouveautés" },
 };
 
 export function categoryLabel(c: BlogCategory, lc: Locale): string {

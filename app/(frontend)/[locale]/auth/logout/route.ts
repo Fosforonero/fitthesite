@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 import { createClient } from '@/lib/supabase/server';
 
-const LOCALES = ['it', 'en'] as const;
+const LOCALES = ['it', 'en', 'es', 'de', 'pt', 'fr'] as const;
 
 function safeLocale(l: string | undefined): string {
   return l && (LOCALES as readonly string[]).includes(l) ? l : 'it';

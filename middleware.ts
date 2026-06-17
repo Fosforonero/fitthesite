@@ -27,7 +27,7 @@ type CookieToSet = { name: string; value: string; options: CookieOptions };
 
 const PROTECTED_PREFIXES = ['/app', '/admin'] as const;
 
-const LOCALES = ['it', 'en', 'es'] as const;
+const LOCALES = ['it', 'en', 'es', 'de', 'pt', 'fr'] as const;
 
 function stripLocale(pathname: string): string {
   for (const locale of LOCALES) {
