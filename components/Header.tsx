@@ -73,20 +73,21 @@ export default function Header({
           >
             {dict.nav.privacy}
           </Link>
-          {/* Mobile: CTA primaria → /beta. Desktop: #download. */}
+          {/* CTA primaria → pagina Founder (/beta). Stessa destinazione su mobile e
+              desktop: la home aveva l'ancora #download, rotta su ogni altra pagina. */}
           <Link
             href={`/${locale}/beta`}
             className="ml-1 sm:hidden inline-flex items-center px-4 py-2 rounded-pill btn-cta text-sm min-h-[40px]"
           >
-            Beta
+            Founder
           </Link>
-          <a
-            href="#download"
+          <Link
+            href={`/${locale}/beta`}
             className="ml-1 hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-pill btn-cta text-sm"
           >
-            {dict.nav.download}
+            Founder
             <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-          </a>
+          </Link>
           <LanguageSwitcher current={locale} />
         </nav>
       </div>

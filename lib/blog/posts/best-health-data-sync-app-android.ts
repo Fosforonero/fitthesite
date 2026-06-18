@@ -609,8 +609,8 @@ export const post: BlogPost = {
         fr: "Essayez FitMesh Sync →",
       },
       ctaHref: {
-        it: "/it/download",
-        en: "/en/download",
+        it: "/it#download",
+        en: "/en#download",
       },
     },
   ],

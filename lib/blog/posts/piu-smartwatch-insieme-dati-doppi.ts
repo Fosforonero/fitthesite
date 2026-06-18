@@ -934,11 +934,11 @@ export const post: BlogPost = {
         fr: "Essayez FitMesh Sync →",
       },
       ctaHref: {
-        it: "/it/download",
-        en: "/en/download",
-        de: "/de/download",
-        pt: "/pt/download",
-        fr: "/fr/download",
+        it: "/it#download",
+        en: "/en#download",
+        de: "/de#download",
+        pt: "/pt#download",
+        fr: "/fr#download",
       },
     },
     {

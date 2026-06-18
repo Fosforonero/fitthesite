@@ -30,13 +30,41 @@ const COPY = {
     indie: "Indie dev",
     title: "Built with care",
   },
+  es: {
+    madeIn: "Made in Italy",
+    serverEu: "Servidores en la UE",
+    gdpr: "Privacidad GDPR",
+    indie: "Indie dev",
+    title: "Hecho con cuidado",
+  },
+  de: {
+    madeIn: "Made in Italy",
+    serverEu: "Server in der EU",
+    gdpr: "Datenschutz DSGVO",
+    indie: "Indie dev",
+    title: "Mit Sorgfalt entwickelt",
+  },
+  pt: {
+    madeIn: "Made in Italy",
+    serverEu: "Servidores na UE",
+    gdpr: "Privacidade LGPD/GDPR",
+    indie: "Indie dev",
+    title: "Feito com cuidado",
+  },
+  fr: {
+    madeIn: "Made in Italy",
+    serverEu: "Serveurs dans l'UE",
+    gdpr: "Confidentialité RGPD",
+    indie: "Indie dev",
+    title: "Conçu avec soin",
+  },
 } as const;
 
 export default function TrustBadges({
   locale,
   variant = "default",
 }: {
-  locale: "it" | "en";
+  locale: "it" | "en" | "es" | "de" | "pt" | "fr";
   variant?: Variant;
 }) {
   const t = COPY[locale];

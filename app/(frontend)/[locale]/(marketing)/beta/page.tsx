@@ -92,8 +92,6 @@ export default async function BetaPage({
   const lc = locale as Locale;
 
   const t = lc === "it" ? IT : lc === "es" ? ES : lc === "de" ? DE : lc === "pt" ? PT : lc === "fr" ? FR : EN;
-  // Components not yet translated to ES fall back to EN
-  const lcBilingual: "it" | "en" = lc === "it" ? "it" : "en";
 
   return (
     // <div> e non <main>: il layout (marketing)/layout.tsx wrappa gia' i
@@ -118,7 +116,7 @@ export default async function BetaPage({
 
       <div className="mx-auto max-w-3xl px-6">
         <Breadcrumbs
-          locale={lcBilingual}
+          locale={lc}
           items={[{ name: "Founder", path: `/${lc}/beta` }]}
         />
 
@@ -144,7 +142,7 @@ export default async function BetaPage({
 
           {/* CTA primaria: il founder si attiva scaricando l'app, non con un form */}
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <StoreButtonsRow locale={lcBilingual} />
+            <StoreButtonsRow locale={lc} />
           </div>
           <p className="mt-4 text-xs text-text-muted">{t.ctaNote}</p>
         </header>
@@ -223,13 +221,13 @@ export default async function BetaPage({
           <div className="relative">
             <h2 className="font-display text-2xl font-semibold text-text-primary tracking-tight">{t.formTitle}</h2>
             <p className="mt-2 mb-8 text-text-secondary">{t.formSub}</p>
-            <BetaSignupForm locale={lcBilingual} />
+            <BetaSignupForm locale={lc} />
           </div>
         </section>
 
         {/* Trust badges — rinforza affidabilita' subito sotto il form. */}
         <section className="mt-6">
-          <TrustBadges locale={lcBilingual} variant="compact" />
+          <TrustBadges locale={lc} variant="compact" />
         </section>
 
         {/* FAQ */}
