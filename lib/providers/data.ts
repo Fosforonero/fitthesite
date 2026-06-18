@@ -26,8 +26,8 @@ export type ProviderCategory =
   | "phone-only";
 
 export interface ProviderFAQ {
-  q: { it: string; en: string; es?: string };
-  a: { it: string; en: string; es?: string };
+  q: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
+  a: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
 }
 
 export interface Provider {
@@ -44,32 +44,32 @@ export interface Provider {
   /** Lettera o emoji per il monogramma (no logo proprietario per ora). */
   initial: string;
   /** Tagline breve mostrata nelle card hub e nelle meta description. */
-  tagline: { it: string; en: string; es?: string };
+  tagline: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
   /** Long description per la landing (1-2 paragrafi). */
-  longDesc: { it: string; en: string; es?: string };
+  longDesc: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
   /** Note tecniche sulla modalità di connessione (Health Connect / API diretta / etc.). */
-  techNote: { it: string; en: string; es?: string };
+  techNote: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
   /** Tipi di dato supportati o pianificati (mostrati come pill). */
   dataTypes: Array<{
     key: string;
-    label: { it: string; en: string; es?: string };
+    label: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
     supported: boolean;
   }>;
   /** FAQ specifiche del provider (per JSON-LD FAQPage + render). */
   faqs: ProviderFAQ[];
   /** Keyword principali per il <meta description> e l'H1. */
-  seoKeywords: { it: string[]; en: string[]; es?: string[] };
+  seoKeywords: { it: string[]; en: string[]; es?: string[]; de?: string[]; pt?: string[]; fr?: string[] };
   /**
    * Solo per status="live-basic": dettagli su cosa funziona oggi via Health Connect
    * e cosa aggiungerà l'integrazione OAuth ufficiale.
    */
   viaHC?: {
     /** ETA OAuth ufficiale (es. "Q3 2026"). */
-    oauthEta: { it: string; en: string; es?: string };
+    oauthEta: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
     /** Lista cose che funzionano già via HC (1 riga ognuna). */
-    worksNow: { it: string[]; en: string[]; es?: string[] };
+    worksNow: { it: string[]; en: string[]; es?: string[]; de?: string[]; pt?: string[]; fr?: string[] };
     /** Lista cose che l'OAuth aggiungerà (1 riga ognuna). */
-    oauthAdds: { it: string[]; en: string[]; es?: string[] };
+    oauthAdds: { it: string[]; en: string[]; es?: string[]; de?: string[]; pt?: string[]; fr?: string[] };
   };
   /** Guida step-by-step opzionale renderizzata tra tech note e FAQ. */
   setupGuide?: ProviderSetupGuide;
@@ -83,57 +83,57 @@ export interface Provider {
 
 export interface ProviderSetupGuide {
   /** Passi numerati (5 step ideale). Markdown bold inline OK via **text**. */
-  steps: { it: string[]; en: string[]; es?: string[] };
+  steps: { it: string[]; en: string[]; es?: string[]; de?: string[]; pt?: string[]; fr?: string[] };
   /** Cosa viene sincronizzato (bullet list). */
-  syncedData: { it: string[]; en: string[]; es?: string[] };
+  syncedData: { it: string[]; en: string[]; es?: string[]; de?: string[]; pt?: string[]; fr?: string[] };
   /** Troubleshooting Q&A (3 ideale). */
   troubleshooting: Array<{
-    q: { it: string; en: string; es?: string };
-    a: { it: string; en: string; es?: string };
+    q: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
+    a: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
   }>;
   /** Note tecniche conclusive (1 paragrafo). */
-  technicalNotes: { it: string; en: string; es?: string };
+  technicalNotes: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string };
 }
 
 const STD_DATA_TYPES = (extras: Record<string, boolean> = {}) => [
   {
     key: "steps",
-    label: { it: "Passi", en: "Steps", es: "Pasos" },
+    label: { it: "Passi", en: "Steps", es: "Pasos", de: "Schritte", pt: "Passos", fr: "Pas" },
     supported: extras.steps ?? true,
   },
   {
     key: "hr",
-    label: { it: "Frequenza cardiaca", en: "Heart rate", es: "Frecuencia cardíaca" },
+    label: { it: "Frequenza cardiaca", en: "Heart rate", es: "Frecuencia cardíaca", de: "Herzfrequenz", pt: "Frequência cardíaca", fr: "Fréquence cardiaque" },
     supported: extras.hr ?? true,
   },
   {
     key: "sleep",
-    label: { it: "Sonno con fasi", en: "Sleep with stages", es: "Sueño con fases" },
+    label: { it: "Sonno con fasi", en: "Sleep with stages", es: "Sueño con fases", de: "Schlaf mit Phasen", pt: "Sono com fases", fr: "Sommeil avec phases" },
     supported: extras.sleep ?? true,
   },
   {
     key: "calories",
-    label: { it: "Calorie", en: "Calories", es: "Calorías" },
+    label: { it: "Calorie", en: "Calories", es: "Calorías", de: "Kalorien", pt: "Calorias", fr: "Calories" },
     supported: extras.calories ?? true,
   },
   {
     key: "distance",
-    label: { it: "Distanza & GPS", en: "Distance & GPS", es: "Distancia y GPS" },
+    label: { it: "Distanza & GPS", en: "Distance & GPS", es: "Distancia y GPS", de: "Distanz & GPS", pt: "Distância & GPS", fr: "Distance & GPS" },
     supported: extras.distance ?? true,
   },
   {
     key: "workouts",
-    label: { it: "Allenamenti", en: "Workouts", es: "Entrenamientos" },
+    label: { it: "Allenamenti", en: "Workouts", es: "Entrenamientos", de: "Trainings", pt: "Treinos", fr: "Séances d'entraînement" },
     supported: extras.workouts ?? true,
   },
   {
     key: "vo2max",
-    label: { it: "VO₂ max", en: "VO₂ max", es: "VO₂ máx" },
+    label: { it: "VO₂ max", en: "VO₂ max", es: "VO₂ máx", de: "VO₂ max", pt: "VO₂ máx", fr: "VO₂ max" },
     supported: extras.vo2max ?? false,
   },
   {
     key: "spo2",
-    label: { it: "SpO₂", en: "SpO₂", es: "SpO₂" },
+    label: { it: "SpO₂", en: "SpO₂", es: "SpO₂", de: "SpO₂", pt: "SpO₂", fr: "SpO₂" },
     supported: extras.spo2 ?? false,
   },
 ];
@@ -152,16 +152,25 @@ export const PROVIDERS: Provider[] = [
       it: "Galaxy Watch 4/5/6/7/Ultra su dashboard personale. Setup in 30 secondi.",
       en: "Galaxy Watch 4/5/6/7/Ultra on a personal dashboard. 30-second setup.",
       es: "Galaxy Watch 4/5/6/7/Ultra en tu panel personal. Configuración en 30 segundos.",
+      de: "Galaxy Watch 4/5/6/7/Ultra auf deinem persönlichen Dashboard. Einrichtung in 30 Sekunden.",
+      pt: "Galaxy Watch 4/5/6/7/Ultra no seu painel pessoal. Configuração em 30 segundos.",
+      fr: "Galaxy Watch 4/5/6/7/Ultra sur votre tableau de bord personnel. Configuration en 30 secondes.",
     },
     longDesc: {
       it: "FitMesh Sync legge i dati del tuo Samsung Galaxy Watch tramite Samsung Health + Health Connect e li mostra su una dashboard web personale: passi, battito, sonno con fasi, allenamenti, calorie, VO₂ max. Niente cloud opachi, niente account social, niente pubblicità.",
       en: "FitMesh Sync reads your Samsung Galaxy Watch data via Samsung Health + Health Connect and surfaces it on a personal web dashboard: steps, heart rate, sleep stages, workouts, calories, VO₂ max. No opaque clouds, no social accounts, no ads.",
       es: "FitMesh Sync lee los datos de tu Samsung Galaxy Watch a través de Samsung Health y Health Connect, y los muestra en un panel web personal: pasos, frecuencia cardíaca, fases del sueño, entrenamientos, calorías y VO₂ máx. Sin nubes opacas, sin cuentas sociales, sin publicidad.",
+      de: "FitMesh Sync liest die Daten deiner Samsung Galaxy Watch über Samsung Health und Health Connect und zeigt sie auf einem persönlichen Web-Dashboard: Schritte, Herzfrequenz, Schlafphasen, Trainings, Kalorien und VO₂ max. Keine undurchsichtigen Clouds, keine sozialen Konten, keine Werbung.",
+      pt: "O FitMesh Sync lê os dados do seu Samsung Galaxy Watch via Samsung Health + Health Connect e os exibe em um painel web pessoal: passos, frequência cardíaca, fases do sono, treinos, calorias e VO₂ máx. Sem nuvens opacas, sem contas sociais, sem anúncios.",
+      fr: "FitMesh Sync lit les données de votre Samsung Galaxy Watch via Samsung Health et Health Connect, et les affiche sur un tableau de bord web personnel : pas, fréquence cardiaque, phases du sommeil, séances d'entraînement, calories et VO₂ max. Sans nuages opaques, sans comptes sociaux, sans publicité.",
     },
     techNote: {
       it: "Connessione nativa via Health Connect, non richiede login OAuth. I dati restano sul telefono e vengono inviati solo al server che scegli tu nelle impostazioni.",
       en: "Native connection via Health Connect, no OAuth login required. Data stays on your phone and is only sent to the server you choose in settings.",
       es: "Conexión nativa a través de Health Connect, sin necesidad de inicio de sesión OAuth. Los datos permanecen en tu dispositivo y solo se envían al servidor que tú elijas en los ajustes.",
+      de: "Native Verbindung über Health Connect, kein OAuth-Login erforderlich. Die Daten bleiben auf deinem Smartphone und werden nur an den Server gesendet, den du in den Einstellungen auswählst.",
+      pt: "Conexão nativa via Health Connect, sem necessidade de login OAuth. Os dados ficam no seu telefone e são enviados apenas ao servidor que você escolher nas configurações.",
+      fr: "Connexion native via Health Connect, aucune connexion OAuth requise. Les données restent sur votre téléphone et ne sont envoyées qu'au serveur que vous choisissez dans les paramètres.",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: true, spo2: true }),
     faqs: [
@@ -170,11 +179,17 @@ export const PROVIDERS: Provider[] = [
           it: "Funziona con Galaxy Watch 4?",
           en: "Does it work with Galaxy Watch 4?",
           es: "¿Funciona con el Galaxy Watch 4?",
+          de: "Funktioniert es mit der Galaxy Watch 4?",
+          pt: "Funciona com o Galaxy Watch 4?",
+          fr: "Fonctionne-t-il avec la Galaxy Watch 4 ?",
         },
         a: {
           it: "Sì. Tutti i Galaxy Watch dal 4 in poi (Watch 4, 5, 5 Pro, 6, 6 Classic, 7, Ultra) sono supportati nativamente perché scrivono su Samsung Health, che FitMesh legge via Health Connect.",
           en: "Yes. All Galaxy Watch models from 4 onwards (Watch 4, 5, 5 Pro, 6, 6 Classic, 7, Ultra) are supported natively because they write to Samsung Health, which FitMesh reads via Health Connect.",
           es: "Sí. Todos los Galaxy Watch desde el 4 en adelante (Watch 4, 5, 5 Pro, 6, 6 Classic, 7, Ultra) son compatibles de forma nativa porque escriben en Samsung Health, que FitMesh lee a través de Health Connect.",
+          de: "Ja. Alle Galaxy Watch-Modelle ab Watch 4 (Watch 4, 5, 5 Pro, 6, 6 Classic, 7, Ultra) werden nativ unterstützt, da sie auf Samsung Health schreiben, das FitMesh über Health Connect ausliest.",
+          pt: "Sim. Todos os modelos Galaxy Watch a partir do 4 (Watch 4, 5, 5 Pro, 6, 6 Classic, 7, Ultra) são suportados nativamente porque escrevem no Samsung Health, que o FitMesh lê via Health Connect.",
+          fr: "Oui. Tous les modèles Galaxy Watch à partir du 4 (Watch 4, 5, 5 Pro, 6, 6 Classic, 7, Ultra) sont pris en charge nativement, car ils écrivent dans Samsung Health, que FitMesh lit via Health Connect.",
         },
       },
       {
@@ -182,11 +197,17 @@ export const PROVIDERS: Provider[] = [
           it: "Devo installare Samsung Health?",
           en: "Do I need to install Samsung Health?",
           es: "¿Necesito instalar Samsung Health?",
+          de: "Muss ich Samsung Health installieren?",
+          pt: "Preciso instalar o Samsung Health?",
+          fr: "Dois-je installer Samsung Health ?",
         },
         a: {
           it: "Sì. Samsung Health è il bridge che il tuo Galaxy Watch usa per scrivere su Health Connect. È già preinstallato sui telefoni Samsung. Su altri Android Samsung Health è gratis dal Play Store.",
           en: "Yes. Samsung Health is the bridge your Galaxy Watch uses to write to Health Connect. It's preinstalled on Samsung phones. On other Android devices Samsung Health is free on the Play Store.",
           es: "Sí. Samsung Health es el puente que usa tu Galaxy Watch para escribir en Health Connect. Viene preinstalado en los teléfonos Samsung. En otros dispositivos Android, Samsung Health es gratis en Google Play.",
+          de: "Ja. Samsung Health ist die Brücke, über die deine Galaxy Watch auf Health Connect schreibt. Auf Samsung-Smartphones ist es vorinstalliert. Auf anderen Android-Geräten ist Samsung Health kostenlos im Play Store erhältlich.",
+          pt: "Sim. O Samsung Health é a ponte que o seu Galaxy Watch usa para escrever no Health Connect. Ele já vem pré-instalado em telefones Samsung. Em outros dispositivos Android, o Samsung Health é gratuito no Google Play.",
+          fr: "Oui. Samsung Health est le pont que votre Galaxy Watch utilise pour écrire dans Health Connect. Il est préinstallé sur les téléphones Samsung. Sur les autres appareils Android, Samsung Health est gratuit sur le Play Store.",
         },
       },
       {
@@ -194,11 +215,17 @@ export const PROVIDERS: Provider[] = [
           it: "I dati arrivano in tempo reale?",
           en: "Is the data real-time?",
           es: "¿Los datos se actualizan en tiempo real?",
+          de: "Werden die Daten in Echtzeit übertragen?",
+          pt: "Os dados chegam em tempo real?",
+          fr: "Les données arrivent-elles en temps réel ?",
         },
         a: {
           it: "Il sync è automatico ogni 15 minuti in background, oltre a un sync immediato all'apertura dell'app. Per dati istantanei puoi premere 'Sincronizza ora' nel menu.",
           en: "Sync runs automatically every 15 minutes in the background, plus an instant sync when you open the app. For real-time data tap 'Sync now' in the menu.",
           es: "La sincronización se ejecuta automáticamente cada 15 minutos en segundo plano, además de una sincronización inmediata al abrir la app. Para datos al instante, pulsa 'Sincronizar ahora' en el menú.",
+          de: "Die Synchronisierung läuft automatisch alle 15 Minuten im Hintergrund, zusätzlich gibt es eine sofortige Synchronisierung beim Öffnen der App. Für aktuelle Daten tippe im Menü auf 'Jetzt synchronisieren'.",
+          pt: "A sincronização ocorre automaticamente a cada 15 minutos em segundo plano, mais uma sincronização imediata ao abrir o app. Para dados instantâneos, toque em 'Sincronizar agora' no menu.",
+          fr: "La synchronisation s'effectue automatiquement toutes les 15 minutes en arrière-plan, ainsi qu'une synchronisation instantanée à l'ouverture de l'app. Pour des données immédiates, appuyez sur 'Synchroniser maintenant' dans le menu.",
         },
       },
     ],
@@ -220,6 +247,24 @@ export const PROVIDERS: Provider[] = [
         "exportar datos samsung health",
         "galaxy watch panel web",
         "datos de salud galaxy watch",
+      ],
+      de: [
+        "galaxy watch dashboard synchronisieren",
+        "samsung health daten exportieren",
+        "galaxy watch web dashboard",
+        "gesundheitsdaten galaxy watch",
+      ],
+      pt: [
+        "sincronizar galaxy watch painel",
+        "exportar dados samsung health",
+        "galaxy watch painel web",
+        "dados de saúde galaxy watch",
+      ],
+      fr: [
+        "synchroniser galaxy watch tableau de bord",
+        "exporter données samsung health",
+        "galaxy watch tableau de bord web",
+        "données santé galaxy watch",
       ],
     },
     setupGuide: {
@@ -244,6 +289,27 @@ export const PROVIDERS: Provider[] = [
           "Abre Samsung Health → menú ☰ → Ajustes → Health Connect → pulsa **Autorizar** y activa lectura/escritura para pasos, BPM, sueño, calorías, distancia, entrenamientos y SpO₂.",
           "Instala **FitMesh Sync** desde Google Play e inicia sesión con Google.",
           "Concede a FitMesh los permisos de Health Connect solicitados en el primer inicio. Pulsa **Sincronizar ahora** para la carga inicial de datos.",
+        ],
+        de: [
+          "Installiere **Health Connect** aus dem Play Store (auf Android 14+ vorinstalliert).",
+          "Aktualisiere **Samsung Health** auf die neueste Version und öffne die App mindestens einmal.",
+          "Öffne Samsung Health → ☰-Menü → Einstellungen → Health Connect → tippe auf **Autorisieren** und aktiviere Lesen/Schreiben für Schritte, Herzfrequenz, Schlaf, Kalorien, Distanz, Trainings und SpO₂.",
+          "Installiere **FitMesh Sync** aus dem Play Store und melde dich mit Google an.",
+          "Erteile FitMesh beim ersten Start die angeforderten Health Connect-Berechtigungen. Tippe auf **Jetzt synchronisieren** für den ersten Datenimport.",
+        ],
+        pt: [
+          "Instale o **Health Connect** no Google Play (pré-instalado no Android 14+).",
+          "Atualize o **Samsung Health** para a versão mais recente e abra o app pelo menos uma vez.",
+          "Abra o Samsung Health → menu ☰ → Configurações → Health Connect → toque em **Autorizar** e ative leitura/escrita para passos, BPM, sono, calorias, distância, treinos e SpO₂.",
+          "Instale o **FitMesh Sync** no Google Play e faça login com o Google.",
+          "Conceda ao FitMesh as permissões do Health Connect solicitadas no primeiro acesso. Toque em **Sincronizar agora** para o preenchimento inicial.",
+        ],
+        fr: [
+          "Installez **Health Connect** depuis le Play Store (préinstallé sur Android 14+).",
+          "Mettez à jour **Samsung Health** vers la dernière version et ouvrez l'app au moins une fois.",
+          "Ouvrez Samsung Health → menu ☰ → Paramètres → Health Connect → appuyez sur **Autoriser** et activez lecture/écriture pour les pas, la fréquence cardiaque, le sommeil, les calories, la distance, les séances d'entraînement et SpO₂.",
+          "Installez **FitMesh Sync** depuis le Play Store et connectez-vous avec Google.",
+          "Accordez à FitMesh les autorisations Health Connect demandées au premier lancement. Appuyez sur **Synchroniser maintenant** pour l'import initial.",
         ],
       },
       syncedData: {
@@ -277,6 +343,36 @@ export const PROVIDERS: Provider[] = [
           "SpO₂: saturación de oxígeno nocturna",
           "VO₂ máx (si lo mide el Watch)",
         ],
+        de: [
+          "Tägliche und stündliche Schritte",
+          "Herzfrequenz (Durchschnitt, Ruhe, kontinuierliche Messung)",
+          "Schlaf mit Phasen (Tiefschlaf, REM, Leichtschlaf, Wach)",
+          "Aktive und Grundumsatz-Kalorien",
+          "Zurückgelegte Distanz",
+          "Trainings (Typ, Dauer, kcal, durchschnittliche Herzfrequenz)",
+          "SpO₂: nächtliche Blutsauerstoffsättigung",
+          "VO₂ max (sofern von der Watch gemessen)",
+        ],
+        pt: [
+          "Passos diários e por intervalo",
+          "Frequência cardíaca (média, repouso, amostras contínuas)",
+          "Sono com fases (profundo, REM, leve, acordado)",
+          "Calorias ativas e basais",
+          "Distância percorrida",
+          "Treinos (tipo, duração, kcal, BPM médio)",
+          "SpO₂: saturação de oxigênio noturna",
+          "VO₂ máx (quando medido pelo Watch)",
+        ],
+        fr: [
+          "Pas quotidiens et infrajournaliers",
+          "Fréquence cardiaque (moyenne, repos, mesures continues)",
+          "Sommeil avec phases (profond, REM, léger, éveillé)",
+          "Calories actives et de base",
+          "Distance parcourue",
+          "Séances d'entraînement (type, durée, kcal, fréquence cardiaque moyenne)",
+          "SpO₂ : saturation en oxygène nocturne",
+          "VO₂ max (si mesuré par la montre)",
+        ],
       },
       troubleshooting: [
         {
@@ -284,11 +380,17 @@ export const PROVIDERS: Provider[] = [
             it: "Non vedo i miei dati su FitMesh",
             en: "I don't see my data in FitMesh",
             es: "No veo mis datos en FitMesh",
+            de: "Ich sehe meine Daten nicht in FitMesh",
+            pt: "Não vejo meus dados no FitMesh",
+            fr: "Je ne vois pas mes données dans FitMesh",
           },
           a: {
             it: "Torna in Samsung Health → Impostazioni → Health Connect → verifica che FitMesh sia nella lista app autorizzate.",
             en: "Go back to Samsung Health → Settings → Health Connect → make sure FitMesh is in the authorized apps list.",
             es: "Ve a Samsung Health → Ajustes → Health Connect y verifica que FitMesh aparezca en la lista de apps autorizadas.",
+            de: "Gehe zu Samsung Health → Einstellungen → Health Connect und prüfe, ob FitMesh in der Liste der autorisierten Apps steht.",
+            pt: "Volte ao Samsung Health → Configurações → Health Connect e verifique se o FitMesh está na lista de apps autorizados.",
+            fr: "Revenez dans Samsung Health → Paramètres → Health Connect et vérifiez que FitMesh figure dans la liste des apps autorisées.",
           },
         },
         {
@@ -296,11 +398,17 @@ export const PROVIDERS: Provider[] = [
             it: "I dati arrivano in ritardo",
             en: "Data arrives late",
             es: "Los datos llegan con retraso",
+            de: "Die Daten kommen verzögert an",
+            pt: "Os dados chegam com atraso",
+            fr: "Les données arrivent en retard",
           },
           a: {
             it: "Samsung Health spinge su Health Connect ogni 15 minuti circa. Per forzare un push immediato apri Samsung Health, scorri verso il basso sulla home, poi torna su FitMesh e premi 'Sincronizza ora'.",
             en: "Samsung Health pushes to Health Connect roughly every 15 minutes. To force an immediate push open Samsung Health, pull down to refresh, then return to FitMesh and tap 'Sync now'.",
             es: "Samsung Health envía datos a Health Connect aproximadamente cada 15 minutos. Para forzar una actualización inmediata, abre Samsung Health, desliza hacia abajo en la pantalla principal y luego vuelve a FitMesh y pulsa 'Sincronizar ahora'.",
+            de: "Samsung Health überträgt Daten ungefähr alle 15 Minuten an Health Connect. Um eine sofortige Übertragung zu erzwingen, öffne Samsung Health, ziehe die Startseite nach unten zum Aktualisieren und tippe dann in FitMesh auf 'Jetzt synchronisieren'.",
+            pt: "O Samsung Health envia dados ao Health Connect aproximadamente a cada 15 minutos. Para forçar um envio imediato, abra o Samsung Health, deslize para baixo na tela inicial e volte ao FitMesh tocando em 'Sincronizar agora'.",
+            fr: "Samsung Health envoie les données à Health Connect toutes les 15 minutes environ. Pour forcer un envoi immédiat, ouvrez Samsung Health, tirez vers le bas sur l'écran d'accueil pour rafraîchir, puis revenez dans FitMesh et appuyez sur 'Synchroniser maintenant'.",
           },
         },
         {
@@ -308,11 +416,17 @@ export const PROVIDERS: Provider[] = [
             it: "Vedo i passi ma non il sonno",
             en: "I see steps but not sleep",
             es: "Veo los pasos pero no el sueño",
+            de: "Ich sehe die Schritte, aber keinen Schlaf",
+            pt: "Vejo os passos mas não o sono",
+            fr: "Je vois les pas mais pas le sommeil",
           },
           a: {
             it: "In Samsung Health → Impostazioni → Health Connect controlla che il permesso 'Sonno' sia attivo. È un permesso separato e di default non è incluso nel 'Concedi tutto'.",
             en: "In Samsung Health → Settings → Health Connect verify that the 'Sleep' permission is enabled. It's a separate permission and is not included in 'Allow all' by default.",
             es: "En Samsung Health → Ajustes → Health Connect, comprueba que el permiso 'Sueño' esté activo. Es un permiso independiente y por defecto no está incluido en 'Autorizar todo'.",
+            de: "Prüfe in Samsung Health → Einstellungen → Health Connect, ob die Berechtigung 'Schlaf' aktiv ist. Es handelt sich um eine separate Berechtigung, die standardmäßig nicht in 'Alle erlauben' enthalten ist.",
+            pt: "Em Samsung Health → Configurações → Health Connect, verifique se a permissão 'Sono' está ativa. É uma permissão separada e, por padrão, não está incluída em 'Autorizar tudo'.",
+            fr: "Dans Samsung Health → Paramètres → Health Connect, vérifiez que l'autorisation 'Sommeil' est activée. Il s'agit d'une autorisation distincte, non incluse par défaut dans 'Tout autoriser'.",
           },
         },
       ],
@@ -320,6 +434,9 @@ export const PROVIDERS: Provider[] = [
         it: "Connessione via Health Connect, no OAuth. Latenza tipica 5–15 minuti dal Watch alla dashboard. Granularità: passi e BPM per minuto, sonno per fase, allenamenti per sessione. I dati restano sul telefono e vengono inviati solo al backend Supabase del tuo account FitMesh.",
         en: "Connection via Health Connect, no OAuth. Typical latency 5–15 minutes from Watch to dashboard. Granularity: steps and heart rate per minute, sleep per stage, workouts per session. Data stays on your phone and is only sent to your FitMesh account's Supabase backend.",
         es: "Conexión a través de Health Connect, sin OAuth. Latencia típica de 5 a 15 minutos desde el Watch hasta el panel. Granularidad: pasos y BPM por minuto, sueño por fase, entrenamientos por sesión. Los datos permanecen en tu dispositivo y solo se envían al backend Supabase de tu cuenta FitMesh.",
+        de: "Verbindung über Health Connect, kein OAuth. Typische Latenz 5–15 Minuten von der Watch bis zum Dashboard. Granularität: Schritte und Herzfrequenz pro Minute, Schlaf pro Phase, Trainings pro Einheit. Die Daten bleiben auf deinem Smartphone und werden nur an das Supabase-Backend deines FitMesh-Kontos gesendet.",
+        pt: "Conexão via Health Connect, sem OAuth. Latência típica de 5 a 15 minutos do Watch até o painel. Granularidade: passos e BPM por minuto, sono por fase, treinos por sessão. Os dados ficam no seu telefone e são enviados apenas ao backend Supabase da sua conta FitMesh.",
+        fr: "Connexion via Health Connect, sans OAuth. Latence typique de 5 à 15 minutes de la montre au tableau de bord. Granularité : pas et fréquence cardiaque par minute, sommeil par phase, séances d'entraînement par session. Les données restent sur votre téléphone et ne sont envoyées qu'au backend Supabase de votre compte FitMesh.",
       },
     },
     relatedBlogSlugs: ["backup-galaxy-watch-pc", "guida-sync-wearable-2026"],
@@ -336,25 +453,44 @@ export const PROVIDERS: Provider[] = [
       it: "Pixel Watch e qualsiasi Wear OS su dashboard personale. Privacy-first.",
       en: "Pixel Watch and any Wear OS on a personal dashboard. Privacy-first.",
       es: "Pixel Watch y cualquier Wear OS en tu panel personal. Privacidad ante todo.",
+      de: "Pixel Watch und jede Wear OS-Uhr auf deinem persönlichen Dashboard. Datenschutz zuerst.",
+      pt: "Pixel Watch e qualquer Wear OS no seu painel pessoal. Privacidade em primeiro lugar.",
+      fr: "Pixel Watch et toute montre Wear OS sur votre tableau de bord personnel. La confidentialité avant tout.",
     },
     longDesc: {
       it: "FitMesh Sync supporta tutti gli smartwatch Wear OS (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) leggendoli via Health Connect. I dati raccolti dal sensore vanno direttamente nella tua dashboard, senza passare da Google Fit o cloud terzi.",
       en: "FitMesh Sync supports every Wear OS smartwatch (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) reading them via Health Connect. Sensor data goes straight to your dashboard without routing through Google Fit or any third-party cloud.",
       es: "FitMesh Sync es compatible con todos los smartwatch Wear OS (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) leyendo los datos a través de Health Connect. La información de los sensores llega directamente a tu panel, sin pasar por Google Fit ni por ninguna nube de terceros.",
+      de: "FitMesh Sync unterstützt alle Wear OS-Smartwatches (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) über Health Connect. Die Sensordaten gehen direkt in dein Dashboard, ohne den Umweg über Google Fit oder eine fremde Cloud.",
+      pt: "O FitMesh Sync suporta todos os smartwatches Wear OS (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) lendo-os via Health Connect. Os dados do sensor vão diretamente para o seu painel, sem passar pelo Google Fit ou por nuvens de terceiros.",
+      fr: "FitMesh Sync prend en charge toutes les montres connectées Wear OS (Pixel Watch 1/2/3, OnePlus Watch, TicWatch, Mobvoi, Fossil Gen 6) en les lisant via Health Connect. Les données des capteurs arrivent directement dans votre tableau de bord, sans passer par Google Fit ni aucun cloud tiers.",
     },
     techNote: {
       it: "Health Connect è lo standard ufficiale Android per i dati di salute, sostituendo Google Fit dal 2025. FitMesh si integra senza chiavi API né OAuth.",
       en: "Health Connect is the official Android standard for health data, replacing Google Fit since 2025. FitMesh integrates without API keys or OAuth.",
       es: "Health Connect es el estándar oficial de Android para los datos de salud, sustituyendo a Google Fit desde 2025. FitMesh se integra sin claves de API ni OAuth.",
+      de: "Health Connect ist der offizielle Android-Standard für Gesundheitsdaten und hat Google Fit seit 2025 abgelöst. FitMesh integriert sich ohne API-Schlüssel oder OAuth.",
+      pt: "O Health Connect é o padrão oficial do Android para dados de saúde, substituindo o Google Fit desde 2025. O FitMesh integra sem chaves de API nem OAuth.",
+      fr: "Health Connect est le standard officiel Android pour les données de santé, remplaçant Google Fit depuis 2025. FitMesh s'intègre sans clés API ni OAuth.",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: true, spo2: true }),
     faqs: [
       {
-        q: { it: "Funziona col Pixel Watch?", en: "Does it work with Pixel Watch?", es: "¿Funciona con el Pixel Watch?" },
+        q: {
+          it: "Funziona col Pixel Watch?",
+          en: "Does it work with Pixel Watch?",
+          es: "¿Funciona con el Pixel Watch?",
+          de: "Funktioniert es mit der Pixel Watch?",
+          pt: "Funciona com o Pixel Watch?",
+          fr: "Fonctionne-t-il avec la Pixel Watch ?",
+        },
         a: {
           it: "Sì, Pixel Watch 1, 2 e 3 sono supportati nativamente. I dati passano via Fitbit (app) → Health Connect → FitMesh.",
           en: "Yes, Pixel Watch 1, 2 and 3 are natively supported. Data flows via Fitbit app → Health Connect → FitMesh.",
           es: "Sí, Pixel Watch 1, 2 y 3 son compatibles de forma nativa. Los datos fluyen a través de la app Fitbit → Health Connect → FitMesh.",
+          de: "Ja, Pixel Watch 1, 2 und 3 werden nativ unterstützt. Die Daten fließen über die Fitbit-App → Health Connect → FitMesh.",
+          pt: "Sim, Pixel Watch 1, 2 e 3 são suportados nativamente. Os dados fluem via app Fitbit → Health Connect → FitMesh.",
+          fr: "Oui, Pixel Watch 1, 2 et 3 sont pris en charge nativement. Les données transitent via l'app Fitbit → Health Connect → FitMesh.",
         },
       },
       {
@@ -362,11 +498,17 @@ export const PROVIDERS: Provider[] = [
           it: "Serve Google Fit?",
           en: "Do I need Google Fit?",
           es: "¿Necesito Google Fit?",
+          de: "Brauche ich Google Fit?",
+          pt: "Preciso do Google Fit?",
+          fr: "Ai-je besoin de Google Fit ?",
         },
         a: {
           it: "No, Google Fit non è più richiesto. Health Connect è il bridge ufficiale dal 2025. Se hai ancora Google Fit installato puoi disinstallarlo.",
           en: "No, Google Fit is no longer required. Health Connect is the official bridge from 2025 onwards. If you still have Google Fit installed you can uninstall it.",
           es: "No, Google Fit ya no es necesario. Health Connect es el puente oficial desde 2025. Si todavía tienes Google Fit instalado, puedes desinstalarlo.",
+          de: "Nein, Google Fit wird nicht mehr benötigt. Health Connect ist ab 2025 die offizielle Brücke. Falls du Google Fit noch installiert hast, kannst du es deinstallieren.",
+          pt: "Não, o Google Fit não é mais necessário. O Health Connect é a ponte oficial desde 2025. Se você ainda tiver o Google Fit instalado, pode desinstalá-lo.",
+          fr: "Non, Google Fit n'est plus nécessaire. Health Connect est le pont officiel depuis 2025. Si vous avez encore Google Fit installé, vous pouvez le désinstaller.",
         },
       },
     ],
@@ -386,6 +528,21 @@ export const PROVIDERS: Provider[] = [
         "pixel watch panel web",
         "wear os health connect",
       ],
+      de: [
+        "wear os dashboard synchronisieren",
+        "pixel watch web dashboard",
+        "wear os health connect",
+      ],
+      pt: [
+        "sincronizar wear os painel",
+        "pixel watch painel web",
+        "wear os health connect",
+      ],
+      fr: [
+        "synchroniser wear os tableau de bord",
+        "pixel watch tableau de bord web",
+        "wear os health connect",
+      ],
     },
   },
   {
@@ -400,16 +557,25 @@ export const PROVIDERS: Provider[] = [
       it: "Pixel Watch 1/2/3 su dashboard personale via Fitbit + Health Connect.",
       en: "Pixel Watch 1/2/3 on a personal dashboard via Fitbit + Health Connect.",
       es: "Pixel Watch 1/2/3 en tu panel personal vía Fitbit y Health Connect.",
+      de: "Pixel Watch 1/2/3 auf deinem persönlichen Dashboard via Fitbit und Health Connect.",
+      pt: "Pixel Watch 1/2/3 no seu painel pessoal via Fitbit e Health Connect.",
+      fr: "Pixel Watch 1/2/3 sur votre tableau de bord personnel via Fitbit et Health Connect.",
     },
     longDesc: {
       it: "Il Pixel Watch usa l'app Fitbit come backend ufficiale: i dati di passi, BPM, sonno e calorie passano dal Watch a Fitbit, da Fitbit a Health Connect, e da lì FitMesh li legge automaticamente. Funziona con Pixel Watch 1, 2 e 3, senza OAuth, senza chiavi API, in un setup di 5 minuti.",
       en: "The Pixel Watch uses the Fitbit app as its official backend: steps, heart rate, sleep and calories flow from the Watch to Fitbit, from Fitbit to Health Connect, and from there FitMesh reads them automatically. Works with Pixel Watch 1, 2 and 3, no OAuth, no API keys, 5-minute setup.",
       es: "El Pixel Watch usa la app Fitbit como backend oficial: pasos, frecuencia cardíaca, sueño y calorías fluyen del Watch a Fitbit, de Fitbit a Health Connect y desde allí FitMesh los lee automáticamente. Compatible con Pixel Watch 1, 2 y 3, sin OAuth, sin claves de API, configuración en 5 minutos.",
+      de: "Die Pixel Watch verwendet die Fitbit-App als offiziellen Backend: Schritte, Herzfrequenz, Schlaf und Kalorien fließen von der Watch zu Fitbit, von Fitbit zu Health Connect, und von dort liest FitMesh sie automatisch. Funktioniert mit Pixel Watch 1, 2 und 3, kein OAuth, keine API-Schlüssel, Einrichtung in 5 Minuten.",
+      pt: "O Pixel Watch usa o app Fitbit como backend oficial: passos, frequência cardíaca, sono e calorias fluem do Watch para o Fitbit, do Fitbit para o Health Connect e, de lá, o FitMesh os lê automaticamente. Funciona com Pixel Watch 1, 2 e 3, sem OAuth, sem chaves de API, configuração em 5 minutos.",
+      fr: "La Pixel Watch utilise l'app Fitbit comme backend officiel : les pas, la fréquence cardiaque, le sommeil et les calories transitent de la montre vers Fitbit, de Fitbit vers Health Connect, et de là FitMesh les lit automatiquement. Fonctionne avec Pixel Watch 1, 2 et 3, sans OAuth, sans clés API, installation en 5 minutes.",
     },
     techNote: {
       it: "Catena di sync: Pixel Watch → app Fitbit → Health Connect → FitMesh. Latenza tipica 15–30 minuti. Le fasi di sonno REM/Deep/Light dettagliate richiedono l'OAuth Fitbit Web API (Q3 2026).",
       en: "Sync chain: Pixel Watch → Fitbit app → Health Connect → FitMesh. Typical latency 15–30 minutes. Detailed REM/Deep/Light sleep stages require Fitbit Web API OAuth (Q3 2026).",
       es: "Cadena de sincronización: Pixel Watch → app Fitbit → Health Connect → FitMesh. Latencia típica de 15 a 30 minutos. Las fases de sueño detalladas (REM/profundo/ligero) requieren el OAuth de la Fitbit Web API (Q3 2026).",
+      de: "Sync-Kette: Pixel Watch → Fitbit-App → Health Connect → FitMesh. Typische Latenz 15–30 Minuten. Detaillierte REM/Tief/Leicht-Schlafphasen erfordern das Fitbit Web API OAuth (Q3 2026).",
+      pt: "Cadeia de sincronização: Pixel Watch → app Fitbit → Health Connect → FitMesh. Latência típica de 15 a 30 minutos. As fases de sono detalhadas REM/profundo/leve requerem o OAuth da Fitbit Web API (Q3 2026).",
+      fr: "Chaîne de synchronisation : Pixel Watch → app Fitbit → Health Connect → FitMesh. Latence typique 15 à 30 minutes. Les phases de sommeil détaillées REM/profond/léger nécessitent le OAuth de la Fitbit Web API (Q3 2026).",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: false, spo2: true }),
     faqs: [
@@ -418,11 +584,17 @@ export const PROVIDERS: Provider[] = [
           it: "Devo installare l'app Fitbit?",
           en: "Do I need the Fitbit app?",
           es: "¿Necesito la app de Fitbit?",
+          de: "Muss ich die Fitbit-App installieren?",
+          pt: "Preciso do app Fitbit?",
+          fr: "Dois-je installer l'app Fitbit ?",
         },
         a: {
           it: "Sì: il Pixel Watch usa Fitbit come app companion ufficiale. Senza Fitbit installato i dati non vengono sincronizzati. Una volta connessa Fitbit a Health Connect, FitMesh legge tutto automaticamente.",
           en: "Yes: Pixel Watch uses Fitbit as the official companion app. Without Fitbit installed data isn't synced. Once Fitbit is connected to Health Connect, FitMesh reads everything automatically.",
           es: "Sí: el Pixel Watch usa Fitbit como app companion oficial. Sin Fitbit instalado, los datos no se sincronizan. Una vez que conectas Fitbit a Health Connect, FitMesh lee todo automáticamente.",
+          de: "Ja: Die Pixel Watch verwendet Fitbit als offizielle Companion-App. Ohne installiertes Fitbit werden keine Daten synchronisiert. Sobald Fitbit mit Health Connect verbunden ist, liest FitMesh alles automatisch.",
+          pt: "Sim: o Pixel Watch usa o Fitbit como app companion oficial. Sem o Fitbit instalado, os dados não são sincronizados. Uma vez que o Fitbit esteja conectado ao Health Connect, o FitMesh lê tudo automaticamente.",
+          fr: "Oui : la Pixel Watch utilise Fitbit comme app companion officielle. Sans Fitbit installé, les données ne sont pas synchronisées. Une fois Fitbit connecté à Health Connect, FitMesh lit tout automatiquement.",
         },
       },
       {
@@ -430,11 +602,17 @@ export const PROVIDERS: Provider[] = [
           it: "Perché non vedo le fasi del sonno (REM/Deep/Light)?",
           en: "Why can't I see sleep stages (REM/Deep/Light)?",
           es: "¿Por qué no veo las fases del sueño (REM/profundo/ligero)?",
+          de: "Warum sehe ich keine Schlafphasen (REM/Tief/Leicht)?",
+          pt: "Por que não vejo as fases do sono (REM/profundo/leve)?",
+          fr: "Pourquoi ne vois-je pas les phases du sommeil (REM/profond/léger) ?",
         },
         a: {
           it: "Via Health Connect Fitbit espone il sonno solo come durata totale. Le fasi REM/Deep/Light/Awake arriveranno con l'OAuth Fitbit Web API previsto per Q3 2026.",
           en: "Via Health Connect Fitbit only exposes sleep as total duration. REM/Deep/Light/Awake stages will arrive with the planned Fitbit Web API OAuth (Q3 2026).",
           es: "A través de Health Connect, Fitbit solo expone el sueño como duración total. Las fases REM/profundo/ligero/despierto llegarán con el OAuth de la Fitbit Web API previsto para el Q3 2026.",
+          de: "Über Health Connect zeigt Fitbit den Schlaf nur als Gesamtdauer. Die REM/Tief/Leicht/Wach-Phasen werden mit dem geplanten Fitbit Web API OAuth (Q3 2026) verfügbar sein.",
+          pt: "Via Health Connect, o Fitbit expõe o sono apenas como duração total. As fases REM/profundo/leve/acordado chegarão com o OAuth da Fitbit Web API previsto para o Q3 2026.",
+          fr: "Via Health Connect, Fitbit n'expose le sommeil que comme durée totale. Les phases REM/profond/léger/éveillé seront disponibles avec le OAuth de la Fitbit Web API prévu pour le T3 2026.",
         },
       },
     ],
@@ -457,6 +635,24 @@ export const PROVIDERS: Provider[] = [
         "alternativa fitbit pixel watch",
         "exportar datos pixel watch",
       ],
+      de: [
+        "pixel watch dashboard synchronisieren",
+        "pixel watch health connect",
+        "pixel watch fitbit alternative",
+        "pixel watch daten exportieren",
+      ],
+      pt: [
+        "sincronizar pixel watch painel",
+        "pixel watch health connect",
+        "alternativa fitbit pixel watch",
+        "exportar dados pixel watch",
+      ],
+      fr: [
+        "synchroniser pixel watch tableau de bord",
+        "pixel watch health connect",
+        "alternative fitbit pixel watch",
+        "exporter données pixel watch",
+      ],
     },
     setupGuide: {
       steps: {
@@ -473,6 +669,27 @@ export const PROVIDERS: Provider[] = [
           "Open Fitbit → **You** tab (bottom right) → **Health Connect** → tap **Connect** and authorize write access for steps, heart rate, sleep, calories, distance, workouts.",
           "Install **FitMesh Sync** from the Play Store and sign in with Google.",
           "Grant the Health Connect permissions FitMesh requests on first launch, then tap **Sync now**.",
+        ],
+        de: [
+          "Installiere **Health Connect** aus dem Play Store (auf Android 14+ vorinstalliert).",
+          "Installiere oder aktualisiere die **Fitbit-App** auf dem Android-Telefon, das mit deiner Pixel Watch gekoppelt ist (die Pixel Watch verwendet Fitbit als Backend).",
+          "Öffne Fitbit → Tab **Du** (unten rechts) → **Health Connect** → tippe auf **Verbinden** und autorisiere den Schreibzugriff für Schritte, Herzfrequenz, Schlaf, Kalorien, Distanz und Trainings.",
+          "Installiere **FitMesh Sync** aus dem Play Store und melde dich mit Google an.",
+          "Erteile die von FitMesh angeforderten Health Connect-Berechtigungen beim ersten Start, dann tippe auf **Jetzt synchronisieren**.",
+        ],
+        pt: [
+          "Instale o **Health Connect** no Google Play (pré-instalado no Android 14+).",
+          "Instale ou atualize o **app Fitbit** no telefone Android associado ao seu Pixel Watch (o Pixel Watch usa o Fitbit como backend).",
+          "Abra o Fitbit → aba **Você** (canto inferior direito) → **Health Connect** → toque em **Conectar** e autorize a escrita de passos, frequência cardíaca, sono, calorias, distância e treinos.",
+          "Instale o **FitMesh Sync** no Google Play e faça login com o Google.",
+          "Conceda as permissões do Health Connect solicitadas pelo FitMesh no primeiro acesso e toque em **Sincronizar agora**.",
+        ],
+        fr: [
+          "Installez **Health Connect** depuis le Play Store (préinstallé sur Android 14+).",
+          "Installez ou mettez à jour l'**app Fitbit** sur le téléphone Android associé à votre Pixel Watch (la Pixel Watch utilise Fitbit comme backend).",
+          "Ouvrez Fitbit → onglet **Vous** (en bas à droite) → **Health Connect** → appuyez sur **Connecter** et autorisez l'accès en écriture pour les pas, la fréquence cardiaque, le sommeil, les calories, la distance et les séances d'entraînement.",
+          "Installez **FitMesh Sync** depuis le Play Store et connectez-vous avec Google.",
+          "Accordez les autorisations Health Connect demandées par FitMesh au premier lancement, puis appuyez sur **Synchroniser maintenant**.",
         ],
       },
       syncedData: {
@@ -494,42 +711,90 @@ export const PROVIDERS: Provider[] = [
           "Workouts (type, duration, kcal)",
           "Overnight SpO₂ (if enabled on the Pixel Watch)",
         ],
+        de: [
+          "Tägliche Schritte",
+          "Herzfrequenz (Durchschnitt, Ruhe, Messungen)",
+          "Schlaf (Gesamtdauer und Start-/Endzeit)",
+          "Aktive und Grundumsatz-Kalorien",
+          "Distanz",
+          "Trainings (Typ, Dauer, kcal)",
+          "Nächtliches SpO₂ (wenn auf der Pixel Watch aktiviert)",
+        ],
+        pt: [
+          "Passos diários",
+          "Frequência cardíaca (média, repouso, amostras)",
+          "Sono (duração total e horário de início/fim)",
+          "Calorias ativas e basais",
+          "Distância",
+          "Treinos (tipo, duração, kcal)",
+          "SpO₂ noturno (se ativado no Pixel Watch)",
+        ],
+        fr: [
+          "Pas quotidiens",
+          "Fréquence cardiaque (moyenne, repos, mesures)",
+          "Sommeil (durée totale et heure de début/fin)",
+          "Calories actives et de base",
+          "Distance",
+          "Séances d'entraînement (type, durée, kcal)",
+          "SpO₂ nocturne (si activé sur la Pixel Watch)",
+        ],
       },
       troubleshooting: [
         {
           q: {
             it: "Non vedo i miei dati su FitMesh",
             en: "I don't see my data in FitMesh",
+            de: "Ich sehe meine Daten nicht in FitMesh",
+            pt: "Não vejo meus dados no FitMesh",
+            fr: "Je ne vois pas mes données dans FitMesh",
           },
           a: {
             it: "Verifica che la connessione Fitbit → Health Connect sia attiva: Fitbit → You → Health Connect → stato 'Connesso'. Se non lo è, tocca 'Connetti' e riautorizza.",
             en: "Confirm that the Fitbit → Health Connect connection is active: Fitbit → You → Health Connect → status 'Connected'. If not, tap 'Connect' and re-authorize.",
+            de: "Prüfe, ob die Fitbit → Health Connect Verbindung aktiv ist: Fitbit → Du → Health Connect → Status 'Verbunden'. Falls nicht, tippe auf 'Verbinden' und autorisiere erneut.",
+            pt: "Confirme que a conexão Fitbit → Health Connect está ativa: Fitbit → Você → Health Connect → status 'Conectado'. Se não estiver, toque em 'Conectar' e reautorize.",
+            fr: "Vérifiez que la connexion Fitbit → Health Connect est active : Fitbit → Vous → Health Connect → statut 'Connecté'. Sinon, appuyez sur 'Connecter' et réautorisez.",
           },
         },
         {
           q: {
             it: "I dati arrivano in ritardo",
             en: "Data arrives late",
+            de: "Die Daten kommen verzögert an",
+            pt: "Os dados chegam com atraso",
+            fr: "Les données arrivent en retard",
           },
           a: {
             it: "Comportamento normale: la sync Pixel Watch → Fitbit → Health Connect ha un delay tipico di 15–30 minuti. Per accelerare apri Fitbit, refresh manuale (pull-to-refresh), poi 'Sincronizza ora' in FitMesh.",
             en: "Expected behavior: Pixel Watch → Fitbit → Health Connect typically has a 15–30 minute delay. To speed it up open Fitbit, pull down to refresh, then tap 'Sync now' in FitMesh.",
+            de: "Normales Verhalten: Die Sync-Kette Pixel Watch → Fitbit → Health Connect hat typischerweise eine Verzögerung von 15–30 Minuten. Um sie zu beschleunigen, öffne Fitbit, ziehe nach unten zum Aktualisieren und tippe dann in FitMesh auf 'Jetzt synchronisieren'.",
+            pt: "Comportamento esperado: a cadeia Pixel Watch → Fitbit → Health Connect tem tipicamente um atraso de 15 a 30 minutos. Para acelerar, abra o Fitbit, deslize para baixo para atualizar e toque em 'Sincronizar agora' no FitMesh.",
+            fr: "Comportement normal : la chaîne Pixel Watch → Fitbit → Health Connect a typiquement un délai de 15 à 30 minutes. Pour accélérer, ouvrez Fitbit, tirez vers le bas pour rafraîchir, puis appuyez sur 'Synchroniser maintenant' dans FitMesh.",
           },
         },
         {
           q: {
             it: "Vedo passi e BPM ma non le fasi di sonno",
             en: "I see steps and heart rate but no sleep stages",
+            de: "Ich sehe Schritte und Herzfrequenz, aber keine Schlafphasen",
+            pt: "Vejo passos e BPM mas não as fases do sono",
+            fr: "Je vois les pas et la fréquence cardiaque mais pas les phases du sommeil",
           },
           a: {
             it: "Via Health Connect Fitbit espone il sonno come durata totale, non come fasi REM/Deep/Light. Le fasi arriveranno con l'OAuth Fitbit Web API previsto in roadmap.",
             en: "Via Health Connect Fitbit exposes sleep as total duration, not REM/Deep/Light stages. Stages will arrive with the planned Fitbit Web API OAuth integration.",
+            de: "Über Health Connect zeigt Fitbit den Schlaf nur als Gesamtdauer, nicht als REM/Tief/Leicht-Phasen. Die Phasen werden mit der geplanten Fitbit Web API OAuth-Integration verfügbar sein.",
+            pt: "Via Health Connect, o Fitbit expõe o sono apenas como duração total, não como fases REM/profundo/leve. As fases chegarão com a integração OAuth da Fitbit Web API prevista no roadmap.",
+            fr: "Via Health Connect, Fitbit n'expose le sommeil que comme durée totale, pas comme phases REM/profond/léger. Les phases seront disponibles avec l'intégration OAuth de la Fitbit Web API prévue dans la roadmap.",
           },
         },
       ],
       technicalNotes: {
         it: "Catena di sync: Pixel Watch → Fitbit app → Health Connect → FitMesh. No OAuth, no chiavi API. Latenza tipica 15–30 minuti. Granularità: passi giornalieri, BPM per minuto, sonno per sessione. I dati restano sul telefono e vengono inviati solo al backend Supabase del tuo account FitMesh.",
         en: "Sync chain: Pixel Watch → Fitbit app → Health Connect → FitMesh. No OAuth, no API keys. Typical latency 15–30 minutes. Granularity: daily steps, heart rate per minute, sleep per session. Data stays on your phone and is only sent to your FitMesh account's Supabase backend.",
+        de: "Sync-Kette: Pixel Watch → Fitbit-App → Health Connect → FitMesh. Kein OAuth, keine API-Schlüssel. Typische Latenz 15–30 Minuten. Granularität: tägliche Schritte, Herzfrequenz pro Minute, Schlaf pro Sitzung. Die Daten bleiben auf deinem Smartphone und werden nur an das Supabase-Backend deines FitMesh-Kontos gesendet.",
+        pt: "Cadeia de sincronização: Pixel Watch → app Fitbit → Health Connect → FitMesh. Sem OAuth, sem chaves de API. Latência típica de 15 a 30 minutos. Granularidade: passos diários, BPM por minuto, sono por sessão. Os dados ficam no seu telefone e são enviados apenas ao backend Supabase da sua conta FitMesh.",
+        fr: "Chaîne de synchronisation : Pixel Watch → app Fitbit → Health Connect → FitMesh. Sans OAuth, sans clés API. Latence typique 15 à 30 minutes. Granularité : pas quotidiens, fréquence cardiaque par minute, sommeil par session. Les données restent sur votre téléphone et ne sont envoyées qu'au backend Supabase de votre compte FitMesh.",
       },
     },
   },
@@ -544,14 +809,23 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Mi Band 7/8/9 e Xiaomi Watch S/Active via Mi Fitness + Health Connect.",
       en: "Mi Band 7/8/9 and Xiaomi Watch S/Active via Mi Fitness + Health Connect.",
+      de: "Mi Band 7/8/9 und Xiaomi Watch S/Active via Mi Fitness und Health Connect.",
+      pt: "Mi Band 7/8/9 e Xiaomi Watch S/Active via Mi Fitness e Health Connect.",
+      fr: "Mi Band 7/8/9 et Xiaomi Watch S/Active via Mi Fitness et Health Connect.",
     },
     longDesc: {
       it: "Se hai Mi Band 7, 8 o 9 (oppure Xiaomi Watch S1/S2/Active), FitMesh legge i tuoi dati attraverso Mi Fitness (che scrive su Health Connect dal 2024). Funziona anche con Redmi Smart Band e Amazfit (via Zepp).",
       en: "If you own Mi Band 7, 8 or 9 (or Xiaomi Watch S1/S2/Active), FitMesh reads your data through Mi Fitness (which writes to Health Connect since 2024). Also works with Redmi Smart Band and Amazfit (via Zepp).",
+      de: "Wenn du Mi Band 7, 8 oder 9 (oder Xiaomi Watch S1/S2/Active) hast, liest FitMesh deine Daten über Mi Fitness (das seit 2024 auf Health Connect schreibt). Funktioniert auch mit Redmi Smart Band und Amazfit (via Zepp).",
+      pt: "Se você tem Mi Band 7, 8 ou 9 (ou Xiaomi Watch S1/S2/Active), o FitMesh lê seus dados pelo Mi Fitness (que escreve no Health Connect desde 2024). Também funciona com Redmi Smart Band e Amazfit (via Zepp).",
+      fr: "Si vous possédez un Mi Band 7, 8 ou 9 (ou Xiaomi Watch S1/S2/Active), FitMesh lit vos données via Mi Fitness (qui écrit dans Health Connect depuis 2024). Fonctionne aussi avec Redmi Smart Band et Amazfit (via Zepp).",
     },
     techNote: {
       it: "Richiede Mi Fitness ≥ versione che supporta Health Connect (controlla aggiornamento). Per Amazfit serve Zepp app con sync Health Connect abilitato nelle impostazioni.",
       en: "Requires Mi Fitness version with Health Connect support (check for updates). For Amazfit you'll need Zepp with Health Connect sync enabled in settings.",
+      de: "Erfordert Mi Fitness in einer Version mit Health Connect-Unterstützung (auf Updates prüfen). Für Amazfit wird die Zepp-App mit aktivierter Health Connect-Synchronisierung in den Einstellungen benötigt.",
+      pt: "Requer a versão do Mi Fitness com suporte ao Health Connect (verifique atualizações). Para Amazfit, é necessário o app Zepp com sincronização do Health Connect ativada nas configurações.",
+      fr: "Nécessite une version de Mi Fitness compatible avec Health Connect (vérifiez les mises à jour). Pour Amazfit, il vous faut l'app Zepp avec la synchronisation Health Connect activée dans les paramètres.",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: false, spo2: true }),
     faqs: [
@@ -559,10 +833,16 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Funziona con Mi Band 6 o precedenti?",
           en: "Does it work with Mi Band 6 or older?",
+          de: "Funktioniert es mit Mi Band 6 oder älter?",
+          pt: "Funciona com o Mi Band 6 ou anterior?",
+          fr: "Fonctionne-t-il avec Mi Band 6 ou les modèles plus anciens ?",
         },
         a: {
           it: "Solo se Mi Fitness su quel telefono supporta Health Connect. Mi Band 5 e 6 storicamente usano Mi Fit (vecchia app) che non scrive su Health Connect: meglio Mi Band 7 o superiore.",
           en: "Only if Mi Fitness on that phone supports Health Connect. Mi Band 5 and 6 historically use Mi Fit (the old app) which doesn't write to Health Connect: Mi Band 7 or newer is recommended.",
+          de: "Nur wenn Mi Fitness auf diesem Telefon Health Connect unterstützt. Mi Band 5 und 6 verwenden historisch Mi Fit (die alte App), die nicht auf Health Connect schreibt: Mi Band 7 oder neuer wird empfohlen.",
+          pt: "Apenas se o Mi Fitness naquele telefone tiver suporte ao Health Connect. Mi Band 5 e 6 historicamente usam o Mi Fit (app antigo) que não escreve no Health Connect: recomenda-se Mi Band 7 ou superior.",
+          fr: "Seulement si Mi Fitness sur ce téléphone prend en charge Health Connect. Les Mi Band 5 et 6 utilisent historiquement Mi Fit (l'ancienne app) qui n'écrit pas dans Health Connect : Mi Band 7 ou plus récent est recommandé.",
         },
       },
     ],
@@ -579,6 +859,24 @@ export const PROVIDERS: Provider[] = [
         "mi fitness health connect",
         "amazfit web dashboard",
       ],
+      de: [
+        "mi band dashboard",
+        "xiaomi watch dashboard",
+        "mi fitness health connect",
+        "amazfit web dashboard",
+      ],
+      pt: [
+        "mi band painel",
+        "xiaomi watch painel",
+        "mi fitness health connect",
+        "amazfit painel web",
+      ],
+      fr: [
+        "mi band tableau de bord",
+        "xiaomi watch tableau de bord",
+        "mi fitness health connect",
+        "amazfit tableau de bord web",
+      ],
     },
     relatedBlogSlugs: ["vedere-dati-wearable-browser-pc", "guida-sync-wearable-2026"],
   },
@@ -593,14 +891,23 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "OnePlus Watch e OnePlus Band via OHealth + Health Connect.",
       en: "OnePlus Watch and OnePlus Band via OHealth + Health Connect.",
+      de: "OnePlus Watch und OnePlus Band via OHealth und Health Connect.",
+      pt: "OnePlus Watch e OnePlus Band via OHealth e Health Connect.",
+      fr: "OnePlus Watch et OnePlus Band via OHealth et Health Connect.",
     },
     longDesc: {
       it: "OHealth (l'app companion ufficiale di OnePlus Watch e OnePlus Band) scrive su Health Connect: passi, BPM, sonno, calorie e allenamenti diventano leggibili da FitMesh senza OAuth e senza chiavi API. Funziona sia con OnePlus Watch 2/2R sia con OnePlus Band, confermato da founder beta su OnePlus Watch nel maggio 2026.",
       en: "OHealth (the official companion app for OnePlus Watch and OnePlus Band) writes to Health Connect: steps, heart rate, sleep, calories and workouts become readable by FitMesh without OAuth or API keys. Works with OnePlus Watch 2/2R and OnePlus Band, confirmed by a beta founder on OnePlus Watch in May 2026.",
+      de: "OHealth (die offizielle Companion-App für OnePlus Watch und OnePlus Band) schreibt auf Health Connect: Schritte, Herzfrequenz, Schlaf, Kalorien und Trainings werden ohne OAuth und API-Schlüssel von FitMesh lesbar. Funktioniert mit OnePlus Watch 2/2R und OnePlus Band, bestätigt von einem Beta-Nutzer im Mai 2026.",
+      pt: "O OHealth (o app companion oficial do OnePlus Watch e OnePlus Band) escreve no Health Connect: passos, BPM, sono, calorias e treinos ficam legíveis pelo FitMesh sem OAuth e sem chaves de API. Funciona com OnePlus Watch 2/2R e OnePlus Band, confirmado por um usuário beta em maio de 2026.",
+      fr: "OHealth (l'app companion officielle du OnePlus Watch et du OnePlus Band) écrit dans Health Connect : les pas, la fréquence cardiaque, le sommeil, les calories et les séances d'entraînement deviennent lisibles par FitMesh sans OAuth ni clés API. Fonctionne avec OnePlus Watch 2/2R et OnePlus Band, confirmé par un utilisateur bêta en mai 2026.",
     },
     techNote: {
       it: "Catena di sync: OnePlus Watch → OHealth → Health Connect (chiamata 'Connessione salute' in italiano) → FitMesh. Latenza tipica 5–15 minuti. La sync di sonno e BPM con granularità per minuto richiede OHealth aggiornata all'ultima versione.",
       en: "Sync chain: OnePlus Watch → OHealth → Health Connect → FitMesh. Typical latency 5–15 minutes. Per-minute sleep and heart rate granularity requires the latest OHealth version.",
+      de: "Sync-Kette: OnePlus Watch → OHealth → Health Connect → FitMesh. Typische Latenz 5–15 Minuten. Schlaf- und Herzfrequenz-Granularität pro Minute erfordert die neueste OHealth-Version.",
+      pt: "Cadeia de sincronização: OnePlus Watch → OHealth → Health Connect → FitMesh. Latência típica de 5 a 15 minutos. A granularidade de sono e BPM por minuto requer a versão mais recente do OHealth.",
+      fr: "Chaîne de synchronisation : OnePlus Watch → OHealth → Health Connect → FitMesh. Latence typique 5 à 15 minutes. La granularité sommeil et fréquence cardiaque par minute nécessite la dernière version d'OHealth.",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: false, spo2: true }),
     faqs: [
@@ -608,20 +915,32 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "OHealth supporta davvero Health Connect?",
           en: "Does OHealth really support Health Connect?",
+          de: "Unterstützt OHealth wirklich Health Connect?",
+          pt: "O OHealth realmente suporta o Health Connect?",
+          fr: "OHealth prend-il vraiment en charge Health Connect ?",
         },
         a: {
           it: "Sì, dal 2024 OHealth integra la 'Connessione salute' di Android. Devi solo aprire OHealth → Profilo → Connessione salute (Health Connect) e autorizzare la scrittura. Dopo, FitMesh legge tutto in automatico.",
           en: "Yes, since 2024 OHealth integrates Android's Health Connect. Just open OHealth → Profile → Health Connect and authorize write access. After that, FitMesh reads everything automatically.",
+          de: "Ja, seit 2024 integriert OHealth das Health Connect von Android. Öffne einfach OHealth → Profil → Health Connect und autorisiere den Schreibzugriff. Danach liest FitMesh alles automatisch.",
+          pt: "Sim, desde 2024 o OHealth integra o Health Connect do Android. Basta abrir OHealth → Perfil → Health Connect e autorizar a escrita. Depois disso, o FitMesh lê tudo automaticamente.",
+          fr: "Oui, depuis 2024 OHealth intègre le Health Connect d'Android. Ouvrez simplement OHealth → Profil → Health Connect et autorisez l'accès en écriture. Ensuite, FitMesh lit tout automatiquement.",
         },
       },
       {
         q: {
           it: "Funziona anche con OnePlus Band?",
           en: "Does it work with OnePlus Band too?",
+          de: "Funktioniert es auch mit OnePlus Band?",
+          pt: "Funciona também com o OnePlus Band?",
+          fr: "Fonctionne-t-il aussi avec le OnePlus Band ?",
         },
         a: {
           it: "Sì, OnePlus Band sincronizza con OHealth come OnePlus Watch. I dati di passi, sonno e BPM passano da OHealth a Health Connect e da lì a FitMesh.",
           en: "Yes, OnePlus Band syncs with OHealth just like OnePlus Watch. Steps, sleep and heart rate flow from OHealth to Health Connect and then to FitMesh.",
+          de: "Ja, das OnePlus Band synchronisiert genauso wie die OnePlus Watch mit OHealth. Schritte, Schlaf und Herzfrequenz fließen von OHealth zu Health Connect und dann zu FitMesh.",
+          pt: "Sim, o OnePlus Band sincroniza com o OHealth assim como o OnePlus Watch. Passos, sono e frequência cardíaca fluem do OHealth para o Health Connect e daí para o FitMesh.",
+          fr: "Oui, le OnePlus Band se synchronise avec OHealth exactement comme la OnePlus Watch. Les pas, le sommeil et la fréquence cardiaque transitent d'OHealth vers Health Connect puis vers FitMesh.",
         },
       },
     ],
@@ -637,6 +956,24 @@ export const PROVIDERS: Provider[] = [
         "ohealth health connect",
         "oneplus band dashboard",
         "export oneplus watch data",
+      ],
+      de: [
+        "oneplus watch dashboard synchronisieren",
+        "ohealth health connect",
+        "oneplus band dashboard",
+        "oneplus watch daten exportieren",
+      ],
+      pt: [
+        "sincronizar oneplus watch painel",
+        "ohealth health connect",
+        "oneplus band painel",
+        "exportar dados oneplus watch",
+      ],
+      fr: [
+        "synchroniser oneplus watch tableau de bord",
+        "ohealth health connect",
+        "oneplus band tableau de bord",
+        "exporter données oneplus watch",
       ],
     },
     setupGuide: {
@@ -654,6 +991,27 @@ export const PROVIDERS: Provider[] = [
           "Open **OHealth** → **Profile** tab (bottom right) → **Health Connect** → tap **Connect** and authorize write access for steps, heart rate, sleep, calories, workouts.",
           "Install **FitMesh Sync** from the Play Store and sign in with Google or email.",
           "Grant the Health Connect permissions FitMesh requests on first launch, then tap **Sync now**.",
+        ],
+        de: [
+          "Installiere oder aktualisiere **OHealth** aus dem Play Store (die offizielle Companion-App für OnePlus Watch/Band).",
+          "Installiere **Health Connect** aus dem Play Store (auf Android 14+ vorinstalliert).",
+          "Öffne **OHealth** → Tab **Profil** (unten rechts) → **Health Connect** → tippe auf **Verbinden** und autorisiere den Schreibzugriff für Schritte, Herzfrequenz, Schlaf, Kalorien und Trainings.",
+          "Installiere **FitMesh Sync** aus dem Play Store und melde dich mit Google oder E-Mail an.",
+          "Erteile die von FitMesh angeforderten Health Connect-Berechtigungen beim ersten Start, dann tippe auf **Jetzt synchronisieren**.",
+        ],
+        pt: [
+          "Instale ou atualize o **OHealth** no Google Play (o app companion oficial do OnePlus Watch/Band).",
+          "Instale o **Health Connect** no Google Play (pré-instalado no Android 14+).",
+          "Abra o **OHealth** → aba **Perfil** (canto inferior direito) → **Health Connect** → toque em **Conectar** e autorize a escrita de passos, BPM, sono, calorias e treinos.",
+          "Instale o **FitMesh Sync** no Google Play e faça login com Google ou e-mail.",
+          "Conceda as permissões do Health Connect solicitadas pelo FitMesh no primeiro acesso e toque em **Sincronizar agora**.",
+        ],
+        fr: [
+          "Installez ou mettez à jour **OHealth** depuis le Play Store (l'app companion officielle du OnePlus Watch/Band).",
+          "Installez **Health Connect** depuis le Play Store (préinstallé sur Android 14+).",
+          "Ouvrez **OHealth** → onglet **Profil** (en bas à droite) → **Health Connect** → appuyez sur **Connecter** et autorisez l'accès en écriture pour les pas, la fréquence cardiaque, le sommeil, les calories et les séances d'entraînement.",
+          "Installez **FitMesh Sync** depuis le Play Store et connectez-vous avec Google ou e-mail.",
+          "Accordez les autorisations Health Connect demandées par FitMesh au premier lancement, puis appuyez sur **Synchroniser maintenant**.",
         ],
       },
       syncedData: {
@@ -675,42 +1033,90 @@ export const PROVIDERS: Provider[] = [
           "Workouts (type, duration, kcal)",
           "Overnight SpO₂ (if enabled on OnePlus Watch)",
         ],
+        de: [
+          "Tägliche Schritte",
+          "Herzfrequenz (Durchschnitt, Ruhe, Messungen pro Minute)",
+          "Schlaf (Gesamtdauer und Start-/Endzeit)",
+          "Aktive und Grundumsatz-Kalorien",
+          "Distanz",
+          "Trainings (Typ, Dauer, kcal)",
+          "Nächtliches SpO₂ (wenn auf der OnePlus Watch aktiviert)",
+        ],
+        pt: [
+          "Passos diários",
+          "Frequência cardíaca (média, repouso, amostras por minuto)",
+          "Sono (duração total e horário de início/fim)",
+          "Calorias ativas e basais",
+          "Distância",
+          "Treinos (tipo, duração, kcal)",
+          "SpO₂ noturno (se ativado no OnePlus Watch)",
+        ],
+        fr: [
+          "Pas quotidiens",
+          "Fréquence cardiaque (moyenne, repos, mesures par minute)",
+          "Sommeil (durée totale et heure de début/fin)",
+          "Calories actives et de base",
+          "Distance",
+          "Séances d'entraînement (type, durée, kcal)",
+          "SpO₂ nocturne (si activé sur le OnePlus Watch)",
+        ],
       },
       troubleshooting: [
         {
           q: {
             it: "Non vedo dati su FitMesh dopo aver collegato OHealth",
             en: "I don't see data in FitMesh after connecting OHealth",
+            de: "Ich sehe keine Daten in FitMesh nach dem Verbinden von OHealth",
+            pt: "Não vejo dados no FitMesh após conectar o OHealth",
+            fr: "Je ne vois pas de données dans FitMesh après avoir connecté OHealth",
           },
           a: {
             it: "Apri OHealth → Profilo → Connessione salute e verifica che lo stato sia 'Connesso'. Se no, riconnetti e autorizza tutti i permessi. Poi forza una sync manuale in OHealth (pull-to-refresh sulla home).",
             en: "Open OHealth → Profile → Health Connect and check that the status is 'Connected'. If not, reconnect and authorize all permissions. Then force a manual sync in OHealth (pull-to-refresh on home).",
+            de: "Öffne OHealth → Profil → Health Connect und prüfe, ob der Status 'Verbunden' angezeigt wird. Falls nicht, verbinde erneut und autorisiere alle Berechtigungen. Erzwinge dann eine manuelle Sync in OHealth (auf der Startseite nach unten ziehen).",
+            pt: "Abra OHealth → Perfil → Health Connect e verifique se o status está 'Conectado'. Se não estiver, reconecte e autorize todas as permissões. Então force uma sincronização manual no OHealth (deslize para baixo na tela inicial).",
+            fr: "Ouvrez OHealth → Profil → Health Connect et vérifiez que le statut indique 'Connecté'. Sinon, reconnectez et autorisez toutes les permissions. Forcez ensuite une synchronisation manuelle dans OHealth (tirez vers le bas sur l'écran d'accueil).",
           },
         },
         {
           q: {
             it: "Vedo passi ma non sonno o BPM",
             en: "I see steps but no sleep or heart rate",
+            de: "Ich sehe Schritte, aber keinen Schlaf oder Herzfrequenz",
+            pt: "Vejo passos mas não sono ou BPM",
+            fr: "Je vois les pas mais pas le sommeil ni la fréquence cardiaque",
           },
           a: {
             it: "Sonno e BPM richiedono permessi separati in Health Connect. Vai in Health Connect (impostazioni Android → App → Connessione salute) → Permessi → OHealth → spunta sonno e frequenza cardiaca.",
             en: "Sleep and heart rate require separate Health Connect permissions. Go to Health Connect (Android Settings → Apps → Health Connect) → Permissions → OHealth → enable Sleep and Heart rate.",
+            de: "Schlaf und Herzfrequenz erfordern separate Health Connect-Berechtigungen. Gehe zu Health Connect (Android-Einstellungen → Apps → Health Connect) → Berechtigungen → OHealth → Schlaf und Herzfrequenz aktivieren.",
+            pt: "Sono e BPM requerem permissões separadas no Health Connect. Vá em Health Connect (Configurações Android → Apps → Health Connect) → Permissões → OHealth → ative Sono e Frequência cardíaca.",
+            fr: "Le sommeil et la fréquence cardiaque nécessitent des autorisations séparées dans Health Connect. Allez dans Health Connect (Paramètres Android → Apps → Health Connect) → Autorisations → OHealth → activez Sommeil et Fréquence cardiaque.",
           },
         },
         {
           q: {
             it: "Latenza alta tra Watch e FitMesh",
             en: "High latency between Watch and FitMesh",
+            de: "Hohe Latenz zwischen Watch und FitMesh",
+            pt: "Alta latência entre Watch e FitMesh",
+            fr: "Latence élevée entre la montre et FitMesh",
           },
           a: {
             it: "Tipica catena OnePlus Watch → OHealth → Health Connect richiede 5–15 minuti. Per accelerare apri OHealth, refresh manuale, poi 'Sincronizza ora' in FitMesh.",
             en: "Typical chain OnePlus Watch → OHealth → Health Connect takes 5–15 minutes. To speed it up open OHealth, manual refresh, then 'Sync now' in FitMesh.",
+            de: "Die typische Kette OnePlus Watch → OHealth → Health Connect dauert 5–15 Minuten. Um sie zu beschleunigen, öffne OHealth, manuelles Aktualisieren, dann 'Jetzt synchronisieren' in FitMesh.",
+            pt: "A cadeia típica OnePlus Watch → OHealth → Health Connect leva 5 a 15 minutos. Para acelerar, abra o OHealth, atualize manualmente e toque em 'Sincronizar agora' no FitMesh.",
+            fr: "La chaîne typique OnePlus Watch → OHealth → Health Connect prend 5 à 15 minutes. Pour accélérer, ouvrez OHealth, rafraîchissement manuel, puis 'Synchroniser maintenant' dans FitMesh.",
           },
         },
       ],
       technicalNotes: {
         it: "Catena di sync: OnePlus Watch/Band → OHealth → Health Connect → FitMesh. No OAuth, no chiavi API. Latenza tipica 5–15 minuti. Granularità: passi giornalieri, BPM per minuto, sonno per sessione. Confermato funzionante su OnePlus Watch 2 in maggio 2026 (founder beta). I dati restano sul telefono e vengono inviati solo al backend Supabase del tuo account FitMesh.",
         en: "Sync chain: OnePlus Watch/Band → OHealth → Health Connect → FitMesh. No OAuth, no API keys. Typical latency 5–15 minutes. Granularity: daily steps, per-minute heart rate, per-session sleep. Confirmed working on OnePlus Watch 2 in May 2026 (beta founder). Data stays on your phone and is only sent to your FitMesh account's Supabase backend.",
+        de: "Sync-Kette: OnePlus Watch/Band → OHealth → Health Connect → FitMesh. Kein OAuth, keine API-Schlüssel. Typische Latenz 5–15 Minuten. Granularität: tägliche Schritte, Herzfrequenz pro Minute, Schlaf pro Sitzung. Bestätigt funktionsfähig auf OnePlus Watch 2 im Mai 2026 (Beta-Nutzer). Die Daten bleiben auf dem Smartphone und werden nur an das Supabase-Backend des FitMesh-Kontos gesendet.",
+        pt: "Cadeia de sincronização: OnePlus Watch/Band → OHealth → Health Connect → FitMesh. Sem OAuth, sem chaves de API. Latência típica de 5 a 15 minutos. Granularidade: passos diários, BPM por minuto, sono por sessão. Confirmado funcionando no OnePlus Watch 2 em maio de 2026 (usuário beta). Os dados ficam no telefone e são enviados apenas ao backend Supabase da conta FitMesh.",
+        fr: "Chaîne de synchronisation : OnePlus Watch/Band → OHealth → Health Connect → FitMesh. Sans OAuth, sans clés API. Latence typique 5 à 15 minutes. Granularité : pas quotidiens, fréquence cardiaque par minute, sommeil par session. Confirmé fonctionnel sur OnePlus Watch 2 en mai 2026 (utilisateur bêta). Les données restent sur le téléphone et ne sont envoyées qu'au backend Supabase du compte FitMesh.",
       },
     },
     relatedBlogSlugs: ["guida-sync-wearable-2026", "vedere-dati-wearable-browser-pc"],
@@ -726,14 +1132,23 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Amazfit Bip 5/GTS 4/GTR 4/T-Rex Ultra via Zepp + Health Connect.",
       en: "Amazfit Bip 5/GTS 4/GTR 4/T-Rex Ultra via Zepp + Health Connect.",
+      de: "Amazfit Bip 5/GTS 4/GTR 4/T-Rex Ultra via Zepp und Health Connect.",
+      pt: "Amazfit Bip 5/GTS 4/GTR 4/T-Rex Ultra via Zepp e Health Connect.",
+      fr: "Amazfit Bip 5/GTS 4/GTR 4/T-Rex Ultra via Zepp et Health Connect.",
     },
     longDesc: {
       it: "L'app Zepp (ex Amazfit, ex Mi Fit prima ancora) scrive su Health Connect dal 2024 per la maggior parte dei modelli moderni. Funziona out-of-the-box con Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro: passi, BPM, sonno, calorie e allenamenti diventano leggibili da FitMesh senza OAuth e senza chiavi API. I modelli più vecchi (Bip 3, GTR 3, GTS 2) NON supportano Health Connect nativamente: restano legati alla loro versione storica dell'app Zepp e per ora non hanno path di sync supportato.",
       en: "The Zepp app (formerly Amazfit, formerly Mi Fit before that) writes to Health Connect since 2024 for most modern models. Works out-of-the-box with Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro: steps, heart rate, sleep, calories and workouts become readable by FitMesh without OAuth or API keys. Older models (Bip 3, GTR 3, GTS 2) do NOT support Health Connect natively: they remain tied to their historical Zepp app version and currently have no supported sync path.",
+      de: "Die Zepp-App (früher Amazfit, davor Mi Fit) schreibt seit 2024 für die meisten modernen Modelle auf Health Connect. Funktioniert sofort mit Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro: Schritte, Herzfrequenz, Schlaf, Kalorien und Trainings werden ohne OAuth und API-Schlüssel von FitMesh lesbar. Ältere Modelle (Bip 3, GTR 3, GTS 2) unterstützen Health Connect NICHT nativ: Sie sind weiterhin an ihre historische Zepp-App-Version gebunden und haben derzeit keinen unterstützten Sync-Pfad.",
+      pt: "O app Zepp (antes Amazfit, antes disso Mi Fit) escreve no Health Connect desde 2024 para a maioria dos modelos modernos. Funciona imediatamente com Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro: passos, frequência cardíaca, sono, calorias e treinos ficam legíveis pelo FitMesh sem OAuth e sem chaves de API. Modelos mais antigos (Bip 3, GTR 3, GTS 2) NÃO suportam o Health Connect nativamente: continuam vinculados à versão histórica do app Zepp e atualmente não têm caminho de sincronização suportado.",
+      fr: "L'app Zepp (anciennement Amazfit, anciennement Mi Fit) écrit dans Health Connect depuis 2024 pour la plupart des modèles modernes. Fonctionne directement avec Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro : les pas, la fréquence cardiaque, le sommeil, les calories et les séances d'entraînement deviennent lisibles par FitMesh sans OAuth ni clés API. Les modèles plus anciens (Bip 3, GTR 3, GTS 2) NE prennent PAS en charge Health Connect nativement : ils restent liés à leur version historique de l'app Zepp et n'ont actuellement aucun chemin de synchronisation pris en charge.",
     },
     techNote: {
       it: "Catena di sync: Amazfit (modello moderno) → app Zepp → Health Connect (chiamata 'Connessione salute' in italiano) → FitMesh. Latenza tipica 15–30 minuti. Per sonno e BPM con granularità per minuto serve Zepp aggiornata all'ultima versione e Android 10+.",
       en: "Sync chain: Amazfit (modern model) → Zepp app → Health Connect → FitMesh. Typical latency 15–30 minutes. Per-minute sleep and heart rate granularity requires the latest Zepp app version and Android 10+.",
+      de: "Sync-Kette: Amazfit (modernes Modell) → Zepp-App → Health Connect → FitMesh. Typische Latenz 15–30 Minuten. Schlaf- und Herzfrequenz-Granularität pro Minute erfordert die neueste Zepp-App-Version und Android 10+.",
+      pt: "Cadeia de sincronização: Amazfit (modelo moderno) → app Zepp → Health Connect → FitMesh. Latência típica de 15 a 30 minutos. A granularidade de sono e BPM por minuto requer a versão mais recente do app Zepp e Android 10+.",
+      fr: "Chaîne de synchronisation : Amazfit (modèle moderne) → app Zepp → Health Connect → FitMesh. Latence typique 15 à 30 minutes. La granularité sommeil et fréquence cardiaque par minute nécessite la dernière version de l'app Zepp et Android 10+.",
     },
     dataTypes: STD_DATA_TYPES({ spo2: true, vo2max: false }),
     faqs: [
@@ -741,20 +1156,32 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Funziona con Bip 3?",
           en: "Does it work with Bip 3?",
+          de: "Funktioniert es mit dem Bip 3?",
+          pt: "Funciona com o Bip 3?",
+          fr: "Fonctionne-t-il avec le Bip 3 ?",
         },
         a: {
           it: "No. Amazfit Bip 3 (e altri modelli pre-2023 come Bip U, GTR 3, GTS 2) restano legati a versioni più vecchie dell'app Zepp che non scrivono su Health Connect. Niente Health Connect = niente FitMesh. Soluzione: passa a un modello supportato (Bip 5 in su) oppure attendi un eventuale OAuth Zepp ufficiale (non in roadmap a oggi).",
           en: "No. The Amazfit Bip 3 (and other pre-2023 models like Bip U, GTR 3, GTS 2) are tied to older Zepp app versions that do not write to Health Connect. No Health Connect = no FitMesh. Workaround: switch to a supported model (Bip 5 and newer) or wait for an eventual official Zepp OAuth (not on the roadmap today).",
+          de: "Nein. Das Amazfit Bip 3 (und andere Modelle von vor 2023 wie Bip U, GTR 3, GTS 2) sind an ältere Zepp-App-Versionen gebunden, die nicht auf Health Connect schreiben. Kein Health Connect = kein FitMesh. Lösung: Wechsle zu einem unterstützten Modell (Bip 5 und neuer) oder warte auf ein eventuelles offizielles Zepp OAuth (heute nicht in der Roadmap).",
+          pt: "Não. O Amazfit Bip 3 (e outros modelos anteriores a 2023 como Bip U, GTR 3, GTS 2) estão vinculados a versões mais antigas do app Zepp que não escrevem no Health Connect. Sem Health Connect = sem FitMesh. Solução: passe para um modelo suportado (Bip 5 ou mais recente) ou aguarde um eventual OAuth oficial Zepp (não está no roadmap hoje).",
+          fr: "Non. L'Amazfit Bip 3 (et les autres modèles antérieurs à 2023 comme Bip U, GTR 3, GTS 2) sont liés à des versions plus anciennes de l'app Zepp qui n'écrivent pas dans Health Connect. Pas de Health Connect = pas de FitMesh. Solution : passez à un modèle pris en charge (Bip 5 et plus récent) ou attendez un éventuel OAuth officiel Zepp (non prévu dans la roadmap aujourd'hui).",
         },
       },
       {
         q: {
           it: "Differenze tra Amazfit moderni e vecchi",
           en: "Differences between modern and old Amazfit",
+          de: "Unterschiede zwischen modernen und alten Amazfit-Modellen",
+          pt: "Diferenças entre os modelos Amazfit modernos e antigos",
+          fr: "Différences entre les Amazfit modernes et anciens",
         },
         a: {
           it: "Modelli moderni (Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro, dal 2023 in poi) usano la nuova app Zepp con bridge Health Connect: FitMesh legge tutto in automatico. Modelli pre-2023 (Bip 3, GTR 3, GTS 2, ecc.) usano un fork separato dell'app e non hanno bridge HC: per ora non sono supportati.",
           en: "Modern models (Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro, from 2023 onward) use the new Zepp app with Health Connect bridge: FitMesh reads everything automatically. Pre-2023 models (Bip 3, GTR 3, GTS 2, etc.) use a separate fork of the app with no HC bridge: not supported for now.",
+          de: "Moderne Modelle (Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro, ab 2023) verwenden die neue Zepp-App mit Health Connect Bridge: FitMesh liest alles automatisch. Modelle von vor 2023 (Bip 3, GTR 3, GTS 2 usw.) verwenden einen separaten App-Fork ohne HC-Bridge: werden derzeit nicht unterstützt.",
+          pt: "Modelos modernos (Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro, a partir de 2023) usam o novo app Zepp com bridge do Health Connect: o FitMesh lê tudo automaticamente. Modelos anteriores a 2023 (Bip 3, GTR 3, GTS 2, etc.) usam um fork separado do app sem bridge HC: não são suportados por enquanto.",
+          fr: "Les modèles modernes (Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro, à partir de 2023) utilisent la nouvelle app Zepp avec le pont Health Connect : FitMesh lit tout automatiquement. Les modèles antérieurs à 2023 (Bip 3, GTR 3, GTS 2, etc.) utilisent un fork séparé de l'app sans pont HC : non pris en charge pour l'instant.",
         },
       },
     ],
@@ -770,6 +1197,24 @@ export const PROVIDERS: Provider[] = [
         "zepp health connect",
         "sync amazfit android",
         "amazfit gtr 4 dashboard",
+      ],
+      de: [
+        "amazfit web dashboard",
+        "zepp health connect",
+        "amazfit android synchronisieren",
+        "amazfit gtr 4 dashboard",
+      ],
+      pt: [
+        "amazfit painel web",
+        "zepp health connect",
+        "sincronizar amazfit android",
+        "amazfit gtr 4 painel",
+      ],
+      fr: [
+        "amazfit tableau de bord web",
+        "zepp health connect",
+        "synchroniser amazfit android",
+        "amazfit gtr 4 tableau de bord",
       ],
     },
     setupGuide: {
@@ -787,6 +1232,27 @@ export const PROVIDERS: Provider[] = [
           "Install **Health Connect** from the Play Store (preinstalled on Android 14+).",
           "Open **Zepp** → **Profile** tab (bottom right) → **Settings** → **Third-party apps** (or **Health services**) → **Health Connect** → tap **Connect** and authorize write access for steps, heart rate, sleep, calories, workouts.",
           "Install **FitMesh Sync** from the Play Store, sign in with Google or email, grant the Health Connect permissions and tap **Sync now**.",
+        ],
+        de: [
+          "Prüfe, ob dein Amazfit ein modernes Modell ist: **Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro** oder neuer. Modelle vor 2023 (Bip 3, GTR 3, GTS 2) werden NICHT unterstützt.",
+          "Installiere oder aktualisiere **Zepp** aus dem Play Store (die offizielle Amazfit Companion-App, früher Mi Fit).",
+          "Installiere **Health Connect** aus dem Play Store (auf Android 14+ vorinstalliert).",
+          "Öffne **Zepp** → Tab **Profil** (unten rechts) → **Einstellungen** → **Drittanbieter-Apps** (oder **Gesundheitsdienste**) → **Health Connect** → tippe auf **Verbinden** und autorisiere den Schreibzugriff für Schritte, Herzfrequenz, Schlaf, Kalorien und Trainings.",
+          "Installiere **FitMesh Sync** aus dem Play Store, melde dich mit Google oder E-Mail an, erteile die Health Connect-Berechtigungen und tippe auf **Jetzt synchronisieren**.",
+        ],
+        pt: [
+          "Verifique se o seu Amazfit é um modelo moderno: **Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro** ou mais recente. Modelos anteriores a 2023 (Bip 3, GTR 3, GTS 2) NÃO são suportados.",
+          "Instale ou atualize o **Zepp** no Google Play (o app companion oficial da Amazfit, antes chamado Mi Fit).",
+          "Instale o **Health Connect** no Google Play (pré-instalado no Android 14+).",
+          "Abra o **Zepp** → aba **Perfil** (canto inferior direito) → **Configurações** → **Apps de terceiros** (ou **Serviços de saúde**) → **Health Connect** → toque em **Conectar** e autorize a escrita de passos, frequência cardíaca, sono, calorias e treinos.",
+          "Instale o **FitMesh Sync** no Google Play, faça login com Google ou e-mail, conceda as permissões do Health Connect e toque em **Sincronizar agora**.",
+        ],
+        fr: [
+          "Vérifiez que votre Amazfit est un modèle moderne : **Bip 5, GTS 4 Mini/4, GTR 4 Mini/4, T-Rex Ultra, Cheetah Pro** ou plus récent. Les modèles antérieurs à 2023 (Bip 3, GTR 3, GTS 2) ne sont PAS pris en charge.",
+          "Installez ou mettez à jour **Zepp** depuis le Play Store (l'app companion officielle Amazfit, anciennement Mi Fit).",
+          "Installez **Health Connect** depuis le Play Store (préinstallé sur Android 14+).",
+          "Ouvrez **Zepp** → onglet **Profil** (en bas à droite) → **Paramètres** → **Apps tierces** (ou **Services santé**) → **Health Connect** → appuyez sur **Connecter** et autorisez l'accès en écriture pour les pas, la fréquence cardiaque, le sommeil, les calories et les séances d'entraînement.",
+          "Installez **FitMesh Sync** depuis le Play Store, connectez-vous avec Google ou e-mail, accordez les autorisations Health Connect et appuyez sur **Synchroniser maintenant**.",
         ],
       },
       syncedData: {
@@ -808,42 +1274,90 @@ export const PROVIDERS: Provider[] = [
           "Workouts (type, duration, kcal)",
           "Overnight SpO₂ (if supported by the model)",
         ],
+        de: [
+          "Tägliche Schritte",
+          "Herzfrequenz (Durchschnitt, Ruhe, Messungen pro Minute)",
+          "Schlaf (Gesamtdauer und Start-/Endzeit)",
+          "Aktive und Grundumsatz-Kalorien",
+          "Distanz",
+          "Trainings (Typ, Dauer, kcal)",
+          "Nächtliches SpO₂ (wenn vom Modell unterstützt)",
+        ],
+        pt: [
+          "Passos diários",
+          "Frequência cardíaca (média, repouso, amostras por minuto)",
+          "Sono (duração total e horário de início/fim)",
+          "Calorias ativas e basais",
+          "Distância",
+          "Treinos (tipo, duração, kcal)",
+          "SpO₂ noturno (se suportado pelo modelo)",
+        ],
+        fr: [
+          "Pas quotidiens",
+          "Fréquence cardiaque (moyenne, repos, mesures par minute)",
+          "Sommeil (durée totale et heure de début/fin)",
+          "Calories actives et de base",
+          "Distance",
+          "Séances d'entraînement (type, durée, kcal)",
+          "SpO₂ nocturne (si pris en charge par le modèle)",
+        ],
       },
       troubleshooting: [
         {
           q: {
             it: "Ho un Bip 3 / GTR 3 / GTS 2: non vedo l'opzione Health Connect in Zepp",
             en: "I have a Bip 3 / GTR 3 / GTS 2: I don't see the Health Connect option in Zepp",
+            de: "Ich habe ein Bip 3 / GTR 3 / GTS 2: Ich sehe die Health Connect-Option in Zepp nicht",
+            pt: "Tenho um Bip 3 / GTR 3 / GTS 2: não vejo a opção Health Connect no Zepp",
+            fr: "J'ai un Bip 3 / GTR 3 / GTS 2 : je ne vois pas l'option Health Connect dans Zepp",
           },
           a: {
             it: "Corretto: i modelli Amazfit pre-2023 usano una versione storica dell'app Zepp senza bridge Health Connect. Non c'è workaround supportato oggi. Per portare quei dati su FitMesh serve passare a un modello supportato oppure attendere un eventuale OAuth ufficiale Zepp (non in roadmap).",
             en: "Correct: pre-2023 Amazfit models use a legacy Zepp app version with no Health Connect bridge. No supported workaround today. To bring that data into FitMesh you'd need to switch to a supported model or wait for an eventual official Zepp OAuth (not on the roadmap).",
+            de: "Richtig: Amazfit-Modelle von vor 2023 verwenden eine ältere Zepp-App-Version ohne Health Connect Bridge. Heute kein unterstützter Workaround. Um diese Daten nach FitMesh zu bringen, muss man zu einem unterstützten Modell wechseln oder auf ein eventuelles offizielles Zepp OAuth warten (nicht in der Roadmap).",
+            pt: "Correto: os modelos Amazfit anteriores a 2023 usam uma versão legada do app Zepp sem bridge do Health Connect. Não há solução alternativa suportada hoje. Para trazer esses dados para o FitMesh, seria necessário trocar para um modelo suportado ou aguardar um eventual OAuth oficial Zepp (não está no roadmap).",
+            fr: "Exact : les modèles Amazfit antérieurs à 2023 utilisent une version ancienne de l'app Zepp sans pont Health Connect. Aucune solution alternative prise en charge aujourd'hui. Pour importer ces données dans FitMesh, il faudrait passer à un modèle pris en charge ou attendre un éventuel OAuth officiel Zepp (non prévu dans la roadmap).",
           },
         },
         {
           q: {
             it: "Connessione Zepp ↔ Health Connect attiva ma non vedo dati su FitMesh",
             en: "Zepp ↔ Health Connect connection is active but I see no data in FitMesh",
+            de: "Zepp ↔ Health Connect Verbindung aktiv, aber ich sehe keine Daten in FitMesh",
+            pt: "Conexão Zepp ↔ Health Connect ativa mas não vejo dados no FitMesh",
+            fr: "La connexion Zepp ↔ Health Connect est active mais je ne vois pas de données dans FitMesh",
           },
           a: {
             it: "Apri Zepp e forza un refresh manuale (pull-to-refresh sulla home): Zepp polla il braccialetto via Bluetooth e può tardare. Poi in FitMesh premi 'Sincronizza ora'. Verifica anche in Health Connect (Impostazioni Android → App → Connessione salute) che Zepp abbia i permessi di scrittura per i tipi che ti interessano (passi, sonno, BPM).",
             en: "Open Zepp and force a manual refresh (pull-to-refresh on home): Zepp polls the wearable over Bluetooth and can lag. Then tap 'Sync now' in FitMesh. Also check in Health Connect (Android Settings → Apps → Health Connect) that Zepp has write permission for the metrics you care about (steps, sleep, heart rate).",
+            de: "Öffne Zepp und erzwinge ein manuelles Aktualisieren (nach unten ziehen auf der Startseite): Zepp fragt das Wearable per Bluetooth ab und kann verzögert sein. Tippe dann in FitMesh auf 'Jetzt synchronisieren'. Prüfe auch in Health Connect (Android-Einstellungen → Apps → Health Connect), ob Zepp Schreibberechtigungen für die gewünschten Metriken hat (Schritte, Schlaf, Herzfrequenz).",
+            pt: "Abra o Zepp e force uma atualização manual (deslize para baixo na tela inicial): o Zepp consulta o wearable via Bluetooth e pode demorar. Toque em 'Sincronizar agora' no FitMesh. Verifique também no Health Connect (Configurações Android → Apps → Health Connect) se o Zepp tem permissão de escrita para as métricas desejadas (passos, sono, frequência cardíaca).",
+            fr: "Ouvrez Zepp et forcez un rafraîchissement manuel (tirez vers le bas sur l'écran d'accueil) : Zepp interroge le wearable via Bluetooth et peut prendre du retard. Puis appuyez sur 'Synchroniser maintenant' dans FitMesh. Vérifiez aussi dans Health Connect (Paramètres Android → Apps → Health Connect) que Zepp dispose des autorisations d'écriture pour les métriques souhaitées (pas, sommeil, fréquence cardiaque).",
           },
         },
         {
           q: {
             it: "Sonno frammentato o duplicato dopo il sync",
             en: "Fragmented or duplicated sleep after sync",
+            de: "Fragmentierter oder duplizierter Schlaf nach der Synchronisierung",
+            pt: "Sono fragmentado ou duplicado após a sincronização",
+            fr: "Sommeil fragmenté ou dupliqué après la synchronisation",
           },
           a: {
             it: "Zepp scrive ogni sessione di sonno come segmento separato: se hai più sveglie notturne possono apparire più segmenti. FitMesh applica deduplica per tuple `(start, end, stage)` esatte. Se vedi ancora duplicati controlla che non sia attivo un altro tracker (Galaxy Watch, Mi Band) sullo stesso giorno: in tal caso usa 'Risoluzione conflitti dati' nelle impostazioni FitMesh per scegliere la sorgente prioritaria.",
             en: "Zepp writes each sleep session as a separate segment: multiple night wake-ups may surface as multiple segments. FitMesh dedupes exact `(start, end, stage)` tuples. If duplicates persist, check that no other tracker (Galaxy Watch, Mi Band) is active on the same day: if so, use 'Data conflict resolution' in FitMesh settings to pick the priority source.",
+            de: "Zepp schreibt jede Schlafsitzung als separates Segment: Mehrere nächtliche Aufwachphasen können als mehrere Segmente erscheinen. FitMesh dedupliziert exakte `(start, end, stage)`-Tupel. Wenn Duplikate bestehen bleiben, prüfe, ob ein anderer Tracker (Galaxy Watch, Mi Band) am selben Tag aktiv ist: Verwende in diesem Fall 'Datenkonflikte lösen' in den FitMesh-Einstellungen, um die Prioritätsquelle auszuwählen.",
+            pt: "O Zepp grava cada sessão de sono como um segmento separado: múltiplos despertares noturnos podem aparecer como múltiplos segmentos. O FitMesh desduplicata tuplas exatas de `(início, fim, fase)`. Se os duplicados persistirem, verifique se outro rastreador (Galaxy Watch, Mi Band) está ativo no mesmo dia: nesse caso, use 'Resolução de conflitos de dados' nas configurações do FitMesh para escolher a fonte prioritária.",
+            fr: "Zepp écrit chaque session de sommeil comme un segment distinct : plusieurs réveils nocturnes peuvent apparaître comme plusieurs segments. FitMesh déduplique les tuples exacts `(début, fin, phase)`. Si les doublons persistent, vérifiez qu'aucun autre tracker (Galaxy Watch, Mi Band) n'est actif le même jour : si c'est le cas, utilisez 'Résolution des conflits de données' dans les paramètres FitMesh pour choisir la source prioritaire.",
           },
         },
       ],
       technicalNotes: {
         it: "Catena di sync: Amazfit (modello moderno) → app Zepp → Health Connect → FitMesh. No OAuth, no chiavi API. Latenza tipica 15–30 minuti. Granularità: passi giornalieri, BPM per minuto, sonno per sessione, allenamenti come record discreti. I modelli pre-2023 (Bip 3, GTR 3, GTS 2) restano fuori scope perché la loro versione storica dell'app Zepp non scrive su Health Connect. I dati restano sul telefono e vengono inviati solo al backend Supabase del tuo account FitMesh.",
         en: "Sync chain: Amazfit (modern model) → Zepp app → Health Connect → FitMesh. No OAuth, no API keys. Typical latency 15–30 minutes. Granularity: daily steps, per-minute heart rate, per-session sleep, workouts as discrete records. Pre-2023 models (Bip 3, GTR 3, GTS 2) are out of scope because their legacy Zepp app version does not write to Health Connect. Data stays on your phone and is only sent to your FitMesh account's Supabase backend.",
+        de: "Sync-Kette: Amazfit (modernes Modell) → Zepp-App → Health Connect → FitMesh. Kein OAuth, keine API-Schlüssel. Typische Latenz 15–30 Minuten. Granularität: tägliche Schritte, Herzfrequenz pro Minute, Schlaf pro Sitzung, Trainings als diskrete Datensätze. Modelle vor 2023 (Bip 3, GTR 3, GTS 2) liegen außerhalb des Geltungsbereichs, da ihre historische Zepp-App-Version nicht auf Health Connect schreibt. Die Daten bleiben auf dem Smartphone und werden nur an das Supabase-Backend des FitMesh-Kontos gesendet.",
+        pt: "Cadeia de sincronização: Amazfit (modelo moderno) → app Zepp → Health Connect → FitMesh. Sem OAuth, sem chaves de API. Latência típica de 15 a 30 minutos. Granularidade: passos diários, BPM por minuto, sono por sessão, treinos como registros discretos. Modelos anteriores a 2023 (Bip 3, GTR 3, GTS 2) estão fora do escopo porque a versão histórica do app Zepp não escreve no Health Connect. Os dados ficam no telefone e são enviados apenas ao backend Supabase da conta FitMesh.",
+        fr: "Chaîne de synchronisation : Amazfit (modèle moderne) → app Zepp → Health Connect → FitMesh. Sans OAuth, sans clés API. Latence typique 15 à 30 minutes. Granularité : pas quotidiens, fréquence cardiaque par minute, sommeil par session, séances d'entraînement comme enregistrements discrets. Les modèles antérieurs à 2023 (Bip 3, GTR 3, GTS 2) sont hors périmètre car leur version historique de l'app Zepp n'écrit pas dans Health Connect. Les données restent sur le téléphone et ne sont envoyées qu'au backend Supabase du compte FitMesh.",
       },
     },
     relatedBlogSlugs: ["guida-sync-wearable-2026", "vedere-dati-wearable-browser-pc"],
@@ -861,18 +1375,27 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Fitbit Charge / Inspire / Sense / Versa: funziona già oggi via Health Connect.",
       en: "Fitbit Charge / Inspire / Sense / Versa: works today via Health Connect.",
+      de: "Fitbit Charge / Inspire / Sense / Versa: funktioniert heute schon über Health Connect.",
+      pt: "Fitbit Charge / Inspire / Sense / Versa: já funciona hoje via Health Connect.",
+      fr: "Fitbit Charge / Inspire / Sense / Versa : fonctionne dès aujourd'hui via Health Connect.",
     },
     longDesc: {
       it: "Dal 2024 l'app Fitbit scrive automaticamente su Health Connect, quindi FitMesh legge già i tuoi dati Fitbit (passi, BPM, sonno totale, calorie) senza configurazioni extra. Per dati avanzati come le fasi di sonno dettagliate e gli allenamenti con GPS track stiamo costruendo l'integrazione OAuth ufficiale Fitbit Web API, prevista per Q3 2026.",
       en: "Since 2024 the Fitbit app writes to Health Connect automatically, so FitMesh already reads your Fitbit data (steps, heart rate, total sleep, calories) without extra setup. For advanced data like detailed sleep stages and workouts with GPS tracks we're building the official Fitbit Web API OAuth integration, planned for Q3 2026.",
+      de: "Seit 2024 schreibt die Fitbit-App automatisch auf Health Connect, sodass FitMesh deine Fitbit-Daten (Schritte, Herzfrequenz, Gesamtschlaf, Kalorien) bereits ohne zusätzliche Einrichtung liest. Für erweiterte Daten wie detaillierte Schlafphasen und Trainings mit GPS-Tracks bauen wir die offizielle Fitbit Web API OAuth-Integration, geplant für Q3 2026.",
+      pt: "Desde 2024, o app Fitbit escreve automaticamente no Health Connect, então o FitMesh já lê os seus dados Fitbit (passos, BPM, sono total, calorias) sem configuração extra. Para dados avançados como fases de sono detalhadas e treinos com GPS, estamos construindo a integração OAuth oficial da Fitbit Web API, prevista para o Q3 2026.",
+      fr: "Depuis 2024, l'app Fitbit écrit automatiquement dans Health Connect, donc FitMesh lit déjà vos données Fitbit (pas, fréquence cardiaque, sommeil total, calories) sans configuration supplémentaire. Pour les données avancées comme les phases de sommeil détaillées et les séances d'entraînement avec GPS, nous construisons l'intégration OAuth officielle Fitbit Web API, prévue pour le T3 2026.",
     },
     techNote: {
       it: "Oggi: bridge automatico via app Fitbit → Health Connect. Q3 2026: OAuth 2.0 + Fitbit Web API per backfill storico 12 mesi e dati granulari.",
       en: "Today: automatic bridge via Fitbit app → Health Connect. Q3 2026: OAuth 2.0 + Fitbit Web API for 12-month historical backfill and granular data.",
+      de: "Heute: automatische Brücke über Fitbit-App → Health Connect. Q3 2026: OAuth 2.0 + Fitbit Web API für 12-monatigen historischen Backfill und granulare Daten.",
+      pt: "Hoje: bridge automática via app Fitbit → Health Connect. Q3 2026: OAuth 2.0 + Fitbit Web API para backfill histórico de 12 meses e dados granulares.",
+      fr: "Aujourd'hui : pont automatique via app Fitbit → Health Connect. T3 2026 : OAuth 2.0 + Fitbit Web API pour l'historique sur 12 mois et les données granulaires.",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: true, spo2: true }),
     viaHC: {
-      oauthEta: { it: "Q3 2026", en: "Q3 2026" },
+      oauthEta: { it: "Q3 2026", en: "Q3 2026", de: "Q3 2026", pt: "T3 2026", fr: "T3 2026" },
       worksNow: {
         it: [
           "Passi giornalieri (live)",
@@ -887,6 +1410,27 @@ export const PROVIDERS: Provider[] = [
           "Total sleep (duration + start/end time)",
           "Active and basal calories",
           "Daily distance",
+        ],
+        de: [
+          "Tägliche Schritte (live)",
+          "Durchschnittliche Herzfrequenz und Messungen",
+          "Gesamtschlaf (Dauer + Start-/Endzeit)",
+          "Aktive und Grundumsatz-Kalorien",
+          "Tägliche Distanz",
+        ],
+        pt: [
+          "Passos diários (ao vivo)",
+          "Frequência cardíaca média e amostras",
+          "Sono total (duração + horário de início/fim)",
+          "Calorias ativas e basais",
+          "Distância diária",
+        ],
+        fr: [
+          "Pas quotidiens (en direct)",
+          "Fréquence cardiaque moyenne et mesures",
+          "Sommeil total (durée + heure de début/fin)",
+          "Calories actives et de base",
+          "Distance quotidienne",
         ],
       },
       oauthAdds: {
@@ -904,6 +1448,27 @@ export const PROVIDERS: Provider[] = [
           "VO₂ max and Cardio Fitness Score",
           "Real-time notifications (vs HC's 15-min polling)",
         ],
+        de: [
+          "Detaillierte Schlafphasen (REM/Tief/Leicht/Wach)",
+          "Vollständige GPS-Tracks für jedes Training",
+          "Historischer Backfill bis zu 12 Monaten",
+          "VO₂ max und Cardio Fitness Score",
+          "Echtzeit-Benachrichtigungen (vs. 15-Minuten-Polling über HC)",
+        ],
+        pt: [
+          "Fases de sono detalhadas (REM/profundo/leve/acordado)",
+          "GPS completo para cada treino",
+          "Backfill histórico de até 12 meses",
+          "VO₂ máx e Cardio Fitness Score",
+          "Notificações em tempo real (vs. polling de 15 min via HC)",
+        ],
+        fr: [
+          "Phases de sommeil détaillées (REM/profond/léger/éveillé)",
+          "GPS complet pour chaque séance d'entraînement",
+          "Historique jusqu'à 12 mois",
+          "VO₂ max et Cardio Fitness Score",
+          "Notifications en temps réel (vs. polling 15 min via HC)",
+        ],
       },
     },
     faqs: [
@@ -911,20 +1476,32 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Funziona già oggi senza fare nulla?",
           en: "Does it work today without any setup?",
+          de: "Funktioniert es heute schon ohne Einrichtung?",
+          pt: "Já funciona hoje sem fazer nada?",
+          fr: "Fonctionne-t-il dès aujourd'hui sans configuration ?",
         },
         a: {
           it: "Sì: se hai l'app Fitbit installata sul telefono Android e Health Connect abilitato, FitMesh legge automaticamente passi, BPM, sonno e calorie. Il bridge Fitbit → Health Connect è stato aggiunto da Google nel 2024 ed è attivo di default.",
           en: "Yes: if you have the Fitbit app installed on Android with Health Connect enabled, FitMesh automatically reads steps, heart rate, sleep and calories. The Fitbit → Health Connect bridge was added by Google in 2024 and is on by default.",
+          de: "Ja: Wenn die Fitbit-App auf deinem Android-Gerät installiert und Health Connect aktiviert ist, liest FitMesh automatisch Schritte, Herzfrequenz, Schlaf und Kalorien. Die Fitbit → Health Connect Bridge wurde von Google 2024 hinzugefügt und ist standardmäßig aktiv.",
+          pt: "Sim: se você tiver o app Fitbit instalado no Android com o Health Connect ativado, o FitMesh lê automaticamente passos, BPM, sono e calorias. A bridge Fitbit → Health Connect foi adicionada pelo Google em 2024 e está ativa por padrão.",
+          fr: "Oui : si vous avez l'app Fitbit installée sur Android avec Health Connect activé, FitMesh lit automatiquement les pas, la fréquence cardiaque, le sommeil et les calories. Le pont Fitbit → Health Connect a été ajouté par Google en 2024 et est actif par défaut.",
         },
       },
       {
         q: {
           it: "Cosa manca rispetto all'OAuth ufficiale?",
           en: "What's missing vs the official OAuth?",
+          de: "Was fehlt im Vergleich zum offiziellen OAuth?",
+          pt: "O que falta em comparação ao OAuth oficial?",
+          fr: "Qu'est-ce qui manque par rapport à l'OAuth officiel ?",
         },
         a: {
           it: "Via Health Connect mancano: fasi di sonno dettagliate, GPS track allenamenti, dati storici oltre 30 giorni, VO₂ max. Questi arriveranno con l'OAuth Fitbit Web API previsto per Q3 2026.",
           en: "Via Health Connect you're missing: detailed sleep stages, workout GPS tracks, historical data beyond 30 days, VO₂ max. These will come with the Fitbit Web API OAuth planned for Q3 2026.",
+          de: "Über Health Connect fehlen: detaillierte Schlafphasen, GPS-Tracks für Trainings, historische Daten über 30 Tage hinaus, VO₂ max. Diese werden mit dem für Q3 2026 geplanten Fitbit Web API OAuth kommen.",
+          pt: "Via Health Connect faltam: fases de sono detalhadas, GPS de treinos, dados históricos além de 30 dias, VO₂ máx. Esses chegam com o OAuth da Fitbit Web API previsto para o Q3 2026.",
+          fr: "Via Health Connect, il manque : les phases de sommeil détaillées, les GPS des séances d'entraînement, les données historiques au-delà de 30 jours, le VO₂ max. Tout cela arrivera avec le OAuth de la Fitbit Web API prévu pour le T3 2026.",
         },
       },
     ],
@@ -940,6 +1517,24 @@ export const PROVIDERS: Provider[] = [
         "fitbit dashboard alternative",
         "export fitbit data",
         "fitbit to galaxy watch",
+      ],
+      de: [
+        "fitbit health connect synchronisieren",
+        "fitbit dashboard alternative",
+        "fitbit daten exportieren",
+        "fitbit zu galaxy watch",
+      ],
+      pt: [
+        "sincronizar fitbit health connect",
+        "alternativa painel fitbit",
+        "exportar dados fitbit",
+        "fitbit para galaxy watch",
+      ],
+      fr: [
+        "synchroniser fitbit health connect",
+        "alternative tableau de bord fitbit",
+        "exporter données fitbit",
+        "fitbit vers galaxy watch",
       ],
     },
     setupGuide: {
@@ -957,6 +1552,27 @@ export const PROVIDERS: Provider[] = [
           "Open the Fitbit app → **You** tab (bottom right) → **Health Connect** → tap **Connect** and authorize write access.",
           "Install **FitMesh Sync** from the Play Store and sign in with Google.",
           "Grant FitMesh the requested Health Connect permissions, then tap **Sync now**.",
+        ],
+        de: [
+          "Prüfe die Anforderungen: **Android 10 oder höher** und **Fitbit-App Version 4.10** oder höher.",
+          "Installiere **Health Connect** aus dem Play Store (auf Android 14+ vorinstalliert).",
+          "Öffne die Fitbit-App → Tab **Du** (unten rechts) → **Health Connect** → tippe auf **Verbinden** und autorisiere den Schreibzugriff.",
+          "Installiere **FitMesh Sync** aus dem Play Store und melde dich mit Google an.",
+          "Erteile FitMesh die angeforderten Health Connect-Berechtigungen, dann tippe auf **Jetzt synchronisieren**.",
+        ],
+        pt: [
+          "Verifique os requisitos: **Android 10 ou superior** e **app Fitbit versão 4.10** ou superior.",
+          "Instale o **Health Connect** no Google Play (pré-instalado no Android 14+).",
+          "Abra o app Fitbit → aba **Você** (canto inferior direito) → **Health Connect** → toque em **Conectar** e autorize a escrita.",
+          "Instale o **FitMesh Sync** no Google Play e faça login com Google.",
+          "Conceda ao FitMesh as permissões do Health Connect solicitadas e toque em **Sincronizar agora**.",
+        ],
+        fr: [
+          "Vérifiez les prérequis : **Android 10 ou supérieur** et **app Fitbit version 4.10** ou supérieure.",
+          "Installez **Health Connect** depuis le Play Store (préinstallé sur Android 14+).",
+          "Ouvrez l'app Fitbit → onglet **Vous** (en bas à droite) → **Health Connect** → appuyez sur **Connecter** et autorisez l'accès en écriture.",
+          "Installez **FitMesh Sync** depuis le Play Store et connectez-vous avec Google.",
+          "Accordez à FitMesh les autorisations Health Connect demandées, puis appuyez sur **Synchroniser maintenant**.",
         ],
       },
       syncedData: {
@@ -978,42 +1594,90 @@ export const PROVIDERS: Provider[] = [
           "Basic workouts (type, duration, kcal, average BPM)",
           "Overnight SpO₂ (when supported by the device)",
         ],
+        de: [
+          "Tägliche Schritte",
+          "Herzfrequenz (Durchschnitt, Ruhe, Messungen)",
+          "Schlaf (Gesamtdauer, Start-/Endzeit)",
+          "Aktive und Grundumsatz-Kalorien",
+          "Distanz",
+          "Basis-Trainings (Typ, Dauer, kcal, durchschnittliche Herzfrequenz)",
+          "Nächtliches SpO₂ (wenn vom Gerät unterstützt)",
+        ],
+        pt: [
+          "Passos diários",
+          "Frequência cardíaca (média, repouso, amostras)",
+          "Sono (duração total, horário de início/fim)",
+          "Calorias ativas e basais",
+          "Distância",
+          "Treinos básicos (tipo, duração, kcal, BPM médio)",
+          "SpO₂ noturno (quando suportado pelo dispositivo)",
+        ],
+        fr: [
+          "Pas quotidiens",
+          "Fréquence cardiaque (moyenne, repos, mesures)",
+          "Sommeil (durée totale, heure de début/fin)",
+          "Calories actives et de base",
+          "Distance",
+          "Séances d'entraînement de base (type, durée, kcal, fréquence cardiaque moyenne)",
+          "SpO₂ nocturne (si pris en charge par l'appareil)",
+        ],
       },
       troubleshooting: [
         {
           q: {
             it: "Non vedo i miei dati su FitMesh",
             en: "I don't see my data in FitMesh",
+            de: "Ich sehe meine Daten nicht in FitMesh",
+            pt: "Não vejo meus dados no FitMesh",
+            fr: "Je ne vois pas mes données dans FitMesh",
           },
           a: {
             it: "Il bridge Fitbit → Health Connect non è automatico al 100%. Apri Fitbit → You → Health Connect e verifica che lo stato sia 'Connesso'. Se non lo è, tocca 'Connetti' e riautorizza i permessi.",
             en: "The Fitbit → Health Connect bridge isn't fully automatic. Open Fitbit → You → Health Connect and check that status reads 'Connected'. If not, tap 'Connect' and re-authorize permissions.",
+            de: "Die Fitbit → Health Connect Bridge ist nicht zu 100 % automatisch. Öffne Fitbit → Du → Health Connect und prüfe, ob der Status 'Verbunden' angezeigt wird. Falls nicht, tippe auf 'Verbinden' und autorisiere die Berechtigungen erneut.",
+            pt: "A bridge Fitbit → Health Connect não é 100% automática. Abra Fitbit → Você → Health Connect e verifique se o status é 'Conectado'. Se não for, toque em 'Conectar' e reautorize as permissões.",
+            fr: "Le pont Fitbit → Health Connect n'est pas entièrement automatique. Ouvrez Fitbit → Vous → Health Connect et vérifiez que le statut indique 'Connecté'. Sinon, appuyez sur 'Connecter' et réautorisez les permissions.",
           },
         },
         {
           q: {
             it: "I dati arrivano in ritardo",
             en: "Data arrives late",
+            de: "Die Daten kommen verzögert an",
+            pt: "Os dados chegam com atraso",
+            fr: "Les données arrivent en retard",
           },
           a: {
             it: "L'app Fitbit fa polling sul cloud ogni 15 minuti. Per forzare un sync scorri verso il basso sulla home Fitbit per il refresh manuale, poi premi 'Sincronizza ora' su FitMesh.",
             en: "The Fitbit app polls the cloud every 15 minutes. To force a sync pull down on the Fitbit home for manual refresh, then tap 'Sync now' in FitMesh.",
+            de: "Die Fitbit-App fragt alle 15 Minuten die Cloud ab. Um eine Sync zu erzwingen, ziehe auf der Fitbit-Startseite nach unten zum manuellen Aktualisieren, dann tippe in FitMesh auf 'Jetzt synchronisieren'.",
+            pt: "O app Fitbit consulta a nuvem a cada 15 minutos. Para forçar uma sincronização, deslize para baixo na tela inicial do Fitbit para atualização manual e toque em 'Sincronizar agora' no FitMesh.",
+            fr: "L'app Fitbit interroge le cloud toutes les 15 minutes. Pour forcer une synchronisation, tirez vers le bas sur l'écran d'accueil Fitbit pour le rafraîchissement manuel, puis appuyez sur 'Synchroniser maintenant' dans FitMesh.",
           },
         },
         {
           q: {
             it: "Vedo passi e BPM ma non le fasi di sonno",
             en: "I see steps and heart rate but no sleep stages",
+            de: "Ich sehe Schritte und Herzfrequenz, aber keine Schlafphasen",
+            pt: "Vejo passos e BPM mas não as fases do sono",
+            fr: "Je vois les pas et la fréquence cardiaque mais pas les phases du sommeil",
           },
           a: {
             it: "Via Health Connect Fitbit espone solo la durata totale del sonno, non le fasi REM/Deep/Light. Le fasi dettagliate arriveranno con l'OAuth Fitbit Web API previsto per Q3 2026.",
             en: "Via Health Connect Fitbit only exposes total sleep duration, not REM/Deep/Light stages. Detailed stages will arrive with the planned Fitbit Web API OAuth (Q3 2026).",
+            de: "Über Health Connect zeigt Fitbit nur die Gesamtschlafzeit, keine REM/Tief/Leicht-Phasen. Die detaillierten Phasen werden mit dem geplanten Fitbit Web API OAuth (Q3 2026) verfügbar sein.",
+            pt: "Via Health Connect, o Fitbit expõe apenas a duração total do sono, não as fases REM/profundo/leve. As fases detalhadas chegarão com o OAuth da Fitbit Web API previsto para o Q3 2026.",
+            fr: "Via Health Connect, Fitbit n'expose que la durée totale du sommeil, pas les phases REM/profond/léger. Les phases détaillées arriveront avec le OAuth de la Fitbit Web API prévu pour le T3 2026.",
           },
         },
       ],
       technicalNotes: {
         it: "Catena di sync: Fitbit device → app Fitbit → Health Connect → FitMesh. Latenza tipica 15–30 minuti. Per backfill storico oltre 30 giorni serve l'OAuth Fitbit Web API ufficiale, in roadmap Q3 2026.",
         en: "Sync chain: Fitbit device → Fitbit app → Health Connect → FitMesh. Typical latency 15–30 minutes. Historical backfill beyond 30 days requires the official Fitbit Web API OAuth, on the Q3 2026 roadmap.",
+        de: "Sync-Kette: Fitbit-Gerät → Fitbit-App → Health Connect → FitMesh. Typische Latenz 15–30 Minuten. Für historischen Backfill über 30 Tage hinaus wird das offizielle Fitbit Web API OAuth benötigt, in der Q3 2026 Roadmap.",
+        pt: "Cadeia de sincronização: dispositivo Fitbit → app Fitbit → Health Connect → FitMesh. Latência típica de 15 a 30 minutos. O backfill histórico além de 30 dias requer o OAuth oficial da Fitbit Web API, no roadmap do Q3 2026.",
+        fr: "Chaîne de synchronisation : appareil Fitbit → app Fitbit → Health Connect → FitMesh. Latence typique 15 à 30 minutes. L'historique au-delà de 30 jours nécessite le OAuth officiel de la Fitbit Web API, dans la roadmap T3 2026.",
       },
     },
     relatedBlogSlugs: ["esportare-dati-fitbit-google", "alternative-health-sync-2026"],
@@ -1029,18 +1693,27 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Forerunner, Fenix, Venu, Epix funzionano oggi via Garmin Connect → Health Connect.",
       en: "Forerunner, Fenix, Venu, Epix work today via Garmin Connect → Health Connect.",
+      de: "Forerunner, Fenix, Venu, Epix funktionieren heute über Garmin Connect und Health Connect.",
+      pt: "Forerunner, Fenix, Venu, Epix funcionam hoje via Garmin Connect e Health Connect.",
+      fr: "Forerunner, Fenix, Venu, Epix fonctionnent aujourd'hui via Garmin Connect et Health Connect.",
     },
     longDesc: {
       it: "Dal 2024 Garmin Connect scrive su Health Connect, quindi i tuoi dati Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct sono già leggibili da FitMesh oggi (passi, BPM, sonno, calorie, distanza, allenamenti base). Per Body Battery, Training Load, Recovery Time, Stress Score e GPS dettagliato stiamo costruendo l'integrazione OAuth ufficiale Garmin Health API, prevista per Q3 2026.",
       en: "Since 2024 Garmin Connect writes to Health Connect, so your Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct data is already readable by FitMesh today (steps, heart rate, sleep, calories, distance, basic workouts). For Body Battery, Training Load, Recovery Time, Stress Score and detailed GPS we're building the official Garmin Health API OAuth integration, planned for Q3 2026.",
+      de: "Seit 2024 schreibt Garmin Connect auf Health Connect, sodass deine Forerunner-, Fenix-, Epix-, Venu-, Vivoactive- und Instinct-Daten heute schon von FitMesh lesbar sind (Schritte, Herzfrequenz, Schlaf, Kalorien, Distanz, Basis-Trainings). Für Body Battery, Training Load, Recovery Time, Stress Score und detailliertes GPS bauen wir die offizielle Garmin Health API OAuth-Integration, geplant für Q3 2026.",
+      pt: "Desde 2024, o Garmin Connect escreve no Health Connect, então os dados do seu Forerunner, Fenix, Epix, Venu, Vivoactive e Instinct já são legíveis pelo FitMesh hoje (passos, BPM, sono, calorias, distância, treinos básicos). Para Body Battery, Training Load, Recovery Time, Stress Score e GPS detalhado, estamos construindo a integração OAuth oficial da Garmin Health API, prevista para o Q3 2026.",
+      fr: "Depuis 2024, Garmin Connect écrit dans Health Connect, donc vos données Forerunner, Fenix, Epix, Venu, Vivoactive et Instinct sont déjà lisibles par FitMesh aujourd'hui (pas, fréquence cardiaque, sommeil, calories, distance, séances de base). Pour Body Battery, Training Load, Recovery Time, Stress Score et GPS détaillé, nous construisons l'intégration OAuth officielle Garmin Health API, prévue pour le T3 2026.",
     },
     techNote: {
       it: "Oggi: bridge automatico via Garmin Connect app → Health Connect. Q3 2026: OAuth 2.0 + Garmin Health API per metriche performance avanzate (richiede approvazione Garmin Developer Program).",
       en: "Today: automatic bridge via Garmin Connect app → Health Connect. Q3 2026: OAuth 2.0 + Garmin Health API for advanced performance metrics (requires Garmin Developer Program approval).",
+      de: "Heute: automatische Brücke über Garmin Connect App → Health Connect. Q3 2026: OAuth 2.0 + Garmin Health API für erweiterte Leistungsmetriken (erfordert Genehmigung des Garmin Developer Program).",
+      pt: "Hoje: bridge automática via app Garmin Connect → Health Connect. Q3 2026: OAuth 2.0 + Garmin Health API para métricas de desempenho avançadas (requer aprovação do Garmin Developer Program).",
+      fr: "Aujourd'hui : pont automatique via l'app Garmin Connect → Health Connect. T3 2026 : OAuth 2.0 + Garmin Health API pour les métriques de performance avancées (nécessite l'approbation du Garmin Developer Program).",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: true, spo2: true }),
     viaHC: {
-      oauthEta: { it: "Q3 2026", en: "Q3 2026" },
+      oauthEta: { it: "Q3 2026", en: "Q3 2026", de: "Q3 2026", pt: "T3 2026", fr: "T3 2026" },
       worksNow: {
         it: [
           "Passi giornalieri (live)",
@@ -1057,6 +1730,30 @@ export const PROVIDERS: Provider[] = [
           "Active + basal calories",
           "Daily distance",
           "Basic workouts (type, duration, kcal)",
+        ],
+        de: [
+          "Tägliche Schritte (live)",
+          "Durchschnittliche Herzfrequenz + Herzfrequenzzonen",
+          "Gesamtschlaf (keine detaillierten Phasen)",
+          "Aktive + Grundumsatz-Kalorien",
+          "Tägliche Distanz",
+          "Basis-Trainings (Typ, Dauer, kcal)",
+        ],
+        pt: [
+          "Passos diários (ao vivo)",
+          "Frequência cardíaca média + zonas de FC",
+          "Sono total (sem fases detalhadas)",
+          "Calorias ativas + basais",
+          "Distância diária",
+          "Treinos básicos (tipo, duração, kcal)",
+        ],
+        fr: [
+          "Pas quotidiens (en direct)",
+          "Fréquence cardiaque moyenne + zones FC",
+          "Sommeil total (sans phases détaillées)",
+          "Calories actives + de base",
+          "Distance quotidienne",
+          "Séances de base (type, durée, kcal)",
         ],
       },
       oauthAdds: {
@@ -1076,6 +1773,30 @@ export const PROVIDERS: Provider[] = [
           "Garmin-estimated VO₂ max",
           "Pulse Ox (blood oxygen)",
         ],
+        de: [
+          "Body Battery (Energielevel)",
+          "Training Load + Recovery Time",
+          "Tages- und Nacht-Stress Score",
+          "Vollständige GPS-Tracks für Trainings",
+          "Von Garmin geschätzter VO₂ max",
+          "Pulse Ox (Blutsauerstoff)",
+        ],
+        pt: [
+          "Body Battery (nível de energia)",
+          "Training Load + Recovery Time",
+          "Stress Score diurno e noturno",
+          "GPS completo dos treinos",
+          "VO₂ máx estimado pelo Garmin",
+          "Pulse Ox (saturação de oxigênio)",
+        ],
+        fr: [
+          "Body Battery (niveau d'énergie)",
+          "Training Load + Recovery Time",
+          "Stress Score diurne et nocturne",
+          "GPS complet pour les séances d'entraînement",
+          "VO₂ max estimé par Garmin",
+          "Pulse Ox (oxygène sanguin)",
+        ],
       },
     },
     faqs: [
@@ -1083,20 +1804,32 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Quali Garmin sono supportati oggi?",
           en: "Which Garmin watches are supported today?",
+          de: "Welche Garmin-Uhren werden heute unterstützt?",
+          pt: "Quais Garmin são suportados hoje?",
+          fr: "Quelles montres Garmin sont prises en charge aujourd'hui ?",
         },
         a: {
           it: "Tutti i Garmin compatibili con Garmin Connect su Android (dal 2018) funzionano oggi via Health Connect: Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, anche Vivosmart e Vivofit. Verifica solo che 'Sincronizza con Health Connect' sia attivo nelle impostazioni di Garmin Connect.",
           en: "Every Garmin compatible with Garmin Connect on Android (from 2018) works today via Health Connect: Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart and Vivofit included. Just check that 'Sync with Health Connect' is enabled in Garmin Connect settings.",
+          de: "Alle Garmin-Uhren, die mit Garmin Connect auf Android kompatibel sind (ab 2018), funktionieren heute über Health Connect: Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, auch Vivosmart und Vivofit. Prüfe nur, dass 'Mit Health Connect synchronisieren' in den Garmin Connect-Einstellungen aktiviert ist.",
+          pt: "Todos os Garmin compatíveis com o Garmin Connect no Android (a partir de 2018) funcionam hoje via Health Connect: Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, incluindo Vivosmart e Vivofit. Verifique apenas que 'Sincronizar com Health Connect' está ativo nas configurações do Garmin Connect.",
+          fr: "Toutes les montres Garmin compatibles avec Garmin Connect sur Android (depuis 2018) fonctionnent aujourd'hui via Health Connect : Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart et Vivofit inclus. Vérifiez simplement que 'Synchroniser avec Health Connect' est activé dans les paramètres de Garmin Connect.",
         },
       },
       {
         q: {
           it: "Vedrò Body Battery e Training Load?",
           en: "Will I see Body Battery and Training Load?",
+          de: "Werde ich Body Battery und Training Load sehen?",
+          pt: "Verei Body Battery e Training Load?",
+          fr: "Verrai-je Body Battery et Training Load ?",
         },
         a: {
           it: "Non oggi: Health Connect non espone queste metriche proprietarie Garmin. Saranno disponibili con l'OAuth ufficiale previsto per Q3 2026.",
           en: "Not today: Health Connect doesn't expose these proprietary Garmin metrics. They'll be available with the official OAuth planned for Q3 2026.",
+          de: "Heute noch nicht: Health Connect zeigt diese proprietären Garmin-Metriken nicht. Sie werden mit dem für Q3 2026 geplanten offiziellen OAuth verfügbar sein.",
+          pt: "Não hoje: o Health Connect não expõe essas métricas proprietárias da Garmin. Estarão disponíveis com o OAuth oficial previsto para o Q3 2026.",
+          fr: "Pas aujourd'hui : Health Connect n'expose pas ces métriques propriétaires Garmin. Elles seront disponibles avec le OAuth officiel prévu pour le T3 2026.",
         },
       },
     ],
@@ -1112,6 +1845,24 @@ export const PROVIDERS: Provider[] = [
         "garmin connect alternative",
         "export garmin data",
         "garmin to samsung health",
+      ],
+      de: [
+        "garmin dashboard synchronisieren",
+        "garmin connect alternative",
+        "garmin daten exportieren",
+        "garmin zu samsung health",
+      ],
+      pt: [
+        "sincronizar garmin painel",
+        "alternativa garmin connect",
+        "exportar dados garmin",
+        "garmin para samsung health",
+      ],
+      fr: [
+        "synchroniser garmin tableau de bord",
+        "alternative garmin connect",
+        "exporter données garmin",
+        "garmin vers samsung health",
       ],
     },
     setupGuide: {
@@ -1131,6 +1882,30 @@ export const PROVIDERS: Provider[] = [
           "Install **FitMesh Sync** from the Play Store and sign in with Google.",
           "Grant FitMesh the requested Health Connect permissions on first launch, then tap **Sync now**.",
           "(Optional) Join the waitlist for the **Garmin Health API OAuth** (Q3 2026) to unlock Body Battery, Training Load and detailed GPS.",
+        ],
+        de: [
+          "Prüfe die Anforderungen: **Android 10+** und die **Garmin Connect**-App mit mindestens einem gekoppelten Gerät.",
+          "Installiere **Health Connect** aus dem Play Store (auf Android 14+ vorinstalliert).",
+          "Öffne Garmin Connect → ☰-Menü → **Einstellungen** → **Verbundene Partner** → **Health Connect** → tippe auf **Verbinden** und aktiviere Lesen/Schreiben für Schritte, Herzfrequenz, Schlaf, Kalorien, Distanz und Trainings.",
+          "Installiere **FitMesh Sync** aus dem Play Store und melde dich mit Google an.",
+          "Erteile FitMesh beim ersten Start die angeforderten Health Connect-Berechtigungen, dann tippe auf **Jetzt synchronisieren**.",
+          "(Optional) Trage dich in die Warteliste für das **Garmin Health API OAuth** (Q3 2026) ein, um Body Battery, Training Load und detailliertes GPS freizuschalten.",
+        ],
+        pt: [
+          "Verifique os requisitos: **Android 10+** e o app **Garmin Connect** instalado com pelo menos um dispositivo pareado.",
+          "Instale o **Health Connect** no Google Play (pré-instalado no Android 14+).",
+          "Abra o Garmin Connect → menu ☰ → **Configurações** → **Parceiros conectados** → **Health Connect** → toque em **Conectar** e ative leitura/escrita para passos, frequência cardíaca, sono, calorias, distância e treinos.",
+          "Instale o **FitMesh Sync** no Google Play e faça login com Google.",
+          "Conceda ao FitMesh as permissões do Health Connect solicitadas no primeiro acesso e toque em **Sincronizar agora**.",
+          "(Opcional) Inscreva-se na lista de espera para o **OAuth da Garmin Health API** (Q3 2026) para desbloquear Body Battery, Training Load e GPS detalhado.",
+        ],
+        fr: [
+          "Vérifiez les prérequis : **Android 10+** et l'app **Garmin Connect** installée avec au moins un appareil couplé.",
+          "Installez **Health Connect** depuis le Play Store (préinstallé sur Android 14+).",
+          "Ouvrez Garmin Connect → menu ☰ → **Paramètres** → **Partenaires connectés** → **Health Connect** → appuyez sur **Connecter** et activez lecture/écriture pour les pas, la fréquence cardiaque, le sommeil, les calories, la distance et les séances d'entraînement.",
+          "Installez **FitMesh Sync** depuis le Play Store et connectez-vous avec Google.",
+          "Accordez à FitMesh les autorisations Health Connect demandées au premier lancement, puis appuyez sur **Synchroniser maintenant**.",
+          "(Facultatif) Inscrivez-vous sur la liste d'attente pour le **OAuth Garmin Health API** (T3 2026) pour débloquer Body Battery, Training Load et le GPS détaillé.",
         ],
       },
       syncedData: {
@@ -1152,42 +1927,90 @@ export const PROVIDERS: Provider[] = [
           "Basic workouts (type, duration, kcal)",
           "Body Battery, Training Load, detailed GPS → Q3 2026 via OAuth",
         ],
+        de: [
+          "Tägliche und stündliche Schritte",
+          "Durchschnittliche Herzfrequenz + Herzfrequenzzonen",
+          "Schlaf (Gesamtdauer, keine Phasen)",
+          "Aktive und Grundumsatz-Kalorien",
+          "Tägliche Distanz",
+          "Basis-Trainings (Typ, Dauer, kcal)",
+          "Body Battery, Training Load, detailliertes GPS → Q3 2026 via OAuth",
+        ],
+        pt: [
+          "Passos diários e por intervalo",
+          "Frequência cardíaca média + zonas de FC",
+          "Sono (duração total, sem fases)",
+          "Calorias ativas e basais",
+          "Distância diária",
+          "Treinos básicos (tipo, duração, kcal)",
+          "Body Battery, Training Load, GPS detalhado → Q3 2026 via OAuth",
+        ],
+        fr: [
+          "Pas quotidiens et infrajournaliers",
+          "Fréquence cardiaque moyenne + zones FC",
+          "Sommeil (durée totale, sans phases)",
+          "Calories actives et de base",
+          "Distance quotidienne",
+          "Séances de base (type, durée, kcal)",
+          "Body Battery, Training Load, GPS détaillé → T3 2026 via OAuth",
+        ],
       },
       troubleshooting: [
         {
           q: {
             it: "Voglio Body Battery e Training Load oggi",
             en: "I want Body Battery and Training Load today",
+            de: "Ich möchte heute schon Body Battery und Training Load sehen",
+            pt: "Quero ver Body Battery e Training Load hoje",
+            fr: "Je veux Body Battery et Training Load dès aujourd'hui",
           },
           a: {
             it: "Non è possibile via Health Connect: queste sono metriche proprietarie Garmin non esposte all'API HC. L'integrazione nativa via OAuth Garmin Health API è in roadmap Q3 2026 (in attesa di approvazione Garmin Developer Program).",
             en: "Not possible via Health Connect: these are proprietary Garmin metrics not exposed to the HC API. Native integration via Garmin Health API OAuth is on the Q3 2026 roadmap (pending Garmin Developer Program approval).",
+            de: "Über Health Connect nicht möglich: Dies sind proprietäre Garmin-Metriken, die der HC-API nicht zugänglich sind. Die native Integration über Garmin Health API OAuth ist in der Q3 2026 Roadmap (ausstehende Genehmigung des Garmin Developer Program).",
+            pt: "Não é possível via Health Connect: essas são métricas proprietárias da Garmin não expostas à API HC. A integração nativa via OAuth da Garmin Health API está no roadmap do Q3 2026 (aguardando aprovação do Garmin Developer Program).",
+            fr: "Pas possible via Health Connect : ce sont des métriques propriétaires Garmin non exposées à l'API HC. L'intégration native via le OAuth Garmin Health API est dans la roadmap T3 2026 (en attente d'approbation du Garmin Developer Program).",
           },
         },
         {
           q: {
             it: "Vedo i passi ma non gli allenamenti",
             en: "I see steps but not workouts",
+            de: "Ich sehe die Schritte, aber keine Trainings",
+            pt: "Vejo os passos mas não os treinos",
+            fr: "Je vois les pas mais pas les séances d'entraînement",
           },
           a: {
             it: "In Garmin Connect → Impostazioni → Partner connessi → Health Connect verifica che il permesso 'Allenamenti' (Exercise) sia attivo. È un permesso separato dai passi.",
             en: "In Garmin Connect → Settings → Connected Partners → Health Connect verify that the 'Exercise' permission is enabled. It's separate from steps.",
+            de: "Prüfe in Garmin Connect → Einstellungen → Verbundene Partner → Health Connect, ob die Berechtigung 'Training' (Exercise) aktiv ist. Es ist eine separate Berechtigung für Schritte.",
+            pt: "Em Garmin Connect → Configurações → Parceiros conectados → Health Connect, verifique se a permissão 'Exercícios' está ativa. É uma permissão separada dos passos.",
+            fr: "Dans Garmin Connect → Paramètres → Partenaires connectés → Health Connect, vérifiez que l'autorisation 'Exercice' est activée. C'est une autorisation distincte des pas.",
           },
         },
         {
           q: {
             it: "Quando arriva l'invito all'OAuth?",
             en: "When do I get the OAuth invite?",
+            de: "Wann erhalte ich die OAuth-Einladung?",
+            pt: "Quando recebo o convite OAuth?",
+            fr: "Quand vais-je recevoir l'invitation OAuth ?",
           },
           a: {
             it: "L'invito alla beta OAuth Garmin parte da Q3 2026 in waves, in ordine cronologico di iscrizione alla waitlist. L'approvazione finale dipende dal Garmin Developer Program.",
             en: "OAuth Garmin beta invites roll out from Q3 2026 in waves, in waitlist signup order. Final approval depends on Garmin Developer Program.",
+            de: "Die OAuth Garmin Beta-Einladungen werden ab Q3 2026 in Wellen verschickt, in der Reihenfolge der Wartelisten-Anmeldung. Die endgültige Genehmigung hängt vom Garmin Developer Program ab.",
+            pt: "Os convites para a beta OAuth Garmin serão enviados a partir do Q3 2026 em ondas, por ordem cronológica de inscrição na lista de espera. A aprovação final depende do Garmin Developer Program.",
+            fr: "Les invitations à la bêta OAuth Garmin sont envoyées à partir du T3 2026 par vagues, dans l'ordre d'inscription sur la liste d'attente. L'approbation finale dépend du Garmin Developer Program.",
           },
         },
       ],
       technicalNotes: {
         it: "Oggi: bridge Garmin Connect → Health Connect, latenza tipica 15–30 minuti, granularità giornaliera. Q3 2026: OAuth 2.0 + Garmin Health API ufficiale con webhook su nuove attività, BPM secondo per secondo, GPS track completo, backfill 12 mesi al primo connect.",
         en: "Today: Garmin Connect → Health Connect bridge, typical latency 15–30 minutes, daily granularity. Q3 2026: official OAuth 2.0 + Garmin Health API with new-activity webhooks, second-by-second heart rate, full GPS tracks, 12-month backfill on first connect.",
+        de: "Heute: Garmin Connect → Health Connect Bridge, typische Latenz 15–30 Minuten, tägliche Granularität. Q3 2026: offizielles OAuth 2.0 + Garmin Health API mit Webhooks für neue Aktivitäten, Herzfrequenz sekunde für Sekunde, vollständige GPS-Tracks, 12-Monate-Backfill beim ersten Verbinden.",
+        pt: "Hoje: bridge Garmin Connect → Health Connect, latência típica de 15 a 30 minutos, granularidade diária. Q3 2026: OAuth 2.0 oficial + Garmin Health API com webhooks para novas atividades, BPM segundo a segundo, GPS completo, backfill de 12 meses na primeira conexão.",
+        fr: "Aujourd'hui : pont Garmin Connect → Health Connect, latence typique 15 à 30 minutes, granularité quotidienne. T3 2026 : OAuth 2.0 officiel + Garmin Health API avec webhooks pour les nouvelles activités, fréquence cardiaque seconde par seconde, GPS complet, backfill de 12 mois à la première connexion.",
       },
     },
     relatedBlogSlugs: ["scegliere-smartwatch-dati-2026", "guida-sync-wearable-2026"],
@@ -1203,14 +2026,23 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Tutte le tue attività Strava in un'unica dashboard salute. Disponibile Q3 2026.",
       en: "All your Strava activities in one health dashboard. Coming Q3 2026.",
+      de: "Alle deine Strava-Aktivitäten in einem Gesundheits-Dashboard. Kommt Q3 2026.",
+      pt: "Todas as suas atividades do Strava em um único painel de saúde. Disponível no T3 2026.",
+      fr: "Toutes vos activités Strava dans un seul tableau de bord santé. Disponible T3 2026.",
     },
     longDesc: {
       it: "L'integrazione Strava porterà tutte le tue corse, pedalate, nuotate e camminate sulla dashboard FitMesh, con GPS track, dislivello, ritmo medio, calorie e frequenza cardiaca per ogni segmento. Anche le attività manuali e gli allenamenti in palestra.",
       en: "The Strava integration will pull every run, ride, swim and walk onto your FitMesh dashboard, with GPS tracks, elevation, average pace, calories and heart rate for each segment. Manual activities and gym workouts included.",
+      de: "Die Strava-Integration bringt alle deine Läufe, Radtouren, Schwimmeinheiten und Spaziergänge auf das FitMesh-Dashboard, mit GPS-Tracks, Höhenprofil, Durchschnittstempo, Kalorien und Herzfrequenz für jedes Segment. Manuelle Aktivitäten und Fitnessstudio-Trainings inklusive.",
+      pt: "A integração Strava trará todas as suas corridas, pedaladas, natações e caminhadas para o painel FitMesh, com GPS, desnível, ritmo médio, calorias e frequência cardíaca por segmento. Atividades manuais e treinos de academia incluídos.",
+      fr: "L'intégration Strava importera toutes vos courses, sorties vélo, nages et marches sur votre tableau de bord FitMesh, avec les traces GPS, le dénivelé, l'allure moyenne, les calories et la fréquence cardiaque pour chaque segment. Les activités manuelles et les séances en salle sont incluses.",
     },
     techNote: {
       it: "OAuth 2.0 + Strava API v3. Webhook subscription per sync near-real-time. Quota gratuita 1000 attività/24h, sufficiente per uso personale.",
       en: "OAuth 2.0 + Strava API v3. Webhook subscription for near-real-time sync. Free tier 1000 activities/24h, plenty for personal use.",
+      de: "OAuth 2.0 + Strava API v3. Webhook-Abonnement für nahezu Echtzeit-Synchronisierung. Kostenloses Kontingent 1000 Aktivitäten/24h, ausreichend für den persönlichen Gebrauch.",
+      pt: "OAuth 2.0 + Strava API v3. Webhook subscription para sincronização quase em tempo real. Cota gratuita de 1000 atividades/24h, suficiente para uso pessoal.",
+      fr: "OAuth 2.0 + Strava API v3. Abonnement webhook pour une synchronisation quasi temps réel. Quota gratuit 1000 activités/24h, largement suffisant pour un usage personnel.",
     },
     dataTypes: STD_DATA_TYPES({
       sleep: false,
@@ -1222,20 +2054,32 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Importerà tutto lo storico Strava?",
           en: "Will it import all my Strava history?",
+          de: "Wird der gesamte Strava-Verlauf importiert?",
+          pt: "Vai importar todo o histórico do Strava?",
+          fr: "Importera-t-il tout l'historique Strava ?",
         },
         a: {
           it: "Sì: al primo OAuth puoi scegliere quante attività importare (ultimi 3/6/12 mesi o tutto lo storico). Default: 12 mesi.",
           en: "Yes: at the first OAuth you choose how many activities to import (last 3/6/12 months or full history). Default: 12 months.",
+          de: "Ja: Beim ersten OAuth wählst du, wie viele Aktivitäten importiert werden sollen (letzte 3/6/12 Monate oder der gesamte Verlauf). Standard: 12 Monate.",
+          pt: "Sim: no primeiro OAuth, você escolhe quantas atividades importar (últimos 3/6/12 meses ou histórico completo). Padrão: 12 meses.",
+          fr: "Oui : lors du premier OAuth, vous choisissez combien d'activités importer (3/6/12 derniers mois ou tout l'historique). Par défaut : 12 mois.",
         },
       },
       {
         q: {
           it: "Sostituisce Strava o lavora insieme?",
           en: "Does it replace Strava or work alongside?",
+          de: "Ersetzt es Strava oder arbeitet es parallel?",
+          pt: "Substitui o Strava ou trabalha junto?",
+          fr: "Remplace-t-il Strava ou fonctionne-t-il en parallèle ?",
         },
         a: {
           it: "Solo lettura: FitMesh non modifica nulla su Strava. Tu continui ad usare Strava normalmente, FitMesh aggiunge solo una vista unificata con i dati salute del watch.",
           en: "Read-only: FitMesh changes nothing on Strava. You keep using Strava normally; FitMesh just adds a unified view alongside your watch health data.",
+          de: "Nur-Lese-Zugriff: FitMesh ändert nichts bei Strava. Du verwendest Strava weiterhin normal; FitMesh fügt nur eine einheitliche Ansicht zusammen mit den Gesundheitsdaten der Uhr hinzu.",
+          pt: "Somente leitura: o FitMesh não modifica nada no Strava. Você continua usando o Strava normalmente; o FitMesh apenas adiciona uma visão unificada com os dados de saúde do seu relógio.",
+          fr: "Lecture seule : FitMesh ne modifie rien sur Strava. Vous continuez à utiliser Strava normalement ; FitMesh ajoute simplement une vue unifiée avec les données de santé de votre montre.",
         },
       },
     ],
@@ -1250,6 +2094,21 @@ export const PROVIDERS: Provider[] = [
         "strava export data",
         "strava analytics alternative",
       ],
+      de: [
+        "strava dashboard synchronisieren",
+        "strava daten exportieren",
+        "strava analytics alternative",
+      ],
+      pt: [
+        "sincronizar strava painel",
+        "exportar dados strava",
+        "alternativa strava analytics",
+      ],
+      fr: [
+        "synchroniser strava tableau de bord",
+        "exporter données strava",
+        "alternative strava analytics",
+      ],
     },
   },
   {
@@ -1263,18 +2122,27 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Polar Vantage, Grit X, Ignite funzionano oggi via Polar Flow → Health Connect.",
       en: "Polar Vantage, Grit X, Ignite work today via Polar Flow → Health Connect.",
+      de: "Polar Vantage, Grit X, Ignite funktionieren heute über Polar Flow und Health Connect.",
+      pt: "Polar Vantage, Grit X, Ignite funcionam hoje via Polar Flow e Health Connect.",
+      fr: "Polar Vantage, Grit X, Ignite fonctionnent aujourd'hui via Polar Flow et Health Connect.",
     },
     longDesc: {
       it: "Dal 2024 Polar Flow scrive su Health Connect, quindi Vantage V/M, Grit X Pro, Ignite 3, Pacer Pro e la fascia toracica H10 sono già leggibili da FitMesh oggi al livello base. Per Recovery Pro, ZoneOptimizer, Nightly Recharge e dati cardio secondo per secondo serve l'OAuth Polar Accesslink, in arrivo Q4 2026.",
       en: "Since 2024 Polar Flow writes to Health Connect, so Vantage V/M, Grit X Pro, Ignite 3, Pacer Pro and the H10 chest strap are already readable by FitMesh today at the basic level. For Recovery Pro, ZoneOptimizer, Nightly Recharge and per-second cardio data we need Polar Accesslink OAuth, coming Q4 2026.",
+      de: "Seit 2024 schreibt Polar Flow auf Health Connect, sodass Vantage V/M, Grit X Pro, Ignite 3, Pacer Pro und der H10 Brustgurt heute bereits auf Basislevel von FitMesh lesbar sind. Für Recovery Pro, ZoneOptimizer, Nightly Recharge und Herzfrequenzdaten sekunde für Sekunde benötigen wir das Polar Accesslink OAuth, das in Q4 2026 kommt.",
+      pt: "Desde 2024, o Polar Flow escreve no Health Connect, então Vantage V/M, Grit X Pro, Ignite 3, Pacer Pro e a fita torácica H10 já são legíveis pelo FitMesh hoje no nível básico. Para Recovery Pro, ZoneOptimizer, Nightly Recharge e dados cardíacos segundo a segundo, precisamos do OAuth Polar Accesslink, disponível no Q4 2026.",
+      fr: "Depuis 2024, Polar Flow écrit dans Health Connect, donc Vantage V/M, Grit X Pro, Ignite 3, Pacer Pro et la ceinture thoracique H10 sont déjà lisibles par FitMesh aujourd'hui au niveau de base. Pour Recovery Pro, ZoneOptimizer, Nightly Recharge et les données cardiaques seconde par seconde, il nous faut le OAuth Polar Accesslink, disponible au T4 2026.",
     },
     techNote: {
       it: "Oggi: bridge via Polar Flow → Health Connect. Q4 2026: OAuth 2.0 + Polar Accesslink API per Recovery Pro/Nightly Recharge e dati HRV intra-workout.",
       en: "Today: bridge via Polar Flow → Health Connect. Q4 2026: OAuth 2.0 + Polar Accesslink API for Recovery Pro/Nightly Recharge and intra-workout HRV data.",
+      de: "Heute: Brücke über Polar Flow → Health Connect. Q4 2026: OAuth 2.0 + Polar Accesslink API für Recovery Pro/Nightly Recharge und intra-Workout HRV-Daten.",
+      pt: "Hoje: bridge via Polar Flow → Health Connect. Q4 2026: OAuth 2.0 + Polar Accesslink API para Recovery Pro/Nightly Recharge e dados de HRV intra-treino.",
+      fr: "Aujourd'hui : pont via Polar Flow → Health Connect. T4 2026 : OAuth 2.0 + Polar Accesslink API pour Recovery Pro/Nightly Recharge et données HRV intra-séance.",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: true, spo2: false }),
     viaHC: {
-      oauthEta: { it: "Q4 2026", en: "Q4 2026" },
+      oauthEta: { it: "Q4 2026", en: "Q4 2026", de: "Q4 2026", pt: "T4 2026", fr: "T4 2026" },
       worksNow: {
         it: [
           "Passi giornalieri",
@@ -1289,6 +2157,27 @@ export const PROVIDERS: Provider[] = [
           "Sleep (total duration)",
           "Daily calories",
           "Basic workouts (duration, type)",
+        ],
+        de: [
+          "Tägliche Schritte",
+          "Durchschnittliche Herzfrequenz",
+          "Schlaf (Gesamtdauer)",
+          "Tägliche Kalorien",
+          "Basis-Trainings (Dauer, Typ)",
+        ],
+        pt: [
+          "Passos diários",
+          "Frequência cardíaca média",
+          "Sono (duração total)",
+          "Calorias diárias",
+          "Treinos básicos (duração, tipo)",
+        ],
+        fr: [
+          "Pas quotidiens",
+          "Fréquence cardiaque moyenne",
+          "Sommeil (durée totale)",
+          "Calories quotidiennes",
+          "Séances de base (durée, type)",
         ],
       },
       oauthAdds: {
@@ -1306,6 +2195,27 @@ export const PROVIDERS: Provider[] = [
           "Per-second HR for each workout (H10)",
           "Detailed Sleep Plus Stages",
         ],
+        de: [
+          "Recovery Pro (Erholung nach dem Training)",
+          "Nightly Recharge (nächtliche Erholung)",
+          "Personalisierter ZoneOptimizer",
+          "Herzfrequenz sekunde für Sekunde pro Workout (H10)",
+          "Detaillierte Sleep Plus-Schlafphasen",
+        ],
+        pt: [
+          "Recovery Pro (recuperação pós-treino)",
+          "Nightly Recharge (recuperação noturna)",
+          "ZoneOptimizer personalizado",
+          "FC segundo a segundo por treino (H10)",
+          "Sleep Plus Stages detalhadas",
+        ],
+        fr: [
+          "Recovery Pro (récupération post-entraînement)",
+          "Nightly Recharge (récupération nocturne)",
+          "ZoneOptimizer personnalisé",
+          "FC seconde par seconde pour chaque séance (H10)",
+          "Sleep Plus Stages détaillées",
+        ],
       },
     },
     faqs: [
@@ -1313,26 +2223,41 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Funziona oggi senza configurazione?",
           en: "Does it work today without setup?",
+          de: "Funktioniert es heute ohne Einrichtung?",
+          pt: "Funciona hoje sem configuração?",
+          fr: "Fonctionne-t-il aujourd'hui sans configuration ?",
         },
         a: {
           it: "Sì, se hai Polar Flow installato su Android. Apri Polar Flow → Impostazioni → Health Connect → attiva la sincronizzazione. Da quel momento FitMesh leggerà automaticamente passi, BPM, sonno e calorie.",
           en: "Yes, if you have Polar Flow installed on Android. Open Polar Flow → Settings → Health Connect → enable sync. From that point on FitMesh will automatically read steps, heart rate, sleep and calories.",
+          de: "Ja, wenn du Polar Flow auf Android installiert hast. Öffne Polar Flow → Einstellungen → Health Connect → Synchronisierung aktivieren. Ab diesem Zeitpunkt liest FitMesh automatisch Schritte, Herzfrequenz, Schlaf und Kalorien.",
+          pt: "Sim, se você tiver o Polar Flow instalado no Android. Abra o Polar Flow → Configurações → Health Connect → ative a sincronização. A partir daí, o FitMesh lerá automaticamente passos, BPM, sono e calorias.",
+          fr: "Oui, si vous avez Polar Flow installé sur Android. Ouvrez Polar Flow → Paramètres → Health Connect → activez la synchronisation. À partir de ce moment, FitMesh lira automatiquement les pas, la fréquence cardiaque, le sommeil et les calories.",
         },
       },
       {
         q: {
           it: "Funziona con la fascia toracica H10?",
           en: "Does it work with the H10 chest strap?",
+          de: "Funktioniert es mit dem H10 Brustgurt?",
+          pt: "Funciona com a fita torácica H10?",
+          fr: "Fonctionne-t-il avec la ceinture thoracique H10 ?",
         },
         a: {
           it: "Sì, la H10 abbinata a Polar Flow scrive su Health Connect i dati base degli allenamenti. Il battito secondo per secondo intra-workout arriverà con l'OAuth Accesslink.",
           en: "Yes: H10 paired with Polar Flow writes basic workout data to Health Connect. Per-second intra-workout heart rate will come with the Accesslink OAuth.",
+          de: "Ja: H10 in Kombination mit Polar Flow schreibt grundlegende Trainingsdaten auf Health Connect. Die Herzfrequenz sekunde für Sekunde intra-Workout kommt mit dem Accesslink OAuth.",
+          pt: "Sim: o H10 combinado com o Polar Flow escreve dados básicos de treino no Health Connect. A frequência cardíaca segundo a segundo intra-treino chegará com o OAuth Accesslink.",
+          fr: "Oui : la H10 couplée à Polar Flow écrit les données de base des séances dans Health Connect. La fréquence cardiaque seconde par seconde intra-séance arrivera avec le OAuth Accesslink.",
         },
       },
     ],
     seoKeywords: {
       it: ["sincronizzare polar dashboard", "polar flow alternativa", "polar health connect"],
       en: ["sync polar dashboard", "polar flow alternative", "polar health connect"],
+      de: ["polar dashboard synchronisieren", "polar flow alternative", "polar health connect"],
+      pt: ["sincronizar polar painel", "alternativa polar flow", "polar health connect"],
+      fr: ["synchroniser polar tableau de bord", "alternative polar flow", "polar health connect"],
     },
   },
   {
@@ -1346,14 +2271,23 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Suunto Race, Peak, Vertical, Trail: integrazione OAuth diretta per sync attività, sonno e recupero.",
       en: "Suunto Race, Peak, Vertical, Trail: direct OAuth integration for syncing activity, sleep and recovery.",
+      de: "Suunto Race, Peak, Vertical, Trail: direkte OAuth-Integration für Aktivitäten, Schlaf und Erholung.",
+      pt: "Suunto Race, Peak, Vertical, Trail: integração OAuth direta para sincronizar atividades, sono e recuperação.",
+      fr: "Suunto Race, Peak, Vertical, Trail : intégration OAuth directe pour synchroniser activités, sommeil et récupération.",
     },
     longDesc: {
       it: "FitMesh Sync integra Suunto direttamente tramite la Suunto Cloud API, senza passare da Health Connect. Dopo il collegamento OAuth, i dati di attività, sonno e recupero vengono scaricati automaticamente via webhook in tempo reale. Suunto Race, Peak, Vertical, Trail e tutti i modelli compatibili con la Suunto Cloud API sono supportati.",
       en: "FitMesh Sync integrates Suunto directly via the Suunto Cloud API, no Health Connect required. After the OAuth connection, activity, sleep and recovery data is pulled automatically via real-time webhooks. Suunto Race, Peak, Vertical, Trail and all Suunto Cloud API-compatible models are supported.",
+      de: "FitMesh Sync integriert Suunto direkt über die Suunto Cloud API, ohne Health Connect. Nach der OAuth-Verbindung werden Aktivitäts-, Schlaf- und Erholungsdaten automatisch per Echtzeit-Webhooks abgerufen. Suunto Race, Peak, Vertical, Trail und alle mit der Suunto Cloud API kompatiblen Modelle werden unterstützt.",
+      pt: "O FitMesh Sync integra o Suunto diretamente via Suunto Cloud API, sem precisar do Health Connect. Após a conexão OAuth, os dados de atividade, sono e recuperação são baixados automaticamente via webhooks em tempo real. Suunto Race, Peak, Vertical, Trail e todos os modelos compatíveis com a Suunto Cloud API são suportados.",
+      fr: "FitMesh Sync intègre Suunto directement via la Suunto Cloud API, sans Health Connect. Après la connexion OAuth, les données d'activité, de sommeil et de récupération sont téléchargées automatiquement via des webhooks en temps réel. Suunto Race, Peak, Vertical, Trail et tous les modèles compatibles avec la Suunto Cloud API sont pris en charge.",
     },
     techNote: {
       it: "Integrazione diretta: OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (activity, sleep, recovery, workout). Il client_secret è gestito server-side su Vercel, mai nel binario dell'app. Webhook real-time su nuove attività.",
       en: "Direct integration: OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (activity, sleep, recovery, workout). The client_secret is handled server-side on Vercel, never in the app binary. Real-time webhooks on new activities.",
+      de: "Direkte Integration: OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (Aktivität, Schlaf, Erholung, Training). Das client_secret wird serverseitig auf Vercel verwaltet, nie im App-Binary. Echtzeit-Webhooks bei neuen Aktivitäten.",
+      pt: "Integração direta: OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (atividade, sono, recuperação, treino). O client_secret é gerenciado no servidor em Vercel, nunca no binário do app. Webhooks em tempo real para novas atividades.",
+      fr: "Intégration directe : OAuth 2.0 (Authorization Code + PKCE) → Suunto Cloud API (activité, sommeil, récupération, séance). Le client_secret est géré côté serveur sur Vercel, jamais dans le binaire de l'app. Webhooks temps réel sur les nouvelles activités.",
     },
     dataTypes: STD_DATA_TYPES({
       steps: true,
@@ -1370,30 +2304,48 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Quali Suunto sono supportati?",
           en: "Which Suunto devices are supported?",
+          de: "Welche Suunto-Geräte werden unterstützt?",
+          pt: "Quais dispositivos Suunto são suportados?",
+          fr: "Quels appareils Suunto sont pris en charge ?",
         },
         a: {
           it: "Tutti i modelli compatibili con la Suunto app e la Suunto Cloud API: Race, Peak, Vertical, Trail, 9 Baro, 5 Peak, Spartan Ultra/Trainer, Ambit4. È sufficiente avere l'app Suunto sul telefono con l'account attivo.",
           en: "All models compatible with the Suunto app and Suunto Cloud API: Race, Peak, Vertical, Trail, 9 Baro, 5 Peak, Spartan Ultra/Trainer, Ambit4. You just need the Suunto app on your phone with an active account.",
+          de: "Alle Modelle, die mit der Suunto-App und der Suunto Cloud API kompatibel sind: Race, Peak, Vertical, Trail, 9 Baro, 5 Peak, Spartan Ultra/Trainer, Ambit4. Du benötigst nur die Suunto-App auf dem Telefon mit einem aktiven Konto.",
+          pt: "Todos os modelos compatíveis com o app Suunto e a Suunto Cloud API: Race, Peak, Vertical, Trail, 9 Baro, 5 Peak, Spartan Ultra/Trainer, Ambit4. Basta ter o app Suunto no telefone com a conta ativa.",
+          fr: "Tous les modèles compatibles avec l'app Suunto et la Suunto Cloud API : Race, Peak, Vertical, Trail, 9 Baro, 5 Peak, Spartan Ultra/Trainer, Ambit4. Il suffit d'avoir l'app Suunto sur votre téléphone avec un compte actif.",
         },
       },
       {
         q: {
           it: "Perché non passa da Health Connect come Garmin o Polar?",
           en: "Why doesn't it go through Health Connect like Garmin or Polar?",
+          de: "Warum läuft es nicht über Health Connect wie Garmin oder Polar?",
+          pt: "Por que não passa pelo Health Connect como Garmin ou Polar?",
+          fr: "Pourquoi ne passe-t-il pas par Health Connect comme Garmin ou Polar ?",
         },
         a: {
           it: "L'app Suunto non scrive su Health Connect. Usiamo quindi l'integrazione ufficiale Suunto Cloud API, più completa: include dati di recupero e metriche avanzate non accessibili via Health Connect.",
           en: "The Suunto app does not write to Health Connect. We therefore use the official Suunto Cloud API integration, which is more complete: it includes recovery data and advanced metrics not accessible via Health Connect.",
+          de: "Die Suunto-App schreibt nicht auf Health Connect. Wir verwenden daher die offizielle Suunto Cloud API-Integration, die vollständiger ist: Sie enthält Erholungsdaten und erweiterte Metriken, die über Health Connect nicht zugänglich sind.",
+          pt: "O app Suunto não escreve no Health Connect. Por isso, usamos a integração oficial da Suunto Cloud API, mais completa: inclui dados de recuperação e métricas avançadas não acessíveis via Health Connect.",
+          fr: "L'app Suunto n'écrit pas dans Health Connect. Nous utilisons donc l'intégration officielle Suunto Cloud API, plus complète : elle inclut les données de récupération et des métriques avancées non accessibles via Health Connect.",
         },
       },
       {
         q: {
           it: "Vedo i dati di recupero Suunto?",
           en: "Do I see Suunto recovery data?",
+          de: "Sehe ich die Suunto-Erholungsdaten?",
+          pt: "Vejo os dados de recuperação do Suunto?",
+          fr: "Vois-je les données de récupération Suunto ?",
         },
         a: {
           it: "Sì: l'API Suunto espone il Recovery Score giornaliero, incluso lo status generale. FitMesh lo mostra nella sezione 'Vitali' della dashboard.",
           en: "Yes: the Suunto API exposes the daily Recovery Score, including overall status. FitMesh displays it in the 'Vitals' section of the dashboard.",
+          de: "Ja: Die Suunto-API zeigt den täglichen Recovery Score, einschließlich des Gesamtstatus. FitMesh zeigt ihn im Abschnitt 'Vitaldaten' des Dashboards.",
+          pt: "Sim: a API Suunto expõe o Recovery Score diário, incluindo o status geral. O FitMesh o exibe na seção 'Vitais' do painel.",
+          fr: "Oui : l'API Suunto expose le Recovery Score quotidien, y compris le statut général. FitMesh l'affiche dans la section 'Vitaux' du tableau de bord.",
         },
       },
     ],
@@ -1409,6 +2361,24 @@ export const PROVIDERS: Provider[] = [
         "suunto cloud api sync",
         "suunto race peak vertical dashboard",
         "export suunto data",
+      ],
+      de: [
+        "suunto dashboard synchronisieren",
+        "suunto cloud api sync",
+        "suunto race peak vertical dashboard",
+        "suunto daten exportieren",
+      ],
+      pt: [
+        "sincronizar suunto painel",
+        "suunto cloud api sync",
+        "suunto race peak vertical painel",
+        "exportar dados suunto",
+      ],
+      fr: [
+        "synchroniser suunto tableau de bord",
+        "suunto cloud api sync",
+        "suunto race peak vertical tableau de bord",
+        "exporter données suunto",
       ],
     },
     setupGuide: {
@@ -1426,6 +2396,27 @@ export const PROVIDERS: Provider[] = [
           "Tap **Connect Suunto**: you'll be redirected to the Suunto login page.",
           "Sign in with your Suunto credentials and **Authorize** FitMesh to access your data.",
           "Wait for the first sync (15–60 seconds). New activities sync automatically via webhook.",
+        ],
+        de: [
+          "Installiere **FitMesh Sync** aus dem Play Store und melde dich mit Google oder E-Mail an.",
+          "Öffne **Einstellungen** → **Geräte & Sync** → **Externe Anbieter** → tippe auf **Suunto**.",
+          "Tippe auf **Suunto verbinden**: Du wirst zur Suunto-Anmeldeseite weitergeleitet.",
+          "Melde dich mit deinen Suunto-Zugangsdaten an und **Autorisiere** FitMesh für den Datenzugriff.",
+          "Warte auf die erste Synchronisierung (15–60 Sekunden). Neue Aktivitäten werden automatisch per Webhook synchronisiert.",
+        ],
+        pt: [
+          "Instale o **FitMesh Sync** no Google Play e faça login com Google ou e-mail.",
+          "Abra **Configurações** → **Dispositivos e sincronização** → **Provedores externos** → toque em **Suunto**.",
+          "Toque em **Conectar Suunto**: você será redirecionado para a página de login do Suunto.",
+          "Entre com suas credenciais Suunto e **Autorize** o FitMesh a acessar seus dados.",
+          "Aguarde a primeira sincronização (15 a 60 segundos). Novas atividades sincronizam automaticamente via webhook.",
+        ],
+        fr: [
+          "Installez **FitMesh Sync** depuis le Play Store et connectez-vous avec Google ou e-mail.",
+          "Ouvrez **Paramètres** → **Appareils et sync** → **Fournisseurs externes** → appuyez sur **Suunto**.",
+          "Appuyez sur **Connecter Suunto** : vous serez redirigé vers la page de connexion Suunto.",
+          "Connectez-vous avec vos identifiants Suunto et **Autorisez** FitMesh à accéder à vos données.",
+          "Attendez la première synchronisation (15 à 60 secondes). Les nouvelles activités se synchronisent automatiquement via webhook.",
         ],
       },
       syncedData: {
@@ -1447,42 +2438,90 @@ export const PROVIDERS: Provider[] = [
           "Workouts (type, duration, distance, kcal, average/max HR)",
           "Estimated VO₂ max",
         ],
+        de: [
+          "Tägliche Schritte und Distanz",
+          "Herzfrequenz (Durchschnitt, Max, kontinuierliche Messungen)",
+          "Aktive Kalorien pro Einheit",
+          "Schlaf (Gesamtdauer und Start-/Endzeit)",
+          "Täglicher Recovery Score",
+          "Trainings (Typ, Dauer, Distanz, kcal, durchschnittliche/maximale Herzfrequenz)",
+          "Geschätzter VO₂ max",
+        ],
+        pt: [
+          "Passos diários e distância",
+          "Frequência cardíaca (média, máx, amostras contínuas)",
+          "Calorias ativas por sessão",
+          "Sono (duração total e horário de início/fim)",
+          "Recovery Score diário",
+          "Treinos (tipo, duração, distância, kcal, FC média/máx)",
+          "VO₂ máx estimado",
+        ],
+        fr: [
+          "Pas quotidiens et distance",
+          "Fréquence cardiaque (moyenne, max, mesures continues)",
+          "Calories actives par session",
+          "Sommeil (durée totale et heure de début/fin)",
+          "Recovery Score quotidien",
+          "Séances (type, durée, distance, kcal, FC moyenne/max)",
+          "VO₂ max estimé",
+        ],
       },
       troubleshooting: [
         {
           q: {
             it: "Non vedo dati dopo aver collegato Suunto",
             en: "I don't see data after connecting Suunto",
+            de: "Ich sehe nach dem Verbinden von Suunto keine Daten",
+            pt: "Não vejo dados após conectar o Suunto",
+            fr: "Je ne vois pas de données après avoir connecté Suunto",
           },
           a: {
             it: "Assicurati che il tuo Suunto abbia effettuato almeno un sync con l'app Suunto prima di collegare FitMesh. I webhook arrivano solo su nuove attività registrate dopo il collegamento; per i dati passati usa 'Ricostruisci storico' nelle impostazioni.",
             en: "Make sure your Suunto has synced at least once with the Suunto app before connecting FitMesh. Webhooks only fire on new activities recorded after the connection; for past data use 'Rebuild history' in settings.",
+            de: "Stelle sicher, dass dein Suunto mindestens einmal mit der Suunto-App synchronisiert wurde, bevor du FitMesh verbindest. Webhooks werden nur bei neuen Aktivitäten ausgelöst, die nach der Verbindung aufgezeichnet werden; für vergangene Daten verwende 'Verlauf aufbauen' in den Einstellungen.",
+            pt: "Certifique-se de que seu Suunto sincronizou pelo menos uma vez com o app Suunto antes de conectar o FitMesh. Os webhooks disparam apenas para novas atividades registradas após a conexão; para dados anteriores, use 'Reconstruir histórico' nas configurações.",
+            fr: "Assurez-vous que votre Suunto a effectué au moins une synchronisation avec l'app Suunto avant de connecter FitMesh. Les webhooks ne se déclenchent que pour les nouvelles activités enregistrées après la connexion ; pour les données passées, utilisez 'Reconstruire l'historique' dans les paramètres.",
           },
         },
         {
           q: {
             it: "La connessione OAuth è scaduta",
             en: "The OAuth connection has expired",
+            de: "Die OAuth-Verbindung ist abgelaufen",
+            pt: "A conexão OAuth expirou",
+            fr: "La connexion OAuth a expiré",
           },
           a: {
             it: "I token Suunto scadono ogni 12 ore. FitMesh li rinnova automaticamente in background. Se vedi 'Token scaduto' nelle impostazioni, tocca 'Ricollega Suunto' per eseguire un nuovo OAuth.",
             en: "Suunto tokens expire every 12 hours. FitMesh renews them automatically in the background. If you see 'Token expired' in settings, tap 'Reconnect Suunto' to run a new OAuth flow.",
+            de: "Suunto-Tokens laufen alle 12 Stunden ab. FitMesh erneuert sie automatisch im Hintergrund. Wenn du in den Einstellungen 'Token abgelaufen' siehst, tippe auf 'Suunto erneut verbinden', um einen neuen OAuth-Vorgang zu starten.",
+            pt: "Os tokens Suunto expiram a cada 12 horas. O FitMesh os renova automaticamente em segundo plano. Se você ver 'Token expirado' nas configurações, toque em 'Reconectar Suunto' para executar um novo fluxo OAuth.",
+            fr: "Les jetons Suunto expirent toutes les 12 heures. FitMesh les renouvelle automatiquement en arrière-plan. Si vous voyez 'Jeton expiré' dans les paramètres, appuyez sur 'Reconnecter Suunto' pour lancer un nouveau flux OAuth.",
           },
         },
         {
           q: {
             it: "Posso collegare Suunto e un Galaxy Watch insieme?",
             en: "Can I connect Suunto and a Galaxy Watch together?",
+            de: "Kann ich Suunto und eine Galaxy Watch zusammen verbinden?",
+            pt: "Posso conectar Suunto e Galaxy Watch juntos?",
+            fr: "Puis-je connecter Suunto et une Galaxy Watch ensemble ?",
           },
           a: {
             it: "Sì: FitMesh gestisce sorgenti multiple. Galaxy Watch arriva via Health Connect, Suunto via API diretta. Per le metriche condivise (passi, BPM) FitMesh usa una logica di priorità configurabile nelle impostazioni.",
             en: "Yes: FitMesh handles multiple sources. Galaxy Watch arrives via Health Connect, Suunto via direct API. For shared metrics (steps, heart rate) FitMesh uses a configurable priority logic in settings.",
+            de: "Ja: FitMesh verarbeitet mehrere Quellen. Galaxy Watch kommt über Health Connect, Suunto über die direkte API. Für gemeinsame Metriken (Schritte, Herzfrequenz) verwendet FitMesh eine konfigurierbare Prioritätslogik in den Einstellungen.",
+            pt: "Sim: o FitMesh gerencia múltiplas fontes. Galaxy Watch chega via Health Connect, Suunto via API direta. Para métricas compartilhadas (passos, BPM), o FitMesh usa uma lógica de prioridade configurável nas configurações.",
+            fr: "Oui : FitMesh gère plusieurs sources. La Galaxy Watch arrive via Health Connect, Suunto via l'API directe. Pour les métriques partagées (pas, fréquence cardiaque), FitMesh utilise une logique de priorité configurable dans les paramètres.",
           },
         },
       ],
       technicalNotes: {
         it: "Integrazione diretta Suunto Cloud API (non Health Connect). OAuth 2.0 Authorization Code + PKCE. Il client_secret è server-side su Vercel (mai nell'app). Token access: 12h, refresh: 30 giorni. Webhook real-time su nuovi workout, dati sleep/activity/recovery via polling orario come backup. Backfill: ultimi 30 giorni al primo connect.",
         en: "Direct Suunto Cloud API integration (not Health Connect). OAuth 2.0 Authorization Code + PKCE. The client_secret is server-side on Vercel (never in the app). Access token: 12h, refresh: 30 days. Real-time webhooks on new workouts, sleep/activity/recovery via hourly polling as backup. Backfill: last 30 days on first connect.",
+        de: "Direkte Suunto Cloud API-Integration (nicht Health Connect). OAuth 2.0 Authorization Code + PKCE. Das client_secret ist serverseitig auf Vercel (nie in der App). Zugriffstoken: 12h, Refresh: 30 Tage. Echtzeit-Webhooks bei neuen Workouts, Schlaf/Aktivität/Erholung per stündlichem Polling als Backup. Backfill: letzte 30 Tage beim ersten Verbinden.",
+        pt: "Integração direta com a Suunto Cloud API (não Health Connect). OAuth 2.0 Authorization Code + PKCE. O client_secret está no servidor em Vercel (nunca no app). Token de acesso: 12h, refresh: 30 dias. Webhooks em tempo real para novos treinos, sono/atividade/recuperação via polling horário como backup. Backfill: últimos 30 dias na primeira conexão.",
+        fr: "Intégration directe Suunto Cloud API (pas Health Connect). OAuth 2.0 Authorization Code + PKCE. Le client_secret est côté serveur sur Vercel (jamais dans l'app). Jeton d'accès : 12h, rafraîchissement : 30 jours. Webhooks temps réel sur les nouveaux entraînements, sommeil/activité/récupération via polling horaire en sauvegarde. Backfill : 30 derniers jours à la première connexion.",
       },
     },
     relatedBlogSlugs: ["guida-sync-wearable-2026", "scegliere-smartwatch-dati-2026"],
@@ -1498,14 +2537,23 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Oura Ring Gen 3 e Gen 4: sonno e readiness su dashboard unificata. Disponibile Q4 2026.",
       en: "Oura Ring Gen 3 and Gen 4: sleep and readiness on a unified dashboard. Coming Q4 2026.",
+      de: "Oura Ring Gen 3 und Gen 4: Schlaf und Readiness auf einer einheitlichen Dashboard. Kommt Q4 2026.",
+      pt: "Oura Ring Gen 3 e Gen 4: sono e readiness em um painel unificado. Disponível no Q4 2026.",
+      fr: "Oura Ring Gen 3 et Gen 4 : sommeil et readiness sur un tableau de bord unifié. Disponible au 4e trimestre 2026.",
     },
     longDesc: {
       it: "L'integrazione Oura porterà i dati di sonno avanzati, Readiness Score, Activity Score e HRV notturno del tuo Oura Ring sulla dashboard FitMesh, utile soprattutto se combini Oura (sonno) con un Galaxy Watch o Garmin (attività).",
       en: "The Oura integration will bring advanced sleep data, Readiness Score, Activity Score and overnight HRV from your Oura Ring onto FitMesh, particularly useful if you combine Oura (sleep) with a Galaxy Watch or Garmin (activity).",
+      de: "Die Oura-Integration bringt erweiterte Schlafdaten, Readiness Score, Activity Score und nächtliche HRV deines Oura Ring auf das FitMesh-Dashboard, besonders nützlich wenn du Oura (Schlaf) mit einer Galaxy Watch oder Garmin (Aktivität) kombinierst.",
+      pt: "A integração com o Oura trará dados avançados de sono, Readiness Score, Activity Score e HRV noturno do seu Oura Ring para o painel do FitMesh, especialmente útil se você combinar o Oura (sono) com um Galaxy Watch ou Garmin (atividade).",
+      fr: "L'intégration Oura apportera les données de sommeil avancées, le Readiness Score, l'Activity Score et la HRV nocturne de votre Oura Ring sur le tableau de bord FitMesh, particulièrement utile si vous combinez Oura (sommeil) avec une Galaxy Watch ou Garmin (activité).",
     },
     techNote: {
       it: "OAuth 2.0 + Oura Cloud API v2. Polling 30 min. Backfill 12 mesi al primo connect.",
       en: "OAuth 2.0 + Oura Cloud API v2. 30-min polling. 12-month backfill on first connect.",
+      de: "OAuth 2.0 + Oura Cloud API v2. Polling alle 30 Minuten. Backfill 12 Monate beim ersten Verbinden.",
+      pt: "OAuth 2.0 + Oura Cloud API v2. Polling a cada 30 minutos. Backfill de 12 meses na primeira conexão.",
+      fr: "OAuth 2.0 + Oura Cloud API v2. Polling toutes les 30 minutes. Backfill 12 mois à la première connexion.",
     },
     dataTypes: STD_DATA_TYPES({
       steps: true,
@@ -1518,6 +2566,9 @@ export const PROVIDERS: Provider[] = [
     seoKeywords: {
       it: ["sincronizzare oura ring dashboard", "oura ring export dati"],
       en: ["sync oura ring dashboard", "oura ring export data"],
+      de: ["Oura Ring Dashboard synchronisieren", "Oura Ring Daten exportieren"],
+      pt: ["sincronizar oura ring painel", "oura ring exportar dados"],
+      fr: ["synchroniser oura ring tableau de bord", "oura ring exporter données"],
     },
   },
   {
@@ -1531,14 +2582,23 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Bilance Withings, ScanWatch, Body+ funzionano già via Health Mate → Health Connect.",
       en: "Withings scales, ScanWatch, Body+ already work via Health Mate → Health Connect.",
+      de: "Withings-Waagen, ScanWatch, Body+ funktionieren bereits über Health Mate → Health Connect.",
+      pt: "Balanças Withings, ScanWatch, Body+ já funcionam via Health Mate → Health Connect.",
+      fr: "Les balances Withings, ScanWatch, Body+ fonctionnent déjà via Health Mate → Health Connect.",
     },
     longDesc: {
       it: "Health Mate scrive su Health Connect dal 2024, quindi peso, composizione corporea (Body+/Body Comp), passi (ScanWatch), pressione arteriosa (BPM Connect) sono già leggibili da FitMesh oggi. Per ECG dettagliato, rilevamento FA e dati Sleep Mat granulari serve l'OAuth Withings API v2, in arrivo Q4 2026.",
       en: "Health Mate writes to Health Connect since 2024, so weight, body composition (Body+/Body Comp), steps (ScanWatch), blood pressure (BPM Connect) are already readable by FitMesh today. For detailed ECG, AFib detection and granular Sleep Mat data we need Withings API v2 OAuth, coming Q4 2026.",
+      de: "Health Mate schreibt seit 2024 in Health Connect, sodass Gewicht, Körperzusammensetzung (Body+/Body Comp), Schritte (ScanWatch) und Blutdruck (BPM Connect) heute bereits von FitMesh gelesen werden können. Für detaillierte EKG-Daten, AFib-Erkennung und granulare Sleep Mat-Daten wird Withings API v2 OAuth benötigt, geplant für Q4 2026.",
+      pt: "O Health Mate escreve no Health Connect desde 2024, portanto peso, composição corporal (Body+/Body Comp), passos (ScanWatch) e pressão arterial (BPM Connect) já podem ser lidos pelo FitMesh hoje. Para ECG detalhado, detecção de FA e dados granulares do Sleep Mat é necessário o OAuth Withings API v2, previsto para o Q4 2026.",
+      fr: "Health Mate écrit dans Health Connect depuis 2024, donc le poids, la composition corporelle (Body+/Body Comp), les pas (ScanWatch) et la pression artérielle (BPM Connect) sont déjà lisibles par FitMesh aujourd'hui. Pour l'ECG détaillé, la détection de FA et les données granulaires du Sleep Mat, il faut l'OAuth Withings API v2, prévu au 4e trimestre 2026.",
     },
     techNote: {
       it: "Oggi: bridge via Health Mate → Health Connect. Q4 2026: OAuth 2.0 + Withings API v2 con webhook su nuove misure.",
       en: "Today: bridge via Health Mate → Health Connect. Q4 2026: OAuth 2.0 + Withings API v2 with new-measurement webhooks.",
+      de: "Heute: Bridge über Health Mate → Health Connect. Q4 2026: OAuth 2.0 + Withings API v2 mit Webhooks bei neuen Messungen.",
+      pt: "Hoje: bridge via Health Mate → Health Connect. Q4 2026: OAuth 2.0 + Withings API v2 com webhooks em novas medições.",
+      fr: "Aujourd'hui : bridge via Health Mate → Health Connect. 4e trimestre 2026 : OAuth 2.0 + Withings API v2 avec webhooks sur nouvelles mesures.",
     },
     dataTypes: STD_DATA_TYPES({
       steps: true,
@@ -1548,7 +2608,7 @@ export const PROVIDERS: Provider[] = [
       spo2: true,
     }),
     viaHC: {
-      oauthEta: { it: "Q4 2026", en: "Q4 2026" },
+      oauthEta: { it: "Q4 2026", en: "Q4 2026", de: "Q4 2026", pt: "Q4 2026", fr: "4e trimestre 2026" },
       worksNow: {
         it: [
           "Peso (Body+, Body Comp, Body Cardio)",
@@ -1566,6 +2626,30 @@ export const PROVIDERS: Provider[] = [
           "Blood pressure (BPM Connect)",
           "Total sleep (Sleep Mat)",
         ],
+        de: [
+          "Gewicht (Body+, Body Comp, Body Cardio)",
+          "Körperfettanteil und Muskelmasse",
+          "Tägliche Schritte (ScanWatch)",
+          "Herzfrequenz",
+          "Blutdruck (BPM Connect)",
+          "Gesamtschlaf (Sleep Mat)",
+        ],
+        pt: [
+          "Peso (Body+, Body Comp, Body Cardio)",
+          "% de gordura corporal e massa muscular",
+          "Passos diários (ScanWatch)",
+          "Frequência cardíaca",
+          "Pressão arterial (BPM Connect)",
+          "Sono total (Sleep Mat)",
+        ],
+        fr: [
+          "Poids (Body+, Body Comp, Body Cardio)",
+          "% de graisse corporelle et masse musculaire",
+          "Pas quotidiens (ScanWatch)",
+          "Fréquence cardiaque",
+          "Pression artérielle (BPM Connect)",
+          "Sommeil total (Sleep Mat)",
+        ],
       },
       oauthAdds: {
         it: [
@@ -1580,6 +2664,24 @@ export const PROVIDERS: Provider[] = [
           "Pulse Wave Velocity (arterial stiffness)",
           "Long-term body composition trends",
         ],
+        de: [
+          "Detailliertes EKG + AFib-Erkennung",
+          "Sleep Mat mit Schlafphasen und Atmung",
+          "Pulse Wave Velocity (Arteriensteifigkeit)",
+          "Langzeit-Trends der Körperzusammensetzung",
+        ],
+        pt: [
+          "ECG detalhado + detecção de FA",
+          "Sleep Mat com fases e respiração",
+          "Pulse Wave Velocity (rigidez arterial)",
+          "Tendências de longo prazo da composição corporal",
+        ],
+        fr: [
+          "ECG détaillé + détection de FA",
+          "Sleep Mat avec phases et respiration",
+          "Pulse Wave Velocity (rigidité artérielle)",
+          "Tendances long terme de la composition corporelle",
+        ],
       },
     },
     faqs: [
@@ -1587,16 +2689,25 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Posso pesare e vedere il peso in dashboard?",
           en: "Can I weigh in and see weight on the dashboard?",
+          de: "Kann ich mich wiegen und das Gewicht auf der Dashboard sehen?",
+          pt: "Posso me pesar e ver o peso no painel?",
+          fr: "Puis-je me peser et voir le poids sur le tableau de bord ?",
         },
         a: {
           it: "Sì: Body+ e Body Comp scrivono peso, % grasso, % massa muscolare su Health Connect. FitMesh li mostra automaticamente nel pannello composizione corporea.",
           en: "Yes: Body+ and Body Comp write weight, body fat % and muscle mass to Health Connect. FitMesh shows them automatically in the body composition panel.",
+          de: "Ja: Body+ und Body Comp schreiben Gewicht, Körperfettanteil und Muskelmasse in Health Connect. FitMesh zeigt sie automatisch im Körperzusammensetzungs-Panel.",
+          pt: "Sim: Body+ e Body Comp escrevem peso, % de gordura e massa muscular no Health Connect. O FitMesh os exibe automaticamente no painel de composição corporal.",
+          fr: "Oui : Body+ et Body Comp écrivent le poids, le % de graisse et la masse musculaire dans Health Connect. FitMesh les affiche automatiquement dans le panneau de composition corporelle.",
         },
       },
     ],
     seoKeywords: {
       it: ["sincronizzare withings dashboard", "withings health connect", "withings body composition android"],
       en: ["sync withings dashboard", "withings health connect", "withings body composition android"],
+      de: ["Withings Dashboard synchronisieren", "Withings Health Connect", "Withings Körperzusammensetzung Android"],
+      pt: ["sincronizar withings painel", "withings health connect", "withings composição corporal android"],
+      fr: ["synchroniser withings tableau de bord", "withings health connect", "withings composition corporelle android"],
     },
     relatedBlogSlugs: ["gdpr-dati-fitness-smartwatch", "guida-sync-wearable-2026"],
   },
@@ -1611,14 +2722,23 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Huawei Watch GT, Band, Watch Ultimate: integrazione nativa via Huawei Health Kit. Disponibile Q4 2026.",
       en: "Huawei Watch GT, Band, Watch Ultimate: native integration via Huawei Health Kit. Coming Q4 2026.",
+      de: "Huawei Watch GT, Band, Watch Ultimate: native Integration via Huawei Health Kit. Kommt Q4 2026.",
+      pt: "Huawei Watch GT, Band, Watch Ultimate: integração nativa via Huawei Health Kit. Disponível no Q4 2026.",
+      fr: "Huawei Watch GT, Band, Watch Ultimate : intégration native via Huawei Health Kit. Disponible au 4e trimestre 2026.",
     },
     longDesc: {
       it: "Huawei Health non scrive su Health Connect per limiti di compatibilità con Huawei Mobile Services. Per portare i dati dei tuoi Watch GT, Band, Watch Fit, Watch Ultimate su FitMesh stiamo costruendo l'integrazione nativa via Huawei Health Kit (OAuth ufficiale), prevista per Q4 2026. Iscriviti alla waitlist per la beta chiusa.",
       en: "Huawei Health doesn't write to Health Connect due to Huawei Mobile Services compatibility limits. To bring data from your Watch GT, Band, Watch Fit, Watch Ultimate into FitMesh we're building a native integration via Huawei Health Kit (official OAuth), planned for Q4 2026. Join the waitlist for the closed beta.",
+      de: "Huawei Health schreibt aufgrund von Kompatibilitätsbeschränkungen mit Huawei Mobile Services nicht in Health Connect. Um die Daten deines Watch GT, Band, Watch Fit oder Watch Ultimate in FitMesh zu bringen, bauen wir eine native Integration via Huawei Health Kit (offizielles OAuth), geplant für Q4 2026. Trag dich in die Warteliste für die geschlossene Beta ein.",
+      pt: "O Huawei Health não escreve no Health Connect por limitações de compatibilidade com o Huawei Mobile Services. Para trazer os dados do seu Watch GT, Band, Watch Fit, Watch Ultimate para o FitMesh, estamos construindo a integração nativa via Huawei Health Kit (OAuth oficial), prevista para o Q4 2026. Inscreva-se na lista de espera para a beta fechada.",
+      fr: "Huawei Health n'écrit pas dans Health Connect en raison des limites de compatibilité avec Huawei Mobile Services. Pour apporter les données de votre Watch GT, Band, Watch Fit, Watch Ultimate dans FitMesh, nous construisons une intégration native via Huawei Health Kit (OAuth officiel), prévue pour le 4e trimestre 2026. Inscrivez-vous sur la liste d'attente pour la bêta fermée.",
     },
     techNote: {
       it: "Roadmap Q4 2026: OAuth 2.0 + Huawei Health Kit REST API. Polling 30 min. Backfill 12 mesi al primo connect, compatibilmente con i limiti dell'API Huawei.",
       en: "Q4 2026 roadmap: OAuth 2.0 + Huawei Health Kit REST API. 30-min polling. 12-month backfill on first connect, subject to Huawei API limits.",
+      de: "Roadmap Q4 2026: OAuth 2.0 + Huawei Health Kit REST API. Polling alle 30 Minuten. Backfill 12 Monate beim ersten Verbinden, vorbehaltlich der Huawei API-Grenzen.",
+      pt: "Roadmap Q4 2026: OAuth 2.0 + Huawei Health Kit REST API. Polling a cada 30 minutos. Backfill de 12 meses na primeira conexão, sujeito aos limites da API Huawei.",
+      fr: "Roadmap 4e trimestre 2026 : OAuth 2.0 + Huawei Health Kit REST API. Polling toutes les 30 minutes. Backfill 12 mois à la première connexion, sous réserve des limites de l'API Huawei.",
     },
     dataTypes: STD_DATA_TYPES({ vo2max: true, spo2: true }),
     faqs: [
@@ -1626,20 +2746,32 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Perché non funziona già via Health Connect?",
           en: "Why doesn't it work via Health Connect today?",
+          de: "Warum funktioniert es heute nicht über Health Connect?",
+          pt: "Por que ainda não funciona via Health Connect?",
+          fr: "Pourquoi cela ne fonctionne-t-il pas déjà via Health Connect ?",
         },
         a: {
           it: "Huawei Health non espone dati a Health Connect: l'app Huawei è progettata per l'ecosistema Huawei Mobile Services e non integra le API HC di Google. Per garantire qualità dati uniforme integriamo direttamente con l'API ufficiale Huawei Health Kit.",
           en: "Huawei Health doesn't expose data to Health Connect: the Huawei app is built for the Huawei Mobile Services ecosystem and doesn't integrate Google's HC APIs. To ensure consistent data quality we're integrating directly with the official Huawei Health Kit API.",
+          de: "Huawei Health gibt keine Daten an Health Connect weiter: Die Huawei-App ist für das Huawei Mobile Services-Ökosystem entwickelt und integriert Googles HC-APIs nicht. Um eine einheitliche Datenqualität zu gewährleisten, integrieren wir direkt mit der offiziellen Huawei Health Kit API.",
+          pt: "O Huawei Health não expõe dados ao Health Connect: o app Huawei é desenvolvido para o ecossistema Huawei Mobile Services e não integra as APIs HC do Google. Para garantir qualidade de dados consistente, integramos diretamente com a API oficial Huawei Health Kit.",
+          fr: "Huawei Health n'expose pas de données à Health Connect : l'application Huawei est conçue pour l'écosystème Huawei Mobile Services et n'intègre pas les API HC de Google. Pour garantir une qualité de données uniforme, nous intégrons directement avec l'API officielle Huawei Health Kit.",
         },
       },
       {
         q: {
           it: "Quando arriva il mio invito alla beta?",
           en: "When do I get my beta invite?",
+          de: "Wann bekomme ich meine Beta-Einladung?",
+          pt: "Quando recebo meu convite para a beta?",
+          fr: "Quand vais-je recevoir mon invitation à la bêta ?",
         },
         a: {
           it: "Beta in waves da Q4 2026, in ordine cronologico di iscrizione alla waitlist. Riceverai una mail con il link al download della build beta.",
           en: "Beta in waves starting Q4 2026, in waitlist signup order. You'll get an email with a link to download the beta build.",
+          de: "Beta in Wellen ab Q4 2026, in der Reihenfolge der Wartelisten-Anmeldung. Du bekommst eine E-Mail mit einem Link zum Download des Beta-Builds.",
+          pt: "Beta em waves a partir do Q4 2026, em ordem cronológica de inscrição na lista de espera. Você receberá um e-mail com o link para baixar a versão beta.",
+          fr: "Bêta en vagues à partir du 4e trimestre 2026, dans l'ordre chronologique d'inscription sur la liste d'attente. Vous recevrez un e-mail avec le lien de téléchargement de la version bêta.",
         },
       },
     ],
@@ -1655,6 +2787,24 @@ export const PROVIDERS: Provider[] = [
         "huawei watch gt dashboard",
         "huawei health kit oauth",
         "huawei band export data",
+      ],
+      de: [
+        "Huawei Health Dashboard synchronisieren",
+        "Huawei Watch GT Dashboard",
+        "Huawei Health Kit OAuth",
+        "Huawei Band Daten exportieren",
+      ],
+      pt: [
+        "sincronizar huawei health painel",
+        "huawei watch gt painel",
+        "huawei health kit oauth",
+        "huawei band exportar dados",
+      ],
+      fr: [
+        "synchroniser huawei health tableau de bord",
+        "huawei watch gt tableau de bord",
+        "huawei health kit oauth",
+        "huawei band exporter données",
       ],
     },
     setupGuide: {
@@ -1672,6 +2822,27 @@ export const PROVIDERS: Provider[] = [
           "Check requirements: **Huawei Health installed**, active Huawei ID, at least one Huawei device paired and synced within the last 30 days.",
           "**Wait for your beta invite**, rolling out from Q4 2026.",
           "At launch: update **FitMesh Sync**, tap **Connect Huawei** and complete the Huawei Health Kit OAuth flow.",
+        ],
+        de: [
+          "**Trag dich in die Beta-Warteliste ein** über den Haupt-CTA unten.",
+          "Bestätige deine Anmeldung über die E-Mail, die wir dir senden.",
+          "Prüfe die Voraussetzungen: **Huawei Health installiert**, aktive Huawei ID, mindestens ein Huawei-Gerät in den letzten 30 Tagen synchronisiert.",
+          "**Warte auf deine Beta-Einladung**, die ab Q4 2026 verteilt wird.",
+          "Beim Launch: **FitMesh Sync** aktualisieren, auf **Huawei verbinden** tippen und den Huawei Health Kit OAuth-Ablauf abschließen.",
+        ],
+        pt: [
+          "**Inscreva-se na lista de espera da beta** pelo CTA principal abaixo.",
+          "Confirme sua inscrição pelo e-mail que enviaremos.",
+          "Verifique os requisitos: **Huawei Health instalado**, Huawei ID ativo, pelo menos um dispositivo Huawei sincronizado nos últimos 30 dias.",
+          "**Aguarde o convite** para a beta fechada, disponível a partir do Q4 2026.",
+          "No lançamento: atualize o **FitMesh Sync**, toque em **Conectar Huawei** e conclua o fluxo OAuth do Huawei Health Kit.",
+        ],
+        fr: [
+          "**Inscrivez-vous sur la liste d'attente bêta** via le CTA principal ci-dessous.",
+          "Confirmez votre inscription depuis l'e-mail que nous vous envoyons.",
+          "Vérifiez les prérequis : **Huawei Health installé**, Huawei ID actif, au moins un appareil Huawei synchronisé dans les 30 derniers jours.",
+          "**Attendez votre invitation bêta**, distribuée à partir du 4e trimestre 2026.",
+          "Au lancement : mettez à jour **FitMesh Sync**, appuyez sur **Connecter Huawei** et complétez le flux OAuth Huawei Health Kit.",
         ],
       },
       syncedData: {
@@ -1693,42 +2864,90 @@ export const PROVIDERS: Provider[] = [
           "Workouts (type, duration, kcal, average BPM)",
           "SpO₂",
         ],
+        de: [
+          "Tägliche Schritte",
+          "Herzfrequenz (Durchschnitt, Ruhe, kontinuierlich)",
+          "Schlaf mit Phasen (TruSleep)",
+          "Aktive und Grundumsatz-Kalorien",
+          "Distanz und GPS",
+          "Trainings (Typ, Dauer, kcal, durchschnittliche Herzfrequenz)",
+          "SpO₂",
+        ],
+        pt: [
+          "Passos diários",
+          "Frequência cardíaca (média, repouso, contínua)",
+          "Sono com fases (TruSleep)",
+          "Calorias ativas e basais",
+          "Distância e GPS",
+          "Treinos (tipo, duração, kcal, BPM médio)",
+          "SpO₂",
+        ],
+        fr: [
+          "Pas quotidiens",
+          "Fréquence cardiaque (moyenne, repos, continue)",
+          "Sommeil avec phases (TruSleep)",
+          "Calories actives et de base",
+          "Distance et GPS",
+          "Séances (type, durée, kcal, FC moyenne)",
+          "SpO₂",
+        ],
       },
       troubleshooting: [
         {
           q: {
             it: "Voglio i miei dati Huawei su FitMesh oggi",
             en: "I want my Huawei data in FitMesh today",
+            de: "Ich möchte meine Huawei-Daten heute in FitMesh sehen",
+            pt: "Quero meus dados Huawei no FitMesh hoje",
+            fr: "Je veux mes données Huawei dans FitMesh aujourd'hui",
           },
           a: {
             it: "Non è possibile oggi: Huawei Health non scrive su Health Connect. L'integrazione nativa via Huawei Health Kit è in roadmap Q4 2026. Iscriviti alla waitlist per l'invito alla beta chiusa.",
             en: "Not possible today: Huawei Health doesn't write to Health Connect. Native integration via Huawei Health Kit is on the Q4 2026 roadmap. Join the waitlist for the closed beta invite.",
+            de: "Heute noch nicht möglich: Huawei Health schreibt nicht in Health Connect. Die native Integration via Huawei Health Kit ist für Q4 2026 geplant. Trag dich in die Warteliste für die geschlossene Beta ein.",
+            pt: "Não é possível hoje: o Huawei Health não escreve no Health Connect. A integração nativa via Huawei Health Kit está no roadmap do Q4 2026. Inscreva-se na lista de espera para o convite da beta fechada.",
+            fr: "Pas possible aujourd'hui : Huawei Health n'écrit pas dans Health Connect. L'intégration native via Huawei Health Kit est dans la roadmap du 4e trimestre 2026. Inscrivez-vous sur la liste d'attente pour l'invitation à la bêta fermée.",
           },
         },
         {
           q: {
             it: "Posso usare un'app di terze parti come ponte?",
             en: "Can I use a third-party bridge app?",
+            de: "Kann ich eine Drittanbieter-Bridge-App verwenden?",
+            pt: "Posso usar um app de terceiros como ponte?",
+            fr: "Puis-je utiliser une application tierce comme pont ?",
           },
           a: {
             it: "Le bridge app cloud-to-cloud per Huawei richiedono setup tecnico avanzato e la qualità dei dati può variare nel tempo (Huawei non offre API pubbliche ufficiali per terze parti su Health Drive). Noi consigliamo di aspettare l'integrazione nativa via OAuth Huawei Cloud Health, in roadmap per Q4 2026.",
             en: "Cloud-to-cloud bridge apps for Huawei require advanced technical setup and data quality may vary over time (Huawei doesn't offer official public APIs for third parties on Health Drive). We recommend waiting for the native integration via Huawei Cloud Health OAuth, in roadmap for Q4 2026.",
+            de: "Cloud-to-Cloud-Bridge-Apps für Huawei erfordern fortgeschrittenes technisches Setup und die Datenqualität kann sich im Laufe der Zeit ändern (Huawei bietet keine offiziellen öffentlichen APIs für Drittanbieter auf Health Drive an). Wir empfehlen, auf die native Integration via Huawei Cloud Health OAuth zu warten, die für Q4 2026 geplant ist.",
+            pt: "Apps bridge cloud-to-cloud para Huawei exigem configuração técnica avançada e a qualidade dos dados pode variar ao longo do tempo (o Huawei não oferece APIs públicas oficiais para terceiros no Health Drive). Recomendamos aguardar a integração nativa via OAuth Huawei Cloud Health, prevista para o Q4 2026.",
+            fr: "Les applications bridge cloud-to-cloud pour Huawei nécessitent une configuration technique avancée et la qualité des données peut varier au fil du temps (Huawei n'offre pas d'API publiques officielles pour les tiers sur Health Drive). Nous recommandons d'attendre l'intégration native via Huawei Cloud Health OAuth, prévue au 4e trimestre 2026.",
           },
         },
         {
           q: {
             it: "Quale Huawei sarà supportato al lancio?",
             en: "Which Huawei devices will be supported at launch?",
+            de: "Welche Huawei-Geräte werden beim Launch unterstützt?",
+            pt: "Quais dispositivos Huawei serão suportados no lançamento?",
+            fr: "Quels appareils Huawei seront pris en charge au lancement ?",
           },
           a: {
             it: "Tutti i wearable Huawei compatibili con Huawei Health Kit: Watch GT 2/3/4/5, Watch Ultimate, Watch Fit 2/3, Band 7/8/9. La copertura completa sarà confermata in beta.",
             en: "All Huawei wearables compatible with Huawei Health Kit: Watch GT 2/3/4/5, Watch Ultimate, Watch Fit 2/3, Band 7/8/9. Full coverage will be confirmed during beta.",
+            de: "Alle Huawei-Wearables, die mit Huawei Health Kit kompatibel sind: Watch GT 2/3/4/5, Watch Ultimate, Watch Fit 2/3, Band 7/8/9. Die vollständige Abdeckung wird während der Beta bestätigt.",
+            pt: "Todos os wearables Huawei compatíveis com o Huawei Health Kit: Watch GT 2/3/4/5, Watch Ultimate, Watch Fit 2/3, Band 7/8/9. A cobertura completa será confirmada durante a beta.",
+            fr: "Tous les wearables Huawei compatibles avec Huawei Health Kit : Watch GT 2/3/4/5, Watch Ultimate, Watch Fit 2/3, Band 7/8/9. La couverture complète sera confirmée lors de la bêta.",
           },
         },
       ],
       technicalNotes: {
         it: "Roadmap Q4 2026: OAuth 2.0 + Huawei Health Kit REST API. Polling 30 min. Granularità: passi per ora, BPM per sample, sonno per fase TruSleep. Backfill 12 mesi al primo connect, compatibilmente con i limiti dell'API Huawei.",
         en: "Q4 2026 roadmap: OAuth 2.0 + Huawei Health Kit REST API. 30-min polling. Granularity: steps per hour, heart rate per sample, sleep per TruSleep stage. 12-month backfill on first connect, subject to Huawei API limits.",
+        de: "Roadmap Q4 2026: OAuth 2.0 + Huawei Health Kit REST API. Polling alle 30 Minuten. Granularität: Schritte pro Stunde, Herzfrequenz pro Messung, Schlaf pro TruSleep-Phase. Backfill 12 Monate beim ersten Verbinden, vorbehaltlich der Huawei API-Grenzen.",
+        pt: "Roadmap Q4 2026: OAuth 2.0 + Huawei Health Kit REST API. Polling a cada 30 minutos. Granularidade: passos por hora, BPM por amostra, sono por fase TruSleep. Backfill de 12 meses na primeira conexão, sujeito aos limites da API Huawei.",
+        fr: "Roadmap 4e trimestre 2026 : OAuth 2.0 + Huawei Health Kit REST API. Polling toutes les 30 minutes. Granularité : pas par heure, fréquence cardiaque par mesure, sommeil par phase TruSleep. Backfill 12 mois à la première connexion, sous réserve des limites de l'API Huawei.",
       },
     },
   },
@@ -1745,14 +2964,23 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Niente smartwatch? Funziona già: passi e attività dal telefono via Health Connect.",
       en: "No smartwatch? It already works: steps and activity from your phone via Health Connect.",
+      de: "Kein Smartwatch? Funktioniert bereits: Schritte und Aktivität vom Telefon über Health Connect.",
+      pt: "Sem smartwatch? Já funciona: passos e atividade do telefone via Health Connect.",
+      fr: "Pas de montre connectée ? Ça fonctionne déjà : pas et activité depuis votre téléphone via Health Connect.",
     },
     longDesc: {
       it: "FitMesh Sync legge i dati salute direttamente dal telefono tramite Health Connect: passi del pedometro Android, frequenza cardiaca da app come Samsung Health in modalità telefono-only, dati Google Fit e inserimenti manuali. Nessuno smartwatch necessario: se il tuo telefono scrive su Health Connect, FitMesh li legge.",
       en: "FitMesh Sync reads health data directly from your phone via Health Connect: Android pedometer steps, heart rate from apps like Samsung Health in phone-only mode, Google Fit data and manual entries. No smartwatch required: if your phone writes to Health Connect, FitMesh reads it.",
+      de: "FitMesh Sync liest Gesundheitsdaten direkt vom Telefon über Health Connect: Schritte des Android-Schrittzählers, Herzfrequenz aus Apps wie Samsung Health im Telefon-only-Modus, Google Fit-Daten und manuelle Einträge. Kein Smartwatch erforderlich: Wenn dein Telefon in Health Connect schreibt, liest FitMesh sie.",
+      pt: "O FitMesh Sync lê dados de saúde diretamente do telefone via Health Connect: passos do pedômetro Android, frequência cardíaca de apps como Samsung Health no modo somente telefone, dados do Google Fit e inserções manuais. Nenhum smartwatch necessário: se o seu telefone escreve no Health Connect, o FitMesh lê.",
+      fr: "FitMesh Sync lit les données de santé directement depuis le téléphone via Health Connect : pas du podomètre Android, fréquence cardiaque depuis des apps comme Samsung Health en mode téléphone seul, données Google Fit et saisies manuelles. Aucune montre connectée requise : si votre téléphone écrit dans Health Connect, FitMesh les lit.",
     },
     techNote: {
       it: "Health Connect aggrega tutte le sorgenti disponibili sul telefono. Nessun OAuth, nessuna chiave API. Basta concedere i permessi Health Connect a FitMesh al primo avvio.",
       en: "Health Connect aggregates all available sources on the phone. No OAuth, no API keys. Just grant Health Connect permissions to FitMesh on first launch.",
+      de: "Health Connect aggregiert alle verfügbaren Quellen auf dem Telefon. Kein OAuth, keine API-Schlüssel. Einfach beim ersten Start die Health Connect-Berechtigungen für FitMesh erteilen.",
+      pt: "O Health Connect agrega todas as fontes disponíveis no telefone. Sem OAuth, sem chaves de API. Basta conceder as permissões do Health Connect ao FitMesh no primeiro uso.",
+      fr: "Health Connect agrège toutes les sources disponibles sur le téléphone. Pas d'OAuth, pas de clés API. Il suffit d'accorder les permissions Health Connect à FitMesh au premier lancement.",
     },
     dataTypes: STD_DATA_TYPES({
       steps: true,
@@ -1769,20 +2997,32 @@ export const PROVIDERS: Provider[] = [
         q: {
           it: "Funziona senza nessun smartwatch?",
           en: "Does it work without any smartwatch?",
+          de: "Funktioniert es ohne Smartwatch?",
+          pt: "Funciona sem nenhum smartwatch?",
+          fr: "Ça fonctionne sans montre connectée ?",
         },
         a: {
           it: "Sì. FitMesh legge i dati che il tuo telefono scrive su Health Connect: passi del pedometro integrato, attività registrate manualmente, dati di app come Samsung Health o Google Fit in modalità telefono. Non hai bisogno di un orologio.",
           en: "Yes. FitMesh reads the data your phone writes to Health Connect: steps from the built-in pedometer, manually logged activities, data from apps like Samsung Health or Google Fit in phone mode. You don't need a watch.",
+          de: "Ja. FitMesh liest die Daten, die dein Telefon in Health Connect schreibt: Schritte vom integrierten Schrittzähler, manuell erfasste Aktivitäten, Daten aus Apps wie Samsung Health oder Google Fit im Telefon-Modus. Du brauchst keine Uhr.",
+          pt: "Sim. O FitMesh lê os dados que o seu telefone escreve no Health Connect: passos do pedômetro integrado, atividades registradas manualmente, dados de apps como Samsung Health ou Google Fit no modo telefone. Você não precisa de um relógio.",
+          fr: "Oui. FitMesh lit les données que votre téléphone écrit dans Health Connect : pas du podomètre intégré, activités enregistrées manuellement, données d'apps comme Samsung Health ou Google Fit en mode téléphone. Vous n'avez pas besoin d'une montre.",
         },
       },
       {
         q: {
           it: "Che dati vedo senza smartwatch?",
           en: "What data do I see without a smartwatch?",
+          de: "Welche Daten sehe ich ohne Smartwatch?",
+          pt: "Quais dados vejo sem smartwatch?",
+          fr: "Quelles données je vois sans montre connectée ?",
         },
         a: {
           it: "Dipende dalle app installate: con Samsung Health (modalità solo telefono) vedi passi, calorie stimate e frequenza cardiaca manuale. Con Google Fit vedi passi e attività. Gli inserimenti manuali (peso, sonno, acqua) appaiono sempre.",
           en: "It depends on the apps you have installed: with Samsung Health (phone-only mode) you see steps, estimated calories and manual heart rate. With Google Fit you see steps and activities. Manual entries (weight, sleep, water) always appear.",
+          de: "Es hängt von den installierten Apps ab: Mit Samsung Health (Telefon-only-Modus) siehst du Schritte, geschätzte Kalorien und manuelle Herzfrequenz. Mit Google Fit siehst du Schritte und Aktivitäten. Manuelle Einträge (Gewicht, Schlaf, Wasser) erscheinen immer.",
+          pt: "Depende dos apps instalados: com Samsung Health (modo somente telefone) você vê passos, calorias estimadas e frequência cardíaca manual. Com Google Fit você vê passos e atividades. As inserções manuais (peso, sono, água) sempre aparecem.",
+          fr: "Cela dépend des apps installées : avec Samsung Health (mode téléphone seul) vous voyez les pas, les calories estimées et la fréquence cardiaque manuelle. Avec Google Fit vous voyez les pas et les activités. Les saisies manuelles (poids, sommeil, eau) apparaissent toujours.",
         },
       },
     ],
@@ -1798,6 +3038,24 @@ export const PROVIDERS: Provider[] = [
         "health connect phone only",
         "android steps without watch",
         "android pedometer dashboard",
+      ],
+      de: [
+        "fitmesh ohne smartwatch",
+        "health connect nur telefon",
+        "android schritte ohne uhr",
+        "android schrittzähler dashboard",
+      ],
+      pt: [
+        "fitmesh sem smartwatch",
+        "health connect somente telefone",
+        "passos android sem relógio",
+        "pedômetro android painel",
+      ],
+      fr: [
+        "fitmesh sans montre connectée",
+        "health connect téléphone seul",
+        "pas android sans montre",
+        "podomètre android tableau de bord",
       ],
     },
     setupGuide: {
@@ -1815,6 +3073,27 @@ export const PROVIDERS: Provider[] = [
           "Install **FitMesh Sync** from the Play Store and sign in with Google.",
           "On first launch, choose **'Phone only'** on the welcome screen.",
           "Grant the requested Health Connect permissions and tap **Sync now**.",
+        ],
+        de: [
+          "Installiere **Health Connect** aus dem Play Store (auf Android 14+ vorinstalliert).",
+          "Stelle sicher, dass die Apps, die du verwenden möchtest (Samsung Health, Google Fit usw.), die Schreibberechtigungen für Health Connect aktiviert haben.",
+          "Installiere **FitMesh Sync** aus dem Play Store und melde dich mit Google an.",
+          "Wähle beim ersten Start **'Nur Telefon'** auf dem Willkommensbildschirm.",
+          "Erteile die angeforderten Health Connect-Berechtigungen und tippe auf **Jetzt synchronisieren**.",
+        ],
+        pt: [
+          "Instale o **Health Connect** no Google Play (pré-instalado no Android 14+).",
+          "Certifique-se de que os apps que deseja usar (Samsung Health, Google Fit etc.) tenham as permissões de escrita no Health Connect ativas.",
+          "Instale o **FitMesh Sync** no Google Play e faça login com Google.",
+          "No primeiro uso, escolha **'Somente telefone'** na tela de boas-vindas.",
+          "Conceda as permissões do Health Connect solicitadas e toque em **Sincronizar agora**.",
+        ],
+        fr: [
+          "Installez **Health Connect** depuis le Play Store (préinstallé sur Android 14+).",
+          "Assurez-vous que les apps que vous souhaitez utiliser (Samsung Health, Google Fit, etc.) ont les permissions d'écriture Health Connect activées.",
+          "Installez **FitMesh Sync** depuis le Play Store et connectez-vous avec Google.",
+          "Au premier lancement, choisissez **'Téléphone uniquement'** sur l'écran d'accueil.",
+          "Accordez les permissions Health Connect demandées et appuyez sur **Synchroniser maintenant**.",
         ],
       },
       syncedData: {
@@ -1834,42 +3113,87 @@ export const PROVIDERS: Provider[] = [
           "Distance",
           "Workouts logged manually or from fitness apps",
         ],
+        de: [
+          "Tägliche Schritte (Android-Schrittzähler)",
+          "Herzfrequenz (aus Companion-Apps oder manueller Eingabe)",
+          "Schlaf (manuelle Eingabe oder kompatible App)",
+          "Geschätzte Kalorien",
+          "Distanz",
+          "Trainings manuell erfasst oder aus Fitness-Apps",
+        ],
+        pt: [
+          "Passos diários (pedômetro Android)",
+          "Frequência cardíaca (de apps companion ou inserção manual)",
+          "Sono (inserção manual ou app compatível)",
+          "Calorias estimadas",
+          "Distância",
+          "Treinos registrados manualmente ou por apps de fitness",
+        ],
+        fr: [
+          "Pas quotidiens (podomètre Android)",
+          "Fréquence cardiaque (depuis les apps compagnes ou saisie manuelle)",
+          "Sommeil (saisie manuelle ou app compatible)",
+          "Calories estimées",
+          "Distance",
+          "Séances enregistrées manuellement ou depuis des apps fitness",
+        ],
       },
       troubleshooting: [
         {
           q: {
             it: "Non vedo i miei passi",
             en: "I don't see my steps",
+            de: "Ich sehe meine Schritte nicht",
+            pt: "Não vejo meus passos",
+            fr: "Je ne vois pas mes pas",
           },
           a: {
             it: "Verifica che Health Connect → Permessi → FitMesh Sync → Passi sia abilitato. Se hai Samsung Health o Google Fit installati, verifica anche che abbiano i permessi di scrittura per i passi in Health Connect.",
             en: "Check that Health Connect → Permissions → FitMesh Sync → Steps is enabled. If you have Samsung Health or Google Fit installed, also verify they have write permissions for steps in Health Connect.",
+            de: "Prüfe, ob Health Connect → Berechtigungen → FitMesh Sync → Schritte aktiviert ist. Wenn Samsung Health oder Google Fit installiert sind, prüfe auch, ob sie Schreibberechtigungen für Schritte in Health Connect haben.",
+            pt: "Verifique se Health Connect → Permissões → FitMesh Sync → Passos está ativado. Se você tiver Samsung Health ou Google Fit instalados, verifique também se eles têm permissões de escrita para passos no Health Connect.",
+            fr: "Vérifiez que Health Connect → Autorisations → FitMesh Sync → Pas est activé. Si Samsung Health ou Google Fit est installé, vérifiez aussi qu'ils ont les permissions d'écriture pour les pas dans Health Connect.",
           },
         },
         {
           q: {
             it: "Vedo meno dati rispetto a chi ha uno smartwatch",
             en: "I see less data than someone with a smartwatch",
+            de: "Ich sehe weniger Daten als jemand mit einem Smartwatch",
+            pt: "Vejo menos dados do que quem tem um smartwatch",
+            fr: "Je vois moins de données que quelqu'un avec une montre connectée",
           },
           a: {
             it: "Corretto: un wearable aggiunge sensori continui (BPM 24/7, SpO₂, fasi sonno automatiche). Il telefono offre i dati di base, ma per molti utenti è sufficiente per tracciare i passi giornalieri e le attività.",
             en: "Correct: a wearable adds continuous sensors (24/7 heart rate, SpO₂, automatic sleep stages). The phone offers basic data, but for many users it's enough to track daily steps and activities.",
+            de: "Richtig: Ein Wearable fügt kontinuierliche Sensoren hinzu (24/7-Herzfrequenz, SpO₂, automatische Schlafphasen). Das Telefon bietet Basisdaten, aber für viele Nutzer reicht das aus, um tägliche Schritte und Aktivitäten zu verfolgen.",
+            pt: "Correto: um wearable adiciona sensores contínuos (frequência cardíaca 24/7, SpO₂, fases de sono automáticas). O telefone oferece dados básicos, mas para muitos usuários é suficiente para acompanhar passos diários e atividades.",
+            fr: "Exact : un wearable ajoute des capteurs continus (fréquence cardiaque 24/7, SpO₂, phases de sommeil automatiques). Le téléphone offre des données de base, mais pour beaucoup d'utilisateurs, c'est suffisant pour suivre les pas quotidiens et les activités.",
           },
         },
         {
           q: {
             it: "Posso aggiungere uno smartwatch in un secondo momento?",
             en: "Can I add a smartwatch later?",
+            de: "Kann ich später eine Smartwatch hinzufügen?",
+            pt: "Posso adicionar um smartwatch mais tarde?",
+            fr: "Puis-je ajouter une montre connectée plus tard ?",
           },
           a: {
             it: "Sì. Basta collegare il tuo wearable a Health Connect (via Samsung Health, Zepp, OHealth o altra app companion) e FitMesh leggerà automaticamente i nuovi dati. Puoi cambiare la modalità da Impostazioni in qualsiasi momento.",
             en: "Yes. Just connect your wearable to Health Connect (via Samsung Health, Zepp, OHealth or another companion app) and FitMesh will automatically read the new data. You can change the mode in Settings at any time.",
+            de: "Ja. Verbinde einfach dein Wearable mit Health Connect (via Samsung Health, Zepp, OHealth oder einer anderen Companion-App) und FitMesh liest die neuen Daten automatisch. Du kannst den Modus jederzeit in den Einstellungen ändern.",
+            pt: "Sim. Basta conectar seu wearable ao Health Connect (via Samsung Health, Zepp, OHealth ou outro app companion) e o FitMesh lerá automaticamente os novos dados. Você pode alterar o modo nas Configurações a qualquer momento.",
+            fr: "Oui. Il suffit de connecter votre wearable à Health Connect (via Samsung Health, Zepp, OHealth ou une autre app compagne) et FitMesh lira automatiquement les nouvelles données. Vous pouvez changer le mode dans les Paramètres à tout moment.",
           },
         },
       ],
       technicalNotes: {
         it: "Connessione via Health Connect, nessun OAuth. I dati del telefono (pedometro, app fitness) vengono letti esattamente come quelli di un wearable: Health Connect astrae la sorgente. La qualità e la granularità dei dati dipende dalle app installate e dai sensori del dispositivo.",
         en: "Connection via Health Connect, no OAuth. Phone data (pedometer, fitness apps) is read exactly like wearable data: Health Connect abstracts the source. Data quality and granularity depend on the apps installed and the device's sensors.",
+        de: "Verbindung über Health Connect, kein OAuth. Telefondaten (Schrittzähler, Fitness-Apps) werden genauso gelesen wie Wearable-Daten: Health Connect abstrahiert die Quelle. Datenqualität und Granularität hängen von den installierten Apps und den Sensoren des Geräts ab.",
+        pt: "Conexão via Health Connect, sem OAuth. Os dados do telefone (pedômetro, apps de fitness) são lidos exatamente como os dados de um wearable: o Health Connect abstrai a fonte. A qualidade e a granularidade dos dados dependem dos apps instalados e dos sensores do dispositivo.",
+        fr: "Connexion via Health Connect, pas d'OAuth. Les données du téléphone (podomètre, apps fitness) sont lues exactement comme les données d'un wearable : Health Connect abstrait la source. La qualité et la granularité des données dépendent des apps installées et des capteurs de l'appareil.",
       },
     },
   },
@@ -1886,75 +3210,114 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "Colmi R02/R03 e anelli compatibili: dati direttamente in FitMesh via Bluetooth, senza app companion.",
       en: "Colmi R02/R03 and compatible rings: data straight into FitMesh via Bluetooth, no companion app needed.",
+      de: "Colmi R02/R03 und kompatible Ringe: Daten direkt in FitMesh via Bluetooth, ohne Companion-App.",
+      pt: "Colmi R02/R03 e anéis compatíveis: dados direto no FitMesh via Bluetooth, sem app companion.",
+      fr: "Colmi R02/R03 et bagues compatibles : données directement dans FitMesh via Bluetooth, sans app compagne.",
     },
     longDesc: {
       it: "FitMesh Sync supporta gli anelli smart Colmi R02 e R03 (e i cloni OEM con lo stesso protocollo BLE) tramite connessione Bluetooth diretta. L'app legge l'anello senza bisogno dell'app companion del produttore: passi, distanza, calorie, battito cardiaco (log giornaliero + FC a riposo), SpO2, HRV, stress, sonno con fasi e batteria entrano direttamente nella tua dashboard multi-device. Il dato notturno dell'anello si fonde con quello diurno dello smartwatch senza doppi conteggi.",
       en: "FitMesh Sync supports Colmi R02 and R03 smart rings (and OEM clones sharing the same BLE protocol) via direct Bluetooth connection. The app reads the ring without needing the manufacturer's companion app: steps, distance, calories, heart rate (daily log + resting HR), SpO2, HRV, stress, sleep with stages and battery feed directly into your multi-device dashboard. Nightly ring data merges with daytime smartwatch data, no double counting.",
+      de: "FitMesh Sync unterstützt die Smart-Ringe Colmi R02 und R03 (sowie OEM-Klone mit demselben BLE-Protokoll) via direkter Bluetooth-Verbindung. Die App liest den Ring ohne die Companion-App des Herstellers: Schritte, Distanz, Kalorien, Herzfrequenz (Tagesprotokoll + Ruheherzfrequenz), SpO₂, HRV, Stress, Schlaf mit Phasen und Akkustand fließen direkt in dein Multi-Device-Dashboard. Die nächtlichen Ringdaten werden mit den Tagesdaten der Smartwatch zusammengeführt, ohne Doppelzählungen.",
+      pt: "O FitMesh Sync suporta os anéis inteligentes Colmi R02 e R03 (e clones OEM com o mesmo protocolo BLE) via conexão Bluetooth direta. O app lê o anel sem precisar do app companion do fabricante: passos, distância, calorias, frequência cardíaca (log diário + FC em repouso), SpO₂, HRV, estresse, sono com fases e bateria entram diretamente no seu painel multi-device. Os dados noturnos do anel se fundem com os dados diurnos do smartwatch sem dupla contagem.",
+      fr: "FitMesh Sync prend en charge les bagues connectées Colmi R02 et R03 (et les clones OEM partageant le même protocole BLE) via une connexion Bluetooth directe. L'app lit la bague sans avoir besoin de l'app compagne du fabricant : pas, distance, calories, fréquence cardiaque (journal quotidien + FC au repos), SpO₂, HRV, stress, sommeil avec phases et niveau de batterie alimentent directement votre tableau de bord multi-appareil. Les données nocturnes de la bague fusionnent avec les données diurnes de la montre connectée, sans double comptage.",
     },
     techNote: {
       it: "Lettura BLE diretta (no Health Connect, no app OEM). FitMesh si connette all'anello come dispositivo Bluetooth, scarica i dati grezzi e li integra nella dashboard multi-sorgente (fusione anello+smartwatch: l'anello copre la notte e le metriche che lo smartwatch non ha). Sonno con fasi: l'anello è specialista e prevale di notte.",
       en: "Direct BLE read (no Health Connect, no OEM app). FitMesh connects to the ring as a Bluetooth device, downloads raw data and merges it into the multi-source dashboard (ring+smartwatch fusion: the ring covers nighttime and metrics the smartwatch lacks). Sleep with stages: the ring is the specialist and wins overnight.",
+      de: "Direkte BLE-Lesung (kein Health Connect, keine OEM-App). FitMesh verbindet sich als Bluetooth-Gerät mit dem Ring, lädt Rohdaten herunter und integriert sie in das Multi-Quellen-Dashboard (Ring+Smartwatch-Zusammenführung: Der Ring deckt die Nacht und Metriken ab, die der Smartwatch fehlen). Schlaf mit Phasen: Der Ring ist der Spezialist und gewinnt nachts.",
+      pt: "Leitura BLE direta (sem Health Connect, sem app OEM). O FitMesh se conecta ao anel como dispositivo Bluetooth, baixa dados brutos e os integra no painel multi-fonte (fusão anel+smartwatch: o anel cobre a noite e as métricas que o smartwatch não tem). Sono com fases: o anel é o especialista e prevalece à noite.",
+      fr: "Lecture BLE directe (pas de Health Connect, pas d'app OEM). FitMesh se connecte à la bague comme appareil Bluetooth, télécharge les données brutes et les intègre dans le tableau de bord multi-sources (fusion bague+montre : la bague couvre la nuit et les métriques manquantes de la montre). Sommeil avec phases : la bague est le spécialiste et prime la nuit.",
     },
     dataTypes: [
-      { key: "steps", label: { it: "Passi", en: "Steps" }, supported: true },
-      { key: "hr", label: { it: "Frequenza cardiaca", en: "Heart rate" }, supported: true },
-      { key: "sleep", label: { it: "Sonno con fasi", en: "Sleep with stages" }, supported: true },
-      { key: "calories", label: { it: "Calorie", en: "Calories" }, supported: true },
-      { key: "distance", label: { it: "Distanza", en: "Distance" }, supported: true },
-      { key: "workouts", label: { it: "Allenamenti", en: "Workouts" }, supported: false },
-      { key: "spo2", label: { it: "SpO₂", en: "SpO₂" }, supported: true },
-      { key: "hrv", label: { it: "HRV", en: "HRV" }, supported: true },
-      { key: "stress", label: { it: "Stress", en: "Stress" }, supported: true },
+      { key: "steps", label: { it: "Passi", en: "Steps", de: "Schritte", pt: "Passos", fr: "Pas" }, supported: true },
+      { key: "hr", label: { it: "Frequenza cardiaca", en: "Heart rate", de: "Herzfrequenz", pt: "Frequência cardíaca", fr: "Fréquence cardiaque" }, supported: true },
+      { key: "sleep", label: { it: "Sonno con fasi", en: "Sleep with stages", de: "Schlaf mit Phasen", pt: "Sono com fases", fr: "Sommeil avec phases" }, supported: true },
+      { key: "calories", label: { it: "Calorie", en: "Calories", de: "Kalorien", pt: "Calorias", fr: "Calories" }, supported: true },
+      { key: "distance", label: { it: "Distanza", en: "Distance", de: "Distanz", pt: "Distância", fr: "Distance" }, supported: true },
+      { key: "workouts", label: { it: "Allenamenti", en: "Workouts", de: "Trainings", pt: "Treinos", fr: "Séances" }, supported: false },
+      { key: "spo2", label: { it: "SpO₂", en: "SpO₂", de: "SpO₂", pt: "SpO₂", fr: "SpO₂" }, supported: true },
+      { key: "hrv", label: { it: "HRV", en: "HRV", de: "HRV", pt: "HRV", fr: "HRV" }, supported: true },
+      { key: "stress", label: { it: "Stress", en: "Stress", de: "Stress", pt: "Estresse", fr: "Stress" }, supported: true },
     ],
     faqs: [
       {
         q: {
           it: "Funziona anche con il Colmi R03 e i cloni OEM?",
           en: "Does it work with the Colmi R03 and OEM clones too?",
+          de: "Funktioniert es auch mit dem Colmi R03 und OEM-Klonen?",
+          pt: "Funciona também com o Colmi R03 e clones OEM?",
+          fr: "Ça fonctionne aussi avec le Colmi R03 et les clones OEM ?",
         },
         a: {
           it: "Sì. FitMesh usa il protocollo BLE condiviso da Colmi R02, R03 e diversi anelli OEM che usano lo stesso firmware. Se il tuo anello usa l'app QRing o un'app companion identica per interfaccia, è probabile che sia compatibile.",
           en: "Yes. FitMesh uses the BLE protocol shared by the Colmi R02, R03 and several OEM rings that run the same firmware. If your ring uses the QRing app or a companion app identical in interface, it's likely compatible.",
+          de: "Ja. FitMesh verwendet das BLE-Protokoll, das vom Colmi R02, R03 und mehreren OEM-Ringen mit derselben Firmware geteilt wird. Wenn dein Ring die QRing-App oder eine interface-identische Companion-App verwendet, ist er wahrscheinlich kompatibel.",
+          pt: "Sim. O FitMesh usa o protocolo BLE compartilhado pelo Colmi R02, R03 e vários anéis OEM que usam o mesmo firmware. Se o seu anel usar o app QRing ou um app companion idêntico na interface, é provável que seja compatível.",
+          fr: "Oui. FitMesh utilise le protocole BLE partagé par le Colmi R02, R03 et plusieurs bagues OEM utilisant le même firmware. Si votre bague utilise l'app QRing ou une app compagne identique dans son interface, elle est probablement compatible.",
         },
       },
       {
         q: {
           it: "Devo tenere installata l'app del produttore?",
           en: "Do I need to keep the manufacturer's app installed?",
+          de: "Muss ich die App des Herstellers installiert lassen?",
+          pt: "Preciso manter o app do fabricante instalado?",
+          fr: "Dois-je garder l'app du fabricant installée ?",
         },
         a: {
           it: "No. FitMesh Sync si connette all'anello via Bluetooth diretto e scarica i dati autonomamente. L'app companion del produttore non è richiesta e puoi disinstallarla se preferisci.",
           en: "No. FitMesh Sync connects directly to the ring over Bluetooth and downloads data on its own. The manufacturer's companion app is not required and you can uninstall it if you prefer.",
+          de: "Nein. FitMesh Sync verbindet sich direkt über Bluetooth mit dem Ring und lädt Daten eigenständig herunter. Die Companion-App des Herstellers ist nicht erforderlich, und du kannst sie bei Bedarf deinstallieren.",
+          pt: "Não. O FitMesh Sync se conecta diretamente ao anel via Bluetooth e baixa os dados de forma autônoma. O app companion do fabricante não é necessário e você pode desinstalá-lo se preferir.",
+          fr: "Non. FitMesh Sync se connecte directement à la bague via Bluetooth et télécharge les données de manière autonome. L'app compagne du fabricant n'est pas requise et vous pouvez la désinstaller si vous préférez.",
         },
       },
       {
         q: {
           it: "Quanto dura la batteria dell'anello con FitMesh?",
           en: "How does FitMesh affect the ring's battery life?",
+          de: "Wie wirkt sich FitMesh auf die Akkulaufzeit des Rings aus?",
+          pt: "Como o FitMesh afeta a bateria do anel?",
+          fr: "Comment FitMesh affecte-t-il l'autonomie de la bague ?",
         },
         a: {
           it: "FitMesh scarica i dati in batch quando l'anello è nelle vicinanze, senza mantenere una connessione BLE continua. L'impatto sulla batteria dell'anello è minimo (il Colmi R02 arriva tipicamente a 5–7 giorni di autonomia).",
           en: "FitMesh downloads data in batches when the ring is nearby, without maintaining a continuous BLE connection. The impact on ring battery life is minimal (the Colmi R02 typically achieves 5–7 days of battery life).",
+          de: "FitMesh lädt Daten in Batches herunter, wenn der Ring in der Nähe ist, ohne eine kontinuierliche BLE-Verbindung aufrechtzuerhalten. Der Einfluss auf die Akkulaufzeit des Rings ist minimal (der Colmi R02 erreicht typischerweise 5–7 Tage Laufzeit).",
+          pt: "O FitMesh baixa os dados em lotes quando o anel está nas proximidades, sem manter uma conexão BLE contínua. O impacto na bateria do anel é mínimo (o Colmi R02 tipicamente alcança 5 a 7 dias de autonomia).",
+          fr: "FitMesh télécharge les données par lots lorsque la bague est à proximité, sans maintenir une connexion BLE continue. L'impact sur l'autonomie de la bague est minimal (le Colmi R02 atteint généralement 5 à 7 jours d'autonomie).",
         },
       },
       {
         q: {
           it: "Quanto sono precisi i dati di battito e SpO₂?",
           en: "How accurate are the heart rate and SpO₂ readings?",
+          de: "Wie genau sind die Herzfrequenz- und SpO₂-Werte?",
+          pt: "Quão precisos são os dados de batimento e SpO₂?",
+          fr: "Quelle est la précision des données de fréquence cardiaque et SpO₂ ?",
         },
         a: {
           it: "Gli anelli Colmi R02/R03 stimano battito e SpO₂ tramite sensori PPG ottici. I dati sono informativi: utili per monitorare trend giornalieri e notturni, ma non sostituiscono dispositivi medici certificati. Per uso clinico consultare sempre un medico.",
           en: "Colmi R02/R03 rings estimate heart rate and SpO₂ via optical PPG sensors. The data is informational: useful for tracking daily and nightly trends, but not a replacement for certified medical devices. Always consult a healthcare professional for clinical use.",
+          de: "Die Colmi R02/R03-Ringe schätzen Herzfrequenz und SpO₂ über optische PPG-Sensoren. Die Daten sind informativ: nützlich zur Verfolgung von Tages- und Nachttrends, aber kein Ersatz für zertifizierte Medizinprodukte. Für klinische Zwecke immer einen Arzt konsultieren.",
+          pt: "Os anéis Colmi R02/R03 estimam frequência cardíaca e SpO₂ via sensores PPG ópticos. Os dados são informativos: úteis para acompanhar tendências diárias e noturnas, mas não substituem dispositivos médicos certificados. Para uso clínico, consulte sempre um profissional de saúde.",
+          fr: "Les bagues Colmi R02/R03 estiment la fréquence cardiaque et le SpO₂ via des capteurs PPG optiques. Les données sont informatives : utiles pour suivre les tendances quotidiennes et nocturnes, mais ne remplacent pas des dispositifs médicaux certifiés. Pour un usage clinique, consultez toujours un professionnel de santé.",
         },
       },
       {
         q: {
           it: "I miei dati restano privati?",
           en: "Is my data private?",
+          de: "Bleiben meine Daten privat?",
+          pt: "Meus dados ficam privados?",
+          fr: "Mes données restent-elles privées ?",
         },
         a: {
           it: "Sì. I dati dell'anello vengono letti via Bluetooth direttamente dal telefono e inviati solo al backend Supabase del tuo account FitMesh (server in EU). Non passano dai server del produttore dell'anello.",
           en: "Yes. Ring data is read via Bluetooth directly by the phone and sent only to your FitMesh account's Supabase backend (EU servers). It does not pass through the ring manufacturer's servers.",
+          de: "Ja. Die Ringdaten werden über Bluetooth direkt vom Telefon gelesen und nur an das Supabase-Backend deines FitMesh-Kontos gesendet (Server in der EU). Sie gehen nicht über die Server des Ringherstellers.",
+          pt: "Sim. Os dados do anel são lidos via Bluetooth diretamente pelo telefone e enviados apenas ao backend Supabase da sua conta FitMesh (servidores na UE). Eles não passam pelos servidores do fabricante do anel.",
+          fr: "Oui. Les données de la bague sont lues via Bluetooth directement par le téléphone et envoyées uniquement au backend Supabase de votre compte FitMesh (serveurs en UE). Elles ne passent pas par les serveurs du fabricant de la bague.",
         },
       },
     ],
@@ -1973,6 +3336,27 @@ export const PROVIDERS: Provider[] = [
         "budget smart ring dashboard",
         "colmi ring fitmesh",
       ],
+      de: [
+        "colmi r02 app alternative",
+        "colmi r02 daten exportieren",
+        "colmi ring synchronisieren",
+        "günstiger smart ring dashboard",
+        "colmi ring fitmesh",
+      ],
+      pt: [
+        "colmi r02 app alternativa",
+        "colmi r02 exportar dados",
+        "colmi ring sincronizar",
+        "anel inteligente barato dashboard",
+        "colmi ring fitmesh",
+      ],
+      fr: [
+        "colmi r02 app alternative",
+        "colmi r02 exporter données",
+        "colmi ring synchroniser",
+        "bague connectée pas chère tableau de bord",
+        "colmi ring fitmesh",
+      ],
     },
     relatedBlogSlugs: ["colmi-ring-fitmesh"],
   },
@@ -1989,64 +3373,97 @@ export const PROVIDERS: Provider[] = [
     tagline: {
       it: "App iOS in beta TestFlight, uscita App Store imminente. Legge Apple Salute, scrive dati di wearable Android in Apple Salute (opt-in, niente doppioni).",
       en: "iOS app in TestFlight beta, App Store launch imminent. Reads Apple Health, writes Android wearable data into Apple Health (opt-in, no duplicates).",
+      de: "iOS-App in TestFlight-Beta, App Store-Launch steht bevor. Liest Apple Health, schreibt Android-Wearable-Daten in Apple Health (opt-in, keine Doppeleinträge).",
+      pt: "App iOS em beta no TestFlight, lançamento na App Store iminente. Lê o Apple Health, escreve dados de wearables Android no Apple Health (opt-in, sem duplicatas).",
+      fr: "App iOS en bêta TestFlight, lancement App Store imminent. Lit Apple Health, écrit les données des wearables Android dans Apple Health (opt-in, sans doublons).",
     },
     longDesc: {
       it: "FitMesh Sync è in arrivo su iPhone: la beta TestFlight è attiva e la submission App Store è in corso. L'app iOS legge i dati da Apple Health / HealthKit (passi, frequenza cardiaca, sonno con fasi, SpO₂, calorie) e li mostra nella stessa dashboard unificata che già conosci su Android. Feature di punta: il ponte di scrittura Apple Salute (opt-in) porta i dati dei wearable Android (Galaxy Watch, anello Colmi, qualsiasi device che scrive su Health Connect) dentro l'app Salute di iPhone, senza creare doppioni. Un account FitMesh funziona su Android, iPhone e web.",
       en: "FitMesh Sync is coming to iPhone: the TestFlight beta is active and App Store submission is underway. The iOS app reads data from Apple Health / HealthKit (steps, heart rate, sleep with stages, SpO₂, calories) and shows it in the same unified dashboard you already know from Android. Flagship feature: the Apple Health write bridge (opt-in) brings data from Android wearables (Galaxy Watch, Colmi ring, any device writing to Health Connect) into the iPhone Health app, without creating duplicates. One FitMesh account works on Android, iPhone and web.",
+      de: "FitMesh Sync kommt auf das iPhone: Die TestFlight-Beta ist aktiv und die App Store-Einreichung läuft. Die iOS-App liest Daten aus Apple Health / HealthKit (Schritte, Herzfrequenz, Schlaf mit Phasen, SpO₂, Kalorien) und zeigt sie im gleichen einheitlichen Dashboard, das du bereits von Android kennst. Hauptfeature: Die Apple Health-Schreibbrücke (opt-in) bringt Daten von Android-Wearables (Galaxy Watch, Colmi-Ring, jedes Gerät, das in Health Connect schreibt) in die iPhone-Gesundheits-App, ohne Doppeleinträge zu erstellen. Ein FitMesh-Konto funktioniert auf Android, iPhone und Web.",
+      pt: "O FitMesh Sync está chegando ao iPhone: a beta no TestFlight está ativa e a submissão à App Store está em andamento. O app iOS lê dados do Apple Health / HealthKit (passos, frequência cardíaca, sono com fases, SpO₂, calorias) e os exibe no mesmo painel unificado que você já conhece do Android. Destaque: a ponte de escrita para o Apple Health (opt-in) traz dados de wearables Android (Galaxy Watch, anel Colmi, qualquer dispositivo que escreva no Health Connect) para o app Saúde do iPhone, sem criar duplicatas. Uma conta FitMesh funciona no Android, iPhone e web.",
+      fr: "FitMesh Sync arrive sur iPhone : la bêta TestFlight est active et la soumission App Store est en cours. L'app iOS lit les données d'Apple Health / HealthKit (pas, fréquence cardiaque, sommeil avec phases, SpO₂, calories) et les affiche dans le même tableau de bord unifié que vous connaissez déjà sur Android. Fonctionnalité phare : le pont d'écriture Apple Health (opt-in) apporte les données des wearables Android (Galaxy Watch, bague Colmi, tout appareil écrivant dans Health Connect) dans l'app Santé de l'iPhone, sans créer de doublons. Un compte FitMesh fonctionne sur Android, iPhone et web.",
     },
     techNote: {
       it: "Lettura via HealthKit API (iOS). Scrittura idempotente su Apple Health: verifica l'esistenza di dati sovrapposti prima di scrivere qualsiasi sample e scrive solo dove Apple Salute non ha già copertura da un'altra sorgente. Dati in transito e a riposo su cloud EU, cifrati. Permessi HealthKit granulari: richiesti solo i tipi di dato che l'utente ha configurato.",
       en: "Read via HealthKit API (iOS). Idempotent write to Apple Health: checks for overlapping data before writing any sample and only writes where Apple Health has no existing coverage from another source. Data in transit and at rest on EU cloud, encrypted. Granular HealthKit permissions: only the data types the user has configured are requested.",
+      de: "Lesen über HealthKit API (iOS). Idempotentes Schreiben in Apple Health: Prüft auf überlappende Daten vor dem Schreiben eines Samples und schreibt nur dort, wo Apple Health noch keine Abdeckung von einer anderen Quelle hat. Daten im Transit und im Ruhezustand auf EU-Cloud, verschlüsselt. Granulare HealthKit-Berechtigungen: nur die vom Nutzer konfigurierten Datentypen werden angefordert.",
+      pt: "Leitura via HealthKit API (iOS). Escrita idempotente no Apple Health: verifica a existência de dados sobrepostos antes de escrever qualquer amostra e escreve apenas onde o Apple Health ainda não tem cobertura de outra fonte. Dados em trânsito e em repouso na nuvem EU, criptografados. Permissões HealthKit granulares: apenas os tipos de dados configurados pelo usuário são solicitados.",
+      fr: "Lecture via HealthKit API (iOS). Écriture idempotente dans Apple Health : vérifie l'existence de données chevauchantes avant d'écrire un échantillon et n'écrit que là où Apple Health n'a pas encore de couverture d'une autre source. Données en transit et au repos sur cloud EU, chiffrées. Permissions HealthKit granulaires : seuls les types de données configurés par l'utilisateur sont demandés.",
     },
     dataTypes: [
-      { key: "steps", label: { it: "Passi", en: "Steps" }, supported: true },
-      { key: "hr", label: { it: "Frequenza cardiaca", en: "Heart rate" }, supported: true },
-      { key: "sleep", label: { it: "Sonno con fasi", en: "Sleep with stages" }, supported: true },
-      { key: "calories", label: { it: "Calorie", en: "Calories" }, supported: true },
-      { key: "distance", label: { it: "Distanza", en: "Distance" }, supported: true },
-      { key: "workouts", label: { it: "Allenamenti", en: "Workouts" }, supported: true },
-      { key: "spo2", label: { it: "SpO₂", en: "SpO₂" }, supported: true },
-      { key: "hrv", label: { it: "HRV", en: "HRV" }, supported: true },
+      { key: "steps", label: { it: "Passi", en: "Steps", de: "Schritte", pt: "Passos", fr: "Pas" }, supported: true },
+      { key: "hr", label: { it: "Frequenza cardiaca", en: "Heart rate", de: "Herzfrequenz", pt: "Frequência cardíaca", fr: "Fréquence cardiaque" }, supported: true },
+      { key: "sleep", label: { it: "Sonno con fasi", en: "Sleep with stages", de: "Schlaf mit Phasen", pt: "Sono com fases", fr: "Sommeil avec phases" }, supported: true },
+      { key: "calories", label: { it: "Calorie", en: "Calories", de: "Kalorien", pt: "Calorias", fr: "Calories" }, supported: true },
+      { key: "distance", label: { it: "Distanza", en: "Distance", de: "Distanz", pt: "Distância", fr: "Distance" }, supported: true },
+      { key: "workouts", label: { it: "Allenamenti", en: "Workouts", de: "Trainings", pt: "Treinos", fr: "Séances" }, supported: true },
+      { key: "spo2", label: { it: "SpO₂", en: "SpO₂", de: "SpO₂", pt: "SpO₂", fr: "SpO₂" }, supported: true },
+      { key: "hrv", label: { it: "HRV", en: "HRV", de: "HRV", pt: "HRV", fr: "HRV" }, supported: true },
     ],
     faqs: [
       {
         q: {
           it: "FitMesh iOS è già disponibile sull'App Store?",
           en: "Is FitMesh iOS already available on the App Store?",
+          de: "Ist FitMesh iOS bereits im App Store verfügbar?",
+          pt: "O FitMesh iOS já está disponível na App Store?",
+          fr: "FitMesh iOS est-il déjà disponible sur l'App Store ?",
         },
         a: {
           it: "Non ancora. L'app è in beta TestFlight e in submission su App Store. L'uscita è imminente. Nel frattempo puoi iscriverti alla beta dalla pagina /beta per ricevere l'accesso TestFlight.",
           en: "Not yet. The app is in TestFlight beta and in App Store submission. Launch is imminent. In the meantime you can sign up for the beta from the /beta page to receive TestFlight access.",
+          de: "Noch nicht. Die App befindet sich in der TestFlight-Beta und im App Store-Einreichungsprozess. Der Launch ist bevorstehend. In der Zwischenzeit kannst du dich auf der /beta-Seite für die Beta anmelden, um TestFlight-Zugang zu erhalten.",
+          pt: "Ainda não. O app está em beta no TestFlight e em processo de submissão à App Store. O lançamento é iminente. Enquanto isso, você pode se inscrever na beta pela página /beta para receber acesso ao TestFlight.",
+          fr: "Pas encore. L'app est en bêta TestFlight et en cours de soumission sur l'App Store. Le lancement est imminent. En attendant, vous pouvez vous inscrire à la bêta depuis la page /beta pour recevoir l'accès TestFlight.",
         },
       },
       {
         q: {
           it: "Il ponte di scrittura sovrascrive i dati di Apple Watch?",
           en: "Does the write bridge overwrite Apple Watch data?",
+          de: "Überschreibt die Schreibbrücke Apple Watch-Daten?",
+          pt: "A ponte de escrita sobrescreve dados do Apple Watch?",
+          fr: "Le pont d'écriture écrase-t-il les données de l'Apple Watch ?",
         },
         a: {
           it: "No. FitMesh controlla prima se Apple Salute ha già dei dati per quella fascia oraria. Se Apple Watch ha già registrato sonno o passi per quell'intervallo, il bridge non tocca nulla. Scrive solo dove non c'è copertura esistente.",
           en: "No. FitMesh checks first whether Apple Health already has data for that time slot. If Apple Watch has already recorded sleep or steps for that interval, the bridge doesn't touch anything. It only writes where there's no existing coverage.",
+          de: "Nein. FitMesh prüft zunächst, ob Apple Health bereits Daten für diesen Zeitraum hat. Wenn Apple Watch bereits Schlaf oder Schritte für dieses Intervall aufgezeichnet hat, berührt der Bridge nichts. Er schreibt nur dort, wo keine vorhandene Abdeckung besteht.",
+          pt: "Não. O FitMesh verifica primeiro se o Apple Health já tem dados para aquele período. Se o Apple Watch já registrou sono ou passos para aquele intervalo, o bridge não toca em nada. Ele escreve apenas onde não há cobertura existente.",
+          fr: "Non. FitMesh vérifie d'abord si Apple Health a déjà des données pour ce créneau horaire. Si l'Apple Watch a déjà enregistré sommeil ou pas pour cet intervalle, le bridge ne touche rien. Il n'écrit que là où il n'y a pas de couverture existante.",
         },
       },
       {
         q: {
           it: "Ho sia Android che iPhone. Come funziona con un account solo?",
           en: "I have both Android and iPhone. How does it work with one account?",
+          de: "Ich habe sowohl Android als auch iPhone. Wie funktioniert es mit einem Konto?",
+          pt: "Tenho Android e iPhone. Como funciona com uma única conta?",
+          fr: "J'ai un Android et un iPhone. Comment ça fonctionne avec un seul compte ?",
         },
         a: {
           it: "Accedi con lo stesso account Google o Apple su entrambi i telefoni. I dati di tutti i device collegati (Galaxy Watch su Android, Apple Watch su iPhone, anello Colmi) confluiscono nella stessa dashboard. Il ponte opt-in può poi scrivere i dati Android su Apple Salute, così li vedi anche nell'app Salute di iPhone.",
           en: "Sign in with the same Google or Apple account on both phones. Data from all connected devices (Galaxy Watch on Android, Apple Watch on iPhone, Colmi ring) feeds into the same dashboard. The opt-in bridge can then write Android data to Apple Health, so you see it in the iPhone Health app too.",
+          de: "Melde dich mit demselben Google- oder Apple-Konto auf beiden Telefonen an. Daten von allen verbundenen Geräten (Galaxy Watch auf Android, Apple Watch auf iPhone, Colmi-Ring) fließen in dasselbe Dashboard. Die Opt-in-Brücke kann dann Android-Daten in Apple Health schreiben, sodass du sie auch in der iPhone-Gesundheits-App siehst.",
+          pt: "Entre com a mesma conta Google ou Apple em ambos os telefones. Os dados de todos os dispositivos conectados (Galaxy Watch no Android, Apple Watch no iPhone, anel Colmi) chegam ao mesmo painel. A ponte opt-in pode então escrever os dados Android no Apple Health, para que você os veja também no app Saúde do iPhone.",
+          fr: "Connectez-vous avec le même compte Google ou Apple sur les deux téléphones. Les données de tous les appareils connectés (Galaxy Watch sur Android, Apple Watch sur iPhone, bague Colmi) convergent dans le même tableau de bord. Le pont opt-in peut ensuite écrire les données Android dans Apple Health, pour que vous les voyiez aussi dans l'app Santé de l'iPhone.",
         },
       },
       {
         q: {
           it: "I miei dati Apple Health finiscono su server di terzi?",
           en: "Does my Apple Health data end up on third-party servers?",
+          de: "Landen meine Apple Health-Daten auf Drittanbieter-Servern?",
+          pt: "Meus dados do Apple Health vão para servidores de terceiros?",
+          fr: "Mes données Apple Health finissent-elles sur des serveurs tiers ?",
         },
         a: {
           it: "I dati transitano sul cloud FitMesh (datacenter EU, cifrati in transito e a riposo). FitMesh non vende dati a terzi e non li usa per addestrare modelli. Puoi revocare i permessi HealthKit da iPhone Impostazioni in qualsiasi momento, e richiedere la cancellazione dei dati dal cloud tramite le impostazioni dell'account.",
           en: "Data transits through FitMesh cloud (EU datacenter, encrypted in transit and at rest). FitMesh doesn't sell data to third parties and doesn't use it to train models. You can revoke HealthKit permissions from iPhone Settings at any time, and request data deletion from the cloud via account settings.",
+          de: "Daten werden über die FitMesh-Cloud übertragen (EU-Rechenzentrum, verschlüsselt im Transit und im Ruhezustand). FitMesh verkauft keine Daten an Dritte und verwendet sie nicht zum Training von Modellen. Du kannst die HealthKit-Berechtigungen jederzeit über iPhone-Einstellungen widerrufen und die Datenlöschung aus der Cloud über die Kontoeinstellungen anfordern.",
+          pt: "Os dados transitam pela nuvem FitMesh (datacenter na UE, criptografados em trânsito e em repouso). O FitMesh não vende dados a terceiros e não os usa para treinar modelos. Você pode revogar as permissões HealthKit nas Configurações do iPhone a qualquer momento e solicitar a exclusão dos dados na nuvem pelas configurações da conta.",
+          fr: "Les données transitent par le cloud FitMesh (datacenter EU, chiffrées en transit et au repos). FitMesh ne vend pas de données à des tiers et ne les utilise pas pour entraîner des modèles. Vous pouvez révoquer les permissions HealthKit depuis les Réglages iPhone à tout moment, et demander la suppression des données du cloud via les paramètres du compte.",
         },
       },
     ],
@@ -2065,6 +3482,27 @@ export const PROVIDERS: Provider[] = [
         "apple health bridge android",
         "iphone health app android smartwatch",
       ],
+      de: [
+        "fitmesh sync iphone",
+        "apple health web dashboard",
+        "android wearable apple health synchronisieren",
+        "apple health brücke android",
+        "iphone gesundheits-app android smartwatch",
+      ],
+      pt: [
+        "fitmesh sync iphone",
+        "apple health painel web",
+        "sincronizar wearable android apple health",
+        "ponte apple health android",
+        "app saúde iphone smartwatch android",
+      ],
+      fr: [
+        "fitmesh sync iphone",
+        "apple health tableau de bord web",
+        "synchroniser wearable android apple health",
+        "pont apple health android",
+        "app santé iphone smartwatch android",
+      ],
     },
     setupGuide: {
       steps: {
@@ -2081,6 +3519,27 @@ export const PROVIDERS: Provider[] = [
           "Sign in with the same **Google or Apple account** you use (or have) on Android.",
           "Grant the requested **HealthKit permissions** (you can choose type by type).",
           "Optional: activate the **Apple Health write bridge** from Settings → Apple Health to receive Android device data in Apple Health.",
+        ],
+        de: [
+          "**Melde dich für die Beta an** über die /beta-Seite dieser Website: Du erhältst die TestFlight-Einladung innerhalb von 24 Stunden.",
+          "Installiere **FitMesh Sync** über den TestFlight-Link in der erhaltenen E-Mail.",
+          "Melde dich mit demselben **Google- oder Apple-Konto** an, das du auf Android verwendest.",
+          "Erteile die angeforderten **HealthKit-Berechtigungen** (du kannst Typ für Typ wählen).",
+          "Optional: Aktiviere die **Apple Health-Schreibbrücke** unter Einstellungen → Apple Health, um Android-Gerätedaten in Apple Health zu empfangen.",
+        ],
+        pt: [
+          "**Inscreva-se na beta** pela página /beta deste site: você receberá o convite do TestFlight em até 24 horas.",
+          "Instale o **FitMesh Sync** pelo link do TestFlight no e-mail recebido.",
+          "Entre com a mesma **conta Google ou Apple** que você usa (ou tem) no Android.",
+          "Conceda as **permissões HealthKit** solicitadas (você pode escolher tipo a tipo).",
+          "Opcional: ative a **Ponte de escrita para o Apple Health** em Configurações → Apple Health para receber dados dos dispositivos Android no Apple Health.",
+        ],
+        fr: [
+          "**Inscrivez-vous à la bêta** depuis la page /beta de ce site : vous recevrez l'invitation TestFlight sous 24 heures.",
+          "Installez **FitMesh Sync** via le lien TestFlight dans l'e-mail reçu.",
+          "Connectez-vous avec le même **compte Google ou Apple** que vous utilisez (ou avez) sur Android.",
+          "Accordez les **permissions HealthKit** demandées (vous pouvez choisir type par type).",
+          "Optionnel : activez le **pont d'écriture Apple Health** depuis Paramètres → Apple Health pour recevoir les données des appareils Android dans Apple Health.",
         ],
       },
       syncedData: {
@@ -2104,42 +3563,93 @@ export const PROVIDERS: Provider[] = [
           "Workouts (type, duration, kcal, average BPM)",
           "Data from Android wearables (via bridge, opt-in)",
         ],
+        de: [
+          "Schritte und Distanz",
+          "Herzfrequenz (Messungen + Ruhe)",
+          "Schlaf mit Phasen (Tiefschlaf, Leichtschlaf, REM, Wach)",
+          "Aktive Kalorien",
+          "SpO₂",
+          "HRV",
+          "Trainings (Typ, Dauer, kcal, durchschnittliche Herzfrequenz)",
+          "Daten von Android-Wearables (via Brücke, opt-in)",
+        ],
+        pt: [
+          "Passos e distância",
+          "Frequência cardíaca (amostras + em repouso)",
+          "Sono com fases (profundo, leve, REM, acordado)",
+          "Calorias ativas",
+          "SpO₂",
+          "HRV",
+          "Treinos (tipo, duração, kcal, BPM médio)",
+          "Dados de wearables Android (via ponte, opt-in)",
+        ],
+        fr: [
+          "Pas et distance",
+          "Fréquence cardiaque (mesures + repos)",
+          "Sommeil avec phases (profond, léger, REM, éveil)",
+          "Calories actives",
+          "SpO₂",
+          "HRV",
+          "Séances (type, durée, kcal, FC moyenne)",
+          "Données des wearables Android (via pont, opt-in)",
+        ],
       },
       troubleshooting: [
         {
           q: {
             it: "Non vedo i miei dati Apple Watch in FitMesh",
             en: "I don't see my Apple Watch data in FitMesh",
+            de: "Ich sehe meine Apple Watch-Daten nicht in FitMesh",
+            pt: "Não vejo meus dados do Apple Watch no FitMesh",
+            fr: "Je ne vois pas mes données Apple Watch dans FitMesh",
           },
           a: {
             it: "Verifica che FitMesh Sync abbia i permessi HealthKit attivi: iPhone Impostazioni → Privacy e sicurezza → Salute → FitMesh Sync. Controlla che i tipi di dato che vuoi siano abilitati in lettura. Se i permessi sono ok, prova a chiudere e riaprire l'app.",
             en: "Check that FitMesh Sync has HealthKit permissions enabled: iPhone Settings → Privacy & Security → Health → FitMesh Sync. Verify the data types you want are enabled for reading. If permissions are correct, try closing and reopening the app.",
+            de: "Überprüfe, ob FitMesh Sync die HealthKit-Berechtigungen aktiviert hat: iPhone Einstellungen → Datenschutz & Sicherheit → Gesundheit → FitMesh Sync. Prüfe, ob die gewünschten Datentypen zum Lesen aktiviert sind. Wenn die Berechtigungen korrekt sind, versuche die App zu schließen und neu zu öffnen.",
+            pt: "Verifique se o FitMesh Sync tem as permissões HealthKit ativas: iPhone Configurações → Privacidade e segurança → Saúde → FitMesh Sync. Confirme se os tipos de dados que deseja estão habilitados para leitura. Se as permissões estiverem corretas, tente fechar e reabrir o app.",
+            fr: "Vérifiez que FitMesh Sync a les permissions HealthKit activées : iPhone Réglages → Confidentialité et sécurité → Santé → FitMesh Sync. Vérifiez que les types de données souhaités sont activés en lecture. Si les permissions sont correctes, essayez de fermer et rouvrir l'app.",
           },
         },
         {
           q: {
             it: "Il ponte non scrive i dati in Apple Salute",
             en: "The bridge isn't writing data to Apple Health",
+            de: "Die Brücke schreibt keine Daten in Apple Health",
+            pt: "A ponte não está escrevendo dados no Apple Health",
+            fr: "Le pont n'écrit pas les données dans Apple Health",
           },
           a: {
             it: "Verifica che: (1) il ponte sia attivo da Impostazioni → Apple Health → Ponte di scrittura; (2) FitMesh abbia i permessi HealthKit in scrittura per i tipi di dato selezionati; (3) l'app Android abbia sincronizzato dati recenti sul cloud (controlla la data dell'ultima sync nell'app Android). Se i dati Android sono già presenti sul cloud, il bridge li scriverà alla prossima apertura dell'app iOS.",
             en: "Check that: (1) the bridge is active from Settings → Apple Health → Write Bridge; (2) FitMesh has HealthKit write permissions for the selected data types; (3) the Android app has synced recent data to the cloud (check the last sync date in the Android app). If Android data is already on the cloud, the bridge will write it at the next iOS app open.",
+            de: "Prüfe, dass: (1) die Brücke aktiv ist unter Einstellungen → Apple Health → Schreibbrücke; (2) FitMesh HealthKit-Schreibberechtigungen für die ausgewählten Datentypen hat; (3) die Android-App aktuelle Daten in die Cloud synchronisiert hat (prüfe das letzte Sync-Datum in der Android-App). Wenn Android-Daten bereits in der Cloud sind, schreibt der Bridge sie bei der nächsten Öffnung der iOS-App.",
+            pt: "Verifique que: (1) a ponte está ativa em Configurações → Apple Health → Ponte de escrita; (2) o FitMesh tem permissões de escrita HealthKit para os tipos de dados selecionados; (3) o app Android sincronizou dados recentes para a nuvem (verifique a data da última sincronização no app Android). Se os dados Android já estiverem na nuvem, a ponte os escreverá na próxima abertura do app iOS.",
+            fr: "Vérifiez que : (1) le pont est actif depuis Paramètres → Apple Health → Pont d'écriture ; (2) FitMesh a les permissions d'écriture HealthKit pour les types de données sélectionnés ; (3) l'app Android a synchronisé des données récentes sur le cloud (vérifiez la date de la dernière sync dans l'app Android). Si les données Android sont déjà sur le cloud, le bridge les écrira à la prochaine ouverture de l'app iOS.",
           },
         },
         {
           q: {
             it: "Vedo dati duplicati in Apple Salute",
             en: "I see duplicate data in Apple Health",
+            de: "Ich sehe doppelte Daten in Apple Health",
+            pt: "Vejo dados duplicados no Apple Health",
+            fr: "Je vois des données dupliquées dans Apple Health",
           },
           a: {
             it: "FitMesh è pensato per non creare doppioni, ma in casi rari (ad esempio dopo un reset dei permessi) può capitare che compaiano voci duplicate. In Apple Salute → categoria → Modifica sorgenti puoi gestire la priorità delle sorgenti. Se il problema persiste, disattiva il bridge, cancella le voci FitMesh Sync dalla categoria, e riattiva il bridge.",
             en: "FitMesh is designed to avoid duplicates, but in rare cases (for example after a permission reset) duplicate entries may appear. In Apple Health → category → Edit Data Sources you can manage source priority. If the issue persists, deactivate the bridge, delete FitMesh Sync entries from that category, and reactivate the bridge.",
+            de: "FitMesh ist so konzipiert, dass keine Doppeleinträge entstehen, aber in seltenen Fällen (z. B. nach einem Berechtigungs-Reset) können doppelte Einträge erscheinen. In Apple Health → Kategorie → Datenquellen bearbeiten kannst du die Quellenpriorität verwalten. Wenn das Problem anhält, deaktiviere den Bridge, lösche FitMesh Sync-Einträge aus dieser Kategorie und aktiviere den Bridge erneut.",
+            pt: "O FitMesh foi projetado para evitar duplicatas, mas em casos raros (por exemplo, após um reset de permissões) podem aparecer entradas duplicadas. Em Apple Health → categoria → Editar fontes de dados você pode gerenciar a prioridade das fontes. Se o problema persistir, desative a ponte, exclua as entradas do FitMesh Sync da categoria e reative a ponte.",
+            fr: "FitMesh est conçu pour éviter les doublons, mais dans de rares cas (par exemple après une réinitialisation des permissions) des entrées dupliquées peuvent apparaître. Dans Apple Health → catégorie → Modifier les sources de données vous pouvez gérer la priorité des sources. Si le problème persiste, désactivez le pont, supprimez les entrées FitMesh Sync de cette catégorie, et réactivez le pont.",
           },
         },
       ],
       technicalNotes: {
         it: "Lettura tramite HealthKit API standard (iOS 16+). Scrittura idempotente: prima di ogni batch, query HealthKit per sample sovrapposti nello stesso intervallo e stesso HKSampleType. Scrittura solo sugli slot scoperti. Cloud FitMesh EU: datacenter certificati, TLS 1.3 in transito, AES-256 a riposo. Beta TestFlight attiva; uscita App Store imminente.",
         en: "Reading via standard HealthKit API (iOS 16+). Idempotent writing: before each batch, HealthKit query for overlapping samples in the same interval and same HKSampleType. Writing only to uncovered slots. FitMesh EU cloud: certified datacenters, TLS 1.3 in transit, AES-256 at rest. TestFlight beta active; App Store launch imminent.",
+        de: "Lesen über Standard-HealthKit API (iOS 16+). Idempotentes Schreiben: vor jedem Batch HealthKit-Abfrage für überlappende Samples im gleichen Intervall und gleichen HKSampleType. Schreiben nur auf unabgedeckte Slots. FitMesh EU-Cloud: zertifizierte Rechenzentren, TLS 1.3 im Transit, AES-256 im Ruhezustand. TestFlight-Beta aktiv; App Store-Launch bevorstehend.",
+        pt: "Leitura via HealthKit API padrão (iOS 16+). Escrita idempotente: antes de cada lote, consulta HealthKit por amostras sobrepostas no mesmo intervalo e mesmo HKSampleType. Escrita apenas nos slots descobertos. Cloud FitMesh EU: datacenters certificados, TLS 1.3 em trânsito, AES-256 em repouso. Beta no TestFlight ativa; lançamento na App Store iminente.",
+        fr: "Lecture via l'API HealthKit standard (iOS 16+). Écriture idempotente : avant chaque batch, requête HealthKit pour les échantillons chevauchants dans le même intervalle et le même HKSampleType. Écriture uniquement sur les créneaux non couverts. Cloud FitMesh EU : datacenters certifiés, TLS 1.3 en transit, AES-256 au repos. Bêta TestFlight active ; lancement App Store imminent.",
       },
     },
     relatedBlogSlugs: [
@@ -2160,38 +3670,32 @@ export function statusLabel(
   status: ProviderStatus,
   lc: Locale,
 ): { text: string; color: string } {
-  const map: Record<
-    ProviderStatus,
-    { it: string; en: string; es: string; de: string; pt: string; fr: string; color: string }
-  > = {
+  const map: Record<ProviderStatus, { it: string; en: string; es: string; de: string; pt: string; fr: string; color: string }> = {
     live: { it: "Disponibile ora", en: "Available now", es: "Disponible ahora", de: "Jetzt verfügbar", pt: "Disponível agora", fr: "Disponible maintenant", color: "#31E981" },
     "live-basic": {
       it: "Funziona via Health Connect",
       en: "Works via Health Connect",
       es: "Funciona vía Health Connect",
-      de: "Funktioniert über Health Connect",
+      de: "Funktioniert via Health Connect",
       pt: "Funciona via Health Connect",
       fr: "Fonctionne via Health Connect",
       color: "#21E6C1",
     },
     beta: { it: "Beta", en: "Beta", es: "Beta", de: "Beta", pt: "Beta", fr: "Beta", color: "#FFB547" },
-    "roadmap-q3": { it: "In arrivo Q3 2026", en: "Coming Q3 2026", es: "Próximamente 3T 2026", de: "Kommt Q3 2026", pt: "Em breve 3T 2026", fr: "Bientôt T3 2026", color: "#38BDF8" },
-    "roadmap-q4": { it: "In arrivo Q4 2026", en: "Coming Q4 2026", es: "Próximamente 4T 2026", de: "Kommt Q4 2026", pt: "Em breve 4T 2026", fr: "Bientôt T4 2026", color: "#A78BFA" },
-    "coming-soon": { it: "In arrivo", en: "Coming soon", es: "Próximamente", de: "Demnächst", pt: "Em breve", fr: "Bientôt disponible", color: "#7CFF5B" },
+    "roadmap-q3": { it: "In arrivo Q3 2026", en: "Coming Q3 2026", es: "Próximamente 3T 2026", de: "Kommt Q3 2026", pt: "Em breve T3 2026", fr: "Bientôt T3 2026", color: "#38BDF8" },
+    "roadmap-q4": { it: "In arrivo Q4 2026", en: "Coming Q4 2026", es: "Próximamente 4T 2026", de: "Kommt Q4 2026", pt: "Em breve T4 2026", fr: "Bientôt T4 2026", color: "#A78BFA" },
+    "coming-soon": { it: "In arrivo", en: "Coming soon", es: "Próximamente", de: "Demnächst", pt: "Em breve", fr: "Bientôt", color: "#7CFF5B" },
   };
   const entry = map[status];
-  return { text: entry[lc], color: entry.color };
+  return { text: entry[lc] ?? entry.en, color: entry.color };
 }
 
 export function categoryLabel(
   category: ProviderCategory,
   lc: Locale,
 ): string {
-  const map: Record<
-    ProviderCategory,
-    { it: string; en: string; es: string; de: string; pt: string; fr: string }
-  > = {
-    smartwatch: { it: "Smartwatch", en: "Smartwatch", es: "Smartwatch", de: "Smartwatch", pt: "Smartwatch", fr: "Montre connectée" },
+  const map: Record<ProviderCategory, { it: string; en: string; es: string; de: string; pt: string; fr: string }> = {
+    smartwatch: { it: "Smartwatch", en: "Smartwatch", es: "Smartwatch", de: "Smartwatch", pt: "Smartwatch", fr: "Smartwatch" },
     "fitness-platform": {
       it: "Piattaforma fitness",
       en: "Fitness platform",
@@ -2209,7 +3713,7 @@ export function categoryLabel(
       fr: "Plateforme santé",
     },
     wearable: { it: "Wearable", en: "Wearable", es: "Wearable", de: "Wearable", pt: "Wearable", fr: "Wearable" },
-    "phone-only": { it: "Solo telefono", en: "Phone-only", es: "Solo teléfono", de: "Nur Smartphone", pt: "Somente telefone", fr: "Téléphone uniquement" },
+    "phone-only": { it: "Solo telefono", en: "Phone-only", es: "Solo teléfono", de: "Nur Smartphone", pt: "Apenas smartphone", fr: "Téléphone uniquement" },
   };
-  return map[category][lc];
+  return map[category][lc] ?? map[category].en;
 }

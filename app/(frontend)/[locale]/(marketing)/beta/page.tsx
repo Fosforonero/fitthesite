@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import BetaSignupForm from "@/components/BetaSignupForm";
+import FounderCounter from "@/components/FounderCounter";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
@@ -139,6 +140,11 @@ export default async function BetaPage({
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl">
             {t.sub}
           </p>
+
+          {/* Social proof: posti founder occupati in tempo reale */}
+          <div className="flex justify-center">
+            <FounderCounter locale={lc} />
+          </div>
 
           {/* CTA primaria: il founder si attiva scaricando l'app, non con un form */}
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">

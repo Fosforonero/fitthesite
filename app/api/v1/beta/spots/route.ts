@@ -1,10 +1,10 @@
 /**
- * GET /api/v1/beta/spots — contatore posti Beta occupati (X/100).
+ * GET /api/v1/beta/spots — contatore posti Founder occupati (X/1000).
  *
  * Pubblico, anonimo. Chiama la function SQL `get_beta_spots_taken()` che
  * conta i signup in stato pending|approved|activated.
  *
- * Risposta: { taken: number, total: 100 }
+ * Risposta: { taken: number, total: 1000 }
  */
 import { createClient } from "@supabase/supabase-js";
 
@@ -26,5 +26,5 @@ export async function GET() {
   const { data, error } = await supabase.rpc("get_beta_spots_taken");
   if (error) return jsonError(500, "rpc_failed", error.message);
 
-  return jsonOk({ taken: data ?? 0, total: 100 });
+  return jsonOk({ taken: data ?? 0, total: 1000 });
 }
