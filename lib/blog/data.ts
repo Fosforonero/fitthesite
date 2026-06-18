@@ -58,6 +58,10 @@ import { post as novitaFonteDelDato } from "./posts/novita-fonte-del-dato";
 import { post as fitmeshSyncDisponibileGooglePlay } from "./posts/fitmesh-sync-disponibile-google-play";
 // Google Fit cierra: alternativas y Health Connect
 import { post as googleFitCierra } from "./posts/google-fit-cierra-alternativas-health-connect";
+// Net-new 18/06: Xiaomi/Amazfit, Withings, Pixel Watch
+import { post as esportareDatiXiaomiAmazfit } from "./posts/esportare-dati-xiaomi-amazfit";
+import { post as sincronizzareWithings } from "./posts/sincronizzare-withings";
+import { post as datiPixelWatchDashboard } from "./posts/dati-pixel-watch-dashboard";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -104,6 +108,10 @@ const RAW_POSTS: BlogPost[] = [
   fitmeshSyncDisponibileGooglePlay,
   // Google Fit cierra
   googleFitCierra,
+  // Net-new 18/06
+  esportareDatiXiaomiAmazfit,
+  sincronizzareWithings,
+  datiPixelWatchDashboard,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

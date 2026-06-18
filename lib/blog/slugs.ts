@@ -249,6 +249,27 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     pt: "ver-dados-smartwatch-navegador-pc",
     fr: "voir-donnees-montre-connectee-navigateur-pc",
   },
+  "esportare-dati-xiaomi-amazfit": {
+    en: "xiaomi-amazfit-health-connect-data-dashboard",
+    es: "xiaomi-amazfit-health-connect-datos-panel",
+    de: "xiaomi-amazfit-daten-health-connect-dashboard",
+    pt: "xiaomi-amazfit-dados-health-connect-painel",
+    fr: "xiaomi-amazfit-donnees-health-connect-tableau-de-bord",
+  },
+  "sincronizzare-withings": {
+    en: "sync-withings-data",
+    es: "sincronizar-datos-withings",
+    de: "withings-daten-synchronisieren",
+    pt: "sincronizar-dados-withings",
+    fr: "synchroniser-donnees-withings",
+  },
+  "dati-pixel-watch-dashboard": {
+    en: "pixel-watch-data-personal-dashboard",
+    es: "datos-pixel-watch-panel-personal",
+    de: "pixel-watch-daten-persoenliches-dashboard",
+    pt: "dados-pixel-watch-painel-pessoal",
+    fr: "donnees-pixel-watch-tableau-de-bord-personnel",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {
