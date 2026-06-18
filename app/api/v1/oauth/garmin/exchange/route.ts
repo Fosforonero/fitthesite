@@ -1,0 +1,90 @@
+/**
+ * POST /api/v1/oauth/garmin/exchange — token exchange OAuth2 server-side.
+ *
+ * SCAFFOLD: l'app Flutter manda il `code` (+ `code_verifier` se PKCE); noi
+ * usiamo GARMIN_CLIENT_SECRET (env Vercel) per chiamare Garmin server-side e
+ * ritorniamo access_token + refresh_token. Il secret non è mai nel binary.
+ *
+ * Body (JSON): { code: string, code_verifier?: string }
+ * Risposte: 200 { access_token, refresh_token, expires_at, expires_at_ms, token_type }
+ *           400 invalid_body | missing_fields · 429 rate_limit_exceeded
+ *           502 garmin_api_error · 500 server_error | server_misconfigured
+ */
+export const dynamic = "force-dynamic";
+
+import { z } from "zod";
+
+import {
+  GarminApiError,
+  checkRateLimit,
+  exchangeGarminCode,
+  extractIp,
+} from "@/lib/oauth/garmin-backend";
+
+const bodySchema = z.object({
+  code: z.string().min(1),
+  code_verifier: z.string().min(1).optional(),
+});
+
+export async function POST(req: Request): Promise<Response> {
+  const ip = extractIp(req);
+  if (!checkRateLimit(ip)) {
+    return jsonError(429, "rate_limit_exceeded", {
+      message: "Troppi tentativi, riprova tra un minuto",
+    });
+  }
+
+  let raw: unknown;
+  try {
+    raw = await req.json();
+  } catch {
+    return jsonError(400, "invalid_body", { message: "JSON non valido" });
+  }
+
+  const parsed = bodySchema.safeParse(raw);
+  if (!parsed.success) {
+    return jsonError(400, "missing_fields", {
+      issues: parsed.error.flatten().fieldErrors,
+    });
+  }
+
+  try {
+    const token = await exchangeGarminCode(
+      parsed.data.code,
+      parsed.data.code_verifier
+    );
+    return jsonOk({
+      access_token: token.access_token,
+      refresh_token: token.refresh_token,
+      expires_at: token.expires_at,
+      expires_at_ms: token.expires_at * 1000,
+      token_type: token.token_type,
+    });
+  } catch (err) {
+    if (err instanceof GarminApiError) {
+      return jsonError(502, "garmin_api_error", {
+        garminStatus: err.garminStatus,
+        garminBody: err.garminBody,
+      });
+    }
+    if (err instanceof Error && err.message.includes("env Vercel")) {
+      return jsonError(500, "server_misconfigured", { message: err.message });
+    }
+    console.error("[garmin/exchange] unexpected error:", err);
+    return jsonError(500, "server_error");
+  }
+}
+
+function jsonError(status: number, code: string, details?: unknown): Response {
+  return new Response(
+    JSON.stringify({ error: code, ...(details ? { details } : {}) }),
+    { status, headers: { "content-type": "application/json" } }
+  );
+}
+
+function jsonOk(body: object): Response {
+  return new Response(JSON.stringify(body), {
+    status: 200,
+    headers: { "content-type": "application/json" },
+  });
+}
