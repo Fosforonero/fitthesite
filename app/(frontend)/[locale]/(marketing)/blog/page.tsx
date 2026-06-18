@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { categoryLabel, tl } from "@/lib/blog/types";
 import { getBlogPosts } from "@/lib/blog/payload-source";
+import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -203,7 +204,7 @@ export default async function BlogIndex({
     blogPost: posts.map((p) => ({
       "@type": "BlogPosting",
       headline: tl(p.hero.title, lc),
-      url: `${SITE_URL}/${lc}/blog/${p.slug}`,
+      url: `${SITE_URL}/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`,
       datePublished: p.publishedAt,
       dateModified: p.updatedAt,
       description: tl(p.metaDescription, lc),
@@ -246,7 +247,7 @@ export default async function BlogIndex({
             {pillars.map((p) => (
               <Link
                 key={p.slug}
-                href={`/${lc}/blog/${p.slug}`}
+                href={`/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`}
                 className="card-glass p-7 sm:p-8 group hover:-translate-y-0.5 transition-transform relative overflow-hidden"
               >
                 <div
@@ -288,7 +289,7 @@ export default async function BlogIndex({
           {others.map((p) => (
             <Link
               key={p.slug}
-              href={`/${lc}/blog/${p.slug}`}
+              href={`/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`}
               className="card p-6 group hover:-translate-y-0.5 transition-transform flex flex-col"
             >
               <div className="flex items-center gap-2 text-xs">

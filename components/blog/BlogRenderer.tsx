@@ -4,6 +4,27 @@ import { Fragment, type ReactNode } from "react";
 import type { BlogSection } from "@/lib/blog/types";
 import { tl, tll } from "@/lib/blog/types";
 import type { Locale } from "@/lib/i18n";
+import { localizedBlogSlug, localizedLandingSlug } from "@/lib/blog/slug-i18n";
+
+/**
+ * Riscrive un href interno alla lingua corrente: normalizza il prefisso `/xx/`
+ * e, per i link `/blog/<slug>` e `/lp/<slug>`, mappa lo slug canonico a quello
+ * localizzato (i contenuti sono scritti con lo slug canonico IT). Evita il salto
+ * via redirect 308 e mantiene i link coerenti per lingua. Link esterni invariati.
+ */
+function localizeInternalHref(href: string, locale: Locale): string {
+  if (!href.startsWith("/")) return href;
+  const m = href.match(/^\/(?:it|en|es|de|pt|fr)\/(blog|lp)\/([^/?#]+)(.*)$/);
+  if (m) {
+    const [, kind, slug, rest] = m;
+    const localized =
+      kind === "blog"
+        ? localizedBlogSlug(slug, locale)
+        : localizedLandingSlug(slug, locale);
+    return `/${locale}/${kind}/${localized}${rest}`;
+  }
+  return href.replace(/^\/(it|en|es|de|pt|fr)(?=\/|$)/, `/${locale}`);
+}
 
 /**
  * Renderer pattern-matching esaustivo su `BlogSection`. Mai estendere senza
@@ -18,7 +39,7 @@ import type { Locale } from "@/lib/i18n";
  * Pattern derivato da `sync/[provider]/page.tsx` esteso con link inline.
  * Link relativi vengono renderizzati con Next.js Link, link esterni come anchor.
  */
-function renderMarkdownInline(text: string): ReactNode[] {
+function renderMarkdownInline(text: string, locale: Locale): ReactNode[] {
   // Pattern combinato: cattura **bold** OPPURE [label](href)
   const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, i) => {
@@ -31,13 +52,13 @@ function renderMarkdownInline(text: string): ReactNode[] {
     }
     const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
     if (linkMatch) {
-      const [, label, href] = linkMatch;
-      const isInternal = href.startsWith("/");
+      const [, label, rawHref] = linkMatch;
+      const isInternal = rawHref.startsWith("/");
       if (isInternal) {
         return (
           <Link
             key={i}
-            href={href}
+            href={localizeInternalHref(rawHref, locale)}
             className="text-brand-aqua hover:text-brand-green underline-offset-2 hover:underline transition"
           >
             {label}
@@ -47,7 +68,7 @@ function renderMarkdownInline(text: string): ReactNode[] {
       return (
         <a
           key={i}
-          href={href}
+          href={rawHref}
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand-aqua hover:text-brand-green underline-offset-2 hover:underline transition"
@@ -64,10 +85,12 @@ function CalloutBox({
   variant,
   title,
   body,
+  locale,
 }: {
   variant: "info" | "warning" | "tip";
   title?: string;
   body: string;
+  locale: Locale;
 }) {
   const palette: Record<typeof variant, { border: string; bg: string; accent: string; label: string }> = {
     info: {
@@ -108,7 +131,7 @@ function CalloutBox({
             </p>
           )}
           <p className="text-sm text-text-secondary leading-relaxed">
-            {renderMarkdownInline(body)}
+            {renderMarkdownInline(body, locale)}
           </p>
         </div>
       </div>
@@ -153,7 +176,7 @@ export function BlogRenderer({
                 key={i}
                 className="my-5 text-text-secondary leading-relaxed text-base sm:text-[17px]"
               >
-                {renderMarkdownInline(tl(s.text, locale))}
+                {renderMarkdownInline(tl(s.text, locale), locale)}
               </p>
             );
 
@@ -164,7 +187,7 @@ export function BlogRenderer({
                 <ol key={i} className="my-5 space-y-2 list-decimal pl-5 marker:text-brand-aqua">
                   {items.map((it, j) => (
                     <li key={j} className="text-text-secondary leading-relaxed pl-1">
-                      {renderMarkdownInline(it)}
+                      {renderMarkdownInline(it, locale)}
                     </li>
                   ))}
                 </ol>
@@ -180,7 +203,7 @@ export function BlogRenderer({
                     <span aria-hidden className="text-brand-aqua mt-1.5 flex-none">
                       •
                     </span>
-                    <span className="flex-1">{renderMarkdownInline(it)}</span>
+                    <span className="flex-1">{renderMarkdownInline(it, locale)}</span>
                   </li>
                 ))}
               </ul>
@@ -194,6 +217,7 @@ export function BlogRenderer({
                 variant={s.variant}
                 title={s.title ? tl(s.title, locale) : undefined}
                 body={tl(s.body, locale)}
+                locale={locale}
               />
             );
 
@@ -224,7 +248,7 @@ export function BlogRenderer({
                             key={k}
                             className="py-3 px-3 sm:px-4 text-text-secondary leading-relaxed align-top"
                           >
-                            {renderMarkdownInline(cell)}
+                            {renderMarkdownInline(cell, locale)}
                           </td>
                         ))}
                       </tr>
@@ -256,7 +280,7 @@ export function BlogRenderer({
                         className="flex items-start gap-2 text-text-secondary leading-relaxed"
                       >
                         <span className="text-brand-aqua mt-0.5">•</span>
-                        <span>{renderMarkdownInline(it)}</span>
+                        <span>{renderMarkdownInline(it, locale)}</span>
                       </li>
                     ))}
                   </ul>
@@ -275,7 +299,7 @@ export function BlogRenderer({
                         className="flex items-start gap-2 text-text-secondary leading-relaxed"
                       >
                         <span className="text-brand-green mt-0.5">•</span>
-                        <span>{renderMarkdownInline(it)}</span>
+                        <span>{renderMarkdownInline(it, locale)}</span>
                       </li>
                     ))}
                   </ul>
@@ -284,13 +308,10 @@ export function BlogRenderer({
             );
 
           case "cta": {
-            // ctaHref only guarantees it/en. For any locale, normalize the leading
-            // locale segment of internal hrefs so de/pt/fr/es don't fall back to /en
-            // (internal CTAs use shared slugs, only the /xx/ prefix changes per locale).
+            // ctaHref only guarantees it/en. Localizza all'attuale lingua: prefisso
+            // /xx/ + slug localizzato per i link /blog e /lp (evita il redirect 308).
             const rawHref = (s.ctaHref as Record<string, string | undefined>)[locale] ?? s.ctaHref.it;
-            const href = rawHref.startsWith("/")
-              ? rawHref.replace(/^\/(it|en|es|de|pt|fr)(?=\/|$)/, `/${locale}`)
-              : rawHref;
+            const href = localizeInternalHref(rawHref, locale);
             const isInternal = href.startsWith("/");
             return (
               <aside
@@ -301,7 +322,7 @@ export function BlogRenderer({
                   {tl(s.title, locale)}
                 </h4>
                 <p className="mt-3 text-text-secondary leading-relaxed">
-                  {renderMarkdownInline(tl(s.body, locale))}
+                  {renderMarkdownInline(tl(s.body, locale), locale)}
                 </p>
                 <div className="mt-5">
                   {isInternal ? (

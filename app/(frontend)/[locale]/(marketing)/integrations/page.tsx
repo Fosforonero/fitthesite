@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import {
   PROVIDERS,
   categoryLabel,
@@ -310,7 +311,7 @@ export default async function IntegrationsHub({
             )}
           </p>
           <Link
-            href={`/${lc}/blog/guida-sync-wearable-2026`}
+            href={`/${lc}/blog/${localizedBlogSlug("guida-sync-wearable-2026", lc)}`}
             className="mt-6 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
           >
             {t(

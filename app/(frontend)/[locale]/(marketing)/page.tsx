@@ -8,6 +8,7 @@ import TrustBadges from "@/components/TrustBadges";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
+import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { tl } from "@/lib/blog/types";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -570,7 +571,7 @@ export default async function Home({
               {featured.map((post, i) => (
                 <Link
                   key={post.slug}
-                  href={`/${lc}/blog/${post.slug}`}
+                  href={`/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`}
                   className="card-glass p-7 group hover:-translate-y-0.5 transition-transform flex flex-col"
                   data-reveal
                   style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}

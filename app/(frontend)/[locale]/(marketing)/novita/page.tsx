@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { getPostsByCategory } from "@/lib/blog/payload-source";
 import { tl } from "@/lib/blog/types";
+import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -169,7 +170,7 @@ export default async function NovitaIndex({
       itemListElement: posts.map((p, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        url: `${SITE_URL}/${lc}/blog/${p.slug}`,
+        url: `${SITE_URL}/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`,
         name: tl(p.hero.title, lc),
       })),
     },
@@ -210,7 +211,7 @@ export default async function NovitaIndex({
             {posts.map((p) => (
               <Link
                 key={p.slug}
-                href={`/${lc}/blog/${p.slug}`}
+                href={`/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`}
                 className="card p-6 group hover:-translate-y-0.5 transition-transform flex flex-col"
               >
                 <div className="flex items-center gap-2 text-xs">

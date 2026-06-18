@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -566,7 +567,7 @@ export default async function RoadmapPage({
             )}
           </p>
           <Link
-            href={`/${lc}/blog/gdpr-dati-fitness-smartwatch`}
+            href={`/${lc}/blog/${localizedBlogSlug("gdpr-dati-fitness-smartwatch", lc)}`}
             className="mt-5 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
           >
             {t(

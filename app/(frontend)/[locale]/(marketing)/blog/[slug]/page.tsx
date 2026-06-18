@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+
+import {
+  localizedBlogSlug,
+  canonicalFromBlogUrl,
+} from "@/lib/blog/slug-i18n";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
@@ -56,8 +61,38 @@ const PUBLISHER_NAME = "FitMesh Sync";
 export async function generateStaticParams() {
   const slugs = await getBlogSlugs();
   return slugs.flatMap((slug) =>
-    locales.map((locale) => ({ locale, slug })),
+    locales.map((locale) => ({ locale, slug: localizedBlogSlug(slug, locale) })),
   );
+}
+
+/** hreflang alternates: ogni lingua → il suo slug localizzato; x-default = IT. */
+function blogLanguages(canonical: string): Record<string, string> {
+  const langs: Record<string, string> = {};
+  for (const l of locales) {
+    langs[l] = `${SITE_URL}/${l}/blog/${localizedBlogSlug(canonical, l)}`;
+  }
+  langs["x-default"] = `${SITE_URL}/it/blog/${canonical}`;
+  return langs;
+}
+
+/**
+ * Risolve lo slug d'URL (localizzato) → post. Se l'URL usa il vecchio slug IT su
+ * un locale non-IT (link/indice storici), ritorna `redirectTo` con lo slug
+ * localizzato corretto (308 permanente, SEO-safe).
+ */
+async function resolveBlogPost(urlSlug: string, lc: Locale) {
+  const canonical = canonicalFromBlogUrl(urlSlug, lc);
+  if (canonical) {
+    const post = await getBlogPostBySlug(canonical);
+    if (post) return { post, redirectTo: null as string | null };
+  }
+  const post = await getBlogPostBySlug(urlSlug);
+  if (!post) return { post: null, redirectTo: null as string | null };
+  const correct = localizedBlogSlug(urlSlug, lc);
+  return {
+    post,
+    redirectTo: correct !== urlSlug ? `/${lc}/blog/${correct}` : null,
+  };
 }
 
 export async function generateMetadata({
@@ -68,10 +103,10 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
-  const post = await getBlogPostBySlug(slug);
+  const { post } = await resolveBlogPost(slug, lc);
   if (!post) return {};
 
-  const path = `/${lc}/blog/${post.slug}`;
+  const path = `/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`;
   const title = tl(post.hero.title, lc);
   const description = tl(post.metaDescription, lc);
   const secondaryKw = tll(
@@ -88,12 +123,7 @@ export async function generateMetadata({
     keywords,
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: {
-        it: `${SITE_URL}/it/blog/${post.slug}`,
-        en: `${SITE_URL}/en/blog/${post.slug}`,
-        es: `${SITE_URL}/es/blog/${post.slug}`,
-        "x-default": `${SITE_URL}/it/blog/${post.slug}`,
-      },
+      languages: blogLanguages(post.slug),
     },
     openGraph: {
       type: "article",
@@ -273,11 +303,12 @@ export default async function BlogArticle({
   const { locale, slug } = await params;
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
-  const post = await getBlogPostBySlug(slug);
+  const { post, redirectTo } = await resolveBlogPost(slug, lc);
+  if (redirectTo) permanentRedirect(redirectTo);
   if (!post) notFound();
   const t = I18N[lc];
 
-  const path = `/${lc}/blog/${post.slug}`;
+  const path = `/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`;
   const ldType = post.ldType ?? "BlogPosting";
 
   // JSON-LD Article/BlogPosting
@@ -579,7 +610,7 @@ export default async function BlogArticle({
               {related.slice(0, 3).map((r) => (
                 <Link
                   key={r.slug}
-                  href={`/${lc}/blog/${r.slug}`}
+                  href={`/${lc}/blog/${localizedBlogSlug(r.slug, lc)}`}
                   className="card p-5 group hover:-translate-y-0.5 transition-transform"
                 >
                   <p className="text-xs text-brand-aqua font-medium">

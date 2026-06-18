@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 
+import {
+  localizedLandingSlug,
+  canonicalFromLandingUrl,
+} from "@/lib/blog/slug-i18n";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogRenderer } from "@/components/blog/BlogRenderer";
@@ -14,8 +18,30 @@ const SITE_URL = "https://www.fitmesh.fit";
 
 export function generateStaticParams() {
   return LANDING_PAGES.flatMap((p) =>
-    locales.map((locale) => ({ locale, slug: p.slug })),
+    locales.map((locale) => ({ locale, slug: localizedLandingSlug(p.slug, locale) })),
   );
+}
+
+/** hreflang alternates: ogni lingua → slug landing localizzato; x-default = IT. */
+function landingLanguages(canonical: string): Record<string, string> {
+  const langs: Record<string, string> = {};
+  for (const l of locales) {
+    langs[l] = `${SITE_URL}/${l}/lp/${localizedLandingSlug(canonical, l)}`;
+  }
+  langs["x-default"] = `${SITE_URL}/it/lp/${canonical}`;
+  return langs;
+}
+
+/** Risolve lo slug d'URL landing (localizzato) → landing + eventuale redirect 308. */
+function resolveLanding(urlSlug: string, lc: Locale) {
+  const canonical = canonicalFromLandingUrl(urlSlug, lc);
+  if (canonical && LANDING_PAGES_BY_SLUG[canonical]) {
+    return { lp: LANDING_PAGES_BY_SLUG[canonical], redirectTo: null as string | null };
+  }
+  const lp = LANDING_PAGES_BY_SLUG[urlSlug];
+  if (!lp) return { lp: null, redirectTo: null as string | null };
+  const correct = localizedLandingSlug(urlSlug, lc);
+  return { lp, redirectTo: correct !== urlSlug ? `/${lc}/lp/${correct}` : null };
 }
 
 export async function generateMetadata({
@@ -26,10 +52,10 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
-  const lp = LANDING_PAGES_BY_SLUG[slug];
+  const { lp } = resolveLanding(slug, lc);
   if (!lp) return {};
 
-  const path = `/${lc}/lp/${lp.slug}`;
+  const path = `/${lc}/lp/${localizedLandingSlug(lp.slug, lc)}`;
   const title = tl(lp.hero.title, lc);
   const description = tl(lp.metaDescription, lc);
   const secKw = (lp.secondaryKeywords as Record<string, string[] | undefined>)[lc] ?? lp.secondaryKeywords.en;
@@ -40,12 +66,7 @@ export async function generateMetadata({
     keywords: [tl(lp.primaryKeyword, lc), ...secKw].join(", "),
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: {
-        it: `${SITE_URL}/it/lp/${lp.slug}`,
-        en: `${SITE_URL}/en/lp/${lp.slug}`,
-        es: `${SITE_URL}/es/lp/${lp.slug}`,
-        "x-default": `${SITE_URL}/it/lp/${lp.slug}`,
-      },
+      languages: landingLanguages(lp.slug),
     },
     openGraph: {
       type: "website",
@@ -129,11 +150,12 @@ export default async function LandingPage({
   const { locale, slug } = await params;
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
-  const lp = LANDING_PAGES_BY_SLUG[slug];
+  const { lp, redirectTo } = resolveLanding(slug, lc);
+  if (redirectTo) permanentRedirect(redirectTo);
   if (!lp) notFound();
   const t = I18N[lc];
 
-  const path = `/${lc}/lp/${lp.slug}`;
+  const path = `/${lc}/lp/${localizedLandingSlug(lp.slug, lc)}`;
 
   // JSON-LD: WebPage (la pagina è una landing, non un articolo editoriale)
   const webPageLd = {

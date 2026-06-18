@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { pingIndexNow } from "@/lib/seo/indexnow";
 import { getBlogPosts } from "@/lib/blog/payload-source";
+import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -26,7 +27,7 @@ export async function GET(req: Request) {
     const updated = new Date(post.updatedAt ?? post.publishedAt).getTime();
     if (updated > sevenDaysAgo) {
       for (const locale of LOCALES) {
-        urls.push(`${SITE_URL}/${locale}/blog/${post.slug}`);
+        urls.push(`${SITE_URL}/${locale}/blog/${localizedBlogSlug(post.slug, locale)}`);
       }
     }
   }

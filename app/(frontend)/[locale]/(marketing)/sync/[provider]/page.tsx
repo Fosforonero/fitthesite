@@ -13,6 +13,7 @@ import {
   type Provider,
 } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
+import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { tl, tll, categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
 import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
 
@@ -663,7 +664,7 @@ export default async function ProviderLanding({
               {relatedPosts.map((post) => (
                 <Link
                   key={post.slug}
-                  href={`/${lc}/blog/${post.slug}`}
+                  href={`/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`}
                   className="card p-6 hover:-translate-y-0.5 transition-transform group"
                 >
                   <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
