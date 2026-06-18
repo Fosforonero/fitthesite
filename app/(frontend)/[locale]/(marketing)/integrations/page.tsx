@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
+import { tl } from "@/lib/blog/types";
 import {
   PROVIDERS,
   categoryLabel,
@@ -104,13 +105,10 @@ export default async function IntegrationsHub({
   const lc = locale as Locale;
   const t = (it: string, en: string, es?: string, de?: string, pt?: string, fr?: string) =>
     lc === "it" ? it : lc === "es" ? (es ?? en) : lc === "de" ? (de ?? en) : lc === "pt" ? (pt ?? en) : lc === "fr" ? (fr ?? en) : en;
-  // For data.ts fields that only have { it, en } keys, fall back to "en" for "es"
-  const lcData: "it" | "en" = lc === "it" ? "it" : "en";
-
   // Group providers by category, in canonical order
   const grouped = CATEGORY_ORDER.map((category) => ({
     category,
-    label: categoryLabel(category, lcData),
+    label: categoryLabel(category, lc),
     items: PROVIDERS.filter((p) => p.category === category),
   })).filter((g) => g.items.length > 0);
 
@@ -142,7 +140,7 @@ export default async function IntegrationsHub({
       <JsonLd data={collectionLd} />
       <Breadcrumbs
         items={[{ name: t("Integrazioni", "Integrations", "Integraciones", "Integrationen", "Integrações", "Intégrations"), path: `/${lc}/integrations` }]}
-        locale={lcData}
+        locale={lc}
       />
 
       {/* HERO */}
@@ -240,7 +238,7 @@ export default async function IntegrationsHub({
           </div>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {group.items.map((p) => {
-              const status = statusLabel(p.status, lcData);
+              const status = statusLabel(p.status, lc);
               return (
                 <Link
                   key={p.slug}
@@ -281,7 +279,7 @@ export default async function IntegrationsHub({
                     </span>
                   </div>
                   <p className="relative mt-4 text-sm text-text-secondary leading-relaxed">
-                    {p.tagline[lcData]}
+                    {tl(p.tagline, lc)}
                   </p>
                 </Link>
               );
