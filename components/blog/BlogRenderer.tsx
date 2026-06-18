@@ -284,8 +284,13 @@ export function BlogRenderer({
             );
 
           case "cta": {
-            // ctaHref is typed as { it: string; en: string } — use en as fallback for es
-            const href = (s.ctaHref as Record<string, string | undefined>)[locale] ?? s.ctaHref.en;
+            // ctaHref only guarantees it/en. For any locale, normalize the leading
+            // locale segment of internal hrefs so de/pt/fr/es don't fall back to /en
+            // (internal CTAs use shared slugs, only the /xx/ prefix changes per locale).
+            const rawHref = (s.ctaHref as Record<string, string | undefined>)[locale] ?? s.ctaHref.it;
+            const href = rawHref.startsWith("/")
+              ? rawHref.replace(/^\/(it|en|es|de|pt|fr)(?=\/|$)/, `/${locale}`)
+              : rawHref;
             const isInternal = href.startsWith("/");
             return (
               <aside

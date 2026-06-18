@@ -1207,6 +1207,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     primaryKeyword: {
       it: "fitmesh su due telefoni",
       en: "fitmesh two phones one account",
+      de: "FitMesh zwei Telefone ein Konto",
+      pt: "fitmesh dois celulares uma conta",
+      fr: "fitmesh deux téléphones un compte",
     },
     secondaryKeywords: {
       it: [
@@ -1229,30 +1232,45 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "Stesso account FitMesh su Android e iPhone: una dashboard salute unificata, cloud EU, GDPR. Ponte Apple Salute incluso: sonno e passi dall'anello smart su iOS, senza duplicati.",
       en: "Same FitMesh account on Android and iPhone: one unified health dashboard, EU cloud, GDPR. Apple Health bridge included: sleep and steps from your smart ring on iOS, no duplicates.",
+      de: "Dasselbe FitMesh-Konto auf Android und iPhone: ein vereintes Gesundheits-Dashboard, EU-Cloud, GDPR. Apple Health-Brücke inklusive: Schlaf und Schritte vom Smart-Ring auf iOS, ohne Duplikate.",
+      pt: "A mesma conta FitMesh no Android e no iPhone: um painel de saúde unificado, nuvem na UE, GDPR. Ponte para Apple Health incluída: sono e passos do anel inteligente no iOS, sem duplicatas.",
+      fr: "Le même compte FitMesh sur Android et iPhone: un tableau de bord de santé unifié, cloud UE, GDPR. Pont Apple Health inclus: sommeil et pas depuis la bague connectée sur iOS, sans doublons.",
     },
     hero: {
       kicker: {
         it: "Due telefoni, una salute",
         en: "Two phones, one health",
+        de: "Zwei Telefone, eine Gesundheit",
+        pt: "Dois celulares, uma saúde",
+        fr: "Deux téléphones, une santé",
       },
       title: {
         it: "Android e iPhone insieme: stessa dashboard, stessi dati",
         en: "Android and iPhone together: same dashboard, same data",
+        de: "Android und iPhone zusammen: dasselbe Dashboard, dieselben Daten",
+        pt: "Android e iPhone juntos: mesmo painel, mesmos dados",
+        fr: "Android et iPhone ensemble: même tableau de bord, mêmes données",
       },
       subtitle: {
         it: "Un account FitMesh funziona su entrambi i telefoni. I dati del tuo anello smart Colmi arrivano su iPhone via Bluetooth e vengono scritti dentro Apple Salute, così li vedi anche nell'ecosistema Apple. Cloud EU, GDPR, nessun duplicato.",
         en: "One FitMesh account works on both phones. Your Colmi smart ring data reaches iPhone over Bluetooth and gets written into Apple Health, so you see it across the Apple ecosystem too. EU cloud, GDPR, no duplicates.",
+        de: "Ein FitMesh-Konto funktioniert auf beiden Telefonen. Die Daten deines Colmi-Smart-Rings kommen via Bluetooth auf das iPhone und werden in Apple Health geschrieben, sodass du sie auch im Apple-Ökosystem siehst. EU-Cloud, GDPR, keine Duplikate.",
+        pt: "Uma conta FitMesh funciona nos dois celulares. Os dados do seu anel inteligente Colmi chegam ao iPhone via Bluetooth e são gravados no Apple Health, para você vê-los também no ecossistema Apple. Nuvem na UE, GDPR, sem duplicatas.",
+        fr: "Un compte FitMesh fonctionne sur les deux téléphones. Les données de votre bague connectée Colmi arrivent sur l'iPhone via Bluetooth et sont écrites dans Apple Health, pour les retrouver dans l'écosystème Apple. Cloud UE, GDPR, sans doublons.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta" },
-        href: { it: "/it/beta", en: "/en/beta" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
         label: {
           it: "Vedi tutte le integrazioni",
           en: "See all integrations",
+          de: "Alle Integrationen ansehen",
+          pt: "Ver todas as integrações",
+          fr: "Voir toutes les intégrations",
         },
-        href: { it: "/it/integrations", en: "/en/integrations" },
+        href: { it: "/it/integrations", en: "/en/integrations", de: "/de/integrations", pt: "/pt/integrations", fr: "/fr/integrations" },
       },
     },
     body: [
@@ -1261,6 +1279,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Molte persone usano due telefoni: uno Android di lavoro e un iPhone personale, o viceversa. Oppure hai cambiato sistema operativo e vuoi portare lo storico dei tuoi dati salute. O ancora, vuoi che i dati del tuo anello smart Colmi (connesso via Bluetooth all'Android) compaiano anche su iPhone, dentro Apple Salute, senza passare per export manuali.",
           en: "Many people use two phones: one Android for work and an iPhone personally, or the other way around. Or you've switched operating systems and want to carry your health data history. Or you want your Colmi smart ring data (connected via Bluetooth to Android) to show up on iPhone too, inside Apple Health, without manual exports.",
+          de: "Viele Menschen nutzen zwei Telefone: ein Android für die Arbeit und ein iPhone privat, oder umgekehrt. Oder du hast das Betriebssystem gewechselt und möchtest deine Gesundheitsdatenhistorie mitnehmen. Oder du möchtest, dass die Daten deines Colmi-Smart-Rings (via Bluetooth mit Android verbunden) auch auf dem iPhone erscheinen, in Apple Health, ohne manuelle Exporte.",
+          pt: "Muita gente usa dois celulares: um Android para o trabalho e um iPhone pessoal, ou o contrário. Ou você trocou de sistema operacional e quer levar o histórico dos seus dados de saúde. Ou ainda, quer que os dados do seu anel inteligente Colmi (conectado via Bluetooth ao Android) apareçam também no iPhone, dentro do Apple Health, sem precisar de exportações manuais.",
+          fr: "Beaucoup de personnes utilisent deux téléphones: un Android pour le travail et un iPhone personnel, ou l'inverse. Ou vous avez changé de système d'exploitation et souhaitez conserver l'historique de vos données de santé. Ou encore, vous voulez que les données de votre bague connectée Colmi (connectée via Bluetooth à l'Android) apparaissent aussi sur l'iPhone, dans Apple Health, sans exportations manuelles.",
         },
       },
       {
@@ -1268,6 +1289,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "FitMesh Sync risolve tutto questo con un'unica struttura: un account cloud, due app (Android già disponibile, iOS in beta), un ponte verso Apple Salute. I dati sono tuoi, archiviati in EU, accessibili da qualsiasi browser.",
           en: "FitMesh Sync solves all of this with one structure: one cloud account, two apps (Android already available, iOS in beta), one bridge to Apple Health. The data is yours, stored in the EU, accessible from any browser.",
+          de: "FitMesh Sync löst all das mit einer einzigen Struktur: ein Cloud-Konto, zwei Apps (Android bereits verfügbar, iOS in Beta), eine Brücke zu Apple Health. Die Daten gehören dir, werden in der EU gespeichert und sind von jedem Browser aus zugänglich.",
+          pt: "FitMesh Sync resolve tudo isso com uma única estrutura: uma conta na nuvem, dois apps (Android já disponível, iOS em beta), uma ponte para o Apple Health. Os dados são seus, armazenados na UE, acessíveis de qualquer navegador.",
+          fr: "FitMesh Sync résout tout cela avec une seule structure: un compte cloud, deux applications (Android déjà disponible, iOS en bêta), un pont vers Apple Health. Les données vous appartiennent, stockées dans l'UE, accessibles depuis n'importe quel navigateur.",
         },
       },
       {
@@ -1276,6 +1300,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Come funziona il multi-device",
           en: "How multi-device works",
+          de: "Wie Multi-Device funktioniert",
+          pt: "Como funciona o multi-dispositivo",
+          fr: "Comment fonctionne le multi-appareil",
         },
       },
       {
@@ -1295,6 +1322,27 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Colmi ring on both platforms**: the Colmi smart ring connects via Bluetooth to the FitMesh app, on both Android and iPhone. Data (sleep with phases, steps, heart rate) is synced to your cloud account and, on iOS, written into Apple Health.",
             "**EU cloud, GDPR**: all data is stored on EU servers (Frankfurt). Encryption in transit and at rest, Row Level Security, full on-demand account deletion.",
           ],
+          de: [
+            "**Ein Konto, zwei Apps**: dasselbe FitMesh-Konto funktioniert auf Android und iPhone. Keine separaten Profile oder manuelle Synchronisierung: Das Web-Dashboard zeigt immer die aktuellsten Daten, von jedem Gerät.",
+            "**Android: native Lesezugriff auf Health Connect**: Auf Android liest FitMesh Daten aus Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit und jede App, die in Health Connect schreibt. Daten werden automatisch im Hintergrund aktualisiert.",
+            "**iOS: native Lesezugriff auf Apple Health (HealthKit)**: Auf dem iPhone greift FitMesh mit den von dir gewählten Berechtigungen auf Apple Health zu. Liest, was Apple Health bereits sammelt: iPhone-Schritte, Apple Watch-Daten und jede autorisierte App.",
+            "**Colmi-Ring auf beiden Plattformen**: Der Colmi-Smart-Ring verbindet sich via Bluetooth mit der FitMesh-App, auf Android und iPhone. Daten (Schlaf mit Phasen, Schritte, Herzfrequenz) werden mit deinem Cloud-Konto synchronisiert und auf iOS in Apple Health geschrieben.",
+            "**EU-Cloud, GDPR**: Alle Daten werden auf EU-Servern (Frankfurt) gespeichert. Verschlüsselung bei Übertragung und Speicherung, Row Level Security, vollständige On-Demand-Kontolöschung.",
+          ],
+          pt: [
+            "**Uma conta, dois apps**: a mesma conta FitMesh funciona no Android e no iPhone. Sem perfis separados ou sincronização manual: o painel web sempre mostra os dados mais recentes, de qualquer dispositivo.",
+            "**Android: leitura nativa do Health Connect**: no Android, o FitMesh lê dados do Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit e qualquer app que escreva no Health Connect. Os dados se atualizam automaticamente em segundo plano.",
+            "**iOS: leitura nativa do Apple Health (HealthKit)**: no iPhone, o FitMesh acessa o Apple Health com as permissões que você escolhe. Lê o que o Apple Health já coleta: passos do iPhone, dados do Apple Watch e qualquer app autorizado.",
+            "**Anel Colmi em ambas as plataformas**: o anel inteligente Colmi conecta-se via Bluetooth ao app FitMesh, tanto no Android quanto no iPhone. Os dados (sono com fases, passos, frequência cardíaca) são sincronizados com sua conta na nuvem e, no iOS, gravados no Apple Health.",
+            "**Nuvem na UE, GDPR**: todos os dados são armazenados em servidores na UE (Frankfurt). Criptografia em trânsito e em repouso, Row Level Security, exclusão completa de conta sob demanda.",
+          ],
+          fr: [
+            "**Un compte, deux applications**: le même compte FitMesh fonctionne sur Android et iPhone. Pas de profils séparés ni de synchronisation manuelle: le tableau de bord web affiche toujours les données les plus récentes, depuis n'importe quel appareil.",
+            "**Android: lecture native depuis Health Connect**: sur Android, FitMesh lit les données depuis Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit et toute application écrivant dans Health Connect. Les données se mettent à jour automatiquement en arrière-plan.",
+            "**iOS: lecture native depuis Apple Health (HealthKit)**: sur iPhone, FitMesh accède à Apple Health avec les autorisations que vous choisissez. Lit ce qu'Apple Health collecte déjà: pas depuis l'iPhone, données Apple Watch et toute application autorisée.",
+            "**Bague Colmi sur les deux plateformes**: la bague connectée Colmi se connecte via Bluetooth à l'application FitMesh, sur Android et iPhone. Les données (sommeil avec phases, pas, fréquence cardiaque) sont synchronisées avec votre compte cloud et, sur iOS, écrites dans Apple Health.",
+            "**Cloud UE, GDPR**: toutes les données sont stockées sur des serveurs UE (Francfort). Chiffrement en transit et au repos, Row Level Security, suppression complète du compte à la demande.",
+          ],
         },
       },
       {
@@ -1303,6 +1351,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Il ponte Apple Salute (opt-in iOS)",
           en: "The Apple Health bridge (iOS opt-in)",
+          de: "Die Apple Health-Brücke (iOS opt-in)",
+          pt: "A ponte Apple Health (opt-in iOS)",
+          fr: "Le pont Apple Health (opt-in iOS)",
         },
       },
       {
@@ -1310,6 +1361,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Il punto più richiesto: \"i dati del mio anello Android compaiono su Apple Salute?\". Sì, tramite il ponte FitMesh. Quando usi FitMesh su iPhone e hai un anello Colmi, l'app scrive i dati su Apple Salute: sonno con fasi (leggero, profondo, REM), passi, frequenza cardiaca. Così li vedi nell'app Salute di Apple, in Fitness, e in qualsiasi altra app autorizzata ad Apple Salute.",
           en: "The most requested point: \"does my Android ring data show up in Apple Health?\". Yes, via the FitMesh bridge. When you use FitMesh on iPhone with a Colmi ring, the app writes data into Apple Health: sleep with phases (light, deep, REM), steps, heart rate. So you see them in Apple's Health app, in Fitness, and in any other app authorized to Apple Health.",
+          de: "Die am häufigsten gestellte Frage: \"Erscheinen die Daten meines Android-Rings in Apple Health?\". Ja, über die FitMesh-Brücke. Wenn du FitMesh auf dem iPhone mit einem Colmi-Ring verwendest, schreibt die App die Daten in Apple Health: Schlaf mit Phasen (Leichtschlaf, Tiefschlaf, REM), Schritte, Herzfrequenz. So siehst du sie in Apples Health-App, in Fitness und in jeder anderen für Apple Health autorisierten App.",
+          pt: "O ponto mais solicitado: \"os dados do meu anel Android aparecem no Apple Health?\". Sim, pela ponte FitMesh. Quando você usa o FitMesh no iPhone com um anel Colmi, o app grava os dados no Apple Health: sono com fases (leve, profundo, REM), passos, frequência cardíaca. Assim você os vê no app Saúde da Apple, no Fitness e em qualquer outro app autorizado ao Apple Health.",
+          fr: "La question la plus fréquente: \"les données de ma bague Android apparaissent-elles dans Apple Health?\". Oui, via le pont FitMesh. Quand vous utilisez FitMesh sur iPhone avec une bague Colmi, l'application écrit les données dans Apple Health: sommeil avec phases (léger, profond, REM), pas, fréquence cardiaque. Vous les retrouvez dans l'application Santé d'Apple, dans Fitness et dans toute autre application autorisée à Apple Health.",
         },
       },
       {
@@ -1318,10 +1372,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Niente doppioni",
           en: "No duplicates",
+          de: "Keine Duplikate",
+          pt: "Sem duplicatas",
+          fr: "Pas de doublons",
         },
         body: {
           it: "Se Apple Salute ha già quei dati (ad esempio da Apple Watch), FitMesh non li riscrive. Niente doppioni.",
           en: "If Apple Health already has that data (for example from Apple Watch), FitMesh won't rewrite it. No duplicates.",
+          de: "Wenn Apple Health diese Daten bereits hat (zum Beispiel von der Apple Watch), schreibt FitMesh sie nicht erneut. Keine Duplikate.",
+          pt: "Se o Apple Health já tiver esses dados (por exemplo, do Apple Watch), o FitMesh não os reescreve. Sem duplicatas.",
+          fr: "Si Apple Health possède déjà ces données (par exemple depuis l'Apple Watch), FitMesh ne les réécrit pas. Pas de doublons.",
         },
       },
       {
@@ -1330,6 +1390,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Cosa FitMesh non fa (onestà prima di tutto)",
           en: "What FitMesh doesn't do (honesty first)",
+          de: "Was FitMesh nicht tut (Ehrlichkeit zuerst)",
+          pt: "O que o FitMesh não faz (honestidade antes de tudo)",
+          fr: "Ce que FitMesh ne fait pas (honnêteté avant tout)",
         },
       },
       {
@@ -1345,6 +1408,21 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**iOS sync is not real-time**: on iPhone, background sync is periodic (roughly every 15-30 minutes), as enforced by the iOS operating system. Don't expect second-by-second updates.",
             "**iOS app is not yet on the App Store**: FitMesh iOS is in active beta on TestFlight. You can join the beta waitlist at /beta; you'll get access as soon as it's available.",
           ],
+          de: [
+            "**Schreibt nicht in Health Connect**: Das Schreiben in Health Connect (Android) ist geplant, aber noch nicht verfügbar. FitMesh liest heute aus Health Connect, schreibt aber nicht hinein.",
+            "**iOS-Sync ist nicht in Echtzeit**: Auf dem iPhone ist der Hintergrund-Sync periodisch (ungefähr alle 15-30 Minuten), wie vom iOS-Betriebssystem vorgegeben. Erwarte keine sekündlichen Updates.",
+            "**iOS-App ist noch nicht im App Store**: FitMesh iOS befindet sich in aktiver Beta auf TestFlight. Du kannst dich auf der Beta-Warteliste unter /beta eintragen; du erhältst Zugang, sobald er verfügbar ist.",
+          ],
+          pt: [
+            "**Não escreve no Health Connect**: a escrita no Health Connect (Android) está no roadmap, mas ainda não está disponível. Hoje o FitMesh lê do Health Connect, mas não escreve nele.",
+            "**O sync iOS não é em tempo real**: no iPhone, o sync em segundo plano é periódico (aproximadamente a cada 15-30 minutos), conforme imposto pelo sistema operacional iOS. Não espere atualizações segundo a segundo.",
+            "**O app iOS ainda não está na App Store**: o FitMesh iOS está em beta ativa no TestFlight. Você pode entrar na lista de espera da beta em /beta; receberá acesso assim que disponível.",
+          ],
+          fr: [
+            "**N'écrit pas dans Health Connect**: l'écriture dans Health Connect (Android) est prévue, mais pas encore disponible. FitMesh lit aujourd'hui depuis Health Connect, il n'y écrit pas.",
+            "**La synchronisation iOS n'est pas en temps réel**: sur iPhone, la synchronisation en arrière-plan est périodique (environ toutes les 15-30 minutes), comme imposé par le système d'exploitation iOS. N'attendez pas de mises à jour à la seconde.",
+            "**L'application iOS n'est pas encore sur l'App Store**: FitMesh iOS est en bêta active sur TestFlight. Vous pouvez rejoindre la liste d'attente bêta sur /beta; vous obtiendrez l'accès dès qu'il sera disponible.",
+          ],
         },
       },
       {
@@ -1353,6 +1431,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Compatibilità attuale",
           en: "Current compatibility",
+          de: "Aktuelle Kompatibilität",
+          pt: "Compatibilidade atual",
+          fr: "Compatibilité actuelle",
         },
       },
       {
@@ -1360,39 +1441,66 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         caption: {
           it: "Funzionalità disponibili oggi (giugno 2026)",
           en: "Features available today (June 2026)",
+          de: "Heute verfügbare Funktionen (Juni 2026)",
+          pt: "Funcionalidades disponíveis hoje (junho 2026)",
+          fr: "Fonctionnalités disponibles aujourd'hui (juin 2026)",
         },
         headers: {
           it: ["Funzione", "Android", "iPhone (beta)"],
           en: ["Feature", "Android", "iPhone (beta)"],
+          de: ["Funktion", "Android", "iPhone (Beta)"],
+          pt: ["Função", "Android", "iPhone (beta)"],
+          fr: ["Fonction", "Android", "iPhone (bêta)"],
         },
         rows: [
           {
             it: ["Account cloud condiviso", "✓", "✓"],
             en: ["Shared cloud account", "✓", "✓"],
+            de: ["Gemeinsames Cloud-Konto", "✓", "✓"],
+            pt: ["Conta cloud compartilhada", "✓", "✓"],
+            fr: ["Compte cloud partagé", "✓", "✓"],
           },
           {
             it: ["Dashboard web", "✓", "✓"],
             en: ["Web dashboard", "✓", "✓"],
+            de: ["Web-Dashboard", "✓", "✓"],
+            pt: ["Painel web", "✓", "✓"],
+            fr: ["Tableau de bord web", "✓", "✓"],
           },
           {
             it: ["Lettura Health Connect", "✓", "—"],
             en: ["Read from Health Connect", "✓", "—"],
+            de: ["Lesezugriff Health Connect", "✓", "—"],
+            pt: ["Leitura do Health Connect", "✓", "—"],
+            fr: ["Lecture Health Connect", "✓", "—"],
           },
           {
             it: ["Lettura Apple Salute", "—", "✓"],
             en: ["Read from Apple Health", "—", "✓"],
+            de: ["Lesezugriff Apple Health", "—", "✓"],
+            pt: ["Leitura do Apple Health", "—", "✓"],
+            fr: ["Lecture Apple Health", "—", "✓"],
           },
           {
             it: ["Anello Colmi via Bluetooth", "✓", "✓ (beta)"],
             en: ["Colmi ring via Bluetooth", "✓", "✓ (beta)"],
+            de: ["Colmi-Ring via Bluetooth", "✓", "✓ (Beta)"],
+            pt: ["Anel Colmi via Bluetooth", "✓", "✓ (beta)"],
+            fr: ["Bague Colmi via Bluetooth", "✓", "✓ (bêta)"],
           },
           {
             it: ["Scrittura su Apple Salute", "—", "✓ (beta)"],
             en: ["Write to Apple Health", "—", "✓ (beta)"],
+            de: ["Schreiben in Apple Health", "—", "✓ (Beta)"],
+            pt: ["Escrita no Apple Health", "—", "✓ (beta)"],
+            fr: ["Écriture dans Apple Health", "—", "✓ (bêta)"],
           },
           {
             it: ["Scrittura su Health Connect", "roadmap", "—"],
             en: ["Write to Health Connect", "roadmap", "—"],
+            de: ["Schreiben in Health Connect", "geplant", "—"],
+            pt: ["Escrita no Health Connect", "planejado", "—"],
+            fr: ["Écriture dans Health Connect", "prévu", "—"],
           },
         ],
       },
@@ -1401,13 +1509,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Inizia con Android, aggiungi iPhone quando è pronto",
           en: "Start with Android, add iPhone when it's ready",
+          de: "Starte mit Android, füge iPhone hinzu, wenn es bereit ist",
+          pt: "Comece com Android, adicione o iPhone quando estiver pronto",
+          fr: "Commencez avec Android, ajoutez l'iPhone quand il sera prêt",
         },
         body: {
           it: "FitMesh Android è disponibile ora su Google Play: scarica, connetti il tuo anello o wearable, e la dashboard è subito attiva. Iscriviti alla beta iOS per ricevere l'accesso appena i posti si aprono.",
           en: "FitMesh Android is available now on Google Play: download, connect your ring or wearable, and the dashboard is immediately active. Join the iOS beta to get access as soon as spots open.",
+          de: "FitMesh Android ist jetzt auf Google Play verfügbar: Herunterladen, Ring oder Wearable verbinden, und das Dashboard ist sofort aktiv. Tritt der iOS-Beta bei, um Zugang zu erhalten, sobald Plätze frei sind.",
+          pt: "FitMesh Android está disponível agora no Google Play: baixe, conecte seu anel ou wearable e o painel fica imediatamente ativo. Inscreva-se na beta iOS para receber acesso assim que as vagas abrirem.",
+          fr: "FitMesh Android est disponible maintenant sur Google Play: téléchargez, connectez votre bague ou wearable, et le tableau de bord est immédiatement actif. Rejoignez la bêta iOS pour obtenir l'accès dès que des places s'ouvrent.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →" },
-        ctaHref: { it: "/it/beta", en: "/en/beta" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
     faq: [
@@ -1415,60 +1529,96 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         q: {
           it: "Posso usare FitMesh su due telefoni contemporaneamente?",
           en: "Can I use FitMesh on two phones at the same time?",
+          de: "Kann ich FitMesh gleichzeitig auf zwei Telefonen verwenden?",
+          pt: "Posso usar o FitMesh em dois celulares ao mesmo tempo?",
+          fr: "Puis-je utiliser FitMesh sur deux téléphones en même temps?",
         },
         a: {
           it: "Sì. Lo stesso account FitMesh funziona su Android e iPhone in parallelo. I dati di entrambi i dispositivi confluiscono nella stessa dashboard cloud: non devi fare nulla di speciale, basta accedere con lo stesso account su entrambi.",
           en: "Yes. The same FitMesh account works on Android and iPhone in parallel. Data from both devices flows into the same cloud dashboard: you don't need to do anything special, just log in with the same account on both.",
+          de: "Ja. Dasselbe FitMesh-Konto funktioniert auf Android und iPhone parallel. Daten von beiden Geräten fließen in dasselbe Cloud-Dashboard: Du musst nichts Besonderes tun, melde dich einfach mit demselben Konto auf beiden an.",
+          pt: "Sim. A mesma conta FitMesh funciona no Android e no iPhone em paralelo. Os dados de ambos os dispositivos fluem para o mesmo painel na nuvem: você não precisa fazer nada especial, basta entrar com a mesma conta nos dois.",
+          fr: "Oui. Le même compte FitMesh fonctionne sur Android et iPhone en parallèle. Les données des deux appareils affluent vers le même tableau de bord cloud: vous n'avez rien de spécial à faire, connectez-vous simplement avec le même compte sur les deux.",
         },
       },
       {
         q: {
           it: "I dati del mio smartwatch Android compaiono su Apple Salute?",
           en: "Does my Android smartwatch data show up in Apple Health?",
+          de: "Erscheinen meine Android-Smartwatch-Daten in Apple Health?",
+          pt: "Os dados do meu smartwatch Android aparecem no Apple Health?",
+          fr: "Les données de ma montre connectée Android apparaissent-elles dans Apple Health?",
         },
         a: {
           it: "Per l'anello smart Colmi: sì. FitMesh iOS (beta) scrive i dati dell'anello Colmi dentro Apple Salute (sonno con fasi, passi, frequenza cardiaca). Per gli smartwatch Android che passano per Health Connect (Galaxy Watch, Garmin, ecc.): il passaggio diretto Health Connect → Apple Salute non è disponibile oggi, ma è in roadmap.",
           en: "For the Colmi smart ring: yes. FitMesh iOS (beta) writes Colmi ring data into Apple Health (sleep with phases, steps, heart rate). For Android smartwatches that go through Health Connect (Galaxy Watch, Garmin, etc.): the direct Health Connect → Apple Health bridge is not available today, but is on the roadmap.",
+          de: "Für den Colmi-Smart-Ring: ja. FitMesh iOS (Beta) schreibt Colmi-Ring-Daten in Apple Health (Schlaf mit Phasen, Schritte, Herzfrequenz). Für Android-Smartwatches, die über Health Connect laufen (Galaxy Watch, Garmin usw.): Die direkte Brücke Health Connect → Apple Health ist heute nicht verfügbar, ist aber geplant.",
+          pt: "Para o anel inteligente Colmi: sim. O FitMesh iOS (beta) grava os dados do anel Colmi no Apple Health (sono com fases, passos, frequência cardíaca). Para smartwatches Android que passam pelo Health Connect (Galaxy Watch, Garmin, etc.): a ponte direta Health Connect → Apple Health não está disponível hoje, mas está no roadmap.",
+          fr: "Pour la bague connectée Colmi: oui. FitMesh iOS (bêta) écrit les données de la bague Colmi dans Apple Health (sommeil avec phases, pas, fréquence cardiaque). Pour les montres connectées Android qui passent par Health Connect (Galaxy Watch, Garmin, etc.): le pont direct Health Connect → Apple Health n'est pas disponible aujourd'hui, mais est prévu.",
         },
       },
       {
         q: {
           it: "Se ho già dati su iPhone, vengono duplicati con quelli Android?",
           en: "If I already have data on iPhone, will it be duplicated with Android data?",
+          de: "Wenn ich bereits Daten auf dem iPhone habe, werden sie mit den Android-Daten dupliziert?",
+          pt: "Se eu já tiver dados no iPhone, eles serão duplicados com os dados do Android?",
+          fr: "Si j'ai déjà des données sur iPhone, seront-elles dupliquées avec les données Android?",
         },
         a: {
           it: "No. FitMesh controlla prima se Apple Salute ha già quei dati. Se ci sono già (da Apple Watch o da qualsiasi altra app), FitMesh non li riscrive. I dati originati su iPhone restano separati da quelli scritti da FitMesh.",
           en: "No. FitMesh checks first whether Apple Health already has that data. If it's already there (from Apple Watch or any other app), FitMesh won't rewrite it. Data from iPhone stays separate from data written by FitMesh.",
+          de: "Nein. FitMesh prüft zuerst, ob Apple Health diese Daten bereits hat. Wenn sie schon vorhanden sind (von der Apple Watch oder einer anderen App), schreibt FitMesh sie nicht erneut. Daten vom iPhone bleiben getrennt von den von FitMesh geschriebenen Daten.",
+          pt: "Não. O FitMesh verifica primeiro se o Apple Health já tem esses dados. Se já estiverem lá (do Apple Watch ou de qualquer outro app), o FitMesh não os reescreve. Os dados originados no iPhone ficam separados dos dados gravados pelo FitMesh.",
+          fr: "Non. FitMesh vérifie d'abord si Apple Health possède déjà ces données. Si elles sont déjà présentes (depuis l'Apple Watch ou toute autre application), FitMesh ne les réécrit pas. Les données provenant de l'iPhone restent séparées des données écrites par FitMesh.",
         },
       },
       {
         q: {
           it: "FitMesh iOS è disponibile su App Store?",
           en: "Is FitMesh iOS available on the App Store?",
+          de: "Ist FitMesh iOS im App Store verfügbar?",
+          pt: "O FitMesh iOS está disponível na App Store?",
+          fr: "FitMesh iOS est-il disponible sur l'App Store?",
         },
         a: {
           it: "Non ancora. FitMesh iOS è in beta attiva su TestFlight. Iscriviti alla lista beta su fitmesh.fit/it/beta: riceverai un'email con il link TestFlight non appena i posti sono disponibili. L'uscita su App Store è pianificata dopo il completamento della beta.",
           en: "Not yet. FitMesh iOS is in active beta on TestFlight. Join the beta waitlist at fitmesh.fit/en/beta: you'll receive an email with the TestFlight link as soon as spots are available. App Store release is planned after the beta is complete.",
+          de: "Noch nicht. FitMesh iOS befindet sich in aktiver Beta auf TestFlight. Tritt der Beta-Warteliste unter fitmesh.fit/de/beta bei: Du erhältst eine E-Mail mit dem TestFlight-Link, sobald Plätze verfügbar sind. Die Veröffentlichung im App Store ist nach Abschluss der Beta geplant.",
+          pt: "Ainda não. O FitMesh iOS está em beta ativa no TestFlight. Entre na lista de espera da beta em fitmesh.fit/pt/beta: você receberá um e-mail com o link do TestFlight assim que as vagas estiverem disponíveis. O lançamento na App Store está planejado após a conclusão da beta.",
+          fr: "Pas encore. FitMesh iOS est en bêta active sur TestFlight. Rejoignez la liste d'attente bêta sur fitmesh.fit/fr/beta: vous recevrez un e-mail avec le lien TestFlight dès que des places seront disponibles. La sortie sur l'App Store est prévue après la fin de la bêta.",
         },
       },
       {
         q: {
           it: "I miei dati salute sono al sicuro se uso due telefoni?",
           en: "Is my health data safe when using two phones?",
+          de: "Sind meine Gesundheitsdaten sicher, wenn ich zwei Telefone verwende?",
+          pt: "Meus dados de saúde estão seguros ao usar dois celulares?",
+          fr: "Mes données de santé sont-elles en sécurité si j'utilise deux téléphones?",
         },
         a: {
           it: "Sì. Tutti i dati sono archiviati su un unico server EU (Frankfurt), crittografati in transito (HTTPS) e a riposo. Ogni account è isolato con Row Level Security: nessun altro utente può vedere i tuoi dati. Puoi cancellare tutto in qualsiasi momento dalla sezione 'Elimina account e dati' nell'app.",
           en: "Yes. All data is stored on a single EU server (Frankfurt), encrypted in transit (HTTPS) and at rest. Each account is isolated with Row Level Security: no other user can see your data. You can delete everything at any time from the 'Delete account and data' section in the app.",
+          de: "Ja. Alle Daten werden auf einem einzigen EU-Server (Frankfurt) gespeichert, verschlüsselt bei Übertragung (HTTPS) und Speicherung. Jedes Konto ist mit Row Level Security isoliert: Kein anderer Nutzer kann deine Daten sehen. Du kannst alles jederzeit über den Bereich 'Konto und Daten löschen' in der App löschen.",
+          pt: "Sim. Todos os dados são armazenados em um único servidor na UE (Frankfurt), criptografados em trânsito (HTTPS) e em repouso. Cada conta é isolada com Row Level Security: nenhum outro usuário pode ver seus dados. Você pode excluir tudo a qualquer momento na seção 'Excluir conta e dados' no app.",
+          fr: "Oui. Toutes les données sont stockées sur un seul serveur UE (Francfort), chiffrées en transit (HTTPS) et au repos. Chaque compte est isolé avec Row Level Security: aucun autre utilisateur ne peut voir vos données. Vous pouvez tout supprimer à tout moment depuis la section 'Supprimer le compte et les données' dans l'application.",
         },
       },
       {
         q: {
           it: "L'anello Colmi funziona sia su Android che su iPhone?",
           en: "Does the Colmi ring work on both Android and iPhone?",
+          de: "Funktioniert der Colmi-Ring sowohl auf Android als auch auf iPhone?",
+          pt: "O anel Colmi funciona tanto no Android quanto no iPhone?",
+          fr: "La bague Colmi fonctionne-t-elle sur Android et sur iPhone?",
         },
         a: {
           it: "Sì. L'anello Colmi si connette via Bluetooth all'app FitMesh su entrambe le piattaforme. Su Android è già disponibile in produzione. Su iPhone è nella beta attiva: iscriviti per accedere. I dati raccolti dall'anello (sonno con fasi, passi, BPM) vengono sincronizzati all'account cloud e, su iOS, scritti dentro Apple Salute.",
           en: "Yes. The Colmi ring connects via Bluetooth to the FitMesh app on both platforms. On Android it's already available in production. On iPhone it's in the active beta: join to get access. Data collected by the ring (sleep with phases, steps, BPM) is synced to your cloud account and, on iOS, written into Apple Health.",
+          de: "Ja. Der Colmi-Ring verbindet sich via Bluetooth mit der FitMesh-App auf beiden Plattformen. Auf Android ist er bereits in der Produktion verfügbar. Auf dem iPhone befindet er sich in der aktiven Beta: Tritt bei, um Zugang zu erhalten. Die vom Ring gesammelten Daten (Schlaf mit Phasen, Schritte, BPM) werden mit dem Cloud-Konto synchronisiert und auf iOS in Apple Health geschrieben.",
+          pt: "Sim. O anel Colmi conecta-se via Bluetooth ao app FitMesh em ambas as plataformas. No Android já está disponível em produção. No iPhone está na beta ativa: inscreva-se para ter acesso. Os dados coletados pelo anel (sono com fases, passos, BPM) são sincronizados com a conta na nuvem e, no iOS, gravados no Apple Health.",
+          fr: "Oui. La bague Colmi se connecte via Bluetooth à l'application FitMesh sur les deux plateformes. Sur Android, elle est déjà disponible en production. Sur iPhone, elle est en bêta active: rejoignez-la pour obtenir l'accès. Les données collectées par la bague (sommeil avec phases, pas, BPM) sont synchronisées avec votre compte cloud et, sur iOS, écrites dans Apple Health.",
         },
       },
     ],
@@ -1484,6 +1634,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     primaryKeyword: {
       it: "anello smart sonno colmi fitmesh",
       en: "colmi smart ring sleep fitmesh",
+      de: "Colmi Smart-Ring Schlaf FitMesh",
+      pt: "anel inteligente sono colmi fitmesh",
+      fr: "bague connectée sommeil colmi fitmesh",
     },
     secondaryKeywords: {
       it: [
@@ -1504,26 +1657,38 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "FitMesh Sync legge l'anello Colmi via Bluetooth: passi, battito, SpO2, sonno con fasi, stress, batteria. Dashboard web su Android e, presto, su iPhone. Senza app del produttore.",
       en: "FitMesh Sync reads your Colmi ring via Bluetooth: steps, heart rate, SpO2, sleep with stages, stress, battery. Web dashboard on Android and, soon, iPhone. No manufacturer app needed.",
+      de: "FitMesh Sync liest deinen Colmi-Ring via Bluetooth: Schritte, Herzfrequenz, SpO2, Schlaf mit Phasen, Stress, Akku. Web-Dashboard auf Android und bald auf iPhone. Ohne Hersteller-App.",
+      pt: "FitMesh Sync lê seu anel Colmi via Bluetooth: passos, frequência cardíaca, SpO2, sono com fases, stress, bateria. Painel web no Android e, em breve, no iPhone. Sem app do fabricante.",
+      fr: "FitMesh Sync lit votre bague Colmi via Bluetooth: pas, fréquence cardiaque, SpO2, sommeil avec phases, stress, batterie. Tableau de bord web sur Android et bientôt sur iPhone. Sans application du fabricant.",
     },
     hero: {
-      kicker: { it: "Anello Colmi + FitMesh Sync", en: "Colmi Ring + FitMesh Sync" },
+      kicker: { it: "Anello Colmi + FitMesh Sync", en: "Colmi Ring + FitMesh Sync", de: "Colmi-Ring + FitMesh Sync", pt: "Anel Colmi + FitMesh Sync", fr: "Bague Colmi + FitMesh Sync" },
       title: {
         it: "Il tuo anello Colmi su una dashboard web, senza l'app del produttore",
         en: "Your Colmi ring on a web dashboard, no manufacturer app required",
+        de: "Dein Colmi-Ring auf einem Web-Dashboard, ohne Hersteller-App",
+        pt: "Seu anel Colmi em um painel web, sem o app do fabricante",
+        fr: "Votre bague Colmi sur un tableau de bord web, sans l'application du fabricant",
       },
       subtitle: {
         it: "FitMesh Sync si collega direttamente al tuo anello Colmi via Bluetooth e raccoglie passi, battito cardiaco, SpO2, sonno con fasi, stress e livello batteria. I dati appaiono su una dashboard web accessibile da qualsiasi browser, uniti a quelli del tuo smartwatch, senza doppioni.",
         en: "FitMesh Sync connects directly to your Colmi ring via Bluetooth and collects steps, heart rate, SpO2, sleep with stages, stress, and battery level. Data appears on a web dashboard accessible from any browser, merged with your smartwatch data, with no duplicates.",
+        de: "FitMesh Sync verbindet sich direkt via Bluetooth mit deinem Colmi-Ring und sammelt Schritte, Herzfrequenz, SpO2, Schlaf mit Phasen, Stress und Akkustand. Die Daten erscheinen auf einem Web-Dashboard, das von jedem Browser zugänglich ist, zusammengeführt mit deinen Smartwatch-Daten, ohne Duplikate.",
+        pt: "FitMesh Sync conecta-se diretamente ao seu anel Colmi via Bluetooth e coleta passos, frequência cardíaca, SpO2, sono com fases, stress e nível de bateria. Os dados aparecem em um painel web acessível de qualquer navegador, unidos aos dados do seu smartwatch, sem duplicatas.",
+        fr: "FitMesh Sync se connecte directement à votre bague Colmi via Bluetooth et collecte les pas, la fréquence cardiaque, le SpO2, le sommeil avec phases, le stress et le niveau de batterie. Les données apparaissent sur un tableau de bord web accessible depuis n'importe quel navigateur, fusionnées avec les données de votre montre connectée, sans doublons.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta" },
-        href: { it: "/it/beta", en: "/en/beta" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Leggi la guida completa", en: "Read the full guide" },
+        label: { it: "Leggi la guida completa", en: "Read the full guide", de: "Vollständigen Leitfaden lesen", pt: "Ler o guia completo", fr: "Lire le guide complet" },
         href: {
           it: "/it/blog/colmi-ring-fitmesh",
           en: "/en/blog/colmi-ring-fitmesh",
+          de: "/de/blog/colmi-ring-fitmesh",
+          pt: "/pt/blog/colmi-ring-fitmesh",
+          fr: "/fr/blog/colmi-ring-fitmesh",
         },
       },
     },
@@ -1533,6 +1698,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Gli anelli Colmi offrono un monitoraggio continuo discreto: li indossi giorno e notte, tracciano il sonno con le fasi (leggero, profondo, REM), il battito cardiaco, la saturazione dell'ossigeno nel sangue e il livello di stress, senza che tu debba ricordarti di attivare niente. Il problema con molti anelli economici è l'app del produttore: spesso è scarna, i dati restano chiusi, non c'è integrazione con lo smartwatch che usi di giorno e non esiste una dashboard web decente.",
           en: "Colmi rings offer discreet continuous monitoring: you wear them day and night, tracking sleep with stages (light, deep, REM), heart rate, blood oxygen saturation, and stress level, with nothing to manually activate. The problem with many budget rings is the manufacturer app: often sparse, data stays locked in, there's no integration with the smartwatch you use during the day, and there's no decent web dashboard.",
+          de: "Colmi-Ringe bieten diskretes kontinuierliches Monitoring: Du trägst sie Tag und Nacht, sie erfassen Schlaf mit Phasen (Leichtschlaf, Tiefschlaf, REM), Herzfrequenz, Blutsauerstoffsättigung und Stresslevel, ohne dass du etwas manuell aktivieren musst. Das Problem mit vielen günstigen Ringen ist die Hersteller-App: oft dürftig ausgestattet, Daten bleiben gesperrt, es gibt keine Integration mit der Smartwatch, die du tagsüber trägst, und kein anständiges Web-Dashboard.",
+          pt: "Os anéis Colmi oferecem monitoramento contínuo discreto: você os usa dia e noite, rastreando o sono com fases (leve, profundo, REM), a frequência cardíaca, a saturação de oxigênio no sangue e o nível de stress, sem precisar ativar nada manualmente. O problema com muitos anéis baratos é o app do fabricante: geralmente escasso, os dados ficam presos, não há integração com o smartwatch que você usa durante o dia e não existe um painel web decente.",
+          fr: "Les bagues Colmi offrent une surveillance continue discrète: vous les portez jour et nuit, elles suivent le sommeil avec phases (léger, profond, REM), la fréquence cardiaque, la saturation en oxygène du sang et le niveau de stress, sans rien à activer manuellement. Le problème avec de nombreuses bagues abordables est l'application du fabricant: souvent rudimentaire, les données restent enfermées, il n'y a pas d'intégration avec la montre connectée que vous portez dans la journée et pas de tableau de bord web digne de ce nom.",
         },
       },
       {
@@ -1540,6 +1708,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "FitMesh Sync risolve esattamente questo. Invece di usare l'app Colmi, usi FitMesh: si collega direttamente all'anello via Bluetooth, scarica i dati, li manda al cloud EU e li mostra su una dashboard web unificata con gli altri tuoi wearable.",
           en: "FitMesh Sync solves exactly this. Instead of using the Colmi app, you use FitMesh: it connects directly to the ring via Bluetooth, pulls the data, sends it to the EU cloud, and shows it on a unified web dashboard alongside your other wearables.",
+          de: "FitMesh Sync löst genau das. Anstatt die Colmi-App zu verwenden, nutzt du FitMesh: Es verbindet sich direkt via Bluetooth mit dem Ring, lädt die Daten herunter, sendet sie in die EU-Cloud und zeigt sie auf einem vereinten Web-Dashboard zusammen mit deinen anderen Wearables.",
+          pt: "FitMesh Sync resolve exatamente isso. Em vez de usar o app Colmi, você usa o FitMesh: ele conecta-se diretamente ao anel via Bluetooth, baixa os dados, envia para a nuvem na UE e os exibe em um painel web unificado junto com seus outros wearables.",
+          fr: "FitMesh Sync résout exactement cela. Au lieu d'utiliser l'application Colmi, vous utilisez FitMesh: il se connecte directement à la bague via Bluetooth, récupère les données, les envoie vers le cloud UE et les affiche sur un tableau de bord web unifié avec vos autres appareils connectés.",
         },
       },
       {
@@ -1548,6 +1719,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Cosa legge FitMesh dall'anello Colmi",
           en: "What FitMesh reads from the Colmi ring",
+          de: "Was FitMesh vom Colmi-Ring liest",
+          pt: "O que o FitMesh lê do anel Colmi",
+          fr: "Ce que FitMesh lit depuis la bague Colmi",
         },
       },
       {
@@ -1569,6 +1743,30 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Stress**: score based on heart rate variability",
             "**Battery**: remaining charge level of the ring",
           ],
+          de: [
+            "**Schritte**: Tagesanzahl und stündliche Aufschlüsselung",
+            "**Herzfrequenz**: kontinuierliche Messungen und Tagesdurchschnitt",
+            "**SpO2**: Blutsauerstoffsättigung",
+            "**Schlaf mit Phasen**: Gesamtdauer, Leichtschlaf, Tiefschlaf, REM, Wach",
+            "**Stress**: Wert basierend auf der Herzfrequenzvariabilität",
+            "**Akku**: verbleibender Ladestand des Rings",
+          ],
+          pt: [
+            "**Passos**: contagem diária e por intervalo horário",
+            "**Frequência cardíaca**: amostras contínuas e média diária",
+            "**SpO2**: saturação de oxigênio no sangue",
+            "**Sono com fases**: duração total, Leve, Profundo, REM, Acordado",
+            "**Stress**: pontuação baseada na variabilidade da frequência cardíaca",
+            "**Bateria**: nível de carga restante do anel",
+          ],
+          fr: [
+            "**Pas**: comptage journalier et par intervalle horaire",
+            "**Fréquence cardiaque**: mesures continues et moyenne journalière",
+            "**SpO2**: saturation en oxygène du sang",
+            "**Sommeil avec phases**: durée totale, Léger, Profond, REM, Éveillé",
+            "**Stress**: score basé sur la variabilité de la fréquence cardiaque",
+            "**Batterie**: niveau de charge restant de la bague",
+          ],
         },
       },
       {
@@ -1577,6 +1775,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Dashboard unificata: anello + smartwatch, zero doppioni",
           en: "Unified dashboard: ring + smartwatch, zero duplicates",
+          de: "Vereintes Dashboard: Ring und Smartwatch, null Duplikate",
+          pt: "Painel unificado: anel e smartwatch, zero duplicatas",
+          fr: "Tableau de bord unifié: bague et montre connectée, zéro doublon",
         },
       },
       {
@@ -1584,6 +1785,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Molti usano l'anello di notte (per il sonno) e lo smartwatch di giorno (per sport e notifiche). FitMesh li mette insieme in un'unica vista: il sonno viene dall'anello Colmi, i passi e gli allenamenti dal watch. Quando le stesse misure arrivano da due fonti, FitMesh applica un meccanismo anti-duplicato: non somma due volte lo stesso passo.",
           en: "Many people use the ring at night (for sleep) and the smartwatch during the day (for sport and notifications). FitMesh puts them together in a single view: sleep comes from the Colmi ring, steps and workouts from the watch. When the same measurement arrives from two sources, FitMesh applies a deduplication mechanism: the same step is never counted twice.",
+          de: "Viele tragen den Ring nachts (für den Schlaf) und die Smartwatch tagsüber (für Sport und Benachrichtigungen). FitMesh vereint sie in einer einzigen Ansicht: Schlaf kommt vom Colmi-Ring, Schritte und Trainings von der Uhr. Wenn dieselbe Messung von zwei Quellen eintrifft, wendet FitMesh einen Deduplizierungsmechanismus an: Derselbe Schritt wird nie zweimal gezählt.",
+          pt: "Muita gente usa o anel à noite (para o sono) e o smartwatch durante o dia (para esportes e notificações). FitMesh os reúne em uma única visualização: o sono vem do anel Colmi, os passos e os treinos do relógio. Quando a mesma medição chega de duas fontes, o FitMesh aplica um mecanismo anti-duplicata: o mesmo passo nunca é contado duas vezes.",
+          fr: "Beaucoup de personnes portent la bague la nuit (pour le sommeil) et la montre connectée dans la journée (pour le sport et les notifications). FitMesh les réunit dans une seule vue: le sommeil vient de la bague Colmi, les pas et les séances d'entraînement de la montre. Quand la même mesure arrive de deux sources, FitMesh applique un mécanisme de déduplication: le même pas n'est jamais compté deux fois.",
         },
       },
       {
@@ -1592,6 +1796,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Come funziona: setup in 3 passi",
           en: "How it works: 3-step setup",
+          de: "Wie es funktioniert: Einrichtung in 3 Schritten",
+          pt: "Como funciona: configuração em 3 passos",
+          fr: "Comment ça fonctionne: configuration en 3 étapes",
         },
       },
       {
@@ -1608,6 +1815,21 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "Open the **Ring** section in the app and keep the Colmi ring near your phone: FitMesh finds it via Bluetooth and pairs automatically.",
             "Open the **web dashboard** (link in the app or sign in from a browser): steps, sleep, and heart rate are already visible.",
           ],
+          de: [
+            "Installiere **FitMesh Sync** aus dem Play Store und melde dich mit Google an.",
+            "Öffne den Bereich **Ring** in der App und halte den Colmi-Ring nah ans Telefon: FitMesh findet ihn via Bluetooth und koppelt automatisch.",
+            "Öffne das **Web-Dashboard** (Link in der App oder über einen Browser anmelden): Schritte, Schlaf und Herzfrequenz sind sofort sichtbar.",
+          ],
+          pt: [
+            "Instale o **FitMesh Sync** na Play Store e entre com o Google.",
+            "Abra a seção **Anel** no app e mantenha o anel Colmi perto do celular: o FitMesh o encontra via Bluetooth e faz o pareamento automaticamente.",
+            "Abra o **painel web** (link no app ou entre pelo navegador): passos, sono e frequência cardíaca já estão visíveis.",
+          ],
+          fr: [
+            "Installez **FitMesh Sync** depuis le Play Store et connectez-vous avec Google.",
+            "Ouvrez la section **Bague** dans l'application et gardez la bague Colmi près du téléphone: FitMesh la trouve via Bluetooth et s'associe automatiquement.",
+            "Ouvrez le **tableau de bord web** (lien dans l'application ou connectez-vous depuis un navigateur): les pas, le sommeil et la fréquence cardiaque sont déjà visibles.",
+          ],
         },
       },
       {
@@ -1616,6 +1838,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Compatibilità: cosa funziona oggi",
           en: "Compatibility: what works today",
+          de: "Kompatibilität: Was heute funktioniert",
+          pt: "Compatibilidade: o que funciona hoje",
+          fr: "Compatibilité: ce qui fonctionne aujourd'hui",
         },
       },
       {
@@ -1623,35 +1848,59 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         caption: {
           it: "Stato di compatibilità (giugno 2026)",
           en: "Compatibility status (June 2026)",
+          de: "Kompatibilitätsstatus (Juni 2026)",
+          pt: "Status de compatibilidade (junho 2026)",
+          fr: "État de compatibilité (juin 2026)",
         },
         headers: {
           it: ["Funzione", "Android", "iPhone"],
           en: ["Feature", "Android", "iPhone"],
+          de: ["Funktion", "Android", "iPhone"],
+          pt: ["Função", "Android", "iPhone"],
+          fr: ["Fonction", "Android", "iPhone"],
         },
         rows: [
           {
             it: ["Connessione Bluetooth all'anello Colmi", "Disponibile", "In arrivo (beta)"],
             en: ["Bluetooth connection to Colmi ring", "Available", "Coming soon (beta)"],
+            de: ["Bluetooth-Verbindung zum Colmi-Ring", "Verfügbar", "Demnächst verfügbar (Beta)"],
+            pt: ["Conexão Bluetooth com o anel Colmi", "Disponível", "Em breve (beta)"],
+            fr: ["Connexion Bluetooth à la bague Colmi", "Disponible", "Bientôt disponible (bêta)"],
           },
           {
             it: ["Passi, battito, SpO2, stress, batteria", "Disponibile", "In arrivo (beta)"],
             en: ["Steps, heart rate, SpO2, stress, battery", "Available", "Coming soon (beta)"],
+            de: ["Schritte, Herzfrequenz, SpO2, Stress, Akku", "Verfügbar", "Demnächst verfügbar (Beta)"],
+            pt: ["Passos, frequência cardíaca, SpO2, stress, bateria", "Disponível", "Em breve (beta)"],
+            fr: ["Pas, fréquence cardiaque, SpO2, stress, batterie", "Disponible", "Bientôt disponible (bêta)"],
           },
           {
             it: ["Sonno con fasi (Leggero, Profondo, REM)", "Disponibile", "In arrivo (beta)"],
             en: ["Sleep with stages (Light, Deep, REM)", "Available", "Coming soon (beta)"],
+            de: ["Schlaf mit Phasen (Leichtschlaf, Tiefschlaf, REM)", "Verfügbar", "Demnächst verfügbar (Beta)"],
+            pt: ["Sono com fases (Leve, Profundo, REM)", "Disponível", "Em breve (beta)"],
+            fr: ["Sommeil avec phases (Léger, Profond, REM)", "Disponible", "Bientôt disponible (bêta)"],
           },
           {
             it: ["Dashboard web (stesso account)", "Disponibile", "Disponibile"],
             en: ["Web dashboard (same account)", "Available", "Available"],
+            de: ["Web-Dashboard (gleisches Konto)", "Verfügbar", "Verfügbar"],
+            pt: ["Painel web (mesma conta)", "Disponível", "Disponível"],
+            fr: ["Tableau de bord web (même compte)", "Disponible", "Disponible"],
           },
           {
             it: ["Scrittura su Apple Salute", "n/a", "In arrivo (beta)"],
             en: ["Write to Apple Health", "n/a", "Coming soon (beta)"],
+            de: ["Schreiben in Apple Health", "n/a", "Demnächst verfügbar (Beta)"],
+            pt: ["Escrita no Apple Health", "n/a", "Em breve (beta)"],
+            fr: ["Écriture dans Apple Health", "n/a", "Bientôt disponible (bêta)"],
           },
           {
             it: ["Unione con dati smartwatch (no doppioni)", "Disponibile", "In arrivo (beta)"],
             en: ["Merge with smartwatch data (no duplicates)", "Available", "Coming soon (beta)"],
+            de: ["Zusammenführung mit Smartwatch-Daten (keine Duplikate)", "Verfügbar", "Demnächst verfügbar (Beta)"],
+            pt: ["Fusão com dados do smartwatch (sem duplicatas)", "Disponível", "Em breve (beta)"],
+            fr: ["Fusion avec données de montre connectée (sans doublons)", "Disponible", "Bientôt disponible (bêta)"],
           },
         ],
       },
@@ -1661,10 +1910,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Anello Colmi su iPhone: in arrivo",
           en: "Colmi ring on iPhone: coming soon",
+          de: "Colmi-Ring auf iPhone: demnächst verfügbar",
+          pt: "Anel Colmi no iPhone: em breve",
+          fr: "Bague Colmi sur iPhone: bientôt disponible",
         },
         body: {
           it: "L'app FitMesh iOS supporta l'anello Colmi via Bluetooth ed è in fase di revisione per l'App Store. Con un unico account FitMesh, i dati dell'anello si vedono su entrambi i telefoni e vengono scritti dentro Apple Salute (ponte opzionale). Iscriviti alla beta su /it/beta per ricevere l'accesso non appena disponibile.",
           en: "The FitMesh iOS app supports the Colmi ring via Bluetooth and is under App Store review. With one FitMesh account, ring data is visible on both phones and written into Apple Health (optional bridge). Join the beta at /en/beta to get access as soon as it's available.",
+          de: "Die FitMesh iOS-App unterstützt den Colmi-Ring via Bluetooth und befindet sich in der App Store-Überprüfung. Mit einem einzigen FitMesh-Konto sind die Ringdaten auf beiden Telefonen sichtbar und werden in Apple Health geschrieben (optionale Brücke). Tritt der Beta unter /de/beta bei, um Zugang zu erhalten, sobald er verfügbar ist.",
+          pt: "O app FitMesh iOS suporta o anel Colmi via Bluetooth e está em revisão para a App Store. Com uma única conta FitMesh, os dados do anel ficam visíveis nos dois celulares e são gravados no Apple Health (ponte opcional). Inscreva-se na beta em /pt/beta para receber o acesso assim que disponível.",
+          fr: "L'application FitMesh iOS prend en charge la bague Colmi via Bluetooth et est en cours de révision pour l'App Store. Avec un seul compte FitMesh, les données de la bague sont visibles sur les deux téléphones et écrites dans Apple Health (pont optionnel). Rejoignez la bêta sur /fr/beta pour obtenir l'accès dès qu'il sera disponible.",
         },
       },
       {
@@ -1672,13 +1927,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Pronto a usare il tuo anello Colmi senza l'app del produttore?",
           en: "Ready to use your Colmi ring without the manufacturer app?",
+          de: "Bereit, deinen Colmi-Ring ohne die Hersteller-App zu nutzen?",
+          pt: "Pronto para usar seu anel Colmi sem o app do fabricante?",
+          fr: "Prêt à utiliser votre bague Colmi sans l'application du fabricant?",
         },
         body: {
           it: "100 posti founder gratis durante la beta. App Android disponibile ora su Play Store, dashboard web inclusa.",
           en: "100 free founder spots during beta. Android app available now on Play Store, web dashboard included.",
+          de: "100 kostenlose Founder-Plätze während der Beta. Android-App jetzt auf dem Play Store verfügbar, Web-Dashboard inklusive.",
+          pt: "100 vagas founder grátis durante a beta. App Android disponível agora no Play Store, painel web incluído.",
+          fr: "100 places founder gratuites pendant la bêta. Application Android disponible maintenant sur le Play Store, tableau de bord web inclus.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →" },
-        ctaHref: { it: "/it/beta", en: "/en/beta" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
     faq: [
@@ -1686,50 +1947,80 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         q: {
           it: "Devo tenere l'app Colmi sul telefono?",
           en: "Do I need to keep the Colmi app on my phone?",
+          de: "Muss ich die Colmi-App auf dem Telefon behalten?",
+          pt: "Preciso manter o app Colmi no celular?",
+          fr: "Dois-je garder l'application Colmi sur mon téléphone?",
         },
         a: {
           it: "No. FitMesh Sync si connette direttamente all'anello via Bluetooth, quindi l'app del produttore non è necessaria. Puoi disinstallarla se vuoi. FitMesh raccoglie i dati in autonomia e li invia alla dashboard web.",
           en: "No. FitMesh Sync connects directly to the ring via Bluetooth, so the manufacturer app is not needed. You can uninstall it if you want. FitMesh collects data independently and sends it to the web dashboard.",
+          de: "Nein. FitMesh Sync verbindet sich direkt via Bluetooth mit dem Ring, daher ist die Hersteller-App nicht erforderlich. Du kannst sie deinstallieren, wenn du möchtest. FitMesh sammelt Daten eigenständig und sendet sie an das Web-Dashboard.",
+          pt: "Não. FitMesh Sync conecta-se diretamente ao anel via Bluetooth, portanto o app do fabricante não é necessário. Você pode desinstalá-lo se quiser. O FitMesh coleta os dados de forma independente e os envia ao painel web.",
+          fr: "Non. FitMesh Sync se connecte directement à la bague via Bluetooth, donc l'application du fabricant n'est pas nécessaire. Vous pouvez la désinstaller si vous le souhaitez. FitMesh collecte les données de manière autonome et les envoie au tableau de bord web.",
         },
       },
       {
         q: {
           it: "Quali modelli Colmi sono supportati?",
           en: "Which Colmi models are supported?",
+          de: "Welche Colmi-Modelle werden unterstützt?",
+          pt: "Quais modelos Colmi são suportados?",
+          fr: "Quels modèles Colmi sont pris en charge?",
         },
         a: {
           it: "FitMesh supporta i modelli Colmi più diffusi che usano il protocollo Bluetooth standard, inclusi i modelli della serie R (R02, R06, R08, R09, R10) e altri con funzionalità simili. La compatibilità viene ampliata progressivamente. Se il tuo modello non compare, iscriviti alla beta e segnalacelo: aggiungiamo i modelli richiesti in priorità.",
           en: "FitMesh supports the most common Colmi models using the standard Bluetooth protocol, including R-series models (R02, R06, R08, R09, R10) and others with similar features. Compatibility is expanded progressively. If your model isn't listed, join the beta and let us know: requested models are prioritized.",
+          de: "FitMesh unterstützt die gängigsten Colmi-Modelle, die das Standard-Bluetooth-Protokoll verwenden, einschließlich R-Serie-Modelle (R02, R06, R08, R09, R10) und andere mit ähnlichen Funktionen. Die Kompatibilität wird schrittweise erweitert. Wenn dein Modell nicht aufgelistet ist, tritt der Beta bei und teile es uns mit: Angefragte Modelle werden priorisiert.",
+          pt: "FitMesh suporta os modelos Colmi mais comuns que usam o protocolo Bluetooth padrão, incluindo os modelos da série R (R02, R06, R08, R09, R10) e outros com funcionalidades semelhantes. A compatibilidade é ampliada progressivamente. Se o seu modelo não estiver listado, inscreva-se na beta e nos avise: os modelos solicitados são priorizados.",
+          fr: "FitMesh prend en charge les modèles Colmi les plus courants utilisant le protocole Bluetooth standard, notamment les modèles de la série R (R02, R06, R08, R09, R10) et d'autres aux fonctionnalités similaires. La compatibilité est élargie progressivement. Si votre modèle n'est pas répertorié, rejoignez la bêta et signalez-le nous: les modèles demandés sont traités en priorité.",
         },
       },
       {
         q: {
           it: "Se ho anche uno smartwatch, i passi vengono contati due volte?",
           en: "If I also have a smartwatch, will steps be counted twice?",
+          de: "Wenn ich auch eine Smartwatch habe, werden die Schritte doppelt gezählt?",
+          pt: "Se eu também tiver um smartwatch, os passos serão contados duas vezes?",
+          fr: "Si j'ai aussi une montre connectée, les pas seront-ils comptés deux fois?",
         },
         a: {
           it: "No. FitMesh applica una logica anti-duplicato: se lo stesso intervallo temporale ha dati sia dall'anello sia dallo smartwatch, viene usata la fonte con il dato migliore (o più recente), non la somma. L'obiettivo è avere un conteggio corretto, non gonfiato.",
           en: "No. FitMesh applies a deduplication logic: if the same time interval has data from both the ring and the smartwatch, the source with the better (or more recent) data is used, not the sum. The goal is an accurate count, not an inflated one.",
+          de: "Nein. FitMesh wendet eine Deduplizierungslogik an: Wenn derselbe Zeitraum Daten sowohl vom Ring als auch von der Smartwatch hat, wird die Quelle mit dem besseren (oder neueren) Wert verwendet, nicht die Summe. Das Ziel ist eine korrekte Anzahl, keine aufgeblähte.",
+          pt: "Não. FitMesh aplica uma lógica anti-duplicata: se o mesmo intervalo de tempo tiver dados do anel e do smartwatch, é usada a fonte com o dado melhor (ou mais recente), não a soma. O objetivo é ter uma contagem correta, não inflada.",
+          fr: "Non. FitMesh applique une logique de déduplication: si le même intervalle de temps dispose de données à la fois de la bague et de la montre connectée, la source avec la meilleure donnée (ou la plus récente) est utilisée, pas la somme. L'objectif est un comptage précis, pas gonflé.",
         },
       },
       {
         q: {
           it: "I dati del sonno compaiono su Apple Salute?",
           en: "Does sleep data appear in Apple Health?",
+          de: "Erscheinen die Schlafdaten in Apple Health?",
+          pt: "Os dados do sono aparecem no Apple Health?",
+          fr: "Les données de sommeil apparaissent-elles dans Apple Health?",
         },
         a: {
           it: "Su Android, i dati vengono archiviati nel cloud FitMesh e mostrati sulla dashboard web. Su iPhone, l'app FitMesh iOS (in arrivo) scrive il sonno con fasi, i passi e il battito cardiaco dentro Apple Salute, rendendoli visibili nell'app Salute di Apple e in qualsiasi altra app che legge da Apple Salute. Non sono disponibili su App Store in questo momento: iscriviti alla beta per l'accesso anticipato.",
           en: "On Android, data is stored in the FitMesh cloud and shown on the web dashboard. On iPhone, the FitMesh iOS app (coming soon) writes sleep with stages, steps, and heart rate into Apple Health, making them visible in Apple's Health app and in any app reading from Apple Health. Not available on the App Store at this time: join the beta for early access.",
+          de: "Auf Android werden die Daten in der FitMesh-Cloud gespeichert und im Web-Dashboard angezeigt. Auf dem iPhone schreibt die FitMesh iOS-App (demnächst verfügbar) Schlaf mit Phasen, Schritte und Herzfrequenz in Apple Health und macht sie in Apples Health-App und in jeder App sichtbar, die Apple Health liest. Derzeit nicht im App Store verfügbar: Tritt der Beta für frühzeitigen Zugang bei.",
+          pt: "No Android, os dados são armazenados na nuvem FitMesh e exibidos no painel web. No iPhone, o app FitMesh iOS (em breve) grava o sono com fases, os passos e a frequência cardíaca no Apple Health, tornando-os visíveis no app Saúde da Apple e em qualquer app que leia do Apple Health. Não disponível na App Store neste momento: inscreva-se na beta para acesso antecipado.",
+          fr: "Sur Android, les données sont stockées dans le cloud FitMesh et affichées sur le tableau de bord web. Sur iPhone, l'application FitMesh iOS (bientôt disponible) écrit le sommeil avec phases, les pas et la fréquence cardiaque dans Apple Health, les rendant visibles dans l'application Santé d'Apple et dans toute application lisant depuis Apple Health. Non disponible sur l'App Store pour le moment: rejoignez la bêta pour un accès anticipé.",
         },
       },
       {
         q: {
           it: "FitMesh può fare affermazioni mediche sui dati SpO2 o stress?",
           en: "Can FitMesh make medical claims about SpO2 or stress data?",
+          de: "Kann FitMesh medizinische Aussagen über SpO2- oder Stressdaten machen?",
+          pt: "O FitMesh pode fazer afirmações médicas sobre dados de SpO2 ou stress?",
+          fr: "FitMesh peut-il faire des allégations médicales sur les données SpO2 ou stress?",
         },
         a: {
           it: "No. I dati di SpO2 e stress forniti dall'anello Colmi sono misurazioni consumer per il monitoraggio personale del benessere, non strumenti diagnostici. FitMesh li mostra così come arrivano dall'anello. Per qualsiasi valutazione clinica, rivolgiti a un professionista sanitario.",
           en: "No. SpO2 and stress data from the Colmi ring are consumer-grade measurements for personal wellness monitoring, not diagnostic tools. FitMesh displays them as received from the ring. For any clinical assessment, consult a healthcare professional.",
+          de: "Nein. SpO2- und Stressdaten vom Colmi-Ring sind Messungen für den Consumer-Bereich zur persönlichen Wellness-Überwachung, keine Diagnosewerkzeuge. FitMesh zeigt sie so an, wie sie vom Ring empfangen werden. Wende dich für jede klinische Bewertung an einen Gesundheitsexperten.",
+          pt: "Não. Os dados de SpO2 e stress do anel Colmi são medições voltadas ao consumidor para monitoramento pessoal do bem-estar, não ferramentas de diagnóstico. O FitMesh os exibe conforme recebidos do anel. Para qualquer avaliação clínica, consulte um profissional de saúde.",
+          fr: "Non. Les données SpO2 et stress de la bague Colmi sont des mesures grand public pour la surveillance personnelle du bien-être, pas des outils de diagnostic. FitMesh les affiche telles que reçues de la bague. Pour toute évaluation, consultez un professionnel de santé.",
         },
       },
     ],
@@ -1744,6 +2035,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     primaryKeyword: {
       it: "esportare dati apple health",
       en: "apple health data export web",
+      de: "Apple Health Daten exportieren Web",
+      pt: "exportar dados apple health web",
+      fr: "exporter données apple health web",
     },
     secondaryKeywords: {
       it: [
@@ -1762,20 +2056,29 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "Dashboard web per Apple Health in arrivo su iOS: visualizza passi, sonno, frequenza cardiaca da iPhone su browser. FitMesh iOS beta: iscriviti ora.",
       en: "Web dashboard for Apple Health coming to iOS: view steps, sleep, heart rate from iPhone in a browser. FitMesh iOS beta: sign up now.",
+      de: "Web-Dashboard für Apple Health kommt auf iOS: Schritte, Schlaf, Herzfrequenz vom iPhone im Browser ansehen. FitMesh iOS Beta: Jetzt anmelden.",
+      pt: "Painel web para Apple Health chegando ao iOS: veja passos, sono, frequência cardíaca do iPhone no navegador. FitMesh iOS beta: inscreva-se agora.",
+      fr: "Tableau de bord web pour Apple Health sur iOS: consultez pas, sommeil, fréquence cardiaque depuis l'iPhone dans un navigateur. Bêta FitMesh iOS: inscrivez-vous maintenant.",
     },
     hero: {
-      kicker: { it: "FitMesh iOS", en: "FitMesh iOS" },
+      kicker: { it: "FitMesh iOS", en: "FitMesh iOS", de: "FitMesh iOS", pt: "FitMesh iOS", fr: "FitMesh iOS" },
       title: {
         it: "Dashboard web per Apple Health: FitMesh iOS in arrivo",
         en: "Web dashboard for Apple Health: FitMesh iOS coming soon",
+        de: "Web-Dashboard für Apple Health: FitMesh iOS demnächst verfügbar",
+        pt: "Painel web para Apple Health: FitMesh iOS em breve",
+        fr: "Tableau de bord web pour Apple Health: FitMesh iOS bientôt disponible",
       },
       subtitle: {
         it: "I tuoi dati da Apple Watch, Garmin, Oura e tutti i wearable che scrivono su Apple Health, su una dashboard web accessibile da qualsiasi browser, senza export manuali.",
         en: "Your data from Apple Watch, Garmin, Oura, and all wearables writing to Apple Health, on a web dashboard accessible from any browser, no manual exports needed.",
+        de: "Deine Daten von Apple Watch, Garmin, Oura und allen Wearables, die in Apple Health schreiben, auf einem Web-Dashboard, das von jedem Browser zugänglich ist, ohne manuelle Exporte.",
+        pt: "Seus dados do Apple Watch, Garmin, Oura e todos os wearables que escrevem no Apple Health, em um painel web acessível de qualquer navegador, sem exportações manuais.",
+        fr: "Vos données d'Apple Watch, Garmin, Oura et tous les appareils connectés qui écrivent dans Apple Health, sur un tableau de bord web accessible depuis n'importe quel navigateur, sans exportations manuelles.",
       },
       primaryCta: {
-        label: { it: "Unisciti alla beta iOS", en: "Join iOS beta" },
-        href: { it: "/it/beta", en: "/en/beta" },
+        label: { it: "Unisciti alla beta iOS", en: "Join iOS beta", de: "iOS-Beta beitreten", pt: "Entrar na beta iOS", fr: "Rejoindre la bêta iOS" },
+        href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     },
     body: [
@@ -1784,6 +2087,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Apple Health è il sistema più completo per raccogliere dati salute su iPhone. Il problema storico: i dati restano nell'app, senza una web dashboard nativa. Puoi fare l'export XML manuale, ma è un file tecnico che richiede strumenti per essere letto, e devi rifarlo ogni volta. FitMesh iOS cambierà questa situazione.",
           en: "Apple Health is the most comprehensive system for collecting health data on iPhone. The long-standing problem: data stays in the app, with no native web dashboard. You can do a manual XML export, but it's a technical file requiring tools to read, and you have to redo it every time. FitMesh iOS will change this.",
+          de: "Apple Health ist das umfassendste System zur Erfassung von Gesundheitsdaten auf dem iPhone. Das altbekannte Problem: Die Daten bleiben in der App, ohne natives Web-Dashboard. Du kannst einen manuellen XML-Export durchführen, aber das ist eine technische Datei, die Werkzeuge zum Lesen erfordert, und du musst es jedes Mal wiederholen. FitMesh iOS wird das ändern.",
+          pt: "Apple Health é o sistema mais completo para coletar dados de saúde no iPhone. O problema histórico: os dados ficam no app, sem um painel web nativo. Você pode fazer o export XML manual, mas é um arquivo técnico que requer ferramentas para ser lido, e você precisa refazê-lo toda vez. FitMesh iOS vai mudar essa situação.",
+          fr: "Apple Health est le système le plus complet pour collecter des données de santé sur iPhone. Le problème de longue date: les données restent dans l'application, sans tableau de bord web natif. Vous pouvez faire un export XML manuel, mais c'est un fichier technique nécessitant des outils pour être lu, et vous devez recommencer à chaque fois. FitMesh iOS va changer cela.",
         },
       },
       {
@@ -1792,6 +2098,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Come funzionerà FitMesh iOS",
           en: "How FitMesh iOS will work",
+          de: "Wie FitMesh iOS funktionieren wird",
+          pt: "Como o FitMesh iOS funcionará",
+          fr: "Comment FitMesh iOS fonctionnera",
         },
       },
       {
@@ -1809,6 +2118,24 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Access dashboard from any browser**: same account, same data, from PC, tablet, or phone.",
             "**Unified multi-wearable**: Apple Watch, Garmin, Oura, Fitbit, if they write to Apple Health, FitMesh aggregates them together.",
           ],
+          de: [
+            "**FitMesh Sync auf iPhone installieren**: Erteile HealthKit-Berechtigungen für die Datentypen, die du synchronisieren möchtest.",
+            "**Automatischer Hintergrund-Sync**: FitMesh liest Daten aus Apple Health und sendet sie an das Cloud-Dashboard, ohne dass du etwas tun musst.",
+            "**Dashboard von jedem Browser aus aufrufen**: Gleisches Konto, gleiche Daten, von PC, Tablet oder Telefon.",
+            "**Vereintes Multi-Wearable**: Apple Watch, Garmin, Oura, Fitbit: Wenn sie in Apple Health schreiben, aggregiert FitMesh sie zusammen.",
+          ],
+          pt: [
+            "**Instale o FitMesh Sync no iPhone**: conceda permissões HealthKit para os tipos de dados que você quer sincronizar.",
+            "**Sincronização automática em segundo plano**: FitMesh lê dados do Apple Health e os envia ao painel na nuvem sem você precisar fazer nada.",
+            "**Acesse o painel de qualquer navegador**: mesma conta, mesmos dados, do PC, tablet ou celular.",
+            "**Multi-wearable unificado**: Apple Watch, Garmin, Oura, Fitbit: se eles escrevem no Apple Health, o FitMesh os agrega juntos.",
+          ],
+          fr: [
+            "**Installez FitMesh Sync sur iPhone**: accordez les autorisations HealthKit pour les types de données que vous souhaitez synchroniser.",
+            "**Synchronisation automatique en arrière-plan**: FitMesh lit les données depuis Apple Health et les envoie au tableau de bord cloud sans que vous n'ayez rien à faire.",
+            "**Accédez au tableau de bord depuis n'importe quel navigateur**: même compte, mêmes données, depuis un PC, une tablette ou un téléphone.",
+            "**Multi-wearable unifié**: Apple Watch, Garmin, Oura, Fitbit: s'ils écrivent dans Apple Health, FitMesh les agrège ensemble.",
+          ],
         },
       },
       {
@@ -1817,6 +2144,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Chi ne trarrà più beneficio",
           en: "Who benefits most",
+          de: "Wer am meisten davon profitiert",
+          pt: "Quem se beneficia mais",
+          fr: "Qui en bénéficiera le plus",
         },
       },
       {
@@ -1834,6 +2164,24 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Caregivers of iPhone family members**: shared dashboard to view health data of loved ones.",
             "**Those wanting independent backup**: copy of Apple Health data on EU server (Frankfurt), not in Apple cloud.",
           ],
+          de: [
+            "**iPhone-und-Apple-Watch-Nutzer**: Webhistorie von einem PC zugänglich, ohne die Health-App zu nutzen.",
+            "**Multi-Wearable auf iPhone**: Garmin fürs Laufen und Apple Watch für den Alltag, FitMesh vereint sie.",
+            "**Betreuungspersonen von iPhone-Familienmitgliedern**: Gemeinsames Dashboard, um die Gesundheitsdaten von Angehörigen einzusehen.",
+            "**Wer ein unabhängiges Backup möchte**: Kopie der Apple Health-Daten auf EU-Server (Frankfurt), nicht in der Apple-Cloud.",
+          ],
+          pt: [
+            "**Usuários de iPhone com Apple Watch**: histórico web acessível do PC sem usar o app Saúde.",
+            "**Multi-wearable no iPhone**: Garmin para corrida e Apple Watch para o dia a dia, o FitMesh os unifica.",
+            "**Cuidadores de familiares com iPhone**: painel compartilhado para ver os dados de saúde de quem você ama.",
+            "**Quem quer backup independente**: cópia dos dados do Apple Health em servidor na UE (Frankfurt), não na nuvem Apple.",
+          ],
+          fr: [
+            "**Utilisateurs iPhone et Apple Watch**: historique web accessible depuis un PC sans utiliser l'application Santé.",
+            "**Multi-wearable sur iPhone**: Garmin pour la course et Apple Watch pour le quotidien, FitMesh les unifie.",
+            "**Aidants de membres de la famille avec iPhone**: tableau de bord partagé pour consulter les données de santé de vos proches.",
+            "**Ceux qui veulent une sauvegarde indépendante**: copie des données Apple Health sur serveur UE (Francfort), pas dans le cloud Apple.",
+          ],
         },
       },
       {
@@ -1842,10 +2190,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Già disponibile su Android",
           en: "Already available on Android",
+          de: "Bereits auf Android verfügbar",
+          pt: "Já disponível no Android",
+          fr: "Déjà disponible sur Android",
         },
         body: {
           it: "FitMesh Sync è già disponibile su Android via Health Connect. Se hai un telefono Android con Galaxy Watch, Garmin, Fitbit o Pixel Watch, puoi iniziare subito. La versione iOS è in sviluppo attivo: iscriviti alla beta per essere tra i primi. Hai sia un Android che un iPhone? Leggi come funziona il multi-device su /it/lp/due-telefoni.",
           en: "FitMesh Sync is already available on Android via Health Connect. If you have an Android phone with Galaxy Watch, Garmin, Fitbit, or Pixel Watch, you can start right now. The iOS version is in active development: join the beta to be among the first. Have both Android and iPhone? Read how multi-device works at /en/lp/due-telefoni.",
+          de: "FitMesh Sync ist bereits auf Android via Health Connect verfügbar. Wenn du ein Android-Telefon mit Galaxy Watch, Garmin, Fitbit oder Pixel Watch hast, kannst du sofort loslegen. Die iOS-Version ist in aktiver Entwicklung: Tritt der Beta bei, um zu den Ersten zu gehören. Hast du sowohl Android als auch iPhone? Lies, wie Multi-Device unter /de/lp/due-telefoni funktioniert.",
+          pt: "FitMesh Sync já está disponível no Android via Health Connect. Se você tem um celular Android com Galaxy Watch, Garmin, Fitbit ou Pixel Watch, pode começar agora mesmo. A versão iOS está em desenvolvimento ativo: inscreva-se na beta para estar entre os primeiros. Tem tanto Android quanto iPhone? Leia como funciona o multi-dispositivo em /pt/lp/due-telefoni.",
+          fr: "FitMesh Sync est déjà disponible sur Android via Health Connect. Si vous avez un téléphone Android avec Galaxy Watch, Garmin, Fitbit ou Pixel Watch, vous pouvez commencer tout de suite. La version iOS est en développement actif: rejoignez la bêta pour être parmi les premiers. Vous avez à la fois un Android et un iPhone? Lisez comment fonctionne le multi-appareil sur /fr/lp/due-telefoni.",
         },
       },
       {
@@ -1853,13 +2207,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         title: {
           it: "Iscriviti alla beta iOS (posti limitati)",
           en: "Join the iOS beta (limited spots)",
+          de: "iOS-Beta beitreten (begrenzte Plätze)",
+          pt: "Inscreva-se na beta iOS (vagas limitadas)",
+          fr: "Rejoindre la bêta iOS (places limitées)",
         },
         body: {
           it: "Stiamo costruendo FitMesh iOS per portare Apple Health su web. Iscriviti ora e sarai tra i primi a ricevere l'accesso quando sarà pronto.",
           en: "We're building FitMesh iOS to bring Apple Health to the web. Sign up now and you'll be among the first to get access when it's ready.",
+          de: "Wir bauen FitMesh iOS, um Apple Health ins Web zu bringen. Melde dich jetzt an und du gehörst zu den Ersten, die Zugang erhalten, wenn es bereit ist.",
+          pt: "Estamos construindo o FitMesh iOS para levar o Apple Health para a web. Inscreva-se agora e você estará entre os primeiros a receber acesso quando estiver pronto.",
+          fr: "Nous construisons FitMesh iOS pour amener Apple Health sur le web. Inscrivez-vous maintenant et vous serez parmi les premiers à obtenir l'accès quand il sera prêt.",
         },
-        ctaLabel: { it: "Iscriviti alla beta →", en: "Join beta →" },
-        ctaHref: { it: "/it/beta", en: "/en/beta" },
+        ctaLabel: { it: "Iscriviti alla beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
     faq: [
@@ -1867,30 +2227,48 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         q: {
           it: "Quando arriva FitMesh su iOS?",
           en: "When is FitMesh coming to iOS?",
+          de: "Wann kommt FitMesh auf iOS?",
+          pt: "Quando o FitMesh chega ao iOS?",
+          fr: "Quand FitMesh arrive-t-il sur iOS?",
         },
         a: {
           it: "È in sviluppo attivo. La versione beta iOS sarà disponibile dopo il completamento del processo Apple Developer Program e TestFlight. Iscriviti alla lista beta: riceverai un'email non appena i posti saranno disponibili.",
           en: "It's in active development. The iOS beta will be available after completing the Apple Developer Program and TestFlight process. Join the beta list: you'll receive an email as soon as spots are available.",
+          de: "Es ist in aktiver Entwicklung. Die iOS-Beta wird nach Abschluss des Apple Developer Program und TestFlight-Prozesses verfügbar sein. Tritt der Beta-Liste bei: Du erhältst eine E-Mail, sobald Plätze verfügbar sind.",
+          pt: "Está em desenvolvimento ativo. A beta iOS estará disponível após a conclusão do processo do Apple Developer Program e TestFlight. Inscreva-se na lista beta: você receberá um e-mail assim que as vagas estiverem disponíveis.",
+          fr: "Il est en développement actif. La bêta iOS sera disponible après avoir complété le processus Apple Developer Program et TestFlight. Rejoignez la liste bêta: vous recevrez un e-mail dès que des places seront disponibles.",
         },
       },
       {
         q: {
           it: "FitMesh iOS richiede un abbonamento?",
           en: "Does FitMesh iOS require a subscription?",
+          de: "Erfordert FitMesh iOS ein Abonnement?",
+          pt: "O FitMesh iOS requer uma assinatura?",
+          fr: "FitMesh iOS nécessite-t-il un abonnement?",
         },
         a: {
           it: "Durante la beta è gratuito, 100 posti founder. Il modello post-beta è in definizione. L'obiettivo è rimanere accessibile: una dashboard salute non dovrebbe costare quanto un servizio di streaming.",
           en: "During beta it's free, 100 founder spots. The post-beta model is being defined. The goal is to remain accessible: a health dashboard shouldn't cost as much as a streaming service.",
+          de: "Während der Beta ist es kostenlos, 100 Founder-Plätze. Das Post-Beta-Modell ist in der Ausarbeitung. Das Ziel ist es, zugänglich zu bleiben: Ein Gesundheits-Dashboard sollte nicht so viel kosten wie ein Streaming-Dienst.",
+          pt: "Durante a beta é gratuito, 100 vagas founder. O modelo pós-beta está sendo definido. O objetivo é permanecer acessível: um painel de saúde não deveria custar tanto quanto um serviço de streaming.",
+          fr: "Pendant la bêta, c'est gratuit, 100 places founder. Le modèle post-bêta est en cours de définition. L'objectif est de rester accessible: un tableau de bord de santé ne devrait pas coûter autant qu'un service de streaming.",
         },
       },
       {
         q: {
           it: "I miei dati Apple Health sono al sicuro con FitMesh?",
           en: "Is my Apple Health data safe with FitMesh?",
+          de: "Sind meine Apple Health-Daten bei FitMesh sicher?",
+          pt: "Meus dados do Apple Health estão seguros com o FitMesh?",
+          fr: "Mes données Apple Health sont-elles en sécurité avec FitMesh?",
         },
         a: {
           it: "I dati vengono trasmessi su HTTPS e archiviati in un database Postgres protetto da RLS (Row Level Security): ogni utente vede solo i propri dati. Il server è in EU (Frankfurt). Puoi cancellare tutto dai nostri server in qualsiasi momento con 'Elimina account e dati' nell'app. La privacy policy è consultabile su fitmesh.fit.",
           en: "Data is transmitted over HTTPS and stored in a Postgres database protected by RLS (Row Level Security): each user sees only their own data. Server is in the EU (Frankfurt). You can delete everything from our servers at any time with 'Delete account and data' in the app. Privacy policy is available at fitmesh.fit.",
+          de: "Daten werden über HTTPS übertragen und in einer Postgres-Datenbank gespeichert, die durch RLS (Row Level Security) geschützt ist: Jeder Nutzer sieht nur seine eigenen Daten. Der Server befindet sich in der EU (Frankfurt). Du kannst alles von unseren Servern jederzeit mit 'Konto und Daten löschen' in der App löschen. Die Datenschutzerklärung ist unter fitmesh.fit abrufbar.",
+          pt: "Os dados são transmitidos via HTTPS e armazenados em um banco de dados Postgres protegido por RLS (Row Level Security): cada usuário vê apenas seus próprios dados. O servidor está na UE (Frankfurt). Você pode excluir tudo dos nossos servidores a qualquer momento com 'Excluir conta e dados' no app. A política de privacidade está disponível em fitmesh.fit.",
+          fr: "Les données sont transmises via HTTPS et stockées dans une base de données Postgres protégée par RLS (Row Level Security): chaque utilisateur ne voit que ses propres données. Le serveur est dans l'UE (Francfort). Vous pouvez tout supprimer de nos serveurs à tout moment avec 'Supprimer le compte et les données' dans l'application. La politique de confidentialité est disponible sur fitmesh.fit.",
         },
       },
     ],
