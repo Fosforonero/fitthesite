@@ -22,6 +22,9 @@ export type Localized = {
   fr?: string;
   pl?: string;
   tr?: string;
+  nl?: string;
+  ja?: string;
+  ko?: string;
 };
 export type LocalizedList = {
   it: string[];
@@ -32,6 +35,9 @@ export type LocalizedList = {
   fr?: string[];
   pl?: string[];
   tr?: string[];
+  nl?: string[];
+  ja?: string[];
+  ko?: string[];
 };
 
 /**
@@ -101,7 +107,7 @@ export type BlogSection =
       title: Localized;
       body: Localized;
       ctaLabel: Localized;
-      ctaHref: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string; pl?: string; tr?: string };
+      ctaHref: Localized;
     };
 
 /**
