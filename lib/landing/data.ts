@@ -7,7 +7,7 @@
  * disclaimer obbligatorio se citano produttori.
  */
 
-import type { BlogSection, BlogQA, Localized } from "@/lib/blog/types";
+import type { BlogSection, BlogQA, Localized, LocalizedList } from "@/lib/blog/types";
 
 export interface LandingPage {
   /** Slug URL — kebab-case, stabile, SEO-critical. */
@@ -27,7 +27,7 @@ export interface LandingPage {
   };
   metaDescription: Localized;
   primaryKeyword: Localized;
-  secondaryKeywords: { it: string[]; en: string[] };
+  secondaryKeywords: LocalizedList;
   body: BlogSection[];
   faq?: BlogQA[];
   brandsMentioned?: string[];
