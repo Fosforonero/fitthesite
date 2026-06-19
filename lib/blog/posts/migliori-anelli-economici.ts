@@ -21,6 +21,8 @@ export const post: BlogPost = {
       de: "Kaufratgeber",
       pt: "Guia de compra",
       fr: "Guide d'achat",
+      pl: "Przewodnik w zakupie",
+      tr: "Alıştırma Rehberi",
     },
     title: {
       it: "Migliori anelli smart economici 2026: guida all'acquisto",
@@ -29,6 +31,8 @@ export const post: BlogPost = {
       de: "Beste günstige Smart-Ringe 2026: Kaufratgeber",
       pt: "Melhores anéis inteligentes baratos 2026: guia de compra",
       fr: "Meilleures bagues connectées pas chères 2026: guide d'achat",
+      pl: "Lучsze anelty smart ekonomiczne 2026: przewodnik w zakupie",
+      tr: "Eniyi ekonomik giyilebilir cihaz döngü anelleri 2026: satın alım kılavuzu",
     },
     subtitle: {
       it: "Sotto i 50 euro si trovano anelli con frequenza cardiaca continua, SpO2, HRV e monitoraggio del sonno. Questa guida ti aiuta a capire cosa valutare prima di comprare e come FitMesh trasforma qualsiasi anello compatibile in uno strumento davvero utile.",
@@ -37,6 +41,8 @@ export const post: BlogPost = {
       de: "Unter 50 Euro findest du Ringe mit kontinuierlicher Herzfrequenz, SpO2, HRV und Schlaf-Tracking. Dieser Ratgeber zeigt dir, worauf es vor dem Kauf wirklich ankommt, und wie FitMesh jeden kompatiblen Ring zu einem echten Alltagswerkzeug macht.",
       pt: "Por menos de 50 euros você encontra anéis com frequência cardíaca contínua, SpO2, HRV e monitoramento do sono. Este guia mostra o que realmente importa antes de comprar e como FitMesh transforma qualquer anel compatível em uma ferramenta genuinamente útil.",
       fr: "À moins de 50 euros, vous trouverez des bagues avec fréquence cardiaque en continu, SpO2, HRV et suivi du sommeil. Ce guide vous explique ce qui compte vraiment avant d'acheter et comment FitMesh transforme n'importe quelle bague compatible en un outil réellement utile.",
+      pl: "Poniętych 50 euro można znaleźć anelisy z kontynuowaną pomiarą frekwencji serca, SpO2, HRV i monitorowaniem senu. Ta instrukcja pomaga Ci zrozumieć, co ocenić przed zakupem oraz jak FitMesh przekształca każdy kompatybilny anelis w naprawdę użyteczne narzędzie.",
+      tr: "50 euro altı altında bulunan aletler sürekli kalp atış hızı, SpO2, HRV ve uyku izlemeyi içerir. Bu kılavuz, alım yapmadan önce ne değerleneceğini anlamanıza yardımcı olur ve nasıl FitMesh her uyumlu aleti gerçek bir araça dönüştürür.",
     },
   },
   metaDescription: {
@@ -46,6 +52,8 @@ export const post: BlogPost = {
     de: "Beste günstige Smart-Ringe 2026: Auswahlkriterien, Preiskategorien und wie FitMesh sie mit einer einheitlichen Dashboard wirklich nützlich macht. Aktueller Kaufratgeber.",
     pt: "Melhores anéis inteligentes baratos 2026: o que avaliar, faixas de preço e como FitMesh os torna realmente úteis com um painel unificado. Guia atualizado.",
     fr: "Meilleures bagues connectées pas chères 2026: critères de choix, gammes de prix et comment FitMesh les rend vraiment utiles avec un tableau de bord unifié. Guide mis à jour.",
+    pl: "Lучsze anelki smart ekonomiczne 2026: kryteria wyboru, zakres ceny i jak FitMesh ich sprawia, że naprawdę są przydatne dzięki unifikowanej panelu sterowania. Aktualizowana wskazówka.",
+    tr: "Ensembledik En Parazitler 2026: Seçme Kriterleri, Fiyat Aralıkları ve Nasıl Bir Tekrarlama Paneli ile Gerçekçe Faydalı Hâle Getirilir. Güncellenmiş Rehber.",
   },
   primaryKeyword: {
     it: "anelli smart economici",
@@ -54,6 +62,8 @@ export const post: BlogPost = {
     de: "günstige Smart-Ringe",
     pt: "anéis inteligentes baratos",
     fr: "bagues connectées pas chères",
+    pl: "anelli smart ekonomiczne",
+    tr: "ağlıklar ekonomik giyilebilir cihazlar",
   },
   secondaryKeywords: {
     it: [
@@ -91,6 +101,24 @@ export const post: BlogPost = {
       "bague connectée petit budget",
       "colmi r02 prix",
       "guide d'achat bague connectée",
+    ],
+    pl: [
+      "łańcuch smartowy ekonomiczny najlepszy",
+      "lepień smartband 2026",
+      "cena smartwatch",
+      "ankle smart za mniej niż 50 euro",
+      "cieczarka smartowa budżetowa",
+      "dotykaj się do ceny smartwatcha RODO 02",
+      "anka smarowana wskazówka zakup",
+    ],
+    tr: [
+      "eğitime uygun en ucuz akıllı saat",
+      "eniyi smart pisolino 2026",
+      "akıllı saat smart fiyat",
+      "anket akıllı saat __FM_PH_0__50 euro __FM_URL_0__",
+      "akıllı pisoli bütçe",
+      "colmalar r02 fiyatı",
+      "giyilebilir cihaz smart rehber alım指南",
     ],
   },
   tldr: {
@@ -136,6 +164,20 @@ export const post: BlogPost = {
       "Sur Android la connexion est directe; avec un compte FitMesh les données sont accessibles sur iPhone aussi (application iOS bientôt disponible), avec pont HealthKit optionnel.",
       "Avant d'acheter: vérifiez la compatibilité FitMesh sur la page des intégrations pour tirer le meilleur parti de votre achat.",
     ],
+    pl: [
+      "Ponięcie 35 euro obejmuje modele Colmi R02/R03 oraz klonów OEM kompatybilnych, które pomiarują FC ciągły, SpO2, HRV i sen: sprzęt już nie jest ograniczeniem.",
+      "Przeciwnie, prawdziwy problem z ekonomicznymi pierścieniami leży w oprogramowaniu: towarzyszące aplikacje zamknięte, brak integracji, izolowane dane.",
+      "FitMesh się połącza bezpośrednio za pomocą Bluetooth z Colmi R02/R03 bez aplikacji producenta i łączy wszystko z Twoim smartwatchem.",
+      "Na Android połączenie jest bezpośrednie; z kontem FitMesh dane są dostępne również na iPhone (aplikacja iOS w toku), z opcjonalnym mostkiem Apple Salute.",
+      "Przed zakupem: sprawdź kompatybilność z FitMesh na stronie integracje, aby maksymalizować wartość zakupu.",
+    ],
+    tr: [
+      "Altı yüz altmış beş euro altında modeller Colmi R02/R03 ve ODM klonları FC sürekli, SpO2, HRV ve uyku izleyicisi olarak ölçüyor: cihazınhardware limiti artık yok.",
+      "Gerçek problem ekonomik döngülerin her zaman yazılım olmuştur: kapalı uygulama eşcikaları, hiçbir entegrasyon, ayırt edilebilir veriler.",
+      "FitMesh doğrudan Bluetooth üzerinden KVKK R02/R03'e bağlanır ve tüm bilgileri giyilebilir cihazınızdaki akıllı saatle bir arada tutar, üçüncü taraf uygulamasını kullanmaksızın.",
+      "Su Android bağlantısı doğrudan; bir FitMesh hesabınızla veriler de giyilebilir cihazlarda (app iOS gelecek) erişilebilir olacak, Apple Sağlık köprüsü seçeneği ile.",
+      "Önce satın almadan: Uyumluluğu FitMesh uyumluluk sayfasında kontrol etmek için integ्रasyonları ziyaret edin ve satın aldığınız ürünün değerini maksimize edin.",
+    ],
   },
   body: [
     {
@@ -147,6 +189,8 @@ export const post: BlogPost = {
         de: "Günstige Smart-Ringe haben sich in den letzten zwei Jahren enorm verbessert. Unter 50 Euro findest du Geräte mit kontinuierlicher Herzfrequenz, SpO2, HRV und Schlafphasen-Tracking. Das traditionelle Problem dieser Geräte war nie die Sensorqualität: es war die Software. OEM-Companion-Apps sind oft eingeschränkt, lassen sich nicht mit Health Connect integrieren, exportieren keine Daten und schließen die Metriken in einem geschlossenen Ökosystem ein.",
         pt: "Os anéis inteligentes baratos melhoraram enormemente nos últimos dois anos. Por menos de 50 euros você encontra dispositivos com frequência cardíaca contínua, SpO2, HRV e monitoramento do sono com fases. O problema tradicional desses dispositivos nunca foi a qualidade dos sensores: foi o software. Os apps companion OEM costumam ser limitados, não se integram com o Health Connect, não exportam dados e isolam as métricas dentro de um ecossistema fechado.",
         fr: "Les bagues connectées pas chères se sont considérablement améliorées ces deux dernières années. À moins de 50 euros, vous trouvez des appareils avec fréquence cardiaque en continu, SpO2, HRV et suivi des phases du sommeil. Le problème traditionnel de ces appareils n'a jamais été la qualité des capteurs: c'était le logiciel. Les applications compagnon OEM sont souvent limitées, ne s'intègrent pas avec Health Connect, n'exportent pas les données et enferment les métriques dans un écosystème fermé.",
+        pl: "Anele smart ekonomiczne znacznie się poprawiły w ostatnim dwu latach. Pod 50 euro można znaleźć urządzenia z ciągłym pomiarом }};\n        | cieślecia, SpO2, HRV i monitorowaniem snu z fazami. Problem tradycyjny tych urządzeń nie polegał na jakości czujników: problemem było oprogramowanie. Aplikacje towarzyszące OEM są często ograniczone, nie integrują się z Health Connect, nie eksportują danych i izolują metryki w zamkniętym ekosystemie.",
+        tr: "Ekonomik akıllı yüzükler son iki yılda büyük ölçüde gelişti. 50 Euro'nun altında sürekli kalp atış hızı, SpO2, HRV ve uyku fazı takibi yapan cihazlar bulabilirsiniz. Bu cihazların geleneksel sorunu asla sensör kalitesi değildi: yazılımdı. OEM eşlik uygulamaları genellikle sınırlıdır, Health Connect ile entegre olmaz, verileri dışa aktarmaz ve metrikleri kapalı bir ekosistemde izole eder.",
       },
     },
     {
@@ -159,6 +203,8 @@ export const post: BlogPost = {
         de: "Warum günstige Smart-Ringe zwischen 2024 und 2026 boomten",
         pt: "Por que os anéis inteligentes baratos explodiram entre 2024 e 2026",
         fr: "Pourquoi les bagues connectées abordables ont explosé entre 2024 et 2026",
+        pl: "Dlaczego anelki smart ekonomiczne eksplodowały w 2024-2026",
+        tr: "Neden ekonomik akıllı aletler dördüncü çeyreğe kadar patlak verdi",
       },
     },
     {
@@ -170,6 +216,8 @@ export const post: BlogPost = {
         de: "Die Qualität von Smart-Ringen der Einstiegsklasse hat einen deutlichen Sprung gemacht. Der Grund ist technischer Natur: Optische PPG-Sensoren (dasselbe Prinzip wie bei Smartwatches) wurden in der Ring-Bauform viel günstiger herzustellen, und Bluetooth-Protokolle standardisierten sich genug, um gemeinsame OEM-Ökosysteme zu ermöglichen. Das Ergebnis ist eine Vielzahl von Modellen, die oft dieselbe Firmware, dasselbe Protokoll und gleichwertige Sensoren teilen, zu Preisen, die vor zwei Jahren undenkbar gewesen wären.",
         pt: "A qualidade dos anéis inteligentes de entrada deu um passo importante. O motivo é técnico: os sensores PPG ópticos (o mesmo princípio usado nos smartwatches) ficaram muito mais baratos de fabricar no formato anel, e os protocolos Bluetooth se padronizaram o suficiente para permitir ecossistemas OEM compartilhados. O resultado é uma onda de modelos que frequentemente compartilham o mesmo firmware, o mesmo protocolo e sensores equivalentes, a preços que há dois anos seriam impensáveis.",
         fr: "La qualité des bagues connectées d'entrée de gamme a fait un bond significatif. La raison est technique: les capteurs PPG optiques (le même principe que les montres connectées) sont devenus beaucoup moins chers à fabriquer au format bague, et les protocoles Bluetooth se sont suffisamment standardisés pour permettre des écosystèmes OEM partagés. Le résultat est une prolifération de modèles qui partagent souvent le même firmware, le même protocole et des capteurs équivalents, à des prix qui auraient été impensables il y a deux ans.",
+        pl: "Jakość anell smartowych z niską fascią uległa znacznemu poprawie. Powód techniczny: sensoresz PPG optyczny (taki sam zasada jak w watch) stał się znacznie cheaper do produkcji w formacie anella, a protokoły Bluetooth standardyzowały się wystarczająco, aby umożliwić współdzielone ecosystemy OEM. Wynik to rosnąca liczba modeli dzielących się często tym samym firmware, tym samym protokolem i równoznacznymi sensorami, o cenach, które dwa lata temu były niezrozumiałe.",
+        tr: "Kaliteli düşük kalip smart anellere bir atılım yapıldı. Sebep teknik: PPG optik sensörü (aynı watch prinsipleriyle) üretimi çok daha ekonomik hale geldi ve Bluetooth protokolleri yeterince standardlaştırıldı ki OEM ecosistemleri paylaşılabilsin. Sonuç, genellikle aynı firmware, aynı protokol ve eşdeğer sensörler paylaşan modellerin çoğalması oldu; iki yıl önce düşünülebilecek fiyatlar değildi.",
       },
     },
     {
@@ -181,6 +229,8 @@ export const post: BlogPost = {
         de: "Der Colmi R02 kostet beispielsweise rund 25-30 Euro auf Amazon und misst Schritte, kontinuierliche Herzfrequenz, SpO2, HRV, Stress und Schlaf. Bis vor Kurzem fandest du diese Metriken nur bei Ringen für 200-400 Euro. FitMesh löst das Software-Problem, indem es sich direkt per Bluetooth mit dem Ring verbindet und die Daten in einer einheitlichen Dashboard zusammenführt. Für eine ausführliche Anleitung zu Einrichtung und Metriken, sieh dir den [vollständigen Colmi-Ring-Ratgeber](/de/blog/colmi-ring-fitmesh) an.",
         pt: "O Colmi R02, por exemplo, custa cerca de 25 a 30 euros na Amazon e mede passos, frequência cardíaca contínua, SpO2, HRV, estresse e sono. Até pouco tempo atrás, essas métricas só eram encontradas em anéis de 200 a 400 euros. FitMesh resolve o problema do software conectando diretamente ao anel via Bluetooth e levando os dados para um painel unificado. Para um guia detalhado sobre configuração e métricas, veja o [guia completo do anel Colmi](/pt/blog/colmi-ring-fitmesh).",
         fr: "Le Colmi R02, par exemple, coûte environ 25 à 30 euros sur Amazon et mesure les pas, la fréquence cardiaque en continu, le SpO2, la HRV, le stress et le sommeil. Il n'y a pas si longtemps, ces métriques ne se trouvaient que sur des bagues à 200-400 euros. FitMesh résout le problème logiciel en se connectant directement à la bague en Bluetooth et en centralisant les données dans un tableau de bord unifié. Pour un guide détaillé sur la configuration et les métriques, consultez le [guide complet de la bague Colmi](/fr/blog/colmi-ring-fitmesh).",
+        pl: "RODO R02, na przykład, kosztuje około 25-30 euro na Amazonie i pomaga liczyć kroki, częstotliwość serca, SpO2, HRV, stres i sen. Do niedawna te metryki znajdowałeś tylko w anelach o cenie 200-400 euro. FitMesh rozwiązuje problem z oprogramowaniem połączeniem się bezpośrednio z anełami poprzez Bluetooth i przekazywaniu danych do jednej unifikowanej dashboard. Dla szczegółowej wskazówek dotyczących konfiguracji i metryk, zobacz [pełną instrukcję dla anelka R02](/it/blog/colmi-ring-fitmesh).",
+        tr: "KVKK R02, örneğin, Amazon'da 25-30 euro arasındayken adımları, sürekli kalp atışını, SpO2, pisolino, stres ve uyku ölçer. Bir süre önce bu ölçümleri sadece 200-400 eurolık anellere bulabilirsiniz. FitMesh yazılım sorununu çözer, giyilebilir cihazla doğrudan bağlanarak ve verileri birleşik bir panelde sunarak. Yapılandırma ve ölçümlere detaylı bir kılavuz için, [tam anelik Colmi rehberini](/tr/blog/colmi-ring-fitmesh) ziyaret edin.",
       },
     },
     {
@@ -193,6 +243,8 @@ export const post: BlogPost = {
         de: "Worauf man vor dem Kauf eines günstigen Smart-Rings achten sollte",
         pt: "O que verificar antes de comprar um anel inteligente barato",
         fr: "Ce qu'il faut regarder avant d'acheter une bague connectée pas chère",
+        pl: "Coś, czego warto sprawdzić przed zakupem ekonomicznego aneglu smartowego",
+        tr: "Geliştiriciye önceden bakılacak olanlar bir akıllı ayağphanumeric\n__FM_PH_0__ önceki__FM_PH_1__ bir __FM_TERM_0__ ekonomik __FM_TERM_1__ satın almadan__FM_PH_2__ \n__FM_HTML_0__ önce __FM_URL_0__KVKK__FM_HTML_0__'e uymayan özelliklerin__FM_PH_3__ olup olmadığını kontrol etmek__FM_PH_4__ önemlidir. Giyilebilir cihazlar, kurucuların__FM_TERM_2__ pisolileri__FM_TERM_3__ gibi kişiselleştirilmiş özelliklere sahip olabilirler.__FM_FENCE_0__",
       },
     },
     {
@@ -204,6 +256,8 @@ export const post: BlogPost = {
         de: "Nicht alle Ringe unter 50 Euro sind gleich. Hier sind die Kriterien, die wirklich zählen:",
         pt: "Nem todos os anéis abaixo de 50 euros são iguais. Veja os critérios que realmente importam:",
         fr: "Toutes les bagues à moins de 50 euros ne se valent pas. Voici les critères qui comptent vraiment:",
+        pl: "Nie wszystkie pętle pod 50 euro są takie same. Oto kryteria, które naprawdę liczą się:",
+        tr: "Tüm pisolınları 50 euro altında eşit değildir. Gerçekten saygın olan kriterler şunlardır:",
       },
     },
     {
@@ -215,6 +269,8 @@ export const post: BlogPost = {
         de: "Auswahlkriterien für einen günstigen Smart-Ring",
         pt: "Critérios de seleção para um anel inteligente barato",
         fr: "Critères de sélection pour une bague connectée pas chère",
+        pl: "Criteria wyboru dla ekonomicznego anella smartowego",
+        tr: "Giyilebilir Cihaz için Seçim Kriterleri için Bir Akıllı Ayakkabı Uygunsuzluğunu Kaydetme",
       },
       headers: {
         it: ["Criterio", "Perche conta", "Cosa cercare"],
@@ -223,6 +279,16 @@ export const post: BlogPost = {
         de: ["Kriterium", "Warum es wichtig ist", "Worauf achten"],
         pt: ["Critério", "Por que importa", "O que procurar"],
         fr: ["Critère", "Pourquoi c'est important", "Ce qu'il faut chercher"],
+        pl: [
+          "Kryterium",
+          "Dlaczego jest ważne",
+          "Czego szukać",
+        ],
+        tr: [
+          "Kriter",
+          "Neden önemlidür",
+          "Ne arama",
+        ],
       },
       rows: [
         {
@@ -232,6 +298,16 @@ export const post: BlogPost = {
           de: ["Enthaltene Sensoren", "Bestimmt die verfügbaren Metriken", "PPG (HF + SpO2 + HRV), Beschleunigungssensor"],
           pt: ["Sensores incluídos", "Determina as métricas disponíveis", "PPG (FC + SpO2 + HRV), acelerômetro"],
           fr: ["Capteurs inclus", "Détermine les métriques disponibles", "PPG (FC + SpO2 + HRV), accéléromètre"],
+          pl: [
+            "Sensory presentacje",
+            "Określ dostępne metryki",
+            "RODO (FC + SpO2 + HRV), akcelerometer",
+          ],
+          tr: [
+            "Sensörler aktif",
+            "Belirleme meçrueleri-available.html",
+            "PPG (FC + SpO2 + HRV), akımlı sensör",
+          ],
         },
         {
           it: ["Protocollo Bluetooth", "Compatibilita con app terze", "Standard Bluetooth 5.0 (Colmi/OEM)"],
@@ -240,6 +316,16 @@ export const post: BlogPost = {
           de: ["Bluetooth-Protokoll", "Kompatibilität mit Drittanbieter-Apps", "Standard-Bluetooth 5.0 (Colmi/OEM)"],
           pt: ["Protocolo Bluetooth", "Compatibilidade com apps de terceiros", "Bluetooth 5.0 padrão (Colmi/OEM)"],
           fr: ["Protocole Bluetooth", "Compatibilité avec les apps tierces", "Bluetooth 5.0 standard (Colmi/OEM)"],
+          pl: [
+            "Protokół Bluetooth",
+            "Kompatybilność z trzecich stron aplikacji",
+            "Standard Bluetooth 5.0 (Colmi/OEM)",
+          ],
+          tr: [
+            "Protokol Bluetooth",
+            "Giyilebilir Cihazlar ile Uyumluluk",
+            "Standart Bluetooth 5.0 (Colmi/OEM)",
+          ],
         },
         {
           it: ["Durata batteria", "Impatto sull'uso quotidiano", "5-7 giorni reali"],
@@ -248,6 +334,16 @@ export const post: BlogPost = {
           de: ["Akkulaufzeit", "Auswirkung auf den täglichen Einsatz", "5-7 reale Tage"],
           pt: ["Duração da bateria", "Impacto no uso diário", "5-7 dias reais"],
           fr: ["Autonomie de la batterie", "Impact sur l'utilisation quotidienne", "5-7 jours en conditions réelles"],
+          pl: [
+            "Czas trwania akumulatora",
+            "Zakłócenie w codziennym użyciu",
+            "5-7 dni rzeczywiste",
+          ],
+          tr: [
+            "Bateriya Süresi",
+            "Kullanım günlük yaşamdaki etkisi",
+            "5-7 gerçek gün",
+          ],
         },
         {
           it: ["Misure disponibili", "Deve adattarsi al tuo dito", "Almeno 5-6 taglie (tipicamente US 7-13)"],
@@ -256,6 +352,16 @@ export const post: BlogPost = {
           de: ["Verfügbare Größen", "Muss an deinen Finger passen", "Mindestens 5-6 Größen (typisch US 7-13)"],
           pt: ["Tamanhos disponíveis", "Deve se adaptar ao seu dedo", "Pelo menos 5-6 tamanhos (tipicamente US 7-13)"],
           fr: ["Tailles disponibles", "Doit s'adapter à votre doigt", "Au moins 5-6 tailles (typiquement US 7-13)"],
+          pl: [
+            "Dostępne wymiary",
+            "Powinno paszportować się do Twojej palca",
+            "Przynajmniej 5-6 rozmiarów (typowo US 7-13)",
+          ],
+          tr: [
+            "Metreler.available",
+            "İgiyilebilir cihazınıza uymalı",
+            "En az 5-6 boy (tipik olarak ABD 7-13)",
+          ],
         },
         {
           it: ["Resistenza all'acqua", "Durata nell'uso quotidiano", "Almeno IP67 o IP68"],
@@ -264,6 +370,16 @@ export const post: BlogPost = {
           de: ["Wasserbeständigkeit", "Langlebigkeit im Alltag", "Mindestens IP67 oder IP68"],
           pt: ["Resistência à água", "Durabilidade no uso diário", "Pelo menos IP67 ou IP68"],
           fr: ["Résistance à l'eau", "Durabilité au quotidien", "Au moins IP67 ou IP68"],
+          pl: [
+            "Wzrokodlizność wody",
+            "Czas użytkowania codziennego",
+            "Przynajmniej IP67 lub IP68",
+          ],
+          tr: [
+            "Suçluksuzluk akvadurantaza",
+            "Kullanım günlük süresi",
+            "En az IP67 veya IP68",
+          ],
         },
         {
           it: ["App companion", "Qualita della visualizzazione base", "Utile come fallback; FitMesh supera le OEM"],
@@ -272,6 +388,16 @@ export const post: BlogPost = {
           de: ["Companion-App", "Qualität der Basisdarstellung", "Nützlich als Fallback; FitMesh übertrifft OEM-Apps"],
           pt: ["App companion", "Qualidade da visualização básica", "Útil como alternativa; FitMesh supera os apps OEM"],
           fr: ["Application compagnon", "Qualité de la visualisation de base", "Utile en secours; FitMesh dépasse les apps OEM"],
+          pl: [
+            "Doppler aplikacji",
+            "Jakość podstawowej widoku",
+            "Użyteczne w przypadku awarii; FitMesh przewyższa producentów domeny weselskiej",
+          ],
+          tr: [
+            "Uygulama eşlemesi",
+            "Günlük Görünümlerin Kalitesi",
+            "Yedekleme olarak faydalı; FitMesh OEM'yi geçer",
+          ],
         },
         {
           it: ["Compatibilita con FitMesh", "Integrazione dashboard unificata", "Colmi R02/R03 e cloni OEM compatibili"],
@@ -280,6 +406,16 @@ export const post: BlogPost = {
           de: ["FitMesh-Kompatibilität", "Integration in die einheitliche Dashboard", "Colmi R02/R03 und kompatible OEM-Klone"],
           pt: ["Compatibilidade com FitMesh", "Integração com o painel unificado", "Colmi R02/R03 e clones OEM compatíveis"],
           fr: ["Compatibilité FitMesh", "Intégration au tableau de bord unifié", "Colmi R02/R03 et clones OEM compatibles"],
+          pl: [
+            "Kompatybilność z FitMesh",
+            "Integracja harmonizowana panelu kontrolnego",
+            "RODO R02/R03 i kloniki OEM kompatywne",
+          ],
+          tr: [
+            "Giyilebilir Cihazlar ile uyumluluk with FitMesh",
+            "Unifikalaşan dashboard integrasyonu",
+            "KVKK uyumlu Colmi R02/R03 ve OEM klonları",
+          ],
         },
       ],
     },
@@ -293,6 +429,8 @@ export const post: BlogPost = {
         de: "Das oft unterschätzte Kriterium: das Bluetooth-Protokoll",
         pt: "O critério muitas vezes subestimado: o protocolo Bluetooth",
         fr: "Le critère souvent sous-estimé: le protocole Bluetooth",
+        pl: "Niedzwiekle oceniający kryterium: protokół Bluetooth",
+        tr: "Sıklıkla undan:[[KVKK]] protokollü: Bluetooth кriteriyi",
       },
       body: {
         it: "Gli anelli che usano il protocollo Colmi (R02, R03 e molti cloni venduti con nomi diversi) sono direttamente compatibili con FitMesh. Questa compatibilita significa che puoi smettere di usare l'app OEM e vedere tutto in un posto solo. Controlla la pagina integrazioni prima di acquistare.",
@@ -301,6 +439,8 @@ export const post: BlogPost = {
         de: "Ringe, die das Colmi-Protokoll verwenden (R02, R03 und viele unter verschiedenen Namen verkaufte Klone), sind direkt mit FitMesh kompatibel. Diese Kompatibilität bedeutet, dass du die OEM-App nicht mehr nutzen musst und alles an einem Ort siehst. Prüfe die Integrationsseite vor dem Kauf.",
         pt: "Os anéis que usam o protocolo Colmi (R02, R03 e muitos clones vendidos com nomes diferentes) são diretamente compatíveis com FitMesh. Essa compatibilidade significa que você pode parar de usar o app OEM e ver tudo em um só lugar. Verifique a página de integrações antes de comprar.",
         fr: "Les bagues utilisant le protocole Colmi (R02, R03 et de nombreux clones vendus sous des noms différents) sont directement compatibles avec FitMesh. Cette compatibilité signifie que vous pouvez arrêter d'utiliser l'application OEM et tout voir en un seul endroit. Consultez la page des intégrations avant d'acheter.",
+        pl: "Ankiety, które używają protokołu Colmi (R02, R03 i wiele klonów sprzedawanych pod innymi nazwami), są bezpośrednio kompatybilne z FitMesh. Ta kompatybilność oznacza, że możesz przestać korzystać z aplikacji OEM i zobaczyć wszystko w jednym miejscu. Zanim kupujesz, sprawdź stronę integracji.",
+        tr: "Colmi protokolünü kullanan yüzükler (R02, R03 ve farklı isimlerle satılan pek çok klon) FitMesh ile doğrudan uyumludur. Bu uyumluluk, OEM uygulamasını kullanmayı bırakabileceğiniz ve her şeyi tek bir yerde görebileceğiniz anlamına gelir. Satın almadan önce entegrasyonlar sayfasını kontrol edin.",
       },
     },
     {
@@ -313,6 +453,8 @@ export const post: BlogPost = {
         de: "Einstiegsklasse: Ringe im Bereich von 20-35 Euro",
         pt: "Faixa econômica: anéis em torno de 20 a 35 euros",
         fr: "Gamme entrée de gamme: bagues autour de 20-35 euros",
+        pl: "Fascja budżetowa: pętle okoliczne od 20 do 35 euro",
+        tr: "Budjet şeridi: 20-35 euro元左右的环圈",
       },
     },
     {
@@ -324,6 +466,8 @@ export const post: BlogPost = {
         de: "In dieser Klasse dominieren OEM-Modelle auf Basis der Colmi-Firmware. Sie werden unter verschiedenen Namen verkauft (einige tragen direkt die Colmi-Marke, andere Händlernamen), teilen aber dasselbe Protokoll und dieselben Metriken.",
         pt: "Nessa faixa dominam os modelos OEM baseados no firmware Colmi. Eles são vendidos com nomes diferentes (alguns com a marca Colmi diretamente, outros com nomes de revendedores) mas compartilham o mesmo protocolo e as mesmas métricas.",
         fr: "Cette gamme est dominée par des modèles OEM basés sur le firmware Colmi. Ils sont vendus sous des noms variés (certains portent directement la marque Colmi, d'autres des noms de revendeurs) mais partagent le même protocole et les mêmes métriques.",
+        pl: "W tej dziedzinie znajdują się modele OEM oparte na firmware Colmi. Sprzedawane są pod różnymi nazwami (niektóre zawierają bezpośrednio markę Colmi, inne nazwy dystrybutorów), ale dzielą one wspólny protokół i te same metryki.",
+        tr: "Bu乎此区间内，您会发现基于固件Colmi的OEM模型。它们以不同的名称出售（有些直接带有品牌Colmi标识，而其他则是零售商的名字），但共享相同的协议和相同的指标。",
       },
     },
     {
@@ -359,6 +503,16 @@ export const post: BlogPost = {
           "**Colmi R03**: le successeur du R02 avec quelques mises à jour des capteurs. Même protocole Bluetooth, même compatibilité FitMesh. Coûte généralement quelques euros de plus que le R02.",
           "**Clones OEM compatibles**: de nombreuses bagues vendues sur Amazon sous des marques inconnues utilisent le même firmware Colmi. Si l'application requise est QRing ou une interface identique, le protocole est très probablement compatible. FitMesh reconnaît ces appareils automatiquement.",
         ],
+        pl: [
+          "**Colmi RODO**: odnosi do tej części. Zbiera ciągłą częstotliwość pulsacyjną, SpO2, HRV, kroki, kalorie, stres i sen. Akumulator na 5-7 dni. dostępny w wielu kolorach i materiałach. Kompatybilny z FitMesh poprzez bezpośredni Bluetooth. Dla pełnych szczegółów zobacz [poradnik anelka Colmi](/it/blog/colmi-ring-fitmesh).",
+          "**Colmi RODO**: zespół zaktualizowany w porównaniu do R02 ze niektórymi poprawkami dla sensorów. Ten sam protokół Bluetooth, taka sama kompatybilność z FitMesh. Często dostępny za kilka euro więcej niż R02.",
+          "**Kloni OEM kompatIBLE**: wie måca anelá sprzedawane na Amazonie z nieznajomymi markami używają takiego samego firmwareu Colmi. Jeśli wymagana app to QRing lub identyczna interfejs, protokół jest prawdopodobnie kompatybilny. FitMesh te urządzenia rozpoznaje automatycznie.",
+        ],
+        tr: [
+          "**Colmi R02**: buca referansı. Sürekli kalp atış hızını, SpO2, HRV, adımları, kaydedilen kalorileri, stres seviyelerini ve uyku durumunu ölçer. 5-7 günlük şarjlı bateriye sahiptir. Çeşitli renkler ve malzemelerden meydana gelmiştir. FitMesh üzerinden doğrudan Bluetooth ile uyumludur. Daha fazla ayrıntı için [Colmi aneligi kılavuzu](/tr/blog/colmi-ring-fitmesh) içeriğine bakınız.",
+          "**Colmi R03**: kurucu R02'nun takip eden model ve bazı sensör güncellemeleriyle. Aynı Bluetooth, aynı FitMesh ile uyumluluk. Genellikle R02'den birkaç euro daha bulunur.",
+          "**Cloni OEM uyumlu**: Amazon'da satılan birçok halka, tanınmayan markalarla birlikte aynı firmware Colmi kullanıyor. Talep edilen uygulama QRing veya benzeri bir arayüz kullanıyorsa, protokol muhtemelen uyumlu. FitMesh bu cihazları otomatik olarak tanır.",
+        ],
       },
     },
     {
@@ -371,6 +525,8 @@ export const post: BlogPost = {
         de: "Was in dieser Preisklasse zu erwarten ist",
         pt: "O que esperar nesta faixa de preço",
         fr: "Ce qu'il faut attendre à ce niveau de prix",
+        pl: "Czego się spodziewać w tej sekcji",
+        tr: "Bu bölgede beklenenler nedir",
       },
       body: {
         it: "I sensori danno letture informative, non di precisione clinica. Per trend su sonno e recupero sono piu che sufficienti. Per monitoraggio FC durante allenamenti ad alta intensita, uno smartwatch rimane piu preciso.",
@@ -379,6 +535,8 @@ export const post: BlogPost = {
         de: "Die Sensoren liefern informative Messwerte, keine klinisch präzisen Messungen. Für Schlaf- und Erholungstrends sind sie mehr als ausreichend. Für genaues Herzfrequenz-Tracking bei hochintensiven Einheiten bleibt eine Smartwatch zuverlässiger.",
         pt: "Os sensores fornecem leituras informativas, não medições de precisão para uso em saúde. Para tendências de sono e recuperação são mais do que suficientes. Para o acompanhamento preciso da frequência cardíaca durante treinos de alta intensidade, um smartwatch continua sendo mais confiável.",
         fr: "Les capteurs donnent des lectures informatives, pas des mesures de précision. Pour les tendances de sommeil et de récupération, ils sont largement suffisants. Pour un suivi précis de la fréquence cardiaque lors d'intervalles à haute intensité, une montre connectée reste plus fiable.",
+        pl: "Sensory readings are informational, not clinical precise. For sleep and recovery trends, they are more than sufficient. For heart rate monitoring during high-intensity training sessions, a smartwatch remains more precise.",
+        tr: "Sensör okunışı bilimsel olmayan bilgilendirici veri sunar. Uyku ve iyileşme trendleri için yeterince iyi. Yüksek yoğunlukta egzersiz sırasında kalp hızını izlemek için bir akıllı saat daha doğru kalır.",
       },
     },
     {
@@ -391,6 +549,8 @@ export const post: BlogPost = {
         de: "Mittelklasse: Ringe im Bereich von 40-80 Euro",
         pt: "Faixa intermediária: anéis em torno de 40 a 80 euros",
         fr: "Gamme intermédiaire: bagues autour de 40-80 euros",
+        pl: "Fascja medium: pętle okoliczne od 40-80 euro",
+        tr: "Fasada medya: döngüler yaklaşık 40-80 euro aralığında",
       },
     },
     {
@@ -402,6 +562,8 @@ export const post: BlogPost = {
         de: "In dieser Klasse zeigen sich erste Materialverbesserungen (hypoallergenes Titan, bessere Verarbeitung) und in einigen Fällen leicht verbesserte PPG-Sensoren. Das Bluetooth-Protokoll bleibt oft dasselbe wie bei günstigeren OEM-Modellen oder wechselt zu proprietären Protokollen.",
         pt: "Nessa faixa começam a aparecer melhorias de materiais (titânio hipoalergênico, acabamentos mais cuidados) e, em alguns casos, sensores PPG ligeiramente melhorados. O protocolo Bluetooth muitas vezes permanece o mesmo dos modelos OEM mais baratos, ou muda para protocolos proprietários.",
         fr: "Cette gamme commence à montrer des améliorations matérielles (titane hypoallergénique, meilleure finition) et dans certains cas des capteurs PPG légèrement améliorés. Le protocole Bluetooth reste souvent le même que les modèles OEM moins chers, ou se déplace vers des protocoles propriétaires.",
+        pl: "W tej fascji pojawiają się poprawki materiałowe (titanium antyalergiczne, bardziej detaliowane finisjerzy) oraz w niektórych przypadkach lekko zmodernizowane sensor PPG. Protokół Bluetooth często pozostaje taki sam jak u dostawców OEM ekonomicznych, lub przenosi się na własne protokoły.",
+        tr: "Bu buca ile başlayarak materyal iyileştirmeler (titanium alerjik olmayan, daha dikkatli bitirme) ortaya çıkar ve bazı durumlarda PPG sensörleri hafifçe iyileştirilmiştir. Protokol Bluetooth genellikle ekonomik OEM'lerinkiyle aynı kalır veya özel protokollere doğru taşınır.",
       },
     },
     {
@@ -413,6 +575,8 @@ export const post: BlogPost = {
         de: "Die FitMesh-Kompatibilität hängt vom Protokoll ab: Modelle mit dem Colmi/OEM-Protokoll sind kompatibel; Modelle mit einem geschlossenen proprietären Protokoll möglicherweise nicht. Prüfe die Integrationsseite vor dem Kauf.",
         pt: "A compatibilidade com FitMesh depende do protocolo: os modelos que usam o protocolo Colmi/OEM são compatíveis; os modelos com protocolo proprietário fechado podem não ser. Verifique a página de integrações antes de comprar.",
         fr: "La compatibilité FitMesh dépend du protocole: les modèles utilisant le protocole Colmi/OEM sont compatibles; les modèles avec un protocole propriétaire fermé peuvent ne pas l'être. Consultez la page des intégrations avant d'acheter.",
+        pl: "Kompatibilitść z FitMesh zależy od protokołu: modele korzystające z protokołu Colmi/OEM są kompatybilne; modele z zamkniętym proprietarnym protokollem mogą nie być. Sprawdź stronę integracji przed zakupem.",
+        tr: "Giyilebilir cihazlarla FitMesh uyumluluğu protokolden bağımlı: Colmi/OEM protokolu kullanan modeller uyumlu; kapatılan sahip protokol kullanıyan modeller uyumlu olmayabilir. Satın almadan önce integrasyonlar sayfasını kontrol et.",
       },
     },
     {
@@ -425,6 +589,8 @@ export const post: BlogPost = {
         de: "iOS- und Android-Kompatibilität: wie es funktioniert",
         pt: "Compatibilidade com iOS e Android: como funciona",
         fr: "Compatibilité iOS et Android: comment ça fonctionne",
+        pl: "Kompatybilność iOS i Android: jak działa",
+        tr: "Yapay zeka uyumluluğu iOS ve Android: nasıl çalışır",
       },
     },
     {
@@ -436,6 +602,8 @@ export const post: BlogPost = {
         de: "Ein günstiger Ring wie der Colmi R02 wird auf Android per Bluetooth ausgelesen: FitMesh verbindet sich direkt mit dem Gerät, lädt die Daten herunter und zeigt sie in der Dashboard an. Mit einem FitMesh-Konto sind alle synchronisierten Daten auch auf iPhone über die FitMesh Sync iOS-App zugänglich, die demnächst verfügbar ist (Launch steht bevor). Ein optionaler HealthKit-Bridge ist ebenfalls für Nutzer verfügbar, die ihre Daten im Apple-Ökosystem sehen möchten.",
         pt: "Um anel barato como o Colmi R02 é lido via Bluetooth no Android: FitMesh conecta diretamente ao dispositivo, baixa os dados e os exibe no painel. Com uma conta FitMesh, todos os dados sincronizados ficam acessíveis também no iPhone pelo app FitMesh Sync para iOS, que estará disponível em breve (lançamento iminente). Uma ponte opcional com o Apple Health também está disponível para quem quiser ver os dados no ecossistema Apple.",
         fr: "Une bague connectée abordable comme le Colmi R02 est lue en Bluetooth sur Android: FitMesh se connecte directement à l'appareil, télécharge les données et les affiche dans le tableau de bord. Avec un compte FitMesh, toutes les données synchronisées sont accessibles sur iPhone aussi via l'application FitMesh Sync pour iOS, bientôt disponible (lancement imminent). Un pont HealthKit optionnel est également disponible pour les utilisateurs qui souhaitent voir leurs données dans l'écosystème Apple.",
+        pl: "Ekonomiczny pętli, takiej jak Colmi R02, można czytać bezpośrednio za pomocą Bluetooth: FitMesh łączy się z urządzeniem, przesyła dane i wyświetla je na panelu. Z kontem FitMesh, wszystkie zsynchronizowane dane są dostępne również w aplikacji iOS firmy FitMesh Sync, obecnie w trakcie rozwijania (bliższe wydanie). Istnieje także opcjonalna integracja z Apple Health, dla tych, którzy chcą przeglądać dane w ekosystemie Apple.",
+        tr: "Bir ekonomik döngü gibi Colmi R02, Bluetooth üzerinden Android üzerinde okunur: FitMesh cihaz doğrudan bağlanır, veriler indirilir ve panoya gösterilir. Bir FitMesh hesabıyla, tüm synkronize edilen veriler iPhone üzerinden iOS uygulaması aracılığıyla da erişilebilir (FitMesh Sync'ın şu an gelişi - yakında piyasaya sürülmesi bekleniyor). Apple sağlığı ekosistemindeki verileri göremek isteyenler için seçime sunulan bir opsiyonel köprü de mevcuttur.",
       },
     },
     {
@@ -448,6 +616,8 @@ export const post: BlogPost = {
         de: "iOS-App: demnächst verfügbar",
         pt: "App iOS: lançamento iminente",
         fr: "Application iOS: bientôt disponible",
+        pl: "Aplikacja iOS: wydanie wkrótce do zobaczenia",
+        tr: "Uygulama iOS: yakında yayınlanacak",
       },
       body: {
         it: "La connessione Bluetooth diretta all'anello avviene tramite Android. L'app FitMesh Sync per iOS e in arrivo: non appena disponibile, i dati del tuo anello saranno visibili anche su iPhone, con ponte Apple Salute opzionale. Non e ancora scaricabile su App Store.",
@@ -456,6 +626,8 @@ export const post: BlogPost = {
         de: "Die direkte Bluetooth-Verbindung zum Ring erfolgt über Android. Die FitMesh Sync App für iOS ist demnächst verfügbar: Sobald sie verfügbar ist, werden deine Ring-Daten auch auf iPhone sichtbar sein, mit einem optionalen HealthKit-Bridge. Sie ist noch nicht im App Store erhältlich.",
         pt: "A conexão Bluetooth direta ao anel acontece via Android. O app FitMesh Sync para iOS está chegando em breve: assim que estiver disponível, os dados do seu anel serão visíveis também no iPhone, com um ponte opcional para o Apple Health. Ainda não está disponível na App Store.",
         fr: "La connexion Bluetooth directe à la bague se fait via Android. L'application FitMesh Sync pour iOS arrive bientôt: une fois disponible, les données de votre bague seront visibles sur iPhone aussi, avec un pont HealthKit optionnel. Elle n'est pas encore disponible sur l'App Store.",
+        pl: "Połączenie Bluetooth bezpośrednie z pętlą odbywa się za pomocą Android. Aplikacja FitMesh Sync dla iOS jest już dostępna: jak tylko będzie gotowa, dane z twojej pętli będą widoczne również na iPhone, z opcjonalnym pułapem Apple Zdrowia. Nie jest jeszcze dostępny na App Store.",
+        tr: "Bağlantı Bluetooth doğrudan halka için Android üzerinden kurulur. Uygulama FitMesh Sync için iOS ve yakında gelmektedir: KVKK ile uyumlu olarak halkanızın verileri mevcut cihazlarda görünür hale gelecektir, Apple Sağlık Köprüsü seçeneğiyle birlikte. Henüz App Store üzerinde indirilebilir değildir.",
       },
     },
     {
@@ -468,6 +640,8 @@ export const post: BlogPost = {
         de: "Wie FitMesh jeden günstigen Ring in ein wirklich nützliches Werkzeug verwandelt",
         pt: "Como FitMesh transforma qualquer anel barato em uma ferramenta genuinamente útil",
         fr: "Comment FitMesh transforme n'importe quelle bague connectée abordable en un outil vraiment utile",
+        pl: "Jak FitMesh przekształca każdy ekonomiczny anell w narzędzie użyteczne",
+        tr: "FitMesh KVKK herhangi bir ekonomik döngüyü kullanışlı bir araç olarak dönüştürmesineTransformer herhangi bir ekonomik döngüyü kullanışlı bir araç olarak dönüştürmesine aid olur",
       },
     },
     {
@@ -479,6 +653,8 @@ export const post: BlogPost = {
         de: "Das Limit günstiger Smart-Ringe war nie die Hardware: es war die Datenisolierung. Ein Ring, der gut misst, aber dessen Daten in der Companion-App eingeschlossen bleiben, liefert weniger als die Hälfte seines Potenzials. FitMesh bringt drei konkrete Vorteile:",
         pt: "O limite dos anéis inteligentes baratos nunca foi o hardware: foi o isolamento dos dados. Um anel que mede bem, mas cujos dados ficam presos no app companion, entrega menos da metade do seu potencial. FitMesh traz três vantagens concretas:",
         fr: "La limite des bagues connectées pas chères n'a jamais été le matériel: c'était l'isolement des données. Une bague qui mesure bien mais dont les données restent enfermées dans l'application compagnon ne délivre pas la moitié de son potentiel. FitMesh apporte trois avantages concrets:",
+        pl: "Prawdziwym ograniczeniem tanich inteligentnych pierścieni nigdy nie był sprzęt: był nim izolacja danych. Pierścień, który mierzy dobrze, ale którego dane pozostają zamknięte w aplikacji companion, dostarcza mniej niż połowę swojego potencjału. FitMesh przynosi trzy konkretne korzyści:",
+        tr: "Geleneksel ekonomik akıllı aletlerin sınırları her zamanhardware'de değil: verilerin izole edilmesindeydi. Bir aletin verilerini iyi ölçtüğüne rağmen, bu veriler eşya arkadaş uygulamasında kilitlenirse, o aletin potansiyelinin yarısından daha az değere sahip olur. FitMesh üç gerçek avantaj getirir:",
       },
     },
     {
@@ -515,6 +691,16 @@ export const post: BlogPost = {
           "**Aucun besoin de l'application compagnon OEM**: FitMesh se connecte directement au Colmi R02/R03 en Bluetooth. Vous n'avez pas besoin de garder l'application OEM en arrière-plan, de créer un compte chez le fabricant ni de mettre à jour deux applications séparées.",
           "**Historique et tendances sur les métriques agrégées**: voir la tendance de votre HRV sur 30 jours, votre schéma de sommeil sur les dernières semaines, ou comment vos pas quotidiens sont liés à la récupération nocturne nécessite une vue agrégée que les applications OEM individuelles offrent rarement bien.",
         ],
+        pl: [
+          "**Unified Dashboard with Your Smartwatch**: the ring data (typically nocturnal and recovery) combine with those from the watch (sports, active day) in a single view. No double counts, no manual comparisons.",
+          "**Nikogo nie wymaga aplikacji towarzyszącej OEM**: FitMesh łączy się bezpośrednio z Colmi R02/R03 poprzez Bluetooth. Nie ma potrzeby utrzymywania aplikacji OEM w tle, nie ma potrzeby tworzenia konta na stronie producenta, a także nie ma konieczności aktualizowania dwóch oddzielnych aplikacji.",
+          "**Historia i trend w agregowanych miarach**: zobacz trend HRV w ciągu 30 dni, wzór snu w ostatnich tygodniach, lub jak twoje dziennie kroki zmieniają się w zależności od nocy śpiączkowej, wszystko to wymaga agregowanej widoku, który pojedyncze OEM aplikacje rzadko oferują dobrze.",
+        ],
+        tr: [
+          "**Giyilebilir Cihazla Birleşik Panöral**: anahtarı (tipikçe geceliler ve geri yüklemler) giyilebilir cihazdan (spor, aktif gün) verilerle birleştirilerek tek bir görünümde sunulur. İkili sayfalara rastlanmaz, manuel karşılaştırmalar gerekmez.",
+          "**Hiçbir gereklilik yok companion uygulama OEM için**: FitMesh kurucu Colmi R02/R03 ile doğrudan Bluetooth üzerinden bağlantı kurar. Companion uygulaması OEM arka planda açılmamalı, üretici uygulamasına hesap oluşturmak gerekmez, iki ayrı uygulamanın güncellenmesi gerekmeyebilir.",
+          "**30 Günlük ve Trendler Üzerine Toplamsal Ölçümler Tarihi**: HRV'un 30 günlük eğilimini, son haftalardaki uyku şemasını veya günlük adımlarının gecelik iyileşmeye göre nasıl değiştiği gibi görebilirsiniz. Bu, tek başına OEM uygulamaları genellikle iyi sunmayan bir toplamsal bakış gerektirir.",
+        ],
       },
     },
     {
@@ -527,6 +713,8 @@ export const post: BlogPost = {
         de: "Wie man wählt: die richtigen Fragen vor dem Kauf",
         pt: "Como escolher: as perguntas certas antes de comprar",
         fr: "Comment choisir: les bonnes questions avant d'acheter",
+        pl: "Jak wybrać: poprawne pytania przed zakupem",
+        tr: "Seçmek için nasıl adımlar atılmalıyız: KVKK uyumlu satın almadan önce doğru sorular索引超出了字符串长度限制，已省略。",
       },
     },
     {
@@ -569,6 +757,18 @@ export const post: BlogPost = {
           "**Quel est votre budget réel?** Sous 35 euros, les options OEM Colmi sont solides pour un usage informatif. N'attendez pas une précision de haut niveau.",
           "**La bague est-elle compatible avec FitMesh?** Consultez la page des intégrations avant d'acheter: la compatibilité transforme l'expérience.",
         ],
+        pl: [
+          "**Masz już smartwatch?** Jeśli tak, szukaj ankiety kompatibilej z FitMesh, aby unifikować dane. Jeśli nie, oceniaj, czy ankaeta jest wystarczająca dla Twoich potrzeb, czy też potrzebujesz również GPS.",
+          "**Co=\"<<FM_PH_0>> vuoi monitorare principalmente?** Sonno e recupero: l'anello è ideale. Sport con <<FM_TERM_0>>: ti serve anche il smartwatch.**",
+          "**Jak jest Twój rzeczywisty budżet?** Poniżej 35 euro opcje OEM Colmi są solidne do użytku informacyjnego. Nie oczekuj precyzji klinicznej.",
+          "**Czy pętla jest kompatybilna z FitMesh?** Sprawdź stronę integracji przed zakupem: kompatybilność zmienia doświadczenie.",
+        ],
+        tr: [
+          "**Üzgünüz, bir akıllı saat kullanıyorsunuz mu?** Eğer evet, FitMesh ile uyumlu bir yüzük arayın için veriyle birleştirmeyiUnified. Eğer hayır, kendi ihtiyaçlarınıza göre bir yüzük yeterli olup olmadığını veya aynı zamanda da GPS gerekeceğini değerlendirebilirsiniz.",
+          "**Hangi şeylerin özellikle izlemek istiyorsunuz?** Uykuluk ve yenilenme: bu halka ideal. GPS ile spor: sen için de bir watch gerekiyor.",
+          "**Hangi gerçek bütçe senin için?** 35 Euro'dan düşükse, OEM Colmi seçenekleri bilimsel kullanım için sağlamdır. Clinik hassasiyeti beklemeyi unutma.",
+          "**Koloya uyumlu mu?** Alıştırmadan önce uyumluluğu kontrol etmek için integrasyonlar sayfasını ziyaret edin: uyumluluk deneyiminizi değiştirir.",
+        ],
       },
     },
     {
@@ -580,6 +780,8 @@ export const post: BlogPost = {
         de: "Überlegst du, dir einen Smart-Ring zuzulegen?",
         pt: "Está pensando em comprar um anel inteligente?",
         fr: "Vous envisagez une bague connectée?",
+        pl: "Czy wątpisz w smartbanda?",
+        tr: "Giyilebilir cihazınız için bir akıllı saat arıyorsunuz?",
       },
       body: {
         it: "FitMesh Sync e in beta privata. I primi 1000 utenti ottengono 1 anno di Pro gratis, incluso l'accesso alla feature anello Colmi non appena rilasciata. Iscriviti per tenere il posto.",
@@ -588,6 +790,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync befindet sich in der privaten Beta. Die ersten 1.000 Nutzer erhalten 1 Jahr Pro kostenlos, einschließlich des Zugangs zur Colmi-Ring-Funktion, sobald sie verfügbar ist. Melde dich an, um deinen Platz zu sichern.",
         pt: "FitMesh Sync está em beta privado. Os primeiros 1.000 usuários recebem 1 ano de Pro grátis, incluindo acesso ao recurso de anel Colmi assim que for lançado. Cadastre-se para garantir seu lugar.",
         fr: "FitMesh Sync est en bêta privée. Les 1 000 premiers utilisateurs obtiennent 1 an de Pro gratuitement, y compris l'accès à la fonctionnalité bague Colmi dès sa sortie. Inscrivez-vous pour garder votre place.",
+        pl: "FitMesh Sync i w beta prywatnej. Pierwsze 1000 użytkowników otrzymują 1 rok bezpłatnego konta Pro, w tym dostęp do funkcji anello Colmi niebędzie zaraz wydanej. Zapisz się, aby utrzymać miejsce.",
+        tr: "FitMesh Sync ve beta testine katılmış olun. İlk 1000 kullanıcının Pro 1 yıl ücretsiz olarak kurulacağına ve özellik halka Colmi yayımlandığında da erişim hakkı dahil olmak üzere pro versiyonuna erişim sağlanması bekleniyor. Kayıt olun ve yerinizi koruyun.",
       },
       ctaLabel: {
         it: "Iscriviti alla beta →",
@@ -596,6 +800,8 @@ export const post: BlogPost = {
         de: "Zur Beta anmelden →",
         pt: "Cadastre-se na beta →",
         fr: "S'inscrire à la bêta →",
+        pl: "Zapisz się do bêty →",
+        tr: "Beta'e Katılın →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -612,6 +818,8 @@ export const post: BlogPost = {
         de: "Sind günstige Smart-Ringe zuverlässig?",
         pt: "Os anéis inteligentes baratos são confiáveis?",
         fr: "Les bagues connectées pas chères sont-elles fiables?",
+        pl: "Czy ekonomiczne anelty smart są wiarygodne?",
+        tr: "Giyilebilir cihaz smart aksesuarları güvenilir mi?",
       },
       a: {
         it: "Per l'uso informativo (trend di sonno, recupero, attivita giornaliera) si. I sensori PPG di fascia bassa danno stime utili. Non sono dispositivi medici e non sostituiscono strumenti diagnostici. Per trend personali nel tempo sono piu che adeguati.",
@@ -620,6 +828,8 @@ export const post: BlogPost = {
         de: "Für informativen Einsatz (Schlaf-Trends, Erholung, tägliche Aktivität) ja. PPG-Sensoren der Einstiegsklasse liefern nützliche Schätzungen. Sie sind keine Medizinprodukte und ersetzen keine diagnostischen Geräte. Für persönliche Trends über die Zeit sind sie mehr als ausreichend.",
         pt: "Para uso informativo (tendências de sono, recuperação, atividade diária) sim. Os sensores PPG de entrada oferecem estimativas úteis. Não são dispositivos médicos e não substituem ferramentas de diagnóstico. Para tendências pessoais ao longo do tempo são mais do que adequados.",
         fr: "Pour un usage informatif (tendances du sommeil, récupération, activité quotidienne) oui. Les capteurs PPG d'entrée de gamme donnent des estimations utiles. Ce ne sont pas des dispositifs médicaux et ils ne remplacent pas les outils de diagnostic. Pour les tendances personnelles dans le temps, ils sont plus que suffisants.",
+        pl: "Dla informacyjne użycie (trendy snu, odzyskiwania, dziennych aktywności) tak. Sensoory PPG z niskim poziomem detekcji dają przydatne szacunki. Nie są urządzeniami lekarszymi i nie zastępują diagnostycznych narzędzi. Dla osobistych trendów w czasie są całkiem odpowiednie.",
+        tr: "KVKK için kullanım (uyku trendleri, iyileşme, günlük aktiviteler) açısından evet. PPG cihaz sensörleri düşük frekanslı tahminler sunar. Bu cihazlar tıbbi aygıtların yerini almaz ve diagnostik araçları değiştirmez. Zamanla kişisel trendlere yönelik olarak yeterince uygunlardır.",
       },
     },
     {
@@ -630,6 +840,8 @@ export const post: BlogPost = {
         de: "Colmi R02 vs. R03: was ist der praktische Unterschied?",
         pt: "Colmi R02 ou R03: qual é a diferença prática?",
         fr: "Colmi R02 ou R03: quelle est la différence pratique?",
+        pl: "Colmi R02 lub R03: jak jest różnica praktyczna?",
+        tr: "Colmi R02 veya R03: praktik olarak ne fark vardır?",
       },
       a: {
         it: "Il R03 e il successore del R02 con alcuni miglioramenti ai sensori e al design. Usano lo stesso protocollo Bluetooth e sono entrambi compatibili con FitMesh. La differenza pratica per la maggior parte degli utenti e minima: il R02 rimane spesso piu conveniente come prezzo.",
@@ -638,6 +850,8 @@ export const post: BlogPost = {
         de: "Der R03 ist der Nachfolger des R02 mit einigen Sensor- und Design-Verbesserungen. Beide verwenden dasselbe Bluetooth-Protokoll und sind mit FitMesh kompatibel. Der praktische Unterschied für die meisten Nutzer ist gering: der R02 bleibt oft das bessere Preis-Leistungs-Verhältnis.",
         pt: "O R03 é o sucessor do R02 com algumas melhorias nos sensores e no design. Ambos usam o mesmo protocolo Bluetooth e são compatíveis com FitMesh. A diferença prática para a maioria dos usuários é pequena: o R02 frequentemente continua sendo o melhor custo-benefício.",
         fr: "Le R03 est le successeur du R02 avec quelques améliorations des capteurs et du design. Les deux utilisent le même protocole Bluetooth et sont compatibles avec FitMesh. La différence pratique pour la plupart des utilisateurs est faible: le R02 reste souvent le meilleur rapport qualité-prix.",
+        pl: "R03 i sukcesja R02 z kilkoma poprawami w sensorach i designie. Korzystają z tego samego protokołu Bluetooth i są oba kompatybilne z FitMesh. Praktyczna różnica dla większości użytkowników jest mała: R02 nadal często jest bardziej wygodny ze względu na cenę.",
+        tr: "KVKK R03 ve R02'nun bazı duyarlılık ve tasarım iyileştirmeleri ile gelen succesoru. Aynı Bluetooth protokolünü kullanıyorlar ve her ikisi de FitMesh ile uyumludur. Çoğu kullanıcı için pratik fark minimum: R02 hala genellikle fiyat açısından daha uygun kalır.",
       },
     },
     {
@@ -648,6 +862,8 @@ export const post: BlogPost = {
         de: "Funktioniert ein günstiger Smart-Ring ohne die Hersteller-App?",
         pt: "Um anel inteligente barato funciona sem o app do fabricante?",
         fr: "Une bague connectée pas chère fonctionne-t-elle sans l'application du fabricant?",
+        pl: "Czy ekonomiczny anell smartowy działa bez aplikacji producenta?",
+        tr: "Bir ekonomik smart aksesuar producer uygulaması olmadan çalışır mı?",
       },
       a: {
         it: "Con FitMesh si, per i modelli Colmi R02/R03 e cloni compatibili. FitMesh si connette direttamente via Bluetooth e scarica i dati senza richiedere l'app OEM. Per altri modelli dipende dal protocollo: controlla la pagina integrazioni.",
@@ -656,6 +872,8 @@ export const post: BlogPost = {
         de: "Mit FitMesh ja, für die Modelle Colmi R02/R03 und kompatible Klone. FitMesh verbindet sich direkt per Bluetooth und lädt Daten herunter, ohne die OEM-App zu benötigen. Für andere Modelle hängt es vom Protokoll ab: Prüfe die Integrationsseite.",
         pt: "Com FitMesh sim, para os modelos Colmi R02/R03 e clones compatíveis. FitMesh conecta diretamente via Bluetooth e baixa os dados sem precisar do app OEM. Para outros modelos depende do protocolo: verifique a página de integrações.",
         fr: "Avec FitMesh oui, pour les modèles Colmi R02/R03 et les clones compatibles. FitMesh se connecte directement en Bluetooth et télécharge les données sans avoir besoin de l'application OEM. Pour les autres modèles, cela dépend du protocole: consultez la page des intégrations.",
+        pl: "Za FitMesh tak, dla modeli Colmi R02/R03 i klonów kompatybilnych. FitMesh łączy się bezpośrednio za pomocą Bluetooth i pobiera dane bez wymagania aplikacji OEM. Dla innych modeli zależy od protokołu: sprawdź stronę integracji.",
+        tr: "Con FitMesh si, için Colmi R02/R03 modelleri ve uyumlu klonlar için. FitMesh doğrudan Bluetooth üzerinden bağlanır ve verileri app OEM olmadan indirer. Diğer modellere bağlı olarak farklılık gösterir: integrazionlar sayfasını kontrol et.",
       },
     },
     {
@@ -666,6 +884,8 @@ export const post: BlogPost = {
         de: "Wie lange hält der Akku eines günstigen Smart-Rings?",
         pt: "Quanto tempo dura a bateria de um anel inteligente barato?",
         fr: "Quelle est l'autonomie d'une bague connectée pas chère?",
+        pl: "Jaka trwa akumulator anelku smart ekonomicznego?",
+        tr: "Giyilebilir cihaz smart alesi için baterinin süresi kaç?t?",
       },
       a: {
         it: "I modelli Colmi durano tipicamente 5-7 giorni con uso normale (monitoraggio continuo attivo). Con monitoraggio aggressivo (letture SpO2 continue di notte) puo scendere a 3-4 giorni. La ricarica completa richiede circa 1-2 ore.",
@@ -674,6 +894,8 @@ export const post: BlogPost = {
         de: "Colmi-Modelle halten typischerweise 5-7 Tage bei normalem Einsatz (kontinuierliches Monitoring aktiv). Bei intensivem Monitoring (kontinuierliches nächtliches SpO2) kann es auf 3-4 Tage sinken. Eine vollständige Ladung dauert etwa 1-2 Stunden.",
         pt: "Os modelos Colmi duram tipicamente 5 a 7 dias com uso normal (monitoramento contínuo ativo). Com monitoramento intensivo (SpO2 contínuo noturno) pode cair para 3 a 4 dias. A carga completa leva cerca de 1 a 2 horas.",
         fr: "Les modèles Colmi durent généralement 5-7 jours avec une utilisation normale (surveillance continue active). Avec une surveillance intensive (SpO2 continu nocturne), cela peut descendre à 3-4 jours. Une charge complète prend environ 1-2 heures.",
+        pl: "Modely Colmi trwają typowo 5-7 dni pod normalnym użyciem (aktywny ciągły monitorowanie). Z aktywnym monitorowaniem agresywnym (ciągłe pomiarowanie SpO2 nocą) może spadnąć do 3-4 dni. Pełna wymagana ładowarka trwa około 1-2 godzin.",
+        tr: "Colmi modelleri tipik olarak normale kullanım koşullarında 5-7 gün süresiyle devam eder (devam ettirilen监控持续使用情况下通常可持续5-7天(__FM_PH_0__)。以积极监测(夜间连续SpO2读数)为例,可能会缩短至3-4天。完全充电大约需要1-2小时。",
       },
     },
   ],

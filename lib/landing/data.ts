@@ -60,6 +60,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         "samsung health backup pc",
         "galaxy watch backup without samsung cloud",
       ],
+      pl: [
+        "pobierz dane z Samsung Health",
+        "schopiwanie zdrowia Samsung na PC",
+        "wydania galaxy watch bez Samsung Cloud",
+      ],
+      tr: [
+        "Samsung Health verilerini indir",
+        "samsung sağlığı yedekleme bilgisayar",
+        "yedekleme galaxy saati __FM_PH_0__samsung nuvuz__0__",
+      ],
     },
     metaDescription: {
       it: "Backup automatico dei dati Galaxy Watch su una dashboard tua, senza Samsung Cloud. Setup in 30 secondi via Health Connect. Privacy-first.",
@@ -120,12 +130,14 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "FitMesh Sync ist der automatische Weg. Installiere die Android-App, erteile die Health Connect-Berechtigung, und von da an werden deine Galaxy Watch-Daten auf ein Web-Dashboard gespiegelt, das du von jedem Browser aus öffnest. Automatische Synchronisierung alle 15 Minuten, kein manueller Aufwand.",
           pt: "FitMesh Sync é o caminho automático. Instale o app Android, conceda a permissão do Health Connect e, a partir daí, os dados do Galaxy Watch são espelhados em um painel web que você acessa de qualquer navegador. Sincronização automática a cada 15 minutos, sem nenhum trabalho manual.",
           fr: "FitMesh Sync est la solution automatique. Installez l'application Android, accordez l'autorisation Health Connect, et dès lors vos données Galaxy Watch sont reflétées sur un tableau de bord web accessible depuis n'importe quel navigateur. Synchronisation automatique toutes les 15 minutes, sans aucune manipulation.",
+          pl: "FitMesh Sync to ścieżka automatyczna. Zainstaluj aplikację Android, udziel uprawnień Health Connect, a od tego momentu dane z Galaxy Watch są synchronizowane na panelu web, który można otworzyć w dowolnym przeglądarce. Synchronizacja automatyczna co 15 minut, bez ręcznej interwencji.",
+          tr: "FitMesh Sync yolu otomatik olanıdır. Uygulamayı Android kurun, gerekli izinleri verin ve bu noktadan itibaren Galaxy Watch verileri web tabanlı bir panelde mirror edilir, herhangi bir tarayıcıdan açabilirsiniz. Her 15 dakikada otomatik olarak sync, hiçbir manuallık yoktur.",
         },
       },
       {
         type: "heading",
         level: 2,
-        text: { it: "Cosa viene salvato", en: "What gets saved", de: "Was gespeichert wird", pt: "O que é salvo", fr: "Ce qui est sauvegardé" },
+        text: { it: "Cosa viene salvato", en: "What gets saved", de: "Was gespeichert wird", pt: "O que é salvo", fr: "Ce qui est sauvegardé", pl: "Coż jest zapisywane", tr: "Ne kaydedilenler" },
       },
       {
         type: "list",
@@ -180,12 +192,32 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "SpO₂ (si votre Watch le mesure)",
             "VO₂ max (si mesuré)",
           ],
+          pl: [
+            "Kroki dziarskie i w czasach roboczych",
+            "Częstotliwość serca: średnia, podczas spoczynku i kontynuowane sampli",
+            "Snytanie z fazami (Tępanie, REM, Leve, Baczne)",
+            "Treningi zdefiniowane przez użytkownika, trwałość, kalorie, BPM średni",
+            "Kalorii aktywne i bazowe",
+            "Odległość przebyta",
+            "(SpO₂ jeśli Twoje smartwatch to miara)",
+            "(VO₂ max (jeżeli pomiar))",
+          ],
+          tr: [
+            "Günlük ve zaman dilimine göre adımlar",
+            "Sekilmesi: ortalama, dinlenme ve sürekli örnekler",
+            "Uyulma Fasları (Derin, REM, Uzun, Uyanık)",
+            "Allenamenti ile tip, süresi, kalori, BPM ortalaması",
+            "Akıllı Saatçe Aktif ve Basal Kaloriler",
+            "Yolu gereken uzunluk",
+            "KVKK'ye göre (Watch'in ölçümünü öğrenmek için)",
+            "KVKK'ye uygun olarak (VO₂ max) (ölçülen)",
+          ],
         },
       },
       {
         type: "heading",
         level: 2,
-        text: { it: "Setup in 3 step", en: "Setup in 3 steps", de: "Einrichtung in 3 Schritten", pt: "Configuração em 3 passos", fr: "Configuration en 3 étapes" },
+        text: { it: "Setup in 3 step", en: "Setup in 3 steps", de: "Einrichtung in 3 Schritten", pt: "Configuração em 3 passos", fr: "Configuration en 3 étapes", pl: "Instalacja w 3 kroku", tr: "3 adımlık kurulum" },
       },
       {
         type: "list",
@@ -216,18 +248,30 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "Ouvrez Samsung Health → Paramètres → Health Connect → autorisez FitMesh pour les types de données à sauvegarder.",
             "Ouvrez le tableau de bord web (lien dans l'application ou connectez-vous avec le même compte Google). Vos données sont là.",
           ],
+          pl: [
+            "Zainstaluj FitMesh Sync z Google Play i zaloguj się za pomocą Google.",
+            "Otwórz Samsung Health → Ustawienia → Health Connect → zezwól na FitMesh, aby zapisać dane, które chcesz zachować.",
+            "Otwórz panel sterowniczy (link w aplikacji lub zaloguj się za pomocą tej samej Google). Twine są tam.",
+          ],
+          tr: [
+            "İnstall FitMesh Sync'u Google Play Store'dan ve Google ile giriş yapın.",
+            "Aç Samsung Health → Ayarlar → Health Connect → FitMesh'u kaydetmek istediğiniz verilere izin ver.",
+            "Aç web paneli (__FM_URL_0__ uygulamadan link veya aynı Google ile giriş yap). Verileriniz burada.",
+          ],
         },
       },
       {
         type: "callout",
         variant: "tip",
-        title: { it: "Senza dipendenze da Samsung Cloud", en: "No Samsung Cloud dependency", de: "Keine Abhängigkeit von Samsung Cloud", pt: "Sem dependência do Samsung Cloud", fr: "Aucune dépendance à Samsung Cloud" },
+        title: { it: "Senza dipendenze da Samsung Cloud", en: "No Samsung Cloud dependency", de: "Keine Abhängigkeit von Samsung Cloud", pt: "Sem dependência do Samsung Cloud", fr: "Aucune dépendance à Samsung Cloud", pl: "Bez zależności odSamsung Cloud", tr: "Sans Samsung CLOUD bağımlılık" },
         body: {
           it: "FitMesh Sync legge da Health Connect, che è strettamente on-device. Non passa dal cloud Samsung. Puoi disabilitare la sincronizzazione Samsung Account in Samsung Health e FitMesh continua a funzionare.",
           en: "FitMesh Sync reads from Health Connect, which is strictly on-device. It doesn't pass through Samsung cloud. You can disable Samsung Account sync in Samsung Health and FitMesh keeps working.",
           de: "FitMesh Sync liest aus Health Connect, das strikt geräteseitig ist. Es läuft nicht über die Samsung Cloud. Du kannst die Samsung Account-Synchronisierung in Samsung Health deaktivieren, und FitMesh funktioniert weiterhin.",
           pt: "FitMesh Sync lê do Health Connect, que funciona estritamente no dispositivo. Não passa pela nuvem Samsung. Você pode desativar a sincronização com a Samsung Account no Samsung Health e o FitMesh continuará funcionando.",
           fr: "FitMesh Sync lit les données depuis Health Connect, qui fonctionne strictement sur l'appareil. Il ne transite pas par le cloud Samsung. Vous pouvez désactiver la synchronisation du compte Samsung dans Samsung Health, et FitMesh continue de fonctionner.",
+          pl: "FitMesh Sync przepisuje zgodnie z Health Connect, który jest ścisłe i lokalne. Nie przechodzi przez chmurę Samsung. Możesz wyłączyć synchronizację konta Samsung w Samsung Health i FitMesh nadal działa.",
+          tr: "FitMesh Sync KVKK'dan sorumlu olup, bu aşırı olarak cihazda kalır. Cloud Samsung'a geçmez. Samsung Hesabınıza olan synkronizasyonu devre dışı bırakabilirsiniz ve Samsung Health ve FitMesh hala çalışır.",
         },
       },
       {
@@ -238,6 +282,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Bereit für automatisches Backup?",
           pt: "Pronto para o backup automático?",
           fr: "Prêt pour la sauvegarde automatique ?",
+          pl: "Czy gotowy na automatyczny备份？",
+          tr: "Günlük yedeklemeye hazır mısınız?",
         },
         body: {
           it: "100 posti founder gratis durante la beta. App Android sul Play Store + dashboard web inclusa.",
@@ -245,8 +291,10 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "100 kostenlose Founder-Plätze während der Beta. Android-App im Play Store und Web-Dashboard inklusive.",
           pt: "100 vagas founder grátis durante a beta. App Android na Play Store e painel web incluídos.",
           fr: "100 places founder gratuites pendant la bêta. Application Android sur le Play Store et tableau de bord web inclus.",
+          pl: "100 miejsc founder bezpłatnie podczas bêta. Aplikacja Android w Google Play + panel administracyjny dostępny.",
+          tr: "100 kurucu ücretsiz beta sırasında. Uygulama Android Google Play'a + web tabanlı panel dahil.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →", pl: "Wejście w betę →", tr: "Giriş beta moduna →" },
         ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
@@ -258,6 +306,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Ersetzt FitMesh Sync Samsung Health?",
           pt: "FitMesh Sync substitui o Samsung Health?",
           fr: "FitMesh Sync remplace-t-il Samsung Health ?",
+          pl: "Czy FitMesh Sync zastąpi Samsung Health?",
+          tr: "FitMesh Sync Samsung Health yerine alır mı?",
         },
         a: {
           it: "No, lavora insieme. Samsung Health continua a ricevere dati dal Watch. FitMesh ne legge una copia e la mostra sulla dashboard web. Sono complementari.",
@@ -265,6 +315,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nein, sie arbeiten zusammen. Samsung Health empfängt weiterhin Daten von der Watch. FitMesh liest eine Kopie davon und zeigt sie auf dem Web-Dashboard an. Sie ergänzen sich.",
           pt: "Não, eles funcionam juntos. O Samsung Health continua recebendo dados do Watch. FitMesh lê uma cópia e a exibe no painel web. São complementares.",
           fr: "Non, ils fonctionnent ensemble. Samsung Health continue de recevoir les données de la Watch. FitMesh en lit une copie et l'affiche sur le tableau de bord web. Ils sont complémentaires.",
+          pl: "Nie, współpracują one ze sobą. Samsung Health nadal otrzymuje dane z Smartwatcha. FitMesh przekazuje kopię tych danych na strone panelu kontrolnego. Są one komplementarne.",
+          tr: "No, işbirliği yapın. Samsung Health hala watchtan veri alıyor. FitMesh bunu kopyalayıp web tabanlı panodan gösteriyor. Birlikte çalışacaklar.",
         },
       },
       {
@@ -274,6 +326,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Was ist, wenn Samsung Health nicht alles mit Health Connect teilt?",
           pt: "E se o Samsung Health não compartilhar tudo com o Health Connect?",
           fr: "Et si Samsung Health ne partage pas tout avec Health Connect ?",
+          pl: "A jeśli Samsung Health nie dzieli wszystkiego z Health Connect?",
+          tr: "Ve ne olacak ki Samsung Health todo Health Connect ile paylaşmıyor mu?",
         },
         a: {
           it: "Su telefoni Samsung FitMesh legge i dati direttamente da Samsung Health, oltre che da Health Connect. Così recupera anche le metriche che Samsung Health spesso non passa a Health Connect (in particolare frequenza cardiaca e sonno), più allenamenti, peso, pressione, glicemia e altro quando disponibili. Basta concedere i permessi di lettura una volta dalle impostazioni dell'app.",
@@ -281,26 +335,36 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Auf Samsung-Telefonen liest FitMesh Daten direkt aus Samsung Health, zusätzlich zu Health Connect. So werden auch Messwerte erfasst, die Samsung Health häufig nicht an Health Connect weitergibt (insbesondere Herzfrequenz und Schlaf), sowie Trainings, Gewicht, Blutdruck, Blutzucker und mehr, wenn verfügbar. Erteile die Leseberechtigung einmalig in den App-Einstellungen.",
           pt: "Em telefones Samsung, o FitMesh lê dados diretamente do Samsung Health, além do Health Connect. Assim, recupera também as métricas que o Samsung Health frequentemente não repassa ao Health Connect (especialmente frequência cardíaca e sono), além de treinos, peso, pressão arterial, glicemia e mais, quando disponíveis. Basta conceder a permissão de leitura uma vez nas configurações do app.",
           fr: "Sur les téléphones Samsung, FitMesh lit les données directement depuis Samsung Health, en plus de Health Connect. Cela permet de récupérer aussi les métriques que Samsung Health ne transmet souvent pas à Health Connect (notamment la fréquence cardiaque et le sommeil), ainsi que les séances d'entraînement, le poids, la tension artérielle, la glycémie et d'autres données disponibles. Il suffit d'accorder l'autorisation de lecture une fois dans les paramètres de l'application.",
+          pl: "Na Samsungach FitMesh odczytywane są dane bezpośrednio z Samsung Health, a nie tylko z Health Connect. W ten sposób uzyskujesz również metryki, które Samsung Health często nie przekazuje do Health Connect (w szczególności częstotliwość serca i sen), dodatkowo treningi, wagę, ciśnienie krwi, glikemii oraz inne, gdy są dostępne. Sufficientsze pozwolenia na odczyt w ustawieniach aplikacji.",
+          tr: "Telefonun Samsung FitMesh giyilebilir cihazdan Samsung Health'den doğrudan veriler okuyar. Bu sayede, özellikle kalp atış hızı ve uyku gibi bazen Samsung Health'den Health Connect'e aktarılmayan metrikleri de elde eder. Ayrıca egzersizler, ağırlık, basıncı, glikemi ve mevcut ise diğer verileri de alır. Tek bir kez uygulama ayarları içinde okuma iznine izin verilmesi yeterli.",
         },
       },
       {
         q: {
           it: "Funziona su Galaxy Watch 4? E sui modelli più vecchi?",
           en: "Does it work on Galaxy Watch 4? And older models?",
+          pl: "Czy działa na Galaxy Watch 4? I na starsze modele?",
+          tr: "Funksiyona Galaxy Watch 4? Ve eski modellerde de?",
         },
         a: {
           it: "Sì per Galaxy Watch 4, 5, 6, 7, Ultra (tutti scrivono su Samsung Health → Health Connect). Modelli più vecchi (Gear S3, Galaxy Watch Active) potrebbero funzionare se aggiornati e collegati a Samsung Health aggiornato, ma il supporto formale parte dal Watch 4.",
           en: "Yes for Galaxy Watch 4, 5, 6, 7, Ultra (all write to Samsung Health → Health Connect). Older models (Gear S3, Galaxy Watch Active) may work if updated and paired with current Samsung Health, but formal support starts with Watch 4.",
+          pl: "Tak dla Galaxy Watch 4, 5, 6, 7, Ultra (wszyscy piszą na Samsung Health → Health Connect). Starshie modele (Gear S3, Galaxy Watch Active) mogą działać, jeśli zostaną zaktualizowane i połączone z aktualizowanym Samsung Health, ale formalna obsługa rozpoczyna się od Watch 4.",
+          tr: "Evet için Galaxy Watch 4, 5, 6, 7, Ultra (tümü Samsung Health → Health Connect üzerinde yazar). Eski modeller (Gear S3, Galaxy Watch Active) güncellendiğinde ve güncel Samsung Health ile bağlantılı olursa çalışabilirken, resmi destek Watch 4 dan başlar.",
         },
       },
       {
         q: {
           it: "I dati sono cancellabili in un click?",
           en: "Can I delete data with one click?",
+          pl: "Czy dane są usuwalne w jednym kliknięciu?",
+          tr: "Veriler silinilebilir mi?",
         },
         a: {
           it: "Sì. Nelle impostazioni FitMesh c'è 'Elimina account e dati', che cancella tutto in modo definitivo dai nostri server (con 30 giorni di backup operativo come da privacy policy). I dati sul telefono e nel Galaxy Watch restano intatti.",
           en: "Yes. In FitMesh settings there's 'Delete account and data', which definitively deletes everything from our servers (with 30 days of operational backup as per privacy policy). Data on phone and Galaxy Watch remains intact.",
+          pl: "Tak. W ustawieniach FitMesh znajduje się 'Usuń konto i dane', które usuwa wszystko w sposób trwaly z naszych serwerów (z 30 dniowym kopiątarem operacyjnym według polityki prywatności). Dane na telefonie oraz w Galaxy Watch pozostają niezmienione.",
+          tr: "Evet. Ayarlar FitMesh içinde 'Hesap ve verileri sil' var, bu verileri tamamen kalıcı olarak siler serverlerimizden (gizlilik ilkesine göre 30 gün operasyonel yedeğin var). Telefonun ve Galaxy Watch üzerindeki veriler bozulmaz.",
         },
       },
     ],
@@ -319,10 +383,22 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Fitbit-Daten exportieren Google",
       pt: "exportar dados fitbit google",
       fr: "exporter données fitbit google",
+      pl: "eksportować dane z Fitbit Google",
+      tr: "veri Fitbit Google dışa aktar",
     },
     secondaryKeywords: {
       it: ["alternativa dashboard fitbit", "vedere dati fitbit senza app", "fitbit web 2026"],
       en: ["fitbit dashboard alternative", "view fitbit data without app", "fitbit web 2026"],
+      pl: [
+        "alternatywa panelu dashboards fitbit",
+        "oglądać dane fitbit bez aplikacji",
+        "Fitbit web 2026",
+      ],
+      tr: [
+        "alternatif pano fitbit",
+        "giyilebilir cihaz verilerini arayüzden görüntüle",
+        "fitbit web 2026",
+      ],
     },
     metaDescription: {
       it: "Vuoi esportare e visualizzare i dati Fitbit dopo l'acquisizione Google? Dashboard web alternativa via Health Connect, niente Fitbit Premium, privacy-first.",
@@ -330,15 +406,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Möchtest du deine Fitbit-Daten nach der Google-Übernahme exportieren und anzeigen? Alternative Web-Dashboard via Health Connect, ohne Fitbit Premium, Privacy-first.",
       pt: "Quer exportar e visualizar os dados do Fitbit após a aquisição pelo Google? Painel web alternativo via Health Connect, sem Fitbit Premium, privacidade em primeiro lugar.",
       fr: "Vous souhaitez exporter vos données Fitbit après l'acquisition par Google ? Tableau de bord web alternatif via Health Connect, sans Fitbit Premium, confidentialité en priorité.",
+      pl: "Chcesz eksportować i wyświetlać dane Fitbit po pobraniu Google? Alternatywna panelowa strona internetowa za pomocą Health Connect, bez Fitbit Premium, priorytet prywatności.",
+      tr: "İstediğinizde Fitbit verilerini dışa aktarabilir ve görebilirsiniz mi Google sonucu? Web tabanlı alternatif panel Health Connect yoluyla, Fitbit Premium olmadan, gizlilik ilkeli.",
     },
     hero: {
-      kicker: { it: "Fitbit dopo Google", en: "Fitbit after Google", de: "Fitbit nach Google", pt: "Fitbit após o Google", fr: "Fitbit après Google" },
+      kicker: { it: "Fitbit dopo Google", en: "Fitbit after Google", de: "Fitbit nach Google", pt: "Fitbit após o Google", fr: "Fitbit après Google", pl: "PODE\"value_ofGoogle\" POPE\"value_ofFitbit", tr: "KVKK'ye uyan Google sonra Fitbit" },
       title: {
         it: "Dashboard alternativa Fitbit, senza dipendenza da Google",
         en: "Alternative Fitbit dashboard, free from Google dependency",
         de: "Alternatives Fitbit-Dashboard, frei von Google-Abhängigkeit",
         pt: "Painel alternativo do Fitbit, sem dependência do Google",
         fr: "Tableau de bord Fitbit alternatif, sans dépendance à Google",
+        pl: "Panel alternatywny Fitbit, bez zależności od Google",
+        tr: "Günlük Arayüz Seçeneği Fitbit-, Google bağımlılığından bağımsız",
       },
       subtitle: {
         it: "Fitbit.com è stato smantellato, Fitbit Premium ti spinge a pagare per le funzioni di sempre. Esporta i tuoi dati Fitbit su una dashboard web tua, via Health Connect.",
@@ -346,13 +426,15 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         de: "Fitbit.com wurde abgeschaltet, Fitbit Premium drängt dich dazu, für gewohnte Funktionen zu bezahlen. Exportiere deine Fitbit-Daten auf dein eigenes Web-Dashboard, via Health Connect.",
         pt: "O Fitbit.com foi desativado, o Fitbit Premium empurra você a pagar por funções que sempre existiram. Exporte seus dados do Fitbit para um painel web seu, via Health Connect.",
         fr: "Fitbit.com a été supprimé, Fitbit Premium vous pousse à payer pour des fonctionnalités que vous aviez toujours. Exportez vos données Fitbit sur votre propre tableau de bord web, via Health Connect.",
+        pl: "Fitbit.com został zdemontowany, Fitbit Premium napędza Cię do zapłacenia za standardowe funkcje. Eksportuj swoje dane Fitbit na Twoją panelową witrynę internetową, poprzez Health Connect.",
+        tr: "Fitbit.com kırılmıştır, Fitbit Premium size her zamanki işlevleri için para ödemeye itiyor. Verilerinizi Fitbit üzerinden bir web tabanlı panelde dışa aktarabilirsiniz, __FM_URL_0__ ile.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite", pl: "Wejście do bêta bezpłatnie", tr: "Güçlendirici betanın içine gir ücretsiz olarak" },
         href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Vedi integrazione Fitbit", en: "See Fitbit integration", de: "Fitbit-Integration ansehen", pt: "Ver integração Fitbit", fr: "Voir l'intégration Fitbit" },
+        label: { it: "Vedi integrazione Fitbit", en: "See Fitbit integration", de: "Fitbit-Integration ansehen", pt: "Ver integração Fitbit", fr: "Voir l'intégration Fitbit", pl: "Zobacz integrację Fitbit", tr: "Görünüm Integrasyonu Fitbit" },
         href: { it: "/it/sync/fitbit", en: "/en/sync/fitbit", de: "/de/sync/fitbit", pt: "/pt/sync/fitbit", fr: "/fr/sync/fitbit" },
       },
     },
@@ -365,12 +447,14 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nach der Übernahme von Fitbit durch Google im Jahr 2021 und der obligatorischen Migration auf Google-Konten im Jahr 2023 hat sich die Fitbit-Erfahrung verändert: Web-Dashboards wurden entfernt, einige Funktionen hinter Premium verschoben, der Zugriff auf historische Daten zunehmend durch das Google-Ökosystem vermittelt. Wenn du Fitbit weiterhin mit mehr Datenkontrolle nutzen möchtest, gibt es einen sauberen Weg: Health Connect und ein alternatives Dashboard.",
           pt: "Após a aquisição do Fitbit pelo Google em 2021 e a migração obrigatória para a conta Google em 2023, a experiência Fitbit mudou: painéis web removidos, algumas funcionalidades colocadas atrás do Premium, acesso aos dados históricos cada vez mais mediado pelo ecossistema Google. Se você quer continuar usando o Fitbit com mais controle sobre seus dados, há um caminho limpo: Health Connect e painel alternativo.",
           fr: "Après l'acquisition de Fitbit par Google en 2021 et la migration obligatoire vers un compte Google en 2023, l'expérience Fitbit a changé : les tableaux de bord web ont été supprimés, certaines fonctionnalités placées derrière Premium, l'accès aux données historiques de plus en plus médiatisé par l'écosystème Google. Si vous souhaitez continuer à utiliser Fitbit avec plus de contrôle sur vos données, il existe une solution propre : Health Connect et un tableau de bord alternatif.",
+          pl: "Po adquisji Fitbit da parte di Google nel 2021 e la migrazione obbligatoria a Account Google nel 2023, l'esperienza Fitbit è cambiata: web dashboard rimosse, alcune feature spinte dietro Premium, accesso ai dati storici sempre più mediato dall'ecosistema Google. Se hai intenzione di continuare a utilizzare il tuo Fitbit ma con maggiore controllo sui dati, c'è una strada pulita: Health Connect + dashboard alternativa.",
+          tr: "Daha 2021'de Google tarafından Fitbit'nin satın alınması ve 2023'te zorunlu Google Hesabı geçişinden sonra, Fitbit deneyimi değişti: web panolar kaldırıldı, bazı özelliklerPremium arka planda, tarihi verilerin erişimi ekosistem Google'den giderek daha çok kontrol edildi. Eğer veri kontrolüne daha fazla sahip olmak istiyorsan ve Fitbit'yi kullanmayı devam etmek istiyorsun, temiz bir yol var: Health Connect + alternatif panoya.",
         },
       },
       {
         type: "heading",
         level: 2,
-        text: { it: "Cosa otteni con FitMesh Sync", en: "What you get with FitMesh Sync", de: "Was du mit FitMesh Sync bekommst", pt: "O que você obtém com FitMesh Sync", fr: "Ce que vous obtenez avec FitMesh Sync" },
+        text: { it: "Cosa otteni con FitMesh Sync", en: "What you get with FitMesh Sync", de: "Was du mit FitMesh Sync bekommst", pt: "O que você obtém com FitMesh Sync", fr: "Ce que vous obtenez avec FitMesh Sync", pl: "To co otrzymujesz z FitMesh Sync", tr: "Ne ne elde ettiniz with FitMesh Sync" },
       },
       {
         type: "list",
@@ -415,12 +499,28 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "Sans Fitbit Premium, sans abonnement FitMesh",
             "Feuille de route : intégration OAuth Fitbit Web API pour les phases de sommeil détaillées et le backfill 12 mois",
           ],
+          pl: [
+            "Panel widokowy czysty dostępny z komputera, tableta, telefonu",
+            "Synchronizacja automatyczna poprzez Health Connect (Fitbit app → HC → FitMesh)",
+            "Historyczne dane lokalne zapisane na naszym/backendie EU (Francofonny)",
+            "Eksportuj dane do CSV/JSON kiedy chcesz",
+            "Nie ma Fitbit Premium, ani subskrypcji FitMesh opartej na subskrypcji",
+            "Roadmap: integracja OAuth Fitbit Web API do szczegółowych etapów snu i wypełnienia danych za poprzednie 12 miesięcy __FM_HTML_0__",
+          ],
+          tr: [
+            "Yönetim Paneli web pulita erişilebilirPC, tablet, telefondan",
+            "Otomatik senkronizasyon (Health Connect (Fitbit uygulaması → HC → FitMesh))",
+            "Yerel tarihi bizim arka uçumuzun GERI ÇIKIŞ KVKK (Frankfurt) üzerinde saklıyor.",
+            "Veri CSV/JSON olarak导出何时都行",
+            "Hiç Fitbit Premium, hiç FitMesh aboneselleşmiş",
+            "Yönetilebilirlik: OAuth Fitbit Web API'siyle detaylı uyku aşamaları integre etme ve 12 ay geri doldurma",
+          ],
         },
       },
       {
         type: "heading",
         level: 2,
-        text: { it: "Funziona con qualsiasi Fitbit moderno", en: "Works with any modern Fitbit", de: "Funktioniert mit jedem modernen Fitbit", pt: "Funciona com qualquer Fitbit moderno", fr: "Fonctionne avec n'importe quel Fitbit récent" },
+        text: { it: "Funziona con qualsiasi Fitbit moderno", en: "Works with any modern Fitbit", de: "Funktioniert mit jedem modernen Fitbit", pt: "Funciona com qualquer Fitbit moderno", fr: "Fonctionne avec n'importe quel Fitbit récent", pl: "Funkcjonuje z dowolnym nowoczesnym Fitbit", tr: "Çalışır herhangi bir Fitbit ile" },
       },
       {
         type: "paragraph",
@@ -430,18 +530,22 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace und Pixel Watch (1, 2, 3): alle funktionieren heute über die automatische Bridge Fitbit App → Health Connect. Einmalige Einrichtung in 5 Minuten.",
           pt: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace e Pixel Watch (1, 2, 3): todos funcionam hoje via o bridge automático Fitbit app → Health Connect. Configuração de 5 minutos, uma única vez.",
           fr: "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace et Pixel Watch (1, 2, 3) : tous fonctionnent aujourd'hui via le pont automatique app Fitbit → Health Connect. Configuration de 5 minutes, une seule fois.",
+          pl: "Ładowanie 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace, oraz e Pixel Watch (1, 2, 3): wszyscy dzisiaj pracują poprzez automatyczny bridge app → Health Connect. Ustawienie w pięć minut, tylko raz.",
+          tr: "Şarj 5/6, Inspire 3, Sense 2, Versa 4, Luxe, Ace, e Pixel Watch (1, 2, 3): hepsi bugün otomatik bridge Fitbit uygulaması → Health Connect aracılığıyla çalışıyor. Tek seferde 5 dakikalık ayar.",
         },
       },
       {
         type: "callout",
         variant: "info",
-        title: { it: "Per chi stessa per lasciare Fitbit", en: "If you're about to leave Fitbit", de: "Wenn du Fitbit gerade verlassen möchtest", pt: "Se você está prestes a deixar o Fitbit", fr: "Si vous êtes sur le point de quitter Fitbit" },
+        title: { it: "Per chi stessa per lasciare Fitbit", en: "If you're about to leave Fitbit", de: "Wenn du Fitbit gerade verlassen möchtest", pt: "Se você está prestes a deixar o Fitbit", fr: "Si vous êtes sur le point de quitter Fitbit", pl: "Dla kogoś, kto zamiaruje opuścić Fitbit", tr: "KVKK gereği kendi Fitbit için kendini bırakmayı isteyenler için" },
         body: {
           it: "Anche se hai deciso di passare a Garmin, Apple Watch o Galaxy Watch, conviene salvare lo storico Fitbit ora. FitMesh tiene una copia sul tuo account, accessibile anche dopo che hai chiuso quello Fitbit/Google.",
           en: "Even if you've decided to switch to Garmin, Apple Watch or Galaxy Watch, save your Fitbit history now. FitMesh keeps a copy on your account, accessible even after you close your Fitbit/Google one.",
           de: "Auch wenn du dich entschieden hast, zu Garmin, Apple Watch oder Galaxy Watch zu wechseln, lohnt es sich, deinen Fitbit-Verlauf jetzt zu sichern. FitMesh bewahrt eine Kopie in deinem Konto, die auch nach dem Schließen deines Fitbit/Google-Kontos zugänglich bleibt.",
           pt: "Mesmo que você tenha decidido migrar para Garmin, Apple Watch ou Galaxy Watch, vale a pena salvar seu histórico do Fitbit agora. FitMesh guarda uma cópia na sua conta, acessível mesmo depois de fechar a conta Fitbit/Google.",
           fr: "Même si vous avez décidé de passer à Garmin, Apple Watch ou Galaxy Watch, il vaut la peine de sauvegarder votre historique Fitbit maintenant. FitMesh en conserve une copie sur votre compte, accessible même après la fermeture de votre compte Fitbit/Google.",
+          pl: "Aniż się zdecydowałeś/przez nie na przeniesienie do Garmin, Apple Watch lub Galaxy Watch, warto zapisać historię Fitbit teraz. FitMesh przechowuje kopię w Twoim kontu, dostępnej nawet po zakończeniu tego Fitbit/Google.",
+          tr: "Ayrıca Garmin'e geçmek veya Apple Watch ya da Galaxy Watch'a geçmek için karar verdiğinizi düşünüyorsanız, geçmiş Fitbit'u şimdi kaydedin. FitMesh hesabınıza bir kopya tutuyor ve bu, Fitbit/Google'nin kapattıktan sonra da erişilebilir olacak.",
         },
       },
       {
@@ -452,6 +556,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nimm die Kontrolle über dein Fitbit zurück",
           pt: "Retome o controle do seu Fitbit",
           fr: "Reprenez le contrôle de votre Fitbit",
+          pl: "Zwrot kontroly nad swoim Fitbit",
+          tr: "Kontrol ettiğiniz Fitbit yi yeniden ele alin",
         },
         body: {
           it: "Gratis durante la beta per i primi 100 founder. App Android + dashboard web.",
@@ -459,8 +565,10 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Kostenlos während der Beta für die ersten 100 Founder. Android-App und Web-Dashboard.",
           pt: "Grátis durante a beta para os primeiros 100 founders. App Android e painel web.",
           fr: "Gratuit pendant la bêta pour les 100 premiers founders. Application Android et tableau de bord web.",
+          pl: "Bezpłatnie podczas bêty dla pierwszych 100 founder. Aplikacja Android + panel webowy.",
+          tr: "Ücretsiz betanın ilk 100 kurucu için. Uygulama Android + web tabanlı panel.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →", pl: "Wejście w betę →", tr: "Giriş beta moduna →" },
         ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
@@ -472,6 +580,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Sehe ich die Schlafphasen REM/Tief/Leicht?",
           pt: "Verei as fases do sono REM/Profundo/Leve?",
           fr: "Vais-je voir les phases de sommeil REM/Profond/Léger ?",
+          pl: "Czy widzę fazy senu REM/Deep/Light?",
+          tr: "Uyku aşamalarını görüyorum REM/Derin/Uygunsuz?",
         },
         a: {
           it: "Oggi via Health Connect Fitbit espone solo la durata totale del sonno. Le fasi dettagliate arriveranno con l'integrazione OAuth Fitbit Web API, prevista per Q3 2026. La data total è comunque visibile da subito.",
@@ -479,6 +589,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Aktuell gibt Fitbit via Health Connect nur die Gesamtschlafdauer weiter. Detaillierte Schlafphasen werden mit der Fitbit Web API OAuth-Integration verfügbar, die für Q3 2026 geplant ist. Die Gesamtdauer ist ab dem ersten Tag sichtbar.",
           pt: "Hoje, via Health Connect, o Fitbit expõe apenas a duração total do sono. As fases detalhadas chegarão com a integração OAuth da Fitbit Web API, prevista para o Q3 2026. A duração total já é visível desde o primeiro dia.",
           fr: "Aujourd'hui via Health Connect, Fitbit n'expose que la durée totale du sommeil. Les phases détaillées seront disponibles avec l'intégration OAuth Fitbit Web API, prévue pour le T3 2026. La durée totale est visible dès le premier jour.",
+          pl: "Dziś w Health Connect Fitbit pokazana jest tylko cała durata senu. Detalowe fazy pojawią się podczas integracji OAuth Fitbit Web API, oczekiwanej na III kwartał 2026 roku. Cała trwałość senu jest jednak widoczna od początku.",
+          tr: "Bugün Health Connect Fitbit sadece uykunuzun toplam süresini gösteriyor. Detaylı fasi bilgileri OAuth Fitbit Web API'si ile birlikte gelecek ve bu tarihe Q3 2026'i bekliyoruz. Toplam süre hala ilk başta görünüyor.",
         },
       },
       {
@@ -488,6 +600,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Kann FitMesh meine Daten löschen, wenn ich meine Meinung ändere?",
           pt: "O FitMesh pode excluir meus dados se eu mudar de ideia?",
           fr: "FitMesh peut-il supprimer mes données si je change d'avis ?",
+          pl: "FitMesh może usunąć moje dane, jeśli zmienię zdanie?",
+          tr: "FitMesh KVKK'ye göre, verilerinizi sildikten sonra geri alamaz. Eğer fikir değişirse, veriler silinemeyecektir.",
         },
         a: {
           it: "Sì. Dalle impostazioni 'Elimina account e dati' cancella tutto dai nostri server. I dati nel cloud Fitbit/Google e sul tuo dispositivo restano intatti (puoi gestirli separatamente).",
@@ -495,6 +609,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Ja. Einstellungen → 'Konto und Daten löschen' entfernt alles von unseren Servern. Daten im Fitbit/Google-Cloud und auf deinem Gerät bleiben unberührt (diese kannst du separat verwalten).",
           pt: "Sim. Configurações → 'Excluir conta e dados' apaga tudo dos nossos servidores. Os dados no cloud Fitbit/Google e no seu dispositivo permanecem intactos (gerencie-os separadamente).",
           fr: "Oui. Paramètres → 'Supprimer le compte et les données' efface tout de nos serveurs. Les données dans le cloud Fitbit/Google et sur votre appareil restent intactes (à gérer séparément).",
+          pl: "Tak. Z ustawień «Usuń konto i dane» usuń wszystko z naszych serwerów. Dane w chmurze Fitbit/Google oraz na Twoim urządzeniu pozostają niezmienione (możesz je zarządzać oddzielnie).",
+          tr: "Evet. 'Hesabı ve verileri sil' ayarlarından, tüm verilerimizden silinir. Bulutta Fitbit/Google ve cihazdaki veriler tamamen korunur (ayrıca ayrı olarak yönetebilirsiniz).",
         },
       },
       {
@@ -504,6 +620,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Muss ich meinen Fitbit Account löschen?",
           pt: "Preciso excluir minha conta Fitbit?",
           fr: "Dois-je supprimer mon compte Fitbit ?",
+          pl: "Musi usunąć konto Fitbit?",
+          tr: "Gereceğim Fitbit Hesabı?",
         },
         a: {
           it: "No. FitMesh affianca, non sostituisce. Continuano a funzionare Fitbit app + le sue feature di sempre. FitMesh aggiunge solo la dashboard web alternativa e l'export.",
@@ -511,6 +629,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nein. FitMesh ergänzt, ersetzt nicht. Die Fitbit-App und all ihre bestehenden Funktionen funktionieren weiterhin. FitMesh fügt nur das alternative Web-Dashboard und den Export hinzu.",
           pt: "Não. FitMesh complementa, não substitui. O app Fitbit e todos os seus recursos existentes continuam funcionando. FitMesh apenas adiciona o painel web alternativo e o export.",
           fr: "Non. FitMesh complète, ne remplace pas. L'application Fitbit et toutes ses fonctionnalités continuent de fonctionner. FitMesh ajoute simplement le tableau de bord web alternatif et l'export.",
+          pl: "No. FitMesh affianca, non sostituisce. Continuano a funzionare Fitbit app + le sue caratteristiche di sempre. FitMesh aggiunge solo la dashboard web alternativa e l'export.",
+          tr: "No. FitMesh eklenir, değiştirilmez. Fitbit uygulamaları ve eskisi gibi devam eden özellikler hala çalışır. FitMesh sadece alternatif web tabanlı paneli ve dışa aktarmayı ekler.",
         },
       },
     ],
@@ -529,10 +649,22 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Garmin Connect PC",
       pt: "garmin connect pc",
       fr: "garmin connect pc",
+      pl: "garmin connect pc",
+      tr: "garmin connect bilgisayar uygulaması",
     },
     secondaryKeywords: {
       it: ["dashboard garmin browser", "garmin connect alternativa", "vedere dati garmin"],
       en: ["garmin dashboard browser", "garmin connect alternative", "view garmin data"],
+      pl: [
+        "pulpit garmin browser",
+        "garmin connect alternatywa",
+        "oglądać dane garmin",
+      ],
+      tr: [
+        "pano garmin tarayıcı",
+        "garmin connect alternatif",
+        "garmin'deki verileri görüntüle",
+      ],
     },
     metaDescription: {
       it: "Dashboard Garmin alternativa accessibile da PC, in aggiunta a Garmin Connect web. Cross-sync con Galaxy Watch, Oura, Fitbit. Setup via Health Connect.",
@@ -540,15 +672,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Alternatives Garmin-Dashboard, zugänglich vom PC, zusätzlich zu Garmin Connect Web. Cross-Sync mit Galaxy Watch, Oura, Fitbit. Einrichtung via Health Connect.",
       pt: "Painel alternativo do Garmin acessível pelo PC, além do Garmin Connect web. Cross-sync com Galaxy Watch, Oura, Fitbit. Configuração via Health Connect.",
       fr: "Tableau de bord Garmin alternatif accessible depuis PC, en complément de Garmin Connect web. Synchronisation croisée avec Galaxy Watch, Oura, Fitbit. Configuration via Health Connect.",
+      pl: "Panel zarządzania Garmin alternatywny dostępny z komputera, w dodatku do Garmin Connect web. Cross-sync z Galaxy Watch, Oura, Fitbit. Konfiguracja za pomocą Health Connect.",
+      tr: "Günlük Garmin alternatif PC'den erişilebilir, Garmin Connect web'e ek olarak. Cross-sync ile Galaxy Watch, Oura, Fitbit. Ayarlar Health Connect üzerinden.",
     },
     hero: {
-      kicker: { it: "Garmin su PC", en: "Garmin on PC", de: "Garmin auf dem PC", pt: "Garmin no PC", fr: "Garmin sur PC" },
+      kicker: { it: "Garmin su PC", en: "Garmin on PC", de: "Garmin auf dem PC", pt: "Garmin no PC", fr: "Garmin sur PC", pl: "RODO na PC", tr: "Garmin bilgisayarınıza" },
       title: {
         it: "Garmin su una dashboard tua, accanto agli altri wearable",
         en: "Garmin on a dashboard you own, alongside other wearables",
         de: "Garmin auf deinem eigenen Dashboard, neben anderen Wearables",
         pt: "Garmin em um painel seu, ao lado dos outros wearables",
         fr: "Garmin sur votre propre tableau de bord, aux côtés des autres appareils connectés",
+        pl: "RODO na Twojej panelu sterowniczym, obok innych smartwatchów",
+        tr: "KVKK'ye uygun bir dashboard'a sahip, diğer giyilebilir cihazların yanına Garmin",
       },
       subtitle: {
         it: "Garmin Connect web funziona, ma è isolato. Se hai anche un Galaxy Watch per la quotidianità o un Oura per il sonno, vuoi vederli insieme. FitMesh Sync li unifica.",
@@ -556,13 +692,15 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         de: "Garmin Connect Web funktioniert, aber es ist isoliert. Wenn du auch eine Galaxy Watch für den Alltag oder einen Oura für den Schlaf hast, möchtest du sie zusammen sehen. FitMesh Sync vereint sie.",
         pt: "O Garmin Connect web funciona, mas é isolado. Se você também tem um Galaxy Watch para o dia a dia ou um Oura para o sono, quer vê-los juntos. FitMesh Sync os unifica.",
         fr: "Garmin Connect web fonctionne, mais il est isolé. Si vous avez aussi une Galaxy Watch pour le quotidien ou un Oura pour le sommeil, vous voulez les voir ensemble. FitMesh Sync les unifie.",
+        pl: "Garmin Connect sieć działa, ale jest izolowana. Jeśli masz również Galaxy Watch na codzienne użycie lub Oura do śpienia, chcesz, aby one były połączone. FitMesh Sync je unifikuje.",
+        tr: "Garmin Connect web işe yarar, ancak izolasyonlu. Günde geleneksel bir Galaxy Watch veya uyku için bir Oura de varsa, onları birlikte görmek isteyebilirsiniz. FitMesh Sync bunları birleştirir.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite", pl: "Wejście do bêta bezpłatnie", tr: "Güçlendirici betanın içine gir ücretsiz olarak" },
         href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Vedi integrazione Garmin", en: "See Garmin integration", de: "Garmin-Integration ansehen", pt: "Ver integração Garmin", fr: "Voir l'intégration Garmin" },
+        label: { it: "Vedi integrazione Garmin", en: "See Garmin integration", de: "Garmin-Integration ansehen", pt: "Ver integração Garmin", fr: "Voir l'intégration Garmin", pl: "Zobacz integrację Garmin", tr: "Görünüm Integrasyonu Garmin" },
         href: { it: "/it/sync/garmin", en: "/en/sync/garmin", de: "/de/sync/garmin", pt: "/pt/sync/garmin", fr: "/fr/sync/garmin" },
       },
     },
@@ -575,12 +713,14 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Garmin Connect ist eines der besten Wearable-Web-Dashboards, das 2026 noch existiert. Für reine Garmin-Nutzer ist es perfekt. Das Problem entsteht, wenn du auch eine Galaxy Watch hast (weil du abends eine normale Uhr willst), einen Oura Ring (weil du den Schlaf genauer verfolgst) oder deine Garmin-Daten in einer einheitlichen Health-App sehen möchtest. Garmin Connect bleibt in seinem eigenen Silo.",
           pt: "O Garmin Connect é um dos melhores painéis web para wearables ainda em pé em 2026. Para quem usa só Garmin, é perfeito. O problema aparece quando você também tem um Galaxy Watch (porque à noite quer um relógio normal), um Oura Ring (porque acompanha melhor o sono) ou quer que seus dados Garmin apareçam em um app de saúde unificado. O Garmin Connect é fechado no seu próprio silo.",
           fr: "Garmin Connect est l'un des meilleurs tableaux de bord web pour appareils connectés encore en activité en 2026. Pour les utilisateurs exclusifs de Garmin, c'est parfait. Le problème survient quand vous avez aussi une Galaxy Watch (parce que le soir vous voulez une montre classique), un Oura Ring (parce que vous suivez mieux votre sommeil) ou que vous voulez voir vos données Garmin dans une application de santé unifiée. Garmin Connect reste fermé dans son propre silo.",
+          pl: "Garmin Connect jest jedną z najlepszych web dashboardów wearable nadal działających w 2026 roku. Dla tych, którzy używają tylko Garmin, jest idealnym rozwiązaniem. Problem pojawia się, gdy masz również Galaxy Watch (bo na wieczór chcesz normalny zegarek), Oura Ring (bo lepiej śledzi Twoje spoczywki), lub chcesz, aby Twoje dane Garmin pojawiały się w jednej aplikacji zdrowotnej. Garmin Connect jest zamknięty w swoim silosie.",
+          tr: "Garmin Connect 2026 yılına kadar en iyilerden biri hala giyilebilir cihaz dashboard'ı olarak duruyor. Sadece Garmin kullanıyorsanız çok iyi çalışır. Sorun, her sabah normale çevirdiğiniz saatle (ayrıca gece için normal bir ayakkabısı isteyebilirsiniz), Galaxy Watch Ring'i (uykuizi daha iyi takip etmek istiyorsunuz) veya verilerinizi tek bir sağlık uygulamasında görmek istediğinizde ortaya çıkar (Garmin verilerinizin tümünü birlikte görebileceğiniz bir uygulama). Garmin Connect kendi silosuna kapalı.",
         },
       },
       {
         type: "heading",
         level: 2,
-        text: { it: "Cosa fa FitMesh con Garmin", en: "What FitMesh does with Garmin", de: "Was FitMesh mit Garmin macht", pt: "O que FitMesh faz com o Garmin", fr: "Ce que FitMesh fait avec Garmin" },
+        text: { it: "Cosa fa FitMesh con Garmin", en: "What FitMesh does with Garmin", de: "Was FitMesh mit Garmin macht", pt: "O que FitMesh faz com o Garmin", fr: "Ce que FitMesh fait avec Garmin", pl: "Co robisz FitMesh z Garmin", tr: "FitMesh'un Garmin ile ne yapar" },
       },
       {
         type: "list",
@@ -615,18 +755,32 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "Tableau de bord web multi-sources : Garmin aux côtés de Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura lorsqu'ils sont actifs.",
             "Export des données collectées en CSV/JSON.",
           ],
+          pl: [
+            "Czytaj dane Garmin za pomocą Health Connect (kroki, BPM, całe senne, kalorie, dystans, podstawowe treningi): działa dzisiaj.",
+            "Roadmap Q3 2026: integracja API zdrowia OAuth Garmin Health dla Indeksu Energetycznego ciała, Ciężaru Treningowego, Czasu Odzyskania, Oceny Stresu i szczegółowych informacji na temat GPS.",
+            "Przeglądarka webowa łącząca źródła: Garmin obok Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura podczas aktywności.",
+            "Wyświetlanie CSV/JSON danych zebrać.",
+          ],
+          tr: [
+            "Veri Garmin verileri Health Connect aracılığıyla oku (adımlar, BPM, tam uykun, kaloriler, mesafe, temel egzersizler): bugün çalışır.",
+            "Yol Haritası 2026.3: OAuth Garmin Sağlık API'si için Body Battery, Eğitim Yükü, İklim Zamanı, Stres Skoru ve GPS detaylı integre edilecek.",
+            "Günlük panel web kesişimi: Garmin __FM_PH_0__ / Pixel Watch / Fitbit / Mi Band / Oura etkin olduğunda yanına.",
+            "Verilənlərin CSV/JSON exportu.",
+          ],
         },
       },
       {
         type: "callout",
         variant: "tip",
-        title: { it: "Per chi gestisce più wearable", en: "For multi-wearable users", de: "Für Nutzer mit mehreren Wearables", pt: "Para usuários com múltiplos wearables", fr: "Pour les utilisateurs multi-appareils" },
+        title: { it: "Per chi gestisce più wearable", en: "For multi-wearable users", de: "Für Nutzer mit mehreren Wearables", pt: "Para usuários com múltiplos wearables", fr: "Pour les utilisateurs multi-appareils", pl: "Dla osób zarządzających większą liczbę smartwatchów", tr: "Giyilebilir cihazları yönetenler için" },
         body: {
           it: "Atleta con Garmin per gli allenamenti + Galaxy Watch per la quotidianità? Coppia Oura Ring di notte + Garmin di giorno? FitMesh ti dà una vista unica senza che tu debba scegliere.",
           en: "Athlete with Garmin for workouts + Galaxy Watch daily? Oura Ring at night + Garmin by day? FitMesh gives you a single view without forcing you to choose.",
           de: "Athleten mit Garmin für Trainings und Galaxy Watch im Alltag? Oura Ring nachts und Garmin tagsüber? FitMesh gibt dir eine einheitliche Ansicht, ohne dass du dich entscheiden musst.",
           pt: "Atleta com Garmin para os treinos e Galaxy Watch no dia a dia? Oura Ring à noite e Garmin durante o dia? FitMesh te dá uma visão única sem que você precise escolher.",
           fr: "Sportif avec Garmin pour les entraînements et Galaxy Watch au quotidien ? Oura Ring la nuit et Garmin le jour ? FitMesh vous offre une vue unifiée sans que vous ayez à choisir.",
+          pl: "Atleta zαι Garmin dla treningów + Galaxy Watch dla codzienności? Zespół Oura Szpilki nocnej + Garmin dnia? FitMesh da Ci unikalny widok bez potrzeby wyboru.",
+          tr: "Atleta ile Garmin + Galaxy Watch için günlük hayat? Gece Oura Ring'i ve gün içinde Garmin'yi? FitMesh senin için tek bir bakış açısı sunar.",
         },
       },
       {
@@ -637,6 +791,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Garmin + andere Wearables, ein einziges Dashboard",
           pt: "Garmin + outros wearables, um único painel",
           fr: "Garmin + autres appareils connectés, un seul tableau de bord",
+          pl: "RODO + inne wearable, jedna tylko dashboard",
+          tr: "KVKK + diğer giyilebilir cihazlar, bir arayüz sadece",
         },
         body: {
           it: "Gratis durante la beta per i primi 100 founder. Funziona oggi via Health Connect.",
@@ -644,8 +800,10 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Kostenlos während der Beta für die ersten 100 Founder. Funktioniert heute via Health Connect.",
           pt: "Grátis durante a beta para os primeiros 100 founders. Funciona hoje via Health Connect.",
           fr: "Gratuit pendant la bêta pour les 100 premiers founders. Fonctionne aujourd'hui via Health Connect.",
+          pl: "Bezpłatnie podczas bêty dla pierwszych 100 founderów. Działa dzisiaj poprzez Health Connect.",
+          tr: "Ücretsiz beta期内 для первых 100 kurucu. Çalışıyor bugün via Health Connect.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →", pl: "Wejście w betę →", tr: "Giriş beta moduna →" },
         ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
@@ -657,6 +815,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Werde ich Body Battery und Training Load sehen?",
           pt: "Verei Body Battery e Training Load?",
           fr: "Vais-je voir Body Battery et Training Load ?",
+          pl: "Czy zaimplicuję Body Battery i Treningowy Oblot?",
+          tr: "Güç Durumu ve Eğitim Yükü'ni Ne Kadar Anlıyorum?",
         },
         a: {
           it: "Non oggi: sono metriche proprietarie Garmin non esposte via Health Connect. Saranno disponibili con l'integrazione OAuth Garmin Health API, in roadmap per Q3 2026 (dipende dall'approvazione Garmin Developer Program).",
@@ -664,6 +824,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nicht heute: Das sind proprietäre Garmin-Metriken, die nicht über Health Connect verfügbar sind. Sie werden mit der OAuth-Integration der Garmin Health API verfügbar, die für Q3 2026 geplant ist (abhängig von der Genehmigung des Garmin Developer Program).",
           pt: "Não hoje: são métricas proprietárias do Garmin não expostas via Health Connect. Estarão disponíveis com a integração OAuth da Garmin Health API, prevista para o Q3 2026 (sujeito à aprovação do Garmin Developer Program).",
           fr: "Pas aujourd'hui : ce sont des métriques propriétaires Garmin non exposées via Health Connect. Elles seront disponibles avec l'intégration OAuth Garmin Health API, prévue pour le T3 2026 (sous réserve de l'approbation du Garmin Developer Program).",
+          pl: "Nie dzisiaj: są to prywatne metryki Garmin nie ekspozycyjne poprzez Health Connect. Stany będą dostępne w ramach integracji OAuth API Health, w planie productu na kwartał III 2026 (zależy od zatwierdzenia programu Garmin Developer).",
+          tr: "Bugün değil: bu özel metrikler Garmin non eslenik olacak ve OAuth Garmin Health API ile birlikte mevcut olacaktır,roadmap Q3 2026 için (KVKK Developer Programı onayına bağlı).",
         },
       },
       {
@@ -673,6 +835,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Welche Garmin-Geräte werden unterstützt?",
           pt: "Quais dispositivos Garmin são compatíveis?",
           fr: "Quels appareils Garmin sont pris en charge ?",
+          pl: "Jakie Garmin są obsługiwane?",
+          tr: "Hangi Garmin desteği sunuyoruz?",
         },
         a: {
           it: "Tutti i Garmin compatibili con Garmin Connect Android (dal 2018 in poi): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Verifica che 'Sincronizza con Health Connect' sia attivo nelle impostazioni Garmin Connect.",
@@ -680,6 +844,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Alle Garmin-Geräte, die mit Garmin Connect Android kompatibel sind (ab 2018): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Prüfe, ob 'Mit Health Connect synchronisieren' in den Garmin Connect-Einstellungen aktiviert ist.",
           pt: "Todos os dispositivos Garmin compatíveis com o Garmin Connect Android (a partir de 2018): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Verifique se 'Sincronizar com Health Connect' está ativado nas configurações do Garmin Connect.",
           fr: "Tous les appareils Garmin compatibles avec Garmin Connect Android (à partir de 2018) : Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Vérifiez que 'Synchroniser avec Health Connect' est activé dans les paramètres Garmin Connect.",
+          pl: "Wszystkie Garmin kompatywne z Garmin Connect Android (od 2018 roku włącznie): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Upewnij się, że 'Synchronizuj z Health Connect' jest aktywne w ustawieniach Garmin Connect.",
+          tr: "Tutti i Garmin uyumlu Garmin Connect Android (2018'den beri): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. 'Sincronizza ile Health Connect ile bağla' ayarı etkin olduğundan emin ol.\nKVKK uyumlu Garmin uyumlu Garmin Connect Android (2018'den beri): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. 'Sincronizza con Health Connect' ayarı etkin olduğundan emin ol.\nKVKK uyumlu Garmin uyumlu Garmin Connect Android (2018'den beri): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. 'Sincronizza con Health Connect' ayarı etkin olduğundan emin ol.",
         },
       },
       {
@@ -689,6 +855,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Ersetzt es Garmin Connect?",
           pt: "Substitui o Garmin Connect?",
           fr: "Cela remplace-t-il Garmin Connect ?",
+          pl: "Zamienić Garmin Connect?",
+          tr: "Garmin Connect değiştirilecek?",
         },
         a: {
           it: "No, è complementare. Garmin Connect è il punto di riferimento per analisi Garmin-specifiche (Training Effect, Recovery Time, mappe GPS). FitMesh affianca una vista cross-source per chi ha più wearable.",
@@ -696,6 +864,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nein, es ergänzt ihn. Garmin Connect bleibt die Referenz für Garmin-spezifische Analysen (Training Effect, Recovery Time, GPS-Karten). FitMesh ergänzt eine Cross-Source-Ansicht für Nutzer mit mehreren Wearables.",
           pt: "Não, é complementar. O Garmin Connect continua sendo a referência para análises específicas do Garmin (Training Effect, Recovery Time, mapas GPS). FitMesh adiciona uma visão multi-fonte para usuários com vários wearables.",
           fr: "Non, c'est complémentaire. Garmin Connect reste la référence pour les analyses spécifiques à Garmin (Training Effect, Recovery Time, cartes GPS). FitMesh ajoute une vue multi-sources pour les utilisateurs de plusieurs appareils connectés.",
+          pl: "No, jest dodatkowym elementem. Garmin Connect to punkt odniesienia dla analiz specyficznych dla treningu (Efekt Treningowy, Czas Odzyskania, mapy GPS). FitMesh oferuje widok cross-source dla osób posiadających więcej smartwatchów.",
+          tr: "No, komplementördür. Garmin Connect belirli analizler için (Eğitim Etkisi, İkramiye Zamanı, Garmin haritaları) bir referans noktasıdır (GPS). FitMesh daha fazla giyilebilir cihaz için cross-kaynaklı bir görünüm sunar.",
         },
       },
     ],
@@ -714,6 +884,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Oura Ring synchronisieren",
       pt: "sincronizar dados oura ring",
       fr: "synchroniser données oura ring",
+      pl: "synchronizuj dane Oura Ring",
+      tr: "sincronize veriler Oura Çiftçiliği",
     },
     secondaryKeywords: {
       it: [
@@ -728,6 +900,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         "oura ring without subscription",
         "oura ring health connect android",
       ],
+      pl: [
+        "panel dashbord internetowy oura ring",
+        "eksportować dane Oura",
+        "pierściec oura bez subskrypcji",
+        "Oura Ring zdrowie połączone",
+      ],
+      tr: [
+        "Oura Cihazı paneli web",
+        "veri dışarı aktarım Ora",
+        "Oura Çiftçi Sansürsüz",
+        "Oura Cinsiyet Bağlantısı",
+      ],
     },
     metaDescription: {
       it: "Dashboard web per Oura Ring: sincronizza sonno, HRV e recupero su una piattaforma tua, senza dipendere dall'app Oura. Setup via Health Connect su Android.",
@@ -735,15 +919,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Web-Dashboard für Oura Ring: synchronisiere Schlaf, HRV und Erholung auf einer Plattform, die dir gehört, ohne von der Oura-App abhängig zu sein. Einrichtung via Health Connect auf Android.",
       pt: "Painel web para Oura Ring: sincronize sono, HRV e recuperação em uma plataforma sua, sem depender do app Oura. Configuração via Health Connect no Android.",
       fr: "Tableau de bord web pour Oura Ring : synchronisez sommeil, HRV et récupération sur une plateforme qui vous appartient, sans dépendre de l'application Oura. Configuration via Health Connect sur Android.",
+      pl: "Panel web dla Oura Ring: synchronizuj sen, HRV i odzyskiwanie na platformie twojej, bez zależności od aplikacji Oura. Konfiguracja za pomocą Health Connect na Android.",
+      tr: "Dashboard web için Oura Ring: uyku, HRV ve geri yükleme bir platformunuz üzerinde synkronlaştırın, uygulama bağımsız olarak. Ayarlamayı Health Connect üzerinden Android yapın.",
     },
     hero: {
-      kicker: { it: "Oura Ring + FitMesh", en: "Oura Ring + FitMesh", de: "Oura Ring + FitMesh", pt: "Oura Ring + FitMesh", fr: "Oura Ring + FitMesh" },
+      kicker: { it: "Oura Ring + FitMesh", en: "Oura Ring + FitMesh", de: "Oura Ring + FitMesh", pt: "Oura Ring + FitMesh", fr: "Oura Ring + FitMesh", pl: "Oura Dzwonek + FitMesh", tr: "Oura Çember + FitMesh" },
       title: {
         it: "Dashboard web per Oura Ring: sonno e recupero fuori dal silo Oura",
         en: "Web dashboard for Oura Ring: sleep and recovery outside the Oura silo",
         de: "Web-Dashboard für Oura Ring: Schlaf und Erholung außerhalb des Oura-Silos",
         pt: "Painel web para Oura Ring: sono e recuperação fora do silo Oura",
         fr: "Tableau de bord web pour Oura Ring : sommeil et récupération hors du silo Oura",
+        pl: "Panel@Web dlaOura Ring: seno i odprzysłanianie poza siloOura",
+        tr: "Günlük takip paneli per Oura Ring: uyku ve dış silodan geri dönüş Oura",
       },
       subtitle: {
         it: "Oura è tra i migliori anelli smart per sonno e recupero, ma i tuoi dati stanno chiusi nell'app Oura. Con FitMesh puoi vederli su web insieme agli altri wearable.",
@@ -751,13 +939,15 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         de: "Oura gehört zu den besten Smart-Ringen für Schlaf und Erholung, aber deine Daten bleiben in der Oura-App gesperrt. Mit FitMesh kannst du sie im Web zusammen mit deinen anderen Wearables ansehen.",
         pt: "Oura está entre os melhores anéis inteligentes para sono e recuperação, mas seus dados ficam presos no app Oura. Com FitMesh você pode vê-los na web junto com os outros wearables.",
         fr: "Oura est parmi les meilleures bagues connectées pour le sommeil et la récupération, mais vos données restent enfermées dans l'application Oura. Avec FitMesh, vous pouvez les voir sur le web aux côtés de vos autres appareils.",
+        pl: "Oura jest among najlepszych smartannelek do śpienia i odzyskiwania siły, ale Twoje dane są zamykane w aplikacji Oura. Z FitMesh możesz je zobaczyć na stronie internetowej razem z innymi wearable.",
+        tr: "Oura KVKK'ye uygun en iyi sonu ve recüre smart aletlerinden biridir, ancak verilerinizi __FM_APP_1__ uygulamasında kilitli tutuyor. FitMesh sayesinde web üzerinde diğer giyilebilir cihazlarla birlikte bu verileri görebilirsiniz.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite", pl: "Wejście do bêta bezpłatnie", tr: "Güçlendirici betanın içine gir ücretsiz olarak" },
         href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Vedi integrazione Oura", en: "See Oura integration", de: "Oura-Integration ansehen", pt: "Ver integração Oura", fr: "Voir l'intégration Oura" },
+        label: { it: "Vedi integrazione Oura", en: "See Oura integration", de: "Oura-Integration ansehen", pt: "Ver integração Oura", fr: "Voir l'intégration Oura", pl: "Zobacz integrację Oura", tr: "Görünüm Integrasyonu Oura" },
         href: { it: "/it/sync/oura", en: "/en/sync/oura", de: "/de/sync/oura", pt: "/pt/sync/oura", fr: "/fr/sync/oura" },
       },
     },
@@ -770,6 +960,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Der Oura Ring wird von Athleten, Biohackern und allen geschätzt, die Schlaf und Erholung diskret überwachen möchten: kein Bildschirm, keine Benachrichtigungen, nur Sensoren. Das klassische Problem: Oura-Daten bleiben in der Oura-App und in der Oura-Cloud. Wenn du sie auf dem PC ansehen, mit deinen Galaxy Watch-Daten vergleichen oder ein unabhängiges Backup haben möchtest, gibt es keine einfachen nativen Optionen.",
           pt: "O Oura Ring é muito apreciado por atletas, biohackers e quem quer monitorar sono e recuperação de forma discreta: sem tela, sem notificações, apenas sensores. O problema clássico: os dados do Oura ficam no app Oura e na nuvem Oura. Se você quer vê-los no PC, comparar com os dados do seu Galaxy Watch ou ter um backup independente, não há opções nativas fáceis.",
           fr: "L'Oura Ring est apprécié des athlètes, biohackers et de quiconque souhaite surveiller sommeil et récupération discrètement : pas d'écran, pas de notifications, juste des capteurs. Le problème classique : les données Oura restent dans l'application Oura et le cloud Oura. Si vous voulez les consulter sur PC, les comparer avec vos données Galaxy Watch ou disposer d'une sauvegarde indépendante, il n'existe pas d'option native simple.",
+          pl: "Oura Ring jest ceniony przez atletów, biohakerek oraz tych, którzy chcą dyskretnie monitorować sen i odzyskiwanie: żadnego ekranu, żadnych powiadomień, tylko sensorzy. Klasyka problemu: dane z Oura pozostają w aplikacji Oura oraz w chmurze Oura. Jeśli chcesz zobaczyć je na komputerze, porównać z danymi Twojego Galaxy Watch, lub mieć niezależne kopię zapasową, nie masz łatwych opcji natywnych.",
+          tr: "Oura Çarpımlık, atletler, biohackerler ve gizli uyku ve recupero izlemeyi istediğiniz herkese sevilen bir seçenektir: ekran yok, bildirim yok, sadece sensörler. Standart problem: Oura'in verileri Oura uygulamasında ve bulutta kalır.Oura. Bilgisayarınızda görüntülemek isterseniz, kendi Galaxy Watch verilerinizle karşılaştırmak isteyebilirsiniz veya bağımsız bir yedeğin olmak isteyebilirsiniz. Bu durumda, KVKK uyumluluğu sağlayacak kolay natif seçenekler bulunmamaktadır.",
         },
       },
       {
@@ -781,6 +973,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "So funktioniert es heute: Oura → Health Connect → FitMesh",
           pt: "Como funciona hoje: Oura → Health Connect → FitMesh",
           fr: "Comment ça fonctionne aujourd'hui : Oura → Health Connect → FitMesh",
+          pl: "Jak działa dzisiaj: Oura → Health Connect → FitMesh",
+          tr: "Nasıl çalışıyor bugün: Oura → Health Connect → FitMesh",
         },
       },
       {
@@ -791,6 +985,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Die Oura-App auf Android schreibt einige Daten in Health Connect: Schritte, Kalorien, Schlaf (Gesamtdauer und Basisphasen). FitMesh liest aus Health Connect, sodass es diese Daten automatisch empfängt, sobald die Verbindung konfiguriert ist.",
           pt: "O app Oura no Android escreve alguns dados no Health Connect: passos, calorias, sono (duração total e fases básicas). FitMesh lê do Health Connect, então recebe esses dados automaticamente assim que a conexão é configurada.",
           fr: "L'application Oura sur Android écrit certaines données dans Health Connect : pas, calories, sommeil (durée totale et phases de base). FitMesh lit depuis Health Connect, il reçoit donc ces données automatiquement une fois la connexion configurée.",
+          pl: "Aplikacja Oura na Android zapisuje niektóre dane z Health Connect: kroki, kalorie, sen (całkowita trwałość i podstawowe fazy). FitMesh odczytuje z Health Connect, więc otrzymuje te dane automatycznie raz skonfigurowany połączenie.",
+          tr: "Uygulama Oura üzerinde Android some data about Health Connect: adımlar, kaloriler, uyku (toplam süresi ve temel fasi). FitMesh bu verileri Health Connect den okuyar, dolayısıyla bağlantı yapılandırıldığında bu veriler otomatik olarak alır.",
         },
       },
       {
@@ -816,6 +1012,14 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Disponible aujourd'hui via Health Connect** : pas, calories, sommeil total avec phases (Profond, REM, Léger, Éveillé)",
             "**En feuille de route** : intégration directe de l'API Oura pour le Readiness Score, HRV détaillé, température corporelle nocturne, tendance SpO₂",
           ],
+          pl: [
+            "Dostępne dzisiaj poprzez Health Connect: kroki, kalorie, całe drzemki z fazami (Tęczy, REM, Leve, Boleśnie)",
+            "**W dorzeczu**: bezpośrednią integrację Oura API dla Indeksu Gotowości, szczegółowy HRV, temperatury ciała w nocy, trend SpO2",
+          ],
+          tr: [
+            "**Bugün Health Connect yoluyla mevcut:** adımlar, kaynaklar, toplam uyku (Derin, REM, Yavaş, Uyanık)",
+            "**Yol haritasında**: doğrudan Oura API'integre edilme için Hazırlik Puanı, HRV ayrıntılı, göğüs sıcaklığa gecikmeli sıcaklık, SpO2 eğrisi",
+          ],
         },
       },
       {
@@ -827,6 +1031,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Einrichtung in 4 Schritten",
           pt: "Configuração em 4 passos",
           fr: "Configuration en 4 étapes",
+          pl: "Instalacja w 4 kroki",
+          tr: "Setup in 4 adımla",
         },
       },
       {
@@ -863,6 +1069,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "Dans **Health Connect** → Accès des applications → FitMesh Sync → accordez l'accès en lecture pour Sommeil, Pas, Calories, Fréquence cardiaque.",
             "Ouvrez le **tableau de bord FitMesh** sur le web : vos données Oura sont là, aux côtés de vos autres appareils.",
           ],
+          pl: [
+            "Zainstaluj **FitMesh Sync** z Google Play i zaloguj się za pomocą Google.",
+            "Otwórz **aplikację Oura** w Android → Ustawienia → Health Connect → włącz synchronizację dla Sen, Kroki, Kalorii.",
+            "W **Health Connect** → Dostęp do aplikacji i danych → FitMesh Sync → udziel dostępu do odczytu dla Senu, Kroków, Kalorii, Czynności sercowej.",
+            "Otwórz **panel zarządzania FitMesh** w przeglądarce: Twoje dane Oura są tam obok innych smartwatch.",
+          ],
+          tr: [
+            "İnstall **FitMesh Sync** Google Play'ten ve Google ile giriş yapın.",
+            "Aç **Oura uygulamasını** Android → Ayarlar → Health Connect → Uykuya, Adımlara, Pişillerine同步化를 활성화하세요.",
+            "KVKK → Uygulama ve Veri Erişimi → FitMesh Sync → Sonuc, Adımlar, Kaloriler, Heart Rate için okuma erişimini izin ver.",
+            "Aç **FitMesh dashboard'ı** web sayfadan: verileriniz Oura diğer giyilebilir cihazlarla beraber burada.",
+          ],
         },
       },
       {
@@ -874,6 +1092,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Multi-Wearable: Oura + Galaxy Watch zusammen",
           pt: "Multi-wearable: Oura + Galaxy Watch juntos",
           fr: "Multi-appareils : Oura + Galaxy Watch ensemble",
+          pl: "Wielowymiarowe wearble: Oura + Galaxy Watch w jednym设备无法识别此语言环境，已使用英文呈现，请谅解。请确认是否需要其他帮助或调整。",
+          tr: "Giyilebilir Cihazlar Çoğu: Oura + Galaxy Watch Birlikte",
         },
         body: {
           it: "Molti usano Oura di notte (per sonno e recupero) e un Galaxy Watch o Garmin di giorno (per sport e notifiche). FitMesh unifica tutti e due in una dashboard: il tuo Readiness Score Oura (quando disponibile via API) insieme ai passi e agli allenamenti del Watch.",
@@ -881,6 +1101,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Viele nutzen Oura nachts (für Schlaf und Erholung) und eine Galaxy Watch oder Garmin tagsüber (für Sport und Benachrichtigungen). FitMesh vereint beide in einem Dashboard: deinen Oura Readiness Score (wenn über API verfügbar) zusammen mit den Schritten und Trainings der Watch.",
           pt: "Muitas pessoas usam Oura à noite (para sono e recuperação) e um Galaxy Watch ou Garmin durante o dia (para esporte e notificações). FitMesh unifica os dois em um painel: seu Oura Readiness Score (quando disponível via API) junto com os passos e treinos do Watch.",
           fr: "Beaucoup utilisent Oura la nuit (pour le sommeil et la récupération) et une Galaxy Watch ou Garmin pendant la journée (pour le sport et les notifications). FitMesh les unifie dans un tableau de bord : votre Oura Readiness Score (lorsque disponible via API) avec les pas et séances d'entraînement de la montre.",
+          pl: "Wielu używa Oura w nocy (dla snu i odzyskiwania sił) oraz jednego lub kilku Galaxy Watch lub Garmin podczas dnia (dla sportu i powiadomień). FitMesh łączy oba w jednej dashboard: Twój Score Gotowości Oura (kiedy dostępny poprzez API) razem z krokami i treningami Watch.",
+          tr: "Çoğu kişi Oura'yi gece için kullanır (uyku ve yenilenme için) ve bir Galaxy Watch veya Garmin gün içinde (spor ve bildirimler için). FitMesh bu ikisini tek bir pano üzerinde birleştirir: Readiness Score Oura'ü (API üzerinden mevcut ise) birlikte watch adımları ve egzersizleri ile.",
         },
       },
       {
@@ -891,6 +1113,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Behalte deine Oura-Daten auf einer Plattform, die dir gehört",
           pt: "Mantenha seus dados Oura em uma plataforma sua",
           fr: "Gardez vos données Oura sur une plateforme qui vous appartient",
+          pl: "Zachowuj swoje dane Oura na platformie własnej",
+          tr: "Kendi platformda Oura verilerinizi tutun",
         },
         body: {
           it: "100 posti founder gratis durante la beta. App Android + dashboard web. Sync automatico da Oura via Health Connect, roadmap API Oura per metriche avanzate.",
@@ -898,8 +1122,10 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "100 kostenlose Founder-Plätze während der Beta. Android-App und Web-Dashboard. Automatische Synchronisierung von Oura via Health Connect, Oura API-Roadmap für erweiterte Metriken.",
           pt: "100 vagas founder grátis durante a beta. App Android e painel web. Sincronização automática do Oura via Health Connect, roadmap da API Oura para métricas avançadas.",
           fr: "100 places founder gratuites pendant la bêta. Application Android et tableau de bord web. Synchronisation automatique depuis Oura via Health Connect, feuille de route API Oura pour les métriques avancées.",
+          pl: "100 miejsc founderowych bezpłatnie podczas bêta. Aplikacja Android + panel webowy. Synchronizacja automatyczna z Oura poprzez Health Connect, ścieżka API Oura do zaawansowanych metryk.",
+          tr: "100 kurucu/free posti beta sırasında. Uygulama Android + web paneli. Otomatik同步从Oura通过Health Connect同步，Oura API yoluyla gelişmiş metrikler için arayüz şeması.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →", pl: "Wejście w betę →", tr: "Giriş beta moduna →" },
         ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
@@ -911,6 +1137,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Werde ich den Oura Readiness Score sehen?",
           pt: "Verei o Readiness Score do Oura?",
           fr: "Vais-je voir le Readiness Score d'Oura ?",
+          pl: "Czy zobaczę Readiness Score z Oura?",
+          tr: "Günlük Kullanım İstihdam Durumu puanını gösterecek mi Oura?",
         },
         a: {
           it: "Non oggi: il Readiness Score è una metrica proprietaria Oura non esposta via Health Connect. È in roadmap con l'integrazione OAuth dell'API Oura. Oggi via HC vedi sonno con fasi, passi e calorie.",
@@ -918,6 +1146,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nicht heute: Der Readiness Score ist eine proprietäre Oura-Metrik, die nicht über Health Connect verfügbar ist. Er ist in der Roadmap mit der OAuth Oura API-Integration. Heute siehst du via Health Connect Schlaf mit Phasen, Schritte und Kalorien.",
           pt: "Não hoje: o Readiness Score é uma métrica proprietária do Oura não exposta via Health Connect. Está na roadmap com a integração OAuth da API Oura. Hoje via Health Connect você vê sono com fases, passos e calorias.",
           fr: "Pas aujourd'hui : le Readiness Score est une métrique propriétaire Oura non exposée via Health Connect. Il est prévu dans la feuille de route avec l'intégration OAuth de l'API Oura. Aujourd'hui via Health Connect, vous voyez le sommeil avec ses phases, les pas et les calories.",
+          pl: "Nie dzisiaj: Readiness Score to własna metryka nie ekspozycyjna za pomocą Oura. Jest w planie integracji z API OAuth Oura. Dziś poprzez HC widzisz sen z fazami, kroki i kalorii.",
+          tr: "Bugün değil: Readiness Score, bir özelleştirilmiş metrik Oura ve Health Connect yoluyla gösterilmez. Roadmap'da OAuth API'sinin Oura ile tümleştirme var. Bugün HC üzerinden uyku fasi, adımlar ve kalorileri gör.",
         },
       },
       {
@@ -927,6 +1157,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Funktioniert es mit Oura Ring 3 und 4?",
           pt: "Funciona com o Oura Ring 3 e 4?",
           fr: "Fonctionne-t-il avec Oura Ring 3 et 4 ?",
+          pl: "Czy działa z Oura Ring 3 i 4?",
+          tr: "Fun.ToUpper() ile Oura Ring 3 ve 4 ile çalışır?",
         },
         a: {
           it: "Sì, entrambe le generazioni supportano Health Connect via app Oura su Android. L'Oura Ring 4 ha sensori migliorati per temperatura corporea e SpO2: queste metriche avanzate saranno disponibili con l'integrazione API Oura in roadmap.",
@@ -934,6 +1166,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Ja, beide Generationen unterstützen Health Connect über die Oura Android-App. Der Oura Ring 4 verfügt über verbesserte Sensoren für Körpertemperatur und SpO₂: Diese erweiterten Metriken werden mit der Oura API-Integration in der Roadmap verfügbar.",
           pt: "Sim, ambas as gerações suportam Health Connect via app Oura no Android. O Oura Ring 4 tem sensores melhorados para temperatura corporal e SpO₂: essas métricas avançadas estarão disponíveis com a integração da API Oura prevista na roadmap.",
           fr: "Oui, les deux générations prennent en charge Health Connect via l'application Oura sur Android. L'Oura Ring 4 dispose de capteurs améliorés pour la température corporelle et SpO₂ : ces métriques avancées seront disponibles avec l'intégration API Oura prévue dans la feuille de route.",
+          pl: "Tak, obie generacje obsługują Health Connect poprzez aplikację Oura na Android. Nowy Ring 4 ma ulepszony sensoreski system do mierzenia temperatury ciała i SpO2: te zaawansowane metryki będą dostępne w integracji API Oura w planie rozwoju.",
+          tr: "Evet, her iki generasyon da Health Connect'u Android üzerinden destekliyor. Oura Ring 4'nün sensörleri daha iyi vücud sıcaklığı ve SpO2 ölçümü için: bu gelişmiş metrikler API Oura ileroadda integre edildiğinde kullanılabilir olacak.",
         },
       },
       {
@@ -943,6 +1177,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Brauche ich ein Oura-Abonnement, um FitMesh zu verwenden?",
           pt: "Preciso de assinatura Oura para usar o FitMesh?",
           fr: "Ai-je besoin d'un abonnement Oura pour utiliser FitMesh ?",
+          pl: "Potrei necessitare di un abbonamento Oura per utilizzare FitMesh?",
+          tr: "Gerebilir cihaz için Oura abonelik gerekiyor mu benim için FitMesh kullanabilmek için?",
         },
         a: {
           it: "Per i dati via Health Connect (che sono quelli disponibili oggi), no: Health Connect funziona indipendentemente dall'abbonamento Oura. Per le metriche avanzate tramite API Oura (Readiness Score, HRV dettagliato), potrebbe essere richiesto un account Oura attivo.",
@@ -950,6 +1186,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Für die Daten via Health Connect (die heute verfügbar sind), nein: Health Connect funktioniert unabhängig vom Oura-Abonnement. Für erweiterte Metriken über die Oura API (Readiness Score, detailliertes HRV) könnte ein aktives Oura-Konto erforderlich sein.",
           pt: "Para os dados via Health Connect (disponíveis hoje), não: o Health Connect funciona independentemente da assinatura Oura. Para métricas avançadas via API Oura (Readiness Score, HRV detalhado), pode ser necessário uma conta Oura ativa.",
           fr: "Pour les données via Health Connect (disponibles aujourd'hui), non : Health Connect fonctionne indépendamment de l'abonnement Oura. Pour les métriques avancées via l'API Oura (Readiness Score, HRV détaillé), un compte Oura actif pourrait être requis.",
+          pl: "Dla dane z Health Connect (które są dostępne obecnie), nie: Health Connect działa niezależnie od subskrypcji Oura. Dla zaawansowanych metryk poprzez API Oura (Wysokość gotowości, szczegółowy HRV), może być wymagany aktywny konta Oura.",
+          tr: "For veriye Health Connect (bu veriler bugünkü mevcut durumdur), no: Health Connect abonelik bağımsız olarak çalışır. Gelişmiş metrikler API üzerinden (Oura aracılığıyla Okuma Hazırlık Skoru, HRV detaylı) için aktif bir Oura hesabının talep edilebilir olabilir.",
         },
       },
     ],
@@ -968,6 +1206,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Polar Flow Daten exportieren",
       pt: "exportar dados polar flow",
       fr: "exporter données polar flow",
+      pl: "synchronizuj dane z Polar Flow",
+      tr: "-sync veriler polar flow",
     },
     secondaryKeywords: {
       it: [
@@ -982,6 +1222,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         "polar health connect android",
         "polar ignite vantage web dashboard",
       ],
+      pl: [
+        "pulpflow dashboard alternatywa",
+        "eksportować dane polar",
+        "monitorowanie pulsu serca połączenie zdrowia",
+        "pulpignitewinawa strona główna",
+      ],
+      tr: [
+        "polar flow panel alternatif",
+        "polar veri aktarımı",
+        "kalp atesi KVKK uyumluluğu",
+        "polar ignite vantage panel web",
+      ],
     },
     metaDescription: {
       it: "Dashboard web per Polar Flow: sincronizza allenamenti, frequenza cardiaca e recupero Polar su una piattaforma tua. Setup via Health Connect su Android.",
@@ -989,15 +1241,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Web-Dashboard für Polar Flow: synchronisiere Polar-Trainings, Herzfrequenz und Erholung auf einer Plattform, die dir gehört. Einrichtung via Health Connect auf Android.",
       pt: "Painel web para Polar Flow: sincronize treinos, frequência cardíaca e recuperação do Polar em uma plataforma sua. Configuração via Health Connect no Android.",
       fr: "Tableau de bord web pour Polar Flow : synchronisez vos séances d'entraînement Polar, fréquence cardiaque et récupération sur une plateforme qui vous appartient. Configuration via Health Connect sur Android.",
+      pl: "Panel web dla Polar Flow: synchronizuj treningi, częstotliwość serca i odzyskiwanie Polar na platformie twojej. Konfiguracja za pomocą Health Connect na Android.",
+      tr: "Günlük panel web için Polar Flow: egzersizlerinizi, kalp atış hızınızı ve geri dönüşümünüzü bir kendi platformunuzda synkronlaştırın. Ayarları Health Connect üzerinden Android üzerinde yapın.",
     },
     hero: {
-      kicker: { it: "Polar + FitMesh", en: "Polar + FitMesh", de: "Polar + FitMesh", pt: "Polar + FitMesh", fr: "Polar + FitMesh" },
+      kicker: { it: "Polar + FitMesh", en: "Polar + FitMesh", de: "Polar + FitMesh", pt: "Polar + FitMesh", fr: "Polar + FitMesh", pl: "Polar + FitMesh", tr: "KVKK + FitMesh" },
       title: {
         it: "Dashboard web per Polar Flow: i tuoi dati Polar fuori dal silo",
         en: "Web dashboard for Polar Flow: your Polar data outside the silo",
         de: "Web-Dashboard für Polar Flow: Deine Polar-Daten außerhalb des Silos",
         pt: "Painel web para Polar Flow: seus dados Polar fora do silo",
         fr: "Tableau de bord web pour Polar Flow : vos données Polar hors du silo",
+        pl: "Panel widokowy web dla Polar Flow: Twoje dane Polar poza szafką",
+        tr: "Günlük takip paneli için Polar Flow: verilerinizin dışına çıkın KVKK'ye uygun olarak Polar",
       },
       subtitle: {
         it: "Polar Flow è una piattaforma solida per atleti di endurance, ma i tuoi dati restano chiusi nel cloud Polar. FitMesh li porta su web insieme agli altri wearable.",
@@ -1005,13 +1261,15 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         de: "Polar Flow ist eine solide Plattform für Ausdauersportler, aber deine Daten bleiben im Polar-Cloud gesperrt. FitMesh bringt sie ins Web, zusammen mit deinen anderen Wearables.",
         pt: "O Polar Flow é uma plataforma sólida para atletas de endurance, mas seus dados ficam presos na nuvem Polar. FitMesh os traz para a web junto com os outros wearables.",
         fr: "Polar Flow est une plateforme solide pour les athlètes d'endurance, mais vos données restent enfermées dans le cloud Polar. FitMesh les amène sur le web aux côtés de vos autres appareils.",
+        pl: "Polar Flow to solidna platforma dla atletów endurance, ale Twoje dane pozostają zamknięte w chmurze Polar. FitMesh przenosi je na stronę internetową razem z innymi wearable.",
+        tr: "Polar Flow bir dayanıklılık sporcuları için sağlam bir platformdur, ancak verilerin size ait kalbinde kalmalarına rağmen Polar. FitMesh onları web üzerinde giyilebilir cihazlarla birlikte getiriyor.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite", pl: "Wejście do bêta bezpłatnie", tr: "Gübre试用版免费参与" },
         href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Vedi integrazione Polar", en: "See Polar integration", de: "Polar-Integration ansehen", pt: "Ver integração Polar", fr: "Voir l'intégration Polar" },
+        label: { it: "Vedi integrazione Polar", en: "See Polar integration", de: "Polar-Integration ansehen", pt: "Ver integração Polar", fr: "Voir l'intégration Polar", pl: "Zobacz integrację Polar", tr: "Görünüm Integrasyonu Polar" },
         href: { it: "/it/sync/polar", en: "/en/sync/polar", de: "/de/sync/polar", pt: "/pt/sync/polar", fr: "/fr/sync/polar" },
       },
     },
@@ -1024,6 +1282,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Polar hat eine lange Geschichte im Ausdauersport: Herzfrequenzmessgeräte, GPS für Radfahren und Laufen, Trainingsbelastungsanalyse. Das häufige Problem ist dasselbe wie bei vielen Sportmarken: Die Daten leben in Polar Flow und nur in Polar Flow. Wenn du auch eine Galaxy Watch für den Alltag hast oder alle deine Daten an einem Ort auf dem PC sehen möchtest, hilft Polar nicht von Haus aus.",
           pt: "Polar tem uma longa história no esporte de endurance: monitores de frequência cardíaca, GPS para ciclismo e corrida, análise de carga de treino. O problema comum é o mesmo de muitas marcas esportivas: os dados vivem no Polar Flow e apenas no Polar Flow. Se você também tem um Galaxy Watch para o dia a dia ou quer ver todos os seus dados em um único lugar no PC, o Polar não ajuda de forma nativa.",
           fr: "Polar a une longue histoire dans le sport d'endurance : moniteurs de fréquence cardiaque, GPS pour le cyclisme et la course, analyse de la charge d'entraînement. Le problème courant est le même que pour de nombreuses marques sportives : les données vivent dans Polar Flow et uniquement dans Polar Flow. Si vous avez aussi une Galaxy Watch pour le quotidien ou souhaitez voir toutes vos données en un seul endroit sur PC, Polar ne vous aide pas nativement.",
+          pl: "Polar jest historyczna w dziedzinie sportowego wytrzymałości: pomiar kardiofrenuzy, GPS dla rowerzystów i biegaczy, analiza obciążenia treningowego. Zwykły problem jest taki sam jak u wielu marek sportowych: dane istnieją w aplikacji i tylko tam. Jeśli masz również Galaxy Watch na codzienne potrzeby, lub chcesz zobaczyć wszystkie swoje dane w jednym miejscu na komputerze, Polar nie pomaga ci naturalnie.",
+          tr: "Polar giyilebilir cihazlar için tarihsel bir marka: kardiofrekans aygıtları, GPS için sporlu bisiklet ve koşu, eğitim yüklenme analizi. Genel olarak ortak problem birçok spor markası için de benzer: veriler sadece Polar Flow ve Polar Flow içinde yaşamaktadır. Eğer günlük hayatta da bir Galaxy Watch kullanıyorsunuz veya tüm verilerin aynı yerde PC'de görmek istiyorsanız, Polar size doğal bir şekilde yardımcı olmayacaktır.",
         },
       },
       {
@@ -1035,6 +1295,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "So funktioniert es heute: Polar → Health Connect → FitMesh",
           pt: "Como funciona hoje: Polar → Health Connect → FitMesh",
           fr: "Comment ça fonctionne aujourd'hui : Polar → Health Connect → FitMesh",
+          pl: "Jak działa dzisiaj: Polar → Health Connect → FitMesh",
+          tr: "Nasıl çalışıyor bugün: Polar → Health Connect → FitMesh",
         },
       },
       {
@@ -1045,6 +1307,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Die Polar Flow-App auf Android synchronisiert Schritte, Herzfrequenz und Trainings mit Health Connect. FitMesh liest aus Health Connect und empfängt diese Daten dadurch automatisch.",
           pt: "O app Polar Flow no Android sincroniza passos, frequência cardíaca e treinos no Health Connect. FitMesh lê do Health Connect e recebe esses dados automaticamente.",
           fr: "L'application Polar Flow sur Android synchronise les pas, la fréquence cardiaque et les séances d'entraînement avec Health Connect. FitMesh lit depuis Health Connect et reçoit donc ces données automatiquement.",
+          pl: "Aplikacja Polar Flow na Android synchronizuje kroki, częstotliwość pulsacji serca i treningi z Health Connect. FitMesh odczytuje dane z Health Connect, więc otrzymywane są one automatycznie.",
+          tr: "Uygulama Polar Flow ile Android arasında adımlar, kalp atış hızı ve egzersizler synkronlaşır. FitMesh cihazdan okuyor, bu nedenle bu veriler otomatik olarak alinir.",
         },
       },
       {
@@ -1070,6 +1334,14 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Disponible aujourd'hui via Health Connect** : pas, fréquence cardiaque (moyenne et mesures), calories, séances d'entraînement (type, durée, FC moyenne, kcal), sommeil de base",
             "**En feuille de route** : intégration OAuth API Polar Accesslink pour Training Load, Nightly Recharge, Recovery Pro, test orthostatique",
           ],
+          pl: [
+            "Dostępne dzisiaj przez Health Connect: kroki, częstotliwość serca (średnia i próby), kalorie, treningi (rodzaj, trwałość, średnio BPM, kcal), podstawowy sen",
+            "**W roadmap**: integracja OAuth Polar Accesslink API dla Wzrostu Treningowego, Nocnego Naładowania, Zwiększenia Recuperacji, Ortopesji",
+          ],
+          tr: [
+            "**Bugün Health Connect yoluyla mevcut:** adımlar, kalp atış hızı (ortalamalar ve örnekler), kaloriler, egzersizler (türü, süresi, BPM ortalama, kcal), temel uyku",
+            "**Yönetim planında**: OAuth Polar Accesslink API'si için Entrenman Yükü, Gecersel Yenilendirmesi, Kuvvetlendirme Pro, Diklik integre edilecek.",
+          ],
         },
       },
       {
@@ -1081,6 +1353,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Wer am meisten von dieser Integration profitiert",
           pt: "Quem se beneficia mais desta integração",
           fr: "Qui bénéficie le plus de cette intégration",
+          pl: "Kto zyskuje najwięcej z tej integracji",
+          tr: "Bu integ्रasyondan en çok fayda见译者注：这里的“ integrazionen”在土耳其语中无法直接对应，可能是源语言中的特定术语或占位符，保持不变为“integrazionen”。",
         },
       },
       {
@@ -1116,6 +1390,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Ceux qui analysent les données sur PC** : tableau de bord web accessible depuis un navigateur, sans ouvrir l'application Polar sur le téléphone.",
             "**Ceux qui utilisent Polar sans abonnement premium** : FitMesh ne nécessite pas Polar premium pour les données via Health Connect.",
           ],
+          pl: [
+            "**Triatlości i biegacze z większą liczbą urządzeń**: Polar do specyficznych treningów, Galaxy Watch lub coś innego dla codziennych potrzeb: FitMesh je unifikuje.",
+            "**Kto chce niezależny od Polar backup**: historię treningów w europejskim chmurze (Francfurcie), który nie zależy od decyzji firmy Polar.",
+            "**Kto analizuje dane na komputerze**: interfejs webowy dostępny w przeglądarce, bez potrzeby otwarcia aplikacji Polar na telefonie.",
+            "**Kto używa Polar bez podpisu na usługi premium**: FitMesh nie wymaga Polar premium dla danych w trakcie Health Connect.",
+          ],
+          tr: [
+            "**Triatleti ve koşucularla daha fazla cihazla**: Polar özel egzersizler için, Galaxy Watch veya günlük hayat için: FitMesh bunları birleştirir.",
+            "**Kim isteyen bağımsız yedeklemesi**: antrenman tarihi bir Avrupa cloudbased (Frankfurt) üzerinde saklanır ve Polar'ın şirket politikalarına bağlı değildir.",
+            "**Kim verileri PC üzerinde analiz eder**: tarayıcıdan erişilebilir web tabanlı bir görselleştirme paneli, telefonda Polar uygulamasını açmadan.",
+            "**KVKK Polar kullanmaya sahip değil olanlar**: FitMesh KVKK Polar ücretsiz veriler için internet üzerinden gerekli değildir.",
+          ],
         },
       },
       {
@@ -1127,6 +1413,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Polar Accesslink API ist in der Roadmap",
           pt: "A API Polar Accesslink está na roadmap",
           fr: "L'API Polar Accesslink est dans la feuille de route",
+          pl: "Dostęp do Polar API jest w planie rozwinięcia produktu",
+          tr: "KVKK Erişim Bağlantısı API'si rota üzerinde yer alıyor",
         },
         body: {
           it: "Le metriche avanzate Polar (Training Load, Nightly Recharge, Recovery Pro) non passano via Health Connect: sono proprietarie. L'integrazione via Polar Accesslink API è in roadmap per Q4 2026, dipende dall'approvazione del Polar Developer Program.",
@@ -1134,6 +1422,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Erweiterte Polar-Metriken (Training Load, Nightly Recharge, Recovery Pro) sind nicht über Health Connect verfügbar: Sie sind proprietär. Die Integration über die Polar Accesslink API ist für Q4 2026 in der Roadmap geplant, vorbehaltlich der Genehmigung des Polar Developer Program.",
           pt: "As métricas avançadas do Polar (Training Load, Nightly Recharge, Recovery Pro) não passam via Health Connect: são proprietárias. A integração via API Polar Accesslink está na roadmap para o Q4 2026, sujeita à aprovação do Polar Developer Program.",
           fr: "Les métriques avancées Polar (Training Load, Nightly Recharge, Recovery Pro) ne transitent pas via Health Connect : elles sont propriétaires. L'intégration via l'API Polar Accesslink est prévue dans la feuille de route pour le T4 2026, sous réserve de l'approbation du Polar Developer Program.",
+          pl: "Metriczne zaawansowane Polar (Obciążenie treningowe, Nocne naładowanie, Zespół odzyskowy) nie są proprietarne: nie przekształcają się w inne metricze. Integracja za pośrednictwem API Accesslink Polar jest planowana do Q4 2026 roku, ale zależy od zatwierdzenia programu deweloperów Polar.",
+          tr: "Le metriche gelişmiş Polar (Eğitim Yükü, Gece Yenilenme, Geri Dönüşüm Pro) geçici değildir: sahiplik altında yer almaktadır. Polar Erişim Link API'si ile tümleştirme Q4 2026'e programda yer alıyor ve bu, Polar Geliştirici Programı'nın onayıyla bağımlıdır.",
         },
       },
       {
@@ -1144,6 +1434,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Deine Polar-Daten auf einem Dashboard, das dir gehört",
           pt: "Seus dados Polar em um painel seu",
           fr: "Vos données Polar sur un tableau de bord qui vous appartient",
+          pl: "Twoje dane Polar na Twoim panelu kontrolnym",
+          tr: "Veriiniz Polar kendi panelin üzerinde",
         },
         body: {
           it: "100 posti founder gratis durante la beta. App Android + dashboard web. Sync automatico da Polar Flow via Health Connect.",
@@ -1151,8 +1443,10 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "100 kostenlose Founder-Plätze während der Beta. Android-App und Web-Dashboard. Automatische Synchronisierung von Polar Flow via Health Connect.",
           pt: "100 vagas founder grátis durante a beta. App Android e painel web. Sincronização automática do Polar Flow via Health Connect.",
           fr: "100 places founder gratuites pendant la bêta. Application Android et tableau de bord web. Synchronisation automatique depuis Polar Flow via Health Connect.",
+          pl: "100 miejsc founder bezpłatnie podczas bêta. Aplikacja Android + panel zarządzania web. Synchronizacja automatyczna z Polar Flow poprzez Health Connect.",
+          tr: "100 kurucu kullanıcının ücretsiz beta期内存限制作业助手：保留每个标记，包括 __FM_PH_0__, __FM_URL_0__, __FM_HTML_0__, __FM_LINK_0__, __FM_CODE_0__, __FM_FENCE_0__, __FM_BRAND_0__, Health Connect 恰好不变。保持每一行换行和Markdown结构。保留HTML标签放置而不添加标签周围的空格。不翻译表示产品的标记中的名称。避免关键词堆砌和不自然的措辞。\n\n100 kurucu kullanıcının ücretsiz beta期内存限制作业助手. Uygulama Android + web tabanlı panel. Otomatik senkronizasyon Polar Flow üzerinden Health Connect ile.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →", pl: "Wejście w betę →", tr: "Giriş beta moduna →" },
         ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
@@ -1164,6 +1458,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Welche Polar-Geräte sind kompatibel?",
           pt: "Quais dispositivos Polar são compatíveis?",
           fr: "Quels appareils Polar sont compatibles ?",
+          pl: "Jakie Polar są kompatylne?",
+          tr: "Hangi Polar uyumludur?",
         },
         a: {
           it: "Tutti i dispositivi Polar compatibili con l'app Polar Flow su Android: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite, e modelli precedenti. L'unico requisito è che la sincronizzazione avvenga tramite app Polar Flow su Android con Health Connect abilitato.",
@@ -1171,6 +1467,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Alle Polar-Geräte, die mit der Polar Flow-App auf Android kompatibel sind: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite und ältere Modelle. Die einzige Voraussetzung ist die Synchronisierung über die Polar Flow Android-App mit aktiviertem Health Connect.",
           pt: "Todos os dispositivos Polar compatíveis com o app Polar Flow no Android: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite e modelos anteriores. O único requisito é que a sincronização aconteça pelo app Polar Flow no Android com Health Connect ativado.",
           fr: "Tous les appareils Polar compatibles avec l'application Polar Flow sur Android : Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite et modèles plus anciens. La seule condition est que la synchronisation se fasse via l'application Polar Flow sur Android avec Health Connect activé.",
+          pl: "Wszystkie urządzenia Polar kompatylne z aplikacją Polar Flow na Android: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite oraz poprzednie modele. Jedyne wymaganie to, aby synchronizacja odbywała się za pomocą aplikacji Polar Flow na Android z Health Connect włączonym.",
+          tr: "Tüm Polar cihazları Polar Flow uygulaması ile uyumlu olanlar: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite ve eski modeller. Tek gereklilik, Health Connect etkin olduğunda Polar Flow uygulaması ile uyumlu olan cihazlar arası eşleme işlemi Android üzerinden olmasıdır.",
         },
       },
       {
@@ -1180,6 +1478,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Werde ich Training Load und Nightly Recharge sehen?",
           pt: "Verei Training Load e Nightly Recharge?",
           fr: "Vais-je voir Training Load et Nightly Recharge ?",
+          pl: "Czy zobaczysz Treningowy Ciężar i Nocturnal Regenerację?",
+          tr: "Günlük Yük ve Gece Yenilenebilirlik?",
         },
         a: {
           it: "Non oggi: sono metriche proprietarie Polar non esposte via Health Connect. Saranno disponibili con l'integrazione Polar Accesslink API in roadmap. Oggi via Health Connect vedi frequenza cardiaca, allenamenti, passi e sonno base.",
@@ -1187,6 +1487,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nicht heute: Das sind proprietäre Polar-Metriken, die nicht über Health Connect verfügbar sind. Sie werden mit der Polar Accesslink API-Integration in der Roadmap verfügbar. Heute siehst du via Health Connect Herzfrequenz, Trainings, Schritte und Basisschlaf.",
           pt: "Não hoje: são métricas proprietárias do Polar não expostas via Health Connect. Estarão disponíveis com a integração da API Polar Accesslink na roadmap. Hoje via Health Connect você vê frequência cardíaca, treinos, passos e sono básico.",
           fr: "Pas aujourd'hui : ce sont des métriques propriétaires Polar non exposées via Health Connect. Elles seront disponibles avec l'intégration de l'API Polar Accesslink dans la feuille de route. Aujourd'hui via Health Connect, vous voyez la fréquence cardiaque, les séances d'entraînement, les pas et le sommeil de base.",
+          pl: "Nie dzisiaj: są to prywatne metryki Polar nie ekspozycyjne poprzez Health Connect. Stany te będą dostępne w integrowaniu Polar Accesslink API w roadmap. Dziś poprzez Health Connect zobacz częstotliwość serca, treningi, kroki i podstawowy sen.",
+          tr: "Bugün değil: bu özel metrikler Polar ile açıkça paylaşılmamaktadır Health Connect. Roadmap kapsamında Polar Accesslink API ile kullanılabilir hale gelecek. Bugün Health Connect üzerinden kalp atış hızı, egzersizler, adımlar ve temel uyku görebilirsiniz.",
         },
       },
       {
@@ -1196,6 +1498,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Überschneidet sich Polar mit Garmin? Welches soll ich wählen?",
           pt: "Polar se sobrepõe ao Garmin? Qual escolho?",
           fr: "Polar chevauche-t-il Garmin ? Lequel choisir ?",
+          pl: "Czy Polar nadpisuje się z Garmin? Jaką wybieram?",
+          tr: "Polar KVKK'ye ne kadar uyumludur? Hangini seçirim?",
         },
         a: {
           it: "Dipende dal tuo uso principale. Polar è tradizionalmente forte in running e ciclismo con analisi cardio avanzata (zone HR, soglia lattato). Garmin è più completo per sport di outdoor e ha ecosystem più ampio. Entrambi si integrano con FitMesh via Health Connect, quindi puoi usarli in parallelo se hai device di entrambi i brand.",
@@ -1203,6 +1507,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Das hängt von deinem Haupteinsatz ab. Polar ist traditionell stark im Laufen und Radfahren mit fortgeschrittener Herzfrequenzanalyse (HF-Zonen, Laktatschwelle). Garmin ist umfassender für Outdoor-Sportarten mit einem breiteren Ökosystem. Beide integrieren sich mit FitMesh via Health Connect, sodass du sie parallel nutzen kannst, wenn du Geräte beider Marken hast.",
           pt: "Depende do seu uso principal. Polar é tradicionalmente forte em corrida e ciclismo com análise cardíaca avançada (zonas de FC, limiar de lactato). Garmin é mais completo para esportes ao ar livre com um ecossistema mais amplo. Ambos se integram com FitMesh via Health Connect, então você pode usá-los em paralelo se tiver dispositivos de ambas as marcas.",
           fr: "Cela dépend de votre usage principal. Polar est traditionnellement fort en course à pied et cyclisme avec une analyse cardiaque avancée (zones FC, seuil lactique). Garmin est plus complet pour les sports outdoor avec un écosystème plus large. Les deux s'intègrent avec FitMesh via Health Connect, vous pouvez donc les utiliser en parallèle si vous avez des appareils des deux marques.",
+          pl: "Zależy od głównego użytku. Polar jest tradycyjnie silny w biegach i rowerze z zaawansowaną analizą serca (zakresy HR, próg látkowego). Garmin jest bardziej kompleksowy dla sportów zewnętrznych i ma szerszy ekosystem. Oba integrują się z FitMesh poprzez Health Connect, więc możesz je używać w paralelu, jeśli posiadasz urządzenia obu marki.",
+          tr: "Kullanımınıza bağlı olarak. Polar genellikle koşu ve bisikletçilikte güçlü, gelişmiş kalp-farkedici analizleri (HR zonaları, laktat sınırı) sunar. Garmin dış sporlar için daha kapsamlı ve geniş bir ekosistem sunar. Her iki ürün de FitMesh ile Health Connect aracılığıyla entegre olup, her ikinci markanın cihazına sahipseniz paralel olarak kullanabilirsiniz.",
         },
       },
     ],
@@ -1220,6 +1526,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "FitMesh zwei Telefone ein Konto",
       pt: "fitmesh dois celulares uma conta",
       fr: "fitmesh deux téléphones un compte",
+      pl: "fitmesh na dwa telefony",
+      tr: "fitmesh giyilebilir cihazlar için iki telefon",
     },
     secondaryKeywords: {
       it: [
@@ -1238,6 +1546,22 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         "apple health bridge fitmesh",
         "multi device health dashboard",
       ],
+      pl: [
+        "android i iPhone taka sama aplikacja zdrowie",
+        "synkronizować dane zdrowia android iPhone",
+        "wypełnij pętle Android iPhone",
+        "dane smartwatch Android RODO founder drzemka",
+        "wzmacniacz apple powitanie smartwatch\nRODO founder drzemka drzemki",
+        "panel nawigacyjny powitanie wielodostosowalne",
+      ],
+      tr: [
+        "Android ve iPhone aynı uygulama sağlık",
+        "sağlık verilerini Android ve iPhone'u eşitleyecek misiniz?",
+        "kolonlar ring Android iPhone",
+        "KVKK uyumluluğu giyilebilir cihazlar veri akıllı saat kurucu kestirme kestirmeler",
+        "bridge el yapıtını selamla fitmesh",
+        "pano selam multi-dispositifi",
+      ],
     },
     metaDescription: {
       it: "Stesso account FitMesh su Android e iPhone: una dashboard salute unificata, cloud EU, GDPR. Ponte Apple Salute incluso: sonno e passi dall'anello smart su iOS, senza duplicati.",
@@ -1245,6 +1569,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Dasselbe FitMesh-Konto auf Android und iPhone: ein vereintes Gesundheits-Dashboard, EU-Cloud, GDPR. Apple Health-Brücke inklusive: Schlaf und Schritte vom Smart-Ring auf iOS, ohne Duplikate.",
       pt: "A mesma conta FitMesh no Android e no iPhone: um painel de saúde unificado, nuvem na UE, GDPR. Ponte para Apple Health incluída: sono e passos do anel inteligente no iOS, sem duplicatas.",
       fr: "Le même compte FitMesh sur Android et iPhone: un tableau de bord de santé unifié, cloud UE, GDPR. Pont Apple Health inclus: sommeil et pas depuis la bague connectée sur iOS, sans doublons.",
+      pl: "Takiemejacy konto FitMesh na Android i iPhone: jedna unifikowana panel zdrowia, chmurze EU, GDPR. Włączony most Apple Zdrowie: sen i kroki z anelku smart na iOS, bez powtórzeń.",
+      tr: "Aynı hesap FitMesh üzerinde Android ve iPhone: bir unifiye sağlık pанelі, AB bulutu, GDPR. Apple Sağlık Köprüsü dahil: anel smart halka üzerinden uyku ve adımlar, tekrarsız olarak.",
     },
     hero: {
       kicker: {
@@ -1253,6 +1579,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         de: "Zwei Telefone, eine Gesundheit",
         pt: "Dois celulares, uma saúde",
         fr: "Deux téléphones, une santé",
+        pl: "Dwa telefony, jedna zdrowie",
+        tr: "Yapay zeka telefonları, bir sağlık",
       },
       title: {
         it: "Android e iPhone insieme: stessa dashboard, stessi dati",
@@ -1260,6 +1588,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         de: "Android und iPhone zusammen: dasselbe Dashboard, dieselben Daten",
         pt: "Android e iPhone juntos: mesmo painel, mesmos dados",
         fr: "Android et iPhone ensemble: même tableau de bord, mêmes données",
+        pl: "Android i iPhone insieme: taka sama panel, takie same dane",
+        tr: "Android ve iPhone birlikte: aynı panel, aynı veriler",
       },
       subtitle: {
         it: "Un account FitMesh funziona su entrambi i telefoni. I dati del tuo anello smart Colmi arrivano su iPhone via Bluetooth e vengono scritti dentro Apple Salute, così li vedi anche nell'ecosistema Apple. Cloud EU, GDPR, nessun duplicato.",
@@ -1267,9 +1597,11 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         de: "Ein FitMesh-Konto funktioniert auf beiden Telefonen. Die Daten deines Colmi-Smart-Rings kommen via Bluetooth auf das iPhone und werden in Apple Health geschrieben, sodass du sie auch im Apple-Ökosystem siehst. EU-Cloud, GDPR, keine Duplikate.",
         pt: "Uma conta FitMesh funciona nos dois celulares. Os dados do seu anel inteligente Colmi chegam ao iPhone via Bluetooth e são gravados no Apple Health, para você vê-los também no ecossistema Apple. Nuvem na UE, GDPR, sem duplicatas.",
         fr: "Un compte FitMesh fonctionne sur les deux téléphones. Les données de votre bague connectée Colmi arrivent sur l'iPhone via Bluetooth et sont écrites dans Apple Health, pour les retrouver dans l'écosystème Apple. Cloud UE, GDPR, sans doublons.",
+        pl: "Rachunek FitMesh działa na obu telefonach. Dane z twojego smartannelica Colmi docierają do iPhone poprzez Bluetooth i są zapisywane w Apple Zdrowie, dlatego też widzisz je również w ekosystemie Apple. Wolne miejsca w EU, GDPR, żadnych duplikatów.",
+        tr: "Bir FitMesh hesabi her iki telefonda çalışır. Size ait smart anelisiniz verileri Colmi üzerinden Bluetooth ile iPhone'e gelir ve bunlar Apple Sağlık içinde kaydedilir, bu da Apple ekosisteminde de görebilirsiniz. Bulut EU, GDPR, ikili kopya yok.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite", pl: "Wejście do bêta bezpłatnie", tr: "Güçlendirici betanın içine gir ücretsiz olarak" },
         href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
@@ -1279,6 +1611,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Alle Integrationen ansehen",
           pt: "Ver todas as integrações",
           fr: "Voir toutes les intégrations",
+          pl: "Zobacz wszystkie integracje",
+          tr: "Hepsi integ्रrasyonları see",
         },
         href: { it: "/it/integrations", en: "/en/integrations", de: "/de/integrations", pt: "/pt/integrations", fr: "/fr/integrations" },
       },
@@ -1292,6 +1626,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Viele Menschen nutzen zwei Telefone: ein Android für die Arbeit und ein iPhone privat, oder umgekehrt. Oder du hast das Betriebssystem gewechselt und möchtest deine Gesundheitsdatenhistorie mitnehmen. Oder du möchtest, dass die Daten deines Colmi-Smart-Rings (via Bluetooth mit Android verbunden) auch auf dem iPhone erscheinen, in Apple Health, ohne manuelle Exporte.",
           pt: "Muita gente usa dois celulares: um Android para o trabalho e um iPhone pessoal, ou o contrário. Ou você trocou de sistema operacional e quer levar o histórico dos seus dados de saúde. Ou ainda, quer que os dados do seu anel inteligente Colmi (conectado via Bluetooth ao Android) apareçam também no iPhone, dentro do Apple Health, sem precisar de exportações manuais.",
           fr: "Beaucoup de personnes utilisent deux téléphones: un Android pour le travail et un iPhone personnel, ou l'inverse. Ou vous avez changé de système d'exploitation et souhaitez conserver l'historique de vos données de santé. Ou encore, vous voulez que les données de votre bague connectée Colmi (connectée via Bluetooth à l'Android) apparaissent aussi sur l'iPhone, dans Apple Health, sans exportations manuelles.",
+          pl: "Wiele osób używa dwóch telefonów: jednego do pracy i osobistego, lub na odwrót. Albo zmieniłeś system operacyjny i chcesz przenieść historię swoich danych zdrowotnych. Lub chciałbyś, aby dane Twojego smartannelica (połączonego poprzez Bluetooth z Android) pojawiły się również na osobistym telefonie, w Apple Zdrowia, bez potrzeby eksportu ręcznego.",
+          tr: "Çok insan iki telefon kullanıyor: biri Android iş telefonu ve biri iPhone kişisel telefon, ya da tersine. Belki işletim sisteminizi değiştirdiniz ve geçmiş verilerinizi taşımak istiyorsunuz. Yada sadeceSMART ANELİNIZIN (bu cihaz, Bluetooth ile Android 'e bağlanıyor) verileri iPhone telefonunuza ve Apple Sağlık içinde otomatik olarak yansımaya istiyorsunuz, manuel export yapmadan.",
         },
       },
       {
@@ -1302,6 +1638,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "FitMesh Sync löst all das mit einer einzigen Struktur: ein Cloud-Konto, zwei Apps (Android bereits verfügbar, iOS in Beta), eine Brücke zu Apple Health. Die Daten gehören dir, werden in der EU gespeichert und sind von jedem Browser aus zugänglich.",
           pt: "FitMesh Sync resolve tudo isso com uma única estrutura: uma conta na nuvem, dois apps (Android já disponível, iOS em beta), uma ponte para o Apple Health. Os dados são seus, armazenados na UE, acessíveis de qualquer navegador.",
           fr: "FitMesh Sync résout tout cela avec une seule structure: un compte cloud, deux applications (Android déjà disponible, iOS en bêta), un pont vers Apple Health. Les données vous appartiennent, stockées dans l'UE, accessibles depuis n'importe quel navigateur.",
+          pl: "FitMesh Sync rozwiązuje to wszystko za pomocą jednej struktury: konta w chmurze, dwóch aplikacji (Android już dostępna, iOS w beta), mostu do Apple Salute. Twoje dane są twoje, przechowywane w EU, dostępne z dowolnego przeglądarki.",
+          tr: "FitMesh Sync bucle tüm bunu tek bir yapıyla: bir bulut hesabı, iki uygulama (Android zaten mevcut, iOS beta aşamasında), Apple Sağlık'a olan bağlantı. Veriler sizi temsil eder, EU'da saklanır ve herhangi bir tarayıcıdan erişilebilir.",
         },
       },
       {
@@ -1313,6 +1651,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Wie Multi-Device funktioniert",
           pt: "Como funciona o multi-dispositivo",
           fr: "Comment fonctionne le multi-appareil",
+          pl: "Jak działa multi-device",
+          tr: "Nasıl Çok Cihazda Çalışır",
         },
       },
       {
@@ -1353,6 +1693,20 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Bague Colmi sur les deux plateformes**: la bague connectée Colmi se connecte via Bluetooth à l'application FitMesh, sur Android et iPhone. Les données (sommeil avec phases, pas, fréquence cardiaque) sont synchronisées avec votre compte cloud et, sur iOS, écrites dans Apple Health.",
             "**Cloud UE, GDPR**: toutes les données sont stockées sur des serveurs UE (Francfort). Chiffrement en transit et au repos, Row Level Security, suppression complète du compte à la demande.",
           ],
+          pl: [
+            "**Jeden konto, dwie aplikacje**: to samo konto FitMesh działa na Android i iPhone. Nie ma potrzeby tworzyć osobnych profilów ani ręcznie synchronizować: interfejs użytkownika internetowy pokazuje zawsze najnowsze dane, z dowolnego urządzenia.",
+            "**Android: natywne odczyty z Health Connect**: na Android, FitMesh czyta dane z Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit, oraz dowolnej aplikacji piszącej do Health Connect. Dane aktualizują się automatycznie w tle.",
+            "**iOS: natywne odczyty z Apple Salud (HealthKit):** na iPhone, FitMesh uzyskuje dostęp do Apple Salud z uprawnieniami, które wybierasz. Odczytuje to, co już zbiera Apple Salud: kroki z iPhone, dane z Apple Watch oraz z dowolnej zautoryzowanej app.",
+            "**Anello Colmi na obuďovací zařízení na obou platformách**: anel smart Colmi se připojuje pomocí Bluetooth k aplikaci FitMesh, jak na Android tak i na iPhone. Data (období spánku, kroky, frekvence srdce) jsou synchronizována do cloudběžného účtu a v aplikaci iOS ukládány do zdravotního systému Apple.",
+            "**Wolne Leki EU, GDPR**: wszystkie dane są przechowywane na serwerach w EU (Francfurcie). Szyfrowanie w trakcie przesyłania i podczas spoczynku, Zabezpieczenie na poziomie wiersza, pełna usunięcie konta zapisu na żądanie.",
+          ],
+          tr: [
+            "**Bir hesap, iki uygulama**: Aynı FitMesh hesabınız Android ve iPhone üzerinde de işler. Ayraçlar oluşturmak veya verileri el ile sychronize etmek zorunda kalmayın: web tabanlı panel her zaman en güncel verileri gösterir, hangi cihazdan olursunuzda.",
+            "**Android: doğrudan okuma Health Connect dan**: Android üzerinde, FitMesh Health Connect den verileri okuyor: Galaxy Watch, Garmin, Pixel Watch, Fitbit ve herhangi bir uygulama tarafından yazılan veriler. Veriler arka planda otomatik olarak güncellenir.",
+            "**iOS: doğrudan okuma Apple Sağlık (HealthKit)**: FitMesh'a, Apple Sağlık'a erişim izinlerini seçerek giriş yapabilirsiniz. iPhone'den gelen adımlar, Apple Watch'tan gelen veriler ve herhangi bir yetkilendirilmiş uygulamanın topladığı bilgileri okur.",
+            "**Anello Colmi her iki platformda**: smart anelik Colmi Bluetooth üzerinden FitMesh uygulamasına, hem Android hem de iPhone üzerinde bağlanır. Veriler (fase uyku, adımlar, kalp atış hızı) bulut hesabına synkronize edilir ve iOS 'te Apple Sağlık içinde kaydedilir.",
+            "**Kloud EU, GDPR**: tüm veriler, KVKK'ya uygun olarak Frankfurt'taki sunucularda saklanır. Taşınma sırasında ve dinamik olarak şifreleme, Satır Seviyesi Güvenlik, talep üzerine hesap silme uygulanmaktadır.",
+          ],
         },
       },
       {
@@ -1364,6 +1718,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Die Apple Health-Brücke (iOS opt-in)",
           pt: "A ponte Apple Health (opt-in iOS)",
           fr: "Le pont Apple Health (opt-in iOS)",
+          pl: "Ponte Apple Zdrowie (opt-in iOS)",
+          tr: "Apple Sağlık Köprüsü (gönüllü olarak iOS)",
         },
       },
       {
@@ -1374,6 +1730,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Die am häufigsten gestellte Frage: \"Erscheinen die Daten meines Android-Rings in Apple Health?\". Ja, über die FitMesh-Brücke. Wenn du FitMesh auf dem iPhone mit einem Colmi-Ring verwendest, schreibt die App die Daten in Apple Health: Schlaf mit Phasen (Leichtschlaf, Tiefschlaf, REM), Schritte, Herzfrequenz. So siehst du sie in Apples Health-App, in Fitness und in jeder anderen für Apple Health autorisierten App.",
           pt: "O ponto mais solicitado: \"os dados do meu anel Android aparecem no Apple Health?\". Sim, pela ponte FitMesh. Quando você usa o FitMesh no iPhone com um anel Colmi, o app grava os dados no Apple Health: sono com fases (leve, profundo, REM), passos, frequência cardíaca. Assim você os vê no app Saúde da Apple, no Fitness e em qualquer outro app autorizado ao Apple Health.",
           fr: "La question la plus fréquente: \"les données de ma bague Android apparaissent-elles dans Apple Health?\". Oui, via le pont FitMesh. Quand vous utilisez FitMesh sur iPhone avec une bague Colmi, l'application écrit les données dans Apple Health: sommeil avec phases (léger, profond, REM), pas, fréquence cardiaque. Vous les retrouvez dans l'application Santé d'Apple, dans Fitness et dans toute autre application autorisée à Apple Health.",
+          pl: "Najczęściej zapytane punkty: \"Czy dane z mojego smartwatcha Android pojawiają się w Apple Salucie?\" Tak, poprzez pułapki FitMesh. Gdy używasz FitMesh na iPhone i masz smartwatch Colmi, aplikacja zapisuje dane do Apple Salucie: sen (lżejszy, głębszy, REM), kroki, częstotliwość serca. W ten sposób widzisz te informacje w aplikacji Salucie Apple, w Fitness, oraz w każdej innej zautoryzowanej przez Apple aplikacji Salucie.",
+          tr: "Enstrümlerle ilgili soru: \"Bilgisayarımda Android cihazımın verileri FitMesh Sağlık uygulamasında görünüyor mu?\" Evet, FitMesh ile bağlantı kurarsanız. FitMesh cihazını kullanırken ve bir Colmi saati takıyorsanız, uygulama verileri Apple Sağlık uygulamasına: uyku aşamaları (hafif, derin), adımlar, kalp atış hızı ile yazıyor. Bu sayede Apple Sağlık uygulamasında, Spor bölümünde ve herhangi bir Apple Sağlık yetkilendirilmiş uygulamada verileri görebilirsiniz.",
         },
       },
       {
@@ -1385,6 +1743,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Keine Duplikate",
           pt: "Sem duplicatas",
           fr: "Pas de doublons",
+          pl: "Brak powtarzalnych elementów",
+          tr: "Yok dualar",
         },
         body: {
           it: "Se Apple Salute ha già quei dati (ad esempio da Apple Watch), FitMesh non li riscrive. Niente doppioni.",
@@ -1392,6 +1752,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Wenn Apple Health diese Daten bereits hat (zum Beispiel von der Apple Watch), schreibt FitMesh sie nicht erneut. Keine Duplikate.",
           pt: "Se o Apple Health já tiver esses dados (por exemplo, do Apple Watch), o FitMesh não os reescreve. Sem duplicatas.",
           fr: "Si Apple Health possède déjà ces données (par exemple depuis l'Apple Watch), FitMesh ne les réécrit pas. Pas de doublons.",
+          pl: "Jeżeli Apple Salute posiada już te dane (np. z Apple Watch), FitMesh ich nie nadpisuje. Niczego dodatkowego.",
+          tr: "Eğer Apple Salute oztu zaten o verileri (örneğin, Apple Cihazı'dan) içeriyorsa, FitMesh bunları yeniden yazmaz. Hiçbir tekrarlamayla.",
         },
       },
       {
@@ -1403,6 +1765,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Was FitMesh nicht tut (Ehrlichkeit zuerst)",
           pt: "O que o FitMesh não faz (honestidade antes de tudo)",
           fr: "Ce que FitMesh ne fait pas (honnêteté avant tout)",
+          pl: "Czego FitMesh nie robi (prawda na pierwszym miejscu)",
+          tr: "Ne FitMesh ne yapmaz (öncelikle dürüstlük)",
         },
       },
       {
@@ -1433,6 +1797,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**La synchronisation iOS n'est pas en temps réel**: sur iPhone, la synchronisation en arrière-plan est périodique (environ toutes les 15-30 minutes), comme imposé par le système d'exploitation iOS. N'attendez pas de mises à jour à la seconde.",
             "**L'application iOS n'est pas encore sur l'App Store**: FitMesh iOS est en bêta active sur TestFlight. Vous pouvez rejoindre la liste d'attente bêta sur /beta; vous obtiendrez l'accès dès qu'il sera disponible.",
           ],
+          pl: [
+            "**Nie pisze na Health Connect**: pisanie na Health Connect (Android) jest w planie, ale nie jest jeszcze dostępne. Dzisiaj FitMesh czyta z Health Connect, nie pisze na nim.",
+            "**Synchronizacja iOS nie jest w czasie rzeczywistym**: na iPhone, synchronizacja tła odbywa się okresowo (co 15-30 minut około), jak zdefiniowane przez system operacyjny iOS. Nie oczekuj aktualizacji co sekundę.",
+            "**Aplikacja iOS nie jest jeszcze dostępna na App Store: FitMesh iOS znajduje się w fazie beta na TestFlight. Możesz zapisz się do listy bêta pod adresem /beta; otrzymasz dostęp, jak tylko będzie dostępny.",
+          ],
+          tr: [
+            "**Giyilebilir cihazda yazmak**: Health Connect (Android) üzerinde yazma yeteneği roadmap'da, ancak henüz mevcut değildir. FitMesh bugün Health Connect'den okuyor, buraya yazmıyor.",
+            "**iOS sync'i gerçek zamanlı değildir**: iPhone üzerinde, arka planda yapılan sync periodik (her 15-30 dakika yaklaşık olarak) olup, bu durumu sistem operasyonu iOS tarafından belirler. Saniyede güncelleme beklemeyi ummayacaksınız.",
+            "**Uygulama iOS hala App Store üzerinde değil**: FitMesh iOS beta aktif olarak TestFlight üzerinde. /beta'da betavara kaydolabilirsin; KVKK'ye uygun şekilde erişiminiz sadece mevcut olunca sağlanacaktır.",
+          ],
         },
       },
       {
@@ -1444,6 +1818,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Aktuelle Kompatibilität",
           pt: "Compatibilidade atual",
           fr: "Compatibilité actuelle",
+          pl: "Kompatybilność obecna",
+          tr: "Güncel uyumluluk",
         },
       },
       {
@@ -1454,6 +1830,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Heute verfügbare Funktionen (Juni 2026)",
           pt: "Funcionalidades disponíveis hoje (junho 2026)",
           fr: "Fonctionnalités disponibles aujourd'hui (juin 2026)",
+          pl: "Dostępne funkcje od dzisiaj (czerwiec 2026)",
+          tr: "Mevcut olan özellikler (Haziran 2026)",
         },
         headers: {
           it: ["Funzione", "Android", "iPhone (beta)"],
@@ -1461,6 +1839,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: ["Funktion", "Android", "iPhone (Beta)"],
           pt: ["Função", "Android", "iPhone (beta)"],
           fr: ["Fonction", "Android", "iPhone (bêta)"],
+          pl: [
+            "Funkcja",
+            "Android",
+            "RODO (beta)",
+          ],
+          tr: [
+            "Fonksiyon",
+            "Android",
+            "KVKK (betap)",
+          ],
         },
         rows: [
           {
@@ -1469,6 +1857,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Gemeinsames Cloud-Konto", "✓", "✓"],
             pt: ["Conta cloud compartilhada", "✓", "✓"],
             fr: ["Compte cloud partagé", "✓", "✓"],
+            pl: [
+              "Konto chmury udostępnione",
+              "✓",
+              "✓",
+            ],
+            tr: [
+              "Hesap paylaşılan bulut'u",
+              "✓",
+              "✓",
+            ],
           },
           {
             it: ["Dashboard web", "✓", "✓"],
@@ -1476,6 +1874,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Web-Dashboard", "✓", "✓"],
             pt: ["Painel web", "✓", "✓"],
             fr: ["Tableau de bord web", "✓", "✓"],
+            pl: [
+              "Panel kontrolowy web",
+              "✓",
+              "✓",
+            ],
+            tr: [
+              "Günlük Arayüz",
+              "✓",
+              "✓",
+            ],
           },
           {
             it: ["Lettura Health Connect", "✓", "—"],
@@ -1483,6 +1891,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Lesezugriff Health Connect", "✓", "—"],
             pt: ["Leitura do Health Connect", "✓", "—"],
             fr: ["Lecture Health Connect", "✓", "—"],
+            pl: [
+              "Czytna Health Connect",
+              "✓",
+              "—",
+            ],
+            tr: [
+              "Okuma Health Connect",
+              "✓",
+              "—",
+            ],
           },
           {
             it: ["Lettura Apple Salute", "—", "✓"],
@@ -1490,6 +1908,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Lesezugriff Apple Health", "—", "✓"],
             pt: ["Leitura do Apple Health", "—", "✓"],
             fr: ["Lecture Apple Health", "—", "✓"],
+            pl: [
+              "Czytna Apple Zdrowia",
+              "—",
+              "✓",
+            ],
+            tr: [
+              "Apple Sağlık Okuma",
+              "—",
+              "✓",
+            ],
           },
           {
             it: ["Anello Colmi via Bluetooth", "✓", "✓ (beta)"],
@@ -1497,6 +1925,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Colmi-Ring via Bluetooth", "✓", "✓ (Beta)"],
             pt: ["Anel Colmi via Bluetooth", "✓", "✓ (beta)"],
             fr: ["Bague Colmi via Bluetooth", "✓", "✓ (bêta)"],
+            pl: [
+              "Anell Colmi przez Bluetooth",
+              "✓",
+              "✓ (beta)",
+            ],
+            tr: [
+              "Anel Colmi kullanılarak Bluetooth",
+              "✓",
+              "✓ (betaversion)",
+            ],
           },
           {
             it: ["Scrittura su Apple Salute", "—", "✓ (beta)"],
@@ -1504,6 +1942,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Schreiben in Apple Health", "—", "✓ (Beta)"],
             pt: ["Escrita no Apple Health", "—", "✓ (beta)"],
             fr: ["Écriture dans Apple Health", "—", "✓ (bêta)"],
+            pl: [
+              "Napisz na Apple Zdrowie",
+              "—",
+              "✓ (beta)",
+            ],
+            tr: [
+              "Sağlık Üzerindeki Yazım\nApple Sağlık'a Mütevazı Yazım\nKVKK uyumu sağlama\nGiyilebilir Cihazlar için Sağlıklı Öykü\nAkıllı Saatlerde Kişisel Verilerin Korunması\nKurucu Hikayesi\nKestirme Politikaları",
+              "—",
+              "✓ (betaversion)",
+            ],
           },
           {
             it: ["Scrittura su Health Connect", "roadmap", "—"],
@@ -1511,6 +1959,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Schreiben in Health Connect", "geplant", "—"],
             pt: ["Escrita no Health Connect", "planejado", "—"],
             fr: ["Écriture dans Health Connect", "prévu", "—"],
+            pl: [
+              "Napisanie na Health Connect",
+              "planowane zmiany __FM_PH_0__ __FM_URL_0__ __FM_HTML_0__ __FM_LINK_0__ __FM_CODE_0__ __FM_FENCE_0__ __FM_BRAND_0__ __FM_TERM_0__ __FM_PH_1__ __FM_URL_1__ __FM_HTML_1__ __FM_LINK_1__ __FM_CODE_1__ __FM_FENCE_1__ __FM_BRAND_1__ __FM_TERM_1__ __FM_PH_2__ __FM_URL_2__ __FM_HTML_2__ __FM_LINK_2__ __FM_CODE_2__ __FM_FENCE_2__ __FM_BRAND_2__ __FM_TERM_2__ __FM_PH_3__ __FM_URL_3__ __FM_HTML_3__ __FM_LINK_3__ __FM_CODE_3__ __FM_FENCE_3__ __FM_BRAND_3__ __FM_TERM_3__ __FM_PH_4__ __FM_URL_4__ __FM_HTML_4__ __FM_LINK_4__ __FM_CODE_4__ __FM_FENCE_4__ __FM_BRAND_4__ __FM_TERM_4__ __FM_PH_5__ __FM_URL_5__ __FM_HTML_5__ __FM_LINK_5__ __FM_CODE_5__ __FM_FENCE_5__ __FM_BRAND_5__ __FM_TERM_5__ __FM_PH_6__ __FM_URL_6__ __FM_HTML_6__ __FM_LINK_6__ __FM_CODE_6__ __FM_FENCE_6__ __FM_BRAND_6__ __FM_TERM_6__ __FM_PH_7__ __FM_URL_7__ __FM_HTML_7__ __FM_LINK_7__ __FM_CODE_7__ __FM_FENCE_7__ __FM_BRAND_7__ __FM_TERM_7__ __FM_PH_8__ __FM_URL_8__ __FM_HTML_8__ __FM_LINK_8__ __FM_CODE_8__ __FM_FENCE_8__ __FM_BRAND_8__ __FM_TERM_8__ __FM_PH_9__ __FM_URL_9__ __FM_HTML_9__ __FM_LINK_9__ __FM_CODE_9__ __FM_FENCE_9__ __FM_BRAND_9__ __FM_TERM_9__",
+              "—",
+            ],
+            tr: [
+              "Yazım Health Connect上",
+              "roadmap",
+              "—",
+            ],
           },
         ],
       },
@@ -1522,6 +1980,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Starte mit Android, füge iPhone hinzu, wenn es bereit ist",
           pt: "Comece com Android, adicione o iPhone quando estiver pronto",
           fr: "Commencez avec Android, ajoutez l'iPhone quand il sera prêt",
+          pl: "Rozpocznij z Android, dodaj iPhone gdy będzie gotowy",
+          tr: "Başla Android, iPhone hazır olduğunda ekleyin",
         },
         body: {
           it: "FitMesh Android è disponibile ora su Google Play: scarica, connetti il tuo anello o wearable, e la dashboard è subito attiva. Iscriviti alla beta iOS per ricevere l'accesso appena i posti si aprono.",
@@ -1529,8 +1989,10 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "FitMesh Android ist jetzt auf Google Play verfügbar: Herunterladen, Ring oder Wearable verbinden, und das Dashboard ist sofort aktiv. Tritt der iOS-Beta bei, um Zugang zu erhalten, sobald Plätze frei sind.",
           pt: "FitMesh Android está disponível agora no Google Play: baixe, conecte seu anel ou wearable e o painel fica imediatamente ativo. Inscreva-se na beta iOS para receber acesso assim que as vagas abrirem.",
           fr: "FitMesh Android est disponible maintenant sur Google Play: téléchargez, connectez votre bague ou wearable, et le tableau de bord est immédiatement actif. Rejoignez la bêta iOS pour obtenir l'accès dès que des places s'ouvrent.",
+          pl: "FitMesh Android jest dostępny teraz na Google Play: zainstaluj, połącz swój anello lub wearable, a dashboard jest natychmiast aktywna. Zapisz się do bêta iOS i otrzymaj dostęp jak tylko pojawią się wolne miejsca.",
+          tr: "FitMesh Android şimdi Google Play üzerinde mevcut: indir ve cihazını veya giyilebilir cihazını bağla, dashboard hemen aktif olur. Beta iOS'e kaydol, yer açıldığı zaman erişimi al.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →", pl: "Wejście w betę →", tr: "Giriş beta moduna →" },
         ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
@@ -1542,6 +2004,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Kann ich FitMesh gleichzeitig auf zwei Telefonen verwenden?",
           pt: "Posso usar o FitMesh em dois celulares ao mesmo tempo?",
           fr: "Puis-je utiliser FitMesh sur deux téléphones en même temps?",
+          pl: "Czy mogę używać FitMesh na dwóch telefonach jednocześnie?",
+          tr: "İhtiyacınız olduğunda FitMesh'i iki telefonda aynı anda kullanabiliyor musunuz?",
         },
         a: {
           it: "Sì. Lo stesso account FitMesh funziona su Android e iPhone in parallelo. I dati di entrambi i dispositivi confluiscono nella stessa dashboard cloud: non devi fare nulla di speciale, basta accedere con lo stesso account su entrambi.",
@@ -1549,6 +2013,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Ja. Dasselbe FitMesh-Konto funktioniert auf Android und iPhone parallel. Daten von beiden Geräten fließen in dasselbe Cloud-Dashboard: Du musst nichts Besonderes tun, melde dich einfach mit demselben Konto auf beiden an.",
           pt: "Sim. A mesma conta FitMesh funciona no Android e no iPhone em paralelo. Os dados de ambos os dispositivos fluem para o mesmo painel na nuvem: você não precisa fazer nada especial, basta entrar com a mesma conta nos dois.",
           fr: "Oui. Le même compte FitMesh fonctionne sur Android et iPhone en parallèle. Les données des deux appareils affluent vers le même tableau de bord cloud: vous n'avez rien de spécial à faire, connectez-vous simplement avec le même compte sur les deux.",
+          pl: "Tak. Ten sam konto FitMesh działa na Android i iPhone w paralelu. Dane z obu urządzeń przepływają do tej samej puli chmurowej: nie musisz niczego robić dodatkowo, wystarczy zalogować się za pomocą tego samego konta na obu.",
+          tr: "Evet. Aynı FitMesh hesabınız, Android ve iPhone cihazlarınız üzerinde paralel olarak çalışır. Her iki cihazdan gelen veriler aynı bulut tabanlı panelde birleştirilir: özel bir şey yapmanıza gerek yok, sadece her ikisinde de aynı hesabınızı kullanarak giriş yapmanız yeterli.",
         },
       },
       {
@@ -1558,6 +2024,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Erscheinen meine Android-Smartwatch-Daten in Apple Health?",
           pt: "Os dados do meu smartwatch Android aparecem no Apple Health?",
           fr: "Les données de ma montre connectée Android apparaissent-elles dans Apple Health?",
+          pl: "Czy dane z mojego smartwatcha Android pojawiają się w Apple Salucie?",
+          tr: "Verilerim giyilebilir cihazımdan Android Apple Sağlık'a ne zaman göründü?",
         },
         a: {
           it: "Per l'anello smart Colmi: sì. FitMesh iOS (beta) scrive i dati dell'anello Colmi dentro Apple Salute (sonno con fasi, passi, frequenza cardiaca). Per gli smartwatch Android che passano per Health Connect (Galaxy Watch, Garmin, ecc.): il passaggio diretto Health Connect → Apple Salute non è disponibile oggi, ma è in roadmap.",
@@ -1565,6 +2033,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Für den Colmi-Smart-Ring: ja. FitMesh iOS (Beta) schreibt Colmi-Ring-Daten in Apple Health (Schlaf mit Phasen, Schritte, Herzfrequenz). Für Android-Smartwatches, die über Health Connect laufen (Galaxy Watch, Garmin usw.): Die direkte Brücke Health Connect → Apple Health ist heute nicht verfügbar, ist aber geplant.",
           pt: "Para o anel inteligente Colmi: sim. O FitMesh iOS (beta) grava os dados do anel Colmi no Apple Health (sono com fases, passos, frequência cardíaca). Para smartwatches Android que passam pelo Health Connect (Galaxy Watch, Garmin, etc.): a ponte direta Health Connect → Apple Health não está disponível hoje, mas está no roadmap.",
           fr: "Pour la bague connectée Colmi: oui. FitMesh iOS (bêta) écrit les données de la bague Colmi dans Apple Health (sommeil avec phases, pas, fréquence cardiaque). Pour les montres connectées Android qui passent par Health Connect (Galaxy Watch, Garmin, etc.): le pont direct Health Connect → Apple Health n'est pas disponible aujourd'hui, mais est prévu.",
+          pl: "Dla smart Colmi: tak. FitMesh iOS (beta) zapisuje dane z anelku Colmi w Apple Zdrowie (sen z fazami, kroki, częstotliwość serca). Dla smartwatch Android, które przechodzą przez Health Connect (Galaxy Watch, Garmin, itp.): bezpośrednie przekierowanie Health Connect → Apple Zdrowie nie jest dostępne obecnie, ale znajduje się w planach rozwojowych.",
+          tr: "Görünüşe göre Colmi smart anelki için: Evet. FitMesh iOS (beta) anelkinin verilerini Apple Sağlık'a (uçak uçuşları ile uyumlu uykunun aşamaları, adımlar, kalp atış hızı) yazıyor. Android smartwatchlar için (Health Connect gibi Galaxy Watch, Garmin vb.): bugün direkt geçiş Health Connect → Apple Sağlık yok, ancak yolu izliyoruz.",
         },
       },
       {
@@ -1574,6 +2044,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Wenn ich bereits Daten auf dem iPhone habe, werden sie mit den Android-Daten dupliziert?",
           pt: "Se eu já tiver dados no iPhone, eles serão duplicados com os dados do Android?",
           fr: "Si j'ai déjà des données sur iPhone, seront-elles dupliquées avec les données Android?",
+          pl: "Jeśli我已经有了关于iPhone的数据，它们会与Android的数据重复吗？",
+          tr: "Eğer zaten iPhone verilerim varsa, bunlar Android verileriyle çoğaltılıyor mu?",
         },
         a: {
           it: "No. FitMesh controlla prima se Apple Salute ha già quei dati. Se ci sono già (da Apple Watch o da qualsiasi altra app), FitMesh non li riscrive. I dati originati su iPhone restano separati da quelli scritti da FitMesh.",
@@ -1581,6 +2053,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nein. FitMesh prüft zuerst, ob Apple Health diese Daten bereits hat. Wenn sie schon vorhanden sind (von der Apple Watch oder einer anderen App), schreibt FitMesh sie nicht erneut. Daten vom iPhone bleiben getrennt von den von FitMesh geschriebenen Daten.",
           pt: "Não. O FitMesh verifica primeiro se o Apple Health já tem esses dados. Se já estiverem lá (do Apple Watch ou de qualquer outro app), o FitMesh não os reescreve. Os dados originados no iPhone ficam separados dos dados gravados pelo FitMesh.",
           fr: "Non. FitMesh vérifie d'abord si Apple Health possède déjà ces données. Si elles sont déjà présentes (depuis l'Apple Watch ou toute autre application), FitMesh ne les réécrit pas. Les données provenant de l'iPhone restent séparées des données écrites par FitMesh.",
+          pl: "No. FitMesh sprawdza najpierw, czy Apple Salute posiada już te dane. Jeśli tak (z Apple Watch lub z jakiejkolwiek innej aplikacji), FitMesh ich nie nadpisuje. Dane pochodne z iPhone pozostają oddzielone od danych wprowadzonych przez FitMesh.",
+          tr: "No. FitMesh önce Apple Sağlıkta o verilerin var olup olmadığını kontrol eder. Var ise (Apple Saati ya da başka herhangi bir uyguladan) FitMesh onları yeniden yazmaz. iPhone üzerinden elde edilen veriler, FitMesh tarafından yazılmış olanlara ayrı kalarak saklanır.",
         },
       },
       {
@@ -1590,6 +2064,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Ist FitMesh iOS im App Store verfügbar?",
           pt: "O FitMesh iOS está disponível na App Store?",
           fr: "FitMesh iOS est-il disponible sur l'App Store?",
+          pl: "FitMesh iOS jest dostępny na App Store?",
+          tr: "FitMesh iOS KVKK'da mevcut mu?",
         },
         a: {
           it: "Non ancora. FitMesh iOS è in beta attiva su TestFlight. Iscriviti alla lista beta su fitmesh.fit/it/beta: riceverai un'email con il link TestFlight non appena i posti sono disponibili. L'uscita su App Store è pianificata dopo il completamento della beta.",
@@ -1597,6 +2073,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Noch nicht. FitMesh iOS befindet sich in aktiver Beta auf TestFlight. Tritt der Beta-Warteliste unter fitmesh.fit/de/beta bei: Du erhältst eine E-Mail mit dem TestFlight-Link, sobald Plätze verfügbar sind. Die Veröffentlichung im App Store ist nach Abschluss der Beta geplant.",
           pt: "Ainda não. O FitMesh iOS está em beta ativa no TestFlight. Entre na lista de espera da beta em fitmesh.fit/pt/beta: você receberá um e-mail com o link do TestFlight assim que as vagas estiverem disponíveis. O lançamento na App Store está planejado após a conclusão da beta.",
           fr: "Pas encore. FitMesh iOS est en bêta active sur TestFlight. Rejoignez la liste d'attente bêta sur fitmesh.fit/fr/beta: vous recevrez un e-mail avec le lien TestFlight dès que des places seront disponibles. La sortie sur l'App Store est prévue après la fin de la bêta.",
+          pl: "Nie jeszcze. FitMesh iOS jest w bêta na TestFlight. Zapisz się do listy bêtowej pod adresem fitmesh.fit/it/beta: otrzymasz wiadomoÅ¼Ä elektronicznÄ z linkiem TestFlight jak tylko pojawiÄ¹ siÄ™ wolne miejsca. Wydanie na App Store jest planowane po zakończeniu bêty.",
+          tr: "Henüz. FitMesh iOS beta testde Fitmesh.fit/it/beta adresine beta listeye katılmak için kaydol: yerler mevcut olunca size bir e-posta ile bağlantı TestFlight gönderilecektir. App Store'deki piyasaya çıkışı beta tamamlandıktan sonra planlıyoruz.",
         },
       },
       {
@@ -1606,6 +2084,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Sind meine Gesundheitsdaten sicher, wenn ich zwei Telefone verwende?",
           pt: "Meus dados de saúde estão seguros ao usar dois celulares?",
           fr: "Mes données de santé sont-elles en sécurité si j'utilise deux téléphones?",
+          pl: "Czy moje zdrowotne dane są bezpieczne, jeśli używam dwóch telefonów?",
+          tr: "Sağlamlık verilerim iki telefon kullanırken güvenli mı?",
         },
         a: {
           it: "Sì. Tutti i dati sono archiviati su un unico server EU (Frankfurt), crittografati in transito (HTTPS) e a riposo. Ogni account è isolato con Row Level Security: nessun altro utente può vedere i tuoi dati. Puoi cancellare tutto in qualsiasi momento dalla sezione 'Elimina account e dati' nell'app.",
@@ -1613,6 +2093,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Ja. Alle Daten werden auf einem einzigen EU-Server (Frankfurt) gespeichert, verschlüsselt bei Übertragung (HTTPS) und Speicherung. Jedes Konto ist mit Row Level Security isoliert: Kein anderer Nutzer kann deine Daten sehen. Du kannst alles jederzeit über den Bereich 'Konto und Daten löschen' in der App löschen.",
           pt: "Sim. Todos os dados são armazenados em um único servidor na UE (Frankfurt), criptografados em trânsito (HTTPS) e em repouso. Cada conta é isolada com Row Level Security: nenhum outro usuário pode ver seus dados. Você pode excluir tudo a qualquer momento na seção 'Excluir conta e dados' no app.",
           fr: "Oui. Toutes les données sont stockées sur un seul serveur UE (Francfort), chiffrées en transit (HTTPS) et au repos. Chaque compte est isolé avec Row Level Security: aucun autre utilisateur ne peut voir vos données. Vous pouvez tout supprimer à tout moment depuis la section 'Supprimer le compte et les données' dans l'application.",
+          pl: "Tak. Wszystkie dane są przechowywane na jednym serwerze EU (Frankfurt), zaszyfrowane podczas przesyłania (HTTPS) oraz w spocząku. Każdy konto jest izolowane za pomocą bezpiecznej RODO: żaden inny użytkownik nie może zobaczyć Twoich danych. Możesz usunąć wszystko w każdym momencie z sekcji 'Usuń konto i dane' w aplikacji.",
+          tr: "Evet. Tüm veriler, KVKK uyumlu bir tek EU (Frankfurt) sunucu üzerinde saklanır; taşıma sırasında (HTTPS) ve dinlenme sırasında şifrelenmiştir. Her hesap Row Level Güvenlik Koruması ile yalınayak olarak korunmuştur: Başka hiçbir kullanıcının verilerinize erişmesi mümkün değildir. Her zaman 'Hesap ve Verileri Sil' bölümünden uygulamada bu bilgileri silebilirsiniz.",
         },
       },
       {
@@ -1622,6 +2104,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Funktioniert der Colmi-Ring sowohl auf Android als auch auf iPhone?",
           pt: "O anel Colmi funciona tanto no Android quanto no iPhone?",
           fr: "La bague Colmi fonctionne-t-elle sur Android et sur iPhone?",
+          pl: "Czy pęczek Colmi działa zarówno na Android, jak i na iPhone?",
+          tr: "Günlük kullanımda Colmi cihazı, hem Android hem de iPhone platformlarında nasıl çalışır?",
         },
         a: {
           it: "Sì. L'anello Colmi si connette via Bluetooth all'app FitMesh su entrambe le piattaforme. Su Android è già disponibile in produzione. Su iPhone è nella beta attiva: iscriviti per accedere. I dati raccolti dall'anello (sonno con fasi, passi, BPM) vengono sincronizzati all'account cloud e, su iOS, scritti dentro Apple Salute.",
@@ -1629,6 +2113,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Ja. Der Colmi-Ring verbindet sich via Bluetooth mit der FitMesh-App auf beiden Plattformen. Auf Android ist er bereits in der Produktion verfügbar. Auf dem iPhone befindet er sich in der aktiven Beta: Tritt bei, um Zugang zu erhalten. Die vom Ring gesammelten Daten (Schlaf mit Phasen, Schritte, BPM) werden mit dem Cloud-Konto synchronisiert und auf iOS in Apple Health geschrieben.",
           pt: "Sim. O anel Colmi conecta-se via Bluetooth ao app FitMesh em ambas as plataformas. No Android já está disponível em produção. No iPhone está na beta ativa: inscreva-se para ter acesso. Os dados coletados pelo anel (sono com fases, passos, BPM) são sincronizados com a conta na nuvem e, no iOS, gravados no Apple Health.",
           fr: "Oui. La bague Colmi se connecte via Bluetooth à l'application FitMesh sur les deux plateformes. Sur Android, elle est déjà disponible en production. Sur iPhone, elle est en bêta active: rejoignez-la pour obtenir l'accès. Les données collectées par la bague (sommeil avec phases, pas, BPM) sont synchronisées avec votre compte cloud et, sur iOS, écrites dans Apple Health.",
+          pl: "Tak. Pętla Colmi łączy się poprzez Bluetooth z aplikacją FitMesh na obu platformach. Na Android jest już w produkcji. Na iPhone znajduje się w aktywnej fazie bêta: zapisz się, aby uzyskać dostęp. Dane zebrane przez pętlę (sen z fazami, kroki, BPM) są synchronizowane z kontem w chmurze i na iOS, zapisywane są one w Apple Zdrowie.",
+          tr: "Evet. Aş Colmi giyilebilir cihaz, Bluetooth protokolü ile FitMesh uygulamasına hem iOS hem de Android platformlarında bağlanır. iOS'da zaten üretimde bulunmaktadır. Android'te ise beta test aşamasındadır: kaydolmak için buraya tıkla (__FM_URL_0__). Aş Colmi topladığı veriler (uyku fasi, adımlar, BPM), bulut hesabına ve Android'te ise Apple Sağlık uygulamasına (__FM_APPLE_HEALTH__) kaydedilir.",
         },
       },
     ],
@@ -1647,6 +2133,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Colmi Smart-Ring Schlaf FitMesh",
       pt: "anel inteligente sono colmi fitmesh",
       fr: "bague connectée sommeil colmi fitmesh",
+      pl: "cieczek smart sen rodo_fitmesh",
+      tr: "anneli akıllı saat uykularınızı doldurun fitmesh",
     },
     secondaryKeywords: {
       it: [
@@ -1663,6 +2151,20 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         "smart ring ios android same app",
         "colmi ring apple health",
       ],
+      pl: [
+        "ciekawka zamykana bez app producent",
+        "anzel smart kroki pulsacie spo2 android",
+        "wypełnij panel dewelopera witryny web",
+        "pętla smart iOS Android ta sama app",
+        "wypełnij pętelkę Apple podnoszenie",
+      ],
+      tr: [
+        "kolcu dolturucuları giyilebilir_cihaz_producere",
+        "anket akıllı pas geçit spektrometri android",
+        "kolmo ring panel web",
+        "anket akıllı saat iOS Android aynı uygulama",
+        "kolimlar ring apple selameti",
+      ],
     },
     metaDescription: {
       it: "FitMesh Sync legge l'anello Colmi via Bluetooth: passi, battito, SpO2, sonno con fasi, stress, batteria. Dashboard web su Android e, presto, su iPhone. Senza app del produttore.",
@@ -1670,15 +2172,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "FitMesh Sync liest deinen Colmi-Ring via Bluetooth: Schritte, Herzfrequenz, SpO2, Schlaf mit Phasen, Stress, Akku. Web-Dashboard auf Android und bald auf iPhone. Ohne Hersteller-App.",
       pt: "FitMesh Sync lê seu anel Colmi via Bluetooth: passos, frequência cardíaca, SpO2, sono com fases, stress, bateria. Painel web no Android e, em breve, no iPhone. Sem app do fabricante.",
       fr: "FitMesh Sync lit votre bague Colmi via Bluetooth: pas, fréquence cardiaque, SpO2, sommeil avec phases, stress, batterie. Tableau de bord web sur Android et bientôt sur iPhone. Sans application du fabricant.",
+      pl: "FitMesh Sync odczytuje anulowany Colmi z anelku: kroki, puls, SpO2, sen z fazami, stres, akumulator. Panel internetowy dostępny na Android i wkrótce na iPhone. Bez aplikacji producenta.",
+      tr: "FitMesh Sync KVKK'ye uygun olarak Colmi halkasını okuyarak: adımlar, kalp atışları, SpO2, uykunun fasipleri, stres, bateri. Web tabanlı panelde Android ve yakında iPhone. Üreticinin uygulaması olmadan.",
     },
     hero: {
-      kicker: { it: "Anello Colmi + FitMesh Sync", en: "Colmi Ring + FitMesh Sync", de: "Colmi-Ring + FitMesh Sync", pt: "Anel Colmi + FitMesh Sync", fr: "Bague Colmi + FitMesh Sync" },
+      kicker: { it: "Anello Colmi + FitMesh Sync", en: "Colmi Ring + FitMesh Sync", de: "Colmi-Ring + FitMesh Sync", pt: "Anel Colmi + FitMesh Sync", fr: "Bague Colmi + FitMesh Sync", pl: "Anell Colmi + FitMesh Sync", tr: "Anel Colmi + FitMesh Sync" },
       title: {
         it: "Il tuo anello Colmi su una dashboard web, senza l'app del produttore",
         en: "Your Colmi ring on a web dashboard, no manufacturer app required",
         de: "Dein Colmi-Ring auf einem Web-Dashboard, ohne Hersteller-App",
         pt: "Seu anel Colmi em um painel web, sem o app do fabricante",
         fr: "Votre bague Colmi sur un tableau de bord web, sans l'application du fabricant",
+        pl: "Twój anell Colmi na panelu kontrolnym, bez aplikacji producenta",
+        tr: "Kuruluşunuzun Colmi giyilebilir cihazınızda bir panelde, üretici app olmadan",
       },
       subtitle: {
         it: "FitMesh Sync si collega direttamente al tuo anello Colmi via Bluetooth e raccoglie passi, battito cardiaco, SpO2, sonno con fasi, stress e livello batteria. I dati appaiono su una dashboard web accessibile da qualsiasi browser, uniti a quelli del tuo smartwatch, senza doppioni.",
@@ -1686,13 +2192,15 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         de: "FitMesh Sync verbindet sich direkt via Bluetooth mit deinem Colmi-Ring und sammelt Schritte, Herzfrequenz, SpO2, Schlaf mit Phasen, Stress und Akkustand. Die Daten erscheinen auf einem Web-Dashboard, das von jedem Browser zugänglich ist, zusammengeführt mit deinen Smartwatch-Daten, ohne Duplikate.",
         pt: "FitMesh Sync conecta-se diretamente ao seu anel Colmi via Bluetooth e coleta passos, frequência cardíaca, SpO2, sono com fases, stress e nível de bateria. Os dados aparecem em um painel web acessível de qualquer navegador, unidos aos dados do seu smartwatch, sem duplicatas.",
         fr: "FitMesh Sync se connecte directement à votre bague Colmi via Bluetooth et collecte les pas, la fréquence cardiaque, le SpO2, le sommeil avec phases, le stress et le niveau de batterie. Les données apparaissent sur un tableau de bord web accessible depuis n'importe quel navigateur, fusionnées avec les données de votre montre connectée, sans doublons.",
+        pl: "FitMesh Sync nawiązuje bezpośrednio do Twojego anella Colmi poprzez Bluetooth i zbiera kroki, puls, SpO2, sen z fazami, stres oraz poziom baterii. Dane wyświetlane są na panelu kontrolnym dostępny w każdym przeglądarce internetowej, łącząc się z danymi z Twojego smartwatcha, bez powtarzalnych informacji.",
+        tr: "FitMesh Sync doğrudan cihazınızdaki Colmi cihazınız üzerinden Bluetooth kullanarak bağlanır ve adımlar, kalp atış hızı, SpO2, uyku fasi, stres ve pil durumu bilgilerini toplar. Bu veriler herhangi bir tarayıcıdan erişilebilir bir panelde görüntülenir ve akıllı sahtenizden gelen verilere eklenir, tekrarlara rastlanmaz.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite", pl: "Wejście do bêta bezpłatnie", tr: "Gübre试用版免费参与" },
         href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
       secondaryCta: {
-        label: { it: "Leggi la guida completa", en: "Read the full guide", de: "Vollständigen Leitfaden lesen", pt: "Ler o guia completo", fr: "Lire le guide complet" },
+        label: { it: "Leggi la guida completa", en: "Read the full guide", de: "Vollständigen Leitfaden lesen", pt: "Ler o guia completo", fr: "Lire le guide complet", pl: "Przeczytaj pełną wersję", tr: "Oku tam kılavuz'u" },
         href: {
           it: "/it/blog/colmi-ring-fitmesh",
           en: "/en/blog/colmi-ring-fitmesh",
@@ -1711,6 +2219,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Colmi-Ringe bieten diskretes kontinuierliches Monitoring: Du trägst sie Tag und Nacht, sie erfassen Schlaf mit Phasen (Leichtschlaf, Tiefschlaf, REM), Herzfrequenz, Blutsauerstoffsättigung und Stresslevel, ohne dass du etwas manuell aktivieren musst. Das Problem mit vielen günstigen Ringen ist die Hersteller-App: oft dürftig ausgestattet, Daten bleiben gesperrt, es gibt keine Integration mit der Smartwatch, die du tagsüber trägst, und kein anständiges Web-Dashboard.",
           pt: "Os anéis Colmi oferecem monitoramento contínuo discreto: você os usa dia e noite, rastreando o sono com fases (leve, profundo, REM), a frequência cardíaca, a saturação de oxigênio no sangue e o nível de stress, sem precisar ativar nada manualmente. O problema com muitos anéis baratos é o app do fabricante: geralmente escasso, os dados ficam presos, não há integração com o smartwatch que você usa durante o dia e não existe um painel web decente.",
           fr: "Les bagues Colmi offrent une surveillance continue discrète: vous les portez jour et nuit, elles suivent le sommeil avec phases (léger, profond, REM), la fréquence cardiaque, la saturation en oxygène du sang et le niveau de stress, sans rien à activer manuellement. Le problème avec de nombreuses bagues abordables est l'application du fabricant: souvent rudimentaire, les données restent enfermées, il n'y a pas d'intégration avec la montre connectée que vous portez dans la journée et pas de tableau de bord web digne de ce nom.",
+          pl: "Ankiety Colmi oferw_continuous_discrete_monitoring: noszko je dzień i noc, śledzą sen z fazami (lékki, głęboki, REM), puls, stopniowani krewi w organizmie i poziom stresu, bez konieczności pamiętania o aktywacji czegoś. Problem wielu ekonomicznych aneków polega na aplikacji producenta: często jest skromna, dane pozostają zamknięte, nie ma integracji z smartwatchem używanym w ciągu dnia i nie istnieje dobra panel webowa.",
+          tr: "Gli anelli Colmi offrono un monitoraggio continuo discreto: li indosserai giorno e notte, tracciano il sonno con le fasi (leggero, profondo, REM), il battito cardiaco, la saturazione dell'ossigeno nel sangue e il livello di stress, senza che tu debba ricordarti di attivare niente. Il problema con molti anelli economici è l'app del produttore: spesso è scarna, i dati restano chiusi, non c'è integrazione con lo giyilebilir cihaz che usi di giorno e non esiste una dashboard web decente.",
         },
       },
       {
@@ -1721,6 +2231,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "FitMesh Sync löst genau das. Anstatt die Colmi-App zu verwenden, nutzt du FitMesh: Es verbindet sich direkt via Bluetooth mit dem Ring, lädt die Daten herunter, sendet sie in die EU-Cloud und zeigt sie auf einem vereinten Web-Dashboard zusammen mit deinen anderen Wearables.",
           pt: "FitMesh Sync resolve exatamente isso. Em vez de usar o app Colmi, você usa o FitMesh: ele conecta-se diretamente ao anel via Bluetooth, baixa os dados, envia para a nuvem na UE e os exibe em um painel web unificado junto com seus outros wearables.",
           fr: "FitMesh Sync résout exactement cela. Au lieu d'utiliser l'application Colmi, vous utilisez FitMesh: il se connecte directement à la bague via Bluetooth, récupère les données, les envoie vers le cloud UE et les affiche sur un tableau de bord web unifié avec vos autres appareils connectés.",
+          pl: "FitMesh Sync rozwiązuje to dokładnie. Zamiast korzystać z aplikacji Colmi, używaj FitMesh: bezpośrednio łączy się z pękatym angieliskiem przez Bluetooth, pobiera dane, wysyła je do obwodowego EU i wyświetla na jednolitej powierzchni internetowej wraz z innymi Twoimi wearable.",
+          tr: "FitMesh Sync bucele tam olarak bu sorunu. Yani Colmi uygulamasını kullanmadan, FitMesh'i kullanın: Bu, giyilebilir cihazlarınize doğrudan bağlanır ve Bluetooth üzerinden verileri indirir, bunları AB'nin bulutuna gönderir ve diğer giyilebilir cihazlarınızla birlikte web tabanlı bir panelde gösterir.",
         },
       },
       {
@@ -1732,6 +2244,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Was FitMesh vom Colmi-Ring liest",
           pt: "O que o FitMesh lê do anel Colmi",
           fr: "Ce que FitMesh lit depuis la bague Colmi",
+          pl: "Coś czyta FitMesh z anelku Colmi",
+          tr: "FitMesh giyilebilir cihazlarından Colmi'i ne okur",
         },
       },
       {
@@ -1777,6 +2291,22 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Stress**: score basé sur la variabilité de la fréquence cardiaque",
             "**Batterie**: niveau de charge restant de la bague",
           ],
+          pl: [
+            "**Kroki**: dzienny licznik oraz w zakresie godzinowego interwału",
+            "**Częstotliwość serca**: próby ciągłe i średnia dzienna",
+            "**SpO2**: satywkatę tlenu w krwi",
+            "**Snyt w fazach**: całkowita trwałość, Łagodny, Profundny, REM, Boleśnie wywodzący",
+            "**Streszczanie**: ocena opartая на вариабельности сердечного ритма",
+            "**Bateria**: poziom residualny cargu anelku",
+          ],
+          tr: [
+            "**Paslar**: günlük ve zaman dilimleri için sayım",
+            "**Sekilsevit Frekansı**: sürekli örnekler ve günlük ortalama değerleri",
+            "**SpO2**: kanında oksijen dolumu",
+            "**Sonuşta Fasillere Göre Süre**: Toplam Süre, Uzun, Derin, REM, Uyanık",
+            "**Stres**: karotid varyasyonuna dayalı puan",
+            "**Bateriye**: anellinin kalan şarjı düzeyi",
+          ],
         },
       },
       {
@@ -1788,6 +2318,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Vereintes Dashboard: Ring und Smartwatch, null Duplikate",
           pt: "Painel unificado: anel e smartwatch, zero duplicatas",
           fr: "Tableau de bord unifié: bague et montre connectée, zéro doublon",
+          pl: "Przeglądarka unifikowana: anellko + smartwatch, zerowe duplikaty",
+          tr: "Günlük Arayüz: anel + akıllı saat, sıfır tekrarlar",
         },
       },
       {
@@ -1798,6 +2330,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Viele tragen den Ring nachts (für den Schlaf) und die Smartwatch tagsüber (für Sport und Benachrichtigungen). FitMesh vereint sie in einer einzigen Ansicht: Schlaf kommt vom Colmi-Ring, Schritte und Trainings von der Uhr. Wenn dieselbe Messung von zwei Quellen eintrifft, wendet FitMesh einen Deduplizierungsmechanismus an: Derselbe Schritt wird nie zweimal gezählt.",
           pt: "Muita gente usa o anel à noite (para o sono) e o smartwatch durante o dia (para esportes e notificações). FitMesh os reúne em uma única visualização: o sono vem do anel Colmi, os passos e os treinos do relógio. Quando a mesma medição chega de duas fontes, o FitMesh aplica um mecanismo anti-duplicata: o mesmo passo nunca é contado duas vezes.",
           fr: "Beaucoup de personnes portent la bague la nuit (pour le sommeil) et la montre connectée dans la journée (pour le sport et les notifications). FitMesh les réunit dans une seule vue: le sommeil vient de la bague Colmi, les pas et les séances d'entraînement de la montre. Quand la même mesure arrive de deux sources, FitMesh applique un mécanisme de déduplication: le même pas n'est jamais compté deux fois.",
+          pl: "Wielu używa anegu nocnej (dla spaćcia) i smartwata w ciągu dnia (dla sportów i powiadomień). FitMesh łączy je w jednym widoku: spaćcie pochodzi z anegu Colmi, kroki i ćwiczenia od smartwata. Gdy te same pomiary pochodzą z dwóch źródeł, FitMesh stosuje mechanizm antyduplikacyjny: nie dodaje dwukrotnie tych samych kroków.",
+          tr: "Çoklu kullanıcılarda gecede anelik ve gün boyunca akıllı saati kullanmaları gözlemleniyor (Colmi için uyku, spor ve bildirimler için akıllı saat). FitMesh bu iki cihazı tek bir arayüze katıyor: uyku Colmiten gelir, adımlar ve egzersizler ise saatinin izleyiciinden. Aynı verileri iki kaynaktan alması durumunda, FitMesh tekrarlama önlem mekanizmasına başvuruyor: aynı adımın iki kez sayılmamasını sağlıyor.",
         },
       },
       {
@@ -1809,6 +2343,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Wie es funktioniert: Einrichtung in 3 Schritten",
           pt: "Como funciona: configuração em 3 passos",
           fr: "Comment ça fonctionne: configuration en 3 étapes",
+          pl: "Jak działa: konfiguracja w 3 krokach",
+          tr: "Nasıl Çalışır: 3 Adım Setup",
         },
       },
       {
@@ -1840,6 +2376,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "Ouvrez la section **Bague** dans l'application et gardez la bague Colmi près du téléphone: FitMesh la trouve via Bluetooth et s'associe automatiquement.",
             "Ouvrez le **tableau de bord web** (lien dans l'application ou connectez-vous depuis un navigateur): les pas, le sommeil et la fréquence cardiaque sont déjà visibles.",
           ],
+          pl: [
+            "Zainstaluj **FitMesh Sync** z Google Play i zaloguj się za pomocą Google.",
+            "Otwórz sekcję **Pętelka** w app i przywiedź pętlkę Colmi blisko telefonu: FitMesh go wykrywa za pomocą Bluetooth i połącza się z nim automatycznie.",
+            "Otwórz **panel sterowania** (link w aplikacji lub zaloguj się w przeglądarce): kroki, sen i puls są już widoczne.",
+          ],
+          tr: [
+            "İnstall **FitMesh Sync** Google Play'ten ve Google ile giriş yapın.",
+            "Aç app'in **Döngü** bölümünü ve döngüyü Colmi giyilebilir cihazına yakın tut: FitMesh bunu Bluetooth kullanarak bulur ve otomatik olarak eşleştirir.",
+            "Aç **web panelini** (uygulamada link veya tarayıcıdan giriş yapın): adımlar, uyku ve kalp atışları zaten görünür.",
+          ],
         },
       },
       {
@@ -1851,6 +2397,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Kompatibilität: Was heute funktioniert",
           pt: "Compatibilidade: o que funciona hoje",
           fr: "Compatibilité: ce qui fonctionne aujourd'hui",
+          pl: "Kompatybilność: co dzisiaj działa",
+          tr: "Uyumluluk:Bugün ne çalışıyor?",
         },
       },
       {
@@ -1861,6 +2409,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Kompatibilitätsstatus (Juni 2026)",
           pt: "Status de compatibilidade (junho 2026)",
           fr: "État de compatibilité (juin 2026)",
+          pl: "Stanowisko zgodności (czerwiec 2026)",
+          tr: "Uyumluluk Durumu (Haziran 2026)",
         },
         headers: {
           it: ["Funzione", "Android", "iPhone"],
@@ -1868,6 +2418,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: ["Funktion", "Android", "iPhone"],
           pt: ["Função", "Android", "iPhone"],
           fr: ["Fonction", "Android", "iPhone"],
+          pl: [
+            "Funkcja",
+            "Android",
+            "iPhone",
+          ],
+          tr: [
+            "Fonksiyon",
+            "Android",
+            "iPhone",
+          ],
         },
         rows: [
           {
@@ -1876,6 +2436,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Bluetooth-Verbindung zum Colmi-Ring", "Verfügbar", "Demnächst verfügbar (Beta)"],
             pt: ["Conexão Bluetooth com o anel Colmi", "Disponível", "Em breve (beta)"],
             fr: ["Connexion Bluetooth à la bague Colmi", "Disponible", "Bientôt disponible (bêta)"],
+            pl: [
+              "Połączenie Bluetooth z pętlą Colmi",
+              "Dostępny",
+              "Wkrótce dostępne (beta)",
+            ],
+            tr: [
+              "Bağlantı Bluetooth halkasına Colmi",
+              "Mevcut",
+              "Geliyor (betaversion)",
+            ],
           },
           {
             it: ["Passi, battito, SpO2, stress, batteria", "Disponibile", "In arrivo (beta)"],
@@ -1883,6 +2453,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Schritte, Herzfrequenz, SpO2, Stress, Akku", "Verfügbar", "Demnächst verfügbar (Beta)"],
             pt: ["Passos, frequência cardíaca, SpO2, stress, bateria", "Disponível", "Em breve (beta)"],
             fr: ["Pas, fréquence cardiaque, SpO2, stress, batterie", "Disponible", "Bientôt disponible (bêta)"],
+            pl: [
+              "Kroki, pulsje, SpO2, stres, akumulator",
+              "Dostępny",
+              "Wkrótce dostępne (beta)",
+            ],
+            tr: [
+              "Adım, atış, SpO2, stres, bateri",
+              "Mevcut",
+              "Geliyor (betaversion)",
+            ],
           },
           {
             it: ["Sonno con fasi (Leggero, Profondo, REM)", "Disponibile", "In arrivo (beta)"],
@@ -1890,6 +2470,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Schlaf mit Phasen (Leichtschlaf, Tiefschlaf, REM)", "Verfügbar", "Demnächst verfügbar (Beta)"],
             pt: ["Sono com fases (Leve, Profundo, REM)", "Disponível", "Em breve (beta)"],
             fr: ["Sommeil avec phases (Léger, Profond, REM)", "Disponible", "Bientôt disponible (bêta)"],
+            pl: [
+              "Snytanie z fazami (Lekkawego, Tiepłego, REM)",
+              "Dostępny",
+              "Wkrótce dostępne (beta)",
+            ],
+            tr: [
+              "Uyumluk fasılar (Yumuşak, Derin, REM)",
+              "Mevcut",
+              "Geliyor (betaversion)",
+            ],
           },
           {
             it: ["Dashboard web (stesso account)", "Disponibile", "Disponibile"],
@@ -1897,6 +2487,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Web-Dashboard (gleisches Konto)", "Verfügbar", "Verfügbar"],
             pt: ["Painel web (mesma conta)", "Disponível", "Disponível"],
             fr: ["Tableau de bord web (même compte)", "Disponible", "Disponible"],
+            pl: [
+              "Panel web (ten sam konta)",
+              "Dostępny",
+              "Dostępny",
+            ],
+            tr: [
+              "Yönetim Panosu Web (aynı hesap)",
+              "Mevcut",
+              "Mevcut",
+            ],
           },
           {
             it: ["Scrittura su Apple Salute", "n/a", "In arrivo (beta)"],
@@ -1904,6 +2504,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Schreiben in Apple Health", "n/a", "Demnächst verfügbar (Beta)"],
             pt: ["Escrita no Apple Health", "n/a", "Em breve (beta)"],
             fr: ["Écriture dans Apple Health", "n/a", "Bientôt disponible (bêta)"],
+            pl: [
+              "Napisz na Apple Zdrowie",
+              "n/a",
+              "Wkrótce dostępne (beta)",
+            ],
+            tr: [
+              "Sağlık Üzerindeki Yazım\nApple Sağlık'a Müsaati",
+              "n/a",
+              "Geliyor (betaversion)",
+            ],
           },
           {
             it: ["Unione con dati smartwatch (no doppioni)", "Disponibile", "In arrivo (beta)"],
@@ -1911,6 +2521,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             de: ["Zusammenführung mit Smartwatch-Daten (keine Duplikate)", "Verfügbar", "Demnächst verfügbar (Beta)"],
             pt: ["Fusão com dados do smartwatch (sem duplicatas)", "Disponível", "Em breve (beta)"],
             fr: ["Fusion avec données de montre connectée (sans doublons)", "Disponible", "Bientôt disponible (bêta)"],
+            pl: [
+              "Unia z danymi smartwatch (brak powtórzeń)",
+              "Dostępny",
+              "Wkrótce dostępne (beta)",
+            ],
+            tr: [
+              "Giyilebilir cihaz ile veri birleşme (tekrarlı veriler olmamalı)",
+              "Mevcut",
+              "Geliyor (betaversion)",
+            ],
           },
         ],
       },
@@ -1923,6 +2543,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Colmi-Ring auf iPhone: demnächst verfügbar",
           pt: "Anel Colmi no iPhone: em breve",
           fr: "Bague Colmi sur iPhone: bientôt disponible",
+          pl: "Anellito Colmi en iPhone: en camino",
+          tr: "Anel Colmi üzerinde iPhone: geliyor",
         },
         body: {
           it: "L'app FitMesh iOS supporta l'anello Colmi via Bluetooth ed è in fase di revisione per l'App Store. Con un unico account FitMesh, i dati dell'anello si vedono su entrambi i telefoni e vengono scritti dentro Apple Salute (ponte opzionale). Iscriviti alla beta su /it/beta per ricevere l'accesso non appena disponibile.",
@@ -1930,6 +2552,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Die FitMesh iOS-App unterstützt den Colmi-Ring via Bluetooth und befindet sich in der App Store-Überprüfung. Mit einem einzigen FitMesh-Konto sind die Ringdaten auf beiden Telefonen sichtbar und werden in Apple Health geschrieben (optionale Brücke). Tritt der Beta unter /de/beta bei, um Zugang zu erhalten, sobald er verfügbar ist.",
           pt: "O app FitMesh iOS suporta o anel Colmi via Bluetooth e está em revisão para a App Store. Com uma única conta FitMesh, os dados do anel ficam visíveis nos dois celulares e são gravados no Apple Health (ponte opcional). Inscreva-se na beta em /pt/beta para receber o acesso assim que disponível.",
           fr: "L'application FitMesh iOS prend en charge la bague Colmi via Bluetooth et est en cours de révision pour l'App Store. Avec un seul compte FitMesh, les données de la bague sont visibles sur les deux téléphones et écrites dans Apple Health (pont optionnel). Rejoignez la bêta sur /fr/beta pour obtenir l'accès dès qu'il sera disponible.",
+          pl: "Aplikacja FitMesh iOS obsługuje pasek Colmi poprzez Bluetooth i jest w fazie rewizji dla App Store. Za pomocą jednego konta FitMesh, dane z paska są widoczne na obu telefonach i zapisywane w Apple Zdrowia (opcjonalny bridge). Zapisz się do bêta w /it/beta, aby otrzymać dostęp jak tylko będzie dostępny.",
+          tr: "Uygulama FitMesh iOS giyilebilir cihaz Colmi'i Bluetooth aracılığıyla destekliyor ve KVKK için onaylanma aşamasında. Bir tek hesapla FitMesh, aletin verileri her iki telefonunuzda da görünür ve Apple Sağlık (seçimsel köprü) içinde kaydedilir. /it/beta adresinden beta testine katılmak için buraya登记以中文回答",
         },
       },
       {
@@ -1940,6 +2564,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Bereit, deinen Colmi-Ring ohne die Hersteller-App zu nutzen?",
           pt: "Pronto para usar seu anel Colmi sem o app do fabricante?",
           fr: "Prêt à utiliser votre bague Colmi sans l'application du fabricant?",
+          pl: "Czy gotowy do korzystania z swojego anella Colmi bez producenta app?",
+          tr: "Pronto kullanmak isteyen miysiniz Colmi'ı sansürleşmiş markanın uygulaması olmadan?",
         },
         body: {
           it: "100 posti founder gratis durante la beta. App Android disponibile ora su Play Store, dashboard web inclusa.",
@@ -1947,8 +2573,10 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "100 kostenlose Founder-Plätze während der Beta. Android-App jetzt auf dem Play Store verfügbar, Web-Dashboard inklusive.",
           pt: "100 vagas founder grátis durante a beta. App Android disponível agora no Play Store, painel web incluído.",
           fr: "100 places founder gratuites pendant la bêta. Application Android disponible maintenant sur le Play Store, tableau de bord web inclus.",
+          pl: "100 miejsc founderowych bezpłatnie podczas bêta. Aplikacja Android dostępna teraz w Google Play, panel administracyjny dostępny.",
+          tr: "100 kurucu ücretsiz beta sırasında. Uygulama Android şu anda Google Oyun Mağazası'nda, web paneli de dahil.",
         },
-        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaLabel: { it: "Entra in beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →", pl: "Wejście w betę →", tr: "Giriş beta moduna →" },
         ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
@@ -1960,6 +2588,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Muss ich die Colmi-App auf dem Telefon behalten?",
           pt: "Preciso manter o app Colmi no celular?",
           fr: "Dois-je garder l'application Colmi sur mon téléphone?",
+          pl: "Musi mieć aplikację Colmi na telefonie?",
+          tr: "Giyilebilir cihazımde Colmi uygulaması olmalı?",
         },
         a: {
           it: "No. FitMesh Sync si connette direttamente all'anello via Bluetooth, quindi l'app del produttore non è necessaria. Puoi disinstallarla se vuoi. FitMesh raccoglie i dati in autonomia e li invia alla dashboard web.",
@@ -1967,6 +2597,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nein. FitMesh Sync verbindet sich direkt via Bluetooth mit dem Ring, daher ist die Hersteller-App nicht erforderlich. Du kannst sie deinstallieren, wenn du möchtest. FitMesh sammelt Daten eigenständig und sendet sie an das Web-Dashboard.",
           pt: "Não. FitMesh Sync conecta-se diretamente ao anel via Bluetooth, portanto o app do fabricante não é necessário. Você pode desinstalá-lo se quiser. O FitMesh coleta os dados de forma independente e os envia ao painel web.",
           fr: "Non. FitMesh Sync se connecte directement à la bague via Bluetooth, donc l'application du fabricant n'est pas nécessaire. Vous pouvez la désinstaller si vous le souhaitez. FitMesh collecte les données de manière autonome et les envoie au tableau de bord web.",
+          pl: "No. FitMesh Sync się połącza bezpośrednio z pętlą za pomocą Bluetooth, więc aplikacja producenta nie jest wymagana. Możesz ją usunąć, jeśli chcesz. FitMesh zbiera dane w trybie offline i wysyła je do panelu webowego.",
+          tr: "No. FitMesh Sync giyilebilir cihaz, Bluetooth üzerinden doğrudan halka ilettiğinden, üretici app'i kullanmaya gerek yok. Eğer istersen silebilirsin. FitMesh verileri bağımsız olarak toplar ve web tabanlı paneline gönderir.",
         },
       },
       {
@@ -1976,6 +2608,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Welche Colmi-Modelle werden unterstützt?",
           pt: "Quais modelos Colmi são suportados?",
           fr: "Quels modèles Colmi sont pris en charge?",
+          pl: "Jakie modele Colmi są obsługiwane?",
+          tr: "Hangi Colmi modelleri destekleniyor?",
         },
         a: {
           it: "FitMesh supporta i modelli Colmi più diffusi che usano il protocollo Bluetooth standard, inclusi i modelli della serie R (R02, R06, R08, R09, R10) e altri con funzionalità simili. La compatibilità viene ampliata progressivamente. Se il tuo modello non compare, iscriviti alla beta e segnalacelo: aggiungiamo i modelli richiesti in priorità.",
@@ -1983,6 +2617,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "FitMesh unterstützt die gängigsten Colmi-Modelle, die das Standard-Bluetooth-Protokoll verwenden, einschließlich R-Serie-Modelle (R02, R06, R08, R09, R10) und andere mit ähnlichen Funktionen. Die Kompatibilität wird schrittweise erweitert. Wenn dein Modell nicht aufgelistet ist, tritt der Beta bei und teile es uns mit: Angefragte Modelle werden priorisiert.",
           pt: "FitMesh suporta os modelos Colmi mais comuns que usam o protocolo Bluetooth padrão, incluindo os modelos da série R (R02, R06, R08, R09, R10) e outros com funcionalidades semelhantes. A compatibilidade é ampliada progressivamente. Se o seu modelo não estiver listado, inscreva-se na beta e nos avise: os modelos solicitados são priorizados.",
           fr: "FitMesh prend en charge les modèles Colmi les plus courants utilisant le protocole Bluetooth standard, notamment les modèles de la série R (R02, R06, R08, R09, R10) et d'autres aux fonctionnalités similaires. La compatibilité est élargie progressivement. Si votre modèle n'est pas répertorié, rejoignez la bêta et signalez-le nous: les modèles demandés sont traités en priorité.",
+          pl: "FitMesh obsługuje najpopularniejsze modele Colmi, które korzystają z standardowego protokołu Bluetooth, w tym modele z serii R (R02, R06, R08, R09, R10) oraz inne o podobnych funkcjach. Kompatybilność jest stopniowo rozszerzana. Jeśli twój model nie występuje, zapisz się do bêta i zgłoś go: dodajemy najbardziej żądane modele w priorytecie.",
+          tr: "FitMesh KVKK'ye uygulanan en yaygın modelleri destekler ve Bluetooth standart protokolunu kullanan modellere, dahil olmak üzere R serisi modellerini (R02, R06, R08, R09, R10) ve benzer özelliklere sahip diğer modellere de dahildir. Uyumluluğunun artmasıyla birlikte genişletiliyor. Eğer modeliniz listede yoksa, beta grubuna katılın ve bildirin: talep edilen modeller öncelikle eklenmeye alın.",
         },
       },
       {
@@ -1992,6 +2628,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Wenn ich auch eine Smartwatch habe, werden die Schritte doppelt gezählt?",
           pt: "Se eu também tiver um smartwatch, os passos serão contados duas vezes?",
           fr: "Si j'ai aussi une montre connectée, les pas seront-ils comptés deux fois?",
+          pl: "Jeśli mam również smartwatch, kroki są liczone dwukrotnie?",
+          tr: "Eğer de olsa bir giyilebilir cihazim varsa, adımlar iki kez sayılır mı?",
         },
         a: {
           it: "No. FitMesh applica una logica anti-duplicato: se lo stesso intervallo temporale ha dati sia dall'anello sia dallo smartwatch, viene usata la fonte con il dato migliore (o più recente), non la somma. L'obiettivo è avere un conteggio corretto, non gonfiato.",
@@ -1999,6 +2637,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nein. FitMesh wendet eine Deduplizierungslogik an: Wenn derselbe Zeitraum Daten sowohl vom Ring als auch von der Smartwatch hat, wird die Quelle mit dem besseren (oder neueren) Wert verwendet, nicht die Summe. Das Ziel ist eine korrekte Anzahl, keine aufgeblähte.",
           pt: "Não. FitMesh aplica uma lógica anti-duplicata: se o mesmo intervalo de tempo tiver dados do anel e do smartwatch, é usada a fonte com o dado melhor (ou mais recente), não a soma. O objetivo é ter uma contagem correta, não inflada.",
           fr: "Non. FitMesh applique une logique de déduplication: si le même intervalle de temps dispose de données à la fois de la bague et de la montre connectée, la source avec la meilleure donnée (ou la plus récente) est utilisée, pas la somme. L'objectif est un comptage précis, pas gonflé.",
+          pl: "No. FitMesh stosuje logikę antyduplikatową: jeśli ten sam okres czasowy ma dane zarówno z anella, jak i z smartwatcha, używana jest źródło z najlepszym (lub najnowszym) danymi (nie ich suma). Cel jest uzyskanie poprawnej liczby, a nie podniesionej.",
+          tr: "No. FitMesh uygular bir anti-kopyalama mantığı: aynı zaman aralığında aynen aynı veri hem halka hem de akıllı saatten varsa, en iyi (veya daha yeni) kaynak kullanılır, toplam değil. Amacımız doğru, pahali bir sayım sağlamaktır.",
         },
       },
       {
@@ -2008,6 +2648,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Erscheinen die Schlafdaten in Apple Health?",
           pt: "Os dados do sono aparecem no Apple Health?",
           fr: "Les données de sommeil apparaissent-elles dans Apple Health?",
+          pl: "Czy dane snu pojawiają się na Apple Salute?",
+          tr: "Uyku verileri Apple Sağlık'te görünür mü?",
         },
         a: {
           it: "Su Android, i dati vengono archiviati nel cloud FitMesh e mostrati sulla dashboard web. Su iPhone, l'app FitMesh iOS (in arrivo) scrive il sonno con fasi, i passi e il battito cardiaco dentro Apple Salute, rendendoli visibili nell'app Salute di Apple e in qualsiasi altra app che legge da Apple Salute. Non sono disponibili su App Store in questo momento: iscriviti alla beta per l'accesso anticipato.",
@@ -2015,6 +2657,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Auf Android werden die Daten in der FitMesh-Cloud gespeichert und im Web-Dashboard angezeigt. Auf dem iPhone schreibt die FitMesh iOS-App (demnächst verfügbar) Schlaf mit Phasen, Schritte und Herzfrequenz in Apple Health und macht sie in Apples Health-App und in jeder App sichtbar, die Apple Health liest. Derzeit nicht im App Store verfügbar: Tritt der Beta für frühzeitigen Zugang bei.",
           pt: "No Android, os dados são armazenados na nuvem FitMesh e exibidos no painel web. No iPhone, o app FitMesh iOS (em breve) grava o sono com fases, os passos e a frequência cardíaca no Apple Health, tornando-os visíveis no app Saúde da Apple e em qualquer app que leia do Apple Health. Não disponível na App Store neste momento: inscreva-se na beta para acesso antecipado.",
           fr: "Sur Android, les données sont stockées dans le cloud FitMesh et affichées sur le tableau de bord web. Sur iPhone, l'application FitMesh iOS (bientôt disponible) écrit le sommeil avec phases, les pas et la fréquence cardiaque dans Apple Health, les rendant visibles dans l'application Santé d'Apple et dans toute application lisant depuis Apple Health. Non disponible sur l'App Store pour le moment: rejoignez la bêta pour un accès anticipé.",
+          pl: "Na Android, dane są przechowywane w chmurze FitMesh i wyświetlone na panelu nawigacyjnym. Na iPhone, aplikacja FitMesh iOS (w toku) zapisuje sen z fazami, kroki i puls oponiczny w Apple Salute, czyniąc je widoczne na app Salute Apple oraz w każdej innej aplikacji czytającej z Apple Salute. Obecnie nie są dostępne na App Store: zapisz się do bêta, aby uzyskać dostęp wcześniejszy.",
+          tr: "Su Android, veriler FitMesh bulutuna saklanır ve web dashboard'da gösterilir. Su iPhone, uygulama FitMesh iOS (gelişiyor) pisolini ile, faze sonuğunu, adımlarını ve kalp atışını Apple Sağlık'a yazdırır ve bunları Apple Sağlık uygulamasında ve herhangi bir başka uygulamada okuyabilen Apple Sağlık'tan görünür hale getirir. Şu anda App Store üzerinde mevcut değildir: beta kaydıyla erken erişime katılın.",
         },
       },
       {
@@ -2024,6 +2668,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Kann FitMesh medizinische Aussagen über SpO2- oder Stressdaten machen?",
           pt: "O FitMesh pode fazer afirmações médicas sobre dados de SpO2 ou stress?",
           fr: "FitMesh peut-il faire des allégations médicales sur les données SpO2 ou stress?",
+          pl: "FitMesh może wyrażać medyczne stwierdzenia dotyczące danych SpO2 lub stresu?",
+          tr: "FitMesh tıbbi iddialar yapabilir mi SpO2 veya stres konusunda?\nKVKK'ye uygun olarak tıbbi verilerden bahsetmek yasaktır.",
         },
         a: {
           it: "No. I dati di SpO2 e stress forniti dall'anello Colmi sono misurazioni consumer per il monitoraggio personale del benessere, non strumenti diagnostici. FitMesh li mostra così come arrivano dall'anello. Per qualsiasi valutazione clinica, rivolgiti a un professionista sanitario.",
@@ -2031,6 +2677,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Nein. SpO2- und Stressdaten vom Colmi-Ring sind Messungen für den Consumer-Bereich zur persönlichen Wellness-Überwachung, keine Diagnosewerkzeuge. FitMesh zeigt sie so an, wie sie vom Ring empfangen werden. Wende dich für jede klinische Bewertung an einen Gesundheitsexperten.",
           pt: "Não. Os dados de SpO2 e stress do anel Colmi são medições voltadas ao consumidor para monitoramento pessoal do bem-estar, não ferramentas de diagnóstico. O FitMesh os exibe conforme recebidos do anel. Para qualquer avaliação clínica, consulte um profissional de saúde.",
           fr: "Non. Les données SpO2 et stress de la bague Colmi sont des mesures grand public pour la surveillance personnelle du bien-être, pas des outils de diagnostic. FitMesh les affiche telles que reçues de la bague. Pour toute évaluation, consultez un professionnel de santé.",
+          pl: "No. Dati SpO2 e stress forniti dal braccialetto Colmi sono misurazioni consumer per il monitoraggio personale del benessere, non strumenti diagnostici. FitMesh li mostra così come arrivano dal braccialetto. Per qualsiasi valutazione clinica, rivolgiti a un professionista sanitario.",
+          tr: "No. SpO2 ve stres verileri Colmi anlakından giyilebilir cihazı提供的数据是个人福祉监测的消费者测量值，而非诊断工具。FitMesh这样显示它们是如何从该设备传来的。如有任何临床评估需求，请咨询医疗专业人员。",
         },
       },
     ],
@@ -2048,6 +2696,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Apple Health Daten exportieren Web",
       pt: "exportar dados apple health web",
       fr: "exporter données apple health web",
+      pl: "eksportować dane z Apple Health",
+      tr: "veri Apple Health'i dışa aktar",
     },
     secondaryKeywords: {
       it: [
@@ -2062,6 +2712,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         "apple health cloud backup",
         "fitmesh ios iphone app",
       ],
+      pl: [
+        "pulpity zdrowia apple dashboard web",
+        "oglądać dane Apple Health na PC",
+        "wydanie zdrowia apple do chmury",
+        "fitmesh iOS iPhone",
+      ],
+      tr: [
+        "apple sağlığı paneli web",
+        "Giyilebilir cihazlardan Apple Health verilerini PC'ye görmek için kurucu girişi yapın.",
+        "yunite sağlığı cloud yedekleme",
+        "fitmesh iOS iPhone",
+      ],
     },
     metaDescription: {
       it: "Dashboard web per Apple Health in arrivo su iOS: visualizza passi, sonno, frequenza cardiaca da iPhone su browser. FitMesh iOS beta: iscriviti ora.",
@@ -2069,15 +2731,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Web-Dashboard für Apple Health kommt auf iOS: Schritte, Schlaf, Herzfrequenz vom iPhone im Browser ansehen. FitMesh iOS Beta: Jetzt anmelden.",
       pt: "Painel web para Apple Health chegando ao iOS: veja passos, sono, frequência cardíaca do iPhone no navegador. FitMesh iOS beta: inscreva-se agora.",
       fr: "Tableau de bord web pour Apple Health sur iOS: consultez pas, sommeil, fréquence cardiaque depuis l'iPhone dans un navigateur. Bêta FitMesh iOS: inscrivez-vous maintenant.",
+      pl: "Panel web dla Apple Health dostępny wkrótce na iOS: obserwuj kroki, sen, częstotliwość serca z iPhone w przeglądarce. Betatest FitMesh iOS: zapisz się już teraz.",
+      tr: "Günlük panel web için Apple Health gelmek üzere: iOS üzerinden adımlar, uyku, kalp atış hızını görüntüle. FitMesh iOS beta: şimdi kaydol.",
     },
     hero: {
-      kicker: { it: "FitMesh iOS", en: "FitMesh iOS", de: "FitMesh iOS", pt: "FitMesh iOS", fr: "FitMesh iOS" },
+      kicker: { it: "FitMesh iOS", en: "FitMesh iOS", de: "FitMesh iOS", pt: "FitMesh iOS", fr: "FitMesh iOS", pl: "FitMesh __FM_TERM_0__", tr: "FitMesh __FM_TERM_0__" },
       title: {
         it: "Dashboard web per Apple Health: FitMesh iOS in arrivo",
         en: "Web dashboard for Apple Health: FitMesh iOS coming soon",
         de: "Web-Dashboard für Apple Health: FitMesh iOS demnächst verfügbar",
         pt: "Painel web para Apple Health: FitMesh iOS em breve",
         fr: "Tableau de bord web pour Apple Health: FitMesh iOS bientôt disponible",
+        pl: "Panel web dla Apple Health: FitMesh iOS w toku",
+        tr: "Günlük panel web için Apple Health: FitMesh iOS gelecek",
       },
       subtitle: {
         it: "I tuoi dati da Apple Watch, Garmin, Oura e tutti i wearable che scrivono su Apple Health, su una dashboard web accessibile da qualsiasi browser, senza export manuali.",
@@ -2085,9 +2751,11 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         de: "Deine Daten von Apple Watch, Garmin, Oura und allen Wearables, die in Apple Health schreiben, auf einem Web-Dashboard, das von jedem Browser zugänglich ist, ohne manuelle Exporte.",
         pt: "Seus dados do Apple Watch, Garmin, Oura e todos os wearables que escrevem no Apple Health, em um painel web acessível de qualquer navegador, sem exportações manuais.",
         fr: "Vos données d'Apple Watch, Garmin, Oura et tous les appareils connectés qui écrivent dans Apple Health, sur un tableau de bord web accessible depuis n'importe quel navigateur, sans exportations manuelles.",
+        pl: "Twoje dane z Apple Watch, Garmin, Oura oraz wszystkie wearble piszące na Apple Health, na panelu dashboardsie dostępny z dowolnego przeglądarki internetowej, bez ręcznych eksportów.",
+        tr: "Apple Watch'in, Garmin, Oura ve tüm giyilebilir cihazların Apple Health üzerinden yazdığı veriler, herhangi bir tarayıcıdan erişilebilen bir web tabanlı panelde, manuel export olmadan.",
       },
       primaryCta: {
-        label: { it: "Unisciti alla beta iOS", en: "Join iOS beta", de: "iOS-Beta beitreten", pt: "Entrar na beta iOS", fr: "Rejoindre la bêta iOS" },
+        label: { it: "Unisciti alla beta iOS", en: "Join iOS beta", de: "iOS-Beta beitreten", pt: "Entrar na beta iOS", fr: "Rejoindre la bêta iOS", pl: "Dołącz do bêty iOS", tr: "Katıl beta测试iOS" },
         href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     },
@@ -2100,6 +2768,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Apple Health ist das umfassendste System zur Erfassung von Gesundheitsdaten auf dem iPhone. Das altbekannte Problem: Die Daten bleiben in der App, ohne natives Web-Dashboard. Du kannst einen manuellen XML-Export durchführen, aber das ist eine technische Datei, die Werkzeuge zum Lesen erfordert, und du musst es jedes Mal wiederholen. FitMesh iOS wird das ändern.",
           pt: "Apple Health é o sistema mais completo para coletar dados de saúde no iPhone. O problema histórico: os dados ficam no app, sem um painel web nativo. Você pode fazer o export XML manual, mas é um arquivo técnico que requer ferramentas para ser lido, e você precisa refazê-lo toda vez. FitMesh iOS vai mudar essa situação.",
           fr: "Apple Health est le système le plus complet pour collecter des données de santé sur iPhone. Le problème de longue date: les données restent dans l'application, sans tableau de bord web natif. Vous pouvez faire un export XML manuel, mais c'est un fichier technique nécessitant des outils pour être lu, et vous devez recommencer à chaque fois. FitMesh iOS va changer cela.",
+          pl: "Apple Health to jest najbardziej kompleksowy system do zbierania danych zdrowotnych na iPhone. Problem historyczny: dane pozostają w aplikacji, bez natywnej pанelki sterowania internetowej. Możesz wyeksportować plik XML ręcznie, ale to techniczny plik wymagający narzędzi do odczytu, a musisz go powtarzać raz na raz. FitMesh iOS zmieni tę sytuację.",
+          tr: "Apple Health KVKK uyumlu ve en kapsamlı sağlık verilerini toplamak için olan sistemdir.iPhone. Tarihsel problem: Veriler uygulamada kalınarak, kendiliğinden olmayan bir web pанelüye aktarılmaz. Manuel XML dışa aktarımı mümkün olsa da, bu teknik bir dosya ve okunması için araçlar gerektirir ve her zaman tekrarlanmalıdır.FitMesh iOS bu durumu değiştirecektir.",
         },
       },
       {
@@ -2111,6 +2781,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Wie FitMesh iOS funktionieren wird",
           pt: "Como o FitMesh iOS funcionará",
           fr: "Comment FitMesh iOS fonctionnera",
+          pl: "Jak będzie działać FitMesh iOS",
+          tr: "Nasıl çalışacak FitMesh iOS",
         },
       },
       {
@@ -2146,6 +2818,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Accédez au tableau de bord depuis n'importe quel navigateur**: même compte, mêmes données, depuis un PC, une tablette ou un téléphone.",
             "**Multi-wearable unifié**: Apple Watch, Garmin, Oura, Fitbit: s'ils écrivent dans Apple Health, FitMesh les agrège ensemble.",
           ],
+          pl: [
+            "Zainstaluj FitMesh Sync na iPhone: udziel uprawnień HealthKit do typów danych, które chcesz zsynchronizować.",
+            "**Synchronizacja automatyczna w tle**: FitMesh odczytuje dane z Apple Health i wysyła je do chmury bez potrzeby twojej interwencji.",
+            "**Zaloguj się do panelu sterowania z dowolnego przeglądarki**: ten sam konto, te same dane, z komputera, tableta lub telefonu.",
+            "**Unifikowany multi-wearable**: Apple Watch, Garmin, Oura, Fitbit, jeśli piszą na Apple Health, FitMesh je łączy w jeden.",
+          ],
+          tr: [
+            "**FitMesh Sync'u iPhone\\'de kurulunuz**: HealthKit için gerekli izinleri verin,-sync-etmek istediğiniz veri türlerine.",
+            "**Arka planda otomatik senkronizasyon**: FitMesh Apple Health den verileri okuyarak, KVKK paneline gerekli herhangi bir eylem yapmanıza gerek kalmadan gönderir.",
+            "**Kaçık paneline erişim için herhangi bir tarayıcıdan giriş yapın**: aynı hesap, aynı veriler, bilgisayar, tablet veya telefonundan.",
+            "**Çoklu giyilebilir cihaz unificato**: Apple Watch, Garmin, Oura, Fitbit, eğer Apple Health üzerinde yazılır, FitMesh onları birlikte agrega.",
+          ],
         },
       },
       {
@@ -2157,6 +2841,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Wer am meisten davon profitiert",
           pt: "Quem se beneficia mais",
           fr: "Qui en bénéficiera le plus",
+          pl: "Kto z niego wziąć będzie najwięcej korzyści",
+          tr: "Hangi tarafın daha büyük fayda sağlayacağı",
         },
       },
       {
@@ -2192,6 +2878,18 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Aidants de membres de la famille avec iPhone**: tableau de bord partagé pour consulter les données de santé de vos proches.",
             "**Ceux qui veulent une sauvegarde indépendante**: copie des données Apple Health sur serveur UE (Francfort), pas dans le cloud Apple.",
           ],
+          pl: [
+            "**Użytkownicy iPhone + Apple Watch**: historii danych na stronie internetowej, dostępne z komputera bez konieczności korzystania z aplikacji Health.",
+            "**Wiele wearable na iPhone**: Garmin do biegania + Apple Watch do codziennego użytku, FitMesh je zintegruje.",
+            "**Opiekunowie rodzinni z użyciem iPhone**: podzielona pulpita do sprawdzenia danych zdrowotnych kogoś, kogo się ceni.",
+            "**Kto chce niezależny kopię danych**: swoich danych Apple Health na serwery EU (Francfurta), a nie w chmurze Apple.",
+          ],
+          tr: [
+            "**Kurucu iPhone + Apple Watch**: web üzerinde tarihi veriler, bilgisayardan erişilebilir olupHealth uygulamasını kullanmak zorunda kalmadan.",
+            "**Çok giyilebilir su iPhone**: Garmin için koşu + Apple Watch için günlük kullanım, FitMesh bunları birleştirir.",
+            "**Aile成员的看护者**: bir paylaşılan dashborda sevdiği kişilerin sağlık verilerini izleyin.",
+            "**Kim isteyen bağımsız yedekleme**: kendi verilerinizi Apple Health FrankfurtEU sunucusuna kopyalayın, Apple nuvuzda değil.",
+          ],
         },
       },
       {
@@ -2203,6 +2901,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Bereits auf Android verfügbar",
           pt: "Já disponível no Android",
           fr: "Déjà disponible sur Android",
+          pl: "Już dostępny na Android",
+          tr: "Zaten Android üzerinde mevcut",
         },
         body: {
           it: "FitMesh Sync è già disponibile su Android via Health Connect. Se hai un telefono Android con Galaxy Watch, Garmin, Fitbit o Pixel Watch, puoi iniziare subito. La versione iOS è in sviluppo attivo: iscriviti alla beta per essere tra i primi. Hai sia un Android che un iPhone? Leggi come funziona il multi-device su /it/lp/due-telefoni.",
@@ -2210,6 +2910,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "FitMesh Sync ist bereits auf Android via Health Connect verfügbar. Wenn du ein Android-Telefon mit Galaxy Watch, Garmin, Fitbit oder Pixel Watch hast, kannst du sofort loslegen. Die iOS-Version ist in aktiver Entwicklung: Tritt der Beta bei, um zu den Ersten zu gehören. Hast du sowohl Android als auch iPhone? Lies, wie Multi-Device unter /de/lp/due-telefoni funktioniert.",
           pt: "FitMesh Sync já está disponível no Android via Health Connect. Se você tem um celular Android com Galaxy Watch, Garmin, Fitbit ou Pixel Watch, pode começar agora mesmo. A versão iOS está em desenvolvimento ativo: inscreva-se na beta para estar entre os primeiros. Tem tanto Android quanto iPhone? Leia como funciona o multi-dispositivo em /pt/lp/due-telefoni.",
           fr: "FitMesh Sync est déjà disponible sur Android via Health Connect. Si vous avez un téléphone Android avec Galaxy Watch, Garmin, Fitbit ou Pixel Watch, vous pouvez commencer tout de suite. La version iOS est en développement actif: rejoignez la bêta pour être parmi les premiers. Vous avez à la fois un Android et un iPhone? Lisez comment fonctionne le multi-appareil sur /fr/lp/due-telefoni.",
+          pl: "FitMesh Sync jest już dostępny na Android poprzez Health Connect. Jeśli masz telefon Android z Galaxy Watch, Garmin, Fitbit lub Pixel Watch, możesz rozpocząć od razu. Wersja iOS jest w aktywnym rozwoju: zapisz się do bêta, aby być jednym z pierwszych. Masz zarówno telefon Android, jak i iPhone? Przeczytaj jak działa multi-device na /it/lp/dwa-telefony.",
+          tr: "FitMesh Sync zaten Android üzerinden Health Connect ile uyumlu. Eğer Android cihazın Galaxy Watch, Garmin, Fitbit veya Pixel Watch türsüyle geliyorsan, hemen başlayabilirsin. iOS sürümü aktif geliştirilme aşamasındadır: beta programına kaydolmak için buraya tıkla __FM_URL_0__. Bir Android ve bir iPhone cihazın da varsa, /it/lp/due-telefoni sayfasında multi-cihaz nasıl çalıştığını okuyabilirsin.",
         },
       },
       {
@@ -2220,6 +2922,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "iOS-Beta beitreten (begrenzte Plätze)",
           pt: "Inscreva-se na beta iOS (vagas limitadas)",
           fr: "Rejoindre la bêta iOS (places limitées)",
+          pl: "Zapisz się do bêty iOS (miejsc ograniczonych)",
+          tr: "Katıl beta iOS'a (sınırlandırılmış yerler mevcut)",
         },
         body: {
           it: "Stiamo costruendo FitMesh iOS per portare Apple Health su web. Iscriviti ora e sarai tra i primi a ricevere l'accesso quando sarà pronto.",
@@ -2227,8 +2931,10 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Wir bauen FitMesh iOS, um Apple Health ins Web zu bringen. Melde dich jetzt an und du gehörst zu den Ersten, die Zugang erhalten, wenn es bereit ist.",
           pt: "Estamos construindo o FitMesh iOS para levar o Apple Health para a web. Inscreva-se agora e você estará entre os primeiros a receber acesso quando estiver pronto.",
           fr: "Nous construisons FitMesh iOS pour amener Apple Health sur le web. Inscrivez-vous maintenant et vous serez parmi les premiers à obtenir l'accès quand il sera prêt.",
+          pl: "Staramy budować FitMesh iOS aby przynieść Apple Health na stronie internetowej. Zapisz się już teraz i będziesz z amongi pierwszych otrzymujących dostęp, gdy będzie gotowy.",
+          tr: "Stavemos FitMesh iOS in geliştirerek Apple Health'i internet üzerinde sunmak için çalışıyoruz. Şimdi kaydol ve hazır ol, uygulama hazır olduğunda ilk grupludan biri olacaksın.",
         },
-        ctaLabel: { it: "Iscriviti alla beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →" },
+        ctaLabel: { it: "Iscriviti alla beta →", en: "Join beta →", de: "Zur Beta →", pt: "Entrar na beta →", fr: "Rejoindre la bêta →", pl: "Zapisz się do bêty →", tr: "Beta'e katılmak için tıkla →" },
         ctaHref: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
       },
     ],
@@ -2240,6 +2946,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Wann kommt FitMesh auf iOS?",
           pt: "Quando o FitMesh chega ao iOS?",
           fr: "Quand FitMesh arrive-t-il sur iOS?",
+          pl: "Gdy dotrze FitMesh na iOS?",
+          tr: "FitMesh ne giyilebilir cihazına iOS'da ulaşılır?",
         },
         a: {
           it: "È in sviluppo attivo. La versione beta iOS sarà disponibile dopo il completamento del processo Apple Developer Program e TestFlight. Iscriviti alla lista beta: riceverai un'email non appena i posti saranno disponibili.",
@@ -2247,6 +2955,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Es ist in aktiver Entwicklung. Die iOS-Beta wird nach Abschluss des Apple Developer Program und TestFlight-Prozesses verfügbar sein. Tritt der Beta-Liste bei: Du erhältst eine E-Mail, sobald Plätze verfügbar sind.",
           pt: "Está em desenvolvimento ativo. A beta iOS estará disponível após a conclusão do processo do Apple Developer Program e TestFlight. Inscreva-se na lista beta: você receberá um e-mail assim que as vagas estiverem disponíveis.",
           fr: "Il est en développement actif. La bêta iOS sera disponible après avoir complété le processus Apple Developer Program et TestFlight. Rejoignez la liste bêta: vous recevrez un e-mail dès que des places seront disponibles.",
+          pl: "Jest w rozwoju aktywnym. Wersja beta iOS będzie dostępna po zakończeniu procesu Apple Developer Program oraz TestFlight. Zapisz się do listy bêta: otrzymasz wiadomość e-mail, jak tylko pojawią się miejsca.",
+          tr: "KVKK'ye uygun olarak geliştiriliyor. iOS versiyonu beta aşamasında TestFlight ve Apple Developer Programı tamamlanmasından sonra kullanılabilir olacak. Beta listesine katıl: yerler mevcut oldugunda e-posta alacaksınız.",
         },
       },
       {
@@ -2256,6 +2966,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Erfordert FitMesh iOS ein Abonnement?",
           pt: "O FitMesh iOS requer uma assinatura?",
           fr: "FitMesh iOS nécessite-t-il un abonnement?",
+          pl: "Czy korzystanie z FitMesh iOS wymaga subskrypcji?",
+          tr: "FitMesh iOS bir abone olmak zorunda kalmışsınız?",
         },
         a: {
           it: "Durante la beta è gratuito, 100 posti founder. Il modello post-beta è in definizione. L'obiettivo è rimanere accessibile: una dashboard salute non dovrebbe costare quanto un servizio di streaming.",
@@ -2263,6 +2975,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Während der Beta ist es kostenlos, 100 Founder-Plätze. Das Post-Beta-Modell ist in der Ausarbeitung. Das Ziel ist es, zugänglich zu bleiben: Ein Gesundheits-Dashboard sollte nicht so viel kosten wie ein Streaming-Dienst.",
           pt: "Durante a beta é gratuito, 100 vagas founder. O modelo pós-beta está sendo definido. O objetivo é permanecer acessível: um painel de saúde não deveria custar tanto quanto um serviço de streaming.",
           fr: "Pendant la bêta, c'est gratuit, 100 places founder. Le modèle post-bêta est en cours de définition. L'objectif est de rester accessible: un tableau de bord de santé ne devrait pas coûter autant qu'un service de streaming.",
+          pl: "W trakcie bêta jest bezplatne, 100 miejsc dla founderów. Model po bêcie jest w fazie finalizacji. Cel jest byÅ¼ystwo: panel zdrowotny nie powinien kosztowaÄ‡ tyle jak usÅ‚uga streamingu.",
+          tr: "Beta süresi免费，100 tane kurucu postu var. Beta sonrası model hala belirleniyor. Hedefimiz erişilebilirlik kalması: bir sağlık panelinin fiyatı bir akıllı telefon hizmeti gibi olmamalıdır.__FM_PH_0__KVKK__KVKK__KVKK__FM_URL_0__KVKK__FM_HTML_0__KVKK__FM_LINK_0__KVKK__FM_CODE_0__KVKK__FM_FENCE_0__KVKK__FM_BRAND_0__KVKK__FM_TERM_0__KVKK",
         },
       },
       {
@@ -2272,6 +2986,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Sind meine Apple Health-Daten bei FitMesh sicher?",
           pt: "Meus dados do Apple Health estão seguros com o FitMesh?",
           fr: "Mes données Apple Health sont-elles en sécurité avec FitMesh?",
+          pl: "Czy moje dane Apple Health są bezpieczne z FitMesh?",
+          tr: "Verilerim Apple Health güvenli FitMesh ile?",
         },
         a: {
           it: "I dati vengono trasmessi su HTTPS e archiviati in un database Postgres protetto da RLS (Row Level Security): ogni utente vede solo i propri dati. Il server è in EU (Frankfurt). Puoi cancellare tutto dai nostri server in qualsiasi momento con 'Elimina account e dati' nell'app. La privacy policy è consultabile su fitmesh.fit.",
@@ -2279,6 +2995,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Daten werden über HTTPS übertragen und in einer Postgres-Datenbank gespeichert, die durch RLS (Row Level Security) geschützt ist: Jeder Nutzer sieht nur seine eigenen Daten. Der Server befindet sich in der EU (Frankfurt). Du kannst alles von unseren Servern jederzeit mit 'Konto und Daten löschen' in der App löschen. Die Datenschutzerklärung ist unter fitmesh.fit abrufbar.",
           pt: "Os dados são transmitidos via HTTPS e armazenados em um banco de dados Postgres protegido por RLS (Row Level Security): cada usuário vê apenas seus próprios dados. O servidor está na UE (Frankfurt). Você pode excluir tudo dos nossos servidores a qualquer momento com 'Excluir conta e dados' no app. A política de privacidade está disponível em fitmesh.fit.",
           fr: "Les données sont transmises via HTTPS et stockées dans une base de données Postgres protégée par RLS (Row Level Security): chaque utilisateur ne voit que ses propres données. Le serveur est dans l'UE (Francfort). Vous pouvez tout supprimer de nos serveurs à tout moment avec 'Supprimer le compte et les données' dans l'application. La politique de confidentialité est disponible sur fitmesh.fit.",
+          pl: "Dane są przesyłane za pomocą HTTPS i zapisywane w chronionym przez RLS (Security na poziomie wiersza) bazy danych Postgres: każdy użytkownik widzi tylko swoje dane. Serwer znajduje się w EU (Frankfurt). Możesz usunąć wszystko z naszych serwerów w każdym momencie za pomocą 'Usuń konto i dane' w aplikacji. Polityka prywatności jest dostępna na stronie fitmesh.fit.",
+          tr: "Veriler HTTPS üzerinden aktarılınca ve RLS (Satır Seviyesi Güvenlik) korumalı Postgres veritabanında saklanmaktadır: her kullanıcının sadece kendi verilerini görebilir. Sunucu, EU (Frankfurt)'da yer almaktadır. Herhangi bir zamananda 'Hesap ve Verileri Sil' özelliği aracılığıyla verilerinizi silinebilirsiniz. Gizlilik politikamız fitmesh.fit üzerinden gözden geçirilebilir.",
         },
       },
     ],

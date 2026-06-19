@@ -14,6 +14,8 @@ export const post: BlogPost = {
     de: "Multi-Geräte-Dashboard",
     pt: "painel multi dispositivo",
     fr: "tableau de bord multi-appareils",
+    pl: "pulpit wielokrotne urządzenia",
+    tr: "pANEL GİYILEBİLİRLERİ ÇALIŞTIRMAKLAR İÇİN MULTİ CİHAZLI YÖNTEMLER",
   },
   secondaryKeywords: {
     it: [
@@ -44,6 +46,20 @@ export const post: BlogPost = {
       "agréger les données wearable",
       "pas comptés une seule fois",
     ],
+    pl: [
+      "dane bardziej smartwatches panelDATEDziałaRODO bardziej smartwatches panel",
+      "brak powtarzalnych wearablesów",
+      "pulpFitMesh Sync panel",
+      "agregować dane z woretek smartwatches",
+      "kroki policone jednorazowo",
+    ],
+    tr: [
+      "veri daha akıllı sahta bir panel",
+      "yok doppioni giyilebilir cihaz",
+      "FitMesh Sync panelı",
+      "giyilebilir cihazlardan veriler toplamak",
+      "adım sayımı sadece bir kez",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync lancia la dashboard multi dispositivo: orologi e anello in un'unica vista, senza doppioni. Ogni metrica viene tenuta una volta sola, con la fonte migliore disponibile.",
@@ -52,6 +68,8 @@ export const post: BlogPost = {
     de: "FitMesh Sync führt das Multi-Geräte-Dashboard ein: Uhren und Ring in einer Ansicht, ohne Duplikate. Jede Metrik wird einmal gespeichert, mit der besten verfügbaren Quelle.",
     pt: "FitMesh Sync lança o painel multi dispositivo: relógios e anel em uma única vista, sem duplicatas. Cada métrica é mantida uma vez, com a melhor fonte disponível.",
     fr: "FitMesh Sync lance le tableau de bord multi-appareils: montres et bague en une seule vue, sans doublons. Chaque métrique est conservée une fois, avec la meilleure source disponible.",
+    pl: "FitMesh Sync wyrusza z wielodostępną pulpitów elektronicznego: smartwaty i anelki na jednym ekranie, bez powtarzalnych elementów. Każda metryka jest przechowywana tylko raz, z najlepszą dostępna źródłem.",
+    tr: "FitMesh Sync KVKK uyumluluğunu artıran multi cihaz dashboard'ını başlatıyor: akıllı saatin ve anello'nun bir tek görünümünde, tekrarlamalar olmadan. Her metrik en iyi kaynakta sadece bir kez yer alır.",
   },
   tldr: {
     it: [
@@ -90,6 +108,18 @@ export const post: BlogPost = {
       "Pour chaque métrique, la meilleure valeur est conservée, pas la somme de toutes les sources.",
       "La vue globale est disponible immédiatement pour tous les utilisateurs bêta.",
     ],
+    pl: [
+      "Jedna jedna panel zbiera dane z wszystkich Twoich urządzeń: smartwatch, pękaty i dowolnej innej połączonej źródła.",
+      "FitMesh Sync usuwa podwójne wpisy automatycznie: kroki są liczone tylko raz nawet jeśli używasz wielu urządzeń wearable.",
+      "Dla każdą miarę zachowujemy najlepszą wartość, a nie sumę wszystkich.",
+      "Globalna wista jest dostępna od początku dla wszystkich użytkowników bêta.",
+    ],
+    tr: [
+      "Tüm cihazların verilerini tek bir arayüze toplayın: akıllı saat, yüzük ve herhangi bir diğer bağlantılı kaynak.",
+      "FitMesh Sync otomatik olarak çiftleri siler: adımlar birden fazla cihazda takıldığında sadece bir kez sayılır.",
+      "Her metrik için en iyi değeri koruyulur, toplamı değil.",
+      "Globale görünümü, tüm betavarsı kullanıcılar için hemen kullanılabilir.",
+    ],
   },
   hero: {
     kicker: {
@@ -99,6 +129,8 @@ export const post: BlogPost = {
       de: "Neuigkeit",
       pt: "Novidade",
       fr: "Nouveauté",
+      pl: "Nowości",
+      tr: "Yeni Özellikler",
     },
     title: {
       it: "Dashboard multi dispositivo: tutti i tuoi wearable in una vista, senza doppioni",
@@ -107,6 +139,8 @@ export const post: BlogPost = {
       de: "Multi-Geräte-Dashboard: alle deine Wearables in einer Ansicht, ohne Duplikate",
       pt: "Painel multi dispositivo: todos os seus wearables em uma vista, sem duplicatas",
       fr: "Tableau de bord multi-appareils: tous vos appareils connectés en une vue, sans doublons",
+      pl: "Przeglądarka wielosprzętowa: wszystkie Twoje smartwatch w jednym widoku, bez powtarzalnych elementów",
+      tr: "Günlük multi cihaz paneli: tüm giyilebilir cihazların bir bakışta, tekrarlar olmadan",
     },
     subtitle: {
       it: "Con l'aggiornamento di oggi, FitMesh Sync introduce la dashboard globale: un solo schermo che aggrega i dati di orologi, anello e altre sorgenti, eliminando i doppioni e mostrando sempre il valore migliore per ciascuna metrica.",
@@ -115,6 +149,8 @@ export const post: BlogPost = {
       de: "Mit dem heutigen Update führt FitMesh Sync das globale Dashboard ein: ein einziger Bildschirm, der Daten von Uhren, Ring und anderen Quellen zusammenführt, Duplikate eliminiert und stets den besten Wert für jede Metrik anzeigt.",
       pt: "Com a atualização de hoje, FitMesh Sync apresenta o painel global: uma única tela que agrega dados de relógios, anel e outras fontes, eliminando duplicatas e sempre exibindo o melhor valor para cada métrica.",
       fr: "Avec la mise à jour d'aujourd'hui, FitMesh Sync introduit le tableau de bord global: un seul écran qui regroupe les données des montres, de la bague et d'autres sources, élimine les doublons et affiche toujours la meilleure valeur pour chaque métrique.",
+      pl: "Zaśródłowa aktualizacja wprowadza FitMesh Sync globalną dashborad: pojedyncze okno, które agreguje dane z smartwatchów, anelków i innych źródeł, usuwając powtarzalne informacje i prezentując zawsze najlepszą wartość dla każdej metryki.",
+      tr: "Con güncellemesi今天你休息，我来翻译。以下是翻译文本：\n\n```tr\nGünümüz güncellemesiyle FitMesh Sync globel paneli tanıtmaktayız: tek bir ekran, saati, yüzüğe ve diğer kaynaklardan gelen verileri toplar, tekrarlara rastlanmaz ve her metrik için her zaman en iyi değeri gösterir.\n```",
     },
   },
   body: [
@@ -127,6 +163,8 @@ export const post: BlogPost = {
         de: "Viele von euch nutzen mehr als ein Gerät. Manche tragen die Smartwatch tagsüber und den Ring nachts. Manche haben die Uhr zur Jahresmitte gewechselt und möchten die Daten in einer kontinuierlichen Linie sehen. Manche verwenden je nach Aktivität unterschiedliche Geräte. Bisher zeigte FitMesh Sync die Daten getrennt nach Quelle: nützlich, aber nicht ausreichend. Ab heute gibt es das globale Dashboard.",
         pt: "Muitos de vocês usam mais de um dispositivo. Alguns usam o smartwatch durante o dia e o anel à noite. Alguns trocaram de relógio no meio do ano e querem ver os dados de forma contínua. Alguns usam dispositivos diferentes dependendo da atividade. Até agora o FitMesh Sync mostrava os dados separados por fonte: útil, mas não suficiente. A partir de hoje existe o painel global.",
         fr: "Beaucoup d'entre vous utilisent plus d'un appareil. Certains portent la montre connectée pendant la journée et la bague la nuit. Certains ont changé de montre en cours d'année et souhaitent voir leurs données de façon continue. Certains utilisent des appareils différents selon l'activité. Jusqu'à présent, FitMesh Sync affichait les données séparées par source: utile, mais pas suffisant. Dès aujourd'hui, le tableau de bord global est disponible.",
+        pl: "Wielu z Was używa więcej niż jednego urządzenia. Kto nosi smartwatch w ciągu dnia a anellikę w nocy. Kto zmienił zegarek po pół roku i chciał zobaczyć kontynuowane dane. Kto używa różnych urządzeń w zależności od aktywności. Dotychczas FitMesh Sync pokazywała dane podzielone według źródła: przydatne, ale nie wystarczające. Od dziś istnieje globalna pанel sterowania.",
+        tr: "Çoğu kullanıcınız birden fazla cihaz kullanıyor. Günü boyunca akıllı saat giyerken, gece ise döşeme tahtası. Yılı ortasında saati değiştirenler ve sürekli verileri görmek isteyenler var. Farklı aktivitelere göre farklı cihazları kullananlar da mevcut. Önceden FitMesh Sync verileri kaynaklarına göre ayrıntılarıyla sunuyordu: faydalı, ama yeterli değildi. Şimdi ise genel bir panosuz olmamak için global panel var.",
       },
     },
     {
@@ -139,6 +177,8 @@ export const post: BlogPost = {
         de: "Eine Ansicht, alle Quellen",
         pt: "Uma vista, todas as fontes",
         fr: "Une vue, toutes les sources",
+        pl: "Jedna wizja, wszystkie źródła",
+        tr: "Bir bakış, tüm kaynaklar",
       },
     },
     {
@@ -150,6 +190,8 @@ export const post: BlogPost = {
         de: "Das neue globale Dashboard sammelt alle Daten der Geräte, die du mit FitMesh Sync verbunden hast, an einem einzigen Ort: Smartwatches, Colmi Ring und jede andere aktive Quelle. Du musst nicht zwischen verschiedenen Tabs wechseln, um Zahlen zu vergleichen: du siehst sie alle zusammen, nach Datum und Metrik-Typ geordnet.",
         pt: "O novo painel global reúne em um único lugar os dados de todos os dispositivos que você conectou ao FitMesh Sync: smartwatches, anel Colmi e qualquer outra fonte ativa. Você não precisa alternar entre abas para comparar números: vê todos juntos, organizados por data e tipo de métrica.",
         fr: "Le nouveau tableau de bord global regroupe en un seul endroit les données de tous les appareils que vous avez connectés à FitMesh Sync: montres connectées, bague Colmi et toute autre source active. Vous n'avez pas besoin de changer d'onglet pour comparer les chiffres: vous les voyez tous ensemble, organisés par date et type de métrique.",
+        pl: "Nowa globalna panel zbiera w jednym miejscu dane z wszystkich urządzeń, które masz podłączone do FitMesh Sync: smartwatch, pierścień Colmi, oraz dowolną inną aktywną źródło. Nie musisz przechodzić z zakładki na zakładkę, aby porównywać liczby: widzisz je wszystkie razem, uporządkowane według daty i typu metryki.",
+        tr: "Yeni genel panel, FitMesh Sync'e bağladığın tüm cihazların verilerini (Colmi, akıllı saat ve herhangi bir diğer aktif kaynağı) tek bir yerde toplar. Sayfalar arasında geçmek zorunda kalmazsın: Her şeyi aynı yerde görebilir, veriler tarihe ve metrik tipine göre gruplandırılmış durumda.",
       },
     },
     {
@@ -162,6 +204,8 @@ export const post: BlogPost = {
         de: "Wie wir Duplikate handhaben",
         pt: "Como gerenciamos as duplicatas",
         fr: "Comment nous gérons les doublons",
+        pl: "Jak zarządzamy duplikatami",
+        tr: "Gestimemizdeki Eşlikler Nasıl Yönetilir",
       },
     },
     {
@@ -173,6 +217,8 @@ export const post: BlogPost = {
         de: "Das Duplikat-Problem ist real: Wenn zwei Geräte in derselben Stunde deine Schritte aufzeichnen, würde deren Summe eine falsche Zahl ergeben. Das System, das wir entwickelt haben, löst dies in drei Schritten:",
         pt: "O problema das duplicatas é real: se dois dispositivos registrarem seus passos na mesma hora, somá-los daria um número errado. O sistema que desenvolvemos resolve isso em três etapas:",
         fr: "Le problème des doublons est bien réel: si deux appareils enregistrent tous les deux vos pas pendant la même heure, les additionner donnerait un chiffre erroné. Le système que nous avons construit résout cela en trois étapes:",
+        pl: "Problem z duplikatów jest realny: jeśli dwa urządzenia zarejestrują Twoje kroki w tej samej godzinie, sumowanie ich dałoby błędną liczbę. System, który stworzyliśmy, rozwiązuje to w trzech krokach:",
+        tr: "Probleem dublicatler gerçekçi: Eğer iki cihaz aynı saatin içindeki adımlarını her ikisini de kaydederse, onları toplayarak yanlış bir sayı elde edersiniz. Oluşturduklarımız sistem üç adımlık bir süreçten geçerek bu sorunu çözer:",
       },
     },
     {
@@ -209,6 +255,16 @@ export const post: BlogPost = {
           "**Choisit la meilleure source.** Parmi les sources en chevauchement, l'application utilise celle dont les données sont les plus complètes ou les plus précises pour cet intervalle.",
           "**Affiche une valeur unique.** Le chiffre que vous voyez dans le tableau de bord est toujours la meilleure valeur individuelle, pas la somme.",
         ],
+        pl: [
+          "**Znajdź nadlěgayshčiesja časové obdobje.** Pro každé časové obdobje, FitMesh Sync vidí, kolik zdrojů registrovaly stejnou metriku.",
+          "**Wybierz najlepszą źródło.** Z amongikrowanych źródeł aplikacja używa tego, które posiada najbardziej kompleksowe lub dokładne dane dla danego interwału.",
+          "**Pokaż pojedynczą wartość.** Liczba, którą widzisz na panelu, zawsze jest najlepszym pojedynczym wartością, a nie suma.",
+        ],
+        tr: [
+          "**Sovrapposizioni tanımlayın.** Her zaman aralığı için, FitMesh Sync aynı metrikleri kaydeden kaç kaynağı gördü.",
+          "**Enese eniyi kaynakı.** Şangrila kaynakları arasında, uygulama o dönemdeki en kapsamlı veya en doğru veri olan kaynaktan kullanır.",
+          "**Sadece bir değer göster.** Girdiğiniz paneldeki sayı her zaman en iyi tek değeri, toplamı yansıtmaz.",
+        ],
       },
     },
     {
@@ -221,6 +277,8 @@ export const post: BlogPost = {
         de: "Möchtest du im Detail verstehen, wie wir mehrere Smartwatches handhaben?",
         pt: "Quer entender em detalhes como gerenciamos vários smartwatches?",
         fr: "Vous souhaitez comprendre en détail comment nous gérons plusieurs montres connectées?",
+        pl: "Czy chcesz zrozumieć, jak zarządzamy więcej smartwatch w szczegółach?",
+        tr: "İstediğinizde,KVKK ile daha ayrıntılı bir şekilde çok sayıda giyilebilir cihaz nasıl yönettiğimizi öğrenmek isteyebilirsiniz?",
       },
       body: {
         it: "Abbiamo scritto una guida tecnica che spiega tutto il funzionamento: [come gestiamo piu smartwatch senza dati doppi](/it/blog/piu-smartwatch-insieme-dati-doppi). Trovi esempi concreti per ogni combinazione di dispositivi.",
@@ -229,6 +287,8 @@ export const post: BlogPost = {
         de: "Wir haben einen technischen Leitfaden geschrieben, der alles erklärt: [wie wir mehrere Smartwatches ohne doppelte Daten handhaben](/de/blog/piu-smartwatch-insieme-dati-doppi). Du findest konkrete Beispiele für jede Gerätekombination.",
         pt: "Escrevemos um guia técnico que explica tudo: [como gerenciamos vários smartwatches sem dados duplicados](/pt/blog/piu-smartwatch-insieme-dati-doppi). Você encontrará exemplos concretos para cada combinação de dispositivos.",
         fr: "Nous avons rédigé un guide technique qui explique tout: [comment nous gérons plusieurs montres connectées sans données en double](/fr/blog/piu-smartwatch-insieme-dati-doppi). Vous y trouverez des exemples concrets pour chaque combinaison d'appareils.",
+        pl: "Napisaliśmy przewodnik techniczny wyjaśniający wszystkie szczegóły: [jak zarządzamy wiele smartwatches bez podwójnych danych](/it/blog/pięć-smartwatch-razem-dane-dopiero). Znajdziesz konkretne przykłady dla każdej kombinacji urządzeń.",
+        tr: "Yazdık bir teknik kılavuz, tüm işleyişini açıklıyor: [kişisel verilerin olmayan birden fazla akıllı saat nasıl yönettiğimiz](/tr/blog/birden-fazla-akilli-saat-veri-dolayisi-sizden-acilir). Her cihaz kombinasyonu için gerçek örnekler bulabilirsiniz.",
       },
     },
     {
@@ -241,6 +301,8 @@ export const post: BlogPost = {
         de: "Was sich für Nutzer mit nur einem Gerät ändert",
         pt: "O que muda para quem tem apenas um dispositivo",
         fr: "Ce qui change pour les utilisateurs avec un seul appareil",
+        pl: "Coż zmienia dla kogo ma jedno urządzenie",
+        tr: "Kim sadece bir cihazına sahipse ne değişiyor",
       },
     },
     {
@@ -252,6 +314,8 @@ export const post: BlogPost = {
         de: "Wenn du nur ein einziges Wearable verwendest, zeigt dir das globale Dashboard einfach deine Daten in einer übersichtlicheren und konsistenteren Ansicht als zuvor. An der Erfassungslogik ändert sich nichts, aber die Darstellung ist klarer: die wichtigsten Metriken sind hervorgehoben, wöchentliche und monatliche Trends sind besser lesbar.",
         pt: "Se você usa apenas um wearable, o painel global simplesmente exibe seus dados com uma vista mais limpa e consistente do que antes. Nada muda na lógica de coleta, mas a apresentação é mais clara: as métricas principais estão em destaque e as tendências semanais e mensais são mais legíveis.",
         fr: "Si vous utilisez un seul appareil connecté, le tableau de bord global vous affiche simplement vos données avec une vue plus claire et plus cohérente qu'avant. Rien ne change dans la logique de collecte, mais la présentation est plus lisible: les métriques principales sont mises en avant et les tendances hebdomadaires et mensuelles sont plus faciles à lire.",
+        pl: "Je korzystasz z jednego wearables, globalna dashboard pokazuje Ci Twoje dane w prostszy i bardziej zgodnej wizji niż wcześniej. Logika zbierania się nie ulega zmianie, ale prezentacja jest jasniejsza: główne metryki są podkreślone, a tygodniowe i miesięczne trendy są łatwiejsze do odczytania.",
+        tr: "Kurucu bir sadece giyilebilir cihaz kullanıyorsanız, globel panosuz sadece verilerinizi daha net ve coherente bir şekilde gösterecek. Veri toplama mantığına herhangi bir değişiklik yapmıyoruz, ancak sunum daha açıklayıcı: ana metrikler öne çıkarılıyor, haftalık ve aylık eğilimler daha okunuyor.",
       },
     },
     {
@@ -264,6 +328,8 @@ export const post: BlogPost = {
         de: "Praktische Beispiele zur Funktionsweise",
         pt: "Exemplos práticos de como funciona",
         fr: "Exemples pratiques de fonctionnement",
+        pl: "Praktyczne przykłady działania",
+        tr: "Uygulama örneği ve nasıl çalıştığı hakkında bilgi:",
       },
     },
     {
@@ -299,6 +365,16 @@ export const post: BlogPost = {
           "**Deux montres connectées en même temps.** Si vous portez les deux dans la même plage horaire, l'application utilise les pas de la source qui a produit la valeur la plus élevée ou la plus complète pour cette heure, pas la somme.",
           "**Changement de montre en cours d'année.** Les données de la première montre pour les mois précédents et celles de la nouvelle montre pour les mois suivants apparaissent comme une ligne continue dans la vue historique.",
         ],
+        pl: [
+          "**Smartwatch w ciągu dnia, anellikum podczas nocy.** Kroki pośród dnia przekazują się przez smartwatch. Spoczynek pochodzi z Colmi ringa. Obie informacje są wyświetlane na panelu głównym bez.overlayowania się.",
+          "**Simultaneousnie na smartwach.** Jeśli nosisz oba w tej samej oknie czasu, aplikacja używa kroków źródła, które wygenerowały najwyższe lub najbardziej pełne dane dla danej godziny, a nie ich sumy.",
+          "**Zamiana smartwaska po pół roku.** Dane z pierwszego smartwaska z poprzednich miesięcy oraz z nowego smartwaska z kolejnych miesięcy pojawiają się jako jedna ciągła linia w widoku historycznym.",
+        ],
+        tr: [
+          "**Günlük akıllı saat, gece pisolino.** Gündüz adımlar akıllı sahten gelir. Uykun Colmi ringinden geliyor. Arayüz her ikiyi de gösteriyor ama biri diğeriyle kesişmez.",
+          "**Aynı zamanda akıllı saat kullanmayı unutmayın.** Eğer aynı anda her ikisini de giyiyorsanız, uygulama veriyi o saate ait en yüksek veya en kapsamlı adımı kullanır ve onunla ilgili adım sayısını hesaplar, toplam adım sayısına değil.",
+          "**Yıl ortasındaki cihazı değiştirme.** Eski cihazınızın verileri önceki aylar için ve yeni cihazınızın verileri gelecekteki aylar için, tarihsel görünümde bir süreli çizgi olarak gösterilir.",
+        ],
       },
     },
     {
@@ -311,6 +387,8 @@ export const post: BlogPost = {
         de: "Wie du auf das globale Dashboard zugreifst",
         pt: "Como acessar o painel global",
         fr: "Comment accéder au tableau de bord global",
+        pl: "Jak uzyskać dostępu do globalnej dashbordu",
+        tr: "Globilist_dashboarda_gitmek_nasıl_edersez?",
       },
     },
     {
@@ -322,6 +400,8 @@ export const post: BlogPost = {
         de: "Aktualisiere FitMesh Sync auf die neueste Version. Das globale Dashboard erscheint automatisch auf dem Hauptbildschirm, wenn du mehr als ein Gerät verbunden hast. Wenn du nur ein Gerät hast, findest du es unter 'Globale Ansicht' im Hauptmenü. Keine Konfiguration erforderlich: die Geräte, die du bereits verbunden hast, werden automatisch zusammengeführt.",
         pt: "Atualize FitMesh Sync para a versão mais recente. O painel global aparece automaticamente na tela principal se você tiver mais de um dispositivo conectado. Se você tiver apenas um dispositivo, encontre-o em 'Vista global' no menu principal. Nenhuma configuração é necessária: os dispositivos que você já conectou são unificados automaticamente.",
         fr: "Mettez à jour FitMesh Sync vers la dernière version. Le tableau de bord global apparaît automatiquement sur l'écran principal si vous avez plus d'un appareil connecté. Si vous n'avez qu'un seul appareil, vous le trouverez sous 'Vue globale' dans le menu principal. Aucune configuration n'est nécessaire: les appareils que vous avez déjà connectés sont unifiés automatiquement.",
+        pl: "Aktualizuj FitMesh Sync do najnowszej wersji. Globальная panel sterownika pojawia się automatycznie na ekranie głównym, jeśli masz więcej niż jeden podłączony urządzenie. Jeśli posiadasz jedno urządzenie, znajdziesz go pod pozycją 'Globowa widoczność' w głównym menu. Nie ma potrzeby konfigurowania niczego: urządzenia, które już podłączyłeś, są automatycznie połączone.",
+        tr: "Güncelle FitMesh Sync en son sürümü. Genel panosun otomatik olarak ana ekranın üstüne çıkması için birden fazla bağlanılan cihazınız olması gerekmektedir. Tek bir cihazınız varsa, genel görünüm altına 'Genel Görünüm' menüsü altında bulunur. Herhangi bir yapılandırma gerekmez: Bağlantılı olan cihazlarınız otomatik olarak birleştirilir.",
       },
     },
     {
@@ -333,6 +413,8 @@ export const post: BlogPost = {
         de: "Probiere das Multi-Geräte-Dashboard aus",
         pt: "Experimente o painel multi dispositivo",
         fr: "Essayez le tableau de bord multi-appareils",
+        pl: "Spróbuj panelu dashbard wielokrotnej platformy",
+        tr: "Deneyin multi-dispositif paneli",
       },
       body: {
         it: "Entra nella beta e collega tutti i tuoi wearable. La dashboard globale li unisce subito, senza doppioni e senza configurazioni manuali.",
@@ -341,6 +423,8 @@ export const post: BlogPost = {
         de: "Tritt der Beta bei und verbinde alle deine Wearables. Das globale Dashboard vereint sie sofort, ohne Duplikate und ohne manuelle Konfiguration.",
         pt: "Entre na beta e conecte todos os seus wearables. O painel global os unifica imediatamente, sem duplicatas e sem configurações manuais.",
         fr: "Rejoignez la bêta et connectez tous vos appareils connectés. Le tableau de bord global les unifie immédiatement, sans doublons et sans configuration manuelle.",
+        pl: "Wejrzyj na betę i połącz wszystkie Twoje wearable. Globальная panel połączy je natychmiast, bez duplikatów i bez ręcznej konfiguracji.",
+        tr: "Giriş beta aşamasına ve giyilebilir cihazların tümünü bağla. Globil dashboard bunları hemen birleştirir, tekrarlamalar olmadan ve manuel yapılandırmalar olmadan.",
       },
       ctaLabel: {
         it: "Inizia la beta gratuita",
@@ -349,6 +433,8 @@ export const post: BlogPost = {
         de: "Kostenlose Beta starten",
         pt: "Começar a beta grátis",
         fr: "Démarrer la bêta gratuite",
+        pl: "Zacznij bezpłatną betę",
+        tr: "Başlat ücretsiz betanız",
       },
       ctaHref: {
         it: "/it/beta",
@@ -365,6 +451,8 @@ export const post: BlogPost = {
         de: "Ändern sich die historischen Daten, wenn ich die Prioritätsreihenfolge der Geräte ändere?",
         pt: "Se eu mudar a ordem de prioridade entre os dispositivos, os dados históricos mudam?",
         fr: "Si je modifie l'ordre de priorité entre les appareils, les données historiques changent-elles?",
+        pl: "Je zmiana priorytetu między urządzeniami, historyczne dane się zmieniają?",
+        tr: "Eğer cihazlar arasında önceliğin sırası değiştirilirse, tarihi veriler değişiyor mu?",
       },
       a: {
         it: "Si, la dashboard viene ricalcolata in base alle preferenze aggiornate. I dati originali di ogni dispositivo restano intatti: cambia solo quale valore viene mostrato quando ci sono sovrapposizioni. Puoi cambiare le priorita in qualsiasi momento dalle impostazioni dispositivi.",
@@ -373,6 +461,8 @@ export const post: BlogPost = {
         de: "Ja, das Dashboard wird basierend auf den aktualisierten Einstellungen neu berechnet. Die Originaldaten jedes Geräts bleiben unverändert: es ändert sich nur, welcher Wert bei Überschneidungen angezeigt wird. Du kannst die Prioritäten jederzeit in den Geräte-Einstellungen ändern.",
         pt: "Sim, o painel é recalculado com base nas preferências atualizadas. Os dados originais de cada dispositivo permanecem intactos: muda apenas qual valor é exibido quando há sobreposições. Você pode alterar as prioridades a qualquer momento nas configurações de dispositivos.",
         fr: "Oui, le tableau de bord est recalculé en fonction des préférences mises à jour. Les données originales de chaque appareil restent intactes: seul le choix de la valeur affichée change en cas de chevauchement. Vous pouvez modifier les priorités à tout moment depuis les paramètres des appareils.",
+        pl: "Tak, panel kontrolowy jest ponownie obliczany na podstawie aktualizowanych preferencji. Oryginalne dane każdego urządzenia pozostają niezmienione: zmienia się tylko wartość wyświetlana w przypadku nadmiarów. Możesz zmieniać priorytety w dowolnym momencie z ustawień urządzenia.",
+        tr: "Evet, panel güncellenir güncel tercihlere göre. Her cihazın orijinal verileri değişmez: sadece hangi değerin gösterildiği değişebilir hale gelir eğer varsa çakışmalar olursa. Cihaz ayarları içinde her zaman öncelikleri değiştirebilirsiniz.",
       },
     },
     {
@@ -383,6 +473,8 @@ export const post: BlogPost = {
         de: "Kann ich auch die Daten einzelner Quellen sehen, nicht nur die vereinheitlichte Ansicht?",
         pt: "Posso ver também os dados de cada fonte individualmente, não apenas a vista unificada?",
         fr: "Puis-je voir également les données de chaque source individuellement, et pas seulement la vue unifiée?",
+        pl: "Czy mogę również zobaczyć dane poszczególnych źródeł, a nie tylko unifikowaną widok?",
+        tr: "Görüyorum ki tekil kaynakların verilerini de görebiliyorum, birincil görünüm dışında?",
       },
       a: {
         it: "Si. Nella dashboard globale trovi un selettore che ti permette di passare dalla vista unificata alla vista per sorgente. In questo modo puoi confrontare i dati dispositivo per dispositivo e capire eventuali differenze tra un orologio e l'altro.",
@@ -391,6 +483,8 @@ export const post: BlogPost = {
         de: "Ja. Im globalen Dashboard findest du einen Umschalter, mit dem du von der vereinheitlichten Ansicht zur quellenbasierten Ansicht wechseln kannst. So kannst du Daten Gerät für Gerät vergleichen und eventuelle Unterschiede zwischen einer Uhr und einer anderen nachvollziehen.",
         pt: "Sim. No painel global você encontra um seletor que permite alternar entre a vista unificada e a vista por fonte. Dessa forma, você pode comparar os dados dispositivo por dispositivo e entender eventuais diferenças entre um relógio e outro.",
         fr: "Oui. Dans le tableau de bord global, vous trouverez un sélecteur qui vous permet de passer de la vue unifiée à la vue par source. Vous pouvez ainsi comparer les données appareil par appareil et comprendre les éventuelles différences entre une montre et une autre.",
+        pl: "Tak. W panelu głównym znajdziesz selektor, który pozwala Ci przełączyć się z widoku agregowanego na widok dla źródła. Dzięki temu możesz porównywać dane urządzenia do urządzenia i zrozumieć poszczególne różnice między smartwatkami.",
+        tr: "Evet. Genel panelde, bir seçici listesi bulunan bir sektor bulunur ve bu, tek bir görünümden kaynak başına geçiş yapmanı sağlar. Bu sayede cihaz cihazına göre verileri karşılaştırabilir ve bir pisolino ile diğerlerinin arasındaki olası farkları anlayabilirsiniz.",
       },
     },
     {
@@ -401,6 +495,8 @@ export const post: BlogPost = {
         de: "Funktioniert das Dashboard auch, wenn ich Health Connect auf Android oder Apple Health auf dem iPhone verwende?",
         pt: "O painel funciona mesmo se eu usar Health Connect no Android ou Apple Health no iPhone?",
         fr: "Le tableau de bord fonctionne-t-il même si j'utilise Health Connect sur Android ou Apple Santé sur iPhone?",
+        pl: "Panel działa również, jeśli używam Health Connect na Android lub Apple Ślub na iPhone?",
+        tr: "Giyilebilir cihaz kullanarak veya Health Connect üzerinde Android veya Apple Sağlık kullanıyorsam, panoya erişebilirim mi?\nKVKK uygulaması kullanırken veya iPhone kullanıyorsam, panoya erişebilirim mi?",
       },
       a: {
         it: "Si. FitMesh Sync legge da Health Connect (Android) e da Apple Salute (iPhone) come sorgenti aggiuntive, e le include nella logica di deduplicazione. Anche i dati che arrivano da quelle piattaforme vengono confrontati con quelli dei dispositivi diretti e unificati nella vista globale.",
@@ -409,6 +505,8 @@ export const post: BlogPost = {
         de: "Ja. FitMesh Sync liest von Health Connect (Android) und Apple Health (iPhone) als zusätzliche Quellen und bezieht sie in die Deduplizierungslogik ein. Auch die Daten von diesen Plattformen werden mit den Daten der direkt verbundenen Geräte verglichen und in der globalen Ansicht zusammengeführt.",
         pt: "Sim. FitMesh Sync lê do Health Connect (Android) e do Apple Health (iPhone) como fontes adicionais e as inclui na lógica de deduplicação. Mesmo os dados provenientes dessas plataformas são comparados com os dos dispositivos diretos e unificados na vista global.",
         fr: "Oui. FitMesh Sync lit depuis Health Connect (Android) et Apple Santé (iPhone) comme sources supplémentaires, et les intègre dans la logique de déduplication. Les données provenant de ces plateformes sont également comparées avec celles des appareils directement connectés et unifiées dans la vue globale.",
+        pl: "Tak. FitMesh Sync czyta z Health Connect (Android) oraz Apple Salute (iPhone), które są dodatkowymi źródłami, a ich dane są uwzględniane w logice deduplikacji. Dane przychodzące z tych platform są porównywane z danymi z bezpośrednich urządzeń i łączone w globalnej widoku.",
+        tr: "Evet. FitMesh Sync giyilebilir cihazlardan (Health Connect (Android)) ve Apple Sağlık (iPhone) olarak belirlenen kaynaklardan okunuyor ve bu kaynaklar deduplicasyon logikası içinde yer alıyor. Bu platformlardan gelen veriler, doğrudan ve unifiye edilmiş cihazlardan gelen verilere karşılaştırılıyor ve küresel görünümde birleştiriliyor.",
       },
     },
   ],

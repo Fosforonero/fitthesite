@@ -50,6 +50,20 @@ export const post: BlogPost = {
       "Pour la santé estivale, surveillez la fréquence cardiaque au repos (signe de déshydratation si elle dépasse de 10 bpm votre ligne de base) et la HRV matinale.",
       "Option économique pour l'été : Xiaomi Mi Band 9 Pro (moins de 60 euros, 5ATM, 14 jours d'autonomie) couvre 90% des cas d'usage en vacances.",
     ],
+    pl: [
+      "Aby pływać, potrzebne są przynajmniej 5ATM: IP68 nie wystarcza dla kontinuowanychgiatan wody. Wyschuj zawsze w słodkiej wodzie po wybrukowaniu.",
+      "Wysokie temperatury powyżej 35°C zmniejszają autonomiczną trwałość o 15-25%: dezaktywują wyświetlanie zawsze włączone, zmieniają częstotliwość pomiaru pulsu na co 10 minut i nie ładowanie w słońcu.",
+      "Health Connect jest lokalny: dane akumuluje się na urządzeniu nawet bez połączenia z Internetem i synchronizuje się, jak tylko ponownie zostaniesz połączony. Brak wad w historii.",
+      "Dla zdrowie wiosenne monitoruj częstotliwość serca podczas spoczynku (sygnał dehidratacji, jeśli przekroczy 10 bpm wartości bazowej) i HRV rano.",
+      "Budżet letni: Xiaomi Mi Band 9 Pro (pod 60 euro, 5ATM, 14 dni niezależności) pokrywa 90% przypadków użycia podczas urlopu.",
+    ],
+    tr: [
+      "Yüzme için en az 5ATM gerekli: IP68 yüzme devam etmek için yeterli değildir. Denizden sonra her zaman suyla temizle.",
+      "Güçlü sıcaklık seviyeleri (35°C üzerinde) 15-25% kadar önbellek süresini azaltabilir: her zaman açık ekranı devre dışı bırakır, kalp atışını her 10 dakikada bir kontrol eder ve güneş altında şarj etmeyin.",
+      "Health Connect KVKK içinde yerel olarak depolanır: veriler internet olmadan da yerel olarak toplanır ve tekrar bağlantılı olduğunda sychronize edilir. Geçmişinizde hiçbir boya yok.",
+      "KışMMddi监控基础心率（如果超过基线10 bpm则为脱水信号）和晨间HRV。",
+      "Bütçe yazılımı: Xiaomi Mi Band 9 Pro (60 euro altı, 5ATM, 14 gün süresiyle şarj) tatillerde %90'u kaplayan kullanım durumu kapsıyor.",
+    ],
   },
   primaryKeyword: {
     it: "smartwatch estate 2026",
@@ -58,6 +72,8 @@ export const post: BlogPost = {
     de: "Smartwatch Sommer 2026",
     pt: "smartwatch verão 2026",
     fr: "montre connectée été 2026",
+    pl: "smartwatch estate 2026",
+    tr: "akıllı saat miras 2026",
   },
   secondaryKeywords: {
     it: [
@@ -88,6 +104,20 @@ export const post: BlogPost = {
       "montre connectée plage 2026",
       "montre connectée étanche été",
     ],
+    pl: [
+      "smartwatch odporný na wodę pływanie",
+      "smartwatch ciepła bateria",
+      "synkronizować dane zdrowia wypadek",
+      "smartwatch plaża 2026",
+      "wodoodporność smartwatch nieruchomość",
+    ],
+    tr: [
+      "akıllı saat suya dayalı yüzmek için resmen",
+      "akıllı saat sıcak bateria",
+      "veri ve gerçeklik vakansiyeteki sağlık verilerini eşleştirmek",
+      "akıllı saat pişagi 2026",
+      "güvenli suya dayanıklı akıllı saat malzeme",
+    ],
   },
   metaDescription: {
     it: "Smartwatch in estate 2026: resistenza all'acqua, autonomia sotto il sole, e come non perdere i tuoi dati salute in vacanza. Guida pratica con consigli reali.",
@@ -96,6 +126,8 @@ export const post: BlogPost = {
     de: "Smartwatch im Sommer 2026: Wasserresistenz, Akkulaufzeit bei Hitze und wie du deine Gesundheitsdaten im Urlaub sicherst. Praktischer Leitfaden mit echten Tipps.",
     pt: "Smartwatch no verão de 2026: resistência à água, autonomia no calor e como não perder seus dados de saúde nas férias. Guia prático com dicas reais.",
     fr: "Montre connectée en été 2026 : résistance à l'eau, autonomie sous la chaleur et comment protéger vos données de santé en vacances. Guide pratique avec des conseils concrets.",
+    pl: "Smartwatch w roku 2026: odporność na wodę, autonomyja pod słońcem, a jak nie stracić Twoich danych zdrowia w przerwie roboczej. Praktyczna wskazówki z rzeczywistymi poradami.",
+    tr: "Akıllı Saat 2026'da:Evinde: Su dayanıklı, güneş altında enerji bağımsızlığı, ve tatilinizdeki sağlık verilerinizi kaybetmemek. Uygulamalı rehberlik ile gerçek tavsiyeler.",
   },
   hero: {
     kicker: {
@@ -105,6 +137,8 @@ export const post: BlogPost = {
       de: "Sommer-Ratgeber",
       pt: "Guia de verão",
       fr: "Guide été",
+      pl: "Przewodnik letni",
+      tr: "Eğim Zamanı Kılavuzu",
     },
     title: {
       it: "Smartwatch d'estate 2026: acqua, caldo e dati salute in vacanza",
@@ -113,6 +147,8 @@ export const post: BlogPost = {
       de: "Smartwatch im Sommer 2026: Wasser, Hitze und Gesundheitsdaten im Urlaub",
       pt: "Smartwatch no verão de 2026: água, calor e dados de saúde nas férias",
       fr: "Montre connectée en été 2026 : eau, chaleur et données de santé en vacances",
+      pl: "Smartwatch letnie 2026: woda, ciepło i zdrowe dane w przerwie roboczej",
+      tr: "Giyilebilir Cihaz 2026 Yaz Akıllı Saati: Su, Sıcaklık ve Sağlık Verileri Pisoлина",
     },
     subtitle: {
       it: "Tra piscina, caldo e wifi assente, l'estate è il periodo più duro per uno smartwatch. Ecco come scegliere bene e non perdere nemmeno un dato.",
@@ -121,6 +157,8 @@ export const post: BlogPost = {
       de: "Zwischen Schwimmbad, Hitze und fehlendem WLAN ist der Sommer die härteste Jahreszeit für ein Smartwatch. So wählst du richtig und verlierst keinen einzigen Datenpunkt.",
       pt: "Entre a piscina, o calor e a ausência de WiFi, o verão é a estação mais difícil para um smartwatch. Veja como escolher bem e não perder nenhum dado.",
       fr: "Entre la piscine, la chaleur et l'absence de WiFi, l'été est la saison la plus éprouvante pour une montre connectée. Voici comment bien choisir et ne perdre aucune donnée.",
+      pl: "Pod.getOwnPropertyNames is the method to use in JavaScript to get the names of the properties of an object. Otoż letnia pora roku sprawia, że smartwatch ma najtrudniejsze doświadczenie. Oto jak dobrze wybrać i nie przegapić żadnego danych.\nTra pływacką baseniem, brakiem internetu bezprzewodowego i ciepłem, lato to najtrudniejszy okres dla smartwatcha. Oto jak je dobrze wybrac i nie przegapić żadnych danych.",
+      tr: "Pisikondan, ısınma ve wifi olmayan bir yaz, akıllı saat için en zor zaman periodasıdır. KVKK uyumluluğunu sağlayacak ve her veriyi kaybetmeyi önleyeceğiniz nasıl bir akıllı saat seçtiğinizi öğrenin.",
     },
   },
   body: [
@@ -133,6 +171,8 @@ export const post: BlogPost = {
         de: "Der Sommer ist die härteste Jahreszeit für ein Smartwatch: Schwimmbäder, Hitze über 35°C und fehlendes WLAN im Urlaub gefährden sowohl das Gerät als auch die Kontinuität deiner Daten. Ein 5ATM-Rating reicht zum Schwimmen aus, Health Connect speichert Daten lokal ohne Internetverbindung, und drei Akku-Gewohnheiten verhindern einen Rückgang der Laufzeit um 25%. Dieser Leitfaden beantwortet all das direkt.",
         pt: "O verão é a estação mais difícil para um smartwatch: piscinas, calor acima de 35°C e WiFi ausente nas férias colocam em risco tanto o dispositivo quanto a continuidade dos seus dados. Uma classificação 5ATM é suficiente para nadar, o Health Connect salva os dados localmente offline, e três hábitos de bateria evitam uma queda de 25% na autonomia. Este guia responde a tudo isso de forma direta.",
         fr: "L'été est la saison la plus difficile pour une montre connectée : piscines, chaleur supérieure à 35°C et WiFi absent en vacances mettent en danger à la fois l'appareil et la continuité de vos données. Une certification 5ATM suffit pour nager, Health Connect sauvegarde les données localement sans connexion, et trois habitudes pour la batterie évitent une chute d'autonomie de 25%. Ce guide répond à tout cela directement.",
+        pl: "Latołowy jest najtrudniejszym okresem dla smartwatcha: baseny, gorąco powyżej 35°C i brak wi-fi wczasach zagranicznych mogą zagrozić zarówno urządzeniem, jak i kontynuacją Twoich danych. Rating 5ATM wystarcza do nurty, Health Connect zapisuje dane offline lokalnie, a trzy uwagi dotyczące baterii unikają spadku autonomii o 25%. Ta instrukcja odpowiada na wszystko to prosto.",
+        tr: "Güneşçiçek zamanı bir akıllı saat için en zor dönemdir: havuzlar, 35°C üzerindeki sıcaklık ve tatillerde eksik Wi-Fi, cihazınızı ve verilerinizin devam etmesini tehlikeye atar. 5ATM puanı sadece yüzmek için yeterlidir, Health Connect verileri yerel olarak otomatik olarak saklar ve üç akıllı enerji yönetimi ipucu, baterinin dayanımını %25 azaltmadan korur. Bu rehber bu konuları doğrudan cevaplı bir şekilde ele alır.",
       },
     },
     {
@@ -145,6 +185,8 @@ export const post: BlogPost = {
         de: "Wasserresistenz: Was IP68, ATM und 5ATM wirklich bedeuten",
         pt: "Resistência à água: o que IP68, ATM e 5ATM realmente significam",
         fr: "Résistance à l'eau : ce que signifient vraiment IP68, ATM et 5ATM",
+        pl: "Odporność wodna: o czym naprawdę mówią IP68, ATM i 5ATM",
+        tr: "Suçlamaya dayanıklılık: gerçekten ne anlama geliyor IP68, ATM ve 5ATM",
       },
     },
     {
@@ -156,6 +198,8 @@ export const post: BlogPost = {
         de: "Nicht alle Wasserschutz-Ratings sind gleich. Hier ist die praktische Übersetzung der Zertifizierungen, die du in den technischen Daten findest:",
         pt: "Nem todas as classificações de resistência à água são iguais. Aqui está a tradução prática das certificações que você encontra nas especificações técnicas:",
         fr: "Toutes les certifications waterproof ne se valent pas. Voici la traduction pratique des certifications que vous trouvez dans les fiches techniques :",
+        pl: "Nie wszystkie 'wodoodporne' są równocześnie takie same. Oto praktyczna tłumaczenie oznaczeń, które znajdziesz w specyfikacjach:",
+        tr: "Hepsi olmayan 'su resmen' eşit değildir. İşte teknik kayıtlarda bulunan sertifikaların praktik çevirisi:",
       },
     },
     {
@@ -167,6 +211,8 @@ export const post: BlogPost = {
         de: "Wasserschutz-Zertifizierungen für Smartwatches",
         pt: "Certificações de resistência à água para smartwatch",
         fr: "Certifications waterproof pour montres connectées",
+        pl: "Certificacje防水智能手表",
+        tr: "Güvenlik Sertifikaları Giyilebilir Cihaz Akıllı Saat",
       },
       headers: {
         it: ["Rating", "Cosa puoi fare", "Cosa NON puoi fare"],
@@ -175,6 +221,16 @@ export const post: BlogPost = {
         de: ["Rating", "Was du tun kannst", "Was du NICHT tun kannst"],
         pt: ["Rating", "O que você pode fazer", "O que você NÃO pode fazer"],
         fr: ["Rating", "Ce que vous pouvez faire", "Ce que vous NE POUVEZ PAS faire"],
+        pl: [
+          "Ocena",
+          "Coś, czym możesz się zająć",
+          "Czego NIE MOŻESZ ZROBIĆ",
+        ],
+        tr: [
+          "Değerlendirme",
+          "Ne yapabilirsiniz",
+          "Ne yapAMAYIZ",
+        ],
       },
       rows: [
         {
@@ -184,6 +240,16 @@ export const post: BlogPost = {
           de: ["IP67", "Regen, Spritzer, sehr kurzes Untertauchen (<1m, <30 Min.)", "Schwimmen, längeres Duschen, Surfen"],
           pt: ["IP67", "Chuva, respingos, imersão muito breve (<1m, <30 min)", "Natação, banho prolongado, surf"],
           fr: ["IP67", "Pluie, éclaboussures, immersion très brève (<1m, <30 min)", "Natation, douche prolongée, surf"],
+          pl: [
+            "IP67",
+            "Deszcz, splendorze, krótka wplątanie (<1m, <30min)",
+            "Pływanie, długie prysztrwy, surfer",
+          ],
+          tr: [
+            "IP67",
+            "Yaşamış olabilecek yağmur, sularak, çok kısa süreli ıslama (<1m, <30 dk)",
+            "Yüzme, uzun ducha, surffing",
+          ],
         },
         {
           it: ["IP68", "Immersione fino a 1,5m per 30 min", "Nuoto prolungato, surf, acque mosse"],
@@ -192,6 +258,16 @@ export const post: BlogPost = {
           de: ["IP68", "Untertauchen bis 1,5m für 30 Min.", "Längeres Schwimmen, Surfen, aufgewühltes Wasser"],
           pt: ["IP68", "Imersão até 1,5m por 30 min", "Natação prolongada, surf, águas agitadas"],
           fr: ["IP68", "Immersion jusqu'à 1,5m pendant 30 min", "Natation prolongée, surf, eaux agitées"],
+          pl: [
+            "IP68",
+            "Wygryzanie do głębokości 1,5 m przez 30 minut",
+            "Naginata, surfer, wody ruchome",
+          ],
+          tr: [
+            "IP68",
+            "Gidreksizlik 1,5 m için 30 dakika",
+            "Yenilmez nuot, surff, hareketli sular",
+          ],
         },
         {
           it: ["5ATM (≈50m)", "Nuoto in piscina, snorkeling leggero", "Immersioni con bombola, surf ad alta velocità"],
@@ -200,6 +276,16 @@ export const post: BlogPost = {
           de: ["5ATM (≈50m)", "Schwimmbad, leichtes Schnorcheln", "Gerätetauchen, Surfen mit hoher Geschwindigkeit"],
           pt: ["5ATM (≈50m)", "Natação em piscina, snorkeling leve", "Mergulho com cilindro, surf em alta velocidade"],
           fr: ["5ATM (≈50m)", "Natation en piscine, snorkeling léger", "Plongée sous-marine, surf à grande vitesse"],
+          pl: [
+            "5ATM (≈50m)",
+            "Pływanie w basenie, lekki snokierowanie",
+            "Wygrywające długotrwałe treningi, surferzy na wysokich prędkości",
+          ],
+          tr: [
+            "5ATM (≈50m)",
+            "Yüzme suyunda, hafif snorkeling",
+            "Dugunlar ile dalış, yüksek hızda surferi",
+          ],
         },
         {
           it: ["10ATM (≈100m)", "Nuoto, surf, snorkeling avanzato", "Immersioni profonde con bombola"],
@@ -208,6 +294,16 @@ export const post: BlogPost = {
           de: ["10ATM (≈100m)", "Schwimmen, Surfen, fortgeschrittenes Schnorcheln", "Tiefes Gerätetauchen"],
           pt: ["10ATM (≈100m)", "Natação, surf, snorkeling avançado", "Mergulho profundo com cilindro"],
           fr: ["10ATM (≈100m)", "Natation, surf, snorkeling avancé", "Plongée profonde en scaphandre"],
+          pl: [
+            "10ATM (≈100m)",
+            "Pływanie, surfer, diveding zaawansowane",
+            "Profundne immersje z butelką gazów",
+          ],
+          tr: [
+            "10ATM (≈100m)",
+            "Yüzme, surffting, ileri seviye akvadiving",
+            "Derin dalŻile ile bomba ile",
+          ],
         },
         {
           it: ["MIL-STD-810H", "Resistenza agli urti, temperature estreme, sabbia", "Non è una certificazione waterproof in sé"],
@@ -216,6 +312,16 @@ export const post: BlogPost = {
           de: ["MIL-STD-810H", "Stoßfestigkeit, extreme Temperaturen, Sand", "Keine eigenständige Wasserschutz-Zertifizierung"],
           pt: ["MIL-STD-810H", "Resistência a impactos, temperaturas extremas, areia", "Não é uma certificação de resistência à água por si só"],
           fr: ["MIL-STD-810H", "Résistance aux chocs, températures extrêmes, sable", "N'est pas une certification waterproof en soi"],
+          pl: [
+            "MIL-STD-810H",
+            "Odpor na uderzenia, ekstremalne temperature, piasek",
+            "To nie jest autentyczna zabezpieczenie przed wodą",
+          ],
+          tr: [
+            "MIL-STD-810H",
+            "Röktürün dayanıklılığı, aşırı sıcaklıklar, kuru sandallar",
+            "Bu bir suya dayanıklı olma sertifikatı değil",
+          ],
         },
       ],
     },
@@ -229,6 +335,8 @@ export const post: BlogPost = {
         de: "Salzwasser ist aggressiver als Süßwasser",
         pt: "A água salgada é mais corrosiva do que a água doce",
         fr: "L'eau salée est plus agressive que l'eau douce",
+        pl: "Woda solana jest bardziej agresywna od słodkiej __FM_PH_0__ __FM_URL_0__ __FM_HTML_0__ __FM_LINK_0__ __FM_CODE_0__ __FM_FENCE_0__ __FM_BRAND_0__ __FM_TERM_0__ __FM_PH_0__ __FM_URL_0__ __FM_HTML_0__ __FM_LINK_0__ __FM_CODE_0__ __FM_FENCE_0__",
+        tr: "Tuzlu su daha agresif olur suyu.",
       },
       body: {
         it: "Se nuoti in mare, sciacqua il watch con acqua dolce dopo ogni immersione, anche se è certificato 5ATM. Il sale corrosivo nel tempo deteriora le guarnizioni e i sensori ottici. La stessa precauzione vale per la crema solare: non applicarla direttamente sotto il watch.",
@@ -237,6 +345,8 @@ export const post: BlogPost = {
         de: "Wenn du im Meer schwimmst, spüle die Uhr nach jedem Bad mit Süßwasser ab, auch wenn sie 5ATM-zertifiziert ist. Salz korrodiert mit der Zeit Dichtungen und optische Sensoren. Dasselbe gilt für Sonnencreme: Trage sie nicht direkt unter der Uhr auf.",
         pt: "Se você nada no mar, enxágue o relógio com água doce após cada mergulho, mesmo que seja certificado 5ATM. O sal corrói progressivamente as vedações e os sensores ópticos. O mesmo vale para o protetor solar: não o aplique diretamente sob o relógio.",
         fr: "Si vous nagez en mer, rincez la montre à l'eau douce après chaque baignade, même si elle est certifiée 5ATM. Le sel corrode progressivement les joints et les capteurs optiques. La même précaution s'applique à la crème solaire : ne l'appliquez pas directement sous la montre.",
+        pl: "Jeżeli schwytasz się w morzu, przysacinij zegarek do słodkiej wody po każdej wypłynięciu, nawet jeśli jest zatwierdzony 5ATM. Solowa kwasowość odbiera się na obudowy i czujniki optyczne w ciągu czasu. Podobna ostrożność należy zachować w sprawie soku słonecznego: nie masz mu bezpośrednio pod zegarek.",
+        tr: "Eğer denizde yüzmüş olursanız, her dalıştan sonra watch'u tatlı su ile temizleyin,尽管它已获得5ATM认证。海水中的腐蚀性盐分会逐渐损坏密封圈和光学传感器。同样需要注意防晒霜：不要直接将其涂抹在watch下方。",
       },
     },
     {
@@ -249,6 +359,8 @@ export const post: BlogPost = {
         de: "Akku und Hitze: Was zu erwarten ist",
         pt: "Bateria e calor: o que esperar",
         fr: "Batterie et chaleur : à quoi s'attendre",
+        pl: "Bateria i ciepło: co się spodziewać",
+        tr: "Bateriye ve ısınma: beklemeye değerler",
       },
     },
     {
@@ -260,6 +372,8 @@ export const post: BlogPost = {
         de: "Lithium-Ionen-Akkus arbeiten optimal zwischen 16°C und 22°C. Über 35°C (typisch an einem Sommertag mit der Uhr in der Sonne) sinkt die Akkulaufzeit um 15-25% und die Langzeitdegradation beschleunigt sich. Es gibt keine Wundermittel, aber es gibt Gewohnheiten, die helfen:",
         pt: "As baterias de íons de lítio funcionam de forma ideal entre 16°C e 22°C. Acima de 35°C (temperatura comum em um dia de verão com o relógio ao sol) a autonomia cai 15-25% e a degradação a longo prazo se acelera. Não existem truques mágicos, mas existem hábitos que ajudam:",
         fr: "Les batteries lithium-ion fonctionnent de manière optimale entre 16°C et 22°C. Au-dessus de 35°C (température typique d'une journée d'été avec la montre au soleil) l'autonomie chute de 15-25% et la dégradation à long terme s'accélère. Il n'y a pas de solution miracle, mais il y a des habitudes qui aident :",
+        pl: "Baterie naładowane elektrolitamiфункционально оптимально функционируют w temperaturze od 16°C do 22°C. Powyżej 35°C (temperatura typowa dnia letniego z smartwatchem na słońcu) spadek autonomii wynosi 15-25%, a degradacja w długotrwałą perspektywę przyspiesza. Nie ma magicznych trików, ale istnieją zwyczaje, które pomagają:",
+        tr: "Le batterileri iyonları litium çalışır en uygun şekilde 16°C ve 22°C arasında. 35°C'den yüksek sıcaklıklarda (yağmurdan korunmamış saat bir yaz gününde tipik sıcaklık) dayanım %15-25 azalır ve uzun vadeli degradasyon hızlanır. Sırlı teknikler yok, ancak bazı alışkanlıklar yardımcı olur:",
       },
     },
     {
@@ -307,6 +421,20 @@ export const post: BlogPost = {
           "**Luminosité réduite**: écran à 50% au lieu du maximum prolonge l'autonomie et ne fait aucune différence au soleil (le soleil est déjà plus lumineux que l'écran).",
           "**GPS uniquement pendant les séances**: le GPS actif en continu vide la batterie en 8-12 heures. Activez-le uniquement lorsque vous enregistrez vraiment une activité.",
         ],
+        pl: [
+          "**Nie ładowanie na słońcu**: umieść smartwatch w cieniu podczas jego ładowania. Ładowanie przy temperaturze 40°C+ może wyzwalić mechanizmy termiczne, które hamują lub zatrzymują ładowanie.",
+          "**Zawsze włączona wyświetlenie wyłączona**: podczas pracy AOD zużywa od 20 do 30% więcej baterii w porównaniu do wyświetlenia, które włącza się na gest. Wyłącz ją, jeśli nie jest Ci potrzebna.",
+          "**Frequenza HR continua → zmienna**: monitoraggio kontynuowany częstotliwości cuerdorowej zużywa więcej baterii. Jeśli jesteś w przerwie roboczej i nie wykonujesz treningu, przełącz na 'co 10 minut' aby uzyskać zwiększoną o 30-40% autonomiczność.",
+          "**Zmniejszona jasność**: ekran działa na poziomie 50% zamiast maksymalnego, co daje większą trwałość akumulatora i nie ma znaczenia pod słońcem (słoneczne światło jest już bardziej jasne niż ekran).",
+          "**GPS tylko w trakcie treningu**: aktywne GPS ciągle wyczerpują baterię w okresie 8-12 godzin. Włącz je tylko wtedy, gdy naprawdę rejestrujesz aktywność.",
+        ],
+        tr: [
+          "**Güneş altında yükleme yok**: watch'ı yüklemeden önce karanlıkta koyun. 40°C+'da yükleme, termik koruma mekanizmalarını tetikleyebilir ve yükleme hızını azaltabilir veya durdurabilir.",
+          "**Aşırı süren gösterge devre dışı bırakıldı**: ESTATE L'AGD (Always-on Display) %20-30 daha fazla bateri tüketimi ile bir ekranın sadece hareket edildiğinde yanıp söndüğünü karşılaştırırken daha fazla bateri tüketir. Gereksiz olduğunda devre dışı bırakabilirsiniz.",
+          "**Frekans HR devam → azınlık**: kalp atış hızının sürekli izlenmesi daha fazla bateri tüketir. İyileştiğin veya egzersiz yapmıyorsunuzsa, 'her 10 dakikada bir' olarak ayarlanabilirsiniz ve 30-40% daha uzun bateri ömrü elde edebilirsiniz.",
+          "**Açıklama azaltılarak**: ekranı %50 olarak ayarladığınızda, en yüksek değerden daha uzun süredir şarj gerektirmeden çalışır ve güneş altında bir fark göstermez (güneş zaten ekranın çok daha parlaktır).",
+          "**GPS sadece egzersizde kullanılsın**: aktif GPS 8-12 saat içinde pilinizi sürekli olarak tüketecek. Gerçek bir egzersiz kaydını yaparken sadece bunu açın.",
+        ],
       },
     },
     {
@@ -319,6 +447,8 @@ export const post: BlogPost = {
         de: "Das Datenproblem im Urlaub: So verlierst du deinen Verlauf nicht",
         pt: "O problema dos dados nas férias: como não perder seu histórico",
         fr: "Le problème des données en vacances : comment ne pas perdre son historique",
+        pl: "Problem z danymi w przerwie roboczej: jak nie stracić historii",
+        tr: "Veri ve verilerin tatil sırasında sorunları: nasıl tarihi kaybetmeyecekleriniz?",
       },
     },
     {
@@ -330,6 +460,8 @@ export const post: BlogPost = {
         de: "Wenn du Health Connect verwendest, gute Nachrichten: Health Connect läuft auf dem Gerät. Deine Schritte, Schlafdaten und Herzfrequenz werden lokal gespeichert, auch ohne Internetverbindung. Solange dein Telefon funktioniert, geht nichts verloren. Das Problem entsteht, wenn du eine Cloud-Sync-App verwendest, die keine Daten senden kann: Hat die App eine begrenzte Wiederholungslogik, könnten nach einigen Tagen ohne Verbindung Datensätze fehlen.",
         pt: "Se você usa o Health Connect, boas notícias: o Health Connect funciona no próprio dispositivo. Seus dados de passos, sono e frequência cardíaca são gravados localmente mesmo sem internet. Nada se perde enquanto o telefone funcionar. O problema surge quando você usa um app de sincronização em nuvem que não consegue enviar os dados: se o app tem lógica de reenvio limitada, após alguns dias sem conexão ele pode pular registros.",
         fr: "Si vous utilisez Health Connect, bonne nouvelle : Health Connect fonctionne sur l'appareil. Vos données de pas, sommeil et fréquence cardiaque sont écrites localement même sans internet. Rien n'est perdu tant que votre téléphone fonctionne. Le problème survient lorsque vous utilisez une application de synchronisation cloud qui ne parvient pas à envoyer les données : si l'application a une logique de réessai limitée, après quelques jours hors ligne, elle pourrait sauter des enregistrements.",
+        pl: "Je korzystasz z Health Connect, dobre wiadomości: Health Connect jest on-device. Twoje dane dotyczące kroki, snu i częstotliwości serca są zapisywane lokalnie nawet bez internetu. Nie stracają niczego dopóki telefon działa. Problem pojawia się, gdy używasz aplikacji synchronizacyjnej w chmurze, która nie jest w stanie wysłać danych: jeśli aplikacja ma ograniczoną logikę zwracania się ponownie, po kilku dniach bez połączenia może pominąć niektóre rekordy.",
+        tr: "Kullanırken Health Connect, iyi haberler: Health Connect cihazda yerel olarak kurulmuştur. Adımların, uyku senaryolarının ve kalp atış hızınız verileri internet olmadan da yerel olarak kaydedilir. Telefon işleyene kadar hiçbir şey kaybetmez. Sorun, cloud sync uygulamasının verileri gönderme mantığı sınırlı olmasında ortaya çıkar: birkaç gün internet bağlantısı yoksa, bazı kayıtlar atlayabilir.",
       },
     },
     {
@@ -342,6 +474,8 @@ export const post: BlogPost = {
         de: "Einmal täglich mit dem WLAN des Hotels verbinden",
         pt: "Conecte-se ao WiFi do hotel uma vez por dia",
         fr: "Connectez-vous au WiFi de l'hôtel une fois par jour",
+        pl: "Połącz się z siecią hotelową raz na dzień",
+        tr: "Günlük olarak otel ağına bağlanın",
       },
       body: {
         it: "Anche 2-3 minuti di connessione ogni sera bastano per sincronizzare la giornata. Se usi FitMesh Sync, il background sync scatta automaticamente appena torna la connettività. Non devi aprire l'app: il sistema riprende dal punto in cui si era interrotto.",
@@ -350,6 +484,8 @@ export const post: BlogPost = {
         de: "Bereits 2-3 Minuten Verbindung jeden Abend reichen aus, um die Tagesdaten zu synchronisieren. Wenn du FitMesh Sync verwendest, startet die Hintergrundsynchronisierung automatisch, sobald die Verbindung zurückkehrt. Du musst die App nicht öffnen: Das System setzt dort fort, wo es unterbrochen wurde.",
         pt: "Mesmo 2-3 minutos de conexão por noite são suficientes para sincronizar os dados do dia. Se você usa o FitMesh Sync, a sincronização em segundo plano é ativada automaticamente assim que a conectividade retorna. Você não precisa abrir o app: o sistema retoma de onde parou.",
         fr: "Même 2-3 minutes de connexion chaque soir suffisent pour synchroniser la journée. Si vous utilisez FitMesh Sync, la synchronisation en arrière-plan se déclenche automatiquement dès que la connectivité revient. Vous n'avez pas à ouvrir l'application : le système reprend là où il s'était arrêté.",
+        pl: "Ani 2-3 minuty połączenia touszki każdego wieczoru wystarczą do zsynchronizowania dnia. Jeśli używasz FitMesh Sync, automatyczne synchronizowanie w tle zaczyna działać, jak tylko powróci połączenie. Nie musisz otwierać aplikacji: system kontynuuje od miejsca, gdzie został przerwany.",
+        tr: "Herhangi bir günün sonunda 2-3 dakika bağlantının sağlanması yeterli olacaktır verilerin sychronizasyonu için. Eğer FitMesh Sync kullanıyorsanız, bağlantı yeniden sağlanınca arka planda sync otomatik olarak devam eder. Uygulamayı açmaya gerek yok: sistem sonrudan kesilme noktasından devam eder.",
       },
     },
     {
@@ -362,6 +498,8 @@ export const post: BlogPost = {
         de: "Welches Wearable für den Sommer: Nutzungsprofile",
         pt: "Qual wearable para o verão: perfis de uso",
         fr: "Quel appareil connecté pour l'été : profils d'utilisation",
+        pl: "Jak wybrnąć zegarek na letni dzień: profil użycia",
+        tr: "Hangi giyilebilir cihaz için yazılım: kullanım öngörüleri",
       },
     },
     {
@@ -409,6 +547,20 @@ export const post: BlogPost = {
           "**Santé passive + élégance**: Oura Ring: pas d'écran, étanche, suit le sommeil et la récupération discrètement. Parfait si vous voulez des données sans porter une montre à la plage.",
           "**Option économique pour l'été**: Xiaomi Mi Band 9 Pro: 5ATM, GPS, SpO2, autonomie 14 jours, moins de 60 €. Couvre presque tout ce dont vous avez besoin pour un été.",
         ],
+        pl: [
+          "**Plaża + casual**: Galaxy Watch 7 / Pixel Watch 3: doskonały równowagowy ochrona przed wodą (5ATM), projekt do noszenia przez cały dzień, AMOLED widoczny na słońcu, Health Connect lokalny.",
+          "**Pływatek + triathlon**: Garmin Forerunner 165 / 265: GPS wielobandaż, 5ATM, specyficzne dla pływania (poolszczek, style), trwałość akku 11-13 dni w trybie smartwatch.",
+          "**Trekking + montagna**: Garmin Instinct 2: MIL-STD-810H, 10ATM, barometriczny altymetraz, kompas, autonomiczność do 28 dni.",
+          "**Passywa + elegancja**: Oura Ring: bez ekranu, wodoodporny, dyskretnie śledzi sen i odzyskiwanie energii. Idealny, jeśli chcesz danych bez noszenia smartwatcha na plaży.",
+          "**Budżetowa letnia oferta**: Xiaomi Mi Band 9 Pro: 5ATM, GPS, SpO2, autonomia 14 dni, za mniej niż 60 zł. Rozwiązuje prawie wszystko, co potrzebujesz na letni okres.",
+        ],
+        tr: [
+          "**Plaj + non-formale**: Galaxy Watch 7 / Pixel Watch 3: harika suyu koruması (5ATM), gün boyu takılabilir tasarım, güneş altında görünen AMOLED, Health Connect yerel.",
+          "**Yüzme + triathlon**: Garmin Forerunner 165 / 265: GPS çoklu bandlı, 5ATM, yüzme spesifik metrikleri (piscineler, şıklık), akıllı saat modunda 11-13 gün süresi arası bağımlılık.",
+          "**Yürüyüş + dağcılık**: Garmin Instinct 2: KVKK uyumlu, 10ATM, basınçlı altımlık çelik, kompas, en fazla 28 gün boyunca bağımsız.",
+          "**Pasif Selamlaşma + Elegans**: Oura Çarpı: ekran yok, suya dayanıklı, gizli bir şekilde uyku ve rehberlik algılar. Plajda bir watch giymek istemiyorsanız idealdir.",
+          "**Yaz bütçesi**: Xiaomi Mi Band 9 Pro: 5ATM, GPS, SpO2, 14 gün bağımsızlık, €60'u geçmez. Bir yaz için gerekenleri yapar hala çok fazlasını yapar.",
+        ],
       },
     },
     {
@@ -421,6 +573,8 @@ export const post: BlogPost = {
         de: "Was du im Sommer tracken solltest, was du im Winter nicht trackst",
         pt: "O que monitorar no verão que você não monitora no inverno",
         fr: "Ce qu'il faut suivre en été que vous ne suivez pas en hiver",
+        pl: "Czego śledzić w latach letnich, co nie śledzi się zimą",
+        tr: "Güneşin altında giyilebilir cihazınızda traciren çokça farklı özelliklerinizi izleyebilirsiniz ki, kışa gelince bunları izlemiyorsunuz.",
       },
     },
     {
@@ -462,6 +616,18 @@ export const post: BlogPost = {
           "**Variabilité de la fréquence cardiaque (HRV)**: en été la HRV tend à se dégrader avec la chaleur. Un bon appareil (Oura, Garmin Fenix, Galaxy Watch 6+) vous l'affiche chaque matin.",
           "**Qualité du sommeil sans climatisation**: la chaleur perturbe les phases de sommeil profond. Avoir les données vous aide à comprendre s'il vaut mieux investir dans un ventilateur, changer les horaires de sommeil ou adapter l'entraînement du soir.",
         ],
+        pl: [
+          "**Wodna zasatura + częstotliwość serca w spoczynku**: wyższa BPM w spoczynku niż zwykle (>10 bpm w stosunku do Twojej bazowej wartości) może być sygnałem dehidratacji lub nadmiernego ciężaru termicznego.",
+          "**SpO2 w granulacji**: jeśli pojeżdżasz na górę powyżej 2000m, satelizacja tlenu jest przydatnym indykatorом adaptywności wysokościowej.",
+          "**Variabilità częstotliwości sercowej (HRV):** w lato HRV tenduje do pogorszenia ze wzrostem temperatury. Dobry tracker (Oura, Garmin Fenix, Galaxy Watch 6+) to pokazuje tousko rano.",
+          "**Jakość snu bez chłodzenia**: ciepło przeszkadza w osiąganiu głębokich faz senu. Posiadanie tych danych pomaga zrozumieć, czy warto nakupić ventilatora, zmienić porę senną lub dostosować trening popołudniowy.",
+        ],
+        tr: [
+          "**İdratasyon + dinlenme kalp hızı**: daha yüksek bir dinlenme kalp hızı (>10 bpm senin baz lineden fazla) genellikle idrakasyon veya aşırı ısınma stresi bir işareti olabilir.",
+          "**SpO2 quota içinde**: da montagne sopra i 2000m, l'ossigenazione del sangue è un indicatore utile dell'adattamento all'altezza.",
+          "**Günlük kalp atış hızı değişimi (HRV):** yaz gecesi HRV sıcaklıkta kötüleşir. Bir iyi takipci (Oura, Garmin Fenix, Galaxy Watch 6+) her sabah bunu gösterecektir.",
+          "**Uygunluğunuza Uyan Uykunuz için Soğutma Yoksa**: sıcaklık derin uykunun faslarını bozabilir. Verileri biliyor olmak, bir hava koşulayıcısına yatırım yapıp yapmayacağınızı, uyku saatlerinizi değiştirmeyi veya gecenin egzersiz programınızı uyarlamayı anlamaya yardımcı olur.",
+        ],
       },
     },
     {
@@ -474,6 +640,8 @@ export const post: BlogPost = {
         de: "Der Tipp, der im Urlaub den Unterschied macht",
         pt: "O conselho que faz a diferença nas férias",
         fr: "Le conseil qui fait la différence en vacances",
+        pl: "Rozporządzanie, które robi różnicę w urlopie",
+        tr: "Açıklanan tatil tavsiyesiDifference-making vacation advice",
       },
       body: {
         it: "Non portare il caricabatterie del watch vicino alla spiaggia o lasciarlo in auto al sole: è il modo più rapido per dimezzare la vita della batteria in modo permanente. Carica sempre all'ombra, preferibilmente di notte. È banale ma il 90% delle lamentele su 'batteria peggiorata d'estate' ha questa origine.",
@@ -482,6 +650,8 @@ export const post: BlogPost = {
         de: "Bringe das Ladegerät der Uhr nicht an den Strand und lass es nicht in einem sonnenbeschienenen Auto: Das ist der schnellste Weg, die Akkulebensdauer dauerhaft zu halbieren. Lade immer im Schatten, vorzugsweise nachts. Es klingt selbstverständlich, aber 90% der Beschwerden über 'schlechtere Akkuleistung im Sommer' haben genau diese Ursache.",
         pt: "Não leve o carregador do relógio perto da praia nem o deixe no carro ao sol: essa é a forma mais rápida de reduzir permanentemente a vida útil da bateria pela metade. Carregue sempre na sombra, de preferência à noite. Pode parecer óbvio, mas 90% das reclamações sobre 'bateria piorou no verão' têm essa origem.",
         fr: "N'apportez pas le chargeur de la montre près de la plage et ne le laissez pas dans une voiture exposée au soleil : c'est le moyen le plus rapide de réduire de moitié la durée de vie de la batterie de façon permanente. Chargez toujours à l'ombre, de préférence la nuit. Cela paraît évident, mais 90% des plaintes sur 'la batterie a empiré en été' trouvent leur origine exactement ici.",
+        pl: "Nie przywódz carricabaterii zegarka blisko plaży lub go zostaw w samochodzie na słońcu: jest to najwyrazitszy sposób na zmniejszenie trwałości akumulatorki o pół. Zawsze ładowaj w cieniu, najlepiej nocą. Jest to banalne, ale 90% skarg na 'zgorączkowaną akumulator dnia letniego' ma tę przyczynę.",
+        tr: "Giyilebilir cihazın şarj kutusunu plajda veya arabanızda güneş altında tutmamak: bu, şarj sisteminin en hızlı yolu ile yarıya indirmesi için. Her zaman yanık olmaktan uzakta şarj etmek, özellikle gece saatlerinde yapmanızı öneriyoruz. Basit bir ipucu olsa da, yaz aylarında 'şarj durumu kötüleşti' şikayetleri %90'si bu sebepten kaynaklanıyor.",
       },
     },
     {
@@ -494,6 +664,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "W syntezie",
+        tr: "Özetle",
       },
     },
     {
@@ -541,6 +713,20 @@ export const post: BlogPost = {
           "Pour le suivi de santé estival, surveillez la fréquence cardiaque au repos (signe de déshydratation si elle dépasse de 10 bpm votre ligne de base) et la HRV matinale (diminue avec la chaleur).",
           "Option économique imbattable pour l'été : Xiaomi Mi Band 9 Pro (moins de 60 €, 5ATM, 14 jours d'autonomie) couvre 90% des cas d'usage en vacances.",
         ],
+        pl: [
+          "Dla pływanie wymagane są przynajmniej 5ATM: IP68 nie jest wystarczający dla kontynuowanego pływania. Wyschuj zawsze wodą słoną po przymknięciu oczu pod wodą.",
+          "W temperatury powyżej 35°C spadek autonomii wynosi 15-25%: wyłączana jest funkcja zawsze włączonego wyświetlacza, częstotliwość pomiaru HR zmniejsza się do co 10 minut, a nie wolno ładować na słońcu.",
+          "Health Connect jest lokalny: dane akumuluje się na urządzeniu nawet bez połączenia z Internetem i synchronizuje się, jak tylko ponownie zostaniesz połączony. Brak wyciszenia historii.",
+          "Dla letniej zdrowotnej ochrony, monitoruj BPM podczas odpoczynku (sygnał dezidratacji, jeśli wzrosie >10 bpm w porównaniu z bazową wartością) i HRV rano (zmaleje ze wzrostem temperatury).",
+          "Budżetowa oferta letnia niepodważalna: Xiaomi Mi Band 9 Pro (poniżej 60 €, 5ATM, 14 dni autonomii) pokrywa 90% przypadków użycia wczasowe.",
+        ],
+        tr: [
+          "Günlük yüzmek için en az 5ATM gerekli: IP68 süzgeci devamlı yüzmek için yeterli değildir. Denizden sonra her zaman suyla temizle.",
+          "Güçlükler 35°C üzerindeyse, автономия до 15-25% azalır: всегда-он отображение devre dışı bırakılır, HR sürekli her 10 dakikada bir olur ve güneş altında şarj etme yapma.",
+          "Health Connect KVKK içinde yerel olarak: veriler internet olmadan da yerel olarak toplanır ve tekrar bağlantılı olduğunda sychronize edilir. Geçmişinizde hiçbir boya yok.",
+          "Kışkaza uygun sağlık izlemesi için, dinlenme sırasında BPM'i (disidrasyon belirtisi: sebeze >10 bpm artışından sonra sinyal) ve sabah kalp atış hızını (HRV'ı) takip etmeye devam edin.",
+          "Bütçe yazimi muhtemel en iyi seçeneğe: Xiaomi Mi Band 9 Pro (60€ altı, 5ATM, 14 gün dayanıklılık) tatil kullanım durumlarının %90'ını kaplar.",
+        ],
       },
     },
     {
@@ -552,6 +738,8 @@ export const post: BlogPost = {
         de: "Halte deine Gesundheitsdaten auch im Urlaub sicher",
         pt: "Mantenha seus dados de saúde seguros mesmo nas férias",
         fr: "Gardez vos données de santé en sécurité même en vacances",
+        pl: "Zachowaj Twoje dane zdrowotne bezpiecznie nawet wczasami",
+        tr: "Bilgi ve sağlık verilerinizi tatillerde de güvenli tutun.",
       },
       body: {
         it: "FitMesh Sync sincronizza automaticamente Galaxy Watch, Garmin, Fitbit, Oura e altri wearable su una dashboard web accessibile da browser. Funziona anche dopo giorni offline: appena torni connesso, riprende dal punto in cui si era fermato.",
@@ -560,6 +748,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync synchronisiert automatisch Galaxy Watch, Garmin, Fitbit, Oura und andere Wearables in ein browserzugängliches Web-Dashboard. Funktioniert auch nach Tagen offline: Sobald die Verbindung zurückkommt, setzt es dort fort, wo es aufgehört hat.",
         pt: "FitMesh Sync sincroniza automaticamente Galaxy Watch, Garmin, Fitbit, Oura e outros wearables em um painel web acessível pelo navegador. Funciona mesmo após dias offline: assim que a conectividade retorna, retoma de onde parou.",
         fr: "FitMesh Sync synchronise automatiquement Galaxy Watch, Garmin, Fitbit, Oura et d'autres wearables vers un tableau de bord web accessible depuis le navigateur. Fonctionne même après des jours hors ligne : dès que la connectivité revient, il reprend là où il s'était arrêté.",
+        pl: "FitMesh Sync synchronizuje automatycznie Galaxy Watch, Garmin, Fitbit, Oura oraz inne wearable na interfejsie użytkownika internetowym dostępny z przeglądarki. Funkcjonuje również po dniach bezpołątnych: jak tylko ponownie zostaniesz połączony, kontynuuje się od miejsca, w którym się zatrzymało.",
+        tr: "FitMesh Sync otomatik olarak Galaxy Watch, Garmin, Fitbit, Oura ve diğer giyilebilir cihazları bir web tabanlı panelde sunar, bu panel tarayıcılar aracılığıyla erişilebilir. Offline günlerden sonra da çalışır: tekrar bağlantılı hale geldiğinde, son durumdan devam eder.",
       },
       ctaLabel: {
         it: "Entra in beta gratis →",
@@ -568,6 +758,8 @@ export const post: BlogPost = {
         de: "Kostenlos zur Beta →",
         pt: "Entre na beta grátis →",
         fr: "Rejoindre la bêta gratuite →",
+        pl: "Wejście do bêta bezpłatnie →",
+        tr: "Gübre试用版免费→",
       },
       ctaHref: {
         it: "/it/beta",
@@ -584,6 +776,8 @@ export const post: BlogPost = {
         de: "Kann ich mit der Galaxy Watch 7 schwimmen?",
         pt: "Posso nadar com o Galaxy Watch 7?",
         fr: "Puis-je nager avec la Galaxy Watch 7 ?",
+        pl: "Czy mogę pływać z Galaxy Watch 7?",
+        tr: "Giyilebilir cihazım Galaxy Watch 7 ile yüzeyebilirim mı?",
       },
       a: {
         it: "Sì. Galaxy Watch 7 è certificato 5ATM (≈50m) e ha una modalità nuoto integrata che traccia vasche in piscina e nuoto libero. Dopo il nuoto in mare, sciacqualo con acqua dolce.",
@@ -592,6 +786,8 @@ export const post: BlogPost = {
         de: "Ja. Die Galaxy Watch 7 ist 5ATM-zertifiziert (≈50m) und hat einen integrierten Schwimmmodus, der Bahnen im Pool und Freiwasserschwimmen aufzeichnet. Nach dem Schwimmen im Meer mit Süßwasser abspülen.",
         pt: "Sim. O Galaxy Watch 7 tem certificação 5ATM (≈50m) e possui um modo de natação integrado que registra voltas na piscina e natação em águas abertas. Após nadar no mar, enxágue com água doce.",
         fr: "Oui. La Galaxy Watch 7 est certifiée 5ATM (≈50m) et dispose d'un mode natation intégré qui suit les longueurs en piscine et la nage en eau libre. Après avoir nagé en mer, rincez-la à l'eau douce.",
+        pl: "Tak. Galaxy Watch 7 jest certyfikowany 5ATM (≈50m) i posiada wbudowaną tryb nośności, która śledzi baseny w naddwornie oraz wolny styl nośności. Po nośności w morzu spryskaj go słodką wodą.",
+        tr: "Evet. Galaxy Watch 7 KVKK ile uyumlu 5ATM (≈50m) ve plaj suyunun dışına çıkınca izlenen yüzme faaliyetlerini takip eden bir banyo modülü ile sunulmaktadır. Denizde yüzme yapmadan sonra, doygun suyla temizleyin.",
       },
     },
     {
@@ -602,6 +798,8 @@ export const post: BlogPost = {
         de: "Kann Hitze einen Smartwatch dauerhaft beschädigen?",
         pt: "O calor pode danificar permanentemente um smartwatch?",
         fr: "La chaleur peut-elle endommager définitivement une montre connectée ?",
+        pl: "Czy ciepło może wzmocnioć trwale uszkodzić smartwatch?",
+        tr: "Güçlü sıcaklıklar akıllı saatin kalıcı şekilde zararlı olabilir?",
       },
       a: {
         it: "Temperature sopra i 60°C (es. abitacolo auto al sole) possono danneggiare la batteria in modo permanente e ridurne la capacità. Tenere lo smartwatch in auto al sole d'estate è il modo più rapido per rovinare la batteria. Temperatura operativa sicura: generalmente -20°C a +55°C per la maggior parte dei modelli.",
@@ -610,6 +808,8 @@ export const post: BlogPost = {
         de: "Temperaturen über 60°C (z.B. Fahrzeuginnenraum in der Sonne) können den Akku dauerhaft beschädigen und seine Kapazität reduzieren. Einen Smartwatch im Sommer in einem sonnenbeschienenen Auto zu lassen, ist der schnellste Weg, den Akku zu ruinieren. Sichere Betriebstemperatur: generell -20°C bis +55°C für die meisten Modelle.",
         pt: "Temperaturas acima de 60°C (por exemplo, interior de carro ao sol) podem danificar a bateria permanentemente e reduzir sua capacidade. Deixar um smartwatch em um carro exposto ao sol no verão é a forma mais rápida de estragar a bateria. Temperatura de operação segura: geralmente de -20°C a +55°C para a maioria dos modelos.",
         fr: "Des températures supérieures à 60°C (par exemple, l'intérieur d'une voiture au soleil) peuvent endommager la batterie de façon permanente et réduire sa capacité. Laisser une montre connectée dans une voiture exposée au soleil en été est le moyen le plus rapide d'abîmer la batterie. Température de fonctionnement sûre : généralement de -20°C à +55°C pour la plupart des modèles.",
+        pl: "Temperatura powyżej 60°C (np. wnętrze samochodu na słońcu) może w sposób trwały uszkodzić baterię i zmniejszyć jej pojemność. Trzymanie smartwatcha w samochodzie pod słońcem w letni dzień to najwygodniejszy sposób na spowodowanie uszkodzenia baterii. Bezpieczna temperatura pracy: zazwyczaj -20°C do +55°C dla większości modeli.",
+        tr: "Sıcaklık 60°C'den fazla (örn.: koltuklu araba güneş altında) sürekli olarak pilin bozguna uğratılmasına ve kapasitesinin azalmasına neden olabilir. Sıcakta giyilebilir cihazın arabanızda kalmasını yaz;break;夏季高温下将智能手表留在车内会迅速损坏电池。安全运行温度：大多数型号通常为-20°C至+55°C。",
       },
     },
     {
@@ -620,6 +820,8 @@ export const post: BlogPost = {
         de: "Funktioniert Health Connect ohne Internet?",
         pt: "O Health Connect funciona sem internet?",
         fr: "Health Connect fonctionne-t-il sans internet ?",
+        pl: "Czy Health Connect działa bez internetu?",
+        tr: "KVKK içindeki Health Connect internet olmadan nasıl çalışır?",
       },
       a: {
         it: "Sì. Health Connect è completamente on-device: scrive e legge dati in locale sul telefono Android. Internet è necessario solo per sincronizzare quei dati verso un cloud o un'app server-side (come FitMesh Sync). Se sei in vacanza senza connessione, i tuoi dati si accumulano localmente e vengono inviati appena torni online.",
@@ -628,6 +830,8 @@ export const post: BlogPost = {
         de: "Ja. Health Connect läuft vollständig auf dem Gerät: Es schreibt und liest Daten lokal auf dem Android-Telefon. Internet wird nur benötigt, um diese Daten mit einer Cloud oder einer serverseitigen App (wie FitMesh Sync) zu synchronisieren. Wenn du im Urlaub ohne Verbindung bist, sammeln sich deine Daten lokal an und werden gesendet, sobald du wieder online bist.",
         pt: "Sim. O Health Connect funciona completamente no dispositivo: ele grava e lê dados localmente no telefone Android. A internet só é necessária para sincronizar esses dados com uma nuvem ou um app com servidor (como o FitMesh Sync). Se você estiver de férias sem conexão, seus dados se acumulam localmente e são enviados assim que você voltar a ficar online.",
         fr: "Oui. Health Connect fonctionne entièrement sur l'appareil : il écrit et lit des données localement sur le téléphone Android. Internet n'est nécessaire que pour synchroniser ces données vers un cloud ou une application côté serveur (comme FitMesh Sync). Si vous êtes en vacances sans connexion, vos données s'accumulent localement et sont envoyées dès que vous revenez en ligne.",
+        pl: "Tak. Health Connect jest całkowicie on-device: pisze i czyta dane lokalnie na telefonie Android. Internet jest potrzebny tylko do synchronizacji tych danych w kierunku chmury lub serwerowej aplikacji (jak FitMesh Sync). Jeśli jesteś w urlopie bez połączenia, Twoje dane akumulują się lokalnie i są wysyłane, jak tylko ponownie wrócisz online.",
+        tr: "Evet. Health Connect tamamen cihata dayalı: yerel olarak telefon Android üzerinde verileri yazar ve okur. İnternet sadece bu verilerin bulut ya da arka uç uygulama (örneğin FitMesh Sync) yönlendirilmesi için gereklidir. Bağlantısız bir tatilinizdeyseniz, verilerinizi yerel olarak saklar ve çevrimine geri döndüğünüzde göndermeye başlarsınız.",
       },
     },
     {
@@ -638,6 +842,8 @@ export const post: BlogPost = {
         de: "Welche Wasserschutz-Ratings halten Sonnencreme stand?",
         pt: "Quais classificações de resistência à água suportam o protetor solar?",
         fr: "Quelles certifications waterproof résistent à la crème solaire ?",
+        pl: "Jaki podwójny warstwy są odpowiadające na krem sunarny?",
+        tr: "Hangi pişotlar güneş kremine karşı dayanıklı?",
       },
       a: {
         it: "Nessuna certificazione protegge specificamente dai prodotti chimici della crema solare. La crema può deteriorare le guarnizioni in gomma nel tempo, indipendentemente dal rating. Consiglio pratico: applica la crema, aspetta che sia assorbita, poi indossa il watch. Evita di applicarla mentre il watch è già al polso.",
@@ -646,6 +852,8 @@ export const post: BlogPost = {
         de: "Keine Zertifizierung schützt speziell vor den Chemikalien der Sonnencreme. Sonnencreme kann Gummidichtungen mit der Zeit verschlechtern, unabhängig vom Rating. Praktischer Tipp: Trage Sonnencreme auf, warte bis sie eingezogen ist, dann lege die Uhr an. Vermeide das Auftragen, während die Uhr bereits am Handgelenk sitzt.",
         pt: "Nenhuma certificação protege especificamente contra os produtos químicos do protetor solar. O protetor pode deteriorar as vedações de borracha com o tempo, independentemente da classificação. Dica prática: aplique o protetor solar, espere ser absorvido e depois coloque o relógio. Evite aplicar enquanto o relógio já está no pulso.",
         fr: "Aucune certification ne protège spécifiquement contre les produits chimiques de la crème solaire. La crème peut détériorer les joints en caoutchouc avec le temps, quel que soit le niveau de certification. Conseil pratique : appliquez la crème solaire, attendez qu'elle soit absorbée, puis mettez la montre. Évitez de l'appliquer pendant que la montre est déjà au poignet.",
+        pl: "Brak specjalnej uwagi dotyczącej chronienia przed substancjami chemicznymi z kremu solarnego. Krem może uszkodzić obudowy z gumy o czasie, niezależnie od oceny. Przydatne porady: nakładaj krem, poczekaj aż się wchłonie, a następnie od🔎dziel smartwatch. Unikaj nakładania go podczas gdy smartwatch jest już na nad🚀luku.",
+        tr: "Yetki verilmediği bir сертификация, güneş kreminden giyilebilir cihazlara özel koruma sağlamaz. Krem, zaman içinde gummu kablolarını bozabilecektir, rehberlik derecelendirmesine bakılmaksızın. Uygulanan pratik tavsiye: Kremi uygula, kaburması tamamlandığında pisolini tak. Pisolinin zaten cebinde olduğunda kremi uygamayın.",
       },
     },
   ],

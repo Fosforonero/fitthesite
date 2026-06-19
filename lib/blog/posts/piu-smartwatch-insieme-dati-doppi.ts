@@ -56,6 +56,20 @@ export const post: BlogPost = {
       "Deux choses nécessitent une configuration manuelle : quel appareil vous portez la nuit et la désactivation de Google Fit comme source d'écriture s'il est encore actif.",
       "FitMesh Sync applique cette déduplication automatiquement et sépare toujours la fréquence cardiaque au repos de la fréquence cardiaque d'entraînement.",
     ],
+    pl: [
+      "Health Connect nie de duplicuje: jest neutralnym bazodanem źródłowym, a każda aplikacja zapisuje dane niezalepiecie. Logika de duplicacji powinna być umieszczona w aplikacji, która agreguje te dane.",
+      "Trzy typowe problemy: duplikaty kroków z powodu zlaczonych rekordów, dupek sesji sennej, średnia częstotliwość pulsacyjna zanieczyszczonej przez różne konteksty.",
+      "Strategia poprawna kombinuje trzy techniki: winner-takes-all dla okna czasowego (HR), slot-merge co 15 minut (kroki), grupowanie z priorytetami źródłowymi (spoczynek).",
+      "Dwie rzeczy wymagają ręcznej konfiguracji: jaki urządzenie wearble używasz podczas senu i wyłącz jako źródło pisowni Google Fit, jeśli nadal aktywne.",
+      "FitMesh Sync stosuje tę deduplikację automatycznie i zawsze oddziela HR spoczynkowe od HR treningowych.",
+    ],
+    tr: [
+      "Health Connect de duplifikasyon yapmaz: bir kaynak için net bir veritabanı ve her uygulama bağımsız olarak yazar. Duplikasyonun mantığı, toplayan uygulamada olmalıdır.",
+      "Üç tipik sorun: kaydedilen kayıtların katlanan önbellek kayıtlarıyla çakıştığı pas geçişleri, tekrar eden uyku oturumları, farklı bağlamlardan gelen kirli ortalaması kalp atış hızı.",
+      "Kesin strateji üç teknik kombinasyonu içerir: zaman diliminde kazanç alır, kazanır (HR) için winner-takes-all, 15 dakikalık slot-merge (paslar), kaynak önceliği ile kümeleme (uyku).",
+      "İki şey el ile yapılandırılması gerekmektedir: gece ne giyilebilir cihaz kullanıyorsunuz ve Google Fit'ı yazma kaynak olarak devre dışı bırakmanız gerektiğinden.",
+      "FitMesh Sync bu düplikasyonu otomatik olarak uygular ve her zaman dinamik HR değerini statik HR değerinden ayırır.",
+    ],
   },
   primaryKeyword: {
     it: "più smartwatch insieme dati doppi deduplicazione",
@@ -64,6 +78,8 @@ export const post: BlogPost = {
     de: "mehrere Smartwatches zusammen doppelte Daten Deduplizierung",
     pt: "vários smartwatches juntos dados duplicados deduplicação",
     fr: "plusieurs montres connectées ensemble données dupliquées déduplication",
+    pl: "więcej smartwatch z podwójnie zduplikowanymi danymi de duplicacja",
+    tr: "iki akıllı saati birlikte çift katlı veri silme",
   },
   secondaryKeywords: {
     it: [
@@ -106,6 +122,22 @@ export const post: BlogPost = {
       "Garmin Suunto Galaxy Watch ensemble",
       "dédupliquer données de santé health connect",
     ],
+    pl: [
+      "pulpit wieloskładnikowy wearable",
+      "kroki policzone dwukrotnie smartwatch",
+      "sonno doppio anello smart",
+      "częstotliwość serca źródła mieszane",
+      "Garmin Suunto Galaxy Watch razem",
+      "deduplikować dane zdrowia health connect",
+    ],
+    tr: [
+      "gösterge paneli multi-sorgu giyilebilir cihaz",
+      "adım sayısını iki kere kontrol et giyilebilir cihaz",
+      "yeni uykuluk çift anahtarı smartanço __FM_PH_0__",
+      "kalp atışı kaynakları karışık",
+      "KVKK Garmin Suunto Galaxy Watch birlikte",
+      "veri tekrarlamasını ortadan kaldırma sağlık baglantısı KVKK",
+    ],
   },
   metaDescription: {
     it: "Usi più wearable insieme (smartwatch, anello smart, GPS watch)? Ecco perché i dati si duplicano, come funziona la deduplicazione e cosa devi configurare tu rispetto a quello che fa FitMesh Sync in automatico.",
@@ -114,9 +146,11 @@ export const post: BlogPost = {
     de: "Trägst du mehrere Wearables gleichzeitig (Smartwatch, Smart-Ring, GPS-Uhr)? Hier erfährst du, warum sich Daten doppeln, wie die Deduplizierung funktioniert und was FitMesh Sync automatisch erledigt.",
     pt: "Você usa vários wearables juntos (smartwatch, anel inteligente, GPS watch)? Veja por que os dados se duplicam, como funciona a deduplicação e o que o FitMesh Sync resolve automaticamente.",
     fr: "Vous utilisez plusieurs appareils connectés ensemble (montre connectée, bague connectée, montre GPS) ? Découvrez pourquoi les données se dupliquent, comment fonctionne la déduplication et ce que FitMesh Sync gère automatiquement.",
+    pl: "Używasz wielu wearable-ów naraz (smartwatch, smart ring, GPS watch)? Oto dlaczego dane się powtarzają, jak działa deduplikacja i co musisz skonfigurować w porównaniu do tego, co robi FitMesh Sync automatycznie.",
+    tr: "Giyilebilir cihazlarınızı daha fazla kullanıyorsunuz (akıllı saat, akıllı anel, GPS watch)? İşte neden veriler çoğalıyor ve nasıl işler. Deduplicasyonu nasıl yapılmış ve FitMesh Sync otomatik olarak yapmadığı kısım ne olmalı.",
   },
   hero: {
-    kicker: { it: "Guida pilastro", en: "Pillar guide", es: "Guía pilar", de: "Pillar-Anleitung", pt: "Guia pilar", fr: "Guide pilier" },
+    kicker: { it: "Guida pilastro", en: "Pillar guide", es: "Guía pilar", de: "Pillar-Anleitung", pt: "Guia pilar", fr: "Guide pilier", pl: "Przewodnik pilarski", tr: "Pilatöstrü Kılavuz" },
     title: {
       it: "Più smartwatch insieme senza dati doppi: guida alla deduplicazione multi-wearable",
       en: "Multiple smartwatches, no duplicate data: the multi-wearable deduplication guide",
@@ -124,6 +158,8 @@ export const post: BlogPost = {
       de: "Mehrere Smartwatches, keine doppelten Daten: der Leitfaden zur Multi-Wearable-Deduplizierung",
       pt: "Vários smartwatches juntos sem dados duplicados: guia de deduplicação multi-wearable",
       fr: "Plusieurs montres connectées sans données dupliquées : le guide de déduplication multi-wearable",
+      pl: "Więcej smartwatches bez duplikatów danych: przewodnik po deduplikacji wielu wearables",
+      tr: "Çok akıllı saati birlikte veri çiftini silmek için: çok-giyilebilir-cihazlar için deduplikasyon rehberi",
     },
     subtitle: {
       it: "Ogni wearable pensa di essere l'unica fonte di verità, e ha ragione dal suo punto di vista. Il problema nasce quando cinque fonti di verità scrivono tutte in Health Connect e nessuna sa dell'esistenza delle altre.",
@@ -132,6 +168,8 @@ export const post: BlogPost = {
       de: "Jedes Wearable glaubt, die einzige Quelle der Wahrheit zu sein, und hat aus seiner eigenen Perspektive recht. Das Problem entsteht, wenn fünf Wahrheitsquellen alle in Health Connect schreiben und keine von der Existenz der anderen weiß.",
       pt: "Cada wearable acredita ser a única fonte da verdade, e está certo do seu ponto de vista. O problema começa quando cinco fontes da verdade escrevem todas no Health Connect e nenhuma sabe que as outras existem.",
       fr: "Chaque appareil connecté pense être la seule source de vérité, et il a raison de son propre point de vue. Le problème commence quand cinq sources de vérité écrivent toutes dans Health Connect et qu'aucune ne sait que les autres existent.",
+      pl: "Każdy wearable uważa się za jedyną źródło prawdy, i ma rację z perspektywy swojej. Problem pojawia się, gdy pięć źródeł prawdy piszą wszystko w Health Connect i żadne nie wie o istniecientwi innych.",
+      tr: "Herhangi bir giyilebilir cihaz kendi gerçekliğin tek kaynağına inanır ve buna bakınca haklıdır. Sorunun kökünün şansa rastgele beş farklı gerçeklik kaynağı aynı zamanda herhangi birini bilmeden herkese aynı anda bilgi yazdığını bulması vardır.",
     },
   },
   body: [
@@ -144,6 +182,8 @@ export const post: BlogPost = {
         de: "Wenn du mehr als ein Wearable trägst, ist deine Schrittanzahl mit hoher Wahrscheinlichkeit überhöht. Nicht wegen eines Fehlers: Es ist das erwartete Verhalten eines Ökosystems, das für einzelne Geräte entwickelt wurde und von jemandem genutzt wird, der verstanden hat, dass verschiedene Werkzeuge verschiedene Dinge besser können. Ein Galaxy Watch für den Alltag, ein Smart-Ring für den Schlaf, ein Garmin für lange Läufe, ein Suunto für Segeltouren oder Bergausflüge: Jedes Gerät glänzt in seinem Kontext. Aber die Dashboard muss wissen, dass die 8.000 Morgenschritte nicht zu den 8.000 Schritten addiert werden dürfen, die Garmin während des Nachmittagslaufs auf denselben Gehsteigen aufgezeichnet hat.",
         pt: "Se você usa mais de um wearable, a sua contagem de passos quase certamente está inflada. Não por causa de um bug: é o comportamento esperado de um ecossistema projetado para dispositivos únicos, usado por alguém que entendeu que ferramentas diferentes fazem coisas diferentes melhor. Um Galaxy Watch para o dia a dia, um anel inteligente para o sono, um Garmin para corridas longas, um Suunto para saídas de barco ou na montanha: cada dispositivo se destaca no seu contexto. Mas o painel precisa saber que os 8.000 passos da manhã não devem ser somados aos 8.000 passos que o Garmin registrou durante a corrida da tarde pelas mesmas calçadas.",
         fr: "Si vous portez plusieurs appareils connectés, votre compteur de pas est presque certainement gonflé. Pas à cause d'un bug : c'est le comportement attendu d'un écosystème conçu pour des appareils uniques, utilisé par quelqu'un qui a compris que des outils différents font mieux des choses différentes. Une Galaxy Watch pour le quotidien, une bague connectée pour le sommeil, une Garmin pour les longues courses, une Suunto pour les sorties en mer ou en montagne : chaque appareil excelle dans son contexte. Mais le tableau de bord doit savoir que les 8 000 pas du matin ne doivent pas être additionnés aux 8 000 pas enregistrés par Garmin lors de la course de l'après-midi sur les mêmes trottoirs.",
+        pl: "Je indoszuj więcej niż jeden wearable, twoje kroki prawie na pewno są przekrwione. Nie z powodu błędu: jest to zachowanie oczekiwane w ecosystemie zaprojektowanym dla pojedynczych urządzeń, używanym przez osobę, która zrozumiała, że różne narzędzia działają lepiej w różnych kontekstach. Galaxy Watch na codzienne potrzeby, anell smart do śpienia, Garmin dla długich biegów, Suunto do wyjazdów na barakę lub górskie wyprawy: każde urządzenie wyróżnia się w swoim kontekście. Jednaktastrzyżka musi zrozumieć, że 8000 kroków rano nie powinny być dodawane do 8000 kroków, które Garmin zarejestrował podczas wieczornego biegu przebiegającego przez te same chodniki.",
+        tr: "Se daha bir giyilebilir cihaz giymüşsün, adımların muhtemelen artmış. Bir hata değil: bu, tek cihazlar için tasarlanmış bir ecosistemin beklenen davranışıdır, ve bunu kavrayan birinin farklı araçların farklı alanlarda daha iyi işler yaptığını anladığını gösterir. Bir Galaxy Watch için günlük adımlar, uyku için bir akıllı yüzük, uzun mesafeli koşu için bir Garmin, barakta veya dağda çıkışı için bir Suunto: her cihaz kendi bağlamında en iyi işi yapar. Ancak, arayüz, sabahki 8.000 adımı öğlen koşu sırasında aynı marciapiedilere geçtiği için kaydettiği 8.000 adımı toplamak zorunda değildir.",
       },
     },
     {
@@ -156,6 +196,8 @@ export const post: BlogPost = {
         de: "TL;DR: Was wirklich zählt",
         pt: "TL;DR: o que realmente importa",
         fr: "TL;DR : ce qui compte vraiment",
+        pl: "TL;DR: to, co prawdziwie liczy",
+        tr: "TL;DR: gerçekten önemli olan",
       },
       body: {
         it: "I dati si duplicano perché Health Connect non ha un meccanismo nativo di deduplicazione tra app: ogni sorgente scrive il suo record indipendentemente. La soluzione non è disabilitare dispositivi, ma assegnare a ogni tipo di dato una sorgente vincente (winner-takes-all per ora del giorno, merge field-level per metriche giornaliere, clustering temporale per il sonno). FitMesh Sync fa questo in automatico per la maggior parte dei casi; per alcuni scenari avanzati serve una configurazione manuale descritta in questa guida.",
@@ -164,6 +206,8 @@ export const post: BlogPost = {
         de: "Daten duplizieren sich, weil Health Connect keinen nativen App-übergreifenden Deduplizierungsmechanismus hat: Jede Quelle schreibt ihren eigenen Datensatz unabhängig. Die Lösung ist nicht das Deaktivieren von Geräten, sondern das Zuweisen einer Gewinnerquelle für jeden Datentyp (Winner-takes-all nach Tageszeit, Merge auf Feldebene für tägliche Metriken, zeitliches Clustering für Schlaf). FitMesh Sync erledigt dies in den meisten Fällen automatisch; einige erweiterte Szenarien erfordern die in diesem Leitfaden beschriebene manuelle Konfiguration.",
         pt: "Os dados se duplicam porque o Health Connect não tem um mecanismo nativo de deduplicação entre apps: cada fonte escreve seu próprio registro de forma independente. A solução não é desativar dispositivos, mas atribuir uma fonte vencedora a cada tipo de dado (winner-takes-all por hora do dia, merge em nível de campo para métricas diárias, clustering temporal para o sono). O FitMesh Sync faz isso automaticamente na maioria dos casos; alguns cenários avançados exigem a configuração manual descrita neste guia.",
         fr: "Les données se dupliquent parce que Health Connect n'a pas de mécanisme natif de déduplication entre applications : chaque source écrit son propre enregistrement de façon indépendante. La solution n'est pas de désactiver des appareils, mais d'assigner une source gagnante à chaque type de données (winner-takes-all par heure de la journée, fusion au niveau des champs pour les métriques quotidiennes, clustering temporel pour le sommeil). FitMesh Sync gère cela automatiquement dans la plupart des cas ; certains scénarios avancés nécessitent la configuration manuelle décrite dans ce guide.",
+        pl: "Dane się podwójne, ponieważ Health Connect nie posiada natywnej funkcji deduplikacji między aplikacjami: każda źródło pisze swój rekord niezależnie. Rozwiązanie polega na przypisaniu do każdego typu danych jednego wygrującego źródła (na razie dla godzin, łączenie po poziomie pola dla metryk dziennych, klasterowanie czasowe dla snu). FitMesh Sync robi to automatycznie w większości przypadków; niektóre zaawansowane scenariusze wymagają ręcznej konfiguracji opisanej w tej instrukcji.",
+        tr: "Veriler çiftleniyor çünkü Health Connect uygulamalar arasında natif bir çakışma önleyici mekanizması yok: her kaynak kendi kaydını bağımsız olarak yazıyor. Çözüm cihazları devre dışı bırakmaktan geçer, her veri tipine bir kazanan kaynağı atama (gün saatleri için kazanıcı alır, günlük metrikler için alan seviyesinde birleştirmek, uyku için zamanlı kümeleme). FitMesh Sync çoğu durumda bu otomatik olarak yapar; bazı gelişmiş senaryolarda manuel yapılandırma gereklidir ve bu kılavuzda açıklanmıştır.",
       },
     },
     {
@@ -176,6 +220,8 @@ export const post: BlogPost = {
         de: "Warum sich Daten duplizieren: die technische Ursache",
         pt: "Por que os dados se duplicam: a raiz técnica do problema",
         fr: "Pourquoi les données se dupliquent : la cause technique du problème",
+        pl: "Dlaczego dane się podwójnie zaznaczają: podstawowa techniczna przyczyna problemu",
+        tr: "Neden veriler çoğalıyor: Problemin teknik köklerini anlayın",
       },
     },
     {
@@ -187,6 +233,8 @@ export const post: BlogPost = {
         de: "Health Connect ist eine lokale Datenbank auf Android. Jede App mit den richtigen Berechtigungen kann Datensätze jeglichen Typs schreiben: Schritte, Herzfrequenz, Schlafsitzungen, Trainings. Health Connect weiß nicht, ob zwei Datensätze dasselbe sind, das zweimal gemessen wurde: Es gibt kein Feld \"Primärquelle\" und keine automatische Deduplizierung. Dies ist eine bewusste Designentscheidung, keine technische Einschränkung: Das System ist quellenunabhängig, um keinen Hersteller zu bevorzugen.",
         pt: "O Health Connect é um banco de dados local no Android. Qualquer app com as permissões corretas pode gravar registros de qualquer tipo: passos, frequência cardíaca, sessões de sono, treinos. O Health Connect não sabe se dois registros representam a mesma coisa medida duas vezes: não há campo \"fonte primária\" e não há deduplicação automática. Esta é uma escolha de design deliberada, não uma limitação técnica: o sistema é neutro em relação às fontes para não favorecer nenhum fabricante.",
         fr: "Health Connect est une base de données locale sur Android. Toute application avec les bonnes autorisations peut écrire des enregistrements de n'importe quel type : pas, fréquence cardiaque, séances de sommeil, entraînements. Health Connect ne sait pas si deux enregistrements représentent la même chose mesurée deux fois : il n'y a pas de champ \"source principale\" et pas de déduplication automatique. C'est un choix de conception délibéré, pas une limitation technique : le système est neutre vis-à-vis des sources pour ne favoriser aucun fabricant.",
+        pl: "Health Connect to lokalny baza danych na Android. Każda app z odpowiednimi uprawnieniami może do niego wpisywać rekordy dowolnego typu: kroki, częstotliwość serca, sesje senne, treningi. Health Connect nie wie, czy dwa rekordy to ta sama rzecz pomiarowana dwukrotnie: nie ma pola \"pochodzenie oryginalne\" i nie de-duplikuje automatycznie. To jest świadomie zrobiona decyzja projektowa, a nie techniczny limit: system jest neutralny wobec źródeł, aby nie przewyższać żadnego producenta.",
+        tr: "Health Connect bir yerel veritabanı Android üzerinde. Her uygulama doğru izinlerle bu veritabanına her tür kaydı yazabilir: adımlar, kalp atış hızı, uyku oturumları, egzersizler. Health Connect iki aynı şeyi iki kez ölçtüğünü bilmemektedir: \"asıl kaynağı\" bir alanına sahip değildir ve otomatik olarak de-duplikasyon yapmaz. Bu, tasarım seçimi değil teknik bir sınırlıdır: sistemin kaynaklara dair netici olmaması, her üreticinin tercih edilmesini sağlar.",
       },
     },
     {
@@ -198,6 +246,8 @@ export const post: BlogPost = {
         de: "Das konkrete Problem: Wenn du während eines 10-km-Laufs sowohl eine Galaxy Watch als auch eine Garmin trägst, schreiben beide in Health Connect. Die Galaxy Watch schreibt ihre 9.847 Schritte, Garmin schreibt seine 10.124 Schritte (die Zahlen weichen ab, weil die Sensorkalibrierungen unterschiedlich sind). Eine App, die Health Connect ohne Deduplizierungslogik liest, addiert sie: Ergebnis, 19.971 Schritte für einen 10-km-Lauf. Das ist doppelt so viel. Und bei der Herzfrequenz ist es noch schlimmer: Die Durchschnittswerte werden durch Messungen in unterschiedlichen physischen Kontexten verfälscht.",
         pt: "O problema concreto: quando você usa Galaxy Watch e Garmin durante uma corrida de 10 km, ambos escrevem no Health Connect. O Galaxy Watch registra seus 9.847 passos, o Garmin registra seus 10.124 passos (os números divergem porque as calibrações dos sensores são diferentes). Um app que lê o Health Connect sem lógica de deduplicação os soma: resultado, 19.971 passos para uma corrida de 10 km. Isso é o dobro. E para a frequência cardíaca é pior: as médias ficam contaminadas por medições feitas em contextos físicos diferentes.",
         fr: "Le problème concret : quand vous portez à la fois une Galaxy Watch et une Garmin pendant une course de 10 km, les deux écrivent dans Health Connect. La Galaxy Watch enregistre ses 9 847 pas, la Garmin enregistre ses 10 124 pas (les chiffres divergent parce que les calibrations des capteurs diffèrent). Une application qui lit Health Connect sans logique de déduplication les additionne : résultat, 19 971 pas pour une course de 10 km. C'est le double. Et pour la fréquence cardiaque c'est encore pire : les moyennes sont contaminées par des mesures prises dans des contextes physiques différents.",
+        pl: "Problem konkretny: gdy nosisz Galaxy Watch i Garmin podczas biegu 10 km, oba zapisują w Health Connect. Galaxy Watch zapisuje swoje 9.847 kroki, a Garmin zapisuje swoje 10.124 kroki (liczby te się różnią ze względu na różne kalibracje sensora). Aplikacja, która czyta Health Connect bez logiki deduplikacji, sumuje je: wynik, 19.971 kroków dla biegu 10 km. Jest to podwójna ilość. I dla częstotliwości pulsacyjnej jest jeszcze gorsze: średnie są zanieczyszczone pomiarami wykonanymi w różnych fizycznych kontekstach.",
+        tr: "Etkiliyor olan gerçek problem: Galaxy Watch ve Garmin yi giyenizde 10 km bir koşu sırasında, her ikisi de Health Connect 'da yazıyor. Galaxy Watch 9.847 adımını, Garmin ise 10.124 adımını yazıyor (bu sayıların farklılığı, cihazlardaki sensör kalibrasyonlarının farklılığından kaynaklanıyor). Bir uygulama, bu adımları mantıklı bir şekilde tekrarlamadan topladığında sonuç 19.971 adım oluyor: 10 km koşusunun iki katına çıkıyor. Ve kalp atış hızı için hala daha kötü: ortalama değerler, fiziksel durumları farklı olan ölçümlerden etkilendiği için yanlışlıkla kontaminasyona uğruyor.",
       },
     },
     {
@@ -210,6 +260,8 @@ export const post: BlogPost = {
         de: "Drei Duplikationsmuster, die am häufigsten auftreten",
         pt: "Três padrões de duplicação que aparecem com mais frequência",
         fr: "Trois schémas de duplication les plus fréquents",
+        pl: "Trzy wzory kopiowania, z którymi spotykam się najczęściej",
+        tr: "Üç tür kopyalama paterni daha sık karşılaşıyorum",
       },
     },
     {
@@ -246,6 +298,16 @@ export const post: BlogPost = {
           "**Séances de sommeil qui se chevauchent**: Galaxy Ring ou Oura écrit une séance de sommeil de 22h30 à 06h45. Galaxy Watch écrit de 22h35 à 06h40 (même nuit, fenêtres légèrement différentes). Un agrégateur qui ne regroupe pas les séances par cluster temporel affiche deux nuits de sommeil, doublant les heures totales et faussant les moyennes du score de sommeil.",
           "**Fréquence cardiaque moyenne quotidienne de sources mixtes**: votre ceinture Polar H10 enregistre 147 bpm comme moyenne d'entraînement. La Galaxy Watch a enregistré 72 bpm comme moyenne au repos l'après-midi. Sans étiqueter les fenêtres temporelles, la moyenne quotidienne devient un nombre physiquement sans signification.",
         ],
+        pl: [
+          "**Rekordy akumulatywne**: dla kroków niektóre aplikacje zapisują rekordy akumulatywne (\"akumulowane kroki dnia do chwili obecnej\") zamiast intradajowych. Jeśli zarówno Galaxy Watch jak i Garmin Connect używają rekordów akumulatywnych, całkowity wynik na koniec dnia to suma dwóch całkowitych wartości, a nie deduplikowany wynik.",
+          "**Sesje snuwań nadlängeczne**: Galaxy Ring lub Oura zapisują sesję od 22:30 do 06:45. Galaxy Watch zapisuje od 22:35 do 06:40 (taka noc, okna lekko różne). Agregator, który nie clusteruje czasowo sesji, pokazuje dwie noce snu, podwojając całkowite godziny i zanieczyszcza średnie oceny snu.",
+          "**Srednia częstotliwość serca dzienna z różnych źródeł**: kardiaca Polar H10, którą używasz podczas treningu, zapisuje 147 bpm jako średnią dla trenu. Galaxy Watch zapisuje 72 bpm jako średnią spoczynkową w porze południowej. Bez taggowania okresów czasowych, srednia dzienna staje się liczbą bez sensu fizycznego.",
+        ],
+        tr: [
+          "**Kumulatif Kaydedilen Veriler**: bazı uygulamalar günde yapılan adımları toplu kaydolar (\"günün başından bu yana toplam adımlar\") yerine günlük içindeki kayıtlara yazmazlar. Eğer Galaxy Watch ve Garmin Connect hem toplu kayıtları kullanıyorsa, gün sonunda toplam, iki toplamın toplamı olacak, tekrarlayan bir toplama değil.\nKVKK'ye uygun olarak, günde son toplam adımlarınız, her iki uygulamanın günlük toplamlarıının toplamıdır.",
+          "**Üzgün uykular**: Galaxy Ring veya Oura 22:30-06:45 sürelerinde bir uykuları kaydeder. Galaxy Watch ise 22:35-06:40 arasında (aynı gece, aralıklar biraz farklı). Bir agregatör, zamanla gruplama yapmazsa iki gece uyku kaydediyor ve toplam saatleri ikiye katlıyor, uykusal puan ortalamalarını da bozuyor.",
+          "**Günlük Ortalama Kalp Oranı**: Kullanacağınız Polar H10 cihazı, egzersiz sırasında 147 bpm'yi günlük ortalamaya ekler ve pazar öğleden sonraki anlık kalp hızının 72 bpm'sini kaydeder. Etiketlenmemiş zaman aralıkları olmadan, günlük ortalama bir fiziksel anlamda yorumlanmaz.",
+        ],
       },
     },
     {
@@ -258,6 +320,8 @@ export const post: BlogPost = {
         de: "Achtung: Samsung Health schreibt zweimal",
         pt: "Atenção: Samsung Health grava duas vezes",
         fr: "Attention : Samsung Health écrit deux fois",
+        pl: "Gotcha: Samsung Health pisz wiele razy",
+        tr: "Gotcha: Samsung Health iki kez yazıyor",
       },
       body: {
         it: "Samsung Health su Galaxy Watch scrive in Health Connect, ma su alcuni telefoni Samsung scrive anche su Google Fit (ancora attivo in background su dispositivi pre-2024). Se Google Fit a sua volta ha un'integrazione attiva con Health Connect, lo stesso record di passi finisce in Health Connect due volte con source_app diverso. Risultato: anche senza Garmin, i tuoi passi sono il doppio. Soluzione: vai in Samsung Health > Impostazioni > Connessioni app e verifica che Google Fit NON abbia permesso di scrittura attivo.",
@@ -266,6 +330,8 @@ export const post: BlogPost = {
         de: "Samsung Health auf der Galaxy Watch schreibt in Health Connect, aber auf manchen Samsung-Telefonen schreibt es auch in Google Fit (das auf Geräten vor 2024 noch im Hintergrund läuft). Wenn Google Fit seinerseits eine aktive Health Connect-Integration hat, landet derselbe Schrittdatensatz zweimal in Health Connect mit unterschiedlicher source_app. Ergebnis: Auch ohne Garmin sind deine Schritte verdoppelt. Lösung: Gehe zu Samsung Health > Einstellungen > Verbundene Apps und stelle sicher, dass Google Fit KEINE aktive Schreibberechtigung hat.",
         pt: "O Samsung Health no Galaxy Watch grava no Health Connect, mas em alguns telefones Samsung ele também grava no Google Fit (ainda ativo em segundo plano em dispositivos anteriores a 2024). Se o Google Fit por sua vez tiver uma integração ativa com o Health Connect, o mesmo registro de passos acaba no Health Connect duas vezes com source_app diferente. Resultado: mesmo sem o Garmin, seus passos estão duplicados. Solução: vá em Samsung Health > Configurações > Aplicativos conectados e verifique que o Google Fit NÃO tenha permissão de escrita ativa.",
         fr: "Samsung Health sur Galaxy Watch écrit dans Health Connect, mais sur certains téléphones Samsung il écrit aussi dans Google Fit (encore actif en arrière-plan sur les appareils antérieurs à 2024). Si Google Fit a à son tour une intégration active avec Health Connect, le même enregistrement de pas se retrouve deux fois dans Health Connect avec une source_app différente. Résultat : même sans Garmin, vos pas sont doublés. Solution : allez dans Samsung Health > Paramètres > Applications connectées et vérifiez que Google Fit n'a PAS de permission d'écriture active.",
+        pl: "Samsung Health na Galaxy Watch pisz w Health Connect, ale na niektórych telefonach Samsung pisze też w Google Fit (jeszcze aktywnie w tle na urządzeniach przed 2024). Jeśli Google Fit ma jednocześnie aktywne integracje z Health Connect, to sama historia kroków kończy się w Health Connect dwukrotnie, z różnym source_app. Wynik: nawet bez Garmin, Twoje kroki są podwójne. Rozwiązanie: idź do Samsung Health > Ustawienia > Połączenia app i upewnij się, że Google Fit nie ma aktywnego dopuszczania zapisu.",
+        tr: "Samsung Health su Galaxy Watch KVKK, ancak bazı Samsung telefonları üzerinde de Google Fit (yine 2024 yılına kadar arka planda aktif olan) üzerinde de yazıyor. Eğer Google Fit aynı zamana da Health Connect ile bir integrazione aktif halinde ise, aynı adet adım iki kez Health Connect 'a kaydedilir ve farklı source_app ile. Sonuç: KVKK olmadan bile, adımların senin için iki katı. Çözüm: Samsung Health > Ayarlar > Uygulama Bağlantıları'na gidip, Google Fit 'un yazma iznine sahip olmadığını kontrol et.",
       },
     },
     {
@@ -278,6 +344,8 @@ export const post: BlogPost = {
         de: "Das beschriebene Setup: vier Wearables, vier Rollen",
         pt: "O cenário que descrevo: quatro wearables, quatro funções",
         fr: "La configuration décrite : quatre appareils connectés, quatre rôles",
+        pl: "Setup, który opisuję: cztery wearable, cztery role",
+        tr: "İşte tanımladığım ayarlar: dört giyilebilir cihaz, dört rol",
       },
     },
     {
@@ -289,6 +357,8 @@ export const post: BlogPost = {
         de: "Um konkret zu sein: Ich arbeite mit diesem spezifischen Setup: Alltags-Smartwatch (Galaxy Watch 7), die alles im Hintergrund aufzeichnet, Smart-Ring (Galaxy Ring oder Oura Ring), der für die Schlafüberwachung mit überlegenen Sensoren im Vergleich zu Smartwatches optimiert ist, Lauf-GPS-Uhr (Garmin Forerunner) für Laufsessions mit präzisem GPS und erweiterter VO2max-Analyse, Outdoor-/Segeluhr (Suunto Race oder Suunto Ocean) für Bootsausflüge und Trekking, wo GPS-Protokollierung und Barometerhöhenmesser wichtig sind. Vier Geräte, vier Anwendungskontexte, vier Apps, die in Health Connect schreiben.",
         pt: "Para ser concreto, trabalho com este cenário específico: smartwatch do dia a dia (Galaxy Watch 7) que registra tudo em segundo plano, anel inteligente (Galaxy Ring ou Oura Ring) otimizado para monitoramento do sono com sensores superiores em comparação aos smartwatches, relógio GPS de corrida (Garmin Forerunner) para sessões de corrida com GPS preciso e análise avançada de VO2max, relógio outdoor/vela (Suunto Race ou Suunto Ocean) para saídas de barco e trekking onde o registro GPS e o altímetro barométrico são essenciais. Quatro dispositivos, quatro contextos de uso, quatro apps que escrevem no Health Connect.",
         fr: "Pour être concret, je travaille avec cette configuration spécifique : montre connectée quotidienne (Galaxy Watch 7) qui enregistre tout en arrière-plan, bague connectée (Galaxy Ring ou Oura Ring) optimisée pour le suivi du sommeil avec des capteurs supérieurs aux montres connectées, montre GPS de course (Garmin Forerunner) pour les séances de running avec un GPS précis et une analyse avancée du VO2max, montre outdoor/voile (Suunto Race ou Suunto Ocean) pour les sorties en bateau et le trekking où le journal GPS et l'altimètre barométrique sont essentiels. Quatre appareils, quatre contextes d'utilisation, quatre applications qui écrivent dans Health Connect.",
+        pl: "Aby być konkretny, pracuję nad tym konkretnym przypadkiem użycia: regularny smartwatch (Galaxy Watch 7) śledzący wszystko w tle, smartanellę (Galaxy Ring lub Oura Ring) optymalizowaną do monitorowania snu z sensorami wyższej jakości niż smartwaty, GPS watch przeznaczony dla biegów (Garmin Forerunner) z precyzyjnym GPS i zaawansowaną analizą VO2max, watch zewnętrzny/morski (Suunto Race lub Suunto Ocean) do wypraw na statek i trekkingu wymagających logowania GPS oraz barometru. Cztery urządzenia, cztery konteksty użycia, cztery aplikacje piszące w Health Connect.",
+        tr: "Eşitlikle, bu belirli kullanımda çalışıyorum: günlük akıllı saat (Galaxy Watch 7) arka planda her şeyi takip eden, uyku izleme için optimizasyonu yüksek kalite sensörleri olan akıllı anel (Galaxy Ring veya Oura Ring), koşu çıkışları için hassas ve gelişmiş VO2max analizi sunan (Garmin Forerunner) giyilebilir watch, binalar ve tekerlekli araç dışı çıkışlarda log ve barometrik altimetersi gereken (Suunto Race veya Suunto Ocean) dış aktiviteler için. Dört cihaz, dört kullanım ortamı, dört uygulama ve KVKK'da yazılan.",
       },
     },
     {
@@ -300,6 +370,8 @@ export const post: BlogPost = {
         de: "Welches Wearable gewinnt bei welcher Metrik (Winner-takes-all nach Kontext)",
         pt: "Qual wearable vence em qual métrica (winner-takes-all por contexto)",
         fr: "Quel appareil connecté gagne sur quelle métrique (winner-takes-all par contexte)",
+        pl: "Jak wearables wygrywają w danej metryce (winner-takes-all w kontekście)",
+        tr: "Hangi giyilebilir cihaz hangi metrikte kazanır (winner-takes-all için bağlam)",
       },
       headers: {
         it: ["Metrica", "Sorgente preferita", "Motivo", "Sorgenti da ignorare"],
@@ -308,6 +380,18 @@ export const post: BlogPost = {
         de: ["Metrik", "Bevorzugte Quelle", "Grund", "Zu ignorierende Quellen"],
         pt: ["Métrica", "Fonte preferida", "Motivo", "Fontes a ignorar"],
         fr: ["Métrique", "Source préférée", "Raison", "Sources à ignorer"],
+        pl: [
+          "Metrika",
+          "Preferowany źródło",
+          "Motyw",
+          "Źródła do zignorowania",
+        ],
+        tr: [
+          "Metrika",
+          "Seçilen kaynak",
+          "Motif",
+          "Göze alınmamış kaynaklar",
+        ],
       },
       rows: [
         {
@@ -347,6 +431,18 @@ export const post: BlogPost = {
             "Capteurs PPG plus proches du doigt, moins d'interférence due aux mouvements nocturnes",
             "Galaxy Watch, Garmin (même nuit)",
           ],
+          pl: [
+            "S:numelanie (trwałość, fazы, ocena)",
+            "Anell smart (Oura / Galaktyczny Anul)",
+            "Sensory PPG bliższe do nadgarstka/pośladka, mniej interference z ruchami nocnymi",
+            "Galaxy Watch, Garmin (tą noc)",
+          ],
+          tr: [
+            "Uyku (süre, aşamalar, puan)",
+            "Akıllı Anel (Oura / Galaxy Ring)",
+            "Senzorlar giyilebilir cihazın pulsa/diyoto daha yakındalar, gecerelik hareketlerden daha az ınterferans olur.",
+            "Galaxy Watch, Garmin (aynı gece)",
+          ],
         },
         {
           it: [
@@ -384,6 +480,18 @@ export const post: BlogPost = {
             "Galaxy Watch (quand portée)",
             "Toujours au poignet, couvre la journée complète",
             "Garmin, Suunto (pas portés toute la journée)",
+          ],
+          pl: [
+            "Krody dziarskie (nie-trajning)",
+            "(Galaxy Watch (kiedy noszone))",
+            "Zawsze na ramieniu, pokrywa całą pełną dobę",
+            "Garmin, Suunto (nie noszone całe dni)",
+          ],
+          tr: [
+            "Günlük adımlar (eğitim dışı)",
+            "(Galaxy Watch (giyildikten sonra))",
+            "Şeytinden asla uzak olmaz, tam gün kapsayıcı",
+            "Garmin, Suunto (tam gün giymeden)",
           ],
         },
         {
@@ -423,6 +531,18 @@ export const post: BlogPost = {
             "GPS précis, calibration de cadence spécifique à la course",
             "Galaxy Watch (moins précise sur longues distances)",
           ],
+          pl: [
+            "Kroki i dystans podczas biegu",
+            "Garmin Przewodnik",
+            "precyzyjna kalibracja kroku specyficznego dla biegania",
+            "__(mniej precyzyjny na dłuższych odległościach)__",
+          ],
+          tr: [
+            "Yürütme sırasında adımlar ve mesafe",
+            "Garmin Başlangıçci",
+            "KVKK uygunluğuna özel, adımla kalibrasyon特别注意：这里的“特别注意：”以及后续内容是中文提示，用于说明处理方式，并非原文或译文的一部分。正确翻译应为：\n\nGPS uygunluğa özel, adımlık kalibreasyon __FM_PH_0__, __FM_URL_0__, __FM_HTML_0__, __FM_LINK_0__, __FM_CODE_0__, __FM_FENCE_0__, __FM_BRAND_0__, GPS",
+            "KVKK (azimiz daha eksik olduğu uzaklıklarda)",
+          ],
         },
         {
           it: [
@@ -460,6 +580,18 @@ export const post: BlogPost = {
             "Source spécifique de l'entraînement (Garmin pour la course, Suunto pour l'outdoor)",
             "Capteurs optiques de l'appareil conçu pour ce contexte",
             "Galaxy Watch (en arrière-plan pendant la même fenêtre horaire)",
+          ],
+          pl: [
+            "Częstotliwość serca podczas workout",
+            "Treningowy wykaz (Garmin dla biegania, Suunto dla zewnątrz)",
+            "Sensory光学/物理传感器设计用于该上下文的设备",
+            "Galaxy Watch (w tleciu podczas tego samego godziny)",
+          ],
+          tr: [
+            "Yükseklikler sırasında kalp atış hızı",
+            "Çalışma kaynağı (Garmin koşu için, Suunto dış aktivite için)",
+            "Cihazın tasarlandığı o上下文环境，请提供具体的翻译文本。",
+            "Galaxy Watch (arka planda aynı zamanda)",
           ],
         },
         {
@@ -499,6 +631,18 @@ export const post: BlogPost = {
             "Mesuré au repos profond, le contexte le plus fiable pour la HRV",
             "Galaxy Watch (mesure diurne moins standardisée)",
           ],
+          pl: [
+            "RODO (HRV (zmiana częstotliwości serca))",
+            "Anell smart (mierzenie notkowe)",
+            "Miara podstawowego spoczynku, najbardziej zaufany kontekst dla HRV",
+            "Galaxy Watch (mierzenie dnia mniej standardowe)",
+          ],
+          tr: [
+            "KVKK (__FM_PH_0__ (kalp atış frekansı varyasyonu))",
+            "Akıllı Çiftçilenek (Gece Ölçümü)",
+            "Dinamik hesapla dinamo, en güvenilir kontekst HRV için",
+            "Galaxy Watch (günüssonraki ölçüm daha standart olmayan)",
+          ],
         },
         {
           it: [
@@ -537,6 +681,18 @@ export const post: BlogPost = {
             "Altimètre barométrique, GPS marin, enregistrement de tracés longue durée",
             "Galaxy Watch, Garmin (contexte non spécifique à l'outdoor)",
           ],
+          pl: [
+            "Zaloguj się i zapisz (wychodzenie/wiatr)",
+            "Suunto",
+            "Barometrальный altimетр, GPS морской, длинновременный журнал треков",
+            "Galaxy Watch, Garmin (kontekst nie specyficzny dla zewnetrznej aktywnosci)",
+          ],
+          tr: [
+            "Log GPS ve altımetriya (dışarıdan/yeltenme)",
+            "Suunto",
+            "Barometrik altimeterski, GPS denizcilik, uzun süreli踪迹日志",
+            "Galaxy Watch, Garmin (çevresel koşullar dışındaki bağlamda)",
+          ],
         },
       ],
     },
@@ -550,6 +706,8 @@ export const post: BlogPost = {
         de: "Wie die Deduplizierung funktioniert: drei konkrete Strategien",
         pt: "Como funciona a deduplicação: três estratégias concretas",
         fr: "Comment fonctionne la déduplication : trois stratégies concrètes",
+        pl: "Jak działa deduplikacja: trzy konkretne strategie",
+        tr: "Deduplasyon nasıl Çalışır: Üç Gerçekçi Strateji",
       },
     },
     {
@@ -562,6 +720,8 @@ export const post: BlogPost = {
         de: "1. Winner-takes-all nach Quelle und Zeitfenster",
         pt: "1. Winner-takes-all por fonte e janela temporal",
         fr: "1. Winner-takes-all par source et fenêtre temporelle",
+        pl: "1. Wygrywa jeden, wszystko dla źródła i okna czasowej",
+        tr: "1. Kazananın Alacağı Tüm Ödüller per kaynak ve zaman dilimine göre",
       },
     },
     {
@@ -573,6 +733,8 @@ export const post: BlogPost = {
         de: "Für die intraday Herzfrequenz und Trainingsdaten ist die zuverlässigste Methode, für jedes Zeitfenster eine Quellenpriorität festzulegen. Wenn Garmin zwischen 17:30 und 18:45 Uhr Herzfrequenzdaten geschrieben hat (Laufdauer), verwendet jedes seriöse Dashboard diese Daten und ignoriert die Daten der Galaxy Watch im selben Fenster. Galaxy Watch wird ab 18:46 Uhr wieder zur \"Gewinnerin\", wenn Garmin keine aktiven Datensätze mehr schreibt.",
         pt: "Para a frequência cardíaca intraday e os dados de treino, o método mais confiável é definir uma prioridade de fonte para cada janela temporal. Se o Garmin registrou dados de frequência cardíaca entre 17:30 e 18:45 (duração da corrida), qualquer painel sério usa esses dados e ignora os dados gravados pelo Galaxy Watch na mesma janela. O Galaxy Watch volta a ser \"vencedor\" a partir das 18:46, quando o Garmin não está mais gravando registros ativos.",
         fr: "Pour la fréquence cardiaque intraday et les données d'entraînement, la méthode la plus fiable consiste à définir une priorité de source pour chaque fenêtre temporelle. Si Garmin a enregistré des données de fréquence cardiaque entre 17h30 et 18h45 (durée de la course), tout tableau de bord sérieux utilise ces données et ignore celles enregistrées par la Galaxy Watch dans la même fenêtre. La Galaxy Watch redevient \"gagnante\" à partir de 18h46, quand Garmin n'enregistre plus de données actives.",
+        pl: "Dla częstotliwość serca intraday i dane treningowe, najbardziej wiarygodny sposób to ustalenie priorytetu źródła dla każdej okna czasowego. Jeśli Garmin wpisał dane częstotliwości serca od 17:30 do 18:45 (czas trwania bieguna), dowolne poważne panel wykorzysta te dane i zignoruje dane wprowadzone przez Galaxy Watch w tym samym oknie czasowym. Galaxy Watch znowu staje się \"wygrany\" od 18:46, gdy Garmin już nie pisze aktywnych rekordów.",
+        tr: "Günlük kalp atış hızı ve workout verileri için en güvenilir yöntem her zaman aralık için bir veri kaynağı önceliği belirlemektir. Eğer Garmin 17:30 ile 18:45 arasında (yürütme süresi) kalp atış hızı verisi yazmışsa, herhangi bir görsel panoya bu veriler kullanılır ve aynı aralığında Galaxy Watch tarafından yazılmış veriler görmezden gelinir. Galaxy Watch 18:46'dan sonra \"kazanan\" olurken, Garmin daha fazla aktif kaydını yazmamaktadır.",
       },
     },
     {
@@ -584,6 +746,8 @@ export const post: BlogPost = {
         de: "In der Praxis wird dies durch das Lesen von ExerciseSession-Datensätzen aus Health Connect umgesetzt: Jede Trainingssession hat eine startTime und endTime. Die Dedup-Logik nutzt diese Fenster, um zu entscheiden, welche Quelle für die Metriken innerhalb dieses Zeitfensters Priorität hat.",
         pt: "Na prática, isso é implementado lendo os registros do tipo ExerciseSession do Health Connect: cada sessão de treino tem um startTime e endTime. A lógica de dedup usa essas janelas para decidir qual fonte tem prioridade para as métricas dentro daquela janela temporal.",
         fr: "En pratique, cela s'implémente en lisant les enregistrements de type ExerciseSession depuis Health Connect : chaque séance d'entraînement a un startTime et un endTime. La logique de dédup utilise ces fenêtres pour décider quelle source a la priorité pour les métriques dans cette fenêtre temporelle.",
+        pl: "W praktyce to implementuje się poprzez odczytanie rekordów typu ExerciseSession z Health Connect: każda sesja treningowa ma startTime i endTime. Logika deduplikacji wykorzystuje te okna czasowe do decydowania, która źródło ma priorytet w przypadku metryk w tym oknie czasowym.",
+        tr: "Pratik olarak, bu Health Connect türünden ExerciseSession kayıtlarını okuyarak uygulanır: her bir egzersiz oturumu bir startTime ve endTime içerir. Dédüplikasyon logikası bu aralıkları kullanarak belirli bir zaman dilimindeki metriklerin hangi kaynağıne öncelik verileceğini kararlaştırır.",
       },
     },
     {
@@ -596,6 +760,8 @@ export const post: BlogPost = {
         de: "2. Field-Level-Merge für aggregierte Tagesmetriken",
         pt: "2. Merge field-level para métricas diárias agregadas",
         fr: "2. Fusion au niveau des champs pour les métriques quotidiennes agrégées",
+        pl: "2. Polaczkie pola łączenia dla agregowanych danych dziennych",
+        tr: "2. Birleştirilmiş alan seviyesi per KVKK'ye uygulanan günlük toplamlar için",
       },
     },
     {
@@ -607,6 +773,8 @@ export const post: BlogPost = {
         de: "Für die tägliche Gesamtschrittzahl ist Winner-takes-all nicht die richtige Lösung: Galaxy Watch erfasst Schritte von 07:00 bis 17:29 Uhr, Garmin erfasst Schritte von 17:30 bis 18:45 Uhr. Die Summe ist korrekt, keine Duplizierung. Das Problem entsteht, wenn beide Schritte im selben Zeitfenster aufgezeichnet haben.",
         pt: "Para o total de passos diários, a estratégia winner-takes-all não é a solução certa: o Galaxy Watch coleta passos das 07:00 às 17:29, o Garmin coleta passos das 17:30 às 18:45. Somar é correto, não é duplicação. O problema ocorre quando ambos registraram passos na mesma janela temporal.",
         fr: "Pour le total de pas quotidiens, le winner-takes-all n'est pas la bonne solution : la Galaxy Watch collecte des pas de 07h00 à 17h29, la Garmin collecte des pas de 17h30 à 18h45. Les additionner est correct, ce n'est pas une duplication. Le problème se pose quand les deux ont enregistré des pas dans la même fenêtre temporelle.",
+        pl: "Dla całkowite liczby kroków dziennych, strategia winner-takes-all nie jest właściwą rozwiązaniem: Galaxy Watch zbiera kroki od 07:00 do 17:29, a Garmin od 17:30 do 18:45. Suma jest poprawna, nie ma powtarzania. Problem polega na tym, czy obie strony zarejestrowały kroki w tej samej oknie czasowej.",
+        tr: "Günlük toplam adımlar için winner-takes-all stratejisi doğru çözüm değil: Galaxy Watch 07:00'den 17:29'a kadar adımları toplar, Garmin ise 17:30'dan 18:45'e kadar adımları toplar. Toplam doğru, bir çoğaltma değil. Sorun, her iki kutup da aynı zaman diliminde adımlar kaydettiğini belirtir mi?",
       },
     },
     {
@@ -618,6 +786,8 @@ export const post: BlogPost = {
         de: "Der Field-Level-Merge funktioniert so: Teile den Tag in 15-Minuten-Slots auf. Behalte für jeden Slot nur den Datensatz mit dem höchsten Wert aus allen Quellen (konservativ, geht davon aus, dass der höchste Wert der genaueste ist). Summiere die Slot-Maxima: Das Ergebnis ist ein deduplizierter Tageswert. Dieser Ansatz funktioniert, weil zwei Geräte, die dieselben Schritte erfassen, ähnliche Werte produzieren (der höchste ist eine Schätzung der Wahrheit), während zwei Geräte in verschiedenen Kontexten additive Werte liefern.",
         pt: "O merge field-level funciona assim: divida o dia em slots de 15 minutos. Para cada slot, mantenha apenas o registro com o valor mais alto entre todas as fontes (conservador, assume que o valor mais alto é o mais preciso). Some os máximos por slot: você obtém um total diário deduplicado. Essa abordagem funciona porque dois dispositivos que registram os mesmos passos produzem valores similares (o mais alto é uma estimativa da verdade), enquanto dois dispositivos em contextos diferentes produzem valores aditivos.",
         fr: "La fusion au niveau des champs fonctionne ainsi : divisez la journée en créneaux de 15 minutes. Pour chaque créneau, conservez uniquement l'enregistrement avec la valeur la plus élevée parmi toutes les sources (approche conservatrice : suppose que la valeur la plus haute est la plus précise). Additionnez les maximums par créneau : vous obtenez un total quotidien dédupliqué. Cette approche fonctionne parce que deux appareils enregistrant les mêmes pas produisent des valeurs similaires (la plus haute est une estimation de la vérité), tandis que deux appareils dans des contextes différents produisent des valeurs additives.",
+        pl: "Merge polevélu działa tak: dziel dzień na sloty 15-minutowe. Dla każdego slotu zapisuj tylko rekord z najwyższym licznikiem między wszystkimi źródłami (konserwatywnie załóż, że najwyższy wartość jest najbardziej dokładny). Dodaj maksima dla slotów: uzyskasz deduplikowany całodobowy licznik. Ten podejście działa, ponieważ dwa urządzenia rejestrujące te same kroki produkcją podobne wartości (najwyższa wartość jest szacunkiem prawdy), a jednocześnie dwa urządzenia w różnych kontekstach produkują dodatkowe wartości.",
+        tr: "Gi merge field-level funksiyonu şu şekilde: güneşi 15 dakikalık slotlara ayır. Her slot için, tüm kaynaklardan en yüksek sayıyı tut (konservative yaklaşım olarak kabul edilir ve en yüksek değer en doğru olduğunu varsayar). Slotlar için maksimumları topla: bir günlük toplamı elde et, bu toplama tekrarlımları dahil olmaksızın. Bu yaklaşımda iki cihazın aynı adımları kaydettiği durumda benzer değerler üretir (en yüksek değerin gerçektan en doğru olduğunu tahmin ettiği bir tahmin), ancak farklı bağlamlarda iki cihaz değerleri ekleyici olur.",
       },
     },
     {
@@ -630,6 +800,8 @@ export const post: BlogPost = {
         de: "3. Zeitliches Clustering für Schlafsessions",
         pt: "3. Clustering temporal para sessões de sono",
         fr: "3. Regroupement temporel pour les séances de sommeil",
+        pl: "3. Klasterowanie temporalne dla sesji snu",
+        tr: "3. Uyum Zamanlı Gruplama için Uyuma Oturumuları",
       },
     },
     {
@@ -641,6 +813,8 @@ export const post: BlogPost = {
         de: "Beim Schlaf ist das Problem ein anderes: Die Schlafsessions von Oura Ring und Galaxy Watch für dieselbe Nacht überlappen sich fast vollständig, aber keine von beiden ist falsch. Sie messen einfach dasselbe mit unterschiedlichen Sensoren. Die Strategie ist Clustering: Wenn zwei Schlafsessions zu mehr als 80 % ihrer Dauer überlappen, werden sie als dieselbe Nacht gewertet. Dann wird die Quellenpriorität angewendet: Der Smart-Ring gewinnt, weil optische Sensoren am Finger für Schlafphasen statistisch präziser sind als Handgelenksensoren.",
         pt: "Para o sono, o problema é diferente: as sessões do Oura Ring e do Galaxy Watch para a mesma noite se sobrepõem quase completamente, mas nenhuma está errada. Elas simplesmente medem a mesma coisa com sensores diferentes. A estratégia é o clustering: se duas sessões de sono se sobrepõem em mais de 80% da duração, são tratadas como a mesma noite. Em seguida, aplica-se a prioridade de fonte: o anel inteligente vence porque os sensores ópticos no dedo são estatisticamente mais precisos para as fases do sono do que os sensores de pulso.",
         fr: "Pour le sommeil, le problème est différent : les séances d'Oura Ring et de Galaxy Watch pour la même nuit se chevauchent presque entièrement, mais aucune n'est fausse. Elles mesurent simplement la même chose avec des capteurs différents. La stratégie est le clustering : si deux séances de sommeil se chevauchent à plus de 80 % de leur durée, elles sont considérées comme la même nuit. La priorité de source est ensuite appliquée : la bague connectée gagne parce que les capteurs optiques au doigt sont statistiquement plus précis pour les phases du sommeil que les capteurs au poignet.",
+        pl: "Dla seno, problematyka jest inna: sesje Oura Ring i Galaxy Watch na tę noc się nachodzą prawie całkowicie, ale żadna z nich nie jest błędną. Prostě mierzą to samo za pomocą różnych sensorów. Strategią jest klasterowanie: jeśli dwie sesje senu się nachodzą przez ponad 80% czasu, są uznawane za tę samą noc. Następnie stosuje się priorytet źródła: smartband wygrywa, ponieważ sensor optyczny na palcu jest statystycznie bardziej precyzyjny dla faz senu niż sensor na nadgarstku.",
+        tr: "For the sleep, the issue is different: the sessions of Oura Ring and Galaxy Watch for the same night almost completely overlap, but neither is wrong. Simply measure the same thing with different sensors. The strategy is clustering: if two sleep sessions overlap for more than 80% of the duration, they are considered the same night. At that point, the smart ring wins because the finger optical sensor is statistically more precise for sleep stages compared to the wrist sensor.",
       },
     },
     {
@@ -653,6 +827,8 @@ export const post: BlogPost = {
         de: "Meine klare Haltung zur Deduplizierung",
         pt: "Minha posição clara sobre deduplicação",
         fr: "Ma position claire sur la déduplication",
+        pl: "Moja netrajeta pozycja w dziedzinie dewiduplikowania",
+        tr: "Nettö konumumu benzersizlikten",
       },
       body: {
         it: "La deduplicazione non è una funzione opzionale di una dashboard multi-wearable: è il prerequisito. Una dashboard che mostra passi doppi o ore di sonno doppie non è utile, è peggio che nessuna dashboard perché crea falsa confidenza in dati sbagliati. Se stai valutando un'app di aggregazione e non trovi documentazione esplicita su come gestisce i duplicati, assumilo come segnale che il problema non è stato risolto.",
@@ -661,6 +837,8 @@ export const post: BlogPost = {
         de: "Deduplizierung ist keine optionale Funktion eines Multi-Wearable-Dashboards: Sie ist die Grundvoraussetzung. Ein Dashboard, das doppelte Schritte oder doppelte Schlafstunden anzeigt, ist nicht hilfreich, sondern schlimmer als gar kein Dashboard, weil es falsches Vertrauen in falsche Daten erzeugt. Wenn du eine Aggregations-App bewertest und keine explizite Dokumentation darüber findest, wie sie Duplikate handhabt, dann ist das ein Signal dafür, dass das Problem nicht gelöst wurde.",
         pt: "A deduplicação não é uma funcionalidade opcional de um painel multi-wearable: é o pré-requisito. Um painel que mostra passos duplicados ou horas de sono duplicadas não é útil, é pior do que nenhum painel porque cria falsa confiança em dados errados. Se você está avaliando um app de agregação e não encontra documentação explícita sobre como ele lida com duplicatas, trate isso como um sinal de que o problema não foi resolvido.",
         fr: "La déduplication n'est pas une fonctionnalité optionnelle d'un tableau de bord multi-wearable : c'est le prérequis. Un tableau de bord affichant des pas doublés ou des heures de sommeil doublées n'est pas utile, c'est pire qu'aucun tableau de bord parce qu'il crée une fausse confiance dans des données erronées. Si vous évaluez une application d'agrégation et ne trouvez pas de documentation explicite sur la façon dont elle gère les doublons, considérez cela comme un signal que le problème n'a pas été résolu.",
+        pl: "Deduplikacja nie jest opcjonalną funkcją w panelu wielu wearables: to wymagane. Panel, który pokazuje podwójne kroki lub podwójne godziny snu, nie jest przydatny – jest nawet gorszy niż brak panelu, ponieważ tworzy fałszywą pewność wyników błędnym. Jeśli oceniasz aplikację agregującą i nie znajdujesz jasnej dokumentacji na temat zarządzania duplikatami, traktuj to jako sygnał, że problem ten nie został rozwiązany.",
+        tr: "Deduplicasyon bir çok giyilebilir cihazlı bir panelin opsiyональ bir işlev değildir: öncü koşuldur. Bir panelin adetlerini çift veya yemek saatleri çift göstermesi faydalı olmaz, gerçek veriler yanlış olduğundan dolayı yanlış güveni yaratan hiçbir panelden daha kötüdür. Bir agregasyon uygulamasını değerlendirmekteyken ve çakışmalara nasıl yaklaştığını belirleyen açık belgeye rastlanamıyorsanız, bu sorunun çözilmediğini kabul etmek bir sembol olmalıdır.",
       },
     },
     {
@@ -673,6 +851,8 @@ export const post: BlogPost = {
         de: "Was du selbst konfigurieren musst: die drei kritischen Einstellungen",
         pt: "O que você precisa configurar: as três configurações críticas",
         fr: "Ce que vous devez configurer : les trois paramètres critiques",
+        pl: "Coż musisz skonfigurować ty: trzy krytyczne ustawienia",
+        tr: "Ne seni yapılabilecek üç kritik ayar:\n- KVKK uyumluluğu için gerekli olan ayarlar\n- Akıllı Saat ile giyilebilir Cihaz arasında bağlantı kurma\n- Kullanıcı deneyini optimize etmek için gerekli ayarlar",
       },
     },
     {
@@ -684,6 +864,8 @@ export const post: BlogPost = {
         de: "Nicht alles lässt sich automatisieren. Es gibt drei Konfigurationen, die Eingaben des Benutzers erfordern, weil sie von persönlichen Gewohnheiten abhängen, die kein Algorithmus inferieren kann.",
         pt: "Nem tudo pode ser automatizado. Há três configurações que exigem input do usuário porque dependem de hábitos pessoais que nenhum algoritmo pode inferir.",
         fr: "Tout ne peut pas être automatisé. Il y a trois configurations qui nécessitent une saisie de l'utilisateur parce qu'elles dépendent d'habitudes personnelles qu'aucun algorithme ne peut inférer.",
+        pl: "Nie wszystko może być automatyzowane. Istnieją trzy konfiguracje, które wymagają wprowadzenia użytkownika, ponieważ zależą one od indywidualnych zwyczajów, których żaden algorytm nie może wywnioskować.",
+        tr: "Tümü otomatik olamaz. Üç yapılandırma kullanıcının girdisine ihtiyaç duyar çünkü buna hiçbir algoritma erişemez, kişisel alışkanlıklarından kaynaklanır.",
       },
     },
     {
@@ -720,6 +902,16 @@ export const post: BlogPost = {
           "**Désactivez Google Fit comme source d'écriture s'il est encore actif.** Allez dans Health Connect > Gestion des autorisations > Google Fit et vérifiez qu'il n'a QUE la permission de lecture, pas d'écriture. Google Fit obsolète qui écrit encore dans Health Connect est la première cause de pas triplés dans les configurations multi-wearable.",
           "**Précisez les périodes d'activité pour les appareils spécifiques.** Si vous portez la Garmin uniquement pendant les courses (jamais au repos), le système peut ignorer ses données de fréquence cardiaque en dehors des fenêtres d'entraînement. Sans cette information, la fréquence cardiaque au repos mesurée par Garmin pendant une activité lente peut contaminer la moyenne au repos.",
         ],
+        pl: [
+          "**Zdefinięć, który urządzenie jest twoim głównym źródłem dla snu.** Jeśli masz zarówno Galaxy Watch, jak i smartband, musisz to określić jasno. FitMesh Sync pyta o to podczas onbordingu (\"Jakie urządzenie nosisz w nocy?\"). Jeśli nie zaznaczysz tego, używa Galaxy Watch jako alternatywy, ponieważ jest najpowszechniej używany, ale to wybranie jest losowe.",
+          "**Wyłączyć Google Fit jako źródło pisowni, jeśli nadal aktywny.** Przejdź do Health Connect > Zarządzanie uprawnieniami > Google Fit i sprawdź, czy ma tylko uprawnienia do odczytu, a nie do zapisu. Google Fit deprecowane, które nadal pisze w Health Connect, jest głównym powodem trójkrotnej konfiguracji w ustawieniach wielu wearable.",
+          "**Okresy aktywności dla konkretnych urządzeń.** Jeśli Garmin go nosisz tylko podczas biegów (nigdy w spoczynku), system może ignorować jego dane częstotliwości serca poza oknami treningowymi. Bez tej informacji, częstotliwość serca w spoczynku pomiaru Garmin podczas wolnej aktywności może zanieczyszczyć średnią wartość spoczynkową.",
+        ],
+        tr: [
+          "**Hangi cihazın senin uyku kaynak olduğunuzu belirle.** Eğer sen hem Galaxy Watch hem de akıllı anelisin olsan, bunu açıkça belirtmelisin. FitMesh Sync onboarding sırasında (\"Geceleri hangi cihazda uyuyorsunuz?\") bu soruyu sormaktadır. Eğer belirtilmezse, en yaygın olan Galaxy Watch kullanılır, ancak bu rastgele bir seçimdir.",
+          "**Google Fit'yi kaynak olarak yazı devre dışı bırakın eğer hala aktifse.** Health Connect > Yetkilendirme yönetimi > Google Fit'e gidin ve sadece okuma iznine sahip olduğundan emin olun, yazma iznine sahip olmadığını kontrol edin. Hala yazı iznine sahip olan depreklenecek Google Fit setup multi-giyilebilir cihazlarda üçlü adımların nedeni numaralıdır.Health Connect",
+          "**Özel olarak aktivite dönemlerini spesifik device'lere ayarlamak.** Eğer Garmin sadece koşullarda giyiyorsunuz (uyku sırasında hiç olmamalı), sistem frekans kalp atışınızı eğitim aralıkları dışında göz ardı edebilir. Bu bilginin olmaması nedeniyle, Garmin bir yavaş aktivite sırasında ölçtüğünüz dinlenme frekansının ortalama dinlenme değeri ile karıştırılmasına neden olabilir.",
+        ],
       },
     },
     {
@@ -732,6 +924,8 @@ export const post: BlogPost = {
         de: "Der Suunto-Fall: Daten, die nicht über Health Connect laufen",
         pt: "O caso Suunto: dados que não passam pelo Health Connect",
         fr: "Le cas Suunto : des données qui ne passent pas par Health Connect",
+        pl: "Przypadek Suunto: dane, które nie przechodzą przez Health Connect",
+        tr: "Suunto durumu: verilerin Health Connect geçmediği durumlar",
       },
     },
     {
@@ -743,6 +937,8 @@ export const post: BlogPost = {
         de: "Suunto ist die Ausnahme in diesem Szenario. Anders als Garmin (das nativ aus Garmin Connect Android in Health Connect schreibt) hat die Suunto-App auf Android keine native Health Connect-Integration für alle Datentypen. GPS-Tracks und Trainingsdaten von Suunto sind über die Suunto Sport Engine API zugänglich, nicht über Health Connect.",
         pt: "O Suunto é a exceção neste cenário. Ao contrário do Garmin (que grava nativamente no Health Connect a partir do Garmin Connect Android), o app Suunto no Android não tem integração nativa com o Health Connect para todos os tipos de dados. Os rastreamentos GPS e os dados de treino do Suunto são acessíveis via API Suunto Sport Engine, não via Health Connect.",
         fr: "Suunto est l'exception dans ce scénario. Contrairement à Garmin (qui écrit nativement dans Health Connect depuis Garmin Connect Android), l'application Suunto sur Android n'a pas d'intégration native avec Health Connect pour tous les types de données. Les traces GPS et les données d'entraînement de Suunto sont accessibles via l'API Suunto Sport Engine, pas via Health Connect.",
+        pl: "Suunto jest wyjątkiem w tym scenariuszu. Zamiast Garmin, która pisze w Health Connect natywnie z Garmin Connect Android, aplikacja Suunto na Android nie ma integracji natywnej z Health Connect dla wszystkich typów danych. Trasy GPS i dane treningowe z Suunto są dostępne za pomocą API Silnika Sportowego Suunto, a nie poprzez Health Connect.",
+        tr: "Suunto KVKK'da özel bir durumdur. Garmin (ki bu uygulama Health Connect'u doğrudan Garmin Connect Android'den Health Connect olarak yazmaz), aksine, Suunto adlı uygulamanın Android'deki versiyonu, tüm türlerdeki verilere doğrudan bir integrasyonu yoktur. Suunto'den gelen izleme izi ve egzersiz verileri, Suunto Spor Motoru aracılığıyla erişilebilir olup, doğrudan Health Connect üzerinden değildir.",
       },
     },
     {
@@ -754,6 +950,8 @@ export const post: BlogPost = {
         de: "Das bedeutet, dass die Integration von Suunto in ein Multi-Quellen-Dashboard einen separaten Connector erfordert, der die Suunto Sport Engine API mit OAuth-Authentifizierung liest. FitMesh Sync unterstützt diese Integration separat: Gehe in Einstellungen, Bereich Geräte, und füge Suunto als OAuth-Quelle hinzu. Einmal verbunden, werden Suunto-Daten mit derselben Deduplizierungslogik in den Health Connect-Stream eingebunden.",
         pt: "Isso significa que integrar o Suunto a um painel multi-fonte requer um conector separado que lê da API Suunto Sport Engine com autenticação OAuth. O FitMesh Sync suporta essa integração separadamente: vá em Configurações, seção Dispositivos, e adicione o Suunto como fonte OAuth. Uma vez conectado, os dados do Suunto são mesclados ao fluxo do Health Connect com a mesma lógica de deduplicação.",
         fr: "Cela signifie qu'intégrer Suunto dans un tableau de bord multi-source nécessite un connecteur séparé qui lit depuis l'API Suunto Sport Engine avec authentification OAuth. FitMesh Sync prend en charge cette intégration séparément : allez dans Paramètres, section Appareils, et ajoutez Suunto comme source OAuth. Une fois connectées, les données Suunto sont fusionnées dans le flux Health Connect avec la même logique de déduplication.",
+        pl: "To integrować Suunto w multi-sourced dashboard potrzebny jest oddzielny connector, który odczytuje z API Suunto Sport Engine z autoryzacją OAuth. FitMesh Sync obsługuje tę integrację osobno: idź do ustawień, sekcja Urządzenia, i dodaj Suunto jako źródło OAuth. Po połączeniu, dane Suunto są łączone z przepływem Health Connect z taką samą logiką deduplikacji.",
+        tr: "Bu bunu demek ki, Suunto yi çok kaynaklı bir dashborda-integrasyon için ayrı bir bağlayıcı gereklidir bu bağlayıcı, Suunto Spor Motorundan API ile okur ve OAuth yetkilendirme ile. FitMesh Sync bu entegrelemeyi ayrı olarak destekliyor: ayarlar bölümüne gidin, Cihazlar bölümünü bulun ve Suunto yi kaynak olarak ekleyin. Bağlantı sağlandığında, Suunto verileri aynı deduplicasyon logikasıyla Health Connect akışı ile birleştirilir.",
       },
     },
     {
@@ -766,6 +964,8 @@ export const post: BlogPost = {
         de: "\"Verfälschte\" durchschnittliche Herzfrequenz: ein reales Beispiel",
         pt: "Frequência cardíaca média \"contaminada\": um exemplo real",
         fr: "Fréquence cardiaque moyenne \"contaminée\" : un exemple réel",
+        pl: "Częstotliwość serca średnia \"zanieczyszczone\": przykład rzeczywisty",
+        tr: "Frekans hafiften zararlı: bir gerçelik örnekleri",
       },
     },
     {
@@ -777,6 +977,8 @@ export const post: BlogPost = {
         de: "Das ist das Problem, das ich am wenigsten offensichtlich, aber am schädlichsten für alle finde, die Daten zur langfristigen Gesundheitsbeobachtung nutzen. Szenario: Du läufst 45 Minuten mit einem Polar H10 Brustgurt, der mit Garmin verbunden ist (zuverlässige Trainingsdaten, Durchschnitt 148 bpm). Gleichzeitig zeichnet die Galaxy Watch alle 10 Minuten im Hintergrund deine Herzfrequenz auf und sieht Werte zwischen 145 und 155 bpm (korrekt, du läufst). Nach dem Lauf sitzt du zwei Stunden mit einer Herzfrequenz von 62-68 bpm. Galaxy Watch zeichnet weiter auf.",
         pt: "Este é o problema que acho menos óbvio, mas mais prejudicial para quem usa os dados para monitorar o bem-estar ao longo do tempo. Cenário: você corre por 45 minutos com uma cinta Polar H10 conectada ao Garmin (dados confiáveis de treino, média de 148 bpm). Enquanto isso, o Galaxy Watch registra sua frequência cardíaca a cada 10 minutos em segundo plano, vendo valores entre 145 e 155 bpm (correto, você está correndo). Após a corrida, você fica sentado por duas horas com frequência cardíaca de 62-68 bpm. O Galaxy Watch continua registrando.",
         fr: "C'est le problème que je trouve le moins évident mais le plus dommageable pour ceux qui utilisent les données pour suivre leur santé dans le temps. Scénario : vous courez pendant 45 minutes avec une ceinture Polar H10 connectée à Garmin (données d'entraînement fiables, moyenne 148 bpm). Pendant ce temps, la Galaxy Watch enregistre votre fréquence cardiaque toutes les 10 minutes en arrière-plan, voyant des valeurs entre 145 et 155 bpm (correct, vous courez). Après la course, vous vous asseyez pendant deux heures avec une fréquence cardiaque de 62-68 bpm. La Galaxy Watch enregistre toujours.",
+        pl: "Tenę za problem mniej wyraźnie widoczny, ale bardziej szkodliwy dla osób korzystających z danych do monitorowania zdrowia w czasie. Szenariusz: wykonujesz bieg trwający 45 minut z fascią Polar H10 podłączoną do Garmin (dane wiarygodne dotyczące treningu, średnia 148 bpm). W tym czasie Galaxy Watch zapisuje Twoją częstotliwość serca co 10 minut w tle, widząc wartości od 145 do 155 bpm (to jest poprawne, biegasz). Po biegu, siedzisz przez dwie godziny z częstotliwością serca wynoszącą 62-68 bpm. Galaxy Watch nadal zapisuje.",
+        tr: "Bu bu sorun daha az fark edilen ama daha zararlı olan kullanıcılara veriyle zaman içinde sağlık durumlarını izlemek isteyenler için. Senaryo: 45 dakikalık bir koşu yaparken Polar H10'ı Garmin ile bağladın (egzersiz için güvenilir veriler, ortalama 148 bpm). Bu arada Galaxy Watch her 10 dakikada bir arka planda kalp atışını kaydeder ve 145-155 bpm arasında değerleri görürsün (doğru, koşu yaparken). Koşu bittikten sonra iki saat boyunca oturuyorsun ve kalp atışı 62-68 bpm arasındayken Galaxy Watch hala kaydeder.",
       },
     },
     {
@@ -788,6 +990,8 @@ export const post: BlogPost = {
         de: "Ein Dashboard, das die \"tägliche Durchschnittsherzfrequenz\" ohne Unterscheidung der Quellen berechnet, nimmt all diese Daten, addiert und dividiert sie. Das Ergebnis ist eine Zahl, die weder die Ruheherzfrequenz noch die Trainingsherzfrequenz darstellt: Es ist der Durchschnitt von Dingen, die nicht zusammen gemittelt werden sollten. Deshalb zeigt FitMesh Sync Ruheherzfrequenz (berechnet unter Ausschluss der Trainingsfenster) und Trainingsherzfrequenz (berechnet nach Aktivitätstyp) separat an, anstatt einen einzigen Tagesdurchschnitt zu zeigen.",
         pt: "Um painel que calcula a \"frequência cardíaca média diária\" sem distinguir as fontes pega todos esses dados, os soma e divide. O resultado é um número que não representa nem a frequência em repouso nem a frequência durante o treino: é a média de coisas que não deveriam ser mediadas juntas. Por isso, o FitMesh Sync exibe separadamente a frequência cardíaca em repouso (calculada excluindo as janelas de treino) e a frequência cardíaca de treino (calculada por tipo de atividade), em vez de mostrar uma única média diária.",
         fr: "Un tableau de bord qui calcule la \"fréquence cardiaque moyenne quotidienne\" sans distinguer les sources prend toutes ces données, les additionne et divise. Le résultat est un nombre qui ne représente ni la fréquence cardiaque au repos ni la fréquence cardiaque d'entraînement : c'est la moyenne de choses qui ne devraient pas être moyennées ensemble. C'est pourquoi FitMesh Sync expose séparément la fréquence cardiaque au repos (calculée en excluant les fenêtres d'entraînement) et la fréquence cardiaque d'entraînement (calculée par type d'activité), plutôt que d'afficher une seule moyenne quotidienne.",
+        pl: "Przeglądarka, która liczy \"środnikową częstotliwość serca dzienną\" bez rozróżniania źródeł, zbiera wszystkie te dane, je sumuje i podzieli. Wynik to liczba, która nie reprezentuje ani częstotliwości spoczynkowej ani podczas treningu: jest średnio wartością rzeczy, które nie powinny być średnione razem. Dla tego powodu FitMesh Sync prezentuje oddzielnie częstotliwość serca spoczynkową (obliczoną wypuszczając okna treningowe) i częstotliwość serca podczas treningu (obliczoną dla rodzaju aktywności), zamiast pokazywać jednolitą średnią dzienną.",
+        tr: "Bir panel ki \"günde ortalama kalp atış hızı\" hesaplar ve kaynakları ayırt etmez, tüm bu verileri toplar ve böler. Sonuç, dinlenme sırasındaki veya egzersiz sırasındaki kalp atış hızını temsil etmiyor: bunlar birbirleriyle karşılaştırılmamalı şeylerin ortalamasıdır. Bu nedenle FitMesh Sync dinlenme sırasındaki kalp atış hızını (egzersiz penceresi hariç çıkarılarak hesaplanan) ve egzersiz sırasındaki kalp atış hızını (etkinlik türüne göre hesaplanan) ayrı olarak sunar, tek bir günlük ortalama göstermemektedir.",
       },
     },
     {
@@ -800,6 +1004,8 @@ export const post: BlogPost = {
         de: "Was FitMesh Sync automatisch erledigt",
         pt: "O que o FitMesh Sync faz automaticamente",
         fr: "Ce que FitMesh Sync gère automatiquement",
+        pl: "CoEMURO w automatycznym trybie",
+        tr: "FitMesh Sync ne otomatik olarak ne yapar",
       },
     },
     {
@@ -847,6 +1053,20 @@ export const post: BlogPost = {
           "**Séparation fréquence cardiaque au repos vs entraînement**: les fenêtres d'entraînement sont exclues du calcul de la fréquence cardiaque au repos.",
           "**Déduplication des enregistrements Samsung dupliqués**: filtre les enregistrements avec le même horodatage et source_package répété (le bug Samsung connu d'écriture double).",
         ],
+        pl: [
+          "**Automatyczne wykrywanie sesji treningowych**: odczytaj rekordy ExerciseSession z Health Connect i twórz wykresy okien aktywnych dla każdego źródła.",
+          "**Mergowanie slotów o 15 minut**: korzysta z maksymalnej ilości slotów z wszystkich źródeł, usuwa powtórzenia bez stracenia dodatkowych danych (Galaxy Watch rano + Garmin wieczorna treningowa).",
+          "**Klasterowanie sesji snu**: grupuje sesje pokrywające się o ponad 80% i stosuje priorytet anell >> smartwatch dla faz snu.",
+          "**Oddzielenie HR w spoczynku od treningu**: okna treningowe są wykluczone z obliczenia częstotliwości sercowej w spoczynku.",
+          "**Dedyplikacja rekordówSamsung duplikatów**: filtry rekordów o tym samym timestamp i source_package powtarzonym (znany błądSamsung z dwukrotnej pisowni).",
+        ],
+        tr: [
+          "**Otomatik Eğitim Sessyonları İzleme**: Health Connectden EgzersizSessyon kayıtlarını oku ve her kaynaktaki aktif pencere grafiklerini oluştur.",
+          "**15 dakikalık adımlar slot-mergingi**: tüm kaynaklarda maksimum per slot alır, sovrapposizioneyi kaldırır ancak additive verileri kaybetmez (Galaxy Watch sabah + Garmin öğle yürüyüşü).",
+          "**Snuhü.FileOutputStream Gruplama**: %80'u aşan örtüşen uykusalan gruplandırılır ve uyku fazları için \\% ring > akıllı saat prioritesi uygulanır.",
+          "**HR Dışalı ve İmalatlı Ayırım**: İmalatlı ayrimler frequentanç cardiaca döşemeden geçirilir.",
+          "**Samsung Tekliflerin Eşsizleştirilmesi**: aynen aynı timestamp ve source_package'u tekrarlayan kayıtları filtrele (bilinen Samsung yazma hatası).",
+        ],
       },
     },
     {
@@ -859,6 +1079,8 @@ export const post: BlogPost = {
         de: "Ehrliche Grenzen: Was sich noch nicht automatisieren lässt",
         pt: "Limites honestos: o que ainda não pode ser automatizado",
         fr: "Limites honnêtes : ce qui ne peut pas encore être automatisé",
+        pl: "Ostne granice: co nie można jeszcze automatyzować",
+        tr: "Onnestuwan sınırlar: hala otomatizasyonun dışına kaldığı şeyler nedir",
       },
     },
     {
@@ -870,6 +1092,8 @@ export const post: BlogPost = {
         de: "Ich möchte nicht übertreiben, was ein Dashboard allein leisten kann. Es gibt Szenarien, die noch manuelle Eingriffe erfordern oder die Näherungswerte liefern:",
         pt: "Não quero superestimar o que um painel pode fazer sozinho. Há cenários que ainda requerem intervenção manual ou que produzem resultados aproximados:",
         fr: "Je ne veux pas surestimer ce qu'un tableau de bord peut faire seul. Il y a des scénarios qui nécessitent encore une intervention manuelle ou qui produisent des résultats approximatifs :",
+        pl: "Nie chcę nadrealizować tego, co może sam robotastraż zrobić. Istnieją sytuacje, które w tej chwili wymagają jeszcze ręcznego interwencji lub generują wyniki przybliżone:",
+        tr: "GDDKVKK'ye aşina olduğumuzda, bir panelin tek başına yapabileceğini fazla övülemem. Mevcut bazı senaryolarda hala el ile müdahale gerekebilir veya yaklaşık sonuçlar verilebilir:",
       },
     },
     {
@@ -905,6 +1129,16 @@ export const post: BlogPost = {
           "**VO2max de sources différentes**: Garmin calcule son VO2max avec un algorithme propriétaire (FirstBeat), Galaxy Watch utilise une autre méthode. Les estimations ne sont pas comparables : FitMesh Sync affiche actuellement les deux métriques séparément, sans les fusionner.",
           "**HRV de ceinture pectorale pendant la journée vs bague la nuit**: si vous utilisez une ceinture Polar H10 pour la HRV matinale et la bague pour la HRV nocturne, les valeurs sont correctes dans leurs contextes respectifs mais pas directement comparables. C'est une limite de la biométrie, pas du logiciel : la HRV varie selon l'heure de la journée et la posture corporelle.",
         ],
+        pl: [
+          "**Treningi pływackie z Suunto i Galaxy Watch nadmiernie zaznaczonymi**: Galaxy Watch rozpoznaje pływanie jako ExerciseSession (typ SWIMMING), a Suunto rejestruje swój log za pomocą API Silnika Sportowego. Jeśli timestampi jest częściowa zaznaczenie (np. zmiana korytarza między dwoma basenami), fuzja jest konserwatywna, ale nie idealna.",
+          "**VO2max zróżnicowanych źródeł**: Garmin wylicza swój VO2max za pomocą własnego algorytmu (FirstBeat), a Galaxy Watch korzysta z innego metody. Oceny nie są porównywalne: na chwilę obecną FitMesh Sync prezentuje dwie metryki oddzielnie, nie łączy je w jeden indeks.",
+          "**HRV podówczas w ciągu dnia vs anello nocnym**: jeśli używasz paska Polar H10 do HRV rannego i anelku do HRV wieczornego, wartości są poprawne w swoich kontekstach ale nie mogą być bezpośrednio porównywane. To jest ograniczenie nie software'a, a biometrii: HRV może się zmieniać w zależności od godziny i pozy.",
+        ],
+        tr: [
+          "**Yüzme egzersizleri Suunto ve Galaxy Watch ile birlikte**: Galaxy Watch yüzme ExerciseSession türü olarak tanımlar (Suunto), Suunto ise spor motoru aracılığıyla logunu API'si üzerinden kaydeder. Timestamp'ler parçalı şekilde çakışsa (örneğin, bir banyodan diğerine korsadan geçerken), füzyon sabit ama kesin değildir.",
+          "**VO2max farklı kaynak**: Garmin kendi özel bir algoritma (FirstBeat) ile VO2max'ını hesaplıyor, Galaxy Watch ise başka bir yöntem kullanıyor. Tahminler karşılaştırılamaz: şu anda FitMesh Sync iki metrik separately gösteriyor, birleştirmez.",
+          "**HRV da pettorale durante gün vs halka gece**: Polar H10 pettoralından sabah HRV ve halka akşam HRV kullanıyorsanız, değerlerin kontekstlerinde doğru ancak doğrudan karşılaştırılamaz. Bu, yazılım değil biyometri limiti: HRV saat ve pozisyon dayatır.",
+        ],
       },
     },
     {
@@ -916,6 +1150,8 @@ export const post: BlogPost = {
         de: "Möchtest du deine Multi-Wearable-Daten ohne Duplikate sehen?",
         pt: "Quer ver seus dados multi-wearable sem duplicatas?",
         fr: "Vous voulez voir vos données multi-wearable sans doublons ?",
+        pl: "Chcesz zobaczyć swoje dane z wielu wearables bez powtarzania?",
+        tr: "İstediğiniz multi-giyilebilir cihazlardaki verileri tekerleksiz görmek istiyor musunuz?",
       },
       body: {
         it: "FitMesh Sync legge da Health Connect, Garmin e Suunto, applica la deduplicazione automatica descritta in questa guida, e mostra passi, sonno e frequenza cardiaca separati per contesto. Dati su server EU, GDPR compliant.",
@@ -924,6 +1160,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest aus Health Connect, Garmin und Suunto, wendet die in diesem Leitfaden beschriebene automatische Deduplizierung an und zeigt Schritte, Schlaf und Herzfrequenz nach Kontext getrennt an. Daten auf EU-Servern, DSGVO-konform.",
         pt: "O FitMesh Sync lê do Health Connect, Garmin e Suunto, aplica a deduplicação automática descrita neste guia e exibe passos, sono e frequência cardíaca separados por contexto. Dados em servidores da UE, em conformidade com o GDPR.",
         fr: "FitMesh Sync lit depuis Health Connect, Garmin et Suunto, applique la déduplication automatique décrite dans ce guide et affiche les pas, le sommeil et la fréquence cardiaque séparés par contexte. Données sur des serveurs UE, conforme au RGPD.",
+        pl: "FitMesh Sync odczytuje z Health Connect, Garmin i Suunto, stosuje automatyczną deduplikację opisaną w tej instrukcji, a następnie wyświetla kroki, sen i częstotliwość serca oddzielnie dla kontekstu. Dane na serwerach EU, zgodne z GDPR.",
+        tr: "FitMesh Sync KVKK ve Health Connect, Garmin ve Suunto hakkında yasal düzenlemeleri uygular, bu kılavuzda açıklanan otomatik deduplicasyonu uygular ve kontekst bazlı olarak adımlar, uyku ve kalp atış hızını gösterir. Veriler EU sunucusunda, GDPR uyumlu.",
       },
       ctaLabel: {
         it: "Prova FitMesh Sync →",
@@ -932,6 +1170,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync testen →",
         pt: "Experimente o FitMesh Sync →",
         fr: "Essayez FitMesh Sync →",
+        pl: "Spróbuj FitMesh Sync →",
+        tr: "Denemeyi FitMesh Sync →",
       },
       ctaHref: {
         it: "/it#download",
@@ -951,6 +1191,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "W syntezie",
+        tr: "Özetle",
       },
     },
     {
@@ -1004,6 +1246,22 @@ export const post: BlogPost = {
           "Suunto ne passe pas par Health Connect : un connecteur OAuth séparé est nécessaire. Les données sont ensuite unifiées avec la même logique de dédup.",
           "La fréquence cardiaque moyenne quotidienne sans distinction de contexte est un nombre physiquement sans signification : séparez toujours la fréquence cardiaque au repos de la fréquence cardiaque d'entraînement.",
         ],
+        pl: [
+          "Health Connect nie de duplicuje: jest neutralnym bazodanem źródłowym, a każda aplikacja pisze niezależnie. Logika de duplicacji musi być umieszczona w aplikacji, która agreguje.",
+          "Trzy główne problemy w setupach multi-wearable to: podwójne kroki spowodowane zliczaniem z overlapingowych rekordów akumulacyjnych, podwójne sesje senu z różnych urządzeń pomiarowych zanotowanych na tę samą noc, średnia częstotliwość pulsacji zanieczyszczonej pomiarami w różnych fizycznych kontekstach.",
+          "Strategia poprawna składa się z trzech komplementarnych technik: winner-takes-all dla okna czasowego (HR intradzie), slot-merge co 15 minut (kroki), grupowanie czasowe z priorytetem źródłowym (drzemka).",
+          "Dwie rzeczy wymagają ręcznej konfiguracji: jaki urządzenie używasz podczas senu, oraz wyłączanie Google Fit z źródła pisowni, jeśli nadal jest aktywne.",
+          "Suunto nie przechodzi przez Health Connect: potrzebny jest oddzielny connetor OAuth. Następnie dane są zintegrowane w tej samej logice dedup.",
+          "Przeciętna częstotliwość serca dziennie bez uwzględnienia kontekstu jest liczbą bez fizycznego sensu: zawsze rozróżnij CCR (częstotliwość serca spoczynkowej) od CCAW (częstotliwości serca podczas treningu).",
+        ],
+        tr: [
+          "Health Connect denediklemez: bir kaynak neutral veritabanı olarak işlev görür ve her uygulama bağımsız olarak yazar. Dedikodunun mantığı, veriyi toplayan uygulamada bulunmalıdır.",
+          "Üç ana sorun multi-giyilebilir cihaz ayarlarında meydana gelir: kaydedilen toplu kayıtlardan tekrarlanan adımlar, aynı geceyi ölçen cihazlardan tekrarlanan uyku oturumları ve fiziksel olarak farklı bağlamlardan elde edilen ölçümlerden kirli ortalaması kalp atış hızı.",
+          "Yaptırma doğru strateji üç tamamlanmamış teknikten oluşur: kazanan-hisseter-tümü için zaman aralığı (HR içgörü), 15 dakikalık slot-merging'i (adımlar), zamanla öncelikli kümeleme ile kaynak önceliği (uyku).",
+          "İki şey el ile yapılandırılması gerekmektedir: gece kullanacağınız cihaz ve Google Fit'ı yine aktif olduğunda kaynak yazma özelliği devre dışı bırakmanız.",
+          "Suunto geçmez Health Connect yoluyla: ayrı bir OAuth bağlayıcı gereklidir. Veriler daha sonra aynı mantıkta dedup edilir.",
+          "Günlük herhangi bir bağlamde ortalaması hesaplanan kalp atış hızı fiziksel bir değer olarak yorumlanmaz: Her zaman dinlenme sırasında ve egzersiz sırasında AT ile ayrı ayrı ifade edilmelidir.",
+        ],
       },
     },
   ],
@@ -1016,6 +1274,8 @@ export const post: BlogPost = {
         de: "Kann ich Galaxy Watch und Garmin zusammen ohne doppelte Daten verwenden?",
         pt: "Posso usar Galaxy Watch e Garmin juntos sem dados duplicados?",
         fr: "Puis-je utiliser Galaxy Watch et Garmin ensemble sans données dupliquées ?",
+        pl: "Można używać Galaxy Watch i Garmin razem bez dublowanych danych?",
+        tr: "İki Galaxy Watch ve Garmin veri çiftliği oluşturmadan birlikte kullanabilirim mi?",
       },
       a: {
         it: "Sì, ma richiede un aggregatore che gestisca la deduplicazione. Galaxy Watch e Garmin scrivono entrambi in Health Connect, quindi se apri Health Connect vedrai record di entrambi per le stesse metriche. Un'app come FitMesh Sync usa la logica winner-takes-all per le finestre di allenamento (Garmin vince durante la corsa) e il slot-merge a 15 minuti per i passi giornalieri (nessuna sorgente viene persa, ma i doppioni vengono eliminati).",
@@ -1024,6 +1284,8 @@ export const post: BlogPost = {
         de: "Ja, aber es erfordert einen Aggregator, der die Deduplizierung übernimmt. Galaxy Watch und Garmin schreiben beide in Health Connect, also wirst du, wenn du Health Connect öffnest, Datensätze von beiden für dieselben Metriken sehen. Eine App wie FitMesh Sync verwendet die Winner-takes-all-Logik für Trainingsfenster (Garmin gewinnt während des Laufs) und den 15-Minuten-Slot-Merge für tägliche Schritte (keine Quelle geht verloren, aber Duplikate werden eliminiert).",
         pt: "Sim, mas requer um agregador que gerencie a deduplicação. Galaxy Watch e Garmin escrevem ambos no Health Connect, então se você abrir o Health Connect verá registros de ambos para as mesmas métricas. Um app como o FitMesh Sync usa a lógica winner-takes-all para janelas de treino (Garmin vence durante a corrida) e o slot-merge de 15 minutos para passos diários (nenhuma fonte é perdida, mas os duplicados são eliminados).",
         fr: "Oui, mais cela nécessite un agrégateur qui gère la déduplication. Galaxy Watch et Garmin écrivent tous les deux dans Health Connect, donc si vous ouvrez Health Connect vous verrez des enregistrements des deux pour les mêmes métriques. Une application comme FitMesh Sync utilise la logique winner-takes-all pour les fenêtres d'entraînement (Garmin gagne pendant la course) et le slot-merge de 15 minutes pour les pas quotidiens (aucune source n'est perdue, mais les doublons sont éliminés).",
+        pl: "Tak, ale wymaga on zintegrowanego systemu zarządzającego deduplikacją. Galaxy Watch i Garmin obie piszą do Health Connect, więc jeśli otworzysz Health Connect, zobaczysz rekordy obu dla tych samych metryk. Aplikacja jak FitMesh Sync używa logiki winner-takes-all dla okien treningowych (Garmin wygrywa podczas biegu) i 15-minutowego scalenia slotów dla dziennych kroków (żadna źródłowa danych nie jest stracona, ale duplikaty są usuwane).",
+        tr: "Evet, ancak bir deduplicate eden agregatör gereklidir. Galaxy Watch ve Garmin hem de Health Connect 'da yazmaktadır, bu nedenle Health Connect 'a girerseniz her ikisinin aynı metrikler için kaydını göreceksiniz. Bir uygulama gibi FitMesh Sync, eğitimin windowları için winner-takes-all mantığı kullanır (Garmin koşu sırasında kazanır) ve günlük adımlar için 15 dakikalık slot-merge ile dublicatları siler (her kaynak kaybedilmez, ancak dublicatlar silinir).",
       },
     },
     {
@@ -1034,6 +1296,8 @@ export const post: BlogPost = {
         de: "Synchronisiert sich der Oura Ring mit Health Connect?",
         pt: "O Oura Ring sincroniza com o Health Connect?",
         fr: "L'Oura Ring se synchronise-t-il avec Health Connect ?",
+        pl: "Czy pęczek Oura synchronizuje się z Health Connect?",
+        tr: "Anel Oura KVKK ile Health Connect arasında uyumluluk kuruyor mu?",
       },
       a: {
         it: "Sì, dal 2024 Oura Ring scrive i dati di sonno, frequenza cardiaca e attività in Health Connect su Android. I dati di sonno di Oura sono particolarmente dettagliati (fasi REM, light, deep con timestamping granulare) e vengono scritti come SleepSession record. Se hai anche Galaxy Watch attivo di notte, vedrai due SleepSession per la stessa notte: un aggregatore che non clustera produrrà ore di sonno doppie.",
@@ -1042,6 +1306,8 @@ export const post: BlogPost = {
         de: "Ja, seit 2024 schreibt der Oura Ring Schlaf-, Herzfrequenz- und Aktivitätsdaten in Health Connect auf Android. Die Schlafdaten von Oura sind besonders detailliert (REM-, Leicht- und Tiefschlafphasen mit granularem Timestamping) und werden als SleepSession-Datensätze geschrieben. Wenn du nachts auch deine Galaxy Watch aktiv hast, siehst du zwei SleepSession-Datensätze für dieselbe Nacht: Ein Aggregator, der kein Clustering durchführt, produziert doppelte Schlafstunden.",
         pt: "Sim, desde 2024 o Oura Ring grava dados de sono, frequência cardíaca e atividade no Health Connect no Android. Os dados de sono do Oura são particularmente detalhados (fases REM, leve e profundo com timestamping granular) e são gravados como registros SleepSession. Se você também tiver o Galaxy Watch ativo à noite, verá dois registros SleepSession para a mesma noite: um agregador que não faz clustering produzirá horas de sono duplicadas.",
         fr: "Oui, depuis 2024 l'Oura Ring enregistre les données de sommeil, de fréquence cardiaque et d'activité dans Health Connect sur Android. Les données de sommeil d'Oura sont particulièrement détaillées (phases REM, léger et profond avec horodatage granulaire) et sont enregistrées comme des enregistrements SleepSession. Si vous avez aussi la Galaxy Watch active la nuit, vous verrez deux enregistrements SleepSession pour la même nuit : un agrégateur qui ne regroupe pas produira des heures de sommeil doublées.",
+        pl: "Tak, od 2024 Oura Ring zapisuje dane snu, częstotliwości serca i aktywności w Health Connect na Android. Dane snu z Oura są szczególnie szczegółowe (fazy REM, light, deep z precyzyjnym timestampingiem) i zapisywane jako rekordy sesji snu. Jeśli masz też Galaxy Watch włączony nocą, zobaczysz dwie sesje snu dla tej samej nocy: jedna agregująca, która nie clusteruje, wygeneruje podwójne godziny senne.",
+        tr: "Evet, 2024'ten itibaren Oura Ring, verileri Health Connect üzerinde Android'de sonuğunu, kalp atış hızını ve faaliyetlerini yazıyor. Oura Ring'in uyku verisi özellikle ayrıntılı (fase REM, ışık, derinle zamanlanmış etiketlemeler) ve SleepSession kayıtları olarak yazılır. Gece boyunca da Galaxy Watch aktifse, aynı günde iki SleepSession göreceksiniz: bir toplama yapmayan agregatör sonucu iki saat uyku süresi gösterecek.",
       },
     },
     {
@@ -1052,6 +1318,8 @@ export const post: BlogPost = {
         de: "Wie werden Schritte dedupliziert, wenn ich mehrere Wearables gleichzeitig trage?",
         pt: "Como os passos são deduplicados quando tenho vários wearables ao mesmo tempo?",
         fr: "Comment les pas sont-ils dédupliqués quand je porte plusieurs appareils connectés en même temps ?",
+        pl: "Jak usuwam duplikaty kroków, gdy mam więcej smartwatchów, które toczą się ze mną?",
+        tr: "Nezaman benimle daha fazla giyilebilir cihaz var ve bu cihazlar yürüyor, neler deneduplik edilir?",
       },
       a: {
         it: "Il metodo più robusto è il slot-merge a finestra temporale. La giornata viene divisa in intervalli (tipicamente 5-15 minuti). Per ogni intervallo, si prende il valore massimo tra tutte le sorgenti. Questo funziona perché due dispositivi che misurano la stessa camminata producono valori simili (il massimo è una stima della verità), mentre due dispositivi in momenti diversi producono valori additivi corretti. Il risultato è un totale giornaliero che non somma le stesse camminate due volte, ma include correttamente la camminata mattutina col Galaxy Watch e la corsa pomeridiana con Garmin.",
@@ -1060,6 +1328,8 @@ export const post: BlogPost = {
         de: "Die robusteste Methode ist der zeitfensterbasierte Slot-Merge. Der Tag wird in Intervalle aufgeteilt (typischerweise 5-15 Minuten). Für jedes Intervall wird der Maximalwert aus allen Quellen genommen. Das funktioniert, weil zwei Geräte, die denselben Spaziergang messen, ähnliche Werte produzieren (das Maximum ist eine Schätzung der Wahrheit), während zwei Geräte zu verschiedenen Zeiten korrekte additive Werte produzieren. Das Ergebnis ist ein Tageswert, der dieselben Spaziergänge nicht doppelt zählt, aber die morgendliche Runde mit der Galaxy Watch und den Nachmittagslauf mit Garmin korrekt einbezieht.",
         pt: "O método mais robusto é o slot-merge por janela temporal. O dia é dividido em intervalos (tipicamente 5-15 minutos). Para cada intervalo, pega-se o valor máximo entre todas as fontes. Isso funciona porque dois dispositivos que medem a mesma caminhada produzem valores similares (o máximo é uma estimativa da verdade), enquanto dois dispositivos em momentos diferentes produzem valores aditivos corretos. O resultado é um total diário que não conta as mesmas caminhadas duas vezes, mas inclui corretamente a caminhada matinal com o Galaxy Watch e a corrida da tarde com o Garmin.",
         fr: "La méthode la plus robuste est le slot-merge par fenêtre temporelle. La journée est divisée en intervalles (typiquement 5-15 minutes). Pour chaque intervalle, la valeur maximale parmi toutes les sources est prise. Cela fonctionne parce que deux appareils mesurant la même marche produisent des valeurs similaires (le maximum est une estimation de la vérité), tandis que deux appareils à des moments différents produisent des valeurs correctement additives. Le résultat est un total quotidien qui ne compte pas deux fois les mêmes marches, mais inclut correctement la marche matinale avec la Galaxy Watch et la course de l'après-midi avec Garmin.",
+        pl: "Najbardziej zespawiony metodą jest slot-merge o oknie czasowym. Dzień dzieli się na interwały (zazwyczaj 5-15 minut). Dla każdego interwału wybierany jest maksymalny wartość z wszystkich źródeł. To działa, ponieważ dwa urządzenia mierzące tę samą marsz produkcjonie podobne wartości (maksimum to szacunek prawdy), a dwa urządzenia w różnych chwilach tworzą dodatkowe poprawne wartości. Wynik to dzienny łącznik, który nie sumuje te samej marszy dwukrotnie, ale obejmuje poprawnie rano z Galaxy Watch i wieczór z Garmin.",
+        tr: "Enstrüman en robustos metodu zaman aralıklı slot-merge methodudur. Günü 5-15 dakika aralıklarına bölüyoruz. Her aralık için, tüm kaynaklardan maksimum değeri alıyoruz. İki cihazın aynı yürüyüşü ölçtüğünde benzer değerler elde eder (maksimum gerçek değer tahmini olur), ancak farklı zamanlarda ölçen iki cihaz doğru toplam değer verir. Sonuç, aynı yürüyüşün iki kez sayılmasının önüne geçerek günlük toplamı verir; sabah yürüyüşü Galaxy Watch ile ve öğleden sonra yürüyüşü Garmin ile doğru dahil edilir.",
       },
     },
     {
@@ -1070,6 +1340,8 @@ export const post: BlogPost = {
         de: "Schreibt Suunto in Health Connect?",
         pt: "O Suunto grava no Health Connect?",
         fr: "Suunto écrit-il dans Health Connect ?",
+        pl: "Suunto pyta, czy Health Connect?",
+        tr: "KVKK'de Health Connect'a kim yazılır?",
       },
       a: {
         it: "Non completamente. A differenza di Garmin che ha un'integrazione Health Connect nativa dalla sua app Android, Suunto espone i dati principalmente tramite Suunto Sport Engine API con autenticazione OAuth. Questo significa che per integrare Suunto in una dashboard multi-sorgente serve un connettore separato che legge dall'API Suunto. FitMesh Sync include questo connettore: una volta aggiunto Suunto come sorgente OAuth, i dati vengono uniti al flusso principale con la stessa logica di deduplicazione.",
@@ -1078,6 +1350,8 @@ export const post: BlogPost = {
         de: "Nicht vollständig. Anders als Garmin, das eine native Health Connect-Integration aus seiner Android-App hat, stellt Suunto Daten hauptsächlich über die Suunto Sport Engine API mit OAuth-Authentifizierung bereit. Das bedeutet, dass die Integration von Suunto in ein Multi-Quellen-Dashboard einen separaten Connector erfordert, der die Suunto API liest. FitMesh Sync beinhaltet diesen Connector: Sobald Suunto als OAuth-Quelle hinzugefügt wurde, werden die Daten mit derselben Deduplizierungslogik in den Hauptstream eingebunden.",
         pt: "Não completamente. Ao contrário do Garmin, que tem integração nativa com o Health Connect a partir do seu app Android, o Suunto expõe os dados principalmente através da API Suunto Sport Engine com autenticação OAuth. Isso significa que integrar o Suunto em um painel multi-fonte requer um conector separado que lê da API Suunto. O FitMesh Sync inclui esse conector: uma vez que o Suunto é adicionado como fonte OAuth, os dados são mesclados ao fluxo principal com a mesma lógica de deduplicação.",
         fr: "Pas complètement. Contrairement à Garmin qui dispose d'une intégration native avec Health Connect depuis son application Android, Suunto expose les données principalement via l'API Suunto Sport Engine avec authentification OAuth. Cela signifie qu'intégrer Suunto dans un tableau de bord multi-source nécessite un connecteur séparé lisant depuis l'API Suunto. FitMesh Sync inclut ce connecteur : une fois Suunto ajouté comme source OAuth, les données sont fusionnées dans le flux principal avec la même logique de déduplication.",
+        pl: "Nie całkowicie. W przeciwieństwie do Garmin posiadającego integrację Health Connect natywną z jego aplikacją Android, Suunto eksponuje głównie dane poprzez interfejs API Sport Engine Suunto z autoryzacją OAuth. Oznacza to, że do integracji Suunto w multi-sourced dashboardu potrzebny jest oddzielny connector, który czyta z API Suunto. FitMesh Sync zawiera ten connector: po dodaniu Suunto jako źródła OAuth, dane są łączone z głównym przepływem przy użyciu tej samej logiki deduplikacji.",
+        tr: "Partially. A farkındayız ki, Garmin uygulamasının Health Connect olarak doğrudan bir entegrasyonu varken, Suunto verilerin çoğunluğu Suunto Spor Motoru API'si üzerinden sunar ve bu işlemde OAuth autentikasyonu kullanılır. Bu, Suunto yi çok kaynaklı bir panelde entegre etmek için ayrı bir bağlayıcı gerektirdiğini demektir, bu bağlayıcı da API'den verileri okuyarak çalışır. FitMesh Sync bu bağlayıcıyı içeriyor: Suunto 'u kaynak olarak ekledinizktan itibaren, veriler ana akışa dahil edilir ve aynı deduplicasyon mantığıyla birleştirilir.",
       },
     },
     {
@@ -1088,6 +1362,8 @@ export const post: BlogPost = {
         de: "Warum scheint meine durchschnittliche Herzfrequenz mit mehreren Wearables zu hoch oder zu niedrig zu sein?",
         pt: "Por que minha frequência cardíaca média parece muito alta ou muito baixa com vários wearables?",
         fr: "Pourquoi ma fréquence cardiaque moyenne semble-t-elle trop haute ou trop basse avec plusieurs appareils connectés ?",
+        pl: "Dlaczego moja średnia częstotliwość serca wydaje się zbyt wysoka lub zbyt niska przy wielu wearble?",
+        tr: "Neden benim ortalama kalp atışım çok yüksektir veya çok düşüktür daha fazla giyilebilir cihazla?",
       },
       a: {
         it: "Quasi certamente è un problema di contesto mescolato. Se la tua dashboard calcola la frequenza cardiaca media giornaliera sommando tutti i record di tutte le sorgenti, finisce per mediare la frequenza a riposo con quella durante l'allenamento. La soluzione è separare i contesti: frequenza cardiaca a riposo (calcolata solo sulle ore fuori dalle finestre di allenamento), frequenza cardiaca media di allenamento (calcolata solo durante le sessioni di esercizio, per tipo di attività). Una media unica giornaliera multi-sorgente non ha senso fisico.",
@@ -1096,6 +1372,8 @@ export const post: BlogPost = {
         de: "Es ist mit hoher Wahrscheinlichkeit ein Problem mit gemischten Kontexten. Wenn dein Dashboard die tägliche Durchschnittsherzfrequenz berechnet, indem es alle Datensätze aus allen Quellen summiert, mittelt es am Ende Ruheherzfrequenz mit Trainingsherzfrequenz. Die Lösung ist die Trennung der Kontexte: Ruheherzfrequenz (nur für Stunden außerhalb der Trainingsfenster berechnet) und durchschnittliche Trainingsherzfrequenz (nur während Trainingseinheiten, nach Aktivitätstyp berechnet). Ein einziger täglicher Multi-Quellen-Durchschnitt hat keine physikalische Bedeutung.",
         pt: "Quase certamente é um problema de contexto misturado. Se o seu painel calcula a frequência cardíaca média diária somando todos os registros de todas as fontes, acaba por calcular a média da frequência em repouso com a frequência durante o treino. A solução é separar os contextos: frequência cardíaca em repouso (calculada apenas nas horas fora das janelas de treino) e frequência cardíaca média de treino (calculada apenas durante as sessões de exercício, por tipo de atividade). Uma única média diária multi-fonte não tem sentido físico.",
         fr: "C'est presque certainement un problème de contextes mélangés. Si votre tableau de bord calcule la fréquence cardiaque moyenne quotidienne en additionnant tous les enregistrements de toutes les sources, il finit par calculer la moyenne de la fréquence cardiaque au repos avec la fréquence cardiaque d'entraînement. La solution est de séparer les contextes : fréquence cardiaque au repos (calculée uniquement sur les heures en dehors des fenêtres d'entraînement) et fréquence cardiaque moyenne d'entraînement (calculée uniquement pendant les séances d'exercice, par type d'activité). Une seule moyenne quotidienne multi-source n'a pas de signification physique.",
+        pl: "Praktycznie na pewno jest to problem z mesclaniem kontekstów. Jeśli Twoja dashboard oblicza średnią częstotliwość serca dzienną sumując wszystkie rekordy z wszystkich źródeł, kończy się na tym, że średnia częstotliwość spoczynkowa łączy się z częstotliwością podczas treningu. Rozwiązanie polega na oddzieleniu tych kontekstów: częstotliwość serca spoczynkowa (obliczana tylko w godzinach poza oknami treningowymi), średnia częstotliwość trafiennicza (obliczana tylko podczas sesji ćwiczeń, według rodzaju aktywności). Jedno wielokontekstowe obliczenie dziennego średniego nie ma sensu fizjologicznego.",
+        tr: "KVKK problemin bir bağlam karışımının neden olduğu olasılığı yüksek. Eğer dashboard günlük ortalama kalp atış hızını tüm kaynaklardan gelen tüm kayıtları toplayarak hesaplıyorsa, dinlenme sırasında ve egzersiz sırasında olan kalp atış hızlarını ortalamaya katıyor. Çözüm, bağlamları ayırt etmek olacak: Dinlenme Kalp Atış Hızı (sadece egzersiz aralıklarının dışında saatlerde hesaplanır), Egzersiz Kalp Atış Hızı Ortalaması (egzersiz oturumlarında ve aktivite türleri için sadece hesaplanır). Birden fazla kaynaktan oluşan günlük tek bir ortalama fiziksel anlamda yasal değildir.",
       },
     },
     {
@@ -1106,6 +1384,8 @@ export const post: BlogPost = {
         de: "Duplizieren Galaxy Ring und Galaxy Watch die Schlafdaten?",
         pt: "Galaxy Ring e Galaxy Watch duplicam os dados de sono?",
         fr: "Galaxy Ring et Galaxy Watch dupliquent-ils les données de sommeil ?",
+        pl: "Galaxy Ring i Galaxy Watch podwójnie zwiększają dane snu?",
+        tr: "Galaxy Ring ve Galaxy Watch uyku verilerini çift kopyalıyor mu?",
       },
       a: {
         it: "Sì, se li indossi entrambi di notte. Sia Galaxy Ring che Galaxy Watch scrivono in Health Connect sessioni di sonno per la stessa notte. Samsung Health cerca di gestire questo internamente (Galaxy Ring ha priorità se rilevato come sorgente attiva di notte), ma il comportamento non è garantito su tutti i dispositivi e versioni di One UI. Se usi un aggregatore di terze parti come FitMesh Sync, la logica di clustering sonno risolve il problema indipendentemente da Samsung Health.",
@@ -1114,6 +1394,8 @@ export const post: BlogPost = {
         de: "Ja, wenn du beide nachts trägst. Sowohl Galaxy Ring als auch Galaxy Watch schreiben Schlafsessions für dieselbe Nacht in Health Connect. Samsung Health versucht, dies intern zu handhaben (Galaxy Ring hat Priorität, wenn es als aktive Nachtquelle erkannt wird), aber das Verhalten ist nicht auf allen Geräten und One UI-Versionen garantiert. Wenn du einen Drittanbieter-Aggregator wie FitMesh Sync verwendest, löst die Schlaf-Clustering-Logik das Problem unabhängig von Samsung Health.",
         pt: "Sim, se você usar ambos à noite. Tanto o Galaxy Ring quanto o Galaxy Watch gravam sessões de sono no Health Connect para a mesma noite. O Samsung Health tenta gerenciar isso internamente (o Galaxy Ring tem prioridade se detectado como fonte ativa noturna), mas o comportamento não é garantido em todos os dispositivos e versões do One UI. Se você usar um agregador de terceiros como o FitMesh Sync, a lógica de clustering de sono resolve o problema independentemente do Samsung Health.",
         fr: "Oui, si vous portez les deux la nuit. Galaxy Ring et Galaxy Watch écrivent tous les deux des séances de sommeil dans Health Connect pour la même nuit. Samsung Health essaie de gérer cela en interne (Galaxy Ring a la priorité s'il est détecté comme la source nocturne active), mais ce comportement n'est pas garanti sur tous les appareils et versions de One UI. Si vous utilisez un agrégateur tiers comme FitMesh Sync, la logique de clustering du sommeil résout le problème indépendamment de Samsung Health.",
+        pl: "Tak, jeśli je używasz oba noce. Obaj Galaxy Ring i Galaxy Watch zapisują się w sesjach snu dla tej samej nocy. Samsung Health próbuje obsłużyć to wewnętrznie (Galaxy Ring ma priorytet, jeśli jest wykryty jako aktywna sorgenta noce), ale zachowanie nie jest gwarantowane na wszystkich urządzeniach i wersjach One UI. Jeśli używasz agregatora trzecich stron jak FitMesh Sync, logika klasteryzacji snu rozwiązuje problem niezależnie od Samsung Health.",
+        tr: "Evet, aynı zamanda gece giydiyseniz. Her Galaxy Ring ve Galaxy Watch de gece uykularını Health Connect oturumlarına yazdırır. Samsung Health bu işi kendi içinde denetler (gece gece rastlandığında aktif kaynak olarak Galaxy Ring önceliği vardır), ancak tüm cihazlar ve One UI versiyonları üzerindeki davranış garantisi verilmez. Eğer üçüncü taraf bir topluluk kullanıyorsanız, FitMesh Sync uyku kümeleme mantığı bu durumu her zaman çözüyor.",
       },
     },
   ],

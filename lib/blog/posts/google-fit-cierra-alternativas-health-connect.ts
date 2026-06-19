@@ -588,6 +588,8 @@ export const post: BlogPost = {
         de: "Und auf dem iPhone? Die Situation ist anders",
         pt: "E no iPhone? A situação é diferente",
         fr: "Et sur iPhone? La situation est différente",
+        pl: "I podstawowe zasady iPhone? Sytuacja jest inna.",
+        tr: "Ve iPhone? Durum farklıdır",
       },
     },
     {
@@ -599,6 +601,8 @@ export const post: BlogPost = {
         de: "Die Einstellung von Google Fit betrifft nur das Android-Ökosystem. Auf dem iPhone ist Apple Health (basierend auf HealthKit) das Referenzsystem für Gesundheitsdaten und ist von dieser Änderung nicht betroffen. Wenn du eine Apple Watch oder andere iOS-Wearables verwendest, fließen deine Daten wie gewohnt weiter zu Apple Health.",
         pt: "O encerramento do Google Fit afeta apenas o ecossistema Android. No iPhone, o sistema de referência para dados de saúde é o Apple Health (baseado no HealthKit), que não está envolvido nessa mudança. Se você usa um Apple Watch ou outros wearables iOS, seus dados continuam fluindo para o Apple Health como sempre.",
         fr: "L'abandon de Google Fit ne concerne que l'écosystème Android. Sur iPhone, le système de référence pour les données de santé est Apple Health (basé sur HealthKit), qui n'est pas concerné par ce changement. Si vous utilisez une Apple Watch ou d'autres wearables iOS, vos données continuent de transiter vers Apple Health comme toujours.",
+        pl: "Dismissal of Google Fit concerns only the Android ecosystem. On iPhone, the reference system for health data is Apple Health (based on HealthKit), which is not involved in this change. If you use un Apple Watch或者其他智能穿戴设备iOS，你的健康数据将继续流向Apple Health如常。",
+        tr: "La dismissione di Google Fit riguarda solo l'ecosistema Android. Su iPhone il sistema di riferimento per i dati salute è Apple Health (basato su HealthKit), che non è coinvolto in questo cambiamento. Se usi un akıllı saat veya altri giyilebilir cihazlar iOS, i tuoi dati continuano a fluire su Apple Health come sempre.",
       },
     },
     {
@@ -610,6 +614,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync ist derzeit für Android verfügbar und verwendet Health Connect als Datenquelle. Die iPhone-Unterstützung mit Apple Health als Quelle befindet sich in der Entwicklung. Wenn du ein iPhone hast und benachrichtigt werden möchtest, wenn sie verfügbar ist, kannst du dich auf der entsprechenden Seite für die Beta-Liste anmelden.",
         pt: "O FitMesh Sync está disponível atualmente para Android e usa o Health Connect como fonte de dados. O suporte para iPhone, com o Apple Health como fonte, está em desenvolvimento. Se você está no iPhone e quer ser avisado quando ele chegar, pode se inscrever na lista beta pela página dedicada.",
         fr: "FitMesh Sync est actuellement disponible pour Android et utilise Health Connect comme source de données. La prise en charge de l'iPhone, avec Apple Health comme source, est en cours de développement. Si vous êtes sur iPhone et souhaitez être notifié à son arrivée, vous pouvez vous inscrire sur la liste bêta depuis la page dédiée.",
+        pl: "FitMesh Sync jest obecnie dostępny dla Android i używa Health Connect jako źródła danych. Obsługa iPhone, z Apple Health jako źródła, jest w fazie rozwoju. Jeśli jesteś na iPhone i chcesz być powiadamiany o dostępności, możesz się zapisać do listy bêta na dedykowanej stronie.",
+        tr: "FitMesh Sync şu anda Android için kullanılabilir ve verileri Health Connect kullanarak alır. iPhone için destek, verileri Apple Health kullanarak alacak şekilde geliştiriliyor. iPhone üzerindeyken ve yeni sürüm hakkında bildirim almak istiyorsan, özel beta listesinden kaydolabilirsin.",
       },
     },
     {
@@ -622,6 +628,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung: Was jetzt zu tun ist",
         pt: "Em resumo: o que fazer agora",
         fr: "En résumé: que faire maintenant",
+        pl: "Wydrukowanie: co zrobić teraz",
+        tr: "Özetle:Şimdi ne yapmalıyız",
       },
     },
     {
@@ -669,6 +677,20 @@ export const post: BlogPost = {
           "Si vous utilisez plusieurs wearables, envisagez une application d'agrégation qui gère les doublons et affiche la source des données pour chaque métrique.",
           "Si vous êtes sur Android et souhaitez commencer tout de suite, FitMesh Sync est sur Google Play avec un accès bêta ouvert.",
         ],
+        pl: [
+          "Wyślij historyczne dane z Google Fit za pomocą Google Takeout zanim usługa станет менее доступной.",
+          "Sprawdź, czy używane aplikacje przeszły już do Health Connect (większość aktywnych aplikacji to już zrobiło).",
+          "Sprawdź w Health Connect → Autoryzacje app, czy Twoje towarzyszące appy (Samsung Health, Fitbit, itp.) mają pozwolenie na zapisanie typów danych, które Cię interesują.",
+          "Jeśli używasz wielu wearables, rozważ zainstalowanie aplikacji agregującej, która zarządza duplikatami i pokazuje źródło danych dla każdej metryki.",
+          "Jeśli jesteś na Android i chcesz zacząć od razu, FitMesh Sync jest dostępny na Google Play z otwartym dostępem beta.",
+        ],
+        tr: [
+          "Tarihi verileri Google Fit aracılığıyla Google Takeoutdan aktarın ki hizmet daha az erişilebilir olmasından önce yapıştırılmemiş olsun.",
+          "kontrol etmek için kullanmakta olduğunuz uygulamaların çoğu aktif uygulama gibi Health Connect'a geçiş yapmış olup olmadığını.",
+          "Kontrol et Health Connect → Uygulama Onayı bölümünde, uygulamaların (Samsung Health, Fitbit vs.) ilgili veri türlerini yazmasına izin verildiğinden emin ol.",
+          "Kullanırdığınız giyilebilir cihazlar daha fazla ise, bir agregasyon uygulaması kullanmayı düşünebilirsiniz. Bu uygulama tekrarlanan verileri yönetecek ve her metrik için veri kaynağı göstermeye devam edecektir.",
+          "Eğer Android üzerindeyken ve hemen başlamak istiyorsan, FitMesh Sync ile Google Play 'de betik erişimiyle başlayabilirsin.",
+        ],
       },
     },
   ],
@@ -681,6 +703,8 @@ export const post: BlogPost = {
         de: "Wird Google Fit 2026 vollständig eingestellt?",
         pt: "O Google Fit vai encerrar definitivamente em 2026?",
         fr: "Google Fit ferme-t-il définitivement en 2026?",
+        pl: "Czy Google Fit zamyka się definitwnie w 2026 roku?",
+        tr: "KVKK'ye 2026 yılına kadar son verilicek?",
       },
       a: {
         it: "Le API REST di Google Fit vengono dismesse nel 2026: questo colpisce le app che usavano quelle API per leggere e scrivere dati salute. L'app Google Fit potrebbe restare installabile per un periodo, ma senza aggiornamenti né nuove integrazioni è destinata a diventare inutilizzabile nel tempo. Il successore ufficiale per Android è Health Connect.",
@@ -689,6 +713,8 @@ export const post: BlogPost = {
         de: "Die Google Fit REST APIs werden 2026 eingestellt: Dies betrifft Apps, die diese APIs zum Lesen und Schreiben von Gesundheitsdaten verwendet haben. Die Google Fit App bleibt möglicherweise für eine Weile installierbar, aber ohne Updates oder neue Integrationen wird sie mit der Zeit unbrauchbar. Der offizielle Nachfolger für Android ist Health Connect.",
         pt: "As APIs REST do Google Fit são encerradas em 2026: isso afeta os apps que usavam essas APIs para ler e gravar dados de saúde. O app Google Fit pode continuar instalável por um período, mas sem atualizações nem novas integrações ele tende a se tornar inutilizável com o tempo. O sucessor oficial para Android é o Health Connect.",
         fr: "Les API REST de Google Fit sont abandonnées en 2026: cela affecte les applications qui utilisaient ces API pour lire et écrire des données de santé. L'application Google Fit pourra rester installable pendant un moment, mais sans mises à jour ni nouvelles intégrations, elle est vouée à devenir inutilisable avec le temps. Le successeur officiel pour Android est Health Connect.",
+        pl: "API REST Google Fit zostan zakończone w 2026 roku: to wpływa na aplikacje korzystające z tych API do odczytu i zapisu danych zdrowotnych. Aplikacja Google Fit może pozostawać instalowalna przez pewien okres, ale bez aktualizacji ani nowych integracji jest przeznaczona do stania się nieużywalna w przyszłości. Oficjalny zastępca dla Android to Health Connect.",
+        tr: "KVKK uyumluluğu için Google Fit'in REST API'leri 2026'da kesilecektir: bu, o API'lerle veri sağlık bilgilerini okuma ve yazma kullanan uygulamaları etkiliyor. Google Fit uygulaması muhtemelen bir süre boyunca kurulabilir kalabilir, ancak güncelleme veya yeni entegrasyon olmadan zamanla kullanışsız hale gelecektir. Android'nin resmi takip edicisi Health Connect'dur.",
       },
     },
     {
@@ -699,6 +725,8 @@ export const post: BlogPost = {
         de: "Gehen meine Google Fit-Daten bei der Einstellung verloren?",
         pt: "Meus dados do Google Fit serão perdidos quando ele encerrar?",
         fr: "Mes données Google Fit seront-elles perdues à la fermeture?",
+        pl: "Czy moje dane z Google Fit utracone są podczas zamknięcia?",
+        tr: "Verisetimiz Google Fit bilgilerimin kaybolup kalmayacağı kapanışla?\nKVKK gerekliliklerine uygun olarak, verisetimiz kapanışla silinmez.",
       },
       a: {
         it: "I dati storici non si perdono se li esporti in tempo. Tramite Google Takeout puoi scaricare tutta la tua cronologia in formato JSON e TCX. Questi file rimarranno sul tuo dispositivo. Importarli su Health Connect o su altre piattaforme richiede però strumenti dedicati che non esistono per tutti i formati. Il consiglio pratico è: esporta ora e conserva il backup, anche se non sai ancora dove usarlo.",
@@ -707,6 +735,8 @@ export const post: BlogPost = {
         de: "Historische Daten gehen nicht verloren, wenn du sie rechtzeitig exportierst. Über Google Takeout kannst du deine gesamte Chronik im JSON- und TCX-Format herunterladen. Diese Dateien verbleiben auf deinem Gerät. Das Importieren in Health Connect oder andere Plattformen erfordert jedoch dedizierte Tools, die nicht für alle Formate existieren. Der praktische Rat: Exportiere jetzt und bewahre das Backup auf, auch wenn du noch nicht weißt, wo du es verwenden wirst.",
         pt: "Os dados históricos não se perdem se você os exportar a tempo. Pelo Google Takeout você pode baixar todo o seu histórico no formato JSON e TCX. Esses arquivos ficam no seu dispositivo. Importá-los para o Health Connect ou outras plataformas requer ferramentas dedicadas que nem sempre existem para todos os formatos. O conselho prático é: exporte agora e guarde o backup, mesmo que ainda não saiba onde vai usá-lo.",
         fr: "Les données historiques ne sont pas perdues si vous les exportez à temps. Via Google Takeout, vous pouvez télécharger tout votre historique au format JSON et TCX. Ces fichiers resteront sur votre appareil. Les importer dans Health Connect ou d'autres plateformes nécessite cependant des outils dédiés qui n'existent pas pour tous les formats. Le conseil pratique: exportez maintenant et conservez la sauvegarde, même si vous ne savez pas encore où vous l'utiliserez.",
+        pl: "Dane historyczne nie zostaną utracone, jeśli je eksportujesz w porę. Przez Google Takeout możesz pobrać całą swoją historię w formacie JSON i TCX. Te pliki pozostaną na Twoim urządzeniu. Importowanie ich do Health Connect lub innych platform wymaga jednak specjalistycznych narzędzi, które nie istnieją dla wszystkich formatów. Praktyczny poręczny radek: eksportuj teraz i zapisz kopię zapasową, nawet jeśli jeszcze nie wiesz, gdzie ją użyjesz.",
+        tr: "Geçmiş verilerin silinmesine neden olmaz export ettinizse. Google Takeout kullanarak tüm tarihçe bilgilerini JSON ve TCX formatında indirebilirsiniz. Bu dosyalar cihazınızda kalacaktır. Ancak, bunları Health Connect veya diğer platformlara import etmek için özel araçlar gereklidir ve tüm formatlar için mevcut değildir. Uygulanan pratik tavsiye: Şimdi export ettiniz ve yedeklemeden saklayın, belki kullanacağınızın tam olarak nerede olduğunuzu henüz bilmiyorsunuz.",
       },
     },
     {
@@ -717,6 +747,8 @@ export const post: BlogPost = {
         de: "Funktioniert Health Connect mit allen Wearables?",
         pt: "O Health Connect funciona com todos os wearables?",
         fr: "Health Connect fonctionne-t-il avec tous les wearables?",
+        pl: "RODO działa z wszystkimi wearables?",
+        tr: "Health Connect işlevi her giyilebilir cihazda mı vardır?",
       },
       a: {
         it: "Health Connect funziona con i wearable le cui app companion supportano la scrittura su HC. Samsung Health (Galaxy Watch), Fitbit (Pixel Watch e Fitbit tracker), Polar Beat e diverse altre app companion principali lo supportano. Garmin è un caso a parte: Garmin Connect non scrive su Health Connect in modo nativo, e le app che vogliono dati Garmin devono integrarsi separatamente con la loro API ufficiale. FitMesh Sync supporta entrambi i percorsi.",
@@ -725,6 +757,8 @@ export const post: BlogPost = {
         de: "Health Connect funktioniert mit Wearables, deren Companion-Apps das Schreiben in HC unterstützen. Samsung Health (Galaxy Watch), Fitbit (Pixel Watch und Fitbit-Tracker), Polar Beat und mehrere andere wichtige Companion-Apps unterstützen dies. Garmin ist ein Sonderfall: Garmin Connect schreibt nicht nativ in Health Connect, und Apps, die Garmin-Daten benötigen, müssen sich separat mit deren offizieller API integrieren. FitMesh Sync unterstützt beide Wege.",
         pt: "O Health Connect funciona com wearables cujos apps companion suportam gravação no HC. O Samsung Health (Galaxy Watch), o Fitbit (Pixel Watch e rastreadores Fitbit), o Polar Beat e vários outros apps companion principais o suportam. Garmin é um caso à parte: o Garmin Connect não grava no Health Connect de forma nativa, e os apps que precisam de dados Garmin devem se integrar separadamente com a API oficial deles. O FitMesh Sync suporta os dois caminhos.",
         fr: "Health Connect fonctionne avec les wearables dont les applications compagnon prennent en charge l'écriture dans HC. Samsung Health (Galaxy Watch), Fitbit (Pixel Watch et trackers Fitbit), Polar Beat et plusieurs autres applications compagnon principales le prennent en charge. Garmin est un cas particulier: Garmin Connect n'écrit pas nativement dans Health Connect, et les applications qui souhaitent des données Garmin doivent s'intégrer séparément avec leur API officielle. FitMesh Sync prend en charge les deux approches.",
+        pl: "Health Connect działa z wearable, których aplikacje towarzyszące obsługują pisanie na HC. Samsung Health (Galaxy Watch), Fitbit (Pixel Watch oraz Fitbit tracker), Polar Beat i różne inne główne aplikacje towarzyszące również go wspierają. Garmin jest wyjątkiem: Garmin Connect nie pisze na Health Connect w trybie natywnym, a aplikacje potrzebujące danych Garmin muszą integrować się oddzielnie z ich oficjalną API. FitMesh Sync obsługuje oba podejścia.",
+        tr: "Health Connect KVKK ile uyumlu giyilebilir cihazların app companionlarıyla çalışır. Samsung Health (Galaxy Watch), Fitbit (Pixel Watch ve Fitbit takipçilere), Polar Beat ve çeşitli diğer ana app companionları destekler. Garmin özel bir durum: Garmin Connect KVKK ile doğrudan yazmaz, ve Garmin verileri isteyen uygulamalar kendi API'leriyle ayrı olarak entegre edilmelidir. FitMesh Sync her iki yolu da destekler.",
       },
     },
     {
@@ -735,6 +769,8 @@ export const post: BlogPost = {
         de: "Was mache ich, wenn ich mehrere Wearables verwende und doppelte Daten sehe?",
         pt: "O que faço se uso vários wearables e vejo dados duplicados?",
         fr: "Que faire si j'utilise plusieurs wearables et que je vois des données en double?",
+        pl: "Czego robić, jeśli używam więcej wearables i widzę powtarzające się dane?",
+        tr: "Eğer daha fazla giyilebilir cihaz kullanarak çift veriler görürsem ne yapmalıyım?",
       },
       a: {
         it: "I dati doppi su Health Connect sono un problema reale quando più dispositivi registrano la stessa metrica nello stesso periodo. La soluzione è usare un'app che gestisca la deduplicazione: FitMesh Sync, ad esempio, riconosce questo scenario e mostra per ogni dato la fonte principale, evitando somme gonfiate. Se invece usi un'app che non gestisce i duplicati, potresti vedere passi o calorie irrealisticamente alti.",
@@ -743,6 +779,8 @@ export const post: BlogPost = {
         de: "Doppelte Daten in Health Connect sind ein echtes Problem, wenn mehrere Geräte dieselbe Metrik im selben Zeitraum aufzeichnen. Die Lösung ist die Verwendung einer App, die die Deduplizierung übernimmt: FitMesh Sync erkennt dieses Szenario beispielsweise und zeigt für jede Messung die primäre Quelle an, um aufgeblasene Gesamtwerte zu vermeiden. Wenn du eine App verwendest, die keine Duplikate verwaltet, könntest du unrealistisch hohe Schritt- oder Kalorienangaben sehen.",
         pt: "Dados duplicados no Health Connect são um problema real quando vários dispositivos registram a mesma métrica no mesmo período. A solução é usar um app que gerencie a deduplicação: o FitMesh Sync, por exemplo, reconhece esse cenário e mostra para cada dado a fonte principal, evitando totais inflados. Se você usar um app que não gerencia duplicatas, pode ver contagens de passos ou calorias irrealisticamente altas.",
         fr: "Les données en double dans Health Connect sont un vrai problème quand plusieurs appareils enregistrent la même métrique sur la même période. La solution est d'utiliser une application qui gère la déduplication: FitMesh Sync, par exemple, reconnaît ce scénario et affiche pour chaque mesure la source principale, évitant ainsi des totaux gonflés. Si vous utilisez une application qui ne gère pas les doublons, vous pourriez voir des comptages de pas ou de calories anormalement élevés.",
+        pl: "Dane podwójne na Health Connect to problem rzeczywisty, gdy więcej urządzeń rejestruje tę samą miarę w tym samym okresie. Rozwiązanie polega na użyciu aplikacji zarządzającej deduplikacją: np. FitMesh Sync, która rozpoznaje ten scenariusz i pokazuje dla każdego danego źródło główne, unikając sum zbyt wysokich. Jeśli używasz za ona aplikację nie obsługującą duplikaty, możesz zobaczyć kroki lub kalorie nierealistycznie wyższe.",
+        tr: "I çift veriler Health Connect üzerinde gerçekte bir sorun oluşturur: aynı dönemde aynı metrikayı birden fazla cihazın kaydediği durumlar için. Çözüm, çakışmaları yönetebilecek bir uygulamanın kullanılmasıdır: örneğin, FitMesh Sync bu senaryoyu tanır ve her verinin ana kaynağı gösterilir, böylece yanlışlıkla artan toplamlar ortaya çıkalmaz. Eğer çakışmaları yöneten bir uygulama kullanmıyorsanız, gerçek olmayan yüksek adımlar veya kalorileri görebilirsiniz.",
       },
     },
     {
@@ -753,6 +791,8 @@ export const post: BlogPost = {
         de: "Ersetzt FitMesh Sync Google Fit?",
         pt: "O FitMesh Sync substitui o Google Fit?",
         fr: "FitMesh Sync remplace-t-il Google Fit?",
+        pl: "Czy FitMesh Sync zastąpi Google Fit?",
+        tr: "FitMesh Sync Google Fit yerine alır mı?",
       },
       a: {
         it: "FitMesh Sync non è un sostituto diretto di Google Fit: non registra dati dai sensori né fa da app companion per i wearable. È un aggregatore che legge i dati già presenti in Health Connect (o nelle API Garmin, Polar, etc.) e li mostra in un pannello web unificato, con deduplicazione e visibilità della fonte. Se cerchi qualcosa per unificare i dati di più wearable in un'unica vista, FitMesh Sync serve a quello.",
@@ -761,6 +801,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync ist kein direkter Ersatz für Google Fit: Es zeichnet keine Daten von Sensoren auf und fungiert nicht als Companion-App für Wearables. Es ist ein Aggregator, der Daten liest, die bereits in Health Connect (oder in den Garmin-, Polar-APIs usw.) vorhanden sind, und sie in einem einheitlichen Web-Panel mit Deduplizierung und Quellensichtbarkeit anzeigt. Wenn du etwas suchst, um Daten von mehreren Wearables in einer einzigen Ansicht zu vereinen, erfüllt FitMesh Sync genau diesen Zweck.",
         pt: "O FitMesh Sync não é um substituto direto do Google Fit: ele não registra dados de sensores nem atua como app companion para wearables. É um agregador que lê os dados já presentes no Health Connect (ou nas APIs do Garmin, Polar etc.) e os exibe em um painel web unificado, com deduplicação e visibilidade da fonte. Se você está procurando algo para unificar os dados de vários wearables em uma única visão, o FitMesh Sync serve exatamente para isso.",
         fr: "FitMesh Sync n'est pas un remplacement direct de Google Fit: il n'enregistre pas de données depuis des capteurs et ne sert pas d'application compagnon pour les wearables. C'est un agrégateur qui lit les données déjà présentes dans Health Connect (ou dans les API Garmin, Polar, etc.) et les affiche dans un panneau web unifié, avec déduplication et visibilité de la source. Si vous cherchez quelque chose pour unifier les données de plusieurs wearables dans une seule vue, FitMesh Sync est fait pour ça.",
+        pl: "FitMesh Sync nie jest bezpośrednim zastępcem dla Google Fit: nie rejestruje danych ze sensorów ani nie działa jako aplikacja towarzysząca do wearable. Jest to agregator, który odczytuje istniejące dane w Health Connect (lub API Garmin, Polar itp.) i prezentuje je na unifikowanym panelu internetowym, z deduplikacją i widocznością źródła. Jeśli szukasz rozwiązania do scalenia danych z wielu wearable w jednym miejscu, FitMesh Sync jest tym, czego potrzebujesz.",
+        tr: "FitMesh Sync KVKK'ın doğrudan bir takviyesi değildir: veri sensörlerinden kaydedilmemekte ve giyilebilir cihazlara eşlik eden bir uygulama olarak da çalışmamaktadır. Bir agregatördür, Health Connect (veya API Garmin, Polar vb.) içindeki zaten mevcut verileri okur ve dedüplikasyonlu bir web panelinde gösterir, ayrıca kaynak görünürlüğünü de sunar. Eğer birden fazla giyilebilir cihazın verilerini tek bir görünümde birleştirmek istiyorsanız, FitMesh Sync bu işi yapar.",
       },
     },
   ],

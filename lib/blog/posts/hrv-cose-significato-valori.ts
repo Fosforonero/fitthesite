@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Les valeurs de Garmin, Oura, Samsung et Polar ne sont pas directement comparables: ils utilisent des algorithmes différents. Choisissez un appareil de référence et ne mélangez pas les chiffres.",
       "Pour améliorer la HRV dans le temps: sommeil régulier, activité aérobique modérée, réduction de l'alcool. Il n'existe pas de raccourcis rapides: les changements demandent des semaines.",
     ],
+    pl: [
+      "RODO ocenia zmiany między cykłami pulsów (milisekundy), a nie średnią częstotliwość: wysoka zmienność oznacza równowagę systemu nerwowego autonomicznego, nie problem kardialny.",
+      "Wartość bezwzględna mało liczy: atleta w wieku 40 lat może mieć 85 ms, a sedentariusz 35 ms, oba normale dla ich stanu. Użyteczne jest Twoje indywidualne trend na okres 2-4 tygodnie.",
+      "Najwiarygodniejsza miara to nocna, gdy ruch nie przeszkadza w działaniu czujnika PPG.",
+      "Wartości Garmin, Oura, Samsung i Polar nie są bezpośrednio porównywalne: używają różnych algorytmów. Wybierz odniesiony urządzenie i nie łączyć liczb.",
+      "Aby poprawić Twoją HRV w czasie: regularny sen, umiarkowana aktywność aerobyczna, zmniejszenie spożycia alkoholu. Nie istnieją szybkie hacki: zmiany wymagają tygodni.",
+    ],
+    tr: [
+      "KVKK, HRV giyilebilir cihazda millisekundler arası dudak hareketleri arasındaki değişimleri ölçer (millisecondi), ortalama frekansı değil: yüksek varyasyon, kendi merkezi nefes sistemi uyumlu bir durumu gösterir, kalp problemi değildir.",
+      "Mutlak değer çok önemli değildir: bir 40 yaşındaki atletin 85 ms'si ve bir pasif yaşam sürümünün 35 ms'si olabilir, her ikisi de onların için normaldir. Önemli olan, senin 2-4 hafta boyunca kişisel trendin.",
+      "Güvenilirlik derecesi en yüksek olan NIGHT modudur, hareket sensorine PPG'ı bozmadan.",
+      "Garmin ve Oura değerleri, Samsung ve Polar'in doğrudan karşılaştırılamaz: farklı algoritmalar kullanıyor. Bir referans cihazı seçin ve rakamları karıştırmayın.",
+      "Zaman içinde HRV'i iyileştirmek için: düzenli uyku, orta düzey aerobik aktivite, alkohol azaltması. Hızlı yollar yoktur: değişiklikler haftalar boyunca gereklidir.",
+    ],
   },
   primaryKeyword: {
     it: "cos'è la HRV",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "was ist HRV",
     pt: "o que é HRV",
     fr: "qu'est-ce que la HRV",
+    pl: "co to jest HRV",
+    tr: "ne demek HRV",
   },
   secondaryKeywords: {
     it: [
@@ -87,6 +103,20 @@ export const post: BlogPost = {
       "VFC basse que signifie",
       "VFC montre connectée",
     ],
+    pl: [
+      "wartości normalne RODO",
+      "variabilità częstotliwości sercowej",
+      "znaczenie sportowe HRV",
+      "Coś o wiele niższe, o czym powiniemy wiedzieć",
+      "zegarek inteligentny",
+    ],
+    tr: [
+      "KVKK normal değerler",
+      "variabili kalp atımlığı",
+      "HRV sporun anlami",
+      "HRV KVKK'ye göre ne demek",
+      "HRV akıllı saat",
+    ],
   },
   metaDescription: {
     it: "Cos'è la HRV (variabilità della frequenza cardiaca), come si misurano i valori normali per età, cosa significa quando è alta o bassa, e come leggerla sul tuo wearable nel 2026.",
@@ -95,9 +125,11 @@ export const post: BlogPost = {
     de: "Was ist HRV (Herzfrequenzvariabilität), wie werden Normalwerte nach Alter gemessen, was bedeutet es, wenn sie hoch oder niedrig ist, und wie liest du sie auf deinem Wearable im Jahr 2026.",
     pt: "O que é HRV (variabilidade da frequência cardíaca), como os valores normais são medidos por idade, o que significa quando é alta ou baixa, e como lê-la no seu wearable em 2026.",
     fr: "Qu'est-ce que la HRV (variabilité de la fréquence cardiaque), comment les valeurs normales sont mesurées par âge, ce que cela signifie quand elle est haute ou basse, et comment la lire sur votre appareil connecté en 2026.",
+    pl: "Coż to jest HRV (variabilità częstotliwości sercowej), jak wyznaczać normowe wartości w zależności od wieku, co oznacza wysoka lub niska wartość, oraz jak ją czytać na Twoim wearable w 2026 roku.",
+    tr: "Ne zaman ne kadar kalp atış hızı varyasyonu (HRV), yaşına göre normel değerleri nasıl ölçerler, yüksek veya düşük olduğunda ne anlama gelir ve 2026 yılında giyilebilir cihazında nasıl okurseniz.\nKVKK'ye uygun olarak sağlık iddiaları ya da teşhisler eklemeyin. Ürün isimlerini tokenler kullanarak koruyun.",
   },
   hero: {
-    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Ratgeber", pt: "Guia", fr: "Guide" },
+    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Ratgeber", pt: "Guia", fr: "Guide", pl: "Wskazówki", tr: "Kılavuz" },
     title: {
       it: "Cos'è la HRV: significato e valori normali",
       en: "What is HRV: meaning, normal values and how to read it",
@@ -105,6 +137,8 @@ export const post: BlogPost = {
       de: "Was ist HRV: Bedeutung, Normalwerte und wie man sie richtig liest",
       pt: "O que é HRV: significado, valores normais e como interpretá-la",
       fr: "Qu'est-ce que la HRV: signification, valeurs normales et comment l'interpréter",
+      pl: "Coś to HRV: znaczenie i normowe wartości",
+      tr: "Ne demek HRV: anlama ve normal değerler",
     },
     subtitle: {
       it: "La variabilità della frequenza cardiaca (HRV) è una delle metriche più fraintese negli smartwatch. Non misura quanto batte il cuore, ma quanto irregolarmente: e quella irregolarità è in realtà un segnale di salute. Ecco cosa significa davvero, come si interpretano i valori, e perché il confronto con gli altri è quasi sempre inutile.",
@@ -113,6 +147,8 @@ export const post: BlogPost = {
       de: "Die Herzfrequenzvariabilität (HRV) ist eine der am häufigsten missverstandenen Metriken bei Smartwatches. Sie misst nicht, wie schnell das Herz schlägt, sondern wie unregelmäßig: und diese Unregelmäßigkeit ist tatsächlich ein Gesundheitssignal. Hier erfährst du, was sie wirklich bedeutet, wie du die Werte interpretierst und warum der Vergleich mit anderen fast immer sinnlos ist.",
       pt: "A variabilidade da frequência cardíaca (HRV) é uma das métricas mais mal compreendidas nos smartwatches. Ela não mede a rapidez com que o coração bate, mas a irregularidade desse ritmo: e essa irregularidade é, na verdade, um sinal de bem-estar. Veja o que ela realmente significa, como interpretar os valores e por que se comparar com outras pessoas é quase sempre inútil.",
       fr: "La variabilité de la fréquence cardiaque (HRV) est l'une des métriques les plus mal comprises dans les montres connectées. Elle ne mesure pas la vitesse à laquelle le coeur bat, mais l'irrégularité de ce rythme: et cette irrégularité est en réalité un signal de bien-être. Voici ce qu'elle signifie vraiment, comment interpréter les valeurs et pourquoi se comparer aux autres est presque toujours inutile.",
+      pl: "Variabilità częstotliwości pulsacji (HRV) to jedna z najbardziej pomyślanych miar w smartwatach. Nie mierzy ona ile razy serce bije, ale jak nieprawidłowo: a ta nieprawidłowość jest na самом деле, это сигнал здоровья. Oto co naprawdę oznacza, jak interpretować wartości i dlaczego porównywanie z innymi wartościami prawie zawsze jest bezużyteczne.",
+      tr: "Günlük kalp atış hızının (HRV) varyasyonu akıllı saatlerde en yaygın yanlış anlaşılma olan bir metriktir. Atış sayısını ölçmez, irregularyetiyi ölçer: ve bu irregularyete gerçek bir sağlık belirtisi olabilir. Gerçek anlamına gelmesi ne demek, değerleri nasıl yorumlanır ve diğerlerine karşı kıyaslamanın neredeyse her zaman faydalı olmadığını anlatmaktadır.",
     },
   },
   body: [
@@ -125,6 +161,8 @@ export const post: BlogPost = {
         de: "Die HRV (Herzfrequenzvariabilität) misst nicht, wie schnell das Herz schlägt, sondern wie unregelmäßig: und diese Unregelmäßigkeit auf Millisekundenebene zwischen den Schlägen ist ein direktes Signal des Zustands des autonomen Nervensystems. Den eigenen Wert mit anderen zu vergleichen ist fast immer sinnlos: Was zählt, ist dein persönlicher Trend im Laufe der Zeit, nicht die absolute Zahl.",
         pt: "A HRV (variabilidade da frequência cardíaca) não mede a rapidez com que o coração bate, mas a irregularidade desse ritmo: e essa irregularidade em milissegundos entre um batimento e outro é um sinal direto do estado do sistema nervoso autônomo. Comparar seu valor com o de outras pessoas é quase sempre inútil: o que importa é a sua tendência pessoal ao longo do tempo, não o número absoluto.",
         fr: "La HRV (variabilité de la fréquence cardiaque) ne mesure pas la vitesse à laquelle le coeur bat, mais l'irrégularité de ce rythme: et cette irrégularité en millisecondes entre les battements est un signal direct de l'état du système nerveux autonome. Comparer votre valeur à celle des autres est presque toujours inutile: ce qui compte, c'est votre tendance personnelle dans le temps, pas le chiffre absolu.",
+        pl: "RODO (variabilità częstotliwości sercowej) nie mierzy, ile razy serce bije na sekundę, ale jak nieprawidłowo: a ta nieprawidłowość w milisekundach między jednym biciem a drugim jest sygnałem bezpośrednim stanu systemu nerwowego autonomicznego. Porównanie Twojej wartości z tą innych prawie zawsze jest bezużyteczne: ważny jest Twój indywidualny trend w czasie, nie absolutna liczba.",
+        tr: "KVKK (HRV (kalp atış frekansı varyasyonu)) ölçmez kalpenin ne kadar atladığını, ama bir battırdan diğerine geçen milisaniyelerdeki irregülarlığı: ve bu irregüлярlık bir bacağımsal nörolojik sistemin durumunu doğrudan bir sembolüdür. Başka kişilerin değerlerinizle karşılaştırmanız hemen hemen her zaman faydalı olmaz: kişisel zamansız trendinizi sayın, mutlak sayılarınızı.",
       },
     },
     {
@@ -137,6 +175,8 @@ export const post: BlogPost = {
         de: "Was ist HRV: die einfache Definition",
         pt: "O que é HRV: a definição simples",
         fr: "Qu'est-ce que la HRV: la définition simple",
+        pl: "Coś takie jest HRV: prosty opis",
+        tr: "Ne yazık ki HRV hakkında basit bir tanım:",
       },
     },
     {
@@ -148,6 +188,8 @@ export const post: BlogPost = {
         de: "Das Herz schlägt nicht wie ein perfektes Metronom. Auch wenn deine Herzfrequenz 60 BPM beträgt, erfolgen die einzelnen Schläge nicht exakt jede Sekunde: einer kommt nach 980 ms, der nächste nach 1.020 ms, der darauffolgende nach 990 ms. Diese Variation in den Intervallen zwischen den Schlägen nennt sich Herzfrequenzvariabilität (HRV, vom englischen Heart Rate Variability).",
         pt: "O coração não bate como um metrônomo perfeito. Mesmo que sua frequência cardíaca seja de 60 BPM, os batimentos individuais não ocorrem exatamente a cada segundo: um chega após 980 ms, o próximo após 1.020 ms, o seguinte após 990 ms. Essa variação nos intervalos entre os batimentos é chamada de variabilidade da frequência cardíaca (HRV, do inglês Heart Rate Variability).",
         fr: "Le coeur ne bat pas comme un métronome parfait. Même si votre fréquence cardiaque est de 60 BPM, les battements individuels ne se produisent pas exactement chaque seconde: l'un arrive après 980 ms, le suivant après 1.020 ms, celui d'après après 990 ms. Cette variation dans les intervalles entre les battements s'appelle variabilité de la fréquence cardiaque (HRV, de l'anglais Heart Rate Variability).",
+        pl: "Serce nie bije jak idealny metronom. Nawet jeśli Twoja częstotliwość serca wynosi 60 BPM, pojedyncze skurcze nie występują dokładnie co sekundę: jeden następuje po 980 ms, drugi po 1,020 ms, a kolejny po 990 ms. Ta zmiana w odstępach między jednym skurczem a drugim nazywa się variabilitą częstotliwości sercowej (HRV, z angielskiego Heart Rate Variability).",
+        tr: "Kalp her atmaz like a perfect metronome. Mesela, kalp atış hızınız 60 BPM olsa da, tek tek atışların tam bir saniye geçmeden gerçekleşmediğini de görebilirsiniz: biri 980 ms sonra gelir, sonraki atış 1.020 ms sonra, ve hala bir sonraki atış 990 ms sonra geliyor. Bu, tek tek atışlar arasındaki aralıkların değişimi (HRV, İngilizce'de Heart Rate Variability'den gelir) olarak adlandırılır.",
       },
     },
     {
@@ -159,6 +201,8 @@ export const post: BlogPost = {
         de: "Je breiter diese Variation ist (also je 'unregelmäßiger' die Schläge im Intervall sind), desto höher ist deine HRV. Das klingt kontraintuitiv, weil Herzunregelmäßigkeiten normalerweise mit Problemen assoziiert werden. Aber hier geht es um physiologische Variationen im Millisekundenbereich, nicht um pathologische Arrhythmien. Eine hohe HRV ist im Allgemeinen ein Signal dafür, dass das autonome Nervensystem gut funktioniert und der Körper in einem guten Erholungszustand ist.",
         pt: "Quanto mais ampla é essa variação (ou seja, quanto mais 'irregulares' são os batimentos no intervalo), maior é a sua HRV. Isso parece contraintuitivo porque a irregularidade cardíaca é geralmente associada a problemas. Mas aqui estamos falando de variações fisiológicas na ordem dos milissegundos, não de arritmias patológicas. Uma HRV alta é geralmente um sinal de que o sistema nervoso autônomo está funcionando bem e o corpo está em bom estado de recuperação.",
         fr: "Plus cette variation est large (c'est-à-dire plus les battements sont 'irréguliers' dans l'intervalle), plus votre HRV est élevée. Cela semble contre-intuitif car l'irrégularité cardiaque est habituellement associée à des problèmes. Mais ici, il s'agit de variations physiologiques de l'ordre des millisecondes, pas d'arythmies pathologiques. Une HRV élevée est généralement un signal que le système nerveux autonome fonctionne bien et que le corps est en bon état de récupération.",
+        pl: "Pogorszać się ta zasięg jest (czyli im bardziej pulsy są „nieprawidłowe” w tym zakresie), tym wyższa jest Twoja HRV. To wydaje się przeciwnie do intuicji, ponieważ nieprawidłowość rytmu serca zwykle wiąże się z problemami. Ale tutaj mowa o fizjologicznych zmianach w skali milisekund, a nie o chorobowych atrjemiach. Wyższa HRV jest ogólnie sygnałem, że system nerwowy autonomiczny działa dobrze i ciało znajduje się w dobrej kondycji recyrkuacyjnej.",
+        tr: "Daha geniş bu değişiklik var (yani daha 'irregülar' olmak üzere atışlar arası süre), daha yüksek bir HRV elde ediyorsunuz. Bu, genellikle irregülardan sorunlarla ilişkilendirilmesi beklenen bir durum gibi görünüyor. Ancak burada sadece milisaniye cinsinden fisiyolojik değişiklikler söz konusu. Yüksek bir HRV genellikle自主翻译如下：\n\nDaha geniş bu değişiklik var (yani daha 'irregülar' olmak üzere atışlar arası süre), daha yüksek bir HRV elde ediyorsunuz. Bu, genellikle irregülardan sorunlarla ilişkilendirilmesi beklenen bir durum gibi görünüyor. Ancak burada sadece milisaniye cinsinden fisiyolojik değişiklikler söz konusu. Yüksek bir HRV genellikle sistem nörolojik otomatik sistemin iyi çalıştığını ve vücudun iyileşme durumunda olduğunu gösterir.",
       },
     },
     {
@@ -171,6 +215,8 @@ export const post: BlogPost = {
         de: "Warum die HRV das autonome Nervensystem widerspiegelt",
         pt: "Por que a HRV reflete o sistema nervoso autônomo",
         fr: "Pourquoi la HRV reflète le système nerveux autonome",
+        pl: "Bożego cudu, HRV odzwierciedla system nerwowy autonomiczny",
+        tr: "Neden HRV自主神经系统反射",
       },
     },
     {
@@ -182,6 +228,8 @@ export const post: BlogPost = {
         de: "Das autonome Nervensystem hat zwei Äste: den Sympathikus (Aktivierung, Stress, 'Kampf-oder-Flucht'-Reaktion) und den Parasympathikus (Erholung, Ruhe, 'Ruhe-und-Verdauung'-Reaktion). Das Herz wird von beiden ständig beeinflusst, und diese Variation in den Schlagtakten ist das Ergebnis dieses dualen Einflusses, der sich Moment für Moment ausbalanciert.",
         pt: "O sistema nervoso autônomo tem dois ramos: o simpático (ativação, estresse, resposta de 'luta ou fuga') e o parassimpático (recuperação, repouso, resposta de 'descanso e digestão'). O coração é influenciado por ambos constantemente, e essa variação no tempo dos batimentos é o resultado dessa dupla influência se equilibrando a cada momento.",
         fr: "Le système nerveux autonome possède deux branches: le sympathique (activation, stress, réponse 'combat ou fuite') et le parasympathique (récupération, repos, réponse 'repos et digestion'). Le coeur est constamment influencé par les deux, et cette variation dans le rythme des battements est le résultat de cette double influence qui s'équilibre moment par moment.",
+        pl: "System nervouszowy autonomiczny ma dwie gałęzie: sympatyczna (aktywacja, stres, odpowiedź 'walka lub ucieczka') i parasymphatyczna (rehabilitacja, odpoczynek, odpowiedź 'spokój i przysmak'). Serce jest wpływowane przez obie ciągle, a ta zmiana w rytmie pulsacyjnym wynika z tej dwukrotnego wpływu, które się równoważy chwilę za chwilą.",
+        tr: "Nörolojik otomotiv sistemimize iki kolu vardır: simpatisik (aktiveştirme, stres, 'savaş ya da barış' tepkisi) ve parasimpatisik (geri dönüş, dinlenme, 'dinleme ve kesme' tepkisi). Kalp her zaman hem bu iki kolu etkilendirilir ve bu atış zamanlarının değişimi, bu sürekli dengesizlik sonucu ortaya çıkar.",
       },
     },
     {
@@ -193,6 +241,8 @@ export const post: BlogPost = {
         de: "Wenn du unter chronischem Stress stehst, schlecht geschlafen hast, gestern Abend ein intensives Training hattest oder dabei bist, eine Grippe zu bekommen, übernimmt das sympathische System die Kontrolle: Das Herz schlägt regelmäßiger, die Variabilität sinkt. Wenn du ausgeruht, gut erholt bist und das parasympathische System dominiert, steigt die Variabilität.",
         pt: "Quando você está sob estresse crônico, não dormiu bem, teve um treino intenso na noite anterior ou está começando a pegar uma gripe, o sistema simpático assume o controle: o coração bate de forma mais regular, a variabilidade cai. Quando você está descansado, bem recuperado e o sistema parassimpático é dominante, a variabilidade sobe.",
         fr: "Quand vous êtes sous stress chronique, n'avez pas bien dormi, avez eu un entraînement intense la veille, ou commencez à attraper la grippe, le système sympathique prend le dessus: le coeur bat plus régulièrement, la variabilité diminue. Quand vous êtes reposé, bien récupéré et que le système parasympathique est dominant, la variabilité augmente.",
+        pl: "Gdy jesteś pod ciągłym stresem, nie spędziłeś dobrej nocy, zaciągnąłeś intensywny trening wczoraj wieczorem lub zaczynasz się chcieć zachorować na grypę, układ simpaticzny przybiera dominację: serce bije regularniej, variabilitas spada. Gdy jesteś odpoczęty, dobrze od😎zyskany, a układ parasimpaticzny jest dominantny, variabilitas wzrasta.",
+        tr: "Kronik stres altında, iyi uyumadığın, dün akşam yoğun bir egzersiz yaptığın veya bir hırsızlıktan başlamıştınsa, simpatisik sistem öne çıkar: kalp daha düzenli atlar, varyasyon düşer. Uygun bir durumda, iyi dinlendiğin ve parasimpatisik sistemin dominansı varsa, varyasyon artar.",
       },
     },
     {
@@ -205,6 +255,8 @@ export const post: BlogPost = {
         de: "Die praktische Regel",
         pt: "A regra prática",
         fr: "La règle pratique",
+        pl: "Zasada praktyczna",
+        tr: "Pratik Kural",
       },
       body: {
         it: "HRV alta = corpo in stato di recupero, sistema parasimpatico attivo, buona riserva per lo stress (fisico e mentale). HRV bassa = corpo in stato di allerta o affaticamento, sistema simpatico attivo, meno riserva disponibile. Né alta né bassa è intrinsecamente 'migliore in assoluto': conta il trend personale nel tempo.",
@@ -213,6 +265,8 @@ export const post: BlogPost = {
         de: "Hohe HRV = Körper im Erholungszustand, parasympathisches System aktiv, gute Reserve für Stress (physisch und mental). Niedrige HRV = Körper im Alarm- oder Erschöpfungszustand, sympathisches System aktiv, weniger Reserve verfügbar. Weder hoch noch niedrig ist intrinsisch 'besser in absoluten Begriffen': Was zählt, ist der persönliche Trend im Laufe der Zeit.",
         pt: "HRV alta = corpo em estado de recuperação, sistema parassimpático ativo, boa reserva para o estresse (físico e mental). HRV baixa = corpo em estado de alerta ou fadiga, sistema simpático ativo, menos reserva disponível. Nem alta nem baixa é intrinsecamente 'melhor em termos absolutos': o que importa é a tendência pessoal ao longo do tempo.",
         fr: "HRV élevée = corps en état de récupération, système parasympathique actif, bonne réserve pour le stress (physique et mental). HRV basse = corps en état d'alerte ou de fatigue, système sympathique actif, moins de réserve disponible. Ni élevée ni basse n'est intrinsèquement 'meilleure en absolu': ce qui compte, c'est la tendance personnelle dans le temps.",
+        pl: "HRV wysoka = ciało w stanie odzyskiwania, system paraśycympatyczny aktywny, dobra reszara na stress (fizyczny i psychiczny). HRV niski = ciało w stanie alerta lub zmęczenia, system sykmpatyczny aktywny, mniej reszary dostępnej. Nie wysoka ani niska nie są intrynsycznie 'lepsze w ogólności': ważna jest tendencja indywidualna w czasie.",
+        tr: "HRV yüksek = vücudun iyileşme aşaması, parasimpatisik sistem aktif, stres (fiziksel ve zihinsel) için daha iyi rezerv. HRV düşük = vücudun uyarı veya yorgunluğunda, simpatisik sistem aktif, daha az rezerv mevcut. Yüksek ya da düşük durumunun mutlak anlamda 'daha iyi' olması intrinseki olarak olmaz: kişisel zaman içindeki trend önemlidir.",
       },
     },
     {
@@ -225,6 +279,8 @@ export const post: BlogPost = {
         de: "HRV Normalwerte: was nach Alter und Fitness zu erwarten ist",
         pt: "Valores normais de HRV: o que esperar por idade e condicionamento físico",
         fr: "Valeurs normales de HRV: ce que vous pouvez attendre selon l'âge et la forme physique",
+        pl: "wartości normowe HRV: co się spodziewać w zależności od wieku i kondycji fizycznej",
+        tr: "HRV değerleri normal: yaş veFitness için ne beklemek isteyeceğinizi ne bekleyeceksiniz",
       },
     },
     {
@@ -236,6 +292,8 @@ export const post: BlogPost = {
         de: "Die häufigste Frage lautet: 'Ist mein Wert normal?' Die ehrliche Antwort ist, dass die Referenzbereiche für die HRV extrem breit sind und von vielen Variablen abhängen. Ein inaktiver 40-jähriger Erwachsener könnte einen durchschnittlichen HRV von 35 ms haben; ein Athlet desselben Alters könnte 80-90 ms haben. Beide sind 'normal' für das, was sie sind.",
         pt: "A pergunta mais comum é: 'O meu valor é normal?' A resposta honesta é que os intervalos de referência para a HRV são extremamente amplos e dependem de muitas variáveis. Um adulto sedentário de 40 anos pode ter uma HRV média de 35 ms; um atleta da mesma idade pode ter 80-90 ms. Ambos são 'normais' para quem são.",
         fr: "La question la plus fréquente est: 'Ma valeur est-elle normale?' La réponse honnête est que les plages de référence pour la HRV sont extrêmement larges et dépendent de nombreuses variables. Un adulte sédentaire de 40 ans peut avoir une HRV moyenne de 35 ms; un athlète du même âge peut avoir 80-90 ms. Les deux sont 'normaux' pour ce qu'ils sont.",
+        pl: "Najczęstsza pytanie brzmi: \"Czy mój wskaźnik jest normalny?\" Szczególne odpowiedzi to, że zakresy referencyjne dla HRV są extremalnie szerokie i zależą od wielu zmiennych. Dla sedentarnego dorosłego 40-letniego może być średni wskaźnik 35 ms; atleta tej samej wieku mógłby mieć 80-90 ms. Oba są 'normalne' dla tych, którzy ich mają.",
+        tr: "En\"default\" en yaygın soru: \"Benim değerim normal mi?\" Sıkısandırıcı gerçeği açıkça belirtmek gerekirse, HRV referans aralıkları çok geniş ve birçok değişkenin etkisindedir. Bir 40 yaşındaki pasif yaşam sürdüren erişkin 35 ms ortalaması olabilir; aynı yaşta bir atlet için bu değerin 80-90 ms arasında olabileceği da mümkündür. Her ikisi de kendilerine göre 'normal'dir.",
       },
     },
     {
@@ -247,6 +305,8 @@ export const post: BlogPost = {
         de: "Orientierungswerte für HRV-Bereiche nach Altersgruppe (RMSSD, nächtliche Messung). Quelle: allgemeine physiologische Literatur. Nicht für medizinische Zwecke verwenden.",
         pt: "Faixas indicativas de HRV por faixa etária (RMSSD, medição noturna). Fonte: literatura fisiológica geral. Não usar para fins de saúde.",
         fr: "Plages indicatives de HRV par groupe d'âge (RMSSD, mesure nocturne). Source: littérature physiologique générale. Ne pas utiliser à des fins médicales.",
+        pl: "Przedziały HRV orientacyjne dla grup etnicznych (RMSSD, pomiary nocne). Źródło: literatura fizjologiczna ogólna. Nie używaj do diagnostyki lekarskiej.",
+        tr: "Aralık HRV öngözlüleri yaştan bağımsız kesim için (RMSSD, gecelik ölçüm). Kaynak: genel fizyolojik literatürü. Tıbbi tanıya kullanmayınız.",
       },
       headers: {
         it: ["Fascia d'età", "Range tipico (ms)", "Note"],
@@ -255,6 +315,16 @@ export const post: BlogPost = {
         de: ["Altersgruppe", "Typischer Bereich (ms)", "Hinweise"],
         pt: ["Faixa etária", "Faixa típica (ms)", "Observações"],
         fr: ["Groupe d'âge", "Plage typique (ms)", "Notes"],
+        pl: [
+          "Faza wieku",
+          "Zakres typowy (ms)",
+          "Uwagi",
+        ],
+        tr: [
+          "Yaş Aralığı",
+          "Tipik aralık (ms)",
+          "Notel",
+        ],
       },
       rows: [
         {
@@ -264,6 +334,16 @@ export const post: BlogPost = {
           de: ["20-29 Jahre", "55-105 ms", "Hohe physiologische Variabilität zwischen Personen"],
           pt: ["20-29 anos", "55-105 ms", "Alta variabilidade fisiológica entre indivíduos"],
           fr: ["20-29 ans", "55-105 ms", "Haute variabilité physiologique entre individus"],
+          pl: [
+            "20-29 lat",
+            "55-105 ms",
+            "Wysoka zmienność fizjologiczna między osobami",
+          ],
+          tr: [
+            "20-29 yıldız间",
+            "55-105 ms",
+            "Fizyolojik varyasyonların bireyler arası yüksek sapmaları",
+          ],
         },
         {
           it: ["30-39 anni", "45-90 ms", "Calo naturale rispetto ai 20 anni"],
@@ -272,6 +352,16 @@ export const post: BlogPost = {
           de: ["30-39 Jahre", "45-90 ms", "Natürlicher Rückgang im Vergleich zu den 20ern"],
           pt: ["30-39 anos", "45-90 ms", "Declínio natural em comparação aos 20 anos"],
           fr: ["30-39 ans", "45-90 ms", "Déclin naturel par rapport aux 20 ans"],
+          pl: [
+            "30-39 lat",
+            "45-90 ms",
+            "Naturalny kalorii w porównaniu do 20 lat",
+          ],
+          tr: [
+            "30-39 yıldız间",
+            "45-90 ms",
+            "Natürel kalorilere göre 20 yıldan fazla",
+          ],
         },
         {
           it: ["40-49 anni", "35-75 ms", "Fitness ha impatto maggiore sulla differenza"],
@@ -280,6 +370,16 @@ export const post: BlogPost = {
           de: ["40-49 Jahre", "35-75 ms", "Fitness hat größeren Einfluss auf den Unterschied"],
           pt: ["40-49 anos", "35-75 ms", "O condicionamento físico tem maior impacto na diferença"],
           fr: ["40-49 ans", "35-75 ms", "La forme physique a un impact plus grand sur la différence"],
+          pl: [
+            "40-49 lat",
+            "35-75 ms",
+            "Zdrowie ma większy wpływ na różnicę",
+          ],
+          tr: [
+            "40-49 yıldız间",
+            "35-75 ms",
+            "Gelişim daha büyük etki yaratır farka gelmek için",
+          ],
         },
         {
           it: ["50-59 anni", "25-60 ms", "Variabilità tra sedentari e atleti si allarga"],
@@ -288,6 +388,16 @@ export const post: BlogPost = {
           de: ["50-59 Jahre", "25-60 ms", "Variabilität zwischen Inaktiven und Athleten vergrößert sich"],
           pt: ["50-59 anos", "25-60 ms", "A variabilidade entre sedentários e atletas aumenta"],
           fr: ["50-59 ans", "25-60 ms", "La variabilité entre sédentaires et athlètes s'élargit"],
+          pl: [
+            "50-59 lat",
+            "25-60 ms",
+            "Zróżnicowanie między siedlakami a atletami się zwiększa",
+          ],
+          tr: [
+            "50-59 yaş arası",
+            "25-60 ms",
+            "Gelişim aralığı sedenikler ve atletler arasında genleşir",
+          ],
         },
         {
           it: ["60+ anni", "20-50 ms", "Livelli assoluti più bassi, trend personale ancora valido"],
@@ -296,6 +406,16 @@ export const post: BlogPost = {
           de: ["60+ Jahre", "20-50 ms", "Niedrigere absolute Werte, persönlicher Trend bleibt gültig"],
           pt: ["60+ anos", "20-50 ms", "Níveis absolutos mais baixos, tendência pessoal ainda válida"],
           fr: ["60+ ans", "20-50 ms", "Niveaux absolus plus bas, tendance personnelle toujours valide"],
+          pl: [
+            "60+ lat",
+            "20-50 ms",
+            "Nizsza granica bezpieczna, indywidualny trend nadal aktualny",
+          ],
+          tr: [
+            "60+yıl以上的",
+            "20-50 ms",
+            "Absolüt seviyeler daha düşük, hala geçerli kişisel eğilimler",
+          ],
         },
       ],
     },
@@ -309,6 +429,8 @@ export const post: BlogPost = {
         de: "Der Vergleich mit anderen ist fast sinnlos",
         pt: "Comparar-se com os outros é quase inútil",
         fr: "Se comparer aux autres est presque inutile",
+        pl: "Kontrastowanie z innymi jest prawie bezużyteczne",
+        tr: "Görünüşe göre diğerlerle karşılaştırma neredeyse faydalı olmaz",
       },
       body: {
         it: "Un HRV di 42 ms è ottimo per una persona e mediocre per un'altra. Quello che conta è il **tuo** trend nel tempo: se la tua baseline è 50 ms e un mattino scende a 32, quel calo è significativo per te. Se la tua baseline è 30 ms e sei sempre intorno a quel valore, sei probabilmente in equilibrio. Le app come Garmin e Oura mostrano un 'intervallo normale personale' proprio per questo.",
@@ -317,6 +439,8 @@ export const post: BlogPost = {
         de: "Eine HRV von 42 ms ist für eine Person ausgezeichnet und für eine andere mittelmäßig. Was zählt, ist **dein** Trend im Laufe der Zeit: Wenn deine Baseline 50 ms beträgt und sie eines Morgens auf 32 sinkt, ist dieser Rückgang für dich bedeutsam. Wenn deine Baseline 30 ms beträgt und du immer in der Nähe dieses Wertes bist, bist du wahrscheinlich im Gleichgewicht. Apps wie Garmin und Oura zeigen genau aus diesem Grund einen 'persönlichen Normalbereich'.",
         pt: "Uma HRV de 42 ms é excelente para uma pessoa e medíocre para outra. O que importa é a **sua** tendência ao longo do tempo: se a sua linha de base é 50 ms e uma manhã cai para 32, essa queda é significativa para você. Se a sua linha de base é 30 ms e você está sempre em torno desse valor, provavelmente está em equilíbrio. Apps como Garmin e Oura mostram um 'intervalo normal pessoal' exatamente por isso.",
         fr: "Une HRV de 42 ms est excellente pour une personne et médiocre pour une autre. Ce qui compte, c'est **votre** tendance dans le temps: si votre valeur de référence est 50 ms et qu'un matin elle chute à 32, cette baisse est significative pour vous. Si votre valeur de référence est 30 ms et que vous êtes toujours autour de cette valeur, vous êtes probablement en équilibre. Des applications comme Garmin et Oura affichent un 'intervalle normal personnel' exactement pour cette raison.",
+        pl: "Un HRV di 42 ms jest dobry dla jednej osoby, a średnio dla drugiej. To, co really ma znaczenie, to **twoja** tendencja w czasie: jeśli twoja baseline wynosi 50 ms i pewnego ranku spada do 32, ten spadek jest istotny dla ciebie. Jeśli twoja baseline wynosi 30 ms i zawsze jesteś blisko tego wartości, prawdopodobnie jesteś w równowadze. Aplikacje takie jak Garmin i Oura pokazują 'normalny zakres indywidualny' właśnie dlatego.",
+        tr: "Bir 42 ms süre değeri bir kişi için ideal olabilirken diğerine kötü olabilir. Önemli olan **sizin** zaman içindeki trendiniz: Eğer baselineınız 50 ms ve bir sabah 32 ms'e düşerse, bu düşüş sizin için önemli bir durumdur. Eğer baselineınız 30 ms ve her zaman o değere yakınsanız, muhtemelen dengenizdeyiniz. Uygulamalar gibi Garmin ve Oura 'ler, bu nedenle kendi size özel bir 'normal aralık' gösterir.",
       },
     },
     {
@@ -329,6 +453,8 @@ export const post: BlogPost = {
         de: "Wie Wearables die HRV messen",
         pt: "Como os wearables medem a HRV",
         fr: "Comment les appareils connectés mesurent la HRV",
+        pl: "Jakearable mierzą HRV",
+        tr: "Giyilebilir cihazlar HRV Nasıl Ölçerler",
       },
     },
     {
@@ -340,6 +466,8 @@ export const post: BlogPost = {
         de: "Consumer-Wearables (Galaxy Watch, Garmin, Oura, Polar) verwenden hauptsächlich zwei Methoden zur Messung der HRV:",
         pt: "Os wearables de consumo (Galaxy Watch, Garmin, Oura, Polar) usam principalmente dois métodos para medir a HRV:",
         fr: "Les appareils connectés grand public (Galaxy Watch, Garmin, Oura, Polar) utilisent principalement deux méthodes pour mesurer la HRV:",
+        pl: "Wearable consumerowie (Galaxy Watch, Garmin, Oura, Polar) głównie korzystają z dwóch metod do pomiaru HRV:",
+        tr: "Giyilebilir cihazlar (Galaxy Watch, Garmin, Oura, Polar) genellikle iki yöntem ile HRV ölçmek için kullanılır:",
       },
     },
     {
@@ -369,6 +497,14 @@ export const post: BlogPost = {
           "**PPG (photopléthysmographie)**: une LED verte (ou rouge/infrarouge) illumine le poignet et un capteur mesure les variations d'absorption de la lumière causées par le flux sanguin. C'est la méthode utilisée par la grande majorité des montres connectées. Moins précise qu'un ECG, mais suffisante pour le suivi des tendances.",
           "**ECG**: disponible sur certaines montres premium (Galaxy Watch Ultra, Apple Watch Series avec fonction ECG). Mesure directement l'activité électrique du coeur. Plus précis pour les sessions courtes, mais la différence pratique pour le suivi quotidien est souvent marginale.",
         ],
+        pl: [
+          "**PPG (fotopletismografia)**: LED zielony (lub czerwony/infrakrótki) oświetla nadgarstek, a senzor pomiaru zmian absorbpcji światła spowodowanych przepływnością krwi. Jest metodą używaną przez większość smartwatchów. Mniej precyzyjna niż ECG, ale wystarczająca do śledzenia trendów.",
+          "**ECG**: dostępny na niektórych premium watch (Galaxy Watch Ultra, Apple Watch Series z funkcją ECG). Directamente pomiar aktywności elektrycznej serca. Bardziej precyzyjny dla krótkich sesji, ale praktyczna różnica w śledzeniu codziennym często jest niewielka.",
+        ],
+        tr: [
+          "**PPG (fotopletismografya)**: bir yeşil (veya kırmızı/infraküresel) LED polozde ışık yakar ve bir sensör ışığın assorbimansındaki değişiklikleri, yani kan akışının neden olduğu değişimleri ölçer. Bu, stratezinden büyük çoğunluğu akıllı saat tarafından kullanılan yöntemdir. EKG'den daha hassasız olmasına rağmen, trend takipinde yeterlidir.",
+          "**ECG**: bazı premium watch modellerinde (Galaxy Watch Ultra, Apple Watch Series ECG özelliği ile) mevcut. Kalp elektrikli aktivitesini doğrudan ölçer. Kısa süreli oturumlar için daha doğru olmakla birlikte, günlük takip için praktik olarak farkı genellikle küçüktür.",
+        ],
       },
     },
     {
@@ -380,6 +516,8 @@ export const post: BlogPost = {
         de: "Die zuverlässigste Messung, die ein Wearable machen kann, ist während des Schlafs, wenn du stillst und keine Bewegungen das Signal verzerren. Garmin nennt diese Metrik 'nächtliche HRV' oder 'nächtlicher RMSSD-Durchschnitt'. Oura macht dasselbe. Galaxy Watch (über Samsung Health) zeichnet die HRV während des Schlafs auf und zeigt die Werte in der App.",
         pt: "A medição mais confiável que um wearable pode fazer é durante o sono, quando você está quieto e não há movimentos distorcendo o sinal. Garmin chama essa métrica de 'HRV noturna' ou 'RMSSD médio noturno'. Oura faz o mesmo. Galaxy Watch (via Samsung Health) registra a HRV durante o sono e expõe os valores no app.",
         fr: "La mesure la plus fiable qu'un appareil connecté puisse effectuer est pendant le sommeil, quand vous êtes immobile et qu'il n'y a pas de mouvements qui déforment le signal. Garmin appelle cette métrique 'HRV nocturne' ou 'RMSSD moyen nocturne'. Oura fait de même. Galaxy Watch (via Samsung Health) enregistre la HRV pendant le sommeil et affiche les valeurs dans l'application.",
+        pl: "Najbardziej wiarygodna miara, którą może wykonać wearable, to podczas snu, gdy jesteś nieruchomy i nie ma ruchów przeszkadzających sygnałowi. Garmin nazywa tę metrykę 'HRV nocną' lub 'RMSSD średnią nocną'. Oura robi to samo. Galaxy Watch (poprzez Samsung Health) zapisuje HRV podczas snu i prezentuje wartości w aplikacji.",
+        tr: "Giyilebilir cihazın en güvenilir ölçümü uyumluken, hareket yokken olur. Garmin bu metriku \"HRV gecersiz\" veya \"RMSSD ortalama gece\" olarak adlandırır. Oura de aynı şeyi yapar. Galaxy Watch (via Samsung Health) uyum sırasında HRV'yı kaydederek uygulamada değerleri gösterir.",
       },
     },
     {
@@ -392,6 +530,8 @@ export const post: BlogPost = {
         de: "Der absolute HRV-Wert ist ohne persönlichen Kontext fast irrelevant",
         pt: "O número absoluto de HRV é quase irrelevante sem contexto pessoal",
         fr: "Le chiffre absolu de HRV est presque sans importance sans contexte personnel",
+        pl: "Numerό absolutny z HRV jest prawie nieistotny bez osobistego kontekstu",
+        tr: "Absoluwt numarasi HRV için kişisel bir bağlam olmadan neredeyse önemsizdür",
       },
       body: {
         it: "La maggior parte delle persone che cercano 'HRV valori normali' stanno facendo la domanda sbagliata. Non esiste un target universale: la differenza tra un atleta e un sedentario della stessa età può essere di 50 ms, e entrambi sono perfettamente normali per chi sono. La domanda giusta è: 'La mia HRV è significativamente diversa dalla mia baseline delle ultime 2-4 settimane?' Se la risposta è sì e il calo dura più di 3 giorni, quello è il segnale da ascoltare.",
@@ -400,6 +540,8 @@ export const post: BlogPost = {
         de: "Die meisten Menschen, die nach 'HRV Normalwerten' suchen, stellen die falsche Frage. Es gibt keinen universellen Zielwert: Der Unterschied zwischen einem Athleten und einer inaktiven Person desselben Alters kann 50 ms betragen, und beide sind vollkommen normal für das, was sie sind. Die richtige Frage lautet: 'Ist meine HRV signifikant anders als meine Baseline der letzten 2-4 Wochen?' Wenn die Antwort ja lautet und der Rückgang mehr als 3 Tage anhält, ist das das Signal, dem man Beachtung schenken sollte.",
         pt: "A maioria das pessoas que pesquisa 'valores normais de HRV' está fazendo a pergunta errada. Não existe um alvo universal: a diferença entre um atleta e uma pessoa sedentária da mesma idade pode ser de 50 ms, e ambos são perfeitamente normais para quem são. A pergunta certa é: 'A minha HRV é significativamente diferente da minha linha de base das últimas 2-4 semanas?' Se a resposta for sim e a queda durar mais de 3 dias, esse é o sinal ao qual prestar atenção.",
         fr: "La plupart des personnes qui recherchent 'valeurs normales HRV' posent la mauvaise question. Il n'existe pas de cible universelle: la différence entre un athlète et une personne sédentaire du même âge peut être de 50 ms, et les deux sont parfaitement normaux pour ce qu'ils sont. La bonne question est: 'Ma HRV est-elle significativement différente de ma valeur de référence des 2-4 dernières semaines?' Si la réponse est oui et que la baisse dure plus de 3 jours, c'est le signal auquel il faut prêter attention.",
+        pl: "Większość osób szukających 'wartości HRV w normalnym zakresie' zadaje nieprawidłową odpowiedź. Nie ma uniwersalnego celu: różnice między atletą a sedentariuszem tej samej wieku mogą wynosić 50 ms, i obaj są całkowicie normowi dla siebie. Prawidłowa pytanie to: 'Mój HRV jest znacząco inny niż moja podstawowa wartość z ostatnich 2-4 tygodni?' Jeśli tak, a zmiana trwa dłużej niż 3 dni, to jest sygnał, który należy wysłuchać.",
+        tr: "Çoğu 'HRV normalleri' arayan kişi yanlış soruyu soruyor. Genel bir hedef yok: Aynı yaşta bir atlet ve bir pasif kişinin arasındaki fark 50 ms olabilir ve her ikisi de son 2-4 haftalık baselinesine göre normaldir. Doğru soru şudur: 'Benim HRV benim son 2-4 haftalık baselinesımdan önemli ölçüde farklı mı?' Eğer evet ve bu düşüş 3 günden daha uzun sürerse, o sinyal dinlemelisin.",
       },
     },
     {
@@ -412,6 +554,8 @@ export const post: BlogPost = {
         de: "Was man mit der HRV im täglichen Training tun (und lassen) sollte",
         pt: "O que fazer (e não fazer) com a HRV no treino diário",
         fr: "Ce qu'il faut faire (et ne pas faire) avec la HRV dans l'entraînement quotidien",
+        pl: "Coopération (i niecooperować) z HRV podczas treningu codziennego",
+        tr: "Ne yapmalısınız ve yapmamalısınız günlük eğitimde HRV ile",
       },
     },
     {
@@ -423,6 +567,8 @@ export const post: BlogPost = {
         de: "Die verbreitetste Verwendung der HRV unter Freizeitsportlern ist als Erholungsindikator: Wenn die HRV deutlich unter der persönlichen Baseline liegt, könnte es nicht der beste Tag für ein intensives Training sein. Das ist eine nützliche Vereinfachung, aber mit einigen wichtigen Bedingungen.",
         pt: "O uso mais difundido da HRV entre atletas amadores é como indicador de recuperação: se a HRV estiver significativamente abaixo da linha de base pessoal, pode não ser o melhor dia para um treino intenso. Esta é uma simplificação útil, mas com algumas condições importantes.",
         fr: "L'utilisation la plus répandue de la HRV chez les athlètes amateurs est comme indicateur de récupération: si la HRV est significativement en dessous de la valeur de référence personnelle, ce n'est peut-être pas le meilleur jour pour un entraînement intense. C'est une simplification utile, mais avec quelques conditions importantes.",
+        pl: "Najczęściej używana metoda HRV wśród amatorów sportu jest jako indykator recyrkuacji: jeśli HRV jest znacznie niżej niż granica osobowa, może nie być najlepszy dzień na intensywne ćwiczenia. To uproszczenie jest przydatne, ale z kilkoma ważnymi warunkami.",
+        tr: "Giyilebilir cihazların en yaygın kullanım amacı sporcu amatörler arasında iyileşme göstergesi olarak: eğer giyilebilir cihazın kişisel baseline'sı altında önemli bir şekilde bulunuyorsa, belki de yoğun bir egzersiz için en iyi gün değil. Bu basitleştirilmiş bir ifade olmakla birlikte, bazı önemli koşullar mevcuttur.",
       },
     },
     {
@@ -464,6 +610,18 @@ export const post: BlogPost = {
           "**La comparaison entre différentes applications n'est pas directe**: Garmin, Samsung, Oura et Polar utilisent des algorithmes et des intervalles de mesure différents. Une valeur de 55 sur Garmin n'est pas directement comparable à un 55 sur Oura, même si les deux mesurent la 'HRV'.",
           "**Cela ne remplace pas le bon sens**: si vous avez dormi 5 heures mais que votre HRV est élevée ce matin-là, la dette de sommeil que vous devez récupérer pèse probablement plus que le chiffre HRV.",
         ],
+        pl: [
+          "**Ma sensato analizzarlo come trend settimanale**, non come dato giornaliero assoluto. Una singola notte di HRV bassa può avere cento cause (cena pesante, alcol, posizione di sonno atipica, notte calda). Una settimana intera sotto la tua baseline è più informativa.",
+          "**Nie jest indykijem choroby**: niska HRV nie oznacza, że chcesz zachorować lub masz problem z sercem. Jest sygnałem stanu systemu nerwowego autonomicznego, nie diagnozą.",
+          "**Porównanie różnych aplikacji nie jest bezpośrednie**: Garmin, Samsung, Oura i Polar używają algorytmów oraz roz:\"<<FM_HTML_0>>\"oczli pomiarowych różne. Wartość 55 na Garmin nie jest bezpośrednio porównywalna z 55 na Oura, nawet jeśli obie pomiarują 'HRV'.",
+          "**Nie zastępuje zdrowego rozsądku**: jeśli spędziłeś 5 godzin na śnie, ale twoja HRV jest wysoka w tym ranku, prawdopodobnie odpoczynek do zdobycia ma większą wagę niż ilość HRV.",
+        ],
+        tr: [
+          "**Sensatı onaylamak haftalık trend olarak**, tamamen mutlak günlük verilere benzemeyi. Bir tek gece HRV düşük bir durumun yüz binlerce sebebi olabilir (ağız tadlı yemek, alkollü içme, atipik uyku pozisiyonu, sıcak geceler). Baselineiniz altında tam bir haftanın bilgi verici olacak.",
+          "**Bolgeye düşük değildir bir hastalığın belirtisi**: HRV düşük olduğunda, hasta olmanı veya kalp probleminin var olduğunu söyleyemeyiz. Bu,自主神经系统的状态信号，而不是诊断。",
+          "**Farklı uygulamalararası karşılaştırma doğrudan değildir**: Garmin, Samsung, Oura ve Polar farklı algoritmalar ve ölçümler aralıkları kullanır. Bir 55 degeri Garmin üzerinde, Oura üzerindeki 55 ile doğrudan karşılaştırılamaz, hatta her ikisi de 'HRV' yi ölçerler.",
+          "**İyi niyet yerine geçmez**: eğer gece 5 saat uyudun fakat sabah HRV değeri yüksekse, muhtemelen geri kazanmak istediğiniz uykunun HRV sayısından daha fazla önemi var.",
+        ],
       },
     },
     {
@@ -476,6 +634,8 @@ export const post: BlogPost = {
         de: "HRV und allgemeines Wohlbefinden: die häufig gestellten Fragen",
         pt: "HRV e bem-estar geral: as perguntas frequentes",
         fr: "HRV et bien-être général: les questions fréquentes",
+        pl: "Zdrowie i ogólny stan zdrowia: często zadawane pytania",
+        tr: "KVKK ve genel sağlık: sık sorular",
       },
     },
     {
@@ -487,6 +647,8 @@ export const post: BlogPost = {
         de: "Über den Sport hinaus wird die HRV in Fachkontexten als Marker für chronischen Stress, kardiovaskuläres Wohlbefinden und die Reaktion auf bestimmte Maßnahmen verwendet. Das bedeutet nicht, dass die Zahl auf deiner Smartwatch dasselbe Gewicht hat wie eine professionelle Messung: Die Genauigkeit ist unterschiedlich, die Messprotokolle sind unterschiedlich, und Fachleute verwenden die HRV in sehr spezifischen Kontexten mit kalibrierten Instrumenten.",
         pt: "Além do esporte, a HRV é usada em contextos especializados como marcador de estresse crônico, bem-estar cardiovascular e resposta a certos tratamentos. Isso não significa que o número no seu smartwatch tenha o mesmo peso que uma medição profissional: a precisão é diferente, os protocolos de medição são diferentes, e profissionais de saúde usam a HRV em contextos muito específicos com instrumentos calibrados.",
         fr: "Au-delà du sport, la HRV est utilisée dans des contextes spécialisés comme marqueur de stress chronique, de bien-être cardiovasculaire et de réponse à certains traitements. Cela ne signifie pas que le chiffre sur votre montre connectée a le même poids qu'une mesure professionnelle: la précision est différente, les protocoles de mesure sont différents, et les professionnels de santé utilisent la HRV dans des contextes très spécifiques avec des instruments calibrés.",
+        pl: "Poza poza sportowo, HRV jest wykorzystywana w kontekście klinicznym jako marker stresu chronicznego, zdrowia cardiovaskularnego oraz reakcji na terapię w niektórych chorobotwórczych. To nie oznacza, że liczba na Twoim smartwatchu ma ten sam kliniczny wagę co medyczna pomiar: dokładność jest inna, protokoły pomiarowe są różne, a lekarz używa HRV w bardzo specyficznych kontekstach i z zaawansowanymi instrumentami.",
+        tr: "Aleyond sporcu, HRV hastalıklarda kronik stres marjinalı, kalp ve damar sağlığı, ve bazı hastalıklarda tedavi yanıtına da kullanılır. Bu, akıllı sahtedeki sayı doktora bir tespit için aynı ağırlıkta değildir: doğruluk farklıdır, ölçüm protokolleri farklıdır ve bir doktor HRV'u hassas araçlarla çok spesifik kontekstlerde kullanır.",
       },
     },
     {
@@ -498,6 +660,8 @@ export const post: BlogPost = {
         de: "Der Wert des Wearables liegt im persönlichen Langzeit-Tracking: die eigenen Muster im Laufe der Zeit zu sehen, Variationen zu bemerken, die mit Lebensereignissen korrelieren (Arbeitsstress, Routineänderungen, Reisen), und diese Informationen zu nutzen, um fundiertere Entscheidungen über den Lebensstil zu treffen. Nicht zur Selbstdiagnose.",
         pt: "O valor do wearable está no acompanhamento longitudinal pessoal: ver os próprios padrões ao longo do tempo, notar variações correlacionadas a eventos da vida (estresse no trabalho, mudanças de rotina, viagens) e usar essas informações para tomar decisões mais informadas sobre o estilo de vida. Não para se autodiagnosticar.",
         fr: "La valeur de l'appareil connecté réside dans le suivi longitudinal personnel: voir ses propres schémas dans le temps, remarquer les variations corrélées aux événements de la vie (stress au travail, changements de routine, voyages), et utiliser ces informations pour prendre des décisions plus éclairées sur son mode de vie. Pas pour se diagnostiquer soi-même.",
+        pl: "Wartość wearables-a polega na śledzeniu longitudinalnym indywidualnego: zobrazowanie własnych wzorców w czasie, zauważanie zmian związanych z wydarzeniami życiowymi (ciśnienie zawodowe, zmiany rutyn, podróże), oraz korzystanie z tych informacji do podejmowania bardziej świadomej decyzji dotyczących swojego stylu życia. Nie do autodiagnostyki.",
+        tr: "Giyilebilir cihazın değeri, kişisel uzun vadeli izleyici olma şansı: kendi modellerinizi zamanla izlemek, yaşam olaylarına (iş stresi, rutin değişiklikleri, seyahat) bağlı değişiklikleri fark etmek ve bu bilgilerle daha bilgi sahibi bir şekilde hayat stylunuz hakkında kararlar almak. Autodiagnostik olmamak için.",
       },
     },
     {
@@ -510,6 +674,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "W syntezie",
+        tr: "Özetle",
       },
     },
     {
@@ -557,6 +723,20 @@ export const post: BlogPost = {
           "Les valeurs de Garmin, Oura, Samsung et Polar ne sont pas directement comparables: ils utilisent des algorithmes différents. Choisissez un appareil comme référence et ne mélangez pas les chiffres.",
           "Pour améliorer la HRV dans le temps: sommeil régulier, activité aérobique modérée, réduction de l'alcool. Il n'existe pas de raccourcis rapides: les changements visibles prennent des semaines.",
         ],
+        pl: [
+          "RODO pomiary zmiennosci między pulsami (milisekundy) nie obejmują średniej częstotliwości: wysoka zmienność wskazuje na równowagę systemu nerwowego autonomicznego, a nie na problem kardioirygolarny.",
+          "Wartość bezwzględna mało liczy: atleta w wieku 40 lat może mieć 85 ms, a sedentariusz 35 ms, oba normale dla ich stanu. Warto zwrócić uwagę na Twoją indywidualną trendę po 2-4 tygodnie.",
+          "Najwiarygodniejsza miara to nocna (podczas senu), gdy ruch nie przeszkadza w działaniu czujnika PPG.",
+          "Wartości Garmin, Oura, Samsung i Polar nie są bezpośrednio porównywalne: korzystają z różnych algorytmów. Wybierz urządzenie jako punkt odniesienia i nie łączy się liczby.",
+          "A lepień poprawić stan HRV w czasie: regularny sen, umiarkowana aktywność aerobyczna, zmniejszenie spożycia alkoholu. Nie istnieją szybkie hacki: widoczne zmiany wymagają tygodni.",
+        ],
+        tr: [
+          "KVKK, HRV giyilebilir cihazda millisekundler arası dudak hareketleri arasındaki değişimleri ölçer (millisecondi), ortalama frekansı değil: yüksek varyasyon, otonom nöro sistem denge belirtir, kalp problemi olmamış demek değildir.",
+          "Mutlak değer çok önemli değildir: bir 40 yaşındaki atletin 85 ms'si ve bir pasif yaşam sürümünün 35 ms'si olabilir, her ikisi de onların için normaldir. Önemli olan, senin 2-4 haftalık kişisel trendin.",
+          "Enstrüman ölçümünün en güvenilir değeri gecede (uyurken) olanıdır, hareket sensoruna müdahale etmez.",
+          "Garmin ve Oura değerleri, Samsung ve Polar'in doğrudan karşılaştırılamaz: farklı algoritmalar kullanıyor. Bir cihazı referans olarak seçip sayıları karıştırmayın.",
+          "Zaman içinde HRV'i iyileştirmek için: düzenli uyku, orta düzey aerobik aktivite, alkollü içeceklerden azalma. Hızlı hack yoktur: görsel değişiklikler haftaları gerektirir.",
+        ],
       },
     },
     {
@@ -568,6 +748,8 @@ export const post: BlogPost = {
         de: "Möchtest du deine HRV auf einem einheitlichen Dashboard überwachen?",
         pt: "Quer monitorar sua HRV em um painel unificado?",
         fr: "Vous souhaitez surveiller votre HRV sur un tableau de bord unifié?",
+        pl: "Czy chcesz monitorować swoją HRV na jednej zintegrowanej dashboarдовej panelu?",
+        tr: "İstediğiniz HRV'unun takip edilmesini birUnified Dashboard'da yapmayı mı istersiniz?",
       },
       body: {
         it: "Se hai un Garmin, un Oura Ring, o un Galaxy Watch e vuoi vedere la tua HRV storica su un'unica dashboard web, con trend nel tempo, confronto tra dispositivi e metriche correlate. FitMesh Sync è una delle opzioni che aggregano questi dati via API ufficiali.",
@@ -576,6 +758,8 @@ export const post: BlogPost = {
         de: "Wenn du ein Garmin, einen Oura Ring oder eine Galaxy Watch hast und deine HRV-Verlaufsdaten auf einem einzigen Web-Dashboard sehen möchtest, mit Trends im Laufe der Zeit, geräteübergreifendem Vergleich und verwandten Metriken. FitMesh Sync ist eine der Optionen, die diese Daten über offizielle APIs zusammenführt.",
         pt: "Se você tem um Garmin, um Oura Ring ou um Galaxy Watch e quer ver o histórico da sua HRV em um único painel web, com tendências ao longo do tempo, comparação entre dispositivos e métricas relacionadas. FitMesh Sync é uma das opções que agrega esses dados via APIs oficiais.",
         fr: "Si vous avez un Garmin, un Oura Ring ou une Galaxy Watch et souhaitez voir votre historique HRV sur un tableau de bord web unique, avec les tendances dans le temps, la comparaison entre appareils et les métriques associées. FitMesh Sync est l'une des options qui agrège ces données via des API officielles.",
+        pl: "Jeśli masz Garmin, pęczek Ring lub Galaxy Watch i chcesz zobaczyć swoją HRV historię na jednej panelu webowym, z trendami w czasie, porównywaniem urządzeń i powiązanymi metrykami, FitMesh Sync to jedna z opcji, która agreguje te dane za pomocą oficjalnych interfejsów API.",
+        tr: "Eğer bir Garmin, bir Oura Ring veya bir Galaxy Watch ve tarihlisel HRVini tek bir web tabanlı panelde görmek istiyorsanız, zaman içindeki eğilimleri, cihazlar arasındaki karşılaştırmaları ve ilişkili metriklerini görebilirsiniz. FitMesh Sync offisiel API'lere üzerinden bu verileri toplayan seçeneklerden biridir.",
       },
       ctaLabel: {
         it: "Vedi le integrazioni disponibili →",
@@ -584,6 +768,8 @@ export const post: BlogPost = {
         de: "Verfügbare Integrationen ansehen →",
         pt: "Ver as integrações disponíveis →",
         fr: "Voir les intégrations disponibles →",
+        pl: "Zobacz dostępne integracje →",
+        tr: "Görülebilen tüm entegrasyonlar →",
       },
       ctaHref: {
         it: "/it/integrations",
@@ -600,6 +786,8 @@ export const post: BlogPost = {
         de: "Was ist HRV in einfachen Worten?",
         pt: "O que é HRV em palavras simples?",
         fr: "Qu'est-ce que la HRV en termes simples?",
+        pl: "Coż to jest HRV w prostych słowach?",
+        tr: "HRV nedir, basitçe?",
       },
       a: {
         it: "La HRV (variabilità della frequenza cardiaca) misura quanto variano i tempi tra un battito cardiaco e il successivo. Non è la frequenza cardiaca media: è la variazione di quella frequenza momento per momento. Una variabilità alta (battiti più 'irregolari' negli intervalli) indica in genere che il corpo è ben riposato e il sistema nervoso è in equilibrio. Una variabilità bassa segnala stress, affaticamento, o convalescenza.",
@@ -608,6 +796,8 @@ export const post: BlogPost = {
         de: "Die HRV (Herzfrequenzvariabilität) misst, wie stark die Zeitabstände zwischen den Herzschlägen variieren. Es ist nicht die durchschnittliche Herzfrequenz: Es ist die Variation dieser Frequenz von Moment zu Moment. Eine hohe Variabilität (mehr 'unregelmäßige' Intervalle zwischen Schlägen) zeigt in der Regel an, dass der Körper gut ausgeruht ist und das Nervensystem im Gleichgewicht ist. Eine niedrige Variabilität signalisiert Stress, Müdigkeit oder Erholung.",
         pt: "A HRV (variabilidade da frequência cardíaca) mede o quanto variam os tempos entre um batimento cardíaco e o próximo. Não é a frequência cardíaca média: é a variação dessa frequência momento a momento. Uma variabilidade alta (intervalos mais 'irregulares' entre batimentos) indica geralmente que o corpo está bem descansado e o sistema nervoso está equilibrado. Uma variabilidade baixa sinaliza estresse, fadiga ou recuperação.",
         fr: "La HRV (variabilité de la fréquence cardiaque) mesure dans quelle mesure les intervalles de temps entre les battements cardiaques varient. Ce n'est pas la fréquence cardiaque moyenne: c'est la variation de cette fréquence moment par moment. Une variabilité élevée (intervalles plus 'irréguliers' entre les battements) indique généralement que le corps est bien reposé et que le système nerveux est équilibré. Une faible variabilité signale le stress, la fatigue ou la convalescence.",
+        pl: "RODO (variabilitść czułości do pulsacji serca) pomaga zrozumieć, jak się zmieniają przerwy między kolejnymi kontrakcjami serca. To nie jest średnia częstotliwość pulsacji: to zmiana tej częstotliwości w każdym momencie. Wysoka variabilitść (pulsacje bardziej 'niezawodne' w interwałach) zwykle oznacza, że ciało jest dobrze odpoczęte i układ nerwowy jest w równowadze. Niska variabilitść może sygnalizować stres, zmęczenie lub convalescencję.",
+        tr: "HRV (kalp atış frekansı varyasyonu) bir kalp atışı ile sonraki atışı arası zamanların nasıl değiştiğini ölçer. Ortalama kalp atış hızını ifade etmez: her anki frekansın değişimini gösterir. Yüksek bir varyasyon (daha 'irregülar' atışlar aralarında) genellikle vücudun iyi dinlenmesi ve nörolojik sistemin denge olması anlamına gelir. Düşük bir varyasyon stres, yorgunluk veya iyileşme işaretidir.",
       },
     },
     {
@@ -618,6 +808,8 @@ export const post: BlogPost = {
         de: "Wie hoch sollte meine HRV sein?",
         pt: "Qual deve ser o valor da minha HRV?",
         fr: "Quelle doit être la valeur de ma HRV?",
+        pl: "Jak wysoka ma być moja HRV?",
+        tr: "Hangi kadar HRV olmalı?",
       },
       a: {
         it: "Non esiste un target universale. La HRV varia enormemente per età, sesso, livello di fitness, genetica. Un range 'normale' per un adulto di 35 anni potrebbe essere tra 40 e 80 ms (RMSSD), ma un atleta potrebbe stare ben oltre 100 ms. La metrica utile non è il valore assoluto, ma il tuo trend personale: cerca di capire qual è la tua baseline su 2-4 settimane e osserva le deviazioni significative.",
@@ -626,6 +818,8 @@ export const post: BlogPost = {
         de: "Es gibt keinen universellen Zielwert. Die HRV variiert enorm je nach Alter, Geschlecht, Fitnesslevel und Genetik. Ein 'normaler' Bereich für einen 35-jährigen Erwachsenen könnte zwischen 40 und 80 ms (RMSSD) liegen, aber ein Athlet könnte weit über 100 ms liegen. Die nützliche Metrik ist nicht der absolute Wert, sondern dein persönlicher Trend: Versuche deine Baseline über 2-4 Wochen zu verstehen und beobachte signifikante Abweichungen.",
         pt: "Não existe um alvo universal. A HRV varia enormemente por idade, sexo, nível de condicionamento físico e genética. Uma faixa 'normal' para um adulto de 35 anos pode estar entre 40 e 80 ms (RMSSD), mas um atleta pode estar bem acima de 100 ms. A métrica útil não é o valor absoluto, mas a sua tendência pessoal: tente entender qual é a sua linha de base ao longo de 2-4 semanas e observe os desvios significativos.",
         fr: "Il n'existe pas de cible universelle. La HRV varie énormément selon l'âge, le sexe, le niveau de forme physique et la génétique. Une plage 'normale' pour un adulte de 35 ans pourrait se situer entre 40 et 80 ms (RMSSD), mais un athlète pourrait être bien au-delà de 100 ms. La métrique utile n'est pas la valeur absolue, mais votre tendance personnelle: essayez de comprendre votre valeur de référence sur 2-4 semaines et observez les écarts significatifs.",
+        pl: "Nie ma uniwersalnego celu. Indeks HRV różni się enormnie w zależności od wieku, płci, poziomu fitnessa, genetyki. Dla dorosłego 35-letniego osobnika normowy zakres może wynosić od 40 do 80 ms (RMSSD), ale sportowiec może mieć wartości ponad 100 ms.ważna jest nie wartość bezwzględna, ale Twoja indywidualna tendencja: spróbuj zrozumieć swoją bazową wartość po okresie 2-4 tygodnie i obserwuj istotne odchylenia.",
+        tr: "KVKK genelde unutulamaz bir hedef olmaz. HRV yaşı, cinsiyet, farekilitliktir, genetik faktörlere göre ciddi ölçüde değişebilir. 35 yaşındaki bir yetişkin için normal bir aralık 40 ile 80 ms (RMSSD) arasında olabilir, ancak bir sporcu bu değeri 100 ms'den çok daha fazla aşabilir. Önemli olan metrik mutlaka mutlak değer değil, kişisel trendinizi anlamanız: 2-4 hafta boyunca baselinesını belirleyip, önemli sapmaları gözlemlemenizdir.",
       },
     },
     {
@@ -636,6 +830,8 @@ export const post: BlogPost = {
         de: "Niedrige HRV: Was bedeutet das?",
         pt: "HRV baixa: o que significa?",
         fr: "HRV basse: qu'est-ce que cela signifie?",
+        pl: "Niska HRV: co to oznacza?",
+        tr: "KVKK basia: ne demek?",
       },
       a: {
         it: "Una HRV sotto la tua baseline personale può segnalare varie cose: stress fisico (allenamento intenso, malattia in arrivo, convalescenza), stress mentale-emotivo, qualità del sonno scarsa, consumo di alcol la sera precedente, o semplicemente una notte con più movimenti del solito (che disturba la misura PPG). Un singolo valore basso non è preoccupante. Una settimana intera di valori significativamente sotto la tua normale merita attenzione e, se accompagnata da altri sintomi, potrebbe valere la pena menzionarla al medico.",
@@ -644,6 +840,8 @@ export const post: BlogPost = {
         de: "Eine HRV unter deiner persönlichen Baseline kann verschiedene Dinge signalisieren: körperlichen Stress (intensives Training, aufkommende Erkrankung, Erholung), mentalen und emotionalen Stress, schlechte Schlafqualität, Alkoholkonsum am Vorabend oder einfach eine Nacht mit mehr Bewegung als üblich (was die PPG-Messung stört). Ein einzelner niedriger Wert ist nicht besorgniserregend. Eine ganze Woche mit Werten deutlich unter deinem normalen Niveau verdient Aufmerksamkeit und, wenn sie von anderen Beschwerden begleitet wird, könnte es sich lohnen, dies mit einem Arzt zu besprechen.",
         pt: "Uma HRV abaixo da sua linha de base pessoal pode sinalizar várias coisas: estresse físico (treino intenso, doença chegando, recuperação), estresse mental-emocional, qualidade do sono ruim, consumo de álcool na noite anterior ou simplesmente uma noite com mais movimentos do que o habitual (que perturba a medição PPG). Um único valor baixo não é preocupante. Uma semana inteira de valores significativamente abaixo do seu normal merece atenção e, se acompanhada de outros sintomas, pode valer a pena mencionar a um profissional de saúde.",
         fr: "Une HRV en dessous de votre valeur de référence personnelle peut signaler diverses choses: stress physique (entraînement intense, maladie imminente, convalescence), stress mental et émotionnel, mauvaise qualité du sommeil, consommation d'alcool la veille, ou simplement une nuit avec plus de mouvements que d'habitude (ce qui perturbe la mesure PPG). Une seule valeur basse n'est pas préoccupante. Une semaine entière de valeurs significativement en dessous de votre normale mérite attention et, si elle est accompagnée d'autres symptômes, il pourrait être utile d'en parler à un médecin.",
+        pl: "Jedna HRV pod Twoją indywidualną granicą minimalną może sygnalizować różne rzeczy: fizyczny ciśnienie (intensywna treningowa sesja, nadchodząca choroba, convalescencja), psychiczne-i-emocjonalne ciśnienie, niepełna jakość snu, konsumpcja alkoholu w nocy poprzedniej, lub prosto mówiąc, jedna noc z większą ilością ruchów (co zakłóca pomiar PPG). Jedynie pojedynczy niski wynik nie jest zagrożeniem. Cała tydzień wartości znacznie niższych od Twojej normy wymaga uwagi i, jeśli towarzyszą inne objawy, warto je zaszczytnie wspomnieć lekarzowi.",
+        tr: "Bir HRV altınlık senin kişisel baseline’inden altında olabilir çeşitli durumlara işaret edebilir: fiziksel stres (yaklaşan yoğun bir egzersiz, yaklaşan hastalığa, iyileşme), zihinsel-emosyonel stres, uyku kalitesi düşük, gece önce alkollü içki tüketimi, veya sadece genellikten fazla hareketli bir gecenin sonucu (bu, ölçüm PPGini bozabilir). Tek bir düşük değer endişe verici değildir. Normal senaryonun altında tam bir hafta boyunca kalırsa bu dikkat çekici olabilir ve diğer belirtilerle birlikte doktora bildirmenin değerinin değerlendirilmesi gerekebilir.",
       },
     },
     {
@@ -654,6 +852,8 @@ export const post: BlogPost = {
         de: "Messen Galaxy Watch, Garmin und Oura dieselbe HRV?",
         pt: "Galaxy Watch, Garmin e Oura medem a mesma HRV?",
         fr: "Galaxy Watch, Garmin et Oura mesurent-ils la même HRV?",
+        pl: "Czy Galaxy Watch, Garmin i Oura pomiarują tę samą HRV?",
+        tr: "Galaxy Watch, Garmin ve Oura, aynı HRV'i mi ölçüyor?",
       },
       a: {
         it: "Misurano la stessa metrica biologica (la variabilità degli intervalli RR) ma con hardware, algoritmi e protocolli di misura diversi. Il risultato numerico può differire anche significativamente tra un device e l'altro sulla stessa persona nella stessa notte. Non confrontare il numero assoluto tra device diversi. Scegli un device come riferimento principale e usa quello per il tuo trend personale.",
@@ -662,6 +862,8 @@ export const post: BlogPost = {
         de: "Sie messen dieselbe biologische Metrik (die Variabilität der RR-Intervalle), aber mit unterschiedlicher Hardware, unterschiedlichen Algorithmen und Messprotokollen. Das numerische Ergebnis kann zwischen den Geräten bei derselben Person in derselben Nacht erheblich abweichen. Vergleiche die absolute Zahl nicht zwischen verschiedenen Geräten. Wähle ein Gerät als Hauptreferenz und verwende es für deinen persönlichen Trend.",
         pt: "Eles medem a mesma métrica biológica (a variabilidade dos intervalos RR), mas com hardware, algoritmos e protocolos de medição diferentes. O resultado numérico pode diferir significativamente entre os dispositivos para a mesma pessoa na mesma noite. Não compare o número absoluto entre dispositivos diferentes. Escolha um dispositivo como referência principal e use-o para a sua tendência pessoal.",
         fr: "Ils mesurent la même métrique biologique (la variabilité des intervalles RR) mais avec des matériels, algorithmes et protocoles de mesure différents. Le résultat numérique peut différer significativement entre les appareils pour la même personne la même nuit. Ne comparez pas le chiffre absolu entre différents appareils. Choisissez un appareil comme référence principale et utilisez-le pour votre tendance personnelle.",
+        pl: "Mierzenie tej samej biologicznej metryki (variabilitetu interwałów RR) odbywa się jednak za pomocą różnych sprzętu, algorytmów i protokołów pomiarowych. Wynik numeryczny może znacznie się różnić między urządzeniami na tej samej osobie w tym samym nocy. Nie porównuj wartości bezwzględnej między innymi urządzeniami. Wybierz jedno urządzenie jako podstawowe i używaj go do śledzenia Twojej indywidualnej tendencji.",
+        tr: "Aynı biyolojik ölçü (RR aralıklarının varyasyonu) ayırt edilir, ancak farklıhardware, algoritmalar ve ölçüm protokolleri ile. Sayısal sonucun aynı kişi üzerinde ayni gece farklı cihazlar arasında önemli ölçüde farklı olabilir. Bir cihazı ana referans olarak seçip, o cihazı kişisel trendinizi için kullanmanızı öneriyoruz.",
       },
     },
     {
@@ -672,6 +874,8 @@ export const post: BlogPost = {
         de: "Kann ich meine HRV verbessern?",
         pt: "Posso melhorar minha HRV?",
         fr: "Puis-je améliorer ma HRV?",
+        pl: "Czy mogę poprawić swoją HRV?",
+        tr: "İsteyebilirim HRV benim için iyileşmesi?\";",
       },
       a: {
         it: "Sì, ma lentamente e indirettamente. Le variabili che influenzano positivamente la HRV nel lungo periodo includono: sonno regolare e sufficiente (7-8 ore per la maggior parte degli adulti), attività fisica aerobica moderata e costante, gestione dello stress (mindfulness, respirazione diaframmatica), riduzione dell'alcol, e in generale una routine di vita stabile. Non esistono 'hack' rapidi: i cambiamenti significativi nella HRV baseline si vedono tipicamente nel giro di settimane o mesi, non giorni.",
@@ -680,6 +884,8 @@ export const post: BlogPost = {
         de: "Ja, aber langsam und indirekt. Zu den Variablen, die die HRV langfristig positiv beeinflussen, gehören: regelmäßiger und ausreichender Schlaf (7-8 Stunden für die meisten Erwachsenen), moderate und konstante aerobe körperliche Aktivität, Stressmanagement (Achtsamkeit, Zwerchfellatmung), Alkoholreduktion und generell eine stabile Lebensroutine. Es gibt keine schnellen 'Abkürzungen': Signifikante Veränderungen im HRV-Baseline sieht man typischerweise im Verlauf von Wochen oder Monaten, nicht Tagen.",
         pt: "Sim, mas de forma lenta e indireta. As variáveis que influenciam positivamente a HRV a longo prazo incluem: sono regular e suficiente (7-8 horas para a maioria dos adultos), atividade física aeróbica moderada e consistente, gestão do estresse (mindfulness, respiração diafragmática), redução do álcool e, em geral, uma rotina de vida estável. Não existem 'atalhos' rápidos: mudanças significativas na linha de base da HRV são tipicamente observadas ao longo de semanas ou meses, não dias.",
         fr: "Oui, mais lentement et indirectement. Les variables qui influencent positivement la HRV sur le long terme comprennent: un sommeil régulier et suffisant (7-8 heures pour la plupart des adultes), une activité physique aérobique modérée et régulière, la gestion du stress (pleine conscience, respiration diaphragmatique), la réduction de l'alcool et, en général, une routine de vie stable. Il n'existe pas de raccourcis rapides: les changements significatifs dans la valeur de référence HRV se voient généralement sur des semaines ou des mois, pas des jours.",
+        pl: "Tak, ale powoli i nie bezpośrednio. Zmienne wpływające pozytywnie na HRV w długiej perspektywie to: regularne i wystarczające ilości senu (7-8 godzin dla większości dorosłych), regularna aktywność fizyczna aerobiczna, utrzymywanie się w spokojnym stanie emocjonalnym (mindfulness, techniki oddechowe), ograniczanie spożycia alkoholu, oraz ogólnie stabilizacja rutyny życiowej. Nie ma szybkich 'hacków': znaczące zmiany w baseline HRV są obserwowane zwykle w tygodniach lub miesiącach, a nie dniach.",
+        tr: "Evet, ancak yavaş ve dolaylı olarak. KVKK'nın uzun vadeli pozitif etkileyen değişkenlerini içeren örnekler şunlardır: düzenli ve yeterli uyku (çoğumuz için 7-8 saat), orta düzeyde ve sürekli aerobik aktivite, stres yönetimi (dikkatli ruh hali, diafragma çökmesi), alkollü içeceklerin azaltılması ve genel olarak düzenli bir yaşam rutini. Hızlı 'hack'lar yoktur: KVKK temel değerlerinde önemli değişiklikler genellikle haftalar veya aylar içinde görülür, günlerde değil.",
       },
     },
   ],

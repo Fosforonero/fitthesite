@@ -587,6 +587,8 @@ export const post: BlogPost = {
         de: "Recht auf Datenübertragbarkeit (Art. 20)",
         pt: "Direito à portabilidade (art. 20)",
         fr: "Droit à la portabilité (art. 20)",
+        pl: "Prawo do przenoszenia (art. 20)",
+        tr: "Güvenlik Taşıyıcı Hakkı (Mülk 20)",
       },
     },
     {
@@ -598,6 +600,8 @@ export const post: BlogPost = {
         de: "Gilt spezifisch für Daten, die du bereitgestellt hast (freiwillig oder durch Nutzung des Dienstes). Vom Verantwortlichen abgeleitete oder aggregierte Daten können ausgeschlossen sein. Im Format 'strukturiert, gängig und maschinenlesbar', in der Regel CSV oder JSON. Dies ist die Rechtsgrundlage, die den Wechsel von Ökosystem ohne Datenverlust ermöglicht.",
         pt: "Específico para dados que você forneceu (voluntariamente ou pelo uso do serviço). Dados derivados ou agregados pelo responsável podem não estar incluídos. Em formato 'estruturado, de uso comum e legível por máquina', geralmente CSV ou JSON. Esta é a base legal que permite mudar de ecossistema sem perder o histórico.",
         fr: "Spécifique aux données que vous avez fournies (volontairement ou via l'utilisation du service). Les données dérivées ou agrégées par le responsable du traitement peuvent ne pas être incluses. Dans un format 'structuré, couramment utilisé et lisible par machine', généralement CSV ou JSON. C'est la base légale permettant de changer d'écosystème sans perdre l'historique.",
+        pl: "Dla dane, które podasz (wolontaryjnie lub poprzez użycie usługi). Dane pochodne lub agregowane od właściciela mogą nie być zawarte. W formacie 'struktowym, szeroko używanym i czytelnym dla urządzenia automatycznego', zazwyczaj CSV lub JSON. To jest podstawa prawna umożliwiająca zmianę ecosystemu bez straty historii.",
+        tr: "Spesifik edin için verdiğin bilgiye (kendini veya hizmetiniz aracılığıyla) bağlı olarak. Sahip olan verilerinden türetilen veya toplamış olunan verilerin dahil olmasının mümkün olmadığını belirtin. 'Struktürlü, yaygın kullanım için ve otomatik cihaz tarafından okunabilir', genellikle CSV veya JSON olarak ifade edilir. Bu, tarihi kaybetseniz de ecosistemi değiştirmeyi mümkün kılar.",
       },
     },
     {
@@ -610,6 +614,8 @@ export const post: BlogPost = {
         de: "Recht auf Löschung (Art. 17)",
         pt: "Direito ao apagamento (art. 17)",
         fr: "Droit à l'effacement (art. 17)",
+        pl: "Prawo do usunięcia (art. 17)",
+        tr: "Silaha erişim hakkı (madd. 17)",
       },
     },
     {
@@ -621,6 +627,8 @@ export const post: BlogPost = {
         de: "Nach dem Schließen des Kontos müssen die Daten gelöscht werden. Fast alle Marken führen operative Backups für 30 bis 180 Tage nach der Löschung (dies muss deklariert werden). Für anonymisierte und aggregierte Daten zu Forschungs- oder Verbesserungszwecken ist die Löschung möglicherweise nicht verpflichtend.",
         pt: "Ao encerrar a conta, os dados devem ser excluídos. Quase todas as marcas mantêm backups operacionais por 30 a 180 dias após a exclusão (devem declarar isso). Para dados anonimizados e agregados para pesquisa ou melhoria do serviço, a exclusão pode não ser obrigatória.",
         fr: "En fermant le compte, les données doivent être supprimées. Presque toutes les marques conservent des sauvegardes opérationnelles pendant 30 à 180 jours après la suppression (cela doit être déclaré). Pour les données anonymisées et agrégées à des fins de recherche ou d'amélioration, la suppression peut ne pas être obligatoire.",
+        pl: "Zamykając konto, dane powinny być usunięte. Wielu producentów zatrzymuje kopie zapasowe operacyjne przez 30–180 dni po usunięciu (muszą to ogłosić). Usunięcie anonyzowanych i agregowanych danych do celów badawczych lub poprawy produktu nie jest obowiązkowe.",
+        tr: "Hesap kapatıldığında, veriler silinmelidir. Neredeyse tüm markalar, silinen sonra 30-180 gün içinde operasyonel yedek tutmalarını bildirmelidir (bu zorunlu değildir). Anonimleştirilmiş ve araştırma/gelişim için toplama verileri için silme zorunluluğu olmayabilir.",
       },
     },
     {
@@ -633,6 +641,8 @@ export const post: BlogPost = {
         de: "Widerspruchsrecht (Art. 21)",
         pt: "Direito de oposição (art. 21)",
         fr: "Droit d'opposition (art. 21)",
+        pl: "Przywrócenie praw (art. 21)",
+        tr: "İstisna hakkı (Mülk İdaresi Kanunu madde 21)",
       },
     },
     {
@@ -644,6 +654,8 @@ export const post: BlogPost = {
         de: "Bei Verarbeitungen auf Basis berechtigter Interessen (Marketing-Profiling, nicht wesentliche aggregierte Analytics) kannst du jederzeit Widerspruch einlegen. Der Verantwortliche muss die Verarbeitung einstellen oder ein überwiegendes Interesse nachweisen. Dies ist fast immer die Rechtsgrundlage für Programme zur 'anonymen Datenfreigabe zur Serviceverbesserung'.",
         pt: "Para tratamentos baseados em interesse legítimo (criação de perfis de marketing, análises agregadas não essenciais), você pode se opor a qualquer momento. O responsável deve parar o tratamento ou provar um interesse prevalente. Quase sempre é a base legal dos programas de 'compartilhamento de dados anônimos para melhorar o serviço'.",
         fr: "Pour les traitements fondés sur l'intérêt légitime (profilage marketing, analyses agrégées non essentielles), vous pouvez vous y opposer à tout moment. Le responsable du traitement doit cesser le traitement ou prouver un intérêt prépondérant. C'est presque toujours la base légale des programmes de 'partage de données anonymes pour améliorer le service'.",
+        pl: "Dla przetwarzania opartego na zgodzie użytkownika (profilowanie marketingowe, analtyka agregowana nieistotna), możesz się w każdym momencie wyrazić. Obcy musi zatrzymać przetwarzanie lub udowodnić predomineństwo swojej zainteresowania. Praktycznie zawsze jest to podstawa prawna programów 'udostępniania danych anonsymizowanych do poprawy usługi'.",
+        tr: "KVKK’ye dayalı gerçekleştirebilecek trattamenti (pazarlama profili, toplanan agregat analitik veriler), her zaman talep etmenin hakkiniza sahipsiniz. Ver]={\nSahibi bu işlemin durdurulması veya daha öne çıkan bir ilgi kanunu olarak gösterilmesini ister. Genellikle bu, 'veri paylaşma programları ile hizmeti geliştirmek' için temel yasal kuraldır.",
       },
     },
     {
@@ -656,6 +668,8 @@ export const post: BlogPost = {
         de: "Die eigentliche Priorität: gebündeltes Einverständnis ist die unfairste Praxis",
         pt: "A prioridade real: o consentimento agrupado é a prática mais desleal",
         fr: "La vraie priorité : le consentement groupé est la pratique la plus déloyale",
+        pl: "Przede wszystkim: zgodność zgrupowana jest najbardziej nieetycznym podejściem",
+        tr: "Gerçek öncelik:捆绑同意是最不诚实的实践",
       },
       body: {
         it: "Nella nostra lettura di decine di privacy policy wearable, il problema più diffuso non è dove stanno i server: è il consenso bundled. Accettare i termini di servizio di un'app dovrebbe essere separato dall'accedere al trattamento dei tuoi dati sanitari per analytics e ricerca. Quasi nessun brand lo fa in modo corretto. Se puoi fare una sola cosa, fai questa: dopo l'installazione, vai in Impostazioni → Privacy e revoca ogni consenso opzionale che non riguarda il funzionamento core del servizio.",
@@ -664,6 +678,8 @@ export const post: BlogPost = {
         de: "Bei unserer Lektüre von Dutzenden Datenschutzrichtlinien für Wearables ist das weitverbreitetste Problem nicht der Standort der Server: Es ist das gebündelte Einverständnis. Die Annahme der Nutzungsbedingungen einer App sollte von der Einwilligung zur Verarbeitung deiner Gesundheitsdaten für Analytics und Forschung getrennt sein. Kaum eine Marke macht das korrekt. Wenn du nur eine Sache tun kannst, tue diese: Gehe nach der Installation zu Einstellungen → Datenschutz und widerrufe jede optionale Einwilligung, die nicht mit dem Kernbetrieb des Dienstes zusammenhängt.",
         pt: "Em nossa leitura de dezenas de políticas de privacidade de wearables, o problema mais difundido não é onde estão os servidores: é o consentimento agrupado. Aceitar os termos de serviço de um app deveria ser separado de consentir o tratamento dos seus dados de saúde para análises e pesquisa. Quase nenhuma marca faz isso corretamente. Se você puder fazer uma coisa, faça esta: após a instalação, vá em Configurações → Privacidade e revogue cada consentimento opcional que não seja necessário para o funcionamento principal do serviço.",
         fr: "Dans notre lecture de dizaines de politiques de confidentialité de wearables, le problème le plus répandu n'est pas l'emplacement des serveurs : c'est le consentement groupé. Accepter les conditions d'utilisation d'une application devrait être distinct du consentement au traitement de vos données de santé à des fins d'analyse et de recherche. Presque aucune marque ne le fait correctement. Si vous ne pouvez faire qu'une seule chose, faites celle-ci : après l'installation, allez dans Paramètres → Confidentialité et révoquez chaque consentement optionnel qui ne concerne pas le fonctionnement essentiel du service.",
+        pl: "Wyszukując w dziesiątkach zasad prywatności wearable, najczęstszy problem nie leży w lokalizacji serwerów: leci to o zgodę zbiorową. Akceptacja warunków użytkowania aplikacji powinna być oddzielona od dostępu do Twoich danych zdrowotnych dla celów analitycznych i badawczych. Praktycznie żaden brand nie robi tego poprawnie. Jeśli możesz zrobić jedno, to zrób to: po zainstalowaniu, przejdź do Ustawienia → Prywatność i odwołaj każdą dodatkową zgodę, która nie ma związku z podstawowym funkcjonowaniem usługi.",
+        tr: "N不下拉加载, 戴数十款可穿戴设备的隐私政策后，我们发现最常见的问题不是服务器在哪里：而是捆绑同意。接受应用的服务条款应该与访问你的健康数据进行分析和研究分开。几乎没有任何品牌能做到这一点。如果你只能做一件事，那就这样做：安装后，前往设置 → 隐私并撤销任何不涉及服务核心功能的可选同意。",
       },
     },
     {
@@ -676,6 +692,8 @@ export const post: BlogPost = {
         de: "Warnsignale in Datenschutzrichtlinien",
         pt: "Sinais de alerta nas políticas de privacidade",
         fr: "Signaux d'alarme dans les politiques de confidentialité",
+        pl: "Flagi czerwone w zasadniczej polityce prywatności",
+        tr: "Bandiere kırmızı gizlilik politikasında",
       },
     },
     {
@@ -687,6 +705,8 @@ export const post: BlogPost = {
         de: "Wenn du die Datenschutzrichtlinie einer Wearable-Marke vor dem Kauf liest, suche nach diesen Schlüsselbegriffen. Sie sind Indikatoren für mehr oder weniger aggressive Praktiken.",
         pt: "Ao ler a política de privacidade de uma marca de wearables antes de comprar, procure estas palavras-chave. Elas são indicadores de práticas mais ou menos agressivas.",
         fr: "Lorsque vous lisez la politique de confidentialité d'une marque de wearables avant d'acheter, recherchez ces mots-clés. Ce sont des indicateurs de pratiques plus ou moins agressives.",
+        pl: "Gdy przeczytasz zasadniczą politykę prywatności marki wearable przed zakupem, szukaj tych kluczowych słów. Są indikatorem bardziej lub mniej agresywnych praktyk.",
+        tr: "Giyilebilir cihaz bir brandin gizlilik ilkesini okuduktan sonra satın almadan arama bu anahtar kelimeleri. KVKK uyumluluğu daha çok veya daha az agresif uygulamaları gösteren işaretçilerdir.",
       },
     },
     {
@@ -734,6 +754,20 @@ export const post: BlogPost = {
           "**'Personnalisation publicitaire'** → interdite pour les données de santé (Apple, Google/Fitbit déclarent expressément ne pas le faire grâce à des engagements réglementaires). Si vous trouvez cette clause pour des données de santé, changez de marque.",
           "**Serveurs en Chine sans mention du RGPD** → pour un usage en Europe, c'est presque toujours un problème légal.",
         ],
+        pl: [
+          "**'Dzielimy się danymi z partnerami badawczymi'** → zgodny z zasadami RODO? Tak = ok. Włączone w 'akceptuj wszystko' = czerwone.",
+          "**'Aggregated i anonimizzati'** → anonimizzazione reversibile su set di dati multipli. Opt-out se possibile.",
+          "**'Aby poprawić nasze usługi oraz te partnerów'** → 'partner' jest podejrzana jako zbyt ogólna terminologia.",
+          "**\"Personalizacja reklamowa\"** → dla danych zdrowotnych jest zabroniona (Apple, Google/Fitbit wyraźnie stwierdzają, że to nie robi dzięki zobowiązanom regułom). Jeśli znajdziesz tę klasę w danych zdrowotnych, zmień markę.",
+          "**Serwer w Chinach bez mennero GDPR** → dla użycia w Europie prawie zawsze jest problemem prawowym.",
+        ],
+        tr: [
+          "**\"Veri şifreleme ile araştırmacılarla veri paylaşımı yaparız\"** → hassas girdikçe onaylanan consenso? Sıra = tamam. Paketlenmiş \"tümüne izin ver\" = kırmızı.",
+          "**'Güvenlikli ve anonsal veriler'** → anonsal işlemler çoklu veri setlerinde geri alınamaz. Erişimi engelleme seçeneği varsa, kullaniciya bildirin.",
+          "**'Günlük kullanım için hizmetlerimizi ve ortaklarımızın hizmetlerini iyileştirmek amacıyla'** → 'ortak' genel bir terim olabilir.",
+          "**'Kişisel reklam ayarları'** → sağlık verileri için yasaktır (Apple, Google/Fitbit resmi olarak bunu yapmadıklarını belirtmektedir). Bu tür bir koşul sağlık verilerinde bulursanız, markayı değiştirin.",
+          "**Çin sunucusu GDPR belirtilmeksizin** → Avrupa kullanımında neredeyse her zaman yasal bir sorun olur.",
+        ],
       },
     },
     {
@@ -746,6 +780,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "W syntezie",
+        tr: "Özetle",
       },
     },
     {
@@ -793,6 +829,20 @@ export const post: BlogPost = {
           "Signal d'alarme dans les politiques de confidentialité : 'nous partageons avec des partenaires de recherche' groupé dans un consentement unique, ou 'personnalisation publicitaire' pour les données de santé.",
           "Health Connect est la configuration Android la plus respectueuse de la vie privée disponible : les données restent sur l'appareil et chaque application doit demander une autorisation par type de donnée.",
         ],
+        pl: [
+          "Częstotliwość serca, sen, cykl ménstrualny i SpO₂ są specjalne dane zdrowotne pod kątem art. 9 GDPR: zgoda musi być jasna i szczegółowa, a nie ogólnym 'akceptuję wszystko'.",
+          "Serwery większości marek nie są w Europie: Apple, Google/Fitbit, Garmin, Samsung przesyłają dane do Stanów Zjednoczonych za pomocą mechanizmów SCC lub DPF. Huawei i Xiaomi przesyłają do Azji z gwarancjami słabszymi.",
+          "Masz trzy praktyczne prawa do wykorzystania natychmiast: dostęp (kopię danych w ciągu 30 dni, bezpłatnie), portatylność (format CSV/JSON do zmiany ecosystemu), usunięcie (zamknięcie konta).",
+          "Flaga czerwona w polityce prywatności: 'dzielenie się z partnerami badawczymi' włączonym w jednym zezwoleniu, lub 'personalisacja reklamy' dla danych zdrowotnych.",
+          "RODO jest najbardziej priwatnosćauticalnym setupem dostępnyym: dane pozostają na urządzeniu, każda aplikacja pyta o uprawnienia według typu danych.",
+        ],
+        tr: [
+          "Frekans kalp atışları, uyku, ayakkabı döngüsü ve SpO₂ sağlık bilgileri 'özel' altına girmektedir GDPR m. 9: açık ve hassas bir onayı almalıyız, genel bir 'tümüne kabul' yerine.",
+          "Sunucularımın neredeyse tümü Avrupa dışı: Apple, Google/Fitbit, Garmin, Samsung, verileri SCC veya DPF mekanizmalarıyla Amerika Birleşik Devletleri'ne aktarır. Huawei ve Xiaomi verilerini daha zayıf garanti ile Asya yönünde aktarır.",
+          "Uzunuz üç anında uygulanabilen praktik hakkınız var: erişim (30 günde veri kopyalama, ücretsiz), taşınabilirlik (CSV/JSON formatı ile ecosisteme geçiş yapma), silme (hesabı kapatarak verilerinizi silme).",
+          "Kırmızı bayrak gizlilik politikasında: 'araştırma ortaklarıyla paylaşıyoruz' tek bir onayla, veya 'reklam personalisasyonu' için sağlık verileri.",
+          "KVKK uyumluluğu Android olarak Health Connect: veriler cihazda kalır ve her uygulama veri türü için izin istemez.",
+        ],
       },
     },
     {
@@ -804,6 +854,8 @@ export const post: BlogPost = {
         de: "Möchtest du eine Lösung, die die Datenpipeline minimiert?",
         pt: "Quer uma solução que minimize o fluxo de dados?",
         fr: "Vous souhaitez une solution qui minimise le flux de données ?",
+        pl: "Czy szukasz rozwiązania, które minimalizuje pipeline danych?",
+        tr: "İstediğiniz bir çözüm, veri akışıını minimuma indirecek mi?",
       },
       body: {
         it: "FitMesh Sync legge da Health Connect (on-device) e archivia su backend Supabase ospitato in UE (Francoforte). Nessun ad-tech, nessun reseller di dati, accesso e cancellazione a un click.",
@@ -812,8 +864,10 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest von Health Connect (auf dem Gerät) und speichert auf einem in der EU gehosteten Supabase-Backend (Frankfurt). Kein Ad-Tech, kein Datenweiterverkauf, Zugriff und Löschung per Klick.",
         pt: "FitMesh Sync lê do Health Connect (no dispositivo) e armazena em um backend Supabase hospedado na UE (Frankfurt). Sem ad-tech, sem revenda de dados, acesso e exclusão com um clique.",
         fr: "FitMesh Sync lit depuis Health Connect (sur l'appareil) et stocke sur un backend Supabase hébergé dans l'UE (Francfort). Pas d'ad-tech, pas de revendeur de données, accès et suppression en un clic.",
+        pl: "FitMesh Sync odczytuje z Health Connect (na urządzeniu) i przechowuje na backendu Supabase hostowanym w UE (Frankfurt). Brak ad-tech, brak sprzedawcy danych, usługa dostępu i usuwania po kliknięciu.",
+        tr: "FitMesh Sync ile Health Connect (cihazda) kurallarını okuyup, KVKK uyumlu Supabase sunucusu üzerindeki backend'e kaydeder (__UE Francoforte__'da). Hiçbir ad-tex yok, hiçbir veri satıcısı olmaz, bir tıklama ile erişim ve silme.",
       },
-      ctaLabel: { it: "Leggi la nostra privacy", en: "Read our privacy", es: "Lee nuestra privacidad", de: "Unsere Datenschutzerklärung", pt: "Leia nossa política de privacidade", fr: "Lisez notre politique de confidentialité" },
+      ctaLabel: { it: "Leggi la nostra privacy", en: "Read our privacy", es: "Lee nuestra privacidad", de: "Unsere Datenschutzerklärung", pt: "Leia nossa política de privacidade", fr: "Lisez notre politique de confidentialité", pl: "Przeczytaj naszą politykę prywatności", tr: "Oku özel bize ait bilgi politikamız." },
       ctaHref: { it: "/it/privacy", en: "/en/privacy" },
     },
   ],
@@ -826,6 +880,8 @@ export const post: BlogPost = {
         de: "Kann ich eine Marke verklagen, wenn sie gegen die DSGVO verstößt?",
         pt: "Posso processar uma marca se ela violar o GDPR?",
         fr: "Puis-je poursuivre une marque si elle enfreint le RGPD ?",
+        pl: "Mogę cytować markę w sądzie, jeśli narusza GDPR?",
+        tr: "KVKK'ye违背者可以引用品牌吗如果该品牌违反了GDPR?",
       },
       a: {
         it: "In Europa la via standard è il reclamo al Garante nazionale della protezione dei dati (in Italia: GPDP, www.garanteprivacy.it). Gratuito, il Garante può aprire istruttoria e sanzionare. L'azione civile diretta è possibile ma costosa; conviene se hai subito un danno concreto e quantificabile (es. data breach con identità rubata).",
@@ -834,6 +890,8 @@ export const post: BlogPost = {
         de: "In Europa ist der Standardweg eine Beschwerde bei der nationalen Datenschutzbehörde (Deutschland: BfDI, www.bfdi.bund.de). Kostenlos; die Behörde kann eine Untersuchung einleiten und Bußgelder verhängen. Direkte Zivilklage ist möglich, aber kostspielig; sie lohnt sich, wenn du einen konkreten und bezifferbaren Schaden erlitten hast (z. B. Datenpanne mit Identitätsdiebstahl).",
         pt: "Na Europa, a via padrão é uma reclamação à autoridade nacional de proteção de dados (no Brasil: ANPD, www.gov.br/anpd). Gratuito; a autoridade pode abrir investigação e aplicar sanções. A ação civil direta é possível, mas custosa; vale a pena se você sofreu um dano concreto e quantificável (por exemplo, violação de dados com roubo de identidade).",
         fr: "En Europe, la voie standard est la plainte auprès de l'autorité nationale de protection des données (France : CNIL, www.cnil.fr). Gratuit ; l'autorité peut ouvrir une enquête et infliger des amendes. L'action civile directe est possible mais coûteuse ; elle vaut la peine si vous avez subi un préjudice concret et quantifiable (par exemple, une violation de données avec vol d'identité).",
+        pl: "W Europie standardem ścieżką jest skargi do Narodowego Rejestrатора Ochrony Danych (w Polsce: RODO, www.rodo.gov.pl). Bezpłatnie, RODO może zacząć badanie i nakazać sanкции. Procedura cywilna bezpośrednia jest możliwa, ale kosztowna; warto skorzystać z niej, jeśli doznałeś konkretnej i ocenianej straty (np. kradzież identyfikacji w wyniku brecha danych).",
+        tr: "In Avrupa standart yolda veri koruma gözetmenine şikayetçi olunur (İtalya'da: GPDP, www.garanteprivacy.it). Ücretsiz olan Gözetmen, soruşturma açabilir ve cezai yaptırımlar uygulayabilir. Doğrudan vatandaş davası mümkün olsa da maliyetli olabilir; bu, belirli bir zarara sahip olduğunuzda (örn. kimlik çalınma gibi) tercih edilebilir bir seçenektir.",
       },
     },
     {
@@ -844,6 +902,8 @@ export const post: BlogPost = {
         de: "Ist Health Connect sicher für Gesundheitsdaten?",
         pt: "O Health Connect é seguro para dados de saúde?",
         fr: "Health Connect est-il sûr pour les données de santé ?",
+        pl: "Czy Health Connect jest bezpieczny dla danych medycznych?",
+        tr: "KVKK'ye uygun mu?",
       },
       a: {
         it: "Strutturalmente sì, è il setup più privacy-friendly disponibile su Android. I dati restano sul telefono, ogni app deve chiedere permesso esplicito per tipo di dato, c'è log di accesso. Resta importante valutare quali app autorizzi: una volta che un'app legge da HC, può poi caricare quei dati altrove (è il caso di MyFitnessPal o app coaching che mandano dati al loro cloud).",
@@ -852,6 +912,8 @@ export const post: BlogPost = {
         de: "Strukturell ja, es ist das datenschutzfreundlichste Setup auf Android. Die Daten verbleiben auf dem Telefon, jede App muss eine ausdrückliche Genehmigung pro Datentyp einholen, und Zugriffe werden protokolliert. Es bleibt wichtig zu prüfen, welche Apps du autorisierst: Sobald eine App Daten aus Health Connect ausliest, kann sie diese anderswo hochladen (wie bei Coaching-Apps, die Daten in ihre eigene Cloud senden).",
         pt: "Estruturalmente sim, é a configuração mais amigável à privacidade disponível no Android. Os dados ficam no telefone, cada app deve solicitar permissão explícita por tipo de dado e os acessos são registrados. Ainda é importante avaliar quais apps você autoriza: uma vez que um app lê do Health Connect, pode então enviar esses dados para outro lugar (como acontece com alguns apps de treino que enviam dados para a nuvem própria).",
         fr: "Structurellement oui, c'est la configuration la plus respectueuse de la vie privée disponible sur Android. Les données restent sur le téléphone, chaque application doit demander une autorisation explicite par type de donnée et les accès sont consignés. Il reste important d'évaluer les applications que vous autorisez : une fois qu'une application lit depuis Health Connect, elle peut ensuite transférer ces données ailleurs (comme certaines applications de coaching qui envoient des données vers leur propre cloud).",
+        pl: "Strukturalnie tak, jest to najbardziej priwatnofriendly setup dostępny na Android. Dane pozostają na telefonie, każda aplikacja musi prosić o wyraźne zgody w zależności od rodzaju danych, istnieje log rejestracji dostępu. Ważne jest jednak ocenić, które aplikacje autoryzujesz: po tym, jak jedna z aplikacji czyta dane z HC, może je następnie przesłać na inny serwer (np. w przypadku MyFitnessPal lub aplikacji treningowych wysyłających dane do swojego chmury).",
+        tr: "Struktural olarak evet, bu Android üzerinde mevcut olası en gizlilik dostu ayarlıktır. Veriler telefonunda kalır, her uygulama veri türü için açıkça izin istemelidir, erişim günlüğü de bulunmaktadır. Ancak, izin vereceğiniz uygulamaları değerlendirmeniz önemlidir: bir uygulamanın HC'den okuduğu verileri başka bir yerlere yükleyebilir (MyFitnessPal veya danışmanlık uygulamalarının kendi bulutlarına verileri göndermesi gibi durumlar).",
       },
     },
     {
@@ -862,6 +924,8 @@ export const post: BlogPost = {
         de: "Ist die FitMesh Sync App DSGVO-konform?",
         pt: "O app FitMesh Sync está em conformidade com o GDPR?",
         fr: "L'application FitMesh Sync est-elle conforme au RGPD ?",
+        pl: "Czy aplikacja FitMesh Sync jest zgodna z GDPR?",
+        tr: "Uygulama FitMesh Sync KVKK'ye uyumlu mı?",
       },
       a: {
         it: "Sì. Privacy policy esplicita, server backend ospitati su Supabase Frankfurt (UE), consenso granulare in app, cancellazione dati one-click da impostazioni, nessuna condivisione con terze parti per ad-tech, nessun tracker analytics intrusivo. Architettura privacy-by-design.",
@@ -870,6 +934,8 @@ export const post: BlogPost = {
         de: "Ja. Explizite Datenschutzrichtlinie, Backend auf Supabase Frankfurt (EU), granulare In-App-Einwilligung, One-Click-Datenlöschung aus den Einstellungen, keine Weitergabe an Dritte für Ad-Tech, keine aufdringlichen Analytics-Tracker. Privacy-by-Design-Architektur.",
         pt: "Sim. Política de privacidade explícita, backend hospedado no Supabase Frankfurt (UE), consentimento granular no app, exclusão de dados em um clique nas configurações, sem compartilhamento com terceiros para ad-tech, sem rastreadores de análises intrusivos. Arquitetura privacy-by-design.",
         fr: "Oui. Politique de confidentialité explicite, backend sur Supabase Frankfurt (UE), consentement granulaire dans l'application, suppression des données en un clic depuis les paramètres, aucun partage avec des tiers pour l'ad-tech, aucun tracker d'analyse intrusif. Architecture privacy-by-design.",
+        pl: "Tak. Polityka prywatności wyraźna, serwery backendowe gościnnie na Supabase Frankfurt (UE), zgranularny zgodny w aplikacji, usunięcie danych jednym kliknięciem z ustawień, brak udzielania informacji trzecim stronom dla celów ad-tech, żadnych agresywnych trackerów analtycznych. Architektura zapewniajsza prywatność od założenia.",
+        tr: "Evet. Gizlilik ilkesi belirtilmiş, server backend Supabase Frankfurt (UE) sunucularında barındırılmış, uygulamada hassas consent, verilerin tek tıkla silinmesi ayarlarından, üçüncü taraf ile reklam teknolojisi için veri paylaşımı yok, gizli analitik tracker yok. Tasarımın parçası olan gizlilik tasarımına dayalı mimari.",
       },
     },
   ],

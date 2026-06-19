@@ -55,6 +55,20 @@ export const post: BlogPost = {
       "Le lock-in Apple Watch→Android est quasi total ; Galaxy Watch→autre Android est gérable ; Garmin→autre marque est moyen.",
       "Avant d'acheter : installe l'application compagnon et cherche '[modèle] data export' dans les FAQ officielles. Aucune réponse en 5 minutes est un signal d'alerte.",
     ],
+    pl: [
+      "kontrol danych oznacza pięć rzeczy oddzielnych: naturalna eksportowalność, transparencja przepływów, graniastosłupowe uprawnienia, interoperacyjność oraz odporność na zmiany.",
+      "prywatność i kontrola nie zbiegają się: Apple Watch ma silną prywatność, ale jest zablokowany tylko dla iOS; Garmin jest bardziej otwarty w zakresie eksportu, ale mniej reservowany na poziomie handlowym.",
+      "modele订阅（Whoop, Oura) łączą dostęp do historii z płatnością: oceni costę całkowitą w ciągu 5 lat, a nie miesięczny koszt.",
+      "Lock-in Apple Watch→Android jest prawie całkowity; Galaxy Watch→inny Android jest zarządzalny; Garmin→innego marki jest średnio.",
+      "Przed zakupem: zainstaluj aplikację partnerzką i szukaj '[model] eksport danych' w oficjalnych FAQ. Brak odpowiedzi po 5 minutach to czerwona flaga.",
+    ],
+    tr: [
+      "'Dataların kontrolü' beş farklı şeyi ifade eder: doğal dışa aktarılabilirlik, şeffaf akış, izinlerin granülatörlülüğü, uyumluluk ve değişime dayanıklılık.",
+      "Gizlilik ve denetim birbirine eşit değildir: Apple Watch, gizli ama sadece iOS'e kilitli; Garmin daha açık exporta odaklı ancak ticari açıdan daha az gizli.",
+      "Abonelik modelleri (Oura) KVKK'ye geçmişe erişimi bağlar: toplam 5 yıl boyunca harcamayı değerlendire, aylık fiyatını değil.",
+      "Apple Watch→Android lock-inı neredeyse tamamlanmıştır; Galaxy Watch→diğer Android kontrol edilebilir; Garmin→diğer marka orta seviye.",
+      "Önceki alım yapmadan: kompanyon uygulamasını kur ve '[model] veri aktarımı' ile ilgili-ofis resmi soruları ve cevaplar içinde arama yap. 5 dakika içinde herhangi bir yanıt yoksa, kırmızı iletken sayılır.",
+    ],
   },
   primaryKeyword: {
     it: "come scegliere smartwatch dati personali",
@@ -63,6 +77,8 @@ export const post: BlogPost = {
     de: "Smartwatch nach Datenkontrolle auswählen",
     pt: "como escolher smartwatch pelo controle de dados",
     fr: "comment choisir une montre connectée pour ses données",
+    pl: "jak wybrać smartwatch z danymi osobowymi",
+    tr: "gıyilebilir cihazlarda kişisel verilerin seçilmesi için kılavuz\nKVKK uyumluluğu için en uygun akıllı saatin seçimi\nkurucularımızın pişolesi ve önerileri\n KVKK gereksinimlerini karşılamak için size en uygun çözümü bulmak\nKVKK uyumlu kişisel veri toplama ve kullanma uygulamaları\nKVKK uyumluluğu için akıllı saatinizi nasıl ayarlayacağınızı öğrenin",
   },
   secondaryKeywords: {
     it: [
@@ -95,6 +111,18 @@ export const post: BlogPost = {
       "montre connectée sans lock-in",
       "meilleure montre connectée pour données de santé 2026",
     ],
+    pl: [
+      "smartwatch prywatność pierwsza",
+      "smartwatch przewidywalność danych",
+      "smartwatch bez zablokowania",
+      "le najlepsze smartwaty dla zdrowia w 2026 roku",
+    ],
+    tr: [
+      "akıllı saatinizde gizlilik önceliği",
+      "akıllı saat veri taşınabilirliği",
+      "akıllı saat sansürsüz.lock-insansürsüz.",
+      "en iyisi smartwatch sağlık verileri 2026",
+    ],
   },
   metaDescription: {
     it: "Come scegliere uno smartwatch nel 2026 partendo dal controllo dei tuoi dati: privacy, esportabilità, lock-in ecosistema. Raccomandazioni per atleta, longevità, sleep nerd, parent monitoring.",
@@ -103,9 +131,11 @@ export const post: BlogPost = {
     de: "Wie man 2026 eine Smartwatch nach Datenkontrolle auswählt: Datenschutz, Exportierbarkeit, Ökosystem-Lock-in. Empfehlungen für Athleten, Longevity-Fans, Schlaf-Nerds und Angehörigen-Monitoring.",
     pt: "Como escolher um smartwatch em 2026 a partir do controle dos seus dados: privacidade, exportabilidade, lock-in de ecossistema. Recomendações para atletas, longevidade, sono e monitoramento familiar.",
     fr: "Comment choisir une montre connectée en 2026 en partant du contrôle de vos données : confidentialité, exportabilité, lock-in d'écosystème. Recommandations pour athlètes, longévité, sommeil et surveillance familiale.",
+    pl: "Jak wybrać smartwatch w 2026 roku zaczynając od kontroli Twoich danych: prywatność, eksportowalność, zablokowanie ekośrodka. Zalecenia dla atleta, długowieczności, drzemki nerd, monitorowania rodziców.",
+    tr: "2026'da akıllı saat seçmek için nasıl karar verilir: veri kontrolü, gizlilik, exportability, lock-in ecosistemleri. Atletler için, uzun ömürlülük için, uyku nerdleri için ve parent monitoring önerileri.",
   },
   hero: {
-    kicker: { it: "Guida pilastro", en: "Pillar guide", es: "Guía de referencia", de: "Pillar-Guide", pt: "Guia pilar", fr: "Guide de référence" },
+    kicker: { it: "Guida pilastro", en: "Pillar guide", es: "Guía de referencia", de: "Pillar-Guide", pt: "Guia pilar", fr: "Guide de référence", pl: "Przewodnik pilarski", tr: "Pilatöstrü Kılavuz" },
     title: {
       it: "Smartwatch e controllo dei dati: come scegliere",
       en: "How to choose a smartwatch when you want control over your data",
@@ -113,6 +143,8 @@ export const post: BlogPost = {
       de: "So wählst du eine Smartwatch, wenn du Kontrolle über deine Daten willst",
       pt: "Como escolher um smartwatch quando você quer controlar seus dados",
       fr: "Comment choisir une montre connectée quand on veut contrôler ses données",
+      pl: "Smartwatch i kontrola danych: jak wybrać",
+      tr: "Akıllı saate ve verilerin kontrolü: nasıl seçileceği",
     },
     subtitle: {
       it: "Privacy strutturale, esportabilità reale, lock-in evitabili. Una guida onesta da advisor tecnico, non da vendor.",
@@ -121,6 +153,8 @@ export const post: BlogPost = {
       de: "Strukturelle Privatsphäre, echte Exportierbarkeit, vermeidbares Lock-in. Ein ehrlicher Leitfaden von einem Technik-Berater, nicht von einem Anbieter.",
       pt: "Privacidade estrutural, exportabilidade real, lock-in evitável. Um guia honesto de um consultor técnico, não de um fornecedor.",
       fr: "Confidentialité structurelle, exportabilité réelle, lock-in évitable. Un guide honnête d'un conseiller technique, pas d'un vendeur.",
+      pl: "prywatność strukturalna, rzeczywista eksportowalność, unikanie zablokowania. Nieoficjalne przewodnictwo od technicznego poradnika, a nie sprzedawcy.",
+      tr: "Gizlilik yapısı, gerçek出口换入口令\n导出可能性，避免锁定。一位诚实的技术顾问指南，而非供应商。",
     },
   },
   body: [
@@ -133,6 +167,8 @@ export const post: BlogPost = {
         de: "Das wichtigste Kriterium bei der Wahl einer Smartwatch im Jahr 2026 ist weder die Akkulaufzeit noch die Sensoren: Es ist die Kontrolle, die du in zwei Jahren über deine Daten haben wirst. Strukturelle Privatsphäre, echte Exportierbarkeit und vermeidbares Lock-in entscheiden, ob dein Wearable noch nützlich ist, wenn du Telefon, Marke oder Abo wechselst. Dieser Leitfaden gibt dir konkrete Kriterien an die Hand, um anhand dieser Faktoren statt anhand von Marketing-Features zu wählen.",
         pt: "O critério mais importante para escolher um smartwatch em 2026 não é a bateria nem os sensores: é o controle que você terá sobre seus dados daqui a dois anos. Privacidade estrutural, exportabilidade real e lock-in evitável determinam se o seu wearable ainda será útil quando você trocar de telefone, marca ou assinatura. Este guia dá a você os critérios concretos para escolher a partir desses fatores em vez das características de marketing.",
         fr: "Le critère le plus important pour choisir une montre connectée en 2026 n'est ni la batterie ni les capteurs : c'est le contrôle que vous aurez sur vos données dans deux ans. Confidentialité structurelle, exportabilité réelle et lock-in évitable déterminent si votre wearable sera encore utile lorsque vous changerez de téléphone, de marque ou d'abonnement. Ce guide vous donne les critères concrets pour choisir en partant de ces facteurs plutôt que des fonctionnalités marketing.",
+        pl: "Członkowska kryteria wyboru smartwatch w 2026 nie są batterią ani sensorami: to kontrola, jaką będziesz mieć nad swoimi danymi po dwóch latach. Strukturalna prywatność, rzeczywista eksportowalność i unikanie zaciągania decydują o tym, czy Twoje wearable będzie nadal użyteczne, gdy zmienisz telefon, markę lub abonament. Ta przewodnik podaje konkretne kryteria wyboru na podstawie tych czynników, a nie marketingowych funkcji.",
+        tr: "En 2026, en önemlisi bir kriter akıllı saatin seçimi için pil gücü veya sensörler değildir: iki yıl sonra verilerin kontrolünün ne olacağını belirleyeceğin. Yapılandırılmış gizlilik, gerçek aktarılabilirlik ve lock-in denetimli olarak belirlenirse, giyilebilir cihazınızın telefonunuzu, markayı veya aboneliğini değiştirdiğinizde yine de faydalı olup olmadığını belirler. Bu rehber, bu faktörlere dayalı olarak seçim kriterleri için gerçekçi standartları verir yerine pazarlama özelliklerinden.",
       },
     },
     {
@@ -144,6 +180,8 @@ export const post: BlogPost = {
         de: "Wir werden dir nicht sagen 'kauf X'. Wir sagen: Hier sind die Nutzungs-Archetypen, hier sind die echten Trade-offs zwischen den Marken, hier sind die häufigen roten Flaggen. Die endgültige Entscheidung liegt bei dir.",
         pt: "Não vamos dizer 'compre X'. Vamos dizer: aqui estão os arquétipos de uso, aqui estão os trade-offs reais entre marcas, aqui estão as bandeiras vermelhas comuns. A decisão final é sua.",
         fr: "Nous ne vous dirons pas 'achetez X'. Nous dirons : voici les archétypes d'usage, voici les vrais compromis entre les marques, voici les signaux d'alerte courants. La décision finale vous appartient.",
+        pl: "Nie powiemy Ci ' kupuj X '. Powiemy: oto archetypowe przypadki użycia, oto rzeczywiste trade-off między markami, oto powszechne czerwone flagi. Ostateczna decyzja jest Twoim wyborem.",
+        tr: "KVKK'ye uymayan reklamlar yapmayacağız. İşte kullanım arketipleri, markalar arasındaki gerçekteki trade-off'lar ve genel olarak sık karşılaşılan kırmızı bantlar. Sonuç senin elinde.",
       },
     },
     {
@@ -156,6 +194,8 @@ export const post: BlogPost = {
         de: "Was 'Datenkontrolle' wirklich bedeutet",
         pt: "O que 'controle de dados' realmente significa",
         fr: "Ce que 'contrôle des données' veut vraiment dire",
+        pl: "Coznaczenie prawdziwego 'kontrola danych'",
+        tr: "'Data kontrolun真正含义是什么",
       },
     },
     {
@@ -167,6 +207,8 @@ export const post: BlogPost = {
         de: "'Datenkontrolle' ist eine überstrapazierte Floskel. Wenn wir sie hier verwenden, meinen wir fünf konkrete Dinge, in der Reihenfolge ihrer praktischen Bedeutung:",
         pt: "'Controle de dados' é uma expressão desgastada. Quando a usamos aqui, queremos dizer cinco coisas precisas, em ordem de importância prática:",
         fr: "'Contrôle des données' est une expression galvaudée. Quand nous l'utilisons ici, nous entendons cinq choses précises, par ordre d'importance pratique :",
+        pl: "kontrol danych jest często wykorzystywana fraza. Gdy ją używamy tutaj, oznacza to pięć konkretnych rzeczy, w kolejności ich praktycznej ważności:",
+        tr: "'Dataların kontrolü' bir abuzif frazędür. Burada kullanırken beş net şeyi anlama demektir, uygulama açısından önem sırasına göre:",
       },
     },
     {
@@ -215,12 +257,26 @@ export const post: BlogPost = {
           "**Interopérabilité** : puis-je utiliser mon appareil avec des applications tierces (Strava, Komoot, applis de santé alternatives) sans demander la permission au fabricant ?",
           "**Résilience au changement** : si demain la marque est rachetée ou ferme une division, ai-je un plan B ?",
         ],
+        pl: [
+          "**Nativa wydajność exportacji**: mogę pobierać wszystkie moje dane w standardowym formacie (CSV, JSON, GPX, FIT) bez pisania wiadomości do obsługi lub odwracania mechanizmu nie dokumentowanych API.",
+          "**Transparencja pipeline**: więc gdzie idą moje dane. Na urządzeniu? Wolne w chmurze producenta? Powtarzane do sprzedawców ad-tech? Mogę przeczytać zasadniczą politykę prywatności i zrozumieć to w 5 minut?",
+          "**Granulowość uprawnień**: mogę powiedzieć ekosystemowi «tak BPM, nie GPS» lub jest to albo-ciężko?",
+          "**Interoperability**: czy mogę korzystać z mojego urządzenia wraz z aplikacjami trzecich stron (Strava, Komoot, alternatywnych aplikacji zdrowia) bez zgody producenta?",
+          "**Wydurenie zmian**: a jeśli jutro marka zostanie zakupiona lub zakończy działalność na tym segmencie, mam plan B?",
+        ],
+        tr: [
+          "**Natif转入能力**: 可以将所有数据下载为通用格式(CSV, JSON, GPX, FIT)，无需给支持团队发邮件或破解未文档化的API。",
+          "**Transparenciy piplini**: sizi verileriniz nereye gittiğini öğrenmek için. Giyilebilir cihazda? Üretici bulutunda? Yeniden satıcılar için ad-teknolojilere satıldı mı? 5 dakika içinde gizlilik ilkesini okuyabilirim ve anlamak mümkün mü?",
+          "**Permisyonun granüllülüğü**: ecosisteme \"evet BPM, hayır GPS\" verebilir miyim veya tam ya da hiç olacak mı?",
+          "**İnteroperability:** Üreticinin izni istemeden kendi cihazım ile üçüncü taraf uygulamaları (Strava, Komoot, alternatif sağlık uygulamaları) kullanabilirim mi?",
+          "**Değişiklik Dayanıklılığı**: eğer yarın marka satın alınır veya bölgenin kapanırsa, bir plan B var mı?",
+        ],
       },
     },
     {
       type: "callout",
       variant: "info",
-      title: { it: "Non confondere 'privacy' con 'controllo'", en: "Don't confuse 'privacy' with 'control'", es: "No confundas 'privacidad' con 'control'", de: "Verwechsle 'Privatsphäre' nicht mit 'Kontrolle'", pt: "Não confunda 'privacidade' com 'controle'", fr: "Ne confondez pas 'confidentialité' et 'contrôle'" },
+      title: { it: "Non confondere 'privacy' con 'controllo'", en: "Don't confuse 'privacy' with 'control'", es: "No confundas 'privacidad' con 'control'", de: "Verwechsle 'Privatsphäre' nicht mit 'Kontrolle'", pt: "Não confunda 'privacidade' com 'controle'", fr: "Ne confondez pas 'confidentialité' et 'contrôle'", pl: "Nie miksuj 'prywatności' z 'kontrolą'", tr: "Gizliliği kontrolle karıştırmayın" },
       body: {
         it: "Apple Watch è molto rispettoso della privacy (dati on-device, HealthKit chiuso) ma estremamente lock-in (no Android, no API web, no esportazione facile in formati standard). Garmin è meno aggressivo sulla privacy commerciale ma molto più aperto all'esportazione e interoperabilità. Privacy ≠ controllo. Pensa a cosa ti serve davvero.",
         en: "Apple Watch is very privacy-respecting (on-device data, closed HealthKit) but extremely lock-in (no Android, no web API, no easy export to standard formats). Garmin is less aggressive on commercial privacy but much more open to export and interoperability. Privacy ≠ control. Think about what you actually need.",
@@ -228,12 +284,14 @@ export const post: BlogPost = {
         de: "Apple Watch ist sehr datenschutzfreundlich (Daten on-device, geschlossenes HealthKit), aber extrem lock-in (kein Android, keine Web-API, kein einfacher Export in Standardformate). Garmin ist beim kommerziellen Datenschutz weniger aggressiv, aber viel offener für Export und Interoperabilität. Privatsphäre ≠ Kontrolle. Überlege, was du wirklich brauchst.",
         pt: "O Apple Watch respeita muito a privacidade (dados no dispositivo, HealthKit fechado), mas tem um lock-in extremo (sem Android, sem API web, sem exportação fácil em formatos padrão). A Garmin é menos agressiva na privacidade comercial, mas muito mais aberta à exportação e interoperabilidade. Privacidade ≠ controle. Pense no que você realmente precisa.",
         fr: "L'Apple Watch respecte beaucoup la confidentialité (données sur l'appareil, HealthKit fermé) mais avec un lock-in extrême (pas d'Android, pas d'API web, pas d'export facile vers des formats standard). Garmin est moins agressif sur la confidentialité commerciale mais bien plus ouvert à l'export et à l'interopérabilité. Confidentialité ≠ contrôle. Réfléchis à ce dont tu as vraiment besoin.",
+        pl: "Apple Watch jest bardzo szanowny w zakresie prywatności (dane na urządzeniu, HealthKit zamknięty) ale extremalnie zablokowany (brak Android, brak API web, trudna eksportacja do standardowych formatów). Garmin jest mniej agresywny w zakresie komercyjnej prywatności ale znacznie bardziej otwarty dla eksportu i interoperacyjności. Prywatność ≠ kontrola. Pomyśl, co naprawdę potrzebujesz.",
+        tr: "Apple Watch çok gizlilik dostu (veriler cihazda, HealthKit kapatılmış) ancak aşırı lock-inlidir (Android yok, web API yok, standart formatlarda kolay export yok). Garmin ticari gizliliği daha az savunucu olmasına rağmen çok daha açık export ve interoperability açısından. Gizlilik ≠ kontrol. Gerçek ihtiyacını düşünün.",
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "I quattro archetipi d'uso", en: "The four use archetypes", es: "Los cuatro arquetipos de uso", de: "Die vier Nutzungs-Archetypen", pt: "Os quatro arquétipos de uso", fr: "Les quatre archétypes d'usage" },
+      text: { it: "I quattro archetipi d'uso", en: "The four use archetypes", es: "Los cuatro arquetipos de uso", de: "Die vier Nutzungs-Archetypen", pt: "Os quatro arquétipos de uso", fr: "Les quatre archétypes d'usage", pl: "Cztery archetypy użycia", tr: "Dört kullanım arketipi" },
     },
     {
       type: "paragraph",
@@ -244,12 +302,14 @@ export const post: BlogPost = {
         de: "Bevor du dir die Modelle ansiehst, finde heraus, in welchem Profil du dich wiedererkennst. Es sind Vereinfachungen (die Realität ist nuancierter), aber sie helfen, das Rauschen zu reduzieren.",
         pt: "Antes de olhar os modelos, identifique em qual perfil você se reconhece. São simplificações (a realidade é mais nuançada), mas ajudam a cortar o ruído.",
         fr: "Avant de regarder les modèles, identifie le profil dans lequel tu te reconnais. Ce sont des simplifications (la réalité est plus nuancée) mais elles aident à réduire le bruit.",
+        pl: "Przed badaniem modeli, zidentyfikuj profil, do którego sięgasz. Są to uproszczenia (prawdziwa sytuacja jest bardziej nawiązkowa), ale pomagają w odcięciu brzmienia.",
+        tr: "Önce modelleri incelemeye başlamadan, kendini hangi profilere kattığını belirle. Bu basitleştirmeler虽然这里没有完全按照指令使用指定的术语替换，但已经尽力保持了原文的意思和结构。如果需要使用特定术语，请告知。-> (gerçeklik tonalı) ama seslendirmeye yardımcı olur.",
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Atleta serio (endurance, performance)", en: "Serious athlete (endurance, performance)", es: "Atleta serio (resistencia, rendimiento)", de: "Ernsthafter Athlet (Ausdauer, Performance)", pt: "Atleta sério (endurance, performance)", fr: "Athlète sérieux (endurance, performance)" },
+      text: { it: "Atleta serio (endurance, performance)", en: "Serious athlete (endurance, performance)", es: "Atleta serio (resistencia, rendimiento)", de: "Ernsthafter Athlet (Ausdauer, Performance)", pt: "Atleta sério (endurance, performance)", fr: "Athlète sérieux (endurance, performance)", pl: "Serious Athlete (trwanie, wydajność)", tr: "Serious Atlet (dayanıklılık, performans)" },
     },
     {
       type: "paragraph",
@@ -260,6 +320,8 @@ export const post: BlogPost = {
         de: "Du läufst Marathons, trittst bei Triathlons an, machst Ultratrails oder folgst einem strukturierten Plan. Die Daten, die du brauchst: präzises GPS, geschätzter VO₂ max, Training Load, Recovery Time, Intra-Workout-HRV, detaillierte HR-Zonen. Du brauchst ein Gerät, das 8+ Stunden Aktivität mit aktivem GPS übersteht, und eine ernsthafte Analytics-Plattform.",
         pt: "Você corre maratonas, compete em triatlo, faz ultratrail ou segue um plano estruturado. Os dados de que você precisa: GPS preciso, VO₂ max estimado, carga de treino, tempo de recuperação, HRV durante o treino, zonas de FC detalhadas. Você precisa de um dispositivo que sobreviva a 8+ horas de atividade com GPS ativo e de uma plataforma de análise séria.",
         fr: "Tu cours des marathons, fais du triathlon, de l'ultra-trail ou suis un plan structuré. Les données dont tu as besoin : GPS précis, VO₂ max estimé, charge d'entraînement, temps de récupération, HRV pendant l'effort, zones de FC détaillées. Il te faut un appareil qui tient 8 heures et plus d'activité avec le GPS actif et une vraie plateforme d'analyse.",
+        pl: "Biegnij maratonę, uczestnicz w triathlonie, robisz ultratrail, lub śledzisz strukturalny plan. Dane, które potrzebujesz to: dokładna GPS godzin, szacowana VO₂ max, obciążenie treningowe, czas recyrkularne, szczegółowe zony HR intra-workout. Potrzebujesz urządzenie, które przeżyje 8+ godzin aktywności z GPS włączonym i poważną platformą analiz.",
+        tr: "Maratona koşar, triatlondan yarışır, ultratrail yapar ya da struktüreli bir plan izler. Sana gereken veriler şunlar: GPS doğru, VO₂ max tahmini, eğitim yükü, geri dönüş zamanı, HRV arası trening, ayrıntılı HR zonaları. Bir cihaz senin için gereklidir ki 8+ saatlik faaliyette GPS aktifken de kalır ve analitik platform seriyetli olsun.",
       },
     },
     {
@@ -301,12 +363,24 @@ export const post: BlogPost = {
           "**Outsider** : Coros Apex 2 Pro. Moins de fonctions, mais export complet et prix agressif.",
           "**À éviter** : Apple Watch pour l'ultra (autonomie GPS limitée), Fitbit Sense (métriques de performance légères).",
         ],
+        pl: [
+          "**Domyślne**: Garmin (Forerunner 265/965, Fenix 8, Enduro). Natywna wyeksportowalność do formatów FIT/GPX, oficjalna API, społeczność Connect IQ.",
+          "**Alternatywa**: Polar Vantage V3 lub Grit X2 Pro. Trening do snu i Recovery Pro silne, pełna eksportacja za pomocą Polar Flow.",
+          "**Zewnetrzny**: Coros Apex 2 Pro. Mniej funkcji, ale pełna eksportacja i agresywna cena.",
+          "**Evita**: Apple Watch dla ekstremalnych (ograniczona autonomia GPS), Fitbit Sense (mniejsze wskaźniki wydajności).",
+        ],
+        tr: [
+          "**Varsayılan**: Garmin (Öncü 265/965, Fenix 8, Endüro). Fit/Gpx Uygulamalı Çıkış, Resmi API, Connect IQ Bağlantılı Topluluk.",
+          "**Seçenek**: Polar Vantage V3 veya Grit X2 Pro. Uykuluk danışmanlığı ve Recupero Pro güçlü, tam dışa aktarma aracılığıyla Polar Flow.",
+          "**Outsider**: Coros Apex 2 Pro. Daha az özellik, ancak tam export ve agresif fiyat.",
+          "**Evita**: Apple Watch için ultra (kendi başına calışma süreleri sınırlı), Fitbit Sense (performans metrikleri genel).",
+        ],
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Longevity nerd (HRV, sonno, biomarker)", en: "Longevity nerd (HRV, sleep, biomarkers)", es: "Apasionado de la longevidad (HRV, sueño, biomarcadores)", de: "Longevity-Nerd (HRV, Schlaf, Biomarker)", pt: "Nerd de longevidade (HRV, sono, biomarcadores)", fr: "Passionné de longévité (HRV, sommeil, biomarqueurs)" },
+      text: { it: "Longevity nerd (HRV, sonno, biomarker)", en: "Longevity nerd (HRV, sleep, biomarkers)", es: "Apasionado de la longevidad (HRV, sueño, biomarcadores)", de: "Longevity-Nerd (HRV, Schlaf, Biomarker)", pt: "Nerd de longevidade (HRV, sono, biomarcadores)", fr: "Passionné de longévité (HRV, sommeil, biomarqueurs)", pl: "Długowieczność miłośnik (HRV, sen, biomarkier)", tr: "Yaşam boyu bilim insanı (HRV, sonno, biomarker)" },
     },
     {
       type: "paragraph",
@@ -317,6 +391,8 @@ export const post: BlogPost = {
         de: "Dich interessiert eher die HRV-Stabilität über die Zeit, die Schlafqualität nach Phasen, SpO₂, Hauttemperatur, Atemfrequenz und vielleicht ein gelegentliches EKG. Du hast Attia gelesen, folgst Huberman, machst Zone 2. Du brauchst Sensorpräzision für die Nacht, nicht fürs Laufen.",
         pt: "Você se interessa mais pela estabilidade do HRV ao longo do tempo, qualidade do sono por fases, SpO₂, temperatura da pele, frequência respiratória e talvez um ECG ocasional. Você leu Attia, segue Huberman, faz zona 2. Você precisa de precisão de sensores para a noite, não para a corrida.",
         fr: "Tu t'intéresses davantage à la stabilité de la HRV dans le temps, à la qualité du sommeil par phases, à la SpO₂, à la température cutanée, à la fréquence respiratoire et peut-être à un ECG occasionnel. Tu as lu Attia, tu suis Huberman, tu fais de la zone 2. Tu as besoin de précision des capteurs pour la nuit, pas pour la course.",
+        pl: "Jest Cię bardziej zainteresowany stabilnością HRV w czasie, jakością snu na fazach, SpO₂, temperaturą ciała, częstotliwością oddychania, może przypadkowym ECG. Czy przeczytałeś Attią, śledzisz Hubermana, wykonujesz zony 2. Potrzebujesz precyzji czujników na noc, a nie podczas biegu.",
+        tr: "Sei più interessato a HRV zamanında, uykunun aşamalı kalitesi, SpO₂, derinlik, nefes hızı, belki rytmiğin şık bir kestirme. Attia'yı okudun, Huberman'ı takip ediyorsun, zone 2'de çalışıyorsun. Sensör precisionine gece için ihtiyacın var, yarışma için değil.\nKVKK uyumlu __FM_PH_0__ için __FM_URL_0__, __FM_HTML_0__ ve __FM_CODE_0__ bilgilerini kontrol et.",
       },
     },
     {
@@ -358,12 +434,24 @@ export const post: BlogPost = {
           "**Pour ceux qui veulent aussi une montre** : Garmin Venu 3 ou Forerunner 265 : Sleep Score Garmin + HRV nocturne sans verrou d'abonnement.",
           "**Balances connectées** : ajoute Withings Body Comp ou Body Cardio. Health Mate offre un export complet et une API stable.",
         ],
+        pl: [
+          "**Domyślne**: Oura Ring Gen 4. Najlepsze sensorы snu, oficjalna API, miesięczny subscription (uwaga: pełne dane są związanе z płatnoścю).",
+          "**Alternatywa**: Whoop 4.0. Tylko abonament, bez wyświetlacza, skupia się wyłącznie na HRV/rehabilitacji. Wyeksportowanie dostępne, ale ograniczone.",
+          "**Dla kogo również chce zegarka**: Garmin Venu 3 lub Forerunner 265: Ocena Senu Garmin + HRV codziennie bez ograniczonych subskrypcji.",
+          "**Balans i balans smart**: dodaj Withings Body Comp lub Body Cardio. Zdrowie Mate ma pełną eksportację i stabilne API.",
+        ],
+        tr: [
+          "**Varsayılan**: Oura Ring Gen 4. Uyku sensörü en üst seviye cihaz, resmi API, aylık abone (dikkat: tam veriler ödeme bağlı kalınır).",
+          "**Seçenek**: Whoop 4.0. Sadece abone olun, ekran gösterim yok, sadece HRV/rehabilitleme odaklı. Export mevcut ancak sınırlı.",
+          "**Giyilebilir cihaz isteyenler için**: Garmin Venu 3 veya Forerunner 265: Uyku Puanı Garmin + HRV gecelik abone olmadan.",
+          "**Bilance ve Bilance Smart**: Withings Body Comp veya Body Cardio ekleyin. Sağlık Mate tam export ve istikrarlı API sunar.",
+        ],
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Daily user (notifiche, fitness leggero, salute base)", en: "Daily user (notifications, light fitness, basic health)", es: "Usuario diario (notificaciones, actividad ligera, salud básica)", de: "Alltagsnutzer (Benachrichtigungen, leichtes Fitness, Basis-Gesundheit)", pt: "Usuário diário (notificações, fitness leve, saúde básica)", fr: "Utilisateur quotidien (notifications, fitness léger, santé de base)" },
+      text: { it: "Daily user (notifiche, fitness leggero, salute base)", en: "Daily user (notifications, light fitness, basic health)", es: "Usuario diario (notificaciones, actividad ligera, salud básica)", de: "Alltagsnutzer (Benachrichtigungen, leichtes Fitness, Basis-Gesundheit)", pt: "Usuário diário (notificações, fitness leve, saúde básica)", fr: "Utilisateur quotidien (notifications, fitness léger, santé de base)", pl: "Użytkownik dzienny (powiadomienia,fitness podstawowy, podstawowa zdrowie)", tr: "Günlük kullanıcının (bildirimler, hafif fitness, temel sağlık)" },
     },
     {
       type: "paragraph",
@@ -374,6 +462,8 @@ export const post: BlogPost = {
         de: "Du gehst spazieren, machst leichtes Gym, trackst Schritte und Schlaf und willst Benachrichtigungen am Handgelenk. Du brauchst keine Body Battery oder Training Readiness: Du brauchst etwas, das 5 Tage ohne Laden hält und dir keine Zeit raubt. Datenkontrolle willst du 'nur für den Fall', nicht als tägliche Priorität.",
         pt: "Você caminha, faz academia leve, monitora passos e sono e quer notificações no pulso. Você não precisa de Body Battery ou Training Readiness: você precisa de algo que dure 5 dias sem carga e não tome seu tempo. O controle de dados você quer 'só por garantia', não como prioridade diária.",
         fr: "Tu marches, fais un peu de salle, suis tes pas et ton sommeil, et veux des notifications au poignet. Tu n'as pas besoin de Body Battery ni de Training Readiness : il te faut quelque chose qui tient 5 jours sans charge et ne te fait pas perdre de temps. Le contrôle des données, tu le veux 'au cas où', pas comme priorité quotidienne.",
+        pl: "Chodź, wykonuj lekki trening, monitoruj kroki i sen, chcesz powiadomienia na nadgarstku. Nie potrzebujesz Body Battery ani Przygotowanie Treningowe: potrzebujesz czegoś, co działa 5 dni bez podładowania i nie zającu się nim w czasie dnia. Kontrola danych chcesz mieć 'w razie potrzeby', a nie jako priorytet codzienny.",
+        tr: "Cammini, yapışık bir havlu giyerken, adımları ve uyumunu izler, cilt seninle iletişime geçmesini istiyorsun. Sana Bodys Battery veya Eğitim Hazırlılığı gereklisi yok: sadece 5 gün şarj olmaksızın çalışacak ve zamanını kaybetmeyecek bir şeyi istiyorsun. Verilerin kontrolünü 'sadece belirli durumlarda' istiyorsun, günlük öncelik olarak değil.",
       },
     },
     {
@@ -415,12 +505,24 @@ export const post: BlogPost = {
           "**Budget Android** : Xiaomi Mi Band 9 ou Xiaomi Watch Active. Mi Fitness écrit sur Health Connect, faible coût, autonomie excellente.",
           "**Pixel natif** : Pixel Watch 3 si tu es déjà dans l'écosystème Google. Attention : utilise Fitbit comme backend, tu dépends donc doublement de Google.",
         ],
+        pl: [
+          "**Domyślna Android: **Galaxy Watch 7 o Watch Ultra. Health Connect natywny, silny ecosystem Samsung Health, dobry stosunek ceny/dożytku.",
+          "**Domyślne iOS**: Apple Watch SE (3a gen): nie masz alternatywnej równoważnej opcji jako integracja iPhone.",
+          "**Budżetowe Android**: Xiaomi Mi Band 9 o Xiaomi Watch Active. Mi Fitness pisze na Health Connect, niski koszt, wybitna trwałość akcji.",
+          "**Pixel native**: Pixel Watch 3, jeśli jesteś już w Google ekosystemie. Ostrzeżenie: korzystaj z Fitbit jako backendu, więc jesteś podwójnie zależny od Google.",
+        ],
+        tr: [
+          "**Varsayılan Android: **Galaxy Watch 7 O Akıllı Saat Ültra. Health Connect nativo, güçlü ecosistem Samsung Health kaliteli fiyat ortamı.",
+          "**Varsayılan iOS**: Apple Watch SE (3. generation): KVKK ile uyumlu eşdeğer bir alternatif yok.",
+          "**Bütçe Android**: Xiaomi Mi Band 9 o Xiaomi Akıllı Saat. Mi Fitness yazıyor: düşük maliyet, mükemmel bağımlılık.",
+          "**Pixel natif**: Pixel Watch 3 se zaten Google ekosisteminde. Dikkat: Fitbit'yi arka uç olarak kullanıyorsunuz, bu yüzden iki kat daha bağımlısınız Google'dan.",
+        ],
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Parent monitoring / care", en: "Parent monitoring / care", es: "Monitoreo familiar y cuidado", de: "Angehörigen-Monitoring und Pflege", pt: "Monitoramento familiar e cuidado", fr: "Surveillance familiale et soin" },
+      text: { it: "Parent monitoring / care", en: "Parent monitoring / care", es: "Monitoreo familiar y cuidado", de: "Angehörigen-Monitoring und Pflege", pt: "Monitoramento familiar e cuidado", fr: "Surveillance familiale et soin", pl: "Monitorowanie opiekuna / opieka", tr: "Üye izleme / bakımı" },
     },
     {
       type: "paragraph",
@@ -431,6 +533,8 @@ export const post: BlogPost = {
         de: "Du möchtest einen älteren Angehörigen, ein Familienmitglied mit einer chronischen Erkrankung oder dein Kind im Blick behalten. Die wichtigsten Daten: Sturzerkennung, auffällige Herzfrequenz, Standort (optional), unregelmäßiger Herzrhythmus. Priorität ist die Zuverlässigkeit der Sensoren und die einfache selektive Datenfreigabe an dich (oder einen Arzt), keine Performance-Analyse.",
         pt: "Você quer monitorar um familiar idoso, um membro da família com condição crônica ou seu filho. Os dados críticos são: detecção de quedas, FC anômala, localização (opcional), ritmo cardíaco irregular. A prioridade é a confiabilidade dos sensores e a facilidade de compartilhamento seletivo de dados com você (ou um médico), não a análise de desempenho.",
         fr: "Vous souhaitez surveiller un parent âgé, un proche atteint d'une maladie chronique ou votre enfant. Les données clés sont : détection de chutes, fréquence cardiaque anormale, localisation (optionnelle), rythme cardiaque irrégulier. La priorité est la fiabilité des capteurs et la facilité de partage sélectif des données avec vous (ou un médecin), pas l'analyse de performance.",
+        pl: "Chcesz monitorować starszego rodzica, bliskiego krewnego z chorobą trwającą lub swojego dziecka. Krytyczne dane to: wykryta upadłość, BPM atypiczne, położenie (opcjonalnie), nieprawidłowy rytm serca. Priorytet to wiarygodność sensorów + łatwość udostępniania zaznaczonych danych tylko do Ciebie (lub lekarza), a nie wydajność analtyki.",
+        tr: "İhtiyacın varsa bir eski babanı, kronik bir durumda bulunan bir ailenizi veya çocuğunuza bakmak. Kritik veriler: düşme algılanmış, BPM abnormalleri, konum (seçimel), salgı irregülaritesi. Öncelik sinyal güvenilirliği + belirlenen verilerin senle (veya bir doktora) paylaşılmak kolaylığıdır, analitik performans değil.",
       },
     },
     {
@@ -472,12 +576,24 @@ export const post: BlogPost = {
           "**Pour partager des données de santé** : Withings ScanWatch 2 : ECG + SpO₂ en continu, intégration de comptes rendus via Health Mate, bien acceptée par les médecins européens.",
           "**Enfants** : appareils dédiés (Garmin Bounce, Fitbit Ace) : confidentialité limitée par conception, pas de réseaux sociaux, pas de chats ouverts.",
         ],
+        pl: [
+          "**Domyślnie**: Apple Watch SE lub Series 10 z Ustawieniem Rodziny. EKG, wykrywanie upadków, Wywołanie Emergency SOS są zaufane. Zamykany ekosystem, ale w tym przypadku to funkcja, a nie błąd.",
+          "**Alternatywa Android**: Galaxy Watch 7 z ECG. Samsung Health ma dzielenie się informacjami między opiekunami w niektórych krajach.",
+          "**Dołączanie danych medycznych**: Withings ScanWatch 2: ECG + SpO₂ ciągłe, integracja raportów w Health Mate, szeroko przyjęta przez europejskich lekarzy.",
+          "**Dzieci**: urządzenia dedykowane (Garmin Bounce, Fitbit Ace): są zabezpieczone w zakresie prywatności od projektu, bez społeczności, bez otwartych rozmów chatowych.",
+        ],
+        tr: [
+          "**Varsa**: Apple Watch SE veya Series 10 ile Aile Ayarları. ECG, düşme algılama, Acil Yardım SOS güvenlidir. Kapatılmış ekosistem olsa da bu durumda özellik, bir hata değildir.",
+          "**Seçenek Android**: Galaxy Watch 7 ile ECG. Samsung Health bazı ülkelerde bakım vericilerle paylaşılmaktadır.",
+          "**Verişim için tıbbi veriler**: Withings ScanWatch 2: ECG + SpO₂ sürekli, Health Mate üzerinden raporlama, Avrupa doktorlarının tercihinde.",
+          "**Çocuklar**: (Garmin Bounce, Fitbit Ace) özel aygıtları: gizlilik odaklı tasarımıyla, sosyal medya veya açık sohbet yok.",
+        ],
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Bandiere rosse trasversali", en: "Cross-cutting red flags", es: "Señales de alerta generales", de: "Allgemeine Warnsignale", pt: "Sinais de alerta gerais", fr: "Signaux d'alerte transversaux" },
+      text: { it: "Bandiere rosse trasversali", en: "Cross-cutting red flags", es: "Señales de alerta generales", de: "Allgemeine Warnsignale", pt: "Sinais de alerta gerais", fr: "Signaux d'alerte transversaux", pl: "Banderolki czerwone pionowe", tr: "Dönme kırmızı bantlar" },
     },
     {
       type: "paragraph",
@@ -488,6 +604,8 @@ export const post: BlogPost = {
         de: "Unabhängig vom Modell gibt es Muster, die dich vor dem Kauf innehalten lassen sollten.",
         pt: "Independentemente do modelo, há padrões que deveriam fazer você refletir antes de pagar.",
         fr: "Quel que soit le modèle, certains signaux doivent vous faire réfléchir avant de passer en caisse.",
+        pl: "Bez względu na model, istnieją wzory, które powinny Cię zastanowić przed wklepaniem papieru.",
+        tr: "Başka bir model olursa olmaz, KVKK gerekliliklerini karşılamak için düşünmeli mısınız.",
       },
     },
     {
@@ -535,12 +653,26 @@ export const post: BlogPost = {
           "**Marque toute nouvelle sans investisseurs identifiables**. Soutenir les indépendants est louable, mais pour les données de santé choisissez des entités avec au moins 5 ans d'historique et des comptes publiés.",
           "**Politique de confidentialité indiquant 'nous partageons des données agrégées avec des partenaires de recherche'**. Même agrégées et anonymisées, les données peuvent être ré-identifiées avec des jeux de données croisés. Lisez les détails.",
         ],
+        pl: [
+          "**Compania aplikacji niedostępna w Europie lub nieaktualizowana przez 12 miesięcy**. Indykator niskich sprzedaży → ryzyko wycofania → Twoje dane zostaną zlikwidowane.",
+          "**Oficjalna dokumentowana API**, ale dostęp do niej wymaga kontaktu z działem przedsiębiorstw. Tłumaczenie: zamknięta dla użytkowania osobistego, dostępna tylko dla komercyjnych partnerów. Przykład historyczny: Huawei Health Kit poza Chinami ma znaczne barerie.",
+          "**Możliwość eksportu możliwa tylko za pomocą wsparcia poprzez e-mail**. Oznacza to, że nie jest to funkcja, ale przysługiwana dozwolność: może zostać odwołana lub podlegać nieokreślonym opóźnieniom.",
+          "**Marka neonata bez jasnych inwestorów**. Jest pięknie wspierać indie, ale podczas wyboru na dane zdrowotne wybierz realiastyczne firmy z przynajmniej 5 latami historii i publicznym bilansem.",
+          "**Polityka prywatności zawierająca zdanie: \"Udzielamy się danych agregowanych z partnerami badawczymi\"**. Nawet jeśli dane są agregowane i anonimizowane, mogą być ponownie identyfikowane za pomocą zestawów danych krzyżowych. Przeczytaj szczegóły.",
+        ],
+        tr: [
+          "**Uygulama eşlemesi Avrupa'da mevcut değil veya 12 aydan beri güncellenmemiş**. Satış indikatörü düşük → risk ortadan kaldırılmak üzere → sizin verileriniz yalnız kalabilir.",
+          "**Resmi API belgeli olmasına rağmen kişisel kullanım için kapalı**, sadece ticari ortaklar için erişilebilir. Örnek tarihi: Huawei Sağlık Kit Çin dışına çıktığında önemli engellerle karşılaştı.",
+          "**Sadece e-posta desteği aracılığıyla export edilebilir**. Bu, bir özellik değil bir izin olduğunu gösteriyor: herhangi bir zaman diliminde iptal edilebilir veya belirsiz gecikmeler gösterebilir.",
+          "**Neonato marka sansur edilmiş,** ama sağlık verileri için gerçeklik seçin, en az 5 yıllık tarihi ve kamu bakiyesi olanlar.",
+          "**Gizlilik ilkesi 'agregasyonlu verileri araştırmacılarla paylaşmamızı' belirtiyor.** Çoğu durumda, agregasyonlu ve anonsuz olmayan bu veriler cross dataset ile tekrardan anonslanabilir. Detayları okuyun.",
+        ],
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Prezzo vs funzionalità: il vero modello mentale", en: "Price vs functionality: the real mental model", es: "Precio vs. funcionalidad: el modelo mental real", de: "Preis vs. Funktionalität: das richtige Denkmodell", pt: "Preço vs. funcionalidade: o modelo mental correto", fr: "Prix et fonctionnalités : le vrai modèle mental" },
+      text: { it: "Prezzo vs funzionalità: il vero modello mentale", en: "Price vs functionality: the real mental model", es: "Precio vs. funcionalidad: el modelo mental real", de: "Preis vs. Funktionalität: das richtige Denkmodell", pt: "Preço vs. funcionalidade: o modelo mental correto", fr: "Prix et fonctionnalités : le vrai modèle mental", pl: "Cena wobec funkcjonalności: prawdziwy model myślenia", tr: "Fiyat vs fonksiyonellik: gerçek modellerimizi anlama" },
     },
     {
       type: "paragraph",
@@ -551,11 +683,13 @@ export const post: BlogPost = {
         de: "Hör auf, €200 vs. €600 als absolute Werte zu vergleichen. Denke in Kosten pro Jahr des tatsächlichen Nutzens. Ein Garmin Forerunner, der 5 Jahre hält, für €350 = €70/Jahr. Ein Whoop für €30/Monat Abo über 5 Jahre = €1800. Eine Apple Watch für €450, die du wahrscheinlich in 3 Jahren wechselst = €150/Jahr plus iPhone-Abhängigkeit.",
         pt: "Para de comparar €200 vs. €600 em valores absolutos. Pense em custo por ano de uso efetivo. Um Garmin Forerunner que dura 5 anos por €350 = €70/ano. Um Whoop por €30/mês de assinatura durante 5 anos = €1800. Um Apple Watch por €450 que você provavelmente trocará em 3 anos = €150/ano mais dependência do iPhone.",
         fr: "Arrêtez de comparer 200 € et 600 € en valeur absolue. Raisonnez en coût par an d'utilisation réelle. Un Garmin Forerunner qui dure 5 ans à 350 € = 70 €/an. Un Whoop à 30 €/mois d'abonnement sur 5 ans = 1 800 €. Une Apple Watch à 450 € que vous changerez probablement en 3 ans = 150 €/an plus la dépendance à l'iPhone.",
+        pl: "Zatrzymaj się od porównywania €200 versus €600 w wartości bezwzględnej. Pomyśl o kosztach na rok rzeczywistego użytku. Smartwatch Forerunner za €350 trwający 5 lat = €70/rok. Whoop z abonamentem miesięcznym w wysokości €30 przez 5 lat = €1800. Apple Watch o kosztach początkowych €450, który prawdopodobnie wymienisz za 3 lata = €150/rok + zależność iPhone.",
+        tr: "Smettila di paragonare €200 vs €600 in valore assoluto. Pensa in termini di costo per anno di uso effettivo. Un Garmin Forerunner che dura 5 anni a €350 = €70/anno. Un Whoop a €30/mese di abbonamento per 5 anni = €1800. Un Apple Watch a €450 che probabilmente cambierai in 3 anni = €150/anno + dipendenza iPhone.",
       },
     },
     {
       type: "comparison",
-      aTitle: { it: "Acquisto una tantum", en: "One-time purchase", es: "Pago único", de: "Einmalkauf", pt: "Compra única", fr: "Achat unique" },
+      aTitle: { it: "Acquisto una tantum", en: "One-time purchase", es: "Pago único", de: "Einmalkauf", pt: "Compra única", fr: "Achat unique", pl: "Kupno jednorazowe", tr: "Satın almak için bir seferlik olarak取得一次购买资格" },
       aItems: {
         it: [
           "Garmin Forerunner / Fenix",
@@ -611,8 +745,26 @@ export const post: BlogPost = {
           "Polar Vantage",
           "Pixel Watch",
         ],
+        pl: [
+          "Garmin Przewodnik / Fenix",
+          "Samsung Galaxy Watch",
+          "Smartwatch",
+          "Withings MonitorSmartWatch",
+          "__RODO__ __FOUNDERS__",
+          "Polar Wantage",
+          "Pixel Watch",
+        ],
+        tr: [
+          "Garmin Başlangıçcu / Fenix",
+          "Samsung Galaxy Watch",
+          "Akıllı Saat",
+          "Withings ScanWatch",
+          "KVKK Mi Band",
+          "KVKK Vantaj",
+          "Pixel Watch",
+        ],
       },
-      bTitle: { it: "Modello subscription", en: "Subscription model", es: "Modelo de suscripción", de: "Abomodell", pt: "Modelo por assinatura", fr: "Modèle par abonnement" },
+      bTitle: { it: "Modello subscription", en: "Subscription model", es: "Modelo de suscripción", de: "Abomodell", pt: "Modelo por assinatura", fr: "Modèle par abonnement", pl: "Modelu订阅", tr: "Abonelik modeli" },
       bItems: {
         it: [
           "Whoop 4.0 (~€30/mese)",
@@ -650,12 +802,24 @@ export const post: BlogPost = {
           "Fitbit Premium (~10 €/mois, optionnel mais certaines fonctions verrouillées)",
           "Garmin Connect+ (optionnel, ~8 €/mois, coaching IA)",
         ],
+        pl: [
+          "Whoop 4.0 (~30 zł/miesiąc)",
+          "Oura Pierścień Gen 4 (~6 zł/miesiąc za pełne dane)",
+          "Fitbit Premium (~10 EUR/miesiąc, opcjonalne abonamentu, ale niektóre funkcje ograniczone)",
+          "Garmin Connect+ (opcjonalne, ~8 zł/miesiąc, doradztwo AI)",
+        ],
+        tr: [
+          "Whoop 4.0 (~30 TL/ay)",
+          "Oura Çengel Gen 4 (~6/ay veri dolu olunca ~6/AY)",
+          "FitbitPremium (~10 TL/ay, seçeneğe bağlı abonelik ancak bazı özellikler kısıtlanmıştır)",
+          "Garmin Connect+ (isteğe bağlı, ~8 TL/ay, KVKK danışmanlığı)",
+        ],
       },
     },
     {
       type: "callout",
       variant: "warning",
-      title: { it: "Subscription = dati ostaggio", en: "Subscription = data hostage", es: "Suscripción = datos rehenes", de: "Abo = Daten als Geisel", pt: "Assinatura = dados reféns", fr: "Abonnement = données otages" },
+      title: { it: "Subscription = dati ostaggio", en: "Subscription = data hostage", es: "Suscripción = datos rehenes", de: "Abo = Daten als Geisel", pt: "Assinatura = dados reféns", fr: "Abonnement = données otages", pl: "Abonament = dane do zakładu", tr: "Abonelik = veri garantiya sözleşme" },
       body: {
         it: "Quando il tuo accesso ai dati storici dipende da un pagamento ricorrente, non li possiedi davvero. Se domani non puoi più permetterti l'abbonamento, perdi visualizzazione (in alcuni casi anche download) dei tuoi storici. Non è uno scenario teorico: è il modello esplicito di Whoop e in parte di Oura.",
         en: "When access to your historical data depends on a recurring payment, you don't truly own it. If tomorrow you can't afford the subscription, you lose visualization (sometimes download too) of your history. This isn't theoretical: it's the explicit model of Whoop and partially Oura.",
@@ -663,12 +827,14 @@ export const post: BlogPost = {
         de: "Wenn dein Zugriff auf historische Daten von einer wiederkehrenden Zahlung abhängt, besitzt du sie nicht wirklich. Wenn du morgen das Abo nicht mehr bezahlen kannst, verlierst du die Anzeige (in manchen Fällen auch den Download) deiner Verlaufsdaten. Das ist kein theoretisches Szenario: Es ist das explizite Modell von Whoop und teilweise von Oura.",
         pt: "Quando o acesso aos seus dados históricos depende de um pagamento recorrente, você não os possui de verdade. Se amanhã você não puder mais pagar a assinatura, perde a visualização (em alguns casos até o download) do seu histórico. Não é um cenário teórico: é o modelo explícito do Whoop e, em parte, do Oura.",
         fr: "Quand l'accès à vos données historiques dépend d'un paiement récurrent, vous ne les possédez pas vraiment. Si demain vous ne pouvez plus payer l'abonnement, vous perdez la visualisation (et parfois le téléchargement) de votre historique. Ce n'est pas un scénario théorique : c'est le modèle explicite de Whoop et, en partie, d'Oura.",
+        pl: "Gdy dostęp do historii danych zależy od płatności regularnej, naprawdę go nie posiadasz. Jeśli jutro już nie będziesz mógł zasiąść za abonament, stracisz wyświetlanie (w niektórych przypadkach nawet pobieranie) swoich historii. To nie jest sytuacja teoretyczna: jest to model wyraźny Whoop i częściowo Oura.",
+        tr: "İstari verilerine erişiminizin bir sürekli ödeme bağımlısı olduğunda, gerçek sahipliğe sahip değilsiniz. Yarın aboneliğinizi daha fazla destekleyemiyorsanız, geçmiş verilerinize (bazı durumlarda bile indirme yeteneği dahil) erişiminizi kaybedebilirsiniz. Bu senaryo teorik değil: bu, Oura'ın kısmen de olsa ve açık modelidir.",
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Ecosystem lock-in: il costo nascosto", en: "Ecosystem lock-in: the hidden cost", es: "Lock-in del ecosistema: el costo oculto", de: "Ökosystem-Lock-in: die versteckten Kosten", pt: "Lock-in de ecossistema: o custo oculto", fr: "Lock-in d'écosystème : le coût caché" },
+      text: { it: "Ecosystem lock-in: il costo nascosto", en: "Ecosystem lock-in: the hidden cost", es: "Lock-in del ecosistema: el costo oculto", de: "Ökosystem-Lock-in: die versteckten Kosten", pt: "Lock-in de ecossistema: o custo oculto", fr: "Lock-in d'écosystème : le coût caché", pl: "Ecosysteem zacięcie: ukryty koszt", tr: "Ekosistem kilitlenmesi: gizli maliyet" },
     },
     {
       type: "paragraph",
@@ -679,6 +845,8 @@ export const post: BlogPost = {
         de: "Wenn du eine Smartwatch kaufst, kaufst du nicht nur das Gerät: du bindest dich auch an eine Companion-App, eine Cloud und typischerweise ein Telefon. Wie viel kostet dich ein Ökosystemwechsel in zwei Jahren?",
         pt: "Quando você compra um smartwatch, não compra apenas o dispositivo: você também se compromete com um app companion, uma nuvem e, geralmente, um telefone. Quanto custaria trocar de ecossistema daqui a dois anos?",
         fr: "Quand vous achetez une montre connectée, vous n'achetez pas que l'appareil : vous vous engagez aussi avec une application compagnon, un cloud et généralement un téléphone. Combien vous coûterait un changement d'écosystème dans deux ans ?",
+        pl: "Gdy kupujesz smartwatch, kupujesz nie tylko urządzenie: poślizgasz się również w towarzyszącą aplikację, chmurę oraz typowo telefon. Jak dużo kosztuje zmiana ekosystemu za dwa lata?",
+        tr: "Giyilebilir cihaz alırken, sadece cihazı satın almayısın: aynı zamanda bir eşlikçi uygulama, bir bulut hizmeti ve genellikle bir telefonu da edineceksin. İki yıl sonra ekosistemi değiştirmek ne kadar maliyetli olabilir?",
       },
     },
     {
@@ -726,12 +894,26 @@ export const post: BlogPost = {
           "**Fitbit → autre** : Google Takeout fonctionne, données en JSON. Lock-in faible (pour l'instant, selon les décisions de Google).",
           "**Oura → autre** : l'API officielle fournit les données complètes à ceux qui savent les télécharger. Lock-in technique faible, mais psychologique élevé (les métriques Oura sont distinctives).",
         ],
+        pl: [
+          "**Apple Watch → Android**: ~100% strateryjna utrata (Apple Health jest iOS-only, brak eksportu do Android czytelnego). Solidne zacięcie.",
+          "**Galaxy Watch → dodatkowe Android**: historyczny Samsung Health eksportowalny do CSV, importowany z Health Connect. Suflerujące zablokowanie, zarządzalne.",
+          "**Garmin Smartwatch → inny brand**: kompletna eksportacja FIT/GPX, ale własne metryki (Body Battery, Stan Treningowy) nie mają bezpośrednich odpowiedników. Średnio zacięty lock-in.",
+          "**Fitbit → in innanzi**: Google Funzione, informazioni in JSON. Blocco minimo (per il momento, dipende dalle decisioni Google).",
+          "**Oura → inny**: Oficjalna API udostępnia pełne dane tym, którzy wiecie je pobierać. Niski lock-in techniczny, ale wysoki z punktu widzenia psychologicznego (metryki Oura są unikalne).",
+        ],
+        tr: [
+          "**Apple Watch → Android**: ~100% kestirme tarihi (Apple Health sadece iOS için, Android okunabilir kestirmeye aktarım yok). Zor lock-in.",
+          "**Galaxy Watch → başka Android**: tarihi Samsung Health export edilebilir (__FM_URL_0__), import edilebilir (__FM_URL_0__). Yumuşak kilitleme, yönetilebilir.",
+          "**Garmin Watch → başka bir marka**: tam FIT/GPX dışarı aktarımı, ancak Body Battery, Training Status gibi özel ölçümler doğrudan eşdeğerleri yoktur. Ortalama lock-in.",
+          "**Fitbit → başka**: Google Takeout işliyor, verilerin JSON. Kilitlenme düşük (hala, kararlar Google bağlı).",
+          "**Oura → başka**: Resmi API tam verileri indirebileceklerine sunar. Teknik lock-in düşük, ancak psikolojik lock-in yüksek (Oura metrikleri benzersiz).",
+        ],
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Cosa farei io oggi (May 2026)", en: "What I'd do today (May 2026)", es: "Qué haría yo hoy (mayo 2026)", de: "Was ich heute tun würde (Mai 2026)", pt: "O que eu faria hoje (maio de 2026)", fr: "Ce que je ferais aujourd'hui (mai 2026)" },
+      text: { it: "Cosa farei io oggi (May 2026)", en: "What I'd do today (May 2026)", es: "Qué haría yo hoy (mayo 2026)", de: "Was ich heute tun würde (Mai 2026)", pt: "O que eu faria hoje (maio de 2026)", fr: "Ce que je ferais aujourd'hui (mai 2026)", pl: "Co robiałbym dzisiaj (maj 2026)", tr: "Ne yazık olurdu ki bugün (May 2026)" },
     },
     {
       type: "paragraph",
@@ -742,6 +924,8 @@ export const post: BlogPost = {
         de: "Meinungsbasierter Abschnitt, ausdrücklich als solcher deklariert. Keine Kaufempfehlung und keine persönliche Beratung.",
         pt: "Seção de opinião pessoal, declarada como tal. Não é uma recomendação de compra nem consultoria personalizada.",
         fr: "Section d'opinion personnelle, annoncée comme telle. Pas de recommandation d'achat ni de conseil personnalisé.",
+        pl: "Sekcja opiniodawcza, zadeklarowana jako taka. Nie jest to zalecenie zakupowe ani indywidualna porada.",
+        tr: "Seçenek görüşlü olabilir, bu şekilde belirtildi. Satın alım önerisi veya kişiselleştirilmiş danışmanlık değildir.",
       },
     },
     {
@@ -789,12 +973,26 @@ export const post: BlogPost = {
           "Si j'étais un utilisateur iOS quotidien : Apple Watch SE 3e génération. Accepter le lock-in comme le prix de la commodité.",
           "Si je surveillais un parent âgé : Apple Watch ou Withings ScanWatch 2, selon le téléphone de la personne qui la porte.",
         ],
+        pl: [
+          "Jeśli byłem seriosnym biegaczem: Android Forerunner 265 + Withings Body Comp dla wagi ciała.",
+          "Jeśli byś senowod: Oura Ring Gen 4 + jeden Galaxy Watch 7 dla aktywności/notyfikacji. Kombo drogie, ale pokrywa wszystko.",
+          "Jeśli byłem/dzień z użytkownikiem Android z budżetem: Xiaomi Mi Band 9 (€50), synchronizując przez Health Connect, wykonywałby 90% tego, czego potrzebuję.",
+          "Jeśli byłem użytkownikiem dziennym iOS: Apple Watch SE 3a gen. Akceptuje zablokowanie jako cenę wygody.",
+          "Je monitorowałeś rodzica: Apple Watch lub Withings ScanWatch 2, w zależności od telefonu noszącego.",
+        ],
+        tr: [
+          "Eğer bir sert koşucu ol邸m: Android Forerunner 265 + Withings Body Comp için ağızধ.",
+          "Eğer uyku nerdeysem: Oura Ring Gen 4 + bir Galaxy Watch 7 için aktivite/ bildirimler. Uzun fiyatlı bir paket fakat her şeyi kapsar.",
+          "Günlük kullanıcım olursam Android ile bütçe: Xiaomi Mi Band 9 (€50), Health Connect yoluyla synkronize ederim ve %90'u yapar.",
+          "Giyilebilir cihaz olarak günlük kullanıcısı olabilseydim: Apple Watch SE 3.a gen. Komodite için kilitlenmeyi ücretine alırdım.",
+          "Se bir ebeveyni izlerseniz: Apple Watch veya Withings ScanWatch 2, kimin giydiğiniye göre.",
+        ],
       },
     },
     {
       type: "callout",
       variant: "tip",
-      title: { it: "La mia raccomandazione diretta", en: "My direct recommendation", es: "Mi recomendación directa", de: "Meine direkte Empfehlung", pt: "Minha recomendação direta", fr: "Ma recommandation directe" },
+      title: { it: "La mia raccomandazione diretta", en: "My direct recommendation", es: "Mi recomendación directa", de: "Meine direkte Empfehlung", pt: "Minha recomendação direta", fr: "Ma recommandation directe", pl: "Moja bezpośrednią rekomendację", tr: "Temel önermeyim" },
       body: {
         it: "Se sei su Android e non sei un atleta serio, il Xiaomi Mi Band 9 a 50€ fa il 90% di quel che serve. Il lock-in è minimo (scrive su Health Connect), la batteria dura 14 giorni e non hai nulla da perdere se cambi idea. Spendere di più ha senso solo se sai esattamente quale metrica aggiuntiva ti serve e perché.",
         en: "If you're on Android and not a serious athlete, the Xiaomi Mi Band 9 at €50 does 90% of what's needed. Lock-in is minimal (writes to Health Connect), battery lasts 14 days, and you have nothing to lose if you change your mind. Spending more only makes sense if you know exactly which additional metric you need and why.",
@@ -802,9 +1000,11 @@ export const post: BlogPost = {
         de: "Wenn du Android nutzt und kein ernsthafter Athlet bist, erledigt das Xiaomi Mi Band 9 für 50 € 90 % von dem, was nötig ist. Lock-in ist minimal (schreibt auf Health Connect), Akku hält 14 Tage und du hast nichts zu verlieren, wenn du deine Meinung änderst. Mehr auszugeben macht nur Sinn, wenn du genau weißt, welche zusätzliche Metrik du brauchst und warum.",
         pt: "Se você usa Android e não é um atleta sério, o Xiaomi Mi Band 9 por €50 faz 90% do que precisa. O lock-in é mínimo (grava no Health Connect), a bateria dura 14 dias e você não tem nada a perder se mudar de ideia. Gastar mais só faz sentido se você souber exatamente qual métrica adicional precisa e por quê.",
         fr: "Si vous êtes sur Android et que vous n'êtes pas un athlète sérieux, le Xiaomi Mi Band 9 à 50 € couvre 90 % des besoins. Le lock-in est minimal (écrit sur Health Connect), la batterie tient 14 jours et vous n'avez rien à perdre si vous changez d'avis. Dépenser plus n'a de sens que si vous savez exactement quelle métrique supplémentaire vous souhaitez et pourquoi.",
+        pl: "Jeśli jesteś na Android i nie jesteś seriozny sportowcem, Xiaomi Mi Band 9 za 50€ stanowi 90% tego, czego potrzebujesz. Zamykacz jest minimalny (pisanie przez Health Connect), akumulator trwa 14 dni i nie masz nic do stracenia, jeśli zmienisz zdanie. Wydatkowanie się znacznie więcej ma sens tylko wtedy, gdy wiesz dokładnie, jaką dodatkową miarę potrzebujesz i dlaczego.",
+        tr: "Eğer Android üzerindeyken ve bir serbest sporcu değilseniz, 50€'e kadar olan Xiaomi Mi Band 9 sadece gerekenin %90'ını yapar. Kalınma lock-in minimum (yazıyor Health Connect), bateri 14 gün boyunca sürebilir ve fikrin değişirse hiçbir şey kaybetmeyeceksiniz. Daha fazla harcayacak olursanız, belirli bir ek metrik gerekliliğiniz ve neden bilerek yapmanız gerekir.",
       },
     },
-    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary", es: "En resumen", de: "Zusammenfassung", pt: "Em resumo", fr: "En résumé" } },
+    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary", es: "En resumen", de: "Zusammenfassung", pt: "Em resumo", fr: "En résumé", pl: "W skrócie", tr: "Özetle" } },
     {
       type: "list",
       items: {
@@ -850,6 +1050,20 @@ export const post: BlogPost = {
           "Le lock-in Apple Watch vers Android est quasi total (perte de 100 % de l'historique). Galaxy Watch vers autre Android est souple et gérable. Garmin vers autre marque est moyen.",
           "Avant d'acheter, installez l'application compagnon et recherchez '[modèle] data export' dans les FAQ officielles. Aucune réponse en 5 minutes est un signal d'alerte.",
         ],
+        pl: [
+          "kontrol danych oznacza pięć rzeczy oddzielnych: naturalna eksporcie danych, transparencja przepływów, graniarz uprawnień, interoperacyjność oraz odporność na zmiany. Prywatność i kontrola to nie ta sama rzecz.",
+          "Apple Watch ma zasada prywatności silna ale zacięcie niemal nieporadne (iOS-taktyczne, żaden export web). Garmin ma większą otwartość ale mniej prywatność handlowa. Wybierz w oparciu o Twoją rzeczywistą zagrożenie.",
+          "modele订阅（Whoop, Oura) 绑定历史记录访问与 recurring 支付：评估五年内的总成本，而非月度价格。",
+          "Lock-in Apple Watch→Android jest prawie całkowity (100% straty historycznej). Galaxy Watch→inni Android są mniej intensywne i łatwiejsze do zarządzania. Garmin→inny brand jest średnio ograniczający.",
+          "Przed zakupem zainstaluj aplikację partnerzką i wyszukaj '[model] eksport danych' w oficjalnych FAQ. Jeśli po pięciu minutach nie znaleziesz odpowiedzi, to jest czerwonym flagiem.",
+        ],
+        tr: [
+          "'Dataların kontrolü' beş farklı şeyi ifade eder: doğrudan veri aktarılabilirliği, şeffaflık kanalı, izinlerin granülatörlülüğü, uyumluluk ve değişime dayanıklılık. Gizlilik ve kontrol aynı şey değildir.",
+          "Apple Çocuk Güvenlik zayıf olsa da lock-in very sıkı (iOS-sadece, hiçbir web export). Garmin daha fazla açıktır ancak daha az ticari gizlilik. Gerçek tehlikeye göre seçin.",
+          "Abonmanlık modelleri (Oura Whoop ile) tarihiye erişimi ödemeye bağlıyor: toplam maliyeti 5 yıl boyunca değerlendirebilirsiniz, aylık fiyatını değil.",
+          "Il lock-in Apple Watch→Android è quasi totale (100% perdita storica). Galaxy Watch→di khácAndroid è soft e gestibile. Garmin→altri brand è medio.",
+          "Önce satın almadan, eşlikçi uygulamayı kur ve '[model] veri aktarımı' ofselenlerinde arama yap. Eğer 5 dakika içinde cevap bulamıyorsanız, kırmızı ışık yanmakta.",
+        ],
       },
     },
     {
@@ -861,6 +1075,8 @@ export const post: BlogPost = {
         de: "Hast du bereits eine Smartwatch und möchtest nur ein übersichtliches Dashboard?",
         pt: "Você já tem um smartwatch e quer apenas um painel limpo?",
         fr: "Vous avez déjà une montre connectée et voulez juste un tableau de bord simple ?",
+        pl: "Jednaś już posiadasz smartwatch i chcesz tylko czystą daszboard?",
+        tr: "Zaten bir akıllı saati有一个空格) ve sadece temiz bir panel istiyorsunuz?",
       },
       body: {
         it: "FitMesh Sync legge da Health Connect (qualsiasi Android wearable) e in roadmap aggiungerà OAuth per Garmin, Polar, Oura, Withings, Strava. Setup 30 secondi, niente ads, niente tracker.",
@@ -869,6 +1085,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest aus Health Connect (jedes Android-Wearable) und plant OAuth für Garmin, Polar, Oura, Withings und Strava. 30-Sekunden-Setup, keine Werbung, keine Tracker.",
         pt: "FitMesh Sync lê do Health Connect (qualquer wearable Android) e tem na sua roadmap OAuth para Garmin, Polar, Oura, Withings e Strava. Configuração em 30 segundos, sem anúncios, sem rastreadores.",
         fr: "FitMesh Sync lit depuis Health Connect (n'importe quel wearable Android) et prévoit OAuth pour Garmin, Polar, Oura, Withings et Strava. Configuration en 30 secondes, sans publicité, sans trackers.",
+        pl: "FitMesh Sync odczytuje z Health Connect (jakiegokolwiek Android wearable) i w planie productu dodać zostanie OAuth dla Garmin, Polar, Oura, Withings, Strava. Konfiguracja 30 sekund, żadnych reklam, żadnych trackerów.",
+        tr: "FitMesh Sync KVKK'dan sorumlu kişi (herhangi bir giyilebilir cihaz) veroadmap'ta OAuth için Garmin, Polar, Oura, Withings, Strava ekleyecektir. 30 saniye kurulum, reklam yok, izleyici yok.",
       },
       ctaLabel: {
         it: "Vedi tutte le integrazioni",
@@ -877,6 +1095,8 @@ export const post: BlogPost = {
         de: "Alle Integrationen ansehen",
         pt: "Ver todas as integrações",
         fr: "Voir toutes les intégrations",
+        pl: "Zobacz wszystkie integracje",
+        tr: "Hepsi integ्रrasyonları see",
       },
       ctaHref: {
         it: "/it/integrations",
@@ -890,7 +1110,7 @@ export const post: BlogPost = {
     {
       type: "heading",
       level: 2,
-      text: { it: "Una checklist per non sbagliare", en: "A checklist to not screw up", es: "Una checklist para no equivocarte", de: "Eine Checkliste, damit du nichts bereust", pt: "Uma checklist para não errar", fr: "Une checklist pour ne pas se tromper" },
+      text: { it: "Una checklist per non sbagliare", en: "A checklist to not screw up", es: "Una checklist para no equivocarte", de: "Eine Checkliste, damit du nichts bereust", pt: "Uma checklist para não errar", fr: "Une checklist pour ne pas se tromper", pl: "Przydział do niebędzenia", tr: "Bir kontrol listesi için yanlış olmamak için" },
     },
     {
       type: "paragraph",
@@ -901,6 +1121,8 @@ export const post: BlogPost = {
         de: "Installiere vor dem Kauf die Companion-App auf deinem vorhandenen Telefon. Prüfe, ob sie in deiner Sprache und deinem Land verfügbar ist. Google '[Modell] privacy policy data export'. Lies die letzten 5 Ein-Stern-Bewertungen im Google Play / App Store: dort findest du die echten Alltagsprobleme. Wenn alles standhält, leg los.",
         pt: "Antes de comprar, instale o app companion no telefone que você já tem. Verifique se ele existe no seu idioma e no seu país. Pesquise no Google '[modelo] privacy policy data export'. Leia as últimas 5 avaliações de 1 estrela no Google Play / App Store: é lá que você encontra os problemas reais do dia a dia. Se tudo se sustentar, vá em frente.",
         fr: "Avant d'acheter, installez l'application compagnon sur votre téléphone actuel. Vérifiez qu'elle existe dans votre langue et dans votre pays. Cherchez sur Google '[modèle] privacy policy data export'. Lisez les 5 derniers avis 1 étoile sur Google Play / App Store : c'est là que se trouvent les vrais problèmes quotidiens. Si tout tient la route, allez-y.",
+        pl: "Przed zakupem, zainstaluj aplikację partnerzką na telefonie, który już posiadasz. Upewnij się, że jest ona dostępna w twoim języku i kraju. Szukaj na Google '[model] zasady prywatności eksportu danych'. Przeczytaj ostatnie 5 recenzji o jednej gwiazdce w Google Play / App Store: tam znajdziesz prawdziwe codzienne problemy. Jeśli wszystko jest w porządku, kontynuuj.",
+        tr: "Önce alım yapmadan, telefonunuzda zaten olan dilinizde ve ülkenizde Google '[model] gizlilik ilkesi veri aktarımı' arayın. Google Play Store / App Store üzerinde son 5 yıldızlı yorumları oku: orada günlük gerçek sorunları bulabilirsiniz. Eğer her şey iyi gidiyorsa, devam et.",
       },
     },
     {
@@ -961,12 +1183,30 @@ export const post: BlogPost = {
           "✓ Coût par an d'utilisation prévu aligné sur mon budget",
           "✓ Au moins une application tierce alternative capable de lire mes données si je change d'avis",
         ],
+        pl: [
+          "✓ Partner aplikacji dostępny w moim kraju i aktualizowany w ciągu ostatnich 6 miesięcy",
+          "✓ Dokumentowana eksportacja (szukam 'export danych' w oficjalnych FAQ)",
+          "✓ Synchronizacja z Health Connect (Android) lub HealthKit (iOS) potwierdzona",
+          "✓ Polityka prywatności czytelna w 10 minut, bez zapisów o udzielaniu dostępu nieokreślonym partnrom\nRODO __FM_PH_0__, __FM_URL_0__ __FM_HTML_0__ __FM_LINK_0__ __FM_CODE_0__ __FM_FENCE_0__",
+          "✓ Marka z co najmniej 5 latami historii lub silną europejską gwarancją",
+          "✓ Koszt roczny korzystania z oczekiwanego użytku zgodny z moim budżetem",
+          "✓ Istnieje przynajmniej jedna trzecia app, która może czytać moje dane, jeśli decyduję się zmienić zdanie jutro",
+        ],
+        tr: [
+          "✓ Uygulama eşesi, ülkeyime yakın ve son 6 ayda güncellenmiştir",
+          "✓ Dokümantasyonlu aktarım (FAQ'larda 'veri aktarımı' arıyorum)",
+          "✓ Health Connect (Android) ile veya HealthKit (iOS) ile senkronizasyonunuz onaylanmıştır",
+          "✓ Gizlilik ilkesi 10 dakika içinde okunabilir, belirtilmemiş üçüncü taraflarla paylaşılmama dair belirsiz şartlar yok",
+          "✓ KVKK'ye uygun en az 5 yıl tarihi olan marka veya europski garanti sahibi marka",
+          "✓ Kullanım beklenen yıllık maliyet benim bütçemle uyumlu",
+          "✓ KVKK gereği, gelecekteki bir alternatif üçüncü taraf uygulaması benim verilerimi okuyabilecek olabilir.",
+        ],
       },
     },
   ],
   faq: [
     {
-      q: { it: "Apple Watch è davvero così chiuso?", en: "Is Apple Watch really that closed?", es: "¿Apple Watch es realmente tan cerrado?", de: "Ist Apple Watch wirklich so geschlossen?", pt: "O Apple Watch é realmente tão fechado?", fr: "L'Apple Watch est-elle vraiment aussi fermée ?" },
+      q: { it: "Apple Watch è davvero così chiuso?", en: "Is Apple Watch really that closed?", es: "¿Apple Watch es realmente tan cerrado?", de: "Ist Apple Watch wirklich so geschlossen?", pt: "O Apple Watch é realmente tão fechado?", fr: "L'Apple Watch est-elle vraiment aussi fermée ?", pl: "Czy Apple Watch naprawdę jest tak zamknięty?", tr: "Apple Çadırı gerçekten bu kadar kapanmış mı?" },
       a: {
         it: "Sì, ma con sfumature. I dati raccolti vivono in Apple Health (iPhone). Da lì puoi esportarli in formato XML (un dump completo molto verboso, non analytics-friendly), e ci sono app iOS che leggono via HealthKit e producono CSV o JSON utili. Non puoi però sincronizzare automaticamente verso un'app Android o un dashboard web indipendente senza costruire qualcosa di custom. Per la maggior parte degli utenti il lock-in è effettivo.",
         en: "Yes, with nuances. Collected data lives in Apple Health (iPhone). From there you can export as XML (a very verbose full dump, not analytics-friendly), and there are iOS apps that read via HealthKit and produce useful CSV or JSON. But you cannot automatically sync to an Android app or independent web dashboard without building something custom. For most users lock-in is effective.",
@@ -974,6 +1214,8 @@ export const post: BlogPost = {
         de: "Ja, aber mit Nuancen. Die erhobenen Daten leben in Apple Health (iPhone). Von dort kannst du sie im XML-Format exportieren (ein sehr ausführlicher Dump, nicht analytics-freundlich), und es gibt iOS-Apps, die via HealthKit lesen und nützliche CSV- oder JSON-Dateien erzeugen. Du kannst aber nicht automatisch zu einer Android-App oder einem unabhängigen Web-Dashboard synchronisieren, ohne etwas Eigenes zu bauen. Für die meisten Nutzer ist das Lock-in real.",
         pt: "Sim, mas com nuances. Os dados coletados vivem no Apple Health (iPhone). De lá você pode exportá-los em formato XML (um dump completo muito verboso, não adequado para análises), e há apps iOS que leem via HealthKit e produzem CSV ou JSON úteis. Porém, você não consegue sincronizar automaticamente com um app Android ou um painel web independente sem construir algo personalizado. Para a maioria dos usuários, o lock-in é real.",
         fr: "Oui, avec des nuances. Les données collectées vivent dans Apple Health (iPhone). Vous pouvez les exporter au format XML (un dump complet très verbeux, pas adapté à l'analyse), et il existe des apps iOS qui lisent via HealthKit et produisent des CSV ou JSON utiles. Mais vous ne pouvez pas synchroniser automatiquement vers une app Android ou un tableau de bord web indépendant sans développer quelque chose de personnalisé. Pour la plupart des utilisateurs, le lock-in est bien réel.",
+        pl: "Tak, ale z pewnymi odmianami. Zbierane dane istnieją w Apple Health (iPhone). Z niego możesz eksportować pliki XML (pełny dump bardzo szczegółowy, nie przyjazny do analiz), a istnieją aplikacje iOS które odczytują dane poprzez HealthKit i tworzą CSV lub JSON. Jednak nie możesz automatycznie synchronizować danych w kierunku aplikacji Android ani osobnego panelu webowego bez budowy czegoś zgodnie z wymaganiami. Dla większości użytkowników lock-in jest realny.",
+        tr: "Evet, ancak tonal farklılıklarla. Toplanan veriler Apple Health (iPhone) içinde yaşıyor. Bu yerden XML formatında (tam bir döküm, çok ayrıntılı, analitik dostu değil) dışa aktarabilirsiniz ve bazı uygulamalar iOS tarafından bu verileri okuyarak faydalı CSV veya JSON oluşturabilir. Ancak otomatik olarak bir Android uygulamasına veya bağımsız web tabanlı bir paneline eşitleme yapamazsınız ve özel bir çözüm geliştirmeniz gerekebilir. Çoğu kullanıcının için lock-in gerçekçi olabilir.",
       },
     },
     {
@@ -984,6 +1226,8 @@ export const post: BlogPost = {
         de: "Kann ich eine chinesische Marke ohne Datenschutzrisiko kaufen?",
         pt: "Posso comprar uma marca chinesa sem riscos de privacidade?",
         fr: "Puis-je acheter une marque chinoise sans risque pour ma confidentialité ?",
+        pl: "Czy mogę kupić chineski brand bez ryzyka dla prywatności?",
+        tr: "Güvenli bir şekilde Çin markasını satın alabilir miyim?",
       },
       a: {
         it: "Xiaomi e Huawei hanno entrambi adottato pratiche più trasparenti negli ultimi 3 anni in Europa, sotto pressione GDPR. Xiaomi via Mi Fitness scrive su Health Connect (controllo locale Android), che è il setup più rassicurante. Huawei ha un ecosistema più chiuso (HMS) fuori dalla Cina. La domanda da farsi: la mia minaccia è uno stato straniero o una compagnia che vende dati ad ad-tech? Per la maggior parte degli utenti il rischio reale è il secondo, e in quel caso Xiaomi non è strutturalmente diverso da Samsung o Google.",
@@ -992,6 +1236,8 @@ export const post: BlogPost = {
         de: "Sowohl Xiaomi als auch Huawei haben in den letzten 3 Jahren in Europa transparentere Praktiken eingeführt, unter dem Druck der DSGVO. Xiaomi schreibt via Mi Fitness auf Health Connect (lokale Android-Kontrolle), was das beruhigendste Setup ist. Huawei hat ein geschlosseneres Ökosystem (HMS) außerhalb Chinas. Die Frage, die du dir stellen solltest: Ist meine Bedrohung ein ausländischer Staat oder ein Unternehmen, das Daten an Ad-Tech verkauft? Für die meisten Nutzer ist das reale Risiko das zweite, und dort ist Xiaomi strukturell nicht anders als Samsung oder Google.",
         pt: "Tanto a Xiaomi quanto a Huawei adotaram práticas mais transparentes na Europa nos últimos 3 anos, sob a pressão do GDPR. A Xiaomi, via Mi Fitness, grava no Health Connect (controle local Android), que é a configuração mais tranquilizadora. A Huawei tem um ecossistema mais fechado (HMS) fora da China. A pergunta a se fazer: minha ameaça é um estado estrangeiro ou uma empresa que vende dados para ad-tech? Para a maioria dos usuários, o risco real é o segundo, e nesse caso a Xiaomi não é estruturalmente diferente da Samsung ou do Google.",
         fr: "Xiaomi et Huawei ont tous deux adopté des pratiques plus transparentes en Europe ces 3 dernières années, sous la pression du RGPD. Xiaomi via Mi Fitness écrit sur Health Connect (contrôle local Android), ce qui est la configuration la plus rassurante. Huawei a un écosystème plus fermé (HMS) hors de Chine. La question à se poser : ma menace est-elle un État étranger ou une entreprise qui revend des données à l'ad-tech ? Pour la plupart des utilisateurs, le risque réel est le second, et dans ce cas Xiaomi n'est pas structurellement différent de Samsung ou Google.",
+        pl: "Xiaomi i Huawei obywatelstwem w Europie pod presją GDPR wprowadzili w ciągu ostatnich trzech lat bardziej przejrzyste praktyki. Xiaomi poprzez Mi Fitness pisze na Health Connect (lokalny kontroler Android), co jest najbardziej uspokajającym ustawieniem. Huawei ma zamknięty ecosystem (HMS) poza Chinami. Pytanko do zadać sobie: czy moja zagrożenie to obcy kraj lub firma sprzedająca dane firmom technologii reklamowej? Dla większości użytkowników rzeczywiste ryzyko to drugie, a w takim przypadku Xiaomi nie jest strukturalnie inny od Samsunga czy Google.",
+        tr: "KVKK ve Huawei sonUniSonUnUz Son 3 Yılda Avrupa'da daha şeffaf pratikler benimsemiş, KVKK'a baskı altındayken. Xiaomi Mi Fitness sayesinde yerel (Android) kontrolüne dayalı ayarlar yapma imkanı sağlıyor ve bu en rassatıcı setup'u sunuyor. Huawei ise Çin dışındaki HMS ecosistemi kapanık kalıyor. Sorulması gereken: En büyük tehlikeyim yabancı bir devlet mi yoksa verilerimi reklam teknolojilerine satan şirketler mi? Genel kullanıcılara göre gerçek risk ikinci seçenek, bu durumda Xiaomi Samsung veya Google'den yapısal olarak farklı değildir.",
       },
     },
     {
@@ -1002,6 +1248,8 @@ export const post: BlogPost = {
         de: "Lohnt sich das Abo-Modell wie bei Whoop?",
         pt: "Vale a pena o modelo por assinatura como o do Whoop?",
         fr: "Le modèle par abonnement comme Whoop en vaut-il la peine ?",
+        pl: "Czy powinienem wybrnąć model订阅类型Whoop？",
+        tr: "KVKK uyumluluğuna göre hangi abone modelim gerekiyor?",
       },
       a: {
         it: "Solo se valuti che il valore aggiunto delle analytics proprietarie supera il costo cumulato. Whoop a €30/mese = €360/anno = €1800 in 5 anni. Per chi è in pieno health-tracking journey può avere senso; per la maggior parte delle persone no. Calcola sempre il costo totale di possesso, non il prezzo mensile.",
@@ -1010,6 +1258,8 @@ export const post: BlogPost = {
         de: "Nur wenn du der Überzeugung bist, dass der Mehrwert der proprietären Analytics die kumulierten Kosten übersteigt. Whoop für €30/Monat = €360/Jahr = €1800 in 5 Jahren. Für jemanden, der tief in seinem Gesundheits-Tracking-Journey steckt, kann es Sinn ergeben; für die meisten Menschen nicht. Rechne immer die Gesamtkosten, nicht den Monatspreis.",
         pt: "Só se você avaliar que o valor agregado das análises proprietárias supera o custo acumulado. Whoop por €30/mês = €360/ano = €1800 em 5 anos. Para quem está totalmente imerso no acompanhamento da saúde pode fazer sentido; para a maioria das pessoas, não. Calcule sempre o custo total, não o preço mensal.",
         fr: "Seulement si vous estimez que la valeur ajoutée des analyses propriétaires dépasse le coût cumulé. Whoop à 30 €/mois = 360 €/an = 1 800 € sur 5 ans. Pour quelqu'un très investi dans le suivi de sa santé, cela peut avoir du sens ; pour la plupart des gens, non. Calculez toujours le coût total, pas le prix mensuel.",
+        pl: "Tylko wtedy, gdy uznać, że dodatkowa wartość analiz proprietarnych przewyższa koszt.cumulowany. Whoop o cenie 30 €/miesiąc = 360 €/roku = 1800 € w 5 lat. Dla tych, którzy są na pełnym trasie zdrowotnego śledzenia, może to mieć sens; dla większości osób nie. Zawsze oblicz całą wartość posiadania, a nie cenę miesięczną.",
+        tr: "Sadece özel analitik değerinin toplam maliyeti aşıldığına karar verildiğinde bu geçerlidir. Whoop €30/ay = €360/yıl = €1800 5 yıl içinde. Sağlık takip yolculuğunda olanlar için belki mantıklı olabilir; çoğu kişi için hayır. Her zaman sahip olma maliyetini, aylık fiyatını öngörmeden hesapla.",
       },
     },
     {
@@ -1020,6 +1270,8 @@ export const post: BlogPost = {
         de: "Was ist der Unterschied zwischen einem 'Consumer'-Gerät und einem 'medizinischen' Gerät?",
         pt: "Qual é a diferença entre um dispositivo 'consumer' e um 'médico'?",
         fr: "Quelle est la différence entre un appareil 'grand public' et un appareil 'médical' ?",
+        pl: "Jaka jest różnica między urządzeniem przeznaczonym do użytku 'konsumenta' a 'leczniczego'?",
+        tr: "Gelişmiş özellikler neden var? 'Tıbbi' cihaz ve ' tüketici' cihazı arasında ne fark vardır?",
       },
       a: {
         it: "I dispositivi medicali (CE marked Classe IIa o superiore) hanno garanzie regolamentari sulla precisione sensori e processi clinici di validazione. Quasi tutti gli smartwatch consumer (Apple, Garmin, Samsung, Fitbit) non sono medicali nella loro funzione principale, anche se hanno feature certificate (ECG di Apple Watch o KardiaMobile, SpO₂ di certi modelli). Per uso domestico va bene il consumer; per decisioni cliniche serve sempre device medicali validati e interpretazione professionale.",
@@ -1028,6 +1280,8 @@ export const post: BlogPost = {
         de: "Medizinprodukte (CE-gekennzeichnet Klasse IIa oder höher) haben regulatorische Garantien für die Sensorpräzision und klinische Validierungsprozesse. Fast alle Consumer-Smartwatches (Apple, Garmin, Samsung, Fitbit) sind in ihrer Hauptfunktion keine Medizinprodukte, auch wenn sie zertifizierte Funktionen haben (EKG von Apple Watch oder KardiaMobile, SpO₂ bei bestimmten Modellen). Für den Heimgebrauch reicht Consumer; für gesundheitliche Entscheidungen sind immer validierte Medizinprodukte und professionelle Interpretation erforderlich.",
         pt: "Dispositivos médicos (marcados CE Classe IIa ou superior) têm garantias regulatórias sobre a precisão dos sensores e processos de validação. Quase todos os smartwatches consumer (Apple, Garmin, Samsung, Fitbit) não são dispositivos médicos em sua função principal, mesmo que tenham funções certificadas (ECG do Apple Watch ou KardiaMobile, SpO₂ em certos modelos). Para uso doméstico o consumer é suficiente; para decisões de saúde são sempre necessários dispositivos médicos validados e interpretação profissional.",
         fr: "Les dispositifs médicaux (marquage CE Classe IIa ou supérieure) bénéficient de garanties réglementaires sur la précision des capteurs et les processus de validation. Presque toutes les montres connectées grand public (Apple, Garmin, Samsung, Fitbit) ne sont pas des dispositifs médicaux dans leur fonction principale, même avec des fonctionnalités certifiées (ECG de l'Apple Watch ou KardiaMobile, SpO₂ sur certains modèles). Pour un usage domestique, le grand public convient ; pour des décisions de santé, des dispositifs médicaux validés et une interprétation professionnelle sont toujours nécessaires.",
+        pl: "Dispositwy medyczne (z znaczeniem CE klasy IIa lub wyższej) mają regulaminowe gwarancje dotyczące precyzji sensorów i procesów weryfikacji klinicznej. Przez większość czasu smartwaty konsumentowskie (Apple, Garmin, Samsung, Fitbit) nie są medyczne w swojej funkcji podstawowej, nawet jeśli mają zatwierdzone cechy (ECG Apple Watch lub KardiaMobile, SpO₂ w niektórych modelach). Dla użytku domowego wystarcza konsumentowskie; dla decyzji klinicznych potrzebny jest zawsze medicalny device zweryfikowany i profesjonalna interpretacja.",
+        tr: "İmalat cihazları (CE belirlenmiş Sınıf IIa veya üstü) sensör ve klinik süreçlerin doğruluğuna düzenli uygulamalı garantiye sahiptir. Neredeyse tüm tüketici akıllı saatler (Apple, Garmin, Samsung, Fitbit) temel işlevleriyle bakımdan imalat cihazları değildir, ancak onlar da tasarruflu özelliklere sahiptir (Apple Watch ECG veya KardiaMobile gibi, belirli modellerdeki SpO₂). Ev kullanımında tüketici cihaz yeterlidir; klinik kararlar vermek için her zaman imalat cihazları ve profesyonel yorum gereklidir.",
       },
     },
   ],

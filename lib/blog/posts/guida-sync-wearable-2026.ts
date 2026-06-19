@@ -277,7 +277,7 @@ export const post: BlogPost = {
     {
       type: "heading",
       level: 3,
-      text: { it: "2. OAuth API ufficiali", en: "2. Official OAuth APIs", es: "2. OAuth APIs oficiales", de: "2. Offizielle OAuth-APIs", pt: "2. OAuth APIs oficiais", fr: "2. OAuth APIs officielles" },
+      text: { it: "2. OAuth API ufficiali", en: "2. Official OAuth APIs", es: "2. OAuth APIs oficiales", de: "2. Offizielle OAuth-APIs", pt: "2. OAuth APIs oficiais", fr: "2. OAuth APIs officielles", pl: "2. API oficjalne OAuth", tr: "2. OAuth API yetkilileri" },
     },
     {
       type: "paragraph",
@@ -406,6 +406,8 @@ export const post: BlogPost = {
         de: "Health Connect hat drei Eigenschaften, die es strukturell anders als Google Fit machen:",
         pt: "Health Connect tem três características que o tornam estruturalmente diferente do Google Fit:",
         fr: "Health Connect possède trois caractéristiques qui le rendent structurellement différent de Google Fit :",
+        pl: "Health Connect małej struktury ma trzy cechy, które go różnią od Google Fit:",
+        tr: "Health Connect üç özelliği Google Fit'den yapısal olarak farklı kılar:",
       },
     },
     {
@@ -441,6 +443,16 @@ export const post: BlogPost = {
           "**Permissions granulaires**: vous pouvez accorder l'accès aux 'pas' sans accorder aussi le 'sommeil'. Chaque type de donnée est une permission distincte.",
           "**Standard Android officiel**: préinstallé sur Android 14+, distribué par Google, géré par Google Play Protect.",
         ],
+        pl: [
+          "**Na urządzeniu, nie w chmurze**: dane pozostają na telefonie. Google ich nie widzi. Trzecia strona app-a też nie, dopóki nie żądałeś wyraźnie przesłania ich.",
+          "**Granulowe uprawnienia**: możesz udzielić dostępu tylko do 'kroków', bez udzielania jednocześnie uprawnień do 'spoczynku'. Każdy rodzaj danych to oddzielne uprawnienie.",
+          "**Standardowa Android oficjalna**: zainstalowana na Android 14+, dystrybuowana przez Google, kontrolowana przez Google Play Protect.",
+        ],
+        tr: [
+          "**Cihazda yerel, nuuanslı bulut**: veriler telefonun üzerinde kalır. Google bunları görmez. Üçüncü taraf uygulaması da bunu yapmaz, sana açıkça talep etmedin ki gönderilsin.",
+          "**Granülar izinler**: sadece 'adımlar' için izin verebilirsiniz ve 'uyku' için de izin vermek zorunda kalmazsınız. Her tür veri bir ayrı izindir.",
+          "**Resmi Android standartı**: 14+ giyilebilir cihazlarda önceden yüklenmiş, Google tarafından dağıtılmış ve Google Play Protect tarafından kontrol edilmiştir.",
+        ],
       },
     },
     {
@@ -453,6 +465,8 @@ export const post: BlogPost = {
         de: "Stand der wichtigsten Marken im Mai 2026",
         pt: "Situação das principais marcas em maio de 2026",
         fr: "État des principales marques en mai 2026",
+        pl: "Stanie głównych mark w maju 2026",
+        tr: "Stato dei principali mark a Mayıs 2026",
       },
     },
     {
@@ -464,6 +478,8 @@ export const post: BlogPost = {
         de: "Was folgt, ist der verifizierte Stand der öffentlichen Datenpipelines der wichtigsten Hersteller. Die Situation ändert sich im Laufe der Zeit: Nutze diese Tabelle als Ausgangspunkt und verifiziere zum Kaufzeitpunkt.",
         pt: "O que segue é o estado verificado das pipelines de dados públicas dos principais fabricantes. As situações mudam ao longo do tempo: use esta tabela como base e verifique no momento da compra.",
         fr: "Ce qui suit est l'état vérifié des pipelines de données publiques des principaux fabricants. Les situations évoluent dans le temps : utilisez ce tableau comme référence, puis vérifiez au moment de l'achat.",
+        pl: "Następuje stan potwierdzony linii danych publicznych kluczowych producentów. Sytuacje zmieniają się z czasem: używaj tej tabeli jako punktu wyjścia, a następnie sprawdź aktualizację przed zakupem.",
+        tr: "Oluşturulan olan public data pipeline durumu aşağıdaki gibidir. Durumlar zamanla değişebilir: bu tablo için bir temel oluşturun ve satın alırken kontrol edin.",
       },
     },
     {
@@ -475,6 +491,8 @@ export const post: BlogPost = {
         de: "Offizielle Datenpipelines für wichtige Wearables, Mai 2026.",
         pt: "Pipelines de dados oficiais dos principais wearables, maio de 2026.",
         fr: "Pipelines de données officiels des principaux appareils connectés, mai 2026.",
+        pl: "Pipeline danych oficjalnych głównych wearable, maj 2026.",
+        tr: "Güvenlik verileri resmi kanalların en önemli giyilebilir cihazları için Mayıs 2026.",
       },
       headers: {
         it: ["Brand", "Health Connect (oggi)", "OAuth ufficiale", "Esportazione"],
@@ -483,6 +501,18 @@ export const post: BlogPost = {
         de: ["Marke", "Health Connect (heute)", "Offizielles OAuth", "Export"],
         pt: ["Marca", "Health Connect (hoje)", "OAuth oficial", "Exportação"],
         fr: ["Marque", "Health Connect (aujourd'hui)", "OAuth officiel", "Export"],
+        pl: [
+          "Marka",
+          "Health Connect (dziś)",
+          "ofierna",
+          "Wydanie",
+        ],
+        tr: [
+          "Marka",
+          "(KVKK'ya göre bugün)",
+          "KVKK resmi",
+          "İhracat",
+        ],
       },
       rows: [
         {
@@ -492,6 +522,18 @@ export const post: BlogPost = {
           de: ["Samsung Galaxy Watch", "Ja, nativ via Samsung Health", "Samsung Health API (eingeschränkt)", "Ja, aus Samsung Health"],
           pt: ["Samsung Galaxy Watch", "Sim, nativo via Samsung Health", "Samsung Health API (limitada)", "Sim, do Samsung Health"],
           fr: ["Samsung Galaxy Watch", "Oui, natif via Samsung Health", "Samsung Health API (limitée)", "Oui, depuis Samsung Health"],
+          pl: [
+            "Samsung Galaxy Watch",
+            "Tak, natywnie Samsung Health",
+            "API RODO (ograniczona)",
+            "Tak, od Samsung Health",
+          ],
+          tr: [
+            "Samsung Galaxy Watch",
+            "Evet, yerel olarak Samsung Health",
+            "KVKK API (limitata)",
+            "Evet, Samsung Health olarak",
+          ],
         },
         {
           it: ["Pixel Watch", "Sì, via app Fitbit", "Fitbit Web API (richiede approvazione)", "Sì, via Google Takeout"],
@@ -500,6 +542,18 @@ export const post: BlogPost = {
           de: ["Pixel Watch", "Ja, via Fitbit App", "Fitbit Web API (erfordert Genehmigung)", "Ja, via Google Takeout"],
           pt: ["Pixel Watch", "Sim, via app Fitbit", "Fitbit Web API (requer aprovação)", "Sim, via Google Takeout"],
           fr: ["Pixel Watch", "Oui, via l'app Fitbit", "Fitbit Web API (nécessite une approbation)", "Oui, via Google Takeout"],
+          pl: [
+            "Pixel Watch",
+            "Tak, za pomocą aplikacji Fitbit",
+            "RODO Web API (wymaga zatwierdzenia)",
+            "Tak, Google Takeout",
+          ],
+          tr: [
+            "Pixel Watch",
+            "Evet, uygulamadan Fitbit",
+            "KVKK Web API (onay gereklidir)",
+            "Evet, Google Takeout'a devam edin",
+          ],
         },
         {
           it: ["Fitbit (Charge/Sense/Versa)", "Sì, dal 2024", "Fitbit Web API", "Sì, via Google Takeout"],
@@ -508,6 +562,18 @@ export const post: BlogPost = {
           de: ["Fitbit (Charge/Sense/Versa)", "Ja, seit 2024", "Fitbit Web API", "Ja, via Google Takeout"],
           pt: ["Fitbit (Charge/Sense/Versa)", "Sim, desde 2024", "Fitbit Web API", "Sim, via Google Takeout"],
           fr: ["Fitbit (Charge/Sense/Versa)", "Oui, depuis 2024", "Fitbit Web API", "Oui, via Google Takeout"],
+          pl: [
+            "Fitbit (Charger/Senzor/Versa)",
+            "Tak, od 2024",
+            "API sieci web",
+            "Tak, Google Takeout",
+          ],
+          tr: [
+            "KVKK (__FM_PH_0__/Şarj/Güneş)",
+            "Evet, 2024'ten beri",
+            "KVKK Web API",
+            "Evet, Google Takeout'a devam edin",
+          ],
         },
         {
           it: ["Garmin (tutti)", "Sì, base (passi, BPM, sonno totale)", "Garmin Health API (developer program)", "Sì, da Garmin Connect"],
@@ -516,6 +582,18 @@ export const post: BlogPost = {
           de: ["Garmin (alle)", "Ja, Basis (Schritte, Herzfrequenz, Gesamtschlaf)", "Garmin Health API (Developer Program)", "Ja, aus Garmin Connect"],
           pt: ["Garmin (todos)", "Sim, básico (passos, frequência cardíaca, sono total)", "Garmin Health API (developer program)", "Sim, do Garmin Connect"],
           fr: ["Garmin (tous)", "Oui, basique (pas, fréquence cardiaque, sommeil total)", "Garmin Health API (developer program)", "Oui, depuis Garmin Connect"],
+          pl: [
+            "RODO (wszyscy)",
+            "Tak, podstawa (BPM, kroki, całe sen)",
+            "API Zdrowia (program deweloperski)",
+            "Tak, od Garmin Connect",
+          ],
+          tr: [
+            "KVKK (tümü)",
+            "Evet, temel (adım, BPM, tam uyku)",
+            "KVKK Sağlık API (__FM_PH_0__)",
+            "Evet, Garmin Connect olarak",
+          ],
         },
         {
           it: ["Polar (Vantage, Grit X)", "Sì, base", "Polar Accesslink", "Sì, da Polar Flow"],
@@ -524,6 +602,18 @@ export const post: BlogPost = {
           de: ["Polar (Vantage, Grit X)", "Ja, Basis", "Polar Accesslink", "Ja, aus Polar Flow"],
           pt: ["Polar (Vantage, Grit X)", "Sim, básico", "Polar Accesslink", "Sim, do Polar Flow"],
           fr: ["Polar (Vantage, Grit X)", "Oui, basique", "Polar Accesslink", "Oui, depuis Polar Flow"],
+          pl: [
+            "Polar (Wantage, Grit X)",
+            "Tak, podstawa",
+            "Dostęp do Polar",
+            "Tak, od Polar Flow",
+          ],
+          tr: [
+            "Polar (Nihai Fark, Grit X)",
+            "Evet, temel",
+            "KVKK Erişim Bağlantısı",
+            "Evet, Polar Flow olarak",
+          ],
         },
         {
           it: ["Oura Ring", "No (no app Android nativa HC)", "Oura Cloud API v2", "Sì, da app/web"],
@@ -532,6 +622,18 @@ export const post: BlogPost = {
           de: ["Oura Ring", "Nein (keine native Android HC App)", "Oura Cloud API v2", "Ja, aus App/Web"],
           pt: ["Oura Ring", "Não (sem app Android nativo para HC)", "Oura Cloud API v2", "Sim, do app/web"],
           fr: ["Oura Ring", "Non (pas d'app Android native HC)", "Oura Cloud API v2", "Oui, depuis l'app/web"],
+          pl: [
+            "Oura Dzwonek",
+            "Nie (bez natywnej-app Android HC)",
+            "RODO Cloud API v2",
+            "Tak, z aplikacji/internetowej strony",
+          ],
+          tr: [
+            "Oura Çiftlik",
+            "No (no uygulama Android natİvahc)",
+            "Oura Bulut API v2",
+            "Evet, uygulama/website'den",
+          ],
         },
         {
           it: ["Withings", "Sì, dal 2024", "Withings API v2", "Sì, da Health Mate"],
@@ -540,6 +642,18 @@ export const post: BlogPost = {
           de: ["Withings", "Ja, seit 2024", "Withings API v2", "Ja, aus Health Mate"],
           pt: ["Withings", "Sim, desde 2024", "Withings API v2", "Sim, do Health Mate"],
           fr: ["Withings", "Oui, depuis 2024", "Withings API v2", "Oui, depuis Health Mate"],
+          pl: [
+            "Withings",
+            "Tak, od 2024",
+            "API RODO v2",
+            "Tak, z Health Mate",
+          ],
+          tr: [
+            "Withings",
+            "Evet, 2024'ten itibaren",
+            "KVKK API v2",
+            "Evet, Health Mate'dan",
+          ],
         },
         {
           it: ["Xiaomi Mi Band 7+", "Sì, via Mi Fitness", "No API pubblica per terzi", "Limitato"],
@@ -548,6 +662,18 @@ export const post: BlogPost = {
           de: ["Xiaomi Mi Band 7+", "Ja, via Mi Fitness", "Keine öffentliche Drittanbieter-API", "Eingeschränkt"],
           pt: ["Xiaomi Mi Band 7+", "Sim, via Mi Fitness", "Sem API pública para terceiros", "Limitado"],
           fr: ["Xiaomi Mi Band 7+", "Oui, via Mi Fitness", "Pas d'API publique pour tiers", "Limité"],
+          pl: [
+            "Xiaomi Mi Band 7+",
+            "Tak, Mi Fitness",
+            "Brak publicznej API dla trzecich stron",
+            "Ograniczone",
+          ],
+          tr: [
+            "Xiaomi Mi Band 7+",
+            "Evet, Mi ZihnenYA",
+            "Yönetilen API üçüncü partilere için",
+            "Sınırlı",
+          ],
         },
         {
           it: ["Huawei Watch (con HMS)", "No (ecosistema separato)", "Huawei Health Kit", "Limitato"],
@@ -556,6 +682,18 @@ export const post: BlogPost = {
           de: ["Huawei Watch (mit HMS)", "Nein (separates Ökosystem)", "Huawei Health Kit", "Eingeschränkt"],
           pt: ["Huawei Watch (com HMS)", "Não (ecossistema separado)", "Huawei Health Kit", "Limitado"],
           fr: ["Huawei Watch (avec HMS)", "Non (écosystème séparé)", "Huawei Health Kit", "Limité"],
+          pl: [
+            "Zegarek Huawei (z HMS)",
+            "Brak (oddzielonego ekosystemu)",
+            "Zestaw zdrowia __FM_PH_0__",
+            "Ograniczony",
+          ],
+          tr: [
+            "Huawei Göz Atölyesi (HMS ile)",
+            "No (__FM_PH_0__)",
+            "KVKK Sağlık Kağıdı",
+            "Sınırlı",
+          ],
         },
         {
           it: ["Apple Watch", "No (ecosistema iOS chiuso)", "HealthKit (iOS only)", "Sì, da app Salute"],
@@ -564,6 +702,18 @@ export const post: BlogPost = {
           de: ["Apple Watch", "Nein (geschlossenes iOS-Ökosystem)", "HealthKit (nur iOS)", "Ja, aus der Gesundheits-App"],
           pt: ["Apple Watch", "Não (ecossistema iOS fechado)", "HealthKit (somente iOS)", "Sim, do app Saúde"],
           fr: ["Apple Watch", "Non (écosystème iOS fermé)", "HealthKit (iOS uniquement)", "Oui, depuis l'app Santé"],
+          pl: [
+            "Smartwatch",
+            "Brak (zamkniętego ecosystemu iOS)",
+            "HealthKit (iOS tylko)",
+            "Tak, z aplikacji Zdrowie",
+          ],
+          tr: [
+            "Akıllı Saat",
+            "No (iOS giyilebilir cihaz chiuso)",
+            "HealthKit (iOS sadece)",
+            "Evet, sağlık uygulamasından",
+          ],
         },
         {
           it: ["Strava (piattaforma)", "No (importa da watch, non sync HC)", "Strava API v3", "Sì, da web"],
@@ -572,13 +722,25 @@ export const post: BlogPost = {
           de: ["Strava (Plattform)", "Nein (importiert von der Uhr, kein HC-Sync)", "Strava API v3", "Ja, aus dem Web"],
           pt: ["Strava (plataforma)", "Não (importa do relógio, sem sync HC)", "Strava API v3", "Sim, da web"],
           fr: ["Strava (plateforme)", "Non (importe depuis la montre, pas de sync HC)", "Strava API v3", "Oui, depuis le web"],
+          pl: [
+            "Strava (sp PureComponent)",
+            "Nie (ważne dla smartwata, nie synchronizuje z HC)",
+            "API RODO v3",
+            "Tak, z internetu",
+          ],
+          tr: [
+            "KVKK (Strava (platform))",
+            "No (giyilebilir cihaz da akıllı saat,同步HC不起作用)",
+            "KVKK API v3",
+            "Evet, webden",
+          ],
         },
       ],
     },
     {
       type: "callout",
       variant: "info",
-      title: { it: "Apple Watch è un mondo a parte", en: "Apple Watch is its own world", es: "Apple Watch es un mundo aparte", de: "Apple Watch ist eine Welt für sich", pt: "Apple Watch é um mundo à parte", fr: "Apple Watch est un monde à part" },
+      title: { it: "Apple Watch è un mondo a parte", en: "Apple Watch is its own world", es: "Apple Watch es un mundo aparte", de: "Apple Watch ist eine Welt für sich", pt: "Apple Watch é um mundo à parte", fr: "Apple Watch est un monde à part", pl: "Apple Watch jest światem w sobie.", tr: "Apple Çocuk bir dünyada olurken" },
       body: {
         it: "Tutto quello che leggi qui vale per Android. Apple Watch funziona solo con iPhone e i suoi dati vivono in Apple Health (iOS). Non esiste un equivalente Health Connect per iOS: Apple ha HealthKit ma è on-device per definizione, e nessun produttore terzo può scrivere a iCloud per conto tuo. Se vuoi una dashboard cross-platform partendo da Apple Watch, devi esportare manualmente o usare app iOS dedicate.",
         en: "Everything you read here applies to Android. Apple Watch only works with iPhone and its data lives in Apple Health (iOS). There's no Health Connect equivalent on iOS: Apple has HealthKit but it's on-device by definition, and no third-party manufacturer can write to iCloud for you. If you want a cross-platform dashboard starting from Apple Watch, you must export manually or use dedicated iOS apps.",
@@ -586,6 +748,8 @@ export const post: BlogPost = {
         de: "Alles, was du hier liest, gilt für Android. Apple Watch funktioniert nur mit iPhone und seine Daten befinden sich in Apple Health (iOS). Es gibt kein Health Connect-Äquivalent für iOS: Apple hat HealthKit, aber es ist per Definition auf dem Gerät, und kein Dritthersteller kann für dich in iCloud schreiben. Wenn du ein plattformübergreifendes Dashboard ausgehend von Apple Watch möchtest, musst du manuell exportieren oder dedizierte iOS-Apps verwenden.",
         pt: "Tudo o que você lê aqui se aplica ao Android. Apple Watch funciona apenas com iPhone e seus dados ficam no Apple Health (iOS). Não existe um equivalente do Health Connect para iOS: a Apple tem o HealthKit, mas por definição ele funciona no dispositivo, e nenhum fabricante terceiro pode gravar no iCloud por você. Se você quer um painel multiplataforma a partir do Apple Watch, precisa exportar manualmente ou usar apps iOS dedicados.",
         fr: "Tout ce que vous lisez ici s'applique à Android. Apple Watch ne fonctionne qu'avec iPhone et ses données résident dans Apple Health (iOS). Il n'existe pas d'équivalent Health Connect pour iOS : Apple a HealthKit, mais il fonctionne par définition sur l'appareil, et aucun fabricant tiers ne peut écrire dans iCloud à votre place. Si vous souhaitez un tableau de bord multiplateforme à partir d'Apple Watch, vous devez exporter manuellement ou utiliser des applications iOS dédiées.",
+        pl: "Wszystko, co tam czytasz, dotyczy Android. Apple Watch działa tylko z iPhone i ich dane istnieją w Apple Health (iOS). Nie ma równoważnego Health Connect dla iOS: Apple posiada HealthKit, ale jest to on-device po definicji, a żaden producent trzecich stron nie może pisać do iCloud zamiast Ciebie. Jeśli chcesz panel sterowania platformowy od Apple Watch, musisz eksportować dane ręcznie lub używać dedykowanych aplikacji iOS.",
+        tr: "Tüm burada okuduğunuzda geçtiği şey Android için geçerlidir. Apple Çocuk sahip sadece iPhone ile ve verileri Apple Health (iOS) içinde yaşamaktadır. Health Connect için bir karşılığı yoktur: Apple HealthKit vardır ancak on-device tanımlı olarak, ve hiçbir üçüncü taraf üreticisi senin adına iCloud'a yazamaz. Eğer bir platformlu ana panelden başlamak istiyorsan, Apple Çocuk'tan sonra manuel olarak dışa aktarmalısın veya iOS özel uygulamalarını kullanmalısın.",
       },
     },
     {
@@ -598,6 +762,8 @@ export const post: BlogPost = {
         de: "DSGVO, Gesundheitsdaten und wo deine Herzfrequenz landet",
         pt: "GDPR, dados de saúde e onde sua frequência cardíaca acaba",
         fr: "RGPD, données de santé et où finit votre fréquence cardiaque",
+        pl: "RODO, dane zdrowotne, a gdzie one zaczynają się i kończą",
+        tr: "KVKK, sağlık verileri ve burada sizinki BPM nerede bitiriyor",
       },
     },
     {
@@ -609,6 +775,8 @@ export const post: BlogPost = {
         de: "Herzfrequenz, Schlaf, Gewicht, Menstruationszyklus, Blutzucker: In Europa sind das Gesundheitsdaten (DSGVO Artikel 9). Ihre Erhebung erfordert eine ausdrückliche (keine implizite) Einwilligung, und ihre Verarbeitung unterliegt strengeren Regeln als andere personenbezogene Daten. Hat der Hersteller deines Wearables einen Rechtssitz in Europa? Wahrscheinlich nicht. Polar ist finnisch, Withings ist französisch, aber Samsung, Google, Fitbit, Garmin, Xiaomi und Huawei haben ihren Hauptsitz außerhalb der EU.",
         pt: "Frequência cardíaca, sono, peso, ciclo menstrual, glicemia: na Europa são dados de saúde (GDPR artigo 9). A sua coleta exige consentimento explícito (não implícito) e o seu tratamento está sujeito a regras mais rigorosas do que outros dados pessoais. O fabricante do seu wearable tem sede jurídica na Europa? Provavelmente não. Polar é finlandesa, Withings é francesa, mas Samsung, Google, Fitbit, Garmin, Xiaomi e Huawei têm sede fora da UE.",
         fr: "Fréquence cardiaque, sommeil, poids, cycle menstruel, glycémie : en Europe, ce sont des données de santé (RGPD article 9). Leur collecte nécessite un consentement explicite (pas implicite) et leur traitement est soumis à des règles plus strictes que les autres données personnelles. Le fabricant de votre appareil connecté a-t-il un siège social en Europe ? Probablement pas. Polar est finlandais, Withings est français, mais Samsung, Google, Fitbit, Garmin, Xiaomi et Huawei ont leur siège en dehors de l'UE.",
+        pl: "Częstotliwość serca, sen, waga, cykl menstrualny, glikemia: w Europie są to dane zdrowotne (RODO art. 9). Ich zbieranie wymaga zgody wyraźnej (nie nieokreślonej) i ich przetwarzanie podlega bardziej stricywnym zasadom niż inne osobiste dane. Czy producent Twojego smartwatcha ma siedzibę w Europie? Prawdopodobnie nie. Polar jest fiński, Withings francuski, ale Samsung, Google, Fitbit, Garmin, Xiaomi, Huawei mają siedziby poza UE.",
+        tr: "Frekans kalp atışları, uyku, ağız dili, ayakkabıcı periyodu, glikemi: Avrupa'da (GDPR maddesi 9). Bu verilerin toplanması resmi bir onayı gerektirir (gizli olmayan) ve bu verilerin işlenmesi diğer kişisel verilere göre daha sıkı kurallara tabidir. Size giyilebilir cihaz sağlayan firmanın Avrupa'da bir şube noktası var mı? Olası değil. Polar Finlandyalı, Withings Fransız, ancak Samsung, Google, Fitbit, Garmin, Xiaomi, Huawei Avrupa Birliği dışındadır.",
       },
     },
     {
@@ -620,6 +788,8 @@ export const post: BlogPost = {
         de: "Was das in der Praxis für dich bedeutet:",
         pt: "O que isso significa na prática para você:",
         fr: "Ce que cela signifie concrètement pour vous :",
+        pl: "Coznaczy to praktycznie dla Ciebie:",
+        tr: "Ne pratik olarak ne demek için:",
       },
     },
     {
@@ -655,6 +825,16 @@ export const post: BlogPost = {
           "**Droit à la portabilité (art. 20)**: vous avez le droit de recevoir vos données dans un format structuré et courant (CSV, JSON) et de les transmettre à un autre responsable de traitement. C'est le fondement juridique qui rend impossible le verrouillage total dans un écosystème.",
           "**Droit à l'effacement (art. 17)**: en supprimant le compte, les données doivent être effacées. En pratique, certains conservent des sauvegardes pendant 30 à 90 jours pour des raisons opérationnelles, ce qui est autorisé mais doit être documenté dans les politiques de confidentialité.",
         ],
+        pl: [
+          "**Przyprawa do dostępu (art. 15)**: możesz żądać od każdego producenta kopii Twoich danych. Muszą je dostarczyć w formacie czytelnym w ciągu 30 dni. Fitbit i Google Fit wykonują to za pomocą Google Takeout; Garmin za pomocą ustawień konta; Samsung Health za pomocą wyeksportowania wewnętrznego.",
+          "**Przyprawa do przenoszenia (art. 20)**: masz prawo do otrzymywania swoich danych w formacie struktowym i zrozumiałym (CSV, JSON), oraz do przekazania ich innemu nadawcy. To jest prawny fundament, który uniemożliwia całkowite zatopienie się w jakimkolwiek ekosystemie.",
+          "**Prawa do usunięcia (art. 17)**: usuwając konto, muszą usunąć dane. W praktyce niektórzy przechowują kopie zapasowe przez 30–90 dni z powodów operacyjnych, co jest akceptowane, ale dokumentowane w polityce prywatności.",
+        ],
+        tr: [
+          "**Erişim Hakki (Müv. 15)**: herhangi bir üreticiden sadece senin verilerin kopyasını isteyebilirsin. Verileri okunabilir bir biçimde 30 gün içinde sağlanması gerekmektedir. Fitbit ve Google Fit bunu Google Takeout üzerinden yapar; Garmin ise hesap ayarları üzerinden; Samsung Health ise iç aktarımla yapar.",
+          "**Portabilité du droit (madd. 20)**: have the right de recevoir vos données au format structuré et commun (CSV, JSON), et à les transmettre à un autre titulaire. Cela est la base juridique qui rend impossible de vous bloquer complètement dans un écosystème.",
+          "**Silahlaşma Hakki (Müv. 17)**: hesabı silemezseniz, veriler de silinmelidir. Uygulamada, bazıları operasyonel nedenlerle 30-90 gün sürecek yedekler tutabilirler ve bunun belirlenmiş olduğu gizlilik ilkelerinde belirtilmiştir.",
+        ],
       },
     },
     {
@@ -666,6 +846,8 @@ export const post: BlogPost = {
         de: "Möchtest du verstehen, wo deine Daten landen, ohne 50 Seiten Datenschutzrichtlinien zu lesen?",
         pt: "Quer entender para onde vão seus dados sem ler 50 páginas de política de privacidade?",
         fr: "Vous voulez comprendre où vont vos données sans lire 50 pages de politique de confidentialité ?",
+        pl: "Czy chcesz zrozumieć, gdzie idą dane bez czytania 50 stron z polityki prywatności?",
+        tr: "İhtiyacın olduğunda verilerin nereye gittiğini anlamak istiyor musunuz?",
       },
       body: {
         it: "Abbiamo scritto un approfondimento dedicato sui dati fitness e GDPR, con esempi pratici di come ogni grande brand gestisce i tuoi BPM.",
@@ -674,6 +856,8 @@ export const post: BlogPost = {
         de: "Wir haben einen ausführlichen Artikel über Fitnessdaten und DSGVO geschrieben, mit praktischen Beispielen, wie jede große Marke mit deiner Herzfrequenz umgeht.",
         pt: "Escrevemos um aprofundamento dedicado sobre dados fitness e GDPR, com exemplos práticos de como cada grande marca gerencia sua frequência cardíaca.",
         fr: "Nous avons rédigé une analyse approfondie sur les données fitness et le RGPD, avec des exemples pratiques de la façon dont chaque grande marque gère votre fréquence cardiaque.",
+        pl: "Napisaliśmy zagęszczoną analizę dotyczącą danych fitness i GDPR, w tym praktyczne przykłady, jak każda duża marka zarządza Twoimi BPM.",
+        tr: "Yazdık bir derleme makalesi fitlik veriler ve GDPR hakkında, her büyük markanın nasıl BPMlerinizi yönettiğine örneklerle ayrıntılı bilgi veriyor.",
       },
       ctaLabel: {
         it: "Leggi l'approfondimento GDPR →",
@@ -682,6 +866,8 @@ export const post: BlogPost = {
         de: "DSGVO-Analyse lesen →",
         pt: "Ler a análise GDPR →",
         fr: "Lire l'analyse RGPD →",
+        pl: "Przeczytaj zagłębienie GDPR →",
+        tr: "Okuyunuzda GDPR →",
       },
       ctaHref: {
         it: "/it/blog/gdpr-dati-fitness-smartwatch",
@@ -698,6 +884,8 @@ export const post: BlogPost = {
         de: "Vergleichsrahmen: So wählst du eine Synchronisierungslösung",
         pt: "Estrutura de comparação: como escolher uma solução de sincronização",
         fr: "Cadre de comparaison : comment choisir une solution de synchronisation",
+        pl: "Porównawcowa ramka: jak wybrać rozwiązanie synchronizacji",
+        tr: "Kıyaslama çerçevesi: hangi sinchronizasyon çözümü seçmek için?",
       },
     },
     {
@@ -709,6 +897,8 @@ export const post: BlogPost = {
         de: "Wenn du eine App oder einen Dienst bewertest, um deine Wearable-Daten an einem Ort zu zentralisieren, stelle diese fünf Fragen. Es sind dieselben, die wir intern für jede Integration stellen, die wir zu FitMesh Sync hinzufügen.",
         pt: "Ao avaliar um app ou serviço para centralizar os dados do seu wearable, faça estas cinco perguntas. São as mesmas que fazemos internamente para cada integração que adicionamos ao FitMesh Sync.",
         fr: "Lorsque vous évaluez une application ou un service pour centraliser les données de votre appareil connecté, posez ces cinq questions. Ce sont les mêmes que nous nous posons en interne pour chaque intégration que nous ajoutons à FitMesh Sync.",
+        pl: "Gdy oceniajesz aplikację lub usługę do przekazania danych z twojego wearable na jedno miejsce, zadaj te pięć pytań. Są one takie same, jak te, które postawiamy internalicznie dla każdej integracji, którą dodajemy do FitMesh Sync.",
+        tr: "Değeri değerlendirmek için bir uygulamayı veya hizmeti, giyilebilir cihazdan verilerin tek bir yerine taşınması açısından, beş soruyu cevaplayın. Bu, her eklediğimiz integ्रションに合わせて調整しますFitMesh Sync'a ait her bir entegrasyon için kendimize sorular olarak kullanıyoruz.",
       },
     },
     {
@@ -757,12 +947,26 @@ export const post: BlogPost = {
           "**Qui est derrière l'application ?** Cherchez qui paie les factures : si c'est gratuit et sans publicité, elle vend probablement des données. Le modèle 'payant, sans publicité, sans traceurs' est le seul viable pour les données de santé.",
           "**Que se passe-t-il s'ils ferment ?** Avez-vous un plan d'export automatique ? Vos données seront-elles téléchargeables même si le fondateur vend l'entreprise demain ?",
         ],
+        pl: [
+          "**Gdpr gdzie są dane?** Na urządzeniu (preferowane), chmura producenta (akceptowalne), nieprzezroczysta chmura trzecia strona (czerwone).",
+          "**Jakie uprawnienia są potrzebne?** Health Connect → zgranularne według typu danych. OAuth → zgranularne według zakresu. Jeśli aplikacja pyta o 'wszystko lub nic', to jest to ostrzeżenie alarmowe.",
+          "**Czy można eksportować?** Z app synchronizacji również, a nie tylko z producenta. Usługa, która pozwala wchodzić, ale nie wyjmuje, to pułapka.",
+          "**Kto stoi za aplikacją?** Kto płaci za rachunki: jeśli jest bezpłatna i nie pokazuje reklam, prawdopodobnie sprzedaje dane. Jedyna ścieżka płatna, bez reklam, bez monitorów, jest jedynie sostenowalna dla danych zdrowotnych.",
+          "**Coś się stanie, jeśli zamkną się?** Masz plan wyeksportowania automatycznego? Twoje dane będą dostępne do pobrania nawet wtedy, gdy jutro founder sprzeda firmę?",
+        ],
+        tr: [
+          "**Veri nerede saklanır?** Cihazda (tercih edilen), üretici bulutu (tolerable), şeffaf olmayan üçüncü taraf bulutu (kırmızı).",
+          "**Hangi izinler gereklidir?** Health Connect → veri türü için granülar. OAuth → kapsam için granülar. Eğer uygulama 'hepsi ya da hepsiz' sorusunu soruyorsa, bir uyarı sesi geliyor.",
+          "**Çıkış Yapabilir Miyim?** Sincronizasyon uygulamasından da yapabilirsiniz, sadece üretici den daha fazlasını. Bir hizmetin sana girmesini sağlayıp çıkmasını engellemeyi sağlayamayacağını bir kandırmaya benzetebiliriz.",
+          "**Kurucu kimdir?** Fatura ödemeyini arayan kişi: ücretsiz ve reklamı göstermeyen bir uygulama ise, verileri satıyor olabilir. 'Ödeyecek, reklamlı' yolu sadece sağlıklı bilgi için sürdürülebilir.",
+          "**NeWXYZ olurlar ne olur?** Giyilebilir cihazlar için otomatik export planınız var mı? Verileriniz kurucu satar olsa bile yarın indirilebilir.\nKVKK gereği verileriniz hala indirilebilir kalacaktır.",
+        ],
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Approfondimenti specifici per brand", en: "Brand-specific deep-dives", es: "Análisis en profundidad por marca", de: "Markenspezifische Vertiefungen", pt: "Aprofundamentos específicos por marca", fr: "Analyses approfondies par marque" },
+      text: { it: "Approfondimenti specifici per brand", en: "Brand-specific deep-dives", es: "Análisis en profundidad por marca", de: "Markenspezifische Vertiefungen", pt: "Aprofundamentos específicos por marca", fr: "Analyses approfondies par marque", pl: "Znaniisko specyficzne dla marki", tr: "Spesifik bilgiler marka için" },
     },
     {
       type: "paragraph",
@@ -773,6 +977,8 @@ export const post: BlogPost = {
         de: "Jedes Ökosystem hat seine Eigenheiten. Unten findest du ausführliche Vertiefungen für die häufigsten Fälle: Lies sie, wenn sie für dein Setup relevant sind, ansonsten überspringe sie.",
         pt: "Cada ecossistema tem suas particularidades. Abaixo você encontra aprofundamentos dedicados aos casos mais frequentes: leia-os se forem relevantes para seu setup, pule caso contrário.",
         fr: "Chaque écosystème a ses particularités. Vous trouverez ci-dessous des analyses approfondies pour les cas les plus fréquents : lisez-les si elles sont pertinentes pour votre configuration, ignorez-les sinon.",
+        pl: "Każdy ekosystem ma swoje niepokojące elementy. Poniżej znajdziesz zagłębione informacje dotyczące najczęściej występujących sytuacji: przeczytaj je, jeśli jesteś w odpowiednim dziedziny, pomin, jeśli nie dotyczą one Twojej konfiguracji.",
+        tr: "Herhangi bir ecosisteme aksilikleri vardır. Altında bulunan detaylı açıklamalar en sık görülen durumlara ayırt edilmiştir: bu konularla ilgileniyorsan oku, aksi takdirde geçersiz kural.",
       },
     },
     {
@@ -826,6 +1032,22 @@ export const post: BlogPost = {
           "**Applications pont cloud-à-cloud**: la catégorie 'applications reliant les écosystèmes de santé' est en pleine évolution. Panorama complet dans [Alternatives de synchronisation wearable 2026](/fr/blog/alternative-app-sync-wearable-2026).",
           "**RGPD en pratique**: où finissent réellement la fréquence cardiaque et le sommeil selon les politiques de confidentialité effectives. Voir [RGPD et données fitness](/fr/blog/gdpr-dati-fitness-smartwatch).",
         ],
+        pl: [
+          "**Galaxy Watch**: pipeline jest Samsung Health → Health Connect, ale trzeba wiedzieć, jakie uprawnienia są domyślnie włączone. Zobacz przewodnik [Tworzenie kopii zapasowej Galaxy Watch bez użycia Usługi Samsung Cloud](/it/blog/backup-galaxy-watch-pc).",
+          "**Fitbit po__FTER__ Google**: po__FTER__ a adq__UISIZIONE__ di Fitbit przez Google w 2021 roku i migracjii kont 2022–2023, zaszły istotne zmiany w sposobie eksportu. Zobacz [Eksportuj dane Fitbit po adq__UISIZIONE__ Google](/it/blog/eksportuj-dane-fitbit-google).",
+          "**Health Connect vs Samsung Health**: dwa poziomy działające razem. Gdzie używać, o tym opowiadamy w [Health Connect vs Samsung Health 2026](/it/blog/health-connect-vs-samsung-health).",
+          "**Przeglądarka panelu**: jeśli chcesz zobaczyć kroki/senny czas/BPM na PC bez aplikacji mobilnej, ścieżka nie jest oczywista, ale istnieje. Przejdź do [Zobacz dane z wearable za pomocą przeglądarki](/it/blog/zobacz-dane-wearable-za-pomocю-przeglądarki-na-pc).",
+          "**Pułapka aplikacji w chmurze do chmury**: kategoria 'aplikacja pułapka między ecosystemami' ulega pełnomocnemu zmianie. Cały obraz w [Alternatywne synchronizacje app wearable 2026](/it/blog/alternative-app-sync-wearable-2026).",
+          "**GDPR praktyka**: gdzie kończą się BPM i sen według praw prywatności. Zobacz [GDPR dane fitness](/pl/blog/rodo-dane-fitness-smartwatch).",
+        ],
+        tr: [
+          "**Galaxy Watch**: pipeline işleyişini Samsung Health → Health Connect olarak gösteriyorum, ancak varsayılan olarak hangi izinler aktif olduğuna dair bilgiye sahip olmanız gerekmektedir. [Galaxy Watch Yedeklemesini Samsung CLOUD İLE İLİŞKİLİ KESİRLERDEN BAZI İZİNLERE GÖRE OTOMATİK OLARAK YAPMA](/tr/blog/galaxy-watch-yedekleme-pc) için rehberi okuyun.",
+          "**Fitbit事后Google**: 2021年Google收购Fitbit并迁移账户2022-2023后，导出方式发生了显著变化。请参阅[导出Fitbit数据后的事宜](/it/blog/esportare-dati-fitbit-google).",
+          "**Health Connect vs Samsung Health**: i iki seviye birlikte çalışır. Hangi durumda hangisini kullanacağınızı [Health Connect vs Samsung Health 2026](/it/blog/kalp-bebek-bağlığı-vs-samsung-kalp-bebek-bağlığı) makalesinde açıklıyoruz.",
+          "**Günlük paneli**: se vuoi vedere passi/sonno/BPM su PC senza app mobile, il cammino non è ovvio ma esiste. Guida in [Giyilebilir Cihaz Verilerini Tarayıcıdan Görüntüleme](/it/blog/giyilebilir-cihaz-verileri-tarayicidan-goruntuleme-pc).",
+          "**Uygulama bulut-bulut köprüsü**: 'ekosistemlerarası uygulama köprüleri' kategorisi tamamen değişiyor. Tam görünüm [Alternatif uygulama asenkron giyilebilir cihaz 2026](/it/blog/alternative-app-sync-wearable-2026).",
+          "**GDPR uygulaması**: burada BPM ve uyku verilen bilgilerin gerçek gizlilik ilkesi nerede bitirir. [GDPR fitness verileri](/tr/blog/kvkk-fitness-verileri-akilli-saat).",
+        ],
       },
     },
     {
@@ -838,6 +1060,8 @@ export const post: BlogPost = {
         de: "Heute von FitMesh Sync unterstützte Anbieter",
         pt: "Provedores suportados hoje no FitMesh Sync",
         fr: "Fournisseurs pris en charge aujourd'hui sur FitMesh Sync",
+        pl: "Wspierane dostawcy dzisiaj na FitMesh Sync",
+        tr: "Destekleyici sağlayıcılar bugün FitMesh Sync üzerinde",
       },
     },
     {
@@ -849,6 +1073,8 @@ export const post: BlogPost = {
         de: "Zur Transparenz: FitMesh Sync ist das Produkt, das wir entwickeln, und der Grund, warum dieser Leitfaden existiert. Es funktioniert heute nativ mit jedem Android-Wearable, das in Health Connect schreibt, und wir haben OAuth-Integrationen für erweiterte Daten in der Roadmap. Keine vagen Versprechen: Hier ist der explizite Status jeder Integration.",
         pt: "Para ser transparente: FitMesh Sync é o produto que desenvolvemos e a razão pela qual este guia existe. Ele funciona hoje nativamente com todos os wearables Android que gravam no Health Connect, e temos integrações OAuth oficiais para dados avançados no roadmap. Sem promessas vagas: aqui está o estado explícito de cada integração.",
         fr: "Par souci de transparence : FitMesh Sync est le produit que nous développons et la raison pour laquelle ce guide existe. Il fonctionne aujourd'hui nativement avec tous les appareils connectés Android qui écrivent dans Health Connect, et nous avons des intégrations OAuth officielles pour les données avancées dans la feuille de route. Pas de promesses vagues : voici l'état explicite de chaque intégration.",
+        pl: "Dla przejrzystość: FitMesh Sync to produkt, który tworzymy i powód, dla którego istnieje ta instrukcja. Funkcjonuje dzisiaj naturalnie z wszystkimi wearable Android piszącymi na Health Connect, a integracje oficjalne dla zaawansowanych danych są w planach rozwijania produktu. Brak nieprecyzyjnych obietnic: oto jasny stan każdej integracji.",
+        tr: "İşte gerçektense: FitMesh Sync产品的构建基础以及我们为何要编写此指南的原因。它今天能够原生地与所有写入Health Connect的可穿戴设备Android无缝协作，并且高级数据整合的官方支持也在我们的计划之中。没有模糊的承诺：这就是每项整合的明确状态。",
       },
     },
     {
@@ -932,6 +1158,32 @@ export const post: BlogPost = {
           "[Oura Ring](/fr/sync/oura): OAuth uniquement, prévu Q4 2026.",
           "[Huawei](/fr/sync/huawei): Health Kit OAuth, en cours d'évaluation.",
         ],
+        pl: [
+          "[Galaxy Watch](/pl/sync/galaxy-watch): natywnie poprzez Samsung Health + HC.",
+          "[Wear OS / Pixel Watch]([__FM_URL_0__]): natywnie poprzez Fitbit app + HC.",
+          "[Pixel Watch dedykowany](/pl/sync/smartwatch): specyficzna instrukcja łańcucha Fitbit aplikacji.",
+          "[Xiaomi Mi Band / Smartwatch](/pl/sync/xiaomi-mi-band): natywnie poprzez Mi Fitness + HC (Mi Band 7+).",
+          "[Fitbit](/pl/sync/fitbit): działa dzisiaj poprzez HC, OAuth Web API w planie RODO Q3 2026.",
+          "[Garmin](/it/sync/garmin): podstawa dzisiaj poprzez HC, Body Battery/Load Treningowy w trakcie dostarczenia w III kwartale 2026.",
+          "[Polar](/it/sync/polar): podstawowy dzisiaj przez HC, Accesslink OAuth w rozmowie o IV kwartal 2026 roku.",
+          "[Withings](/it/sync/withings): podstawia się dzisiaj poprzez HC, OAuth API v2 w planie RODO Q4 2026.",
+          "[Strava](/it/sync/strava): dostępny tylko w tymczasowej wersji, w trakcie Q3 2026.",
+          "[Oura Drzemka](/it/sync/oura): OAuth-tylko, w rozmowie Q4 2026.",
+          "[Huawei](/it/sync/huawei): Komórkę zdrowotną OAuth, ocena w toku.",
+        ],
+        tr: [
+          "[Galaxy Watch](/tr/sync/galaxy-watch): yerel üzerinden Samsung Health + HC.",
+          "[Wear OS / Pixel Watch] (/it/sync/wear-os): nati ile Fitbit uygulaması + HC.",
+          "[Pixel Watch KVKK'ye verilen](/tr/sync/pixel-saat): Fitbit uygulaması için özel kural kitlesi.",
+          "[Xiaomi Mi Band / Saat](/tr/sync/xiaomi-mi-band): yerel üzerinden Mi Fitness + HC (Mi Band 7+).",
+          "[Fitbit](/tr/sync/fitbit): bugün HC yoluyla çalışır, OAuth Web API'yi 2026年第3季度路线图中。",
+          "[Garmin](/tr/sync/garmin): bugünkü temel HC yoluyla, Body Battery/Training Load Q3 2026'da gelmek üzere.",
+          "[Polar](/tr/sync/polar): bugünkü temel HC yoluyla erişilebilir cihaz, Accesslink OAuth Q4 2026'da gelmektedir.",
+          "[Withings](/tr/sync/withings): bugünHC ile senkronize edin, OAuth API v2 kademeleri yıldönümü 2026 Q4'unda.",
+          "[Strava](/it/sync/strava): OAuth sadece, Q3 2026'da gelmek üzere.",
+          "[Oura Çember](/tr/sync/oura): OAuth sadece, Q4 2026'e kadar.",
+          "[Huawei](/tr/sync/huawei): Sağlık Kağıdı OAuth, değerlendirme devam ediyor.",
+        ],
       },
     },
     {
@@ -943,6 +1195,8 @@ export const post: BlogPost = {
         de: "Bereit, deine Wearable-Daten zu zentralisieren?",
         pt: "Pronto para centralizar os dados do seu wearable?",
         fr: "Prêt à centraliser les données de votre appareil connecté ?",
+        pl: "Czy gotowy do centralizacji danych z Twojego smartwatcha?",
+        tr: "Pronto centralize veriye giyilebilir cihazınızdan?",
       },
       body: {
         it: "FitMesh Sync è gratis durante la beta per i primi 100 founder. App Android via Play Store, dashboard web inclusa.",
@@ -951,14 +1205,16 @@ export const post: BlogPost = {
         de: "FitMesh Sync ist während der Beta für die ersten 100 Founder kostenlos. Android-App via Google Play, Web-Dashboard inklusive.",
         pt: "FitMesh Sync é gratuito durante o beta para os primeiros 100 founders. App Android via Google Play, painel web incluído.",
         fr: "FitMesh Sync est gratuit pendant la bêta pour les 100 premiers founders. Application Android via Google Play, tableau de bord web inclus.",
+        pl: "FitMesh Sync jest darmowe podczas bêta dla pierwszych 100 founderów. Aplikacja dostępna w Google Play, z panelem kontroli internetowego włączonym.",
+        tr: "FitMesh Sync ücretsiz beta süresi için ilk 100 kurucu için. Uygulamayı Android aracılığıyla indirin, web tabanlı panel de dahil.",
       },
-      ctaLabel: { it: "Entra in beta", en: "Join the beta", es: "Únete a la beta", de: "Zur Beta anmelden", pt: "Entrar na beta", fr: "Rejoindre la bêta" },
+      ctaLabel: { it: "Entra in beta", en: "Join the beta", es: "Únete a la beta", de: "Zur Beta anmelden", pt: "Entrar na beta", fr: "Rejoindre la bêta", pl: "Wejście w betę", tr: "Betale giriniz" },
       ctaHref: { it: "/it/beta", en: "/en/beta" },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Cosa cambierà nei prossimi 18 mesi", en: "What will change in the next 18 months", es: "Qué cambiará en los próximos 18 meses", de: "Was sich in den nächsten 18 Monaten ändern wird", pt: "O que mudará nos próximos 18 meses", fr: "Ce qui changera dans les 18 prochains mois" },
+      text: { it: "Cosa cambierà nei prossimi 18 mesi", en: "What will change in the next 18 months", es: "Qué cambiará en los próximos 18 meses", de: "Was sich in den nächsten 18 Monaten ändern wird", pt: "O que mudará nos próximos 18 meses", fr: "Ce qui changera dans les 18 prochains mois", pl: "Coż zmieni się w ciągu najbliższych 18 miesięcy", tr: "Gelişenler ne olacak 18 ay içinde" },
     },
     {
       type: "paragraph",
@@ -969,6 +1225,8 @@ export const post: BlogPost = {
         de: "Health Connect steht vor einer Erweiterung: Google arbeitet mit Herstellern daran, proprietäre Datentypen (Intraday-HRV, Schlaf-Coaching, Training Readiness) als optionale Scopes hinzuzufügen. Die Europäische Kommission erwägt, von Wearables generierte persönliche Gesundheitsdaten in den Anwendungsbereich des European Health Data Space (EHDS) aufzunehmen, was geschlossenere Ökosysteme (Allen voran Apple) bis 2027–2028 zur Öffnung minimaler Interoperabilität zwingen könnte.",
         pt: "O Health Connect está destinado a se expandir: o Google está trabalhando com os fabricantes para adicionar tipos de dados proprietários (HRV intradiário, sleep coaching, training readiness) como escopos opcionais. A Comissão Europeia está avaliando incluir dados pessoais de saúde gerados por wearables no escopo do European Health Data Space (EHDS), o que poderia forçar os ecossistemas mais fechados (Apple em primeiro lugar) a abrir interoperabilidade mínima até 2027–2028.",
         fr: "Health Connect est appelé à s'étendre : Google travaille avec les fabricants pour ajouter des types de données propriétaires (HRV intraday, sleep coaching, training readiness) comme scopes optionnels. La Commission européenne évalue l'inclusion des données de santé personnelles générées par les wearables dans le périmètre de l'European Health Data Space (EHDS), ce qui pourrait obliger les écosystèmes plus fermés (Apple en premier lieu) à ouvrir une interopérabilité minimale d'ici 2027–2028.",
+        pl: "Health Connect jest przeznaczony do rozwoju: Google współpracuje z producentami, aby dodać opcjonalne zakresy danych prywatnych (HRV intradyjne, doradztwo spać, gotowość treningowa). Komisja Europejska ocenia włączenie danych zdrowia osobistych generowanych przez wearble do zakresu European Health Data Space (EHDS), co może zmusić bardziej zamknięte ecosystemy (w szczególności Apple) do otwartrzania minimalnej interoperacyjności do 2027–2028.",
+        tr: "Health Connect genişlemeye hazırdır: Google üreticilerle işbirliği içinde, sahihip veri türleri (HRV anlık piyasası, uyku danışmanlığı, egzersiz hazırlandırılışı) seçeneği olarak eklemek için çalışıyor. Avrupa Komisyonu, giyilebilir cihazlardan生成中，请稍候...",
       },
     },
     {
@@ -980,12 +1238,14 @@ export const post: BlogPost = {
         de: "Auf der kommerziellen Seite: Wir erwarten, dass mindestens Garmin oder Polar eine vollständig öffentliche Self-Service-API launcht (heute erfordern beide Developer-Genehmigung); Huawei Health Kit stärker außerhalb Chinas pusht; Oura einen Enterprise-Plan mit kostenlosem API-Zugang gegen Volumen einführt. All das ist fundierte Spekulation. Nimm es mit Vorsicht.",
         pt: "No front comercial: esperamos que pelo menos um entre Garmin e Polar lance uma API totalmente pública e self-serve (hoje ambos exigem aprovação de desenvolvedor); que Huawei tente impulsionar o Health Kit fora da China; que Oura introduza um plano enterprise com acesso gratuito à API em troca de volume. Tudo isso é especulação informada. Leve com reservas.",
         fr: "Sur le front commercial : nous nous attendons à ce qu'au moins Garmin ou Polar lance une API publique entièrement en self-service (aujourd'hui les deux nécessitent une approbation développeur) ; que Huawei pousse davantage Health Kit hors de Chine ; qu'Oura introduise un plan enterprise avec accès API gratuit en échange de volumes. Tout cela est une spéculation éclairée. À prendre avec précaution.",
+        pl: "Na polu komercy: oczekujemy, że co najmniej jedna z Garmin i Polar wyemituje pełnoprawną API samodzielnie obsługiwaną (obie obecnie wymagają zatwierdzenia deweloperów); że Huawei spróbuje bardziej naciskać Health Kit poza Chinami; że Oura wprowadzi pakiet przedsiębiorstwa umożliwiający bezpłatny dostęp API w zależności od objętości. To wszystko jest przesłuchaną speculacją, traktuj ją z solą w oczach.",
+        tr: "Sul fronte commerciale: ci aspettiamo che almeno uno tra Garmin e Polar lanci un'API completamente pubblica self-serve (oggi entrambi richiedono approvazione developer); che Huawei provi a spingere maggiormente Health Kit fuori dalla Cina; che Oura introduca un piano enterprise per accesso API a costo zero a fronte di volumi. Tutto questo è speculazione informata, prendila con un grano di sale.",
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Punto di partenza pratico", en: "Practical starting point", es: "Punto de partida práctico", de: "Praktischer Ausgangspunkt", pt: "Ponto de partida prático", fr: "Point de départ pratique" },
+      text: { it: "Punto di partenza pratico", en: "Practical starting point", es: "Punto de partida práctico", de: "Praktischer Ausgangspunkt", pt: "Ponto de partida prático", fr: "Point de départ pratique", pl: "Punkt startowy praktyczny", tr: "Başlangıç noktası praktik" },
     },
     {
       type: "paragraph",
@@ -996,6 +1256,8 @@ export const post: BlogPost = {
         de: "Wenn du so weit gelesen hast und konkrete Maßnahmen willst: Öffne dein Android-Telefon, installiere Health Connect (falls noch nicht vorhanden), öffne die App deines Hauptherstellers, geh in die Einstellungen und aktiviere die Health Connect Synchronisierung. Ab diesem Moment sind deine Daten für jede App zugänglich, die die richtige Berechtigung anfordert. Das ist buchstäblich die Basis.",
         pt: "Se você leu até aqui e quer ação concreta: abra seu telefone Android, instale o Health Connect (se ainda não tiver), abra o app do seu fabricante principal, vá nas configurações e ative a sincronização com o Health Connect. A partir desse momento, seus dados são acessíveis a qualquer app que solicite a permissão certa. É literalmente a base.",
         fr: "Si vous avez lu jusqu'ici et souhaitez passer à l'action : ouvrez votre téléphone Android, installez Health Connect (s'il n'est pas déjà là), ouvrez l'application de votre fabricant principal, allez dans les paramètres et activez la synchronisation Health Connect. À partir de ce moment, vos données sont accessibles à toute application qui demande la bonne autorisation. C'est littéralement la base.",
+        pl: "Jeśli dotarłeś tutaj dalej i chcesz konkretne działania: wejdź na telefon Android, zainstaluj Health Connect (jeśli nie ma już), otwórz aplikację producenta głównego, przejdź do ustawień i włącz synchronizację z Health Connect. Od tego momentu Twoje dane będą dostępne dla każdej aplikacji, która poprosi o odpowiednie zgody. To prawie podstawa.",
+        tr: "Se okudun burada ve eylem istiyorsun: telefonunu Android aç, Health Connect'u (eğer yoksa) kur (__FM_URL_0__), markanın ana üreticisi app'ini aç, ayarlar bölümüne gidip Health Connect ile senkronizasyonu etkinleştir. Bu noktadan itibaren verilerin herhangi bir uygulamaya doğru röportajına uygun izin veren app'a erişilebilir olacak. Gerçekten de temel bu.",
       },
     },
     {
@@ -1007,12 +1269,14 @@ export const post: BlogPost = {
         de: "Wenn du sie dann in einem übersichtlichen Dashboard statt in fünf verschiedenen Apps sehen möchtest, probiere FitMesh Sync. Wenn du lieber bei den Hersteller-Apps bleibst, hast du jetzt die Werkzeuge, um ihre Grenzen zu verstehen und zu wissen, wann du zu einer anderen Lösung wechseln solltest.",
         pt: "Depois, se você quiser vê-los em um painel organizado em vez de fragmentados em cinco apps diferentes, experimente o FitMesh Sync. Se preferir continuar com os apps dos fabricantes, agora você tem as ferramentas para entender seus limites e saber quando mudar para outra opção.",
         fr: "Ensuite, si vous souhaitez les voir dans un tableau de bord ordonné plutôt que fragmentés dans cinq applications différentes, essayez FitMesh Sync. Si vous préférez continuer avec les applications des fabricants, vous avez maintenant les outils pour comprendre leurs limites et savoir quand passer à autre chose.",
+        pl: "Następnie, jeśli chcesz zobaczyć je na uporządkowanej dashboard zamiast rozproszonych w pięciu różnych aplikacjach, spróbuj FitMesh Sync. Jeśli preferujesz kontynuować korzystanie z aplikacji producentów, teraz masz narzędzia do zrozumienia ich ograniczeń i decydowania kiedy przejść do innej.",
+        tr: "Sonra, eğer farklı beş uygulama yerine düzenli bir arayüze bakmak isterseniz, FitMesh Sync denenebilir. Eğer producer uygulamalarını devam etmek tercihinizi aldığınızda, şimdi limitleri anlamanız ve başka bir şeyden geçmeniz gerektiğinde ne zaman hareket etmeliğin bilgisine sahip olabilirsiniz.",
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "In sintesi", en: "In summary", es: "En resumen", de: "Zusammenfassung", pt: "Em resumo", fr: "En résumé" },
+      text: { it: "In sintesi", en: "In summary", es: "En resumen", de: "Zusammenfassung", pt: "Em resumo", fr: "En résumé", pl: "W syntezie", tr: "Özetle" },
     },
     {
       type: "list",
@@ -1059,12 +1323,26 @@ export const post: BlogPost = {
           "Avant d'acheter un appareil connecté, faites le test : recherchez sur Google '[nom de l'appareil] Health Connect'. S'il n'y a pas de guide officiel du fabricant, vous vous enfermez dans un écosystème fermé.",
           "Pour les données de santé, le seul modèle économique avec des incitations alignées est 'payant, sans publicité, sans traceurs' : les applications gratuites monétisent presque toujours en vendant des données agrégées.",
         ],
+        pl: [
+          "Są trzy rzeczywiste sposoby na wydzielanie danych z smartwatcha: Health Connect (na urządzeniu, bez konfiguracji, Android), API oficjalne OAuth (pełne prywatne dane, wymaga zaakceptowania), eksport ręczny (wolny, ale chroniony prawem przez art. 20 GDPR).",
+          "Health Connect nie jest Google Fit: Google Fit jest deprecowany od czerwca 2025 roku, a Health Connect to unifikowany i ścisły standard on-device.",
+          "Samsung, Fitbit, Garmin, Polar, Withings piszą na Health Connect. Oura i Huawei nie: wymagają OAuth lub są ecosystemami zamkniętymi.",
+          "Przed zakupem wearable, wykonaj test: wyszukaj '[nazwa urządzenia] Health Connect' na Google. Jeśli nie ma oficjalnej instrukcji producenta, skutkujesz z zamkniętego ekosystemu.",
+          "Dla danych zdrowotnych tylko jeden ekonomiczny model z wyrównanymi incenzyjami jest płatny, bez reklam, bez śledczy: darmowe aplikacje finansują się prawie zawsze sprzedając agregowane dane.",
+        ],
+        tr: [
+          "Üç gerçek yolu bir giyilebilir cihazdan verileri almak için var: Health Connect (Android cihazda, ayarlı olmayan, OAuth), resmi GDPR API'si (tam sahiplik verileri, onay gerektirir), el ile export (__FM_TERM_4__ çok yavaş ancak yasal olarak __FM_TERM_5__ 20. madde tarafından garanti edilmiştir).",
+          "KVKK'ye uymayan: KVKK'ye uymayan 2025 yılı Haziran ayında depremiyor, Health Connect akıllı cihazda unifiye ve sıkı bir standarttır.",
+          "Samsung, Fitbit, Garmin, Polar, Withings yazar. Oura ve Huawei yok: gereksiz OAuth veya kapalı ecosistemler isteniyor.",
+          "Önce giyilebilir bir cihaz almadan, '[adlı cihaz] Health Connect' arayın Google. Eğer üretici resmi bir kılavuz yoksa, kapalı bir ecosisteme bağlandığınızdır.",
+          "Sağlamlık verileri için, tek ekonomik model 'ödeme yapma, reklam yok, izleyici yok' sistemine uyumlu olan: ücretsiz uygulamalar genellikle toplanan verileri satarak gelir elde ederler.",
+        ],
       },
     },
   ],
   faq: [
     {
-      q: { it: "Devo per forza usare Health Connect?", en: "Do I have to use Health Connect?", es: "¿Es obligatorio usar Health Connect?", de: "Muss ich Health Connect verwenden?", pt: "Sou obrigado a usar o Health Connect?", fr: "Dois-je obligatoirement utiliser Health Connect ?" },
+      q: { it: "Devo per forza usare Health Connect?", en: "Do I have to use Health Connect?", es: "¿Es obligatorio usar Health Connect?", de: "Muss ich Health Connect verwenden?", pt: "Sou obrigado a usar o Health Connect?", fr: "Dois-je obligatoirement utiliser Health Connect ?", pl: "Musi korzystać z Health Connect?", tr: "Gereksiz olarak kullanmak zorunda değilim Health Connect?" },
       a: {
         it: "Sui telefoni Android moderni è di fatto lo standard per qualsiasi sync wearable terzo. Esistono ancora app che leggono direttamente dal cloud del produttore via OAuth (Strava, Oura, Garmin Connect IQ), ma per la maggior parte dei dati 'di base' Health Connect è la via più veloce e privacy-friendly. Su iOS Health Connect non esiste: lì il riferimento è HealthKit.",
         en: "On modern Android phones it's effectively the standard for any third-party wearable sync. There are still apps reading directly from the manufacturer cloud via OAuth (Strava, Oura, Garmin Connect IQ), but for most 'basic' data Health Connect is the fastest and most privacy-friendly route. On iOS Health Connect doesn't exist: there the reference is HealthKit.",
@@ -1072,6 +1350,8 @@ export const post: BlogPost = {
         de: "Auf modernen Android-Telefonen ist es de facto der Standard für jede Drittanbieter-Wearable-Synchronisierung. Es gibt noch Apps, die direkt aus der Hersteller-Cloud via OAuth lesen (Strava, Oura, Garmin Connect IQ), aber für die meisten 'grundlegenden' Daten ist Health Connect der schnellste und datenschutzfreundlichste Weg. Auf iOS existiert Health Connect nicht: dort ist HealthKit die Referenz.",
         pt: "Nos telefones Android modernos, ele é de fato o padrão para qualquer sincronização de wearables com apps de terceiros. Ainda existem apps que leem diretamente da nuvem do fabricante via OAuth (Strava, Oura, Garmin Connect IQ), mas para a maioria dos dados 'básicos' o Health Connect é o caminho mais rápido e respeitoso com a privacidade. No iOS o Health Connect não existe: lá a referência é o HealthKit.",
         fr: "Sur les téléphones Android modernes, c'est de facto le standard pour toute synchronisation de wearables avec des applications tierces. Il existe encore des applications qui lisent directement depuis le cloud du fabricant via OAuth (Strava, Oura, Garmin Connect IQ), mais pour la plupart des données 'de base', Health Connect est la voie la plus rapide et la plus respectueuse de la confidentialité. Sur iOS, Health Connect n'existe pas : là, la référence est HealthKit.",
+        pl: "Na nowych telefonach Android faktycznie standardem jest synchronizacja z dodatkowym sprzętem trzecich producentów. Istnieją nadal aplikacje, które czytają bezpośrednio z chmury producenta poprzez OAuth (Strava, Oura, Garmin Connect IQ), ale dla większości podstawowych danych Health Connect jest najbardziej szybką i priwatnosćją przyjazną drogą. Na iOS Health Connect nie ma: tam domyślnie jest to HealthKit.",
+        tr: "Sürücü telefongunda Android moderni de实际上，现代的智能穿戴设备标准实际上是通过Health Connect直接从制造商云端同步。仍然存在一些应用可以直接通过OAuth(如Strava、Oura、Garmin Connect IQ)读取云数据，但对于大多数基础数据来说，Health Connect是最快速且隐私友好的方式。在iOS上没有Health Connect：在那里，参考的是HealthKit。\n请注意，由于目标语言为土耳其语，上述翻译可能需要进一步调整以确保自然流畅。以下是根据规则调整后的翻译：\n\nSürücü telefongunda Android moderni de实际上，现代的智能穿戴设备标准实际上是通过Health Connect直接从制造商云端同步。仍然存在一些应用可以直接通过OAuth(如Strava、Oura、Garmin Connect IQ)读取云数据，但对于大多数基础数据来说，Health Connect是最快速且隐私友好的方式。在iOS上没有Health Connect：在那里，参考的是HealthKit。\n实际上，现代的智能穿戴设备标准实际上是通过Health Connect直接从制造商云端同步。仍然存在一些应用可以直接通过OAuth(如Strava、Oura、Garmin Connect IQ)读取云数据，但对于大多数基础数据来说，Health Connect是最快速且隐私友好的方式。在iOS上没有Health Connect：在那里，参考的是HealthKit。\n\n以下是根据规则调整后的翻译：\n\nSürücü telefongunda Android moderni de faktikten, herhangi bir sync wearable tercih edilen standarttır. Hala bazı uygulamalar doğrudan üretici bulutundan (OAuth gibi Strava, Oura, Garmin Connect IQ) verileri okuyabilir, ancak çoğu temel veri için Health Connect en hızlı ve gizlilik dostu yoldur. iOS üzerinde Health Connect yok: orada referans HealthKit olmaktadır.",
       },
     },
     {
@@ -1082,6 +1362,8 @@ export const post: BlogPost = {
         de: "Spioniert Health Connect mich aus? Sieht Google meine Daten?",
         pt: "O Health Connect me espia? O Google vê meus dados?",
         fr: "Health Connect m'espionne-t-il ? Google voit-il mes données ?",
+        pl: "Czy Health Connect mnie śledzi? Czy Google widzi moje dane?",
+        tr: "Health Connect mi izliyor? Google verilerimi görüyormu?",
       },
       a: {
         it: "No, Health Connect è strettamente on-device. Google fornisce il software e l'API ma i dati non lasciano il telefono finché tu non concedi esplicitamente il permesso a un'app terza. È diverso quando installi l'app Fitbit (di Google) e quella sincronizza con il cloud Fitbit: lì la responsabilità del dato è di Fitbit/Google, non di Health Connect.",
@@ -1090,6 +1372,8 @@ export const post: BlogPost = {
         de: "Nein, Health Connect ist strikt auf dem Gerät. Google stellt die Software und die API bereit, aber Daten verlassen das Telefon nicht, bis du einer Drittanbieter-App explizit die Erlaubnis gibst. Es ist anders, wenn du die Fitbit-App (von Google) installierst, die mit der Fitbit-Cloud synchronisiert: dort ist Fitbit/Google für die Daten verantwortlich, nicht Health Connect.",
         pt: "Não, o Health Connect é estritamente no dispositivo. O Google fornece o software e a API, mas os dados não saem do telefone até que você conceda explicitamente permissão a um app de terceiros. É diferente quando você instala o app Fitbit (do Google), que sincroniza com a nuvem Fitbit: ali o responsável pelos dados é o Fitbit/Google, não o Health Connect.",
         fr: "Non, Health Connect fonctionne strictement sur l'appareil. Google fournit le logiciel et l'API mais les données ne quittent pas le téléphone jusqu'à ce que vous accordiez explicitement l'autorisation à une application tierce. C'est différent lorsque vous installez l'application Fitbit (de Google) qui synchronise avec le cloud Fitbit : là, le responsable des données est Fitbit/Google, pas Health Connect.",
+        pl: "No, Health Connect jest strefnie na urządzeniu. Google dostarcza oprogramowanie i API, ale dane nie opuszcza telefonu dopóki nie udzielasz explikitego zgody trzeciej aplikacji. Jest inaczej, gdy zainstalujesz aplikację Fitbit (z Google) i ta synchronizuje się z chmurą Fitbit: wtedy odpowiedzialność za dane spada na Fitbit/Google, a nie na Health Connect.",
+        tr: "No, Health Connect tam olarak cihazda yerel olarak çalışır. Google yazılımı ve API sağlar ancak veriler sadece açıkça bir üçüncü uygulama için izin verirseniz telefonundan ayrılmaz. Ancak Fitbit (di Google) adlı uygulamanın kurulumunda farklılık vardır ve bu, bulutta Fitbit ile senkronize olur: burada veri sorumluluğu Fitbit/Google'dir, Health Connect'da değil.",
       },
     },
     {
@@ -1100,6 +1384,8 @@ export const post: BlogPost = {
         de: "Kann ich Garmin Body Battery in einer Drittanbieter-App sehen?",
         pt: "Posso ver os dados do Garmin Body Battery em um app de terceiros?",
         fr: "Puis-je voir Garmin Body Battery dans une application tierce ?",
+        pl: "Czy mogę zobaczyć dane Garmin Body Battery w aplikacji trzecich stron?",
+        tr: "Görüyorum ki Garmin Body Battery verileri bir üçüncü taraf uygulamasında görebilirim?",
       },
       a: {
         it: "Non oggi via Health Connect: HC non espone metriche proprietarie come Body Battery, Training Load, Recovery Time. Per averle in un'app terza serve che il produttore abbia un'API ufficiale (Garmin Health API) e che l'app terza sia approvata per usarla. Garmin richiede approvazione developer; alcune app come Athlytic la ottengono, altre no.",
@@ -1108,6 +1394,8 @@ export const post: BlogPost = {
         de: "Heute nicht via Health Connect: HC gibt keine proprietären Metriken wie Body Battery, Training Load, Recovery Time weiter. Um sie in einer Drittanbieter-App zu erhalten, braucht man die offizielle API des Herstellers (Garmin Health API) und die Genehmigung der Drittanbieter-App zur Nutzung. Garmin erfordert Developer-Genehmigung; einige Apps wie Athlytic erhalten sie, andere nicht.",
         pt: "Hoje não via Health Connect: o HC não expõe métricas proprietárias como Body Battery, Training Load, Recovery Time. Para tê-las em um app de terceiros, é necessário que o fabricante tenha uma API oficial (Garmin Health API) e que o app de terceiros seja aprovado para usá-la. O Garmin exige aprovação de desenvolvedor; alguns apps como Athlytic a obtêm, outros não.",
         fr: "Pas aujourd'hui via Health Connect : HC n'expose pas les métriques propriétaires comme Body Battery, Training Load, Recovery Time. Pour les avoir dans une application tierce, il faut que le fabricant dispose d'une API officielle (Garmin Health API) et que l'application tierce soit approuvée pour l'utiliser. Garmin exige une approbation développeur ; certaines applications comme Athlytic l'obtiennent, d'autres non.",
+        pl: "Nie dzisiaj w tym sensie: HC nie ekspozycji metryk prywatnych jak Body Battery, Load Treningowy, Czas Regeneracji. Aby je uzyskać w innej app trzeba, że producent ma oficjalną API (Garmin Health API) i że ta druga app jest zatwierdzona do jej użycia. Garmin wymaga zatwierdzenia deweloperów; niektóre app'y takie jak Athlytic je otrzymują, inne nie.",
+        tr: "Bugün HC'da özel metriklerin (Health Connect) gösterilmez: Body Battery, Training Load, Recovery Time gibi. Bu metrikleri bir üçüncü uygulamada görmek için üreticiye resmi bir API (Garmin Health API) gereklidir ve üçüncü uygulama onu kullanmak için onaylanmalıdır. Garmin geliştiricinin onayı gerektirir; bazı uygulamaları (örneğin, Athlytic) bu onay elde edebilirken, diğerleri de bunu yapmaz.",
       },
     },
     {
@@ -1118,6 +1406,8 @@ export const post: BlogPost = {
         de: "Was passiert, wenn ich mitten im Jahr den Smartwatch wechsle?",
         pt: "O que acontece se eu trocar de smartwatch no meio do ano?",
         fr: "Que se passe-t-il si je change de montre connectée en cours d'année ?",
+        pl: "Coś się stanie, jeśli zmienię smartwatch po pół roku?",
+        tr: "Ne yazık ki orta yılda akıllı saati değiştirebilirim mi?",
       },
       a: {
         it: "Se entrambi (vecchio e nuovo) scrivono su Health Connect, lo storico passi/BPM/sonno si trova affiancato senza buchi: HC è agnostica rispetto alla fonte. Se passi tra ecosistemi chiusi (es. Apple Watch → Galaxy Watch), devi esportare manualmente i dati di Apple Health e re-importarli (non c'è un automatismo). Una buona pratica è esportare i dati ogni 6 mesi per sicurezza.",
@@ -1126,6 +1416,8 @@ export const post: BlogPost = {
         de: "Wenn beide (alter und neuer) in Health Connect schreiben, liegen die Schritt-/Herzfrequenz-/Schlafdaten nebeneinander ohne Lücken: HC ist quellenagnostisch. Wenn du zwischen geschlossenen Ökosystemen wechselst (z.B. Apple Watch → Galaxy Watch), musst du Apple Health-Daten manuell exportieren und re-importieren (es gibt keine Automatisierung). Eine gute Praxis ist es, Daten alle 6 Monate zur Sicherheit zu exportieren.",
         pt: "Se ambos (antigo e novo) gravam no Health Connect, o histórico de passos/frequência cardíaca/sono aparece lado a lado sem lacunas: o HC é agnóstico em relação à fonte. Se você mudar entre ecossistemas fechados (por exemplo, Apple Watch → Galaxy Watch), precisa exportar os dados do Apple Health manualmente e reimportá-los (não há automação). Uma boa prática é exportar os dados a cada 6 meses por segurança.",
         fr: "Si les deux (ancien et nouveau) écrivent dans Health Connect, l'historique pas/fréquence cardiaque/sommeil se retrouve côte à côte sans lacunes : HC est agnostique quant à la source. Si vous passez entre écosystèmes fermés (par exemple Apple Watch → Galaxy Watch), vous devez exporter manuellement les données Apple Health et les réimporter (il n'y a pas d'automatisation). Une bonne pratique est d'exporter vos données tous les 6 mois par précaution.",
+        pl: "Jeśli oba (stary i nowy) piszą na Health Connect, historia śpienia/BPM/pisolino znajduje się obok bez przerw: HC jest agnostyczna wobec źródła. Jeśli przeprowadzasz dane między zamkniętymi ekosystemami (np. Apple Watch → Galaxy Watch), musisz eksportować dane Apple Health ręcznie i ponownie importować (nie ma automatyzacji). Dobre praktyka to eksport danych co 6 miesięcy z powodu bezpieczeństwa.",
+        tr: "Her ikisi (Health Connect ve yeni) Health Connect'a yazılarak çalışır, tarihi geçiş/BPM/uyku hiçbir boşluk bırakmadan yan yana: HC kaynak konusunda agnostik. Eğer ecosistemler arası geçişler varsa (örn.: Apple Watch → Galaxy Watch), Apple Health verilerini el ile dışa aktarmanız ve yeniden içe aktarmanız gerekmektedir (otomatizmi yoktur). Güvenlik açısından her 6 ayda verileri dışa aktarma bir iyi uygulamadır.",
       },
     },
     {
@@ -1136,6 +1428,8 @@ export const post: BlogPost = {
         de: "Gibt es kostenlose Apps, die dasselbe tun?",
         pt: "Existem apps gratuitos que fazem a mesma coisa?",
         fr: "Existe-t-il des applications gratuites qui font la même chose ?",
+        pl: "Czy są darmowe aplikacje, które robią to samo?",
+        tr: "Giyilebilir cihazlarla aynı şeyi yapabilen ücretsiz uygulamalar var mı?",
       },
       a: {
         it: "Sì, alcune con caveat. Le app gratuite tipicamente monetizzano in tre modi: pubblicità (raccolta dati per ad-tech), upselling premium (gratis per le funzioni base, paghi per quelle che cerchi), o vendita di dati aggregati (i dati salute sono molto valutati). Per dati salute il pricing 'a pagamento, no ads, no tracker' è l'unico modello con allineamento di incentivi pulito. Onestamente: scegli ciò che si allinea al tuo livello di paranoia, ma sii consapevole.",
@@ -1144,6 +1438,8 @@ export const post: BlogPost = {
         de: "Ja, einige mit Einschränkungen. Kostenlose Apps monetarisieren typischerweise auf drei Arten: Werbung (Datennerhebung für Ad-Tech), Premium-Upselling (kostenlos für Grundfunktionen, bezahlt für die, die du wirklich willst), oder Verkauf aggregierter Daten (Gesundheitsdaten sind sehr wertvoll). Für Gesundheitsdaten ist 'kostenpflichtig, keine Werbung, keine Tracker' das einzige Preismodell mit sauberem Interessensausgleich. Ehrlich gesagt: Wähle, was zu deinem Datenschutzbewusstsein passt, aber sei dir bewusst.",
         pt: "Sim, algumas com ressalvas. Os apps gratuitos tipicamente monetizam de três formas: publicidade (coleta de dados para ad-tech), upselling premium (gratuito para funções básicas, pago para as que você realmente quer), ou venda de dados agregados (dados de saúde são muito valorizados). Para dados de saúde, o modelo 'pago, sem anúncios, sem rastreadores' é o único com alinhamento de incentivos limpo. Honestamente: escolha o que se alinha ao seu nível de preocupação com privacidade, mas esteja ciente.",
         fr: "Oui, certaines avec des mises en garde. Les applications gratuites monétisent typiquement de trois façons : publicité (collecte de données pour l'ad-tech), upselling premium (gratuit pour les fonctions de base, payant pour celles que vous cherchez vraiment), ou vente de données agrégées (les données de santé sont très valorisées). Pour les données de santé, le modèle 'payant, sans publicité, sans traceurs' est le seul avec un alignement d'incitations propre. Honnêtement : choisissez ce qui correspond à votre niveau de vigilance sur la confidentialité, mais soyez conscient.",
+        pl: "Tak, z niektórymi odbiegami. Bezpłatne aplikacje tipicamente monetyzują trzema sposobami: reklama (zbieranie danych do technologii reklamowej), sprzedaz premium (bezpłatne dla podstawowych funkcji, płacisz za te, które szukasz), lub sprzedaż agregowanych danych (dane zdrowotne są bardzo cenione). W przypadku danych zdrowotnych cennik 'z płatnością, bez reklam, bez śledczy' jest jedynym modeliem z czysto wyrównanymi incydentami. Szczerze mówiąc: wybierz to, co się zgadza z poziomem Twojej paranoji, ale byj świadomy.",
+        tr: "Evet, bazıları şartlı olarak. Ücretsiz uygulamalar genellikle üç yolla gelir elde ederler: reklam (veri toplama için ad-tıket), premium fiyatlandırma (temel özellikler ücretsiz, aradığınız özellikler için ödeme yapılır), veya agregasyonlu veri satışları (sağlık verileri çok değerlidir). Sağlık verileri için 'ödeme, reklam yok, izleyici yok' modeli tek temiz incentive alignment modelidir. Sincere olarak: hangisini paranoyak seviyenize göre seçin, ancak bilinçli olun.",
       },
     },
   ],

@@ -14,6 +14,8 @@ export const post: BlogPost = {
     de: "von welchem Gerät deine Daten stammen",
     pt: "de qual dispositivo vêm os seus dados",
     fr: "de quel appareil proviennent vos données",
+    pl: "z jakiego urządzenia pochodzą dane",
+    tr: "Hangi cihazdan veriler geliyor",
   },
   secondaryKeywords: {
     it: [
@@ -44,6 +46,20 @@ export const post: BlogPost = {
       "FitMesh Sync transparence des données",
       "fusionner les données wearable sans doublons",
     ],
+    pl: [
+      "źródło danych zdrowotnych",
+      "zegarek i pękaty anelletto вместе",
+      "kroki policone jednorazowo",
+      "FitMesh Sync przejrzystość danych",
+      "unićdzie dane z smartwatches bez duplikatów",
+    ],
+    tr: [
+      "dijital sağlık verileri kaynakları",
+      "ayakkabı ve yüzük birlikte",
+      "adım sayımı sadece bir kez",
+      "FitMesh Sync KVKK uyumu",
+      "veri giyilebilir cihazlardan bir arada bezeli ve tekrarlıları engelle",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync ora mostra da quale dispositivo arriva ogni dato salute: orologio, anello o altro. Una vista unica, senza doppioni, sempre chiara su chi misura cosa.",
@@ -52,6 +68,8 @@ export const post: BlogPost = {
     de: "FitMesh Sync zeigt jetzt, von welchem Gerät jeder Gesundheitswert stammt: Uhr, Ring oder anderes. Eine klare Übersicht, keine Duplikate, immer transparent über die Quelle.",
     pt: "FitMesh Sync agora mostra de qual dispositivo vem cada dado de saúde: relógio, anel ou outro. Uma visão única, sem duplicatas, sempre clara sobre a fonte.",
     fr: "FitMesh Sync indique maintenant de quel appareil provient chaque donnée de santé: montre, bague connectée ou autre. Une vue claire, sans doublons, toujours transparente sur la source.",
+    pl: "FitMesh Sync teraz pokazuje z którego urządzenia pochodzą每一个翻译选项都被保留，与原始文本一致。请允许我直接提供翻译结果：\n\nFitMesh Sync teraz pokazuje z którego urządzenia pochodzą każdy zapis zdrowia: smartwatch, anello lub innego. Jedna jednoznaczna wizja, bez powtórzeń, zawsze jasna na temat tego, kto ma pomiar.",
+    tr: "FitMesh Sync şimdi her verinin hangi cihazdan geldi gösteriyor: akıllı saat, giyilebilir cihaz ya da başka bir şey. Tek tek, tekrarsız ve her zaman net bir bakış.",
   },
   tldr: {
     it: [
@@ -90,9 +108,21 @@ export const post: BlogPost = {
       "Quand un appareil se recharge, un autre couvre cette période sans laisser de vide.",
       "Fonctionne de la même façon sur Android et iPhone, sans rien configurer.",
     ],
+    pl: [
+      "Każda metryka teraz może pokazywać z jakiej źródła pochodzi, na przykład 'Źródło: branslet' pod Spałem.",
+      "Je, jeśli nosisz zegarek i pierścień razem, kroki nie są liczone dwukrotnie.",
+      "Podczas gdy urządzenie jest na ładowaniu, inny go pokrywa w tym okresie bez pozostawiania wycieków.",
+      "Funkcjonuje tak samo na Android i iPhone, bez konfiguracji.",
+    ],
+    tr: [
+      "Herhangi bir metrik artık nereden geldiğini gösterebilir, örneğin 'Kaynak: Döngü' uyku altına girdiğinizde.",
+      "Giyilebilir cihaz ve yüzük同时翻译如下：\n\nEğer akıllı saat ve yüzük aynı zamanda giyiyorsanız, adımlar ikinci kez sayılmaz.",
+      "Bir cihaz şarj ediliyorken, bir başka o dönemde boğaz bırakmadan kaplar.",
+      "Fun İşe Ayakta Alınır Android ve iPhone 'de, herhangi bir ayar yapmadan.",
+    ],
   },
   hero: {
-    kicker: { it: "Novità", en: "What's New", es: "Novedades", de: "Neuigkeiten", pt: "Novidades", fr: "Nouveautés" },
+    kicker: { it: "Novità", en: "What's New", es: "Novedades", de: "Neuigkeiten", pt: "Novidades", fr: "Nouveautés", pl: "Nowości", tr: "Yeni Özellikler" },
     title: {
       it: "Ora sai da quale dispositivo arriva ogni dato",
       en: "Now you know which device each metric comes from",
@@ -100,6 +130,8 @@ export const post: BlogPost = {
       de: "Jetzt siehst du, von welchem Gerät jeder Wert stammt",
       pt: "Agora você sabe de qual dispositivo vem cada dado",
       fr: "Vous savez maintenant de quel appareil provient chaque donnée",
+      pl: "Teraz wiesz z którego urządzenia pochodzą todoszujące dane",
+      tr: "Şimdi her verinin hangi cihazdan geldiğini öğreniyorsunuz",
     },
     subtitle: {
       it: "Orologio, anello e altri dispositivi nella stessa schermata, con l'indicazione chiara di chi ha misurato cosa. Una vista unica, senza conteggi doppi.",
@@ -108,6 +140,8 @@ export const post: BlogPost = {
       de: "Uhr, Ring und andere Geräte auf einem Bildschirm, mit einer klaren Angabe, welches Gerät was gemessen hat. Eine Übersicht, keine Doppelzählungen.",
       pt: "Relógio, anel e outros dispositivos na mesma tela, com a indicação clara de quem mediu o quê. Uma visão única, sem contagens duplicadas.",
       fr: "Montre, bague connectée et autres appareils sur un seul écran, avec une indication claire de qui a mesuré quoi. Une vue unique, sans double comptage.",
+      pl: "Zegarek, pętelka i inne urządzenia na tej samej ekranie, z wyraźną wskazówką, kto pomiar przeprowadził. Jedna jednoznaczna perspektywa, bez podwójnych liczebников.",
+      tr: "Orologio, yüzük ve diğer giyilebilir cihazlar aynı ekran üzerinde, kimin neyi ölçtüğünü belirten açık bir gösterimle listeleniyor. Tek tek bakış açısı, tekrarlı sayılara sahip değildir.",
     },
   },
   body: [
@@ -120,6 +154,8 @@ export const post: BlogPost = {
         de: "In FitMesh Sync arbeiten deine Geräte zusammen: Uhr, Ring und andere Wearables laufen in einem einzigen Bildschirm zusammen. Ab heute kommt etwas hinzu: Du siehst klar, von welchem Gerät jeder Wert stammt.",
         pt: "No FitMesh Sync os seus dispositivos trabalham juntos: relógio, anel e outros wearables se reúnem em uma única tela. A partir de hoje há algo a mais: você vê com clareza de qual dispositivo vem cada dado.",
         fr: "Dans FitMesh Sync, vos appareils fonctionnent ensemble: montre, bague connectée et autres wearables se retrouvent sur un seul écran. À partir d'aujourd'hui, il y a quelque chose de plus: vous voyez clairement de quel appareil provient chaque donnée.",
+        pl: "Wydawnictwo FitMesh Sync Twoje urządzenia pracują razem: zegarek, pęslla i inne wearable skoncentrują się na jednym ekranie. Od dziś jest coś więcej: widzisz jasno z którego urządzenia pochodzi każdy zestawienie.",
+        tr: "FitMesh Sync cihazların seninle bir arada çalışır: akıllı saat, pisolino ve diğer giyilebilir cihazlar tek ekran üzerinden toplanır. Şimdiye kadar bir adım daha ileri: her verinin hangi cihzden geldiğini net bir şekilde görürsünüz.",
       },
     },
     {
@@ -132,6 +168,8 @@ export const post: BlogPost = {
         de: "Sieh die Quelle jedes Messwerts",
         pt: "Veja a fonte de cada dado",
         fr: "Voir la source de chaque donnée",
+        pl: "Zobacz",
+        tr: "Herhangi bir verinin kaynağına bakın",
       },
     },
     {
@@ -143,6 +181,8 @@ export const post: BlogPost = {
         de: "Unter den Messwerten des Tages kann ein kleines Label erscheinen, zum Beispiel 'Quelle: Ring' unter Schlaf. Das bedeutet, dass dieser Wert vom Ring gemessen wurde, nicht von der Uhr. Wenn ein Wert vom Gerät stammt, das du immer am Handgelenk trägst, muss das nicht angegeben werden. Das Label erscheint also nur, wenn es nützlich ist, es zu wissen.",
         pt: "Abaixo das métricas do dia pode aparecer uma pequena etiqueta, por exemplo 'Fonte: anel' sob o Sono. Significa que aquele valor foi medido pelo anel, não pelo relógio. Quando um dado vem do dispositivo que você sempre usa, não é preciso indicar. Então a etiqueta aparece apenas quando é útil saber.",
         fr: "Sous les métriques de la journée, une petite étiquette peut apparaître, par exemple 'Source: bague connectée' sous Sommeil. Cela signifie que cette valeur a été mesurée par la bague connectée, pas par la montre. Quand une donnée provient de l'appareil que vous portez toujours, il n'est pas nécessaire de le préciser. L'étiquette n'apparaît donc que quand c'est utile à savoir.",
+        pl: "Poni podstawowe metryki dnia może pojawić się mała etykietka, na przykład 'Źródło: anello' pod Senem. Oznacza to, że ten wartość pomiaru dokonał anell, a nie zegarek. Gdy dane przychodzą z urządzenia, które zawsze nosisz na nadgarstku, to nie ma potrzeby tego mówić, więc etykietka pojawia się tylko wtedy, gdy jest to użyteczne do znalezienia.",
+        tr: "Günlük metrikler altında bir küçük etiket gösterebilir, örneğin 'Fonte: anello' uyku altına. Bu, o değer cihazınızın takladığını belirtir, yani uygun olduğunda bu bilgi gerekli olabilir. Veri her zaman bacağınıza takılan cihaza gelirse etiket görünmez kalır.",
       },
     },
     {
@@ -155,6 +195,8 @@ export const post: BlogPost = {
         de: "Keine Doppelzählungen",
         pt: "Sem contagens duplicadas",
         fr: "Aucun double comptage",
+        pl: "Brak podwójnych liczeb",
+        tr: "İki katlama yok",
       },
     },
     {
@@ -166,6 +208,8 @@ export const post: BlogPost = {
         de: "Wenn du mehrere Geräte gleichzeitig trägst, zählen sie dieselben echten Schritte. FitMesh Sync addiert sie nicht: Es zeigt das korrekte Bild deines Tages, ohne die Zahlen aufzublähen.",
         pt: "Se você usa vários dispositivos ao mesmo tempo, eles contam os mesmos passos reais. FitMesh Sync não os soma: mantém o quadro correto do seu dia, sem inflar os números.",
         fr: "Si vous portez plusieurs appareils en même temps, ils comptent les mêmes pas réels. FitMesh Sync ne les additionne pas: il conserve le tableau correct de votre journée, sans gonfler les chiffres.",
+        pl: "Je wennisz więcej urządzeń jednocześnie, liczy się rzeczywiste kroki. FitMesh Sync ich nie sumuje: podaje poprawną obrazę Twojego dnia, bez powiększania liczb.",
+        tr: "Eğer aynı anda daha fazla cihaz giyiyorsanız, gerçek adımlarınız sayılır. FitMesh Sync bunları toplamaz: günlük senaryonunuzu doğru bir şekilde korur, rakamları şişirmeden.",
       },
     },
     {
@@ -178,6 +222,8 @@ export const post: BlogPost = {
         de: "Möchtest du verstehen, wie wir mit mehreren Geräten umgehen?",
         pt: "Quer entender como gerenciamos vários dispositivos em detalhes?",
         fr: "Vous souhaitez comprendre comment nous gérons plusieurs appareils en détail?",
+        pl: "Czy chcesz zrozumieć, jak zarządzamy więcej urządzeń w szczegółach?",
+        tr: "İhtiyacın olduğunda daha fazla cihaz nasıl yönettiğimizi anlamak istiyor musunuz?",
       },
       body: {
         it: "Abbiamo una guida dedicata che spiega tutto, con esempi per ogni combinazione: [piu smartwatch insieme senza dati doppi](/it/blog/piu-smartwatch-insieme-dati-doppi).",
@@ -186,6 +232,8 @@ export const post: BlogPost = {
         de: "Wir haben eine eigene Anleitung, die alles erklärt, mit Beispielen für jede Kombination: [mehrere Smartwatches gleichzeitig ohne doppelte Daten](/de/blog/piu-smartwatch-insieme-dati-doppi).",
         pt: "Temos um guia dedicado que explica tudo, com exemplos para cada combinação: [vários smartwatches juntos sem dados duplicados](/pt/blog/piu-smartwatch-insieme-dati-doppi).",
         fr: "Nous avons un guide dédié qui explique tout, avec des exemples pour chaque combinaison: [plusieurs montres connectées ensemble sans données en double](/fr/blog/piu-smartwatch-insieme-dati-doppi).",
+        pl: "Mamy dedykowana przewodnik, który wyjaśnia wszystko, z przykładami dla każdej kombinacji: [więcej smartwatches razem bez danych dublowanych](/pl/blog/wiecej-smartwatches-razem-bez-danych-dublowanych).",
+        tr: "Günlük bir kılavuzdan faydalanabilirsiniz, her kombinasyon için detaylı bilgi veriyor ve örnekler sunuyor: [iki akıllı saat beraberinde veri çiftliği olmadan](/tr/blog/i-k-ak-l-m-saat-beraberinde-veri-ciftligi-yetme).",
       },
     },
     {
@@ -198,6 +246,8 @@ export const post: BlogPost = {
         de: "Uhr lädt? Ein anderes Gerät übernimmt",
         pt: "Relógio carregando? Outro dispositivo cobre",
         fr: "Montre en charge? Un autre appareil prend le relais",
+        pl: "Zegarek w ręce? To poradzi za drugie urządzenie",
+        tr: "Günlük cihazı mı takıyorsunuz? Başka bir cihaz bu işi yapacak.",
       },
     },
     {
@@ -209,6 +259,8 @@ export const post: BlogPost = {
         de: "Es kommt vor, dass du die Uhr ein paar Stunden lädt. In dieser Zeit übernimmt der Ring die Aufzeichnung, wenn du ihn trägst. Wenn du deinen Tag abrufst, werden die von verschiedenen Geräten abgedeckten Stunden zu einem einzigen Bild zusammengefügt, ohne Lücken und ohne Duplikate.",
         pt: "Às vezes você deixa o relógio carregando por algumas horas. Nesse período, se você estiver usando o anel, é ele que mantém o registro. Quando você consulta o seu dia, as horas cobertas por dispositivos diferentes se unem em um quadro único, sem lacunas e sem duplicatas.",
         fr: "Il arrive de laisser la montre se recharger pendant quelques heures. Pendant ce temps, si vous portez la bague connectée, c'est elle qui enregistre. Quand vous consultez votre journée, les heures couvertes par différents appareils se réunissent en une seule vue, sans lacune et sans doublons.",
+        pl: "Cap;;;;;;;;;;;;;a di pozostawić zegarek na ładowaniu przez kilka godzin. W tym czasie, jeśli będziesz nosić pierścień, on będzie śledził. Kiedy sprawdzisz stan dnia, dni wykryte przez różne urządzenia połączą się w jedno całe obraz, bez pustek i powtarzalnych elementów.",
+        tr: "Capıta di giyilebilir cihazını sakin birkaç saat boyunca şarj etmek. Bu süre zarfında, anelıyı giyiyorsan ve ona bırak. Ne zaman gününüzü kontrol ederken, farklı cihazlar altında gizlenen saati, tek bir görselle tamamlayarak bir araya getirirseniz, boşlukları olmayacak ve tekrarlamaları deyilcek.",
       },
     },
     {
@@ -221,6 +273,8 @@ export const post: BlogPost = {
         de: "Gleich auf Android und iPhone",
         pt: "O mesmo no Android e no iPhone",
         fr: "Pareil sur Android et iPhone",
+        pl: "Tak dla Android i iPhone",
+        tr: "Aynı şey Android ve iPhone için de geçerlidir.",
       },
     },
     {
@@ -232,6 +286,8 @@ export const post: BlogPost = {
         de: "Ob du ein Android-Telefon oder ein iPhone verwendest, das Verhalten ist identisch: Die Daten deiner Geräte werden in derselben Ansicht zusammengeführt, mit derselben Transparenz über die Quelle. Wenn du beide nutzt, findest du weitere Details auf der Seite über [zwei Telefone auf demselben Konto](/de/lp/due-telefoni).",
         pt: "Seja você usar um telefone Android ou um iPhone, o comportamento é idêntico: os dados dos seus dispositivos se unem na mesma visão, com a mesma transparência sobre a fonte. Se você usa os dois, encontrará mais detalhes na página sobre [dois telefones na mesma conta](/pt/lp/due-telefoni).",
         fr: "Que vous utilisiez un téléphone Android ou un iPhone, le comportement est identique: les données de vos appareils se réunissent dans la même vue, avec la même transparence sur la source. Si vous utilisez les deux, vous trouverez plus de détails sur la page [deux téléphones sur le même compte](/fr/lp/due-telefoni).",
+        pl: "Je korzystasz z telefonu Android lub smartwatch iPhone, zachowuje się to identycznie: dane twoich urządzeń połączą się na tej samej widoku, z taką samą przejrzystością w sprawdzaniu źródła. Jeśli używasz obu, znajdziesz trochę więcej szczegółów na stronie dedykowanej do [dwух telefonów na tym samym kontcie](/it/lp/dwa-telefony).",
+        tr: "KVKK uyumluluğunu kontrol ettiğinde Android veya iPhone kullanarak, davranış ve aynıdır: cihazların verileri aynı görünümde birleştirilir ve kaynak hakkında eşit seviyede transparanlık sağlanır. Her iki cihaz da kullanıyorsanız, [aynı hesapta iki telefonun](/tr/lp/iki-telefon) sayfasında bazı detaylar bulabilirsiniz.",
       },
     },
     {
@@ -243,6 +299,8 @@ export const post: BlogPost = {
         de: "Probiere es mit deinen Geräten",
         pt: "Experimente com os seus dispositivos",
         fr: "Essayez-le avec vos appareils",
+        pl: "Sprawdzono na Twoich urządzeniach",
+        tr: "Deneyebileceksiniz ownernizin cihazlarıyla",
       },
       body: {
         it: "Entra nella beta, collega orologio e anello e guarda la giornata unita in un solo posto, con la fonte di ogni dato sempre chiara.",
@@ -251,6 +309,8 @@ export const post: BlogPost = {
         de: "Tritt der Beta bei, verbinde Uhr und Ring und sieh, wie dein Tag an einem Ort zusammengeführt wird, mit der Quelle jedes Messwerts immer klar sichtbar.",
         pt: "Entre na beta, conecte o relógio e o anel e veja o seu dia reunido em um só lugar, com a fonte de cada dado sempre clara.",
         fr: "Rejoignez la bêta, connectez votre montre et votre bague connectée et voyez votre journée réunie en un seul endroit, avec la source de chaque donnée toujours clairement indiquée.",
+        pl: "Wprowadź się do brytyzmu, podłącz smartwatch i pierścień i obserwuj całą dobę w jednym miejscu, z zawsze jasną źródłem każdego danych.",
+        tr: "Giriş beta’ya, akıllı saat ve giyilebilir cihazını bağla ve her günün bilgilerini tek bir yerde izle, her verinin kaynağı her zaman net olarak görünür.",
       },
       ctaLabel: {
         it: "Inizia la beta gratuita",
@@ -259,6 +319,8 @@ export const post: BlogPost = {
         de: "Kostenlose Beta starten",
         pt: "Começar a beta gratuita",
         fr: "Commencer la bêta gratuite",
+        pl: "Zacznij bezpłatną betę",
+        tr: "Başlat ücretsiz betanız",
       },
       ctaHref: {
         it: "/it/beta",
@@ -275,6 +337,8 @@ export const post: BlogPost = {
         de: "Warum zeigen manche Messwerte die Quelle und andere nicht?",
         pt: "Por que algumas métricas mostram a fonte e outras não?",
         fr: "Pourquoi certaines métriques affichent la source et d'autres non?",
+        pl: "Dlaczego niektóre metryki pokazują źródło, a inne nie?",
+        tr: "Neden bazı metrikler kaynak gösteriyorken, diğeri ise göstermiyor?",
       },
       a: {
         it: "L'etichetta appare solo quando il dato arriva da un dispositivo diverso da quello che indossi di solito, cosi resta un'informazione utile e non rumore. Quando il dato arriva dal dispositivo principale, l'etichetta non serve.",
@@ -283,6 +347,8 @@ export const post: BlogPost = {
         de: "Das Label erscheint nur, wenn der Wert von einem anderen Gerät als dem stammt, das du normalerweise trägst. So bleibt es eine nützliche Information und kein Lärm. Wenn der Wert vom Hauptgerät kommt, wird das Label nicht benötigt.",
         pt: "A etiqueta aparece apenas quando o dado vem de um dispositivo diferente do que você costuma usar, para que continue sendo uma informação útil e não ruído. Quando o dado vem do dispositivo principal, a etiqueta não é necessária.",
         fr: "L'étiquette n'apparaît que lorsque la donnée provient d'un appareil différent de celui que vous portez habituellement, pour rester une information utile et non du bruit. Quand la donnée vient de votre appareil principal, l'étiquette n'est pas nécessaire.",
+        pl: "Etycyna pojawia się tylko wtedy, gdy dane przychodzą z urządzenia innego niż to, które zwykle nosisz, co pozostawia to informację użyteczną, a nie szum. Gdy dane przychodzą z głównego urządzenia, etycyna nie jest potrzebna.",
+        tr: "Etiket sadece genellikle giydiğin cihazdan farklı bir cihazdan gelen veri durumunda görünür, böylece faydalı bir bilgi kalır ve rassal gürültü olmaz. Verinin ana cihazdan geldiğinde etiket gereksiz olur.",
       },
     },
     {
@@ -293,6 +359,8 @@ export const post: BlogPost = {
         de: "Werden die Schritte addiert, wenn ich Uhr und Ring trage?",
         pt: "Se eu tiver relógio e anel, os passos são somados?",
         fr: "Si j'ai une montre et une bague connectée, les pas sont-ils additionnés?",
+        pl: "Jeśli mam smartwatch i pierścień, kroki się dodatkują?",
+        tr: "Eğer akıllı saati ve giyilebilir cihazıım, adımlar ben birbirine eklenir mi?",
       },
       a: {
         it: "No. Contano gli stessi passi reali, quindi FitMesh Sync li unisce senza raddoppiarli. Il numero che vedi e il quadro corretto della giornata, non la somma dei dispositivi.",
@@ -301,6 +369,8 @@ export const post: BlogPost = {
         de: "Nein. Sie zählen dieselben echten Schritte, also führt FitMesh Sync sie zusammen, ohne sie zu verdoppeln. Die Zahl, die du siehst, ist das korrekte Bild deines Tages, nicht die Summe der Geräte.",
         pt: "Não. Eles contam os mesmos passos reais, então FitMesh Sync os une sem duplicá-los. O número que você vê é o quadro correto do seu dia, não a soma dos dispositivos.",
         fr: "Non. Ils comptent les mêmes pas réels, donc FitMesh Sync les regroupe sans les doubler. Le chiffre que vous voyez est le tableau correct de votre journée, pas la somme des appareils.",
+        pl: "No. Zliczają one te same rzeczywiste kroki, więc FitMesh Sync je połącza bez podwójnego zliczania. Liczba, którą widzisz, to poprawny obraz dnia, a nie suma urządzeń.",
+        tr: "No. Aynı gerçek adımları sayılır, bu nedenle FitMesh Sync onları çift saymaz. Görünen sayı ve doğru gün枡k架构，不是设备的总和。",
       },
     },
     {
@@ -311,6 +381,8 @@ export const post: BlogPost = {
         de: "Funktioniert es, wenn ich zwei Telefone benutze, Android und iPhone?",
         pt: "Funciona se eu usar dois telefones, Android e iPhone?",
         fr: "Cela fonctionne-t-il si j'utilise deux téléphones, Android et iPhone?",
+        pl: "Czy działa, jeśli używam dwóch telefonów, Android i iPhone?",
+        tr: "İki telefon kullanırsam, Android ve iPhone çalışır mı?",
       },
       a: {
         it: "Si. I dati confluiscono nello stesso account e si uniscono nella stessa vista, con la fonte di ogni metrica indicata dove serve.",
@@ -319,6 +391,8 @@ export const post: BlogPost = {
         de: "Ja. Die Daten laufen in dasselbe Konto und werden in derselben Ansicht zusammengeführt, mit der Quelle jedes Messwerts dort angegeben, wo es hilfreich ist.",
         pt: "Sim. Os dados fluem para a mesma conta e se unem na mesma visão, com a fonte de cada métrica indicada onde for útil.",
         fr: "Oui. Les données confluent vers le même compte et se retrouvent dans la même vue, avec la source de chaque métrique indiquée là où c'est utile.",
+        pl: "Tak. Dane konfluują do tego samego konta i łączą się w tej samej widoku, z podaniem źródła każdej metryki tam, gdzie jest to potrzebne.",
+        tr: "Evet. Veriler aynı hesaba akar ve aynı görünümde birleştirilir, her metrik kaynakının kaynağındaki yerlerde belirlenmiştir.",
       },
     },
     {
@@ -329,6 +403,8 @@ export const post: BlogPost = {
         de: "Muss ich etwas einrichten?",
         pt: "Preciso configurar alguma coisa?",
         fr: "Dois-je configurer quelque chose?",
+        pl: "Muszę coś skonfigurować?",
+        tr: "Bazı ayarlar yapmalıyım?",
       },
       a: {
         it: "No. Basta avere i dispositivi collegati: l'unione dei dati e l'indicazione della fonte sono automatiche.",
@@ -337,6 +413,8 @@ export const post: BlogPost = {
         de: "Nein. Verbinde einfach deine Geräte: Die Zusammenführung der Daten und die Anzeige der Quelle erfolgen automatisch.",
         pt: "Não. Basta ter os dispositivos conectados: a fusão dos dados e a indicação da fonte são automáticas.",
         fr: "Non. Il suffit d'avoir vos appareils connectés: la fusion des données et l'indication de la source se font automatiquement.",
+        pl: "Nie. Wystarczy połączyć urządzenia: łączenie danych i wskazanie źródła odbywa się automatycznie.",
+        tr: "No. Yeterli ki giyilebilir cihazlarınızı bağlıysınız: verilerin birleştirilmesi ve kaynak gösterimi otomatik olur.",
       },
     },
   ],

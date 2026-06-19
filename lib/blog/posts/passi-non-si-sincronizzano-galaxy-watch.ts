@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Les données historiques ne sont pas synchronisées rétroactivement avec Health Connect: le passé reste dans Samsung Health.",
       "Si tout échoue, utilisez 'Vider le cache' (pas les données) de Samsung Health et redémarrez.",
     ],
+    pl: [
+      "Ciąg synchronizacji ma pięć etapów: Watch→Bluetooth→Samsung Health→Health Connect→app trzecia. Problem występuje prawie zawsze na drugim lub czwartym etapie.",
+      "Przy.reason.number.1: optymalizacja baterii Android zawiesza Samsung Health w tle. Wyłącz ją dla Samsung Health i Galaxy Wearable.",
+      "Na jednej UI sprawdza również 'Uruchom aplikację' i włącza手动模式和后台自动启动。",
+      "Dane historyczne nie są synchronizowane wstecznie na Health Connect: przeszłość pozostaje w Samsung Health.",
+      "Jeśli wszystko się nie uda, usuń bufor Samsung Health (nie dane) i uruchom ponownie.",
+    ],
+    tr: [
+      "Günlük sinkronizasyonun döngüsü beş adımdan oluşur: Watch→Bluetooth→Samsung Health→Health Connect→app üçüncü taraf. Problemin neredeyse her zaman ikinci veya dördüncü adıma rastlanır.",
+      "Cümlenin birincisi: L'ottimizzazione batteria Android sospende Samsung Health in background. Disabilitala per Samsung Health e giyilebilir cihaz.\n\nCümlenin ikinciği: Causa numero uno: l'ottimizzazione batteria Android sospende Samsung Health in background. Disabilitala per Samsung Health e Galaxy Wearable.",
+      "Güneş One UI 'Uygulama Başlatıcısı'nı denetler ve otomatik ve arka planda başlatmayı manuel olarak etkinleştirir.",
+      "Geçmiş veriler geri döndürülebilir olarak Health Connect'a synkronize edilmez: geçmiş kalmaya kalır Samsung Health.",
+      "Eğer her şey başarısız olursa, Samsung Health önbelleğini temizle (verileri silme) ve yeniden başlat.",
+    ],
   },
   primaryKeyword: {
     it: "passi non si sincronizzano galaxy watch",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "schritte synchronisieren galaxy watch",
     pt: "passos não sincronizam galaxy watch",
     fr: "pas ne se synchronisent galaxy watch",
+    pl: "kroki nie synchronizują się z galaxy watch",
+    tr: "paslar kvkk'ya uygun şekilde akıllı saatinize-sync-olmuyor",
   },
   secondaryKeywords: {
     it: [
@@ -87,6 +103,20 @@ export const post: BlogPost = {
       "samsung health pas erronés",
       "galaxy watch dépannage",
     ],
+    pl: [
+      "Samsung Health nie synchronizuje kroku",
+      "zegarek smartowy nieprzebrany kroki",
+      "zegarek galaxy dane nie są zsynchronizowane",
+      "schwagek pasi błędy",
+      "rozszerzenia smartwata galaxy",
+    ],
+    tr: [
+      "Samsung Health eşitlenmiyor __FM_PH_0__ pasları __FM_URL_0__",
+      "galaxy watch pasılınmamış",
+      "galaxy watch veri同步不成功",
+      "Samsung Sağlamlık Geçişleri Hatalı",
+      "galaxy saati sorun giderme",
+    ],
   },
   metaDescription: {
     it: "Passi Galaxy Watch non sincronizzati su Samsung Health? Guida passo-passo per risolvere: permessi, Health Connect, Bluetooth, ottimizzazione batteria, e i casi estremi. Con soluzione per ogni scenario.",
@@ -95,6 +125,8 @@ export const post: BlogPost = {
     de: "Galaxy Watch Schritte werden in Samsung Health nicht synchronisiert? Schritt-für-Schritt-Anleitung: Berechtigungen, Health Connect, Bluetooth, Akku-Optimierung und Sonderfälle. Mit Lösung für jedes Szenario.",
     pt: "Os passos do Galaxy Watch não sincronizam no Samsung Health? Guia passo a passo para resolver: permissões, Health Connect, Bluetooth, otimização de bateria e casos extremos. Com solução para cada cenário.",
     fr: "Les pas du Galaxy Watch ne se synchronisent pas dans Samsung Health? Guide étape par étape: autorisations, Health Connect, Bluetooth, optimisation de la batterie et cas particuliers. Une solution pour chaque scénario.",
+    pl: "Kroki krokowe dla niepowiązanych kropek Samsung Health? Kroki krokowe do rozwiązywania: uprawnienia, Health Connect, Bluetooth, optymalizacja akumulatora, i przypadki ekstremalne. Rozwiązanie dla każdego scenariusza.",
+    tr: "Paslar Galaxy Watch sıfırıncı Samsung Health'da synkronlaşmıyor? Adım-adım çözüm rehberi: izinler, Health Connect, Bluetooth, bateri optimizasyonu ve özel durumlar. Her senaryoya göre çözüm.",
   },
   hero: {
     kicker: {
@@ -104,6 +136,8 @@ export const post: BlogPost = {
       de: "Fehlerbehebung",
       pt: "Solução de problemas",
       fr: "Résolution de problèmes",
+      pl: "Rozwiązywanie problemów",
+      tr: "Problem Lemke Çözümleri",
     },
     title: {
       it: "Galaxy Watch: passi non sincronizzati, come risolvere",
@@ -112,6 +146,8 @@ export const post: BlogPost = {
       de: "Galaxy Watch: Schritte nicht synchronisiert, so behebst du das (Anleitung 2026)",
       pt: "Galaxy Watch: passos não sincronizados, como resolver (guia 2026)",
       fr: "Galaxy Watch: pas non synchronisés, comment résoudre le problème (guide 2026)",
+      pl: "Galaxy Watch: nie synchronizowane kroki, jak je naprawić",
+      tr: "Galaxy Watch: pas geçmişi eşleşmeyenler, nasıl çözebilirim",
     },
     subtitle: {
       it: "Il Galaxy Watch conta i passi sul polso, ma Samsung Health o un'altra app non li vede? Il problema ha cause precise, non è magia. Questa guida ti porta dalla diagnosi alla soluzione in ordine di probabilità, senza perdere tempo con le soluzioni sbagliate.",
@@ -120,6 +156,8 @@ export const post: BlogPost = {
       de: "Dein Galaxy Watch zählt Schritte am Handgelenk, aber Samsung Health oder eine andere App sieht sie nicht? Das Problem hat klare Ursachen, kein Rätsel. Diese Anleitung führt dich in der Reihenfolge der Wahrscheinlichkeit von der Diagnose zur Lösung, ohne Zeit mit den falschen Schritten zu verschwenden.",
       pt: "Seu Galaxy Watch conta os passos no pulso, mas o Samsung Health ou outro app não os vê? O problema tem causas precisas, não é magia. Este guia leva você do diagnóstico à solução em ordem de probabilidade, sem perder tempo com soluções erradas.",
       fr: "Votre Galaxy Watch compte les pas au poignet, mais Samsung Health ou une autre application ne les voit pas? Le problème a des causes précises, ce n'est pas de la magie. Ce guide vous mène du diagnostic à la solution dans l'ordre de probabilité, sans perdre de temps sur les mauvaises pistes.",
+      pl: "Weg/****************************************************************************\nRODO liczbuje kroki naручku, ale Samsung Health lub innegoaplikacji to nie widzi? Problem ma precyzyjne przyczyny, nie jest to magia. Ta instrukcja prowadzi Cię oddiagnóstki do rozwiązania w kolejności prawdopodobieństwa, bez stracenia czasu na nieprawidłowe rozwiązania.\n*/",
+      tr: "Il Galaxy Watch sayısını polisten takip ediyor, ancak Samsung Health veya başka bir uygulama bu verileri göremez mi? Sorun belirli nedenlerden kaynaklanıyor ve gerçekçi bir çözüm yolculuğunda kalın. Bu rehber yanlış çözümlerle zaman kaybetmeden sorunu tanımaya ve çözmeye yardımcı oluyor.",
     },
   },
   body: [
@@ -132,6 +170,8 @@ export const post: BlogPost = {
         de: "Wenn Galaxy Watch Schritte Samsung Health nicht erreichen, gibt es eine Handvoll präziser, diagnostizierbarer Ursachen: Akku-Optimierung, die die App im Hintergrund beendet, fehlende Health Connect-Berechtigungen oder veraltete Firmware. Den genauen Bruchpunkt in der Kette Watch→Bluetooth→Samsung Health→Health Connect zu finden, löst das Problem in 90 % der Fälle, ohne etwas neu installieren zu müssen. Hier ist die Diagnose in der richtigen Reihenfolge.",
         pt: "Os passos do Galaxy Watch que não chegam ao Samsung Health têm um punhado de causas precisas e diagnosticáveis: a otimização de bateria que encerra o app em segundo plano, permissões do Health Connect ausentes ou firmware desatualizado. Identificar o ponto exato de ruptura na cadeia Watch→Bluetooth→Samsung Health→Health Connect resolve o problema em 90% dos casos sem precisar reinstalar nada. Aqui está o diagnóstico na ordem certa.",
         fr: "Les pas du Galaxy Watch qui n'arrivent pas dans Samsung Health ont quelques causes précises et diagnosticables: l'optimisation de la batterie qui tue l'application en arrière-plan, des autorisations Health Connect manquantes ou un firmware obsolète. Identifier le point exact de rupture dans la chaîne Watch→Bluetooth→Samsung Health→Health Connect résout le problème dans 90 % des cas sans rien réinstaller. Voici le diagnostic dans le bon ordre.",
+        pl: "Kroki Galaxy Watch nie docierają do Samsung Health z powodów precyzyjnych i diagnozowalnych: optymalizowana bateria, która zabija aplikację w tle, brak permisji Health Connect, lub firmware przestarzały. Zidentyfikowanie dokładnego punktu awarii w łańcuchu Watch→Bluetooth→Samsung Health→Health Connect rozwiązuje problem w 90% przypadków bez konieczności ponownego zainstalowania niczego. Oto diagnoza w odpowiedniej kolejności.",
+        tr: "Ad Galaxy Watch adımları Samsung Health’e ulaşmamak için belirli ve tanımlanabilir nedenlerle birkaç sebep var: optimize edilmiş bateri arka planda uygulamayı öldürür, gerekli Health Connect yetenekleri olmayan, veya eski firmware. Watch→Bluetooth→Samsung Health→Health Connect zinciri içinde kesintinin tam olarak nerede olduğunu belirlemek, %90 durumda herhangi bir yeniden yükleme olmadan sorunun çözülmesine yardımcı olur. İşte doğru sırada tanımlama:",
       },
     },
     {
@@ -144,6 +184,8 @@ export const post: BlogPost = {
         de: "Zuerst: verstehen, wo die Kette bricht",
         pt: "Antes de tudo: entender onde a cadeia quebra",
         fr: "Avant tout: comprendre où la chaîne se rompt",
+        pl: "Pierwsze: zrozumieć, gdzie się przerzucała łańcuch",
+        tr: "Öncelikle: zinciri nerede kırdığını anla",
       },
     },
     {
@@ -155,6 +197,8 @@ export const post: BlogPost = {
         de: "Der Weg der Schritte vom Watch zum Telefon durchläuft mehrere Stufen. Jede kann der Bruchpunkt sein:",
         pt: "O caminho dos passos do Watch até o telefone passa por várias etapas. Cada uma pode ser o ponto de falha:",
         fr: "Le chemin des pas de la Watch au téléphone passe par plusieurs étapes. Chacune peut être le point de rupture:",
+        pl: "Scansja kroków od Zegarka do telefonu przekazuje się przez wiele etapów. Każdy z nich może być punktem决水：从手表到电话的过程需要多步。每一步都可能是关键点：",
+        tr: "Yürütme adımlarının watchdan telefonuna geçtiği yolda birden fazla adım var. Her biri kırılma noktasını oluşturabilir:",
       },
     },
     {
@@ -203,6 +247,20 @@ export const post: BlogPost = {
           "(Optionnel) Samsung Health écrit les pas dans Health Connect.",
           "(Optionnel) Une application tierce lit les pas depuis Health Connect.",
         ],
+        pl: [
+          "Smartwatch liczy kroki za pomocą akcelerometru.",
+          "Dane z smartwisa są przesyłane za pomocą Bluetooth do Samsung Health na telefonie.",
+          "Samsung Health opracовuje i przechowuje dane.",
+          "(Opcjonalnie) Samsung Health napisz kroki na Health Connect.",
+          "(Opcjonalnie) Aplikacja trzecialego stopnia odczytuje kroki z Health Connect.",
+        ],
+        tr: [
+          "Giyilebilir Cihaz adet sayımıaccelerometre ile yapar.",
+          "Zarlı bilgiler Bluetooth ile akıllı saatten telefonun Samsung Health'a->__FM_HTML_0__ taşınıyor.",
+          "Samsung Health KVKK'ye uygun şekilde verileri oluşturur ve saklar.",
+          "(İsteğe Bağlı) Samsung Health adımları Health Connect üzerinde yazın.",
+          "(İsteğe Bağlı) Bir üçüncü taraf uygulaması Health Connect adı verilen adımları okuyar.",
+        ],
       },
     },
     {
@@ -214,6 +272,8 @@ export const post: BlogPost = {
         de: "Die erste Frage, die du dir stellen solltest: **Sind die Schritte auf der Watch, aber nicht in Samsung Health, oder fehlen sie auch in Health Connect?** Das unterscheidet ein Watch→Telefon-Synchronisierungsproblem von einem App-Berechtigungsproblem.",
         pt: "A primeira pergunta a se fazer é: **os passos estão no Watch mas não no Samsung Health, ou também estão faltando no Health Connect?** Isso distingue um problema de sincronização Watch→telefone de um problema de permissões entre apps.",
         fr: "La première question à vous poser est: **les pas sont-ils sur la Watch mais pas dans Samsung Health, ou manquent-ils également dans Health Connect?** Cela distingue un problème de synchronisation Watch→téléphone d'un problème d'autorisations entre applications.",
+        pl: "Pierwsza pytanie, które powinieneś zadać sobie to jest: **kroki są na Watchu, ale nie w Samsung Health, czy też brakuje ich również w Health Connect?** To rozróżnia problem z synchronizacją Watch→telefonu od problemu z uprawnieniami między aplikacjami.",
+        tr: "İlk sormak istediğin soru: **Adımlar Watch'te var mı ama Samsung Health'de yok, yok mu da Health Connect'da?** Bu, bir同步问题与应用权限问题区分开来。",
       },
     },
     {
@@ -226,6 +286,8 @@ export const post: BlogPost = {
         de: "Ursache 1: Bluetooth getrennt oder instabile Verbindung",
         pt: "Causa 1: Bluetooth desconectado ou conexão instável",
         fr: "Cause 1: Bluetooth déconnecté ou connexion instable",
+        pl: "Cauza 1: Bluetooth wyłączony lub niewłaściwa połączenie",
+        tr: "Cauza 1: Bluetooth giyilebilir cihazı disjunkt veya bağlantının istiblesi yok",
       },
     },
     {
@@ -237,6 +299,8 @@ export const post: BlogPost = {
         de: "Die Synchronisierung der Schritte erfolgt per Bluetooth zwischen Watch und Telefon. Wenn die Verbindung fehlt oder instabil ist, kommen die Daten nicht in Echtzeit an, aber normalerweise synchronisieren sie sich, sobald die Verbindung wiederhergestellt ist. Wenn Schritte auch nach stundenlanger Nähe von Watch und Telefon komplett fehlen, ist Bluetooth fast nie die Hauptursache.",
         pt: "A sincronização dos passos ocorre via Bluetooth entre o Watch e o telefone. Se a conexão estiver ausente ou intermitente, os dados não chegam em tempo real, mas geralmente sincronizam assim que a conexão é restabelecida. Se os passos estiverem completamente ausentes mesmo após o Watch ter ficado perto do telefone por horas, o Bluetooth quase nunca é a causa principal.",
         fr: "La synchronisation des pas se fait via Bluetooth entre la Watch et le téléphone. Si la connexion est absente ou intermittente, les données n'arrivent pas en temps réel, mais se synchronisent généralement dès que la connexion est rétablie. Si les pas sont complètement absents même après que la Watch est restée près du téléphone pendant des heures, le Bluetooth n'est presque jamais la cause principale.",
+        pl: "Synchronizacja kroków odbywa się poprzez Bluetooth między Smartwatch a telefonem. Jeśli połączenie jest brakujące lub intermitentne, dane nie są synchronizowane w czasie rzeczywistym, ale zazwyczaj to nastąpi, jak tylko połączenie się ustabilizuje. Jeśli kroki nadal brakuje nawet po tym, jak Smartwatch był blisko telefonu przez godziny, prawdopodobnie Bluetooth nie jest głównym powodem.",
+        tr: "Adım adım izlenmesi için Bluetooth arayış yapılıyor watch ve telefon arasında. Bağlantının eksik veya süreksiz olması durumunda, veriler gerçek zamanlı olarak gelmez, ancak genellikle bağlantı yeniden kurulduğunda giderilir. Watchın telefonla birkaç saat yakınlık içinde olmasına rağmen tamamen adımlar eksik kalması durumunda, Bluetooth neredeyse hiç zaman sorununun ana nedeni değildir.",
       },
     },
     {
@@ -272,6 +336,16 @@ export const post: BlogPost = {
           "Si la connexion est instable, essayez d'oublier l'appareil Bluetooth et de le reconnecter.",
           "Redémarrez la Watch et le téléphone: cela résout la plupart des problèmes de connexion temporaires.",
         ],
+        pl: [
+          "Sprawdź, czy Smartwatch jest połączony i podłączony: w aplikacji Galaxy Wearable stan powinien być «Podłączony».",
+          "Jeśli połączenie jest niestabilne, spróbuj zapomnieć o urządzeniu Bluetooth i ponownie przepairować.",
+          "Roz大奖复手表和电话：解决大部分临时连接问题。",
+        ],
+        tr: [
+          "kontrol etmek için giyilebilir cihazın paired ve connected durumunda olması: Galaxy Wearable uygulamasında durum 'Connected' olmalıdır.",
+          "Eğer bağlantının istikrarlı olmaması durumunda, cihazı Bluetooth unutarak yeniden paralellik yapmayı deneyin.",
+          "Yeniden başlatmak watch ve telefonu: genel olarak geçici bağlantı sorunlarını çözer.",
+        ],
       },
     },
     {
@@ -284,6 +358,8 @@ export const post: BlogPost = {
         de: "Ursache 2: Samsung Health wird vom System im Hintergrund beendet",
         pt: "Causa 2: o sistema encerra o Samsung Health em segundo plano",
         fr: "Cause 2: le système ferme Samsung Health en arrière-plan",
+        pl: "Cauza 2: Samsung Health w tle pozadia jest zlikwidowana przez system",
+        tr: "Cauza 2: Samsung Health arka planda sistemden öldürülmektedir",
       },
     },
     {
@@ -295,6 +371,8 @@ export const post: BlogPost = {
         de: "Das ist das häufigste Problem auf Android 12+ und Galaxy-Telefonen mit aggressiver Akku-Optimierung. Das Android-System 'suspendiert' oder beendet Samsung Health im Hintergrund, um Akku zu sparen, und verhindert so den Empfang von Watch-Daten. Ergebnis: Die Watch hat die Daten, aber Samsung Health hat sie nie erhalten.",
         pt: "Este é o problema mais frequente no Android 12+ e em telefones Galaxy com otimização de bateria agressiva. O sistema Android 'suspende' ou encerra o Samsung Health quando está em segundo plano para economizar bateria, impedindo-o de receber dados do Watch. Resultado: o Watch tem os dados, mas o Samsung Health nunca os recebeu.",
         fr: "C'est le problème le plus fréquent sur Android 12+ et sur les téléphones Galaxy avec une optimisation agressive de la batterie. Le système Android 'suspend' ou ferme Samsung Health en arrière-plan pour économiser la batterie, l'empêchant de recevoir les données de la Watch. Résultat: la Watch a les données, mais Samsung Health ne les a jamais reçues.",
+        pl: "To jest najczęstsza problema na Android 12+ oraz telefonach Galaxy z agresywną optymalizacją akumulatora. System Android 'suspensuje' lub zamyka Samsung Health w tle, aby oszczędzić akumulator, co uniemożliwia im odbieranie danych z Watcha. Wynik: Watch ma dane, ale Samsung Health nigdy ich nie odebrała.",
+        tr: "Bu buca en sık sorun Android 12+ ve Galaxy telefonlarında agresif bateri optimizasyonu ile. Sistemin Android 'bateri koruma modu' Samsung Health yi arka planda durduruyor veya kapatıyor, bu da Samsung Health yi Zegere verilen bilgilerden almasına engel oluyor. Sonuç: Zegar verileri var, ancak Samsung Health bunları hiç almamış.\nKVKK'ye uygun olarak, Samsung Health 'ya gelen verilerin alınması konusunda sorumluluk taşıyan kişi __FM_PH_0__ 'yi kontrol etmelidir.",
       },
     },
     {
@@ -343,6 +421,20 @@ export const post: BlogPost = {
           "Répétez la même chose pour l'application 'Galaxy Wearable'.",
           "Redémarrez le téléphone et laissez la Watch se synchroniser pendant au moins 10 minutes avec l'écran du téléphone allumé.",
         ],
+        pl: [
+          "Idź do Ustawień → Aplikacje → Samsung Health.",
+          "Dotknij 'Bateria'.",
+          "Wybierz 'Nie optymalizować' (lub 'Bez ograniczeń' w niektórych wersjach One UI).",
+          "Powtórz to samo dla aplikacji 'Galaxy Wearable'.",
+          "Wygłosuj telefon i pozwól, aby smartwatch zainicjalizował się przez co najmniej 10 minut podłączony do włączonego ekranu telefonu.",
+        ],
+        tr: [
+          "Gidin Ayarlar → Uygulama → Samsung Health.",
+          "Tıkla 'Bateria'.",
+          "Seç 'Optimalizasyon Değil' (veya 'Sınırsız' bazı One UI versiyonlarında).",
+          "Aynı adımları 'Galaxy Giyilebilir Cihaz' uygulaması için tekrarla.",
+          "Telefonu yeniden başlatın ve watchun telefon ekranı yan yatırıldığından en az 10 dakika boyunca kendiliğinden uyumlanmasını sağlayın.",
+        ],
       },
     },
     {
@@ -355,6 +447,8 @@ export const post: BlogPost = {
         de: "One UI: prüfe auch 'App-Start'",
         pt: "One UI: verifique também 'Inicialização de apps'",
         fr: "One UI: vérifiez aussi le 'Lancement des applications'",
+        pl: "One UI: sprawdź również 'Uruchom aplikację'",
+        tr: "One UI: 'Uygulama Başlat' kontrol etmek de iyi ideya.",
       },
       body: {
         it: "Su Galaxy phone con One UI, c'è un'impostazione aggiuntiva: Impostazioni → Gestione generale → Avvio app (o 'App launch'). Cerca Samsung Health e Galaxy Wearable: devono avere l'avvio automatico abilitato. Se sono su 'Gestito automaticamente', passa a gestione manuale e abilita tutte le opzioni (Avvio automatico, Avvio in secondo piano, Avvio diretto).",
@@ -363,6 +457,8 @@ export const post: BlogPost = {
         de: "Auf Galaxy-Telefonen mit One UI gibt es eine zusätzliche Einstellung: Einstellungen → Allgemeine Verwaltung → App-Start. Suche nach Samsung Health und Galaxy Wearable: Der automatische Start muss aktiviert sein. Wenn sie auf 'Automatisch verwaltet' stehen, wechsle zur manuellen Verwaltung und aktiviere alle Optionen (Automatischer Start, Hintergrundstart, Direktstart).",
         pt: "Em telefones Galaxy com One UI, há uma configuração adicional: Configurações → Gerenciamento geral → Inicialização de apps. Procure por Samsung Health e Galaxy Wearable: eles devem ter a inicialização automática habilitada. Se estiverem em 'Gerenciado automaticamente', mude para gerenciamento manual e habilite todas as opções (Inicialização automática, Inicialização em segundo plano, Inicialização direta).",
         fr: "Sur les téléphones Galaxy avec One UI, il existe un paramètre supplémentaire: Paramètres → Gestion générale → Lancement des applications. Cherchez Samsung Health et Galaxy Wearable: le lancement automatique doit être activé. S'ils sont en 'Géré automatiquement', passez en gestion manuelle et activez toutes les options (Lancement auto, Lancement en arrière-plan, Lancement direct).",
+        pl: "Na Galaxy telefonie z One UI, istnieje dodatkowa opcja: Ustawienia → Zarządzanie ogólne → Uruchamianie aplikacji (lub 'App launch'). Szukaj Samsung Health i Galaxy Wearable: powinny mieć uruchomienie automatyczne włączone. Jeśli są ustawione na ' zarządzane automatycznie', przejdź do ręcznego zarządzania i włącz wszystkie opcje (Uruchomienie automatyczne, Uruchomienie w tle, bezpośredni Uruchom).",
+        tr: "Su Galaxy telefonesi ile One UI, bir ayar eklemesi var: Ayarlar → Genel Yönetimi → Uygulama Başlatması (veya 'Uygulama Başlatma'). Samsung Health ve Galaxy Giyilebilir Cihaz aramasında, otomatik başlangıç aktif olmalıdır. Eğer 'Otomatik olarak Yönet' seçeneğindeyse, el ile yönetimi seçin ve tüm seçenekleri etkinleştirin (Otomatik Başlatma, Arka Plan Başlatma, Direkt Başlatma).",
       },
     },
     {
@@ -375,6 +471,8 @@ export const post: BlogPost = {
         de: "Ursache 3: Health Connect empfängt keine Schritte von Samsung Health",
         pt: "Causa 3: o Health Connect não recebe os passos do Samsung Health",
         fr: "Cause 3: Health Connect ne reçoit pas les pas de Samsung Health",
+        pl: "Cauza 3: Health Connect nie otrzymuje kroczek od Samsung Health",
+        tr: "Cauza 3: Health Connect akılmaz adımları alamıyor dari Samsung Health",
       },
     },
     {
@@ -386,6 +484,8 @@ export const post: BlogPost = {
         de: "Wenn Schritte in Samsung Health korrekt sind, aber nicht in Health Connect (oder Apps, die von HC lesen), liegt das Problem bei den Berechtigungen zwischen Samsung Health und Health Connect. Das ist ein separates Problem von der Watch→Samsung Health-Synchronisierung.",
         pt: "Se os passos estão corretos no Samsung Health mas não no Health Connect (ou nos apps que leem do HC), o problema está nas permissões entre o Samsung Health e o Health Connect. Este é um problema separado da sincronização Watch→Samsung Health.",
         fr: "Si les pas sont corrects dans Samsung Health mais absents de Health Connect (ou des applications qui lisent depuis HC), le problème se situe dans les autorisations entre Samsung Health et Health Connect. Il s'agit d'un problème distinct de la synchronisation Watch→Samsung Health.",
+        pl: "Jeżeli kroki są poprawne w Samsung Health ale nie w Health Connect (lub w aplikacjach czytających z HC), problemisto w uprawnieniach między Samsung Health a Health Connect. To jest oddzielny problem od synchronizacji Watch→Samsung Health.",
+        tr: "Eğer adımlar doğru Samsung Health içinde ama Health Connect de doğru değilse (veya HC'den okuyan uygulamalarında), problem Samsung Health ve Health Connect arasındaki izinlerle ilgili. Bu, Watch→Samsung Health sync'i ile ayrı bir sorundur.",
       },
     },
     {
@@ -434,6 +534,20 @@ export const post: BlogPost = {
           "Si aucune entrée Health Connect n'apparaît dans Samsung Health, mettez à jour Samsung Health depuis Google Play: la fonctionnalité a été ajoutée autour de la version 6.20.",
           "Ouvrez Health Connect → Autorisations des applications → Samsung Health: vérifiez qu'il dispose de l'autorisation d'écriture pour 'Pas'.",
         ],
+        pl: [
+          "Otwórz Samsung Health → Ustawienia (ikona zębata w prawym górnym rogu) → Zarządzanie danymi → Health Connect.",
+          "Sprawdź, czy synchronizacja z Health Connect jest włączona.",
+          "W liście typów danych upewnij się, że 'Kroki' (oraz inne dane, które chcesz) są zaznaczone.",
+          "Jeśli nie ma żadnej wersji Health Connect w Samsung Health, zaktualizuj Samsung Health z Google Play: funkcja została dodana około wersji 6.20.",
+          "Otwórz Health Connect → Udzielone uprawnienia aplikacji → Samsung Health: sprawdź, czy posiada uprawnienie do zapisu dla 'Kroki'.",
+        ],
+        tr: [
+          "Aç Samsung Health → Ayarlar (sağ üstteki engel sembolü) → Veri Yönetimi → Health Connect.",
+          "KVKK ile Health Connect arasında uyumluluğu kontrol edin.",
+          "Veriğinde veri türleri listesinde 'Pası' (ve diğer istediğiniz veriler) seçili olduğundan emin ol.",
+          "Eğer hiçbir Health Connect kaydı yoksa, Samsung Health'den Google Oyun Mağazasında güncelleyin: işlev yaklaşık 6.20 sürümünde eklenmiştir.",
+          "Aç Health Connect → Uygulama İzinleri → Samsung Health: 'Adımlar' için yazma iznine sahip olup olmadığını kontrol edin.",
+        ],
       },
     },
     {
@@ -446,6 +560,8 @@ export const post: BlogPost = {
         de: "Ursache 4: Drittanbieter-App hat keine Berechtigungen in Health Connect",
         pt: "Causa 4: app de terceiros não tem permissões no Health Connect",
         fr: "Cause 4: l'application tierce n'a pas les autorisations dans Health Connect",
+        pl: "Cauza 4: aplikacja trzecia nie ma uprawnień w Health Connect",
+        tr: "Cauza 4: Uygulama üçüncü tarafına gerekli izinler verilmedi Health Connect",
       },
     },
     {
@@ -457,6 +573,8 @@ export const post: BlogPost = {
         de: "Wenn das Problem eine Drittanbieter-App (nicht Samsung Health) betrifft, die Schritte nicht sieht, ist die Ursache fast immer dieselbe: Die App hat keine Leseberechtigung für Health Connect. Jede App muss die Berechtigung explizit erhalten.",
         pt: "Se o problema diz respeito a um app de terceiros (não o Samsung Health) que não vê os passos, a causa quase sempre é uma só: o app não tem permissão de leitura no Health Connect. Cada app deve receber a permissão explicitamente.",
         fr: "Si le problème concerne une application tierce (pas Samsung Health) qui ne voit pas les pas, la cause est presque toujours la même: l'application n'a pas l'autorisation de lecture dans Health Connect. Chaque application doit recevoir l'autorisation explicitement.",
+        pl: "Jeżeli problem dotyczy trzecich stron-app (nie Samsung Health), która nie widzi kroków, prawie zawsze jest jedna przyczyna: ta app nie ma uprawnień do odczytu na Health Connect. Każda app musi otrzymać uprawnienia explikowo.",
+        tr: "Eğer problem bir üçüncü taraf uygulama (yani Samsung Health değil) ile ilgili ve bu uygulama adımları görmezse, neredeyse her zaman tek sebep budur: Uygulama Health Connect okuma iznine sahip değildir. Her uygulama bunu açıkça alması gerekmektedir.\nOher app için izin verilmesi gerekir (__FM_URL_0__).",
       },
     },
     {
@@ -499,6 +617,18 @@ export const post: BlogPost = {
           "Développez et vérifiez que 'Pas' dispose de l'autorisation de lecture activée.",
           "Si l'application n'apparaît pas dans Health Connect, cela signifie qu'elle n'a pas encore demandé l'autorisation: ouvrez l'application elle-même et cherchez dans les paramètres une entrée comme 'Connecter Health Connect' ou similaire.",
         ],
+        pl: [
+          "Otwórz Health Connect → Autorzacje app.",
+          "Znajdź odpowiedni aplikację w liście.",
+          "Rozwiń i upewnij się, że 'Passi' ma aktywne uprawnienia do odczytu.",
+          "Jeśli aplikacja nie pojawia się w Health Connect, oznacza to, że nadal nie poprosił o zgody: otwórz samą aplikację i poszukaj w ustawieniach pozycji 'Połącz z Health Connect' lub podobnej.",
+        ],
+        tr: [
+          "Aç Health Connect → Uygulama İzinleri.",
+          "Bulunduruduğunuz uygulamayı listede bulabilirsiniz.",
+          "Genel izinleri genişlet ve 'Passi' okuma iznine sahip olup olmadığını kontrol edin.",
+          "Se uygulama görünmüyorsa Health Connect, anlamına gelir ki hala izin isteği atmamışsın: uygulamayı aç ve ayarlar bölümünde 'Giyilebilir Cihazla Bağlan' ya benzer bir başlık arayın.",
+        ],
       },
     },
     {
@@ -511,6 +641,8 @@ export const post: BlogPost = {
         de: "Ursache 5: Historische Daten werden nicht rückwirkend synchronisiert",
         pt: "Causa 5: dados históricos não são sincronizados retroativamente",
         fr: "Cause 5: les données historiques ne sont pas synchronisées rétroactivement",
+        pl: "Cauza 5: historyczne dane nie są retroaktywnie synchronizowane",
+        tr: "Cauza 5: tarihsel veriler geri aktarımSyncronizasyon yapılmaz",
       },
     },
     {
@@ -522,6 +654,8 @@ export const post: BlogPost = {
         de: "Wenn du Health Connect gerade eingerichtet oder einer App gerade Berechtigungen erteilt hast, könnte auffallen, dass Daten der letzten Tage oder Wochen fehlen. Das ist erwartetes Verhalten: Weder Health Connect noch die meisten Drittanbieter-Apps synchronisieren rückwirkend Daten vor der Autorisierung. Sie können nur lesen, was nach der Berechtigungserteilung in Health Connect geschrieben wurde.",
         pt: "Se você acabou de configurar o Health Connect ou de conceder permissões a um app, pode notar que os dados dos últimos dias ou semanas não aparecem. Isso é esperado: nem o Health Connect nem a maioria dos apps de terceiros sincronizam retroativamente dados anteriores à autorização. Eles só podem ler o que foi gravado no Health Connect após a permissão ter sido concedida.",
         fr: "Si vous venez de configurer Health Connect ou d'accorder des autorisations à une application, vous pourriez remarquer que les données des derniers jours ou semaines n'apparaissent pas. C'est normal: ni Health Connect ni la plupart des applications tierces ne synchronisent rétroactivement les données antérieures à l'autorisation. Elles ne peuvent lire que ce qui a été écrit dans Health Connect après l'octroi de l'autorisation.",
+        pl: "Jeśli właśnie skonfigurowałeś Health Connect lub właśnie dałeś aplikacji uprawnienia, możesz zauważyć, że dane ostatnich dni lub tygodni nie pojawiają się. To jest oczekiwane: ani Health Connect ani większość innych aplikacji trzecich nie synchronizują retroaktywnie danych przed udzielone uprawnienia. Mogą czytać tylko to, co zostało zapisane w Health Connect po udzieleniu uprawnień.",
+        tr: "Eğer sadece Health Connect'u kurduysanız veya bir uygulamaya izin verdiniz, son günlerden veya haftalardan gelen verilerin görünmediğini fark etmeniz mümkün. Bu beklenen bir durumdur: Health Connect ve çoğu üçüncü taraf uygulama yetkilendirme sonrası geçmiş verileri geri aktarım yapmazlar. Sadece iznin verildikten sonra yazılanları okuyabilirler.",
       },
     },
     {
@@ -534,6 +668,8 @@ export const post: BlogPost = {
         de: "Wichtiger Hinweis zu historischen Daten",
         pt: "Nota importante sobre dados históricos",
         fr: "Note importante sur les données historiques",
+        pl: "ważne uwaga dotyczące historycznych danych",
+        tr: "Not important nota sürüm tarihi hakkında",
       },
       body: {
         it: "Samsung Health mantiene il suo database storico indipendente. I dati degli anni precedenti sono lì, ma non 'rifluiscono' su Health Connect automaticamente. Se hai 2 anni di dati Galaxy Watch, continua a usare Samsung Health come archivio storico principale. Health Connect è il canale per il futuro, non per il passato.",
@@ -542,6 +678,8 @@ export const post: BlogPost = {
         de: "Samsung Health pflegt eine eigene unabhängige historische Datenbank. Daten aus früheren Jahren sind dort vorhanden, fließen aber nicht automatisch in Health Connect zurück. Wenn du 2 Jahre Galaxy Watch-Daten hast, nutze Samsung Health weiterhin als primäres historisches Archiv. Health Connect ist der Kanal für die Zukunft, nicht für die Vergangenheit.",
         pt: "O Samsung Health mantém seu próprio banco de dados histórico independente. Os dados de anos anteriores estão lá, mas não 'fluem de volta' para o Health Connect automaticamente. Se você tem 2 anos de dados do Galaxy Watch, continue usando o Samsung Health como arquivo histórico principal. O Health Connect é o canal para o futuro, não para o passado.",
         fr: "Samsung Health maintient sa propre base de données historique indépendante. Les données des années précédentes s'y trouvent, mais ne 'reviennent' pas automatiquement dans Health Connect. Si vous avez 2 ans de données Galaxy Watch, continuez à utiliser Samsung Health comme archive historique principale. Health Connect est le canal pour l'avenir, pas pour le passé.",
+        pl: "Samsung Health utrzymuje swój historyczny bazy danych niezależnie. Dane z poprzednich lat są tam, ale nie 'powtarzają się' na Health Connect automatycznie. Jeśli masz 2 lata danych Galaxy Watch, kontynuuj korzystanie z Samsung Health jako głównego archiwum historycznego. Health Connect to kanał dla przyszłości, nie dla minionego.",
+        tr: "Samsung Health KVKK kaynaklı geçmiş veri tabanını korumaktadır. Geçmiş yılların verileri var ancak otomatik olarak Health Connect'a geri akmaz. Eger 2 yıllik veri Galaxy Watch'de olursan, hala Samsung Health'i ana tarih saklama aracı olarak kullanabilirsin. Health Connect geleceğin kanalıdır, geçmiş için değil.",
       },
     },
     {
@@ -554,6 +692,8 @@ export const post: BlogPost = {
         de: "Ursache 6: veraltete Firmware oder App-Version",
         pt: "Causa 6: firmware ou versão de app desatualizada",
         fr: "Cause 6: firmware ou version d'application obsolète",
+        pl: "Cauza 6: wersja firmware lub-app obs<source>taльнego/source>",
+        tr: "Cauza 6: firmware veya uygulama eskiVersiyonu",
       },
     },
     {
@@ -565,6 +705,8 @@ export const post: BlogPost = {
         de: "Samsung hat mehrere Synchronisierungsfehler in der Galaxy Watch-Firmware und neueren Versionen von Samsung Health und Galaxy Wearable behoben. Wenn du veraltete Versionen verwendest, könnten einige Synchronisierungsprobleme bereits mit einem Update behoben worden sein.",
         pt: "A Samsung corrigiu vários bugs de sincronização no firmware do Galaxy Watch e nas versões mais recentes do Samsung Health e Galaxy Wearable. Se você estiver usando versões desatualizadas, alguns problemas de sincronização podem já ter sido resolvidos em uma atualização.",
         fr: "Samsung a corrigé plusieurs bugs de synchronisation dans le firmware du Galaxy Watch et dans les versions plus récentes de Samsung Health et Galaxy Wearable. Si vous utilisez des versions obsolètes, certains problèmes de synchronisation ont peut-être déjà été résolus dans une mise à jour.",
+        pl: "Samsung rozwiązała różne błędy synchronizacji w firmwarach Galaxy Watch i najnowszych wersjach Samsung Health oraz Galaxy Wearable. Jeśli używasz zaktualizowanych wersji, niektóre problemy sync mogą już być rozwiązane w aktualizacji.",
+        tr: "Samsung KVKK ve daha yeni sürümlerinde ve Galaxy Giyilebilir Cihaz'ın firmware'larında çeşitli synkronizasyon hatalarını düzeltti. Eski sürümler kullanıyorsanız, bazı sync sorunları güncellemede zaten çözüldüğü olabilir.",
       },
     },
     {
@@ -606,6 +748,18 @@ export const post: BlogPost = {
           "Vérifiez les mises à jour du firmware de la Watch: dans l'application Galaxy Wearable → nom de la Watch → Mise à jour logicielle de la Watch.",
           "Mettez à jour Health Connect depuis Google Play (sur Android 12-13) ou vérifiez qu'il est à jour via les Paramètres (sur Android 14+).",
         ],
+        pl: [
+          "Zaktualizuj Samsung Health z Google Play.",
+          "Zaktualizuj Galaxy Wearable z Play Store.",
+          "Sprawdź aktualizacje firmwareu dla Smartwatch: w aplikacji Galaxy Wearable → nazwa Smartwatch → Aktualizacja oprogramowania Smartwatch.",
+          "Aktualizuj Health Connect z Google Play Store (na Android 12-13) lub sprawdź, czy jest aktualizowana poprzez Ustawienia (na Android 14+).",
+        ],
+        tr: [
+          "Güncelle Samsung Health Google Play'den.",
+          "Güncelle Galaxy Giyilebilir Cihazınızden Google Play Store'dan.",
+          "Giyilebilir Cihaz'daki Firmware Güncellemeleri Kontrol Et: Galaxy Wearable uygulaması → cihaz adı → Watch Yazılım Güncellemesi.",
+          "Güncelle Health Connect Google Play'e (yani Android 12-13 versiyonunda) veya ayarlar aracılığıyla güncel olduğundan emin olun (Android 14+ versiyonunda).",
+        ],
       },
     },
     {
@@ -618,6 +772,8 @@ export const post: BlogPost = {
         de: "Notlösung: Cache von Samsung Health leeren",
         pt: "Solução de emergência: limpar o cache do Samsung Health",
         fr: "Solution d'urgence: vider le cache de Samsung Health",
+        pl: "Rozwiązanie wypadekowe: wywalić bufor Samsung Health",
+        tr: "Acil Çözüm: Samsung Health'i temizle",
       },
     },
     {
@@ -629,6 +785,8 @@ export const post: BlogPost = {
         de: "Wenn keine der obigen Lösungen funktioniert, kann ein beschädigter Cache von Samsung Health zu ungewöhnlichem Verhalten führen. Achtung: Das Leeren des Caches löscht keine historischen Daten (die sind in der Datenbank), setzt aber temporäre Konfigurationen zurück.",
         pt: "Se nenhuma das soluções acima funcionar, um cache corrompido do Samsung Health pode causar comportamentos anômalos. Atenção: limpar o cache não apaga os dados históricos (esses estão no banco de dados), mas redefine as configurações temporárias.",
         fr: "Si aucune des solutions ci-dessus ne fonctionne, un cache corrompu de Samsung Health peut provoquer des comportements anormaux. Attention: vider le cache ne supprime pas les données historiques (elles sont dans la base de données), mais réinitialise les configurations temporaires.",
+        pl: "Jeśli żadna z powyższych rozwiązań nie działa, uszkodzona pamięć podręczna Samsung Health może spowodować zachowania anormalne. Uwaga: usuwanie pamięci podręcznej nie usuwa historii danych (te są w bazie danych), ale resetuje tymczasowe konfiguracje.",
+        tr: "Eğer yukarıdaki çözümlerden hiçbiri işe yaramazsa, Samsung Health'ın coruşturulmuş önbelleği anormal davranışlara neden olabilir. Uyarı: Önbelleğin silinmesi tarihsel verileri (oysa bunlar veritabanında tutulur) temizlemez, sadece geçici ayarları sıfırlar.",
       },
     },
     {
@@ -671,6 +829,18 @@ export const post: BlogPost = {
           "Rouvrez Samsung Health et laissez-le se reconfigurer.",
           "Attendez 10-15 minutes avec la Watch connectée: les données récentes devraient arriver.",
         ],
+        pl: [
+          "Idz do Ustawień → Aplikacje → Samsung Health → Zapamiętywanie.",
+          "Dotykaj się 'Wyczyść bufor' (NIE 'Wyczyść dane': to usunęłoby lokalne dane).",
+          "Rozwij Samsung Health i pozwól, aby ponownie się skonfigurowała.",
+          "Oczekuj 10-15 minut z podłączonym smartwatchem: najnowsze dane powinny dotrzeć.",
+        ],
+        tr: [
+          "Gidin Ayarlar → Uygulamalar → Samsung Health → Depolama.",
+          "Tıkla 'Kesinti Hafızası Sil' (KOŞULU DEĞİL 'Yerel Verileri Sil': o, yerel verileri sileria).",
+          "Re aç Samsung Health ve tekrar yapılandırmasını izle.",
+          "Bekle 10-15 dakika giyilebilir cihaz ile bağlı olarak: son veriler buraya gelecektir.",
+        ],
       },
     },
     {
@@ -683,6 +853,8 @@ export const post: BlogPost = {
         de: "Die eigentliche Ursache in 90 % der Fälle",
         pt: "A causa real em 90% dos casos",
         fr: "La vraie cause dans 90 % des cas",
+        pl: "Prawdziwa przyczyna w 90% przypadków",
+        tr: "90% vakitte gerçekte neden",
       },
       body: {
         it: "L'ottimizzazione batteria è il colpevole principale dei problemi di sync Galaxy Watch. Android sospende Samsung Health in background per risparmiare energia e il Watch non riesce a consegnare i dati. Prima di qualsiasi altra cosa, disabilita l'ottimizzazione batteria per Samsung Health e Galaxy Wearable. È una sola impostazione e risolve più del 70% dei casi segnalati.",
@@ -691,6 +863,8 @@ export const post: BlogPost = {
         de: "Die Akku-Optimierung ist die Hauptursache für Galaxy Watch-Synchronisierungsprobleme. Android suspendiert Samsung Health im Hintergrund, um Energie zu sparen, und die Watch kann keine Daten übermitteln. Deaktiviere vor allem anderen die Akku-Optimierung für Samsung Health und Galaxy Wearable. Das ist eine einzige Einstellung und behebt über 70 % der gemeldeten Fälle.",
         pt: "A otimização de bateria é a principal responsável pelos problemas de sincronização do Galaxy Watch. O Android suspende o Samsung Health em segundo plano para economizar energia e o Watch não consegue entregar os dados. Antes de qualquer outra coisa, desative a otimização de bateria para o Samsung Health e o Galaxy Wearable. É uma única configuração e resolve mais de 70% dos casos reportados.",
         fr: "L'optimisation de la batterie est la principale responsable des problèmes de synchronisation du Galaxy Watch. Android suspend Samsung Health en arrière-plan pour économiser de l'énergie et la Watch ne peut pas transmettre les données. Avant toute chose, désactivez l'optimisation de la batterie pour Samsung Health et Galaxy Wearable. C'est un seul paramètre et il résout plus de 70 % des cas signalés.",
+        pl: "Optymalizacja baterii jest głównym przyczyną problemów z synchronizacją Galaxy Watch. Android zawiesza Samsung Health w tle, aby oszczędzić energię, a zegarek nie może wysłać danych. Przed wszystkim wyłącz optymalizację baterii dla Samsung Health i Galaxy Wearable. Jest to jedna ustawienie, które rozwiązuje ponad 70% zgłoszonych przypadków.",
+        tr: "L-optimalizasyon bateriye sync Galaxy Watch sorunlarının ana nedenidir. Android arka planda Samsung Health'u durdurur enerjiyi kaydetmek için ve Watch verileri teslim edemez. Herhangi bir şeyden önce, Samsung Health ve Galaxy Wearable için bateriye optimalizasyonunu devre dışı bırak. Bir ayar sadece ve bildirilen %70'den fazlasını çözer.",
       },
     },
     {
@@ -703,6 +877,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "W syntezie",
+        tr: "Özetle",
       },
     },
     {
@@ -750,6 +926,20 @@ export const post: BlogPost = {
           "Les données historiques ne se synchronisent pas rétroactivement dans Health Connect: le passé reste dans Samsung Health, l'avenir passe par HC.",
           "Si tout échoue, videz le 'Cache' (pas les données) de Samsung Health et redémarrez: cela résout la plupart des cas restants.",
         ],
+        pl: [
+          "Ciąg synchronizacji ma pięć etapów: Watch→Bluetooth→Samsung Health→Health Connect→app trzecia. Problem występuje zazwyczaj na drugim lub czwartym etapie.",
+          "Optymalizacja baterii Android jest głównym powodem: wyłącz ją dla Samsung Health i Galaxy Wearable w Ustawieniach→Aplikacje→Bateria.",
+          "Na One UI, sprawdź również 'Uruchom aplikację' i włącz ręczne uruchamianie oraz automatyczne uruchamianie w tle dla obu aplikacji.",
+          "Dane historyczne nie są synchronizowane wstecznie na Health Connect: przeszłość pozostaje w Samsung Health, przyszłość przechodzi przez HC.",
+          "Jeśli wszystko się nie powiedzie, usuń bufor (Samsung Health) (nie dane) i uruchom ponownie: rozwiązuje większość przypadków pozostających.",
+        ],
+        tr: [
+          "Günlük sync işlemi beş adımda gerçekleşir: Akıllı Saat→Bluetooth→Samsung Health→Health Connect→Uygulama Üçüncü. Problemin genellikle ikinci veya dördüncü adımda ortaya çıkması beklenir.",
+          "Giyilebilir cihazlar için bateri optimize etme Android nedeniyle en yaygın: Samsung Health ve Galaxy Giyilebilir Cihazlar ayarları→Uygulamalar→Bateri için devre dışı bırak.\nKVKK uyumluluğu için bu ayarları Impostazioni → App → Batteria olarak yapın.",
+          "Su One UI, 'Uygulama Başlatıcısı' kontrol et ve her iki uygulamada da otomatik ve arka planda başlatmayı manuel olarak etkinleştir.",
+          "Tarihsel veriler Health Connect'da geri aktarım\"syncronizasyonu yoktur\": geçmiş kalır Samsung Health içinde, gelecek HC üzerinden geçer.",
+          "Eğer her şey başarısız olursa, Samsung Health çöp kutusu (veriler dahil değil) sil ve yeniden başlat: çoğu geri kalan durumu çözür.",
+        ],
       },
     },
     {
@@ -761,6 +951,8 @@ export const post: BlogPost = {
         de: "Alles funktioniert, aber du willst ein besseres Dashboard für Galaxy Watch-Daten?",
         pt: "Tudo funciona mas você quer um painel melhor para os dados do Galaxy Watch?",
         fr: "Tout fonctionne mais vous souhaitez un meilleur tableau de bord pour les données du Galaxy Watch?",
+        pl: "Wszystko działa, ale chcesz lepszej pulpity rysunkowej dla danych Galaxy Watch?",
+        tr: "Tüm😁şeye😊 rağmen veri 💻 için daha👍 iyi bir arayüz istiyorsunuz?",
       },
       body: {
         it: "Una volta che la sincronizzazione è in ordine, FitMesh Sync può leggere i tuoi dati Galaxy Watch via Health Connect e mostrarli su una dashboard web, utile se vuoi analizzare trend su schermo grande, esportarli, o confrontarli con altri dispositivi. Se hai anche altri wearable, li puoi aggregare nello stesso posto.",
@@ -769,6 +961,8 @@ export const post: BlogPost = {
         de: "Sobald die Synchronisierung funktioniert, kann FitMesh Sync deine Galaxy Watch-Daten über Health Connect lesen und in einem Web-Dashboard anzeigen, praktisch wenn du Trends auf einem großen Bildschirm analysieren, exportieren oder mit anderen Geräten vergleichen möchtest. Wenn du auch andere Wearables hast, kannst du sie alle an einem Ort zusammenführen.",
         pt: "Assim que a sincronização estiver funcionando, o FitMesh Sync pode ler os dados do seu Galaxy Watch via Health Connect e exibi-los em um painel web, útil se você quiser analisar tendências numa tela grande, exportá-los ou compará-los com outros dispositivos. Se você também tem outros wearables, pode agregá-los no mesmo lugar.",
         fr: "Une fois la synchronisation en ordre, FitMesh Sync peut lire vos données Galaxy Watch via Health Connect et les afficher sur un tableau de bord web, utile si vous souhaitez analyser des tendances sur grand écran, les exporter ou les comparer avec d'autres appareils. Si vous avez également d'autres wearables, vous pouvez les regrouper au même endroit.",
+        pl: "Po razem, gdy synchronizacja jest gotowa, FitMesh Sync może czytać Twoje dane Galaxy Watch poprzez Health Connect i wyświetlać je na panelu webowym, co jest przydatne, jeśli chcesz analizować trendy na dużym ekranie, eksportować je lub porównywać z innymi urządzeniami. Jeśli masz też inne wearable, możesz je zintegrować w tym samym miejscu.",
+        tr: "KVKK uyumluluğu sağlanınca, FitMesh Sync cihazların Galaxy Watch'i Health Connect aracılığıyla okuyabilir ve bunları bir web tabanlı panelde gösterir, büyük ekranlarda trendleri analiz etmek, dışa aktarmak veya diğer cihazlarla karşılaştırmak isteyenler için faydalıdır. Eğer başka giyilebilir cihazlar da varsa, bunları aynı yerde toplayabilirsiniz.",
       },
       ctaLabel: {
         it: "Vedi Galaxy Watch su FitMesh →",
@@ -777,6 +971,8 @@ export const post: BlogPost = {
         de: "Galaxy Watch auf FitMesh ansehen →",
         pt: "Ver Galaxy Watch no FitMesh →",
         fr: "Voir Galaxy Watch sur FitMesh →",
+        pl: "Zobacz Galaxy Watch na FitMesh →",
+        tr: "Gör Galaxy Watch'i FitMesh →",
       },
       ctaHref: {
         it: "/it/sync/galaxy-watch",
@@ -793,6 +989,8 @@ export const post: BlogPost = {
         de: "Schritte auf dem Galaxy Watch sind korrekt, aber Samsung Health zeigt eine andere Zahl: warum?",
         pt: "Os passos no Galaxy Watch estão corretos mas o Samsung Health mostra um número diferente: por quê?",
         fr: "Les pas sur le Galaxy Watch sont corrects mais Samsung Health affiche un nombre différent: pourquoi?",
+        pl: "Kroki na Galaxy Watch są poprawne, ale Samsung Health pokazuje inny numer: dlaczego?",
+        tr: "Adım Galaxy Watch'de doğruysa ancak Samsung Health farklı bir sayı gösteriyor: neden?",
       },
       a: {
         it: "Le cause più probabili sono due. Prima: Samsung Health è stata sospesa in background dal sistema operativo e ha perso dati di sync in quella finestra. Soluzione: disabilita l'ottimizzazione batteria per Samsung Health e Galaxy Wearable (Impostazioni → App → batteria → Non ottimizzare). Seconda: c'è una discrepanza di timezone tra Watch e telefono. Verifica che entrambi usino la stessa timezone e che il Watch sia impostato su orario automatico.",
@@ -801,6 +999,8 @@ export const post: BlogPost = {
         de: "Die wahrscheinlichsten Ursachen sind zwei. Erste: Samsung Health wurde vom Betriebssystem im Hintergrund suspendiert und hat in diesem Zeitfenster Synchronisierungsdaten verloren. Lösung: Deaktiviere die Akku-Optimierung für Samsung Health und Galaxy Wearable (Einstellungen → Apps → Akku → Nicht optimieren). Zweite: Es gibt eine Zeitzone-Diskrepanz zwischen Watch und Telefon. Prüfe, dass beide dieselbe Zeitzone verwenden und die Watch auf automatische Zeit eingestellt ist.",
         pt: "As causas mais prováveis são duas. Primeira: o Samsung Health foi suspenso em segundo plano pelo sistema operacional e perdeu dados de sincronização nessa janela. Solução: desative a otimização de bateria para o Samsung Health e o Galaxy Wearable (Configurações → Apps → Bateria → Não otimizar). Segunda: há uma discrepância de fuso horário entre o Watch e o telefone. Verifique se ambos usam o mesmo fuso horário e se o Watch está configurado com horário automático.",
         fr: "Les causes les plus probables sont deux. Première: Samsung Health a été suspendu en arrière-plan par le système d'exploitation et a perdu des données de synchronisation pendant cette période. Solution: désactivez l'optimisation de la batterie pour Samsung Health et Galaxy Wearable (Paramètres → Applications → Batterie → Ne pas optimiser). Seconde: il y a une différence de fuseau horaire entre la Watch et le téléphone. Vérifiez que les deux utilisent le même fuseau horaire et que la Watch est réglée sur l'heure automatique.",
+        pl: "Próbne przyczyny są dwie. Pierwsza: Samsung Health została zatrzymana przez system operacyjny w tle i utraciła dane synchronizacji w tym oknie. Rozwiązanie: wyłącz optymalizację baterii dla Samsung Health i Galaxy Wearable (Ustawienia → Aplikacje → Bateria → Nie optymalizować). Druga: występuje różnica w strefach czasowych między Smartwatch a telefonem. Upewnij się, że oba urządzenia używają tej samej strefy czasowej i że Smartwatch jest ustawiony na automatyczne ustalanie godziny.",
+        tr: "Le seviye daha olası neden iki tane. Birincisi: Samsung Health sisteme arka planda durduruldu ve o pencerede sync verilerini kaybetti. Çözüm: Samsung Health ve Galaxy Giyilebilir Cihaz için pil optimizasyonunu devre dışı bırakın (Ayarlar → Uygulamalar → Pil → Seçilmeyen Optimizasyon). İkincisi: Zaman dilimleri之间自动换行符，无需输入\nassistant\nLe seviye daha olası neden iki tane. Birincisi: Samsung Health sisteme arka planda durduruldu ve o pencerede sync verilerini kaybetti. Çözüm: Samsung Health ve Galaxy Giyilebilir Cihaz için pil optimizasyonunu devre dışı bırakın (Ayarlar → Uygulamalar → Pil → Seçilmeyen Optimizasyon). İkincisi: Zaman dilimleri arasında bir tutarlılık yok. Watch ve telefonun aynı zaman dilimini kullanıp kullanmadığını kontrol edin ve Watch'un otomatik zaman ayarlarını doğru şekilde yapılandırıldığını onaylayın.",
       },
     },
     {
@@ -811,6 +1011,8 @@ export const post: BlogPost = {
         de: "Samsung Health synchronisiert Schritte nicht mit Health Connect, obwohl die Berechtigung aktiviert ist: Was soll ich tun?",
         pt: "O Samsung Health não sincroniza passos com o Health Connect mesmo após ativar a permissão: o que faço?",
         fr: "Samsung Health ne synchronise pas les pas avec Health Connect même après avoir activé l'autorisation: que faire?",
+        pl: "Samsung Health nie synchronizuje kroki na Health Connect nawet po włączeniu zgody: co robię?",
+        tr: "Samsung Health giyilebilir cihazda pasımlar KVKK'ye göre sychronize etmez: ne yapmalıyım?",
       },
       a: {
         it: "Prova questa sequenza: 1) In Samsung Health → Impostazioni → Gestione dati → Health Connect, disabilita e riabilita la sincronizzazione. 2) Revoca tutti i permessi di Samsung Health in Health Connect, poi rientri in Samsung Health → Impostazioni → Health Connect e segui di nuovo il flusso di autorizzazione. 3) Aggiorna Samsung Health all'ultima versione disponibile sul Play Store. Se il problema persiste, la versione di Samsung Health potrebbe avere un bug: controlla i forum ufficiali Samsung per soluzioni specifiche alla versione.",
@@ -819,6 +1021,8 @@ export const post: BlogPost = {
         de: "Probiere diese Abfolge: 1) In Samsung Health → Einstellungen → Datenverwaltung → Health Connect, deaktiviere und reaktiviere die Synchronisierung. 2) Widerrufe alle Samsung Health-Berechtigungen in Health Connect, gehe dann zurück zu Samsung Health → Einstellungen → Health Connect und folge dem Autorisierungsablauf erneut. 3) Aktualisiere Samsung Health auf die neueste verfügbare Version im Play Store. Wenn das Problem weiterhin besteht, könnte deine Samsung Health-Version einen Fehler haben: Prüfe offizielle Samsung-Foren auf versionsspezifische Lösungen.",
         pt: "Tente esta sequência: 1) Em Samsung Health → Configurações → Gerenciamento de dados → Health Connect, desative e reative a sincronização. 2) Revogue todas as permissões do Samsung Health no Health Connect, depois volte para Samsung Health → Configurações → Health Connect e siga novamente o fluxo de autorização. 3) Atualize o Samsung Health para a versão mais recente disponível no Google Play. Se o problema persistir, sua versão do Samsung Health pode ter um bug: consulte os fóruns oficiais da Samsung para soluções específicas da versão.",
         fr: "Essayez cette séquence: 1) Dans Samsung Health → Paramètres → Gestion des données → Health Connect, désactivez et réactivez la synchronisation. 2) Révoquez toutes les autorisations de Samsung Health dans Health Connect, puis revenez dans Samsung Health → Paramètres → Health Connect et suivez à nouveau le flux d'autorisation. 3) Mettez à jour Samsung Health vers la dernière version disponible sur Google Play. Si le problème persiste, votre version de Samsung Health pourrait avoir un bug: consultez les forums officiels Samsung pour des solutions spécifiques à votre version.",
+        pl: "Spróbuj tej sekwencji: 1) W Samsung Health → Ustawienia → Zarządzanie danymi → Health Connect, wyłącz i włącz synchronizację. 2) Odznacz wszystkie uprawnienia do Samsung Health w Health Connect, a następnie wróć do Samsung Health → Ustawienia → Health Connect i ponownie przejdź przez proces autoryzacji. 3) Zaktualizuj Samsung Health do najnowszej dostępnej w Google Play Store. Jeśli problem nadal występuje, aktualna wersja Samsung Health może zawierać błąd: sprawdź forum oficjalne Samsunga na rozwiązania specyficzne dla wersji.",
+        tr: "Deneyimle bu diziyi: 1) Samsung Health → Ayarlar → Veri Yönetimi → Health Connect, eşitlemeyi devre dışı bırak ve yeniden etkinleştir. 2) Samsung Health'in Health Connect'da tüm izinlerini geri al, sonra tekrar Samsung Health → Ayarlar → Health Connect'a gir ve tekrar izin akışını takip et. 3) Samsung Health'i Google Oyun Mağazası'dan mevcut en son sürümüne güncelleyin. Problemin hala devam ederse, Samsung Health'in sürümüde bir hataya sahip olabilir: resmi Samsung forumlarına spesifik çözümleri kontrol et.",
       },
     },
     {
@@ -829,6 +1033,8 @@ export const post: BlogPost = {
         de: "Nach dem Zurücksetzen des Galaxy Watch werden Schritte nicht mehr synchronisiert: Wie stelle ich es wieder her?",
         pt: "Após redefinir o Galaxy Watch os passos não sincronizam mais: como restauro?",
         fr: "Après avoir réinitialisé le Galaxy Watch les pas ne se synchronisent plus: comment restaurer?",
+        pl: "PoRESETOWANIU Galaxy Watch kroki już nie są synchronizowane: jak przywrócić?",
+        tr: "Sıfırladığınız sonra adımlar daha önceden yeniden synkronize edilmiyor: nasıl geri yüklenebilir?",
       },
       a: {
         it: "Un reset del Watch richiede di ripetere l'intera procedura di pairing. Apri Galaxy Wearable, aggiungi il Watch, e poi ri-autorizza Samsung Health → Health Connect. Dopo il reset il Watch è come nuovo: non ha memoria della precedente connessione. Lascia che Samsung Health e Galaxy Wearable si riconfigurino completamente (può richiedere 15-30 minuti) prima di concludere che c'è un problema.",
@@ -837,6 +1043,8 @@ export const post: BlogPost = {
         de: "Ein Watch-Reset erfordert das erneute Durchführen des gesamten Kopplungsvorgangs. Öffne Galaxy Wearable, füge die Watch hinzu und autorisiere dann Samsung Health → Health Connect neu. Nach dem Reset ist die Watch wie neu: Sie hat keine Erinnerung an die vorherige Verbindung. Lass Samsung Health und Galaxy Wearable sich vollständig neu konfigurieren (kann 15-30 Minuten dauern), bevor du zu dem Schluss kommst, dass ein Problem vorliegt.",
         pt: "Uma redefinição do Watch exige repetir todo o procedimento de pareamento. Abra o Galaxy Wearable, adicione o Watch e depois reautorize Samsung Health → Health Connect. Após a redefinição, o Watch é como novo: não tem memória da conexão anterior. Deixe o Samsung Health e o Galaxy Wearable se reconfigurarem completamente (pode levar 15-30 minutos) antes de concluir que há um problema.",
         fr: "Une réinitialisation de la Watch nécessite de répéter toute la procédure de couplage. Ouvrez Galaxy Wearable, ajoutez la Watch, puis réautorisez Samsung Health → Health Connect. Après la réinitialisation, la Watch est comme neuve: elle n'a aucun souvenir de la connexion précédente. Laissez Samsung Health et Galaxy Wearable se reconfigurer complètement (cela peut prendre 15-30 minutes) avant de conclure qu'il y a un problème.",
+        pl: "Reset smartwaktu wymaga powtórzenia pełnej procedury paringowania. Otwórz Galaxy Wearable, dodaj smartwatek, a następnie ponownie autoryzuj Samsung Health → Health Connect. Po resetowaniu smartwatek jest jak nowy: nie posiada pamięci o poprzedniej połączeniu. Pozwól, aby Samsung Health i Galaxy Wearable się zresetowały całkowicie (może to zająć 15-30 minut), zanim stwierdzisz, że istnieje problem.",
+        tr: "Bir Watch yeniden ayarlaması, tüm pairing prosedürünü tekrarlamaktan oluşur. Galaxy Wearable'u aç, Watch'u ekleyin ve sonra tekrar yetkilendirin Samsung Health → Health Connect. Reset'ten sonra Watch yeni bir durumda: önceki bağlantısı yoktur. Samsung Health ve Galaxy Wearable'un tam olarak yeniden yapılandırılmasını bekleyin (15-30 dakika arasında sürebilir) ve sonra sorun var olup olmadığını belirleyin.",
       },
     },
     {
@@ -847,6 +1055,8 @@ export const post: BlogPost = {
         de: "Daten von vorherigen Tagen erscheinen nicht in Health Connect: Kann ich sie wiederherstellen?",
         pt: "Dados de dias anteriores não aparecem no Health Connect: posso recuperá-los?",
         fr: "Les données des jours précédents n'apparaissent pas dans Health Connect: puis-je les récupérer?",
+        pl: "Dane z poprzednich dni nie xuất hiện trong Health Connect: mogę je odzyskać?",
+        tr: "Geri aktarımlar için önceki günlerin verileri Health Connect: geri alabiliyor musunuz?",
       },
       a: {
         it: "In generale no, non automaticamente. Health Connect non sincronizza retroattivamente i dati precedenti all'autorizzazione. I dati storici restano nel database di Samsung Health. Alcune app permettono di importare manualmente un export da Samsung Health (formato CSV o JSON), ma dipende dall'app specifica. Se i dati storici ti servono, Samsung Health resta il posto dove vivono.",
@@ -855,6 +1065,8 @@ export const post: BlogPost = {
         de: "Im Allgemeinen nein, nicht automatisch. Health Connect synchronisiert keine Daten rückwirkend, die vor der Autorisierung liegen. Historische Daten verbleiben in der Datenbank von Samsung Health. Einige Apps ermöglichen den manuellen Import eines Samsung Health-Exports (CSV- oder JSON-Format), aber das hängt von der jeweiligen App ab. Wenn du historische Daten benötigst, bleibt Samsung Health der Ort, wo sie leben.",
         pt: "Em geral não, não automaticamente. O Health Connect não sincroniza retroativamente dados anteriores à autorização. Os dados históricos permanecem no banco de dados do Samsung Health. Alguns apps permitem importar manualmente uma exportação do Samsung Health (formato CSV ou JSON), mas depende do app específico. Se você precisar dos dados históricos, o Samsung Health continua sendo o lugar onde eles residem.",
         fr: "En général non, pas automatiquement. Health Connect ne synchronise pas rétroactivement les données antérieures à l'autorisation. Les données historiques restent dans la base de données de Samsung Health. Certaines applications permettent d'importer manuellement un export Samsung Health (format CSV ou JSON), mais cela dépend de l'application spécifique. Si vous avez besoin de données historiques, Samsung Health reste l'endroit où elles se trouvent.",
+        pl: "Wszystko w generalu nie, nie automatycznie. Health Connect nie synchronizuje odrośnośnie danych wcześniejszych po udzielении разрешения. Historia danych pozostaje w bazie danych Samsung Health. Niektóre aplikacje pozwalają na manualne importowanie eksportu z Samsung Health (format CSV lub JSON), ale zależy to od konkretnej aplikacji. Jeśli potrzebujesz historii danych, Samsung Health pozostaje miejscem, w którym one istnieją.",
+        tr: "Genellikle hayır, otomatik olarak değil. Health Connect onaydan önceki verileri geri aktarım yapmaz. Tarihi veriler Samsung Health veritabanında kalır. Bazı uygulamalar, tarihi verilerin manuel bir şekilde Samsung Health exportunu (format CSV veya JSON) içeri aktarılmasını sağlar, ancak bu uygulama bağımlıdır. Tarihi verilere ihtiyacın varsa, Samsung Health hala onların yeridir.",
       },
     },
     {
@@ -865,6 +1077,8 @@ export const post: BlogPost = {
         de: "Galaxy Watch zählt Schritte doppelt: einmal in der Watch und einmal im Telefon. Wie behebt man das?",
         pt: "O Galaxy Watch conta os passos duas vezes: uma no Watch e uma no telefone. Como resolver?",
         fr: "Le Galaxy Watch compte les pas deux fois: une fois dans la Watch et une fois dans le téléphone. Comment résoudre cela?",
+        pl: "Galaxy Watch liczu kroki dwukrotnie: raz na Smartwatchu, a raz na telefonie. Jak to naprawić?",
+        tr: "Galaxy Watch i adımlar iki kez sayılır: bir kere watchta, bir kere telefonda. Nasıl çözülür?",
       },
       a: {
         it: "Questo succede quando Samsung Health rileva sia il sensore del Watch che il sensore del telefono (accelerometro) come fonti di passi. La soluzione è specificare il Galaxy Watch come fonte prioritaria: in Samsung Health → Impostazioni → Dispositivi connessi (o 'Connetti dispositivo') → Galaxy Watch, verifica che sia impostato come fonte principale per i passi. In alternativa, disabilita il rilevamento passi direttamente dal telefono: Samsung Health → Impostazioni → Permessi → Attività fisica, e assicurati che i passi vengano letti solo dal Watch.",
@@ -873,6 +1087,8 @@ export const post: BlogPost = {
         de: "Das passiert, wenn Samsung Health sowohl den Watch-Sensor als auch den Telefonsensor (Beschleunigungssensor) als Schrittquellen erkennt. Die Lösung ist, den Galaxy Watch als Prioritätsquelle festzulegen: In Samsung Health → Einstellungen → Verbundene Geräte → Galaxy Watch, prüfe, dass er als Hauptquelle für Schritte eingestellt ist. Alternativ deaktiviere die direkte Schrittzählung über das Telefon: Samsung Health → Einstellungen → Berechtigungen → Körperliche Aktivität, und stelle sicher, dass Schritte nur von der Watch gelesen werden.",
         pt: "Isso acontece quando o Samsung Health detecta tanto o sensor do Watch quanto o sensor do telefone (acelerômetro) como fontes de passos. A solução é definir o Galaxy Watch como fonte prioritária: em Samsung Health → Configurações → Dispositivos conectados → Galaxy Watch, verifique se está configurado como fonte principal para os passos. Alternativamente, desative a contagem de passos diretamente pelo telefone: Samsung Health → Configurações → Permissões → Atividade física, e certifique-se de que os passos sejam lidos apenas pelo Watch.",
         fr: "Cela se produit quand Samsung Health détecte à la fois le capteur de la Watch et le capteur du téléphone (accéléromètre) comme sources de pas. La solution est de définir le Galaxy Watch comme source prioritaire: dans Samsung Health → Paramètres → Appareils connectés → Galaxy Watch, vérifiez qu'il est défini comme source principale pour les pas. Vous pouvez aussi désactiver la détection des pas directement depuis le téléphone: Samsung Health → Paramètres → Autorisations → Activité physique, et assurez-vous que les pas ne sont lus que depuis la Watch.",
+        pl: "To jest sytuacja, gdy Samsung Health wykrywa zarówno sensores smartwatch, jak i sensores telefonu (akcelerometr) jako źródła kroku. Rozwiązanie polega na zdefiniowaniu Galaxy Watch jako priorytetowego źródła: w Samsung Health → Ustawienia → Podłączone urządzenia (lub 'Podłącz urządzenie') → Galaxy Watch, upewnij się, że jest ustawiony jako priorytetowy źródło dla kroku. W alternatywie wyłącz bezpośrednio śledzenie kroków z telefonu: Samsung Health → Ustawienia → Przywileje → Fizyczna aktywność, i upewnij się, że kroki są czytane tylko z smartwatcha.",
+        tr: "Buğuya neden olunurken Samsung Health hem Zegrenin hem de telefon sensörünün (gerilim döndüren sensör) adımlarını tespit eder. Sorunu çözmek için Galaxy Watch'i öncelikli kaynak olarak belirle: Samsung Health → Ayarlar → Bağlı Cihazlar (veya 'Cihazı Bağla') → Galaxy Watch, adımları için ana kaynağı olarak ayarlanmış olduğundan emin ol. Alternatif olarak, telefondan doğrudan adımların algılanmasını devre dışı bırakabilirsiniz: Samsung Health → Ayarlar → Yetkilendirme → Fiziksel Etkinlikler, ve adım verilerinin sadece Zegrenin okunduğundan emin olun.",
       },
     },
   ],
