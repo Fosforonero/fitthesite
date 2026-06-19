@@ -540,7 +540,7 @@ export const post: BlogPost = {
           tr: [
             "Yürütme sırasında adımlar ve mesafe",
             "Garmin Başlangıçci",
-            “GPS uyumluluğu için adım kalibrasyonu __(daha uzun mesafelerde daha az hassas)__”,
+            "GPS uyumluluğu için adım kalibrasyonu __(daha uzun mesafelerde daha az hassas)__",
             "KVKK (azimiz daha eksik olduğu uzaklıklarda)",
           ],
         },

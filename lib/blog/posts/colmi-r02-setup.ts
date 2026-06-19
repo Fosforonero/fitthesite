@@ -515,8 +515,8 @@ export const post: BlogPost = {
         ],
         pl: [
           "**Zainstaluj FitMesh Sync**: jeśli jeszcze tego nie zrobiłeś, pobierz aplikację z Google Play Store. Wersja beta jest dostępna przez link z zaproszeniem ze strony [/pl/beta](/pl/beta).",
-          "**Otwórz FitMesh i przejdź do „Urządzenia”**: na ekranie głównym wybierz menu urządzeń lub naciśnij „+”, aby dodać nowe urządzenie.",
-          "**Wybierz „Pierścień smart”, a następnie „Colmi R02/R03”**: FitMesh uruchamia skanowanie Bluetooth. Upewnij się, że Bluetooth w telefonie jest włączony, a pierścień jest w pobliżu (w odległości do 50 cm).",
+          "**Otwórz FitMesh i przejdź do „Urządzenia"**: na ekranie głównym wybierz menu urządzeń lub naciśnij „+", aby dodać nowe urządzenie.",
+          "**Wybierz „Pierścień smart", a następnie „Colmi R02/R03"**: FitMesh uruchamia skanowanie Bluetooth. Upewnij się, że Bluetooth w telefonie jest włączony, a pierścień jest w pobliżu (w odległości do 50 cm).",
           "**Sparuj pierścień**: gdy Colmi R02 pojawi się na liście wykrytych urządzeń, wybierz go. Parowanie trwa kilka sekund. Nie jest wymagany PIN.",
           "**Pierwsza synchronizacja danych**: po sparowaniu FitMesh automatycznie pobiera dane historyczne z pamięci pierścienia (zazwyczaj ostatnie 7 dni). Pierwsza synchronizacja może trwać od 30 sekund do kilku minut.",
           "**Kolejne synchronizacje**: następne synchronizacje odbywają się automatycznie za każdym razem, gdy pierścień znajdzie się w zasięgu telefonu. Nie musisz nic robić ręcznie.",
