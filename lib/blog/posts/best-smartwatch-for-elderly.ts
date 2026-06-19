@@ -720,7 +720,7 @@ export const post: BlogPost = {
           "**Setup inicjalny wykonany przez Ciebie**: nie oczekuj, że stary, niezbyt zaprzyjaźniony z technologiami, skonfiguruje to sam Health Connect, wykrywanie upadków, i kontakty w razie kryzysu. To Ty to zrób, obecnie, z patience.",
           "**Pierwsza tydzień: tylko zegarek i kroki**. Nie chcę nadmiernie załadować notifikacjami, celami fitness, pęczkami do zamknięcia. Praktyka przewyższa funkcje.",
           "**Przypomnienie o regularnym połączeniu**: w ciągu pierwszych 30 dni wykonaj regularne połączenie, aby sprawdzić, jak działa urządzenie. Rozwiąż problemy natychmiast.",
-          "**Nie używaj słowa „kontrolować"**: „Zegarek namawia, jeśli potrzebujesz pomocy" jest znacznie lepsze od „W ten sposób możemy kontrolować Twoje stanowisko".",
+          "**Nie używaj słowa 'kontrolować'**: 'Zegarek namawia, jeśli potrzebujesz pomocy' jest znacznie lepsze od 'W ten sposób możemy kontrolować Twoje stanowisko'.",
         ],
         tr: [
           "**Giyilebilir cihazın seçimini bırakın**: renk, malzeme, görünüm. Küçük bir şey, her gün giymek isteyen irade için büyük bir fark.",
