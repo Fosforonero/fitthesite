@@ -41,3 +41,4 @@ supabase/.temp
 supabase/.branches
 supabase/seed.local.sql
 .pnpm-store/
+.claude/
