@@ -857,7 +857,7 @@ export const post: BlogPost = {
         pt: "Quando o problema não está no seu celular",
         fr: "Quand le problème ne vient pas de votre téléphone",
         pl: "Gdy problem nie występuje na Twoim telefonie",
-        tr: “Sorun telefonunuzda değilse”,
+        tr: "Sorun telefonunuzda değilse",
       },
     },
     {

@@ -907,7 +907,7 @@ export const post: BlogPost = {
         de: "Kann eine Smartwatch den Blutdruck überwachen?",
         pt: "O smartwatch pode monitorar a pressão arterial?",
         fr: "Une montre connectée peut-elle surveiller la pression artérielle?",
-        pl: "Czy smartwatch może监测血压？\n（根据规则，保留了tokens和原文结构，但由于“monitorare la pressione arteriosa”在目标语言中需要直接翻译，因此进行了调整以符合中文表达习惯。） \n\n正确版本应为：\nCzy smartwatch może monitorować ciśnienie arterialne?",
+        pl: “Czy smartwatch może monitorować ciśnienie tętnicze?”,
         tr: "Giyilebilir cihaz KVKK'ye uygun şekilde arteri basıncını izleyebilir mi?",
       },
       a: {

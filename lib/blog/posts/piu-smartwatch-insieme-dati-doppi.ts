@@ -540,7 +540,7 @@ export const post: BlogPost = {
           tr: [
             "Yürütme sırasında adımlar ve mesafe",
             "Garmin Başlangıçci",
-            "KVKK uygunluğuna özel, adımla kalibrasyon特别注意：这里的“特别注意：”以及后续内容是中文提示，用于说明处理方式，并非原文或译文的一部分。正确翻译应为：\n\nGPS uygunluğa özel, adımlık kalibreasyon __FM_PH_0__, __FM_URL_0__, __FM_HTML_0__, __FM_LINK_0__, __FM_CODE_0__, __FM_FENCE_0__, __FM_BRAND_0__, GPS",
+            “GPS uyumluluğu için adım kalibrasyonu __(daha uzun mesafelerde daha az hassas)__”,
             "KVKK (azimiz daha eksik olduğu uzaklıklarda)",
           ],
         },
