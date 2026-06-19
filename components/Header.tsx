@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
+import MobileMenu from "./MobileMenu";
 import type { Dictionary, Locale } from "@/lib/i18n";
 
 export default function Header({
@@ -73,22 +74,16 @@ export default function Header({
           >
             {dict.nav.privacy}
           </Link>
-          {/* CTA primaria → pagina Founder (/beta). Stessa destinazione su mobile e
-              desktop: la home aveva l'ancora #download, rotta su ogni altra pagina. */}
+          {/* CTA primaria desktop */}
           <Link
             href={`/${locale}/beta`}
-            className="ml-1 sm:hidden inline-flex items-center px-4 py-2 rounded-pill btn-cta text-sm min-h-[40px]"
-          >
-            Founder
-          </Link>
-          <Link
-            href={`/${locale}/beta`}
-            className="ml-1 hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-pill btn-cta text-sm"
+            className="ml-1 hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-pill btn-cta text-sm"
           >
             Founder
             <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
           </Link>
           <LanguageSwitcher current={locale} />
+          <MobileMenu dict={dict} locale={locale} />
         </nav>
       </div>
     </header>
