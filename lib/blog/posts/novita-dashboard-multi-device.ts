@@ -150,7 +150,7 @@ export const post: BlogPost = {
       pt: "Com a atualização de hoje, FitMesh Sync apresenta o painel global: uma única tela que agrega dados de relógios, anel e outras fontes, eliminando duplicatas e sempre exibindo o melhor valor para cada métrica.",
       fr: "Avec la mise à jour d'aujourd'hui, FitMesh Sync introduit le tableau de bord global: un seul écran qui regroupe les données des montres, de la bague et d'autres sources, élimine les doublons et affiche toujours la meilleure valeur pour chaque métrique.",
       pl: "Zaśródłowa aktualizacja wprowadza FitMesh Sync globalną dashborad: pojedyncze okno, które agreguje dane z smartwatchów, anelków i innych źródeł, usuwając powtarzalne informacje i prezentując zawsze najlepszą wartość dla każdej metryki.",
-      tr: "Con güncellemesi今天你休息，我来翻译。以下是翻译文本：\n\n```tr\nGünümüz güncellemesiyle FitMesh Sync globel paneli tanıtmaktayız: tek bir ekran, saati, yüzüğe ve diğer kaynaklardan gelen verileri toplar, tekrarlara rastlanmaz ve her metrik için her zaman en iyi değeri gösterir.\n```",
+      tr: "Bugünkü güncellemeyle FitMesh Sync global panoyu tanıtıyor: saatler, yüzük ve diğer kaynaklardan gelen verileri tek bir ekranda toplayan, tekrarları ortadan kaldıran ve her metrik için her zaman en iyi değeri gösteren bir görünüm.",
     },
   },
   body: [

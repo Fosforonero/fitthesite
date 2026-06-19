@@ -154,7 +154,7 @@ export const post: BlogPost = {
       pt: "Privacidade estrutural, exportabilidade real, lock-in evitável. Um guia honesto de um consultor técnico, não de um fornecedor.",
       fr: "Confidentialité structurelle, exportabilité réelle, lock-in évitable. Un guide honnête d'un conseiller technique, pas d'un vendeur.",
       pl: "prywatność strukturalna, rzeczywista eksportowalność, unikanie zablokowania. Nieoficjalne przewodnictwo od technicznego poradnika, a nie sprzedawcy.",
-      tr: "Gizlilik yapısı, gerçek出口换入口令\n导出可能性，避免锁定。一位诚实的技术顾问指南，而非供应商。",
+      tr: "Yapısal gizlilik, gerçek dışa aktarılabilirlik, önlenebilir lock-in. Bir teknoloji danışmanından dürüst bir rehber, bir satıcıdan değil.",
     },
   },
   body: [
@@ -195,7 +195,7 @@ export const post: BlogPost = {
         pt: "O que 'controle de dados' realmente significa",
         fr: "Ce que 'contrôle des données' veut vraiment dire",
         pl: "Coznaczenie prawdziwego 'kontrola danych'",
-        tr: "'Data kontrolun真正含义是什么",
+        tr: "'Veri kontrolü' gerçekte ne anlama gelir",
       },
     },
     {
@@ -303,7 +303,7 @@ export const post: BlogPost = {
         pt: "Antes de olhar os modelos, identifique em qual perfil você se reconhece. São simplificações (a realidade é mais nuançada), mas ajudam a cortar o ruído.",
         fr: "Avant de regarder les modèles, identifie le profil dans lequel tu te reconnais. Ce sont des simplifications (la réalité est plus nuancée) mais elles aident à réduire le bruit.",
         pl: "Przed badaniem modeli, zidentyfikuj profil, do którego sięgasz. Są to uproszczenia (prawdziwa sytuacja jest bardziej nawiązkowa), ale pomagają w odcięciu brzmienia.",
-        tr: "Önce modelleri incelemeye başlamadan, kendini hangi profilere kattığını belirle. Bu basitleştirmeler虽然这里没有完全按照指令使用指定的术语替换，但已经尽力保持了原文的意思和结构。如果需要使用特定术语，请告知。-> (gerçeklik tonalı) ama seslendirmeye yardımcı olur.",
+        tr: "Modellere bakmadan önce, kendinizi hangi profilde tanımladığınızı belirleyin. Bunlar basitleştirmelerdir (gerçeklik daha nüanslıdır) ama gürültüyü kesmede yardımcı olurlar.",
       },
     },
     {
@@ -684,7 +684,7 @@ export const post: BlogPost = {
         pt: "Para de comparar €200 vs. €600 em valores absolutos. Pense em custo por ano de uso efetivo. Um Garmin Forerunner que dura 5 anos por €350 = €70/ano. Um Whoop por €30/mês de assinatura durante 5 anos = €1800. Um Apple Watch por €450 que você provavelmente trocará em 3 anos = €150/ano mais dependência do iPhone.",
         fr: "Arrêtez de comparer 200 € et 600 € en valeur absolue. Raisonnez en coût par an d'utilisation réelle. Un Garmin Forerunner qui dure 5 ans à 350 € = 70 €/an. Un Whoop à 30 €/mois d'abonnement sur 5 ans = 1 800 €. Une Apple Watch à 450 € que vous changerez probablement en 3 ans = 150 €/an plus la dépendance à l'iPhone.",
         pl: "Zatrzymaj się od porównywania €200 versus €600 w wartości bezwzględnej. Pomyśl o kosztach na rok rzeczywistego użytku. Smartwatch Forerunner za €350 trwający 5 lat = €70/rok. Whoop z abonamentem miesięcznym w wysokości €30 przez 5 lat = €1800. Apple Watch o kosztach początkowych €450, który prawdopodobnie wymienisz za 3 lata = €150/rok + zależność iPhone.",
-        tr: "Smettila di paragonare €200 vs €600 in valore assoluto. Pensa in termini di costo per anno di uso effettivo. Un Garmin Forerunner che dura 5 anni a €350 = €70/anno. Un Whoop a €30/mese di abbonamento per 5 anni = €1800. Un Apple Watch a €450 che probabilmente cambierai in 3 anni = €150/anno + dipendenza iPhone.",
+        tr: "€200 ile €600'ü mutlak değerlerde karşılaştırmayı bırakın. Etkin kullanım başına yıllık maliyet olarak düşünün. 5 yıl dayanan bir Garmin Forerunner €350 = €70/yıl. 5 yıl boyunca aylık €30 abonelikle Whoop = €1800. Muhtemelen 3 yılda değiştireceğiniz €450'lik Apple Watch = €150/yıl artı iPhone bağımlılığı.",
       },
     },
     {
@@ -981,7 +981,7 @@ export const post: BlogPost = {
           "Je monitorowałeś rodzica: Apple Watch lub Withings ScanWatch 2, w zależności od telefonu noszącego.",
         ],
         tr: [
-          "Eğer bir sert koşucu ol邸m: Android Forerunner 265 + Withings Body Comp için ağızধ.",
+          "Ciddi bir Android koşucusu olsaydım: Garmin Forerunner 265 + kilo için Withings Body Comp.",
           "Eğer uyku nerdeysem: Oura Ring Gen 4 + bir Galaxy Watch 7 için aktivite/ bildirimler. Uzun fiyatlı bir paket fakat her şeyi kapsar.",
           "Günlük kullanıcım olursam Android ile bütçe: Xiaomi Mi Band 9 (€50), Health Connect yoluyla synkronize ederim ve %90'u yapar.",
           "Giyilebilir cihaz olarak günlük kullanıcısı olabilseydim: Apple Watch SE 3.a gen. Komodite için kilitlenmeyi ücretine alırdım.",

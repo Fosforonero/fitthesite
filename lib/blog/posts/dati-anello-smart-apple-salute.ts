@@ -518,7 +518,7 @@ export const post: BlogPost = {
           "Gidin **Ayarlar → Apple Sağlık → Yazım Köprüsü**.",
           "Etkileşimli öğeyi aç ve gerekli HealthKit izinleri ver.",
           "Seçilecek hangi tür veriyi köprü tarafından yazdıracağını (uyku, adımlar, kalp atış hızı vs.) belirleyin.",
-          "FitMesh verişimizi mevcut verileri sırayla ve KVKK uyumluluğunu sağlayarak Apple Sağlık'a分钟后同步并写入数据。",
+          "FitMesh mevcut verileri senkronize eder ve birkaç dakika içinde Apple Sağlık'a yazar.",
         ],
       },
     },
@@ -607,7 +607,7 @@ export const post: BlogPost = {
         pt: "Experimente a ponte do Apple Saúde em beta",
         fr: "Testez le pont Santé Apple en bêta",
         pl: "Spróbuj błędnika Apple Zdrowia w betwie",
-        tr: "Deneyimle Apple Sağlık Köprüsü beta sürümünü测试翻译结果：\n体验 Apple 健康桥 Beta 版",
+        tr: "Apple Sağlık Köprüsü'nü beta sürümünde deneyin",
       },
       body: {
         it: "FitMesh iOS è in beta TestFlight ora. Iscriviti per provare il ponte di scrittura Apple Salute e portare i dati del tuo wearable Android dentro l'app Salute di iPhone.",
@@ -721,7 +721,7 @@ export const post: BlogPost = {
         pt: "O percurso é: o telefone Android sincroniza os dados com a nuvem FitMesh (a cada poucos minutos), depois o app iPhone os grava no Apple Saúde na próxima abertura ou em segundo plano. Não é em tempo real instantâneo, mas é automático: sem nenhuma exportação manual, os dados da noite anterior estão no Apple Saúde em poucos minutos após abrir o app pela manhã.",
         fr: "Le chemin est le suivant : le téléphone Android synchronise les données vers le cloud FitMesh (toutes les quelques minutes), puis l'app iPhone les écrit dans Santé Apple lors de la prochaine ouverture ou en arrière-plan. Ce n'est pas du temps réel instantané, mais c'est automatique : sans aucune exportation manuelle, les données de la nuit précédente sont dans Santé Apple quelques minutes après l'ouverture de l'app le matin.",
         pl: "Proces jest ten: telefon Android synchronizuje dane z chmury FitMesh (każde kilka minut), a następnie aplikacja iPhone zapisuje je w Apple Salute podczas kolejnej otwarcia lub w tle. Nie jest to synchronizacja w czasie rzeczywistym, ale jest automatyczne: bez żadnego eksportu ręcznego, dane ze sztucznego senu z poprzedniej nocy są dostępne w Apple Salute w ciągu kilku minut od otworzenia aplikacji w porze rano.",
-        tr: "Yol şunu olur: telefon Android cihazınız bulut üzerindeki verileri (her几分钟后，我将返回并提供土耳其语翻译。请稍等片刻。 \n\nTranslation to Turkish:\nTelefon Android cihazınız bulut üzerindeki verileri (her birkaç dakikada bir) synkronlaştırır, sonra uygulama iPhone bunları sabah uygulamanın açıldığı veya arka planda Apple Sağlık'a yazar. Gerçek zamanlı değil, ancak otomatik: hiçbir manuel export olmadan, geçen gecen veriler sabah uygulamanın açıldığından kısa süre içinde bulut üzerindeki Apple Sağlık'a yüklenir.",
+        tr: "Süreç şöyle işler: Android telefon verileri FitMesh bulutuna senkronize eder (her birkaç dakikada bir), ardından iPhone uygulaması bunları bir sonraki açılışta veya arka planda Apple Sağlık'a yazar. Anlık gerçek zamanlı değildir, ancak otomatiktir: manuel dışa aktarma olmadan, önceki gecenin verileri sabah uygulamayı açtıktan birkaç dakika içinde Apple Sağlık'ta hazır olur.",
       },
     },
     {

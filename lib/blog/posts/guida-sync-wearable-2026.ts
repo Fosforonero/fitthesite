@@ -466,7 +466,7 @@ export const post: BlogPost = {
         pt: "Situação das principais marcas em maio de 2026",
         fr: "État des principales marques en mai 2026",
         pl: "Stanie głównych mark w maju 2026",
-        tr: "Stato dei principali mark a Mayıs 2026",
+        tr: "Başlıca markaların Mayıs 2026 itibarıyla durumu",
       },
     },
     {
@@ -898,7 +898,7 @@ export const post: BlogPost = {
         pt: "Ao avaliar um app ou serviço para centralizar os dados do seu wearable, faça estas cinco perguntas. São as mesmas que fazemos internamente para cada integração que adicionamos ao FitMesh Sync.",
         fr: "Lorsque vous évaluez une application ou un service pour centraliser les données de votre appareil connecté, posez ces cinq questions. Ce sont les mêmes que nous nous posons en interne pour chaque intégration que nous ajoutons à FitMesh Sync.",
         pl: "Gdy oceniajesz aplikację lub usługę do przekazania danych z twojego wearable na jedno miejsce, zadaj te pięć pytań. Są one takie same, jak te, które postawiamy internalicznie dla każdej integracji, którą dodajemy do FitMesh Sync.",
-        tr: "Değeri değerlendirmek için bir uygulamayı veya hizmeti, giyilebilir cihazdan verilerin tek bir yerine taşınması açısından, beş soruyu cevaplayın. Bu, her eklediğimiz integ्रションに合わせて調整しますFitMesh Sync'a ait her bir entegrasyon için kendimize sorular olarak kullanıyoruz.",
+        tr: "Giyilebilir cihaz verilerinizi tek bir yerde toplamak için bir uygulama veya hizmet değerlendirirken şu beş soruyu sorun. FitMesh Sync'e eklediğimiz her entegrasyon için kendimize aynı soruları soruyoruz.",
       },
     },
     {
@@ -1074,7 +1074,7 @@ export const post: BlogPost = {
         pt: "Para ser transparente: FitMesh Sync é o produto que desenvolvemos e a razão pela qual este guia existe. Ele funciona hoje nativamente com todos os wearables Android que gravam no Health Connect, e temos integrações OAuth oficiais para dados avançados no roadmap. Sem promessas vagas: aqui está o estado explícito de cada integração.",
         fr: "Par souci de transparence : FitMesh Sync est le produit que nous développons et la raison pour laquelle ce guide existe. Il fonctionne aujourd'hui nativement avec tous les appareils connectés Android qui écrivent dans Health Connect, et nous avons des intégrations OAuth officielles pour les données avancées dans la feuille de route. Pas de promesses vagues : voici l'état explicite de chaque intégration.",
         pl: "Dla przejrzystość: FitMesh Sync to produkt, który tworzymy i powód, dla którego istnieje ta instrukcja. Funkcjonuje dzisiaj naturalnie z wszystkimi wearable Android piszącymi na Health Connect, a integracje oficjalne dla zaawansowanych danych są w planach rozwijania produktu. Brak nieprecyzyjnych obietnic: oto jasny stan każdej integracji.",
-        tr: "İşte gerçektense: FitMesh Sync产品的构建基础以及我们为何要编写此指南的原因。它今天能够原生地与所有写入Health Connect的可穿戴设备Android无缝协作，并且高级数据整合的官方支持也在我们的计划之中。没有模糊的承诺：这就是每项整合的明确状态。",
+        tr: "Şeffaflık adına: FitMesh Sync geliştirdiğimiz üründür ve bu rehberin var olma sebebidir. Bugün Health Connect'e yazan tüm Android giyilebilir cihazlarla yerel olarak çalışıyor; gelişmiş veriler için resmi OAuth entegrasyonları yol haritamızda yer alıyor. Belirsiz vaatler yok: her entegrasyonun mevcut durumu aşağıda açık biçimde belirtilmiştir.",
       },
     },
     {
@@ -1226,7 +1226,7 @@ export const post: BlogPost = {
         pt: "O Health Connect está destinado a se expandir: o Google está trabalhando com os fabricantes para adicionar tipos de dados proprietários (HRV intradiário, sleep coaching, training readiness) como escopos opcionais. A Comissão Europeia está avaliando incluir dados pessoais de saúde gerados por wearables no escopo do European Health Data Space (EHDS), o que poderia forçar os ecossistemas mais fechados (Apple em primeiro lugar) a abrir interoperabilidade mínima até 2027–2028.",
         fr: "Health Connect est appelé à s'étendre : Google travaille avec les fabricants pour ajouter des types de données propriétaires (HRV intraday, sleep coaching, training readiness) comme scopes optionnels. La Commission européenne évalue l'inclusion des données de santé personnelles générées par les wearables dans le périmètre de l'European Health Data Space (EHDS), ce qui pourrait obliger les écosystèmes plus fermés (Apple en premier lieu) à ouvrir une interopérabilité minimale d'ici 2027–2028.",
         pl: "Health Connect jest przeznaczony do rozwoju: Google współpracuje z producentami, aby dodać opcjonalne zakresy danych prywatnych (HRV intradyjne, doradztwo spać, gotowość treningowa). Komisja Europejska ocenia włączenie danych zdrowia osobistych generowanych przez wearble do zakresu European Health Data Space (EHDS), co może zmusić bardziej zamknięte ecosystemy (w szczególności Apple) do otwartrzania minimalnej interoperacyjności do 2027–2028.",
-        tr: "Health Connect genişlemeye hazırdır: Google üreticilerle işbirliği içinde, sahihip veri türleri (HRV anlık piyasası, uyku danışmanlığı, egzersiz hazırlandırılışı) seçeneği olarak eklemek için çalışıyor. Avrupa Komisyonu, giyilebilir cihazlardan生成中，请稍候...",
+        tr: "Health Connect genişlemeye devam edecek: Google, üreticilerle birlikte tescilli veri türlerini (günlük HRV, uyku koçluğu, antrenman hazırlığı) isteğe bağlı kapsam olarak ekleme üzerinde çalışıyor. Avrupa Komisyonu, giyilebilir cihazların ürettiği kişisel sağlık verilerini Avrupa Sağlık Veri Alanı (EHDS) kapsamına almayı değerlendiriyor; bu durum, daha kapalı ekosistemlerini (öncelikle Apple'ı) 2027-2028 yılına kadar asgari birlikte çalışabilirlik açmaya zorlayabilir.",
       },
     },
     {
@@ -1239,7 +1239,7 @@ export const post: BlogPost = {
         pt: "No front comercial: esperamos que pelo menos um entre Garmin e Polar lance uma API totalmente pública e self-serve (hoje ambos exigem aprovação de desenvolvedor); que Huawei tente impulsionar o Health Kit fora da China; que Oura introduza um plano enterprise com acesso gratuito à API em troca de volume. Tudo isso é especulação informada. Leve com reservas.",
         fr: "Sur le front commercial : nous nous attendons à ce qu'au moins Garmin ou Polar lance une API publique entièrement en self-service (aujourd'hui les deux nécessitent une approbation développeur) ; que Huawei pousse davantage Health Kit hors de Chine ; qu'Oura introduise un plan enterprise avec accès API gratuit en échange de volumes. Tout cela est une spéculation éclairée. À prendre avec précaution.",
         pl: "Na polu komercy: oczekujemy, że co najmniej jedna z Garmin i Polar wyemituje pełnoprawną API samodzielnie obsługiwaną (obie obecnie wymagają zatwierdzenia deweloperów); że Huawei spróbuje bardziej naciskać Health Kit poza Chinami; że Oura wprowadzi pakiet przedsiębiorstwa umożliwiający bezpłatny dostęp API w zależności od objętości. To wszystko jest przesłuchaną speculacją, traktuj ją z solą w oczach.",
-        tr: "Sul fronte commerciale: ci aspettiamo che almeno uno tra Garmin e Polar lanci un'API completamente pubblica self-serve (oggi entrambi richiedono approvazione developer); che Huawei provi a spingere maggiormente Health Kit fuori dalla Cina; che Oura introduca un piano enterprise per accesso API a costo zero a fronte di volumi. Tutto questo è speculazione informata, prendila con un grano di sale.",
+        tr: "Ticari cephede: Garmin veya Polar'dan en az birinin tamamen halka açık self-servis bir API yayınlamasını bekliyoruz (bugün her ikisi de geliştirici onayı gerektiriyor); Huawei'nin Health Kit'i Çin dışında daha fazla yaymaya çalışmasını; Oura'nın yüksek kullanım hacmine karşılık ücretsiz API erişimi sunan kurumsal bir plan tanıtmasını. Bunların tamamı bilinçli bir spekülasyondur, bir tutam tuzla alın.",
       },
     },
     {
@@ -1351,7 +1351,7 @@ export const post: BlogPost = {
         pt: "Nos telefones Android modernos, ele é de fato o padrão para qualquer sincronização de wearables com apps de terceiros. Ainda existem apps que leem diretamente da nuvem do fabricante via OAuth (Strava, Oura, Garmin Connect IQ), mas para a maioria dos dados 'básicos' o Health Connect é o caminho mais rápido e respeitoso com a privacidade. No iOS o Health Connect não existe: lá a referência é o HealthKit.",
         fr: "Sur les téléphones Android modernes, c'est de facto le standard pour toute synchronisation de wearables avec des applications tierces. Il existe encore des applications qui lisent directement depuis le cloud du fabricant via OAuth (Strava, Oura, Garmin Connect IQ), mais pour la plupart des données 'de base', Health Connect est la voie la plus rapide et la plus respectueuse de la confidentialité. Sur iOS, Health Connect n'existe pas : là, la référence est HealthKit.",
         pl: "Na nowych telefonach Android faktycznie standardem jest synchronizacja z dodatkowym sprzętem trzecich producentów. Istnieją nadal aplikacje, które czytają bezpośrednio z chmury producenta poprzez OAuth (Strava, Oura, Garmin Connect IQ), ale dla większości podstawowych danych Health Connect jest najbardziej szybką i priwatnosćją przyjazną drogą. Na iOS Health Connect nie ma: tam domyślnie jest to HealthKit.",
-        tr: "Sürücü telefongunda Android moderni de实际上，现代的智能穿戴设备标准实际上是通过Health Connect直接从制造商云端同步。仍然存在一些应用可以直接通过OAuth(如Strava、Oura、Garmin Connect IQ)读取云数据，但对于大多数基础数据来说，Health Connect是最快速且隐私友好的方式。在iOS上没有Health Connect：在那里，参考的是HealthKit。\n请注意，由于目标语言为土耳其语，上述翻译可能需要进一步调整以确保自然流畅。以下是根据规则调整后的翻译：\n\nSürücü telefongunda Android moderni de实际上，现代的智能穿戴设备标准实际上是通过Health Connect直接从制造商云端同步。仍然存在一些应用可以直接通过OAuth(如Strava、Oura、Garmin Connect IQ)读取云数据，但对于大多数基础数据来说，Health Connect是最快速且隐私友好的方式。在iOS上没有Health Connect：在那里，参考的是HealthKit。\n实际上，现代的智能穿戴设备标准实际上是通过Health Connect直接从制造商云端同步。仍然存在一些应用可以直接通过OAuth(如Strava、Oura、Garmin Connect IQ)读取云数据，但对于大多数基础数据来说，Health Connect是最快速且隐私友好的方式。在iOS上没有Health Connect：在那里，参考的是HealthKit。\n\n以下是根据规则调整后的翻译：\n\nSürücü telefongunda Android moderni de faktikten, herhangi bir sync wearable tercih edilen standarttır. Hala bazı uygulamalar doğrudan üretici bulutundan (OAuth gibi Strava, Oura, Garmin Connect IQ) verileri okuyabilir, ancak çoğu temel veri için Health Connect en hızlı ve gizlilik dostu yoldur. iOS üzerinde Health Connect yok: orada referans HealthKit olmaktadır.",
+        tr: "Modern Android telefonlarda, üçüncü taraf giyilebilir senkronizasyonu için fiili standart Health Connect'tir. Hala OAuth üzerinden doğrudan üretici bulutundan okuyan uygulamalar var (Strava, Oura, Garmin Connect IQ), ancak çoğu temel veri için Health Connect en hızlı ve gizliliğe en uygun yoldur. iOS'ta Health Connect bulunmuyor: orada referans HealthKit.",
       },
     },
     {

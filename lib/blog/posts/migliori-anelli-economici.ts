@@ -454,7 +454,7 @@ export const post: BlogPost = {
         pt: "Faixa econômica: anéis em torno de 20 a 35 euros",
         fr: "Gamme entrée de gamme: bagues autour de 20-35 euros",
         pl: "Fascja budżetowa: pętle okoliczne od 20 do 35 euro",
-        tr: "Budjet şeridi: 20-35 euro元左右的环圈",
+        tr: "Bütçe segmenti: 20-35 euro aralığındaki yüzükler",
       },
     },
     {
@@ -467,7 +467,7 @@ export const post: BlogPost = {
         pt: "Nessa faixa dominam os modelos OEM baseados no firmware Colmi. Eles são vendidos com nomes diferentes (alguns com a marca Colmi diretamente, outros com nomes de revendedores) mas compartilham o mesmo protocolo e as mesmas métricas.",
         fr: "Cette gamme est dominée par des modèles OEM basés sur le firmware Colmi. Ils sont vendus sous des noms variés (certains portent directement la marque Colmi, d'autres des noms de revendeurs) mais partagent le même protocole et les mêmes métriques.",
         pl: "W tej dziedzinie znajdują się modele OEM oparte na firmware Colmi. Sprzedawane są pod różnymi nazwami (niektóre zawierają bezpośrednio markę Colmi, inne nazwy dystrybutorów), ale dzielą one wspólny protokół i te same metryki.",
-        tr: "Bu乎此区间内，您会发现基于固件Colmi的OEM模型。它们以不同的名称出售（有些直接带有品牌Colmi标识，而其他则是零售商的名字），但共享相同的协议和相同的指标。",
+        tr: "Bu segmentte Colmi firmware'ine dayalı OEM modeller öne çıkar. Farklı isimlerle satılırlar (bazıları doğrudan Colmi markasını taşır, diğerleri bayi adlarını kullanır) ancak aynı protokolü ve aynı metrikleri paylaşırlar.",
       },
     },
     {
@@ -714,7 +714,7 @@ export const post: BlogPost = {
         pt: "Como escolher: as perguntas certas antes de comprar",
         fr: "Comment choisir: les bonnes questions avant d'acheter",
         pl: "Jak wybrać: poprawne pytania przed zakupem",
-        tr: "Seçmek için nasıl adımlar atılmalıyız: KVKK uyumlu satın almadan önce doğru sorular索引超出了字符串长度限制，已省略。",
+        tr: "Nasıl seçilir: satın almadan önce sorulması gereken doğru sorular",
       },
     },
     {
@@ -895,7 +895,7 @@ export const post: BlogPost = {
         pt: "Os modelos Colmi duram tipicamente 5 a 7 dias com uso normal (monitoramento contínuo ativo). Com monitoramento intensivo (SpO2 contínuo noturno) pode cair para 3 a 4 dias. A carga completa leva cerca de 1 a 2 horas.",
         fr: "Les modèles Colmi durent généralement 5-7 jours avec une utilisation normale (surveillance continue active). Avec une surveillance intensive (SpO2 continu nocturne), cela peut descendre à 3-4 jours. Une charge complète prend environ 1-2 heures.",
         pl: "Modely Colmi trwają typowo 5-7 dni pod normalnym użyciem (aktywny ciągły monitorowanie). Z aktywnym monitorowaniem agresywnym (ciągłe pomiarowanie SpO2 nocą) może spadnąć do 3-4 dni. Pełna wymagana ładowarka trwa około 1-2 godzin.",
-        tr: "Colmi modelleri tipik olarak normale kullanım koşullarında 5-7 gün süresiyle devam eder (devam ettirilen监控持续使用情况下通常可持续5-7天(__FM_PH_0__)。以积极监测(夜间连续SpO2读数)为例,可能会缩短至3-4天。完全充电大约需要1-2小时。",
+        tr: "Colmi modelleri normal kullanımda (sürekli izleme aktif) tipik olarak 5-7 gün dayanır. Yoğun izlemeyle (gece boyunca sürekli SpO2 ölçümü) bu süre 3-4 güne düşebilir. Tam şarj yaklaşık 1-2 saat sürer.",
       },
     },
   ],

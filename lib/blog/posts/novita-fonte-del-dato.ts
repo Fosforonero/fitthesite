@@ -116,7 +116,7 @@ export const post: BlogPost = {
     ],
     tr: [
       "Herhangi bir metrik artık nereden geldiğini gösterebilir, örneğin 'Kaynak: Döngü' uyku altına girdiğinizde.",
-      "Giyilebilir cihaz ve yüzük同时翻译如下：\n\nEğer akıllı saat ve yüzük aynı zamanda giyiyorsanız, adımlar ikinci kez sayılmaz.",
+      "Akıllı saat ve yüzüğü aynı anda takıyorsanız, adımlar iki kez sayılmaz.",
       "Bir cihaz şarj ediliyorken, bir başka o dönemde boğaz bırakmadan kaplar.",
       "Fun İşe Ayakta Alınır Android ve iPhone 'de, herhangi bir ayar yapmadan.",
     ],
@@ -370,7 +370,7 @@ export const post: BlogPost = {
         pt: "Não. Eles contam os mesmos passos reais, então FitMesh Sync os une sem duplicá-los. O número que você vê é o quadro correto do seu dia, não a soma dos dispositivos.",
         fr: "Non. Ils comptent les mêmes pas réels, donc FitMesh Sync les regroupe sans les doubler. Le chiffre que vous voyez est le tableau correct de votre journée, pas la somme des appareils.",
         pl: "No. Zliczają one te same rzeczywiste kroki, więc FitMesh Sync je połącza bez podwójnego zliczania. Liczba, którą widzisz, to poprawny obraz dnia, a nie suma urządzeń.",
-        tr: "No. Aynı gerçek adımları sayılır, bu nedenle FitMesh Sync onları çift saymaz. Görünen sayı ve doğru gün枡k架构，不是设备的总和。",
+        tr: "Hayır. Aynı gerçek adımlar sayılır, bu nedenle FitMesh Sync onları çift saymaz. Gördüğün sayı, cihazların toplamı değil, günün doğru tablosudur.",
       },
     },
     {

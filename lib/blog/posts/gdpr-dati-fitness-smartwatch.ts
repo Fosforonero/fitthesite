@@ -669,7 +669,7 @@ export const post: BlogPost = {
         pt: "A prioridade real: o consentimento agrupado é a prática mais desleal",
         fr: "La vraie priorité : le consentement groupé est la pratique la plus déloyale",
         pl: "Przede wszystkim: zgodność zgrupowana jest najbardziej nieetycznym podejściem",
-        tr: "Gerçek öncelik:捆绑同意是最不诚实的实践",
+        tr: "Gerçek öncelik: paketlenmiş onay en haksız uygulamadır",
       },
       body: {
         it: "Nella nostra lettura di decine di privacy policy wearable, il problema più diffuso non è dove stanno i server: è il consenso bundled. Accettare i termini di servizio di un'app dovrebbe essere separato dall'accedere al trattamento dei tuoi dati sanitari per analytics e ricerca. Quasi nessun brand lo fa in modo corretto. Se puoi fare una sola cosa, fai questa: dopo l'installazione, vai in Impostazioni → Privacy e revoca ogni consenso opzionale che non riguarda il funzionamento core del servizio.",
@@ -679,7 +679,7 @@ export const post: BlogPost = {
         pt: "Em nossa leitura de dezenas de políticas de privacidade de wearables, o problema mais difundido não é onde estão os servidores: é o consentimento agrupado. Aceitar os termos de serviço de um app deveria ser separado de consentir o tratamento dos seus dados de saúde para análises e pesquisa. Quase nenhuma marca faz isso corretamente. Se você puder fazer uma coisa, faça esta: após a instalação, vá em Configurações → Privacidade e revogue cada consentimento opcional que não seja necessário para o funcionamento principal do serviço.",
         fr: "Dans notre lecture de dizaines de politiques de confidentialité de wearables, le problème le plus répandu n'est pas l'emplacement des serveurs : c'est le consentement groupé. Accepter les conditions d'utilisation d'une application devrait être distinct du consentement au traitement de vos données de santé à des fins d'analyse et de recherche. Presque aucune marque ne le fait correctement. Si vous ne pouvez faire qu'une seule chose, faites celle-ci : après l'installation, allez dans Paramètres → Confidentialité et révoquez chaque consentement optionnel qui ne concerne pas le fonctionnement essentiel du service.",
         pl: "Wyszukując w dziesiątkach zasad prywatności wearable, najczęstszy problem nie leży w lokalizacji serwerów: leci to o zgodę zbiorową. Akceptacja warunków użytkowania aplikacji powinna być oddzielona od dostępu do Twoich danych zdrowotnych dla celów analitycznych i badawczych. Praktycznie żaden brand nie robi tego poprawnie. Jeśli możesz zrobić jedno, to zrób to: po zainstalowaniu, przejdź do Ustawienia → Prywatność i odwołaj każdą dodatkową zgodę, która nie ma związku z podstawowym funkcjonowaniem usługi.",
-        tr: "N不下拉加载, 戴数十款可穿戴设备的隐私政策后，我们发现最常见的问题不是服务器在哪里：而是捆绑同意。接受应用的服务条款应该与访问你的健康数据进行分析和研究分开。几乎没有任何品牌能做到这一点。如果你只能做一件事，那就这样做：安装后，前往设置 → 隐私并撤销任何不涉及服务核心功能的可选同意。",
+        tr: "Onlarca giyilebilir cihaz gizlilik politikasını incelediğimizde, en yaygın sorunun sunucuların nerede olduğu olmadığını gördük: sorun, paketlenmiş onaydır. Bir hizmetin kullanım koşullarını kabul etmek, sağlık verilerinizin analitik ve araştırma amacıyla işlenmesine onay vermekten ayrı olmalıdır. Neredeyse hiçbir marka bunu doğru yapmıyor. Tek bir şey yapabilecekseniz şunu yapın: kurulumun ardından Ayarlar → Gizlilik bölümüne gidin ve hizmetin temel işleviyle ilgili olmayan her isteğe bağlı onayı geri alın.",
       },
     },
     {
@@ -881,7 +881,7 @@ export const post: BlogPost = {
         pt: "Posso processar uma marca se ela violar o GDPR?",
         fr: "Puis-je poursuivre une marque si elle enfreint le RGPD ?",
         pl: "Mogę cytować markę w sądzie, jeśli narusza GDPR?",
-        tr: "KVKK'ye违背者可以引用品牌吗如果该品牌违反了GDPR?",
+        tr: "Bir marka GDPR'ı ihlal ederse dava açabilir miyim?",
       },
       a: {
         it: "In Europa la via standard è il reclamo al Garante nazionale della protezione dei dati (in Italia: GPDP, www.garanteprivacy.it). Gratuito, il Garante può aprire istruttoria e sanzionare. L'azione civile diretta è possibile ma costosa; conviene se hai subito un danno concreto e quantificabile (es. data breach con identità rubata).",

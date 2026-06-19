@@ -61,7 +61,7 @@ export const post: BlogPost = {
       "Yüzme için en az 5ATM gerekli: IP68 yüzme devam etmek için yeterli değildir. Denizden sonra her zaman suyla temizle.",
       "Güçlü sıcaklık seviyeleri (35°C üzerinde) 15-25% kadar önbellek süresini azaltabilir: her zaman açık ekranı devre dışı bırakır, kalp atışını her 10 dakikada bir kontrol eder ve güneş altında şarj etmeyin.",
       "Health Connect KVKK içinde yerel olarak depolanır: veriler internet olmadan da yerel olarak toplanır ve tekrar bağlantılı olduğunda sychronize edilir. Geçmişinizde hiçbir boya yok.",
-      "KışMMddi监控基础心率（如果超过基线10 bpm则为脱水信号）和晨间HRV。",
+      "Yaz sağlığı için dinlenme kalp atış hızını izleyin (bazal değerinizin 10 bpm üzerine çıkması dehidrasyon sinyali olabilir) ve sabah HRV'sini takip edin.",
       "Bütçe yazılımı: Xiaomi Mi Band 9 Pro (60 euro altı, 5ATM, 14 gün süresiyle şarj) tatillerde %90'u kaplayan kullanım durumu kapsıyor.",
     ],
   },
@@ -346,7 +346,7 @@ export const post: BlogPost = {
         pt: "Se você nada no mar, enxágue o relógio com água doce após cada mergulho, mesmo que seja certificado 5ATM. O sal corrói progressivamente as vedações e os sensores ópticos. O mesmo vale para o protetor solar: não o aplique diretamente sob o relógio.",
         fr: "Si vous nagez en mer, rincez la montre à l'eau douce après chaque baignade, même si elle est certifiée 5ATM. Le sel corrode progressivement les joints et les capteurs optiques. La même précaution s'applique à la crème solaire : ne l'appliquez pas directement sous la montre.",
         pl: "Jeżeli schwytasz się w morzu, przysacinij zegarek do słodkiej wody po każdej wypłynięciu, nawet jeśli jest zatwierdzony 5ATM. Solowa kwasowość odbiera się na obudowy i czujniki optyczne w ciągu czasu. Podobna ostrożność należy zachować w sprawie soku słonecznego: nie masz mu bezpośrednio pod zegarek.",
-        tr: "Eğer denizde yüzmüş olursanız, her dalıştan sonra watch'u tatlı su ile temizleyin,尽管它已获得5ATM认证。海水中的腐蚀性盐分会逐渐损坏密封圈和光学传感器。同样需要注意防晒霜：不要直接将其涂抹在watch下方。",
+        tr: "Denizde yüzüyorsanız, 5ATM sertifikalı olsa bile her girişten sonra watch'u tatlı suyla durulayın. Tuz zamanla contaları ve optik sensörleri aşındırır. Güneş kremi için de aynı kural geçerlidir: doğrudan watch'un altına sürmeyin.",
       },
     },
     {
@@ -759,7 +759,7 @@ export const post: BlogPost = {
         pt: "Entre na beta grátis →",
         fr: "Rejoindre la bêta gratuite →",
         pl: "Wejście do bêta bezpłatnie →",
-        tr: "Gübre试用版免费→",
+        tr: "Ücretsiz beta'ya katıl →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -809,7 +809,7 @@ export const post: BlogPost = {
         pt: "Temperaturas acima de 60°C (por exemplo, interior de carro ao sol) podem danificar a bateria permanentemente e reduzir sua capacidade. Deixar um smartwatch em um carro exposto ao sol no verão é a forma mais rápida de estragar a bateria. Temperatura de operação segura: geralmente de -20°C a +55°C para a maioria dos modelos.",
         fr: "Des températures supérieures à 60°C (par exemple, l'intérieur d'une voiture au soleil) peuvent endommager la batterie de façon permanente et réduire sa capacité. Laisser une montre connectée dans une voiture exposée au soleil en été est le moyen le plus rapide d'abîmer la batterie. Température de fonctionnement sûre : généralement de -20°C à +55°C pour la plupart des modèles.",
         pl: "Temperatura powyżej 60°C (np. wnętrze samochodu na słońcu) może w sposób trwały uszkodzić baterię i zmniejszyć jej pojemność. Trzymanie smartwatcha w samochodzie pod słońcem w letni dzień to najwygodniejszy sposób na spowodowanie uszkodzenia baterii. Bezpieczna temperatura pracy: zazwyczaj -20°C do +55°C dla większości modeli.",
-        tr: "Sıcaklık 60°C'den fazla (örn.: koltuklu araba güneş altında) sürekli olarak pilin bozguna uğratılmasına ve kapasitesinin azalmasına neden olabilir. Sıcakta giyilebilir cihazın arabanızda kalmasını yaz;break;夏季高温下将智能手表留在车内会迅速损坏电池。安全运行温度：大多数型号通常为-20°C至+55°C。",
+        tr: "60°C'nin üzerindeki sıcaklıklar (örn. güneş altındaki araç içi) pili kalıcı olarak hasar verebilir ve kapasitesini düşürebilir. Yazın akıllı saati güneş gören bir arabada bırakmak pili mahvetmenin en hızlı yoludur. Güvenli çalışma sıcaklığı: çoğu model için -20°C ile +55°C arasıdır.",
       },
     },
     {

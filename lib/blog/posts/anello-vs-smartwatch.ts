@@ -726,7 +726,7 @@ export const post: BlogPost = {
         pt: "Um anel inteligente pode substituir completamente um smartwatch?",
         fr: "Une bague connectée peut-elle remplacer complètement une montre connectée?",
         pl: "Czy smartband może zastąpić całkowicie smartwatch?",
-        tr: "Bir akıllı aleyхи能否将这段代码转换为使用类来实现？\n```csharp\npublic class ListNode\n{\n    public int val;\n    public ListNode next;\n    public ListNode(int val = 0, ListNode next = null)\n    {\n        this.val = val;\n        this.next = next;\n    }\n}\n\npublic class Solution\n{\n    public ListNode AddTwoNumbers(ListNode l1, ListNode l2)\n    {\n        ListNode dummyHead = new ListNode(0);\n        ListNode current = dummyHead;\n        int carry = 0;\n\n        while (l1 != null || l2 != null || carry != 0)\n        {\n            int x = (l1 != null) ? l1.val : 0;\n            int y = (l2 != null) ? l2.val : 0;\n            int sum = x + y + carry;\n\n            carry = sum / 10;\n            current.next = new ListNode(sum % 10);\n            current = current.next;\n\n            if (l1 != null)\n                l1 = l1.next;\n            if (l2 != null)\n                l2 = l2.next;\n        }\n\n        return dummyHead.next;\n    }\n}\n```",
+        tr: "Bir akıllı yüzük smartwatch'ın yerini tamamen alabilir mi?",
       },
       a: {
         it: "Non per chi ha bisogno di GPS, notifiche sul polso o tracking avanzato dello sport. L'anello copre bene le metriche passive e il sonno, ma manca di display, GPS e interazione. Per molti utenti è un complemento, non un sostituto.",

@@ -424,7 +424,7 @@ export const post: BlogPost = {
         pt: "Entre na beta, conecte o anel e comece a acumular seus 7 dias. Seis meses de Pro estão esperando por você.",
         fr: "Rejoignez la bêta, connectez la bague et commencez à accumuler vos 7 jours. Six mois de Pro vous attendent.",
         pl: "Wejrzyj się do bêty, podłącz pasek i zacznij gromadzić swoje 7 dni. Sześć miesięcy Pro czekają na ciebie.",
-        tr: "Giriş beta testine, __FM_PH_0__ anlatağına bağlan ve 7 gün içindeki verilerini toplaya. Kurucu sene pro versiyonunuz __FM_URL_0__您在此处插入品牌名称__ bekliyor.",
+        tr: "Beta'ya katıl, Colmi halkasını bağla ve 7 günlük verilerini toplamaya başla. Altı ay Pro seni bekliyor.",
       },
       ctaLabel: {
         it: "Inizia la beta gratuita",

@@ -263,7 +263,7 @@ export const post: BlogPost = {
         pt: "O Health Connect tem uma lista precisa de tipos de dados que os apps podem ler e escrever. O Pixel Watch, via Fitbit, escreve corretamente as seguintes métricas que o FitMesh Sync pode coletar e exibir:",
         fr: "Health Connect dispose d'une liste precise de types de donnees que les applications peuvent lire et ecrire. La Pixel Watch, via Fitbit, ecrit correctement les metriques suivantes que FitMesh Sync peut collecter et afficher:",
         pl: "Health Connect mał jak dokładny wymiar typów danych, które mogą czytać i pisać aplikacje. Pixel Watch, poprzez Fitbit, poprawnie zapisuje następujące metryki, które FitMesh Sync może zbierać i prezentować:",
-        tr: "Health Connect有一份精确列出应用程序可以读取和写入的数据类型的清单。通过Pixel Watch，Fitbit正确地记录了以下指标，这些指标是FitMesh Sync可以收集并展示的：",
+        tr: "Health Connect, uygulamaların okuyup yazabileceği veri türlerinin kesin bir listesine sahiptir. Pixel Watch, Fitbit aracılığıyla FitMesh Sync'in toplayıp gösterebileceği aşağıdaki metrikleri doğru şekilde kaydeder:",
       },
     },
     {

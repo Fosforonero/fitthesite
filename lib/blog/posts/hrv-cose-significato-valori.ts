@@ -202,7 +202,7 @@ export const post: BlogPost = {
         pt: "Quanto mais ampla é essa variação (ou seja, quanto mais 'irregulares' são os batimentos no intervalo), maior é a sua HRV. Isso parece contraintuitivo porque a irregularidade cardíaca é geralmente associada a problemas. Mas aqui estamos falando de variações fisiológicas na ordem dos milissegundos, não de arritmias patológicas. Uma HRV alta é geralmente um sinal de que o sistema nervoso autônomo está funcionando bem e o corpo está em bom estado de recuperação.",
         fr: "Plus cette variation est large (c'est-à-dire plus les battements sont 'irréguliers' dans l'intervalle), plus votre HRV est élevée. Cela semble contre-intuitif car l'irrégularité cardiaque est habituellement associée à des problèmes. Mais ici, il s'agit de variations physiologiques de l'ordre des millisecondes, pas d'arythmies pathologiques. Une HRV élevée est généralement un signal que le système nerveux autonome fonctionne bien et que le corps est en bon état de récupération.",
         pl: "Pogorszać się ta zasięg jest (czyli im bardziej pulsy są „nieprawidłowe” w tym zakresie), tym wyższa jest Twoja HRV. To wydaje się przeciwnie do intuicji, ponieważ nieprawidłowość rytmu serca zwykle wiąże się z problemami. Ale tutaj mowa o fizjologicznych zmianach w skali milisekund, a nie o chorobowych atrjemiach. Wyższa HRV jest ogólnie sygnałem, że system nerwowy autonomiczny działa dobrze i ciało znajduje się w dobrej kondycji recyrkuacyjnej.",
-        tr: "Daha geniş bu değişiklik var (yani daha 'irregülar' olmak üzere atışlar arası süre), daha yüksek bir HRV elde ediyorsunuz. Bu, genellikle irregülardan sorunlarla ilişkilendirilmesi beklenen bir durum gibi görünüyor. Ancak burada sadece milisaniye cinsinden fisiyolojik değişiklikler söz konusu. Yüksek bir HRV genellikle自主翻译如下：\n\nDaha geniş bu değişiklik var (yani daha 'irregülar' olmak üzere atışlar arası süre), daha yüksek bir HRV elde ediyorsunuz. Bu, genellikle irregülardan sorunlarla ilişkilendirilmesi beklenen bir durum gibi görünüyor. Ancak burada sadece milisaniye cinsinden fisiyolojik değişiklikler söz konusu. Yüksek bir HRV genellikle sistem nörolojik otomatik sistemin iyi çalıştığını ve vücudun iyileşme durumunda olduğunu gösterir.",
+        tr: "Bu değişkenlik ne kadar geniş olursa (yani atışlar arası aralıklar ne kadar 'düzensiz' olursa), HRV değeriniz o kadar yüksek olur. Bu, kalp düzensizliğinin sorunla ilişkilendirildiği bilinciyle tuhaf gelebilir. Ancak burada söz konusu olan patolojik aritmiler değil, milisaniye düzeyindeki fizyolojik değişimlerdir. Yüksek bir HRV genellikle otonom sinir sisteminin iyi çalıştığını ve vücudun iyi bir iyileşme durumunda olduğunu gösterir.",
       },
     },
     {
@@ -216,7 +216,7 @@ export const post: BlogPost = {
         pt: "Por que a HRV reflete o sistema nervoso autônomo",
         fr: "Pourquoi la HRV reflète le système nerveux autonome",
         pl: "Bożego cudu, HRV odzwierciedla system nerwowy autonomiczny",
-        tr: "Neden HRV自主神经系统反射",
+        tr: "HRV neden otonom sinir sistemini yansıtır",
       },
     },
     {

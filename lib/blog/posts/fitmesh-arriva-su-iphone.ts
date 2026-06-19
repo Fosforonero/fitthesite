@@ -621,7 +621,7 @@ export const post: BlogPost = {
         pt: "FitMesh iOS já está na App Store?",
         fr: "FitMesh iOS est-il déjà sur l'App Store ?",
         pl: "FitMesh iOS jest już na App Store?",
-        tr: "FitMesh iOS zaten App Store de你们好，这段文本翻译成土耳其语如下：\n\nFitMesh iOS zaten App Store de?",
+        tr: "FitMesh iOS zaten App Store'da mı?",
       },
       a: {
         it: "Non ancora. L'app è in beta TestFlight e in submission su App Store. L'uscita è imminente. Nel frattempo puoi iscriverti alla beta dalla pagina /beta e ricevere l'accesso TestFlight.",

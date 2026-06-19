@@ -441,7 +441,7 @@ export const post: BlogPost = {
         pt: "Opção 4: backup via ADB (avançado)",
         fr: "Option 4 : sauvegarde ADB (avancé)",
         pl: "Opция 4: ADB backup (zaawansowane)",
-        tr: "Opション 4: ADB yedeklemesi (gelişmiş)",
+        tr: "Seçenek 4: ADB yedeklemesi (gelişmiş)",
       },
     },
     {
