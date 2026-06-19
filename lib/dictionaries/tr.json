@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "support": "Destek",
+    "privacy": "Gizlilik",
+    "download": "İndir"
+  },
+  "hero": {
+    "badge": "Android'de mevcut · iOS yakında",
+    "heading_1": "Tek bir global panel",
+    "heading_accent": "tüm cihazlarınız için.",
+    "description": "Galaxy Watch, Wear OS, Health Connect ve bulut sağlayıcılarını tek bir görünümde birleştirin. Adımlar, uyku, kalp atış hızı, toparlanma ve eğilimler, uygulamalar arasında geçiş yapmadan.",
+    "cta_secondary": "Daha fazla bilgi",
+    "pricing": "€3,99'dan başlayan tek seferlik ödeme veya 6 ayda bir €1,19 · güvenli ödeme",
+    "coming_soon": "Yakında"
+  },
+  "features": {
+    "kicker": "Özellikler",
+    "heading": "Akıllı saatinizin kaydettiği her şey, düzenlenmiş ve görselleştirilmiş.",
+    "items": [
+      {
+        "title": "Adımlar ve mesafe",
+        "desc": "Health Connect ve Samsung Health ile otomatik senkronizasyon. Telefon kilitli olsa bile arka planda çalışır."
+      },
+      {
+        "title": "Kalp atış hızı ve VO₂ max",
+        "desc": "Günlük ortalama, min/maks aralığı, dinlenme kalp atış hızı. Kardiyovasküler sağlığınızdaki eğilimleri zamanla takip edin."
+      },
+      {
+        "title": "Evrelerle uyku",
+        "desc": "Toplam süre, derin, REM, hafif, uyanık. Renk kodlu çubuk ve anlık kalite rozeti."
+      },
+      {
+        "title": "Kalori ve aktivite",
+        "desc": "Aktif ve bazal kalori, rota, yükseklik, çıkılan kat. Yürüyüşler yeşil, antrenmanlar kırmızı."
+      },
+      {
+        "title": "Küresel çok cihazlı panel",
+        "desc": "Birden fazla saat, birden fazla sağlayıcı, tek görünüm. FitMesh kaynakları birleştirir, verileri tekilleştirir ve her metrik için en iyi değeri saklar."
+      },
+      {
+        "title": "Bakım verenler için tasarlandı",
+        "desc": "Yakında gelecek gelişmiş mod: yaşlı bir aile üyesi sabah senkronizasyon yapmadığında uyarı gönderen aile grubu."
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "Gizlilik önce gelir",
+    "heading": "Sağlık verileriniz bir ürün değildir.",
+    "description": "FitMesh Sync asla satmaz, paylaşmaz veya profil oluşturmaz. Verileriniz seçtiğiniz sunucuda kalır (ev NAS'ınız, VPS'iniz veya paylaşılan uç noktamız). Uygulama ayarlarından siz karar verirsiniz.",
+    "cta": "Gizlilik Politikasını Oku"
+  },
+  "final_cta": {
+    "heading": "Başlamaya hazır mısınız?",
+    "description": "Uygulamayı indirin, Health Connect izinlerini verin ve 30 saniyede verileriniz canlıya geçer."
+  },
+  "footer": {
+    "tagline": "Akıllı saat verilerinizi kendi premium panelinizle senkronize edin. Gizlilik önce gelir. Opak bulutlar yok, reklam takipçileri yok.",
+    "product": "Ürün",
+    "legal": "Yasal",
+    "rights": "Tüm hakları saklıdır.",
+    "made_with": "Made with care in Italy",
+    "fosforonero_label": "Bir proje",
+    "links": {
+      "features": "Özellikler",
+      "download": "İndir",
+      "support": "Destek",
+      "privacy": "Gizlilik Politikası",
+      "terms": "Kullanım Koşulları",
+      "cookies": "Çerez Politikası"
+    }
+  },
+  "cookie_banner": {
+    "title": "Çerezler ve gizlilik",
+    "description": "Sitenin çalışması için zorunlu çerezler kullanıyoruz ve onayınızla, ürünü geliştirmek amacıyla Google Analytics kullanıyoruz. Reklam veya profil oluşturma çerezi bulunmamaktadır.",
+    "details_link": "Ayrıntılar",
+    "accept": "Tümünü kabul et",
+    "reject": "Opsiyonelleri reddet"
+  },
+  "legal": {
+    "last_updated": "Son güncelleme",
+    "privacy_title": "Gizlilik Politikası",
+    "terms_title": "Kullanım Koşulları",
+    "cookies_title": "Çerez Politikası",
+    "support_title": "Sık Sorulan Sorular",
+    "section": "Yasal"
+  },
+  "auth": {
+    "login": {
+      "heading": "FitMesh'e giriş yapın",
+      "subheading": "Size e-posta yoluyla bir bağlantı göndereceğiz. Hatırlanacak şifre yok.",
+      "email_label": "E-posta",
+      "email_placeholder": "siz@email.com",
+      "submit": "Giriş bağlantısını gönder",
+      "sending": "Gönderiliyor…",
+      "success_title": "E-postanızı kontrol edin",
+      "success_body": "Size bir giriş bağlantısı gönderdik. E-postayı açın ve girmek için tıklayın.",
+      "try_again": "Tekrar gönder",
+      "disclaimer": "Giriş yaparak Koşullarımızı ve Gizlilik Politikamızı kabul etmiş olursunuz. Sağlık verileriniz hiçbir zaman paylaşılmaz ve tıbbi tavsiye için kullanılmaz."
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "devices": "Cihazlar",
+      "settings": "Ayarlar",
+      "logout": "Çıkış yap"
+    },
+    "disclaimer": "Gösterilen veriler yalnızca bilgi amaçlıdır. FitMesh bir tıbbi cihaz değildir ve profesyonel tıbbi tavsiyenin yerini tutmaz.",
+    "dashboard": {
+      "welcome": "Hoş geldiniz",
+      "steps": "Bugünkü adımlar",
+      "heart_rate": "Ortalama BPM",
+      "sleep": "Uyku",
+      "no_data": "Bağlı cihaz yok"
+    },
+    "next_step": {
+      "title": "Başlangıç: ilk cihazınızı bağlayın",
+      "body": "'Cihazlar' bölümüne gidin ve bir eşleştirme kodu oluşturun. Ardından telefonunuzdaki FitMesh uygulamasına girin.",
+      "cta": "Cihaz bağla →"
+    },
+    "devices": {
+      "heading": "Cihazlarınız",
+      "subheading": "Hesabınıza bağlı akıllı saatler ve telefonlar.",
+      "add_title": "Cihaz ekle",
+      "add_body": "Yeni bir telefon bağlamak için kod oluşturun ve FitMesh Sync uygulamasına girin.",
+      "add_cta": "Kod oluştur",
+      "coming_soon": "(yakında)",
+      "list_title": "Bağlı cihazlar",
+      "empty": "Henüz bağlı cihaz yok.",
+      "error": "Cihazlar yüklenirken hata oluştu.",
+      "revoked": "iptal edildi",
+      "last_sync": "Son senkronizasyon",
+      "never": "hiç"
+    },
+    "settings": {
+      "heading": "Ayarlar",
+      "profile_heading": "Profil",
+      "display_name": "Ad",
+      "locale": "Dil",
+      "timezone": "Saat dilimi",
+      "member_since": "Üyelik tarihi",
+      "privacy_heading": "Gizlilik ve veriler",
+      "privacy_body": "Sağlık verileriniz hiçbir zaman paylaşılmaz, tıbbi amaçlarla işlenmez ve tıbbi tavsiye üretmek için kullanılmaz. Yalnızca kişisel paneliniz ve oyunlaştırma için.",
+      "export": "Verilerimi dışa aktar",
+      "danger_heading": "Tehlike bölgesi",
+      "delete_description": "Hesabınızı ve tüm ilgili verileri kalıcı olarak silin. E-posta yoluyla 24 saat içinde iptal edebilirsiniz.",
+      "delete_cta": "Hesabımı sil",
+      "delete_confirm_title": "Gerçekten emin misiniz?",
+      "delete_confirm_body": "Kalıcı olarak silinecekler: profil, tüm sağlık verileri, bağlı cihazlar, antrenman seansları. Uyumluluk için anonimleştirilmiş olarak saklanacaklar: teknik günlükler (90 gün) ve yönetici denetimi (5 yıl).",
+      "delete_confirm_input": "Onaylamak için DELETE yazın",
+      "delete_confirm_submit": "Silmeyi onayla",
+      "cancel": "İptal",
+      "delete_scheduled_title": "İstek alındı",
+      "delete_scheduled_body": "İptal bağlantısını içeren bir e-posta alacaksınız. 24 saat içinde hiçbir şey yapmazsanız hesabınız kalıcı olarak silinecektir."
+    }
+  },
+  "admin": {
+    "banner": "ADMIN MODU — işlemleriniz kaydediliyor",
+    "nav": {
+      "overview": "Genel Bakış",
+      "users": "Kullanıcılar",
+      "devices": "Cihazlar",
+      "events": "Olaylar",
+      "exit": "Admin'den çık"
+    },
+    "overview": {
+      "heading": "Genel Bakış",
+      "subheading": "Sistem durumu, toplu metrikler, kişisel sağlık verisi yok.",
+      "total_users": "Toplam kullanıcı",
+      "active_7d": "Aktif 7 gün",
+      "active_30d": "Aktif 30 gün",
+      "new_7d": "Yeni 7 gün",
+      "total_devices": "Toplam cihaz",
+      "active_devices": "Aktif cihazlar",
+      "syncs_24h": "Senkronizasyon 24s",
+      "failed_syncs_24h": "Başarısız senkronizasyon 24s"
+    },
+    "privacy_notice": "Gizlilik: bu panel yalnızca meta veriler ve toplu metrikleri gösterir. Kullanıcıların sağlık verilerine hiçbir yönetici ERİŞEMEZ (Postgres RLS ile zorunlu kılınmıştır)."
+  },
+  "showcase": {
+    "kicker": "Uygulama",
+    "heading": "FitMesh'i aksiyonda görün",
+    "sub": "Android uygulamasından gerçek ekranlar, doğrudan telefondan.",
+    "captions": {
+      "sleep": "Uyku evreleri ve kalp sağlığı",
+      "trends": "Adım ve kalori eğilimleri",
+      "vitals": "SpO₂ ve gelişmiş metrikler"
+    }
+  }
+}

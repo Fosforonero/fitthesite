@@ -22,6 +22,29 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ── CJK typography overrides ──────────────────────────────────────
+ * Japanese/Korean don't use inter-word spaces, so the browser must be
+ * allowed to break lines anywhere. OpenType features "cv11" etc. are
+ * Latin-specific (Inter) and can produce artefacts on CJK glyphs.
+ * Line-height 1.75 is the CJK typographic standard vs 1.5 for Latin.
+ * ─────────────────────────────────────────────────────────────────── */
+html[lang="ja"],
+html[lang="ko"] {
+  font-feature-settings: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  line-height: 1.75;
+  /* Italic on CJK fonts looks incorrect — disable globally for these locales */
+  font-synthesis: none;
+}
+
+/* Dutch text is ~15% longer than English on average — let containers
+ * handle it gracefully with soft wrapping. */
+html[lang="nl"] {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
 /* ─────────────────────────────────────────────────────────────────────
  * Page background — multi-layer atmospheric mesh.
  * Profondità reale invece di una singola sfumatura piatta. Combinazione

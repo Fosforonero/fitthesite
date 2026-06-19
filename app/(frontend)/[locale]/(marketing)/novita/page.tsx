@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { getPostsByCategory } from "@/lib/blog/payload-source";
 import { tl } from "@/lib/blog/types";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
@@ -43,12 +43,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: {
-        it: `${SITE_URL}/it/novita`,
-        en: `${SITE_URL}/en/novita`,
-        es: `${SITE_URL}/es/novita`,
-        "x-default": `${SITE_URL}/it/novita`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/novita`),
     },
     openGraph: {
       type: "website",
@@ -128,6 +123,51 @@ const I18N: Record<
     readMin: (m: number) => `${m} min de lecture`,
     explore: "Lire →",
     empty: "Les premières nouveautés arrivent bientôt. Revenez vite.",
+  },
+  pl: {
+    kicker: "Nowości",
+    heading: "Co nowego w FitMesh Sync",
+    headingAccent: "aktualizacja po aktualizacji",
+    lead: "Co dodaliśmy i ulepszyliśmy w każdej aktualizacji aplikacji: nowe funkcje, obsługiwane urządzenia i zmiany, które Cię dotyczą. Jasno i bez technicznego żargonu.",
+    readMin: (m: number) => `${m} min czytania`,
+    explore: "Czytaj →",
+    empty: "Pierwsze nowości pojawią się wkrótce. Zajrzyj tu niedługo.",
+  },
+  tr: {
+    kicker: "Yenilikler",
+    heading: "FitMesh Sync'teki yenilikler",
+    headingAccent: "güncelleme ardına güncelleme",
+    lead: "Her uygulama güncellemesinde eklediğimiz ve geliştirdiğimiz özellikler: yeni işlevler, desteklenen cihazlar ve sizi etkileyen değişiklikler. Sade bir dille, teknik jargon olmadan.",
+    readMin: (m: number) => `${m} dk okuma`,
+    explore: "Oku →",
+    empty: "İlk yenilikler yakında geliyor. Kısa süre içinde tekrar bekleriz.",
+  },
+  nl: {
+    kicker: "Nieuw",
+    heading: "Wat is er nieuw in FitMesh Sync",
+    headingAccent: "update na update",
+    lead: "Wat we bij elke app-update hebben toegevoegd en verbeterd: nieuwe functies, ondersteunde apparaten en wat er voor jou verandert. Duidelijk, zonder jargon.",
+    readMin: (m: number) => `${m} min lezen`,
+    explore: "Lees →",
+    empty: "De eerste updates verschijnen binnenkort. Kom snel terug.",
+  },
+  ja: {
+    kicker: "新着情報",
+    heading: "FitMesh Syncの新着情報",
+    headingAccent: "アップデートのたびに",
+    lead: "各アプリアップデートで追加・改善した機能: 新機能、対応デバイス、あなたへの変更点。わかりやすく、専門用語なし。",
+    readMin: (m: number) => `${m}分で読める`,
+    explore: "読む →",
+    empty: "最初のアップデートは近日公開予定です。またご確認ください。",
+  },
+  ko: {
+    kicker: "새로운 기능",
+    heading: "FitMesh Sync의 새로운 기능",
+    headingAccent: "업데이트마다",
+    lead: "각 앱 업데이트에서 추가하고 개선한 내용: 새 기능, 지원되는 기기, 변경 사항. 전문 용어 없이 알기 쉽게.",
+    readMin: (m: number) => `${m}분 읽기`,
+    explore: "읽기 →",
+    empty: "첫 번째 업데이트가 곧 출시됩니다. 다시 방문해주세요.",
   },
 };
 

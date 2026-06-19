@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { locales, type Locale, ogLocale, getDictionary } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, getDictionary, localeAlternates } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
@@ -30,6 +30,11 @@ export async function generateMetadata(
     de: "FitMesh Sync — Ein globales Dashboard für alle deine Geräte",
     pt: "FitMesh Sync — Um painel global para todos os seus dispositivos",
     fr: "FitMesh Sync — Un tableau de bord global pour tous vos appareils",
+    pl: "FitMesh Sync — jeden globalny panel dla wszystkich Twoich urzadzen",
+    tr: "FitMesh Sync — Tum cihazlariniz icin tek bir global panel",
+    nl: "FitMesh Sync — Één global dashboard voor al je apparaten",
+    ja: "FitMesh Sync — すべてのデバイスをひとつのグローバルダッシュボードへ",
+    ko: "FitMesh Sync — 모든 기기를 위한 하나의 글로벌 대시보드",
   };
   const descriptions: Record<Locale, string> = {
     it: "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in una dashboard globale: passi, battito, sonno, recupero e trend. Privacy-first, niente tracker.",
@@ -38,6 +43,11 @@ export async function generateMetadata(
     de: "FitMesh Sync verbindet Galaxy Watch, Wear OS, Health Connect und Cloud-Dienste in einem globalen Dashboard: Schritte, Herzfrequenz, Schlaf, Erholung und Trends. Datenschutz-first. Keine Tracker.",
     pt: "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect e provedores em nuvem em um painel global: passos, frequência cardíaca, sono, recuperação e tendências. Privacidade em primeiro lugar. Sem rastreadores.",
     fr: "FitMesh Sync regroupe Galaxy Watch, Wear OS, Health Connect et les services cloud dans un tableau de bord global: pas, fréquence cardiaque, sommeil, récupération et tendances. Confidentialité avant tout. Sans traceurs.",
+    pl: "FitMesh Sync laczy Galaxy Watch, Wear OS, Health Connect i dostawcow chmury w jednym panelu: kroki, tetno, sen, regeneracja i trendy. Prywatnosc na pierwszym miejscu. Bez trackerow.",
+    tr: "FitMesh Sync, Galaxy Watch, Wear OS, Health Connect ve bulut saglayicilarini tek bir global panelde bir araya getirir: adimlar, kalp atisi, uyku, toparlanma ve trendler. Gizlilik oncelikli. Izleyici yok.",
+    nl: "FitMesh Sync brengt Galaxy Watch, Wear OS, Health Connect en cloudproviders samen in één global dashboard: stappen, hartslag, slaap, herstel en trends. Privacy-first. Geen trackers.",
+    ja: "FitMesh Sync — すべてのデバイスをひとつのグローバルダッシュボードへ",
+    ko: "FitMesh Sync — 모든 기기를 위한 하나의 글로벌 대시보드",
   };
 
   return {
@@ -45,15 +55,7 @@ export async function generateMetadata(
     description: descriptions[lc],
     alternates: {
       canonical: `${SITE_URL}/${lc}`,
-      languages: {
-        it: `${SITE_URL}/it`,
-        en: `${SITE_URL}/en`,
-        es: `${SITE_URL}/es`,
-        de: `${SITE_URL}/de`,
-        pt: `${SITE_URL}/pt`,
-        fr: `${SITE_URL}/fr`,
-        "x-default": `${SITE_URL}/it`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}`),
     },
     openGraph: {
       type: "website",

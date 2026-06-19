@@ -21,6 +21,8 @@ export const post: BlogPost = {
       de: "Manifest",
       pt: "Manifesto",
       fr: "Manifeste",
+      pl: "Manifest",
+      tr: "Manifesto",
     },
     title: {
       it: "Un'app per sincronizzarli tutti: la dashboard che unisce ogni wearable",
@@ -29,6 +31,8 @@ export const post: BlogPost = {
       de: "Eine App für alle: das Dashboard, das jeden Wearable vereint",
       pt: "Um app para sincronizar todos: o painel que une cada wearable",
       fr: "Une app pour tous les synchroniser: le tableau de bord qui regroupe chaque appareil connecté",
+      pl: "Jedna aplikacja do synchronizacji wszystkich: panel łączący każde urządzenie wearable",
+      tr: "Hepsini senkronize eden tek uygulama: her giyilebilir cihazı birleştiren kontrol paneli",
     },
     subtitle: {
       it: "Galaxy Watch, anello smart, Garmin, fascia cardio: i tuoi dati salute sono sparsi in app diverse. FitMesh li unisce in un'unica dashboard, senza doppi conteggi, su Android e iPhone.",
@@ -37,6 +41,8 @@ export const post: BlogPost = {
       de: "Galaxy Watch, Smart-Ring, Garmin, Herzfrequenz-Brustgurt: deine Gesundheitsdaten sind auf verschiedene Apps verteilt. FitMesh vereint sie in einem einzigen Dashboard, ohne Doppelzählungen, auf Android und iPhone.",
       pt: "Galaxy Watch, anel inteligente, Garmin, cinta cardíaca: seus dados de saúde estão espalhados por apps diferentes. FitMesh os reúne em um único painel, sem dupla contagem, no Android e no iPhone.",
       fr: "Galaxy Watch, bague connectée, Garmin, ceinture cardio: vos données de santé sont dispersées entre plusieurs apps. FitMesh les regroupe dans un seul tableau de bord, sans double comptage, sur Android et iPhone.",
+      pl: "Galaxy Watch, inteligentny pierścionek, Garmin, pas do pomiaru pulsu: Twoje dane zdrowotne są rozproszone w różnych aplikacjach. FitMesh łączy je w jednym panelu, bez podwójnego liczenia, na Androida i iPhone'a.",
+      tr: "Galaxy Watch, akıllı yüzük, Garmin, göğüs kayışı: sağlık verileriniz farklı uygulamalara dağılmış durumda. FitMesh bunları tek bir panelde birleştirir, çift sayım olmadan, Android ve iPhone'da.",
     },
   },
 
@@ -47,6 +53,8 @@ export const post: BlogPost = {
     de: "Deine Wearables leben in getrennten Silos. FitMesh Sync bringt sie in einem geräteübergreifenden Dashboard zusammen: ein Konto, jeder Smartwatch und Smart-Ring, keine Doppelzählungen.",
     pt: "Seus wearables vivem em silos separados. FitMesh Sync os reúne em um painel multidispositivo: uma conta, cada smartwatch e anel inteligente, sem dupla contagem.",
     fr: "Vos appareils connectés vivent dans des silos séparés. FitMesh Sync les réunit dans un tableau de bord multi-appareils: un compte, chaque montre connectée et bague connectée, sans double comptage.",
+    pl: "Twoje urządzenia wearable żyją w oddzielnych silosach. FitMesh Sync łączy je w jednym wielourządzeniowym panelu: jedno konto, każdy smartwatch i inteligentny pierścionek, bez podwójnego liczenia.",
+    tr: "Giyilebilir cihazlarınız ayrı silolarda yaşıyor. FitMesh Sync bunları tek bir çok cihazlı panelde bir araya getirir: bir hesap, her akıllı saat ve akıllı yüzük, çift sayım yok.",
   },
 
   primaryKeyword: {
@@ -56,6 +64,8 @@ export const post: BlogPost = {
     de: "App Wearable synchronisieren",
     pt: "app sincronizar wearables",
     fr: "app synchronisation appareils connectés",
+    pl: "aplikacja synchronizacja wearables",
+    tr: "giyilebilir cihaz senkronizasyon uygulaması",
   },
 
   secondaryKeywords: {
@@ -94,6 +104,24 @@ export const post: BlogPost = {
       "app de santé multi-appareils",
       "fusion des données wearable",
       "un compte pour tous les appareils de santé",
+    ],
+    pl: [
+      "jednolity panel zdrowotny",
+      "łączenie danych ze smartwatcha",
+      "jedna aplikacja dla wszystkich wearables",
+      "wielourządzeniowa aplikacja zdrowotna",
+      "scalanie danych z urządzeń wearable",
+      "centrum danych zdrowotnych",
+      "jedno konto dla wszystkich urządzeń zdrowotnych",
+    ],
+    tr: [
+      "birleşik sağlık kontrol paneli",
+      "akıllı saat verilerini birleştirme",
+      "tüm giyilebilirler için tek uygulama",
+      "çok cihazlı sağlık uygulaması",
+      "giyilebilir cihaz verilerini birleştirme",
+      "sağlık veri merkezi",
+      "tüm sağlık cihazları için tek hesap",
     ],
   },
 
@@ -140,6 +168,20 @@ export const post: BlogPost = {
       "Plus vous connectez d'appareils, plus votre tableau de bord se complète: chaque appareil active des sections qui étaient vides auparavant.",
       "Données sur des serveurs européens, jamais partagées avec des tiers, conformité RGPD complète.",
     ],
+    pl: [
+      "Twoje urządzenia wearable mówią różnymi ekosystemami: FitMesh łączy je w jednym panelu, nie zmuszając Cię do wyboru jednego urządzenia.",
+      "Jedno konto FitMesh działa na Androidzie i iPhonie (iOS wkrótce), z opcjonalnym mostem do Apple Health.",
+      "Inteligentne łączenie: dla każdej metryki i każdego okna czasowego wybierane jest najlepsze źródło, nigdy suma z dwóch.",
+      "Im więcej urządzeń podłączysz, tym pełniejszy staje się Twój panel: każde urządzenie włącza sekcje, które wcześniej były puste.",
+      "Dane na serwerach europejskich, nigdy nieudostępniane osobom trzecim, pełna zgodność z RODO.",
+    ],
+    tr: [
+      "Giyilebilir cihazlarınız farklı ekosistemler konuşuyor: FitMesh bunları tek bir panelde birleştirir, sizi tek bir cihaz seçmeye zorlamaz.",
+      "Tek bir FitMesh hesabı Android ve iPhone'da çalışır (iOS yakında), Apple Health'e isteğe bağlı köprü ile.",
+      "Akıllı birleştirme: her metrik ve her zaman dilimi için en iyi kaynak seçilir, asla ikisinin toplamı değil.",
+      "Ne kadar çok cihaz bağlarsanız paneliniz o kadar eksiksiz olur: her cihaz daha önce boş olan bölümleri açar.",
+      "Veriler Avrupa sunucularında, asla üçüncü taraflarla paylaşılmaz, tam GDPR uyumluluğu.",
+    ],
   },
 
   body: [
@@ -152,6 +194,8 @@ export const post: BlogPost = {
         de: "Deine Gesundheitsdaten sitzen in der Falle. Die Galaxy Watch speichert sie in Samsung Health, der Smart-Ring in seiner eigenen App, der Garmin in Garmin Connect, der Herzfrequenz-Brustgurt irgendwo anders. Jedes Ökosystem sieht nur sich selbst, und du springst zwischen fünf Apps hin und her, um zu verstehen, wie es dir wirklich geht. **Dafür gibt es FitMesh: eine App, um sie alle zu synchronisieren.**",
         pt: "Seus dados de saúde estão presos. O Galaxy Watch os guarda no Samsung Health, o anel inteligente no próprio app, o Garmin no Garmin Connect, a cinta cardíaca em outro lugar. Cada ecossistema enxerga apenas a si mesmo, e você fica pulando entre cinco apps para entender como realmente está. **É para isso que o FitMesh existe: um app para sincronizar todos eles.**",
         fr: "Vos données de santé sont prisonnières. La Galaxy Watch les garde dans Samsung Health, la bague connectée dans son propre app, le Garmin dans Garmin Connect, la ceinture cardio ailleurs encore. Chaque écosystème ne se voit que lui-même, et vous passez d'une app à l'autre pour comprendre comment vous vous portez vraiment. **C'est pour cela que FitMesh existe: une app pour tous les synchroniser.**",
+        pl: "Twoje dane zdrowotne są uwięzione. Galaxy Watch przechowuje je w Samsung Health, inteligentny pierścionek w swojej własnej aplikacji, Garmin w Garmin Connect, pas cardio jeszcze gdzie indziej. Każdy ekosystem widzi tylko siebie, a Ty skaczysz między pięcioma aplikacjami, żeby zrozumieć, jak naprawdę się czujesz. **Właśnie dlatego powstał FitMesh: jedna aplikacja do synchronizacji wszystkich.**",
+        tr: "Sağlık verileriniz hapsedilmiş durumda. Galaxy Watch onları Samsung Health'te tutuyor, akıllı yüzük kendi uygulamasında, Garmin, Garmin Connect'te, göğüs kayışı ise başka bir yerde. Her ekosistem yalnızca kendini görüyor ve siz gerçekte nasıl hissettiğinizi anlamak için beş uygulama arasında atlıyorsunuz. **FitMesh işte bunun için var: hepsini senkronize eden tek uygulama.**",
       },
     },
     {
@@ -163,6 +207,8 @@ export const post: BlogPost = {
         de: "Das ist kein Werbeslogan. Das ist buchstäblich die Produktarchitektur: ein Dashboard, das Daten von jedem Gerät, das du trägst, zusammenführt und in einer einzigen, konsistenten Ansicht vereint, ohne Duplikate und ohne dich an ein einziges Gerät zu binden.",
         pt: "Não é um slogan. É literalmente a arquitetura do produto: um painel que coleta dados de cada dispositivo que você usa e os une em uma única visão coerente, sem duplicatas e sem exigir que você seja fiel a um único aparelho.",
         fr: "Ce n'est pas un slogan. C'est littéralement l'architecture du produit: un tableau de bord qui collecte les données de chaque appareil que vous portez et les réunit en une seule vue cohérente, sans doublons et sans vous obliger à rester fidèle à un seul appareil.",
+        pl: "To nie jest slogan. To dosłownie architektura produktu: panel, który zbiera dane z każdego urządzenia, które nosisz, i łączy je w jeden spójny widok, bez duplikatów i bez zmuszania Cię do lojalności wobec jednego urządzenia.",
+        tr: "Bu bir slogan değil. Bu kelimenin tam anlamıyla ürün mimarisi: taktığınız her cihazdan veri toplayan ve hepsini tek bir tutarlı görünümde birleştiren, kopyasız ve sizi tek bir cihaza sadık kalmaya zorlamayan bir kontrol paneli.",
       },
     },
 
@@ -176,6 +222,8 @@ export const post: BlogPost = {
         de: "Das Problem: ein Leben, fünf Apps",
         pt: "O problema: uma vida, cinco apps",
         fr: "Le problème: une vie, cinq apps",
+        pl: "Problem: jedno życie, pięć aplikacji",
+        tr: "Sorun: bir hayat, beş uygulama",
       },
     },
     {
@@ -187,6 +235,8 @@ export const post: BlogPost = {
         de: "Wer mehr als einen Wearable besitzt, weiß es: Kein Hersteller zeigt dir das vollständige Bild. Samsung liest deinen Garmin nicht. Garmin weiß nichts von deinem Ring. Der Ring ignoriert den Herzfrequenz-Brustgurt. Jeder ist in seinem Bereich ausgezeichnet und blind für alles andere.",
         pt: "Quem usa mais de um wearable sabe: nenhum fabricante mostra o quadro completo. A Samsung não lê o Garmin. O Garmin não sabe nada sobre o seu anel. O anel ignora a cinta cardíaca. Cada um é excelente no seu domínio e cego para todo o resto.",
         fr: "Quiconque possède plus d'un appareil connecté le sait: aucun fabricant ne vous montre le tableau complet. Samsung ne lit pas votre Garmin. Garmin ne sait rien de votre bague connectée. La bague ignore la ceinture cardio. Chacun est excellent dans son domaine et aveugle sur tout le reste.",
+        pl: "Każdy, kto używa więcej niż jednego urządzenia wearable, wie to: żaden producent nie pokazuje Ci pełnego obrazu. Samsung nie czyta Twojego Garmina. Garmin nie wie nic o Twoim pierścionku. Pierścionek ignoruje pas cardio. Każdy jest doskonały w swojej dziedzinie i ślepy na wszystko inne.",
+        tr: "Birden fazla giyilebilir cihazı olan herkes bunu bilir: hiçbir üretici size tam resmi göstermez. Samsung, Garmin'inizi okumaz. Garmin, yüzüğünüz hakkında hiçbir şey bilmez. Yüzük, göğüs kayışını görmezden gelir. Her biri kendi alanında mükemmel, diğer her şeye karşı kör.",
       },
     },
     {
@@ -198,6 +248,8 @@ export const post: BlogPost = {
         de: "Das Ergebnis ist ein Tag, der in Silos aufgeteilt ist: Schritte hier, Schlaf dort, Trainings an einem dritten Ort. Um einen echten Trend zu erkennen, müsste man sich Zahlen aus verschiedenen Apps merken, und das tut niemand wirklich.",
         pt: "O resultado é um dia fragmentado em silos: os passos aqui, o sono lá, os treinos em um terceiro lugar. Para ver uma tendência real, você teria que guardar na cabeça números de apps diferentes, e ninguém faz isso de verdade.",
         fr: "Le résultat est une journée fragmentée en silos: les pas ici, le sommeil là, les séances d'entraînement ailleurs. Pour voir une vraie tendance, il faudrait retenir des chiffres provenant de différentes apps, et personne ne le fait vraiment.",
+        pl: "Wynikiem jest dzień podzielony na silosy: kroki tutaj, sen tam, treningi w trzecim miejscu. Żeby zobaczyć prawdziwy trend, trzeba by było pamiętać liczby z różnych aplikacji, a nikt tego naprawdę nie robi.",
+        tr: "Sonuç, silolara bölünmüş bir gün: adımlar burada, uyku orada, antrenmanlar üçüncü bir yerde. Gerçek bir eğilim görmek için farklı uygulamalardan gelen sayıları akılda tutmanız gerekir ve kimse bunu gerçekten yapmaz.",
       },
     },
 
@@ -211,6 +263,8 @@ export const post: BlogPost = {
         de: "Die Lösung: ein Hub, der mit allen spricht",
         pt: "A solução: um hub que fala com todos",
         fr: "La solution: un hub qui parle à tout le monde",
+        pl: "Rozwiązanie: hub, który rozmawia ze wszystkimi",
+        tr: "Çözüm: herkesle konuşan bir merkez",
       },
     },
     {
@@ -222,6 +276,8 @@ export const post: BlogPost = {
         de: "FitMesh steht im Mittelpunkt. Es liest Daten aus Health Connect (Galaxy Watch, Pixel Watch, Fitbit und alle kompatiblen Wearables), von Cloud-Anbietern wie Garmin und Suunto sowie direkt per Bluetooth von Smart-Ringen wie dem Colmi R02/R03. Alles fließt in **ein einziges Dashboard**, das über dasselbe Konto auf [Android und iPhone gemeinsam](/de/lp/due-telefoni) zugänglich ist (die iOS-App kommt demnächst, Launch steht bevor).",
         pt: "FitMesh se coloca no centro. Ele lê dados do Health Connect (Galaxy Watch, Pixel Watch, Fitbit e qualquer wearable compatível), de provedores na nuvem como Garmin e Suunto, e diretamente via Bluetooth de anéis inteligentes como o Colmi R02/R03. Tudo converge em **um único painel**, acessível pela mesma conta no [Android e iPhone juntos](/pt/lp/due-telefoni) (o app para iOS está chegando em breve).",
         fr: "FitMesh se place au centre. Il lit les données de Health Connect (Galaxy Watch, Pixel Watch, Fitbit et tout appareil compatible), des fournisseurs cloud comme Garmin et Suunto, et directement via Bluetooth des bagues connectées comme les Colmi R02/R03. Tout converge dans **un seul tableau de bord**, accessible depuis le même compte sur [Android et iPhone ensemble](/fr/lp/due-telefoni) (l'app iOS arrive bientôt, lancement imminent).",
+        pl: "FitMesh stoi w centrum. Odczytuje dane z Health Connect (Galaxy Watch, Pixel Watch, Fitbit i każde zgodne urządzenie), od dostawców chmurowych jak Garmin i Suunto, oraz bezpośrednio przez Bluetooth z inteligentnych pierścionków, takich jak Colmi R02/R03. Wszystko trafia do **jednego panelu**, dostępnego z tego samego konta na [Androidzie i iPhonie razem](/pl/lp/due-telefoni) (aplikacja iOS już wkrótce, premiera bliska).",
+        tr: "FitMesh ortada konumlanır. Health Connect'ten (Galaxy Watch, Pixel Watch, Fitbit ve uyumlu her cihaz), Garmin ve Suunto gibi bulut sağlayıcılardan ve Colmi R02/R03 gibi akıllı yüzüklerden doğrudan Bluetooth üzerinden veri okur. Her şey **tek bir panelde** toplanır, aynı hesapla [Android ve iPhone birlikte](/tr/lp/due-telefoni) erişilebilir (iOS uygulaması yakında geliyor).",
       },
     },
     {
@@ -233,6 +289,8 @@ export const post: BlogPost = {
         de: "Jeder Gerätetyp übernimmt eine bestimmte Rolle: FitMesh vereint alles",
         pt: "Cada tipo de dispositivo cobre um papel específico: FitMesh reúne tudo",
         fr: "Chaque type d'appareil couvre un rôle spécifique: FitMesh réunit tout",
+        pl: "Każdy typ urządzenia pełni określoną rolę: FitMesh łączy wszystko",
+        tr: "Her cihaz türü belirli bir rolü kapsar: FitMesh hepsini bir araya getirir",
       },
       headers: {
         it: ["Dispositivo", "Specialista di", "Quando ti copre"],
@@ -241,6 +299,8 @@ export const post: BlogPost = {
         de: ["Gerät", "Spezialist für", "Wann es dich abdeckt"],
         pt: ["Dispositivo", "Especialista em", "Quando te cobre"],
         fr: ["Appareil", "Spécialiste de", "Quand il vous couvre"],
+        pl: ["Urządzenie", "Specjalista od", "Kiedy Cię obsługuje"],
+        tr: ["Cihaz", "Uzman olduğu alan", "Ne zaman sizi kapsar"],
       },
       rows: [
         {
@@ -250,6 +310,8 @@ export const post: BlogPost = {
           de: ["Smartwatch (Galaxy, Pixel, Apple)", "Alltag, Aktivität, Sport", "Den ganzen Tag"],
           pt: ["Smartwatch (Galaxy, Pixel, Apple)", "Vida cotidiana, atividade, esporte", "O dia todo"],
           fr: ["Montre connectée (Galaxy, Pixel, Apple)", "Vie quotidienne, activité, sport", "Toute la journée"],
+          pl: ["Smartwatch (Galaxy, Pixel, Apple)", "Codzienne życie, aktywność, sport", "Cały dzień"],
+          tr: ["Akıllı saat (Galaxy, Pixel, Apple)", "Günlük yaşam, aktivite, spor", "Gün boyu"],
         },
         {
           it: ["Anello smart", "Sonno, recupero, battito a riposo", "La notte e quando il watch e in carica"],
@@ -258,6 +320,8 @@ export const post: BlogPost = {
           de: ["Smart-Ring", "Schlaf, Erholung, Ruheherzfrequenz", "Nachts und wenn die Smartwatch lädt"],
           pt: ["Anel inteligente", "Sono, recuperação, frequência cardíaca em repouso", "À noite e quando o relógio está carregando"],
           fr: ["Bague connectée", "Sommeil, récupération, fréquence cardiaque au repos", "La nuit et quand la montre est en charge"],
+          pl: ["Inteligentny pierścionek", "Sen, regeneracja, spoczynkowe tętno", "W nocy i gdy zegarek się ładuje"],
+          tr: ["Akıllı yüzük", "Uyku, toparlanma, dinlenme kalp atış hızı", "Gece ve saat şarj olurken"],
         },
         {
           it: ["Sportwatch (Garmin, Suunto)", "Allenamenti, GPS, VO2max", "Durante gare e sessioni"],
@@ -266,6 +330,8 @@ export const post: BlogPost = {
           de: ["Sportuhr (Garmin, Suunto)", "Trainings, GPS, VO2max", "Bei Wettkämpfen und Einheiten"],
           pt: ["Sportwatch (Garmin, Suunto)", "Treinos, GPS, VO2max", "Durante corridas e sessões"],
           fr: ["Montre sport (Garmin, Suunto)", "Entraînements, GPS, VO2max", "Pendant les courses et les séances"],
+          pl: ["Zegarek sportowy (Garmin, Suunto)", "Treningi, GPS, VO2max", "Podczas zawodów i sesji"],
+          tr: ["Spor saati (Garmin, Suunto)", "Antrenmanlar, GPS, VO2max", "Yarışlar ve seanslar sırasında"],
         },
         {
           it: ["Fascia cardio", "Battito durante lo sforzo", "Negli allenamenti specifici"],
@@ -274,6 +340,8 @@ export const post: BlogPost = {
           de: ["Herzfrequenz-Brustgurt", "Herzfrequenz unter Belastung", "Bei gezielten Trainings"],
           pt: ["Cinta cardíaca", "Frequência cardíaca sob esforço", "Em treinos específicos"],
           fr: ["Ceinture cardio", "Fréquence cardiaque à l'effort", "Lors des entraînements spécifiques"],
+          pl: ["Pas cardio", "Tętno podczas wysiłku", "W konkretnych treningach"],
+          tr: ["Göğüs kayışı", "Efor altında kalp atış hızı", "Belirli antrenmanlar sırasında"],
         },
       ],
     },
@@ -288,6 +356,8 @@ export const post: BlogPost = {
         de: "Die schwierige Seite: zusammenführen ohne Chaos",
         pt: "A parte difícil: unir sem criar confusão",
         fr: "La partie difficile: fusionner sans créer de confusion",
+        pl: "Trudna część: łączenie bez zamieszania",
+        tr: "Zor kısım: karmaşa yaratmadan birleştirme",
       },
     },
     {
@@ -299,6 +369,8 @@ export const post: BlogPost = {
         de: "Fünf Quellen zusammenzuführen klingt einfach. Die eigentliche Herausforderung besteht darin, dieselben Schritte nicht zweimal zu zählen, wenn du Smartwatch und Ring gleichzeitig in derselben Stunde trägst. FitMesh summiert nicht blind: Für jede Kennzahl und jeden Moment wählt es **die beste Quelle**, nicht alle auf einmal.",
         pt: "Combinar cinco fontes é fácil de dizer. O verdadeiro desafio é não contar os mesmos passos duas vezes quando você usa relógio e anel ao mesmo tempo na mesma hora. FitMesh não soma às cegas: para cada métrica e cada momento, escolhe **a melhor fonte**, não todas ao mesmo tempo.",
         fr: "Combiner cinq sources est facile à dire. Le vrai défi est de ne pas compter les mêmes pas deux fois quand vous portez montre et bague connectée pendant la même heure. FitMesh ne somme pas aveuglément: pour chaque métrique et chaque moment, il choisit **la meilleure source**, pas toutes en même temps.",
+        pl: "Połączenie pięciu źródeł jest łatwe do powiedzenia. Prawdziwe wyzwanie polega na tym, żeby nie liczyć tych samych kroków dwa razy, gdy masz na sobie zegarek i pierścionek w tej samej godzinie. FitMesh nie sumuje na ślepo: dla każdej metryki i każdego momentu wybiera **najlepsze źródło**, a nie wszystkie naraz.",
+        tr: "Beş kaynağı birleştirmek söylemesi kolay. Gerçek zorluk, aynı saatte hem saat hem yüzük takarken aynı adımları iki kez saymamak. FitMesh körce toplamaz: her metrik ve her an için **en iyi kaynağı** seçer, hepsini birden değil.",
       },
     },
     {
@@ -311,6 +383,8 @@ export const post: BlogPost = {
         de: "Das Prinzip in einem Satz",
         pt: "O princípio em uma frase",
         fr: "Le principe en une phrase",
+        pl: "Zasada w jednym zdaniu",
+        tr: "İlke tek cümlede",
       },
       body: {
         it: "**Unione prima, conflitto poi.** Se una metrica la fornisce un solo dispositivo, si prende e basta: e cosi che l'anello accende metriche come lo stress o l'HRV notturno che lo smartwatch non misura. Se invece due dispositivi misurano la stessa cosa nello stesso momento, vince lo specialista per quel dominio: il sonno dall'anello, l'allenamento dallo sportwatch, i passi della giornata dal watch.",
@@ -319,6 +393,8 @@ export const post: BlogPost = {
         de: "**Zusammenführung zuerst, Konflikt danach.** Wenn eine Kennzahl nur von einem einzigen Gerät geliefert wird, wird sie einfach übernommen: So aktiviert der Ring Kennzahlen wie Stress oder nächtliche HRV, die die Smartwatch nicht misst. Wenn zwei Geräte dasselbe zur selben Zeit messen, gewinnt der Spezialist für diesen Bereich: Schlaf vom Ring, das Training von der Sportuhr, die Tagesschritte von der Smartwatch.",
         pt: "**União primeiro, conflito depois.** Se uma métrica é fornecida por um único dispositivo, ela é simplesmente aceita: é assim que o anel ativa métricas como estresse ou HRV noturno que o smartwatch não mede. Se dois dispositivos medem a mesma coisa ao mesmo tempo, o especialista naquele domínio vence: o sono vem do anel, o treino do sportwatch, os passos do dia do relógio.",
         fr: "**Union d'abord, conflit ensuite.** Si une métrique ne provient que d'un seul appareil, elle est prise telle quelle: c'est ainsi que la bague connectée active des métriques comme le stress ou le HRV nocturne que la montre connectée ne mesure pas. Si deux appareils mesurent la même chose au même moment, le spécialiste de ce domaine l'emporte: le sommeil de la bague, l'entraînement de la montre sport, les pas de la journée de la montre.",
+        pl: "**Najpierw połączenie, potem konflikt.** Jeśli metrykę dostarcza tylko jedno urządzenie, jest ona przyjmowana bez zmian: właśnie tak pierścionek włącza metryki jak stres czy nocne HRV, których smartwatch nie mierzy. Jeśli dwa urządzenia mierzą to samo w tym samym czasie, wygrywa specjalista w tej dziedzinie: sen z pierścionka, trening z zegarka sportowego, kroki dnia z zegarka.",
+        tr: "**Önce birleştirme, sonra çakışma.** Eğer bir metrik yalnızca tek bir cihazdan geliyorsa, olduğu gibi alınır: akıllı yüzük tam da bu şekilde akıllı saatin ölçmediği stres veya gece HRV gibi metrikleri devreye sokar. İki cihaz aynı anda aynı şeyi ölçerse, o alandaki uzman kazanır: uyku yüzükten, antrenman spor saatinden, günün adımları saatten.",
       },
     },
     {
@@ -330,6 +406,8 @@ export const post: BlogPost = {
         de: "Und das ist die schönste Konsequenz: **Je mehr Geräte du verbindest, desto vollständiger wird dein Dashboard.** Jedes hinzugefügte Gerät verbessert nicht nur eine Zahl, es aktiviert Bereiche, die vorher leer waren.",
         pt: "E esta é a melhor consequência: **quanto mais dispositivos você conectar, mais completo fica seu painel.** Cada dispositivo adicionado não apenas melhora um número, ele ativa seções que antes estavam vazias.",
         fr: "Et voici la meilleure conséquence: **plus vous connectez d'appareils, plus votre tableau de bord se complète.** Chaque appareil ajouté n'améliore pas seulement un chiffre, il active des sections qui étaient vides auparavant.",
+        pl: "A to jest najlepsza konsekwencja: **im więcej urządzeń podłączysz, tym pełniejszy staje się Twój panel.** Każde dodane urządzenie nie tylko poprawia jakąś liczbę, lecz włącza sekcje, które wcześniej były puste.",
+        tr: "Ve işte en güzel sonuç: **ne kadar çok cihaz bağlarsanız paneliniz o kadar eksiksiz olur.** Eklediğiniz her cihaz sadece bir sayıyı iyileştirmekle kalmaz, daha önce boş olan bölümleri de açar.",
       },
     },
 
@@ -343,6 +421,8 @@ export const post: BlogPost = {
         de: "Ein Tag, eine kontinuierliche Zeitlinie",
         pt: "Um dia, uma linha do tempo contínua",
         fr: "Une journée, une ligne du temps continue",
+        pl: "Jeden dzień, jedna ciągła linia czasu",
+        tr: "Bir gün, bir sürekli zaman çizgisi",
       },
     },
     {
@@ -354,6 +434,8 @@ export const post: BlogPost = {
         de: "So setzt FitMesh einen echten Tag für jemanden zusammen, der mehrere Geräte verwendet:",
         pt: "Veja como FitMesh reconstrói um dia real de quem usa vários dispositivos:",
         fr: "Voici comment FitMesh reconstitue une vraie journée pour quelqu'un qui utilise plusieurs appareils:",
+        pl: "Oto jak FitMesh odtwarza prawdziwy dzień kogoś, kto używa kilku urządzeń:",
+        tr: "FitMesh'in birden fazla cihaz kullanan biri için gerçek bir günü nasıl yeniden oluşturduğu:",
       },
     },
     {
@@ -395,6 +477,18 @@ export const post: BlogPost = {
           "**Entraînement** -- le Garmin avec la ceinture cardio enregistre la course: GPS, allure et fréquence cardiaque précis, capturés comme une seule séance.",
           "**Soir** -- à nouveau la montre connectée pour les pas jusqu'à la fin de la journée.",
         ],
+        pl: [
+          "**Noc** -- śpisz z pierścionkiem, zegarek się ładuje: sen, HRV i spoczynkowe tętno pochodzą z pierścionka.",
+          "**Dzień** -- zegarek na nadgarstku liczy kroki, kalorie i tętno.",
+          "**Trening** -- Garmin z pasem cardio rejestruje bieg: precyzyjny GPS, tempo i tętno, zarejestrowane jako jedna sesja.",
+          "**Wieczór** -- znów zegarek do liczenia kroków do końca dnia.",
+        ],
+        tr: [
+          "**Gece** -- yüzükle uyursunuz, saat şarj olur: uyku, HRV ve dinlenme kalp atış hızı yüzükten gelir.",
+          "**Gün** -- bileğinizdeki saat adımları, kalorileri ve kalp atış hızını sayar.",
+          "**Antrenman** -- göğüs kayışlı Garmin koşuyu kaydeder: hassas GPS, tempo ve kalp atış hızı, tek seans olarak alınır.",
+          "**Akşam** -- günün sonuna kadar adımlar için yine saat.",
+        ],
       },
     },
     {
@@ -406,6 +500,8 @@ export const post: BlogPost = {
         de: "Keine Lücken, keine Duplikate. Eine einzige, kontinuierliche Linie, unabhängig davon, was du in dem jeweiligen Moment getragen hast. Das meinen wir mit *einer App für alle synchronisieren*.",
         pt: "Sem lacunas, sem duplicatas. Uma única linha contínua, independentemente do que você estava usando em cada momento. É isso que queremos dizer com *um app para sincronizar todos eles*.",
         fr: "Aucun trou, aucun doublon. Une seule ligne continue, peu importe ce que vous portiez à chaque instant. C'est ce que nous entendons par *une app pour tous les synchroniser*.",
+        pl: "Żadnych luk, żadnych duplikatów. Jedna ciągła linia, niezależnie od tego, co miałeś na sobie w danym momencie. O to właśnie chodzi z *jedną aplikacją do synchronizacji wszystkich*.",
+        tr: "Boşluk yok, kopya yok. Herhangi bir anda ne taktığınızdan bağımsız olarak tek bir sürekli çizgi. *Hepsini senkronize eden tek uygulama* derken kastettiğimiz budur.",
       },
     },
 
@@ -419,6 +515,8 @@ export const post: BlogPost = {
         de: "Ein Konto, Android und iPhone",
         pt: "Uma conta, Android e iPhone",
         fr: "Un compte, Android et iPhone",
+        pl: "Jedno konto, Android i iPhone",
+        tr: "Bir hesap, Android ve iPhone",
       },
     },
     {
@@ -430,6 +528,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync ist auf Android mit integriertem Health Connect verfügbar. Die iPhone-App erscheint in Kürze: Mit demselben Konto kannst du dein Dashboard auf beiden Telefonen aufrufen, mit einer optionalen Brücke zu Apple Health für alle, die ihre Daten auch ins Apple-Ökosystem bringen möchten. [Android und iPhone gemeinsam](/de/lp/due-telefoni): ein Konto, eine Gesundheitsgeschichte.",
         pt: "FitMesh Sync está disponível no Android com Health Connect integrado. O app para iPhone está prestes a ser lançado: com a mesma conta você poderá ver seu painel nos dois telefones, com uma ponte opcional para o Apple Health para quem quiser levar os dados também para o ecossistema Apple. [Android e iPhone juntos](/pt/lp/due-telefoni): uma conta, um histórico de saúde.",
         fr: "FitMesh Sync est disponible sur Android avec Health Connect intégré. L'app iPhone est sur le point de sortir: avec le même compte vous pourrez consulter votre tableau de bord sur les deux téléphones, avec un pont optionnel vers Apple Health pour ceux qui souhaitent apporter leurs données dans l'écosystème Apple également. [Android et iPhone ensemble](/fr/lp/due-telefoni): un compte, un historique de santé.",
+        pl: "FitMesh Sync jest dostępny na Androidzie ze zintegrowanym Health Connect. Aplikacja na iPhone'a jest już bliska premiery: z tym samym kontem będziesz mógł przeglądać swój panel na obu telefonach, z opcjonalnym mostem do Apple Health dla tych, którzy chcą przenieść dane do ekosystemu Apple. [Android i iPhone razem](/pl/lp/due-telefoni): jedno konto, jedna historia zdrowia.",
+        tr: "FitMesh Sync, Health Connect entegre edilmiş şekilde Android'de mevcut. iPhone uygulaması yakında çıkıyor: aynı hesapla her iki telefonda da panelinizi görüntüleyebileceksiniz, verilerini Apple ekosistemine de taşımak isteyenler için isteğe bağlı Apple Health köprüsüyle. [Android ve iPhone birlikte](/tr/lp/due-telefoni): bir hesap, bir sağlık geçmişi.",
       },
     },
 
@@ -443,6 +543,8 @@ export const post: BlogPost = {
         de: "Datenschutz: deine Daten bleiben deine",
         pt: "Privacidade: seus dados continuam sendo seus",
         fr: "Confidentialité: vos données restent les vôtres",
+        pl: "Prywatność: Twoje dane pozostają Twoje",
+        tr: "Gizlilik: verileriniz size ait kalır",
       },
     },
     {
@@ -454,6 +556,8 @@ export const post: BlogPost = {
         de: "Alles an einem Ort zusammenzuführen macht nur Sinn, wenn dieser Ort sicher ist. Die Gesundheitsdaten von FitMesh liegen auf europäischen Servern, sind nur über dein Konto für dich zugänglich, werden niemals verkauft oder an Dritte weitergegeben, und es gibt keine Werbe-Tracker. Konto- und Datenlöschung erfolgt innerhalb von 48 Stunden, wie von der DSGVO vorgeschrieben.",
         pt: "Reunir tudo em um só lugar só faz sentido se esse lugar for seguro. Os dados de saúde do FitMesh ficam em servidores europeus, são acessíveis apenas por você através da sua conta, nunca são vendidos nem compartilhados com terceiros, e não há rastreadores publicitários. A exclusão de conta e dados acontece em até 48 horas, conforme exigido pelo GDPR.",
         fr: "Tout regrouper en un seul endroit n'a de sens que si cet endroit est sécurisé. Les données de santé de FitMesh résident sur des serveurs européens, ne sont accessibles qu'à vous via votre compte, ne sont jamais vendues ni partagées avec des tiers, et il n'y a aucun traceur publicitaire. La suppression du compte et des données s'effectue dans les 48 heures, comme l'exige le RGPD.",
+        pl: "Zebranie wszystkiego w jednym miejscu ma sens tylko wtedy, gdy to miejsce jest bezpieczne. Dane zdrowotne FitMesh przechowywane są na europejskich serwerach, dostępne tylko dla Ciebie przez Twoje konto, nigdy nie są sprzedawane ani udostępniane osobom trzecim, i nie ma żadnych trackerów reklamowych. Usunięcie konta i danych następuje w ciągu 48 godzin, zgodnie z wymaganiami RODO.",
+        tr: "Her şeyi tek bir yerde toplamak yalnızca o yer güvenli olduğunda anlam ifade eder. FitMesh sağlık verileri Avrupa sunucularında barındırılır, hesabınız aracılığıyla yalnızca size erişilebilir, asla satılmaz veya üçüncü taraflarla paylaşılmaz ve hiçbir reklam takipçisi yoktur. Hesap ve veri silme işlemi, GDPR'ın gerektirdiği şekilde 48 saat içinde gerçekleşir.",
       },
     },
 
@@ -466,6 +570,8 @@ export const post: BlogPost = {
         de: "Bist du unter den ersten 1000?",
         pt: "Você está entre os primeiros 1000?",
         fr: "Êtes-vous parmi les 1000 premiers?",
+        pl: "Jesteś wśród pierwszych 1000?",
+        tr: "İlk 1000 arasında mısınız?",
       },
       body: {
         it: "FitMesh Sync e in beta privata. Crea l'account e il primo anno di Pro e in regalo, si attiva da solo. Porta tutti i tuoi dispositivi in un'unica dashboard.",
@@ -474,6 +580,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync befindet sich in der geschlossenen Beta. Erstelle dein Konto und das erste Pro-Jahr ist ein Geschenk von uns, es aktiviert sich automatisch. Bringe alle deine Geräte in ein einziges Dashboard.",
         pt: "FitMesh Sync está em beta privado. Crie sua conta e o primeiro ano de Pro é por nossa conta, ele se ativa automaticamente. Leve todos os seus dispositivos para um único painel.",
         fr: "FitMesh Sync est en bêta privée. Créez votre compte et votre première année de Pro est offerte, elle s'active automatiquement. Regroupez tous vos appareils dans un seul tableau de bord.",
+        pl: "FitMesh Sync jest w prywatnej becie. Utwórz konto, a pierwszy rok Pro jest w prezencie od nas, aktywuje się automatycznie. Przenieś wszystkie swoje urządzenia do jednego panelu.",
+        tr: "FitMesh Sync özel beta sürümünde. Hesabınızı oluşturun, Pro'nun ilk yılı bizden hediye, otomatik olarak etkinleşir. Tüm cihazlarınızı tek bir panelde bir araya getirin.",
       },
       ctaLabel: {
         it: "Diventa founder",
@@ -482,10 +590,14 @@ export const post: BlogPost = {
         de: "Werde Gründungsmitglied",
         pt: "Torne-se fundador",
         fr: "Devenez fondateur",
+        pl: "Zostań założycielem",
+        tr: "Kurucu olun",
       },
       ctaHref: {
         it: "/it/beta",
         en: "/en/beta",
+        pl: "/pl/beta",
+        tr: "/tr/beta",
       },
     },
   ],
@@ -499,6 +611,8 @@ export const post: BlogPost = {
         de: "Welche Geräte kann ich mit FitMesh verbinden?",
         pt: "Quais dispositivos posso conectar ao FitMesh?",
         fr: "Quels appareils puis-je connecter à FitMesh?",
+        pl: "Jakie urządzenia mogę podłączyć do FitMesh?",
+        tr: "FitMesh'e hangi cihazları bağlayabilirim?",
       },
       a: {
         it: "Qualsiasi wearable compatibile con Health Connect (Galaxy Watch, Pixel Watch, Fitbit e altri), i provider cloud come Garmin e Suunto, e gli anelli smart Colmi R02/R03 via Bluetooth diretto. La lista completa e nella pagina [integrazioni](/integrations).",
@@ -507,6 +621,8 @@ export const post: BlogPost = {
         de: "Alle mit Health Connect kompatiblen Wearables (Galaxy Watch, Pixel Watch, Fitbit und andere), Cloud-Anbieter wie Garmin und Suunto sowie die Smart-Ringe Colmi R02/R03 per direktem Bluetooth. Die vollständige Liste findest du auf der Seite [Integrationen](/integrations).",
         pt: "Qualquer wearable compatível com Health Connect (Galaxy Watch, Pixel Watch, Fitbit e outros), provedores na nuvem como Garmin e Suunto, e os anéis inteligentes Colmi R02/R03 via Bluetooth direto. A lista completa está na página de [integrações](/integrations).",
         fr: "Tout appareil connecté compatible avec Health Connect (Galaxy Watch, Pixel Watch, Fitbit et autres), les fournisseurs cloud comme Garmin et Suunto, et les bagues connectées Colmi R02/R03 via Bluetooth direct. La liste complète se trouve sur la page [intégrations](/integrations).",
+        pl: "Każde urządzenie wearable zgodne z Health Connect (Galaxy Watch, Pixel Watch, Fitbit i inne), dostawcy chmurowi jak Garmin i Suunto, oraz inteligentne pierścionki Colmi R02/R03 przez bezpośrednie Bluetooth. Pełna lista znajduje się na stronie [integracji](/integrations).",
+        tr: "Health Connect uyumlu her giyilebilir cihaz (Galaxy Watch, Pixel Watch, Fitbit ve diğerleri), Garmin ve Suunto gibi bulut sağlayıcılar ve Colmi R02/R03 akıllı yüzükler doğrudan Bluetooth üzerinden. Tam liste [entegrasyonlar](/integrations) sayfasında.",
       },
     },
     {
@@ -517,6 +633,8 @@ export const post: BlogPost = {
         de: "Addiert FitMesh die Schritte von zwei Geräten?",
         pt: "FitMesh soma os passos de dois dispositivos?",
         fr: "FitMesh additionne-t-il les pas de deux appareils?",
+        pl: "Czy FitMesh sumuje kroki z dwóch urządzeń?",
+        tr: "FitMesh iki cihazdan adımları toplar mı?",
       },
       a: {
         it: "No. Per ogni metrica e ogni finestra di tempo sceglie una sola fonte, mai la somma. E la regola che evita i doppi conteggi quando indossi piu device contemporaneamente.",
@@ -525,6 +643,8 @@ export const post: BlogPost = {
         de: "Nein. Für jede Kennzahl und jedes Zeitfenster wird eine einzige Quelle gewählt, niemals die Summe. Das ist die Regel, die Doppelzählungen vermeidet, wenn du mehrere Geräte gleichzeitig trägst.",
         pt: "Não. Para cada métrica e cada janela de tempo, ele escolhe uma única fonte, nunca a soma. Essa é a regra que evita a dupla contagem quando você usa vários dispositivos ao mesmo tempo.",
         fr: "Non. Pour chaque métrique et chaque fenêtre temporelle, il choisit une seule source, jamais la somme. C'est la règle qui évite le double comptage quand vous portez plusieurs appareils simultanément.",
+        pl: "Nie. Dla każdej metryki i każdego okna czasowego wybiera jedno źródło, nigdy sumę. To zasada, która zapobiega podwójnemu liczeniu, gdy nosisz kilka urządzeń jednocześnie.",
+        tr: "Hayır. Her metrik ve her zaman dilimi için tek bir kaynak seçer, asla toplamı değil. Bu, aynı anda birden fazla cihaz taktığınızda çift saymayı önleyen kuraldır.",
       },
     },
     {
@@ -535,6 +655,8 @@ export const post: BlogPost = {
         de: "Funktioniert FitMesh auch auf dem iPhone?",
         pt: "FitMesh funciona também no iPhone?",
         fr: "FitMesh fonctionne-t-il aussi sur iPhone?",
+        pl: "Czy FitMesh działa również na iPhonie?",
+        tr: "FitMesh iPhone'da da çalışıyor mu?",
       },
       a: {
         it: "L'app iOS e in rilascio imminente. Con lo stesso account FitMesh potrai accedere alla tua dashboard su Android e iPhone, con ponte opzionale verso Apple Salute. Iscriviti alla beta per essere tra i primi ad accedervi.",
@@ -543,6 +665,8 @@ export const post: BlogPost = {
         de: "Die iOS-App erscheint in Kürze. Mit demselben FitMesh-Konto kannst du auf dein Dashboard auf Android und iPhone zugreifen, mit einer optionalen Brücke zu Apple Health. Registriere dich für die Beta, um als einer der Ersten Zugang zu erhalten.",
         pt: "O app para iOS está prestes a ser lançado. Com a mesma conta FitMesh você poderá acessar seu painel no Android e no iPhone, com uma ponte opcional para o Apple Health. Inscreva-se na beta para ser um dos primeiros a acessar.",
         fr: "L'app iOS est sur le point de sortir. Avec le même compte FitMesh vous pourrez accéder à votre tableau de bord sur Android et iPhone, avec un pont optionnel vers Apple Health. Inscrivez-vous à la bêta pour être parmi les premiers à y accéder.",
+        pl: "Aplikacja na iOS jest bliska premiery. Z tym samym kontem FitMesh będziesz mógł uzyskać dostęp do swojego panelu na Androidzie i iPhonie, z opcjonalnym mostem do Apple Health. Zapisz się na betę, aby być jednym z pierwszych, którzy uzyskają dostęp.",
+        tr: "iOS uygulaması yakında çıkıyor. Aynı FitMesh hesabıyla Android ve iPhone'da panelinize erişebileceksiniz, Apple Health'e isteğe bağlı köprüyle. İlk erişenler arasında olmak için betaya kaydolun.",
       },
     },
   ],

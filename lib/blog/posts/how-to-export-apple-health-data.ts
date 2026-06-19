@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Le fichier XML n'est pas chiffré: traitez-le comme un document de santé sensible et ne le téléchargez pas sur des services cloud publics.",
       "L'option la plus pratique est un tableau de bord web sans exports manuels: il faut une application qui lit depuis HealthKit et synchronise en arrière-plan. FitMesh iOS est en bêta sur TestFlight, le lancement sur l'App Store est imminent.",
     ],
+    pl: [
+      "Najbardziej kompletna metoda to natywny eksport XML (Zdrowie → profil → Eksportuj wszystkie dane zdrowotne): zawiera każdy rekord, ale plik może ważyć do 2 GB i nie jest bezpośrednio czytelny.",
+      "Do odczytu XML na PC potrzebne są dodatkowe narzędzia: skrypty Python open-source lub Apple Shortcuts dla konkretnych metryk.",
+      "Do udostępnienia konkretnych danych lekarzowi użyj eksportu dla pojedynczej metryki bezpośrednio z wykresu w Zdrowiu: generuje czysty CSV.",
+      "Plik XML nie jest zaszyfrowany: traktuj go jak wrażliwy dokument medyczny i nie ładuj na publiczne usługi chmurowe.",
+      "Najwygodniejsza droga to panel webowy bez ręcznego eksportu: potrzebna jest aplikacja, która odczytuje z HealthKit i synchronizuje w tle. FitMesh iOS jest w becie TestFlight, premiera App Store niebawem.",
+    ],
+    tr: [
+      "En eksiksiz yöntem yerel XML dışa aktarmasıdır (Sağlık → profil → Tüm sağlık verilerini dışa aktar): her kaydı içeriyor ama dosya 2 GB'a ulaşabilir ve doğrudan okunamıyor.",
+      "XML'i PC'de okumak için ek araçlar gerekiyor: açık kaynaklı Python betikleri veya belirli metrikler için Apple Shortcuts.",
+      "Belirli verileri bir doktorla paylaşmak için Sağlık uygulamasındaki grafikten tek metrik dışa aktarmasını kullanın: temiz bir CSV üretiyor.",
+      "XML dosyası şifrelenmemiş: hassas bir tıbbi belge gibi davranın, halka açık bulut servislerine yüklemeyin.",
+      "En pratik yol, manuel dışa aktarma gerektirmeyen bir web panosu: HealthKit'ten okuyan ve arka planda senkronize eden bir uygulama gerekiyor. FitMesh iOS TestFlight betasında, App Store lansmanı yakında.",
+    ],
   },
   primaryKeyword: {
     it: "esportare dati apple health",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "Apple Health Daten exportieren",
     pt: "exportar dados apple health",
     fr: "exporter données apple health",
+    pl: "eksport danych apple health",
+    tr: "apple health verilerini dışa aktarma",
   },
   secondaryKeywords: {
     it: [
@@ -88,6 +104,20 @@ export const post: BlogPost = {
       "voir les données apple health dans le navigateur",
       "sauvegarde apple health",
     ],
+    pl: [
+      "eksport apple health na pc",
+      "pobierz dane apple health",
+      "apple health export csv",
+      "przeglądaj dane apple health w przeglądarce",
+      "kopia zapasowa apple health",
+    ],
+    tr: [
+      "apple health verilerini pc'ye aktarma",
+      "apple health verilerini indirme",
+      "apple health export csv",
+      "apple health verilerini tarayıcıda görüntüleme",
+      "apple health yedekleme",
+    ],
   },
   metaDescription: {
     it: "Come esportare i dati Apple Health su PC o web nel 2026: export XML nativo, lettura con strumenti gratuiti, e dashboard web per iPhone. Guida completa.",
@@ -96,9 +126,11 @@ export const post: BlogPost = {
     de: "Apple Health Daten exportieren auf PC oder Web (2026): nativer XML-Export, kostenlose Tools zum Lesen und Web-Dashboard für iPhone-Nutzer. Komplette Anleitung.",
     pt: "Como exportar dados do Apple Health para PC ou web em 2026: exportação XML nativa, ferramentas gratuitas para ler os dados e painel web para iPhone. Guia completo.",
     fr: "Comment exporter les données Apple Health sur PC ou web en 2026: export XML natif, outils gratuits pour les lire et tableau de bord web pour iPhone. Guide complet.",
+    pl: "Jak eksportować dane Apple Health na PC lub web w 2026: natywny eksport XML, darmowe narzędzia do odczytu i panel webowy dla iPhone. Kompletny przewodnik.",
+    tr: "2026'da Apple Health verilerini PC veya web'e aktarma: yerel XML dışa aktarma, okuma için ücretsiz araçlar ve iPhone için web panosu. Kapsamlı kılavuz.",
   },
   hero: {
-    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide" },
+    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide", pl: "Przewodnik", tr: "Kılavuz" },
     title: {
       it: "Come esportare i dati Apple Health su PC o web (2026)",
       en: "How to export Apple Health data to PC or web (2026)",
@@ -106,6 +138,8 @@ export const post: BlogPost = {
       de: "Apple Health Daten auf PC oder Web exportieren (2026)",
       pt: "Como exportar dados do Apple Health para PC ou web (2026)",
       fr: "Comment exporter les données Apple Health sur PC ou web (2026)",
+      pl: "Jak eksportować dane Apple Health na PC lub web (2026)",
+      tr: "Apple Health verilerini PC veya web'e nasıl aktarırsınız (2026)",
     },
     subtitle: {
       it: "Apple Health raccoglie anni di dati salute sul tuo iPhone, ma per vederli su computer o condividerli con qualcuno ci vuole qualche passaggio in più. Ecco tutti i metodi, in ordine di facilità.",
@@ -114,6 +148,8 @@ export const post: BlogPost = {
       de: "Apple Health sammelt jahrelang Gesundheitsdaten auf Ihrem iPhone, aber um sie auf einem Computer zu sehen oder zu teilen, sind einige zusätzliche Schritte nötig. Hier sind alle Methoden, von der einfachsten zur technischsten.",
       pt: "O Apple Health coleta anos de dados de saúde no seu iPhone, mas para visualizá-los no computador ou compartilhá-los é necessário seguir alguns passos. Aqui estão todos os métodos, do mais simples ao mais técnico.",
       fr: "Apple Santé collecte des années de données de santé sur votre iPhone, mais pour les consulter sur ordinateur ou les partager, quelques étapes supplémentaires sont nécessaires. Voici toutes les méthodes, de la plus simple à la plus technique.",
+      pl: "Apple Health gromadzi lata danych zdrowotnych na Twoim iPhone, ale żeby zobaczyć je na komputerze lub komuś udostępnić, potrzeba kilku dodatkowych kroków. Oto wszystkie metody, od najprostszej do najbardziej technicznej.",
+      tr: "Apple Sağlık, iPhone'unuzda yıllarca sağlık verisi topluyor, ancak bunları bilgisayarda görüntülemek veya paylaşmak birkaç ek adım gerektiriyor. İşte tüm yöntemler, en kolaydan en tekniğine.",
     },
   },
   body: [
@@ -126,6 +162,8 @@ export const post: BlogPost = {
         de: "Apple Health sammelt jahrelang Gesundheitsdaten auf Ihrem iPhone, bietet aber kein Web-Dashboard: um diese Daten auf einen Computer zu übertragen oder zu teilen, sind bestimmte Schritte notwendig. Es gibt drei Methoden, jede mit einem anderen Verhältnis zwischen Vollständigkeit und Einfachheit. Diese Anleitung deckt alle ab, von der einfachsten zur technischsten.",
         pt: "O Apple Health coleta anos de dados de saúde no seu iPhone, mas não oferece um painel web: transferir esses dados para um computador ou compartilhá-los requer etapas específicas. Existem três métodos, cada um com um equilíbrio diferente entre completude e simplicidade. Este guia cobre todos eles, do mais simples ao mais técnico.",
         fr: "Apple Santé collecte des années de données de santé sur votre iPhone mais ne propose pas de tableau de bord web: transférer ces données sur un ordinateur ou les partager nécessite des étapes précises. Il existe trois méthodes, chacune avec un compromis différent entre exhaustivité et simplicité. Ce guide les couvre toutes, de la plus simple à la plus technique.",
+        pl: "Apple Health gromadzi lata danych zdrowotnych na Twoim iPhone, ale nie ma panelu webowego: przeniesienie tych danych na komputer lub ich udostępnienie wymaga konkretnych kroków. Istnieją trzy metody, każda z innym kompromisem między kompletnością a prostotą. Ten przewodnik omawia wszystkie, od najprostszej do najbardziej technicznej.",
+        tr: "Apple Sağlık, iPhone'unuzda yıllarca sağlık verisi topluyor ancak web panosu yok: bu verileri bilgisayara aktarmak veya paylaşmak belirli adımlar gerektiriyor. Her biri tamlık ile basitlik arasında farklı bir denge sunan üç yöntem var. Bu kılavuz hepsini kapsıyor, en kolay olandan en tekniğine.",
       },
     },
     {
@@ -138,6 +176,8 @@ export const post: BlogPost = {
         de: "Methode 1: Nativer XML-Export (kostenlos, vollständig, aber technisch)",
         pt: "Método 1: Exportação XML nativa (grátis, completa, mas técnica)",
         fr: "Méthode 1: Export XML natif (gratuit, complet, mais technique)",
+        pl: "Metoda 1: Natywny eksport XML (darmowy, kompletny, ale techniczny)",
+        tr: "Yöntem 1: Yerel XML dışa aktarma (ücretsiz, eksiksiz, ama teknik)",
       },
     },
     {
@@ -149,6 +189,8 @@ export const post: BlogPost = {
         de: "Apple Health enthält einen nativen Export, der eine ZIP-Datei mit allen Ihren Daten im XML-Format erzeugt. Es ist die vollständigste Methode: sie enthält buchstäblich jeden Datensatz, aber die resultierende Datei ist ohne zusätzliche Tools schwer zu lesen.",
         pt: "O Apple Health inclui uma exportação nativa que gera um arquivo ZIP com todos os seus dados em formato XML. É o método mais completo: inclui literalmente cada registro, mas o arquivo resultante é difícil de ler sem ferramentas adicionais.",
         fr: "Apple Santé inclut un export natif qui produit un fichier ZIP avec toutes vos données au format XML. C'est la méthode la plus complète: elle inclut littéralement chaque enregistrement, mais le fichier obtenu est difficile à lire sans outils supplémentaires.",
+        pl: "Apple Health zawiera natywny eksport, który tworzy plik ZIP ze wszystkimi Twoimi danymi w formacie XML. To najbardziej kompletna metoda: zawiera dosłownie każdy rekord, ale wynikowy plik jest trudny do odczytu bez dodatkowych narzędzi.",
+        tr: "Apple Sağlık, tüm verilerinizi XML formatında içeren bir ZIP dosyası üreten yerel bir dışa aktarma içeriyor. En eksiksiz yöntem: her kaydı harfi harfine kapsıyor, ama elde edilen dosya ek araçlar olmadan okunması zor.",
       },
     },
     {
@@ -203,6 +245,22 @@ export const post: BlogPost = {
           "Choisissez comment partager: **AirDrop vers le Mac**, **Enregistrer dans iCloud Drive**, **Vous envoyer par e-mail**.",
           "Sur PC/Mac, décompressez le fichier. Vous trouverez `export.xml` (l'essentiel des données) et le dossier `workout-routes/` avec les données GPS.",
         ],
+        pl: [
+          "Otwórz **Zdrowie** na swoim iPhonie.",
+          "Dotknij **zdjęcia profilowego** w prawym górnym rogu.",
+          "Przewiń na dół → dotknij **Eksportuj wszystkie dane zdrowotne**.",
+          "Potwierdź → zaczekaj (może to potrwać kilka minut, jeśli masz lata danych).",
+          "Wybierz, jak udostępnić: **AirDrop na Mac**, **Zapisz na iCloud Drive**, **E-mail do siebie**.",
+          "Na PC/Mac rozpakuj plik. Znajdziesz `export.xml` (główna część danych) + folder `workout-routes/` z danymi GPS.",
+        ],
+        tr: [
+          "iPhone'unuzda **Sağlık** uygulamasını açın.",
+          "Sağ üst köşedeki **profil fotoğrafınıza** dokunun.",
+          "Aşağı kaydırın → **Tüm sağlık verilerini dışa aktar**'a dokunun.",
+          "Onaylayın → bekleyin (yıllarca veriniz varsa birkaç dakika sürebilir).",
+          "Paylaşma şeklini seçin: **Mac'e AirDrop**, **iCloud Drive'a Kaydet**, **Kendinize e-posta gönderin**.",
+          "PC/Mac'te dosyayı açın. `export.xml` (verilerin büyük kısmı) + GPS verilerini içeren `workout-routes/` klasörünü bulacaksınız.",
+        ],
       },
     },
     {
@@ -215,6 +273,8 @@ export const post: BlogPost = {
         de: "Die XML-Datei kann sehr groß sein",
         pt: "O arquivo XML pode ser enorme",
         fr: "Le fichier XML peut être très volumineux",
+        pl: "Plik XML może być ogromny",
+        tr: "XML dosyası çok büyük olabilir",
       },
       body: {
         it: "Dopo 3-4 anni di Apple Watch, l'export XML può pesare 500MB-2GB decompresso. Non aprirlo con un editor di testo normale: va in crash. Usa gli strumenti gratuiti descritti sotto, o importalo in Python/R per analisi avanzate.",
@@ -223,6 +283,8 @@ export const post: BlogPost = {
         de: "Nach 3-4 Jahren mit der Apple Watch kann der XML-Export unkomprimiert 500 MB bis 2 GB groß sein. Öffnen Sie ihn nicht mit einem normalen Texteditor: er stürzt ab. Verwenden Sie die unten beschriebenen kostenlosen Tools oder importieren Sie ihn für erweiterte Analysen in Python/R.",
         pt: "Após 3 a 4 anos com Apple Watch, o export XML pode ter 500 MB a 2 GB descompactado. Não o abra com um editor de texto comum: ele travará. Use as ferramentas gratuitas descritas abaixo, ou importe-o em Python/R para análises avançadas.",
         fr: "Après 3 à 4 ans d'Apple Watch, l'export XML peut peser 500 Mo à 2 Go une fois décompressé. N'essayez pas de l'ouvrir avec un éditeur de texte ordinaire: il plantera. Utilisez les outils gratuits décrits ci-dessous, ou importez-le dans Python/R pour des analyses avancées.",
+        pl: "Po 3–4 latach z Apple Watch eksport XML może ważyć 500 MB–2 GB po rozpakowaniu. Nie otwieraj go zwykłym edytorem tekstu: zawiesi się. Użyj darmowych narzędzi opisanych poniżej lub zaimportuj do Python/R dla zaawansowanej analizy.",
+        tr: "3-4 yıl Apple Watch kullandıktan sonra XML dışa aktarması sıkıştırılmamış halde 500 MB-2 GB olabilir. Sıradan metin düzenleyiciyle açmayın: çöker. Aşağıda açıklanan ücretsiz araçları kullanın veya gelişmiş analiz için Python/R'a aktarın.",
       },
     },
     {
@@ -235,6 +297,8 @@ export const post: BlogPost = {
         de: "XML-Datei auf dem PC lesen (kostenlose Tools)",
         pt: "Como ler o arquivo XML no PC (ferramentas gratuitas)",
         fr: "Comment lire le fichier XML sur PC (outils gratuits)",
+        pl: "Jak odczytać plik XML na PC (darmowe narzędzia)",
+        tr: "XML dosyasını PC'de nasıl okursunuz (ücretsiz araçlar)",
       },
     },
     {
@@ -246,6 +310,8 @@ export const post: BlogPost = {
         de: "Sobald Sie die XML-Datei auf dem Computer haben, gibt es einige kostenlose Möglichkeiten, sie in einem lesbaren Format anzuzeigen:",
         pt: "Depois de ter o arquivo XML no computador, existem algumas opções gratuitas para exibi-lo em um formato legível:",
         fr: "Une fois le fichier XML sur votre ordinateur, plusieurs options gratuites permettent de l'afficher dans un format lisible:",
+        pl: "Gdy już masz plik XML na komputerze, istnieje kilka darmowych sposobów na jego wyświetlenie w czytelnym formacie:",
+        tr: "XML dosyası bilgisayarınıza geldiğinde, onu okunabilir formatta görüntülemenin birkaç ücretsiz yolu var:",
       },
     },
     {
@@ -287,6 +353,18 @@ export const post: BlogPost = {
           "**Apple Shortcuts**: sur iPhone et Mac, l'app Raccourcis peut lire directement depuis Apple Santé sans export. Utile pour automatiser des rapports hebdomadaires ou mensuels.",
           "**Tableau Public / Google Looker Studio**: après conversion en CSV, vous pouvez visualiser les données avec ces outils de visualisation gratuits.",
         ],
+        pl: [
+          "**Skrypt Python**: jeśli masz zainstalowanego Pythona, biblioteki takie jak `pandas` i `lxml` pozwalają odczytać XML, filtrować według typu metryki i eksportować do CSV. Na GitHub jest wiele gotowych skryptów open-source.",
+          "**Numbers/Excel**: XML Apple Health nie da się importować bezpośrednio do Excel, ale CSV (po konwersji przez Python) już tak.",
+          "**Apple Shortcuts**: na iPhone i Mac, aplikacja Skróty może odczytywać bezpośrednio z Apple Health bez eksportu. Przydatne do automatyzowania tygodniowych lub miesięcznych raportów.",
+          "**Tableau Public / Google Looker Studio**: po konwersji do CSV możesz wizualizować dane za pomocą tych darmowych narzędzi.",
+        ],
+        tr: [
+          "**Python betiği**: Python kuruluysa, `pandas` ve `lxml` gibi kütüphaneler XML'i okumanıza, metrik türüne göre filtrelemenize ve CSV'ye aktarmanıza olanak tanır. GitHub'da bunun için hazır açık kaynaklı betikler mevcut.",
+          "**Numbers/Excel**: Apple Health XML doğrudan Excel'e aktarılamaz, ancak CSV (Python dönüşümünden sonra) aktarılabilir.",
+          "**Apple Shortcuts**: iPhone ve Mac'te Kısayollar uygulaması dışa aktarma yapmadan doğrudan Apple Sağlık'tan okuyabilir. Haftalık veya aylık raporları otomatikleştirmek için kullanışlı.",
+          "**Tableau Public / Google Looker Studio**: CSV'ye dönüştürdükten sonra verileri bu ücretsiz görselleştirme araçlarıyla görüntüleyebilirsiniz.",
+        ],
       },
     },
     {
@@ -299,6 +377,8 @@ export const post: BlogPost = {
         de: "Methode 2: Teilen mit dem Arzt (natives PDF oder Diagramme)",
         pt: "Método 2: Compartilhar com seu médico (PDF ou gráficos nativos)",
         fr: "Méthode 2: Partage avec votre médecin (PDF ou graphiques natifs)",
+        pl: "Metoda 2: Udostępnianie lekarzowi (natywne PDF lub wykresy)",
+        tr: "Yöntem 2: Doktorunuzla paylaşma (yerel PDF veya grafikler)",
       },
     },
     {
@@ -310,6 +390,8 @@ export const post: BlogPost = {
         de: "Um bestimmte Daten mit einem Arzt zu teilen, bietet Apple Health eine integrierte Funktion, die einfacher als der vollständige XML-Export ist:",
         pt: "Para compartilhar dados específicos com um médico, o Apple Health tem um recurso integrado mais simples do que a exportação XML completa:",
         fr: "Pour partager des données précises avec un médecin, Apple Santé dispose d'une fonctionnalité intégrée plus simple que l'export XML complet:",
+        pl: "Do udostępnienia konkretnych danych lekarzowi, Apple Health ma wbudowaną funkcję prostszą niż pełny eksport XML:",
+        tr: "Belirli verileri bir doktorla paylaşmak için Apple Sağlık'ın tam XML dışa aktarmadan daha basit yerleşik bir özelliği var:",
       },
     },
     {
@@ -346,6 +428,16 @@ export const post: BlogPost = {
           "Appuyez sur le graphique → **Exporter les données de santé** (en bas) → CSV pour cette métrique unique.",
           "Ou: dans **Résumé** → faites défiler jusqu'à **Partage de santé** → configurez qui peut voir vos données (d'autres utilisateurs iPhone ou des médecins sur des plateformes spécifiques).",
         ],
+        pl: [
+          "W **Zdrowiu** → otwórz interesującą Cię kategorię (np. Tętno, Sen).",
+          "Dotknij wykresu → **Eksportuj próbki danych** (na dole) → CSV dla tej jednej metryki.",
+          "Lub: w **Podsumowaniu** → przewiń do **Udostępnianie zdrowia** → skonfiguruj, kto może widzieć Twoje dane (inni użytkownicy iPhone lub lekarze na konkretnych platformach).",
+        ],
+        tr: [
+          "**Sağlık**'ta → ilgilendiğiniz kategoriyi açın (örn. Kalp Atışı, Uyku).",
+          "Grafiğe dokunun → **Sağlık Kayıtlarını Dışa Aktar** (altta) → o tek metrik için CSV.",
+          "Veya: **Özet**'te → **Sağlık Paylaşımı**'na kaydırın → verilerinizi kimin görebileceğini yapılandırın (diğer iPhone kullanıcıları veya belirli platformlardaki doktorlar).",
+        ],
       },
     },
     {
@@ -358,6 +450,8 @@ export const post: BlogPost = {
         de: "Methode 3: Web-Dashboard, der bequemste Weg (iOS demnächst verfügbar)",
         pt: "Método 3: Painel web, o caminho mais prático (iOS em breve)",
         fr: "Méthode 3: Tableau de bord web, l'option la plus pratique (iOS bientôt disponible)",
+        pl: "Metoda 3: Panel webowy, najwygodniejsza opcja (iOS niebawem)",
+        tr: "Yöntem 3: Web panosu, en pratik yol (iOS geliyor)",
       },
     },
     {
@@ -369,6 +463,8 @@ export const post: BlogPost = {
         de: "Die bequemste Option (Apple-Health-Daten auf einem Web-Dashboard, das von jedem Browser aus zugänglich ist, ohne manuelle Exporte) erfordert eine App, die Apple Health ausliest und die Daten in der Cloud synchronisiert.",
         pt: "A opção mais prática (ter os dados do Apple Health em um painel web acessível de qualquer navegador, sem exportações manuais a cada vez) requer um app que leia o Apple Health e sincronize os dados na nuvem.",
         fr: "L'option la plus pratique (avoir les données Apple Santé sur un tableau de bord web accessible depuis n'importe quel navigateur, sans exports manuels à chaque fois) nécessite une application qui lit Apple Santé et la synchronise dans le cloud.",
+        pl: "Najwygodniejsza opcja (dane Apple Health na panelu webowym dostępnym z dowolnej przeglądarki, bez ręcznego eksportowania za każdym razem) wymaga aplikacji, która odczytuje Apple Health i synchronizuje do chmury.",
+        tr: "En pratik seçenek (Apple Sağlık verilerini her seferinde manuel dışa aktarma yapmadan herhangi bir tarayıcıdan erişilebilen bir web panosunda bulundurmak) Apple Sağlık'ı okuyup buluta senkronize eden bir uygulama gerektiriyor.",
       },
     },
     {
@@ -380,6 +476,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync kommt auf das iPhone: die TestFlight-Beta ist aktiv und der App-Store-Launch steht unmittelbar bevor. Die iPhone-App liest Daten aus Apple Health (HealthKit), synchronisiert sie automatisch und zeigt sie auf demselben Web-Dashboard an, das bereits für Android genutzt wird. Extra-Feature: die optionale Schreibbrücke (opt-in) überträgt Daten von Android-Wearables direkt in Apple Gesundheit, praktisch wenn Sie sowohl ein Android-Gerät als auch ein iPhone haben.",
         pt: "FitMesh Sync está chegando ao iPhone: a beta no TestFlight está ativa e o lançamento na App Store é iminente. O app para iPhone lê dados do Apple Health (HealthKit), sincroniza-os automaticamente e os exibe no mesmo painel web já usado para Android. Recurso extra: a ponte de escrita (opt-in) leva os dados de wearables Android diretamente para o Apple Saúde, útil se você tem tanto um dispositivo Android quanto um iPhone.",
         fr: "FitMesh Sync arrive sur iPhone: la bêta TestFlight est active et le lancement sur l'App Store est imminent. L'app iPhone lit les données depuis Apple Santé (HealthKit), les synchronise automatiquement et les affiche sur le même tableau de bord web déjà utilisé pour Android. Fonctionnalité supplémentaire: le pont d'écriture (opt-in) transfère les données des appareils connectés Android directement dans Apple Santé, utile si vous avez à la fois un appareil Android et un iPhone.",
+        pl: "FitMesh Sync nadchodzi na iPhone: beta TestFlight jest aktywna, a premiera App Store jest bliska. Aplikacja na iPhone odczytuje dane z Apple Health (HealthKit), synchronizuje je automatycznie i wyświetla na tym samym panelu webowym, który już używamy dla Androida. Dodatkowa funkcja: opcjonalny most zapisu (opt-in) przenosi dane urządzeń Android bezpośrednio do Apple Zdrowia – przydatne, jeśli masz zarówno urządzenie Android, jak i iPhone.",
+        tr: "FitMesh Sync iPhone'a geliyor: TestFlight betası aktif ve App Store lansmanı yakında. iPhone uygulaması Apple Sağlık'tan (HealthKit) veri okuyor, otomatik senkronize ediyor ve Android için zaten kullandığımız aynı web panosunda gösteriyor. Ekstra özellik: isteğe bağlı yazma köprüsü (opt-in), Android giyilebilir verilerini doğrudan Apple Sağlık'a aktarıyor – hem Android cihazınız hem iPhone'unuz varsa çok kullanışlı.",
       },
     },
     {
@@ -392,6 +490,8 @@ export const post: BlogPost = {
         de: "Wenn Sie sowohl iPhone als auch Android haben",
         pt: "Se você tem iPhone e Android",
         fr: "Si vous avez un iPhone et un Android",
+        pl: "Jeśli masz zarówno iPhone, jak i Androida",
+        tr: "Hem iPhone hem Android'iniz varsa",
       },
       body: {
         it: "Molti utenti usano un iPhone ma hanno un wearable Android (es. Galaxy Watch o un anello smart). Con FitMesh Sync Android puoi già sincronizzare quei dati su web. La versione iOS (beta ora, App Store imminente) aggiunge anche il ponte di scrittura opt-in: i dati del wearable Android vengono scritti direttamente in Apple Salute, così li vedi nell'app Salute di iPhone senza alcun export manuale.",
@@ -400,6 +500,8 @@ export const post: BlogPost = {
         de: "Viele Nutzer verwenden ein iPhone, tragen aber ein Android-Wearable (z. B. Galaxy Watch oder einen Smart-Ring). Mit FitMesh Sync Android können Sie diese Daten bereits mit dem Web synchronisieren. Die iOS-Version (jetzt in der Beta, App Store demnächst verfügbar) fügt außerdem die optionale Schreibbrücke hinzu: Android-Wearable-Daten werden direkt in Apple Gesundheit geschrieben, sodass Sie sie in der Gesundheits-App des iPhone sehen, ohne manuellen Export.",
         pt: "Muitos usuários têm iPhone mas usam um wearable Android (ex.: Galaxy Watch ou um anel inteligente). Com FitMesh Sync Android você já pode sincronizar esses dados na web. A versão iOS (em beta agora, App Store em breve) adiciona também a ponte de escrita opt-in: os dados do wearable Android são gravados diretamente no Apple Saúde, então você os vê no app Saúde do iPhone sem nenhuma exportação manual.",
         fr: "De nombreux utilisateurs ont un iPhone mais portent un appareil connecté Android (ex.: Galaxy Watch ou une bague connectée). Avec FitMesh Sync Android, vous pouvez déjà synchroniser ces données sur le web. La version iOS (en bêta maintenant, App Store bientôt disponible) ajoute également le pont d'écriture opt-in: les données du wearable Android sont écrites directement dans Apple Santé, de sorte que vous les voyez dans l'app Santé de l'iPhone sans aucun export manuel.",
+        pl: "Wielu użytkowników ma iPhone, ale nosi urządzenie Android (np. Galaxy Watch lub smart ring). Z FitMesh Sync na Androida możesz już synchronizować te dane na web. Wersja iOS (teraz w becie, App Store niebawem) dodaje też opcjonalny most zapisu opt-in: dane urządzenia Android są zapisywane bezpośrednio w Apple Zdrowiu, dzięki czemu widzisz je w aplikacji Zdrowie iPhone'a bez żadnego ręcznego eksportu.",
+        tr: "Pek çok kullanıcının iPhone'u var ama Android giyilebiliri (örn. Galaxy Watch veya akıllı yüzük) kullanıyor. FitMesh Sync Android ile bu verileri zaten web'e senkronize edebilirsiniz. iOS sürümü (şimdi betada, App Store yakında) isteğe bağlı yazma köprüsünü de ekliyor: Android giyilebilir verileri doğrudan Apple Sağlık'a yazılıyor, böylece iPhone Sağlık uygulamasında hiç manuel dışa aktarma yapmadan görüyorsunuz.",
       },
     },
     {
@@ -412,6 +514,8 @@ export const post: BlogPost = {
         de: "Warum Sie Ihre Daten jetzt exportieren sollten, nicht erst wenn Sie die Apple Watch ablegen",
         pt: "Por que você deve exportar seus dados agora, não quando parar de usar o Apple Watch",
         fr: "Pourquoi vous devriez exporter vos données maintenant, pas quand vous arrêtez d'utiliser l'Apple Watch",
+        pl: "Dlaczego powinieneś eksportować dane teraz, a nie gdy przestaniesz używać Apple Watch",
+        tr: "Verilerinizi şimdi dışa aktarmalısınız, Apple Watch kullanmayı bıraktığınızda değil",
       },
       body: {
         it: "L'errore più comune che vediamo: le persone esportano Apple Health solo quando cambiano telefono o ecosistema, e spesso scoprono che mesi di dati sono andati persi (backup iCloud non configurato, device reset). Esporta i dati ogni 6 mesi come routine: il file ZIP di Apple Health è il tuo backup assicurativo contro qualsiasi cambio futuro di dispositivo, piattaforma, o policy Apple.",
@@ -420,6 +524,8 @@ export const post: BlogPost = {
         de: "Der häufigste Fehler, den wir sehen: Menschen exportieren Apple-Health-Daten nur beim Gerätewechsel oder Ökosystemwechsel und stellen dann oft fest, dass Monate an Daten verloren sind (iCloud-Backup nicht konfiguriert, Gerät zurückgesetzt). Exportieren Sie Ihre Daten alle 6 Monate als Routine: die Apple-Health-ZIP-Datei ist Ihre Absicherung gegen jeden künftigen Gerätewechsel, Plattformwechsel oder eine Änderung der Apple-Richtlinien.",
         pt: "O erro mais comum que vemos: as pessoas exportam os dados do Apple Health somente quando trocam de celular ou de ecossistema, e frequentemente descobrem que meses de dados foram perdidos (backup do iCloud não configurado, dispositivo resetado). Exporte seus dados a cada 6 meses como rotina: o arquivo ZIP do Apple Health é o seu backup de segurança contra qualquer mudança futura de dispositivo, plataforma ou política da Apple.",
         fr: "L'erreur la plus courante que nous observons: les gens exportent les données Apple Santé uniquement lorsqu'ils changent de téléphone ou d'écosystème, et découvrent souvent que des mois de données ont disparu (sauvegarde iCloud non configurée, réinitialisation de l'appareil). Exportez vos données tous les 6 mois par routine: le fichier ZIP d'Apple Santé est votre sauvegarde contre tout futur changement d'appareil, de plateforme ou de politique d'Apple.",
+        pl: "Najczęstszy błąd jaki widzimy: ludzie eksportują dane Apple Health tylko przy zmianie telefonu lub ekosystemu, i często odkrywają, że stracili miesiące danych (backup iCloud nie skonfigurowany, reset urządzenia). Eksportuj dane co 6 miesięcy jako rutynę: plik ZIP Apple Health to Twój ubezpieczeniowy backup na wypadek każdej przyszłej zmiany urządzenia, platformy lub polityki Apple.",
+        tr: "En sık gördüğümüz hata: insanlar Apple Sağlık verilerini yalnızca telefon veya ekosistem değiştirirken dışa aktarıyor ve çoğunlukla aylarca veri kaybolduğunu keşfediyor (iCloud yedeklemesi yapılandırılmamış, cihaz sıfırlanmış). Verileri her 6 ayda bir rutin olarak dışa aktarın: Apple Sağlık ZIP dosyası, gelecekteki herhangi bir cihaz değişikliğine, platform geçişine veya Apple politika değişikliğine karşı sigorta yedeğinizdir.",
       },
     },
     {
@@ -432,6 +538,8 @@ export const post: BlogPost = {
         de: "Was ein vollständiger Apple-Health-Export enthält",
         pt: "O que contém uma exportação completa do Apple Health",
         fr: "Ce que contient un export complet d'Apple Santé",
+        pl: "Co zawiera pełny eksport Apple Health",
+        tr: "Eksiksiz Apple Sağlık dışa aktarması ne içeriyor",
       },
     },
     {
@@ -515,6 +623,32 @@ export const post: BlogPost = {
           "**Tension artérielle et glycémie**: si saisies manuellement",
           "**Données environnementales**: niveaux sonores, chutes détectées",
         ],
+        pl: [
+          "**Kroki i dystans**: każda próbka z dokładnym znacznikiem czasu",
+          "**Tętno**: wszystkie próbki (co kilka minut, jeśli masz Apple Watch)",
+          "**Tętno spoczynkowe i zmienność (HRV)**: obliczane każdego ranka",
+          "**Sen**: fazy (Core, Deep, REM, Awake) ze znacznikami czasu",
+          "**Treningi**: rodzaj, czas trwania, kalorie, średnie tętno, GPS",
+          "**SpO2**: każda dostępna próbka",
+          "**EKG**: plik PDF + wartości surowe, jeśli masz Apple Watch Series 4+",
+          "**Mindfulness**: sesje świadomego oddychania",
+          "**Waga i skład ciała**: jeśli wprowadzone ręcznie lub z inteligentnej wagi",
+          "**Ciśnienie krwi i poziom glukozy**: jeśli wprowadzone ręcznie",
+          "**Dane środowiskowe**: poziomy hałasu, wykryte upadki",
+        ],
+        tr: [
+          "**Adım ve mesafe**: kesin zaman damgasıyla her örnek",
+          "**Kalp atışı**: tüm örnekler (Apple Watch'ınız varsa birkaç dakikada bir)",
+          "**Dinlenme kalp atışı ve değişkenlik (HRV)**: her sabah hesaplanır",
+          "**Uyku**: zaman damgalarıyla evreler (Core, Deep, REM, Awake)",
+          "**Antrenmanlar**: tür, süre, kalori, ortalama kalp atışı, GPS",
+          "**SpO2**: mevcut her örnek",
+          "**EKG**: PDF dosyası + Apple Watch Series 4+ varsa ham değerler",
+          "**Mindfulness**: bilinçli nefes seansları",
+          "**Ağırlık ve vücut bileşimi**: manuel olarak girilmişse veya akıllı teraziden",
+          "**Tansiyon ve kan şekeri**: manuel olarak girilmişse",
+          "**Çevresel veriler**: gürültü seviyeleri, tespit edilen düşmeler",
+        ],
       },
     },
     {
@@ -527,6 +661,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
     },
     {
@@ -574,6 +710,20 @@ export const post: BlogPost = {
           "Le fichier XML n'est pas chiffré: traitez-le comme un document de santé sensible et ne le téléchargez pas sur des services cloud publics.",
           "L'option la plus pratique (tableau de bord web sans exports manuels) nécessite une application qui lit depuis HealthKit et synchronise en arrière-plan: FitMesh iOS est en bêta sur TestFlight, le lancement sur l'App Store est imminent.",
         ],
+        pl: [
+          "Najbardziej kompletna metoda to natywny eksport XML (Zdrowie → profil → Eksportuj wszystkie dane): zawiera każdy rekord ze znacznikiem czasu, ale plik może ważyć 2 GB i nie jest bezpośrednio czytelny.",
+          "Do odczytu XML na PC potrzebne są dodatkowe narzędzia: skrypty Python open-source na GitHub lub Apple Shortcuts dla konkretnych metryk.",
+          "Do udostępnienia konkretnych danych lekarzowi użyj eksportu dla pojedynczej metryki bezpośrednio z wykresu w Zdrowiu: generuje czysty CSV.",
+          "Plik XML nie jest zaszyfrowany: traktuj go jak wrażliwy dokument medyczny, nie ładuj go na publiczne usługi chmurowe.",
+          "Najwygodniejsza droga (panel webowy bez ręcznego eksportu) wymaga aplikacji, która odczytuje z HealthKit i synchronizuje w tle: FitMesh iOS jest w becie TestFlight, premiera App Store niebawem.",
+        ],
+        tr: [
+          "En eksiksiz yöntem yerel XML dışa aktarmasıdır (Sağlık → profil → Tüm sağlık verilerini dışa aktar): zaman damgasıyla her kaydı içeriyor, ancak dosya 2 GB olabilir ve doğrudan okunamıyor.",
+          "XML'i PC'de okumak için ek araçlar gerekiyor: GitHub'da açık kaynaklı Python betikleri veya belirli metrikler için Apple Shortcuts.",
+          "Belirli verileri doktorla paylaşmak için Sağlık uygulamasındaki grafikten tek metrik dışa aktarmasını kullanın: temiz CSV üretiyor.",
+          "XML dosyası şifrelenmemiş: hassas tıbbi belge gibi davranın, halka açık bulut servislerine yüklemeyin.",
+          "En pratik yol (manuel dışa aktarma gerektirmeyen web panosu) HealthKit'ten okuyan ve arka planda senkronize eden bir uygulama gerektiriyor: FitMesh iOS TestFlight betasında, App Store lansmanı yakında.",
+        ],
       },
     },
     {
@@ -585,6 +735,8 @@ export const post: BlogPost = {
         de: "Web-Dashboard für iPhone: jetzt auf die iOS-Warteliste eintragen",
         pt: "Painel web para iPhone: entre na lista de espera do iOS",
         fr: "Tableau de bord web pour iPhone: rejoignez la liste d'attente iOS",
+        pl: "Panel webowy dla iPhone: dołącz do listy oczekujących na iOS",
+        tr: "iPhone için web panosu: iOS bekleme listesine katılın",
       },
       body: {
         it: "FitMesh Sync è in beta TestFlight su iPhone, uscita App Store imminente. L'app legge i dati da Apple Health e li sincronizza automaticamente su web, senza export manuali. Entra in beta gratis e sarai tra i primi a provarla. Bonus: il ponte di scrittura (opt-in) porta anche i dati dei wearable Android dentro Apple Salute.",
@@ -593,6 +745,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync ist in der TestFlight-Beta auf dem iPhone, der App-Store-Launch steht unmittelbar bevor. Die App liest Daten aus Apple Health und synchronisiert sie automatisch mit dem Web, ohne manuelle Exporte. Treten Sie kostenlos der Beta bei und seien Sie unter den Ersten, die sie ausprobieren. Bonus: die optionale Schreibbrücke überträgt auch Android-Wearable-Daten in Apple Gesundheit.",
         pt: "FitMesh Sync está em beta no TestFlight no iPhone, com lançamento na App Store iminente. O app lê dados do Apple Health e os sincroniza automaticamente na web, sem exportações manuais. Entre na beta grátis e seja um dos primeiros a experimentar. Bônus: a ponte de escrita (opt-in) também traz dados de wearables Android para o Apple Saúde.",
         fr: "FitMesh Sync est en bêta TestFlight sur iPhone, le lancement sur l'App Store est imminent. L'application lit les données depuis Apple Santé et les synchronise automatiquement sur le web, sans exports manuels. Rejoignez la bêta gratuitement et soyez parmi les premiers à l'essayer. Bonus: le pont d'écriture (opt-in) transfère également les données des appareils connectés Android dans Apple Santé.",
+        pl: "FitMesh Sync jest w becie TestFlight na iPhone, premiera App Store niebawem. Aplikacja odczytuje dane z Apple Health i synchronizuje je automatycznie na web, bez ręcznego eksportu. Dołącz do bety za darmo i bądź wśród pierwszych testerów. Bonus: opcjonalny most zapisu (opt-in) przenosi też dane urządzeń Android do Apple Zdrowia.",
+        tr: "FitMesh Sync iPhone'da TestFlight betasında, App Store lansmanı yakında. Uygulama Apple Sağlık'tan veri okuyor ve otomatik olarak web'e senkronize ediyor, manuel dışa aktarma yok. Ücretsiz betaya katılın ve ilk denemeler arasında yer alın. Bonus: isteğe bağlı yazma köprüsü (opt-in) Android giyilebilir verilerini de Apple Sağlık'a aktarıyor.",
       },
       ctaLabel: {
         it: "Entra in beta iOS →",
@@ -601,6 +755,8 @@ export const post: BlogPost = {
         de: "iOS-Beta beitreten →",
         pt: "Entrar na beta iOS →",
         fr: "Rejoindre la bêta iOS →",
+        pl: "Dołącz do bety iOS →",
+        tr: "iOS betasına katıl →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -617,6 +773,8 @@ export const post: BlogPost = {
         de: "Ist der Apple-Health-Export datenschutzsicher?",
         pt: "A exportação do Apple Health é segura para a privacidade?",
         fr: "L'export Apple Santé est-il sûr pour la confidentialité?",
+        pl: "Czy eksport Apple Health jest bezpieczny dla prywatności?",
+        tr: "Apple Sağlık dışa aktarması gizlilik açısından güvenli mi?",
       },
       a: {
         it: "Il file XML non è criptato: chiunque lo riceva può leggere tutti i tuoi dati salute. Trattalo come un documento medico sensibile. Non caricarlo su servizi cloud pubblici, non mandarlo via email non criptata. Se usi AirDrop o cavi USB su Mac, la trasmissione è crittografata.",
@@ -625,6 +783,8 @@ export const post: BlogPost = {
         de: "Die XML-Datei ist unverschlüsselt: jeder, der sie erhält, kann alle Ihre Gesundheitsdaten lesen. Behandeln Sie sie wie ein sensibles Gesundheitsdokument. Laden Sie sie nicht auf öffentliche Cloud-Dienste hoch und senden Sie sie nicht per unverschlüsselter E-Mail. AirDrop oder USB-Kabel zum Mac sind verschlüsselte Übertragungen.",
         pt: "O arquivo XML não é criptografado: qualquer pessoa que o receba pode ler todos os seus dados de saúde. Trate-o como um documento de saúde sensível. Não o carregue em serviços de nuvem públicos e não o envie por e-mail sem criptografia. AirDrop ou cabo USB para o Mac são transferências criptografadas.",
         fr: "Le fichier XML n'est pas chiffré: toute personne qui le reçoit peut lire toutes vos données de santé. Traitez-le comme un document de santé sensible. Ne le téléchargez pas sur des services cloud publics et ne l'envoyez pas par e-mail non chiffré. Les transferts par AirDrop ou câble USB vers le Mac sont chiffrés.",
+        pl: "Plik XML nie jest zaszyfrowany: każdy, kto go otrzyma, może odczytać wszystkie Twoje dane zdrowotne. Traktuj go jak wrażliwy dokument medyczny. Nie ładuj go na publiczne usługi chmurowe, nie wysyłaj niezaszyfrowanym e-mailem. AirDrop lub kabel USB na Mac to zaszyfrowane transfery.",
+        tr: "XML dosyası şifrelenmemiş: onu alan herkes tüm sağlık verilerinizi okuyabilir. Hassas bir tıbbi belge gibi davranın. Halka açık bulut servislerine yüklemeyin, şifrelenmemiş e-postayla göndermeyin. AirDrop veya Mac'e USB kablo aktarımları şifreleniyor.",
       },
     },
     {
@@ -635,6 +795,8 @@ export const post: BlogPost = {
         de: "Kann ich Apple-Health-Daten in Health Connect importieren?",
         pt: "Posso importar dados do Apple Health no Health Connect?",
         fr: "Puis-je importer les données Apple Santé dans Health Connect?",
+        pl: "Czy mogę importować dane Apple Health do Health Connect?",
+        tr: "Apple Sağlık verilerini Health Connect'e aktarabilir miyim?",
       },
       a: {
         it: "Direttamente no: Apple Health e Health Connect/Google Fit sono sistemi separati e non hanno import nativo dall'uno all'altro. Esistono script Python open-source che leggono l'export XML Apple Health e lo scrivono su Health Connect via API, ma richiedono setup tecnico. Per gli allenamenti specifici (es. da Garmin), Garmin Connect sincronizza sia con Apple Health che con Health Connect: è la via più pulita per chi ha device multi-piattaforma.",
@@ -643,6 +805,8 @@ export const post: BlogPost = {
         de: "Nicht direkt: Apple Health und Health Connect sind separate Systeme ohne nativen Import voneinander. Es gibt Open-Source-Python-Skripte, die den Apple-Health-XML-Export lesen und ihn über eine API in Health Connect schreiben, sie erfordern jedoch technisches Setup. Für bestimmte Trainings (z. B. von Garmin) synchronisiert Garmin Connect sowohl mit Apple Health als auch mit Health Connect: das ist der sauberste Weg für Nutzer mit geräteübergreifendem Setup.",
         pt: "Diretamente, não: Apple Health e Health Connect são sistemas separados sem importação nativa de um para o outro. Existem scripts Python de código aberto que leem o export XML do Apple Health e o escrevem no Health Connect via API, mas eles requerem configuração técnica. Para treinos específicos (ex.: do Garmin), o Garmin Connect sincroniza tanto com Apple Health quanto com Health Connect: é o caminho mais simples para quem tem dispositivos multiplataforma.",
         fr: "Pas directement: Apple Santé et Health Connect sont des systèmes séparés sans import natif de l'un vers l'autre. Des scripts Python open source existent pour lire l'export XML d'Apple Santé et l'écrire dans Health Connect via une API, mais ils nécessitent une configuration technique. Pour des séances d'entraînement spécifiques (ex.: depuis Garmin), Garmin Connect synchronise à la fois avec Apple Santé et Health Connect: c'est la voie la plus simple pour les utilisateurs ayant des appareils multiplateformes.",
+        pl: "Bezpośrednio nie: Apple Health i Health Connect to oddzielne systemy bez natywnego importu między sobą. Istnieją skrypty Python open-source, które odczytują eksport XML Apple Health i zapisują go do Health Connect przez API, ale wymagają konfiguracji technicznej. Dla konkretnych treningów (np. z Garmina), Garmin Connect synchronizuje zarówno z Apple Health, jak i Health Connect: to najczystsza droga dla użytkowników z urządzeniami wieloplatformowymi.",
+        tr: "Doğrudan hayır: Apple Sağlık ve Health Connect birbirinden ayrı sistemler ve aralarında yerel içe aktarma yok. Apple Sağlık XML dışa aktarmasını okuyup API üzerinden Health Connect'e yazan açık kaynaklı Python betikleri mevcut, ancak teknik kurulum gerektiriyor. Belirli antrenmanlar için (örn. Garmin'den), Garmin Connect hem Apple Sağlık'la hem Health Connect'le senkronize oluyor: çok platformlu cihaz kullanıcıları için en temiz yol bu.",
       },
     },
     {
@@ -653,6 +817,8 @@ export const post: BlogPost = {
         de: "Wie viel Speicherplatz nimmt ein Apple-Health-Export ein?",
         pt: "Quanto espaço ocupa uma exportação do Apple Health?",
         fr: "Combien d'espace occupe un export Apple Santé?",
+        pl: "Ile miejsca zajmuje eksport Apple Health?",
+        tr: "Apple Sağlık dışa aktarması ne kadar yer kaplıyor?",
       },
       a: {
         it: "Dipende dagli anni di dati e da quanti wearable hai usato. Un utente con 2 anni di Apple Watch può aspettarsi 100-400MB compressi (ZIP), che diventano 500MB-2GB decompressi. Chi usa Apple Watch + misurazioni cardiache frequenti può arrivare a 3-5GB decompressi.",
@@ -661,6 +827,8 @@ export const post: BlogPost = {
         de: "Das hängt von den Jahren an Daten und der Anzahl der verwendeten Wearables ab. Ein Nutzer mit 2 Jahren Apple Watch kann 100-400 MB komprimiert (ZIP) erwarten, was unkomprimiert 500 MB bis 2 GB ergibt. Wer Apple Watch mit häufigen Herzfrequenzmessungen nutzt, kann unkomprimiert auf 3-5 GB kommen.",
         pt: "Depende dos anos de dados e de quantos wearables você usou. Um usuário com 2 anos de Apple Watch pode esperar 100 a 400 MB comprimidos (ZIP), que se tornam 500 MB a 2 GB descompactados. Quem usa Apple Watch com medições cardíacas frequentes pode chegar a 3 a 5 GB descompactados.",
         fr: "Cela dépend des années de données et du nombre d'appareils connectés utilisés. Un utilisateur avec 2 ans d'Apple Watch peut s'attendre à 100 à 400 Mo compressés (ZIP), soit 500 Mo à 2 Go décompressés. Ceux utilisant l'Apple Watch avec des mesures cardiaques fréquentes peuvent atteindre 3 à 5 Go décompressés.",
+        pl: "Zależy od lat danych i liczby używanych urządzeń wearable. Użytkownik z 2-letnim Apple Watch może oczekiwać 100–400 MB skompresowanych (ZIP), które po rozpakowaniu stają się 500 MB–2 GB. Ci, którzy używają Apple Watch z częstymi pomiarami serca, mogą dojść do 3–5 GB po rozpakowaniu.",
+        tr: "Verilerin yılına ve kullanılan giyilebilir sayısına bağlı. 2 yıllık Apple Watch kullanıcısı 100-400 MB sıkıştırılmış (ZIP) bekleyebilir, bu da sıkıştırılmamışta 500 MB-2 GB oluyor. Sık kalp ölçümüyle Apple Watch kullananlar sıkıştırılmamış 3-5 GB'a ulaşabilir.",
       },
     },
     {
@@ -671,6 +839,8 @@ export const post: BlogPost = {
         de: "Kann ich monatliche Exporte automatisieren?",
         pt: "Posso automatizar as exportações mensais?",
         fr: "Puis-je automatiser les exports mensuels?",
+        pl: "Czy mogę zautomatyzować miesięczne eksporty?",
+        tr: "Aylık dışa aktarmaları otomatikleştirebilir miyim?",
       },
       a: {
         it: "Tramite l'export XML nativo no: va fatto manualmente ogni volta. Tramite Apple Shortcuts puoi automatizzare l'estrazione di metriche specifiche (es. 'esporta i passi di questa settimana in CSV') e inviarle a te stesso via email o salvarle su iCloud. Per un backup automatico completo, la strada è un'app che si connette a HealthKit e sincronizza in background (che è esattamente quello che FitMesh iOS farà).",
@@ -679,6 +849,8 @@ export const post: BlogPost = {
         de: "Über den nativen XML-Export nicht: er muss jedes Mal manuell durchgeführt werden. Über Apple Shortcuts können Sie die Extraktion bestimmter Metriken automatisieren (z. B. 'diese Woche Schritte als CSV exportieren') und sich per E-Mail zusenden oder in iCloud speichern. Für ein vollständiges automatisches Backup ist eine App der richtige Weg, die sich mit HealthKit verbindet und im Hintergrund synchronisiert, was genau das ist, was FitMesh iOS tun wird.",
         pt: "Via exportação XML nativa, não: deve ser feita manualmente a cada vez. Via Apple Shortcuts você pode automatizar a extração de métricas específicas (ex.: 'exportar os passos desta semana em CSV') e enviá-las para você mesmo por e-mail ou salvar no iCloud. Para um backup automático completo, o caminho é um app que se conecta ao HealthKit e sincroniza em segundo plano, que é exatamente o que FitMesh iOS fará.",
         fr: "Via l'export XML natif, non: il doit être effectué manuellement à chaque fois. Via Apple Shortcuts, vous pouvez automatiser l'extraction de métriques spécifiques (ex.: 'exporter les pas de cette semaine en CSV') et vous les envoyer par e-mail ou les enregistrer dans iCloud. Pour une sauvegarde automatique complète, la solution est une application qui se connecte à HealthKit et synchronise en arrière-plan, ce qui est exactement ce que FitMesh iOS fera.",
+        pl: "Poprzez natywny eksport XML nie: każdorazowo musi być wykonywany ręcznie. Poprzez Apple Shortcuts możesz zautomatyzować wyodrębnianie konkretnych metryk (np. 'eksportuj kroki tego tygodnia do CSV') i wysyłać je sobie e-mailem lub zapisywać na iCloud. Dla pełnego automatycznego backupu, rozwiązaniem jest aplikacja łącząca się z HealthKit i synchronizująca w tle – dokładnie to zrobi FitMesh iOS.",
+        tr: "Yerel XML dışa aktarması aracılığıyla hayır: her seferinde manuel olarak yapılması gerekiyor. Apple Shortcuts aracılığıyla belirli metriklerin çıkarılmasını otomatikleştirebilirsiniz (örn. 'bu haftanın adımlarını CSV'ye aktar') ve kendinize e-posta gönderebilir veya iCloud'a kaydedebilirsiniz. Tam otomatik yedekleme için HealthKit'e bağlanan ve arka planda senkronize eden bir uygulama gerekiyor – FitMesh iOS tam olarak bunu yapacak.",
       },
     },
   ],

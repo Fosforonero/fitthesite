@@ -55,6 +55,20 @@ export const post: BlogPost = {
       "Samsung, Fitbit, Garmin, Polar et Withings écrivent dans Health Connect ; Oura et Huawei nécessitent OAuth ou sont des écosystèmes fermés.",
       "Pour les données de santé, le seul modèle avec des incitations alignées est 'payant, sans publicité, sans traceurs' : les applications gratuites monétisent souvent en vendant des données agrégées.",
     ],
+    pl: [
+      "Praktyczna zasada na 2026 rok: wybierz kanał danych przed urządzeniem. To rozwiązuje 90% problemów, zanim w ogóle otworzysz aplikację.",
+      "Trzy realne sposoby na wyciągnięcie danych: Health Connect (na urządzeniu, Android), oficjalne OAuth API (pełne dane własne, wymaga zatwierdzenia), ręczny eksport (wolny, ale gwarantowany przez RODO art. 20).",
+      "Health Connect to nie Google Fit: Google Fit zostało wycofane w czerwcu 2025 roku, Health Connect to ujednolicony standard Androida działający wyłącznie na urządzeniu.",
+      "Samsung, Fitbit, Garmin, Polar i Withings zapisują dane do Health Connect; Oura i Huawei wymagają OAuth lub są zamkniętymi ekosystemami.",
+      "W przypadku danych zdrowotnych jedynym modelem z właściwie ustawionymi zachętami jest 'płatny, bez reklam, bez trackerów': darmowe aplikacje często monetyzują się, sprzedając dane zagregowane.",
+    ],
+    tr: [
+      "2026 pratik kuralı: gadget'tan önce veri kanalını seç. Bu, bir uygulamayı açmadan önce sorunların %90'ını çözer.",
+      "Verileri dışarı aktarmanın üç gerçek yolu: Health Connect (cihazda, Android), resmi OAuth API'leri (tam tescilli veriler, onay gerektirir), manuel dışa aktarma (yavaş ama GDPR madde 20 ile yasal güvence altında).",
+      "Health Connect, Google Fit değildir: Google Fit Haziran 2025'te kullanımdan kaldırıldı, Health Connect birleşik Android standardıdır ve yalnızca cihazda çalışır.",
+      "Samsung, Fitbit, Garmin, Polar ve Withings Health Connect'e veri yazar; Oura ve Huawei OAuth gerektirir veya kapalı ekosistemdir.",
+      "Sağlık verileri için teşviklerin uyumlu olduğu tek iş modeli 'ücretli, reklamsız, takip yazılımsız'dır: ücretsiz uygulamalar çoğunlukla toplu veri satarak para kazanır.",
+    ],
   },
   primaryKeyword: {
     it: "sincronizzare smartwatch dashboard",
@@ -63,6 +77,8 @@ export const post: BlogPost = {
     de: "Smartwatch synchronisieren Dashboard",
     pt: "sincronizar smartwatch painel",
     fr: "synchroniser montre connectée tableau de bord",
+    pl: "synchronizuj smartwatch panel",
+    tr: "akıllı saat senkronizasyon pano",
   },
   secondaryKeywords: {
     it: [
@@ -93,6 +109,20 @@ export const post: BlogPost = {
       "rgpd données fitness",
       "tableau de bord santé personnel",
     ],
+    pl: [
+      "health connect 2026",
+      "samsung health eksport",
+      "oauth wearable",
+      "rodo dane fitness",
+      "osobisty panel zdrowia",
+    ],
+    tr: [
+      "health connect 2026",
+      "samsung health dışa aktarma",
+      "oauth wearable",
+      "gdpr fitness verisi",
+      "kişisel sağlık panosu",
+    ],
   },
   metaDescription: {
     it: "Tutto quello che ti serve per sincronizzare il tuo wearable nel 2026: Health Connect, Samsung Health, OAuth ufficiali, GDPR, e come confrontare le opzioni senza farsi fregare.",
@@ -101,9 +131,11 @@ export const post: BlogPost = {
     de: "Alles, was du brauchst, um dein Wearable 2026 zu synchronisieren: Health Connect, Samsung Health, offizielle OAuths, DSGVO und wie du die Optionen vergleichst, ohne getäuscht zu werden.",
     pt: "Tudo o que você precisa para sincronizar seu wearable em 2026: Health Connect, Samsung Health, OAuth oficiais, GDPR e como comparar as opções sem ser enganado.",
     fr: "Tout ce dont vous avez besoin pour synchroniser votre appareil connecté en 2026 : Health Connect, Samsung Health, OAuth officiels, RGPD et comment comparer les options sans se faire avoir.",
+    pl: "Wszystko, czego potrzebujesz, aby zsynchronizować swoje urządzenie wearable w 2026 roku: Health Connect, Samsung Health, oficjalne OAuth, RODO i jak porównywać opcje bez dania się nabrać.",
+    tr: "2026'da giyilebilir cihazınızı senkronize etmek için ihtiyacınız olan her şey: Health Connect, Samsung Health, resmi OAuth'lar, GDPR ve seçenekleri yanıltılmadan nasıl karşılaştırırsınız.",
   },
   hero: {
-    kicker: { it: "Guida pilastro", en: "Pillar guide", es: "Guía pilar", de: "Pillar-Guide", pt: "Guia principal", fr: "Guide pilier" },
+    kicker: { it: "Guida pilastro", en: "Pillar guide", es: "Guía pilar", de: "Pillar-Guide", pt: "Guia principal", fr: "Guide pilier", pl: "Przewodnik filarowy", tr: "Temel rehber" },
     title: {
       it: "Guida completa al sync wearable nel 2026",
       en: "The complete guide to wearable sync in 2026",
@@ -111,6 +143,8 @@ export const post: BlogPost = {
       de: "Der vollständige Leitfaden zur Wearable-Synchronisierung 2026",
       pt: "O guia completo para sincronização de wearables em 2026",
       fr: "Le guide complet pour synchroniser vos appareils connectés en 2026",
+      pl: "Kompletny przewodnik po synchronizacji urządzeń wearable w 2026 roku",
+      tr: "2026'da giyilebilir cihaz senkronizasyonuna kapsamlı rehber",
     },
     subtitle: {
       it: "Tre standard convivono, dieci brand spingono ognuno il proprio cloud, una sola regola pratica per non perdere tempo: scegli la pipa dati prima del gadget.",
@@ -119,6 +153,8 @@ export const post: BlogPost = {
       de: "Drei Standards koexistieren, zehn Marken pushen jeweils ihre eigene Cloud. Eine praktische Regel spart Zeit: Wähle die Datenpipeline vor dem Gerät.",
       pt: "Três padrões coexistem, dez marcas empurram cada uma sua própria nuvem. Uma única regra prática economiza tempo: escolha a pipeline de dados antes do dispositivo.",
       fr: "Trois standards coexistent, dix marques poussent chacune leur propre cloud. Une seule règle pratique pour gagner du temps : choisissez le circuit de données avant l'appareil.",
+      pl: "Trzy standardy współistnieją, dziesięć marek promuje własną chmurę. Jedna praktyczna zasada, by zaoszczędzić czas: wybierz kanał danych przed urządzeniem.",
+      tr: "Üç standart bir arada var, on marka kendi bulutunu zorluyor. Zamandan tasarruf etmenin pratik kuralı: gadget'tan önce veri kanalını seç.",
     },
   },
   body: [
@@ -131,6 +167,8 @@ export const post: BlogPost = {
         de: "Die eine praktische Regel für 2026, um keine Zeit mit der Wearable-Synchronisierung zu verschwenden: Wähle die Datenpipeline vor dem Gerät. Drei Standards koexistieren (Health Connect, offizielle OAuths, manueller Export), zehn Marken pushen jeweils ihre eigene Cloud, und zu verstehen, welchen Weg man nehmen soll, löst 90 % der Probleme, bevor man überhaupt eine App öffnet.",
         pt: "Em 2026, a única regra prática para não perder tempo com a sincronização de wearables é simples: escolha a pipeline de dados antes do dispositivo. Três padrões coexistem (Health Connect, OAuth oficiais, exportação manual), dez marcas empurram cada uma sua própria nuvem, e entender qual caminho seguir resolve 90% dos problemas antes mesmo de abrir um app.",
         fr: "En 2026, la seule règle pratique pour ne pas perdre de temps avec la synchronisation des appareils connectés est simple : choisissez le circuit de données avant l'appareil. Trois standards coexistent (Health Connect, OAuth officiels, export manuel), dix marques poussent chacune leur propre cloud, et comprendre quel chemin emprunter résout 90 % des problèmes avant même d'ouvrir une application.",
+        pl: "W 2026 roku jedyna praktyczna zasada, by nie tracić czasu na synchronizację urządzeń wearable, jest prosta: wybierz kanał danych przed urządzeniem. Trzy standardy współistnieją (Health Connect, oficjalne OAuth, ręczny eksport), dziesięć marek promuje własną chmurę, a zrozumienie, której drogi użyć, rozwiązuje 90% problemów, zanim w ogóle otworzysz aplikację.",
+        tr: "2026'da giyilebilir cihaz senkronizasyonunda zaman kaybetmemek için tek pratik kural şudur: gadget'tan önce veri kanalını seç. Üç standart bir arada var (Health Connect, resmi OAuth'lar, manuel dışa aktarma), on marka kendi bulutunu zorluyor ve hangi yolu kullanacağını anlamak, bir uygulamayı açmadan önce sorunların %90'ını çözüyor.",
       },
     },
     {
@@ -142,6 +180,8 @@ export const post: BlogPost = {
         de: "Dieser Leitfaden ist der ehrliche Ausgangspunkt: Er erklärt die echten technischen Standards (Health Connect, offizielle OAuth-APIs, manuelle Exporte), wie sich die wichtigsten Hersteller heute verhalten, was den Unterschied für Menschen macht, die wirklich ihre eigenen Daten wollen, und wie man Synchronisierungslösungen vergleicht, ohne auf Marketingversprechen hereinzufallen.",
         pt: "Este guia é o ponto de partida honesto: explica os padrões técnicos reais (Health Connect, OAuth APIs oficiais, exportações manuais), como os principais fabricantes se comportam hoje, o que faz a diferença para quem realmente quer seus próprios dados, e como comparar soluções de sincronização sem cair em promessas de marketing.",
         fr: "Ce guide est le point de départ honnête : il explique les vrais standards techniques (Health Connect, OAuth APIs officielles, exports manuels), comment se comportent aujourd'hui les principaux fabricants, ce qui fait la différence pour ceux qui veulent vraiment leurs propres données, et comment comparer les solutions de synchronisation sans se laisser séduire par les arguments marketing.",
+        pl: "Ten przewodnik to uczciwy punkt wyjścia: wyjaśnia prawdziwe standardy techniczne (Health Connect, oficjalne OAuth API, ręczne eksporty), jak zachowują się dziś główni producenci, co stanowi różnicę dla osób, które naprawdę chcą swoich danych, i jak porównywać rozwiązania synchronizacji bez ulegania marketingowym obietnicom.",
+        tr: "Bu rehber dürüst bir başlangıç noktasıdır: gerçek teknik standartları (Health Connect, resmi OAuth API'leri, manuel dışa aktarmalar), başlıca üreticilerin bugün nasıl davrandığını, gerçekten kendi verilerini isteyen kişiler için neyin fark yarattığını ve pazarlama söylemine kapılmadan senkronizasyon çözümlerini nasıl karşılaştıracağını açıklar.",
       },
     },
     {
@@ -154,6 +194,8 @@ export const post: BlogPost = {
         de: "Die drei echten Wege, Daten aus deinem Wearable herauszuholen",
         pt: "As três formas reais de extrair dados do seu wearable",
         fr: "Les trois vraies façons d'extraire des données de votre appareil connecté",
+        pl: "Trzy realne sposoby na wyciągnięcie danych z urządzenia wearable",
+        tr: "Giyilebilir cihazınızdan veri almanın üç gerçek yolu",
       },
     },
     {
@@ -165,12 +207,14 @@ export const post: BlogPost = {
         de: "Hör auf, Rezensionen zu lesen, und frage dich: Wie verlassen Daten dieses Gerät? Es gibt drei technische Antworten, in absteigender Reihenfolge der Zuverlässigkeit.",
         pt: "Pare de ler avaliações e pergunte-se: como os dados saem deste dispositivo? Há três respostas técnicas, em ordem decrescente de confiabilidade.",
         fr: "Arrêtez de lire des avis et demandez-vous : comment les données quittent-elles cet appareil ? Il existe trois réponses techniques, par ordre décroissant de fiabilité.",
+        pl: "Przestań czytać recenzje i zadaj sobie pytanie: jak dane opuszczają to urządzenie? Istnieją trzy odpowiedzi techniczne, w malejącej kolejności niezawodności.",
+        tr: "İncelemeleri okumayı bırak ve kendinize şunu sor: veriler bu cihazdan nasıl çıkıyor? Güvenilirlik sırasına göre üç teknik yanıt var.",
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "1. Health Connect (Android, dal 2024)", en: "1. Health Connect (Android, since 2024)", es: "1. Health Connect (Android, desde 2024)", de: "1. Health Connect (Android, seit 2024)", pt: "1. Health Connect (Android, desde 2024)", fr: "1. Health Connect (Android, depuis 2024)" },
+      text: { it: "1. Health Connect (Android, dal 2024)", en: "1. Health Connect (Android, since 2024)", es: "1. Health Connect (Android, desde 2024)", de: "1. Health Connect (Android, seit 2024)", pt: "1. Health Connect (Android, desde 2024)", fr: "1. Health Connect (Android, depuis 2024)", pl: "1. Health Connect (Android, od 2024)", tr: "1. Health Connect (Android, 2024'ten itibaren)" },
     },
     {
       type: "paragraph",
@@ -181,6 +225,8 @@ export const post: BlogPost = {
         de: "Health Connect ist Androids offizielle Austauschschicht für Gesundheitsdaten. Hersteller-Apps (Samsung Health, Fitbit, Garmin Connect, Polar Flow, Mi Fitness, Withings Health Mate, Zepp für Amazfit) schreiben in Health Connect; Drittanbieter-Apps lesen daraus. Kein OAuth, keine API-Schlüssel, keine zwischengeschaltete Cloud: Die Daten befinden sich auf dem Telefon, die Drittanbieter-App fragt das Betriebssystem für jeden Datentyp um Erlaubnis.",
         pt: "Health Connect é a camada oficial de troca de dados de saúde do Android. Os apps dos fabricantes (Samsung Health, Fitbit, Garmin Connect, Polar Flow, Mi Fitness, Withings Health Mate, Zepp para Amazfit) gravam no Health Connect; apps de terceiros leem. Sem OAuth, sem chaves de API, sem nuvem intermediária: os dados ficam no telefone e o app de terceiros pede permissão ao sistema operacional para cada tipo de dado.",
         fr: "Health Connect est la couche officielle d'échange de données de santé d'Android. Les applications des fabricants (Samsung Health, Fitbit, Garmin Connect, Polar Flow, Mi Fitness, Withings Health Mate, Zepp pour Amazfit) écrivent dans Health Connect ; les applications tierces lisent. Pas d'OAuth, pas de clés API, pas de cloud intermédiaire : les données restent sur le téléphone, l'application tierce demande l'autorisation au système d'exploitation pour chaque type de donnée.",
+        pl: "Health Connect to oficjalna warstwa wymiany danych zdrowotnych w Androidzie. Aplikacje producentów (Samsung Health, Fitbit, Garmin Connect, Polar Flow, Mi Fitness, Withings Health Mate, Zepp dla Amazfit) zapisują dane do Health Connect; aplikacje innych firm odczytują. Bez OAuth, bez kluczy API, bez pośredniej chmury: dane pozostają na telefonie, a aplikacja trzecia prosi system operacyjny o pozwolenie dla każdego typu danych.",
+        tr: "Health Connect, Android'in resmi sağlık verisi değişim katmanıdır. Üretici uygulamaları (Samsung Health, Fitbit, Garmin Connect, Polar Flow, Mi Fitness, Withings Health Mate, Amazfit için Zepp) Health Connect'e yazar; üçüncü taraf uygulamalar okur. OAuth yok, API anahtarı yok, aracı bulut yok: veriler telefonda kalır, üçüncü taraf uygulama her veri türü için işletim sisteminden izin ister.",
       },
     },
     {
@@ -216,6 +262,16 @@ export const post: BlogPost = {
           "**Inconvénients**: granularité réduite (certaines métriques propriétaires comme Garmin Body Battery ou Polar Recovery Pro ne sont pas exposées), pas de récupération d'historique au-delà du téléphone.",
           "**Quand**: pour la grande majorité des utilisateurs qui veulent pas/fréquence cardiaque/sommeil/calories/séances d'entraînement, c'est le bon choix en 2026.",
         ],
+        pl: [
+          "**Zalety**: strukturalna prywatność (dane nie przechodzą przez żaden zewnętrzny serwer), zero trudności z konfiguracją, typowe opóźnienie 5-30 minut.",
+          "**Wady**: ograniczona szczegółowość (niektóre metryki własnościowe, jak Garmin Body Battery czy Polar Recovery Pro, nie są udostępniane), brak historycznego backfill poza telefonem.",
+          "**Kiedy**: dla zdecydowanej większości użytkowników, którzy chcą kroków/tętna/snu/kalorii/treningów, to właściwy wybór w 2026 roku.",
+        ],
+        tr: [
+          "**Artılar**: yapısal gizlilik (veriler hiçbir harici sunucudan geçmez), sıfır kurulum sürtüşmesi, tipik gecikme 5-30 dakika.",
+          "**Eksiler**: azaltılmış ayrıntı düzeyi (Garmin Body Battery veya Polar Recovery Pro gibi bazı tescilli metrikler sunulmaz), telefon dışında geçmiş veri dolumu yok.",
+          "**Ne zaman**: adım/nabız/uyku/kalori/antrenman isteyen kullanıcıların büyük çoğunluğu için 2026'da doğru seçim.",
+        ],
       },
     },
     {
@@ -232,6 +288,8 @@ export const post: BlogPost = {
         de: "Wenn du die vollständigen proprietären Metriken möchtest (Fitbit REM/Tief/Leicht-Schlafphasen, Garmin Body Battery und Training Load, Polar Nightly Recharge, Oura Readiness Score, Withings EKG), brauchst du die offizielle API des Herstellers via OAuth 2.0. Es ist eine Cloud-zu-Cloud-Integration: Du autorisierst einmalig, die Drittanbieter-App lädt Daten aus der Cloud des Herstellers herunter, normalerweise mit einem historischen Backfill von 6 bis 12 Monaten beim ersten Verbinden.",
         pt: "Quando você quer as métricas proprietárias completas (fases do sono REM/Profundo/Leve do Fitbit, Body Battery e Training Load do Garmin, Nightly Recharge do Polar, Readiness Score do Oura, ECG do Withings), você precisa da API oficial do fabricante via OAuth 2.0. É uma integração cloud-a-cloud: você autoriza uma vez, o app de terceiros baixa dados da nuvem do fabricante, geralmente com um backfill histórico de 6 a 12 meses na primeira conexão.",
         fr: "Lorsque vous souhaitez les métriques propriétaires complètes (phases du sommeil REM/Profond/Léger de Fitbit, Body Battery et Training Load de Garmin, Nightly Recharge de Polar, Readiness Score d'Oura, ECG Withings), vous avez besoin de l'API officielle du fabricant via OAuth 2.0. C'est une intégration cloud-à-cloud : vous autorisez une fois, l'application tierce télécharge les données depuis le cloud du fabricant, généralement avec un backfill historique de 6 à 12 mois à la première connexion.",
+        pl: "Gdy chcesz pełnych zastrzeżonych metryk (fazy snu REM/głęboki/lekki Fitbit, Garmin Body Battery i Training Load, Polar Nightly Recharge, Oura Readiness Score, ECG Withings), potrzebujesz oficjalnego API producenta przez OAuth 2.0. To integracja chmura-chmura: autoryzujesz raz, aplikacja trzecia pobiera dane z chmury producenta, zazwyczaj z historycznym backfill 6-12 miesięcy przy pierwszym połączeniu.",
+        tr: "Tam tescilli metrikleri istediğinizde (Fitbit REM/Derin/Hafif uyku evreleri, Garmin Body Battery ve Training Load, Polar Nightly Recharge, Oura Readiness Score, Withings ECG), OAuth 2.0 üzerinden üreticinin resmi API'sine ihtiyacınız var. Bu bir bulut-bulut entegrasyonudur: bir kez yetkilendirirsiniz, üçüncü taraf uygulama verileri üreticinin bulutundan indirir ve genellikle ilk bağlantıda 6-12 aylık geçmiş veri doldurma yapar.",
       },
     },
     {
@@ -267,12 +325,22 @@ export const post: BlogPost = {
           "**Inconvénients**: les données passent d'abord par un cloud tiers, la plupart des fabricants nécessitent une approbation (le Garmin Developer Program peut prendre 4 à 8 semaines), latence de polling de 15 à 30 minutes.",
           "**Quand**: si vous êtes un athlète sérieux ou un passionné de données qui a besoin de métriques spécifiques à son appareil.",
         ],
+        pl: [
+          "**Zalety**: bardziej szczegółowe i kompletne dane, dostęp do metryk specyficznych dla marki, historyczny backfill.",
+          "**Wady**: dane przechodzą najpierw przez chmurę trzecią, większość producentów wymaga zatwierdzenia (Garmin Developer Program może trwać 4-8 tygodni), opóźnienie odpytywania 15-30 minut.",
+          "**Kiedy**: jeśli jesteś poważnym sportowcem lub pasjonatem danych, który potrzebuje konkretnych metryk ze swojego urządzenia.",
+        ],
+        tr: [
+          "**Artılar**: daha ayrıntılı ve eksiksiz veriler, markaya özgü metriklere erişim, geçmiş veri doldurma.",
+          "**Eksiler**: veriler önce üçüncü taraf buluttan geçer, çoğu üretici onay gerektirir (Garmin Developer Program 4-8 hafta sürebilir), 15-30 dakika sorgulama gecikmesi.",
+          "**Ne zaman**: cihazınızdan belirli metriklere ihtiyaç duyan ciddi bir sporcu veya veri meraklısıysanız.",
+        ],
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "3. Esportazione manuale (CSV, GPX, FIT)", en: "3. Manual export (CSV, GPX, FIT)", es: "3. Exportación manual (CSV, GPX, FIT)", de: "3. Manueller Export (CSV, GPX, FIT)", pt: "3. Exportação manual (CSV, GPX, FIT)", fr: "3. Export manuel (CSV, GPX, FIT)" },
+      text: { it: "3. Esportazione manuale (CSV, GPX, FIT)", en: "3. Manual export (CSV, GPX, FIT)", es: "3. Exportación manual (CSV, GPX, FIT)", de: "3. Manueller Export (CSV, GPX, FIT)", pt: "3. Exportação manual (CSV, GPX, FIT)", fr: "3. Export manuel (CSV, GPX, FIT)", pl: "3. Ręczny eksport (CSV, GPX, FIT)", tr: "3. Manuel dışa aktarma (CSV, GPX, FIT)" },
     },
     {
       type: "paragraph",
@@ -283,12 +351,14 @@ export const post: BlogPost = {
         de: "Der universelle Fallback. Samsung, Garmin, Polar, Fitbit (via Google Takeout seit 2023), Withings, Apple Health: alle erlauben den Rohdaten-Export in irgendeinem Format. Langsam, manuell, aber gesetzlich garantiert (DSGVO Artikel 20, Recht auf Datenübertragbarkeit) und daher bestimmt, jeden Richtlinienwechsel zu überleben.",
         pt: "O fallback universal. Samsung, Garmin, Polar, Fitbit (via Google Takeout desde 2023), Withings, Apple Health: todos permitem a exportação de dados brutos em algum formato. Lento, manual, mas garantido por lei (GDPR artigo 20, direito à portabilidade) e, portanto, destinado a sobreviver a qualquer mudança de política.",
         fr: "Le fallback universel. Samsung, Garmin, Polar, Fitbit (via Google Takeout depuis 2023), Withings, Apple Health : tous permettent l'export des données brutes dans un format quelconque. Lent, manuel, mais garanti par la loi (RGPD article 20, droit à la portabilité) et donc destiné à survivre à tout changement de politique.",
+        pl: "Universalny fallback. Samsung, Garmin, Polar, Fitbit (przez Google Takeout od 2023), Withings, Apple Health: wszyscy pozwalają na eksport surowych danych w jakimś formacie. Wolno, ręcznie, ale zagwarantowane prawem (RODO artykuł 20, prawo do przenoszenia danych) i dlatego przetrwa każdą zmianę polityki.",
+        tr: "Evrensel yedek seçenek. Samsung, Garmin, Polar, Fitbit (2023'ten itibaren Google Takeout aracılığıyla), Withings, Apple Health: hepsi bazı formatlarda ham veri dışa aktarmaya izin veriyor. Yavaş, manuel, ama yasal güvence altında (GDPR madde 20, taşınabilirlik hakkı) ve bu nedenle her politika değişikliğini atlatmaya mahkum.",
       },
     },
     {
       type: "callout",
       variant: "tip",
-      title: { it: "Regola pratica", en: "Practical rule", es: "Regla práctica", de: "Praktische Regel", pt: "Regra prática", fr: "Règle pratique" },
+      title: { it: "Regola pratica", en: "Practical rule", es: "Regla práctica", de: "Praktische Regel", pt: "Regra prática", fr: "Règle pratique", pl: "Praktyczna zasada", tr: "Pratik kural" },
       body: {
         it: "Se compri un device nel 2026, fai questo test prima: cerca su Google '[nome device] Health Connect'. Se trovi una guida ufficiale del produttore, vai sereno. Se trovi solo discussioni Reddit del 2023 con workaround, ti stai legando a un ecosistema chiuso.",
         en: "If you're buying a device in 2026, run this test first: Google '[device name] Health Connect'. If you find an official manufacturer guide, you're good. If you only find Reddit threads from 2023 with workarounds, you're locking into a closed ecosystem.",
@@ -296,6 +366,8 @@ export const post: BlogPost = {
         de: "Wenn du 2026 ein Gerät kaufst, mache zuerst diesen Test: Suche auf Google '[Gerätename] Health Connect'. Wenn du eine offizielle Herstelleranleitung findest, bist du auf der sicheren Seite. Wenn du nur Reddit-Threads von 2023 mit Workarounds findest, bindest du dich an ein geschlossenes Ökosystem.",
         pt: "Se você vai comprar um dispositivo em 2026, faça este teste antes: pesquise no Google '[nome do dispositivo] Health Connect'. Se encontrar um guia oficial do fabricante, está ótimo. Se encontrar apenas discussões do Reddit de 2023 com soluções alternativas, você está se prendendo a um ecossistema fechado.",
         fr: "Si vous achetez un appareil en 2026, faites d'abord ce test : recherchez sur Google '[nom de l'appareil] Health Connect'. Si vous trouvez un guide officiel du fabricant, vous êtes tranquille. Si vous ne trouvez que des fils Reddit de 2023 avec des solutions de contournement, vous vous enfermez dans un écosystème fermé.",
+        pl: "Jeśli kupujesz urządzenie w 2026 roku, najpierw zrób ten test: wyszukaj w Google '[nazwa urządzenia] Health Connect'. Jeśli znajdziesz oficjalny poradnik producenta, jesteś bezpieczny. Jeśli znajdziesz tylko wątki na Reddicie z 2023 roku z obejściami, zamykasz się w zamkniętym ekosystemie.",
+        tr: "2026'da bir cihaz satın alıyorsanız önce şu testi yapın: Google'da '[cihaz adı] Health Connect' arayın. Üreticinin resmi kılavuzunu bulursanız güvendesiniz. Yalnızca 2023'ten geçici çözümlerle dolu Reddit konuları bulursanız, kapalı bir ekosisteme kilitleniyorsunuz.",
       },
     },
     {
@@ -308,6 +380,8 @@ export const post: BlogPost = {
         de: "Health Connect ist nicht Google Fit (und warum das wichtig ist)",
         pt: "Health Connect não é Google Fit (e por que isso importa)",
         fr: "Health Connect n'est pas Google Fit (et pourquoi c'est important)",
+        pl: "Health Connect to nie Google Fit (i dlaczego to ma znaczenie)",
+        tr: "Health Connect, Google Fit değildir (ve bunun neden önemi var)",
       },
     },
     {
@@ -319,6 +393,8 @@ export const post: BlogPost = {
         de: "Google Fit wurde als eigenständige App und als Plattform eingestellt. Ab dem 30. Juni 2025 funktionierte die Google Fit App nicht mehr; die Google Fit Web-APIs wurden im Juli 2024 abgeschaltet und bis Juni 2025 vollständig entfernt. Alles wurde zu Health Connect migriert. Wenn du alte Anleitungen liest, die von der 'Google Fit API' sprechen, sind sie veraltet und niemand wird sie aktualisieren.",
         pt: "O Google Fit, tanto como app independente quanto como plataforma, foi descontinuado. A partir de 30 de junho de 2025, o app Google Fit parou de funcionar; as APIs web do Google Fit foram desativadas em julho de 2024 e completamente removidas em junho de 2025. Tudo foi migrado para o Health Connect. Se você lê guias antigos que falam sobre a 'Google Fit API', eles estão obsoletos e ninguém os atualizará.",
         fr: "Google Fit, en tant qu'application autonome et en tant que plateforme, a été abandonné. À partir du 30 juin 2025, l'application Google Fit a cessé de fonctionner ; les API web Google Fit ont été désactivées en juillet 2024 et complètement supprimées en juin 2025. Tout a migré vers Health Connect. Si vous lisez de vieux guides parlant de la 'Google Fit API', ils sont obsolètes et personne ne les mettra à jour.",
+        pl: "Google Fit, zarówno jako samodzielna aplikacja, jak i platforma, zostało wycofane. Od 30 czerwca 2025 roku aplikacja Google Fit przestała działać; internetowe API Google Fit zostały wyłączone w lipcu 2024 roku i całkowicie usunięte do czerwca 2025 roku. Wszystko zostało przeniesione do Health Connect. Jeśli czytasz stare poradniki mówiące o 'Google Fit API', są przestarzałe i nikt ich nie zaktualizuje.",
+        tr: "Google Fit, hem bağımsız bir uygulama hem de platform olarak kullanımdan kaldırıldı. 30 Haziran 2025'ten itibaren Google Fit uygulaması çalışmayı durdurdu; Google Fit Web API'leri Temmuz 2024'te kapatıldı ve Haziran 2025'e kadar tamamen kaldırıldı. Her şey Health Connect'e taşındı. 'Google Fit API'sinden bahseden eski kılavuzlar okursanız, bunlar güncelliğini yitirmiş ve kimse güncellemeyecek.",
       },
     },
     {

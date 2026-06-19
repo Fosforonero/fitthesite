@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Le flux réel est : Watch → Samsung Health → Health Connect → applications tierces.",
       "Pour bloquer le cloud Samsung sans rien casser : Samsung Health → Paramètres → Confidentialité → désactiver la synchronisation avec Samsung Cloud. Les données restent locales et continuent de transiter vers Health Connect.",
     ],
+    pl: [
+      "Samsung Health i Health Connect nie są konkurentami: współpracują ze sobą.",
+      "Samsung Health zbiera dane z Galaxy Watch przez Bluetooth: wyłączenie jej zrywa synchronizację zegarka.",
+      "Health Connect to warstwa uprawnień Androida między aplikacjami zdrowotnymi: wyłączenie jej uniemożliwia aplikacjom trzecim odczyt danych, ale Samsung Health nadal działa.",
+      "Rzeczywisty przepływ to: Watch → Samsung Health → Health Connect → aplikacje trzecie.",
+      "Aby zablokować chmurę Samsung bez zrywania czegokolwiek: Samsung Health → Ustawienia → Prywatność → wyłącz synchronizację z Samsung Cloud. Dane pozostają lokalnie i nadal przepływają do Health Connect.",
+    ],
+    tr: [
+      "Samsung Health ve Health Connect rakip değil: birlikte çalışıyorlar.",
+      "Samsung Health, Galaxy Watch'tan Bluetooth üzerinden veri topluyor: devre dışı bırakmak Watch senkronizasyonunu kesiyor.",
+      "Health Connect, sağlık uygulamaları arasındaki Android izin katmanıdır: devre dışı bırakmak üçüncü taraf uygulamaların veri okumasını engelliyor, ancak Samsung Health çalışmaya devam ediyor.",
+      "Gerçek veri akışı şöyle: Watch → Samsung Health → Health Connect → üçüncü taraf uygulamalar.",
+      "Hiçbir şeyi bozmadan Samsung bulutunu engellemek için: Samsung Health → Ayarlar → Gizlilik → Samsung Cloud ile senkronizasyonu devre dışı bırak. Veriler yerel kalır ve Health Connect'e akmaya devam eder.",
+    ],
   },
   primaryKeyword: {
     it: "health connect vs samsung health",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "health connect vs samsung health",
     pt: "health connect vs samsung health",
     fr: "health connect vs samsung health",
+    pl: "health connect vs samsung health",
+    tr: "health connect vs samsung health",
   },
   secondaryKeywords: {
     it: [
@@ -83,6 +99,18 @@ export const post: BlogPost = {
       "samsung health 2026",
       "samsung health exporter les données",
     ],
+    pl: [
+      "samsung health czy health connect",
+      "health connect działa z galaxy watch",
+      "samsung health 2026",
+      "samsung health eksport danych",
+    ],
+    tr: [
+      "samsung health mı health connect mi",
+      "health connect galaxy watch ile çalışır mı",
+      "samsung health 2026",
+      "samsung health veri dışa aktarma",
+    ],
   },
   metaDescription: {
     it: "Health Connect vs Samsung Health spiegati semplicemente: a cosa servono, perché lavorano insieme, e quando usare cosa nel 2026. Galaxy Watch incluso.",
@@ -91,9 +119,11 @@ export const post: BlogPost = {
     de: "Health Connect vs Samsung Health einfach erklärt: Was sie tun, warum sie zusammenarbeiten und wann man welches 2026 verwendet. Galaxy Watch inklusive.",
     pt: "Health Connect vs Samsung Health explicados de forma simples: para que servem, por que trabalham juntos e quando usar cada um em 2026. Galaxy Watch incluído.",
     fr: "Health Connect vs Samsung Health expliqués simplement : à quoi ils servent, pourquoi ils fonctionnent ensemble et lequel utiliser en 2026. Galaxy Watch inclus.",
+    pl: "Health Connect kontra Samsung Health – proste wyjaśnienie: do czego służą, dlaczego współpracują i kiedy używać którego w 2026 roku. Galaxy Watch uwzględniony.",
+    tr: "Health Connect ile Samsung Health basitçe anlatıldı: ne işe yararlar, neden birlikte çalışırlar ve 2026'da hangisini ne zaman kullanmalısınız. Galaxy Watch dahil.",
   },
   hero: {
-    kicker: { it: "Confronto", en: "Comparison", es: "Comparativa", de: "Vergleich", pt: "Comparação", fr: "Comparatif" },
+    kicker: { it: "Confronto", en: "Comparison", es: "Comparativa", de: "Vergleich", pt: "Comparação", fr: "Comparatif", pl: "Porównanie", tr: "Karşılaştırma" },
     title: {
       it: "Health Connect vs Samsung Health: differenze 2026",
       en: "Health Connect vs Samsung Health: differences and when to use which in 2026",
@@ -101,6 +131,8 @@ export const post: BlogPost = {
       de: "Health Connect vs Samsung Health: Unterschiede und wann man was 2026 verwendet",
       pt: "Health Connect vs Samsung Health: diferenças e quando usar cada um em 2026",
       fr: "Health Connect vs Samsung Health: différences et lequel utiliser en 2026",
+      pl: "Health Connect vs Samsung Health: różnice i kiedy używać którego w 2026 roku",
+      tr: "Health Connect ile Samsung Health: farklar ve 2026'da hangisini ne zaman kullanmalı",
     },
     subtitle: {
       it: "Non sono concorrenti. Lavorano insieme. Ma è importante capire chi fa cosa per non disabilitare quello sbagliato.",
@@ -109,6 +141,8 @@ export const post: BlogPost = {
       de: "Keine Konkurrenten. Sie arbeiten zusammen. Aber es ist wichtig zu verstehen, wer was tut, damit du nicht das Falsche deaktivierst.",
       pt: "Não são concorrentes. Eles trabalham juntos. Mas é importante entender quem faz o quê para não desativar o errado.",
       fr: "Pas des concurrents. Ils fonctionnent ensemble. Mais il est important de comprendre qui fait quoi pour ne pas désactiver le mauvais.",
+      pl: "Nie są konkurentami. Współpracują ze sobą. Ale ważne jest, żeby wiedzieć, kto co robi, żeby nie wyłączyć tej niewłaściwej.",
+      tr: "Rakip değiller. Birlikte çalışıyorlar. Ama yanlış olanı devre dışı bırakmamak için kimin ne yaptığını anlamak önemli.",
     },
   },
   body: [
@@ -121,6 +155,8 @@ export const post: BlogPost = {
         de: "Samsung Health und Health Connect sind keine Konkurrenten: Sie arbeiten zusammen, und das Deaktivieren des falschen unterbricht entweder die Galaxy Watch-Synchronisierung oder verhindert, dass Drittanbieter-Apps deine Daten lesen. Samsung Health empfängt Daten vom Watch; Health Connect ist das Berechtigungs-Panel, das entscheidet, was an andere Apps weitergegeben wird. Wer diesen Unterschied versteht, löst 90 % der Fragen zu Galaxy Watch und Fitness-Apps.",
         pt: "Samsung Health e Health Connect não são concorrentes: eles trabalham juntos, e desativar o errado pode quebrar a sincronização do Galaxy Watch ou impedir que apps de terceiros leiam seus dados. O Samsung Health coleta dados do Watch; o Health Connect é o painel de permissões que decide o que sai para outros apps. Entender essa distinção resolve 90% das dúvidas sobre Galaxy Watch e apps de saúde.",
         fr: "Samsung Health et Health Connect ne sont pas des concurrents : ils fonctionnent ensemble, et désactiver le mauvais interrompt soit la synchronisation du Galaxy Watch, soit l'accès des applications tierces à vos données. Samsung Health collecte les données de la montre; Health Connect est le panneau de permissions qui décide ce qui est transmis aux autres applications. Comprendre cette distinction résout 90 % des questions sur Galaxy Watch et les applications fitness.",
+        pl: "Samsung Health i Health Connect nie są konkurentami: współpracują ze sobą, a wyłączenie niewłaściwej albo zrywa synchronizację Galaxy Watch, albo uniemożliwia aplikacjom trzecim odczyt Twoich danych. Samsung Health zbiera dane z zegarka; Health Connect to panel uprawnień decydujący o tym, co trafia do innych aplikacji. Zrozumienie tej różnicy rozwiązuje 90% pytań o Galaxy Watch i aplikacje fitness.",
+        tr: "Samsung Health ve Health Connect rakip değil: birlikte çalışıyorlar ve yanlış olanı devre dışı bırakmak ya Galaxy Watch senkronizasyonunu kesiyor ya da üçüncü taraf uygulamaların verilerinizi okumasını engelliyor. Samsung Health Watch'tan veri topluyor; Health Connect ise diğer uygulamalara neyin aktarılacağına karar veren izin panelidir. Bu farkı anlamak, Galaxy Watch ve fitness uygulamalarıyla ilgili soruların %90'ını çözüyor.",
       },
     },
     {
@@ -133,6 +169,8 @@ export const post: BlogPost = {
         de: "Samsung Health: die App des Herstellers",
         pt: "Samsung Health: o app do fabricante",
         fr: "Samsung Health: l'application du fabricant",
+        pl: "Samsung Health: aplikacja producenta",
+        tr: "Samsung Health: üreticinin uygulaması",
       },
     },
     {
@@ -144,6 +182,8 @@ export const post: BlogPost = {
         de: "Samsung Health ist die offizielle Begleit-App für Galaxy Watch (und auch für andere Samsung-Geräte). Ihre Aufgaben:",
         pt: "O Samsung Health é o app companion oficial para o Galaxy Watch (e também para outros dispositivos Samsung). Suas funções:",
         fr: "Samsung Health est l'application compagnon officielle pour Galaxy Watch (et accessoirement pour d'autres appareils Samsung). Son rôle :",
+        pl: "Samsung Health to oficjalna aplikacja towarzysząca dla Galaxy Watch (i pomocniczo dla innych urządzeń Samsung). Jej zadania:",
+        tr: "Samsung Health, Galaxy Watch için resmi companion uygulamasıdır (ve isteğe bağlı olarak diğer Samsung cihazları için). Görevi:",
       },
     },
     {
@@ -185,6 +225,18 @@ export const post: BlogPost = {
           "Les synchroniser avec le cloud Samsung Health (si vous avez un compte Samsung et l'option activée).",
           "Depuis mi-2024, écrire automatiquement dans Health Connect les types de données demandés.",
         ],
+        pl: [
+          "Odbierać dane z zegarka przez Bluetooth.",
+          "Wyświetlać je w panelach, wykresach, osiągnięciach i programach treningowych.",
+          "Synchronizować je z chmurą Samsung Health (jeśli masz konto Samsung i opcja jest włączona).",
+          "Od połowy 2024 roku automatycznie zapisywać żądane typy danych do Health Connect.",
+        ],
+        tr: [
+          "Watch'tan Bluetooth üzerinden veri almak.",
+          "Verileri panolarda, grafiklerde, başarımlarda ve rehberli programlarda görüntülemek.",
+          "Verileri Samsung Health bulutuna senkronize etmek (Samsung hesabınız varsa ve seçenek açıksa).",
+          "2024 ortasından itibaren, istenen veri türlerini otomatik olarak Health Connect'e yazmak.",
+        ],
       },
     },
     {
@@ -196,6 +248,8 @@ export const post: BlogPost = {
         de: "Samsung Health ist proprietär, auf das Samsung-Nutzererlebnis ausgerichtet und enthält Verbraucher-Features wie Ernährungstracking, geführte Fitness-Programme und ein soziales Dashboard (Challenges mit Freunden). Das Datenmodell ist vollständig proprietär (internes Format, nicht öffentlich dokumentiert).",
         pt: "O Samsung Health é proprietário, focado na experiência do usuário Samsung, e inclui funcionalidades voltadas ao consumidor, como rastreamento de alimentação, programas de fitness guiados e painel social (desafios com amigos). Seu modelo de dados é totalmente próprio (formato interno, não documentado publicamente).",
         fr: "Samsung Health est propriétaire, centré sur l'expérience utilisateur Samsung, et inclut des fonctionnalités grand public telles que le suivi alimentaire, les programmes fitness guidés et un tableau de bord social (défis entre amis). Son modèle de données est entièrement propriétaire (format interne, non documenté publiquement).",
+        pl: "Samsung Health jest zastrzeżoną aplikacją, skupioną na doświadczeniu użytkownika Samsung, i zawiera funkcje konsumenckie, takie jak śledzenie żywności, prowadzone programy fitness i społeczny panel (wyzwania ze znajomymi). Jej model danych jest w pełni własny (format wewnętrzny, nie publicznie udokumentowany).",
+        tr: "Samsung Health özel mülkiyetli bir uygulamadır, Samsung kullanıcı deneyimine odaklanmış ve yiyecek takibi, rehberli fitness programları, sosyal pano (arkadaşlarla yarışmalar) gibi tüketici özellikleri içeriyor. Veri modeli tamamen kendine aittir (dahili format, kamuya açıklanmamış).",
       },
     },
     {
@@ -208,6 +262,8 @@ export const post: BlogPost = {
         de: "Health Connect: die Android-Austauschschicht",
         pt: "Health Connect: a camada de troca do Android",
         fr: "Health Connect: la couche d'échange Android",
+        pl: "Health Connect: warstwa wymiany Androida",
+        tr: "Health Connect: Android değişim katmanı",
       },
     },
     {
@@ -219,6 +275,8 @@ export const post: BlogPost = {
         de: "Health Connect ist eine API und eine von Google verteilte App, die als neutrale Schicht konzipiert ist, in die alle Android-Gesundheits-Apps schreiben und lesen. Es bietet kein umfangreiches Nutzer-Dashboard: Es ist fast nur ein Kontrollpanel, das dir zeigt:",
         pt: "O Health Connect é uma API e um app distribuído pelo Google, projetado como uma camada neutra onde todos os apps de saúde do Android escrevem e leem dados. Ele não tem um painel de usuário completo: é quase apenas um painel de controle que mostra:",
         fr: "Health Connect est une API et une application distribuée par Google, conçue comme une couche neutre où toutes les applications de santé Android écrivent et lisent des données. Elle ne dispose pas d'un tableau de bord utilisateur riche : c'est presque uniquement un panneau de contrôle qui vous affiche :",
+        pl: "Health Connect to API i aplikacja dystrybuowana przez Google, zaprojektowana jako neutralna warstwa, w której wszystkie androidowe aplikacje zdrowotne piszą i czytają dane. Nie ma bogatego panelu użytkownika: to niemal tylko panel sterowania, który pokazuje Ci:",
+        tr: "Health Connect, Google tarafından dağıtılan bir API ve uygulamadır; tüm Android sağlık uygulamalarının yazdığı ve okuduğu nötr bir katman olarak tasarlanmıştır. Zengin bir kullanıcı panosu yok: neredeyse sadece size şunları gösteren bir kontrol paneli:",
       },
     },
     {
@@ -260,6 +318,18 @@ export const post: BlogPost = {
           "Historique de qui a lu quoi et quand.",
           "Bouton pour révoquer les permissions individuellement.",
         ],
+        pl: [
+          "Które aplikacje mają uprawnienia do odczytu każdego typu danych (kroki, tętno, sen itp.).",
+          "Które aplikacje mają uprawnienia do zapisu.",
+          "Historia kto co i kiedy odczytał.",
+          "Przycisk do indywidualnego cofania uprawnień.",
+        ],
+        tr: [
+          "Hangi uygulamaların her veri türünü okuma izni var (adım, nabız, uyku vb.).",
+          "Hangi uygulamaların yazma izni var.",
+          "Kimin ne zaman ne okuduğunun geçmişi.",
+          "İzinleri tek tek iptal etmek için düğme.",
+        ],
       },
     },
     {
@@ -271,6 +341,8 @@ export const post: BlogPost = {
         de: "Das Health Connect-Datenmodell ist öffentlich dokumentiert (developer.android.com/health-connect), strukturiert, und jeder Typ ist eine explizite Klasse. Es ist Google Fit 2.0, vollständig auf dem Gerät.",
         pt: "O modelo de dados do Health Connect é documentado publicamente (developer.android.com/health-connect), estruturado, e cada tipo é uma classe explícita. É o Google Fit 2.0, totalmente no dispositivo.",
         fr: "Le modèle de données Health Connect est documenté publiquement (developer.android.com/health-connect), structuré, et chaque type est une classe explicite. C'est Google Fit 2.0, entièrement sur l'appareil.",
+        pl: "Model danych Health Connect jest publicznie udokumentowany (developer.android.com/health-connect), ustrukturyzowany, a każdy typ to jawna klasa. To Google Fit 2.0, w całości na urządzeniu.",
+        tr: "Health Connect veri modeli kamuya açık belgelenmiş (developer.android.com/health-connect), yapılandırılmış ve her tür açık bir sınıftır. Tamamen cihaz üzerinde çalışan Google Fit 2.0'dır.",
       },
     },
     {
@@ -283,6 +355,8 @@ export const post: BlogPost = {
         de: "Wie sie zusammenarbeiten",
         pt: "Como eles trabalham juntos",
         fr: "Comment ils fonctionnent ensemble",
+        pl: "Jak współpracują ze sobą",
+        tr: "Birlikte nasıl çalışırlar",
       },
     },
     {
@@ -294,6 +368,8 @@ export const post: BlogPost = {
         de: "Auf deiner Galaxy Watch ist der tatsächliche Datenfluss:",
         pt: "No seu Galaxy Watch, o fluxo real de dados é:",
         fr: "Sur votre Galaxy Watch, le flux de données réel est :",
+        pl: "Na Twoim Galaxy Watch rzeczywisty przepływ danych to:",
+        tr: "Galaxy Watch'ınızda gerçek veri akışı şöyle:",
       },
     },
     {
@@ -336,6 +412,18 @@ export const post: BlogPost = {
           "Health Connect conserve une copie neutre des données et expose l'accès à quiconque dispose d'une permission.",
           "Les applications tierces (FitMesh Sync, Strava, MyFitnessPal, applications de coaching du sommeil, etc.) lisent via Health Connect.",
         ],
+        pl: [
+          "Czujniki zegarka → BLE → Samsung Health (główna aplikacja).",
+          "Samsung Health przechowuje dane wewnętrznie + (jeśli włączono) zapisuje dozwolone typy danych do Health Connect.",
+          "Health Connect przechowuje neutralną kopię danych i udostępnia API każdemu z uprawnieniami.",
+          "Aplikacje trzecie (FitMesh Sync, Strava, MyFitnessPal, aplikacje do coachingu snu itp.) odczytują przez Health Connect.",
+        ],
+        tr: [
+          "Watch sensörleri → BLE → Samsung Health (ana uygulama).",
+          "Samsung Health dahili olarak saklar + (etkinleştirilmişse) izin verilen veri türlerini Health Connect'e yazar.",
+          "Health Connect verilerin nötr bir kopyasını tutar ve izni olana API'yi açar.",
+          "Üçüncü taraf uygulamalar (FitMesh Sync, Strava, MyFitnessPal, uyku koçluğu uygulamaları vb.) Health Connect üzerinden okur.",
+        ],
       },
     },
     {
@@ -348,6 +436,8 @@ export const post: BlogPost = {
         de: "Wichtiger Hinweis",
         pt: "Ponto-chave",
         fr: "Point clé",
+        pl: "Kluczowa kwestia",
+        tr: "Temel nokta",
       },
       body: {
         it: "Samsung Health è chi raccoglie i dati e li gestisce. Health Connect è il quadro elettrico dei permessi che decide cosa esce verso le altre app. Disattivare Samsung Health = il Watch non si sincronizza più. Disattivare Health Connect = le app terze non vedono più i dati, ma Samsung Health continua a funzionare.",
@@ -356,6 +446,8 @@ export const post: BlogPost = {
         de: "Samsung Health ist diejenige, die Daten sammelt und verwaltet. Health Connect ist die Berechtigungszentrale, die entscheidet, was an andere Apps weitergegeben wird. Samsung Health deaktivieren = die Watch synchronisiert nicht mehr. Health Connect deaktivieren = Drittanbieter-Apps sehen keine Daten mehr, aber Samsung Health funktioniert weiterhin.",
         pt: "O Samsung Health é quem coleta e gerencia os dados. O Health Connect é o painel de controle de permissões que decide o que sai para outros apps. Desativar o Samsung Health = o Watch para de sincronizar. Desativar o Health Connect = apps de terceiros não veem mais os dados, mas o Samsung Health continua funcionando.",
         fr: "Samsung Health est celui qui collecte et gère les données. Health Connect est le panneau de permissions qui décide ce qui est transmis aux autres applications. Désactiver Samsung Health = la montre ne se synchronise plus. Désactiver Health Connect = les applications tierces ne voient plus les données, mais Samsung Health continue de fonctionner.",
+        pl: "Samsung Health to ten, który zbiera dane i nimi zarządza. Health Connect to panel uprawnień decydujący o tym, co trafia do innych aplikacji. Wyłącz Samsung Health = zegarek nie synchronizuje się. Wyłącz Health Connect = aplikacje trzecie nie widzą danych, ale Samsung Health nadal działa.",
+        tr: "Samsung Health veri toplayan ve yöneten. Health Connect ise diğer uygulamalara neyin aktarılacağına karar veren izin paneli. Samsung Health'i devre dışı bırak = Watch artık senkronize olmaz. Health Connect'i devre dışı bırak = üçüncü taraf uygulamalar veri göremez, ama Samsung Health çalışmaya devam eder.",
       },
     },
     {
@@ -368,6 +460,8 @@ export const post: BlogPost = {
         de: "Praktische Unterschiede, einer nach dem anderen",
         pt: "Diferenças práticas, uma por uma",
         fr: "Différences pratiques, une par une",
+        pl: "Praktyczne różnice, jedna po drugiej",
+        tr: "Pratik farklar, birer birer",
       },
     },
     {
@@ -379,6 +473,8 @@ export const post: BlogPost = {
         de: ["Aspekt", "Samsung Health", "Health Connect"],
         pt: ["Aspecto", "Samsung Health", "Health Connect"],
         fr: ["Aspect", "Samsung Health", "Health Connect"],
+        pl: ["Aspekt", "Samsung Health", "Health Connect"],
+        tr: ["Konu", "Samsung Health", "Health Connect"],
       },
       rows: [
         {
@@ -388,6 +484,8 @@ export const post: BlogPost = {
           de: ["Hauptfunktion", "Nutzer-App: Anzeige, Trainings, Coaching", "Berechtigungsschicht zwischen Gesundheits-Apps"],
           pt: ["Função principal", "App do usuário: visualização, treinos, coaching", "Camada de permissões entre apps de saúde"],
           fr: ["Fonction principale", "Application utilisateur: visualisation, séances d'entraînement, coaching", "Couche de permissions entre applications de santé"],
+          pl: ["Funkcja główna", "Aplikacja użytkownika: wizualizacja, treningi, coaching", "Warstwa uprawnień między aplikacjami zdrowotnymi"],
+          tr: ["Birincil işlev", "Kullanıcı uygulaması: görselleştirme, antrenmanlar, koçluk", "Sağlık uygulamaları arasındaki izin katmanı"],
         },
         {
           it: ["Dashboard ricca", "Sì (passi, sonno, food, sfide, ECG, etc.)", "No (solo gestione permessi)"],
@@ -396,6 +494,8 @@ export const post: BlogPost = {
           de: ["Umfangreiches Dashboard", "Ja (Schritte, Schlaf, Ernährung, Challenges, EKG usw.)", "Nein (nur Berechtigungsverwaltung)"],
           pt: ["Painel completo", "Sim (passos, sono, alimentação, desafios, ECG, etc.)", "Não (somente gestão de permissões)"],
           fr: ["Tableau de bord complet", "Oui (pas, sommeil, alimentation, défis, ECG, etc.)", "Non (gestion des permissions uniquement)"],
+          pl: ["Rozbudowany panel", "Tak (kroki, sen, jedzenie, wyzwania, EKG itp.)", "Nie (tylko zarządzanie uprawnieniami)"],
+          tr: ["Zengin pano", "Evet (adım, uyku, yiyecek, yarışmalar, EKG vb.)", "Hayır (yalnızca izin yönetimi)"],
         },
         {
           it: ["Cloud sync", "Sì (Samsung Cloud, opt-in via Samsung Account)", "No (strettamente on-device)"],
@@ -404,6 +504,8 @@ export const post: BlogPost = {
           de: ["Cloud-Synchronisierung", "Ja (Samsung Cloud, opt-in über Samsung-Konto)", "Nein (strikt auf dem Gerät)"],
           pt: ["Sincronização na nuvem", "Sim (Samsung Cloud, opt-in via Samsung Account)", "Não (estritamente no dispositivo)"],
           fr: ["Synchronisation cloud", "Oui (Samsung Cloud, opt-in via compte Samsung)", "Non (strictement sur l'appareil)"],
+          pl: ["Synchronizacja w chmurze", "Tak (Samsung Cloud, opt-in przez konto Samsung)", "Nie (ściśle na urządzeniu)"],
+          tr: ["Bulut senkronizasyonu", "Evet (Samsung Cloud, Samsung hesabıyla isteğe bağlı)", "Hayır (yalnızca cihaz üzerinde)"],
         },
         {
           it: ["Tipi di dato proprietari", "Sì (es. Body Composition, allenamenti guidati)", "No, solo schemi standard"],
@@ -412,6 +514,8 @@ export const post: BlogPost = {
           de: ["Proprietäre Datentypen", "Ja (z. B. Körperzusammensetzung, geführte Trainings)", "Nein, nur Standardschemata"],
           pt: ["Tipos de dados proprietários", "Sim (ex.: Composição Corporal, treinos guiados)", "Não, apenas esquemas padrão"],
           fr: ["Types de données propriétaires", "Oui (ex. Composition corporelle, séances guidées)", "Non, uniquement des schémas standard"],
+          pl: ["Zastrzeżone typy danych", "Tak (np. Skład ciała, prowadzone treningi)", "Nie, tylko standardowe schematy"],
+          tr: ["Tescilli veri türleri", "Evet (örn. Vücut Bileşimi, rehberli antrenmanlar)", "Hayır, yalnızca standart şemalar"],
         },
         {
           it: ["Esportazione manuale", "CSV via app, processo lungo", "Non c'è export utente (lo fanno le app terze)"],
@@ -420,6 +524,8 @@ export const post: BlogPost = {
           de: ["Manueller Export", "CSV über die App, langsamer Prozess", "Kein Nutzer-Export (das erledigen Drittanbieter-Apps)"],
           pt: ["Exportação manual", "CSV via app, processo demorado", "Sem exportação para o usuário (feito por apps de terceiros)"],
           fr: ["Export manuel", "CSV via l'application, processus long", "Pas d'export utilisateur (c'est le rôle des applications tierces)"],
+          pl: ["Ręczny eksport", "CSV przez aplikację, długi proces", "Brak eksportu użytkownika (robią to aplikacje trzecie)"],
+          tr: ["Manuel dışa aktarma", "Uygulama üzerinden CSV, yavaş süreç", "Kullanıcı dışa aktarması yok (bunu üçüncü taraf uygulamalar yapar)"],
         },
         {
           it: ["Aggiornato da", "Samsung", "Google (con Play Store)"],
@@ -428,6 +534,8 @@ export const post: BlogPost = {
           de: ["Aktualisiert von", "Samsung", "Google (über den Play Store)"],
           pt: ["Atualizado por", "Samsung", "Google (via Play Store)"],
           fr: ["Mis à jour par", "Samsung", "Google (via Play Store)"],
+          pl: ["Aktualizowany przez", "Samsung", "Google (przez Play Store)"],
+          tr: ["Güncelleyen", "Samsung", "Google (Play Store üzerinden)"],
         },
       ],
     },
@@ -441,6 +549,8 @@ export const post: BlogPost = {
         de: "Wann man was verwendet",
         pt: "Quando usar cada um",
         fr: "Lequel utiliser et quand",
+        pl: "Kiedy używać którego",
+        tr: "Hangisini ne zaman kullanmalı",
       },
     },
     {
@@ -488,6 +598,20 @@ export const post: BlogPost = {
           "**Vous voulez savoir qui lit vos données ?** → Ouvrez Health Connect → Accès des applications : voyez la liste complète avec les horodatages.",
           "**Vous voulez en désinstaller un ?** → Sur les téléphones Galaxy, vous ne pouvez pas désinstaller Samsung Health (préinstallé), mais vous pouvez le désactiver (vous perdrez la synchronisation Watch). Health Connect est préinstallé sur Android 14+ et peut être désactivé sans affecter Samsung Health.",
         ],
+        pl: [
+          "**Chcesz zobaczyć sen z szczegółowymi wykresami lub śledzić program treningowy Samsung?** → Samsung Health.",
+          "**Chcesz, żeby aplikacja trzecia (np. MyFitnessPal, app dietetyczna, app coachingowa) odczytywała Twoje dane?** → Potrzebujesz Health Connect z przyznanymi uprawnieniami.",
+          "**Martwisz się, że Samsung wysyła Twoje dane do chmury?** → W Samsung Health → Ustawienia → Prywatność wyłącz 'Synchronizuj z Samsung Cloud'. Dane pozostają lokalnie i nadal przepływają do Health Connect.",
+          "**Chcesz zobaczyć, kto odczytuje Twoje dane?** → Otwórz Health Connect → Dostęp aplikacji: zobaczysz pełną listę z datami.",
+          "**Chcesz odinstalować jedną?** → Na telefonach Galaxy nie możesz odinstalować Samsung Health (preinstalowana), ale możesz ją wyłączyć (stracisz synchronizację z zegarkiem). Health Connect jest preinstalowany na Android 14+ i można go wyłączyć bez szkody dla Samsung Health.",
+        ],
+        tr: [
+          "**Uykunuzu ayrıntılı grafiklerle görmek veya Samsung antrenman programı takip etmek mi istiyorsunuz?** → Samsung Health.",
+          "**Bir üçüncü taraf uygulamanın (örn. MyFitnessPal, diyet uygulaması, koçluk uygulaması) verilerinizi okumasını mı istiyorsunuz?** → Health Connect'e ihtiyacınız var ve izin vermeniz gerekiyor.",
+          "**Samsung'un verilerinizi buluta gönderdiğinden endişe mi duyuyorsunuz?** → Samsung Health → Ayarlar → Gizlilik'te 'Samsung Cloud ile senkronize et'i devre dışı bırakın. Veriler yerel kalır ve Health Connect'e akmaya devam eder.",
+          "**Verilerinizi kimin okuduğunu görmek mi istiyorsunuz?** → Health Connect → Uygulama erişimi: zaman damgalarıyla tam listeyi görün.",
+          "**Birini kaldırmak mı istiyorsunuz?** → Galaxy telefonlarda Samsung Health'i kaldıramazsınız (önceden yüklenmiş), ancak devre dışı bırakabilirsiniz (Watch senkronizasyonunu kaybedersiniz). Health Connect Android 14+ üzerinde önceden yüklü ve Samsung Health'i etkilemeden devre dışı bırakılabilir.",
+        ],
       },
     },
     {
@@ -500,6 +624,8 @@ export const post: BlogPost = {
         de: "Was, wenn das Telefon kein Samsung ist?",
         pt: "E se o telefone não for Samsung?",
         fr: "Et si le téléphone n'est pas Samsung ?",
+        pl: "A co jeśli telefon nie jest Samsungiem?",
+        tr: "Telefon Samsung değilse ne olur?",
       },
     },
     {
@@ -511,6 +637,8 @@ export const post: BlogPost = {
         de: "Funktioniert trotzdem. Samsung Health ist kostenlos im Play Store auch für Pixel, OnePlus und Xiaomi verfügbar. Die Galaxy Watch wird über Galaxy Wearable (ebenfalls multi-brand) gekoppelt, und Samsung Health übernimmt das Lesen der Daten. Die Synchronisierung mit Health Connect funktioniert genauso.",
         pt: "Funciona mesmo assim. O Samsung Health está disponível gratuitamente no Play Store também para Pixel, OnePlus e Xiaomi. O Galaxy Watch se emparelha via Galaxy Wearable (também multi-marca) e o Samsung Health assume a leitura dos dados. A sincronização com o Health Connect funciona da mesma forma.",
         fr: "Cela fonctionne quand même. Samsung Health est disponible gratuitement sur le Play Store pour Pixel, OnePlus et Xiaomi également. La Galaxy Watch se connecte via Galaxy Wearable (également multi-marque) et Samsung Health prend en charge la lecture des données. La synchronisation avec Health Connect fonctionne de la même manière.",
+        pl: "Nadal działa. Samsung Health jest dostępny bezpłatnie w Play Store również na Pixel, OnePlus, Xiaomi. Galaxy Watch paruje się przez Galaxy Wearable (też multi-brand) i Samsung Health przejmuje odczyt danych. Synchronizacja z Health Connect działa tak samo.",
+        tr: "Yine de çalışıyor. Samsung Health, Pixel, OnePlus, Xiaomi için de Play Store'da ücretsiz. Galaxy Watch, Galaxy Wearable (o da çok markalı) üzerinden eşleniyor ve Samsung Health veri okumayı devraliyor. Health Connect senkronizasyonu aynı şekilde çalışıyor.",
       },
     },
     {
@@ -523,6 +651,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
     },
     {
@@ -570,6 +700,20 @@ export const post: BlogPost = {
           "Pour bloquer le cloud Samsung sans rien casser : Samsung Health → Paramètres → Confidentialité → désactiver 'Synchroniser avec Samsung Cloud'. Les données restent locales et continuent de transiter vers Health Connect.",
           "Pour voir qui lit vos données : Health Connect → Accès des applications → liste complète avec horodatages.",
         ],
+        pl: [
+          "Samsung Health zbiera dane z Galaxy Watch przez Bluetooth i nimi zarządza: wyłączenie jej zrywa synchronizację zegarka.",
+          "Health Connect to warstwa uprawnień Androida między aplikacjami zdrowotnymi: wyłączenie jej uniemożliwia aplikacjom trzecim odczyt danych, ale Samsung Health nadal działa.",
+          "Rzeczywisty przepływ danych to: Watch → Samsung Health → Health Connect → aplikacje trzecie (FitMesh Sync, MyFitnessPal itp.).",
+          "Aby zablokować chmurę Samsung bez zrywania czegokolwiek: Samsung Health → Ustawienia → Prywatność → wyłącz 'Synchronizuj z Samsung Cloud'. Dane pozostają lokalnie i nadal przepływają do Health Connect.",
+          "Aby zobaczyć, kto odczytuje Twoje dane: Health Connect → Dostęp aplikacji → pełna lista z datami.",
+        ],
+        tr: [
+          "Samsung Health, Galaxy Watch'tan Bluetooth üzerinden veri topluyor ve yönetiyor: devre dışı bırakmak Watch senkronizasyonunu kesiyor.",
+          "Health Connect, sağlık uygulamaları arasındaki Android izin katmanıdır: devre dışı bırakmak üçüncü taraf uygulamaların veri okumasını engelliyor, ancak Samsung Health çalışmaya devam ediyor.",
+          "Gerçek veri akışı: Watch → Samsung Health → Health Connect → üçüncü taraf uygulamalar (FitMesh Sync, MyFitnessPal vb.).",
+          "Samsung bulutunu hiçbir şeyi bozmadan engellemek için: Samsung Health → Ayarlar → Gizlilik → 'Samsung Cloud ile senkronize et'i devre dışı bırak. Veriler yerel kalır ve Health Connect'e akmaya devam eder.",
+          "Verilerinizi kimin okuduğunu görmek için: Health Connect → Uygulama erişimi → zaman damgalarıyla tam liste.",
+        ],
       },
     },
     {
@@ -581,6 +725,8 @@ export const post: BlogPost = {
         de: "Möchtest du ein alternatives Dashboard, das von Health Connect liest?",
         pt: "Quer um painel alternativo que leia do Health Connect?",
         fr: "Vous souhaitez un tableau de bord alternatif lisant depuis Health Connect ?",
+        pl: "Chcesz alternatywny panel odczytujący z Health Connect?",
+        tr: "Health Connect'ten okuyan alternatif bir panel ister misiniz?",
       },
       body: {
         it: "FitMesh Sync legge i dati Galaxy Watch via Health Connect e li mostra su una dashboard web pulita. Privacy-first, no ads, no tracker.",
@@ -589,6 +735,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest Galaxy Watch-Daten über Health Connect und zeigt sie in einem übersichtlichen Web-Dashboard. Datenschutz an erster Stelle, keine Werbung, keine Tracker.",
         pt: "FitMesh Sync lê os dados do Galaxy Watch via Health Connect e os exibe em um painel web limpo. Privacidade em primeiro lugar, sem anúncios, sem rastreadores.",
         fr: "FitMesh Sync lit les données du Galaxy Watch via Health Connect et les affiche dans un tableau de bord web épuré. La confidentialité d'abord, sans publicités, sans traceurs.",
+        pl: "FitMesh Sync odczytuje dane Galaxy Watch przez Health Connect i wyświetla je na przejrzystym panelu webowym. Prywatność na pierwszym miejscu, bez reklam, bez trackerów.",
+        tr: "FitMesh Sync, Galaxy Watch verilerini Health Connect üzerinden okuyarak temiz bir web panosunda gösteriyor. Gizlilik önce, reklam yok, izleyici yok.",
       },
       ctaLabel: {
         it: "Vedi Galaxy Watch su FitMesh →",
@@ -597,6 +745,8 @@ export const post: BlogPost = {
         de: "Galaxy Watch auf FitMesh ansehen →",
         pt: "Ver Galaxy Watch no FitMesh →",
         fr: "Voir Galaxy Watch sur FitMesh →",
+        pl: "Zobacz Galaxy Watch na FitMesh →",
+        tr: "FitMesh'te Galaxy Watch'ı gör →",
       },
       ctaHref: { it: "/it/sync/galaxy-watch", en: "/en/sync/galaxy-watch" },
     },
@@ -610,6 +760,8 @@ export const post: BlogPost = {
         de: "Kann ich Health Connect ohne Samsung Health verwenden?",
         pt: "Posso usar o Health Connect sem o Samsung Health?",
         fr: "Puis-je utiliser Health Connect sans Samsung Health ?",
+        pl: "Czy mogę używać Health Connect bez Samsung Health?",
+        tr: "Samsung Health olmadan Health Connect kullanabilir miyim?",
       },
       a: {
         it: "Su un Galaxy Watch no: Samsung Health è il bridge ufficiale tra il Watch e il telefono. Senza Samsung Health il Watch non sincronizza. Su un altro wearable (Pixel Watch, Mi Band, Garmin, Polar, etc.) puoi usare la rispettiva app companion + Health Connect e ignorare completamente Samsung Health.",
@@ -618,6 +770,8 @@ export const post: BlogPost = {
         de: "Auf einer Galaxy Watch nein: Samsung Health ist die offizielle Verbindung zwischen Watch und Telefon. Ohne sie synchronisiert die Watch nicht. Bei anderen Wearables (Pixel Watch, Mi Band, Garmin, Polar usw.) kannst du die jeweilige Begleit-App zusammen mit Health Connect verwenden und Samsung Health vollständig ignorieren.",
         pt: "No Galaxy Watch, não: o Samsung Health é a ponte oficial entre o Watch e o telefone. Sem ele, o Watch não sincroniza. Em outros wearables (Pixel Watch, Mi Band, Garmin, Polar, etc.) você pode usar o respectivo app companion junto com o Health Connect e ignorar completamente o Samsung Health.",
         fr: "Sur une Galaxy Watch, non : Samsung Health est le pont officiel entre la montre et le téléphone. Sans lui, la montre ne se synchronise pas. Sur d'autres wearables (Pixel Watch, Mi Band, Garmin, Polar, etc.), vous pouvez utiliser l'application compagnon respective avec Health Connect et ignorer complètement Samsung Health.",
+        pl: "Na Galaxy Watch nie: Samsung Health to oficjalny most między zegarkiem a telefonem. Bez niej zegarek nie synchronizuje się. Na innych urządzeniach wearable (Pixel Watch, Mi Band, Garmin, Polar itp.) możesz używać odpowiedniej aplikacji towarzyszącej + Health Connect i całkowicie ignorować Samsung Health.",
+        tr: "Galaxy Watch'ta hayır: Samsung Health, Watch ile telefon arasındaki resmi köprüdür. Onsuz Watch senkronize olmaz. Diğer giyilebilir cihazlarda (Pixel Watch, Mi Band, Garmin, Polar vb.) ilgili companion uygulamasını + Health Connect'i kullanabilir ve Samsung Health'i tamamen görmezden gelebilirsiniz.",
       },
     },
     {
@@ -628,6 +782,8 @@ export const post: BlogPost = {
         de: "Fließen die Daten durch die Samsung-Cloud, auch wenn ich nur Health Connect verwende?",
         pt: "Os dados passam pela nuvem da Samsung mesmo se eu usar apenas o Health Connect?",
         fr: "Les données transitent-elles par le cloud Samsung même si j'utilise uniquement Health Connect ?",
+        pl: "Czy dane przechodzą przez chmurę Samsung nawet jeśli używam tylko Health Connect?",
+        tr: "Yalnızca Health Connect kullansam bile veriler Samsung bulutundan geçiyor mu?",
       },
       a: {
         it: "Dipende dalle tue impostazioni. Se in Samsung Health hai disabilitato la sincronizzazione con Samsung Account, i dati restano locali sul telefono e poi sono copiati su Health Connect (anch'esso locale). Se invece la sincronizzazione cloud è attiva, i dati sono prima nel cloud Samsung e poi copiati localmente, anche se Health Connect vede solo la copia locale.",
@@ -636,6 +792,8 @@ export const post: BlogPost = {
         de: "Das hängt von deinen Einstellungen ab. Wenn du in Samsung Health die Synchronisierung mit dem Samsung-Konto deaktiviert hast, bleiben die Daten lokal auf dem Telefon und werden dann in Health Connect (ebenfalls lokal) kopiert. Wenn die Cloud-Synchronisierung aktiviert ist, landen die Daten zuerst in der Samsung-Cloud und werden dann lokal kopiert, auch wenn Health Connect nur die lokale Kopie sieht.",
         pt: "Depende das suas configurações. Se você desativou a sincronização com a Samsung Account no Samsung Health, os dados ficam locais no telefone e depois são copiados para o Health Connect (também local). Se a sincronização na nuvem estiver ativa, os dados vão primeiro para a nuvem da Samsung e depois são copiados localmente, mesmo que o Health Connect veja apenas a cópia local.",
         fr: "Cela dépend de vos paramètres. Si vous avez désactivé la synchronisation avec le compte Samsung dans Samsung Health, les données restent locales sur le téléphone puis sont copiées dans Health Connect (également local). Si la synchronisation cloud est activée, les données se trouvent d'abord dans le cloud Samsung puis sont copiées localement, même si Health Connect ne voit que la copie locale.",
+        pl: "Zależy od Twoich ustawień. Jeśli w Samsung Health wyłączyłeś synchronizację z kontem Samsung, dane pozostają lokalnie na telefonie i są następnie kopiowane do Health Connect (też lokalnego). Jeśli synchronizacja z chmurą jest włączona, dane trafiają najpierw do chmury Samsung, a potem są kopiowane lokalnie, choć Health Connect widzi tylko lokalną kopię.",
+        tr: "Ayarlarınıza bağlı. Samsung Health'te Samsung Hesabı ile senkronizasyonu devre dışı bıraktıysanız, veriler telefonda yerel kalır ve ardından Health Connect'e kopyalanır (o da yerel). Bulut senkronizasyonu etkinse veriler önce Samsung bulutuna gider sonra yerel olarak kopyalanır; Health Connect yalnızca yerel kopyayı görür.",
       },
     },
     {
@@ -646,6 +804,8 @@ export const post: BlogPost = {
         de: "Wann empfängt Health Connect keine Samsung Health-Daten?",
         pt: "Quando o Health Connect não recebe os dados do Samsung Health?",
         fr: "Quand Health Connect ne reçoit-il pas les données de Samsung Health ?",
+        pl: "Kiedy Health Connect nie odbiera danych Samsung Health?",
+        tr: "Health Connect Samsung Health verilerini ne zaman almıyor?",
       },
       a: {
         it: "Tre casi tipici. Uno: Samsung Health → Impostazioni → Health Connect non è stato autorizzato (situazione default su molti device fino al 2024). Due: hai autorizzato solo alcuni tipi di dato. Tre: una versione vecchia di Samsung Health (< 6.20 ca.) non ha la sync HC. Aggiorna e ri-autorizza.",
@@ -654,6 +814,8 @@ export const post: BlogPost = {
         de: "Drei typische Fälle. Erstens: Samsung Health → Einstellungen → Health Connect wurde nicht autorisiert (Standard-Situation auf vielen Geräten bis 2024). Zweitens: Nur einige Datentypen wurden autorisiert. Drittens: Eine alte Samsung Health-Version (vor ca. 6.20) hat keine Health Connect-Synchronisierung. Aktualisiere die App und autorisiere erneut.",
         pt: "Três casos típicos. Primeiro: Samsung Health → Configurações → Health Connect não foi autorizado (situação padrão em muitos dispositivos até 2024). Segundo: apenas alguns tipos de dados foram autorizados. Terceiro: uma versão antiga do Samsung Health (anterior à 6.20 aprox.) não tem sincronização com o Health Connect. Atualize e reautorize.",
         fr: "Trois cas typiques. Premier cas : Samsung Health → Paramètres → Health Connect n'a pas été autorisé (situation par défaut sur de nombreux appareils jusqu'en 2024). Deuxième cas : seuls certains types de données ont été autorisés. Troisième cas : une ancienne version de Samsung Health (inférieure à environ 6.20) n'a pas la synchronisation Health Connect. Mettez à jour l'application et autorisez à nouveau.",
+        pl: "Trzy typowe przypadki. Pierwszy: Samsung Health → Ustawienia → Health Connect nie został autoryzowany (domyślna sytuacja na wielu urządzeniach do 2024 roku). Drugi: autoryzowano tylko niektóre typy danych. Trzeci: stara wersja Samsung Health (poniżej ok. 6.20) nie ma synchronizacji HC. Zaktualizuj i ponownie autoryzuj.",
+        tr: "Üç tipik durum. Birincisi: Samsung Health → Ayarlar → Health Connect yetkilendirilmemiş (2024'e kadar birçok cihazda varsayılan durum). İkincisi: yalnızca bazı veri türleri yetkilendirilmiş. Üçüncüsü: eski bir Samsung Health sürümü (yaklaşık 6.20'den düşük) HC senkronizasyonuna sahip değil. Güncelleyin ve yeniden yetkilendirin.",
       },
     },
   ],

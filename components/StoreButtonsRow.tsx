@@ -31,22 +31,34 @@ export default function StoreButtonsRow({
   className = "",
   style,
 }: Props) {
-  const playLabels = {
+  const PLAY = {
     it: { small: "Disponibile su", store: "Google Play", soon: "In arrivo" },
     en: { small: "GET IT ON", store: "Google Play", soon: "Coming Soon" },
     es: { small: "Disponible en", store: "Google Play", soon: "Próximamente" },
     de: { small: "Jetzt bei", store: "Google Play", soon: "Demnächst" },
     pt: { small: "Disponível no", store: "Google Play", soon: "Em breve" },
     fr: { small: "Disponible sur", store: "Google Play", soon: "Bientôt disponible" },
-  }[locale];
-  const appleLabels = {
+    pl: { small: "Pobierz w", store: "Google Play", soon: "Wkrótce" },
+    tr: { small: "Şuradan edinin", store: "Google Play", soon: "Çok yakında" },
+    nl: { small: "Beschikbaar op", store: "Google Play", soon: "Binnenkort" },
+    ja: { small: "手に入れよう", store: "Google Play", soon: "近日公開" },
+    ko: { small: "지금 다운로드", store: "Google Play", soon: "출시 예정" },
+  };
+  const APPLE = {
     it: { small: "Scarica su", store: "App Store", soon: "In arrivo" },
     en: { small: "Download on the", store: "App Store", soon: "Coming Soon" },
     es: { small: "Descarga en", store: "App Store", soon: "Próximamente" },
     de: { small: "Laden im", store: "App Store", soon: "Demnächst" },
     pt: { small: "Baixar na", store: "App Store", soon: "Em breve" },
     fr: { small: "Télécharger dans l'", store: "App Store", soon: "Bientôt disponible" },
-  }[locale];
+    pl: { small: "Pobierz z", store: "App Store", soon: "Wkrótce" },
+    tr: { small: "Şuradan indirin", store: "App Store", soon: "Çok yakında" },
+    nl: { small: "Downloaden in de", store: "App Store", soon: "Binnenkort" },
+    ja: { small: "ダウンロード", store: "App Store", soon: "近日公開" },
+    ko: { small: "다운로드", store: "App Store", soon: "출시 예정" },
+  };
+  const playLabels = PLAY[locale] ?? PLAY.en;
+  const appleLabels = APPLE[locale] ?? APPLE.en;
 
   return (
     <div

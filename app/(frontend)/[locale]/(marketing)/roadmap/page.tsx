@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -41,12 +41,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: {
-        it: `${SITE_URL}/it/roadmap`,
-        en: `${SITE_URL}/en/roadmap`,
-        es: `${SITE_URL}/es/roadmap`,
-        "x-default": `${SITE_URL}/it/roadmap`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/roadmap`),
     },
     openGraph: {
       type: "website",
@@ -64,7 +59,11 @@ export async function generateMetadata({
 // ── Data model ────────────────────────────────────────────────────────────
 type RoadmapStatus = "live" | "in-progress" | "planned" | "exploration";
 
-type LocalizedText = Record<Locale, string>;
+type LocalizedText = Record<"it" | "en" | "es" | "de" | "pt" | "fr" | "pl" | "tr", string> & Partial<Record<"nl" | "ja" | "ko", string>>;
+/** Safe accessor: returns localized text, falls back to English for untranslated locales */
+function tlr(text: LocalizedText, lc: Locale): string {
+  return (text as Record<string, string>)[lc] ?? text.en;
+}
 
 interface RoadmapItem {
   status: RoadmapStatus;
@@ -90,8 +89,8 @@ interface RoadmapColumn {
 const COLUMNS: RoadmapColumn[] = [
   {
     id: "now",
-    kicker: { it: "Now · In produzione", en: "Now · Shipping", es: "Ahora · En producción", de: "Now · Im Betrieb", pt: "Now · Em produção", fr: "Now · En production" },
-    title: { it: "Vivo e in mano agli utenti", en: "Live with users today", es: "Disponible para los usuarios hoy", de: "Live und in den Händen der Nutzer", pt: "Disponível para os usuários hoje", fr: "Disponible pour les utilisateurs aujourd'hui" },
+    kicker: { it: "Now · In produzione", en: "Now · Shipping", es: "Ahora · En producción", de: "Now · Im Betrieb", pt: "Now · Em produção", fr: "Now · En production", pl: "Now · W produkcji", tr: "Now · Yayinda" },
+    title: { it: "Vivo e in mano agli utenti", en: "Live with users today", es: "Disponible para los usuarios hoy", de: "Live und in den Händen der Nutzer", pt: "Disponível para os usuários hoje", fr: "Disponible pour les utilisateurs aujourd'hui", pl: "Dostepne dla uzytkowników juz dzis", tr: "Bugün kullanicilara açik" },
     caption: {
       it: "Funzionalità già nel Play Store, usate ogni giorno dai founder beta.",
       en: "Features already on the Play Store, used daily by beta founders.",
@@ -99,6 +98,8 @@ const COLUMNS: RoadmapColumn[] = [
       de: "Funktionen, die bereits im Play Store verfügbar sind und täglich von den Beta-Foundern genutzt werden.",
       pt: "Funcionalidades já disponíveis no Play Store, usadas diariamente pelos founders beta.",
       fr: "Fonctionnalités déjà disponibles sur le Play Store, utilisées chaque jour par les founders bêta.",
+      pl: "Funkcje juz dostepne w Play Store, uzywane codziennie przez zalozycieli beta.",
+      tr: "Play Store'da mevcut özellikler, beta kurucular tarafindan her gün kullaniliyor.",
     },
     accent: "#31E981",
     items: [
@@ -111,6 +112,8 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Health Connect end-to-end",
           pt: "Health Connect de ponta a ponta",
           fr: "Health Connect de bout en bout",
+          pl: "Health Connect od poczatku do konca",
+          tr: "Health Connect uc uca",
         },
         desc: {
           it: "Lettura di passi, BPM, sonno con fasi, calorie, distanza, allenamenti, SpO₂ e VO₂ max da qualunque sorgente che scriva su Health Connect.",
@@ -119,11 +122,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Liest Schritte, Herzfrequenz, Schlafphasen, Kalorien, Distanz, Trainings, SpO₂ und VO₂ max aus jeder Quelle, die Daten in Health Connect schreibt.",
           pt: "Lê passos, frequência cardíaca, fases do sono, calorias, distância, treinos, SpO₂ e VO₂ max de qualquer fonte que grave dados no Health Connect.",
           fr: "Lit les pas, la fréquence cardiaque, les phases du sommeil, les calories, la distance, les séances d'entraînement, SpO₂ et VO₂ max depuis toute source qui écrit dans Health Connect.",
+          pl: "Odczytuje kroki, tetno, fazy snu, kalorie, dystans, treningi, SpO₂ i VO₂ max z dowolnego zródla zapisujacego dane do Health Connect.",
+          tr: "Health Connect'e yazan her kaynaktan adim, kalp hizi, uyku evre, kalori, mesafe, antrenman, SpO₂ ve VO₂ max verilerini okur.",
         },
       },
       {
         status: "live",
-        title: { it: "Samsung Health + Galaxy Watch", en: "Samsung Health + Galaxy Watch", es: "Samsung Health + Galaxy Watch", de: "Samsung Health + Galaxy Watch", pt: "Samsung Health + Galaxy Watch", fr: "Samsung Health + Galaxy Watch" },
+        title: { it: "Samsung Health + Galaxy Watch", en: "Samsung Health + Galaxy Watch", es: "Samsung Health + Galaxy Watch", de: "Samsung Health + Galaxy Watch", pt: "Samsung Health + Galaxy Watch", fr: "Samsung Health + Galaxy Watch", pl: "Samsung Health + Galaxy Watch", tr: "Samsung Health + Galaxy Watch" },
         desc: {
           it: "Galaxy Watch 4/5/6/7/Ultra via Samsung Health → Health Connect. Setup in 5 minuti, latenza tipica 5–15 minuti.",
           en: "Galaxy Watch 4/5/6/7/Ultra via Samsung Health → Health Connect. 5-minute setup, typical 5–15 minute latency.",
@@ -131,11 +136,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Galaxy Watch 4/5/6/7/Ultra über Samsung Health → Health Connect. Einrichtung in 5 Minuten, typische Latenz 5–15 Minuten.",
           pt: "Galaxy Watch 4/5/6/7/Ultra via Samsung Health → Health Connect. Configuração em 5 minutos, latência típica de 5 a 15 minutos.",
           fr: "Galaxy Watch 4/5/6/7/Ultra via Samsung Health → Health Connect. Configuration en 5 minutes, latence typique de 5 à 15 minutes.",
+          pl: "Galaxy Watch 4/5/6/7/Ultra przez Samsung Health → Health Connect. Konfiguracja w 5 minut, typowe opóznienie 5-15 minut.",
+          tr: "Galaxy Watch 4/5/6/7/Ultra, Samsung Health → Health Connect üzerinden. 5 dakikada kurulum, tipik gecikme 5-15 dakika.",
         },
       },
       {
         status: "live",
-        title: { it: "Dashboard web nativa", en: "Native web dashboard", es: "Panel web nativo", de: "Native Web-Dashboard", pt: "Painel web nativo", fr: "Tableau de bord web natif" },
+        title: { it: "Dashboard web nativa", en: "Native web dashboard", es: "Panel web nativo", de: "Native Web-Dashboard", pt: "Painel web nativo", fr: "Tableau de bord web natif", pl: "Natywny panel webowy", tr: "Yerel web paneli" },
         desc: {
           it: "Vista personale con trend giornalieri e settimanali, breakdown allenamenti, fasi sonno, zone HR. Server-side rendered e privacy-first.",
           en: "Personal view with daily and weekly trends, workout breakdowns, sleep stages, HR zones. Server-side rendered and privacy-first.",
@@ -143,11 +150,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Persönliche Ansicht mit täglichen und wöchentlichen Trends, Trainingsaufschlüsselung, Schlafphasen und Herzfrequenzzonen. Serverseitig gerendert und Datenschutz-zuerst.",
           pt: "Visão pessoal com tendências diárias e semanais, detalhamento de treinos, fases do sono e zonas de frequência cardíaca. Renderizado no servidor com privacidade em primeiro lugar.",
           fr: "Vue personnelle avec les tendances quotidiennes et hebdomadaires, le détail des séances d'entraînement, les phases du sommeil et les zones de fréquence cardiaque. Rendu côté serveur et confidentialité en priorité.",
+          pl: "Widok osobisty z codziennymi i tygodniowymi trendami, podzialem treningów, fazami snu i strefami HR. Renderowany po stronie serwera z prywatnosciq na pierwszym miejscu.",
+          tr: "Günlük ve haftalik trendler, antrenman detaylari, uyku evreleri ve kalp hizi bölgeleriyle kisisel görünüm. Sunucu tarafinda render edilmis, gizlilik öncelikli.",
         },
       },
       {
         status: "live",
-        title: { it: "Export GDPR — JSON + CSV", en: "GDPR export — JSON + CSV", es: "Exportación GDPR: JSON + CSV", de: "DSGVO-Export — JSON + CSV", pt: "Exportação LGPD/GDPR — JSON + CSV", fr: "Export RGPD — JSON + CSV" },
+        title: { it: "Export GDPR — JSON + CSV", en: "GDPR export — JSON + CSV", es: "Exportación GDPR: JSON + CSV", de: "DSGVO-Export — JSON + CSV", pt: "Exportação LGPD/GDPR — JSON + CSV", fr: "Export RGPD — JSON + CSV", pl: "Eksport RODO — JSON + CSV", tr: "KVKK/GDPR disa aktarma — JSON + CSV" },
         desc: {
           it: "Scarica tutti i tuoi dati con un click, in formato leggibile e portabile. Diritto alla portabilità GDPR Art. 20.",
           en: "Download all your data with one click, in a readable and portable format. GDPR Art. 20 right to data portability.",
@@ -155,11 +164,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Laden Sie alle Ihre Daten mit einem Klick herunter, in einem lesbaren und portablen Format. Recht auf Datenübertragbarkeit gemäß DSGVO Art. 20.",
           pt: "Baixe todos os seus dados com um clique, em formato legível e portátil. Direito à portabilidade de dados conforme o Art. 20 do GDPR.",
           fr: "Téléchargez toutes vos données en un clic, dans un format lisible et portable. Droit à la portabilité des données selon l'Art. 20 du RGPD.",
+          pl: "Pobierz wszystkie swoje dane jednym kliknieciem w czytelnym i przenosnym formacie. Prawo do przenoszenia danych zgodnie z RODO Art. 20.",
+          tr: "Tüm verilerini tek tiklama ile okunabilir ve tasínabilir formatta indir. GDPR Madde 20 kapsamindan veri tasínabilirlik hakki.",
         },
       },
       {
         status: "live",
-        title: { it: "Notifiche push FCM", en: "FCM push notifications", es: "Notificaciones push", de: "FCM-Push-Benachrichtigungen", pt: "Notificações push FCM", fr: "Notifications push FCM" },
+        title: { it: "Notifiche push FCM", en: "FCM push notifications", es: "Notificaciones push", de: "FCM-Push-Benachrichtigungen", pt: "Notificações push FCM", fr: "Notifications push FCM", pl: "Powiadomienia push FCM", tr: "FCM anlık bildirimleri" },
         desc: {
           it: "Notifiche programmate per highlight settimanali, soglie HR e promemoria sync (opt-in, mai marketing).",
           en: "Scheduled notifications for weekly highlights, HR thresholds and sync reminders (opt-in, never marketing).",
@@ -167,11 +178,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Geplante Benachrichtigungen für wöchentliche Highlights, Herzfrequenz-Schwellenwerte und Synchronisierungs-Erinnerungen (opt-in, niemals Werbung).",
           pt: "Notificações programadas para destaques semanais, limites de frequência cardíaca e lembretes de sincronização (opt-in, nunca publicidade).",
           fr: "Notifications programmées pour les points forts hebdomadaires, les seuils de fréquence cardiaque et les rappels de synchronisation (opt-in, jamais de marketing).",
+          pl: "Zaplanowane powiadomienia o tygodniowych podsumowaniach, progach HR i przypomnieniach o synchronizacji (opt-in, nigdy reklamy).",
+          tr: "Haftalik öne çikartilanlar, kalp hizi esikleri ve senkronizasyon hatirlaticlari için planlanmis bildirimler (opt-in, asla pazarlama).",
         },
       },
       {
         status: "live",
-        title: { it: "Trial gratuito 7 giorni", en: "7-day free trial", es: "Prueba gratuita de 7 días", de: "7-Tage-Gratistest", pt: "Teste grátis de 7 dias", fr: "Essai gratuit de 7 jours" },
+        title: { it: "Trial gratuito 7 giorni", en: "7-day free trial", es: "Prueba gratuita de 7 días", de: "7-Tage-Gratistest", pt: "Teste grátis de 7 dias", fr: "Essai gratuit de 7 jours", pl: "7-dniowy bezplatny okres próbny", tr: "7 günlük ücretsiz deneme" },
         desc: {
           it: "Una settimana per provare tutto senza inserire dati di pagamento. Acquisto unico da €3,99 al termine, niente subscription.",
           en: "One week to try everything without entering payment details. One-time from €3.99 after, no subscription.",
@@ -179,14 +192,16 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Eine Woche, um alles auszuprobieren, ohne Zahlungsdaten anzugeben. Danach Einmalkauf ab €3,99, kein Abonnement.",
           pt: "Uma semana para experimentar tudo sem informar dados de pagamento. Compra única a partir de €3,99 ao final, sem assinatura.",
           fr: "Une semaine pour tout essayer sans saisir vos coordonnées bancaires. Achat unique à partir de €3,99 ensuite, sans abonnement.",
+          pl: "Tydzien na wypróbowanie wszystkiego bez podawania danych platnosci. Jednorazowy zakup od €3,99 po zakonczeniu, bez subskrypcji.",
+          tr: "Ödeme bilgisi girmeden her seyi denemek icin bir hafta. Sonrasinda €3,99'dan baslayan tek seferlik satin alma, abonelik yok.",
         },
       },
     ],
   },
   {
     id: "next-30",
-    kicker: { it: "Next · 30 giorni", en: "Next · 30 days", es: "Próximo · 30 días", de: "Next · 30 Tage", pt: "Next · 30 dias", fr: "Next · 30 jours" },
-    title: { it: "In rilascio prossimo sprint", en: "Shipping next sprint", es: "Disponible en el próximo sprint", de: "Veröffentlichung im nächsten Sprint", pt: "Lançamento no próximo sprint", fr: "Disponible au prochain sprint" },
+    kicker: { it: "Next · 30 giorni", en: "Next · 30 days", es: "Próximo · 30 días", de: "Next · 30 Tage", pt: "Next · 30 dias", fr: "Next · 30 jours", pl: "Next · 30 dni", tr: "Next · 30 gün" },
+    title: { it: "In rilascio prossimo sprint", en: "Shipping next sprint", es: "Disponible en el próximo sprint", de: "Veröffentlichung im nächsten Sprint", pt: "Lançamento no próximo sprint", fr: "Disponible au prochain sprint", pl: "Wydanie w nastepnym sprincie", tr: "Sonraki sprintte yayinlanacak" },
     caption: {
       it: "Già in build interna o in beta privata, ETA 30 giorni se i test reggono.",
       en: "Already in internal build or private beta, ETA 30 days if tests hold up.",
@@ -194,12 +209,14 @@ const COLUMNS: RoadmapColumn[] = [
       de: "Bereits im internen Build oder in der privaten Beta, ETA 30 Tage, wenn die Tests standhalten.",
       pt: "Já em build interna ou beta privado, ETA 30 dias se os testes confirmarem.",
       fr: "Déjà en build interne ou en bêta privée, ETA 30 jours si les tests tiennent.",
+      pl: "Juz w wewnetrznym build lub prywatnej becie, szacowany czas 30 dni jesli testy wytrzymaja.",
+      tr: "Zaten dahili build veya özel betada, testler tutarsa tahmini süre 30 gün.",
     },
     accent: "#21E6C1",
     items: [
       {
         status: "in-progress",
-        title: { it: "App iOS (Apple Salute)", en: "iOS app (Apple Health)", es: "App iOS (HealthKit)", de: "iOS-App (Apple Health)", pt: "App iOS (Apple Health)", fr: "App iOS (Apple Santé)" },
+        title: { it: "App iOS (Apple Salute)", en: "iOS app (Apple Health)", es: "App iOS (HealthKit)", de: "iOS-App (Apple Health)", pt: "App iOS (Apple Health)", fr: "App iOS (Apple Santé)", pl: "Aplikacja iOS (Apple Health)", tr: "iOS uygulamasi (Apple Health)" },
         desc: {
           it: "App per iPhone pronta: lettura Apple Salute e un ponte che porta in Apple Salute i dati di Galaxy Watch e anello Colmi. Lancio su App Store imminente.",
           en: "iPhone app ready: Apple Health read, plus a bridge that brings Galaxy Watch and Colmi ring data into Apple Health. App Store launch imminent.",
@@ -207,11 +224,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "iPhone-App bereit: Lesen aus Apple Health und eine Brücke, die Galaxy Watch- und Colmi-Ring-Daten in Apple Health überträgt. App Store-Start steht unmittelbar bevor.",
           pt: "App para iPhone pronta: leitura do Apple Health e uma ponte que leva os dados do Galaxy Watch e do anel Colmi para o Apple Health. Lançamento no App Store iminente.",
           fr: "Application iPhone prête: lecture d'Apple Santé et un pont qui apporte les données Galaxy Watch et de la bague Colmi dans Apple Santé. Lancement sur l'App Store imminent.",
+          pl: "Aplikacja na iPhone gotowa: odczyt Apple Health oraz pomost przesylajacy dane Galaxy Watch i pierscienia Colmi do Apple Health. Premiera w App Store juz niedlugo.",
+          tr: "iPhone uygulamasi hazir: Apple Health okuma ve Galaxy Watch ile Colmi yüzük verilerini Apple Health'e aktaran bir köprü. App Store lansmaní yakindir.",
         },
       },
       {
         status: "in-progress",
-        title: { it: "Landing Pixel Watch dedicata", en: "Dedicated Pixel Watch landing", es: "Página dedicada a Pixel Watch", de: "Dedizierte Pixel Watch Landing Page", pt: "Landing page dedicada ao Pixel Watch", fr: "Page dédiée au Pixel Watch" },
+        title: { it: "Landing Pixel Watch dedicata", en: "Dedicated Pixel Watch landing", es: "Página dedicada a Pixel Watch", de: "Dedizierte Pixel Watch Landing Page", pt: "Landing page dedicada ao Pixel Watch", fr: "Page dédiée au Pixel Watch", pl: "Dedykowana strona dla Pixel Watch", tr: "Pixel Watch'a özel landing sayfasi" },
         desc: {
           it: "Pagina /sync/pixel-watch con setup guide specifico e troubleshooting Fitbit → Health Connect dedicato.",
           en: "Dedicated /sync/pixel-watch page with Pixel-specific setup guide and Fitbit → Health Connect troubleshooting.",
@@ -219,11 +238,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Seite /sync/pixel-watch mit Pixel-spezifischem Einrichtungsleitfaden und dedizierter Fehlerbehebung für Fitbit → Health Connect.",
           pt: "Página /sync/pixel-watch com guia de configuração específico para Pixel Watch e resolução de problemas do Fitbit → Health Connect.",
           fr: "Page /sync/pixel-watch avec un guide de configuration spécifique au Pixel Watch et un dépannage dédié Fitbit → Health Connect.",
+          pl: "Dedykowana strona /sync/pixel-watch z przewodnikiem konfiguracji specyficznym dla Pixel Watch i rozwiazywaniem problemów Fitbit → Health Connect.",
+          tr: "Pixel'e özgü kurulum kilavuzu ve Fitbit → Health Connect sorun giderme içeren özel /sync/pixel-watch sayfasi.",
         },
       },
       {
         status: "in-progress",
-        title: { it: "Fitbit — guida setup completa", en: "Fitbit — full setup guide", es: "Fitbit: guía de configuración completa", de: "Fitbit — vollständiger Einrichtungsleitfaden", pt: "Fitbit — guia de configuração completo", fr: "Fitbit — guide de configuration complet" },
+        title: { it: "Fitbit — guida setup completa", en: "Fitbit — full setup guide", es: "Fitbit: guía de configuración completa", de: "Fitbit — vollständiger Einrichtungsleitfaden", pt: "Fitbit — guia de configuração completo", fr: "Fitbit — guide de configuration complet", pl: "Fitbit — pelny przewodnik konfiguracji", tr: "Fitbit — tam kurulum kilavuzu" },
         desc: {
           it: "Onboarding passo-passo nell'app per attivare il bridge Fitbit → Health Connect, con verifica automatica dei permessi.",
           en: "Step-by-step in-app onboarding to enable the Fitbit → Health Connect bridge, with automatic permission check.",
@@ -231,11 +252,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Schritt-für-Schritt-Onboarding in der App zum Aktivieren der Fitbit → Health Connect-Brücke, mit automatischer Berechtigungsprüfung.",
           pt: "Onboarding passo a passo dentro do app para ativar a ponte Fitbit → Health Connect, com verificação automática de permissões.",
           fr: "Onboarding pas à pas dans l'application pour activer le pont Fitbit → Health Connect, avec vérification automatique des autorisations.",
+          pl: "Krok po kroku onboarding w aplikacji do wlaczenia mostu Fitbit → Health Connect z automatyczna weryfikacja uprawnien.",
+          tr: "Fitbit → Health Connect köprüsünü etkinlestirmek icin otomatik izin kontrolü ile adim adim uygulama içi onboarding.",
         },
       },
       {
         status: "in-progress",
-        title: { it: "Attività mensile e annuale", en: "Monthly and yearly activity", es: "Actividad mensual y anual", de: "Monatliche und jährliche Aktivität", pt: "Atividade mensal e anual", fr: "Activité mensuelle et annuelle" },
+        title: { it: "Attività mensile e annuale", en: "Monthly and yearly activity", es: "Actividad mensual y anual", de: "Monatliche und jährliche Aktivität", pt: "Atividade mensal e anual", fr: "Activité mensuelle et annuelle", pl: "Aktywnosc miesieczna i roczna", tr: "Aylik ve yillik aktivite" },
         desc: {
           it: "Aggregazioni temporali oltre la settimana: heat map mensile, totali annuali per allenamento, confronto anno-su-anno.",
           en: "Time aggregations beyond the week: monthly heat map, yearly totals per workout, year-over-year comparison.",
@@ -243,11 +266,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Zeitaggregationen über die Woche hinaus: monatliche Heatmap, jährliche Gesamtwerte pro Training, Jahresvergleich.",
           pt: "Agregações temporais além da semana: mapa de calor mensal, totais anuais por treino, comparação ano a ano.",
           fr: "Agrégations temporelles au-delà de la semaine: carte de chaleur mensuelle, totaux annuels par séance, comparaison d'une année sur l'autre.",
+          pl: "Agregacje czasowe poza tygodniem: miesieczna mapa ciepla, roczne podsumowania na trening, porównanie rok do roku.",
+          tr: "Haftanin ötesinde zaman agregasyonlari: aylik isi haritasi, antrenman bazi yillik toplamlar, yillik karsilastirma.",
         },
       },
       {
         status: "in-progress",
-        title: { it: "IAP server-side verification", en: "Server-side IAP verification", es: "Verificación de compra en el servidor", de: "Serverseitige IAP-Verifizierung", pt: "Verificação de compra server-side", fr: "Vérification des achats côté serveur" },
+        title: { it: "IAP server-side verification", en: "Server-side IAP verification", es: "Verificación de compra en el servidor", de: "Serverseitige IAP-Verifizierung", pt: "Verificação de compra server-side", fr: "Vérification des achats côté serveur", pl: "Weryfikacja zakupów po stronie serwera", tr: "Sunucu tarafli satin alma dogrulamasi" },
         desc: {
           it: "Validazione Play Billing lato backend con Supabase Edge Functions per prevenire refund fraud e licenze multi-device sicure.",
           en: "Backend Play Billing validation via Supabase Edge Functions to prevent refund fraud and enable safe multi-device licensing.",
@@ -255,11 +280,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Backend-Validierung von Play Billing über Supabase Edge Functions, um Rückerstattungsbetrug zu verhindern und sichere Multi-Geräte-Lizenzen zu ermöglichen.",
           pt: "Validação do Play Billing no backend via Supabase Edge Functions para prevenir fraudes de reembolso e habilitar licenças seguras em múltiplos dispositivos.",
           fr: "Validation du Play Billing côté backend via Supabase Edge Functions pour prévenir les fraudes aux remboursements et permettre des licences multi-appareils sécurisées.",
+          pl: "Backendowa walidacja Play Billing przez Supabase Edge Functions, aby zapobiec oszustwom zwrotów i wlaczyc bezpieczne licencje na wiele urzadzen.",
+          tr: "Iade dolandiriciligini önlemek ve güvenli çok cihazli lisanslama saglamak icin Supabase Edge Functions araciligiyla Play Billing backend dogrulamasi.",
         },
       },
       {
         status: "in-progress",
-        title: { it: "Pressione arteriosa + glicemia", en: "Blood pressure + glucose", es: "Presión arterial + glucosa", de: "Blutdruck + Blutzucker", pt: "Pressão arterial + glicemia", fr: "Tension artérielle + glycémie" },
+        title: { it: "Pressione arteriosa + glicemia", en: "Blood pressure + glucose", es: "Presión arterial + glucosa", de: "Blutdruck + Blutzucker", pt: "Pressão arterial + glicemia", fr: "Tension artérielle + glycémie", pl: "Cisnienie krwi + glukoza", tr: "Tansiyon + glikoz" },
         desc: {
           it: "Lettura BP (Withings BPM, Omron HC bridge) e glucose (Libre LinkUp dove disponibile via HC), con grafici dedicati.",
           en: "BP read (Withings BPM, Omron HC bridge) and glucose (Libre LinkUp where available via HC), with dedicated charts.",
@@ -267,14 +294,16 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Blutdruck-Lesen (Withings BPM, Omron HC-Brücke) und Glukose (Libre LinkUp wo über HC verfügbar), mit dedizierten Diagrammen.",
           pt: "Leitura de pressão arterial (Withings BPM, ponte Omron HC) e glicose (Libre LinkUp onde disponível via HC), com gráficos dedicados.",
           fr: "Lecture de la tension artérielle (Withings BPM, pont Omron HC) et de la glycémie (Libre LinkUp où disponible via HC), avec des graphiques dédiés.",
+          pl: "Odczyt cisnienia (Withings BPM, most Omron HC) i glukozy (Libre LinkUp tam gdzie dostepne przez HC) z dedykowanymi wykresami.",
+          tr: "Tansiyon okuma (Withings BPM, Omron HC köprüsü) ve glikoz (HC üzerinden mevcut oldugunda Libre LinkUp), özel grafiklerle.",
         },
       },
     ],
   },
   {
     id: "q3-2026",
-    kicker: { it: "Q3 2026", en: "Q3 2026", es: "Q3 2026", de: "Q3 2026", pt: "Q3 2026", fr: "Q3 2026" },
-    title: { it: "Integrazioni OAuth native", en: "Native OAuth integrations", es: "Integraciones OAuth nativas", de: "Native OAuth-Integrationen", pt: "Integrações OAuth nativas", fr: "Intégrations OAuth natives" },
+    kicker: { it: "Q3 2026", en: "Q3 2026", es: "Q3 2026", de: "Q3 2026", pt: "Q3 2026", fr: "Q3 2026", pl: "Q3 2026", tr: "Q3 2026" },
+    title: { it: "Integrazioni OAuth native", en: "Native OAuth integrations", es: "Integraciones OAuth nativas", de: "Native OAuth-Integrationen", pt: "Integrações OAuth nativas", fr: "Intégrations OAuth natives", pl: "Natywne integracje OAuth", tr: "Yerel OAuth entegrasyonlari" },
     caption: {
       it: "Integrazioni che richiedono OAuth ufficiale e approvazione partner. Date soggette ai loro processi.",
       en: "Integrations that require official OAuth and partner approval. Dates subject to their processes.",
@@ -282,12 +311,14 @@ const COLUMNS: RoadmapColumn[] = [
       de: "Integrationen, die offizielle OAuth-Genehmigung und Partner-Zustimmung erfordern. Termine abhängig von deren Prozessen.",
       pt: "Integrações que exigem OAuth oficial e aprovação do parceiro. Datas sujeitas aos processos deles.",
       fr: "Intégrations nécessitant un OAuth officiel et une approbation partenaire. Dates soumises à leurs processus.",
+      pl: "Integracje wymagajace oficjalnego OAuth i zatwierdzenia przez partnera. Daty zaleza od ich procesów.",
+      tr: "Resmi OAuth ve ortak onayı gerektiren entegrasyonlar. Tarihler onların süreçlerine göre degisebilir.",
     },
     accent: "#38BDF8",
     items: [
       {
         status: "planned",
-        title: { it: "Garmin Health API — OAuth", en: "Garmin Health API — OAuth", es: "Garmin Health API: OAuth", de: "Garmin Health API — OAuth", pt: "Garmin Health API — OAuth", fr: "Garmin Health API — OAuth" },
+        title: { it: "Garmin Health API — OAuth", en: "Garmin Health API — OAuth", es: "Garmin Health API: OAuth", de: "Garmin Health API — OAuth", pt: "Garmin Health API — OAuth", fr: "Garmin Health API — OAuth", pl: "Garmin Health API — OAuth", tr: "Garmin Health API — OAuth" },
         desc: {
           it: "Body Battery, Training Load, Recovery Time, Stress Score, GPS dettagliato. In attesa di approvazione Garmin Developer Program.",
           en: "Body Battery, Training Load, Recovery Time, Stress Score, detailed GPS. Pending Garmin Developer Program approval.",
@@ -295,11 +326,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Body Battery, Training Load, Recovery Time, Stress Score, detailliertes GPS. Genehmigung des Garmin Developer Program ausstehend.",
           pt: "Body Battery, Training Load, Recovery Time, Stress Score, GPS detalhado. Aguardando aprovação do Garmin Developer Program.",
           fr: "Body Battery, Training Load, Recovery Time, Stress Score, GPS détaillé. En attente d'approbation du Garmin Developer Program.",
+          pl: "Body Battery, Training Load, Recovery Time, Stress Score, szczególowy GPS. Oczekiwanie na zatwierdzenie przez Garmin Developer Program.",
+          tr: "Body Battery, Training Load, Recovery Time, Stress Score, ayrintili GPS. Garmin Developer Program onayı bekleniyor.",
         },
       },
       {
         status: "planned",
-        title: { it: "Polar Accesslink — OAuth", en: "Polar Accesslink — OAuth", es: "Polar Accesslink: OAuth", de: "Polar Accesslink — OAuth", pt: "Polar Accesslink — OAuth", fr: "Polar Accesslink — OAuth" },
+        title: { it: "Polar Accesslink — OAuth", en: "Polar Accesslink — OAuth", es: "Polar Accesslink: OAuth", de: "Polar Accesslink — OAuth", pt: "Polar Accesslink — OAuth", fr: "Polar Accesslink — OAuth", pl: "Polar Accesslink — OAuth", tr: "Polar Accesslink — OAuth" },
         desc: {
           it: "Recovery Pro, Nightly Recharge, ZoneOptimizer e BPM secondo per secondo dai cardio H10. Beta waves a invito.",
           en: "Recovery Pro, Nightly Recharge, ZoneOptimizer and per-second heart rate from H10 chest straps. Invite-only beta waves.",
@@ -307,11 +340,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Recovery Pro, Nightly Recharge, ZoneOptimizer und sekundenweise Herzfrequenz vom H10-Brustgurt. Beta-Wellen nur auf Einladung.",
           pt: "Recovery Pro, Nightly Recharge, ZoneOptimizer e frequência cardíaca segundo a segundo dos sensores H10. Betas por convite.",
           fr: "Recovery Pro, Nightly Recharge, ZoneOptimizer et fréquence cardiaque seconde par seconde depuis le capteur H10. Bêta sur invitation uniquement.",
+          pl: "Recovery Pro, Nightly Recharge, ZoneOptimizer i tetno co sekunde z pasków H10. Fale beta tylko na zaproszenie.",
+          tr: "Recovery Pro, Nightly Recharge, ZoneOptimizer ve H10 gogüs bantlarindan saniyede bir kalp hizi. Yalnizca davetli beta dalgalari.",
         },
       },
       {
         status: "planned",
-        title: { it: "Oura Ring — OAuth", en: "Oura Ring — OAuth", es: "Oura Ring: OAuth", de: "Oura Ring — OAuth", pt: "Oura Ring — OAuth", fr: "Oura Ring — OAuth" },
+        title: { it: "Oura Ring — OAuth", en: "Oura Ring — OAuth", es: "Oura Ring: OAuth", de: "Oura Ring — OAuth", pt: "Oura Ring — OAuth", fr: "Oura Ring — OAuth", pl: "Oura Ring — OAuth", tr: "Oura Ring — OAuth" },
         desc: {
           it: "Readiness, Activity, HRV notturno, temperatura corporea. Particolarmente utile combinato a Galaxy Watch o Garmin.",
           en: "Readiness, Activity, overnight HRV, body temperature. Especially useful when combined with Galaxy Watch or Garmin.",
@@ -319,11 +354,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Readiness, Activity, nächtliche HRV, Körpertemperatur. Besonders nützlich in Kombination mit Galaxy Watch oder Garmin.",
           pt: "Readiness, Activity, HRV noturno, temperatura corporal. Especialmente útil combinado com Galaxy Watch ou Garmin.",
           fr: "Readiness, Activity, HRV nocturne, température corporelle. Particulièrement utile combiné à Galaxy Watch ou Garmin.",
+          pl: "Readiness, Activity, nocny HRV, temperatura ciala. Szczególnie przydatne w polaczeniu z Galaxy Watch lub Garmin.",
+          tr: "Readiness, Activity, gece HRV degeri, vücut sicakligi. Galaxy Watch veya Garmin ile birlikte kullanildiginda özellikle yararli.",
         },
       },
       {
         status: "planned",
-        title: { it: "Withings — OAuth", en: "Withings — OAuth", es: "Withings: OAuth", de: "Withings — OAuth", pt: "Withings — OAuth", fr: "Withings — OAuth" },
+        title: { it: "Withings — OAuth", en: "Withings — OAuth", es: "Withings: OAuth", de: "Withings — OAuth", pt: "Withings — OAuth", fr: "Withings — OAuth", pl: "Withings — OAuth", tr: "Withings — OAuth" },
         desc: {
           it: "ECG dettagliato + rilevamento FA, Sleep Mat con fasi, Pulse Wave Velocity, trend lungo periodo composizione corporea.",
           en: "Detailed ECG + AFib detection, Sleep Mat with stages, Pulse Wave Velocity, long-term body composition trends.",
@@ -331,14 +368,16 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Detailliertes EKG + Vorhofflimmern-Erkennung, Sleep Mat mit Schlafphasen, Pulswellengeschwindigkeit, langfristige Trends zur Körperzusammensetzung.",
           pt: "ECG detalhado + detecção de fibrilação atrial, Sleep Mat com fases, Pulse Wave Velocity, tendências de composição corporal a longo prazo.",
           fr: "ECG détaillé + détection de fibrillation atriale, Sleep Mat avec phases, Pulse Wave Velocity, tendances de composition corporelle à long terme.",
+          pl: "Szczególowe EKG + wykrywanie migotania przedsionków, Sleep Mat z fazami, Pulse Wave Velocity, dlugoterminowe trendy skladu ciala.",
+          tr: "Ayrintili EKG + AFib tespiti, fazlari olan Sleep Mat, Nabiz Dalga Hizi, uzun vadeli vücut komposizyonu trendleri.",
         },
       },
     ],
   },
   {
     id: "future",
-    kicker: { it: "Future · Esplorazione", en: "Future · Exploration", es: "Futuro · Exploración", de: "Future · Erkundung", pt: "Future · Exploração", fr: "Future · Exploration" },
-    title: { it: "Sul tavolo, da validare con voi", en: "On the table, to validate with you", es: "En estudio, para validar contigo", de: "Auf dem Tisch, mit euch zu validieren", pt: "Em análise, para validar com você", fr: "Sur la table, à valider avec vous" },
+    kicker: { it: "Future · Esplorazione", en: "Future · Exploration", es: "Futuro · Exploración", de: "Future · Erkundung", pt: "Future · Exploração", fr: "Future · Exploration", pl: "Future · Eksploracja", tr: "Future · Kesfetme" },
+    title: { it: "Sul tavolo, da validare con voi", en: "On the table, to validate with you", es: "En estudio, para validar contigo", de: "Auf dem Tisch, mit euch zu validieren", pt: "Em análise, para validar com você", fr: "Sur la table, à valider avec vous", pl: "Na stole, do walidacji razem z wami", tr: "Masada, sizinle dogrulamak için" },
     caption: {
       it: "Direzioni che stiamo studiando. Mandaci feedback per pesarne la priorità.",
       en: "Directions we're studying. Send us feedback to weigh their priority.",
@@ -346,12 +385,14 @@ const COLUMNS: RoadmapColumn[] = [
       de: "Richtungen, die wir erkunden. Schickt uns Feedback, um die Priorität abzuwägen.",
       pt: "Direções que estamos estudando. Envie-nos seu feedback para avaliar a prioridade.",
       fr: "Des pistes que nous explorons. Envoyez-nous vos retours pour en évaluer la priorité.",
+      pl: "Kierunki, które badamy. Wyslij nam opinie, aby pomóc ustelic priorytety.",
+      tr: "Inceledigimiz yönler. Önceliklendirmemize yardimci olmak için geri bildirim gönderin.",
     },
     accent: "#A78BFA",
     items: [
       {
         status: "exploration",
-        title: { it: "Coros e Wahoo", en: "Coros and Wahoo", es: "Coros y Wahoo", de: "Coros und Wahoo", pt: "Coros e Wahoo", fr: "Coros et Wahoo" },
+        title: { it: "Coros e Wahoo", en: "Coros and Wahoo", es: "Coros y Wahoo", de: "Coros und Wahoo", pt: "Coros e Wahoo", fr: "Coros et Wahoo", pl: "Coros i Wahoo", tr: "Coros ve Wahoo" },
         desc: {
           it: "OAuth Coros Open API e Wahoo Cloud API per copertura ciclismo e ultra-endurance. Stiamo dimensionando volumi.",
           en: "Coros Open API and Wahoo Cloud API OAuth for cycling and ultra-endurance coverage. Sizing demand right now.",
@@ -359,11 +400,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "OAuth mit Coros Open API und Wahoo Cloud API für Radsport und Ultra-Endurance-Abdeckung. Wir messen gerade den Bedarf.",
           pt: "OAuth com Coros Open API e Wahoo Cloud API para cobertura de ciclismo e ultra-endurance. Estamos dimensionando a demanda.",
           fr: "OAuth avec Coros Open API et Wahoo Cloud API pour la couverture cyclisme et ultra-endurance. Nous évaluons la demande en ce moment.",
+          pl: "OAuth Coros Open API i Wahoo Cloud API dla pokrycia kolarstwa i ultra-wytrzymalosci. Obecnie mierzymy zapotrzebowanie.",
+          tr: "Bisiklet ve ultra-dayaniklilik kapsamı icin Coros Open API ve Wahoo Cloud API OAuth. Su an talep olcüyoruz.",
         },
       },
       {
         status: "exploration",
-        title: { it: "Family group + caregiver mode", en: "Family group + caregiver mode", es: "Grupo familiar + modo cuidadores", de: "Familiengruppe + Betreuungsmodus", pt: "Grupo familiar + modo cuidadores", fr: "Groupe familial + mode aidants" },
+        title: { it: "Family group + caregiver mode", en: "Family group + caregiver mode", es: "Grupo familiar + modo cuidadores", de: "Familiengruppe + Betreuungsmodus", pt: "Grupo familiar + modo cuidadores", fr: "Groupe familial + mode aidants", pl: "Mesh Rodzina + tryb opiekuna", tr: "Mesh Aile + bakim modu" },
         desc: {
           it: "Condivisione dashboard limitata a persone di fiducia (genitori, caregiver) con permessi granulari e revoca istantanea.",
           en: "Limited dashboard sharing with trusted people (parents, caregivers) via granular permissions and instant revocation.",
@@ -371,11 +414,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Eingeschränkte Dashboard-Freigabe für Vertrauenspersonen (Eltern, Betreuungspersonen) mit granularen Berechtigungen und sofortiger Widerrufsmöglichkeit.",
           pt: "Compartilhamento limitado do painel com pessoas de confiança (pais, cuidadores) via permissões granulares e revogação instantânea.",
           fr: "Partage limité du tableau de bord avec des personnes de confiance (parents, aidants) via des autorisations granulaires et une révocation instantanée.",
+          pl: "Ograniczone udostepnianie panelu zaufanym osobom (rodzicom, opiekunom) z granularnymi uprawnieniami i natychmiastowym odwolaniem dostepu.",
+          tr: "Güvenilir kisilerle (ebeveynler, bakicilar) ayrintili izinler ve aninda iptal ile sinirli panel paylasimu.",
         },
       },
       {
         status: "exploration",
-        title: { it: "Export FIT / TCX / GPX", en: "FIT / TCX / GPX export", es: "Exportación FIT / TCX / GPX", de: "FIT / TCX / GPX-Export", pt: "Exportação FIT / TCX / GPX", fr: "Export FIT / TCX / GPX" },
+        title: { it: "Export FIT / TCX / GPX", en: "FIT / TCX / GPX export", es: "Exportación FIT / TCX / GPX", de: "FIT / TCX / GPX-Export", pt: "Exportação FIT / TCX / GPX", fr: "Export FIT / TCX / GPX", pl: "Eksport FIT / TCX / GPX", tr: "FIT / TCX / GPX disa aktarma" },
         desc: {
           it: "Esportazione singole attività in formati standard fitness, utili per re-importare in Strava, Garmin Connect, TrainingPeaks.",
           en: "Export individual activities in standard fitness formats, useful for re-importing into Strava, Garmin Connect, TrainingPeaks.",
@@ -383,11 +428,13 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Export einzelner Aktivitäten in Standard-Fitness-Formate, nützlich für den Re-Import in Strava, Garmin Connect oder TrainingPeaks.",
           pt: "Exportação de atividades individuais em formatos fitness padrão, úteis para reimportar no Strava, Garmin Connect ou TrainingPeaks.",
           fr: "Export des activités individuelles dans des formats fitness standard, utiles pour les réimporter dans Strava, Garmin Connect ou TrainingPeaks.",
+          pl: "Eksport pojedynczych aktywnosci w standardowych formatach fitness, przydatny do ponownego importu do Strava, Garmin Connect lub TrainingPeaks.",
+          tr: "Bireysel antrenmanları standart fitness formatlarinda disa aktar, Strava, Garmin Connect veya TrainingPeaks'e yeniden aktarmak icin kullanisli.",
         },
       },
       {
         status: "exploration",
-        title: { it: "Watch app companion", en: "Watch app companion", es: "App companion para el reloj", de: "Watch Companion-App", pt: "App companion para o relógio", fr: "Application companion pour la montre" },
+        title: { it: "Watch app companion", en: "Watch app companion", es: "App companion para el reloj", de: "Watch Companion-App", pt: "App companion para o relógio", fr: "Application companion pour la montre", pl: "Aplikacja towarzyszaca dla zegarka", tr: "Saat eslik uygulamasi" },
         desc: {
           it: "Tile Wear OS e watch face Galaxy con highlight giornaliero (passi vs target, HR, stato sync) direttamente al polso.",
           en: "Wear OS tile and Galaxy watch face with daily highlights (steps vs target, HR, sync status) right on your wrist.",
@@ -395,17 +442,19 @@ const COLUMNS: RoadmapColumn[] = [
           de: "Wear OS-Tile und Galaxy Watch Face mit täglichen Highlights (Schritte vs. Ziel, Herzfrequenz, Synchronisierungsstatus) direkt am Handgelenk.",
           pt: "Tile para Wear OS e watch face Galaxy com destaques diários (passos vs meta, frequência cardíaca, status de sincronização) diretamente no pulso.",
           fr: "Tile Wear OS et watch face Galaxy avec les points forts quotidiens (pas vs objectif, fréquence cardiaque, statut de synchronisation) directement au poignet.",
+          pl: "Kafelek Wear OS i tarcza zegarka Galaxy z codziennymi podsumowaniami (kroki vs cel, HR, status synchronizacji) bezposrednio na nadgarstku.",
+          tr: "Wear OS kutusu ve Galaxy saat yüzü ile günlük öne çikartilanlar (adimlar hedefe karsi, HR, senkronizasyon durumu) bileginizde.",
         },
       },
     ],
   },
 ];
 
-const STATUS_BADGE: Record<RoadmapStatus, { it: string; en: string; es: string; de: string; pt: string; fr: string; color: string }> = {
-  live: { it: "Live", en: "Live", es: "Disponible", de: "Live", pt: "Disponível", fr: "Disponible", color: "#31E981" },
-  "in-progress": { it: "In sviluppo", en: "In progress", es: "En desarrollo", de: "In Entwicklung", pt: "Em desenvolvimento", fr: "En développement", color: "#21E6C1" },
-  planned: { it: "Pianificato", en: "Planned", es: "Planificado", de: "Geplant", pt: "Planejado", fr: "Planifié", color: "#38BDF8" },
-  exploration: { it: "Esplorazione", en: "Exploring", es: "Exploración", de: "Erkundung", pt: "Em exploração", fr: "En exploration", color: "#A78BFA" },
+const STATUS_BADGE: Record<RoadmapStatus, { it: string; en: string; es: string; de: string; pt: string; fr: string; pl: string; tr: string; nl: string; ja: string; ko: string; color: string }> = {
+  live: { it: "Live", en: "Live", es: "Disponible", de: "Live", pt: "Disponível", fr: "Disponible", pl: "Live", tr: "Yayinda", nl: "Live", ja: "稼働中", ko: "실시간", color: "#31E981" },
+  "in-progress": { it: "In sviluppo", en: "In progress", es: "En desarrollo", de: "In Entwicklung", pt: "Em desenvolvimento", fr: "En développement", pl: "W trakcie", tr: "Devam ediyor", nl: "In ontwikkeling", ja: "開発中", ko: "개발 중", color: "#21E6C1" },
+  planned: { it: "Pianificato", en: "Planned", es: "Planificado", de: "Geplant", pt: "Planejado", fr: "Planifié", pl: "Zaplanowane", tr: "Planlanmis", nl: "Gepland", ja: "計画済み", ko: "예정됨", color: "#38BDF8" },
+  exploration: { it: "Esplorazione", en: "Exploring", es: "Exploración", de: "Erkundung", pt: "Em exploração", fr: "En exploration", pl: "Eksploracja", tr: "Kesfediliyor", nl: "Verkenning", ja: "検討中", ko: "탐색 중", color: "#A78BFA" },
 };
 
 export default async function RoadmapPage({
@@ -431,8 +480,8 @@ export default async function RoadmapPage({
       col.items.map((it, ii) => ({
         "@type": "ListItem",
         position: ci * 100 + ii + 1,
-        name: it.title[lc],
-        description: it.desc[lc],
+        name: tlr(it.title, lc),
+        description: tlr(it.desc, lc),
       })),
     ),
   };
@@ -482,7 +531,7 @@ export default async function RoadmapPage({
                   className="w-1.5 h-1.5 rounded-full"
                   style={{ background: b.color, boxShadow: `0 0 8px ${b.color}` }}
                 />
-                {b[lc]}
+                {(b as Record<string, string>)[lc] ?? b.en}
               </span>
             );
           })}
@@ -508,13 +557,13 @@ export default async function RoadmapPage({
                   className="text-[10px] uppercase tracking-[0.22em] font-semibold"
                   style={{ color: col.accent }}
                 >
-                  {col.kicker[lc]}
+                  {tlr(col.kicker, lc)}
                 </p>
                 <h2 className="mt-2 font-display text-xl sm:text-2xl font-semibold text-text-primary">
-                  {col.title[lc]}
+                  {tlr(col.title, lc)}
                 </h2>
                 <p className="mt-2 text-sm text-text-secondary leading-relaxed">
-                  {col.caption[lc]}
+                  {tlr(col.caption, lc)}
                 </p>
 
                 {/* Item list — vertical timeline */}
@@ -528,7 +577,7 @@ export default async function RoadmapPage({
                       >
                         <div className="flex items-start justify-between gap-3">
                           <h3 className="font-display text-base font-semibold text-text-primary">
-                            {it.title[lc]}
+                            {tlr(it.title, lc)}
                           </h3>
                           <span
                             className="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 rounded-pill flex-shrink-0"
@@ -537,11 +586,11 @@ export default async function RoadmapPage({
                               color: badge.color,
                             }}
                           >
-                            {badge[lc]}
+                            {(badge as Record<string, string>)[lc] ?? badge.en}
                           </span>
                         </div>
                         <p className="mt-2 text-sm text-text-secondary leading-relaxed">
-                          {it.desc[lc]}
+                          {tlr(it.desc, lc)}
                         </p>
                       </li>
                     );

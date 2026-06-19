@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Vider le cache de Health Connect ne supprime pas vos données: c'est une opération sûre qui résout souvent les erreurs d'état corrompu.",
       "Les données non synchronisées s'accumulent localement: une fois le problème résolu, la synchronisation rétroactive s'effectue automatiquement.",
     ],
+    pl: [
+      "90% problemów rozwiązują trzy działania: sprawdzenie uprawnień w Health Connect, wyłączenie optymalizacji baterii dla zaangażowanych aplikacji oraz ręczne otwarcie aplikacji źródłowej.",
+      "Optymalizacja baterii to przyczyna numer jeden (około 60% przypadków): blokuje synchronizację w tle. To nie jest błąd Health Connect.",
+      "Na urządzeniach Samsung konkretnym rozwiązaniem jest rozłączenie i ponowne połączenie potoku Samsung Health - Health Connect w ustawieniach.",
+      "Wyczyszczenie pamięci podręcznej Health Connect nie usuwa Twoich danych: jest bezpieczne i często naprawia błędy uszkodzonego stanu.",
+      "Niezsynchronizowane dane gromadzą się lokalnie: po rozwiązaniu problemu uzupełnienie historyczne następuje automatycznie.",
+    ],
+    tr: [
+      "Sorunların %90'ı üç adımla çözülür: Health Connect'teki izinleri kontrol edin, ilgili uygulamalar için pil optimizasyonunu devre dışı bırakın ve kaynak uygulamayı manuel olarak açın.",
+      "Pil optimizasyonu birinci numaralı nedendir (vakaların yaklaşık %60'ı): arka plan senkronizasyonunu engeller. Bu bir Health Connect hatası değildir.",
+      "Samsung'da özel çözüm, ayarlardan Samsung Health - Health Connect bağlantısını kesip yeniden bağlamaktır.",
+      "Health Connect önbelleğini temizlemek verilerinizi silmez: güvenlidir ve genellikle bozuk durum hatalarını düzeltir.",
+      "Senkronize edilmemiş veriler yerel olarak birikir: sorun çözüldükten sonra geçmiş veriler otomatik olarak doldurulur.",
+    ],
   },
   primaryKeyword: {
     it: "health connect non si sincronizza",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "health connect synchronisiert nicht",
     pt: "health connect não sincroniza",
     fr: "health connect ne se synchronise pas",
+    pl: "health connect nie synchronizuje",
+    tr: "health connect senkronize olmuyor",
   },
   secondaryKeywords: {
     it: [
@@ -88,6 +104,20 @@ export const post: BlogPost = {
       "pas non affichés dans health connect",
       "comment résoudre health connect",
     ],
+    pl: [
+      "health connect nie działa",
+      "health connect brakujące dane",
+      "samsung health nie synchronizuje z health connect",
+      "kroki nie wyświetlają się w health connect",
+      "jak naprawić health connect",
+    ],
+    tr: [
+      "health connect çalışmıyor",
+      "health connect eksik veri",
+      "samsung health health connect ile senkronize olmuyor",
+      "adımlar health connect'te görünmüyor",
+      "health connect nasıl düzeltilir",
+    ],
   },
   metaDescription: {
     it: "Health Connect non si sincronizza? Ecco 7 soluzioni verificate: permessi, ottimizzazione batteria, cache, impostazioni Samsung Health. Guida completa 2026.",
@@ -96,6 +126,8 @@ export const post: BlogPost = {
     de: "Health Connect synchronisiert nicht? Hier sind 7 geprüfte Lösungen: Berechtigungen, Akkuoptimierung, Cache, Samsung-Health-Einstellungen. Vollständige Anleitung 2026.",
     pt: "Health Connect não sincroniza? Veja 7 soluções verificadas: permissões, otimização de bateria, cache, configurações do Samsung Health. Guia completo 2026.",
     fr: "Health Connect ne se synchronise pas? Voici 7 solutions vérifiées: autorisations, optimisation de la batterie, cache, paramètres Samsung Health. Guide complet 2026.",
+    pl: "Health Connect nie synchronizuje? Oto 7 sprawdzonych rozwiązań: uprawnienia, optymalizacja baterii, pamięć podręczna, ustawienia Samsung Health. Kompletny poradnik 2026.",
+    tr: "Health Connect senkronize olmuyor mu? İşte 7 doğrulanmış çözüm: izinler, pil optimizasyonu, önbellek, Samsung Health ayarları. Eksiksiz sorun giderme rehberi 2026.",
   },
   hero: {
     kicker: {
@@ -105,6 +137,8 @@ export const post: BlogPost = {
       de: "Fehlerbehebung",
       pt: "Solução de problemas",
       fr: "Dépannage",
+      pl: "Rozwiązywanie problemów",
+      tr: "Sorun Giderme",
     },
     title: {
       it: "Health Connect non si sincronizza: 7 soluzioni che funzionano (2026)",
@@ -113,6 +147,8 @@ export const post: BlogPost = {
       de: "Health Connect synchronisiert nicht: 7 Lösungen, die funktionieren (2026)",
       pt: "Health Connect não sincroniza: 7 soluções que funcionam (2026)",
       fr: "Health Connect ne se synchronise pas: 7 solutions qui fonctionnent (2026)",
+      pl: "Health Connect nie synchronizuje: 7 rozwiązań, które działają (2026)",
+      tr: "Health Connect senkronize olmuyor: İşe yarayan 7 çözüm (2026)",
     },
     subtitle: {
       it: "Passi che spariscono, dati di sonno mancanti, frequenza cardiaca che non si aggiorna. Ecco come diagnosticare e risolvere i problemi più comuni di Health Connect.",
@@ -121,6 +157,8 @@ export const post: BlogPost = {
       de: "Schritte, die verschwinden, fehlende Schlafdaten, Herzfrequenz, die sich nicht aktualisiert. So diagnostizieren und beheben Sie die häufigsten Probleme mit Health Connect.",
       pt: "Passos que desaparecem, dados de sono ausentes, frequência cardíaca que não atualiza. Veja como diagnosticar e resolver os problemas mais comuns do Health Connect.",
       fr: "Des pas qui disparaissent, des données de sommeil manquantes, une fréquence cardiaque qui ne se met pas à jour. Voici comment diagnostiquer et résoudre les problèmes les plus courants de Health Connect.",
+      pl: "Znikające kroki, brakujące dane snu, tętno, które się nie aktualizuje. Oto jak diagnozować i naprawiać najczęstsze problemy z Health Connect.",
+      tr: "Kaybolan adımlar, eksik uyku verileri, güncellenmeyen nabız. Health Connect'in en yaygın sorunlarını nasıl teşhis edeceğinizi ve düzelteceğinizi öğrenin.",
     },
   },
   body: [
@@ -133,6 +171,8 @@ export const post: BlogPost = {
         de: "90 % der Probleme mit Health Connect, das nicht synchronisiert, haben eine einfache Ursache: fehlende Berechtigungen oder die Akkuoptimierung, die die Hintergrundsynchronisierung blockiert. Diese Anleitung folgt der richtigen Diagnoseabfolge, vom häufigsten zum seltensten Problem, sodass Sie es in 5 Minuten beheben können, ohne irgendetwas neu zu installieren.",
         pt: "90% dos problemas de sincronização do Health Connect têm uma causa simples: permissões ausentes ou a otimização de bateria bloqueando a sincronização em segundo plano. Este guia segue a ordem de diagnóstico correta, do problema mais frequente ao menos frequente, para que você resolva em 5 minutos sem precisar reinstalar nada.",
         fr: "90 % des problèmes de synchronisation de Health Connect ont une cause simple: des autorisations manquantes ou l'optimisation de la batterie qui bloque la synchronisation en arrière-plan. Ce guide suit l'ordre de diagnostic correct, du problème le plus fréquent au moins fréquent, afin que vous puissiez résoudre le problème en 5 minutes sans réinstaller quoi que ce soit.",
+        pl: "90% problemów z synchronizacją Health Connect ma prostą przyczynę: brakujące uprawnienia lub optymalizacja baterii blokująca synchronizację w tle. Ten poradnik prowadzi we właściwej kolejności diagnostyki, od najczęstszego do najrzadszego problemu, dzięki czemu możesz rozwiązać problem w 5 minut bez reinstalowania czegokolwiek.",
+        tr: "Health Connect senkronizasyon sorunlarının %90'ının basit bir nedeni vardır: eksik izinler veya arka plan senkronizasyonunu engelleyen pil optimizasyonu. Bu rehber, en sık karşılaşılandan en nadir görülene doğru doğru tanı sırasını izler; böylece hiçbir şeyi yeniden yüklemeden sorunu 5 dakikada çözebilirsiniz.",
       },
     },
     {
@@ -145,6 +185,8 @@ export const post: BlogPost = {
         de: "Zuerst: das genaue Symptom identifizieren",
         pt: "Primeiro: identifique o sintoma exato",
         fr: "Première étape: identifier le symptôme exact",
+        pl: "Najpierw: zidentyfikuj dokładny objaw",
+        tr: "Önce: tam belirtiyi tanımlayın",
       },
     },
     {
@@ -192,6 +234,20 @@ export const post: BlogPost = {
           "**Données en double**: la même métrique apparaît deux fois. Problème: plusieurs sources écrivent le même type (ex.: Garmin + Samsung Health).",
           "**Lacune historique**: données manquantes pour une période spécifique. Problème: application non connectée durant cette période, ou plantage.",
         ],
+        pl: [
+          "**Dane nigdy nie są obecne**: aplikacja odczytująca nigdy nie otrzymała danych z Health Connect. Problem: brakujące uprawnienia lub niepodłączona aplikacja źródłowa.",
+          "**Dane obecne, ale opóźnione (godziny/dni)**: synchronizacja nie odbywa się w czasie rzeczywistym. Problem: optymalizacja baterii, synchronizacja w tle wyłączona.",
+          "**Dane częściowe**: niektóre metryki są, innych brakuje. Problem: brakujące szczegółowe uprawnienia dla określonych typów danych.",
+          "**Zduplikowane dane**: ta sama metryka pojawia się dwukrotnie. Problem: wiele źródeł zapisuje ten sam typ (np. Garmin + Samsung Health).",
+          "**Luka historyczna**: dane brakują za określony okres. Problem: aplikacja nie była podłączona w tym czasie lub wystąpił błąd krytyczny.",
+        ],
+        tr: [
+          "**Veriler hiç görünmüyor**: okuma uygulaması Health Connect'ten hiç veri almamış. Sorun: eksik izinler veya bağlı olmayan kaynak uygulama.",
+          "**Veriler var ama gecikmiş (saatler/günler)**: senkronizasyon gerçek zamanlı değil. Sorun: pil optimizasyonu, arka plan senkronizasyonu devre dışı.",
+          "**Kısmi veriler**: bazı metrikler var, bazıları yok. Sorun: belirli veri türleri için ayrıntılı izinler eksik.",
+          "**Yinelenen veriler**: aynı metrik iki kez görünüyor. Sorun: birden fazla kaynak aynı türü yazıyor (örn. Garmin + Samsung Health).",
+          "**Geçmiş boşluğu**: belirli bir dönem için veriler eksik. Sorun: uygulama o dönemde bağlı değildi veya çöktü.",
+        ],
       },
     },
     {
@@ -204,6 +260,8 @@ export const post: BlogPost = {
         de: "Lösung 1: Berechtigungen in Health Connect prüfen",
         pt: "Solução 1: Verifique as permissões no Health Connect",
         fr: "Solution 1: Vérifier les autorisations dans Health Connect",
+        pl: "Rozwiązanie 1: Sprawdź uprawnienia w Health Connect",
+        tr: "Çözüm 1: Health Connect'teki izinleri kontrol edin",
       },
     },
     {
@@ -252,6 +310,20 @@ export const post: BlogPost = {
           "Appuyez sur l'application et vérifiez qu'elle dispose des autorisations de **lecture** et d'**écriture** pour tous les types de données attendus (Pas, Fréquence cardiaque, Sommeil, Entraînements).",
           "Si des autorisations manquent, activez-les et accordez-les.",
         ],
+        pl: [
+          "Otwórz **Health Connect** (wyszukaj w szufladzie aplikacji lub w ustawieniach 'Health Connect').",
+          "Przejdź do **Uprawnienia aplikacji**.",
+          "Znajdź aplikację, która nie synchronizuje (np. FitMesh Sync, Garmin Connect, Samsung Health).",
+          "Stuknij aplikację i sprawdź, czy ma uprawnienia **odczytu** i **zapisu** dla wszystkich oczekiwanych typów danych (Kroki, Tętno, Sen, Treningi).",
+          "Jeśli brakuje uprawnień, włącz je i zatwierdź.",
+        ],
+        tr: [
+          "**Health Connect**'i açın (uygulama çekmecesinde veya ayarlarda 'Health Connect' olarak arayın).",
+          "**Uygulama izinleri**'ne gidin.",
+          "Senkronize olmayan uygulamayı bulun (örn. FitMesh Sync, Garmin Connect, Samsung Health).",
+          "Uygulamaya dokunun ve beklediğiniz tüm veri türleri için **okuma** ve **yazma** izinlerine sahip olduğunu doğrulayın (Adımlar, Nabız, Uyku, Antrenmanlar).",
+          "İzinler eksikse etkinleştirin ve verin.",
+        ],
       },
     },
     {
@@ -275,6 +347,8 @@ export const post: BlogPost = {
         de: "Die Akkuoptimierung von Android ist der stille Killer der Hintergrundsynchronisierung. Wenn Android eine App in den Tiefschlaf versetzt, kann sie weder aus Health Connect lesen noch darin schreiben. Die Lösung: Schließen Sie sowohl die Quell-App (Samsung Health, Garmin Connect) als auch die Lese-App von der Optimierung aus.",
         pt: "A otimização de bateria do Android é a principal sabotadora silenciosa da sincronização em segundo plano. Quando o Android coloca um app em modo de hibernação profunda, ele não consegue ler nem gravar no Health Connect. A solução: exclua da otimização tanto o app de origem (Samsung Health, Garmin Connect) quanto o app de leitura.",
         fr: "L'optimisation de la batterie d'Android est l'ennemi silencieux de la synchronisation en arrière-plan. Quand Android met une application en veille profonde, celle-ci ne peut ni lire ni écrire dans Health Connect. La solution: excluez de l'optimisation à la fois l'application source (Samsung Health, Garmin Connect) et l'application de lecture.",
+        pl: "Optymalizacja baterii Androida to cichy zabójca synchronizacji w tle. Gdy Android uśpi aplikację, nie może ona ani odczytywać, ani zapisywać danych w Health Connect. Rozwiązanie: wyklucz z optymalizacji zarówno aplikację źródłową (Samsung Health, Garmin Connect), jak i aplikację odczytującą.",
+        tr: "Android'in pil optimizasyonu, arka plan senkronizasyonunun sessiz katilidir. Android bir uygulamayı derin uyku moduna geçirdiğinde, uygulama Health Connect'e ne okuyabilir ne de yazabilir. Çözüm: hem kaynak uygulamayı (Samsung Health, Garmin Connect) hem de okuma uygulamasını optimizasyon dışında tutun.",
       },
     },
     {
@@ -317,6 +391,18 @@ export const post: BlogPost = {
           "Sélectionnez **Ne pas optimiser** (ou sur Samsung: appuyez sur le nom de l'app → 'Sans restriction').",
           "Répétez l'opération pour chaque application de la chaîne de synchronisation.",
         ],
+        pl: [
+          "**Ustawienia** → **Bateria** → **Optymalizacja baterii** (lub 'Oszczędzanie energii' na Samsung).",
+          "Wyszukaj aplikację (Samsung Health, Garmin Connect lub inną zaangażowaną aplikację).",
+          "Wybierz **Nie optymalizuj** (lub na Samsung: stuknij nazwę aplikacji → 'Bez ograniczeń').",
+          "Powtórz dla każdej aplikacji w łańcuchu synchronizacji.",
+        ],
+        tr: [
+          "**Ayarlar** → **Pil** → **Pil optimizasyonu** (Samsung'da 'Güç tasarrufu').",
+          "Uygulamayı arayın (Samsung Health, Garmin Connect veya ilgili diğer uygulama).",
+          "**Optimize etme**'yi seçin (veya Samsung'da: uygulama adına dokunun → 'Kısıtsız').",
+          "Senkronizasyon zincirindeki her uygulama için tekrarlayın.",
+        ],
       },
     },
     {
@@ -329,6 +415,8 @@ export const post: BlogPost = {
         de: "Lösung 3: Synchronisierung aus der Quell-App erzwingen",
         pt: "Solução 3: Force a sincronização pelo app de origem",
         fr: "Solution 3: Forcer la synchronisation depuis l'application source",
+        pl: "Rozwiązanie 3: Wymuś synchronizację z aplikacji źródłowej",
+        tr: "Çözüm 3: Kaynak uygulamadan zorla senkronize edin",
       },
     },
     {
@@ -340,6 +428,8 @@ export const post: BlogPost = {
         de: "Viele Apps (Samsung Health, Garmin Connect, Fitbit) schreiben nicht in Echtzeit in Health Connect: Sie tun es in Intervallen oder beim Öffnen. Die App manuell zu öffnen und die Aktualisierung abzuwarten, reicht oft aus.",
         pt: "Muitos apps (Samsung Health, Garmin Connect, Fitbit) não gravam no Health Connect em tempo real: fazem isso em intervalos ou quando são abertos. Abrir o app manualmente e aguardar a atualização costuma ser suficiente.",
         fr: "De nombreuses applications (Samsung Health, Garmin Connect, Fitbit) n'écrivent pas dans Health Connect en temps réel: elles le font à intervalles ou à l'ouverture. Ouvrir manuellement l'application et la laisser se mettre à jour suffit souvent.",
+        pl: "Wiele aplikacji (Samsung Health, Garmin Connect, Fitbit) nie zapisuje danych do Health Connect w czasie rzeczywistym: robi to w odstępach czasu lub przy otwarciu. Ręczne otworzenie aplikacji i poczekanie na aktualizację często wystarczy.",
+        tr: "Birçok uygulama (Samsung Health, Garmin Connect, Fitbit) Health Connect'e gerçek zamanlı yazmaz: bunu aralıklarla veya açıldığında yapar. Uygulamayı manuel olarak açmak ve güncellenmesini beklemek çoğu zaman yeterlidir.",
       },
     },
     {
@@ -375,6 +465,16 @@ export const post: BlogPost = {
           "**Garmin Connect**: ouvrez l'application. Garmin écrit dans Health Connect après chaque synchronisation avec la montre. Vérifiez: Garmin Connect → Paramètres → Health Connect → Health Connect activé.",
           "**Fitbit**: ouvrez l'application et attendez qu'elle se synchronise avec l'appareil. Fitbit écrit dans Health Connect après chaque synchronisation réussie.",
         ],
+        pl: [
+          "**Samsung Health**: otwórz aplikację, przejdź do ekranu głównego. Przesuń w dół, aby odświeżyć. Następnie przejdź do Ustawień → Health Connect i sprawdź, czy 'Synchronizuj z Health Connect' jest włączone.",
+          "**Garmin Connect**: otwórz aplikację. Garmin zapisuje dane do Health Connect po każdej synchronizacji z zegarkiem. Sprawdź: Garmin Connect → Ustawienia → Health Connect → Health Connect włączony.",
+          "**Fitbit**: otwórz aplikację i poczekaj, aż zsynchronizuje się z urządzeniem. Fitbit zapisuje dane do Health Connect po każdej udanej synchronizacji.",
+        ],
+        tr: [
+          "**Samsung Health**: uygulamayı açın, ana ekrana gidin. Yenilemek için aşağı kaydırın. Ardından Ayarlar → Health Connect'e gidin ve 'Health Connect ile senkronize et' seçeneğinin etkin olduğunu doğrulayın.",
+          "**Garmin Connect**: uygulamayı açın. Garmin, saatla her senkronizasyondan sonra Health Connect'e yazar. Kontrol edin: Garmin Connect → Ayarlar → Health Connect → Health Connect etkin.",
+          "**Fitbit**: uygulamayı açın ve cihazla senkronize olmasını bekleyin. Fitbit, her başarılı senkronizasyondan sonra Health Connect'e yazar.",
+        ],
       },
     },
     {
@@ -387,6 +487,8 @@ export const post: BlogPost = {
         de: "Lösung 4: Cache von Health Connect leeren",
         pt: "Solução 4: Limpe o cache do Health Connect",
         fr: "Solution 4: Vider le cache de Health Connect",
+        pl: "Rozwiązanie 4: Wyczyść pamięć podręczną Health Connect",
+        tr: "Çözüm 4: Health Connect önbelleğini temizleyin",
       },
     },
     {
@@ -399,6 +501,8 @@ export const post: BlogPost = {
         de: "Cache leeren ≠ Daten löschen",
         pt: "Limpar cache ≠ apagar dados",
         fr: "Vider le cache ≠ supprimer les données",
+        pl: "Czyszczenie pamięci podręcznej ≠ usuwanie danych",
+        tr: "Önbelleği temizlemek ≠ verileri silmek",
       },
       body: {
         it: "La cache di Health Connect sono file temporanei. Svuotarla non cancella i tuoi dati salute. I dati rimangono nel database interno. Se invece cancelli 'Archiviazione' completa (non cache), i dati vengono persi. Questa guida parla solo della cache.",
@@ -407,6 +511,8 @@ export const post: BlogPost = {
         de: "Der Cache von Health Connect enthält temporäre Dateien. Das Leeren löscht KEINE Gesundheitsdaten. Die Daten verbleiben in der internen Datenbank. Wenn Sie hingegen den gesamten 'Speicher' (nicht nur den Cache) löschen, gehen die Daten verloren. Diese Anleitung behandelt ausschließlich den Cache.",
         pt: "O cache do Health Connect são arquivos temporários. Limpá-lo NÃO apaga seus dados de saúde. Os dados permanecem no banco de dados interno. Se você limpar o 'Armazenamento' completo (não o cache), os dados serão perdidos. Este guia trata apenas do cache.",
         fr: "Le cache de Health Connect contient des fichiers temporaires. Le vider ne supprime PAS vos données de santé. Les données restent dans la base de données interne. Si vous effacez l'intégralité du 'Stockage' (pas seulement le cache), les données sont perdues. Ce guide ne concerne que le cache.",
+        pl: "Pamięć podręczna Health Connect to pliki tymczasowe. Wyczyszczenie jej NIE usuwa Twoich danych zdrowotnych. Dane pozostają w wewnętrznej bazie danych. Jeśli wyczyścisz całe 'Przechowywanie' (nie pamięć podręczną), dane zostaną utracone. Ten poradnik dotyczy tylko pamięci podręcznej.",
+        tr: "Health Connect önbelleği geçici dosyalardır. Temizlemek sağlık verilerinizi SİLMEZ. Veriler iç veritabanında kalır. 'Depolama' alanının tamamını temizlerseniz (önbellek değil), veriler kaybolur. Bu rehber yalnızca önbelleği kapsar.",
       },
     },
     {
@@ -449,6 +555,18 @@ export const post: BlogPost = {
           "Appuyez sur **Vider le cache** (PAS sur 'Effacer les données').",
           "Rouvrez Health Connect et laissez-le se réinitialiser.",
         ],
+        pl: [
+          "**Ustawienia** → **Aplikacje** → znajdź **Health Connect** (może być pod 'Wszystkie aplikacje').",
+          "Stuknij **Przechowywanie i pamięć podręczna**.",
+          "Stuknij **Wyczyść pamięć podręczną** (NIE 'Wyczyść dane').",
+          "Otwórz ponownie Health Connect i poczekaj na reinicjalizację.",
+        ],
+        tr: [
+          "**Ayarlar** → **Uygulamalar** → **Health Connect**'i bulun ('Tüm uygulamalar' altında olabilir).",
+          "**Depolama ve önbellek**'e dokunun.",
+          "**Önbelleği temizle**'ye dokunun ('Verileri temizle' DEĞİL).",
+          "Health Connect'i yeniden açın ve yeniden başlatılmasını bekleyin.",
+        ],
       },
     },
     {
@@ -461,6 +579,8 @@ export const post: BlogPost = {
         de: "Lösung 5 (Samsung): direkte Verbindung Samsung Health → Health Connect",
         pt: "Solução 5 (Samsung): conexão direta Samsung Health → Health Connect",
         fr: "Solution 5 (Samsung): connexion directe Samsung Health vers Health Connect",
+        pl: "Rozwiązanie 5 (Samsung): bezpośrednie połączenie Samsung Health - Health Connect",
+        tr: "Çözüm 5 (Samsung): Samsung Health - Health Connect doğrudan bağlantısı",
       },
     },
     {
@@ -472,6 +592,8 @@ export const post: BlogPost = {
         de: "Auf Samsung-Geräten verfügt Samsung Health über eine eigene dedizierte Verbindung zu Health Connect, die von der normalen Hintergrundsynchronisierung getrennt ist. Wenn diese Verbindung beschädigt ist, besteht die Lösung darin, sie zu trennen und neu herzustellen:",
         pt: "Em dispositivos Samsung, o Samsung Health possui seu próprio pipeline dedicado ao Health Connect, separado da sincronização normal em segundo plano. Se esse pipeline estiver com problema, a solução é desconectar e reconectar:",
         fr: "Sur les appareils Samsung, Samsung Health dispose de son propre canal dédié vers Health Connect, distinct de la synchronisation normale en arrière-plan. Si ce canal est endommagé, la solution consiste à le déconnecter et à le reconnecter:",
+        pl: "Na urządzeniach Samsung, Samsung Health ma własny dedykowany potok do Health Connect, oddzielony od normalnej synchronizacji w tle. Jeśli ten potok jest uszkodzony, rozwiązaniem jest rozłączenie i ponowne połączenie:",
+        tr: "Samsung cihazlarda Samsung Health'in, normal arka plan senkronizasyonundan ayrı, Health Connect'e adanmış kendi bağlantı hattı vardır. Bu hat bozulursa çözüm, bağlantıyı kesip yeniden bağlamaktır:",
       },
     },
     {
@@ -520,6 +642,20 @@ export const post: BlogPost = {
           "Vérifiez que tous les types de données sont sélectionnés (Pas, Fréquence cardiaque, Sommeil, etc.).",
           "Revenez à l'écran principal de Samsung Health et attendez 1 à 2 minutes.",
         ],
+        pl: [
+          "Otwórz **Samsung Health** → stuknij trzy kropki w prawym górnym rogu → **Ustawienia**.",
+          "Przewiń do **Health Connect** → stuknij.",
+          "Wyłącz połączenie → włącz ponownie po 10 sekundach.",
+          "Sprawdź, czy wszystkie typy danych są zaznaczone (Kroki, Tętno, Sen itp.).",
+          "Wróć do głównego ekranu Samsung Health i poczekaj 1-2 minuty.",
+        ],
+        tr: [
+          "**Samsung Health**'i açın → sağ üstteki üç noktaya dokunun → **Ayarlar**.",
+          "**Health Connect**'e kadar kaydırın → üzerine dokunun.",
+          "Bağlantıyı devre dışı bırakın → 10 saniye sonra yeniden etkinleştirin.",
+          "Tüm veri türlerinin seçili olduğunu doğrulayın (Adımlar, Nabız, Uyku vb.).",
+          "Samsung Health ana ekranına dönün ve 1-2 dakika bekleyin.",
+        ],
       },
     },
     {
@@ -532,6 +668,8 @@ export const post: BlogPost = {
         de: "Lösung 6: Health Connect auf die neueste Version aktualisieren",
         pt: "Solução 6: Atualize o Health Connect para a versão mais recente",
         fr: "Solution 6: Mettre à jour Health Connect vers la dernière version",
+        pl: "Rozwiązanie 6: Zaktualizuj Health Connect do najnowszej wersji",
+        tr: "Çözüm 6: Health Connect'i en son sürüme güncelleyin",
       },
     },
     {

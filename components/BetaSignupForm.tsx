@@ -2,14 +2,15 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 
+import type { Locale } from "@/lib/i18n";
+
 type Status = "idle" | "submitting" | "success" | "error";
-type Locale = "it" | "en" | "es" | "de" | "pt" | "fr";
 
 interface Props {
   locale: Locale;
 }
 
-const T: Record<Locale, Record<string, string>> = {
+const T = {
   it: {
     emailLabel: "La tua email",
     emailPh: "tu@esempio.it",
@@ -238,6 +239,82 @@ const T: Record<Locale, Record<string, string>> = {
       "Nous enregistrons l'e-mail et les métadonnées pour gérer la liste bêta. Pas de marketing. Suppression sur demande à",
     legalEmail: "privacy@fitmesh.fit",
   },
+  pl: {
+    emailLabel: "Twój adres e-mail",
+    emailPh: "ty@przyklad.pl",
+    emailInvalid: "Podaj prawidlowy adres e-mail (np. imie@domena.pl)",
+    emailRequired: "Adres e-mail jest wymagany",
+    googleLabel: "E-mail konta Google (jesli inny)",
+    googleHelp: "Ten, ktorego uzywasz w Play Store: recznie dodamy Cie do listy beta testerow.",
+    googlePh: "ty@gmail.com",
+    googleInvalid: "Podaj prawidlowy adres e-mail Google",
+    reasonLabel: "Dlaczego interesuje Cie FitMesh? (opcjonalnie)",
+    reasonPh: "Np. mam Galaxy Watch 7, a Samsung Health jest zbyt ograniczony...",
+    reasonCounter: "znakow",
+    referralLabel: "Skad nas znasz?",
+    referralSelect: "Wybierz...",
+    referralInstagram: "Instagram",
+    referralLinkedin: "LinkedIn",
+    referralFriend: "Znajomy / polecenie",
+    referralSearch: "Wyszukiwarka Google",
+    referralPress: "Artykul / blog",
+    referralOther: "Inne",
+    deviceLabel: "Glowny smartwatch (opcjonalnie)",
+    deviceSelect: "Wybierz...",
+    submit: "Powiadom mnie o premierze iOS",
+    submitting: "Wysylanie...",
+    successTitle: "Jestes na liscie!",
+    successText:
+      "Napisze do Ciebie, gdy tylko wersja iOS bedzie dostepna: founderzy otrzymuja dostep jako pierwsi.",
+    errorAlready: "Ten adres e-mail jest juz zarejestrowany.",
+    errorGeneric: "Cos poszlo nie tak. Sprobuj ponownie za chwile.",
+    errorBot: "Weryfikacja anty-bot nie powiodla sie. Odswiez strone i sprobuj ponownie.",
+    errorRate: "Zbyt wiele zapytan. Sprobuj ponownie za kilka minut.",
+    consentLabel: "Zapoznalem/am sie i akceptuje",
+    consentLink: "Polityke prywatnosci",
+    consentRequired: "Musisz zaakceptowac Polityke prywatnosci, aby wyslac formularz",
+    legalText:
+      "Przechowujemy adres e-mail i metadane w celu zarzadzania lista beta. Bez marketingu. Usuniecie danych na zadanie:",
+    legalEmail: "privacy@fitmesh.fit",
+  },
+  tr: {
+    emailLabel: "E-posta adresiniz",
+    emailPh: "siz@ornek.com",
+    emailInvalid: "Gecerli bir e-posta adresi girin (ornek: ad@alan.com)",
+    emailRequired: "E-posta adresi zorunludur",
+    googleLabel: "Google hesap e-postaniz (farkli ise)",
+    googleHelp: "Play Store'da kullandiginiz e-posta: sizi beta test listesine manuel olarak ekleyecegiz.",
+    googlePh: "siz@gmail.com",
+    googleInvalid: "Gecerli bir Google e-postasi girin",
+    reasonLabel: "FitMesh'e neden ilgi duyuyorsunuz? (opsiyonel)",
+    reasonPh: "Ornegin Galaxy Watch 7'm var ve Samsung Health cok kisitli...",
+    reasonCounter: "karakter",
+    referralLabel: "Bizi nasil buldunuz?",
+    referralSelect: "Secin...",
+    referralInstagram: "Instagram",
+    referralLinkedin: "LinkedIn",
+    referralFriend: "Arkadastan / tavsiye",
+    referralSearch: "Google arama",
+    referralPress: "Makale / blog",
+    referralOther: "Diger",
+    deviceLabel: "Ana akilli saatiniz (opsiyonel)",
+    deviceSelect: "Secin...",
+    submit: "iOS lansmaninda beni haberdar et",
+    submitting: "Gonderiliyor...",
+    successTitle: "Listedesiniz!",
+    successText:
+      "iOS surumu hazir olur olmaz size yazacagim: founderlar erisimi ilk alan olur.",
+    errorAlready: "Bu e-posta adresi zaten kayitli.",
+    errorGeneric: "Bir seyler yanlis gitti. Lutfen biraz sonra tekrar deneyin.",
+    errorBot: "Anti-bot dogrulamasi basarisiz oldu. Sayfayi yenileyin ve tekrar deneyin.",
+    errorRate: "Cok fazla istek. Birkaç dakika sonra tekrar deneyin.",
+    consentLabel: "Okudum ve kabul ediyorum:",
+    consentLink: "Gizlilik Politikasi",
+    consentRequired: "Formu gondermek icin Gizlilik Politikasini kabul etmelisiniz",
+    legalText:
+      "Beta listesini yonetmek icin e-posta ve meta verileri sakliyoruz. Pazarlama yapilmaz. Silme talebi icin:",
+    legalEmail: "privacy@fitmesh.fit",
+  },
 };
 
 const DEVICES = [
@@ -280,7 +357,7 @@ function borderClass(state: FieldState, touched: boolean): string {
 }
 
 export default function BetaSignupForm({ locale }: Props) {
-  const t = T[locale];
+  const t = T[(locale in T ? locale : "en") as keyof typeof T];
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [spots, setSpots] = useState<{ taken: number; total: number } | null>(null);

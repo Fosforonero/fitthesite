@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-type Locale = "it" | "en" | "es" | "de" | "pt" | "fr";
+import type { Locale } from "@/lib/i18n";
 
 const COPY: Record<Locale, { taken: string; left: (n: number) => string }> = {
   it: { taken: "posti founder occupati", left: (n) => `restano ${n} posti` },
@@ -11,6 +10,11 @@ const COPY: Record<Locale, { taken: string; left: (n: number) => string }> = {
   de: { taken: "Founder-Plätze belegt", left: (n) => `noch ${n} Plätze frei` },
   pt: { taken: "vagas founder ocupadas", left: (n) => `restam ${n} vagas` },
   fr: { taken: "places founder prises", left: (n) => `${n} places restantes` },
+  pl: { taken: "miejsc founder zajętych", left: (n) => `pozostało ${n} miejsc` },
+  tr: { taken: "kurucu yeri doldu", left: (n) => `${n} yer kaldi` },
+  nl: { taken: "founder plekken bezet", left: (n) => `${n} plekken over` },
+  ja: { taken: "ファウンダー枠埋まり", left: (n) => `残り${n}枠` },
+  ko: { taken: "파운더 자리 차있음", left: (n) => `${n}자리 남음` },
 };
 
 /**

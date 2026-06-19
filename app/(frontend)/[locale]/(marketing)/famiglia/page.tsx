@@ -22,7 +22,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
-import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 
 const SITE_URL = "https://www.fitmesh.fit";
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
@@ -735,6 +735,238 @@ const COPY = {
     final_cta_body:
       "Téléchargez FitMesh depuis le Play Store, créez le groupe familial et partagez le lien avec qui vous voulez. Ça fonctionne immédiatement, même si vos proches n'ouvrent pas l'app pendant des jours.",
   },
+  pl: {
+    hero_kicker: "Mesh Rodzina",
+    hero_h1: "Sprawdz, czy Twoi bliscy czuja sie dobrze, nie pytajac o to codziennie",
+    hero_sub:
+      "Tworzysz grupe, zapraszasz kogo chcesz (rodziców, partnera, dzieci) i widzisz w jednym panelu, kto dzis chodzil, kto malo spal, u kogo wzroslo tetno. Prywatnosc przede wszystkim: kazdy sam decyduje, co udostepnia.",
+    cta_primary: "Pobierz aplikacje",
+    cta_secondary: "Jak to dziala",
+    why_kicker: "Dlaczego warto",
+    why_h2: "Trzy sposoby na bycie blisko tych, którzy sa wazni",
+    why_items: [
+      {
+        title: "Samodzielni starsi rodzice",
+        body:
+          "Twoja mama mieszka sama i nosi Galaxy Watch, który jej podarowales. Nie chcesz byc nachalny, ale chcialbys wiedziec, czy przestala chodzic albo czy jej tetno spoczynkowe sie zmienia. Mesh Rodzina powie Ci o tym bez koniecznosci otwierania przez nia aplikacji ani wysylania wiadomosci.",
+      },
+      {
+        title: "Rodzina z nastolatkami",
+        body:
+          "Twoje dziecko ma Mi Band. Chcesz, zeby sie ruszalo, wysypialo i nie przeciazalo serca treningiem bez kontroli. Widzisz jego dane zdrowotne w swojej aplikacji: bez mediów spolecznosciowych, bez chatów, tylko liczby.",
+      },
+      {
+        title: "Partnerzy i malzonkowie",
+        body:
+          "Pracujecie w róznych miejscach i widujecie sie wieczorami. Wiedza, ze ona zrobila swoje 8000 kroków albo ze on dobrze spal, to maly sposób na dbanie o siebie na odleglosc.",
+      },
+    ],
+    how_kicker: "Jak to dziala",
+    how_h2: "Trzy kroki, dwie minuty",
+    how_steps: [
+      {
+        title: "Tworzysz grupe rodzinna",
+        body:
+          "W aplikacji FitMesh dotknij 'Mesh Rodzina' → 'Utwórz grupe'. Nadaj jej nazwe (np. 'Rodzina Kowalskich'). Ty jestes administratorem.",
+      },
+      {
+        title: "Zapraszasz kogo chcesz przez link",
+        body:
+          "Aplikacja generuje kod MESH-XXXX i link do udostepnienia (WhatsApp, SMS, e-mail). Kto kliknie, pobiera aplikacje za darmo i dolacza. Do 3 czlonków bezplatnie, 8 z FitMesh Pro.",
+      },
+      {
+        title: "Kazdy wybiera, co udostepnia",
+        body:
+          "Domyslnie udostepniane: kroki, sen, tetno spoczynkowe, poziom aktywnosci. NIE udostepniane domyslnie: waga, cisnienie, cykl, glikemia, lokalizacja. Mozna zmienic w dowolnym momencie w aplikacji.",
+      },
+    ],
+    privacy_kicker: "Prywatnosc i kontrola",
+    privacy_h2: "Co widzisz i czego NIGDY nie widzisz",
+    privacy_columns: [
+      {
+        title: "Co widzi administrator grupy",
+        items: [
+          "Imie, które wybralo wybrany przez czlonka (np. 'Mama', 'Luca')",
+          "Dzienna liczba kroków",
+          "Laczna liczba godzin snu",
+          "Srednie i spoczynkowe tetno",
+          "Ogólny poziom aktywnosci (niski/sredni/wysoki)",
+        ],
+        color: "brand-aqua",
+      },
+      {
+        title: "Czego NIGDY nie widac",
+        items: [
+          "Lokalizacja geograficzna czlonka",
+          "Waga i sklad ciala",
+          "Cykl miesiaczkowy",
+          "Cisnienie, glikemia, wrazliwe dane medyczne",
+          "Powiadomienia, wiadomosci, kontakty z telefonu",
+        ],
+        color: "brand-green",
+      },
+    ],
+    techstack_h2: "Dziala ze wszystkimi noszonymi urzadzeniami, które juz macie",
+    techstack_body:
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Jesli ktos z was ma inne urzadzenie, wystarczy ze zapisuje dane do Health Connect (robia to wszystkie wieksze marki od 2024). Zadnego uzaleznienia od jednej marki.",
+    pricing_kicker: "Ile kosztuje",
+    pricing_h2: "Bezplatnie do 3 czlonków",
+    pricing_body:
+      "Plan bezplatny obejmuje Ciebie i 2 czlonków rodziny (3 lacznie). Z FitMesh Pro (jednorazowy zakup: 3,99 EUR na Androidzie · 4,99 EUR na iPhonie) odblokowujesz do 8 czlonków, rozszerzony histori oraz priorytetowa synchronizacje. Bez subskrypcji, bez wygaslych okresów próbnych, bez karty kredytowej.",
+    faq_kicker: "Czeste pytania",
+    faq_h2: "Watpliwosci i odpowiedzi",
+    faqs: [
+      {
+        q: "Moja mama/mój tata nie radzi sobie z technologia. Da rade uzyc aplikacji?",
+        a:
+          "Tak. Po zainstalowaniu aplikacji i kliknieciu w link zaproszenia, który wyslesz, nie musi robic nic wiecej. Aplikacja synchronizuje sie automatycznie w tle. Ty widzisz jego/jej dane w swojej aplikacji. On/ona nie musi juz nigdy wiecej jej otwierac.",
+      },
+      {
+        q: "Czy moge zobaczyc lokalizacje czlonków rodziny?",
+        a:
+          "Nie, nigdy. FitMesh Sync nie zbiera ani nie udostepnia danych o lokalizacji. Jesli potrzebujesz tego, skorzystaj z dedykowanej aplikacji, takiej jak Google Family Link.",
+      },
+      {
+        q: "Co sie dzieje, gdy czlonek chce opuscic grupe?",
+        a:
+          "Z jego telefonu: Mesh Rodzina → Ustawienia grupy → Opusc grupe. Jego dane historyczne sa natychmiast usuwane z widoku innych czlonków. Nie jest wymagana zgoda administratora.",
+      },
+      {
+        q: "Czy dane zdrowotne mojej rodziny sa bezpieczne?",
+        a:
+          "Tak. Wszystko szyfrowane przez HTTPS/TLS. Przechowywanie na Supabase EU (Frankfurt). Dostep ograniczony do konkretnej grupy przez Row-Level Security w Postgres. Brak brokerów danych, brak reklam profilowanych. Pelna zgodnosc z RODO.",
+      },
+      {
+        q: "Czy to jest urzadzenie medyczne?",
+        a:
+          "Nie. FitMesh Sync to aplikacja fitness i wellness. NIE zastepuje lekarza ani nie diagnozuje chorób. W przypadku jakichkolwiek watpliwosci klinicznych zawsze skonsultuj sie ze swoim lekarzem.",
+      },
+      {
+        q: "Ile osób moge zaprosic?",
+        a:
+          "Plan bezplatny: 3 lacznie (wlaczajac Ciebie). Pro (3,99 EUR Android · 4,99 EUR iPhone): do 8 czlonków.",
+      },
+    ],
+    final_cta_h2: "Zacznij dzis: 3 minuty na stworzenie pierwszej grupy",
+    final_cta_body:
+      "Pobierz FitMesh ze sklepu Play Store, utwórz grupe rodzinna i udostepnij link komu chcesz. Dziala od razu, nawet jesli Twoi bliscy nie otwieraja aplikacji przez kilka dni.",
+  },
+  tr: {
+    hero_kicker: "Mesh Aile",
+    hero_h1: "Yakinlarinizin iyi olup olmadigini her gün sormadan ögrenir misiniz",
+    hero_sub:
+      "Bir grup olusturursunuz, istediginiz kisiyi davet edersiniz (ebeveynler, partner, cocuklar) ve tek bir panelde bugün kimin yürüdügünü, kimin az uyudugunu, kimin kalp hizinin arttigini görürsünüz. Gizlilik önce gelir: herkes neyi paylasmak istedigine kendisi karar verir.",
+    cta_primary: "Uygulamayi indir",
+    cta_secondary: "Nasil calisir",
+    why_kicker: "Neden gerekli",
+    why_h2: "Önemli kisilerle yakin kalmak icin üc yol",
+    why_items: [
+      {
+        title: "Bagimsiz yasli ebeveynler",
+        body:
+          "Anneniz yalniz yasiyor ve ona hediye ettiginiz Galaxy Watch'u takiyor. Müdahaleci olmak istemiyorsunuz ama yürümeyi birakip birakmadigini ya da dinlenme kalp hizinin degisip degismedigini bilmek istiyorsunuz. Mesh Aile bunu ona bir uygulama actirmaniza ya da mesaj gondertmenize gerek kalmadan size söyler.",
+      },
+      {
+        title: "Ergenlik caginda cocugu olan aileler",
+        body:
+          "Cocugunuzun Mi Band'i var. Hareket etmesini, yeterince uyumasini ve kontrol etmeksizin antrenman yaparak kalbini yormamasini istiyorsunuz. Saglik verilerini kendi uygulamanizda görün: sosyal medya yok, sohbet yok, sadece sayilar.",
+      },
+      {
+        title: "Esler ve partnerler",
+        body:
+          "Farkli yerlerde calisiyorsunuz ve aksamlari görüsüyorsunuz. Onun 8000 adimini tamamladigini ya da onun iyi uyudugunu bilmek, uzaktan birbirinize göz kulak olmanin küçük bir yoludur.",
+      },
+    ],
+    how_kicker: "Nasil calisir",
+    how_h2: "Üc adim, iki dakika",
+    how_steps: [
+      {
+        title: "Aile grubunu olusturun",
+        body:
+          "FitMesh uygulamasinda 'Mesh Aile' → 'Grup olustur' secenegine dokunun. Bir isim verin (örnegin 'Yilmaz Ailesi'). Yönetici sizsiniz.",
+      },
+      {
+        title: "Istediginiz kisiyi link ile davet edin",
+        body:
+          "Uygulama bir MESH-XXXX kodu ve paylasilabilir bir link olusturur (WhatsApp, SMS, e-posta). Tiklayan kisi uygulamayi ücretsiz indirir ve katilir. 3 üyeye kadar ücretsiz, 8 üyeye kadar FitMesh Pro ile.",
+      },
+      {
+        title: "Herkes neyi paylasmak istedigini secer",
+        body:
+          "Varsayilan olarak paylasilan: adimlar, uyku, dinlenme kalp hizi, aktivite seviyesi. Varsayilan olarak PAYLASILMAYAN: kilo, tansiyon, adet döngüsü, kan sekeri, konum. Uygulamadan istediginiz zaman degistirilebilir.",
+      },
+    ],
+    privacy_kicker: "Gizlilik ve kontrol",
+    privacy_h2: "Ne görürsünüz ve ASLA ne görmezsiniz",
+    privacy_columns: [
+      {
+        title: "Grup yöneticisinin gördükleri",
+        items: [
+          "Üyenin sectigi isim (örnegin 'Anne', 'Luca')",
+          "Günlük adim sayisi",
+          "Toplam uyku saatleri",
+          "Ortalama ve dinlenme kalp hizi",
+          "Genel aktivite seviyesi (düsük/orta/yüksek)",
+        ],
+        color: "brand-aqua",
+      },
+      {
+        title: "ASLA görülmeyenler",
+        items: [
+          "Üyenin cografi konumu",
+          "Kilo ve vücut kompozisyonu",
+          "Adet döngüsü",
+          "Tansiyon, kan sekeri, hassas saglik verileri",
+          "Telefonun bildirimleri, mesajlari ve kisileri",
+        ],
+        color: "brand-green",
+      },
+    ],
+    techstack_h2: "Zaten sahip oldugunuz tüm giyilebilirlerle calisir",
+    techstack_body:
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Grubunuzdan birinin farkli bir giyilebiliri varsa, verileri Health Connect'e yazması yeterlidir (tüm büyük markalar bunu 2024'ten beri yapiyor). Herhangi bir markaya bagli kalma zorunlulugu yok.",
+    pricing_kicker: "Ne kadar tutar",
+    pricing_h2: "3 üyeye kadar ücretsiz",
+    pricing_body:
+      "Ücretsiz plan sizi ve 2 aile üyenizi kapsar (toplam 3 kisi). FitMesh Pro ile (tek seferlik satin alma: Android'de 3,99 EUR · iPhone'da 4,99 EUR) 8 üyeye kadar, genisletilmis gecmis ve senkronizasyon önceligi elde edersiniz. Abonelik yok, süresi dolmus deneme yok, kredi karti gerekmiyor.",
+    faq_kicker: "Sik sorulan sorular",
+    faq_h2: "Sorular ve yanitlar",
+    faqs: [
+      {
+        q: "Annem/babam teknolojiyi pek bilmiyor. Kullanabilir mi?",
+        a:
+          "Evet. Uygulama yüklendikten ve gonderdiginiz davet linkine tiklandiktan sonra baska bir sey yapmasi gerekmiyor. Uygulama arka planda otomatik olarak senkronize olur. Onlarin verilerini kendi uygulamanizda görürsünüz. Onlarin bir daha uygulamayi acmasi gerekmiyor.",
+      },
+      {
+        q: "Aile üyelerinin konumunu görebilir miyim?",
+        a:
+          "Hayir, asla. FitMesh Sync konum verisi toplamaz veya paylasmaz. Buna ihtiyaciniz varsa Google Family Link gibi özel bir uygulama kullanin.",
+      },
+      {
+        q: "Bir üye gruptan ayrilmak isterse ne olur?",
+        a:
+          "Kendi telefonundan: Mesh Aile → Grup ayarlari → Gruptan ayril. Gecmis verileri diger üyelerin görünümünden aninda kaldirilir. Yönetici onayi gerekmez.",
+      },
+      {
+        q: "Ailemi saglik verileri güvende mi?",
+        a:
+          "Evet. Her sey HTTPS/TLS ile sifrelenmistir. Supabase EU (Frankfurt) üzerinde depolama. Postgres'teki Row-Level Security ile belirli grupla sinirli erisim. Veri brokeri yok, profil reklamciligi yok. Tam GDPR uyumlulugu.",
+      },
+      {
+        q: "Bu bir tibbi cihaz mi?",
+        a:
+          "Hayir. FitMesh Sync bir fitness ve yasam tarzi uygulamasidir. Doktor YERINI TUTMAZ ve hastaliklari teshis etmez. Herhangi bir saglik endisesi icin her zaman doktorunuza basvurun.",
+      },
+      {
+        q: "Kac kisi davet edebilirim?",
+        a:
+          "Ücretsiz plan: toplam 3 (siz dahil). Pro (3,99 EUR Android · 4,99 EUR iPhone): 8 üyeye kadar.",
+      },
+    ],
+    final_cta_h2: "Bugün baslayin: ilk grubu olusturmak 3 dakika",
+    final_cta_body:
+      "FitMesh'i Play Store'dan indirin, aile grubunu olusturun ve linki istediginiz kisinle paylasin. Aile üyeleriniz günlerce uygulamayi acmasa bile hemen calisir.",
+  },
 } as const;
 
 export function generateStaticParams() {
@@ -761,6 +993,10 @@ export async function generateMetadata({
         ? "Mesh Família — Em breve | FitMesh Sync"
         : lc === "fr"
         ? "Mesh Famille — Bientôt disponible | FitMesh Sync"
+        : lc === "pl"
+        ? "Mesh Rodzina — Wkrótce | FitMesh Sync"
+        : lc === "tr"
+        ? "Mesh Aile — Cok yakinda | FitMesh Sync"
         : "Family Mesh — Coming soon | FitMesh Sync")
     : (lc === "it"
         ? "Mesh Famiglia — Monitora la salute dei tuoi cari | FitMesh Sync"
@@ -772,6 +1008,10 @@ export async function generateMetadata({
         ? "Mesh Família — Acompanhe a saúde de quem você ama | FitMesh Sync"
         : lc === "fr"
         ? "Mesh Famille — Suivez la santé de vos proches | FitMesh Sync"
+        : lc === "pl"
+        ? "Mesh Rodzina — Monitoruj zdrowie swoich bliskich | FitMesh Sync"
+        : lc === "tr"
+        ? "Mesh Aile — Yakinlarinizin sagligini takip edin | FitMesh Sync"
         : "Family Mesh — Monitor your loved ones' health | FitMesh Sync");
   const description = COMING_SOON
     ? (lc === "it"
@@ -784,6 +1024,10 @@ export async function generateMetadata({
         ? "Mesh Família: acompanhe passos, sono e frequência cardíaca de quem você ama em um painel com privacidade em primeiro lugar. Em breve: entre na lista de espera para ser avisado no lançamento."
         : lc === "fr"
         ? "Mesh Famille: suivez les pas, le sommeil et la fréquence cardiaque de vos proches dans un tableau de bord axé sur la confidentialité. Bientôt disponible: rejoignez la liste d'attente pour être informé au lancement."
+        : lc === "pl"
+        ? "Mesh Rodzina: sledz kroki, sen i tetno swoich bliskich w jednym panelu z prywatnoscią na pierwszym miejscu. Wkrótce: dolacz do listy oczekujacych, aby otrzymac powiadomienie przy starcie."
+        : lc === "tr"
+        ? "Mesh Aile: yakinlarinizin adimlarini, uyku ve kalp hizini gizlilik öncelikli tek bir panelde takip edin. Cok yakinda: lansmanda bildirim almak icin bekleme listesine kaydolun."
         : "Family Mesh: monitor steps, sleep and heart rate of your loved ones in one privacy-first dashboard. Coming in the next months: join the waitlist to be notified at launch.")
     : (lc === "it"
         ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, gratis fino a 3 membri, niente posizione condivisa."
@@ -795,6 +1039,10 @@ export async function generateMetadata({
         ? "Mesh Família permite ver passos, sono e frequência cardíaca de pais, parceiro ou filhos em um único painel. Privacidade em primeiro lugar, grátis para até 3 membros, sem compartilhamento de localização."
         : lc === "fr"
         ? "Mesh Famille vous permet de voir les pas, le sommeil et la fréquence cardiaque de parents, partenaire ou enfants dans un tableau de bord. Confidentialité d'abord, gratuit pour 3 membres, sans localisation partagée."
+        : lc === "pl"
+        ? "Mesh Rodzina pozwala zobaczyc kroki, sen i tetno rodziców, partnera lub dzieci w jednym panelu. Prywatnosc na pierwszym miejscu, bezplatnie dla 3 czlonków, bez udostepniania lokalizacji."
+        : lc === "tr"
+        ? "Mesh Aile ebeveynlerinizin, partnerinizin veya cocuklarinizin adim, uyku ve kalp hizini tek panelde görmenizi saglar. Gizlilik önce gelir, 3 üyeye kadar ücretsiz, konum paylasimsiz."
         : "Family Mesh lets you see steps, sleep, and heart rate of parents, partners or kids in one dashboard. Privacy-first, free up to 3 members, no location sharing.");
 
   return {
@@ -802,12 +1050,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${SITE_URL}/${lc}/famiglia`,
-      languages: {
-        it: `${SITE_URL}/it/famiglia`,
-        en: `${SITE_URL}/en/famiglia`,
-        es: `${SITE_URL}/es/famiglia`,
-        "x-default": `${SITE_URL}/it/famiglia`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/famiglia`),
     },
     openGraph: {
       type: "website",
@@ -835,6 +1078,8 @@ export default async function FamigliaLanding({
     : lc === "de" ? "Mesh Familie"
     : lc === "pt" ? "Mesh Família"
     : lc === "fr" ? "Mesh Famille"
+    : lc === "pl" ? "Mesh Rodzina"
+    : lc === "tr" ? "Mesh Aile"
     : "Family Mesh";
 
   // JSON-LD WebPage — usato in entrambi gli stati (full + coming-soon).
@@ -862,7 +1107,8 @@ export default async function FamigliaLanding({
     return <ComingSoonState lc={lc} crumbName={crumbName} path={path} webPageLd={webPageLd} />;
   }
 
-  const t = COPY[lc];
+  const copyKey = (lc in COPY ? lc : "en") as keyof typeof COPY;
+  const t = COPY[copyKey];
   const faqLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",

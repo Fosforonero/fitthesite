@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Les applications qui nécessitent un Bluetooth toujours actif ou qui lisent les données par scraping sont fragiles par construction.",
       "Pour les utilisateurs de l'UE, vérifier où les données sont traitées n'est pas optionnel: les données de santé sont des données sensibles au sens du RGPD.",
     ],
+    pl: [
+      "Health Connect to standardowa warstwa danych na Androidzie: najlepsza aplikacja synchronizacji to ta, która odczytuje ją natywnie.",
+      "Najczęstsze problemy to nie brakujące funkcje, ale zduplikowane dane i synchronizacje zrywające się po aktualizacji Androida lub urządzenia wearable.",
+      "Pierwsza kontrola: sprawdź, czy aplikacja widnieje na liście uprawnień Health Connect. Jeśli nie, nie instaluj jej.",
+      "Aplikacje wymagające stale włączonego Bluetooth lub odczytujące dane przez scraping są z natury niestabilne.",
+      "Dla użytkowników z UE sprawdzenie, gdzie przetwarzane są dane, nie jest opcjonalne: dane zdrowotne to dane wrażliwe w rozumieniu RODO.",
+    ],
+    tr: [
+      "Health Connect, Android'deki standart veri katmanıdır: en iyi senkronizasyon uygulaması onu yerel olarak okuyan uygulamadır.",
+      "En yaygın sorunlar eksik özellikler değil, yinelenen veriler ve Android veya giyilebilir cihaz güncellemesinden sonra bozulan senkronizasyonlardır.",
+      "İlk kontrol: uygulamanın Health Connect izin listesinde görünüp görünmediğini kontrol edin. Yoksa kurmayın.",
+      "Her zaman açık Bluetooth gerektiren veya scraping yoluyla okuyan uygulamalar yapısal olarak kararsızdır.",
+      "AB kullanıcıları için verilerin nerede işlendiğini doğrulamak zorunludur: sağlık verileri GDPR kapsamında hassas veridir.",
+    ],
   },
   primaryKeyword: {
     it: "migliore app sincronizzazione salute android",
@@ -56,6 +70,8 @@ export const post: BlogPost = {
     es: "mejor app sincronización datos salud android",
     pt: "melhor app sincronização dados saúde android",
     fr: "meilleure application synchronisation données santé android",
+    pl: "najlepsza aplikacja do synchronizacji danych zdrowotnych android",
+    tr: "android için en iyi sağlık verisi senkronizasyon uygulaması",
   },
   secondaryKeywords: {
     it: [
@@ -83,6 +99,18 @@ export const post: BlogPost = {
       "app sync wearable android 2026",
       "synchroniser samsung health google fit",
     ],
+    pl: [
+      "synchronizacja danych zdrowotnych android",
+      "health connect android synchronizacja",
+      "aplikacja sync wearable android 2026",
+      "synchronizacja samsung health google fit",
+    ],
+    tr: [
+      "android sağlık verisi senkronizasyonu",
+      "health connect android senkronizasyon",
+      "wearable sync uygulaması android 2026",
+      "samsung health google fit senkronizasyonu",
+    ],
   },
   metaDescription: {
     it: "La migliore app di sincronizzazione salute per Android nel 2026 è quella che legge da Health Connect nativamente. Guida ai criteri, cosa evitare, e checklist per scegliere bene.",
@@ -91,9 +119,11 @@ export const post: BlogPost = {
     de: "Die beste Gesundheitsdaten-Synchronisierungs-App für Android 2026 liest nativ aus Health Connect. Leitfaden zu Kriterien, was zu vermeiden ist, und eine Checkliste für die richtige Wahl.",
     pt: "O melhor app de sincronização de dados de saúde para Android em 2026 lê do Health Connect de forma nativa. Guia de critérios, o que evitar e checklist para escolher bem.",
     fr: "La meilleure application de synchronisation de données de santé pour Android en 2026 lit nativement depuis Health Connect. Guide des critères, ce qu'il faut éviter et checklist pour bien choisir.",
+    pl: "Najlepsza aplikacja do synchronizacji danych zdrowotnych na Androida w 2026 odczytuje Health Connect natywnie. Przewodnik po kryteriach, czego unikać i lista kontrolna do dobrego wyboru.",
+    tr: "2026'da Android için en iyi sağlık verisi senkronizasyon uygulaması, Health Connect'i yerel olarak okur. Kriterler, kaçınılacaklar ve iyi seçim yapma kontrol listesi.",
   },
   hero: {
-    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Leitfaden", pt: "Guia", fr: "Guide" },
+    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Leitfaden", pt: "Guia", fr: "Guide", pl: "Przewodnik", tr: "Kılavuz" },
     title: {
       it: "La migliore app di sincronizzazione dati salute su Android: guida 2026",
       en: "Best health data sync app for Android: 2026 guide",
@@ -101,6 +131,8 @@ export const post: BlogPost = {
       de: "Die beste Gesundheitsdaten-Synchronisierungs-App für Android: Leitfaden 2026",
       pt: "Melhor app de sincronização de dados de saúde para Android: guia 2026",
       fr: "La meilleure application de synchronisation de données de santé sur Android: guide 2026",
+      pl: "Najlepsza aplikacja do synchronizacji danych zdrowotnych na Androida: przewodnik 2026",
+      tr: "Android için en iyi sağlık verisi senkronizasyon uygulaması: 2026 kılavuzu",
     },
     subtitle: {
       it: "Health Connect è la presa a muro. Un'app che si collega direttamente legge tutto quello che il tuo wearable ha scritto lì. Un'app che lo bypassa ha bisogno di un cavo proprietario per ogni dispositivo, e quel cavo si rompe di continuo.",
@@ -109,6 +141,8 @@ export const post: BlogPost = {
       de: "Health Connect ist die Steckdose in der Wand. Eine App, die sich direkt verbindet, liest alles, was dein Wearable dort gespeichert hat. Eine App, die es umgeht, braucht ein eigenes Kabel zu jedem einzelnen Gerät, und dieses Kabel reißt ständig.",
       pt: "Health Connect é a tomada na parede. Um app que se conecta diretamente lê tudo que o seu wearable gravou ali. Um app que o contorna precisa de um cabo próprio para cada dispositivo, e esse cabo quebra o tempo todo.",
       fr: "Health Connect est la prise dans le mur. Une application qui s'y connecte directement lit tout ce que votre wearable y a écrit. Une application qui le contourne a besoin de son propre câble pour chaque appareil, et ce câble casse en permanence.",
+      pl: "Health Connect to gniazdko w ścianie. Aplikacja, która łączy się bezpośrednio, odczytuje wszystko, co zapisał Twój wearable. Aplikacja, która je omija, potrzebuje własnego przewodu do każdego urządzenia, a ten przewód ciągle się zrywa.",
+      tr: "Health Connect duvardaki priz gibidir. Doğrudan bağlanan bir uygulama, giyilebilir cihazınızın oraya yazdığı her şeyi okur. Bunu atlayan bir uygulamanın her cihaza kendi kablosu gerekir ve bu kablo sürekli bozulur.",
     },
   },
   body: [
@@ -121,6 +155,8 @@ export const post: BlogPost = {
         de: "Die beste Gesundheits-Synchronisierungs-App für Android ist diejenige, die nativ aus Health Connect liest, denn dort leben die Daten deines Wearables tatsächlich. Nicht in der proprietären Cloud eines Herstellers, nicht in einer API, die sich ohne Vorwarnung ändert: in Health Connect, der Datenschicht, die Google genau für diesen Zweck gebaut hat. Alles andere ist ein Workaround, und Workarounds brechen.",
         pt: "O melhor app de sincronização de saúde para Android é aquele que lê do Health Connect de forma nativa, porque é lá que os dados do seu wearable realmente vivem. Não em uma nuvem proprietária do fabricante, não em uma API que muda sem aviso: no Health Connect, a camada de dados que o Google construiu exatamente para esse propósito. Todo o resto é um workaround, e workarounds quebram.",
         fr: "La meilleure application de synchronisation santé pour Android est celle qui lit depuis Health Connect nativement, car c'est là que vivent réellement les données de votre wearable. Pas dans un cloud propriétaire du fabricant, pas dans une API qui change sans prévenir: dans Health Connect, la couche de données que Google a construite exactement dans ce but. Tout le reste est un contournement, et les contournements finissent par casser.",
+        pl: "Najlepsza aplikacja do synchronizacji zdrowia na Androida to ta, która odczytuje dane z Health Connect natywnie, bo tam naprawdę żyją dane Twojego wearable'a. Nie w chmurze producenta, nie w API zmieniającym się bez ostrzeżenia: w Health Connect, warstwie danych, którą Google zbudowało dokładnie w tym celu. Wszystko inne to obejście, a obejścia się psują.",
+        tr: "Android için en iyi sağlık senkronizasyon uygulaması, Health Connect'ten yerel olarak okuyan uygulamadır, çünkü giyilebilir cihaz verileriniz gerçekte orada yaşar. Üreticinin tescilli bulutunda değil, uyarı vermeden değişen bir API'de değil: Google'ın tam bu amaç için oluşturduğu veri katmanı Health Connect'te. Geri kalan her şey bir geçici çözümdür ve geçici çözümler bozulur.",
       },
     },
     {
@@ -133,6 +169,8 @@ export const post: BlogPost = {
         de: "Was eine Gesundheits-Synchronisierungs-App wirklich gut macht",
         pt: "O que torna um app de sincronização de saúde realmente bom",
         fr: "Ce qui rend une application de synchronisation santé vraiment bonne",
+        pl: "Co sprawia, że aplikacja do synchronizacji zdrowia jest naprawdę dobra",
+        tr: "Bir sağlık senkronizasyon uygulamasını gerçekten iyi yapan nedir",
       },
     },
     {
@@ -144,6 +182,8 @@ export const post: BlogPost = {
         de: "Es gibt fünf Kriterien, nach denen ich jede App in dieser Kategorie bewerte. Sie haben nicht alle dasselbe Gewicht, aber wenn auch nur das erste fehlt, höre ich auf zu lesen.",
         pt: "Existem cinco critérios que uso para avaliar qualquer app nessa categoria. Nem todos têm o mesmo peso, mas se faltar até o primeiro, paro de ler.",
         fr: "Il y a cinq critères que j'utilise pour évaluer n'importe quelle application dans cette catégorie. Ils n'ont pas tous le même poids, mais si même le premier manque, j'arrête de lire.",
+        pl: "Istnieje pięć kryteriów, których używam do oceny każdej aplikacji w tej kategorii. Nie wszystkie mają takie samo znaczenie, ale jeśli brakuje choćby pierwszego, przestaję czytać.",
+        tr: "Bu kategorideki herhangi bir uygulamayı değerlendirmek için kullandığım beş kriter var. Hepsi aynı ağırlığı taşımaz, ancak ilki bile eksikse okumayı bırakıyorum.",
       },
     },
     {
@@ -191,6 +231,20 @@ export const post: BlogPost = {
           "**Qualité du tableau de bord**: synchroniser des données sans pouvoir les lire correctement, c'est faire la moitié du travail. Le tableau de bord doit afficher les tendances dans le temps, pas seulement la dernière valeur enregistrée.",
           "**Absence de bugs de double comptage**: c'est le problème le plus subtil et le plus courant. Quand Samsung Health, Google Fit et Health Connect enregistrent tous le même entraînement, une application négligente vous affiche 20 000 pas au lieu de 10 000. Cela doit être testé explicitement.",
         ],
+        pl: [
+          "**Natywna integracja z Health Connect**: aplikacja musi odczytywać dane bezpośrednio z Health Connect, bez konieczności używania bridge'u, aplikacji pomocniczej ani stale włączonego procesu Bluetooth. To jest minimalna poprzeczka w 2026 roku.",
+          "**Pokrycie typów danych**: kroki, tętno, sen, SpO2, kalorie, HRV: poważna aplikacja obejmuje je wszystkie. Niektóre aplikacje synchronizują tylko kroki i tętno i ukrywają ten brak w FAQ.",
+          "**Prywatność i przechowywanie danych (UE)**: jeśli jesteś w Europie, Twoje dane zdrowotne podlegają RODO. Aplikacja przetwarzająca wszystko na serwerach w USA bez odpowiedniej podstawy prawnej stanowi ryzyko. Sprawdź, gdzie są przechowywane dane i czy istnieje jasna polityka prywatności.",
+          "**Jakość dashboardu**: synchronizowanie danych bez możliwości ich czytelnego odczytania to połowa roboty. Dashboard musi pokazywać trendy w czasie, nie tylko ostatnią zarejestrowaną wartość.",
+          "**Brak błędów podwójnego liczenia**: to najsubtelniejszy i najczęstszy problem. Gdy Samsung Health, Google Fit i Health Connect wszystkie zapisują ten sam trening, niedbała aplikacja pokaże 20 000 kroków zamiast 10 000. Wymaga to wyraźnego przetestowania.",
+        ],
+        tr: [
+          "**Yerel Health Connect entegrasyonu**: uygulama, bir köprü, ikincil bir uygulama veya her zaman açık bir Bluetooth süreci gerektirmeden doğrudan Health Connect'ten okumalıdır. Bu, 2026'daki minimum standarttır.",
+          "**Veri türü kapsamı**: adımlar, kalp atış hızı, uyku, SpO2, kalori, HRV: ciddi bir uygulama hepsini kapsar. Bazı uygulamalar yalnızca adımları ve kalp atış hızını senkronize eder ve bu eksikliği SSS bölümüne gömer.",
+          "**Gizlilik ve veri depolama (AB)**: Avrupa'daysanız, sağlık verileriniz GDPR kapsamındadır. Her şeyi yeterli yasal dayanak olmadan ABD sunucularında işleyen bir uygulama risk oluşturur. Verilerin nerede depolandığını ve açık bir gizlilik politikası olup olmadığını kontrol edin.",
+          "**Gösterge paneli kalitesi**: verileri iyi okuyamadan senkronize etmek yarım iştir. Gösterge paneli yalnızca son kaydedilen değeri değil, zaman içindeki eğilimleri göstermelidir.",
+          "**Çift sayım hatası olmaması**: bu en ince ve en yaygın sorundur. Samsung Health, Google Fit ve Health Connect hepsi aynı antrenmanı kaydettiğinde, dikkatsiz bir uygulama 10.000 yerine 20.000 adım gösterir. Bunun açıkça test edilmesi gerekir.",
+        ],
       },
     },
     {
@@ -203,6 +257,8 @@ export const post: BlogPost = {
         de: "Was zu vermeiden ist: die häufigsten Warnsignale",
         pt: "O que evitar: os sinais de alerta que vejo com mais frequência",
         fr: "Ce qu'il faut éviter: les signaux d'alerte que je vois le plus souvent",
+        pl: "Czego unikać: sygnały ostrzegawcze, które widzę najczęściej",
+        tr: "Kaçınılacaklar: en sık gördüğüm kırmızı bayraklar",
       },
     },
     {
@@ -214,6 +270,8 @@ export const post: BlogPost = {
         de: "Bestimmte technische Ansätze erzeugen Apps, die eine Woche lang gut funktionieren und dann aufhören. Ich erkenne sie sofort.",
         pt: "Algumas abordagens técnicas produzem apps que funcionam bem por uma semana e depois param. Eu os reconheço imediatamente.",
         fr: "Certaines approches techniques produisent des applications qui fonctionnent bien pendant une semaine puis s'arrêtent. Je les reconnais immédiatement.",
+        pl: "Niektóre podejścia techniczne tworzą aplikacje, które działają dobrze przez tydzień, a potem przestają. Rozpoznaję je od razu.",
+        tr: "Bazı teknik yaklaşımlar bir hafta iyi çalışıp sonra duran uygulamalar üretir. Bunları hemen tanıyorum.",
       },
     },
     {
@@ -255,6 +313,18 @@ export const post: BlogPost = {
           "**Applications qui ne gèrent pas les enregistrements en double de Samsung Health**: Samsung Health écrit dans Health Connect, mais écrit parfois aussi dans Google Fit, et écrit parfois la même session deux fois avec des horodatages légèrement différents. Une application qui ne déduplique pas explicitement produira des métriques gonflées, parfois d'un facteur 2.",
           "**Applications sans mises à jour depuis 6 mois**: Health Connect a connu des changements importants dans les API de permissions entre Android 13 et 14. Une application non mise à jour pourrait fonctionner mais lire des données incomplètes sans vous le signaler.",
         ],
+        pl: [
+          "**Aplikacje synchronizujące przez zrzuty ekranu lub scraping interfejsu**: niektóre aplikacje odczytują dane, otwierając inną aplikację w tle i \"patrząc\" na wartości na ekranie. Gdy Samsung zaktualizuje swój interfejs, wszystko przestaje działać. To z definicji krucha architektura.",
+          "**Aplikacje wymagające stale włączonego Bluetooth**: jeśli telefon musi znajdować się blisko wearable'a 24 godziny na dobę, żeby synchronizować, to nie jest aplikacja do synchronizacji, lecz przekaźnik w czasie rzeczywistym. Poza zużyciem baterii wystarczy odejść od telefonu, by stracić dane.",
+          "**Aplikacje nieobsługujące zduplikowanych rekordów Samsung Health**: Samsung Health zapisuje dane w Health Connect, ale czasem zapisuje też w Google Fit i niekiedy zapisuje tę samą sesję dwa razy z nieco różnymi znacznikami czasu. Aplikacja, która nie deduplikuje jawnie, wyprodukuje zawyżone wskaźniki, niekiedy dwukrotnie.",
+          "**Aplikacje bez aktualizacji przez ostatnie 6 miesięcy**: Health Connect przeszło istotne zmiany w API uprawnień między Androidem 13 a 14. Nieaktualizowana aplikacja może działać, ale odczytywać niekompletne dane bez informowania o tym.",
+        ],
+        tr: [
+          "**Ekran görüntüsü veya arayüz scraping yoluyla senkronize eden uygulamalar**: bazı uygulamalar arka planda başka bir uygulama açarak ekrandaki değerlere \"bakarak\" veri okur. Samsung arayüzünü güncellediğinde her şey durur. Bu tanım gereği kırılgan bir mimaridir.",
+          "**Her zaman açık Bluetooth gerektiren uygulamalar**: telefon senkronize etmek için giyilebilir cihazın yanında 24 saat durması gerekiyorsa, bu bir senkronizasyon uygulaması değil gerçek zamanlı bir aktarıcıdır. Pil tüketiminin yanı sıra telefondan uzaklaşmak veri kaybına yol açar.",
+          "**Samsung Health'in yinelenen kayıtlarını işlemeyen uygulamalar**: Samsung Health, Health Connect'e yazar, ancak bazen Google Fit'e de yazar ve zaman zaman aynı oturumu biraz farklı zaman damgalarıyla iki kez yazar. Açıkça tekilleştirme yapmayan bir uygulama, bazen 2 kat şişirilmiş ölçümler üretir.",
+          "**Son 6 ayda güncelleme almayan uygulamalar**: Health Connect, Android 13 ile 14 arasında izin API'sinde önemli değişiklikler geçirdi. Güncel olmayan bir uygulama çalışabilir ancak sizi uyarmadan eksik veri okuyabilir.",
+        ],
       },
     },
     {
@@ -267,6 +337,8 @@ export const post: BlogPost = {
         de: "Meine klare Haltung",
         pt: "Minha posição clara",
         fr: "Ma position claire",
+        pl: "Moje jasne stanowisko",
+        tr: "Net tutumum",
       },
       body: {
         it: "Le app che saltano Health Connect e si affidano a scraping Bluetooth o API proprietarie saranno sempre fragili. L'integrazione con Health Connect è il requisito minimo per un'app di sincronizzazione che vale la pena usare nel 2026. Non è una preferenza tecnica: è l'unico approccio che sopravvive agli aggiornamenti dei produttori.",
@@ -275,6 +347,8 @@ export const post: BlogPost = {
         de: "Apps, die Health Connect überspringen und sich auf Bluetooth-Scraping oder proprietäre APIs verlassen, werden immer instabil sein. Die Health Connect-Integration ist die Mindestanforderung für eine Synchronisierungs-App, die 2026 einen Einsatz wert ist. Das ist keine technische Präferenz: Es ist der einzige Ansatz, der Hersteller-Updates überlebt.",
         pt: "Apps que ignoram o Health Connect e dependem de scraping Bluetooth ou APIs proprietárias serão sempre frágeis. A integração com Health Connect é o requisito mínimo para um app de sincronização que vale a pena usar em 2026. Não é uma preferência técnica: é a única abordagem que sobrevive às atualizações dos fabricantes.",
         fr: "Les applications qui ignorent Health Connect et s'appuient sur le scraping Bluetooth ou des API propriétaires seront toujours fragiles. L'intégration avec Health Connect est la condition minimale pour une application de synchronisation qui vaut la peine d'être utilisée en 2026. Ce n'est pas une préférence technique: c'est la seule approche qui survive aux mises à jour des fabricants.",
+        pl: "Aplikacje, które pomijają Health Connect i polegają na Bluetooth scrapingu lub zastrzeżonych API, zawsze będą niestabilne. Integracja z Health Connect to minimalna poprzeczka dla aplikacji do synchronizacji wartej używania w 2026 roku. To nie jest preferencja techniczna: to jedyne podejście, które przeżywa aktualizacje producentów.",
+        tr: "Health Connect'i atlayarak Bluetooth scraping veya tescilli API'lere güvenen uygulamalar her zaman kırılgan olacaktır. Health Connect entegrasyonu, 2026'da kullanmaya değer bir senkronizasyon uygulaması için minimum standarttır. Bu teknik bir tercih değil: üretici güncellemelerinden sağ çıkan tek yaklaşımdır.",
       },
     },
     {
@@ -287,6 +361,8 @@ export const post: BlogPost = {
         de: "Checkliste: Was vor der Installation einer Sync-App zu prüfen ist",
         pt: "Checklist: o que verificar antes de instalar um app de sincronização",
         fr: "Liste de contrôle: ce qu'il faut vérifier avant d'installer une application de synchronisation",
+        pl: "Lista kontrolna: co sprawdzić przed zainstalowaniem aplikacji do synchronizacji",
+        tr: "Kontrol listesi: bir senkronizasyon uygulaması yüklemeden önce neleri kontrol etmeli",
       },
     },
     {
@@ -298,6 +374,8 @@ export const post: BlogPost = {
         de: "Checkliste zur Auswahl einer Gesundheitsdaten-Synchronisierungs-App auf Android",
         pt: "Checklist para escolher um app de sincronização de dados de saúde no Android",
         fr: "Liste de contrôle pour choisir une application de synchronisation de données de santé sur Android",
+        pl: "Lista kontrolna do wyboru aplikacji do synchronizacji danych zdrowotnych na Androidzie",
+        tr: "Android'de sağlık verisi senkronizasyon uygulaması seçmek için kontrol listesi",
       },
       headers: {
         it: ["Criterio", "Come verificarlo", "Segnale positivo", "Segnale negativo"],
@@ -306,6 +384,8 @@ export const post: BlogPost = {
         de: ["Kriterium", "Wie überprüfen", "Positives Signal", "Warnsignal"],
         pt: ["Critério", "Como verificar", "Sinal positivo", "Sinal de alerta"],
         fr: ["Critère", "Comment vérifier", "Signal positif", "Signal d'alerte"],
+        pl: ["Kryterium", "Jak sprawdzić", "Sygnał pozytywny", "Sygnał ostrzegawczy"],
+        tr: ["Kriter", "Nasıl doğrulanır", "Olumlu sinyal", "Kırmızı bayrak"],
       },
       rows: [
         {
@@ -345,6 +425,18 @@ export const post: BlogPost = {
             "L'application apparaît avec des autorisations de lecture actives",
             "L'application n'apparaît pas, ou demande uniquement des autorisations Bluetooth",
           ],
+          pl: [
+            "Integracja z Health Connect",
+            "Przejdź do Ustawienia Androida > Health Connect > Uprawnienia aplikacji",
+            "Aplikacja pojawia się z aktywnymi uprawnieniami do odczytu",
+            "Aplikacja nie pojawia się lub prosi tylko o uprawnienia Bluetooth",
+          ],
+          tr: [
+            "Health Connect entegrasyonu",
+            "Android Ayarlar > Health Connect > Uygulama izinleri'ne gidin",
+            "Uygulama aktif okuma izinleriyle görünür",
+            "Uygulama görünmüyor veya yalnızca Bluetooth izni istiyor",
+          ],
         },
         {
           it: [
@@ -382,6 +474,18 @@ export const post: BlogPost = {
             "Lisez la page des intégrations ou la section des autorisations",
             "Liste explicitement: pas, fréquence cardiaque, sommeil, SpO2, HRV, calories",
             "Indique seulement 'activity data' sans précisions",
+          ],
+          pl: [
+            "Pokrycie typów danych",
+            "Przeczytaj stronę integracji lub sekcję uprawnień",
+            "Jawnie wymienia: kroki, HR, sen, SpO2, HRV, kalorie",
+            "Podaje tylko 'activity data' bez szczegółów",
+          ],
+          tr: [
+            "Veri türü kapsamı",
+            "Entegrasyonlar sayfasını veya izinler bölümünü okuyun",
+            "Açıkça listeler: adımlar, HR, uyku, SpO2, HRV, kalori",
+            "Yalnızca 'activity data' der, ayrıntı vermez",
           ],
         },
         {
@@ -421,6 +525,18 @@ export const post: BlogPost = {
             "Serveurs UE ou stockage local, conformité RGPD explicite",
             "Silence total sur la destination des données",
           ],
+          pl: [
+            "Prywatność i przechowywanie",
+            "Szukaj 'data storage' lub 'server location' w polityce prywatności",
+            "Serwery UE lub lokalne przechowywanie, wyraźna zgodność z RODO",
+            "Całkowite milczenie w kwestii miejsca przechowywania danych",
+          ],
+          tr: [
+            "Gizlilik ve depolama",
+            "Gizlilik politikasında 'data storage' veya 'server location' arayın",
+            "AB sunucuları veya yerel depolama, açık GDPR uyumluluğu",
+            "Verilerin nereye gittiği konusunda tam sessizlik",
+          ],
         },
         {
           it: [
@@ -458,6 +574,18 @@ export const post: BlogPost = {
             "Synchronisez un entraînement avec Samsung Health actif et vérifiez le nombre de pas",
             "Les pas correspondent à ce qu'affiche le wearable",
             "Les pas sont doublés ou s'accumulent à chaque synchronisation",
+          ],
+          pl: [
+            "Deduplikacja",
+            "Zsynchronizuj trening z aktywnym Samsung Health i sprawdź liczbę kroków",
+            "Kroki odpowiadają temu, co pokazuje wearable",
+            "Kroki są podwojone lub kumulują się przy każdej synchronizacji",
+          ],
+          tr: [
+            "Tekilleştirme",
+            "Samsung Health aktifken bir antrenman senkronize edin ve adım sayısını kontrol edin",
+            "Adımlar giyilebilir cihazın gösterdiğiyle eşleşiyor",
+            "Adımlar iki katına çıkıyor veya her senkronizasyonda birikuyor",
           ],
         },
         {
@@ -497,6 +625,18 @@ export const post: BlogPost = {
             "Mise à jour dans les 3 derniers mois",
             "Dernière mise à jour il y a plus de 6 mois",
           ],
+          pl: [
+            "Ostatnie aktualizacje",
+            "Strona Google Play > Data ostatniej aktualizacji",
+            "Zaktualizowana w ciągu ostatnich 3 miesięcy",
+            "Ostatnia aktualizacja ponad 6 miesięcy temu",
+          ],
+          tr: [
+            "Son güncellemeler",
+            "Google Play sayfası > Son güncelleme tarihi",
+            "Son 3 ayda güncellenmiş",
+            "Son güncelleme 6 aydan fazla önce",
+          ],
         },
       ],
     },
@@ -510,6 +650,8 @@ export const post: BlogPost = {
         de: "Ein Beispiel für eine App, die es richtig macht",
         pt: "Um exemplo de app que faz as coisas do jeito certo",
         fr: "Un exemple d'application qui fait les choses correctement",
+        pl: "Przykład aplikacji, która robi to we właściwy sposób",
+        tr: "Bunu doğru yapan bir uygulama örneği",
       },
     },
     {
@@ -521,6 +663,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync ist eine der Android-Apps, die nativ aus Health Connect liest: Sie empfängt Daten von Galaxy Watch, Garmin und jedem Wearable, das in Health Connect schreibt, aggregiert sie ohne Duplikate und zeigt sie in einem über den Browser zugänglichen Web-Dashboard an. Die Daten werden auf europäischen Servern mit expliziter DSGVO-Konformität verarbeitet. Es ist nicht die einzige Option in dieser Kategorie, aber ein gutes Beispiel dafür, wie eine Sync-App technisch funktionieren sollte: kein dauerhaft eingeschaltetes Bluetooth, kein Scraping, keine proprietären APIs.",
         pt: "FitMesh Sync é um dos apps Android que lê do Health Connect de forma nativa: recebe dados do Galaxy Watch, Garmin e qualquer wearable que grave no Health Connect, agrega sem duplicatas e exibe em um painel web acessível pelo navegador. Os dados são processados em servidores europeus com conformidade GDPR explícita. Não é a única opção nessa categoria, mas é um bom exemplo de como um app de sincronização deve funcionar tecnicamente: sem Bluetooth sempre ativo, sem scraping, sem APIs proprietárias.",
         fr: "FitMesh Sync est l'une des applications Android qui lit depuis Health Connect nativement: elle reçoit des données de Galaxy Watch, Garmin et tout wearable qui écrit dans Health Connect, les agrège sans doublons et les affiche dans un tableau de bord web accessible depuis n'importe quel navigateur. Les données sont traitées sur des serveurs européens avec une conformité RGPD explicite. Ce n'est pas la seule option dans cette catégorie, mais c'est un bon exemple de la façon dont une application de synchronisation devrait fonctionner techniquement: pas de Bluetooth toujours actif, pas de scraping, pas d'API propriétaires.",
+        pl: "FitMesh Sync to jedna z aplikacji na Androida, która odczytuje dane z Health Connect natywnie: odbiera dane z Galaxy Watch, Garmin i każdego wearable'a zapisującego w Health Connect, agreguje je bez duplikatów i wyświetla w dashboardzie webowym dostępnym z przeglądarki. Dane są przetwarzane na serwerach europejskich z wyraźną zgodnością z RODO. To nie jedyna opcja w tej kategorii, ale dobry przykład tego, jak aplikacja do synchronizacji powinna działać technicznie: żadnego stale włączonego Bluetooth, żadnego scrapingu, żadnych zastrzeżonych API.",
+        tr: "FitMesh Sync, Health Connect'ten yerel olarak okuyan Android uygulamalarından biridir: Galaxy Watch, Garmin ve Health Connect'e yazan her giyilebilir cihazdan veri alır, bunları yinelemesiz toplar ve tarayıcıdan erişilebilen bir web gösterge panelinde gösterir. Veriler, açık GDPR uyumluluğuyla Avrupa sunucularında işlenir. Bu kategorideki tek seçenek değildir, ancak bir senkronizasyon uygulamasının teknik olarak nasıl çalışması gerektiğinin iyi bir örneğidir: her zaman açık Bluetooth yok, scraping yok, tescilli API yok.",
       },
     },
     {
@@ -533,6 +677,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
     },
     {
@@ -580,6 +726,20 @@ export const post: BlogPost = {
           "Les applications qui nécessitent un Bluetooth toujours actif ou qui lisent via scraping sont fragiles par construction. Les éviter.",
           "Pour les utilisateurs de l'UE, vérifier où les données sont traitées est une étape non optionnelle: les données de santé sont des données sensibles au sens du RGPD.",
         ],
+        pl: [
+          "Health Connect to standardowa warstwa danych na Androidzie: aplikacja, która nie używa jej natywnie, zaczyna już na niekorzystnej pozycji.",
+          "Najczęstsze problemy to nie brakujące funkcje, ale zduplikowane dane i synchronizacje, które przestają działać po aktualizacji Androida lub wearable'a.",
+          "Pierwsza rzecz, którą sprawdzam: czy aplikacja pojawia się na liście uprawnień Health Connect. Jeśli nie, nie instaluję.",
+          "Aplikacje wymagające stale włączonego Bluetooth lub odczytujące dane przez scraping są z natury niestabilne. Należy ich unikać.",
+          "Dla użytkowników z UE weryfikacja miejsca przetwarzania danych to krok obowiązkowy: dane zdrowotne to dane wrażliwe w rozumieniu RODO.",
+        ],
+        tr: [
+          "Health Connect, Android'deki standart veri katmanıdır: onu yerel olarak kullanmayan bir uygulama zaten dezavantajlı başlar.",
+          "En yaygın sorunlar eksik özellikler değil, yinelenen veriler ve Android veya giyilebilir cihaz güncellemesinden sonra bozulan senkronizasyonlardır.",
+          "Kontrol ettiğim ilk şey: uygulamanın Health Connect izin listesinde görünüp görünmediği. Görünmüyorsa yüklemiyorum.",
+          "Her zaman açık Bluetooth gerektiren veya scraping yoluyla okuyan uygulamalar yapısal olarak kırılgandır. Kaçının.",
+          "AB kullanıcıları için verilerin nerede işlendiğini doğrulamak zorunlu bir adımdır: sağlık verileri GDPR kapsamında hassas veridir.",
+        ],
       },
     },
     {
@@ -591,6 +751,8 @@ export const post: BlogPost = {
         de: "Suchst du eine Sync-App, die nativ aus Health Connect liest?",
         pt: "Procurando um app de sincronização que leia do Health Connect de forma nativa?",
         fr: "Vous cherchez une application de synchronisation qui lit nativement depuis Health Connect?",
+        pl: "Szukasz aplikacji do synchronizacji, która odczytuje dane z Health Connect natywnie?",
+        tr: "Health Connect'ten yerel olarak okuyan bir senkronizasyon uygulaması mı arıyorsunuz?",
       },
       body: {
         it: "FitMesh Sync si collega a Health Connect direttamente, aggrega dati da Galaxy Watch, Garmin e altri wearable senza duplicati, e li mostra in una dashboard web accessibile da qualsiasi browser. Dati su server EU, GDPR compliant.",
@@ -599,6 +761,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync verbindet sich direkt mit Health Connect, aggregiert Daten von Galaxy Watch, Garmin und anderen Wearables ohne Duplikate und zeigt sie in einem Dashboard an, das von jedem Browser aus zugänglich ist. Daten auf EU-Servern, DSGVO-konform.",
         pt: "FitMesh Sync se conecta ao Health Connect diretamente, agrega dados do Galaxy Watch, Garmin e outros wearables sem duplicatas e os exibe em um painel web acessível de qualquer navegador. Dados em servidores da UE, em conformidade com o GDPR.",
         fr: "FitMesh Sync se connecte directement à Health Connect, agrège les données de Galaxy Watch, Garmin et d'autres wearables sans doublons, et les affiche dans un tableau de bord web accessible depuis n'importe quel navigateur. Données sur serveurs UE, conforme au RGPD.",
+        pl: "FitMesh Sync łączy się bezpośrednio z Health Connect, agreguje dane z Galaxy Watch, Garmin i innych wearable'ów bez duplikatów i wyświetla je w dashboardzie webowym dostępnym z dowolnej przeglądarki. Dane na serwerach UE, zgodność z RODO.",
+        tr: "FitMesh Sync, Health Connect'e doğrudan bağlanır, Galaxy Watch, Garmin ve diğer giyilebilir cihazlardan verileri yinelemesiz toplar ve herhangi bir tarayıcıdan erişilebilen bir web gösterge panelinde gösterir. Veriler AB sunucularında, GDPR uyumlu.",
       },
       ctaLabel: {
         it: "Prova FitMesh Sync →",
@@ -607,10 +771,14 @@ export const post: BlogPost = {
         de: "FitMesh Sync ausprobieren →",
         pt: "Experimente FitMesh Sync →",
         fr: "Essayez FitMesh Sync →",
+        pl: "Wypróbuj FitMesh Sync →",
+        tr: "FitMesh Sync'i deneyin →",
       },
       ctaHref: {
         it: "/it#download",
         en: "/en#download",
+        pl: "/pl#download",
+        tr: "/tr#download",
       },
     },
   ],
@@ -623,6 +791,8 @@ export const post: BlogPost = {
         de: "Was ist der Unterschied zwischen Health Connect und Google Fit?",
         pt: "Qual é a diferença entre Health Connect e Google Fit?",
         fr: "Quelle est la différence entre Health Connect et Google Fit?",
+        pl: "Jaka jest różnica między Health Connect a Google Fit?",
+        tr: "Health Connect ile Google Fit arasındaki fark nedir?",
       },
       a: {
         it: "Google Fit era il vecchio standard di Google per i dati fitness, un'app con cloud storage proprietario. Health Connect è il sostituto: un layer di dati locale sul dispositivo, più privato, con permessi granulari per app. Dal 2024 Google ha spostato ufficialmente tutto l'ecosistema su Health Connect. Se un'app ancora cita Google Fit come integrazione principale, probabilmente non è aggiornata.",
@@ -631,6 +801,8 @@ export const post: BlogPost = {
         de: "Google Fit war Googles alter Standard für Fitnessdaten, eine App mit proprietärem Cloud-Speicher. Health Connect ist der Ersatz: eine lokale Datenschicht auf dem Gerät, privater, mit granularen Berechtigungen pro App. Seit 2024 hat Google das gesamte Ökosystem offiziell auf Health Connect umgestellt. Wenn eine App noch Google Fit als primäre Integration anführt, ist sie wahrscheinlich nicht aktuell.",
         pt: "O Google Fit era o antigo padrão do Google para dados de fitness, um app com armazenamento em nuvem proprietário. O Health Connect é o substituto: uma camada de dados local no dispositivo, mais privada, com permissões granulares por app. Desde 2024, o Google moveu oficialmente todo o ecossistema para o Health Connect. Se um app ainda cita o Google Fit como integração principal, provavelmente não está atualizado.",
         fr: "Google Fit était l'ancienne norme de Google pour les données de fitness, une application avec un stockage cloud propriétaire. Health Connect est le remplaçant: une couche de données locale sur l'appareil, plus privée, avec des autorisations granulaires par application. Depuis 2024, Google a officiellement déplacé tout l'écosystème vers Health Connect. Si une application cite encore Google Fit comme intégration principale, elle n'est probablement pas à jour.",
+        pl: "Google Fit był starym standardem Google dla danych fitness: aplikacją z własnym przechowywaniem w chmurze. Health Connect to jego następca: lokalna warstwa danych na urządzeniu, bardziej prywatna, z granularnymi uprawnieniami per aplikacja. Od 2024 roku Google oficjalnie przeniósł cały ekosystem na Health Connect. Jeśli aplikacja nadal podaje Google Fit jako główną integrację, prawdopodobnie nie jest aktualna.",
+        tr: "Google Fit, Google'ın fitness verileri için eski standardıydı: tescilli bulut depolama alanı olan bir uygulama. Health Connect onun yerini aldı: cihazda yerel bir veri katmanı, daha gizli, uygulama başına ayrıntılı izinlerle. 2024'ten itibaren Google tüm ekosistemi resmi olarak Health Connect'e taşıdı. Bir uygulama hala Google Fit'i birincil entegrasyon olarak gösteriyorsa muhtemelen güncel değildir.",
       },
     },
     {
@@ -641,6 +813,8 @@ export const post: BlogPost = {
         de: "Synchronisiert sich Samsung Health automatisch mit Health Connect?",
         pt: "O Samsung Health sincroniza com o Health Connect automaticamente?",
         fr: "Samsung Health se synchronise-t-il automatiquement avec Health Connect?",
+        pl: "Czy Samsung Health synchronizuje się z Health Connect automatycznie?",
+        tr: "Samsung Health, Health Connect ile otomatik olarak senkronize olur mu?",
       },
       a: {
         it: "Sì, ma con alcune avvertenze. Samsung Health scrive in Health Connect automaticamente su Galaxy Watch e telefoni Samsung aggiornati. Il problema è che a volte scrive la stessa sessione più volte, e su alcuni dispositivi il ritardo di sincronizzazione può arrivare a 30-60 minuti. Se usi un'app di terze parti che legge da Health Connect, verifica sempre che gestisca la deduplicazione dei record Samsung esplicitamente.",
@@ -649,6 +823,8 @@ export const post: BlogPost = {
         de: "Ja, aber mit einigen Einschränkungen. Samsung Health schreibt auf aktuellen Galaxy Watch-Geräten und Samsung-Telefonen automatisch in Health Connect. Das Problem ist, dass es manchmal dieselbe Sitzung mehrmals schreibt, und auf einigen Geräten kann die Synchronisierungsverzögerung 30-60 Minuten erreichen. Wenn du eine Drittanbieter-App verwendest, die aus Health Connect liest, überprüfe immer, ob sie die Deduplizierung von Samsung-Einträgen explizit verwaltet.",
         pt: "Sim, mas com algumas ressalvas. O Samsung Health grava no Health Connect automaticamente em dispositivos Galaxy Watch e telefones Samsung atualizados. O problema é que às vezes grava a mesma sessão várias vezes, e em alguns dispositivos o atraso de sincronização pode chegar a 30-60 minutos. Se você usa um app de terceiros que lê do Health Connect, verifique sempre se ele gerencia explicitamente a deduplicação de registros do Samsung.",
         fr: "Oui, mais avec quelques mises en garde. Samsung Health écrit dans Health Connect automatiquement sur les appareils Galaxy Watch et les téléphones Samsung mis à jour. Le problème est qu'il écrit parfois la même session plusieurs fois, et sur certains appareils le délai de synchronisation peut atteindre 30 à 60 minutes. Si vous utilisez une application tierce qui lit depuis Health Connect, vérifiez toujours qu'elle gère explicitement la déduplication des enregistrements Samsung.",
+        pl: "Tak, ale z pewnymi zastrzeżeniami. Samsung Health zapisuje dane w Health Connect automatycznie na zaktualizowanych urządzeniach Galaxy Watch i telefonach Samsung. Problem polega na tym, że czasem zapisuje tę samą sesję kilka razy, a na niektórych urządzeniach opóźnienie synchronizacji może sięgać 30-60 minut. Jeśli używasz aplikacji innej firmy odczytującej z Health Connect, zawsze sprawdzaj, czy jawnie obsługuje deduplikację rekordów Samsung.",
+        tr: "Evet, ancak bazı uyarılarla. Samsung Health, güncellenmiş Galaxy Watch cihazlarında ve Samsung telefonlarında Health Connect'e otomatik olarak yazar. Sorun şu ki bazen aynı oturumu birden fazla kez yazar ve bazı cihazlarda senkronizasyon gecikmesi 30-60 dakikaya ulaşabilir. Health Connect'ten okuyan bir üçüncü taraf uygulaması kullanıyorsanız, Samsung kayıt tekilleştirmesini açıkça işleyip işlemediğini her zaman doğrulayın.",
       },
     },
     {
@@ -659,6 +835,8 @@ export const post: BlogPost = {
         de: "Sind Gesundheitsdaten-Synchronisierungs-Apps DSGVO-konform?",
         pt: "Os apps de sincronização de dados de saúde são seguros para conformidade com o GDPR?",
         fr: "Les applications de synchronisation de données de santé sont-elles conformes au RGPD?",
+        pl: "Czy aplikacje do synchronizacji danych zdrowotnych są bezpieczne pod kątem RODO?",
+        tr: "Sağlık verisi senkronizasyon uygulamaları GDPR uyumluluğu açısından güvenli midir?",
       },
       a: {
         it: "Dipende dall'app. I dati di salute rientrano nella categoria 'dati sensibili' ai sensi dell'articolo 9 del GDPR, che richiede una base legale esplicita per il trattamento. Prima di usare qualsiasi app di sync, controlla: dove vengono processati i dati (server EU preferibile), se esiste una privacy policy che menziona esplicitamente i dati sanitari, e se l'app ti dà controllo sull'eliminazione dei dati. Se queste informazioni non sono accessibili facilmente, è un segnale d'allarme.",
@@ -667,6 +845,8 @@ export const post: BlogPost = {
         de: "Das hängt von der App ab. Gesundheitsdaten fallen unter die Kategorie 'besondere Kategorien personenbezogener Daten' gemäß Artikel 9 der DSGVO, die eine explizite Rechtsgrundlage für die Verarbeitung erfordert. Bevor du eine Sync-App verwendest, prüfe: wo Daten verarbeitet werden (EU-Server bevorzugt), ob es eine Datenschutzerklärung gibt, die Gesundheitsdaten explizit erwähnt, und ob die App dir Kontrolle über die Datenlöschung gibt. Wenn diese Informationen nicht leicht zugänglich sind, ist das ein Warnsignal.",
         pt: "Depende do app. Os dados de saúde se enquadram na categoria de 'dados sensíveis' nos termos do artigo 9 do GDPR, que exige uma base legal explícita para o processamento. Antes de usar qualquer app de sincronização, verifique: onde os dados são processados (servidores da UE são preferíveis), se existe uma política de privacidade que mencione explicitamente dados de saúde, e se o app dá controle sobre a exclusão de dados. Se essas informações não estiverem facilmente acessíveis, é um sinal de alerta.",
         fr: "Cela dépend de l'application. Les données de santé relèvent de la catégorie 'données sensibles' au sens de l'article 9 du RGPD, qui exige une base légale explicite pour le traitement. Avant d'utiliser une application de synchronisation, vérifiez: où les données sont traitées (serveurs UE préférables), s'il existe une politique de confidentialité qui mentionne explicitement les données de santé, et si l'application vous donne le contrôle sur la suppression des données. Si ces informations ne sont pas facilement accessibles, c'est un signal d'alerte.",
+        pl: "To zależy od aplikacji. Dane zdrowotne należą do kategorii 'danych wrażliwych' w rozumieniu art. 9 RODO, który wymaga wyraźnej podstawy prawnej do przetwarzania. Przed użyciem jakiejkolwiek aplikacji do synchronizacji sprawdź: gdzie są przetwarzane dane (serwery UE preferowane), czy istnieje polityka prywatności wyraźnie wspominająca o danych zdrowotnych oraz czy aplikacja daje Ci kontrolę nad usuwaniem danych. Jeśli te informacje nie są łatwo dostępne, to sygnał ostrzegawczy.",
+        tr: "Uygulamaya bağlıdır. Sağlık verileri, işleme için açık bir yasal dayanak gerektiren GDPR Madde 9 kapsamında 'özel kategori veriler' arasında yer alır. Herhangi bir senkronizasyon uygulaması kullanmadan önce şunları kontrol edin: verilerin nerede işlendiği (AB sunucuları tercih edilir), sağlık verilerinden açıkça söz eden bir gizlilik politikası olup olmadığı ve uygulamanın veri silme konusunda size kontrol imkanı tanıyıp tanımadığı. Bu bilgilere kolayca ulaşılamıyorsa bu bir kırmızı bayraktır.",
       },
     },
     {
@@ -677,6 +857,8 @@ export const post: BlogPost = {
         de: "Warum hat sich meine Schrittanzahl nach der Installation einer Sync-App verdoppelt?",
         pt: "Por que meus passos dobraram após instalar um app de sincronização?",
         fr: "Pourquoi mes pas ont-ils doublé après avoir installé une application de synchronisation?",
+        pl: "Dlaczego moje kroki się podwoiły po zainstalowaniu aplikacji do synchronizacji?",
+        tr: "Bir senkronizasyon uygulaması yükledikten sonra adımlarım neden ikiye katlandı?",
       },
       a: {
         it: "Quasi certamente è un problema di deduplicazione. Quando Samsung Health, Google Fit (se ancora attivo), e Health Connect registrano tutti la stessa camminata, un'app che non deduplica le somma tutte. La soluzione: controlla nelle impostazioni dell'app se c'è un'opzione 'deduplica sorgenti' o 'sorgente preferita'. Se non esiste, considera di disabilitare una delle sorgenti di dati (tipicamente Google Fit, che è deprecato) o di passare a un'app che gestisce questo scenario esplicitamente.",
@@ -685,6 +867,8 @@ export const post: BlogPost = {
         de: "Das ist mit hoher Wahrscheinlichkeit ein Deduplizierungsproblem. Wenn Samsung Health, Google Fit (falls noch aktiv) und Health Connect denselben Spaziergang alle aufzeichnen, addiert eine App, die nicht dedupliziert, alle zusammen. Die Lösung: Prüfe in den App-Einstellungen, ob es eine Option 'Quellen deduplizieren' oder 'bevorzugte Quelle' gibt. Wenn sie nicht vorhanden ist, ziehe in Betracht, eine der Datenquellen zu deaktivieren (typischerweise Google Fit, das veraltet ist) oder zu einer App zu wechseln, die dieses Szenario explizit verwaltet.",
         pt: "Quase certamente é um problema de deduplicação. Quando Samsung Health, Google Fit (se ainda ativo) e Health Connect registram todos a mesma caminhada, um app que não deduplica soma todos. A solução: verifique nas configurações do app se há uma opção 'deduplcar fontes' ou 'fonte preferida'. Se não existir, considere desativar uma das fontes de dados (tipicamente o Google Fit, que está descontinuado) ou mudar para um app que gerencie esse cenário explicitamente.",
         fr: "C'est presque certainement un problème de déduplication. Quand Samsung Health, Google Fit (s'il est encore actif) et Health Connect enregistrent tous la même marche, une application qui ne déduplique pas les additionne tous. La solution: vérifiez dans les paramètres de l'application s'il existe une option 'dédupliquer les sources' ou 'source préférée'. Si elle n'existe pas, envisagez de désactiver l'une des sources de données (généralement Google Fit, qui est obsolète) ou de passer à une application qui gère ce scénario explicitement.",
+        pl: "To niemal na pewno problem z deduplikacją. Gdy Samsung Health, Google Fit (jeśli nadal aktywny) i Health Connect wszystkie rejestrują ten sam spacer, aplikacja, która nie deduplikuje, sumuje je wszystkie. Rozwiązanie: sprawdź w ustawieniach aplikacji, czy istnieje opcja 'deduplikuj źródła' lub 'preferowane źródło'. Jeśli nie istnieje, rozważ wyłączenie jednego ze źródeł danych (zazwyczaj Google Fit, który jest przestarzały) lub przejście na aplikację obsługującą ten scenariusz jawnie.",
+        tr: "Bu neredeyse kesinlikle bir tekilleştirme sorunudur. Samsung Health, Google Fit (hala aktifse) ve Health Connect hepsi aynı yürüyüşü kaydettiğinde, tekilleştirme yapmayan bir uygulama hepsini toplar. Çözüm: uygulama ayarlarında 'kaynakları tekilleştir' veya 'tercih edilen kaynak' seçeneği olup olmadığını kontrol edin. Yoksa veri kaynaklarından birini (genellikle artık kullanılmayan Google Fit) devre dışı bırakmayı veya bu senaryoyu açıkça ele alan bir uygulamaya geçmeyi düşünün.",
       },
     },
     {
@@ -695,6 +879,8 @@ export const post: BlogPost = {
         de: "Synchronisiert sich Garmin mit Health Connect?",
         pt: "O Garmin sincroniza com o Health Connect?",
         fr: "Garmin se synchronise-t-il avec Health Connect?",
+        pl: "Czy Garmin synchronizuje się z Health Connect?",
+        tr: "Garmin, Health Connect ile senkronize olur mu?",
       },
       a: {
         it: "Sì, dal 2023 Garmin Connect scrive i dati in Health Connect su Android. La sincronizzazione include passi, frequenza cardiaca, sonno, calorie e allenamenti. L'HRV di Garmin (HRV Status) viene scritto in Health Connect come dato di variabilità della frequenza cardiaca, ma non tutte le app di terze parti lo leggono correttamente: è un campo relativamente nuovo nell'API di Health Connect.",
@@ -703,6 +889,8 @@ export const post: BlogPost = {
         de: "Ja, seit 2023 schreibt Garmin Connect Daten in Health Connect auf Android. Die Synchronisierung umfasst Schritte, Herzfrequenz, Schlaf, Kalorien und Trainings. Garmins HRV (HRV-Status) wird in Health Connect als Herzfrequenzvariabilitätsdaten geschrieben, aber nicht alle Drittanbieter-Apps lesen es korrekt: Es ist ein relativ neues Feld in der Health Connect-API.",
         pt: "Sim, desde 2023 o Garmin Connect grava dados no Health Connect no Android. A sincronização inclui passos, frequência cardíaca, sono, calorias e treinos. O HRV do Garmin (HRV Status) é gravado no Health Connect como dado de variabilidade da frequência cardíaca, mas nem todos os apps de terceiros o leem corretamente: é um campo relativamente novo na API do Health Connect.",
         fr: "Oui, depuis 2023 Garmin Connect écrit des données dans Health Connect sur Android. La synchronisation inclut les pas, la fréquence cardiaque, le sommeil, les calories et les entraînements. Le HRV de Garmin (HRV Status) est écrit dans Health Connect comme donnée de variabilité de la fréquence cardiaque, mais toutes les applications tierces ne le lisent pas correctement: c'est un champ relativement nouveau dans l'API de Health Connect.",
+        pl: "Tak, od 2023 roku Garmin Connect zapisuje dane w Health Connect na Androidzie. Synchronizacja obejmuje kroki, tętno, sen, kalorie i treningi. HRV Garmina (HRV Status) jest zapisywane w Health Connect jako dane zmienności rytmu serca, ale nie wszystkie aplikacje innej firmy odczytują to poprawnie: to stosunkowo nowe pole w API Health Connect.",
+        tr: "Evet, 2023'ten itibaren Garmin Connect, Android'de Health Connect'e veri yazar. Senkronizasyon adımları, kalp atış hızını, uykuyu, kalorileri ve antrenmanları kapsar. Garmin'in HRV'si (HRV Status), Health Connect'e kalp atış hızı değişkenliği verisi olarak yazılır, ancak tüm üçüncü taraf uygulamalar bunu doğru okumaz: Health Connect API'sinde görece yeni bir alandır.",
       },
     },
   ],

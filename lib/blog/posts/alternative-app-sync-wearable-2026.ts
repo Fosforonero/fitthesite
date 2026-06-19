@@ -43,6 +43,18 @@ export const post: BlogPost = {
       "Les applications pont cloud-à-cloud restent utiles pour les synchronisations atypiques non couvertes par les intégrations natives.",
       "Pour un tableau de bord unifié multi-source, des outils dédiés comme FitMesh Sync (achat unique, sans publicité), Welltory ou Heads Up Health sont nécessaires.",
     ],
+    pl: [
+      "Health Connect, wbudowany w Androida, obsługuje około 90% scenariuszy synchronizacji między aplikacjami: bezpłatny i bez subskrypcji.",
+      "Natywne integracje producentów (Garmin, Polar, Suunto ze Strava) są bezpłatne i niezawodne dla typowej synchronizacji chmura-chmura.",
+      "Aplikacje-mosty chmura-chmura nadal przydają się do rzadkich synchronizacji nieobsługiwanych przez natywne integracje.",
+      "Do ujednoliconego panelu wieloźródłowego potrzebne są dedykowane narzędzia, takie jak FitMesh Sync (jednorazowa płatność, bez reklam), Welltory lub Heads Up Health.",
+    ],
+    tr: [
+      "Android'e yerleşik Health Connect, uygulama senkronizasyon senaryolarının yaklaşık yüzde doksanını karşılar: ücretsiz ve aboneliks iz.",
+      "Üretici yerel entegrasyonları (Garmin, Polar, Suunto ile Strava) yaygın bulut-bulut senkronizasyonu için ücretsiz ve güvenilirdir.",
+      "Bulut-bulut köprü uygulamaları, yerel entegrasyonların kapsamadığı nadir senkronizasyonlar için hala kullanışlıdır.",
+      "Birleşik çok kaynaklı bir panel için FitMesh Sync (tek seferlik ödeme, reklam yok), Welltory veya Heads Up Health gibi özel araçlar gerekir.",
+    ],
   },
   primaryKeyword: {
     it: "alternative app sync wearable",
@@ -50,6 +62,8 @@ export const post: BlogPost = {
     es: "alternativas apps sincronización wearable",
     pt: "alternativas apps sincronização wearable",
     fr: "alternatives applications synchronisation wearable",
+    pl: "alternatywy dla aplikacji do synchronizacji urządzeń wearable",
+    tr: "giyilebilir senkronizasyon uygulaması alternatifleri",
   },
   secondaryKeywords: {
     it: [
@@ -76,6 +90,18 @@ export const post: BlogPost = {
       "synchroniser samsung health garmin",
       "tableau de bord wearable unifié",
     ],
+    pl: [
+      "aplikacja sync wearable android",
+      "most danych zdrowotnych android",
+      "synchronizacja samsung health garmin",
+      "ujednolicony panel wearable",
+    ],
+    tr: [
+      "giyilebilir sync uygulaması android",
+      "android sağlık veri köprüsü",
+      "samsung health garmin senkronizasyonu",
+      "birleşik giyilebilir paneli",
+    ],
   },
   metaDescription: {
     it: "Panorama 2026 delle app per sincronizzare wearable Android: bridge cloud-to-cloud, Health Connect built-in, dashboard unificate. Pro/contro per ogni use case.",
@@ -84,9 +110,11 @@ export const post: BlogPost = {
     de: "Überblick 2026 der Apps zur Synchronisierung von Wearables unter Android: Cloud-zu-Cloud-Bridges, integriertes Health Connect, einheitliche Dashboards. Vor- und Nachteile je Anwendungsfall.",
     pt: "Panorama 2026 dos apps para sincronizar wearables no Android: pontes cloud-to-cloud, Health Connect integrado, painéis unificados. Prós e contras por caso de uso.",
     fr: "Panorama 2026 des applications pour synchroniser les wearables Android: ponts cloud-à-cloud, Health Connect intégré, tableaux de bord unifiés. Avantages et inconvénients par cas d'usage.",
+    pl: "Przegląd 2026 aplikacji do synchronizacji urządzeń wearable na Androidzie: mosty chmura-chmura, wbudowany Health Connect, ujednolicone panele. Zalety i wady dla każdego przypadku użycia.",
+    tr: "Android'de giyilebilir cihazları senkronize etmek için 2026 uygulama panoraması: bulut-bulut köprüleri, yerleşik Health Connect, birleşik paneller. Her kullanım senaryosu için artıları ve eksileri.",
   },
   hero: {
-    kicker: { it: "Panorama", en: "Landscape", es: "Panorama", de: "Überblick", pt: "Panorama", fr: "Panorama" },
+    kicker: { it: "Panorama", en: "Landscape", es: "Panorama", de: "Überblick", pt: "Panorama", fr: "Panorama", pl: "Przegląd", tr: "Genel Bakış" },
     title: {
       it: "Alternative app sync wearable 2026: panorama completo",
       en: "Wearable sync app alternatives in 2026: full landscape",
@@ -94,6 +122,8 @@ export const post: BlogPost = {
       de: "Alternativen für Wearable-Sync-Apps 2026: vollständiger Überblick",
       pt: "Alternativas de apps para sincronizar wearables em 2026: panorama completo",
       fr: "Alternatives aux applications de synchronisation de wearables en 2026: panorama complet",
+      pl: "Alternatywy dla aplikacji sync wearable w 2026: pełny przegląd",
+      tr: "2026'da giyilebilir sync uygulaması alternatifleri: eksiksiz genel bakış",
     },
     subtitle: {
       it: "Da anni la categoria 'app ponte' è popolata. Con l'arrivo di Health Connect il panorama è cambiato: vediamo cosa esiste oggi e quando ognuna ha senso.",
@@ -102,6 +132,8 @@ export const post: BlogPost = {
       de: "Die Kategorie der Bridge-Apps ist seit Jahren gut gefüllt. Mit der Einführung von Health Connect hat sich das Bild verändert: Hier siehst du, was es heute gibt und wann welche Option sinnvoll ist.",
       pt: "A categoria de 'apps ponte' está lotada há anos. Com a chegada do Health Connect o cenário mudou: veja o que existe hoje e quando cada opção faz sentido.",
       fr: "La catégorie des applications pont est saturée depuis des années. Avec l'arrivée de Health Connect, le paysage a changé: voici ce qui existe aujourd'hui et quand chaque option est pertinente.",
+      pl: "Kategoria 'aplikacji-mostów' jest zatłoczona od lat. Po pojawieniu się Health Connect krajobraz się zmienił: zobaczmy, co istnieje dziś i kiedy każda opcja ma sens.",
+      tr: "'Köprü uygulaması' kategorisi yıllardır kalabalık. Health Connect'in gelmesiyle ortam değişti: bugün ne var ve her seçenek ne zaman mantıklı, birlikte görelim.",
     },
   },
   body: [
@@ -114,6 +146,8 @@ export const post: BlogPost = {
         de: "Im Jahr 2026 lassen sich Android-Gesundheits-Bridge-Apps in drei klar abgegrenzte Kategorien einteilen: Cloud-zu-Cloud-Bridges, integriertes Health Connect (kostenlos und bereits im Betriebssystem vorhanden) und einheitliche Dashboards. Die falsche Wahl zu treffen bedeutet, für etwas zu bezahlen, das Android bereits kostenlos erledigt, oder Funktionen zu erwarten, die es nicht gibt. Die Kategorie (Samsung Health, Fitbit, Garmin, Strava, MyFitnessPal) existiert seit Jahren, doch mit Health Connect als Android-Standard sind manche Funktionen überflüssig geworden, andere hingegen unersetzlich.",
         pt: "Em 2026, os apps ponte entre ecossistemas de saúde Android se dividem em três categorias distintas: pontes cloud-to-cloud, Health Connect integrado (gratuito e já no sistema operacional) e painéis unificados. Escolher o errado significa pagar por algo que o Android já faz de graça, ou esperar funcionalidades que não existem. A categoria (Samsung Health, Fitbit, Garmin, Strava, MyFitnessPal) existe há anos, mas a chegada do Health Connect como padrão Android tornou algumas funções supérfluas e outras insubstituíveis.",
         fr: "En 2026, les applications pont entre écosystèmes de santé Android se répartissent en trois catégories distinctes: les ponts cloud-à-cloud, Health Connect intégré (gratuit et déjà dans le système d'exploitation) et les tableaux de bord unifiés. Choisir la mauvaise signifie payer pour quelque chose qu'Android fait déjà gratuitement, ou attendre des fonctionnalités qui n'existent pas. Cette catégorie d'applications (Samsung Health, Fitbit, Garmin, Strava, MyFitnessPal) existe depuis des années, mais l'arrivée de Health Connect comme standard Android a rendu certaines fonctions superflues et d'autres irremplaçables.",
+        pl: "W 2026 roku aplikacje-mosty między ekosystemami zdrowotnymi na Androidzie dzielą się na trzy odrębne kategorie: mosty chmura-chmura, wbudowany Health Connect (bezpłatny i już w systemie operacyjnym) oraz ujednolicone panele. Wybór niewłaściwego oznacza płacenie za coś, co Android robi już za darmo, albo oczekiwanie funkcji, które nie istnieją. Kategoria (Samsung Health, Fitbit, Garmin, Strava, MyFitnessPal) istnieje od lat, ale pojawienie się Health Connect jako standardu Androida sprawiło, że niektóre funkcje stały się zbędne, a inne niezastąpione.",
+        tr: "2026 yılında Android sağlık ekosistemi köprü uygulamaları üç farklı kategoriye ayrılır: bulut-bulut köprüleri, yerleşik Health Connect (ücretsiz ve işletim sisteminde mevcut) ve birleşik paneller. Yanlış olanı seçmek, Android'in zaten ücretsiz yaptığı bir şey için ödeme yapmak ya da var olmayan özellikler beklemek anlamına gelir. Kategori (Samsung Health, Fitbit, Garmin, Strava, MyFitnessPal) yıllardır var, ancak Health Connect'in Android standardı olarak gelmesi bazı işlevleri gereksiz, diğerlerini ise vazgeçilmez kıldı.",
       },
     },
     {
@@ -126,6 +160,8 @@ export const post: BlogPost = {
         de: "Was eine Bridge-App in der Praxis macht",
         pt: "O que um app ponte faz na prática",
         fr: "Ce que fait concrètement une application pont",
+        pl: "Co robi aplikacja-most w praktyce",
+        tr: "Köprü uygulaması pratikte ne yapar",
       },
     },
     {
@@ -137,6 +173,8 @@ export const post: BlogPost = {
         de: "Für alle, die noch keine verwendet haben: Eine Bridge-App bittet dich, zwei Ökosysteme zu autorisieren (z. B. Garmin Connect → Samsung Health) und repliziert kontinuierlich Daten von einem zum anderen. Sie ist kein Dashboard, sondern eine Synchronisierungs-Engine im Hintergrund. Sie verwaltet mehrere OAuth-Zyklen, kümmert sich um die Zuordnung von Datentypen zwischen verschiedenen Schemata und füllt historische Daten nach.",
         pt: "Para quem nunca usou um: um app ponte pede para você autorizar dois ecossistemas (por exemplo, Garmin Connect → Samsung Health) e replica continuamente os dados de um para o outro. Não é um painel: é um mecanismo de sincronização em segundo plano. Ele gerencia múltiplos ciclos de autorização, faz o mapeamento de tipos de dados entre esquemas diferentes e preenche o histórico de dados anteriores.",
         fr: "Pour ceux qui n'en ont jamais utilisé: une application pont vous demande d'autoriser deux écosystèmes (par exemple Garmin Connect → Samsung Health) et réplique en continu les données de l'un vers l'autre. Ce n'est pas un tableau de bord: c'est un moteur de synchronisation en arrière-plan. Il gère plusieurs cycles d'autorisation, s'occupe du mappage des types de données entre différents schémas et effectue le remplissage historique des données.",
+        pl: "Dla tych, którzy nigdy nie używali: aplikacja-most prosi o autoryzację dwóch ekosystemów (np. Garmin Connect → Samsung Health) i stale replikuje dane z jednego do drugiego. To nie jest panel: to silnik synchronizacji działający w tle. Obsługuje wiele cykli OAuth, zarządza mapowaniem typów danych między różnymi schematami, wykonuje uzupełnianie historyczne.",
+        tr: "Hiç kullanmayanlar için: köprü uygulama iki ekosistemi yetkilendirmenizi ister (örn. Garmin Connect → Samsung Health) ve verileri sürekli olarak birinden diğerine kopyalar. Bu bir panel değil, arka planda çalışan bir senkronizasyon motorudur. Birden fazla OAuth döngüsü yönetir, farklı şemalar arasında veri türü eşlemesini gerçekleştirir, geçmiş veri doldurma yapar.",
       },
     },
     {
@@ -149,6 +187,8 @@ export const post: BlogPost = {
         de: "Die echten Optionen, geordnet nach Anwendungsfall",
         pt: "As opções reais, divididas por caso de uso",
         fr: "Les options réelles, classées par cas d'usage",
+        pl: "Realne opcje podzielone według przypadku użycia",
+        tr: "Kullanım senaryosuna göre gerçek seçenekler",
       },
     },
     {
@@ -161,6 +201,8 @@ export const post: BlogPost = {
         de: "Fall A: Synchronisierung zwischen Android-Apps über Health Connect",
         pt: "Caso A: sincronização entre apps Android via Health Connect",
         fr: "Cas A: synchronisation entre applications Android via Health Connect",
+        pl: "Przypadek A: synchronizacja między aplikacjami Android przez Health Connect",
+        tr: "Durum A: Health Connect aracılığıyla Android uygulamaları arasında senkronizasyon",
       },
     },
     {
@@ -172,6 +214,8 @@ export const post: BlogPost = {
         de: "Wenn dein Ziel ist, zwei Android-Apps miteinander kommunizieren zu lassen (z. B. Samsung Health ↔ MyFitnessPal oder Fitbit ↔ Strava auf einer Pixel Watch), ist Health Connect heute der offizielle, kostenlose und ins Betriebssystem integrierte Weg. Es wird keine Drittanbieter-App benötigt: Du konfigurierst die Berechtigungen direkt in Health Connect.",
         pt: "Se o seu objetivo é fazer dois apps Android se comunicarem (por exemplo, Samsung Health ↔ MyFitnessPal, ou Fitbit ↔ Strava em um Pixel Watch), hoje o Health Connect é a forma oficial, gratuita e integrada ao sistema operacional. Nenhum app de terceiros é necessário: configure as permissões diretamente no Health Connect.",
         fr: "Si votre objectif est de faire communiquer deux applications Android (par exemple Samsung Health ↔ MyFitnessPal, ou Fitbit ↔ Strava sur une Pixel Watch), Health Connect est aujourd'hui la solution officielle, gratuite et intégrée au système d'exploitation. Aucune application tierce n'est nécessaire: configurez les autorisations directement dans Health Connect.",
+        pl: "Jeśli Twoim celem jest połączenie dwóch aplikacji Android (np. Samsung Health ↔ MyFitnessPal lub Fitbit ↔ Strava na Pixel Watch), dziś Health Connect to oficjalny, bezpłatny sposób zintegrowany z systemem operacyjnym. Żadna zewnętrzna aplikacja nie jest potrzebna: konfiguruj uprawnienia bezpośrednio w Health Connect.",
+        tr: "Amacınız iki Android uygulamasını birbirine bağlamaksa (örn. Samsung Health ↔ MyFitnessPal veya Pixel Watch'ta Fitbit ↔ Strava), bugün Health Connect resmi, ücretsiz ve işletim sistemine entegre yoldur. Üçüncü taraf uygulamaya gerek yok: izinleri doğrudan Health Connect'te yapılandırın.",
       },
     },
     {
@@ -207,6 +251,16 @@ export const post: BlogPost = {
           "Pour chaque application, décidez ce qu'elle peut lire et écrire.",
           "Les applications se synchronisent automatiquement en arrière-plan lorsque les données changent.",
         ],
+        pl: [
+          "Otwórz Health Connect → 'Dostęp aplikacji'.",
+          "Dla każdej aplikacji zdecyduj, co może odczytywać i zapisywać.",
+          "Aplikacje synchronizują się automatycznie w tle, gdy dane się zmieniają.",
+        ],
+        tr: [
+          "Health Connect'i açın → 'Uygulama erişimi'.",
+          "Her uygulama için ne okuyabileceğine ve yazabileceğine karar verin.",
+          "Uygulamalar, veriler değiştiğinde arka planda otomatik olarak senkronize olur.",
+        ],
       },
     },
     {
@@ -219,6 +273,8 @@ export const post: BlogPost = {
         de: "Einschränkung",
         pt: "Limitação",
         fr: "Limitation",
+        pl: "Ograniczenie",
+        tr: "Sınırlama",
       },
       body: {
         it: "Funziona solo se entrambe le app supportano Health Connect. Strava non supporta HC in modo standard (legge da Google Fit/HealthKit storicamente). Garmin Connect, Fitbit, Samsung Health, Polar Flow, Mi Fitness, Withings Health Mate sì.",
@@ -227,6 +283,8 @@ export const post: BlogPost = {
         de: "Funktioniert nur, wenn beide Apps Health Connect unterstützen. Strava unterstützt HC nicht standardmäßig (liest historisch von Google Fit/HealthKit). Garmin Connect, Fitbit, Samsung Health, Polar Flow, Mi Fitness und Withings Health Mate tun es.",
         pt: "Funciona apenas se ambos os apps suportarem Health Connect. O Strava não suporta HC de forma padrão (historicamente lê do Google Fit/HealthKit). Garmin Connect, Fitbit, Samsung Health, Polar Flow, Mi Fitness e Withings Health Mate sim.",
         fr: "Fonctionne uniquement si les deux applications prennent en charge Health Connect. Strava ne supporte pas HC de manière standard (lit historiquement depuis Google Fit/HealthKit). Garmin Connect, Fitbit, Samsung Health, Polar Flow, Mi Fitness et Withings Health Mate le font.",
+        pl: "Działa tylko wtedy, gdy obie aplikacje obsługują Health Connect. Strava nie obsługuje HC w standardowy sposób (historycznie odczytuje z Google Fit/HealthKit). Garmin Connect, Fitbit, Samsung Health, Polar Flow, Mi Fitness i Withings Health Mate tak.",
+        tr: "Yalnızca her iki uygulama da Health Connect'i destekliyorsa çalışır. Strava, HC'yi standart biçimde desteklemez (tarihsel olarak Google Fit/HealthKit'ten okur). Garmin Connect, Fitbit, Samsung Health, Polar Flow, Mi Fitness ve Withings Health Mate destekler.",
       },
     },
     {
@@ -239,6 +297,8 @@ export const post: BlogPost = {
         de: "Fall B: Synchronisierung zwischen verschiedenen Clouds (Strava ↔ Garmin ↔ usw.)",
         pt: "Caso B: sincronização entre clouds diferentes (Strava ↔ Garmin ↔ etc.)",
         fr: "Cas B: synchronisation entre différents services cloud (Strava ↔ Garmin ↔ etc.)",
+        pl: "Przypadek B: synchronizacja między różnymi chmurami (Strava ↔ Garmin ↔ itd.)",
+        tr: "Durum B: farklı bulutlar arasında senkronizasyon (Strava ↔ Garmin ↔ vb.)",
       },
     },
     {
@@ -250,6 +310,8 @@ export const post: BlogPost = {
         de: "Für die Cloud-zu-Cloud-Synchronisierung (Garmin Connect ↔ Strava, Strava ↔ TrainingPeaks, Strava ↔ Komoot) gibt es verschiedene Optionen, die häufig vom Hersteller selbst angeboten werden.",
         pt: "Para sincronização cloud-to-cloud (Garmin Connect ↔ Strava, Strava ↔ TrainingPeaks, Strava ↔ Komoot), as opções variam e muitas vezes são nativas do fabricante.",
         fr: "Pour la synchronisation cloud-à-cloud (Garmin Connect ↔ Strava, Strava ↔ TrainingPeaks, Strava ↔ Komoot), les options varient et sont souvent natives au fabricant.",
+        pl: "W przypadku synchronizacji chmura-chmura (Garmin Connect ↔ Strava, Strava ↔ TrainingPeaks, Strava ↔ Komoot) opcje są różne i często natywne dla producenta.",
+        tr: "Bulut-bulut senkronizasyonu için (Garmin Connect ↔ Strava, Strava ↔ TrainingPeaks, Strava ↔ Komoot) seçenekler değişir ve genellikle üreticiye özgüdür.",
       },
     },
     {
@@ -303,6 +365,22 @@ export const post: BlogPost = {
           "**Garmin → Komoot**: intégration bidirectionnelle dans Komoot.",
           "**Pour les synchronisations atypiques** (par exemple Wahoo → Garmin): des outils dédiés comme SyncMyTracks ou RunGap (iOS) restent utiles. Sur Android, les applications pont cloud-à-cloud verticales couvrent encore bien ces cas de niche.",
         ],
+        pl: [
+          "**Garmin → Strava**: oficjalna integracja w Garmin Connect (Ustawienia → Aplikacje partnerskie). Bezpłatne.",
+          "**Polar → Strava**: tak samo, w Polar Flow web.",
+          "**Suunto → Strava**: tak samo, w aplikacji Suunto.",
+          "**Strava → TrainingPeaks**: bezpłatne, autoryzacja w TrainingPeaks.",
+          "**Garmin → Komoot**: dwukierunkowa integracja w Komoot.",
+          "**Dla rzadkich synchronizacji** (np. Wahoo → Garmin): dedykowane narzędzia takie jak SyncMyTracks lub RunGap (iOS) nadal są przydatne. Na Androidzie pionowe aplikacje-mosty chmura-chmura nadal dobrze obsługują te niszowe przypadki.",
+        ],
+        tr: [
+          "**Garmin → Strava**: Garmin Connect içinde resmi entegrasyon (Ayarlar → Ortak Uygulamalar). Ücretsiz.",
+          "**Polar → Strava**: aynı şekilde, Polar Flow web'de.",
+          "**Suunto → Strava**: aynı şekilde, Suunto uygulamasında.",
+          "**Strava → TrainingPeaks**: ücretsiz, TrainingPeaks'te OAuth.",
+          "**Garmin → Komoot**: Komoot içinde çift yönlü entegrasyon.",
+          "**Nadir senkronizasyonlar için** (örn. Wahoo → Garmin): SyncMyTracks veya RunGap (iOS) gibi özel araçlar hala kullanışlıdır. Android'de dikey bulut-bulut köprü uygulamaları bu niş durumları hala iyi karşılar.",
+        ],
       },
     },
     {
@@ -315,6 +393,8 @@ export const post: BlogPost = {
         de: "Fall C: einheitliches quellenübergreifendes Dashboard",
         pt: "Caso C: painel unificado multi-fonte",
         fr: "Cas C: tableau de bord unifié multi-source",
+        pl: "Przypadek C: ujednolicony panel wieloźródłowy",
+        tr: "Durum C: birleşik çok kaynaklı panel",
       },
     },
     {
@@ -326,6 +406,8 @@ export const post: BlogPost = {
         de: "Wenn es dir nicht darum geht, Daten zwischen Apps zu replizieren, sondern alles an einem einzigen Ort zu sehen, sind die Optionen:",
         pt: "Se o que você quer não é replicar dados entre apps, mas ver tudo em um único lugar, as opções são:",
         fr: "Si vous ne souhaitez pas répliquer des données entre applications mais tout voir en un seul endroit, les options sont:",
+        pl: "Jeśli nie zależy Ci na replikowaniu danych między aplikacjami, lecz chcesz widzieć wszystko w jednym miejscu, opcje są następujące:",
+        tr: "Uygulamalar arasında veri kopyalamak değil, her şeyi tek bir yerde görmek istiyorsanız seçenekler şunlardır:",
       },
     },
     {
@@ -373,6 +455,20 @@ export const post: BlogPost = {
           "**Bearable**: suivi des symptômes et de l'humeur avec import santé. Plus orienté santé mentale. Freemium.",
           "**Self-hosted**: Home Assistant + intégrations personnalisées, Grafana + base de données. Contrôle maximal, effort maximal.",
         ],
+        pl: [
+          "**FitMesh Sync**: odczytuje z Health Connect (każdy obsługiwany wearable Android) i harmonogram OAuth dla Garmin/Polar/Oura/Withings/Strava w 2026. Panel web + aplikacja Android. Jednorazowa płatność.",
+          "**Welltory**: aplikacja iOS+Android z panelem i coachingiem opartym na zmienności rytmu serca. Premium z subskrypcją.",
+          "**Heads Up Health**: techniczny panel obsługujący ponad 50 źródeł, w tym CGM i dane laboratoryjne. Stworzony dla biohackerów. Subskrypcja.",
+          "**Bearable**: śledzenie objawów i nastroju z importem zdrowotnym. Bardziej ukierunkowany na zdrowie psychiczne. Freemium.",
+          "**Self-hosted**: Home Assistant z niestandardowymi integracjami, Grafana z bazą danych. Maksymalna kontrola, maksymalny wysiłek.",
+        ],
+        tr: [
+          "**FitMesh Sync**: Health Connect'ten okur (desteklenen tüm Android giyilebilirler) ve 2026 yol haritasında Garmin/Polar/Oura/Withings/Strava için OAuth entegrasyonu. Web paneli + Android uygulaması. Tek seferlik fiyatlandırma.",
+          "**Welltory**: iOS+Android uygulaması, panel ve HRV tabanlı koçluk. Abonelikle Premium.",
+          "**Heads Up Health**: CGM ve laboratuvar verileri dahil 50'den fazla kaynağı destekleyen teknik panel. Biohackerlar için tasarlandı. Abonelik.",
+          "**Bearable**: sağlık içe aktarmalı semptom ve ruh hali takipçisi. Ruh sağlığına daha dikey. Freemium.",
+          "**Self-hosted**: Home Assistant ile özel entegrasyonlar, Grafana ile veritabanı. Maksimum kontrol, maksimum çaba.",
+        ],
       },
     },
     {
@@ -385,6 +481,8 @@ export const post: BlogPost = {
         de: "Schnellvergleichstabelle nach Kategorie",
         pt: "Tabela de comparação rápida por categoria",
         fr: "Tableau de comparaison rapide par catégorie",
+        pl: "Tabela szybkiego porównania według kategorii",
+        tr: "Kategoriye göre hızlı karşılaştırma tablosu",
       },
     },
     {
@@ -396,6 +494,8 @@ export const post: BlogPost = {
         de: ["Kategorie", "Sync-Engine", "Dashboard", "Typischer Preis"],
         pt: ["Categoria", "Motor de sincronização", "Painel", "Preço típico"],
         fr: ["Catégorie", "Moteur de sync", "Tableau de bord", "Prix typique"],
+        pl: ["Kategoria", "Silnik sync", "Panel", "Typowa cena"],
+        tr: ["Kategori", "Sync motoru", "Panel", "Tipik fiyat"],
       },
       rows: [
         {
@@ -405,6 +505,8 @@ export const post: BlogPost = {
           de: ["Cloud-zu-Cloud-Bridge-Apps (Android)", "Ja (Cloud-zu-Cloud + HC)", "Nein", "Kostenlose Testversion, dann Einmalkauf"],
           pt: ["Apps ponte cloud-to-cloud (Android)", "Sim (cloud-to-cloud + HC)", "Não", "Teste grátis, depois compra única"],
           fr: ["Applications pont cloud-à-cloud (Android)", "Oui (cloud-à-cloud + HC)", "Non", "Essai gratuit, puis achat unique"],
+          pl: ["Aplikacje-mosty chmura-chmura (Android)", "Tak (chmura-chmura + HC)", "Nie", "Bezpłatna próba, potem jednorazowo"],
+          tr: ["Bulut-bulut köprü uygulamaları (Android)", "Evet (bulut-bulut + HC)", "Hayır", "Ücretsiz deneme, sonra tek seferlik"],
         },
         {
           it: ["FitMesh Sync", "Sì (lettura HC, OAuth in roadmap)", "Sì (web + app)", "Una tantum, no ads"],
@@ -413,6 +515,8 @@ export const post: BlogPost = {
           de: ["FitMesh Sync", "Ja (HC-Lese, OAuth in Roadmap)", "Ja (Web + App)", "Einmalkauf, keine Werbung"],
           pt: ["FitMesh Sync", "Sim (leitura HC, OAuth no roadmap)", "Sim (web + app)", "Compra única, sem anúncios"],
           fr: ["FitMesh Sync", "Oui (lecture HC, OAuth en feuille de route)", "Oui (web + app)", "Achat unique, sans publicité"],
+          pl: ["FitMesh Sync", "Tak (odczyt HC, OAuth w harmonogramie)", "Tak (web + app)", "Jednorazowo, bez reklam"],
+          tr: ["FitMesh Sync", "Evet (HC okuma, OAuth yol haritasında)", "Evet (web + app)", "Tek seferlik, reklam yok"],
         },
         {
           it: ["SyncMyTracks", "Sì (cloud-to-cloud)", "No", "Una tantum"],
@@ -421,6 +525,8 @@ export const post: BlogPost = {
           de: ["SyncMyTracks", "Ja (Cloud-zu-Cloud)", "Nein", "Einmalkauf"],
           pt: ["SyncMyTracks", "Sim (cloud-to-cloud)", "Não", "Compra única"],
           fr: ["SyncMyTracks", "Oui (cloud-à-cloud)", "Non", "Achat unique"],
+          pl: ["SyncMyTracks", "Tak (chmura-chmura)", "Nie", "Jednorazowo"],
+          tr: ["SyncMyTracks", "Evet (bulut-bulut)", "Hayır", "Tek seferlik"],
         },
         {
           it: ["Welltory", "Sì (HC + cloud)", "Sì", "Subscription"],
@@ -429,6 +535,8 @@ export const post: BlogPost = {
           de: ["Welltory", "Ja (HC + Cloud)", "Ja", "Abonnement"],
           pt: ["Welltory", "Sim (HC + cloud)", "Sim", "Assinatura"],
           fr: ["Welltory", "Oui (HC + cloud)", "Oui", "Abonnement"],
+          pl: ["Welltory", "Tak (HC + chmura)", "Tak", "Subskrypcja"],
+          tr: ["Welltory", "Evet (HC + bulut)", "Evet", "Abonelik"],
         },
         {
           it: ["Heads Up Health", "Limitato (focus dashboard)", "Sì (avanzata)", "Subscription"],
@@ -437,6 +545,8 @@ export const post: BlogPost = {
           de: ["Heads Up Health", "Begrenzt (Dashboard-Fokus)", "Ja (erweitert)", "Abonnement"],
           pt: ["Heads Up Health", "Limitado (foco no painel)", "Sim (avançado)", "Assinatura"],
           fr: ["Heads Up Health", "Limité (orienté tableau de bord)", "Oui (avancé)", "Abonnement"],
+          pl: ["Heads Up Health", "Ograniczony (skupiony na panelu)", "Tak (zaawansowany)", "Subskrypcja"],
+          tr: ["Heads Up Health", "Sınırlı (panel odaklı)", "Evet (gelişmiş)", "Abonelik"],
         },
         {
           it: ["Bearable", "No (manuale + HC)", "Sì (mood + salute)", "Freemium"],
@@ -445,6 +555,8 @@ export const post: BlogPost = {
           de: ["Bearable", "Nein (manuell + HC)", "Ja (Stimmung + Gesundheit)", "Freemium"],
           pt: ["Bearable", "Não (manual + HC)", "Sim (humor + saúde)", "Freemium"],
           fr: ["Bearable", "Non (manuel + HC)", "Oui (humeur + santé)", "Freemium"],
+          pl: ["Bearable", "Nie (ręcznie + HC)", "Tak (nastrój + zdrowie)", "Freemium"],
+          tr: ["Bearable", "Hayır (manuel + HC)", "Evet (ruh hali + sağlık)", "Freemium"],
         },
         {
           it: ["Health Connect built-in", "Sì (Android-only)", "Limitata", "Gratis"],
@@ -453,6 +565,8 @@ export const post: BlogPost = {
           de: ["Health Connect integriert", "Ja (nur Android)", "Begrenzt", "Kostenlos"],
           pt: ["Health Connect integrado", "Sim (somente Android)", "Limitado", "Grátis"],
           fr: ["Health Connect intégré", "Oui (Android uniquement)", "Limité", "Gratuit"],
+          pl: ["Health Connect wbudowany", "Tak (tylko Android)", "Ograniczony", "Bezpłatny"],
+          tr: ["Health Connect yerleşik", "Evet (yalnızca Android)", "Sınırlı", "Ücretsiz"],
         },
       ],
     },
@@ -466,6 +580,8 @@ export const post: BlogPost = {
         de: "Direkte Einschätzung",
         pt: "Opinião direta",
         fr: "Avis direct",
+        pl: "Bezpośrednia opinia",
+        tr: "Doğrudan görüş",
       },
       body: {
         it: "Se usi un wearable Android e il tuo unico obiettivo è far parlare due app (es. Samsung Health e MyFitnessPal), smetti di cercare una bridge app: Health Connect già risolve questo gratuitamente. Le bridge app cloud-to-cloud hanno ancora senso per sync esotici tra piattaforme diverse, ma per il 90% degli utenti Android nel 2026 sono uno strato inutile che aggiunge complessità e potenziali punti di rottura.",
@@ -474,6 +590,8 @@ export const post: BlogPost = {
         de: "Wenn du ein Android-Wearable verwendest und dein einziges Ziel ist, zwei Apps miteinander kommunizieren zu lassen (z. B. Samsung Health und MyFitnessPal), höre auf, nach einer Bridge-App zu suchen: Health Connect löst das bereits kostenlos. Cloud-zu-Cloud-Bridge-Apps machen für exotische plattformübergreifende Synchronisierungen noch Sinn, aber für 90 % der Android-Nutzer im Jahr 2026 sind sie eine unnötige Schicht, die Komplexität und potenzielle Fehlerquellen hinzufügt.",
         pt: "Se você usa um wearable Android e seu único objetivo é fazer dois apps se comunicarem (por exemplo, Samsung Health e MyFitnessPal), pare de procurar um app ponte: o Health Connect já resolve isso gratuitamente. Os apps ponte cloud-to-cloud ainda fazem sentido para sincronizações exóticas entre plataformas diferentes, mas para 90% dos usuários Android em 2026 são uma camada desnecessária que adiciona complexidade e potenciais pontos de falha.",
         fr: "Si vous utilisez un wearable Android et que votre seul objectif est de faire communiquer deux applications (par exemple Samsung Health et MyFitnessPal), cessez de chercher une application pont: Health Connect résout déjà cela gratuitement. Les applications pont cloud-à-cloud ont encore leur utilité pour les synchronisations atypiques entre plateformes différentes, mais pour 90 % des utilisateurs Android en 2026, elles constituent une couche inutile qui ajoute de la complexité et des points de défaillance potentiels.",
+        pl: "Jeśli używasz wearable z Androidem i Twoim jedynym celem jest połączenie dwóch aplikacji (np. Samsung Health i MyFitnessPal), przestań szukać aplikacji-mostu: Health Connect rozwiązuje to już za darmo. Aplikacje-mosty chmura-chmura nadal mają sens w przypadku rzadkich synchronizacji między różnymi platformami, ale dla 90% użytkowników Androida w 2026 roku są niepotrzebną warstwą dodającą złożoność i potencjalne punkty awarii.",
+        tr: "Android giyilebilir kullanıyorsanız ve tek amacınız iki uygulamayı konuşturmaksa (örn. Samsung Health ve MyFitnessPal), köprü uygulama aramayı bırakın: Health Connect bunu zaten ücretsiz çözüyor. Bulut-bulut köprü uygulamaları farklı platformlar arasındaki nadir senkronizasyonlar için hala işe yarıyor, ancak 2026'da Android kullanıcılarının yüzde doksanı için karmaşıklık ve potansiyel hata noktaları ekleyen gereksiz bir katmandır.",
       },
     },
     {
@@ -486,6 +604,8 @@ export const post: BlogPost = {
         de: "Was du praktisch wählen solltest",
         pt: "O que escolher, na prática",
         fr: "Que choisir concrètement",
+        pl: "Co wybrać w praktyce",
+        tr: "Pratikte ne seçmeli",
       },
     },
     {
@@ -533,6 +653,20 @@ export const post: BlogPost = {
           "**Vous êtes biohacker avec CGM, données de laboratoire ou marqueurs sanguins**: Heads Up Health reste un choix solide pour les jeux de données complexes.",
           "**Vous avez des synchronisations atypiques sur Android comme Withings → Garmin Connect**: les applications pont verticales cloud-à-cloud restent la catégorie adaptée à ces cas spécifiques.",
         ],
+        pl: [
+          "**Chcesz synchronizować Garmin/Polar/Suunto ze Strava**: użyj natywnych integracji producentów. Bezpłatne, niezawodne, bez dodatkowych aplikacji.",
+          "**Chcesz, żeby Samsung Health widział dane Fitbit (lub odwrotnie)** na Androidzie: skonfiguruj Health Connect bezpośrednio, żadne zewnętrzne aplikacje nie są potrzebne.",
+          "**Chcesz przejrzystego panelu dla Galaxy/Pixel/Fitbit/Mi Band**: wypróbuj FitMesh Sync (prywatność na pierwszym miejscu, jednorazowa płatność).",
+          "**Jesteś biohackerem z CGM, danymi laboratoryjnymi, markerami krwi**: Heads Up Health to nadal solidny wybór dla złożonych zestawów danych.",
+          "**Masz rzadkie synchronizacje Android typu Withings → Garmin Connect**: pionowe aplikacje-mosty chmura-chmura nadal są właściwą kategorią dla tych konkretnych przypadków.",
+        ],
+        tr: [
+          "**Garmin/Polar/Suunto'yu Strava ile senkronize etmek istiyorsanız**: üretici yerel entegrasyonlarını kullanın. Ücretsiz, güvenilir, ekstra uygulama yok.",
+          "**Samsung Health'in Fitbit verilerini görmesini istiyorsanız (ya da tam tersi)** Android'de: Health Connect'i doğrudan yapılandırın, üçüncü taraf uygulamaya gerek yok.",
+          "**Galaxy/Pixel/Fitbit/Mi Band için temiz bir panel istiyorsanız**: FitMesh Sync'i deneyin (gizlilik önce, tek seferlik ödeme).",
+          "**CGM, laboratuvar verileri, kan markerleri olan bir biohackerseniz**: Heads Up Health karmaşık veri kümeleri için sağlam bir seçim olmaya devam eder.",
+          "**Withings → Garmin Connect gibi nadir Android senkronizasyonlarınız varsa**: dikey bulut-bulut köprü uygulamaları bu özel durumlar için uygun kategori olmayı sürdürür.",
+        ],
       },
     },
     {
@@ -545,6 +679,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
     },
     {
@@ -592,6 +728,20 @@ export const post: BlogPost = {
           "Pour un tableau de bord unifié multi-source (pas seulement la synchronisation), des outils dédiés comme FitMesh Sync, Welltory ou Heads Up Health sont nécessaires.",
           "Les applications totalement gratuites sans modèle économique clair monétisent généralement les données: le modèle 'payer une fois' est plus durable pour les données de santé sensibles.",
         ],
+        pl: [
+          "Health Connect (wbudowany w Androida) obsługuje 90% scenariuszy synchronizacji między aplikacjami Android: bez dodatkowych aplikacji, bez subskrypcji.",
+          "Natywne integracje producentów (Garmin, Polar, Suunto ze Strava) są bezpłatne i bardziej niezawodne niż jakakolwiek zewnętrzna aplikacja-most.",
+          "Aplikacje-mosty chmura-chmura pozostają przydatne tylko do rzadkich synchronizacji nieobsługiwanych przez natywne integracje.",
+          "Dla ujednoliconego panelu wieloźródłowego (nie tylko synchronizacja) potrzebne są dedykowane narzędzia, takie jak FitMesh Sync, Welltory lub Heads Up Health.",
+          "Całkowicie bezpłatne aplikacje bez jasnego modelu biznesowego zazwyczaj monetyzują dane: model 'zapłać raz' jest bardziej zrównoważony w przypadku wrażliwych danych zdrowotnych.",
+        ],
+        tr: [
+          "Health Connect (Android'e yerleşik) Android uygulama senkronizasyon senaryolarının yüzde doksanını karşılar: ekstra uygulama yok, abonelik yok.",
+          "Üretici yerel entegrasyonları (Garmin, Polar, Suunto ile Strava) ücretsizdir ve herhangi bir üçüncü taraf köprü uygulamasından daha güvenilirdir.",
+          "Bulut-bulut köprü uygulamaları yalnızca yerel entegrasyonların kapsamadığı nadir senkronizasyonlar için kullanışlı olmaya devam eder.",
+          "Birleşik çok kaynaklı bir panel (yalnızca senkronizasyon değil) için FitMesh Sync, Welltory veya Heads Up Health gibi özel araçlar gereklidir.",
+          "Net bir iş modeli olmayan tamamen ücretsiz uygulamalar genellikle verileri monetize eder: 'bir kez öde' modeli hassas sağlık verileri için daha sürdürülebilirdir.",
+        ],
       },
     },
     {
@@ -603,6 +753,8 @@ export const post: BlogPost = {
         de: "Möchtest du unser einheitliches Dashboard ausprobieren?",
         pt: "Quer experimentar nosso painel unificado?",
         fr: "Vous souhaitez essayer notre tableau de bord unifié?",
+        pl: "Chcesz wypróbować nasz ujednolicony panel?",
+        tr: "Birleşik panelimizi denemek ister misiniz?",
       },
       body: {
         it: "FitMesh Sync è gratis durante la beta per i primi 100 founder. Funziona oggi con tutti i wearable che scrivono su Health Connect.",
@@ -611,6 +763,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync ist während der Beta für die ersten 100 Founder kostenlos. Funktioniert heute mit allen Wearables, die in Health Connect schreiben.",
         pt: "FitMesh Sync é grátis durante a beta para os primeiros 100 founders. Funciona hoje com todos os wearables que escrevem no Health Connect.",
         fr: "FitMesh Sync est gratuit pendant la bêta pour les 100 premiers fondateurs. Fonctionne dès aujourd'hui avec tous les appareils connectés qui écrivent dans Health Connect.",
+        pl: "FitMesh Sync jest bezpłatny podczas bety dla pierwszych 100 founderów. Działa dziś ze wszystkimi urządzeniami wearable zapisującymi do Health Connect.",
+        tr: "FitMesh Sync, ilk 100 kurucu için beta süresince ücretsizdir. Bugün Health Connect'e yazan tüm giyilebilirlerle çalışır.",
       },
       ctaLabel: {
         it: "Entra in beta",
@@ -619,8 +773,10 @@ export const post: BlogPost = {
         de: "Jetzt Beta beitreten",
         pt: "Entrar na beta",
         fr: "Rejoindre la bêta",
+        pl: "Dołącz do bety",
+        tr: "Beta'ya katıl",
       },
-      ctaHref: { it: "/it/beta", en: "/en/beta" },
+      ctaHref: { it: "/it/beta", en: "/en/beta", pl: "/pl/beta", tr: "/tr/beta" },
     },
   ],
   faq: [
@@ -632,6 +788,8 @@ export const post: BlogPost = {
         de: "Sind klassische Bridge-Apps im Jahr 2026 noch nützlich?",
         pt: "Os apps ponte clássicos ainda são úteis em 2026?",
         fr: "Les applications pont classiques sont-elles encore utiles en 2026?",
+        pl: "Czy klasyczne aplikacje-mosty są nadal przydatne w 2026 roku?",
+        tr: "Klasik köprü uygulamaları 2026'da hala işe yarıyor mu?",
       },
       a: {
         it: "Per la loro specifica nicchia (sync background tra cloud diversi su Android quando Health Connect non basta), restano solide. Per la maggior parte degli use case 2026 esistono alternative migliori: Health Connect built-in per sync tra app Android, dashboard unificate per visualizzazione, integrazioni produttore native per sync cloud-to-cloud comuni.",
@@ -640,6 +798,8 @@ export const post: BlogPost = {
         de: "Für ihre spezifische Nische (Hintergrund-Synchronisierung zwischen verschiedenen Clouds auf Android, wenn Health Connect nicht ausreicht) bleiben sie solide. Für die meisten Anwendungsfälle 2026 gibt es bessere Alternativen: integriertes Health Connect für die Android-App-Synchronisierung, einheitliche Dashboards zur Visualisierung und native Hersteller-Integrationen für gängige Cloud-zu-Cloud-Synchronisierungen.",
         pt: "Para seu nicho específico (sincronização em segundo plano entre clouds diferentes no Android quando o Health Connect não é suficiente), continuam sendo sólidos. Para a maioria dos casos de uso em 2026 há alternativas melhores: Health Connect integrado para sincronização entre apps Android, painéis unificados para visualização e integrações nativas dos fabricantes para sincronizações cloud-to-cloud comuns.",
         fr: "Pour leur niche spécifique (synchronisation en arrière-plan entre différents services cloud sur Android quand Health Connect ne suffit pas), elles restent solides. Pour la plupart des cas d'usage en 2026, il existe de meilleures alternatives: Health Connect intégré pour la synchronisation entre applications Android, les tableaux de bord unifiés pour la visualisation et les intégrations natives des fabricants pour les synchronisations cloud-à-cloud courantes.",
+        pl: "Dla ichneumon specyficznych (synchronizacja tła między różnymi chmurami na Android gdy Health Connect nie wystarcza), pozostają solidne. W większości przypadków użycia w 2026 roku istnieją lepsze alternatywy: synchronizacja wbudowana w Health Connect między aplikacjami Android, unifikowane panelowe widoki, natywne integracje producenta do synchronizacji chmury z chmurą.",
+        tr: "Bu specifiche nicchie (sync di sfondo tra cloud diversi su Android quando Health Connect non basta), rimangono solide. Per la maggior parte degli use case 2026 esistono alternative migliori: Health Connect built-in per sync tra app Android, dashboard unificate per visualizzazione, integrazioni produttore native per sync cloud-to-cloud comuni.",
       },
     },
     {
@@ -650,6 +810,8 @@ export const post: BlogPost = {
         de: "Gibt es valide kostenlose Alternativen?",
         pt: "Existem alternativas gratuitas de qualidade?",
         fr: "Existe-t-il des alternatives gratuites valables?",
+        pl: "Czy istnieją alternatywne opcje bezpłatne?",
+        tr: "Güçlü alternatifleriniz var mı?",
       },
       a: {
         it: "Health Connect built-in di Android (gratis, integrato OS) copre la maggior parte degli scenari Android. Le integrazioni native produttore (Garmin, Polar, Suunto verso Strava/TrainingPeaks) sono gratis. Per dashboard pulite/cross-source il modello sostenibile è 'pago una volta, no ads'; le app totalmente gratis tipicamente monetizzano vendendo dati.",
@@ -658,6 +820,8 @@ export const post: BlogPost = {
         de: "Das integrierte Health Connect von Android (kostenlos, ins Betriebssystem integriert) deckt die meisten Android-Szenarien ab. Native Hersteller-Integrationen (Garmin, Polar, Suunto zu Strava/TrainingPeaks) sind kostenlos. Für übersichtliche quellenübergreifende Dashboards ist das nachhaltige Modell 'einmal bezahlen, keine Werbung'; völlig kostenlose Apps monetarisieren typischerweise durch den Verkauf von Daten.",
         pt: "O Health Connect integrado do Android (grátis, integrado ao sistema operacional) cobre a maioria dos cenários Android. As integrações nativas dos fabricantes (Garmin, Polar, Suunto para Strava/TrainingPeaks) são gratuitas. Para painéis limpos multi-fonte, o modelo sustentável é 'pague uma vez, sem anúncios'; apps totalmente gratuitos tipicamente monetizam vendendo dados.",
         fr: "Health Connect intégré à Android (gratuit, inclus dans le système d'exploitation) couvre la plupart des scénarios Android. Les intégrations natives des fabricants (Garmin, Polar, Suunto vers Strava/TrainingPeaks) sont gratuites. Pour des tableaux de bord multi-source épurés, le modèle durable est 'payer une fois, sans publicité'; les applications totalement gratuites monétisent généralement en vendant les données.",
+        pl: "Health Connect wbudowany w Android (darmowy, zintegrowany system operacyjny) pokrywa większość scenariuszy Android. Integracje natywne producenta (Garmin, Polar, Suunto do Strava/TrainingPeaks) są darmowe. Dla czystych pulpitu/krzyżowych źródeł model trwały jest 'płatno jednorazowo, bez reklam'; aplikacje całkowicie darmowe zazwyczaj monetują się sprzedając danymi.",
+        tr: "Health Connect içindeki Android (serbest, entegre OS) çoğu senaryoyu kaplamaktadır. Üreticiler arası entegrasyonlar (Garmin, Polar, Suunto ile Strava/TrainingPeaks) serbesttir. Temiz panel/cross-kaynak için sürdürülebilir model 'tek sefer ödeme, reklam yok' şemasıdır; genellikle tamamen ücretsiz uygulamalar verileri satarak gelir elde ederler.",
       },
     },
     {
@@ -668,6 +832,8 @@ export const post: BlogPost = {
         de: "Ersetzt FitMesh Sync eine klassische Bridge-App?",
         pt: "O FitMesh Sync substitui um app ponte clássico?",
         fr: "FitMesh Sync remplace-t-il une application pont classique?",
+        pl: "Czy FitMesh Sync zastępuje klasyczną bridge app?",
+        tr: "FitMesh Sync bir geri bağlantı uygulaması yerine kullanır mı?",
       },
       a: {
         it: "Solo in parte. FitMesh Sync è una dashboard unificata: legge da varie source e mostra tutto in un posto. Non fa sync background tra app terze (es. Samsung Health → Fitbit). Per quello scenario specifico le bridge app verticali restano più adatte. Se invece ti basta vedere i dati in un posto pulito, FitMesh è più semplice.",
@@ -676,6 +842,8 @@ export const post: BlogPost = {
         de: "Nur teilweise. FitMesh Sync ist ein einheitliches Dashboard: Es liest aus verschiedenen Quellen und zeigt alles an einem Ort an. Es macht keine Hintergrund-Synchronisierung zwischen Drittanbieter-Apps (z. B. Samsung Health → Fitbit). Für dieses spezifische Szenario sind vertikale Bridge-Apps besser geeignet. Wenn du einfach nur Daten an einem übersichtlichen Ort sehen möchtest, ist FitMesh die einfachere Wahl.",
         pt: "Apenas parcialmente. FitMesh Sync é um painel unificado: lê de várias fontes e mostra tudo em um único lugar. Ele não faz sincronização em segundo plano entre apps de terceiros (por exemplo, Samsung Health → Fitbit). Para esse cenário específico, os apps ponte verticais continuam sendo mais adequados. Se você só precisa ver os dados em um lugar limpo, o FitMesh é mais simples.",
         fr: "Partiellement. FitMesh Sync est un tableau de bord unifié: il lit depuis diverses sources et affiche tout en un seul endroit. Il ne synchronise pas en arrière-plan entre applications tierces (par exemple Samsung Health → Fitbit). Pour ce scénario spécifique, les applications pont verticales restent mieux adaptées. Si vous souhaitez simplement voir vos données en un endroit épuré, FitMesh est plus simple.",
+        pl: "Tylko w części. FitMesh Sync to jedna unifikowana dashboard: czyta z różnych źródeł i pokazuje wszystko w jednym miejscu. Nie wykonuje synchronizacji tła między aplikacjami trzecich stron (np. Samsung Health → Fitbit). W tym konkretnym scenariuszu, bridge aplikacyjne poziome nadal są bardziej odpowiednie. Jeśli chcesz tylko zobaczyć dane w jednym czystym miejscu, FitMesh jest prościej.",
+        tr: "Sadece kısmen. FitMesh Sync birUnified dashboard: çeşitli kaynaklardan oku ve tüm bilgileri tek bir yerde gösterir. Üçüncü taraf uygulamaları (örn. Samsung Health → Fitbit) arası arka planda sync yapmaz. Bu özel senaryo için vertical bridge uygulamaları daha uygun kalır. Eğer sadece temiz bir yerde verileri görmek istiyorsanız, FitMesh daha basit.",
       },
     },
   ],

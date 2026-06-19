@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Le flux fonctionne uniquement sur Android 9 ou supérieur avec Health Connect installé; iPhone ne prend pas en charge Health Connect.",
       "Xiaomi et Amazfit figurent parmi les wearables les plus vendus au monde: ce guide couvre Mi Band 7/8/9, Amazfit GTR/GTS 4/5, Band 7 Pro et modèles similaires.",
     ],
+    pl: [
+      "Zepp OS (Amazfit) i Mi Fitness (Xiaomi / Mi Band) zapisują kroki, tętno, sen i kalorie do Health Connect: nie jest wymagany ręczny eksport.",
+      "Z Health Connect FitMesh Sync odczytuje te dane i przenosi je do Twojego własnego panelu, połączone z danymi z innych urządzeń.",
+      "Niektóre zaawansowane metryki (PAI, Zepp Body Battery, szczegółowa analiza snu) pozostają w aplikacjach producentów: Health Connect ich nie eksponuje.",
+      "Przepływ działa tylko na Androidzie 9 lub nowszym z zainstalowanym Health Connect; iPhone nie obsługuje Health Connect.",
+      "Xiaomi i Amazfit to jedne z najlepiej sprzedających się urządzeń wearable na świecie: ten przewodnik dotyczy Mi Band 7/8/9, Amazfit GTR/GTS 4/5, Band 7 Pro i podobnych modeli.",
+    ],
+    tr: [
+      "Zepp OS (Amazfit) ve Mi Fitness (Xiaomi / Mi Band) adım, nabız, uyku ve kalorileri Health Connect'e yazıyor: manuel dışa aktarma gerekmiyor.",
+      "FitMesh Sync, Health Connect'ten bu verileri okuyarak diğer cihazlarınızın verileriyle birleştirilmiş kendi panelinize getiriyor.",
+      "Bazı gelişmiş metrikler (PAI, Zepp Body Battery, ayrıntılı uyku analizi) üretici uygulamalarının içinde kalıyor: Health Connect bunları göstermiyor.",
+      "Akış yalnızca Health Connect kurulu Android 9 veya üzeri sürümlerde çalışıyor; iPhone, Health Connect'i desteklemiyor.",
+      "Xiaomi ve Amazfit dünyanın en çok satan giyilebilir cihazları arasında: bu kılavuz Mi Band 7/8/9, Amazfit GTR/GTS 4/5, Band 7 Pro ve benzer modeller için geçerli.",
+    ],
   },
   primaryKeyword: {
     it: "esportare dati xiaomi amazfit",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "Xiaomi Amazfit Daten Health Connect exportieren",
     pt: "exportar dados xiaomi amazfit health connect",
     fr: "exporter données xiaomi amazfit health connect",
+    pl: "eksport danych xiaomi amazfit health connect",
+    tr: "xiaomi amazfit verilerini health connect ile dışa aktarma",
   },
   secondaryKeywords: {
     it: [
@@ -101,6 +117,20 @@ export const post: BlogPost = {
       "mi fitness exporter données",
       "xiaomi wearable données santé android",
     ],
+    pl: [
+      "mi band health connect synchronizacja",
+      "zepp dane osobisty panel",
+      "amazfit gtr gts synchronizacja danych",
+      "mi fitness eksport danych",
+      "xiaomi wearable dane zdrowotne android",
+    ],
+    tr: [
+      "mi band health connect senkronizasyon",
+      "zepp verileri kişisel panel",
+      "amazfit gtr gts veri senkronizasyonu",
+      "mi fitness veri dışa aktarma",
+      "xiaomi giyilebilir sağlık verileri android",
+    ],
   },
   metaDescription: {
     it: "Come vedere i dati di Xiaomi, Mi Band e Amazfit in una dashboard personale via Health Connect. Cosa funziona (passi, FC, sonno, calorie) e i limiti onesti delle metriche avanzate.",
@@ -109,6 +139,8 @@ export const post: BlogPost = {
     de: "Xiaomi, Mi Band und Amazfit Daten in deiner eigenen Dashboard via Health Connect anzeigen. Was funktioniert (Schritte, Herzfrequenz, Schlaf, Kalorien) und die ehrlichen Grenzen fortgeschrittener Metriken.",
     pt: "Como ver os dados de Xiaomi, Mi Band e Amazfit no seu próprio painel via Health Connect. O que funciona (passos, frequência cardíaca, sono, calorias) e os limites reais das métricas avançadas.",
     fr: "Comment voir les données Xiaomi, Mi Band et Amazfit dans votre propre tableau de bord via Health Connect. Ce qui fonctionne (pas, fréquence cardiaque, sommeil, calories) et les vraies limites des métriques avancées.",
+    pl: "Jak wyświetlać dane Xiaomi, Mi Band i Amazfit w swoim własnym panelu przez Health Connect. Co działa (kroki, tętno, sen, kalorie) i rzeczywiste ograniczenia zaawansowanych metryk.",
+    tr: "Xiaomi, Mi Band ve Amazfit verilerinizi Health Connect üzerinden kendi panelinizde nasıl görüntülersiniz. Ne çalışıyor (adım, nabız, uyku, kalori) ve gelişmiş metriklerin gerçek sınırlamaları.",
   },
   hero: {
     kicker: {
@@ -118,6 +150,8 @@ export const post: BlogPost = {
       de: "Anleitung",
       pt: "Guia",
       fr: "Guide",
+      pl: "Przewodnik",
+      tr: "Kılavuz",
     },
     title: {
       it: "Xiaomi e Amazfit su Health Connect: dati nella tua dashboard",
@@ -126,6 +160,8 @@ export const post: BlogPost = {
       de: "Xiaomi und Amazfit in Health Connect: Daten in deiner eigenen Dashboard",
       pt: "Xiaomi e Amazfit no Health Connect: dados no seu próprio painel",
       fr: "Xiaomi et Amazfit sur Health Connect: données dans votre tableau de bord",
+      pl: "Xiaomi i Amazfit w Health Connect: dane w Twoim własnym panelu",
+      tr: "Health Connect'te Xiaomi ve Amazfit: veriler kendi panelinizde",
     },
     subtitle: {
       it: "I dati di Mi Band e Amazfit restano chiusi nell'app Zepp o Mi Fitness, ma con Health Connect puoi portarli fuori, unirli agli altri dispositivi e vederli in una dashboard tua. Ecco come, con i limiti onesti.",
@@ -134,6 +170,8 @@ export const post: BlogPost = {
       de: "Mi Band- und Amazfit-Daten bleiben in der Zepp- oder Mi Fitness-App gesperrt, aber mit Health Connect kannst du sie herausholen, mit deinen anderen Geräten zusammenführen und in deiner eigenen Dashboard anzeigen. So geht es, mit ehrlichen Einschränkungen.",
       pt: "Os dados da Mi Band e Amazfit ficam fechados no app Zepp ou Mi Fitness, mas com o Health Connect você pode tirá-los, uni-los aos outros dispositivos e vê-los em seu próprio painel. Veja como, com as limitações reais.",
       fr: "Les données Mi Band et Amazfit restent enfermées dans l'application Zepp ou Mi Fitness, mais avec Health Connect vous pouvez les en extraire, les fusionner avec vos autres appareils et les consulter dans votre propre tableau de bord. Voici comment, avec les vraies limites.",
+      pl: "Dane Mi Band i Amazfit są zablokowane w aplikacji Zepp lub Mi Fitness, ale z Health Connect możesz je wyciągnąć, połączyć z innymi urządzeniami i wyświetlić w swoim własnym panelu. Oto jak, z rzetelnymi ograniczeniami.",
+      tr: "Mi Band ve Amazfit verileri Zepp veya Mi Fitness uygulamasında kilitli kalıyor, ancak Health Connect ile bunları çıkarabilir, diğer cihazlarınızla birleştirebilir ve kendi panelinizde görüntüleyebilirsiniz. İşte nasıl, gerçek sınırlamalarıyla birlikte.",
     },
   },
   body: [
@@ -146,6 +184,8 @@ export const post: BlogPost = {
         de: "Xiaomi und Amazfit verkaufen jedes Jahr zig Millionen Wearables: Mi Band 7, 8 und 9, Amazfit GTR 4 und 5, GTS 4 und 5, Band 7 Pro, Bip 5 und viele mehr. Die Daten dieser Geräte landen in der Mi Fitness App (für Xiaomi) oder der Zepp App (für Amazfit und ältere Huami-Geräte), und dort bleiben sie, getrennt vom Rest deiner Gesundheitsdaten. Das Problem ist nicht, dass die Daten nicht vorhanden sind, sondern dass sie in einem Silo verbleiben. Mit Health Connect, Googles Gesundheitsdaten-Hub für Android, lässt sich diese Barriere teilweise durchbrechen.",
         pt: "Xiaomi e Amazfit vendem dezenas de milhões de wearables a cada ano: Mi Band 7, 8 e 9, Amazfit GTR 4 e 5, GTS 4 e 5, Band 7 Pro, Bip 5 e muitos outros. Os dados desses dispositivos vão parar no app Mi Fitness (para Xiaomi) ou no app Zepp (para Amazfit e os antigos Huami), e ficam lá, separados do restante dos seus dados de saúde. O problema não é que os dados não existam, o problema é que ficam em um silo. Com o Health Connect, o hub de dados de saúde do Google para Android, essa barreira pode ser parcialmente derrubada.",
         fr: "Xiaomi et Amazfit vendent des dizaines de millions de wearables chaque année: Mi Band 7, 8 et 9, Amazfit GTR 4 et 5, GTS 4 et 5, Band 7 Pro, Bip 5 et bien d'autres. Les données de ces appareils atterrissent dans l'application Mi Fitness (pour Xiaomi) ou dans l'application Zepp (pour Amazfit et les anciens Huami), et elles y restent, séparées du reste de vos données de santé. Le problème n'est pas que les données n'existent pas, le problème est qu'elles restent dans un silo. Avec Health Connect, le hub de données de santé de Google pour Android, cette barrière peut être partiellement franchie.",
+        pl: "Xiaomi i Amazfit sprzedają co roku dziesiątki milionów urządzeń wearable: Mi Band 7, 8 i 9, Amazfit GTR 4 i 5, GTS 4 i 5, Band 7 Pro, Bip 5 i wiele innych. Dane z tych urządzeń trafiają do aplikacji Mi Fitness (dla Xiaomi) lub aplikacji Zepp (dla Amazfit i starszych Huami), i tam pozostają, oddzielone od reszty Twoich danych zdrowotnych. Problem nie polega na tym, że danych nie ma, problem polega na tym, że pozostają w silosie. Dzięki Health Connect, centrum danych zdrowotnych Google dla Androida, ta bariera może być częściowo pokonana.",
+        tr: "Xiaomi ve Amazfit her yıl onlarca milyon giyilebilir cihaz satıyor: Mi Band 7, 8 ve 9, Amazfit GTR 4 ve 5, GTS 4 ve 5, Band 7 Pro, Bip 5 ve daha fazlası. Bu cihazların verileri Mi Fitness uygulamasına (Xiaomi için) veya Zepp uygulamasına (Amazfit ve eski Huami için) gidiyor ve orada, diğer sağlık verilerinizden ayrı olarak kalıyor. Sorun verilerin var olmaması değil, bir siloda kalması. Android için Google'ın sağlık veri merkezi Health Connect ile bu engel kısmen aşılabilir.",
       },
     },
     {
@@ -158,6 +198,8 @@ export const post: BlogPost = {
         de: "Wie der Ablauf funktioniert: Zepp / Mi Fitness zu Health Connect zu FitMesh",
         pt: "Como funciona o fluxo: Zepp / Mi Fitness para Health Connect para FitMesh",
         fr: "Comment fonctionne le flux: Zepp / Mi Fitness vers Health Connect vers FitMesh",
+        pl: "Jak działa przepływ: Zepp / Mi Fitness → Health Connect → FitMesh",
+        tr: "Akış nasıl çalışıyor: Zepp / Mi Fitness'tan Health Connect'e, oradan FitMesh'e",
       },
     },
     {
@@ -169,6 +211,8 @@ export const post: BlogPost = {
         de: "Der Ablauf besteht aus drei Schritten. Zuerst synchronisiert die Hersteller-App (Zepp oder Mi Fitness) das physische Gerät und schreibt die gesammelten Daten in Health Connect. Dann speichert Health Connect sie in einem lokalen Archiv auf dem Android-Telefon. Schließlich fordert FitMesh Sync Leseberechtigungen von Health Connect an und ruft diese Daten ab, um sie im Dashboard anzuzeigen. Auf diese Weise verlassen die Daten das Telefon nie zu nicht autorisierten Drittanbieter-Servern: die Kontrolle bleibt bei dir.",
         pt: "O fluxo tem três etapas. Primeiro, o app do fabricante (Zepp ou Mi Fitness) sincroniza o dispositivo físico e grava os dados coletados no Health Connect. Depois, o Health Connect os armazena em um arquivo local no telefone Android. Por fim, o FitMesh Sync solicita permissões de leitura ao Health Connect e busca esses dados para exibi-los no painel. Assim, os dados nunca saem do seu telefone para servidores de terceiros não autorizados: o controle permanece com você.",
         fr: "Le flux comporte trois étapes. D'abord, l'application du fabricant (Zepp ou Mi Fitness) synchronise l'appareil physique et écrit les données collectées dans Health Connect. Ensuite, Health Connect les conserve dans une archive locale sur le téléphone Android. Enfin, FitMesh Sync demande des autorisations de lecture à Health Connect et récupère ces données pour les afficher dans le tableau de bord. De cette façon, les données ne quittent jamais votre téléphone vers des serveurs tiers non autorisés: le contrôle reste entre vos mains.",
+        pl: "Przepływ składa się z trzech kroków. Najpierw aplikacja producenta (Zepp lub Mi Fitness) synchronizuje urządzenie fizyczne i zapisuje zebrane dane do Health Connect. Następnie Health Connect przechowuje je w lokalnym archiwum na telefonie Android. Na koniec FitMesh Sync żąda uprawnień do odczytu od Health Connect i pobiera te dane, aby wyświetlić je na panelu. W ten sposób dane nigdy nie opuszczają Twojego telefonu do nieautoryzowanych serwerów stron trzecich: kontrola pozostaje przy Tobie.",
+        tr: "Akışın üç adımı var. Önce üretici uygulaması (Zepp veya Mi Fitness) fiziksel cihazı senkronize eder ve toplanan verileri Health Connect'e yazar. Ardından Health Connect bunları Android telefondaki yerel bir arşivde saklar. Son olarak FitMesh Sync, Health Connect'ten okuma izinleri ister ve bu verileri panoda göstermek için alır. Bu şekilde veriler hiçbir zaman yetkisiz üçüncü taraf sunucularına gitmez: kontrol sizde kalır.",
       },
     },
     {
@@ -181,6 +225,8 @@ export const post: BlogPost = {
         de: "Voraussetzung: Android 9+ mit Health Connect",
         pt: "Requisito: Android 9+ com Health Connect",
         fr: "Prérequis: Android 9+ avec Health Connect",
+        pl: "Wymaganie: Android 9+ z Health Connect",
+        tr: "Gereksinim: Health Connect'li Android 9+",
       },
       body: {
         it: "Health Connect funziona solo su Android 9 o superiore. Su iPhone non è disponibile: Apple usa HealthKit. Se usi iPhone con un Amazfit o Mi Band, i dati restano nelle app del produttore senza un layer comune equivalente a Health Connect.",
@@ -189,6 +235,8 @@ export const post: BlogPost = {
         de: "Health Connect funktioniert nur auf Android 9 oder höher. Auf iPhone ist es nicht verfügbar: Apple verwendet HealthKit. Wenn du ein iPhone mit einem Amazfit oder Mi Band verwendest, bleiben die Daten in den Hersteller-Apps ohne eine gemeinsame Ebene, die Health Connect entspricht.",
         pt: "O Health Connect funciona apenas no Android 9 ou superior. No iPhone ele não está disponível: a Apple usa o HealthKit. Se você usa um iPhone com um Amazfit ou Mi Band, os dados ficam nos apps do fabricante sem uma camada comum equivalente ao Health Connect.",
         fr: "Health Connect fonctionne uniquement sur Android 9 ou supérieur. Sur iPhone, il n'est pas disponible: Apple utilise HealthKit. Si vous utilisez un iPhone avec un Amazfit ou Mi Band, les données restent dans les applications du fabricant sans une couche commune équivalente à Health Connect.",
+        pl: "Health Connect działa tylko na Androidzie 9 lub nowszym. Na iPhonie nie jest dostępny: Apple używa HealthKit. Jeśli używasz iPhone'a z Amazfitem lub Mi Band, dane pozostają w aplikacjach producenta bez wspólnej warstwy odpowiednika Health Connect.",
+        tr: "Health Connect yalnızca Android 9 veya üzerinde çalışıyor. iPhone'da mevcut değil: Apple HealthKit kullanıyor. Amazfit veya Mi Band ile iPhone kullanıyorsanız veriler, Health Connect'in bir karşılığı olmadan üretici uygulamalarında kalıyor.",
       },
     },
     {
@@ -201,6 +249,8 @@ export const post: BlogPost = {
         de: "Schritt 1: Health Connect in Mi Fitness aktivieren (Xiaomi / Mi Band)",
         pt: "Passo 1: ativar o Health Connect no Mi Fitness (Xiaomi / Mi Band)",
         fr: "Étape 1: activer Health Connect dans Mi Fitness (Xiaomi / Mi Band)",
+        pl: "Krok 1: aktywacja Health Connect w Mi Fitness (Xiaomi / Mi Band)",
+        tr: "Adım 1: Mi Fitness'ta Health Connect'i etkinleştirme (Xiaomi / Mi Band)",
       },
     },
     {
@@ -255,6 +305,22 @@ export const post: BlogPost = {
           "Accordez toutes les autorisations demandées pour obtenir une couverture complète des données disponibles.",
           "À partir de ce moment, chaque synchronisation de l'appareil met automatiquement à jour Health Connect.",
         ],
+        pl: [
+          "Otwórz aplikację Mi Fitness na swoim telefonie Android.",
+          "Przejdź do Profilu (ikona w prawym dolnym rogu) → Ustawienia (koło zębate na górze).",
+          "Znajdź opcję 'Google Health Connect' lub 'Połącz z Health Connect'.",
+          "Dotknij opcji i postępuj zgodnie z procedurą autoryzacji: Mi Fitness poprosi o uprawnienia do zapisu kroków, tętna, snu i kalorii.",
+          "Przyznaj wszystkie żądane uprawnienia, aby uzyskać pełne pokrycie dostępnych danych.",
+          "Od tej chwili każda synchronizacja urządzenia automatycznie aktualizuje Health Connect.",
+        ],
+        tr: [
+          "Android telefonunuzda Mi Fitness uygulamasını açın.",
+          "Profil'e (sağ alt simge) → Ayarlar'a (üstteki dişli simgesi) gidin.",
+          "'Google Health Connect' veya 'Health Connect'e Bağlan' girişini bulun.",
+          "Girişe dokunun ve yetkilendirme sürecini takip edin: Mi Fitness adım, nabız, uyku ve kalori yazma izni isteyecek.",
+          "Mevcut verilerin tam kapsamını elde etmek için tüm istenen izinleri verin.",
+          "Bu andan itibaren her cihaz senkronizasyonu Health Connect'i otomatik olarak günceller.",
+        ],
       },
     },
     {
@@ -267,6 +333,8 @@ export const post: BlogPost = {
         de: "Schritt 2: Health Connect in Zepp aktivieren (Amazfit)",
         pt: "Passo 2: ativar o Health Connect no Zepp (Amazfit)",
         fr: "Étape 2: activer Health Connect dans Zepp (Amazfit)",
+        pl: "Krok 2: aktywacja Health Connect w Zepp (Amazfit)",
+        tr: "Adım 2: Zepp'te Health Connect'i etkinleştirme (Amazfit)",
       },
     },
     {
@@ -315,6 +383,20 @@ export const post: BlogPost = {
           "Sélectionnez les catégories de données: pas, distance, fréquence cardiaque, niveau d'oxygène dans le sang (SpO2), sommeil et calories.",
           "Terminez l'autorisation. Zepp mettra à jour Health Connect à chaque synchronisation de l'appareil.",
         ],
+        pl: [
+          "Otwórz aplikację Zepp na swoim telefonie Android (używaną do Amazfit GTR, GTS, Band, Bip i innych).",
+          "Przejdź do Profilu → Ustawienia aplikacji → szukaj 'Health Connect' lub 'Google Zdrowie'.",
+          "Dotknij opcji, aby rozpocząć połączenie i autoryzuj Zepp do zapisu w Health Connect.",
+          "Wybierz kategorie danych: kroki, dystans, tętno, poziom tlenu we krwi (SpO2), sen i kalorie.",
+          "Zakończ autoryzację. Zepp będzie aktualizował Health Connect przy każdej synchronizacji urządzenia.",
+        ],
+        tr: [
+          "Android telefonunuzda Zepp uygulamasını açın (Amazfit GTR, GTS, Band, Bip ve diğerleri için kullanılan).",
+          "Profil'e → Uygulama Ayarları'na gidin ve 'Health Connect' veya 'Google Sağlık'ı arayın.",
+          "Bağlantıyı başlatmak için girişe dokunun ve Zepp'in Health Connect'e yazmasına izin verin.",
+          "Veri kategorilerini seçin: adım, mesafe, nabız, kan oksijen düzeyi (SpO2), uyku ve kalori.",
+          "Yetkilendirmeyi tamamlayın. Zepp, her cihaz senkronizasyonunda Health Connect'i güncelleyecek.",
+        ],
       },
     },
     {
@@ -327,6 +409,8 @@ export const post: BlogPost = {
         de: "Was über Health Connect funktioniert: verfügbare Metriken",
         pt: "O que funciona via Health Connect: as métricas disponíveis",
         fr: "Ce qui fonctionne via Health Connect: les métriques disponibles",
+        pl: "Co działa przez Health Connect: dostępne metryki",
+        tr: "Health Connect üzerinden ne çalışıyor: mevcut metrikler",
       },
     },
     {
@@ -338,6 +422,8 @@ export const post: BlogPost = {
         de: "Xiaomi / Amazfit Metriken verfügbar über Health Connect",
         pt: "Métricas Xiaomi / Amazfit disponíveis via Health Connect",
         fr: "Métriques Xiaomi / Amazfit disponibles via Health Connect",
+        pl: "Metryki Xiaomi / Amazfit dostępne przez Health Connect",
+        tr: "Health Connect üzerinden kullanılabilen Xiaomi / Amazfit metrikleri",
       },
       headers: {
         it: ["Metrica", "Disponibile via Health Connect", "Note"],
@@ -346,6 +432,8 @@ export const post: BlogPost = {
         de: ["Metrik", "Verfügbar über Health Connect", "Hinweise"],
         pt: ["Métrica", "Disponível via Health Connect", "Observações"],
         fr: ["Métrique", "Disponible via Health Connect", "Notes"],
+        pl: ["Metryka", "Dostępna przez Health Connect", "Uwagi"],
+        tr: ["Metrik", "Health Connect Üzerinden Mevcut", "Notlar"],
       },
       rows: [
         {
@@ -355,6 +443,8 @@ export const post: BlogPost = {
           de: ["Tägliche Schritte", "Ja", "Bei jeder Synchronisierung mit dem Smartphone aktualisiert"],
           pt: ["Passos diários", "Sim", "Atualizados a cada sincronização com o smartphone"],
           fr: ["Pas quotidiens", "Oui", "Mis à jour à chaque synchronisation avec le smartphone"],
+          pl: ["Dzienne kroki", "Tak", "Aktualizowane przy każdej synchronizacji ze smartfonem"],
+          tr: ["Günlük adımlar", "Evet", "Her akıllı telefon senkronizasyonunda güncellenir"],
         },
         {
           it: ["Frequenza cardiaca (continua)", "Sì", "Rilevazioni periodiche durante il giorno"],
@@ -363,6 +453,8 @@ export const post: BlogPost = {
           de: ["Herzfrequenz (kontinuierlich)", "Ja", "Periodische Messungen während des Tages"],
           pt: ["Frequência cardíaca (contínua)", "Sim", "Leituras periódicas ao longo do dia"],
           fr: ["Fréquence cardiaque (continue)", "Oui", "Relevés périodiques tout au long de la journée"],
+          pl: ["Tętno (ciągłe)", "Tak", "Okresowe odczyty w ciągu dnia"],
+          tr: ["Nabız (sürekli)", "Evet", "Gün boyunca periyodik ölçümler"],
         },
         {
           it: ["Frequenza cardiaca a riposo", "Sì", "Valore giornaliero aggregato"],
@@ -371,6 +463,8 @@ export const post: BlogPost = {
           de: ["Ruheherzfrequenz", "Ja", "Aggregierter Tageswert"],
           pt: ["Frequência cardíaca em repouso", "Sim", "Valor diário agregado"],
           fr: ["Fréquence cardiaque au repos", "Oui", "Valeur journalière agrégée"],
+          pl: ["Tętno spoczynkowe", "Tak", "Zagregowana wartość dzienna"],
+          tr: ["İstirahat nabzı", "Evet", "Toplu günlük değer"],
         },
         {
           it: ["Sonno (durata e fasi)", "Sì (parziale)", "Durata totale e fasi base; analisi avanzata Zepp resta nell'app"],
@@ -379,6 +473,8 @@ export const post: BlogPost = {
           de: ["Schlaf (Dauer und Phasen)", "Ja (teilweise)", "Gesamtdauer und Basisphasen; erweiterte Zepp-Analyse verbleibt in der App"],
           pt: ["Sono (duração e fases)", "Sim (parcial)", "Duração total e fases básicas; a análise avançada Zepp fica no app"],
           fr: ["Sommeil (durée et phases)", "Oui (partiel)", "Durée totale et phases de base; l'analyse avancée Zepp reste dans l'application"],
+          pl: ["Sen (czas trwania i fazy)", "Tak (częściowo)", "Łączny czas i podstawowe fazy; zaawansowana analiza Zepp pozostaje w aplikacji"],
+          tr: ["Uyku (süre ve evreler)", "Evet (kısmen)", "Toplam süre ve temel evreler; gelişmiş Zepp analizi uygulamada kalır"],
         },
         {
           it: ["Calorie attive", "Sì", "Kcal bruciate durante le attività"],
@@ -387,6 +483,8 @@ export const post: BlogPost = {
           de: ["Aktive Kalorien", "Ja", "Während Aktivitäten verbrannte kcal"],
           pt: ["Calorias ativas", "Sim", "Kcal queimadas durante as atividades"],
           fr: ["Calories actives", "Oui", "Kcal brûlées pendant les activités"],
+          pl: ["Aktywne kalorie", "Tak", "Kcal spalone podczas aktywności"],
+          tr: ["Aktif kalori", "Evet", "Aktiviteler sırasında yakılan kcal"],
         },
         {
           it: ["Ossigeno nel sangue (SpO2)", "Sì (Amazfit)", "Zepp scrive SpO2 su Health Connect; Mi Fitness: dipende dal modello"],
@@ -395,6 +493,8 @@ export const post: BlogPost = {
           de: ["Blutsauerstoff (SpO2)", "Ja (Amazfit)", "Zepp schreibt SpO2 in Health Connect; Mi Fitness: hängt vom Modell ab"],
           pt: ["Oxigênio no sangue (SpO2)", "Sim (Amazfit)", "O Zepp grava SpO2 no Health Connect; Mi Fitness: depende do modelo"],
           fr: ["Oxygène dans le sang (SpO2)", "Oui (Amazfit)", "Zepp écrit SpO2 dans Health Connect; Mi Fitness: dépend du modèle"],
+          pl: ["Tlen we krwi (SpO2)", "Tak (Amazfit)", "Zepp zapisuje SpO2 do Health Connect; Mi Fitness: zależy od modelu"],
+          tr: ["Kan oksijeni (SpO2)", "Evet (Amazfit)", "Zepp, SpO2'yi Health Connect'e yazar; Mi Fitness: modele bağlı"],
         },
         {
           it: ["Distanza percorsa", "Sì", "Calcolata dal contapassi, non GPS su Mi Band base"],
@@ -403,6 +503,8 @@ export const post: BlogPost = {
           de: ["Zurückgelegte Distanz", "Ja", "Vom Schrittzähler berechnet, kein GPS beim einfachen Mi Band"],
           pt: ["Distância percorrida", "Sim", "Calculada pelo podômetro, não GPS no Mi Band básico"],
           fr: ["Distance parcourue", "Oui", "Calculée par le podomètre, pas de GPS sur Mi Band de base"],
+          pl: ["Pokonany dystans", "Tak", "Obliczony na podstawie krokomierza, nie GPS w podstawowym Mi Band"],
+          tr: ["Kat edilen mesafe", "Evet", "Temel Mi Band'da GPS değil, adım sayacından hesaplanır"],
         },
         {
           it: ["PAI (Personal Activity Intelligence)", "No", "Metrica proprietaria Amazfit / Zepp, non esposta su Health Connect"],
@@ -411,6 +513,8 @@ export const post: BlogPost = {
           de: ["PAI (Personal Activity Intelligence)", "Nein", "Proprietäre Amazfit / Zepp Metrik, nicht über Health Connect verfügbar"],
           pt: ["PAI (Personal Activity Intelligence)", "Não", "Métrica proprietária Amazfit / Zepp, não exposta no Health Connect"],
           fr: ["PAI (Personal Activity Intelligence)", "Non", "Métrique propriétaire Amazfit / Zepp, non exposée sur Health Connect"],
+          pl: ["PAI (Personal Activity Intelligence)", "Nie", "Zastrzeżona metryka Amazfit / Zepp, nie eksponowana w Health Connect"],
+          tr: ["PAI (Kişisel Aktivite Zekası)", "Hayır", "Amazfit / Zepp tescilli metriği, Health Connect'te gösterilmiyor"],
         },
         {
           it: ["Stress e recupero Zepp", "No", "Restano nell'app Zepp; non fanno parte delle specifiche di Health Connect"],
@@ -419,6 +523,8 @@ export const post: BlogPost = {
           de: ["Zepp Stress und Erholung", "Nein", "Verbleiben in der Zepp App; nicht Teil der Health Connect Spezifikationen"],
           pt: ["Estresse e recuperação Zepp", "Não", "Ficam no app Zepp; não fazem parte das especificações do Health Connect"],
           fr: ["Stress et récupération Zepp", "Non", "Restent dans l'application Zepp; ne font pas partie des spécifications de Health Connect"],
+          pl: ["Stres i regeneracja Zepp", "Nie", "Pozostają w aplikacji Zepp; nie są częścią specyfikacji Health Connect"],
+          tr: ["Zepp stres ve toparlanma", "Hayır", "Zepp uygulamasında kalır; Health Connect spesifikasyonlarının parçası değil"],
         },
       ],
     },
@@ -432,6 +538,8 @@ export const post: BlogPost = {
         de: "Die ehrlichen Grenzen: was die App nicht verlässt",
         pt: "Os limites reais: o que não sai do app",
         fr: "Les vraies limites: ce qui ne sort pas de l'application",
+        pl: "Rzeczywiste ograniczenia: co nie wychodzi z aplikacji",
+        tr: "Gerçek sınırlamalar: uygulamadan ne çıkmıyor",
       },
     },
     {
@@ -443,6 +551,8 @@ export const post: BlogPost = {
         de: "Health Connect stellt eine Teilmenge der Daten bereit, die Zepp und Mi Fitness sammeln. Die erweiterten Metriken, die diese Apps interessant machen, bleiben proprietär und sind von außen nicht zugänglich. Das ist keine FitMesh-Einschränkung, es ist eine Einschränkung des Health Connect Protokolls selbst: keine Drittanbieter-App kann lesen, was Hersteller nicht in die gemeinsame Ebene schreiben.",
         pt: "O Health Connect expõe um subconjunto dos dados que Zepp e Mi Fitness coletam. As métricas avançadas que tornam esses apps interessantes permanecem proprietárias e não são acessíveis de fora. Não é uma limitação do FitMesh, é uma limitação do próprio protocolo Health Connect: nenhum app de terceiros pode ler o que os fabricantes escolhem não gravar na camada compartilhada.",
         fr: "Health Connect expose un sous-ensemble des données que Zepp et Mi Fitness collectent. Les métriques avancées qui rendent ces applications intéressantes restent propriétaires et ne sont pas accessibles de l'extérieur. Ce n'est pas une limitation de FitMesh, c'est une limitation du protocole Health Connect lui-même: aucune application tierce ne peut lire ce que les fabricants choisissent de ne pas écrire dans la couche partagée.",
+        pl: "Health Connect eksponuje podzbiór danych zbieranych przez Zepp i Mi Fitness. Zaawansowane metryki, które sprawiają, że te aplikacje są interesujące, pozostają zastrzeżone i nie są dostępne z zewnątrz. To nie jest ograniczenie FitMesh, to ograniczenie samego protokołu Health Connect: żadna aplikacja trzecia nie może odczytać tego, czego producenci nie zdecydują się zapisać w wspólnej warstwie.",
+        tr: "Health Connect, Zepp ve Mi Fitness'ın topladığı verilerin bir alt kümesini gösteriyor. Bu uygulamaları ilginç kılan gelişmiş metrikler tescilli olmaya devam ediyor ve dışarıdan erişilemiyor. Bu FitMesh'in sınırlaması değil, Health Connect protokolünün sınırlaması: hiçbir üçüncü taraf uygulaması üreticilerin paylaşılan katmana yazmayı seçmediği şeyleri okuyamaz.",
       },
     },
     {
@@ -490,6 +600,20 @@ export const post: BlogPost = {
           "**Traces GPS des activités**: les courses ou sorties à vélo enregistrées avec GPS sont partiellement écrites dans Health Connect (durée, calories, fréquence cardiaque moyenne), mais pas la trace GPS complète.",
           "**Données de stress continues**: le suivi du stress de Zepp/Mi Fitness n'est pas exposé sur Health Connect.",
         ],
+        pl: [
+          "**PAI (Personal Activity Intelligence)**: cotygodniowy wynik aktywności Amazfit. Pozostaje w aplikacji Zepp.",
+          "**Body Energy / Zepp Coach**: spersonalizowane plany treningowe Zepp. Nie opuszczają Zepp.",
+          "**Zaawansowana analiza snu**: Zepp oferuje szczegółową lekturę faz REM, głębokiego i lekkiego snu z interaktywnym wykresem. Health Connect otrzymuje tylko łączny czas trwania i podstawowe fazy.",
+          "**Trasy GPS aktywności**: biegi lub wycieczki rowerowe zarejestrowane z GPS są częściowo zapisywane w Health Connect (czas trwania, kalorie, średnie tętno), ale nie pełna trasa GPS.",
+          "**Ciągłe dane stresu**: monitorowanie stresu przez Zepp/Mi Fitness nie jest eksponowane w Health Connect.",
+        ],
+        tr: [
+          "**PAI (Kişisel Aktivite Zekası)**: Amazfit'in haftalık aktivite puanı. Zepp uygulamasında kalıyor.",
+          "**Body Energy / Zepp Coach**: Zepp'in kişiselleştirilmiş antrenman planları. Zepp'i terk etmiyor.",
+          "**Gelişmiş uyku analizi**: Zepp, interaktif grafikle REM, derin ve hafif uyku evrelerinin ayrıntılı okumasını sunuyor. Health Connect yalnızca toplam süreyi ve temel evreleri alıyor.",
+          "**Aktivite GPS izleri**: GPS ile kaydedilen koşular veya bisiklet gezileri kısmen Health Connect'e yazılıyor (süre, kalori, ortalama nabız), ancak tam GPS izi değil.",
+          "**Sürekli stres verileri**: Zepp/Mi Fitness stres izlemesi Health Connect'te gösterilmiyor.",
+        ],
       },
     },
     {
@@ -502,6 +626,8 @@ export const post: BlogPost = {
         de: "Der eigentliche Wert von Health Connect: Daten mehrerer Geräte zusammenführen",
         pt: "O valor real do Health Connect: unir dados de vários dispositivos",
         fr: "La vraie valeur de Health Connect: combiner les données de plusieurs appareils",
+        pl: "Prawdziwa wartość Health Connect: łączenie danych z wielu urządzeń",
+        tr: "Health Connect'in gerçek değeri: birden fazla cihazın verilerini birleştirme",
       },
       body: {
         it: "Il vantaggio principale non è solo vedere i dati Xiaomi o Amazfit in un'altra app: è che Health Connect diventa il punto di raccolta comune per tutti i tuoi dispositivi. Se usi una Mi Band per la quotidianità e un altro wearable per gli allenamenti, FitMesh Sync li vede entrambi in un unico posto, senza duplicati e con le sorgenti indicate chiaramente.",
@@ -510,6 +636,8 @@ export const post: BlogPost = {
         de: "Der Hauptvorteil besteht nicht nur darin, Xiaomi- oder Amazfit-Daten in einer anderen App zu sehen: Health Connect wird zum gemeinsamen Sammelpunkt für alle deine Geräte. Wenn du ein Mi Band für den Alltag und ein anderes Wearable für das Training verwendest, sieht FitMesh Sync beide an einem einzigen Ort, ohne Duplikate und mit klar angegebenen Quellen.",
         pt: "A principal vantagem não é apenas ver os dados do Xiaomi ou Amazfit em outro app: é que o Health Connect se torna o ponto de coleta comum para todos os seus dispositivos. Se você usa um Mi Band para o dia a dia e outro wearable para os treinos, o FitMesh Sync vê os dois em um único lugar, sem duplicatas e com as fontes claramente indicadas.",
         fr: "Le principal avantage n'est pas seulement de voir les données Xiaomi ou Amazfit dans une autre application: c'est que Health Connect devient le point de collecte commun pour tous vos appareils. Si vous utilisez un Mi Band pour le quotidien et un autre wearable pour les entraînements, FitMesh Sync les voit tous les deux en un seul endroit, sans doublons et avec les sources clairement indiquées.",
+        pl: "Główna zaleta to nie tylko oglądanie danych Xiaomi lub Amazfit w innej aplikacji: to fakt, że Health Connect staje się wspólnym punktem zbiorczym dla wszystkich Twoich urządzeń. Jeśli używasz Mi Band do codziennego śledzenia i innego urządzenia wearable do treningów, FitMesh Sync widzi oba w jednym miejscu, bez duplikatów i z wyraźnie wskazanymi źródłami.",
+        tr: "Asıl avantaj yalnızca Xiaomi veya Amazfit verilerini başka bir uygulamada görmek değil: Health Connect'in tüm cihazlarınız için ortak toplama noktası haline gelmesi. Günlük takip için Mi Band ve antrenmanlar için başka bir giyilebilir kullanıyorsanız FitMesh Sync her ikisini de tek bir yerde görüyor, tekrar olmadan ve kaynaklar açıkça belirtilerek.",
       },
     },
     {
@@ -522,6 +650,8 @@ export const post: BlogPost = {
         de: "Schritt 3: FitMesh Sync mit Health Connect verbinden",
         pt: "Passo 3: conectar o FitMesh Sync ao Health Connect",
         fr: "Étape 3: connecter FitMesh Sync à Health Connect",
+        pl: "Krok 3: połączenie FitMesh Sync z Health Connect",
+        tr: "Adım 3: FitMesh Sync'i Health Connect'e bağlama",
       },
     },
     {
@@ -570,6 +700,20 @@ export const post: BlogPost = {
           "FitMesh Sync commence à lire les données de Health Connect, y compris celles écrites par Zepp et Mi Fitness.",
           "Accédez au tableau de bord web depuis un navigateur: vous verrez toutes les données unifiées par appareil et par jour.",
         ],
+        pl: [
+          "Zainstaluj FitMesh Sync ze Sklepu Google Play na swoim telefonie Android.",
+          "Przy pierwszym uruchomieniu aplikacja prosi o uprawnienia dla Health Connect. Postępuj zgodnie z procedurą autoryzacji.",
+          "Wybierz kategorie do odczytu: kroki, tętno, sen, kalorie, dystans i SpO2.",
+          "FitMesh Sync zaczyna odczytywać dane z Health Connect, w tym dane zapisane przez Zepp i Mi Fitness.",
+          "Uzyskaj dostęp do panelu webowego przez przeglądarkę: zobaczysz wszystkie dane zunifikowane według urządzenia i dnia.",
+        ],
+        tr: [
+          "Android telefonunuza Google Play Store'dan FitMesh Sync'i yükleyin.",
+          "İlk açılışta uygulama Health Connect izinleri ister. Yetkilendirme sürecini takip edin.",
+          "Okunacak kategorileri seçin: adım, nabız, uyku, kalori, mesafe ve SpO2.",
+          "FitMesh Sync, Zepp ve Mi Fitness tarafından yazılan veriler dahil Health Connect'ten veri okumaya başlar.",
+          "Tarayıcıdan web paneline erişin: cihaz ve güne göre birleştirilmiş tüm verileri göreceksiniz.",
+        ],
       },
     },
     {
@@ -582,6 +726,8 @@ export const post: BlogPost = {
         de: "Kompatibilität: welche Xiaomi und Amazfit Modelle funktionieren",
         pt: "Compatibilidade: quais modelos Xiaomi e Amazfit funcionam",
         fr: "Compatibilité: quels modèles Xiaomi et Amazfit fonctionnent",
+        pl: "Zgodność: które modele Xiaomi i Amazfit działają",
+        tr: "Uyumluluk: hangi Xiaomi ve Amazfit modelleri çalışıyor",
       },
     },
     {
@@ -593,6 +739,8 @@ export const post: BlogPost = {
         de: "Das Hauptkriterium ist nicht das Gerätemodell, sondern die App, die es verwaltet. Wenn dein Wearable Zepp oder Mi Fitness verwendet und diese Apps Health Connect unterstützen (was beide seit Ende 2023 tun), kommen die in Health Connect verfügbaren Daten auch in FitMesh an. Dazu gehören:",
         pt: "O critério principal não é o modelo do dispositivo, mas o app que o gerencia. Se seu wearable usa Zepp ou Mi Fitness e esses apps suportam Health Connect (ambos o fazem desde o final de 2023), os dados disponíveis no Health Connect também chegam ao FitMesh. Isso inclui:",
         fr: "Le critère principal n'est pas le modèle de l'appareil, mais l'application qui le gère. Si votre wearable utilise Zepp ou Mi Fitness et que ces applications prennent en charge Health Connect (toutes deux le font depuis fin 2023), les données disponibles sur Health Connect arrivent également dans FitMesh. Cela inclut:",
+        pl: "Głównym kryterium nie jest model urządzenia, ale aplikacja, która nim zarządza. Jeśli Twoje urządzenie wearable używa Zepp lub Mi Fitness i te aplikacje obsługują Health Connect (obie robią to od końca 2023 roku), dane dostępne w Health Connect trafiają również do FitMesh. Obejmuje to:",
+        tr: "Asıl kriter cihaz modeli değil, onu yöneten uygulama. Giyilebilir cihazınız Zepp veya Mi Fitness kullanıyorsa ve bu uygulamalar Health Connect'i destekliyorsa (her ikisi de 2023'ün sonundan itibaren destekliyor), Health Connect'te mevcut veriler FitMesh'e de geliyor. Buna dahil:",
       },
     },
     {
@@ -652,6 +800,24 @@ export const post: BlogPost = {
           "**Redmi Watch 3, 4, 5** (application Mi Fitness): pas, fréquence cardiaque, sommeil, calories.",
           "**Modèles avec Zepp OS 2.0 ou supérieur**: couvrent généralement toutes les métriques du tableau précédent.",
         ],
+        pl: [
+          "**Mi Band 7, 8, 9** (aplikacja Mi Fitness): kroki, tętno, sen, kalorie.",
+          "**Amazfit GTR 4, GTR 5, GTR Mini** (aplikacja Zepp): kroki, tętno, SpO2, sen, kalorie.",
+          "**Amazfit GTS 4, GTS 4 Mini, GTS 5** (aplikacja Zepp): te same metryki co GTR.",
+          "**Amazfit Band 7, Band 7 Pro** (aplikacja Zepp): kroki, tętno, sen, kalorie.",
+          "**Amazfit Bip 5** (aplikacja Zepp): kroki, tętno, sen.",
+          "**Redmi Watch 3, 4, 5** (aplikacja Mi Fitness): kroki, tętno, sen, kalorie.",
+          "**Modele z Zepp OS 2.0 lub nowszym**: zazwyczaj obejmują wszystkie metryki z poprzedniej tabeli.",
+        ],
+        tr: [
+          "**Mi Band 7, 8, 9** (Mi Fitness uygulaması): adım, nabız, uyku, kalori.",
+          "**Amazfit GTR 4, GTR 5, GTR Mini** (Zepp uygulaması): adım, nabız, SpO2, uyku, kalori.",
+          "**Amazfit GTS 4, GTS 4 Mini, GTS 5** (Zepp uygulaması): GTR ile aynı metrikler.",
+          "**Amazfit Band 7, Band 7 Pro** (Zepp uygulaması): adım, nabız, uyku, kalori.",
+          "**Amazfit Bip 5** (Zepp uygulaması): adım, nabız, uyku.",
+          "**Redmi Watch 3, 4, 5** (Mi Fitness uygulaması): adım, nabız, uyku, kalori.",
+          "**Zepp OS 2.0 veya üzeri modeller**: genellikle önceki tablodaki tüm metrikleri kapsıyor.",
+        ],
       },
     },
     {
@@ -663,6 +829,8 @@ export const post: BlogPost = {
         de: "Möchtest du deine Xiaomi und Amazfit Daten in deiner eigenen Dashboard sehen?",
         pt: "Quer ver seus dados Xiaomi e Amazfit em seu próprio painel?",
         fr: "Vous voulez voir vos données Xiaomi et Amazfit dans votre propre tableau de bord?",
+        pl: "Chcesz zobaczyć dane Xiaomi i Amazfit we własnym panelu?",
+        tr: "Xiaomi ve Amazfit verilerinizi kendi panelinizde görmek ister misiniz?",
       },
       body: {
         it: "FitMesh Sync legge da Health Connect e unisce i dati di Mi Band, Amazfit e tutti gli altri dispositivi connessi in una dashboard web accessibile da browser. I tuoi dati restano sul tuo telefono: FitMesh non li vende e non li condivide con terzi. Unisciti ai fondatori per accedere in early access.",
@@ -671,6 +839,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest aus Health Connect und vereint Daten von Mi Band, Amazfit und allen anderen verbundenen Geräten in einer browser-zugänglichen Web-Dashboard. Deine Daten bleiben auf deinem Telefon: FitMesh verkauft sie nicht und teilt sie nicht mit Dritten. Werde Gründungsmitglied für Early Access.",
         pt: "O FitMesh Sync lê do Health Connect e une os dados do Mi Band, Amazfit e todos os outros dispositivos conectados em um painel web acessível pelo navegador. Seus dados ficam no seu telefone: o FitMesh não os vende nem os compartilha com terceiros. Junte-se aos fundadores para ter acesso antecipado.",
         fr: "FitMesh Sync lit depuis Health Connect et fusionne les données de Mi Band, Amazfit et tous les autres appareils connectés dans un tableau de bord web accessible depuis un navigateur. Vos données restent sur votre téléphone: FitMesh ne les vend pas et ne les partage pas avec des tiers. Rejoignez les fondateurs pour un accès anticipé.",
+        pl: "FitMesh Sync odczytuje z Health Connect i łączy dane Mi Band, Amazfit i wszystkich innych podłączonych urządzeń w panelu webowym dostępnym przez przeglądarkę. Twoje dane pozostają na Twoim telefonie: FitMesh ich nie sprzedaje i nie udostępnia stronom trzecim. Dołącz do założycieli, aby uzyskać wczesny dostęp.",
+        tr: "FitMesh Sync, Health Connect'ten okuyarak Mi Band, Amazfit ve diğer tüm bağlı cihazların verilerini tarayıcıdan erişilebilen bir web panosunda birleştiriyor. Verileriniz telefonunuzda kalır: FitMesh bunları satmaz ve üçüncü taraflarla paylaşmaz. Erken erişim için kuruculara katılın.",
       },
       ctaLabel: {
         it: "Accedi al programma fondatori →",
@@ -679,6 +849,8 @@ export const post: BlogPost = {
         de: "Dem Gründerprogramm beitreten →",
         pt: "Acesse o programa de fundadores →",
         fr: "Rejoindre le programme fondateurs →",
+        pl: "Dołącz do programu założycieli →",
+        tr: "Kurucular programına katıl →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -687,6 +859,8 @@ export const post: BlogPost = {
         de: "/de/beta",
         pt: "/pt/beta",
         fr: "/fr/beta",
+        pl: "/pl/beta",
+        tr: "/tr/beta",
       },
     },
   ],
@@ -699,6 +873,8 @@ export const post: BlogPost = {
         de: "Synchronisiert sich Mi Band 8 mit Health Connect?",
         pt: "O Mi Band 8 sincroniza com o Health Connect?",
         fr: "Le Mi Band 8 se synchronise-t-il avec Health Connect?",
+        pl: "Czy Mi Band 8 synchronizuje się z Health Connect?",
+        tr: "Mi Band 8, Health Connect ile senkronize oluyor mu?",
       },
       a: {
         it: "Sì, tramite l'app Mi Fitness. Apri Mi Fitness, vai nelle impostazioni e attiva la connessione a Google Health Connect. Da quel momento, passi, frequenza cardiaca, sonno e calorie vengono scritti su Health Connect dopo ogni sincronizzazione del dispositivo. Funziona anche per Mi Band 7, Mi Band 9 e Redmi Watch con la stessa app.",
@@ -707,6 +883,8 @@ export const post: BlogPost = {
         de: "Ja, über die Mi Fitness App. Öffne Mi Fitness, gehe zu den Einstellungen und aktiviere die Verbindung zu Google Health Connect. Ab diesem Moment werden Schritte, Herzfrequenz, Schlaf und Kalorien nach jeder Gerätesynchronisierung in Health Connect geschrieben. Das funktioniert auch für Mi Band 7, Mi Band 9 und Redmi Watch mit derselben App.",
         pt: "Sim, por meio do app Mi Fitness. Abra o Mi Fitness, vá nas configurações e ative a conexão com o Google Health Connect. A partir daí, passos, frequência cardíaca, sono e calorias são gravados no Health Connect após cada sincronização do dispositivo. Também funciona para Mi Band 7, Mi Band 9 e Redmi Watch com o mesmo app.",
         fr: "Oui, via l'application Mi Fitness. Ouvrez Mi Fitness, allez dans les paramètres et activez la connexion à Google Health Connect. À partir de ce moment, les pas, la fréquence cardiaque, le sommeil et les calories sont écrits dans Health Connect après chaque synchronisation de l'appareil. Cela fonctionne aussi pour Mi Band 7, Mi Band 9 et Redmi Watch avec la même application.",
+        pl: "Tak, przez aplikację Mi Fitness. Otwórz Mi Fitness, przejdź do ustawień i włącz połączenie z Google Health Connect. Od tej chwili kroki, tętno, sen i kalorie są zapisywane w Health Connect po każdej synchronizacji urządzenia. Działa to również dla Mi Band 7, Mi Band 9 i Redmi Watch z tą samą aplikacją.",
+        tr: "Evet, Mi Fitness uygulaması aracılığıyla. Mi Fitness'ı açın, ayarlara gidin ve Google Health Connect bağlantısını etkinleştirin. Artık adım, nabız, uyku ve kalori her cihaz senkronizasyonunun ardından Health Connect'e yazılıyor. Bu Mi Band 7, Mi Band 9 ve aynı uygulamayı kullanan Redmi Watch için de çalışıyor.",
       },
     },
     {
@@ -717,6 +895,8 @@ export const post: BlogPost = {
         de: "Funktioniert Amazfit GTR 5 mit Health Connect?",
         pt: "O Amazfit GTR 5 funciona com o Health Connect?",
         fr: "L'Amazfit GTR 5 fonctionne-t-il avec Health Connect?",
+        pl: "Czy Amazfit GTR 5 działa z Health Connect?",
+        tr: "Amazfit GTR 5, Health Connect ile çalışıyor mu?",
       },
       a: {
         it: "Sì. Amazfit GTR 5 usa l'app Zepp, che supporta la scrittura su Health Connect. Nella sezione impostazioni di Zepp trovi la voce Health Connect da attivare. Le metriche disponibili includono passi, frequenza cardiaca continua, SpO2, sonno (durata e fasi base) e calorie. Le metriche PAI e l'analisi dello stress di Zepp restano invece nell'app Zepp.",
@@ -725,6 +905,8 @@ export const post: BlogPost = {
         de: "Ja. Amazfit GTR 5 verwendet die Zepp App, die das Schreiben in Health Connect unterstützt. Im Einstellungsbereich von Zepp findest du den Health Connect Eintrag zum Aktivieren. Verfügbare Metriken umfassen Schritte, kontinuierliche Herzfrequenz, SpO2, Schlaf (Dauer und Basisphasen) und Kalorien. Zepps PAI-Metriken und Stressanalyse verbleiben in der Zepp App.",
         pt: "Sim. O Amazfit GTR 5 usa o app Zepp, que suporta a escrita no Health Connect. Na seção de configurações do Zepp você encontra a opção Health Connect para ativar. As métricas disponíveis incluem passos, frequência cardíaca contínua, SpO2, sono (duração e fases básicas) e calorias. As métricas PAI e a análise de estresse do Zepp ficam no app Zepp.",
         fr: "Oui. Amazfit GTR 5 utilise l'application Zepp, qui prend en charge l'écriture dans Health Connect. Dans la section paramètres de Zepp, vous trouvez l'entrée Health Connect à activer. Les métriques disponibles comprennent les pas, la fréquence cardiaque continue, SpO2, le sommeil (durée et phases de base) et les calories. Les métriques PAI et l'analyse du stress de Zepp restent dans l'application Zepp.",
+        pl: "Tak. Amazfit GTR 5 używa aplikacji Zepp, która obsługuje zapis do Health Connect. W sekcji ustawień Zepp znajdziesz opcję Health Connect do aktywacji. Dostępne metryki obejmują kroki, ciągłe tętno, SpO2, sen (czas trwania i podstawowe fazy) i kalorie. Metryki PAI i analiza stresu Zepp pozostają w aplikacji Zepp.",
+        tr: "Evet. Amazfit GTR 5, Health Connect'e yazmayı destekleyen Zepp uygulamasını kullanıyor. Zepp ayarlar bölümünde etkinleştirilecek Health Connect girişini bulabilirsiniz. Mevcut metrikler adım, sürekli nabız, SpO2, uyku (süre ve temel evreler) ve kaloriyi içeriyor. Zepp'in PAI metrikleri ve stres analizi Zepp uygulamasında kalıyor.",
       },
     },
     {
@@ -735,6 +917,8 @@ export const post: BlogPost = {
         de: "Warum werden Zepp-Daten nicht in Echtzeit in Health Connect aktualisiert?",
         pt: "Por que os dados do Zepp não se atualizam em tempo real no Health Connect?",
         fr: "Pourquoi les données Zepp ne se mettent-elles pas à jour en temps réel dans Health Connect?",
+        pl: "Dlaczego dane Zepp nie aktualizują się w czasie rzeczywistym w Health Connect?",
+        tr: "Zepp verileri neden Health Connect'te gerçek zamanlı güncellenmiyor?",
       },
       a: {
         it: "Zepp e Mi Fitness sincronizzano i dati su Health Connect quando il dispositivo si connette al telefono via Bluetooth, non in tempo reale. La frequenza tipica è ogni 15-30 minuti se il telefono è vicino, o all'apertura dell'app. Se i dati sembrano in ritardo, apri l'app Zepp o Mi Fitness e avvia una sincronizzazione manuale: questo forzatura aggiorna Health Connect immediatamente.",
@@ -743,6 +927,8 @@ export const post: BlogPost = {
         de: "Zepp und Mi Fitness synchronisieren Daten mit Health Connect, wenn das Gerät sich per Bluetooth mit dem Telefon verbindet, nicht in Echtzeit. Die typische Häufigkeit beträgt alle 15-30 Minuten, wenn das Telefon in der Nähe ist, oder beim Öffnen der App. Wenn die Daten verzögert erscheinen, öffne die Zepp- oder Mi Fitness-App und starte eine manuelle Synchronisierung: Das erzwingt sofort eine Health Connect Aktualisierung.",
         pt: "O Zepp e o Mi Fitness sincronizam os dados com o Health Connect quando o dispositivo se conecta ao telefone via Bluetooth, não em tempo real. A frequência típica é a cada 15-30 minutos se o telefone estiver próximo, ou ao abrir o app. Se os dados parecem atrasados, abra o app Zepp ou Mi Fitness e inicie uma sincronização manual: isso força uma atualização imediata do Health Connect.",
         fr: "Zepp et Mi Fitness synchronisent les données avec Health Connect lorsque l'appareil se connecte au téléphone via Bluetooth, pas en temps réel. La fréquence typique est toutes les 15-30 minutes si le téléphone est à proximité, ou à l'ouverture de l'application. Si les données semblent en retard, ouvrez l'application Zepp ou Mi Fitness et lancez une synchronisation manuelle: cela force une mise à jour immédiate de Health Connect.",
+        pl: "Zepp i Mi Fitness synchronizują dane do Health Connect, gdy urządzenie łączy się z telefonem przez Bluetooth, nie w czasie rzeczywistym. Typowa częstotliwość to co 15–30 minut, gdy telefon jest w pobliżu, lub przy otwieraniu aplikacji. Jeśli dane wyglądają na opóźnione, otwórz aplikację Zepp lub Mi Fitness i uruchom ręczną synchronizację: to wymuści natychmiastową aktualizację Health Connect.",
+        tr: "Zepp ve Mi Fitness, verilerini gerçek zamanlı değil, cihaz Bluetooth üzerinden telefonla bağlandığında Health Connect'e senkronize ediyor. Telefon yakındaysa tipik sıklık her 15-30 dakikada bir ya da uygulama açıldığında. Veriler gecikmeli görünüyorsa Zepp veya Mi Fitness uygulamasını açın ve manuel senkronizasyon başlatın: bu Health Connect'i hemen günceller.",
       },
     },
     {
@@ -753,6 +939,8 @@ export const post: BlogPost = {
         de: "Kann ich FitMesh Sync mit Xiaomi auf dem iPhone verwenden?",
         pt: "Posso usar o FitMesh Sync com Xiaomi no iPhone?",
         fr: "Puis-je utiliser FitMesh Sync avec Xiaomi sur iPhone?",
+        pl: "Czy mogę używać FitMesh Sync z Xiaomi na iPhonie?",
+        tr: "iPhone'da Xiaomi ile FitMesh Sync kullanabilir miyim?",
       },
       a: {
         it: "Health Connect non è disponibile su iPhone: è un servizio esclusivo di Android. Se usi un iPhone con una Mi Band o un Amazfit, i dati restano nell'app Mi Fitness o Zepp senza un layer condiviso equivalente. Su iOS la controparte è HealthKit (Apple Health), ma Xiaomi e Amazfit non scrivono su HealthKit in modo completo come fanno su Health Connect Android.",
@@ -761,6 +949,8 @@ export const post: BlogPost = {
         de: "Health Connect ist auf dem iPhone nicht verfügbar: Es ist ein exklusiver Android-Dienst. Wenn du ein iPhone mit einem Mi Band oder Amazfit verwendest, bleiben die Daten in der Mi Fitness- oder Zepp-App ohne eine gleichwertige gemeinsame Ebene. Auf iOS ist das Gegenstück HealthKit (Apple Health), aber Xiaomi und Amazfit schreiben nicht so vollständig in HealthKit wie in Health Connect auf Android.",
         pt: "O Health Connect não está disponível no iPhone: é um serviço exclusivo do Android. Se você usa um iPhone com um Mi Band ou Amazfit, os dados ficam no app Mi Fitness ou Zepp sem uma camada compartilhada equivalente. No iOS a contraparte é o HealthKit (Apple Health), mas Xiaomi e Amazfit não gravam no HealthKit de forma tão completa quanto fazem no Health Connect do Android.",
         fr: "Health Connect n'est pas disponible sur iPhone: c'est un service exclusif à Android. Si vous utilisez un iPhone avec un Mi Band ou un Amazfit, les données restent dans l'application Mi Fitness ou Zepp sans couche partagée équivalente. Sur iOS, l'équivalent est HealthKit (Apple Health), mais Xiaomi et Amazfit n'écrivent pas dans HealthKit aussi complètement qu'ils le font dans Health Connect sur Android.",
+        pl: "Health Connect nie jest dostępny na iPhonie: to usługa wyłącznie dla Androida. Jeśli używasz iPhone'a z Mi Band lub Amazfitem, dane pozostają w aplikacji Mi Fitness lub Zepp bez odpowiednika wspólnej warstwy. Na iOS odpowiednikiem jest HealthKit (Apple Health), ale Xiaomi i Amazfit nie zapisują do HealthKit tak kompletnie, jak robią to do Health Connect na Androidzie.",
+        tr: "Health Connect iPhone'da mevcut değil: yalnızca Android'e özel bir hizmet. iPhone'u Mi Band veya Amazfit ile kullanıyorsanız veriler, eşdeğer paylaşılan katman olmadan Mi Fitness veya Zepp uygulamasında kalıyor. iOS'ta karşılığı HealthKit (Apple Health), ancak Xiaomi ve Amazfit HealthKit'e Android'deki Health Connect kadar eksiksiz yazamıyor.",
       },
     },
     {
@@ -771,6 +961,8 @@ export const post: BlogPost = {
         de: "Kann FitMesh Sync historische Zepp-Daten vor der Health Connect Aktivierung lesen?",
         pt: "O FitMesh Sync pode ler dados históricos do Zepp anteriores à ativação do Health Connect?",
         fr: "FitMesh Sync peut-il lire les données historiques Zepp antérieures à l'activation de Health Connect?",
+        pl: "Czy FitMesh Sync może odczytywać historyczne dane Zepp sprzed aktywacji Health Connect?",
+        tr: "FitMesh Sync, Health Connect etkinleştirilmeden önceki geçmiş Zepp verilerini okuyabilir mi?",
       },
       a: {
         it: "Dipende da quanti dati Zepp ha retro-scritto su Health Connect al momento dell'attivazione. Alcune versioni di Zepp eseguono un backfill parziale (in genere ultimi 30-90 giorni) quando autorizzi Health Connect per la prima volta. I dati più vecchi di quel periodo restano solo nell'app Zepp. Per la storia completa, al momento l'unico modo è usare le funzioni di export dell'app Zepp stessa.",
@@ -779,6 +971,8 @@ export const post: BlogPost = {
         de: "Das hängt davon ab, wie viele Daten Zepp zum Zeitpunkt der Aktivierung in Health Connect zurückgeschrieben hat. Einige Versionen von Zepp führen ein teilweises Backfill durch (in der Regel die letzten 30-90 Tage), wenn du Health Connect zum ersten Mal autorisierst. Daten, die älter als dieser Zeitraum sind, bleiben nur in der Zepp App. Für die vollständige Historie ist der einzige Weg derzeit die Verwendung der Export-Funktionen der Zepp App selbst.",
         pt: "Depende de quantos dados o Zepp retroescreveu no Health Connect no momento da ativação. Algumas versões do Zepp fazem um preenchimento parcial (geralmente os últimos 30-90 dias) quando você autoriza o Health Connect pela primeira vez. Os dados anteriores a esse período ficam apenas no app Zepp. Para o histórico completo, por enquanto o único jeito é usar as funções de exportação do próprio app Zepp.",
         fr: "Cela dépend de la quantité de données que Zepp a rétro-écrites dans Health Connect au moment de l'activation. Certaines versions de Zepp effectuent un remplissage partiel (généralement les 30-90 derniers jours) lorsque vous autorisez Health Connect pour la première fois. Les données plus anciennes que cette période restent uniquement dans l'application Zepp. Pour l'historique complet, le seul moyen pour l'instant est d'utiliser les fonctions d'export de l'application Zepp elle-même.",
+        pl: "Zależy to od tego, ile danych Zepp wstecznie zapisało do Health Connect w momencie aktywacji. Niektóre wersje Zepp wykonują częściowe uzupełnienie (zazwyczaj ostatnie 30–90 dni) przy pierwszym autoryzowaniu Health Connect. Dane starsze niż ten okres pozostają tylko w aplikacji Zepp. Dla pełnej historii jedynym sposobem jest obecnie użycie funkcji eksportu samej aplikacji Zepp.",
+        tr: "Bu, Zepp'in etkinleştirme sırasında Health Connect'e ne kadar veri geriye yazdığına bağlı. Zepp'in bazı sürümleri, Health Connect'i ilk kez yetkilendirdiğinizde kısmi geri doldurma (genellikle son 30-90 gün) yapıyor. Bu süreden daha eski veriler yalnızca Zepp uygulamasında kalıyor. Tam geçmiş için şu anda tek yol Zepp uygulamasının dışa aktarma işlevlerini kullanmak.",
       },
     },
     {
@@ -789,6 +983,8 @@ export const post: BlogPost = {
         de: "Lädt FitMesh Sync meine Daten auf einen Server hoch?",
         pt: "O FitMesh Sync envia meus dados para um servidor?",
         fr: "FitMesh Sync télécharge-t-il mes données vers un serveur?",
+        pl: "Czy FitMesh Sync przesyła moje dane na serwer?",
+        tr: "FitMesh Sync verilerimi sunucuya yüklüyor mu?",
       },
       a: {
         it: "FitMesh Sync legge i dati da Health Connect localmente sul tuo telefono. Per generare la dashboard web accessibile da browser, una parte dei dati aggregati viene elaborata per la visualizzazione. La politica di FitMesh è che i tuoi dati non vengono venduti a terzi e non vengono usati per pubblicità. Puoi verificare l'informativa sulla privacy completa su FitMesh.fit.",
@@ -797,6 +993,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest Daten lokal auf deinem Telefon aus Health Connect. Um die browser-zugängliche Web-Dashboard zu generieren, werden einige aggregierte Daten für die Anzeige verarbeitet. Die Richtlinie von FitMesh ist, dass deine Daten nicht an Dritte verkauft und nicht für Werbung verwendet werden. Die vollständige Datenschutzerklärung kannst du auf FitMesh.fit einsehen.",
         pt: "O FitMesh Sync lê os dados do Health Connect localmente no seu telefone. Para gerar o painel web acessível pelo navegador, alguns dados agregados são processados para exibição. A política do FitMesh é que seus dados não são vendidos a terceiros e não são usados para publicidade. Você pode consultar a política de privacidade completa em FitMesh.fit.",
         fr: "FitMesh Sync lit les données de Health Connect localement sur votre téléphone. Pour générer le tableau de bord web accessible depuis le navigateur, certaines données agrégées sont traitées pour l'affichage. La politique de FitMesh est que vos données ne sont pas vendues à des tiers et ne sont pas utilisées pour la publicité. Vous pouvez consulter la politique de confidentialité complète sur FitMesh.fit.",
+        pl: "FitMesh Sync odczytuje dane z Health Connect lokalnie na Twoim telefonie. Aby wygenerować panel webowy dostępny przez przeglądarkę, niektóre zagregowane dane są przetwarzane do wyświetlania. Polityka FitMesh zakłada, że Twoje dane nie są sprzedawane stronom trzecim i nie są używane do reklam. Pełną politykę prywatności możesz sprawdzić na FitMesh.fit.",
+        tr: "FitMesh Sync, verileri telefonunuzda yerel olarak Health Connect'ten okuyor. Tarayıcıdan erişilebilen web panosunu oluşturmak için bazı toplu veriler görüntüleme için işleniyor. FitMesh politikası gereği verileriniz üçüncü taraflara satılmıyor ve reklam amaçlı kullanılmıyor. Tam gizlilik politikasını FitMesh.fit adresinde inceleyebilirsiniz.",
       },
     },
   ],

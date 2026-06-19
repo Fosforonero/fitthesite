@@ -48,6 +48,16 @@ const AUTHOR = {
     "Desenvolvedor de software italiano. Criei o FitMesh Sync para preencher a lacuna entre o meu smartwatch e um painel pessoal de verdade. Privacidade em primeiro lugar, indie, servidores na UE.",
   bioFr:
     "Développeur de logiciels italien. J'ai créé FitMesh Sync pour combler le fossé entre ma montre connectée et un vrai tableau de bord personnel. Confidentialité avant tout, indie, serveurs UE.",
+  bioPl:
+    "Włoski programista. Stworzyłem FitMesh Sync, aby wypełnić lukę między moim smartwatchem a prawdziwym osobistym dashboardem. Prywatność na pierwszym miejscu, indie, serwery w UE.",
+  bioTr:
+    "İtalyan yazılım geliştirici. FitMesh Sync'i akıllı saatim ile gerçek bir kişisel kontrol paneli arasındaki boşluğu doldurmak için kurdum. Gizlilik odaklı, bağımsız, AB sunucuları.",
+  bioNl:
+    "Italiaanse softwareontwikkelaar. Ik bouwde FitMesh Sync om de kloof tussen mijn smartwatch en een echt persoonlijk dashboard te overbruggen. Privacy-first, indie, EU-servers.",
+  bioJa:
+    "イタリア人ソフトウェア開発者。スマートウォッチと本物のパーソナルダッシュボードのギャップを埋めるためにFitMesh Syncを構築しました。プライバシーファースト、インディー、EUサーバー。",
+  bioko:
+    "이탈리아 소프트웨어 개발자. 스마트워치와 진정한 개인 대시보드 사이의 격차를 메우기 위해 FitMesh Sync를 구축했습니다. 개인정보 보호 우선, 독립적, EU 서버.",
   url: `${SITE_URL}/it/about`,
   // sameAs: profili pubblici per verifica autorevolezza. Vuoto = aggiungi
   // LinkedIn/Twitter quando disponibili (Matteo ha LinkedIn personale?).
@@ -272,22 +282,127 @@ const I18N = {
     medicalDisclaimer:
       "Les informations contenues dans cet article sont fournies à titre informatif uniquement et ne remplacent pas l'avis de votre médecin, pharmacien ou professionnel de santé. FitMesh Sync est une application fitness et bien-être, pas un dispositif médical, et ne pose pas de diagnostic ni ne traite de pathologie. En cas de symptômes, de questions ou de décisions thérapeutiques, consultez toujours votre médecin.",
   },
+  pl: {
+    backToBlog: "← Wszystkie artykuły",
+    pillarLabel: "Przewodnik główny",
+    readMin: (m: number) => `${m} min czytania`,
+    publishedOn: "Opublikowano",
+    updated: "Zaktualizowano",
+    metaCategory: "Kategoria",
+    metaReadTime: "Czas czytania",
+    metaDate: "Data",
+    metaShare: "Udostępnij",
+    metaCopied: "Skopiowano!",
+    tldrLabel: "W skrócie",
+    faqHeading: "Często zadawane pytania",
+    relatedHeading: "Czytaj dalej",
+    disclaimerHeading: "Zastrzeżenie",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync jest niezależnym produktem. ${brands.join(", ")} ${brands.length > 1 ? "są znakami towarowymi" : "jest znakiem towarowym"} swoich właścicieli. Niniejszy artykuł nie sugeruje żadnej afiliacji ani sponsorowania.`,
+    medicalDisclaimerHeading: "Informacja zdrowotna",
+    medicalDisclaimer:
+      "Informacje zawarte w tym artykule mają charakter wyłącznie informacyjny i nie zastępują porady lekarza, farmaceuty ani innego specjalisty ds. zdrowia. FitMesh Sync to aplikacja fitness i wellness, a nie wyrób medyczny. Nie diagnozuje ani nie leczy żadnych schorzeń. W razie objawów, wątpliwości lub decyzji dotyczących leczenia zawsze konsultuj się ze swoim lekarzem.",
+  },
+  tr: {
+    backToBlog: "← Tüm makaleler",
+    pillarLabel: "Ana rehber",
+    readMin: (m: number) => `${m} dk okuma`,
+    publishedOn: "Yayınlandı",
+    updated: "Güncellendi",
+    metaCategory: "Kategori",
+    metaReadTime: "Okuma süresi",
+    metaDate: "Tarih",
+    metaShare: "Paylaş",
+    metaCopied: "Kopyalandı!",
+    tldrLabel: "Kısaca",
+    faqHeading: "Sık sorulan sorular",
+    relatedHeading: "Okumaya devam et",
+    disclaimerHeading: "Sorumluluk reddi",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync bağımsız bir üründür. ${brands.join(", ")} ${brands.length > 1 ? "ilgili sahiplerinin ticari markalarıdır" : "ilgili sahibinin ticari markasıdır"}. Bu makale herhangi bir ortaklık veya sponsorluk içermez.`,
+    medicalDisclaimerHeading: "Sağlık bildirimi",
+    medicalDisclaimer:
+      "Bu makaledeki bilgiler yalnızca genel bilgilendirme amaçlıdır ve doktorunuzun, eczacınızın veya sağlık profesyonelinizin tavsiyesinin yerini tutmaz. FitMesh Sync bir fitness ve wellness uygulamasıdır; tıbbi cihaz değildir ve herhangi bir hastalığı teşhis etmez ya da tedavi etmez. Belirtiler, klinik sorular veya tedavi kararları için her zaman doktorunuza danışın.",
+  },
+  nl: {
+    backToBlog: "← Alle artikelen",
+    pillarLabel: "Hoofdgids",
+    readMin: (m: number) => `${m} min lezen`,
+    publishedOn: "Gepubliceerd",
+    updated: "Bijgewerkt",
+    metaCategory: "Categorie",
+    metaReadTime: "Leestijd",
+    metaDate: "Datum",
+    metaShare: "Delen",
+    metaCopied: "Gekopieerd!",
+    tldrLabel: "Samenvatting",
+    faqHeading: "Veelgestelde vragen",
+    relatedHeading: "Verder lezen",
+    disclaimerHeading: "Disclaimer",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync is een onafhankelijk product. ${brands.join(", ")} ${brands.length > 1 ? "zijn handelsmerken" : "is een handelsmerk"} van hun respectieve eigenaren. Dit artikel impliceert geen affiliatie of sponsoring.`,
+    medicalDisclaimerHeading: "Medische disclaimer",
+    medicalDisclaimer:
+      "De informatie in dit artikel is uitsluitend voor informatieve doeleinden en vervangt niet het advies van uw arts, apotheker of andere zorgverlener. FitMesh Sync is een fitness- en welzijnsapp, geen medisch hulpmiddel, en stelt geen diagnoses en behandelt geen aandoeningen. Raadpleeg bij symptomen, klinische vragen of behandelingsbeslissingen altijd uw huisarts.",
+  },
+  ja: {
+    backToBlog: "← すべての記事",
+    pillarLabel: "ピラーガイド",
+    readMin: (m: number) => `${m}分で読める`,
+    publishedOn: "公開",
+    updated: "更新",
+    metaCategory: "カテゴリー",
+    metaReadTime: "読了時間",
+    metaDate: "日付",
+    metaShare: "シェア",
+    metaCopied: "コピーしました！",
+    tldrLabel: "まとめ",
+    faqHeading: "よくある質問",
+    relatedHeading: "続けて読む",
+    disclaimerHeading: "免責事項",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Syncは独立した製品です。${brands.join("、")}は各所有者の商標です。本記事はいかなる提携またはスポンサーも示唆しません。`,
+    medicalDisclaimerHeading: "医療免責事項",
+    medicalDisclaimer:
+      "本記事の情報は情報提供のみを目的としており、医師、薬剤師、その他の医療専門家のアドバイスに代わるものではありません。FitMesh Syncはフィットネス・ウェルネスアプリであり、医療機器ではなく、疾患の診断や治療は行いません。症状、臨床上の疑問、治療上の決定については、必ずかかりつけ医にご相談ください。",
+  },
+  ko: {
+    backToBlog: "← 모든 기사",
+    pillarLabel: "핵심 가이드",
+    readMin: (m: number) => `${m}분 읽기`,
+    publishedOn: "게시됨",
+    updated: "업데이트됨",
+    metaCategory: "카테고리",
+    metaReadTime: "읽기 시간",
+    metaDate: "날짜",
+    metaShare: "공유",
+    metaCopied: "복사됨!",
+    tldrLabel: "요약",
+    faqHeading: "자주 묻는 질문",
+    relatedHeading: "계속 읽기",
+    disclaimerHeading: "면책 조항",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync는 독립 제품입니다. ${brands.join(", ")}은(는) 각 소유자의 상표입니다. 이 기사는 어떠한 제휴나 후원도 암시하지 않습니다.`,
+    medicalDisclaimerHeading: "의료 면책 조항",
+    medicalDisclaimer:
+      "이 기사의 정보는 정보 제공 목적으로만 제공되며 의사, 약사 또는 기타 의료 전문가의 조언을 대체하지 않습니다. FitMesh Sync는 피트니스/웰니스 앱이며 의료 기기가 아니며 어떠한 질환도 진단하거나 치료하지 않습니다. 증상, 임상 질문 또는 치료 결정에 대해서는 항상 주치의와 상담하세요.",
+  },
 } as const;
 
 function formatDate(iso: string, lc: Locale): string {
   const d = new Date(iso);
   const bcp47 =
-    lc === "it"
-      ? "it-IT"
-      : lc === "es"
-        ? "es-ES"
-        : lc === "de"
-          ? "de-DE"
-          : lc === "pt"
-            ? "pt-BR"
-            : lc === "fr"
-              ? "fr-FR"
-              : "en-US";
+    lc === "it" ? "it-IT" :
+    lc === "es" ? "es-ES" :
+    lc === "de" ? "de-DE" :
+    lc === "pt" ? "pt-BR" :
+    lc === "fr" ? "fr-FR" :
+    lc === "pl" ? "pl-PL" :
+    lc === "tr" ? "tr-TR" :
+    lc === "nl" ? "nl-NL" :
+    lc === "ja" ? "ja-JP" :
+    lc === "ko" ? "ko-KR" :
+    "en-US";
   return d.toLocaleDateString(bcp47, {
     year: "numeric",
     month: "long",
@@ -319,17 +434,17 @@ export default async function BlogArticle({
     headline: tl(post.hero.title, lc),
     description: tl(post.metaDescription, lc),
     inLanguage:
-      lc === "it"
-        ? "it-IT"
-        : lc === "es"
-          ? "es-ES"
-          : lc === "de"
-            ? "de-DE"
-            : lc === "pt"
-              ? "pt-BR"
-              : lc === "fr"
-                ? "fr-FR"
-                : "en-US",
+      lc === "it" ? "it-IT" :
+      lc === "es" ? "es-ES" :
+      lc === "de" ? "de-DE" :
+      lc === "pt" ? "pt-BR" :
+      lc === "fr" ? "fr-FR" :
+      lc === "pl" ? "pl-PL" :
+      lc === "tr" ? "tr-TR" :
+      lc === "nl" ? "nl-NL" :
+      lc === "ja" ? "ja-JP" :
+      lc === "ko" ? "ko-KR" :
+      "en-US",
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     url: `${SITE_URL}${path}`,
@@ -342,17 +457,17 @@ export default async function BlogArticle({
       name: AUTHOR.name,
       jobTitle: AUTHOR.jobTitle,
       description:
-        lc === "it"
-          ? AUTHOR.bioIt
-          : lc === "es"
-            ? AUTHOR.bioEs
-            : lc === "de"
-              ? AUTHOR.bioDe
-              : lc === "pt"
-                ? AUTHOR.bioPt
-                : lc === "fr"
-                  ? AUTHOR.bioFr
-                  : AUTHOR.bioEn,
+        lc === "it" ? AUTHOR.bioIt :
+        lc === "es" ? AUTHOR.bioEs :
+        lc === "de" ? AUTHOR.bioDe :
+        lc === "pt" ? AUTHOR.bioPt :
+        lc === "fr" ? AUTHOR.bioFr :
+        lc === "pl" ? AUTHOR.bioPl :
+        lc === "tr" ? AUTHOR.bioTr :
+        lc === "nl" ? AUTHOR.bioNl :
+        lc === "ja" ? AUTHOR.bioJa :
+        lc === "ko" ? AUTHOR.bioko :
+        AUTHOR.bioEn,
       url: AUTHOR.url,
       sameAs: AUTHOR.sameAs,
     },
@@ -560,7 +675,11 @@ export default async function BlogArticle({
                       ? "Escrito por"
                       : lc === "fr"
                         ? "Rédigé par"
-                        : "Written by"}
+                        : lc === "pl"
+                          ? "Napisane przez"
+                          : lc === "tr"
+                            ? "Yazan"
+                            : "Written by"}
               </p>
               <p className="mt-1 font-display font-bold text-text-primary">
                 {AUTHOR.name}
@@ -577,7 +696,11 @@ export default async function BlogArticle({
                         ? AUTHOR.bioPt
                         : lc === "fr"
                           ? AUTHOR.bioFr
-                          : AUTHOR.bioEn}
+                          : lc === "pl"
+                            ? AUTHOR.bioPl
+                            : lc === "tr"
+                              ? AUTHOR.bioTr
+                              : AUTHOR.bioEn}
               </p>
               <Link
                 href={`/${lc}/about`}
@@ -593,7 +716,11 @@ export default async function BlogArticle({
                         ? "Saiba mais sobre o projeto"
                         : lc === "fr"
                           ? "En savoir plus sur le projet"
-                          : "More about the project"}{" "}
+                          : lc === "pl"
+                            ? "Więcej o projekcie"
+                            : lc === "tr"
+                              ? "Proje hakkında daha fazla bilgi"
+                              : "More about the project"}{" "}
                 <span aria-hidden>→</span>
               </Link>
             </div>

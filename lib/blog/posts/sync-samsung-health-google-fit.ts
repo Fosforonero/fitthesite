@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Si l'application de destination ne prend pas en charge Health Connect en 2026, elle n'est probablement plus maintenue: envisagez d'en changer.",
       "Les données historiques de Samsung Health restent en sécurité dans le cloud Samsung. Pour les transférer ailleurs, utilisez l'export manuel (CSV/XML).",
     ],
+    pl: [
+      "Bezpośrednia synchronizacja Samsung Health z Google Fit nie istnieje od 2024 roku: Google wycofało Google Fit i przeniosło ekosystem Android na Health Connect.",
+      "Właściwa ścieżka dziś: Samsung Health zapisuje dane do Health Connect, a aplikacje docelowe odczytują je stamtąd. Działa dla większości standardowych danych.",
+      "Niedostępne przez Health Connect: własne metryki Samsung, szczegółowe GPS treningów, dane historyczne sprzed autoryzacji.",
+      "Jeśli aplikacja docelowa nie obsługuje Health Connect w 2026 roku, prawdopodobnie nie jest już rozwijana: rozważ jej zmianę.",
+      "Dane historyczne w Samsung Health pozostają bezpieczne w chmurze Samsung. Aby przenieść je gdzieś indziej, użyj ręcznego eksportu (CSV/XML).",
+    ],
+    tr: [
+      "Samsung Health'ten Google Fit'e doğrudan senkronizasyon 2024'ten beri mevcut değil: Google, Google Fit'i kullanımdan kaldırıp Android ekosistemini Health Connect'e taşıdı.",
+      "Bugün doğru yol: Samsung Health, Health Connect'e yazar, hedef uygulamalar oradan okur. Standart verilerin büyük çoğunluğu için çalışır.",
+      "Health Connect üzerinden erişilemeyen veriler: Samsung'a özel metrikler, antrenman GPS ayrıntıları, yetkilendirme öncesi geçmiş veriler.",
+      "Hedef uygulama 2026'da Health Connect'i desteklemiyorsa, muhtemelen artık bakımı yapılmıyordur: değiştirmeyi düşünün.",
+      "Samsung Health'teki geçmiş veriler Samsung bulutunda güvende kalır. Bunları başka bir yere taşımak için manuel dışa aktarmayı (CSV/XML) kullanın.",
+    ],
   },
   primaryKeyword: {
     it: "sync samsung health google fit",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "samsung health google fit synchronisieren",
     pt: "sincronizar samsung health google fit",
     fr: "synchroniser samsung health google fit",
+    pl: "synchronizacja samsung health google fit",
+    tr: "samsung health google fit senkronizasyon",
   },
   secondaryKeywords: {
     it: [
@@ -86,6 +102,20 @@ export const post: BlogPost = {
       "transférer les données samsung health",
       "samsung health google fit solution",
     ],
+    pl: [
+      "synchronizacja samsung health google fit",
+      "samsung health google fit 2026",
+      "health connect samsung health google",
+      "przesyłanie danych samsung health",
+      "samsung health google fit rozwiązanie",
+    ],
+    tr: [
+      "samsung health google fit senkronizasyon",
+      "samsung health google fit 2026",
+      "health connect samsung health google",
+      "samsung health verilerini aktarma",
+      "samsung health google fit çözüm",
+    ],
   },
   metaDescription: {
     it: "Sync Samsung Health → Google Fit nel 2026: il sync diretto non esiste più, ma c'è un workaround via Health Connect. Spiegazione onesta di cosa funziona, cosa no, e perché.",
@@ -94,9 +124,11 @@ export const post: BlogPost = {
     de: "Samsung Health mit Google Fit synchronisieren im Jahr 2026: Die direkte Synchronisierung gibt es nicht mehr, aber es gibt einen Workaround über Health Connect. Ehrliche Erklärung, was funktioniert und was nicht.",
     pt: "Sincronizar Samsung Health com Google Fit em 2026: a sincronização direta não existe mais, mas há uma alternativa via Health Connect. Explicação honesta do que funciona e do que não funciona.",
     fr: "Synchroniser Samsung Health avec Google Fit en 2026: la synchronisation directe n'existe plus, mais il existe une solution via Health Connect. Explication honnête de ce qui fonctionne et de ce qui ne fonctionne pas.",
+    pl: "Synchronizacja Samsung Health z Google Fit w 2026 roku: bezpośrednia synchronizacja już nie istnieje, ale istnieje obejście przez Health Connect. Uczciwe wyjaśnienie, co działa, co nie działa i dlaczego.",
+    tr: "2026'da Samsung Health ile Google Fit senkronizasyonu: doğrudan senkronizasyon artık mevcut değil, ancak Health Connect üzerinden bir çözüm yolu var. Neyin çalışıp neyin çalışmadığına dair dürüst bir açıklama.",
   },
   hero: {
-    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide" },
+    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide", pl: "Przewodnik", tr: "Kılavuz" },
     title: {
       it: "Sync Samsung Health ↔ Google Fit nel 2026",
       en: "Syncing Samsung Health and Google Fit in 2026: what actually works",
@@ -104,6 +136,8 @@ export const post: BlogPost = {
       de: "Samsung Health und Google Fit synchronisieren im Jahr 2026: was wirklich funktioniert",
       pt: "Sincronizar Samsung Health e Google Fit em 2026: o que realmente funciona",
       fr: "Synchroniser Samsung Health et Google Fit en 2026: ce qui fonctionne vraiment",
+      pl: "Synchronizacja Samsung Health z Google Fit w 2026 roku: co naprawdę działa",
+      tr: "2026'da Samsung Health ve Google Fit Senkronizasyonu: gerçekten ne işe yarıyor",
     },
     subtitle: {
       it: "Il sync diretto Samsung Health → Google Fit non esiste più. Ecco cosa è successo, il workaround via Health Connect che funziona oggi, e i limiti che devi conoscere.",
@@ -112,6 +146,8 @@ export const post: BlogPost = {
       de: "Die direkte Synchronisierung von Samsung Health mit Google Fit gibt es nicht mehr. Hier erfährst du, was passiert ist, welcher Workaround über Health Connect heute funktioniert und welche Einschränkungen du kennen musst.",
       pt: "A sincronização direta do Samsung Health com o Google Fit não existe mais. Veja o que aconteceu, qual alternativa via Health Connect funciona hoje e quais são os limites que você precisa conhecer.",
       fr: "La synchronisation directe de Samsung Health vers Google Fit n'existe plus. Voici ce qui s'est passé, la solution via Health Connect qui fonctionne aujourd'hui et les limites à connaître.",
+      pl: "Bezpośrednia synchronizacja Samsung Health z Google Fit już nie istnieje. Oto co się stało, obejście przez Health Connect, które działa dziś, i ograniczenia, które musisz znać.",
+      tr: "Doğrudan Samsung Health ile Google Fit senkronizasyonu artık mevcut değil. İşte yaşananlar, bugün işe yarayan Health Connect çözüm yolu ve bilmeniz gereken sınırlamalar.",
     },
   },
   body: [
@@ -124,6 +160,8 @@ export const post: BlogPost = {
         de: "Die direkte Synchronisierung von Samsung Health mit Google Fit gibt es seit 2024 nicht mehr: Google hat Google Fit abgekündigt und das gesamte Android-Ökosystem auf Health Connect umgestellt. Der heute funktionierende Workaround besteht darin, dass Samsung Health in Health Connect schreibt und andere Apps von dort lesen. Es funktioniert für die meisten Standard-Daten, mit einigen bekannten Ausnahmen, die wir in diesem Artikel erläutern.",
         pt: "A sincronização direta do Samsung Health com o Google Fit não existe desde 2024: o Google descontinuou o Google Fit e migrou todo o ecossistema Android para o Health Connect. O workaround que funciona hoje é o Samsung Health gravando no Health Connect, com outros apps lendo de lá. Funciona para a maioria dos dados padrão, com algumas exceções conhecidas que explicamos neste artigo.",
         fr: "La synchronisation directe de Samsung Health vers Google Fit n'existe plus depuis 2024: Google a abandonné Google Fit et a migré l'ensemble de l'écosystème Android vers Health Connect. La solution qui fonctionne aujourd'hui est que Samsung Health écrit dans Health Connect, et les autres applications lisent depuis là. Cela fonctionne pour la plupart des données standard, avec quelques exceptions connues expliquées dans cet article.",
+        pl: "Bezpośrednia synchronizacja Samsung Health z Google Fit nie istnieje od 2024 roku: Google wycofało Google Fit i przeniosło cały ekosystem Android na Health Connect. Działające dziś obejście polega na tym, że Samsung Health zapisuje dane do Health Connect, a inne aplikacje stamtąd je odczytują. Działa to dla większości standardowych danych, z kilkoma znanymi wyjątkami wyjaśnionymi w tym artykule.",
+        tr: "Samsung Health'ten Google Fit'e doğrudan senkronizasyon 2024'ten bu yana mevcut değil: Google, Google Fit'i kullanımdan kaldırıp tüm Android ekosistemini Health Connect'e taşıdı. Bugün işe yarayan geçici çözüm, Samsung Health'in Health Connect'e yazması ve diğer uygulamaların oradan okumasıdır. Standart verilerin büyük çoğunluğu için çalışır, bu makalede açıklanan birkaç bilinen istisna dışında.",
       },
     },
     {
@@ -136,6 +174,8 @@ export const post: BlogPost = {
         de: "Kurz zusammengefasst: Google Fit wurde abgekündigt",
         pt: "O resumo: o Google Fit foi descontinuado",
         fr: "En bref: Google Fit a été abandonné",
+        pl: "Krótka historia: Google Fit zostało wycofane",
+        tr: "Kısa özet: Google Fit kullanımdan kaldırıldı",
       },
     },
     {
@@ -147,6 +187,8 @@ export const post: BlogPost = {
         de: "Google Fit existierte seit 2014 als API für den Austausch von Gesundheitsdaten auf Android. Im Jahr 2022 kündigte Google an, das gesamte Ökosystem auf Health Connect zu verlagern, die neue On-Device-Plattform, die die Rolle von Google Fit als Cloud-Vermittler übernimmt. Die direkte Integration von Samsung Health mit Google Fit wurde im Laufe des Jahres 2024 eingestellt, als Google die Entwicklung von Google Fit als Produkt offiziell beendete.",
         pt: "O Google Fit existia como API de troca de dados de saúde para Android desde 2014. Em 2022, o Google anunciou que migraria todo o ecossistema para o Health Connect, a nova plataforma no dispositivo que substitui o papel do Google Fit como intermediário na nuvem. A integração direta do Samsung Health com o Google Fit foi descontinuada ao longo de 2024, quando o Google parou oficialmente de desenvolver o Google Fit como produto.",
         fr: "Google Fit existait en tant qu'API d'échange de données de santé pour Android depuis 2014. En 2022, Google a annoncé qu'il allait migrer l'ensemble de l'écosystème vers Health Connect, la nouvelle plateforme sur l'appareil qui remplace le rôle de Google Fit en tant qu'intermédiaire cloud. L'intégration directe de Samsung Health avec Google Fit a été abandonnée au cours de 2024, lorsque Google a officiellement cessé de développer Google Fit en tant que produit.",
+        pl: "Google Fit istniało jako interfejs API do wymiany danych zdrowotnych na Androidzie od 2014 roku. W 2022 roku Google ogłosiło, że przeniesie cały ekosystem na Health Connect, nową platformę działającą na urządzeniu, która zastępuje rolę Google Fit jako pośrednika chmurowego. Bezpośrednia integracja Samsung Health z Google Fit została wycofana w ciągu 2024 roku, kiedy Google oficjalnie zaprzestało rozwijania Google Fit jako produktu.",
+        tr: "Google Fit, 2014'ten bu yana Android için bir sağlık veri alışveriş API'si olarak mevcuttu. 2022'de Google, tüm ekosistemi Health Connect'e taşıyacağını duyurdu; bu yeni cihaz üstü platform, Google Fit'in bulut aracısı rolünü üstlendi. Samsung Health ile Google Fit arasındaki doğrudan entegrasyon, Google'ın Google Fit'i bir ürün olarak geliştirmeyi resmi olarak bıraktığı 2024 yılı boyunca kullanımdan kaldırıldı.",
       },
     },
     {
@@ -158,6 +200,8 @@ export const post: BlogPost = {
         de: "Google Fit als App existiert noch auf Telefonen (und im Google Play Store), erhält aber keine wesentlichen Updates mehr. Google hat erklärt, dass seine Zukunft ungewiss ist. Es ist kein offiziell eingestelltes Produkt, aber auch keines, auf das man setzen sollte.",
         pt: "O Google Fit como app ainda existe nos celulares (e no Google Play), mas não recebe atualizações significativas e o Google declarou que seu futuro é incerto. Não é um produto oficialmente descontinuado, mas também não é um no qual valha a pena apostar.",
         fr: "Google Fit en tant qu'application existe encore sur les téléphones (et sur Google Play), mais ne reçoit plus de mises à jour significatives et Google a déclaré que son avenir est incertain. Ce n'est pas un produit officiellement abandonné, mais ce n'est pas non plus sur lequel miser.",
+        pl: "Google Fit jako aplikacja nadal istnieje na telefonach (i w Google Play), ale nie otrzymuje znaczących aktualizacji, a Google stwierdziło, że jej przyszłość jest niepewna. Nie jest to oficjalnie martwy produkt, ale nie warto na nim polegać.",
+        tr: "Google Fit bir uygulama olarak hâlâ telefonlarda (ve Google Play'de) mevcut, ancak önemli güncellemeler almıyor ve Google geleceğinin belirsiz olduğunu belirtti. Resmi olarak ölü bir ürün değil, ancak üzerine yatırım yapılacak bir ürün de değil.",
       },
     },
     {
@@ -170,6 +214,8 @@ export const post: BlogPost = {
         de: "Warum Health Connect die Lösung ist",
         pt: "Por que o Health Connect é a resposta",
         fr: "Pourquoi Health Connect est la réponse",
+        pl: "Dlaczego Health Connect jest odpowiedzią",
+        tr: "Health Connect neden cevap",
       },
       body: {
         it: "Health Connect è il sostituto architetturale di Google Fit. Non è un'app con una dashboard, è uno strato di scambio dati on-device. Samsung Health scrive su Health Connect, le altre app (incluso ciò che prima leggeva da Google Fit) leggono da Health Connect. Il risultato finale per i dati è lo stesso, ma il flusso è diverso.",
@@ -178,6 +224,8 @@ export const post: BlogPost = {
         de: "Health Connect ist der architektonische Nachfolger von Google Fit. Es ist keine App mit einer Dashboard, sondern eine On-Device-Datenaustausch-Schicht. Samsung Health schreibt in Health Connect, andere Apps (einschließlich solcher, die zuvor von Google Fit gelesen haben) lesen von Health Connect. Das Endergebnis für die Daten ist dasselbe, aber der Datenfluss ist anders.",
         pt: "O Health Connect é o substituto arquitetural do Google Fit. Não é um app com painel, mas uma camada de troca de dados no próprio dispositivo. O Samsung Health grava no Health Connect, outros apps (incluindo os que antes liam do Google Fit) leem do Health Connect. O resultado final para os dados é o mesmo, mas o fluxo é diferente.",
         fr: "Health Connect est le successeur architectural de Google Fit. Ce n'est pas une application avec un tableau de bord, c'est une couche d'échange de données sur l'appareil. Samsung Health écrit dans Health Connect, les autres applications (y compris celles qui lisaient auparavant depuis Google Fit) lisent depuis Health Connect. Le résultat final pour les données est le même, mais le flux est différent.",
+        pl: "Health Connect to architektoniczny następca Google Fit. To nie jest aplikacja z pulpitem nawigacyjnym, lecz warstwa wymiany danych działająca na urządzeniu. Samsung Health zapisuje dane do Health Connect, a inne aplikacje (w tym te, które wcześniej odczytywały z Google Fit) odczytują je z Health Connect. Końcowy wynik dla danych jest taki sam, ale przepływ jest inny.",
+        tr: "Health Connect, Google Fit'in mimari halefidir. Paneli olan bir uygulama değil, cihaz üstü bir veri alışveriş katmanıdır. Samsung Health, Health Connect'e yazar; diğer uygulamalar (daha önce Google Fit'ten okuyanlar dahil) Health Connect'ten okur. Veriler için nihai sonuç aynıdır, ancak akış farklıdır.",
       },
     },
     {
@@ -190,6 +238,8 @@ export const post: BlogPost = {
         de: "Der Workaround über Health Connect: praktische Schritte",
         pt: "A alternativa via Health Connect: passos práticos",
         fr: "La solution via Health Connect: étapes pratiques",
+        pl: "Obejście przez Health Connect: praktyczne kroki",
+        tr: "Health Connect çözüm yolu: pratik adımlar",
       },
     },
     {
@@ -201,6 +251,8 @@ export const post: BlogPost = {
         de: "Wenn du möchtest, dass die Daten von Samsung Health (Galaxy Watch) von einer anderen App lesbar sind, die zuvor Google Fit verwendet hat, ist das der richtige Weg. Er funktioniert für die meisten Daten, mit einigen Ausnahmen, die wir weiter unten erläutern.",
         pt: "Se você precisa que os dados do Samsung Health (Galaxy Watch) sejam lidos por outro app que antes usava o Google Fit, este é o caminho. Funciona para a maioria dos dados, com algumas exceções que explicamos mais adiante.",
         fr: "Si vous avez besoin que les données de Samsung Health (Galaxy Watch) soient lisibles par une autre application qui utilisait auparavant Google Fit, voici la marche à suivre. Cela fonctionne pour la plupart des données, avec quelques exceptions expliquées plus loin.",
+        pl: "Jeśli chcesz, aby dane Samsung Health (Galaxy Watch) były odczytywalne przez inną aplikację, która wcześniej używała Google Fit, oto właściwa droga. Działa dla większości danych, z kilkoma wyjątkami wyjaśnionymi poniżej.",
+        tr: "Samsung Health (Galaxy Watch) verilerinizin daha önce Google Fit kullanan başka bir uygulama tarafından okunabilmesini istiyorsanız, izlenecek yol şu. Daha sonra açıkladığımız birkaç istisna dışında çoğu veri için çalışır.",
       },
     },
     {
@@ -261,6 +313,24 @@ export const post: BlogPost = {
           "Autorisez cette application à lire depuis Health Connect pour les types de données dont vous avez besoin.",
           "Vérifiez que les données circulent: en général, les applications voient les nouvelles données dans les 30 à 60 minutes.",
         ],
+        pl: [
+          "Sprawdź, czy Health Connect jest zainstalowane na Twoim telefonie Android (na Androidzie 14 i wyżej jest preinstalowane; na Androidzie 12-13 wyszukaj 'Health Connect' w Google Play).",
+          "Otwórz Samsung Health, dotknij swojego profilu w prawym górnym rogu, przejdź do Ustawień, a następnie do Zarządzania danymi.",
+          "Znajdź 'Health Connect' na liście i dotknij, aby otworzyć ustawienia.",
+          "Włącz synchronizację z Health Connect i wybierz typy danych, które chcesz udostępnić: kroki, tętno, sen, kalorie, treningi.",
+          "Otwórz aplikację docelową (tę, która odczytywała dane z Google Fit) i znajdź w jej ustawieniach sekcję Health Connect lub Źródło danych.",
+          "Udziel tej aplikacji uprawnień do odczytu z Health Connect dla potrzebnych typów danych.",
+          "Sprawdź, czy dane przepływają: zazwyczaj aplikacje widzą nowe dane w ciągu 30-60 minut.",
+        ],
+        tr: [
+          "Android telefonunuzda Health Connect'in yüklü olup olmadığını doğrulayın (Android 14 ve üstünde önceden yüklüdür; Android 12-13'te Google Play'de 'Health Connect' arayın).",
+          "Samsung Health'i açın, sağ üstteki profilinize dokunun, Ayarlar'a ardından Veri yönetimi'ne gidin.",
+          "Listede 'Health Connect'i bulun ve ayarları açmak için dokunun.",
+          "Health Connect ile senkronizasyonu etkinleştirin ve paylaşmak istediğiniz veri türlerini seçin: adımlar, kalp atış hızı, uyku, kalori, antrenmanlar.",
+          "Hedef uygulamayı (daha önce Google Fit'ten okuyanı) açın ve ayarlarında Health Connect veya Veri Kaynağı bölümünü bulun.",
+          "Bu uygulamaya ihtiyaç duyduğunuz veri türleri için Health Connect'ten okuma izni verin.",
+          "Verilerin aktığını doğrulayın: genellikle uygulamalar 30-60 dakika içinde yeni verileri görür.",
+        ],
       },
     },
     {
@@ -273,6 +343,8 @@ export const post: BlogPost = {
         de: "Was funktioniert und was nicht: die ehrliche Übersicht",
         pt: "O que funciona e o que não funciona: o mapa honesto",
         fr: "Ce qui fonctionne et ce qui ne fonctionne pas: la carte honnête",
+        pl: "Co działa, a co nie: uczciwa mapa",
+        tr: "Neyin işe yarayıp neyin yaramadığı: dürüst harita",
       },
     },
     {
@@ -284,6 +356,8 @@ export const post: BlogPost = {
         de: "Über Health Connect stellt Samsung Health die meisten Standard-Daten bereit. Es gibt jedoch spezifische Lücken, die du kennen solltest, bevor du dich für kritische Anwendungen auf diese Lösung verlässt.",
         pt: "Via Health Connect, o Samsung Health expõe a maioria dos dados padrão. No entanto, existem lacunas específicas que você deve conhecer antes de depender dessa solução para usos importantes.",
         fr: "Via Health Connect, Samsung Health expose la plupart des données standard. Cependant, il existe des lacunes spécifiques à connaître avant de s'appuyer sur cette solution pour des usages importants.",
+        pl: "Przez Health Connect Samsung Health udostępnia większość standardowych danych. Istnieją jednak konkretne luki, o których warto wiedzieć przed poleganiem na tym rozwiązaniu w ważnych zastosowaniach.",
+        tr: "Health Connect üzerinden Samsung Health, standart verilerin büyük çoğunluğunu sunar. Ancak bu çözüme kritik kullanımlar için güvenmeden önce bilmeniz gereken belirli boşluklar vardır.",
       },
     },
     {
@@ -295,6 +369,8 @@ export const post: BlogPost = {
         de: "Verfügbare Daten über HC",
         pt: "Dados disponíveis via HC",
         fr: "Données disponibles via HC",
+        pl: "Dane dostępne przez HC",
+        tr: "HC üzerinden mevcut veriler",
       },
       aItems: {
         it: [
@@ -357,6 +433,26 @@ export const post: BlogPost = {
           "Poids et composition corporelle (si saisis dans Samsung Health)",
           "SpO2 (si mesuré)",
         ],
+        pl: [
+          "Dzienne kroki i licznik godzinowy",
+          "Tętno (ciągłe odczyty i podsumowanie)",
+          "Dane snu (czas trwania, główne fazy)",
+          "Spalone kalorie",
+          "Pokonany dystans",
+          "Podstawowe dane treningowe (czas, typ, kalorie)",
+          "Waga i skład ciała (jeśli wprowadzone w Samsung Health)",
+          "SpO2 (jeśli zmierzone)",
+        ],
+        tr: [
+          "Günlük adımlar ve saatlik sayım",
+          "Kalp atış hızı (sürekli okumalar ve özet)",
+          "Uyku verileri (süre, ana fazlar)",
+          "Yakılan kalori",
+          "Yürünen/koşulan mesafe",
+          "Temel antrenman verileri (süre, tür, kalori)",
+          "Ağırlık ve vücut kompozisyonu (Samsung Health'e girildiyse)",
+          "SpO2 (ölçüldüyse)",
+        ],
       },
       bTitle: {
         it: "Dati non disponibili / limitati",
@@ -365,6 +461,8 @@ export const post: BlogPost = {
         de: "Nicht verfügbare / eingeschränkte Daten",
         pt: "Dados não disponíveis / limitados",
         fr: "Données non disponibles / limitées",
+        pl: "Dane niedostępne / ograniczone",
+        tr: "Mevcut olmayan / sınırlı veriler",
       },
       bItems: {
         it: [
@@ -415,6 +513,22 @@ export const post: BlogPost = {
           "Données historiques antérieures à l'autorisation HC (non rétroactives)",
           "Body Battery et métriques de stress propriétaires",
         ],
+        pl: [
+          "Samsung Score i własne metryki Samsung",
+          "Pełne dane GPS treningów (trasa, tempo na km)",
+          "Energy Score i metryki regeneracji Samsung Health",
+          "Szczegółowe fazy snu (REM, głęboki, lekki): dostępne tylko w formie zbiorczej",
+          "Dane historyczne sprzed autoryzacji HC (brak wstecznej synchronizacji)",
+          "Body Battery i własne metryki stresu",
+        ],
+        tr: [
+          "Samsung Score ve Samsung'a özel metrikler",
+          "Antrenmanların tam GPS verileri (güzergah, km başına hız)",
+          "Samsung Health Energy Score ve Toparlanma metrikleri",
+          "Ayrıntılı uyku fazları (REM, derin, hafif): yalnızca toplu biçimde sunulur",
+          "HC yetkilendirmesi öncesindeki geçmiş veriler (geriye dönük senkronizasyon yok)",
+          "Body Battery ve özel stres metrikleri",
+        ],
       },
     },
     {
@@ -427,6 +541,8 @@ export const post: BlogPost = {
         de: "Wenn deine App Health Connect nicht unterstützt: Alternativen",
         pt: "Se o seu app não suporta Health Connect: alternativas",
         fr: "Si votre application ne prend pas en charge Health Connect: alternatives",
+        pl: "Jeśli Twoja aplikacja nie obsługuje Health Connect: alternatywy",
+        tr: "Uygulamanız Health Connect'i desteklemiyorsa: alternatifler",
       },
     },
     {
@@ -438,6 +554,8 @@ export const post: BlogPost = {
         de: "Nicht alle Apps, die von Google Fit gelesen haben, haben ihren Code aktualisiert, um von Health Connect zu lesen. Einige ältere oder langsam entwickelte Apps sind beim alten Paradigma geblieben. Wenn du dich in dieser Situation befindest, hast du einige Möglichkeiten.",
         pt: "Nem todos os apps que liam do Google Fit atualizaram seu código para ler do Health Connect. Alguns apps mais antigos ou com desenvolvimento lento permaneceram no paradigma antigo. Se você se encontra nessa situação, tem algumas opções.",
         fr: "Toutes les applications qui lisaient depuis Google Fit n'ont pas mis à jour leur code pour lire depuis Health Connect. Certaines applications plus anciennes ou à développement lent sont restées sur l'ancien paradigme. Si vous vous trouvez dans cette situation, vous avez plusieurs options.",
+        pl: "Nie wszystkie aplikacje, które odczytywały dane z Google Fit, zaktualizowały swój kod, by odczytywać je z Health Connect. Niektóre starsze lub wolno rozwijane aplikacje pozostały przy starym modelu. Jeśli znajdziesz się w tej sytuacji, masz kilka opcji.",
+        tr: "Google Fit'ten okuyan tüm uygulamalar kodlarını Health Connect'ten okuyacak şekilde güncellemediler. Bazı eski veya yavaş gelişen uygulamalar eski paradigmada kaldı. Kendinizi bu durumda bulursanız, birkaç seçeneğiniz var.",
       },
     },
     {
@@ -479,6 +597,18 @@ export const post: BlogPost = {
           "**Export manuel**: Samsung Health permet d'exporter les données en CSV ou XML. Utile pour des imports ponctuels, mais pas pour une synchronisation continue.",
           "**Envisagez de changer d'application**: si l'application de destination ne prend toujours pas en charge Health Connect en 2026, c'est un signe qu'elle n'est pas activement maintenue. Des alternatives plus récentes existent.",
         ],
+        pl: [
+          "**Sprawdź, czy aplikacja ma aktualizację**: poszukaj w Google Play, otwórz szczegóły aplikacji i sprawdź ostatnie aktualizacje. Przeczytaj notatki o wersji, aby zobaczyć, czy wspominają o 'Health Connect'.",
+          "**Użyj aplikacji pośredniczącej**: niektóre aplikacje, takie jak FitMesh Sync, odczytują dane z Health Connect i mogą je eksportować w formatach lub do platform, które nadal używają starego systemu.",
+          "**Ręczny eksport**: Samsung Health pozwala eksportować dane w formacie CSV lub XML. Przydatne do jednorazowych importów, ale nie do ciągłej synchronizacji.",
+          "**Rozważ zmianę aplikacji**: jeśli aplikacja docelowa nadal nie obsługuje Health Connect w 2026 roku, to znak, że nie jest aktywnie rozwijana. Istnieją nowsze alternatywy.",
+        ],
+        tr: [
+          "**Uygulamanın güncellemesi olup olmadığını kontrol edin**: Google Play'de arayın, uygulama detayına gidin ve son güncellemelere bakın. 'Health Connect' geçip geçmediğini görmek için sürüm notlarını okuyun.",
+          "**Köprü uygulama kullanın**: FitMesh Sync gibi bazı uygulamalar Health Connect'ten okur ve verileri hâlâ eski sistemi kullanan biçimlere veya platformlara aktarabilir.",
+          "**Manuel dışa aktarma**: Samsung Health, CSV veya XML biçiminde veri dışa aktarmaya izin verir. Tek seferlik içe aktarmalar için kullanışlıdır, ancak sürekli senkronizasyon için değil.",
+          "**Uygulama değiştirmeyi düşünün**: hedef uygulama 2026'da hâlâ Health Connect'i desteklemiyorsa, bu aktif olarak bakımının yapılmadığının bir işaretidir. Daha güncel alternatifler mevcuttur.",
+        ],
       },
     },
     {
@@ -491,6 +621,8 @@ export const post: BlogPost = {
         de: "Fehlerbehebung: die häufigsten Probleme",
         pt: "Solução de problemas: os erros mais comuns",
         fr: "Résolution de problèmes: les problèmes les plus courants",
+        pl: "Rozwiązywanie problemów: najczęstsze problemy",
+        tr: "Sorun giderme: en yaygın sorunlar",
       },
     },
     {
@@ -502,6 +634,8 @@ export const post: BlogPost = {
         de: "Hier sind die am häufigsten auftretenden Probleme und ihre Lösungen.",
         pt: "Aqui estão os problemas que surgem com mais frequência e suas soluções.",
         fr: "Voici les problèmes les plus fréquemment rencontrés et leurs solutions.",
+        pl: "Oto najczęściej napotykane problemy i ich rozwiązania.",
+        tr: "İşte en sık karşılaşılan sorunlar ve çözümleri.",
       },
     },
     {
@@ -549,6 +683,20 @@ export const post: BlogPost = {
           "**Les données historiques sont manquantes**: Health Connect ne synchronise pas de manière rétroactive. Les activités antérieures à l'autorisation n'apparaîtront pas. Utilisez l'export manuel de Samsung Health pour récupérer l'historique.",
           "**L'application de destination ne voit rien**: vérifiez que l'application dispose de la permission de LECTURE sur Health Connect. Il ne suffit pas que Samsung Health ait la permission d'écriture.",
         ],
+        pl: [
+          "**Samsung Health nie pojawia się w Health Connect**: otwórz Samsung Health, przejdź do Ustawień, następnie Zarządzania danymi, a potem Health Connect i włącz synchronizację. Jeśli nadal nie pojawia się, zaktualizuj Samsung Health do najnowszej wersji.",
+          "**Kroki są widoczne, ale aktywności nie**: Samsung Health udostępnia kroki automatycznie, ale sesje treningowe wymagają osobnych uprawnień. W Health Connect, w sekcji Uprawnienia aplikacji dla Samsung Health, sprawdź, czy 'Ćwiczenie' jest włączone do zapisu.",
+          "**Dane pojawiają się z opóźnieniem**: synchronizacja między Samsung Health a Health Connect nie odbywa się w czasie rzeczywistym. Następuje okresowo, zazwyczaj co 30-60 minut. Możesz ją przyspieszyć, ręcznie otwierając Samsung Health.",
+          "**Brakuje danych historycznych**: Health Connect nie synchronizuje wstecznie. Aktywności sprzed autoryzacji nie pojawią się. Użyj ręcznego eksportu Samsung Health, aby odzyskać historyczne dane.",
+          "**Aplikacja docelowa nic nie widzi**: sprawdź, czy aplikacja ma uprawnienie ODCZYTU w Health Connect. Samo posiadanie uprawnienia do zapisu przez Samsung Health nie wystarczy.",
+        ],
+        tr: [
+          "**Samsung Health, Health Connect'te görünmüyor**: Samsung Health'i açın, Ayarlar'a, ardından Veri yönetimi'ne, ardından Health Connect'e gidin ve senkronizasyonu etkinleştirin. Hâlâ görünmüyorsa Samsung Health'i en son sürüme güncelleyin.",
+          "**Adımlar var ama aktiviteler yok**: Samsung Health adımları otomatik olarak sunar, ancak antrenman oturumları ayrı izinler gerektirir. Health Connect'te, Samsung Health için Uygulama izinleri altında 'Egzersiz'in yazma için etkinleştirildiğini doğrulayın.",
+          "**Veriler gecikmeli görünüyor**: Samsung Health ile Health Connect arasındaki senkronizasyon gerçek zamanlı değildir. Periyodik olarak, genellikle her 30-60 dakikada bir gerçekleşir. Samsung Health'i manuel olarak açarak hızlandırabilirsiniz.",
+          "**Geçmiş veriler eksik**: Health Connect geriye dönük olarak senkronize etmez. Yetkilendirme öncesindeki aktiviteler görünmeyecektir. Geçmiş verileri kurtarmak için Samsung Health manuel dışa aktarma özelliğini kullanın.",
+          "**Hedef uygulama hiçbir şey görmüyor**: uygulamanın Health Connect'te OKUMA iznine sahip olduğunu doğrulayın. Samsung Health'in yazma iznine sahip olması yeterli değildir.",
+        ],
       },
     },
     {
@@ -561,6 +709,8 @@ export const post: BlogPost = {
         de: "Das Zeichen, dass du Zeit verschwendest",
         pt: "O sinal de que você está perdendo tempo",
         fr: "Le signe que vous perdez votre temps",
+        pl: "Sygnał, że marnujesz czas",
+        tr: "Zamanınızı boşa harcadığınızın işareti",
       },
       body: {
         it: "Se la tua app di destinazione non supporta ancora Health Connect nel 2026, non è un problema di configurazione: è un'app abbandonata. Due anni dopo la deprecazione di Google Fit, qualsiasi app attivamente mantenuta ha già implementato il supporto HC. Cambia app invece di cercare workaround per un prodotto che non riceve aggiornamenti.",
@@ -569,6 +719,8 @@ export const post: BlogPost = {
         de: "Wenn deine Ziel-App Health Connect im Jahr 2026 immer noch nicht unterstützt, ist das kein Konfigurationsproblem: Es ist eine aufgegebene App. Zwei Jahre nach der Abkündigung von Google Fit hat jede aktiv gepflegte App bereits HC-Unterstützung implementiert. Wechsle die App, anstatt nach Workarounds für ein Produkt zu suchen, das keine Updates mehr erhält.",
         pt: "Se o seu app de destino ainda não suporta Health Connect em 2026, não é um problema de configuração: é um app abandonado. Dois anos após a descontinuação do Google Fit, qualquer app ativamente mantido já implementou suporte ao HC. Troque de app em vez de procurar workarounds para um produto que não recebe mais atualizações.",
         fr: "Si votre application de destination ne prend toujours pas en charge Health Connect en 2026, ce n'est pas un problème de configuration: c'est une application abandonnée. Deux ans après l'abandon de Google Fit, toute application activement maintenue a déjà implémenté la prise en charge de HC. Changez d'application plutôt que de chercher des solutions de contournement pour un produit qui ne reçoit plus de mises à jour.",
+        pl: "Jeśli Twoja aplikacja docelowa nadal nie obsługuje Health Connect w 2026 roku, nie jest to problem z konfiguracją: to porzucona aplikacja. Dwa lata po wycofaniu Google Fit każda aktywnie rozwijana aplikacja wdrożyła już obsługę HC. Zmień aplikację zamiast szukać obejść dla produktu, który nie otrzymuje już aktualizacji.",
+        tr: "Hedef uygulamanız 2026'da hâlâ Health Connect'i desteklemiyorsa, bu bir yapılandırma sorunu değildir: terk edilmiş bir uygulamadır. Google Fit'in kullanımdan kaldırılmasından iki yıl sonra, aktif olarak bakımı yapılan her uygulama zaten HC desteğini hayata geçirmiştir. Artık güncelleme almayan bir ürün için geçici çözüm aramak yerine uygulama değiştirin.",
       },
     },
     {
@@ -581,6 +733,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
     },
     {
@@ -628,6 +782,20 @@ export const post: BlogPost = {
           "Si l'application de destination ne prend pas en charge Health Connect en 2026, elle n'est probablement plus maintenue: envisagez d'en changer.",
           "Les données historiques de Samsung Health sont en sécurité dans le cloud Samsung, indépendamment de Google Fit. Pour les transférer ailleurs, utilisez l'export manuel (CSV/XML).",
         ],
+        pl: [
+          "Bezpośrednia synchronizacja Samsung Health z Google Fit nie istnieje od 2024 roku: Google wycofało Google Fit i przeniosło ekosystem Android na Health Connect.",
+          "Właściwa ścieżka dziś: Samsung Health zapisuje dane do Health Connect, aplikacje docelowe odczytują je z Health Connect. Działa dla większości standardowych danych.",
+          "Dane niedostępne przez Health Connect: własne metryki Samsung, szczegółowe GPS treningów, dane historyczne sprzed autoryzacji.",
+          "Jeśli aplikacja docelowa nie obsługuje Health Connect w 2026 roku, prawdopodobnie nie jest już rozwijana: rozważ jej zmianę.",
+          "Dane historyczne w Samsung Health są bezpieczne w chmurze Samsung, niezależnie od Google Fit. Aby przenieść je gdzieś indziej, użyj ręcznego eksportu (CSV/XML).",
+        ],
+        tr: [
+          "Samsung Health'ten Google Fit'e doğrudan senkronizasyon 2024'ten bu yana mevcut değil: Google, Google Fit'i kullanımdan kaldırıp Android ekosistemini Health Connect'e taşıdı.",
+          "Bugün doğru yol: Samsung Health, Health Connect'e yazar, hedef uygulamalar Health Connect'ten okur. Standart verilerin büyük çoğunluğu için çalışır.",
+          "Health Connect üzerinden mevcut olmayan veriler: Samsung'a özel metrikler, antrenman GPS ayrıntıları, yetkilendirme öncesi geçmiş veriler.",
+          "Hedef uygulama 2026'da Health Connect'i desteklemiyorsa, muhtemelen artık bakımı yapılmıyordur: değiştirmeyi düşünün.",
+          "Samsung Health'teki geçmiş veriler, Google Fit'ten bağımsız olarak Samsung bulutunda güvende kalır. Bunları başka bir yere taşımak için manuel dışa aktarmayı (CSV/XML) kullanın.",
+        ],
       },
     },
     {
@@ -639,6 +807,8 @@ export const post: BlogPost = {
         de: "Möchtest du deine Samsung Health-Daten im Browser anzeigen, ohne Google Fit?",
         pt: "Quer ver seus dados do Samsung Health no navegador sem o Google Fit?",
         fr: "Vous souhaitez consulter vos données Samsung Health depuis le navigateur sans Google Fit?",
+        pl: "Chcesz odczytywać dane Samsung Health z przeglądarki bez Google Fit?",
+        tr: "Samsung Health verilerinizi Google Fit olmadan tarayıcıdan okumak ister misiniz?",
       },
       body: {
         it: "Tra le opzioni che semplificano questo c'è FitMesh Sync: legge da Health Connect (dove Samsung Health scrive) e mostra i tuoi dati in una dashboard web accessibile da qualsiasi browser, senza dipendere da Google Fit o da infrastrutture proprietarie.",
@@ -647,6 +817,8 @@ export const post: BlogPost = {
         de: "Eine der Optionen, die dies vereinfacht, ist FitMesh Sync: Es liest von Health Connect (wo Samsung Health schreibt) und zeigt deine Daten in einem Web-Dashboard an, das von jedem Browser aus zugänglich ist, ohne von Google Fit oder proprietären Infrastrukturen abhängig zu sein.",
         pt: "Entre as opções que simplificam isso está o FitMesh Sync: ele lê do Health Connect (onde o Samsung Health grava) e exibe seus dados em um painel web acessível de qualquer navegador, sem depender do Google Fit ou de infraestruturas proprietárias.",
         fr: "Parmi les options qui simplifient cela figure FitMesh Sync: il lit depuis Health Connect (où Samsung Health écrit) et affiche vos données dans un tableau de bord web accessible depuis n'importe quel navigateur, sans dépendre de Google Fit ni d'infrastructures propriétaires.",
+        pl: "Jedną z opcji, które to upraszczają, jest FitMesh Sync: odczytuje dane z Health Connect (tam, gdzie Samsung Health zapisuje) i wyświetla je w panelu internetowym dostępnym z dowolnej przeglądarki, bez zależności od Google Fit ani zastrzeżonej infrastruktury.",
+        tr: "Bunu kolaylaştıran seçeneklerden biri FitMesh Sync: Health Connect'ten (Samsung Health'in yazdığı yer) okur ve verilerinizi herhangi bir tarayıcıdan erişilebilen bir web panosunda gösterir; Google Fit'e veya özel altyapılara bağımlılık olmadan.",
       },
       ctaLabel: {
         it: "Scopri FitMesh Sync per Samsung Health →",
@@ -655,10 +827,14 @@ export const post: BlogPost = {
         de: "FitMesh Sync für Samsung Health entdecken →",
         pt: "Conheça o FitMesh Sync para Samsung Health →",
         fr: "Découvrir FitMesh Sync pour Samsung Health →",
+        pl: "Odkryj FitMesh Sync dla Samsung Health →",
+        tr: "Samsung Health için FitMesh Sync'i keşfet →",
       },
       ctaHref: {
         it: "/it/sync/samsung-health",
         en: "/en/sync/samsung-health",
+        pl: "/pl/sync/samsung-health",
+        tr: "/tr/sync/samsung-health",
       },
     },
   ],
@@ -671,6 +847,8 @@ export const post: BlogPost = {
         de: "Warum synchronisiert sich Samsung Health im Jahr 2026 nicht mit Google Fit?",
         pt: "Por que o Samsung Health não sincroniza com o Google Fit em 2026?",
         fr: "Pourquoi Samsung Health ne se synchronise-t-il pas avec Google Fit en 2026?",
+        pl: "Dlaczego Samsung Health nie synchronizuje się z Google Fit w 2026 roku?",
+        tr: "Samsung Health neden 2026'da Google Fit ile senkronize olmuyor?",
       },
       a: {
         it: "Perché Google ha deprecato Google Fit e ha spostato l'ecosistema Android su Health Connect. Samsung ha seguito questo cambiamento: Samsung Health ora scrive su Health Connect invece di Google Fit. Se hai app che leggevano da Google Fit, devono aggiornarsi per leggere da Health Connect.",
@@ -679,6 +857,8 @@ export const post: BlogPost = {
         de: "Weil Google Google Fit abgekündigt und das Android-Ökosystem auf Health Connect umgestellt hat. Samsung hat diese Änderung mitgemacht: Samsung Health schreibt nun in Health Connect statt in Google Fit. Wenn du Apps hast, die von Google Fit gelesen haben, müssen diese aktualisiert werden, um von Health Connect zu lesen.",
         pt: "Porque o Google descontinuou o Google Fit e migrou o ecossistema Android para o Health Connect. A Samsung acompanhou essa mudança: o Samsung Health agora grava no Health Connect em vez do Google Fit. Se você tem apps que liam do Google Fit, eles precisam ser atualizados para ler do Health Connect.",
         fr: "Parce que Google a abandonné Google Fit et a migré l'écosystème Android vers Health Connect. Samsung a suivi ce changement: Samsung Health écrit désormais dans Health Connect au lieu de Google Fit. Si vous avez des applications qui lisaient depuis Google Fit, elles doivent être mises à jour pour lire depuis Health Connect.",
+        pl: "Ponieważ Google wycofało Google Fit i przeniosło ekosystem Android na Health Connect. Samsung podążył za tą zmianą: Samsung Health zapisuje teraz dane do Health Connect zamiast do Google Fit. Jeśli masz aplikacje, które odczytywały dane z Google Fit, muszą zostać zaktualizowane, by odczytywać je z Health Connect.",
+        tr: "Çünkü Google, Google Fit'i kullanımdan kaldırıp Android ekosistemini Health Connect'e taşıdı. Samsung bu değişikliği takip etti: Samsung Health artık Google Fit yerine Health Connect'e yazıyor. Google Fit'ten okuyan uygulamalarınız varsa, Health Connect'ten okuyacak şekilde güncellenmesi gerekiyor.",
       },
     },
     {
@@ -689,6 +869,8 @@ export const post: BlogPost = {
         de: "Muss ich Google Fit deinstallieren?",
         pt: "Preciso desinstalar o Google Fit?",
         fr: "Dois-je désinstaller Google Fit?",
+        pl: "Czy muszę odinstalować Google Fit?",
+        tr: "Google Fit'i kaldırmam gerekiyor mu?",
       },
       a: {
         it: "Non necessariamente. Google Fit è innocua anche se installata. Ma se stai cercando di usarla come intermediario per ricevere dati da Samsung Health, non funzionerà più come prima. Health Connect è il percorso corretto. Google Fit può rimanere installata ma non è più il punto centrale dell'ecosistema salute Android.",
@@ -697,6 +879,8 @@ export const post: BlogPost = {
         de: "Nicht unbedingt. Google Fit ist harmlos, auch wenn es installiert ist. Aber wenn du versuchst, es als Vermittler zu nutzen, um Daten von Samsung Health zu empfangen, wird es nicht mehr wie zuvor funktionieren. Health Connect ist der richtige Weg. Google Fit kann installiert bleiben, ist aber nicht mehr der zentrale Punkt des Android-Gesundheitsökosystems.",
         pt: "Não necessariamente. O Google Fit é inofensivo mesmo que esteja instalado. Mas se você tentar usá-lo como intermediário para receber dados do Samsung Health, não vai funcionar como antes. O Health Connect é o caminho correto. O Google Fit pode ficar instalado, mas não é mais o ponto central do ecossistema de saúde Android.",
         fr: "Pas nécessairement. Google Fit est inoffensif même s'il est installé. Mais si vous essayez de l'utiliser comme intermédiaire pour recevoir des données de Samsung Health, cela ne fonctionnera plus comme avant. Health Connect est le bon chemin. Google Fit peut rester installé, mais il n'est plus le point central de l'écosystème de santé Android.",
+        pl: "Niekoniecznie. Google Fit jest nieszkodliwe nawet jeśli jest zainstalowane. Ale jeśli próbujesz użyć go jako pośrednika do odbierania danych z Samsung Health, nie będzie działać jak wcześniej. Health Connect to właściwa droga. Google Fit może pozostać zainstalowane, ale nie jest już centralnym punktem ekosystemu zdrowotnego Androida.",
+        tr: "Şart değil. Google Fit yüklü olsa bile zararsızdır. Ancak Samsung Health'ten veri almak için aracı olarak kullanmaya çalışırsanız, eskisi gibi çalışmayacaktır. Health Connect doğru yoldur. Google Fit yüklü kalabilir, ancak artık Android sağlık ekosisteminin merkezi değildir.",
       },
     },
     {
@@ -707,6 +891,8 @@ export const post: BlogPost = {
         de: "Funktioniert Health Connect auf allen Android-Telefonen?",
         pt: "O Health Connect funciona em todos os celulares Android?",
         fr: "Health Connect fonctionne-t-il sur tous les téléphones Android?",
+        pl: "Czy Health Connect działa na wszystkich telefonach z Androidem?",
+        tr: "Health Connect tüm Android telefonlarda çalışıyor mu?",
       },
       a: {
         it: "Health Connect richiede Android 9 o superiore (ma alcune funzioni richiedono Android 12+). Su Android 14 e superiori è integrato nel sistema operativo. Su Android 12-13 deve essere installato separatamente dal Play Store. Su versioni più vecchie di Android 9, non è disponibile. La maggior parte dei telefoni Samsung in commercio oggi (Galaxy S e A series) supporta Health Connect senza problemi.",
@@ -715,6 +901,8 @@ export const post: BlogPost = {
         de: "Health Connect erfordert Android 9 oder höher (einige Funktionen benötigen jedoch Android 12+). Auf Android 14 und höher ist es in das Betriebssystem integriert. Auf Android 12-13 muss es separat aus dem Google Play Store installiert werden. Auf Versionen älter als Android 9 ist es nicht verfügbar. Die meisten Samsung-Telefone, die heute erhältlich sind (Galaxy S und A Series), unterstützen Health Connect ohne Probleme.",
         pt: "O Health Connect requer Android 9 ou superior (mas algumas funções exigem Android 12+). No Android 14 e superior, ele está integrado ao sistema operacional. No Android 12-13, deve ser instalado separadamente pelo Google Play. Em versões anteriores ao Android 9, não está disponível. A maioria dos celulares Samsung disponíveis hoje (série Galaxy S e A) suporta o Health Connect sem problemas.",
         fr: "Health Connect nécessite Android 9 ou supérieur (mais certaines fonctionnalités nécessitent Android 12+). Sur Android 14 et supérieur, il est intégré au système d'exploitation. Sur Android 12-13, il doit être installé séparément depuis Google Play. Sur les versions antérieures à Android 9, il n'est pas disponible. La plupart des téléphones Samsung disponibles aujourd'hui (série Galaxy S et A) prennent en charge Health Connect sans problème.",
+        pl: "Health Connect wymaga Androida 9 lub nowszego (ale niektóre funkcje wymagają Androida 12+). Na Androidzie 14 i nowszym jest zintegrowany z systemem operacyjnym. Na Androidzie 12-13 musi być zainstalowany osobno z Google Play. Na wersjach starszych niż Android 9 nie jest dostępny. Większość telefonów Samsung dostępnych dziś na rynku (seria Galaxy S i A) obsługuje Health Connect bez problemów.",
+        tr: "Health Connect, Android 9 veya daha yüksek bir sürüm gerektirir (ancak bazı özellikler Android 12+ gerektirir). Android 14 ve üstünde işletim sistemine entegre edilmiştir. Android 12-13'te Google Play'den ayrıca yüklenmesi gerekir. Android 9'dan eski sürümlerde mevcut değildir. Bugün piyasada satılan Samsung telefonlarının büyük çoğunluğu (Galaxy S ve A serisi) sorunsuz biçimde Health Connect'i destekler.",
       },
     },
     {
@@ -725,6 +913,8 @@ export const post: BlogPost = {
         de: "Gehen meine historischen Samsung Health-Daten verloren, wenn Google Fit aufhört zu funktionieren?",
         pt: "Meus dados históricos do Samsung Health se perdem se o Google Fit parar de funcionar?",
         fr: "Mes données historiques Samsung Health sont-elles perdues si Google Fit cesse de fonctionner?",
+        pl: "Czy moje historyczne dane Samsung Health zginą, jeśli Google Fit przestanie działać?",
+        tr: "Google Fit çalışmayı durdurursa Samsung Health geçmiş verilerim kaybolur mu?",
       },
       a: {
         it: "No. I dati storici in Samsung Health sono nel cloud di Samsung (Samsung Cloud), indipendentemente da Google Fit. Il fatto che Google Fit non funzioni più come intermediario non tocca i dati in Samsung Health. Se vuoi portare lo storico su un'altra piattaforma, usa l'export Samsung Health (CSV/XML) o le nuove integrazioni via Health Connect per il dato recente.",
@@ -733,6 +923,8 @@ export const post: BlogPost = {
         de: "Nein. Historische Daten in Samsung Health befinden sich in der Samsung-Cloud (Samsung Cloud), unabhängig von Google Fit. Die Tatsache, dass Google Fit nicht mehr als Vermittler funktioniert, berührt die Daten in Samsung Health nicht. Wenn du historische Daten auf eine andere Plattform übertragen möchtest, verwende den Samsung Health-Export (CSV/XML) oder die neuen Health Connect-Integrationen für aktuelle Daten.",
         pt: "Não. Os dados históricos no Samsung Health estão na nuvem da Samsung (Samsung Cloud), independentemente do Google Fit. O fato de o Google Fit não funcionar mais como intermediário não afeta os dados no Samsung Health. Se você quiser transferir o histórico para outra plataforma, use a exportação do Samsung Health (CSV/XML) ou as novas integrações via Health Connect para dados recentes.",
         fr: "Non. Les données historiques dans Samsung Health se trouvent dans le cloud de Samsung (Samsung Cloud), indépendamment de Google Fit. Le fait que Google Fit ne fonctionne plus comme intermédiaire ne touche pas les données dans Samsung Health. Si vous souhaitez transférer l'historique vers une autre plateforme, utilisez l'export Samsung Health (CSV/XML) ou les nouvelles intégrations via Health Connect pour les données récentes.",
+        pl: "Nie. Dane historyczne w Samsung Health znajdują się w chmurze Samsung (Samsung Cloud), niezależnie od Google Fit. Fakt, że Google Fit nie działa już jako pośrednik, nie wpływa na dane w Samsung Health. Jeśli chcesz przenieść historię na inną platformę, użyj eksportu Samsung Health (CSV/XML) lub nowych integracji przez Health Connect dla najnowszych danych.",
+        tr: "Hayır. Samsung Health'teki geçmiş veriler, Google Fit'ten bağımsız olarak Samsung'un bulutunda (Samsung Cloud) bulunur. Google Fit'in artık aracı olarak çalışmaması, Samsung Health'teki verileri etkilemez. Geçmişi başka bir platforma aktarmak istiyorsanız Samsung Health dışa aktarma özelliğini (CSV/XML) veya son veriler için yeni Health Connect entegrasyonlarını kullanın.",
       },
     },
     {
@@ -743,6 +935,8 @@ export const post: BlogPost = {
         de: "Kann sich Samsung Health direkt mit Google Health synchronisieren?",
         pt: "O Samsung Health pode sincronizar diretamente com o Google Health?",
         fr: "Samsung Health peut-il se synchroniser directement avec Google Health?",
+        pl: "Czy Samsung Health może synchronizować się bezpośrednio z Google Health?",
+        tr: "Samsung Health doğrudan Google Health ile senkronize olabilir mi?",
       },
       a: {
         it: "Google Health non è una piattaforma pubblica separata: è il marchio ombrello per i prodotti salute di Google (che include Health Connect, Fitbit, Google Fit). Il punto di integrazione tecnico è Health Connect. Samsung Health scrive su Health Connect, e qualsiasi app (incluse quelle di Google) può leggere da lì. Non esiste un sync diretto Samsung Health → un cloud Google specifico al di fuori di questo meccanismo.",
@@ -751,6 +945,8 @@ export const post: BlogPost = {
         de: "Google Health ist keine separate öffentliche Plattform: Es ist die Dachmarke für Googles Gesundheitsprodukte (einschließlich Health Connect, Fitbit, Google Fit). Der technische Integrationspunkt ist Health Connect. Samsung Health schreibt in Health Connect, und jede App (einschließlich Googles Apps) kann von dort lesen. Es gibt keine direkte Synchronisierung von Samsung Health mit einer spezifischen Google-Cloud außerhalb dieses Mechanismus.",
         pt: "O Google Health não é uma plataforma pública separada: é a marca guarda-chuva para os produtos de saúde do Google (que inclui Health Connect, Fitbit, Google Fit). O ponto de integração técnico é o Health Connect. O Samsung Health grava no Health Connect e qualquer app (incluindo os do Google) pode ler de lá. Não existe uma sincronização direta do Samsung Health com uma nuvem específica do Google fora desse mecanismo.",
         fr: "Google Health n'est pas une plateforme publique séparée: c'est la marque ombrelle pour les produits de santé de Google (qui inclut Health Connect, Fitbit, Google Fit). Le point d'intégration technique est Health Connect. Samsung Health écrit dans Health Connect, et n'importe quelle application (y compris celles de Google) peut lire depuis là. Il n'existe pas de synchronisation directe de Samsung Health vers un cloud Google spécifique en dehors de ce mécanisme.",
+        pl: "Google Health nie jest oddzielną publiczną platformą: to marka parasolowa dla produktów zdrowotnych Google (obejmująca Health Connect, Fitbit, Google Fit). Punktem technicznej integracji jest Health Connect. Samsung Health zapisuje dane do Health Connect, a każda aplikacja (w tym aplikacje Google) może stamtąd je odczytać. Nie istnieje bezpośrednia synchronizacja Samsung Health z konkretną chmurą Google poza tym mechanizmem.",
+        tr: "Google Health ayrı bir genel platform değildir: Google'ın sağlık ürünleri için şemsiye markadır (Health Connect, Fitbit, Google Fit dahil). Teknik entegrasyon noktası Health Connect'tir. Samsung Health, Health Connect'e yazar ve herhangi bir uygulama (Google'ınkiler dahil) oradan okuyabilir. Bu mekanizma dışında Samsung Health'ten belirli bir Google bulutuna doğrudan senkronizasyon yoktur.",
       },
     },
   ],

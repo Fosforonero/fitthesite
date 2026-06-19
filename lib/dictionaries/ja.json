@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "support": "サポート",
+    "privacy": "プライバシー",
+    "download": "ダウンロード"
+  },
+  "hero": {
+    "badge": "Android対応 · iOSは近日公開",
+    "heading_1": "すべてのデバイスを",
+    "heading_accent": "ひとつのダッシュボードに。",
+    "description": "Galaxy Watch、Wear OS、Health Connect、クラウドプロバイダーをひとつの画面に統合。歩数、睡眠、心拍数、回復状態、トレンドをアプリを切り替えずに確認できます。",
+    "cta_secondary": "詳細を見る",
+    "pricing": "買い切り €3.99〜、または6ヶ月 €1.19 · 安全なお支払い",
+    "coming_soon": "近日公開"
+  },
+  "features": {
+    "kicker": "機能",
+    "heading": "スマートウォッチが記録したすべてを、整理して可視化。",
+    "items": [
+      {
+        "title": "歩数・距離",
+        "desc": "Health ConnectとSamsung Healthと自動同期。画面ロック中もバックグラウンドで動作します。"
+      },
+      {
+        "title": "心拍数・VO₂ max",
+        "desc": "日次平均、最小/最大範囲、安静時心拍数。心血管の健康トレンドを時系列で把握できます。"
+      },
+      {
+        "title": "睡眠ステージ",
+        "desc": "総時間、深い眠り、REM、浅い眠り、覚醒。カラーコードのバーと即時品質バッジ表示。"
+      },
+      {
+        "title": "カロリー・アクティビティ",
+        "desc": "アクティブカロリーと基礎カロリー、ルート、標高、階段。ウォーキングは緑、ワークアウトは赤で表示。"
+      },
+      {
+        "title": "グローバルマルチデバイスダッシュボード",
+        "desc": "複数のウォッチ、複数のプロバイダーをひとつの画面に。FitMeshはデータソースを統合・重複排除し、各指標の最良値を保持します。"
+      },
+      {
+        "title": "介護者向け機能",
+        "desc": "近日公開の高度モード：高齢の家族が音信不通になったときの朝の同期アラート付きファミリーグループ。"
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "プライバシーファースト",
+    "heading": "あなたの健康データは商品ではありません。",
+    "description": "FitMesh Syncは販売・共有・プロファイリングを一切行いません。データはあなたが選んだサーバー（自宅NAS、VPS、または共有エンドポイント）に保管されます。アプリ設定で選択できます。",
+    "cta": "プライバシーポリシーを読む"
+  },
+  "final_cta": {
+    "heading": "始める準備はできていますか？",
+    "description": "アプリをダウンロードし、Health Connectの権限を許可するだけ。30秒でデータが反映されます。"
+  },
+  "footer": {
+    "tagline": "スマートウォッチのデータを、あなただけのプレミアムダッシュボードに同期。プライバシーファースト。不透明なクラウドや広告トラッカーなし。",
+    "product": "製品",
+    "legal": "法的情報",
+    "rights": "All rights reserved.",
+    "made_with": "イタリアで心を込めて作られた",
+    "fosforonero_label": "プロジェクト by",
+    "links": {
+      "features": "機能",
+      "download": "ダウンロード",
+      "support": "サポート",
+      "privacy": "プライバシーポリシー",
+      "terms": "利用規約",
+      "cookies": "Cookieポリシー"
+    }
+  },
+  "cookie_banner": {
+    "title": "Cookie とプライバシー",
+    "description": "サイトの機能に必要なCookieを使用しています。同意いただければ、製品改善のためにGoogle Analyticsも使用します。広告・プロファイリングCookieは使用しません。",
+    "details_link": "詳細",
+    "accept": "すべて許可",
+    "reject": "任意のCookieを拒否"
+  },
+  "legal": {
+    "last_updated": "最終更新",
+    "privacy_title": "プライバシーポリシー",
+    "terms_title": "利用規約",
+    "cookies_title": "Cookieポリシー",
+    "support_title": "よくある質問",
+    "section": "法的情報"
+  },
+  "auth": {
+    "login": {
+      "heading": "FitMeshにサインイン",
+      "subheading": "メールでリンクをお送りします。パスワードは不要です。",
+      "email_label": "メールアドレス",
+      "email_placeholder": "you@email.com",
+      "submit": "サインインリンクを送信",
+      "sending": "送信中…",
+      "success_title": "メールを確認してください",
+      "success_body": "サインインリンクをお送りしました。メールを開いてクリックしてください。",
+      "try_again": "再送信",
+      "disclaimer": "サインインすることで、利用規約とプライバシーポリシーに同意したことになります。健康データは共有されず、医療アドバイスには使用されません。"
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "ダッシュボード",
+      "devices": "デバイス",
+      "settings": "設定",
+      "logout": "サインアウト"
+    },
+    "disclaimer": "表示されるデータは情報提供のみを目的としています。FitMeshは医療機器ではなく、専門的な医療アドバイスの代替にはなりません。",
+    "dashboard": {
+      "welcome": "ようこそ",
+      "steps": "今日の歩数",
+      "heart_rate": "平均BPM",
+      "sleep": "睡眠",
+      "no_data": "デバイスが接続されていません"
+    },
+    "next_step": {
+      "title": "まず最初のデバイスを接続しましょう",
+      "body": "「デバイス」でペアリングコードを生成し、スマートフォンのFitMeshアプリに入力してください。",
+      "cta": "デバイスを接続 →"
+    },
+    "devices": {
+      "heading": "あなたのデバイス",
+      "subheading": "アカウントに接続されているスマートウォッチとスマートフォン。",
+      "add_title": "デバイスを追加",
+      "add_body": "コードを生成し、FitMesh Syncアプリに入力して新しいスマートフォンを接続します。",
+      "add_cta": "コードを生成",
+      "coming_soon": "（近日公開）",
+      "list_title": "接続済みデバイス",
+      "empty": "まだデバイスが接続されていません。",
+      "error": "デバイスの読み込みエラー。",
+      "revoked": "取り消し済み",
+      "last_sync": "最終同期",
+      "never": "なし"
+    },
+    "settings": {
+      "heading": "設定",
+      "profile_heading": "プロフィール",
+      "display_name": "名前",
+      "locale": "言語",
+      "timezone": "タイムゾーン",
+      "member_since": "登録日",
+      "privacy_heading": "プライバシーとデータ",
+      "privacy_body": "健康データは共有されず、医療目的で処理されず、医療アドバイスに使用されません。あなたの個人ダッシュボードのみに使用されます。",
+      "export": "データをエクスポート",
+      "danger_heading": "危険ゾーン",
+      "delete_description": "アカウントと関連するすべてのデータを完全に削除します。24時間以内にメールでキャンセルできます。",
+      "delete_cta": "アカウントを削除",
+      "delete_confirm_title": "本当によろしいですか？",
+      "delete_confirm_body": "完全に削除されます：プロフィール、すべての健康データ、接続済みデバイス、ワークアウトセッション。コンプライアンスのため匿名化して保持されます：技術ログ（90日）および管理監査（5年）。",
+      "delete_confirm_input": "確認のために「DELETE」と入力してください",
+      "delete_confirm_submit": "削除を確認",
+      "cancel": "キャンセル",
+      "delete_scheduled_title": "リクエストを受け付けました",
+      "delete_scheduled_body": "キャンセル用リンクをメールでお送りします。24時間以内に何もしなければ、アカウントは完全に削除されます。"
+    }
+  },
+  "admin": {
+    "banner": "管理者モード — 操作はすべて記録されます",
+    "nav": {
+      "overview": "概要",
+      "users": "ユーザー",
+      "devices": "デバイス",
+      "events": "イベント",
+      "exit": "管理者を終了"
+    },
+    "overview": {
+      "heading": "概要",
+      "subheading": "システム状態、集計メトリクス、個人健康データなし。",
+      "total_users": "総ユーザー数",
+      "active_7d": "アクティブ 7日",
+      "active_30d": "アクティブ 30日",
+      "new_7d": "新規 7日",
+      "total_devices": "総デバイス数",
+      "active_devices": "アクティブデバイス",
+      "syncs_24h": "同期 24時間",
+      "failed_syncs_24h": "同期失敗 24時間"
+    },
+    "privacy_notice": "プライバシー：このダッシュボードはメタデータと集計メトリクスのみ表示します。ユーザーの健康データは管理者にアクセスできません（Postgres RLSで強制）。"
+  },
+  "showcase": {
+    "kicker": "アプリ",
+    "heading": "FitMeshの動作を見る",
+    "sub": "Androidアプリの実際の画面をそのまま公開。",
+    "captions": {
+      "sleep": "睡眠ステージと心臓の健康",
+      "trends": "歩数とカロリーのトレンド",
+      "vitals": "SpO₂と高度なメトリクス"
+    }
+  }
+}

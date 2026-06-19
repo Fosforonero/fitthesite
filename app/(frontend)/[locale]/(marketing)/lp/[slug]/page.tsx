@@ -140,6 +140,46 @@ const I18N: Record<Locale, {
     finalCtaHeading: "Prêt à commencer ?",
     finalCtaSubheading: "Téléchargez FitMesh Sync sur votre téléphone Android. Le tableau de bord web est inclus.",
   },
+  pl: {
+    faqHeading: "Najczęściej zadawane pytania",
+    disclaimerHeading: "Zastrzeżenie prawne",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync jest niezależnym produktem. ${brands.join(", ")} ${brands.length > 1 ? "to znaki towarowe" : "jest znakiem towarowym"} ich odpowiednich właścicieli. Ta strona nie sugeruje żadnej afiliacji ani sponsoringu.`,
+    finalCtaHeading: "Gotowy, żeby zacząć?",
+    finalCtaSubheading: "Pobierz FitMesh Sync na swój telefon z Androidem. Panel webowy jest wliczony w cenę.",
+  },
+  tr: {
+    faqHeading: "Sık sorulan sorular",
+    disclaimerHeading: "Yasal uyarı",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync bağımsız bir üründür. ${brands.join(", ")} ${brands.length > 1 ? "ilgili sahiplerinin ticari markalarıdır" : "ilgili sahibinin ticari markasıdır"}. Bu sayfa hiçbir ortaklık veya sponsorluk ilişkisi ima etmez.`,
+    finalCtaHeading: "Başlamaya hazır mısın?",
+    finalCtaSubheading: "FitMesh Sync'i Android telefonuna indir. Web panosu dahildir.",
+  },
+  nl: {
+    faqHeading: "Veelgestelde vragen",
+    disclaimerHeading: "Disclaimer",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync is een onafhankelijk product. ${brands.join(", ")} ${brands.length > 1 ? "zijn handelsmerken" : "is een handelsmerk"} van hun respectieve eigenaren. Deze pagina impliceert geen affiliatie of sponsoring.`,
+    finalCtaHeading: "Klaar om te beginnen?",
+    finalCtaSubheading: "Download FitMesh Sync op je Android-telefoon. Het webdashboard is inbegrepen.",
+  },
+  ja: {
+    faqHeading: "よくある質問",
+    disclaimerHeading: "免責事項",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Syncは独立した製品です。${brands.join("、")}は各所有者の商標です。このページはいかなる提携またはスポンサーも示唆しません。`,
+    finalCtaHeading: "始める準備はできていますか？",
+    finalCtaSubheading: "AndroidスマートフォンにFitMesh Syncをダウンロードしてください。Webダッシュボードが含まれています。",
+  },
+  ko: {
+    faqHeading: "자주 묻는 질문",
+    disclaimerHeading: "면책 조항",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync는 독립 제품입니다. ${brands.join(", ")}은(는) 각 소유자의 상표입니다. 이 페이지는 어떠한 제휴나 후원도 암시하지 않습니다.`,
+    finalCtaHeading: "시작할 준비가 됐나요?",
+    finalCtaSubheading: "Android 스마트폰에 FitMesh Sync를 다운로드하세요. 웹 대시보드가 포함되어 있습니다.",
+  },
 };
 
 export default async function LandingPage({

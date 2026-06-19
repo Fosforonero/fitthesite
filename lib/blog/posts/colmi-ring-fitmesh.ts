@@ -55,6 +55,20 @@ export const post: BlogPost = {
       "Indicateur de batterie à code couleur, estimation réelle de l'autonomie et notifications à 100%/50%/25%.",
       "Vos données restent sur votre compte FitMesh dans l'UE, pas sur les serveurs du fabricant.",
     ],
+    pl: [
+      "Colmi R02/R03 i klony OEM łączą się z FitMesh przez Bluetooth bezpośredni: aplikacja producenta nie jest wymagana.",
+      "Odczytywane metryki: kroki, dystans, kalorie, tętno, tętno spoczynkowe, SpO2, HRV, stres (0-100) i sen z fazami.",
+      "Pierścień to specjalista snu: nocą dominuje, w ciągu dnia wygrywa smartwatch. Fuzja wielu urządzeń eliminuje podwójne liczenie.",
+      "Bateria ze wskaźnikiem kolorowym, szacunkowy czas rzeczywisty i powiadomienia przy 100%/50%/25%.",
+      "Dane pozostają na Twoim koncie FitMesh w UE, nie na serwerach producenta.",
+    ],
+    tr: [
+      "Colmi R02/R03 ve OEM klonlar, doğrudan Bluetooth üzerinden FitMesh'e bağlanır: üretici uygulaması gerekmez.",
+      "Okunan metrikler: adımlar, mesafe, kalori, kalp hızı, dinlenme kalp hızı, SpO2, HRV, stres (0-100) ve evreli uyku.",
+      "Yüzük uyku uzmanıdır: geceleri üstündür, gündüz smartwatch kazanır. Çoklu cihaz birleştirmesi çift saymayı ortadan kaldırır.",
+      "Renkli pil göstergesi, gerçek süre tahmini ve %100/%50/%25'te bildirimler.",
+      "Verileriniz AB'deki FitMesh hesabınızda kalır, üreticinin sunucularında değil.",
+    ],
   },
   primaryKeyword: {
     it: "colmi r02 app dati dashboard",
@@ -62,6 +76,8 @@ export const post: BlogPost = {
     es: "colmi r02 app datos panel",
     pt: "colmi r02 app dados painel",
     fr: "colmi r02 app données tableau de bord",
+    pl: "colmi r02 aplikacja dane panel",
+    tr: "colmi r02 uygulama veri pano",
   },
   secondaryKeywords: {
     it: [
@@ -100,6 +116,24 @@ export const post: BlogPost = {
       "alternative qring",
       "bague connectée sans app companion",
     ],
+    pl: [
+      "colmi r02 po polsku",
+      "tani inteligentny pierścień aplikacja",
+      "panel colmi ring",
+      "inteligentny pierścień bluetooth android",
+      "dane colmi r03",
+      "alternatywa qring",
+      "inteligentny pierścień bez aplikacji companion",
+    ],
+    tr: [
+      "colmi r02 türkçe",
+      "uygun fiyatlı akıllı yüzük uygulama",
+      "colmi ring panosu",
+      "akıllı yüzük bluetooth android",
+      "colmi r03 verileri",
+      "qring alternatifi",
+      "companion uygulamasız akıllı yüzük",
+    ],
   },
   metaDescription: {
     it: "Colmi R02 e R03 con FitMesh Sync: connessione Bluetooth diretta, niente app companion, dati integrati con il tuo smartwatch in un'unica dashboard. Batteria colorata, stress 0-100, notifiche di ricarica.",
@@ -108,6 +142,8 @@ export const post: BlogPost = {
     de: "Colmi R02 und R03 mit FitMesh Sync: direktes Bluetooth, keine Hersteller-App, Daten zusammen mit deinem Smartwatch auf einer Dashboard. Farbige Batterieanzeige, Stress 0-100, Ladebenachrichtigungen.",
     pt: "Colmi R02 e R03 com FitMesh Sync: Bluetooth direto, sem app do fabricante, dados integrados com seu smartwatch em um único painel. Indicador de bateria colorido, stress 0-100, notificações de carga.",
     fr: "Colmi R02 et R03 avec FitMesh Sync : Bluetooth direct, sans app du fabricant, données fusionnées avec votre montre connectée sur un seul tableau de bord. Indicateur de batterie coloré, score stress 0-100, notifications de charge.",
+    pl: "Colmi R02 i R03 z FitMesh Sync: bezpośrednie połączenie BLE, bez aplikacji companion, dane zintegrowane ze smartwatchem w jednym panelu. Kolorowy wskaźnik baterii, stres 0-100, powiadomienia o ładowaniu.",
+    tr: "Colmi R02 ve R03 ile FitMesh Sync: doğrudan BLE, companion uygulama yok, veriler tek bir panelde smartwatch ile birleştirildi. Renkli pil göstergesi, 0-100 stres skoru, şarj bildirimleri.",
   },
   hero: {
     kicker: {
@@ -117,6 +153,8 @@ export const post: BlogPost = {
       de: "Hauptanleitung",
       pt: "Guia principal",
       fr: "Guide pilier",
+      pl: "Przewodnik główny",
+      tr: "Ana rehber",
     },
     title: {
       it: "Colmi R02: come leggere i dati dell'anello smart da 25€ in un'unica dashboard",
@@ -125,6 +163,8 @@ export const post: BlogPost = {
       de: "Colmi R02: der 25-Euro-Smart-Ring, der endlich alle deine Gesundheitsdaten synchronisiert",
       pt: "Colmi R02: o anel inteligente de 25€ que finalmente sincroniza todos os seus dados de saúde",
       fr: "Colmi R02 : la bague connectée à 25 € qui synchronise enfin toutes vos données de santé",
+      pl: "Colmi R02: jak odczytać dane taniego pierścienia za 25 € w jednym panelu",
+      tr: "Colmi R02: 25 €'luk akıllı yüzüğün tüm sağlık verilerini sonunda senkronize eden çözüm",
     },
     subtitle: {
       it: "Il Colmi R02 misura passi, battito, SpO2, HRV, stress e batteria. Il problema è che i dati restano chiusi nell'app del produttore. FitMesh Sync si connette all'anello via Bluetooth diretto e integra tutto nella tua dashboard, senza app companion.",
@@ -133,6 +173,8 @@ export const post: BlogPost = {
       de: "Der Colmi R02 misst Schritte, Herzfrequenz, SpO2, HRV, Stress und Akkustand. Das Problem: Die Daten bleiben in der App des Herstellers gesperrt. FitMesh Sync verbindet sich direkt über Bluetooth mit dem Ring und führt alles in deiner Dashboard zusammen, ohne Hersteller-App.",
       pt: "O Colmi R02 mede passos, frequência cardíaca, SpO2, HRV, stress e bateria. O problema é que os dados ficam presos no app do fabricante. FitMesh Sync se conecta ao anel via Bluetooth direto e integra tudo no seu painel, sem app do fabricante.",
       fr: "Le Colmi R02 mesure les pas, la fréquence cardiaque, le SpO2, la HRV, le stress et la batterie. Le problème : les données restent enfermées dans l'app du fabricant. FitMesh Sync se connecte directement à la bague via Bluetooth et fusionne tout dans votre tableau de bord, sans app compagnon.",
+      pl: "Colmi R02 mierzy kroki, tętno, SpO2, HRV, stres i baterię. Problem: dane pozostają zamknięte w aplikacji producenta. FitMesh Sync łączy się z pierścieniem przez Bluetooth bezpośredni i integruje wszystko w Twoim panelu, bez aplikacji companion.",
+      tr: "Colmi R02 adımları, kalp hızını, SpO2'yi, HRV'yi, stresi ve pili ölçer. Sorun: veriler üreticinin companion uygulamasına kilitli. FitMesh Sync doğrudan Bluetooth üzerinden bağlanır ve her şeyi companion uygulama olmadan panelinizde birleştirir.",
     },
   },
   body: [
@@ -145,6 +187,8 @@ export const post: BlogPost = {
         de: "Der Colmi R02 ist der meistverkaufte Smart-Ring auf Amazon unter 30 Euro. Er erfasst dieselben Metriken wie Ringe zum Drei- oder Vierfachen des Preises: kontinuierliche Herzfrequenz via optischem PPG, nächtliche SpO2, HRV, Schritte, Distanz, Kalorien, Stresswert und ein Akku, der typischerweise 5 bis 7 Tage hält. Das Problem: Die Daten bleiben in der Hersteller-App eingesperrt, getrennt von allem anderen. FitMesh Sync behebt dies mit einer direkten Bluetooth-Verbindung zum Ring (keine Hersteller-App erforderlich) und führt die Daten in einer einzigen Dashboard zusammen mit deinem Smartwatch zusammen.",
         pt: "O Colmi R02 é o anel inteligente mais vendido na Amazon por menos de 30 euros. Ele rastreia as mesmas métricas que anéis três ou quatro vezes mais caros: frequência cardíaca contínua via PPG óptico, SpO2 noturno, HRV, passos, distância, calorias, pontuação de stress e uma bateria que dura tipicamente 5 a 7 dias. O problema é um só: os dados ficam presos no app do fabricante, desconectados de tudo o mais. FitMesh Sync resolve isso com uma conexão Bluetooth direta ao anel (sem app do fabricante) e integra os dados em um único painel junto ao seu smartwatch.",
         fr: "Le Colmi R02 est la bague connectée la plus vendue sur Amazon à moins de 30 euros. Il mesure les mêmes métriques que des bagues trois ou quatre fois plus chères : fréquence cardiaque en continu via PPG optique, SpO2 nocturne, HRV, pas, distance, calories, score de stress, et une batterie qui dure généralement 5 à 7 jours. Le problème est unique : les données restent enfermées dans l'app du fabricant, isolées du reste. FitMesh Sync résout cela avec une connexion Bluetooth directe à la bague (sans app compagnon) et fusionne les données dans un tableau de bord unique aux côtés de votre montre connectée.",
+        pl: "Colmi R02 to najlepiej sprzedający się inteligentny pierścień na Amazon poniżej 30 euro. Śledzi te same metryki co pierścienie trzy lub cztery razy droższe: ciągłe tętno via optyczny PPG, nocny SpO2, HRV, kroki, dystans, kalorie, wynik stresu i bateria, która zazwyczaj wytrzymuje 5-7 dni. Jest jeden problem: dane są zamknięte w aplikacji companion producenta, odcięte od wszystkiego innego. FitMesh Sync rozwiązuje to bezpośrednim połączeniem Bluetooth z pierścieniem (bez aplikacji companion) i łączy dane w jednym panelu razem ze smartwatchem.",
+        tr: "Colmi R02, Amazon'da 30 euronun altında en çok satan akıllı yüzüktür. Üç-dört kat fiyatlı yüzüklerle aynı metrikleri takip eder: optik PPG üzerinden sürekli kalp hızı, gece SpO2, HRV, adımlar, mesafe, kalori, stres skoru ve genellikle 5-7 gün dayanan pil. Tek sorun şu: veriler üreticinin companion uygulamasına kilitli, diğer her şeyden kopuk. FitMesh Sync bunu, halkaya doğrudan Bluetooth bağlantısıyla (companion uygulama gerektirmeden) çözer ve verileri tek bir panelde smartwatch'unuzla birleştirir.",
       },
     },
     {
@@ -157,6 +201,8 @@ export const post: BlogPost = {
         de: "TL;DR",
         pt: "TL;DR",
         fr: "TL;DR",
+        pl: "TL;DR",
+        tr: "TL;DR",
       },
       body: {
         it: "Colmi R02/R03 e cloni OEM compatibili si collegano a FitMesh Sync via Bluetooth diretto. Nessuna app companion richiesta. Metriche disponibili: passi, distanza, calorie, battito, FC a riposo, SpO2, HRV, stress (0-100), sonno con fasi (leggero, profondo, REM, veglia), batteria con indicatore colorato. La fusione multi-device elimina i doppi conteggi tra anello notturno e smartwatch diurno.",
@@ -165,6 +211,8 @@ export const post: BlogPost = {
         de: "Colmi R02/R03 und kompatible OEM-Klone verbinden sich über direktes Bluetooth mit FitMesh Sync. Keine Hersteller-App erforderlich. Verfügbare Metriken: Schritte, Distanz, Kalorien, Herzfrequenz, Ruheherzfrequenz, SpO2, HRV, Stress (0-100), Schlaf mit Schlafphasen (Leichtschlaf, Tiefschlaf, REM, Wach), farbcodierter Batterieindikator. Die Datenzusammenführung mehrerer Geräte verhindert doppelte Zählungen zwischen dem nächtlichen Ring und dem Smartwatch am Tag.",
         pt: "O Colmi R02/R03 e os clones OEM compatíveis se conectam ao FitMesh Sync via Bluetooth direto. Nenhum app do fabricante é necessário. Métricas disponíveis: passos, distância, calorias, frequência cardíaca, frequência cardíaca em repouso, SpO2, HRV, stress (0-100), sono com fases (leve, profundo, REM, acordado), indicador de bateria colorido. A fusão de múltiplos dispositivos elimina contagens duplas entre o anel noturno e o smartwatch diurno.",
         fr: "Le Colmi R02/R03 et les clones OEM compatibles se connectent à FitMesh Sync via Bluetooth direct. Aucune app compagnon n'est requise. Métriques disponibles : pas, distance, calories, fréquence cardiaque, fréquence cardiaque au repos, SpO2, HRV, stress (0-100), sommeil avec phases (léger, profond, REM, éveil), indicateur de batterie à code couleur. La fusion multi-appareils élimine les doubles comptages entre la bague nocturne et la montre connectée en journée.",
+        pl: "Colmi R02/R03 i kompatybilne klony OEM łączą się z FitMesh Sync przez Bluetooth bezpośredni. Nie wymaga aplikacji companion. Dostępne metryki: kroki, dystans, kalorie, tętno, tętno spoczynkowe, SpO2, HRV, stres (0-100), sen z fazami (lekki, głęboki, REM, przebudzenie), kolorowy wskaźnik baterii. Fuzja wielu urządzeń eliminuje podwójne liczenie między nocnym pierścieniem a dziennym smartwatchem.",
+        tr: "Colmi R02/R03 ve uyumlu OEM klonlar, doğrudan Bluetooth üzerinden FitMesh Sync'e bağlanır. Companion uygulama gerekmez. Mevcut metrikler: adımlar, mesafe, kalori, kalp hızı, dinlenme kalp hızı, SpO2, HRV, stres (0-100), evreli uyku (hafif, derin, REM, uyanık), renkli pil göstergesi. Çoklu cihaz birleştirmesi, gece yüzüğü ile gündüz smartwatch'u arasındaki çift saymayı ortadan kaldırır.",
       },
     },
     {
@@ -177,6 +225,8 @@ export const post: BlogPost = {
         de: "Was der Colmi R02 ist und warum er zum Phänomen unter den günstigen Ringen wurde",
         pt: "O que é o Colmi R02 e por que ele se tornou o fenômeno dos anéis acessíveis",
         fr: "Ce qu'est le Colmi R02 et pourquoi il est devenu le phénomène des bagues connectées accessibles",
+        pl: "Czym jest Colmi R02 i dlaczego stał się fenomenem tanich pierścieni",
+        tr: "Colmi R02 nedir ve neden uygun fiyatlı yüzük fenomeni oldu",
       },
     },
     {
@@ -188,6 +238,8 @@ export const post: BlogPost = {
         de: "Der Colmi R02 ist auf Amazon in zwei bis drei Tagen lieferbar, kostet zwischen 20 und 35 Euro und erfordert kein Abonnement. Er erfasst dieselben Metriken wie Ringe zum Drei- oder Vierfachen des Preises: kontinuierliche Herzfrequenz via optischem PPG, nächtliche SpO2, HRV, Schritte, Distanz, Kalorien, Stresswert und ein Akku, der typischerweise 5 bis 7 Tage hält. Der R03, sein Nachfolger, verwendet dasselbe BLE-Protokoll mit einigen Sensor-Upgrades.",
         pt: "O Colmi R02 chega pela Amazon em dois ou três dias, custa entre 20 e 35 euros e não exige assinatura. Ele rastreia as mesmas métricas que anéis três ou quatro vezes mais caros: frequência cardíaca contínua via PPG óptico, SpO2 noturno, HRV, passos, distância, calorias, pontuação de stress e uma bateria que dura tipicamente 5 a 7 dias. O R03, seu sucessor, usa o mesmo protocolo BLE com algumas melhorias de sensores.",
         fr: "Le Colmi R02 est livré sur Amazon en deux ou trois jours, coûte entre 20 et 35 euros et ne demande aucun abonnement. Il mesure les mêmes métriques que des bagues trois ou quatre fois plus chères : fréquence cardiaque en continu via PPG optique, SpO2 nocturne, HRV, pas, distance, calories, score de stress, et une batterie qui dure généralement 5 à 7 jours. Le R03, son successeur, utilise le même protocole BLE avec quelques capteurs améliorés.",
+        pl: "Colmi R02 dociera z Amazona w dwa-trzy dni, kosztuje od 20 do 35 euro i nie wymaga abonamentu. Śledzi te same metryki co pierścienie trzy lub cztery razy droższe: ciągłe tętno via optyczny PPG, nocny SpO2, HRV, kroki, dystans, kalorie, wynik stresu i bateria, która zazwyczaj wytrzymuje 5-7 dni. R03, jego następca, używa tego samego protokołu BLE z kilkoma ulepszonymi czujnikami.",
+        tr: "Colmi R02, Amazon'dan iki-üç günde gelir, 20 ile 35 euro arasında fiyatlanır ve abonelik gerektirmez. Üç-dört kat fiyatlı yüzüklerle aynı metrikleri takip eder: optik PPG üzerinden sürekli kalp hızı, gece SpO2, HRV, adımlar, mesafe, kalori, stres skoru ve genellikle 5-7 gün dayanan pil. Halefi R03, birkaç sensör güncellemesiyle aynı BLE protokolünü kullanır.",
       },
     },
     {
@@ -199,6 +251,8 @@ export const post: BlogPost = {
         de: "Es gibt OEM-Klone unter verschiedenen Namen (dein Ring könnte die QRing-App oder eine identisch aussehende Oberfläche verwenden), die dasselbe Firmware und Protokoll teilen: alle kompatibel mit der FitMesh-Integration. Warum haben sich diese Ringe so schnell verbreitet? Der Formfaktor funktioniert für den Schlaf einfach besser als ein Smartwatch. Kein Armband, kein Gewicht am Handgelenk, keine Notwendigkeit, ihn abzunehmen. Für nächtliche Metriken (HRV, SpO2, Ruheherzfrequenz) gewinnt der Ring beim Tragekomfort, nicht unbedingt bei der Sensorgenauigkeit.",
         pt: "Há clones OEM vendidos com nomes diferentes (seu anel pode usar o app QRing ou uma interface idêntica) que compartilham o mesmo firmware e protocolo: todos compatíveis com a integração FitMesh. Por que esses anéis se multiplicaram tão rápido? O formato simplesmente funciona melhor para dormir do que um smartwatch. Sem pulseira, sem peso no pulso, sem necessidade de removê-lo. Para métricas noturnas (HRV, SpO2, frequência cardíaca em repouso), o anel vence no conforto, não necessariamente na precisão dos sensores.",
         fr: "Il existe des clones OEM vendus sous différents noms (votre bague peut utiliser l'app QRing ou une interface identique) qui partagent le même firmware et protocole : tous compatibles avec l'intégration FitMesh. Pourquoi ces bagues se sont-elles multipliées si vite ? Le facteur de forme fonctionne tout simplement mieux pour le sommeil qu'une montre connectée. Pas de bracelet, pas de poids au poignet, pas besoin de la retirer. Pour les métriques nocturnes (HRV, SpO2, fréquence cardiaque au repos), la bague gagne en confort, pas nécessairement en précision des capteurs.",
+        pl: "Istnieją klony OEM sprzedawane pod różnymi nazwami (Twój pierścień może używać aplikacji QRing lub identycznego interfejsu), które dzielą ten sam firmware i protokół: wszystkie są kompatybilne z integracją FitMesh. Dlaczego te pierścienie tak szybko się rozmnożyły? Form factor po prostu działa lepiej do snu niż smartwatch. Bez paska, bez ciężaru na nadgarstku, bez potrzeby zdejmowania. Dla nocnych metryk (HRV, SpO2, tętno spoczynkowe) pierścień wygrywa komfortem, niekoniecznie precyzją czujników.",
+        tr: "Farklı isimler altında satılan OEM klonlar var (yüzüğünüz QRing uygulamasını veya aynı görünen bir arayüzü kullanıyor olabilir); hepsi aynı firmware ve protokolü paylaşır: tümü FitMesh entegrasyonuyla uyumludur. Bu yüzükler neden bu kadar hızlı çoğaldı? Form faktörü, uyku için smartwatch'tan açıkça daha iyi çalışıyor. Kayış yok, bilekte ağırlık yok, çıkarma ihtiyacı yok. Gece metrikleri için (HRV, SpO2, dinlenme kalp hızı) yüzük, sensör hassasiyetinde değil konforunda üstün gelir.",
       },
     },
     {
@@ -211,6 +265,8 @@ export const post: BlogPost = {
         de: "Was der Colmi R02 misst: Metriken auf einen Blick",
         pt: "O que o Colmi R02 mede: métricas em resumo",
         fr: "Ce que mesure le Colmi R02 : les métriques en un coup d'oeil",
+        pl: "Co mierzy Colmi R02: tabela metryk",
+        tr: "Colmi R02 ne ölçer: metrikler tablosu",
       },
     },
     {
@@ -222,6 +278,8 @@ export const post: BlogPost = {
         de: "Im FitMesh Sync verfügbare Colmi R02/R03-Metriken",
         pt: "Métricas do Colmi R02/R03 disponíveis no FitMesh Sync",
         fr: "Métriques du Colmi R02/R03 disponibles dans FitMesh Sync",
+        pl: "Metryki Colmi R02/R03 dostępne w FitMesh Sync",
+        tr: "FitMesh Sync'te mevcut Colmi R02/R03 metrikleri",
       },
       headers: {
         it: ["Metrica", "Disponibile ora in FitMesh", "Note"],
@@ -230,6 +288,8 @@ export const post: BlogPost = {
         de: ["Metrik", "Jetzt in FitMesh verfügbar", "Hinweise"],
         pt: ["Métrica", "Disponível agora no FitMesh", "Observações"],
         fr: ["Métrique", "Disponible maintenant dans FitMesh", "Remarques"],
+        pl: ["Metryka", "Dostępna teraz w FitMesh", "Uwagi"],
+        tr: ["Metrik", "FitMesh'te şu an mevcut", "Notlar"],
       },
       rows: [
         {
@@ -239,6 +299,8 @@ export const post: BlogPost = {
           de: ["Schritte", "Ja", "Tagesprotokoll + intraday"],
           pt: ["Passos", "Sim", "Registro diário + intraday"],
           fr: ["Pas", "Oui", "Journal quotidien + intraday"],
+          pl: ["Kroki", "Tak", "Dziennik dzienny + wewnątrzdzienny"],
+          tr: ["Adımlar", "Evet", "Günlük kayıt + gün içi"],
         },
         {
           it: ["Distanza", "Sì", "Calcolata da passi"],
@@ -247,6 +309,8 @@ export const post: BlogPost = {
           de: ["Distanz", "Ja", "Aus Schritten berechnet"],
           pt: ["Distância", "Sim", "Calculada a partir dos passos"],
           fr: ["Distance", "Oui", "Calculée à partir des pas"],
+          pl: ["Dystans", "Tak", "Obliczany z kroków"],
+          tr: ["Mesafe", "Evet", "Adımlardan hesaplanır"],
         },
         {
           it: ["Calorie", "Sì", "Stima da attività"],
@@ -255,6 +319,8 @@ export const post: BlogPost = {
           de: ["Kalorien", "Ja", "Schätzung aus Aktivität"],
           pt: ["Calorias", "Sim", "Estimativa por atividade"],
           fr: ["Calories", "Oui", "Estimation par activité"],
+          pl: ["Kalorie", "Tak", "Szacowanie z aktywności"],
+          tr: ["Kalori", "Evet", "Aktivite tahmini"],
         },
         {
           it: ["Frequenza cardiaca", "Sì", "Log giornaliero + FC a riposo"],
@@ -263,6 +329,8 @@ export const post: BlogPost = {
           de: ["Herzfrequenz", "Ja", "Tagesprotokoll + Ruheherzfrequenz"],
           pt: ["Frequência cardíaca", "Sim", "Registro diário + frequência cardíaca em repouso"],
           fr: ["Fréquence cardiaque", "Oui", "Journal quotidien + fréquence cardiaque au repos"],
+          pl: ["Tętno", "Tak", "Dziennik dzienny + tętno spoczynkowe"],
+          tr: ["Kalp hızı", "Evet", "Günlük kayıt + dinlenme kalp hızı"],
         },
         {
           it: ["SpO2", "Sì", "Lettura spot e notturna"],
@@ -271,6 +339,8 @@ export const post: BlogPost = {
           de: ["SpO2", "Ja", "Einzelmessung und nächtliche Messung"],
           pt: ["SpO2", "Sim", "Leitura pontual e noturna"],
           fr: ["SpO2", "Oui", "Mesure ponctuelle et nocturne"],
+          pl: ["SpO2", "Tak", "Odczyt punktowy i nocny"],
+          tr: ["SpO2", "Evet", "Anlık ve gece ölçümü"],
         },
         {
           it: ["HRV", "Sì", "Indice HF/RMSSD semplificato"],
@@ -279,6 +349,8 @@ export const post: BlogPost = {
           de: ["HRV", "Ja", "Vereinfachter HF/RMSSD-Index"],
           pt: ["HRV", "Sim", "Índice HF/RMSSD simplificado"],
           fr: ["HRV", "Oui", "Indice HF/RMSSD simplifié"],
+          pl: ["HRV", "Tak", "Uproszczony wskaźnik HF/RMSSD"],
+          tr: ["HRV", "Evet", "Basitleştirilmiş HF/RMSSD endeksi"],
         },
         {
           it: [
@@ -310,6 +382,16 @@ export const post: BlogPost = {
             "Stress",
             "Oui",
             "Score 0-100 dérivé de la HRV et de la fréquence cardiaque (non disponible sur les montres connectées via Health Connect)",
+          ],
+          pl: [
+            "Stres",
+            "Tak",
+            "Wynik 0-100 wyliczany z HRV i HR (niedostępny na smartwatchach przez Health Connect)",
+          ],
+          tr: [
+            "Stres",
+            "Evet",
+            "HRV ve HR'den türetilen 0-100 skoru (smartwatch'larda Health Connect üzerinden mevcut değil)",
           ],
         },
         {
@@ -343,6 +425,16 @@ export const post: BlogPost = {
             "Oui",
             "Indicateur coloré (vert >50%, jaune 20-49%, rouge <20%) + estimation d'autonomie",
           ],
+          pl: [
+            "Bateria pierścienia",
+            "Tak",
+            "Wskaźnik kolorowy (zielony >50%, żółty 20-49%, czerwony <20%) + szacunek czasu pracy",
+          ],
+          tr: [
+            "Yüzük pili",
+            "Evet",
+            "Renkli gösterge (yeşil >50%, sarı 20-49%, kırmızı <20%) + çalışma süresi tahmini",
+          ],
         },
         {
           it: [
@@ -375,6 +467,16 @@ export const post: BlogPost = {
             "Oui",
             "Léger, profond, REM et éveil : la bague est la spécialiste du sommeil et domine la nuit",
           ],
+          pl: [
+            "Sen z fazami",
+            "Tak",
+            "Lekki, głęboki, REM i przebudzenie: pierścień to specjalista snu i dominuje nocą",
+          ],
+          tr: [
+            "Evreli uyku",
+            "Evet",
+            "Hafif, derin, REM ve uyanık: yüzük uyku uzmanıdır ve geceleri üstündür",
+          ],
         },
       ],
     },
@@ -388,6 +490,8 @@ export const post: BlogPost = {
         de: "Das typische Problem: Daten bleiben in der Hersteller-App eingesperrt",
         pt: "O problema típico: os dados ficam presos no app do fabricante",
         fr: "Le problème habituel : les données enfermées dans l'app du fabricant",
+        pl: "Typowy problem: dane zamknięte w aplikacji producenta",
+        tr: "Yaygın sorun: veriler companion uygulamasına kilitli",
       },
     },
     {
@@ -399,6 +503,8 @@ export const post: BlogPost = {
         de: "Wer einen Colmi R02 gekauft hat, kennt das Problem: Die Hersteller-App (QRing oder eine ähnliche Variante, je nach Klon) zeigt die Daten, exportiert sie aber in keinem nützlichen Format. Keine Health Connect-Integration, keine öffentliche API, kein vernünftiger CSV-Export. Die Daten bleiben im Ökosystem der Hersteller-App, getrennt von allem anderen.",
         pt: "Quem comprou um Colmi R02 já sabe: o app do fabricante (chamado QRing ou algo semelhante, dependendo do clone) mostra os dados, mas não os exporta em nenhum formato útil. Sem integração com Health Connect, sem API pública, sem exportação CSV decente. Os dados ficam dentro do ecossistema do app, isolados de tudo o mais.",
         fr: "Quiconque a acheté un Colmi R02 connaît le problème : l'app compagnon (appelée QRing ou quelque chose de similaire selon le clone) affiche les données mais ne les exporte dans aucun format utile. Pas d'intégration avec Health Connect, pas d'API publique, pas d'export CSV correct. Les données restent dans l'écosystème de l'app compagnon, isolées du reste.",
+        pl: "Każdy, kto kupił Colmi R02, zna ten problem: aplikacja companion (zwana QRing lub czymś podobnym, w zależności od klonu) pokazuje dane, ale nie eksportuje ich w żadnym użytecznym formacie. Brak integracji z Health Connect, brak publicznego API, brak przyzwoitego eksportu CSV. Dane pozostają w ekosystemie aplikacji companion, odizolowane od reszty.",
+        tr: "Colmi R02 alan herkes bu durumu bilir: companion uygulama (klona göre QRing veya benzeri bir isimle anılır) verileri gösterir ama hiçbir kullanışlı formatta dışa aktarmaz. Health Connect entegrasyonu yok, herkese açık API yok, düzgün CSV dışa aktarımı yok. Veriler companion uygulamanın ekosisteminde kalır, diğer her şeyden kopuk.",
       },
     },
     {
@@ -410,6 +516,8 @@ export const post: BlogPost = {
         de: "Das praktische Ergebnis: Wenn du auch ein Smartwatch besitzt, öffnest du am Ende zwei Apps, versuchst manuell zusammenzusetzen, was tagsüber passiert ist, und verlierst den kombinierten Wert beider Geräte. Ring in der Nacht, Smartwatch am Tag: Das macht nur Sinn, wenn die Daten an einem Ort zusammenkommen.",
         pt: "O resultado prático: se você também tem um smartwatch, acaba abrindo dois apps, tentando juntar manualmente o que aconteceu durante o dia e perdendo o valor combinado de ambos os dispositivos. Anel à noite, smartwatch durante o dia: só faz sentido se os dados acabarem em um único lugar.",
         fr: "Le résultat pratique : si vous possédez aussi une montre connectée, vous finissez par ouvrir deux apps, essayer de reconstituer manuellement ce qui s'est passé dans la journée, et perdre la valeur combinée des deux appareils. Bague la nuit, montre le jour : cela n'a de sens que si les données se retrouvent au même endroit.",
+        pl: "Praktyczny wynik: jeśli masz też smartwatch, kończysz z dwoma aplikacjami, ręcznie próbując złożyć do kupy, co działo się w ciągu dnia, i tracisz łączną wartość obu urządzeń. Pierścień nocą, smartwatch w dzień: to ma sens tylko wtedy, gdy dane trafiają w jedno miejsce.",
+        tr: "Pratik sonuç: bir de smartwatch'unuz varsa, iki uygulama açıp gün içinde neler olduğunu manuel olarak birleştirmeye çalışırsınız ve her iki cihazın birleşik değerini kaybedersiniz. Gece yüzük, gündüz smartwatch: bu yalnızca veriler tek bir yerde buluştuğunda anlam ifade eder.",
       },
     },
     {
@@ -422,6 +530,8 @@ export const post: BlogPost = {
         de: "Der FitMesh-Ansatz: direktes Bluetooth und Datenzusammenführung mehrerer Geräte",
         pt: "A abordagem FitMesh: Bluetooth direto e fusão de múltiplos dispositivos",
         fr: "L'approche FitMesh : Bluetooth direct et fusion multi-appareils",
+        pl: "Rozwiązanie FitMesh: Bluetooth bezpośredni i fuzja wielu urządzeń",
+        tr: "FitMesh yaklaşımı: doğrudan Bluetooth ve çoklu cihaz birleştirmesi",
       },
     },
     {
@@ -433,6 +543,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync verbindet sich direkt über Bluetooth mit dem Colmi R02/R03, ohne die Hersteller-App zu nutzen. Health Connect ist nicht beteiligt (das BLE-Protokoll des Rings verwendet nicht die Standard-Gesundheitsdatenschicht von Android). Die App lädt Daten stapelweise herunter, wenn der Ring in der Nähe ist, verarbeitet sie und fügt sie in dieselbe Dashboard ein, wo bereits deine Daten von Galaxy Watch, Pixel Watch, Garmin oder Amazfit zu sehen sind.",
         pt: "FitMesh Sync conecta-se ao Colmi R02/R03 diretamente via Bluetooth, sem passar pelo app do fabricante. Health Connect não está envolvido (o protocolo BLE do anel não usa a camada padrão de dados de saúde do Android). O app baixa os dados em lotes quando o anel está por perto, os processa e os insere no mesmo painel onde já estão os dados do seu Galaxy Watch, Pixel Watch, Garmin ou Amazfit.",
         fr: "FitMesh Sync se connecte au Colmi R02/R03 directement via Bluetooth, sans passer par l'app du fabricant. Health Connect n'est pas impliqué (le protocole BLE de la bague n'utilise pas la couche standard de données de santé d'Android). L'app télécharge les données par lots lorsque la bague est à proximité, les traite et les intègre dans le même tableau de bord où se trouvent déjà vos données de Galaxy Watch, Pixel Watch, Garmin ou Amazfit.",
+        pl: "FitMesh Sync łączy się z Colmi R02/R03 bezpośrednio przez Bluetooth, bez przechodzenia przez aplikację producenta. Health Connect nie jest zaangażowany (protokół BLE pierścienia nie używa standardowej warstwy danych zdrowotnych Androida). Aplikacja pobiera dane partiami, gdy pierścień jest w pobliżu, przetwarza je i umieszcza w tym samym panelu, gdzie już widoczne są dane z Galaxy Watch, Pixel Watch, Garmin lub Amazfit.",
+        tr: "FitMesh Sync, Colmi R02/R03'e üretici uygulaması üzerinden geçmeden doğrudan Bluetooth ile bağlanır. Health Connect dahil değildir (yüzüğün BLE protokolü Android'in standart sağlık veri katmanını kullanmaz). Uygulama, yüzük yakındayken verileri toplu olarak indirir, işler ve Galaxy Watch, Pixel Watch, Garmin veya Amazfit verilerinizin zaten bulunduğu panele entegre eder.",
       },
     },
     {
@@ -445,6 +557,8 @@ export const post: BlogPost = {
         de: "Datenzusammenführung mehrerer Geräte: keine doppelten Zählungen",
         pt: "Fusão de múltiplos dispositivos: sem contagens duplas",
         fr: "Fusion multi-appareils : pas de doubles comptages",
+        pl: "Fuzja wielu urządzeń: bez podwójnego liczenia",
+        tr: "Çoklu cihaz birleştirmesi: çift sayma yok",
       },
     },
     {
@@ -456,6 +570,8 @@ export const post: BlogPost = {
         de: "Der eigentliche Wert liegt nicht nur im \"Daten sehen\": Es geht um die intelligente Zusammenführung verschiedener Quellen. Das typische Setup für jemanden, der einen Ring und ein Smartwatch verwendet, ist: Ring in der Nacht (besser schlafen ohne Smartwatch), Smartwatch am Tag (GPS, Trainings, Benachrichtigungen). Das Problem bei dieser Konfiguration, wenn sie manuell verwaltet wird, ist die Doppelzählung: Wenn beide Geräte Schritte im gleichen Zeitfenster aufzeichnen, ergeben sich falsche Zahlen durch Addition.",
         pt: "O valor real não é apenas 'ver os dados': é a fusão inteligente entre fontes diferentes. O esquema típico de quem usa um anel e um smartwatch é: anel durante a noite (dorme melhor sem smartwatch), smartwatch durante o dia (GPS, treinos, notificações). O problema dessa configuração, se gerenciada manualmente, é a contagem dupla: se ambos os dispositivos registram passos na mesma janela de tempo, somá-los dá números errados.",
         fr: "La vraie valeur n'est pas seulement de \"voir les données\" : c'est la fusion intelligente entre plusieurs sources. Le schéma typique d'une personne utilisant une bague et une montre connectée est : la bague la nuit (meilleur sommeil sans montre au poignet), la montre le jour (GPS, séances d'entraînement, notifications). Le problème de cette configuration, si elle est gérée manuellement, est le double comptage : si les deux appareils enregistrent des pas sur la même fenêtre temporelle, les additionner donne de mauvais chiffres.",
+        pl: "Prawdziwa wartość to nie tylko „widzenie danych”: to inteligentna fuzja wielu źródeł. Typowy schemat użytkownika pierścienia i smartwatcha wygląda tak: pierścień przez noc (lepszy sen bez smartwatcha na nadgarstku), smartwatch w ciągu dnia (GPS, treningi, powiadomienia). Problem tej konfiguracji, zarządzanej ręcznie, to podwójne liczenie: jeśli oba urządzenia rejestrują kroki w tym samym oknie czasowym, ich sumowanie daje błędne liczby.",
+        tr: "Gerçek değer yalnızca 'verileri görmek' değil: birden fazla kaynaktan akıllı birleştirmedir. Yüzük ve smartwatch kullananların tipik düzeni şudur: gece yüzük (bileğinde smartwatch olmadan daha iyi uyku), gündüz smartwatch (GPS, antrenmanlar, bildirimler). Manuel yönetilen bu yapının sorunu çift saymadır: her iki cihaz da aynı zaman diliminde adım kaydettiğinde, bunları toplamak yanlış sayılar verir.",
       },
     },
     {
@@ -467,6 +583,8 @@ export const post: BlogPost = {
         de: "FitMesh löst dies, indem Prioritäten auf Zeitfensterebene vergeben werden: Für jedes Intervall, in dem sowohl das Smartwatch als auch der Ring Schritte aufgezeichnet haben, wird die als primär konfigurierte Quelle verwendet (oder die mit mehr Daten, wenn keine Priorität gesetzt wurde). Für nächtliche HRV und SpO2, wo der Ring typischerweise die einzige Quelle ist, zeigt FitMesh die Ring-Daten ohne Konflikte.",
         pt: "FitMesh resolve isso atribuindo prioridade no nível de janela de tempo: para cada intervalo, se tanto o smartwatch quanto o anel registraram passos, a fonte configurada como primária é usada (ou a que tem mais dados, se você não definiu uma prioridade). Para HRV e SpO2 noturnos, onde o anel é tipicamente a fonte exclusiva, FitMesh exibe os dados do anel sem conflitos.",
         fr: "FitMesh gère cela en attribuant une priorité au niveau de la fenêtre temporelle : pour chaque intervalle, si la montre et la bague ont toutes deux enregistré des pas, la source configurée comme principale est utilisée (ou celle avec le plus de données, si vous n'avez pas défini de priorité). Pour la HRV et le SpO2 nocturnes, où la bague est généralement la source exclusive, FitMesh affiche les données de la bague sans conflits.",
+        pl: "FitMesh rozwiązuje to przez przydzielanie priorytetu na poziomie okna czasowego: dla każdego interwału, jeśli zarówno smartwatch, jak i pierścień zarejestrowały kroki, używane jest skonfigurowane źródło główne (lub to z większą ilością danych, jeśli nie ustawiłeś priorytetu). Dla nocnego HRV i SpO2, gdzie pierścień jest zazwyczaj jedynym źródłem, FitMesh wyświetla dane pierścienia bez konfliktów.",
+        tr: "FitMesh bunu zaman dilimi düzeyinde öncelik atayarak çözer: her aralık için, hem smartwatch hem de yüzük adım kaydettiyse, yapılandırılmış birincil kaynak kullanılır (veya öncelik ayarlamadıysanız daha fazla veri olan). Yüzüğün genellikle tek kaynak olduğu gece HRV ve SpO2 için FitMesh, yüzük verilerini çakışma olmadan gösterir.",
       },
     },
     {
@@ -479,6 +597,8 @@ export const post: BlogPost = {
         de: "Akku und Benachrichtigungen: kein leerer Ring mehr ohne Vorwarnung",
         pt: "Bateria e notificações: nunca mais anel descarregado de surpresa",
         fr: "Batterie et notifications : plus jamais de bague déchargée par surprise",
+        pl: "Bateria i powiadomienia: nigdy więcej niespodziewanego rozładowania pierścienia",
+        tr: "Pil ve bildirimler: artık sürpriz boş yüzük yok",
       },
     },
     {
@@ -490,6 +610,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest den Ladestand des Rings bei jeder Synchronisierung und zeigt ihn in der Dashboard mit einem farbcodierten Indikator: grün wenn der Akku über 50% liegt, gelb im Bereich 20-49%, rot unter 20%. Neben dem Prozentwert berechnet die Dashboard eine verbleibende Laufzeitschätzung auf Basis des tatsächlichen Verbrauchs der letzten Tage, kein fester Datenblatt-Wert, sondern eine auf den tatsächlichen Gebrauch kalibrierte Vorhersage.",
         pt: "FitMesh Sync lê o nível de carga do anel a cada sincronização e o exibe no painel com um indicador colorido: verde quando a bateria está acima de 50%, amarelo na faixa de 20-49%, vermelho abaixo de 20%. Junto ao valor percentual, o painel calcula uma estimativa de autonomia restante com base no consumo real dos últimos dias, não um valor fixo de ficha técnica, mas uma previsão calibrada para o uso real.",
         fr: "FitMesh Sync lit le niveau de charge de la bague à chaque synchronisation et l'affiche dans le tableau de bord avec un indicateur à code couleur : vert quand la batterie dépasse 50%, jaune dans la plage 20-49%, rouge en dessous de 20%. À côté du pourcentage, le tableau de bord calcule une estimation d'autonomie restante basée sur la consommation réelle des derniers jours, pas une valeur fixe de fiche technique, mais une prévision calibrée sur l'utilisation réelle.",
+        pl: "FitMesh Sync odczytuje poziom naładowania pierścienia przy każdej synchronizacji i wyświetla go w panelu z kolorowym wskaźnikiem: zielony gdy bateria przekracza 50%, żółty w przedziale 20-49%, czerwony poniżej 20%. Oprócz wartości procentowej panel oblicza szacowany pozostały czas pracy na podstawie rzeczywistego zużycia z ostatnich dni — nie stałą wartość z karty katalogowej, lecz prognozę skalibrowaną na rzeczywiste użytkowanie.",
+        tr: "FitMesh Sync, her senkronizasyonda yüzüğün şarj seviyesini okur ve bunu panelde renkli bir göstergeyle gösterir: pil %50'nin üzerindeyken yeşil, %20-49 aralığında sarı, %20'nin altında kırmızı. Yüzde değerinin yanı sıra panel, son günlerdeki gerçek tüketime dayalı kalan çalışma süresi tahmini hesaplar — veri sayfasındaki sabit bir değer değil, gerçek kullanıma göre kalibre edilmiş bir tahmin.",
       },
     },
     {
@@ -501,6 +623,8 @@ export const post: BlogPost = {
         de: "Drei automatische Benachrichtigungen verwalten den Ladezyklus, ohne dass du aktiv nachschauen musst: eine wenn der Ring 100% erreicht (du kannst ihn vom Ladegerät trennen), eine bei 50% (Halbzeit, ein guter Moment, um die nächste Ladung zu planen) und eine bei 25% (Laden bald empfohlen). So weißt du immer, wann du aufladen musst, ohne eine andere App öffnen zu müssen.",
         pt: "Três notificações automáticas gerenciam o ciclo de carga sem exigir monitoramento ativo: uma quando o anel atinge 100% (você pode desconectá-lo do carregador), uma a 50% (ponto médio, um bom momento para planejar a próxima carga) e uma a 25% (carga recomendada em breve). Assim, você sempre sabe quando recarregar sem abrir nenhum outro app.",
         fr: "Trois notifications automatiques gèrent le cycle de charge sans surveillance active : une quand la bague atteint 100% (vous pouvez la débrancher du chargeur), une à 50% (mi-chemin, bon moment pour planifier la prochaine charge) et une à 25% (charge recommandée bientôt). Vous savez ainsi toujours quand recharger sans ouvrir une autre app.",
+        pl: "Trzy automatyczne powiadomienia zarządzają cyklem ładowania bez aktywnego monitorowania: jedno gdy pierścień osiągnie 100% (możesz odłączyć go od ładowarki), jedno przy 50% (połowa drogi, dobry moment na zaplanowanie kolejnego ładowania) i jedno przy 25% (ładowanie zalecane wkrótce). Zawsze wiesz, kiedy ładować, nie otwierając żadnej innej aplikacji.",
+        tr: "Üç otomatik bildirim, aktif izleme gerektirmeden şarj döngüsünü yönetir: yüzük %100'e ulaştığında bir tane (şarj cihazından çıkarabilirsiniz), %50'de bir tane (yarı yol, bir sonraki şarjı planlamak için iyi an) ve %25'te bir tane (yakında şarj önerilir). Başka bir uygulama açmadan her zaman ne zaman şarj edeceğinizi bilirsiniz.",
       },
     },
     {
@@ -513,6 +637,8 @@ export const post: BlogPost = {
         de: "Stress 0-100: die Metrik, die dein Smartwatch nicht über Health Connect liefert",
         pt: "Stress 0-100: a métrica que seu smartwatch não fornece via Health Connect",
         fr: "Stress 0-100 : la métrique que votre montre connectée ne fournit pas via Health Connect",
+        pl: "Stres 0-100: metryka, której Twój smartwatch nie udostępnia przez Health Connect",
+        tr: "Stres 0-100: smartwatch'unuzun Health Connect üzerinden sağlamadığı metrik",
       },
     },
     {
@@ -524,6 +650,8 @@ export const post: BlogPost = {
         de: "Der Colmi-Ring berechnet einen Stresswert von 0 bis 100, abgeleitet aus der Herzfrequenzvariabilität (HRV) und der aktuellen Herzfrequenz. Niedrige Werte zeigen einen Erholungs- und Entspannungszustand an; hohe Werte zeigen physiologische Aktivierung durch körperliche Anstrengung, kognitiven Stress oder unzureichenden Schlaf.",
         pt: "O anel Colmi calcula uma pontuação de stress de 0 a 100, derivada da variabilidade da frequência cardíaca (HRV) e da frequência cardíaca instantânea. Valores baixos indicam um estado de recuperação e relaxamento; valores altos indicam ativação fisiológica por esforço físico, stress cognitivo ou sono insuficiente.",
         fr: "La bague Colmi calcule un score de stress de 0 à 100, dérivé de la variabilité de la fréquence cardiaque (HRV) et de la fréquence cardiaque instantanée. Les valeurs faibles indiquent un état de récupération et de relaxation; les valeurs élevées indiquent une activation physiologique due à l'effort physique, au stress cognitif ou à un sommeil insuffisant.",
+        pl: "Pierścień Colmi oblicza wynik stresu od 0 do 100, oparty na zmienności rytmu serca (HRV) i chwilowej częstości akcji serca. Niskie wartości wskazują stan regeneracji i relaksu; wysokie wartości wskazują fizjologiczną aktywację wynikającą z wysiłku fizycznego, stresu poznawczego lub niewystarczającego snu.",
+        tr: "Colmi yüzüğü, kalp hızı değişkenliğinden (HRV) ve anlık kalp hızından türetilen 0-100 arası bir stres skoru hesaplar. Düşük değerler toparlanma ve rahatlama durumunu; yüksek değerler ise fiziksel efor, bilişsel stres veya yetersiz uykudan kaynaklanan fizyolojik aktivasyonu gösterir.",
       },
     },
     {
@@ -536,6 +664,8 @@ export const post: BlogPost = {
         de: "Warum dein Smartwatch dies nicht über Health Connect bereitstellt",
         pt: "Por que seu smartwatch não fornece isso via Health Connect",
         fr: "Pourquoi votre montre connectée ne fournit pas cela via Health Connect",
+        pl: "Dlaczego Twój smartwatch nie udostępnia tego przez Health Connect",
+        tr: "Smartwatch'unuz bunu neden Health Connect üzerinden sağlamıyor",
       },
       body: {
         it: "Gli smartwatch (Galaxy Watch, Pixel Watch, Garmin) misurano il proprio score di stress internamente, ma Health Connect non include un tipo di dato standardizzato per lo stress. Ognuno tiene quella metrica chiusa nel proprio ecosistema. L'anello Colmi, letto via BLE diretto da FitMesh, porta quello score nella tua dashboard senza dipendere da Health Connect.",
@@ -544,6 +674,8 @@ export const post: BlogPost = {
         de: "Smartwatches (Galaxy Watch, Pixel Watch, Garmin) messen ihren eigenen Stresswert intern, aber Health Connect hat keinen standardisierten Datentyp für Stress. Jeder Hersteller hält diese Metrik in seinem eigenen Ökosystem eingeschlossen. Der Colmi-Ring, der von FitMesh direkt via BLE ausgelesen wird, bringt diesen Score in deine Dashboard, ohne auf Health Connect angewiesen zu sein.",
         pt: "Smartwatches (Galaxy Watch, Pixel Watch, Garmin) medem sua própria pontuação de stress internamente, mas Health Connect não tem um tipo de dado padronizado para stress. Cada fabricante mantém essa métrica bloqueada em seu próprio ecossistema. O anel Colmi, lido diretamente via BLE pelo FitMesh, traz essa pontuação para o seu painel sem depender do Health Connect.",
         fr: "Les montres connectées (Galaxy Watch, Pixel Watch, Garmin) mesurent leur propre score de stress en interne, mais Health Connect n'a pas de type de données standardisé pour le stress. Chaque fabricant garde cette métrique enfermée dans son propre écosystème. La bague Colmi, lue via BLE direct par FitMesh, apporte ce score dans votre tableau de bord sans dépendre de Health Connect.",
+        pl: "Smartwatche (Galaxy Watch, Pixel Watch, Garmin) mierzą swój własny wynik stresu wewnętrznie, ale Health Connect nie ma standardowego typu danych dla stresu. Każdy producent trzyma tę metrykę zamkniętą w swoim ekosystemie. Pierścień Colmi, odczytywany przez FitMesh bezpośrednio przez BLE, przynosi ten wynik do Twojego panelu bez zależności od Health Connect.",
+        tr: "Smartwatch'lar (Galaxy Watch, Pixel Watch, Garmin) kendi stres skorlarını dahili olarak ölçer, ancak Health Connect'in stres için standartlaştırılmış bir veri türü yoktur. Her üretici bu metriği kendi ekosisteminde kilitli tutar. FitMesh tarafından doğrudan BLE üzerinden okunan Colmi yüzüğü, bu skoru Health Connect'e bağımlı olmadan panelinize getirir.",
       },
     },
     {
@@ -556,6 +688,8 @@ export const post: BlogPost = {
         de: "So verbindest du den Colmi R02 mit FitMesh: 3 Schritte",
         pt: "Como conectar o Colmi R02 ao FitMesh: 3 passos",
         fr: "Comment connecter le Colmi R02 à FitMesh : 3 étapes",
+        pl: "Jak połączyć Colmi R02 z FitMesh: 3 kroki",
+        tr: "Colmi R02'yi FitMesh'e nasıl bağlarsınız: 3 adım",
       },
     },
     {
@@ -567,6 +701,8 @@ export const post: BlogPost = {
         de: "Der Verbindungsvorgang wird unkompliziert sein, sobald die Funktion verfügbar ist:",
         pt: "O processo de conexão será direto assim que a funcionalidade for lançada:",
         fr: "Le processus de connexion sera simple une fois la fonctionnalité disponible :",
+        pl: "Proces połączenia będzie prosty po udostępnieniu funkcji:",
+        tr: "Özellik yayınlandıktan sonra bağlantı süreci basit olacak:",
       },
     },
     {
@@ -603,6 +739,16 @@ export const post: BlogPost = {
           "**Appuyez sur \"Connecter la bague\"**. FitMesh recherche les appareils BLE à proximité compatibles avec le protocole Colmi. Assurez-vous que la bague est chargée et portée (ou tenue dans la main).",
           "**Confirmez le couplage**. Pas de code PIN, pas de connexion : le lien est Bluetooth d'appareil à appareil. À partir de ce moment, FitMesh synchronise la bague automatiquement.",
         ],
+        pl: [
+          "**Otwórz FitMesh Sync** i przejdź do Ustawienia > Urządzenia. Znajdź nową sekcję „Inteligentne pierścienie (BLE)”.",
+          "**Dotknij „Połącz pierścień”**. FitMesh wyszukuje pobliskie urządzenia BLE kompatybilne z protokołem Colmi. Upewnij się, że pierścień jest naładowany i noszony (lub trzymany w dłoni).",
+          "**Potwierdź parowanie**. Bez kodu PIN, bez logowania: połączenie jest Bluetooth urządzenie-urządzenie. Od tej chwili FitMesh synchronizuje pierścień automatycznie.",
+        ],
+        tr: [
+          "**FitMesh Sync'i açın** ve Ayarlar > Cihazlar'a gidin. Yeni \"Akıllı yüzükler (BLE)\" bölümünü bulun.",
+          "**\"Yüzüğü bağla\"ya dokunun**. FitMesh, yakındaki Colmi protokolüyle uyumlu BLE cihazlarını tarar. Yüzüğün şarjlı ve takılı (ya da elde tutulur) olduğundan emin olun.",
+          "**Eşleştirmeyi onaylayın**. PIN kodu yok, giriş yok: bağlantı Bluetooth cihaz-cihaz arasındadır. O andan itibaren FitMesh yüzüğü otomatik olarak senkronize eder.",
+        ],
       },
     },
     {
@@ -614,6 +760,8 @@ export const post: BlogPost = {
         de: "Die erste Synchronisierung lädt alle historischen Daten herunter, die auf dem Ring verfügbar sind (typischerweise 7 bis 30 Tage je nach Modell). Danach erfolgt die Synchronisierung automatisch, sobald das Telefon in der Nähe ist.",
         pt: "A primeira sincronização baixa todos os dados históricos disponíveis no anel (tipicamente 7 a 30 dias, dependendo do modelo). Depois disso, a sincronização é automática sempre que o telefone estiver por perto.",
         fr: "La première synchronisation télécharge toutes les données historiques disponibles sur la bague (généralement 7 à 30 jours selon le modèle). Ensuite, la synchronisation est automatique chaque fois que le téléphone est à proximité.",
+        pl: "Pierwsza synchronizacja pobiera wszystkie historyczne dane dostępne na pierścieniu (zazwyczaj 7-30 dni w zależności od modelu). Potem synchronizacja odbywa się automatycznie za każdym razem, gdy telefon jest w pobliżu.",
+        tr: "İlk senkronizasyon, yüzükteki mevcut tüm geçmiş verileri indirir (modele bağlı olarak genellikle 7-30 gün). Bundan sonra, telefon yakında olduğunda senkronizasyon otomatik gerçekleşir.",
       },
     },
     {
@@ -626,6 +774,8 @@ export const post: BlogPost = {
         de: "Funktion in privater Beta",
         pt: "Funcionalidade em beta privado",
         fr: "Fonctionnalité en bêta privée",
+        pl: "Funkcja w prywatnej becie",
+        tr: "Özellik özel betada",
       },
       body: {
         it: "La feature anello Colmi è in fase di sviluppo attivo. Sarà disponibile agli utenti della beta privata non appena rilasciata. Iscriviti alla beta su /beta per accedervi al lancio.",
@@ -634,6 +784,8 @@ export const post: BlogPost = {
         de: "Die Colmi-Ring-Funktion befindet sich in aktiver Entwicklung. Sie wird für private Beta-Nutzer verfügbar sein, sobald sie veröffentlicht wird. Melde dich unter /beta für die Beta an, um beim Launch Zugang zu erhalten.",
         pt: "A funcionalidade do anel Colmi está em desenvolvimento ativo. Estará disponível para usuários da beta privada assim que for lançada. Cadastre-se na beta em /beta para ter acesso no lançamento.",
         fr: "La fonctionnalité bague Colmi est en développement actif. Elle sera disponible pour les utilisateurs de la bêta privée dès sa sortie. Inscrivez-vous à la bêta sur /beta pour y avoir accès au lancement.",
+        pl: "Funkcja pierścienia Colmi jest w aktywnym rozwoju. Będzie dostępna dla użytkowników prywatnej bety natychmiast po wydaniu. Zapisz się do bety na /beta, aby uzyskać dostęp przy starcie.",
+        tr: "Colmi yüzüğü özelliği aktif olarak geliştiriliyor. Yayınlandıktan hemen sonra özel beta kullanıcılarına sunulacak. Başlatma sırasında erişim için /beta adresinden betaya kaydolun.",
       },
     },
     {
@@ -645,6 +797,8 @@ export const post: BlogPost = {
         de: "Hast du einen Colmi R02 oder einen OEM-Klon?",
         pt: "Tem um Colmi R02 ou um clone OEM?",
         fr: "Vous avez un Colmi R02 ou un clone OEM ?",
+        pl: "Masz Colmi R02 lub klon OEM?",
+        tr: "Bir Colmi R02 veya OEM klonu var mı?",
       },
       body: {
         it: "FitMesh Sync è in beta privata. I primi 1000 utenti ottengono 1 anno di Pro gratis, incluso l'accesso alla feature anello Colmi non appena rilasciata. Iscriviti ora per tenere il posto.",
@@ -653,6 +807,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync ist in der privaten Beta. Die ersten 1.000 Nutzer erhalten 1 Jahr Pro kostenlos, einschließlich Zugang zur Colmi-Ring-Funktion, sobald sie verfügbar ist. Jetzt anmelden und Platz sichern.",
         pt: "FitMesh Sync está em beta privado. Os primeiros 1.000 usuários recebem 1 ano de Pro grátis, incluindo acesso à funcionalidade do anel Colmi assim que for lançada. Cadastre-se agora para garantir sua vaga.",
         fr: "FitMesh Sync est en bêta privée. Les 1 000 premiers utilisateurs bénéficient de 1 an de Pro gratuit, y compris l'accès à la fonctionnalité bague Colmi dès sa sortie. Inscrivez-vous maintenant pour garder votre place.",
+        pl: "FitMesh Sync jest w prywatnej becie. Pierwszych 1000 użytkowników otrzymuje 1 rok Pro za darmo, w tym dostęp do funkcji pierścienia Colmi natychmiast po wydaniu. Zapisz się teraz, aby zachować swoje miejsce.",
+        tr: "FitMesh Sync özel betada. İlk 1.000 kullanıcı, Colmi yüzüğü özelliğine yayınlandığında erişim dahil 1 yıl Pro'yu ücretsiz alır. Yerinizi korumak için şimdi kaydolun.",
       },
       ctaLabel: {
         it: "Iscriviti alla beta →",
@@ -661,6 +817,8 @@ export const post: BlogPost = {
         de: "Zur Beta anmelden →",
         pt: "Cadastre-se na beta →",
         fr: "S'inscrire à la bêta →",
+        pl: "Zapisz się do bety →",
+        tr: "Betaya kaydol →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -677,6 +835,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
     },
     {
@@ -730,6 +890,22 @@ export const post: BlogPost = {
           "La fusion multi-appareils (bague la nuit, montre connectée le jour) élimine les doubles comptages et unifie tout dans un tableau de bord.",
           "Vos données vont sur votre compte FitMesh dans l'UE, pas sur les serveurs du fabricant de la bague.",
         ],
+        pl: [
+          "Colmi R02/R03 i kompatybilne klony OEM łączą się z FitMesh Sync przez Bluetooth bezpośredni, bez aplikacji producenta.",
+          "Odczytywane metryki: kroki, dystans, kalorie, tętno, tętno spoczynkowe, SpO2, HRV, stres (0-100), sen z fazami (lekki, głęboki, REM, przebudzenie), bateria.",
+          "Wskaźnik baterii jest kolorowy (zielony >50%, żółty 20-49%, czerwony <20%) ze szacunkiem czasu pracy opartym na rzeczywistym zużyciu i powiadomieniami przy pełnym naładowaniu, 50% i 25%.",
+          "Wynik stresu 0-100 to wyłączna metryka pierścienia, której smartwatche nie ujawniają przez Health Connect.",
+          "Fuzja wielu urządzeń (pierścień nocą, smartwatch w ciągu dnia) eliminuje podwójne liczenie i łączy wszystko w jednym panelu.",
+          "Twoje dane trafiają na Twoje konto FitMesh w UE, nie na serwery producenta pierścienia.",
+        ],
+        tr: [
+          "Colmi R02/R03 ve uyumlu OEM klonlar, üretici uygulaması olmadan doğrudan Bluetooth üzerinden FitMesh Sync'e bağlanır.",
+          "Okunan metrikler: adımlar, mesafe, kalori, kalp hızı, dinlenme kalp hızı, SpO2, HRV, stres (0-100), evreli uyku (hafif, derin, REM, uyanık), pil.",
+          "Pil göstergesi renklidir (yeşil >%50, sarı %20-49, kırmızı <%20); gerçek tüketime dayalı çalışma süresi tahmini ve tam şarjda, %50 ve %25'te bildirimler sunar.",
+          "0-100 stres skoru, smartwatch'ların Health Connect üzerinden sunmadığı münhasır bir yüzük metriğidir.",
+          "Çoklu cihaz birleştirmesi (gece yüzük, gündüz smartwatch) çift saymayı ortadan kaldırır ve her şeyi tek bir panelde birleştirir.",
+          "Verileriniz yüzük üreticisinin sunucularına değil, AB'deki FitMesh hesabınıza gider.",
+        ],
       },
     },
   ],
@@ -742,6 +918,8 @@ export const post: BlogPost = {
         de: "Funktioniert es auch mit dem Colmi R03 und OEM-Klonen?",
         pt: "Funciona também com o Colmi R03 e os clones OEM?",
         fr: "Cela fonctionne-t-il aussi avec le Colmi R03 et les clones OEM ?",
+        pl: "Czy działa też z Colmi R03 i klonami OEM?",
+        tr: "Colmi R03 ve OEM klonlarla da çalışıyor mu?",
       },
       a: {
         it: "Sì. FitMesh usa il protocollo BLE condiviso da Colmi R02, R03 e diversi anelli OEM con lo stesso firmware. Se il tuo anello usa l'app QRing o un'app companion con la stessa interfaccia, è probabile che sia compatibile. La lista aggiornata dei modelli confermati sarà sulla pagina integrazioni al momento del rilascio.",
@@ -750,6 +928,8 @@ export const post: BlogPost = {
         de: "Ja. FitMesh verwendet das BLE-Protokoll, das vom Colmi R02, R03 und mehreren OEM-Ringen mit derselben Firmware geteilt wird. Wenn dein Ring die QRing-App oder eine Hersteller-App mit der gleichen Oberfläche verwendet, ist er wahrscheinlich kompatibel. Die aktualisierte Liste bestätigter Modelle wird zum Launch auf der Integrationsseite zu finden sein.",
         pt: "Sim. FitMesh usa o protocolo BLE compartilhado pelo Colmi R02, R03 e vários anéis OEM com o mesmo firmware. Se o seu anel usa o app QRing ou um app companheiro com a mesma interface, é provável que seja compatível. A lista atualizada de modelos confirmados estará na página de integrações no lançamento.",
         fr: "Oui. FitMesh utilise le protocole BLE partagé par le Colmi R02, R03 et plusieurs bagues OEM utilisant le même firmware. Si votre bague utilise l'app QRing ou une app compagnon avec la même interface, elle est probablement compatible. La liste mise à jour des modèles confirmés sera sur la page des intégrations au lancement.",
+        pl: "Tak. FitMesh używa protokołu BLE wspólnego dla Colmi R02, R03 i kilku pierścieni OEM z tym samym firmware. Jeśli Twój pierścień używa aplikacji QRing lub aplikacji companion z takim samym układem interfejsu, jest prawdopodobnie kompatybilny. Zaktualizowana lista potwierdzonych modeli będzie na stronie integracji w dniu premiery.",
+        tr: "Evet. FitMesh, Colmi R02, R03 ve aynı firmware'i kullanan çeşitli OEM yüzükler tarafından paylaşılan BLE protokolünü kullanır. Yüzüğünüz QRing uygulamasını veya aynı arayüz düzenine sahip bir companion uygulamasını kullanıyorsa, büyük olasılıkla uyumludur. Onaylanan modellerin güncel listesi lansman sırasında entegrasyonlar sayfasında yer alacak.",
       },
     },
     {
@@ -760,6 +940,8 @@ export const post: BlogPost = {
         de: "Muss ich die Hersteller-App installiert lassen?",
         pt: "Preciso manter o app do fabricante instalado?",
         fr: "Dois-je garder l'app du fabricant installée ?",
+        pl: "Czy muszę mieć zainstalowaną aplikację producenta?",
+        tr: "Üreticinin uygulamasını yüklü tutmam gerekiyor mu?",
       },
       a: {
         it: "No. FitMesh si connette all'anello direttamente via Bluetooth, scarica i dati grezzi e li elabora autonomamente. L'app companion del produttore non è richiesta. Se preferisci, puoi disinstallarla.",
@@ -768,6 +950,8 @@ export const post: BlogPost = {
         de: "Nein. FitMesh verbindet sich direkt über Bluetooth mit dem Ring, lädt die Rohdaten herunter und verarbeitet sie eigenständig. Die Hersteller-App ist nicht erforderlich. Du kannst sie gerne deinstallieren, wenn du möchtest.",
         pt: "Não. FitMesh se conecta ao anel diretamente via Bluetooth, baixa os dados brutos e os processa de forma autônoma. O app do fabricante não é necessário. Pode desinstalá-lo se quiser.",
         fr: "Non. FitMesh se connecte à la bague directement via Bluetooth, télécharge les données brutes et les traite de manière autonome. L'app compagnon du fabricant n'est pas requise. Vous pouvez la désinstaller si vous le souhaitez.",
+        pl: "Nie. FitMesh łączy się z pierścieniem bezpośrednio przez Bluetooth, pobiera surowe dane i przetwarza je autonomicznie. Aplikacja companion producenta nie jest wymagana. Możesz ją odinstalować, jeśli chcesz.",
+        tr: "Hayır. FitMesh, yüzüğe doğrudan Bluetooth üzerinden bağlanır, ham verileri indirir ve bağımsız olarak işler. Üreticinin companion uygulaması gerekmez. İsterseniz kaldırabilirsiniz.",
       },
     },
     {
@@ -778,6 +962,8 @@ export const post: BlogPost = {
         de: "Wie funktionieren der Batterieindikator und die Ladebenachrichtigungen?",
         pt: "Como funciona o indicador de bateria e as notificações de carga?",
         fr: "Comment fonctionnent l'indicateur de batterie et les notifications de charge ?",
+        pl: "Jak działa wskaźnik baterii i powiadomienia o ładowaniu?",
+        tr: "Pil göstergesi ve şarj bildirimleri nasıl çalışıyor?",
       },
       a: {
         it: "FitMesh scarica i dati in batch quando l'anello è nelle vicinanze, senza mantenere una connessione BLE continua. Ad ogni sync legge anche il livello di carica e lo mostra con un indicatore colorato: verde sopra il 50%, giallo tra 20-49%, rosso sotto il 20%. Ricevi notifiche automatiche a carica completa (100%), al 50% e al 25%, così non devi tenere d'occhio l'anello attivamente.",
@@ -786,6 +972,8 @@ export const post: BlogPost = {
         de: "FitMesh lädt Daten stapelweise herunter, wenn der Ring in der Nähe ist, ohne eine kontinuierliche BLE-Verbindung aufrechtzuerhalten. Bei jeder Synchronisierung liest es auch den Ladestand und zeigt ihn mit einem Farbindikator an: grün über 50%, gelb zwischen 20-49%, rot unter 20%. Du erhältst automatische Benachrichtigungen bei vollständiger Ladung (100%), bei 50% und bei 25%, sodass du den Ring nicht aktiv überwachen musst.",
         pt: "FitMesh baixa os dados em lotes quando o anel está por perto, sem manter uma conexão BLE contínua. A cada sincronização também lê o nível de carga e o exibe com um indicador colorido: verde acima de 50%, amarelo entre 20-49%, vermelho abaixo de 20%. Você recebe notificações automáticas em carga completa (100%), em 50% e em 25%, para não precisar monitorar o anel ativamente.",
         fr: "FitMesh télécharge les données par lots lorsque la bague est à proximité, sans maintenir une connexion BLE continue. À chaque synchronisation, il lit aussi le niveau de charge et l'affiche avec un indicateur coloré : vert au-dessus de 50%, jaune entre 20-49%, rouge en dessous de 20%. Vous recevez des notifications automatiques à charge complète (100%), à 50% et à 25%, sans avoir à surveiller activement la bague.",
+        pl: "FitMesh pobiera dane partiami, gdy pierścień jest w pobliżu, bez utrzymywania ciągłego połączenia BLE. Przy każdej synchronizacji odczytuje również poziom naładowania i wyświetla go z kolorowym wskaźnikiem: zielony powyżej 50%, żółty między 20-49%, czerwony poniżej 20%. Otrzymujesz automatyczne powiadomienia przy pełnym naładowaniu (100%), przy 50% i przy 25%, bez potrzeby aktywnego monitorowania pierścienia.",
+        tr: "FitMesh, yüzük yakındayken verileri sürekli BLE bağlantısı sürdürmeden toplu olarak indirir. Her senkronizasyonda şarj seviyesini de okur ve renkli bir göstergeyle gösterir: %50'nin üzerinde yeşil, %20-49 arasında sarı, %20'nin altında kırmızı. Tam şarjda (%100), %50'de ve %25'te otomatik bildirimler alırsınız; yüzüğü aktif olarak izlemenize gerek kalmaz.",
       },
     },
     {
@@ -796,6 +984,8 @@ export const post: BlogPost = {
         de: "Wie genau sind die Herzfrequenz- und SpO2-Messungen?",
         pt: "Qual é a precisão das leituras de frequência cardíaca e SpO2?",
         fr: "Quelle est la précision des mesures de fréquence cardiaque et de SpO2 ?",
+        pl: "Jak dokładne są odczyty tętna i SpO2?",
+        tr: "Kalp hızı ve SpO2 ölçümleri ne kadar doğru?",
       },
       a: {
         it: "Onesto: si stima, non si misura clinicamente. I sensori PPG ottici a questo prezzo danno letture utili per monitorare trend (battito a riposo nel tempo, qualità del sonno per HRV, eventuali cali di SpO2 notturni) ma non sostituiscono dispositivi medici certificati. Per uso informativo e personale i dati sono affidabili. Per uso clinico o diagnostico, consulta un medico. FitMesh tratta tutti questi dati come informativi, mai diagnostici.",
@@ -804,6 +994,8 @@ export const post: BlogPost = {
         de: "Ehrliche Antwort: Das sind Schätzungen, keine klinischen Messungen. Optische PPG-Sensoren in diesem Preisbereich liefern Messwerte, die nützlich sind, um persönliche Trends zu verfolgen (Ruheherzfrequenz über Zeit, Schlafqualität durch HRV, nächtliche SpO2-Schwankungen), aber sie ersetzen keine zertifizierten Medizinprodukte. Für den persönlichen Informationsgebrauch sind die Daten zuverlässig. Für medizinische Fragen wende dich an einen Arzt. FitMesh behandelt alle diese Daten als informativ, nie als diagnostisch.",
         pt: "Resposta honesta: são estimativas, não medições de precisão para uso em contexto de saúde profissional. Os sensores PPG ópticos nessa faixa de preço fornecem leituras úteis para acompanhar tendências pessoais (frequência cardíaca em repouso ao longo do tempo, qualidade do sono através da HRV, variações de SpO2 noturno), mas não substituem dispositivos certificados. Para uso pessoal e informativo, os dados são confiáveis. Para consultas de saúde, procure um profissional. FitMesh trata todos esses dados como informativos, nunca como diagnósticos.",
         fr: "Réponse honnête : ce sont des estimations, pas des mesures au sens professionnel de santé. Les capteurs PPG optiques à ce prix donnent des lectures utiles pour suivre des tendances personnelles (fréquence cardiaque au repos dans le temps, qualité du sommeil via la HRV, variations nocturnes du SpO2), mais ils ne remplacent pas des appareils certifiés. Pour un usage personnel et informatif, les données sont fiables. Pour toute question de santé, consultez un professionnel. FitMesh traite toutes ces données comme informatives, jamais diagnostiques.",
+        pl: "Szczera odpowiedź: to są szacunki, nie pomiary kliniczne. Optyczne czujniki PPG w tej cenie podają odczyty przydatne do śledzenia osobistych trendów (tętno spoczynkowe w czasie, jakość snu przez HRV, nocne wahania SpO2), ale nie zastępują certyfikowanych urządzeń medycznych. Do osobistego użytku informacyjnego dane są wiarygodne. W sprawach zdrowotnych skonsultuj się z lekarzem. FitMesh traktuje wszystkie te dane jako informacyjne, nigdy diagnostyczne.",
+        tr: "Dürüst cevap: bunlar tahminler, klinik ölçümler değil. Bu fiyat noktasındaki optik PPG sensörleri kişisel eğilimleri takip etmek için faydalı okumalar verir (zamanla dinlenme kalp hızı, HRV üzerinden uyku kalitesi, gece SpO2 dalgalanmaları) ancak sertifikalı tıbbi cihazların yerini tutmaz. Kişisel bilgi amaçlı kullanım için veriler güvenilirdir. Sağlıkla ilgili konularda bir sağlık uzmanına danışın. FitMesh tüm bu verileri bilgi amaçlı olarak ele alır, hiçbir zaman tanısal olarak değil.",
       },
     },
     {
@@ -814,6 +1006,8 @@ export const post: BlogPost = {
         de: "Bleiben meine Daten in Europa? Wie funktioniert der Datenschutz?",
         pt: "Meus dados ficam na Europa? Como funciona a privacidade?",
         fr: "Mes données restent-elles en Europe ? Comment fonctionne la confidentialité ?",
+        pl: "Czy dane pozostają w Europie? Jak działa prywatność?",
+        tr: "Verilerim Avrupa'da mı kalıyor? Gizlilik nasıl çalışıyor?",
       },
       a: {
         it: "I dati vengono letti via Bluetooth direttamente dal telefono e inviati solo al backend Supabase del tuo account FitMesh, su server in Europa. Non passano dai server del produttore dell'anello. Il tuo account è personale e non condivide dati con terzi senza il tuo consenso esplicito. Tutto in linea con GDPR.",
@@ -822,6 +1016,8 @@ export const post: BlogPost = {
         de: "Die Daten werden via Bluetooth direkt auf deinem Telefon ausgelesen und nur an das Supabase-Backend deines FitMesh-Kontos gesendet, auf Servern in der EU. Sie gehen nicht über die Server des Ring-Herstellers. Dein Konto ist persönlich und teilt keine Daten mit Dritten ohne deine ausdrückliche Zustimmung. Vollständig DSGVO-konform.",
         pt: "Os dados são lidos via Bluetooth diretamente no seu telefone e enviados apenas para o backend Supabase da sua conta FitMesh, em servidores na UE. Não passam pelos servidores do fabricante do anel. Sua conta é pessoal e não compartilha dados com terceiros sem seu consentimento explícito. Totalmente em conformidade com o GDPR.",
         fr: "Les données sont lues via Bluetooth directement sur votre téléphone et envoyées uniquement au backend Supabase de votre compte FitMesh, sur des serveurs dans l'UE. Elles ne transitent pas par les serveurs du fabricant de la bague. Votre compte est personnel et ne partage pas de données avec des tiers sans votre consentement explicite. Entièrement conforme au RGPD.",
+        pl: "Dane są odczytywane przez Bluetooth bezpośrednio na Twoim telefonie i wysyłane wyłącznie do backendu Supabase Twojego konta FitMesh, na serwery w UE. Nie przechodzą przez serwery producenta pierścienia. Twoje konto jest osobiste i nie udostępnia danych stronom trzecim bez Twojej wyraźnej zgody. W pełni zgodne z RODO.",
+        tr: "Veriler, telefonunuzda doğrudan Bluetooth üzerinden okunur ve yalnızca AB'deki sunucularda yer alan FitMesh hesabınızın Supabase backend'ine gönderilir. Yüzük üreticisinin sunucularından geçmez. Hesabınız kişiseldir ve açık onayınız olmadan üçüncü taraflarla veri paylaşmaz. Tamamen GDPR uyumludur.",
       },
     },
   ],

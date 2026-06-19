@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { locales, type Locale, getDictionary } from "@/lib/i18n";
+import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
 import { LegalPage, Section } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
@@ -22,6 +22,11 @@ export async function generateMetadata(
     de: "Cookie-Richtlinie",
     pt: "Política de cookies",
     fr: "Politique de cookies",
+    pl: "Polityka cookies",
+    tr: "Cerez Politikasi",
+    nl: "Cookiebeleid",
+    ja: "Cookieポリシー",
+    ko: "쿠키 정책",
   };
   const desc: Record<Locale, string> = {
     it: "Quali cookie usa fitmesh.fit e perché. Cookie tecnici essenziali + Google Analytics 4 con consenso esplicito.",
@@ -30,6 +35,11 @@ export async function generateMetadata(
     de: "Welche Cookies fitmesh.fit verwendet und warum. Technisch notwendige Cookies sowie Google Analytics 4 nur mit ausdrücklicher Zustimmung.",
     pt: "Quais cookies o fitmesh.fit usa e por quê. Cookies técnicos essenciais mais Google Analytics 4 apenas com consentimento explícito.",
     fr: "Quels cookies fitmesh.fit utilise et pourquoi. Cookies techniques essentiels et Google Analytics 4 uniquement avec votre consentement explicite.",
+    pl: "Jakich plikow cookies uzywa fitmesh.fit i dlaczego. Niezbedne pliki techniczne oraz Google Analytics 4 wylacznie za wyrazna zgoda uzytkownika.",
+    tr: "fitmesh.fit'in hangi cerezleri kullandigini ve neden kullandigini aciklar. Zorunlu teknik cerezler ve yalnizca acik onay ile Google Analytics 4.",
+    nl: "Welke cookies fitmesh.fit gebruikt en waarom. Strikt noodzakelijke cookies plus Google Analytics 4 alleen met expliciete toestemming.",
+    ja: "fitmesh.fitが使用するCookieとその理由。必須の技術的Cookieとユーザーの同意に基づくGoogle Analytics 4。",
+    ko: "fitmesh.fit이 사용하는 쿠키와 그 이유. 필수 기술 쿠키 + 명시적 동의를 통한 Google Analytics 4.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
@@ -37,15 +47,7 @@ export async function generateMetadata(
     description: desc[lc],
     alternates: {
       canonical: `${SITE_URL}/${lc}/cookies`,
-      languages: {
-        it: `${SITE_URL}/it/cookies`,
-        en: `${SITE_URL}/en/cookies`,
-        es: `${SITE_URL}/es/cookies`,
-        de: `${SITE_URL}/de/cookies`,
-        pt: `${SITE_URL}/pt/cookies`,
-        fr: `${SITE_URL}/fr/cookies`,
-        "x-default": `${SITE_URL}/it/cookies`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/cookies`),
     },
   };
 }

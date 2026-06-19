@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
-import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import {
   PROVIDERS,
   PROVIDERS_BY_SLUG,
@@ -96,7 +96,7 @@ function statusLabel(
     },
   };
   const entry = map[status];
-  return { text: entry[lc] ?? entry.en, color: entry.color };
+  return { text: (entry as Record<string, string>)[lc] ?? entry.en, color: entry.color };
 }
 
 /** Localised category label with es fallback. */
@@ -128,7 +128,7 @@ function categoryLabel(
     wearable: { it: "Wearable", en: "Wearable", es: "Wearable", de: "Wearable", pt: "Wearable", fr: "Wearable" },
     "phone-only": { it: "Solo telefono", en: "Phone-only", es: "Solo teléfono", de: "Nur Smartphone", pt: "Somente telefone", fr: "Téléphone uniquement" },
   };
-  return map[category][lc] ?? map[category].en;
+  return (map[category] as Record<string, string>)[lc] ?? map[category].en;
 }
 
 export function generateStaticParams() {
@@ -165,12 +165,7 @@ export async function generateMetadata({
     keywords: tll(p.seoKeywords, lc).join(", "),
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: {
-        it: `${SITE_URL}/it/sync/${p.slug}`,
-        en: `${SITE_URL}/en/sync/${p.slug}`,
-        es: `${SITE_URL}/es/sync/${p.slug}`,
-        "x-default": `${SITE_URL}/it/sync/${p.slug}`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/sync/${p.slug}`),
     },
     openGraph: {
       type: "article",

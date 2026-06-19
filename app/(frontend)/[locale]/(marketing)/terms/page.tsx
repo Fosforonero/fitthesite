@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { locales, type Locale, getDictionary } from "@/lib/i18n";
+import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
 import { LegalPage, Section, Callout } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
@@ -22,6 +22,11 @@ export async function generateMetadata(
     de: "Nutzungsbedingungen",
     pt: "Termos de Serviço",
     fr: "Conditions d'utilisation",
+    pl: "Warunki korzystania z uslug",
+    tr: "Hizmet Sartlari",
+    nl: "Gebruiksvoorwaarden",
+    ja: "利用規約",
+    ko: "이용약관",
   };
   const desc: Record<Locale, string> = {
     it: "Termini e condizioni d'uso di FitMesh Sync: licenza, acquisti, disclaimer salute, recesso UE, limitazione di responsabilità.",
@@ -30,6 +35,11 @@ export async function generateMetadata(
     de: "Nutzungsbedingungen von FitMesh Sync: Lizenz, Käufe, Gesundheitshinweis, EU-Widerrufsrecht und Haftungsbeschränkung.",
     pt: "Termos e condições de uso do FitMesh Sync: licença, compras, aviso de saúde, direito de arrependimento UE e limitação de responsabilidade.",
     fr: "Conditions d'utilisation de FitMesh Sync : licence, achats, avertissement santé, droit de rétractation UE et limitation de responsabilité.",
+    pl: "Warunki korzystania z FitMesh Sync: licencja, zakupy, zastrzezenie zdrowotne, prawo odstapienia UE i ograniczenie odpowiedzialnosci.",
+    tr: "FitMesh Sync kullanim sartlari ve kosullari: lisans, satin almalar, saglik sorumluluk reddi, AB cayma hakki ve sorumluluk siniri.",
+    nl: "Gebruiksvoorwaarden van FitMesh Sync: licentie, aankopen, gezondheidsdisclaimer, EU-herroepingsrecht en aansprakelijkheidsbeperking.",
+    ja: "FitMesh Sync利用規約: ライセンス、購入、健康免責事項、EU撤回権、責任制限。",
+    ko: "FitMesh Sync 이용약관: 라이선스, 구매, 건강 고지, EU 철회권, 책임 제한.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
@@ -37,15 +47,7 @@ export async function generateMetadata(
     description: desc[lc],
     alternates: {
       canonical: `${SITE_URL}/${lc}/terms`,
-      languages: {
-        it: `${SITE_URL}/it/terms`,
-        en: `${SITE_URL}/en/terms`,
-        es: `${SITE_URL}/es/terms`,
-        de: `${SITE_URL}/de/terms`,
-        pt: `${SITE_URL}/pt/terms`,
-        fr: `${SITE_URL}/fr/terms`,
-        "x-default": `${SITE_URL}/it/terms`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/terms`),
     },
   };
 }

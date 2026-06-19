@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "support": "Support",
+    "privacy": "Privacy",
+    "download": "Downloaden"
+  },
+  "hero": {
+    "badge": "Beschikbaar op Android · iOS binnenkort",
+    "heading_1": "Één global dashboard",
+    "heading_accent": "voor al je apparaten.",
+    "description": "Breng Galaxy Watch, Wear OS, Health Connect en cloudproviders samen in één overzicht. Stappen, slaap, hartslag, herstel en trends — zonder tussen apps te wisselen.",
+    "cta_secondary": "Meer informatie",
+    "pricing": "Eenmalig vanaf €3,99, of €1,19 per 6 maanden · veilige betaling",
+    "coming_soon": "Binnenkort"
+  },
+  "features": {
+    "kicker": "Functies",
+    "heading": "Alles wat je smartwatch registreert, georganiseerd en gevisualiseerd.",
+    "items": [
+      {
+        "title": "Stappen & afstand",
+        "desc": "Automatische synchronisatie met Health Connect en Samsung Health. Werkt op de achtergrond, ook als je telefoon vergrendeld is."
+      },
+      {
+        "title": "Hartslag & VO₂ max",
+        "desc": "Dagelijks gemiddelde, min/max bereik, rusthartslag. Ontdek trends in je cardiovasculaire gezondheid over tijd."
+      },
+      {
+        "title": "Slaap met fasen",
+        "desc": "Totale duur, diep, REM, licht, wakker. Kleurgecodeerde balk en direct kwaliteitsbadge."
+      },
+      {
+        "title": "Calorieën & activiteit",
+        "desc": "Actieve en basale calorieën, route, hoogteverschil, verdiepingen. Wandelingen in groen, workouts in rood."
+      },
+      {
+        "title": "Globaal multi-apparaat dashboard",
+        "desc": "Meerdere horloges, meerdere providers, één overzicht. FitMesh combineert bronnen, verwijdert duplicaten en bewaar de beste waarde voor elke meting."
+      },
+      {
+        "title": "Gebouwd voor verzorgers",
+        "desc": "Geavanceerde modus binnenkort: familiegroep met ochtendsynchronisatiemeldingen wanneer een ouder familielid niets laat horen."
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "Privacy-first",
+    "heading": "Je gezondheidsdata is geen product.",
+    "description": "FitMesh Sync verkoopt, deelt of profileert nooit. Je data blijft op de server die jij kiest (je eigen NAS, je VPS, of ons gedeeld eindpunt). Jij bepaalt dit in de app-instellingen.",
+    "cta": "Lees het privacybeleid"
+  },
+  "final_cta": {
+    "heading": "Klaar om te beginnen?",
+    "description": "Download de app, verleen Health Connect-machtigingen, en binnen 30 seconden zijn je gegevens live."
+  },
+  "footer": {
+    "tagline": "Synchroniseer je smartwatchdata naar een premium persoonlijk dashboard. Privacy-first. Geen ondoorzichtige clouds, geen advertentietrackers.",
+    "product": "Product",
+    "legal": "Juridisch",
+    "rights": "Alle rechten voorbehouden.",
+    "made_with": "Met zorg gemaakt in Italië",
+    "fosforonero_label": "Een project van",
+    "links": {
+      "features": "Functies",
+      "download": "Downloaden",
+      "support": "Support",
+      "privacy": "Privacybeleid",
+      "terms": "Servicevoorwaarden",
+      "cookies": "Cookiebeleid"
+    }
+  },
+  "cookie_banner": {
+    "title": "Cookies & privacy",
+    "description": "We gebruiken strikt noodzakelijke cookies voor de werking van de site en, met jouw toestemming, Google Analytics om te leren hoe we het product kunnen verbeteren. Geen advertentie- of profileringscookies.",
+    "details_link": "Details",
+    "accept": "Alles accepteren",
+    "reject": "Optionele weigeren"
+  },
+  "legal": {
+    "last_updated": "Laatst bijgewerkt",
+    "privacy_title": "Privacybeleid",
+    "terms_title": "Servicevoorwaarden",
+    "cookies_title": "Cookiebeleid",
+    "support_title": "Veelgestelde vragen",
+    "section": "Juridisch"
+  },
+  "auth": {
+    "login": {
+      "heading": "Aanmelden bij FitMesh",
+      "subheading": "We sturen je een link via e-mail. Geen wachtwoorden te onthouden.",
+      "email_label": "E-mail",
+      "email_placeholder": "jij@email.com",
+      "submit": "Stuur mij de aanmeldlink",
+      "sending": "Verzenden…",
+      "success_title": "Controleer je e-mail",
+      "success_body": "We hebben je een aanmeldlink gestuurd. Open de e-mail en klik om in te loggen.",
+      "try_again": "Opnieuw verzenden",
+      "disclaimer": "Door aan te melden accepteer je onze Voorwaarden en het Privacybeleid. Je gezondheidsdata wordt nooit gedeeld en nooit gebruikt voor medisch advies."
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "devices": "Apparaten",
+      "settings": "Instellingen",
+      "logout": "Afmelden"
+    },
+    "disclaimer": "De getoonde gegevens zijn uitsluitend informatief. FitMesh is geen medisch apparaat en vervangt geen professioneel medisch advies.",
+    "dashboard": {
+      "welcome": "Welkom",
+      "steps": "Stappen vandaag",
+      "heart_rate": "Gemiddelde BPM",
+      "sleep": "Slaap",
+      "no_data": "Geen apparaat verbonden"
+    },
+    "next_step": {
+      "title": "Aan de slag: verbind je eerste apparaat",
+      "body": "Ga naar 'Apparaten' en genereer een koppelcode. Voer deze in de FitMesh-app op je telefoon in.",
+      "cta": "Apparaat verbinden →"
+    },
+    "devices": {
+      "heading": "Jouw apparaten",
+      "subheading": "Smartwatches en telefoons verbonden met je account.",
+      "add_title": "Apparaat toevoegen",
+      "add_body": "Genereer een code en voer deze in de FitMesh Sync-app in om een nieuwe telefoon te verbinden.",
+      "add_cta": "Code genereren",
+      "coming_soon": "(binnenkort)",
+      "list_title": "Verbonden apparaten",
+      "empty": "Nog geen apparaten verbonden.",
+      "error": "Fout bij laden van apparaten.",
+      "revoked": "ingetrokken",
+      "last_sync": "Laatste synchronisatie",
+      "never": "nooit"
+    },
+    "settings": {
+      "heading": "Instellingen",
+      "profile_heading": "Profiel",
+      "display_name": "Naam",
+      "locale": "Taal",
+      "timezone": "Tijdzone",
+      "member_since": "Lid sinds",
+      "privacy_heading": "Privacy & gegevens",
+      "privacy_body": "Je gezondheidsdata wordt nooit gedeeld, nooit verwerkt voor medische doeleinden en nooit gebruikt voor medisch advies. Alleen voor je persoonlijk dashboard.",
+      "export": "Mijn gegevens exporteren",
+      "danger_heading": "Gevarenzone",
+      "delete_description": "Verwijder permanent je account en alle bijbehorende gegevens. Je hebt 24 uur om te annuleren via e-mail.",
+      "delete_cta": "Mijn account verwijderen",
+      "delete_confirm_title": "Weet je het zeker?",
+      "delete_confirm_body": "Dit wordt permanent verwijderd: profiel, alle gezondheidsgegevens, verbonden apparaten, workoutsessies. Dit blijft geanonimiseerd bewaard voor compliance: technische logboeken (90 dagen) en admin-audit (5 jaar).",
+      "delete_confirm_input": "Typ DELETE om te bevestigen",
+      "delete_confirm_submit": "Verwijdering bevestigen",
+      "cancel": "Annuleren",
+      "delete_scheduled_title": "Verzoek ontvangen",
+      "delete_scheduled_body": "Je ontvangt een e-mail met de link om te annuleren. Als je binnen 24 uur niets doet, wordt je account permanent verwijderd."
+    }
+  },
+  "admin": {
+    "banner": "ADMIN-MODUS — jouw acties worden bijgehouden",
+    "nav": {
+      "overview": "Overzicht",
+      "users": "Gebruikers",
+      "devices": "Apparaten",
+      "events": "Gebeurtenissen",
+      "exit": "Admin verlaten"
+    },
+    "overview": {
+      "heading": "Overzicht",
+      "subheading": "Systeemstatus, geaggregeerde statistieken, geen persoonlijke gezondheidsdata.",
+      "total_users": "Totaal gebruikers",
+      "active_7d": "Actief 7d",
+      "active_30d": "Actief 30d",
+      "new_7d": "Nieuw 7d",
+      "total_devices": "Totaal apparaten",
+      "active_devices": "Actieve apparaten",
+      "syncs_24h": "Synchronisaties 24u",
+      "failed_syncs_24h": "Mislukte synchronisaties 24u"
+    },
+    "privacy_notice": "Privacy: dit dashboard toont alleen metadata en geaggregeerde statistieken. Gezondheidsdata van gebruikers is NIET toegankelijk voor beheerders (afgedwongen via Postgres RLS)."
+  },
+  "showcase": {
+    "kicker": "De app",
+    "heading": "Zie FitMesh in actie",
+    "sub": "Echte schermen van de Android-app, rechtstreeks van de telefoon.",
+    "captions": {
+      "sleep": "Slaapfasen & hartwelzijn",
+      "trends": "Stappen & calorieëntrends",
+      "vitals": "SpO₂ & geavanceerde metingen"
+    }
+  }
+}

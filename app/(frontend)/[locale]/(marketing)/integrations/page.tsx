@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { tl } from "@/lib/blog/types";
 import {
@@ -60,15 +60,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: {
-        it: `${SITE_URL}/it/integrations`,
-        en: `${SITE_URL}/en/integrations`,
-        es: `${SITE_URL}/es/integrations`,
-        de: `${SITE_URL}/de/integrations`,
-        pt: `${SITE_URL}/pt/integrations`,
-        fr: `${SITE_URL}/fr/integrations`,
-        "x-default": `${SITE_URL}/it/integrations`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/integrations`),
     },
     openGraph: {
       type: "website",

@@ -71,8 +71,10 @@
   --fm-duration-slow:   400ms;
 
   /* ── TYPOGRAPHY (set via next/font on the site) ────────────────── */
-  --fm-font-display: "Space Grotesk", Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --fm-font-body:    Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* CJK fallbacks: Hiragino (macOS/iOS ja), Apple SD Gothic Neo (macOS/iOS ko),
+     Noto Sans JP/KR (Android/Linux), then system-ui for everything else. */
+  --fm-font-display: "Space Grotesk", Inter, "Hiragino Sans", "Apple SD Gothic Neo", "Noto Sans JP", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fm-font-body:    Inter, "Hiragino Sans", "Apple SD Gothic Neo", "Noto Sans JP", "Noto Sans KR", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 /**

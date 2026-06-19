@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { locales, type Locale, ogLocale } from '@/lib/i18n';
+import { locales, type Locale, ogLocale, localeAlternates } from '@/lib/i18n';
 
 const SITE_URL = 'https://www.fitmesh.fit';
 
@@ -27,6 +27,11 @@ export async function generateMetadata({
     de: 'FitMesh Sync: Synchronisiere deine Smartwatch mit einem persönlichen Dashboard',
     pt: 'FitMesh Sync: sincronize seu smartwatch com um painel pessoal',
     fr: 'FitMesh Sync : synchronisez votre montre connectée avec un tableau de bord personnel',
+    pl: 'FitMesh Sync — synchronizuj swój smartwatch z osobistym panelem',
+    tr: 'FitMesh Sync — Akıllı saatinizi kişisel bir panele senkronize edin',
+    nl: 'FitMesh Sync — Synchroniseer je smartwatch met een persoonlijk dashboard',
+    ja: 'FitMesh Sync — スマートウォッチを個人ダッシュボードへ同期',
+    ko: 'FitMesh Sync — 스마트워치를 개인 대시보드와 동기화',
   };
   const descriptions: Record<Locale, string> = {
     it: 'FitMesh Sync sincronizza Galaxy Watch e Wear OS con una dashboard premium: passi, battito, sonno, calorie e VO₂ max. Privacy-first, niente cloud opachi, niente tracker.',
@@ -35,6 +40,11 @@ export async function generateMetadata({
     de: 'FitMesh Sync synchronisiert Galaxy Watch und Wear OS mit einem Premium-Dashboard: Schritte, Herzfrequenz, Schlaf, Kalorien und VO₂ max. Datenschutz zuerst, keine undurchsichtigen Clouds, keine Tracker.',
     pt: 'O FitMesh Sync sincroniza Galaxy Watch e Wear OS com um painel premium: passos, frequência cardíaca, sono, calorias e VO₂ máx. Privacidade em primeiro lugar, sem nuvens opacas, sem rastreadores.',
     fr: 'FitMesh Sync synchronise Galaxy Watch et Wear OS avec un tableau de bord premium : pas, fréquence cardiaque, sommeil, calories et VO₂ max. Confidentialité avant tout, aucun cloud opaque, aucun traceur.',
+    pl: 'FitMesh Sync synchronizuje Galaxy Watch i Wear OS z premium panelem: kroki, tetno, sen, kalorie i VO2 max. Prywatnosc na pierwszym miejscu. Bez ukrytych chmur. Bez trackerow.',
+    tr: 'FitMesh Sync, Galaxy Watch ve Wear OS verilerini premium bir kisisel panele yansitir: adimlar, kalp atisi, uyku, kalori ve VO2 maks. Gizlilik oncelikli. Opak bulut yok. Izleyici yok.',
+    nl: 'FitMesh Sync spiegelt Galaxy Watch en Wear OS data naar een premium persoonlijk dashboard: stappen, hartslag, slaap, calorieën en VO₂ max. Privacy-first. Geen ondoorzichtige clouds. Geen trackers.',
+    ja: 'FitMesh SyncはGalaxy WatchとWear OSのデータをプレミアムダッシュボードへ同期: 歩数、心拍数、睡眠、カロリー、VO₂ max。プライバシーファースト。',
+    ko: 'FitMesh Sync는 Galaxy Watch와 Wear OS 데이터를 프리미엄 대시보드에 동기화: 걸음 수, 심박수, 수면, 칼로리, VO₂ max. 개인정보 보호 최우선.',
   };
 
   return {
@@ -42,12 +52,7 @@ export async function generateMetadata({
     description: descriptions[lc],
     alternates: {
       canonical: `${SITE_URL}/${lc}`,
-      languages: {
-        it: `${SITE_URL}/it`,
-        en: `${SITE_URL}/en`,
-        es: `${SITE_URL}/es`,
-        'x-default': `${SITE_URL}/it`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}`),
     },
     openGraph: {
       type: 'website',

@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Signal d'alarme dans les politiques de confidentialité : 'partage avec des partenaires de recherche' groupé dans un consentement unique, ou 'personnalisation publicitaire' pour les données de santé.",
       "Health Connect est la configuration Android la plus respectueuse de la vie privée : les données restent sur l'appareil et chaque application doit demander une autorisation par type de donnée.",
     ],
+    pl: [
+      "Tętno, sen, cykl menstruacyjny i SpO₂ to 'szczególne' dane zdrowotne w rozumieniu RODO art. 9: zgoda musi być wyraźna i szczegółowa, a nie ogólne 'akceptuj wszystko'.",
+      "Prawie żaden duży producent nie ma serwerów w Europie: Apple, Google/Fitbit, Garmin i Samsung przekazują dane do USA za pomocą mechanizmów SCC lub DPF.",
+      "Masz trzy praktyczne prawa, z których możesz skorzystać natychmiast: dostęp (kopia w ciągu 30 dni, bezpłatnie), przenoszalność (CSV/JSON) i usunięcie.",
+      "Sygnał ostrzegawczy w politykach prywatności: 'udostępnianie partnerom badawczym' zawarte w jednej zgodzie zbiorczej lub 'personalizacja reklam' dla danych zdrowotnych.",
+      "Health Connect to najbardziej przyjazna prywatności konfiguracja na Androida: dane pozostają na urządzeniu, a każda aplikacja musi osobno poprosić o uprawnienia dla każdego typu danych.",
+    ],
+    tr: [
+      "Kalp atış hızı, uyku, adet döngüsü ve SpO₂, GDPR madde 9 kapsamında 'özel' sağlık verileridir: onay, genel bir 'tümünü kabul et' değil, açık ve ayrıntılı olmalıdır.",
+      "Neredeyse hiçbir büyük markanın Avrupa'da sunucusu yoktur: Apple, Google/Fitbit, Garmin ve Samsung, verileri SCC veya DPF mekanizmaları aracılığıyla ABD'ye aktarır.",
+      "Şu anda kullanabileceğiniz üç pratik hakkınız var: erişim (30 gün içinde ücretsiz kopya), taşınabilirlik (CSV/JSON) ve silme.",
+      "Gizlilik politikalarındaki kırmızı bayrak: tek bir toplu izinde yer alan 'araştırma ortaklarıyla paylaşım' veya sağlık verileri için 'reklam kişiselleştirme'.",
+      "Health Connect, Android'deki en gizlilik dostu yapılandırmadır: veriler cihazda kalır ve her uygulama, her veri türü için ayrı ayrı izin istemek zorundadır.",
+    ],
   },
   primaryKeyword: {
     it: "gdpr dati fitness",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "dsgvo fitnessdaten",
     pt: "gdpr dados fitness",
     fr: "rgpd données fitness",
+    pl: "rodo dane fitness",
+    tr: "gdpr fitness verisi",
   },
   secondaryKeywords: {
     it: [
@@ -83,6 +99,18 @@ export const post: BlogPost = {
       "smartwatch rgpd",
       "droit à l'effacement des données fitness",
     ],
+    pl: [
+      "prywatność danych zdrowotnych smartwatch",
+      "gdzie trafiają dane fitbit",
+      "smartwatch rodo",
+      "prawo do usunięcia danych fitness",
+    ],
+    tr: [
+      "akıllı saat sağlık verisi gizliliği",
+      "fitbit verileri nereye gidiyor",
+      "smartwatch gdpr",
+      "fitness verisi silme hakkı",
+    ],
   },
   metaDescription: {
     it: "Dove finiscono i dati del tuo smartwatch sotto GDPR: cosa sono dati sanitari, basi legali, diritti reali, e come ogni grande brand gestisce i tuoi BPM nella pratica.",
@@ -91,9 +119,11 @@ export const post: BlogPost = {
     de: "Wo landen deine Smartwatch-Daten unter der DSGVO: Was gilt als Gesundheitsdatum, Rechtsgrundlagen, echte Rechte und wie jede große Marke deine Herzfrequenz in der Praxis handhabt.",
     pt: "Onde vão os dados do seu smartwatch segundo o GDPR: o que são dados de saúde, bases legais, direitos reais e como cada grande marca lida com sua frequência cardíaca na prática.",
     fr: "Où vont les données de votre montre connectée selon le RGPD : ce qui compte comme donnée de santé, bases légales, droits réels et comment chaque grande marque gère votre fréquence cardiaque en pratique.",
+    pl: "Gdzie trafiają dane Twojego smartwatcha zgodnie z RODO: co liczy się jako dane zdrowotne, podstawy prawne, rzeczywiste prawa i jak każda duża marka obsługuje Twoje tętno w praktyce.",
+    tr: "GDPR kapsamında akıllı saat verileriniz nereye gidiyor: sağlık verisi sayılan ne, hukuki dayanaklar, gerçek haklar ve her büyük markanın kalp atış hızınızı pratikte nasıl işlediği.",
   },
   hero: {
-    kicker: { it: "Privacy", en: "Privacy", es: "Privacidad", de: "Datenschutz", pt: "Privacidade", fr: "Confidentialité" },
+    kicker: { it: "Privacy", en: "Privacy", es: "Privacidad", de: "Datenschutz", pt: "Privacidade", fr: "Confidentialité", pl: "Prywatność", tr: "Gizlilik" },
     title: {
       it: "GDPR e dati fitness: dove finiscono i tuoi dati",
       en: "GDPR and fitness data: where your smartwatch data actually ends up",
@@ -101,6 +131,8 @@ export const post: BlogPost = {
       de: "DSGVO und Fitnessdaten: Wo landen deine Smartwatch-Daten wirklich?",
       pt: "GDPR e dados fitness: onde vão realmente os dados do seu smartwatch",
       fr: "RGPD et données fitness : où vont vraiment les données de votre montre connectée",
+      pl: "RODO i dane fitness: gdzie naprawdę trafiają dane Twojego smartwatcha",
+      tr: "GDPR ve fitness verileri: akıllı saat verileriniz gerçekte nereye gidiyor",
     },
     subtitle: {
       it: "Cosa dice il regolamento, cosa fanno davvero i brand, e cosa puoi pretendere se sei in Europa. Senza isteria, con esempi concreti.",
@@ -109,6 +141,8 @@ export const post: BlogPost = {
       de: "Was die Verordnung sagt, was Marken wirklich tun und was du als Europäer einfordern kannst. Ohne Hysterie, mit konkreten Beispielen.",
       pt: "O que diz o regulamento, o que as marcas realmente fazem e o que você pode exigir se estiver na Europa. Sem alarmismo, com exemplos concretos.",
       fr: "Ce que dit le règlement, ce que font vraiment les marques et ce que vous pouvez exiger si vous êtes en Europe. Sans hystérie, avec des exemples concrets.",
+      pl: "Co mówi rozporządzenie, co marki faktycznie robią i czego możesz wymagać, jeśli jesteś w Europie. Bez histerii, z konkretnymi przykładami.",
+      tr: "Yönetmeliğin ne dediği, markaların gerçekte ne yaptığı ve Avrupa'daysenız ne talep edebileceğiniz. Hysteri olmadan, somut örneklerle.",
     },
   },
   body: [
@@ -121,6 +155,8 @@ export const post: BlogPost = {
         de: "Die Daten deines Smartwatches (Herzfrequenz, Schlaf, Menstruationszyklus, Gewicht, Aktivität) gelten gemäß DSGVO Art. 4 Nr. 15 als Gesundheitsdaten: Die Verordnung unterwirft sie strengeren Regeln als E-Mail-Adressen oder Kaufverläufe, und jede Marke, die diese Daten erhebt, muss gegenüber europäischen Nutzern genaue Pflichten erfüllen. Dieser Artikel erklärt, was diese Pflichten in der Praxis bedeuten und wie du deine Rechte durchsetzen kannst.",
         pt: "Os dados do seu smartwatch (frequência cardíaca, sono, ciclo menstrual, peso, atividade) são dados de saúde nos termos do GDPR art. 4 n.º 15: o regulamento os sujeita a regras mais rígidas do que endereços de e-mail ou histórico de compras, e cada marca que os coleta deve cumprir obrigações precisas perante os usuários europeus. Este artigo explica o que essas obrigações significam na prática e como exercer seus direitos.",
         fr: "Les données de votre montre connectée (fréquence cardiaque, sommeil, cycle menstruel, poids, activité) constituent des données de santé au sens du RGPD art. 4 n° 15 : le règlement les soumet à des règles plus strictes que les adresses e-mail ou l'historique d'achats, et chaque marque qui les collecte doit respecter des obligations précises envers les utilisateurs européens. Cet article explique ce que ces obligations signifient concrètement et comment faire valoir vos droits.",
+        pl: "Dane Twojego smartwatcha (tętno, sen, cykl menstruacyjny, waga, aktywność) są danymi zdrowotnymi zgodnie z RODO art. 4 nr 15: rozporządzenie poddaje je surowszym zasadom niż adresy e-mail czy historia zakupów, a każda marka, która je zbiera, musi spełniać precyzyjne obowiązki wobec europejskich użytkowników. Ten artykuł wyjaśnia, co te obowiązki oznaczają w praktyce i jak egzekwować swoje prawa.",
+        tr: "Akıllı saat verileriniz (kalp atış hızı, uyku, adet döngüsü, kilo, aktivite), GDPR madde 4 sayı 15 kapsamında sağlık verisi sayılır: yönetmelik bunları e-posta adreslerinden veya satın alma geçmişinden daha katı kurallara tabi kılar ve bu verileri toplayan her markanın Avrupalı kullanıcılara karşı kesin yükümlülükleri yerine getirmesi gerekir. Bu makale, bu yükümlülüklerin pratikte ne anlama geldiğini ve haklarınızı nasıl kullanacağınızı açıklıyor.",
       },
     },
     {
@@ -133,6 +169,8 @@ export const post: BlogPost = {
         de: "Was gilt als 'Gesundheitsdatum' gemäß DSGVO?",
         pt: "O que conta como 'dado de saúde' segundo o GDPR",
         fr: "Ce qui compte comme 'donnée de santé' selon le RGPD",
+        pl: "Co liczy się jako 'dane zdrowotne' w rozumieniu RODO",
+        tr: "GDPR kapsamında 'sağlık verisi' sayılan nedir",
       },
     },
     {
@@ -144,6 +182,8 @@ export const post: BlogPost = {
         de: "Kategorie 'besonderer' Daten (Art. 9): Die Verarbeitung ist grundsätzlich verboten, außer bei ausdrücklichen Ausnahmen. Für Smartwatches gibt es zwei relevante Ausnahmen: ausdrückliche Einwilligung (Art. 9.2.a) und Zwecke der Gesundheitsversorgung, Arbeitsmedizin oder öffentlichen Gesundheit (9.2.h-i). Praktisch alle Verbraucherhersteller stützen sich auf die ausdrückliche Einwilligung, die du beim ersten Start durch die Annahme der Nutzungsbedingungen erteilst.",
         pt: "Categoria 'especial' (art. 9): o tratamento é em princípio proibido, salvo exceções explícitas. As exceções relevantes para smartwatches são duas: consentimento explícito (art. 9.2.a) e finalidades de assistência médica, medicina do trabalho ou saúde pública (9.2.h-i). Praticamente todos os fabricantes para consumidores se baseiam no consentimento explícito que você dá ao aceitar os Termos de Serviço na primeira inicialização.",
         fr: "Catégorie 'spéciale' (art. 9) : le traitement est en principe interdit sauf exceptions explicites. Les exceptions pertinentes pour les montres connectées sont au nombre de deux : le consentement explicite (art. 9.2.a) et les finalités de soins, médecine du travail ou santé publique (9.2.h-i). Pratiquement tous les fabricants grand public s'appuient sur le consentement explicite que vous donnez en acceptant les CGU lors du premier démarrage.",
+        pl: "Kategoria 'szczególna' (art. 9): przetwarzanie jest co do zasady zakazane, z wyjątkiem wyraźnych wyjątków. Dwa istotne wyjątki dla smartwatchy to: wyraźna zgoda (art. 9.2.a) oraz cele opieki zdrowotnej, medycyny pracy lub zdrowia publicznego (9.2.h-i). Praktycznie wszyscy producenci konsumenccy opierają się na wyraźnej zgodzie wyrażonej przy akceptacji regulaminu podczas pierwszego uruchomienia.",
+        tr: "'Özel' kategori (md. 9): işleme prensipte yasaktır, açık istisnalar dışında. Akıllı saatler için ilgili iki istisna şunlardır: açık rıza (md. 9.2.a) ve sağlık hizmetleri, iş yeri hekimliği veya halk sağlığı amaçları (9.2.h-i). Neredeyse tüm tüketici üreticileri, ilk başlatmada Hizmet Şartlarını kabul ederken verdiğiniz açık rızaya dayanır.",
       },
     },
     {
@@ -203,6 +243,24 @@ export const post: BlogPost = {
           "Pas quotidiens : cas limite. Certaines autorités de protection des données les classent comme données de santé si elles sont liées à une personne identifiable ; d'autres les traitent comme des données personnelles standard.",
           "Traces GPS d'entraînement : données personnelles (pas de santé en soi), mais un profil localisé pouvant révéler la résidence, le lieu de travail et les habitudes.",
         ],
+        pl: [
+          "Tętno: dane zdrowotne.",
+          "Cykl menstruacyjny (Apple Watch Cycle Tracking, Withings Cycle itp.): wrażliwe dane zdrowotne.",
+          "Sen według faz (REM, głęboki, lekki, przebudzenie): dane zdrowotne.",
+          "EKG: medyczne dane zdrowotne.",
+          "SpO₂: dane zdrowotne.",
+          "Dzienne kroki: strefa graniczna. Niektóre organy ochrony danych klasyfikują je jako zdrowotne, jeśli powiązane z identyfikowalną osobą; inne traktują jako standardowe dane osobowe.",
+          "Ślady GPS z treningów: dane osobowe (nie zdrowotne same w sobie), ale zlokalizowany profil mogący ujawnić miejsce zamieszkania, pracę i nawyki.",
+        ],
+        tr: [
+          "Kalp atış hızı: sağlık verisi.",
+          "Adet döngüsü (Apple Watch Cycle Tracking, Withings Cycle vb.): hassas sağlık verisi.",
+          "Uyku evrelere göre (REM, derin, hafif, uyanık): sağlık verisi.",
+          "EKG: tıbbi sağlık verisi.",
+          "SpO₂: sağlık verisi.",
+          "Günlük adımlar: sınır bölgesi. Bazı veri koruma otoriteleri bunları tanımlanabilir bir kişiyle ilişkilendirildiğinde sağlık verisi olarak sınıflandırır; diğerleri standart kişisel veri olarak değerlendirir.",
+          "Antrenman GPS izleri: kişisel veri (sağlık verisi değil), ancak ikamet yeri, iş yeri ve alışkanlıkları ortaya çıkarabilecek yerelleştirilmiş bir profil.",
+        ],
       },
     },
     {
@@ -215,6 +273,8 @@ export const post: BlogPost = {
         de: "Warum die Klassifizierung wichtig ist",
         pt: "Por que a classificação importa",
         fr: "Pourquoi la classification est importante",
+        pl: "Dlaczego klasyfikacja ma znaczenie",
+        tr: "Sınıflandırma neden önemlidir",
       },
       body: {
         it: "Per i dati sanitari il consenso deve essere informato, specifico, granulare e revocabile. 'Accetta tutto' su un wall di consenso scuro non è valido. Se un brand cinese o americano tratta i tuoi dati sanitari con una clausola unica generica, è probabilmente in violazione del GDPR, indipendentemente da dove sia il server.",
@@ -223,6 +283,8 @@ export const post: BlogPost = {
         de: "Für Gesundheitsdaten muss die Einwilligung informiert, spezifisch, granular und widerruflich sein. 'Alle akzeptieren' auf einem intransparenten Einwilligungsbildschirm ist nicht gültig. Wenn eine chinesische oder amerikanische Marke deine Gesundheitsdaten unter einer einzigen generischen Klausel verarbeitet, verstößt sie wahrscheinlich gegen die DSGVO, unabhängig davon, wo sich der Server befindet.",
         pt: "Para dados de saúde, o consentimento deve ser informado, específico, granular e revogável. 'Aceitar tudo' em uma tela de consentimento opaca não é válido. Se uma marca chinesa ou americana trata seus dados de saúde com uma cláusula genérica única, provavelmente está violando o GDPR, independentemente de onde o servidor esteja localizado.",
         fr: "Pour les données de santé, le consentement doit être éclairé, spécifique, granulaire et révocable. 'Tout accepter' sur un écran de consentement opaque n'est pas valide. Si une marque chinoise ou américaine traite vos données de santé sous une clause générique unique, elle est probablement en violation du RGPD, quel que soit l'emplacement du serveur.",
+        pl: "W przypadku danych zdrowotnych zgoda musi być świadoma, konkretna, szczegółowa i odwołalna. 'Akceptuj wszystko' na nieprzejrzystym ekranie zgody jest nieważne. Jeśli chińska lub amerykańska marka przetwarza Twoje dane zdrowotne na podstawie jednej ogólnej klauzuli, prawdopodobnie narusza RODO - niezależnie od lokalizacji serwera.",
+        tr: "Sağlık verileri için onay, bilinçli, spesifik, ayrıntılı ve geri alınabilir olmalıdır. Şeffaf olmayan bir onay ekranında 'tümünü kabul et' geçerli değildir. Bir Çin veya Amerikan markası sağlık verilerinizi tek bir genel madde kapsamında işliyorsa, sunucunun nerede olduğundan bağımsız olarak büyük olasılıkla GDPR'ı ihlal ediyordur.",
       },
     },
     {
@@ -235,6 +297,8 @@ export const post: BlogPost = {
         de: "Wo landen deine Daten physisch?",
         pt: "Onde vão fisicamente os seus dados",
         fr: "Où vont physiquement vos données",
+        pl: "Gdzie fizycznie trafiają Twoje dane",
+        tr: "Verileriniz fiziksel olarak nereye gidiyor",
       },
     },
     {
@@ -246,6 +310,8 @@ export const post: BlogPost = {
         de: "Die Datenschutzrichtlinie jeder Marke gibt an, in welchen Ländern die Server betrieben werden. Übersicht basierend auf den öffentlichen Richtlinien von 2026:",
         pt: "A política de privacidade de cada marca declara em quais países os servidores estão hospedados. Resumo baseado nas políticas públicas de 2026:",
         fr: "La politique de confidentialité de chaque marque indique dans quels pays les serveurs sont hébergés. Récapitulatif basé sur les politiques publiques en 2026 :",
+        pl: "Polityka prywatności każdej marki deklaruje, w jakich krajach znajdują się serwery. Podsumowanie na podstawie publicznych polityk z 2026 roku:",
+        tr: "Her markanın gizlilik politikası, sunucuların hangi ülkelerde barındırıldığını belirtir. 2026 itibarıyla kamuya açık politikalara dayalı özet:",
       },
     },
     {
@@ -257,6 +323,8 @@ export const post: BlogPost = {
         de: ["Marke", "Primäre EU-Datenserver", "Transfers außerhalb der EU"],
         pt: ["Marca", "Servidores primários de dados UE", "Transferências fora da UE"],
         fr: ["Marque", "Serveurs de données UE principaux", "Transferts hors UE"],
+        pl: ["Marka", "Główne serwery danych UE", "Transfery poza UE"],
+        tr: ["Marka", "Birincil AB veri sunucuları", "AB dışı transferler"],
       },
       rows: [
         {
@@ -266,6 +334,8 @@ export const post: BlogPost = {
           de: ["Apple", "Irland + Dänemark", "USA für Analytics-Verarbeitung (SCC)"],
           pt: ["Apple", "Irlanda + Dinamarca", "EUA para processamento de análises (SCC)"],
           fr: ["Apple", "Irlande + Danemark", "États-Unis pour le traitement des analyses (SCC)"],
+          pl: ["Apple", "Irlandia + Dania", "USA do przetwarzania analityki (SCC)"],
+          tr: ["Apple", "İrlanda + Danimarka", "Analitik işleme için ABD (SCC)"],
         },
         {
           it: ["Google (Fitbit/Pixel)", "Belgio + Olanda + Finlandia", "USA (DPF + SCC)"],
@@ -274,6 +344,8 @@ export const post: BlogPost = {
           de: ["Google (Fitbit/Pixel)", "Belgien + Niederlande + Finnland", "USA (DPF + SCC)"],
           pt: ["Google (Fitbit/Pixel)", "Bélgica + Países Baixos + Finlândia", "EUA (DPF + SCC)"],
           fr: ["Google (Fitbit/Pixel)", "Belgique + Pays-Bas + Finlande", "États-Unis (DPF + SCC)"],
+          pl: ["Google (Fitbit/Pixel)", "Belgia + Holandia + Finlandia", "USA (DPF + SCC)"],
+          tr: ["Google (Fitbit/Pixel)", "Belçika + Hollanda + Finlandiya", "ABD (DPF + SCC)"],
         },
         {
           it: ["Samsung", "Olanda + Germania", "Sud Corea per backup; USA per Health Cloud (SCC)"],
@@ -282,6 +354,8 @@ export const post: BlogPost = {
           de: ["Samsung", "Niederlande + Deutschland", "Südkorea für Backups; USA für Health Cloud (SCC)"],
           pt: ["Samsung", "Países Baixos + Alemanha", "Coreia do Sul para backup; EUA para Health Cloud (SCC)"],
           fr: ["Samsung", "Pays-Bas + Allemagne", "Corée du Sud pour les sauvegardes; États-Unis pour Health Cloud (SCC)"],
+          pl: ["Samsung", "Holandia + Niemcy", "Korea Południowa jako kopia zapasowa; USA dla Health Cloud (SCC)"],
+          tr: ["Samsung", "Hollanda + Almanya", "Yedekleme için Güney Kore; Health Cloud için ABD (SCC)"],
         },
         {
           it: ["Garmin", "Olanda + Stati Uniti", "USA come default (SCC + DPF)"],
@@ -290,6 +364,8 @@ export const post: BlogPost = {
           de: ["Garmin", "Niederlande + USA", "USA als Standard (SCC + DPF)"],
           pt: ["Garmin", "Países Baixos + EUA", "EUA como padrão (SCC + DPF)"],
           fr: ["Garmin", "Pays-Bas + États-Unis", "États-Unis par défaut (SCC + DPF)"],
+          pl: ["Garmin", "Holandia + USA", "USA domyślnie (SCC + DPF)"],
+          tr: ["Garmin", "Hollanda + ABD", "Varsayılan olarak ABD (SCC + DPF)"],
         },
         {
           it: ["Polar", "Finlandia", "Limitati a processing analytics"],
@@ -298,6 +374,8 @@ export const post: BlogPost = {
           de: ["Polar", "Finnland", "Beschränkt auf Analytics-Verarbeitung"],
           pt: ["Polar", "Finlândia", "Limitadas ao processamento de análises"],
           fr: ["Polar", "Finlande", "Limités au traitement des analyses"],
+          pl: ["Polar", "Finlandia", "Ograniczone do przetwarzania analityki"],
+          tr: ["Polar", "Finlandiya", "Analitik işlemeyle sınırlı"],
         },
         {
           it: ["Withings", "Francia", "Limitati"],
@@ -306,6 +384,8 @@ export const post: BlogPost = {
           de: ["Withings", "Frankreich", "Begrenzt"],
           pt: ["Withings", "França", "Limitadas"],
           fr: ["Withings", "France", "Limités"],
+          pl: ["Withings", "Francja", "Ograniczone"],
+          tr: ["Withings", "Fransa", "Sınırlı"],
         },
         {
           it: ["Oura", "Irlanda", "USA per processing (SCC)"],
@@ -314,6 +394,8 @@ export const post: BlogPost = {
           de: ["Oura", "Irland", "USA für Verarbeitung (SCC)"],
           pt: ["Oura", "Irlanda", "EUA para processamento (SCC)"],
           fr: ["Oura", "Irlande", "États-Unis pour le traitement (SCC)"],
+          pl: ["Oura", "Irlandia", "USA do przetwarzania (SCC)"],
+          tr: ["Oura", "İrlanda", "İşleme için ABD (SCC)"],
         },
         {
           it: ["Xiaomi", "Germania", "Singapore + Cina (con SCC; con riserve interpretative GDPR)"],
@@ -322,6 +404,8 @@ export const post: BlogPost = {
           de: ["Xiaomi", "Deutschland", "Singapur + China (mit SCC; mit DSGVO-Interpretationsvorbehalten)"],
           pt: ["Xiaomi", "Alemanha", "Singapura + China (com SCC; com ressalvas interpretativas do GDPR)"],
           fr: ["Xiaomi", "Allemagne", "Singapour + Chine (avec SCC; avec réserves d'interprétation RGPD)"],
+          pl: ["Xiaomi", "Niemcy", "Singapur + Chiny (z SCC; z zastrzeżeniami interpretacyjnymi RODO)"],
+          tr: ["Xiaomi", "Almanya", "Singapur + Çin (SCC ile; GDPR yorum çekinceleriyle)"],
         },
         {
           it: ["Huawei", "Olanda + Germania", "Cina (situazione complessa, leggere TOS)"],
@@ -330,6 +414,8 @@ export const post: BlogPost = {
           de: ["Huawei", "Niederlande + Deutschland", "China (komplexe Situation, AGB lesen)"],
           pt: ["Huawei", "Países Baixos + Alemanha", "China (situação complexa, leia os Termos de Serviço)"],
           fr: ["Huawei", "Pays-Bas + Allemagne", "Chine (situation complexe, lire les CGU)"],
+          pl: ["Huawei", "Holandia + Niemcy", "Chiny (złożona sytuacja, przeczytaj regulamin)"],
+          tr: ["Huawei", "Hollanda + Almanya", "Çin (karmaşık durum, Hizmet Şartlarını okuyun)"],
         },
       ],
     },
@@ -343,6 +429,8 @@ export const post: BlogPost = {
         de: "USA und China haben unterschiedliche Rechtsrahmen",
         pt: "EUA e China têm regimes diferentes",
         fr: "Les États-Unis et la Chine ont des régimes différents",
+        pl: "USA i Chiny mają różne systemy prawne",
+        tr: "ABD ve Çin farklı hukuki rejimlere sahiptir",
       },
       body: {
         it: "Trasferimenti USA dopo Schrems II sono ammessi via Data Privacy Framework (luglio 2023, sotto rinegoziazione) o Standard Contractual Clauses. Trasferimenti verso Cina sono molto più problematici: il framework legale cinese (Cybersecurity Law + DSL + PIPL) consente accesso governativo ai dati ospitati su server cinesi senza garanzie equivalenti GDPR. Per dati sanitari, valuta caso per caso.",
@@ -351,6 +439,8 @@ export const post: BlogPost = {
         de: "USA-Transfers nach Schrems II sind über das Data Privacy Framework (Juli 2023, in Nachverhandlung) oder Standard Contractual Clauses zulässig. Transfers nach China sind deutlich problematischer: Der chinesische Rechtsrahmen (Cybersecurity Law + DSL + PIPL) erlaubt staatlichen Zugriff auf Daten, die auf chinesischen Servern gespeichert sind, ohne DSGVO-äquivalente Garantien. Für Gesundheitsdaten solltest du jeden Fall einzeln bewerten.",
         pt: "As transferências para os EUA após o Schrems II são permitidas via Data Privacy Framework (julho de 2023, em renegociação) ou Standard Contractual Clauses. As transferências para a China são muito mais problemáticas: o arcabouço legal chinês (Cybersecurity Law + DSL + PIPL) permite acesso governamental a dados hospedados em servidores chineses sem garantias equivalentes ao GDPR. Para dados de saúde, avalie caso a caso.",
         fr: "Les transferts vers les États-Unis après Schrems II sont autorisés via le Data Privacy Framework (juillet 2023, en cours de renégociation) ou les Standard Contractual Clauses. Les transferts vers la Chine sont beaucoup plus problématiques : le cadre légal chinois (Cybersecurity Law + DSL + PIPL) permet l'accès gouvernemental aux données hébergées sur des serveurs chinois sans garanties équivalentes au RGPD. Pour les données de santé, évaluez au cas par cas.",
+        pl: "Transfery do USA po Schrems II są dopuszczalne przez Data Privacy Framework (lipiec 2023, w trakcie renegocjacji) lub Standard Contractual Clauses. Transfery do Chin są znacznie bardziej problematyczne: chińskie ramy prawne (Cybersecurity Law + DSL + PIPL) zezwalają na dostęp rządowy do danych przechowywanych na chińskich serwerach bez gwarancji równoważnych RODO. W przypadku danych zdrowotnych oceniaj każdy przypadek indywidualnie.",
+        tr: "Schrems II sonrasında ABD'ye transferler, Data Privacy Framework (Temmuz 2023, müzakere altında) veya Standard Contractual Clauses aracılığıyla izinlidir. Çin'e transferler çok daha sorunludur: Çin hukuki çerçevesi (Cybersecurity Law + DSL + PIPL), GDPR'a eşdeğer güvenceler olmaksızın Çin sunucularında barındırılan verilere hükümet erişimine izin vermektedir. Sağlık verileri için her vakayı ayrı ayrı değerlendirin.",
       },
     },
     {
@@ -363,6 +453,8 @@ export const post: BlogPost = {
         de: "Deine Rechte in der Praxis",
         pt: "Seus direitos, na prática",
         fr: "Vos droits, en pratique",
+        pl: "Twoje prawa w praktyce",
+        tr: "Haklarınız, pratikte",
       },
     },
     {
@@ -375,6 +467,8 @@ export const post: BlogPost = {
         de: "Auskunftsrecht (Art. 15)",
         pt: "Direito de acesso (art. 15)",
         fr: "Droit d'accès (art. 15)",
+        pl: "Prawo dostępu (art. 15)",
+        tr: "Erişim hakkı (md. 15)",
       },
     },
     {
@@ -386,6 +480,8 @@ export const post: BlogPost = {
         de: "Du kannst von jedem Verantwortlichen eine Kopie aller Daten anfordern, die er über dich gespeichert hat. Die Frist beträgt 30 Tage (verlängerbar auf 90 in komplexen Fällen). Kostenlos. Der Datensatz muss verständlich sein (keine unlesbaren Binär-Dumps).",
         pt: "Você pode solicitar a qualquer responsável pelo tratamento uma cópia de todos os dados que ele possui sobre você. O prazo é de 30 dias (prorrogável para 90 em casos complexos). Grátis. O conjunto de dados deve ser inteligível (sem dumps binários indecifráveis).",
         fr: "Vous pouvez demander à tout responsable du traitement une copie de toutes les données qu'il détient sur vous. Il dispose de 30 jours (extensibles à 90 dans les cas complexes). Gratuitement. Les données doivent être intelligibles (pas de dumps binaires indéchiffrables).",
+        pl: "Możesz poprosić każdego administratora o kopię wszystkich danych, jakie posiada na Twój temat. Mają 30 dni (z możliwością przedłużenia do 90 w skomplikowanych przypadkach). Bezpłatnie. Zestaw danych musi być czytelny (żadnych nieczytelnych zrzutów binarnych).",
+        tr: "Herhangi bir veri sorumlusundan hakkınızdaki tüm verilerin bir kopyasını isteyebilirsiniz. 30 günleri var (karmaşık vakalarda 90'a uzatılabilir). Ücretsiz. Veri seti anlaşılır olmalıdır (anlaşılmaz ikili döküm dosyaları kabul edilemez).",
       },
     },
     {
@@ -456,6 +552,28 @@ export const post: BlogPost = {
           "Oura : via cloud.ouraring.com → settings → export.",
           "Xiaomi : via privacy.mi.com.",
           "Pour toute autre marque : envoyez un e-mail à privacy@[marque].com (ils sont tenus de fournir un canal).",
+        ],
+        pl: [
+          "Apple: przez privacy.apple.com (w tym dane Health z iCloud).",
+          "Google/Fitbit: przez takeout.google.com.",
+          "Samsung: przez privacy.samsung.com/pl/privacy-rights.",
+          "Garmin: przez panel konta → Privacy → 'Export data'.",
+          "Polar: przez flow.polar.com → ustawienia profilu.",
+          "Withings: przez account.withings.com → prywatność.",
+          "Oura: przez cloud.ouraring.com → settings → export.",
+          "Xiaomi: przez privacy.mi.com.",
+          "Dla każdej innej marki: wyślij e-mail na privacy@[marka].com (są zobowiązani do udostępnienia kanału kontaktu).",
+        ],
+        tr: [
+          "Apple: privacy.apple.com üzerinden (Health iCloud verileri dahil).",
+          "Google/Fitbit: takeout.google.com üzerinden.",
+          "Samsung: privacy.samsung.com/tr/privacy-rights üzerinden.",
+          "Garmin: hesap paneli → Privacy → 'Export data' üzerinden.",
+          "Polar: flow.polar.com → profil ayarları üzerinden.",
+          "Withings: account.withings.com → gizlilik üzerinden.",
+          "Oura: cloud.ouraring.com → settings → export üzerinden.",
+          "Xiaomi: privacy.mi.com üzerinden.",
+          "Diğer tüm markalar için: privacy@[marka].com adresine e-posta gönderin (bir kanal sağlamakla yükümlüdürler).",
         ],
       },
     },

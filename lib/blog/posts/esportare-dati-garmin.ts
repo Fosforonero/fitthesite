@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Garmin n'écrit pas les données d'entraînement complètes dans Health Connect: pour les activités GPS, vous avez besoin de l'intégration directe avec l'API Garmin Connect.",
       "Avant de supprimer votre compte Garmin, effectuez toujours un export en masse au préalable: les données sont définitivement supprimées à la fermeture du compte.",
     ],
+    pl: [
+      "Eksport pojedynczych aktywności wymaga strony internetowej connect.garmin.com: aplikacja mobilna Garmin Connect nie eksportuje plików w żadnym formacie.",
+      "Do pełnej kopii zapasowej wybierz oryginalny format FIT: zawiera wszystkie zastrzeżone dane Garmin, których GPX i TCX nie zachowują.",
+      "Eksport masowy (Ustawienia konta → Eksportuj swoje dane) pobiera całą historię jako archiwum ZIP, zazwyczaj w ciągu 24–48 godzin.",
+      "Garmin nie zapisuje pełnych danych treningowych w Health Connect: do aktywności GPS potrzebna jest bezpośrednia integracja z API Garmin Connect.",
+      "Przed usunięciem konta Garmin zawsze najpierw wykonaj eksport masowy: dane są trwale usuwane po zamknięciu konta.",
+    ],
+    tr: [
+      "Tekil aktivite dışa aktarımı connect.garmin.com web sitesini gerektirir: Garmin Connect mobil uygulaması hiçbir formatta dosya dışa aktarmaz.",
+      "Tam yedek için orijinal FIT formatını seçin: GPX ve TCX'in koruyamadığı tüm Garmin tescilli verilerini içerir.",
+      "Toplu dışa aktarma (Hesap Ayarları → Verilerini Dışa Aktar), tüm geçmişi ZIP arşivi olarak indirir, genellikle 24-48 saat içinde.",
+      "Garmin, Health Connect'e eksiksiz antrenman verileri yazmıyor: GPS aktiviteleri için doğrudan Garmin Connect API entegrasyonu gerekiyor.",
+      "Garmin hesabınızı silmeden önce her zaman önce toplu dışa aktarma yapın: veriler hesap kapatıldığında kalıcı olarak silinir.",
+    ],
   },
   primaryKeyword: {
     it: "esportare dati garmin",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "Garmin Daten exportieren",
     pt: "exportar dados garmin",
     fr: "exporter données garmin",
+    pl: "eksport danych garmin",
+    tr: "garmin verilerini dışa aktarma",
   },
   secondaryKeywords: {
     it: [
@@ -87,6 +103,20 @@ export const post: BlogPost = {
       "données garmin csv",
       "transférer les données garmin vers une autre app",
     ],
+    pl: [
+      "pobierz aktywności garmin connect",
+      "garmin eksport gpx tcx fit",
+      "garmin connect pobierz aktywności",
+      "dane garmin csv",
+      "przenieś dane garmin do innej aplikacji",
+    ],
+    tr: [
+      "garmin connect aktivitelerini indir",
+      "garmin dışa aktarma gpx tcx fit",
+      "garmin connect aktivite indirme",
+      "garmin veri csv",
+      "garmin verilerini başka uygulamaya aktar",
+    ],
   },
   metaDescription: {
     it: "Come esportare dati Garmin: guida pratica per scaricare allenamenti in GPX, TCX, FIT e CSV da Garmin Connect (sito web, app mobile e API). Pro e contro di ogni metodo.",
@@ -95,9 +125,11 @@ export const post: BlogPost = {
     de: "Garmin Daten exportieren: Praxisratgeber zum Herunterladen von Trainings als GPX, TCX, FIT und CSV aus Garmin Connect (Website, App und API). Vor- und Nachteile jeder Methode.",
     pt: "Como exportar dados da Garmin: guia prático para baixar treinos em GPX, TCX, FIT e CSV do Garmin Connect (site, app móvel e API). Prós e contras de cada método.",
     fr: "Comment exporter les données Garmin: guide pratique pour télécharger vos séances en GPX, TCX, FIT et CSV depuis Garmin Connect (site web, app mobile et API). Avantages et limites de chaque méthode.",
+    pl: "Jak eksportować dane Garmin: praktyczny przewodnik po pobieraniu treningów w formacie GPX, TCX, FIT i CSV z Garmin Connect (strona internetowa, aplikacja mobilna i API). Zalety i ograniczenia każdej metody.",
+    tr: "Garmin verileri nasıl dışa aktarılır: Garmin Connect'ten (web sitesi, mobil uygulama ve API) GPX, TCX, FIT ve CSV formatlarında antrenman indirmeye pratik kılavuz. Her yöntemin artı ve eksileri.",
   },
   hero: {
-    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide" },
+    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide", pl: "Przewodnik", tr: "Kılavuz" },
     title: {
       it: "Esportare dati Garmin: GPX, TCX, FIT, CSV",
       en: "Exporting Garmin data: GPX, TCX, FIT and CSV, a complete guide",
@@ -105,6 +137,8 @@ export const post: BlogPost = {
       de: "Garmin Daten exportieren: GPX, TCX, FIT und CSV, vollständige Anleitung",
       pt: "Exportar dados da Garmin: GPX, TCX, FIT e CSV, guia completo",
       fr: "Exporter les données Garmin: GPX, TCX, FIT et CSV, guide complet",
+      pl: "Eksportowanie danych Garmin: GPX, TCX, FIT i CSV — kompletny przewodnik",
+      tr: "Garmin verilerini dışa aktarma: GPX, TCX, FIT ve CSV — kapsamlı kılavuz",
     },
     subtitle: {
       it: "Garmin tiene i tuoi allenamenti nel proprio cloud, ma i dati sono tuoi. Ecco tutti i modi per tirarli fuori, con gli onesti limiti di ciascuno.",
@@ -113,6 +147,8 @@ export const post: BlogPost = {
       de: "Garmin speichert deine Trainings in der eigenen Cloud, aber die Daten gehören dir. Hier sind alle Wege, sie herauszuholen, mit den ehrlichen Einschränkungen jeder Methode.",
       pt: "A Garmin armazena seus treinos na própria nuvem, mas os dados são seus. Aqui estão todas as formas de extraí-los, com as limitações reais de cada uma.",
       fr: "Garmin conserve vos séances dans son propre cloud, mais les données vous appartiennent. Voici toutes les façons de les récupérer, avec les vraies limites de chacune.",
+      pl: "Garmin przechowuje Twoje treningi we własnej chmurze, ale dane należą do Ciebie. Oto wszystkie sposoby ich wyciągnięcia wraz z rzetelnymi ograniczeniami każdego z nich.",
+      tr: "Garmin antrenmanlarınızı kendi bulutunda tutuyor, ama veriler sizin. İşte verilerinizi çıkarmanın tüm yolları ve her birinin gerçek sınırlamaları.",
     },
   },
   body: [
@@ -125,6 +161,8 @@ export const post: BlogPost = {
         de: "Garmin speichert deine Trainings in der eigenen Cloud, aber die Daten gehören dir. Du kannst sie auf drei Wegen herausbekommen: Export einer einzelnen Aktivität, Massen-Export der gesamten Historie oder kontinuierliche API-Integration zu Strava und anderen Diensten. Der Vorgang ist nicht immer so unkompliziert wie erhofft, und es gibt wichtige Unterschiede zwischen der mobilen App (die nichts exportiert) und der Website sowie zwischen den verschiedenen verfügbaren Formaten.",
         pt: "A Garmin armazena seus treinos na própria nuvem, mas os dados são seus e você pode exportá-los de três formas: export de uma atividade individual, export em massa de todo o histórico, ou integração contínua por API com o Strava e outros. O processo nem sempre é tão imediato quanto se espera, e há diferenças importantes entre o app móvel (que não exporta nada) e o site, e entre os vários formatos disponíveis.",
         fr: "Garmin conserve vos séances dans son propre cloud, mais les données vous appartiennent et vous pouvez les récupérer de trois façons: export d'une activité individuelle, export en masse de tout l'historique, ou intégration continue par API vers Strava et d'autres services. Le processus n'est pas toujours aussi immédiat qu'on l'espère, et il existe des différences importantes entre l'application mobile (qui n'exporte rien) et le site web, ainsi qu'entre les différents formats disponibles.",
+        pl: "Garmin przechowuje Twoje treningi we własnej chmurze, ale dane są Twoje i możesz je wyciągnąć na trzy sposoby: eksport pojedynczej aktywności, eksport masowy całej historii lub ciągła integracja API ze Stravą i innymi. Proces nie zawsze jest tak natychmiastowy, jak się spodziewasz, i istnieją ważne różnice między aplikacją mobilną (która nic nie eksportuje) a stroną internetową oraz między różnymi dostępnymi formatami.",
+        tr: "Garmin antrenmanlarınızı kendi bulutunda tutuyor, ancak veriler sizin ve üç yolla çıkarabilirsiniz: tekil aktivite dışa aktarma, tam geçmişin toplu dışa aktarması veya Strava ve diğer platformlara sürekli API entegrasyonu. Süreç her zaman umduğunuz kadar hızlı değil ve mobil uygulama (hiçbir şey dışa aktarmaz) ile web sitesi arasında ve mevcut çeşitli formatlar arasında önemli farklar var.",
       },
     },
     {
@@ -137,6 +175,8 @@ export const post: BlogPost = {
         de: "Methode 1: Export einer einzelnen Aktivität über die Website",
         pt: "Método 1: export de atividade individual pelo site",
         fr: "Méthode 1: export d'une activité individuelle depuis le site web",
+        pl: "Metoda 1: eksport pojedynczej aktywności przez stronę internetową",
+        tr: "Yöntem 1: web sitesinden tekil aktivite dışa aktarma",
       },
     },
     {
@@ -148,12 +188,14 @@ export const post: BlogPost = {
         de: "Dies ist die direkteste Methode, um eine bestimmte Aktivität zu extrahieren. Sie funktioniert nur über die Website, nicht über die mobile App. Die Garmin Connect App für Android und iOS bietet keine Funktion zum einzelnen Export.",
         pt: "Este é o método mais direto para extrair uma atividade específica. Funciona apenas pelo site, não pelo app móvel. O app Garmin Connect para Android e iOS não possui a função de export individual.",
         fr: "C'est la méthode la plus directe pour extraire une activité spécifique. Elle fonctionne uniquement depuis le site web, pas depuis l'application mobile. L'application Garmin Connect pour Android et iOS ne dispose pas de la fonction d'export individuel.",
+        pl: "Jest to najbardziej bezpośrednia metoda wyciągnięcia konkretnej aktywności. Działa tylko przez stronę internetową, nie przez aplikację mobilną. Aplikacja Garmin Connect na Androida i iOS nie ma funkcji pojedynczego eksportu.",
+        tr: "Bu, belirli bir aktiviteyi çıkarmanın en doğrudan yöntemidir. Yalnızca web sitesinden çalışır, mobil uygulamadan değil. Android ve iOS için Garmin Connect uygulamasında bireysel dışa aktarma özelliği yok.",
       },
     },
     {
       type: "callout",
       variant: "warning",
-      title: { it: "App mobile vs sito web", en: "Mobile app vs website", es: "App móvil frente al sitio web", de: "Mobile App vs. Website", pt: "App móvel vs. site", fr: "Application mobile vs site web" },
+      title: { it: "App mobile vs sito web", en: "Mobile app vs website", es: "App móvil frente al sitio web", de: "Mobile App vs. Website", pt: "App móvel vs. site", fr: "Application mobile vs site web", pl: "Aplikacja mobilna vs strona internetowa", tr: "Mobil uygulama vs web sitesi" },
       body: {
         it: "Esportare GPX o TCX da Garmin richiede il sito web (connect.garmin.com), non l'app mobile. L'app mobile di Garmin Connect non offre export dei dati in nessun formato. Questo è un limite tecnico intenzionale, non un bug.",
         en: "Exporting GPX or TCX from Garmin requires the website (connect.garmin.com), not the mobile app. The Garmin Connect mobile app doesn't offer data export in any format. This is an intentional technical limitation, not a bug.",
@@ -161,6 +203,8 @@ export const post: BlogPost = {
         de: "Der Export von GPX oder TCX aus Garmin erfordert die Website (connect.garmin.com), nicht die mobile App. Die mobile Garmin Connect App bietet keinen Datenexport in irgendeinem Format. Dies ist eine bewusste technische Einschränkung, kein Fehler.",
         pt: "Exportar GPX ou TCX da Garmin requer o site (connect.garmin.com), não o app móvel. O app móvel do Garmin Connect não oferece export de dados em nenhum formato. Esta é uma limitação técnica intencional, não um bug.",
         fr: "Exporter du GPX ou du TCX depuis Garmin nécessite le site web (connect.garmin.com), pas l'application mobile. L'application mobile Garmin Connect ne propose d'export de données dans aucun format. Il s'agit d'une limitation technique intentionnelle, pas d'un bug.",
+        pl: "Eksportowanie GPX lub TCX z Garmin wymaga strony internetowej (connect.garmin.com), a nie aplikacji mobilnej. Aplikacja mobilna Garmin Connect nie oferuje eksportu danych w żadnym formacie. Jest to celowe ograniczenie techniczne, nie błąd.",
+        tr: "Garmin'den GPX veya TCX dışa aktarmak web sitesini (connect.garmin.com) gerektirir, mobil uygulamayı değil. Garmin Connect mobil uygulaması hiçbir formatta veri dışa aktarmaz. Bu kasıtlı bir teknik kısıtlamadır, hata değil.",
       },
     },
     {
@@ -215,6 +259,22 @@ export const post: BlogPost = {
           "Sélectionnez 'Exporter l'original' pour le fichier FIT original, ou 'Exporter en TCX' ou 'Exporter en GPX'.",
           "Le fichier est téléchargé sur votre ordinateur.",
         ],
+        pl: [
+          "Wejdź na connect.garmin.com i zaloguj się swoimi danymi.",
+          "Kliknij 'Aktywności' w lewym menu bocznym.",
+          "Kliknij aktywność, którą chcesz wyeksportować, aby ją otworzyć.",
+          "W prawym górnym rogu kliknij ikonę zębatki (⚙) lub ikonę trzech pionowych kropek.",
+          "Wybierz 'Eksportuj oryginał' dla oryginalnego pliku FIT lub 'Eksportuj jako TCX' lub 'Eksportuj jako GPX'.",
+          "Plik zostanie pobrany na Twój komputer.",
+        ],
+        tr: [
+          "connect.garmin.com adresine gidin ve kimlik bilgilerinizle oturum açın.",
+          "Sol kenar menüsünde 'Aktiviteler'e tıklayın.",
+          "Dışa aktarmak istediğiniz aktiviteye tıklayarak açın.",
+          "Sağ üstte dişli simgesine (⚙) veya üç dikey nokta simgesine tıklayın.",
+          "Orijinal FIT dosyası için 'Orijinali Dışa Aktar', ya da 'TCX Olarak Dışa Aktar' veya 'GPX Olarak Dışa Aktar'ı seçin.",
+          "Dosya bilgisayarınıza indirilir.",
+        ],
       },
     },
     {
@@ -227,6 +287,8 @@ export const post: BlogPost = {
         de: "Export-Formate: GPX, TCX, FIT, CSV: welches wählen",
         pt: "Formatos de export: GPX, TCX, FIT, CSV: qual escolher",
         fr: "Formats d'export: GPX, TCX, FIT, CSV: lequel choisir",
+        pl: "Formaty eksportu: GPX, TCX, FIT, CSV: który wybrać",
+        tr: "Dışa aktarma formatları: GPX, TCX, FIT, CSV: hangisini seçmeli",
       },
     },
     {
@@ -238,6 +300,8 @@ export const post: BlogPost = {
         de: "Die Wahl des Formats hängt vom endgültigen Verwendungszweck ab. Jedes Format enthält unterschiedliche Informationen und hat eine andere Kompatibilität.",
         pt: "A escolha do formato depende do uso final. Cada um carrega informações diferentes e tem compatibilidades distintas.",
         fr: "Le choix du format dépend de l'utilisation finale. Chacun contient des informations différentes et présente une compatibilité différente.",
+        pl: "Wybór formatu zależy od końcowego zastosowania. Każdy zawiera różne informacje i ma różną kompatybilność.",
+        tr: "Format seçimi nihai kullanıma bağlı. Her biri farklı bilgiler taşır ve farklı uyumluluğa sahiptir.",
       },
     },
     {
@@ -249,6 +313,8 @@ export const post: BlogPost = {
         de: "Vergleich der Garmin-Export-Formate",
         pt: "Comparação dos formatos de export da Garmin",
         fr: "Comparaison des formats d'export Garmin",
+        pl: "Porównanie formatów eksportu Garmin",
+        tr: "Garmin dışa aktarma formatı karşılaştırması",
       },
       headers: {
         it: ["Formato", "Contiene", "Meglio per", "Limite"],
@@ -257,6 +323,8 @@ export const post: BlogPost = {
         de: ["Format", "Enthält", "Am besten für", "Einschränkung"],
         pt: ["Formato", "Contém", "Melhor para", "Limitação"],
         fr: ["Format", "Contient", "Idéal pour", "Limitation"],
+        pl: ["Format", "Zawiera", "Najlepszy dla", "Ograniczenie"],
+        tr: ["Format", "İçerir", "En iyi kullanım", "Sınırlama"],
       },
       rows: [
         {
@@ -266,6 +334,8 @@ export const post: BlogPost = {
           de: ["FIT (original)", "Alles: GPS, Herzfrequenz, Kadenz, Leistung, proprietäre Garmin-Daten", "Vollständiges Backup, Re-Import in Garmin", "Binärformat, nur mit speziellen Tools lesbar"],
           pt: ["FIT (original)", "Tudo: GPS, frequência cardíaca, cadência, potência, dados proprietários Garmin", "Backup completo, reimportação na Garmin", "Formato binário, legível apenas com ferramentas específicas"],
           fr: ["FIT (original)", "Tout: GPS, fréquence cardiaque, cadence, puissance, données propriétaires Garmin", "Sauvegarde complète, réimportation dans Garmin", "Format binaire, lisible uniquement avec des outils spécifiques"],
+          pl: ["FIT (oryginał)", "Wszystko: GPS, tętno, kadencja, moc, zastrzeżone dane Garmin", "Pełna kopia zapasowa, ponowny import do Garmin", "Format binarny, czytelny tylko za pomocą specjalnych narzędzi"],
+          tr: ["FIT (orijinal)", "Her şey: GPS, nabız, kadans, güç, Garmin tescilli veriler", "Tam yedek, Garmin'e yeniden aktarım", "İkili format, yalnızca özel araçlarla okunabilir"],
         },
         {
           it: ["GPX", "Traccia GPS, timestamp, HR base", "Mappe, Strava, Komoot, analisi percorso", "Niente potenza, niente cadenza running"],
@@ -274,6 +344,8 @@ export const post: BlogPost = {
           de: ["GPX", "GPS-Track, Zeitstempel, grundlegende Herzfrequenz", "Karten, Strava, Komoot, Streckenanalyse", "Keine Leistung, keine Laufkadenz"],
           pt: ["GPX", "Rota GPS, timestamp, frequência cardíaca básica", "Mapas, Strava, Komoot, análise de percurso", "Sem potência, sem cadência de corrida"],
           fr: ["GPX", "Trace GPS, horodatage, fréquence cardiaque de base", "Cartes, Strava, Komoot, analyse de parcours", "Pas de puissance, pas de cadence de course"],
+          pl: ["GPX", "Trasa GPS, znacznik czasu, podstawowe tętno", "Mapy, Strava, Komoot, analiza trasy", "Brak mocy, brak kadencji biegowej"],
+          tr: ["GPX", "GPS izi, zaman damgası, temel nabız", "Haritalar, Strava, Komoot, rota analizi", "Güç yok, koşu kadansı yok"],
         },
         {
           it: ["TCX", "GPS, HR, calorie, lap, distanza", "Strava (import), Training Peaks", "Meno supportato dei formati moderni"],
@@ -282,6 +354,8 @@ export const post: BlogPost = {
           de: ["TCX", "GPS, Herzfrequenz, Kalorien, Runden, Distanz", "Strava (Import), Training Peaks", "Weniger unterstützt als moderne Formate"],
           pt: ["TCX", "GPS, frequência cardíaca, calorias, voltas, distância", "Strava (import), Training Peaks", "Menos suportado que os formatos modernos"],
           fr: ["TCX", "GPS, fréquence cardiaque, calories, tours, distance", "Strava (import), Training Peaks", "Moins pris en charge que les formats modernes"],
+          pl: ["TCX", "GPS, tętno, kalorie, okrążenia, dystans", "Strava (import), Training Peaks", "Mniej wspierane niż nowoczesne formaty"],
+          tr: ["TCX", "GPS, nabız, kalori, tur, mesafe", "Strava (içe aktarma), Training Peaks", "Modern formatlardan daha az destekleniyor"],
         },
         {
           it: ["CSV", "Tabelle di riepilogo, no GPS", "Excel, fogli di calcolo, analisi statistiche", "Nessun dato GPS o workout details"],
@@ -290,6 +364,8 @@ export const post: BlogPost = {
           de: ["CSV", "Zusammenfassungstabellen, kein GPS", "Excel, Tabellenkalkulationen, statistische Analysen", "Keine GPS-Daten oder Trainingsdetails"],
           pt: ["CSV", "Tabelas de resumo, sem GPS", "Excel, planilhas, análise estatística", "Nenhum dado GPS ou detalhes do treino"],
           fr: ["CSV", "Tableaux récapitulatifs, pas de GPS", "Excel, tableurs, analyse statistique", "Pas de données GPS ni de détails de séance"],
+          pl: ["CSV", "Tabele podsumowań, no GPS", "Excel, arkusze kalkulacyjne, analiza statystyczna", "Brak danych GPS ani szczegółów treningu"],
+          tr: ["CSV", "Özet tablolar, GPS yok", "Excel, hesap tabloları, istatistiksel analiz", "GPS verisi veya antrenman ayrıntısı yok"],
         },
       ],
     },
@@ -302,6 +378,8 @@ export const post: BlogPost = {
         de: "Für den Import eines Trainings in Strava funktionieren sowohl TCX als auch GPX: Strava unterstützt beide. Für ein vollständiges Backup, das dir einen späteren Re-Import oder die Analyse mit Tools wie GoldenCheetah oder Intervals.icu ermöglicht, ist die originale FIT-Datei die beste Wahl, auch wenn sie weniger direkt lesbar ist.",
         pt: "Para importar um treino no Strava, tanto TCX quanto GPX funcionam bem: o Strava os suporta. Para um backup completo que permita reimportar depois ou analisar com ferramentas como GoldenCheetah ou Intervals.icu, o arquivo FIT original é a melhor escolha, mesmo sendo menos legível diretamente.",
         fr: "Pour importer une séance dans Strava, TCX et GPX fonctionnent tous les deux: Strava les prend en charge. Pour une sauvegarde complète permettant une réimportation ultérieure ou une analyse avec des outils comme GoldenCheetah ou Intervals.icu, le fichier FIT original est le meilleur choix, même s'il est moins directement lisible.",
+        pl: "Do importu treningu na Stravę oboje formaty TCX i GPX są dobre: Strava je obsługuje. Do pełnej kopii zapasowej, która umożliwia późniejszy reimport lub analizę za pomocą narzędzi takich jak GoldenCheetah czy Intervals.icu, oryginalny plik FIT jest najlepszym wyborem, nawet jeśli jest mniej bezpośrednio czytelny.",
+        tr: "Strava'ya antrenman aktarmak için hem TCX hem GPX işe yarıyor: Strava her ikisini de destekliyor. GoldenCheetah veya Intervals.icu gibi araçlarla sonradan yeniden aktarmak veya analiz etmek için eksiksiz bir yedek oluşturmak istiyorsanız, orijinal FIT dosyası en iyi seçim — daha az doğrudan okunabilir olsa da.",
       },
     },
     {
@@ -314,6 +392,8 @@ export const post: BlogPost = {
         de: "Methode 2: Massen-Export mit Garmin Data Management",
         pt: "Método 2: export em massa com o Garmin Data Management",
         fr: "Méthode 2: export en masse avec Garmin Data Management",
+        pl: "Metoda 2: eksport masowy z Garmin Data Management",
+        tr: "Yöntem 2: Garmin Data Management ile toplu dışa aktarma",
       },
     },
     {
@@ -325,6 +405,8 @@ export const post: BlogPost = {
         de: "Um die gesamte Trainingshistorie auf einmal herunterzuladen, bietet Garmin eine Massen-Export-Funktion. Dies ist Garmins Entsprechung eines 'Google Takeout': Es gibt dir alles, nicht nur die Aktivitäten.",
         pt: "Para baixar todo o histórico de treinos de uma só vez, a Garmin oferece uma função de export em massa. É o equivalente Garmin de um 'Google Takeout': fornece tudo, não apenas as atividades.",
         fr: "Pour télécharger l'intégralité de l'historique d'entraînements en une seule fois, Garmin propose une fonction d'export en masse. C'est l'équivalent Garmin d'un 'Google Takeout': il vous donne tout, pas seulement les activités.",
+        pl: "Aby pobrać całą historię treningów za jednym razem, Garmin ma funkcję eksportu masowego. To Garminowy odpowiednik 'Google Takeout': daje Ci wszystko, nie tylko aktywności.",
+        tr: "Tüm antrenman geçmişini bir seferde indirmek için Garmin'in toplu dışa aktarma işlevi var. Bu Garmin'in 'Google Takeout' eşdeğeri: yalnızca aktiviteleri değil her şeyi veriyor.",
       },
     },
     {
@@ -379,12 +461,28 @@ export const post: BlogPost = {
           "Vous recevez un e-mail avec le lien de téléchargement dans les 24-48 heures (davantage pour les grands comptes).",
           "L'archive comprend tous les fichiers FIT originaux, les données de santé (fréquence cardiaque, sommeil, pas), les itinéraires et les paramètres de l'appareil.",
         ],
+        pl: [
+          "Zaloguj się na connect.garmin.com.",
+          "Kliknij swoją nazwę użytkownika w prawym górnym rogu → 'Ustawienia konta'.",
+          "W sekcji 'Zarządzanie kontem' znajdź 'Eksportuj swoje dane'.",
+          "Kliknij 'Żądaj danych'. Garmin przygotowuje archiwum ZIP ze wszystkim.",
+          "Otrzymasz e-mail z linkiem do pobrania w ciągu 24–48 godzin (dla dużych kont może dłużej).",
+          "Archiwum zawiera wszystkie oryginalne pliki FIT, dane zdrowotne (tętno, sen, kroki), trasy oraz ustawienia urządzenia.",
+        ],
+        tr: [
+          "connect.garmin.com'a giriş yapın.",
+          "Sağ üstteki kullanıcı adınıza tıklayın → 'Hesap Ayarları'.",
+          "'Hesap yönetimi' bölümünde 'Verilerini Dışa Aktar'ı bulun.",
+          "'Veri İste'ye tıklayın. Garmin her şeyi içeren ZIP arşivi hazırlar.",
+          "İndirme bağlantısıyla e-posta 24-48 saat içinde gelir (büyük hesaplar için daha uzun sürebilir).",
+          "Arşiv tüm orijinal FIT dosyalarını, sağlık verilerini (nabız, uyku, adım), rotaları ve cihaz ayarlarını içerir.",
+        ],
       },
     },
     {
       type: "callout",
       variant: "info",
-      title: { it: "Dimensioni dell'archivio", en: "Archive size", es: "Tamaño del archivo", de: "Größe des Archivs", pt: "Tamanho do arquivo", fr: "Taille de l'archive" },
+      title: { it: "Dimensioni dell'archivio", en: "Archive size", es: "Tamaño del archivo", de: "Größe des Archivs", pt: "Tamanho do arquivo", fr: "Taille de l'archive", pl: "Rozmiar archiwum", tr: "Arşiv boyutu" },
       body: {
         it: "Per chi usa Garmin da anni con attività frequenti, l'archivio può pesare diversi GB. Prepara spazio di storage adeguato prima di richiederlo. Il file più grande tende a essere la cartella dei dati HR granulari (campioni ogni 15 secondi per anni).",
         en: "For people who have been using Garmin for years with frequent activities, the archive can weigh several GB. Prepare adequate storage space before requesting it. The largest file tends to be the folder with granular HR data (samples every 15 seconds for years).",
@@ -392,6 +490,8 @@ export const post: BlogPost = {
         de: "Wer Garmin seit Jahren mit häufigen Aktivitäten nutzt, kann mit einem Archiv von mehreren GB rechnen. Stelle vor der Anforderung ausreichend Speicherplatz bereit. Die größte Datei ist in der Regel der Ordner mit den granularen Herzfrequenz-Daten (Messwerte alle 15 Sekunden über Jahre).",
         pt: "Para quem usa a Garmin há anos com atividades frequentes, o arquivo pode pesar vários GB. Prepare espaço de armazenamento adequado antes de solicitá-lo. O arquivo maior costuma ser a pasta dos dados de frequência cardíaca granulares (amostras a cada 15 segundos ao longo de anos).",
         fr: "Pour ceux qui utilisent Garmin depuis des années avec des activités fréquentes, l'archive peut peser plusieurs Go. Prévoyez un espace de stockage suffisant avant de la demander. Le fichier le plus volumineux est généralement le dossier des données de fréquence cardiaque granulaires (échantillons toutes les 15 secondes pendant des années).",
+        pl: "Dla osób korzystających z Garmina od lat z częstymi aktywnościami archiwum może ważyć kilka GB. Przed żądaniem przygotuj odpowiednie miejsce na dysku. Największy plik to zazwyczaj folder ze szczegółowymi danymi tętna (próbki co 15 sekund przez lata).",
+        tr: "Yıllarca sık aktiviteyle Garmin kullananlar için arşiv birkaç GB ağırlığında olabilir. Talep etmeden önce yeterli depolama alanı hazırlayın. En büyük dosya genellikle ayrıntılı nabız verisi klasörüdür (yıllarca 15 saniyede bir örnekler).",
       },
     },
     {
@@ -404,6 +504,8 @@ export const post: BlogPost = {
         de: "Methode 3: Garmin Connect API (für kontinuierliche Integrationen)",
         pt: "Método 3: API do Garmin Connect (para integrações contínuas)",
         fr: "Méthode 3: API Garmin Connect (pour les intégrations continues)",
+        pl: "Metoda 3: API Garmin Connect (do ciągłych integracji)",
+        tr: "Yöntem 3: Garmin Connect API (sürekli entegrasyonlar için)",
       },
     },
     {
@@ -415,6 +517,8 @@ export const post: BlogPost = {
         de: "Wenn du einen kontinuierlichen Datenfluss benötigst (kein einmaliger Export, sondern jedes Training, das bei Garmin Connect ankommt, wird automatisch weitergeleitet), ist der Weg die Garmin Health API oder die Connect API. Aber Achtung: Dies ist kein Self-Service-Weg.",
         pt: "Se você precisa de um fluxo contínuo de dados (não um export pontual, mas cada treino que chega ao Garmin Connect sendo enviado automaticamente para outro lugar), o caminho é a Garmin Health API ou a Connect API. Atenção, porém: não é uma opção de autoatendimento.",
         fr: "Si vous avez besoin d'un flux de données continu (pas un export ponctuel, mais chaque séance qui arrive sur Garmin Connect automatiquement envoyée quelque part), la voie est la Garmin Health API ou la Connect API. Attention toutefois: ce n'est pas une option en libre-service.",
+        pl: "Jeśli potrzebujesz ciągłego przepływu danych (nie jednorazowego eksportu, ale każdy trening kończący się na Garmin Connect automatycznie wysyłany gdzieś), droga to Garmin Health API lub Connect API. Uwaga jednak: to nie jest ścieżka samoobsługowa.",
+        tr: "Sürekli bir veri akışına ihtiyacınız varsa (tek seferlik dışa aktarma değil, Garmin Connect'e her gelen antrenmanın otomatik olarak bir yere gönderilmesi), Garmin Health API veya Connect API'yi kullanın. Ama dikkat: bu kendi kendine hizmet yolu değil.",
       },
     },
     {
@@ -450,6 +554,16 @@ export const post: BlogPost = {
           "**Applications déjà intégrées**: Strava, Training Peaks, Final Surge et quelques autres plateformes disposent déjà d'une intégration officielle. Vous pouvez autoriser ces applications depuis Garmin Connect → Applications et appareils connectés → Gérer les applications.",
           "**FitMesh Sync**: fait partie des services qui prennent en charge l'intégration officielle avec l'API Garmin Connect, permettant de centraliser les données sans avoir à les exporter manuellement à chaque fois.",
         ],
+        pl: [
+          "**Garmin Connect API**: wymaga aplikacji OAuth zatwierdzonej przez Garmin. Nie możesz bezpośrednio uzyskać dostępu do swoich danych osobowych przez API bez bycia zatwierdzonym deweloperem z zarejestrowaną aplikacją. Proces zatwierdzania zajmuje czas i ma kryteria oceny.",
+          "**Już zintegrowane aplikacje**: Strava, Training Peaks, Final Surge i kilka innych platform ma już oficjalną integrację. Możesz autoryzować te aplikacje z Garmin Connect → Połączone aplikacje i urządzenia → Zarządzaj aplikacjami.",
+          "**FitMesh Sync**: wśród usług obsługujących oficjalną integrację API Garmin Connect, umożliwiając centralizację danych bez konieczności ręcznego eksportowania za każdym razem.",
+        ],
+        tr: [
+          "**Garmin Connect API**: Garmin tarafından onaylanmış OAuth uygulaması gerektirir. Kayıtlı bir uygulamayla onaylı geliştirici olmadan API üzerinden kişisel verilerinize doğrudan erişemezsiniz. Onay süreci zaman alır ve değerlendirme kriterleri vardır.",
+          "**Zaten entegre uygulamalar**: Strava, Training Peaks, Final Surge ve diğer bazı platformlar zaten resmi entegrasyona sahip. Bu uygulamaları Garmin Connect → Bağlı Uygulamalar ve Cihazlar → Uygulamaları Yönet'ten yetkilendirebilirsiniz.",
+          "**FitMesh Sync**: Garmin Connect API entegrasyonunu resmi olarak destekleyen hizmetler arasında, her seferinde manuel dışa aktarma yapmanıza gerek kalmadan verileri merkezi bir yerde toplamanızı sağlıyor.",
+        ],
       },
     },
     {
@@ -462,6 +576,8 @@ export const post: BlogPost = {
         de: "Garmin-Daten in Strava importieren: praktische Schritte",
         pt: "Importar dados da Garmin no Strava: passos práticos",
         fr: "Importer les données Garmin dans Strava: étapes pratiques",
+        pl: "Importowanie danych Garmin na Stravę: praktyczne kroki",
+        tr: "Garmin verilerini Strava'ya aktarma: pratik adımlar",
       },
     },
     {
@@ -473,6 +589,8 @@ export const post: BlogPost = {
         de: "Der manuelle Import in Strava ist einer der häufigsten Anwendungsfälle für den Garmin-Export. Es gibt zwei Wege: Direkte Integration (empfohlen) oder Datei-Import (für einzelne Aktivitäten oder Batches).",
         pt: "O import manual no Strava é um dos casos de uso mais comuns para o export da Garmin. Há dois caminhos: integração direta (recomendada) ou import de arquivo (para atividades individuais ou em lote).",
         fr: "L'import manuel dans Strava est l'un des cas d'usage les plus courants pour l'export Garmin. Il existe deux approches: l'intégration directe (recommandée) ou l'import de fichier (pour des activités individuelles ou en lot).",
+        pl: "Ręczny import na Stravę jest jednym z najczęstszych przypadków użycia eksportu Garmin. Są dwie drogi: bezpośrednia integracja (zalecana) lub import pliku (dla pojedynczych aktywności lub wsadowo).",
+        tr: "Strava'ya manuel içe aktarma, Garmin dışa aktarmanın en yaygın kullanım durumlarından biri. İki yol var: doğrudan entegrasyon (önerilir) veya dosya içe aktarma (tekil aktiviteler veya toplu).",
       },
     },
     {
@@ -508,6 +626,16 @@ export const post: BlogPost = {
           "**Import de fichier individuel**: rendez-vous sur strava.com → menu '+' en haut → 'Importer une activité'. Prend en charge GPX, FIT et TCX. Notez que Strava impose une limite de 25 imports par semaine pour les comptes gratuits et quelques restrictions sur les données de puissance.",
           "**Import historique en lot**: Strava permet d'importer l'archive complète des FIT si vous en faites la demande via leur support (fonctionnalité limitée, nécessite un contact direct).",
         ],
+        pl: [
+          "**Bezpośrednia integracja**: z Garmin Connect → Połączone aplikacje → szukaj Strava → autoryzuj. Od tej chwili każda aktywność synchronizuje się automatycznie. Nie wymaga ręcznego eksportu.",
+          "**Import pojedynczego pliku**: wejdź na strava.com → menu '+' na górze → 'Prześlij aktywność'. Obsługuje GPX, FIT i TCX. Pamiętaj, że Strava ma limit 25 przesyłek/tydzień dla kont darmowych i pewne ograniczenia dotyczące danych mocy.",
+          "**Historyczny import wsadowy**: Strava umożliwia import pełnego archiwum FIT na żądanie przez ich wsparcie (ograniczona funkcja, wymaga bezpośredniego kontaktu).",
+        ],
+        tr: [
+          "**Doğrudan entegrasyon**: Garmin Connect → Bağlı Uygulamalar → Strava ara → yetkilendir. Artık her aktivite otomatik senkronize olur. Manuel dışa aktarma gerekmez.",
+          "**Tek dosya içe aktarma**: strava.com'a gidin → üstteki '+' menüsü → 'Aktivite Yükle'. GPX, FIT ve TCX destekler. Strava'nın ücretsiz hesaplar için haftada 25 yükleme sınırı ve güç verilerinde bazı kısıtlamalar olduğunu unutmayın.",
+          "**Geçmiş toplu içe aktarma**: Strava, destek birimleri aracılığıyla talep üzerine tam FIT arşivini içe aktarmaya izin veriyor (sınırlı özellik, doğrudan iletişim gerektirir).",
+        ],
       },
     },
     {
@@ -520,6 +648,8 @@ export const post: BlogPost = {
         de: "Garmin und Health Connect: die aktuelle Lage",
         pt: "Garmin e Health Connect: a situação atual",
         fr: "Garmin et Health Connect: la situation actuelle",
+        pl: "Garmin i Health Connect: aktualna sytuacja",
+        tr: "Garmin ve Health Connect: güncel durum",
       },
     },
     {
@@ -531,6 +661,8 @@ export const post: BlogPost = {
         de: "Eine häufige Frage: Schreibt Garmin Daten in Health Connect? Die aktuelle Antwort (Mai 2026) lautet: teilweise. Garmin Connect für Android hat begonnen, das Schreiben in Health Connect für einige Basismetriken zu unterstützen (tägliche Schritte, Ruheherzfrequenz, aggregierte Schlafdaten), aber nicht für vollständige Aktivitäten mit GPS. Für vollständige Trainingsdaten führt der Weg weiterhin über die OAuth-API von Garmin, nicht über Health Connect.",
         pt: "Uma pergunta frequente: a Garmin escreve dados no Health Connect? A resposta atual (maio de 2026) é: parcialmente. O Garmin Connect para Android começou a suportar a escrita no Health Connect para algumas métricas básicas (passos diários, frequência cardíaca em repouso, dados de sono agregados), mas não para atividades completas com GPS. Para dados de treino completos, o caminho ainda é a API OAuth da Garmin, não o Health Connect.",
         fr: "Une question fréquente: Garmin écrit-il des données dans Health Connect? La réponse actuelle (mai 2026) est: partiellement. Garmin Connect pour Android a commencé à prendre en charge l'écriture dans Health Connect pour quelques métriques de base (pas quotidiens, fréquence cardiaque au repos, données de sommeil agrégées), mais pas pour les activités complètes avec GPS. Pour les données d'entraînement complètes, la voie reste l'API OAuth de Garmin, pas Health Connect.",
+        pl: "Częste pytanie: czy Garmin zapisuje dane w Health Connect? Aktualna odpowiedź (maj 2026) brzmi: częściowo. Garmin Connect na Androida zaczął obsługiwać zapis do Health Connect dla niektórych podstawowych metryk (dzienne kroki, spoczynkowe tętno, zagregowane dane snu), ale nie dla pełnych aktywności z GPS. Dla pełnych danych treningowych droga nadal prowadzi przez OAuth API Garmin, nie przez Health Connect.",
+        tr: "Sık sorulan soru: Garmin Health Connect'e veri yazıyor mu? Mevcut yanıt (Mayıs 2026): kısmen. Android için Garmin Connect, bazı temel metrikler için (günlük adım, istirahat nabzı, toplam uyku verileri) Health Connect'e yazma desteği ekledi, ancak GPS'li eksiksiz aktiviteler için henüz değil. Tam antrenman verileri için yol hâlâ Garmin'in OAuth API'sinden geçiyor, Health Connect'ten değil.",
       },
     },
     {
@@ -542,12 +674,14 @@ export const post: BlogPost = {
         de: "Das bedeutet, dass Apps, die nur Health Connect zum Lesen von Garmin-Daten verwenden, Schritte und BPM sehen, aber keine Details zu Radausfahrten oder GPS-Läufen. Dafür ist eine direkte Integration mit der Garmin Connect API erforderlich.",
         pt: "Isso significa que apps que usam apenas o Health Connect para ler dados da Garmin verão passos e BPM, mas não os detalhes dos passeios de bicicleta ou das corridas com GPS. Para isso, é necessária uma integração direta com a API do Garmin Connect.",
         fr: "Cela signifie que les applications utilisant uniquement Health Connect pour lire les données Garmin verront les pas et la fréquence cardiaque, mais pas les détails des sorties à vélo ou des courses GPS. Pour cela, une intégration directe avec l'API Garmin Connect est nécessaire.",
+        pl: "Oznacza to, że aplikacje korzystające wyłącznie z Health Connect do odczytu danych Garmin zobaczą kroki i BPM, ale nie szczegóły wycieczek rowerowych czy biegów GPS. Do tych danych potrzebna jest bezpośrednia integracja z API Garmin Connect.",
+        tr: "Bu, Garmin verilerini okumak için yalnızca Health Connect kullanan uygulamaların adımları ve BPM'i göreceği ancak bisiklet turlarının veya GPS koşularının ayrıntılarını göremeyeceği anlamına geliyor. Bunlar için doğrudan Garmin Connect API entegrasyonu gerekiyor.",
       },
     },
     {
       type: "callout",
       variant: "tip",
-      title: { it: "La nostra posizione netta sui formati di export", en: "Our clear stance on export formats", es: "Nuestra posición clara sobre los formatos de exportación", de: "Unsere klare Position zu Export-Formaten", pt: "Nossa posição clara sobre os formatos de export", fr: "Notre position claire sur les formats d'export" },
+      title: { it: "La nostra posizione netta sui formati di export", en: "Our clear stance on export formats", es: "Nuestra posición clara sobre los formatos de exportación", de: "Unsere klare Position zu Export-Formaten", pt: "Nossa posição clara sobre os formatos de export", fr: "Notre position claire sur les formats d'export", pl: "Nasze jednoznaczne stanowisko w sprawie formatów eksportu", tr: "Dışa aktarma formatları konusundaki net tutumumuz" },
       body: {
         it: "Usa sempre FIT come formato di backup primario, non GPX. Il FIT contiene dati che GPX non può rappresentare (Training Load, Body Battery, potenza running, dati proprietari Garmin) e permette re-import completo in Garmin Connect o in tool come GoldenCheetah e Intervals.icu. Il GPX è comodo per la condivisione e l'import su Strava, ma come archivio è una copia degradata. Il costo in storage è trascurabile: non c'è ragione per accontentarsi del formato meno completo.",
         en: "Always use FIT as your primary backup format, not GPX. FIT contains data that GPX cannot represent (Training Load, Body Battery, running power, Garmin proprietary data) and allows full re-import into Garmin Connect or tools like GoldenCheetah and Intervals.icu. GPX is convenient for sharing and Strava import, but as an archive it's a degraded copy. The storage cost is negligible: there is no reason to settle for the less complete format.",
@@ -555,9 +689,11 @@ export const post: BlogPost = {
         de: "Verwende immer FIT als primäres Backup-Format, nicht GPX. FIT enthält Daten, die GPX nicht darstellen kann (Training Load, Body Battery, Laufleistung, proprietäre Garmin-Daten) und ermöglicht den vollständigen Re-Import in Garmin Connect oder Tools wie GoldenCheetah und Intervals.icu. GPX ist praktisch für die Weitergabe und den Strava-Import, aber als Archiv ist es eine degradierte Kopie. Der Speicherbedarf ist vernachlässigbar: Es gibt keinen Grund, sich mit dem weniger vollständigen Format zu begnügen.",
         pt: "Use sempre FIT como formato de backup primário, não GPX. O FIT contém dados que o GPX não consegue representar (Training Load, Body Battery, potência de corrida, dados proprietários Garmin) e permite a reimportação completa no Garmin Connect ou em ferramentas como GoldenCheetah e Intervals.icu. O GPX é conveniente para compartilhamento e import no Strava, mas como arquivo é uma cópia degradada. O custo em armazenamento é desprezível: não há razão para se conformar com o formato menos completo.",
         fr: "Utilisez toujours FIT comme format de sauvegarde principal, pas GPX. FIT contient des données que GPX ne peut pas représenter (Training Load, Body Battery, puissance de course, données propriétaires Garmin) et permet une réimportation complète dans Garmin Connect ou des outils comme GoldenCheetah et Intervals.icu. GPX est pratique pour le partage et l'import dans Strava, mais en tant qu'archive c'est une copie dégradée. Le coût en stockage est négligeable: il n'y a aucune raison de se contenter du format moins complet.",
+        pl: "Zawsze używaj FIT jako głównego formatu kopii zapasowej, a nie GPX. FIT zawiera dane, których GPX nie może reprezentować (Training Load, Body Battery, moc biegowa, zastrzeżone dane Garmin) i umożliwia pełny reimport do Garmin Connect lub narzędzi takich jak GoldenCheetah i Intervals.icu. GPX jest wygodny do udostępniania i importu na Stravę, ale jako archiwum jest zdegradowaną kopią. Koszt pamięci jest znikomy: nie ma powodu zadowalać się mniej kompletnym formatem.",
+        tr: "Birincil yedek formatı olarak her zaman FIT kullanın, GPX değil. FIT, GPX'in temsil edemediği verileri içerir (Training Load, Body Battery, koşu gücü, Garmin tescilli veriler) ve Garmin Connect'e veya GoldenCheetah ve Intervals.icu gibi araçlara tam yeniden aktarım sağlar. GPX paylaşım ve Strava içe aktarımı için uygun, ama arşiv olarak bozulmuş bir kopya. Depolama maliyeti ihmal edilebilir: daha az eksiksiz formatla yetinmek için hiçbir neden yok.",
       },
     },
-    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary", es: "En resumen", de: "Zusammenfassung", pt: "Em resumo", fr: "En résumé" } },
+    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary", es: "En resumen", de: "Zusammenfassung", pt: "Em resumo", fr: "En résumé", pl: "Podsumowanie", tr: "Özet" } },
     {
       type: "list",
       items: {
@@ -603,6 +739,20 @@ export const post: BlogPost = {
           "Garmin n'écrit pas les données d'entraînement complètes dans Health Connect: pour les activités GPS, vous avez besoin de l'intégration directe avec l'API Garmin Connect.",
           "Avant de supprimer votre compte Garmin, effectuez toujours un export en masse au préalable: les données sont définitivement supprimées à la fermeture du compte.",
         ],
+        pl: [
+          "Eksport pojedynczych aktywności wymaga strony connect.garmin.com: aplikacja mobilna Garmin Connect nie eksportuje plików w żadnym formacie.",
+          "Do pełnej kopii zapasowej wybierz oryginalny format FIT: zawiera wszystkie zastrzeżone dane Garmin, których GPX i TCX nie zachowują.",
+          "Eksport masowy (Ustawienia konta → Eksportuj swoje dane) pobiera całą historię jako archiwum ZIP, zazwyczaj w ciągu 24–48 godzin.",
+          "Garmin nie zapisuje pełnych danych treningowych w Health Connect: do aktywności GPS potrzebna jest bezpośrednia integracja z API Garmin Connect.",
+          "Przed usunięciem konta Garmin zawsze najpierw wykonaj eksport masowy: dane są trwale usuwane po zamknięciu konta.",
+        ],
+        tr: [
+          "Tekil aktivite dışa aktarımı connect.garmin.com web sitesini gerektirir: Garmin Connect mobil uygulaması hiçbir formatta dosya dışa aktarmaz.",
+          "Tam yedek için orijinal FIT formatını seçin: GPX ve TCX'in koruyamadığı tüm Garmin tescilli verilerini içerir.",
+          "Toplu dışa aktarma (Hesap Ayarları → Verilerini Dışa Aktar) tüm geçmişi ZIP arşivi olarak indirir, genellikle 24-48 saat içinde.",
+          "Garmin, Health Connect'e eksiksiz antrenman verileri yazmıyor: GPS aktiviteleri için doğrudan Garmin Connect API entegrasyonu gerekiyor.",
+          "Garmin hesabınızı silmeden önce her zaman önce toplu dışa aktarma yapın: veriler hesap kapatıldığında kalıcı olarak silinir.",
+        ],
       },
     },
     {
@@ -614,6 +764,8 @@ export const post: BlogPost = {
         de: "Möchtest du deine Garmin-Trainings in einem zentralen Dashboard zusammenführen?",
         pt: "Quer levar seus treinos da Garmin para um painel centralizado?",
         fr: "Vous souhaitez regrouper vos séances Garmin dans un tableau de bord centralisé?",
+        pl: "Chcesz przenieść treningi Garmin na scentralizowany panel?",
+        tr: "Garmin antrenmanlarınızı merkezi bir panoya taşımak ister misiniz?",
       },
       body: {
         it: "Tra le opzioni che semplificano questo c'è FitMesh Sync: si integra con Garmin Connect via API ufficiale e porta i tuoi allenamenti in una dashboard web accessibile da browser, senza dover esportare file manualmente ogni volta.",
@@ -622,6 +774,8 @@ export const post: BlogPost = {
         de: "Zu den Optionen, die dies vereinfachen, gehört FitMesh Sync: Es integriert sich mit Garmin Connect über die offizielle API und bringt deine Trainings in ein browser-zugängliches Web-Dashboard, ohne jedes Mal Dateien manuell exportieren zu müssen.",
         pt: "Entre as opções que simplificam isso está o FitMesh Sync: integra-se com o Garmin Connect via API oficial e leva seus treinos para um painel web acessível pelo navegador, sem precisar exportar arquivos manualmente a cada vez.",
         fr: "Parmi les options qui simplifient cela figure FitMesh Sync: il s'intègre avec Garmin Connect via l'API officielle et apporte vos séances dans un tableau de bord web accessible depuis le navigateur, sans avoir à exporter des fichiers manuellement à chaque fois.",
+        pl: "Jedną z opcji, które to upraszczają, jest FitMesh Sync: integruje się z Garmin Connect przez oficjalne API i przynosi Twoje treningi na dostępny przez przeglądarkę panel webowy, bez konieczności ręcznego eksportowania plików za każdym razem.",
+        tr: "Bunu kolaylaştıran seçenekler arasında FitMesh Sync var: resmi API üzerinden Garmin Connect ile entegre olur ve antrenmanlarınızı her seferinde manuel dosya dışa aktarmanıza gerek kalmadan tarayıcıdan erişilebilen bir web panosuna getirir.",
       },
       ctaLabel: {
         it: "Vedi integrazione Garmin su FitMesh →",
@@ -630,6 +784,8 @@ export const post: BlogPost = {
         de: "Garmin-Integration auf FitMesh ansehen →",
         pt: "Ver integração Garmin no FitMesh →",
         fr: "Voir l'intégration Garmin sur FitMesh →",
+        pl: "Zobacz integrację Garmin na FitMesh →",
+        tr: "FitMesh'te Garmin entegrasyonunu gör →",
       },
       ctaHref: {
         it: "/it/sync/garmin",
@@ -646,6 +802,8 @@ export const post: BlogPost = {
         de: "Kann ich Garmin-Daten aus der mobilen App exportieren?",
         pt: "Posso exportar os dados da Garmin pelo app móvel?",
         fr: "Puis-je exporter les données Garmin depuis l'application mobile?",
+        pl: "Czy mogę eksportować dane Garmin z aplikacji mobilnej?",
+        tr: "Garmin verilerini mobil uygulamadan dışa aktarabilir miyim?",
       },
       a: {
         it: "No. L'app Garmin Connect per Android e iOS non permette di esportare file di attività in nessun formato. Per esportare un'attività devi usare il sito web connect.garmin.com da un browser desktop o mobile. Questa è una limitazione intenzionale di Garmin, non un bug dell'app.",
@@ -654,6 +812,8 @@ export const post: BlogPost = {
         de: "Nein. Die Garmin Connect App für Android und iOS ermöglicht keinen Export von Aktivitätsdateien in irgendeinem Format. Um eine Aktivität zu exportieren, musst du die Website connect.garmin.com über einen Desktop- oder mobilen Browser verwenden. Dies ist eine bewusste Einschränkung von Garmin, kein App-Fehler.",
         pt: "Não. O app Garmin Connect para Android e iOS não permite exportar arquivos de atividade em nenhum formato. Para exportar uma atividade, você deve usar o site connect.garmin.com em um navegador de desktop ou móvel. Esta é uma limitação intencional da Garmin, não um bug do app.",
         fr: "Non. L'application Garmin Connect pour Android et iOS ne permet pas d'exporter des fichiers d'activité dans aucun format. Pour exporter une activité, vous devez utiliser le site web connect.garmin.com depuis un navigateur de bureau ou mobile. Il s'agit d'une limitation intentionnelle de Garmin, pas d'un bug de l'application.",
+        pl: "Nie. Aplikacja Garmin Connect na Androida i iOS nie pozwala na eksportowanie plików aktywności w żadnym formacie. Aby wyeksportować aktywność, musisz użyć strony connect.garmin.com w przeglądarce na komputerze lub urządzeniu mobilnym. Jest to celowe ograniczenie Garmin, a nie błąd aplikacji.",
+        tr: "Hayır. Android ve iOS için Garmin Connect uygulaması, hiçbir formatta aktivite dosyası dışa aktarmaya izin vermiyor. Aktivite dışa aktarmak için masaüstü veya mobil tarayıcıdan connect.garmin.com web sitesini kullanmanız gerekiyor. Bu kasıtlı bir Garmin kısıtlaması, uygulama hatası değil.",
       },
     },
     {
@@ -664,6 +824,8 @@ export const post: BlogPost = {
         de: "Was ist der Unterschied zwischen GPX und FIT beim Export aus Garmin?",
         pt: "Qual é a diferença entre GPX e FIT ao exportar da Garmin?",
         fr: "Quelle est la différence entre GPX et FIT lors de l'export depuis Garmin?",
+        pl: "Jaka jest różnica między GPX a FIT przy eksportowaniu z Garmin?",
+        tr: "Garmin'den dışa aktarırken GPX ile FIT arasındaki fark nedir?",
       },
       a: {
         it: "FIT è il formato nativo Garmin: contiene tutti i dati originali inclusi metriche proprietarie come Training Load, Body Battery, e i dati di potenza running se il tuo dispositivo li supporta. GPX è uno standard aperto che contiene GPS track e frequenza cardiaca ma perde alcune informazioni proprietarie. Per backup completo usa FIT; per condivisione o import in Strava, GPX o TCX vanno bene entrambi.",
@@ -672,6 +834,8 @@ export const post: BlogPost = {
         de: "FIT ist das native Garmin-Format: Es enthält alle originalen Daten einschließlich proprietärer Metriken wie Training Load, Body Battery und Laufleistungsdaten, sofern dein Gerät diese unterstützt. GPX ist ein offener Standard, der GPS-Track und Herzfrequenz enthält, aber einige proprietäre Informationen verliert. Für ein vollständiges Backup nutze FIT; für die Weitergabe oder den Strava-Import funktionieren sowohl GPX als auch TCX gut.",
         pt: "FIT é o formato nativo da Garmin: contém todos os dados originais, incluindo métricas proprietárias como Training Load, Body Battery e dados de potência de corrida, se o seu dispositivo os suportar. GPX é um padrão aberto que contém rota GPS e frequência cardíaca, mas perde algumas informações proprietárias. Para backup completo use FIT; para compartilhamento ou import no Strava, tanto GPX quanto TCX funcionam bem.",
         fr: "FIT est le format natif de Garmin: il contient toutes les données originales, y compris les métriques propriétaires comme Training Load, Body Battery et les données de puissance de course si votre appareil les prend en charge. GPX est un standard ouvert qui contient la trace GPS et la fréquence cardiaque, mais perd certaines informations propriétaires. Pour une sauvegarde complète, utilisez FIT; pour le partage ou l'import dans Strava, GPX ou TCX conviennent tous les deux.",
+        pl: "FIT to natywny format Garmin: zawiera wszystkie oryginalne dane, w tym zastrzeżone metryki takie jak Training Load, Body Battery i dane mocy biegowej, jeśli Twoje urządzenie je obsługuje. GPX to otwarty standard zawierający trasę GPS i tętno, ale tracący niektóre zastrzeżone informacje. Do pełnej kopii zapasowej używaj FIT; do udostępniania lub importu na Stravę oba formaty GPX i TCX sprawdzają się dobrze.",
+        tr: "FIT Garmin'in yerel formatı: cihazınız destekliyorsa Training Load, Body Battery ve koşu gücü verileri dahil tüm orijinal verileri içeriyor. GPX, GPS izi ve nabzı içeren ancak bazı tescilli bilgileri kaybeden açık bir standart. Tam yedek için FIT kullanın; paylaşım veya Strava içe aktarımı için GPX veya TCX her ikisi de işe yarıyor.",
       },
     },
     {
@@ -682,6 +846,8 @@ export const post: BlogPost = {
         de: "Wie lade ich alle meine Garmin-Trainings auf einmal herunter?",
         pt: "Como baixar todos os meus treinos da Garmin de uma só vez?",
         fr: "Comment télécharger tous mes entraînements Garmin en une seule fois?",
+        pl: "Jak pobrać wszystkie treningi Garmin za jednym razem?",
+        tr: "Tüm Garmin antrenmanlarımı aynı anda nasıl indirebilirim?",
       },
       a: {
         it: "Usa la funzione 'Esporta i tuoi dati' in Impostazioni Account di Garmin Connect web. Ricevi un archivio ZIP con tutti gli FIT originali, di solito entro 24-48 ore. Per anni di dati frequenti l'archivio può pesare diversi GB. In alternativa, strumenti di terze parti come Tapiriik o GarminDB possono scaricare in batch le attività via API (richiedono account Garmin valido).",
@@ -690,6 +856,8 @@ export const post: BlogPost = {
         de: "Nutze die Funktion 'Deine Daten exportieren' in den Kontoeinstellungen von Garmin Connect im Web. Du erhältst ein ZIP-Archiv mit allen originalen FITs, in der Regel innerhalb von 24-48 Stunden. Bei Jahren häufiger Daten kann das Archiv mehrere GB schwer sein. Alternativ können Tools von Drittanbietern wie Tapiriik oder GarminDB Aktivitäten per API im Batch herunterladen (erfordern ein gültiges Garmin-Konto).",
         pt: "Use a função 'Exportar seus dados' nas Configurações da conta do Garmin Connect na web. Você receberá um arquivo ZIP com todos os FITs originais, geralmente em 24-48 horas. Para anos de dados frequentes, o arquivo pode pesar vários GB. Como alternativa, ferramentas de terceiros como Tapiriik ou GarminDB podem baixar atividades em lote via API (exigem conta Garmin válida).",
         fr: "Utilisez la fonction 'Exporter vos données' dans les Paramètres du compte de Garmin Connect sur le web. Vous recevez une archive ZIP avec tous les FIT originaux, généralement dans les 24-48 heures. Pour des années de données fréquentes, l'archive peut peser plusieurs Go. Alternativement, des outils tiers comme Tapiriik ou GarminDB peuvent télécharger les activités en lot via API (nécessitent un compte Garmin valide).",
+        pl: "Użyj funkcji 'Eksportuj swoje dane' w Ustawieniach konta Garmin Connect w przeglądarce. Otrzymasz archiwum ZIP ze wszystkimi oryginalnymi plikami FIT, zazwyczaj w ciągu 24–48 godzin. Dla lat częstych danych archiwum może ważyć kilka GB. Alternatywnie narzędzia firm trzecich, takie jak Tapiriik lub GarminDB, mogą wsadowo pobierać aktywności przez API (wymagają prawidłowego konta Garmin).",
+        tr: "Garmin Connect web Hesap Ayarlarındaki 'Verilerini Dışa Aktar' işlevini kullanın. Genellikle 24-48 saat içinde tüm orijinal FIT dosyalarını içeren ZIP arşivini alırsınız. Yıllarca sık veri için arşiv birkaç GB olabilir. Alternatif olarak Tapiriik veya GarminDB gibi üçüncü taraf araçlar API üzerinden toplu aktivite indirebilir (geçerli Garmin hesabı gerektirir).",
       },
     },
     {
@@ -700,6 +868,8 @@ export const post: BlogPost = {
         de: "Werden Garmin-Daten gelöscht, wenn ich aufhöre, für Garmin Connect zu bezahlen?",
         pt: "Os dados da Garmin são excluídos se eu parar de pagar o Garmin Connect?",
         fr: "Les données Garmin sont-elles supprimées si j'arrête de payer Garmin Connect?",
+        pl: "Czy dane Garmin są usuwane, jeśli przestanę płacić za Garmin Connect?",
+        tr: "Garmin Connect için ödemeyi bıraksam Garmin verileri silinir mi?",
       },
       a: {
         it: "Garmin Connect è gratuito: non c'è un abbonamento base per il cloud. Alcune funzionalità avanzate come le mappe di copertura o le analisi avanzate richiedono piani premium, ma i dati di allenamento sono conservati gratuitamente. Se cancelli l'account, i dati vengono eliminati: ecco perché fare un export prima è importante.",
@@ -708,6 +878,8 @@ export const post: BlogPost = {
         de: "Garmin Connect ist kostenlos: Es gibt kein Basis-Abonnement für die Cloud. Einige erweiterte Funktionen wie Abdeckungskarten oder erweiterte Analysen erfordern Premium-Pläne, aber Trainingsdaten werden kostenlos gespeichert. Wenn du das Konto löschst, werden die Daten gelöscht: Deshalb ist es wichtig, vorher einen Export durchzuführen.",
         pt: "O Garmin Connect é gratuito: não há assinatura básica para a nuvem. Alguns recursos avançados, como mapas de cobertura ou análises avançadas, exigem planos premium, mas os dados de treino são armazenados gratuitamente. Se você excluir a conta, os dados são apagados: por isso é importante fazer um export antes.",
         fr: "Garmin Connect est gratuit: il n'y a pas d'abonnement de base pour le cloud. Certaines fonctionnalités avancées comme les cartes de couverture ou les analyses avancées nécessitent des plans premium, mais les données d'entraînement sont stockées gratuitement. Si vous supprimez le compte, les données sont effacées: c'est pourquoi il est important de faire un export au préalable.",
+        pl: "Garmin Connect jest bezpłatny: nie ma podstawowej subskrypcji za chmurę. Niektóre zaawansowane funkcje, takie jak mapy pokrycia lub zaawansowane analizy, wymagają planów premium, ale dane treningowe są przechowywane bezpłatnie. Jeśli usuniesz konto, dane zostaną usunięte: dlatego ważne jest wcześniejsze wykonanie eksportu.",
+        tr: "Garmin Connect ücretsiz: bulut için temel abonelik yok. Kapsama haritaları veya gelişmiş analizler gibi bazı gelişmiş özellikler premium planlar gerektiriyor, ancak antrenman verileri ücretsiz saklanıyor. Hesabı silerseniz veriler silinir: bu yüzden önce dışa aktarma yapmak önemli.",
       },
     },
     {
@@ -718,6 +890,8 @@ export const post: BlogPost = {
         de: "Kann ich Daten von einem alten Garmin auf ein neues übertragen, ohne die Historie zu verlieren?",
         pt: "Posso importar dados de uma Garmin antiga para uma nova sem perder o histórico?",
         fr: "Puis-je importer des données d'une ancienne Garmin vers une nouvelle sans perdre l'historique?",
+        pl: "Czy mogę importować dane ze starego Garmina na nowy bez utraty historii?",
+        tr: "Geçmişi kaybetmeden eski Garmin'den yenisine veri aktarabilir miyim?",
       },
       a: {
         it: "Sì, ma solo la storia su Garmin Connect (cloud), non quella sul dispositivo fisico. Quando colleghi un nuovo Garmin allo stesso account Garmin Connect, vedi tutta la tua storia precedente. I file FIT sul vecchio dispositivo (nella cartella Activities della scheda micro-SD o della memoria interna) non vengono automaticamente copiati sul nuovo. Puoi importarli manualmente su Garmin Connect via sito web.",
@@ -726,6 +900,8 @@ export const post: BlogPost = {
         de: "Ja, aber nur die Historie auf Garmin Connect (Cloud), nicht die auf dem physischen Gerät. Wenn du ein neues Garmin mit demselben Garmin Connect-Konto verbindest, siehst du deine gesamte frühere Historie. FIT-Dateien auf dem alten Gerät (im Aktivitäten-Ordner auf der Micro-SD-Karte oder im internen Speicher) werden nicht automatisch auf das neue kopiert. Du kannst sie manuell über die Website in Garmin Connect importieren.",
         pt: "Sim, mas apenas o histórico no Garmin Connect (nuvem), não o que está no dispositivo físico. Ao conectar uma Garmin nova à mesma conta do Garmin Connect, você verá todo o seu histórico anterior. Os arquivos FIT no dispositivo antigo (na pasta Activities do cartão micro-SD ou da memória interna) não são copiados automaticamente para o novo. Você pode importá-los manualmente no Garmin Connect pelo site.",
         fr: "Oui, mais uniquement l'historique sur Garmin Connect (cloud), pas celui sur l'appareil physique. Lorsque vous connectez une nouvelle Garmin au même compte Garmin Connect, vous voyez tout votre historique précédent. Les fichiers FIT sur l'ancien appareil (dans le dossier Activities sur la carte micro-SD ou la mémoire interne) ne sont pas automatiquement copiés sur le nouveau. Vous pouvez les importer manuellement dans Garmin Connect via le site web.",
+        pl: "Tak, ale tylko historia na Garmin Connect (chmurze), nie ta na fizycznym urządzeniu. Po podłączeniu nowego Garmina do tego samego konta Garmin Connect widzisz całą swoją poprzednią historię. Pliki FIT na starym urządzeniu (w folderze Activities na karcie micro-SD lub pamięci wewnętrznej) nie są automatycznie kopiowane na nowe. Możesz je ręcznie zaimportować na Garmin Connect przez stronę internetową.",
+        tr: "Evet, ama yalnızca Garmin Connect'teki (bulut) geçmişi, fiziksel cihazdakini değil. Yeni bir Garmin'i aynı Garmin Connect hesabına bağladığınızda önceki tüm geçmişinizi görürsünüz. Eski cihazdaki FIT dosyaları (micro-SD veya dahili belleğin Activities klasöründe) otomatik olarak yeniye kopyalanmaz. Bunları Garmin Connect'e web sitesi üzerinden manuel olarak aktarabilirsiniz.",
       },
     },
   ],

@@ -37,6 +37,8 @@ export const PRICING = {
     de: "€1,19",
     pt: "€1,19",
     fr: "€1,19",
+    pl: "€1,19",
+    tr: "€1,19",
   },
   /** Acquisto unico su Android (Play Store) */
   lifetimeAndroid: {
@@ -46,6 +48,8 @@ export const PRICING = {
     de: "€3,99",
     pt: "€3,99",
     fr: "€3,99",
+    pl: "€3,99",
+    tr: "€3,99",
   },
   /** Acquisto unico su iPhone (App Store) */
   lifetimeIos: {
@@ -55,6 +59,8 @@ export const PRICING = {
     de: "€4,99",
     pt: "€4,99",
     fr: "€4,99",
+    pl: "€4,99",
+    tr: "€4,99",
   },
 
   // ── Frasi composte riusabili ─────────────────────────────────────────
@@ -67,6 +73,8 @@ export const PRICING = {
     de: "€3,99 auf Android · €4,99 auf iPhone",
     pt: "€3,99 no Android · €4,99 no iPhone",
     fr: "€3,99 sur Android · €4,99 sur iPhone",
+    pl: "€3,99 na Android · €4,99 na iPhone",
+    tr: "Android'de €3,99 · iPhone'da €4,99",
   },
   /** "€3,99 Android · €4,99 iPhone" (versione compatta senza preposizione) */
   lifetimeBothShort: {
@@ -76,6 +84,8 @@ export const PRICING = {
     de: "€3,99 Android · €4,99 iPhone",
     pt: "€3,99 Android · €4,99 iPhone",
     fr: "€3,99 Android · €4,99 iPhone",
+    pl: "€3,99 Android · €4,99 iPhone",
+    tr: "€3,99 Android · €4,99 iPhone",
   },
   /** "da €3,99" / "from €3.99" — per contesti che citano solo il prezzo minimo */
   fromLifetime: {
@@ -85,6 +95,8 @@ export const PRICING = {
     de: "ab €3,99",
     pt: "a partir de €3,99",
     fr: "à partir de €3,99",
+    pl: "od €3,99",
+    tr: "€3,99'dan itibaren",
   },
   /** "€1,19/6 mesi" / "€1.19/6mo" */
   subSixMonthsLabel: {
@@ -94,6 +106,8 @@ export const PRICING = {
     de: "€1,19/6 Monate",
     pt: "€1,19/6 meses",
     fr: "€1,19/6 mois",
+    pl: "€1,19/6 mies.",
+    tr: "€1,19/6 ay",
   },
   /** "€1,19 ogni 6 mesi" / "€1.19 every 6 months" */
   subSixMonthsFull: {
@@ -103,10 +117,13 @@ export const PRICING = {
     de: "€1,19 alle 6 Monate",
     pt: "€1,19 a cada 6 meses",
     fr: "€1,19 tous les 6 mois",
+    pl: "€1,19 co 6 miesięcy",
+    tr: "€1,19 6 ayda bir",
   },
 } as const;
 
-/** Helper: ritorna la stringa display per la locale corrente */
+/** Helper: ritorna la stringa display per la locale corrente (fallback en per nl/ja/ko) */
 export function p(key: keyof typeof PRICING, locale: Locale): string {
-  return PRICING[key][locale];
+  const entry = PRICING[key] as Record<string, string>;
+  return entry[locale] ?? entry["en"];
 }

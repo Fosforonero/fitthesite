@@ -1,17 +1,4 @@
-/**
- * TrustBadges — riga di trust signals reusable per landing principali.
- *
- * Mostra 4 badge fissi: Made in Italy / Server EU / GDPR / Indie dev.
- * Sono segnali di autorevolezza (E-E-A-T) che gli algoritmi AI 2026
- * premiano specialmente in topic YMYL (salute).
- *
- * Layout: riga inline mobile-friendly, wrap su mobile. Icone SVG inline
- * (zero external dep, instant paint).
- *
- * Usage:
- *   <TrustBadges locale="it" />
- *   <TrustBadges locale="en" variant="compact" />
- */
+import type { Locale } from "@/lib/i18n";
 
 type Variant = "default" | "compact";
 
@@ -58,13 +45,48 @@ const COPY = {
     indie: "Indie dev",
     title: "Conçu avec soin",
   },
+  pl: {
+    madeIn: "Made in Italy",
+    serverEu: "Serwery w UE",
+    gdpr: "Prywatność RODO",
+    indie: "Indie dev",
+    title: "Zbudowany z troską",
+  },
+  tr: {
+    madeIn: "Made in Italy",
+    serverEu: "AB Sunucuları",
+    gdpr: "Gizlilik KVKK/GDPR",
+    indie: "Indie dev",
+    title: "Özenle geliştirildi",
+  },
+  nl: {
+    madeIn: "Made in Italy",
+    serverEu: "EU-servers",
+    gdpr: "Privacy AVG/GDPR",
+    indie: "Indie dev",
+    title: "Gebouwd met zorg",
+  },
+  ja: {
+    madeIn: "Made in Italy",
+    serverEu: "EUサーバー",
+    gdpr: "GDPRプライバシー",
+    indie: "インディー開発",
+    title: "丁寧に作られました",
+  },
+  ko: {
+    madeIn: "Made in Italy",
+    serverEu: "EU 서버",
+    gdpr: "GDPR 개인정보",
+    indie: "인디 개발",
+    title: "정성껏 만들었습니다",
+  },
 } as const;
 
 export default function TrustBadges({
   locale,
   variant = "default",
 }: {
-  locale: "it" | "en" | "es" | "de" | "pt" | "fr";
+  locale: Locale;
   variant?: Variant;
 }) {
   const t = COPY[locale];

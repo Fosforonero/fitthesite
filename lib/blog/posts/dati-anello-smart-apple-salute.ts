@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Confidentialité EU/RGPD : toutes les données transitent par des serveurs en datacenters européens. FitMesh ne vend pas les données et ne les utilise pas pour entraîner des modèles.",
       "Le pont fonctionne en arrière-plan : aucune exportation manuelle, aucune application compagnon du fabricant requise sur iPhone.",
     ],
+    pl: [
+      "FitMesh Sync odczytuje dane z Twojego inteligentnego pierścienia lub smartwatcha Android, synchronizuje je w chmurze EU i zapisuje do Apple Zdrowie przez HealthKit: tak osoby z dwoma telefonami widzą wszystko w jednym miejscu.",
+      "Mostek jest opt-in: jeśli Apple Zdrowie już ma te dane (np. z Apple Watch), FitMesh ich nie nadpisze. Bez duplikatów.",
+      "Sen z pełnymi fazami (głęboki, lekki, REM): pierścień to nocny specjalista i fazy są zapisywane w Apple Zdrowie dokładnie tak, jak je rejestruje czujnik.",
+      "Prywatność EU/RODO: wszystkie dane przechodzą przez chmurę w centrach danych w UE. FitMesh nie sprzedaje danych ani nie używa ich do trenowania modeli.",
+      "Mostek działa w tle: bez ręcznego eksportu, bez aplikacji companion producenta wymaganej na iPhonie.",
+    ],
+    tr: [
+      "FitMesh Sync, akıllı yüzüğünüzün veya Android smartwatch'unuzun verilerini okur, AB bulutunda senkronize eder ve HealthKit aracılığıyla Apple Sağlık'a yazar: böylece iki telefonu olan kullanıcılar her şeyi tek bir yerde görür.",
+      "Köprü opt-in'dir: Apple Sağlık bu verilere zaten sahipse (örn. Apple Watch'tan), FitMesh bunları yeniden yazmaz. Yineleme olmaz.",
+      "Tam evreli uyku (derin, hafif, REM): yüzük gece uzmanıdır ve evreler Apple Sağlık'a sensör tarafından kaydedildiği şekliyle yazılır.",
+      "AB/KVKK gizliliği: tüm veriler AB veri merkezlerindeki bulut sunucularından geçer. FitMesh veri satmaz ve model eğitmek için kullanmaz.",
+      "Köprü arka planda çalışır: manuel dışa aktarma yok, iPhone'da üretici companion uygulaması gerekmez.",
+    ],
   },
   primaryKeyword: {
     it: "anello smart dati apple salute",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "Smart-Ring Daten Apple Health",
     pt: "anel inteligente dados apple saúde",
     fr: "bague connectée données santé apple",
+    pl: "dane inteligentnego pierścienia apple zdrowie",
+    tr: "akıllı yüzük verileri apple sağlık",
   },
   secondaryKeywords: {
     it: [
@@ -87,6 +103,20 @@ export const post: BlogPost = {
       "comment importer le sommeil android dans apple santé",
       "fitmesh passerelle apple health",
     ],
+    pl: [
+      "zapisywanie danych wearable android do apple zdrowie",
+      "mostek apple zdrowie smartwatch android",
+      "inteligentny pierścień iphone apple health",
+      "jak przenieść dane snu android do apple zdrowie",
+      "fitmesh mostek apple health",
+    ],
+    tr: [
+      "android wearable verilerini apple sağlık'a yazma",
+      "apple sağlık köprüsü android smartwatch",
+      "akıllı yüzük iphone apple health",
+      "android uyku verilerini apple sağlık'a aktarma",
+      "fitmesh apple health yazma köprüsü",
+    ],
   },
   metaDescription: {
     it: "Come FitMesh Sync porta i dati del tuo anello smart o smartwatch Android dentro Apple Salute: bridge opt-in, zero duplicati, sonno con fasi. Privacy EU, GDPR. Guida completa.",
@@ -95,6 +125,8 @@ export const post: BlogPost = {
     de: "Wie FitMesh Sync die Daten deines Smart-Rings oder Android-Smartwatches in Apple Health überträgt: opt-in Brücke, keine Duplikate, Schlaf mit Phasen. EU-Datenschutz, DSGVO. Vollständige Anleitung.",
     pt: "Como o FitMesh Sync leva os dados do seu anel inteligente ou smartwatch Android para o Apple Saúde: ponte opt-in, zero duplicatas, sono com fases. Privacidade EU, RGPD. Guia completo.",
     fr: "Comment FitMesh Sync transfère les données de votre bague connectée ou montre connectée Android dans Santé Apple : pont opt-in, zéro doublon, sommeil avec phases. Confidentialité EU, RGPD. Guide complet.",
+    pl: "Jak wysłać dane inteligentnego pierścienia (Colmi, RingConn) lub smartwatcha Android do Apple Zdrowie przez HealthKit. FitMesh Sync tworzy mostek między Androidem a iPhonem, bez ręcznych eksportów.",
+    tr: "Akıllı yüzük (Colmi, RingConn) veya Android smartwatch verilerini HealthKit üzerinden Apple Sağlık'a nasıl gönderirsiniz. FitMesh Sync, manuel dışa aktarma olmadan Android ile iPhone arasında köprü kurar.",
   },
   hero: {
     kicker: {
@@ -104,6 +136,8 @@ export const post: BlogPost = {
       de: "Anleitung",
       pt: "Guia de uso",
       fr: "Guide d'utilisation",
+      pl: "Przewodnik użytkownika",
+      tr: "Kullanım Kılavuzu",
     },
     title: {
       it: "I dati del tuo anello smart dentro Apple Salute: come funziona il ponte",
@@ -112,6 +146,8 @@ export const post: BlogPost = {
       de: "Die Daten deines Smart-Rings in Apple Health: so funktioniert die Brücke",
       pt: "Os dados do seu anel inteligente no Apple Saúde: como funciona a ponte",
       fr: "Les données de votre bague connectée dans Santé Apple : comment fonctionne le pont",
+      pl: "Dane zegła inteligentnego w Apple Zdrowie: jak działa pułapka",
+      tr: "Veriğin senin pisolinin Apple Sağlık içinde: köprü nasıl çalışır?",
     },
     subtitle: {
       it: "Se hai un anello smart o un Galaxy Watch accoppiati con Android, i loro dati non arrivano automaticamente in Apple Salute sul tuo iPhone. FitMesh Sync risolve questo con un ponte cloud opt-in: ecco cosa attivare, cosa compare su iPhone, e qualche risposta alle domande più comuni.",
@@ -120,6 +156,8 @@ export const post: BlogPost = {
       de: "Wenn du einen Smart-Ring oder eine Galaxy Watch mit Android gekoppelt hast, gelangen deren Daten nicht automatisch in Apple Health auf deinem iPhone. FitMesh Sync löst dieses Problem mit einer opt-in Cloud-Brücke: Hier erfährst du, was du aktivieren musst, was auf dem iPhone erscheint und erhältst Antworten auf die häufigsten Fragen.",
       pt: "Se você tem um anel inteligente ou um Galaxy Watch pareado com Android, os dados não chegam automaticamente ao Apple Saúde no seu iPhone. FitMesh Sync resolve isso com uma ponte de nuvem opt-in: veja o que ativar, o que aparece no iPhone e respostas às perguntas mais comuns.",
       fr: "Si vous avez une bague connectée ou une Galaxy Watch couplée à Android, leurs données n'arrivent pas automatiquement dans Santé Apple sur votre iPhone. FitMesh Sync résout cela avec un pont cloud opt-in : voici ce qu'il faut activer, ce qui s'affiche sur iPhone, et des réponses aux questions les plus fréquentes.",
+      pl: "Jeśli masz smartannelett lub Galaxy Watch połączone z Android, ich dane nie są automatycznie przesyłane do Apple Zdrowia na Twoim iPhone. FitMesh Sync rozwiązuje to za pomocą włączalnego pułapka chmury: oto, co włączyć, co pojawi się na iPhone, oraz kilka odpowiedzi na najczęściej zadawane pytania.",
+      tr: "Eğer bir smart ayağınız veya Galaxy Watch cihazınız Android ile eşleştirilmişse, verilerin otomatik olarak Apple Sağlık'a ulaşmamaktadır. FitMesh Sync bu konuyu bir girdiye bağlı bulut köprüsüyle çözüyor: bunu nasıl etkinleştireceğinizi, iPhone 'de ne görmeniz gerektiğini ve sık sorulan bazı soruların cevaplarını buradan bulabilirsiniz.",
     },
   },
   body: [
@@ -132,6 +170,8 @@ export const post: BlogPost = {
         de: "Ich habe dieses Problem selbst als störend empfunden: Galaxy Watch am Handgelenk, iPhone in der Tasche, und die Health-App zeigt nur die Daten des iPhones. Der Ring, den ich nachts trage, zeichnet detaillierte Schlafphasen auf, aber Apple Health sieht sie nicht. Die Apple Health Schreibbrücke von FitMesh entstand aus diesem konkreten Bedarf, nicht aus einer Feature-Liste.",
         pt: "Eu mesmo achei esse problema irritante: Galaxy Watch no pulso, iPhone no bolso, e o app Saúde mostrando apenas os dados do iPhone. O anel que uso à noite registra fases do sono detalhadas, mas o Apple Saúde não as vê. A ponte de escrita do Apple Saúde do FitMesh nasceu dessa necessidade concreta, não de uma lista de funcionalidades.",
         fr: "J'ai trouvé ce problème personnellement agaçant : Galaxy Watch au poignet, iPhone dans la poche, et l'app Santé qui n'affiche que les données de l'iPhone. La bague que je porte la nuit enregistre des phases de sommeil détaillées, mais Santé Apple ne les voit pas. Le pont d'écriture Santé Apple de FitMesh est né de ce besoin concret, pas d'une liste de fonctionnalités.",
+        pl: "Znalazłem ten problem osobisty: Galaxy Watch na nadgarstku, iPhone w kieszeni, a aplikacja Zdrowie pokazuje tylko dane z iPhone. Anelis, który noszę po nocach, rejestruje szczegółowe fazy senu, ale Apple Zdrowie ich nie widzi. Pierwotny bridge Apple Zdrowie dla FitMesh wynika z tej konkretnej potrzeby, a nie z listy funkcji.",
+        tr: "Buju bu kişisel olarak bu sorunu rahatsız buldum: Galaxy Watch cebinde, iPhone polşede ve Salute uygulaması sadece iPhone verilerini gösteriyor. Gezmekte olduğum pisolino detaylı uyku fasi kaydediyor, ancak Apple Salute bunları algılamıyor. Apple Salute uygulamasının FitMesh tarafından bu gerçek isteğinden doğduğu, bir özellik listesinden olduğu gibi değil.",
       },
     },
     {
@@ -144,6 +184,8 @@ export const post: BlogPost = {
         de: "Das Problem: zwei Ökosysteme, die nicht miteinander kommunizieren",
         pt: "O problema: dois ecossistemas que não se comunicam",
         fr: "Le problème : deux écosystèmes qui ne communiquent pas",
+        pl: "Problematyczna sytuacja: dwa ecosystemy, które nie komunikują się",
+        tr: "Problem: i iki ekosistem birbirleriyle konuşmuyor",
       },
     },
     {
@@ -155,6 +197,8 @@ export const post: BlogPost = {
         de: "Android und iOS verwenden separate, nicht interoperable Gesundheitsdaten-Repositorien: Health Connect auf Android, HealthKit auf iOS. Eine Galaxy Watch, die mit einem Android-Telefon gekoppelt ist, schreibt die Daten in Health Connect, nicht in Apple Health. Ein Colmi-Ring, der von FitMesh auf Android per Bluetooth ausgelesen wird, tut dasselbe. Das Ergebnis: Wenn du die Health-App auf deinem iPhone öffnest, sind diese Daten nicht vorhanden.",
         pt: "Android e iOS usam repositórios de dados de saúde separados e não interoperáveis: Health Connect no Android, HealthKit no iOS. Um Galaxy Watch pareado com um telefone Android grava os dados no Health Connect, não no Apple Saúde. Um anel Colmi lido via Bluetooth pelo FitMesh no Android faz o mesmo. O resultado: se você abrir o app Saúde no seu iPhone, esses dados não estão lá.",
         fr: "Android et iOS utilisent des référentiels de données de santé séparés et non interopérables : Health Connect sur Android, HealthKit sur iOS. Une Galaxy Watch couplée à un téléphone Android écrit les données dans Health Connect, pas dans Santé Apple. Une bague Colmi lue via Bluetooth par FitMesh sur Android fait de même. Résultat : si vous ouvrez l'app Santé sur votre iPhone, ces données ne sont pas là.",
+        pl: "Android i iOS korzystają z oddzielnych i niekompatybilnych repozytoriów danych zdrowotnych: Health Connect na Android, HealthKit na iOS. Przypięty do telefonu Android Galaxy Watch zapisuje dane w Health Connect, nie w Apple Health. Podobnie anellito Colmi czytane za pośrednictwem Bluetooth z FitMesh na Android robi to samo. Wynik: jeśli otworzysz aplikację Zdrowie na swoim iPhone, tych danych tam nie ma.",
+        tr: "KVKK ve iOS sağlık verileri repository'lerini ayrı ve interoperabel olmayan şekilde kullanıyor: Health Connect KVKK üzerinde, HealthKit iOS üzerinde. Bir Galaxy Watch bir Android telefonuyla eşleştirildiğinde, veriler Health Connect'e yazılır, Apple Health'e değil. Bir Colmi Bluetooth üzerinden FitMesh cihazından okunduğunda aynı işlem yapılır. Sonuç: Eğer iPhone'nin Sağlık uygulamasını açarsanız, o veriler orada yoktur.",
       },
     },
     {
@@ -167,6 +211,8 @@ export const post: BlogPost = {
         de: "Warum es keine native Lösung gibt",
         pt: "Por que não existe uma solução nativa",
         fr: "Pourquoi il n'existe pas de solution native",
+        pl: "Bożego cudu nie ma/native solution does not exist",
+        tr: "Neden bir yerel çözüm mevcut değil",
       },
       body: {
         it: "Apple e Google non hanno costruito un modo diretto per scambiare dati salute tra i due sistemi. FitMesh usa il proprio cloud EU come tramite: legge i dati dal telefono Android e li rende disponibili sull'iPhone. Nessun export manuale, nessuna configurazione complicata.",
@@ -175,6 +221,8 @@ export const post: BlogPost = {
         de: "Apple und Google haben keine direkte Möglichkeit geschaffen, Gesundheitsdaten zwischen den beiden Systemen auszutauschen. FitMesh nutzt seine eigene EU-Cloud als Brücke: Es liest die Daten vom Android-Telefon und stellt sie auf dem iPhone bereit. Kein manueller Export, keine komplizierte Einrichtung.",
         pt: "Apple e Google não criaram uma maneira direta de trocar dados de saúde entre os dois sistemas. O FitMesh usa sua própria nuvem EU como intermediária: lê os dados do telefone Android e os disponibiliza no iPhone. Sem exportações manuais, sem configuração complicada.",
         fr: "Apple et Google n'ont pas créé de moyen direct d'échanger des données de santé entre les deux systèmes. FitMesh utilise son propre cloud EU comme intermédiaire : il lit les données du téléphone Android et les rend disponibles sur iPhone. Aucune exportation manuelle, aucune configuration compliquée.",
+        pl: "Apple i Google nie zbudowali bezpośredniego sposobu wymiany danych zdrowotnych między oboma systemami. FitMesh używa swojego chmury EU jako przekaznika: czyta dane z telefonu Android i je udostępnia na iPhone. Brak ręcznego eksportu, brak skomplikowanej konfiguracji.",
+        tr: "Apple ve Google doğrudan veri sağlıkı paylaşma yolu oluşturmadı. FitMesh kendi EU bulutunu kullanıyor: telefon Android den verileri okuyarak, akıllı saat iPhone 'e sunar.manuel export yoktur, karmaşık yapılandırma yoktur.",
       },
     },
     {
@@ -187,6 +235,8 @@ export const post: BlogPost = {
         de: "So funktioniert die Brücke: Schritt für Schritt",
         pt: "Como funciona a ponte: passo a passo",
         fr: "Comment fonctionne le pont : étape par étape",
+        pl: "Jak działa bridge: krok po kroku",
+        tr: "Günlük kullanım nasıl gerçekleşir: adım adım",
       },
     },
     {
@@ -241,6 +291,22 @@ export const post: BlogPost = {
           "**Écriture ciblée**: écrit dans Santé Apple uniquement les données manquantes. Si l'Apple Watch a déjà enregistré le sommeil de 23h à 7h, FitMesh ne touche pas ces heures.",
           "**Visibilité immédiate**: après l'écriture, les données apparaissent dans l'app Santé de l'iPhone comme n'importe quelle autre entrée HealthKit, avec la source clairement indiquée comme FitMesh Sync.",
         ],
+        pl: [
+          "**Zbior na Android**: FitMesh Sync odczytuje dane z Twojego wearable Android (przez Health Connect dla Galaxy Watch, przez Bluetooth dla pęstenka Colmi) i przesyła je do chmury EU.",
+          "**Wolontariat FitMesh EU**: dane są zapisywane ze znacznikami czasowymi, źródłami, typami danych oraz kontami użytkowników. Usługa cloud normalizuje formaty między różnymi źródłami.",
+          "**Aplikacja iOS aktywna**: gdy otwierasz FitMesh na iPhone (lub aplikacja jest aktywna w tle), sprawdź, które dane są dostępne w chmurze dla Twoego konta.",
+          "**Sprawdzenie duplikatów**: dla każdego dostępnych danych, aplikacja sprawdza, czy Apple Salute ma już coś dla tej godziny. Jeśli tak, pominie to. Jeśli nie, zapisze.",
+          "**Zakładka do celu**: pisz na Apple Salute tylko brakujące dane. Jeśli Apple Watch zarejestrowała sen od 23:00 do 07:00, FitMesh nie dotyka tych godzin.",
+          "**Nieruchoma widoczność**: po zapisaniu, dane pojawiają się w aplikacji Zdrowie z iPhone jako dowolna inna pozycja HealthKit, z źródłem jasno zaznaczonym jako FitMesh Sync.",
+        ],
+        tr: [
+          "**Günlük Android Toplulaştırma**: FitMesh Sync giyilebilir cihaz Androidinizden verileri okuyar (Health Connect aracılığıyla Galaxy Watch için, Bluetooth aracılığıyla pisolino Colmi için) ve bunları AB'nin bulutuna yükler.",
+          "**Could FitMesh EU**: veriler zaman damgası, kaynak, veri türü ve kullanıcı hesabıyla depolanır. Bulut farklı kaynaklar arasında veri biçimlerini normalleştirir.",
+          "**Uygulama iOS etkin**: FitMesh'i cihazınızda açtığınızda (veya uygulama arka planda aktif) veya iPhone üzerinde FitMesh'u açtığınızda, hangi veriler cloud'da hesabınıza ait olduğunu kontrol et.",
+          "**Çift kayıtlar kontrolü**: her veri için uygulama, Apple Sağlık için o saat aralığı için zaten bir kaydın olup olmadığını kontrol eder. Var ise atlar. Yoksa ekler.",
+          "**Hedefleme yazım**: sadece eksik verileri Apple Sağlık'a yazıyor. Eğer Apple Çocuk 23:00 ile 07:00 arasında uyku kaydettiği takdirde, FitMesh o saatlerı değiştirmez.",
+          "**Hemen Görüntülme**: yazıldıktan sonra, veriler iPhone Sağlık uygulamasında diğer herhangi bir öğenin gibi görüntülenir ve kaynak, açıkça FitMesh Sync olarak gösterilir.",
+        ],
       },
     },
     {
@@ -253,6 +319,8 @@ export const post: BlogPost = {
         de: "Keine Duplikate: so funktioniert es",
         pt: "Zero duplicatas: como funciona",
         fr: "Zéro doublon : comment ça fonctionne",
+        pl: "Bez powtórzeń: jak to działa",
+        tr: "Sıfır Duplonyu: Nasıl Çalışır",
       },
     },
     {
@@ -264,6 +332,8 @@ export const post: BlogPost = {
         de: "Bevor ein Datensatz geschrieben wird, prüft FitMesh, ob Apple Health für diesen Zeitraum bereits etwas enthält. Wenn ja, geht es weiter. Wenn nein, wird geschrieben. In der Praxis: Es gibt nie zwei Einträge für dieselbe Stunde.",
         pt: "Antes de gravar qualquer dado, o FitMesh verifica se o Apple Saúde já tem algo para aquele intervalo de tempo. Se sim, passa adiante. Se não, grava. Na prática: nunca há duas entradas para o mesmo horário.",
         fr: "Avant d'écrire une quelconque donnée, FitMesh vérifie si Santé Apple possède déjà quelque chose pour ce créneau horaire. Si oui, il passe à la suite. Si non, il écrit. En pratique : il n'y a jamais deux entrées pour la même heure.",
+        pl: "Przed wpisaniem jakiejkolwiek informacji, FitMesh sprawdza, czy Apple Zdrowie posiada już coś dla tej godziny. Jeśli tak, przeskok. Jeśli nie, wpisz. W praktyce: nigdy nie ma dwóch wpisów na tę samą godzinę.",
+        tr: "Önce herhangi bir veri yazmadan, FitMesh Apple Sağlık o zaman diliminde zaten bir şey var mı kontrol etmelidir. Var ise geçin. Yoksa yazın. Özetle: Aynı zamanda iki kere hiçbir veri yazılmaz.",
       },
     },
     {
@@ -276,6 +346,8 @@ export const post: BlogPost = {
         de: "Praktische Beispiele",
         pt: "Exemplos práticos",
         fr: "Exemples pratiques",
+        pl: "Praktyczne przykłady",
+        tr: "Örnekler",
       },
       body: {
         it: "Hai dormito con l'anello Colmi ma non hai indossato Apple Watch? FitMesh scrive le fasi del sonno in Apple Salute. Hai sia Apple Watch che l'anello, e il Watch ha già registrato la notte? FitMesh non tocca nulla. Hai solo l'anello? FitMesh scrive, e se riapri l'app più tardi non duplica.",
@@ -284,6 +356,8 @@ export const post: BlogPost = {
         de: "Hast du mit dem Colmi-Ring geschlafen, aber die Apple Watch nicht getragen? FitMesh schreibt die Schlafphasen in Apple Health. Hast du sowohl Apple Watch als auch den Ring, und die Watch hat die Nacht bereits aufgezeichnet? FitMesh berührt nichts. Nur der Ring? FitMesh schreibt, und wenn du die App später erneut öffnest, wird nicht dupliziert.",
         pt: "Dormiu com o anel Colmi mas sem o Apple Watch? O FitMesh grava as fases do sono no Apple Saúde. Tem tanto o Apple Watch quanto o anel, e o Watch já registrou a noite? O FitMesh não toca em nada. Apenas o anel? O FitMesh grava, e se você reabrir o app mais tarde, não duplica.",
         fr: "Vous avez dormi avec la bague Colmi mais sans l'Apple Watch ? FitMesh écrit les phases de sommeil dans Santé Apple. Vous avez à la fois l'Apple Watch et la bague, et la Watch a déjà enregistré la nuit ? FitMesh ne touche à rien. Bague uniquement ? FitMesh écrit, et si vous rouvrez l'app plus tard, il ne duplique pas.",
+        pl: "SpŨłeś z anelkiem Colmi ale nie nosiłeś Apple Watch? FitMesh zapisuje fazy snu w Apple Salute. Masz zarówno Apple Watch, jak i anellko, a Watch już zarejestrował noc? FitMesh nic nie zmienia. Masz tylko anelk? FitMesh zapisuje, a jeśli ponownie otwiesz aplikację później, to nie powtarza.",
+        tr: "Uyudun Colmi ile ama Apple Watch'i giymedi mi? FitMesh Uyku aşamalarını Apple Sağlık'te kaydeder. Apple Watch ve de Colmi, ve Watch'u zaten geceyi kaydetmişse? FitMesh hiçbir şey yapmaz. Sadece Colmi var mı? FitMesh kaydeder, daha sonra uygulamayı açtığında da çakışmaz.",
       },
     },
     {
@@ -296,6 +370,8 @@ export const post: BlogPost = {
         de: "Schlaf mit Phasen: die Stärke des Rings",
         pt: "Sono com fases: o ponto forte do anel",
         fr: "Sommeil avec phases : le point fort de la bague",
+        pl: "Snytanie z_awakacji: siła wyrazu aneglu",
+        tr: "Uyum fazları ile uyku: anlamanın güçlü noktası",
       },
     },
     {
@@ -307,6 +383,8 @@ export const post: BlogPost = {
         de: "Smart-Ringe wie der Colmi R02/R03 sind für die Nacht konzipiert: Sie messen Schlaf, SpO₂, Herzfrequenz und Herzfrequenzvariabilität während du schläfst, ohne das Gewicht einer Uhr am Handgelenk. Die vom Ring aufgezeichneten Phasen (Tiefschlaf, Leichtschlaf, REM, Wach) erscheinen in Apple Health im Schlaf-Diagramm, genau so als hätte die Apple Watch sie aufgezeichnet.",
         pt: "Anéis inteligentes como o Colmi R02/R03 são projetados para a noite: medem sono, SpO₂, frequência cardíaca e variabilidade enquanto você dorme, sem o peso de um relógio no pulso. As fases registradas pelo anel (sono profundo, leve, REM, acordado) aparecem no Apple Saúde no gráfico de Sono, exatamente como se o Apple Watch as tivesse registrado.",
         fr: "Les bagues connectées comme la Colmi R02/R03 sont conçues pour la nuit : elles mesurent le sommeil, la SpO₂, la fréquence cardiaque et la variabilité pendant que vous dormez, sans le poids d'une montre au poignet. Les phases enregistrées par la bague (sommeil profond, léger, REM, éveil) apparaissent dans Santé Apple dans le graphique Sommeil, exactement comme si l'Apple Watch les avait enregistrées.",
+        pl: "Ankiety smart takie jak Colmi R02/R03 są zaprojektowane na noc: pomiar sonu, SpO₂, frekwencji serca i variabilitości podczas senu, bez ciężaru zegarka na nadgarstku. Fazy zarejestrowane przez ankiety (głęboki sen, lekki sen, REM, błądzenie się) pojawiają się w Apple Salute w wykresie Sonu dokładnie tak, jakby były to zegarki Apple Watch.",
+        tr: "Gli anelli smart come il Colmi R02/R03 sono pensati per la notte: misurano sonno, SpO₂, frequenza cardiaca e variabilità respiratoria mentre dormi, senza il peso di un orologio al polso. Le fasi registrate dall'anello (sonno profondo, leggero, REM, veglia) compaiono in Apple Salute nel grafico Sonno, esattamente come se li avesse registrati Apple Watch.",
       },
     },
     {
@@ -319,6 +397,8 @@ export const post: BlogPost = {
         de: "Datenschutz: Wohin gehen die Daten und wer sieht sie",
         pt: "Privacidade: para onde vão os dados e quem os vê",
         fr: "Confidentialité : où vont les données et qui les voit",
+        pl: "prywatność: gdzie idą dane i kogo ich można zobaczyć",
+        tr: "Gizlilik: veriler nereye gider ve kimler onları görür",
       },
     },
     {
@@ -330,6 +410,8 @@ export const post: BlogPost = {
         de: "Die Daten durchlaufen nur zwei Schritte: von der FitMesh-App auf Android in die FitMesh-Cloud (EU-Rechenzentrum, verschlüsselt), dann von der FitMesh-App auf iPhone in Apple Health auf deinem Gerät. FitMesh verkauft keine Daten an Dritte, verwendet sie nicht zum Trainieren von Modellen und teilt sie nicht mit Werbetreibenden. Die EU-Cloud garantiert DSGVO-Konformität.",
         pt: "Os dados percorrem apenas dois passos: do app FitMesh no Android para a nuvem FitMesh (datacenter EU, criptografados), depois do app FitMesh no iPhone para o Apple Saúde no seu dispositivo. O FitMesh não vende dados a terceiros, não os usa para treinar modelos, não os compartilha com anunciantes. A nuvem EU garante conformidade com o RGPD.",
         fr: "Les données ne font que deux étapes : de l'app FitMesh sur Android vers le cloud FitMesh (datacenter EU, chiffré), puis de l'app FitMesh sur iPhone vers Santé Apple sur votre appareil. FitMesh ne vend pas les données à des tiers, ne les utilise pas pour entraîner des modèles, ne les partage pas avec des annonceurs. Le cloud EU garantit la conformité au RGPD.",
+        pl: "Dane przenoszą się tylko przez dwa kroki: z aplikacji FitMesh na Android do chmury FitMesh (centrum danych EU, zaszyfrowane), a następnie z powrotem do aplikacji FitMesh na iPhone w Apple Salute na Twoim urządzeniu. FitMesh nie sprzedaje danych trzecim stronom, nie korzysta z nich do szkolenia modeli, a także ich nie udostępnia reklamodawcom. Chmura EU gwarantuje zgodność GDPR.",
+        tr: "Veriler sadece iki adımlar yoluyla ilerler: FitMesh uygulamasından Android'e ağıb, KVKK uyumluluğu garanti eden AB'deki veri merkezine (veriler şifrelenmiştir), sonra da cihazınızdaki Apple Sağlık içindeki FitMesh uygulamasına. FitMesh verileri üçüncü taraflarla satmaz, modellerin eğitilmesinde kullanmaz ve reklamciyla paylaşılmaz.",
       },
     },
     {
@@ -342,6 +424,8 @@ export const post: BlogPost = {
         de: "Granulare Berechtigungssteuerung",
         pt: "Controle granular de permissões",
         fr: "Contrôle granulaire des autorisations",
+        pl: "Rozgraniczone kontrolowanie uprawnień",
+        tr: "Kontrol kapsamlı izinlerinizle",
       },
       body: {
         it: "Apple HealthKit richiede permessi espliciti per ogni tipo di dato: FitMesh chiede solo i permessi necessari per le sorgenti che hai configurato. Puoi vedere e revocare i permessi in qualsiasi momento da iPhone → Impostazioni → Privacy e sicurezza → Salute → FitMesh Sync.",
@@ -350,6 +434,8 @@ export const post: BlogPost = {
         de: "Apple HealthKit erfordert explizite Berechtigungen für jeden Datentyp: FitMesh fordert nur die Berechtigungen an, die für die von dir konfigurierten Quellen benötigt werden. Du kannst Berechtigungen jederzeit anzeigen und widerrufen unter iPhone → Einstellungen → Datenschutz & Sicherheit → Health → FitMesh Sync.",
         pt: "O Apple HealthKit exige permissões explícitas para cada tipo de dado: o FitMesh solicita apenas as permissões necessárias para as fontes que você configurou. Você pode ver e revogar as permissões a qualquer momento em iPhone → Ajustes → Privacidade e segurança → Saúde → FitMesh Sync.",
         fr: "Apple HealthKit exige des autorisations explicites pour chaque type de données : FitMesh ne demande que les autorisations nécessaires pour les sources que vous avez configurées. Vous pouvez consulter et révoquer les autorisations à tout moment depuis iPhone → Réglages → Confidentialité et sécurité → Santé → FitMesh Sync.",
+        pl: "Apple HealthKit wymaga wyraźnych zezwoleń dla każdego typu danych: FitMesh pyta tylko o zezwolenia niezbędne dla źródeł, które skonfigurowałeś. Możesz zobaczyć i odzyskać te zezwolenia w każdym momencie na iPhone → Ustawienia → Prywatność i bezpieczeństwo → Zdrowie → FitMesh Sync.",
+        tr: "Apple HealthKit gere açık şekilde her veri türü için izinler: FitMesh sadece yapılandırılan kaynaklara gerekli olan izinleri isteyebilir. Her zaman iPhone → Ayarlar → Güvenlik ve Gizlilik → Sağlık → FitMesh Sync üzerinden izinlerini görebilip revocabilirsiniz.",
       },
     },
     {
@@ -362,6 +448,8 @@ export const post: BlogPost = {
         de: "So aktivierst du die Brücke",
         pt: "Como ativar a ponte",
         fr: "Comment activer le pont",
+        pl: "Jak włączyć pułapkę",
+        tr: "Ponte aktive etmek_rules: __FM_PH_0__ KVKK __FM_URL_0__ ile __FM_HTML_0__ __FM_LINK_0__ __FM_CODE_0__ __FM_FENCE_0__ __FM_BRAND_0__ __FM_TERM_0__ rules:\n- __FM_PH_0__ döndüren sadece çeviri, açıklamalar olmadan geri gönder.\n- Her token'i tam olarak koruyun: __FM_PH_0__, __FM_URL_0__, __FM_HTML_0__, __FM_LINK_0__, __FM_CODE_0__, __FM_FENCE_0__, __FM_BRAND_0__, __FM_TERM_0__.\n- Satır atlama ve Markdown yapısı koru.\n- HTML etiketlerinin yerine koymasına izin ver, etiketler arasında boşluk eklemeyin.\n- Ürün isimlerini temsil eden token'ları çevirme.\n- Tıbbi iddia veya tanımlar ekleme.\n- Hedef dilde teknik olarak doğru ve profesyonel bir dille çevrilecek, makine çevirisiyle değil.\n- Arama niyetini, entitelerin isimlerini ve ticari ilgi verilerini koru SEO/GEO için.\n- Uygulama arayüz metinleri kısa ve doğal olmalı; belgeleme/ikamet kopyası ise yetki sahibi ve net olmalı.\n- İdileri hedef dilde yerelize edin, ürün konumunu, dönüştürme niyetini koruyun ve dönüşüm niyetini koruyun.\n- Anahtar kelime dolgusu veya doğal olmayan ifadeler eklemeyin.\n- Kaynak İtalyanca ise, \"Hai\" UI kopyasında genellikle \"You have\" anlamına geldiğini unutma.\n- Hedef dilde tercih edilen bu terimleri kullan: \"GDPR\" -> \"KVKK\"; \"wearable\" -> \"giyilebilir cihaz\"; \"smartwatch\" -> \"akıllı saat\"; \"founder\" -> \"kurucu\"; \"pisolino\" -> \"kestirme\"; \"pisolini\" -> \"kestirmeler\".\nPonte nasıl aktive edilir\n rules: __FM_PH_0__ KVKK __FM_URL_0__ ile __FM_HTML_0__ __FM_LINK_0__ __FM_CODE_0__ __FM_FENCE_0__ __FM_BRAND_0__ __FM_TERM_0__ kuralları:\n- __FM_PH_0__ sadece çeviri döndürülür, açıklamalar olmadan.\n- Her token tam olarak korunur: __FM_PH_0__, __FM_URL_0__, __FM_HTML_0__, __FM_LINK_0__, __FM_CODE_0__, __FM_FENCE_0__, __FM_BRAND_0__, __FM_TERM_0__.\n- Satır atlama ve Markdown yapısı korunur.\n- HTML etiketleri yerine koyma izin verilir, etiketler arasında boşluk eklenmemelidir.\n- Ürün isimlerini temsil eden token'lar çevrilmez.\n- Tıbbi iddia veya tanımlar eklenmez.\n- Hedef dilde teknik olarak doğru ve profesyonel bir dille çevrilecek, makine çevirisiyle değil.\n- Arama niyetini, entitelerin isimlerini ve ticari ilgi verilerini koru SEO/GEO için.\n- Uygulama arayüz metinleri kısa ve doğal olmalı; belgeleme/ikamet kopyası ise yetki sahibi ve net olmalı.\n- İdileri hedef dilde yerelize edilir, ürün konumunu, dönüştürme niyetini koruyun ve dönüşüm niyetini koruyun.\n- Anahtar kelime dolgusu veya doğal olmayan ifadeler eklenmemelidir.\n- Kaynak İtalyanca ise, \"Hai\" UI kopyasında genellikle \"You have\" anlamına geldiğini unutulmalıdır.\n- Hedef dilde tercih edilen bu terimler kullanılır: \"GDPR\" -> \"KVKK\"; \"wearable\" -> \"giyilebilir cihaz\"; \"smartwatch\" -> \"akıllı saat\"; \"founder\" -> \"kurucu\"; \"pisolino\" -> \"kestirme\"; \"pisolini\" -> \"kestirmeler\".\nPonte nasıl aktive edilir\n KVKK __FM_URL_0__ ile __FM_HTML_0__ __FM_LINK_0__ __FM_CODE_0__ __FM_FENCE_0__ __FM_BRAND_0__ __FM_TERM_0__ rules:\n- __FM_PH_0__ döndüren sadece çeviri, açıklamalar olmadan geri gönder.\n- Her token'i tam olarak koruyun: __FM_PH_0__, __FM_URL_0__, __FM_HTML_0__, __FM_LINK_0__, __FM_CODE_0__, __FM_FENCE_0__, __FM_BRAND_0__, __FM_TERM_0__.\n- Satır atlama ve Markdown yapısı koru.\n- HTML etiketlerinin yerine koymasına izin ver, etiketler arasında boşluk eklemeyin.\n- Ürün isimlerini temsil eden token'ları çevirme.\n- Tıbbi iddia veya tanımlar ekleme.\n- Hedef dilde teknik olarak doğru ve profesyonel bir dille çevrilecek, makine çevirisiyle değil.\n- Arama niyetini, entitelerin isimlerini ve ticari ilgi verilerini koru SEO/GEO için.\n- Uygulama arayüz metinleri kısa ve doğal olmalı; belgeleme/ikamet kopyası ise yetki sahibi ve net olmalı.\n- İdileri hedef dilde yerelize edin, ürün konumunu, dönüştürme niyetini koruyun ve dönüşüm niyetini koruyun.\n- Anahtar kelime dolgusu veya doğal olmayan ifadeler eklemeyin.\n- Kaynak İtalyanca ise, \"Hai\" UI kopyasında genellikle \"You have\" anlamına geldiğini unutma.\n- Hedef dilde tercih edilen bu terimleri kullan: \"GDPR\" -> \"KVKK\"; \"wearable\" -> \"giyilebilir cihaz\"; \"smartwatch\" -> \"akıllı saat\"; \"founder\" -> \"kurucu\"; \"pisolino\" -> \"kestirme\"; \"pisolini\" -> \"kestirmeler\".\nPonte nasıl aktive edilir?",
       },
     },
     {
@@ -416,6 +504,22 @@ export const post: BlogPost = {
           "Choisissez les types de données que vous souhaitez que le pont écrive (sommeil, pas, fréquence cardiaque, etc.).",
           "FitMesh synchronise les données disponibles et les écrit dans Santé Apple en quelques minutes.",
         ],
+        pl: [
+          "Zainstaluj FitMesh Sync na iPhone (beta TestFlight teraz, App Store niedługo).",
+          "Zaloguj się za pomocą tego samego konta, które używasz na Android.",
+          "Idz do **Ustawień → Zdrowie Apple → Most pisowni**.",
+          "Aktywuj przycisk i udziel uprawnień wymaganych przez HealthKit.",
+          "Wybierz, które typy danych chcesz, aby most pisał (spoczynek, kroki, częstotliwość serca, itp.).",
+          "FitMesh synchronizuje dostępne dane i zapisuje je w Apple Salucie w minutach po ich uzyskaniu.",
+        ],
+        tr: [
+          "Kurun FitMesh Sync uygulamasını (iPhone beta (TestFlight şu an, App Store yakında)).",
+          "Giriş yapın aynı hesabınızla ki Android 'a.",
+          "Gidin **Ayarlar → Apple Sağlık → Yazım Köprüsü**.",
+          "Etkileşimli öğeyi aç ve gerekli HealthKit izinleri ver.",
+          "Seçilecek hangi tür veriyi köprü tarafından yazdıracağını (uyku, adımlar, kalp atış hızı vs.) belirleyin.",
+          "FitMesh verişimizi mevcut verileri sırayla ve KVKK uyumluluğunu sağlayarak Apple Sağlık'a分钟后同步并写入数据。",
+        ],
       },
     },
     {
@@ -428,6 +532,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "W syntezie",
+        tr: "Özetle",
       },
     },
     {
@@ -475,6 +581,20 @@ export const post: BlogPost = {
           "Opt-in, granulaire, révocable : activé depuis les paramètres FitMesh iOS et désactivé à tout moment. Les autorisations HealthKit sont gérées depuis les Réglages iPhone.",
           "Confidentialité EU/RGPD : cloud en datacenter EU, chiffré, aucune vente ni partage de données avec des tiers.",
         ],
+        pl: [
+          "Ponte Apple Salute przekazuje dane z urządzeń Android (smartwatch, pętelki inteligentne) do konta HealthKit poprzez chmurę FitMesh EU.",
+          "Sprawdź najpierw, czy Apple Zdrowie posiada już te dane. Pisz tylko tam, gdzie brakuje informacji. Nic nie powtarzaj.",
+          "S:numelne pełne (głębokie, lekkie, REM): fazy pętli pojawiają się w Apple Salucie w tym samym formacie co Apple Watch.",
+          "Opt-in, granulare, revocabile: aktywuje się w ustawieniach FitMesh iOS i można go wyłączyc w każdym momencie. Przywileje HealthKit są zarządzane przez iPhone Ustawienia.",
+          "Zasada prywatności EU/GDPR: chmara w centrum danych EU, zaszyfrowana, żadnego sprzedawania ani udostępniania danych trzecim stronom.",
+        ],
+        tr: [
+          "Apple Salute yazım köprüsü, Android cihazlarının (akıllı saat, smart aletleri) verilerini HealthKit içinde iPhone aracılığıyla bulut üzerinden FitMesh EU içine getirir.",
+          "kontrol ettiğinde Apple Sağlık o zamana kadar o verileri zaten sahip olup olmadığını. Boş alanları doldurun ve tekrarlamaları yapma.",
+          "Uyuyor musunuz tam fasilere (derin, hafif, REM): Apple Sağlık'ta Apple Cihaz'daki ağız halkası fasi aynı biçimde görünür.",
+          "Opt-in, granülar, iptal edilebilir: FitMesh iOS ayarlarından etkinleştirilir ve her zaman devre dışı bırakılabilir. İzinler HealthKit ayarları tarafından yönetilir.\nKVKK ayarlarından iPhone ayarlarına.",
+          "Gizlilik EU/GDPR: veri merkezinde bulut, şifreli, üçüncü partilere veri satışı veya paylaşılmaması.",
+        ],
       },
     },
     {
@@ -486,6 +606,8 @@ export const post: BlogPost = {
         de: "Teste die Apple Health Brücke in der Beta",
         pt: "Experimente a ponte do Apple Saúde em beta",
         fr: "Testez le pont Santé Apple en bêta",
+        pl: "Spróbuj błędnika Apple Zdrowia w betwie",
+        tr: "Deneyimle Apple Sağlık Köprüsü beta sürümünü测试翻译结果：\n体验 Apple 健康桥 Beta 版",
       },
       body: {
         it: "FitMesh iOS è in beta TestFlight ora. Iscriviti per provare il ponte di scrittura Apple Salute e portare i dati del tuo wearable Android dentro l'app Salute di iPhone.",
@@ -494,6 +616,8 @@ export const post: BlogPost = {
         de: "FitMesh iOS ist jetzt in der TestFlight-Beta. Melde dich an, um die Apple Health Schreibbrücke auszuprobieren und die Daten deines Android-Wearables in die iPhone Health-App zu bringen.",
         pt: "FitMesh iOS está em beta no TestFlight agora. Cadastre-se para experimentar a ponte de escrita do Apple Saúde e levar os dados do seu wearable Android para o app Saúde do iPhone.",
         fr: "FitMesh iOS est en bêta TestFlight maintenant. Inscrivez-vous pour tester le pont d'écriture Santé Apple et transférer les données de votre appareil connecté Android dans l'app Santé de l'iPhone.",
+        pl: "FitMesh iOS jest teraz w bêta TestFlight. Zapisz siê, aby spróbować puÅ¼a Apple Salute i przenieÅ¼ycie danych z twojego wearable Android do aplikacji Salute od iPhone.",
+        tr: "FitMesh iOS beta TestFlight sürümünde. Kaydol ve Apple Salute uygulamasının içindeki verilerinizi giyilebilir cihazınızdan Android app'a taşıyın. iPhone",
       },
       ctaLabel: {
         it: "Entra in beta iOS →",
@@ -502,6 +626,8 @@ export const post: BlogPost = {
         de: "Zur iOS-Beta anmelden →",
         pt: "Entrar na beta iOS →",
         fr: "Rejoindre la bêta iOS →",
+        pl: "Wejście w betę iOS →",
+        tr: "Giriş beta iOS →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -518,6 +644,8 @@ export const post: BlogPost = {
         de: "Überschreibt die Brücke bereits in Apple Health vorhandene Daten?",
         pt: "A ponte sobrescreve os dados já presentes no Apple Saúde?",
         fr: "Le pont écrase-t-il les données déjà présentes dans Santé Apple ?",
+        pl: "Czy most nadpisuje już istniejące dane w Apple Zdrowie?",
+        tr: "KVKK, zaten Apple Sağlıktaki verileri geçersiz kılar mı?",
       },
       a: {
         it: "No. FitMesh controlla prima se Apple Salute ha già qualcosa per quella fascia oraria. Se c'è già un dato (di Apple Watch o di qualsiasi altra app), FitMesh non lo tocca. Non sovrascrive mai i dati esistenti.",
@@ -526,6 +654,8 @@ export const post: BlogPost = {
         de: "Nein. FitMesh prüft zunächst, ob Apple Health für diesen Zeitraum bereits etwas enthält. Wenn bereits Daten vorhanden sind (von der Apple Watch oder einer anderen App), berührt FitMesh diese nicht. Vorhandene Daten werden nie überschrieben.",
         pt: "Não. O FitMesh verifica primeiro se o Apple Saúde já tem algo para aquele intervalo de tempo. Se já houver um dado (do Apple Watch ou de qualquer outro app), o FitMesh não o toca. Nunca sobrescreve dados existentes.",
         fr: "Non. FitMesh vérifie d'abord si Santé Apple possède déjà quelque chose pour ce créneau horaire. S'il y a déjà une donnée (de l'Apple Watch ou de n'importe quelle autre app), FitMesh n'y touche pas. Il ne remplace jamais les données existantes.",
+        pl: "No. FitMesh sprawdza najpierw, czy Apple Salute ma już coś dla tej godziny. Jeśli jest już dane (z Apple Watch lub jakiejkolwiek innej aplikacji), FitMesh ich nie zmienia ani nie nadpisuje.",
+        tr: "No. FitMesh önce Apple Sağlık için o saat aralığıne sahip bir veri olup olmadığını kontrol eder. Eğer varsa (Akıllı Saat veya başka herhangi bir uygulamanın), FitMesh onu değiştirmeyecektir. Her zaman mevcut verileri örtmez.",
       },
     },
     {
@@ -536,6 +666,8 @@ export const post: BlogPost = {
         de: "Welche Datentypen werden in Apple Health geschrieben?",
         pt: "Quais tipos de dados são gravados no Apple Saúde?",
         fr: "Quels types de données sont écrits dans Santé Apple ?",
+        pl: "Jaki typ danych jest zapisywany w Apple Salute?",
+        tr: "Hangi tür veriler Apple Sağlık'a yazılır?",
       },
       a: {
         it: "Dipende dalle sorgenti che hai collegato su Android e dai permessi che hai concesso. I tipi supportati oggi includono: sonno con fasi (profondo, leggero, REM, veglia), passi, frequenza cardiaca (campioni), calorie attive, distanza. Puoi scegliere granularmente quali tipi attivare per il bridge nelle impostazioni FitMesh iOS.",
@@ -544,6 +676,8 @@ export const post: BlogPost = {
         de: "Das hängt von den Quellen ab, die du auf Android verbunden hast, und von den erteilten Berechtigungen. Heute unterstützte Typen umfassen: Schlaf mit Phasen (Tiefschlaf, Leichtschlaf, REM, Wach), Schritte, Herzfrequenz (Messwerte), aktive Kalorien, Distanz. Du kannst in den FitMesh iOS-Einstellungen granular auswählen, welche Typen für die Brücke aktiviert werden sollen.",
         pt: "Depende das fontes que você conectou no Android e das permissões que concedeu. Os tipos compatíveis hoje incluem: sono com fases (profundo, leve, REM, acordado), passos, frequência cardíaca (amostras), calorias ativas, distância. Você pode escolher de forma granular quais tipos ativar para a ponte nas configurações do FitMesh iOS.",
         fr: "Cela dépend des sources que vous avez connectées sur Android et des autorisations accordées. Les types pris en charge aujourd'hui comprennent : sommeil avec phases (profond, léger, REM, éveil), pas, fréquence cardiaque (échantillons), calories actives, distance. Vous pouvez choisir de manière granulaire les types à activer pour le pont dans les paramètres FitMesh iOS.",
+        pl: "Zależy od źródeł, które podłączyłeś do Android oraz odszurowań, które udzieliłeś. Obecnie wspierane są następujące typy: sen z fazami (głęboki, lekki, REM, baczność), kroki, częstotliwość serca ( próby ), kalorie aktywne, dystans. Możesz wybierać precyzyjnie, które typy aktywować dla mostka w ustawieniach FitMesh iOS.",
+        tr: "Bağımlı oldugu sorgulardan ve verilen izinlerden. Bugün desteklenen türler: uykunun aşamaları (derin, hafif, REM, uyanık), adımlar, kalp atış hızı (öbekleri), aktif kaloriler, mesafe. Ayarlar FitMesh iOS içinde uygun türleri nasıl etkinleştirebileceğinizi seçebilirsiniz.",
       },
     },
     {
@@ -554,6 +688,8 @@ export const post: BlogPost = {
         de: "Funktioniert es auch ohne einen Colmi Smart-Ring?",
         pt: "Funciona mesmo que eu não tenha um anel inteligente Colmi?",
         fr: "Cela fonctionne-t-il même sans bague connectée Colmi ?",
+        pl: "Czy działa nawet jeśli nie ma tam pęceł smart Colmi?",
+        tr: "Functiyon eğer pisolini Colmi olmamışsa da mı?",
       },
       a: {
         it: "Sì. Il ponte funziona con qualsiasi device collegato al tuo account FitMesh su Android: Galaxy Watch, Wear OS, qualsiasi wearable che scrive su Health Connect. L'anello Colmi è un esempio di device particolarmente utile per il ponte perché è specializzato nel sonno notturno, ma non è l'unico compatibile.",
@@ -562,6 +698,8 @@ export const post: BlogPost = {
         de: "Ja. Die Brücke funktioniert mit jedem Gerät, das mit deinem FitMesh-Konto auf Android verbunden ist: Galaxy Watch, Wear OS, jedes Wearable, das in Health Connect schreibt. Der Colmi-Ring ist ein Beispiel für ein Gerät, das besonders nützlich für die Brücke ist, weil es auf den Nachtschlaf spezialisiert ist, aber es ist nicht das einzige kompatible Gerät.",
         pt: "Sim. A ponte funciona com qualquer dispositivo conectado à sua conta FitMesh no Android: Galaxy Watch, Wear OS, qualquer wearable que grave no Health Connect. O anel Colmi é um exemplo de dispositivo especialmente útil para a ponte porque é especializado no sono noturno, mas não é o único compatível.",
         fr: "Oui. Le pont fonctionne avec n'importe quel appareil connecté à votre compte FitMesh sur Android : Galaxy Watch, Wear OS, tout wearable qui écrit dans Health Connect. La bague Colmi est un exemple d'appareil particulièrement utile pour le pont car elle se spécialise dans le sommeil nocturne, mais ce n'est pas la seule compatible.",
+        pl: "Tak. Mostwa działa z dowolnym urządzeniem połączonego z Twoim kontem FitMesh na Android: Galaxy Watch, Wear OS, każdy wearable piszący na Health Connect. Pasek Colmi jest przykładem szczególnie przydatnego urządzenia dla mostka, ponieważ jest specjalizowany w śniegu nocnym, ale nie jest jedynym zgodnym.",
+        tr: "Evet. Köprü herhangi bir cihazla çalışır, bu cihaz FitMesh hesabınıza bağlanmıştır: Galaxy Watch, Wear OS, veya herhangi bir Health Connect yazan herhangi bir giyilebilir cihaz. Colmi halkası, köprü için özellikle faydalı bir cihaz örneklemidir çünkü uyku izleyicisidir, ancak tek başına uygun değildir.",
       },
     },
     {
@@ -572,6 +710,8 @@ export const post: BlogPost = {
         de: "Werden die Daten in Echtzeit aktualisiert?",
         pt: "Os dados são atualizados em tempo real?",
         fr: "Les données sont-elles mises à jour en temps réel ?",
+        pl: "Czy dane są aktualizowane w czasie rzeczywistym?",
+        tr: "Verilerin gerçek zamanlı güncellenmesi gerekmektedir?",
       },
       a: {
         it: "Il percorso è: il telefono Android sincronizza i dati sul cloud FitMesh (ogni pochi minuti), poi l'app iPhone li scrive in Apple Salute alla prossima apertura o in background. Non è real-time istantaneo, ma è automatico: senza alcun export manuale, i dati della notte precedente sono in Apple Salute entro pochi minuti dall'apertura dell'app al mattino.",
@@ -580,6 +720,8 @@ export const post: BlogPost = {
         de: "Der Ablauf ist: Das Android-Telefon synchronisiert die Daten mit der FitMesh-Cloud (alle paar Minuten), dann schreibt die iPhone-App sie in Apple Health beim nächsten Öffnen oder im Hintergrund. Es ist keine sofortige Echtzeit-Aktualisierung, aber automatisch: Ohne manuellen Export sind die Daten der vorherigen Nacht in Apple Health, wenige Minuten nachdem du morgens die App öffnest.",
         pt: "O percurso é: o telefone Android sincroniza os dados com a nuvem FitMesh (a cada poucos minutos), depois o app iPhone os grava no Apple Saúde na próxima abertura ou em segundo plano. Não é em tempo real instantâneo, mas é automático: sem nenhuma exportação manual, os dados da noite anterior estão no Apple Saúde em poucos minutos após abrir o app pela manhã.",
         fr: "Le chemin est le suivant : le téléphone Android synchronise les données vers le cloud FitMesh (toutes les quelques minutes), puis l'app iPhone les écrit dans Santé Apple lors de la prochaine ouverture ou en arrière-plan. Ce n'est pas du temps réel instantané, mais c'est automatique : sans aucune exportation manuelle, les données de la nuit précédente sont dans Santé Apple quelques minutes après l'ouverture de l'app le matin.",
+        pl: "Proces jest ten: telefon Android synchronizuje dane z chmury FitMesh (każde kilka minut), a następnie aplikacja iPhone zapisuje je w Apple Salute podczas kolejnej otwarcia lub w tle. Nie jest to synchronizacja w czasie rzeczywistym, ale jest automatyczne: bez żadnego eksportu ręcznego, dane ze sztucznego senu z poprzedniej nocy są dostępne w Apple Salute w ciągu kilku minut od otworzenia aplikacji w porze rano.",
+        tr: "Yol şunu olur: telefon Android cihazınız bulut üzerindeki verileri (her几分钟后，我将返回并提供土耳其语翻译。请稍等片刻。 \n\nTranslation to Turkish:\nTelefon Android cihazınız bulut üzerindeki verileri (her birkaç dakikada bir) synkronlaştırır, sonra uygulama iPhone bunları sabah uygulamanın açıldığı veya arka planda Apple Sağlık'a yazar. Gerçek zamanlı değil, ancak otomatik: hiçbir manuel export olmadan, geçen gecen veriler sabah uygulamanın açıldığından kısa süre içinde bulut üzerindeki Apple Sağlık'a yüklenir.",
       },
     },
     {
@@ -590,6 +732,8 @@ export const post: BlogPost = {
         de: "Wie werden die Daten in Apple Health angezeigt?",
         pt: "Como os dados são exibidos no Apple Saúde?",
         fr: "Comment les données sont-elles affichées dans Santé Apple ?",
+        pl: "Jak są wyświetlane dane w Apple Zdrowie?",
+        tr: "Apple Sağlık'ta veriler nasıl gösterilir?",
       },
       a: {
         it: "I dati scritti dal ponte appaiono nell'app Salute esattamente come qualsiasi altra voce HealthKit: con timestamp, tipo di dato, e sorgente. La sorgente indicata è 'FitMesh Sync'. Puoi vederli nel grafico Sonno, nel Riepilogo, e nelle singole categorie (Passi, Frequenza cardiaca, ecc.). Puoi anche rimuoverli da Apple Salute in qualsiasi momento se decidi di disattivare il bridge.",
@@ -598,6 +742,8 @@ export const post: BlogPost = {
         de: "Die von der Brücke geschriebenen Daten erscheinen in der Health-App genau wie jeder andere HealthKit-Eintrag: mit Zeitstempel, Datentyp und Quelle. Als Quelle ist 'FitMesh Sync' angegeben. Du kannst sie im Schlaf-Diagramm, in der Zusammenfassung und in den einzelnen Kategorien sehen (Schritte, Herzfrequenz usw.). Du kannst sie auch jederzeit aus Apple Health entfernen, wenn du die Brücke deaktivieren möchtest.",
         pt: "Os dados gravados pela ponte aparecem no app Saúde exatamente como qualquer outra entrada do HealthKit: com data e hora, tipo de dado e fonte. A fonte indicada é 'FitMesh Sync'. Você pode vê-los no gráfico de Sono, no Resumo e nas categorias individuais (Passos, Frequência cardíaca, etc.). Você também pode removê-los do Apple Saúde a qualquer momento se decidir desativar a ponte.",
         fr: "Les données écrites par le pont apparaissent dans l'app Santé exactement comme n'importe quelle autre entrée HealthKit : avec horodatage, type de données et source. La source indiquée est 'FitMesh Sync'. Vous pouvez les voir dans le graphique Sommeil, dans le Récapitulatif et dans les catégories individuelles (Pas, Fréquence cardiaque, etc.). Vous pouvez également les supprimer de Santé Apple à tout moment si vous décidez de désactiver le pont.",
+        pl: "Dane zapisane przez mostka pojawiają się w aplikacji Zdrowie dokładnie tak jak każda inna pozycja HealthKit: ze znacznikami czasu, typem danych i źródłem. Podane źródło to 'FitMesh Sync'. Mogą one być widziane w wykresie Sen, podsumowaniu oraz w poszczególnych kategoriach (Kroki, Częstotliwość serca, itp.). Możesz również usunąć je z Zdrowia Apple w każdym momencie, jeśli zdecydujesz się wyłączyć mostek.",
+        tr: "Veriler köprüden yazılırken, HealthKit gibi herhangi bir diğer girdiye benzer olarak FitMesh Sync kaynaklı zaman damgası, veri tipi ve kaynağıyla Görüntüleme uygulamasında görünür. Uyku grafikinde, özeti ve bireysel kategoriler (Adım sayımı, Kalp atış hızı, vs.) içinde bu verileri bulabilirsiniz. Verileri her zaman Apple Sağlık uygulamasından da kaldırmayı seçebilirsiniz, köprü devre dışı bırakılırken.",
       },
     },
   ],

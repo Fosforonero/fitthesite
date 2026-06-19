@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Les ECG intégrés (Apple Watch Series 9, Galaxy Watch 7) sont des outils de dépistage de la fibrillation auriculaire, pas des dispositifs médicaux certifiés.",
       "L'adoption compte autant que le choix: présentez-le comme un appareil qui aide la personne âgée, commencez par l'heure et les pas, et ajoutez des fonctionnalités progressivement.",
     ],
+    pl: [
+      "Decydującym czynnikiem nie jest lista funkcji: chodzi o to, żeby urządzenie było noszone każdego dnia. Łatwość obsługi i długa bateria biją każdą zaawansowaną funkcję.",
+      "LTE nie jest opcjonalne, jeśli osoba starsza porusza się samodzielnie i nie zawsze ma przy sobie telefon.",
+      "Wykrywanie upadków działa dobrze przy klasycznych upadkach, gorzej przy powolnych lub w wodzie: uzupełnij je stałym przyciskiem w łazience.",
+      "Wbudowane EKG (Apple Watch Series 9, Galaxy Watch 7) to narzędzia do przesiewowego wykrywania migotania przedsionków, nie certyfikowane urządzenia medyczne.",
+      "Adaptacja ma tak samo duże znaczenie jak wybór: przedstaw urządzenie jako coś, co pomaga im samym, zacznij od czasu i kroków, stopniowo dodawaj funkcje.",
+    ],
+    tr: [
+      "Belirleyici faktör özellik listesi değildir: cihazın her gün takılmasıdır. Kullanım kolaylığı ve uzun pil ömrü her gelişmiş özelliği geçer.",
+      "Yaşlı kişi telefonsuz bağımsız hareket ediyorsa LTE isteğe bağlı değildir.",
+      "Düşme algılama klasik düşmelerde iyi çalışır, yavaş düşmelerde veya suda daha kötü çalışır: bunu banyo için sabit bir düğmeyle tamamlayın.",
+      "Dahili EKG'ler (Apple Watch Series 9, Galaxy Watch 7) atriyal fibrilasyon tarama araçlarıdır, sertifikalı tıbbi cihaz değildir.",
+      "Adaptasyon seçim kadar önemlidir: cihazı onlara yardımcı olan bir şey olarak tanıtın, saat ve adımlarla başlayın, özellikleri kademeli olarak ekleyin.",
+    ],
   },
   primaryKeyword: {
     it: "smartwatch per anziani",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "Smartwatch für Senioren",
     pt: "smartwatch para pessoas idosas",
     fr: "montre connectée pour personnes âgées",
+    pl: "smartwatch dla seniorów",
+    tr: "yaşlılar için akıllı saat",
   },
   secondaryKeywords: {
     it: [
@@ -86,6 +102,18 @@ export const post: BlogPost = {
       "montre connectée fréquence cardiaque seniors",
       "montre connectée facile à utiliser seniors",
     ],
+    pl: [
+      "najlepszy smartwatch dla seniorów 2026",
+      "smartwatch wykrywanie upadków seniorzy",
+      "smartwatch monitorowanie pulsu seniorzy",
+      "łatwy w obsłudze smartwatch dla seniorów",
+    ],
+    tr: [
+      "2026 yaşlılar için en iyi akıllı saat",
+      "yaşlılar için düşme algılama akıllı saat",
+      "yaşlılar için nabız monitörlü akıllı saat",
+      "yaşlılar için kullanımı kolay akıllı saat",
+    ],
   },
   metaDescription: {
     it: "Guida completa agli smartwatch per anziani nel 2026: cosa guardare davvero (rilevamento cadute, SOS, facilità d'uso, durata batteria), cosa evitare, e come scegliere senza spendere troppo.",
@@ -94,9 +122,11 @@ export const post: BlogPost = {
     de: "Umfassender Ratgeber zu Smartwatches für Senioren 2026: worauf es wirklich ankommt (Sturzerkennung, SOS, Benutzerfreundlichkeit, Akkulaufzeit), was zu vermeiden ist und wie man ohne zu viel Ausgaben wählt.",
     pt: "Guia completo sobre smartwatches para pessoas idosas em 2026: o que realmente importa (detecção de quedas, SOS, facilidade de uso, duração da bateria), o que evitar e como escolher sem gastar demais.",
     fr: "Guide complet sur les montres connectées pour personnes âgées en 2026: ce qui compte vraiment (détection de chutes, SOS, facilité d'utilisation, autonomie), ce qu'il faut éviter et comment choisir sans dépenser trop.",
+    pl: "Kompletny przewodnik po smartwatchach dla seniorów w 2026: co naprawdę ma znaczenie (wykrywanie upadków, SOS, łatwość obsługi, czas pracy baterii), czego unikać i jak wybrać bez przepłacania.",
+    tr: "2026'da yaşlılar için akıllı saatler hakkında kapsamlı rehber: gerçekten önemli olan (düşme algılama, SOS, kullanım kolaylığı, pil ömrü), nelerden kaçınmalı ve fazla harcamadan nasıl seçilir.",
   },
   hero: {
-    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Ratgeber", pt: "Guia", fr: "Guide" },
+    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Ratgeber", pt: "Guia", fr: "Guide", pl: "Przewodnik", tr: "Rehber" },
     title: {
       it: "Smartwatch per anziani: guida completa 2026",
       en: "Best smartwatch for elderly: complete guide 2026",
@@ -104,6 +134,8 @@ export const post: BlogPost = {
       de: "Smartwatch für Senioren: vollständiger Ratgeber 2026",
       pt: "Smartwatch para pessoas idosas: guia completo 2026",
       fr: "Montre connectée pour personnes âgées: guide complet 2026",
+      pl: "Najlepszy smartwatch dla seniorów: kompletny przewodnik 2026",
+      tr: "Yaşlılar için en iyi akıllı saat: kapsamlı rehber 2026",
     },
     subtitle: {
       it: "Non tutti gli smartwatch sono uguali quando la posta in gioco è la sicurezza di un genitore o nonno che vive solo. Ecco come scegliere senza cadere nelle trappole del marketing.",
@@ -112,6 +144,8 @@ export const post: BlogPost = {
       de: "Nicht alle Smartwatches sind gleich, wenn es um die Sicherheit eines Elternteils oder Großelternteils geht, das allein lebt. So wählst du richtig, ohne auf Marketingversprechen hereinzufallen.",
       pt: "Nem todos os smartwatches são iguais quando o que está em jogo é a segurança de um pai, mãe ou avó que mora sozinho. Veja como escolher sem cair nas armadilhas do marketing.",
       fr: "Toutes les montres connectées ne se valent pas quand la sécurité d'un parent ou d'un grand-parent vivant seul est en jeu. Voici comment choisir sans tomber dans les pièges du marketing.",
+      pl: "Nie wszystkie smartwatche są takie same, gdy stawką jest bezpieczeństwo rodzica lub dziadka mieszkającego samotnie. Oto jak wybrać, nie dając się złapać na chwyty marketingowe.",
+      tr: "Yalnız yaşayan bir ebeveyn veya büyükbabanın güvenliği söz konusu olduğunda tüm akıllı saatler eşit değildir. Pazarlama tuzaklarına düşmeden nasıl seçileceği burada.",
     },
   },
   body: [
@@ -124,6 +158,8 @@ export const post: BlogPost = {
         de: "Bei einem Smartwatch für ältere Erwachsene ist die wichtigste Variable nicht die Anzahl der Funktionen: Es geht darum, dass das Gerät jeden Tag getragen wird. Zuverlässige Sturzerkennung, LTE zum Anrufen ohne Telefon in der Nähe, mindestens 2-3 Tage Akkulaufzeit und ein ohne Brille lesbarer Bildschirm sind die vier nicht verhandelbaren Anforderungen. Alles andere ist Marketing. Das falsche Gerät wird nach drei Tagen abgelegt.",
         pt: "Para o smartwatch de uma pessoa idosa, a variável mais importante não é o número de funções: é que o dispositivo seja usado todos os dias. Detecção de quedas confiável, LTE para ligar sem o telefone por perto, bateria de pelo menos 2-3 dias e uma tela legível sem óculos são os quatro requisitos inegociáveis. Todo o resto é marketing. O dispositivo errado é guardado na gaveta em três dias.",
         fr: "Pour une montre connectée destinée aux personnes âgées, la variable la plus importante n'est pas le nombre de fonctionnalités: c'est que l'appareil soit porté chaque jour. La détection de chutes fiable, le LTE pour appeler sans téléphone à proximité, une autonomie d'au moins 2-3 jours et un écran lisible sans lunettes sont les quatre exigences non négociables. Tout le reste est du marketing. Le mauvais appareil finit dans un tiroir au bout de trois jours.",
+        pl: "W przypadku smartwatcha dla seniora najważniejsza zmienna to nie liczba funkcji: chodzi o to, żeby urządzenie było noszone każdego dnia. Niezawodne wykrywanie upadków, LTE do dzwonienia bez pobliskiego telefonu, bateria na co najmniej 2-3 dni i ekran czytelny bez okularów to cztery wymagania, których nie można pominąć. Wszystko inne to marketing. Złe urządzenie jest odkładane po trzech dniach.",
+        tr: "Yaşlılar için akıllı saatte en önemli değişken özellik sayısı değildir: cihazın her gün takılmasıdır. Güvenilir düşme algılama, yakın bir telefon olmadan aramak için LTE, en az 2-3 günlük pil ve gözlüksüz okunabilen ekran, dört vazgeçilmez gerekliliktir. Geri kalanı pazarlamadır. Yanlış cihaz üç gün sonra çıkarılır.",
       },
     },
     {
@@ -136,6 +172,8 @@ export const post: BlogPost = {
         de: "Was wirklich zählt (und was nur Marketing ist)",
         pt: "O que realmente importa (e o que é só marketing)",
         fr: "Ce qui compte vraiment (et ce qui n'est que du marketing)",
+        pl: "Co naprawdę ma znaczenie (a co to tylko marketing)",
+        tr: "Gerçekten önemli olan (ve sadece pazarlama olan)",
       },
     },
     {
@@ -147,6 +185,8 @@ export const post: BlogPost = {
         de: "Smartwatch-Datenblätter listen Dutzende von Funktionen auf. In der Realität eines älteren Nutzers sind die Variablen, die darüber entscheiden, ob das Gerät täglich getragen wird oder in einer Schublade landet, wenige, aber entscheidende.",
         pt: "As fichas técnicas de smartwatches listam dezenas de funções. Na realidade de uma pessoa idosa, as variáveis que determinam se o dispositivo é usado todos os dias ou acaba numa gaveta são poucas, mas decisivas.",
         fr: "Les fiches techniques des montres connectées listent des dizaines de fonctionnalités. Dans la réalité d'un utilisateur âgé, les variables qui déterminent si l'appareil est porté chaque jour ou finit dans un tiroir sont peu nombreuses, mais décisives.",
+        pl: "Karty techniczne smartwatchy wymieniają dziesiątki funkcji. W rzeczywistości starszego użytkownika zmienne, które decydują o tym, czy urządzenie jest noszone każdego dnia, czy trafia do szuflady, jest niewiele, ale są kluczowe.",
+        tr: "Akıllı saat teknik özellikleri düzinelerce özellik listeler. Yaşlı bir kullanıcının gerçekliğinde, cihazın her gün takılıp takılmayacağını ya da çekmeceye kaldırılıp kaldırılmayacağını belirleyen değişkenler azdır ama belirleyicidir.",
       },
     },
     {
@@ -194,6 +234,20 @@ export const post: BlogPost = {
           "**Bouton SOS physique**: pas seulement numérique. Il doit être accessible même si la personne est désorientée ou a les mains qui tremblent.",
           "**Wi-Fi ou LTE**: si la personne s'éloigne de son téléphone, la montre doit pouvoir appeler de façon autonome.",
         ],
+        pl: [
+          "**Ekran czytelny bez okularów**: duży wyświetlacz AMOLED (co najmniej 1,4 cala) ze skalowalną czcionką. Nie wszyscy producenci umożliwiają wystarczające powiększenie tekstu.",
+          "**Bateria na co najmniej 2-3 dni**: senior nie powinien musieć pamiętać o ładowaniu urządzenia każdej nocy. Galaxy Watch 7 wytrzymuje około 40 godzin, Garmin Vivoactive 5 około 11 dni.",
+          "**Niezawodne wykrywanie upadków**: specyfikacje wszystkich mówią 'tak', ale jakość różni się ogromnie. Apple Watch Series 9 i Samsung Galaxy Watch 7 mają klinicznie przetestowane mechanizmy akcelerometru i żyroskopu. Tanie, generyczne smartwatche często mają wysoki odsetek fałszywych wyników negatywnych.",
+          "**Fizyczny przycisk SOS**: nie tylko cyfrowy. Musi być dostępny nawet gdy osoba jest zdezorientowana lub ma drżące ręce.",
+          "**Wi-Fi lub LTE**: jeśli osoba oddali się od telefonu, zegarek musi móc samodzielnie zadzwonić.",
+        ],
+        tr: [
+          "**Gözlüksüz okunabilen ekran**: ölçeklenebilir yazı tipiyle büyük AMOLED ekran (en az 1,4 inç). Tüm üreticiler metin boyutunu yeterince büyütmeye izin vermez.",
+          "**En az 2-3 günlük pil**: yaşlı bir kişinin her gece cihazı şarj etmeyi hatırlaması gerekmemelidir. Galaxy Watch 7 yaklaşık 40 saat, Garmin Vivoactive 5 yaklaşık 11 gün dayanır.",
+          "**Güvenilir düşme algılama**: tüm özellikler 'evet' der ama kalite büyük farklılıklar gösterir. Apple Watch Series 9 ve Samsung Galaxy Watch 7 klinik olarak test edilmiş ivmeölçer ve jiroskop mekanizmalarına sahiptir. Genel bütçe akıllı saatlerinde genellikle yüksek oranda yanlış negatif görülür.",
+          "**Fiziksel SOS düğmesi**: yalnızca dijital değil. Kişi yönünü kaybetmiş veya elleri titriyor olsa bile erişilebilir olmalıdır.",
+          "**Wi-Fi veya LTE**: kişi telefonundan uzaklaşırsa saat bağımsız olarak arayabilmelidir.",
+        ],
       },
     },
     {
@@ -206,6 +260,8 @@ export const post: BlogPost = {
         de: "Der Schubladen-Test",
         pt: "O teste da gaveta",
         fr: "Le test du tiroir",
+        pl: "Test szuflady",
+        tr: "Çekmece testi",
       },
       body: {
         it: "Prima di acquistare, chiedi: 'Mia madre userebbe questo tutti i giorni anche se non glielo chiedo?' Se la risposta è incerta, l'usabilità è il problema. Un dispositivo che non viene indossato non salva nessuno. La facilità d'uso batte le funzionalità avanzate.",
@@ -214,6 +270,8 @@ export const post: BlogPost = {
         de: "Vor dem Kauf fragen: 'Würde meine Mutter das jeden Tag benutzen, ohne dass ich sie daran erinnere?' Wenn die Antwort unsicher ist, ist die Benutzerfreundlichkeit das Problem. Ein Gerät, das nicht getragen wird, rettet niemanden. Benutzerfreundlichkeit schlägt fortschrittliche Funktionen.",
         pt: "Antes de comprar, pergunte-se: 'Minha mãe usaria isso todos os dias sem precisar ser lembrada?' Se a resposta for incerta, a facilidade de uso é o problema. Um dispositivo que não é usado não salva ninguém. A facilidade de uso supera as funções avançadas.",
         fr: "Avant d'acheter, demandez-vous: 'Ma mère utiliserait-elle cela tous les jours sans qu'on le lui rappelle?' Si la réponse est incertaine, la facilité d'utilisation est le problème. Un appareil qui n'est pas porté ne sauve personne. La facilité d'utilisation l'emporte sur les fonctionnalités avancées.",
+        pl: "Przed zakupem zapytaj siebie: 'Czy moja mama używałaby tego każdego dnia bez przypomnienia?' Jeśli odpowiedź jest niepewna, to problem to łatwość obsługi. Urządzenie, które nie jest noszone, nie ratuje nikogo. Łatwość obsługi bije zaawansowane funkcje.",
+        tr: "Satın almadan önce şunu sorun: 'Annem bunu her gün hatırlatmaya gerek kalmadan kullanır mıydı?' Yanıt belirsizse sorun kullanılabilirliktir. Takılmayan bir cihaz kimseyi kurtarmaz. Kullanım kolaylığı gelişmiş özellikleri geçer.",
       },
     },
     {
@@ -226,6 +284,8 @@ export const post: BlogPost = {
         de: "Sturzerkennung: wie sie funktioniert und was zu erwarten ist",
         pt: "Detecção de quedas: como funciona e o que esperar",
         fr: "Détection de chutes: comment ça fonctionne et à quoi s'attendre",
+        pl: "Wykrywanie upadków: jak działa i czego się spodziewać",
+        tr: "Düşme algılama: nasıl çalışır ve ne beklemeli",
       },
     },
     {
@@ -237,6 +297,8 @@ export const post: BlogPost = {
         de: "Die Sturzerkennung in Smartwatches verwendet eine Kombination aus Beschleunigungssensor und Gyroskop, um das typische Sturzmuster zu erkennen: plötzliche Abwärtsbeschleunigung gefolgt von Aufprall und Bewegungslosigkeit. Wenn das Muster erkannt wird, wartet die Uhr auf eine Benutzerantwort (in der Regel 30-60 Sekunden). Bleibt eine Antwort aus, ruft sie automatisch Notkontakte oder Rettungsdienste an.",
         pt: "A detecção de quedas nos smartwatches usa uma combinação de acelerômetro e giroscópio para identificar o padrão típico de uma queda: aceleração repentina para baixo seguida de impacto e imobilidade. Quando o padrão é detectado, o smartwatch aguarda uma resposta do usuário (geralmente 30-60 segundos). Se não houver resposta, ele liga automaticamente para os contatos de emergência ou para os serviços de socorro.",
         fr: "La détection de chutes dans les montres connectées utilise une combinaison d'accéléromètre et de gyroscope pour identifier le schéma typique d'une chute: accélération soudaine vers le bas suivie d'un impact et d'une immobilité. Lorsque le schéma est détecté, la montre attend une réponse de l'utilisateur (généralement 30-60 secondes). En l'absence de réponse, elle appelle automatiquement les contacts d'urgence ou les services de secours.",
+        pl: "Wykrywanie upadków w smartwatchach używa kombinacji akcelerometru i żyroskopu, aby zidentyfikować typowy wzorzec upadku: nagłe przyspieszenie w dół, a następnie uderzenie i bezruch. Gdy wzorzec zostanie wykryty, zegarek czeka na odpowiedź użytkownika (zazwyczaj 30-60 sekund). Jeśli nie ma odpowiedzi, automatycznie dzwoni do kontaktów alarmowych lub służb ratunkowych.",
+        tr: "Akıllı saatlerdeki düşme algılama, tipik düşme örüntüsünü tanımlamak için ivmeölçer ve jiroskop kombinasyonu kullanır: ani aşağı doğru ivmelenme, ardından çarpma ve hareketsizlik. Örüntü algılandığında saat kullanıcının yanıtını bekler (genellikle 30-60 saniye). Yanıt gelmezse otomatik olarak acil kişileri veya kurtarma hizmetlerini arar.",
       },
     },
     {
@@ -248,6 +310,8 @@ export const post: BlogPost = {
         de: "Die praktische Realität ist differenzierter. Die Erkennung funktioniert gut bei 'klassischen' Stürzen (Ohnmacht oder Stolpern auf harten Oberflächen). Sie funktioniert schlechter bei langsamen Stürzen (z. B. von einem Stuhl gleiten), Stürzen im Wasser (Badewanne, ein häufiges Problem bei älteren Erwachsenen) oder Situationen, in denen die Person fällt, aber teilweise aufrecht bleibt. Falsch-Positive kommen ebenfalls vor: Intensive körperliche Aktivitäten können gelegentlich den Alarm auslösen.",
         pt: "A realidade prática é mais matizada. A detecção funciona bem para quedas 'clássicas' (desmaios ou tropeços em superfícies duras). Funciona menos bem para quedas lentas (por exemplo, deslizar de uma cadeira), quedas na água (banheira, problema comum em pessoas idosas) ou situações em que a pessoa cai, mas permanece parcialmente em pé. Falsos positivos também existem: atividades físicas intensas podem ocasionalmente acionar o alarme.",
         fr: "La réalité pratique est plus nuancée. La détection fonctionne bien pour les chutes «classiques» (évanouissement ou trébuchement sur une surface dure). Elle fonctionne moins bien pour les chutes lentes (par exemple, glisser d'une chaise), les chutes dans l'eau (baignoire, problème courant chez les personnes âgées) ou les situations où la personne tombe mais reste partiellement debout. Les faux positifs existent aussi: les activités physiques intenses peuvent parfois déclencher l'alarme.",
+        pl: "Praktyczna rzeczywistość jest bardziej złożona. Wykrywanie działa dobrze przy upadkach 'klasycznych' (zasłabnięcie lub potknięcie na twardej powierzchni). Działa gorzej przy powolnych upadkach (np. ześlizgnięcie z krzesła), upadkach w wodzie (wanna, częsty problem u seniorów) lub sytuacjach, gdy osoba upada, ale pozostaje częściowo w pionie. Fałszywe alarmy też się zdarzają: intensywna aktywność fizyczna może czasami uruchomić alarm.",
+        tr: "Pratik gerçeklik daha nüanslıdır. Algılama 'klasik' düşmelerde (sert yüzeylerde bayılma veya takılma) iyi çalışır. Yavaş düşmelerde (örneğin sandalyeden kayma), suda düşmelerde (küvet, yaşlılarda sık görülen bir sorun) veya kişinin düşüp kısmen dik kaldığı durumlarda daha kötü çalışır. Yanlış pozitifler de vardır: yoğun fiziksel aktiviteler zaman zaman alarmı tetikleyebilir.",
       },
     },
     {
@@ -260,6 +324,8 @@ export const post: BlogPost = {
         de: "LTE vs. Bluetooth: der entscheidende Unterschied",
         pt: "LTE vs Bluetooth: a distinção que importa",
         fr: "LTE vs Bluetooth: la distinction qui compte",
+        pl: "LTE a Bluetooth: rozróżnienie, które ma znaczenie",
+        tr: "LTE ve Bluetooth: önemli olan ayrım",
       },
       body: {
         it: "Un Galaxy Watch 7 Bluetooth funziona solo quando il telefono è nelle vicinanze. Se la nonna lascia il telefono in cucina e cade in giardino, l'allarme non arriva. Il modello LTE costa di più ma può chiamare da solo. Per anziani che si muovono in autonomia, LTE non è un optional.",
@@ -268,6 +334,8 @@ export const post: BlogPost = {
         de: "Eine Galaxy Watch 7 Bluetooth funktioniert nur, wenn das Telefon in der Nähe ist. Wenn Oma das Telefon in der Küche lässt und im Garten stürzt, kommt der Alarm nicht durch. Das LTE-Modell kostet mehr, kann aber selbstständig anrufen. Für ältere Erwachsene, die sich selbstständig bewegen, ist LTE keine Option, sondern eine Notwendigkeit.",
         pt: "Uma Galaxy Watch 7 Bluetooth funciona apenas quando o telefone está por perto. Se a avó deixa o telefone na cozinha e cai no jardim, o alarme não chega. O modelo LTE custa mais, mas consegue ligar de forma autônoma. Para pessoas idosas que se movimentam com independência, o LTE não é um extra opcional.",
         fr: "Une Galaxy Watch 7 Bluetooth ne fonctionne que lorsque le téléphone est à proximité. Si grand-mère laisse son téléphone dans la cuisine et chute dans le jardin, l'alarme ne passe pas. Le modèle LTE coûte plus cher, mais peut appeler de façon autonome. Pour les personnes âgées qui se déplacent seules, le LTE n'est pas un luxe.",
+        pl: "Galaxy Watch 7 Bluetooth działa tylko gdy telefon jest w pobliżu. Jeśli babcia zostawi telefon w kuchni i upadnie w ogrodzie, alarm nie dotrze. Model LTE kosztuje więcej, ale może dzwonić samodzielnie. Dla seniorów poruszających się samodzielnie LTE nie jest opcją.",
+        tr: "Bluetooth Galaxy Watch 7 yalnızca telefon yakındayken çalışır. Büyükanneniz telefonu mutfakta bırakıp bahçede düşerse alarm iletilmez. LTE modeli daha pahalıdır ama bağımsız olarak arayabilir. Kendi başlarına dolaşan yaşlılar için LTE isteğe bağlı değildir.",
       },
     },
     {
@@ -280,6 +348,8 @@ export const post: BlogPost = {
         de: "Die am besten geeigneten Geräte 2026: ein ehrlicher Vergleich",
         pt: "Os dispositivos mais adequados em 2026: uma comparação honesta",
         fr: "Les appareils les plus adaptés en 2026: une comparaison honnête",
+        pl: "Najbardziej odpowiednie urządzenia w 2026: uczciwe porównanie",
+        tr: "2026'da en uygun cihazlar: dürüst bir karşılaştırma",
       },
     },
     {
@@ -291,6 +361,8 @@ export const post: BlogPost = {
         de: "Wir vermeiden generische 'Beste Smartwatches'-Listen. Hier sind echte Nutzungsprofile und die Geräte, die am besten zu jedem passen.",
         pt: "Evitamos listas genéricas de 'melhores smartwatches'. Aqui estão perfis de uso reais e os dispositivos que melhor se adaptam a cada um.",
         fr: "Nous évitons les listes génériques des 'meilleures montres connectées'. Voici de vrais profils d'utilisation et les appareils qui conviennent le mieux à chacun.",
+        pl: "Unikamy ogólnych list 'najlepszych smartwatchy'. Oto rzeczywiste profile użytkowania i urządzenia, które najlepiej pasują do każdego z nich.",
+        tr: "Genel 'en iyi akıllı saatler' listelerinden kaçınıyoruz. İşte gerçek kullanım profilleri ve her birine en uygun cihazlar.",
       },
     },
     {
@@ -302,6 +374,8 @@ export const post: BlogPost = {
         de: "Smartwatch-Vergleich für Senioren 2026 nach Nutzungsprofil",
         pt: "Comparação de smartwatches para pessoas idosas 2026 por perfil de uso",
         fr: "Comparaison de montres connectées pour personnes âgées 2026 par profil d'utilisation",
+        pl: "Porównanie smartwatchy dla seniorów 2026 według profilu użytkowania",
+        tr: "2026 yaşlılar için akıllı saat karşılaştırması: kullanım profiline göre",
       },
       headers: {
         it: ["Profilo", "Dispositivo consigliato", "Punto di forza", "Limite principale"],
@@ -310,6 +384,8 @@ export const post: BlogPost = {
         de: ["Profil", "Empfohlenes Gerät", "Stärke", "Haupteinschränkung"],
         pt: ["Perfil", "Dispositivo recomendado", "Ponto forte", "Principal limitação"],
         fr: ["Profil", "Appareil recommandé", "Point fort", "Limitation principale"],
+        pl: ["Profil", "Polecane urządzenie", "Mocna strona", "Główne ograniczenie"],
+        tr: ["Profil", "Önerilen cihaz", "Güçlü yön", "Ana sınırlama"],
       },
       rows: [
         {
@@ -319,6 +395,8 @@ export const post: BlogPost = {
           de: ["Selbstständige, aktive ältere Person", "Samsung Galaxy Watch 7 LTE", "Sturzerkennung, LTE, Android-Integration", "40-Stunden-Akku, Preis"],
           pt: ["Pessoa idosa autônoma e ativa", "Samsung Galaxy Watch 7 LTE", "Detecção de quedas, LTE, integração Android", "Bateria de 40 horas, preço"],
           fr: ["Personne âgée autonome et active", "Samsung Galaxy Watch 7 LTE", "Détection de chutes, LTE, intégration Android", "Batterie de 40 heures, prix"],
+          pl: ["Senior samodzielny, aktywny", "Samsung Galaxy Watch 7 LTE", "Wykrywanie upadków, LTE, integracja z Androidem", "Bateria 40 godzin, cena"],
+          tr: ["Bağımsız, aktif yaşlı", "Samsung Galaxy Watch 7 LTE", "Düşme algılama, LTE, Android entegrasyonu", "40 saatlik pil, fiyat"],
         },
         {
           it: ["Anziano con iPhone", "Apple Watch SE 2 LTE", "Rilevamento cadute eccellente, SOS internazionale, FaceTime", "Solo iOS"],
@@ -327,6 +405,8 @@ export const post: BlogPost = {
           de: ["Ältere Person mit iPhone", "Apple Watch SE 2 LTE", "Ausgezeichnete Sturzerkennung, internationales SOS, FaceTime", "Nur iOS"],
           pt: ["Pessoa idosa com iPhone", "Apple Watch SE 2 LTE", "Excelente detecção de quedas, SOS internacional, FaceTime", "Somente iOS"],
           fr: ["Personne âgée avec iPhone", "Apple Watch SE 2 LTE", "Excellente détection de chutes, SOS international, FaceTime", "iOS uniquement"],
+          pl: ["Senior z iPhonem", "Apple Watch SE 2 LTE", "Doskonałe wykrywanie upadków, międzynarodowy SOS, FaceTime", "Tylko iOS"],
+          tr: ["iPhone kullanan yaşlı", "Apple Watch SE 2 LTE", "Mükemmel düşme algılama, uluslararası SOS, FaceTime", "Yalnızca iOS"],
         },
         {
           it: ["Budget limitato, sicurezza base", "Garmin Vivoactive 5", "Batteria 11 giorni, robusto, GPS", "Rilevamento cadute meno avanzato"],
@@ -335,6 +415,8 @@ export const post: BlogPost = {
           de: ["Begrenztes Budget, grundlegende Sicherheit", "Garmin Vivoactive 5", "11-Tage-Akku, robust, GPS", "Weniger fortschrittliche Sturzerkennung"],
           pt: ["Orçamento limitado, segurança básica", "Garmin Vivoactive 5", "Bateria de 11 dias, robusto, GPS", "Detecção de quedas menos avançada"],
           fr: ["Budget limité, sécurité de base", "Garmin Vivoactive 5", "Batterie 11 jours, robuste, GPS", "Détection de chutes moins avancée"],
+          pl: ["Ograniczony budżet, podstawowe bezpieczeństwo", "Garmin Vivoactive 5", "Bateria 11 dni, wytrzymały, GPS", "Mniej zaawansowane wykrywanie upadków"],
+          tr: ["Sınırlı bütçe, temel güvenlik", "Garmin Vivoactive 5", "11 günlük pil, dayanıklı, GPS", "Daha az gelişmiş düşme algılama"],
         },
         {
           it: ["Massima semplicità", "Doro Watch (device specializzato)", "Tasto SOS prominente, interfaccia minimalista", "Funzionalità salute limitate"],
@@ -343,6 +425,8 @@ export const post: BlogPost = {
           de: ["Maximale Einfachheit", "Doro Watch (Spezialgerät)", "Auffälliger SOS-Knopf, minimalistische Oberfläche", "Begrenzte Gesundheitsfunktionen"],
           pt: ["Máxima simplicidade", "Doro Watch (dispositivo especializado)", "Botão SOS destacado, interface minimalista", "Funções de saúde limitadas"],
           fr: ["Simplicité maximale", "Doro Watch (appareil spécialisé)", "Bouton SOS bien visible, interface minimaliste", "Fonctionnalités de santé limitées"],
+          pl: ["Maksymalna prostota", "Doro Watch (urządzenie specjalistyczne)", "Wyraźny przycisk SOS, minimalistyczny interfejs", "Ograniczone funkcje zdrowotne"],
+          tr: ["Maksimum sadelik", "Doro Watch (özel cihaz)", "Belirgin SOS düğmesi, minimalist arayüz", "Sınırlı sağlık özellikleri"],
         },
       ],
     },
@@ -355,6 +439,8 @@ export const post: BlogPost = {
         de: "Ein Hinweis zu 'Senioren-spezifischen' Geräten von weniger bekannten Marken: Sie versprechen oft alles zu einem niedrigen Preis, aber die Sensoren sind von geringerer Qualität, die Erkennungsgenauigkeit ist schlecht kalibriert und der Software-Support verschwindet nach 12 Monaten. Eine gebrauchte Galaxy Watch SE schlägt ein generisches Gerät für 50 Euro.",
         pt: "Uma observação sobre dispositivos 'para idosos' de marcas pouco conhecidas: muitas vezes prometem tudo a um preço baixo, mas os sensores são de qualidade inferior, as detecções são mal calibradas e o suporte de software desaparece após 12 meses. Uma Galaxy Watch SE usada é melhor do que um dispositivo genérico de 50 euros.",
         fr: "Une remarque sur les appareils 'spécial seniors' de marques peu connues: ils promettent souvent tout à bas prix, mais les capteurs sont de moindre qualité, les détections sont mal calibrées et le support logiciel disparaît après 12 mois. Une Galaxy Watch SE d'occasion vaut mieux qu'un appareil générique à 50 euros.",
+        pl: "Uwaga na urządzenia 'dla seniorów' mało znanych marek: często obiecują wszystko za niską cenę, ale czujniki są gorszej jakości, wykrycia są słabo skalibrowane, a wsparcie oprogramowania znika po 12 miesiącach. Używany Galaxy Watch SE bije generyczne chińskie urządzenie za 50 euro.",
+        tr: "Daha az bilinen markaların 'yaşlılara özel' cihazları hakkında bir not: genellikle her şeyi düşük fiyata vaat ederler ama sensörler daha düşük kaliteli, algılamalar kötü kalibre edilmiş ve yazılım desteği 12 ay sonra kayboluyor. İkinci el bir Galaxy Watch SE, 50 Euro'luk genel bir Çin cihazını geçer.",
       },
     },
     {
@@ -367,6 +453,8 @@ export const post: BlogPost = {
         de: "Herzfrequenz- und Gesundheitsüberwachung: was sie wirklich messen",
         pt: "Monitoramento cardíaco e de saúde: o que realmente medem",
         fr: "Surveillance cardiaque et santé: ce qu'ils mesurent vraiment",
+        pl: "Monitorowanie pracy serca i zdrowia: co naprawdę mierzą",
+        tr: "Kalp ve sağlık izleme: gerçekte ne ölçüyorlar",
       },
     },
     {
@@ -378,6 +466,8 @@ export const post: BlogPost = {
         de: "Alle modernen Smartwatches messen die Herzfrequenz per Photoplethysmografie (PPG): ein grüner LED-Sensor auf der Rückseite der Uhr erkennt Blutvolumenschwankungen in den Kapillaren. Für ältere Erwachsene mit Herzerkrankungen ersetzt dies keinen Holter-Monitor oder ein kontinuierliches EKG, kann jedoch offensichtliche Arrhythmien und ungewöhnliche Trends erkennen.",
         pt: "Todos os smartwatches modernos medem a frequência cardíaca por fotopletismografia (PPG): um sensor LED verde na parte traseira do dispositivo detecta variações de volume sanguíneo nos capilares. Para uma pessoa idosa com doença cardíaca, isso não substitui um Holter ou um eletrocardiograma contínuo, mas pode detectar arritmias evidentes e tendências anormais.",
         fr: "Toutes les montres connectées modernes mesurent la fréquence cardiaque par photopléthysmographie (PPG): un capteur LED vert au dos de la montre détecte les variations de volume sanguin dans les capillaires. Pour une personne âgée souffrant d'une maladie cardiaque, cela ne remplace pas un Holter ou un ECG continu, mais peut détecter des arythmies évidentes et des tendances anormales.",
+        pl: "Wszystkie nowoczesne smartwatche mierzą tętno za pomocą fotopletizmografii (PPG): zielony czujnik LED na tylnej części zegarka wykrywa zmiany objętości krwi w naczyniach włosowatych. Dla seniora z chorobą serca nie zastępuje to Holtera ani ciągłego EKG, ale może wykryć oczywiste arytmie i nieprawidłowe tendencje.",
+        tr: "Tüm modern akıllı saatler kalp atış hızını fotopletismografi (PPG) ile ölçer: saatin arkasındaki yeşil LED sensör kılcal damarlardaki kan hacmi değişimlerini algılar. Kalp hastalığı olan yaşlı bir kişi için bu bir Holter monitörü veya sürekli EKG'nin yerini tutmaz, ancak belirgin aritmileri ve anormal eğilimleri tespit edebilir.",
       },
     },
     {
@@ -389,6 +479,8 @@ export const post: BlogPost = {
         de: "Apple Watch Series 9 und Samsung Galaxy Watch 7 verfügen auch über ein Einkanal-EKG (über die Metallkontakte der Uhr und einen Finger). Diese Funktion kann Vorhofflimmern erkennen, was bei älteren Erwachsenen besonders relevant ist. Wichtig: Diese EKGs sind keine zertifizierten Medizinprodukte im vollen Sinne. Sie sind Screening-Werkzeuge, keine Diagnoseinstrumente. Auffällige Ergebnisse sollten immer einem Arzt vorgelegt werden.",
         pt: "Apple Watch Series 9 e Samsung Galaxy Watch 7 também incluem ECG de derivação única (pelos contatos metálicos do dispositivo e um dedo). Essa função pode detectar fibrilação atrial, o que é particularmente relevante em pessoas idosas. Importante: esses ECGs não são dispositivos médicos certificados no sentido pleno. São ferramentas de triagem, não de diagnóstico. Os resultados devem sempre ser avaliados por um médico.",
         fr: "L'Apple Watch Series 9 et la Samsung Galaxy Watch 7 incluent également un ECG à dérivation unique (via les contacts métalliques de la montre et un doigt). Cette fonction peut détecter la fibrillation auriculaire, particulièrement pertinente chez les personnes âgées. Important: ces ECG ne sont pas des dispositifs médicaux certifiés au sens plein du terme. Ce sont des outils de dépistage, pas de diagnostic. Tout résultat doit toujours être soumis à un médecin.",
+        pl: "Apple Watch Series 9 i Samsung Galaxy Watch 7 zawierają również jednoodprowadzeniowe EKG (poprzez metalowe styki zegarka i palec). Funkcja ta może wykryć migotanie przedsionków, co jest szczególnie istotne u seniorów. Ważne jednak: te EKG nie są certyfikowanymi urządzeniami medycznymi w pełnym sensie. Są narzędziami przesiewowymi, nie diagnostycznymi. Wyniki powinny zawsze być skonsultowane z lekarzem.",
+        tr: "Apple Watch Series 9 ve Samsung Galaxy Watch 7 ayrıca tek derivasyonlu EKG de içerir (saatin metal kontakları ve bir parmak aracılığıyla). Bu özellik özellikle yaşlı kullanıcılar için önemli olan atriyal fibrilasyonu tespit edebilir. Ancak önemli bir not: bu EKG'ler tam anlamıyla sertifikalı tıbbi cihaz değildir. Tarama aracıdır, tanı aracı değil. Sonuçlar her zaman bir doktor tarafından değerlendirilmelidir.",
       },
     },
     {
@@ -401,6 +493,8 @@ export const post: BlogPost = {
         de: "So teilen Sie Daten mit Familienmitgliedern",
         pt: "Como compartilhar dados com familiares",
         fr: "Comment partager les données avec les membres de la famille",
+        pl: "Jak udostępniać dane członkom rodziny",
+        tr: "Aile üyeleriyle veriler nasıl paylaşılır",
       },
     },
     {
@@ -412,6 +506,8 @@ export const post: BlogPost = {
         de: "Die Gelassenheit eines weit entfernten Kindes hängt oft davon ab, die Daten eines Elternteils einsehen zu können, ohne jeden Tag anrufen zu müssen. Native Lösungen variieren je nach Ökosystem.",
         pt: "A tranquilidade de um filho que mora longe muitas vezes depende de conseguir ver os dados dos pais sem precisar ligar todos os dias. As soluções nativas variam conforme o ecossistema.",
         fr: "La tranquillité d'esprit d'un enfant éloigné dépend souvent de la possibilité de consulter les données d'un parent sans l'appeler chaque jour. Les solutions natives varient selon l'écosystème.",
+        pl: "Spokój ducha dziecka mieszkającego daleko często zależy od możliwości sprawdzenia danych rodzica bez codziennego dzwonienia. Natywne rozwiązania różnią się w zależności od ekosystemu.",
+        tr: "Uzakta yaşayan bir çocuğun huzuru çoğu zaman her gün aramak zorunda kalmadan ebeveynin verilerini görebilmeye bağlıdır. Yerel çözümler ekosisteme göre farklılık gösterir.",
       },
     },
     {
@@ -453,6 +549,18 @@ export const post: BlogPost = {
           "**Garmin**: le partage familial est limité. Garmin Connect permet de suivre des «amis» et de voir quelques statistiques, mais il n'existe pas de fonctionnalité dédiée aux aidants.",
           "**Solutions tierces**: des applications comme FitMesh Sync permettent d'agréger les données de santé de différents appareils et de les rendre accessibles via un tableau de bord web. Pratique si la famille utilise des marques différentes ou souhaite une vue unifiée.",
         ],
+        pl: [
+          "**Samsung Galaxy Watch + Family Sharing**: Samsung Health umożliwia udostępnianie danych zdefiniowanym członkom rodziny. Konfiguracja przez aplikację Samsung Health → Profil → Rodzina. Można udostępniać kroki, tętno i dane dotyczące snu.",
+          "**Apple Watch + Family Setup**: Apple umożliwia przypisanie Apple Watcha do rodzinnego iPhone'a. Dziadek nie potrzebuje własnego iPhone'a: dane trafiają na iPhone rodzinnego opiekuna.",
+          "**Garmin**: udostępnianie rodzinne jest ograniczone. Garmin Connect pozwala śledzić 'przyjaciół' i przeglądać niektóre statystyki, ale nie ma dedykowanej funkcji opiekuna.",
+          "**Rozwiązania zewnętrzne**: aplikacje takie jak FitMesh Sync umożliwiają agregowanie danych zdrowotnych z różnych urządzeń i udostępnianie ich w panelu webowym, co jest przydatne gdy rodzina używa różnych marek lub chce ujednoliconego widoku.",
+        ],
+        tr: [
+          "**Samsung Galaxy Watch + Family Sharing**: Samsung Health, tanımlanan aile üyeleriyle veri paylaşımına izin verir. Samsung Health uygulaması üzerinden yapılandırılır: Profil → Aile. Adımlar, kalp atış hızı ve uyku verileri paylaşılabilir.",
+          "**Apple Watch + Family Setup**: Apple, bir Apple Watch'ı aile iPhone'una bağlamaya izin verir. Dedede kendi iPhone'u olması gerekmez: veriler bakıcı aile üyesinin iPhone'una akar.",
+          "**Garmin**: aile paylaşımı sınırlıdır. Garmin Connect 'arkadaşları' takip etmenize ve bazı istatistikleri görmenize izin verir, ancak özel bir bakıcı özelliği yoktur.",
+          "**Üçüncü taraf çözümler**: FitMesh Sync gibi uygulamalar, farklı cihazlardan sağlık verilerini bir araya getirip web panosu üzerinden erişilebilir kılar; aile farklı markalar kullanıyorsa veya birleşik bir görünüm istiyorsa kullanışlıdır.",
+        ],
       },
     },
     {
@@ -465,6 +573,8 @@ export const post: BlogPost = {
         de: "Der Einführungsprozess: Wie man sicherstellt, dass es wirklich getragen wird",
         pt: "O processo de adoção: como garantir que o dispositivo seja realmente usado",
         fr: "Le processus d'adoption: comment s'assurer qu'il est vraiment porté",
+        pl: "Proces adaptacji: jak zagwarantować, że urządzenie będzie naprawdę noszone",
+        tr: "Adaptasyon süreci: gerçekten takılmasını nasıl sağlarsınız",
       },
     },
     {
@@ -476,6 +586,8 @@ export const post: BlogPost = {
         de: "Das richtige Gerät zu kaufen ist die halbe Arbeit. Die andere Hälfte ist die Einführung, und ältere Erwachsene lehnen neue Technologie oft aus verständlichen Gründen ab: Angst vor Fehlern, ästhetisches Unbehagen, das Gefühl, 'überwacht' zu werden. Einige Strategien, die in der Praxis funktionieren:",
         pt: "Comprar o dispositivo certo é metade do trabalho. A outra metade é a adoção, e as pessoas idosas muitas vezes resistem à nova tecnologia por razões compreensíveis: medo de errar, desconforto estético, sensação de estar sendo 'monitorada'. Algumas estratégias que funcionam na prática:",
         fr: "Acheter le bon appareil, c'est la moitié du travail. L'autre moitié, c'est l'adoption, et les personnes âgées résistent souvent à la nouvelle technologie pour des raisons compréhensibles: peur de se tromper, inconfort esthétique, sentiment d'être «surveillées». Quelques stratégies qui fonctionnent en pratique:",
+        pl: "Kupienie odpowiedniego urządzenia to połowa pracy. Drugą połową jest adaptacja, a seniorzy często opierają się nowej technologii z zrozumiałych powodów: strach przed popełnieniem błędu, dyskomfort estetyczny, poczucie bycia 'monitorowanym'. Kilka strategii, które sprawdzają się w praktyce:",
+        tr: "Doğru cihazı satın almak işin yarısıdır. Diğer yarısı adaptasyondur ve yaşlılar anlaşılır nedenlerle yeni teknolojiye sıklıkla direnç gösterir: hata yapma korkusu, estetik rahatsızlık, 'izlenme' hissi. Pratikte işe yarayan bazı stratejiler:",
       },
     },
     {
@@ -524,6 +636,20 @@ export const post: BlogPost = {
           "**Établissez une routine de recharge**: si l'autonomie est courte, créez une routine fixe (par exemple, chaque soir à 21h pendant la télévision). Un appareil déchargé est un appareil inutile.",
           "**Essayez-le vous-même pendant une semaine**: si vous n'arrivez pas à comprendre comment il fonctionne seul, comment pouvez-vous attendre qu'une personne âgée y arrive?",
         ],
+        pl: [
+          "**Nie przedstawiaj jako systemu inwigilacji**: przedstaw je jako urządzenie, które pomaga *im*, a nie które monitoruje *dla ciebie*. 'Powiadamia cię, gdy twoje serce bije nieregularnie' to nie to samo co 'możemy widzieć wszystko, co robisz'.",
+          "**Pierwszy tydzień: tylko podstawowe funkcje**: nie aktywuj wszystkiego naraz. Zacznij od czasu i kroków. Dodaj wykrywanie upadków po tym, jak przyzwyczają się do wagi i ładowania.",
+          "**Wybierz odpowiedni pasek**: dla seniorów z artretyzmem magnetyczne lub easy-fit paski są o wiele bardziej praktyczne niż standardowe z pinezką.",
+          "**Ustal rutynę ładowania**: jeśli bateria nie wytrzymuje długo, stwórz stały rytuał (np. każdego wieczoru o 21:00 podczas oglądania telewizji). Rozładowane urządzenie jest bezużyteczne.",
+          "**Sam noś przez tydzień**: jeśli nie możesz sam zrozumieć jak to działa, jak możesz oczekiwać, że senior to zrozumie?",
+        ],
+        tr: [
+          "**Gözetim sistemi olarak sunmayın**: *onlara* yardımcı olan bir cihaz olarak sunun, *sizin için* izleyen bir cihaz olarak değil. 'Kalbin düzensiz atarsa seni uyarır' ile 'yaptığın her şeyi görebiliriz' aynı şey değildir.",
+          "**İlk hafta: yalnızca temel işlevler**: her şeyi bir anda etkinleştirmeyin. Saat ve adımlarla başlayın. Ağırlığa ve şarj etmeye alıştıktan sonra düşme algılamayı ekleyin.",
+          "**Doğru kayışı seçin**: artritli yaşlılar için manyetik veya easy-fit tokalamalı kayışlar standart pimli tokalardan çok daha pratiktir.",
+          "**Şarj rutini oluşturun**: pil ömrü kısaysa sabit bir rutin oluşturun (örneğin her akşam saat 21:00'de TV izlerken). Şarjı biten cihaz işe yaramaz bir cihazdır.",
+          "**Kendiniz bir hafta kullanın**: nasıl çalıştığını kendiniz çözemiyorsanız, yaşlı bir kişinin çözmesini nasıl bekleyebilirsiniz?",
+        ],
       },
     },
     {
@@ -536,6 +662,8 @@ export const post: BlogPost = {
         de: "Die Wahl, die ich ohne Zögern empfehle",
         pt: "A escolha que recomendo sem hesitar",
         fr: "Le choix que je recommande sans hésiter",
+        pl: "Wybór, który polecam bez wahania",
+        tr: "Tereddütsüz önerdiğim seçim",
       },
       body: {
         it: "Per un anziano con Android, il Galaxy Watch 7 LTE batte qualsiasi alternativa nella stessa fascia. Il rilevamento cadute è testato clinicamente, LTE garantisce la chiamata di emergenza anche senza il telefono vicino, e Samsung Health Family Sharing permette al caregiver di vedere i dati da remoto. Costa di più, ma per questo uso specifico vale ogni euro.",
@@ -544,6 +672,8 @@ export const post: BlogPost = {
         de: "Für eine ältere Person mit Android schlägt die Galaxy Watch 7 LTE jede Alternative in der gleichen Preisklasse. Die Sturzerkennung ist getestet, LTE garantiert den Notruf auch ohne Telefon in der Nähe, und Samsung Health Family Sharing ermöglicht es Betreuungspersonen, die Daten aus der Ferne einzusehen. Sie kostet mehr, aber für diesen spezifischen Einsatz ist sie jeden Euro wert.",
         pt: "Para uma pessoa idosa com Android, a Galaxy Watch 7 LTE supera qualquer alternativa na mesma faixa de preço. A detecção de quedas é testada, o LTE garante a chamada de emergência mesmo sem o telefone por perto, e o Samsung Health Family Sharing permite ao cuidador ver os dados remotamente. Custa mais, mas para esse uso específico vale cada euro.",
         fr: "Pour une personne âgée sous Android, la Galaxy Watch 7 LTE surpasse toute alternative dans la même gamme de prix. La détection de chutes est testée, le LTE garantit l'appel d'urgence même sans téléphone à proximité, et Samsung Health Family Sharing permet à l'aidant de consulter les données à distance. Elle coûte plus cher, mais pour cet usage spécifique, elle vaut chaque euro.",
+        pl: "Dla seniora z Androidem Galaxy Watch 7 LTE bije każdą alternatywę w tej samej klasie cenowej. Wykrywanie upadków jest klinicznie przetestowane, LTE gwarantuje połączenie alarmowe nawet bez pobliskiego telefonu, a Samsung Health Family Sharing pozwala opiekunowi zdalnie przeglądać dane. Kosztuje więcej, ale przy tym konkretnym zastosowaniu jest wart każdego euro.",
+        tr: "Android kullanan yaşlı bir kişi için Galaxy Watch 7 LTE aynı fiyat aralığındaki her alternatifi geçer. Düşme algılama klinik olarak test edilmiş, LTE yakın telefon olmadan bile acil aramayı garanti eder ve Samsung Health Family Sharing bakıcının verileri uzaktan görmesini sağlar. Daha pahalıdır, ancak bu özel kullanım için her Euro'ya değer.",
       },
     },
     {
@@ -556,6 +686,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
     },
     {
@@ -603,6 +735,20 @@ export const post: BlogPost = {
           "Les ECG intégrés (Apple Watch Series 9, Galaxy Watch 7) sont des outils de dépistage de la fibrillation auriculaire, pas des dispositifs médicaux certifiés: tout résultat anormal doit être soumis à un médecin.",
           "L'adoption compte autant que le choix: présentez-le comme un appareil qui aide la personne âgée, pas comme un système de contrôle. Commencez uniquement avec l'heure et les pas, et ajoutez des fonctionnalités progressivement.",
         ],
+        pl: [
+          "Decydującym czynnikiem nie jest lista funkcji: chodzi o to, żeby urządzenie było noszone każdego dnia. Łatwość obsługi i długa bateria biją każdą zaawansowaną funkcję.",
+          "LTE nie jest opcjonalne, jeśli senior porusza się samodzielnie i nie zawsze ma przy sobie telefon.",
+          "Wykrywanie upadków działa dobrze przy klasycznych upadkach, gorzej przy powolnych lub w wodzie: uzupełnij je stałym przyciskiem w łazience dla pełnej ochrony.",
+          "Wbudowane EKG (Apple Watch Series 9, Galaxy Watch 7) to narzędzia do przesiewowego wykrywania migotania przedsionków, nie certyfikowane urządzenia medyczne: każdy nieprawidłowy wynik należy pokazać lekarzowi.",
+          "Adaptacja ma tak samo duże znaczenie jak wybór: przedstaw urządzenie jako coś, co pomaga seniorowi, a nie jako system kontroli. Zacznij tylko od czasu i kroków, stopniowo dodawaj funkcje.",
+        ],
+        tr: [
+          "Belirleyici faktör özellik listesi değildir: cihazın her gün takılmasıdır. Kullanım kolaylığı ve uzun pil ömrü her gelişmiş özelliği geçer.",
+          "Yaşlı kişi telefonsuz bağımsız hareket ediyorsa LTE isteğe bağlı değildir.",
+          "Düşme algılama klasik düşmelerde iyi çalışır, yavaş düşmelerde veya suda daha kötü çalışır: tam koruma için bunu banyo için sabit bir düğmeyle tamamlayın.",
+          "Dahili EKG'ler (Apple Watch Series 9, Galaxy Watch 7) atriyal fibrilasyon tarama araçlarıdır, sertifikalı tıbbi cihaz değildir: her anormal sonuç doktora gösterilmelidir.",
+          "Adaptasyon seçim kadar önemlidir: cihazı yaşlıya yardımcı olan bir şey olarak tanıtın, izleme sistemi olarak değil. Yalnızca saat ve adımlarla başlayın, özellikleri kademeli olarak ekleyin.",
+        ],
       },
     },
     {
@@ -614,6 +760,8 @@ export const post: BlogPost = {
         de: "Möchten Sie die Gesundheitsdaten Ihres Familienmitglieds in einem gemeinsamen Dashboard sehen?",
         pt: "Quer ver os dados de saúde do seu familiar em um painel compartilhado?",
         fr: "Vous voulez consulter les données de santé de votre proche dans un tableau de bord partagé?",
+        pl: "Chcesz przeglądać dane zdrowotne swojego bliskiego w udostępnionym panelu?",
+        tr: "Aile üyenizin sağlık verilerini paylaşılan bir panoda görmek ister misiniz?",
       },
       body: {
         it: "Tra le opzioni che semplificano questo c'è FitMesh Sync: aggrega i dati da Galaxy Watch, Garmin e altri wearable in una dashboard web accessibile da browser, senza bisogno che tutti usino lo stesso brand. Utile per caregiver che seguono familiari anziani con dispositivi diversi.",
@@ -622,6 +770,8 @@ export const post: BlogPost = {
         de: "Zu den Optionen, die dies vereinfachen, gehört FitMesh Sync: Es aggregiert Daten von Galaxy Watch, Garmin und anderen Wearables in einem browserzugänglichen Web-Dashboard, ohne dass alle dieselbe Marke verwenden müssen. Nützlich für Betreuungspersonen, die ältere Familienmitglieder mit verschiedenen Geräten begleiten.",
         pt: "Entre as opções que simplificam isso está o FitMesh Sync: agrega dados do Galaxy Watch, Garmin e outros wearables em um painel web acessível pelo navegador, sem que todos precisem usar a mesma marca. Útil para cuidadores que acompanham familiares idosos com dispositivos diferentes.",
         fr: "Parmi les options qui simplifient cela, FitMesh Sync agrège les données de Galaxy Watch, Garmin et d'autres wearables dans un tableau de bord web accessible depuis un navigateur, sans que tout le monde n'utilise la même marque. Pratique pour les aidants qui suivent des proches âgés avec des appareils différents.",
+        pl: "Jedną z opcji, która to upraszcza, jest FitMesh Sync: agreguje dane z Galaxy Watch, Garmin i innych urządzeń w webowym panelu dostępnym z przeglądarki, bez potrzeby, żeby wszyscy używali tej samej marki. Przydatne dla opiekunów śledzących starszych członków rodziny z różnymi urządzeniami.",
+        tr: "Bunu kolaylaştıran seçeneklerden biri FitMesh Sync: Galaxy Watch, Garmin ve diğer giyilebilirlerden gelen verileri tarayıcıdan erişilebilen bir web panosunda bir araya getirir, herkesin aynı markayı kullanmasına gerek kalmadan. Farklı cihazlara sahip yaşlı aile üyelerini takip eden bakıcılar için kullanışlıdır.",
       },
       ctaLabel: {
         it: "Scopri le integrazioni FitMesh →",
@@ -630,10 +780,14 @@ export const post: BlogPost = {
         de: "FitMesh-Integrationen entdecken →",
         pt: "Conheça as integrações do FitMesh →",
         fr: "Découvrez les intégrations FitMesh →",
+        pl: "Odkryj integracje FitMesh →",
+        tr: "FitMesh entegrasyonlarını keşfedin →",
       },
       ctaHref: {
         it: "/it/integrations",
         en: "/en/integrations",
+        pl: "/pl/integrations",
+        tr: "/tr/integrations",
       },
     },
   ],
@@ -646,6 +800,8 @@ export const post: BlogPost = {
         de: "Kann eine Smartwatch wirklich das Leben einer älteren Person retten?",
         pt: "Um smartwatch pode realmente salvar a vida de uma pessoa idosa?",
         fr: "Une montre connectée peut-elle vraiment sauver la vie d'une personne âgée?",
+        pl: "Czy smartwatch może naprawdę uratować życie seniora?",
+        tr: "Bir akıllı saat gerçekten yaşlı bir kişinin hayatını kurtarabilir mi?",
       },
       a: {
         it: "Ci sono casi documentati in cui il rilevamento cadute ha allertato i soccorsi in tempo (Apple ha pubblicato alcune di queste storie). Tuttavia lo smartwatch non è un dispositivo medico certificato e non sostituisce altri sistemi di sicurezza (es. tele-sorveglianza professionale, sistemi di alert fisso). È uno strato aggiuntivo di sicurezza, non una soluzione completa. La sua efficacia dipende anche dall'essere sempre indossato e con batteria carica.",
@@ -654,6 +810,8 @@ export const post: BlogPost = {
         de: "Es gibt dokumentierte Fälle, in denen die Sturzerkennung die Retter rechtzeitig alarmiert hat (Apple hat einige dieser Geschichten veröffentlicht). Allerdings ist eine Smartwatch kein zertifiziertes Medizinprodukt und ersetzt keine anderen Sicherheitssysteme (z. B. professionelle Telebetreuung, fest installierte Alarmsysteme). Sie ist eine zusätzliche Sicherheitsebene, keine vollständige Lösung. Ihre Wirksamkeit hängt auch davon ab, dass sie immer getragen wird und die Batterie geladen ist.",
         pt: "Há casos documentados em que a detecção de quedas alertou socorristas a tempo (a Apple publicou algumas dessas histórias). No entanto, um smartwatch não é um dispositivo médico certificado e não substitui outros sistemas de segurança (por exemplo, teleatendimento profissional, sistemas de alerta fixos). É uma camada adicional de segurança, não uma solução completa. Sua eficácia também depende de ser sempre usado com a bateria carregada.",
         fr: "Il existe des cas documentés où la détection de chutes a alerté les secours à temps (Apple a publié quelques-unes de ces histoires). Cependant, une montre connectée n'est pas un dispositif médical certifié et ne remplace pas d'autres systèmes de sécurité (par exemple, téléassistance professionnelle, systèmes d'alerte fixes). C'est une couche de sécurité supplémentaire, pas une solution complète. Son efficacité dépend aussi d'être toujours portée avec une batterie chargée.",
+        pl: "Istnieją udokumentowane przypadki, w których wykrywanie upadków zaalarmowało ratowników w porę (Apple opublikował niektóre z tych historii). Jednak smartwatch nie jest certyfikowanym urządzeniem medycznym i nie zastępuje innych systemów bezpieczeństwa (np. profesjonalnej teleopieki, stałych systemów alarmowych). To dodatkowa warstwa bezpieczeństwa, nie kompletne rozwiązanie. Jego skuteczność zależy też od ciągłego noszenia z naładowaną baterią.",
+        tr: "Düşme algılamanın kurtarıcıları zamanında uyardığı belgelenmiş vakalar vardır (Apple bu hikayelerden bazılarını yayımlamıştır). Ancak akıllı saat sertifikalı tıbbi cihaz değildir ve diğer güvenlik sistemlerinin (örneğin profesyonel uzaktan bakım, sabit alarm sistemleri) yerini tutmaz. Ek bir güvenlik katmanıdır, eksiksiz bir çözüm değildir. Etkinliği aynı zamanda her zaman şarjlı baterisiyle takılı olmasına bağlıdır.",
       },
     },
     {
@@ -664,6 +822,8 @@ export const post: BlogPost = {
         de: "Welche Smartwatch ist für eine ältere Person ohne Technikaffinität am einfachsten zu bedienen?",
         pt: "Qual smartwatch é mais fácil de usar para uma pessoa idosa sem familiaridade com tecnologia?",
         fr: "Quelle montre connectée est la plus facile à utiliser pour une personne âgée peu à l'aise avec la technologie?",
+        pl: "Który smartwatch jest najłatwiejszy w obsłudze dla seniora niemającego doświadczenia z technologią?",
+        tr: "Teknolojiyle tanışık olmayan yaşlı bir kişi için hangi akıllı saat en kullanışlıdır?",
       },
       a: {
         it: "Dipende dall'ecosistema del telefono. Se usano Android (Samsung tipicamente), Galaxy Watch con la watchface semplice (orologio + passi) è intuitivo. Se usano iPhone, Apple Watch SE con watchface Modular Compact è molto leggibile. In entrambi i casi, le impostazioni iniziali vanno fatte dal familiare caregiver, non dall'anziano. I dispositivi specializzati tipo Doro sono ancora più semplici ma hanno meno funzionalità salute.",
@@ -682,6 +842,8 @@ export const post: BlogPost = {
         de: "Funktioniert die Sturzerkennung im Wasser (Dusche, Badewanne)?",
         pt: "A detecção de quedas funciona na água (chuveiro, banheira)?",
         fr: "La détection de chutes fonctionne-t-elle dans l'eau (douche, baignoire)?",
+        pl: "Czy wykrywanie upadków działa w wodzie (prysznic, wanna)?",
+        tr: "Düşme algılama suda (duş, küvet) çalışır mı?",
       },
       a: {
         it: "Gli smartwatch top di gamma (Galaxy Watch 7, Apple Watch Series 9) sono impermeabili (5 ATM o più) e possono essere indossati in doccia. Il rilevamento cadute tuttavia funziona peggio in acqua perché l'accelerometro ha difficoltà a distinguere il pattern di caduta da quello del movimento in acqua. Per la sicurezza in bagno, alcuni scelgono di abbinare lo smartwatch a un dispositivo fisso apposito (es. bottone di emergenza in bagno).",
@@ -690,6 +852,8 @@ export const post: BlogPost = {
         de: "Hochwertige Smartwatches (Galaxy Watch 7, Apple Watch Series 9) sind wasserdicht (5 ATM oder mehr) und können in der Dusche getragen werden. Die Sturzerkennung funktioniert im Wasser jedoch schlechter, da der Beschleunigungssensor Schwierigkeiten hat, Sturzmuster von Wasserbewegungen zu unterscheiden. Für die Sicherheit im Badezimmer kombinieren manche die Smartwatch mit einem speziellen fest installierten Gerät (z. B. einem Notfallknopf im Badezimmer).",
         pt: "Os smartwatches de topo de linha (Galaxy Watch 7, Apple Watch Series 9) são à prova d'água (5 ATM ou mais) e podem ser usados no chuveiro. A detecção de quedas, porém, funciona pior na água porque o acelerômetro tem dificuldade em distinguir o padrão de queda do movimento na água. Para a segurança no banheiro, algumas pessoas combinam o smartwatch com um dispositivo fixo dedicado (por exemplo, um botão de emergência no banheiro).",
         fr: "Les montres connectées haut de gamme (Galaxy Watch 7, Apple Watch Series 9) sont étanches (5 ATM ou plus) et peuvent être portées sous la douche. La détection de chutes fonctionne cependant moins bien dans l'eau car l'accéléromètre peine à distinguer le schéma de chute du mouvement dans l'eau. Pour la sécurité dans la salle de bain, certains associent la montre connectée à un appareil fixe dédié (par exemple, un bouton d'urgence dans la salle de bain).",
+        pl: "Najwyższej klasy smartwatche (Galaxy Watch 7, Apple Watch Series 9) są wodoodporne (5 ATM lub więcej) i można je nosić pod prysznicem. Wykrywanie upadków działa jednak gorzej w wodzie, ponieważ akcelerometr ma trudności z rozróżnieniem wzorca upadku od ruchu w wodzie. Dla bezpieczeństwa w łazience niektórzy łączą smartwatch z dedykowanym urządzeniem stałym (np. przyciskiem alarmowym w łazience).",
+        tr: "Üst sınıf akıllı saatler (Galaxy Watch 7, Apple Watch Series 9) su geçirmezdir (5 ATM veya daha fazla) ve duşta takılabilir. Ancak düşme algılama suda daha kötü çalışır çünkü ivmeölçer düşme örüntüsünü su hareketinden ayırt etmekte güçlük çeker. Banyo güvenliği için bazı kişiler akıllı saati özel bir sabit cihazla (örneğin banyodaki acil düğmesi) birleştirir.",
       },
     },
     {
@@ -700,6 +864,8 @@ export const post: BlogPost = {
         de: "Was sollte eine Smartwatch für Senioren kosten?",
         pt: "Quanto deve custar um smartwatch para pessoas idosas?",
         fr: "Combien doit coûter une montre connectée pour personnes âgées?",
+        pl: "Ile powinien kosztować smartwatch dla seniora?",
+        tr: "Yaşlılar için bir akıllı saat ne kadar olmalıdır?",
       },
       a: {
         it: "Il range utile va da 150€ (usato/ricondizionato) a 350€ per un dispositivo nuovo con LTE. Sotto i 100€ i compromessi sui sensori e il rilevamento cadute sono significativi. Sopra i 400€ si paga per funzionalità che un anziano tipicamente non usa. Considera anche il costo del piano LTE aggiuntivo se scegli il modello connesso (tipicamente 5-10€/mese sulla SIM del telefono principale).",
@@ -708,6 +874,8 @@ export const post: BlogPost = {
         de: "Der sinnvolle Preisbereich liegt zwischen 150 € (gebraucht/generalüberholt) und 350 € für ein neues Gerät mit LTE. Unter 100 € sind die Kompromisse bei Sensoren und Sturzerkennung erheblich. Über 400 € zahlt man für Funktionen, die eine typische ältere Person nicht nutzt. Berücksichtige auch die Kosten eines zusätzlichen LTE-Tarifs, wenn du das verbundene Modell wählst (in der Regel 5-10 €/Monat auf der SIM des Haupttelefons).",
         pt: "A faixa útil vai de 150 € (usado/recondicionado) a 350 € para um dispositivo novo com LTE. Abaixo de 100 € os compromissos nos sensores e na detecção de quedas são significativos. Acima de 400 € você paga por funções que uma pessoa idosa típica não usa. Considere também o custo do plano LTE adicional se escolher o modelo conectado (geralmente 5-10 €/mês no chip do telefone principal).",
         fr: "La fourchette utile va de 150 € (occasion/reconditionné) à 350 € pour un appareil neuf avec LTE. En dessous de 100 €, les compromis sur les capteurs et la détection de chutes sont significatifs. Au-delà de 400 €, on paie pour des fonctionnalités qu'une personne âgée n'utilise généralement pas. Tenez également compte du coût d'un forfait LTE supplémentaire si vous choisissez le modèle connecté (généralement 5-10 €/mois sur la SIM du téléphone principal).",
+        pl: "Przydatny zakres cenowy to od 150 € (używany/odnowiony) do 350 € za nowe urządzenie z LTE. Poniżej 100 € kompromisy dotyczące czujników i wykrywania upadków są znaczące. Powyżej 400 € płaci się za funkcje, których typowy senior nie używa. Uwzględnij też koszt dodatkowego planu LTE jeśli wybierzesz model z łącznością (zazwyczaj 5-10 €/miesiąc na głównej karcie SIM telefonu).",
+        tr: "Kullanışlı fiyat aralığı 150 € (kullanılmış/yenilenmiş) ile LTE'li yeni cihaz için 350 € arasındadır. 100 €'nun altında sensörler ve düşme algılama konusundaki tavizler önemlidir. 400 €'nun üzerinde tipik bir yaşlının kullanmadığı özellikler için para ödemiş olursunuz. Bağlantılı modeli seçerseniz ek LTE planının maliyetini de göz önünde bulundurun (genellikle ana telefon SIM kartında aylık 5-10 €).",
       },
     },
     {
@@ -718,6 +886,8 @@ export const post: BlogPost = {
         de: "Sind die Daten meines älteren Familienmitglieds privat oder liest sie jemand?",
         pt: "Os dados do meu familiar idoso são privados ou alguém os lê?",
         fr: "Les données de mon proche âgé sont-elles privées ou quelqu'un les lit-il?",
+        pl: "Czy dane mojego starszego bliskiego są prywatne, czy ktoś je czyta?",
+        tr: "Yaşlı aile üyemin verileri özel mi yoksa biri okuyor mu?",
       },
       a: {
         it: "I dati vengono salvati sul cloud del produttore (Samsung Cloud, Apple iCloud, Garmin Connect). Il produttore può tecnicamente accedere a questi dati secondo la propria privacy policy. Nessun essere umano li legge attivamente nella pratica normale, ma analisi aggregate per migliorare algoritmi sono possibili. Se la privacy è una preoccupazione rilevante, soluzioni che usano Health Connect (Android on-device) mantengo i dati sul telefono invece che sul cloud.",
@@ -726,6 +896,8 @@ export const post: BlogPost = {
         de: "Daten werden in der Cloud des Herstellers gespeichert (Samsung Cloud, Apple iCloud, Garmin Connect). Der Hersteller kann technisch gemäß seiner Datenschutzrichtlinie auf diese Daten zugreifen. Im normalen Betrieb liest sie kein Mensch aktiv, aber aggregierte Analysen zur Verbesserung von Algorithmen sind möglich. Wenn Datenschutz ein wichtiges Anliegen ist, halten Lösungen mit Health Connect (Android auf dem Gerät) die Daten auf dem Telefon statt in der Cloud.",
         pt: "Os dados são salvos na nuvem do fabricante (Samsung Cloud, Apple iCloud, Garmin Connect). O fabricante pode tecnicamente acessar esses dados conforme sua política de privacidade. Nenhuma pessoa os lê ativamente na prática normal, mas análises agregadas para melhorar algoritmos são possíveis. Se a privacidade for uma preocupação relevante, soluções que usam Health Connect (Android no dispositivo) mantêm os dados no telefone em vez de na nuvem.",
         fr: "Les données sont enregistrées dans le cloud du fabricant (Samsung Cloud, Apple iCloud, Garmin Connect). Le fabricant peut techniquement accéder à ces données conformément à sa politique de confidentialité. Aucun humain ne les lit activement en pratique normale, mais des analyses agrégées pour améliorer les algorithmes sont possibles. Si la confidentialité est une préoccupation importante, les solutions utilisant Health Connect (Android sur l'appareil) conservent les données sur le téléphone plutôt que dans le cloud.",
+        pl: "Dane są zapisywane w chmurze producenta (Samsung Cloud, Apple iCloud, Garmin Connect). Producent może technicznie uzyskać dostęp do tych danych zgodnie z własną polityką prywatności. Żaden człowiek nie czyta ich aktywnie w normalnej praktyce, ale zbiorcze analizy do poprawy algorytmów są możliwe. Jeśli prywatność jest istotną kwestią, rozwiązania korzystające z Health Connect (Android na urządzeniu) przechowują dane na telefonie zamiast w chmurze.",
+        tr: "Veriler üreticinin bulutuna kaydedilir (Samsung Cloud, Apple iCloud, Garmin Connect). Üretici, gizlilik politikasına göre bu verilere teknik olarak erişebilir. Normal pratikte hiçbir insan bunları aktif olarak okumaz, ancak algoritmaları geliştirmek için toplu analizler mümkündür. Gizlilik önemli bir endişeyse Health Connect kullanan çözümler (cihaz üzerinde Android) verileri bulut yerine telefonda tutar.",
       },
     },
   ],

@@ -67,6 +67,26 @@ const L = {
     doneBody: 'Le fichier avec vos données a été téléchargé.',
     errorTitle: 'Erreur',
   },
+  pl: {
+    back: '← Ustawienia',
+    heading: 'Eksportuj moje dane',
+    body: 'Pobierz pełną kopię swoich danych (profil, urządzenia, metryki, treningi, zgody) w formacie JSON. Prawo do przenoszenia danych (RODO art. 20).',
+    cta: 'Pobierz moje dane (JSON)',
+    working: 'Przygotowywanie…',
+    doneTitle: 'Pobieranie rozpoczęte',
+    doneBody: 'Plik z Twoimi danymi został pobrany.',
+    errorTitle: 'Błąd',
+  },
+  tr: {
+    back: '← Ayarlar',
+    heading: 'Verilerimi dışa aktar',
+    body: 'Verilerinizin (profil, cihazlar, metrikler, antrenmanlar, izinler) tam bir kopyasını JSON olarak indirin. Veri taşınabilirliği hakkı (KVKK md. 7).',
+    cta: 'Verilerimi indir (JSON)',
+    working: 'Hazırlanıyor…',
+    doneTitle: 'İndirme başladı',
+    doneBody: 'Verilerinizi içeren dosya indirildi.',
+    errorTitle: 'Hata',
+  },
 } as const;
 
 export default async function ExportPage({
@@ -76,7 +96,7 @@ export default async function ExportPage({
 }) {
   const { locale } = await params;
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : 'it';
-  const t = L[lc];
+  const t = L[(lc in L ? lc : "it") as keyof typeof L];
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">

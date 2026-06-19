@@ -21,6 +21,8 @@ export const post: BlogPost = {
       de: "Anleitung",
       pt: "Guia",
       fr: "Guide",
+      pl: "Przewodnik",
+      tr: "Kılavuz",
     },
     title: {
       it: "Colmi R02: come configurarlo e leggerne i dati",
@@ -29,6 +31,8 @@ export const post: BlogPost = {
       de: "Colmi R02: Einrichtung und Auswertung deiner Daten",
       pt: "Colmi R02: como configurar e entender seus dados",
       fr: "Colmi R02: comment le configurer et lire vos données",
+      pl: "Konfiguracja Colmi R02: jak go używać i czytać dane",
+      tr: "Colmi R02 kurulum kılavuzu: nasıl kullanılır ve veriler nasıl okunur",
     },
     subtitle: {
       it: "Hai appena ricevuto il Colmi R02 e vuoi capire come funziona, come indossarlo correttamente, e come far confluire i dati in FitMesh insieme al tuo smartwatch. Questa guida copre tutto, dall'apertura della scatola alla prima dashboard unificata.",
@@ -37,6 +41,8 @@ export const post: BlogPost = {
       de: "Du hast gerade deinen Colmi R02 erhalten und möchtest verstehen, wie er funktioniert, wie du ihn richtig trägst und wie die Daten zusammen mit deinem Smartwatch in FitMesh landen. Diese Anleitung deckt alles ab: von der Verpackung bis zum ersten einheitlichen Dashboard.",
       pt: "Você acabou de receber o Colmi R02 e quer entender como ele funciona, como usá-lo corretamente e como fazer os dados chegarem ao FitMesh junto com o seu smartwatch. Este guia cobre tudo: da abertura da caixa ao seu primeiro painel unificado.",
       fr: "Vous venez de recevoir votre Colmi R02 et souhaitez comprendre comment il fonctionne, comment le porter correctement et comment faire remonter les données dans FitMesh avec votre montre connectée. Ce guide couvre tout: de l'ouverture de la boîte à votre premier tableau de bord unifié.",
+      pl: "Właśnie otrzymałeś Colmi R02 i chcesz zrozumieć, jak działa, jak go prawidłowo nosić i jak przesłać dane do FitMesh razem ze swoim smartwatchem. Ten przewodnik obejmuje wszystko: od otwarcia pudełka po pierwszy ujednolicony panel.",
+      tr: "Colmi R02'nizi aldınız ve nasıl çalıştığını, doğru nasıl takılacağını ve FitMesh'e smartwatch'ınızla birlikte nasıl veri aktaracağınızı öğrenmek istiyorsunuz. Bu kılavuz kutuyu açmaktan ilk birleşik panele kadar her şeyi kapsar.",
     },
   },
   metaDescription: {
@@ -46,6 +52,8 @@ export const post: BlogPost = {
     de: "Colmi R02 einrichten: wie du ihn trägst, lädst und mit FitMesh verbindest, um alle Gesundheitsdaten in einem einzigen Dashboard zu sehen. Praktische Schritt-für-Schritt-Anleitung.",
     pt: "Colmi R02: como usar, carregar e conectar ao FitMesh para ver todos os seus dados em um único painel. Guia prático passo a passo.",
     fr: "Colmi R02: comment le porter, le charger et le connecter à FitMesh pour voir toutes vos données de santé dans un tableau de bord unifié. Guide pratique étape par étape.",
+    pl: "Konfiguracja Colmi R02: jak go nosić, ładować i połączyć z FitMesh, aby zobaczyć wszystkie dane w jednym panelu. Praktyczny przewodnik krok po kroku.",
+    tr: "Colmi R02 kurulumu: nasıl takılır, şarj edilir ve tüm verilerinizi tek bir panelde görmek için FitMesh'e nasıl bağlanır. Adım adım pratik kılavuz.",
   },
   primaryKeyword: {
     it: "configurare anello Colmi",
@@ -54,6 +62,8 @@ export const post: BlogPost = {
     de: "Colmi Ring einrichten",
     pt: "configurar anel Colmi",
     fr: "configurer bague connectée Colmi",
+    pl: "konfiguracja pierscienia Colmi",
+    tr: "Colmi yüzük kurulumu",
   },
   secondaryKeywords: {
     it: [
@@ -87,6 +97,22 @@ export const post: BlogPost = {
       "colmi r02 paramétrage",
       "colmi r02 comment ça marche",
       "bague colmi fitmesh",
+    ],
+    pl: [
+      "colmi r02 konfiguracja",
+      "colmi r02 instrukcja po polsku",
+      "colmi r02 jak używać",
+      "colmi r02 setup",
+      "colmi r02 jak działa",
+      "pierscień colmi fitmesh",
+    ],
+    tr: [
+      "colmi r02 kurulum kılavuzu",
+      "colmi r02 nasıl kullanılır",
+      "colmi r02 türkçe talimatlar",
+      "colmi r02 yapılandırma",
+      "colmi r02 nasıl çalışır",
+      "colmi yüzük fitmesh",
     ],
   },
   tldr: {
@@ -132,6 +158,20 @@ export const post: BlogPost = {
       "Une fois configuré, vos données de compte FitMesh sont également consultables sur iPhone (application iOS bientôt disponible) et peuvent être envoyées vers Apple Health.",
       "Les données nocturnes (HRV, SpO2, phases du sommeil) arrivent automatiquement chaque matin après la première synchronisation.",
     ],
+    pl: [
+      "Noś pierscień Colmi na serdecznym lub środkowym palcu niedominującej ręki, czujnikiem skierowanym w stronę dłoni.",
+      "Bateria wytrzymuje 5-7 dni; ładuj za pomocą dysku magnetycznego podłączonego do dowolnej standardowej ładowarki USB.",
+      "Połączenie z FitMesh Sync na Androidzie wymaga 6 kroków i nie potrzebuje aplikacji producenta.",
+      "Po skonfigurowaniu dane z konta FitMesh są dostępne również na iPhonie (aplikacja iOS wkrótce) i mogą trafić do Apple Health.",
+      "Dane nocne (HRV, SpO2, fazy snu) pojawiają się automatycznie każdego ranka po pierwszej synchronizacji.",
+    ],
+    tr: [
+      "Colmi yüzüğü, baskın olmayan elinizin yüzük parmağına veya orta parmağına takın, sensör avucunuza doğru baksın.",
+      "Pil 5-7 gün dayanır; herhangi bir standart USB adaptörüne bağlı manyetik diskle şarj edin.",
+      "Android'de FitMesh Sync'e bağlanmak 6 adım alır ve üretici uygulaması gerektirmez.",
+      "Kurulduktan sonra FitMesh hesabı verileriniz iPhone'da da görüntülenebilir (iOS uygulaması yakında) ve Apple Health'e aktarılabilir.",
+      "Gece verileri (HRV, SpO2, uyku evreleri) ilk senkronizasyondan sonra her sabah otomatik olarak gelir.",
+    ],
   },
   body: [
     // --- WHAT'S IN THE BOX ---
@@ -145,6 +185,8 @@ export const post: BlogPost = {
         de: "Was im Lieferumfang des Colmi R02 enthalten ist",
         pt: "O que vem na caixa do Colmi R02",
         fr: "Contenu de la boîte du Colmi R02",
+        pl: "Co znajdziesz w pudełku Colmi R02",
+        tr: "Colmi R02 kutusunda neler var",
       },
     },
     {
@@ -156,6 +198,8 @@ export const post: BlogPost = {
         de: "Die Verpackung des Colmi R02 ist schlicht gehalten. Im Lieferumfang findest du:",
         pt: "A embalagem do Colmi R02 é simples. Dentro você encontrará:",
         fr: "Le packaging du Colmi R02 est minimaliste. À l'intérieur, vous trouverez:",
+        pl: "Opakowanie Colmi R02 jest minimalistyczne. W środku znajdziesz:",
+        tr: "Colmi R02 ambalajı oldukça sade. İçinde şunları bulacaksınız:",
       },
     },
     {
@@ -203,6 +247,20 @@ export const post: BlogPost = {
           "**Guide de démarrage rapide** en plusieurs langues (le contenu est très sommaire; pour tous les détails, il renvoie à l'application).",
           "**Kit d'essai de tailles** (si vous l'avez commandé), pour trouver la bonne taille avant de porter la bague définitive.",
         ],
+        pl: [
+          "**Pierścień** w rozmiarze, który zamówiłeś.",
+          "**Ładowarka magnetyczna**: mały dysk z magnesem, który przykleja się do płaskiej strony pierścienia.",
+          "**Kabel USB-A** (niektóre zestawy zawierają też kabel USB-C; zasilacz nie jest dołączony, wystarczy dowolna standardowa ładowarka USB).",
+          "**Skrócona instrukcja obsługi** w kilku językach (treść jest bardzo podstawowa; po pełne szczegóły odsyła do aplikacji).",
+          "**Zestaw próbnych rozmiarów** (jeśli go zamówiłeś), aby znaleźć właściwy rozmiar przed założeniem docelowego pierścienia.",
+        ],
+        tr: [
+          "**Yüzük**, sipariş ettiğiniz boyutta.",
+          "**Manyetik şarj cihazı**: yüzüğün düz tarafına yapışan küçük bir mıknatıslı disk.",
+          "**USB-A kablosu** (bazı paketlerde USB-C kablosu da bulunur; güç adaptörü dahil değildir, herhangi bir standart USB şarj cihazı çalışır).",
+          "**Hızlı başlangıç kılavuzu** birden fazla dilde (içerik çok temeldir; tüm ayrıntılar için uygulamaya yönlendirir).",
+          "**Boyut deneme kiti** (sipariş ettiyseniz), asıl yüzüğü takmadan önce doğru boyutu bulmak için.",
+        ],
       },
     },
     {
@@ -215,6 +273,8 @@ export const post: BlogPost = {
         de: "Hast du das Größen-Testset?",
         pt: "Tem o kit de tamanhos de teste?",
         fr: "Vous avez le kit d'essai de tailles?",
+        pl: "Masz zestaw próbnych rozmiarów?",
+        tr: "Boyut deneme kitiniz var mı?",
       },
       body: {
         it: "Prova ogni anello per 10-15 minuti. L'anello non deve lasciare segni rossi sulla pelle (troppo stretto) e non deve ruotare liberamente (troppo largo). Le dita cambiano leggermente di diametro durante la giornata: misura di pomeriggio per un risultato più rappresentativo.",
@@ -223,6 +283,8 @@ export const post: BlogPost = {
         de: "Trage jede Größe 10 bis 15 Minuten. Der Ring sollte keine roten Male auf der Haut hinterlassen (zu eng) und sich nicht frei drehen lassen (zu weit). Die Finger verändern ihren Durchmesser im Tagesverlauf leicht: Miss am Nachmittag für ein repräsentativeres Ergebnis.",
         pt: "Experimente cada tamanho por 10 a 15 minutos. O anel não deve deixar marcas vermelhas na pele (muito apertado) nem girar livremente (muito largo). Os dedos mudam ligeiramente de diâmetro ao longo do dia: meça à tarde para um resultado mais representativo.",
         fr: "Essayez chaque taille pendant 10 à 15 minutes. La bague ne doit pas laisser de marques rouges sur la peau (trop serrée) et ne doit pas tourner librement (trop large). Les doigts changent légèrement de diamètre au fil de la journée: mesurez l'après-midi pour un résultat plus représentatif.",
+        pl: "Wypróbuj każdy rozmiar przez 10-15 minut. Pierścień nie powinien pozostawiać czerwonych śladów na skórze (zbyt ciasny) ani obracać się swobodnie (zbyt luźny). Palce nieznacznie zmieniają obwód w ciągu dnia: mierz po południu, aby uzyskać bardziej reprezentatywny wynik.",
+        tr: "Her boyutu 10-15 dakika takın. Yüzük ciltte kırmızı iz bırakmamalı (çok sıkı) ve serbestçe dönmemeli (çok geniş). Parmaklar gün içinde hafifçe şişer ve daralır: daha temsili bir sonuç için öğleden sonra ölçün.",
       },
     },
     // --- HOW TO WEAR IT ---
@@ -236,6 +298,8 @@ export const post: BlogPost = {
         de: "Den Colmi R02 richtig tragen",
         pt: "Como usar o Colmi R02 corretamente",
         fr: "Comment porter le Colmi R02 correctement",
+        pl: "Jak prawidłowo nosić Colmi R02",
+        tr: "Colmi R02 nasıl doğru takılır",
       },
     },
     {
@@ -247,6 +311,8 @@ export const post: BlogPost = {
         de: "**Welcher Finger**: Der Colmi R02 funktioniert am besten am **Ringfinger** oder **Mittelfinger** der nicht-dominanten Hand. Diese Finger haben eine gleichmäßige Durchblutung und sind tagsüber weniger starken Bewegungen ausgesetzt. Vermeide den Zeigefinger (zu viel Bewegung) und den kleinen Finger (oft unregelmäßigere Durchblutung).",
         pt: "**Qual dedo**: o Colmi R02 funciona melhor no **dedo anelar** ou no **dedo médio** da mão não dominante. Esses dedos têm fluxo sanguíneo regular e ficam menos expostos a movimentos bruscos durante o dia. Evite o indicador (movimento excessivo) e o mínimo (circulação muitas vezes menos regular).",
         fr: "**Quel doigt**: le Colmi R02 fonctionne mieux à l'**annulaire** ou au **majeur** de la main non dominante. Ces doigts ont un flux sanguin régulier et sont moins exposés aux mouvements brusques au cours de la journée. Évitez l'index (trop de mouvement) et l'auriculaire (circulation souvent moins régulière).",
+        pl: "**Który palec**: Colmi R02 działa najlepiej na **serdecznym** lub **środkowym** palcu niedominującej ręki. Te palce mają równomierne krążenie krwi i są mniej narażone na gwałtowne ruchy w ciągu dnia. Unikaj palca wskazującego (zbyt dużo ruchu) i małego palca (często mniej regularne krążenie).",
+        tr: "**Hangi parmak**: Colmi R02, baskın olmayan elinizin **yüzük parmağında** veya **orta parmağında** en iyi çalışır. Bu parmaklar düzenli kan akışına sahiptir ve gün içinde ani hareketlere daha az maruz kalır. İşaret parmağından (çok fazla hareket) ve serçe parmaktan (genellikle daha düzensiz dolaşım) kaçının.",
       },
     },
     {
@@ -258,6 +324,8 @@ export const post: BlogPost = {
         de: "**Ausrichtung**: Die Seite mit dem optischen Sensor (die flache oder leicht gewölbte Innenseite des Rings) muss auf der **Unterseite des Fingers** liegen, also zur Handfläche hin. So ist der direkte Kontakt zwischen Sensor und Haut gewährleistet. Hat der Ring einen kleinen Punkt oder eine Kerbe als Positionsmarkierung, bringe diese auf der Unterseite an.",
         pt: "**Orientação**: o lado com o sensor óptico (a parte plana ou levemente curva do interior do anel) deve ficar na **parte inferior do dedo**, voltada para a palma da mão. Isso garante o contato direto entre o sensor e a pele. Se o anel tiver um pequeno ponto ou ranhura indicadora de posição, coloque-o na parte inferior.",
         fr: "**Orientation**: le côté avec le capteur optique (la surface intérieure plate ou légèrement courbée de la bague) doit se trouver sur la **face inférieure du doigt**, celle qui est tournée vers la paume. Cela garantit le contact direct entre le capteur et la peau. Si la bague comporte un petit point ou une rainure comme indicateur de position, placez-le sur la face inférieure.",
+        pl: "**Orientacja**: strona z czujnikiem optycznym (płaska lub lekko zakrzywiona wewnętrzna powierzchnia pierścienia) powinna znajdować się na **spodniej stronie palca**, tej skierowanej w stronę dłoni. Zapewnia to bezpośredni kontakt czujnika ze skórą. Jeśli pierścień ma małą kropkę lub wgłębienie jako wskaźnik pozycji, umieść go na spodniej stronie.",
+        tr: "**Yön**: optik sensörün bulunduğu taraf (yüzüğün düz veya hafifçe kavisli iç yüzeyi) **parmağın alt tarafında**, avucunuza bakan tarafta durmalıdır. Bu, sensör ile cilt arasında doğrudan temas sağlar. Yüzükte küçük bir nokta veya oluk varsa, bunu alt tarafa yerleştirin.",
       },
     },
     {
@@ -270,6 +338,8 @@ export const post: BlogPost = {
         de: "Schnelle Passformprüfung",
         pt: "Verificação rápida do tamanho",
         fr: "Vérification rapide de l'ajustement",
+        pl: "Szybkie sprawdzenie dopasowania",
+        tr: "Hızlı uyum kontrolü",
       },
       body: {
         it: "Dopo 5 minuti di usura, guarda se ci sono segni rossi sulla pelle: se sì, la misura è troppo piccola. Se l'anello ruota o scivola facilmente, considera una taglia più piccola. Le dita si gonfiano con il caldo e si restringono al freddo: una lieve differenza a orari diversi della giornata è normale.",
@@ -278,6 +348,8 @@ export const post: BlogPost = {
         de: "Schau nach 5 Minuten Tragezeit, ob rote Abdrücke auf der Haut sichtbar sind: Falls ja, ist die Größe zu klein. Dreht sich der Ring oder rutscht er leicht ab, nimm eine Nummer kleiner. Die Finger schwellen bei Wärme an und ziehen sich bei Kälte zusammen: geringe Unterschiede zu verschiedenen Tageszeiten sind normal.",
         pt: "Após 5 minutos de uso, verifique se há marcas vermelhas na pele: se houver, o tamanho é muito pequeno. Se o anel girar ou sair facilmente, experimente um tamanho menor. Os dedos incham com o calor e encolhem com o frio: uma pequena diferença em horários distintos do dia é normal.",
         fr: "Après 5 minutes de port, regardez si des marques rouges apparaissent sur la peau: si oui, la taille est trop petite. Si la bague tourne ou glisse facilement, prenez une taille en dessous. Les doigts gonflent avec la chaleur et se rétractent avec le froid: une légère différence à différentes heures de la journée est normale.",
+        pl: "Po 5 minutach noszenia sprawdź, czy na skórze pojawiają się czerwone ślady: jeśli tak, rozmiar jest za mały. Jeśli pierścień obraca się lub łatwo spada, wybierz rozmiar mniejszy. Palce puchną w cieple i kurczą się na zimnie: niewielka różnica o różnych porach dnia jest normalna.",
+        tr: "5 dakika taktıktan sonra ciltte kırmızı iz oluşup oluşmadığına bakın: oluşuyorsa boyut çok küçüktür. Yüzük dönüyor veya kolayca çıkıyorsa bir boyut küçük alın. Parmaklar sıcakta şişer ve soğukta daralır: günün farklı saatlerinde küçük bir fark normaldir.",
       },
     },
     // --- CHARGING ---
@@ -291,6 +363,8 @@ export const post: BlogPost = {
         de: "Laden: Akkulaufzeit und Ladevorgang",
         pt: "Carregamento: quanto dura a bateria e como carregar",
         fr: "Charge: autonomie de la batterie et comment recharger",
+        pl: "Ładowanie: jak długo trzyma bateria i jak ładować",
+        tr: "Şarj: pil ne kadar dayanır ve nasıl şarj edilir",
       },
     },
     {
@@ -302,6 +376,8 @@ export const post: BlogPost = {
         de: "Bei aktivem Dauermonitoring (Herzfrequenz, nächtliche SpO2, Schritte) hält der Colmi R02 typischerweise **5 bis 7 Tage**. Bei sehr intensivem kontinuierlichem SpO2-Monitoring kann die Laufzeit auf 3 bis 4 Tage sinken.",
         pt: "Com o monitoramento contínuo ativo (frequência cardíaca, SpO2 noturno, passos), o Colmi R02 dura normalmente **5 a 7 dias**. Com monitoramento de SpO2 noturno muito intensivo, a duração pode cair para 3 a 4 dias.",
         fr: "Avec le suivi continu activé (fréquence cardiaque, SpO2 nocturne, pas), le Colmi R02 dure généralement **5 à 7 jours**. Avec un suivi SpO2 nocturne continu très intensif, l'autonomie peut descendre à 3 à 4 jours.",
+        pl: "Przy aktywnym ciągłym monitorowaniu (tętno, nocne SpO2, kroki) Colmi R02 wytrzymuje typowo **5-7 dni**. Przy bardzo intensywnym ciągłym nocnym monitorowaniu SpO2 czas pracy może spaść do 3-4 dni.",
+        tr: "Sürekli izleme etkinken (kalp atış hızı, gece SpO2, adımlar) Colmi R02 tipik olarak **5-7 gün** dayanır. Çok yoğun sürekli gece SpO2 izlemesiyle bu süre 3-4 güne düşebilir.",
       },
     },
     {
@@ -343,6 +419,18 @@ export const post: BlogPost = {
           "**Temps de charge complet**: environ 1 à 2 heures à partir de zéro.",
           "**Routine recommandée**: rechargez tous les 4 à 5 jours le matin, pendant la douche ou le petit-déjeuner. Vous ne risquez ainsi jamais de tomber en panne de batterie la nuit, quand vos données sont les plus précieuses.",
         ],
+        pl: [
+          "**Jak ładować**: przymocuj ładowarkę magnetyczną do płaskiej strony pierścienia. Magnes utrzyma ją na miejscu. Podłącz kabel do dowolnego standardowego zasilacza USB (wystarczy 5V/1A, szybkie ładowanie nie jest potrzebne).",
+          "**Jak sprawdzić, czy się ładuje**: większość modeli R02 wyświetla mrugającą diodę LED podczas ładowania. Gdy dioda zgaśnie lub przestanie migać, ładowanie jest zakończone.",
+          "**Czas pełnego naładowania**: około 1-2 godziny od zera.",
+          "**Zalecana rutyna**: ładuj co 4-5 dni rano, podczas prysznica lub śniadania. W ten sposób nigdy nie ryzykujesz, że bateria wyczerpie się w nocy, kiedy dane są najcenniejsze.",
+        ],
+        tr: [
+          "**Nasıl şarj edilir**: manyetik şarj cihazını yüzüğün düz tarafına takın. Mıknatıs yerinde tutacaktır. Kabloyu herhangi bir standart USB adaptörüne bağlayın (5V/1A yeterlidir, hızlı şarj gerekmez).",
+          "**Şarj olduğunu nasıl anlarsınız**: çoğu R02 modeli şarj sırasında yanıp sönen bir LED gösterir. LED sönünce veya yanıp sönmeyi bırakınca şarj tamamdır.",
+          "**Tam şarj süresi**: sıfırdan yaklaşık 1-2 saat.",
+          "**Önerilen rutin**: her 4-5 günde bir sabah, duş sırasında veya kahvaltıda şarj edin. Böylece verilerinizin en değerli olduğu gece boyunca pil bitmesi riskini ortadan kaldırırsınız.",
+        ],
       },
     },
     // --- FIRST SYNC ---
@@ -356,6 +444,8 @@ export const post: BlogPost = {
         de: "Erste Synchronisierung mit FitMesh Sync: Schritt für Schritt",
         pt: "Primeira sincronização com FitMesh Sync: passo a passo",
         fr: "Première synchronisation avec FitMesh Sync: étape par étape",
+        pl: "Pierwsza synchronizacja z FitMesh Sync: krok po kroku",
+        tr: "FitMesh Sync ile ilk senkronizasyon: adım adım",
       },
     },
     {
@@ -367,6 +457,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync verbindet sich per direktem Bluetooth mit dem Colmi R02, ohne die Begleit-App des Herstellers zu nutzen. Die Colmi-Companion-App muss nicht heruntergeladen werden, um FitMesh zu verwenden: Du kannst sie installiert lassen, wenn du möchtest, sie ist aber nicht erforderlich.",
         pt: "O FitMesh Sync conecta-se ao Colmi R02 via Bluetooth direto, sem precisar do app do fabricante. Não é necessário baixar o app companion da Colmi para usar o FitMesh: você pode mantê-lo instalado se preferir, mas não é obrigatório.",
         fr: "FitMesh Sync se connecte au Colmi R02 via Bluetooth direct, sans passer par l'application du fabricant. Vous n'avez pas besoin de télécharger l'application Colmi pour utiliser FitMesh: vous pouvez la garder installée si vous le souhaitez, mais ce n'est pas nécessaire.",
+        pl: "FitMesh Sync łączy się z Colmi R02 przez bezpośrednie Bluetooth, bez pośrednictwa aplikacji producenta. Nie musisz pobierać aplikacji companion Colmi, aby korzystać z FitMesh: możesz ją zachować zainstalowaną, jeśli wolisz, ale nie jest wymagana.",
+        tr: "FitMesh Sync, üreticinin eşlik uygulaması olmadan Colmi R02'ye doğrudan Bluetooth üzerinden bağlanır. FitMesh'i kullanmak için Colmi eşlik uygulamasını indirmeniz gerekmez: tercih ederseniz kurulu bırakabilirsiniz, ancak zorunlu değildir.",
       },
     },
     {
@@ -421,6 +513,22 @@ export const post: BlogPost = {
           "**Première synchronisation des données**: après l'association, FitMesh télécharge automatiquement les données historiques stockées dans la mémoire de la bague (généralement les 7 derniers jours). Cette première synchronisation peut prendre entre 30 secondes et quelques minutes.",
           "**Synchronisations suivantes**: les synchronisations ultérieures s'effectuent automatiquement chaque fois que la bague est à portée de votre téléphone. Vous n'avez rien à faire manuellement.",
         ],
+        pl: [
+          "**Zainstaluj FitMesh Sync**: jeśli jeszcze tego nie zrobiłeś, pobierz aplikację z Google Play Store. Wersja beta jest dostępna przez link z zaproszeniem ze strony [/pl/beta](/pl/beta).",
+          "**Otwórz FitMesh i przejdź do „Urządzenia”**: na ekranie głównym wybierz menu urządzeń lub naciśnij „+”, aby dodać nowe urządzenie.",
+          "**Wybierz „Pierścień smart”, a następnie „Colmi R02/R03”**: FitMesh uruchamia skanowanie Bluetooth. Upewnij się, że Bluetooth w telefonie jest włączony, a pierścień jest w pobliżu (w odległości do 50 cm).",
+          "**Sparuj pierścień**: gdy Colmi R02 pojawi się na liście wykrytych urządzeń, wybierz go. Parowanie trwa kilka sekund. Nie jest wymagany PIN.",
+          "**Pierwsza synchronizacja danych**: po sparowaniu FitMesh automatycznie pobiera dane historyczne z pamięci pierścienia (zazwyczaj ostatnie 7 dni). Pierwsza synchronizacja może trwać od 30 sekund do kilku minut.",
+          "**Kolejne synchronizacje**: następne synchronizacje odbywają się automatycznie za każdym razem, gdy pierścień znajdzie się w zasięgu telefonu. Nie musisz nic robić ręcznie.",
+        ],
+        tr: [
+          "**FitMesh Sync'i yükleyin**: henüz yapmadıysanız Google Play Store'dan indirin. Beta sürümüne [/tr/beta](/tr/beta) sayfasındaki davet bağlantısı üzerinden erişebilirsiniz.",
+          "**FitMesh'i açın ve \"Cihazlar\"a gidin**: ana ekrandan cihazlar menüsünü seçin veya yeni cihaz eklemek için \"+\" düğmesine dokunun.",
+          "**\"Akıllı yüzük\", ardından \"Colmi R02/R03\" seçin**: FitMesh Bluetooth taraması başlatır. Telefonunuzun Bluetooth'unun açık olduğundan ve yüzüğün yakında (50 cm içinde) olduğundan emin olun.",
+          "**Yüzüğü eşleştirin**: Colmi R02 algılanan cihazlar listesinde göründüğünde seçin. Eşleştirme birkaç saniye alır. PIN girilmesi gerekmez.",
+          "**İlk veri senkronizasyonu**: eşleştirmeden sonra FitMesh, yüzüğün belleğindeki geçmiş verileri (genellikle son 7 gün) otomatik olarak indirir. Bu ilk senkronizasyon 30 saniye ile birkaç dakika arasında sürebilir.",
+          "**Sonraki senkronizasyonlar**: sonraki senkronizasyonlar, yüzük telefonunuzun menzilinde olduğu her seferinde otomatik olarak gerçekleşir. Elle bir şey yapmanız gerekmez.",
+        ],
       },
     },
     {
@@ -432,6 +540,8 @@ export const post: BlogPost = {
         de: "Alle technischen Details zur Bluetooth-Verbindung, zum Ablauf der Synchronisierung und zur Datenzusammenführung mit deinem Smartwatch findest du in der [vollständigen Colmi-Ring-Anleitung](/de/blog/colmi-ring-fitmesh).",
         pt: "Para todos os detalhes técnicos sobre como funciona a conexão Bluetooth, o que acontece durante a sincronização e como é feita a fusão de dados com o seu smartwatch, leia o [guia completo do anel Colmi](/pt/blog/colmi-ring-fitmesh).",
         fr: "Pour tous les détails techniques sur le fonctionnement de la connexion Bluetooth, ce qui se passe lors d'une synchronisation et comment la fusion des données avec votre montre connectée est gérée, lisez le [guide complet de la bague Colmi](/fr/blog/colmi-ring-fitmesh).",
+        pl: "Pełne szczegóły techniczne dotyczące działania połączenia Bluetooth, przebiegu synchronizacji i łączenia danych ze smartwatchem znajdziesz w [pełnym przewodniku po pierścieniu Colmi](/pl/blog/colmi-ring-fitmesh).",
+        tr: "Bluetooth bağlantısının nasıl çalıştığı, senkronizasyon sırasında neler olduğu ve smartwatch ile veri birleştirmenin nasıl yapıldığına ilişkin tüm teknik ayrıntılar için [Colmi yüzük tam kılavuzunu](/tr/blog/colmi-ring-fitmesh) okuyun.",
       },
     },
     // --- iOS NOTE ---
@@ -445,6 +555,8 @@ export const post: BlogPost = {
         de: "iPhone und Apple Health: Was nach der Einrichtung passiert",
         pt: "iPhone e Apple Health: o que acontece depois da configuração",
         fr: "iPhone et Apple Health: ce qui se passe une fois configuré",
+        pl: "iPhone i Apple Health: co się dzieje po konfiguracji",
+        tr: "iPhone ve Apple Health: kurulumdan sonra ne olur",
       },
     },
     {
@@ -456,6 +568,8 @@ export const post: BlogPost = {
         de: "Die Bluetooth-Verbindung zwischen FitMesh Sync und dem Colmi Ring läuft über Android, wo die Daten erfasst und in dein FitMesh-Konto hochgeladen werden. Sind die Daten einmal in deinem Konto, kannst du sie überall abrufen: Die FitMesh-App für iPhone (iOS) und die Apple-Health-Anbindung sind demnächst verfügbar.",
         pt: "A conexão Bluetooth entre o FitMesh Sync e o anel Colmi acontece no Android, onde os dados são coletados e enviados para a sua conta FitMesh. Uma vez que os dados estão na sua conta, você pode acessá-los de qualquer lugar: o app FitMesh para iPhone (iOS) e a integração com o Apple Health chegam em breve.",
         fr: "La connexion Bluetooth entre FitMesh Sync et la bague Colmi s'effectue sur Android, où les données sont collectées et téléversées sur votre compte FitMesh. Une fois les données dans votre compte, vous pouvez y accéder partout: l'application FitMesh pour iPhone (iOS) et le pont vers Apple Health sont bientôt disponibles.",
+        pl: "Połączenie Bluetooth między FitMesh Sync a pierścieniem Colmi odbywa się na Androidzie, gdzie dane są zbierane i przesyłane na konto FitMesh. Gdy dane znajdą się na koncie, możesz uzyskać do nich dostęp z dowolnego miejsca: aplikacja FitMesh na iPhone'a (iOS) i most do Apple Health wkrótce będą dostępne.",
+        tr: "FitMesh Sync ile Colmi yüzüğü arasındaki Bluetooth bağlantısı Android'de gerçekleşir; veriler burada toplanır ve FitMesh hesabınıza yüklenir. Veriler hesabınıza girdikten sonra her yerden erişebilirsiniz: iPhone için FitMesh uygulaması (iOS) ve Apple Health köprüsü yakında geliyor.",
       },
     },
     {
@@ -468,6 +582,8 @@ export const post: BlogPost = {
         de: "Nutzung auf dem iPhone (iOS-App demnächst verfügbar)",
         pt: "Uso no iPhone (app iOS em breve)",
         fr: "Utilisation sur iPhone (application iOS bientôt disponible)",
+        pl: "Użycie na iPhonie (aplikacja iOS wkrótce)",
+        tr: "iPhone'da kullanım (iOS uygulaması yakında)",
       },
       body: {
         it: "Se usi iPhone, configura l'anello Colmi tramite FitMesh Sync su un dispositivo Android (il tuo, o quello di un familiare). I dati vengono caricati sul tuo account FitMesh e saranno accessibili dall'app iOS non appena disponibile. In aggiunta, il ponte opzionale verso Apple Salute ti permettera' di far confluire le metriche dell'anello (sonno, battito, SpO2) direttamente nell'app Salute di Apple. L'app iOS di FitMesh Sync non e' ancora scaricabile su App Store: iscriviti alla beta per essere tra i primi ad accedervi.",
@@ -476,6 +592,8 @@ export const post: BlogPost = {
         de: "Wenn du ein iPhone verwendest, richte den Colmi Ring über FitMesh Sync auf einem Android-Gerät ein (deinem eigenen oder dem eines Familienmitglieds). Die Daten werden in dein FitMesh-Konto hochgeladen und stehen über die iOS-App zur Verfügung, sobald diese erscheint. Zusätzlich ermöglicht die optionale Apple-Health-Anbindung, dass die Ringmetriken (Schlaf, Herzfrequenz, SpO2) direkt in die Apple-Health-App fließen. Die FitMesh Sync iOS-App ist noch nicht im App Store erhältlich: Melde dich für die Beta an, um zu den Ersten zu gehören.",
         pt: "Se você usa iPhone, configure o anel Colmi via FitMesh Sync em um dispositivo Android (o seu ou de um familiar). Os dados são enviados para a sua conta FitMesh e ficarão acessíveis pelo app iOS assim que estiver disponível. Além disso, a integração opcional com o Apple Health permitirá que as métricas do anel (sono, frequência cardíaca, SpO2) cheguem diretamente ao app Saúde da Apple. O app iOS do FitMesh Sync ainda não está disponível na App Store: inscreva-se na beta para ser um dos primeiros a ter acesso.",
         fr: "Si vous utilisez un iPhone, configurez la bague Colmi via FitMesh Sync sur un appareil Android (le vôtre ou celui d'un proche). Les données sont téléversées sur votre compte FitMesh et seront accessibles depuis l'application iOS dès qu'elle sera disponible. De plus, le pont optionnel vers Apple Health permettra aux métriques de la bague (sommeil, fréquence cardiaque, SpO2) d'arriver directement dans l'application Santé d'Apple. L'application iOS FitMesh Sync n'est pas encore disponible sur l'App Store: inscrivez-vous à la bêta pour être parmi les premiers à y accéder.",
+        pl: "Jeśli używasz iPhone'a, skonfiguruj pierścień Colmi przez FitMesh Sync na urządzeniu z Androidem (swoim lub rodziny). Dane zostaną przesłane na konto FitMesh i będą dostępne w aplikacji iOS, gdy tylko stanie się dostępna. Dodatkowo opcjonalny most do Apple Health pozwoli metrycznym pierścienia (sen, tętno, SpO2) trafiać bezpośrednio do aplikacji Zdrowie Apple. Aplikacja iOS FitMesh Sync nie jest jeszcze dostępna w App Store: zapisz się do bety, aby być wśród pierwszych.",
+        tr: "iPhone kullanıyorsanız, Colmi yüzüğünü bir Android cihazda (sizin veya bir aile üyenizin) FitMesh Sync aracılığıyla kurun. Veriler FitMesh hesabınıza yüklenir ve iOS uygulaması çıkar çıkmaz erişilebilir olur. Ayrıca isteğe bağlı Apple Health köprüsü, yüzük metriklerinin (uyku, kalp atış hızı, SpO2) doğrudan Apple Sağlık uygulamasına akmasını sağlar. FitMesh Sync iOS uygulaması henüz App Store'da mevcut değildir: ilk erişenler arasında olmak için betaya kaydolun.",
       },
     },
     // --- UNDERSTANDING THE DATA ---
@@ -489,6 +607,8 @@ export const post: BlogPost = {
         de: "Die Daten im FitMesh-Dashboard verstehen",
         pt: "Entendendo os dados no painel do FitMesh",
         fr: "Comprendre les données dans le tableau de bord FitMesh",
+        pl: "Rozumienie danych w panelu FitMesh",
+        tr: "FitMesh panosundaki verileri anlamak",
       },
     },
     {
@@ -500,6 +620,8 @@ export const post: BlogPost = {
         de: "Nach der Synchronisierung zeigt das FitMesh-Dashboard die Colmi-Ring-Metriken nach Typ geordnet an.",
         pt: "Após a sincronização, o painel do FitMesh exibe as métricas do anel Colmi organizadas por tipo.",
         fr: "Une fois synchronisé, le tableau de bord FitMesh affiche les métriques de la bague Colmi organisées par type.",
+        pl: "Po synchronizacji panel FitMesh pokazuje metryki pierścienia Colmi posortowane według typu.",
+        tr: "Senkronize edildikten sonra FitMesh panosu, Colmi yüzük metriklerini türe göre düzenlenmiş biçimde gösterir.",
       },
     },
     {
@@ -512,6 +634,8 @@ export const post: BlogPost = {
         de: "Tagesdaten",
         pt: "Dados diários",
         fr: "Données quotidiennes",
+        pl: "Dane dzienne",
+        tr: "Günlük veriler",
       },
     },
     {
@@ -553,6 +677,18 @@ export const post: BlogPost = {
           "Minutes actives",
           "Fréquence cardiaque moyenne et fréquence cardiaque au repos",
         ],
+        pl: [
+          "Kroki i dystans",
+          "Szacowane kalorie",
+          "Aktywne minuty",
+          "Średnie tętno i tętno spoczynkowe",
+        ],
+        tr: [
+          "Adımlar ve mesafe",
+          "Tahmini kalori",
+          "Aktif dakikalar",
+          "Ortalama kalp atış hızı ve dinlenme kalp atış hızı",
+        ],
       },
     },
     {
@@ -565,6 +701,8 @@ export const post: BlogPost = {
         de: "Nächtliche Daten",
         pt: "Dados noturnos",
         fr: "Données nocturnes",
+        pl: "Dane nocne",
+        tr: "Gece verileri",
       },
     },
     {
@@ -576,6 +714,8 @@ export const post: BlogPost = {
         de: "Jeden Morgen nach der ersten Synchronisierung verfügbar:",
         pt: "Disponíveis toda manhã após a primeira sincronização:",
         fr: "Disponibles chaque matin après la première synchronisation:",
+        pl: "Dostępne każdego ranka po pierwszej synchronizacji:",
+        tr: "İlk senkronizasyondan sonra her sabah mevcut:",
       },
     },
     {
@@ -623,6 +763,20 @@ export const post: BlogPost = {
           "SpO2 nocturne (saturation en oxygène estimée)",
           "Fréquence cardiaque minimale nocturne (fréquence cardiaque au repos)",
         ],
+        pl: [
+          "Łączna liczba godzin snu",
+          "Podział faz snu (lekki, głęboki, REM, przebudzenia)",
+          "Nocny HRV (zmienność rytmu serca)",
+          "Nocny SpO2 (szacowane nasycenie tlenem)",
+          "Minimalne nocne tętno (tętno spoczynkowe)",
+        ],
+        tr: [
+          "Toplam uyku saatleri",
+          "Uyku evresi dağılımı (hafif, derin, REM, uyanık)",
+          "Gece HRV (kalp atış hızı değişkenliği)",
+          "Gece SpO2 (tahmini oksijen satürasyonu)",
+          "Gece minimum kalp atış hızı (dinlenme nabzı)",
+        ],
       },
     },
     {
@@ -635,6 +789,8 @@ export const post: BlogPost = {
         de: "Einheitliche Ansicht mit deinem Smartwatch",
         pt: "Visão unificada com o seu smartwatch",
         fr: "Vue unifiée avec votre montre connectée",
+        pl: "Ujednolicony widok ze smartwatchem",
+        tr: "Smartwatch ile birleşik görünüm",
       },
     },
     {
@@ -646,6 +802,8 @@ export const post: BlogPost = {
         de: "Wenn du bereits einen Smartwatch mit FitMesh verbunden hast (Galaxy Watch, Pixel Watch, Garmin, Amazfit und andere), werden die Colmi-Ring-Daten automatisch mit den Uhrendaten auf derselben Zeitachse zusammengeführt. Nachts kommen die Metriken vom Ring; Trainingseinheiten und Tagesmetriken kommen von der Uhr. Es gibt keine Doppelzählung.",
         pt: "Se você já conectou um smartwatch ao FitMesh (Galaxy Watch, Pixel Watch, Garmin, Amazfit e outros), os dados do anel Colmi são integrados automaticamente com os dados do relógio na mesma linha do tempo. À noite, as métricas vêm do anel; as sessões de treino e as métricas diurnas vêm do relógio. Não há contagem dupla.",
         fr: "Si vous avez déjà connecté une montre connectée à FitMesh (Galaxy Watch, Pixel Watch, Garmin, Amazfit et autres), les données de la bague Colmi s'intègrent automatiquement aux données de la montre sur la même chronologie. La nuit, les métriques proviennent de la bague; les séances d'entraînement et les métriques diurnes proviennent de la montre. Il n'y a pas de double comptage.",
+        pl: "Jeśli już połączyłeś smartwatcha z FitMesh (Galaxy Watch, Pixel Watch, Garmin, Amazfit i inne), dane pierścienia Colmi integrują się automatycznie z danymi zegarka na tej samej osi czasu. W nocy metryki pochodzą z pierścienia; sesje treningowe i dzienne metryki pochodzą z zegarka. Nie ma podwójnego liczenia.",
+        tr: "FitMesh'e zaten bir smartwatch bağladıysanız (Galaxy Watch, Pixel Watch, Garmin, Amazfit ve diğerleri), Colmi yüzük verileri saat verileriyle aynı zaman çizelgesinde otomatik olarak birleşir. Geceleri metrikler yüzükten gelir; antrenman seansları ve gündüz metrikleri saattan gelir. Çift sayım yapılmaz.",
       },
     },
     // --- FAQ ---
@@ -659,6 +817,8 @@ export const post: BlogPost = {
         de: "Hast du einen Colmi Ring und möchtest loslegen?",
         pt: "Tem um anel Colmi e quer começar?",
         fr: "Vous avez une bague Colmi et vous êtes prêt à commencer?",
+        pl: "Masz pierścień Colmi i chcesz zacząć?",
+        tr: "Colmi yüzüğünüz var ve başlamaya hazır mısınız?",
       },
       body: {
         it: "FitMesh Sync e' in beta privata. I primi 1000 utenti ottengono 1 anno di Pro gratis, incluso l'accesso alla funzione anello Colmi non appena rilasciata. Iscriviti ora per tenere il posto.",
@@ -667,6 +827,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync befindet sich in der geschlossenen Beta. Die ersten 1.000 Nutzer erhalten 1 Jahr Pro kostenlos, einschließlich Zugang zur Colmi-Ring-Funktion sobald diese verfügbar ist. Melde dich jetzt an, um deinen Platz zu sichern.",
         pt: "O FitMesh Sync está em beta privada. Os primeiros 1.000 usuários ganham 1 ano de Pro grátis, incluindo acesso à função do anel Colmi assim que for lançada. Inscreva-se agora para garantir sua vaga.",
         fr: "FitMesh Sync est en bêta privée. Les 1 000 premiers utilisateurs bénéficient de 1 an de Pro gratuit, incluant l'accès à la fonctionnalité bague Colmi dès sa disponibilité. Inscrivez-vous maintenant pour garder votre place.",
+        pl: "FitMesh Sync jest w prywatnej wersji beta. Pierwsze 1000 użytkowników otrzymuje 1 rok Pro za darmo, w tym dostęp do funkcji pierścienia Colmi od razu po jej wydaniu. Zapisz się teraz, aby zachować swoje miejsce.",
+        tr: "FitMesh Sync özel beta aşamasındadır. İlk 1.000 kullanıcı, Colmi yüzük özelliğine çıkar çıkmaz erişim dahil olmak üzere 1 yıl Pro ücretsiz alır. Yerinizi ayırtmak için şimdi kaydolun.",
       },
       ctaLabel: {
         it: "Iscriviti alla beta",
@@ -675,10 +837,14 @@ export const post: BlogPost = {
         de: "Zur Beta anmelden",
         pt: "Inscreva-se na beta",
         fr: "S'inscrire à la bêta",
+        pl: "Zapisz się do bety",
+        tr: "Betaya kaydol",
       },
       ctaHref: {
         it: "/it/beta",
         en: "/en/beta",
+        pl: "/pl/beta",
+        tr: "/tr/beta",
       },
     },
   ],
@@ -691,6 +857,8 @@ export const post: BlogPost = {
         de: "Ist der Colmi R02 wasserdicht?",
         pt: "O Colmi R02 é à prova d'água?",
         fr: "Le Colmi R02 est-il étanche?",
+        pl: "Czy Colmi R02 jest wodoodporny?",
+        tr: "Colmi R02 su geçirmez mi?",
       },
       a: {
         it: "Si', il Colmi R02 ha una certificazione IP68: resiste all'immersione fino a 50 metri in acqua dolce secondo le specifiche del produttore. Puoi tenerlo durante la doccia e il lavaggio delle mani. Evita comunque immersioni prolungate in acqua salata o in piscina, che possono deteriorare i materiali nel tempo.",
@@ -699,6 +867,8 @@ export const post: BlogPost = {
         de: "Ja. Der Colmi R02 besitzt eine IP68-Zertifizierung: Er hält laut Herstellerangaben Tauchgängen bis zu 50 Metern in Süßwasser stand. Du kannst ihn beim Duschen und beim Händewaschen tragen. Vermeide längeres Untertauchen in Salzwasser oder Chlorpools, da dies die Materialien mit der Zeit beschädigen kann.",
         pt: "Sim. O Colmi R02 possui certificação IP68: resiste à imersão de até 50 metros em água doce, de acordo com as especificações do fabricante. Você pode usá-lo no banho e ao lavar as mãos. Evite imersão prolongada em água salgada ou piscinas com cloro, pois podem deteriorar os materiais ao longo do tempo.",
         fr: "Oui. Le Colmi R02 possède une certification IP68: il résiste à l'immersion jusqu'à 50 mètres en eau douce selon les spécifications du fabricant. Vous pouvez le porter sous la douche et lors du lavage des mains. Évitez l'immersion prolongée en eau salée ou en piscine chlorée, qui peuvent dégrader les matériaux avec le temps.",
+        pl: "Tak. Colmi R02 posiada certyfikat IP68: według specyfikacji producenta wytrzymuje zanurzenie do 50 metrów w słodkiej wodzie. Możesz go nosić pod prysznicem i podczas mycia rąk. Unikaj dłuższego zanurzenia w słonej wodzie lub basenie z chlorem, co może z czasem degradować materiały.",
+        tr: "Evet. Colmi R02, IP68 sertifikasına sahiptir: üretici özelliklerine göre tatlı suda 50 metreye kadar dalmaya dayanır. Duşta ve el yıkamada takabilirsiniz. Zamanla malzemeleri bozabilecek tuzlu suda veya klorlu havuzda uzun süre ıslatmaktan kaçının.",
       },
     },
     {
@@ -709,6 +879,8 @@ export const post: BlogPost = {
         de: "Muss ich die QRing- oder Colmi-App installiert haben, um FitMesh zu nutzen?",
         pt: "Preciso ter o app QRing ou Colmi instalado para usar o FitMesh?",
         fr: "Dois-je garder l'application QRing ou Colmi installée pour utiliser FitMesh?",
+        pl: "Muszę mieć zainstalowaną app QRing lub Colmi aby korzystać z FitMesh?",
+        tr: "Giyilebilir cihazda QRing uygulaması veya Colmi'i kurmam gerekiyor mu FitMesh kullanmak için?",
       },
       a: {
         it: "No. FitMesh Sync si connette direttamente all'anello Colmi via Bluetooth e non richiede l'app companion del produttore. Puoi disinstallarla se non la usi. Se preferisci tenerla per confronto, non crea conflitti: i due sistemi operano in modo indipendente.",
@@ -717,6 +889,8 @@ export const post: BlogPost = {
         de: "Nein. FitMesh Sync verbindet sich direkt per Bluetooth mit dem Colmi Ring und benötigt die Begleit-App des Herstellers nicht. Du kannst sie deinstallieren, wenn du sie nicht verwendest. Möchtest du sie zum Vergleich behalten, gibt es keine Konflikte: Beide Systeme arbeiten unabhängig voneinander.",
         pt: "Não. O FitMesh Sync conecta-se diretamente ao anel Colmi via Bluetooth e não exige o app companion do fabricante. Você pode desinstalá-lo se não usa. Se preferir mantê-lo para comparação, não haverá conflitos: os dois sistemas funcionam de forma independente.",
         fr: "Non. FitMesh Sync se connecte directement à la bague Colmi via Bluetooth et ne nécessite pas l'application du fabricant. Vous pouvez la désinstaller si vous ne l'utilisez pas. Si vous préférez la conserver pour comparer, il n'y a aucun conflit: les deux systèmes fonctionnent de manière indépendante.",
+        pl: "No. FitMesh Sync się bezpośrednio łączy z pętlą Colmi poprzez Bluetooth i nie wymaga aplikacji towarzyszącej producenta. Możesz ją odinstalować, jeśli jej nie używasz. Jeśli chcesz zachować obie, nie powstają one konfliktów: dwa systemy działają samodzielnie.",
+        tr: "No. FitMesh Sync giyilebilir cihaz Colmi'e doğrudan Bluetooth üzerinden bağlanır ve üretici companion uygulaması gerektirmez. Kullanmıyorsanız kaldırabilirsiniz. Eğer karşılaştırma yapmak istiyorsanız da, iki sistem çatışmaz: her ikisi de bağımsız olarak çalışır.",
       },
     },
     {
@@ -727,6 +901,8 @@ export const post: BlogPost = {
         de: "Funktioniert der Colmi Ring mit dem iPhone?",
         pt: "O anel Colmi funciona com iPhone?",
         fr: "La bague Colmi fonctionne-t-elle avec iPhone?",
+        pl: "Anellito Colmi działa z iPhone?",
+        tr: "Anel Colmi işleyişinde iPhone nedir?",
       },
       a: {
         it: "La connessione Bluetooth tra FitMesh Sync e l'anello Colmi richiede Android. Una volta configurato su Android, pero', i dati vengono caricati sul tuo account FitMesh e saranno visibili anche su iPhone tramite l'app iOS di FitMesh (in arrivo a breve) e facoltativamente su Apple Salute. Se usi solo iPhone, iscriviti alla beta: sarai avvisato al lancio dell'app iOS.",
@@ -735,6 +911,8 @@ export const post: BlogPost = {
         de: "Die Bluetooth-Verbindung zwischen FitMesh Sync und dem Colmi Ring erfordert Android. Nach der Einrichtung auf Android werden die Daten in dein FitMesh-Konto hochgeladen und sind auf dem iPhone über die FitMesh iOS-App (demnächst verfügbar) und optional in Apple Health abrufbar. Wenn du nur ein iPhone hast, melde dich für die Beta an: Du wirst beim Launch der iOS-App benachrichtigt.",
         pt: "A conexão Bluetooth entre o FitMesh Sync e o anel Colmi requer Android. Uma vez configurado no Android, os dados são enviados para a sua conta FitMesh e ficarão visíveis no iPhone pelo app iOS do FitMesh (em breve) e, opcionalmente, no Apple Health. Se você usa apenas iPhone, inscreva-se na beta: você será avisado no lançamento do app iOS.",
         fr: "La connexion Bluetooth entre FitMesh Sync et la bague Colmi nécessite Android. Une fois configurée sur Android, les données sont téléversées sur votre compte FitMesh et seront consultables sur iPhone via l'application iOS FitMesh (bientôt disponible) et optionnellement dans Apple Health. Si vous n'avez qu'un iPhone, inscrivez-vous à la bêta: vous serez notifié au lancement de l'application iOS.",
+        pl: "Połączenie Bluetooth między FitMesh Sync a pęczkiem Colmi wymaga Android. Po skonfigurowaniu na Android, jednakże, dane zostaną załadowane do Twojego konta FitMesh i będą widoczne również w iPhone poprzez aplikację iOS z FitMesh (wkrótce dostępna) oraz opcjonalnie na Apple Salute. Jeśli używasz tylko iPhone, zapisz się do bêta: zostaniesz powiadomiony o wydaniu aplikacji iOS.",
+        tr: "Bağlantı Bluetooth arasında FitMesh Sync ve lüks halka Colmi için Android gereklidir. Android'e yapılandırıldıktan sonra, veriler hesabınıza FitMesh'in web sitesine yüklenir ve iPhone üzerinden de görünecektir. iOS adlı FitMesh uygulaması (yakında çıkıyor) ile de görebilirsiniz, ancak isteğe bağlı olarak. Sadece iPhone kullanıyorsanız, beta grubuna katılın: uygulama iOS'nın piyasaya sürülmesiyle ilgili bilgi alacağınızı bildireceksiniz.",
       },
     },
     {
@@ -745,6 +923,8 @@ export const post: BlogPost = {
         de: "Wie viele historische Daten werden beim ersten Koppeln heruntergeladen?",
         pt: "Quantos dados históricos são baixados no primeiro emparelhamento?",
         fr: "Combien de données historiques sont téléchargées lors du premier couplage?",
+        pl: "Jaki rodzaj danych historycznych jest pobierany podczas pierwszego dopasowania?",
+        tr: "Kaç tarihsel veri ilk eşlemede indirilir?",
       },
       a: {
         it: "FitMesh scarica tipicamente gli ultimi 7 giorni di dati dalla memoria dell'anello Colmi. I dati piu' vecchi potrebbero non essere disponibili perche' la memoria interna dell'anello ha capacita' limitata e sovrascrive i dati piu' datati.",
@@ -753,6 +933,8 @@ export const post: BlogPost = {
         de: "FitMesh lädt typischerweise die letzten 7 Tage Daten aus dem Ring-Speicher des Colmi herunter. Ältere Daten sind möglicherweise nicht verfügbar, da der interne Speicher des Rings begrenzt ist und ältere Einträge überschreibt.",
         pt: "O FitMesh normalmente baixa os últimos 7 dias de dados da memória do anel Colmi. Dados mais antigos podem não estar disponíveis porque a memória interna do anel tem capacidade limitada e sobrescreve os registros mais antigos.",
         fr: "FitMesh télécharge généralement les 7 derniers jours de données depuis la mémoire de la bague Colmi. Les données plus anciennes peuvent ne pas être disponibles car la mémoire interne de la bague est limitée et écrase les enregistrements plus anciens.",
+        pl: "FitMesh pobiera zazwyczaj dane z ostatnich 7 dni z pamięci anegda Colmi. Starsze dane mogą nie być dostępne, ponieważ pamięć wewnętrzna anegdy ma ograniczoną pojemność i nadpisuje starsze dane.",
+        tr: "FitMesh giyilebilir cihaz Colmi tipik olarak son 7 günün verisini anlakta indirir. Eski verilerin mevcut olup olmaması, çünkü anlakta sınırlı yer kapasitesi nedeniyle daha eski veriler yenilenir.",
       },
     },
   ],

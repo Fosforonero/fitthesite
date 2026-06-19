@@ -46,6 +46,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Galaxy Watch Backup",
       pt: "backup galaxy watch",
       fr: "sauvegarde galaxy watch",
+      pl: "kopia zapasowa galaxy watch",
+      tr: "galaxy watch yedekleme",
     },
     secondaryKeywords: {
       it: [
@@ -65,15 +67,19 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       de: "Automatisches Backup deiner Galaxy Watch-Daten auf deinem eigenen Dashboard, ohne Samsung Cloud. Einrichtung in 30 Sekunden via Health Connect. Privacy-first.",
       pt: "Backup automático dos dados do Galaxy Watch em um painel seu, sem Samsung Cloud. Configuração em 30 segundos via Health Connect. Privacidade em primeiro lugar.",
       fr: "Sauvegarde automatique des données Galaxy Watch sur votre propre tableau de bord, sans Samsung Cloud. Configuration en 30 secondes via Health Connect. La confidentialité avant tout.",
+      pl: "Automatyczna kopia zapasowa danych Galaxy Watch na Twoim własnym panelu, bez Samsung Cloud. Konfiguracja w 30 sekund przez Health Connect. Prywatność na pierwszym miejscu.",
+      tr: "Galaxy Watch verilerinin otomatik yedeği, Samsung Cloud olmadan kendi panelinizde. Health Connect ile 30 saniyede kurulum. Gizlilik önce.",
     },
     hero: {
-      kicker: { it: "Backup Galaxy Watch", en: "Galaxy Watch backup", de: "Galaxy Watch Backup", pt: "Backup do Galaxy Watch", fr: "Sauvegarde Galaxy Watch" },
+      kicker: { it: "Backup Galaxy Watch", en: "Galaxy Watch backup", de: "Galaxy Watch Backup", pt: "Backup do Galaxy Watch", fr: "Sauvegarde Galaxy Watch", pl: "Kopia zapasowa Galaxy Watch", tr: "Galaxy Watch yedekleme" },
       title: {
         it: "Backup automatico Galaxy Watch, fuori da Samsung Cloud",
         en: "Automatic Galaxy Watch backup, outside Samsung Cloud",
         de: "Automatisches Galaxy Watch Backup, außerhalb von Samsung Cloud",
         pt: "Backup automático do Galaxy Watch, fora do Samsung Cloud",
         fr: "Sauvegarde automatique Galaxy Watch, hors Samsung Cloud",
+        pl: "Automatyczna kopia zapasowa Galaxy Watch, poza Samsung Cloud",
+        tr: "Otomatik Galaxy Watch yedekleme, Samsung Cloud dışında",
       },
       subtitle: {
         it: "Passi, BPM, sonno, allenamenti del tuo Galaxy Watch su una dashboard web tua. Setup di 30 secondi via Health Connect, niente account aggiuntivi.",
@@ -81,14 +87,16 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         de: "Schritte, BPM, Schlaf, Trainings deines Galaxy Watch auf deinem eigenen Web-Dashboard. Einrichtung in 30 Sekunden via Health Connect, keine zusätzlichen Konten.",
         pt: "Passos, BPM, sono, treinos do seu Galaxy Watch em um painel web seu. Configuração em 30 segundos via Health Connect, sem contas extras.",
         fr: "Pas, BPM, sommeil, séances d'entraînement de votre Galaxy Watch sur votre propre tableau de bord web. Configuration en 30 secondes via Health Connect, aucun compte supplémentaire.",
+        pl: "Kroki, tętno, sen, treningi z Galaxy Watch na Twoim własnym panelu webowym. Konfiguracja 30 sekund przez Health Connect, bez dodatkowych kont.",
+        tr: "Galaxy Watch'unuzdaki adımlar, nabız, uyku ve antrenmanlar, size ait bir web panelinde. Health Connect ile 30 saniyelik kurulum, fazladan hesap gerekmez.",
       },
       primaryCta: {
-        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite" },
-        href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta" },
+        label: { it: "Entra in beta gratis", en: "Join the free beta", de: "Kostenlos zur Beta", pt: "Entrar na beta grátis", fr: "Rejoindre la bêta gratuite", pl: "Dołącz do darmowej bety", tr: "Ücretsiz betaya katıl" },
+        href: { it: "/it/beta", en: "/en/beta", de: "/de/beta", pt: "/pt/beta", fr: "/fr/beta", pl: "/pl/beta", tr: "/tr/beta" },
       },
       secondaryCta: {
-        label: { it: "Vedi tutte le integrazioni", en: "See all integrations", de: "Alle Integrationen ansehen", pt: "Ver todas as integrações", fr: "Voir toutes les intégrations" },
-        href: { it: "/it/sync/galaxy-watch", en: "/en/sync/galaxy-watch", de: "/de/sync/galaxy-watch", pt: "/pt/sync/galaxy-watch", fr: "/fr/sync/galaxy-watch" },
+        label: { it: "Vedi tutte le integrazioni", en: "See all integrations", de: "Alle Integrationen ansehen", pt: "Ver todas as integrazioni", fr: "Voir toutes les intégrations", pl: "Zobacz wszystkie integracje", tr: "Tüm entegrasyonları gör" },
+        href: { it: "/it/sync/galaxy-watch", en: "/en/sync/galaxy-watch", de: "/de/sync/galaxy-watch", pt: "/pt/sync/galaxy-watch", fr: "/fr/sync/galaxy-watch", pl: "/pl/sync/galaxy-watch", tr: "/tr/sync/galaxy-watch" },
       },
     },
     body: [
@@ -100,6 +108,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "Galaxy Watch ist hervorragend, Samsung Health ist umfassend, aber wenn du deine Daten aus der Samsung Cloud herausbekommen möchtest (für Archivierung, PC-Analyse oder Jahresvergleiche), ist der native Weg umständlich. Du öffnest die App, gehst in die Einstellungen, lädst den Export herunter, wartest auf die E-Mail, entpackst die Datei und importierst sie in Excel. Jedes Mal von vorne.",
           pt: "O Galaxy Watch é ótimo, o Samsung Health é completo, mas se você quer seus dados fora da nuvem Samsung (para arquivo, análise no PC ou comparações entre anos), o caminho nativo é trabalhoso. Você abre o app, vai nas configurações, baixa o export, espera o e-mail, descompacta e importa no Excel. Tudo de novo a cada vez.",
           fr: "Le Galaxy Watch est excellent, Samsung Health est complet, mais si vous voulez récupérer vos données hors du cloud Samsung (pour archivage, analyse sur PC ou comparaisons annuelles), le chemin natif est fastidieux. Vous ouvrez l'application, allez dans les paramètres, téléchargez l'export, attendez l'e-mail, décompressez et importez dans Excel. À recommencer à chaque fois.",
+          pl: "Galaxy Watch jest świetny, Samsung Health jest kompleksowy, ale jeśli chcesz swoje dane poza chmurą Samsung (do archiwum, analizy na PC, porównań między latami), natywna ścieżka jest uciążliwa. Otwierasz aplikację, przechodzisz do ustawień, pobierasz eksport, czekasz na e-mail, rozpakowujesz, importujesz do Excela. Za każdym razem od nowa.",
+          tr: "Galaxy Watch harika, Samsung Health kapsamlı ama verilerinizi Samsung bulutundan çıkarmak istiyorsanız (arşiv, PC analizi, yıllar arası karşılaştırma için), yerel yol zahmetli. Uygulamayı açıyorsunuz, ayarlara gidiyorsunuz, dışa aktarımı indiriyorsunuz, e-postayı bekliyorsunuz, sıkıştırılmış dosyayı açıyorsunuz, Excel'e aktarıyorsunuz. Her seferinde baştan.",
         },
       },
       {

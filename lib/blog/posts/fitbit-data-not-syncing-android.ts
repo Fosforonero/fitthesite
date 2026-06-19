@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Health Connect ne synchronise pas les données historiques : seulement à partir du moment de l'autorisation.",
       "Certains anciens modèles Fitbit écrivent dans Google Fit et non dans Health Connect. Mettez à jour le firmware ou vérifiez la compatibilité.",
     ],
+    pl: [
+      "W 95% przypadków problem nie leży po stronie Fitbit, lecz w brakującym uprawnieniu w Health Connect.",
+      "Fitbit zapisuje dane do Health Connect tylko wtedy, gdy ręcznie włączysz tę opcję w ustawieniach aplikacji.",
+      "Aplikacja docelowa potrzebuje własnego uprawnienia do odczytu, niezależnego od uprawnień Fitbit.",
+      "Health Connect nie synchronizuje danych historycznych: tylko od momentu udzielenia zgody.",
+      "Niektóre starsze modele Fitbit zapisują dane do Google Fit, a nie do Health Connect. Zaktualizuj firmware lub sprawdź zgodność.",
+    ],
+    tr: [
+      "%95 durumda sorun Fitbit'te değil, Health Connect'te eksik bir izindedir.",
+      "Fitbit, Health Connect'e yalnızca uygulama ayarlarından yazmayı manuel olarak etkinleştirirseniz veri yazar.",
+      "Hedef uygulamanın, Fitbit izninden bağımsız olarak kendi okuma iznine ihtiyacı vardır.",
+      "Health Connect geçmiş verileri eşitlemez: yalnızca yetkilendirme anından itibaren.",
+      "Bazı eski Fitbit modelleri Health Connect yerine Google Fit'e yazar. Firmware'i güncelleyin veya uyumluluğu kontrol edin.",
+    ],
   },
   primaryKeyword: {
     it: "fitbit non si sincronizza android",
@@ -56,6 +70,8 @@ export const post: BlogPost = {
     es: "fitbit no sincroniza datos android",
     pt: "fitbit não sincroniza dados android",
     fr: "fitbit ne se synchronise pas android",
+    pl: "fitbit nie synchronizuje danych android",
+    tr: "fitbit verileri android'de senkronize olmuyor",
   },
   secondaryKeywords: {
     it: [
@@ -86,6 +102,20 @@ export const post: BlogPost = {
       "fitbit google fit android",
       "synchronisation fitbit ne fonctionne pas",
     ],
+    pl: [
+      "fitbit health connect android",
+      "fitbit nie synchronizuje danych",
+      "uprawnienia fitbit health connect",
+      "fitbit google fit android",
+      "synchronizacja fitbit nie działa",
+    ],
+    tr: [
+      "fitbit health connect android",
+      "fitbit veri senkronizasyonu çalışmıyor",
+      "fitbit health connect izinleri",
+      "fitbit google fit android",
+      "fitbit senkronizasyonu çalışmıyor",
+    ],
   },
   metaDescription: {
     it: "Se i dati Fitbit non appaiono nelle app Android, il problema quasi sempre non è Fitbit: è un permesso mancante in Health Connect. Ecco dove guardare e come risolverlo in 30 secondi.",
@@ -94,9 +124,11 @@ export const post: BlogPost = {
     de: "Wenn Fitbit-Daten in Android-Apps nicht erscheinen, liegt es fast immer an einer fehlenden Berechtigung in Health Connect. Hier erfährst du, wo du suchen und wie du es in 30 Sekunden beheben kannst.",
     pt: "Se os dados do Fitbit não aparecem nos apps Android, o problema quase sempre não é o Fitbit: é uma permissão ausente no Health Connect. Veja onde procurar e como resolver em 30 segundos.",
     fr: "Si les données Fitbit n'apparaissent pas dans vos applications Android, le problème vient presque toujours d'une autorisation manquante dans Health Connect. Voici où chercher et comment résoudre cela en 30 secondes.",
+    pl: "Gdy dane Fitbit nie pojawiają się w aplikacjach Android, problem to prawie zawsze brakujące uprawnienie w Health Connect, nie błąd Fitbit. Sprawdź, gdzie szukać i jak to naprawić w 30 sekund.",
+    tr: "Android uygulamalarında Fitbit verileri görünmüyorsa sorun neredeyse her zaman Health Connect'te eksik bir izindir, Fitbit sorunu değil. Nereye bakacağınızı ve 30 saniyede nasıl düzelteceğinizi öğrenin.",
   },
   hero: {
-    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide" },
+    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide", pl: "Poradnik", tr: "Kılavuz" },
     title: {
       it: "Fitbit non si sincronizza su Android: la causa vera (e la soluzione)",
       en: "Fitbit data not syncing on Android: the real cause (and the fix)",
@@ -104,6 +136,8 @@ export const post: BlogPost = {
       de: "Fitbit synchronisiert nicht auf Android: die eigentliche Ursache (und die Lösung)",
       pt: "Fitbit não sincroniza no Android: a causa real (e a solução)",
       fr: "Fitbit ne se synchronise pas sur Android : la vraie cause (et la solution)",
+      pl: "Fitbit nie synchronizuje się na Androidzie: prawdziwa przyczyna (i rozwiązanie)",
+      tr: "Android'de Fitbit verileri senkronize olmuyor: gerçek neden (ve çözüm)",
     },
     subtitle: {
       it: "Il 95% dei casi ha una sola causa: i permessi Health Connect. Non Bluetooth, non una reinstallazione. Ecco dove guardare.",
@@ -112,6 +146,8 @@ export const post: BlogPost = {
       de: "95 % der Fälle haben eine einzige Ursache: die Health Connect-Berechtigungen. Nicht Bluetooth, keine Neuinstallation. Hier erfährst du, wo du suchen musst.",
       pt: "95% dos casos têm uma única causa: as permissões do Health Connect. Não é o Bluetooth nem uma reinstalação. Veja onde procurar.",
       fr: "95 % des cas ont une seule cause : les autorisations Health Connect. Pas le Bluetooth, pas une réinstallation. Voici où chercher.",
+      pl: "W 95% przypadków jest jedna przyczyna: uprawnienia Health Connect. Nie Bluetooth, nie reinstalacja. Oto gdzie szukać.",
+      tr: "%95 durumda tek bir kök neden vardır: Health Connect izinleri. Bluetooth değil, yeniden kurulum değil. İşte nereye bakmanız gerektiği.",
     },
   },
   body: [
@@ -124,6 +160,8 @@ export const post: BlogPost = {
         de: "Wenn Fitbit-Daten in Android-Apps nicht angezeigt werden, liegt es fast immer an einer fehlenden Berechtigung in Health Connect und nicht an einem Fehler in Fitbit. Ich habe diese Situation dutzende Male gesehen: Die Fitbit-App funktioniert einwandfrei, das Wearable synchronisiert, aber eine Drittanbieter-App sieht nichts. Es ist nicht Fitbits Schuld. Fitbit hat seinen Teil bereits erledigt.",
         pt: "Quando os dados do Fitbit não aparecem nos apps Android, o problema quase sempre é uma permissão ausente no Health Connect, não um erro do Fitbit. Já vi essa situação dezenas de vezes: o app Fitbit funciona perfeitamente, o wearable sincroniza, mas um app de terceiros não vê nada. A culpa não é do Fitbit. O Fitbit já fez a sua parte.",
         fr: "Quand les données Fitbit n'apparaissent pas dans les applications Android, le problème vient presque toujours d'une autorisation manquante dans Health Connect, et non d'un bug Fitbit. J'ai vu cette situation des dizaines de fois : l'application Fitbit fonctionne parfaitement, le wearable se synchronise, mais une application tierce ne voit rien. Ce n'est pas la faute de Fitbit. Fitbit a déjà fait sa part.",
+        pl: "Gdy dane Fitbit nie pojawiają się w aplikacjach Android, problem to prawie zawsze brakujące uprawnienie w Health Connect, a nie błąd Fitbit. Widziałem tę sytuację dziesiątki razy: aplikacja Fitbit działa perfekcyjnie, urządzenie synchronizuje się, ale aplikacja innego producenta nic nie widzi. To nie wina Fitbit. Fitbit już wykonał swoją część.",
+        tr: "Android uygulamalarında Fitbit verileri görünmüyorsa sorun neredeyse her zaman Health Connect'te eksik bir izindir, Fitbit sorunu değil. Bu durumu onlarca kez gördüm: Fitbit uygulaması mükemmel çalışıyor, giyilebilir cihaz eşitleniyor, ancak üçüncü taraf uygulama hiçbir şey görmüyor. Bu Fitbit'in hatası değil. Fitbit zaten üzerine düşeni yaptı.",
       },
     },
     {
@@ -136,6 +174,8 @@ export const post: BlogPost = {
         de: "Warum es passiert: wie der Datenaustausch auf Android funktioniert",
         pt: "Por que isso acontece: como funciona a troca de dados no Android",
         fr: "Pourquoi cela arrive : comment fonctionne l'échange de données sur Android",
+        pl: "Dlaczego tak się dzieje: jak działa wymiana danych na Androidzie",
+        tr: "Neden oluyor: Android'de veri alışverişi nasıl çalışır",
       },
     },
     {
@@ -147,6 +187,8 @@ export const post: BlogPost = {
         de: "Auf Android teilt Fitbit Daten nicht direkt mit anderen Apps. Es legt sie in Health Connect ab, einer lokalen Datenbank auf deinem Telefon, die als Vermittler fungiert. Stell dir Health Connect wie einen gemeinsamen Briefkasten vor: Fitbit legt deine Schritte, die Herzfrequenz und die Schlafdaten hinein. Andere Apps können diese Daten lesen, aber nur wenn sie einen Schlüssel zum Öffnen des Briefkastens haben. Hat eine App diese explizite Berechtigung nicht, sieht sie nichts. Und Fitbit hat keine Möglichkeit zu wissen, dass die Daten nicht abgeholt wurden.",
         pt: "No Android, o Fitbit não compartilha dados diretamente com outros apps. Ele deposita as informações no Health Connect, um banco de dados local no seu telefone que funciona como intermediário. Pense no Health Connect como uma caixa de correio compartilhada: o Fitbit deposita seus passos, frequência cardíaca e dados de sono lá dentro. Outros apps podem ler essas informações, mas apenas se tiverem uma chave para abrir a caixa. Se um app não tem essa permissão explícita, não vê nada. E o Fitbit não tem como saber que os dados não foram retirados.",
         fr: "Sur Android, Fitbit ne partage pas les données directement avec les autres applications. Il les dépose dans Health Connect, une base de données locale sur votre téléphone qui sert d'intermédiaire. Imaginez Health Connect comme une boîte aux lettres partagée : Fitbit y dépose vos pas, votre fréquence cardiaque et vos données de sommeil. Les autres applications peuvent lire ce contenu, mais seulement si elles ont une clé pour ouvrir la boîte. Si une application ne dispose pas de cette autorisation explicite, elle ne voit rien. Et Fitbit n'a aucun moyen de savoir que les données n'ont pas été récupérées.",
+        pl: "Na Androidzie Fitbit nie udostępnia danych bezpośrednio innym aplikacjom. Przekazuje je do Health Connect, lokalnej bazy danych na telefonie, która pełni rolę pośrednika. Pomyśl o Health Connect jak o wspólnej skrzynce pocztowej: Fitbit zostawia tam Twoje kroki, tętno i dane snu. Inne aplikacje mogą odczytać tę zawartość, ale tylko jeśli mają klucz do skrzynki. Jeśli aplikacja nie ma takiego uprawnienia, nic nie widzi. A Fitbit nie ma możliwości sprawdzenia, czy poczta została odebrana.",
+        tr: "Android'de Fitbit verileri diğer uygulamalarla doğrudan paylaşmaz. Telefonunuzdaki yerel bir veritabanı olan Health Connect'e bırakır; bu veritabanı aracı görevi görür. Health Connect'i ortak bir posta kutusu gibi düşünün: Fitbit adımlarınızı, kalp atış hızınızı ve uyku verilerinizi oraya bırakır. Diğer uygulamalar bu içeriği okuyabilir, ancak yalnızca kutuyu açacak anahtarları varsa. Bir uygulamanın açık izni yoksa hiçbir şey görmez. Fitbit ise postanın alınıp alınmadığını bilmenin bir yolunu bulamaz.",
       },
     },
     {
@@ -158,6 +200,8 @@ export const post: BlogPost = {
         de: "Der Mechanismus ist beabsichtigt: Health Connect ist darauf ausgelegt, dem Nutzer eine granulare Kontrolle darüber zu geben, wer was liest. Diese Granularität schafft jedoch einen zusätzlichen Konfigurationspunkt, von dem die meisten Menschen nicht wissen, dass er existiert. Ergebnis: Der Nutzer sieht eine App, die 'nicht funktioniert', obwohl ihr eigentlich nur die Leseberechtigung fehlt.",
         pt: "O mecanismo é intencional: o Health Connect foi projetado para dar ao usuário controle granular sobre quem lê o quê. Mas essa granularidade cria um ponto de configuração extra que a maioria das pessoas não sabe que existe. Resultado: o usuário vê um app que 'não funciona', quando na verdade está simplesmente sem permissão de leitura.",
         fr: "Ce mécanisme est intentionnel : Health Connect est conçu pour donner à l'utilisateur un contrôle précis sur qui lit quoi. Mais cette granularité crée un point de configuration supplémentaire que la plupart des gens ignorent. Résultat : l'utilisateur voit une application qui \"ne fonctionne pas\", alors qu'en réalité il lui manque simplement une autorisation de lecture.",
+        pl: "Ten mechanizm jest celowy: Health Connect został zaprojektowany, aby dać użytkownikom szczegółową kontrolę nad tym, kto co czyta. Ale ta szczegółowość tworzy dodatkowy punkt konfiguracyjny, o którym większość osób nie wie. Efekt: użytkownik widzi aplikację, która 'nie działa', podczas gdy w rzeczywistości po prostu brakuje jej uprawnienia do odczytu.",
+        tr: "Bu mekanizma kasıtlıdır: Health Connect, kullanıcılara kimin ne okuduğu üzerinde ayrıntılı kontrol sağlamak için tasarlanmıştır. Ancak bu ayrıntı düzeyi, çoğu insanın varlığından haberdar olmadığı ekstra bir yapılandırma noktası oluşturur. Sonuç: kullanıcı 'çalışmayan' bir uygulama görür, oysa aslında yalnızca okuma izni eksiktir.",
       },
     },
     {
@@ -170,6 +214,8 @@ export const post: BlogPost = {
         de: "Die Schritt-für-Schritt-Lösung",
         pt: "A solução passo a passo",
         fr: "La solution étape par étape",
+        pl: "Rozwiązanie krok po kroku",
+        tr: "Adım adım çözüm",
       },
     },
     {
@@ -218,6 +264,20 @@ export const post: BlogPost = {
           "Revenez à la liste principale des **Autorisations des applications** et recherchez également **Fitbit**. Vérifiez que Fitbit dispose de l'autorisation **Écriture** pour ces types de données. Sans écriture de la part de Fitbit, il n'y a rien à lire.",
           "Si toutes les autorisations étaient déjà actives mais que les données n'apparaissent toujours pas, essayez de révoquer puis de réactiver l'autorisation de lecture dans l'application de destination. Sur certains appareils, actualiser les autorisations débloque une initialisation bloquée.",
         ],
+        pl: [
+          "Otwórz aplikację **Fitbit** na telefonie. Przejdź do **Ustawień konta** (ikona profilu, lewy górny róg) → **Ustawienia aplikacji** → **Health Connect**. Znajdziesz tam przełącznik do włączenia zapisywania danych w Health Connect. Jeśli jest wyłączony, włącz go. Ten krok brakuje w prawie każdym poradniku online.",
+          "Otwórz **Health Connect** (znajdziesz w Ustawieniach Androida → Prywatność → Health Connect lub wyszukaj 'Health Connect' w szufladzie aplikacji). Przejdź do **Uprawnień aplikacji**.",
+          "Znajdź aplikację, która nie otrzymuje danych Fitbit (np. FitMesh Sync lub cokolwiek innego używasz). Otwórz ją i sprawdź, czy typy danych, których potrzebujesz (kroki, tętno, sen itp.), są włączone dla **Odczytu**.",
+          "Wróć do głównej listy **Uprawnień aplikacji** i znajdź też **Fitbit**. Sprawdź, czy Fitbit ma uprawnienie **Zapisu** dla tych typów danych. Bez zapisu przez Fitbit nie ma nic do odczytu.",
+          "Jeśli wszystkie uprawnienia były już aktywne, a dane nadal nie pojawiają się, spróbuj cofnąć i ponownie włączyć uprawnienie do odczytu w aplikacji docelowej. Na niektórych urządzeniach odświeżenie uprawnień odblokowuje zablokowaną inicjalizację.",
+        ],
+        tr: [
+          "Telefonunuzda **Fitbit** uygulamasını açın. **Hesap Ayarları**'na gidin (sol üstteki profil simgesi) → **Uygulama Ayarları** → **Health Connect**. Burada Health Connect'e veri yazmayı etkinleştiren bir geçiş düğmesi bulacaksınız. Kapalıysa açın. Bu adım neredeyse hiçbir çevrimiçi kılavuzda yer almaz.",
+          "**Health Connect**'i açın (Android Ayarları → Gizlilik → Health Connect'te bulabilir ya da uygulama çekmecesinde 'Health Connect' arayabilirsiniz). **Uygulama izinleri**'ne gidin.",
+          "Fitbit verilerini almayan uygulamayı bulun (ör. FitMesh Sync ya da kullandığınız başka bir uygulama). Açın ve ihtiyacınız olan veri türlerinin (adımlar, kalp atış hızı, uyku vb.) **Okuma** için etkinleştirildiğini doğrulayın.",
+          "**Uygulama izinleri** ana listesine dönün ve **Fitbit**'i de bulun. Fitbit'in o veri türleri için **Yazma** iznine sahip olduğunu doğrulayın. Fitbit yazmadan okunacak hiçbir şey yoktur.",
+          "Tüm izinler zaten etkinse ancak veriler hala görünmüyorsa hedef uygulamadaki okuma iznini iptal edip yeniden etkinleştirmeyi deneyin. Bazı cihazlarda izinleri yenilemek takılı kalan bir başlatmayı çözebilir.",
+        ],
       },
     },
     {
@@ -230,6 +290,8 @@ export const post: BlogPost = {
         de: "Häufige Stolperfallen bei der Synchronisierung",
         pt: "Armadilhas comuns que bloqueiam a sincronização",
         fr: "Erreurs fréquentes qui bloquent la synchronisation",
+        pl: "Częste pułapki, na które warto uważać",
+        tr: "Sık yapılan hatalar",
       },
     },
     {
@@ -271,6 +333,18 @@ export const post: BlogPost = {
           "**La relation Fitbit-Google est complexe.** Google a acquis Fitbit en 2021. Certains anciens modèles Fitbit écrivent dans Google Fit mais pas dans Health Connect, selon la version du firmware. Si vous avez un ancien Fitbit et ne voyez pas l'option Health Connect dans l'application, vérifiez que le firmware est à jour. Si le firmware est déjà à jour et que l'option n'apparaît pas, le modèle n'est peut-être tout simplement pas pris en charge.",
           "**L'autorisation de lecture de l'application tierce est indépendante de l'autorisation d'écriture de Fitbit.** Beaucoup pensent : 'j'ai autorisé Fitbit, donc l'autre application doit voir les données'. Non : les deux autorisations sont totalement indépendantes. Fitbit écrit, l'application tierce lit, mais la lecture nécessite une autorisation explicite accordée à l'application tierce. Les deux doivent être actives.",
         ],
+        pl: [
+          "**Health Connect NIE synchronizuje danych historycznych.** Jeśli autoryzujesz aplikację dziś, zobaczy tylko dane Fitbit zapisane od tego momentu. Dane z zeszłego miesiąca czy roku nigdy nie będą widoczne przez Health Connect. To wybór projektowy, nie błąd. Jeśli potrzebujesz danych historycznych, musisz je wyeksportować bezpośrednio z aplikacji Fitbit (Ustawienia konta → Eksportuj dane konta).",
+          "**Zapis do Health Connect nie jest domyślnie aktywny w Fitbit.** W przeciwieństwie do Samsung Health (który na wielu urządzeniach prosi o konfigurację Health Connect podczas konfiguracji), Fitbit wymaga ręcznej aktywacji w sekcji ustawień aplikacji. Jeśli nigdy tego nie robiłeś, prawie na pewno jest wyłączone.",
+          "**Relacja Fitbit-Google jest skomplikowana.** Google przejął Fitbit w 2021 roku. Niektóre starsze modele Fitbit zapisują do Google Fit, ale nie do Health Connect - zależy to od wersji firmware. Jeśli masz starszego Fitbita i nie widzisz opcji Health Connect w aplikacji, sprawdź, czy firmware jest aktualny. Alternatywnie model może po prostu nie być obsługiwany.",
+          "**Uprawnienie do odczytu przez aplikację innego producenta jest odrębne od uprawnienia do zapisu Fitbit.** Wiele osób myśli: 'Autoryzowałem Fitbit, więc inna aplikacja powinna widzieć dane'. Nie: oba uprawnienia są całkowicie niezależne. Fitbit zapisuje, aplikacja innego producenta czyta, ale do odczytu potrzebne jest jawne uprawnienie przyznane tej aplikacji. Oba muszą być aktywne.",
+        ],
+        tr: [
+          "**Health Connect geçmiş verileri GERİYE DÖNÜK olarak eşitlemez.** Bir uygulamayı bugün yetkilendirirseniz yalnızca o andan itibaren yazılan Fitbit verilerini görür. Geçen aydaki veya geçen yıldaki veriler Health Connect üzerinden hiçbir zaman görünmez. Bu bir tasarım tercihidir, hata değil. Geçmiş verilere ihtiyacınız varsa bunları doğrudan Fitbit uygulamasından dışa aktarmanız gerekir (Hesap Ayarları → Hesap Verilerini Dışa Aktar).",
+          "**Fitbit'te Health Connect'e yazmak varsayılan olarak etkin değildir.** Samsung Health'in aksine (birçok cihazda kurulum sırasında Health Connect'i yapılandırmanızı ister), Fitbit uygulama ayarları bölümünde açık bir manuel etkinleştirme gerektirir. Bunu hiç yapmadıysanız neredeyse kesinlikle kapalıdır.",
+          "**Fitbit-Google ilişkisi karmaşıktır.** Google, Fitbit'i 2021'de satın aldı. Bazı eski Fitbit modelleri firmware sürümüne bağlı olarak Health Connect yerine Google Fit'e yazar. Eski bir Fitbit'iniz varsa ve uygulamada Health Connect seçeneğini görmüyorsanız firmware'in güncel olup olmadığını kontrol edin. Güncel olmasına rağmen seçenek yoksa model desteklenmeyebilir.",
+          "**Üçüncü taraf uygulamanın okuma izni, Fitbit'in yazma izninden bağımsızdır.** Pek çok kişi şöyle düşünür: 'Fitbit'i yetkilendirdim, dolayısıyla diğer uygulama verileri görebilir.' Hayır: iki izin tamamen bağımsızdır. Fitbit yazar, üçüncü taraf uygulama okur, ancak okumak için üçüncü taraf uygulamaya verilmiş açık bir izin gerekir. Her ikisi de etkin olmalıdır.",
+        ],
       },
     },
     {
@@ -283,6 +357,8 @@ export const post: BlogPost = {
         de: "Meine direkte Einschätzung",
         pt: "Minha opinião direta",
         fr: "Mon avis direct",
+        pl: "Moja bezpośrednia opinia",
+        tr: "Doğrudan görüşüm",
       },
       body: {
         it: "La maggior parte delle guide su questo problema dice 'reinstalla l'app' o 'riavvia il Bluetooth'. È sbagliato. Il problema è nei permessi di Health Connect nel 95% dei casi, e una volta che sai dove guardare ci vuole meno di 30 secondi per trovarlo. Non perdere tempo con passaggi drastici: controlla prima i permessi, poi eventualmente il resto.",
@@ -291,6 +367,8 @@ export const post: BlogPost = {
         de: "Die meisten Anleitungen zur Fehlerbehebung empfehlen 'installiere die App neu' oder 'starte Bluetooth neu'. Das ist falsch. In 95 % der Fälle liegt das Problem an den Health Connect-Berechtigungen, und wenn du weißt, wo du suchen musst, findest du es in weniger als 30 Sekunden. Verschwende keine Zeit mit drastischen Maßnahmen: Überprüfe zuerst die Berechtigungen, dann bei Bedarf alles andere.",
         pt: "A maioria dos guias de solução de problemas diz 'reinstale o app' ou 'reinicie o Bluetooth'. Isso está errado. O problema está nas permissões do Health Connect em 95% dos casos, e quando você sabe onde procurar, leva menos de 30 segundos para encontrá-lo. Não perca tempo com passos drásticos: verifique as permissões primeiro, depois o resto se necessário.",
         fr: "La plupart des guides de dépannage conseillent de 'réinstaller l'application' ou de 'redémarrer le Bluetooth'. C'est une erreur. Le problème vient des autorisations Health Connect dans 95 % des cas, et une fois que vous savez où chercher, il faut moins de 30 secondes pour le trouver. Ne perdez pas de temps avec des étapes drastiques : vérifiez d'abord les autorisations, puis le reste si nécessaire.",
+        pl: "Większość poradników dotyczących tego problemu mówi 'zainstaluj aplikację ponownie' lub 'uruchom Bluetooth ponownie'. To błąd. Problem leży w uprawnieniach Health Connect w 95% przypadków, a gdy już wiesz, gdzie szukać, znalezienie go zajmuje mniej niż 30 sekund. Nie trać czasu na drastyczne działania: najpierw sprawdź uprawnienia, potem ewentualnie resztę.",
+        tr: "Sorun giderme kılavuzlarının çoğu 'uygulamayı yeniden yükle' veya 'Bluetooth'u yeniden başlat' der. Bu yanlış. Sorun %95 durumda Health Connect izinlerindedir ve nereye bakacağınızı öğrendikten sonra bulmak 30 saniyeden az sürer. Aşırı adımlara zaman harcamayın: önce izinleri kontrol edin, gerekirse diğerlerine bakın.",
       },
     },
     {
@@ -303,6 +381,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
     },
     {
@@ -344,6 +424,18 @@ export const post: BlogPost = {
           "Health Connect ne synchronise jamais les données passées : seulement à partir du moment de l'autorisation.",
           "Certains anciens modèles Fitbit écrivent dans Google Fit et non dans Health Connect. Mettez à jour le firmware ou vérifiez la compatibilité de votre modèle.",
         ],
+        pl: [
+          "Fitbit zapisuje dane do Health Connect tylko wtedy, gdy włączysz to ręcznie: aplikacja Fitbit → Ustawienia → Health Connect → włącz zapis.",
+          "Aplikacja, której chcesz używać, potrzebuje własnego uprawnienia do odczytu w Health Connect, niezależnego od uprawnienia Fitbit.",
+          "Health Connect nigdy nie synchronizuje danych z przeszłości: tylko od momentu udzielenia zgody.",
+          "Niektóre starsze modele Fitbit zapisują do Google Fit, a nie do Health Connect. Zaktualizuj firmware lub sprawdź zgodność swojego modelu.",
+        ],
+        tr: [
+          "Fitbit verileri Health Connect'e yalnızca manuel olarak etkinleştirirseniz yazar: Fitbit uygulaması → Ayarlar → Health Connect → yazmayı etkinleştir.",
+          "Kullanmak istediğiniz uygulamanın Health Connect'te kendi okuma iznine ihtiyacı vardır; bu Fitbit izninden bağımsızdır.",
+          "Health Connect geçmiş verileri hiçbir zaman eşitlemez: yalnızca yetkilendirme anından itibaren.",
+          "Bazı eski Fitbit modelleri Health Connect yerine Google Fit'e yazar. Firmware'i güncelleyin veya modelinizin uyumluluğunu kontrol edin.",
+        ],
       },
     },
     {
@@ -355,6 +447,8 @@ export const post: BlogPost = {
         de: "Möchtest du deine Fitbit-Daten in einem Web-Dashboard sehen, ohne komplexe Konfiguration?",
         pt: "Quer ver seus dados do Fitbit em um painel web, sem configurações complexas?",
         fr: "Vous souhaitez voir vos données Fitbit dans un tableau de bord web, sans configuration complexe ?",
+        pl: "Chcesz zobaczyć dane Fitbit w panelu web bez skomplikowanej konfiguracji?",
+        tr: "Fitbit verilerinizi karmaşık yapılandırma olmadan bir web panelinde görmek ister misiniz?",
       },
       body: {
         it: "FitMesh Sync si integra con Fitbit via la sua API ufficiale e mostra passi, frequenza cardiaca, sonno e allenamenti in una dashboard accessibile da browser. Nessun problema di permessi Health Connect: la connessione Fitbit è diretta e guidata passo passo.",
@@ -363,6 +457,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync verbindet sich mit Fitbit über die offizielle API und zeigt Schritte, Herzfrequenz, Schlaf und Trainings in einer browser-zugänglichen Dashboard an. Keine Probleme mit Health Connect-Berechtigungen: Die Fitbit-Verbindung ist direkt und wird Schritt für Schritt geführt.",
         pt: "FitMesh Sync integra com o Fitbit via API oficial e exibe passos, frequência cardíaca, sono e treinos em um painel acessível pelo navegador. Sem problemas de permissões do Health Connect: a conexão com o Fitbit é direta e guiada passo a passo.",
         fr: "FitMesh Sync s'intègre à Fitbit via son API officielle et affiche pas, fréquence cardiaque, sommeil et séances d'entraînement dans un tableau de bord accessible depuis un navigateur. Aucun problème d'autorisation Health Connect : la connexion Fitbit est directe et guidée étape par étape.",
+        pl: "FitMesh Sync integruje się z Fitbit przez oficjalne API i wyświetla kroki, tętno, sen i treningi w panelu dostępnym z przeglądarki. Żadnych problemów z uprawnieniami Health Connect: połączenie z Fitbit jest bezpośrednie i prowadzone krok po kroku.",
+        tr: "FitMesh Sync, Fitbit ile resmi API üzerinden entegre olur ve adımları, kalp atış hızını, uykuyu ve antrenmanları tarayıcıdan erişilebilen bir panelde gösterir. Health Connect izin sorunları yok: Fitbit bağlantısı doğrudan ve adım adım rehberli.",
       },
       ctaLabel: {
         it: "Scopri le integrazioni FitMesh →",
@@ -371,10 +467,14 @@ export const post: BlogPost = {
         de: "FitMesh-Integrationen entdecken →",
         pt: "Explore as integrações do FitMesh →",
         fr: "Découvrir les intégrations FitMesh →",
+        pl: "Odkryj integracje FitMesh →",
+        tr: "FitMesh entegrasyonlarını keşfet →",
       },
       ctaHref: {
         it: "/it/integrations",
         en: "/en/integrations",
+        pl: "/pl/integrations",
+        tr: "/tr/integrations",
       },
     },
   ],
@@ -387,6 +487,8 @@ export const post: BlogPost = {
         de: "Warum erscheint Fitbit in Health Connect nicht als autorisierte App?",
         pt: "Por que o Fitbit não aparece no Health Connect como app autorizado?",
         fr: "Pourquoi Fitbit n'apparaît-il pas dans Health Connect comme application autorisée ?",
+        pl: "Dlaczego Fitbit nie pojawia się w Health Connect jako autoryzowana aplikacja?",
+        tr: "Neden Fitbit, Health Connect'te yetkili uygulama olarak görünmüyor?",
       },
       a: {
         it: "Fitbit non si registra automaticamente in Health Connect al momento dell'installazione. Devi andare in Fitbit → Impostazioni account → Impostazioni app → Health Connect e avviare tu il processo di autorizzazione. Solo dopo quel passaggio Fitbit apparirà nella lista di Health Connect.",
@@ -395,6 +497,8 @@ export const post: BlogPost = {
         de: "Fitbit registriert sich bei der Installation nicht automatisch in Health Connect. Du musst zu Fitbit → Kontoeinstellungen → App-Einstellungen → Health Connect gehen und den Autorisierungsprozess selbst starten. Erst nach diesem Schritt erscheint Fitbit in der Health Connect-Liste.",
         pt: "O Fitbit não se registra automaticamente no Health Connect no momento da instalação. Você precisa ir em Fitbit → Configurações da conta → Configurações do app → Health Connect e iniciar você mesmo o processo de autorização. Só depois desse passo o Fitbit aparecerá na lista do Health Connect.",
         fr: "Fitbit ne s'enregistre pas automatiquement dans Health Connect lors de l'installation. Vous devez aller dans Fitbit → Paramètres du compte → Paramètres de l'application → Health Connect et lancer vous-même le processus d'autorisation. Ce n'est qu'après cette étape que Fitbit apparaîtra dans la liste de Health Connect.",
+        pl: "Fitbit nie rejestruje się automatycznie w Health Connect po instalacji. Musisz przejść do Fitbit → Ustawienia konta → Ustawienia aplikacji → Health Connect i samodzielnie rozpocząć proces autoryzacji. Dopiero po tym kroku Fitbit pojawi się na liście Health Connect.",
+        tr: "Fitbit, kurulduğunda Health Connect'e otomatik olarak kaydolmaz. Fitbit → Hesap Ayarları → Uygulama Ayarları → Health Connect'e gitmeniz ve yetkilendirme sürecini kendiniz başlatmanız gerekir. Yalnızca bu adımdan sonra Fitbit, Health Connect listesinde görünür.",
       },
     },
     {
@@ -405,6 +509,8 @@ export const post: BlogPost = {
         de: "Kann ich historische Fitbit-Daten nach der Einrichtung von Health Connect abrufen?",
         pt: "Posso recuperar dados históricos do Fitbit depois de configurar o Health Connect?",
         fr: "Puis-je récupérer les données Fitbit historiques après avoir configuré Health Connect ?",
+        pl: "Czy mogę odzyskać historyczne dane Fitbit po skonfigurowaniu Health Connect?",
+        tr: "Health Connect'i kurduktan sonra geçmiş Fitbit verilerini kurtarabilir miyim?",
       },
       a: {
         it: "No, non via Health Connect. Per design, Health Connect non importa dati precedenti all'autorizzazione. Per accedere ai dati storici devi usare la funzione di esportazione di Fitbit (Impostazioni account → Esporta dati account), che genera un archivio con tutti i dati storici in formato CSV/JSON.",
@@ -413,6 +519,8 @@ export const post: BlogPost = {
         de: "Nein, nicht über Health Connect. Per Design importiert Health Connect keine Daten, die vor der Autorisierung liegen. Um auf historische Daten zuzugreifen, musst du die Exportfunktion von Fitbit verwenden (Kontoeinstellungen → Kontodaten exportieren), die ein Archiv mit allen historischen Daten im CSV/JSON-Format erstellt.",
         pt: "Não, não via Health Connect. Por design, o Health Connect não importa dados anteriores à autorização. Para acessar dados históricos, você precisa usar a função de exportação do Fitbit (Configurações da conta → Exportar dados da conta), que gera um arquivo com todos os dados históricos em formato CSV/JSON.",
         fr: "Non, pas via Health Connect. Par conception, Health Connect n'importe pas les données antérieures à l'autorisation. Pour accéder aux données historiques, vous devez utiliser la fonction d'exportation de Fitbit (Paramètres du compte → Exporter les données du compte), qui génère une archive avec toutes les données historiques au format CSV/JSON.",
+        pl: "Nie, nie przez Health Connect. Z założenia Health Connect nie importuje danych sprzed momentu autoryzacji. Aby uzyskać dostęp do danych historycznych, musisz skorzystać z funkcji eksportu Fitbit (Ustawienia konta → Eksportuj dane konta), która generuje archiwum ze wszystkimi danymi historycznymi w formacie CSV/JSON.",
+        tr: "Hayır, Health Connect üzerinden değil. Health Connect tasarımı gereği yetkilendirmeden önceki verileri içe aktarmaz. Geçmiş verilere erişmek için Fitbit'in dışa aktarma özelliğini kullanmanız gerekir (Hesap Ayarları → Hesap Verilerini Dışa Aktar); bu özellik tüm geçmiş verileri CSV/JSON formatında bir arşiv olarak oluşturur.",
       },
     },
     {
@@ -423,6 +531,8 @@ export const post: BlogPost = {
         de: "Mein Fitbit synchronisiert mit Google Fit, aber nicht mit Health Connect: warum?",
         pt: "Meu Fitbit sincroniza com o Google Fit, mas não com o Health Connect: por quê?",
         fr: "Mon Fitbit se synchronise avec Google Fit mais pas avec Health Connect : pourquoi ?",
+        pl: "Mój Fitbit synchronizuje się z Google Fit, ale nie z Health Connect: dlaczego?",
+        tr: "Fitbit'im Google Fit ile eşitleniyor ama Health Connect ile eşitlenmiyor: neden?",
       },
       a: {
         it: "Alcuni modelli Fitbit più vecchi hanno il supporto per Google Fit ma non per Health Connect, per via del firmware. Google Fit è la vecchia API (ora deprecata); Health Connect è quella nuova. Se il tuo modello non supporta Health Connect, aggiorna il firmware dall'app Fitbit e controlla se l'opzione compare. Se il firmware è già aggiornato e l'opzione non c'è, il modello potrebbe non essere supportato: in quel caso la connessione diretta via API Fitbit (come quella di FitMesh Sync) è un'alternativa valida.",
@@ -431,6 +541,8 @@ export const post: BlogPost = {
         de: "Einige ältere Fitbit-Modelle unterstützen Google Fit, aber nicht Health Connect, aufgrund der Firmware. Google Fit ist die alte API (jetzt veraltet); Health Connect ist die neue. Wenn dein Modell Health Connect nicht unterstützt, aktualisiere die Firmware über die Fitbit-App und prüfe, ob die Option erscheint. Wenn die Firmware bereits aktuell ist und die Option fehlt, wird das Modell möglicherweise nicht unterstützt: In diesem Fall ist eine direkte Verbindung über die Fitbit-API (wie sie FitMesh Sync verwendet) eine valide Alternative.",
         pt: "Alguns modelos mais antigos do Fitbit têm suporte para o Google Fit, mas não para o Health Connect, devido ao firmware. O Google Fit é a API antiga (agora descontinuada); o Health Connect é a nova. Se o seu modelo não é compatível com o Health Connect, atualize o firmware pelo app Fitbit e verifique se a opção aparece. Se o firmware já estiver atualizado e a opção não aparecer, o modelo pode não ser compatível: nesse caso, a conexão direta via API do Fitbit (como a que o FitMesh Sync usa) é uma alternativa válida.",
         fr: "Certains anciens modèles Fitbit prennent en charge Google Fit mais pas Health Connect, en raison du firmware. Google Fit est l'ancienne API (désormais obsolète) ; Health Connect est la nouvelle. Si votre modèle ne prend pas en charge Health Connect, mettez à jour le firmware depuis l'application Fitbit et vérifiez si l'option apparaît. Si le firmware est déjà à jour et que l'option n'est pas disponible, le modèle n'est peut-être pas pris en charge. Dans ce cas, une connexion directe via l'API Fitbit (comme celle qu'utilise FitMesh Sync) est une alternative valable.",
+        pl: "Niektóre starsze modele Fitbit obsługują Google Fit, ale nie Health Connect ze względu na firmware. Google Fit to stare API (teraz wycofane), Health Connect to nowe. Jeśli Twój model nie obsługuje Health Connect, zaktualizuj firmware z aplikacji Fitbit i sprawdź, czy pojawi się opcja. Jeśli firmware jest już aktualny, a opcji nie ma, model może po prostu nie być obsługiwany - w takim przypadku bezpośrednie połączenie przez API Fitbit (jak to, którego używa FitMesh Sync) jest prawidłową alternatywą.",
+        tr: "Bazı eski Fitbit modelleri firmware nedeniyle Google Fit'i destekler ama Health Connect'i desteklemez. Google Fit eski API'dir (artık kullanımdan kaldırılıyor); Health Connect yeni olandır. Modeliniz Health Connect'i desteklemiyorsa Fitbit uygulamasından firmware'i güncelleyin ve seçeneğin görünüp görünmediğini kontrol edin. Firmware güncel olmasına rağmen seçenek yoksa model desteklenmeyebilir: bu durumda Fitbit API'si üzerinden doğrudan bağlantı (FitMesh Sync'in kullandığı gibi) geçerli bir alternatiftir.",
       },
     },
     {
@@ -441,6 +553,8 @@ export const post: BlogPost = {
         de: "Muss ich die Fitbit-App installiert haben, damit die Synchronisierung funktioniert?",
         pt: "Preciso manter o app Fitbit instalado para a sincronização?",
         fr: "Dois-je garder l'application Fitbit installée pour la synchronisation ?",
+        pl: "Czy muszę mieć zainstalowaną aplikację Fitbit, aby synchronizacja działała?",
+        tr: "Senkronizasyon çalışması için Fitbit uygulamasının kurulu olması gerekiyor mu?",
       },
       a: {
         it: "Se usi Health Connect come canale, sì: l'app Fitbit deve essere installata e attiva, perché è lei che scrive i dati su Health Connect. Se invece usi un'app che si connette direttamente all'API Fitbit (come FitMesh Sync), la dipendenza cambia: in quel caso l'app comunica con i server Fitbit via OAuth, indipendentemente dall'app companion installata sul telefono.",
@@ -449,6 +563,8 @@ export const post: BlogPost = {
         de: "Wenn du Health Connect als Kanal verwendest, ja: Die Fitbit-App muss installiert und aktiv sein, weil sie die Daten in Health Connect schreibt. Wenn du stattdessen eine App verwendest, die sich direkt mit der Fitbit-API verbindet (wie FitMesh Sync), ändert sich die Abhängigkeit: In diesem Fall kommuniziert die App über OAuth mit den Fitbit-Servern, unabhängig von der Companion-App, die auf dem Telefon installiert ist.",
         pt: "Se você usar o Health Connect como canal, sim: o app Fitbit precisa estar instalado e ativo, pois é ele que grava os dados no Health Connect. Se você usar um app que se conecta diretamente à API do Fitbit (como o FitMesh Sync), a dependência muda: nesse caso, o app se comunica com os servidores do Fitbit via OAuth, independentemente do app companion instalado no telefone.",
         fr: "Si vous utilisez Health Connect comme canal, oui : l'application Fitbit doit être installée et active, car c'est elle qui écrit les données dans Health Connect. Si vous utilisez à la place une application qui se connecte directement à l'API Fitbit (comme FitMesh Sync), la dépendance change : dans ce cas, l'application communique avec les serveurs Fitbit via OAuth, indépendamment de l'application companion installée sur le téléphone.",
+        pl: "Jeśli używasz Health Connect jako kanału, tak: aplikacja Fitbit musi być zainstalowana i aktywna, ponieważ to ona zapisuje dane do Health Connect. Jeśli natomiast używasz aplikacji łączącej się bezpośrednio z API Fitbit (jak FitMesh Sync), zależność się zmienia: w takim przypadku aplikacja komunikuje się z serwerami Fitbit przez OAuth, niezależnie od aplikacji towarzyszącej zainstalowanej na telefonie.",
+        tr: "Health Connect'i kanal olarak kullanıyorsanız evet: Fitbit uygulamasının kurulu ve etkin olması gerekir, çünkü verileri Health Connect'e yazan odur. Bunun yerine doğrudan Fitbit API'sine bağlanan bir uygulama kullanıyorsanız (FitMesh Sync gibi), bağımlılık değişir: bu durumda uygulama, telefona kurulu yardımcı uygulamadan bağımsız olarak OAuth üzerinden Fitbit sunucularıyla iletişim kurar.",
       },
     },
   ],

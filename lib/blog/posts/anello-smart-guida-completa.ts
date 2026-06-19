@@ -21,6 +21,8 @@ export const post: BlogPost = {
       de: "Anleitung",
       pt: "Guia",
       fr: "Guide",
+      pl: "Przewodnik",
+      tr: "Rehber",
     },
     title: {
       it: "Anello smart: cosa misura, come sceglierlo e come sfruttarlo al meglio (2026)",
@@ -29,6 +31,8 @@ export const post: BlogPost = {
       de: "Smart-Ring: Was er misst, wie man ihn auswählt und wie man das Beste daraus macht (2026)",
       pt: "Anel inteligente: o que mede, como escolher e como aproveitar ao máximo (2026)",
       fr: "Bague connectée: ce qu'elle mesure, comment la choisir et comment en tirer le meilleur parti (2026)",
+      pl: "Inteligentny pierścień: co mierzy, jak go wybrać i jak w pełni go wykorzystać (2026)",
+      tr: "Akıllı yüzük: ne ölçer, nasıl seçilir ve en iyi nasıl kullanılır (2026)",
     },
     subtitle: {
       it: "Cos'e' davvero un anello smart, quali dati raccoglie, come scegliere il modello giusto e perche' dà il meglio quando i suoi dati si uniscono a quelli del tuo smartwatch in un'unica dashboard.",
@@ -37,6 +41,8 @@ export const post: BlogPost = {
       de: "Was ein Smart-Ring wirklich ist, welche Daten er erfasst, wie man das richtige Modell auswählt und warum er sein volles Potenzial entfaltet, wenn seine Daten mit denen deiner Smartwatch in einem einzigen Dashboard zusammengeführt werden.",
       pt: "O que é de verdade um anel inteligente, quais dados coleta, como escolher o modelo certo e por que ele se destaca quando seus dados se unem aos do seu smartwatch em um único painel.",
       fr: "Ce qu'est vraiment une bague connectée, les données qu'elle collecte, comment choisir le bon modèle et pourquoi elle donne le meilleur d'elle-même quand ses données rejoignent celles de votre montre connectée dans un seul tableau de bord.",
+      pl: "Czym naprawdę jest inteligentny pierścień, jakie dane zbiera, jak wybrać odpowiedni model i dlaczego daje z siebie wszystko, gdy jego dane łączą się z danymi smartwatcha w jednym panelu.",
+      tr: "Akıllı yüzük gerçekte nedir, hangi verileri toplar, doğru modeli nasıl seçersiniz ve verilerini tek bir panelde smartwatch verilerinizle birleştirdiğinizde neden en iyi performansı gösterir.",
     },
   },
   metaDescription: {
@@ -46,6 +52,8 @@ export const post: BlogPost = {
     de: "Smart-Ring: Was er misst (Schlaf, HRV, Herzfrequenz), wie man ihn auswählt und wie man ihn mit der Smartwatch nutzt. Der vollständige Ratgeber 2026 mit FitMesh Sync.",
     pt: "Anel inteligente: o que mede (sono, HRV, frequência cardíaca), como escolher e como usar com o smartwatch. O guia completo 2026 com FitMesh Sync.",
     fr: "Bague connectée: ce qu'elle mesure (sommeil, HRV, fréquence cardiaque), comment la choisir et l'utiliser avec une montre connectée. Le guide complet 2026 avec FitMesh Sync.",
+    pl: "Inteligentny pierścień: co mierzy (sen, HRV, tętno), jak go wybrać i jak używać ze smartwatchem. Kompletny przewodnik 2026 z FitMesh Sync.",
+    tr: "Akıllı yüzük: ne ölçer (uyku, HRV, kalp hızı), nasıl seçilir ve smartwatch ile nasıl kullanılır. FitMesh Sync ile 2026'nın eksiksiz rehberi.",
   },
   primaryKeyword: {
     it: "anello smart",
@@ -54,6 +62,8 @@ export const post: BlogPost = {
     de: "Smart-Ring",
     pt: "anel inteligente",
     fr: "bague connectée",
+    pl: "inteligentny pierścień",
+    tr: "akıllı yüzük",
   },
   secondaryKeywords: {
     it: [
@@ -87,6 +97,22 @@ export const post: BlogPost = {
       "bague connectée suivi du sommeil",
       "bague connectée pas chère",
       "bague connectée fréquence cardiaque",
+    ],
+    pl: [
+      "co mierzy inteligentny pierścień",
+      "jak działa inteligentny pierścień",
+      "jak wybrać inteligentny pierścień",
+      "inteligentny pierścień śledzenie snu",
+      "tani inteligentny pierścień",
+      "inteligentny pierścień tętno",
+    ],
+    tr: [
+      "akıllı yüzük ne ölçer",
+      "akıllı yüzük nasıl çalışır",
+      "akıllı yüzük nasıl seçilir",
+      "akıllı yüzük uyku takibi",
+      "uygun fiyatlı akıllı yüzük",
+      "akıllı yüzük kalp atışı",
     ],
   },
   tldr: {
@@ -132,6 +158,20 @@ export const post: BlogPost = {
       "Même les bagues connectées abordables (comme Colmi) collectent les métriques de base utiles pour suivre ses tendances personnelles.",
       "La plus grande valeur apparaît quand les données de la bague rejoignent celles de la montre dans un seul tableau de bord: c'est ce que fait FitMesh Sync.",
     ],
+    pl: [
+      "Inteligentny pierścień mierzy na palcu sen, tętno, HRV i (w niektórych modelach) SpO2: wygodny do noszenia 24 godziny na dobę.",
+      "Sprawdza się świetnie w nocy i przy pasywnym monitorowaniu; nie zastępuje smartwatcha przy GPS, sporcie i powiadomieniach.",
+      "Przy wyborze liczy się to, co naprawdę mierzy, czas pracy baterii i kompatybilność — bardziej niż cena.",
+      "Nawet tanie pierścienie (jak Colmi) zbierają podstawowe metryki przydatne do śledzenia osobistych trendów.",
+      "Największa wartość pojawia się, gdy dane pierścienia łączą się z danymi smartwatcha w jednym panelu: właśnie to robi FitMesh Sync.",
+    ],
+    tr: [
+      "Akıllı yüzük parmaktan uyku, kalp hızı, HRV ve (bazı modellerde) SpO2 ölçer: 7/24 takmak için yeterince rahat.",
+      "Gece ve pasif izlemede mükemmeldir; GPS, spor ve bildirimler için smartwatch'un yerini almaz.",
+      "Seçerken gerçekte ne ölçtüğü, pil ömrü ve uyumluluk fiyattan daha önemlidir.",
+      "Uygun fiyatlı yüzükler (Colmi gibi) bile kişisel trendleri takip etmek için yararlı temel metrikleri toplar.",
+      "En büyük değer, yüzük verilerinin smartwatch verileriyle tek bir panelde birleştiğinde ortaya çıkar: FitMesh Sync tam da bunu yapar.",
+    ],
   },
   body: [
     {
@@ -143,6 +183,8 @@ export const post: BlogPost = {
         de: "Ein Smart-Ring ist ein kleines Wearable, das einige Gesundheitsmetriken direkt vom Finger misst. Der Formfaktor verändert alles: Ohne Display und ohne Armband ist er leicht und angenehm genug, um ihn nie abzunehmen, nicht einmal nachts. Genau das ist seine Stärke: Kontinuität. Während die Smartwatch auflädt oder zum Schlafen abgenommen wird, sammelt der Ring weiter Daten.",
         pt: "Um anel inteligente é um pequeno wearable que mede algumas métricas de saúde diretamente do dedo. O formato muda tudo: sem display e sem pulseira, é leve e confortável o suficiente para nunca tirá-lo, nem mesmo à noite. É exatamente essa a sua força: a continuidade. Enquanto o smartwatch carrega ou você o tira para dormir, o anel continua coletando dados.",
         fr: "Une bague connectée est un petit appareil connecté qui mesure quelques métriques de santé directement depuis votre doigt. Le facteur de forme change tout: sans écran et sans bracelet, elle est légère et confortable au point de ne jamais être retirée, même la nuit. C'est précisément sa force: la continuité. Pendant que la montre connectée se recharge ou est retirée pour dormir, la bague continue de collecter des données.",
+        pl: "Inteligentny pierścień to małe urządzenie noszone na palcu, które mierzy kilka wskaźników zdrowotnych bezpośrednio z palca. Forma zmienia wszystko: bez wyświetlacza i bez paska jest wystarczająco lekki i wygodny, żeby nigdy go nie zdejmować — nawet w nocy. Właśnie to jest jego siłą: ciągłość. Podczas gdy smartwatch się ładuje lub zdejmujesz go do snu, pierścień nieustannie zbiera dane.",
+        tr: "Akıllı yüzük, parmağınızdan doğrudan birkaç sağlık ölçümü yapan küçük bir giyilebilir cihazdır. Form faktörü her şeyi değiştirir: ekransız ve kayışsız, geceleri bile hiç çıkarmak istemeyeceğiniz kadar hafif ve rahattır. Bu tam da onun gücüdür: süreklilik. Smartwatch şarj olurken ya da uyumak için çıkarılırken, yüzük veri toplamaya devam eder.",
       },
     },
     {
@@ -154,6 +196,8 @@ export const post: BlogPost = {
         de: "Im Inneren verwenden die meisten Ringe optische Sensoren (PPG), die den Blutfluss am Finger ablesen, plus einen Beschleunigungssensor für die Bewegung. Aus diesen zwei Signalen leiten sie Schlaf, Herzfrequenz, Variabilität (HRV) und, bei einigen Modellen, Sauerstoffsättigung und Temperatur ab. Zu verstehen, was dein Modell wirklich misst, ist der erste Schritt, um es gut zu nutzen.",
         pt: "Por dentro, a maioria dos anéis usa sensores ópticos (PPG) que leem o fluxo sanguíneo no dedo, mais um acelerômetro para o movimento. A partir desses dois sinais obtêm sono, frequência cardíaca, variabilidade (HRV) e, em alguns modelos, oxigenação e temperatura. Entender o que o seu modelo realmente mede é o primeiro passo para usá-lo bem.",
         fr: "Sous le capot, la plupart des bagues utilisent des capteurs optiques (PPG) qui lisent le flux sanguin au doigt, plus un accéléromètre pour le mouvement. À partir de ces deux signaux, elles déduisent le sommeil, la fréquence cardiaque, la variabilité (HRV) et, sur certains modèles, l'oxygénation et la température. Comprendre ce que votre modèle mesure vraiment est la première étape pour bien l'utiliser.",
+        pl: "Pod spodem większość pierścieni używa optycznych czujników (PPG) odczytujących przepływ krwi na palcu, a także akcelerometru do ruchu. Z tych dwóch sygnałów wyprowadzają sen, tętno, zmienność (HRV) i — w niektórych modelach — utlenowanie i temperaturę. Zrozumienie, co naprawdę mierzy Twój model, to pierwszy krok do dobrego korzystania z niego.",
+        tr: "Çoğu yüzük, parmaktaki kan akışını okuyan optik (PPG) sensörler ve hareket için ivmeölçer kullanır. Bu iki sinyalden uyku, kalp hızı, değişkenlik (HRV) ve bazı modellerde kan oksijeni ile sıcaklık türetilir. Modelinizin gerçekte ne ölçtüğünü anlamak, onu iyi kullanmanın ilk adımıdır.",
       },
     },
     {
@@ -166,6 +210,8 @@ export const post: BlogPost = {
         de: "Was ein Smart-Ring wirklich misst",
         pt: "O que um anel inteligente realmente mede",
         fr: "Ce que mesure vraiment une bague connectée",
+        pl: "Co naprawdę mierzy inteligentny pierścień",
+        tr: "Akıllı yüzük gerçekte ne ölçer",
       },
     },
     {
@@ -178,6 +224,8 @@ export const post: BlogPost = {
         de: "Schlaf und Schlafphasen",
         pt: "Sono e fases do sono",
         fr: "Sommeil et phases du sommeil",
+        pl: "Sen i fazy snu",
+        tr: "Uyku ve uyku evreleri",
       },
     },
     {
@@ -189,6 +237,8 @@ export const post: BlogPost = {
         de: "Schlaf ist das Gebiet, auf dem der Ring am meisten glänzt. Dank des Tragekomforts trägst du ihn die ganze Nacht und sammelst Schlafdauer, Aufwachmomente und eine Schätzung der Schlafphasen (Leichtschlaf, Tiefschlaf, REM). Das ist die Metrik, wegen der viele nachts lieber einen Ring als eine Uhr tragen. Mehr dazu findest du in der [Anleitung zum Schlaftracking mit dem Ring](/de/blog/tracciare-sonno-anello).",
         pt: "O sono é onde o anel mais se destaca. Graças ao conforto, você o mantém durante a noite toda e coleta duração, despertares e uma estimativa das fases (leve, profundo, REM). É a métrica pela qual muitos escolhem um anel em vez do smartwatch à noite. Para saber mais, veja o [guia para monitorar o sono com o anel](/pt/blog/tracciare-sonno-anello).",
         fr: "Le sommeil est le domaine où la bague brille le plus. Grâce au confort, vous la portez toute la nuit et collectez la durée, les réveils et une estimation des phases (léger, profond, REM). C'est la métrique pour laquelle beaucoup choisissent une bague plutôt qu'une montre la nuit. Pour aller plus loin, consultez le [guide pour suivre le sommeil avec la bague](/fr/blog/tracciare-sonno-anello).",
+        pl: "Sen to obszar, w którym pierścień sprawdza się najlepiej. Dzięki komfortowi nosisz go całą noc i rejestrujesz czas trwania, przebudzenia oraz szacunek faz (lekki, głęboki, REM). To wskaźnik, dla którego wiele osób wybiera pierścień zamiast smartwatcha na noc. Więcej na ten temat: [przewodnik po śledzeniu snu z pierścieniem](/pl/blog/tracciare-sonno-anello).",
+        tr: "Uyku, yüzüğün en çok parladığı alandır. Rahatlığı sayesinde gece boyunca takar ve süre, uyanışlar ile evre tahminini (hafif, derin, REM) kaydedersiniz. Birçok kişinin gece saatlerinde smartwatch yerine yüzük tercih ettiği metrik budur. Daha fazlası için bkz. [yüzükle uyku takibi rehberi](/tr/blog/tracciare-sonno-anello).",
       },
     },
     {
@@ -201,6 +251,8 @@ export const post: BlogPost = {
         de: "Herzfrequenz, HRV und Erholung",
         pt: "Frequência cardíaca, HRV e recuperação",
         fr: "Fréquence cardiaque, HRV et récupération",
+        pl: "Tętno, HRV i regeneracja",
+        tr: "Kalp hızı, HRV ve toparlanma",
       },
     },
     {
@@ -212,6 +264,8 @@ export const post: BlogPost = {
         de: "Der Ring misst die kontinuierliche Herzfrequenz und die Ruheherzfrequenz, was als tägliche persönliche Referenz nützlich ist. Aus der Variabilität zwischen den Herzschlägen (HRV) schätzen viele Modelle den Erholungsgrad: Werte unterhalb deines eigenen Durchschnitts können auf Müdigkeit oder Stress hinweisen. Sieh sie als Hinweise auf deinen Trend, nicht als absolute Messwerte.",
         pt: "O anel mede a frequência cardíaca de forma contínua e a frequência cardíaca em repouso, útil como referência pessoal do dia a dia. A partir da variabilidade entre batimentos (HRV) muitos modelos estimam o nível de recuperação: valores abaixo da sua própria média podem indicar cansaço ou estresse. Interprete-os como sinais sobre sua tendência, não como medidas absolutas.",
         fr: "La bague mesure la fréquence cardiaque en continu et la fréquence cardiaque au repos, utile comme référence personnelle au quotidien. À partir de la variabilité entre les battements (HRV), de nombreux modèles estiment le niveau de récupération: des valeurs inférieures à votre propre moyenne peuvent indiquer de la fatigue ou du stress. Considérez-les comme des indicateurs de votre tendance, et non comme des mesures absolues.",
+        pl: "Pierścień mierzy tętno w sposób ciągły oraz tętno spoczynkowe, przydatne jako codzienny punkt odniesienia. Na podstawie zmienności między uderzeniami (HRV) wiele modeli szacuje poziom regeneracji: wartości poniżej własnej średniej mogą wskazywać na zmęczenie lub stres. Traktuj je jako sygnały dotyczące Twojego trendu, a nie jako pomiary kliniczne.",
+        tr: "Yüzük sürekli kalp hızını ve dinlenme kalp hızını ölçer; bu, günlük kişisel bir referans olarak yararlıdır. Atışlar arası değişkenlikten (HRV) pek çok model toparlanma düzeyini tahmin eder: kendi ortalamanızın altındaki değerler yorgunluğa veya strese işaret edebilir. Bunları klinik ölçüm olarak değil, trendinize ilişkin sinyaller olarak değerlendirin.",
       },
     },
     {
@@ -224,6 +278,8 @@ export const post: BlogPost = {
         de: "SpO2, Temperatur und Stress: abhängig vom Modell",
         pt: "SpO2, temperatura e estresse: depende do modelo",
         fr: "SpO2, température et stress: cela dépend du modèle",
+        pl: "SpO2, temperatura i stres: zależy od modelu",
+        tr: "SpO2, sıcaklık ve stres: modele bağlı",
       },
     },
     {
@@ -235,6 +291,8 @@ export const post: BlogPost = {
         de: "Hier sind die Unterschiede zwischen den Modellen groß. Einige Ringe schätzen die Blutsauerstoffsättigung (SpO2) über Nacht und einen Stressindex aus der Herzfrequenz. Die Hauttemperatur ist nur bei bestimmten Modellen vorhanden und ist oft eine Tendenz im Vergleich zu deinem eigenen Durchschnitt, kein absoluter Wert. Bevor du auf eine bestimmte Metrik setzt, prüfe, ob dein Ring sie wirklich erfasst: nimm es nicht als selbstverständlich hin.",
         pt: "Aqui as diferenças entre modelos são grandes. Alguns anéis estimam a oxigenação do sangue (SpO2) durante a noite e um índice de estresse a partir da frequência cardíaca. A temperatura cutânea está disponível apenas em certos modelos e geralmente é uma tendência em relação à sua própria média, não um valor absoluto. Antes de contar com uma métrica específica, verifique se o seu anel realmente a captura: não presuma que sim.",
         fr: "Ici les différences entre les modèles sont importantes. Certaines bagues estiment l'oxygénation du sang (SpO2) pendant la nuit et un indice de stress à partir de la fréquence cardiaque. La température cutanée n'est disponible que sur certains modèles et représente souvent une tendance par rapport à votre propre moyenne, pas une valeur absolue. Avant de miser sur une métrique spécifique, vérifiez que votre bague la mesure vraiment: ne le supposez pas.",
+        pl: "Tutaj różnice między modelami są duże. Niektóre pierścienie szacują utlenowanie krwi (SpO2) w nocy i indeks stresu z tętna. Temperatura skóry jest dostępna tylko w pewnych modelach i często jest trendem względem Twojej własnej średniej, a nie wartością bezwzględną. Zanim zapomnisz o konkretnym wskaźniku, sprawdź, czy Twój pierścień naprawdę go rejestruje — nie zakładaj z góry.",
+        tr: "Burada modeller arasındaki farklar büyüktür. Bazı yüzükler gece boyunca kan oksijeni (SpO2) ve kalp hızından stres endeksini tahmin eder. Deri sıcaklığı yalnızca belirli modellerde mevcuttur ve genellikle mutlak bir değer değil, kendi ortalamanıza göre bir eğilimdir. Belirli bir metriğe güvenmeden önce yüzüğünüzün onu gerçekten ölçüp ölçmediğini kontrol edin — varsaymayın.",
       },
     },
     {
@@ -247,6 +305,8 @@ export const post: BlogPost = {
         de: "Schritte und Aktivität: die Grenzen",
         pt: "Passos e atividade: os limites",
         fr: "Pas et activité: les limites",
+        pl: "Kroki i aktywność: ograniczenia",
+        tr: "Adımlar ve aktivite: sınırlamalar",
       },
     },
     {
@@ -258,6 +318,8 @@ export const post: BlogPost = {
         de: "Der Ring zählt Schritte und schätzt Kalorien, ist aber am Finger für Bewegung weniger präzise als am Handgelenk und zeichnet keine GPS-Strecken auf. Für Spaziergänge und leichte Aktivität ist er gut geeignet; für Laufen, Radfahren oder strukturiertes Training bleibt die Smartwatch überlegen. Es ist eine Einschränkung des Formfaktors, kein Defekt: Jedes Gerät hat seinen Moment.",
         pt: "O anel conta os passos e estima as calorias, mas no dedo é menos preciso do que no pulso para o movimento e não registra rotas com GPS. Para caminhadas e atividade leve vai bem; para corrida, ciclismo ou treino estruturado de academia o smartwatch continua superior. É um limite de formato, não um defeito: cada dispositivo tem o seu momento.",
         fr: "La bague compte les pas et estime les calories, mais au doigt elle est moins précise que le poignet pour le mouvement et n'enregistre pas de tracés GPS. Pour les marches et les activités légères, elle convient bien; pour la course, le vélo ou la salle de sport structurée, la montre connectée reste supérieure. C'est une limite liée au facteur de forme, pas un défaut: chaque appareil a son moment.",
+        pl: "Pierścień liczy kroki i szacuje kalorie, ale na palcu jest mniej precyzyjny niż na nadgarstku przy ruchu i nie rejestruje tras GPS. Do spacerów i lekkiej aktywności sprawdza się dobrze; do biegania, jazdy na rowerze czy ustrukturyzowanego treningu smartwatch pozostaje lepszym wyborem. To ograniczenie formy, nie wada: każde urządzenie ma swój moment.",
+        tr: "Yüzük adımları sayar ve kalorileri tahmin eder; ancak parmakta hareketi nabız bandına kıyasla daha az hassas ölçer ve GPS rotası kaydetmez. Yürüyüşler ve hafif aktiviteler için uygundur; koşu, bisiklet veya yapılandırılmış spor salonu çalışmaları için smartwatch üstün kalmaya devam eder. Bu bir form faktörü kısıtlamasıdır, kusur değil: her cihazın kendine özgü bir zamanı vardır.",
       },
     },
     {
@@ -270,6 +332,8 @@ export const post: BlogPost = {
         de: "Wie man einen Smart-Ring auswählt",
         pt: "Como escolher um anel inteligente",
         fr: "Comment choisir une bague connectée",
+        pl: "Jak wybrać inteligentny pierścień",
+        tr: "Akıllı yüzük nasıl seçilir",
       },
     },
     {
@@ -317,6 +381,20 @@ export const post: BlogPost = {
           "**Compatibilité**: vérifiez Android et iPhone, et si les données peuvent quitter l'application du fabricant (pour ne pas être enfermé dans un seul écosystème).",
           "**Abonnements**: certains modèles premium demandent un abonnement pour les fonctions avancées. Les bagues abordables généralement non.",
         ],
+        pl: [
+          "**Co naprawdę mierzy**: upewnij się, że model rejestruje metryki, na których Ci zależy (np. SpO2 lub temperatura nie są powszechne).",
+          "**Bateria**: większość pierścieni wytrzymuje 5-7 dni. To jedna z głównych zalet — nie rezygnuj z niej.",
+          "**Rozmiar i pasowanie**: pierścień musi dobrze pasować, by poprawnie odczytywać dane. Przed zakupem poszukaj zestawu do mierzenia.",
+          "**Kompatybilność**: sprawdź Android i iPhone, oraz czy dane mogą opuścić aplikację producenta (żeby nie być przywiązanym do jednego ekosystemu).",
+          "**Subskrypcje**: niektóre modele premium wymagają subskrypcji dla zaawansowanych funkcji. Tanie pierścienie zazwyczaj nie.",
+        ],
+        tr: [
+          "**Gerçekte ne ölçtüğü**: modelin önem verdiğiniz metrikleri yakaladığını doğrulayın (örn. SpO2 veya sıcaklık evrensel değildir).",
+          "**Pil**: çoğu yüzük 5-7 gün sürer. Bu başlıca avantajlardan biridir, vazgeçmeyin.",
+          "**Boyutlandırma**: yüzüğün verileri doğru okuyabilmesi için iyi oturması gerekir. Satın almadan önce ölçüm kiti arayın.",
+          "**Uyumluluk**: Android ve iPhone'u kontrol edin; verilerin üreticinin uygulamasından çıkıp çıkamayacağını kontrol edin (tek bir ekosisteme kilitlenmemek için).",
+          "**Abonelikler**: bazı premium modeller gelişmiş özellikler için abonelik gerektirir. Uygun fiyatlı yüzükler genellikle gerektirmez.",
+        ],
       },
     },
     {
@@ -329,6 +407,8 @@ export const post: BlogPost = {
         de: "Smart-Ring oder Smartwatch?",
         pt: "Anel inteligente ou smartwatch?",
         fr: "Bague connectée ou montre connectée?",
+        pl: "Inteligentny pierścień czy smartwatch?",
+        tr: "Akıllı yüzük mü yoksa smartwatch mı?",
       },
     },
     {
@@ -340,6 +420,8 @@ export const post: BlogPost = {
         de: "Die häufigste Frage hat eine kurze Antwort: Sie sind keine Konkurrenten. Der Ring ist nachts und beim passiven Monitoring überlegen, die Uhr tagsüber für Sport, GPS und Benachrichtigungen. Die beste Wahl, wenn möglich, ist beide zu verwenden. Diesem Vergleich haben wir eine eigene Anleitung gewidmet: [Smart-Ring oder Smartwatch, welche wählen](/de/blog/anello-vs-smartwatch).",
         pt: "A pergunta mais frequente tem uma resposta curta: eles não são concorrentes. O anel se destaca à noite e no monitoramento passivo, o smartwatch durante o dia para esporte, GPS e notificações. A melhor escolha, quando possível, é usar os dois. Dedicamos a essa comparação um guia separado: [anel inteligente ou smartwatch, qual escolher](/pt/blog/anello-vs-smartwatch).",
         fr: "La question la plus fréquente a une réponse courte: ils ne sont pas en concurrence. La bague excelle la nuit et pour le suivi passif, la montre pendant la journée pour le sport, le GPS et les notifications. Le meilleur choix, quand c'est possible, est de les utiliser ensemble. Nous consacrons à cette comparaison un guide dédié: [bague connectée ou montre connectée, laquelle choisir](/fr/blog/anello-vs-smartwatch).",
+        pl: "Najczęściej zadawane pytanie ma krótką odpowiedź: nie konkurują ze sobą. Pierścień wyróżnia się w nocy i przy pasywnym monitorowaniu, smartwatch w ciągu dnia do sportu, GPS i powiadomień. Najlepszym wyborem, gdy tylko to możliwe, jest używanie obu. Temu porównaniu poświęcamy osobny przewodnik: [inteligentny pierścień czy smartwatch — który wybrać](/pl/blog/anello-vs-smartwatch).",
+        tr: "En sık sorulan sorunun kısa bir yanıtı var: rekabet etmiyorlar. Yüzük gece ve pasif izlemede, smartwatch gün içinde spor, GPS ve bildirimler için öne çıkar. Mümkün olduğunda en iyi seçenek ikisini birlikte kullanmaktır. Bu karşılaştırmayı ayrı bir rehberde ele alıyoruz: [akıllı yüzük mü smartwatch mı — hangisini seçmelisiniz](/tr/blog/anello-vs-smartwatch).",
       },
     },
     {
@@ -352,6 +434,8 @@ export const post: BlogPost = {
         de: "Günstige Smart-Ringe: Funktionieren sie wirklich?",
         pt: "Anéis inteligentes econômicos: eles realmente funcionam?",
         fr: "Bagues connectées abordables: fonctionnent-elles vraiment?",
+        pl: "Tanie inteligentne pierścienie: czy naprawdę działają?",
+        tr: "Uygun fiyatlı akıllı yüzükler: gerçekten işe yarıyor mu?",
       },
     },
     {
@@ -363,6 +447,8 @@ export const post: BlogPost = {
         de: "Du musst keine Hunderte von Euro ausgeben, um anzufangen. Erschwingliche Modelle wie der Colmi-Ring erfassen die grundlegenden Metriken (Schlaf, Herzfrequenz, SpO2), die nützlich sind, um deine persönlichen Trends zu verfolgen. Der Unterschied zu Premium-Modellen liegt in der Verfeinerung der Algorithmen und einigen zusätzlichen Metriken, nicht darin, ob sie messen oder nicht. Zum Einstieg findest du die [Colmi-Ring-Anleitung mit FitMesh](/de/blog/colmi-ring-fitmesh), das [Schritt-für-Schritt-Setup des Colmi R02](/de/blog/colmi-r02-setup) und eine [Übersicht günstiger Ringe](/de/blog/migliori-anelli-economici).",
         pt: "Não é preciso gastar centenas de euros para começar. Modelos acessíveis como o anel Colmi coletam as métricas básicas (sono, frequência cardíaca, SpO2) úteis para acompanhar suas tendências pessoais. A diferença em relação aos modelos premium está no refinamento dos algoritmos e em algumas métricas extras, não em medir ou não. Para começar, veja o [guia do anel Colmi com FitMesh](/pt/blog/colmi-ring-fitmesh), o [setup passo a passo do Colmi R02](/pt/blog/colmi-r02-setup) e uma [visão geral dos anéis econômicos](/pt/blog/migliori-anelli-economici).",
         fr: "Vous n'avez pas besoin de dépenser des centaines d'euros pour commencer. Des modèles accessibles comme la bague Colmi collectent les métriques de base (sommeil, fréquence cardiaque, SpO2) utiles pour suivre vos tendances personnelles. La différence avec les modèles premium réside dans la sophistication des algorithmes et quelques métriques supplémentaires, pas dans le fait de mesurer ou non. Pour démarrer, consultez le [guide de la bague Colmi avec FitMesh](/fr/blog/colmi-ring-fitmesh), la [configuration étape par étape du Colmi R02](/fr/blog/colmi-r02-setup) et un [aperçu des bagues abordables](/fr/blog/migliori-anelli-economici).",
+        pl: "Nie musisz wydawać setek euro, żeby zacząć. Przystępne cenowo modele, takie jak pierścień Colmi, zbierają podstawowe metryki (sen, tętno, SpO2) przydatne do śledzenia osobistych trendów. Różnica w stosunku do modeli premium leży w dopracowaniu algorytmów i kilku dodatkowych metrykach, a nie w tym, czy w ogóle mierzą. Na start znajdziesz [przewodnik po pierścieniu Colmi z FitMesh](/pl/blog/colmi-ring-fitmesh), [konfigurację krok po kroku Colmi R02](/pl/blog/colmi-r02-setup) i [przegląd tanich pierścieni](/pl/blog/migliori-anelli-economici).",
+        tr: "Başlamak için yüzlerce euro harcamanıza gerek yok. Colmi yüzüğü gibi uygun fiyatlı modeller, kişisel trendleri takip etmek için yararlı temel metrikleri (uyku, kalp hızı, SpO2) toplar. Premium modeller arasındaki fark, algoritma rafineliği ve birkaç ekstra metrikte yatar, ölçüm yapıp yapmadıklarında değil. Başlamak için [FitMesh ile Colmi yüzük rehberi](/tr/blog/colmi-ring-fitmesh), [Colmi R02 adım adım kurulum](/tr/blog/colmi-r02-setup) ve [uygun fiyatlı yüzüklere genel bakış](/tr/blog/migliori-anelli-economici) sayfalarına bakın.",
       },
     },
     {
@@ -375,6 +461,8 @@ export const post: BlogPost = {
         de: "Smart-Ring zur Begleitung eines älteren Elternteils",
         pt: "Anel inteligente para acompanhar um familiar idoso",
         fr: "Bague connectée pour suivre un parent âgé",
+        pl: "Inteligentny pierścień do monitorowania starszego rodzica",
+        tr: "Yaşlı bir ebeveyn için akıllı yüzük kullanmak",
       },
     },
     {
@@ -386,6 +474,8 @@ export const post: BlogPost = {
         de: "Für ältere Erwachsene hat der Ring einen praktischen Vorteil: Man trägt ihn und vergisst ihn, ohne Bildschirme zu verwalten oder täglich aufzuladen. Er ermöglicht die diskrete Verfolgung von Schlaf und Ruheherzfrequenz. Wenn dich dieser Fall interessiert, sieh dir die Anleitung an, [welches Gerät man für ältere Erwachsene wählen sollte](/de/blog/best-smartwatch-for-elderly); mit FitMesh Sync und Mesh Familie können die Daten mit einem Familienmitglied unter Wahrung des Datenschutzes geteilt werden.",
         pt: "Para uma pessoa idosa, o anel tem uma vantagem prática: coloca-se e esquece-se, sem telas para gerenciar ou recargas diárias. Permite acompanhar o sono e a frequência cardíaca em repouso de forma discreta. Se esse for o seu caso, veja o guia sobre [qual dispositivo escolher para uma pessoa idosa](/pt/blog/best-smartwatch-for-elderly); com FitMesh Sync e Mesh Família os dados podem ser compartilhados com um familiar respeitando a privacidade.",
         fr: "Pour une personne âgée, la bague présente un avantage pratique: on la porte et on l'oublie, sans écrans à gérer ni recharges quotidiennes. Elle permet de suivre le sommeil et la fréquence cardiaque au repos de manière discrète. Si c'est votre cas, consultez le guide sur [quel appareil choisir pour une personne âgée](/fr/blog/best-smartwatch-for-elderly); avec FitMesh Sync et Mesh Famille, les données peuvent être partagées avec un membre de la famille dans le respect de la confidentialité.",
+        pl: "Dla osoby starszej pierścień ma praktyczną zaletę: zakłada się go i zapomina — bez ekranów do obsługi, bez codziennego ładowania. Pozwala dyskretnie śledzić sen i tętno spoczynkowe. Jeśli to Twój przypadek, zapoznaj się z przewodnikiem po [wyborze urządzenia dla osoby starszej](/pl/blog/best-smartwatch-for-elderly); z FitMesh Sync i Mesh Rodzina dane można udostępniać członkowi rodziny z poszanowaniem prywatności.",
+        tr: "Yaşlı bir kişi için yüzüğün pratik bir avantajı vardır: takılır ve unutulur, yönetilecek ekran yok, günlük şarj yok. Uyku ve dinlenme kalp hızını gizlice takip etmenizi sağlar. Bu sizin durumunuzsa, [yaşlı yetişkinler için cihaz seçim rehberine](/tr/blog/best-smartwatch-for-elderly) bakın; FitMesh Sync ve Mesh Aile ile veriler gizlilik gözetilerek bir aile üyesiyle paylaşılabilir.",
       },
     },
     {
@@ -398,6 +488,8 @@ export const post: BlogPost = {
         de: "Smart-Ring mit iPhone und Android",
         pt: "Anel inteligente no iPhone e Android",
         fr: "Bague connectée sur iPhone et Android",
+        pl: "Inteligentny pierścień na iPhone i Androidzie",
+        tr: "iPhone ve Android'de akıllı yüzük",
       },
     },
     {
@@ -409,6 +501,8 @@ export const post: BlogPost = {
         de: "Viele günstige Ringe sind für Android über Bluetooth konzipiert. Der nicht zu unterschätzende Punkt ist, wo die Daten landen: In der Hersteller-App eingeschlossen zu bleiben macht es schwierig, sie mit allem anderen zu kombinieren. Mit FitMesh Sync können deine Ringdaten über eine optionale Brücke auch in HealthKit auf dem iPhone einfließen: Details findest du in der Anleitung [Smart-Ring-Daten in HealthKit](/de/blog/dati-anello-smart-apple-salute).",
         pt: "Muitos anéis econômicos são projetados para Android via Bluetooth. O ponto que não deve ser negligenciado é onde os dados acabam: ficar preso no aplicativo do fabricante dificulta combiná-los com todo o resto. Com FitMesh Sync os dados do seu anel também podem fluir para o HealthKit no iPhone via uma ponte opcional: os detalhes estão no guia [dados do anel inteligente no HealthKit](/pt/blog/dati-anello-smart-apple-salute).",
         fr: "De nombreuses bagues abordables sont conçues pour Android via Bluetooth. Le point à ne pas négliger est l'endroit où les données se retrouvent: rester enfermé dans l'application du fabricant rend difficile leur combinaison avec le reste. Avec FitMesh Sync, les données de votre bague peuvent également transiter vers HealthKit sur iPhone via un pont optionnel: les détails sont dans le guide [données de la bague connectée dans HealthKit](/fr/blog/dati-anello-smart-apple-salute).",
+        pl: "Wiele tanich pierścieni jest zoptymalizowanych pod Androida przez Bluetooth. Punkt, którego nie należy przeoczyć, to to, gdzie trafiają dane: pozostawanie zamkniętym w aplikacji producenta utrudnia łączenie ich z resztą. Dzięki FitMesh Sync dane z pierścienia mogą trafić do Apple Zdrowie na iPhonie przez opcjonalny mostek: szczegóły znajdziesz w przewodniku [dane inteligentnego pierścienia w Apple Zdrowie](/pl/blog/dati-anello-smart-apple-salute).",
+        tr: "Pek çok uygun fiyatlı yüzük Bluetooth üzerinden Android için tasarlanmıştır. Gözden kaçırılmaması gereken nokta, verilerin nereye gittiğidir: üreticinin uygulamasında kilitli kalmak bunları diğer verilerle birleştirmeyi zorlaştırır. FitMesh Sync ile yüzük verileriniz isteğe bağlı bir köprü aracılığıyla iPhone'daki Apple Sağlık'a da aktarılabilir: ayrıntılar [akıllı yüzük verileri Apple Sağlık'ta rehberi](/tr/blog/dati-anello-smart-apple-salute) sayfasında.",
       },
     },
     {
@@ -421,6 +515,8 @@ export const post: BlogPost = {
         de: "Der wahre Mehrwert: alle deine Daten an einem Ort",
         pt: "O valor real: todos os seus dados em um único lugar",
         fr: "La vraie valeur: toutes vos données au même endroit",
+        pl: "Prawdziwa wartość: wszystkie Twoje dane w jednym miejscu",
+        tr: "Gerçek değer: tüm verileriniz tek bir yerde",
       },
     },
     {
@@ -432,6 +528,8 @@ export const post: BlogPost = {
         de: "Ein Ring allein gibt dir die Hälfte des Bildes; die Smartwatch die andere Hälfte. Der Qualitätssprung kommt, wenn die beiden miteinander kommunizieren. FitMesh Sync liest deinen Ring (einschließlich günstiger Modelle wie Colmi) und deine Smartwatch, richtet die Daten auf der gleichen Zeitachse aus und zeigt sie in einem einzigen Dashboard an, ohne Schritte und Kalorien doppelt zu zählen. So erhältst du den vollständigen Tag: Nacht vom Ring, Aktivität von der Uhr, alles zusammen.",
         pt: "Um anel sozinho te dá a metade do quadro; o smartwatch a outra metade. O salto de qualidade acontece quando os dois se comunicam. FitMesh Sync lê o seu anel (incluindo modelos econômicos como o Colmi) e o seu smartwatch, alinha os dados na mesma linha do tempo e os exibe em um único painel, sem contar passos e calorias duas vezes. Assim você obtém o dia completo: a noite do anel, a atividade do smartwatch, tudo junto.",
         fr: "Une bague seule vous donne la moitié du tableau; la montre connectée l'autre moitié. Le saut de qualité arrive quand les deux communiquent entre eux. FitMesh Sync lit votre bague (y compris les modèles abordables comme Colmi) et votre montre connectée, aligne les données sur la même chronologie et les affiche dans un seul tableau de bord, sans compter les pas et les calories deux fois. Vous obtenez ainsi la journée complète: la nuit depuis la bague, l'activité depuis la montre, le tout ensemble.",
+        pl: "Pierścień sam w sobie daje Ci połowę obrazu; smartwatch — drugą połowę. Skok jakościowy następuje, gdy oba ze sobą rozmawiają. FitMesh Sync odczytuje Twój pierścień (w tym tanie modele jak Colmi) i Twój smartwatch, wyrównuje dane na tej samej osi czasu i wyświetla w jednym panelu — bez dwukrotnego liczenia kroków i kalorii. Otrzymujesz pełny dzień: noc od pierścienia, aktywność od smartwatcha — wszystko razem.",
+        tr: "Tek başına yüzük size yarım resmi verir; smartwatch diğer yarısını. Kalite sıçraması her ikisi birbirini konuştuğunda gelir. FitMesh Sync yüzüğünüzü (Colmi gibi uygun fiyatlı modeller dahil) ve smartwatch'unuzu okur, verileri aynı zaman çizelgesinde hizalar ve adım ile kalorileri iki kez saymadan tek bir panelde gösterir. Tam günü elde edersiniz: yüzükten gece, smartwatch'tan aktivite — hepsi birlikte.",
       },
     },
     {
@@ -444,6 +542,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
       body: {
         it: "Scegli l'anello per cosa misura davvero e per la comodità 24 ore, non solo per il prezzo. Poi fai in modo che i suoi dati non restino isolati: il valore cresce quando si uniscono a quelli degli altri tuoi device.",
@@ -452,6 +552,8 @@ export const post: BlogPost = {
         de: "Wähle den Ring danach, was er wirklich misst und nach dem 24-Stunden-Tragekomfort, nicht nur nach dem Preis. Dann sorge dafür, dass seine Daten nicht isoliert bleiben: Der Mehrwert wächst, wenn sie sich mit denen deiner anderen Geräte verbinden.",
         pt: "Escolha o anel pelo que ele realmente mede e pelo conforto de uso 24 horas, não apenas pelo preço. Depois garanta que os dados não fiquem isolados: o valor cresce quando se unem aos dos seus outros dispositivos.",
         fr: "Choisissez la bague pour ce qu'elle mesure vraiment et pour le confort 24 h sur 24, pas seulement pour le prix. Ensuite, assurez-vous que ses données ne restent pas isolées: la valeur augmente quand elles rejoignent celles de vos autres appareils.",
+        pl: "Wybieraj pierścień ze względu na to, co naprawdę mierzy, i całodobowy komfort noszenia — nie tylko ze względu na cenę. Następnie zadbaj o to, by jego dane nie pozostawały w izolacji: wartość rośnie, gdy łączą się z danymi innych urządzeń.",
+        tr: "Yüzüğü gerçekte ne ölçtüğü ve 7/24 konfor için seçin, yalnızca fiyat için değil. Ardından verilerinin izole kalmamasını sağlayın: diğer cihazlarınızın verileriyle birleştiğinde değer artar.",
       },
     },
     {
@@ -463,6 +565,8 @@ export const post: BlogPost = {
         de: "Ring und Smartwatch mit FitMesh Sync verbinden",
         pt: "Una anel e smartwatch com FitMesh Sync",
         fr: "Réunissez bague et montre connectée avec FitMesh Sync",
+        pl: "Połącz pierścień i smartwatch z FitMesh Sync",
+        tr: "FitMesh Sync ile yüzüğü ve smartwatch'u birleştirin",
       },
       body: {
         it: "FitMesh Sync e' in beta privata. I primi 1000 iscritti ottengono 1 anno di Pro gratis, inclusa la fusione multi-device di anello e smartwatch in un'unica dashboard. Iscriviti ora per tenere il posto.",
@@ -471,6 +575,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync befindet sich in der privaten Beta. Die ersten 1.000 Anmeldungen erhalten 1 Jahr Pro kostenlos, einschließlich der Multi-Device-Zusammenführung von Ring und Smartwatch in einem einzigen Dashboard. Melde dich jetzt an, um deinen Platz zu sichern.",
         pt: "FitMesh Sync está em beta privado. Os primeiros 1.000 cadastros recebem 1 ano de Pro grátis, incluindo a fusão multi-device de anel e smartwatch em um único painel. Cadastre-se agora para garantir seu lugar.",
         fr: "FitMesh Sync est en bêta privée. Les 1 000 premiers inscrits bénéficient de 1 an de Pro gratuit, incluant la fusion multi-appareils de bague et montre connectée dans un seul tableau de bord. Inscrivez-vous maintenant pour conserver votre place.",
+        pl: "FitMesh Sync jest w prywatnej becie. Pierwsze 1000 zarejestrowanych osób otrzymuje 1 rok Pro za darmo, w tym łączenie wielu urządzeń (pierścień + smartwatch) w jednym panelu. Zarejestruj się teraz, by zachować swoje miejsce.",
+        tr: "FitMesh Sync özel beta aşamasındadır. İlk 1.000 kayıt, tek bir panelde yüzük ve smartwatch çoklu cihaz birleştirmesi dahil 1 yıllık Pro'yu ücretsiz alır. Yerinizi korumak için şimdi kaydolun.",
       },
       ctaLabel: {
         it: "Iscriviti alla beta →",
@@ -479,6 +585,8 @@ export const post: BlogPost = {
         de: "Zur Beta anmelden →",
         pt: "Cadastre-se na beta →",
         fr: "S'inscrire à la bêta →",
+        pl: "Dołącz do bety →",
+        tr: "Beta'ya katıl →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -495,6 +603,8 @@ export const post: BlogPost = {
         de: "Was misst ein Smart-Ring?",
         pt: "O que um anel inteligente mede?",
         fr: "Que mesure une bague connectée?",
+        pl: "Co mierzy inteligentny pierścień?",
+        tr: "Akıllı yüzük ne ölçer?",
       },
       a: {
         it: "La maggior parte degli anelli misura sonno e fasi, frequenza cardiaca continua e a riposo, variabilità (HRV) e movimento/passi. Alcuni modelli aggiungono SpO2, un indice di stress e la temperatura cutanea. Le metriche esatte dipendono dal modello: verifica sempre la scheda del tuo anello.",
@@ -503,6 +613,8 @@ export const post: BlogPost = {
         de: "Die meisten Ringe messen Schlaf und Schlafphasen, kontinuierliche und Ruheherzfrequenz, Variabilität (HRV) und Bewegung/Schritte. Einige Modelle fügen SpO2, einen Stressindex und die Hauttemperatur hinzu. Die genauen Metriken hängen vom Modell ab: Prüfe immer das Datenblatt deines Rings.",
         pt: "A maioria dos anéis mede sono e fases, frequência cardíaca contínua e em repouso, variabilidade (HRV) e movimento/passos. Alguns modelos adicionam SpO2, um índice de estresse e a temperatura cutânea. As métricas exatas dependem do modelo: verifique sempre a ficha técnica do seu anel.",
         fr: "La plupart des bagues mesurent le sommeil et ses phases, la fréquence cardiaque en continu et au repos, la variabilité (HRV) et le mouvement/les pas. Certains modèles ajoutent le SpO2, un indice de stress et la température cutanée. Les métriques exactes dépendent du modèle: consultez toujours la fiche technique de votre bague.",
+        pl: "Większość pierścieni mierzy sen i fazy snu, ciągłe tętno i tętno spoczynkowe, zmienność (HRV) oraz ruch/kroki. Niektóre modele dodają SpO2, indeks stresu i temperaturę skóry. Dokładne metryki zależą od modelu — zawsze sprawdzaj specyfikację swojego pierścienia.",
+        tr: "Çoğu yüzük uyku ve evrelerini, sürekli ve dinlenme kalp hızını, değişkenliği (HRV) ve hareket/adımları ölçer. Bazı modeller SpO2, stres endeksi ve deri sıcaklığını da ekler. Tam metrikler modele göre değişir — her zaman yüzüğünüzün özelliklerini kontrol edin.",
       },
     },
     {
@@ -513,6 +625,8 @@ export const post: BlogPost = {
         de: "Wie genau ist ein Smart-Ring für den Schlaf?",
         pt: "Qual é a precisão de um anel inteligente para o sono?",
         fr: "Quelle est la précision d'une bague connectée pour le sommeil?",
+        pl: "Jak precyzyjny jest inteligentny pierścień w śledzeniu snu?",
+        tr: "Akıllı yüzük uyku takibinde ne kadar doğrudur?",
       },
       a: {
         it: "Per durata del sonno e risvegli gli anelli sono in genere affidabili, anche grazie al fatto che li tieni tutta la notte. La stima delle fasi (leggero, profondo, REM) e' indicativa: utile per seguire i tuoi trend, non come misura clinica. Vanno interpretati come dati personali.",
@@ -521,6 +635,8 @@ export const post: BlogPost = {
         de: "Für Schlafdauer und Aufwachmomente sind Ringe im Allgemeinen zuverlässig, auch weil man sie die ganze Nacht trägt. Die Schätzung der Schlafphasen (Leichtschlaf, Tiefschlaf, REM) ist orientierend: nützlich zum Verfolgen deiner Trends, nicht als absolute Messung. Interpretiere sie als persönliche Daten.",
         pt: "Para duração do sono e despertares, os anéis são geralmente confiáveis, ajudados pelo fato de que você os mantém a noite toda. A estimativa das fases (leve, profundo, REM) é indicativa: útil para acompanhar suas tendências, não como uma medida absoluta. Interprete-os como dados pessoais.",
         fr: "Pour la durée du sommeil et les réveils, les bagues sont généralement fiables, aidées par le fait qu'on les porte toute la nuit. L'estimation des phases (léger, profond, REM) est indicative: utile pour suivre ses tendances, pas comme mesure absolue. Considérez-les comme des données personnelles.",
+        pl: "W kwestii czasu trwania snu i przebudzeń pierścienie są generalnie wiarygodne, czemu sprzyja fakt, że nosisz je całą noc. Szacowanie faz (lekki, głęboki, REM) jest orientacyjne: przydatne do śledzenia Twoich trendów, a nie jako miara kliniczna. Traktuj je jako dane osobiste.",
+        tr: "Uyku süresi ve uyanışlar için yüzükler genel olarak güvenilirdir; bunda geceleri takmış olmanızın katkısı büyüktür. Evre tahmini (hafif, derin, REM) göstergeseldir: trendlerinizi takip etmek için yararlı, klinik ölçüm olarak değil. Bunları kişisel veri olarak okuyun.",
       },
     },
     {
@@ -531,6 +647,8 @@ export const post: BlogPost = {
         de: "Misst ein Smart-Ring den Blutdruck oder die Temperatur?",
         pt: "Um anel inteligente mede a pressão arterial ou a temperatura?",
         fr: "Une bague connectée mesure-t-elle la pression artérielle ou la température?",
+        pl: "Czy inteligentny pierścień mierzy ciśnienie krwi lub temperaturę?",
+        tr: "Akıllı yüzük kan basıncını veya sıcaklığı ölçüyor mu?",
       },
       a: {
         it: "La pressione del sangue non e' una funzione affidabile sugli anelli di consumo: diffida dei claim. La temperatura cutanea e' presente solo su alcuni modelli e di solito come tendenza rispetto alla tua media, non come valore assoluto. Sono dati di benessere, non strumenti diagnostici.",
@@ -539,6 +657,8 @@ export const post: BlogPost = {
         de: "Blutdruck ist keine zuverlässige Funktion bei Consumer-Ringen: Sei vorsichtig bei solchen Aussagen. Die Hauttemperatur ist nur bei einigen Modellen vorhanden und meist als Tendenz im Vergleich zu deinem eigenen Durchschnitt, nicht als absoluter Wert. Das sind Wellness-Signale, keine Diagnosewerkzeuge.",
         pt: "A pressão arterial não é uma função confiável nos anéis de consumo: desconfie de tais afirmações. A temperatura cutânea está disponível apenas em alguns modelos e geralmente como uma tendência em relação à sua própria média, não como valor absoluto. São dados de bem-estar, não ferramentas de avaliação.",
         fr: "La pression artérielle n'est pas une fonctionnalité fiable sur les bagues grand public: méfiez-vous de telles affirmations. La température cutanée n'est disponible que sur certains modèles et généralement comme une tendance par rapport à votre propre moyenne, pas une valeur absolue. Ce sont des indicateurs de bien-être, pas des outils d'évaluation.",
+        pl: "Ciśnienie krwi nie jest niezawodną funkcją konsumenckich pierścieni — zachowaj ostrożność wobec takich twierdzeń. Temperatura skóry jest dostępna tylko w niektórych modelach i zazwyczaj jako trend względem Twojej własnej średniej, a nie wartość bezwzględna. Są to sygnały wellness, a nie narzędzia diagnostyczne.",
+        tr: "Kan basıncı tüketici yüzüklerinde güvenilir bir özellik değildir — bu tür iddialara karşı temkinli olun. Deri sıcaklığı yalnızca bazı modellerde mevcuttur ve genellikle mutlak bir değer değil, kendi ortalamanıza göre bir eğilimdir. Bunlar sağlık sinyalleri, tanı araçları değildir.",
       },
     },
     {
@@ -549,6 +669,8 @@ export const post: BlogPost = {
         de: "Ist ein günstiger Smart-Ring so gut wie ein teurer?",
         pt: "Um anel inteligente econômico vale tanto quanto um caro?",
         fr: "Une bague connectée abordable vaut-elle une bague chère?",
+        pl: "Czy tani inteligentny pierścień jest tak dobry jak drogi?",
+        tr: "Uygun fiyatlı akıllı yüzük pahalısı kadar iyi mi?",
       },
       a: {
         it: "Per le metriche di base (sonno, frequenza cardiaca, SpO2) un anello economico come Colmi raccoglie dati utili per seguire i tuoi trend. I modelli premium offrono algoritmi piu' raffinati, qualche metrica extra e a volte un abbonamento. Per iniziare e capire se l'anello fa per te, un modello economico e' una scelta sensata.",
@@ -557,6 +679,8 @@ export const post: BlogPost = {
         de: "Für grundlegende Metriken (Schlaf, Herzfrequenz, SpO2) sammelt ein günstiger Ring wie Colmi nützliche Daten zum Verfolgen deiner Trends. Premium-Modelle bieten verfeinertere Algorithmen, einige zusätzliche Metriken und manchmal ein Abonnement. Um anzufangen und zu sehen, ob ein Ring zu dir passt, ist ein günstiges Modell eine vernünftige Wahl.",
         pt: "Para as métricas básicas (sono, frequência cardíaca, SpO2) um anel econômico como o Colmi coleta dados úteis para acompanhar suas tendências. Os modelos premium oferecem algoritmos mais refinados, algumas métricas extras e às vezes uma assinatura. Para começar e ver se um anel é para você, um modelo econômico é uma escolha sensata.",
         fr: "Pour les métriques de base (sommeil, fréquence cardiaque, SpO2), une bague abordable comme Colmi collecte des données utiles pour suivre vos tendances. Les modèles premium offrent des algorithmes plus sophistiqués, quelques métriques supplémentaires et parfois un abonnement. Pour démarrer et voir si une bague vous convient, un modèle abordable est un choix judicieux.",
+        pl: "Jeśli chodzi o podstawowe metryki (sen, tętno, SpO2), tani pierścień jak Colmi zbiera dane przydatne do śledzenia Twoich trendów. Modele premium oferują bardziej dopracowane algorytmy, kilka dodatkowych metryk i czasem subskrypcję. Na dobry start i sprawdzenie, czy pierścień jest dla Ciebie, tani model to sensowny wybór.",
+        tr: "Temel metrikler (uyku, kalp hızı, SpO2) için Colmi gibi uygun fiyatlı bir yüzük, trendlerinizi takip etmek için yararlı veriler toplar. Premium modeller daha rafine algoritmalar, birkaç ekstra metrik ve bazen abonelik sunar. Başlamak ve yüzüğün size uygun olup olmadığını görmek için uygun fiyatlı bir model mantıklı bir seçimdir.",
       },
     },
     {
@@ -567,6 +691,8 @@ export const post: BlogPost = {
         de: "Braucht man ein Abonnement für einen Smart-Ring?",
         pt: "É necessária uma assinatura para usar um anel inteligente?",
         fr: "Faut-il un abonnement pour utiliser une bague connectée?",
+        pl: "Czy do używania inteligentnego pierścienia potrzebna jest subskrypcja?",
+        tr: "Akıllı yüzük kullanmak için abonelik gerekiyor mu?",
       },
       a: {
         it: "Dipende dal modello. Alcuni anelli premium richiedono un abbonamento per sbloccare le funzioni avanzate; gli anelli economici di solito no. Con FitMesh Sync i dati dell'anello confluiscono in un'unica dashboard e la beta include 1 anno di Pro gratis per i primi iscritti.",
@@ -575,6 +701,8 @@ export const post: BlogPost = {
         de: "Das hängt vom Modell ab. Einige Premium-Ringe erfordern ein Abonnement, um erweiterte Funktionen freizuschalten; günstige Ringe in der Regel nicht. Mit FitMesh Sync fließen deine Ringdaten in ein einziges Dashboard, und die Beta enthält 1 Jahr Pro kostenlos für frühe Anmeldungen.",
         pt: "Depende do modelo. Alguns anéis premium exigem uma assinatura para desbloquear as funções avançadas; os econômicos geralmente não. Com FitMesh Sync os dados do anel confluem em um único painel, e a beta inclui 1 ano de Pro grátis para os primeiros cadastros.",
         fr: "Cela dépend du modèle. Certaines bagues premium nécessitent un abonnement pour débloquer les fonctions avancées; les bagues abordables généralement non. Avec FitMesh Sync, les données de votre bague affluent dans un seul tableau de bord, et la bêta inclut 1 an de Pro gratuit pour les premiers inscrits.",
+        pl: "To zależy od modelu. Niektóre pierścienie premium wymagają subskrypcji, by odblokować zaawansowane funkcje; tanie pierścienie zazwyczaj nie. Z FitMesh Sync dane z pierścienia trafiają do jednego panelu, a beta obejmuje 1 rok Pro za darmo dla wcześnie zarejestrowanych.",
+        tr: "Modele bağlıdır. Bazı premium yüzükler gelişmiş özellikleri açmak için abonelik gerektirir; uygun fiyatlı yüzükler genellikle gerektirmez. FitMesh Sync ile yüzük verileriniz tek bir panele akar ve beta, erken kayıtlar için 1 yıllık Pro'yu ücretsiz içerir.",
       },
     },
     {
@@ -585,6 +713,8 @@ export const post: BlogPost = {
         de: "Funktioniert ein Smart-Ring mit iPhone und Android?",
         pt: "O anel inteligente funciona com iPhone e Android?",
         fr: "La bague connectée fonctionne-t-elle avec iPhone et Android?",
+        pl: "Czy inteligentny pierścień działa z iPhonem i Androidem?",
+        tr: "Akıllı yüzük iPhone ve Android ile çalışıyor mu?",
       },
       a: {
         it: "Molti anelli economici nascono per Android via Bluetooth, ma la cosa importante e' poter portare i dati fuori dall'app del produttore. FitMesh Sync legge l'anello e, con un unico account, rende i dati accessibili anche su iPhone, con la possibilità di inviarli ad Apple Salute tramite un ponte opzionale.",
@@ -593,6 +723,8 @@ export const post: BlogPost = {
         de: "Viele günstige Ringe sind für Android über Bluetooth konzipiert, aber das Wichtigste ist, die Daten aus der Hersteller-App herausbekommen zu können. FitMesh Sync liest den Ring und macht mit einem einzigen Konto die Daten auch auf dem iPhone zugänglich, mit der Möglichkeit, sie über eine optionale Brücke an HealthKit zu senden.",
         pt: "Muitos anéis econômicos são projetados para Android via Bluetooth, mas o importante é poder levar os dados para fora do aplicativo do fabricante. FitMesh Sync lê o anel e, com uma única conta, torna os dados acessíveis também no iPhone, com a opção de enviá-los ao HealthKit por meio de uma ponte opcional.",
         fr: "De nombreuses bagues abordables sont conçues pour Android via Bluetooth, mais l'important est de pouvoir extraire les données de l'application du fabricant. FitMesh Sync lit la bague et, avec un seul compte, rend les données accessibles également sur iPhone, avec la possibilité de les envoyer à HealthKit via un pont optionnel.",
+        pl: "Wiele tanich pierścieni jest zaprojektowanych dla Androida przez Bluetooth, ale ważne jest możliwość przenoszenia danych poza aplikację producenta. FitMesh Sync odczytuje pierścień i dzięki jednemu kontu udostępnia dane na iPhonie, z opcją przesłania ich do Apple Zdrowie przez opcjonalny mostek.",
+        tr: "Pek çok uygun fiyatlı yüzük Bluetooth üzerinden Android için tasarlanmıştır; ancak önemli olan verileri üreticinin uygulamasından çıkarabilmektir. FitMesh Sync yüzüğü okur ve tek bir hesapla verileri iPhone'da da erişilebilir kılar; isteğe bağlı bir köprü aracılığıyla Apple Sağlık'a gönderme seçeneğiyle.",
       },
     },
   ],

@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Via self-hosted (Raspberry Pi, NAS, Grafana) : contrôle total sans cloud, mais courbe d'apprentissage élevée. Réservé aux utilisateurs techniques.",
       "Via Google Sheets : fonctionne pour les données agrégées (pas, poids, sommeil quotidien), mais ne passe pas à l'échelle pour les données intraday à haute fréquence.",
     ],
+    pl: [
+      "Marki z aktywnym oficjalnym panelem webowym w 2026 roku: Garmin, Polar, Withings, Oura, Whoop i Strava.",
+      "Samsung Health, Apple Health, Fitbit i Xiaomi Mi Fitness nie mają panelu webowego: potrzebne są aplikacje firm trzecich lub self-hosting.",
+      "Przez Health Connect (Android): aplikacje firm trzecich, takie jak FitMesh Sync, odczytują dane i wyświetlają je w przeglądarce. Dojrzałe rozwiązanie, konfiguracja w kilka minut.",
+      "Przez self-hosted (Raspberry Pi, NAS, Grafana): pełna kontrola bez chmury, ale wysoka krzywa uczenia się. Tylko dla zaawansowanych użytkowników.",
+      "Przez Google Sheets: działa dla danych zagregowanych (kroki, waga, dzienny sen), ale nie skaluje się do danych intraday o wysokiej częstotliwości.",
+    ],
+    tr: [
+      "2026'da aktif resmi web paneline sahip markalar: Garmin, Polar, Withings, Oura, Whoop ve Strava.",
+      "Samsung Health, Apple Health, Fitbit ve Xiaomi Mi Fitness'ın web paneli yok: üçüncü taraf uygulamalar veya self-hosting gerekli.",
+      "Health Connect (Android) üzerinden: FitMesh Sync gibi üçüncü taraf uygulamalar verileri okur ve web'de gösterir. Olgun bir çözüm, kurulum birkaç dakika içinde tamamlanır.",
+      "Self-hosted (Raspberry Pi, NAS, Grafana) üzerinden: bulut olmadan tam kontrol, ancak öğrenme eğrisi yüksek. Yalnızca teknik kullanıcılar için.",
+      "Google Sheets üzerinden: toplu veriler (adımlar, kilo, günlük uyku) için çalışır, ancak yüksek frekanslı gün içi verilere ölçeklenmez.",
+    ],
   },
   primaryKeyword: {
     it: "vedere dati smartwatch su pc",
@@ -56,6 +70,8 @@ export const post: BlogPost = {
     es: "ver datos smartwatch en pc",
     pt: "ver dados do smartwatch no pc",
     fr: "voir les données du smartwatch sur pc",
+    pl: "wyświetlanie danych smartwatcha na komputerze",
+    tr: "akıllı saat verilerini bilgisayarda görüntüleme",
   },
   secondaryKeywords: {
     it: [
@@ -82,6 +98,18 @@ export const post: BlogPost = {
       "voir les pas sur pc",
       "voir le sommeil sur ordinateur",
     ],
+    pl: [
+      "panel wearable przeglądarka",
+      "panel webowy smartwatcha",
+      "wyświetlanie kroków na komputerze",
+      "wyświetlanie snu na komputerze",
+    ],
+    tr: [
+      "giyilebilir cihaz paneli tarayıcı",
+      "akıllı saat web paneli",
+      "adımları bilgisayarda görüntüle",
+      "uykuyu bilgisayarda görüntüle",
+    ],
   },
   metaDescription: {
     it: "Vuoi vedere passi, sonno e battito del tuo wearable da browser desktop? Quattro vie reali nel 2026, con pro e contro di ciascuna.",
@@ -90,9 +118,11 @@ export const post: BlogPost = {
     de: "Schritte, Schlaf und Herzfrequenz vom Wearable im Desktop-Browser sehen? Vier reale Wege im Jahr 2026, mit Vor- und Nachteilen jeder Option.",
     pt: "Quer ver passos, sono e frequência cardíaca do seu wearable no navegador do computador? Quatro caminhos reais em 2026, com prós e contras de cada um.",
     fr: "Vous voulez voir vos pas, votre sommeil et votre fréquence cardiaque depuis un navigateur de bureau ? Quatre solutions concrètes en 2026, avec les avantages et inconvénients de chacune.",
+    pl: "Chcesz zobaczyć kroki, sen i tętno ze swojego urządzenia wearable w przeglądarce na komputerze? Cztery realne ścieżki w 2026 roku, z zaletami i wadami każdej z nich.",
+    tr: "Giyilebilir cihazınızdaki adımları, uykuyu ve kalp atış hızını masaüstü tarayıcınızda görmek ister misiniz? 2026'da dört gerçekçi yol, her birinin artıları ve eksileriyle.",
   },
   hero: {
-    kicker: { it: "Guida pratica", en: "Practical guide", es: "Guía práctica", de: "Praxisratgeber", pt: "Guia prático", fr: "Guide pratique" },
+    kicker: { it: "Guida pratica", en: "Practical guide", es: "Guía práctica", de: "Praxisratgeber", pt: "Guia prático", fr: "Guide pratique", pl: "Praktyczny przewodnik", tr: "Pratik rehber" },
     title: {
       it: "Vedere dati wearable da browser desktop",
       en: "Viewing steps, sleep and heart rate from your wearable on a desktop browser",
@@ -100,6 +130,8 @@ export const post: BlogPost = {
       de: "Wearable-Daten im Desktop-Browser anzeigen",
       pt: "Ver dados do wearable no navegador do computador",
       fr: "Voir les données de votre wearable depuis un navigateur de bureau",
+      pl: "Wyświetlanie kroków, snu i tętna z urządzenia wearable w przeglądarce na komputerze",
+      tr: "Giyilebilir cihazınızdaki adımları, uykuyu ve kalp atış hızını masaüstü tarayıcıda görüntüleme",
     },
     subtitle: {
       it: "Spoiler: la maggior parte dei produttori ha smesso di investire sulle web dashboard. Ecco cosa funziona davvero oggi.",
@@ -108,6 +140,8 @@ export const post: BlogPost = {
       de: "Spoiler: Die meisten Hersteller haben aufgehört, in Web-Dashboards zu investieren. Hier erfahren Sie, was heute wirklich funktioniert.",
       pt: "Spoiler: a maioria dos fabricantes parou de investir em painéis web. Veja o que realmente funciona hoje.",
       fr: "Spoiler : la plupart des fabricants ont cessé d'investir dans les tableaux de bord web. Voici ce qui fonctionne vraiment aujourd'hui.",
+      pl: "Spoiler: większość producentów przestała inwestować w panele webowe. Oto co naprawdę działa dziś.",
+      tr: "Spoiler: çoğu üretici web panellerine yatırım yapmayı bıraktı. İşte bugün gerçekten işe yarayanlar.",
     },
   },
   body: [
@@ -120,12 +154,14 @@ export const post: BlogPost = {
         de: "Die meisten Wearable-Hersteller haben aufgehört, in Web-Dashboards zu investieren: Fitbit.com wurde abgeschaltet, Samsung Health hat nie eine echte Web-Dashboard angeboten, Apple Health ist bewusst auf iOS beschränkt. Garmin, Polar, Withings und Oura sind die Ausnahmen mit noch aktiven offiziellen Web-Dashboards. Für alle anderen Geräte (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch) gibt es drei alternative Wege, die im Jahr 2026 wirklich funktionieren.",
         pt: "A maioria dos fabricantes de wearables parou de investir em painéis web: o Fitbit.com foi desativado, o Samsung Health nunca ofereceu um painel web de verdade e o Apple Health é exclusivo para iOS por design. Garmin, Polar, Withings e Oura são as exceções com painéis web oficiais ainda ativos. Para todos os outros (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch) existem três caminhos alternativos que realmente funcionam em 2026.",
         fr: "La plupart des fabricants de wearables ont cessé d'investir dans les tableaux de bord web : Fitbit.com a été fermé, Samsung Health n'a jamais proposé de vrai tableau de bord web, et Apple Health est conçu exclusivement pour iOS. Garmin, Polar, Withings et Oura font exception avec des tableaux de bord officiels toujours actifs. Pour tous les autres appareils (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch), il existe trois alternatives qui fonctionnent vraiment en 2026.",
+        pl: "Większość producentów urządzeń wearable przestała inwestować w panele webowe: Fitbit.com został wycofany, Samsung Health nigdy nie oferował prawdziwego panelu webowego, a Apple Health jest z założenia tylko dla iOS. Garmin, Polar, Withings i Oura są wyjątkami z wciąż aktywnymi oficjalnymi panelami webowymi. Dla wszystkich pozostałych (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch) istnieją trzy alternatywne ścieżki, które naprawdę działają w 2026 roku.",
+        tr: "Giyilebilir cihaz üreticilerinin çoğu web panellerine yatırım yapmayı bıraktı: Fitbit.com kapatıldı, Samsung Health hiçbir zaman gerçek bir web paneli sunmadı, Apple Health ise tasarım gereği yalnızca iOS için çalışıyor. Garmin, Polar, Withings ve Oura, resmi web panelleri hâlâ aktif olan istisnalardır. Diğerleri (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch) için 2026'da gerçekten işe yarayan üç alternatif yol mevcut.",
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Web dashboard ufficiali ancora attive", en: "Official web dashboards still active", es: "Paneles web oficiales todavía activos", de: "Noch aktive offizielle Web-Dashboards", pt: "Painéis web oficiais ainda ativos", fr: "Tableaux de bord web officiels encore actifs" },
+      text: { it: "Web dashboard ufficiali ancora attive", en: "Official web dashboards still active", es: "Paneles web oficiales todavía activos", de: "Noch aktive offizielle Web-Dashboards", pt: "Painéis web oficiais ainda ativos", fr: "Tableaux de bord web officiels encore actifs", pl: "Aktywne oficjalne panele webowe", tr: "Hâlâ aktif resmi web panelleri" },
     },
     {
       type: "table",
@@ -136,6 +172,8 @@ export const post: BlogPost = {
         de: ["Marke", "Offizielle Web-Dashboard", "Was Sie sehen"],
         pt: ["Marca", "Painel web oficial", "O que você vê"],
         fr: ["Marque", "Tableau de bord web officiel", "Ce que vous voyez"],
+        pl: ["Marka", "Oficjalny panel webowy", "Co widzisz"],
+        tr: ["Marka", "Resmi web paneli", "Ne görürsünüz"],
       },
       rows: [
         {
@@ -145,6 +183,8 @@ export const post: BlogPost = {
           de: ["Garmin", "connect.garmin.com", "Alles: Trainings, Schlaf, Gewicht, Kalender, GPS-Karten"],
           pt: ["Garmin", "connect.garmin.com", "Tudo: atividades, sono, peso, calendário, mapas GPS"],
           fr: ["Garmin", "connect.garmin.com", "Tout : activités, sommeil, poids, calendrier, cartes GPS"],
+          pl: ["Garmin", "connect.garmin.com", "Wszystko: aktywności, sen, waga, kalendarz, mapy GPS"],
+          tr: ["Garmin", "connect.garmin.com", "Her şey: aktiviteler, uyku, kilo, takvim, GPS haritaları"],
         },
         {
           it: ["Polar", "flow.polar.com", "Attività, sleep, training load, calendario"],
@@ -153,6 +193,8 @@ export const post: BlogPost = {
           de: ["Polar", "flow.polar.com", "Trainings, Schlaf, Trainingsbelastung, Kalender"],
           pt: ["Polar", "flow.polar.com", "Atividades, sono, carga de treino, calendário"],
           fr: ["Polar", "flow.polar.com", "Activités, sommeil, charge d'entraînement, calendrier"],
+          pl: ["Polar", "flow.polar.com", "Aktywności, sen, obciążenie treningowe, kalendarz"],
+          tr: ["Polar", "flow.polar.com", "Aktiviteler, uyku, antrenman yükü, takvim"],
         },
         {
           it: ["Strava", "strava.com", "Tutte le attività, segmenti, mappe, social"],
@@ -161,6 +203,8 @@ export const post: BlogPost = {
           de: ["Strava", "strava.com", "Alle Trainings, Segmente, Karten, Social"],
           pt: ["Strava", "strava.com", "Todas as atividades, segmentos, mapas, social"],
           fr: ["Strava", "strava.com", "Toutes les activités, segments, cartes, social"],
+          pl: ["Strava", "strava.com", "Wszystkie aktywności, segmenty, mapy, funkcje społecznościowe"],
+          tr: ["Strava", "strava.com", "Tüm aktiviteler, segmentler, haritalar, sosyal"],
         },
         {
           it: ["Withings", "healthmate.withings.com", "Peso, sonno, BPM, ECG, attività"],
@@ -169,6 +213,8 @@ export const post: BlogPost = {
           de: ["Withings", "healthmate.withings.com", "Gewicht, Schlaf, Herzfrequenz, EKG, Aktivität"],
           pt: ["Withings", "healthmate.withings.com", "Peso, sono, frequência cardíaca, ECG, atividade"],
           fr: ["Withings", "healthmate.withings.com", "Poids, sommeil, fréquence cardiaque, ECG, activité"],
+          pl: ["Withings", "healthmate.withings.com", "Waga, sen, tętno, EKG, aktywność"],
+          tr: ["Withings", "healthmate.withings.com", "Kilo, uyku, kalp atış hızı, EKG, aktivite"],
         },
         {
           it: ["Oura", "cloud.ouraring.com", "Sleep, readiness, activity, biorhythm"],
@@ -177,6 +223,8 @@ export const post: BlogPost = {
           de: ["Oura", "cloud.ouraring.com", "Schlaf, Bereitschaft, Aktivität, Biorhythmus"],
           pt: ["Oura", "cloud.ouraring.com", "Sono, prontidão, atividade, biorritmo"],
           fr: ["Oura", "cloud.ouraring.com", "Sommeil, disponibilité, activité, biorythme"],
+          pl: ["Oura", "cloud.ouraring.com", "Sen, gotowość, aktywność, biorytm"],
+          tr: ["Oura", "cloud.ouraring.com", "Uyku, hazırlık, aktivite, biyoritm"],
         },
         {
           it: ["Whoop", "app.whoop.com", "Recovery, strain, sleep, calendario"],
@@ -185,6 +233,8 @@ export const post: BlogPost = {
           de: ["Whoop", "app.whoop.com", "Erholung, Belastung, Schlaf, Kalender"],
           pt: ["Whoop", "app.whoop.com", "Recuperação, esforço, sono, calendário"],
           fr: ["Whoop", "app.whoop.com", "Récupération, charge, sommeil, calendrier"],
+          pl: ["Whoop", "app.whoop.com", "Regeneracja, obciążenie, sen, kalendarz"],
+          tr: ["Whoop", "app.whoop.com", "Toparlanma, zorluk, uyku, takvim"],
         },
         {
           it: ["Fitbit", "Solo gestione account (no dashboard)", "Solo profilo / cancellazione"],
@@ -193,6 +243,8 @@ export const post: BlogPost = {
           de: ["Fitbit", "Nur Kontoverwaltung (kein Dashboard)", "Nur Profil / Löschung"],
           pt: ["Fitbit", "Apenas gerenciamento de conta (sem painel)", "Apenas perfil / exclusão"],
           fr: ["Fitbit", "Gestion de compte uniquement (sans tableau de bord)", "Profil / suppression uniquement"],
+          pl: ["Fitbit", "Tylko zarządzanie kontem (brak panelu)", "Tylko profil / usunięcie"],
+          tr: ["Fitbit", "Yalnızca hesap yönetimi (panel yok)", "Yalnızca profil / silme"],
         },
         {
           it: ["Samsung Health", "Nessuna web dashboard ufficiale", "—"],
@@ -201,6 +253,8 @@ export const post: BlogPost = {
           de: ["Samsung Health", "Kein offizielles Web-Dashboard", "—"],
           pt: ["Samsung Health", "Nenhum painel web oficial", "—"],
           fr: ["Samsung Health", "Pas de tableau de bord web officiel", "—"],
+          pl: ["Samsung Health", "Brak oficjalnego panelu webowego", "—"],
+          tr: ["Samsung Health", "Resmi web paneli yok", "—"],
         },
         {
           it: ["Apple Health", "Nessuna web dashboard", "—"],
@@ -209,6 +263,8 @@ export const post: BlogPost = {
           de: ["Apple Health", "Kein Web-Dashboard", "—"],
           pt: ["Apple Health", "Nenhum painel web", "—"],
           fr: ["Apple Health", "Pas de tableau de bord web", "—"],
+          pl: ["Apple Health", "Brak panelu webowego", "—"],
+          tr: ["Apple Health", "Web paneli yok", "—"],
         },
         {
           it: ["Xiaomi Mi Fitness", "Nessuna web dashboard", "—"],
@@ -217,6 +273,8 @@ export const post: BlogPost = {
           de: ["Xiaomi Mi Fitness", "Kein Web-Dashboard", "—"],
           pt: ["Xiaomi Mi Fitness", "Nenhum painel web", "—"],
           fr: ["Xiaomi Mi Fitness", "Pas de tableau de bord web", "—"],
+          pl: ["Xiaomi Mi Fitness", "Brak panelu webowego", "—"],
+          tr: ["Xiaomi Mi Fitness", "Web paneli yok", "—"],
         },
         {
           it: ["Huawei Health", "Limitata, regionale (CN)", "—"],
@@ -225,6 +283,8 @@ export const post: BlogPost = {
           de: ["Huawei Health", "Eingeschränkt, regional (CN)", "—"],
           pt: ["Huawei Health", "Limitado, regional (CN)", "—"],
           fr: ["Huawei Health", "Limité, régional (CN)", "—"],
+          pl: ["Huawei Health", "Ograniczony, regionalny (CN)", "—"],
+          tr: ["Huawei Health", "Sınırlı, bölgesel (CN)", "—"],
         },
       ],
     },
@@ -237,6 +297,8 @@ export const post: BlogPost = {
         de: "Wichtig für ehemalige Fitbit-Nutzer: Das Dashboard auf fitbit.com, über das Schritte und Schlaf am PC einsehbar waren, wurde 2023 bis 2024 schrittweise abgeschaltet. Heute bietet fitbit.com nur noch den Bereich Konto und Datenschutz. Dasselbe gilt für Galaxy Watch: Samsung hat nie ein echtes Web-Dashboard angeboten.",
         pt: "Notícia importante para quem vinha do Fitbit: o painel do fitbit.com que permitia ver passos e sono no computador foi progressivamente desativado em 2023 e 2024. Hoje, o fitbit.com tem apenas a área de conta e privacidade. O mesmo vale para o Galaxy Watch: a Samsung nunca ofereceu um painel web de verdade.",
         fr: "Information importante pour les anciens utilisateurs de Fitbit : le tableau de bord fitbit.com qui permettait de consulter les pas et le sommeil sur PC a été progressivement fermé entre 2023 et 2024. Aujourd'hui, fitbit.com ne propose plus que la gestion du compte et de la confidentialité. Même situation pour Galaxy Watch : Samsung n'a jamais proposé de vrai tableau de bord web.",
+        pl: "Ważna informacja dla byłych użytkowników Fitbit: panel fitbit.com, który umożliwiał wyświetlanie kroków i snu na komputerze, był stopniowo wycofywany w latach 2023–2024. Dziś na fitbit.com jest tylko obszar konta i prywatności. To samo dotyczy Galaxy Watch: Samsung nigdy nie oferował prawdziwego panelu webowego.",
+        tr: "Eski Fitbit kullanıcıları için önemli bilgi: bilgisayarda adımları ve uykuyu görüntülemeye olanak tanıyan fitbit.com paneli, 2023–2024 yılları arasında aşamalı olarak kapatıldı. Bugün fitbit.com'da yalnızca hesap ve gizlilik alanı bulunuyor. Galaxy Watch için de durum aynı: Samsung hiçbir zaman gerçek bir web paneli sunmadı.",
       },
     },
     {
@@ -249,12 +311,14 @@ export const post: BlogPost = {
         de: "Drei Wege für nicht abgedeckte Geräte (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch)",
         pt: "Três caminhos para os casos não cobertos (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch)",
         fr: "Trois solutions pour les appareils non couverts (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch)",
+        pl: "Trzy ścieżki dla nieobsługiwanych urządzeń (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch)",
+        tr: "Kapsanmayan cihazlar için üç yol (Galaxy Watch, Pixel Watch, Mi Band, Apple Watch)",
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Via 1: app terze con dashboard web", en: "Path 1: third-party apps with web dashboards", es: "Opción 1: apps de terceros con panel web", de: "Weg 1: Drittanbieter-Apps mit Web-Dashboard", pt: "Caminho 1: apps de terceiros com painel web", fr: "Option 1 : applications tierces avec tableau de bord web" },
+      text: { it: "Via 1: app terze con dashboard web", en: "Path 1: third-party apps with web dashboards", es: "Opción 1: apps de terceros con panel web", de: "Weg 1: Drittanbieter-Apps mit Web-Dashboard", pt: "Caminho 1: apps de terceiros com painel web", fr: "Option 1 : applications tierces avec tableau de bord web", pl: "Ścieżka 1: aplikacje firm trzecich z panelem webowym", tr: "Yol 1: web paneli olan üçüncü taraf uygulamalar" },
     },
     {
       type: "paragraph",
@@ -265,12 +329,14 @@ export const post: BlogPost = {
         de: "Es gibt Apps, die über Health Connect (Android) oder HealthKit (iOS per separater iCloud-Synchronisierung) lesen und die Gesundheitsdaten auf einer mit Ihrem Konto verknüpften Web-Dashboard anzeigen. FitMesh Sync ist unsere Lösung: eine Android-App, die von Health Connect liest und die Daten an das Backend überträgt. Die Web-Dashboard ist dann über jeden Browser per Google- oder Apple-Anmeldung zugänglich. Es gibt Alternativen: einige eher für Endverbraucher, andere eher technisch ausgerichtet.",
         pt: "Existem apps que leem via Health Connect (Android) ou HealthKit (iOS por sincronização separada com iCloud) e exibem os dados em um painel web vinculado à sua conta. FitMesh Sync é a nossa solução: app Android que lê do Health Connect e envia os dados ao servidor, com um painel web acessível de qualquer navegador com login Google ou Apple. Existem alternativas: algumas mais voltadas ao usuário geral, outras mais técnicas.",
         fr: "Il existe des applications qui lisent via Health Connect (Android) ou HealthKit (iOS via une synchronisation iCloud séparée) et affichent les données sur un tableau de bord web associé à votre compte. FitMesh Sync est notre solution : une application Android qui lit depuis Health Connect et envoie les données au serveur, puis un tableau de bord web accessible depuis n'importe quel navigateur avec une connexion Google ou Apple. Des alternatives existent, certaines plus grand public, d'autres plus techniques.",
+        pl: "Istnieją aplikacje, które odczytują dane przez Health Connect (Android) lub HealthKit (iOS przez osobną synchronizację z iCloud) i wyświetlają je na panelu webowym powiązanym z Twoim kontem. FitMesh Sync to nasze rozwiązanie: aplikacja Android odczytująca dane z Health Connect i wysyłająca je do backendu, następnie panel webowy dostępny z dowolnej przeglądarki z logowaniem przez Google lub Apple. Dostępne są alternatywy, jedne bardziej skierowane do konsumentów, inne bardziej techniczne.",
+        tr: "Health Connect (Android) veya HealthKit (iOS, ayrı iCloud senkronizasyonu üzerinden) aracılığıyla veri okuyan ve bunları hesabınıza bağlı bir web panelinde gösteren uygulamalar mevcut. FitMesh Sync bizim çözümümüz: Health Connect'ten veri okuyan ve backend'e ileten Android uygulaması, ardından Google veya Apple girişiyle herhangi bir tarayıcıdan erişilebilen web paneli. Bazıları daha tüketici odaklı (Welltory), diğerleri daha teknik (Heads Up Health) olmak üzere alternatifler de var.",
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Via 2: home server self-hosted", en: "Path 2: self-hosted home server", es: "Opción 2: servidor propio (self-hosted)", de: "Weg 2: Self-hosted Home-Server", pt: "Caminho 2: servidor próprio (self-hosted)", fr: "Option 2 : serveur auto-hébergé" },
+      text: { it: "Via 2: home server self-hosted", en: "Path 2: self-hosted home server", es: "Opción 2: servidor propio (self-hosted)", de: "Weg 2: Self-hosted Home-Server", pt: "Caminho 2: servidor próprio (self-hosted)", fr: "Option 2 : serveur auto-hébergé", pl: "Ścieżka 2: własny serwer domowy (self-hosted)", tr: "Yol 2: kendi sunucunuzda barındırma (self-hosted)" },
     },
     {
       type: "paragraph",
@@ -281,12 +347,14 @@ export const post: BlogPost = {
         de: "Für alle, die mit einem Raspberry Pi oder NAS vertraut sind: Open-Source-Software wie Grafana mit einer eigenen Datenbank ermöglicht den Import exportierter Daten (Apple Health XML, Fitbit Takeout JSON, Garmin FIT) und den Aufbau völlig privater Browser-Dashboards. Hohe Lernkurve, vollständige Datenkontrolle.",
         pt: "Para quem se sente à vontade com um Raspberry Pi ou NAS: softwares de código aberto como Grafana com banco de dados próprio permitem importar dados exportados (Apple Health XML, Fitbit Takeout JSON, Garmin FIT) e criar painéis web totalmente privados. Curva de aprendizado alta, controle total dos dados.",
         fr: "Pour ceux qui sont à l'aise avec un Raspberry Pi ou un NAS : des logiciels open source comme Grafana associés à une base de données personnalisée permettent d'importer des données exportées (Apple Health XML, Fitbit Takeout JSON, Garmin FIT) et de créer des tableaux de bord entièrement privés dans le navigateur. Courbe d'apprentissage élevée, contrôle total des données.",
+        pl: "Dla tych, którzy nie mają problemu z Raspberry Pi lub NAS: oprogramowanie open source, takie jak Grafana z własną bazą danych, pozwala importować wyeksportowane dane (Apple Health XML, Fitbit Takeout JSON, Garmin FIT) i tworzyć całkowicie prywatne panele w przeglądarce. Wysoka krzywa uczenia się, pełna kontrola nad danymi.",
+        tr: "Raspberry Pi veya NAS konusunda rahat olanlar için: Grafana gibi açık kaynaklı yazılımlar ve özel bir veritabanı, dışa aktarılan verileri (Apple Health XML, Fitbit Takeout JSON, Garmin FIT) içe aktarmanıza ve tamamen özel tarayıcı panelleri oluşturmanıza olanak tanır. Yüksek öğrenme eğrisi, tam veri kontrolü.",
       },
     },
     {
       type: "heading",
       level: 3,
-      text: { it: "Via 3: foglio Google + script", en: "Path 3: Google Sheet + script", es: "Opción 3: Google Sheets + script", de: "Weg 3: Google Sheets + Skript", pt: "Caminho 3: Google Sheets + script", fr: "Option 3 : Google Sheets + script" },
+      text: { it: "Via 3: foglio Google + script", en: "Path 3: Google Sheet + script", es: "Opción 3: Google Sheets + script", de: "Weg 3: Google Sheets + Skript", pt: "Caminho 3: Google Sheets + script", fr: "Option 3 : Google Sheets + script", pl: "Ścieżka 3: Google Sheets + skrypt", tr: "Yol 3: Google Sheets + betik" },
     },
     {
       type: "paragraph",
@@ -297,12 +365,14 @@ export const post: BlogPost = {
         de: "Der minimalistische Weg: regelmäßiger Export beim Hersteller, Import in Google Sheets, Diagramme erstellen. Funktioniert, wenn Schritte, Gewicht und Schlaf mit geringer Granularität ausreichen. Skaliert nicht für Intraday-Daten (Herzfrequenz pro Sekunde).",
         pt: "O caminho minimalista: exporte periodicamente do fabricante, importe no Google Sheets e crie gráficos. Funciona se bastam passos, peso e sono com pouca granularidade. Não escala para dados intraday (frequência cardíaca por segundo).",
         fr: "La solution minimaliste : exportez périodiquement depuis le fabricant, importez dans Google Sheets et créez des graphiques. Convient si des données agrégées de pas, poids et sommeil suffisent. Ne passe pas à l'échelle pour les données intraday (fréquence cardiaque par seconde).",
+        pl: "Minimalistyczna ścieżka: regularnie eksportuj dane od producenta, importuj do Google Sheets, twórz wykresy. Sprawdza się, jeśli wystarczą kroki, waga i sen w małej granularności. Nie skaluje się do danych intraday (tętno na sekundę).",
+        tr: "Minimalist yol: üreticiden periyodik olarak dışa aktarın, Google Sheets'e içe aktarın, grafikler oluşturun. Düşük ayrıntıyla adım, kilo ve uyku verisi yeterliyse işe yarar. Gün içi verilere (saniyelik kalp atış hızı) ölçeklenmez.",
       },
     },
     {
       type: "heading",
       level: 2,
-      text: { it: "Decision tree rapido", en: "Quick decision tree", es: "Árbol de decisión rápido", de: "Schnelle Entscheidungshilfe", pt: "Árvore de decisão rápida", fr: "Aide à la décision rapide" },
+      text: { it: "Decision tree rapido", en: "Quick decision tree", es: "Árbol de decisión rápido", de: "Schnelle Entscheidungshilfe", pt: "Árvore de decisão rápida", fr: "Aide à la décision rapide", pl: "Szybkie drzewo decyzyjne", tr: "Hızlı karar ağacı" },
     },
     {
       type: "list",
@@ -343,12 +413,24 @@ export const post: BlogPost = {
           "**Vous voulez un contrôle total et êtes à l'aise avec la technique ?** → Self-hosted avec Grafana + Takeout.",
           "**Vous voulez juste des chiffres de base pour une analyse personnelle ?** → Google Sheets + import régulier.",
         ],
+        pl: [
+          "**Masz Garmin / Polar / Strava / Withings / Oura / Whoop?** → Oficjalny panel webowy, gotowe.",
+          "**Masz Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Apple Watch i potrzebujesz tylko wizualizacji?** → Aplikacja firmy trzeciej z panelem webowym (np. FitMesh).",
+          "**Chcesz pełnej kontroli i masz umiejętności techniczne?** → Self-hosted z Grafaną i Takeout.",
+          "**Chcesz tylko podstawowych liczb do osobistej analizy?** → Google Sheets z okresowym importem.",
+        ],
+        tr: [
+          "**Garmin / Polar / Strava / Withings / Oura / Whoop'unuz var mı?** → Resmi web paneli, tamam.",
+          "**Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Apple Watch'unuz var mı ve yalnızca görselleştirme mi istiyorsunuz?** → Web paneli olan üçüncü taraf uygulama (örn. FitMesh).",
+          "**Tam kontrol istiyor ve teknik bilginiz var mı?** → Grafana ve Takeout ile self-hosted.",
+          "**Yalnızca kişisel analiz için temel sayılar mı istiyorsunuz?** → Google Sheets ile periyodik içe aktarma.",
+        ],
       },
     },
     {
       type: "callout",
       variant: "tip",
-      title: { it: "Il momento migliore per scegliere la via giusta", en: "The best time to pick the right path", es: "El mejor momento para elegir la opción correcta", de: "Der richtige Zeitpunkt, den besten Weg zu wählen", pt: "O melhor momento para escolher o caminho certo", fr: "Le bon moment pour choisir la bonne solution" },
+      title: { it: "Il momento migliore per scegliere la via giusta", en: "The best time to pick the right path", es: "El mejor momento para elegir la opción correcta", de: "Der richtige Zeitpunkt, den besten Weg zu wählen", pt: "O melhor momento para escolher o caminho certo", fr: "Le bon moment pour choisir la bonne solution", pl: "Najlepszy moment na wybór właściwej ścieżki", tr: "Doğru yolu seçmek için en iyi zaman" },
       body: {
         it: "Se hai un Galaxy Watch o un Pixel Watch, smetti di aspettare una dashboard ufficiale Samsung o Google: non arriverà. Questi brand hanno deliberatamente scelto di non investire nel web. La soluzione via app terza con Health Connect è matura e stabile nel 2026. Non è un workaround temporaneo: è il percorso corretto a lungo termine per questi ecosistemi.",
         en: "If you have a Galaxy Watch or Pixel Watch, stop waiting for an official Samsung or Google dashboard: it's not coming. These brands have deliberately chosen not to invest in the web. The third-party app via Health Connect solution is mature and stable in 2026. It's not a temporary workaround: it's the correct long-term path for these ecosystems.",
@@ -356,9 +438,11 @@ export const post: BlogPost = {
         de: "Wenn Sie ein Galaxy Watch oder Pixel Watch besitzen, warten Sie nicht mehr auf ein offizielles Dashboard von Samsung oder Google: Es wird nicht kommen. Diese Marken haben bewusst entschieden, nicht ins Web zu investieren. Die Lösung über eine Drittanbieter-App mit Health Connect ist ausgereift und stabil im Jahr 2026. Es ist kein temporärer Workaround: Es ist der richtige langfristige Weg für diese Ökosysteme.",
         pt: "Se você tem um Galaxy Watch ou Pixel Watch, pare de esperar um painel oficial da Samsung ou do Google: ele não vai chegar. Essas marcas optaram deliberadamente por não investir na web. A solução via app de terceiros com Health Connect é madura e estável em 2026. Não é um contorno temporário: é o caminho correto a longo prazo para esses ecossistemas.",
         fr: "Si vous avez un Galaxy Watch ou un Pixel Watch, cessez d'attendre un tableau de bord officiel de Samsung ou Google : il ne viendra pas. Ces marques ont délibérément choisi de ne pas investir dans le web. La solution via une application tierce avec Health Connect est mature et stable en 2026. Ce n'est pas un contournement temporaire : c'est la bonne voie à long terme pour ces écosystèmes.",
+        pl: "Jeśli masz Galaxy Watch lub Pixel Watch, przestań czekać na oficjalny panel Samsung lub Google: nie pojawi się. Te marki celowo wybrały brak inwestycji w sieć. Rozwiązanie przez aplikację firmy trzeciej z Health Connect jest dojrzałe i stabilne w 2026 roku. To nie jest tymczasowe obejście: to właściwa długoterminowa ścieżka dla tych ekosystemów.",
+        tr: "Galaxy Watch veya Pixel Watch'unuz varsa Samsung veya Google'ın resmi panosunu beklemeyi bırakın: gelmeyecek. Bu markalar kasıtlı olarak web'e yatırım yapmamayı seçti. Health Connect üzerinden üçüncü taraf uygulama çözümü 2026'da olgun ve kararlı bir hale gelmiştir. Bu geçici bir geçici çözüm değil: bu ekosistemler için doğru uzun vadeli yoldur.",
       },
     },
-    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary", es: "En resumen", de: "Zusammenfassung", pt: "Em resumo", fr: "En résumé" } },
+    { type: "heading", level: 2, text: { it: "In sintesi", en: "In summary", es: "En resumen", de: "Zusammenfassung", pt: "Em resumo", fr: "En résumé", pl: "Podsumowanie", tr: "Özet" } },
     {
       type: "list",
       items: {
@@ -404,6 +488,20 @@ export const post: BlogPost = {
           "Via self-hosted (Raspberry Pi, NAS, Grafana) : contrôle total, pas de cloud, mais courbe d'apprentissage élevée. Recommandé uniquement aux utilisateurs techniques.",
           "Via Google Sheets : fonctionne pour les données agrégées (pas, poids, sommeil quotidien), mais ne passe pas à l'échelle pour les données intraday à haute fréquence.",
         ],
+        pl: [
+          "Marki z aktywnym oficjalnym panelem webowym w 2026 roku: Garmin (connect.garmin.com), Polar (flow.polar.com), Withings, Oura, Whoop, Strava.",
+          "Samsung Health, Apple Health, Fitbit i Xiaomi Mi Fitness nie mają panelu webowego: potrzebne są aplikacje firm trzecich lub self-hosting.",
+          "Przez Health Connect (Android): aplikacje firm trzecich, takie jak FitMesh Sync, odczytują dane i wyświetlają je w przeglądarce. Dojrzałe rozwiązanie, konfiguracja w mniej niż 5 minut.",
+          "Przez self-hosted (Raspberry Pi, NAS, Grafana): pełna kontrola, brak chmury, ale wysoka krzywa uczenia się. Zalecane tylko dla zaawansowanych użytkowników.",
+          "Przez Google Sheets: działa dla danych zagregowanych (kroki, waga, dzienny sen), ale nie skaluje się do danych intraday o wysokiej częstotliwości.",
+        ],
+        tr: [
+          "2026'da aktif resmi web paneline sahip markalar: Garmin (connect.garmin.com), Polar (flow.polar.com), Withings, Oura, Whoop, Strava.",
+          "Samsung Health, Apple Health, Fitbit ve Xiaomi Mi Fitness'ın web paneli yok: üçüncü taraf uygulamalar veya self-hosting gerekli.",
+          "Health Connect (Android) üzerinden: FitMesh Sync gibi üçüncü taraf uygulamalar verileri okur ve web'de gösterir. Olgun çözüm, 5 dakikadan kısa kurulum.",
+          "Self-hosted (Raspberry Pi, NAS, Grafana) üzerinden: tam kontrol, bulut yok, ancak yüksek öğrenme eğrisi. Yalnızca teknik kullanıcılar için tavsiye edilir.",
+          "Google Sheets üzerinden: toplu veriler (adımlar, kilo, günlük uyku) için çalışır, ancak yüksek frekanslı gün içi verilere ölçeklenmez.",
+        ],
       },
     },
     {
@@ -415,6 +513,8 @@ export const post: BlogPost = {
         de: "Suchen Sie ein fertiges Web-Dashboard für Galaxy/Pixel/Fitbit/Mi Band?",
         pt: "Procura um painel web pronto para Galaxy/Pixel/Fitbit/Mi Band?",
         fr: "Vous cherchez un tableau de bord web prêt à l'emploi pour Galaxy/Pixel/Fitbit/Mi Band ?",
+        pl: "Szukasz gotowego panelu webowego dla Galaxy/Pixel/Fitbit/Mi Band?",
+        tr: "Galaxy/Pixel/Fitbit/Mi Band için hazır bir web paneli mi arıyorsunuz?",
       },
       body: {
         it: "FitMesh Sync legge da Health Connect e mostra tutto su una web app pulita accessibile da qualsiasi browser desktop. Niente cloud opachi, niente ads.",
@@ -423,9 +523,11 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest von Health Connect und zeigt alles in einer übersichtlichen Web-App an, die von jedem Desktop-Browser aus zugänglich ist. Keine undurchsichtigen Cloud-Dienste, keine Werbung.",
         pt: "FitMesh Sync lê do Health Connect e exibe tudo em um app web limpo acessível de qualquer navegador de computador. Sem nuvens opacas, sem anúncios.",
         fr: "FitMesh Sync lit depuis Health Connect et affiche tout dans une application web claire, accessible depuis n'importe quel navigateur de bureau. Aucun cloud opaque, aucune publicité.",
+        pl: "FitMesh Sync odczytuje dane z Health Connect i wyświetla wszystko w przejrzystej aplikacji webowej dostępnej z dowolnej przeglądarki na komputerze. Żadnych nieprzejrzystych chmur, żadnych reklam.",
+        tr: "FitMesh Sync, Health Connect'ten veri okur ve her şeyi herhangi bir masaüstü tarayıcısından erişilebilen temiz bir web uygulamasında gösterir. Şeffaf olmayan bulut yok, reklam yok.",
       },
-      ctaLabel: { it: "Vedi tutte le integrazioni", en: "See all integrations" },
-      ctaHref: { it: "/it/integrations", en: "/en/integrations" },
+      ctaLabel: { it: "Vedi tutte le integrazioni", en: "See all integrations", pl: "Zobacz wszystkie integracje", tr: "Tüm entegrasyonları gör" },
+      ctaHref: { it: "/it/integrations", en: "/en/integrations", pl: "/pl/integrations", tr: "/tr/integrations" },
     },
   ],
   faq: [
@@ -437,6 +539,8 @@ export const post: BlogPost = {
         de: "Gibt es ein offizielles Web-Dashboard für Samsung Health?",
         pt: "Existe um painel web oficial para o Samsung Health?",
         fr: "Existe-t-il un tableau de bord web officiel pour Samsung Health ?",
+        pl: "Czy istnieje oficjalny panel webowy dla Samsung Health?",
+        tr: "Samsung Health için resmi bir web paneli var mı?",
       },
       a: {
         it: "No. Samsung non ha mai rilasciato una vera dashboard web per Samsung Health. Esiste un portale account su account.samsung.com ma serve solo per gestione account, non per visualizzare attività o sonno.",
@@ -445,6 +549,8 @@ export const post: BlogPost = {
         de: "Nein. Samsung hat nie ein echtes Web-Dashboard für Samsung Health veröffentlicht. Es gibt ein Kontoportal unter account.samsung.com, das jedoch nur der Kontoverwaltung dient und keine Trainings oder Schlafdaten anzeigt.",
         pt: "Não. A Samsung nunca lançou um painel web de verdade para o Samsung Health. Existe um portal de conta em account.samsung.com, mas serve apenas para gerenciamento de conta, não para visualizar atividades ou sono.",
         fr: "Non. Samsung n'a jamais publié de vrai tableau de bord web pour Samsung Health. Il existe un portail de compte sur account.samsung.com, mais il sert uniquement à la gestion du compte, pas à la visualisation des activités ou du sommeil.",
+        pl: "Nie. Samsung nigdy nie wydał prawdziwego panelu webowego dla Samsung Health. Istnieje portal konta na account.samsung.com, ale służy wyłącznie do zarządzania kontem, nie do wyświetlania aktywności ani snu.",
+        tr: "Hayır. Samsung, Samsung Health için hiçbir zaman gerçek bir web paneli yayınlamadı. account.samsung.com'da bir hesap portalı var, ancak yalnızca hesap yönetimi içindir, aktivite veya uyku verilerini görüntülemek için değil.",
       },
     },
     {
@@ -455,6 +561,8 @@ export const post: BlogPost = {
         de: "Gibt es Apple Health als Web-Version?",
         pt: "O Apple Health tem versão web?",
         fr: "Apple Health existe-t-il en version web ?",
+        pl: "Czy Apple Health ma wersję webową?",
+        tr: "Apple Health'in web sürümü var mı?",
       },
       a: {
         it: "No. Apple Health è iOS-only e i dati vivono su iPhone (sincronizzati via iCloud tra dispositivi Apple). Non esiste una web dashboard, e Apple non ha annunciato piani in questa direzione.",
@@ -463,6 +571,8 @@ export const post: BlogPost = {
         de: "Nein. Apple Health ist ausschließlich für iOS und die Daten befinden sich auf dem iPhone (per iCloud zwischen Apple-Geräten synchronisiert). Es gibt kein Web-Dashboard, und Apple hat keine entsprechenden Pläne angekündigt.",
         pt: "Não. O Apple Health é exclusivo para iOS e os dados ficam no iPhone (sincronizados via iCloud entre dispositivos Apple). Não existe painel web, e a Apple não anunciou planos nessa direção.",
         fr: "Non. Apple Health est exclusivement pour iOS et les données résident sur l'iPhone (synchronisées via iCloud entre les appareils Apple). Il n'y a pas de tableau de bord web et Apple n'a annoncé aucun projet en ce sens.",
+        pl: "Nie. Apple Health jest tylko dla iOS, a dane przechowywane są na iPhonie (synchronizowane przez iCloud między urządzeniami Apple). Nie istnieje panel webowy i Apple nie ogłosiło żadnych planów w tym kierunku.",
+        tr: "Hayır. Apple Health yalnızca iOS içindir ve veriler iPhone'da saklanır (Apple cihazları arasında iCloud üzerinden senkronize edilir). Web paneli yok ve Apple bu yönde herhangi bir plan açıklamadı.",
       },
     },
     {
@@ -473,6 +583,8 @@ export const post: BlogPost = {
         de: "Können Drittanbieter-Apps auch historische Daten anzeigen?",
         pt: "Os apps de terceiros podem exibir também dados históricos?",
         fr: "Les applications tierces peuvent-elles afficher aussi les données historiques ?",
+        pl: "Czy aplikacje firm trzecich mogą również wyświetlać dane historyczne?",
+        tr: "Üçüncü taraf uygulamalar geçmiş verileri de gösterebilir mi?",
       },
       a: {
         it: "Dipende. Via Health Connect lo storico disponibile è quello che le app produttore hanno scritto su HC: tipicamente 30–90 giorni indietro al primo connect. Per storico più profondo serve l'export manuale del produttore o (dove esiste) l'OAuth ufficiale con backfill 6–12 mesi.",
@@ -481,6 +593,8 @@ export const post: BlogPost = {
         de: "Das hängt davon ab. Über Health Connect ist der verfügbare Verlauf derjenige, den die Hersteller-Apps in HC geschrieben haben: typischerweise 30 bis 90 Tage rückwirkend beim ersten Connect. Für einen längeren Verlauf benötigen Sie den manuellen Export des Herstellers oder (wo vorhanden) das offizielle OAuth mit einem Backfill von 6 bis 12 Monaten.",
         pt: "Depende. Via Health Connect, o histórico disponível é o que os apps do fabricante gravaram no HC: tipicamente 30 a 90 dias anteriores ao primeiro acesso. Para um histórico mais extenso, é necessário o export manual do fabricante ou (onde existir) o OAuth oficial com backfill de 6 a 12 meses.",
         fr: "Cela dépend. Via Health Connect, l'historique disponible correspond à ce que les applications du fabricant ont enregistré dans HC : généralement 30 à 90 jours en arrière lors de la première connexion. Pour un historique plus long, il faut l'export manuel du fabricant ou (là où il existe) l'OAuth officiel avec un backfill de 6 à 12 mois.",
+        pl: "To zależy. Przez Health Connect dostępna historia to ta, którą aplikacje producenta zapisały do HC: zazwyczaj 30–90 dni wstecz przy pierwszym połączeniu. Dla głębszej historii potrzebny jest ręczny eksport od producenta lub (tam gdzie istnieje) oficjalny OAuth z backfillem 6–12 miesięcy.",
+        tr: "Değişir. Health Connect üzerinden mevcut geçmiş, üretici uygulamalarının HC'ye yazdıklarıdır: genellikle ilk bağlantıda 30–90 gün geriye gider. Daha derin geçmiş için üreticinin manuel dışa aktarması veya (varsa) 6–12 aylık backfill ile resmi OAuth gereklidir.",
       },
     },
   ],

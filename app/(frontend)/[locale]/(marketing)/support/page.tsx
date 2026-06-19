@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { locales, type Locale, getDictionary } from "@/lib/i18n";
+import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 
@@ -87,7 +87,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params;
-  const titles: Record<Locale, string> = { it: "Supporto", en: "Support", es: "Soporte", de: "Support", pt: "Suporte", fr: "Assistance" };
+  const titles: Record<Locale, string> = { it: "Supporto", en: "Support", es: "Soporte", de: "Support", pt: "Suporte", fr: "Assistance", pl: "Wsparcie", tr: "Destek", nl: "Ondersteuning", ja: "サポート", ko: "고객 지원" };
   const desc: Record<Locale, string> = {
     it: "FAQ, troubleshooting e contatti per FitMesh Sync. Risposte rapide ai problemi più comuni.",
     en: "FAQ, troubleshooting and contacts for FitMesh Sync. Quick answers to the most common questions.",
@@ -95,6 +95,11 @@ export async function generateMetadata(
     de: "Häufige Fragen, Fehlerbehebung und Kontakt für FitMesh Sync. Schnelle Antworten auf die häufigsten Probleme.",
     pt: "Perguntas frequentes, solução de problemas e contato do FitMesh Sync. Respostas rápidas para as dúvidas mais comuns.",
     fr: "FAQ, dépannage et contact pour FitMesh Sync. Réponses rapides aux questions les plus fréquentes.",
+    pl: "FAQ, rozwiazywanie problemow i kontakt z FitMesh Sync. Szybkie odpowiedzi na najczestsze pytania.",
+    tr: "FitMesh Sync icin SSS, sorun giderme ve iletisim bilgileri. En sik sorulan sorulara hizli cevaplar.",
+    nl: "FAQ, probleemoplossing en contact voor FitMesh Sync. Snelle antwoorden op de meest gestelde vragen.",
+    ja: "FitMesh SyncのFAQ、トラブルシューティング、お問い合わせ。よくある質問への迅速な回答。",
+    ko: "FitMesh Sync FAQ, 문제 해결 및 연락처. 가장 자주 묻는 질문에 대한 빠른 답변.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
@@ -102,15 +107,7 @@ export async function generateMetadata(
     description: desc[lc],
     alternates: {
       canonical: `${SITE_URL}/${lc}/support`,
-      languages: {
-        it: `${SITE_URL}/it/support`,
-        en: `${SITE_URL}/en/support`,
-        es: `${SITE_URL}/es/support`,
-        de: `${SITE_URL}/de/support`,
-        pt: `${SITE_URL}/pt/support`,
-        fr: `${SITE_URL}/fr/support`,
-        "x-default": `${SITE_URL}/it/support`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/support`),
     },
   };
 }

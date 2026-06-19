@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Health Connect ne synchronise pas rétroactivement: les données antérieures à l'autorisation restent uniquement dans l'application companion d'origine.",
       "Le problème de synchronisation le plus courant n'est pas un bug matériel: c'est une autorisation manquante dans Health Connect. Vérifiez-y en premier.",
     ],
+    pl: [
+      "Health Connect to lokalny baza danych na urządzeniu: dane nie wychodzą do Google przez HC. Prywatność zależy od aplikacji, które odczytują z HC.",
+      "Typowy przepływ to: sensory Watch → aplikacja companion (Samsung Health, Fitbit) → Health Connect → aplikacje zewnętrzne. Każdy krok wymaga wyraźnych uprawnień.",
+      "Garmin nie zapisuje natywnie do Health Connect: aplikacje potrzebujące danych Garmin muszą zintegrować się osobno z Garmin Connect API.",
+      "Health Connect nie synchronizuje wstecznie: dane sprzed autoryzacji pozostają tylko w oryginalnej aplikacji companion.",
+      "Najczęstszy problem z synchronizacją to nie błąd sprzętu: to brakujące uprawnienie w Health Connect. Sprawdź tam najpierw.",
+    ],
+    tr: [
+      "Health Connect, cihaz üzerinde yerel bir veritabanıdır: veriler HC aracılığıyla Google'a çıkmaz. Gizlilik, HC'den okuyan uygulamalara bağlıdır.",
+      "Tipik akış şudur: Watch sensörleri → companion uygulama (Samsung Health, Fitbit) → Health Connect → üçüncü taraf uygulamalar. Her adım açık izin gerektirir.",
+      "Garmin, Health Connect'e yerel olarak yazmaz: Garmin verisi isteyen uygulamalar ayrıca Garmin Connect API ile entegre olmalıdır.",
+      "Health Connect geriye dönük senkronize etmez: yetkilendirmeden önceki veriler yalnızca orijinal companion uygulamasında kalır.",
+      "En yaygın senkronizasyon sorunu bir donanım hatası değildir: Health Connect'te eksik bir izindir. Önce oraya bakın.",
+    ],
   },
   primaryKeyword: {
     it: "come funziona health connect",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "wie funktioniert health connect",
     pt: "como funciona health connect",
     fr: "comment fonctionne health connect",
+    pl: "jak działa health connect",
+    tr: "health connect nasıl çalışır",
   },
   secondaryKeywords: {
     it: [
@@ -87,6 +103,20 @@ export const post: BlogPost = {
       "health connect api",
       "comment utiliser health connect",
     ],
+    pl: [
+      "health connect android",
+      "health connect uprawnienia",
+      "health connect dane zdrowotne",
+      "health connect api",
+      "jak używać health connect",
+    ],
+    tr: [
+      "health connect android",
+      "health connect izinleri",
+      "health connect sağlık verileri",
+      "health connect api",
+      "health connect nasıl kullanılır",
+    ],
   },
   metaDescription: {
     it: "Come funziona Health Connect spiegato in modo chiaro: cos'è, come gestisce i permessi tra app, cosa può e non può fare, e perché è fondamentale per i wearable Android nel 2026.",
@@ -95,9 +125,11 @@ export const post: BlogPost = {
     de: "Wie Health Connect funktioniert, klar erklärt: was es ist, wie es App-Berechtigungen verwaltet, was es kann und nicht kann, und warum es 2026 für Android-Wearables unverzichtbar ist.",
     pt: "Como funciona o Health Connect explicado de forma clara: o que é, como gerencia as permissões entre apps, o que pode e não pode fazer, e por que é essencial para wearables Android em 2026.",
     fr: "Comment fonctionne Health Connect expliqué clairement: ce que c'est, comment il gère les autorisations entre applications, ce qu'il peut et ne peut pas faire, et pourquoi il est essentiel pour les wearables Android en 2026.",
+    pl: "Jak działa Health Connect — jasne wyjaśnienie: czym jest, jak zarządza uprawnieniami między aplikacjami, co może i czego nie może, i dlaczego jest kluczowy dla wearables Android w 2026.",
+    tr: "Health Connect nasıl çalışır açık anlatım: nedir, uygulamalar arası izinleri nasıl yönetir, neler yapabilir neler yapamaz ve 2026'da Android wearable'lar için neden vazgeçilmezdir.",
   },
   hero: {
-    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide" },
+    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide", pl: "Przewodnik", tr: "Rehber" },
     title: {
       it: "Come funziona Health Connect: guida Android 2026",
       en: "How Health Connect works: the complete guide for Android",
@@ -105,6 +137,8 @@ export const post: BlogPost = {
       de: "Wie Health Connect funktioniert: vollständige Android-Anleitung 2026",
       pt: "Como funciona o Health Connect: guia completo para Android 2026",
       fr: "Comment fonctionne Health Connect: guide complet pour Android 2026",
+      pl: "Jak działa Health Connect: przewodnik Android 2026",
+      tr: "Health Connect nasıl çalışır: Android için eksiksiz rehber 2026",
     },
     subtitle: {
       it: "Health Connect non è una semplice app: è il livello di scambio dati che permette a tutte le app salute Android di parlarsi. Ecco cosa fa davvero, come gestisce i tuoi permessi, e cosa succede quando qualcosa non funziona.",
@@ -113,6 +147,8 @@ export const post: BlogPost = {
       de: "Health Connect ist nicht nur eine App: Es ist die Datenaustausch-Schicht, die alle Android-Gesundheits-Apps miteinander kommunizieren lässt. Hier erfahren Sie, was es wirklich tut, wie es Ihre Berechtigungen verwaltet und was passiert, wenn etwas nicht funktioniert.",
       pt: "O Health Connect não é apenas um app: é a camada de troca de dados que permite que todos os apps de saúde Android se comuniquem. Veja o que ele realmente faz, como gerencia suas permissões e o que acontece quando algo não funciona.",
       fr: "Health Connect n'est pas qu'une simple application: c'est la couche d'échange de données qui permet à toutes les applications de santé Android de communiquer. Voici ce qu'il fait vraiment, comment il gère vos autorisations et ce qui se passe quand quelque chose ne fonctionne pas.",
+      pl: "Health Connect to nie zwykła aplikacja: to warstwa wymiany danych, która pozwala wszystkim aplikacjom zdrowotnym Android rozmawiać ze sobą. Oto co naprawdę robi, jak zarządza Twoimi uprawnieniami i co się dzieje, gdy coś nie działa.",
+      tr: "Health Connect yalnızca bir uygulama değildir: tüm Android sağlık uygulamalarının birbiriyle iletişim kurmasını sağlayan veri alışveriş katmanıdır. İşte gerçekte ne yapar, izinlerinizi nasıl yönetir ve bir şeyler çalışmadığında ne olur.",
     },
   },
   body: [
@@ -125,6 +161,8 @@ export const post: BlogPost = {
         de: "Health Connect ist kein Fitness-Dashboard: Es ist die Datenaustausch-Schicht, die alle Android-Gesundheits-Apps miteinander kommunizieren lässt, und wer versteht, wie es funktioniert, löst 90 % der Synchronisierungsprobleme. Es hat keine Diagramme, zeichnet selbst keine Daten auf, entscheidet aber, wer Ihre Schritte, Herzfrequenz und Schlaf lesen darf (Typ für Typ, mit Ihrer ausdrücklichen Zustimmung). Wenn die Daten Ihrer Galaxy Watch eine Drittanbieter-App nicht erreichen, liegt das Problem mit ziemlicher Sicherheit an einer fehlenden Berechtigung in Health Connect, nicht an einem Hardware-Fehler.",
         pt: "O Health Connect não é um painel de fitness: é a camada de troca de dados que permite que todos os apps de saúde Android se comuniquem, e entender como funciona resolve 90% dos problemas de sincronização. Ele não tem gráficos, não registra dados por conta própria, mas decide quem pode ler seus passos, frequência cardíaca e sono (tipo por tipo, com seu consentimento explícito). Se os dados do seu Galaxy Watch não chegam a um app de terceiros, o problema quase certamente é uma permissão ausente no Health Connect, não um bug de hardware.",
         fr: "Health Connect n'est pas un tableau de bord fitness: c'est la couche d'échange de données qui permet à toutes les applications de santé Android de communiquer, et comprendre son fonctionnement résout 90 % des problèmes de synchronisation. Il n'a pas de graphiques, n'enregistre pas de données par lui-même, mais décide qui peut lire vos pas, votre fréquence cardiaque et votre sommeil (type par type, avec votre consentement explicite). Si les données de votre Galaxy Watch n'atteignent pas une application tierce, le problème est presque certainement une autorisation manquante dans Health Connect, pas un bug matériel.",
+        pl: "Health Connect to nie panel fitness: to warstwa wymiany danych, która pozwala wszystkim aplikacjom zdrowotnym Android rozmawiać ze sobą, a zrozumienie jak działa rozwiązuje 90% problemów z synchronizacją. Nie ma wykresów, sama nie zapisuje danych, ale decyduje kto może odczytać Twoje kroki, tętno, sen (typ po typie, za Twoją wyraźną zgodą). Jeśli dane Galaxy Watch nie trafiają do aplikacji zewnętrznej, problem prawie na pewno leży w brakującym uprawnieniu w Health Connect, nie w błędzie sprzętu.",
+        tr: "Health Connect bir fitness panosu değildir: tüm Android sağlık uygulamalarının birbiriyle iletişim kurmasını sağlayan veri alışveriş katmanıdır ve nasıl çalıştığını anlamak senkronizasyon sorunlarının %90'ını çözer. Grafiği yoktur, kendi başına veri kaydetmez, ancak adımlarınızı, kalp hızınızı, uykunuzu kimin okuyabileceğine karar verir (tür tür, açık onayınızla). Galaxy Watch verileriniz bir üçüncü taraf uygulamasına ulaşmıyorsa, sorun neredeyse kesinlikle Health Connect'te eksik bir izindir, donanım hatası değil.",
       },
     },
     {
@@ -137,6 +175,8 @@ export const post: BlogPost = {
         de: "Was Health Connect ist (und was es nicht ist)",
         pt: "O que é o Health Connect (e o que não é)",
         fr: "Ce qu'est Health Connect (et ce qu'il n'est pas)",
+        pl: "Czym jest Health Connect (i czym nie jest)",
+        tr: "Health Connect nedir (ve ne değildir)",
       },
     },
     {
@@ -148,6 +188,8 @@ export const post: BlogPost = {
         de: "Health Connect ist eine Android-API und System-App, die von Google vertrieben wird. Seine Hauptfunktion ist eine einzige: Gesundheits-Apps den kontrollierten Datenaustausch untereinander zu ermöglichen, mit Ihrer ausdrücklichen Zustimmung für jeden Datentyp. Es ist nicht Google Fit Version zwei (auch wenn es dieses Projekt technisch ersetzt hat). Es ist kein Cloud-Backup. Es ist kein Dashboard.",
         pt: "O Health Connect é uma API Android e um app de sistema distribuído pelo Google. Sua função principal é uma só: permitir que os apps de saúde troquem dados entre si de forma controlada, com seu consentimento explícito para cada tipo de dado. Não é o Google Fit versão dois (mesmo que tecnicamente tenha substituído esse projeto). Não é um backup na nuvem. Não é um painel.",
         fr: "Health Connect est une API Android et une application système distribuée par Google. Sa fonction principale est une seule chose: permettre aux applications de santé d'échanger des données entre elles de manière contrôlée, avec votre consentement explicite pour chaque type de donnée. Ce n'est pas Google Fit version deux (même s'il a techniquement remplacé ce projet). Ce n'est pas une sauvegarde cloud. Ce n'est pas un tableau de bord.",
+        pl: "Health Connect to API Androida i aplikacja systemowa dystrybuowana przez Google. Jej główna funkcja jest jedna: umożliwienie aplikacjom zdrowotnym wymiany danych między sobą w kontrolowany sposób, za Twoją wyraźną zgodą dla każdego typu danych. To nie Google Fit wersja dwa (choć technicznie zastąpił ten projekt). To nie backup w chmurze. To nie panel sterowania.",
+        tr: "Health Connect, Google tarafından dağıtılan bir Android API ve sistem uygulamasıdır. Ana işlevi tektir: sağlık uygulamalarının her veri türü için açık onayınızla kontrollü biçimde birbirleriyle veri alışverişi yapmasına izin vermek. Google Fit sürüm iki değildir (teknik olarak o projenin yerini almış olsa da). Bulut yedeklemesi değildir. Bir pano değildir.",
       },
     },
     {
@@ -159,6 +201,8 @@ export const post: BlogPost = {
         de: "Der treffendste Vergleich ist ein Sicherungskasten: Er produziert keine Energie, verbraucht sie nicht, aber entscheidet, welche Stromkreise miteinander verbunden sind und mit welchen Schutzvorrichtungen. Eine App kann Ihre Schritte aus Health Connect nicht lesen, ohne dass Sie ihr diese Berechtigung ausdrücklich erteilt haben, und Sie können sie jederzeit, Typ für Typ, widerrufen.",
         pt: "A comparação mais precisa é a de um quadro elétrico: não produz energia, não a consome, mas decide quais circuitos estão conectados entre si e com quais proteções. Um app não pode ler seus passos do Health Connect sem que você tenha concedido essa permissão explicitamente, e você pode revogá-la a qualquer momento, tipo por tipo.",
         fr: "La comparaison la plus précise est celle d'un tableau électrique: il ne produit pas d'énergie, n'en consomme pas, mais décide quels circuits sont connectés entre eux et avec quelles protections. Une application ne peut pas lire vos pas depuis Health Connect sans votre autorisation explicite, et vous pouvez la révoquer à tout moment, type par type.",
+        pl: "Najtrafniejsze porównanie to skrzynka elektryczna: nie wytwarza energii, nie zużywa jej, ale decyduje które obwody są ze sobą połączone i z jakimi zabezpieczeniami. Aplikacja nie może odczytać Twoich kroków z Health Connect bez Twojego wyraźnego zezwolenia, i możesz je cofnąć w dowolnym momencie, typ po typie.",
+        tr: "En doğru benzetme bir elektrik panosu: enerji üretmez, tüketmez, ama hangi devrelerin birbirine bağlı olduğuna ve hangi korumalarla yapıldığına karar verir. Bir uygulama, açık izniniz olmadan Health Connect'ten adımlarınızı okuyamaz ve her zaman, tür tür, izni iptal edebilirsiniz.",
       },
     },
     {
@@ -171,6 +215,8 @@ export const post: BlogPost = {
         de: "Technischer Hinweis",
         pt: "Nota técnica",
         fr: "Note technique",
+        pl: "Uwaga techniczna",
+        tr: "Teknik not",
       },
       body: {
         it: "Health Connect è on-device. I dati non escono mai verso i server Google per via di Health Connect. Google potrebbe ricevere i tuoi dati salute solo se usi esplicitamente un'app Google (come Google Fit o Fitbit) che legge da HC e poi sincronizza sul cloud. Health Connect di per sé è un database locale sul tuo telefono.",
@@ -179,6 +225,8 @@ export const post: BlogPost = {
         de: "Health Connect läuft auf dem Gerät. Daten verlassen das Gerät niemals über Health Connect zu Google-Servern. Google könnte Ihre Gesundheitsdaten nur erhalten, wenn Sie ausdrücklich eine Google-App (wie Google Fit oder Fitbit) verwenden, die aus HC liest und dann mit der Cloud synchronisiert. Health Connect selbst ist eine lokale Datenbank auf Ihrem Telefon.",
         pt: "O Health Connect funciona no próprio dispositivo. Os dados nunca saem para os servidores do Google via Health Connect. O Google só poderia receber seus dados de saúde se você usar explicitamente um app do Google (como Google Fit ou Fitbit) que lê do HC e depois sincroniza com a nuvem. O Health Connect em si é um banco de dados local no seu telefone.",
         fr: "Health Connect fonctionne sur l'appareil. Les données ne quittent jamais l'appareil vers les serveurs de Google via Health Connect. Google ne pourrait recevoir vos données de santé que si vous utilisez explicitement une application Google (comme Google Fit ou Fitbit) qui lit depuis HC et synchronise ensuite avec le cloud. Health Connect lui-même est une base de données locale sur votre téléphone.",
+        pl: "Health Connect działa on-device. Dane nigdy nie wychodzą na serwery Google przez Health Connect. Google mogłoby otrzymać Twoje dane zdrowotne tylko jeśli wyraźnie używasz aplikacji Google (jak Google Fit lub Fitbit), która odczytuje z HC i następnie synchronizuje z chmurą. Health Connect samo w sobie jest lokalną bazą danych na Twoim telefonie.",
+        tr: "Health Connect cihaz üzerinde çalışır. Veriler, Health Connect aracılığıyla Google sunucularına hiçbir zaman çıkmaz. Google sağlık verilerinizi yalnızca HC'den okuyup ardından bulutla senkronize eden bir Google uygulamasını (Google Fit veya Fitbit gibi) açıkça kullanırsanız alabilir. Health Connect'in kendisi telefonunuzdaki yerel bir veritabanıdır.",
       },
     },
     {
@@ -191,6 +239,8 @@ export const post: BlogPost = {
         de: "Der Datenfluss: Woher die Daten kommen und wohin sie gehen",
         pt: "O fluxo de dados: de onde vêm e para onde vão",
         fr: "Le flux de données: d'où viennent les données et où elles vont",
+        pl: "Przepływ danych: skąd przychodzą i dokąd trafiają",
+        tr: "Veri akışı: veriler nereden gelir ve nereye gider",
       },
     },
     {
@@ -202,6 +252,8 @@ export const post: BlogPost = {
         de: "Der tatsächliche Datenfluss bei einem typischen Galaxy Watch-Setup funktioniert so:",
         pt: "O fluxo real de dados em uma configuração típica com Galaxy Watch funciona assim:",
         fr: "Le flux de données réel dans une configuration typique avec une Galaxy Watch fonctionne comme suit:",
+        pl: "Rzeczywisty przepływ danych w typowej konfiguracji Galaxy Watch wygląda tak:",
+        tr: "Tipik bir Galaxy Watch kurulumundaki gerçek veri akışı şöyle çalışır:",
       },
     },
     {
@@ -250,6 +302,20 @@ export const post: BlogPost = {
           "Health Connect conserve cette copie dans une base de données locale sur le téléphone.",
           "Toute application ayant reçu une autorisation (FitMesh Sync, Strava, une application de professionnel de santé, etc.) lit depuis Health Connect, pas directement depuis Samsung Health.",
         ],
+        pl: [
+          "Sensory Watch (akcelerometr, fotopletizmograf, żyroskop) przechwytują surowe dane.",
+          "Samsung Health odbiera dane przez Bluetooth i przetwarza je: oblicza kroki, tętno, fazy snu, SpO2.",
+          "Samsung Health zapisuje kopię danych do Health Connect, dla typów danych, które autoryzowałeś.",
+          "Health Connect przechowuje tę kopię w lokalnej bazie danych na telefonie.",
+          "Każda aplikacja, która otrzymała uprawnienie (FitMesh Sync, Strava, aplikacja lekarza itp.) odczytuje z Health Connect, nie bezpośrednio z Samsung Health.",
+        ],
+        tr: [
+          "Watch sensörleri (ivmeölçer, fotopletismograf, jiroskop) ham verileri yakalar.",
+          "Samsung Health, verileri Bluetooth üzerinden alır ve işler: adımları, kalp hızını, uyku evrelerini, SpO2'yi hesaplar.",
+          "Samsung Health, yetkilendirdiğiniz veri türleri için Health Connect'e bir veri kopyası yazar.",
+          "Health Connect bu kopyayı telefondaki yerel bir veritabanında tutar.",
+          "İzin verilen her uygulama (FitMesh Sync, Strava, bir doktor uygulaması, vb.) Samsung Health'ten doğrudan değil, Health Connect'ten okur.",
+        ],
       },
     },
     {
@@ -261,6 +327,8 @@ export const post: BlogPost = {
         de: "Auf der Pixel Watch ist der Ablauf ähnlich, wobei Fitbit (oder Google Fit bei älteren Geräten) Samsung Health als Companion-App ersetzt. Bei Garmin ist der Weg anders: Garmin schreibt nicht nativ in Health Connect, sondern verwendet eine separate OAuth-API. Jede App muss sich direkt mit Garmin Connect integrieren.",
         pt: "No Pixel Watch o fluxo é semelhante, com o Fitbit (ou Google Fit, para dispositivos mais antigos) substituindo o Samsung Health como app companion. No Garmin o caminho é diferente: o Garmin não escreve no Health Connect de forma nativa, mas usa uma API OAuth separada. Cada app deve se integrar diretamente com o Garmin Connect.",
         fr: "Sur la Pixel Watch, le flux est similaire, avec Fitbit (ou Google Fit pour les appareils plus anciens) remplaçant Samsung Health comme application companion. Sur Garmin, le chemin est différent: Garmin n'écrit pas nativement dans Health Connect, mais utilise une API OAuth distincte. Chaque application doit s'intégrer directement avec Garmin Connect.",
+        pl: "Na Pixel Watch przepływ jest analogiczny, z Fitbit (lub Google Fit, dla starszych urządzeń) zamiast Samsung Health jako aplikacji companion. Na Garmin droga jest inna: Garmin nie zapisuje natywnie do Health Connect, lecz używa osobnego OAuth API. Każda aplikacja musi integrować się bezpośrednio z Garmin Connect.",
+        tr: "Pixel Watch'ta akış benzerdir; companion uygulama olarak Samsung Health'in yerine Fitbit (veya eski cihazlar için Google Fit) gelir. Garmin'de yol farklıdır: Garmin, Health Connect'e yerel olarak yazmaz, ayrı bir OAuth API kullanır. Her uygulama doğrudan Garmin Connect ile entegre olmalıdır.",
       },
     },
     {
@@ -273,6 +341,8 @@ export const post: BlogPost = {
         de: "Die Datentypen, die Health Connect verwaltet",
         pt: "Os tipos de dados que o Health Connect gerencia",
         fr: "Les types de données que Health Connect gère",
+        pl: "Typy danych zarządzane przez Health Connect",
+        tr: "Health Connect'in yönettiği veri türleri",
       },
     },
     {
@@ -284,6 +354,8 @@ export const post: BlogPost = {
         de: "Health Connect verwaltet Dutzende von Datentypen, geordnet nach Kategorien. Die relevantesten für Wearable-Nutzer im Alltag:",
         pt: "O Health Connect gerencia dezenas de tipos de dados, organizados por categoria. Os mais relevantes para quem usa um wearable no dia a dia:",
         fr: "Health Connect gère des dizaines de types de données, organisés par catégorie. Les plus pertinents pour les utilisateurs quotidiens de wearables:",
+        pl: "Health Connect zarządza dziesiątkami typów danych, zorganizowanych według kategorii. Najbardziej istotne dla codziennych użytkowników wearables:",
+        tr: "Health Connect, kategorilere göre düzenlenmiş onlarca veri türünü yönetir. Günlük wearable kullanıcıları için en ilgili olanlar:",
       },
     },
     {
@@ -295,6 +367,8 @@ export const post: BlogPost = {
         de: "Wichtigste Datentypen in Health Connect",
         pt: "Principais tipos de dados no Health Connect",
         fr: "Principaux types de données dans Health Connect",
+        pl: "Główne typy danych w Health Connect",
+        tr: "Health Connect'teki ana veri türleri",
       },
       headers: {
         it: ["Categoria", "Tipi di dato inclusi", "Chi di solito li scrive"],
@@ -303,6 +377,8 @@ export const post: BlogPost = {
         de: ["Kategorie", "Enthaltene Datentypen", "Wer sie üblicherweise schreibt"],
         pt: ["Categoria", "Tipos de dados incluídos", "Quem geralmente os escreve"],
         fr: ["Catégorie", "Types de données inclus", "Qui les écrit habituellement"],
+        pl: ["Kategoria", "Zawarte typy danych", "Kto zazwyczaj je zapisuje"],
+        tr: ["Kategori", "Dahil edilen veri türleri", "Genellikle kim yazar"],
       },
       rows: [
         {
@@ -312,6 +388,8 @@ export const post: BlogPost = {
           de: ["Aktivität", "Schritte, Distanz, aktive Kalorien, aktive Minuten", "Samsung Health, Fitbit, Google Fit"],
           pt: ["Atividade", "Passos, distância, calorias ativas, minutos ativos", "Samsung Health, Fitbit, Google Fit"],
           fr: ["Activité", "Pas, distance, calories actives, minutes actives", "Samsung Health, Fitbit, Google Fit"],
+          pl: ["Aktywność", "Kroki, dystans, aktywne kalorie, aktywne minuty", "Samsung Health, Fitbit, Google Fit"],
+          tr: ["Aktivite", "Adımlar, mesafe, aktif kalori, aktif dakikalar", "Samsung Health, Fitbit, Google Fit"],
         },
         {
           it: ["Cardiaco", "BPM, HRV, SpO2, frequenza a riposo", "Samsung Health, Fitbit, Polar Beat"],
@@ -320,6 +398,8 @@ export const post: BlogPost = {
           de: ["Herz", "BPM, HRV, SpO2, Ruheherzfrequenz", "Samsung Health, Fitbit, Polar Beat"],
           pt: ["Cardíaco", "BPM, HRV, SpO2, frequência cardíaca em repouso", "Samsung Health, Fitbit, Polar Beat"],
           fr: ["Cardiaque", "BPM, HRV, SpO2, fréquence cardiaque au repos", "Samsung Health, Fitbit, Polar Beat"],
+          pl: ["Serce", "BPM, HRV, SpO2, tętno spoczynkowe", "Samsung Health, Fitbit, Polar Beat"],
+          tr: ["Kalp", "BPM, HRV, SpO2, istirahat kalp hızı", "Samsung Health, Fitbit, Polar Beat"],
         },
         {
           it: ["Sonno", "Durata, fasi (leggero/profondo/REM), punteggio", "Samsung Health, Sleep as Android"],
@@ -328,6 +408,8 @@ export const post: BlogPost = {
           de: ["Schlaf", "Dauer, Phasen (Leichtschlaf/Tiefschlaf/REM), Bewertung", "Samsung Health, Sleep as Android"],
           pt: ["Sono", "Duração, fases (leve/profundo/REM), pontuação", "Samsung Health, Sleep as Android"],
           fr: ["Sommeil", "Durée, phases (léger/profond/REM), score", "Samsung Health, Sleep as Android"],
+          pl: ["Sen", "Czas trwania, fazy (lekki/głęboki/REM), wynik", "Samsung Health, Sleep as Android"],
+          tr: ["Uyku", "Süre, evreler (hafif/derin/REM), puan", "Samsung Health, Sleep as Android"],
         },
         {
           it: ["Corpo", "Peso, altezza, BMI, percentuale grasso", "Samsung Health, app bilance smart"],
@@ -336,6 +418,8 @@ export const post: BlogPost = {
           de: ["Körper", "Gewicht, Größe, BMI, Körperfettanteil", "Samsung Health, Smart-Waagen-Apps"],
           pt: ["Corpo", "Peso, altura, IMC, percentual de gordura", "Samsung Health, apps de balança inteligente"],
           fr: ["Corps", "Poids, taille, IMC, pourcentage de graisse", "Samsung Health, applications de balance connectée"],
+          pl: ["Ciało", "Waga, wzrost, BMI, procent tkanki tłuszczowej", "Samsung Health, aplikacje wag inteligentnych"],
+          tr: ["Vücut", "Kilo, boy, BMI, vücut yağ yüzdesi", "Samsung Health, akıllı tartı uygulamaları"],
         },
         {
           it: ["Allenamenti", "Sessioni GPS, nuoto, ciclismo (con metadati)", "Strava, Samsung Health, Polar Flow"],
@@ -344,6 +428,8 @@ export const post: BlogPost = {
           de: ["Trainings", "GPS-Einheiten, Schwimmen, Radfahren (mit Metadaten)", "Strava, Samsung Health, Polar Flow"],
           pt: ["Treinos", "Sessões GPS, natação, ciclismo (com metadados)", "Strava, Samsung Health, Polar Flow"],
           fr: ["Entraînements", "Séances GPS, natation, cyclisme (avec métadonnées)", "Strava, Samsung Health, Polar Flow"],
+          pl: ["Treningi", "Sesje GPS, pływanie, kolarstwo (z metadanymi)", "Strava, Samsung Health, Polar Flow"],
+          tr: ["Antrenmanlar", "GPS seansları, yüzme, bisiklet (meta verilerle)", "Strava, Samsung Health, Polar Flow"],
         },
       ],
     },
@@ -356,6 +442,8 @@ export const post: BlogPost = {
         de: "Jeder Datentyp hat seine eigene separate Berechtigung. Sie können einer App die Berechtigung erteilen, Schritte zu lesen, ohne ihr Zugriff auf Schlafdaten zu geben. Diese Granularität ist einer der wesentlichen Unterschiede zu Google Fit, das viel gröbere Berechtigungen hatte.",
         pt: "Cada tipo de dado tem sua própria permissão separada. Você pode conceder a um app a permissão para ler passos sem dar a ele acesso aos dados de sono. Essa granularidade é uma das diferenças substanciais em relação ao Google Fit, que tinha permissões muito mais amplas.",
         fr: "Chaque type de donnée possède sa propre autorisation distincte. Vous pouvez accorder à une application l'autorisation de lire vos pas sans lui donner accès aux données de sommeil. Cette granularité est l'une des différences substantielles par rapport à Google Fit, qui avait des autorisations beaucoup plus grossières.",
+        pl: "Każdy typ danych ma własne oddzielne uprawnienie. Możesz przyznać aplikacji pozwolenie na odczyt kroków bez dawania jej dostępu do danych o śnie. Ta granularność jest jedną z istotnych różnic w porównaniu z Google Fit, który miał znacznie bardziej ogólne uprawnienia.",
+        tr: "Her veri türünün kendi ayrı izni vardır. Bir uygulamaya uyku verilerine erişim vermeden adım okuma izni verebilirsiniz. Bu ayrıntı düzeyi, çok daha kaba izinlere sahip olan Google Fit'ten önemli farklılıklardan biridir.",
       },
     },
     {
@@ -368,6 +456,8 @@ export const post: BlogPost = {
         de: "Health Connect aktivieren und Berechtigungen konfigurieren",
         pt: "Como ativar o Health Connect e configurar as permissões",
         fr: "Comment activer Health Connect et configurer les autorisations",
+        pl: "Jak aktywować Health Connect i skonfigurować uprawnienia",
+        tr: "Health Connect nasıl etkinleştirilir ve izinler nasıl yapılandırılır",
       },
     },
     {
@@ -379,6 +469,8 @@ export const post: BlogPost = {
         de: "Auf Android 14 und höher ist Health Connect als System-App vorinstalliert. Auf Android 12 und 13 ist es als separate App im Google Play verfügbar. Der grundlegende Einrichtungsprozess:",
         pt: "No Android 14 e posteriores, o Health Connect vem pré-instalado como app de sistema. No Android 12 e 13, está disponível no Google Play como app separado. O processo básico de configuração é:",
         fr: "Sur Android 14 et versions ultérieures, Health Connect est préinstallé comme application système. Sur Android 12 et 13, il est disponible sur le Google Play comme application distincte. Le processus de configuration de base est le suivant:",
+        pl: "Na Androidzie 14 i nowszym Health Connect jest preinstalowany jako aplikacja systemowa. Na Androidzie 12 i 13 jest dostępny w Google Play jako osobna aplikacja. Podstawowy proces konfiguracji to:",
+        tr: "Android 14 ve sonrasında Health Connect sistem uygulaması olarak önceden yüklenmiş gelir. Android 12 ve 13'te Google Play'de ayrı bir uygulama olarak mevcuttur. Temel kurulum süreci:",
       },
     },
     {
@@ -427,6 +519,20 @@ export const post: BlogPost = {
           "Activez ou désactivez les autorisations individuellement.",
           "Si une application comme Samsung Health n'apparaît pas encore, ouvrez Samsung Health → Paramètres → Gestion des données → Health Connect et suivez le processus d'autorisation.",
         ],
+        pl: [
+          "Otwórz Health Connect (znajdziesz go w ustawieniach Androida, w sekcji 'Prywatność', lub wyszukując w szufladzie aplikacji).",
+          "Przejdź do 'Uprawnienia aplikacji': zobaczysz wszystkie zainstalowane aplikacje, które zażądały dostępu do danych zdrowotnych.",
+          "Dla każdej aplikacji możesz rozwinąć i zobaczyć dokładnie, jakie typy danych może odczytywać i jakie może zapisywać.",
+          "Włącz lub wyłącz uprawnienia indywidualnie.",
+          "Jeśli aplikacja taka jak Samsung Health jeszcze się nie pojawia, otwórz Samsung Health → Ustawienia → Zarządzanie danymi → Health Connect i postępuj zgodnie z przepływem autoryzacji.",
+        ],
+        tr: [
+          "Health Connect'i açın (Android ayarlarında 'Gizlilik' bölümünde veya uygulama çekmecesinde arayarak bulabilirsiniz).",
+          "'Uygulama izinleri'ne gidin: sağlık verilerine erişim isteyen tüm yüklü uygulamaları göreceksiniz.",
+          "Her uygulama için genişleterek hangi veri türlerini okuyabileceğini ve hangilerini yazabileceğini tam olarak görebilirsiniz.",
+          "İzinleri tek tek etkinleştirin veya devre dışı bırakın.",
+          "Samsung Health gibi bir uygulama henüz görünmüyorsa, Samsung Health → Ayarlar → Veri yönetimi → Health Connect'i açın ve yetkilendirme akışını takip edin.",
+        ],
       },
     },
     {
@@ -439,6 +545,8 @@ export const post: BlogPost = {
         de: "Achtung: Standard-Berechtigungen",
         pt: "Atenção: permissões padrão",
         fr: "Attention: autorisations par défaut",
+        pl: "Uwaga: domyślne uprawnienia",
+        tr: "Dikkat: varsayılan izinler",
       },
       body: {
         it: "Su molti Galaxy phone aggiornati a metà 2024 o prima, Samsung Health non è autorizzata a scrivere su Health Connect per default. Devi abilitarlo manualmente. Questo è il motivo più comune per cui le app terze non vedono i dati del Galaxy Watch, anche se Samsung Health funziona perfettamente.",
@@ -447,6 +555,8 @@ export const post: BlogPost = {
         de: "Auf vielen Galaxy-Phones, die vor Mitte 2024 aktualisiert wurden, ist Samsung Health standardmäßig nicht berechtigt, in Health Connect zu schreiben. Sie müssen es manuell aktivieren. Das ist der häufigste Grund, warum Drittanbieter-Apps die Galaxy Watch-Daten nicht sehen, obwohl Samsung Health einwandfrei funktioniert.",
         pt: "Em muitos Galaxy Phones atualizados antes de meados de 2024, o Samsung Health não está autorizado a escrever no Health Connect por padrão. Você precisa habilitá-lo manualmente. Este é o motivo mais comum pelo qual apps de terceiros não veem os dados do Galaxy Watch, mesmo quando o Samsung Health funciona perfeitamente.",
         fr: "Sur de nombreux Galaxy Phones mis à jour avant mi-2024, Samsung Health n'est pas autorisé par défaut à écrire dans Health Connect. Vous devez l'activer manuellement. C'est la raison la plus fréquente pour laquelle les applications tierces ne voient pas les données de la Galaxy Watch, même quand Samsung Health fonctionne parfaitement.",
+        pl: "Na wielu Galaxy Phone zaktualizowanych przed połową 2024 roku, Samsung Health nie ma domyślnie uprawnień do zapisywania danych w Health Connect. Musisz włączyć to ręcznie. Jest to najczęstszy powód, dla którego aplikacje zewnętrzne nie widzą danych Galaxy Watch, nawet gdy Samsung Health działa bez zarzutu.",
+        tr: "2024 ortasından önce güncellenen pek çok Galaxy Phone'da Samsung Health varsayılan olarak Health Connect'e yazma yetkisine sahip değildir. Bunu manuel olarak etkinleştirmeniz gerekir. Bu, Samsung Health mükemmel çalışırken bile üçüncü taraf uygulamaların Galaxy Watch verilerini görmemesinin en yaygın nedenidir.",
       },
     },
     {
@@ -459,6 +569,8 @@ export const post: BlogPost = {
         de: "Was Health Connect nicht tut (wichtige Grenzen zu kennen)",
         pt: "O que o Health Connect não faz (limites importantes a conhecer)",
         fr: "Ce que Health Connect ne fait pas (limites importantes à connaître)",
+        pl: "Czego Health Connect nie robi (ważne ograniczenia do poznania)",
+        tr: "Health Connect'in yapmadıkları (bilinmesi gereken önemli sınırlar)",
       },
     },
     {
@@ -470,6 +582,8 @@ export const post: BlogPost = {
         de: "Die Grenzen zu kennen ist genauso wichtig wie die Funktionen zu verstehen. Hier sind Dinge, die Health Connect nicht tut und die Erstnutzer oft überraschen:",
         pt: "Conhecer os limites é tão importante quanto entender as funcionalidades. Aqui estão as coisas que o Health Connect não faz, e que frequentemente surpreendem quem o usa pela primeira vez:",
         fr: "Connaître les limites est aussi important que comprendre les fonctionnalités. Voici ce que Health Connect ne fait pas, ce qui surprend souvent les nouveaux utilisateurs:",
+        pl: "Znajomość ograniczeń jest równie ważna jak zrozumienie funkcji. Oto czego Health Connect nie robi, co często zaskakuje nowych użytkowników:",
+        tr: "Sınırları bilmek, özellikleri anlamak kadar önemlidir. İşte Health Connect'in yapmadıkları — bunlar çoğu zaman ilk kez kullananları şaşırtır:",
       },
     },
     {
@@ -517,6 +631,20 @@ export const post: BlogPost = {
           "**Ne prend pas en charge toutes les marques de la même façon**: Garmin, Polar (via application), Suunto et quelques autres n'écrivent pas nativement dans Health Connect. Leur point d'accès est une API OAuth distincte que chaque application doit intégrer individuellement.",
           "**Ne remplace pas l'application companion**: vous ne pouvez pas utiliser uniquement Health Connect pour maintenir la synchronisation de la montre connectée. Samsung Health (ou Fitbit, ou Galaxy Wearable) doit rester installé et actif.",
         ],
+        pl: [
+          "**Nie synchronizuje wstecznie**: Health Connect może odczytywać tylko dane zapisane po przyznaniu uprawnienia. Jeśli dzisiaj autoryzujesz aplikację, nie zobaczy ona Twoich kroków sprzed trzech lat: te pozostają tylko w bazie danych Samsung Health (lub Fitbit itp.).",
+          "**Nie jest backupem w chmurze**: jeśli zgubisz telefon lub wykonasz reset fabryczny, dane lokalne Health Connect zostaną utracone. Backup danych zależy od aplikacji companion, która je pierwotnie zapisała (np. Samsung Health ma własny osobny backup w chmurze).",
+          "**Nie oferuje wizualizacji**: brak wykresów, trendów, tygodniowych podsumowań. Do wizualizacji danych potrzebujesz aplikacji zewnętrznych, które odczytują je z HC.",
+          "**Nie wspiera wszystkich marek jednakowo**: Garmin, Polar (przez aplikację), Suunto i inne nie zapisują natywnie do Health Connect. Ich punkt dostępu to osobne OAuth API, które każda aplikacja musi integrować indywidualnie.",
+          "**Nie zastępuje aplikacji companion**: nie możesz używać tylko Health Connect do utrzymania synchronizacji Watch. Samsung Health (lub Fitbit, lub Galaxy Wearable) musi pozostać zainstalowany i aktywny.",
+        ],
+        tr: [
+          "**Geriye dönük senkronize etmez**: Health Connect yalnızca izin verildikten sonra yazılan verileri okuyabilir. Bugün bir uygulamaya yetki verirseniz, üç yıl önceki adımlarınızı görmez: bunlar yalnızca Samsung Health (veya Fitbit vb.) veritabanında kalır.",
+          "**Bulut yedeklemesi değildir**: telefonunuzu kaybederseniz veya fabrika ayarlarına dönerseniz, Health Connect'teki yerel veriler kaybolur. Veri yedekleme, o verileri başlangıçta yazan companion uygulamasına bağlıdır (örneğin Samsung Health'in etkinleştirdiyseniz kendi ayrı bulut yedeği vardır).",
+          "**Görselleştirme yapmaz**: grafik yok, trend yok, haftalık inceleme yok. Verileri görselleştirmek için HC'den okuyan üçüncü taraf uygulamalara ihtiyaç vardır.",
+          "**Tüm markaları aynı şekilde desteklemez**: Garmin, Polar (uygulama aracılığıyla), Suunto ve diğerleri Health Connect'e yerel olarak yazmaz. Erişim noktaları, her uygulamanın ayrı ayrı entegre etmesi gereken ayrı bir OAuth API'sidir.",
+          "**Companion uygulamasının yerini almaz**: Watch senkronizasyonunu canlı tutmak için yalnızca Health Connect kullanamazsınız. Samsung Health (veya Fitbit ya da Galaxy Wearable) yüklü ve aktif kalmalıdır.",
+        ],
       },
     },
     {
@@ -529,6 +657,8 @@ export const post: BlogPost = {
         de: "Health Connect und Datenschutz: Was wirklich mit Ihren Daten passiert",
         pt: "Health Connect e privacidade: o que realmente acontece com seus dados",
         fr: "Health Connect et confidentialité: ce qui se passe vraiment avec vos données",
+        pl: "Health Connect i prywatność: co naprawdę dzieje się z Twoimi danymi",
+        tr: "Health Connect ve gizlilik: verilerinizle gerçekte ne olur",
       },
     },
     {
@@ -540,6 +670,8 @@ export const post: BlogPost = {
         de: "Das Datenschutzmodell von Health Connect ist aus zwei strukturellen Gründen genuinell robuster als das herkömmlicher Cloud-APIs. Erstens: Die Daten bleiben auf dem Gerät (Google hat keinen automatischen Zugriff auf die Inhalte von Health Connect). Zweitens: Jeder Zugriff wird mit Zeitstempel und App-Name protokolliert, und Sie können ihn unter 'Datenzugriffsverlauf' einsehen.",
         pt: "O modelo de privacidade do Health Connect é genuinamente mais sólido do que o das APIs em nuvem tradicionais, por duas razões estruturais. Primeira: os dados ficam no dispositivo (o Google não tem acesso automático ao conteúdo do Health Connect). Segunda: cada acesso é registrado com carimbo de data/hora e nome do app, e você pode visualizá-lo em 'Histórico de acesso a dados'.",
         fr: "Le modèle de confidentialité de Health Connect est genuinement plus solide que celui des API cloud traditionnelles, pour deux raisons structurelles. Premièrement: les données restent sur l'appareil (Google n'a pas accès automatiquement au contenu de Health Connect). Deuxièmement: chaque accès est enregistré avec un horodatage et le nom de l'application, et vous pouvez le voir dans 'Historique d'accès aux données'.",
+        pl: "Model prywatności Health Connect jest genuinely solidniejszy niż tradycyjnych API w chmurze, z dwóch strukturalnych powodów. Po pierwsze: dane pozostają na urządzeniu (Google nie ma automatycznego dostępu do zawartości Health Connect). Po drugie: każdy dostęp jest rejestrowany z sygnaturą czasową i nazwą aplikacji, i możesz to zobaczyć w 'Historii dostępu do danych'.",
+        tr: "Health Connect'in gizlilik modeli, iki yapısal nedenle geleneksel bulut API'larına kıyasla gerçekten daha sağlamdır. Birincisi: veriler cihazda kalır (Google, Health Connect içeriğine otomatik olarak erişemez). İkincisi: her erişim zaman damgası ve uygulama adıyla günlüğe kaydedilir ve bunu 'Veri erişim geçmişi'nde görebilirsiniz.",
       },
     },
     {
@@ -551,6 +683,8 @@ export const post: BlogPost = {
         de: "Das Datenschutzrisiko, wenn es besteht, kommt von Apps, die aus Health Connect lesen und diese Daten dann an ihre Server senden. Eine Fitness-Coaching-App könnte Ihre HRV lesen und in ihrer Cloud archivieren: das ist App-Verhalten, nicht Health Connect-Verhalten. Die Funktion 'Datenzugriffsverlauf' hilft Ihnen zu verstehen, wer wann auf was zugreift, und ermöglicht fundierte Entscheidungen darüber, welche Berechtigungen Sie beibehalten möchten.",
         pt: "O risco de privacidade, quando existe, vem de apps que leem do Health Connect e depois enviam esses dados para seus servidores. Um app de coaching fitness poderia ler sua HRV e armazená-la em sua nuvem: esse é um comportamento do app, não do Health Connect. A função 'Histórico de acesso a dados' ajuda você a entender quem está acessando o quê e quando, permitindo decisões informadas sobre quais permissões manter.",
         fr: "Le risque pour la confidentialité, lorsqu'il existe, provient des applications qui lisent depuis Health Connect et envoient ensuite ces données à leurs serveurs. Une application de coaching fitness pourrait lire votre HRV et l'archiver dans son cloud: c'est un comportement de l'application, pas de Health Connect. La fonctionnalité 'Historique d'accès aux données' vous aide à comprendre qui accède à quoi et quand, vous permettant de prendre des décisions éclairées sur les autorisations à conserver.",
+        pl: "Ryzyko dla prywatności, gdy istnieje, pochodzi od aplikacji, które odczytują z Health Connect i następnie wysyłają te dane na swoje serwery. Aplikacja do coachingu fitness mogłaby odczytać Twoje HRV i archiwizować je w swojej chmurze: to jest zachowanie aplikacji, nie Health Connect. Funkcja 'Historia dostępu do danych' pomaga zrozumieć kto uzyskuje dostęp do czego i kiedy, umożliwiając podejmowanie świadomych decyzji o tym, które uprawnienia zachować.",
+        tr: "Gizlilik riski, var olduğunda, Health Connect'ten okuyan ve ardından bu verileri kendi sunucularına gönderen uygulamalardan kaynaklanır. Bir fitness koçluk uygulaması HRV'nizi okuyup bulutunda arşivleyebilir: bu, uygulama davranışıdır, Health Connect davranışı değil. 'Veri erişim geçmişi' özelliği, kimin neye ne zaman eriştiğini anlamanıza yardımcı olarak hangi izinleri tutacağınıza dair bilinçli kararlar vermenizi sağlar.",
       },
     },
     {
@@ -563,6 +697,8 @@ export const post: BlogPost = {
         de: "Das Berechtigungsproblem kommt immer vor der Hardware",
         pt: "O problema de permissões vem sempre antes do hardware",
         fr: "Le problème d'autorisation vient toujours avant le matériel",
+        pl: "Problem uprawnień zawsze poprzedza sprzęt",
+        tr: "İzin sorunu her zaman donanımdan önce gelir",
       },
       body: {
         it: "Il 90% delle segnalazioni 'il mio Galaxy Watch non sincronizza con [app]' ha una causa identica: Samsung Health non è autorizzata a scrivere su Health Connect, oppure l'app terza non ha il permesso di lettura per quel tipo di dato. Controllare Health Connect dovrebbe essere il PRIMO passo, non l'ultimo. Prima di reinstallare app, resettare il Watch o aprire ticket di supporto, apri Health Connect → Autorizzazioni app e verifica tutto in 2 minuti.",
@@ -571,6 +707,8 @@ export const post: BlogPost = {
         de: "90 % der Meldungen 'Meine Galaxy Watch synchronisiert nicht mit [App]' haben eine identische Ursache: Samsung Health ist nicht berechtigt, in Health Connect zu schreiben, oder die Drittanbieter-App hat keine Leseberechtigung für diesen Datentyp. Health Connect zu überprüfen sollte der ERSTE Schritt sein, nicht der letzte. Bevor Sie Apps neu installieren, die Watch zurücksetzen oder Support-Tickets öffnen, öffnen Sie Health Connect → App-Berechtigungen und prüfen Sie alles in 2 Minuten.",
         pt: "90% dos relatos de 'meu Galaxy Watch não sincroniza com [app]' têm uma causa idêntica: o Samsung Health não está autorizado a escrever no Health Connect, ou o app de terceiros não tem permissão de leitura para aquele tipo de dado. Verificar o Health Connect deve ser o PRIMEIRO passo, não o último. Antes de reinstalar apps, resetar o smartwatch ou abrir tickets de suporte, abra o Health Connect → Permissões de apps e verifique tudo em 2 minutos.",
         fr: "90 % des signalements 'ma Galaxy Watch ne se synchronise pas avec [application]' ont une cause identique: Samsung Health n'est pas autorisé à écrire dans Health Connect, ou l'application tierce n'a pas l'autorisation de lecture pour ce type de donnée. Vérifier Health Connect devrait être la PREMIÈRE étape, pas la dernière. Avant de réinstaller des applications, de réinitialiser la montre ou d'ouvrir des tickets de support, ouvrez Health Connect → Autorisations des applications et vérifiez tout en 2 minutes.",
+        pl: "90% zgłoszeń 'mój Galaxy Watch nie synchronizuje się z [aplikacją]' ma identyczną przyczynę: Samsung Health nie ma uprawnień do zapisywania danych w Health Connect, lub aplikacja zewnętrzna nie ma uprawnień do odczytu dla danego typu danych. Sprawdzenie Health Connect powinno być PIERWSZYM krokiem, nie ostatnim. Przed ponownym instalowaniem aplikacji, resetowaniem Watch lub otwieraniem ticketów wsparcia, otwórz Health Connect → Uprawnienia aplikacji i sprawdź wszystko w 2 minuty.",
+        tr: "Galaxy Watch'ımın [uygulama] ile senkronize olmadığı' şikayetlerinin %90'ının özdeş bir nedeni vardır: Samsung Health, Health Connect'e yazma yetkisine sahip değildir ya da üçüncü taraf uygulamanın o veri türü için okuma izni yoktur. Health Connect'i kontrol etmek son adım değil, İLK adım olmalıdır. Uygulamaları yeniden yüklemeden, Watch'u sıfırlamadan veya destek talebi açmadan önce Health Connect → Uygulama izinleri'ni açın ve 2 dakikada her şeyi doğrulayın.",
       },
     },
     {
@@ -583,6 +721,8 @@ export const post: BlogPost = {
         de: "Die häufigsten Probleme lösen",
         pt: "Resolver os problemas mais comuns",
         fr: "Résoudre les problèmes les plus courants",
+        pl: "Rozwiązywanie najczęstszych problemów",
+        tr: "En yaygın sorunları çözme",
       },
     },
     {
@@ -594,6 +734,8 @@ export const post: BlogPost = {
         de: "Die meisten Probleme mit Health Connect fallen in drei Kategorien. Bevor Sie nach komplexen Lösungen suchen, prüfen Sie in dieser Reihenfolge:",
         pt: "A maioria dos problemas com o Health Connect se enquadra em três categorias. Antes de procurar soluções complexas, verifique nesta ordem:",
         fr: "La plupart des problèmes avec Health Connect se répartissent en trois catégories. Avant de chercher des solutions complexes, vérifiez dans cet ordre:",
+        pl: "Większość problemów z Health Connect mieści się w trzech kategoriach. Przed szukaniem złożonych rozwiązań sprawdź w tej kolejności:",
+        tr: "Health Connect sorunlarının büyük çoğunluğu üç kategoriye girer. Karmaşık çözümler aramadan önce bu sırayla kontrol edin:",
       },
     },
     {
@@ -630,6 +772,16 @@ export const post: BlogPost = {
           "**Samsung Health n'écrit pas dans HC**: dans Samsung Health → Paramètres → Gestion des données → Health Connect, vérifiez que la synchronisation est activée et que les types de données dont vous avez besoin sont cochés.",
           "**Données historiques manquantes**: par conception, HC ne synchronise pas rétroactivement. Si vous venez d'installer une application et que les données historiques manquent, envisagez de les exporter manuellement depuis l'application companion d'origine.",
         ],
+        pl: [
+          "**Uprawnienie nie zostało przyznane**: otwórz Health Connect → Uprawnienia aplikacji → znajdź aplikację, która nie odbiera danych → sprawdź, czy odpowiednie typy są aktywne zarówno dla odczytu, jak i zapisu.",
+          "**Samsung Health nie zapisuje do HC**: w Samsung Health → Ustawienia → Zarządzanie danymi → Health Connect sprawdź, czy synchronizacja jest włączona i czy potrzebne typy danych są zaznaczone.",
+          "**Brakujące dane historyczne**: zgodnie z projektem, HC nie synchronizuje wstecznie. Jeśli właśnie zainstalowałeś aplikację i brakuje danych historycznych, rozważ ręczny eksport z oryginalnej aplikacji companion.",
+        ],
+        tr: [
+          "**İzin verilmemiş**: Health Connect → Uygulama izinleri → veri almayan uygulamayı bulun → ilgili türlerin hem okuma hem de yazma için etkin olduğunu doğrulayın.",
+          "**Samsung Health HC'ye yazmıyor**: Samsung Health → Ayarlar → Veri yönetimi → Health Connect'te senkronizasyonun etkin olduğunu ve ihtiyaç duyduğunuz veri türlerinin işaretli olduğunu doğrulayın.",
+          "**Eksik geçmiş veriler**: tasarım gereği HC geriye dönük senkronize etmez. Az önce bir uygulama yüklediyseniz ve geçmiş veriler eksikse, bunları orijinal companion uygulamasından manuel olarak dışa aktarmayı düşünün.",
+        ],
       },
     },
     {
@@ -642,6 +794,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
     },
     {
@@ -689,6 +843,20 @@ export const post: BlogPost = {
           "Health Connect ne synchronise pas rétroactivement: les données antérieures à l'autorisation restent uniquement dans l'application companion d'origine.",
           "Le problème de synchronisation le plus courant n'est pas un bug matériel: c'est une autorisation manquante dans Health Connect. Vérifiez-y en premier.",
         ],
+        pl: [
+          "Health Connect to lokalny baza danych na urządzeniu: dane nie wychodzą do Google przez HC. Prywatność zależy od aplikacji, które odczytują z HC, nie od samego HC.",
+          "Typowy przepływ to: sensory Watch → aplikacja companion (Samsung Health, Fitbit) → Health Connect → aplikacje zewnętrzne. Każdy krok wymaga wyraźnych uprawnień.",
+          "Garmin nie zapisuje natywnie do Health Connect: aplikacje potrzebujące danych Garmin muszą zintegrować się osobno z Garmin Connect API.",
+          "Health Connect nie synchronizuje wstecznie: dane sprzed autoryzacji pozostają tylko w oryginalnej aplikacji companion.",
+          "Najczęstszy problem z synchronizacją to nie błąd sprzętu: to brakujące uprawnienie w Health Connect. Sprawdź tam najpierw.",
+        ],
+        tr: [
+          "Health Connect, cihaz üzerinde yerel bir veritabanıdır: veriler HC aracılığıyla Google'a çıkmaz. Gizlilik, HC'nin kendisine değil, HC'den okuyan uygulamalara bağlıdır.",
+          "Tipik akış şudur: Watch sensörleri → companion uygulama (Samsung Health, Fitbit) → Health Connect → üçüncü taraf uygulamalar. Her adım açık izin gerektirir.",
+          "Garmin, Health Connect'e yerel olarak yazmaz: Garmin verisi isteyen uygulamalar ayrıca Garmin Connect API ile entegre olmalıdır.",
+          "Health Connect geriye dönük senkronize etmez: yetkilendirmeden önceki veriler yalnızca orijinal companion uygulamasında kalır.",
+          "En yaygın senkronizasyon sorunu bir donanım hatası değildir: Health Connect'te eksik bir izindir. Önce oraya bakın.",
+        ],
       },
     },
     {
@@ -700,6 +868,8 @@ export const post: BlogPost = {
         de: "Möchten Sie alle Ihre Health Connect-Daten in einem einheitlichen Dashboard sehen?",
         pt: "Quer ver todos os seus dados do Health Connect em um painel unificado?",
         fr: "Vous souhaitez voir toutes vos données Health Connect dans un tableau de bord unifié?",
+        pl: "Chcesz zobaczyć wszystkie dane Health Connect w ujednoliconym dashboardzie?",
+        tr: "Tüm Health Connect verilerinizi birleşik bir panoda görmek ister misiniz?",
       },
       body: {
         it: "FitMesh Sync legge i dati da Health Connect e li mostra in una dashboard web pulita, accessibile da browser. Utile se vuoi analizzare trend su schermo grande o condividere dati con un professionista. Compatibile con Galaxy Watch, Pixel Watch, e altri wearable Android via Health Connect.",
@@ -708,6 +878,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest Daten aus Health Connect und zeigt sie in einem übersichtlichen Web-Dashboard an, das über den Browser zugänglich ist. Nützlich, wenn Sie Trends auf einem großen Bildschirm analysieren oder Daten mit einem Fachmann teilen möchten. Kompatibel mit Galaxy Watch, Pixel Watch und anderen Android-Wearables über Health Connect.",
         pt: "FitMesh Sync lê os dados do Health Connect e os exibe em um painel web limpo, acessível pelo navegador. Útil se você quiser analisar tendências em uma tela grande ou compartilhar dados com um profissional. Compatível com Galaxy Watch, Pixel Watch e outros wearables Android via Health Connect.",
         fr: "FitMesh Sync lit les données depuis Health Connect et les affiche dans un tableau de bord web épuré, accessible depuis le navigateur. Utile si vous souhaitez analyser les tendances sur grand écran ou partager des données avec un professionnel. Compatible avec Galaxy Watch, Pixel Watch et d'autres wearables Android via Health Connect.",
+        pl: "FitMesh Sync odczytuje dane z Health Connect i wyświetla je w przejrzystym dashboardzie webowym, dostępnym z przeglądarki. Przydatny jeśli chcesz analizować trendy na dużym ekranie lub udostępniać dane specjaliście. Kompatybilny z Galaxy Watch, Pixel Watch i innymi wearables Android przez Health Connect.",
+        tr: "FitMesh Sync, Health Connect'ten veri okur ve bunları tarayıcıdan erişilebilen temiz bir web panosunda gösterir. Büyük ekranda trendleri analiz etmek veya verileri bir uzmanla paylaşmak istiyorsanız kullanışlıdır. Galaxy Watch, Pixel Watch ve Health Connect aracılığıyla diğer Android wearable'larla uyumludur.",
       },
       ctaLabel: {
         it: "Scopri le integrazioni FitMesh →",
@@ -716,6 +888,8 @@ export const post: BlogPost = {
         de: "FitMesh-Integrationen entdecken →",
         pt: "Descubra as integrações do FitMesh →",
         fr: "Découvrir les intégrations FitMesh →",
+        pl: "Odkryj integracje FitMesh →",
+        tr: "FitMesh entegrasyonlarını keşfet →",
       },
       ctaHref: {
         it: "/it/integrations",
@@ -732,6 +906,8 @@ export const post: BlogPost = {
         de: "Ersetzt Health Connect Google Fit?",
         pt: "O Health Connect substitui o Google Fit?",
         fr: "Health Connect remplace-t-il Google Fit?",
+        pl: "Czy Health Connect zastępuje Google Fit?",
+        tr: "Health Connect, Google Fit'in yerini mi alıyor?",
       },
       a: {
         it: "Tecnicamente sì: Health Connect è il successore ufficiale dell'API di Google Fit. Google ha deprecato Google Fit e ha chiesto agli sviluppatori di migrare su Health Connect entro il 2025. L'app Google Fit esiste ancora ma non riceve nuove funzionalità. Per gli utenti finali, questo significa che le app che usavano Google Fit come livello di scambio ora usano (o dovrebbero usare) Health Connect.",
@@ -740,6 +916,8 @@ export const post: BlogPost = {
         de: "Technisch gesehen ja: Health Connect ist der offizielle Nachfolger der Google Fit API. Google hat Google Fit abgekündigt und Entwickler aufgefordert, bis 2025 zu Health Connect zu migrieren. Die Google Fit App existiert noch, erhält aber keine neuen Funktionen mehr. Für Endnutzer bedeutet das: Apps, die Google Fit als Austausch-Schicht nutzten, verwenden jetzt (oder sollten verwenden) Health Connect.",
         pt: "Tecnicamente sim: o Health Connect é o sucessor oficial da API do Google Fit. O Google descontinuou o Google Fit e pediu aos desenvolvedores que migrassem para o Health Connect até 2025. O app Google Fit ainda existe, mas não recebe novos recursos. Para os usuários finais, isso significa que os apps que usavam o Google Fit como camada de troca agora usam (ou deveriam usar) o Health Connect.",
         fr: "Techniquement oui: Health Connect est le successeur officiel de l'API Google Fit. Google a déprécié Google Fit et demandé aux développeurs de migrer vers Health Connect d'ici 2025. L'application Google Fit existe toujours mais ne reçoit plus de nouvelles fonctionnalités. Pour les utilisateurs finaux, cela signifie que les applications qui utilisaient Google Fit comme couche d'échange utilisent désormais (ou devraient utiliser) Health Connect.",
+        pl: "Technicznie tak: Health Connect jest oficjalnym następcą API Google Fit. Google wycofał Google Fit i poprosił deweloperów o migrację do Health Connect do 2025 roku. Aplikacja Google Fit nadal istnieje, ale nie otrzymuje nowych funkcji. Dla użytkowników końcowych oznacza to, że aplikacje, które używały Google Fit jako warstwy wymiany, teraz używają (lub powinny używać) Health Connect.",
+        tr: "Teknik olarak evet: Health Connect, Google Fit API'sinin resmi halefidir. Google, Google Fit'i kullanımdan kaldırdı ve geliştiricilerden 2025'e kadar Health Connect'e geçmelerini istedi. Google Fit uygulaması hâlâ mevcuttur ama yeni özellik almamaktadır. Son kullanıcılar için bu, Google Fit'i alışveriş katmanı olarak kullanan uygulamaların artık Health Connect'i kullandığı (veya kullanması gerektiği) anlamına gelir.",
       },
     },
     {
@@ -750,6 +928,8 @@ export const post: BlogPost = {
         de: "Funktioniert Health Connect auf dem iPhone?",
         pt: "O Health Connect funciona no iPhone?",
         fr: "Health Connect fonctionne-t-il sur iPhone?",
+        pl: "Czy Health Connect działa na iPhonie?",
+        tr: "Health Connect iPhone'da çalışır mı?",
       },
       a: {
         it: "No. Health Connect è esclusivamente Android (Google). L'equivalente Apple è HealthKit / Apple Health, che funziona su iPhone e Apple Watch. Le due piattaforme non sono interoperabili nativamente: un Galaxy Watch non può scrivere su Apple Health direttamente, e un Apple Watch non può scrivere su Health Connect.",
@@ -758,6 +938,8 @@ export const post: BlogPost = {
         de: "Nein. Health Connect ist ausschließlich Android (Google). Das Apple-Äquivalent ist HealthKit / Apple Health, das auf iPhone und Apple Watch funktioniert. Die beiden Plattformen sind nicht nativ interoperabel: Eine Galaxy Watch kann nicht direkt in Apple Health schreiben, und eine Apple Watch kann nicht in Health Connect schreiben.",
         pt: "Não. O Health Connect é exclusivamente Android (Google). O equivalente da Apple é o HealthKit / Apple Health, que funciona no iPhone e no Apple Watch. As duas plataformas não são interoperáveis nativamente: um Galaxy Watch não pode escrever diretamente no Apple Health, e um Apple Watch não pode escrever no Health Connect.",
         fr: "Non. Health Connect est exclusivement Android (Google). L'équivalent Apple est HealthKit / Apple Health, qui fonctionne sur iPhone et Apple Watch. Les deux plateformes ne sont pas nativement interopérables: une Galaxy Watch ne peut pas écrire directement dans Apple Health, et une Apple Watch ne peut pas écrire dans Health Connect.",
+        pl: "Nie. Health Connect jest wyłącznie Androidowy (Google). Odpowiednikiem Apple jest HealthKit / Apple Health, który działa na iPhone i Apple Watch. Obie platformy nie są natywnie interoperacyjne: Galaxy Watch nie może zapisywać bezpośrednio do Apple Health, a Apple Watch nie może zapisywać do Health Connect.",
+        tr: "Hayır. Health Connect yalnızca Android (Google) içindir. Apple karşılığı, iPhone ve Apple Watch'ta çalışan HealthKit / Apple Health'tir. İki platform yerel olarak birlikte çalışabilir değildir: Galaxy Watch, Apple Health'e doğrudan yazamaz ve Apple Watch, Health Connect'e yazamaz.",
       },
     },
     {
@@ -768,6 +950,8 @@ export const post: BlogPost = {
         de: "Kann ich Health Connect mit Garmin Connect verwenden?",
         pt: "Posso usar o Health Connect com o Garmin Connect?",
         fr: "Puis-je utiliser Health Connect avec Garmin Connect?",
+        pl: "Czy mogę używać Health Connect z Garmin Connect?",
+        tr: "Health Connect'i Garmin Connect ile kullanabilir miyim?",
       },
       a: {
         it: "Garmin non scrive nativamente su Health Connect. L'app Garmin Connect per Android non ha una funzione di sync nativa verso HC. Per portare i dati Garmin in un'app terza, quella app deve integrarsi direttamente con la Garmin Connect API (OAuth). Alcune app lo fanno; FitMesh Sync, per esempio, si integra con Garmin Connect via la loro API ufficiale.",
@@ -776,6 +960,8 @@ export const post: BlogPost = {
         de: "Garmin schreibt nicht nativ in Health Connect. Die Garmin Connect App für Android hat keine native Sync-Funktion zu HC. Um Garmin-Daten in eine Drittanbieter-App zu bringen, muss sich diese App direkt mit der Garmin Connect API (OAuth) integrieren. Einige Apps tun dies; FitMesh Sync beispielsweise integriert sich mit Garmin Connect über deren offizielle API.",
         pt: "O Garmin não escreve nativamente no Health Connect. O app Garmin Connect para Android não tem uma função de sincronização nativa para o HC. Para levar os dados do Garmin a um app de terceiros, esse app deve se integrar diretamente com a Garmin Connect API (OAuth). Alguns apps fazem isso; o FitMesh Sync, por exemplo, se integra com o Garmin Connect via API oficial deles.",
         fr: "Garmin n'écrit pas nativement dans Health Connect. L'application Garmin Connect pour Android n'a pas de fonction de synchronisation native vers HC. Pour amener les données Garmin dans une application tierce, cette application doit s'intégrer directement avec l'API Garmin Connect (OAuth). Certaines applications le font; FitMesh Sync, par exemple, s'intègre avec Garmin Connect via leur API officielle.",
+        pl: "Garmin nie zapisuje natywnie do Health Connect. Aplikacja Garmin Connect na Android nie ma natywnej funkcji synchronizacji z HC. Aby przenieść dane Garmin do aplikacji zewnętrznej, musi ona integrować się bezpośrednio z Garmin Connect API (OAuth). Niektóre aplikacje to robią; FitMesh Sync, na przykład, integruje się z Garmin Connect przez ich oficjalne API.",
+        tr: "Garmin, Health Connect'e yerel olarak yazmaz. Android için Garmin Connect uygulamasının HC'ye yerel senkronizasyon işlevi yoktur. Garmin verilerini bir üçüncü taraf uygulamasına getirmek için o uygulama doğrudan Garmin Connect API'si (OAuth) ile entegre olmalıdır. Bazı uygulamalar bunu yapar; FitMesh Sync, örneğin, resmi API'leri aracılığıyla Garmin Connect ile entegre olur.",
       },
     },
     {
@@ -786,6 +972,8 @@ export const post: BlogPost = {
         de: "Sind Daten in Health Connect sicher, wenn ich mein Telefon verliere?",
         pt: "Os dados no Health Connect estão seguros se eu perder meu telefone?",
         fr: "Les données dans Health Connect sont-elles en sécurité si je perds mon téléphone?",
+        pl: "Czy dane w Health Connect są bezpieczne jeśli zgubię telefon?",
+        tr: "Telefonumu kaybedersem Health Connect'teki veriler güvende mi?",
       },
       a: {
         it: "No, Health Connect non fa backup automatico dei dati. Se perdi il telefono o fai un factory reset, i dati locali di Health Connect sono persi. Il backup dei dati dipende dall'app companion che li ha scritti originalmente (es. Samsung Health ha il suo backup cloud separato se lo hai abilitato). Dopo il ripristino del telefono, i dati torneranno a fluire su Health Connect dal momento del ripristino in poi.",
@@ -794,6 +982,8 @@ export const post: BlogPost = {
         de: "Nein, Health Connect erstellt kein automatisches Backup der Daten. Wenn Sie Ihr Telefon verlieren oder einen Werksreset durchführen, gehen die lokalen Health Connect-Daten verloren. Das Daten-Backup hängt von der Companion-App ab, die die Daten ursprünglich geschrieben hat (z. B. hat Samsung Health sein eigenes Cloud-Backup, wenn Sie es aktiviert haben). Nach der Wiederherstellung des Telefons fließen die Daten ab dem Wiederherstellungszeitpunkt wieder in Health Connect.",
         pt: "Não, o Health Connect não faz backup automático dos dados. Se você perder o telefone ou fizer um reset de fábrica, os dados locais do Health Connect são perdidos. O backup dos dados depende do app companion que os escreveu originalmente (ex.: o Samsung Health tem seu próprio backup em nuvem, se você o tiver habilitado). Após restaurar o telefone, os dados voltarão a fluir para o Health Connect a partir do momento da restauração.",
         fr: "Non, Health Connect ne sauvegarde pas automatiquement les données. Si vous perdez votre téléphone ou effectuez une réinitialisation d'usine, les données locales de Health Connect sont perdues. La sauvegarde des données dépend de l'application companion qui les a écrites à l'origine (ex.: Samsung Health possède sa propre sauvegarde cloud si vous l'avez activée). Après la restauration du téléphone, les données recommenceront à affluer vers Health Connect à partir du moment de la restauration.",
+        pl: "Nie, Health Connect nie wykonuje automatycznego backupu danych. Jeśli zgubisz telefon lub wykonasz reset fabryczny, lokalne dane Health Connect zostaną utracone. Backup danych zależy od aplikacji companion, która je pierwotnie zapisała (np. Samsung Health ma własny backup w chmurze, jeśli go włączyłeś). Po przywróceniu telefonu dane zaczną ponownie napływać do Health Connect od momentu przywrócenia.",
+        tr: "Hayır, Health Connect verileri otomatik olarak yedeklemez. Telefonunuzu kaybederseniz veya fabrika ayarlarına dönerseniz, yerel Health Connect verileri kaybolur. Veri yedekleme, bunları başlangıçta yazan companion uygulamasına bağlıdır (örn. Samsung Health etkinleştirdiyseniz kendi bulut yedeğine sahiptir). Telefon geri yüklendikten sonra veriler, geri yükleme anından itibaren yeniden Health Connect'e akmaya başlar.",
       },
     },
     {
@@ -804,6 +994,8 @@ export const post: BlogPost = {
         de: "Warum sehen manche Apps meine Daten nicht, obwohl Health Connect funktioniert?",
         pt: "Por que alguns apps não veem meus dados mesmo que o Health Connect funcione?",
         fr: "Pourquoi certaines applications ne voient-elles pas mes données même si Health Connect fonctionne?",
+        pl: "Dlaczego niektóre aplikacje nie widzą moich danych, nawet jeśli Health Connect działa?",
+        tr: "Health Connect çalışıyor olsa bile neden bazı uygulamalar verilerimi görmüyor?",
       },
       a: {
         it: "Ci sono tre ragioni comuni. Prima: l'app non ha il permesso per quel tipo specifico di dato (controlla in Health Connect → Autorizzazioni app). Seconda: Samsung Health (o l'app companion) non sta scrivendo su Health Connect per quel dato (verifica la configurazione in Samsung Health → Impostazioni → Health Connect). Terza: i dati che cerchi sono storici e precedenti all'autorizzazione. Health Connect non sincronizza retroattivamente i dati passati.",
@@ -812,6 +1004,8 @@ export const post: BlogPost = {
         de: "Es gibt drei häufige Gründe. Erstens: Die App hat keine Berechtigung für diesen spezifischen Datentyp (prüfen Sie in Health Connect → App-Berechtigungen). Zweitens: Samsung Health (oder die Companion-App) schreibt diesen Datenpunkt nicht in Health Connect (überprüfen Sie die Einstellungen in Samsung Health → Einstellungen → Health Connect). Drittens: Die gesuchten Daten sind historisch und liegen vor der Autorisierung. Health Connect synchronisiert vergangene Daten nicht rückwirkend.",
         pt: "Há três razões comuns. Primeira: o app não tem permissão para aquele tipo específico de dado (verifique em Health Connect → Permissões de apps). Segunda: o Samsung Health (ou o app companion) não está escrevendo no Health Connect para aquele dado (verifique as configurações em Samsung Health → Configurações → Health Connect). Terceira: os dados que você procura são históricos e anteriores à autorização. O Health Connect não sincroniza retroativamente dados passados.",
         fr: "Il y a trois raisons courantes. Premièrement: l'application n'a pas l'autorisation pour ce type de donnée spécifique (vérifiez dans Health Connect → Autorisations des applications). Deuxièmement: Samsung Health (ou l'application companion) n'écrit pas dans Health Connect pour cette donnée (vérifiez les paramètres dans Samsung Health → Paramètres → Health Connect). Troisièmement: les données que vous recherchez sont historiques et antérieures à l'autorisation. Health Connect ne synchronise pas rétroactivement les données passées.",
+        pl: "Istnieją trzy powszechne przyczyny. Po pierwsze: aplikacja nie ma uprawnień do tego konkretnego typu danych (sprawdź w Health Connect → Uprawnienia aplikacji). Po drugie: Samsung Health (lub aplikacja companion) nie zapisuje danych tego rodzaju do Health Connect (sprawdź ustawienia w Samsung Health → Ustawienia → Health Connect). Po trzecie: szukane dane są historyczne i poprzedzają autoryzację. Health Connect nie synchronizuje wstecznie danych z przeszłości.",
+        tr: "Üç yaygın neden vardır. Birincisi: uygulama o belirli veri türü için izne sahip değil (Health Connect → Uygulama izinleri'nden kontrol edin). İkincisi: Samsung Health (veya companion uygulama) o veri için Health Connect'e yazmıyor (Samsung Health → Ayarlar → Health Connect'teki ayarları doğrulayın). Üçüncüsü: aradığınız veriler geçmişe ait ve yetkilendirmeden öncesine dayanıyor. Health Connect, geçmiş verileri geriye dönük olarak senkronize etmez.",
       },
     },
   ],

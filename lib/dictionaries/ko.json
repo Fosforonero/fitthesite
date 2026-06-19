@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "support": "지원",
+    "privacy": "개인정보",
+    "download": "다운로드"
+  },
+  "hero": {
+    "badge": "Android 지원 · iOS 출시 예정",
+    "heading_1": "모든 기기를",
+    "heading_accent": "하나의 대시보드로.",
+    "description": "Galaxy Watch, Wear OS, Health Connect, 클라우드 공급자를 하나의 화면으로 통합하세요. 앱을 전환하지 않고 걸음 수, 수면, 심박수, 회복 상태, 트렌드를 확인할 수 있습니다.",
+    "cta_secondary": "자세히 보기",
+    "pricing": "일회 결제 €3.99부터, 또는 6개월 €1.19 · 안전한 결제",
+    "coming_soon": "출시 예정"
+  },
+  "features": {
+    "kicker": "기능",
+    "heading": "스마트워치가 기록하는 모든 것을 정리하고 시각화합니다.",
+    "items": [
+      {
+        "title": "걸음 수 & 거리",
+        "desc": "Health Connect 및 Samsung Health와 자동 동기화. 화면이 잠긴 상태에서도 백그라운드에서 실행됩니다."
+      },
+      {
+        "title": "심박수 & VO₂ max",
+        "desc": "일일 평균, 최소/최대 범위, 안정 심박수. 시간에 따른 심혈관 건강 트렌드를 파악하세요."
+      },
+      {
+        "title": "수면 단계",
+        "desc": "총 시간, 깊은 수면, REM, 얕은 수면, 각성. 색상으로 구분된 막대와 즉각적인 품질 배지."
+      },
+      {
+        "title": "칼로리 & 활동",
+        "desc": "활성 칼로리와 기초 칼로리, 경로, 고도, 층수. 걷기는 초록색, 운동은 빨간색으로 표시."
+      },
+      {
+        "title": "글로벌 멀티 디바이스 대시보드",
+        "desc": "여러 워치, 여러 공급자를 하나의 화면으로. FitMesh는 데이터 소스를 통합하고 중복을 제거하며 각 지표의 최적값을 유지합니다."
+      },
+      {
+        "title": "간병인을 위한 기능",
+        "desc": "곧 출시될 고급 모드: 고령 가족이 연락이 끊겼을 때 아침 동기화 알림이 포함된 가족 그룹."
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "프라이버시 우선",
+    "heading": "건강 데이터는 상품이 아닙니다.",
+    "description": "FitMesh Sync는 절대 판매하거나 공유하거나 프로파일링하지 않습니다. 데이터는 당신이 선택한 서버(자택 NAS, VPS, 또는 공유 엔드포인트)에 저장됩니다. 앱 설정에서 결정할 수 있습니다.",
+    "cta": "개인정보 처리방침 읽기"
+  },
+  "final_cta": {
+    "heading": "시작할 준비가 됐나요?",
+    "description": "앱을 다운로드하고 Health Connect 권한을 허용하세요. 30초 안에 데이터가 실시간으로 반영됩니다."
+  },
+  "footer": {
+    "tagline": "스마트워치 데이터를 나만의 프리미엄 대시보드에 동기화하세요. 프라이버시 우선. 불투명한 클라우드 없음, 광고 추적기 없음.",
+    "product": "제품",
+    "legal": "법적 정보",
+    "rights": "All rights reserved.",
+    "made_with": "이탈리아에서 정성껏 만들어졌습니다",
+    "fosforonero_label": "프로젝트 by",
+    "links": {
+      "features": "기능",
+      "download": "다운로드",
+      "support": "지원",
+      "privacy": "개인정보 처리방침",
+      "terms": "서비스 이용약관",
+      "cookies": "쿠키 정책"
+    }
+  },
+  "cookie_banner": {
+    "title": "쿠키 & 개인정보",
+    "description": "사이트 운영에 필요한 쿠키를 사용하며, 동의하시면 제품 개선을 위해 Google Analytics도 사용합니다. 광고 또는 프로파일링 쿠키는 사용하지 않습니다.",
+    "details_link": "세부 정보",
+    "accept": "모두 허용",
+    "reject": "선택적 거부"
+  },
+  "legal": {
+    "last_updated": "최종 업데이트",
+    "privacy_title": "개인정보 처리방침",
+    "terms_title": "서비스 이용약관",
+    "cookies_title": "쿠키 정책",
+    "support_title": "자주 묻는 질문",
+    "section": "법적 정보"
+  },
+  "auth": {
+    "login": {
+      "heading": "FitMesh에 로그인",
+      "subheading": "이메일로 링크를 보내드립니다. 비밀번호가 필요 없습니다.",
+      "email_label": "이메일",
+      "email_placeholder": "you@email.com",
+      "submit": "로그인 링크 보내기",
+      "sending": "전송 중…",
+      "success_title": "이메일을 확인해주세요",
+      "success_body": "로그인 링크를 보내드렸습니다. 이메일을 열어 클릭해주세요.",
+      "try_again": "다시 보내기",
+      "disclaimer": "로그인하면 이용약관 및 개인정보 처리방침에 동의하는 것입니다. 건강 데이터는 절대 공유되지 않으며 의료 조언에 사용되지 않습니다."
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "대시보드",
+      "devices": "기기",
+      "settings": "설정",
+      "logout": "로그아웃"
+    },
+    "disclaimer": "표시된 데이터는 정보 제공 목적으로만 사용됩니다. FitMesh는 의료 기기가 아니며 전문적인 의료 조언을 대체하지 않습니다.",
+    "dashboard": {
+      "welcome": "환영합니다",
+      "steps": "오늘의 걸음 수",
+      "heart_rate": "평균 BPM",
+      "sleep": "수면",
+      "no_data": "연결된 기기 없음"
+    },
+    "next_step": {
+      "title": "시작하기: 첫 번째 기기 연결",
+      "body": "'기기'에서 페어링 코드를 생성하세요. 그런 다음 스마트폰의 FitMesh 앱에 입력하세요.",
+      "cta": "기기 연결 →"
+    },
+    "devices": {
+      "heading": "내 기기",
+      "subheading": "계정에 연결된 스마트워치 및 스마트폰.",
+      "add_title": "기기 추가",
+      "add_body": "코드를 생성하고 FitMesh Sync 앱에 입력해 새 스마트폰을 연결하세요.",
+      "add_cta": "코드 생성",
+      "coming_soon": "(출시 예정)",
+      "list_title": "연결된 기기",
+      "empty": "아직 연결된 기기가 없습니다.",
+      "error": "기기 로딩 오류.",
+      "revoked": "취소됨",
+      "last_sync": "마지막 동기화",
+      "never": "없음"
+    },
+    "settings": {
+      "heading": "설정",
+      "profile_heading": "프로필",
+      "display_name": "이름",
+      "locale": "언어",
+      "timezone": "시간대",
+      "member_since": "가입일",
+      "privacy_heading": "개인정보 & 데이터",
+      "privacy_body": "건강 데이터는 공유되지 않으며, 의료 목적으로 처리되지 않고, 의료 조언에 사용되지 않습니다. 오직 개인 대시보드 용도로만 사용됩니다.",
+      "export": "내 데이터 내보내기",
+      "danger_heading": "위험 구역",
+      "delete_description": "계정 및 관련 데이터를 영구적으로 삭제합니다. 24시간 이내에 이메일로 취소할 수 있습니다.",
+      "delete_cta": "내 계정 삭제",
+      "delete_confirm_title": "정말 확실한가요?",
+      "delete_confirm_body": "영구적으로 삭제됩니다: 프로필, 모든 건강 데이터, 연결된 기기, 운동 세션. 컴플라이언스를 위해 익명화하여 보관됩니다: 기술 로그(90일) 및 관리자 감사(5년).",
+      "delete_confirm_input": "확인을 위해 DELETE를 입력해주세요",
+      "delete_confirm_submit": "삭제 확인",
+      "cancel": "취소",
+      "delete_scheduled_title": "요청이 접수되었습니다",
+      "delete_scheduled_body": "취소 링크가 포함된 이메일을 보내드렸습니다. 24시간 이내에 아무것도 하지 않으면 계정이 영구적으로 삭제됩니다."
+    }
+  },
+  "admin": {
+    "banner": "관리자 모드 — 모든 작업이 기록됩니다",
+    "nav": {
+      "overview": "개요",
+      "users": "사용자",
+      "devices": "기기",
+      "events": "이벤트",
+      "exit": "관리자 종료"
+    },
+    "overview": {
+      "heading": "개요",
+      "subheading": "시스템 상태, 집계 지표, 개인 건강 데이터 없음.",
+      "total_users": "총 사용자",
+      "active_7d": "활성 7일",
+      "active_30d": "활성 30일",
+      "new_7d": "신규 7일",
+      "total_devices": "총 기기",
+      "active_devices": "활성 기기",
+      "syncs_24h": "동기화 24시간",
+      "failed_syncs_24h": "실패한 동기화 24시간"
+    },
+    "privacy_notice": "개인정보: 이 대시보드는 메타데이터와 집계 지표만 표시합니다. 사용자의 건강 데이터는 어떤 관리자도 접근할 수 없습니다(Postgres RLS로 강제)."
+  },
+  "showcase": {
+    "kicker": "앱",
+    "heading": "FitMesh 실제 화면 보기",
+    "sub": "스마트폰에서 직접 캡처한 Android 앱의 실제 화면.",
+    "captions": {
+      "sleep": "수면 단계 & 심장 건강",
+      "trends": "걸음 수 & 칼로리 트렌드",
+      "vitals": "SpO₂ & 고급 지표"
+    }
+  }
+}

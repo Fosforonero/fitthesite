@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "ADB est destiné aux utilisateurs techniques : accès direct à la base de données SQLite, complétude maximale, risque élevé si vous ne savez pas ce que vous faites.",
       "Les données propriétaires Samsung (Body Composition, Stress Score continu) ne passent pas par Health Connect : pour celles-ci, l'export manuel reste toujours nécessaire.",
     ],
+    pl: [
+      "Wewnętrzny eksport Samsung Health (Ustawienia → Pobierz dane osobowe) to najbardziej kompletna i bezpłatna metoda: generuje pakiet CSV z całą historią.",
+      "Health Connect połączony z aplikacją zewnętrzną to jedyna ścieżka z prawdziwą automatyzacją, ale obejmuje tylko typy danych, które Samsung Health zapisuje do HC.",
+      "Wniosek RODO jest szerszy niż eksport wewnętrzny (obejmuje metadane i logi), ale wymaga do 30 dni: przydatny jako archiwum przed zamknięciem konta.",
+      "ADB jest przeznaczony dla zaawansowanych użytkowników: bezpośredni dostęp do bazy danych SQLite, maksymalna kompletność, wysokie ryzyko dla niewtajemniczonych.",
+      "Dane zastrzeżone Samsung (Body Composition, ciągły Stress Score) nie przechodzą przez Health Connect: do ich eksportu zawsze potrzebny jest ręczny eksport.",
+    ],
+    tr: [
+      "Samsung Health dahili dışa aktarımı (Ayarlar → Kişisel verileri indir), tüm geçmişi içeren CSV paketi oluşturan en eksiksiz ve ücretsiz yöntemdir.",
+      "Üçüncü taraf uygulamasına bağlı Health Connect, gerçek otomasyonun tek yoludur; ancak yalnızca Samsung Health'in HC'ye yazdığı veri türlerini kapsar.",
+      "KVKK/GDPR talebi dahili dışa aktarımdan daha kapsamlıdır (meta veriler ve günlükler dahil), ancak 30 güne kadar sürebilir: hesap kapatılmadan önce arşiv için kullanışlıdır.",
+      "ADB teknik kullanıcılar içindir: SQLite veritabanına doğrudan erişim, maksimum eksiksizlik, ne yaptığınızı bilmiyorsanız yüksek risk.",
+      "Samsung'a özgü veriler (Body Composition, sürekli Stress Score) Health Connect üzerinden geçmez: bunlar için her zaman manuel dışa aktarım gereklidir.",
+    ],
   },
   primaryKeyword: {
     it: "backup galaxy watch pc",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "Galaxy Watch Backup PC",
     pt: "backup galaxy watch pc",
     fr: "sauvegarde galaxy watch pc",
+    pl: "kopia zapasowa galaxy watch na pc",
+    tr: "galaxy watch yedekleme pc",
   },
   secondaryKeywords: {
     it: [
@@ -83,6 +99,18 @@ export const post: BlogPost = {
       "sauvegarde samsung health",
       "backup galaxy watch sans samsung cloud",
     ],
+    pl: [
+      "pobieranie danych samsung health",
+      "eksport danych galaxy watch",
+      "kopia zapasowa samsung health",
+      "kopia zapasowa galaxy watch bez samsung cloud",
+    ],
+    tr: [
+      "samsung health verilerini indirme",
+      "galaxy watch verilerini dışa aktarma",
+      "samsung health yedekleme",
+      "samsung cloud olmadan galaxy watch yedekleme",
+    ],
   },
   metaDescription: {
     it: "Come fare backup dei dati Galaxy Watch su PC senza Samsung Cloud: esportazione Samsung Health, GDPR data request, dashboard alternative. Guida passo passo 2026.",
@@ -91,6 +119,8 @@ export const post: BlogPost = {
     de: "Galaxy Watch Daten auf dem PC sichern ohne Samsung Cloud: Samsung Health Export, DSGVO-Datenanfrage, alternative Dashboards. Schritt-für-Schritt-Anleitung 2026.",
     pt: "Como fazer backup dos dados do Galaxy Watch no PC sem Samsung Cloud: exportação do Samsung Health, solicitação LGPD/GDPR, painéis alternativos. Guia passo a passo 2026.",
     fr: "Comment sauvegarder les données du Galaxy Watch sur PC sans Samsung Cloud : export Samsung Health, demande RGPD, tableaux de bord alternatifs. Guide pas à pas 2026.",
+    pl: "Jak wykonać kopię zapasową danych Galaxy Watch na PC bez Samsung Cloud: eksport Samsung Health, wniosek RODO, alternatywne panele. Przewodnik krok po kroku 2026.",
+    tr: "Samsung Cloud olmadan Galaxy Watch verilerini PC'ye yedekleme: Samsung Health dışa aktarımı, KVKK/GDPR talebi, alternatif paneller. 2026 adım adım kılavuz.",
   },
   hero: {
     kicker: {
@@ -100,6 +130,8 @@ export const post: BlogPost = {
       de: "Praxisanleitung",
       pt: "Guia prático",
       fr: "Guide pratique",
+      pl: "Przewodnik praktyczny",
+      tr: "Pratik Kılavuz",
     },
     title: {
       it: "Backup Galaxy Watch su PC senza Samsung Cloud",
@@ -108,6 +140,8 @@ export const post: BlogPost = {
       de: "Galaxy Watch auf dem PC sichern ohne Samsung Cloud",
       pt: "Como fazer backup do Galaxy Watch no PC sem Samsung Cloud",
       fr: "Sauvegarder les données du Galaxy Watch sur PC sans Samsung Cloud",
+      pl: "Kopia zapasowa Galaxy Watch na PC bez Samsung Cloud",
+      tr: "Samsung Cloud Olmadan Galaxy Watch Verilerini PC'ye Yedekleme",
     },
     subtitle: {
       it: "Quattro vie reali per portare passi, BPM, sonno e allenamenti del Galaxy Watch fuori da Samsung Health. Pro e contro di ognuna.",
@@ -116,6 +150,8 @@ export const post: BlogPost = {
       de: "Vier echte Wege, um Schritte, Herzfrequenz, Schlaf und Trainings des Galaxy Watch aus Samsung Health herauszubekommen. Vor- und Nachteile jeder Option.",
       pt: "Quatro formas reais de exportar passos, frequência cardíaca, sono e treinos do seu Galaxy Watch para fora do Samsung Health. Prós e contras de cada uma.",
       fr: "Quatre méthodes concrètes pour extraire pas, fréquence cardiaque, sommeil et séances d'entraînement du Galaxy Watch hors de Samsung Health. Avantages et inconvénients de chacune.",
+      pl: "Cztery realne sposoby na wyeksportowanie kroków, tętna, snu i treningów z Galaxy Watch poza Samsung Health. Zalety i wady każdego z nich.",
+      tr: "Galaxy Watch'tan adım, nabız, uyku ve antrenman verilerini Samsung Health dışında almak için dört gerçekçi yol. Her birinin artıları ve eksileri.",
     },
   },
   body: [
@@ -128,6 +164,8 @@ export const post: BlogPost = {
         de: "Es gibt vier echte Möglichkeiten, Galaxy Watch-Daten auf dem PC zu sichern, und die Wahl der richtigen hängt von einem einzigen Faktor ab: Benötigst du ein vollständiges historisches Archiv oder einen kontinuierlichen automatisierten Datenstrom? Für ein historisches Archiv erstellt der interne Samsung Health-Export ein vollständiges CSV-Paket in wenigen Schritten. Für einen kontinuierlichen Datenstrom ist Health Connect, verbunden mit einer Drittanbieter-App, der einzige Weg, der keine manuellen Wiederholungen erfordert.",
         pt: "Existem quatro formas reais de fazer backup dos dados do Galaxy Watch no PC, e escolher a certa depende de um único fator: você precisa de um arquivo histórico completo ou de um fluxo contínuo automatizado? Para um arquivo histórico, a exportação interna do Samsung Health gera um pacote CSV completo em poucos passos. Para um fluxo contínuo, o Health Connect vinculado a um app de terceiros é o único caminho que não exige repetições manuais.",
         fr: "Il existe quatre façons concrètes de sauvegarder les données du Galaxy Watch sur PC, et choisir la bonne dépend d'un seul facteur : avez-vous besoin d'une archive historique complète ou d'un flux continu automatisé ? Pour une archive historique, l'export interne de Samsung Health génère un package CSV complet en quelques étapes. Pour un flux continu, Health Connect relié à une application tierce est la seule voie qui ne nécessite pas de répétitions manuelles.",
+        pl: "Istnieją cztery realne sposoby na wykonanie kopii zapasowej danych Galaxy Watch na PC, a wybór właściwego zależy od jednego czynnika: potrzebujesz kompletnego archiwum historycznego czy ciągłego zautomatyzowanego przepływu? W przypadku archiwum historycznego wewnętrzny eksport Samsung Health generuje kompletny pakiet CSV w kilku krokach. W przypadku ciągłego przepływu Health Connect połączony z zewnętrzną aplikacją to jedyna ścieżka, która nie wymaga ręcznego powtarzania.",
+        tr: "Galaxy Watch verilerini PC'ye yedeklemenin dört gerçek yolu vardır ve doğru olanı seçmek tek bir faktöre bağlıdır: eksiksiz bir geçmiş arşivi mi yoksa sürekli otomatik akış mı istiyorsunuz? Geçmiş arşivi için Samsung Health dahili dışa aktarımı birkaç adımda eksiksiz bir CSV paketi oluşturur. Sürekli akış için üçüncü taraf uygulamasına bağlı Health Connect, manuel tekrar gerektirmeyen tek yoldur.",
       },
     },
     {
@@ -140,6 +178,8 @@ export const post: BlogPost = {
         de: "Option 1: Interner Export von Samsung Health",
         pt: "Opção 1: exportação interna do Samsung Health",
         fr: "Option 1 : export interne de Samsung Health",
+        pl: "Opcja 1: wewnętrzny eksport Samsung Health",
+        tr: "Seçenek 1: Samsung Health dahili dışa aktarımı",
       },
     },
     {
@@ -151,6 +191,8 @@ export const post: BlogPost = {
         de: "Samsung Health (Android) verfügt über eine integrierte Exportfunktion, die ein Dateipaket mit allen deinen Rohdaten erstellt. Sie wird in Tutorials nicht beworben, existiert aber schon seit Jahren.",
         pt: "O Samsung Health (Android) possui uma função de exportação integrada que gera um pacote de arquivos com todos os seus dados brutos. Ela não aparece em destaque nos tutoriais, mas existe há anos.",
         fr: "Samsung Health (Android) dispose d'une fonction d'export intégrée qui génère un package de fichiers contenant toutes vos données brutes. Elle n'est pas mise en avant dans les tutoriels, mais elle existe depuis des années.",
+        pl: "Samsung Health (Android) ma wbudowaną funkcję eksportu, która generuje pakiet plików ze wszystkimi surowymi danymi. Nie jest promowana w tutorialach, ale istnieje od lat.",
+        tr: "Samsung Health (Android), tüm ham verilerinizi içeren bir dosya paketi oluşturan yerleşik dışa aktarma işlevine sahiptir. Eğitimlerde öne çıkarılmaz, ancak yıllardır oradadır.",
       },
     },
     {
@@ -199,6 +241,20 @@ export const post: BlogPost = {
           "Confirmez avec le mot de passe du Samsung Account.",
           "Patientez (cela peut prendre de 1 à 24 heures si vous avez des années de données). Vous recevrez un ZIP par e-mail.",
         ],
+        pl: [
+          "Otwórz Samsung Health na telefonie.",
+          "Dotknij ikony ☰ menu w lewym górnym rogu → Ustawienia.",
+          "Przewiń do 'Pobierz dane osobowe'.",
+          "Potwierdź hasłem do Samsung Account.",
+          "Poczekaj (może potrwać 1-24 godziny przy wieloletnich danych). Otrzymasz ZIP na e-mail.",
+        ],
+        tr: [
+          "Telefonda Samsung Health'i açın.",
+          "Sol üstteki ☰ menü simgesine dokunun → Ayarlar.",
+          "'Kişisel verileri indir' seçeneğine gidin.",
+          "Samsung Account şifrenizle onaylayın.",
+          "Bekleyin (yıllarca veri varsa 1-24 saat sürebilir). E-postayla bir ZIP alacaksınız.",
+        ],
       },
     },
     {
@@ -210,6 +266,8 @@ export const post: BlogPost = {
         de: "Das Paket enthält CSV-Dateien für jeden Datentyp (steps_*.csv, heart_rate_*.csv, sleep_*.csv, exercise_*.csv usw.) sowie Binärdateien für hochfrequente Daten wie die kontinuierliche Herzfrequenz während Trainings. Es ist vollständig, aber umfangreich. Zur Analyse in Excel/Numbers einfach die CSVs importieren; für anspruchsvollere Visualisierungen kannst du Python pandas oder R verwenden.",
         pt: "O pacote contém arquivos CSV para cada tipo de dado (steps_*.csv, heart_rate_*.csv, sleep_*.csv, exercise_*.csv, etc.) além de arquivos binários para dados de alta frequência, como a frequência cardíaca contínua durante treinos. É completo, mas volumoso. Para analisar no Excel/Numbers, basta importar os CSVs; para visualizações mais sofisticadas, use Python pandas ou R.",
         fr: "Le package contient des fichiers CSV pour chaque type de données (steps_*.csv, heart_rate_*.csv, sleep_*.csv, exercise_*.csv, etc.) ainsi que des fichiers binaires pour les données haute fréquence comme la fréquence cardiaque continue pendant les séances d'entraînement. Il est complet mais volumineux. Pour analyser dans Excel/Numbers, importez simplement les CSV ; pour des visualisations plus poussées, utilisez Python pandas ou R.",
+        pl: "Pakiet zawiera pliki CSV dla każdego typu danych (steps_*.csv, heart_rate_*.csv, sleep_*.csv, exercise_*.csv itd.) oraz pliki binarne dla danych wysokiej częstotliwości, takich jak ciągłe tętno podczas treningów. Jest kompletny, ale obszerny. Do analizy w Excel/Numbers wystarczy zaimportować CSV; do bardziej zaawansowanych wizualizacji możesz użyć Python pandas lub R.",
+        tr: "Paket her veri türü için CSV dosyaları (steps_*.csv, heart_rate_*.csv, sleep_*.csv, exercise_*.csv vb.) ve antrenmanlar sırasındaki sürekli nabız gibi yüksek frekanslı veriler için ikili dosyalar içerir. Eksiksizdir ama kapsamlıdır. Excel/Numbers'da analiz için CSV'leri içe aktarmanız yeterlidir; daha gelişmiş görselleştirmeler için Python pandas veya R kullanın.",
       },
     },
     {
@@ -222,6 +280,8 @@ export const post: BlogPost = {
         de: "Vor-/Nachteile Option 1",
         pt: "Prós/contras Opção 1",
         fr: "Avantages/inconvénients Option 1",
+        pl: "Zalety/wady Opcja 1",
+        tr: "Artılar/eksiler Seçenek 1",
       },
       body: {
         it: "**Pro**: completo, gratuito, formato standard. **Contro**: manuale (devi ripeterlo periodicamente), nessuna automazione, nessuna interfaccia di analisi inclusa.",
@@ -230,6 +290,8 @@ export const post: BlogPost = {
         de: "**Vorteile**: vollständig, kostenlos, Standardformat. **Nachteile**: manuell (muss regelmäßig wiederholt werden), keine Automatisierung, keine Analyseoberfläche enthalten.",
         pt: "**Prós**: completo, gratuito, formato padrão. **Contras**: manual (deve ser repetido periodicamente), sem automação, sem interface de análise incluída.",
         fr: "**Avantages** : complet, gratuit, format standard. **Inconvénients** : manuel (à répéter périodiquement), aucune automatisation, aucune interface d'analyse incluse.",
+        pl: "**Zalety**: kompletny, bezpłatny, standardowy format. **Wady**: ręczny (trzeba powtarzać okresowo), brak automatyzacji, brak interfejsu analizy.",
+        tr: "**Artılar**: eksiksiz, ücretsiz, standart format. **Eksiler**: manuel (periyodik olarak tekrarlanması gerekir), otomasyon yok, analiz arayüzü yok.",
       },
     },
     {
@@ -242,6 +304,8 @@ export const post: BlogPost = {
         de: "Option 2: DSGVO-Auskunftsersuchen",
         pt: "Opção 2: solicitação de acesso LGPD/GDPR",
         fr: "Option 2 : demande d'accès RGPD",
+        pl: "Opcja 2: wniosek RODO o dostęp do danych",
+        tr: "Seçenek 2: KVKK/GDPR veri erişim talebi",
       },
     },
     {
@@ -253,6 +317,8 @@ export const post: BlogPost = {
         de: "Wenn du in der EU bist, kannst du Samsung formell um alle über dich gesammelten Daten bitten (DSGVO Art. 15 und 20). Für Gesundheitsdaten ist der Ansprechpartner privacy.eu@samsung.com (oder das dedizierte Formular auf privacy.samsung.com/en/privacy-rights). Sie haben 30 Tage Zeit zu antworten, kostenlos. Der erhaltene Datensatz ist typischerweise umfangreicher als der interne Export (enthält auch Metadaten, Zugriffsprotokolle, Kontoinformationen).",
         pt: "Se você estiver na UE ou em países com legislação equivalente, pode escrever formalmente à Samsung solicitando todos os dados coletados sobre você (art. 15 e 20 do GDPR). Para dados de saúde, o contato é privacy.eu@samsung.com (ou o formulário dedicado em privacy.samsung.com/en/privacy-rights). Eles têm 30 dias para responder, gratuitamente. O conjunto de dados recebido é geralmente mais amplo do que a exportação interna (inclui metadados, logs de acesso e informações da conta).",
         fr: "Si vous êtes dans l'UE, vous pouvez écrire formellement à Samsung pour demander toutes les données collectées vous concernant (RGPD art. 15 et 20). Pour les données de santé, le contact est privacy.eu@samsung.com (ou le formulaire dédié sur privacy.samsung.com/en/privacy-rights). Ils disposent de 30 jours pour répondre, gratuitement. Le jeu de données reçu est généralement plus large que l'export interne (inclut aussi les métadonnées, les journaux d'accès et les informations du compte).",
+        pl: "Jeśli przebywasz w UE, możesz formalnie napisać do Samsunga z prośbą o wszystkie zebrane na Twój temat dane (RODO art. 15 i 20). W przypadku danych zdrowotnych punktem kontaktowym jest privacy.eu@samsung.com (lub dedykowany formularz na privacy.samsung.com/en/privacy-rights). Mają 30 dni na odpowiedź, bezpłatnie. Otrzymany zestaw danych jest zazwyczaj szerszy niż eksport wewnętrzny (obejmuje metadane, logi dostępu, informacje o koncie).",
+        tr: "AB'deyseniz, hakkınızda toplanan tüm veriler için Samsung'a resmi olarak yazabilirsiniz (GDPR mad. 15 ve 20). Sağlık verileri için iletişim adresi privacy.eu@samsung.com'dur (veya privacy.samsung.com/en/privacy-rights adresindeki özel form). 30 gün içinde ücretsiz yanıt vermek zorundadırlar. Aldığınız veri kümesi genellikle dahili dışa aktarımdan daha geniştir (meta veriler, erişim günlükleri ve hesap bilgilerini içerir).",
       },
     },
     {
@@ -265,6 +331,8 @@ export const post: BlogPost = {
         de: "Wann das DSGVO-Ersuchen sinnvoll ist",
         pt: "Quando vale a pena a solicitação LGPD/GDPR",
         fr: "Quand la demande RGPD vaut la peine",
+        pl: "Kiedy warto złożyć wniosek RODO",
+        tr: "KVKK/GDPR talebi ne zaman değer",
       },
       body: {
         it: "Soprattutto se stai per chiudere l'account Samsung e vuoi una copia completa per archivio. Per backup ricorrente è scomoda (un mese di attesa). Per controllo totale è insostituibile.",
@@ -273,6 +341,8 @@ export const post: BlogPost = {
         de: "Besonders wenn du dein Samsung-Konto schließen möchtest und eine vollständige Kopie für das Archiv willst. Für regelmäßige Backups ist es umständlich (ein Monat Wartezeit). Für totale Kontrolle ist es unersetzlich.",
         pt: "Especialmente se você está prestes a encerrar sua conta Samsung e quer uma cópia completa para arquivo. Para backup recorrente é incômoda (um mês de espera). Para controle total, é insubstituível.",
         fr: "Surtout si vous êtes sur le point de fermer votre compte Samsung et souhaitez une copie complète pour archive. Pour un backup récurrent, c'est peu pratique (un mois d'attente). Pour un contrôle total, elle est irremplaçable.",
+        pl: "Przede wszystkim jeśli zamierzasz zamknąć konto Samsung i chcesz pełną kopię na archiwum. Do cyklicznego tworzenia kopii zapasowych jest niewygodny (miesiąc oczekiwania). Dla pełnej kontroli jest niezastąpiony.",
+        tr: "Özellikle Samsung hesabınızı kapatmak üzereyseniz ve arşiv için tam bir kopya istiyorsanız. Düzenli yedekleme için kullanışsızdır (bir ay bekleme). Tam kontrol için vazgeçilmezdir.",
       },
     },
     {
@@ -285,6 +355,8 @@ export const post: BlogPost = {
         de: "Option 3: Daten über Health Connect mit einer Drittanbieter-App lesen",
         pt: "Opção 3: ler via Health Connect com um app de terceiros",
         fr: "Option 3 : lecture via Health Connect avec une application tierce",
+        pl: "Opcja 3: odczyt przez Health Connect w aplikacji zewnętrznej",
+        tr: "Seçenek 3: üçüncü taraf uygulamayla Health Connect üzerinden okuma",
       },
     },
     {
@@ -296,6 +368,8 @@ export const post: BlogPost = {
         de: "Seit 2024 schreibt Samsung Health in Health Connect, Androids offizielle API. Du kannst eine Drittanbieter-App installieren, die über Health Connect liest und die Daten in dem Format bereitstellt, das du willst: Web-Dashboard, JSON-Dateien, Synchronisierung mit anderen Ökosystemen. Das ist der automatisierteste Weg.",
         pt: "Desde 2024, o Samsung Health grava no Health Connect, a API oficial do Android. Você pode instalar um app de terceiros que leia via Health Connect e exponha os dados no formato que preferir: painel web, arquivos JSON, sincronização com outros ecossistemas. É a forma mais automatizada.",
         fr: "Depuis 2024, Samsung Health écrit dans Health Connect, l'API officielle d'Android. Vous pouvez installer une application tierce qui lit via Health Connect et expose les données dans le format souhaité : tableau de bord web, fichiers JSON, synchronisation avec d'autres écosystèmes. C'est la méthode la plus automatisée.",
+        pl: "Od 2024 roku Samsung Health zapisuje do Health Connect, oficjalnego API Androida. Możesz zainstalować zewnętrzną aplikację odczytującą przez Health Connect i udostępniającą dane w wybranym formacie: panel web, pliki JSON, synchronizacja z innymi ekosystemami. To najbardziej zautomatyzowany sposób.",
+        tr: "2024'ten beri Samsung Health, Android'in resmi API'si olan Health Connect'e yazmaktadır. Health Connect üzerinden okuyan ve verileri istediğiniz formatta sunan bir üçüncü taraf uygulaması kurabilirsiniz: web paneli, JSON dosyaları, diğer ekosistemlerle senkronizasyon. Bu en otomatik yöntemdir.",
       },
     },
     {
@@ -331,6 +405,16 @@ export const post: BlogPost = {
           "**Pour un export technique** : des applications comme Health Connect Toolbox (open source) produisent des dumps JSON manuels.",
           "**Pour des analyses avancées** : des applications comme Welltory ou Bearable lisent HC et proposent coaching et journal de bien-être.",
         ],
+        pl: [
+          "**Panel web**: FitMesh Sync odczytuje z Health Connect i pokazuje wszystko w aplikacji web dostępnej z PC.",
+          "**Eksport techniczny**: aplikacje takie jak Health Connect Toolbox (open source) tworzą ręczne zrzuty JSON.",
+          "**Zaawansowane analizy**: aplikacje takie jak Welltory lub Bearable odczytują HC i oferują coaching oraz journaling.",
+        ],
+        tr: [
+          "**Web paneli için**: FitMesh Sync, Health Connect'ten okur ve her şeyi PC'den erişilebilen bir web uygulamasında gösterir.",
+          "**Teknik dışa aktarım için**: Health Connect Toolbox (açık kaynak) gibi uygulamalar manuel JSON dökümleri üretir.",
+          "**Gelişmiş analizler için**: Welltory veya Bearable gibi uygulamalar HC'den okur ve koçluk ile günlük tutma sunar.",
+        ],
       },
     },
     {
@@ -342,6 +426,8 @@ export const post: BlogPost = {
         de: "Einschränkung: Dieser Weg funktioniert für Daten, die Samsung Health in Health Connect schreibt (also Schritte, Herzfrequenz, Schlaf, Kalorien, Distanz, Trainings). Für proprietäre Samsung-Daten wie Body Composition oder kontinuierlichen Stress Score wirst du immer den internen Samsung Health-Export benötigen.",
         pt: "Limitação: este caminho funciona para os dados que o Samsung Health grava no Health Connect (passos, frequência cardíaca, sono, calorias, distância, treinos). Para dados proprietários da Samsung como Body Composition ou Stress Score contínuo, você sempre precisará da exportação interna do Samsung Health.",
         fr: "Limite : cette voie fonctionne pour les données que Samsung Health écrit dans Health Connect (pas, fréquence cardiaque, sommeil, calories, distance, séances d'entraînement). Pour les données propriétaires Samsung comme Body Composition ou le Stress Score continu, l'export interne de Samsung Health reste toujours nécessaire.",
+        pl: "Ograniczenie: ta ścieżka działa dla danych, które Samsung Health zapisuje do Health Connect (kroki, tętno, sen, kalorie, dystans, treningi). Dla zastrzeżonych danych Samsung, takich jak Body Composition czy ciągły Stress Score, zawsze będzie potrzebny wewnętrzny eksport Samsung Health.",
+        tr: "Kısıtlama: bu yol Samsung Health'in Health Connect'e yazdığı veriler için çalışır (adım, nabız, uyku, kalori, mesafe, antrenmanlar). Body Composition veya sürekli Stress Score gibi Samsung'a özgü veriler için Samsung Health dahili dışa aktarımına her zaman ihtiyaç duyacaksınız.",
       },
     },
     {
@@ -354,6 +440,8 @@ export const post: BlogPost = {
         de: "Option 4: ADB-Backup (für Fortgeschrittene)",
         pt: "Opção 4: backup via ADB (avançado)",
         fr: "Option 4 : sauvegarde ADB (avancé)",
+        pl: "Opция 4: ADB backup (zaawansowane)",
+        tr: "Opション 4: ADB yedeklemesi (gelişmiş)",
       },
     },
     {
@@ -365,6 +453,8 @@ export const post: BlogPost = {
         de: "Für die Technisch-Versierten: Samsung Health-Daten liegen auf dem Telefon in einer SQLite-Datenbank. Mit einem USB-Kabel, aktiviertem ADB in den Entwickleroptionen und einem Tool wie adb backup oder Root-Zugriff kannst du die Datei extrahieren und direkt lesen. Nicht empfohlen, wenn du nicht weißt, was 'Entwickleroptionen' bedeutet: leicht, etwas kaputtzumachen, und es besteht das Risiko, gegen die Nutzungsbedingungen zu verstoßen.",
         pt: "Para os mais técnicos: os dados do Samsung Health ficam no celular em um banco de dados SQLite. Com um cabo USB, ADB ativado nas opções do desenvolvedor e uma ferramenta como adb backup ou root, você pode extrair o arquivo e lê-lo diretamente. Não recomendado para quem não sabe o que significam 'opções do desenvolvedor': é fácil causar problemas e há risco de violar os Termos de Serviço.",
         fr: "Pour les plus techniques : les données Samsung Health résident sur le téléphone dans une base de données SQLite. Avec un câble USB, ADB activé dans les options développeur, et un outil comme adb backup ou un accès root, vous pouvez extraire le fichier et le lire directement. Déconseillé si vous ne savez pas ce que signifient les 'options développeur' : risque de casser des choses et de violer les Conditions d'utilisation.",
+        pl: "Dla bardziej technicznych użytkowników: dane Samsung Health są przechowywane na telefonie w bazie danych SQLite. Korzystając z kabla USB, aktywowanych opcji deweloperskich ADB, oraz narzędzia takiego jak adb backup lub root, można wydobyć plik i czytać go bezpośrednio. Nie zalecamy tego dla osób nieposiadających wiedzy na temat 'opcji deweloperskich': jest łatwo spowodować uszkodzenia i istnieje ryzyko naruszenia warunków użytkowania.",
+        tr: "Para daha teknolojik kuranlar: Samsung Health veriler telefon üzerinde SQLite bir veritabanında saklanmaktadır. USB kabuğunu kullanarak, Geliştirici Seçenekleri içinde ADB'yi etkinleştirerek ve adb backup gibi bir araçla veya kök erişimi olan bir tool ile bu dosyayı çıkarabilir ve doğrudan okuyabilirsiniz. 'Geliştirici Seçenekleri' ne demek bilmeden bunu yapmak önerilmez: kolayca zararlı durumlara düşebilir ve ToS'i ihlal etme riski vardır.",
       },
     },
     {
@@ -377,6 +467,8 @@ export const post: BlogPost = {
         de: "Unsere Empfehlung",
         pt: "Nossa recomendação",
         fr: "Notre choix recommandé",
+        pl: "Rozwód, który polecamy",
+        tr: "Recomandılan seçim",
       },
       body: {
         it: "Per la maggior parte degli utenti Galaxy Watch, la combinazione giusta è: export Samsung Health una volta l'anno per archivio storico completo, più Health Connect collegato a FitMesh Sync per il monitoraggio continuo. L'ADB e la richiesta GDPR sono strumenti per casi limite, non per uso quotidiano. Non cercare la soluzione 'perfetta' con automazione totale: per i dati proprietari Samsung (Body Composition, Stress Score continuo) l'export manuale periodico è e resterà necessario.",
@@ -385,6 +477,8 @@ export const post: BlogPost = {
         de: "Für die meisten Galaxy Watch-Nutzer ist die richtige Kombination: Samsung Health-Export einmal pro Jahr für das vollständige historische Archiv, plus Health Connect verbunden mit FitMesh Sync für das kontinuierliche Monitoring. ADB und DSGVO-Anfragen sind Werkzeuge für Ausnahmefälle, nicht für den täglichen Gebrauch. Suche nicht nach der 'perfekten' vollautomatisierten Lösung: Für proprietäre Samsung-Daten (Body Composition, kontinuierlicher Stress Score) ist der periodische manuelle Export notwendig und wird es bleiben.",
         pt: "Para a maioria dos usuários do Galaxy Watch, a combinação certa é: exportação do Samsung Health uma vez por ano para o arquivo histórico completo, mais Health Connect vinculado ao FitMesh Sync para monitoramento contínuo. ADB e solicitações LGPD/GDPR são ferramentas para casos extremos, não para uso diário. Não busque a solução 'perfeita' com automação total: para os dados proprietários da Samsung (Body Composition, Stress Score contínuo), a exportação manual periódica é e continuará sendo necessária.",
         fr: "Pour la plupart des utilisateurs du Galaxy Watch, la bonne combinaison est : export Samsung Health une fois par an pour l'archive historique complète, plus Health Connect relié à FitMesh Sync pour le suivi continu. ADB et les demandes RGPD sont des outils pour les cas limites, pas pour un usage quotidien. Ne cherchez pas la solution 'parfaite' entièrement automatisée : pour les données propriétaires Samsung (Body Composition, Stress Score continu), l'export manuel périodique est et restera nécessaire.",
+        pl: "Dla większości użytkowników Galaxy Watch, idealna kombinacja to: eksport Samsung Health raz w roku do archiwum pełnego, oraz połączenie z FitMesh Sync Health Connect do monitorowania ciągłego. ADB i żądanie GDPR są narzędziami do sytuacji ekstremalnych, nie do codziennego użytku. Nie szukaj idealnej rozwiązania poprzez całkowitą automatyzację: regularne eksporty ręczne dla danych własnych Samsung (kompozycji ciała, ciągłego oceny stresu) pozostaną konieczne.",
+        tr: "KVKK için çoğu kullanıcının Galaxy Watch için uygun kombinasyon: export Samsung Health yıllık aralıklarla tarihli veri saklamak, daha sonra ise Health Connect ile FitMesh Sync arasında sürekli izleme. ADB ve GDPR talebi araçları sınır durumları için kullanılır, günlük kullanım için uygun değildir. Tam otomatizasyonla ‘mükemmel’ bir çözüm aramayın: Samsung verileri (Keskinlik Analizi, Süreç Skoru) için düzenli manuel export gerekliliklerini iptal etmeyecektir.",
       },
     },
     {
@@ -397,6 +491,8 @@ export const post: BlogPost = {
         de: "Übersichtstabelle",
         pt: "Tabela resumo",
         fr: "Tableau récapitulatif",
+        pl: "Tabela podsumowująca",
+        tr: "Rösum tablosu",
       },
     },
     {
@@ -408,6 +504,18 @@ export const post: BlogPost = {
         de: ["Option", "Schwierigkeit", "Vollständigkeit", "Automatisierung"],
         pt: ["Opção", "Dificuldade", "Completude", "Automação"],
         fr: ["Option", "Difficulté", "Complétude", "Automatisation"],
+        pl: [
+          "Opcja",
+          "Trudności",
+          "Całoscność",
+          "Automatyzacja",
+        ],
+        tr: [
+          "Seçenek",
+          "Zorluklar",
+          "Tamgüzelik",
+          "Otomasyon",
+        ],
       },
       rows: [
         {
@@ -417,6 +525,18 @@ export const post: BlogPost = {
           de: ["Samsung Health-Export", "Niedrig", "Hoch", "Nein"],
           pt: ["Exportação Samsung Health", "Baixa", "Alta", "Não"],
           fr: ["Export Samsung Health", "Faible", "Élevée", "Non"],
+          pl: [
+            "Eksport Samsung Health",
+            "Niska",
+            "Wysoka",
+            "Nie",
+          ],
+          tr: [
+            "Export Samsung Health",
+            "Basa",
+            "Üst",
+            "No",
+          ],
         },
         {
           it: ["GDPR request", "Bassa", "Massima", "No (30gg)"],
@@ -425,6 +545,18 @@ export const post: BlogPost = {
           de: ["DSGVO-Anfrage", "Niedrig", "Maximal", "Nein (30 Tage)"],
           pt: ["Solicitação LGPD/GDPR", "Baixa", "Máxima", "Não (30 dias)"],
           fr: ["Demande RGPD", "Faible", "Maximale", "Non (30 jours)"],
+          pl: [
+            "prośba o GDPR",
+            "Niska",
+            "Maksymalna",
+            "Bez (30dn)",
+          ],
+          tr: [
+            "KVKK talebi",
+            "Basa",
+            "Massima",
+            "No (30 gün)",
+          ],
         },
         {
           it: ["Health Connect + app terza", "Bassa", "Media", "Sì"],
@@ -433,6 +565,18 @@ export const post: BlogPost = {
           de: ["Health Connect + Drittanbieter-App", "Niedrig", "Mittel", "Ja"],
           pt: ["Health Connect + app de terceiros", "Baixa", "Média", "Sim"],
           fr: ["Health Connect + app tierce", "Faible", "Moyenne", "Oui"],
+          pl: [
+            "RODO + app trzecia",
+            "Niska",
+            "Media",
+            "Tak",
+          ],
+          tr: [
+            "KVKK + uygulama üçüncü parti",
+            "Basa",
+            "Medya",
+            "Evet",
+          ],
         },
         {
           it: ["ADB / SQLite", "Alta", "Massima", "Con script"],
@@ -441,6 +585,18 @@ export const post: BlogPost = {
           de: ["ADB / SQLite", "Hoch", "Maximal", "Mit Skripten"],
           pt: ["ADB / SQLite", "Alta", "Máxima", "Com scripts"],
           fr: ["ADB / SQLite", "Élevée", "Maximale", "Avec scripts"],
+          pl: [
+            "ADB / SQLite",
+            "Wysoka",
+            "Maksymalna",
+            "Z skryptem",
+          ],
+          tr: [
+            "ADB / SQLite",
+            "Yüksek",
+            "Massima",
+            "Kon script",
+          ],
         },
       ],
     },
@@ -454,6 +610,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "W syntezie",
+        tr: "Özetle",
       },
     },
     {
@@ -501,6 +659,20 @@ export const post: BlogPost = {
           "ADB est destiné aux utilisateurs techniques : accès direct à la base de données SQLite, complétude maximale, risque élevé si vous ne savez pas ce que vous faites.",
           "Les données propriétaires Samsung (Body Composition, Stress Score continu) ne passent pas par Health Connect : pour celles-ci, l'export manuel reste toujours nécessaire.",
         ],
+        pl: [
+          "Wyeksportowanie wewnętrzne Samsung Health (Ustawienia → Pobierz dane osobowe) to najbardziej kompleksowy i darmowy sposób: generuje pakiet CSV z całą historią.",
+          "Health Connect połączony z trzecią aplikacją jest jedyną opcją z rzeczywistą automatyzacją: dane przepływają bez interwencji manualnej, ale obejmuje tylko typy danych, które Samsung Health zapisuje na HC.",
+          "Zażądanie GDPR obejmuje wyeksportowanie wewnętrzne (zakłada metadane i logi), ale wymaga do 30 dni: używaj tylko do zapisu przed-zamknięcia konta.",
+          "ADB jest dla technicznych użytkowników: bezpośredni dostęp do bazy danych SQLite, najwyższa kompletność, wysoki ryzyko w przypadku braku wiedzy o działaniu.",
+          "Dane Państwo Samsung (Kompozycja ciała, Kontynuowana Ocena Stresu) nie przechodzą przez Health Connect: dla tych wymaga zawsze eksportu手动操作。",
+        ],
+        tr: [
+          "İç aktarma (Samsung Health ayarları → kişisel verileri indir) en kapsamlı ve ücretsiz yöntemdir: tüm tarihi bir CSV paketini oluşturur.",
+          "Health Connect bir üçüncü taraf uygulamasına bağlıysa, gerçek otomasyonun tek seçenekidir: veriler_manual_intervention_gereksiz,kendiliğinden akar ancak sadece Samsung Health HC üzerinde yazdığı veri tiplerini kapsar.",
+          "Güvenlik GDPR isteği içeren export yerel (metadataları ve logları da içerir) ancak bu işlem için en fazla 30 gün gerekebilir: sadece hesap kapatma öncesi arşivlemek amaçlı kullanın.",
+          "ADB için teknik kullanıcılar için: SQLite veritabanına doğrudan erişim, en kapsamlı ama yanlış kullanılmasıyla yüksek risk.",
+          "Veri sahip Samsung (Kütle Üzeyi Analizi, Sürekli Basınç Puanı) KVKK: için geçmez: o verilere her zaman el ile export yapılması gerekmektedir.",
+        ],
       },
     },
     {
@@ -512,6 +684,8 @@ export const post: BlogPost = {
         de: "Suchst du ein fertiges Web-Dashboard für Galaxy Watch-Daten?",
         pt: "Procurando um painel web pronto para os dados do Galaxy Watch?",
         fr: "Vous cherchez un tableau de bord web prêt pour les données du Galaxy Watch ?",
+        pl: "Czy szukasz panelu kontrolnego w sieci dla danych Galaxy Watch?",
+        tr: "Araştırmalarınız için uygun bir veri Galaxy Watch panosu arıyorsunuz?",
       },
       body: {
         it: "FitMesh Sync legge da Samsung Health via Health Connect e mostra passi, BPM, sonno e allenamenti su una dashboard web accessibile da qualsiasi browser. Setup di 30 secondi sul telefono.",
@@ -520,6 +694,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest aus Samsung Health über Health Connect und zeigt Schritte, Herzfrequenz, Schlaf und Trainings auf einem Web-Dashboard, das über jeden Browser zugänglich ist. Einrichtung in 30 Sekunden auf dem Telefon.",
         pt: "FitMesh Sync lê do Samsung Health via Health Connect e mostra passos, frequência cardíaca, sono e treinos em um painel web acessível por qualquer navegador. Configuração em 30 segundos no celular.",
         fr: "FitMesh Sync lit depuis Samsung Health via Health Connect et affiche pas, fréquence cardiaque, sommeil et séances d'entraînement sur un tableau de bord web accessible depuis n'importe quel navigateur. Configuration en 30 secondes sur le téléphone.",
+        pl: "FitMesh Sync odczytuje z Samsung Health przez Health Connect i wyświetla kroki, BPM, sen i treningi na webowej dashboardie dostępnej z dowolnego przeglądarki. Konfiguracja w 30 sekund na telefonie.",
+        tr: "FitMesh Sync KVKK'ye uygun olarak Samsung Health üzerinden Health Connect ile ve gösterir pasları, BPM, uyku ve egzersizleri bir web tabanlı panelde. Telefondan 30 saniye setup'u.",
       },
       ctaLabel: {
         it: "Vedi Galaxy Watch su FitMesh →",
@@ -528,6 +704,8 @@ export const post: BlogPost = {
         de: "Galaxy Watch auf FitMesh ansehen →",
         pt: "Ver Galaxy Watch no FitMesh →",
         fr: "Voir Galaxy Watch sur FitMesh →",
+        pl: "Zobacz Galaxy Watch na FitMesh →",
+        tr: "Gör Galaxy Watch'i FitMesh →",
       },
       ctaHref: { it: "/it/sync/galaxy-watch", en: "/en/sync/galaxy-watch" },
     },
@@ -541,6 +719,8 @@ export const post: BlogPost = {
         de: "Enthält der Export die vollständige Datei?",
         pt: "A exportação inclui o histórico completo?",
         fr: "L'export inclut-il l'historique complet ?",
+        pl: "Czy eksport obejmuje pełny historik?",
+        tr: "Geri aktarma içeriyor mu tam geçmiş?",
       },
       a: {
         it: "Sì: l'export Samsung Health interno include tutti i dati associati al tuo account, anche pluriennali. Se hai cambiato account in passato, lo storico legato al vecchio account non è incluso e va recuperato separatamente.",
@@ -549,6 +729,8 @@ export const post: BlogPost = {
         de: "Ja: Der interne Samsung Health-Export enthält alle mit deinem Konto verknüpften Daten, auch mehrjährige. Wenn du in der Vergangenheit das Konto gewechselt hast, ist die Datei des alten Kontos nicht enthalten und muss separat wiederhergestellt werden.",
         pt: "Sim: a exportação interna do Samsung Health inclui todos os dados vinculados à sua conta, mesmo os de vários anos. Se você trocou de conta no passado, o histórico vinculado à conta antiga não está incluído e precisa ser recuperado separadamente.",
         fr: "Oui : l'export interne Samsung Health inclut toutes les données liées à votre compte, même pluriannuelles. Si vous avez changé de compte par le passé, l'historique lié à l'ancien compte n'est pas inclus et doit être récupéré séparément.",
+        pl: "Tak: eksport Samsung Health wewnętrzny zawiera wszystkie dane powiązane z Twoim kontem, nawet długoterminowe. Jeśli zmieniłeś konto w przeszłości, historia związana z poprzednim kontem nie jest uwzględniona i musi być odzyskana oddzielnie.",
+        tr: "Evet: İç Samsung Health export tüm hesapla ilişkili verileri içerir, bileşenliklere de dahil. Eski hesabın ile ilgili tarihi eski hesaptan dahil değildir ve ayrı olarak geri yüklenebilir.",
       },
     },
     {
@@ -559,6 +741,8 @@ export const post: BlogPost = {
         de: "Kann ich ein Backup erstellen ohne mich mit dem Samsung Account zu authentifizieren?",
         pt: "Posso fazer o backup sem me autenticar com o Samsung Account?",
         fr: "Puis-je sauvegarder sans m'authentifier avec Samsung Account ?",
+        pl: "Czy mogę wykonać kopię zapasową bez logowania się za pomocą konta Samsung Account?",
+        tr: "Güvenlik içinSamsung Hesabım ile kimlik doğrulama yapmadan yine de zesik alma yapabilirim mi?",
       },
       a: {
         it: "Per l'export interno di Samsung Health la password è richiesta. Per la via Health Connect + app terza no: basta il permesso Android. È l'unica strada che non passa dall'account Samsung.",
@@ -567,6 +751,8 @@ export const post: BlogPost = {
         de: "Für den internen Samsung Health-Export ist das Passwort erforderlich. Für den Weg über Health Connect + Drittanbieter-App nicht: Die Android-Berechtigung reicht aus. Es ist der einzige Weg, der nicht über das Samsung-Konto läuft.",
         pt: "Para a exportação interna do Samsung Health, a senha é necessária. Para o caminho via Health Connect + app de terceiros, não: basta a permissão do Android. É o único caminho que não passa pela conta Samsung.",
         fr: "Pour l'export interne de Samsung Health, le mot de passe est requis. Pour la voie Health Connect + application tierce, non : la permission Android suffit. C'est la seule voie qui ne passe pas par le compte Samsung.",
+        pl: "Dla eksportu wewnętrznego Samsung Health wymagana jest hasło. Dla ścieżki Health Connect + aplikacja trzecia nie: wystarczy zezwolenie Android. To jest jedyna ścieżka, która nie przechodzi przez konto Samsung.",
+        tr: "KVKK için Samsung Health exportu için şifre gereklidir. Diğer yollar Health Connect + üçüncü taraf uygulama: sadece Android izni yeterlidir. Bu yol da Samsung hesabından geçmez.",
       },
     },
     {
@@ -577,6 +763,8 @@ export const post: BlogPost = {
         de: "Funktionieren die exportierten Dateien in Excel?",
         pt: "Os arquivos exportados funcionam no Excel?",
         fr: "Les fichiers exportés fonctionnent-ils dans Excel ?",
+        pl: "Czy wyeksportowane pliki funcionują w Excel?",
+        tr: "İçe aktarılan dosyalar Excel'de çalışır mı?",
       },
       a: {
         it: "Sì, i CSV sono compatibili con Excel/Numbers/Google Sheets. Apri il file, scegli virgola come separatore se richiesto. Per file molto grandi (>1M righe per dati come HR continuo annuali) conviene usare strumenti specifici (Python pandas, R, DuckDB).",
@@ -585,6 +773,8 @@ export const post: BlogPost = {
         de: "Ja, CSV-Dateien sind mit Excel/Numbers/Google Sheets kompatibel. Öffne die Datei und wähle Komma als Trennzeichen, wenn gefragt. Für sehr große Dateien (mehr als 1 Million Zeilen, wie bei jährlicher kontinuierlicher Herzfrequenz) empfehlen sich spezifische Tools (Python pandas, R, DuckDB).",
         pt: "Sim, os CSVs são compatíveis com Excel/Numbers/Google Sheets. Abra o arquivo e escolha vírgula como separador se solicitado. Para arquivos muito grandes (mais de 1 milhão de linhas, como frequência cardíaca contínua anual) é melhor usar ferramentas específicas (Python pandas, R, DuckDB).",
         fr: "Oui, les CSV sont compatibles avec Excel/Numbers/Google Sheets. Ouvrez le fichier et choisissez la virgule comme séparateur si demandé. Pour les fichiers très volumineux (plus d'1 million de lignes, comme la fréquence cardiaque continue annuelle), préférez des outils spécifiques (Python pandas, R, DuckDB).",
+        pl: "Tak, CSV są kompatybilne z Excel/Numbers/Google Sheets. Otwórz plik i wybierz przecinek jako separatory, jeśli będzie to potrzebne. Dla bardzo dużych plików (>1M wierszy dla danych takich jak HR kontinuowane roczne) polecam używanie specjalistycznych narzędzi (np. Python pandas, R, DuckDB).",
+        tr: "Evet, CSV Excel/Numbers/Google Sayfalar ile uyumludur. Dosyayı açın ve gerekirse virgülü ayırt edici olarak seçin. Çok büyük dosyalar için (>1M satır veri gibi HR sürekli yıllık) özel araçlar kullanmak faydalıdır (Python pandas, R, DuckDB).",
       },
     },
   ],

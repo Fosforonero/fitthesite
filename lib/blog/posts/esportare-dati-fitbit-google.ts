@@ -49,6 +49,20 @@ export const post: BlogPost = {
       "Limite HC pour Fitbit: les phases de sommeil (REM/profond/léger) ne sont pas exposées de façon granulaire; le GPS et le VO₂ max nécessitent la Fitbit Web API.",
       "Avant de fermer le compte: exportez via Takeout, puis demandez la suppression RGPD. Jamais dans l'ordre inverse.",
     ],
+    pl: [
+      "Po migracji z 2023 roku dane Fitbit przechowywane są przez Google: eksport odbywa się przez Google Takeout (takeout.google.com), nie jak dotąd przez Fitbit.com.",
+      "Google Takeout jest najbardziej kompletną metodą: zawiera całą historię w formacie JSON/CSV, od aktywności po sen i tętno w odstępach minutowych.",
+      "Health Connect to metoda ciągłego przepływu: z aplikacji Fitbit do HC, dowolna aplikacja na Androida z uprawnieniami HC może odczytywać dane.",
+      "Ograniczenie HC dla Fitbit: fazy snu (REM/Głęboki/Lekki) nie są szczegółowo eksponowane; GPS i VO₂ max wymagają Fitbit Web API.",
+      "Przed zamknięciem konta: wyeksportuj przez Takeout, następnie złóż wniosek o usunięcie RODO. Nigdy w odwrotnej kolejności.",
+    ],
+    tr: [
+      "2023 migrasyonunun ardından Fitbit verileri Google'da yaşıyor: dışa aktarma, Fitbit.com üzerinden değil artık Google Takeout (takeout.google.com) üzerinden yapılıyor.",
+      "Google Takeout en eksiksiz yöntemdir: aktivitelerden uykuya ve dakika başına nabza kadar tüm geçmişi JSON/CSV formatında içerir.",
+      "Health Connect sürekli akış için kullanılan yöntemdir: Fitbit uygulamasından HC'ye, HC izinlerine sahip herhangi bir Android uygulaması verileri okuyabilir.",
+      "Fitbit için HC sınırı: uyku evreleri (REM/Derin/Hafif) ayrıntılı olarak gösterilmez; GPS ve VO₂ maks Fitbit Web API'sini gerektirir.",
+      "Hesabı kapatmadan önce: Takeout ile dışa aktarın, ardından GDPR silme talebinde bulunun. Hiçbir zaman ters sırada yapmayın.",
+    ],
   },
   primaryKeyword: {
     it: "esportare dati fitbit dopo google",
@@ -57,6 +71,8 @@ export const post: BlogPost = {
     de: "fitbit daten exportieren nach google",
     pt: "exportar dados fitbit depois do google",
     fr: "exporter données fitbit après google",
+    pl: "eksport danych fitbit po google",
+    tr: "fitbit verilerini google sonrası dışa aktarma",
   },
   secondaryKeywords: {
     it: [
@@ -83,6 +99,8 @@ export const post: BlogPost = {
       "télécharger les données fitbit",
       "historique des données fitbit",
     ],
+    pl: ["fitbit google takeout", "migracja konta fitbit", "pobierz dane fitbit", "historia danych fitbit"],
+    tr: ["fitbit google takeout", "fitbit hesap geçişi", "fitbit verilerini indir", "fitbit veri geçmişi"],
   },
   metaDescription: {
     it: "Dopo l'acquisizione Fitbit da parte di Google: come esportare i tuoi dati Fitbit nel 2026, cosa cambia se hai migrato a Google Account, alternative pratiche.",
@@ -91,6 +109,8 @@ export const post: BlogPost = {
     de: "Nach der Google-Übernahme von Fitbit: So exportieren Sie Ihre Fitbit-Daten 2026, was sich durch die Google-Konto-Migration ändert und welche Alternativen es gibt.",
     pt: "Após a aquisição do Fitbit pelo Google: como exportar seus dados do Fitbit em 2026, o que muda com a migração para o Google Account e quais são as alternativas.",
     fr: "Après le rachat de Fitbit par Google: comment exporter vos données Fitbit en 2026, ce qui change si vous avez migré vers un compte Google et les alternatives pratiques.",
+    pl: "Po przejęciu Fitbita przez Google: jak wyeksportować dane Fitbit w 2026 roku, co zmienia migracja na konto Google i praktyczne alternatywy.",
+    tr: "Google'ın Fitbit satın almasının ardından: 2026'da Fitbit verilerinizi nasıl dışa aktarırsınız, Google Hesabına geçişte ne değişiyor ve pratik alternatifler.",
   },
   hero: {
     kicker: {
@@ -100,6 +120,8 @@ export const post: BlogPost = {
       de: "Ökosystem",
       pt: "Ecossistema",
       fr: "Écosystème",
+      pl: "Ekosystem",
+      tr: "Ekosistem",
     },
     title: {
       it: "Esportare dati Fitbit dopo l'acquisto Google",
@@ -108,6 +130,8 @@ export const post: BlogPost = {
       de: "Fitbit-Daten nach der Google-Übernahme exportieren: praktischer Leitfaden",
       pt: "Exportar dados do Fitbit após a aquisição pelo Google: guia prático",
       fr: "Exporter les données Fitbit après le rachat par Google: guide pratique",
+      pl: "Eksportowanie danych Fitbit po przejęciu przez Google: praktyczny przewodnik",
+      tr: "Google satın almasının ardından Fitbit verilerini dışa aktarma: pratik kılavuz",
     },
     subtitle: {
       it: "Google ha comprato Fitbit nel 2021, ha unificato account nel 2023, ha sostituito Fitbit.com con strumenti Google. Dove vanno i tuoi dati e come li porti via.",
@@ -116,6 +140,8 @@ export const post: BlogPost = {
       de: "Google hat Fitbit 2021 übernommen, die Konten 2023 zusammengeführt und Fitbit.com durch Google-Tools ersetzt. Wo Ihre Daten liegen und wie Sie sie mitnehmen.",
       pt: "O Google comprou o Fitbit em 2021, unificou as contas em 2023 e substituiu o Fitbit.com por ferramentas próprias. Veja onde ficam seus dados e como levá-los com você.",
       fr: "Google a racheté Fitbit en 2021, a unifié les comptes en 2023 et a remplacé Fitbit.com par des outils Google. Voici où vont vos données et comment les récupérer.",
+      pl: "Google kupiło Fitbit w 2021 roku, ujednoliciło konta w 2023 i zastąpiło Fitbit.com narzędziami Google. Gdzie trafiają Twoje dane i jak je zabrać.",
+      tr: "Google 2021'de Fitbit'i satın aldı, 2023'te hesapları birleştirdi ve Fitbit.com'u Google araçlarıyla değiştirdi. Verileriniz nerede ve nasıl çıkarırsınız.",
     },
   },
   body: [
@@ -128,6 +154,8 @@ export const post: BlogPost = {
         de: "Fitbit-Daten 2026 zu exportieren ist einfacher als gedacht, erfordert aber das Verständnis eines wesentlichen Punkts: Nach der Google-Übernahme und der erzwungenen Migration 2023 liegen Ihre Fitbit-Daten in der Google-Infrastruktur und werden über Google Takeout heruntergeladen. Das alte Fitbit.com-Portal existiert nicht mehr. Dieser Leitfaden zeigt die zwei Hauptwege: Google Takeout für das vollständige historische Archiv, Health Connect für den täglichen Datenfluss zu Drittanbieter-Apps.",
         pt: "Exportar os dados do Fitbit em 2026 é mais simples do que parece, mas exige entender uma coisa fundamental: após a aquisição pelo Google e a migração forçada de 2023, seus dados do Fitbit residem na infraestrutura do Google e são baixados via Google Takeout. O antigo portal Fitbit.com desapareceu. Este guia apresenta os dois caminhos principais: Google Takeout para o arquivo histórico completo e Health Connect para o fluxo diário para apps de terceiros.",
         fr: "Exporter les données Fitbit en 2026 est plus simple qu'il n'y paraît, mais cela demande de comprendre un point essentiel: après le rachat par Google et la migration forcée de 2023, vos données Fitbit résident dans l'infrastructure Google et se téléchargent via Google Takeout. L'ancien portail Fitbit.com a disparu. Ce guide présente les deux voies principales: Google Takeout pour l'archive historique complète, Health Connect pour le flux quotidien vers des apps tierces.",
+        pl: "Eksportowanie danych Fitbit w 2026 roku jest prostsze niż się wydaje, ale wymaga zrozumienia jednej kluczowej rzeczy: po przejęciu przez Google i wymuszonej migracji z 2023 roku Twoje dane Fitbit przechowywane są w infrastrukturze Google i można je pobrać przez Google Takeout. Stary portal Fitbit.com już nie istnieje. Ten przewodnik opisuje dwie główne drogi: Google Takeout dla pełnego archiwum historycznego oraz Health Connect dla codziennego przepływu do aplikacji trzecich.",
+        tr: "2026'da Fitbit verilerini dışa aktarmak göründüğünden daha basit, ancak tek bir önemli şeyi anlamayı gerektiriyor: Google satın almasının ve zorunlu 2023 migrasyonunun ardından Fitbit verileriniz Google altyapısında yaşıyor ve Google Takeout üzerinden indiriliyor. Eski Fitbit.com portalı artık yok. Bu kılavuz iki ana yolu ele alıyor: tam geçmiş arşivi için Google Takeout ve üçüncü taraf uygulamalarına günlük akış için Health Connect.",
       },
     },
     {
@@ -140,6 +168,8 @@ export const post: BlogPost = {
         de: "Stand der Dinge im Mai 2026",
         pt: "Estado atual em maio de 2026",
         fr: "État des lieux en mai 2026",
+        pl: "Stan obecny: maj 2026",
+        tr: "Mayıs 2026 itibarıyla mevcut durum",
       },
     },
     {
@@ -187,6 +217,20 @@ export const post: BlogPost = {
           "**Données historiques**: entièrement préservées lors de la migration, accessibles via l'app et via Google Takeout.",
           "**Health Connect**: depuis 2024, l'app Fitbit écrit dans Health Connect (Android). Le Pixel Watch également.",
         ],
+        pl: [
+          "**Konto**: Konto Fitbit w starszej wersji nie istnieje od 2025 roku. Wszystkie konta to teraz konta Google. Wymagane logowanie przez e-mail Google.",
+          "**Aplikacja Fitbit**: nadal istnieje jako aplikacja na Android/iOS, teraz dystrybuowana przez Google LLC.",
+          "**Fitbit.com**: publiczny panel webowy został zamknięty. Dostępna pozostaje tylko sekcja konta/prywatności.",
+          "**Dane historyczne**: całkowicie zachowane podczas migracji, dostępne przez aplikację i Google Takeout.",
+          "**Health Connect**: od 2024 roku aplikacja Fitbit zapisuje dane w Health Connect (Android). Pixel Watch podobnie.",
+        ],
+        tr: [
+          "**Hesap**: eski Fitbit Hesabı 2025'ten beri artık desteklenmiyor. Tüm hesaplar artık Google Hesabı. Google e-postasıyla giriş zorunlu.",
+          "**Fitbit uygulaması**: Android/iOS uygulaması olarak varlığını sürdürüyor, artık Google LLC tarafından dağıtılıyor.",
+          "**Fitbit.com**: genel web panosu kaldırıldı. Yalnızca hesap/gizlilik alanına erişilebiliyor.",
+          "**Geçmiş veriler**: migrasyon sırasında tamamen korundu, uygulama ve Google Takeout üzerinden erişilebilir.",
+          "**Health Connect**: 2024'ten itibaren Fitbit uygulaması Health Connect'e (Android) yazıyor. Pixel Watch da aynı şekilde.",
+        ],
       },
     },
     {
@@ -199,6 +243,8 @@ export const post: BlogPost = {
         de: "Pixel Watch ist Fitbit unter der Haube",
         pt: "Pixel Watch é Fitbit por dentro",
         fr: "Le Pixel Watch est un Fitbit sous le capot",
+        pl: "Pixel Watch to Fitbit pod maską",
+        tr: "Pixel Watch aslında bir Fitbit",
       },
       body: {
         it: "Se hai un Pixel Watch (qualsiasi generazione), tecnicamente i tuoi dati vivono nell'infrastruttura Fitbit-by-Google. Tutto quello che dici di Fitbit in questo articolo vale per il tuo Pixel Watch.",
@@ -207,6 +253,8 @@ export const post: BlogPost = {
         de: "Wenn Sie ein Pixel Watch (beliebige Generation) besitzen, liegen Ihre Daten technisch gesehen in der Fitbit-by-Google-Infrastruktur. Alles, was in diesem Artikel über Fitbit steht, gilt auch für Ihre Pixel Watch.",
         pt: "Se você tem um Pixel Watch (qualquer geração), tecnicamente seus dados residem na infraestrutura Fitbit-by-Google. Tudo o que dizemos sobre Fitbit neste artigo vale também para o seu Pixel Watch.",
         fr: "Si vous possédez un Pixel Watch (quelle que soit la génération), vos données résident techniquement dans l'infrastructure Fitbit-by-Google. Tout ce qui est dit sur Fitbit dans cet article s'applique également à votre Pixel Watch.",
+        pl: "Jeśli masz Pixel Watch (dowolnej generacji), technicznie rzecz biorąc Twoje dane przechowywane są w infrastrukturze Fitbit-by-Google. Wszystko, co w tym artykule mówimy o Fitbicie, dotyczy również Twojego Pixel Watch.",
+        tr: "Bir Pixel Watch'ınız varsa (herhangi bir nesil), verileriniz teknik olarak Fitbit-by-Google altyapısında yaşıyor. Bu makalede Fitbit hakkında söylediklerimizin tamamı Pixel Watch'ınız için de geçerli.",
       },
     },
     {
@@ -219,6 +267,8 @@ export const post: BlogPost = {
         de: "Weg A: Google Takeout (die vollständigste Methode)",
         pt: "Caminho A: Google Takeout (o mais completo)",
         fr: "Option A: Google Takeout (la plus complète)",
+        pl: "Ścieżka A: Google Takeout (najbardziej kompletna)",
+        tr: "A Yolu: Google Takeout (en eksiksiz)",
       },
     },
     {
@@ -230,6 +280,8 @@ export const post: BlogPost = {
         de: "Google Takeout ist das offizielle Google-Portal, um Daten aller Produkte herunterzuladen, einschließlich Fitbit. Es ist der strukturierte Weg, um die vollständige Historie zu erhalten.",
         pt: "Google Takeout é o portal oficial do Google para baixar dados de todos os produtos, incluindo o Fitbit. É a forma estruturada de obter o histórico completo.",
         fr: "Google Takeout est le portail officiel de Google pour télécharger les données de tous ses produits, y compris Fitbit. C'est la méthode structurée pour obtenir l'historique complet.",
+        pl: "Google Takeout to oficjalny portal Google do pobierania danych ze wszystkich produktów, w tym Fitbita. To ustrukturyzowany sposób na uzyskanie pełnej historii.",
+        tr: "Google Takeout, Fitbit dahil tüm Google ürünlerinden veri indirmeye yarayan resmi Google portalıdır. Tam geçmişi almanın yapılandırılmış yoludur.",
       },
     },
     {
@@ -278,6 +330,20 @@ export const post: BlogPost = {
           "Choisissez le format d'export (JSON recommandé, CSV pour la plupart des données d'activité) et la destination (téléchargement direct, Drive, Dropbox, OneDrive).",
           "Lancez l'export. Le délai varie de quelques minutes (petit compte) à plusieurs heures (années de données granulaires). Vous recevrez un e-mail quand c'est prêt.",
         ],
+        pl: [
+          "Wejdź na takeout.google.com i zaloguj się na konto Google powiązane z Fitbitem.",
+          "Kliknij 'Odznacz wszystko', następnie wyszukaj 'Fitbit' na liście i zaznacz.",
+          "Rozwiń podelementy (Activity, Sleep, Heart Rate itp.): możesz szczegółowo wybrać, które typy uwzględnić.",
+          "Wybierz format eksportu (zalecany JSON, CSV dla większości danych aktywności) i miejsce docelowe (bezpośrednie pobieranie, Drive, Dropbox, OneDrive).",
+          "Uruchom eksport. Czas może wahać się od minut (małe konto) do godzin (lata szczegółowych danych). Otrzymasz e-mail, gdy będzie gotowy.",
+        ],
+        tr: [
+          "takeout.google.com adresine gidin ve Fitbit'e bağlı Google Hesabıyla oturum açın.",
+          "'Tümünün seçimini kaldır'a tıklayın, ardından listede 'Fitbit'i arayın ve seçin.",
+          "Alt öğeleri genişletin (Activity, Sleep, Heart Rate vb.): dahil edilecek türleri ayrıntılı olarak seçebilirsiniz.",
+          "Dışa aktarma formatını (JSON önerilir, çoğu aktivite verisi için CSV) ve hedefi (doğrudan indirme, Drive, Dropbox, OneDrive) seçin.",
+          "Dışa aktarmayı başlatın. Süre dakikalardan (küçük hesap) saatlere kadar değişebilir (yıllık ayrıntılı veriler). Hazır olduğunda e-posta alırsınız.",
+        ],
       },
     },
     {
@@ -289,6 +355,8 @@ export const post: BlogPost = {
         de: "Das Paket enthält Ordner je nach Datentyp. Beispiele: 'Personal & Account → Profile', 'Activities → activities-YYYY-MM-DD.json' (Tageszusammenfassung), 'Heart Rate → heart_rate-YYYY-MM-DD.json' (minutengenaue Messungen), 'Sleep → sleep-YYYY-MM-DD.json' mit Schlafphasen. Bei umfangreichen Historien können die Dateien mehrere GB groß sein.",
         pt: "O pacote contém pastas por tipo de dado. Exemplos: 'Personal & Account → Profile', 'Activities → activities-YYYY-MM-DD.json' (resumo diário), 'Heart Rate → heart_rate-YYYY-MM-DD.json' (amostras por minuto), 'Sleep → sleep-YYYY-MM-DD.json' com as fases. Para históricos longos, os arquivos podem pesar vários GB.",
         fr: "Le paquet contient des dossiers par type de données. Exemples: 'Personal & Account → Profile', 'Activities → activities-YYYY-MM-DD.json' (récapitulatif journalier), 'Heart Rate → heart_rate-YYYY-MM-DD.json' (mesures à la minute), 'Sleep → sleep-YYYY-MM-DD.json' avec les phases. Pour les historiques importants, les fichiers peuvent peser plusieurs Go.",
+        pl: "Pakiet zawiera foldery dla każdego typu danych. Przykłady: 'Personal & Account → Profile', 'Activities → activities-YYYY-MM-DD.json' (podsumowanie dzienne), 'Heart Rate → heart_rate-YYYY-MM-DD.json' (próbki co minutę), 'Sleep → sleep-YYYY-MM-DD.json' z fazami. Przy głębokich backfillach pliki mogą ważyć GB.",
+        tr: "Paket, veri türü başına klasörler içeriyor. Örnekler: 'Personal & Account → Profile', 'Activities → activities-YYYY-MM-DD.json' (günlük özet), 'Heart Rate → heart_rate-YYYY-MM-DD.json' (dakika başına örnekler), 'Sleep → sleep-YYYY-MM-DD.json' evreleriyle birlikte. Derin backfill'lerde dosyalar GB büyüklüğüne ulaşabilir.",
       },
     },
     {
@@ -301,6 +369,8 @@ export const post: BlogPost = {
         de: "Weg B: Health Connect (für den täglichen Einsatz)",
         pt: "Caminho B: Health Connect (para uso diário)",
         fr: "Option B: Health Connect (pour un usage quotidien)",
+        pl: "Ścieżka B: Health Connect (do codziennego użytku)",
+        tr: "B Yolu: Health Connect (günlük kullanım için)",
       },
     },
     {
@@ -312,6 +382,8 @@ export const post: BlogPost = {
         de: "Wenn Sie keinen einmaligen historischen Snapshot benötigen, sondern einen kontinuierlichen Datenfluss von Fitbit zu einer anderen App, ist Health Connect der richtige Weg.",
         pt: "Se você não precisa de um snapshot histórico pontual, mas de um fluxo contínuo dos dados do Fitbit para outro app, o caminho é o Health Connect.",
         fr: "Si vous n'avez pas besoin d'un instantané historique ponctuel mais d'un flux continu des données Fitbit vers une autre app, la solution est Health Connect.",
+        pl: "Jeśli nie potrzebujesz jednorazowej migawki historycznej, ale ciągłego przepływu danych Fitbit do innej aplikacji, drogą jest Health Connect.",
+        tr: "Tek seferlik geçmiş anlık görüntüsüne değil, Fitbit verilerinin başka bir uygulamaya sürekli akışına ihtiyacınız varsa Health Connect'i kullanın.",
       },
     },
     {
@@ -354,6 +426,18 @@ export const post: BlogPost = {
           "Appuyez sur 'Connect' et autorisez l'écriture pour les types de données que vous souhaitez exposer.",
           "À partir de ce moment, toute app Android tierce disposant des autorisations Health Connect peut lire vos données Fitbit.",
         ],
+        pl: [
+          "Upewnij się, że aplikacja Fitbit jest zaktualizowana (wersja 4.10 lub wyższa).",
+          "Otwórz Fitbit → zakładka 'You' (prawy dolny róg) → szukaj 'Health Connect' w ustawieniach profilu.",
+          "Dotknij 'Connect' i autoryzuj zapis dla typów danych, które chcesz udostępnić.",
+          "Od tej chwili dowolna aplikacja Android z uprawnieniami Health Connect może odczytywać Twoje dane Fitbit.",
+        ],
+        tr: [
+          "Fitbit uygulamasının güncel olduğundan emin olun (sürüm 4.10 veya üzeri).",
+          "Fitbit'i açın → 'You' sekmesi (sağ alt) → profil ayarlarında 'Health Connect'i arayın.",
+          "'Connect'e dokunun ve göstermek istediğiniz veri türleri için yazma iznini onaylayın.",
+          "Artık Health Connect izinlerine sahip herhangi bir Android uygulaması Fitbit verilerinizi okuyabilir.",
+        ],
       },
     },
     {
@@ -365,6 +449,8 @@ export const post: BlogPost = {
         de: "Wichtige Einschränkung: Über Health Connect gibt Fitbit die Schlafphasen nur als Gesamtdauer aus (nicht als separate Werte für REM/Tiefschlaf/Leichtschlaf/Wachphasen) und exportiert keine GPS-Strecken von Trainings, keinen VO₂ max und keinen Cardio Fitness Score. Für diese Daten ist die offizielle Fitbit Web API (OAuth) erforderlich, die eine Entwicklerzulassung voraussetzt und in der Regel nur für bereits zugelassene Apps zugänglich ist.",
         pt: "Limitação importante: via Health Connect, o Fitbit expõe as fases do sono apenas como duração total (não como REM/profundo/leve/acordado separados) e não expõe rastros GPS de treinos, VO₂ máx ou Cardio Fitness Score. Para esses dados é necessária a Fitbit Web API oficial (OAuth), que exige aprovação de desenvolvedor e normalmente só está acessível para apps já aprovados.",
         fr: "Limite importante: via Health Connect, Fitbit expose les phases de sommeil uniquement en durée totale (sans détail REM/profond/léger/éveil séparément) et n'expose pas les traces GPS des séances d'entraînement, le VO₂ max ni le Cardio Fitness Score. Pour ces données, il faut utiliser la Fitbit Web API officielle (OAuth), qui nécessite une approbation développeur et n'est généralement accessible qu'aux apps déjà approuvées.",
+        pl: "Ważne ograniczenie: przez Health Connect Fitbit udostępnia fazy snu tylko jako łączny czas trwania (bez oddzielnych REM/Głęboki/Lekki/Czuwanie) i nie udostępnia tras GPS z treningów, VO₂ max ani Cardio Fitness Score. Do tych danych potrzebne jest oficjalne Fitbit Web API (OAuth), które wymaga zatwierdzenia dewelopera i jest zwykle dostępne tylko dla już zatwierdzonych aplikacji.",
+        tr: "Önemli sınırlama: Health Connect üzerinden Fitbit, uyku evrelerini yalnızca toplam süre olarak gösteriyor (ayrı REM/Derin/Hafif/Uyanık değil) ve antrenman GPS izlerini, VO₂ maks veya Cardio Fitness Score'u göstermiyor. Bunlar için resmi Fitbit Web API'si (OAuth) gerekiyor; bu API geliştirici onayı gerektiriyor ve genellikle yalnızca önceden onaylanmış uygulamalara açık.",
       },
     },
     {
@@ -377,6 +463,8 @@ export const post: BlogPost = {
         de: "Was Sie vor dem Löschen des Kontos tun sollten",
         pt: "O que fazer antes de fechar a conta",
         fr: "Que faire avant de fermer le compte",
+        pl: "Co zrobić przed zamknięciem konta",
+        tr: "Hesabı kapatmadan önce yapılması gerekenler",
       },
     },
     {
@@ -388,6 +476,8 @@ export const post: BlogPost = {
         de: "Wenn Sie überlegen, Fitbit zu verlassen (und zu Garmin, Apple Watch oder Galaxy Watch zu wechseln), führen Sie diese drei Schritte in der richtigen Reihenfolge aus:",
         pt: "Se você está pensando em deixar o Fitbit (para mudar para Garmin, Apple Watch ou Galaxy Watch), siga estes três passos em ordem:",
         fr: "Si vous envisagez de quitter Fitbit (pour passer à Garmin, Apple Watch ou Galaxy Watch), effectuez ces trois étapes dans l'ordre:",
+        pl: "Jeśli rozważasz odejście od Fitbita (by przejść na Garmin, Apple Watch, Galaxy Watch), wykonaj te trzy kroki po kolei:",
+        tr: "Fitbit'ten ayrılmayı düşünüyorsanız (Garmin, Apple Watch, Galaxy Watch'a geçmek için), şu üç adımı sırasıyla uygulayın:",
       },
     },
     {
@@ -424,6 +514,16 @@ export const post: BlogPost = {
           "**Désactivez les partages cloud** dont vous n'avez plus besoin (Strava, MyFitnessPal sync, etc.).",
           "**Demandez la suppression RGPD** si vous souhaitez vous assurer que tout est effacé des sauvegardes. Rendez-vous sur privacy.google.com et sélectionnez 'Supprimer vos données'.",
         ],
+        pl: [
+          "**Wyeksportuj wszystko przez Takeout** w pierwszej kolejności. Po usunięciu konta jest już za późno.",
+          "**Wyłącz udostępnianie w chmurze**, które nie jest Ci już potrzebne (Strava, synchronizacja MyFitnessPal itp.).",
+          "**Złóż wniosek o usunięcie danych RODO**, jeśli chcesz mieć pewność, że wszystko zostanie usunięte z kopii zapasowych. Wejdź na privacy.google.com i wybierz 'Usuń swoje dane'.",
+        ],
+        tr: [
+          "**Her şeyi Takeout ile dışa aktarın** önce. Hesap silindikten sonra artık geç.",
+          "**İhtiyaç duymadığınız bulut paylaşımlarını devre dışı bırakın** (Strava, MyFitnessPal senkronizasyonu vb.).",
+          "**GDPR silme talebinde bulunun** her şeyin yedeklerden de kaldırıldığından emin olmak istiyorsanız. privacy.google.com adresine gidin ve 'Verilerinizi silin' seçeneğini seçin.",
+        ],
       },
     },
     {
@@ -436,6 +536,8 @@ export const post: BlogPost = {
         de: "Auf das Timing achten",
         pt: "Atenção ao timing",
         fr: "Faites attention au moment choisi",
+        pl: "Uwaga na czas",
+        tr: "Zamanlamaya dikkat",
       },
       body: {
         it: "Google Takeout può impiegare giorni a generare l'export per account grossi. Non avviare la cancellazione prima di avere il pacchetto in mano. Tieni anche conto che Google conserva backup per fino a 180 giorni dopo cancellazione (documentato in privacy policy).",
@@ -444,6 +546,8 @@ export const post: BlogPost = {
         de: "Google Takeout kann für große Konten mehrere Tage benötigen, um den Export zu erstellen. Starten Sie die Kontolöschung nicht, bevor Sie das Paket erhalten haben. Beachten Sie außerdem, dass Google Backups bis zu 180 Tage nach der Löschung aufbewahrt (laut Datenschutzrichtlinie dokumentiert).",
         pt: "O Google Takeout pode levar dias para gerar a exportação de contas grandes. Não inicie a exclusão antes de ter o pacote em mãos. Lembre-se também que o Google mantém backups por até 180 dias após a exclusão (conforme documentado na política de privacidade).",
         fr: "Google Takeout peut mettre plusieurs jours à générer l'export pour les comptes volumineux. Ne lancez pas la suppression avant d'avoir le paquet en main. Notez également que Google conserve les sauvegardes jusqu'à 180 jours après la suppression (mentionné dans la politique de confidentialité).",
+        pl: "Google Takeout może potrzebować dni na wygenerowanie eksportu dla dużych kont. Nie inicjuj usunięcia przed otrzymaniem pakietu. Pamiętaj też, że Google przechowuje kopie zapasowe przez maksymalnie 180 dni po usunięciu (udokumentowane w polityce prywatności).",
+        tr: "Google Takeout, büyük hesaplar için dışa aktarmayı oluşturmak günler sürebilir. Paketi almadan silme işlemini başlatmayın. Ayrıca Google'ın silme işleminden sonra yedekleri 180 güne kadar sakladığını unutmayın (gizlilik politikasında belgelenmiş).",
       },
     },
     {
@@ -456,6 +560,8 @@ export const post: BlogPost = {
         de: "Unsere Einschätzung zum Fitbit-Google-Ökosystem",
         pt: "Nossa visão sobre o ecossistema Fitbit-Google",
         fr: "Notre point de vue sur l'écosystème Fitbit-Google",
+        pl: "Nasze zdanie na temat ekosystemu Fitbit-Google",
+        tr: "Fitbit-Google ekosistemine bakışımız",
       },
       body: {
         it: "Se usi Fitbit principalmente per passi, BPM e sonno e non hai bisogno delle funzionalità premium Fitbit, ha senso considerare un'alternativa che ti dia più controllo sui dati. La dipendenza da un singolo ecosistema Google (dove la policy può cambiare e il servizio può essere dismesso) è un rischio reale per chi si affida a questi dati nel tempo. Esporta regolarmente via Takeout e considera di affiancare una dashboard alternativa che legga da Health Connect: ti dà una copia indipendente e accesso da browser senza passare per i server Google.",
@@ -464,6 +570,8 @@ export const post: BlogPost = {
         de: "Wenn Sie Fitbit hauptsächlich für Schritte, Herzfrequenz und Schlaf nutzen und die Fitbit-Premium-Funktionen nicht benötigen, ist es sinnvoll, eine Alternative mit mehr Datenkontrolle in Betracht zu ziehen. Die Abhängigkeit von einem einzigen Google-Ökosystem (wo sich die Richtlinien ändern und der Dienst eingestellt werden kann) ist ein reales Risiko für alle, die langfristig auf diese Daten angewiesen sind. Exportieren Sie regelmäßig via Takeout und ziehen Sie ein alternatives Dashboard in Betracht, das Health Connect liest: Es bietet Ihnen eine unabhängige Kopie und Browser-Zugriff ohne Umweg über Googles Server.",
         pt: "Se você usa o Fitbit principalmente para passos, frequência cardíaca e sono e não precisa dos recursos premium do Fitbit, faz sentido considerar uma alternativa que ofereça mais controle sobre seus dados. A dependência de um único ecossistema Google (onde a política pode mudar e o serviço pode ser descontinuado) é um risco real para quem depende desses dados ao longo do tempo. Exporte regularmente via Takeout e considere adicionar um painel alternativo que leia do Health Connect: isso lhe dá uma cópia independente e acesso pelo navegador sem passar pelos servidores do Google.",
         fr: "Si vous utilisez Fitbit principalement pour les pas, la fréquence cardiaque et le sommeil et que vous n'avez pas besoin des fonctionnalités premium Fitbit, il est judicieux d'envisager une alternative vous donnant plus de contrôle sur vos données. La dépendance à un unique écosystème Google (où la politique peut changer et le service peut être arrêté) est un risque réel pour ceux qui s'appuient sur ces données dans la durée. Exportez régulièrement via Takeout et envisagez d'ajouter un tableau de bord alternatif qui lit depuis Health Connect: cela vous donne une copie indépendante et un accès depuis le navigateur sans passer par les serveurs de Google.",
+        pl: "Jeśli używasz Fitbita głównie do kroków, tętna i snu i nie potrzebujesz funkcji premium Fitbit, warto rozważyć alternatywę dającą większą kontrolę nad danymi. Uzależnienie od jednego ekosystemu Google (gdzie polityka może się zmienić, a usługa może zostać zamknięta) to realne ryzyko dla osób polegających na tych danych długoterminowo. Regularnie eksportuj przez Takeout i rozważ dodanie alternatywnego panelu odczytującego z Health Connect: daje Ci niezależną kopię i dostęp przez przeglądarkę bez przechodzenia przez serwery Google.",
+        tr: "Fitbit'i ağırlıklı olarak adım, nabız ve uyku için kullanıyorsanız ve Fitbit premium özelliklerine ihtiyaç duymuyorsanız, size daha fazla veri kontrolü sağlayacak bir alternatif düşünmek mantıklı. Tek bir Google ekosistemine bağımlılık (politikaların değişebileceği ve hizmetin sonlandırılabileceği bir ekosistem) bu verilere uzun vadede güvenenler için gerçek bir risk. Takeout üzerinden düzenli olarak dışa aktarın ve Health Connect'ten okuyan alternatif bir panel eklemeyi düşünün: size bağımsız bir kopya ve Google sunucularından geçmeden tarayıcı erişimi sağlar.",
       },
     },
     {
@@ -476,6 +584,8 @@ export const post: BlogPost = {
         de: "Zusammenfassung",
         pt: "Em resumo",
         fr: "En résumé",
+        pl: "Podsumowanie",
+        tr: "Özet",
       },
     },
     {
@@ -523,6 +633,20 @@ export const post: BlogPost = {
           "Limite HC pour Fitbit: les phases de sommeil (REM/profond/léger) ne sont pas exposées de façon granulaire via HC. Le GPS et le VO₂ max nécessitent la Fitbit Web API.",
           "Avant de fermer le compte: exportez via Takeout, puis demandez la suppression RGPD. Jamais dans l'ordre inverse.",
         ],
+        pl: [
+          "Po migracji z 2023 roku dane Fitbit przechowywane są przez Google: eksport odbywa się przez Google Takeout (takeout.google.com), nie przez Fitbit.com.",
+          "Google Takeout jest najbardziej kompletną metodą: zawiera całą historię w formacie JSON/CSV, od aktywności po sen i tętno w odstępach minutowych.",
+          "Health Connect to metoda ciągłego przepływu: z aplikacji Fitbit do HC, dowolna aplikacja na Androida z uprawnieniami HC może odczytywać dane w czasie rzeczywistym.",
+          "Ograniczenie HC dla Fitbit: fazy snu (REM/Głęboki/Lekki) nie są szczegółowo eksponowane przez HC. GPS i VO₂ max wymagają Fitbit Web API.",
+          "Przed zamknięciem konta: wyeksportuj przez Takeout, następnie złóż wniosek o usunięcie RODO. Nigdy w odwrotnej kolejności.",
+        ],
+        tr: [
+          "2023 migrasyonunun ardından Fitbit verileri Google'da yaşıyor: dışa aktarma Fitbit.com üzerinden değil Google Takeout (takeout.google.com) üzerinden yapılıyor.",
+          "Google Takeout en eksiksiz yöntemdir: aktivitelerden uykuya ve dakika başına nabza kadar tüm geçmişi JSON/CSV formatında içerir.",
+          "Health Connect sürekli akış için kullanılan yöntemdir: Fitbit uygulamasından HC'ye, HC izinlerine sahip herhangi bir Android uygulaması verileri gerçek zamanlı okuyabilir.",
+          "Fitbit için HC sınırı: uyku evreleri (REM/Derin/Hafif) HC üzerinden ayrıntılı gösterilmez. GPS ve VO₂ maks Fitbit Web API'sini gerektirir.",
+          "Hesabı kapatmadan önce: Takeout ile dışa aktarın, ardından GDPR silme talebinde bulunun. Hiçbir zaman ters sırada yapmayın.",
+        ],
       },
     },
     {
@@ -534,6 +658,8 @@ export const post: BlogPost = {
         de: "Sie behalten Fitbit, möchten aber ein alternatives Dashboard?",
         pt: "Vai continuar com o Fitbit mas quer um painel alternativo?",
         fr: "Vous gardez Fitbit mais souhaitez un tableau de bord alternatif?",
+        pl: "Zostają z Fitbitem, ale chcesz alternatywny panel?",
+        tr: "Fitbit'te kalıyor ama alternatif bir panel ister misiniz?",
       },
       body: {
         it: "FitMesh Sync legge Fitbit via Health Connect oggi (passi, BPM, sonno, calorie, distanza) e prevede integrazione OAuth Web API per dati avanzati nel 2026.",
@@ -542,6 +668,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync liest Fitbit bereits heute über Health Connect (Schritte, Herzfrequenz, Schlaf, Kalorien, Distanz) und plant für 2026 die OAuth Web API-Integration für erweiterte Daten.",
         pt: "FitMesh Sync já lê o Fitbit via Health Connect hoje (passos, frequência cardíaca, sono, calorias, distância) e prevê integração OAuth com a Web API para dados avançados em 2026.",
         fr: "FitMesh Sync lit déjà Fitbit via Health Connect (pas, fréquence cardiaque, sommeil, calories, distance) et prévoit une intégration OAuth Web API pour les données avancées en 2026.",
+        pl: "FitMesh Sync dziś odczytuje Fitbit przez Health Connect (kroki, tętno, sen, kalorie, dystans) i planuje integrację OAuth Web API dla zaawansowanych danych w 2026 roku.",
+        tr: "FitMesh Sync, Fitbit'i şu anda Health Connect üzerinden okuyor (adım, nabız, uyku, kalori, mesafe) ve 2026'da gelişmiş veriler için Web API OAuth entegrasyonu planlıyor.",
       },
       ctaLabel: {
         it: "Vedi Fitbit su FitMesh →",
@@ -550,6 +678,8 @@ export const post: BlogPost = {
         de: "Fitbit auf FitMesh ansehen →",
         pt: "Ver Fitbit no FitMesh →",
         fr: "Voir Fitbit sur FitMesh →",
+        pl: "Zobacz Fitbit na FitMesh →",
+        tr: "FitMesh'te Fitbit'i gör →",
       },
       ctaHref: { it: "/it/sync/fitbit", en: "/en/sync/fitbit" },
     },
@@ -563,6 +693,8 @@ export const post: BlogPost = {
         de: "Wenn ich nicht zu einem Google Konto migriert habe, kann ich noch auf meine Daten zugreifen?",
         pt: "Se eu não migrei para o Google Account, ainda consigo acessar minha conta?",
         fr: "Si je n'ai pas migré vers un compte Google, puis-je encore me connecter?",
+        pl: "Jeśli nie dokonałem migracji na konto Google, czy nadal mogę się zalogować?",
+        tr: "Google Hesabına geçiş yapmadıysam hâlâ giriş yapabilir miyim?",
       },
       a: {
         it: "Dal 2025 i Fitbit Account legacy non sono più supportati. Se hai un dispositivo Fitbit attivo dovresti aver ricevuto multiple richieste di migrazione. Se hai mancato la finestra, contatta il supporto Fitbit per ripristinare l'accesso: è ancora possibile ma può richiedere verifica identità.",
@@ -571,6 +703,8 @@ export const post: BlogPost = {
         de: "Seit 2025 werden alte Fitbit Accounts nicht mehr unterstützt. Wenn Sie ein aktives Fitbit-Gerät haben, sollten Sie mehrfache Migrationsaufforderungen erhalten haben. Wenn Sie die Frist verpasst haben, wenden Sie sich an den Fitbit-Support, um den Zugang wiederherzustellen: Das ist noch möglich, kann aber eine Identitätsverifizierung erfordern.",
         pt: "Desde 2025, os Fitbit Accounts legados não têm mais suporte. Se você tem um dispositivo Fitbit ativo, deveria ter recebido várias solicitações de migração. Se perdeu o prazo, entre em contato com o suporte do Fitbit para recuperar o acesso: ainda é possível, mas pode exigir verificação de identidade.",
         fr: "Depuis 2025, les anciens Fitbit Accounts ne sont plus pris en charge. Si vous possédez un appareil Fitbit actif, vous auriez dû recevoir plusieurs demandes de migration. Si vous avez manqué la fenêtre de migration, contactez le support Fitbit pour rétablir l'accès: c'est encore possible, mais cela peut nécessiter une vérification d'identité.",
+        pl: "Od 2025 roku starsze konta Fitbit nie są już obsługiwane. Jeśli masz aktywne urządzenie Fitbit, powinieneś był otrzymać wiele próśb o migrację. Jeśli przegapiłeś okno migracji, skontaktuj się z pomocą Fitbit w celu przywrócenia dostępu: jest to nadal możliwe, ale może wymagać weryfikacji tożsamości.",
+        tr: "2025'ten itibaren eski Fitbit Hesapları artık desteklenmiyor. Aktif bir Fitbit cihazınız varsa birden fazla migrasyon talebi almış olmalısınız. Süreyi kaçırdıysanız erişimi yeniden sağlamak için Fitbit desteğiyle iletişime geçin: hâlâ mümkün ancak kimlik doğrulaması gerekebilir.",
       },
     },
     {
@@ -581,6 +715,8 @@ export const post: BlogPost = {
         de: "Verwendet Google meine Fitbit-Daten für Werbung?",
         pt: "O Google usa meus dados do Fitbit para publicidade?",
         fr: "Google utilise-t-il mes données Fitbit pour la publicité?",
+        pl: "Czy Google używa moich danych Fitbit do reklam?",
+        tr: "Google, Fitbit verilerimi reklam amaçlı kullanıyor mu?",
       },
       a: {
         it: "La privacy policy attuale di Fitbit (gestita da Google) dichiara che i dati salute non sono usati per Google Ads. Questa è anche una condizione imposta dalle authority europee al momento dell'approvazione dell'acquisizione (impegni vincolanti fino al 2031). Tecnicamente Google può cambiare la policy in futuro per nuovi dati raccolti, ma con preavviso e opt-out.",
@@ -589,6 +725,8 @@ export const post: BlogPost = {
         de: "Die aktuelle Datenschutzrichtlinie von Fitbit (unter Google-Verwaltung) besagt, dass Gesundheitsdaten nicht für Google Ads verwendet werden. Dies ist auch eine Bedingung, die europäische Behörden bei der Genehmigung der Übernahme auferlegt haben (verbindliche Verpflichtungen bis 2031). Technisch gesehen kann Google die Richtlinie für neu erhobene Daten in Zukunft ändern, jedoch mit vorheriger Ankündigung und der Möglichkeit, sich abzumelden.",
         pt: "A política de privacidade atual do Fitbit (gerenciada pelo Google) declara que os dados de saúde não são usados para o Google Ads. Essa também é uma condição imposta pelas autoridades europeias no momento da aprovação da aquisição (compromissos vinculantes até 2031). Tecnicamente, o Google pode alterar a política no futuro para novos dados coletados, mas com aviso prévio e possibilidade de opt-out.",
         fr: "La politique de confidentialité actuelle de Fitbit (gérée par Google) indique que les données de santé ne sont pas utilisées pour Google Ads. C'est également une condition imposée par les autorités européennes lors de l'approbation du rachat (engagements contraignants jusqu'en 2031). Techniquement, Google peut modifier la politique à l'avenir pour les nouvelles données collectées, mais avec un préavis et une option de désactivation.",
+        pl: "Aktualna polityka prywatności Fitbit (zarządzana przez Google) stwierdza, że dane zdrowotne nie są używane do Google Ads. Jest to również warunek nałożony przez europejskie organy regulacyjne przy zatwierdzaniu przejęcia (wiążące zobowiązania do 2031 roku). Technicznie Google może zmienić politykę w przyszłości dla nowo zbieranych danych, ale z wyprzedzeniem i możliwością rezygnacji.",
+        tr: "Fitbit'in mevcut gizlilik politikası (Google yönetiminde), sağlık verilerinin Google Ads için kullanılmadığını belirtiyor. Bu aynı zamanda Avrupa otoritelerinin satın alma onayında koyduğu bir koşul (2031'e kadar bağlayıcı taahhütler). Google teknik olarak ilerleyen dönemde yeni toplanan veriler için politikayı değiştirebilir, ancak önceden bildirim ve vazgeçme hakkıyla.",
       },
     },
     {
@@ -599,6 +737,8 @@ export const post: BlogPost = {
         de: "Kann ich Fitbit-Daten auf eine Galaxy Watch übertragen?",
         pt: "Posso transferir os dados do Fitbit para um Galaxy Watch?",
         fr: "Puis-je transférer mes données Fitbit vers une Galaxy Watch?",
+        pl: "Czy mogę przenieść dane Fitbit na Galaxy Watch?",
+        tr: "Fitbit verilerimi Galaxy Watch'a aktarabilir miyim?",
       },
       a: {
         it: "Direttamente no: non c'è importazione nativa in Samsung Health. Hai due strade. Una: esporta da Takeout, mantieni i file come archivio (non visualizzabili in Samsung Health). Due: via Health Connect, lo storico recente Fitbit (60–90 giorni tipici) compare in HC e Samsung Health può leggerli. Lo storico più vecchio richiede lavoro manuale.",
@@ -607,6 +747,8 @@ export const post: BlogPost = {
         de: "Direkt nicht: Samsung Health bietet keinen nativen Import von Fitbit-Daten. Es gibt zwei Wege. Erstens: Export via Takeout, Dateien als Archiv aufbewahren (nicht in Samsung Health sichtbar). Zweitens: Über Health Connect erscheint die jüngere Fitbit-Historie (typisch 60–90 Tage) in HC und Samsung Health kann sie lesen. Ältere Historien erfordern manuelle Arbeit.",
         pt: "Diretamente não: o Samsung Health não tem importação nativa de dados do Fitbit. Há dois caminhos. Primeiro: exporte pelo Takeout e guarde os arquivos como arquivo pessoal (não visualizáveis no Samsung Health). Segundo: via Health Connect, o histórico recente do Fitbit (normalmente 60 a 90 dias) aparece no HC e o Samsung Health pode lê-lo. O histórico mais antigo requer trabalho manual.",
         fr: "Directement non: Samsung Health ne propose pas d'import natif des données Fitbit. Deux options s'offrent à vous. Premièrement: exportez depuis Takeout et conservez les fichiers comme archive (non visibles dans Samsung Health). Deuxièmement: via Health Connect, l'historique récent Fitbit (60 à 90 jours typiquement) apparaît dans HC et Samsung Health peut le lire. L'historique plus ancien nécessite un travail manuel.",
+        pl: "Bezpośrednio nie: Samsung Health nie ma natywnego importu. Są dwie drogi. Pierwsza: wyeksportuj z Takeout, zachowaj pliki jako archiwum (nie wyświetlalne w Samsung Health). Druga: przez Health Connect, ostatnia historia Fitbit (typowo 60–90 dni) pojawia się w HC i Samsung Health może ją odczytać. Starsza historia wymaga pracy ręcznej.",
+        tr: "Doğrudan hayır: Samsung Health'te yerel içe aktarma yok. İki yol var. Birincisi: Takeout'tan dışa aktarın, dosyaları arşiv olarak saklayın (Samsung Health'te görüntülenemez). İkincisi: Health Connect üzerinden, son Fitbit geçmişi (genellikle 60–90 gün) HC'de görünür ve Samsung Health okuyabilir. Daha eski geçmiş manuel iş gerektirir.",
       },
     },
   ],

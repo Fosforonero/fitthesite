@@ -6,7 +6,7 @@
  * + content nei page component conditionali.
  */
 
-export const locales = ["it", "en", "es", "de", "pt", "fr"] as const;
+export const locales = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "it";
 
@@ -17,6 +17,11 @@ export const localeNames: Record<Locale, string> = {
   de: "Deutsch",
   pt: "Português",
   fr: "Français",
+  pl: "Polski",
+  tr: "Türkçe",
+  nl: "Nederlands",
+  ja: "日本語",
+  ko: "한국어",
 };
 
 export const localeFlags: Record<Locale, string> = {
@@ -26,6 +31,11 @@ export const localeFlags: Record<Locale, string> = {
   de: "🇩🇪",
   pt: "🇧🇷",
   fr: "🇫🇷",
+  pl: "🇵🇱",
+  tr: "🇹🇷",
+  nl: "🇳🇱",
+  ja: "🇯🇵",
+  ko: "🇰🇷",
 };
 
 /**
@@ -39,6 +49,11 @@ export const ogLocale: Record<Locale, string> = {
   de: "de_DE",
   pt: "pt_BR",
   fr: "fr_FR",
+  pl: "pl_PL",
+  tr: "tr_TR",
+  nl: "nl_NL",
+  ja: "ja_JP",
+  ko: "ko_KR",
 };
 
 /**
@@ -51,7 +66,29 @@ export const htmlLang: Record<Locale, string> = {
   de: "de",
   pt: "pt-BR",
   fr: "fr",
+  pl: "pl",
+  tr: "tr",
+  nl: "nl",
+  ja: "ja",
+  ko: "ko",
 };
+
+/**
+ * Build the `alternates.languages` hreflang map for ALL locales + x-default (IT),
+ * iterating `locales` so new languages are never forgotten in a page's metadata.
+ *
+ *   languages: localeAlternates((l) => `${SITE_URL}/${l}/novita`)
+ *
+ * For pages with localized slugs, pass a function that returns the localized URL.
+ */
+export function localeAlternates(
+  urlForLocale: (locale: Locale) => string,
+): Record<string, string> {
+  const langs: Record<string, string> = {};
+  for (const l of locales) langs[l] = urlForLocale(l);
+  langs["x-default"] = urlForLocale(defaultLocale);
+  return langs;
+}
 
 /**
  * Async dictionary loader. Returns the full translation object for a locale.

@@ -7,7 +7,7 @@ import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { PRICING } from "@/lib/pricing";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -56,15 +56,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: {
-        it: `${SITE_URL}/it/beta`,
-        en: `${SITE_URL}/en/beta`,
-        es: `${SITE_URL}/es/beta`,
-        de: `${SITE_URL}/de/beta`,
-        pt: `${SITE_URL}/pt/beta`,
-        fr: `${SITE_URL}/fr/beta`,
-        "x-default": `${SITE_URL}/it/beta`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/beta`),
     },
     openGraph: {
       type: "website",

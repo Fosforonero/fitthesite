@@ -14,6 +14,8 @@ export const post: BlogPost = {
     de: "FitMesh Sync auf Google Play",
     pt: "FitMesh Sync no Google Play",
     fr: "FitMesh Sync sur Google Play",
+    pl: "FitMesh Sync w Google Play",
+    tr: "FitMesh Sync Google Play'de",
   },
   secondaryKeywords: {
     it: [
@@ -44,6 +46,20 @@ export const post: BlogPost = {
       "app de données wearable",
       "un an de Pro gratuit founder",
     ],
+    pl: [
+      "aplikacja do łączenia danych ze smartwatcha",
+      "panel zdrowia Android",
+      "pobierz FitMesh Sync",
+      "aplikacja danych wearable",
+      "rok Pro za darmo dla założycieli",
+    ],
+    tr: [
+      "akıllı saat verilerini birleştiren uygulama",
+      "Android sağlık paneli",
+      "FitMesh Sync indir",
+      "giyilebilir cihaz veri uygulaması",
+      "kuruculara ücretsiz bir yıl Pro",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync è disponibile su Google Play: unisci i dati di smartwatch e anello in un'unica dashboard, con i tuoi dati su server in Europa. La versione iPhone arriva tra pochi giorni.",
@@ -52,6 +68,8 @@ export const post: BlogPost = {
     de: "FitMesh Sync ist jetzt auf Google Play: Führe Smartwatch- und Ring-Daten in einer Dashboard zusammen, mit deinen Daten auf Servern in Europa. Die iPhone-Version kommt in wenigen Tagen.",
     pt: "FitMesh Sync está disponível no Google Play: reúna os dados do seu smartwatch e anel em um único painel, com seus dados em servidores na Europa. A versão para iPhone chega em poucos dias.",
     fr: "FitMesh Sync est maintenant sur Google Play: regroupez les données de votre montre connectée et de votre bague en un seul tableau de bord, avec vos données sur des serveurs en Europe. La version iPhone arrive dans quelques jours.",
+    pl: "FitMesh Sync jest teraz w Google Play: połącz dane ze swojego smartwatcha i pierścionka w jednym panelu, z danymi na serwerach w Europie. Wersja na iPhone'a pojawi się za kilka dni.",
+    tr: "FitMesh Sync artık Google Play'de: akıllı saat ve yüzük verilerinizi tek bir panelde birleştirin, verileriniz Avrupa'daki sunucularda saklanır. iPhone sürümü birkaç gün içinde geliyor.",
   },
   tldr: {
     it: [
@@ -90,6 +108,18 @@ export const post: BlogPost = {
       "Vos données restent sur des serveurs en Europe, sans publicité et sans revente à des tiers.",
       "Les premiers inscrits reçoivent un an de Pro gratuit. La version iPhone arrive dans quelques jours.",
     ],
+    pl: [
+      "FitMesh Sync jest dostępny w Google Play. Pobierz, podłącz swoje urządzenie, zaloguj się i zacznij synchronizować - bez konfiguracji poza telefonem.",
+      "Health Connect to most między Twoim wearablem a wszystkimi innymi aplikacjami Android. FitMesh Sync odczytuje z niego dane zdrowotne i synchronizuje je z chmurą EU.",
+      "Dane są przechowywane wyłącznie w Europie. Żadnych reklam, żadnych danych przekazywanych podmiotom trzecim, żadnych niejasnych warunków usługi.",
+      "Przez pierwsze 60 dni jest bezpłatny dla każdego, kto pobierze z Google Play. Po tym czasie obowiązuje subskrypcja założyciela.",
+    ],
+    tr: [
+      "FitMesh Sync Google Play'de mevcut. İndirin, cihazınızı bağlayın, giriş yapın ve senkronizasyona başlayın - telefon dışında herhangi bir kurulum gerekmez.",
+      "Health Connect, giyilebilir cihazınız ile diğer tüm Android uygulamaları arasındaki köprüdür. FitMesh Sync buradan sağlık verilerini okur ve AB bulutuna senkronize eder.",
+      "Veriler yalnızca Avrupa'da depolanır. Reklam yok, üçüncü taraflara veri yok, şifreli hizmet koşulları yok.",
+      "Google Play'den indirenler için ilk 60 gün ücretsizdir. Daha sonra kurucu aboneliği uygulanır.",
+    ],
   },
   hero: {
     kicker: {
@@ -99,6 +129,8 @@ export const post: BlogPost = {
       de: "Neuigkeiten",
       pt: "Novidades",
       fr: "Nouveauté",
+      pl: "Nowości",
+      tr: "Yenilikler",
     },
     title: {
       it: "FitMesh Sync è disponibile su Google Play",
@@ -107,6 +139,8 @@ export const post: BlogPost = {
       de: "FitMesh Sync ist jetzt auf Google Play verfügbar",
       pt: "FitMesh Sync já está disponível no Google Play",
       fr: "FitMesh Sync est maintenant disponible sur Google Play",
+      pl: "FitMesh Sync jest teraz dostępny w Google Play",
+      tr: "FitMesh Sync artık Google Play'de",
     },
     subtitle: {
       it: "Da oggi puoi scaricare l'app e vedere i dati di tutti i tuoi dispositivi in una sola dashboard. La versione per iPhone arriva tra pochi giorni.",
@@ -115,6 +149,8 @@ export const post: BlogPost = {
       de: "Ab heute kannst du die App herunterladen und die Daten all deiner Geräte in einer Dashboard sehen. Die iPhone-Version kommt in wenigen Tagen.",
       pt: "A partir de hoje você pode baixar o app e ver os dados de todos os seus dispositivos em um único painel. A versão para iPhone chega em poucos dias.",
       fr: "Dès aujourd'hui, vous pouvez télécharger l'application et consulter les données de tous vos appareils dans un seul tableau de bord. La version iPhone arrive dans quelques jours.",
+      pl: "Od dziś możesz pobrać aplikację i przeglądać dane wszystkich swoich urządzeń w jednym panelu. Wersja na iPhone'a pojawi się za kilka dni.",
+      tr: "Bugünden itibaren uygulamayı indirebilir ve tüm cihazlarınızın verilerini tek bir panelde görebilirsiniz. iPhone sürümü birkaç gün içinde geliyor.",
     },
   },
   body: [
@@ -127,6 +163,8 @@ export const post: BlogPost = {
         de: "Es ist so weit: FitMesh Sync ist offiziell auf Google Play verfügbar. Du kannst sie auf jedem Android-Smartphone herunterladen und sofort die Daten deines Smartwatchs, deines Rings und anderer Geräte an einem einzigen Ort sehen.",
         pt: "Chegou: FitMesh Sync está disponível oficialmente no Google Play. Você pode baixá-lo em qualquer celular Android e começar a ver agora mesmo os dados do seu smartwatch, do seu anel e de outros dispositivos, tudo em um único lugar.",
         fr: "C'est ici: FitMesh Sync est officiellement disponible sur Google Play. Vous pouvez le télécharger sur n'importe quel téléphone Android et commencer à consulter les données de votre montre connectée, de votre bague et de vos autres appareils au même endroit.",
+        pl: "Stało się: FitMesh Sync jest oficjalnie dostępny w Google Play. Możesz go pobrać na dowolny telefon z Androidem i zacząć widzieć dane swojego smartwatcha, pierścionka i innych urządzeń w jednym miejscu.",
+        tr: "Geldi: FitMesh Sync resmi olarak Google Play'de mevcut. Herhangi bir Android telefona indirebilir ve akıllı saatinizin, yüzüğünüzün ve diğer cihazlarınızın verilerini tek bir yerde görmeye hemen başlayabilirsiniz.",
       },
     },
     {
@@ -139,6 +177,8 @@ export const post: BlogPost = {
         de: "Was FitMesh Sync kann",
         pt: "O que o FitMesh Sync faz",
         fr: "Ce que fait FitMesh Sync",
+        pl: "Co robi FitMesh Sync",
+        tr: "FitMesh Sync ne yapar",
       },
     },
     {
@@ -150,6 +190,8 @@ export const post: BlogPost = {
         de: "Jede Marke hält deine Daten in ihrer eigenen App. Wenn du eine Galaxy Watch, einen Smart-Ring und vielleicht ein Band eines anderen Herstellers hast, springst du ständig zwischen Apps hin und her. FitMesh Sync bringt sie alle in eine übersichtliche Dashboard: Schritte, Schlaf, Herzfrequenz, Erholung und Trends über die Zeit, gestaltet für den täglichen Gebrauch.",
         pt: "Cada marca mantém seus dados dentro do próprio app. Se você tem um Galaxy Watch, um anel inteligente e talvez uma pulseira de outro fabricante, acaba pulando de app em app. FitMesh Sync reúne tudo em um único painel claro: passos, sono, frequência cardíaca, recuperação e tendências ao longo do tempo, pensado para a leitura do dia a dia.",
         fr: "Chaque marque conserve vos données dans sa propre application. Si vous avez une Galaxy Watch, une bague connectée et peut-être un bracelet d'un autre fabricant, vous finissez par jongler entre les applications. FitMesh Sync les rassemble toutes dans un tableau de bord clair et unique: pas, sommeil, fréquence cardiaque, récupération et tendances dans le temps, conçu pour une consultation quotidienne.",
+        pl: "Każda marka trzyma Twoje dane we własnej aplikacji. Jeśli masz Galaxy Watch, inteligentny pierścionek i może opaskę innego producenta, skaczysz z jednej aplikacji do drugiej. FitMesh Sync zbiera je wszystkie w jeden przejrzysty panel: kroki, sen, tętno, regeneracja i trendy w czasie, zaprojektowany do codziennego przeglądania.",
+        tr: "Her marka verilerinizi kendi uygulamasında tutar. Bir Galaxy Watch, akıllı yüzük ve belki başka bir üreticinin bandı varsa, sürekli uygulamalar arasında geçiş yaparsınız. FitMesh Sync hepsini tek, net bir panelde toplar: adımlar, uyku, kalp atış hızı, toparlanma ve zaman içindeki eğilimler - günlük okuma için tasarlanmış.",
       },
     },
     {
@@ -162,6 +204,8 @@ export const post: BlogPost = {
         de: "Mehrere Geräte, eine einzige Ansicht",
         pt: "Vários dispositivos, uma única visualização",
         fr: "Plusieurs appareils, une seule vue",
+        pl: "Więcej urządzeń, jeden widok",
+        tr: "Birden fazla cihaz, tek bir görünüm",
       },
     },
     {
@@ -173,6 +217,8 @@ export const post: BlogPost = {
         de: "Wenn du mehrere Geräte gleichzeitig trägst, führt FitMesh Sync sie zusammen, ohne dieselben Schritte doppelt zu zählen, und zeigt dir immer den vollständigsten Wert. Wenn ein Gerät aufgeladen wird, deckt ein anderes diesen Zeitraum ohne Lücken ab. Alles erklärt, mit Beispielen für jede Kombination, in der Anleitung [mehrere Smartwatches zusammen ohne doppelte Daten](/de/blog/piu-smartwatch-insieme-dati-doppi).",
         pt: "Se você usa vários dispositivos ao mesmo tempo, FitMesh Sync os une sem contar os mesmos passos duas vezes e sempre mostra o dado mais completo. Quando um dispositivo está carregando, outro cobre esse período sem deixar lacunas. Explicamos tudo, com exemplos para cada combinação, no guia [vários smartwatches juntos sem dados duplicados](/pt/blog/piu-smartwatch-insieme-dati-doppi).",
         fr: "Si vous portez plusieurs appareils en même temps, FitMesh Sync les fusionne sans compter les mêmes pas deux fois et vous affiche toujours la valeur la plus complète. Quand un appareil est en charge, un autre couvre cette période sans laisser de trous. Nous avons tout expliqué, avec des exemples pour chaque combinaison, dans le guide [plusieurs montres connectées ensemble sans données en double](/fr/blog/piu-smartwatch-insieme-dati-doppi).",
+        pl: "Jeśli nosisz kilka urządzeń jednocześnie, FitMesh Sync łączy je bez podwójnego liczenia tych samych kroków i zawsze pokazuje Ci najbardziej kompletną wartość. Gdy jedno urządzenie się ładuje, drugie pokrywa ten okres bez żadnych luk. Wyjaśniliśmy wszystko, z przykładami dla każdej kombinacji, w przewodniku [kilka smartwatchy jednocześnie bez duplikatów danych](/pl/blog/piu-smartwatch-insieme-dati-doppi).",
+        tr: "Birden fazla cihaz takıyorsanız, FitMesh Sync aynı adımları iki kez saymadan hepsini birleştirir ve size her zaman en eksiksiz değeri gösterir. Bir cihaz şarj olurken diğeri o aralığı boşluksuz kapatır. Her kombinasyon için örneklerle tümünü [birden fazla akıllı saat - veriler çift sayılmaz](/tr/blog/piu-smartwatch-insieme-dati-doppi) rehberinde anlattık.",
       },
     },
     {
@@ -185,6 +231,8 @@ export const post: BlogPost = {
         de: "Deine Daten bleiben deine",
         pt: "Seus dados continuam sendo seus",
         fr: "Vos données restent les vôtres",
+        pl: "Twoje dane pozostają Twoje",
+        tr: "Verileriniz size ait kalır",
       },
     },
     {
@@ -196,6 +244,8 @@ export const post: BlogPost = {
         de: "Gesundheitsdaten gehören zu den persönlichsten Dingen, die du hast. Deshalb bleiben sie auf Servern in Europa, nur für dich über dein Konto zugänglich, ohne Werbung und ohne Weitergabe an Dritte. Alle Details findest du auf der [Datenschutz](/de/privacy)-Seite.",
         pt: "Os dados de saúde estão entre as coisas mais pessoais que você tem. Por isso ficam em servidores na Europa, acessíveis apenas por você através da sua conta, sem anúncios e sem serem revendidos a terceiros. Todos os detalhes estão na página de [privacidade](/pt/privacy).",
         fr: "Les données de santé comptent parmi les informations les plus personnelles que vous possédez. C'est pourquoi elles restent sur des serveurs en Europe, accessibles uniquement à vous via votre compte, sans publicité et sans revente à des tiers. Retrouvez tous les détails sur la page [confidentialité](/fr/privacy).",
+        pl: "Dane zdrowotne należą do najbardziej osobistych, jakie posiadasz. Dlatego pozostają na serwerach w Europie, dostępne tylko dla Ciebie przez Twoje konto, bez reklam i nigdy nie odsprzedawane osobom trzecim. Wszystkie szczegóły znajdziesz na stronie [prywatności](/pl/privacy).",
+        tr: "Sağlık verileri en kişisel bilgilerinizden biridir. Bu nedenle Avrupa'daki sunucularda saklanır, yalnızca hesabınız aracılığıyla size erişilebilir, reklam yoktur ve üçüncü taraflara asla satılmaz. Tüm ayrıntıları [gizlilik](/tr/privacy) sayfasında bulabilirsiniz.",
       },
     },
     {
@@ -208,6 +258,8 @@ export const post: BlogPost = {
         de: "Ein Jahr Pro kostenlos für die Ersten, die sich registrieren",
         pt: "Um ano de Pro grátis para os primeiros a se cadastrar",
         fr: "Un an de Pro gratuit pour les premiers inscrits",
+        pl: "Rok Pro za darmo dla pierwszych, którzy się zarejestrują",
+        tr: "İlk kayıt olanlara ücretsiz bir yıl Pro",
       },
       body: {
         it: "Scarica l'app e crea l'account adesso: i primi 1000 ricevono un anno di Pro completo, che si attiva da solo. Niente carta, niente abbonamento. Dettagli nella pagina [Founder](/it/beta).",
@@ -216,6 +268,8 @@ export const post: BlogPost = {
         de: "Lade die App herunter und erstelle jetzt dein Konto: Die ersten 1000 erhalten ein vollständiges Jahr Pro, das sich automatisch aktiviert. Keine Karte, kein Abonnement. Details auf der [Founder](/de/beta)-Seite.",
         pt: "Baixe o app e crie sua conta agora: os primeiros 1000 recebem um ano completo de Pro que se ativa automaticamente. Sem cartão, sem assinatura. Detalhes na página [Founder](/pt/beta).",
         fr: "Téléchargez l'application et créez votre compte maintenant: les 1000 premiers reçoivent un an complet de Pro qui s'active automatiquement. Pas de carte, pas d'abonnement. Détails sur la page [Founder](/fr/beta).",
+        pl: "Pobierz aplikację i utwórz konto teraz: pierwsze 1000 osób otrzymuje pełny rok Pro, który aktywuje się automatycznie. Bez karty, bez subskrypcji. Szczegóły na stronie [Founder](/pl/beta).",
+        tr: "Uygulamayı indirin ve hesabınızı şimdi oluşturun: ilk 1000 kişi kendiliğinden etkinleşen tam bir yıllık Pro alır. Kart yok, abonelik yok. Ayrıntılar [Founder](/tr/beta) sayfasında.",
       },
     },
     {
@@ -228,6 +282,8 @@ export const post: BlogPost = {
         de: "Die iPhone-Version kommt in wenigen Tagen",
         pt: "A versão para iPhone chega em poucos dias",
         fr: "La version iPhone arrive dans quelques jours",
+        pl: "Wersja na iPhone'a pojawi się za kilka dni",
+        tr: "iPhone sürümü birkaç gün içinde geliyor",
       },
     },
     {
@@ -239,6 +295,8 @@ export const post: BlogPost = {
         de: "Wir sind dabei, die letzten Schritte abzuschließen, um FitMesh Sync auch auf das iPhone zu bringen: Die iOS-Version ist in wenigen Tagen verfügbar. Wenn du benachrichtigt werden möchtest, sobald sie erscheint, findest du alles hier: [FitMesh Sync kommt auf das iPhone](/de/blog/fitmesh-arriva-su-iphone).",
         pt: "Estamos finalizando os últimos passos para levar FitMesh Sync também ao iPhone: a versão iOS chega em poucos dias. Se você quiser ser avisado assim que sair, falamos sobre isso aqui: [FitMesh Sync chega ao iPhone](/pt/blog/fitmesh-arriva-su-iphone).",
         fr: "Nous finalisons les dernières étapes pour apporter FitMesh Sync sur iPhone également: la version iOS arrive dans quelques jours. Si vous souhaitez être notifié dès sa sortie, nous en parlons ici: [FitMesh Sync arrive sur iPhone](/fr/blog/fitmesh-arriva-su-iphone).",
+        pl: "Kończymy ostatnie kroki, żeby przynieść FitMesh Sync również na iPhone'a: wersja iOS pojawi się za kilka dni. Jeśli chcesz zostać powiadomiony, gdy tylko się ukaże, piszemy o tym tutaj: [FitMesh Sync trafia na iPhone'a](/pl/blog/fitmesh-arriva-su-iphone).",
+        tr: "FitMesh Sync'i iPhone'a da getirmek için son adımları tamamlıyoruz: iOS sürümü birkaç gün içinde geliyor. Çıkar çıkmaz haberdar olmak istiyorsanız bunu burada anlattık: [FitMesh Sync iPhone'a geliyor](/tr/blog/fitmesh-arriva-su-iphone).",
       },
     },
     {
@@ -250,6 +308,8 @@ export const post: BlogPost = {
         de: "Jetzt auf Google Play herunterladen",
         pt: "Baixe agora no Google Play",
         fr: "Téléchargez maintenant sur Google Play",
+        pl: "Pobierz teraz w Google Play",
+        tr: "Şimdi Google Play'den indirin",
       },
       body: {
         it: "Collega lo smartwatch e l'anello, crea l'account e vedi la tua giornata unita in un solo posto. Bastano pochi minuti.",
@@ -258,6 +318,8 @@ export const post: BlogPost = {
         de: "Verbinde deine Smartwatch und deinen Ring, erstelle dein Konto und sieh deinen Tag vereint an einem einzigen Ort. Es dauert nur wenige Minuten.",
         pt: "Conecte seu smartwatch e seu anel, crie sua conta e veja seu dia reunido em um único lugar. Leva apenas alguns minutos.",
         fr: "Connectez votre montre connectée et votre bague, créez votre compte et consultez votre journée réunie en un seul endroit. Cela ne prend que quelques minutes.",
+        pl: "Podłącz swój smartwatch i pierścionek, utwórz konto i zobacz swój dzień zebrany w jednym miejscu. Zajmuje to tylko kilka minut.",
+        tr: "Akıllı saatinizi ve yüzüğünüzü bağlayın, hesabınızı oluşturun ve gününüzü tek bir yerde bir araya getirilmiş halde görün. Sadece birkaç dakika sürer.",
       },
       ctaLabel: {
         it: "Scarica su Google Play",
@@ -266,10 +328,14 @@ export const post: BlogPost = {
         de: "Auf Google Play laden",
         pt: "Baixar no Google Play",
         fr: "Télécharger sur Google Play",
+        pl: "Pobierz w Google Play",
+        tr: "Google Play'den indir",
       },
       ctaHref: {
         it: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
         en: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
+        pl: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
+        tr: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
       },
     },
   ],
@@ -282,6 +348,8 @@ export const post: BlogPost = {
         de: "Was kostet FitMesh Sync?",
         pt: "Quanto custa o FitMesh Sync?",
         fr: "Combien coûte FitMesh Sync?",
+        pl: "Ile kosztuje FitMesh Sync?",
+        tr: "FitMesh Sync ne kadar?",
       },
       a: {
         it: "C'è un piano gratuito che copre l'uso quotidiano. Le funzioni Pro, come lo storico illimitato, sono disponibili con un acquisto unico o un piano leggero. In più, i primi 1000 che si iscrivono ricevono un anno di Pro gratis.",
@@ -290,6 +358,8 @@ export const post: BlogPost = {
         de: "Es gibt einen kostenlosen Plan, der den täglichen Gebrauch abdeckt. Pro-Funktionen wie der unbegrenzte Verlauf sind mit einem Einmalkauf oder einem leichten Plan verfügbar. Außerdem erhalten die ersten 1000 Registrierungen ein Jahr Pro kostenlos.",
         pt: "Há um plano gratuito que cobre o uso diário. Os recursos Pro, como o histórico ilimitado, estão disponíveis com uma compra única ou um plano leve. Além disso, os primeiros 1000 a se cadastrar recebem um ano de Pro grátis.",
         fr: "Il existe un plan gratuit qui couvre l'usage quotidien. Les fonctionnalités Pro, comme l'historique illimité, sont disponibles avec un achat unique ou un plan léger. De plus, les 1000 premiers inscrits reçoivent un an de Pro gratuit.",
+        pl: "Jest bezpłatny plan, który pokrywa codzienne użytkowanie. Funkcje Pro, takie jak nieograniczona historia, są dostępne za jednorazowy zakup lub lekki plan. Dodatkowo, pierwsze 1000 osób, które się zarejestrują, otrzymuje rok Pro za darmo.",
+        tr: "Günlük kullanımı karşılayan ücretsiz bir plan var. Sınırsız geçmiş gibi Pro özellikler, tek seferlik satın alma veya hafif bir planla kullanılabilir. Bunun yanı sıra, ilk 1000 kayıt olan kişi ücretsiz bir yıllık Pro alır.",
       },
     },
     {
@@ -300,6 +370,8 @@ export const post: BlogPost = {
         de: "Welche Geräte sind kompatibel?",
         pt: "Quais dispositivos são compatíveis?",
         fr: "Quels appareils sont compatibles?",
+        pl: "Które urządzenia są kompatybilne?",
+        tr: "Hangi cihazlar uyumludur?",
       },
       a: {
         it: "Tutti i dispositivi che funzionano con Health Connect su Android: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, anelli smart e molti altri. Per Samsung Galaxy Watch c'è anche un collegamento diretto con Samsung Health.",
@@ -308,6 +380,8 @@ export const post: BlogPost = {
         de: "Alle Geräte, die mit Health Connect auf Android funktionieren: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, Smart-Ringe und viele mehr. Für Samsung Galaxy Watch gibt es außerdem eine direkte Verbindung mit Samsung Health.",
         pt: "Todos os dispositivos que funcionam com Health Connect no Android: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, anéis inteligentes e muitos outros. Para Samsung Galaxy Watch há também uma conexão direta com Samsung Health.",
         fr: "Tous les appareils qui fonctionnent avec Health Connect sur Android: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, bagues connectées et bien d'autres. Pour la Samsung Galaxy Watch, il existe également une connexion directe avec Samsung Health.",
+        pl: "Każde urządzenie, które działa z Health Connect na Androidzie: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, inteligentne pierścionki i wiele innych. Dla Samsung Galaxy Watch istnieje również bezpośrednie połączenie z Samsung Health.",
+        tr: "Android'de Health Connect ile çalışan her cihaz: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, akıllı yüzükler ve daha fazlası. Samsung Galaxy Watch için Samsung Health ile doğrudan bir bağlantı da mevcuttur.",
       },
     },
     {
@@ -318,6 +392,8 @@ export const post: BlogPost = {
         de: "Wann kommt es auf das iPhone?",
         pt: "Quando chega ao iPhone?",
         fr: "Quand arrive-t-il sur iPhone?",
+        pl: "Kiedy pojawi się na iPhonie?",
+        tr: "iPhone'a ne zaman geliyor?",
       },
       a: {
         it: "La versione iOS è in arrivo a giorni. Chi si iscrive ora come Founder ha accesso prioritario alla prima versione per iPhone.",
@@ -326,6 +402,8 @@ export const post: BlogPost = {
         de: "Die iOS-Version ist in wenigen Tagen verfügbar. Wer sich jetzt als Founder registriert, erhält bevorzugten Zugang zur ersten iPhone-Version.",
         pt: "A versão iOS chega em poucos dias. Quem se cadastrar agora como Founder terá acesso prioritário à primeira versão para iPhone.",
         fr: "La version iOS arrive dans quelques jours. Ceux qui s'inscrivent maintenant en tant que Founders bénéficient d'un accès prioritaire à la première version iPhone.",
+        pl: "Wersja iOS pojawi się za kilka dni. Ci, którzy zarejestrują się teraz jako Founders, otrzymują priorytetowy dostęp do pierwszej wersji na iPhone'a.",
+        tr: "iOS sürümü birkaç gün içinde geliyor. Şimdi Founder olarak kayıt olanlar, ilk iPhone sürümüne öncelikli erişim alır.",
       },
     },
     {
@@ -336,6 +414,8 @@ export const post: BlogPost = {
         de: "Wo werden meine Daten gespeichert?",
         pt: "Onde os meus dados são armazenados?",
         fr: "Où sont stockées mes données?",
+        pl: "Gdzie są przechowywane moje dane?",
+        tr: "Verilerim nerede saklanıyor?",
       },
       a: {
         it: "Su server in Europa, accessibili solo a te tramite il tuo account. Non vengono mai venduti né condivisi con terzi e puoi cancellarli quando vuoi.",
@@ -344,6 +424,8 @@ export const post: BlogPost = {
         de: "Auf Servern in Europa, nur über dein Konto für dich zugänglich. Sie werden niemals verkauft oder an Dritte weitergegeben, und du kannst sie jederzeit löschen.",
         pt: "Em servidores na Europa, acessíveis apenas por você através da sua conta. Nunca são vendidos nem compartilhados com terceiros, e você pode excluí-los quando quiser.",
         fr: "Sur des serveurs en Europe, accessibles uniquement à vous via votre compte. Ils ne sont jamais vendus ni partagés avec des tiers, et vous pouvez les supprimer à tout moment.",
+        pl: "Na serwerach w Europie, dostępne tylko dla Ciebie przez Twoje konto. Nigdy nie są sprzedawane ani udostępniane osobom trzecim i możesz je usunąć w dowolnym momencie.",
+        tr: "Avrupa'daki sunucularda, yalnızca hesabınız aracılığıyla size erişilebilir. Asla satılmaz veya üçüncü taraflarla paylaşılmaz ve istediğiniz zaman silebilirsiniz.",
       },
     },
   ],

@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { categoryLabel, tl } from "@/lib/blog/types";
 import { getBlogPosts } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
@@ -25,29 +25,29 @@ export async function generateMetadata({
   const lc = locale as Locale;
 
   const title =
-    lc === "it"
-      ? "Blog FitMesh — Sync wearable, Health Connect, privacy salute"
-      : lc === "es"
-        ? "Blog FitMesh — Sincronización de wearables, Health Connect, privacidad de salud"
-        : lc === "de"
-          ? "FitMesh Blog — Wearable-Synchronisierung, Health Connect, Gesundheits-Datenschutz"
-          : lc === "pt"
-            ? "Blog FitMesh — Sincronização de wearables, Health Connect, privacidade de saúde"
-            : lc === "fr"
-              ? "Blog FitMesh — Synchronisation wearable, Health Connect, confidentialité santé"
-              : "FitMesh Blog — Wearable sync, Health Connect, health privacy";
+    lc === "it" ? "Blog FitMesh — Sync wearable, Health Connect, privacy salute" :
+    lc === "es" ? "Blog FitMesh — Sincronización de wearables, Health Connect, privacidad de salud" :
+    lc === "de" ? "FitMesh Blog — Wearable-Synchronisierung, Health Connect, Gesundheits-Datenschutz" :
+    lc === "pt" ? "Blog FitMesh — Sincronização de wearables, Health Connect, privacidade de saúde" :
+    lc === "fr" ? "Blog FitMesh — Synchronisation wearable, Health Connect, confidentialité santé" :
+    lc === "pl" ? "Blog FitMesh — Synchronizacja wearables, Health Connect, prywatność zdrowotna" :
+    lc === "tr" ? "FitMesh Blog — Giyilebilir senkronizasyon, Health Connect, sağlık gizliliği" :
+    lc === "nl" ? "FitMesh Blog — Wearable synchronisatie, Health Connect, gezondheidsdata" :
+    lc === "ja" ? "FitMesh ブログ — ウェアラブル同期・Health Connect・健康データプライバシー" :
+    lc === "ko" ? "FitMesh 블로그 — 웨어러블 동기화·Health Connect·건강 데이터 프라이버시" :
+    "FitMesh Blog — Wearable sync, Health Connect, health privacy";
   const description =
-    lc === "it"
-      ? "Guide oneste su sync wearable, Health Connect, esportazione dati Galaxy Watch / Fitbit / Garmin, GDPR e privacy. Niente hype, solo informazioni utili."
-      : lc === "es"
-        ? "Guías honestas sobre sincronización de wearables, Health Connect, exportación de datos de Galaxy Watch y Garmin, GDPR y privacidad. Sin hype, solo información útil."
-        : lc === "de"
-          ? "Ehrliche Ratgeber zu Wearable-Synchronisierung, Health Connect, Datenexport für Galaxy Watch und Garmin, DSGVO und Datenschutz. Kein Hype, nur nützliche Informationen."
-          : lc === "pt"
-            ? "Guias honestos sobre sincronização de wearables, Health Connect, exportação de dados do Galaxy Watch e Garmin, LGPD e privacidade. Sem hype, só informação útil."
-            : lc === "fr"
-              ? "Guides honnêtes sur la synchronisation de wearables, Health Connect, l'export de données Galaxy Watch et Garmin, le RGPD et la confidentialité. Sans hype, juste des informations utiles."
-              : "Honest guides on wearable sync, Health Connect, Galaxy Watch / Fitbit / Garmin data export, GDPR and privacy. No hype, just useful information.";
+    lc === "it" ? "Guide oneste su sync wearable, Health Connect, esportazione dati Galaxy Watch / Fitbit / Garmin, GDPR e privacy. Niente hype, solo informazioni utili." :
+    lc === "es" ? "Guías honestas sobre sincronización de wearables, Health Connect, exportación de datos de Galaxy Watch y Garmin, GDPR y privacidad. Sin hype, solo información útil." :
+    lc === "de" ? "Ehrliche Ratgeber zu Wearable-Synchronisierung, Health Connect, Datenexport für Galaxy Watch und Garmin, DSGVO und Datenschutz. Kein Hype, nur nützliche Informationen." :
+    lc === "pt" ? "Guias honestos sobre sincronização de wearables, Health Connect, exportação de dados do Galaxy Watch e Garmin, LGPD e privacidade. Sem hype, só informação útil." :
+    lc === "fr" ? "Guides honnêtes sur la synchronisation de wearables, Health Connect, l'export de données Galaxy Watch et Garmin, le RGPD et la confidentialité. Sans hype, juste des informations utiles." :
+    lc === "pl" ? "Rzetelne poradniki o synchronizacji wearables, Health Connect, eksporcie danych Galaxy Watch i Garmin, RODO i prywatności. Bez przesady, tylko przydatne informacje." :
+    lc === "tr" ? "Giyilebilir senkronizasyon, Health Connect, Galaxy Watch ve Garmin veri dışa aktarma, KVKK ve gizlilik hakkında dürüst rehberler. Abartı yok, sadece faydalı bilgiler." :
+    lc === "nl" ? "Eerlijke gidsen over wearable synchronisatie, Health Connect, data-export van Galaxy Watch en Garmin, AVG en privacy. Geen hype, alleen nuttige informatie." :
+    lc === "ja" ? "ウェアラブル同期・Health Connect・Galaxy Watch/Garminのデータエクスポート・GDPRとプライバシーに関する誠実なガイド。誇大広告なし、役立つ情報のみ。" :
+    lc === "ko" ? "웨어러블 동기화, Health Connect, Galaxy Watch/Garmin 데이터 내보내기, GDPR 및 개인정보 보호에 관한 정직한 가이드. 과장 없이 유용한 정보만." :
+    "Honest guides on wearable sync, Health Connect, Galaxy Watch / Fitbit / Garmin data export, GDPR and privacy. No hype, just useful information.";
 
   const path = `/${lc}/blog`;
   return {
@@ -55,15 +55,7 @@ export async function generateMetadata({
     description,
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: {
-        it: `${SITE_URL}/it/blog`,
-        en: `${SITE_URL}/en/blog`,
-        es: `${SITE_URL}/es/blog`,
-        de: `${SITE_URL}/de/blog`,
-        pt: `${SITE_URL}/pt/blog`,
-        fr: `${SITE_URL}/fr/blog`,
-        "x-default": `${SITE_URL}/it/blog`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/blog`),
     },
     openGraph: {
       type: "website",
@@ -155,6 +147,66 @@ const I18N = {
     sectionPillar: "Guides piliers",
     sectionRecent: "Tous les articles",
   },
+  pl: {
+    kicker: "Blog",
+    heading: "Rzetelne poradniki o synchronizacji wearables",
+    headingAccent: "i Twoich danych zdrowotnych",
+    lead: "Bez przesady i pobieżnych recenzji. Wyjaśniamy, co naprawdę działa w 2026 roku: Health Connect, eksport danych, oficjalne autoryzacje, RODO i jak wybrać właściwy ekosystem.",
+    pillarLabel: "Przewodnik główny",
+    readMin: (m: number) => `${m} min czytania`,
+    publishedOn: "Opublikowano",
+    explore: "Czytaj →",
+    sectionPillar: "Główne przewodniki",
+    sectionRecent: "Wszystkie artykuły",
+  },
+  tr: {
+    kicker: "Blog",
+    heading: "Giyilebilir senkronizasyonu hakkında dürüst rehberler",
+    headingAccent: "ve sağlık verileriniz",
+    lead: "Abartı yok, yüzeysel inceleme yok. 2026'da gerçekten neyin işe yaradığını açıklıyoruz: Health Connect, veri dışa aktarma, resmi yetkilendirmeler, KVKK ve doğru ekosistemi seçme.",
+    pillarLabel: "Ana rehber",
+    readMin: (m: number) => `${m} dk okuma`,
+    publishedOn: "Yayınlandı",
+    explore: "Oku →",
+    sectionPillar: "Ana rehberler",
+    sectionRecent: "Tüm makaleler",
+  },
+  nl: {
+    kicker: "Blog",
+    heading: "Eerlijke gidsen over wearable synchronisatie",
+    headingAccent: "en uw gezondheidsdata",
+    lead: "Geen hype, geen oppervlakkige recensies. We leggen uit wat echt werkt in 2026: Health Connect, data-export, officiële autorisaties, AVG en het juiste ecosysteem kiezen.",
+    pillarLabel: "Hoofdgids",
+    readMin: (m: number) => `${m} min lezen`,
+    publishedOn: "Gepubliceerd op",
+    explore: "Lees →",
+    sectionPillar: "Hoofdgidsen",
+    sectionRecent: "Alle artikelen",
+  },
+  ja: {
+    kicker: "ブログ",
+    heading: "ウェアラブル同期についての誠実なガイド",
+    headingAccent: "とあなたの健康データ",
+    lead: "誇大広告なし、表面的なレビューなし。2026年に本当に機能するものを解説します：Health Connect、データエクスポート、公式OAuth、GDPRと適切なエコシステムの選択。",
+    pillarLabel: "ピラーガイド",
+    readMin: (m: number) => `${m}分で読める`,
+    publishedOn: "公開日",
+    explore: "読む →",
+    sectionPillar: "ピラーガイド",
+    sectionRecent: "すべての記事",
+  },
+  ko: {
+    kicker: "블로그",
+    heading: "웨어러블 동기화에 관한 정직한 가이드",
+    headingAccent: "와 당신의 건강 데이터",
+    lead: "과장 없이, 피상적인 리뷰 없이. 2026년에 실제로 작동하는 것을 설명합니다: Health Connect, 데이터 내보내기, 공식 OAuth, GDPR 및 올바른 생태계 선택.",
+    pillarLabel: "핵심 가이드",
+    readMin: (m: number) => `${m}분 읽기`,
+    publishedOn: "게시일",
+    explore: "읽기 →",
+    sectionPillar: "핵심 가이드",
+    sectionRecent: "모든 기사",
+  },
 };
 
 function formatDate(iso: string, lc: Locale): string {
@@ -165,6 +217,11 @@ function formatDate(iso: string, lc: Locale): string {
     lc === "de" ? "de-DE" :
     lc === "pt" ? "pt-BR" :
     lc === "fr" ? "fr-FR" :
+    lc === "pl" ? "pl-PL" :
+    lc === "tr" ? "tr-TR" :
+    lc === "nl" ? "nl-NL" :
+    lc === "ja" ? "ja-JP" :
+    lc === "ko" ? "ko-KR" :
     "en-US";
   return d.toLocaleDateString(locale, {
     year: "numeric",
@@ -199,6 +256,11 @@ export default async function BlogIndex({
       lc === "de" ? "de-DE" :
       lc === "pt" ? "pt-BR" :
       lc === "fr" ? "fr-FR" :
+      lc === "pl" ? "pl-PL" :
+      lc === "tr" ? "tr-TR" :
+      lc === "nl" ? "nl-NL" :
+      lc === "ja" ? "ja-JP" :
+      lc === "ko" ? "ko-KR" :
       "en-US",
     url: `${SITE_URL}/${lc}/blog`,
     blogPost: posts.map((p) => ({

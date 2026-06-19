@@ -22,12 +22,14 @@ import {
   limitSignup,
   limitSync,
 } from '@/lib/rate-limit/limiter';
+import { locales } from '@/lib/i18n';
 
 type CookieToSet = { name: string; value: string; options: CookieOptions };
 
 const PROTECTED_PREFIXES = ['/app', '/admin'] as const;
 
-const LOCALES = ['it', 'en', 'es', 'de', 'pt', 'fr'] as const;
+// Single source of truth: keep locale routing in sync with lib/i18n (incl. pl/tr).
+const LOCALES = locales;
 
 function stripLocale(pathname: string): string {
   for (const locale of LOCALES) {
@@ -77,6 +79,14 @@ function bestLocaleFromAcceptLanguage(header: string | null): string {
   // Prima preferenza vince. Default 'it' (mercato primario).
   if (lower.startsWith('it') || lower.includes(',it')) return 'it';
   if (lower.startsWith('es') || lower.includes(',es')) return 'es';
+  if (lower.startsWith('ja') || lower.includes(',ja')) return 'ja';
+  if (lower.startsWith('ko') || lower.includes(',ko')) return 'ko';
+  if (lower.startsWith('nl') || lower.includes(',nl')) return 'nl';
+  if (lower.startsWith('de') || lower.includes(',de')) return 'de';
+  if (lower.startsWith('fr') || lower.includes(',fr')) return 'fr';
+  if (lower.startsWith('pt') || lower.includes(',pt')) return 'pt';
+  if (lower.startsWith('pl') || lower.includes(',pl')) return 'pl';
+  if (lower.startsWith('tr') || lower.includes(',tr')) return 'tr';
   if (lower.startsWith('en') || lower.includes(',en')) return 'en';
   return 'it';
 }

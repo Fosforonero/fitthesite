@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { locales, type Locale, getDictionary } from "@/lib/i18n";
+import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
 import { LegalPage, Section, List, Callout } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
@@ -22,6 +22,11 @@ export async function generateMetadata(
     de: "Datenschutzerklärung",
     pt: "Política de Privacidade",
     fr: "Politique de confidentialité",
+    pl: "Polityka prywatnosci",
+    tr: "Gizlilik Politikasi",
+    nl: "Privacybeleid",
+    ja: "プライバシーポリシー",
+    ko: "개인정보 처리방침",
   };
   const desc: Record<Locale, string> = {
     it: "Come FitMesh Sync raccoglie, utilizza e protegge i dati di salute. Conforme GDPR.",
@@ -30,6 +35,11 @@ export async function generateMetadata(
     de: "Wie FitMesh Sync Gesundheitsdaten erhebt, nutzt und schützt. DSGVO-konform.",
     pt: "Como o FitMesh Sync coleta, usa e protege dados de saúde. Em conformidade com o GDPR.",
     fr: "Comment FitMesh Sync collecte, utilise et protège vos données de santé. Conforme au RGPD.",
+    pl: "Jak FitMesh Sync zbiera, wykorzystuje i chroni dane zdrowotne. Zgodnosc z RODO.",
+    tr: "FitMesh Sync'in saglik verilerini nasil topladigini, kullandigini ve korudugunu aciklar. GDPR uyumlu.",
+    nl: "Hoe FitMesh Sync gezondheidsgegevens verzamelt, gebruikt en beschermt. AVG-conform.",
+    ja: "FitMesh Syncが健康データをどのように収集、使用、保護するか。GDPR準拠。",
+    ko: "FitMesh Sync가 건강 데이터를 수집, 사용 및 보호하는 방법. GDPR 준수.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
@@ -37,15 +47,7 @@ export async function generateMetadata(
     description: desc[lc],
     alternates: {
       canonical: `${SITE_URL}/${lc}/privacy`,
-      languages: {
-        it: `${SITE_URL}/it/privacy`,
-        en: `${SITE_URL}/en/privacy`,
-        es: `${SITE_URL}/es/privacy`,
-        de: `${SITE_URL}/de/privacy`,
-        pt: `${SITE_URL}/pt/privacy`,
-        fr: `${SITE_URL}/fr/privacy`,
-        "x-default": `${SITE_URL}/it/privacy`,
-      },
+      languages: localeAlternates((l) => `${SITE_URL}/${l}/privacy`),
     },
   };
 }
