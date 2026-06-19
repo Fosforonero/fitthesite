@@ -16,6 +16,9 @@ export const post: BlogPost = {
     fr: "FitMesh Sync sur Google Play",
     pl: "FitMesh Sync w Google Play",
     tr: "FitMesh Sync Google Play'de",
+    nl: "FitMesh Sync in Google Play",
+    ja: "FitMesh Sync、Google Playで公開",
+    ko: "FitMesh Sync, Google Play 출시",
   },
   secondaryKeywords: {
     it: [
@@ -60,6 +63,27 @@ export const post: BlogPost = {
       "giyilebilir cihaz veri uygulaması",
       "kuruculara ücretsiz bir yıl Pro",
     ],
+    nl: [
+      "app om smartwatchgegevens samen te voegen",
+      "Android gezondheidsdashboard",
+      "FitMesh Sync downloaden",
+      "wearable data-app",
+      "een jaar Pro gratis voor founders",
+    ],
+    ja: [
+      "スマートウォッチデータを統合するアプリ",
+      "Android健康ダッシュボード",
+      "FitMesh Syncをダウンロード",
+      "ウェアラブルデータアプリ",
+      "創業者向け1年間Pro無料",
+    ],
+    ko: [
+      "스마트워치 데이터를 통합하는 앱",
+      "Android 건강 대시보드",
+      "FitMesh Sync 다운로드",
+      "웨어러블 데이터 앱",
+      "파운더 1년 무료 Pro",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync è disponibile su Google Play: unisci i dati di smartwatch e anello in un'unica dashboard, con i tuoi dati su server in Europa. La versione iPhone arriva tra pochi giorni.",
@@ -70,6 +94,9 @@ export const post: BlogPost = {
     fr: "FitMesh Sync est maintenant sur Google Play: regroupez les données de votre montre connectée et de votre bague en un seul tableau de bord, avec vos données sur des serveurs en Europe. La version iPhone arrive dans quelques jours.",
     pl: "FitMesh Sync jest teraz w Google Play: połącz dane ze swojego smartwatcha i pierścionka w jednym panelu, z danymi na serwerach w Europie. Wersja na iPhone'a pojawi się za kilka dni.",
     tr: "FitMesh Sync artık Google Play'de: akıllı saat ve yüzük verilerinizi tek bir panelde birleştirin, verileriniz Avrupa'daki sunucularda saklanır. iPhone sürümü birkaç gün içinde geliyor.",
+    nl: "FitMesh Sync is nu beschikbaar in Google Play: breng de gegevens van je sporthorloge en slimme ring samen in één dashboard, met je data op servers in Europa. De iPhone-versie komt over een paar dagen.",
+    ja: "FitMesh SyncがGoogle Playで公開されました。スマートウォッチとリングのデータを1つのダッシュボードにまとめ、データはヨーロッパのサーバーに保存されます。iPhone版は数日以内に登場します。",
+    ko: "FitMesh Sync가 이제 Google Play에 출시되었습니다. 스마트워치와 링 데이터를 하나의 대시보드에 통합하고, 데이터는 유럽 서버에 저장됩니다. iPhone 버전은 며칠 내로 출시됩니다.",
   },
   tldr: {
     it: [
@@ -120,6 +147,24 @@ export const post: BlogPost = {
       "Veriler yalnızca Avrupa'da depolanır. Reklam yok, üçüncü taraflara veri yok, şifreli hizmet koşulları yok.",
       "Google Play'den indirenler için ilk 60 gün ücretsizdir. Daha sonra kurucu aboneliği uygulanır.",
     ],
+    nl: [
+      "FitMesh Sync is nu beschikbaar in Google Play. Download het, koppel je apparaat, log in en begin te synchroniseren - geen installatie buiten je telefoon nodig.",
+      "Health Connect is de brug tussen je wearable en alle andere Android-apps. FitMesh Sync leest gezondheidsgegevens daaruit en synchroniseert ze naar de EU-cloud.",
+      "Gegevens worden uitsluitend in Europa opgeslagen. Geen advertenties, geen data aan derden, geen onduidelijke servicevoorwaarden.",
+      "De eerste 60 dagen zijn gratis voor iedereen die downloadt via Google Play. Daarna geldt het founders-abonnement.",
+    ],
+    ja: [
+      "FitMesh SyncはGoogle Playで入手できます。ダウンロードして、デバイスを接続し、ログインして同期を開始しましょう。スマートフォン以外の設定は不要です。",
+      "Health ConnectはウェアラブルとすべてのAndroidアプリをつなぐ橋渡し役です。FitMesh Syncはそこから健康データを読み取り、EUクラウドに同期します。",
+      "データはヨーロッパにのみ保存されます。広告なし、第三者へのデータ提供なし、不明瞭な利用規約なし。",
+      "Google Playからダウンロードした方は最初の60日間無料です。その後はファウンダーサブスクリプションが適用されます。",
+    ],
+    ko: [
+      "FitMesh Sync가 Google Play에 출시되었습니다. 다운로드하고, 기기를 연결하고, 로그인한 뒤 동기화를 시작하세요. 스마트폰 외에 별도 설정이 필요 없습니다.",
+      "Health Connect는 웨어러블과 모든 Android 앱을 연결하는 다리 역할을 합니다. FitMesh Sync는 그곳에서 건강 데이터를 읽어 EU 클라우드에 동기화합니다.",
+      "데이터는 유럽에만 저장됩니다. 광고 없음, 제3자 데이터 제공 없음, 불명확한 이용 약관 없음.",
+      "Google Play에서 다운로드한 분들은 처음 60일간 무료입니다. 이후에는 파운더 구독이 적용됩니다.",
+    ],
   },
   hero: {
     kicker: {
@@ -131,6 +176,9 @@ export const post: BlogPost = {
       fr: "Nouveauté",
       pl: "Nowości",
       tr: "Yenilikler",
+      nl: "Nieuws",
+      ja: "新着情報",
+      ko: "새 소식",
     },
     title: {
       it: "FitMesh Sync è disponibile su Google Play",
@@ -141,6 +189,9 @@ export const post: BlogPost = {
       fr: "FitMesh Sync est maintenant disponible sur Google Play",
       pl: "FitMesh Sync jest teraz dostępny w Google Play",
       tr: "FitMesh Sync artık Google Play'de",
+      nl: "FitMesh Sync is nu beschikbaar in Google Play",
+      ja: "FitMesh Sync、Google Playで公開開始",
+      ko: "FitMesh Sync, 이제 Google Play에서 출시",
     },
     subtitle: {
       it: "Da oggi puoi scaricare l'app e vedere i dati di tutti i tuoi dispositivi in una sola dashboard. La versione per iPhone arriva tra pochi giorni.",
@@ -151,6 +202,9 @@ export const post: BlogPost = {
       fr: "Dès aujourd'hui, vous pouvez télécharger l'application et consulter les données de tous vos appareils dans un seul tableau de bord. La version iPhone arrive dans quelques jours.",
       pl: "Od dziś możesz pobrać aplikację i przeglądać dane wszystkich swoich urządzeń w jednym panelu. Wersja na iPhone'a pojawi się za kilka dni.",
       tr: "Bugünden itibaren uygulamayı indirebilir ve tüm cihazlarınızın verilerini tek bir panelde görebilirsiniz. iPhone sürümü birkaç gün içinde geliyor.",
+      nl: "Vanaf vandaag kun je de app downloaden en de gegevens van al je apparaten in één dashboard bekijken. De iPhone-versie komt over een paar dagen.",
+      ja: "本日より、アプリをダウンロードしてすべてのデバイスのデータを1つのダッシュボードで確認できます。iPhone版は数日以内に登場します。",
+      ko: "오늘부터 앱을 다운로드하고 모든 기기의 데이터를 하나의 대시보드에서 확인할 수 있습니다. iPhone 버전은 며칠 내로 출시됩니다.",
     },
   },
   body: [
@@ -165,6 +219,9 @@ export const post: BlogPost = {
         fr: "C'est ici: FitMesh Sync est officiellement disponible sur Google Play. Vous pouvez le télécharger sur n'importe quel téléphone Android et commencer à consulter les données de votre montre connectée, de votre bague et de vos autres appareils au même endroit.",
         pl: "Stało się: FitMesh Sync jest oficjalnie dostępny w Google Play. Możesz go pobrać na dowolny telefon z Androidem i zacząć widzieć dane swojego smartwatcha, pierścionka i innych urządzeń w jednym miejscu.",
         tr: "Geldi: FitMesh Sync resmi olarak Google Play'de mevcut. Herhangi bir Android telefona indirebilir ve akıllı saatinizin, yüzüğünüzün ve diğer cihazlarınızın verilerini tek bir yerde görmeye hemen başlayabilirsiniz.",
+        nl: "Het is zover: FitMesh Sync is officieel beschikbaar in Google Play. Je kunt het op elke Android-telefoon downloaden en meteen de gegevens van je sporthorloge, slimme ring en andere apparaten op één plek bekijken.",
+        ja: "ついに公開：FitMesh SyncがGoogle Playで正式リリースされました。すべてのAndroidスマートフォンにダウンロードして、スマートウォッチ、スマートリング、その他のデバイスのデータを1か所でまとめて確認できます。",
+        ko: "드디어 출시: FitMesh Sync가 Google Play에 공식 출시되었습니다. 모든 Android 스마트폰에서 다운로드하여 스마트워치, 스마트 링, 그 외 기기의 데이터를 한 곳에서 바로 확인할 수 있습니다.",
       },
     },
     {
@@ -179,6 +236,9 @@ export const post: BlogPost = {
         fr: "Ce que fait FitMesh Sync",
         pl: "Co robi FitMesh Sync",
         tr: "FitMesh Sync ne yapar",
+        nl: "Wat FitMesh Sync doet",
+        ja: "FitMesh Syncでできること",
+        ko: "FitMesh Sync의 기능",
       },
     },
     {
@@ -192,6 +252,9 @@ export const post: BlogPost = {
         fr: "Chaque marque conserve vos données dans sa propre application. Si vous avez une Galaxy Watch, une bague connectée et peut-être un bracelet d'un autre fabricant, vous finissez par jongler entre les applications. FitMesh Sync les rassemble toutes dans un tableau de bord clair et unique: pas, sommeil, fréquence cardiaque, récupération et tendances dans le temps, conçu pour une consultation quotidienne.",
         pl: "Każda marka trzyma Twoje dane we własnej aplikacji. Jeśli masz Galaxy Watch, inteligentny pierścionek i może opaskę innego producenta, skaczysz z jednej aplikacji do drugiej. FitMesh Sync zbiera je wszystkie w jeden przejrzysty panel: kroki, sen, tętno, regeneracja i trendy w czasie, zaprojektowany do codziennego przeglądania.",
         tr: "Her marka verilerinizi kendi uygulamasında tutar. Bir Galaxy Watch, akıllı yüzük ve belki başka bir üreticinin bandı varsa, sürekli uygulamalar arasında geçiş yaparsınız. FitMesh Sync hepsini tek, net bir panelde toplar: adımlar, uyku, kalp atış hızı, toparlanma ve zaman içindeki eğilimler - günlük okuma için tasarlanmış.",
+        nl: "Elk merk bewaart je gegevens in zijn eigen app. Als je een Galaxy Watch, een slimme ring en misschien een band van een andere fabrikant hebt, spring je voortdurend van app naar app. FitMesh Sync bundelt ze allemaal in één overzichtelijk dashboard: stappen, slaap, hartslag, herstel en trends in de tijd, ontworpen voor dagelijks gebruik.",
+        ja: "どのブランドもデータを自社アプリの中に閉じ込めています。Galaxy Watch、スマートリング、さらに別のメーカーのバンドを持っていると、アプリを行ったり来たりする羽目になります。FitMesh Syncはそれらをすべて1つの明快なダッシュボードにまとめます。歩数、睡眠、心拍数、回復、時系列トレンドを毎日の確認に最適な形で表示します。",
+        ko: "모든 브랜드는 자사 앱 안에 데이터를 가둬둡니다. Galaxy Watch, 스마트 링, 다른 제조사의 밴드까지 갖고 있다면 앱을 계속 오가게 됩니다. FitMesh Sync는 이 모든 것을 하나의 명확한 대시보드로 통합합니다. 걸음 수, 수면, 심박수, 회복, 시간별 트렌드를 매일 쉽게 확인할 수 있도록 설계되었습니다.",
       },
     },
     {
@@ -206,6 +269,9 @@ export const post: BlogPost = {
         fr: "Plusieurs appareils, une seule vue",
         pl: "Więcej urządzeń, jeden widok",
         tr: "Birden fazla cihaz, tek bir görünüm",
+        nl: "Meerdere apparaten, één overzicht",
+        ja: "複数デバイス、1つのビュー",
+        ko: "여러 기기, 하나의 화면",
       },
     },
     {
@@ -219,6 +285,9 @@ export const post: BlogPost = {
         fr: "Si vous portez plusieurs appareils en même temps, FitMesh Sync les fusionne sans compter les mêmes pas deux fois et vous affiche toujours la valeur la plus complète. Quand un appareil est en charge, un autre couvre cette période sans laisser de trous. Nous avons tout expliqué, avec des exemples pour chaque combinaison, dans le guide [plusieurs montres connectées ensemble sans données en double](/fr/blog/piu-smartwatch-insieme-dati-doppi).",
         pl: "Jeśli nosisz kilka urządzeń jednocześnie, FitMesh Sync łączy je bez podwójnego liczenia tych samych kroków i zawsze pokazuje Ci najbardziej kompletną wartość. Gdy jedno urządzenie się ładuje, drugie pokrywa ten okres bez żadnych luk. Wyjaśniliśmy wszystko, z przykładami dla każdej kombinacji, w przewodniku [kilka smartwatchy jednocześnie bez duplikatów danych](/pl/blog/piu-smartwatch-insieme-dati-doppi).",
         tr: "Birden fazla cihaz takıyorsanız, FitMesh Sync aynı adımları iki kez saymadan hepsini birleştirir ve size her zaman en eksiksiz değeri gösterir. Bir cihaz şarj olurken diğeri o aralığı boşluksuz kapatır. Her kombinasyon için örneklerle tümünü [birden fazla akıllı saat - veriler çift sayılmaz](/tr/blog/piu-smartwatch-insieme-dati-doppi) rehberinde anlattık.",
+        nl: "Als je meerdere apparaten tegelijk draagt, voegt FitMesh Sync ze samen zonder dezelfde stappen twee keer te tellen en toont je altijd de meest volledige waarde. Als een apparaat oplaadt, dekt een ander dat interval zonder hiaten. We hebben alles uitgelegd, met voorbeelden voor elke combinatie, in de gids [meerdere smartwatches samen zonder dubbele data](/nl/blog/piu-smartwatch-insieme-dati-doppi).",
+        ja: "複数のデバイスを同時に装着している場合、FitMesh Syncは同じ歩数を二重にカウントせずに統合し、常に最も完全な値を表示します。1つのデバイスが充電中でも、別のデバイスがその時間帯を補い、空白が生じません。各組み合わせの例を含む詳細は、ガイド[複数スマートウォッチを同時使用してもデータが重複しない方法](/ja/blog/piu-smartwatch-insieme-dati-doppi)で説明しています。",
+        ko: "여러 기기를 동시에 착용하는 경우, FitMesh Sync는 같은 걸음 수를 두 번 세지 않고 통합하여 항상 가장 완전한 값을 보여줍니다. 기기 하나가 충전 중일 때 다른 기기가 그 시간대를 공백 없이 커버합니다. 각 조합에 대한 예시와 함께 자세한 설명은 가이드 [여러 스마트워치를 함께 사용해도 데이터 중복 없음](/ko/blog/piu-smartwatch-insieme-dati-doppi)에서 확인할 수 있습니다.",
       },
     },
     {
@@ -233,6 +302,9 @@ export const post: BlogPost = {
         fr: "Vos données restent les vôtres",
         pl: "Twoje dane pozostają Twoje",
         tr: "Verileriniz size ait kalır",
+        nl: "Jouw gegevens blijven van jou",
+        ja: "あなたのデータはあなたのもの",
+        ko: "내 데이터는 내 것",
       },
     },
     {
@@ -246,6 +318,9 @@ export const post: BlogPost = {
         fr: "Les données de santé comptent parmi les informations les plus personnelles que vous possédez. C'est pourquoi elles restent sur des serveurs en Europe, accessibles uniquement à vous via votre compte, sans publicité et sans revente à des tiers. Retrouvez tous les détails sur la page [confidentialité](/fr/privacy).",
         pl: "Dane zdrowotne należą do najbardziej osobistych, jakie posiadasz. Dlatego pozostają na serwerach w Europie, dostępne tylko dla Ciebie przez Twoje konto, bez reklam i nigdy nie odsprzedawane osobom trzecim. Wszystkie szczegóły znajdziesz na stronie [prywatności](/pl/privacy).",
         tr: "Sağlık verileri en kişisel bilgilerinizden biridir. Bu nedenle Avrupa'daki sunucularda saklanır, yalnızca hesabınız aracılığıyla size erişilebilir, reklam yoktur ve üçüncü taraflara asla satılmaz. Tüm ayrıntıları [gizlilik](/tr/privacy) sayfasında bulabilirsiniz.",
+        nl: "Gezondheidsgegevens behoren tot de meest persoonlijke informatie die je bezit. Daarom blijven ze op servers in Europa, alleen toegankelijk voor jou via je account, zonder advertenties en zonder doorverkoop aan derden. Alle details vind je op de [privacypagina](/nl/privacy).",
+        ja: "健康データはあなたの最も個人的な情報の1つです。だからこそ、ヨーロッパのサーバーに保存され、あなたのアカウントを通じてのみアクセスでき、広告もなく、第三者への販売も一切ありません。詳細は[プライバシー](/ja/privacy)ページでご確認いただけます。",
+        ko: "건강 데이터는 가장 개인적인 정보 중 하나입니다. 그렇기 때문에 유럽 서버에 저장되며, 계정을 통해서만 접근 가능하고, 광고도 없고 제3자에게 판매되지도 않습니다. 자세한 내용은 [개인정보 보호](/ko/privacy) 페이지에서 확인할 수 있습니다.",
       },
     },
     {
@@ -260,6 +335,9 @@ export const post: BlogPost = {
         fr: "Un an de Pro gratuit pour les premiers inscrits",
         pl: "Rok Pro za darmo dla pierwszych, którzy się zarejestrują",
         tr: "İlk kayıt olanlara ücretsiz bir yıl Pro",
+        nl: "Een jaar Pro gratis voor de eersten die zich registreren",
+        ja: "先着登録者に1年間Pro無料",
+        ko: "먼저 등록한 분들께 1년 무료 Pro",
       },
       body: {
         it: "Scarica l'app e crea l'account adesso: i primi 1000 ricevono un anno di Pro completo, che si attiva da solo. Niente carta, niente abbonamento. Dettagli nella pagina [Founder](/it/beta).",
@@ -270,6 +348,9 @@ export const post: BlogPost = {
         fr: "Téléchargez l'application et créez votre compte maintenant: les 1000 premiers reçoivent un an complet de Pro qui s'active automatiquement. Pas de carte, pas d'abonnement. Détails sur la page [Founder](/fr/beta).",
         pl: "Pobierz aplikację i utwórz konto teraz: pierwsze 1000 osób otrzymuje pełny rok Pro, który aktywuje się automatycznie. Bez karty, bez subskrypcji. Szczegóły na stronie [Founder](/pl/beta).",
         tr: "Uygulamayı indirin ve hesabınızı şimdi oluşturun: ilk 1000 kişi kendiliğinden etkinleşen tam bir yıllık Pro alır. Kart yok, abonelik yok. Ayrıntılar [Founder](/tr/beta) sayfasında.",
+        nl: "Download de app en maak nu je account aan: de eerste 1000 ontvangen een volledig jaar Pro dat automatisch wordt geactiveerd. Geen kaart, geen abonnement. Details op de [Founder](/nl/beta)-pagina.",
+        ja: "アプリをダウンロードして今すぐアカウントを作成してください。先着1000名に、自動で有効化される1年間のPro全機能が付与されます。カード不要、サブスクリプション不要。詳細は[Founder](/ja/beta)ページをご覧ください。",
+        ko: "앱을 다운로드하고 지금 바로 계정을 만드세요. 선착순 1000명은 자동으로 활성화되는 1년 전체 Pro를 받습니다. 카드 불필요, 구독 불필요. 자세한 내용은 [Founder](/ko/beta) 페이지에서 확인하세요.",
       },
     },
     {
@@ -284,6 +365,9 @@ export const post: BlogPost = {
         fr: "La version iPhone arrive dans quelques jours",
         pl: "Wersja na iPhone'a pojawi się za kilka dni",
         tr: "iPhone sürümü birkaç gün içinde geliyor",
+        nl: "De iPhone-versie komt over een paar dagen",
+        ja: "iPhone版は数日以内に登場",
+        ko: "iPhone 버전, 며칠 내로 출시",
       },
     },
     {
@@ -297,6 +381,9 @@ export const post: BlogPost = {
         fr: "Nous finalisons les dernières étapes pour apporter FitMesh Sync sur iPhone également: la version iOS arrive dans quelques jours. Si vous souhaitez être notifié dès sa sortie, nous en parlons ici: [FitMesh Sync arrive sur iPhone](/fr/blog/fitmesh-arriva-su-iphone).",
         pl: "Kończymy ostatnie kroki, żeby przynieść FitMesh Sync również na iPhone'a: wersja iOS pojawi się za kilka dni. Jeśli chcesz zostać powiadomiony, gdy tylko się ukaże, piszemy o tym tutaj: [FitMesh Sync trafia na iPhone'a](/pl/blog/fitmesh-arriva-su-iphone).",
         tr: "FitMesh Sync'i iPhone'a da getirmek için son adımları tamamlıyoruz: iOS sürümü birkaç gün içinde geliyor. Çıkar çıkmaz haberdar olmak istiyorsanız bunu burada anlattık: [FitMesh Sync iPhone'a geliyor](/tr/blog/fitmesh-arriva-su-iphone).",
+        nl: "We ronden de laatste stappen af om FitMesh Sync ook naar iPhone te brengen: de iOS-versie komt binnen enkele dagen. Als je een melding wilt ontvangen zodra hij beschikbaar is, lees hier meer: [FitMesh Sync komt naar iPhone](/nl/blog/fitmesh-arriva-su-iphone).",
+        ja: "FitMesh SyncをiPhoneにも対応させるための最終ステップを進めています。iOS版は数日以内にリリースされます。リリース時に通知を受け取りたい方はこちらをご覧ください：[FitMesh Sync、iPhoneに対応予定](/ja/blog/fitmesh-arriva-su-iphone)。",
+        ko: "FitMesh Sync를 iPhone에도 출시하기 위한 마지막 단계를 마무리하고 있습니다. iOS 버전은 며칠 내로 출시됩니다. 출시 즉시 알림을 받고 싶다면 여기를 확인하세요: [FitMesh Sync, iPhone 출시 예정](/ko/blog/fitmesh-arriva-su-iphone).",
       },
     },
     {
@@ -310,6 +397,9 @@ export const post: BlogPost = {
         fr: "Téléchargez maintenant sur Google Play",
         pl: "Pobierz teraz w Google Play",
         tr: "Şimdi Google Play'den indirin",
+        nl: "Download nu via Google Play",
+        ja: "今すぐGoogle Playでダウンロード",
+        ko: "지금 Google Play에서 다운로드",
       },
       body: {
         it: "Collega lo smartwatch e l'anello, crea l'account e vedi la tua giornata unita in un solo posto. Bastano pochi minuti.",
@@ -320,6 +410,9 @@ export const post: BlogPost = {
         fr: "Connectez votre montre connectée et votre bague, créez votre compte et consultez votre journée réunie en un seul endroit. Cela ne prend que quelques minutes.",
         pl: "Podłącz swój smartwatch i pierścionek, utwórz konto i zobacz swój dzień zebrany w jednym miejscu. Zajmuje to tylko kilka minut.",
         tr: "Akıllı saatinizi ve yüzüğünüzü bağlayın, hesabınızı oluşturun ve gününüzü tek bir yerde bir araya getirilmiş halde görün. Sadece birkaç dakika sürer.",
+        nl: "Koppel je sporthorloge en slimme ring, maak je account aan en bekijk je dag samengebracht op één plek. Het duurt maar een paar minuten.",
+        ja: "スマートウォッチとスマートリングを接続し、アカウントを作成して、1日のデータを1か所でまとめて確認しましょう。数分で完了します。",
+        ko: "스마트워치와 스마트 링을 연결하고, 계정을 만들어 하루의 데이터를 한 곳에서 확인하세요. 단 몇 분이면 충분합니다.",
       },
       ctaLabel: {
         it: "Scarica su Google Play",
@@ -330,12 +423,18 @@ export const post: BlogPost = {
         fr: "Télécharger sur Google Play",
         pl: "Pobierz w Google Play",
         tr: "Google Play'den indir",
+        nl: "Downloaden via Google Play",
+        ja: "Google Playでダウンロード",
+        ko: "Google Play에서 받기",
       },
       ctaHref: {
         it: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
         en: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
         pl: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
         tr: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
+        nl: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
+        ja: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
+        ko: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
       },
     },
   ],
@@ -350,6 +449,9 @@ export const post: BlogPost = {
         fr: "Combien coûte FitMesh Sync?",
         pl: "Ile kosztuje FitMesh Sync?",
         tr: "FitMesh Sync ne kadar?",
+        nl: "Wat kost FitMesh Sync?",
+        ja: "FitMesh Syncはいくらですか？",
+        ko: "FitMesh Sync는 얼마인가요?",
       },
       a: {
         it: "C'è un piano gratuito che copre l'uso quotidiano. Le funzioni Pro, come lo storico illimitato, sono disponibili con un acquisto unico o un piano leggero. In più, i primi 1000 che si iscrivono ricevono un anno di Pro gratis.",
@@ -360,6 +462,9 @@ export const post: BlogPost = {
         fr: "Il existe un plan gratuit qui couvre l'usage quotidien. Les fonctionnalités Pro, comme l'historique illimité, sont disponibles avec un achat unique ou un plan léger. De plus, les 1000 premiers inscrits reçoivent un an de Pro gratuit.",
         pl: "Jest bezpłatny plan, który pokrywa codzienne użytkowanie. Funkcje Pro, takie jak nieograniczona historia, są dostępne za jednorazowy zakup lub lekki plan. Dodatkowo, pierwsze 1000 osób, które się zarejestrują, otrzymuje rok Pro za darmo.",
         tr: "Günlük kullanımı karşılayan ücretsiz bir plan var. Sınırsız geçmiş gibi Pro özellikler, tek seferlik satın alma veya hafif bir planla kullanılabilir. Bunun yanı sıra, ilk 1000 kayıt olan kişi ücretsiz bir yıllık Pro alır.",
+        nl: "Er is een gratis plan dat het dagelijkse gebruik dekt. Pro-functies, zoals onbeperkte geschiedenis, zijn beschikbaar via een eenmalige aankoop of een licht abonnement. Bovendien ontvangen de eerste 1000 die zich registreren een jaar Pro gratis.",
+        ja: "日常的な使用をカバーする無料プランがあります。無制限の履歴などのPro機能は、買い切りまたは軽量プランでご利用いただけます。さらに、先着1000名は1年間のProを無料で取得できます。",
+        ko: "일상적인 사용을 커버하는 무료 플랜이 있습니다. 무제한 기록 등의 Pro 기능은 일회성 구매 또는 가벼운 플랜으로 이용할 수 있습니다. 또한 먼저 등록한 1000명은 1년 무료 Pro를 받습니다.",
       },
     },
     {
@@ -372,6 +477,9 @@ export const post: BlogPost = {
         fr: "Quels appareils sont compatibles?",
         pl: "Które urządzenia są kompatybilne?",
         tr: "Hangi cihazlar uyumludur?",
+        nl: "Welke apparaten zijn compatibel?",
+        ja: "対応デバイスはどれですか？",
+        ko: "어떤 기기가 호환되나요?",
       },
       a: {
         it: "Tutti i dispositivi che funzionano con Health Connect su Android: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, anelli smart e molti altri. Per Samsung Galaxy Watch c'è anche un collegamento diretto con Samsung Health.",
@@ -382,6 +490,9 @@ export const post: BlogPost = {
         fr: "Tous les appareils qui fonctionnent avec Health Connect sur Android: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, bagues connectées et bien d'autres. Pour la Samsung Galaxy Watch, il existe également une connexion directe avec Samsung Health.",
         pl: "Każde urządzenie, które działa z Health Connect na Androidzie: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, inteligentne pierścionki i wiele innych. Dla Samsung Galaxy Watch istnieje również bezpośrednie połączenie z Samsung Health.",
         tr: "Android'de Health Connect ile çalışan her cihaz: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, akıllı yüzükler ve daha fazlası. Samsung Galaxy Watch için Samsung Health ile doğrudan bir bağlantı da mevcuttur.",
+        nl: "Elk apparaat dat werkt met Health Connect op Android: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, slimme ringen en nog veel meer. Voor Samsung Galaxy Watch is er ook een directe koppeling met Samsung Health.",
+        ja: "AndroidのHealth Connectと連携するすべてのデバイス：Galaxy Watch、Google Pixel Watch、Fitbit、Garmin、Polar、Mi Band、スマートリングなど多数。Samsung Galaxy WatchはSamsung Healthとの直接連携にも対応しています。",
+        ko: "Android에서 Health Connect와 연동되는 모든 기기: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, 스마트 링 등 다양합니다. Samsung Galaxy Watch는 Samsung Health와의 직접 연동도 지원합니다.",
       },
     },
     {
@@ -394,6 +505,9 @@ export const post: BlogPost = {
         fr: "Quand arrive-t-il sur iPhone?",
         pl: "Kiedy pojawi się na iPhonie?",
         tr: "iPhone'a ne zaman geliyor?",
+        nl: "Wanneer komt het naar iPhone?",
+        ja: "iPhoneへの対応はいつですか？",
+        ko: "iPhone 출시는 언제인가요?",
       },
       a: {
         it: "La versione iOS è in arrivo a giorni. Chi si iscrive ora come Founder ha accesso prioritario alla prima versione per iPhone.",
@@ -404,6 +518,9 @@ export const post: BlogPost = {
         fr: "La version iOS arrive dans quelques jours. Ceux qui s'inscrivent maintenant en tant que Founders bénéficient d'un accès prioritaire à la première version iPhone.",
         pl: "Wersja iOS pojawi się za kilka dni. Ci, którzy zarejestrują się teraz jako Founders, otrzymują priorytetowy dostęp do pierwszej wersji na iPhone'a.",
         tr: "iOS sürümü birkaç gün içinde geliyor. Şimdi Founder olarak kayıt olanlar, ilk iPhone sürümüne öncelikli erişim alır.",
+        nl: "De iOS-versie komt binnen enkele dagen. Wie zich nu aanmeldt als Founder krijgt prioriteitstoegang tot de eerste iPhone-versie.",
+        ja: "iOS版は数日以内にリリースされます。今Founderとして登録すると、最初のiPhone版への優先アクセスが得られます。",
+        ko: "iOS 버전은 며칠 내로 출시됩니다. 지금 Founder로 등록하면 첫 번째 iPhone 버전에 우선 접근권을 받습니다.",
       },
     },
     {
@@ -416,6 +533,9 @@ export const post: BlogPost = {
         fr: "Où sont stockées mes données?",
         pl: "Gdzie są przechowywane moje dane?",
         tr: "Verilerim nerede saklanıyor?",
+        nl: "Waar worden mijn gegevens opgeslagen?",
+        ja: "データはどこに保存されますか？",
+        ko: "내 데이터는 어디에 저장되나요?",
       },
       a: {
         it: "Su server in Europa, accessibili solo a te tramite il tuo account. Non vengono mai venduti né condivisi con terzi e puoi cancellarli quando vuoi.",
@@ -426,6 +546,9 @@ export const post: BlogPost = {
         fr: "Sur des serveurs en Europe, accessibles uniquement à vous via votre compte. Ils ne sont jamais vendus ni partagés avec des tiers, et vous pouvez les supprimer à tout moment.",
         pl: "Na serwerach w Europie, dostępne tylko dla Ciebie przez Twoje konto. Nigdy nie są sprzedawane ani udostępniane osobom trzecim i możesz je usunąć w dowolnym momencie.",
         tr: "Avrupa'daki sunucularda, yalnızca hesabınız aracılığıyla size erişilebilir. Asla satılmaz veya üçüncü taraflarla paylaşılmaz ve istediğiniz zaman silebilirsiniz.",
+        nl: "Op servers in Europa, alleen toegankelijk voor jou via je account. Ze worden nooit verkocht of gedeeld met derden en je kunt ze op elk moment verwijderen.",
+        ja: "ヨーロッパのサーバーに保存され、あなたのアカウントを通じてのみアクセスできます。第三者への販売や共有は一切なく、いつでも削除できます。",
+        ko: "유럽 서버에 저장되며, 계정을 통해서만 접근 가능합니다. 제3자에게 판매되거나 공유되지 않으며, 원할 때 언제든지 삭제할 수 있습니다.",
       },
     },
   ],

@@ -14,7 +14,7 @@ export const post: BlogPost = {
   ldType: "BlogPosting",
   readMinutes: 7,
   hero: {
-    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Leitfaden", pt: "Guia", fr: "Guide", pl: "Poradnik", tr: "Rehber" },
+    kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Leitfaden", pt: "Guia", fr: "Guide", pl: "Poradnik", tr: "Rehber", nl: "Gids", ja: "ガイド", ko: "가이드" },
     title: {
       it: "Come tracciare il sonno con un anello smart",
       en: "How to track sleep with a smart ring",
@@ -24,6 +24,9 @@ export const post: BlogPost = {
       fr: "Comment suivre votre sommeil avec une bague connectée",
       pl: "Jak śledzić sen za pomocą inteligentnego pierścienia",
       tr: "Akıllı bir yüzükle uykunuzu nasıl takip edersiniz",
+      nl: "Hoe u uw slaap bijhoudt met een slimme ring",
+      ja: "スマートリングで睡眠を記録する方法",
+      ko: "스마트 링으로 수면을 추적하는 방법",
     },
     subtitle: {
       it: "L'anello smart e il monitoraggio del sonno: comfort, batteria, fasi notturne. Cosa misura il Colmi R02, come interpretare i dati, e come FitMesh li unisce alle metriche diurne del tuo smartwatch.",
@@ -34,6 +37,9 @@ export const post: BlogPost = {
       fr: "Bague connectée et suivi du sommeil: confort, autonomie, phases nocturnes. Ce que le Colmi R02 mesure, comment lire les données et comment FitMesh les associe aux métriques diurnes de votre montre connectée.",
       pl: "Inteligentny pierścień a monitorowanie snu: komfort, bateria, fazy nocne. Co mierzy Colmi R02, jak interpretować dane i jak FitMesh łączy nocne odczyty z dziennymi danymi smartwatcha.",
       tr: "Akıllı yüzük ve uyku takibi: konfor, batarya ömrü, gece fazları. Colmi R02'nin neler ölçtüğü, verileri nasıl okuyacağınız ve FitMesh'in gece yüzük verilerini gündüz saat verilerinizle nasıl birleştirdiği.",
+      nl: "Slimme ring en slaaptracking: comfort, batterijduur en nachtelijke slaapfasen. Wat de Colmi R02 meet, hoe u de gegevens interpreteert en hoe FitMesh de nachtelijke ringdata koppelt aan uw dagelijkse smartwatchgegevens.",
+      ja: "スマートリングと睡眠トラッキング：快適性、バッテリー寿命、夜間の睡眠ステージ。Colmi R02が計測するもの、データの読み方、そしてFitMeshが夜間のリングデータを日中のウォッチデータと連携させる方法。",
+      ko: "스마트 링과 수면 추적: 착용감, 배터리 수명, 야간 수면 단계. Colmi R02가 측정하는 것, 데이터를 해석하는 방법, 그리고 FitMesh가 야간 링 데이터를 낮 시간 워치 데이터와 연결하는 방법.",
     },
   },
   metaDescription: {
@@ -45,6 +51,9 @@ export const post: BlogPost = {
     fr: "Suivi du sommeil avec une bague connectée: ce qu'elle mesure, comment lire les phases de sommeil et l'HRV, et comment FitMesh fusionne les données nocturnes avec les métriques diurnes de votre montre.",
     pl: "Monitorowanie snu inteligentnym pierścieniem: co mierzy, jak interpretować fazy snu i HRV oraz jak FitMesh łączy nocne dane pierścienia z dziennymi danymi smartwatcha.",
     tr: "Akıllı yüzükle uyku takibi: neler ölçüldüğü, uyku fazları ve HRV nasıl okunur ve FitMesh gece yüzük verilerini gündüz saat verileriyle nasıl birleştirir.",
+    nl: "Slaaptracking met slimme ring uitgelegd: wat hij meet, hoe u slaapfasen en HRV leest, en hoe FitMesh nachtelijke ringdata samenvoegt met uw overdag-smartwatchgegevens.",
+    ja: "スマートリングの睡眠トラッキングを解説：何を計測するか、睡眠ステージとHRVの読み方、そしてFitMeshが夜間のリングデータを日中のウォッチ指標とどう統合するか。",
+    ko: "스마트 링 수면 추적 설명: 측정 항목, 수면 단계와 HRV 읽는 방법, 그리고 FitMesh가 야간 링 데이터를 낮 시간 워치 지표와 통합하는 방법.",
   },
   primaryKeyword: {
     it: "tracciare sonno anello",
@@ -55,6 +64,9 @@ export const post: BlogPost = {
     fr: "suivre le sommeil avec une bague connectée",
     pl: "śledzenie snu pierścieniem",
     tr: "yüzükle uyku takibi",
+    nl: "slaap bijhouden met een ring",
+    ja: "リングで睡眠を記録する",
+    ko: "링으로 수면 추적하기",
   },
   secondaryKeywords: {
     it: [
@@ -120,6 +132,33 @@ export const post: BlogPost = {
       "akıllı yüzük uyku nasıl takip eder",
       "gece HRV yüzük",
     ],
+    nl: [
+      "slimme ring slaaptracking",
+      "beste ring voor slaap",
+      "slimme ring slaapfasen",
+      "colmi r02 slaap",
+      "slimme ring vs smartwatch slaap",
+      "hoe houdt slimme ring slaap bij",
+      "nachtelijke HRV ring",
+    ],
+    ja: [
+      "スマートリング睡眠トラッキング",
+      "睡眠に最適なリング",
+      "スマートリング睡眠ステージ",
+      "colmi r02 睡眠",
+      "スマートリング vs スマートウォッチ 睡眠",
+      "スマートリングの睡眠追跡の仕組み",
+      "夜間HRVリング",
+    ],
+    ko: [
+      "스마트 링 수면 추적",
+      "수면에 좋은 링",
+      "스마트 링 수면 단계",
+      "colmi r02 수면",
+      "스마트 링 vs 스마트워치 수면",
+      "스마트 링이 수면을 추적하는 방법",
+      "야간 HRV 링",
+    ],
   },
   tldr: {
     it: [
@@ -178,6 +217,27 @@ export const post: BlogPost = {
       "FitMesh, gece yüzük verilerini gündüz smartwatch verileriyle tek bir panelde birleştirir, çift sayım olmadan.",
       "iPhone'da: FitMesh hesabıyla uyku verileriniz iOS'ta da görüntülenebilir (uygulama çok yakında) ve Apple Sağlık'a aktarılabilir.",
     ],
+    nl: [
+      "Geen bandje en een batterijduur van 5-7 dagen: twee concrete voordelen voor consistente nachtelijke gegevensverzameling.",
+      "De Colmi R02 detecteert slaapfasen, rusthartslag, HRV, SpO2 en beweging via optische PPG-sensor en accelerometer.",
+      "Deze metingen zijn informatieve schattingen die nuttig zijn voor het observeren van persoonlijke trends, geen klinische metingen.",
+      "FitMesh voegt nachtelijke ringdata samen met dagelijkse smartwatchgegevens op één dashboard, zonder dubbel tellen.",
+      "Op iPhone: met een FitMesh-account zijn uw slaapgegevens ook zichtbaar op iOS (app binnenkort beschikbaar) en kunnen ze naar Apple Gezondheid stromen.",
+    ],
+    ja: [
+      "バンドなしで5〜7日間のバッテリー寿命：夜間データを継続的に収集するための2つの具体的なメリット。",
+      "Colmi R02は光学PPGセンサーと加速度計により、睡眠ステージ、安静時心拍数、HRV、SpO2、動きを検出します。",
+      "これらの指標は個人的なトレンドを観察するのに役立つ参考値であり、臨床測定ではありません。",
+      "FitMeshは夜間のリングデータと日中のスマートウォッチ指標を1つのダッシュボードに統合し、二重計測はありません。",
+      "iPhoneでは：FitMeshアカウントがあれば、睡眠データはiOSでも確認でき（アプリ近日公開）、Apple ヘルスに連携することもできます。",
+    ],
+    ko: [
+      "밴드 없음과 5~7일 배터리 수명: 일관된 야간 데이터 수집을 위한 두 가지 구체적인 장점.",
+      "Colmi R02는 광학 PPG 센서와 가속도계를 통해 수면 단계, 안정 심박수, HRV, SpO2 및 움직임을 감지합니다.",
+      "이 수치들은 개인 트렌드를 관찰하는 데 유용한 참고 추정값이며, 임상 측정값이 아닙니다.",
+      "FitMesh는 야간 링 데이터와 낮 시간 스마트워치 지표를 하나의 대시보드에 통합하며, 이중 계산이 없습니다.",
+      "iPhone에서: FitMesh 계정이 있으면 수면 데이터를 iOS에서도 확인할 수 있고(앱 출시 예정), Apple 건강 앱으로 연동할 수도 있습니다.",
+    ],
   },
   body: [
     {
@@ -191,6 +251,9 @@ export const post: BlogPost = {
         fr: "La bague connectée et le suivi du sommeil forment une combinaison naturelle: pas de bracelet au poignet, une autonomie d'une semaine et un confort tel que vous oubliez de la porter avant même de vous endormir. Ce guide explique ce que le Colmi R02 mesure pendant la nuit, comment interpréter les données de façon pertinente et comment FitMesh les relie aux métriques diurnes de votre montre connectée.",
         pl: "Inteligentny pierścień i monitorowanie snu to naturalne połączenie: brak paska na nadgarstku, bateria działająca tydzień i komfort taki, że przestajesz go czuć zanim zaśniesz. Ten poradnik omawia, co Colmi R02 mierzy w nocy, jak sensownie interpretować dane i jak FitMesh łączy nocne odczyty pierścienia z dziennymi danymi smartwatcha.",
         tr: "Akıllı yüzük ve uyku takibi doğal bir ikilidir: bilekte kayış yok, bir hafta dayanıklı batarya ve uyumadan önce onu taşıdığınızı bile unutturacak kadar konforlu. Bu rehber, Colmi R02'nin gece boyunca neler ölçtüğünü, verileri anlamlı biçimde nasıl yorumlayacağınızı ve FitMesh'in gece yüzük verilerini gündüz saat verilerinizle nasıl birleştirdiğini ele alır.",
+        nl: "Een slimme ring en slaaptracking zijn een natuurlijke combinatie: geen bandje om de pols, een batterij die een week meegaat, en zo comfortabel dat u hem vergeet nog voor u in slaap valt. Deze gids behandelt wat de Colmi R02 's nachts meet, hoe u de gegevens zinvol interpreteert en hoe FitMesh nachtelijke ringgegevens koppelt aan uw overdag-smartwatchgegevens.",
+        ja: "スマートリングと睡眠トラッキングは自然な組み合わせです：手首にバンドなし、1週間もつバッテリー、そして眠りにつく前に装着していることを忘れてしまうほどの快適さ。このガイドでは、Colmi R02が一晩に何を計測するか、データをどのように解釈するか、そしてFitMeshが夜間のリングデータを日中のウォッチデータとどう連携させるかを解説します。",
+        ko: "스마트 링과 수면 추적은 자연스러운 조합입니다: 손목에 밴드 없음, 일주일 가는 배터리, 잠들기 전에 착용한 것을 잊을 만큼 편안합니다. 이 가이드에서는 Colmi R02가 밤새 무엇을 측정하는지, 데이터를 어떻게 의미 있게 해석하는지, 그리고 FitMesh가 야간 링 데이터를 낮 시간 워치 데이터와 어떻게 연결하는지 다룹니다.",
       },
     },
     {
@@ -205,6 +268,9 @@ export const post: BlogPost = {
         fr: "Pourquoi la bague connectée surpasse la montre pour le suivi du sommeil",
         pl: "Dlaczego inteligentny pierścień bije smartwatch w monitorowaniu snu",
         tr: "Akıllı yüzük neden uyku takibinde saati geçer",
+        nl: "Waarom een slimme ring een smartwatch verslaat bij slaaptracking",
+        ja: "睡眠トラッキングでスマートリングがスマートウォッチに勝る理由",
+        ko: "수면 추적에서 스마트 링이 스마트워치보다 나은 이유",
       },
     },
     {
@@ -218,6 +284,9 @@ export const post: BlogPost = {
         fr: "Le format de la bague offre un avantage pratique décisif pour le sommeil: pas de bracelet. Un bracelet au poignet crée une pression, retient la chaleur contre la peau et peut vous réveiller quand vous changez de position. Beaucoup de personnes retirent leur montre la nuit pour cette raison précise et perdent ainsi toutes leurs métriques nocturnes.",
         pl: "Forma inteligentnego pierścienia ma decydującą zaletę praktyczną dla snu: brak paska. Opaska na nadgarstku wywiera nacisk, zatrzymuje ciepło przy skórze i może budzić przy zmianie pozycji. Wiele osób zdejmuje smartwatch przed snem właśnie z tego powodu, tracąc tym samym wszystkie nocne wskaźniki.",
         tr: "Yüzüğün form faktörünün uyku için belirleyici pratik bir avantajı vardır: kayış yok. Bilekteki kayış baskı oluşturur, deri üzerinde ısı biriktirir ve pozisyon değiştirdiğinizde sizi uyandırabilir. Pek çok kişi tam bu yüzden geceleri saatini çıkarır ve tüm gece verilerini kaybeder.",
+        nl: "De vormfactor van de ring heeft een doorslaggevend praktisch voordeel voor de slaap: geen bandje. Een polsbandje veroorzaakt druk, houdt warmte vast tegen de huid en kan u wakker maken bij het omdraaien. Veel mensen doen hun smartwatch 's nachts precies om die reden af en verliezen daarmee alle nachtelijke gegevens.",
+        ja: "リングの形状は睡眠において決定的な実用的メリットがあります：バンドがないのです。リストバンドは圧力をかけ、肌に熱がこもり、寝返りを打つときに目が覚めることがあります。多くの人はまさにこの理由で夜はスマートウォッチを外し、その結果すべての夜間データを失ってしまいます。",
+        ko: "링의 형태는 수면에 있어 결정적인 실용적 장점이 있습니다: 밴드가 없다는 것입니다. 손목 밴드는 압박을 주고, 피부에 열을 가두며, 자세를 바꿀 때 잠을 깨울 수 있습니다. 많은 사람들이 바로 이런 이유로 밤에 스마트워치를 벗고, 그 과정에서 모든 야간 데이터를 잃어버립니다.",
       },
     },
     {
@@ -231,6 +300,9 @@ export const post: BlogPost = {
         fr: "La bague connectée n'a pas ce problème. Elle pèse quelques grammes, n'a aucune surface qui appuie contre le poignet et on oublie de la porter presque instantanément. Le capteur optique se trouve sur la face intérieure de la bague, en contact avec la peau du doigt, une zone bien vascularisée qui fournit un signal clair.",
         pl: "Inteligentny pierścień nie ma tego problemu. Waży kilka gramów, nie ma żadnej powierzchni uciskającej nadgarstek i przestajesz go czuć niemal natychmiast. Optyczny czujnik spoczywa na wewnętrznej stronie pierścienia, przylegając do skóry palca, dobrze unaczynionego obszaru dającego czysty sygnał.",
         tr: "Akıllı yüzükte bu sorun yoktur. Birkaç gram ağırlığında olup bileğe baskı yapan hiçbir yüzeyi yoktur ve neredeyse hemen fark edilmemeye başlar. Optik sensör yüzüğün iç yüzeyinde, parmak derisine temas ederek konumlanır; bu alan iyi vaskularize olduğundan temiz bir sinyal sağlar.",
+        nl: "Een slimme ring heeft dit probleem niet. Hij weegt een paar gram, heeft geen enkel oppervlak dat tegen uw pols drukt en u vergeet hem vrijwel meteen. De optische sensor zit aan de binnenkant van de ring, tegen uw vingerhuid aan, een goed doorbloed gebied dat een zuiver signaal geeft.",
+        ja: "スマートリングにはこの問題がありません。数グラムしかなく、手首を押さえる面もなく、ほぼすぐに気にならなくなります。光学センサーはリングの内側の面に位置し、指の皮膚に密着しています。この部位は血管が豊富で、クリーンな信号を得ることができます。",
+        ko: "스마트 링에는 이런 문제가 없습니다. 무게는 몇 그램에 불과하고, 손목을 누르는 면도 없으며, 거의 즉시 착용한 것을 잊어버립니다. 광학 센서는 링의 안쪽 면에 위치하여 손가락 피부에 밀착되어 있으며, 이 부위는 혈관이 풍부하여 깔끔한 신호를 제공합니다.",
       },
     },
     {
@@ -244,6 +316,9 @@ export const post: BlogPost = {
         fr: "Il y a un deuxième avantage pratique: l'autonomie. Une bague d'entrée de gamme comme le Colmi R02 tient 5 à 7 jours. Vous n'avez pas besoin de la charger chaque soir et vous ne risquez pas d'oublier de la remettre avant de dormir. La routine de charge la plus naturelle est de brancher la bague pendant votre douche matinale.",
         pl: "Jest jeszcze jedna praktyczna zaleta: bateria. Pierścień klasy wejściowej jak Colmi R02 działa 5-7 dni. Nie trzeba go ładować każdego wieczoru i nie ma ryzyka zapomnienia o założeniu go przed snem. Najbardziej naturalną rutyną ładowania jest podłączenie pierścienia podczas porannego prysznica.",
         tr: "İkinci bir pratik avantaj daha vardır: batarya ömrü. Colmi R02 gibi giriş seviyesi bir yüzük 5-7 gün dayanır. Her gece şarj etmeniz gerekmez ve yatmadan önce takmayı unutma riskiniz de yoktur. En doğal şarj rutini, yüzüğü sabah duşu sırasında şarj etmektir.",
+        nl: "Er is een tweede praktisch voordeel: de batterijduur. Een instap-ring zoals de Colmi R02 gaat 5-7 dagen mee. U hoeft hem niet elke nacht op te laden en riskeert niet te vergeten hem terug te doen voor het slapengaan. De meest natuurlijke laadroutine is de ring opladen tijdens uw ochtendduche.",
+        ja: "もう一つの実用的なメリットがあります：バッテリー寿命です。Colmi R02のようなエントリーレベルのリングは5〜7日間もちます。毎晩充電する必要はなく、寝る前に付け忘れるリスクもありません。最も自然な充電ルーティンは、朝のシャワー中にリングを充電することです。",
+        ko: "두 번째 실용적인 장점이 있습니다: 배터리 수명. Colmi R02 같은 입문형 링은 5~7일 지속됩니다. 매일 밤 충전할 필요가 없고, 자기 전에 다시 착용하는 것을 잊을 위험도 없습니다. 가장 자연스러운 충전 루틴은 아침 샤워 중에 링을 충전하는 것입니다.",
       },
     },
     {
@@ -258,6 +333,9 @@ export const post: BlogPost = {
         fr: "Ce que la bague mesure pendant le sommeil",
         pl: "Co pierścień mierzy podczas snu",
         tr: "Yüzük uyku sırasında neler ölçer",
+        nl: "Wat de ring meet tijdens de slaap",
+        ja: "リングが睡眠中に計測するもの",
+        ko: "링이 수면 중 측정하는 것",
       },
     },
     {
@@ -271,6 +349,9 @@ export const post: BlogPost = {
         fr: "Le Colmi R02 et les modèles compatibles collectent ces métriques nocturnes via le capteur PPG optique et l'accéléromètre intégré:",
         pl: "Colmi R02 i kompatybilne modele zbierają nocne dane za pomocą optycznego czujnika PPG i wbudowanego akcelerometru:",
         tr: "Colmi R02 ve uyumlu modeller, bu gece verilerini optik PPG sensörü ve yerleşik ivmeölçer aracılığıyla toplar:",
+        nl: "De Colmi R02 en compatibele modellen verzamelen deze nachtelijke gegevens via de optische PPG-sensor en de ingebouwde accelerometer:",
+        ja: "Colmi R02および対応モデルは、光学PPGセンサーと内蔵加速度計を使用してこれらの夜間データを収集します：",
+        ko: "Colmi R02 및 호환 모델은 광학 PPG 센서와 내장 가속도계를 사용하여 이러한 야간 데이터를 수집합니다:",
       },
     },
     {
@@ -284,6 +365,9 @@ export const post: BlogPost = {
         fr: "Métriques nocturnes Colmi R02/R03 disponibles dans FitMesh",
         pl: "Nocne dane Colmi R02/R03 dostępne w FitMesh",
         tr: "FitMesh'te mevcut Colmi R02/R03 gece verileri",
+        nl: "Colmi R02/R03 nachtelijke gegevens beschikbaar in FitMesh",
+        ja: "FitMeshで利用可能なColmi R02/R03の夜間データ",
+        ko: "FitMesh에서 이용 가능한 Colmi R02/R03 야간 데이터",
       },
       headers: {
         it: ["Metrica notturna", "Come viene rilevata", "Cosa ti dice"],
@@ -294,6 +378,9 @@ export const post: BlogPost = {
         fr: ["Métrique nocturne", "Comment elle est détectée", "Ce qu'elle vous indique"],
         pl: ["Nocny wskaźnik", "Jak jest wykrywany", "Co mówi"],
         tr: ["Gece ölçümü", "Nasıl algılanır", "Size ne söyler"],
+        nl: ["Nachtelijke meting", "Hoe het wordt gedetecteerd", "Wat het u vertelt"],
+        ja: ["夜間指標", "検出方法", "わかること"],
+        ko: ["야간 측정 항목", "감지 방법", "알 수 있는 것"],
       },
       rows: [
         {
@@ -337,6 +424,21 @@ export const post: BlogPost = {
             "İvmeölçer + PPG",
             "REM, derin, hafif uyku ve uyanık dönemler arasındaki dağılım",
           ],
+          nl: [
+            "Slaapfasen",
+            "Accelerometer + PPG",
+            "Verdeling over REM, diepe slaap, lichte slaap en wakker periodes",
+          ],
+          ja: [
+            "睡眠ステージ",
+            "加速度計 + PPG",
+            "REM、深睡眠、浅睡眠、覚醒の分布",
+          ],
+          ko: [
+            "수면 단계",
+            "가속도계 + PPG",
+            "REM, 깊은 수면, 얕은 수면, 각성 시간 분포",
+          ],
         },
         {
           it: [
@@ -378,6 +480,21 @@ export const post: BlogPost = {
             "Dinlenme kalp atış hızı",
             "Optik PPG",
             "Gecenin en düşük kalp atış hızı, bir toparlanma göstergesi",
+          ],
+          nl: [
+            "Rusthartslag",
+            "Optische PPG",
+            "Laagste hartslag van de nacht, een herstelmeter",
+          ],
+          ja: [
+            "安静時心拍数",
+            "光学PPG",
+            "夜間最低心拍数、回復の指標",
+          ],
+          ko: [
+            "안정 심박수",
+            "광학 PPG",
+            "밤의 최저 심박수, 회복 지표",
           ],
         },
         {
@@ -421,6 +538,21 @@ export const post: BlogPost = {
             "PPG (tahmini R-R aralıkları)",
             "Tahmini kalp atış hızı değişkenliği, sinir sistemi toparlanmasının göstergesi",
           ],
+          nl: [
+            "Nachtelijke HRV",
+            "PPG (geschatte R-R-intervallen)",
+            "Geschatte hartslagvariabiliteit, een indicator voor herstel van het zenuwstelsel",
+          ],
+          ja: [
+            "夜間HRV",
+            "PPG（推定R-Rインターバル）",
+            "推定心拍変動、自律神経回復の代理指標",
+          ],
+          ko: [
+            "야간 HRV",
+            "PPG (추정 R-R 간격)",
+            "추정 심박 변동성, 신경계 회복 대리 지표",
+          ],
         },
         {
           it: [
@@ -462,6 +594,21 @@ export const post: BlogPost = {
             "Gece SpO2",
             "Oksimetrik PPG sensörü",
             "Uyku sırasında tahmini kan oksijen satürasyonu",
+          ],
+          nl: [
+            "Nachtelijke SpO2",
+            "Oxymetrische PPG-sensor",
+            "Geschatte bloedzuurstofverzadiging tijdens de slaap",
+          ],
+          ja: [
+            "夜間SpO2",
+            "酸素測定PPGセンサー",
+            "睡眠中の推定血中酸素飽和度",
+          ],
+          ko: [
+            "야간 SpO2",
+            "산소 측정 PPG 센서",
+            "수면 중 추정 혈중 산소 포화도",
           ],
         },
         {
@@ -505,6 +652,21 @@ export const post: BlogPost = {
             "İvmeölçer",
             "Huzursuzluk, uyanmalar, pozisyon değişiklikleri",
           ],
+          nl: [
+            "Beweging",
+            "Accelerometer",
+            "Rusteloosheid, ontwakingen, houdingswisselingen",
+          ],
+          ja: [
+            "動き",
+            "加速度計",
+            "寝返り、覚醒、体位変換",
+          ],
+          ko: [
+            "움직임",
+            "가속도계",
+            "뒤척임, 각성, 자세 변화",
+          ],
         },
         {
           it: [
@@ -547,6 +709,21 @@ export const post: BlogPost = {
             "Birleşik sensörler",
             "Tahmini gerçek uyku süresi",
           ],
+          nl: [
+            "Totale slaaptijd",
+            "Gecombineerde sensoren",
+            "Geschatte werkelijke slaapduur",
+          ],
+          ja: [
+            "総睡眠時間",
+            "複合センサー",
+            "推定実際睡眠時間",
+          ],
+          ko: [
+            "총 수면 시간",
+            "복합 센서",
+            "추정 실제 수면 시간",
+          ],
         },
       ],
     },
@@ -562,6 +739,9 @@ export const post: BlogPost = {
         fr: "Estimations informatives, pas des mesures médicales",
         pl: "Szacunki informacyjne, nie pomiary kliniczne",
         tr: "Bilgi niteliğinde tahminler, klinik ölçümler değil",
+        nl: "Informatieve schattingen, geen klinische metingen",
+        ja: "参考値であり、臨床測定ではありません",
+        ko: "참고 추정값이며, 임상 측정값이 아닙니다",
       },
       body: {
         it: "Tutte queste metriche sono stime utili per comprendere le proprie tendenze nel tempo, non misurazioni cliniche. I sensori PPG a questo prezzo danno dati affidabili per uso personale. Non sono dispositivi medici certificati e non sostituiscono una valutazione medica. Se hai dubbi su disturbi del sonno, rivolgiti a un medico.",
@@ -572,6 +752,9 @@ export const post: BlogPost = {
         fr: "Toutes ces métriques sont des estimations utiles pour comprendre vos tendances personnelles dans le temps, et non des mesures médicales. Les capteurs PPG dans cette gamme de prix fournissent des données adaptées à un usage personnel. Ce ne sont pas des dispositifs médicaux certifiés et ils ne remplacent pas une évaluation médicale. Si vous avez des inquiétudes concernant des troubles du sommeil, consultez un médecin.",
         pl: "Wszystkie te wskaźniki są szacunkami przydatnymi do rozumienia osobistych trendów w czasie, nie pomiarami klinicznymi. Czujniki PPG w tej cenie dostarczają danych odpowiednich do użytku osobistego. Nie są certyfikowanymi urządzeniami medycznymi i nie zastępują oceny lekarskiej. Jeśli masz obawy dotyczące zaburzeń snu, skonsultuj się z lekarzem.",
         tr: "Tüm bu ölçümler, kişisel trendleri zaman içinde anlamak için yararlı tahminlerdir, klinik ölçümler değildir. Bu fiyat aralığındaki PPG sensörleri kişisel kullanım için uygun veriler sağlar. Sertifikalı tıbbi cihaz değillerdir ve tıbbi değerlendirmenin yerini alamazlar. Uyku bozuklukları konusunda endişeleriniz varsa bir doktora başvurun.",
+        nl: "Al deze gegevens zijn schattingen die nuttig zijn om persoonlijke trends in de loop van de tijd te begrijpen, geen klinische metingen. PPG-sensoren in deze prijsklasse leveren gegevens die geschikt zijn voor persoonlijk gebruik. Ze zijn geen gecertificeerde medische apparaten en vervangen geen medische beoordeling. Als u bezorgd bent over slaapstoornissen, raadpleeg dan een arts.",
+        ja: "これらの指標はすべて、個人的なトレンドを経時的に把握するのに役立つ参考値であり、臨床測定値ではありません。この価格帯のPPGセンサーは個人使用に適したデータを提供します。認定医療機器ではなく、医療的評価に代わるものでもありません。睡眠障害について懸念がある場合は、医師に相談してください。",
+        ko: "이 모든 수치들은 시간이 지남에 따라 개인적인 트렌드를 이해하는 데 유용한 참고 추정값이며, 임상 측정값이 아닙니다. 이 가격대의 PPG 센서는 개인 사용에 적합한 데이터를 제공합니다. 인증된 의료기기가 아니며 의료적 평가를 대체하지 않습니다. 수면 장애에 대한 우려가 있는 경우 의사와 상담하세요.",
       },
     },
     {
@@ -586,6 +769,9 @@ export const post: BlogPost = {
         fr: "Comment la détection des phases du sommeil fonctionne dans une bague",
         pl: "Jak działa wykrywanie faz snu w pierścieniu",
         tr: "Yüzükte uyku fazı tespiti nasıl çalışır",
+        nl: "Hoe slaapfasedetectie werkt in een ring",
+        ja: "リングにおける睡眠ステージ検出の仕組み",
+        ko: "링에서 수면 단계 감지가 작동하는 방식",
       },
     },
     {
@@ -599,6 +785,9 @@ export const post: BlogPost = {
         fr: "La bague ne dispose pas d'un électroencéphalogramme (EEG), le seul instrument qui mesure directement les phases du sommeil. Elle utilise une combinaison de fréquence cardiaque, de variabilité de la fréquence cardiaque et de mouvements corporels pour estimer dans quelle phase vous vous trouvez. La précision est bonne pour les tendances globales (combien de sommeil profond vous obtenez en moyenne, si la qualité a évolué sur certaines périodes) et moins précise pour la décomposition minute par minute d'une nuit isolée. La valeur pratique réside dans l'observation des tendances dans le temps, pas dans la lecture d'une seule nuit.",
         pl: "Pierścień nie posiada elektroencefalogramu (EEG), jedynego instrumentu bezpośrednio mierzącego fazy snu. Używa kombinacji tętna, zmienności rytmu serca i ruchów ciała do szacowania fazy. Dokładność jest dobra dla ogólnych trendów (ile głębokiego snu masz średnio, czy jakość zmieniła się w pewnych okresach) i mniej precyzyjna dla szczegółowego rozkładu minutowego pojedynczej nocy. Wartość praktyczna leży w obserwowaniu wzorców w czasie, a nie w analizie jednej nocy.",
         tr: "Yüzükte EEG (elektroensefalogram) yoktur; uyku fazlarını doğrudan ölçen tek araç odur. Hangi fazda olduğunuzu tahmin etmek için kalp atış hızı, kalp atış hızı değişkenliği ve vücut hareketi kombinasyonunu kullanır. Doğruluk, genel trendler için makuldür (ortalama derin uyku süreniz, belirli dönemlerde kalitede değişim olup olmadığı); tek bir gecenin dakika dakika ayrıntısı için ise daha az kesindir. Pratik değer, tek bir geceyi okumakta değil, zaman içindeki örüntüleri gözlemlemekte yatar.",
+        nl: "De ring heeft geen EEG, het enige instrument dat slaapfasen rechtstreeks meet. Hij gebruikt een combinatie van hartslag, hartslagvariabiliteit en lichaamsbewegingen om te schatten in welke fase u zich bevindt. De nauwkeurigheid is redelijk voor algemene trends (hoeveel diepe slaap u gemiddeld heeft, of uw slaapkwaliteit in een bepaalde periode is veranderd) en minder precies voor de minuut-voor-minuut uitsplitsing van een enkele nacht. De praktische waarde ligt in het observeren van patronen over de tijd, niet in het lezen van één enkele nacht.",
+        ja: "リングにはEEG（脳波計）がありません。EEGは睡眠ステージを直接測定する唯一の装置です。リングは心拍数、心拍変動、体の動きの組み合わせを使って、どのステージにいるかを推定します。全体的なトレンド（平均深睡眠時間、特定期間に睡眠の質が変化したかどうか）については合理的な精度がありますが、一夜の分単位の詳細については精度が低くなります。実用的な価値は、一夜を単独で読むことではなく、時間をかけてパターンを観察することにあります。",
+        ko: "링에는 EEG(뇌파계)가 없습니다. EEG는 수면 단계를 직접 측정하는 유일한 장치입니다. 링은 심박수, 심박 변동성, 신체 움직임의 조합을 사용하여 어느 단계에 있는지 추정합니다. 전반적인 트렌드(평균 깊은 수면량, 특정 기간에 수면 질이 변했는지)에 대해서는 합리적인 정확도를 보이며, 단일 밤의 분 단위 분석에 대해서는 덜 정확합니다. 실용적인 가치는 한 번의 밤을 분석하는 것이 아니라 시간이 지남에 따른 패턴을 관찰하는 데 있습니다.",
       },
     },
     {
@@ -613,6 +802,9 @@ export const post: BlogPost = {
         fr: "Comment interpréter les données de sommeil: les tendances comptent, pas une seule nuit",
         pl: "Jak interpretować dane snu: liczy się trend, nie pojedyncza noc",
         tr: "Uyku verilerini nasıl yorumlamalısınız: tek geceye değil trende bakın",
+        nl: "Hoe u slaapgegevens interpreteert: volg de trend, niet de enkele nacht",
+        ja: "睡眠データの解釈方法：一夜ではなくトレンドを追う",
+        ko: "수면 데이터 해석 방법: 단 하루 밤이 아닌 트렌드를 추적하세요",
       },
     },
     {
@@ -626,6 +818,9 @@ export const post: BlogPost = {
         fr: "La confusion la plus courante ressemble à ceci: \"L'application dit que je n'ai eu que 20 minutes de sommeil profond la nuit dernière. Est-ce normal?\" La réponse dépend toujours de ce qui se passe au cours des nuits voisines, pas du chiffre isolé.",
         pl: "Najczęstsze nieporozumienie brzmi tak: \"Aplikacja mówi, że miałem tylko 20 minut głębokiego snu tej nocy, czy to normalne?\" Odpowiedź zawsze zależy od tego, co dzieje się w kolejnych nocach, nie od pojedynczej liczby.",
         tr: "En yaygın karışıklık şöyle gelir: \"Uygulama dün gece sadece 20 dakika derin uyku uyuduğumu söylüyor, bu normal mi?\" Yanıt her zaman çevre gecelerde olanlara bağlıdır, tek başına o sayıya değil.",
+        nl: "De meest voorkomende verwarring gaat als volgt: \"De app zegt dat ik gisteravond maar 20 minuten diepe slaap had. Is dat normaal?\" Het antwoord hangt altijd af van wat er in de omringende nachten gebeurt, niet van het geïsoleerde getal.",
+        ja: "最もよくある混乱はこのようなものです：「アプリが昨夜の深い睡眠は20分しかなかったと言っています。これは普通ですか？」答えは常に周囲の夜に何が起きているかによります。その一つの数字だけでは判断できません。",
+        ko: "가장 흔한 혼란은 이렇습니다: \"앱이 어젯밤 깊은 수면이 20분밖에 안 됐다고 하는데 정상인가요?\" 답은 항상 주변 밤들에 무슨 일이 있었는지에 달려 있으며, 그 단독 숫자만으로는 판단할 수 없습니다.",
       },
     },
     {
@@ -672,6 +867,21 @@ export const post: BlogPost = {
           "**Dinlenme kalp atış hızı ve HRV en güvenilir sinyallerdir**: gece dinlenme kalp atış hızı ve HRV, faz sınıflandırma algoritmalarına daha az bağımlıdır ve toparlanma göstergesi olarak daha kararlıdır. Zorlu bir antrenmanın ardından normalden yüksek dinlenme kalp atış hızı, toparlanmanın hâlâ sürdüğünün işaretidir.",
           "**Uykuyu gündüz davranışıyla ilişkilendirin**: daha fazla stres, alkol veya akşam egzersizi olan günlerin ardından daha kötü uyumak gerçek ve yararlı bir örüntüdür. Bunu bir grafikte görmek, başka türlü fark edilmeyecek bağlantılar kurmanıza yardımcı olur.",
         ],
+        nl: [
+          "**Kijk naar weekgemiddelden, niet naar waarden van één nacht**: één nacht met weinig diepe slaap kan volkomen normaal zijn na een stressvolle dag of intensieve training. Als uw 7-daags gemiddelde consistent laag is, verdient dat aandacht.",
+          "**Rusthartslag en HRV zijn de betrouwbaarste signalen**: de nachtelijke rusthartslag en HRV zijn minder afhankelijk van fase-classificatiealgoritmen en stabieler als herstelmaatstaven. Een rusthartslag die hoger is dan gebruikelijk na een zware sessie is een teken dat het herstel nog bezig is.",
+          "**Correleer slaap met gedrag overdag**: slechter slapen op dagen met meer stress, alcohol of late avondtraining is een reëel en nuttig patroon. Het op een grafiek zien helpt verbanden te leggen die anders onopgemerkt blijven.",
+        ],
+        ja: [
+          "**週平均を見る、一夜の数値ではなく**：ストレスの多い日や激しい運動の後に深い睡眠が少ない夜があるのは完全に正常です。7日間の平均が継続的に低い場合は、注意が必要です。",
+          "**安静時心拍数とHRVが最も信頼できる指標です**：夜間の安静時心拍数とHRVはステージ分類アルゴリズムへの依存度が低く、回復指標として安定しています。激しいトレーニングの後に通常より高い安静時心拍数は、回復がまだ進行中であるサインです。",
+          "**睡眠と日中の行動を相関させる**：ストレス、アルコール、または夜間の運動が多い日に睡眠が悪くなるのは実際に起きる有益なパターンです。グラフで確認することで、普段は気づかないつながりを把握できます。",
+        ],
+        ko: [
+          "**주간 평균을 보고, 하루 밤 수치를 보지 마세요**: 스트레스가 많은 날이나 격렬한 운동 후에 깊은 수면이 적은 밤은 완전히 정상일 수 있습니다. 7일 평균이 지속적으로 낮다면 주의가 필요합니다.",
+          "**안정 심박수와 HRV가 가장 신뢰할 수 있는 신호입니다**: 야간 안정 심박수와 HRV는 단계 분류 알고리즘에 덜 의존하며 회복 지표로서 더 안정적입니다. 격렬한 운동 후 평소보다 높은 안정 심박수는 회복이 아직 진행 중이라는 신호입니다.",
+          "**수면과 낮 시간 행동을 연관시키세요**: 더 많은 스트레스, 음주, 또는 늦은 저녁 운동이 있는 날 이후에 수면이 나쁜 것은 실제로 일어나는 유용한 패턴입니다. 그래프로 확인하면 그렇지 않으면 눈에 띄지 않을 연관성을 파악하는 데 도움이 됩니다.",
+        ],
       },
     },
     {
@@ -686,6 +896,9 @@ export const post: BlogPost = {
         fr: "L'avantage FitMesh: les données de sommeil rejoignent les métriques diurnes",
         pl: "Zaleta FitMesh: dane snu łączą się z dziennymi wskaźnikami",
         tr: "FitMesh avantajı: uyku verileri gündüz verilerine bağlanır",
+        nl: "Het FitMesh-voordeel: slaapgegevens verbinden met dagelijkse metingen",
+        ja: "FitMeshの優位性：睡眠データが日中の指標と連携する",
+        ko: "FitMesh의 장점: 수면 데이터가 낮 시간 지표와 연결됩니다",
       },
     },
     {
@@ -699,6 +912,9 @@ export const post: BlogPost = {
         fr: "Voir les données de sommeil de façon isolée a une valeur limitée. La valeur augmente considérablement quand les données nocturnes de la bague se combinent avec les métriques diurnes de votre montre connectée. FitMesh sait que la nuit la source principale est la bague et pendant la journée c'est la montre. La fusion est automatique et ne crée aucun double comptage.",
         pl: "Oglądanie danych snu w izolacji ma ograniczoną wartość. Wartość znacznie wzrasta, gdy nocne dane pierścienia łączą się z dziennymi danymi smartwatcha. FitMesh wie, że nocna źródłem głównym jest pierścień, w ciągu dnia jest nim zegarek. Połączenie jest automatyczne i nie tworzy podwójnego liczenia.",
         tr: "Uyku verilerini tek başına görmek sınırlı bir değer taşır. Değer, gece yüzük verilerinin gündüz smartwatch verileriyle birleştiğinde önemli ölçüde artar. FitMesh, geceleri birincil kaynağın yüzük, gündüzleri ise saat olduğunu bilir. Birleştirme otomatiktir ve çift sayım oluşturmaz.",
+        nl: "Slaapgegevens geïsoleerd bekijken heeft beperkte waarde. De waarde neemt aanzienlijk toe wanneer nachtelijke ringgegevens worden gecombineerd met uw dagelijkse smartwatchgegevens. FitMesh weet dat 's nachts de primaire bron de ring is en overdag de smartwatch. De samenvoeging is automatisch en zorgt voor geen dubbel tellen.",
+        ja: "睡眠データを単独で見ることの価値は限られています。夜間のリングデータが日中のスマートウォッチ指標と組み合わさると、価値は大きく高まります。FitMeshは夜間の主要ソースがリングであり、日中はウォッチであることを把握しています。統合は自動的に行われ、二重計算は発生しません。",
+        ko: "수면 데이터를 단독으로 보는 것은 가치가 제한적입니다. 야간 링 데이터가 낮 시간 스마트워치 지표와 결합될 때 가치가 크게 높아집니다. FitMesh는 밤에 주요 소스가 링이고, 낮에는 워치임을 알고 있습니다. 통합은 자동으로 이루어지며 이중 계산이 발생하지 않습니다.",
       },
     },
     {
@@ -752,6 +968,24 @@ export const post: BlogPost = {
           "**Uyku saatleri**, **aktivite zaman çizelgenizle** birlikte görüntülenir: örüntüleri tanımlayın (örn. \"21:00'den sonra antrenman yapınca daha az uyuyorum\").",
           "Entegre **toparlanma puanı**, yüzükten gece verilerini ve saatte gündüz yükünü birlikte hesaba katar.",
         ],
+        nl: [
+          "**Nachtelijke rusthartslag** van de ring staat naast **trainingshartslagwaarden** van de smartwatch: zie hoe goed hersteld u bent de dag na een zware sessie.",
+          "**Nachtelijke HRV** correleert met **activiteitsbelasting** van de vorige dag: begin te begrijpen wat uw herstel werkelijk beïnvloedt.",
+          "**Slaapuren** worden weergegeven naast uw **activiteitstijdlijn**: identificeer patronen (bijv. \"als ik na 21:00 train, slaap ik minder\").",
+          "**Herstelscore** houdt rekening met zowel nachtelijke ringdata als dagelijkse belasting van de smartwatch.",
+        ],
+        ja: [
+          "リングからの**夜間安静時心拍数**がウォッチからの**トレーニング心拍数**の隣に表示されます：ハードなセッションの翌日にどれだけ回復できているか確認できます。",
+          "**夜間HRV**が前日の**活動負荷**と相関します：実際に回復に影響を与えているものを理解し始めましょう。",
+          "**睡眠時間**が**活動タイムライン**とともに表示されます：パターンを特定しましょう（例：「午後9時以降にトレーニングすると睡眠が短くなる」）。",
+          "**回復スコア**はリングの夜間データとウォッチの日中負荷の両方を考慮します。",
+        ],
+        ko: [
+          "링에서 온 **야간 안정 심박수**가 워치에서 온 **운동 심박수** 옆에 표시됩니다: 힘든 세션 다음 날 얼마나 회복됐는지 확인하세요.",
+          "**야간 HRV**가 전날의 **활동 부하**와 상관됩니다: 실제로 회복에 영향을 미치는 것이 무엇인지 이해하기 시작하세요.",
+          "**수면 시간**이 **활동 타임라인**과 함께 표시됩니다: 패턴을 파악하세요 (예: \"오후 9시 이후에 운동하면 잠을 덜 잔다\").",
+          "통합 **회복 점수**는 링의 야간 데이터와 워치의 낮 시간 부하를 모두 고려합니다.",
+        ],
       },
     },
     {
@@ -765,6 +999,9 @@ export const post: BlogPost = {
         fr: "Pour les détails techniques sur l'intégration Colmi, lisez le [guide complet de la bague Colmi](/fr/blog/colmi-ring-fitmesh).",
         pl: "Szczegóły techniczne integracji Colmi znajdziesz w [pełnym poradniku pierścienia Colmi](/pl/blog/colmi-ring-fitmesh).",
         tr: "Colmi entegrasyonuna ilişkin teknik ayrıntılar için [eksiksiz Colmi yüzük rehberini](/tr/blog/colmi-ring-fitmesh) okuyun.",
+        nl: "Voor technische details over de Colmi-integratie, lees de [volledige Colmi ring-gids](/nl/blog/colmi-ring-fitmesh).",
+        ja: "Colmi連携の技術的な詳細については、[Colmiリングの完全ガイド](/ja/blog/colmi-ring-fitmesh)をご覧ください。",
+        ko: "Colmi 연동에 대한 기술적인 세부 사항은 [Colmi 링 전체 가이드](/ko/blog/colmi-ring-fitmesh)를 참고하세요.",
       },
     },
     {
@@ -779,6 +1016,9 @@ export const post: BlogPost = {
         fr: "FitMesh sur iPhone: application iOS bientôt disponible",
         pl: "FitMesh na iPhone: aplikacja iOS wkrótce",
         tr: "FitMesh iPhone'da: iOS uygulaması çok yakında",
+        nl: "FitMesh op iPhone: iOS-app binnenkort beschikbaar",
+        ja: "iPhoneのFitMesh：iOSアプリ近日公開",
+        ko: "iPhone의 FitMesh: iOS 앱 출시 예정",
       },
       body: {
         it: "L'anello Colmi rileva le fasi del sonno via Bluetooth su Android. Con un account FitMesh i dati di sonno sono visibili anche su iPhone (app iOS in arrivo, lancio imminente) e possono confluire in Apple Salute tramite il ponte opzionale. Non e necessario il rilascio su App Store per accedere in beta.",
@@ -789,6 +1029,9 @@ export const post: BlogPost = {
         fr: "La bague Colmi détecte les phases du sommeil via Bluetooth sur Android. Avec un compte FitMesh vos données de sommeil sont aussi visibles sur iPhone (application iOS bientôt disponible, lancement imminent) et peuvent être transférées dans Apple Santé via le pont optionnel. La disponibilité sur l'App Store n'est pas requise pour accéder à la version bêta.",
         pl: "Pierścień Colmi wykrywa fazy snu przez Bluetooth na Androidzie. Z kontem FitMesh dane snu są widoczne również na iPhonie (aplikacja iOS wkrótce, premiera blisko) i mogą trafiać do Apple Zdrowie przez opcjonalny mostek. Dostępność w App Store nie jest wymagana do dostępu do bety.",
         tr: "Colmi yüzük, Android'de Bluetooth üzerinden uyku fazlarını algılar. FitMesh hesabıyla uyku verileriniz iPhone'da da görüntülenebilir (iOS uygulaması çok yakında, lansman yakın) ve isteğe bağlı köprü aracılığıyla Apple Sağlık'a aktarılabilir. Beta'ya erişmek için App Store'da bulunması gerekmez.",
+        nl: "De Colmi ring detecteert slaapfasen via Bluetooth op Android. Met een FitMesh-account zijn uw slaapgegevens ook zichtbaar op iPhone (iOS-app binnenkort, lancering nakend) en kunnen via de optionele brug naar Apple Gezondheid stromen. App Store-beschikbaarheid is niet vereist om de beta te gebruiken.",
+        ja: "Colmiリングは、AndroidでBluetoothを通じて睡眠ステージを検出します。FitMeshアカウントがあれば、睡眠データはiPhoneでも確認でき（iOSアプリ近日公開、ローンチ間近）、オプションのブリッジを通じてApple ヘルスに連携できます。ベータ版へのアクセスにApp Storeでの公開は必要ありません。",
+        ko: "Colmi 링은 Android에서 블루투스를 통해 수면 단계를 감지합니다. FitMesh 계정이 있으면 수면 데이터를 iPhone에서도 확인할 수 있고(iOS 앱 출시 예정, 출시 임박), 선택적 브리지를 통해 Apple 건강 앱으로 연동할 수 있습니다. 베타 이용을 위해 App Store 출시가 필요하지 않습니다.",
       },
     },
     {
@@ -803,6 +1046,9 @@ export const post: BlogPost = {
         fr: "Conseils pratiques pour optimiser le suivi nocturne",
         pl: "Praktyczne wskazówki dla lepszego nocnego monitorowania",
         tr: "Daha iyi gece takibi için pratik ipuçları",
+        nl: "Praktische tips voor betere nachtelijke tracking",
+        ja: "夜間トラッキングを改善するための実践的なヒント",
+        ko: "더 나은 야간 추적을 위한 실용적인 팁",
       },
     },
     {
@@ -864,6 +1110,27 @@ export const post: BlogPost = {
           "**Sıcaklık ve dolaşım**: çok soğuk ortamlarda periferik dolaşım azalır ve PPG sensörleri daha az kararlı okumalar verebilir. Çoğu kullanıcı için sorun değildir, ancak bilinmesinde fayda vardır.",
           "**İlk gecenin kesin olmasını beklemeyin**: uyku verileri 7-10 günlük sürekli toplama sonrasında daha ilgi çekici hale gelir; o noktada sistem trendleri ve anormallikleri gösterecek yeterli veriye sahip olur.",
         ],
+        nl: [
+          "**Laadroutine**: het beste moment is 's ochtends, tijdens uw douche of ontbijt. Zo is de ring altijd vol tegen de avond. Laad hem niet 's avonds op en vergeet hem daarna te dragen.",
+          "**Juiste positie**: de meeste slimme ringen werken het best aan de ringvinger of middelvinger. Dragen aan de wijsvinger of pink kan de PPG-signaalkwaliteit verminderen. De sensor moet contact maken met de binnenkant van de vinger en mag niet vrij kunnen draaien.",
+          "**Oriëntatie**: het sensorvlak moet aan de onderkant van uw vinger zitten, de kant naar uw handpalm. Als de ring een markering heeft (een punt, een groef), geeft dit doorgaans aan waar de sensor moet zitten.",
+          "**Temperatuur en doorbloeding**: in zeer koude omgevingen neemt de perifere circulatie af en kunnen PPG-sensoren minder stabiele waarden geven. Geen probleem voor de meeste gebruikers, maar goed om te weten.",
+          "**Verwacht niet dat de eerste nacht definitief is**: slaapgegevens worden interessanter na 7-10 dagen continue registratie, wanneer het systeem genoeg gegevens heeft om trends en afwijkingen te laten zien.",
+        ],
+        ja: [
+          "**充電ルーティン**：最適な時間帯は朝、シャワーや朝食中です。こうすることで、夜までにリングを満充電にできます。夜に充電して、そのまま付け忘れるのは避けましょう。",
+          "**正しい装着位置**：ほとんどのスマートリングは薬指か中指に装着すると最も効果的です。人差し指や小指に付けるとPPG信号の質が低下することがあります。センサーは指の内側に密着させ、自由に回転しないようにする必要があります。",
+          "**向き**：センサー面は指の下側、手のひら側に来るようにします。リングにマーク（点や溝）がある場合、通常それがセンサーの位置を示しています。",
+          "**温度と血流**：非常に寒い環境では末梢血流が低下し、PPGセンサーが安定しない読み値を示すことがあります。ほとんどのユーザーには問題ありませんが、知っておくと役立ちます。",
+          "**最初の夜が決定的だと期待しないでください**：睡眠データは7〜10日間継続的に収集した後に より興味深くなります。その時点で、システムはトレンドと異常を表示するのに十分なデータを持っています。",
+        ],
+        ko: [
+          "**충전 루틴**: 가장 좋은 시간은 아침 샤워나 아침 식사 중입니다. 그렇게 하면 저녁까지 링이 항상 완충됩니다. 저녁에 충전하고 나서 다시 착용하는 것을 잊지 않도록 하세요.",
+          "**올바른 착용 위치**: 대부분의 스마트 링은 약지나 중지에 착용할 때 가장 잘 작동합니다. 검지나 새끼손가락에 착용하면 PPG 신호 품질이 저하될 수 있습니다. 센서는 손가락 안쪽과 접촉해야 하며 자유롭게 회전하지 않아야 합니다.",
+          "**방향**: 센서 면은 손가락 아래쪽, 즉 손바닥을 향하는 면에 위치해야 합니다. 링에 표시(점이나 홈)가 있는 경우, 일반적으로 센서가 위치해야 할 곳을 나타냅니다.",
+          "**온도와 혈액순환**: 매우 추운 환경에서는 말초 혈액순환이 감소하고 PPG 센서가 덜 안정적인 수치를 나타낼 수 있습니다. 대부분의 사용자에게는 문제가 되지 않지만 알아두면 유용합니다.",
+          "**첫 번째 밤이 결정적이라고 기대하지 마세요**: 수면 데이터는 7~10일의 지속적인 수집 후에 더 흥미로워집니다. 그 시점에서 시스템은 트렌드와 이상을 보여주기에 충분한 데이터를 보유하게 됩니다.",
+        ],
       },
     },
     {
@@ -877,6 +1144,9 @@ export const post: BlogPost = {
         fr: "Voulez-vous voir vos données de sommeil fusionnées avec vos métriques diurnes?",
         pl: "Chcesz zobaczyć swoje dane snu połączone z dziennymi wskaźnikami?",
         tr: "Uyku verilerinizin gündüz verilerinizle birleştirilmiş halini görmek ister misiniz?",
+        nl: "Wilt u uw slaapgegevens samengevoegd zien met uw dagelijkse metingen?",
+        ja: "睡眠データが日中の指標とまとめて表示されるのを見てみませんか？",
+        ko: "수면 데이터가 낮 시간 지표와 통합된 모습을 보고 싶으신가요?",
       },
       body: {
         it: "FitMesh Sync e in beta privata. I primi 1000 utenti ottengono 1 anno di Pro gratis, incluso accesso alla dashboard unificata anello + smartwatch non appena disponibile.",
@@ -887,6 +1157,9 @@ export const post: BlogPost = {
         fr: "FitMesh Sync est en version bêta privée. Les 1 000 premiers utilisateurs obtiennent 1 an de Pro gratuitement, avec accès au tableau de bord unifié bague et montre connectée dès sa disponibilité.",
         pl: "FitMesh Sync jest w prywatnej becie. Pierwsze 1000 użytkowników otrzymuje 1 rok Pro za darmo, w tym dostęp do ujednoliconego panelu pierścień i smartwatch, gdy tylko będzie dostępny.",
         tr: "FitMesh Sync özel beta aşamasındadır. İlk 1.000 kullanıcı, yüzük ve smartwatch birleşik panosuna erişim dahil 1 yıl Pro üyeliği ücretsiz alır.",
+        nl: "FitMesh Sync is in privé beta. De eerste 1.000 gebruikers krijgen 1 jaar Pro gratis, inclusief toegang tot het gecombineerde ring- en smartwatchdashboard zodra het beschikbaar is.",
+        ja: "FitMesh Syncはプライベートベータ中です。最初の1,000人のユーザーは、リングとスマートウォッチの統合ダッシュボードへのアクセスを含む1年間のProを無料で利用できます。",
+        ko: "FitMesh Sync는 비공개 베타 중입니다. 처음 1,000명의 사용자는 링과 스마트워치 통합 대시보드 이용 포함 1년 Pro를 무료로 이용할 수 있습니다.",
       },
       ctaLabel: {
         it: "Iscriviti alla beta →",
@@ -897,6 +1170,9 @@ export const post: BlogPost = {
         fr: "Rejoindre la bêta →",
         pl: "Dołącz do bety →",
         tr: "Beta'ya katıl →",
+        nl: "Aanmelden voor beta →",
+        ja: "ベータに登録する →",
+        ko: "베타 신청하기 →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -906,6 +1182,9 @@ export const post: BlogPost = {
         fr: "/fr/beta",
         pl: "/pl/beta",
         tr: "/tr/beta",
+        nl: "/nl/beta",
+        ja: "/ja/beta",
+        ko: "/ko/beta",
       },
     },
   ],
@@ -920,6 +1199,9 @@ export const post: BlogPost = {
         fr: "Une bague connectée peut-elle détecter l'apnée du sommeil?",
         pl: "Czy inteligentny pierścień może wykryć bezdech senny?",
         tr: "Akıllı yüzük uyku apnesini tespit edebilir mi?",
+        nl: "Kan een slimme ring slaapapneu detecteren?",
+        ja: "スマートリングは睡眠時無呼吸症候群を検出できますか？",
+        ko: "스마트 링이 수면 무호흡증을 감지할 수 있나요?",
       },
       a: {
         it: "No. Gli anelli smart, inclusi modelli come il Colmi R02, non sono dispositivi medici e non sono progettati ne certificati per il rilevamento dell'apnea del sonno. I dati SpO2 dell'anello sono stime informative, non diagnostiche. Se hai sintomi come russamento forte, stanchezza persistente o risvegli frequenti, rivolgiti a un medico per una valutazione clinica appropriata.",
@@ -930,6 +1212,9 @@ export const post: BlogPost = {
         fr: "Non. Les bagues connectées, y compris des modèles comme le Colmi R02, ne sont pas des dispositifs médicaux et ne sont pas conçues ni certifiées pour la détection de l'apnée du sommeil. Les valeurs SpO2 de la bague sont des estimations informatives, pas diagnostiques. Si vous présentez des symptômes comme des ronflements forts, une fatigue diurne persistante ou des réveils nocturnes fréquents, consultez un médecin.",
         pl: "Nie. Inteligentne pierścienie, w tym modele takie jak Colmi R02, nie są urządzeniami medycznymi i nie są zaprojektowane ani certyfikowane do wykrywania bezdechu sennego. Odczyty SpO2 z pierścienia to szacunki informacyjne, nie diagnostyczne. Jeśli masz objawy takie jak głośne chrapanie, przewlekłe zmęczenie w ciągu dnia lub częste przebudzenia nocne, skonsultuj się z lekarzem.",
         tr: "Hayır. Colmi R02 gibi modeller dahil akıllı yüzükler tıbbi cihaz değildir ve uyku apnesi tespiti için tasarlanmamış ya da sertifikalandırılmamıştır. Yüzüğün SpO2 okumaları bilgi niteliğinde tahminlerdir, tanısal değildir. Yüksek sesle horlama, sürekli gündüz yorgunluğu veya sık gece uyanmaları gibi belirtileriniz varsa uygun klinik değerlendirme için bir doktora başvurun.",
+        nl: "Nee. Slimme ringen, inclusief modellen zoals de Colmi R02, zijn geen medische apparaten en zijn niet ontworpen of gecertificeerd voor de detectie van slaapapneu. SpO2-waarden van de ring zijn informatieve schattingen, geen diagnostiek. Als u symptomen ervaart zoals luid snurken, aanhoudende slaperigheid overdag of frequente nachtelijke ontwakingen, raadpleeg dan een arts voor een passende klinische beoordeling.",
+        ja: "いいえ。Colmi R02などのスマートリングは医療機器ではなく、睡眠時無呼吸症候群の検出のために設計・認定されていません。リングのSpO2値は参考情報の推定値であり、診断的なものではありません。大きないびき、日中の持続的な眠気、頻繁な夜間覚醒などの症状がある場合は、適切な臨床評価のために医師に相談してください。",
+        ko: "아니요. Colmi R02와 같은 스마트 링은 의료기기가 아니며 수면 무호흡증 감지를 위해 설계되거나 인증되지 않았습니다. 링의 SpO2 수치는 참고 추정값이며 진단적이지 않습니다. 큰 코골이, 지속적인 주간 피로, 잦은 야간 각성과 같은 증상이 있다면 적절한 임상 평가를 위해 의사와 상담하세요.",
       },
     },
     {
@@ -942,6 +1227,9 @@ export const post: BlogPost = {
         fr: "Quelle est la précision du suivi du sommeil avec une bague connectée d'entrée de gamme?",
         pl: "Jak dokładne jest monitorowanie snu w budżetowym inteligentnym pierścieniu?",
         tr: "Uygun fiyatlı akıllı yüzükte uyku takibinin doğruluğu nasıldır?",
+        nl: "Hoe nauwkeurig is slaaptracking op een budgetvriendelijke slimme ring?",
+        ja: "手頃な価格のスマートリングの睡眠トラッキングはどれくらい正確ですか？",
+        ko: "저가형 스마트 링의 수면 추적은 얼마나 정확한가요?",
       },
       a: {
         it: "Per i trend complessivi (ore di sonno totali, qualita media nel tempo) e abbastanza affidabile. Per la classificazione precisa delle singole fasi minuto per minuto la precisione e limitata: e normale per qualsiasi device consumer senza EEG. Il valore pratico sta nell'osservazione delle tendenze nel tempo, non nella lettura di una singola notte.",
@@ -952,6 +1240,9 @@ export const post: BlogPost = {
         fr: "Pour les tendances globales (heures de sommeil totales, qualité moyenne dans le temps) elle est assez fiable. Pour la classification précise des phases minute par minute la précision est limitée, ce qui est normal pour tout appareil grand public sans EEG. La valeur pratique réside dans l'observation des tendances dans le temps, pas dans la lecture d'une seule nuit.",
         pl: "Dla ogólnych trendów (całkowita liczba godzin snu, średnia jakość w czasie) jest wystarczająco wiarygodny. Dla precyzyjnej klasyfikacji faz minuta po minucie dokładność jest ograniczona, co jest normalne dla każdego urządzenia konsumenckiego bez EEG. Wartość praktyczna leży w obserwowaniu trendów w czasie, nie w analizie jednej nocy.",
         tr: "Genel trendler için (toplam uyku saatleri, zaman içinde ortalama kalite) oldukça güvenilirdir. Dakika dakika faz sınıflandırması için doğruluk sınırlıdır; bu EEG'siz her tüketici cihazında normaldir. Pratik değer, tek bir geceyi okumakta değil, zaman içindeki eğilimleri gözlemlemekte yatar.",
+        nl: "Voor algemene trends (totale slaapuren, gemiddelde kwaliteit over de tijd) is het redelijk betrouwbaar. Voor nauwkeurige minuut-voor-minuut fase-indeling is de nauwkeurigheid beperkt, wat normaal is voor elk consumentenapparaat zonder EEG. De praktische waarde ligt in het observeren van tendensen over de tijd, niet in het lezen van een enkele nacht.",
+        ja: "全体的なトレンド（総睡眠時間、時間の経過に伴う平均的な質）については、ある程度信頼できます。分単位の正確なステージ分類の精度は限られており、EEGのない消費者向け機器ではこれが普通です。実用的な価値は、単一の夜を読むことではなく、時間をかけて傾向を観察することにあります。",
+        ko: "전반적인 트렌드(총 수면 시간, 시간에 따른 평균 품질)에 대해서는 꽤 신뢰할 수 있습니다. 분 단위의 정확한 단계 분류 정확도는 제한적이며, 이는 EEG 없는 모든 소비자 기기에서 정상적입니다. 실용적인 가치는 한 번의 밤을 분석하는 것이 아니라 시간이 지남에 따른 경향을 관찰하는 데 있습니다.",
       },
     },
     {
@@ -964,6 +1255,9 @@ export const post: BlogPost = {
         fr: "Le Colmi R02 suit-il le sommeil automatiquement?",
         pl: "Czy Colmi R02 monitoruje sen automatycznie?",
         tr: "Colmi R02 uykuyu otomatik olarak takip eder mi?",
+        nl: "Registreert de Colmi R02 slaap automatisch?",
+        ja: "Colmi R02は睡眠を自動的に記録しますか？",
+        ko: "Colmi R02가 수면을 자동으로 추적하나요?",
       },
       a: {
         it: "Si. L'anello inizia il rilevamento automaticamente quando rileva che sei immobile e la frequenza cardiaca scende ai livelli tipici del sonno. Non serve attivare nessuna modalita manuale. FitMesh scarica e visualizza i dati al mattino quando l'anello e nelle vicinanze del telefono.",
@@ -974,6 +1268,9 @@ export const post: BlogPost = {
         fr: "Oui. La bague commence la détection automatiquement quand elle perçoit que vous êtes immobile et que votre fréquence cardiaque descend aux niveaux typiques du sommeil. Vous n'avez pas besoin d'activer un mode manuel. FitMesh télécharge et affiche les données le matin quand la bague est à portée de votre téléphone.",
         pl: "Tak. Pierścień automatycznie rozpoczyna wykrywanie, gdy wyczuje, że jesteś nieruchomy, a tętno spada do typowych poziomów snu. Nie musisz aktywować żadnego trybu ręcznego. FitMesh pobiera i wyświetla dane rano, gdy pierścień jest w zasięgu telefonu.",
         tr: "Evet. Yüzük, hareketsiz olduğunuzu ve kalp atış hızınızın tipik uyku seviyelerine düştüğünü algıladığında otomatik olarak tespite başlar. Herhangi bir manuel mod etkinleştirmeniz gerekmez. FitMesh, yüzük telefonun menzilindeyken verileri sabah indirir ve görüntüler.",
+        nl: "Ja. De ring begint automatisch met detectie zodra hij merkt dat u stil ligt en uw hartslag daalt naar typische slaapniveaus. U hoeft geen handmatige modus te activeren. FitMesh downloadt en toont de gegevens 's ochtends wanneer de ring binnen bereik van uw telefoon is.",
+        ja: "はい。リングは、静止していて心拍数が典型的な睡眠レベルに下がったことを感知すると、自動的に検出を開始します。手動でモードを有効にする必要はありません。FitMeshは、朝にリングがスマートフォンの圏内に入ったときにデータをダウンロードして表示します。",
+        ko: "네. 링은 당신이 움직이지 않고 심박수가 전형적인 수면 수준으로 떨어지는 것을 감지하면 자동으로 감지를 시작합니다. 수동 모드를 활성화할 필요가 없습니다. FitMesh는 아침에 링이 스마트폰 범위 내에 있을 때 데이터를 다운로드하고 표시합니다.",
       },
     },
     {
@@ -986,6 +1283,9 @@ export const post: BlogPost = {
         fr: "Puis-je suivre mon sommeil avec la bague et la montre en même temps?",
         pl: "Czy mogę monitorować sen zarówno pierścieniem, jak i zegarkiem?",
         tr: "Uykumu hem yüzükle hem de saatimle takip edebilir miyim?",
+        nl: "Kan ik mijn slaap bijhouden met zowel de ring als het horloge?",
+        ja: "リングとスマートウォッチの両方で睡眠を記録できますか？",
+        ko: "링과 워치 모두로 수면을 추적할 수 있나요?",
       },
       a: {
         it: "Tecnicamente si, ma non e necessario e crea dati ridondanti. FitMesh gestisce la priorita automaticamente: per le ore notturne la sorgente primaria e l'anello, per le ore diurne e il watch. Non vengono sommati ne confusi.",
@@ -996,6 +1296,9 @@ export const post: BlogPost = {
         fr: "Techniquement oui, mais ce n'est pas nécessaire et cela crée des données redondantes. FitMesh gère la priorité des sources automatiquement: pour les heures nocturnes la source principale est la bague et pour les heures diurnes c'est la montre. Elles ne sont pas additionnées ni confondues.",
         pl: "Technicznie tak, ale nie jest to konieczne i tworzy redundantne dane. FitMesh automatycznie zarządza priorytetem źródeł: dla godzin nocnych głównym źródłem jest pierścień, dla godzin dziennych jest to zegarek. Nie są sumowane ani mylone.",
         tr: "Teknik olarak evet, ancak gerek yoktur ve gereksiz veri oluşturur. FitMesh kaynak önceliğini otomatik olarak yönetir: gece saatleri için birincil kaynak yüzük, gündüz saatleri için saattir. Bunlar toplanmaz veya karıştırılmaz.",
+        nl: "Technisch gezien ja, maar het is niet nodig en creëert overbodige gegevens. FitMesh beheert de bronprioriteit automatisch: voor de nachtelijke uren is de primaire bron de ring en voor de daguren is dat de smartwatch. Ze worden niet opgeteld of verward.",
+        ja: "技術的にはできますが、必要なく、余分なデータが生じます。FitMeshはソースの優先順位を自動的に管理します：夜間は主要ソースがリングで、日中はウォッチです。それらは合計されたり混同されたりしません。",
+        ko: "기술적으로는 가능하지만 필요하지 않으며 중복 데이터가 생성됩니다. FitMesh는 소스 우선순위를 자동으로 관리합니다: 야간 시간에는 주요 소스가 링이고, 낮 시간에는 워치입니다. 두 데이터는 합산되거나 혼동되지 않습니다.",
       },
     },
   ],

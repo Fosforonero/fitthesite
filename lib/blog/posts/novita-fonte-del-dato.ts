@@ -16,6 +16,9 @@ export const post: BlogPost = {
     fr: "de quel appareil proviennent vos données",
     pl: "z jakiego urządzenia pochodzą dane",
     tr: "Hangi cihazdan veriler geliyor",
+    nl: "van welk apparaat komen jouw gegevens",
+    ja: "データがどのデバイスから来るか",
+    ko: "데이터가 어떤 기기에서 오는지",
   },
   secondaryKeywords: {
     it: [
@@ -60,6 +63,27 @@ export const post: BlogPost = {
       "FitMesh Sync KVKK uyumu",
       "veri giyilebilir cihazlardan bir arada bezeli ve tekrarlıları engelle",
     ],
+    nl: [
+      "bron van gezondheidsgegevens",
+      "sporthorloge en slimme ring samen",
+      "stappen slechts eenmaal geteld",
+      "FitMesh Sync gegevenstransparantie",
+      "wearable-gegevens samenvoegen zonder duplicaten",
+    ],
+    ja: [
+      "健康データのソース",
+      "スマートウォッチとスマートリングを同時に使用",
+      "歩数は一度だけカウント",
+      "FitMesh Syncのデータ透明性",
+      "重複なしでウェアラブルデータを統合",
+    ],
+    ko: [
+      "건강 데이터 출처",
+      "스마트워치와 스마트 링 함께 사용",
+      "걸음 수 한 번만 계산",
+      "FitMesh Sync 데이터 투명성",
+      "중복 없이 웨어러블 데이터 병합",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync ora mostra da quale dispositivo arriva ogni dato salute: orologio, anello o altro. Una vista unica, senza doppioni, sempre chiara su chi misura cosa.",
@@ -70,6 +94,9 @@ export const post: BlogPost = {
     fr: "FitMesh Sync indique maintenant de quel appareil provient chaque donnée de santé: montre, bague connectée ou autre. Une vue claire, sans doublons, toujours transparente sur la source.",
     pl: "FitMesh Sync teraz pokazuje z którego urządzenia pochodzą每一个翻译选项都被保留，与原始文本一致。请允许我直接提供翻译结果：\n\nFitMesh Sync teraz pokazuje z którego urządzenia pochodzą każdy zapis zdrowia: smartwatch, anello lub innego. Jedna jednoznaczna wizja, bez powtórzeń, zawsze jasna na temat tego, kto ma pomiar.",
     tr: "FitMesh Sync şimdi her verinin hangi cihazdan geldi gösteriyor: akıllı saat, giyilebilir cihaz ya da başka bir şey. Tek tek, tekrarsız ve her zaman net bir bakış.",
+    nl: "FitMesh Sync toont nu van welk apparaat elke gezondheidsmeting afkomstig is: sporthorloge, slimme ring of ander apparaat. Een duidelijk overzicht, geen duplicaten, altijd transparant over de bron.",
+    ja: "FitMesh Syncは各健康指標がどのデバイスから来るかを表示するようになりました：スマートウォッチ、スマートリング、またはその他のデバイス。明確な1つのビュー、重複なし、常にソースについて透明です。",
+    ko: "FitMesh Sync는 이제 각 건강 지표가 어떤 기기에서 오는지 표시합니다: 스마트워치, 스마트 링 또는 기타 기기. 하나의 명확한 화면, 중복 없음, 항상 출처에 대해 투명합니다.",
   },
   tldr: {
     it: [
@@ -120,9 +147,27 @@ export const post: BlogPost = {
       "Bir cihaz şarj ediliyorken, bir başka o dönemde boğaz bırakmadan kaplar.",
       "Fun İşe Ayakta Alınır Android ve iPhone 'de, herhangi bir ayar yapmadan.",
     ],
+    nl: [
+      "Elke meting kan nu tonen waar hij vandaan komt, bijvoorbeeld 'Bron: ring' onder Slaap.",
+      "Als je een sporthorloge en een slimme ring samen draagt, worden je stappen niet dubbel geteld.",
+      "Wanneer een apparaat oplaadt, neemt een ander dat tijdvenster over zonder hiaten.",
+      "Werkt op dezelfde manier op Android en iPhone, zonder iets te hoeven instellen.",
+    ],
+    ja: [
+      "各指標はどこから来たかを表示できるようになりました。例えば、睡眠の下に「ソース：リング」と表示されます。",
+      "スマートウォッチとスマートリングを同時に装着しても、歩数は二重にカウントされません。",
+      "一方のデバイスが充電中でも、もう一方がその時間帯をカバーし、空白が生じません。",
+      "AndroidでもiPhoneでも同じように動作し、何も設定する必要がありません。",
+    ],
+    ko: [
+      "이제 각 지표가 어디서 왔는지 표시할 수 있습니다. 예를 들어 수면 아래 '출처: 링'으로 표시됩니다.",
+      "스마트워치와 스마트 링을 함께 착용해도 걸음 수가 두 번 계산되지 않습니다.",
+      "한 기기가 충전 중일 때 다른 기기가 그 시간대를 빈틈없이 커버합니다.",
+      "Android와 iPhone 모두 동일하게 작동하며, 아무것도 설정할 필요가 없습니다.",
+    ],
   },
   hero: {
-    kicker: { it: "Novità", en: "What's New", es: "Novedades", de: "Neuigkeiten", pt: "Novidades", fr: "Nouveautés", pl: "Nowości", tr: "Yeni Özellikler" },
+    kicker: { it: "Novità", en: "What's New", es: "Novedades", de: "Neuigkeiten", pt: "Novidades", fr: "Nouveautés", pl: "Nowości", tr: "Yeni Özellikler", nl: "Nieuw", ja: "新機能", ko: "새로운 기능" },
     title: {
       it: "Ora sai da quale dispositivo arriva ogni dato",
       en: "Now you know which device each metric comes from",
@@ -132,6 +177,9 @@ export const post: BlogPost = {
       fr: "Vous savez maintenant de quel appareil provient chaque donnée",
       pl: "Teraz wiesz z którego urządzenia pochodzą todoszujące dane",
       tr: "Şimdi her verinin hangi cihazdan geldiğini öğreniyorsunuz",
+      nl: "Nu weet je van welk apparaat elke meting afkomstig is",
+      ja: "各指標がどのデバイスから来るかわかるようになりました",
+      ko: "이제 각 지표가 어떤 기기에서 오는지 알 수 있습니다",
     },
     subtitle: {
       it: "Orologio, anello e altri dispositivi nella stessa schermata, con l'indicazione chiara di chi ha misurato cosa. Una vista unica, senza conteggi doppi.",
@@ -142,6 +190,9 @@ export const post: BlogPost = {
       fr: "Montre, bague connectée et autres appareils sur un seul écran, avec une indication claire de qui a mesuré quoi. Une vue unique, sans double comptage.",
       pl: "Zegarek, pętelka i inne urządzenia na tej samej ekranie, z wyraźną wskazówką, kto pomiar przeprowadził. Jedna jednoznaczna perspektywa, bez podwójnych liczebников.",
       tr: "Orologio, yüzük ve diğer giyilebilir cihazlar aynı ekran üzerinde, kimin neyi ölçtüğünü belirten açık bir gösterimle listeleniyor. Tek tek bakış açısı, tekrarlı sayılara sahip değildir.",
+      nl: "Sporthorloge, slimme ring en andere apparaten op één scherm, met een duidelijk label wie wat heeft gemeten. Één overzicht, geen dubbele telling.",
+      ja: "スマートウォッチ、スマートリング、その他のデバイスを1つの画面に表示し、どれが何を計測したかを明確にラベル付け。1つのビュー、二重カウントなし。",
+      ko: "스마트워치, 스마트 링, 기타 기기를 하나의 화면에 표시하고 무엇이 무엇을 측정했는지 명확하게 표시합니다. 하나의 화면, 이중 계산 없음.",
     },
   },
   body: [
@@ -156,6 +207,9 @@ export const post: BlogPost = {
         fr: "Dans FitMesh Sync, vos appareils fonctionnent ensemble: montre, bague connectée et autres wearables se retrouvent sur un seul écran. À partir d'aujourd'hui, il y a quelque chose de plus: vous voyez clairement de quel appareil provient chaque donnée.",
         pl: "Wydawnictwo FitMesh Sync Twoje urządzenia pracują razem: zegarek, pęslla i inne wearable skoncentrują się na jednym ekranie. Od dziś jest coś więcej: widzisz jasno z którego urządzenia pochodzi każdy zestawienie.",
         tr: "FitMesh Sync cihazların seninle bir arada çalışır: akıllı saat, pisolino ve diğer giyilebilir cihazlar tek ekran üzerinden toplanır. Şimdiye kadar bir adım daha ileri: her verinin hangi cihzden geldiğini net bir şekilde görürsünüz.",
+        nl: "In FitMesh Sync werken je apparaten samen: sporthorloge, slimme ring en andere wearables komen samen op één scherm. Vanaf vandaag is er iets extra: je kunt duidelijk zien van welk apparaat elke meting afkomstig is.",
+        ja: "FitMesh Syncではデバイスが連携して動作します：スマートウォッチ、スマートリング、その他のウェアラブルが1つの画面に集約されます。今日からさらに便利になりました：各指標がどのデバイスから来るかを明確に確認できます。",
+        ko: "FitMesh Sync에서 기기들이 함께 작동합니다: 스마트워치, 스마트 링, 기타 웨어러블이 하나의 화면에 통합됩니다. 오늘부터 한 가지 더 추가되었습니다: 각 지표가 어떤 기기에서 오는지 명확하게 확인할 수 있습니다.",
       },
     },
     {
@@ -170,6 +224,9 @@ export const post: BlogPost = {
         fr: "Voir la source de chaque donnée",
         pl: "Zobacz",
         tr: "Herhangi bir verinin kaynağına bakın",
+        nl: "Zie de bron van elke meting",
+        ja: "各指標のソースを確認する",
+        ko: "각 지표의 출처 확인",
       },
     },
     {
@@ -182,7 +239,10 @@ export const post: BlogPost = {
         pt: "Abaixo das métricas do dia pode aparecer uma pequena etiqueta, por exemplo 'Fonte: anel' sob o Sono. Significa que aquele valor foi medido pelo anel, não pelo relógio. Quando um dado vem do dispositivo que você sempre usa, não é preciso indicar. Então a etiqueta aparece apenas quando é útil saber.",
         fr: "Sous les métriques de la journée, une petite étiquette peut apparaître, par exemple 'Source: bague connectée' sous Sommeil. Cela signifie que cette valeur a été mesurée par la bague connectée, pas par la montre. Quand une donnée provient de l'appareil que vous portez toujours, il n'est pas nécessaire de le préciser. L'étiquette n'apparaît donc que quand c'est utile à savoir.",
         pl: "Poni podstawowe metryki dnia może pojawić się mała etykietka, na przykład 'Źródło: anello' pod Senem. Oznacza to, że ten wartość pomiaru dokonał anell, a nie zegarek. Gdy dane przychodzą z urządzenia, które zawsze nosisz na nadgarstku, to nie ma potrzeby tego mówić, więc etykietka pojawia się tylko wtedy, gdy jest to użyteczne do znalezienia.",
-        tr: "Günlük metrikler altında bir küçük etiket gösterebilir, örneğin 'Fonte: anello' uyku altına. Bu, o değer cihazınızın takladığını belirtir, yani uygun olduğunda bu bilgi gerekli olabilir. Veri her zaman bacağınıza takılan cihaza gelirse etiket görünmez kalır.",
+        tr: "Günlük metrikler altında bir küçük etiket gösterebilir, örneğin 'Fonte: anello' uyku altına. Bu, o değer cihazınızın takladığını belirtir, yani uygun olduğunda bu bilgi gerekli olabilir. Veri her zaman bacağınıze takılan cihaza gelirse etiket görünmez kalır.",
+        nl: "Onder de metingen van de dag kan een klein label verschijnen, bijvoorbeeld 'Bron: ring' onder Slaap. Dat betekent dat die waarde door de ring is gemeten, niet door het sporthorloge. Als een meting afkomstig is van het apparaat dat je altijd draagt, hoeft dat niet vermeld te worden, dus het label verschijnt alleen wanneer het nuttig is om te weten.",
+        ja: "その日の指標の下に小さなラベルが表示されることがあります。例えば、睡眠の下に「ソース：リング」と表示されます。これはその値がスマートウォッチではなくリングで計測されたことを意味します。常に装着しているデバイスからデータが来る場合は表示する必要がないため、知っておくと便利な場合にのみラベルが表示されます。",
+        ko: "하루 지표 아래에 작은 레이블이 나타날 수 있습니다. 예를 들어 수면 아래 '출처: 링'으로 표시됩니다. 이는 해당 값이 스마트워치가 아닌 링으로 측정되었음을 의미합니다. 항상 착용하는 기기에서 데이터가 올 때는 표시할 필요가 없으므로, 알아두면 유용할 때만 레이블이 나타납니다.",
       },
     },
     {
@@ -197,6 +257,9 @@ export const post: BlogPost = {
         fr: "Aucun double comptage",
         pl: "Brak podwójnych liczeb",
         tr: "İki katlama yok",
+        nl: "Geen dubbele telling",
+        ja: "二重カウントなし",
+        ko: "이중 계산 없음",
       },
     },
     {
@@ -210,6 +273,9 @@ export const post: BlogPost = {
         fr: "Si vous portez plusieurs appareils en même temps, ils comptent les mêmes pas réels. FitMesh Sync ne les additionne pas: il conserve le tableau correct de votre journée, sans gonfler les chiffres.",
         pl: "Je wennisz więcej urządzeń jednocześnie, liczy się rzeczywiste kroki. FitMesh Sync ich nie sumuje: podaje poprawną obrazę Twojego dnia, bez powiększania liczb.",
         tr: "Eğer aynı anda daha fazla cihaz giyiyorsanız, gerçek adımlarınız sayılır. FitMesh Sync bunları toplamaz: günlük senaryonunuzu doğru bir şekilde korur, rakamları şişirmeden.",
+        nl: "Als je meerdere apparaten tegelijk draagt, tellen ze dezelfde echte stappen. FitMesh Sync telt ze niet op: het behoudt het correcte beeld van je dag, zonder de cijfers op te blazen.",
+        ja: "複数のデバイスを同時に装着しても、同じ実際の歩数をカウントします。FitMesh Syncはそれらを合計しません：数字を膨らませることなく、あなたの一日の正確な記録を保ちます。",
+        ko: "여러 기기를 동시에 착용해도 동일한 실제 걸음 수를 계산합니다. FitMesh Sync는 이를 합산하지 않습니다: 숫자를 부풀리지 않고 하루의 정확한 기록을 유지합니다.",
       },
     },
     {
@@ -224,6 +290,9 @@ export const post: BlogPost = {
         fr: "Vous souhaitez comprendre comment nous gérons plusieurs appareils en détail?",
         pl: "Czy chcesz zrozumieć, jak zarządzamy więcej urządzeń w szczegółach?",
         tr: "İhtiyacın olduğunda daha fazla cihaz nasıl yönettiğimizi anlamak istiyor musunuz?",
+        nl: "Wil je begrijpen hoe we met meerdere apparaten omgaan in detail?",
+        ja: "複数デバイスの詳細な管理方法を理解したいですか？",
+        ko: "여러 기기를 어떻게 처리하는지 자세히 이해하고 싶으신가요?",
       },
       body: {
         it: "Abbiamo una guida dedicata che spiega tutto, con esempi per ogni combinazione: [piu smartwatch insieme senza dati doppi](/it/blog/piu-smartwatch-insieme-dati-doppi).",
@@ -234,6 +303,9 @@ export const post: BlogPost = {
         fr: "Nous avons un guide dédié qui explique tout, avec des exemples pour chaque combinaison: [plusieurs montres connectées ensemble sans données en double](/fr/blog/piu-smartwatch-insieme-dati-doppi).",
         pl: "Mamy dedykowana przewodnik, który wyjaśnia wszystko, z przykładami dla każdej kombinacji: [więcej smartwatches razem bez danych dublowanych](/pl/blog/wiecej-smartwatches-razem-bez-danych-dublowanych).",
         tr: "Günlük bir kılavuzdan faydalanabilirsiniz, her kombinasyon için detaylı bilgi veriyor ve örnekler sunuyor: [iki akıllı saat beraberinde veri çiftliği olmadan](/tr/blog/i-k-ak-l-m-saat-beraberinde-veri-ciftligi-yetme).",
+        nl: "We hebben een speciale gids die alles uitlegt, met voorbeelden voor elke combinatie: [meerdere smartwatches samen zonder dubbele gegevens](/nl/blog/piu-smartwatch-insieme-dati-doppi).",
+        ja: "すべてを説明した専用ガイドがあり、各組み合わせの例が含まれています：[複数のスマートウォッチを重複なしで使用](/ja/blog/piu-smartwatch-insieme-dati-doppi)。",
+        ko: "모든 것을 설명하는 전용 가이드가 있으며 각 조합에 대한 예시가 포함되어 있습니다: [이중 데이터 없이 스마트워치 여러 개 함께 사용](/ko/blog/piu-smartwatch-insieme-dati-doppi).",
       },
     },
     {
@@ -248,6 +320,9 @@ export const post: BlogPost = {
         fr: "Montre en charge? Un autre appareil prend le relais",
         pl: "Zegarek w ręce? To poradzi za drugie urządzenie",
         tr: "Günlük cihazı mı takıyorsunuz? Başka bir cihaz bu işi yapacak.",
+        nl: "Horloge aan het opladen? Een ander apparaat neemt het over",
+        ja: "スマートウォッチが充電中？別のデバイスがカバーします",
+        ko: "스마트워치 충전 중? 다른 기기가 커버합니다",
       },
     },
     {
@@ -261,6 +336,9 @@ export const post: BlogPost = {
         fr: "Il arrive de laisser la montre se recharger pendant quelques heures. Pendant ce temps, si vous portez la bague connectée, c'est elle qui enregistre. Quand vous consultez votre journée, les heures couvertes par différents appareils se réunissent en une seule vue, sans lacune et sans doublons.",
         pl: "Cap;;;;;;;;;;;;;a di pozostawić zegarek na ładowaniu przez kilka godzin. W tym czasie, jeśli będziesz nosić pierścień, on będzie śledził. Kiedy sprawdzisz stan dnia, dni wykryte przez różne urządzenia połączą się w jedno całe obraz, bez pustek i powtarzalnych elementów.",
         tr: "Capıta di giyilebilir cihazını sakin birkaç saat boyunca şarj etmek. Bu süre zarfında, anelıyı giyiyorsan ve ona bırak. Ne zaman gününüzü kontrol ederken, farklı cihazlar altında gizlenen saati, tek bir görselle tamamlayarak bir araya getirirseniz, boşlukları olmayacak ve tekrarlamaları deyilcek.",
+        nl: "Het komt voor dat je het sporthorloge een paar uur oplaadt. In die tijd houdt de slimme ring de telling bij, als je hem draagt. Wanneer je je dag bekijkt, komen de uren die door verschillende apparaten zijn gedekt samen in één beeld, zonder hiaten en zonder duplicaten.",
+        ja: "スマートウォッチを数時間充電することがあります。その間、スマートリングを着けていれば、リングが記録を続けます。一日を確認するとき、異なるデバイスがカバーした時間帯が一つの記録にまとまり、空白も重複もありません。",
+        ko: "스마트워치를 몇 시간 동안 충전하는 경우가 있습니다. 그 시간 동안 스마트 링을 착용하고 있으면 링이 기록을 이어갑니다. 하루를 확인할 때 서로 다른 기기가 커버한 시간들이 하나의 기록으로 통합되어 빈틈도 중복도 없습니다.",
       },
     },
     {
@@ -275,6 +353,9 @@ export const post: BlogPost = {
         fr: "Pareil sur Android et iPhone",
         pl: "Tak dla Android i iPhone",
         tr: "Aynı şey Android ve iPhone için de geçerlidir.",
+        nl: "Hetzelfde op Android en iPhone",
+        ja: "AndroidでもiPhoneでも同じ",
+        ko: "Android와 iPhone 모두 동일",
       },
     },
     {
@@ -288,6 +369,9 @@ export const post: BlogPost = {
         fr: "Que vous utilisiez un téléphone Android ou un iPhone, le comportement est identique: les données de vos appareils se réunissent dans la même vue, avec la même transparence sur la source. Si vous utilisez les deux, vous trouverez plus de détails sur la page [deux téléphones sur le même compte](/fr/lp/due-telefoni).",
         pl: "Je korzystasz z telefonu Android lub smartwatch iPhone, zachowuje się to identycznie: dane twoich urządzeń połączą się na tej samej widoku, z taką samą przejrzystością w sprawdzaniu źródła. Jeśli używasz obu, znajdziesz trochę więcej szczegółów na stronie dedykowanej do [dwух telefonów na tym samym kontcie](/it/lp/dwa-telefony).",
         tr: "KVKK uyumluluğunu kontrol ettiğinde Android veya iPhone kullanarak, davranış ve aynıdır: cihazların verileri aynı görünümde birleştirilir ve kaynak hakkında eşit seviyede transparanlık sağlanır. Her iki cihaz da kullanıyorsanız, [aynı hesapta iki telefonun](/tr/lp/iki-telefon) sayfasında bazı detaylar bulabilirsiniz.",
+        nl: "Of je nu een Android-telefoon of een iPhone gebruikt, het gedrag is identiek: de gegevens van je apparaten komen samen in dezelfde weergave, met dezelfde transparantie over de bron. Als je beide gebruikt, vind je meer details op de pagina over [twee telefoons op hetzelfde account](/nl/lp/due-telefoni).",
+        ja: "AndroidスマートフォンでもiPhoneでも、動作は同じです：デバイスのデータが同じビューにまとめられ、ソースについて同じ透明性が保たれます。両方を使用している場合は、[同じアカウントで2台のスマートフォン](/ja/lp/due-telefoni)のページで詳細をご確認いただけます。",
+        ko: "Android 스마트폰이든 iPhone이든 동작은 동일합니다: 기기 데이터가 동일한 화면에 통합되며 출처에 대해 동일한 투명성이 유지됩니다. 두 가지를 모두 사용한다면 [같은 계정의 스마트폰 두 대](/ko/lp/due-telefoni) 페이지에서 더 자세한 내용을 확인할 수 있습니다.",
       },
     },
     {
@@ -301,6 +385,9 @@ export const post: BlogPost = {
         fr: "Essayez-le avec vos appareils",
         pl: "Sprawdzono na Twoich urządzeniach",
         tr: "Deneyebileceksiniz ownernizin cihazlarıyla",
+        nl: "Probeer het met je apparaten",
+        ja: "あなたのデバイスで試してみる",
+        ko: "기기로 사용해 보기",
       },
       body: {
         it: "Entra nella beta, collega orologio e anello e guarda la giornata unita in un solo posto, con la fonte di ogni dato sempre chiara.",
@@ -311,6 +398,9 @@ export const post: BlogPost = {
         fr: "Rejoignez la bêta, connectez votre montre et votre bague connectée et voyez votre journée réunie en un seul endroit, avec la source de chaque donnée toujours clairement indiquée.",
         pl: "Wprowadź się do brytyzmu, podłącz smartwatch i pierścień i obserwuj całą dobę w jednym miejscu, z zawsze jasną źródłem każdego danych.",
         tr: "Giriş beta’ya, akıllı saat ve giyilebilir cihazını bağla ve her günün bilgilerini tek bir yerde izle, her verinin kaynağı her zaman net olarak görünür.",
+        nl: "Meld je aan voor de beta, verbind je sporthorloge en slimme ring, en zie je dag samengebracht op één plek, met de bron van elke meting altijd duidelijk.",
+        ja: "ベータに参加し、スマートウォッチとスマートリングを接続して、各指標のソースが常に明確な状態で、あなたの一日が一か所にまとまるのを確認してください。",
+        ko: "베타에 참여하고, 스마트워치와 스마트 링을 연결하여 각 지표의 출처가 항상 명확하게 표시되는 하나의 화면으로 하루를 확인해 보세요.",
       },
       ctaLabel: {
         it: "Inizia la beta gratuita",
@@ -321,6 +411,9 @@ export const post: BlogPost = {
         fr: "Commencer la bêta gratuite",
         pl: "Zacznij bezpłatną betę",
         tr: "Başlat ücretsiz betanız",
+        nl: "Gratis beta starten",
+        ja: "無料ベータを始める",
+        ko: "무료 베타 시작하기",
       },
       ctaHref: {
         it: "/it/beta",
@@ -339,6 +432,9 @@ export const post: BlogPost = {
         fr: "Pourquoi certaines métriques affichent la source et d'autres non?",
         pl: "Dlaczego niektóre metryki pokazują źródło, a inne nie?",
         tr: "Neden bazı metrikler kaynak gösteriyorken, diğeri ise göstermiyor?",
+        nl: "Waarom tonen sommige metingen de bron en andere niet?",
+        ja: "なぜ一部の指標はソースを表示し、他は表示しないのですか？",
+        ko: "왜 일부 지표는 출처를 표시하고 다른 것들은 표시하지 않나요?",
       },
       a: {
         it: "L'etichetta appare solo quando il dato arriva da un dispositivo diverso da quello che indossi di solito, cosi resta un'informazione utile e non rumore. Quando il dato arriva dal dispositivo principale, l'etichetta non serve.",
@@ -349,6 +445,9 @@ export const post: BlogPost = {
         fr: "L'étiquette n'apparaît que lorsque la donnée provient d'un appareil différent de celui que vous portez habituellement, pour rester une information utile et non du bruit. Quand la donnée vient de votre appareil principal, l'étiquette n'est pas nécessaire.",
         pl: "Etycyna pojawia się tylko wtedy, gdy dane przychodzą z urządzenia innego niż to, które zwykle nosisz, co pozostawia to informację użyteczną, a nie szum. Gdy dane przychodzą z głównego urządzenia, etycyna nie jest potrzebna.",
         tr: "Etiket sadece genellikle giydiğin cihazdan farklı bir cihazdan gelen veri durumunda görünür, böylece faydalı bir bilgi kalır ve rassal gürültü olmaz. Verinin ana cihazdan geldiğinde etiket gereksiz olur.",
+        nl: "Het label verschijnt alleen wanneer de meting afkomstig is van een ander apparaat dan het apparaat dat je gewoonlijk draagt, zodat het nuttige informatie blijft en geen ruis. Wanneer de meting van je hoofdapparaat komt, is het label niet nodig.",
+        ja: "ラベルは、通常着用しているデバイスとは異なるデバイスから指標が来る場合にのみ表示されるため、有用な情報として残り、ノイズになりません。指標がメインデバイスから来る場合は、ラベルは必要ありません。",
+        ko: "레이블은 평소에 착용하는 기기와 다른 기기에서 지표가 올 때만 표시되어, 유용한 정보로 유지되고 노이즈가 되지 않습니다. 주 기기에서 지표가 올 때는 레이블이 필요하지 않습니다.",
       },
     },
     {
@@ -361,6 +460,9 @@ export const post: BlogPost = {
         fr: "Si j'ai une montre et une bague connectée, les pas sont-ils additionnés?",
         pl: "Jeśli mam smartwatch i pierścień, kroki się dodatkują?",
         tr: "Eğer akıllı saati ve giyilebilir cihazıım, adımlar ben birbirine eklenir mi?",
+        nl: "Als ik een sporthorloge en een slimme ring heb, worden de stappen bij elkaar opgeteld?",
+        ja: "スマートウォッチとスマートリングを持っている場合、歩数は合算されますか？",
+        ko: "스마트워치와 스마트 링이 있으면 걸음 수가 합산되나요?",
       },
       a: {
         it: "No. Contano gli stessi passi reali, quindi FitMesh Sync li unisce senza raddoppiarli. Il numero che vedi e il quadro corretto della giornata, non la somma dei dispositivi.",
@@ -371,6 +473,9 @@ export const post: BlogPost = {
         fr: "Non. Ils comptent les mêmes pas réels, donc FitMesh Sync les regroupe sans les doubler. Le chiffre que vous voyez est le tableau correct de votre journée, pas la somme des appareils.",
         pl: "No. Zliczają one te same rzeczywiste kroki, więc FitMesh Sync je połącza bez podwójnego zliczania. Liczba, którą widzisz, to poprawny obraz dnia, a nie suma urządzeń.",
         tr: "Hayır. Aynı gerçek adımlar sayılır, bu nedenle FitMesh Sync onları çift saymaz. Gördüğün sayı, cihazların toplamı değil, günün doğru tablosudur.",
+        nl: "Nee. Ze tellen dezelfde echte stappen, dus FitMesh Sync brengt ze samen zonder ze te verdubbelen. Het getal dat je ziet is het correcte beeld van je dag, niet de som van de apparaten.",
+        ja: "いいえ。同じ実際の歩数をカウントするため、FitMesh Syncはそれらを二重にすることなく統合します。表示される数字はあなたの一日の正確な記録であり、デバイスの合計ではありません。",
+        ko: "아니요. 동일한 실제 걸음 수를 계산하므로 FitMesh Sync는 이를 두 배로 늘리지 않고 통합합니다. 표시되는 숫자는 기기의 합이 아닌 하루의 정확한 기록입니다.",
       },
     },
     {
@@ -383,6 +488,9 @@ export const post: BlogPost = {
         fr: "Cela fonctionne-t-il si j'utilise deux téléphones, Android et iPhone?",
         pl: "Czy działa, jeśli używam dwóch telefonów, Android i iPhone?",
         tr: "İki telefon kullanırsam, Android ve iPhone çalışır mı?",
+        nl: "Werkt het als ik twee telefoons gebruik, Android en iPhone?",
+        ja: "AndroidとiPhoneの2台のスマートフォンを使用する場合でも機能しますか？",
+        ko: "Android와 iPhone 두 대의 스마트폰을 사용하는 경우에도 작동하나요?",
       },
       a: {
         it: "Si. I dati confluiscono nello stesso account e si uniscono nella stessa vista, con la fonte di ogni metrica indicata dove serve.",
@@ -393,6 +501,9 @@ export const post: BlogPost = {
         fr: "Oui. Les données confluent vers le même compte et se retrouvent dans la même vue, avec la source de chaque métrique indiquée là où c'est utile.",
         pl: "Tak. Dane konfluują do tego samego konta i łączą się w tej samej widoku, z podaniem źródła każdej metryki tam, gdzie jest to potrzebne.",
         tr: "Evet. Veriler aynı hesaba akar ve aynı görünümde birleştirilir, her metrik kaynakının kaynağındaki yerlerde belirlenmiştir.",
+        nl: "Ja. De gegevens stromen naar hetzelfde account en komen samen in dezelfde weergave, met de bron van elke meting weergegeven waar het helpt.",
+        ja: "はい。データは同じアカウントに流れ込み、同じビューにまとめられ、各指標のソースが役立つ場所に表示されます。",
+        ko: "예. 데이터는 같은 계정으로 흘러들어 동일한 화면에 통합되며, 각 지표의 출처가 도움이 되는 곳에 표시됩니다.",
       },
     },
     {
@@ -405,6 +516,9 @@ export const post: BlogPost = {
         fr: "Dois-je configurer quelque chose?",
         pl: "Muszę coś skonfigurować?",
         tr: "Bazı ayarlar yapmalıyım?",
+        nl: "Moet ik iets instellen?",
+        ja: "何か設定する必要がありますか？",
+        ko: "무언가를 설정해야 하나요?",
       },
       a: {
         it: "No. Basta avere i dispositivi collegati: l'unione dei dati e l'indicazione della fonte sono automatiche.",
@@ -415,6 +529,9 @@ export const post: BlogPost = {
         fr: "Non. Il suffit d'avoir vos appareils connectés: la fusion des données et l'indication de la source se font automatiquement.",
         pl: "Nie. Wystarczy połączyć urządzenia: łączenie danych i wskazanie źródła odbywa się automatycznie.",
         tr: "No. Yeterli ki giyilebilir cihazlarınızı bağlıysınız: verilerin birleştirilmesi ve kaynak gösterimi otomatik olur.",
+        nl: "Nee. Je hoeft alleen je apparaten te verbinden: het samenvoegen van de gegevens en het tonen van de bron gebeuren automatisch.",
+        ja: "いいえ。デバイスを接続するだけです：データの統合とソースの表示は自動的に行われます。",
+        ko: "아니요. 기기를 연결하기만 하면 됩니다: 데이터 병합과 출처 표시가 자동으로 이루어집니다.",
       },
     },
   ],

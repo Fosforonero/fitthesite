@@ -63,6 +63,27 @@ export const post: BlogPost = {
       "Bugün çalışan: adımlar, kalp hızı, uyku, kalori. Dürüst sınırlama: ayrıntılı GPS aktiviteleri Health Connect üzerinden geçmez.",
       "Geçmişiniz gizli kalır: FitMesh verilerinizi satmaz.",
     ],
+    nl: [
+      "Pixel Watch registreert stappen, hartslag, slaap en calorieën in Fitbit; deze gegevens komen automatisch in Health Connect op Android terecht.",
+      "Vanuit Health Connect leest FitMesh Sync jouw gegevens en toont ze in een persoonlijk webdashboard, zonder handmatig bestanden te exporteren.",
+      "Als je ook een slimme ring of een andere smartwatch gebruikt, voegt FitMesh ze samen in één paneel: alles op één plek.",
+      "Wat vandaag werkt: stappen, hartslag, slaap, calorieën. Eerlijke beperking: gedetailleerde GPS-activiteiten gaan niet via Health Connect.",
+      "Jouw geschiedenis blijft privé: FitMesh verkoopt jouw gegevens niet.",
+    ],
+    ja: [
+      "Pixel Watchはステップ数、心拍数、睡眠、カロリーをFitbitに記録します。これらの指標はAndroidのHealth Connectに自動的に反映されます。",
+      "Health ConnectからFitMesh Syncがデータを読み取り、個人用ウェブダッシュボードに表示します。手動でのファイルエクスポートは不要です。",
+      "スマートリングや他のスマートウォッチも使用している場合、FitMeshはそれらを1つのパネルに統合します。すべてを一か所で確認できます。",
+      "現在対応中：ステップ数、心拍数、睡眠、カロリー。正直な制限：詳細なGPSアクティビティはHealth Connectを経由しません。",
+      "あなたの履歴はプライベートのままです。FitMeshはデータを販売しません。",
+    ],
+    ko: [
+      "Pixel Watch는 걸음 수, 심박수, 수면, 칼로리를 Fitbit에 기록하며, 이 지표들은 Android의 Health Connect에 자동으로 저장됩니다.",
+      "Health Connect에서 FitMesh Sync가 데이터를 읽어 개인 웹 대시보드에 표시합니다. 파일을 수동으로 내보낼 필요가 없습니다.",
+      "스마트 링이나 다른 스마트워치도 사용 중이라면, FitMesh가 하나의 패널로 통합합니다. 모든 것을 한 곳에서 확인하세요.",
+      "현재 지원되는 기능: 걸음 수, 심박수, 수면, 칼로리. 솔직한 한계: 상세 GPS 활동은 Health Connect를 통과하지 않습니다.",
+      "귀하의 기록은 비공개로 유지됩니다. FitMesh는 데이터를 판매하지 않습니다.",
+    ],
   },
   primaryKeyword: {
     it: "dati Pixel Watch dashboard personale",
@@ -73,6 +94,9 @@ export const post: BlogPost = {
     fr: "données Pixel Watch tableau de bord personnel",
     pl: "dane Pixel Watch panel osobisty",
     tr: "veri Pixel Watch kişisel panel",
+    nl: "Pixel Watch gegevens persoonlijk dashboard",
+    ja: "Pixel Watchデータ 個人ダッシュボード",
+    ko: "Pixel Watch 데이터 개인 대시보드",
   },
   secondaryKeywords: {
     it: [
@@ -131,6 +155,27 @@ export const post: BlogPost = {
       "unire akıllı saat paneli",
       "sağlık verilerini gösterebilir Android",
     ],
+    nl: [
+      "Pixel Watch Health Connect",
+      "Fitbit Health Connect dashboard",
+      "Wear OS gezondheidsgegevens dashboard",
+      "smartwatch gegevens samenvoegen dashboard",
+      "Android gezondheidsgegevens bekijken",
+    ],
+    ja: [
+      "Pixel Watch Health Connect",
+      "Fitbit Health Connect ダッシュボード",
+      "Wear OS 健康データ ダッシュボード",
+      "スマートウォッチデータ統合ダッシュボード",
+      "Android 健康データ表示",
+    ],
+    ko: [
+      "Pixel Watch Health Connect",
+      "Fitbit Health Connect 대시보드",
+      "Wear OS 건강 데이터 대시보드",
+      "스마트워치 데이터 통합 대시보드",
+      "Android 건강 데이터 보기",
+    ],
   },
   metaDescription: {
     it: "Come vedere i dati del Pixel Watch (Wear OS, Fitbit) su una dashboard personale via Health Connect e unirli ad altri dispositivi con FitMesh Sync. Cosa funziona e limiti onesti.",
@@ -141,6 +186,9 @@ export const post: BlogPost = {
     fr: "Comment visualiser les données de la Pixel Watch (Wear OS, Fitbit) dans un tableau de bord personnel via Health Connect et les combiner avec d'autres appareils dans FitMesh Sync. Ce qui fonctionne et les vraies limites.",
     pl: "Jak zobaczyć dane z Pixel Watch (Wear OS, Fitbit) na osobistym panelu wykresów poprzez Health Connect i połączyć je z innymi urządzeniami za pomocą FitMesh Sync. Co działa i szczerze określone ograniczenia.",
     tr: "KVKK uyumluluğunu kontrol etmek ve Pixel Watch (Wear OS, Fitbit) verilerini kişisel bir görselleştirme panelinde görmek için Health Connect kullanın. Diğer cihazlara da bu verileri ekleyin. Nasıl çalıştığı ve gerçek limitleri anlayın.",
+    nl: "Hoe je Pixel Watch-gegevens (Wear OS, Fitbit) bekijkt op een persoonlijk dashboard via Health Connect en combineert met andere apparaten met FitMesh Sync. Wat werkt en eerlijke beperkingen.",
+    ja: "Health Connect経由でPixel Watch（Wear OS、Fitbit）のデータを個人ダッシュボードで確認し、FitMesh Syncで他のデバイスと組み合わせる方法。対応状況と正直な制限事項。",
+    ko: "Health Connect를 통해 Pixel Watch(Wear OS, Fitbit) 데이터를 개인 대시보드에서 확인하고 FitMesh Sync로 다른 기기와 결합하는 방법. 작동하는 기능과 솔직한 한계.",
   },
   hero: {
     kicker: {
@@ -152,6 +200,9 @@ export const post: BlogPost = {
       fr: "Guide",
       pl: "Wskazówki",
       tr: "Rehber",
+      nl: "Gids",
+      ja: "ガイド",
+      ko: "가이드",
     },
     title: {
       it: "Dati Pixel Watch su una dashboard tua: come funziona con Health Connect",
@@ -162,6 +213,9 @@ export const post: BlogPost = {
       fr: "Données Pixel Watch dans votre propre tableau de bord: comment ca fonctionne avec Health Connect",
       pl: "Dane Pixel Watch na Twojej panelu kontrolnym: jak działa z Health Connect",
       tr: "Veriler Pixel Watch bir kendi panelinde: nasıl çalıştığı ile Health Connect'la beraber",
+      nl: "Pixel Watch-gegevens op jouw eigen dashboard: hoe het werkt met Health Connect",
+      ja: "あなた自身のダッシュボードでPixel Watchのデータを見る：Health Connectとの連携方法",
+      ko: "나만의 대시보드에서 Pixel Watch 데이터 보기: Health Connect와 함께 작동하는 방법",
     },
     subtitle: {
       it: "Il Pixel Watch registra tutto su Fitbit, che poi scrive in Health Connect. Da lì FitMesh Sync raccoglie passi, battito, sonno e calorie e li mette in un unico pannello tuo, insieme agli altri dispositivi che usi.",
@@ -172,6 +226,9 @@ export const post: BlogPost = {
       fr: "La Pixel Watch enregistre tout dans Fitbit, qui ecrit ensuite dans Health Connect. De la, FitMesh Sync collecte les pas, la frequence cardiaque, le sommeil et les calories et les regroupe dans votre propre panneau unique, avec les autres appareils que vous utilisez.",
       pl: "Rejestruje wszystko na Fitbit, które następnie zapisuje w Health Connect. Od tam FitMesh Sync zbiera kroki, puls, sen i kalorie i umieszcza je w jednym panelu osobistym, razem z innymi urządzeniami, których używasz.",
       tr: "KVKK Pixel Watch tüm bilgileri kaydeder, sonra da Fitbit tarafından yazılır. Buradan FitMesh Sync adı verilen cihaz adım sayısını, kalp atışını, uyku ve klorin miktarını toplar ve bunları tek bir panelde diğer kullandığın giyilebilir cihazlarla bir arada sunar.",
+      nl: "Pixel Watch registreert alles in Fitbit, dat vervolgens naar Health Connect schrijft. Vanaf daar verzamelt FitMesh Sync stappen, hartslag, slaap en calorieën en plaatst ze in jouw eigen paneel, samen met de andere apparaten die je gebruikt.",
+      ja: "Pixel WatchはすべてをFitbitに記録し、FitbitはそれをHealth Connectに書き込みます。そこからFitMesh Syncがステップ数、心拍数、睡眠、カロリーを収集し、使用している他のデバイスとともに1つのパネルにまとめます。",
+      ko: "Pixel Watch는 모든 것을 Fitbit에 기록하고, Fitbit은 이를 Health Connect에 씁니다. 거기서 FitMesh Sync가 걸음 수, 심박수, 수면, 칼로리를 수집하여 사용하는 다른 기기와 함께 하나의 패널에 표시합니다.",
     },
   },
   body: [
@@ -186,6 +243,9 @@ export const post: BlogPost = {
         fr: "Si vous avez une Pixel Watch, vos données de sante suivent un chemin precis: l'appareil les enregistre et les synchronise sur Fitbit (l'application sante de Google sur Pixel). Fitbit les ecrit ensuite dans Health Connect, le referentiel centralise d'Android. Depuis Health Connect, toute application autorisee peut les lire. FitMesh Sync en fait partie: elle collecte vos metriques, les affiche dans un tableau de bord web et, si vous avez d'autres appareils, les regroupe en un seul endroit.",
         pl: "Jeśli masz Pixel Watch, Twoje dane zdrowotne podążają precyzyjnej ścieżce: urządzenie je zapisuje i synchronizuje na Fitbit (aplikacji zdrowia Google dla Pixel). Następnie Fitbit zapisuje je w Health Connect, centralnym magazynie Android. Z Health Connect, każda zautoryzowana aplikacja może je czytać. FitMesh Sync jest jedną z nich: zbiera Twoje metryki, prezentuje je na panelu web i, jeśli masz inne urządzenia, łączy je w jednym miejscu.",
         tr: "Eğer bir Pixel Watchiniz varsa, sağlık verileriniz belirli bir yolda ilerler: cihaz bu verileri kaydeder ve Google Cloud'a (Fitbit) (Google adlı sağlık uygulaması) ile senkronize eder. Daha sonra Google Cloud, Health Connect (KVKK'ya uygun merkezi depolama alanına) bu verileri yazar. Herhangi bir yetkilendirilmiş uygulama bunları okuyabilir. FitMesh Sync da bunlardan biridir: sağlık metriklerinizi toplar, web tabanlı bir panelde gösterir ve diğer cihazlarla birlikte tek bir noktada birleştirir.",
+        nl: "Als je een Pixel Watch hebt, volgen jouw gezondheidsgegevens een specifiek pad: het apparaat registreert ze en synchroniseert ze met Fitbit (de gezondheidsapp van Google op Pixel). Fitbit schrijft ze vervolgens naar Health Connect, de gecentraliseerde opslagplaats van Android. Vanuit Health Connect kan elke gemachtigde app ze lezen. FitMesh Sync is er een van: het verzamelt jouw meetwaarden, toont ze in een webdashboard en voegt ze, als je andere apparaten hebt, samen op één plek.",
+        ja: "Pixel Watchをお持ちの場合、健康データは特定の経路をたどります。デバイスがデータを記録し、Fitbit（PixelにおけるGoogleの健康アプリ）に同期します。FitbitはそれをAndroidの集中リポジトリであるHealth Connectに書き込みます。Health Connectから、承認された任意のアプリがデータを読み取れます。FitMesh Syncもその一つです。指標を収集し、ウェブダッシュボードに表示し、他のデバイスがあれば一か所にまとめます。",
+        ko: "Pixel Watch가 있다면, 건강 데이터는 특정 경로를 따릅니다. 기기가 데이터를 기록하고 Fitbit(Pixel의 Google 건강 앱)에 동기화합니다. Fitbit은 이를 Android의 중앙 저장소인 Health Connect에 씁니다. Health Connect에서 승인된 모든 앱이 데이터를 읽을 수 있습니다. FitMesh Sync도 그중 하나입니다. 지표를 수집하고, 웹 대시보드에 표시하며, 다른 기기가 있으면 한 곳으로 통합합니다.",
       },
     },
     {
@@ -200,6 +260,9 @@ export const post: BlogPost = {
         fr: "Comment les donnees de la Pixel Watch arrivent dans Health Connect",
         pl: "Jak dotarują dane z Pixel Watch do Health Connect",
         tr: "Nasıl Pixel Watch verileri Health Connect'a ulaşıyorlar",
+        nl: "Hoe Pixel Watch-gegevens Health Connect bereiken",
+        ja: "Pixel WatchのデータがHealth Connectに届く仕組み",
+        ko: "Pixel Watch 데이터가 Health Connect에 도달하는 방법",
       },
     },
     {
@@ -213,6 +276,9 @@ export const post: BlogPost = {
         fr: "La Pixel Watch fonctionne sous Wear OS et utilise Fitbit comme plateforme principale pour enregistrer les metriques de sante. L'application Fitbit sur Android a l'autorisation d'ecrire dans Health Connect: cela signifie que chaque synchronisation entre votre Pixel Watch et votre telephone apporte les donnees dans le referentiel commun d'Android.",
         pl: "Rozwiązanie działa z Wear OS i wykorzystuje Fitbit jako główną platformę do rejestracji metryk zdrowia. Aplikacja Fitbit na Android ma uprawnienia do zapisu w Health Connect: co oznacza, że każda synchronizacja między Twoim Pixel Watch a telefonem przekazuje dane do wspólnego magazynu Android.",
         tr: "KVKK Pixel Watch ile çalışır ve sağlık metriklerini kaydetmek için ana platform olarak Fitbit kullanır. Uygulama Fitbit'ün Android üzerindeki izinleri şunları içerir: yazma erişimi: bu, Pixel Watch'inizin telefonuna bağlandığında verilerin genel Android deposuna taşınması anlamına gelir.",
+        nl: "Pixel Watch draait op Wear OS en gebruikt Fitbit als primair platform voor het vastleggen van gezondheidsgegevens. De Fitbit-app op Android heeft toestemming om naar Health Connect te schrijven: dit betekent dat elke synchronisatie tussen jouw Pixel Watch en telefoon de gegevens ook naar de gemeenschappelijke opslagplaats van Android brengt.",
+        ja: "Pixel WatchはWear OSで動作し、健康指標の記録にFitbitをメインプラットフォームとして使用しています。AndroidのFitbitアプリはHealth Connectへの書き込み権限を持っています。これは、Pixel Watchとスマートフォンが同期するたびに、データがAndroidの共有リポジトリにも取り込まれることを意味します。",
+        ko: "Pixel Watch는 Wear OS에서 실행되며 건강 지표 기록을 위한 기본 플랫폼으로 Fitbit을 사용합니다. Android의 Fitbit 앱은 Health Connect에 쓰기 권한을 가지고 있습니다. 이는 Pixel Watch와 휴대폰이 동기화될 때마다 데이터가 Android의 공통 저장소에도 저장됨을 의미합니다.",
       },
     },
     {
@@ -227,6 +293,9 @@ export const post: BlogPost = {
         fr: "Le chemin des donnees en bref",
         pl: "Synteza trasy danych",
         tr: "Verişim verilerinin yolculuğu özetlebilir olarak:",
+        nl: "Het datapad in het kort",
+        ja: "データの流れを簡単に説明",
+        ko: "데이터 경로 간략 요약",
       },
       body: {
         it: "Pixel Watch registra i dati sul dispositivo. L'app Fitbit su Android li sincronizza. Fitbit scrive in Health Connect. FitMesh Sync legge da Health Connect con il tuo permesso e li visualizza nella dashboard.",
@@ -237,6 +306,9 @@ export const post: BlogPost = {
         fr: "La Pixel Watch enregistre les donnees sur l'appareil. L'application Fitbit sur Android les synchronise. Fitbit ecrit dans Health Connect. FitMesh Sync lit dans Health Connect avec votre autorisation et les affiche dans le tableau de bord.",
         pl: "Pixel Watch rejestruje dane na urządzeniu. Aplikacja Fitbit na Android synchronizuje je. Fitbit zapisuje w Health Connect. FitMesh Sync odczytuje z Health Connect z Twojej zgody i wyświetla je na panelu głównym.",
         tr: "Pixel Watch veriler cihazda kaydeder. Uygulama Fitbit üzerinde Android üzerinden bu verileri synkronlaştırır. Fitbit Health Connect'den okuyar. FitMesh Syncizin verdiğiniz takdirde Health Connect'den verileri okuyup panelde gösterir.",
+        nl: "Pixel Watch registreert gegevens op het apparaat. De Fitbit-app op Android synchroniseert ze. Fitbit schrijft naar Health Connect. FitMesh Sync leest met jouw toestemming uit Health Connect en toont ze in het dashboard.",
+        ja: "Pixel Watchがデバイス上でデータを記録します。AndroidのFitbitアプリがそれを同期します。FitbitがHealth Connectに書き込みます。FitMesh Syncがあなたの許可のもとHealth Connectからデータを読み取り、ダッシュボードに表示します。",
+        ko: "Pixel Watch가 기기에 데이터를 기록합니다. Android의 Fitbit 앱이 동기화합니다. Fitbit이 Health Connect에 씁니다. FitMesh Sync가 귀하의 허가로 Health Connect에서 읽어 대시보드에 표시합니다.",
       },
     },
     {
@@ -251,6 +323,9 @@ export const post: BlogPost = {
         fr: "Ce qui fonctionne aujourd'hui: les metriques disponibles",
         pl: "Czego działa dzisiaj: dostępne metryki",
         tr: "Bugün ne çalışıyor: mevcut metrikler",
+        nl: "Wat vandaag werkt: de beschikbare meetwaarden",
+        ja: "現在対応している機能：利用可能な指標",
+        ko: "현재 작동하는 기능: 사용 가능한 지표",
       },
     },
     {
@@ -264,6 +339,9 @@ export const post: BlogPost = {
         fr: "Health Connect dispose d'une liste precise de types de donnees que les applications peuvent lire et ecrire. La Pixel Watch, via Fitbit, ecrit correctement les metriques suivantes que FitMesh Sync peut collecter et afficher:",
         pl: "Health Connect mał jak dokładny wymiar typów danych, które mogą czytać i pisać aplikacje. Pixel Watch, poprzez Fitbit, poprawnie zapisuje następujące metryki, które FitMesh Sync może zbierać i prezentować:",
         tr: "Health Connect, uygulamaların okuyup yazabileceği veri türlerinin kesin bir listesine sahiptir. Pixel Watch, Fitbit aracılığıyla FitMesh Sync'in toplayıp gösterebileceği aşağıdaki metrikleri doğru şekilde kaydeder:",
+        nl: "Health Connect heeft een precieze lijst van gegevenstypen die apps kunnen lezen en schrijven. Pixel Watch schrijft via Fitbit correct de volgende meetwaarden die FitMesh Sync kan verzamelen en weergeven:",
+        ja: "Health Connectには、アプリが読み書きできるデータタイプの正確なリストがあります。Pixel WatchはFitbitを通じて、FitMesh Syncが収集・表示できる以下の指標を正しく書き込みます。",
+        ko: "Health Connect에는 앱이 읽고 쓸 수 있는 데이터 유형의 정확한 목록이 있습니다. Pixel Watch는 Fitbit을 통해 FitMesh Sync가 수집하고 표시할 수 있는 다음 지표를 올바르게 씁니다.",
       },
     },
     {
@@ -277,6 +355,9 @@ export const post: BlogPost = {
         fr: "Metriques Pixel Watch disponibles via Health Connect",
         pl: "Metryki Pixel Watch dostępne przez Health Connect",
         tr: "Metrikler Pixel Watch ile Health Connect üzerinden kullanılabilir",
+        nl: "Pixel Watch-meetwaarden beschikbaar via Health Connect",
+        ja: "Health Connect経由で利用可能なPixel Watch指標",
+        ko: "Health Connect를 통해 사용 가능한 Pixel Watch 지표",
       },
       headers: {
         it: ["Metrica", "Disponibile", "Note"],
@@ -295,6 +376,9 @@ export const post: BlogPost = {
           "Mevcut",
           "Notel",
         ],
+        nl: ["Meetwaarde", "Beschikbaar", "Opmerkingen"],
+        ja: ["指標", "利用可能", "備考"],
+        ko: ["지표", "사용 가능", "참고"],
       },
       rows: [
         {
@@ -314,6 +398,9 @@ export const post: BlogPost = {
             "Eğer",
             "Adım sayısını tam ve güncel bir şekilde gün boyunca kaydedin",
           ],
+          nl: ["Dagelijkse stappen", "Ja", "Volledig stappentelling, gedurende de dag bijgewerkt"],
+          ja: ["1日の歩数", "はい", "完全な歩数カウント、1日を通じて更新"],
+          ko: ["일일 걸음 수", "예", "전체 걸음 수 집계, 하루 동안 업데이트됨"],
         },
         {
           it: ["Frequenza cardiaca", "Si", "Campionamenti continui e valori a riposo"],
@@ -332,6 +419,9 @@ export const post: BlogPost = {
             "Eğer",
             "Devam eden campümler ve dinamik değerler",
           ],
+          nl: ["Hartslag", "Ja", "Continue metingen en rustwaarden"],
+          ja: ["心拍数", "はい", "継続的なサンプルと安静時の値"],
+          ko: ["심박수", "예", "연속 측정값 및 안정 시 값"],
         },
         {
           it: ["Sonno", "Si", "Ore totali e fasi (leggero, profondo, REM) se registrate"],
@@ -350,6 +440,9 @@ export const post: BlogPost = {
             "Eğer",
             "Toplam saatler ve aşamalar (REM, akıç, derin) kaydedildi",
           ],
+          nl: ["Slaap", "Ja", "Totale uren en fasen (licht, diep, REM) indien geregistreerd"],
+          ja: ["睡眠", "はい", "合計時間とフェーズ（浅い、深い、REM）が記録された場合"],
+          ko: ["수면", "예", "총 시간 및 단계(얕은 수면, 깊은 수면, REM) 기록된 경우"],
         },
         {
           it: ["Calorie", "Si", "Calorie totali giornaliere (attive + basali)"],
@@ -368,6 +461,9 @@ export const post: BlogPost = {
             "Eğer",
             "Günlük toplam kaloriler (__FM_PH_0__ + temel__) __FM_HTML_0__",
           ],
+          nl: ["Calorieën", "Ja", "Totale dagelijkse calorieën (actief + basaal)"],
+          ja: ["カロリー", "はい", "1日の総カロリー（活動分＋基礎代謝）"],
+          ko: ["칼로리", "예", "일일 총 칼로리(활동 + 기초대사)"],
         },
         {
           it: ["Attivita GPS dettagliate", "No", "Le rotte GPS non transitano via Health Connect"],
@@ -386,6 +482,9 @@ export const post: BlogPost = {
             "No",
             "Le rotiller GPS geçmiyor Health Connect aracılığıyla",
           ],
+          nl: ["Gedetailleerde GPS-activiteiten", "Nee", "GPS-routes gaan niet via Health Connect"],
+          ja: ["詳細なGPSアクティビティ", "いいえ", "GPSルートはHealth Connectを経由しません"],
+          ko: ["상세 GPS 활동", "아니오", "GPS 경로는 Health Connect를 통과하지 않음"],
         },
       ],
     },
@@ -401,6 +500,9 @@ export const post: BlogPost = {
         fr: "La limite honnete sur les activites GPS",
         pl: "Limit rodo na działalności GPS",
         tr: "Sınıflandırma gerçekçi olarak belirlenen faaliyetler GPS",
+        nl: "De eerlijke beperking voor GPS-activiteiten",
+        ja: "GPSアクティビティに関する正直な制限",
+        ko: "GPS 활동에 관한 솔직한 한계",
       },
       body: {
         it: "Se fai una corsa o un'uscita in bici con il Pixel Watch, la traccia GPS completa e i dettagli dell'attività rimangono su Fitbit ma non transitano in Health Connect (a giugno 2026). FitMesh Sync vedrà la durata e le calorie dell'attività, ma non il percorso né i dati di potenza o cadenza. Questo non è un limite di FitMesh: è come funziona Health Connect oggi per questo tipo di dati.",
@@ -411,6 +513,9 @@ export const post: BlogPost = {
         fr: "Si vous partez courir ou faire du velo avec la Pixel Watch, la trace GPS complete et les details de l'activite restent sur Fitbit mais ne passent pas par Health Connect (en juin 2026). FitMesh Sync verra la duree et les calories de l'activite, mais pas le parcours ni les donnees de puissance ou de cadence. Ce n'est pas une limite de FitMesh: c'est ainsi que fonctionne Health Connect aujourd'hui pour ce type de donnees.",
         pl: "Je korzystając z Pixel Watch podczas biegu lub jazdy na rowerze, ścieżka GPS jest kompletna i szczegóły aktywności pozostają w Fitbit, ale nie przekształcają się do Health Connect (do czerwca 2026). FitMesh Sync zna trwałość i kalorie spalone podczas aktywności, ale nie ścieżkę ani dane mocy ani częstotliwości. To nie jest ograniczenie FitMesh: to jak działa Health Connect dzisiaj dla tych rodzajów danych.",
         tr: "Se bir koşusu ya da bisiklet yürüyüşü yaparsınız Pixel Watch ile, izlenen GPS tamam ve faizli etkinlik detayları Fitbit üzerinde kalır ancak transit etmez Health Connect (Haziran 2026'a kadar). FitMesh Sync etkinliğin süresini ve yakılan kalorileri görecektir, ancak yolu veya güç ya da hız verilerini göremez. Bu, FitMesh'in bir sınırı değildir: bu tür veriler için bugün nasıl işlediği gibi Health Connect'de işlemektedir.",
+        nl: "Als je een ren of fietstocht maakt met Pixel Watch, blijft de volledige GPS-track en activiteitsdetails in Fitbit maar gaan ze niet via Health Connect (per juni 2026). FitMesh Sync ziet de activiteitsduur en calorieën, maar niet de route of vermogen- en cadensgegevens. Dit is geen beperking van FitMesh: het is hoe Health Connect vandaag werkt voor dit type gegevens.",
+        ja: "Pixel Watchでランニングやサイクリングをした場合、完全なGPSトラックとアクティビティの詳細は2026年6月時点ではFitbitに残り、Health Connectを経由しません。FitMesh Syncはアクティビティの時間とカロリーを確認できますが、ルートやパワー・ケイデンスデータは確認できません。これはFitMeshの制限ではなく、この種のデータに対する現在のHealth Connectの仕様です。",
+        ko: "Pixel Watch로 달리기나 자전거 타기를 할 경우, 전체 GPS 트랙과 활동 세부 정보는 2026년 6월 기준 Fitbit에 남아 있으며 Health Connect를 통과하지 않습니다. FitMesh Sync는 활동 시간과 칼로리를 볼 수 있지만 경로나 파워 및 케이던스 데이터는 볼 수 없습니다. 이는 FitMesh의 한계가 아닙니다. 이 유형의 데이터에 대해 현재 Health Connect가 작동하는 방식입니다.",
       },
     },
     {
@@ -425,6 +530,9 @@ export const post: BlogPost = {
         fr: "Fusionner la Pixel Watch avec vos autres appareils",
         pl: "Połączyć Pixel Watch z innymi Twoimi urządzeniami",
         tr: "Diğer😉 cihazlara Pixel Watch'i birleştirin",
+        nl: "Pixel Watch samenvoegen met je andere apparaten",
+        ja: "Pixel Watchを他のデバイスと統合する",
+        ko: "Pixel Watch를 다른 기기와 통합하기",
       },
     },
     {
@@ -438,6 +546,9 @@ export const post: BlogPost = {
         fr: "Beaucoup de personnes utilisent plus d'un appareil: peut-etre une Pixel Watch pendant la journee et une bague connectee la nuit pour le sommeil, ou la montre connectee en semaine et un autre appareil le week-end. Le probleme classique est que chaque application n'affiche que ses propres donnees. FitMesh Sync resout cela: il lit depuis Health Connect et d'autres sources autorisees, puis affiche tout dans le meme tableau de bord.",
         pl: "Wiele osób używa wielu urządzeń: może na przykład Pixel Watch podczas dnia i pętelkę smart w nocy do śledzenia snu, lub smartwatch w tygodniu oraz inną instalację w weekendy. Klasyka problemu polega na tym, że każda aplikacja pokazuje tylko swoje dane. FitMesh Sync rozwiązuje to: czyta z Health Connect i innych zaufanych źródeł, a następnie prezentuje wszystko w jednej panelu nawigacyjnym.",
         tr: "Çoğu kişi birden fazla cihaz kullanıyor: belki bir Pixel Watch gün içinde ve uyku için bir giyilebilir cihaz smart aksesuarı, veya hafta içi akıllı saat ve haftasonu başka bir cihaz. Klasik sorun her uygulama sadece kendi verilerini göstermesidir. FitMesh Sync bu soruyu çözer: verileri Health Connect ve diğer yetkili kaynaklardan okur, sonra aynı panelde gösterir.",
+        nl: "Veel mensen gebruiken meer dan één apparaat: misschien een Pixel Watch overdag en een slimme ring 's nachts voor de slaap, of een smartwatch door de week en een ander apparaat in het weekend. Het klassieke probleem is dat elke app alleen zijn eigen gegevens toont. FitMesh Sync lost dit op: het leest van Health Connect en andere gemachtigde bronnen en toont vervolgens alles in hetzelfde dashboard.",
+        ja: "多くの人が複数のデバイスを使っています。日中はPixel Watch、夜は睡眠のためにスマートリング、あるいは平日はスマートウォッチで週末は別のデバイスといった具合です。典型的な問題は各アプリが自分のデータしか表示しないことです。FitMesh Syncはこれを解決します。Health Connectと他の承認されたソースから読み取り、同じダッシュボードにすべてを表示します。",
+        ko: "많은 사람들이 여러 기기를 사용합니다. 낮에는 Pixel Watch를, 밤에는 수면을 위해 스마트 링을 사용하거나, 평일에는 스마트워치를, 주말에는 다른 기기를 사용할 수 있습니다. 고전적인 문제는 각 앱이 자체 데이터만 표시한다는 것입니다. FitMesh Sync가 이를 해결합니다. Health Connect와 다른 승인된 소스에서 읽어 같은 대시보드에 모두 표시합니다.",
       },
     },
     {
@@ -451,6 +562,9 @@ export const post: BlogPost = {
         fr: "Sans FitMesh Sync",
         pl: "Bez FitMesh Sync",
         tr: "Tanpa FitMesh Sync",
+        nl: "Zonder FitMesh Sync",
+        ja: "FitMesh Syncなし",
+        ko: "FitMesh Sync 없이",
       },
       aItems: {
         it: [
@@ -501,6 +615,24 @@ export const post: BlogPost = {
           "Herapp gösteriyor sadece kendi cihazını",
           "Giyilebilir cihazlar arasında verileri karşılaştırmak için farklı uygulamaları açmanız gerekmektedir.",
         ],
+        nl: [
+          "Pixel Watch-stappen staan in de Fitbit-app",
+          "Slaapgegevens van de slimme ring staan in de eigen app",
+          "Elke app toont alleen zijn eigen apparaat",
+          "Gegevens vergelijken tussen apparaten vereist het openen van verschillende apps",
+        ],
+        ja: [
+          "Pixel Watchの歩数はFitbitアプリに表示される",
+          "スマートリングの睡眠データは専用アプリに表示される",
+          "各アプリは自分のデバイスのデータしか表示しない",
+          "デバイス間でデータを比較するには異なるアプリを開く必要がある",
+        ],
+        ko: [
+          "Pixel Watch 걸음 수는 Fitbit 앱에 있음",
+          "스마트 링 수면 데이터는 전용 앱에 있음",
+          "각 앱은 자체 기기 데이터만 표시함",
+          "기기 간 데이터 비교를 위해 여러 앱을 열어야 함",
+        ],
       },
       bTitle: {
         it: "Con FitMesh Sync",
@@ -511,6 +643,9 @@ export const post: BlogPost = {
         fr: "Avec FitMesh Sync",
         pl: "Z FitMesh Sync",
         tr: "Con FitMesh Sync",
+        nl: "Met FitMesh Sync",
+        ja: "FitMesh Syncあり",
+        ko: "FitMesh Sync 사용 시",
       },
       bItems: {
         it: [
@@ -561,6 +696,24 @@ export const post: BlogPost = {
           "Tarihçe, farklı uygulamalar açılmadan tarayıcıdan görüntülenebilir",
           "Eğer veriler çakışmaktadır (aynı gün, aynı tür), FitMesh eşlik edenleri yönetir",
         ],
+        nl: [
+          "Stappen, hartslag, slaap en calorieën van alle apparaten in één paneel",
+          "Pixel Watch- en slimme ring-gegevens naast elkaar op hetzelfde scherm",
+          "Geschiedenis toegankelijk via browser, zonder verschillende apps te openen",
+          "Als gegevens overlappen (zelfde dag, zelfde type), beheert FitMesh duplicaten",
+        ],
+        ja: [
+          "すべてのデバイスの歩数、心拍数、睡眠、カロリーを1つのパネルに集約",
+          "Pixel Watchとスマートリングのデータを同じ画面で並べて表示",
+          "ブラウザから履歴にアクセス可能、別のアプリを開く必要なし",
+          "データが重複する場合（同日、同タイプ）、FitMeshが重複を処理",
+        ],
+        ko: [
+          "모든 기기의 걸음 수, 심박수, 수면, 칼로리를 하나의 패널에",
+          "같은 화면에 Pixel Watch와 스마트 링 데이터를 나란히 표시",
+          "다른 앱을 열지 않고 브라우저에서 기록에 접근 가능",
+          "데이터가 겹치는 경우(같은 날, 같은 유형), FitMesh가 중복을 처리",
+        ],
       },
     },
     {
@@ -575,6 +728,9 @@ export const post: BlogPost = {
         fr: "Comment connecter la Pixel Watch a FitMesh Sync: les etapes",
         pl: "Spospolite Pixel Watch do FitMesh Sync: kroki",
         tr: "Giyilebilir cihazınızı FitMesh Sync ile bağlamak için adımlar:",
+        nl: "Pixel Watch verbinden met FitMesh Sync: de stappen",
+        ja: "Pixel WatchをFitMesh Syncに接続する方法：手順",
+        ko: "Pixel Watch를 FitMesh Sync에 연결하는 방법: 단계",
       },
     },
     {
@@ -645,6 +801,30 @@ export const post: BlogPost = {
           "Sonra izin verdiğinizde, profil paneliniz tarihsel olarak mevcut olan Health Connect verileriyle doldurulur.",
           "Eğer başka&display_name=(bir giyilebilir cihaz, ikinci akıllı saat) varsa, bunları aynı panelden ekleyebilirsiniz: veriler birlikte gösterilip gösterilmeyecektir.",
         ],
+        nl: [
+          "Zorg ervoor dat de Fitbit-app op je Android-telefoon is bijgewerkt en dat Pixel Watch regelmatig synchroniseert.",
+          "Open de telefooninstellingen en zoek naar 'Health Connect'. Controleer of Fitbit in de lijst met apps met schrijftoegang staat.",
+          "Download FitMesh Sync uit de Google Play Store en maak je account aan.",
+          "Bij de eerste start vraagt FitMesh toestemming om te lezen van Health Connect. Verleen toestemming voor de meetwaarden die je wilt zien: stappen, hartslag, slaap, calorieën.",
+          "Na autorisatie wordt je dashboard gevuld met historische gegevens die beschikbaar zijn in Health Connect.",
+          "Als je andere apparaten hebt (een slimme ring, een tweede smartwatch), kun je ze toevoegen vanuit hetzelfde paneel: de gegevens worden samen getoond.",
+        ],
+        ja: [
+          "AndroidスマートフォンのFitbitアプリが更新されており、Pixel Watchが定期的に同期していることを確認してください。",
+          "スマートフォンの設定を開き、「Health Connect」を検索します。FitbitがHealth Connectへの書き込みアクセス権を持つアプリのリストにあることを確認してください。",
+          "Google Play StoreからFitMesh Syncをダウンロードし、アカウントを作成します。",
+          "初回起動時に、FitMeshはHealth Connectからの読み取り許可を求めます。表示したい指標（歩数、心拍数、睡眠、カロリー）の許可を付与してください。",
+          "承認後、ダッシュボードにHealth Connectで利用可能な過去のデータが表示されます。",
+          "他のデバイス（スマートリング、2台目のスマートウォッチ）がある場合は、同じパネルから追加できます。データは一緒に表示されます。",
+        ],
+        ko: [
+          "Android 휴대폰의 Fitbit 앱이 업데이트되어 있고 Pixel Watch가 정기적으로 동기화되는지 확인하세요.",
+          "휴대폰 설정을 열고 'Health Connect'를 검색하세요. Fitbit이 쓰기 액세스 권한을 가진 앱 목록에 있는지 확인하세요.",
+          "Google Play Store에서 FitMesh Sync를 다운로드하고 계정을 만드세요.",
+          "첫 실행 시 FitMesh가 Health Connect 읽기 권한을 요청합니다. 보고 싶은 지표(걸음 수, 심박수, 수면, 칼로리)에 대한 권한을 부여하세요.",
+          "승인 후 대시보드에 Health Connect에서 사용 가능한 과거 데이터가 채워집니다.",
+          "다른 기기(스마트 링, 두 번째 스마트워치)가 있다면 같은 패널에서 추가할 수 있습니다. 데이터는 함께 표시됩니다.",
+        ],
       },
     },
     {
@@ -659,6 +839,9 @@ export const post: BlogPost = {
         fr: "Confidentialite: vos donnees restent les votres",
         pl: "prywatność: Twoje dane pozostają Twoimi",
         tr: "Gizlilik: verileriniz kendi sizin kalır",
+        nl: "Privacy: jouw gegevens blijven van jou",
+        ja: "プライバシー：あなたのデータはあなたのもの",
+        ko: "개인정보 보호: 귀하의 데이터는 귀하의 것",
       },
     },
     {
@@ -672,6 +855,9 @@ export const post: BlogPost = {
         fr: "FitMesh Sync lit les donnees de Health Connect avec les autorisations explicites que vous accordez lors de l'installation. Il ne vend pas votre historique, ne l'utilise pas pour la publicite, ne le partage pas avec des tiers. Le tableau de bord est le votre: il est la pour vous donner une vision claire de vos donnees, pas pour les monetiser.",
         pl: "FitMesh Sync odczytuje dane z Health Connect na podstawie wyraźnie udzielonych przez Ciebie uprawnień. Nie sprzedaje historii, nie korzysta z niej do celów reklamowych i nie udostępnia jej trzecim stronom. Panel sterowania jest Twoje: służy do zapewnienia Ci jasnego obrazu Twoich danych, a nie do ich monetyzacji.",
         tr: "FitMesh Sync verileri Health Connect ile açık şekilde verdiğiniz izinlerle okuyor. Geçmiş satmayı yapmıyor, reklam için kullanmıyor ve üçüncü taraflarla paylaşıyor değil. Panel senin için: verilerinize net bir bakış açısı sağlar, bunları monetize etmez.",
+        nl: "FitMesh Sync leest gegevens van Health Connect met de expliciete toestemmingen die je bij de installatie verleent. Het verkoopt jouw geschiedenis niet, gebruikt het niet voor advertenties en deelt het niet met derden. Het dashboard is van jou: het is er om je een duidelijk beeld van jouw gegevens te geven, niet om ze te monetariseren.",
+        ja: "FitMesh Syncはインストール時に付与した明示的な許可のもとHealth Connectからデータを読み取ります。履歴を販売せず、広告に使用せず、第三者と共有しません。ダッシュボードはあなたのものです。あなたのデータを明確に把握するためのものであり、収益化するためのものではありません。",
+        ko: "FitMesh Sync는 설치 시 부여한 명시적 권한으로 Health Connect에서 데이터를 읽습니다. 귀하의 기록을 판매하지 않고, 광고에 사용하지 않으며, 제3자와 공유하지 않습니다. 대시보드는 귀하의 것입니다. 귀하의 데이터를 명확하게 보여주기 위한 것이지, 수익화를 위한 것이 아닙니다.",
       },
     },
     {
@@ -685,6 +871,9 @@ export const post: BlogPost = {
         fr: "Vous souhaitez essayer le tableau de bord avec les donnees de votre Pixel Watch?",
         pl: "Czy chcesz spróbować panelu dashbard z danymi Twojego Pixel Watch?",
         tr: "İstediğinizde Pixel Watch verilerle deneme panelini deneyebilirsiniz?",
+        nl: "Wil je het dashboard uitproberen met jouw Pixel Watch-gegevens?",
+        ja: "Pixel Watchのデータでダッシュボードを試してみませんか？",
+        ko: "Pixel Watch 데이터로 대시보드를 사용해 보시겠습니까?",
       },
       body: {
         it: "FitMesh Sync è in fase fondatore: accesso anticipato, prezzo bloccato a vita, possibilità di dare forma al prodotto. Se hai un Pixel Watch (o qualsiasi dispositivo che scrive su Health Connect) e vuoi una dashboard web personale, questo è il momento.",
@@ -695,6 +884,9 @@ export const post: BlogPost = {
         fr: "FitMesh Sync est en phase fondateur: acces anticipe, prix bloque a vie, possibilite de contribuer a la forme du produit. Si vous avez une Pixel Watch (ou tout appareil qui ecrit dans Health Connect) et souhaitez un tableau de bord web personnel, c'est le moment.",
         pl: "FitMesh Sync jest w fazie foundera: dostęp przedwcześni, cena zablokowana na całe życie, szansa na kształtowanie produktu. Jeśli masz Pixel Watch (lub dowolny urządzenie piszące do Health Connect) i chcesz osobistą panelową widokówkę, to teraz jest idealnie.",
         tr: "FitMesh Sync KVKK'da: erken erişim, fiyat hayat boyu sabit kalmış, ürününüzü şekillendirebilmeniz mümkün. Eğer Pixel Watch'ye sahipsiniz (veya herhangi bir Health Connect cihazına yazan herhangi bir cihaz) ve kişiselleştirilmiş bir web pанelini istiyorsunuz, bu an idealdir.",
+        nl: "FitMesh Sync is in de oprichterfase: vroege toegang, levenslang vastgestelde prijs, kans om het product te vormgeven. Als je een Pixel Watch hebt (of een apparaat dat naar Health Connect schrijft) en een persoonlijk webdashboard wilt, is dit het moment.",
+        ja: "FitMesh Syncはファウンダーフェーズです。早期アクセス、生涯固定価格、製品を形作るチャンス。Pixel Watch（またはHealth Connectに書き込む任意のデバイス）をお持ちで、個人ウェブダッシュボードをお望みなら、今がその時です。",
+        ko: "FitMesh Sync는 파운더 단계입니다. 얼리 액세스, 평생 고정 가격, 제품을 만들어갈 기회. Pixel Watch(또는 Health Connect에 쓰는 모든 기기)가 있고 개인 웹 대시보드를 원한다면, 지금이 그 순간입니다.",
       },
       ctaLabel: {
         it: "Entra come fondatore",
@@ -705,6 +897,9 @@ export const post: BlogPost = {
         fr: "Rejoindre en tant que fondateur",
         pl: "Wejście jako founder",
         tr: "Giriş yap kurucu olarak",
+        nl: "Doe mee als oprichter",
+        ja: "ファウンダーとして参加する",
+        ko: "파운더로 참여하기",
       },
       ctaHref: {
         it: "/it/beta",
@@ -727,6 +922,9 @@ export const post: BlogPost = {
         fr: "La Pixel Watch ecrit-elle automatiquement dans Health Connect?",
         pl: "Czy Pixel Watch zapisuje się automatycznie w Health Connect?",
         tr: "Pixel Watch KVKK'ye otomatik olarak uygular mı?\nGiyilebilir cihazlarda Health Connect kaydı yapar mı?",
+        nl: "Schrijft Pixel Watch automatisch naar Health Connect?",
+        ja: "Pixel WatchはHealth Connectに自動的に書き込みますか？",
+        ko: "Pixel Watch는 Health Connect에 자동으로 씁니까?",
       },
       a: {
         it: "Si, tramite l'app Fitbit. Quando il Pixel Watch si sincronizza con il telefono Android e Fitbit ha il permesso di scrittura su Health Connect abilitato, passi, frequenza cardiaca, sonno e calorie vengono scritti nel repository condiviso. Puoi verificare questo dalle Impostazioni del telefono cercando 'Health Connect' e controllando i permessi dell'app Fitbit.",
@@ -737,6 +935,9 @@ export const post: BlogPost = {
         fr: "Oui, via l'application Fitbit. Lorsque la Pixel Watch se synchronise avec le telephone Android et que Fitbit dispose de l'autorisation d'ecriture dans Health Connect activee, les pas, la frequence cardiaque, le sommeil et les calories sont ecrits dans le referentiel partage. Vous pouvez le verifier depuis les Parametres du telephone en recherchant 'Health Connect' et en verifiant les autorisations de l'application Fitbit.",
         pl: "Tak, poprzez aplikację Fitbit. Gdy Pixel Watch synchronizuje się z telefonem Android i Fitbit ma włączony dopuszczający zapis do Health Connect, kroki, częstotliwość serca, sen i kalorie są zapisywane w udostępnionym magazynie. Możesz sprawdzić to w Ustawieniach telefonu wyszukując 'Health Connect' i sprawdzając uprawnienia aplikacji Fitbit.",
         tr: "Evet, bu işlem Fitbit aracılığıyla gerçekleşir. Pixel Watch cihazınızın telefon Android ile ve Fitbit'ün Health Connect üzerinde yazma izni aktive edilmiş olduğunda, adımlar, kalp atış hızı, uyku ve kaloriler bu paylaşılan depoya kaydedilir. Bu bilgileri kontrol etmek için telefonun Ayarları'nda 'Health Connect' arayarak ve Fitbit uygulamasının izinlerini kontrol edebilirsiniz.",
+        nl: "Ja, via de Fitbit-app. Wanneer Pixel Watch synchroniseert met de Android-telefoon en Fitbit schrijftoegang tot Health Connect heeft ingeschakeld, worden stappen, hartslag, slaap en calorieën naar de gedeelde opslagplaats geschreven. Je kunt dit verifiëren via de telefooninstellingen door te zoeken naar 'Health Connect' en de Fitbit-app-machtigingen te controleren.",
+        ja: "はい、Fitbitアプリを通じて行われます。Pixel WatchがAndroidスマートフォンと同期し、FitbitがHealth Connectへの書き込み許可が有効になっていると、歩数、心拍数、睡眠、カロリーが共有リポジトリに書き込まれます。スマートフォンの設定から「Health Connect」を検索し、Fitbitアプリの権限を確認することで検証できます。",
+        ko: "네, Fitbit 앱을 통해 이루어집니다. Pixel Watch가 Android 휴대폰과 동기화되고 Fitbit이 Health Connect에 쓰기 권한을 활성화한 경우, 걸음 수, 심박수, 수면, 칼로리가 공유 저장소에 기록됩니다. 휴대폰 설정에서 'Health Connect'를 검색하고 Fitbit 앱 권한을 확인하여 이를 확인할 수 있습니다.",
       },
     },
     {
@@ -749,6 +950,9 @@ export const post: BlogPost = {
         fr: "Puis-je voir les courses GPS de la Pixel Watch sur FitMesh?",
         pl: "Czy mogę zobaczyć wyścigi GPS z Pixel Watch na FitMesh?",
         tr: "Görüyorum ki GPS Pixel Watch'in FitMesh'da yarışmalar __FM_PH_0__.",
+        nl: "Kan ik Pixel Watch GPS-runs zien op FitMesh?",
+        ja: "FitMeshでPixel WatchのGPSランを見ることはできますか？",
+        ko: "FitMesh에서 Pixel Watch GPS 달리기를 볼 수 있나요?",
       },
       a: {
         it: "Le attività GPS dettagliate (traccia completa del percorso, velocità, dati di potenza) non transitano via Health Connect a giugno 2026: rimangono nell'ecosistema Fitbit. FitMesh vedrà l'attività come evento (durata, calorie, tipo di sport) ma non la rotta GPS. Per visualizzare le rotte complete, l'app Fitbit rimane il punto di riferimento oggi.",
@@ -759,6 +963,9 @@ export const post: BlogPost = {
         fr: "Les activites GPS detaillees (trace complete de l'itineraire, vitesse, donnees de puissance) ne passent pas par Health Connect en juin 2026: elles restent dans l'ecosysteme Fitbit. FitMesh verra l'activite comme un evenement (duree, calories, type de sport) mais pas l'itineraire GPS. Pour afficher les itineraires complets, l'application Fitbit reste aujourd'hui le point de reference.",
         pl: "Aktywności GPS szczegółowo opisane (całkowita trasa, prędkość, dane mocy) nie przekształcają się w Health Connect do czerwca 2026: pozostają one w ekosystemie Fitbit. FitMesh zasięgnie aktywności jako zdarzenie (czas trwania, kalorie, rodzaj sportu), ale nie trasę GPS. Aby zobaczyć pełne trasy, aplikacja Fitbit pozostaje obecnie punktem odniesienia.",
         tr: "Le detaylı GPS aktiviteleri (tam yoldaşlaştırmayı, hızı, güç verilerini) Haziran 2026'dan sonraki tarihlerde Health Connect üzerinden geçmeyecektir: kalıcı ecosisteme kalmaya devam edecek. FitMesh aktivitenizi (süresi, yakılan kalori miktarı, spor türü) görecektir ancak yoldan haberdar olmayacaktır GPS. Tam yolların görüntülenmesi için hala Fitbit uygulamasının kaynak noktası olarak kullanılmaktadır.",
+        nl: "Gedetailleerde GPS-activiteiten (volledig routetrack, snelheid, vermogensdata) gaan per juni 2026 niet via Health Connect: ze blijven in het Fitbit-ecosysteem. FitMesh Sync ziet de activiteit als een gebeurtenis (duur, calorieën, sporttype) maar niet de GPS-route. Voor volledige routes blijft de Fitbit-app vandaag het referentiepunt.",
+        ja: "詳細なGPSアクティビティ（完全なルートトラック、速度、パワーデータ）は2026年6月時点でHealth Connectを経由しません。Fitbitエコシステムに残ります。FitMesh Syncはアクティビティをイベント（時間、カロリー、スポーツタイプ）として確認できますが、GPSルートは確認できません。完全なルートの表示には、現在もFitbitアプリが参照点となっています。",
+        ko: "상세 GPS 활동(전체 경로 트랙, 속도, 파워 데이터)은 2026년 6월 기준 Health Connect를 통과하지 않습니다. Fitbit 에코시스템에 남아 있습니다. FitMesh Sync는 활동을 이벤트(시간, 칼로리, 스포츠 유형)로 볼 수 있지만 GPS 경로는 볼 수 없습니다. 전체 경로를 보려면 현재 Fitbit 앱이 기준점입니다.",
       },
     },
     {
@@ -771,6 +978,9 @@ export const post: BlogPost = {
         fr: "Cela fonctionne-t-il si j'ai a la fois une Pixel Watch et une bague connectee?",
         pl: "Czy działa zarówno przy Pixel Watch, jak i smartbandzie?",
         tr: "Functiyon eğer hem bir Pixel Watch hem de akıllı ağıb olursam da mı?",
+        nl: "Werkt het als ik zowel een Pixel Watch als een slimme ring heb?",
+        ja: "Pixel Watchとスマートリングの両方を持っている場合でも動作しますか？",
+        ko: "Pixel Watch와 스마트 링을 모두 가지고 있어도 작동하나요?",
       },
       a: {
         it: "Si, ed è uno dei casi d'uso principali di FitMesh Sync. Se entrambi i dispositivi scrivono in Health Connect (il Pixel Watch via Fitbit, l'anello smart via la sua app), FitMesh legge entrambi e li mostra nella stessa dashboard. Nei giorni in cui entrambi registrano gli stessi dati (per esempio i passi), FitMesh gestisce la sovrapposizione evitando duplicati nella visualizzazione.",
@@ -781,6 +991,9 @@ export const post: BlogPost = {
         fr: "Oui, et c'est l'un des principaux cas d'utilisation de FitMesh Sync. Si les deux appareils ecrivent dans Health Connect (la Pixel Watch via Fitbit, la bague connectee via son application), FitMesh lit les deux et les affiche dans le meme tableau de bord. Les jours ou les deux enregistrent les memes donnees (par exemple les pas), FitMesh gere le chevauchement pour eviter les doublons dans l'affichage.",
         pl: "Tak, i to jest jednym z głównych przypadków użycia dla FitMesh Sync. Gdy oba urządzenia piszą do Health Connect (dane Pixel Watch są wysyłane przez Fitbit, a anel smart przez swoją app), FitMesh odczytuje je oba i wyświetla w tej samej dashboard. W dniach, gdy oba zapisują te same dane (na przykład kroki), FitMesh zarządza połączeniem tych danych, unikając powtarzalnych elementów na ekranie.",
         tr: "Evet, ve bu temel kullanım durumlarından biridir. Her iki cihaz da Health Connect'da yazınca (birincil Pixel Watch'ten Fitbit'e, akıllı anello ise uygulamasından), FitMesh her ikisini okuyar ve aynı panelde gösterir. Her iki cihaz da aynı verileri kaydederken (örneğin adımlar) durunca (FitMesh), verilerin çakışmasını önler ve göstergede tekrarlardan kaçınır.",
+        nl: "Ja, en het is een van de belangrijkste gebruiksscenario's voor FitMesh Sync. Als beide apparaten naar Health Connect schrijven (Pixel Watch via Fitbit, de slimme ring via zijn app), leest FitMesh beide en toont ze in hetzelfde dashboard. Op dagen dat beide dezelfde gegevens registreren (bijvoorbeeld stappen), beheert FitMesh de overlap om duplicaten in de weergave te vermijden.",
+        ja: "はい、FitMesh Syncの主な用途の一つです。両方のデバイスがHealth Connectに書き込む場合（Pixel WatchはFitbit経由、スマートリングはそのアプリ経由）、FitMeshは両方を読み取り、同じダッシュボードに表示します。両方が同じデータ（例えば歩数）を記録する日には、FitMeshが重複を管理して表示での重複を避けます。",
+        ko: "네, FitMesh Sync의 주요 사용 사례 중 하나입니다. 두 기기 모두 Health Connect에 쓰는 경우(Pixel Watch는 Fitbit 경유, 스마트 링은 해당 앱 경유), FitMesh는 두 기기를 모두 읽어 같은 대시보드에 표시합니다. 두 기기 모두 같은 데이터(예: 걸음 수)를 기록하는 날에는 FitMesh가 겹침을 관리하여 표시에서 중복을 방지합니다.",
       },
     },
     {
@@ -793,6 +1006,9 @@ export const post: BlogPost = {
         fr: "Dois-je avoir Fitbit installe pour utiliser FitMesh avec la Pixel Watch?",
         pl: "Muszę mieć Fitbit zainstalowany, aby korzystać z FitMesh wraz z Pixel Watch?",
         tr: "Gerebilir bir cihazda Fitbit kurmam gerekiyor mu kullanarak FitMesh ile Pixel Watch kullanmak için?",
+        nl: "Moet ik Fitbit geïnstalleerd hebben om FitMesh te gebruiken met Pixel Watch?",
+        ja: "Pixel WatchでFitMeshを使うにはFitbitをインストールする必要がありますか？",
+        ko: "Pixel Watch와 함께 FitMesh를 사용하려면 Fitbit이 설치되어 있어야 하나요?",
       },
       a: {
         it: "Si, perché è Fitbit che fa da ponte tra il Pixel Watch e Health Connect. FitMesh Sync legge da Health Connect, non direttamente da Fitbit. Quindi il percorso richiede che Fitbit sia installato, sincronizzi con il Pixel Watch e abbia i permessi di scrittura su Health Connect abilitati. Una volta che questo percorso è attivo, FitMesh può leggere i dati.",
@@ -803,6 +1019,9 @@ export const post: BlogPost = {
         fr: "Oui, car c'est Fitbit qui fait le pont entre la Pixel Watch et Health Connect. FitMesh Sync lit depuis Health Connect, pas directement depuis Fitbit. Le chemin requiert donc que Fitbit soit installe, qu'il se synchronise avec la Pixel Watch et que les autorisations d'ecriture dans Health Connect soient activees. Une fois ce chemin actif, FitMesh peut lire les donnees.",
         pl: "Tak, ponieważ to jest Fitbit, które służy jako mostek między Pixel Watch a Health Connect. FitMesh Sync czyta z Health Connect, nie bezpośrednio z Fitbit. Zatem ścieżka wymaga, aby Fitbit był zainstalowany, skonfigurowany do synchronizacji z Pixel Watch i miał uprawnienia do zapisu na Health Connect. Po tym, jak ta ścieżka jest aktywna, FitMesh może czytać dane.",
         tr: "Evet, çünkü bu Fitbit Pixel Watch ve Health Connect arasında köprü görevini görür. FitMesh Sync direkt olarak Health Connect den okuyar, ancak Fitbit de bulunmalı, Pixel Watch ile senkronize olmalıdır ve Health Connect 'ye yazma yetkisi aktive edilmiş olmalıdır. Bu yoldan geçiş yapıldıktan sonra, FitMesh verileri okuyabilir.",
+        nl: "Ja, want Fitbit fungeert als brug tussen Pixel Watch en Health Connect. FitMesh Sync leest van Health Connect, niet rechtstreeks van Fitbit. Het pad vereist dus dat Fitbit geïnstalleerd is, synchroniseert met Pixel Watch en schrijftoegang tot Health Connect heeft ingeschakeld. Zodra dit pad actief is, kan FitMesh de gegevens lezen.",
+        ja: "はい。FitbitがPixel WatchとHealth Connectの橋渡しをしているからです。FitMesh SyncはFitbitからではなく、Health Connectから直接読み取ります。そのため、Fitbitがインストールされ、Pixel Watchと同期し、Health Connectへの書き込み許可が有効になっていることが必要です。このパスが有効になると、FitMeshはデータを読み取れます。",
+        ko: "네, Fitbit이 Pixel Watch와 Health Connect 사이의 다리 역할을 하기 때문입니다. FitMesh Sync는 Fitbit에서 직접 읽는 것이 아니라 Health Connect에서 읽습니다. 따라서 Fitbit이 설치되어 있고 Pixel Watch와 동기화하며 Health Connect 쓰기 권한이 활성화되어 있어야 합니다. 이 경로가 활성화되면 FitMesh가 데이터를 읽을 수 있습니다.",
       },
     },
     {
@@ -815,6 +1034,9 @@ export const post: BlogPost = {
         fr: "Combien d'historique vois-je dans le tableau de bord apres avoir connecte la Pixel Watch?",
         pl: "Jaka historia widzę w panelu after po podłączeniu Pixel Watch?",
         tr: "Kaç tarihsel veri görsem Pixel Watch bağlandıktan sonra panodala?",
+        nl: "Hoeveel geschiedenis zie ik in het dashboard na het verbinden van Pixel Watch?",
+        ja: "Pixel Watchを接続した後、ダッシュボードにどれだけの履歴が表示されますか？",
+        ko: "Pixel Watch 연결 후 대시보드에서 얼마나 많은 기록을 볼 수 있나요?",
       },
       a: {
         it: "Health Connect conserva i dati per un periodo che dipende dalle impostazioni del telefono e dallo spazio disponibile (di default 30 giorni per la maggior parte dei tipi di dati, ma configurabile fino a 3 anni). FitMesh mostra tutto ciò che Health Connect ha disponibile al momento del collegamento. Per vedere uno storico più lungo, puoi aumentare il periodo di conservazione nelle impostazioni di Health Connect prima di collegare FitMesh.",
@@ -825,6 +1047,9 @@ export const post: BlogPost = {
         fr: "Health Connect stocke les donnees pour une periode dependant des parametres du telephone et de l'espace disponible (30 jours par defaut pour la plupart des types de donnees, mais configurable jusqu'a 3 ans). FitMesh affiche tout ce que Health Connect a disponible au moment de la connexion. Pour voir un historique plus long, vous pouvez augmenter la periode de conservation dans les parametres de Health Connect avant de connecter FitMesh.",
         pl: "Health Connect zapisuje dane na czas zależny od ustawień telefonu i dostępnej przestrzeni (domyślnie 30 dni dla większości typów danych, ale konfigurowalne do 3 lat). FitMesh pokazuje wszystko, co Health Connect ma dostępne w momencie połączenia. Aby zobaczyć dłuższy historik, możesz zwiększyć okres przechowywania w ustawieniach Health Connect przed połączeniem FitMesh.",
         tr: "Health Connect veriye bir süre tutar, bu süre telefon ayarlarına ve mevcut yerel alanın bağımlılığına bağlıdır (varsayılan olarak çoğu verinin 30 gün, ancak 3 yıl kadar yapılandırılabilir). FitMesh bağlanırken Health Connect tarafından sağlanan tüm bilgiyi gösterir. daha uzun bir tarih aralığı görüntülemek için Health Connect ayarlarında bağlanmadan önce veri tutma süresini artırabilirsiniz.",
+        nl: "Health Connect bewaart gegevens gedurende een periode afhankelijk van de telefooninstellingen en beschikbare ruimte (standaard 30 dagen voor de meeste gegevenstypen, maar instelbaar tot 3 jaar). FitMesh toont alles wat Health Connect beschikbaar heeft op het moment van verbinding. Om een langere geschiedenis te zien, kun je de bewaarperiode in de Health Connect-instellingen verhogen voordat je FitMesh verbindt.",
+        ja: "Health Connectはスマートフォンの設定と利用可能なスペースに応じた期間データを保存します（ほとんどのデータタイプのデフォルトは30日ですが、最大3年まで設定可能）。FitMeshは接続時にHealth Connectで利用可能なすべてのものを表示します。より長い履歴を表示するには、FitMeshを接続する前にHealth Connectの設定で保存期間を延長できます。",
+        ko: "Health Connect는 휴대폰 설정과 사용 가능한 공간에 따른 기간 동안 데이터를 저장합니다(대부분 데이터 유형의 기본값은 30일이지만 최대 3년까지 설정 가능). FitMesh는 연결 시점에 Health Connect에서 사용 가능한 모든 것을 표시합니다. 더 긴 기록을 보려면 FitMesh를 연결하기 전에 Health Connect 설정에서 보존 기간을 늘릴 수 있습니다.",
       },
     },
     {
@@ -837,6 +1062,9 @@ export const post: BlogPost = {
         fr: "La Pixel Watch de premiere generation fonctionne-t-elle comme la deuxieme ou troisieme?",
         pl: "Czy pierwsze pokolenie Pixel Watch działa jak drugie lub trzecie?",
         tr: "İlk Pixel Watch nesneden ikinci veya üçüncü nesneye nasıl çalışır?",
+        nl: "Werkt de eerste generatie Pixel Watch hetzelfde als de tweede of derde generatie?",
+        ja: "第1世代のPixel Watchは第2世代や第3世代と同じように動作しますか？",
+        ko: "1세대 Pixel Watch는 2세대 또는 3세대와 동일하게 작동하나요?",
       },
       a: {
         it: "Per le metriche di base che passano via Health Connect (passi, frequenza cardiaca, sonno, calorie) si, il meccanismo è lo stesso. Tutte le generazioni di Pixel Watch usano Fitbit come piattaforma e scrivono in Health Connect tramite l'app Fitbit su Android. Potrebbero esserci differenze nelle metriche più avanzate disponibili su ciascun modello, ma il collegamento con FitMesh via Health Connect funziona per tutte le generazioni.",
@@ -847,6 +1075,9 @@ export const post: BlogPost = {
         fr: "Pour les metriques de base qui passent par Health Connect (pas, frequence cardiaque, sommeil, calories) oui, le mecanisme est le meme. Toutes les generations de Pixel Watch utilisent Fitbit comme plateforme et ecrivent dans Health Connect via l'application Fitbit sur Android. Il peut y avoir des differences dans les metriques plus avancees disponibles sur chaque modele, mais la connexion avec FitMesh via Health Connect fonctionne pour toutes les generations.",
         pl: "Dla podstawowych miar, które przechodzą przez Health Connect (kroki, częstotliwość serca, sen, kalorie), tak, mechanizm jest taki sam. Wszystkie generacje Pixel Watch używają Fitbit jako platformy i zapisują się w Health Connect poprzez aplikację Fitbit na Android. Mogą istnieć różnice w zaawansowanych miarach dostępnych na każdym modelu, ale łączenie się z FitMesh poprzez Health Connect działa dla wszystkich generacji.",
         tr: "Temel istatiksel veriler (Health Connect adımları, kalp atış hızı, uyku, kalsiyum) için evet, mekanizma aynı. Tüm Pixel Watch pheşenliklerinin her nesilinde Fitbit platformu kullanılır ve Health Connect ile Android üzerindeki uygulama Fitbit üzerinden yazılır. Her modelde mevcut olmayan gelişmiş istatistiklerde farklılıklar olabilir, ancak Health Connect ile FitMesh arasında bağlantı her nesilden geçerli.",
+        nl: "Voor de basisgegevens die via Health Connect gaan (stappen, hartslag, slaap, calorieën) ja, het mechanisme is hetzelfde. Alle Pixel Watch-generaties gebruiken Fitbit als platform en schrijven via de Fitbit-app op Android naar Health Connect. Er kunnen verschillen zijn in de meer geavanceerde meetwaarden die per model beschikbaar zijn, maar de verbinding met FitMesh via Health Connect werkt voor alle generaties.",
+        ja: "Health Connectを経由する基本的な指標（歩数、心拍数、睡眠、カロリー）については、はい、仕組みは同じです。すべてのPixel Watch世代がFitbitをプラットフォームとして使用し、AndroidのFitbitアプリを通じてHealth Connectに書き込みます。各モデルで利用可能なより高度な指標に差異がある可能性がありますが、Health Connect経由のFitMeshとの接続はすべての世代で機能します。",
+        ko: "Health Connect를 통과하는 기본 지표(걸음 수, 심박수, 수면, 칼로리)에 대해서는 네, 메커니즘이 동일합니다. 모든 Pixel Watch 세대가 Fitbit을 플랫폼으로 사용하고 Android의 Fitbit 앱을 통해 Health Connect에 씁니다. 각 모델에서 사용 가능한 더 고급 지표에는 차이가 있을 수 있지만, Health Connect를 통한 FitMesh와의 연결은 모든 세대에서 작동합니다.",
       },
     },
   ],

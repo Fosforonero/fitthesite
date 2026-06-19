@@ -12,7 +12,7 @@ export const post: BlogPost = {
   updatedAt: "2026-06-13",
   readMinutes: 7,
   hero: {
-    kicker: { it: "Confronto", en: "Comparison", es: "Comparativa", de: "Vergleich", pt: "Comparativo", fr: "Comparatif", pl: "Porównanie", tr: "Karşılaştırma" },
+    kicker: { it: "Confronto", en: "Comparison", es: "Comparativa", de: "Vergleich", pt: "Comparativo", fr: "Comparatif", pl: "Porównanie", tr: "Karşılaştırma", nl: "Vergelijking", ja: "比較", ko: "비교" },
     title: {
       it: "Anello smart o smartwatch: quale scegliere nel 2026?",
       en: "Smart ring vs smartwatch: which one should you get in 2026?",
@@ -22,6 +22,9 @@ export const post: BlogPost = {
       fr: "Bague connectée ou montre connectée: laquelle choisir en 2026?",
       pl: "Inteligentny pierścień czy smartwatch: który wybrać w 2026?",
       tr: "2026'da akıllı yüzük mü smartwatch mı: hangisini seçmeli?",
+      nl: "Slimme ring of smartwatch: welke kiezen in 2026?",
+      ja: "2026年にスマートリングとスマートウォッチ、どちらを選ぶべきか?",
+      ko: "2026년에 스마트 링 vs 스마트워치: 어떤 것을 선택해야 할까?",
     },
     subtitle: {
       it: "La risposta breve: non devi scegliere. Anello e smartwatch coprono momenti diversi della giornata e si completano. FitMesh Sync unifica i dati di entrambi in un'unica dashboard, eliminando i doppi conteggi.",
@@ -32,6 +35,9 @@ export const post: BlogPost = {
       fr: "Réponse courte: vous n'avez pas à choisir. Une bague connectée et une montre connectée couvrent des moments différents de votre journée et se complètent. FitMesh Sync unifie les données des deux dans un seul tableau de bord, en éliminant les doublons.",
       pl: "Krótka odpowiedź: nie musisz wybierać. Inteligentny pierścień i smartwatch obejmują różne części dnia i uzupełniają się. FitMesh Sync łączy dane z obu w jednym panelu, eliminując podwójne zliczanie.",
       tr: "Kısa cevap: seçmek zorunda değilsiniz. Akıllı yüzük ve smartwatch günün farklı bölümlerini kapsar ve birbirini tamamlar. FitMesh Sync her ikisinin verilerini tek bir panelde birleştirerek çift sayımı ortadan kaldırır.",
+      nl: "Kort antwoord: je hoeft niet te kiezen. Een slimme ring en een smartwatch dekken verschillende momenten van je dag en vullen elkaar aan. FitMesh Sync combineert de gegevens van beide in een dashboard, zonder dubbele tellingen.",
+      ja: "簡単な答え: 選ぶ必要はありません。スマートリングとスマートウォッチはそれぞれ一日の異なる時間帯をカバーし、互いを補完します。FitMesh Syncは両方のデータを一つのダッシュボードに統合し、二重カウントをなくします。",
+      ko: "짧은 답변: 선택할 필요가 없습니다. 스마트 링과 스마트워치는 하루의 서로 다른 시간대를 커버하며 서로를 보완합니다. FitMesh Sync는 두 기기의 데이터를 하나의 대시보드로 통합하여 이중 계산을 없앱니다.",
     },
   },
   metaDescription: {
@@ -43,6 +49,9 @@ export const post: BlogPost = {
     fr: "Bague connectée ou montre connectée? La vraie réponse, c'est les deux. Découvrez comment ils se complètent et comment FitMesh unifie tout dans un seul tableau de bord.",
     pl: "Inteligentny pierścień czy smartwatch? Prawdziwa odpowiedź brzmi: oba. Zobacz, jak uzupełniają się nawzajem i jak FitMesh łączy wszystko w jednym panelu.",
     tr: "Akıllı yüzük mü smartwatch mı? Gerçek cevap: ikisi birden. Nasıl birbirlerini tamamladıklarını ve FitMesh'in her şeyi tek bir panelde nasıl birleştirdiğini görün.",
+    nl: "Slimme ring of smartwatch? Het echte antwoord is allebei. Ontdek hoe ze elkaar aanvullen en hoe FitMesh alles in een dashboard verenigt.",
+    ja: "スマートリングかスマートウォッチか? 本当の答えは両方です。互いにどう補完し合うか、そしてFitMeshがすべてを一つのダッシュボードに統合する方法をご覧ください。",
+    ko: "스마트 링 아니면 스마트워치? 진짜 답은 둘 다입니다. 서로가 어떻게 보완하는지, FitMesh가 모든 것을 하나의 대시보드에 통합하는 방법을 확인하세요.",
   },
   primaryKeyword: {
     it: "anello smart o smartwatch",
@@ -53,6 +62,9 @@ export const post: BlogPost = {
     fr: "bague connectée ou montre connectée",
     pl: "inteligentny pierścień czy smartwatch",
     tr: "akıllı yüzük mü smartwatch mı",
+    nl: "slimme ring of smartwatch",
+    ja: "スマートリング vs スマートウォッチ",
+    ko: "스마트 링 vs 스마트워치",
   },
   secondaryKeywords: {
     it: [
@@ -100,6 +112,27 @@ export const post: BlogPost = {
       "akıllı yüzük versus smartwatch",
       "akıllı yüzük ne zaman kullanılır",
       "ucuz akıllı yüzük",
+    ],
+    nl: [
+      "verschil slimme ring smartwatch",
+      "is een slimme ring de moeite waard",
+      "slimme ring versus smartwatch",
+      "wanneer slimme ring gebruiken",
+      "goedkope slimme ring",
+    ],
+    ja: [
+      "スマートリングとスマートウォッチの違い",
+      "スマートリングは買う価値があるか",
+      "スマートリング vs スマートウォッチ比較",
+      "スマートリングをいつ使うか",
+      "安いスマートリング",
+    ],
+    ko: [
+      "스마트 링과 스마트워치 차이",
+      "스마트 링 살 가치가 있나",
+      "스마트 링 대 스마트워치 비교",
+      "스마트 링 언제 사용하나",
+      "저렴한 스마트 링",
     ],
   },
   tldr: {
@@ -159,6 +192,27 @@ export const post: BlogPost = {
       "İdeal kombinasyon, her an için doğru cihazla gerçek 24 saatlik kapsama sağlar.",
       "FitMesh Sync her ikisinin verilerini çift sayım olmadan tek bir panelde birleştirir.",
     ],
+    nl: [
+      "Ring en smartwatch zijn geen concurrenten: ze dekken verschillende momenten van je dag.",
+      "De ring blinkt uit 's nachts (slaap, HRV, SpO2) dankzij superieur comfort zonder band.",
+      "De smartwatch domineert overdag: GPS, workouts, meldingen, display.",
+      "De ideale combinatie biedt echte 24-uurs dekking met het juiste apparaat voor elk moment.",
+      "FitMesh Sync combineert gegevens van beide zonder dubbele tellingen in een dashboard.",
+    ],
+    ja: [
+      "リングとスマートウォッチは競合しません: 一日の異なる時間帯をカバーします。",
+      "リングはストラップなしの優れた装着感で夜間に輝きます（睡眠、HRV、SpO2）。",
+      "スマートウォッチは日中に活躍します: GPS、ワークアウト、通知、ディスプレイ。",
+      "理想的な組み合わせは、各瞬間に最適なデバイスで真の24時間カバレッジを提供します。",
+      "FitMesh Syncは両方のデータを二重カウントなしで一つのダッシュボードに統合します。",
+    ],
+    ko: [
+      "링과 스마트워치는 경쟁하지 않습니다: 하루의 서로 다른 시간대를 커버합니다.",
+      "링은 밴드 없는 뛰어난 착용감으로 밤새 빛납니다 (수면, HRV, SpO2).",
+      "스마트워치는 낮 동안 활약합니다: GPS, 운동, 알림, 디스플레이.",
+      "이상적인 조합은 각 순간에 맞는 기기로 진정한 24시간 커버리지를 제공합니다.",
+      "FitMesh Sync는 두 기기의 데이터를 이중 계산 없이 하나의 대시보드로 통합합니다.",
+    ],
   },
   body: [
     {
@@ -172,6 +226,9 @@ export const post: BlogPost = {
         fr: "La plupart des articles de comparaison présentent la bague et la montre comme deux produits en compétition pour la même place au poignet. Ce n'est pas le cas. Une montre connectée est conçue pour la journée active: GPS pendant une course, notifications, paiements sans contact, un écran que l'on peut vraiment lire. Une bague connectée est conçue pour la continuité: une semaine d'autonomie, pas de bracelet pour perturber le sommeil, un format suffisamment discret pour ne jamais avoir à la retirer.",
         pl: "Większość artykułów porównawczych przedstawia pierścień i zegarek jako dwa produkty rywalizujące o to samo miejsce na nadgarstku. Tak nie jest. Smartwatch jest stworzony do aktywnego dnia: GPS podczas biegu, powiadomienia, płatności zbliżeniowe, wyświetlacz, który naprawdę można odczytać. Inteligentny pierścień jest stworzony do ciągłości: tydzień żywotności baterii, żaden pasek nie zakłóca snu, dyskretna forma na tyle wygodna, że nigdy nie trzeba go zdejmować.",
         tr: "Çoğu karşılaştırma makalesi, yüzük ve saati aynı bilek yuvası için rekabet eden iki ürün olarak çerçeveler. Öyle değil. Smartwatch aktif gün için yapılmıştır: koşu sırasında GPS, bildirimler, temassız ödemeler, gerçekten okunabilir bir ekran. Akıllı yüzük süreklilik için yapılmıştır: bir haftalık pil ömrü, uykunuzu bozmayan kayış yok, hiç çıkarmak zorunda kalmayacak kadar sade bir tasarım.",
+        nl: "De meeste vergelijkingsartikelen presenteren ring en horloge als twee producten die concurreren om dezelfde polsplaats. Dat zijn ze niet. Een smartwatch is gemaakt voor de actieve dag: GPS tijdens het hardlopen, meldingen, contactloos betalen, een display dat je echt kunt lezen. Een slimme ring is gemaakt voor continuïteit: een week batterijduur, geen band die je slaap verstoort, een discreet formaat zodat je hem nooit hoeft af te doen.",
+        ja: "ほとんどの比較記事は、リングとウォッチを同じ手首スロットを争う2つの製品として描いています。そうではありません。スマートウォッチはアクティブな日中向けに作られています: ランニング中のGPS、通知、非接触決済、実際に読めるディスプレイ。スマートリングは継続性のために作られています: 一週間のバッテリー持続、睡眠を妨げないストラップなし、外す必要がないほど目立たないデザイン。",
+        ko: "대부분의 비교 기사는 링과 워치를 같은 손목 자리를 두고 경쟁하는 두 제품으로 묘사합니다. 그렇지 않습니다. 스마트워치는 활동적인 낮 시간을 위해 만들어졌습니다: 달리기 중 GPS, 알림, 비접촉 결제, 실제로 읽을 수 있는 디스플레이. 스마트 링은 연속성을 위해 만들어졌습니다: 일주일의 배터리 수명, 수면을 방해하지 않는 밴드 없음, 절대 벗을 필요가 없을 만큼 눈에 띄지 않는 디자인.",
       },
     },
     {
@@ -185,6 +242,9 @@ export const post: BlogPost = {
         fr: "La vraie question n'est pas \"lequel des deux je garde?\". C'est \"lequel je porte en ce moment?\". La nuit, la bague. En journée, la montre. Le problème traditionnel était la fragmentation des données: deux appareils, deux applications, aucun moyen simple de croiser les informations. FitMesh résout cela. Mais avant d'en arriver là, il vaut la peine de bien comprendre les atouts de chacun.",
         pl: "Prawdziwe pytanie nie brzmi \"który z nich zachować?\". Brzmi: \"który z nich nosić teraz?\". W nocy pierścień. W ciągu dnia zegarek. Tradycyjnym problemem było rozproszenie danych: dwa urządzenia, dwie aplikacje, żaden prosty sposób na połączenie informacji. FitMesh to rozwiązuje. Ale zanim do tego dojdziemy, warto dobrze zrozumieć mocne strony każdego z nich.",
         tr: "Asıl soru \"hangisini tutacağım?\" değil. \"Şu an hangisini takacağım?\" dır. Gece, yüzük. Gündüz, saat. Geleneksel sorun veri parçalanmasıydı: iki cihaz, iki uygulama, bilgileri bir araya getirmenin kolay yolu yok. FitMesh bunu çözüyor. Ama oraya gelmeden önce her cihazın güçlü yönlerini iyi anlamak değer.",
+        nl: "De echte vraag is niet \"welke houd ik?\". Het is \"welke draag ik nu?\". 's Nachts de ring. Overdag het horloge. Het traditionele probleem was datafragmentatie: twee apparaten, twee apps, geen eenvoudige manier om de informatie samen te brengen. FitMesh lost dit op. Maar voordat we daar komen, loont het de moeite om de sterke punten van elk apparaat goed te begrijpen.",
+        ja: "本当の質問は「どちらを残すか」ではありません。「今どちらを着けるか」です。夜はリング。昼はウォッチ。従来の問題はデータの断片化でした: 2つのデバイス、2つのアプリ、情報をまとめる簡単な方法がない。FitMeshはこれを解決します。しかしそこに至る前に、各デバイスの強みをしっかり理解する価値があります。",
+        ko: "진짜 질문은 \"어떤 것을 유지할까?\"가 아닙니다. \"지금 어떤 것을 착용할까?\"입니다. 밤에는 링. 낮에는 워치. 전통적인 문제는 데이터 단편화였습니다: 두 기기, 두 앱, 정보를 합치는 쉬운 방법이 없음. FitMesh가 이것을 해결합니다. 하지만 그 전에, 각 기기의 강점을 명확히 이해하는 것이 중요합니다.",
       },
     },
     {
@@ -199,6 +259,9 @@ export const post: BlogPost = {
         fr: "Bague connectée vs montre connectée: comparatif de fonctionnalités",
         pl: "Inteligentny pierścień vs smartwatch: porównanie funkcji",
         tr: "Akıllı yüzük vs smartwatch: özellik karşılaştırması",
+        nl: "Slimme ring vs smartwatch: functievergelijking",
+        ja: "スマートリング vs スマートウォッチ: 機能比較",
+        ko: "스마트 링 vs 스마트워치: 기능 비교",
       },
     },
     {
@@ -212,6 +275,9 @@ export const post: BlogPost = {
         fr: "Comparatif de fonctionnalités: bague connectée vs montre connectée",
         pl: "Porównanie funkcji: inteligentny pierścień vs smartwatch",
         tr: "Özellik karşılaştırması: akıllı yüzük vs smartwatch",
+        nl: "Functievergelijking: slimme ring vs smartwatch",
+        ja: "機能比較: スマートリング vs スマートウォッチ",
+        ko: "기능 비교: 스마트 링 vs 스마트워치",
       },
       headers: {
         it: ["Funzionalità", "Anello smart", "Smartwatch"],
@@ -222,6 +288,9 @@ export const post: BlogPost = {
         fr: ["Fonctionnalité", "Bague connectée", "Montre connectée"],
         pl: ["Funkcja", "Inteligentny pierścień", "Smartwatch"],
         tr: ["Özellik", "Akıllı yüzük", "Smartwatch"],
+        nl: ["Functie", "Slimme ring", "Smartwatch"],
+        ja: ["機能", "スマートリング", "スマートウォッチ"],
+        ko: ["기능", "스마트 링", "스마트워치"],
       },
       rows: [
         {
@@ -233,6 +302,9 @@ export const post: BlogPost = {
           fr: ["Suivi du sommeil", "Excellent (confortable, sans bracelet)", "Bon (mais moins confortable la nuit)"],
           pl: ["Monitorowanie snu", "Doskonałe (wygodne, bez paska)", "Dobre (ale mniej wygodne w nocy)"],
           tr: ["Uyku takibi", "Mükemmel (rahat, kayışsız)", "İyi (ancak gece daha az rahat)"],
+          nl: ["Slaapregistratie", "Uitstekend (comfortabel, geen band)", "Goed (maar 's nachts minder comfortabel)"],
+          ja: ["睡眠トラッキング", "優秀（快適、ストラップなし）", "良好（ただし夜間はやや不快）"],
+          ko: ["수면 추적", "탁월함 (편안함, 밴드 없음)", "양호 (단, 밤에는 덜 편안함)"],
         },
         {
           it: ["Batteria", "5-7 giorni tipici", "1-3 giorni tipici"],
@@ -243,6 +315,9 @@ export const post: BlogPost = {
           fr: ["Autonomie", "5-7 jours en usage normal", "1-3 jours en usage normal"],
           pl: ["Bateria", "5-7 dni w normalnym użytkowaniu", "1-3 dni w normalnym użytkowaniu"],
           tr: ["Pil ömrü", "Normal kullanımda 5-7 gün", "Normal kullanımda 1-3 gün"],
+          nl: ["Batterijduur", "5-7 dagen normaal gebruik", "1-3 dagen normaal gebruik"],
+          ja: ["バッテリー寿命", "通常使用で5〜7日", "通常使用で1〜3日"],
+          ko: ["배터리 수명", "일반 사용 시 5-7일", "일반 사용 시 1-3일"],
         },
         {
           it: ["GPS integrato", "No (quasi mai)", "Sì (fascia media/alta)"],
@@ -253,6 +328,9 @@ export const post: BlogPost = {
           fr: ["GPS intégré", "Rarement", "Oui (gamme moyenne/haute)"],
           pl: ["Wbudowany GPS", "Rzadko", "Tak (średnia/wysoka półka)"],
           tr: ["Dahili GPS", "Nadiren", "Evet (orta/üst segment)"],
+          nl: ["Ingebouwde GPS", "Zelden", "Ja (midden/hoog segment)"],
+          ja: ["内蔵GPS", "ほとんどなし", "あり（中〜高価格帯）"],
+          ko: ["내장 GPS", "거의 없음", "있음 (중/고가 모델)"],
         },
         {
           it: ["Tracking sport avanzato", "Limitato", "Completo"],
@@ -263,6 +341,9 @@ export const post: BlogPost = {
           fr: ["Suivi sportif avancé", "Limité", "Complet"],
           pl: ["Zaawansowane śledzenie sportu", "Ograniczone", "Pełne"],
           tr: ["Gelişmiş spor takibi", "Sınırlı", "Tam"],
+          nl: ["Geavanceerde sportregistratie", "Beperkt", "Volledig"],
+          ja: ["高度なスポーツトラッキング", "限定的", "フル"],
+          ko: ["고급 스포츠 추적", "제한적", "완전"],
         },
         {
           it: ["Notifiche", "No", "Sì"],
@@ -273,6 +354,9 @@ export const post: BlogPost = {
           fr: ["Notifications", "Non", "Oui"],
           pl: ["Powiadomienia", "Nie", "Tak"],
           tr: ["Bildirimler", "Hayır", "Evet"],
+          nl: ["Meldingen", "Nee", "Ja"],
+          ja: ["通知", "なし", "あり"],
+          ko: ["알림", "없음", "있음"],
         },
         {
           it: ["Frequenza cardiaca continua", "Sì (PPG ottico)", "Sì (PPG ottico)"],
@@ -283,6 +367,9 @@ export const post: BlogPost = {
           fr: ["Fréquence cardiaque continue", "Oui (PPG optique)", "Oui (PPG optique)"],
           pl: ["Ciągłe tętno", "Tak (optyczny PPG)", "Tak (optyczny PPG)"],
           tr: ["Sürekli nabız", "Evet (optik PPG)", "Evet (optik PPG)"],
+          nl: ["Continue hartslag", "Ja (optische PPG)", "Ja (optische PPG)"],
+          ja: ["継続的な心拍数", "あり（光学式PPG）", "あり（光学式PPG）"],
+          ko: ["연속 심박수", "있음 (광학 PPG)", "있음 (광학 PPG)"],
         },
         {
           it: ["HRV e SpO2", "Sì", "Sì"],
@@ -293,6 +380,9 @@ export const post: BlogPost = {
           fr: ["HRV et SpO2", "Oui", "Oui"],
           pl: ["HRV i SpO2", "Tak", "Tak"],
           tr: ["HRV ve SpO2", "Evet", "Evet"],
+          nl: ["HRV en SpO2", "Ja", "Ja"],
+          ja: ["HRVとSpO2", "あり", "あり"],
+          ko: ["HRV 및 SpO2", "있음", "있음"],
         },
         {
           it: ["Display", "No", "Sì"],
@@ -303,6 +393,9 @@ export const post: BlogPost = {
           fr: ["Écran", "Non", "Oui"],
           pl: ["Wyświetlacz", "Nie", "Tak"],
           tr: ["Ekran", "Hayır", "Evet"],
+          nl: ["Display", "Nee", "Ja"],
+          ja: ["ディスプレイ", "なし", "あり"],
+          ko: ["디스플레이", "없음", "있음"],
         },
         {
           it: ["Pagamenti contactless", "No", "Sì (fascia media/alta)"],
@@ -321,6 +414,9 @@ export const post: BlogPost = {
             "No",
             "Evet (yarı yüksek/yaşam stili)",
           ],
+          nl: ["Contactloos betalen", "Nee", "Ja (midden/hoog segment)"],
+          ja: ["非接触決済", "なし", "あり（中〜高価格帯）"],
+          ko: ["비접촉 결제", "없음", "있음 (중/고가 모델)"],
         },
         {
           it: ["Discrezione e forma", "Massima", "Media"],
@@ -331,6 +427,9 @@ export const post: BlogPost = {
           fr: ["Discrétion et design", "Maximale", "Moyenne"],
           pl: ["Dyskrecja i forma", "Maksymalna", "Średnia"],
           tr: ["Gizlilik ve tasarım", "Maksimum", "Orta"],
+          nl: ["Discretie en design", "Maximaal", "Gemiddeld"],
+          ja: ["目立たなさとデザイン", "最高", "中程度"],
+          ko: ["눈에 띄지 않음 및 디자인", "최대", "중간"],
         },
         {
           it: ["Prezzo di ingresso", "circa 20-35 euro", "circa 80-150 euro"],
@@ -341,6 +440,9 @@ export const post: BlogPost = {
           fr: ["Prix d'entrée", "env. 20-35 €", "env. 80-150 €"],
           pl: ["Cena wejścia", "ok. 20-35 €", "ok. 80-150 €"],
           tr: ["Giriş fiyatı", "yakl. 20-35 €", "yakl. 80-150 €"],
+          nl: ["Instapprijs", "ca. 20-35 €", "ca. 80-150 €"],
+          ja: ["入門価格", "約20〜35€", "約80〜150€"],
+          ko: ["입문 가격", "약 20-35€", "약 80-150€"],
         },
       ],
     },
@@ -356,11 +458,14 @@ export const post: BlogPost = {
         fr: "Les points forts de la bague connectée",
         pl: "Mocne strony inteligentnego pierścienia",
         tr: "Akıllı yüzüğün üstün olduğu alanlar",
+        nl: "Waar de slimme ring wint",
+        ja: "スマートリングが優れている点",
+        ko: "스마트 링이 앞서는 부분",
       },
     },
     {
       type: "comparison",
-      aTitle: { it: "Anello smart: vantaggi", en: "Smart ring: advantages", es: "Anillo inteligente: ventajas", de: "Smart-Ring: Vorteile", pt: "Anel inteligente: vantagens", fr: "Bague connectée: avantages", pl: "Inteligentny pierścień: zalety", tr: "Akıllı yüzük: avantajlar" },
+      aTitle: { it: "Anello smart: vantaggi", en: "Smart ring: advantages", es: "Anillo inteligente: ventajas", de: "Smart-Ring: Vorteile", pt: "Anel inteligente: vantagens", fr: "Bague connectée: avantages", pl: "Inteligentny pierścień: zalety", tr: "Akıllı yüzük: avantajlar", nl: "Slimme ring: voordelen", ja: "スマートリング: メリット", ko: "스마트 링: 장점" },
       aItems: {
         it: [
           "**Comfort notturno**: nessun cinturino, pochi grammi, si dimentica di averlo. Chi dorme con un cinturino al polso spesso lo toglie, perdendo tutte le metriche notturne.",
@@ -410,8 +515,26 @@ export const post: BlogPost = {
           "**Gizlilik**: resmi veya profesyonel ortamlarda yüzük görünmezdir. Toplantıları bozmaz, gömlek manşeti altında görünmez.",
           "**Uygun fiyat**: Colmi yüzüğü gibi modeller yaklaşık 25-30 € ye mal olur ve premium yüzüklerle aynı temel metrikleri ölçer.",
         ],
+        nl: [
+          "**Nachtcomfort**: geen band, een paar gram, je merkt hem meteen niet meer. Mensen die met een band aan de pols slapen trekken hem vaak af en verliezen alle nachtelijke data.",
+          "**Lange batterijduur**: 5-7 dagen bij normaal gebruik. Geen dagelijks opladen nodig.",
+          "**Discretie**: in formele of professionele omgevingen is een ring onzichtbaar. Hij stoort niet bij vergaderingen en is niet zichtbaar onder een mouw.",
+          "**Toegankelijke prijs**: modellen zoals de Colmi ring kosten zo'n 25-30 € en meten dezelfde kerngegevens als premium ringen.",
+        ],
+        ja: [
+          "**夜間の快適さ**: ストラップなし、数グラム、すぐに着けていることを忘れます。手首にバンドをして寝る人はしばしば外してしまい、夜間の全データを失います。",
+          "**長いバッテリー寿命**: 通常使用で5〜7日。毎晩充電を計画する必要がありません。",
+          "**目立たなさ**: フォーマルまたはプロの場でもリングは目立ちません。会議を妨げず、シャツの袖の下にも見えません。",
+          "**手頃な価格**: Colmiリングのようなモデルは約25〜30€で、プレミアムリングと同じ基本指標を測定します。",
+        ],
+        ko: [
+          "**야간 편안함**: 밴드 없음, 몇 그램, 착용했다는 것을 바로 잊게 됩니다. 손목에 밴드를 차고 자는 사람들은 종종 벗어버려 모든 야간 데이터를 잃습니다.",
+          "**긴 배터리 수명**: 일반 사용 시 5-7일. 매일 밤 충전 계획을 세울 필요가 없습니다.",
+          "**눈에 띄지 않음**: 공식적이거나 전문적인 환경에서 링은 눈에 띄지 않습니다. 회의를 방해하지 않으며 셔츠 소매 아래에도 보이지 않습니다.",
+          "**저렴한 가격**: Colmi 링 같은 모델은 약 25-30€로 프리미엄 링과 동일한 핵심 지표를 측정합니다.",
+        ],
       },
-      bTitle: { it: "Smartwatch: vantaggi", en: "Smartwatch: advantages", es: "Smartwatch: ventajas", de: "Smartwatch: Vorteile", pt: "Smartwatch: vantagens", fr: "Montre connectée: avantages", pl: "Smartwatch: zalety", tr: "Smartwatch: avantajlar" },
+      bTitle: { it: "Smartwatch: vantaggi", en: "Smartwatch: advantages", es: "Smartwatch: ventajas", de: "Smartwatch: Vorteile", pt: "Smartwatch: vantagens", fr: "Montre connectée: avantages", pl: "Smartwatch: zalety", tr: "Smartwatch: avantajlar", nl: "Smartwatch: voordelen", ja: "スマートウォッチ: メリット", ko: "스마트워치: 장점" },
       bItems: {
         it: [
           "**GPS e sport tracking**: per chi corre, va in bici o fa escursionismo, il GPS integrato è indispensabile. L'anello non registra tracce.",
@@ -461,6 +584,24 @@ export const post: BlogPost = {
           "**Ekran ve kontrol**: saati okumak, antrenman sırasında nabzı kontrol etmek, haritada rotayı görmek.",
           "**Çoklu spor takibi**: yüzme, bisiklet, set ve tekrarlarla gym seansları, ayrıntılı antrenman profilleriyle takım sporları.",
         ],
+        nl: [
+          "**GPS en sportregistratie**: voor hardlopers, fietsers en wandelaars is ingebouwde GPS onmisbaar. Een ring legt geen routes vast.",
+          "**Meldingen en interactie**: berichten beantwoorden, agenda bekijken, timer instellen zonder je telefoon te pakken.",
+          "**Display en bediening**: tijd aflezen, hartslag controleren tijdens een workout, een routekaart bekijken.",
+          "**Multi-sport registratie**: zwemmen, fietsen, gymsessies met sets en reps, teamsporten met gedetailleerde trainingsprofielen.",
+        ],
+        ja: [
+          "**GPSとスポーツトラッキング**: ランナー、サイクリスト、ハイカーにとって内蔵GPSは欠かせません。リングはルートを記録しません。",
+          "**通知と操作**: スマートフォンを取り出さずにメッセージに返信し、カレンダーを確認し、タイマーを設定。",
+          "**ディスプレイとコントロール**: 時刻確認、ワークアウト中の心拍数チェック、地図でのルート確認。",
+          "**マルチスポーツトラッキング**: 水泳、サイクリング、セット数とレップ数付きのジムセッション、詳細なトレーニングプロファイルを持つチームスポーツ。",
+        ],
+        ko: [
+          "**GPS 및 스포츠 추적**: 달리기, 사이클링, 하이킹을 즐기는 사람들에게 내장 GPS는 필수입니다. 링은 경로를 기록하지 않습니다.",
+          "**알림 및 상호작용**: 스마트폰을 꺼내지 않고 메시지에 답장하고, 캘린더를 확인하고, 타이머를 설정합니다.",
+          "**디스플레이 및 제어**: 시간 확인, 운동 중 심박수 체크, 지도에서 경로 보기.",
+          "**멀티 스포츠 추적**: 수영, 사이클링, 세트와 반복 횟수가 포함된 헬스장 세션, 상세한 운동 프로필이 있는 팀 스포츠.",
+        ],
       },
     },
     {
@@ -475,6 +616,9 @@ export const post: BlogPost = {
         fr: "La combinaison idéale: bague la nuit, montre en journée",
         pl: "Idealna kombinacja: pierścień w nocy, zegarek w ciągu dnia",
         tr: "İdeal kurulum: gece yüzük, gündüz saat",
+        nl: "De ideale combinatie: ring 's nachts, horloge overdag",
+        ja: "理想的な使い方: 夜はリング、昼はウォッチ",
+        ko: "이상적인 조합: 밤에는 링, 낮에는 워치",
       },
     },
     {
@@ -488,6 +632,9 @@ export const post: BlogPost = {
         fr: "Ensemble, la bague et la montre connectée se complètent presque parfaitement. Le résultat est une couverture réelle de 24 heures, avec l'appareil le plus adapté à chaque moment.",
         pl: "Razem, pierścień i smartwatch uzupełniają się niemal idealnie. Wynikiem jest prawdziwe 24-godzinne pokrycie, z właściwym urządzeniem dla każdej chwili.",
         tr: "Birlikte, yüzük ve smartwatch birbirinin eksikliklerini neredeyse mükemmel şekilde kapatır. Sonuç, her an için doğru cihazla gerçek 24 saatlik kapsamadır.",
+        nl: "Samen vullen een ring en een smartwatch elkaars leemtes bijna perfect op. Het resultaat is echte 24-uurs dekking, met het juiste apparaat voor elk moment.",
+        ja: "リングとスマートウォッチは合わせることで、互いの弱点をほぼ完璧に補います。結果は、各瞬間に最適なデバイスによる真の24時間カバレッジです。",
+        ko: "링과 스마트워치는 함께하면 서로의 빈틈을 거의 완벽하게 메웁니다. 결과는 각 순간에 맞는 기기로 진정한 24시간 커버리지입니다.",
       },
     },
     {
@@ -541,6 +688,24 @@ export const post: BlogPost = {
           "**Aktif gün**: saat devralır: GPS, spor seansları, bildirimler.",
           "**Öğleden sonra toparlanma**: saati takmak istemediğinizde bile yüzük pasif stresi ve dinlenme nabzını yakalar.",
         ],
+        nl: [
+          "**Nacht**: de ring monitort slaap, nachtelijke HRV, SpO2 en rusthartslag zonder je te storen.",
+          "**Ochtend**: de ring blijft data verzamelen terwijl het horloge oplaadt.",
+          "**Actieve dag**: het horloge neemt het over: GPS, sporsessies, meldingen.",
+          "**Middagrecuperatie**: de ring registreert passieve stress en rusthartslag, ook als je het horloge niet wilt dragen.",
+        ],
+        ja: [
+          "**夜間**: リングはあなたを邪魔することなく睡眠、夜間HRV、SpO2、安静時心拍数を監視します。",
+          "**朝**: ウォッチが充電中もリングはデータを収集し続けます。",
+          "**アクティブな日中**: ウォッチが引き継ぎます: GPS、スポーツセッション、通知。",
+          "**午後の回復**: ウォッチを着けたくないときでも、リングは受動的ストレスと安静時心拍数を記録します。",
+        ],
+        ko: [
+          "**밤**: 링은 방해 없이 수면, 야간 HRV, SpO2, 안정 심박수를 모니터링합니다.",
+          "**아침**: 워치가 충전 중에도 링은 계속 데이터를 수집합니다.",
+          "**활동적인 낮**: 워치가 인계받습니다: GPS, 스포츠 세션, 알림.",
+          "**오후 회복**: 워치를 착용하고 싶지 않을 때도 링은 수동 스트레스와 안정 심박수를 기록합니다.",
+        ],
       },
     },
     {
@@ -555,6 +720,9 @@ export const post: BlogPost = {
         fr: "Comment FitMesh unifie tout sans double comptage",
         pl: "Jak FitMesh zintegruje wszystko bez podwójnych liczeb",
         tr: "Como FitMesh birleştirebilir cihazlarla her şeyi tekerlemesine bezeyerek ikili sayım yoktur",
+        nl: "Hoe FitMesh alles verenigt zonder dubbele tellingen",
+        ja: "FitMeshが二重カウントなしにすべてを統合する方法",
+        ko: "FitMesh가 이중 계산 없이 모든 것을 통합하는 방법",
       },
     },
     {
@@ -568,6 +736,9 @@ export const post: BlogPost = {
         fr: "Le problème de la combinaison bague et montre a toujours été la fragmentation: deux applications, des données qui se chevauchent, des pas comptés deux fois. FitMesh Sync résout cela grâce à un moteur de fusion multi-appareils: les données de la bague et de la montre sont alignées sur la même chronologie. Les indicateurs se complètent sans se chevaucher: si la montre est active pendant une séance sportive, les données de cette fenêtre proviennent de la montre; pour les heures nocturnes, de la bague. Les pas sont unifiés (pas additionnés) à partir de la source la plus fiable pour chaque intervalle. Un seul tableau de bord affiche le tableau complet de votre journée.",
         pl: "Problem z kombinacją anelka i smartwatcha zawsze wynikał z fragmentacji: dwie aplikacje, dane, które się nakładają, kroki liczone dwukrotnie. FitMesh Sync rozwiązuje to za pomocą logiki fuzji wielo urządzeń: dane anelka i smartwatcha są wyrównane na wspólną linię czasu. Metryki uzupełniają się bez nakładania się: jeśli smartwatch jest aktywny podczas sesji sportowej, dane z tego okresu pochodzą z smartwatcha; dla godzin nocnych z anelka. Kroki są łączone (nie sumowane) z źródła najbardziej wiarygodnego dla każdego interwału. Jedna dysplay pokazuje pełen obraz dnia.",
         tr: "Problemi kombinasyon halka ve watch için her zaman olan parçalı bir yapı olmuştur: iki uygulama,OVERLAPPING veriler, iki kez sayılan adımlar. FitMesh Sync bu sorunu birden fazla cihazlı birleştirmeli mantık ile çözer: halka ve watch verileri aynı zaman çizgine alinır. Ölçümler OVERLAPPING olmaksızın tamamlanır:watch bir spor oturumu için aktifse, o oturumun verileri watch'ten alınır; geceleriysa halkadan alınır. Adımlar her aralığın en güvenilir kaynağinden tek bir panelde toplanır (toplanmaz). Tek bir panel günün tamamını gösterir.",
+        nl: "Het probleem van de combinatie ring en horloge is altijd fragmentatie geweest: twee apps, overlappende gegevens, stappen die dubbel worden geteld. FitMesh Sync lost dit op met een multi-apparaat fusie-engine: ring- en horlogegegevens worden uitgelijnd op dezelfde tijdlijn. Metingen vullen elkaar aan zonder overlapping: als het horloge actief is tijdens een workoutsessie, komen de gegevens van dat venster van het horloge; voor de nachtelijke uren van de ring. Stappen worden geunificeerd (niet opgeteld) vanuit de meest betrouwbare bron voor elk tijdsinterval. Een enkel dashboard toont het volledige beeld van je dag.",
+        ja: "リングとウォッチの組み合わせの問題は常にデータの断片化でした: 2つのアプリ、重複するデータ、二重にカウントされる歩数。FitMesh Syncはマルチデバイス融合エンジンでこれを解決します: リングとウォッチのデータが同じタイムラインに整合されます。指標は重複なく補完し合います: ウォッチがワークアウトセッション中にアクティブであれば、その時間帯のデータはウォッチから取得し、夜間はリングから取得します。歩数は各時間帯の最も信頼性の高いソースから統合（合算ではなく）されます。一つのダッシュボードであなたの一日の完全な姿を表示します。",
+        ko: "링과 워치 조합의 문제는 항상 데이터 단편화였습니다: 두 앱, 겹치는 데이터, 두 번 계산되는 걸음 수. FitMesh Sync는 멀티 기기 융합 엔진으로 이 문제를 해결합니다: 링과 워치 데이터가 동일한 타임라인에 정렬됩니다. 지표들은 겹치지 않고 서로를 보완합니다: 워치가 운동 세션 중에 활성화되어 있으면 해당 시간대의 데이터는 워치에서, 야간 시간대는 링에서 가져옵니다. 걸음 수는 각 시간 간격에 대해 가장 신뢰할 수 있는 소스에서 통합(합산이 아닌)됩니다. 하나의 대시보드에서 하루의 완전한 모습을 보여줍니다.",
       },
     },
     {
@@ -582,6 +753,9 @@ export const post: BlogPost = {
         fr: "Intégration et compatibilité",
         pl: "Integracja i kompatybilność",
         tr: "Integrasyon ve uyumluluk",
+        nl: "Integratie en compatibiliteit",
+        ja: "統合と互換性",
+        ko: "통합 및 호환성",
       },
       body: {
         it: "L'anello Colmi si collega via Bluetooth su Android. Con un unico account FitMesh Sync i tuoi dati sono accessibili anche su iPhone (l'app iOS arriva a breve) e possono confluire in Apple Salute tramite un ponte opzionale. Per i dettagli tecnici sull'integrazione leggi la [guida completa all'anello Colmi](/it/blog/colmi-ring-fitmesh).",
@@ -592,6 +766,9 @@ export const post: BlogPost = {
         fr: "La bague Colmi se connecte via Bluetooth sur Android. Avec un seul compte FitMesh Sync, vos données sont accessibles sur iPhone également (l'application iOS arrive très bientôt) et peuvent être transmises à Santé d'Apple via un pont optionnel. Pour les détails d'intégration, consultez le [guide complet de la bague Colmi](/fr/blog/colmi-ring-fitmesh).",
         pl: "Anell Colmi łączy się poprzez Bluetooth z Android. Z jednym kontem FitMesh Sync Twoje dane są dostępne również na iPhone (aplikacja iOS do shortly). Mogą one przepływać do Apple Salute za pomocą opcjonalnego pułapka. Dla szczegółów technicznych dotyczących integracji, przeczytaj pełną [przewodnik zintegrowany dla anelka Colmi](/pl/blog/zintegrowane-colmi-ring-fitmesh).",
         tr: "Anel kuyruğu Colmi birlikte, Bluetooth üzerinden Android 'e bağlanır. Bir tek hesabın FitMesh Sync ile verilerinizi iPhone (yani iOS uygulaması yakında geliyor) da erişilebilir hale getirebilirsiniz ve bu veriler KVKK üzerinden Apple Sağlık'a akabilir, eğer isterseniz bir alternatif köprü kullanarak. Teknolojik detaylar için, [tam anel kuyruğu Colmi rehberini](/tr/blog/kolye-ring-fitmesh) okuyunuz.",
+        nl: "De Colmi ring verbindt via Bluetooth op Android. Met een enkel FitMesh Sync-account zijn je gegevens ook toegankelijk op iPhone (iOS-app komt zeer binnenkort) en kunnen ze via een optionele brug naar Apple Gezondheid stromen. Voor integratiedetails, lees de [volledige Colmi ring gids](/nl/blog/colmi-ring-fitmesh).",
+        ja: "ColmiリングはAndroidでBluetoothを介して接続します。一つのFitMesh Syncアカウントで、データはiPhoneでもアクセス可能になります（iOSアプリは近日公開予定）。オプションのブリッジを通じてAppleヘルスにもデータを送ることができます。統合の詳細については、[Colmiリングの完全ガイド](/ja/blog/colmi-ring-fitmesh)をご覧ください。",
+        ko: "Colmi 링은 Android에서 블루투스를 통해 연결됩니다. 하나의 FitMesh Sync 계정으로 iPhone에서도 데이터에 접근할 수 있으며 (iOS 앱 곧 출시), 선택적 브리지를 통해 Apple 건강 앱에도 데이터를 보낼 수 있습니다. 통합 세부 정보는 [Colmi 링 전체 가이드](/ko/blog/colmi-ring-fitmesh)를 읽어보세요.",
       },
     },
     {
@@ -606,6 +783,9 @@ export const post: BlogPost = {
         fr: "Vaut-il vraiment la peine d'avoir les deux?",
         pl: "Czy warto posiadać zarówno anelllo, jak i smartwatch?",
         tr: "Güvenilir mi hem yüzük hem de giyilebilir cihaz almak?",
+        nl: "Heb je echt zowel een slimme ring als een smartwatch nodig?",
+        ja: "スマートリングとスマートウォッチの両方が本当に必要か?",
+        ko: "스마트 링과 스마트워치 둘 다 실제로 필요한가?",
       },
     },
     {
@@ -619,6 +799,9 @@ export const post: BlogPost = {
         fr: "Cela dépend de ce que vous recherchez. Si vous possédez déjà une montre et souhaitez améliorer le suivi nocturne sans trop dépenser, une bague connectée d'entrée de gamme est un ajout judicieux: elle coûte moins cher qu'un repas au restaurant et vous offre une semaine de données de sommeil que votre montre ne peut pas collecter confortablement seule.",
         pl: "Zależy od tego, czego szukasz. Jeśli już masz smartwatch i chcesz poprawić monitorowanie nocne bez greatych wydatków, ekonomiczny anell smart jest dobrym wyborem: kosztuje mniej niż posiłek w restauracji i oferuje tydzień danych nocnych, które sam smartwatch nie jest w stanie zebrać komfortowo.",
         tr: "Bağımlı olarak ne aradığınıza bağlı olarak. Eğer zaten bir watch kullanıyorsunuz ve gecenin izlenmesini iyileştirmek istiyorsunuz ancak çok para harcamaktan çekiniyorsanız, ekonomik bir smart aneları seçiminiz doğru: yemek dışına çıkan bir masrafın altına girer ve sadece watch ile kolayca toplamaz gece verilerini sizin için bir hafta boyunca sunar.",
+        nl: "Het hangt af van wat je wilt bijhouden. Als je al een horloge hebt en betere nachtmonitoring wilt zonder veel uit te geven, is een budgetvriendelijke slimme ring een verstandige aanvulling: hij kost minder dan een etentje en geeft je een week aan slaapdata die je horloge alleen niet comfortabel kan verzamelen.",
+        ja: "追跡したいことによって異なります。すでにウォッチをお持ちで、あまり費用をかけずに夜間モニタリングを改善したい場合、手頃なスマートリングは賢い追加です: 外食一回分より安く、ウォッチ単独では快適に収集できない一週間分の睡眠データを提供します。",
+        ko: "무엇을 추적하느냐에 따라 다릅니다. 이미 워치를 가지고 있고 많은 비용 없이 야간 모니터링을 개선하고 싶다면, 저렴한 스마트 링은 현명한 추가입니다: 외식 한 번 비용보다 저렴하고 워치 혼자서는 편하게 수집할 수 없는 일주일간의 수면 데이터를 제공합니다.",
       },
     },
     {
@@ -632,6 +815,9 @@ export const post: BlogPost = {
         fr: "Si vous ne possédez encore aucun appareil et que le budget est limité, réfléchissez d'abord à ce que vous utiliserez vraiment: si vous êtes sportif et avez besoin du GPS, commencez par la montre. Si vous souhaitez mieux comprendre votre sommeil et votre récupération, la bague peut être le premier pas. Dans tous les cas, la valeur de la combinaison ne se révèle pleinement que lorsque les données des deux appareils convergent au même endroit. C'est exactement ce que fait FitMesh.",
         pl: "Jeżeli nie masz jeszcze żadnego urządzenia i budżet jest ograniczony, zanim zdecydujesz się na pierwszy krok, rozważ najpierw, co dla Ciebie jest najważniejsze: jeśli jesteś atletą, który chce uzyskać GPS, zacznij od smartwatcha. Jeśli chcesz zrozumieć swój sen i recykling, pęczek może być pierwszym krokiem. W każdym razie wartość kombinacji wyraża się całkowicie tylko wtedy, gdy dane obu urządzeń połączą się w jednym miejscu. To dokładnie to, co robi FitMesh.",
         tr: "Eğer henüz herhangi bir cihazınız yok ve bütçe sınırlıysa, daha önce ne kullanacağınızı düşünün: Atlet olup GPS'yi isteyebilirsinizse, watchtan başlayın. Uygunluğunu ve geri dönüşü anlamak istiyorsanız, aleyhinin ilk adımı olabilir. Her ne olursa olsun, iki cihazın verilerinin tek bir yerde akıştığı zaman, değeri tam olarak ortaya çıkar. Bu tam olarak FitMesh'ın yaptığı.",
+        nl: "Als je nog geen apparaat hebt en het budget beperkt is, denk dan na over wat je echt gaat gebruiken: als je een sporter bent die GPS nodig heeft, begin dan met een horloge. Als je je slaap en herstel wilt begrijpen, kan een ring de eerste stap zijn. Hoe dan ook, de gecombineerde waarde komt pas tot uiting wanneer beide apparaten hun gegevens op één plek samenbrengen. Dat is precies wat FitMesh doet.",
+        ja: "まだ何も持っていなくて予算が限られている場合は、実際に何を使うかを考えてください: GPSが必要なアスリートであれば、ウォッチから始めましょう。睡眠と回復を理解したいなら、リングが最初の一歩になり得ます。いずれにしても、両方のデバイスが一か所にフィードされるときに初めて、組み合わせの価値が完全に発揮されます。それがまさにFitMeshが行うことです。",
+        ko: "아직 아무 기기도 없고 예산이 제한적이라면, 실제로 무엇을 사용할지 생각해보세요: GPS가 필요한 운동선수라면 워치부터 시작하세요. 수면과 회복을 이해하고 싶다면 링이 첫 걸음이 될 수 있습니다. 어떤 경우든 두 기기의 데이터가 한 곳에 모일 때 비로소 조합의 가치가 완전히 드러납니다. 그것이 바로 FitMesh가 하는 일입니다.",
       },
     },
     {
@@ -645,6 +831,9 @@ export const post: BlogPost = {
         fr: "Essayez FitMesh Sync en bêta",
         pl: "Spróbuj FitMesh Sync w bêta",
         tr: "Beta aşamasında FitMesh Sync deneyin",
+        nl: "Probeer FitMesh Sync in beta",
+        ja: "FitMesh Syncをベータ版で試す",
+        ko: "베타 버전으로 FitMesh Sync 사용해보기",
       },
       body: {
         it: "FitMesh Sync è in beta privata. I primi 1000 utenti ottengono 1 anno di Pro gratis, incluso l'accesso alla fusione multi-device anello e smartwatch. Iscriviti ora per tenere il posto.",
@@ -655,6 +844,9 @@ export const post: BlogPost = {
         fr: "FitMesh Sync est en bêta privée. Les 1 000 premiers utilisateurs bénéficient d'1 an de Pro gratuit, avec accès à la fusion multi-appareils bague et montre connectée. Inscrivez-vous maintenant pour garder votre place.",
         pl: "FitMesh Sync jest w prywatnej beta. Pierwsze 1000 użytkowników otrzymają 1 rok z Pro za darmo, w tym dostęp do wielodevice fuzji anello i smartwatch. Zapisz się teraz, aby zachować miejsce.",
         tr: "FitMesh Sync KVKK'ye uygun beta testinde. İlk 1000 kullanıcıya 1 yıl Pro sürümü ücretsiz olarak sunuluyor, bununla birlikte multi-cihaz fusionu anello ve akıllı saatlerin erişimi de dahil. Şimdi kaydol ve yerini koru.",
+        nl: "FitMesh Sync is in private beta. De eerste 1.000 gebruikers krijgen 1 jaar Pro gratis, inclusief toegang tot ring en smartwatch multi-apparaat fusie. Meld je nu aan om je plek te bewaren.",
+        ja: "FitMesh Syncはプライベートベータ中です。最初の1,000ユーザーはリングとスマートウォッチのマルチデバイス融合へのアクセスを含む1年間のProを無料で利用できます。今すぐ登録して枠を確保してください。",
+        ko: "FitMesh Sync는 프라이빗 베타 중입니다. 처음 1,000명의 사용자는 링과 스마트워치 멀티 기기 융합 접근을 포함한 1년간 Pro를 무료로 받습니다. 지금 등록하여 자리를 확보하세요.",
       },
       ctaLabel: {
         it: "Iscriviti alla beta →",
@@ -665,6 +857,9 @@ export const post: BlogPost = {
         fr: "S'inscrire à la bêta →",
         pl: "Zapisz się do bêty →",
         tr: "Beta'e Katıl:",
+        nl: "Aanmelden voor beta →",
+        ja: "ベータに登録する →",
+        ko: "베타 신청하기 →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -683,6 +878,9 @@ export const post: BlogPost = {
         fr: "Vaut-il la peine d'avoir à la fois la bague et la montre connectée?",
         pl: "Czy warto wziąć zarówno anellko, jak i smartwatch?",
         tr: "Güvenilir mi ki giyilebilir cihaz ve akıllı saat alırsınız?",
+        nl: "Heb ik zowel een slimme ring als een smartwatch nodig?",
+        ja: "スマートリングとスマートウォッチの両方が必要ですか?",
+        ko: "스마트 링과 스마트워치 둘 다 필요한가요?",
       },
       a: {
         it: "Sì, se usi entrambi nel momento giusto. L'anello eccelle di notte per sonno e recupero; il watch è migliore di giorno per sport e notifiche. La combinazione copre la giornata intera senza i limiti di un singolo device. Con FitMesh i dati si unificano automaticamente senza doppi conteggi.",
@@ -693,6 +891,9 @@ export const post: BlogPost = {
         fr: "Pas nécessairement, mais si vous possédez déjà l'un des deux, ajouter l'autre coûte relativement peu et comble un vrai manque. La bague excelle la nuit; la montre est meilleure pendant les heures actives. Avec FitMesh, les données des deux appareils fusionnent automatiquement en une seule vue sans double comptage.",
         pl: "Tak, jeśli używasz obu w odpowiednim czasie. Pętle sprawiająexcel podczas snu i rekreacji; smartwatch jest lepszy w ciągu dnia dla sportu i powiadomień. Kombinacja ta pokrywa cały dzień bez ograniczeń jednego urządzenia. Z FitMesh dane są łączone automatycznie, bez podwójnych liczeb.",
         tr: "Evet, her ikisini doğru zamanında kullanırsanız. Ayakkabı gece uykuda ve iyileştirmeye öncülük eder; watch gün içinde spor ve bildirimler için daha iyi performans gösterir. Birleşimi tek bir cihazın sınırlarını aşarak tam gün kaplamayı sağlar. FitMesh ile veriler otomatik olarak birleştirilir ve çift sayım yoktur.",
+        nl: "Niet noodzakelijkerwijs, maar als je al een van de twee hebt, kost het toevoegen van de andere relatief weinig en vult het een echte leemte. De ring blinkt 's nachts uit; het horloge is beter tijdens actieve uren. Met FitMesh worden gegevens van beide automatisch zonder dubbele tellingen in één weergave samengevoegd.",
+        ja: "必ずしも必要ではありませんが、どちらか一方を持っている場合、もう一方を追加するのは比較的安価で、実際の弱点を補います。リングは夜間に優れており、ウォッチはアクティブな時間帯に適しています。FitMeshを使用すると、両方のデータが二重カウントなしに一つのビューに自動的にマージされます。",
+        ko: "반드시 필요하지는 않지만, 이미 하나를 가지고 있다면 다른 하나를 추가하는 것은 비교적 저렴하고 실제 빈틈을 채웁니다. 링은 야간에 뛰어나고 워치는 활동 시간에 더 적합합니다. FitMesh를 사용하면 두 기기의 데이터가 이중 계산 없이 자동으로 하나의 뷰로 병합됩니다.",
       },
     },
     {
@@ -705,6 +906,9 @@ export const post: BlogPost = {
         fr: "Lequel est le mieux pour le suivi du sommeil?",
         pl: "Jak lepiej do monitordowania senu?",
         tr: "Hangi daha iyi uykunuzun izlenmesi için?",
+        nl: "Welke is beter voor slaapregistratie?",
+        ja: "睡眠追跡にはどちらが優れていますか?",
+        ko: "수면 추적에는 어느 것이 더 좋은가요?",
       },
       a: {
         it: "L'anello smart è generalmente più pratico per il sonno: nessun cinturino, batteria lunga, comfort superiore. Il watch funziona, ma molte persone lo tolgono di notte proprio per il disagio. Per le metriche notturne (HRV, SpO2, battito a riposo) l'anello è la scelta più comoda.",
@@ -715,6 +919,9 @@ export const post: BlogPost = {
         fr: "Une bague connectée est généralement plus pratique pour le sommeil: pas de bracelet, longue autonomie, confort supérieur. Les montres fonctionnent aussi, mais beaucoup de personnes les retirent la nuit justement à cause de la gêne. Pour les données nocturnes (HRV, SpO2, fréquence cardiaque au repos) la bague est le choix le plus confortable.",
         pl: "Anell smart jest zazwyczaj bardziej pratyczny dla snu: brak cinturnika, dłuższa trwałość baterii, wyższy poziom komfortu. Zegarek funkuje, ale wiele osób go usuwa w nocy ze względu na nieudobny czynnik. Dla miar nocnych (HRV, SpO2, spazm odpoczynkowy) anell jest lepszym wyborem.",
         tr: "Giyilebilir anelğin genellikle uyku izlemesi için daha praktik olması: cinturondan kurtulun, uzun bir pil, daha fazla rahatlık. Watch çalışır, ancak birçok kişi gece vakti rahatsızlığı nedeniyle çıkartırlar. (HRV, SpO2, dinlenme hızı) için ölçümler için giyilebilir anelğiniz en uygun seçenektir.",
+        nl: "Een slimme ring is over het algemeen praktischer voor slaap: geen band, lange batterijduur, superieur comfort. Horloges werken ook, maar veel mensen zetten ze 's nachts af vanwege het ongemak. Voor nachtelijke metingen (HRV, SpO2, rusthartslag) is de ring de meest comfortabele keuze.",
+        ja: "スマートリングは睡眠には一般的により実用的です: ストラップなし、長いバッテリー、優れた快適さ。ウォッチも機能しますが、不快さのために夜間に外す人が多いです。夜間の指標（HRV、SpO2、安静時心拍数）にはリングがより便利な選択肢です。",
+        ko: "스마트 링은 일반적으로 수면에 더 실용적입니다: 밴드 없음, 긴 배터리, 우수한 편안함. 워치도 작동하지만 불편함으로 인해 많은 사람들이 밤에 벗습니다. 야간 지표(HRV, SpO2, 안정 심박수)에는 링이 더 편리한 선택입니다.",
       },
     },
     {
@@ -727,6 +934,9 @@ export const post: BlogPost = {
         fr: "Une bague connectée peut-elle remplacer complètement une montre connectée?",
         pl: "Czy smartband może zastąpić całkowicie smartwatch?",
         tr: "Bir akıllı yüzük smartwatch'ın yerini tamamen alabilir mi?",
+        nl: "Kan een slimme ring een smartwatch volledig vervangen?",
+        ja: "スマートリングはスマートウォッチを完全に置き換えられますか?",
+        ko: "스마트 링이 스마트워치를 완전히 대체할 수 있나요?",
       },
       a: {
         it: "Non per chi ha bisogno di GPS, notifiche sul polso o tracking avanzato dello sport. L'anello copre bene le metriche passive e il sonno, ma manca di display, GPS e interazione. Per molti utenti è un complemento, non un sostituto.",
@@ -737,6 +947,9 @@ export const post: BlogPost = {
         fr: "Pas pour ceux qui ont besoin du GPS, de notifications au poignet ou d'un suivi sportif avancé. La bague couvre bien les indicateurs passifs et le sommeil, mais elle n'a pas d'écran, pas de GPS et pas d'interaction. Pour la plupart des utilisateurs, c'est un complément, pas un remplacement.",
         pl: "Nie dla kogo potrzebuje się GPS, notyfikacji na zegarku lub zaawansowanego śledzenia sportowego. Pierścień dobrze pokrywa passive metrics i sen, ale brakuje mu wyświetlacza, GPS i interakcji. Dla wielu użytkowników to dodatek, a nie zastępstwo.",
         tr: "Giyilebilir cihazlara ihtiyaç duymayanlar için GPS, notifikasyonlar veya ileri düzeyde spor izleme öncesi bilgiye sahip olmaz. Anel, pahalı pasif metrikleri ve uyku iyileştirmeyi iyi kapatabilir, ancak ekran, GPS ve etkileşim eksik. Çoğu kullanıcının için bir eklemeye, bir değiştirici olmaz.",
+        nl: "Niet voor wie GPS, polsmeldingen of geavanceerde sportregistratie nodig heeft. De ring dekt passieve metingen en slaap goed, maar mist een display, GPS en interactie. Voor de meeste gebruikers is het een aanvulling, geen vervanging.",
+        ja: "GPS、手首への通知、または高度なスポーツトラッキングが必要な人には代替になりません。リングは受動的な指標と睡眠をよくカバーしますが、ディスプレイ、GPS、インタラクションがありません。ほとんどのユーザーにとってはあくまで補完であり、代替ではありません。",
+        ko: "GPS, 손목 알림 또는 고급 스포츠 추적이 필요한 사람에게는 대체가 되지 않습니다. 링은 수동 지표와 수면은 잘 커버하지만 디스플레이, GPS, 상호작용이 없습니다. 대부분의 사용자에게는 보완재이지 대체품이 아닙니다.",
       },
     },
     {
@@ -749,6 +962,9 @@ export const post: BlogPost = {
         fr: "Les bagues connectées d'entrée de gamme mesurent-elles bien la fréquence cardiaque?",
         pl: "Czy ekonomiczne anelty smart dobrze pomiarują częstotliwość serca?",
         tr: "Giyilebilir cihaz smart ekonomik döngülerin kalp atış hızını iyi mi ölçüyor?",
+        nl: "Hoe nauwkeurig zijn budgetvriendelijke slimme ringen voor hartslag?",
+        ja: "手頃なスマートリングの心拍数精度はどの程度ですか?",
+        ko: "저렴한 스마트 링의 심박수 정확도는 어떤가요?",
       },
       a: {
         it: "I sensori PPG ottici degli anelli di fascia bassa danno stime informative della frequenza cardiaca, utili per trend e recupero. Non sono dispositivi medici e le letture vanno interpretate come indicazioni personali, non come misure cliniche. Per dati di allenamento precisi (zone FC, picco durante sessioni intense) il watch resta più affidabile.",
@@ -759,6 +975,9 @@ export const post: BlogPost = {
         fr: "Les capteurs PPG optiques des bagues d'entrée de gamme fournissent des estimations informatives de la fréquence cardiaque, utiles pour les tendances personnelles et la récupération. Ce ne sont pas des dispositifs médicaux et les mesures doivent être traitées comme des indicateurs personnels, et non comme des mesures issues d'un contexte de santé supervisé. Pour des données d'entraînement précises (zones de fréquence cardiaque, pics lors de séances intenses) la montre reste plus fiable.",
         pl: "Sensoryczne czujniki PPG pasków niskiego poziomu dają informacyjne szacunki częstotliwości serca, przydatne do trendów i recyklingu. Nie są to urządzenia medyczne i czytanie ich powinno być interpretowane jako indywidualne wskazania, a nie kliniczne pomiary. Dla precyzyjnych danych treningowych (zony FC, picie podczas intensywnych sesji) zegarek pozostaje bardziej wiarygodny.",
         tr: "Sensörler PPG görsel, dairesel alt frekans sensörleri, kalp atım hızının bilimsel tahminlerini verir ve trendlere ve geri dönüşlerde faydalıdır. Bu cihazlar tıbbi aygıtlar değildir ve okunalar kişisel göstergeler olarak yorumlanmalıdır, tıbbi ölçümler olarak değil. Akıllı saat daha güvenilir kalp atım hızı eğitim verileri (FC zonaları, yoğun oturumların sırasında zirveleri) için.",
+        nl: "De optische PPG-sensoren in instapringen bieden informatieve hartslagschattingen, nuttig voor persoonlijke trends en herstel. Het zijn geen medische apparaten en metingen moeten worden behandeld als persoonlijke indicatoren, niet als klinische metingen. Voor nauwkeurige trainingsdata (HF-zones, pieken tijdens intensieve sessies) blijft het horloge betrouwbaarder.",
+        ja: "エントリーレベルのリングの光学式PPGセンサーは、個人のトレンドと回復に役立つ参考的な心拍数推定値を提供します。これらは医療機器ではなく、測定値は臨床的な数値ではなく個人的な指標として扱うべきです。正確なトレーニングデータ（HRゾーン、激しいセッション中のピーク値）にはウォッチの方が信頼性が高いです。",
+        ko: "입문용 링의 광학식 PPG 센서는 개인 트렌드와 회복에 유용한 참고용 심박수 추정치를 제공합니다. 이는 의료 기기가 아니며 측정값은 임상적 수치가 아닌 개인 지표로 취급해야 합니다. 정확한 운동 데이터(HR 구역, 고강도 세션 중 최고치)에는 워치가 더 신뢰할 수 있습니다.",
       },
     },
   ],

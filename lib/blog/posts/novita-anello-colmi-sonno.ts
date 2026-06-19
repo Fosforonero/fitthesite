@@ -16,6 +16,9 @@ export const post: BlogPost = {
     fr: "bague Colmi sommeil",
     pl: "pętla Colmi snu",
     tr: "anneli Colmi uyku",
+    nl: "Colmi ring slaap",
+    ja: "Colmiリング睡眠",
+    ko: "Colmi 링 수면",
   },
   secondaryKeywords: {
     it: [
@@ -60,6 +63,27 @@ export const post: BlogPost = {
       "bul halka Colmi",
       "badge Pro Ücretsiz FitMesh",
     ],
+    nl: [
+      "slimme ring slaapfasen",
+      "Colmi ring FitMesh",
+      "diepe slaap REM tracking",
+      "vind mijn Colmi ring",
+      "gratis Pro badge FitMesh",
+    ],
+    ja: [
+      "スマートリング睡眠ステージ",
+      "ColmiリングFitMesh",
+      "深い睡眠REM追跡",
+      "Colmiリングを探す",
+      "無料ProバッジFitMesh",
+    ],
+    ko: [
+      "스마트 링 수면 단계",
+      "Colmi 링 FitMesh",
+      "깊은 수면 REM 추적",
+      "내 Colmi 링 찾기",
+      "무료 Pro 배지 FitMesh",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync ora legge l'anello Colmi via Bluetooth: sonno con fasi, batteria sempre visibile, funzione Trova anello. E 7 giorni di dati sbloccano 6 mesi di Pro gratis.",
@@ -70,6 +94,9 @@ export const post: BlogPost = {
     fr: "FitMesh Sync lit maintenant la bague Colmi via Bluetooth: sommeil avec phases, batterie toujours visible, fonction Localiser la bague. Et 7 jours de données débloquent 6 mois de Pro gratuit.",
     pl: "FitMesh Sync teraz czyść anell Colmi za pomocą Bluetooth: sen w fazach, zawsze widoczna bateria, funkcja Znajdź anell. A 7 dniowych danych otwierają 6 miesięcy bezpłatnej Pro.",
     tr: "FitMesh Sync şimdi Colmi cihazını oku: uyku aşamaları, şarj durumu her zaman görünür, ayarla Bluetooth özelliği. 7 gün veri kaydediyor ve Pro'u 6 ay ücretsiz yapar.",
+    nl: "FitMesh Sync leest nu de Colmi ring via Bluetooth: slaap met fasen, batterij altijd zichtbaar, Ring zoeken functie. En 7 dagen data ontgrendelen 6 maanden Pro gratis.",
+    ja: "FitMesh SyncがColmiリングをBluetoothで読み取れるようになりました。睡眠ステージ、バッテリー常時表示、リングを探す機能。7日間のデータで6か月のProが無料になります。",
+    ko: "FitMesh Sync가 이제 Bluetooth로 Colmi 링을 읽습니다. 수면 단계, 배터리 항상 표시, 링 찾기 기능. 7일간의 데이터로 6개월 Pro가 무료 제공됩니다.",
   },
   tldr: {
     it: [
@@ -120,6 +147,24 @@ export const post: BlogPost = {
       "Günlük kullanımda aleykseen aleykseen, 'Aleykseen Bul' özelliği bu cihazı ışıklandırarak tespit edilmesini sağlar.",
       "Trageteddi açılış: 7 gün gerçek veri anelinden 6 ay Pro aboneliği ücretsiz çıkar.",
     ],
+    nl: [
+      "De Colmi ring verbindt rechtstreeks met FitMesh Sync via Bluetooth, zonder tussenliggende apps.",
+      "Slaap wordt geregistreerd met volledige fasen: diep, REM en licht, zichtbaar in het dashboard.",
+      "Het batterijniveau van de ring is altijd prominent zichtbaar en de Ring zoeken functie laat hem knipperen voor eenvoudige identificatie.",
+      "Lanceringsmijlpaal: 7 dagen echte gegevens van de ring ontgrendelen 6 maanden Pro-abonnement gratis.",
+    ],
+    ja: [
+      "ColmiリングはBluetoothでFitMesh Syncに直接接続します。中間アプリは不要です。",
+      "睡眠はすべてのステージ（深い睡眠、REM、浅い睡眠）で記録され、ダッシュボードで確認できます。",
+      "リングのバッテリー残量は常に目立つ位置に表示され、リングを探す機能で数秒間点滅させて見つけられます。",
+      "ローンチ達成条件：リングから7日間の実データでProサブスクリプション6か月が無料になります。",
+    ],
+    ko: [
+      "Colmi 링은 Bluetooth를 통해 FitMesh Sync에 직접 연결됩니다. 중간 앱이 필요 없습니다.",
+      "수면은 깊은 수면, REM, 얕은 수면의 전체 단계로 기록되어 대시보드에서 확인할 수 있습니다.",
+      "링의 배터리 잔량이 항상 눈에 띄게 표시되며, 링 찾기 기능으로 몇 초간 깜빡여 쉽게 찾을 수 있습니다.",
+      "출시 마일스톤: 링에서 7일간의 실제 데이터를 기록하면 6개월 Pro 구독이 무료로 제공됩니다.",
+    ],
   },
   hero: {
     kicker: {
@@ -131,6 +176,9 @@ export const post: BlogPost = {
       fr: "Nouveautés",
       pl: "Nowości",
       tr: "Yeni Özellikler",
+      nl: "Nieuw",
+      ja: "新着情報",
+      ko: "새 소식",
     },
     title: {
       it: "L'anello Colmi entra in FitMesh Sync: sonno, batteria e Trova anello",
@@ -141,6 +189,9 @@ export const post: BlogPost = {
       fr: "La bague Colmi rejoint FitMesh Sync: phases du sommeil, batterie et Localiser la bague",
       pl: "Anellito Colmi wchodzi w FitMesh Sync: sen, akumulator i Znajdź anellito",
       tr: "Anneli Colmi KVKK'ye girdi: uyku, bateri ve Anneli Bulma",
+      nl: "Colmi ring in FitMesh Sync: slaapfasen, batterij en Ring zoeken",
+      ja: "ColmiリングがFitMesh Syncに登場：睡眠ステージ、バッテリー、リングを探す",
+      ko: "Colmi 링이 FitMesh Sync에 합류: 수면 단계, 배터리, 링 찾기",
     },
     subtitle: {
       it: "Con l'ultimo aggiornamento, FitMesh Sync legge direttamente l'anello Colmi: fasi del sonno complete, batteria sempre sotto controllo, e una funzione per trovarlo quando lo metti da qualche parte. Piu un traguardo speciale per chi inizia subito.",
@@ -151,6 +202,9 @@ export const post: BlogPost = {
       fr: "Avec la dernière mise à jour, FitMesh Sync lit directement la bague Colmi: phases du sommeil complètes, batterie toujours sous contrôle et une fonction pour la localiser quand vous la posez quelque part. Plus un jalon spécial pour ceux qui démarrent tout de suite.",
       pl: "Za ostatnie aktualizacje, FitMesh Sync czyta bezpośrednio anell Colmi: pełne fazy senu, akumulator zawsze pod kontrolą, oraz funkcja pozwalająca znaleźć go, gdy go gdzieś położyłeś. Specjalne nagradzamy tych, którzy się zaczynają od razu.",
       tr: "Son laatımla FitMesh Sync direkt olarak Colmi okuyor: tam uyku fasları, pil her zaman izleniyor ve bir bulma özelliği var ki nereye koyduğunuzda arıyorsunuz. Başlayanlar için özel bir hedef de var.",
+      nl: "Met de nieuwste update leest FitMesh Sync de Colmi ring rechtstreeks: volledige slaapfasen, batterij altijd in beeld en een functie om de ring te vinden als je hem ergens neerlegt. Plus een speciale mijlpaal voor wie meteen begint.",
+      ja: "最新アップデートで、FitMesh SyncがColmiリングを直接読み取れるようになりました。完全な睡眠ステージ、バッテリー常時表示、どこかに置いたときに見つけるための機能。すぐに始める方への特別な達成条件もあります。",
+      ko: "최신 업데이트로 FitMesh Sync가 Colmi 링을 직접 읽습니다. 전체 수면 단계, 배터리 항상 표시, 어딘가에 내려놓았을 때 찾을 수 있는 기능. 바로 시작하는 분들을 위한 특별 마일스톤도 있습니다.",
     },
   },
   body: [
@@ -165,6 +219,9 @@ export const post: BlogPost = {
         fr: "Chez FitMesh Sync, nous avons travaillé longtemps sur cette intégration, et aujourd'hui elle est prête. La bague Colmi se connecte directement à l'application via Bluetooth: pas d'applications tierces au milieu, pas d'étapes manuelles. Une fois couplée, la bague apporte ses données dans le même tableau de bord où vivent déjà les données de votre montre connectée.",
         pl: "Mamy na FitMesh Sync pracowali długie miesiące nad tą integracją, a dzisiaj jest gotowa. Pierścień Colmi łączy się bezpośrednio z aplikacją poprzez Bluetooth: żadnych dodatkowych aplikacji trzecich w middle, żadnych ręcznych kroków. Po połączeniu pierścień przekazuje Twoje dane do tej samej panelu zarządzania, gdzie już leżą dane z Twojego smartwatcha.",
         tr: "Biz FitMesh Sync adımlarla bu entegrasyonu geliştirdik ve bugün hazır. Colmi halkası, Bluetooth: arayüze üçüncü taraf uygulaması veya manuel adımlar yok aracılığıyla doğrudan uygulamaya bağlanır. Bir kez eşleştirildikten sonra, halka verilerinizi zaten akıllı saatinizdeki aynı panelde bulunan verilere taşıyacaktır.",
+        nl: "Wij bij FitMesh Sync hebben lang aan deze integratie gewerkt, en vandaag is hij klaar. De Colmi ring verbindt rechtstreeks met de app via Bluetooth: geen apps van derden tussendoor, geen handmatige stappen. Eenmaal gekoppeld brengt de ring zijn gegevens naar hetzelfde dashboard waar al je smartwatch-gegevens leven.",
+        ja: "FitMesh Syncチームはこの統合に長い時間をかけて取り組み、今日ついに完成しました。ColmiリングはBluetoothでアプリに直接接続します。サードパーティのアプリも手動の手順も不要です。一度ペアリングすれば、リングのデータはスマートウォッチのデータと同じダッシュボードに表示されます。",
+        ko: "FitMesh Sync 팀은 이 통합을 위해 오랫동안 작업해 왔으며, 오늘 드디어 완성되었습니다. Colmi 링은 Bluetooth를 통해 앱에 직접 연결됩니다. 중간에 서드파티 앱도, 수동 단계도 필요 없습니다. 한 번 페어링하면 링의 데이터가 스마트워치 데이터가 이미 있는 동일한 대시보드에 표시됩니다.",
       },
     },
     {
@@ -179,6 +236,9 @@ export const post: BlogPost = {
         fr: "Sommeil avec phases: profond, REM et léger",
         pl: "Snytanie z fazami: głęboka, REM i lekka",
         tr: "Uyum fasları: derin, REM ve hafif uyku",
+        nl: "Slaap met fasen: diep, REM en licht",
+        ja: "睡眠ステージ：深い睡眠、REM、浅い睡眠",
+        ko: "수면 단계: 깊은 수면, REM, 얕은 수면",
       },
     },
     {
@@ -192,6 +252,9 @@ export const post: BlogPost = {
         fr: "La donnée la plus demandée était le sommeil détaillé, et la bague Colmi le fournit avec trois niveaux: sommeil profond, REM et léger. Chaque matin, vous trouvez dans le tableau de bord la répartition complète de la nuit, avec les minutes pour chaque phase. Les données s'intègrent avec celles des autres appareils connectés sans double comptage: si vous portez aussi une montre connectée, FitMesh Sync conserve la meilleure valeur et n'additionne pas par erreur les mêmes heures.",
         pl: "Najczęściej proszony był szczegółowy sen, a pęczek Colmi dostarcza go na trzech poziomach: sen głęboki, REM i lżejszy. Każdego ranka w panelu widokowym znajdziesz pełną podziałkę nocy, z minutami dla każdej fazы. Dane integrują się z innymi urządzeniami połączonego sprzętu bez powtarzania liczenia: jeśli nosisz również smartwatch, FitMesh Sync przechowuje najlepsze wartości i nie sumuje błędnie tych samych godzin.",
         tr: "Ensembledatum ist am häufigsten gefragt und wird vom Ring Colmi in drei Stufen angeboten: tiefes Schlafphasen, REM und leichtes Schlafphasen. Jeden Morgen findest du in der Dashboard die vollständige Aufteilung der Nacht, mit den Minuten für jede Phase. Die Daten integrieren sich mit denen anderer verbundener Geräte ohne Doppeltage: Wenn du auch einen akıllı saat FitMesh Sync trägst, hält es das beste Wert und fügt nicht falsch die gleichen Stunden hinzu.",
+        nl: "Het meest gevraagde gegeven was gedetailleerde slaap, en de Colmi ring levert dat met drie niveaus: diepe slaap, REM en lichte slaap. Elke ochtend vind je in het dashboard een volledige uitsplitsing van de nacht, met minuten per fase. De gegevens worden geintegreerd met die van andere verbonden apparaten zonder dubbeltelling: als je ook een smartwatch draagt, behoudt FitMesh Sync de beste waarde en telt dezelfde uren niet foutief op.",
+        ja: "最も要望の多かったのは詳細な睡眠データで、Colmiリングは3つのレベルで提供します。深い睡眠、REM、浅い睡眠です。毎朝ダッシュボードで夜間の完全な内訳を各ステージの分数とともに確認できます。他の接続デバイスのデータと二重カウントなしで統合されます。スマートウォッチも装着している場合、FitMesh Syncは最も詳細な値を保持し、同じ時間を誤って合算しません。",
+        ko: "가장 많이 요청된 데이터는 상세한 수면이었으며, Colmi 링은 깊은 수면, REM, 얕은 수면의 세 가지 레벨로 제공합니다. 매일 아침 대시보드에서 각 단계별 분 단위로 밤 전체의 분석을 확인할 수 있습니다. 데이터는 이중 계산 없이 다른 연결 기기의 데이터와 통합됩니다. 스마트워치도 착용하는 경우 FitMesh Sync는 가장 상세한 값을 유지하며 동일한 시간을 잘못 합산하지 않습니다.",
       },
     },
     {
@@ -206,6 +269,9 @@ export const post: BlogPost = {
         fr: "Vous voulez savoir comment configurer la bague de façon optimale?",
         pl: "Czy chcesz wiedzieć, jak najlepiej skonfigurować anellito?",
         tr: "İstediğiniz gibi anelini en iyi şekilde ayarlamak istiyor musunuz?",
+        nl: "Wil je weten hoe je de ring optimaal instelt?",
+        ja: "リングを最適にセットアップする方法を知りたいですか？",
+        ko: "링을 최적으로 설정하는 방법을 알고 싶으신가요?",
       },
       body: {
         it: "Abbiamo scritto una [guida completa all'anello Colmi](/it/blog/colmi-ring-fitmesh) che copre abbinamento, permessi, risoluzione dei problemi piu comuni e consigli sul porto dell'anello per la migliore qualita del dato.",
@@ -216,6 +282,9 @@ export const post: BlogPost = {
         fr: "Nous avons rédigé un [guide complet de la bague Colmi](/fr/blog/colmi-ring-fitmesh) qui couvre le couplage, les autorisations, la résolution des problèmes les plus courants et des conseils sur le port de la bague pour la meilleure qualité de données.",
         pl: "Napisaliśmy pełną [przewodnik z anelkiem Colmi](/pl/blog/kompleksowy-ring-fitmesh) obejmujący dopasowanie, uprawnienia, rozwiązania najczęściej występujących problemów oraz wskazówki dotyczące portu anelka do osiągnięcia najwyższej jakości danych.",
         tr: "Yazdık bir Colmi kolay kullanım kılavuzu (/it/blog/colmi-ring-fitmesh) ki bu abonmanlık, izinler, sık karşılaşılan sorunları çözme ipuçları ve aksesuarın taşınımı için en iyi veri kalitesine ulaşma konularını kapsıyor.",
+        nl: "We hebben een [volledige Colmi ring gids](/nl/blog/colmi-ring-fitmesh) geschreven die koppeling, machtigingen, het oplossen van de meest voorkomende problemen en tips over het dragen van de ring voor de beste gegevenskwaliteit behandelt.",
+        ja: "ペアリング、権限、よくある問題の解決方法、最高のデータ品質を得るためのリングの装着のコツをまとめた[Colmiリング完全ガイド](/ja/blog/colmi-ring-fitmesh)を作成しました。",
+        ko: "페어링, 권한, 가장 흔한 문제 해결 방법, 최상의 데이터 품질을 위한 링 착용 팁을 다룬 [Colmi 링 완전 가이드](/ko/blog/colmi-ring-fitmesh)를 작성했습니다.",
       },
     },
     {
@@ -230,6 +299,9 @@ export const post: BlogPost = {
         fr: "Trois nouvelles fonctionnalités pratiques dans l'application",
         pl: "Trzy nowe praktyczne funkcje w app",
         tr: "Yeni üç praktik ekran uygulaması",
+        nl: "Drie praktische nieuwe functies in de app",
+        ja: "アプリの3つの実用的な新機能",
+        ko: "앱의 세 가지 실용적인 새 기능",
       },
     },
     {
@@ -275,6 +347,21 @@ export const post: BlogPost = {
           "**Bul Eşya.** Eşyanızı düşürdünüz ve bulamıyorsunuz? Uygulamada bir tık vererek birkaç saniye ışıltılı olacak ve hemen bulacaksınız.",
           "**Hiç çift sayım.** Anelit eklenir zaten mevcut kaynaklara, ancak FitMesh Sync çakışmaları yönetir: her metrik sadece en hassas kaynağıyla bir kez sayılır.",
         ],
+        nl: [
+          "**Batterij altijd zichtbaar.** Het laadniveau van de ring verschijnt op het hoofdscherm: je hoeft geen aparte app te openen om te weten wanneer het tijd is om op te laden.",
+          "**Ring zoeken.** Heb je de ring neergelegd en kun je hem niet vinden? Een tik in de app laat hem enkele seconden knipperen zodat je hem meteen vindt.",
+          "**Geen dubbeltelling.** De ring wordt toegevoegd aan al aanwezige bronnen, maar FitMesh Sync beheert overlappen: elke meting wordt slechts eenmaal geteld, met de meest nauwkeurige beschikbare bron.",
+        ],
+        ja: [
+          "**バッテリー常時表示。** リングの充電残量がメイン画面に表示されます。充電時期を確認するために別のアプリを開く必要はありません。",
+          "**リングを探す。** リングをどこかに置いて見つからない？アプリでワンタップすると数秒間点滅するので、すぐに見つけられます。",
+          "**二重カウントなし。** リングは既存のソースに追加されますが、FitMesh Syncは重複を管理します。各指標は最も精度の高いソースで一度だけカウントされます。",
+        ],
+        ko: [
+          "**배터리 항상 표시.** 링의 충전 잔량이 메인 화면에 표시됩니다. 언제 충전해야 하는지 알기 위해 별도의 앱을 열 필요가 없습니다.",
+          "**링 찾기.** 링을 어딘가에 내려놓고 찾을 수 없나요? 앱에서 한 번 탭하면 몇 초간 깜빡여서 바로 찾을 수 있습니다.",
+          "**이중 계산 없음.** 링은 이미 존재하는 소스에 추가되지만 FitMesh Sync가 중복을 관리합니다. 각 지표는 가장 정확한 소스로 한 번만 계산됩니다.",
+        ],
       },
     },
     {
@@ -289,6 +376,9 @@ export const post: BlogPost = {
         fr: "Jalon de lancement: 7 jours de données réelles, 6 mois de Pro gratuit",
         pl: "Tragódrowy start: 7 dni rzeczywistych danych, 6 miesięcy Pro za darmo",
         tr: "Tragetediklik tarihi: 7 gün gerçek veri, 6 ay ücretsiz Pro",
+        nl: "Lanceringsmijlpaal: 7 dagen echte gegevens, 6 maanden Pro gratis",
+        ja: "ローンチ達成条件：7日間の実データ、6か月のPro無料",
+        ko: "출시 마일스톤: 7일간의 실제 데이터, 6개월 Pro 무료",
       },
     },
     {
@@ -302,6 +392,9 @@ export const post: BlogPost = {
         fr: "Pour célébrer le lancement, nous avons ajouté un jalon spécial: connectez la bague Colmi et enregistrez 7 jours consécutifs de données réelles dans l'application. Lorsque vous atteignez le jalon, vous débloquez automatiquement 6 mois d'abonnement Pro sans frais. L'offre est valable pour ceux qui activent la connexion avec la bague dans la période de lancement.",
         pl: "Aby z.ToShortCut() zaczerpnąć sukces, dodaliśmy specjalny cel: podłącz łańcuch Colmi i zapisz 7 kolejnych dni rzeczywistych danych w aplikacji. Gdy osiągniesz cel, automatycznie odblokujesz 6 miesięcy abonamentu Pro bez kosztów. Oferta jest dostępna dla tych, którzy aktywowają połączenie z łańcuchem podczas okresu startu.",
         tr: "KVKK uyumluluğunu kutlamak için özel bir hedef eklendı: Colmi halkasını bağlayıp uygulamada 7 günlük ardıl gerçek veri kaydını yap. Hedefi ulaştığınızda, otomatik olarak 6 ay Pro aboneliği alabilirsiniz ve ücret ödemeye gerek yok. Teknik olarak uygulamayı bağlamak için Colmi halkasıyla bağlantı kurulan kişi KVKK uyumluluğu süre zarfı içinde etkin olmalıdır.",
+        nl: "Om de lancering te vieren hebben we een speciale mijlpaal toegevoegd: verbind de Colmi ring en registreer 7 opeenvolgende dagen echte gegevens in de app. Als je de mijlpaal bereikt, ontgrendel je automatisch 6 maanden Pro-abonnement zonder kosten. Het aanbod is geldig voor wie de ringverbinding activeert binnen de lanceringsperiode.",
+        ja: "ローンチを祝うために特別な達成条件を追加しました。Colmiリングを接続してアプリに7日間連続の実データを記録してください。達成条件を満たすと、自動的に6か月のProサブスクリプションが無料になります。このオファーはローンチ期間内にリング接続を有効にした方が対象です。",
+        ko: "출시를 기념하여 특별 마일스톤을 추가했습니다. Colmi 링을 연결하고 앱에 7일 연속 실제 데이터를 기록하세요. 마일스톤을 달성하면 자동으로 6개월 Pro 구독이 무료로 제공됩니다. 출시 기간 내에 링 연결을 활성화한 분들에게 유효한 혜택입니다.",
       },
     },
     {
@@ -316,6 +409,9 @@ export const post: BlogPost = {
         fr: "Comment fonctionne le décompte des 7 jours",
         pl: "Jak działa liczenie 7 dni",
         tr: "7 günlük sayımı nasıl çalışır",
+        nl: "Hoe de 7-daagse telling werkt",
+        ja: "7日間のカウントの仕組み",
+        ko: "7일 카운트 작동 방식",
       },
       body: {
         it: "Servono 7 giorni con almeno un dato registrato dall'anello Colmi, non necessariamente consecutivi nella stessa settimana. L'app mostra il progresso nel pannello Traguardi. Ai 7 giorni, il Pro si attiva in automatico senza che tu faccia nulla.",
@@ -326,6 +422,9 @@ export const post: BlogPost = {
         fr: "Il vous faut 7 jours avec au moins un point de données enregistré par la bague Colmi, pas nécessairement consécutifs dans la même semaine. L'application affiche la progression dans le panneau Jalons. Au bout de 7 jours, le Pro s'active automatiquement sans aucune action de votre part.",
         pl: "Trzeba 7 dni z przynajmniej jednym zapisanym danym z anella Colmi, niekoniecznie kolejnych w tej samej tygodniu. Aplikacja pokazuje postęp na panelu Cel. Po 7 dniach, Pro aktywuje się automatycznie bez twoich działań.",
         tr: "Gereksiz olarak aynı hafta boyunca süren ve ardışık olmayan en az bir veri kaydeden Colmi ile 7 gün gereklidir. Uygulama Hedefler panelinde ilerlemeyi gösterir. 7 gün tamamlandığında, Pro otomatik olarak aktif olur ve senin herhangi bir eylemi yapmanı gerektirmese de.",
+        nl: "Je hebt 7 dagen nodig met minimaal een geregistreerd datapunt van de Colmi ring, niet per se aaneengesloten in dezelfde week. De app toont de voortgang in het Mijlpalen paneel. Na 7 dagen wordt Pro automatisch geactiveerd zonder dat je iets hoeft te doen.",
+        ja: "同じ週に連続している必要はありませんが、Colmiリングから少なくとも1つのデータポイントが記録された7日間が必要です。アプリは達成条件パネルで進捗を表示します。7日間達成すると、何もしなくてもProが自動的に有効になります。",
+        ko: "같은 주에 연속될 필요 없이 Colmi 링에서 최소 하나의 데이터 포인트가 기록된 7일이 필요합니다. 앱은 마일스톤 패널에서 진행 상황을 표시합니다. 7일이 완료되면 아무런 조치 없이 Pro가 자동으로 활성화됩니다.",
       },
     },
     {
@@ -340,6 +439,9 @@ export const post: BlogPost = {
         fr: "Comment démarrer",
         pl: "Jak zacząć",
         tr: "Başlamak Nasıl Başarılır",
+        nl: "Hoe te beginnen",
+        ja: "始め方",
+        ko: "시작하는 방법",
       },
     },
     {
@@ -402,6 +504,27 @@ export const post: BlogPost = {
           "Uyumluluk kurulum girişi Bluetooth'a uygula: genellikle 30 saniye yeterli.",
           "Gecersiz gecen geceki veriler KVKK paneline sychronizasyon tamamlandığı anda gelir.",
         ],
+        nl: [
+          "Werk FitMesh Sync bij naar de nieuwste beschikbare versie.",
+          "Open de app en ga naar de sectie Apparaten.",
+          "Tik op 'Apparaat toevoegen' en kies Colmi ring uit de lijst.",
+          "Volg de Bluetooth-koppelingsinstructies: meestal duurt het 30 seconden.",
+          "De gegevens van de vorige nacht verschijnen in het dashboard zodra de synchronisatie is voltooid.",
+        ],
+        ja: [
+          "FitMesh Syncを最新バージョンに更新してください。",
+          "アプリを開き、デバイスセクションに移動します。",
+          "「デバイスを追加」をタップし、リストからColmiリングを選択します。",
+          "Bluetoothペアリング手順に従ってください。通常30秒かかります。",
+          "同期が完了すると前夜のデータがダッシュボードに表示されます。",
+        ],
+        ko: [
+          "FitMesh Sync를 최신 버전으로 업데이트하세요.",
+          "앱을 열고 기기 섹션으로 이동합니다.",
+          "'기기 추가'를 탭하고 목록에서 Colmi 링을 선택합니다.",
+          "Bluetooth 페어링 지침을 따르세요. 보통 30초면 됩니다.",
+          "동기화가 완료되는 즉시 전날 밤의 데이터가 대시보드에 표시됩니다.",
+        ],
       },
     },
     {
@@ -415,6 +538,9 @@ export const post: BlogPost = {
         fr: "Essayez FitMesh Sync avec votre bague Colmi",
         pl: "Spróbuj FitMesh Sync z twoim łańcuchem Colmi",
         tr: "Denemeyi FitMesh Sync ile Colmi cihazınızla yapın.",
+        nl: "Probeer FitMesh Sync met jouw Colmi ring",
+        ja: "ColmiリングでFitMesh Syncを試す",
+        ko: "Colmi 링으로 FitMesh Sync 체험하기",
       },
       body: {
         it: "Entra nella beta, collega l'anello e inizia a raccogliere i tuoi 7 giorni. Sei mesi di Pro ti aspettano.",
@@ -425,6 +551,9 @@ export const post: BlogPost = {
         fr: "Rejoignez la bêta, connectez la bague et commencez à accumuler vos 7 jours. Six mois de Pro vous attendent.",
         pl: "Wejrzyj się do bêty, podłącz pasek i zacznij gromadzić swoje 7 dni. Sześć miesięcy Pro czekają na ciebie.",
         tr: "Beta'ya katıl, Colmi halkasını bağla ve 7 günlük verilerini toplamaya başla. Altı ay Pro seni bekliyor.",
+        nl: "Doe mee met de beta, verbind de ring en begin je 7 dagen te verzamelen. Zes maanden Pro wachten op je.",
+        ja: "ベータに参加して、リングを接続し、7日間のデータ収集を始めましょう。6か月分のProがあなたを待っています。",
+        ko: "베타에 참여하고, 링을 연결하고, 7일간의 데이터 수집을 시작하세요. 6개월 Pro가 당신을 기다립니다.",
       },
       ctaLabel: {
         it: "Inizia la beta gratuita",
@@ -435,6 +564,9 @@ export const post: BlogPost = {
         fr: "Démarrer la bêta gratuite",
         pl: "Zacznij bezpłatną betę",
         tr: "Başlat ücretsiz betanız",
+        nl: "Start de gratis beta",
+        ja: "無料ベータを開始する",
+        ko: "무료 베타 시작하기",
       },
       ctaHref: {
         it: "/it/beta",
@@ -453,6 +585,9 @@ export const post: BlogPost = {
         fr: "La bague Colmi fonctionne-t-elle sur iPhone ou uniquement sur Android?",
         pl: "Anellito Colmi działa na iPhone lub tylko na Android?",
         tr: "Güneş tutku anlması Colmi sadece iPhone üzerinde mi çalışır yoksa Android üzerinde de mi?",
+        nl: "Werkt de Colmi ring op iPhone of alleen op Android?",
+        ja: "ColmiリングはiPhoneで動作しますか、それともAndroidのみですか？",
+        ko: "Colmi 링은 iPhone에서 작동하나요, 아니면 Android에서만 작동하나요?",
       },
       a: {
         it: "FitMesh Sync con l'anello Colmi funziona su entrambe le piattaforme. Su Android i dati possono passare anche per Health Connect se preferisci. Su iPhone si integra con Apple Salute. La connessione Bluetooth diretta e disponibile su entrambi i sistemi.",
@@ -463,6 +598,9 @@ export const post: BlogPost = {
         fr: "FitMesh Sync avec la bague Colmi fonctionne sur les deux plateformes. Sur Android, les données peuvent également passer par Health Connect si vous préférez. Sur iPhone, il s'intègre avec Apple Santé. La connexion Bluetooth directe est disponible sur les deux systèmes.",
         pl: "FitMesh Sync z paszportem Colmi działa na obu platformach. Na Android dane mogą przepływać również przez Health Connect, jeśli preferujesz. Na iPhone integruje się z Apple Salute. Połączenie Bluetooth jest bezpośrednie i dostępne na obu systemach.",
         tr: "FitMesh Sync ile Colmi halkası, her iki platformda da çalışır. Android üzerinde verilerin Health Connect üzerinden de geçebilirsiniz eğer isterseniz. iPhone 'te ise Apple Sağlık ile entegre olabilir. Bağlantı Bluetooth doğrudan ve her iki sisteminde de mevcuttur.",
+        nl: "FitMesh Sync met de Colmi ring werkt op beide platforms. Op Android kunnen gegevens ook via Health Connect gaan als je dat prefereert. Op iPhone integreert het met Apple Gezondheid. De directe Bluetooth-verbinding is beschikbaar op beide systemen.",
+        ja: "ColmiリングとFitMesh Syncは両方のプラットフォームで動作します。Androidではご希望であればHealth Connect経由でデータを送ることもできます。iPhoneではAppleヘルスと統合されます。直接Bluetooth接続は両方のシステムで利用可能です。",
+        ko: "Colmi 링과 FitMesh Sync는 두 플랫폼 모두에서 작동합니다. Android에서는 원하시면 Health Connect를 통해서도 데이터를 전송할 수 있습니다. iPhone에서는 Apple 건강과 통합됩니다. 직접 Bluetooth 연결은 두 시스템 모두에서 사용 가능합니다.",
       },
     },
     {
@@ -475,6 +613,9 @@ export const post: BlogPost = {
         fr: "Si je porte aussi une montre connectée, les données de sommeil sont-elles dupliquées?",
         pl: "Je butam też na smartwatch, a dane dotyczące snu się podwójnie zwiększają?",
         tr: "Giardino anche un giyilebilir cihaz, uyku verileri kaksıya eşitlenir mi?",
+        nl: "Als ik ook een smartwatch draag, worden de slaapgegevens dan gedupliceerd?",
+        ja: "スマートウォッチも着けている場合、睡眠データは重複しますか？",
+        ko: "스마트워치도 착용하면 수면 데이터가 중복되나요?",
       },
       a: {
         it: "No. FitMesh Sync riconosce le sovrapposizioni temporali e tiene un solo valore per ogni metrica, preferendo la fonte piu dettagliata disponibile. Se sia l'anello che lo smartwatch registrano la stessa notte, l'app usa i dati con le fasi piu complete senza sommare le ore.",
@@ -485,6 +626,9 @@ export const post: BlogPost = {
         fr: "Non. FitMesh Sync reconnaît les chevauchements temporels et conserve une seule valeur par métrique, en préférant la source la plus détaillée disponible. Si la bague et la montre connectée enregistrent toutes les deux la même nuit, l'application utilise les données avec les phases les plus complètes sans additionner les heures.",
         pl: "No. FitMesh Sync rozpoznaje nadmiernych zapełnień czasowych i przechowuje tylko jedno wartości dla każdej metryki, preferując najbardziej szczegółową dostępne źródło. Jeśli oba: pierścień i smartwatch rejestrują tę samą noc, aplikacja używa danych z najpełniejszymi fazami bez dodawania godzin.",
         tr: "No. FitMesh Sync soylar zamanlı örtüşmeleri ve her metrik için tek bir değer tutar, mevcut detaylı kaynaktan tercih edilir. Eğer yüzük ve akıllı saat aynı geceyi kaydediyorsa, uygulama tam fasilere sahip olan verileri kullanır ve saatleri toplamaz.",
+        nl: "Nee. FitMesh Sync herkent tijdoverlappen en behoudt een enkele waarde per meting, waarbij de meest gedetailleerde beschikbare bron de voorkeur krijgt. Als zowel de ring als de smartwatch dezelfde nacht registreren, gebruikt de app de gegevens met de meest volledige slaapfasen zonder de uren op te tellen.",
+        ja: "いいえ。FitMesh Syncは時間的な重複を認識し、各指標に対して1つの値のみを保持します。利用可能な最も詳細なソースが優先されます。リングとスマートウォッチの両方が同じ夜を記録した場合、アプリは時間を合算せず、最も完全なステージを持つデータを使用します。",
+        ko: "아니요. FitMesh Sync는 시간적 중복을 인식하고 각 지표에 대해 단일 값만 유지하며, 가장 상세한 소스를 우선합니다. 링과 스마트워치 모두 같은 밤을 기록하면 앱은 시간을 합산하지 않고 가장 완전한 단계의 데이터를 사용합니다.",
       },
     },
     {
@@ -497,6 +641,9 @@ export const post: BlogPost = {
         fr: "Le jalon des 7 jours s'applique-t-il aussi aux utilisateurs existants?",
         pl: "Czy cel tygodniowy na 7 dni ma zastosowanie również dla osób, które już posiadały aplikację?",
         tr: "Günlük limitin 7 gün için de eski uygulamayı kullanan kişiler için geçerli mi?",
+        nl: "Geldt de 7-dagen mijlpaal ook voor bestaande gebruikers?",
+        ja: "7日間の達成条件は既存ユーザーにも適用されますか？",
+        ko: "7일 마일스톤은 기존 사용자에게도 적용되나요?",
       },
       a: {
         it: "Si, il traguardo e disponibile per tutti gli utenti che connettono l'anello Colmi entro il periodo di lancio, indipendentemente da quando hanno scaricato l'app. I 7 giorni si contano dalla prima sincronizzazione con l'anello.",
@@ -507,6 +654,9 @@ export const post: BlogPost = {
         fr: "Oui, le jalon est disponible pour tous les utilisateurs qui connectent la bague Colmi dans la période de lancement, indépendamment du moment où ils ont téléchargé l'application. Les 7 jours sont comptés à partir de la première synchronisation avec la bague.",
         pl: "Tak, cel jest dostępny dla wszystkich użytkowników, którzy połączą anell Colmi w okresie startu, niezależnie od daty pobrania aplikacji. 7 dni liczą się od pierwszej synchronizacji z anellem.",
         tr: "Evet, hedef mevcut tüm kullanıcılara ait Colmi cihazını ilk başlangıç dönemine bağlayan kullanıcılar için ve ilk kez uygulamayı indirdikten sonra ilk eşleme işleminden 7 gün geçer.",
+        nl: "Ja, de mijlpaal is beschikbaar voor alle gebruikers die de Colmi ring verbinden binnen de lanceringsperiode, ongeacht wanneer ze de app hebben gedownload. De 7 dagen worden geteld vanaf de eerste synchronisatie met de ring.",
+        ja: "はい、達成条件はアプリをダウンロードした時期に関わらず、ローンチ期間内にColmiリングを接続したすべてのユーザーが対象です。7日間はリングとの最初の同期から数えます。",
+        ko: "네, 마일스톤은 앱을 다운로드한 시기에 관계없이 출시 기간 내에 Colmi 링을 연결하는 모든 사용자에게 제공됩니다. 7일은 링과의 첫 번째 동기화부터 카운트됩니다.",
       },
     },
   ],

@@ -16,6 +16,9 @@ export const post: BlogPost = {
     fr: "tableau de bord multi-appareils",
     pl: "pulpit wielokrotne urządzenia",
     tr: "pANEL GİYILEBİLİRLERİ ÇALIŞTIRMAKLAR İÇİN MULTİ CİHAZLI YÖNTEMLER",
+    nl: "multi-apparaat dashboard",
+    ja: "マルチデバイスダッシュボード",
+    ko: "멀티 기기 대시보드",
   },
   secondaryKeywords: {
     it: [
@@ -60,6 +63,27 @@ export const post: BlogPost = {
       "giyilebilir cihazlardan veriler toplamak",
       "adım sayımı sadece bir kez",
     ],
+    nl: [
+      "gegevens van meerdere smartwatches in één dashboard",
+      "geen dubbele wearable gegevens",
+      "FitMesh Sync dashboard",
+      "wearable gegevens samenvoegen",
+      "stappen slechts één keer geteld",
+    ],
+    ja: [
+      "複数のスマートウォッチのデータをひとつのダッシュボードで管理",
+      "ウェアラブルデータの重複なし",
+      "FitMesh Syncダッシュボード",
+      "ウェアラブルデータの集計",
+      "歩数は一度だけカウント",
+    ],
+    ko: [
+      "여러 스마트워치 데이터를 하나의 대시보드에서 관리",
+      "웨어러블 데이터 중복 없음",
+      "FitMesh Sync 대시보드",
+      "웨어러블 데이터 통합",
+      "걸음 수는 한 번만 계산",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync lancia la dashboard multi dispositivo: orologi e anello in un'unica vista, senza doppioni. Ogni metrica viene tenuta una volta sola, con la fonte migliore disponibile.",
@@ -70,6 +94,9 @@ export const post: BlogPost = {
     fr: "FitMesh Sync lance le tableau de bord multi-appareils: montres et bague en une seule vue, sans doublons. Chaque métrique est conservée une fois, avec la meilleure source disponible.",
     pl: "FitMesh Sync wyrusza z wielodostępną pulpitów elektronicznego: smartwaty i anelki na jednym ekranie, bez powtarzalnych elementów. Każda metryka jest przechowywana tylko raz, z najlepszą dostępna źródłem.",
     tr: "FitMesh Sync KVKK uyumluluğunu artıran multi cihaz dashboard'ını başlatıyor: akıllı saatin ve anello'nun bir tek görünümünde, tekrarlamalar olmadan. Her metrik en iyi kaynakta sadece bir kez yer alır.",
+    nl: "FitMesh Sync lanceert het multi-apparaat dashboard: horloges en ring in één overzicht, zonder duplicaten. Elke metriek wordt eenmaal bijgehouden, met de beste beschikbare bron.",
+    ja: "FitMesh Syncがマルチデバイスダッシュボードを導入: スマートウォッチとリングのデータを1つの画面に集約し、重複なし。各指標は最適なソースから一度だけ記録されます。",
+    ko: "FitMesh Sync이 멀티 기기 대시보드를 출시했습니다: 시계와 링의 데이터를 하나의 화면에서 확인하며 중복 없이 관리합니다. 각 지표는 최선의 소스에서 한 번만 기록됩니다.",
   },
   tldr: {
     it: [
@@ -120,6 +147,24 @@ export const post: BlogPost = {
       "Her metrik için en iyi değeri koruyulur, toplamı değil.",
       "Globale görünümü, tüm betavarsı kullanıcılar için hemen kullanılabilir.",
     ],
+    nl: [
+      "Een enkel dashboard verzamelt gegevens van al uw apparaten: smartwatches, ring en elke andere verbonden bron.",
+      "FitMesh Sync elimineert duplicaten automatisch: stappen worden slechts één keer geteld, zelfs als u meerdere apparaten draagt.",
+      "Voor elke metriek wordt de beste waarde bewaard, niet de som van alle bronnen.",
+      "De globale weergave is direct beschikbaar voor alle betagebruikers.",
+    ],
+    ja: [
+      "1つのダッシュボードがすべてのデバイスのデータを集約します: スマートウォッチ、リング、その他の接続されたソース。",
+      "FitMesh Syncは重複を自動的に排除します: 複数のデバイスを着用していても、歩数は一度だけカウントされます。",
+      "各指標には合計ではなく、最良の値が保持されます。",
+      "グローバルビューはすべてのベータユーザーにすぐにご利用いただけます。",
+    ],
+    ko: [
+      "하나의 대시보드가 모든 기기의 데이터를 수집합니다: 스마트워치, 링 및 기타 연결된 소스.",
+      "FitMesh Sync는 중복을 자동으로 제거합니다: 여러 기기를 착용해도 걸음 수는 한 번만 계산됩니다.",
+      "각 지표에는 모든 값의 합이 아니라 최선의 값이 유지됩니다.",
+      "글로벌 보기는 모든 베타 사용자에게 즉시 제공됩니다.",
+    ],
   },
   hero: {
     kicker: {
@@ -131,6 +176,9 @@ export const post: BlogPost = {
       fr: "Nouveauté",
       pl: "Nowości",
       tr: "Yeni Özellikler",
+      nl: "Nieuw",
+      ja: "新機能",
+      ko: "새로운 기능",
     },
     title: {
       it: "Dashboard multi dispositivo: tutti i tuoi wearable in una vista, senza doppioni",
@@ -141,6 +189,9 @@ export const post: BlogPost = {
       fr: "Tableau de bord multi-appareils: tous vos appareils connectés en une vue, sans doublons",
       pl: "Przeglądarka wielosprzętowa: wszystkie Twoje smartwatch w jednym widoku, bez powtarzalnych elementów",
       tr: "Günlük multi cihaz paneli: tüm giyilebilir cihazların bir bakışta, tekrarlar olmadan",
+      nl: "Multi-apparaat dashboard: al uw wearables in één overzicht, zonder duplicaten",
+      ja: "マルチデバイスダッシュボード: すべてのウェアラブルを1つの画面で、重複なし",
+      ko: "멀티 기기 대시보드: 모든 웨어러블을 한 화면에서, 중복 없이",
     },
     subtitle: {
       it: "Con l'aggiornamento di oggi, FitMesh Sync introduce la dashboard globale: un solo schermo che aggrega i dati di orologi, anello e altre sorgenti, eliminando i doppioni e mostrando sempre il valore migliore per ciascuna metrica.",
@@ -151,6 +202,9 @@ export const post: BlogPost = {
       fr: "Avec la mise à jour d'aujourd'hui, FitMesh Sync introduit le tableau de bord global: un seul écran qui regroupe les données des montres, de la bague et d'autres sources, élimine les doublons et affiche toujours la meilleure valeur pour chaque métrique.",
       pl: "Zaśródłowa aktualizacja wprowadza FitMesh Sync globalną dashborad: pojedyncze okno, które agreguje dane z smartwatchów, anelków i innych źródeł, usuwając powtarzalne informacje i prezentując zawsze najlepszą wartość dla każdej metryki.",
       tr: "Bugünkü güncellemeyle FitMesh Sync global panoyu tanıtıyor: saatler, yüzük ve diğer kaynaklardan gelen verileri tek bir ekranda toplayan, tekrarları ortadan kaldıran ve her metrik için her zaman en iyi değeri gösteren bir görünüm.",
+      nl: "Met de update van vandaag introduceert FitMesh Sync het globale dashboard: één scherm dat gegevens van horloges, ring en andere bronnen samenvoegt, duplicaten elimineert en altijd de beste waarde voor elke metriek toont.",
+      ja: "本日のアップデートにより、FitMesh Syncはグローバルダッシュボードを導入しました: スマートウォッチ、リング、その他のソースからのデータを1つの画面に集約し、重複を排除して各指標の最良値を常に表示します。",
+      ko: "오늘 업데이트로 FitMesh Sync가 글로벌 대시보드를 도입했습니다: 시계, 링 및 기타 소스의 데이터를 하나의 화면에 통합하고 중복을 제거하며 각 지표의 최선의 값을 항상 표시합니다.",
     },
   },
   body: [
@@ -165,6 +219,9 @@ export const post: BlogPost = {
         fr: "Beaucoup d'entre vous utilisent plus d'un appareil. Certains portent la montre connectée pendant la journée et la bague la nuit. Certains ont changé de montre en cours d'année et souhaitent voir leurs données de façon continue. Certains utilisent des appareils différents selon l'activité. Jusqu'à présent, FitMesh Sync affichait les données séparées par source: utile, mais pas suffisant. Dès aujourd'hui, le tableau de bord global est disponible.",
         pl: "Wielu z Was używa więcej niż jednego urządzenia. Kto nosi smartwatch w ciągu dnia a anellikę w nocy. Kto zmienił zegarek po pół roku i chciał zobaczyć kontynuowane dane. Kto używa różnych urządzeń w zależności od aktywności. Dotychczas FitMesh Sync pokazywała dane podzielone według źródła: przydatne, ale nie wystarczające. Od dziś istnieje globalna pанel sterowania.",
         tr: "Çoğu kullanıcınız birden fazla cihaz kullanıyor. Günü boyunca akıllı saat giyerken, gece ise döşeme tahtası. Yılı ortasında saati değiştirenler ve sürekli verileri görmek isteyenler var. Farklı aktivitelere göre farklı cihazları kullananlar da mevcut. Önceden FitMesh Sync verileri kaynaklarına göre ayrıntılarıyla sunuyordu: faydalı, ama yeterli değildi. Şimdi ise genel bir panosuz olmamak için global panel var.",
+        nl: "Velen van u gebruiken meer dan één apparaat. Sommigen dragen de smartwatch overdag en de ring 's nachts. Sommigen hebben halverwege het jaar van horloge gewisseld en willen de gegevens aaneengesloten zien. Sommigen gebruiken verschillende apparaten afhankelijk van de activiteit. Tot nu toe toonde FitMesh Sync gegevens gescheiden per bron: nuttig, maar niet voldoende. Vanaf vandaag is er het globale dashboard.",
+        ja: "多くのユーザーが複数のデバイスを使用しています。日中はスマートウォッチを着用し、夜はリングを使う方もいます。年の途中でウォッチを変えて、データを連続して見たい方もいます。活動によって異なるデバイスを使う方もいます。これまでFitMesh Syncはソースごとにデータを分けて表示していました: 便利ですが、十分ではありませんでした。本日からグローバルダッシュボードが利用可能です。",
+        ko: "많은 분들이 두 개 이상의 기기를 사용합니다. 낮에는 스마트워치를 착용하고 밤에는 링을 사용하는 분도 있습니다. 연중에 시계를 바꾸고 데이터를 연속으로 보고 싶은 분도 있습니다. 활동에 따라 다른 기기를 사용하는 분도 있습니다. 지금까지 FitMesh Sync는 소스별로 데이터를 분리하여 표시했습니다: 유용하지만 충분하지 않았습니다. 오늘부터 글로벌 대시보드가 제공됩니다.",
       },
     },
     {
@@ -179,6 +236,9 @@ export const post: BlogPost = {
         fr: "Une vue, toutes les sources",
         pl: "Jedna wizja, wszystkie źródła",
         tr: "Bir bakış, tüm kaynaklar",
+        nl: "Één weergave, alle bronnen",
+        ja: "1つのビュー、すべてのソース",
+        ko: "하나의 보기, 모든 소스",
       },
     },
     {
@@ -192,6 +252,9 @@ export const post: BlogPost = {
         fr: "Le nouveau tableau de bord global regroupe en un seul endroit les données de tous les appareils que vous avez connectés à FitMesh Sync: montres connectées, bague Colmi et toute autre source active. Vous n'avez pas besoin de changer d'onglet pour comparer les chiffres: vous les voyez tous ensemble, organisés par date et type de métrique.",
         pl: "Nowa globalna panel zbiera w jednym miejscu dane z wszystkich urządzeń, które masz podłączone do FitMesh Sync: smartwatch, pierścień Colmi, oraz dowolną inną aktywną źródło. Nie musisz przechodzić z zakładki na zakładkę, aby porównywać liczby: widzisz je wszystkie razem, uporządkowane według daty i typu metryki.",
         tr: "Yeni genel panel, FitMesh Sync'e bağladığın tüm cihazların verilerini (Colmi, akıllı saat ve herhangi bir diğer aktif kaynağı) tek bir yerde toplar. Sayfalar arasında geçmek zorunda kalmazsın: Her şeyi aynı yerde görebilir, veriler tarihe ve metrik tipine göre gruplandırılmış durumda.",
+        nl: "Het nieuwe globale dashboard verzamelt op één plek de gegevens van alle apparaten die u heeft verbonden met FitMesh Sync: smartwatches, Colmi ring en elke andere actieve bron. U hoeft niet tussen tabbladen te wisselen om cijfers te vergelijken: u ziet ze allemaal samen, georganiseerd op datum en type metriek.",
+        ja: "新しいグローバルダッシュボードは、FitMesh Syncに接続したすべてのデバイス(スマートウォッチ、Colmiリング、その他のアクティブなソース)のデータを1か所に集めます。数値を比較するためにタブを切り替える必要はありません: 日付と指標の種類で整理されたすべてのデータを一度に確認できます。",
+        ko: "새로운 글로벌 대시보드는 FitMesh Sync에 연결한 모든 기기(스마트워치, Colmi 링 및 기타 활성 소스)의 데이터를 한 곳에 수집합니다. 수치를 비교하기 위해 탭을 전환할 필요가 없습니다: 날짜와 지표 유형별로 정리된 모든 데이터를 한눈에 볼 수 있습니다.",
       },
     },
     {
@@ -206,6 +269,9 @@ export const post: BlogPost = {
         fr: "Comment nous gérons les doublons",
         pl: "Jak zarządzamy duplikatami",
         tr: "Gestimemizdeki Eşlikler Nasıl Yönetilir",
+        nl: "Hoe wij duplicaten verwerken",
+        ja: "重複の処理方法",
+        ko: "중복 처리 방법",
       },
     },
     {
@@ -219,6 +285,9 @@ export const post: BlogPost = {
         fr: "Le problème des doublons est bien réel: si deux appareils enregistrent tous les deux vos pas pendant la même heure, les additionner donnerait un chiffre erroné. Le système que nous avons construit résout cela en trois étapes:",
         pl: "Problem z duplikatów jest realny: jeśli dwa urządzenia zarejestrują Twoje kroki w tej samej godzinie, sumowanie ich dałoby błędną liczbę. System, który stworzyliśmy, rozwiązuje to w trzech krokach:",
         tr: "Probleem dublicatler gerçekçi: Eğer iki cihaz aynı saatin içindeki adımlarını her ikisini de kaydederse, onları toplayarak yanlış bir sayı elde edersiniz. Oluşturduklarımız sistem üç adımlık bir süreçten geçerek bu sorunu çözer:",
+        nl: "Het duplicaatprobleem is reeel: als twee apparaten beide uw stappen in hetzelfde uur registreren, zou optelling een verkeerd getal geven. Het systeem dat we hebben gebouwd, lost dit op in drie stappen:",
+        ja: "重複の問題は現実的です: 2つのデバイスが同じ時間帯に歩数を両方記録した場合、合算すると誤った数値になります。私たちが構築したシステムは、3つのステップでこれを解決します:",
+        ko: "중복 문제는 실제입니다: 두 기기가 같은 시간에 걸음 수를 모두 기록하면 합산하면 잘못된 숫자가 나옵니다. 우리가 구축한 시스템은 세 단계로 이를 해결합니다:",
       },
     },
     {
@@ -265,6 +334,21 @@ export const post: BlogPost = {
           "**Enese eniyi kaynakı.** Şangrila kaynakları arasında, uygulama o dönemdeki en kapsamlı veya en doğru veri olan kaynaktan kullanır.",
           "**Sadece bir değer göster.** Girdiğiniz paneldeki sayı her zaman en iyi tek değeri, toplamı yansıtmaz.",
         ],
+        nl: [
+          "**Identificeert overlap.** Voor elk tijdsinterval ziet FitMesh Sync hoeveel bronnen dezelfde metriek hebben geregistreerd.",
+          "**Kiest de beste bron.** Onder de overlappende bronnen gebruikt de app die met de meest volledige of nauwkeurigste gegevens voor dat interval.",
+          "**Toont een enkele waarde.** Het getal dat u in het dashboard ziet, is altijd de beste enkelvoudige waarde, niet de som.",
+        ],
+        ja: [
+          "**重複を特定する。** 各時間間隔において、FitMesh Syncは何個のソースが同じ指標を記録したかを確認します。",
+          "**最良のソースを選択する。** 重複するソースの中から、そのインターバルに対して最も完全または正確なデータを持つソースを使用します。",
+          "**単一の値を表示する。** ダッシュボードに表示される数値は常に最良の単一値であり、合計ではありません。",
+        ],
+        ko: [
+          "**중복을 식별합니다.** 각 시간 간격에 대해 FitMesh Sync는 몇 개의 소스가 동일한 지표를 기록했는지 확인합니다.",
+          "**최선의 소스를 선택합니다.** 중복되는 소스 중에서 해당 구간에 대해 가장 완전하거나 정확한 데이터를 가진 소스를 사용합니다.",
+          "**단일 값을 표시합니다.** 대시보드에 표시되는 숫자는 항상 최선의 단일 값이며 합계가 아닙니다.",
+        ],
       },
     },
     {
@@ -279,6 +363,9 @@ export const post: BlogPost = {
         fr: "Vous souhaitez comprendre en détail comment nous gérons plusieurs montres connectées?",
         pl: "Czy chcesz zrozumieć, jak zarządzamy więcej smartwatch w szczegółach?",
         tr: "İstediğinizde,KVKK ile daha ayrıntılı bir şekilde çok sayıda giyilebilir cihaz nasıl yönettiğimizi öğrenmek isteyebilirsiniz?",
+        nl: "Wilt u in detail begrijpen hoe wij meerdere smartwatches verwerken?",
+        ja: "複数のスマートウォッチの処理方法を詳しく理解したいですか?",
+        ko: "여러 스마트워치를 어떻게 처리하는지 자세히 이해하고 싶으신가요?",
       },
       body: {
         it: "Abbiamo scritto una guida tecnica che spiega tutto il funzionamento: [come gestiamo piu smartwatch senza dati doppi](/it/blog/piu-smartwatch-insieme-dati-doppi). Trovi esempi concreti per ogni combinazione di dispositivi.",
@@ -289,6 +376,9 @@ export const post: BlogPost = {
         fr: "Nous avons rédigé un guide technique qui explique tout: [comment nous gérons plusieurs montres connectées sans données en double](/fr/blog/piu-smartwatch-insieme-dati-doppi). Vous y trouverez des exemples concrets pour chaque combinaison d'appareils.",
         pl: "Napisaliśmy przewodnik techniczny wyjaśniający wszystkie szczegóły: [jak zarządzamy wiele smartwatches bez podwójnych danych](/it/blog/pięć-smartwatch-razem-dane-dopiero). Znajdziesz konkretne przykłady dla każdej kombinacji urządzeń.",
         tr: "Yazdık bir teknik kılavuz, tüm işleyişini açıklıyor: [kişisel verilerin olmayan birden fazla akıllı saat nasıl yönettiğimiz](/tr/blog/birden-fazla-akilli-saat-veri-dolayisi-sizden-acilir). Her cihaz kombinasyonu için gerçek örnekler bulabilirsiniz.",
+        nl: "We hebben een technische handleiding geschreven die alles uitlegt: [hoe wij meerdere smartwatches zonder dubbele data verwerken](/nl/blog/piu-smartwatch-insieme-dati-doppi). U vindt concrete voorbeelden voor elke apparaatcombinatie.",
+        ja: "すべての仕組みを説明する技術ガイドを作成しました: [データの重複なしで複数のスマートウォッチを管理する方法](/ja/blog/piu-smartwatch-insieme-dati-doppi)。各デバイスの組み合わせの具体的な例が見つかります。",
+        ko: "모든 작동 방식을 설명하는 기술 가이드를 작성했습니다: [데이터 중복 없이 여러 스마트워치를 관리하는 방법](/ko/blog/piu-smartwatch-insieme-dati-doppi). 각 기기 조합에 대한 구체적인 예시를 찾을 수 있습니다.",
       },
     },
     {
@@ -303,6 +393,9 @@ export const post: BlogPost = {
         fr: "Ce qui change pour les utilisateurs avec un seul appareil",
         pl: "Coż zmienia dla kogo ma jedno urządzenie",
         tr: "Kim sadece bir cihazına sahipse ne değişiyor",
+        nl: "Wat verandert er voor gebruikers met slechts één apparaat",
+        ja: "デバイスが1台だけのユーザーへの変更点",
+        ko: "기기가 하나뿐인 사용자에게 달라지는 점",
       },
     },
     {
@@ -316,6 +409,9 @@ export const post: BlogPost = {
         fr: "Si vous utilisez un seul appareil connecté, le tableau de bord global vous affiche simplement vos données avec une vue plus claire et plus cohérente qu'avant. Rien ne change dans la logique de collecte, mais la présentation est plus lisible: les métriques principales sont mises en avant et les tendances hebdomadaires et mensuelles sont plus faciles à lire.",
         pl: "Je korzystasz z jednego wearables, globalna dashboard pokazuje Ci Twoje dane w prostszy i bardziej zgodnej wizji niż wcześniej. Logika zbierania się nie ulega zmianie, ale prezentacja jest jasniejsza: główne metryki są podkreślone, a tygodniowe i miesięczne trendy są łatwiejsze do odczytania.",
         tr: "Kurucu bir sadece giyilebilir cihaz kullanıyorsanız, globel panosuz sadece verilerinizi daha net ve coherente bir şekilde gösterecek. Veri toplama mantığına herhangi bir değişiklik yapmıyoruz, ancak sunum daha açıklayıcı: ana metrikler öne çıkarılıyor, haftalık ve aylık eğilimler daha okunuyor.",
+        nl: "Als u slechts één wearable gebruikt, toont het globale dashboard gewoon uw gegevens met een overzichtelijkere en consistentere weergave dan voorheen. Niets verandert in de verzamellogica, maar de presentatie is duidelijker: de belangrijkste metrieken zijn uitgelicht, wekelijkse en maandelijkse trends zijn beter leesbaar.",
+        ja: "ウェアラブルを1台だけ使用している場合、グローバルダッシュボードはこれまでよりもすっきりした一貫性のある表示でデータを表示するだけです。収集ロジックに変更はありませんが、表示がより明確になります: 主要な指標がハイライトされ、週次・月次のトレンドが読みやすくなります。",
+        ko: "웨어러블을 하나만 사용하는 경우, 글로벌 대시보드는 이전보다 더 깔끔하고 일관된 보기로 데이터를 표시합니다. 수집 로직에는 변경 사항이 없지만 표시가 더 명확합니다: 주요 지표가 강조되고 주간 및 월간 추세가 더 읽기 쉬워집니다.",
       },
     },
     {
@@ -330,6 +426,9 @@ export const post: BlogPost = {
         fr: "Exemples pratiques de fonctionnement",
         pl: "Praktyczne przykłady działania",
         tr: "Uygulama örneği ve nasıl çalıştığı hakkında bilgi:",
+        nl: "Praktische voorbeelden van hoe het werkt",
+        ja: "実際の動作例",
+        ko: "작동 방식의 실제 예시",
       },
     },
     {
@@ -375,6 +474,21 @@ export const post: BlogPost = {
           "**Aynı zamanda akıllı saat kullanmayı unutmayın.** Eğer aynı anda her ikisini de giyiyorsanız, uygulama veriyi o saate ait en yüksek veya en kapsamlı adımı kullanır ve onunla ilgili adım sayısını hesaplar, toplam adım sayısına değil.",
           "**Yıl ortasındaki cihazı değiştirme.** Eski cihazınızın verileri önceki aylar için ve yeni cihazınızın verileri gelecekteki aylar için, tarihsel görünümde bir süreli çizgi olarak gösterilir.",
         ],
+        nl: [
+          "**Smartwatch overdag, ring 's nachts.** Stappen overdag komen van de smartwatch. Slaap komt van de Colmi ring. Het dashboard toont beide zonder dat de ene de andere overschrijft.",
+          "**Twee smartwatches tegelijkertijd.** Als u beide in hetzelfde tijdvenster draagt, gebruikt de app de stappen van de bron die de hoogste of meest volledige gegevens voor dat uur heeft geleverd, niet de som.",
+          "**Horloge wisselen halverwege het jaar.** Gegevens van het eerste horloge voor de vorige maanden en van het nieuwe horloge voor de volgende maanden verschijnen als een doorlopende lijn in de historische weergave.",
+        ],
+        ja: [
+          "**日中はスマートウォッチ、夜はリング。** 日中の歩数はスマートウォッチから取得されます。睡眠はColmiリングから取得されます。ダッシュボードは一方がもう一方を上書きすることなく両方を表示します。",
+          "**2台のスマートウォッチを同時に使用。** 同じ時間帯に両方を着用している場合、アプリはその時間の最も高いまたは最も完全なデータを生成したソースの歩数を使用します(合計ではありません)。",
+          "**年の途中でウォッチを変更。** 前の月の最初のウォッチのデータと、その後の月の新しいウォッチのデータが、履歴ビューで連続した線として表示されます。",
+        ],
+        ko: [
+          "**낮에는 스마트워치, 밤에는 링.** 낮 동안의 걸음 수는 스마트워치에서 가져옵니다. 수면은 Colmi 링에서 가져옵니다. 대시보드는 하나가 다른 것을 덮어쓰지 않고 둘 다 표시합니다.",
+          "**두 개의 스마트워치를 동시에 착용.** 같은 시간대에 둘 다 착용하는 경우, 앱은 그 시간에 가장 높거나 가장 완전한 데이터를 생성한 소스의 걸음 수를 사용합니다(합계 아님).",
+          "**연중에 시계 교체.** 이전 달의 첫 번째 시계 데이터와 이후 달의 새 시계 데이터가 히스토리 보기에서 연속된 선으로 표시됩니다.",
+        ],
       },
     },
     {
@@ -389,6 +503,9 @@ export const post: BlogPost = {
         fr: "Comment accéder au tableau de bord global",
         pl: "Jak uzyskać dostępu do globalnej dashbordu",
         tr: "Globilist_dashboarda_gitmek_nasıl_edersez?",
+        nl: "Hoe u toegang krijgt tot het globale dashboard",
+        ja: "グローバルダッシュボードへのアクセス方法",
+        ko: "글로벌 대시보드에 접근하는 방법",
       },
     },
     {
@@ -402,6 +519,9 @@ export const post: BlogPost = {
         fr: "Mettez à jour FitMesh Sync vers la dernière version. Le tableau de bord global apparaît automatiquement sur l'écran principal si vous avez plus d'un appareil connecté. Si vous n'avez qu'un seul appareil, vous le trouverez sous 'Vue globale' dans le menu principal. Aucune configuration n'est nécessaire: les appareils que vous avez déjà connectés sont unifiés automatiquement.",
         pl: "Aktualizuj FitMesh Sync do najnowszej wersji. Globальная panel sterownika pojawia się automatycznie na ekranie głównym, jeśli masz więcej niż jeden podłączony urządzenie. Jeśli posiadasz jedno urządzenie, znajdziesz go pod pozycją 'Globowa widoczność' w głównym menu. Nie ma potrzeby konfigurowania niczego: urządzenia, które już podłączyłeś, są automatycznie połączone.",
         tr: "Güncelle FitMesh Sync en son sürümü. Genel panosun otomatik olarak ana ekranın üstüne çıkması için birden fazla bağlanılan cihazınız olması gerekmektedir. Tek bir cihazınız varsa, genel görünüm altına 'Genel Görünüm' menüsü altında bulunur. Herhangi bir yapılandırma gerekmez: Bağlantılı olan cihazlarınız otomatik olarak birleştirilir.",
+        nl: "Werk FitMesh Sync bij naar de nieuwste versie. Het globale dashboard verschijnt automatisch op het hoofdscherm als u meer dan één apparaat verbonden heeft. Als u een enkel apparaat heeft, vindt u het onder 'Globale weergave' in het hoofdmenu. Geen configuratie nodig: de apparaten die u al heeft verbonden, worden automatisch samengevoegd.",
+        ja: "FitMesh Syncを最新バージョンに更新してください。複数のデバイスが接続されている場合、グローバルダッシュボードがメイン画面に自動的に表示されます。デバイスが1台の場合は、メインメニューの「グローバルビュー」から確認できます。設定は不要です: すでに接続したデバイスは自動的に統合されます。",
+        ko: "FitMesh Sync를 최신 버전으로 업데이트하세요. 기기가 두 개 이상 연결된 경우 글로벌 대시보드가 메인 화면에 자동으로 나타납니다. 기기가 하나인 경우 메인 메뉴의 '글로벌 보기'에서 찾을 수 있습니다. 설정이 필요하지 않습니다: 이미 연결한 기기가 자동으로 통합됩니다.",
       },
     },
     {
@@ -415,6 +535,9 @@ export const post: BlogPost = {
         fr: "Essayez le tableau de bord multi-appareils",
         pl: "Spróbuj panelu dashbard wielokrotnej platformy",
         tr: "Deneyin multi-dispositif paneli",
+        nl: "Probeer het multi-apparaat dashboard",
+        ja: "マルチデバイスダッシュボードを試す",
+        ko: "멀티 기기 대시보드 사용해보기",
       },
       body: {
         it: "Entra nella beta e collega tutti i tuoi wearable. La dashboard globale li unisce subito, senza doppioni e senza configurazioni manuali.",
@@ -425,6 +548,9 @@ export const post: BlogPost = {
         fr: "Rejoignez la bêta et connectez tous vos appareils connectés. Le tableau de bord global les unifie immédiatement, sans doublons et sans configuration manuelle.",
         pl: "Wejrzyj na betę i połącz wszystkie Twoje wearable. Globальная panel połączy je natychmiast, bez duplikatów i bez ręcznej konfiguracji.",
         tr: "Giriş beta aşamasına ve giyilebilir cihazların tümünü bağla. Globil dashboard bunları hemen birleştirir, tekrarlamalar olmadan ve manuel yapılandırmalar olmadan.",
+        nl: "Word betalid en verbind al uw wearables. Het globale dashboard voegt ze direct samen, zonder duplicaten en zonder handmatige configuratie.",
+        ja: "ベータに参加してすべてのウェアラブルを接続しましょう。グローバルダッシュボードがすぐに統合します。重複なし、手動設定なしで。",
+        ko: "베타에 참여하고 모든 웨어러블을 연결하세요. 글로벌 대시보드가 즉시 통합합니다. 중복 없이, 수동 설정 없이.",
       },
       ctaLabel: {
         it: "Inizia la beta gratuita",
@@ -435,6 +561,9 @@ export const post: BlogPost = {
         fr: "Démarrer la bêta gratuite",
         pl: "Zacznij bezpłatną betę",
         tr: "Başlat ücretsiz betanız",
+        nl: "Start de gratis beta",
+        ja: "無料ベータを始める",
+        ko: "무료 베타 시작하기",
       },
       ctaHref: {
         it: "/it/beta",
@@ -453,6 +582,9 @@ export const post: BlogPost = {
         fr: "Si je modifie l'ordre de priorité entre les appareils, les données historiques changent-elles?",
         pl: "Je zmiana priorytetu między urządzeniami, historyczne dane się zmieniają?",
         tr: "Eğer cihazlar arasında önceliğin sırası değiştirilirse, tarihi veriler değişiyor mu?",
+        nl: "Als ik de prioriteitsvolgorde tussen apparaten wijzig, veranderen de historische gegevens dan?",
+        ja: "デバイス間の優先順位を変更すると、過去のデータは変わりますか?",
+        ko: "기기 간 우선순위 순서를 변경하면 이전 데이터가 바뀌나요?",
       },
       a: {
         it: "Si, la dashboard viene ricalcolata in base alle preferenze aggiornate. I dati originali di ogni dispositivo restano intatti: cambia solo quale valore viene mostrato quando ci sono sovrapposizioni. Puoi cambiare le priorita in qualsiasi momento dalle impostazioni dispositivi.",
@@ -463,6 +595,9 @@ export const post: BlogPost = {
         fr: "Oui, le tableau de bord est recalculé en fonction des préférences mises à jour. Les données originales de chaque appareil restent intactes: seul le choix de la valeur affichée change en cas de chevauchement. Vous pouvez modifier les priorités à tout moment depuis les paramètres des appareils.",
         pl: "Tak, panel kontrolowy jest ponownie obliczany na podstawie aktualizowanych preferencji. Oryginalne dane każdego urządzenia pozostają niezmienione: zmienia się tylko wartość wyświetlana w przypadku nadmiarów. Możesz zmieniać priorytety w dowolnym momencie z ustawień urządzenia.",
         tr: "Evet, panel güncellenir güncel tercihlere göre. Her cihazın orijinal verileri değişmez: sadece hangi değerin gösterildiği değişebilir hale gelir eğer varsa çakışmalar olursa. Cihaz ayarları içinde her zaman öncelikleri değiştirebilirsiniz.",
+        nl: "Ja, het dashboard wordt herberekend op basis van de bijgewerkte voorkeuren. De originele gegevens van elk apparaat blijven intact: alleen de weergegeven waarde verandert bij overlap. U kunt de prioriteiten altijd wijzigen via de apparaatinstellingen.",
+        ja: "はい、ダッシュボードは更新された設定に基づいて再計算されます。各デバイスの元のデータはそのまま保持されます: 変わるのは重複がある場合にどの値が表示されるかだけです。デバイス設定からいつでも優先順位を変更できます。",
+        ko: "네, 대시보드는 업데이트된 설정에 따라 재계산됩니다. 각 기기의 원본 데이터는 그대로 유지됩니다: 중복이 있을 때 어떤 값이 표시되는지만 변경됩니다. 기기 설정에서 언제든지 우선순위를 변경할 수 있습니다.",
       },
     },
     {
@@ -475,6 +610,9 @@ export const post: BlogPost = {
         fr: "Puis-je voir également les données de chaque source individuellement, et pas seulement la vue unifiée?",
         pl: "Czy mogę również zobaczyć dane poszczególnych źródeł, a nie tylko unifikowaną widok?",
         tr: "Görüyorum ki tekil kaynakların verilerini de görebiliyorum, birincil görünüm dışında?",
+        nl: "Kan ik ook de gegevens van afzonderlijke bronnen bekijken, niet alleen de gecombineerde weergave?",
+        ja: "統合ビューだけでなく、個別のソースのデータも見ることができますか?",
+        ko: "통합 보기뿐만 아니라 개별 소스 데이터도 볼 수 있나요?",
       },
       a: {
         it: "Si. Nella dashboard globale trovi un selettore che ti permette di passare dalla vista unificata alla vista per sorgente. In questo modo puoi confrontare i dati dispositivo per dispositivo e capire eventuali differenze tra un orologio e l'altro.",
@@ -485,6 +623,9 @@ export const post: BlogPost = {
         fr: "Oui. Dans le tableau de bord global, vous trouverez un sélecteur qui vous permet de passer de la vue unifiée à la vue par source. Vous pouvez ainsi comparer les données appareil par appareil et comprendre les éventuelles différences entre une montre et une autre.",
         pl: "Tak. W panelu głównym znajdziesz selektor, który pozwala Ci przełączyć się z widoku agregowanego na widok dla źródła. Dzięki temu możesz porównywać dane urządzenia do urządzenia i zrozumieć poszczególne różnice między smartwatkami.",
         tr: "Evet. Genel panelde, bir seçici listesi bulunan bir sektor bulunur ve bu, tek bir görünümden kaynak başına geçiş yapmanı sağlar. Bu sayede cihaz cihazına göre verileri karşılaştırabilir ve bir pisolino ile diğerlerinin arasındaki olası farkları anlayabilirsiniz.",
+        nl: "Ja. In het globale dashboard vindt u een selector waarmee u kunt schakelen tussen de gecombineerde weergave en de weergave per bron. Zo kunt u gegevens apparaat voor apparaat vergelijken en eventuele verschillen tussen horloges begrijpen.",
+        ja: "はい。グローバルダッシュボードには、統合ビューとソース別ビューを切り替えるセレクターがあります。これにより、デバイスごとにデータを比較し、ウォッチ間の違いを把握できます。",
+        ko: "네. 글로벌 대시보드에는 통합 보기와 소스별 보기를 전환할 수 있는 선택기가 있습니다. 이를 통해 기기별 데이터를 비교하고 시계 간의 차이를 파악할 수 있습니다.",
       },
     },
     {
@@ -497,6 +638,9 @@ export const post: BlogPost = {
         fr: "Le tableau de bord fonctionne-t-il même si j'utilise Health Connect sur Android ou Apple Santé sur iPhone?",
         pl: "Panel działa również, jeśli używam Health Connect na Android lub Apple Ślub na iPhone?",
         tr: "Giyilebilir cihaz kullanarak veya Health Connect üzerinde Android veya Apple Sağlık kullanıyorsam, panoya erişebilirim mi?\nKVKK uygulaması kullanırken veya iPhone kullanıyorsam, panoya erişebilirim mi?",
+        nl: "Werkt het dashboard ook als ik Health Connect op Android of Apple Gezondheid op iPhone gebruik?",
+        ja: "AndroidでHealth Connectを使っている場合やiPhoneでApple ヘルスを使っている場合でも、ダッシュボードは機能しますか?",
+        ko: "Android에서 Health Connect를 사용하거나 iPhone에서 Apple 건강을 사용해도 대시보드가 작동하나요?",
       },
       a: {
         it: "Si. FitMesh Sync legge da Health Connect (Android) e da Apple Salute (iPhone) come sorgenti aggiuntive, e le include nella logica di deduplicazione. Anche i dati che arrivano da quelle piattaforme vengono confrontati con quelli dei dispositivi diretti e unificati nella vista globale.",
@@ -507,6 +651,9 @@ export const post: BlogPost = {
         fr: "Oui. FitMesh Sync lit depuis Health Connect (Android) et Apple Santé (iPhone) comme sources supplémentaires, et les intègre dans la logique de déduplication. Les données provenant de ces plateformes sont également comparées avec celles des appareils directement connectés et unifiées dans la vue globale.",
         pl: "Tak. FitMesh Sync czyta z Health Connect (Android) oraz Apple Salute (iPhone), które są dodatkowymi źródłami, a ich dane są uwzględniane w logice deduplikacji. Dane przychodzące z tych platform są porównywane z danymi z bezpośrednich urządzeń i łączone w globalnej widoku.",
         tr: "Evet. FitMesh Sync giyilebilir cihazlardan (Health Connect (Android)) ve Apple Sağlık (iPhone) olarak belirlenen kaynaklardan okunuyor ve bu kaynaklar deduplicasyon logikası içinde yer alıyor. Bu platformlardan gelen veriler, doğrudan ve unifiye edilmiş cihazlardan gelen verilere karşılaştırılıyor ve küresel görünümde birleştiriliyor.",
+        nl: "Ja. FitMesh Sync leest van Health Connect (Android) en Apple Gezondheid (iPhone) als aanvullende bronnen, en neemt ze op in de deduplicatielogica. Zelfs gegevens van die platforms worden vergeleken met gegevens van directe apparaten en samengevoegd in de globale weergave.",
+        ja: "はい。FitMesh SyncはHealth Connect(Android)とApple ヘルス(iPhone)を追加ソースとして読み取り、重複排除ロジックに含めます。それらのプラットフォームからのデータも直接デバイスのデータと比較され、グローバルビューで統合されます。",
+        ko: "네. FitMesh Sync는 Health Connect(Android)와 Apple 건강(iPhone)을 추가 소스로 읽어들이고 중복 제거 로직에 포함합니다. 해당 플랫폼의 데이터도 직접 기기의 데이터와 비교되어 글로벌 보기에서 통합됩니다.",
       },
     },
   ],
