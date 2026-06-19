@@ -6,7 +6,7 @@ import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 export const dynamic = "force-dynamic";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LOCALES = ["it", "en", "es", "de", "pt", "fr"] as const;
+const LOCALES = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const;
 
 export async function GET(req: Request) {
   // Fail-closed: senza CRON_SECRET configurato l'endpoint resta inaccessibile.
