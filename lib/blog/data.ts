@@ -66,6 +66,8 @@ import { post as datiPixelWatchDashboard } from "./posts/dati-pixel-watch-dashbo
 import { post as huaweiHealthHealthConnect } from "./posts/huawei-health-health-connect-sincronizzazione";
 // Garmin Body Battery / Health Connect gap
 import { post as garminBodyBatteryHealthConnect } from "./posts/garmin-body-battery-health-connect";
+// SEO wave 21/06
+import { post as sleepTrackerComparison2026 } from "./posts/sleep-tracker-comparison-2026";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -120,6 +122,8 @@ const RAW_POSTS: BlogPost[] = [
   huaweiHealthHealthConnect,
   // Garmin Body Battery / Health Connect gap
   garminBodyBatteryHealthConnect,
+  // SEO wave 21/06
+  sleepTrackerComparison2026,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
