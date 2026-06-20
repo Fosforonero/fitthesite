@@ -164,11 +164,11 @@ export interface BlogPost {
 }
 
 export const CATEGORY_LABEL: Record<BlogCategory, Localized> = {
-  guides: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide" },
-  comparisons: { it: "Confronto", en: "Comparison", es: "Comparativa", de: "Vergleich", pt: "Comparação", fr: "Comparatif" },
-  privacy: { it: "Privacy", en: "Privacy", es: "Privacidad", de: "Datenschutz", pt: "Privacidade", fr: "Confidentialité" },
-  ecosystem: { it: "Ecosistema", en: "Ecosystem", es: "Ecosistema", de: "Ökosystem", pt: "Ecossistema", fr: "Écosystème" },
-  news: { it: "Novità", en: "What's New", es: "Novedades", de: "Neuigkeiten", pt: "Novidades", fr: "Nouveautés" },
+  guides: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide", pl: "Poradnik", tr: "Rehber", nl: "Handleiding", ja: "ガイド", ko: "가이드" },
+  comparisons: { it: "Confronto", en: "Comparison", es: "Comparativa", de: "Vergleich", pt: "Comparação", fr: "Comparatif", pl: "Porównanie", tr: "Karşılaştırma", nl: "Vergelijking", ja: "比較", ko: "비교" },
+  privacy: { it: "Privacy", en: "Privacy", es: "Privacidad", de: "Datenschutz", pt: "Privacidade", fr: "Confidentialité", pl: "Prywatność", tr: "Gizlilik", nl: "Privacy", ja: "プライバシー", ko: "개인정보" },
+  ecosystem: { it: "Ecosistema", en: "Ecosystem", es: "Ecosistema", de: "Ökosystem", pt: "Ecossistema", fr: "Écosystème", pl: "Ekosystem", tr: "Ekosistem", nl: "Ecosysteem", ja: "エコシステム", ko: "에코시스템" },
+  news: { it: "Novità", en: "What's New", es: "Novedades", de: "Neuigkeiten", pt: "Novidades", fr: "Nouveautés", pl: "Nowości", tr: "Yenilikler", nl: "Nieuws", ja: "新着情報", ko: "새 소식" },
 };
 
 export function categoryLabel(c: BlogCategory, lc: Locale): string {

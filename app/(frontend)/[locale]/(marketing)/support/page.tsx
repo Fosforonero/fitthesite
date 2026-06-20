@@ -83,6 +83,45 @@ const FAQ_FR = [
   { q: "Y aura-t-il une prise en charge iOS ?", a: "En cours de développement. iOS arrivera en 2026 avec la même architecture : une application native SwiftUI qui lit les données depuis Apple HealthKit. Inscrivez-vous via hello@fitmesh.fit pour être informé." },
 ];
 
+const FAQ_NL = [
+  {
+    q: "De app toont geen gegevens. Wat moet ik doen?",
+    a: "Controleer in volgorde: (1) Is Health Connect vanuit de Play Store geïnstalleerd? (2) Heeft u de toestemming «Gegevens op de achtergrond lezen» ingeschakeld binnen Health Connect? (3) Tik op «Nu synchroniseren» in de instellingen. Als het probleem aanhoudt, neem dan contact met ons op met een schermafbeelding van het paneel «Status».",
+  },
+  { q: "Hoeveel batterij verbruikt de app?", a: "Ongeveer 1-2% per dag met synchronisaties elke 30 minuten. Dat ligt onder de grens die Android hanteert voor «apps die de batterij leeglopen». Als je ongewoon verbruik ziet, is het waarschijnlijk Health Connect zelf dat aan het indexeren is, niet FitMesh Sync." },
+  { q: "Werkt de app offline?", a: "De app verzamelt en zet gegevens in de wachtrij, ook zonder netwerk. Zodra u weer online bent, synchroniseert de app automatisch alles wat er in de tussentijd is opgebouwd. Het webdashboard vereist echter een actieve internetverbinding." },
+  { q: "Kan ik een eigen privéserver gebruiken?", a: "Ja, op aanvraag. Voor zakelijke behoeften (verzorgingshuizen, klinieken, medische praktijken, familiegroepen met gescheiden gegevens) zetten we een dedicated server op met uw domein, beheerde back-ups en een dedicated SLA. Schrijf naar sales@fitmesh.fit met het verwachte gebruikersvolume en uw bewaarvereisten voor gegevens." },
+  { q: "Hoeveel kost FitMesh Sync?", a: "€3,99 op Android · €4,99 op iPhone: eenmalige aankoop, geen abonnement, geen automatische verlengingen, geen verrassingen op de factuur." },
+  { q: "Ik heb van telefoon gewisseld. Verlies ik mijn gegevens?", a: "Nee. De gegevens staan op de server, niet op de telefoon. Installeer de app opnieuw, log in (of voer uw vorige apparaat-ID in de instellingen in als u een geavanceerd account heeft) en u krijgt alles terug." },
+  { q: "iOS-ondersteuning?", a: "In ontwikkeling. iOS volgt in 2026 met dezelfde architectuur: een native SwiftUI-app die gegevens leest uit Apple HealthKit. Schrijf u in via hello@fitmesh.fit om op de hoogte te worden gesteld." },
+];
+
+const FAQ_JA = [
+  {
+    q: "アプリにデータが表示されません。どうすればよいですか？",
+    a: "次の順で確認してください：(1) Play StoreからHealth Connectをインストールしていますか？ (2) Health Connect内で「バックグラウンドでのデータ読み取り」の権限を許可していますか？ (3) 設定内の「今すぐ同期」をタップしてください。問題が解決しない場合は、「ステータス」パネルのスクリーンショットを添付してご連絡ください。",
+  },
+  { q: "バッテリーの消費量はどれくらいですか？", a: "30分ごとの同期間隔で1日あたり約1〜2%です。Androidがバッテリーを消耗するアプリとして検出する閾値を下回っています。異常な消耗にお気づきの場合は、FitMesh SyncではなくHealth Connect自体がバックグラウンドでインデックス処理をしている可能性が高いです。" },
+  { q: "オフラインでも動作しますか？", a: "アプリはネットワークなしでもデータを収集してキューに保存します。オンラインに戻った瞬間、溜まっていた分をすべて自動的に同期します。Webダッシュボードはアクティブなインターネット接続が必要です。" },
+  { q: "プライベートサーバーを使用できますか？", a: "はい、ご要望に応じて対応します。企業向けのニーズ（介護施設、クリニック、医療機関、データを分離管理したい家族グループなど）には、ご指定のドメインで専用サーバーをセットアップし、管理されたバックアップと専用SLAを提供します。予想ユーザー数とデータ保持要件を添えてsales@fitmesh.fitまでお知らせください。" },
+  { q: "FitMesh Syncの価格は？", a: "Android €3.99 · iPhone €4.99：買い切りプラン、サブスクリプションなし、自動更新なし、請求の驚きなし。" },
+  { q: "機種変更しました。データは失われますか？", a: "いいえ。データはサーバーに保存されており、端末には保存されていません。アプリを再インストールしてログインするか（高度なアカウントをお持ちの場合は、設定に以前のデバイスIDを入力してください）、すべてのデータが元に戻ります。" },
+  { q: "iOSのサポートは？", a: "開発中です。iOSは2026年に同じアーキテクチャで登場する予定です：Apple HealthKitからデータを読み取るネイティブSwiftUIアプリです。hello@fitmesh.fitから登録すると通知をお届けします。" },
+];
+
+const FAQ_KO = [
+  {
+    q: "앱에 데이터가 표시되지 않습니다. 어떻게 해야 하나요?",
+    a: "다음 순서로 확인해 주세요: (1) Play 스토어에서 Health Connect를 설치하셨나요? (2) Health Connect 내에서 「백그라운드 데이터 읽기」 권한을 허용하셨나요? (3) 설정에서 「지금 동기화」를 탭해 주세요. 문제가 계속되면 「상태」 패널의 스크린샷을 첨부하여 이메일로 문의해 주세요.",
+  },
+  { q: "배터리 사용량은 얼마나 되나요?", a: "30분 간격으로 동기화할 때 하루 약 1~2%를 사용합니다. Android가 「배터리 소모 앱」으로 감지하는 임계치 이하입니다. 비정상적인 소모가 보인다면, FitMesh Sync가 아니라 Health Connect 자체가 백그라운드에서 인덱싱하고 있을 가능성이 높습니다." },
+  { q: "오프라인에서도 작동하나요?", a: "앱은 네트워크 없이도 데이터를 수집하여 대기열에 저장합니다. 다시 온라인이 되면 쌓인 데이터를 자동으로 모두 동기화합니다. 웹 대시보드는 인터넷 연결이 필요합니다." },
+  { q: "프라이빗 서버를 사용할 수 있나요?", a: "네, 요청 시 가능합니다. 기업용 수요(요양원, 클리닉, 의료기관, 데이터를 분리 관리해야 하는 가족 그룹 등)에 대해 고객님의 도메인으로 전용 서버를 설정해 드리며, 관리형 백업과 전용 SLA를 제공합니다. 예상 사용자 수와 데이터 보관 요건을 sales@fitmesh.fit로 이메일 주세요." },
+  { q: "FitMesh Sync 가격은 얼마인가요?", a: "Android €3.99 · iPhone €4.99: 일회성 구매, 구독 없음, 자동 갱신 없음, 청구 시 예상치 못한 요금 없음." },
+  { q: "휴대폰을 바꿨습니다. 데이터가 사라지나요?", a: "아니요. 데이터는 서버에 저장되어 있으며 휴대폰에는 없습니다. 앱을 재설치하고 로그인하거나(고급 계정의 경우 설정에서 이전 기기 ID를 입력하시면) 모든 데이터를 되찾을 수 있습니다." },
+  { q: "iOS 지원은요?", a: "개발 중입니다. iOS는 2026년에 동일한 아키텍처로 출시될 예정입니다: Apple HealthKit에서 데이터를 읽는 네이티브 SwiftUI 앱입니다. hello@fitmesh.fit로 등록하시면 알림을 받으실 수 있습니다." },
+];
+
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
@@ -120,13 +159,13 @@ export default async function SupportPage({
   const { locale } = await params;
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
-  const faqs = lc === "en" ? FAQ_EN : lc === "es" ? FAQ_ES : lc === "de" ? FAQ_DE : lc === "pt" ? FAQ_PT : lc === "fr" ? FAQ_FR : FAQ_IT;
+  const faqs = lc === "en" ? FAQ_EN : lc === "es" ? FAQ_ES : lc === "de" ? FAQ_DE : lc === "pt" ? FAQ_PT : lc === "fr" ? FAQ_FR : lc === "nl" ? FAQ_NL : lc === "ja" ? FAQ_JA : lc === "ko" ? FAQ_KO : FAQ_IT;
 
   // Structured data — FAQPage for Google rich result
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : "en-US",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
@@ -144,6 +183,12 @@ export default async function SupportPage({
     ? "Respostas para as dúvidas mais comuns. Se você não encontrar o que procura,"
     : lc === "fr"
     ? "Les réponses aux questions les plus fréquentes. Si vous ne trouvez pas ce que vous cherchez,"
+    : lc === "nl"
+    ? "De antwoorden op de meest voorkomende vragen. Als je niet vindt wat je zoekt,"
+    : lc === "ja"
+    ? "よくある問題への回答です。お探しの内容が見つからない場合は、"
+    : lc === "ko"
+    ? "일반적인 문제들에 대한 답변입니다. 찾고 계신 것이 없다면,"
     : "Le risposte ai problemi più comuni. Se non trovi quello che cerchi,";
 
   const writeUsLabel = lc === "en"
@@ -156,6 +201,12 @@ export default async function SupportPage({
     ? "escreva para support@fitmesh.fit"
     : lc === "fr"
     ? "écrivez-nous à support@fitmesh.fit"
+    : lc === "nl"
+    ? "schrijf ons op support@fitmesh.fit"
+    : lc === "ja"
+    ? "support@fitmesh.fitまでご連絡ください"
+    : lc === "ko"
+    ? "support@fitmesh.fit으로 문의해 주세요"
     : "scrivici a support@fitmesh.fit";
 
   const moreQuestionsHeading = lc === "en"
@@ -168,6 +219,12 @@ export default async function SupportPage({
     ? "Tem outra dúvida?"
     : lc === "fr"
     ? "Vous avez une autre question ?"
+    : lc === "nl"
+    ? "Heb je nog een andere vraag?"
+    : lc === "ja"
+    ? "別の質問がありますか？"
+    : lc === "ko"
+    ? "다른 질문이 있으신가요?"
     : "Hai un'altra domanda?";
   const moreQuestionsDesc = lc === "en"
     ? "Drop us a line. We respond personally within 48 hours (usually much sooner)."
@@ -179,6 +236,12 @@ export default async function SupportPage({
     ? "Fale com a gente. Respondemos pessoalmente em até 48 horas (geralmente muito antes)."
     : lc === "fr"
     ? "Contactez-nous. Nous répondons personnellement en moins de 48 heures (souvent bien avant)."
+    : lc === "nl"
+    ? "Schrijf ons. We reageren persoonlijk binnen 48 uur (meestal veel eerder)."
+    : lc === "ja"
+    ? "ご連絡ください。48時間以内（通常はもっと早く）に個人的にご回答いたします。"
+    : lc === "ko"
+    ? "문의해 주세요. 48시간 이내(보통 훨씬 빠르게)에 직접 답변 드리겠습니다."
     : "Scrivici. Rispondiamo personalmente entro 48 ore (di solito molto prima).";
 
   const ctaPrimary = lc === "en"
@@ -191,9 +254,15 @@ export default async function SupportPage({
     ? "Escreva para support@fitmesh.fit"
     : lc === "fr"
     ? "Écrire à support@fitmesh.fit"
+    : lc === "nl"
+    ? "Schrijf naar support@fitmesh.fit"
+    : lc === "ja"
+    ? "support@fitmesh.fitにメールする"
+    : lc === "ko"
+    ? "support@fitmesh.fit에 이메일 보내기"
     : "Scrivi a support@fitmesh.fit";
 
-  const crumbName = lc === "en" ? "Support" : lc === "es" ? "Soporte" : lc === "de" ? "Support" : lc === "pt" ? "Suporte" : lc === "fr" ? "Assistance" : "Supporto";
+  const crumbName = lc === "en" ? "Support" : lc === "es" ? "Soporte" : lc === "de" ? "Support" : lc === "pt" ? "Suporte" : lc === "fr" ? "Assistance" : lc === "nl" ? "Ondersteuning" : lc === "ja" ? "サポート" : lc === "ko" ? "고객 지원" : "Supporto";
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
       <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/support` }]} locale={lc} />

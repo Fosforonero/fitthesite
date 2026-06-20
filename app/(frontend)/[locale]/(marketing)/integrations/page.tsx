@@ -40,7 +40,13 @@ export async function generateMetadata({
             ? "Integrações — FitMesh Sync"
             : lc === "fr"
               ? "Intégrations — FitMesh Sync"
-              : "Integrations — FitMesh Sync";
+              : lc === "nl"
+                ? "Integraties — FitMesh Sync"
+                : lc === "ja"
+                  ? "連携 — FitMesh Sync"
+                  : lc === "ko"
+                    ? "연동 — FitMesh Sync"
+                    : "Integrations — FitMesh Sync";
   const description =
     lc === "it"
       ? "Tutte le integrazioni di FitMesh Sync: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Stato live e roadmap aggiornata."
@@ -52,7 +58,13 @@ export async function generateMetadata({
             ? "Todas as integrações do FitMesh Sync: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Status atual e roteiro de novidades."
             : lc === "fr"
               ? "Toutes les intégrations de FitMesh Sync : Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Statut en direct et feuille de route."
-              : "All FitMesh Sync integrations: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Live status and roadmap.";
+              : lc === "nl"
+                ? "Alle integraties van FitMesh Sync: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Live status en roadmap."
+                : lc === "ja"
+                  ? "FitMesh Syncのすべての連携：Galaxy Watch、Wear OS、Mi Band、Fitbit、Garmin、Strava、Polar、Oura、Withings。ライブステータスとロードマップ。"
+                  : lc === "ko"
+                    ? "FitMesh Sync의 모든 연동: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. 실시간 상태 및 로드맵."
+                    : "All FitMesh Sync integrations: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Live status and roadmap.";
 
   const path = `/${lc}/integrations`;
   return {
@@ -95,8 +107,8 @@ export default async function IntegrationsHub({
   const { locale } = await params;
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
-  const t = (it: string, en: string, es?: string, de?: string, pt?: string, fr?: string) =>
-    lc === "it" ? it : lc === "es" ? (es ?? en) : lc === "de" ? (de ?? en) : lc === "pt" ? (pt ?? en) : lc === "fr" ? (fr ?? en) : en;
+  const t = (it: string, en: string, es?: string, de?: string, pt?: string, fr?: string, nl?: string, ja?: string, ko?: string) =>
+    lc === "it" ? it : lc === "es" ? (es ?? en) : lc === "de" ? (de ?? en) : lc === "pt" ? (pt ?? en) : lc === "fr" ? (fr ?? en) : lc === "nl" ? (nl ?? en) : lc === "ja" ? (ja ?? en) : lc === "ko" ? (ko ?? en) : en;
   // Group providers by category, in canonical order
   const grouped = CATEGORY_ORDER.map((category) => ({
     category,
@@ -115,9 +127,9 @@ export default async function IntegrationsHub({
   const collectionLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: t("Integrazioni FitMesh Sync", "FitMesh Sync Integrations", "Integraciones FitMesh Sync", "FitMesh Sync Integrationen", "Integrações FitMesh Sync", "Intégrations FitMesh Sync"),
+    name: t("Integrazioni FitMesh Sync", "FitMesh Sync Integrations", "Integraciones FitMesh Sync", "FitMesh Sync Integrationen", "Integrações FitMesh Sync", "Intégrations FitMesh Sync", "FitMesh Sync Integraties", "FitMesh Sync 連携", "FitMesh Sync 연동"),
     url: `${SITE_URL}/${lc}/integrations`,
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : "en-US",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
     hasPart: PROVIDERS.map((p) => ({
       "@type": "SoftwareApplication",
       name: `FitMesh Sync — ${p.name}`,
@@ -131,7 +143,7 @@ export default async function IntegrationsHub({
     <>
       <JsonLd data={collectionLd} />
       <Breadcrumbs
-        items={[{ name: t("Integrazioni", "Integrations", "Integraciones", "Integrationen", "Integrações", "Intégrations"), path: `/${lc}/integrations` }]}
+        items={[{ name: t("Integrazioni", "Integrations", "Integraciones", "Integrationen", "Integrações", "Intégrations", "Integraties", "連携", "연동"), path: `/${lc}/integrations` }]}
         locale={lc}
       />
 
@@ -142,7 +154,7 @@ export default async function IntegrationsHub({
           className="halo-conic absolute left-1/2 top-0 -z-10 h-[400px] w-[640px] -translate-x-1/2 opacity-50 animate-float"
         />
         <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-          {t("Integrazioni", "Integrations", "Integraciones", "Integrationen", "Integrações", "Intégrations")}
+          {t("Integrazioni", "Integrations", "Integraciones", "Integrationen", "Integrações", "Intégrations", "Integraties", "連携", "연동")}
         </p>
         <h1 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-3xl text-balance">
           {t(
@@ -152,6 +164,9 @@ export default async function IntegrationsHub({
             "Eine Smartwatch, eine Plattform. ",
             "Um smartwatch, uma plataforma. ",
             "Une montre connectée, une plateforme. ",
+            "Één smartwatch, één platform. ",
+            "ひとつのスマートウォッチ、ひとつのプラットフォーム。",
+            "하나의 스마트워치, 하나의 플랫폼. ",
           )}
           <span className="text-brand-gradient">
             {t(
@@ -161,6 +176,9 @@ export default async function IntegrationsHub({
               "Alle deine Gesundheitsdaten an einem Ort.",
               "Todos os seus dados de saúde reunidos.",
               "Toutes vos données de santé au même endroit.",
+              "Al je gezondheidsdata op één plek.",
+              "すべての健康データをひとつに。",
+              "모든 건강 데이터를 한곳에.",
             )}
           </span>
         </h1>
@@ -172,6 +190,9 @@ export default async function IntegrationsHub({
             `FitMesh Sync unterstützt nativ ${liveCount} Quellen über Health Connect und ${roadmapCount} weitere kommen per offizieller OAuth-Anbindung. Vollständige Liste mit aktuellem Status.`,
             `FitMesh Sync é compatível nativamente com ${liveCount} fontes via Health Connect e mais ${roadmapCount} chegarão via OAuth oficial. Lista completa com o status atual.`,
             `FitMesh Sync prend en charge nativement ${liveCount} sources via Health Connect et ${roadmapCount} autres sont en cours d'intégration via OAuth officiel. Liste complète avec le statut actuel.`,
+            `FitMesh Sync ondersteunt native ${liveCount} bronnen via Health Connect en ${roadmapCount} meer komen via officiële OAuth. Volledige lijst met actuele status.`,
+            `FitMesh SyncはHealth Connect経由で${liveCount}のソースをネイティブにサポートし、公式OAuth経由でさらに${roadmapCount}を追加予定です。最新ステータス付きの完全リスト。`,
+            `FitMesh Sync는 Health Connect를 통해 ${liveCount}개 소스를 기본 지원하며 공식 OAuth를 통해 ${roadmapCount}개가 추가될 예정입니다. 현재 상태가 포함된 전체 목록.`,
           )}
         </p>
 
@@ -182,7 +203,7 @@ export default async function IntegrationsHub({
               {liveCount}<span className="text-brand-green">·</span>
             </p>
             <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-text-muted leading-tight">
-              {t("Live oggi", "Live today", "Disponibles hoy", "Jetzt live", "Disponíveis hoje", "Disponibles aujourd'hui")}
+              {t("Live oggi", "Live today", "Disponibles hoy", "Jetzt live", "Disponíveis hoje", "Disponibles aujourd'hui", "Nu live", "現在利用可能", "지금 이용 가능")}
             </p>
           </li>
           <li>
@@ -190,7 +211,7 @@ export default async function IntegrationsHub({
               {roadmapCount}+
             </p>
             <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-text-muted leading-tight">
-              {t("In roadmap", "In roadmap", "En hoja de ruta", "In der Roadmap", "No roadmap", "Dans la feuille de route")}
+              {t("In roadmap", "In roadmap", "En hoja de ruta", "In der Roadmap", "No roadmap", "Dans la feuille de route", "In de roadmap", "ロードマップ予定", "로드맵 예정")}
             </p>
           </li>
           <li>
@@ -198,7 +219,7 @@ export default async function IntegrationsHub({
               {PROVIDERS.length}
             </p>
             <p className="mt-0.5 text-[11px] uppercase tracking-[0.18em] text-text-muted leading-tight">
-              {t("Totale supportate", "Total supported", "Total compatibles")}
+              {t("Totale supportate", "Total supported", "Total compatibles", "Gesamt unterstützt", "Total compatíveis", "Total pris en charge", "Totaal ondersteund", "合計対応数", "총 지원 수")}
             </p>
           </li>
         </ul>
@@ -284,13 +305,19 @@ export default async function IntegrationsHub({
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
         <div className="rounded-card border border-divider bg-gradient-to-br from-bg-card to-bg-secondary p-8 sm:p-12">
           <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-            {t("Bonus", "Bonus", "Bonus")}
+            {t("Bonus", "Bonus", "Bonus", "Bonus", "Bônus", "Bonus", "Bonus", "ボーナス", "보너스")}
           </p>
           <h2 className="mt-3 font-display text-2xl font-semibold text-text-primary max-w-2xl">
             {t(
               "Hai un altro brand? Probabilmente funziona già.",
               "Got another brand? It likely already works.",
               "¿Tienes otra marca? Probablemente ya funciona.",
+              "Hast du eine andere Marke? Es funktioniert wahrscheinlich bereits.",
+              "Tem outra marca? Provavelmente já funciona.",
+              "Vous avez une autre marque ? Ça fonctionne probablement déjà.",
+              "Heb je een ander merk? Het werkt waarschijnlijk al.",
+              "別のブランドをお持ちですか？おそらくすでに動作します。",
+              "다른 브랜드를 갖고 계신가요? 아마 이미 작동할 겁니다.",
             )}
           </h2>
           <p className="mt-4 text-text-secondary max-w-2xl leading-relaxed">
@@ -298,6 +325,12 @@ export default async function IntegrationsHub({
               "Qualsiasi app o smartwatch che scriva su Health Connect è automaticamente leggibile da FitMesh: Huawei Health, Mobvoi, OnePlus Health, Zepp / Amazfit (modelli moderni), Coros, Withings (parziale), Garmin Connect (parziale), Polar Flow (parziale). Le integrazioni OAuth dedicate aggiungono dati avanzati (Training Load, Body Battery, GPS track) che Health Connect non espone.",
               "Any app or smartwatch that writes to Health Connect is automatically readable by FitMesh: Huawei Health, Mobvoi, OnePlus Health, Zepp / Amazfit (modern models), Coros, Withings (partial), Garmin Connect (partial), Polar Flow (partial). Dedicated OAuth integrations add the advanced data (Training Load, Body Battery, GPS tracks) that Health Connect doesn't expose.",
               "Cualquier app o smartwatch que escriba en Health Connect es compatible automáticamente con FitMesh: Huawei Health, Mobvoi, OnePlus Health, Zepp / Amazfit (modelos modernos), Coros, Withings (parcial), Garmin Connect (parcial), Polar Flow (parcial). Las integraciones OAuth dedicadas añaden datos avanzados (Training Load, Body Battery, rutas GPS) que Health Connect no expone.",
+              undefined,
+              undefined,
+              undefined,
+              "Elke app of smartwatch die naar Health Connect schrijft, is automatisch leesbaar door FitMesh: Huawei Health, Mobvoi, OnePlus Health, Zepp / Amazfit (moderne modellen), Coros, Withings (gedeeltelijk), Garmin Connect (gedeeltelijk), Polar Flow (gedeeltelijk). Speciale OAuth-integraties voegen geavanceerde data toe (Training Load, Body Battery, GPS-tracks) die Health Connect niet blootstelt.",
+              "Health Connectに書き込むアプリやスマートウォッチはFitMeshで自動的に読み取れます：Huawei Health、Mobvoi、OnePlus Health、Zepp / Amazfit（最新モデル）、Coros、Withings（一部）、Garmin Connect（一部）、Polar Flow（一部）。専用OAuth連携はHealth Connectが公開しない高度なデータ（Training Load、Body Battery、GPSトラック）を追加します。",
+              "Health Connect에 데이터를 쓰는 모든 앱이나 스마트워치는 FitMesh에서 자동으로 읽을 수 있습니다: Huawei Health, Mobvoi, OnePlus Health, Zepp / Amazfit (최신 모델), Coros, Withings (일부), Garmin Connect (일부), Polar Flow (일부). 전용 OAuth 연동은 Health Connect가 제공하지 않는 고급 데이터(Training Load, Body Battery, GPS 트랙)를 추가합니다.",
             )}
           </p>
           <Link
@@ -308,6 +341,12 @@ export default async function IntegrationsHub({
               "Approfondisci nella guida completa al sync wearable",
               "Read the complete guide to wearable sync",
               "Lee la guía completa de sincronización de wearables",
+              undefined,
+              undefined,
+              undefined,
+              "Lees de complete gids voor wearable sync",
+              "ウェアラブルsyncの完全ガイドを読む",
+              "웨어러블 동기화 전체 가이드 읽기",
             )}
             <span className="transition-transform group-hover:translate-x-1">→</span>
           </Link>
@@ -317,13 +356,19 @@ export default async function IntegrationsHub({
       {/* CTA */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-20 text-center">
         <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-          {t("Manca la tua integrazione?", "Missing your integration?", "¿Falta tu integración?")}
+          {t("Manca la tua integrazione?", "Missing your integration?", "¿Falta tu integración?", "Fehlt deine Integration?", "Falta a sua integração?", "Votre intégration manque ?", "Mist jouw integratie?", "連携が見つかりませんか？", "연동이 없나요?")}
         </h2>
         <p className="mt-4 text-text-secondary max-w-xl mx-auto">
           {t(
             "Scrivici quale integrazione ti serve: diamo priorità a quelle più richieste.",
             "Tell us which integration you need: we prioritize the most requested ones.",
             "Cuéntanos qué integración necesitas: damos prioridad a las más solicitadas.",
+            "Schreib uns, welche Integration du brauchst: Wir priorisieren die meistgefragten.",
+            "Diga-nos qual integração você precisa: priorizamos as mais solicitadas.",
+            "Dites-nous quelle intégration vous souhaitez : nous priorisons les plus demandées.",
+            "Laat ons weten welke integratie je nodig hebt: wij geven prioriteit aan de meest gevraagde.",
+            "必要な連携をお知らせください：最もリクエストの多いものを優先します。",
+            "필요한 연동을 알려주세요: 가장 많이 요청된 것을 우선 개발합니다.",
           )}
         </p>
         <div className="mt-8 flex justify-center">
@@ -331,7 +376,7 @@ export default async function IntegrationsHub({
             href="mailto:hello@fitmesh.fit?subject=Integration%20request"
             className="inline-flex items-center px-6 py-3 rounded-pill btn-cta text-sm font-semibold"
           >
-            {t("Richiedi un'integrazione", "Request an integration", "Solicitar una integración")}
+            {t("Richiedi un'integrazione", "Request an integration", "Solicitar una integración", "Integration anfragen", "Solicitar uma integração", "Demander une intégration", "Integratie aanvragen", "連携をリクエスト", "연동 요청")}
           </a>
         </div>
       </section>

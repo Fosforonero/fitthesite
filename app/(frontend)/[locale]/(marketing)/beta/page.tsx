@@ -36,6 +36,12 @@ export async function generateMetadata({
       ? "FitMesh Sync Founder — 1 ano de Pro grátis para os primeiros 1000"
       : lc === "fr"
       ? "FitMesh Sync Founder — 1 an de Pro gratuit pour les 1000 premiers"
+      : lc === "nl"
+      ? "FitMesh Sync Founder — 1 jaar Pro gratis voor de eerste 1000"
+      : lc === "ja"
+      ? "FitMesh Sync Founder — 最初の1000名にProを1年間無料"
+      : lc === "ko"
+      ? "FitMesh Sync Founder — 처음 1000명에게 1년 Pro 무료"
       : "FitMesh Sync Founder — 1 year of Pro free for the first 1000";
   const description =
     lc === "it"
@@ -48,6 +54,12 @@ export async function generateMetadata({
       ? "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem um ano completo de Pro grátis, ativado automaticamente. Mais acesso prioritário à versão iOS."
       : lc === "fr"
       ? "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent un an complet de Pro gratuit, activé automatiquement. Plus un accès prioritaire à la version iOS."
+      : lc === "nl"
+      ? "Download de app, maak je account aan: de eerste 1000 krijgen een volledig jaar Pro, automatisch geactiveerd. Bovendien prioritaire toegang tot iOS."
+      : lc === "ja"
+      ? "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にProの1年間が自動的に付与されます。さらにiOSへの優先アクセスも。"
+      : lc === "ko"
+      ? "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 Pro 1년이 자동으로 활성화됩니다. iOS 우선 접근권도 제공됩니다."
       : "Download FitMesh Sync on Google Play and create your account: the first 1000 get a full year of Pro free, activated automatically. Plus priority access to the iOS version.";
 
   const path = `/${lc}/beta`;
@@ -84,7 +96,7 @@ export default async function BetaPage({
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
 
-  const t = lc === "it" ? IT : lc === "es" ? ES : lc === "de" ? DE : lc === "pt" ? PT : lc === "fr" ? FR : EN;
+  const t = lc === "it" ? IT : lc === "es" ? ES : lc === "de" ? DE : lc === "pt" ? PT : lc === "fr" ? FR : lc === "nl" ? NL : lc === "ja" ? JA : lc === "ko" ? KO : EN;
 
   return (
     // <div> e non <main>: il layout (marketing)/layout.tsx wrappa gia' i
@@ -178,7 +190,7 @@ export default async function BetaPage({
         {/* What happens next */}
         <section className="mb-20" data-reveal>
           <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-            {lc === "it" ? "Processo" : lc === "es" ? "Proceso" : lc === "de" ? "Ablauf" : lc === "pt" ? "Processo" : lc === "fr" ? "Processus" : "Process"}
+            {lc === "it" ? "Processo" : lc === "es" ? "Proceso" : lc === "de" ? "Ablauf" : lc === "pt" ? "Processo" : lc === "fr" ? "Processus" : lc === "nl" ? "Proces" : lc === "ja" ? "プロセス" : lc === "ko" ? "절차" : "Process"}
           </p>
           <h2 className="mt-3 mb-8 font-display text-display font-semibold tracking-tightest text-text-primary">{t.nextTitle}</h2>
           <ol className="space-y-3">
@@ -748,6 +760,255 @@ const FR = {
     {
       q: "Puis-je supprimer mon compte?",
       a: "Oui, à tout moment, directement depuis l'app ou en écrivant à privacy@fitmesh.fit. Nous supprimons le compte et toutes les données dans les 48h, conformément au RGPD.",
+    },
+  ],
+};
+
+const NL = {
+  metaTitle: "FitMesh Sync Founder — 1 jaar Pro gratis voor de eerste 1000",
+  metaDesc:
+    "Download de app, maak je account aan: de eerste 1000 krijgen een volledig jaar Pro, automatisch geactiveerd. Bovendien prioritaire toegang tot iOS.",
+  kicker: "Founder · 1000 plaatsen",
+  h1_a: "Word een van de eerste",
+  h1_b: "1000 founders",
+  h1_c: "van FitMesh Sync",
+  sub:
+    "Geen selectie, geen wachttijd: download de app, maak je account aan en een volledig jaar Pro activeert zich vanzelf. Geldig voor de eerste 1000 geregistreerde accounts.",
+  ctaNote: "Geen kaart, geen abonnement: als het jaar om is, betaal je niets.",
+  perks: [
+    {
+      emoji: "🎁",
+      title: "1 jaar Pro gratis",
+      desc: "Activeert automatisch bij registratie. Onbeperkte geschiedenis, Mesh Familie, alle Pro-functies inbegrepen.",
+    },
+    {
+      emoji: "⚡",
+      title: "Als eerste op iOS",
+      desc: "Android is al live. Founders krijgen iOS-toegang zodra het uitkomt, vóór iedereen anders.",
+    },
+    {
+      emoji: "🛠️",
+      title: "Directe inbreng",
+      desc: "Jij stelt voor, ik luister. Door founders gevraagde functies krijgen prioriteit op de roadmap.",
+    },
+  ],
+  formTitle: "Wil je FitMesh ook op je iPhone?",
+  formSub:
+    "Laat je e-mailadres achter en ik laat je weten wanneer iOS lanceert: founders krijgen prioritaire toegang tot de eerste build.",
+  nextTitle: "Hoe het werkt",
+  nextSteps: [
+    {
+      title: "Download de app via Google Play",
+      desc: "FitMesh Sync is live. Geen formulier invullen, geen goedkeuring afwachten.",
+    },
+    {
+      title: "Maak je account aan",
+      desc: "Via e-mail of Google Sign-In. Als je bij de eerste 1000 hoort, activeert Pro zich vanzelf: het Pro-scherm toont \"Founder · Pro tot [datum]\".",
+    },
+    {
+      title: "Een volledig jaar Pro, zonder verplichtingen",
+      desc: `Geen kaart, geen automatische verlenging. Als het eindigt, kies jij: blijf op het gratis plan of ga naar Pro (${PRICING.subSixMonthsLabel.en}).`,
+    },
+    {
+      title: "Stuur feedback wanneer je wilt",
+      desc: "Bugs of ideeën? Schrijf me. Volgende releases bevatten founder-verzoeken.",
+    },
+  ],
+  faqTitle: "Veelgestelde vragen",
+  faqs: [
+    {
+      q: "Wat bevat het gratis Pro-jaar?",
+      a: "Alles wat Pro omvat: onbeperkte geschiedenis (voorbij de 14 dagen van het gratis plan), Mesh Familie, volledige gegevensexport en alle Pro-functies die in het jaar worden uitgebracht. Voor 12 maanden vanaf registratie.",
+    },
+    {
+      q: "Hoe weet ik of ik bij de eerste 1000 hoor?",
+      a: "De teller op de homepage toont de resterende plaatsen in realtime. Hoe dan ook zie je het in de app: als de toekenning actief is, toont het Pro-scherm \"Founder · Pro tot [datum]\".",
+    },
+    {
+      q: "Wat gebeurt er als het jaar eindigt?",
+      a: `Geen kosten: we vragen nooit om een kaart. Je account gaat eenvoudig naar het gratis plan (laatste 14 dagen geschiedenis). Om Pro te blijven: ${PRICING.subSixMonthsFull.en} of eenmalige aankoop (${PRICING.lifetimeBoth.en}).`,
+    },
+    {
+      q: "En de eerste 100 bèta-testers?",
+      a: "Leden van de gesloten bèta behouden Pro voor het leven, zoals beloofd. Het founder-programma met 1000 plaatsen is de volgende stap, verbonden aan de publieke lancering.",
+    },
+    {
+      q: "Welke wearables worden ondersteund?",
+      a: "Alle apparaten die compatibel zijn met Health Connect (Android 8+): Galaxy Watch 4/5/6/7/Ultra, Google Pixel Watch, Fitbit (via Health Connect), Garmin (via Connect), Polar en alle anderen die naar Health Connect schrijven. Voor Samsung Galaxy Watch is er ook een directe Samsung Health-integratie.",
+    },
+    {
+      q: "Wat doen jullie met mijn gegevens?",
+      a: "Je gezondheidsgegevens zijn beschermd, opgeslagen op Europese servers en alleen toegankelijk voor jou via je account. Ze worden nooit verkocht of gedeeld met derden. Alle details: fitmesh.fit/nl/privacy",
+    },
+    {
+      q: "Kan ik mijn account verwijderen?",
+      a: "Ja, op elk moment, rechtstreeks vanuit de app of door te schrijven naar privacy@fitmesh.fit. We verwijderen het account en alle gegevens binnen 48 uur, zoals vereist door de AVG.",
+    },
+  ],
+};
+
+const JA = {
+  metaTitle: "FitMesh Sync Founder — 最初の1000名にProを1年間無料",
+  metaDesc:
+    "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にProの1年間が自動的に付与されます。さらにiOSへの優先アクセスも。",
+  kicker: "Founder · 1000席",
+  h1_a: "最初の",
+  h1_b: "1000人のFounder",
+  h1_c: "になろう",
+  sub:
+    "選考なし、待機なし：アプリをダウンロードしてアカウントを作成するだけで、Proの1年間が自動的に有効になります。先着1000名のアカウントに適用されます。",
+  ctaNote: "カード不要、サブスクリプション不要：1年後に支払いは一切ありません。",
+  perks: [
+    {
+      emoji: "🎁",
+      title: "Pro1年間無料",
+      desc: "登録時に自動的に有効化。無制限の履歴、ファミリーメッシュ、すべてのPro機能が含まれます。",
+    },
+    {
+      emoji: "⚡",
+      title: "iOSへ最速アクセス",
+      desc: "Androidはすでに公開中。Founderはリリース直後に、誰よりも先にiOSにアクセスできます。",
+    },
+    {
+      emoji: "🛠️",
+      title: "直接の声",
+      desc: "あなたが提案し、私が聞きます。Founderのリクエストがロードマップで優先されます。",
+    },
+  ],
+  formTitle: "iPhoneでもFitMeshを使いたいですか？",
+  formSub:
+    "メールアドレスを登録するとiOS公開時にお知らせします。Founderは最初のビルドへの優先アクセス権を取得できます。",
+  nextTitle: "仕組み",
+  nextSteps: [
+    {
+      title: "Google Playからアプリをダウンロード",
+      desc: "FitMesh Syncは公開中。申請書記入不要、承認待ち不要。",
+    },
+    {
+      title: "アカウントを作成する",
+      desc: "メールまたはGoogle Sign-In。先着1000名に含まれる場合、Proが自動的に有効になります：Proの画面に「Founder · Proは[日付]まで」と表示されます。",
+    },
+    {
+      title: "フル1年のPro、縛りなし",
+      desc: `カード不要、自動更新なし。期限が来たら選択できます：無料プランに留まるか、Proに移行するか（${PRICING.subSixMonthsLabel.en}）。`,
+    },
+    {
+      title: "いつでもフィードバックをお送りください",
+      desc: "バグやアイデア？ご連絡ください。次のリリースにFounderのリクエストを反映します。",
+    },
+  ],
+  faqTitle: "よくある質問",
+  faqs: [
+    {
+      q: "無料のPro年には何が含まれますか？",
+      a: "Proのすべて：無料プランの14日を超えた無制限の履歴、ファミリーメッシュ、完全なデータエクスポート、そして1年間にリリースされるすべてのPro機能。登録から12ヶ月間有効です。",
+    },
+    {
+      q: "先着1000名に入っているか確認する方法は？",
+      a: "ホームページのカウンターがリアルタイムで残席数を表示します。アプリでも確認できます：権限が有効な場合、Pro画面に「Founder · Proは[日付]まで」と表示されます。",
+    },
+    {
+      q: "1年後はどうなりますか？",
+      a: `請求なし：カードをお聞きすることはありません。アカウントは無料プラン（直近14日分の履歴）に移行します。Proを継続するには：${PRICING.subSixMonthsFull.en}または買い切り（${PRICING.lifetimeBoth.en}）。`,
+    },
+    {
+      q: "最初の100名のベータテスターはどうなりますか？",
+      a: "クローズドベータのメンバーは、約束通り永久にProを維持します。1000席のFounderプログラムは、公開ローンチに連動した次のステップです。",
+    },
+    {
+      q: "対応しているウェアラブルは？",
+      a: "Health Connect対応のすべてのデバイス（Android 8以上）：Galaxy Watch 4/5/6/7/Ultra、Google Pixel Watch、Fitbit（Health Connect経由）、Garmin（Connect経由）、Polar、その他Health Connectに書き込む機器。Samsung Galaxy WatchはSamsung Healthの直接パスも利用できます。",
+    },
+    {
+      q: "データはどのように扱われますか？",
+      a: "健康データは欧州のサーバーに保管され、アカウントを通じてお客様のみがアクセスできます。第三者への販売・共有は一切ありません。詳細：fitmesh.fit/ja/privacy",
+    },
+    {
+      q: "アカウントを削除できますか？",
+      a: "はい、いつでも、アプリから直接またはprivacy@fitmesh.fitへのメールで可能です。GDPRに基づき、アカウントとすべてのデータを48時間以内に削除します。",
+    },
+  ],
+};
+
+const KO = {
+  metaTitle: "FitMesh Sync Founder — 처음 1000명에게 1년 Pro 무료",
+  metaDesc:
+    "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 Pro 1년이 자동으로 활성화됩니다. iOS 우선 접근권도 제공됩니다.",
+  kicker: "Founder · 1000석",
+  h1_a: "처음",
+  h1_b: "1000명의 Founder",
+  h1_c: "가 되어보세요",
+  sub:
+    "선발 없음, 대기 없음: 앱을 다운로드하고 계정을 생성하면 Pro 1년이 자동으로 활성화됩니다. 먼저 등록한 1000개 계정에 적용됩니다.",
+  ctaNote: "카드 없음, 구독 없음: 1년 후 아무 비용도 없습니다.",
+  perks: [
+    {
+      emoji: "🎁",
+      title: "Pro 1년 무료",
+      desc: "가입 시 자동 활성화. 무제한 기록, 패밀리 메시, 모든 Pro 기능 포함.",
+    },
+    {
+      emoji: "⚡",
+      title: "iOS 최초 접근",
+      desc: "Android는 이미 출시됨. Founder는 출시 즉시 누구보다 먼저 iOS에 접근할 수 있습니다.",
+    },
+    {
+      emoji: "🛠️",
+      title: "직접적인 목소리",
+      desc: "제안하시면 반영됩니다. Founder가 요청한 기능이 로드맵에서 우선순위를 갖습니다.",
+    },
+  ],
+  formTitle: "iPhone에서도 FitMesh를 원하시나요?",
+  formSub:
+    "이메일을 남겨주시면 iOS 출시 시 알려드립니다. Founder는 첫 번째 빌드에 우선 접근할 수 있습니다.",
+  nextTitle: "이용 방법",
+  nextSteps: [
+    {
+      title: "Google Play에서 앱 다운로드",
+      desc: "FitMesh Sync가 출시되었습니다. 신청서 작성 불필요, 승인 대기 불필요.",
+    },
+    {
+      title: "계정 생성",
+      desc: "이메일 또는 Google Sign-In. 처음 1000명 안에 포함된다면 Pro가 자동으로 활성화됩니다: Pro 화면에 \"Founder · Pro [날짜]까지\"가 표시됩니다.",
+    },
+    {
+      title: "1년 전체 Pro, 조건 없음",
+      desc: `카드 없음, 자동 갱신 없음. 기간이 끝나면 선택하세요: 무료 플랜을 유지하거나 Pro로 업그레이드 (${PRICING.subSixMonthsLabel.en}).`,
+    },
+    {
+      title: "언제든지 피드백 보내기",
+      desc: "버그나 아이디어? 연락해 주세요. 다음 릴리스에 Founder의 요청을 반영합니다.",
+    },
+  ],
+  faqTitle: "자주 묻는 질문",
+  faqs: [
+    {
+      q: "무료 Pro 1년에는 무엇이 포함되나요?",
+      a: "Pro의 모든 것: 무료 플랜 14일을 초과한 무제한 기록, 패밀리 메시, 전체 데이터 내보내기, 그리고 1년 동안 출시되는 모든 Pro 기능. 등록일로부터 12개월간 유효합니다.",
+    },
+    {
+      q: "처음 1000명에 포함되었는지 어떻게 알 수 있나요?",
+      a: "홈페이지 카운터에서 남은 자리를 실시간으로 확인할 수 있습니다. 앱에서도 확인 가능합니다: 혜택이 활성화된 경우 Pro 화면에 \"Founder · Pro [날짜]까지\"가 표시됩니다.",
+    },
+    {
+      q: "1년이 끝나면 어떻게 되나요?",
+      a: `청구 없음: 카드를 요청하지 않습니다. 계정은 무료 플랜(최근 14일 기록)으로 전환됩니다. Pro를 계속 이용하려면: ${PRICING.subSixMonthsFull.en} 또는 일회 구매 (${PRICING.lifetimeBoth.en}).`,
+    },
+    {
+      q: "처음 100명의 베타 테스터는요?",
+      a: "약속대로 클로즈드 베타 멤버는 영구 Pro를 유지합니다. 1000석 Founder 프로그램은 공개 출시와 연계된 다음 단계입니다.",
+    },
+    {
+      q: "어떤 웨어러블을 지원하나요?",
+      a: "Health Connect와 호환되는 모든 기기 (Android 8+): Galaxy Watch 4/5/6/7/Ultra, Google Pixel Watch, Fitbit (Health Connect 경유), Garmin (Connect 경유), Polar, 그리고 Health Connect에 데이터를 쓰는 모든 기기. Samsung Galaxy Watch는 Samsung Health 직접 연동도 지원합니다.",
+    },
+    {
+      q: "제 데이터는 어떻게 사용되나요?",
+      a: "건강 데이터는 유럽 서버에 보관되며 계정을 통해 본인만 접근할 수 있습니다. 제3자에게 판매하거나 공유하지 않습니다. 자세한 내용: fitmesh.fit/ko/privacy",
+    },
+    {
+      q: "계정을 삭제할 수 있나요?",
+      a: "네, 언제든지 앱에서 직접 또는 privacy@fitmesh.fit으로 이메일을 보내시면 됩니다. GDPR에 따라 48시간 이내에 계정과 모든 데이터를 삭제합니다.",
     },
   ],
 };

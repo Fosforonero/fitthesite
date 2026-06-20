@@ -62,6 +62,8 @@ import { post as googleFitCierra } from "./posts/google-fit-cierra-alternativas-
 import { post as esportareDatiXiaomiAmazfit } from "./posts/esportare-dati-xiaomi-amazfit";
 import { post as sincronizzareWithings } from "./posts/sincronizzare-withings";
 import { post as datiPixelWatchDashboard } from "./posts/dati-pixel-watch-dashboard";
+// Huawei Health integration guide
+import { post as huaweiHealthHealthConnect } from "./posts/huawei-health-health-connect-sincronizzazione";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -112,6 +114,8 @@ const RAW_POSTS: BlogPost[] = [
   esportareDatiXiaomiAmazfit,
   sincronizzareWithings,
   datiPixelWatchDashboard,
+  // Huawei Health integration guide
+  huaweiHealthHealthConnect,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

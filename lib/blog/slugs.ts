@@ -462,6 +462,18 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "pixel-watch-data-dashboard",
     ko: "pixel-watch-deiteo-daeshibodeu",
   },
+  "huawei-health-health-connect-sincronizzazione": {
+    en: "huawei-health-health-connect-sync",
+    es: "huawei-health-health-connect-sincronizacion",
+    de: "huawei-health-health-connect-synchronisierung",
+    pt: "huawei-health-health-connect-sincronizacao",
+    fr: "huawei-health-health-connect-synchronisation",
+    pl: "huawei-health-health-connect-synchronizacja",
+    tr: "huawei-health-health-connect-senkronizasyon",
+    nl: "huawei-health-health-connect-synchroniseren",
+    ja: "huawei-health-health-connect-renraku",
+    ko: "huawei-health-health-connect-dongihwa",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {

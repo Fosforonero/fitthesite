@@ -46,7 +46,7 @@ function statusLabel(
 ): { text: string; color: string } {
   const map: Record<
     Provider["status"],
-    { it: string; en: string; es: string; de: string; pt: string; fr: string; color: string }
+    { it: string; en: string; es: string; de: string; pt: string; fr: string; nl: string; ja: string; ko: string; color: string }
   > = {
     live: {
       it: "Disponibile ora",
@@ -55,6 +55,9 @@ function statusLabel(
       de: "Jetzt verfügbar",
       pt: "Disponível agora",
       fr: "Disponible maintenant",
+      nl: "Nu beschikbaar",
+      ja: "今すぐ利用可能",
+      ko: "지금 이용 가능",
       color: "#31E981",
     },
     "live-basic": {
@@ -64,9 +67,12 @@ function statusLabel(
       de: "Funktioniert über Health Connect",
       pt: "Funciona via Health Connect",
       fr: "Fonctionne via Health Connect",
+      nl: "Werkt via Health Connect",
+      ja: "Health Connect経由で動作",
+      ko: "Health Connect 경유 작동",
       color: "#21E6C1",
     },
-    beta: { it: "Beta", en: "Beta", es: "Beta", de: "Beta", pt: "Beta", fr: "Beta", color: "#FFB547" },
+    beta: { it: "Beta", en: "Beta", es: "Beta", de: "Beta", pt: "Beta", fr: "Beta", nl: "Beta", ja: "Beta", ko: "Beta", color: "#FFB547" },
     "roadmap-q3": {
       it: "In arrivo Q3 2026",
       en: "Coming Q3 2026",
@@ -74,6 +80,9 @@ function statusLabel(
       de: "Kommt Q3 2026",
       pt: "Em breve Q3 2026",
       fr: "Bientôt T3 2026",
+      nl: "Binnenkort Q3 2026",
+      ja: "Q3 2026に登場",
+      ko: "Q3 2026 출시 예정",
       color: "#38BDF8",
     },
     "roadmap-q4": {
@@ -83,6 +92,9 @@ function statusLabel(
       de: "Kommt Q4 2026",
       pt: "Em breve Q4 2026",
       fr: "Bientôt T4 2026",
+      nl: "Binnenkort Q4 2026",
+      ja: "Q4 2026に登場",
+      ko: "Q4 2026 출시 예정",
       color: "#A78BFA",
     },
     "coming-soon": {
@@ -92,6 +104,9 @@ function statusLabel(
       de: "Demnächst",
       pt: "Em breve",
       fr: "Bientôt disponible",
+      nl: "Binnenkort beschikbaar",
+      ja: "近日公開",
+      ko: "곧 출시",
       color: "#7CFF5B",
     },
   };
@@ -106,9 +121,9 @@ function categoryLabel(
 ): string {
   const map: Record<
     Provider["category"],
-    { it: string; en: string; es: string; de: string; pt: string; fr: string }
+    { it: string; en: string; es: string; de: string; pt: string; fr: string; nl: string; ja: string; ko: string }
   > = {
-    smartwatch: { it: "Smartwatch", en: "Smartwatch", es: "Smartwatch", de: "Smartwatch", pt: "Smartwatch", fr: "Montre connectée" },
+    smartwatch: { it: "Smartwatch", en: "Smartwatch", es: "Smartwatch", de: "Smartwatch", pt: "Smartwatch", fr: "Montre connectée", nl: "Smartwatch", ja: "スマートウォッチ", ko: "스마트워치" },
     "fitness-platform": {
       it: "Piattaforma fitness",
       en: "Fitness platform",
@@ -116,6 +131,9 @@ function categoryLabel(
       de: "Fitness-Plattform",
       pt: "Plataforma de fitness",
       fr: "Plateforme fitness",
+      nl: "Fitnessplatform",
+      ja: "フィットネスプラットフォーム",
+      ko: "피트니스 플랫폼",
     },
     "health-platform": {
       it: "Piattaforma salute",
@@ -124,9 +142,12 @@ function categoryLabel(
       de: "Gesundheitsplattform",
       pt: "Plataforma de saúde",
       fr: "Plateforme santé",
+      nl: "Gezondheidsplatform",
+      ja: "ヘルスプラットフォーム",
+      ko: "건강 플랫폼",
     },
-    wearable: { it: "Wearable", en: "Wearable", es: "Wearable", de: "Wearable", pt: "Wearable", fr: "Wearable" },
-    "phone-only": { it: "Solo telefono", en: "Phone-only", es: "Solo teléfono", de: "Nur Smartphone", pt: "Somente telefone", fr: "Téléphone uniquement" },
+    wearable: { it: "Wearable", en: "Wearable", es: "Wearable", de: "Wearable", pt: "Wearable", fr: "Wearable", nl: "Wearable", ja: "ウェアラブル", ko: "웨어러블" },
+    "phone-only": { it: "Solo telefono", en: "Phone-only", es: "Solo teléfono", de: "Nur Smartphone", pt: "Somente telefone", fr: "Téléphone uniquement", nl: "Alleen smartphone", ja: "スマートフォンのみ", ko: "스마트폰 전용" },
   };
   return (map[category] as Record<string, string>)[lc] ?? map[category].en;
 }
@@ -155,7 +176,15 @@ export async function generateMetadata({
       ? `Sincronizza ${p.name} a FitMesh Sync`
       : lc === "es"
         ? `Sincroniza ${p.name} con FitMesh Sync`
-        : `Sync ${p.name} to FitMesh Sync`;
+        : lc === "de"
+          ? `${p.name} mit FitMesh Sync synchronisieren`
+          : lc === "nl"
+            ? `Synchroniseer ${p.name} met FitMesh Sync`
+            : lc === "ja"
+              ? `${p.name}をFitMesh Syncと同期する`
+              : lc === "ko"
+                ? `${p.name}을 FitMesh Sync와 동기화`
+                : `Sync ${p.name} to FitMesh Sync`;
   const description = tl(p.tagline, lc);
 
   const path = `/${lc}/sync/${p.slug}`;
@@ -203,9 +232,9 @@ export default async function ProviderLanding({
   const status = statusLabel(p.status, lc);
   const category = categoryLabel(p.category, lc);
 
-  /** Helper per stringhe inline con tre locale. */
-  const t = (it: string, en: string, es: string) =>
-    lc === "it" ? it : lc === "es" ? es : en;
+  /** Helper per stringhe inline con supporto nl/ja/ko. */
+  const t = (it: string, en: string, es: string, nl?: string, ja?: string, ko?: string) =>
+    lc === "it" ? it : lc === "es" ? es : lc === "nl" ? (nl ?? en) : lc === "ja" ? (ja ?? en) : lc === "ko" ? (ko ?? en) : en;
 
   // ── JSON-LD ──────────────────────────────────────────────────────────
   const path = `/${lc}/sync/${p.slug}`;
@@ -217,7 +246,7 @@ export default async function ProviderLanding({
     operatingSystem: "ANDROID",
     description: tl(p.longDesc, lc),
     url: `${SITE_URL}${path}`,
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
+    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
     offers: { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR" },
     downloadUrl: PLAY_URL,
   };
@@ -250,9 +279,12 @@ export default async function ProviderLanding({
             `Come connettere ${p.name} a FitMesh Sync`,
             `How to connect ${p.name} to FitMesh Sync`,
             `Cómo conectar ${p.name} con FitMesh Sync`,
+            `${p.name} verbinden met FitMesh Sync`,
+            `${p.name}をFitMesh Syncに接続する方法`,
+            `${p.name}을 FitMesh Sync에 연결하는 방법`,
           ),
           description: tl(p.longDesc, lc),
-          inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
+          inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
           step: howToSteps.map((stepText, i) => ({
             "@type": "HowToStep",
             position: i + 1,
@@ -276,6 +308,9 @@ export default async function ProviderLanding({
       `Ciao!\n\nVoglio essere avvisato/a quando l'integrazione con ${p.name} sarà disponibile.\n\nLa mia email:\n`,
       `Hi!\n\nPlease notify me when the ${p.name} integration becomes available.\n\nMy email:\n`,
       `Hola!\n\nQuiero que me avisen cuando la integración con ${p.name} esté disponible.\n\nMi correo:\n`,
+      `Hallo!\n\nIk wil een melding ontvangen wanneer de ${p.name}-integratie beschikbaar is.\n\nMijn e-mail:\n`,
+      `こんにちは！\n\n${p.name}の連携が利用可能になったら通知してください。\n\nメールアドレス：\n`,
+      `안녕하세요!\n\n${p.name} 연동이 출시되면 알려주세요.\n\n이메일:\n`,
     ),
   );
   const waitlistHref = `mailto:${WAITLIST_EMAIL}?subject=${waitlistSubject}&body=${waitlistBody}`;
@@ -288,7 +323,7 @@ export default async function ProviderLanding({
       <Breadcrumbs
         items={[
           {
-            name: t("Integrazioni", "Integrations", "Integraciones"),
+            name: t("Integrazioni", "Integrations", "Integraciones", "Integraties", "連携", "연동"),
             path: `/${lc}/integrations`,
           },
           { name: p.name, path },
@@ -327,9 +362,9 @@ export default async function ProviderLanding({
             </div>
 
             <h1 className="mt-5 font-display text-display-xl font-semibold tracking-tightest text-text-primary">
-              {t(`Sincronizza ${p.name}`, `Sync ${p.name}`, `Sincroniza ${p.name}`)}{" "}
+              {t(`Sincronizza ${p.name}`, `Sync ${p.name}`, `Sincroniza ${p.name}`, `Synchroniseer ${p.name}`, `${p.name}を同期する`, `${p.name} 동기화`)}{" "}
               <span className="text-brand-gradient">
-                {t("alla tua dashboard", "to your dashboard", "con tu panel")}
+                {t("alla tua dashboard", "to your dashboard", "con tu panel", "naar je dashboard", "ダッシュボードへ", "대시보드로")}
               </span>
             </h1>
 
@@ -345,7 +380,7 @@ export default async function ProviderLanding({
                   href={waitlistHref}
                   className="inline-flex items-center px-5 py-3 rounded-pill btn-cta text-sm font-semibold"
                 >
-                  {t("Avvisami al lancio", "Get notified at launch", "Avísame cuando esté disponible")}
+                  {t("Avvisami al lancio", "Get notified at launch", "Avísame cuando esté disponible", "Meld me aan bij lancering", "ローンチ時に通知", "출시 시 알림 받기")}
                 </a>
               )}
               {isLiveBasic && (
@@ -357,6 +392,9 @@ export default async function ProviderLanding({
                     "Avvisami per i dati avanzati",
                     "Notify me for advanced data",
                     "Avísame para los datos avanzados",
+                    "Meld me voor geavanceerde data",
+                    "高度なデータの通知を受け取る",
+                    "고급 데이터 알림 받기",
                   )}
                 </a>
               )}
@@ -369,6 +407,9 @@ export default async function ProviderLanding({
                     "Vedi tutte le integrazioni",
                     "See all integrations",
                     "Ver todas las integraciones",
+                    "Bekijk alle integraties",
+                    "すべての連携を見る",
+                    "모든 연동 보기",
                   )}
                 </Link>
               )}
@@ -379,6 +420,9 @@ export default async function ProviderLanding({
                 "FitMesh Sync è un prodotto indipendente. I marchi citati appartengono ai rispettivi proprietari e questa pagina non implica affiliazione o sponsorizzazione.",
                 "FitMesh Sync is an independent product. Trademarks belong to their respective owners; this page implies no affiliation or sponsorship.",
                 "FitMesh Sync es un producto independiente. Las marcas mencionadas pertenecen a sus respectivos propietarios y esta página no implica ninguna afiliación ni patrocinio.",
+                "FitMesh Sync is een onafhankelijk product. Handelsmerken zijn eigendom van hun respectieve eigenaars; deze pagina impliceert geen aansluiting of sponsoring.",
+                "FitMesh Syncは独立した製品です。記載の商標は各社に帰属し、このページはいかなる提携や後援も意味しません。",
+                "FitMesh Sync는 독립적인 제품입니다. 상표는 해당 소유자에게 귀속되며 이 페이지는 어떠한 제휴나 후원도 의미하지 않습니다.",
               )}
             </p>
           </div>
@@ -428,13 +472,16 @@ export default async function ProviderLanding({
       {/* DATA TYPES GRID */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
         <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-          {t("Dati supportati", "Supported data", "Datos disponibles")}
+          {t("Dati supportati", "Supported data", "Datos disponibles", "Ondersteunde gegevens", "サポートされているデータ", "지원 데이터")}
         </h2>
         <p className="mt-2 text-text-secondary max-w-2xl">
           {t(
             "I tipi di dato che FitMesh può leggere da questa integrazione. Pallino verde = supportato, grigio = non disponibile da questa fonte.",
             "The data types FitMesh can read from this integration. Green dot = supported, grey = not available from this source.",
             "Los tipos de datos que FitMesh puede leer de esta integración. Punto verde = disponible, gris = no disponible desde esta fuente.",
+            "De gegevenstypen die FitMesh van deze integratie kan lezen. Groene stip = ondersteund, grijs = niet beschikbaar.",
+            "この連携からFitMeshが読み取れるデータタイプ。緑の点 = 対応、グレー = この連携からは利用不可。",
+            "이 연동에서 FitMesh가 읽을 수 있는 데이터 유형. 녹색 점 = 지원, 회색 = 이 소스에서 불가.",
           )}
         </p>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -470,13 +517,16 @@ export default async function ProviderLanding({
               />
               <div className="relative">
                 <p className="text-[10px] uppercase tracking-[0.22em] text-success font-semibold">
-                  {t("Funziona oggi", "Works today", "Funciona hoy")}
+                  {t("Funziona oggi", "Works today", "Funciona hoy", "Werkt vandaag", "今日から動作", "오늘 작동")}
                 </p>
                 <h2 className="mt-2 font-display text-xl font-semibold text-text-primary">
                   {t(
                     "Via Health Connect, senza configurazione extra",
                     "Via Health Connect, no extra setup",
                     "Via Health Connect, sin configuración adicional",
+                    "Via Health Connect, geen extra instelling",
+                    "Health Connect経由、追加設定不要",
+                    "Health Connect 경유, 추가 설정 없음",
                   )}
                 </h2>
                 <ul className="mt-5 space-y-2">
@@ -505,6 +555,9 @@ export default async function ProviderLanding({
                     `OAuth ufficiale — ${tl(p.viaHC.oauthEta, lc)}`,
                     `Official OAuth — ${tl(p.viaHC.oauthEta, lc)}`,
                     `OAuth oficial: ${tl(p.viaHC.oauthEta, lc)}`,
+                    `Officiële OAuth — ${tl(p.viaHC.oauthEta, lc)}`,
+                    `公式OAuth — ${tl(p.viaHC.oauthEta, lc)}`,
+                    `공식 OAuth — ${tl(p.viaHC.oauthEta, lc)}`,
                   )}
                 </p>
                 <h2 className="mt-2 font-display text-xl font-semibold text-text-primary">
@@ -512,6 +565,9 @@ export default async function ProviderLanding({
                     "Cosa aggiungerà l'integrazione diretta",
                     "What the direct integration will add",
                     "Qué agregará la integración directa",
+                    "Wat de directe integratie toevoegt",
+                    "直接連携が追加するもの",
+                    "직접 연동이 추가하는 항목",
                   )}
                 </h2>
                 <ul className="mt-5 space-y-2">
@@ -533,6 +589,9 @@ export default async function ProviderLanding({
                     "Avvisami quando disponibile →",
                     "Notify me when available →",
                     "Avísame cuando esté disponible →",
+                    "Meld me wanneer beschikbaar →",
+                    "利用可能になったら通知 →",
+                    "이용 가능 시 알림 받기 →",
                   )}
                 </a>
               </div>
@@ -545,7 +604,7 @@ export default async function ProviderLanding({
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
         <div className="rounded-card border border-divider bg-gradient-to-br from-bg-card to-bg-secondary p-6 sm:p-8">
           <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-            {t("Nota tecnica", "Technical note", "Nota técnica")}
+            {t("Nota tecnica", "Technical note", "Nota técnica", "Technische opmerking", "技術的なメモ", "기술 참고 사항")}
           </p>
           <p className="mt-3 text-text-secondary leading-relaxed">{tl(p.techNote, lc)}</p>
         </div>
@@ -559,11 +618,14 @@ export default async function ProviderLanding({
               `Come collegare ${p.name}`,
               `How to connect ${p.name}`,
               `Cómo conectar ${p.name}`,
+              `${p.name} verbinden`,
+              `${p.name}の接続方法`,
+              `${p.name} 연결 방법`,
             )}
           </h2>
 
           <h3 className="mt-8 text-lg font-semibold text-text-primary">
-            {t("Setup in 5 minuti", "5-minute setup", "Configuración en 5 minutos")}
+            {t("Setup in 5 minuti", "5-minute setup", "Configuración en 5 minutos", "Instellen in 5 minuten", "5分でセットアップ", "5분 내 설정")}
           </h3>
           <ol className="mt-4 space-y-3 text-text-secondary">
             {tll(p.setupGuide.steps, lc).map((step, i) => (
@@ -577,7 +639,7 @@ export default async function ProviderLanding({
           </ol>
 
           <h3 className="mt-10 text-lg font-semibold text-text-primary">
-            {t("Cosa viene sincronizzato", "What gets synced", "Qué se sincroniza")}
+            {t("Cosa viene sincronizzato", "What gets synced", "Qué se sincroniza", "Wat wordt gesynchroniseerd", "同期されるデータ", "동기화되는 항목")}
           </h3>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2 text-text-secondary">
             {tll(p.setupGuide.syncedData, lc).map((d, i) => (
@@ -589,7 +651,7 @@ export default async function ProviderLanding({
           </ul>
 
           <h3 className="mt-10 text-lg font-semibold text-text-primary">
-            {t("Risoluzione problemi", "Troubleshooting", "Solución de problemas")}
+            {t("Risoluzione problemi", "Troubleshooting", "Solución de problemas", "Problemen oplossen", "トラブルシューティング", "문제 해결")}
           </h3>
           <div className="mt-4 space-y-3">
             {p.setupGuide.troubleshooting.map((tr, i) => (
@@ -610,7 +672,7 @@ export default async function ProviderLanding({
 
           <div className="mt-10 rounded-card border border-divider bg-bg-card/60 p-5">
             <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-              {t("Note tecniche", "Technical notes", "Notas técnicas")}
+              {t("Note tecniche", "Technical notes", "Notas técnicas", "Technische opmerkingen", "技術的なメモ", "기술 참고 사항")}
             </p>
             <p className="mt-2 text-sm text-text-secondary leading-relaxed">
               {tl(p.setupGuide.technicalNotes, lc)}
@@ -623,7 +685,7 @@ export default async function ProviderLanding({
       {p.faqs.length > 0 && (
         <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-12">
           <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-            {t("Domande frequenti", "Frequently asked questions", "Preguntas frecuentes")}
+            {t("Domande frequenti", "Frequently asked questions", "Preguntas frecuentes", "Veelgestelde vragen", "よくある質問", "자주 묻는 질문")}
           </h2>
           <div className="mt-8 space-y-4">
             {p.faqs.map((f, i) => (
@@ -664,7 +726,7 @@ export default async function ProviderLanding({
                 >
                   <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
                     {post.pillar
-                      ? t("Pilastro · ", "Pillar · ", "Referencia · ")
+                      ? t("Pilastro · ", "Pillar · ", "Referencia · ", "Pijler · ", "柱 · ", "기둥 · ")
                       : ""}
                     {blogCategoryLabel(post.category, lc)}
                   </p>
@@ -675,7 +737,7 @@ export default async function ProviderLanding({
                     {tl(post.hero.subtitle, lc)}
                   </p>
                   <p className="mt-3 text-xs text-text-muted">
-                    {post.readMinutes} {t("min di lettura", "min read", "min de lectura")}
+                    {post.readMinutes} {t("min di lettura", "min read", "min de lectura", "min lezen", "分で読める", "분 읽기")}
                   </p>
                 </Link>
               ))}
@@ -688,7 +750,7 @@ export default async function ProviderLanding({
       {relatedProviders.length > 0 && (
         <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
           <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-            {t("Anche queste integrazioni", "Related integrations", "Integraciones relacionadas")}
+            {t("Anche queste integrazioni", "Related integrations", "Integraciones relacionadas", "Gerelateerde integraties", "関連する連携", "관련 연동")}
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {relatedProviders.map((r) => (
@@ -719,8 +781,8 @@ export default async function ProviderLanding({
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-20 text-center">
         <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
           {isLive
-            ? t("Pronto a iniziare?", "Ready to start?", "¿Listo para empezar?")
-            : t("Vuoi essere avvisato?", "Want to be notified?", "¿Quieres que te avisemos?")}
+            ? t("Pronto a iniziare?", "Ready to start?", "¿Listo para empezar?", "Klaar om te beginnen?", "始める準備はできましたか？", "시작할 준비가 되셨나요?")
+            : t("Vuoi essere avvisato?", "Want to be notified?", "¿Quieres que te avisemos?", "Wil je een melding?", "通知を受け取りますか？", "알림을 받으시겠어요?")}
         </h2>
         <p className="mt-4 text-text-secondary max-w-xl mx-auto">
           {isLive
@@ -728,11 +790,17 @@ export default async function ProviderLanding({
                 "Scarica FitMesh Sync, autorizza Health Connect, e in 30 secondi i tuoi dati sono live.",
                 "Download FitMesh Sync, grant Health Connect permissions, and your data is live in 30 seconds.",
                 "Descarga FitMesh Sync, autoriza Health Connect y en 30 segundos tus datos estarán disponibles.",
+                "Download FitMesh Sync, geef Health Connect toestemming en je data is in 30 seconden live.",
+                "FitMesh SyncをダウンロードしてHealth Connectを許可すると、30秒でデータがライブになります。",
+                "FitMesh Sync를 다운로드하고 Health Connect 권한을 허용하면 30초 안에 데이터가 실시간으로 동기화됩니다.",
               )
             : t(
                 `Lascia la tua email e ti avvisiamo non appena l'integrazione ${p.name} sarà disponibile. Niente newsletter, niente spam: solo l'annuncio.`,
                 `Drop your email and we'll notify you as soon as the ${p.name} integration lands. No newsletter, no spam: just the announcement.`,
                 `Deja tu correo y te avisaremos en cuanto la integración con ${p.name} esté disponible. Sin boletines, sin spam: solo el aviso.`,
+                `Laat je e-mailadres achter en we laten je weten zodra de ${p.name}-integratie beschikbaar is. Geen nieuwsbrief, geen spam: alleen de aankondiging.`,
+                `メールアドレスを登録すると、${p.name}の連携が利用可能になり次第お知らせします。ニュースレターもスパムもなし：発表のみ。`,
+                `이메일을 남겨주시면 ${p.name} 연동이 출시되는 즉시 알려드립니다. 뉴스레터 없음, 스팸 없음: 발표만 전달합니다.`,
               )}
         </p>
         <div className="mt-8 flex justify-center">
@@ -743,7 +811,7 @@ export default async function ProviderLanding({
               href={waitlistHref}
               className="inline-flex items-center px-6 py-3 rounded-pill btn-cta text-sm font-semibold"
             >
-              {t("Avvisami al lancio", "Get notified at launch", "Avísame cuando esté disponible")}
+              {t("Avvisami al lancio", "Get notified at launch", "Avísame cuando esté disponible", "Meld me aan bij lancering", "ローンチ時に通知", "출시 시 알림 받기")}
             </a>
           )}
         </div>
