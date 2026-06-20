@@ -173,8 +173,7 @@ const I18N: Record<
 
 function formatDate(iso: string, lc: Locale): string {
   const d = new Date(iso);
-  const bcp47 = lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US";
-  return d.toLocaleDateString(bcp47, {
+  return d.toLocaleDateString(ogLocale[lc].replace("_", "-"), {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -203,7 +202,7 @@ export default async function NovitaIndex({
         : lc === "es"
           ? "Novedades de FitMesh Sync"
           : "FitMesh Sync What's New",
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
+    inLanguage: ogLocale[lc].replace("_", "-"),
     url: `${SITE_URL}/${lc}/novita`,
     mainEntity: {
       "@type": "ItemList",

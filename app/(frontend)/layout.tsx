@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import Script from "next/script";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { htmlLang, type Locale } from "@/lib/i18n";
 import "./globals.css";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -60,7 +61,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // Falls back to "it" for non-locale routes (mockups, oauth, etc.).
   const locale = headersList.get("x-fitmesh-locale") ?? "it";
   return (
-    <html lang={locale} className={`${inter.variable} ${grotesk.variable}`}>
+    <html lang={htmlLang[locale as Locale] ?? locale} className={`${inter.variable} ${grotesk.variable}`}>
       <head>
         {/* Preload del monogramma FM (above-the-fold nell'Header — usato dal
             componente Logo variant="horizontal" che ora compose icon-square +

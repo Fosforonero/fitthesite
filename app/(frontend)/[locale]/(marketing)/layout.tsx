@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { locales, type Locale, ogLocale, getDictionary, localeAlternates } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, htmlLang, getDictionary, localeAlternates } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
@@ -43,11 +43,11 @@ export async function generateMetadata(
     de: "FitMesh Sync verbindet Galaxy Watch, Wear OS, Health Connect und Cloud-Dienste in einem globalen Dashboard: Schritte, Herzfrequenz, Schlaf, Erholung und Trends. Datenschutz-first. Keine Tracker.",
     pt: "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect e provedores em nuvem em um painel global: passos, frequência cardíaca, sono, recuperação e tendências. Privacidade em primeiro lugar. Sem rastreadores.",
     fr: "FitMesh Sync regroupe Galaxy Watch, Wear OS, Health Connect et les services cloud dans un tableau de bord global: pas, fréquence cardiaque, sommeil, récupération et tendances. Confidentialité avant tout. Sans traceurs.",
-    pl: "FitMesh Sync laczy Galaxy Watch, Wear OS, Health Connect i dostawcow chmury w jednym panelu: kroki, tetno, sen, regeneracja i trendy. Prywatnosc na pierwszym miejscu. Bez trackerow.",
-    tr: "FitMesh Sync, Galaxy Watch, Wear OS, Health Connect ve bulut saglayicilarini tek bir global panelde bir araya getirir: adimlar, kalp atisi, uyku, toparlanma ve trendler. Gizlilik oncelikli. Izleyici yok.",
+    pl: "FitMesh Sync łączy Galaxy Watch, Wear OS, Health Connect i dostawców chmury w jednym panelu: kroki, tętno, sen, regeneracja i trendy. Prywatność na pierwszym miejscu. Bez trackerów.",
+    tr: "FitMesh Sync, Galaxy Watch, Wear OS, Health Connect ve bulut sağlayıcılarını tek bir global panelde bir araya getirir: adımlar, kalp atışı, uyku, toparlanma ve trendler. Gizlilik öncelikli. İzleyici yok.",
     nl: "FitMesh Sync brengt Galaxy Watch, Wear OS, Health Connect en cloudproviders samen in één global dashboard: stappen, hartslag, slaap, herstel en trends. Privacy-first. Geen trackers.",
-    ja: "FitMesh Sync — すべてのデバイスをひとつのグローバルダッシュボードへ",
-    ko: "FitMesh Sync — 모든 기기를 위한 하나의 글로벌 대시보드",
+    ja: "FitMesh Syncは、Galaxy Watch、Wear OS、Health Connect、およびクラウドプロバイダーを1つのグローバルダッシュボードに統合：ステップ数、心拍数、睡眠、回復、傾向。プライバシーを最優先に、EUサーバー、GDPR準拠。トラッカーなし。",
+    ko: "FitMesh Sync은 Galaxy Watch, Wear OS, Health Connect 및 클라우드 제공업체를 한 글로벌 대시보드로 통합합니다: 걸음 수, 심박수, 수면, 회복, 추세. 개인정보 보호를 최우선으로, EU 서버, GDPR 준수. 트래커 없음.",
   };
 
   return {
@@ -156,7 +156,7 @@ export default async function LocaleLayout({
         url: `${SITE_URL}/${lc}`,
         name: "FitMesh Sync",
         description: orgDescription,
-        inLanguage: lc === "it" ? "it-IT" : "en-US",
+        inLanguage: ogLocale[lc].replace("_", "-"),
         publisher: { "@id": `${SITE_URL}#organization` },
         // SearchAction → eligibility per sitelinks search box in Google SERP.
         // Target template URL deve contenere {search_term_string} (segnaposto
@@ -180,7 +180,7 @@ export default async function LocaleLayout({
         operatingSystem: "Android 8.0 and up",
         applicationCategory: "HealthApplication",
         applicationSubCategory: "Fitness",
-        inLanguage: lc === "it" ? "it-IT" : "en-US",
+        inLanguage: ogLocale[lc].replace("_", "-"),
         offers: [
           { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR", category: "Onetime purchase" },
         ],
@@ -188,55 +188,40 @@ export default async function LocaleLayout({
         downloadUrl: "https://play.google.com/store/apps/details?id=com.fitmeshsync.app",
         publisher: { "@id": `${SITE_URL}#organization` },
         image: `${SITE_URL}/icon-square.png`,
-        // Screenshot reali dell'app (stessi asset di hero/showcase), dichiarati
-        // come ImageObject con caption: segnale forte per SERP e AI engines.
-        screenshot: [
-          {
+        // Screenshot reali dell'app. Solo it/ e en/ hanno asset propri;
+        // tutte le altre locale usano en/ come fallback per evitare 404.
+        screenshot: (() => {
+          const sl = lc === "it" ? "it" : "en";
+          const captions: Record<string, [string, string]> = {
+            dashboard: [
+              "Dashboard FitMesh Sync: passi, battito, calorie, sonno e Recovery Index",
+              "FitMesh Sync dashboard: steps, heart rate, calories, sleep and Recovery Index",
+            ],
+            sleep: [
+              "Sonno con fasi (profondo, REM, leggero) e salute del cuore",
+              "Sleep stages (deep, REM, light) and heart health",
+            ],
+            week: [
+              "Confronto settimanale: passi, sonno, calorie e battito medio",
+              "Week-over-week comparison: steps, sleep, calories and average heart rate",
+            ],
+            trends: [
+              "Trend di passi e calorie negli ultimi 7 giorni",
+              "Steps and calories trends over the last 7 days",
+            ],
+            vitals: [
+              "SpO₂, piani saliti e metriche avanzate",
+              "SpO₂, floors climbed and advanced metrics",
+            ],
+          };
+          return Object.entries(captions).map(([name, [capIt, capEn]]) => ({
             "@type": "ImageObject",
-            url: `${SITE_URL}/screens/${lc}/dashboard.jpg`,
-            caption: lc === "it"
-              ? "Dashboard FitMesh Sync: passi, battito, calorie, sonno e Recovery Index"
-              : "FitMesh Sync dashboard: steps, heart rate, calories, sleep and Recovery Index",
+            url: `${SITE_URL}/screens/${sl}/${name}.jpg`,
+            caption: lc === "it" ? capIt : capEn,
             width: 720,
             height: 1440,
-          },
-          {
-            "@type": "ImageObject",
-            url: `${SITE_URL}/screens/${lc}/sleep.jpg`,
-            caption: lc === "it"
-              ? "Sonno con fasi (profondo, REM, leggero) e salute del cuore"
-              : "Sleep stages (deep, REM, light) and heart health",
-            width: 720,
-            height: 1440,
-          },
-          {
-            "@type": "ImageObject",
-            url: `${SITE_URL}/screens/${lc}/week.jpg`,
-            caption: lc === "it"
-              ? "Confronto settimanale: passi, sonno, calorie e battito medio"
-              : "Week-over-week comparison: steps, sleep, calories and average heart rate",
-            width: 720,
-            height: 1440,
-          },
-          {
-            "@type": "ImageObject",
-            url: `${SITE_URL}/screens/${lc}/trends.jpg`,
-            caption: lc === "it"
-              ? "Trend di passi e calorie negli ultimi 7 giorni"
-              : "Steps and calories trends over the last 7 days",
-            width: 720,
-            height: 1440,
-          },
-          {
-            "@type": "ImageObject",
-            url: `${SITE_URL}/screens/${lc}/vitals.jpg`,
-            caption: lc === "it"
-              ? "SpO₂, piani saliti e metriche avanzate"
-              : "SpO₂, floors climbed and advanced metrics",
-            width: 720,
-            height: 1440,
-          },
-        ],
+          }));
+        })(),
         featureList,
         softwareVersion: "3.2.2",
         // releaseNotes deliberatamente omesso: i tester non vedono la SERP
