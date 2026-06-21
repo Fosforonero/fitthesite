@@ -609,7 +609,7 @@ export const PROVIDERS: Provider[] = [
         ko: "Health Connect를 통한 연결, OAuth 없음. Watch에서 대시보드까지 일반적인 지연 시간 5~15분. 세분성: 분당 걸음 수와 심박수, 단계별 수면, 세션별 운동. 데이터는 기기에 남아 있으며 FitMesh 계정의 Supabase 백엔드에만 전송됩니다.",
       },
     },
-    relatedBlogSlugs: ["backup-galaxy-watch-pc", "guida-sync-wearable-2026"],
+    relatedBlogSlugs: ["backup-galaxy-watch-pc", "health-connect-vs-samsung-health", "sync-samsung-health-google-fit", "passi-non-si-sincronizzano-galaxy-watch", "sleep-tracker-comparison-2026"],
   },
   {
     slug: "wear-os",
@@ -754,6 +754,7 @@ export const PROVIDERS: Provider[] = [
       ja: ["Wear OSダッシュボード同期", "Pixel Watchウェブダッシュボード", "Wear OS Health Connect"],
       ko: ["wear os 대시보드 동기화", "pixel watch 웹 대시보드", "wear os health connect"],
     },
+    relatedBlogSlugs: ["guida-sync-wearable-2026", "come-funziona-health-connect", "health-connect-not-syncing", "best-health-data-sync-app-android"],
   },
   {
     slug: "pixel-watch",
@@ -1162,6 +1163,7 @@ export const PROVIDERS: Provider[] = [
         ko: "동기화 체인: Pixel Watch → Fitbit 앱 → Health Connect → FitMesh. OAuth 없음, API 키 없음. 일반적인 지연 15-30분. 세분성: 일별 걸음 수, 분당 심박수, 세션별 수면. 데이터는 기기에 남아 있으며 FitMesh 계정의 Supabase 백엔드에만 전송됩니다.",
       },
     },
+    relatedBlogSlugs: ["dati-pixel-watch-dashboard", "guida-sync-wearable-2026", "health-connect-not-syncing"],
   },
   {
     slug: "xiaomi-mi-band",
@@ -1273,7 +1275,7 @@ export const PROVIDERS: Provider[] = [
       ja: ["Mi Bandダッシュボード", "Xiaomi Watchダッシュボード", "Mi Fitness Health Connect", "Amazfitウェブダッシュボード"],
       ko: ["mi band 대시보드", "xiaomi watch 대시보드", "mi fitness health connect", "amazfit 웹 대시보드"],
     },
-    relatedBlogSlugs: ["vedere-dati-wearable-browser-pc", "guida-sync-wearable-2026"],
+    relatedBlogSlugs: ["esportare-dati-xiaomi-amazfit", "guida-sync-wearable-2026", "scegliere-smartwatch-dati-2026"],
   },
   {
     slug: "oneplus-health",
@@ -1669,7 +1671,7 @@ export const PROVIDERS: Provider[] = [
         ko: "동기화 체인: OnePlus Watch/Band → OHealth → Health Connect → FitMesh. OAuth 없음, API 키 없음. 일반적인 지연 5-15분. 세분성: 일별 걸음 수, 분당 심박수, 세션별 수면. 2026년 5월 OnePlus Watch 2에서 동작 확인됨(베타 사용자). 데이터는 기기에 남아 있으며 FitMesh 계정의 Supabase 백엔드에만 전송됩니다.",
       },
     },
-    relatedBlogSlugs: ["guida-sync-wearable-2026", "vedere-dati-wearable-browser-pc"],
+    relatedBlogSlugs: ["guida-sync-wearable-2026", "health-connect-not-syncing", "best-health-data-sync-app-android"],
   },
   {
     slug: "amazfit-zepp",
@@ -2019,7 +2021,7 @@ export const PROVIDERS: Provider[] = [
         ko: "동기화 체인: Amazfit(최신 모델) → Zepp 앱 → Health Connect → FitMesh. OAuth 없음, API 키 없음. 일반적인 지연 15-30분. 세분성: 일별 걸음 수, 분당 심박수, 세션별 수면, 개별 레코드로서의 운동. 2023년 이전 모델(Bip 3, GTR 3, GTS 2)은 구버전의 Zepp 앱이 Health Connect에 기록하지 않으므로 범위 밖입니다. 데이터는 기기에 남아 있으며 FitMesh 계정의 Supabase 백엔드에만 전송됩니다.",
       },
     },
-    relatedBlogSlugs: ["guida-sync-wearable-2026", "vedere-dati-wearable-browser-pc"],
+    relatedBlogSlugs: ["esportare-dati-xiaomi-amazfit", "guida-sync-wearable-2026", "scegliere-smartwatch-dati-2026"],
   },
 
   // ── Roadmap: OAuth-based integrations ───────────────────────────────────
@@ -2589,7 +2591,7 @@ export const PROVIDERS: Provider[] = [
         ko: "동기화 체인: Fitbit 기기 → Fitbit 앱 → Health Connect → FitMesh. 일반적인 지연 시간 15–30분. 30일을 초과하는 과거 데이터 백필은 공식 Fitbit Web API OAuth가 필요하며, 2026년 Q3 로드맵에 있습니다.",
       },
     },
-    relatedBlogSlugs: ["esportare-dati-fitbit-google", "alternative-health-sync-2026"],
+    relatedBlogSlugs: ["esportare-dati-fitbit-google", "fitbit-data-not-syncing-android", "alternative-app-sync-wearable-2026", "best-health-data-sync-app-android"],
   },
   {
     slug: "garmin",
@@ -3187,7 +3189,7 @@ export const PROVIDERS: Provider[] = [
         ko: "현재: Garmin Connect → Health Connect 브리지, 일반적인 지연 시간 15–30분, 일별 세분화. 2026년 Q3: 새 활동 웹훅이 포함된 공식 OAuth 2.0 + Garmin Health API, 초당 심박수, 전체 GPS 트랙, 첫 연결 시 12개월 백필.",
       },
     },
-    relatedBlogSlugs: ["scegliere-smartwatch-dati-2026", "guida-sync-wearable-2026"],
+    relatedBlogSlugs: ["esportare-dati-garmin", "garmin-body-battery-health-connect", "garmin-samsung-health-sync-guide", "sleep-tracker-comparison-2026"],
   },
   {
     slug: "strava",
@@ -3324,6 +3326,7 @@ export const PROVIDERS: Provider[] = [
         "strava 분석 대안",
       ],
     },
+    relatedBlogSlugs: ["sync-them-all", "guida-sync-wearable-2026", "alternative-app-sync-wearable-2026"],
   },
   {
     slug: "polar",
@@ -3539,6 +3542,7 @@ export const PROVIDERS: Provider[] = [
       ja: ["polarダッシュボード同期", "polar flowの代替", "polar health connect"],
       ko: ["polar 대시보드 동기화", "polar flow 대안", "polar health connect"],
     },
+    relatedBlogSlugs: ["polar-health-connect-sync", "sleep-tracker-comparison-2026", "scegliere-smartwatch-dati-2026"],
   },
   {
     slug: "suunto",
@@ -3918,7 +3922,7 @@ export const PROVIDERS: Provider[] = [
         ko: "직접 Suunto Cloud API 통합(Health Connect 아님). OAuth 2.0 Authorization Code + PKCE. client_secret은 Vercel의 서버 측에 있습니다(앱에는 없음). 액세스 토큰: 12시간, 갱신: 30일. 새 운동에 대한 실시간 웹훅, 백업으로 매시간 폴링을 통한 수면/활동/회복 데이터. 백필: 첫 연결 시 최근 30일.",
       },
     },
-    relatedBlogSlugs: ["guida-sync-wearable-2026", "scegliere-smartwatch-dati-2026"],
+    relatedBlogSlugs: ["scegliere-smartwatch-dati-2026", "guida-sync-wearable-2026", "health-connect-not-syncing"],
   },
   {
     slug: "oura",
@@ -3984,6 +3988,7 @@ export const PROVIDERS: Provider[] = [
       ja: ["oura ringダッシュボード同期", "oura ringデータエクスポート"],
       ko: ["oura ring 대시보드 동기화", "oura ring 데이터 내보내기"],
     },
+    relatedBlogSlugs: ["oura-ring-health-connect-android", "sleep-tracker-comparison-2026", "anello-vs-smartwatch", "migliori-anelli-economici"],
   },
   {
     slug: "withings",
@@ -4223,7 +4228,7 @@ export const PROVIDERS: Provider[] = [
       ja: ["withingsダッシュボード同期", "withings health connect", "withings体組成 android"],
       ko: ["withings 대시보드 동기화", "withings health connect", "withings 체성분 android"],
     },
-    relatedBlogSlugs: ["gdpr-dati-fitness-smartwatch", "guida-sync-wearable-2026"],
+    relatedBlogSlugs: ["sincronizzare-withings", "scegliere-smartwatch-dati-2026", "sleep-tracker-comparison-2026"],
   },
   {
     slug: "huawei",
@@ -4644,6 +4649,7 @@ export const PROVIDERS: Provider[] = [
         ko: "2026년 Q4 로드맵: OAuth 2.0 + Huawei Health Kit REST API. 30분 폴링. 세분화: 시간당 걸음 수, 샘플당 심박수, TruSleep 단계별 수면. Huawei API 제한에 따른 첫 연결 시 12개월 백필.",
       },
     },
+    relatedBlogSlugs: ["huawei-health-health-connect-sincronizzazione", "guida-sync-wearable-2026", "come-funziona-health-connect"],
   },
 
   // ── Phone-only (no wearable required) ───────────────────────────────────
@@ -5065,6 +5071,7 @@ export const PROVIDERS: Provider[] = [
         ko: "Health Connect를 통한 연결, OAuth 없음. 스마트폰 데이터(만보계, 피트니스 앱)는 웨어러블 데이터와 똑같이 읽힙니다. Health Connect가 소스를 추상화합니다. 데이터 품질과 세분성은 설치된 앱과 기기의 센서에 따라 다릅니다.",
       },
     },
+    relatedBlogSlugs: ["guida-sync-wearable-2026", "come-funziona-health-connect", "best-health-data-sync-app-android", "health-connect-not-syncing"],
   },
 
   // ── Anelli smart BLE diretto (in arrivo) ────────────────────────────────
@@ -5291,7 +5298,7 @@ export const PROVIDERS: Provider[] = [
         "colmi ring fitmesh",
       ],
     },
-    relatedBlogSlugs: ["colmi-ring-fitmesh"],
+    relatedBlogSlugs: ["colmi-ring-fitmesh", "colmi-r02-setup", "anello-vs-smartwatch", "tracciare-sonno-anello", "novita-anello-colmi-sonno", "sleep-tracker-comparison-2026", "migliori-anelli-economici"],
   },
 
   // ── iOS / Apple Health ───────────────────────────────────────────────────
@@ -5711,11 +5718,7 @@ export const PROVIDERS: Provider[] = [
         ko: "표준 HealthKit API(iOS 16+)를 통해 읽기. 멱등 쓰기: 각 배치 전에 동일한 간격과 동일한 HKSampleType의 겹치는 샘플에 대해 HealthKit 쿼리. 커버되지 않은 슬롯에만 쓰기. FitMesh EU 클라우드: 인증된 데이터센터, 전송 시 TLS 1.3, 저장 시 AES-256. TestFlight 베타 활성; App Store 출시 임박.",
       },
     },
-    relatedBlogSlugs: [
-      "fitmesh-arriva-su-iphone",
-      "dati-anello-smart-apple-salute",
-      "how-to-export-apple-health-data",
-    ],
+    relatedBlogSlugs: ["how-to-export-apple-health-data", "dati-anello-smart-apple-salute", "fitmesh-arriva-su-iphone", "hrv-cose-significato-valori", "sleep-tracker-comparison-2026"],
   },
 ];
 

@@ -68,6 +68,10 @@ import { post as huaweiHealthHealthConnect } from "./posts/huawei-health-health-
 import { post as garminBodyBatteryHealthConnect } from "./posts/garmin-body-battery-health-connect";
 // SEO wave 21/06
 import { post as sleepTrackerComparison2026 } from "./posts/sleep-tracker-comparison-2026";
+import { post as garminSamsungHealthSyncGuide } from "./posts/garmin-samsung-health-sync-guide";
+import { post as galaxyRingAndroidHealthConnect } from "./posts/galaxy-ring-android-health-connect";
+import { post as vo2MaxWearableComparison2026 } from "./posts/vo2-max-wearable-comparison-2026";
+import { post as ouraRingHealthConnectAndroid } from "./posts/oura-ring-health-connect-android";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -124,6 +128,10 @@ const RAW_POSTS: BlogPost[] = [
   garminBodyBatteryHealthConnect,
   // SEO wave 21/06
   sleepTrackerComparison2026,
+  garminSamsungHealthSyncGuide,
+  galaxyRingAndroidHealthConnect,
+  vo2MaxWearableComparison2026,
+  ouraRingHealthConnectAndroid,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
