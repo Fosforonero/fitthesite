@@ -60,7 +60,7 @@ export default function Footer({
                   <span className="absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75 animate-ping" />
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-green" />
                 </span>
-                {locale === "it" ? "Founder · 1 anno Pro gratis" : "Founder · 1 year Pro free"}
+                {locale === "it" ? "Founder · Pro a vita gratis" : "Founder · lifetime Pro free"}
               </Link>
             </li>
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
