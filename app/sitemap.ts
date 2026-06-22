@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { locales, type Locale } from "@/lib/i18n";
 import { PROVIDERS } from "@/lib/providers/data";
+import { PROVIDER_MODELS } from "@/lib/providers/models";
 import { getBlogPosts } from "@/lib/blog/payload-source";
 import { LANDING_PAGES } from "@/lib/landing/data";
 import { localizedBlogSlug, localizedLandingSlug } from "@/lib/blog/slug-i18n";
@@ -52,6 +53,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly",
       priority: 0.8,
     });
+  }
+
+  // Model-level device pages — priorità 0.7, yearly (specs stabili)
+  for (const [providerSlug, models] of Object.entries(PROVIDER_MODELS)) {
+    for (const m of models) {
+      routes.push({
+        path: `/sync/${providerSlug}/${m.slug}`,
+        changeFrequency: "yearly",
+        priority: 0.7,
+      });
+    }
   }
 
   // Articoli blog — priorità 0.7, daily (perché lo stato delle integrazioni e
