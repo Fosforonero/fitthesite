@@ -95,7 +95,7 @@ export async function GET(req: Request) {
 
   for (let i = 0; i < (founders ?? []).length; i++) {
     const row = founders![i]!;
-    const profile = row.profiles as { email: string };
+    const profile = row.profiles as unknown as { email: string };
     const email = profile.email;
 
     const template = founderReviewEmail();
