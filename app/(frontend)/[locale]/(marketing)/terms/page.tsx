@@ -4,12 +4,12 @@ import { LegalPage, Section, Callout } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "16 giugno 2026";
-const LAST_UPDATED_EN = "June 16, 2026";
-const LAST_UPDATED_ES = "16 de junio de 2026";
-const LAST_UPDATED_DE = "16. Juni 2026";
-const LAST_UPDATED_PT = "16 de junho de 2026";
-const LAST_UPDATED_FR = "16 juin 2026";
+const LAST_UPDATED_IT = "22 giugno 2026";
+const LAST_UPDATED_EN = "June 22, 2026";
+const LAST_UPDATED_ES = "22 de junio de 2026";
+const LAST_UPDATED_DE = "22. Juni 2026";
+const LAST_UPDATED_PT = "22 de junho de 2026";
+const LAST_UPDATED_FR = "22 juin 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
