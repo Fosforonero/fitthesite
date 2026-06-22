@@ -207,6 +207,8 @@ export default async function Home({
         </div>
       </section>
 
+      <FounderBanner locale={lc} />
+
       {/* Trust signals (E-E-A-T): Made in Italy · EU servers · GDPR · Indie. */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-8">
         <TrustBadges locale={lc === "it" ? "it" : "en"} />

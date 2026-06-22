@@ -45,8 +45,8 @@ export default async function FounderBanner({ locale }: { locale: string }) {
       ? "Founder al completo: scarica l'app su Play Store"
       : "Founder program full: get the app on Play Store"
     : locale === "it"
-      ? `Restano ${remaining} dei ${TOTAL_SPOTS} posti founder · 1 anno di Pro gratis`
-      : `${remaining} of ${TOTAL_SPOTS} founder seats left · 1 year of Pro free`;
+      ? `Restano ${remaining} dei ${TOTAL_SPOTS} posti founder · Pro a vita gratis`
+      : `${remaining} of ${TOTAL_SPOTS} founder seats left · lifetime Pro free`;
 
   const cta = locale === "it" ? "Diventa founder" : "Become a founder";
 
@@ -71,7 +71,7 @@ export default async function FounderBanner({ locale }: { locale: string }) {
           <span className="font-mono text-text-secondary">{TOTAL_SPOTS}</span>
           <span className="ml-2 hidden sm:inline">{headline}</span>
           <span className="ml-2 sm:hidden">
-            {locale === "it" ? "founder · 1 anno Pro gratis" : "founders · 1 year Pro free"}
+            {locale === "it" ? "founder · Pro a vita gratis" : "founders · lifetime Pro free"}
           </span>
         </span>
         <span className="hidden md:inline-flex items-center gap-1 text-brand-aqua font-semibold transition-transform group-hover:translate-x-1">
