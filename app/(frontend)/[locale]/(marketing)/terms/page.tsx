@@ -188,7 +188,13 @@ function TermsIT() {
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Acquisto unico, €3,99 su Android (€4,99 su iPhone):</strong> sblocca permanentemente tutte le funzionalità Pro sull'account associato. Nessun abbonamento, nessun rinnovo automatico.</span>
           </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Founder Pro (primi 1000 account, gratuito):</strong> gli account registrati tra i primi 1000 ricevono automaticamente l'accesso Pro a vita, senza alcun costo. Nessuna scadenza, nessun acquisto richiesto.</span>
+          </li>
         </ul>
+        <p>
+          Il beneficio Founder Pro rimane attivo per tutta la durata del Servizio. Non può essere revocato unilateralmente, salvo in caso di violazione dei presenti Termini che comporti la sospensione dell'account. In caso di interruzione completa del Servizio si applicano le condizioni della Sezione 9 (preavviso minimo di 60 giorni).
+        </p>
         <p>
           Tutti i pagamenti sono gestiti da Google e soggetti ai{" "}
           <a href="https://play.google.com/intl/it/about/play-terms/" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
@@ -382,7 +388,13 @@ function TermsEN() {
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">One-time purchase, €3.99 on Android (€4.99 on iPhone):</strong> unlocks Pro features permanently on the associated account. No subscription, no auto-renewal.</span>
           </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Founder Pro (first 1,000 accounts, free):</strong> accounts registered among the first 1,000 automatically receive lifetime Pro access at no cost. No expiry date, no purchase required.</span>
+          </li>
         </ul>
+        <p>
+          The Founder Pro benefit remains active for the entire duration of the Service. It cannot be revoked unilaterally, except in cases of violation of these Terms resulting in account suspension. In the event of complete Service shutdown, the conditions of Section 9 apply (minimum 60 days notice).
+        </p>
         <p>
           All payments are handled by Google and subject to the{" "}
           <a href="https://play.google.com/intl/en/about/play-terms/" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
@@ -578,7 +590,13 @@ function TermsES() {
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Pago único, 3,99 € en Android (4,99 € en iPhone):</strong> desbloquea de forma permanente todas las funciones Pro en la cuenta asociada. Sin suscripción, sin renovación automática.</span>
           </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Founder Pro (primeras 1.000 cuentas, gratuito):</strong> las cuentas registradas entre las primeras 1.000 reciben automáticamente acceso Pro de por vida, sin coste alguno. Sin fecha de vencimiento, sin compra requerida.</span>
+          </li>
         </ul>
+        <p>
+          El beneficio Founder Pro permanece activo durante toda la vigencia del Servicio. No puede ser revocado unilateralmente, salvo en caso de violación de estos Términos que conlleve la suspensión de la cuenta. En caso de interrupción completa del Servicio, se aplican las condiciones de la Sección 9 (aviso mínimo de 60 días).
+        </p>
         <p>
           Todos los pagos son gestionados por Google y están sujetos a los{" "}
           <a href="https://play.google.com/intl/es/about/play-terms/" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
@@ -779,7 +797,13 @@ function TermsDE() {
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Einmalkauf, 3,99 € auf Android (4,99 € auf iPhone):</strong> schaltet dauerhaft alle Pro-Funktionen für das verknüpfte Konto frei. Kein Abonnement, keine automatische Verlängerung.</span>
           </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Founder Pro (erste 1.000 Konten, kostenlos):</strong> Konten, die unter den ersten 1.000 registriert wurden, erhalten automatisch lebenslangen Pro-Zugang ohne Kosten. Kein Ablaufdatum, kein Kauf erforderlich.</span>
+          </li>
         </ul>
+        <p>
+          Der Founder-Pro-Vorteil bleibt für die gesamte Laufzeit des Dienstes aktiv. Er kann nicht einseitig widerrufen werden, außer bei Verstößen gegen diese Nutzungsbedingungen, die zur Kontosperrung führen. Bei vollständiger Einstellung des Dienstes gelten die Bedingungen aus Abschnitt 9 (Mindestankündigung 60 Tage).
+        </p>
         <p>
           Alle Zahlungen werden von Google abgewickelt und unterliegen den{" "}
           <a href="https://play.google.com/intl/de/about/play-terms/" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
@@ -980,7 +1004,13 @@ function TermsPT() {
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Compra única, €3,99 no Android (€4,99 no iPhone):</strong> desbloqueia permanentemente todas as funcionalidades Pro na conta associada. Sem assinatura, sem renovação automática.</span>
           </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Founder Pro (primeiras 1.000 contas, gratuito):</strong> contas registradas entre as primeiras 1.000 recebem automaticamente acesso Pro vitalício, sem qualquer custo. Sem data de expiração, sem compra necessária.</span>
+          </li>
         </ul>
+        <p>
+          O benefício Founder Pro permanece ativo durante toda a vigência do Serviço. Não pode ser revogado unilateralmente, exceto em caso de violação destes Termos que resulte na suspensão da conta. Em caso de encerramento completo do Serviço, aplicam-se as condições da Seção 9 (aviso mínimo de 60 dias).
+        </p>
         <p>
           Todos os pagamentos são gerenciados pelo Google e estão sujeitos aos{" "}
           <a href="https://play.google.com/intl/pt/about/play-terms/" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
@@ -1180,7 +1210,13 @@ function TermsFR() {
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Achat unique, 3,99 € sur Android (4,99 € sur iPhone) :</strong> débloque définitivement toutes les fonctionnalités Pro sur le compte associé. Aucun abonnement, aucun renouvellement automatique.</span>
           </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Founder Pro (1 000 premiers comptes, gratuit) :</strong> les comptes enregistrés parmi les 1 000 premiers reçoivent automatiquement un accès Pro à vie, sans frais. Aucune date d'expiration, aucun achat requis.</span>
+          </li>
         </ul>
+        <p>
+          Le bénéfice Founder Pro reste actif pendant toute la durée du Service. Il ne peut pas être révoqué unilatéralement, sauf en cas de violation des présentes Conditions entraînant la suspension du compte. En cas d'arrêt complet du Service, les conditions de la Section 9 s'appliquent (préavis minimum de 60 jours).
+        </p>
         <p>
           Tous les paiements sont gérés par Google et soumis aux{" "}
           <a href="https://play.google.com/intl/fr/about/play-terms/" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">
