@@ -244,8 +244,10 @@ function TermsIT() {
           preavviso.
         </p>
         <p>
-          In caso di interruzione completa del Servizio, daremo almeno 60 giorni per esportare i
-          dati e rimborseremo eventuali abbonamenti attivi su base pro-rata.
+          In caso di interruzione completa del Servizio, daremo almeno 60 giorni di preavviso per
+          esportare i dati. FitMesh Sync non prevede abbonamenti ricorrenti: gli acquisti unici sono
+          già pienamente eseguiti al momento del pagamento e il Founder Pro è gratuito; pertanto
+          nessun rimborso è dovuto in caso di cessazione del Servizio.
         </p>
       </Section>
 
@@ -442,8 +444,10 @@ function TermsEN() {
           affecting paid features, we will notify you with at least 30 days' notice.
         </p>
         <p>
-          If we discontinue the Service entirely, we will provide at least 60 days for you to
-          export your data and refund active subscriptions on a pro-rata basis.
+          If we discontinue the Service entirely, we will provide at least 60 days' notice for
+          you to export your data. FitMesh Sync has no recurring subscriptions: one-time purchases
+          are fully executed at the time of payment, and Founder Pro is free; therefore no refund
+          is due upon Service shutdown.
         </p>
       </Section>
 
@@ -648,8 +652,10 @@ function TermsES() {
           que afecten a funciones de pago, te avisaremos con al menos 30 días de antelación.
         </p>
         <p>
-          En caso de interrupción total del Servicio, te daremos al menos 60 días para exportar
-          tus datos y reembolsaremos cualquier suscripción activa de forma proporcional.
+          En caso de interrupción total del Servicio, te daremos un aviso de al menos 60 días
+          para exportar tus datos. FitMesh Sync no tiene suscripciones recurrentes: las compras
+          únicas se ejecutan íntegramente en el momento del pago y el Founder Pro es gratuito;
+          por lo tanto, no se debe ningún reembolso en caso de cierre del Servicio.
         </p>
       </Section>
 
@@ -853,8 +859,10 @@ function TermsDE() {
           30 Tagen Vorankündigung informieren.
         </p>
         <p>
-          Bei vollständiger Einstellung des Dienstes geben wir dir mindestens 60 Tage Zeit, deine
-          Daten zu exportieren, und erstatten aktive Abonnements anteilig zurück.
+          Bei vollständiger Einstellung des Dienstes geben wir mindestens 60 Tage Vorankündigung,
+          damit du deine Daten exportieren kannst. FitMesh Sync hat keine wiederkehrenden
+          Abonnements: Einmalkäufe sind mit der Zahlung vollständig erfüllt und Founder Pro ist
+          kostenlos; daher ist bei einer Einstellung des Dienstes keine Rückerstattung geschuldet.
         </p>
       </Section>
 
@@ -1060,8 +1068,10 @@ function TermsPT() {
           que afetem funcionalidades pagas, você será notificado com antecedência mínima de 30 dias.
         </p>
         <p>
-          Em caso de encerramento completo do Serviço, concederemos pelo menos 60 dias para você
-          exportar seus dados e reembolsaremos assinaturas ativas de forma proporcional.
+          Em caso de encerramento completo do Serviço, forneceremos um aviso de pelo menos 60 dias
+          para você exportar seus dados. O FitMesh Sync não possui assinaturas recorrentes: as
+          compras únicas são totalmente executadas no momento do pagamento e o Founder Pro é
+          gratuito; portanto, nenhum reembolso é devido em caso de encerramento do Serviço.
         </p>
       </Section>
 
@@ -1270,8 +1280,10 @@ function TermsFR() {
           informerons avec un préavis d'au moins 30 jours.
         </p>
         <p>
-          En cas d'interruption complète du Service, nous vous accorderons au moins 60 jours pour
-          exporter vos données et rembourserons les abonnements actifs au prorata.
+          En cas d'interruption complète du Service, nous vous accorderons un préavis d'au moins
+          60 jours pour exporter vos données. FitMesh Sync ne propose pas d'abonnements
+          récurrents : les achats uniques sont entièrement exécutés au moment du paiement et le
+          Founder Pro est gratuit ; aucun remboursement n'est donc dû en cas d'arrêt du Service.
         </p>
       </Section>
 
