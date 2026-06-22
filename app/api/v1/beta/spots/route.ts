@@ -10,7 +10,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { jsonError, jsonOk } from "@/lib/api/auth-helpers";
 
-const LEGACY_FOUNDERS = 17;
+const LEGACY_FOUNDERS = 7;
 const TOTAL = 1000;
 
 export const revalidate = 0;

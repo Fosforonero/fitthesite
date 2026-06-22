@@ -15,7 +15,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 const TOTAL_SPOTS = 1000;
 // I 17 beta tester della closed beta sono i primi founder: occupano slot
 // anche se i loro grant non hanno note='founder-launch' (sono pro a vita).
-const LEGACY_FOUNDERS = 17;
+const LEGACY_FOUNDERS = 7;
 // Live fresh ad ogni request: il counter deve muoversi appena qualcuno
 // si registra. Costo trascurabile (1 count su tabella piccola).
 export const revalidate = 0;
