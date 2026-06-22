@@ -27,40 +27,40 @@ export async function generateMetadata({
 
   const title =
     lc === "it"
-      ? "FitMesh Sync Founder — 1 anno di Pro gratis ai primi 1000"
+      ? "FitMesh Sync Founder — Pro a vita per i primi 1000"
       : lc === "es"
-      ? "FitMesh Sync Founder — 1 año de Pro gratis para los primeros 1000"
+      ? "FitMesh Sync Founder — Pro vitalicio para los primeros 1000"
       : lc === "de"
-      ? "FitMesh Sync Founder — 1 Jahr Pro kostenlos für die ersten 1000"
+      ? "FitMesh Sync Founder — Lifetime-Pro für die ersten 1000"
       : lc === "pt"
-      ? "FitMesh Sync Founder — 1 ano de Pro grátis para os primeiros 1000"
+      ? "FitMesh Sync Founder — Pro vitalício para os primeiros 1000"
       : lc === "fr"
-      ? "FitMesh Sync Founder — 1 an de Pro gratuit pour les 1000 premiers"
+      ? "FitMesh Sync Founder — Pro à vie pour les 1000 premiers"
       : lc === "nl"
-      ? "FitMesh Sync Founder — 1 jaar Pro gratis voor de eerste 1000"
+      ? "FitMesh Sync Founder — Pro voor altijd voor de eerste 1000"
       : lc === "ja"
-      ? "FitMesh Sync Founder — 最初の1000名にProを1年間無料"
+      ? "FitMesh Sync Founder — 最初の1000名にPro永久無料"
       : lc === "ko"
-      ? "FitMesh Sync Founder — 처음 1000명에게 1년 Pro 무료"
-      : "FitMesh Sync Founder — 1 year of Pro free for the first 1000";
+      ? "FitMesh Sync Founder — 처음 1000명에게 평생 Pro 무료"
+      : "FitMesh Sync Founder — Lifetime Pro for the first 1000";
   const description =
     lc === "it"
-      ? "Scarica FitMesh Sync da Google Play e crea l'account: i primi 1000 ricevono un anno di Pro completo in regalo, attivato automaticamente. Più accesso prioritario alla versione iOS."
+      ? "Scarica FitMesh Sync da Google Play e crea l'account: i primi 1000 ricevono il Pro a vita in regalo, attivato automaticamente. Più accesso prioritario alla versione iOS."
       : lc === "es"
-      ? "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben un año completo de Pro gratis, activado automáticamente. Además, acceso prioritario a la versión iOS."
+      ? "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben Pro vitalicio gratis, activado automáticamente. Además, acceso prioritario a la versión iOS."
       : lc === "de"
-      ? "Lade FitMesh Sync bei Google Play herunter und erstelle dein Konto: Die ersten 1000 erhalten automatisch ein volles Jahr Pro gratis. Plus: Prioritätszugang zur iOS-Version."
+      ? "Lade FitMesh Sync bei Google Play herunter und erstelle dein Konto: Die ersten 1000 erhalten automatisch Lifetime-Pro gratis. Plus: Prioritätszugang zur iOS-Version."
       : lc === "pt"
-      ? "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem um ano completo de Pro grátis, ativado automaticamente. Mais acesso prioritário à versão iOS."
+      ? "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem Pro vitalício grátis, ativado automaticamente. Mais acesso prioritário à versão iOS."
       : lc === "fr"
-      ? "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent un an complet de Pro gratuit, activé automatiquement. Plus un accès prioritaire à la version iOS."
+      ? "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent le Pro à vie gratuit, activé automatiquement. Plus un accès prioritaire à la version iOS."
       : lc === "nl"
-      ? "Download de app, maak je account aan: de eerste 1000 krijgen een volledig jaar Pro, automatisch geactiveerd. Bovendien prioritaire toegang tot iOS."
+      ? "Download de app, maak je account aan: de eerste 1000 krijgen Pro voor altijd gratis, automatisch geactiveerd. Bovendien prioritaire toegang tot iOS."
       : lc === "ja"
-      ? "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にProの1年間が自動的に付与されます。さらにiOSへの優先アクセスも。"
+      ? "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にPro永久無料が自動的に付与されます。さらにiOSへの優先アクセスも。"
       : lc === "ko"
-      ? "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 Pro 1년이 자동으로 활성화됩니다. iOS 우선 접근권도 제공됩니다."
-      : "Download FitMesh Sync on Google Play and create your account: the first 1000 get a full year of Pro free, activated automatically. Plus priority access to the iOS version.";
+      ? "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 평생 Pro가 자동으로 활성화됩니다. iOS 우선 접근권도 제공됩니다."
+      : "Download FitMesh Sync on Google Play and create your account: the first 1000 get lifetime Pro free, activated automatically. Plus priority access to the iOS version.";
 
   const path = `/${lc}/beta`;
   return {
@@ -267,21 +267,21 @@ export default async function BetaPage({
 }
 
 const IT = {
-  metaTitle: "FitMesh Sync Founder — 1 anno di Pro gratis ai primi 1000",
+  metaTitle: "FitMesh Sync Founder — Pro a vita per i primi 1000",
   metaDesc:
-    "Scarica l'app, crea l'account: i primi 1000 ricevono un anno di Pro completo, attivato automaticamente. Più accesso prioritario a iOS.",
+    "Scarica l'app, crea l'account: i primi 1000 ricevono il Pro a vita, attivato automaticamente. Più accesso prioritario a iOS.",
   kicker: "Founder · 1000 posti",
   h1_a: "Diventa uno dei primi",
   h1_b: "1000 founder",
   h1_c: "di FitMesh Sync",
   sub:
-    "Nessuna selezione, nessuna attesa: scarichi l'app, crei l'account e un anno di Pro completo si attiva da solo. Vale per i primi 1000 account registrati.",
-  ctaNote: "Niente carta, niente abbonamento: alla scadenza non paghi nulla.",
+    "Nessuna selezione, nessuna attesa: scarichi l'app, crei l'account e il Pro a vita si attiva da solo. Vale per i primi 1000 account registrati.",
+  ctaNote: "Niente carta, niente abbonamento: il Pro è tuo per sempre.",
   perks: [
     {
       emoji: "🎁",
-      title: "1 anno di Pro gratis",
-      desc: "Si attiva automaticamente alla registrazione. Storico illimitato, Mesh Famiglia, tutte le feature Pro incluse.",
+      title: "Pro a vita gratis",
+      desc: "Si attiva automaticamente alla registrazione. Storico illimitato, Mesh Famiglia, tutte le feature Pro incluse — per sempre.",
     },
     {
       emoji: "⚡",
@@ -305,11 +305,11 @@ const IT = {
     },
     {
       title: "Crei l'account",
-      desc: "Email o Google Sign-In. Se sei tra i primi 1000, il Pro si attiva da solo: nella schermata Pro vedi \"Founder · Pro fino al [data]\".",
+      desc: "Email o Google Sign-In. Se sei tra i primi 1000, il Pro si attiva da solo: nella schermata Pro vedi \"Founder · Pro · Lifetime\".",
     },
     {
-      title: "Un anno di Pro completo, senza vincoli",
-      desc: `Niente carta, niente rinnovo automatico. Alla scadenza scegli tu: resti sul piano gratuito o passi a Pro (${PRICING.subSixMonthsLabel.it}).`,
+      title: "Pro a vita, senza vincoli",
+      desc: "Niente carta, niente scadenza, niente rinnovo automatico. Il Pro Founder è permanente.",
     },
     {
       title: "Mi mandi feedback quando vuoi",
@@ -319,16 +319,16 @@ const IT = {
   faqTitle: "Domande frequenti",
   faqs: [
     {
-      q: "Cosa include l'anno di Pro gratis?",
-      a: "Tutto quello che include Pro: storico illimitato (oltre i 14 giorni del piano free), Mesh Famiglia, esportazione dati completa e tutte le feature Pro che usciranno durante l'anno. Per 12 mesi dalla registrazione.",
+      q: "Cosa include il Pro a vita gratis?",
+      a: "Tutto quello che include Pro: storico illimitato (oltre i 14 giorni del piano free), Mesh Famiglia, esportazione dati completa e tutte le feature Pro future. Senza scadenza.",
     },
     {
       q: "Come so se sono tra i primi 1000?",
-      a: "Il contatore in homepage mostra i posti rimasti in tempo reale. In ogni caso lo vedi subito nell'app: se il grant è attivo, la schermata Pro mostra \"Founder · Pro fino al [data]\".",
+      a: "Il contatore in homepage mostra i posti rimasti in tempo reale. In ogni caso lo vedi subito nell'app: se il grant è attivo, la schermata Pro mostra \"Founder · Pro · Lifetime\".",
     },
     {
-      q: "Cosa succede alla scadenza dell'anno?",
-      a: `Nessun addebito: non chiediamo la carta. L'account passa semplicemente al piano gratuito (ultimi 14 giorni di storico). Se vuoi continuare con Pro: ${PRICING.subSixMonthsFull.it} o acquisto unico (${PRICING.lifetimeBoth.it}).`,
+      q: "Il Pro Founder ha una scadenza?",
+      a: "No. Il Pro Founder è a vita — nessuna data di scadenza, nessun rinnovo da gestire. È permanente finché esiste FitMesh.",
     },
     {
       q: "E i primi 100 beta tester?",
@@ -350,21 +350,21 @@ const IT = {
 };
 
 const ES = {
-  metaTitle: "FitMesh Sync Founder — 1 año de Pro gratis para los primeros 1000",
+  metaTitle: "FitMesh Sync Founder — Pro vitalicio para los primeros 1000",
   metaDesc:
-    "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben un año completo de Pro gratis, activado automáticamente. Además, acceso prioritario a la versión iOS.",
+    "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben Pro vitalicio gratis, activado automáticamente. Además, acceso prioritario a la versión iOS.",
   kicker: "Founder · 1000 plazas",
   h1_a: "Sé uno de los primeros",
   h1_b: "1000 founders",
   h1_c: "de FitMesh Sync",
   sub:
-    "Sin selección, sin espera: descarga la app, crea tu cuenta y un año de Pro completo se activa solo. Válido para las primeras 1000 cuentas registradas.",
-  ctaNote: "Sin tarjeta, sin suscripción: cuando termina el año no pagas nada.",
+    "Sin selección, sin espera: descarga la app, crea tu cuenta y el Pro vitalicio se activa solo. Válido para las primeras 1000 cuentas registradas.",
+  ctaNote: "Sin tarjeta, sin suscripción: el Pro es tuyo para siempre.",
   perks: [
     {
       emoji: "🎁",
-      title: "1 año de Pro gratis",
-      desc: "Se activa automáticamente al registrarte. Historial ilimitado, Mesh Familia, todas las funciones Pro incluidas.",
+      title: "Pro vitalicio gratis",
+      desc: "Se activa automáticamente al registrarte. Historial ilimitado, Mesh Familia, todas las funciones Pro incluidas — para siempre.",
     },
     {
       emoji: "⚡",
@@ -388,11 +388,11 @@ const ES = {
     },
     {
       title: "Crea tu cuenta",
-      desc: "Con email o Google Sign-In. Si estás entre los primeros 1000, el Pro se activa solo: en la pantalla Pro verás \"Founder · Pro hasta [fecha]\".",
+      desc: "Con email o Google Sign-In. Si estás entre los primeros 1000, el Pro se activa solo: en la pantalla Pro verás \"Founder · Pro · Lifetime\".",
     },
     {
-      title: "Un año de Pro completo, sin compromisos",
-      desc: `Sin tarjeta, sin renovación automática. Al vencer, tú decides: te quedas en el plan gratuito o pasas a Pro (${PRICING.subSixMonthsLabel.en}).`,
+      title: "Pro vitalicio, sin compromisos",
+      desc: "Sin tarjeta, sin vencimiento, sin renovación automática. El Pro Founder es permanente.",
     },
     {
       title: "Envíame tu opinión cuando quieras",
@@ -402,16 +402,16 @@ const ES = {
   faqTitle: "Preguntas frecuentes",
   faqs: [
     {
-      q: "¿Qué incluye el año de Pro gratis?",
-      a: "Todo lo que incluye Pro: historial ilimitado (más allá de los 14 días del plan gratuito), Mesh Familia, exportación completa de datos y todas las funciones Pro que se publiquen durante el año. Durante 12 meses desde el registro.",
+      q: "¿Qué incluye el Pro vitalicio gratis?",
+      a: "Todo lo que incluye Pro: historial ilimitado (más allá de los 14 días del plan gratuito), Mesh Familia, exportación completa de datos y todas las funciones Pro futuras. Sin vencimiento.",
     },
     {
       q: "¿Cómo sé si estoy entre los primeros 1000?",
-      a: "El contador en la página principal muestra las plazas restantes en tiempo real. De todos modos lo verás directamente en la app: si el acceso está activo, la pantalla Pro mostrará \"Founder · Pro hasta [fecha]\".",
+      a: "El contador en la página principal muestra las plazas restantes en tiempo real. De todos modos lo verás directamente en la app: si el acceso está activo, la pantalla Pro mostrará \"Founder · Pro · Lifetime\".",
     },
     {
-      q: "¿Qué pasa cuando termina el año?",
-      a: `Sin cargos: nunca pedimos la tarjeta. Tu cuenta pasa simplemente al plan gratuito (últimos 14 días de historial). Si quieres seguir con Pro: ${PRICING.subSixMonthsFull.en} o pago único (${PRICING.lifetimeBoth.en}).`,
+      q: "¿El Pro Founder tiene fecha de vencimiento?",
+      a: "No. El Pro Founder es permanente — sin fecha de vencimiento, sin renovaciones. Es tuyo mientras exista FitMesh.",
     },
     {
       q: "¿Y los primeros 100 beta testers?",
@@ -433,21 +433,21 @@ const ES = {
 };
 
 const EN = {
-  metaTitle: "FitMesh Sync Founder — 1 year of Pro free for the first 1000",
+  metaTitle: "FitMesh Sync Founder — Lifetime Pro for the first 1000",
   metaDesc:
-    "Download the app, create your account: the first 1000 get a full year of Pro, activated automatically. Plus priority iOS access.",
+    "Download the app, create your account: the first 1000 get lifetime Pro free, activated automatically. Plus priority iOS access.",
   kicker: "Founder · 1000 seats",
   h1_a: "Become one of the first",
   h1_b: "1000 founders",
   h1_c: "of FitMesh Sync",
   sub:
-    "No selection, no waiting: download the app, create your account, and a full year of Pro activates by itself. Valid for the first 1000 registered accounts.",
-  ctaNote: "No card, no subscription: when the year ends you pay nothing.",
+    "No selection, no waiting: download the app, create your account, and lifetime Pro activates by itself. Valid for the first 1000 registered accounts.",
+  ctaNote: "No card, no subscription: Pro is yours for life.",
   perks: [
     {
       emoji: "🎁",
-      title: "1 year of Pro free",
-      desc: "Activates automatically at sign-up. Unlimited history, Family Mesh, every Pro feature included.",
+      title: "Lifetime Pro free",
+      desc: "Activates automatically at sign-up. Unlimited history, Family Mesh, every Pro feature included — forever.",
     },
     {
       emoji: "⚡",
@@ -471,11 +471,11 @@ const EN = {
     },
     {
       title: "Create your account",
-      desc: "Email or Google Sign-In. If you're among the first 1000, Pro activates by itself: the Pro screen shows \"Founder · Pro until [date]\".",
+      desc: "Email or Google Sign-In. If you're among the first 1000, Pro activates by itself: the Pro screen shows \"Founder · Pro · Lifetime\".",
     },
     {
-      title: "A full year of Pro, no strings",
-      desc: `No card, no auto-renewal. When it expires you choose: stay on the free plan or go Pro (${PRICING.subSixMonthsLabel.en}).`,
+      title: "Pro for life, no strings",
+      desc: "No card, no expiry, no auto-renewal. Founder Pro is permanent.",
     },
     {
       title: "Send feedback whenever you like",
@@ -485,16 +485,16 @@ const EN = {
   faqTitle: "FAQ",
   faqs: [
     {
-      q: "What does the free Pro year include?",
-      a: "Everything Pro includes: unlimited history (beyond the free plan's 14 days), Family Mesh, full data export, and every Pro feature shipped during the year. For 12 months from sign-up.",
+      q: "What does the free lifetime Pro include?",
+      a: "Everything Pro includes: unlimited history (beyond the free plan's 14 days), Family Mesh, full data export, and every future Pro feature. No expiry.",
     },
     {
       q: "How do I know if I'm in the first 1000?",
-      a: "The homepage counter shows remaining seats in real time. Either way you'll see it in the app: if the grant is active, the Pro screen shows \"Founder · Pro until [date]\".",
+      a: "The homepage counter shows remaining seats in real time. Either way you'll see it in the app: if the grant is active, the Pro screen shows \"Founder · Pro · Lifetime\".",
     },
     {
-      q: "What happens when the year ends?",
-      a: `No charge: we never ask for a card. Your account simply moves to the free plan (last 14 days of history). To keep Pro: ${PRICING.subSixMonthsFull.en} or one-time (${PRICING.lifetimeBoth.en}).`,
+      q: "Does Founder Pro ever expire?",
+      a: "No. Founder Pro is permanent — no expiry date, no renewal to manage. It's yours for as long as FitMesh exists.",
     },
     {
       q: "What about the first 100 beta testers?",
@@ -516,21 +516,21 @@ const EN = {
 };
 
 const DE = {
-  metaTitle: "FitMesh Sync Founder — 1 Jahr Pro kostenlos für die ersten 1000",
+  metaTitle: "FitMesh Sync Founder — Lifetime-Pro für die ersten 1000",
   metaDesc:
-    "Lade FitMesh Sync bei Google Play herunter und erstelle dein Konto: Die ersten 1000 erhalten automatisch ein volles Jahr Pro gratis. Plus: Prioritätszugang zur iOS-Version.",
+    "Lade FitMesh Sync bei Google Play herunter und erstelle dein Konto: Die ersten 1000 erhalten automatisch Lifetime-Pro gratis. Plus: Prioritätszugang zur iOS-Version.",
   kicker: "Founder · 1000 Plätze",
   h1_a: "Werde einer der ersten",
   h1_b: "1000 Founder",
   h1_c: "von FitMesh Sync",
   sub:
-    "Keine Auswahl, keine Wartezeit: Lade die App herunter, erstelle dein Konto und ein volles Jahr Pro aktiviert sich automatisch. Gilt für die ersten 1000 registrierten Konten.",
-  ctaNote: "Keine Kreditkarte, kein Abonnement: Nach Ablauf des Jahres zahlst du nichts.",
+    "Keine Auswahl, keine Wartezeit: Lade die App herunter, erstelle dein Konto und Lifetime-Pro aktiviert sich automatisch. Gilt für die ersten 1000 registrierten Konten.",
+  ctaNote: "Keine Kreditkarte, kein Abonnement: Pro gehört dir für immer.",
   perks: [
     {
       emoji: "🎁",
-      title: "1 Jahr Pro kostenlos",
-      desc: "Aktiviert sich automatisch bei der Registrierung. Unbegrenzter Verlauf, Mesh Familie, alle Pro-Funktionen inklusive.",
+      title: "Lifetime-Pro kostenlos",
+      desc: "Aktiviert sich automatisch bei der Registrierung. Unbegrenzter Verlauf, Mesh Familie, alle Pro-Funktionen inklusive — für immer.",
     },
     {
       emoji: "⚡",
@@ -554,11 +554,11 @@ const DE = {
     },
     {
       title: "Erstelle dein Konto",
-      desc: "Mit E-Mail oder Google Sign-In. Wenn du zu den ersten 1000 gehörst, aktiviert sich Pro automatisch: Im Pro-Bildschirm siehst du \"Founder · Pro bis [Datum]\".",
+      desc: "Mit E-Mail oder Google Sign-In. Wenn du zu den ersten 1000 gehörst, aktiviert sich Pro automatisch: Im Pro-Bildschirm siehst du \"Founder · Pro · Lifetime\".",
     },
     {
-      title: "Ein volles Jahr Pro, ohne Bedingungen",
-      desc: `Keine Kreditkarte, keine automatische Verlängerung. Nach Ablauf entscheidest du: Bleib im kostenlosen Plan oder wechsle zu Pro (${PRICING.subSixMonthsLabel.en}).`,
+      title: "Lifetime-Pro, ohne Bedingungen",
+      desc: "Keine Kreditkarte, kein Ablaufdatum, keine automatische Verlängerung. Founder Pro ist dauerhaft.",
     },
     {
       title: "Schick mir Feedback, wann immer du möchtest",
@@ -568,16 +568,16 @@ const DE = {
   faqTitle: "Häufige Fragen",
   faqs: [
     {
-      q: "Was ist im kostenlosen Pro-Jahr enthalten?",
-      a: "Alles, was Pro beinhaltet: unbegrenzter Verlauf (über die 14 Tage des kostenlosen Plans hinaus), Mesh Familie, vollständiger Datenexport und alle Pro-Funktionen, die im Laufe des Jahres erscheinen. Für 12 Monate ab der Registrierung.",
+      q: "Was ist im kostenlosen Lifetime-Pro enthalten?",
+      a: "Alles, was Pro beinhaltet: unbegrenzter Verlauf (über die 14 Tage des kostenlosen Plans hinaus), Mesh Familie, vollständiger Datenexport und alle zukünftigen Pro-Funktionen. Ohne Ablaufdatum.",
     },
     {
       q: "Woher weiß ich, ob ich zu den ersten 1000 gehöre?",
-      a: "Der Zähler auf der Startseite zeigt die verbleibenden Plätze in Echtzeit. In jedem Fall siehst du es direkt in der App: Wenn der Zugang aktiv ist, zeigt der Pro-Bildschirm \"Founder · Pro bis [Datum]\".",
+      a: "Der Zähler auf der Startseite zeigt die verbleibenden Plätze in Echtzeit. In jedem Fall siehst du es direkt in der App: Wenn der Zugang aktiv ist, zeigt der Pro-Bildschirm \"Founder · Pro · Lifetime\".",
     },
     {
-      q: "Was passiert nach Ablauf des Jahres?",
-      a: `Keine Abbuchung: Wir fragen nie nach einer Kreditkarte. Dein Konto wechselt einfach zum kostenlosen Plan (letzten 14 Tage Verlauf). Für Pro weitermachen: ${PRICING.subSixMonthsFull.en} oder Einmalkauf (${PRICING.lifetimeBoth.en}).`,
+      q: "Läuft Founder Pro irgendwann ab?",
+      a: "Nein. Founder Pro ist dauerhaft — kein Ablaufdatum, keine Verlängerungen. Es gehört dir, solange es FitMesh gibt.",
     },
     {
       q: "Und die ersten 100 Beta-Tester?",
@@ -599,21 +599,21 @@ const DE = {
 };
 
 const PT = {
-  metaTitle: "FitMesh Sync Founder — 1 ano de Pro grátis para os primeiros 1000",
+  metaTitle: "FitMesh Sync Founder — Pro vitalício para os primeiros 1000",
   metaDesc:
-    "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem um ano completo de Pro grátis, ativado automaticamente. Mais acesso prioritário à versão iOS.",
+    "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem Pro vitalício grátis, ativado automaticamente. Mais acesso prioritário à versão iOS.",
   kicker: "Founder · 1000 vagas",
   h1_a: "Seja um dos primeiros",
   h1_b: "1000 founders",
   h1_c: "do FitMesh Sync",
   sub:
-    "Sem seleção, sem espera: baixe o app, crie sua conta e um ano completo de Pro é ativado automaticamente. Válido para as primeiras 1000 contas registradas.",
-  ctaNote: "Sem cartão, sem assinatura: quando o ano terminar, você não paga nada.",
+    "Sem seleção, sem espera: baixe o app, crie sua conta e o Pro vitalício é ativado automaticamente. Válido para as primeiras 1000 contas registradas.",
+  ctaNote: "Sem cartão, sem assinatura: o Pro é seu para sempre.",
   perks: [
     {
       emoji: "🎁",
-      title: "1 ano de Pro grátis",
-      desc: "Ativado automaticamente no cadastro. Histórico ilimitado, Mesh Família, todas as funcionalidades Pro incluídas.",
+      title: "Pro vitalício grátis",
+      desc: "Ativado automaticamente no cadastro. Histórico ilimitado, Mesh Família, todas as funcionalidades Pro incluídas — para sempre.",
     },
     {
       emoji: "⚡",
@@ -637,11 +637,11 @@ const PT = {
     },
     {
       title: "Crie sua conta",
-      desc: "Com e-mail ou Google Sign-In. Se você estiver entre os primeiros 1000, o Pro é ativado automaticamente: na tela Pro você verá \"Founder · Pro até [data]\".",
+      desc: "Com e-mail ou Google Sign-In. Se você estiver entre os primeiros 1000, o Pro é ativado automaticamente: na tela Pro você verá \"Founder · Pro · Lifetime\".",
     },
     {
-      title: "Um ano completo de Pro, sem compromisso",
-      desc: `Sem cartão, sem renovação automática. Ao vencer, você decide: fica no plano gratuito ou passa para o Pro (${PRICING.subSixMonthsLabel.en}).`,
+      title: "Pro vitalício, sem compromisso",
+      desc: "Sem cartão, sem vencimento, sem renovação automática. O Pro Founder é permanente.",
     },
     {
       title: "Me envie feedback quando quiser",
@@ -651,16 +651,16 @@ const PT = {
   faqTitle: "Perguntas frequentes",
   faqs: [
     {
-      q: "O que inclui o ano de Pro grátis?",
-      a: "Tudo o que o Pro inclui: histórico ilimitado (além dos 14 dias do plano gratuito), Mesh Família, exportação completa de dados e todas as funcionalidades Pro lançadas durante o ano. Por 12 meses a partir do cadastro.",
+      q: "O que inclui o Pro vitalício grátis?",
+      a: "Tudo o que o Pro inclui: histórico ilimitado (além dos 14 dias do plano gratuito), Mesh Família, exportação completa de dados e todas as funcionalidades Pro futuras. Sem vencimento.",
     },
     {
       q: "Como sei se estou entre os primeiros 1000?",
-      a: "O contador na página inicial mostra as vagas restantes em tempo real. De qualquer forma, você vê direto no app: se o acesso estiver ativo, a tela Pro mostra \"Founder · Pro até [data]\".",
+      a: "O contador na página inicial mostra as vagas restantes em tempo real. De qualquer forma, você vê direto no app: se o acesso estiver ativo, a tela Pro mostra \"Founder · Pro · Lifetime\".",
     },
     {
-      q: "O que acontece quando o ano termina?",
-      a: `Sem cobranças: nunca pedimos cartão. Sua conta passa simplesmente para o plano gratuito (últimos 14 dias de histórico). Para continuar com Pro: ${PRICING.subSixMonthsFull.en} ou compra única (${PRICING.lifetimeBoth.en}).`,
+      q: "O Pro Founder tem prazo de validade?",
+      a: "Não. O Pro Founder é permanente — sem data de vencimento, sem renovações. É seu enquanto o FitMesh existir.",
     },
     {
       q: "E os primeiros 100 beta testers?",
@@ -682,21 +682,21 @@ const PT = {
 };
 
 const FR = {
-  metaTitle: "FitMesh Sync Founder — 1 an de Pro gratuit pour les 1000 premiers",
+  metaTitle: "FitMesh Sync Founder — Pro à vie pour les 1000 premiers",
   metaDesc:
-    "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent un an complet de Pro gratuit, activé automatiquement. Plus un accès prioritaire à la version iOS.",
+    "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent le Pro à vie gratuit, activé automatiquement. Plus un accès prioritaire à la version iOS.",
   kicker: "Founder · 1000 places",
   h1_a: "Devenez l'un des premiers",
   h1_b: "1000 founders",
   h1_c: "de FitMesh Sync",
   sub:
-    "Pas de sélection, pas d'attente: téléchargez l'app, créez votre compte et un an complet de Pro s'active tout seul. Valable pour les 1000 premiers comptes inscrits.",
-  ctaNote: "Sans carte, sans abonnement: à l'expiration vous ne payez rien.",
+    "Pas de sélection, pas d'attente: téléchargez l'app, créez votre compte et le Pro à vie s'active tout seul. Valable pour les 1000 premiers comptes inscrits.",
+  ctaNote: "Sans carte, sans abonnement: le Pro est à vous pour toujours.",
   perks: [
     {
       emoji: "🎁",
-      title: "1 an de Pro gratuit",
-      desc: "S'active automatiquement à l'inscription. Historique illimité, Mesh Famille, toutes les fonctionnalités Pro incluses.",
+      title: "Pro à vie gratuit",
+      desc: "S'active automatiquement à l'inscription. Historique illimité, Mesh Famille, toutes les fonctionnalités Pro incluses — pour toujours.",
     },
     {
       emoji: "⚡",
@@ -720,11 +720,11 @@ const FR = {
     },
     {
       title: "Créez votre compte",
-      desc: "Avec e-mail ou Google Sign-In. Si vous faites partie des 1000 premiers, Pro s'active tout seul: l'écran Pro affiche \"Founder · Pro jusqu'au [date]\".",
+      desc: "Avec e-mail ou Google Sign-In. Si vous faites partie des 1000 premiers, Pro s'active tout seul: l'écran Pro affiche \"Founder · Pro · Lifetime\".",
     },
     {
-      title: "Un an complet de Pro, sans engagement",
-      desc: `Pas de carte, pas de renouvellement automatique. À l'expiration, vous choisissez: restez sur le plan gratuit ou passez à Pro (${PRICING.subSixMonthsLabel.en}).`,
+      title: "Pro à vie, sans engagement",
+      desc: "Pas de carte, pas d'expiration, pas de renouvellement automatique. Le Pro Founder est permanent.",
     },
     {
       title: "Envoyez-moi vos retours quand vous voulez",
@@ -734,16 +734,16 @@ const FR = {
   faqTitle: "Questions fréquentes",
   faqs: [
     {
-      q: "Que comprend l'année Pro gratuite?",
-      a: "Tout ce que comprend Pro: historique illimité (au-delà des 14 jours du plan gratuit), Mesh Famille, export complet des données et toutes les fonctionnalités Pro publiées durant l'année. Pour 12 mois à partir de l'inscription.",
+      q: "Que comprend le Pro à vie gratuit?",
+      a: "Tout ce que comprend Pro: historique illimité (au-delà des 14 jours du plan gratuit), Mesh Famille, export complet des données et toutes les fonctionnalités Pro futures. Sans expiration.",
     },
     {
       q: "Comment savoir si je fais partie des 1000 premiers?",
-      a: "Le compteur sur la page d'accueil affiche les places restantes en temps réel. Dans tous les cas, vous le verrez dans l'app: si l'accès est actif, l'écran Pro affiche \"Founder · Pro jusqu'au [date]\".",
+      a: "Le compteur sur la page d'accueil affiche les places restantes en temps réel. Dans tous les cas, vous le verrez dans l'app: si l'accès est actif, l'écran Pro affiche \"Founder · Pro · Lifetime\".",
     },
     {
-      q: "Que se passe-t-il à l'expiration de l'année?",
-      a: `Aucun débit: nous ne demandons jamais de carte. Votre compte passe simplement au plan gratuit (14 derniers jours d'historique). Pour continuer avec Pro: ${PRICING.subSixMonthsFull.en} ou achat unique (${PRICING.lifetimeBoth.en}).`,
+      q: "Le Pro Founder expire-t-il un jour?",
+      a: "Non. Le Pro Founder est permanent — aucune date d'expiration, aucun renouvellement. Il vous appartient tant que FitMesh existe.",
     },
     {
       q: "Et les 100 premiers beta testeurs?",
@@ -765,21 +765,21 @@ const FR = {
 };
 
 const NL = {
-  metaTitle: "FitMesh Sync Founder — 1 jaar Pro gratis voor de eerste 1000",
+  metaTitle: "FitMesh Sync Founder — Pro voor altijd voor de eerste 1000",
   metaDesc:
-    "Download de app, maak je account aan: de eerste 1000 krijgen een volledig jaar Pro, automatisch geactiveerd. Bovendien prioritaire toegang tot iOS.",
+    "Download de app, maak je account aan: de eerste 1000 krijgen Pro voor altijd gratis, automatisch geactiveerd. Bovendien prioritaire toegang tot iOS.",
   kicker: "Founder · 1000 plaatsen",
   h1_a: "Word een van de eerste",
   h1_b: "1000 founders",
   h1_c: "van FitMesh Sync",
   sub:
-    "Geen selectie, geen wachttijd: download de app, maak je account aan en een volledig jaar Pro activeert zich vanzelf. Geldig voor de eerste 1000 geregistreerde accounts.",
-  ctaNote: "Geen kaart, geen abonnement: als het jaar om is, betaal je niets.",
+    "Geen selectie, geen wachttijd: download de app, maak je account aan en Pro voor altijd activeert zich vanzelf. Geldig voor de eerste 1000 geregistreerde accounts.",
+  ctaNote: "Geen kaart, geen abonnement: Pro is voor altijd van jou.",
   perks: [
     {
       emoji: "🎁",
-      title: "1 jaar Pro gratis",
-      desc: "Activeert automatisch bij registratie. Onbeperkte geschiedenis, Mesh Familie, alle Pro-functies inbegrepen.",
+      title: "Pro voor altijd gratis",
+      desc: "Activeert automatisch bij registratie. Onbeperkte geschiedenis, Mesh Familie, alle Pro-functies inbegrepen — voor altijd.",
     },
     {
       emoji: "⚡",
@@ -803,11 +803,11 @@ const NL = {
     },
     {
       title: "Maak je account aan",
-      desc: "Via e-mail of Google Sign-In. Als je bij de eerste 1000 hoort, activeert Pro zich vanzelf: het Pro-scherm toont \"Founder · Pro tot [datum]\".",
+      desc: "Via e-mail of Google Sign-In. Als je bij de eerste 1000 hoort, activeert Pro zich vanzelf: het Pro-scherm toont \"Founder · Pro · Lifetime\".",
     },
     {
-      title: "Een volledig jaar Pro, zonder verplichtingen",
-      desc: `Geen kaart, geen automatische verlenging. Als het eindigt, kies jij: blijf op het gratis plan of ga naar Pro (${PRICING.subSixMonthsLabel.en}).`,
+      title: "Pro voor altijd, zonder verplichtingen",
+      desc: "Geen kaart, geen vervaldatum, geen automatische verlenging. Founder Pro is permanent.",
     },
     {
       title: "Stuur feedback wanneer je wilt",
@@ -817,16 +817,16 @@ const NL = {
   faqTitle: "Veelgestelde vragen",
   faqs: [
     {
-      q: "Wat bevat het gratis Pro-jaar?",
-      a: "Alles wat Pro omvat: onbeperkte geschiedenis (voorbij de 14 dagen van het gratis plan), Mesh Familie, volledige gegevensexport en alle Pro-functies die in het jaar worden uitgebracht. Voor 12 maanden vanaf registratie.",
+      q: "Wat bevat het gratis Pro voor altijd?",
+      a: "Alles wat Pro omvat: onbeperkte geschiedenis (voorbij de 14 dagen van het gratis plan), Mesh Familie, volledige gegevensexport en alle toekomstige Pro-functies. Zonder vervaldatum.",
     },
     {
       q: "Hoe weet ik of ik bij de eerste 1000 hoor?",
-      a: "De teller op de homepage toont de resterende plaatsen in realtime. Hoe dan ook zie je het in de app: als de toekenning actief is, toont het Pro-scherm \"Founder · Pro tot [datum]\".",
+      a: "De teller op de homepage toont de resterende plaatsen in realtime. Hoe dan ook zie je het in de app: als de toekenning actief is, toont het Pro-scherm \"Founder · Pro · Lifetime\".",
     },
     {
-      q: "Wat gebeurt er als het jaar eindigt?",
-      a: `Geen kosten: we vragen nooit om een kaart. Je account gaat eenvoudig naar het gratis plan (laatste 14 dagen geschiedenis). Om Pro te blijven: ${PRICING.subSixMonthsFull.en} of eenmalige aankoop (${PRICING.lifetimeBoth.en}).`,
+      q: "Verloopt Founder Pro ooit?",
+      a: "Nee. Founder Pro is permanent — geen vervaldatum, geen verlengingen. Het is van jou zolang FitMesh bestaat.",
     },
     {
       q: "En de eerste 100 bèta-testers?",
@@ -848,21 +848,21 @@ const NL = {
 };
 
 const JA = {
-  metaTitle: "FitMesh Sync Founder — 最初の1000名にProを1年間無料",
+  metaTitle: "FitMesh Sync Founder — 最初の1000名にPro永久無料",
   metaDesc:
-    "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にProの1年間が自動的に付与されます。さらにiOSへの優先アクセスも。",
+    "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にPro永久無料が自動的に付与されます。さらにiOSへの優先アクセスも。",
   kicker: "Founder · 1000席",
   h1_a: "最初の",
   h1_b: "1000人のFounder",
   h1_c: "になろう",
   sub:
-    "選考なし、待機なし：アプリをダウンロードしてアカウントを作成するだけで、Proの1年間が自動的に有効になります。先着1000名のアカウントに適用されます。",
-  ctaNote: "カード不要、サブスクリプション不要：1年後に支払いは一切ありません。",
+    "選考なし、待機なし：アプリをダウンロードしてアカウントを作成するだけで、永久Proが自動的に有効になります。先着1000名のアカウントに適用されます。",
+  ctaNote: "カード不要、サブスクリプション不要：Proは永久にあなたのものです。",
   perks: [
     {
       emoji: "🎁",
-      title: "Pro1年間無料",
-      desc: "登録時に自動的に有効化。無制限の履歴、ファミリーメッシュ、すべてのPro機能が含まれます。",
+      title: "Pro永久無料",
+      desc: "登録時に自動的に有効化。無制限の履歴、ファミリーメッシュ、すべてのPro機能が含まれます—永久に。",
     },
     {
       emoji: "⚡",
@@ -886,11 +886,11 @@ const JA = {
     },
     {
       title: "アカウントを作成する",
-      desc: "メールまたはGoogle Sign-In。先着1000名に含まれる場合、Proが自動的に有効になります：Proの画面に「Founder · Proは[日付]まで」と表示されます。",
+      desc: "メールまたはGoogle Sign-In。先着1000名に含まれる場合、Proが自動的に有効になります：Proの画面に「Founder · Pro · Lifetime」と表示されます。",
     },
     {
-      title: "フル1年のPro、縛りなし",
-      desc: `カード不要、自動更新なし。期限が来たら選択できます：無料プランに留まるか、Proに移行するか（${PRICING.subSixMonthsLabel.en}）。`,
+      title: "永久Pro、縛りなし",
+      desc: "カード不要、有効期限なし、自動更新なし。FounderのProは永久です。",
     },
     {
       title: "いつでもフィードバックをお送りください",
@@ -900,16 +900,16 @@ const JA = {
   faqTitle: "よくある質問",
   faqs: [
     {
-      q: "無料のPro年には何が含まれますか？",
-      a: "Proのすべて：無料プランの14日を超えた無制限の履歴、ファミリーメッシュ、完全なデータエクスポート、そして1年間にリリースされるすべてのPro機能。登録から12ヶ月間有効です。",
+      q: "無料の永久Proには何が含まれますか？",
+      a: "Proのすべて：無料プランの14日を超えた無制限の履歴、ファミリーメッシュ、完全なデータエクスポート、そして将来リリースされるすべてのPro機能。有効期限なし。",
     },
     {
       q: "先着1000名に入っているか確認する方法は？",
-      a: "ホームページのカウンターがリアルタイムで残席数を表示します。アプリでも確認できます：権限が有効な場合、Pro画面に「Founder · Proは[日付]まで」と表示されます。",
+      a: "ホームページのカウンターがリアルタイムで残席数を表示します。アプリでも確認できます：権限が有効な場合、Pro画面に「Founder · Pro · Lifetime」と表示されます。",
     },
     {
-      q: "1年後はどうなりますか？",
-      a: `請求なし：カードをお聞きすることはありません。アカウントは無料プラン（直近14日分の履歴）に移行します。Proを継続するには：${PRICING.subSixMonthsFull.en}または買い切り（${PRICING.lifetimeBoth.en}）。`,
+      q: "Founder Proに有効期限はありますか？",
+      a: "いいえ。Founder Proは永久です—有効期限なし、更新不要。FitMeshが存在する限り、あなたのものです。",
     },
     {
       q: "最初の100名のベータテスターはどうなりますか？",
@@ -931,21 +931,21 @@ const JA = {
 };
 
 const KO = {
-  metaTitle: "FitMesh Sync Founder — 처음 1000명에게 1년 Pro 무료",
+  metaTitle: "FitMesh Sync Founder — 처음 1000명에게 평생 Pro 무료",
   metaDesc:
-    "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 Pro 1년이 자동으로 활성화됩니다. iOS 우선 접근권도 제공됩니다.",
+    "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 평생 Pro가 자동으로 활성화됩니다. iOS 우선 접근권도 제공됩니다.",
   kicker: "Founder · 1000석",
   h1_a: "처음",
   h1_b: "1000명의 Founder",
   h1_c: "가 되어보세요",
   sub:
-    "선발 없음, 대기 없음: 앱을 다운로드하고 계정을 생성하면 Pro 1년이 자동으로 활성화됩니다. 먼저 등록한 1000개 계정에 적용됩니다.",
-  ctaNote: "카드 없음, 구독 없음: 1년 후 아무 비용도 없습니다.",
+    "선발 없음, 대기 없음: 앱을 다운로드하고 계정을 생성하면 평생 Pro가 자동으로 활성화됩니다. 먼저 등록한 1000개 계정에 적용됩니다.",
+  ctaNote: "카드 없음, 구독 없음: Pro는 영원히 당신의 것입니다.",
   perks: [
     {
       emoji: "🎁",
-      title: "Pro 1년 무료",
-      desc: "가입 시 자동 활성화. 무제한 기록, 패밀리 메시, 모든 Pro 기능 포함.",
+      title: "평생 Pro 무료",
+      desc: "가입 시 자동 활성화. 무제한 기록, 패밀리 메시, 모든 Pro 기능 포함 — 영구적으로.",
     },
     {
       emoji: "⚡",
@@ -969,11 +969,11 @@ const KO = {
     },
     {
       title: "계정 생성",
-      desc: "이메일 또는 Google Sign-In. 처음 1000명 안에 포함된다면 Pro가 자동으로 활성화됩니다: Pro 화면에 \"Founder · Pro [날짜]까지\"가 표시됩니다.",
+      desc: "이메일 또는 Google Sign-In. 처음 1000명 안에 포함된다면 Pro가 자동으로 활성화됩니다: Pro 화면에 \"Founder · Pro · Lifetime\"이 표시됩니다.",
     },
     {
-      title: "1년 전체 Pro, 조건 없음",
-      desc: `카드 없음, 자동 갱신 없음. 기간이 끝나면 선택하세요: 무료 플랜을 유지하거나 Pro로 업그레이드 (${PRICING.subSixMonthsLabel.en}).`,
+      title: "평생 Pro, 조건 없음",
+      desc: "카드 없음, 만료일 없음, 자동 갱신 없음. Founder Pro는 영구적입니다.",
     },
     {
       title: "언제든지 피드백 보내기",
@@ -983,16 +983,16 @@ const KO = {
   faqTitle: "자주 묻는 질문",
   faqs: [
     {
-      q: "무료 Pro 1년에는 무엇이 포함되나요?",
-      a: "Pro의 모든 것: 무료 플랜 14일을 초과한 무제한 기록, 패밀리 메시, 전체 데이터 내보내기, 그리고 1년 동안 출시되는 모든 Pro 기능. 등록일로부터 12개월간 유효합니다.",
+      q: "무료 평생 Pro에는 무엇이 포함되나요?",
+      a: "Pro의 모든 것: 무료 플랜 14일을 초과한 무제한 기록, 패밀리 메시, 전체 데이터 내보내기, 그리고 향후 출시되는 모든 Pro 기능. 만료일 없음.",
     },
     {
       q: "처음 1000명에 포함되었는지 어떻게 알 수 있나요?",
-      a: "홈페이지 카운터에서 남은 자리를 실시간으로 확인할 수 있습니다. 앱에서도 확인 가능합니다: 혜택이 활성화된 경우 Pro 화면에 \"Founder · Pro [날짜]까지\"가 표시됩니다.",
+      a: "홈페이지 카운터에서 남은 자리를 실시간으로 확인할 수 있습니다. 앱에서도 확인 가능합니다: 혜택이 활성화된 경우 Pro 화면에 \"Founder · Pro · Lifetime\"이 표시됩니다.",
     },
     {
-      q: "1년이 끝나면 어떻게 되나요?",
-      a: `청구 없음: 카드를 요청하지 않습니다. 계정은 무료 플랜(최근 14일 기록)으로 전환됩니다. Pro를 계속 이용하려면: ${PRICING.subSixMonthsFull.en} 또는 일회 구매 (${PRICING.lifetimeBoth.en}).`,
+      q: "Founder Pro는 만료되나요?",
+      a: "아니요. Founder Pro는 영구적입니다 — 만료일 없음, 갱신 불필요. FitMesh가 존재하는 한 당신의 것입니다.",
     },
     {
       q: "처음 100명의 베타 테스터는요?",

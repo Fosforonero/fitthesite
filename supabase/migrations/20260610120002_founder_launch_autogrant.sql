@@ -1,4 +1,4 @@
--- Auto-grant founder: i primi 1000 nuovi account ricevono Pro per 1 anno.
+-- Auto-grant founder: i primi 1000 nuovi account ricevono Pro LIFETIME (expires_at = null).
 -- Trigger su public.profiles (non auth.users) così la FK user_roles→profiles
 -- è già soddisfatta quando scatta, indipendentemente dall'ordine dei trigger.
 --
@@ -26,7 +26,7 @@ begin
 
   if taken < founder_cap then
     insert into public.user_roles (user_id, role, expires_at, note)
-    values (new.id, 'pro', now() + interval '1 year', 'founder-launch')
+    values (new.id, 'pro', null, 'founder-launch')
     on conflict (user_id, role) do nothing;
   end if;
 

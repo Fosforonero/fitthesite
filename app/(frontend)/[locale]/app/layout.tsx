@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { createClient } from '@/lib/supabase/server';
 import { getDictionary, locales, type Locale } from '@/lib/i18n';
+import FounderReviewBanner from '@/components/FounderReviewBanner';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,6 +28,16 @@ export default async function AppLayout({
   if (!user) {
     redirect(`/${lc}/auth/login?next=/${lc}/app`);
   }
+
+  // Controlla se l'utente è un founder (pro lifetime da trigger)
+  const { data: founderRole } = await supabase
+    .from('user_roles')
+    .select('user_id')
+    .eq('user_id', user.id)
+    .eq('note', 'founder-launch')
+    .maybeSingle();
+
+  const isFounder = founderRole !== null;
 
   const t = await getDictionary(lc);
 
@@ -68,7 +79,10 @@ export default async function AppLayout({
         </div>
       </header>
 
-      <main className="flex-1">{children}</main>
+      <main className="flex-1">
+        {isFounder && <FounderReviewBanner locale={lc} />}
+        {children}
+      </main>
 
       <footer className="border-t border-divider mt-12 py-6">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center text-xs text-text-muted">

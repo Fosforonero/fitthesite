@@ -4,11 +4,19 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { sendEmail } from "@/lib/email/resend";
 import { betaWelcomeEmail } from "@/lib/email/templates/beta-welcome";
+import { founderReviewEmail } from "@/lib/email/templates/founder-review";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
 type Sb = SupabaseClient;
+
+// Resend free tier rate limit: 5 req/sec. Throttle a 4 req/sec con sleep
+// 250ms tra invii consecutivi. Senza, in burst > 5 destinatari ottenevamo
+// 429 rate_limit_exceeded (visto al primo run cron live: 1/17 fallita).
+const RESEND_RATE_DELAY_MS = 250;
+const sleep = (ms: number) =>
+  new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 export async function GET(req: Request) {
   // Auth: Vercel cron injects Authorization: Bearer <CRON_SECRET>.
@@ -22,45 +30,25 @@ export async function GET(req: Request) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
 
-  // Cast as Sb perche' database.types stale non include beta_signups columns
-  // (founder_number, welcome_sent_at). Pattern coerente con altri route.
+  // Cast as Sb perche' database.types stale non include colonne aggiunte dopo
+  // la generazione dei tipi (founder_number, welcome_sent_at, review_email_sent_at).
   const sb = createAdminClient() as unknown as Sb;
 
-  // Query pending signups that haven't received a welcome email yet.
-  // Rate-limited to 50 per tick so we don't blow up Resend's free tier.
-  const { data: pendings, error: qErr } = await sb
+  // ── Phase 1: beta welcome emails ──────────────────────────────────────────
+
+  const { data: pendings } = await sb
     .from("beta_signups")
     .select("id, email, founder_number, status, created_at")
     .is("welcome_sent_at", null)
     .order("created_at", { ascending: true })
     .limit(50);
 
-  if (qErr) {
-    return NextResponse.json(
-      { error: "query_failed", details: qErr.message },
-      { status: 500 },
-    );
-  }
+  let welcomeSent = 0;
+  let welcomeFailed = 0;
+  const welcomeFailures: { email: string; error: string }[] = [];
 
-  if (!pendings || pendings.length === 0) {
-    return NextResponse.json({ ok: true, sent: 0, failed: 0, total: 0 });
-  }
-
-  let sent = 0;
-  let failed = 0;
-  const failures: { email: string; error: string }[] = [];
-
-  // Resend free tier rate limit: 5 req/sec. Throttle a 4 req/sec con sleep
-  // 250ms tra invii consecutivi. Senza, in burst > 5 destinatari ottenevamo
-  // 429 rate_limit_exceeded (visto al primo run cron live: 1/17 fallita).
-  const RESEND_RATE_DELAY_MS = 250;
-  const sleep = (ms: number) =>
-    new Promise<void>((resolve) => setTimeout(resolve, ms));
-
-  for (let i = 0; i < pendings.length; i++) {
-    const row = pendings[i]!;
-    // Default to "it" — primary target market. When a locale field is added
-    // to beta_signups, replace this with row.locale.
+  for (let i = 0; i < (pendings ?? []).length; i++) {
+    const row = pendings![i]!;
     const locale: "it" | "en" = "it";
 
     const template = betaWelcomeEmail({
@@ -76,25 +64,65 @@ export async function GET(req: Request) {
     });
 
     if (result.ok) {
-      // Mark as sent — only on success so failed sends are retried next tick.
       await sb
         .from("beta_signups")
         .update({ welcome_sent_at: new Date().toISOString() })
         .eq("id", row.id);
-      sent++;
+      welcomeSent++;
     } else {
-      failed++;
-      failures.push({ email: row.email, error: result.error ?? "unknown" });
+      welcomeFailed++;
+      welcomeFailures.push({ email: row.email, error: result.error ?? "unknown" });
     }
 
-    // Throttle: aspetta 250ms prima del prossimo invio (no sleep dopo l'ultimo).
-    if (i < pendings.length - 1) await sleep(RESEND_RATE_DELAY_MS);
+    if (i < pendings!.length - 1) await sleep(RESEND_RATE_DELAY_MS);
   }
 
-  // Piggyback: cleanup rate_limit_buckets vecchi (>1h) per evitare growth
-  // unbounded della tabella. Hobby plan limita a 2 cron/project (gia' al
-  // limite con welcome-emails + indexnow-daily), quindi riusiamo questo
-  // slot daily invece di aggiungere un terzo cron.
+  // ── Phase 2: founder review emails (piggyback) ────────────────────────────
+  // Hobby plan limita a 2 cron/project (già al limite con welcome-emails +
+  // indexnow-daily), quindi riusiamo questo slot daily per mandare anche la
+  // mail di review ai founder che non l'hanno ancora ricevuta.
+
+  const { data: founders } = await sb
+    .from("user_roles")
+    .select("user_id, profiles!inner(email)")
+    .eq("note", "founder-launch")
+    .is("review_email_sent_at", null)
+    .limit(30); // batch conservativo: lasciare headroom per le welcome
+
+  let reviewSent = 0;
+  let reviewFailed = 0;
+  const reviewFailures: { email: string; error: string }[] = [];
+
+  for (let i = 0; i < (founders ?? []).length; i++) {
+    const row = founders![i]!;
+    const profile = row.profiles as { email: string };
+    const email = profile.email;
+
+    const template = founderReviewEmail();
+
+    const result = await sendEmail({
+      to: email,
+      subject: template.subject,
+      html: template.html,
+      text: template.text,
+    });
+
+    if (result.ok) {
+      await sb
+        .from("user_roles")
+        .update({ review_email_sent_at: new Date().toISOString() })
+        .eq("user_id", row.user_id)
+        .eq("note", "founder-launch");
+      reviewSent++;
+    } else {
+      reviewFailed++;
+      reviewFailures.push({ email, error: result.error ?? "unknown" });
+    }
+
+    if (i < founders!.length - 1) await sleep(RESEND_RATE_DELAY_MS);
+  }
+
+  // ── Piggyback: cleanup rate_limit_buckets vecchi (>1h) ───────────────────
   let rateLimitRowsDeleted: number | null = null;
   try {
     const { data: cleanupResult } = await sb.rpc("rate_limit_cleanup");
@@ -107,10 +135,10 @@ export async function GET(req: Request) {
 
   return NextResponse.json({
     ok: true,
-    sent,
-    failed,
-    total: pendings.length,
+    welcome: { sent: welcomeSent, failed: welcomeFailed, total: pendings?.length ?? 0 },
+    review: { sent: reviewSent, failed: reviewFailed, total: founders?.length ?? 0 },
     rateLimitRowsDeleted,
-    ...(failed > 0 ? { failures } : {}),
+    ...(welcomeFailed > 0 ? { welcomeFailures } : {}),
+    ...(reviewFailed > 0 ? { reviewFailures } : {}),
   });
 }
