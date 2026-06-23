@@ -524,7 +524,7 @@ export const post: BlogPost = {
           pl: "Krok 4: zweryfikuj poprawność synchronizacji",
           tr: "Adım 4: eşleme işleminin çalıştığını doğrulayın",
           nl: "Stap 4: controleren van de synchronisatie",
-          ja: "ステップ4: 同步が正しく動作しているか確認",
+          ja: "ステップ4: 同期が正しく動作しているか確認",
           ko: "4단계: 동기화 작동 여부 확인",
         },
     },

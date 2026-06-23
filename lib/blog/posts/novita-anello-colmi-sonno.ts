@@ -138,8 +138,8 @@ export const post: BlogPost = {
     pl: [
       "Anell Colmi się połącza bezpośrednio z FitMesh Sync poprzez Bluetooth, bez przechodzenia przez intermedialne aplikacje.",
       "S:numel seno viene zarejestrowany ze wszystkimi fazami: głębokim, REM i lekkim, widocznych w panelu dashborду.",
-      "Bateria smartwatch zawsze jest widoczna w aplikacji, a funkcja 'Znajdź smartwatch' sprawia, że się migra,以便保留原始文本不变，直接使用给定的tokens。以下是翻译：\n\nLa batteria dell'anello appare sempre in evidenza e la funzione 'Trova anello' lo fa lampeggiare per identificarlo.\nBateria smartwatch zawsze jest widoczna w aplikacji, a funkcja __FM_TERM_0__ lo fa migraire, aby go zidentyfikować.",
-      "Traguardo wydania: 7 dni rzeczywistych danych z anelku otworzą 6 miesięcy bezpłatnego订阅启动目标：手环7天的真实数据将解锁6个月免费Pro订阅。",
+      "Bateria pierścienia jest zawsze widoczna w aplikacji, a funkcja 'Znajdź pierścień' sprawia, że miga, aby łatwiej go zidentyfikować.",
+      "Cel premiery: 7 dni rzeczywistych danych z pierścienia odblokowuje 6 miesięcy bezpłatnego Pro.",
     ],
     tr: [
       "Anel Colmi doğrudan FitMesh Sync'a Bluetooth üzerinden bağlanır, orta uygulamaları atlayarak.",

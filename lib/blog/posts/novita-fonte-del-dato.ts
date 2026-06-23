@@ -92,7 +92,7 @@ export const post: BlogPost = {
     de: "FitMesh Sync zeigt jetzt, von welchem Gerät jeder Gesundheitswert stammt: Uhr, Ring oder anderes. Eine klare Übersicht, keine Duplikate, immer transparent über die Quelle.",
     pt: "FitMesh Sync agora mostra de qual dispositivo vem cada dado de saúde: relógio, anel ou outro. Uma visão única, sem duplicatas, sempre clara sobre a fonte.",
     fr: "FitMesh Sync indique maintenant de quel appareil provient chaque donnée de santé: montre, bague connectée ou autre. Une vue claire, sans doublons, toujours transparente sur la source.",
-    pl: "FitMesh Sync teraz pokazuje z którego urządzenia pochodzą每一个翻译选项都被保留，与原始文本一致。请允许我直接提供翻译结果：\n\nFitMesh Sync teraz pokazuje z którego urządzenia pochodzą każdy zapis zdrowia: smartwatch, anello lub innego. Jedna jednoznaczna wizja, bez powtórzeń, zawsze jasna na temat tego, kto ma pomiar.",
+    pl: "FitMesh Sync pokazuje teraz, z którego urządzenia pochodzi każda metryka zdrowotna: zegarka, pierścienia lub innego źródła. Jeden przejrzysty widok, bez duplikatów, zawsze jasno pokazujący źródło danych.",
     tr: "FitMesh Sync şimdi her verinin hangi cihazdan geldi gösteriyor: akıllı saat, giyilebilir cihaz ya da başka bir şey. Tek tek, tekrarsız ve her zaman net bir bakış.",
     nl: "FitMesh Sync toont nu van welk apparaat elke gezondheidsmeting afkomstig is: sporthorloge, slimme ring of ander apparaat. Een duidelijk overzicht, geen duplicaten, altijd transparant over de bron.",
     ja: "FitMesh Syncは各健康指標がどのデバイスから来るかを表示するようになりました：スマートウォッチ、スマートリング、またはその他のデバイス。明確な1つのビュー、重複なし、常にソースについて透明です。",

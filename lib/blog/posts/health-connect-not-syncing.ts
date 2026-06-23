@@ -988,7 +988,7 @@ export const post: BlogPost = {
         pt: "Se nenhuma das soluções anteriores funcionou, o problema pode estar em um estado de permissão corrompido. A solução é um reset completo da conexão:",
         fr: "Si aucune des solutions précédentes n'a fonctionné, le problème se trouve peut-être dans un état d'autorisation corrompu. La solution est une réinitialisation complète de la connexion:",
         pl: "Jeżeli żaden z innych napraw nie przyniósł rezultatu, problem może wynikać z uszkodzonego stanu uprawnień. Rozwiązanie to pełne wylogowanie połączenia:\nRODO;",
-        tr: "Eğer diğer tüm düzeltilmeler işe yaramamışsa, problem muhtemelen korupsiyonlu bir izin durumunda olabilir. Çözüm tam bir bağlantı sıfırlaması:\nKVKK __FM_PH_0__ __FM_URL_0__ __FM_HTML_0__ __FM_LINK_0__ __FM_CODE_0__ __FM_FENCE_0__ __FM_BRAND_0__ __FM_TERM_0__ __FM_PH_1__ __FM_URL_1__ __FM_HTML_1__ __FM_LINK_1__ __FM_CODE_1__ __FM_FENCE_1__ __FM_PH_2__ __FM_URL_2__ __FM_HTML_2__ __FM_LINK_2__ __FM_CODE_2__ __FM_FENCE_2__ __FM_PH_3__ __FM_URL_3__ __FM_HTML_3__ __FM_LINK_3__ __FM_CODE_3__ __FM_FENCE_3__ __FM_PH_4__ __FM_URL_4__ __FM_HTML_4__ __FM_LINK_4__ __FM_CODE_4__ __FM_FENCE_4__ __FM_PH_5__ __FM_URL_5__ __FM_HTML_5__ __FM_LINK_5__ __FM_CODE_5__ __FM_FENCE_5__ __FM_PH_6__ __FM_URL_6__ __FM_HTML_6__ __FM_LINK_6__ __FM_CODE_6__ __FM_FENCE_6__ __FM_PH_7__ __FM_URL_7__ __FM_HTML_7__ __FM_LINK_7__ __FM_CODE_7__ __FM_FENCE_7__ __FM_PH_8__ __FM_URL_8__ __FM_HTML_8__ __FM_LINK_8__ __FM_CODE_8__ __FM_FENCE_8__ __FM_PH_9__ __FM_URL_9__ __FM_HTML_9__ __FM_LINK_9__ __FM_CODE_9__ __FM_FENCE_9__",
+        tr: "Diğer çözümlerin hiçbiri işe yaramadıysa sorun bozulmuş bir izin durumundan kaynaklanıyor olabilir. Çözüm, bağlantıyı tamamen sıfırlamaktır:",
         nl: "Als geen van de andere oplossingen heeft gewerkt, kan het probleem in een beschadigde rechtenstatus zitten. De oplossing is een volledige verbindingsreset:",
         ja: "他の修正がどれも効果がなかった場合、問題は権限の破損した状態にある可能性があります。解決策は完全な接続リセットです：",
         ko: "다른 해결책 중 어느 것도 효과가 없었다면, 문제는 손상된 권한 상태에 있을 수 있습니다. 해결책은 전체 연결 초기화입니다:",
@@ -1048,11 +1048,11 @@ export const post: BlogPost = {
           "Oczekuj 5-10 minut na pierwsze synchronizowanie.",
         ],
         tr: [
-          "KVKK → **Giyilebilir Cihazlar ve Veriler Erişimi** → sorunlu uygulamayı bul.",
+          "Health Connect → **Uygulama izinleri** → sorunlu uygulamayı bul.",
           "Tıkla uygulama → **ErişimİndenKaldır**.",
           "Uygulamayı yeniden aç → ayarlar bölümünde Health Connect bölümüne ara.",
           "Tıklayınız 'Bağlantıya Bağlan' veya benzeri → tekrar tüm izinleri ver.",
-          "Birinci同步等待5-10分钟。",
+          "İlk senkronizasyon için 5-10 dakika bekle.",
         ],
         nl: [
           "In **Health Connect** → **App-rechten** → zoek de problematische app.",
@@ -1284,7 +1284,7 @@ export const post: BlogPost = {
           "90% sync sorunlarının üç eylemle çözülmesi yeterli: Health Connect izinlerini kontrol etmek, ilgili uygulamalar için pil otomasyonunu devre dışı bırakmak ve kaynak uygulamanın zorla açılması.",
           "Su Samsung, özel düğümünüz devre dışı bırakılması ve yeniden etkinleştirilmesi gerekiyor. Bu, Samsung Health → Health Connect cihazını Samsung Health ayarlarından ayırıp tekrar bağlamaktır.",
           "Health Connect önbelleğini temizlemek verileri silmez: bunu yapmak güvenli ve genellikle bozuk durum hatalarını çözer.",
-          "Eğer veriler gecikmiş olsa da eksik değilse, problem hemen hemen her zaman şarj ottimizasyonunun arka planda同步被阻止所致。",
+          "Veriler gecikiyor ama eksik değilse sorun neredeyse her zaman pil optimizasyonunun arka plan senkronizasyonunu engellemesidir.",
           "Geri kalmış veriler yerel olarak Health Connect de toplanır: sorun çözüldükten sonra geri doldurma otomatik olarak gerçekleşir.",
         ],
         nl: [

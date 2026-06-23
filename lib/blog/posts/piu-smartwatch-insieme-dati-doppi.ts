@@ -136,10 +136,10 @@ export const post: BlogPost = {
     tr: [
       "gösterge paneli multi-sorgu giyilebilir cihaz",
       "adım sayısını iki kere kontrol et giyilebilir cihaz",
-      "yeni uykuluk çift anahtarı smartanço __FM_PH_0__",
+      "akıllı yüzükte çift uyku verisi",
       "kalp atışı kaynakları karışık",
-      "KVKK Garmin Suunto Galaxy Watch birlikte",
-      "veri tekrarlamasını ortadan kaldırma sağlık baglantısı KVKK",
+      "Garmin Suunto Galaxy Watch birlikte",
+      "Health Connect sağlık verilerinde çift kayıtları kaldırma",
     ],
     nl: [
       "multi-bron wearable dashboard",
@@ -815,10 +815,10 @@ export const post: BlogPost = {
             "Galaxy Watch (mierzenie dnia mniej standardowe)",
           ],
           tr: [
-            "KVKK (__FM_PH_0__ (kalp atış frekansı varyasyonu))",
-            "Akıllı Çiftçilenek (Gece Ölçümü)",
-            "Dinamik hesapla dinamo, en güvenilir kontekst HRV için",
-            "Galaxy Watch (günüssonraki ölçüm daha standart olmayan)",
+            "HRV (kalp atış hızı değişkenliği)",
+            "Akıllı yüzük (gece ölçümü)",
+            "Derin dinlenme sırasında ölçülür, HRV için en güvenilir bağlam",
+            "Galaxy Watch (gündüz ölçümü daha az standart)",
           ],
           nl: [
             "HRV (hartslagvariabiliteit)",

@@ -58,7 +58,7 @@ export const post: BlogPost = {
     pl: [
       "kontrol danych oznacza pięć rzeczy oddzielnych: naturalna eksportowalność, transparencja przepływów, graniastosłupowe uprawnienia, interoperacyjność oraz odporność na zmiany.",
       "prywatność i kontrola nie zbiegają się: Apple Watch ma silną prywatność, ale jest zablokowany tylko dla iOS; Garmin jest bardziej otwarty w zakresie eksportu, ale mniej reservowany na poziomie handlowym.",
-      "modele订阅（Whoop, Oura) łączą dostęp do historii z płatnością: oceni costę całkowitą w ciągu 5 lat, a nie miesięczny koszt.",
+      "modele subskrypcyjne (Whoop, Oura) łączą dostęp do historii z płatnością: oceń całkowity koszt w ciągu 5 lat, a nie miesięczną cenę.",
       "Lock-in Apple Watch→Android jest prawie całkowity; Galaxy Watch→inny Android jest zarządzalny; Garmin→innego marki jest średnio.",
       "Przed zakupem: zainstaluj aplikację partnerzką i szukaj '[model] eksport danych' w oficjalnych FAQ. Brak odpowiedzi po 5 minutach to czerwona flaga.",
     ],
@@ -503,7 +503,7 @@ export const post: BlogPost = {
         pt: "Você se interessa mais pela estabilidade do HRV ao longo do tempo, qualidade do sono por fases, SpO₂, temperatura da pele, frequência respiratória e talvez um ECG ocasional. Você leu Attia, segue Huberman, faz zona 2. Você precisa de precisão de sensores para a noite, não para a corrida.",
         fr: "Tu t'intéresses davantage à la stabilité de la HRV dans le temps, à la qualité du sommeil par phases, à la SpO₂, à la température cutanée, à la fréquence respiratoire et peut-être à un ECG occasionnel. Tu as lu Attia, tu suis Huberman, tu fais de la zone 2. Tu as besoin de précision des capteurs pour la nuit, pas pour la course.",
         pl: "Jest Cię bardziej zainteresowany stabilnością HRV w czasie, jakością snu na fazach, SpO₂, temperaturą ciała, częstotliwością oddychania, może przypadkowym ECG. Czy przeczytałeś Attią, śledzisz Hubermana, wykonujesz zony 2. Potrzebujesz precyzji czujników na noc, a nie podczas biegu.",
-        tr: "Sei più interessato a HRV zamanında, uykunun aşamalı kalitesi, SpO₂, derinlik, nefes hızı, belki rytmiğin şık bir kestirme. Attia'yı okudun, Huberman'ı takip ediyorsun, zone 2'de çalışıyorsun. Sensör precisionine gece için ihtiyacın var, yarışma için değil.\nKVKK uyumlu __FM_PH_0__ için __FM_URL_0__, __FM_HTML_0__ ve __FM_CODE_0__ bilgilerini kontrol et.",
+        tr: "Zaman içinde HRV stabilitesi, uyku evrelerine göre uyku kalitesi, SpO2, cilt sıcaklığı, solunum hızı ve belki ara sıra EKG senin için daha önemli. Attia okudun, Huberman'ı takip ediyorsun, zone 2 çalışıyorsun. Koşu için değil, gece için sensör hassasiyetine ihtiyacın var.",
         nl: "Je bent meer geinteresseerd in HRV-stabiliteit over tijd, slaapkwaliteit per fase, SpO₂, huidtemperatuur, ademhalingsfrequentie, misschien een occasioneel ECG. Je hebt Attia gelezen, volgt Huberman, doet zone 2. Je hebt nauwkeurige sensoren voor de nacht nodig, niet voor het hardlopen.",
         ja: "時間経過でのHRVの安定性、睡眠フェーズ別の質、SpO₂、皮膚温度、呼吸数、時々ECGに関心があります。Attiaを読み、Hubermanをフォローし、ゾーン2をやっています。走るためではなく夜のためのセンサー精度が必要です。",
         ko: "시간에 따른 HRV 안정성, 수면 단계별 질, SpO₂, 피부 온도, 호흡수, 때때로 ECG에 관심이 있습니다. Attia를 읽고, Huberman을 팔로우하고, 존2를 합니다. 달리기가 아닌 수면을 위한 센서 정밀도가 필요합니다.",
@@ -890,7 +890,7 @@ export const post: BlogPost = {
     },
     {
       type: "comparison",
-      aTitle: { it: "Acquisto una tantum", en: "One-time purchase", es: "Pago único", de: "Einmalkauf", pt: "Compra única", fr: "Achat unique", pl: "Kupno jednorazowe", tr: "Satın almak için bir seferlik olarak取得一次购买资格", nl: "Eenmalige aankoop", ja: "一回限りの購入", ko: "일회성 구매" },
+      aTitle: { it: "Acquisto una tantum", en: "One-time purchase", es: "Pago único", de: "Einmalkauf", pt: "Compra única", fr: "Achat unique", pl: "Kupno jednorazowe", tr: "Tek seferlik satın alma", nl: "Eenmalige aankoop", ja: "一回限りの購入", ko: "일회성 구매" },
       aItems: {
         it: [
           "Garmin Forerunner / Fenix",
@@ -992,7 +992,7 @@ export const post: BlogPost = {
           "Pixel Watch",
         ],
       },
-      bTitle: { it: "Modello subscription", en: "Subscription model", es: "Modelo de suscripción", de: "Abomodell", pt: "Modelo por assinatura", fr: "Modèle par abonnement", pl: "Modelu订阅", tr: "Abonelik modeli", nl: "Abonnementsmodel", ja: "サブスクリプションモデル", ko: "구독 모델" },
+      bTitle: { it: "Modello subscription", en: "Subscription model", es: "Modelo de suscripción", de: "Abomodell", pt: "Modelo por assinatura", fr: "Modèle par abonnement", pl: "Model subskrypcyjny", tr: "Abonelik modeli", nl: "Abonnementsmodel", ja: "サブスクリプションモデル", ko: "구독 모델" },
       bItems: {
         it: [
           "Whoop 4.0 (~€30/mese)",
@@ -1155,7 +1155,7 @@ export const post: BlogPost = {
         ],
         tr: [
           "**Apple Watch → Android**: ~100% kestirme tarihi (Apple Health sadece iOS için, Android okunabilir kestirmeye aktarım yok). Zor lock-in.",
-          "**Galaxy Watch → başka Android**: tarihi Samsung Health export edilebilir (__FM_URL_0__), import edilebilir (__FM_URL_0__). Yumuşak kilitleme, yönetilebilir.",
+          "**Galaxy Watch → başka Android**: Samsung Health geçmişi CSV olarak dışa aktarılabilir ve Health Connect ile yeniden kullanılabilir. Yumuşak, yönetilebilir bir kilitlenme.",
           "**Garmin Watch → başka bir marka**: tam FIT/GPX dışarı aktarımı, ancak Body Battery, Training Status gibi özel ölçümler doğrudan eşdeğerleri yoktur. Ortalama lock-in.",
           "**Fitbit → başka**: Google Takeout işliyor, verilerin JSON. Kilitlenme düşük (hala, kararlar Google bağlı).",
           "**Oura → başka**: Resmi API tam verileri indirebileceklerine sunar. Teknik lock-in düşük, ancak psikolojik lock-in yüksek (Oura metrikleri benzersiz).",
@@ -1353,7 +1353,7 @@ export const post: BlogPost = {
         pl: [
           "kontrol danych oznacza pięć rzeczy oddzielnych: naturalna eksporcie danych, transparencja przepływów, graniarz uprawnień, interoperacyjność oraz odporność na zmiany. Prywatność i kontrola to nie ta sama rzecz.",
           "Apple Watch ma zasada prywatności silna ale zacięcie niemal nieporadne (iOS-taktyczne, żaden export web). Garmin ma większą otwartość ale mniej prywatność handlowa. Wybierz w oparciu o Twoją rzeczywistą zagrożenie.",
-          "modele订阅（Whoop, Oura) 绑定历史记录访问与 recurring 支付：评估五年内的总成本，而非月度价格。",
+          "modele subskrypcyjne (Whoop, Oura) wiążą dostęp do historii z płatnościami cyklicznymi: oceń całkowity koszt w ciągu 5 lat, a nie cenę miesięczną.",
           "Lock-in Apple Watch→Android jest prawie całkowity (100% straty historycznej). Galaxy Watch→inni Android są mniej intensywne i łatwiejsze do zarządzania. Garmin→inny brand jest średnio ograniczający.",
           "Przed zakupem zainstaluj aplikację partnerzką i wyszukaj '[model] eksport danych' w oficjalnych FAQ. Jeśli po pięciu minutach nie znaleziesz odpowiedzi, to jest czerwonym flagiem.",
         ],
@@ -1397,7 +1397,7 @@ export const post: BlogPost = {
         pt: "Você já tem um smartwatch e quer apenas um painel limpo?",
         fr: "Vous avez déjà une montre connectée et voulez juste un tableau de bord simple ?",
         pl: "Jednaś już posiadasz smartwatch i chcesz tylko czystą daszboard?",
-        tr: "Zaten bir akıllı saati有一个空格) ve sadece temiz bir panel istiyorsunuz?",
+        tr: "Zaten bir akıllı saatiniz var ve sadece temiz bir panel mi istiyorsunuz?",
         nl: "Heb je al een sporthorloge en wil je gewoon een overzichtelijk dashboard?",
         ja: "すでにスマートウォッチをお持ちで、シンプルなダッシュボードが欲しいだけですか？",
         ko: "이미 스마트워치가 있고 깔끔한 대시보드만 원하시나요?",
@@ -1523,7 +1523,7 @@ export const post: BlogPost = {
           "✓ Partner aplikacji dostępny w moim kraju i aktualizowany w ciągu ostatnich 6 miesięcy",
           "✓ Dokumentowana eksportacja (szukam 'export danych' w oficjalnych FAQ)",
           "✓ Synchronizacja z Health Connect (Android) lub HealthKit (iOS) potwierdzona",
-          "✓ Polityka prywatności czytelna w 10 minut, bez zapisów o udzielaniu dostępu nieokreślonym partnrom\nRODO __FM_PH_0__, __FM_URL_0__ __FM_HTML_0__ __FM_LINK_0__ __FM_CODE_0__ __FM_FENCE_0__",
+          "✓ Polityka prywatnosci czytelna w 10 minut, bez zapisow o udzielaniu dostepu nieokreslonym partnerom",
           "✓ Marka z co najmniej 5 latami historii lub silną europejską gwarancją",
           "✓ Koszt roczny korzystania z oczekiwanego użytku zgodny z moim budżetem",
           "✓ Istnieje przynajmniej jedna trzecia app, która może czytać moje dane, jeśli decyduję się zmienić zdanie jutro",
@@ -1620,7 +1620,7 @@ export const post: BlogPost = {
         de: "Lohnt sich das Abo-Modell wie bei Whoop?",
         pt: "Vale a pena o modelo por assinatura como o do Whoop?",
         fr: "Le modèle par abonnement comme Whoop en vaut-il la peine ?",
-        pl: "Czy powinienem wybrnąć model订阅类型Whoop？",
+        pl: "Czy model subskrypcyjny taki jak Whoop jest tego wart?",
         tr: "KVKK uyumluluğuna göre hangi abone modelim gerekiyor?",
         nl: "Is het abonnementsmodel zoals Whoop het waard?",
         ja: "Whoopのようなサブスクリプションモデルは価値がありますか？",

@@ -846,7 +846,7 @@ export const post: BlogPost = {
           tr: "FitMesh, Health Connect'ten tüm sağlık verilerinizi okur ve Strava, TrainingPeaks ve diğer platformlara eşitler. Kurulum 30 saniye sürer ve tam tarihiniz birinci gününden başlayacaktır.",
           nl: "FitMesh leest alle je gezondheidsgegevens uit Health Connect en synchroniseert ze naar Strava, TrainingPeaks en andere platforms. Het duurt maar 30 seconden om te installeren en je volledige geschiedenis is beschikbaar vanaf de eerste dag.",
           ja: "FitMesh は Health Connect からすべての健康データを読み取り、Strava, TrainingPeaks および他のプラットフォームに同期します。設定には 30 秒しかかかりませんし、最初からフル履歴が利用可能です。",
-          ko: "FitMesh는 Health Connect에서 모든 건강 데이터를 읽어 Strava, TrainingPeaks及其他平台同步。只需30秒设置，从第一天起即可使用完整历史记录。",
+          ko: "FitMesh는 Health Connect에서 모든 건강 데이터를 읽어 Strava, TrainingPeaks 및 다른 플랫폼으로 동기화합니다. 설정은 30초면 충분하며, 첫날부터 전체 기록을 사용할 수 있습니다.",
         },
       ctaLabel: {
           it: "Prova FitMesh gratuitamente",
