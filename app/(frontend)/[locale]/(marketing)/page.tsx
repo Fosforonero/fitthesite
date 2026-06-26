@@ -9,7 +9,10 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
-import { tl } from "@/lib/blog/types";
+import { tl, tll } from "@/lib/blog/types";
+import { p } from "@/lib/pricing";
+import { PRICING_SECTION } from "@/lib/pricing-section";
+import Testimonials from "@/components/Testimonials";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -534,6 +537,84 @@ export default async function Home({
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
+       *  PRICING — Free / Pro / Founder (enfasi founder: Pro a vita gratis)
+       *  ════════════════════════════════════════════════════════════ */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
+        <div className="mb-10">
+          <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
+            {tl(PRICING_SECTION.kicker, lc)}
+          </p>
+          <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
+            {tl(PRICING_SECTION.heading, lc)}
+          </h2>
+          <p className="mt-4 text-text-secondary max-w-2xl leading-relaxed">
+            {tl(PRICING_SECTION.subhead, lc)}
+          </p>
+        </div>
+        <div className="grid gap-5 md:grid-cols-3 items-stretch">
+          {/* Free */}
+          <div className="card p-7 flex flex-col">
+            <p className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.freeName, lc)}</p>
+            <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.freeTagline, lc)}</p>
+            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-text-primary">{tl(PRICING_SECTION.freeLabel, lc)}</p>
+            <ul className="mt-5 space-y-2.5 flex-1">
+              {tll(PRICING_SECTION.freeFeatures, lc).map((f) => (
+                <li key={f} className="flex gap-2 text-sm text-text-secondary">
+                  <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6">
+              <StoreButtonsRow locale={lc} />
+            </div>
+          </div>
+          {/* Pro */}
+          <div className="card p-7 flex flex-col">
+            <p className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.proName, lc)}</p>
+            <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.proTagline, lc)}</p>
+            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-text-primary">{p("lifetimeBothShort", lc)}</p>
+            <p className="mt-1 text-xs text-text-muted">
+              {lc === "it" ? `oppure ${p("subSixMonthsLabel", lc)}` : lc === "es" ? `o ${p("subSixMonthsLabel", lc)}` : `or ${p("subSixMonthsLabel", lc)}`}
+            </p>
+            <ul className="mt-5 space-y-2.5 flex-1">
+              {tll(PRICING_SECTION.proFeatures, lc).map((f) => (
+                <li key={f} className="flex gap-2 text-sm text-text-secondary">
+                  <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Founder — highlight */}
+          <div className="relative card p-7 flex flex-col border-brand-aqua/30 bg-brand-aqua/[0.06]">
+            <span className="absolute top-4 right-4 text-[10px] uppercase tracking-[0.18em] font-semibold text-[#050816] bg-brand-aqua rounded-pill px-2.5 py-1">
+              {tl(PRICING_SECTION.founderBadge, lc)}
+            </span>
+            <p className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.founderName, lc)}</p>
+            <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.founderTagline, lc)}</p>
+            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.freeLabel, lc)}</p>
+            <p className="mt-1 text-xs text-text-secondary">{p("founderPromo", lc)}</p>
+            <ul className="mt-5 space-y-2.5 flex-1">
+              {tll(PRICING_SECTION.founderFeatures, lc).map((f) => (
+                <li key={f} className="flex gap-2 text-sm text-text-secondary">
+                  <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href={`/${lc}/beta`}
+              className="mt-6 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-pill btn-cta text-sm"
+            >
+              {tl(PRICING_SECTION.founderCta, lc)}
+              <span aria-hidden>→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════
        *  APPROFONDISCI — pillar + top article (internal linking SEO)
        *  ════════════════════════════════════════════════════════════ */}
       {(() => {
@@ -601,6 +682,9 @@ export default async function Home({
         );
       })()}
 
+      {/* Social proof — nascosta finché lib/social-proof/data.ts è vuoto */}
+      <Testimonials locale={lc} />
+
       {/* ════════════════════════════════════════════════════════════════
        *  FINAL CTA — full-width spotlight
        *  ════════════════════════════════════════════════════════════ */}
@@ -631,11 +715,12 @@ export default async function Home({
               <StoreButtonsRow locale={lc} className="justify-center" />
             </div>
             <p className="mt-6 text-xs text-text-muted">
+              {p("founderPromo", lc)}.{" "}
               {lc === "it"
-                ? "Free for life per i primi 100. Acquisto unico da €3,99 dopo il lancio pubblico."
+                ? `Dopo il lancio pubblico, acquisto unico ${p("fromLifetime", lc)}.`
                 : lc === "es"
-                ? "Gratis de por vida para los primeros 100. Pago único desde 3,99 € tras el lanzamiento público."
-                : "Free for life for the first 100. One-time from €3.99 after public launch."}
+                ? `Tras el lanzamiento público, pago único ${p("fromLifetime", lc)}.`
+                : `After public launch, one-time ${p("fromLifetime", lc)}.`}
             </p>
           </div>
         </div>

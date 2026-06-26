@@ -189,7 +189,7 @@ function TermsIT() {
             <span><strong className="text-text-primary">Acquisto unico, €3,99 su Android (€4,99 su iPhone):</strong> sblocca permanentemente tutte le funzionalità Pro sull'account associato. Nessun abbonamento, nessun rinnovo automatico.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Founder Pro (primi 1000 account, gratuito):</strong> gli account registrati tra i primi 1000 ricevono automaticamente l'accesso Pro a vita, senza alcun costo. Nessuna scadenza, nessun acquisto richiesto.</span>
+            <span><strong className="text-text-primary">Founder Pro (primi 1000 account, gratuito):</strong> gli account registrati tra i primi 1000 ricevono automaticamente l'accesso Pro a vita, senza alcun costo. Nessuna scadenza, nessun acquisto richiesto. Il beneficio è concesso automaticamente alla registrazione e <strong className="text-text-primary">non è in alcun modo subordinato</strong> al rilascio di recensioni, valutazioni a stelle o altre azioni promozionali.</span>
           </li>
         </ul>
         <p>
@@ -391,7 +391,7 @@ function TermsEN() {
             <span><strong className="text-text-primary">One-time purchase, €3.99 on Android (€4.99 on iPhone):</strong> unlocks Pro features permanently on the associated account. No subscription, no auto-renewal.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Founder Pro (first 1,000 accounts, free):</strong> accounts registered among the first 1,000 automatically receive lifetime Pro access at no cost. No expiry date, no purchase required.</span>
+            <span><strong className="text-text-primary">Founder Pro (first 1,000 accounts, free):</strong> accounts registered among the first 1,000 automatically receive lifetime Pro access at no cost. No expiry date, no purchase required. The benefit is granted automatically on signup and is <strong className="text-text-primary">in no way conditional</strong> on leaving reviews, star ratings or any other promotional action.</span>
           </li>
         </ul>
         <p>

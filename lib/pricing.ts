@@ -120,6 +120,34 @@ export const PRICING = {
     pl: "€1,19 co 6 miesięcy",
     tr: "€1,19 6 ayda bir",
   },
+
+  // ── Promo founder (UNICA frase canonica) ─────────────────────────────
+  // Allineata ai Termini di servizio: i primi 1000 account ricevono il Pro
+  // a vita gratis, senza condizioni (nessuna recensione richiesta).
+  // Vedi anche components/FounderBanner.tsx e app/.../terms/page.tsx.
+
+  /** "Pro a vita gratis per i primi 1000 founder" */
+  founderPromo: {
+    it: "Pro a vita gratis per i primi 1000 founder",
+    en: "Lifetime Pro free for the first 1,000 founders",
+    es: "Pro de por vida gratis para los primeros 1000 founders",
+    de: "Lebenslanges Pro gratis für die ersten 1000 Founder",
+    pt: "Pro vitalício grátis para os primeiros 1000 founders",
+    fr: "Pro à vie gratuit pour les 1000 premiers founders",
+    pl: "Dożywotnie Pro za darmo dla pierwszych 1000 founderów",
+    tr: "İlk 1000 kurucu için ömür boyu ücretsiz Pro",
+  },
+  /** "Primi 1000 account: Pro a vita gratis" (versione fact/etichetta) */
+  founderSeats: {
+    it: "Primi 1000 account: Pro a vita gratis",
+    en: "First 1,000 accounts: lifetime Pro free",
+    es: "Primeros 1000 cuentas: Pro de por vida gratis",
+    de: "Erste 1000 Konten: lebenslanges Pro gratis",
+    pt: "Primeiras 1000 contas: Pro vitalício grátis",
+    fr: "1000 premiers comptes : Pro à vie gratuit",
+    pl: "Pierwsze 1000 kont: dożywotnie Pro za darmo",
+    tr: "İlk 1000 hesap: ömür boyu ücretsiz Pro",
+  },
 } as const;
 
 /** Helper: ritorna la stringa display per la locale corrente (fallback en per nl/ja/ko) */

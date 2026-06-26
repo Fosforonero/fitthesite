@@ -3,8 +3,9 @@
  * rimasti, cliccabile per portare alla pagina /[locale]/beta.
  *
  * Programma founder (dal lancio pubblico Android): i primi 1000 account
- * ricevono 1 anno di Pro gratis, auto-grantato alla registrazione dal
- * trigger Supabase `on_profile_created_founder`.
+ * ricevono il Pro a vita gratis, auto-grantato alla registrazione dal
+ * trigger Supabase `on_profile_created_founder`. Nessuna condizione
+ * (nessuna recensione richiesta) — vedi lib/pricing.ts founderPromo e i ToS.
  *
  * Server Component: conta i grant `note='founder-launch'` via service role
  * (nessuna RPC anon esposta). Se la fetch fallisce, fallback statico.
