@@ -17,8 +17,8 @@
 
 export const IOS_ENABLED = process.env.NEXT_PUBLIC_IOS_ENABLED === "true";
 
-/** Apple ID numerico dell'app. Placeholder finché non viene impostato su Vercel. */
-export const APPLE_APP_ID = process.env.NEXT_PUBLIC_APPLE_APP_ID ?? "id000000000";
+/** Apple ID numerico dell'app — App Store: .../app/fitmesh-sync/id6779751708. */
+export const APPLE_APP_ID = process.env.NEXT_PUBLIC_APPLE_APP_ID ?? "6779751708";
 
 /** URL completo della scheda App Store. */
 export const APPLE_STORE_URL = `https://apps.apple.com/app/fitmesh-sync/${
