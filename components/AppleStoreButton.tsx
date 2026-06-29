@@ -2,9 +2,12 @@
  * Apple App Store "Download on the" badge.
  * Replica vectorial del badge ufficiale, in stile Coming Soon disabled.
  *
- * Versione disabled-only (per ora): iOS arriverà in v38, da Q4 2026.
+ * Lo stato (disabled vs cliccabile) e l'href reale sono controllati a monte
+ * dal feature flag centrale (lib/flags.ts → IOS_ENABLED / APPLE_STORE_URL),
+ * passato da StoreButtonsRow. Default disabled finché iOS non è live in UE.
  * Mantiene la stessa shape del PlayStoreButton per allinearsi visivamente.
  */
+import { APPLE_STORE_URL } from "@/lib/flags";
 
 type Props = {
   href?: string;
@@ -16,8 +19,8 @@ type Props = {
 };
 
 export default function AppleStoreButton({
-  href = "https://apps.apple.com/app/fitmesh-sync/id000000000",
-  disabled = true, // Default: Apple Store ancora non disponibile
+  href = APPLE_STORE_URL,
+  disabled = true, // Default: Apple Store ancora non disponibile (override via flag)
   comingSoonLabel = "Coming Soon",
   smallLabel = "Download on the",
   storeLabel = "App Store",

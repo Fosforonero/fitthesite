@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
 import { LegalPage, Section, Callout } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
+import { TraderIdentity } from "@/components/legal/TraderIdentity";
 
 const SITE_URL = "https://www.fitmesh.fit";
 const LAST_UPDATED_IT = "22 giugno 2026";
@@ -79,6 +81,7 @@ export default async function TermsPage({
   return (
     <>
       <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/terms` }]} locale={lc} />
+      <LegalJsonLd locale={lc} path="/terms" name={t.legal.terms_title} dateModified="2026-06-22" />
       <LegalPage kicker={t.legal.section} title={t.legal.terms_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <TermsIT /> :
          lc === "es" ? <TermsES /> :
@@ -296,7 +299,7 @@ function TermsIT() {
 
       <Section title="14. Contatti">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <p><strong className="text-text-primary">Titolare:</strong> Matteo Pizzi</p>
+          <TraderIdentity locale="it" showContact={false} className="text-sm" />
           <ul className="mt-3 space-y-1.5 text-sm">
             <li><span className="text-text-muted">Email:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:hello@fitmesh.fit">hello@fitmesh.fit</a></li>
             <li><span className="text-text-muted">Supporto:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:support@fitmesh.fit">support@fitmesh.fit</a></li>
@@ -496,7 +499,7 @@ function TermsEN() {
 
       <Section title="14. Contact">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <p><strong className="text-text-primary">Service operator:</strong> Matteo Pizzi</p>
+          <TraderIdentity locale="en" showContact={false} className="text-sm" />
           <ul className="mt-3 space-y-1.5 text-sm">
             <li><span className="text-text-muted">Email:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:hello@fitmesh.fit">hello@fitmesh.fit</a></li>
             <li><span className="text-text-muted">Support:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:support@fitmesh.fit">support@fitmesh.fit</a></li>
@@ -704,7 +707,7 @@ function TermsES() {
 
       <Section title="14. Contacto">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <p><strong className="text-text-primary">Responsable del servicio:</strong> Matteo Pizzi</p>
+          <TraderIdentity locale="es" showContact={false} className="text-sm" />
           <ul className="mt-3 space-y-1.5 text-sm">
             <li><span className="text-text-muted">Email:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:hello@fitmesh.fit">hello@fitmesh.fit</a></li>
             <li><span className="text-text-muted">Soporte:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:support@fitmesh.fit">support@fitmesh.fit</a></li>
@@ -913,7 +916,7 @@ function TermsDE() {
 
       <Section title="14. Kontakt">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <p><strong className="text-text-primary">Anbieter:</strong> Matteo Pizzi</p>
+          <TraderIdentity locale="de" showContact={false} className="text-sm" />
           <ul className="mt-3 space-y-1.5 text-sm">
             <li><span className="text-text-muted">E-Mail:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:hello@fitmesh.fit">hello@fitmesh.fit</a></li>
             <li><span className="text-text-muted">Support:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:support@fitmesh.fit">support@fitmesh.fit</a></li>
@@ -1120,7 +1123,7 @@ function TermsPT() {
 
       <Section title="14. Contato">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <p><strong className="text-text-primary">Responsável pelo serviço:</strong> Matteo Pizzi</p>
+          <TraderIdentity locale="pt" showContact={false} className="text-sm" />
           <ul className="mt-3 space-y-1.5 text-sm">
             <li><span className="text-text-muted">E-mail:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:hello@fitmesh.fit">hello@fitmesh.fit</a></li>
             <li><span className="text-text-muted">Suporte:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:support@fitmesh.fit">support@fitmesh.fit</a></li>
@@ -1333,7 +1336,7 @@ function TermsFR() {
 
       <Section title="14. Contact">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <p><strong className="text-text-primary">Responsable du service :</strong> Matteo Pizzi</p>
+          <TraderIdentity locale="fr" showContact={false} className="text-sm" />
           <ul className="mt-3 space-y-1.5 text-sm">
             <li><span className="text-text-muted">E-mail :</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:hello@fitmesh.fit">hello@fitmesh.fit</a></li>
             <li><span className="text-text-muted">Assistance :</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:support@fitmesh.fit">support@fitmesh.fit</a></li>

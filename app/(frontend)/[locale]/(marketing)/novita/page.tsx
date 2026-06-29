@@ -24,18 +24,34 @@ export async function generateMetadata({
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
 
-  const title =
-    lc === "it"
-      ? "Novità FitMesh Sync — cosa cambia a ogni aggiornamento"
-      : lc === "es"
-        ? "Novedades de FitMesh Sync: todo lo que cambia en cada actualización"
-        : "FitMesh Sync What's New — every update explained";
-  const description =
-    lc === "it"
-      ? "Le novità di FitMesh Sync versione dopo versione: nuove funzioni, dispositivi supportati e miglioramenti. In chiaro, senza gergo tecnico."
-      : lc === "es"
-        ? "Las novedades de FitMesh Sync actualización tras actualización: nuevas funciones, dispositivos compatibles y mejoras. En claro, sin tecnicismos."
-        : "FitMesh Sync news release after release: new features, supported devices and improvements. Plain language, no technical jargon.";
+  const titles: Record<Locale, string> = {
+    it: "Novità FitMesh Sync — cosa cambia a ogni aggiornamento",
+    en: "FitMesh Sync What's New — every update explained",
+    es: "Novedades de FitMesh Sync: todo lo que cambia en cada actualización",
+    de: "Neuigkeiten von FitMesh Sync — was sich bei jedem Update ändert",
+    pt: "Novidades do FitMesh Sync — o que muda a cada atualização",
+    fr: "Nouveautés de FitMesh Sync — ce qui change à chaque mise à jour",
+    pl: "Nowości FitMesh Sync — co zmienia każda aktualizacja",
+    tr: "FitMesh Sync yenilikleri — her güncellemede ne değişiyor",
+    nl: "Wat is nieuw in FitMesh Sync — elke update uitgelegd",
+    ja: "FitMesh Syncの新着情報 — 各アップデートの変更点",
+    ko: "FitMesh Sync의 새로운 기능 — 업데이트마다 무엇이 바뀌는지",
+  };
+  const descriptions: Record<Locale, string> = {
+    it: "Le novità di FitMesh Sync versione dopo versione: nuove funzioni, dispositivi supportati e miglioramenti. In chiaro, senza gergo tecnico.",
+    en: "FitMesh Sync news release after release: new features, supported devices and improvements. Plain language, no technical jargon.",
+    es: "Las novedades de FitMesh Sync actualización tras actualización: nuevas funciones, dispositivos compatibles y mejoras. En claro, sin tecnicismos.",
+    de: "Die Neuigkeiten von FitMesh Sync, Update für Update: neue Funktionen, unterstützte Geräte und Verbesserungen. Klar erklärt, ohne Fachjargon.",
+    pt: "As novidades do FitMesh Sync, atualização após atualização: novas funções, dispositivos compatíveis e melhorias. Em linguagem clara, sem jargão técnico.",
+    fr: "Les nouveautés de FitMesh Sync, mise à jour après mise à jour : nouvelles fonctions, appareils compatibles et améliorations. En clair, sans jargon technique.",
+    pl: "Nowości FitMesh Sync, aktualizacja po aktualizacji: nowe funkcje, obsługiwane urządzenia i ulepszenia. Jasno i bez technicznego żargonu.",
+    tr: "FitMesh Sync'in yenilikleri, güncelleme ardına güncelleme: yeni işlevler, desteklenen cihazlar ve iyileştirmeler. Sade bir dille, teknik jargon olmadan.",
+    nl: "Het nieuws van FitMesh Sync, update na update: nieuwe functies, ondersteunde apparaten en verbeteringen. Duidelijk, zonder jargon.",
+    ja: "FitMesh Syncの新着情報をアップデートごとに紹介：新機能、対応デバイス、改善点。わかりやすく、専門用語なしで。",
+    ko: "FitMesh Sync의 소식을 업데이트마다 전해드립니다: 새 기능, 지원 기기, 개선 사항. 전문 용어 없이 알기 쉽게.",
+  };
+  const title = titles[lc];
+  const description = descriptions[lc];
 
   const path = `/${lc}/novita`;
   return {

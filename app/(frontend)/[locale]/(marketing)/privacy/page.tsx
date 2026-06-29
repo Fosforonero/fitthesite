@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
 import { LegalPage, Section, List, Callout } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
+import { TraderIdentity } from "@/components/legal/TraderIdentity";
 
 const SITE_URL = "https://www.fitmesh.fit";
 const LAST_UPDATED_IT = "16 giugno 2026";
@@ -72,6 +74,7 @@ export default async function PrivacyPage({
   return (
     <>
       <Breadcrumbs items={[{ name: "Privacy Policy", path: `/${lc}/privacy` }]} locale={lc} />
+      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified="2026-06-16" />
       <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <PrivacyIT /> : lc === "es" ? <PrivacyES /> : lc === "de" ? <PrivacyDE /> : lc === "pt" ? <PrivacyPT /> : lc === "fr" ? <PrivacyFR /> : <PrivacyEN />}
       </LegalPage>
@@ -84,8 +87,8 @@ function PrivacyIT() {
     <>
       <Section title="1. Titolare del trattamento">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <ul className="space-y-1.5 text-sm">
-            <li><span className="text-text-muted">Titolare:</span> Matteo Pizzi, persona fisica titolare di FitMesh Sync</li>
+          <TraderIdentity locale="it" showContact={false} className="text-sm" />
+          <ul className="mt-4 space-y-1.5 text-sm">
             <li><span className="text-text-muted">Email contatto privacy:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:privacy@fitmesh.fit">privacy@fitmesh.fit</a></li>
             <li><span className="text-text-muted">DPO (Data Protection Officer):</span> non designato. Il trattamento non rientra nei casi obbligatori previsti dall'art. 37 GDPR (autorità pubblica, monitoraggio sistematico su larga scala, categorie particolari su larga scala). Per qualsiasi richiesta sulla privacy contattare l'email sopra.</li>
           </ul>
@@ -298,8 +301,8 @@ function PrivacyEN() {
     <>
       <Section title="1. Data Controller">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <ul className="space-y-1.5 text-sm">
-            <li><span className="text-text-muted">Controller:</span> Matteo Pizzi, sole proprietor of FitMesh Sync</li>
+          <TraderIdentity locale="en" showContact={false} className="text-sm" />
+          <ul className="mt-4 space-y-1.5 text-sm">
             <li><span className="text-text-muted">Privacy contact:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:privacy@fitmesh.fit">privacy@fitmesh.fit</a></li>
             <li><span className="text-text-muted">DPO (Data Protection Officer):</span> not appointed. Processing does not fall under the mandatory cases listed in GDPR Art. 37 (public authority, large-scale systematic monitoring, large-scale special categories). For privacy requests, use the email above.</li>
           </ul>
@@ -505,8 +508,8 @@ function PrivacyES() {
     <>
       <Section title="1. Responsable del tratamiento">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <ul className="space-y-1.5 text-sm">
-            <li><span className="text-text-muted">Responsable:</span> Matteo Pizzi, persona física titular de FitMesh Sync</li>
+          <TraderIdentity locale="es" showContact={false} className="text-sm" />
+          <ul className="mt-4 space-y-1.5 text-sm">
             <li><span className="text-text-muted">Contacto de privacidad:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:privacy@fitmesh.fit">privacy@fitmesh.fit</a></li>
             <li><span className="text-text-muted">DPO (Delegado de Protección de Datos):</span> no designado. El tratamiento no entra en los supuestos de designación obligatoria del art. 37 RGPD (autoridad pública, supervisión sistemática a gran escala, categorías especiales a gran escala). Para cualquier consulta sobre privacidad, usa el correo indicado arriba.</li>
           </ul>
@@ -724,8 +727,8 @@ function PrivacyDE() {
     <>
       <Section title="1. Verantwortlicher">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <ul className="space-y-1.5 text-sm">
-            <li><span className="text-text-muted">Verantwortlicher:</span> Matteo Pizzi, natürliche Person und Inhaber von FitMesh Sync</li>
+          <TraderIdentity locale="de" showContact={false} className="text-sm" />
+          <ul className="mt-4 space-y-1.5 text-sm">
             <li><span className="text-text-muted">Datenschutzkontakt:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:privacy@fitmesh.fit">privacy@fitmesh.fit</a></li>
             <li><span className="text-text-muted">DSB (Datenschutzbeauftragter):</span> nicht benannt. Die Verarbeitung fällt nicht unter die Pflichtfälle des Art. 37 DSGVO (Behörde, systematische Überwachung im großen Maßstab, umfangreiche Verarbeitung besonderer Kategorien). Für Datenschutzanfragen nutzen Sie bitte die obige E-Mail-Adresse.</li>
           </ul>
@@ -945,8 +948,8 @@ function PrivacyPT() {
     <>
       <Section title="1. Controlador de dados">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <ul className="space-y-1.5 text-sm">
-            <li><span className="text-text-muted">Controlador:</span> Matteo Pizzi, pessoa física titular do FitMesh Sync</li>
+          <TraderIdentity locale="pt" showContact={false} className="text-sm" />
+          <ul className="mt-4 space-y-1.5 text-sm">
             <li><span className="text-text-muted">Contato de privacidade:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:privacy@fitmesh.fit">privacy@fitmesh.fit</a></li>
             <li><span className="text-text-muted">DPO (Encarregado de Proteção de Dados):</span> não designado. O tratamento não se enquadra nos casos de designação obrigatória previstos no art. 37 do GDPR (autoridade pública, monitoramento sistemático em larga escala, categorias especiais em larga escala). Para qualquer solicitação sobre privacidade, use o e-mail acima.</li>
           </ul>
@@ -1163,8 +1166,8 @@ function PrivacyFR() {
     <>
       <Section title="1. Responsable du traitement">
         <div className="rounded-[14px] border border-divider bg-bg-card/60 p-6">
-          <ul className="space-y-1.5 text-sm">
-            <li><span className="text-text-muted">Responsable:</span> Matteo Pizzi, personne physique titulaire de FitMesh Sync</li>
+          <TraderIdentity locale="fr" showContact={false} className="text-sm" />
+          <ul className="mt-4 space-y-1.5 text-sm">
             <li><span className="text-text-muted">Contact vie privée:</span> <a className="text-brand-aqua hover:text-brand-blue" href="mailto:privacy@fitmesh.fit">privacy@fitmesh.fit</a></li>
             <li><span className="text-text-muted">DPO (Délégué à la Protection des Données):</span> non désigné. Le traitement ne relève pas des cas de désignation obligatoire prévus à l'art. 37 du RGPD (autorité publique, surveillance systématique à grande échelle, catégories particulières à grande échelle). Pour toute demande relative à la vie privée, contactez l'adresse e-mail ci-dessus.</li>
           </ul>

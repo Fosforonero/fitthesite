@@ -5,13 +5,14 @@
  * anche quando una è in Coming Soon. La consistency visiva aiuta a
  * comunicare "presto anche su iOS" senza dover scrivere copy esplicita.
  *
- * Default: entrambi disabled (pre-launch beta). Quando v37.6 sarà su
- * Play Store production, basterà togliere `playDisabled` qui per attivare
- * il click in tutto il sito (homepage, about, landing provider).
+ * Default: Play Store attivo, App Store disabled finché iOS non è live in UE.
+ * Il go-live iOS è un singolo interruttore: NEXT_PUBLIC_IOS_ENABLED=true su
+ * Vercel (vedi lib/flags.ts) attiva il click dell'App Store in tutto il sito.
  */
 import type { CSSProperties } from "react";
 
 import type { Locale } from "@/lib/i18n";
+import { IOS_ENABLED } from "@/lib/flags";
 import AppleStoreButton from "./AppleStoreButton";
 import PlayStoreButton from "./PlayStoreButton";
 
@@ -20,6 +21,8 @@ type Props = {
   locale: Locale;
   /** Forza il Play Store disabled (default false — app live su Play Store). */
   playDisabled?: boolean;
+  /** Forza l'App Store disabled. Default: !IOS_ENABLED (flag centrale). */
+  iosDisabled?: boolean;
   /** Classi extra sul wrapper flex. */
   className?: string;
   style?: CSSProperties;
@@ -28,6 +31,7 @@ type Props = {
 export default function StoreButtonsRow({
   locale,
   playDisabled = false,
+  iosDisabled = !IOS_ENABLED,
   className = "",
   style,
 }: Props) {
@@ -72,7 +76,7 @@ export default function StoreButtonsRow({
         storeLabel={playLabels.store}
       />
       <AppleStoreButton
-        disabled
+        disabled={iosDisabled}
         comingSoonLabel={appleLabels.soon}
         smallLabel={appleLabels.small}
         storeLabel={appleLabels.store}

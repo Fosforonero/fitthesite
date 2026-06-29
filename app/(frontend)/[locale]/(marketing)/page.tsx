@@ -3,6 +3,7 @@ import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import MockupShowcase from "@/components/MockupShowcase";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
+import { IOS_ENABLED } from "@/lib/flags";
 import FounderBanner from "@/components/FounderBanner";
 import TrustBadges from "@/components/TrustBadges";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -696,7 +697,9 @@ export default async function Home({
           />
           <div className="relative">
             <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-              {lc === "it" ? "Android live · iOS in arrivo · 1000 founder" : lc === "es" ? "Android disponible · iOS próximamente · 1000 founders" : "Android live · iOS coming · 1000 founders"}
+              {IOS_ENABLED
+                ? (lc === "it" ? "Android e iOS · 1000 founder" : lc === "es" ? "Android e iOS · 1000 founders" : "Android & iOS · 1000 founders")
+                : (lc === "it" ? "Android live · iOS in arrivo · 1000 founder" : lc === "es" ? "Android disponible · iOS próximamente · 1000 founders" : "Android live · iOS coming · 1000 founders")}
             </p>
             <h2 className="mt-4 font-display text-display-lg font-semibold tracking-tightest text-text-primary text-balance">
               {t.final_cta.heading}

@@ -44,6 +44,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/privacy",      changeFrequency: "yearly",  priority: 0.5 },
     { path: "/terms",        changeFrequency: "yearly",  priority: 0.5 },
     { path: "/cookies",      changeFrequency: "yearly",  priority: 0.4 },
+    { path: "/imprint",      changeFrequency: "yearly",  priority: 0.4 },
   ];
 
   // Una landing per provider — priorità 0.8 (alta: pagine SEO-target)

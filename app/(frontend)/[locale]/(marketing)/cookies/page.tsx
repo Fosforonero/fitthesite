@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
 import { LegalPage, Section } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
+import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
 
 const SITE_URL = "https://www.fitmesh.fit";
 const LAST_UPDATED_IT = "16 giugno 2026";
@@ -71,6 +72,7 @@ export default async function CookiesPage({
   return (
     <>
       <Breadcrumbs items={[{ name: "Cookie Policy", path: `/${lc}/cookies` }]} locale={lc} />
+      <LegalJsonLd locale={lc} path="/cookies" name={t.legal.cookies_title} dateModified="2026-06-16" />
       <LegalPage kicker={t.legal.section} title={t.legal.cookies_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <CookiesIT /> : lc === "es" ? <CookiesES /> : lc === "de" ? <CookiesDE /> : lc === "pt" ? <CookiesPT /> : lc === "fr" ? <CookiesFR /> : <CookiesEN />}
       </LegalPage>

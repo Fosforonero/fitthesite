@@ -7,6 +7,8 @@ import CookieBanner from "@/components/CookieBanner";
 import MarketingBackdrop from "@/components/MarketingBackdrop";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
+import { TRADER, TRADER_POSTAL_ADDRESS } from "@/lib/legal/trader";
+import { IOS_ENABLED, APPLE_APP_ID, APPLE_STORE_URL } from "@/lib/flags";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -71,6 +73,10 @@ export async function generateMetadata(
       title: "FitMesh Sync",
       description: descriptions[lc],
     },
+    // Smart App Banner iOS — attivo solo a go-live (flag) con App Store ID reale.
+    ...(IOS_ENABLED && {
+      other: { "apple-itunes-app": `app-id=${APPLE_APP_ID.replace(/^id/, "")}` },
+    }),
   };
 }
 
@@ -119,9 +125,11 @@ export default async function LocaleLayout({
         "@id": `${SITE_URL}#organization`,
         name: "FitMesh Sync",
         alternateName: ["FitMesh", "FitMesh Sync Health Dashboard", "FitMesh Android Health Tracker"],
-        legalName: "Fosforonero — FitMesh Sync",
+        legalName: TRADER.legalName,
         url: SITE_URL,
         description: orgDescription,
+        address: TRADER_POSTAL_ADDRESS,
+        ...(TRADER.vat !== "IT00000000000" && { vatID: TRADER.vat, taxID: TRADER.vat }),
         logo: {
           "@type": "ImageObject",
           url: `${SITE_URL}/icon-square.png`,
@@ -229,6 +237,31 @@ export default async function LocaleLayout({
         // releaseNotes deliberatamente omesso: i tester non vedono la SERP
         // public-facing, e popolarlo richiede manutenzione ad ogni release.
       },
+      // App iOS — emessa nel @graph solo a go-live (IOS_ENABLED). Tenuta OFF
+      // finché l'app non è disponibile nei 27 paesi UE (verifica DSA Apple).
+      ...(IOS_ENABLED
+        ? [
+            {
+              "@type": "MobileApplication",
+              "@id": `${SITE_URL}#mobile-app-ios`,
+              name: "FitMesh Sync",
+              alternateName: "FitMesh iOS Health Tracker",
+              description: appDescription,
+              operatingSystem: "iOS 15.0 and up",
+              applicationCategory: "HealthApplication",
+              applicationSubCategory: "Fitness",
+              inLanguage: ogLocale[lc].replace("_", "-"),
+              offers: [
+                { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR", category: "Onetime purchase" },
+              ],
+              url: APPLE_STORE_URL,
+              downloadUrl: APPLE_STORE_URL,
+              publisher: { "@id": `${SITE_URL}#organization` },
+              image: `${SITE_URL}/icon-square.png`,
+              featureList,
+            },
+          ]
+        : []),
     ],
   };
 

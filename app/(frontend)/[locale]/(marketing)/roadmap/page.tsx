@@ -22,18 +22,34 @@ export async function generateMetadata({
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
 
-  const title =
-    lc === "it"
-      ? "Roadmap pubblica — FitMesh Sync"
-      : lc === "es"
-        ? "Roadmap pública — FitMesh Sync"
-        : "Public roadmap — FitMesh Sync";
-  const description =
-    lc === "it"
-      ? "Cosa è già live in produzione, cosa arriva nei prossimi 30 giorni, Q3 e Q4 2026, e cosa stiamo esplorando. Roadmap aggiornata in chiaro, senza marketing-speak."
-      : lc === "es"
-        ? "Qué está ya disponible, qué llega en los próximos 30 días, Q3 y Q4 2026, y qué estamos explorando. Una roadmap clara y actualizada, sin lenguaje de marketing."
-        : "What's already shipping, what's coming in the next 30 days, Q3 and Q4 2026, and what we're exploring. A clear, no-marketing-speak roadmap updated regularly.";
+  const titles: Record<Locale, string> = {
+    it: "Roadmap pubblica — FitMesh Sync",
+    en: "Public roadmap — FitMesh Sync",
+    es: "Roadmap pública — FitMesh Sync",
+    de: "Öffentliche Roadmap — FitMesh Sync",
+    pt: "Roadmap pública — FitMesh Sync",
+    fr: "Feuille de route publique — FitMesh Sync",
+    pl: "Publiczna roadmapa — FitMesh Sync",
+    tr: "Herkese açık yol haritası — FitMesh Sync",
+    nl: "Publieke roadmap — FitMesh Sync",
+    ja: "公開ロードマップ — FitMesh Sync",
+    ko: "공개 로드맵 — FitMesh Sync",
+  };
+  const descriptions: Record<Locale, string> = {
+    it: "Cosa è già live in produzione, cosa arriva nei prossimi 30 giorni, Q3 e Q4 2026, e cosa stiamo esplorando. Roadmap aggiornata in chiaro, senza marketing-speak.",
+    en: "What's already shipping, what's coming in the next 30 days, Q3 and Q4 2026, and what we're exploring. A clear, no-marketing-speak roadmap updated regularly.",
+    es: "Qué está ya disponible, qué llega en los próximos 30 días, Q3 y Q4 2026, y qué estamos explorando. Una roadmap clara y actualizada, sin lenguaje de marketing.",
+    de: "Was bereits im Betrieb ist, was in den nächsten 30 Tagen, Q3 und Q4 2026 kommt und was wir erkunden. Eine klare Roadmap, regelmäßig aktualisiert, ohne Marketing-Sprech.",
+    pt: "O que já está em produção, o que chega nos próximos 30 dias, no Q3 e Q4 de 2026, e o que estamos explorando. Um roadmap claro e atualizado, sem linguagem de marketing.",
+    fr: "Ce qui est déjà en production, ce qui arrive dans les 30 prochains jours, au T3 et T4 2026, et ce que nous explorons. Une feuille de route claire et régulièrement mise à jour, sans jargon marketing.",
+    pl: "Co już działa w produkcji, co pojawi się w ciągu najbliższych 30 dni, w Q3 i Q4 2026, oraz co badamy. Przejrzysta roadmapa, regularnie aktualizowana, bez marketingowego żargonu.",
+    tr: "Şu anda yayında olanlar, önümüzdeki 30 günde, 2026 Q3 ve Q4'te gelecekler ve keşfettiklerimiz. Düzenli güncellenen, pazarlama dili içermeyen net bir yol haritası.",
+    nl: "Wat al live is, wat de komende 30 dagen, Q3 en Q4 2026 verschijnt en wat we verkennen. Een heldere roadmap, regelmatig bijgewerkt, zonder marketingpraat.",
+    ja: "すでに本番稼働中の機能、今後30日・2026年Q3とQ4に登場するもの、そして検討中の方向性。マーケティング表現なしで定期的に更新する明快なロードマップ。",
+    ko: "이미 프로덕션에 출시된 기능, 앞으로 30일·2026년 Q3와 Q4에 출시될 기능, 그리고 검토 중인 방향. 마케팅 표현 없이 정기적으로 업데이트하는 명확한 로드맵.",
+  };
+  const title = titles[lc];
+  const description = descriptions[lc];
 
   const path = `/${lc}/roadmap`;
   return {

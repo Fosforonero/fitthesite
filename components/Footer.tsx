@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import { IMPRINT_NAV_LABEL } from "@/components/legal/TraderIdentity";
 
 export default function Footer({
   dict,
@@ -76,6 +77,7 @@ export default function Footer({
             <li><Link href={`/${locale}/privacy`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.privacy}</Link></li>
             <li><Link href={`/${locale}/terms`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.terms}</Link></li>
             <li><Link href={`/${locale}/cookies`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.cookies}</Link></li>
+            <li><Link href={`/${locale}/imprint`} className="text-text-secondary hover:text-text-primary transition">{IMPRINT_NAV_LABEL[locale]}</Link></li>
             <li>
               <a href="mailto:privacy@fitmesh.fit" className="text-text-secondary hover:text-text-primary transition font-mono text-xs">
                 privacy@fitmesh.fit

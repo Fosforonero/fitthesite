@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
+import { IOS_ENABLED } from "@/lib/flags";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { PRICE_LIFETIME_ANDROID_RAW, PRICING } from "@/lib/pricing";
 
@@ -628,14 +629,23 @@ export default async function AboutPage({
             )}
           </h3>
           <p className="mt-3 text-text-secondary max-w-md mx-auto">
-            {t(
-              "Disponibile ora su Android. iOS in arrivo.",
-              "Available now on Android. iOS coming soon.",
-              "Disponible ahora en Android. iOS próximamente.",
-              "Jetzt für Android verfügbar. iOS demnächst verfügbar.",
-              "Disponível agora para Android. iOS em breve.",
-              "Disponible maintenant sur Android. iOS bientôt disponible.",
-            )}
+            {IOS_ENABLED
+              ? t(
+                  "Disponibile ora su Android e iOS.",
+                  "Available now on Android and iOS.",
+                  "Disponible ahora en Android e iOS.",
+                  "Jetzt für Android und iOS verfügbar.",
+                  "Disponível agora para Android e iOS.",
+                  "Disponible maintenant sur Android et iOS.",
+                )
+              : t(
+                  "Disponibile ora su Android. iOS in arrivo.",
+                  "Available now on Android. iOS coming soon.",
+                  "Disponible ahora en Android. iOS próximamente.",
+                  "Jetzt für Android verfügbar. iOS demnächst verfügbar.",
+                  "Disponível agora para Android. iOS em breve.",
+                  "Disponible maintenant sur Android. iOS bientôt disponible.",
+                )}
           </p>
           <div className="mt-6 flex justify-center">
             <StoreButtonsRow locale={lc} className="justify-center" />
