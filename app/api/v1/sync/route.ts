@@ -95,6 +95,8 @@ const payloadSchema = z.object({
   waterMl: z.number().int().nullish(),
   respiratoryRateBpm: z.number().nullish(),
   nutritionKcalIn: z.number().nullish(),
+  // Samsung Health Monitor: esito di rischio apnea, non indice AHI.
+  sleepApneaDetected: z.boolean().nullish(),
   // Breakdown intraday (JSONB). L'app Flutter li manda come stringhe JSON
   // (legacy Kotlin format) con suffisso "Json". Accettiamo entrambi via
   // preprocess che parsa string → object.
@@ -240,6 +242,7 @@ export async function POST(req: Request) {
       // respiratoryRateBpm preferito sul legacy respiratoryRate (alias).
       respiratory_rate_bpm: p.respiratoryRateBpm ?? p.respiratoryRate ?? null,
       nutrition_kcal_in: p.nutritionKcalIn ?? null,
+      sleep_apnea_detected: p.sleepApneaDetected ?? null,
     })
     .select("id")
     .single();
