@@ -45,6 +45,7 @@ import { post as datiAnelloSmartAppleSalute } from "./posts/dati-anello-smart-ap
 // Novità (release notes / sezione /novita)
 import { post as novitaAnelloColmiSonno } from "./posts/novita-anello-colmi-sonno";
 import { post as novitaDashboardMultiDevice } from "./posts/novita-dashboard-multi-device";
+import { post as novitaFitmeshAppStore } from "./posts/novita-fitmesh-su-app-store";
 // Cluster anello smart
 import { post as anelloVsSmartwatch } from "./posts/anello-vs-smartwatch";
 import { post as anelloSmartGuidaCompleta } from "./posts/anello-smart-guida-completa";
@@ -109,6 +110,7 @@ const RAW_POSTS: BlogPost[] = [
   // Novità (release notes)
   novitaAnelloColmiSonno,
   novitaDashboardMultiDevice,
+  novitaFitmeshAppStore,
   // Cluster anello smart
   anelloSmartGuidaCompleta,
   anelloVsSmartwatch,

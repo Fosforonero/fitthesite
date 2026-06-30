@@ -186,6 +186,18 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "fitmesh-sync-google-play",
     ko: "fitmesh-sync-google-play",
   },
+  "novita-fitmesh-su-app-store": {
+    en: "fitmesh-sync-now-on-app-store",
+    es: "fitmesh-sync-ya-en-app-store",
+    de: "fitmesh-sync-jetzt-im-app-store",
+    pt: "fitmesh-sync-agora-na-app-store",
+    fr: "fitmesh-sync-maintenant-sur-app-store",
+    pl: "fitmesh-sync-teraz-w-app-store",
+    tr: "fitmesh-sync-app-store-da",
+    nl: "fitmesh-sync-nu-in-app-store",
+    ja: "fitmesh-sync-app-store-koukai",
+    ko: "fitmesh-sync-app-store-chulsi",
+  },
   "gdpr-dati-fitness-smartwatch": {
     en: "gdpr-fitness-data-smartwatch",
     es: "gdpr-datos-fitness-smartwatch",
