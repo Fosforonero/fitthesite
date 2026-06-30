@@ -186,15 +186,19 @@ function TermsIT() {
       </Section>
 
       <Section title="6. Acquisti in-app">
-        <p>FitMesh Sync offre funzionalità avanzate ("Pro") tramite acquisto in-app gestito da Google Play Billing:</p>
+        <p>FitMesh Sync è un servizio a pagamento. Ogni persona ha a disposizione una prova gratuita di 14 giorni con tutte le funzionalità Pro attive (inclusa la Mesh Famiglia fino a 8 membri); chi si unisce a una Mesh ha la propria prova di 14 giorni. Al termine dei 14 giorni l'accesso alle funzionalità richiede un acquisto: non esiste un piano gratuito permanente. Gli acquisti sono gestiti tramite gli store (Google Play Billing su Android, App Store su iPhone):</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Acquisto unico, €3,99 su Android (€4,99 su iPhone):</strong> sblocca permanentemente tutte le funzionalità Pro sull'account associato. Nessun abbonamento, nessun rinnovo automatico.</span>
+            <span><strong className="text-text-primary">Abbonamento, €1,19 ogni 6 mesi:</strong> mantiene attive tutte le funzionalità Pro finché l'abbonamento è in corso. Si rinnova automaticamente ogni 6 mesi e puoi disdirlo in qualsiasi momento dalle impostazioni del tuo store.</span>
+          </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Sblocco a vita (acquisto unico), €3,99 su Android (€4,99 su iPhone):</strong> sblocca permanentemente tutte le funzionalità Pro sull'account associato, con un pagamento singolo. Nessun rinnovo.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Founder Pro (primi 1000 account, gratuito):</strong> gli account registrati tra i primi 1000 ricevono automaticamente l'accesso Pro a vita, senza alcun costo. Nessuna scadenza, nessun acquisto richiesto. Il beneficio è concesso automaticamente alla registrazione e <strong className="text-text-primary">non è in alcun modo subordinato</strong> al rilascio di recensioni, valutazioni a stelle o altre azioni promozionali.</span>
           </li>
         </ul>
+        <p>I prezzi indicati sono prezzi di lancio e potranno aumentare in futuro per i nuovi acquisti; il prezzo applicato resta quello mostrato al momento dell'acquisto.</p>
         <p>
           Il beneficio Founder Pro rimane attivo per tutta la durata del Servizio. Non può essere revocato unilateralmente, salvo in caso di violazione dei presenti Termini che comporti la sospensione dell'account. In caso di interruzione completa del Servizio si applicano le condizioni della Sezione 9 (preavviso minimo di 60 giorni).
         </p>
@@ -248,9 +252,10 @@ function TermsIT() {
         </p>
         <p>
           In caso di interruzione completa del Servizio, daremo almeno 60 giorni di preavviso per
-          esportare i dati. FitMesh Sync non prevede abbonamenti ricorrenti: gli acquisti unici sono
-          già pienamente eseguiti al momento del pagamento e il Founder Pro è gratuito; pertanto
-          nessun rimborso è dovuto in caso di cessazione del Servizio.
+          esportare i dati. Per gli abbonamenti attivi, in caso di cessazione del Servizio la
+          quota già pagata viene rimborsata in misura proporzionale al periodo non utilizzato. Gli
+          acquisti a vita sono già pienamente eseguiti al momento del pagamento e il Founder Pro è
+          gratuito; pertanto, per questi, nessun rimborso è dovuto in caso di cessazione del Servizio.
         </p>
       </Section>
 
@@ -388,15 +393,19 @@ function TermsEN() {
       </Section>
 
       <Section title="6. In-app purchases">
-        <p>FitMesh Sync offers advanced ("Pro") features via in-app purchase managed by Google Play Billing:</p>
+        <p>FitMesh Sync is a paid service. Every person gets a 14-day free trial with all Pro features active (including the Family Mesh of up to 8 members); anyone joining a Mesh gets their own 14-day trial. After the 14 days, access to the features requires a purchase: there is no permanent free plan. Purchases are handled through the stores (Google Play Billing on Android, App Store on iPhone):</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">One-time purchase, €3.99 on Android (€4.99 on iPhone):</strong> unlocks Pro features permanently on the associated account. No subscription, no auto-renewal.</span>
+            <span><strong className="text-text-primary">Subscription, €1.19 every 6 months:</strong> keeps all Pro features active for as long as the subscription is running. It renews automatically every 6 months and you can cancel it at any time from your store settings.</span>
+          </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Lifetime unlock (one-time purchase), €3.99 on Android (€4.99 on iPhone):</strong> unlocks all Pro features permanently on the associated account with a single payment. No renewal.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Founder Pro (first 1,000 accounts, free):</strong> accounts registered among the first 1,000 automatically receive lifetime Pro access at no cost. No expiry date, no purchase required. The benefit is granted automatically on signup and is <strong className="text-text-primary">in no way conditional</strong> on leaving reviews, star ratings or any other promotional action.</span>
           </li>
         </ul>
+        <p>The prices shown are launch prices and may increase in the future for new purchases; the price that applies is the one shown to you at the time of purchase.</p>
         <p>
           The Founder Pro benefit remains active for the entire duration of the Service. It cannot be revoked unilaterally, except in cases of violation of these Terms resulting in account suspension. In the event of complete Service shutdown, the conditions of Section 9 apply (minimum 60 days notice).
         </p>
@@ -448,8 +457,9 @@ function TermsEN() {
         </p>
         <p>
           If we discontinue the Service entirely, we will provide at least 60 days' notice for
-          you to export your data. FitMesh Sync has no recurring subscriptions: one-time purchases
-          are fully executed at the time of payment, and Founder Pro is free; therefore no refund
+          you to export your data. For active subscriptions, if the Service is shut down the fee
+          already paid is refunded in proportion to the unused period. Lifetime purchases are fully
+          executed at the time of payment, and Founder Pro is free; therefore, for these, no refund
           is due upon Service shutdown.
         </p>
       </Section>
@@ -592,15 +602,19 @@ function TermsES() {
       </Section>
 
       <Section title="6. Compras en la app">
-        <p>FitMesh Sync ofrece funciones avanzadas ("Pro") mediante compra integrada gestionada por Google Play Billing:</p>
+        <p>FitMesh Sync es un servicio de pago. Cada persona dispone de una prueba gratuita de 14 días con todas las funciones Pro activas (incluida la Mesh Familia de hasta 8 miembros); quien se une a una Mesh tiene su propia prueba de 14 días. Transcurridos los 14 días, el acceso a las funciones requiere una compra: no existe un plan gratuito permanente. Las compras se gestionan a través de las tiendas (Google Play Billing en Android, App Store en iPhone):</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Pago único, 3,99 € en Android (4,99 € en iPhone):</strong> desbloquea de forma permanente todas las funciones Pro en la cuenta asociada. Sin suscripción, sin renovación automática.</span>
+            <span><strong className="text-text-primary">Suscripción, 1,19 € cada 6 meses:</strong> mantiene activas todas las funciones Pro mientras la suscripción esté vigente. Se renueva automáticamente cada 6 meses y puedes cancelarla en cualquier momento desde los ajustes de tu tienda.</span>
+          </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Desbloqueo de por vida (pago único), 3,99 € en Android (4,99 € en iPhone):</strong> desbloquea de forma permanente todas las funciones Pro en la cuenta asociada con un único pago. Sin renovación.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Founder Pro (primeras 1.000 cuentas, gratuito):</strong> las cuentas registradas entre las primeras 1.000 reciben automáticamente acceso Pro de por vida, sin coste alguno. Sin fecha de vencimiento, sin compra requerida.</span>
           </li>
         </ul>
+        <p>Los precios indicados son precios de lanzamiento y podrán aumentar en el futuro para las nuevas compras; el precio aplicable es el que se te muestra en el momento de la compra.</p>
         <p>
           El beneficio Founder Pro permanece activo durante toda la vigencia del Servicio. No puede ser revocado unilateralmente, salvo en caso de violación de estos Términos que conlleve la suspensión de la cuenta. En caso de interrupción completa del Servicio, se aplican las condiciones de la Sección 9 (aviso mínimo de 60 días).
         </p>
@@ -656,9 +670,10 @@ function TermsES() {
         </p>
         <p>
           En caso de interrupción total del Servicio, te daremos un aviso de al menos 60 días
-          para exportar tus datos. FitMesh Sync no tiene suscripciones recurrentes: las compras
-          únicas se ejecutan íntegramente en el momento del pago y el Founder Pro es gratuito;
-          por lo tanto, no se debe ningún reembolso en caso de cierre del Servicio.
+          para exportar tus datos. Para las suscripciones activas, si el Servicio se cierra, la
+          cuota ya pagada se reembolsa de forma proporcional al periodo no utilizado. Las compras
+          de por vida se ejecutan íntegramente en el momento del pago y el Founder Pro es gratuito;
+          por lo tanto, para estas, no se debe ningún reembolso en caso de cierre del Servicio.
         </p>
       </Section>
 
@@ -801,15 +816,19 @@ function TermsDE() {
       </Section>
 
       <Section title="6. In-App-Käufe">
-        <p>FitMesh Sync bietet erweiterte Funktionen ("Pro") über In-App-Käufe an, die über Google Play Billing abgewickelt werden:</p>
+        <p>FitMesh Sync ist ein kostenpflichtiger Dienst. Jede Person erhält eine 14-tägige kostenlose Testphase mit allen Pro-Funktionen (einschließlich der Familien-Mesh mit bis zu 8 Mitgliedern); wer einer Mesh beitritt, erhält seine eigene 14-tägige Testphase. Nach den 14 Tagen erfordert der Zugriff auf die Funktionen einen Kauf: Es gibt keinen dauerhaft kostenlosen Plan. Käufe werden über die Stores abgewickelt (Google Play Billing auf Android, App Store auf iPhone):</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Einmalkauf, 3,99 € auf Android (4,99 € auf iPhone):</strong> schaltet dauerhaft alle Pro-Funktionen für das verknüpfte Konto frei. Kein Abonnement, keine automatische Verlängerung.</span>
+            <span><strong className="text-text-primary">Abonnement, 1,19 € alle 6 Monate:</strong> hält alle Pro-Funktionen aktiv, solange das Abonnement läuft. Es verlängert sich automatisch alle 6 Monate und du kannst es jederzeit in den Einstellungen deines Stores kündigen.</span>
+          </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Lebenslange Freischaltung (Einmalkauf), 3,99 € auf Android (4,99 € auf iPhone):</strong> schaltet mit einer einzigen Zahlung dauerhaft alle Pro-Funktionen für das verknüpfte Konto frei. Keine Verlängerung.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Founder Pro (erste 1.000 Konten, kostenlos):</strong> Konten, die unter den ersten 1.000 registriert wurden, erhalten automatisch lebenslangen Pro-Zugang ohne Kosten. Kein Ablaufdatum, kein Kauf erforderlich.</span>
           </li>
         </ul>
+        <p>Die angegebenen Preise sind Einführungspreise und können in Zukunft für neue Käufe steigen; es gilt jeweils der Preis, der dir zum Zeitpunkt des Kaufs angezeigt wird.</p>
         <p>
           Der Founder-Pro-Vorteil bleibt für die gesamte Laufzeit des Dienstes aktiv. Er kann nicht einseitig widerrufen werden, außer bei Verstößen gegen diese Nutzungsbedingungen, die zur Kontosperrung führen. Bei vollständiger Einstellung des Dienstes gelten die Bedingungen aus Abschnitt 9 (Mindestankündigung 60 Tage).
         </p>
@@ -863,9 +882,10 @@ function TermsDE() {
         </p>
         <p>
           Bei vollständiger Einstellung des Dienstes geben wir mindestens 60 Tage Vorankündigung,
-          damit du deine Daten exportieren kannst. FitMesh Sync hat keine wiederkehrenden
-          Abonnements: Einmalkäufe sind mit der Zahlung vollständig erfüllt und Founder Pro ist
-          kostenlos; daher ist bei einer Einstellung des Dienstes keine Rückerstattung geschuldet.
+          damit du deine Daten exportieren kannst. Bei aktiven Abonnements wird die bereits
+          gezahlte Gebühr im Falle einer Einstellung des Dienstes anteilig für den nicht genutzten
+          Zeitraum erstattet. Lebenslange Käufe sind mit der Zahlung vollständig erfüllt und Founder
+          Pro ist kostenlos; daher ist hierfür bei einer Einstellung des Dienstes keine Rückerstattung geschuldet.
         </p>
       </Section>
 
@@ -1010,15 +1030,19 @@ function TermsPT() {
       </Section>
 
       <Section title="6. Compras no aplicativo">
-        <p>FitMesh Sync oferece funcionalidades avançadas ("Pro") por meio de compra integrada gerenciada pelo Google Play Billing:</p>
+        <p>O FitMesh Sync é um serviço pago. Cada pessoa tem direito a um período de avaliação gratuito de 14 dias com todas as funcionalidades Pro ativas (incluindo a Mesh Família de até 8 membros); quem entra em uma Mesh tem o seu próprio período de 14 dias. Após os 14 dias, o acesso às funcionalidades exige uma compra: não existe um plano gratuito permanente. As compras são gerenciadas pelas lojas (Google Play Billing no Android, App Store no iPhone):</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Compra única, €3,99 no Android (€4,99 no iPhone):</strong> desbloqueia permanentemente todas as funcionalidades Pro na conta associada. Sem assinatura, sem renovação automática.</span>
+            <span><strong className="text-text-primary">Assinatura, €1,19 a cada 6 meses:</strong> mantém todas as funcionalidades Pro ativas enquanto a assinatura estiver vigente. Renova-se automaticamente a cada 6 meses e você pode cancelá-la a qualquer momento nas configurações da sua loja.</span>
+          </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Desbloqueio vitalício (compra única), €3,99 no Android (€4,99 no iPhone):</strong> desbloqueia permanentemente todas as funcionalidades Pro na conta associada com um único pagamento. Sem renovação.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Founder Pro (primeiras 1.000 contas, gratuito):</strong> contas registradas entre as primeiras 1.000 recebem automaticamente acesso Pro vitalício, sem qualquer custo. Sem data de expiração, sem compra necessária.</span>
           </li>
         </ul>
+        <p>Os preços indicados são preços de lançamento e poderão aumentar no futuro para novas compras; o preço aplicável é aquele exibido a você no momento da compra.</p>
         <p>
           O benefício Founder Pro permanece ativo durante toda a vigência do Serviço. Não pode ser revogado unilateralmente, exceto em caso de violação destes Termos que resulte na suspensão da conta. Em caso de encerramento completo do Serviço, aplicam-se as condições da Seção 9 (aviso mínimo de 60 dias).
         </p>
@@ -1072,9 +1096,10 @@ function TermsPT() {
         </p>
         <p>
           Em caso de encerramento completo do Serviço, forneceremos um aviso de pelo menos 60 dias
-          para você exportar seus dados. O FitMesh Sync não possui assinaturas recorrentes: as
-          compras únicas são totalmente executadas no momento do pagamento e o Founder Pro é
-          gratuito; portanto, nenhum reembolso é devido em caso de encerramento do Serviço.
+          para você exportar seus dados. Para as assinaturas ativas, em caso de encerramento do
+          Serviço, o valor já pago é reembolsado proporcionalmente ao período não utilizado. As
+          compras vitalícias são totalmente executadas no momento do pagamento e o Founder Pro é
+          gratuito; portanto, para estas, nenhum reembolso é devido em caso de encerramento do Serviço.
         </p>
       </Section>
 
@@ -1218,15 +1243,19 @@ function TermsFR() {
       </Section>
 
       <Section title="6. Achats intégrés">
-        <p>FitMesh Sync propose des fonctionnalités avancées ("Pro") via un achat intégré géré par Google Play Billing :</p>
+        <p>FitMesh Sync est un service payant. Chaque personne bénéficie d'une période d'essai gratuite de 14 jours avec toutes les fonctionnalités Pro actives (y compris la Mesh Famille jusqu'à 8 membres) ; toute personne qui rejoint une Mesh dispose de sa propre période d'essai de 14 jours. Au terme des 14 jours, l'accès aux fonctionnalités nécessite un achat : il n'existe pas de formule gratuite permanente. Les achats sont gérés via les stores (Google Play Billing sur Android, App Store sur iPhone) :</p>
         <ul className="space-y-2 mt-3">
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Achat unique, 3,99 € sur Android (4,99 € sur iPhone) :</strong> débloque définitivement toutes les fonctionnalités Pro sur le compte associé. Aucun abonnement, aucun renouvellement automatique.</span>
+            <span><strong className="text-text-primary">Abonnement, 1,19 € tous les 6 mois :</strong> maintient toutes les fonctionnalités Pro actives tant que l'abonnement est en cours. Il se renouvelle automatiquement tous les 6 mois et vous pouvez le résilier à tout moment depuis les paramètres de votre store.</span>
+          </li>
+          <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
+            <span><strong className="text-text-primary">Déblocage à vie (achat unique), 3,99 € sur Android (4,99 € sur iPhone) :</strong> débloque définitivement toutes les fonctionnalités Pro sur le compte associé avec un paiement unique. Aucun renouvellement.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
             <span><strong className="text-text-primary">Founder Pro (1 000 premiers comptes, gratuit) :</strong> les comptes enregistrés parmi les 1 000 premiers reçoivent automatiquement un accès Pro à vie, sans frais. Aucune date d'expiration, aucun achat requis.</span>
           </li>
         </ul>
+        <p>Les prix indiqués sont des prix de lancement et pourront augmenter à l'avenir pour les nouveaux achats ; le prix applicable est celui qui vous est affiché au moment de l'achat.</p>
         <p>
           Le bénéfice Founder Pro reste actif pendant toute la durée du Service. Il ne peut pas être révoqué unilatéralement, sauf en cas de violation des présentes Conditions entraînant la suspension du compte. En cas d'arrêt complet du Service, les conditions de la Section 9 s'appliquent (préavis minimum de 60 jours).
         </p>
@@ -1284,9 +1313,10 @@ function TermsFR() {
         </p>
         <p>
           En cas d'interruption complète du Service, nous vous accorderons un préavis d'au moins
-          60 jours pour exporter vos données. FitMesh Sync ne propose pas d'abonnements
-          récurrents : les achats uniques sont entièrement exécutés au moment du paiement et le
-          Founder Pro est gratuit ; aucun remboursement n'est donc dû en cas d'arrêt du Service.
+          60 jours pour exporter vos données. Pour les abonnements actifs, en cas d'arrêt du
+          Service, la somme déjà versée est remboursée au prorata de la période non utilisée. Les
+          achats à vie sont entièrement exécutés au moment du paiement et le Founder Pro est
+          gratuit ; aucun remboursement n'est donc dû, pour ceux-ci, en cas d'arrêt du Service.
         </p>
       </Section>
 

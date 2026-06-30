@@ -512,22 +512,22 @@ export default async function AboutPage({
           </p>
           <p className="mt-2 text-text-secondary leading-relaxed">
             {t(
-              "Pay-once, own-forever. Niente abbonamento. Niente rinnovo automatico. Niente surprise alla prossima fattura.",
-              "Pay-once, own-forever. No subscription. No auto-renewal. No surprise on your next bill.",
-              "Pago único, tuyo para siempre. Sin suscripción. Sin renovación automática. Sin sorpresas en tu próxima factura.",
-              "Einmal zahlen, für immer besitzen. Kein Abonnement. Keine automatische Verlängerung. Keine Überraschungen auf der nächsten Rechnung.",
-              "Pague uma vez, tenha para sempre. Sem assinatura. Sem renovação automática. Sem surpresas na próxima fatura.",
-              "Payez une fois, gardez pour toujours. Pas d'abonnement. Pas de renouvellement automatique. Pas de mauvaise surprise sur votre prochaine facture.",
+              "Sblocco a vita: lo paghi una volta, è tuo per sempre. Niente rinnovo automatico, niente sorprese in fattura.",
+              "Lifetime unlock: pay once, yours forever. No auto-renewal, no surprises on your bill.",
+              "Desbloqueo de por vida: pagas una vez, es tuyo para siempre. Sin renovación automática, sin sorpresas en tu factura.",
+              "Lebenslange Freischaltung: einmal zahlen, für immer deins. Keine automatische Verlängerung, keine Überraschungen auf der Rechnung.",
+              "Desbloqueio vitalício: pagas uma vez, é teu para sempre. Sem renovação automática, sem surpresas na fatura.",
+              "Achat à vie : payez une fois, c'est à vous pour toujours. Pas de renouvellement automatique, pas de mauvaise surprise sur la facture.",
             )}
           </p>
           <p className="mt-3 text-sm text-text-muted">
             {t(
-              "Versione free: sync 1×/giorno + ultimi 7 giorni in dashboard. Versione pagata: sync continuo + storico illimitato + backfill al primo collegamento + tutte le funzioni Pro future.",
-              "Free tier: 1×/day sync + last 7 days in dashboard. Paid: continuous sync + unlimited history + initial backfill + all future Pro features.",
-              "Versión gratuita: sincronización 1 vez al día + últimos 7 días en el panel. Versión de pago: sincronización continua + historial ilimitado + relleno inicial al conectar + todas las funciones Pro futuras.",
-              "Kostenlose Version: Synchronisierung 1×/Tag + letzte 7 Tage im Dashboard. Bezahlte Version: kontinuierliche Synchronisierung + unbegrenzte Verlaufsanzeige + erster Datenabruf beim Verbinden + alle zukünftigen Pro-Funktionen.",
-              "Versão gratuita: sincronização 1×/dia + últimos 7 dias no painel. Versão paga: sincronização contínua + histórico ilimitado + importação inicial ao conectar + todas as futuras funções Pro.",
-              "Version gratuite: synchronisation 1×/jour + 7 derniers jours dans le tableau de bord. Version payante: synchronisation continue + historique illimité + importation initiale à la connexion + toutes les futures fonctionnalités Pro.",
+              "Prova 14 giorni: tutte le funzioni Pro, sync continuo e storico completo. Poi attivi abbonamento o sblocco a vita per continuare.",
+              "14-day trial: all Pro features, continuous sync and full history. Then activate a subscription or lifetime unlock to keep going.",
+              "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir.",
+              "14 Tage testen: alle Pro-Funktionen, kontinuierliche Synchronisierung und voller Verlauf. Dann aktivierst du ein Abo oder die lebenslange Freischaltung, um weiterzumachen.",
+              "Teste de 14 dias: todas as funções Pro, sincronização contínua e histórico completo. Depois ativas uma assinatura ou o desbloqueio vitalício para continuar.",
+              "Essai de 14 jours : toutes les fonctions Pro, synchronisation continue et historique complet. Ensuite vous activez un abonnement ou l'achat à vie pour continuer.",
             )}
           </p>
         </div>

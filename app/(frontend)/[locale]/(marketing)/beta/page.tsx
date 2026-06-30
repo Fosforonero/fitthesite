@@ -320,7 +320,7 @@ const IT = {
   faqs: [
     {
       q: "Cosa include il Pro a vita gratis?",
-      a: "Tutto quello che include Pro: storico illimitato (oltre i 14 giorni del piano free), Mesh Famiglia, esportazione dati completa e tutte le feature Pro future. Senza scadenza.",
+      a: "Tutto quello che include Pro: storico illimitato (oltre quello della prova di 14 giorni), Mesh Famiglia, esportazione dati completa e tutte le feature Pro future. Senza scadenza.",
     },
     {
       q: "Come so se sono tra i primi 1000?",
@@ -403,7 +403,7 @@ const ES = {
   faqs: [
     {
       q: "¿Qué incluye el Pro vitalicio gratis?",
-      a: "Todo lo que incluye Pro: historial ilimitado (más allá de los 14 días del plan gratuito), Mesh Familia, exportación completa de datos y todas las funciones Pro futuras. Sin vencimiento.",
+      a: "Todo lo que incluye Pro: historial ilimitado (más allá del que ofrece la prueba de 14 días), Mesh Familia, exportación completa de datos y todas las funciones Pro futuras. Sin vencimiento.",
     },
     {
       q: "¿Cómo sé si estoy entre los primeros 1000?",
@@ -486,7 +486,7 @@ const EN = {
   faqs: [
     {
       q: "What does the free lifetime Pro include?",
-      a: "Everything Pro includes: unlimited history (beyond the free plan's 14 days), Family Mesh, full data export, and every future Pro feature. No expiry.",
+      a: "Everything Pro includes: unlimited history (beyond what the 14-day trial covers), Family Mesh, full data export, and every future Pro feature. No expiry.",
     },
     {
       q: "How do I know if I'm in the first 1000?",
@@ -569,7 +569,7 @@ const DE = {
   faqs: [
     {
       q: "Was ist im kostenlosen Lifetime-Pro enthalten?",
-      a: "Alles, was Pro beinhaltet: unbegrenzter Verlauf (über die 14 Tage des kostenlosen Plans hinaus), Mesh Familie, vollständiger Datenexport und alle zukünftigen Pro-Funktionen. Ohne Ablaufdatum.",
+      a: "Alles, was Pro beinhaltet: unbegrenzter Verlauf (über den der 14-tägigen Testphase hinaus), Mesh Familie, vollständiger Datenexport und alle zukünftigen Pro-Funktionen. Ohne Ablaufdatum.",
     },
     {
       q: "Woher weiß ich, ob ich zu den ersten 1000 gehöre?",
@@ -652,7 +652,7 @@ const PT = {
   faqs: [
     {
       q: "O que inclui o Pro vitalício grátis?",
-      a: "Tudo o que o Pro inclui: histórico ilimitado (além dos 14 dias do plano gratuito), Mesh Família, exportação completa de dados e todas as funcionalidades Pro futuras. Sem vencimento.",
+      a: "Tudo o que o Pro inclui: histórico ilimitado (além do que a avaliação de 14 dias oferece), Mesh Família, exportação completa de dados e todas as funcionalidades Pro futuras. Sem vencimento.",
     },
     {
       q: "Como sei se estou entre os primeiros 1000?",
@@ -735,7 +735,7 @@ const FR = {
   faqs: [
     {
       q: "Que comprend le Pro à vie gratuit?",
-      a: "Tout ce que comprend Pro: historique illimité (au-delà des 14 jours du plan gratuit), Mesh Famille, export complet des données et toutes les fonctionnalités Pro futures. Sans expiration.",
+      a: "Tout ce que comprend Pro: historique illimité (au-delà de ce que couvre l'essai de 14 jours), Mesh Famille, export complet des données et toutes les fonctionnalités Pro futures. Sans expiration.",
     },
     {
       q: "Comment savoir si je fais partie des 1000 premiers?",
@@ -818,7 +818,7 @@ const NL = {
   faqs: [
     {
       q: "Wat bevat het gratis Pro voor altijd?",
-      a: "Alles wat Pro omvat: onbeperkte geschiedenis (voorbij de 14 dagen van het gratis plan), Mesh Familie, volledige gegevensexport en alle toekomstige Pro-functies. Zonder vervaldatum.",
+      a: "Alles wat Pro omvat: onbeperkte geschiedenis (verder dan wat de proefperiode van 14 dagen biedt), Mesh Familie, volledige gegevensexport en alle toekomstige Pro-functies. Zonder vervaldatum.",
     },
     {
       q: "Hoe weet ik of ik bij de eerste 1000 hoor?",
@@ -901,7 +901,7 @@ const JA = {
   faqs: [
     {
       q: "無料の永久Proには何が含まれますか？",
-      a: "Proのすべて：無料プランの14日を超えた無制限の履歴、ファミリーメッシュ、完全なデータエクスポート、そして将来リリースされるすべてのPro機能。有効期限なし。",
+      a: "Proのすべて：14日間の無料体験を超えた無制限の履歴、ファミリーメッシュ、完全なデータエクスポート、そして将来リリースされるすべてのPro機能。有効期限なし。",
     },
     {
       q: "先着1000名に入っているか確認する方法は？",
@@ -984,7 +984,7 @@ const KO = {
   faqs: [
     {
       q: "무료 평생 Pro에는 무엇이 포함되나요?",
-      a: "Pro의 모든 것: 무료 플랜 14일을 초과한 무제한 기록, 패밀리 메시, 전체 데이터 내보내기, 그리고 향후 출시되는 모든 Pro 기능. 만료일 없음.",
+      a: "Pro의 모든 것: 14일 무료 체험을 넘어서는 무제한 기록, 패밀리 메시, 전체 데이터 내보내기, 그리고 향후 출시되는 모든 Pro 기능. 만료일 없음.",
     },
     {
       q: "처음 1000명에 포함되었는지 어떻게 알 수 있나요?",
