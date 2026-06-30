@@ -622,7 +622,6 @@ export default async function Home({
         const featuredSlugs = [
           "guida-sync-wearable-2026",
           "scegliere-smartwatch-dati-2026",
-          "alternative-health-sync-2026",
         ];
         const featured = featuredSlugs
           .map((s) => postsBySlug[s])

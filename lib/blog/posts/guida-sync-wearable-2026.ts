@@ -1825,7 +1825,6 @@ export const post: BlogPost = {
     "scegliere-smartwatch-dati-2026",
     "health-connect-vs-samsung-health",
     "gdpr-dati-fitness-smartwatch",
-    "alternative-health-sync-2026",
   ],
   brandsMentioned: [
     "Samsung",

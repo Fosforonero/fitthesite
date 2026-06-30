@@ -1065,7 +1065,6 @@ export const post: BlogPost = {
   related: [
     "guida-sync-wearable-2026",
     "backup-galaxy-watch-pc",
-    "alternative-health-sync-2026",
   ],
   brandsMentioned: ["Samsung", "Google"],
   ldType: "BlogPosting",

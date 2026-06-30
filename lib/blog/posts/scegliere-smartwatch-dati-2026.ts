@@ -1672,7 +1672,6 @@ export const post: BlogPost = {
   related: [
     "guida-sync-wearable-2026",
     "gdpr-dati-fitness-smartwatch",
-    "alternative-health-sync-2026",
     "vedere-dati-wearable-browser-pc",
   ],
   brandsMentioned: [
