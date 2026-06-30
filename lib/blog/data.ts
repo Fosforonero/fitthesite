@@ -46,6 +46,8 @@ import { post as datiAnelloSmartAppleSalute } from "./posts/dati-anello-smart-ap
 import { post as novitaAnelloColmiSonno } from "./posts/novita-anello-colmi-sonno";
 import { post as novitaDashboardMultiDevice } from "./posts/novita-dashboard-multi-device";
 import { post as novitaFitmeshAppStore } from "./posts/novita-fitmesh-su-app-store";
+import { post as scrivereDatiAndroidSuAppleSalute } from "./posts/scrivere-dati-android-su-apple-salute";
+import { post as daAndroidAIphoneDatiFitness } from "./posts/da-android-a-iphone-dati-fitness";
 // Cluster anello smart
 import { post as anelloVsSmartwatch } from "./posts/anello-vs-smartwatch";
 import { post as anelloSmartGuidaCompleta } from "./posts/anello-smart-guida-completa";
@@ -111,6 +113,8 @@ const RAW_POSTS: BlogPost[] = [
   novitaAnelloColmiSonno,
   novitaDashboardMultiDevice,
   novitaFitmeshAppStore,
+  scrivereDatiAndroidSuAppleSalute,
+  daAndroidAIphoneDatiFitness,
   // Cluster anello smart
   anelloSmartGuidaCompleta,
   anelloVsSmartwatch,
