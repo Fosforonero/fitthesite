@@ -11,7 +11,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogRenderer } from "@/components/blog/BlogRenderer";
 import { ArticleMeta } from "@/components/blog/ArticleMeta";
-import { locales, type Locale, ogLocale } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, UNTRANSLATED_CONTENT_LOCALES } from "@/lib/i18n";
 import { categoryLabel, tl, tll } from "@/lib/blog/types";
 import {
   getBlogPostBySlug,
@@ -131,6 +131,9 @@ export async function generateMetadata({
     title: `${title} · FitMesh`,
     description,
     keywords,
+    robots: UNTRANSLATED_CONTENT_LOCALES.has(lc)
+      ? { index: false, follow: true }
+      : undefined,
     alternates: {
       canonical: `${SITE_URL}${path}`,
       languages: blogLanguages(post.slug),

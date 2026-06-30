@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
-import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, localeAlternates, UNTRANSLATED_CONTENT_LOCALES } from "@/lib/i18n";
 import {
   PROVIDERS,
   PROVIDERS_BY_SLUG,
@@ -192,6 +192,9 @@ export async function generateMetadata({
     title,
     description,
     keywords: tll(p.seoKeywords, lc).join(", "),
+    robots: UNTRANSLATED_CONTENT_LOCALES.has(lc)
+      ? { index: false, follow: true }
+      : undefined,
     alternates: {
       canonical: `${SITE_URL}${path}`,
       languages: localeAlternates((l) => `${SITE_URL}/${l}/sync/${p.slug}`),

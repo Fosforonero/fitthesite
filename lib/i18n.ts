@@ -10,6 +10,21 @@ export const locales = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "j
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "it";
 
+/**
+ * Locali aggiunti per ultimi (nordici): UI e marketing sono tradotti, ma i
+ * CONTENUTI lunghi (corpi articolo del blog, pagine programmatiche
+ * provider/modelli) sono ancora in fallback EN. Finche' non sono tradotti,
+ * quelle pagine vanno in `noindex` per questi locali, per non mettere contenuto
+ * inglese sotto URL nordici nell'indice. Rimuovere un locale da qui quando i
+ * suoi contenuti sono tradotti.
+ */
+export const UNTRANSLATED_CONTENT_LOCALES = new Set<Locale>([
+  "sv",
+  "da",
+  "no",
+  "fi",
+]);
+
 export const localeNames: Record<Locale, string> = {
   it: "Italiano",
   en: "English",
