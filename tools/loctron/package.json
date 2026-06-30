@@ -1,0 +1,10 @@
+{
+  "name": "@fosforonero/loctron",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Motore di traduzione modulare (Weglot-like): TM + glossario + DNT + waterfall DeepL/Ollama.",
+  "scripts": {
+    "loctron": "node --experimental-strip-types cli.ts"
+  }
+}

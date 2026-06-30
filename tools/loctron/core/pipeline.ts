@@ -1,0 +1,105 @@
+import type { Engine, Lang, Segment, Translated, EngineName } from "./types.ts";
+import { Glossary } from "./glossary.ts";
+import { TranslationMemory } from "./tm.ts";
+
+export interface PipelineDeps {
+  glossary: Glossary;
+  tm: TranslationMemory;
+  /** Motori in ordine di waterfall (es. [deepl, ollama]). La TM è sempre prima. */
+  engines: Engine[];
+  sourceLang: Lang;
+  /** Budget caratteri DeepL residuo per questa run (0 = non usare DeepL). */
+  deeplBudgetChars?: number;
+}
+
+/**
+ * Per ogni segmento × lingua: TM hit → primo motore disponibile (con budget) →
+ * motore successivo → coda revisione (text=null). Le traduzioni nuove vanno
+ * in TM come `machine`. Se un motore perde i segnaposto ⟦n⟧ la traduzione
+ * viene scartata (placeholder/brand a rischio) e si passa al motore dopo.
+ */
+export async function translateSegments(
+  segments: Segment[],
+  langs: Lang[],
+  deps: PipelineDeps,
+): Promise<Translated[]> {
+  const results: Translated[] = [];
+  let deeplBudget = deps.deeplBudgetChars ?? 0;
+
+  const avail = new Map<EngineName, boolean>();
+  for (const e of deps.engines) avail.set(e.name, await e.available());
+
+  for (const lang of langs) {
+    const glossaryHint = deps.glossary.hintFor(lang);
+    const pending: Segment[] = [];
+
+    for (const seg of segments) {
+      const hit = deps.tm.get(seg.source, lang);
+      if (hit) {
+        results.push({ id: seg.id, lang, source: seg.source, text: hit.text, engine: "tm", status: hit.status });
+      } else {
+        pending.push(seg);
+      }
+    }
+    if (pending.length === 0) continue;
+
+    const masks = pending.map((s) => deps.glossary.mask(s.source));
+    const done = new Array<string | null>(pending.length).fill(null);
+    const usedBy = new Array<EngineName | null>(pending.length).fill(null);
+
+    for (const engine of deps.engines) {
+      if (!avail.get(engine.name)) continue;
+
+      const idx: number[] = [];
+      for (let i = 0; i < pending.length; i++) if (done[i] === null) idx.push(i);
+      if (idx.length === 0) break;
+
+      // budget DeepL: prende quanti segmenti entrano nel residuo
+      let take = idx;
+      if (engine.name === "deepl") {
+        const fit: number[] = [];
+        for (const i of idx) {
+          const cost = masks[i].masked.length;
+          if (deeplBudget - cost < 0) break;
+          deeplBudget -= cost;
+          fit.push(i);
+        }
+        take = fit;
+        if (take.length === 0) continue;
+      }
+
+      const masked = take.map((i) => masks[i].masked);
+      let outBatch: (string | null)[];
+      try {
+        outBatch = await engine.translate(masked, lang, { sourceLang: deps.sourceLang, glossaryHint });
+      } catch {
+        if (engine.name === "deepl") for (const i of take) deeplBudget += masks[i].masked.length;
+        continue;
+      }
+
+      for (let j = 0; j < take.length; j++) {
+        const i = take[j];
+        const raw = outBatch[j];
+        if (raw == null || raw.trim().length === 0) continue;
+        if (!deps.glossary.placeholdersIntact(raw, masks[i].tokens)) continue;
+        const final = deps.glossary.unmask(raw, masks[i].tokens);
+        done[i] = final;
+        usedBy[i] = engine.name;
+        deps.tm.set(pending[i].source, lang, final, "machine", engine.name);
+      }
+    }
+
+    for (let i = 0; i < pending.length; i++) {
+      results.push({
+        id: pending[i].id,
+        lang,
+        source: pending[i].source,
+        text: done[i],
+        engine: usedBy[i] ?? "none",
+        status: "machine",
+      });
+    }
+  }
+
+  return results;
+}
