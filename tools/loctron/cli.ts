@@ -99,29 +99,37 @@ async function main(): Promise<void> {
       return;
     }
 
-    // run
+    // run — INCREMENTALE: una lingua per volta, salva memoria + scrive file
+    // dopo ognuna (ripartibile: le stringhe già in TM non ricostano nulla).
     const limit = Number(flag("--limit") ?? "0");
     const segs = limit > 0 ? segments.slice(0, limit) : segments;
-    const budget = await deeplBudget(deepl);
-    console.log(`run ${project.key}: ${segs.length} stringhe × ${langs.length} lingue. DeepL budget: ${budget} caratteri.`);
-    const res = await translateSegments(segs, langs, {
-      glossary,
-      tm,
-      engines,
-      sourceLang: project.sourceLang,
-      deeplBudgetChars: budget,
-    });
-    tm.save();
+    console.log(`run ${project.key}: ${segs.length} stringhe × ${langs.length} lingue (${langs.join(", ")}).`);
+    if (manual.length) {
+      console.log(`  ICU a mano (${manual.length}): ${manual.slice(0, 6).join(", ")}${manual.length > 6 ? "…" : ""}`);
+    }
 
     for (const lang of langs) {
+      const budget = await deeplBudget(deepl); // budget reale aggiornato per lingua
+      const res = await translateSegments(segs, [lang], {
+        glossary,
+        tm,
+        engines,
+        sourceLang: project.sourceLang,
+        deeplBudgetChars: budget,
+      });
+      tm.save(); // persisti subito: niente lavoro/budget perso se interrotto
+
       const byId = new Map<string, string>();
+      let dl = 0;
+      let ol = 0;
       let fromTm = 0;
       let missing = 0;
       for (const r of res) {
-        if (r.lang !== lang) continue;
         if (r.text != null) {
           byId.set(r.id, r.text);
-          if (r.engine === "tm") fromTm++;
+          if (r.engine === "deepl") dl++;
+          else if (r.engine === "ollama") ol++;
+          else if (r.engine === "tm") fromTm++;
         } else {
           missing++;
         }
@@ -129,10 +137,9 @@ async function main(): Promise<void> {
       const out = adapter.outPath(lang);
       mkdirSync(dirname(out), { recursive: true });
       writeFileSync(out, adapter.build(lang, byId));
-      console.log(`  ${lang}: ${out} — ${byId.size} tradotte (${fromTm} da memoria), ${missing} da rivedere.`);
-    }
-    if (manual.length) {
-      console.log(`  nota ICU (a mano): ${manual.length} chiavi → ${manual.slice(0, 6).join(", ")}${manual.length > 6 ? "…" : ""}`);
+      console.log(
+        `  ${lang}: ${out} — ${byId.size} ok (deepl ${dl}, ollama ${ol}, memoria ${fromTm}), ${missing} da rivedere.`,
+      );
     }
     return;
   }
