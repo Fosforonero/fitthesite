@@ -76,7 +76,7 @@ const COPY = {
       {
         title: "Inviti chi vuoi via link",
         body:
-          "L'app genera un codice MESH-XXXX e un link condivisibile (WhatsApp, SMS, email). Chi clicca scarica l'app gratis e si unisce. Massimo 3 membri gratis, 8 con FitMesh Pro.",
+          "L'app genera un codice MESH-XXXX e un link condivisibile (WhatsApp, SMS, email). Chi clicca scarica l'app e si unisce. La Mesh Famiglia arriva fino a 8 membri con FitMesh Pro: ognuno prova tutto gratis per 14 giorni, poi attiva il Pro.",
       },
       {
         title: "Ognuno sceglie cosa condividere",
@@ -114,9 +114,9 @@ const COPY = {
     techstack_body:
       "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Se uno di voi ha un wearable diverso, basta che scriva i dati su Health Connect (lo fanno tutti dal 2024). Niente acquisto vincolato a un marchio.",
     pricing_kicker: "Quanto costa",
-    pricing_h2: "Gratis fino a 3 membri",
+    pricing_h2: "Mesh Famiglia fino a 8 membri con Pro",
     pricing_body:
-      "Il piano gratuito copre te + 2 familiari (3 totali). Con FitMesh Pro (acquisto unico: €3,99 su Android · €4,99 su iPhone) sblocchi fino a 8 membri, storico esteso, e priorita' sync. Niente subscription, niente trial scaduti, niente carte di credito richieste.",
+      "La Mesh Famiglia e' una funzione di FitMesh Pro: arriva fino a 8 membri, con storico esteso e priorita' sync. Ogni persona prova tutte le funzioni gratis per 14 giorni (anche chi si unisce alla Mesh); poi attiva FitMesh Pro a vita (acquisto unico: €3,99 su Android · €4,99 su iPhone, prezzo di lancio) oppure l'abbonamento a €1,19 ogni 6 mesi.",
     faq_kicker: "Domande comuni",
     faq_h2: "Dubbi e risposte",
     faqs: [
@@ -148,7 +148,7 @@ const COPY = {
       {
         q: "Quante persone posso invitare?",
         a:
-          "Piano gratuito: 3 totali (incluso te). Piano Pro (€3,99 Android · €4,99 iPhone): fino a 8 membri.",
+          "La Mesh Famiglia arriva fino a 8 membri (incluso te) con FitMesh Pro. Ognuno prova tutto gratis per 14 giorni, poi attiva il Pro: a vita (€3,99 Android · €4,99 iPhone) oppure €1,19 ogni 6 mesi.",
       },
     ],
     final_cta_h2: "Inizia oggi: 3 minuti per creare il primo gruppo",
@@ -192,7 +192,7 @@ const COPY = {
       {
         title: "Invite anyone via link",
         body:
-          "The app generates a MESH-XXXX code and a shareable link (WhatsApp, SMS, email). Whoever clicks downloads the app for free and joins. Up to 3 members free, 8 with FitMesh Pro.",
+          "The app generates a MESH-XXXX code and a shareable link (WhatsApp, SMS, email). Whoever clicks downloads the app and joins. Family Mesh holds up to 8 members with FitMesh Pro: everyone gets a 14-day free trial of all features, then activates Pro.",
       },
       {
         title: "Each chooses what to share",
@@ -230,9 +230,9 @@ const COPY = {
     techstack_body:
       "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. If one of you has a different wearable, it just needs to write data to Health Connect (all major brands do since 2024). No brand lock-in.",
     pricing_kicker: "What it costs",
-    pricing_h2: "Free up to 3 members",
+    pricing_h2: "Family Mesh up to 8 members with Pro",
     pricing_body:
-      "Free plan covers you + 2 family members (3 total). With FitMesh Pro (one-time: €3.99 on Android · €4.99 on iPhone) you unlock up to 8 members, extended history, and sync priority. No subscription, no expired trials, no credit card required.",
+      "Family Mesh is a FitMesh Pro feature: it holds up to 8 members, with extended history and sync priority. Everyone gets all features free for 14 days (including anyone who joins the Mesh); then they activate FitMesh Pro for life (one-time: €3.99 on Android · €4.99 on iPhone, launch price) or the subscription at €1.19 every 6 months.",
     faq_kicker: "Common questions",
     faq_h2: "FAQs",
     faqs: [
@@ -264,7 +264,7 @@ const COPY = {
       {
         q: "How many people can I invite?",
         a:
-          "Free plan: 3 total (including you). Pro (€3.99 Android · €4.99 iPhone): up to 8 members.",
+          "Family Mesh holds up to 8 members (including you) with FitMesh Pro. Everyone gets all features free for 14 days, then activates Pro: for life (€3.99 Android · €4.99 iPhone) or €1.19 every 6 months.",
       },
     ],
     final_cta_h2: "Start today: 3 minutes to create your first group",
@@ -308,7 +308,7 @@ const COPY = {
       {
         title: "Invita a quien quieras por enlace",
         body:
-          "La app genera un código MESH-XXXX y un enlace que puedes compartir (WhatsApp, SMS, correo). Quien lo toca descarga la app gratis y se une. Hasta 3 miembros gratis, 8 con FitMesh Pro.",
+          "La app genera un código MESH-XXXX y un enlace que puedes compartir (WhatsApp, SMS, correo). Quien lo toca descarga la app y se une. La Mesh Familia llega hasta 8 miembros con FitMesh Pro: cada persona prueba todas las funciones gratis durante 14 días y luego activa Pro.",
       },
       {
         title: "Cada uno elige qué compartir",
@@ -346,9 +346,9 @@ const COPY = {
     techstack_body:
       "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Si alguno de vosotros tiene un wearable diferente, basta con que escriba los datos en Health Connect (lo hacen todas las marcas principales desde 2024). Sin ataduras a ninguna marca.",
     pricing_kicker: "Cuánto cuesta",
-    pricing_h2: "Gratis hasta 3 miembros",
+    pricing_h2: "Mesh Familia hasta 8 miembros con Pro",
     pricing_body:
-      "El plan gratuito incluye tú + 2 familiares (3 en total). Con FitMesh Pro (pago único: 3,99 € en Android · 4,99 € en iPhone) desbloqueas hasta 8 miembros, historial ampliado y sincronización prioritaria. Sin suscripción, sin periodos de prueba caducados, sin tarjeta de crédito.",
+      "La Mesh Familia es una función de FitMesh Pro: llega hasta 8 miembros, con historial ampliado y sincronización prioritaria. Cada persona prueba todas las funciones gratis durante 14 días (también quien se une a la Mesh); luego activa FitMesh Pro de por vida (pago único: 3,99 € en Android · 4,99 € en iPhone, precio de lanzamiento) o la suscripción de 1,19 € cada 6 meses.",
     faq_kicker: "Preguntas frecuentes",
     faq_h2: "Dudas y respuestas",
     faqs: [
@@ -380,7 +380,7 @@ const COPY = {
       {
         q: "¿A cuántas personas puedo invitar?",
         a:
-          "Plan gratuito: 3 en total (incluido tú). Plan Pro (3,99 € Android · 4,99 € iPhone): hasta 8 miembros.",
+          "La Mesh Familia llega hasta 8 miembros (incluido tú) con FitMesh Pro. Cada persona prueba todo gratis durante 14 días y luego activa Pro: de por vida (3,99 € Android · 4,99 € iPhone) o 1,19 € cada 6 meses.",
       },
     ],
     final_cta_h2: "Empieza hoy: 3 minutos para crear tu primer grupo",
@@ -424,7 +424,7 @@ const COPY = {
       {
         title: "Per Link einladen",
         body:
-          "Die App generiert einen MESH-XXXX-Code und einen teilbaren Link (WhatsApp, SMS, E-Mail). Wer darauf tippt, lädt die App kostenlos herunter und tritt bei. Bis zu 3 Mitglieder kostenlos, 8 mit FitMesh Pro.",
+          "Die App generiert einen MESH-XXXX-Code und einen teilbaren Link (WhatsApp, SMS, E-Mail). Wer darauf tippt, lädt die App herunter und tritt bei. Die Mesh Familie umfasst bis zu 8 Mitglieder mit FitMesh Pro: Jede Person testet alle Funktionen 14 Tage lang kostenlos und aktiviert danach Pro.",
       },
       {
         title: "Jeder wählt, was er teilt",
@@ -462,9 +462,9 @@ const COPY = {
     techstack_body:
       "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Falls jemand aus eurer Gruppe ein anderes Wearable hat, muss es nur Daten an Health Connect übermitteln (das tun alle großen Marken seit 2024). Kein Markenzwang.",
     pricing_kicker: "Was es kostet",
-    pricing_h2: "Kostenlos für bis zu 3 Mitglieder",
+    pricing_h2: "Mesh Familie bis zu 8 Mitglieder mit Pro",
     pricing_body:
-      "Der kostenlose Plan umfasst dich plus 2 Familienmitglieder (3 insgesamt). Mit FitMesh Pro (Einmalkauf: 3,99 € auf Android · 4,99 € auf iPhone) schaltest du bis zu 8 Mitglieder, einen erweiterten Verlauf und Sync-Priorität frei. Kein Abonnement, keine abgelaufenen Testphasen, keine Kreditkarte erforderlich.",
+      "Die Mesh Familie ist eine FitMesh-Pro-Funktion: Sie umfasst bis zu 8 Mitglieder, mit erweitertem Verlauf und Sync-Priorität. Jede Person testet alle Funktionen 14 Tage lang kostenlos (auch wer der Mesh beitritt); danach aktiviert sie FitMesh Pro auf Lebenszeit (Einmalkauf: 3,99 € auf Android · 4,99 € auf iPhone, Einführungspreis) oder das Abonnement für 1,19 € alle 6 Monate.",
     faq_kicker: "Häufige Fragen",
     faq_h2: "Fragen und Antworten",
     faqs: [
@@ -496,7 +496,7 @@ const COPY = {
       {
         q: "Wie viele Personen kann ich einladen?",
         a:
-          "Kostenloser Plan: 3 insgesamt (inkl. du). Pro (3,99 € Android · 4,99 € iPhone): bis zu 8 Mitglieder.",
+          "Die Mesh Familie umfasst bis zu 8 Mitglieder (inkl. du) mit FitMesh Pro. Jede Person testet alles 14 Tage lang kostenlos und aktiviert danach Pro: auf Lebenszeit (3,99 € Android · 4,99 € iPhone) oder 1,19 € alle 6 Monate.",
       },
     ],
     final_cta_h2: "Starte heute: 3 Minuten bis zur ersten Gruppe",
@@ -540,7 +540,7 @@ const COPY = {
       {
         title: "Convide quem quiser por link",
         body:
-          "O app gera um código MESH-XXXX e um link para compartilhar (WhatsApp, SMS, e-mail). Quem clicar baixa o app gratuitamente e entra no grupo. Até 3 membros grátis, 8 com FitMesh Pro.",
+          "O app gera um código MESH-XXXX e um link para compartilhar (WhatsApp, SMS, e-mail). Quem clicar baixa o app e entra no grupo. A Mesh Família chega a até 8 membros com FitMesh Pro: cada pessoa testa todos os recursos grátis por 14 dias e depois ativa o Pro.",
       },
       {
         title: "Cada um escolhe o que compartilhar",
@@ -578,9 +578,9 @@ const COPY = {
     techstack_body:
       "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Se alguém do grupo tiver um wearable diferente, basta que ele grave os dados no Health Connect (todas as marcas principais fazem isso desde 2024). Sem vínculo com nenhuma marca.",
     pricing_kicker: "Quanto custa",
-    pricing_h2: "Grátis para até 3 membros",
+    pricing_h2: "Mesh Família com até 8 membros no Pro",
     pricing_body:
-      "O plano gratuito inclui você mais 2 familiares (3 no total). Com FitMesh Pro (compra única: R$ ou €3,99 no Android · €4,99 no iPhone) você desbloqueia até 8 membros, histórico estendido e prioridade de sincronização. Sem assinatura, sem períodos de teste expirados, sem cartão de crédito.",
+      "A Mesh Família é um recurso do FitMesh Pro: chega a até 8 membros, com histórico estendido e prioridade de sincronização. Cada pessoa testa todos os recursos grátis por 14 dias (inclusive quem entra na Mesh); depois ativa o FitMesh Pro vitalício (compra única: €3,99 no Android · €4,99 no iPhone, preço de lançamento) ou a assinatura de €1,19 a cada 6 meses.",
     faq_kicker: "Perguntas frequentes",
     faq_h2: "Dúvidas e respostas",
     faqs: [
@@ -612,7 +612,7 @@ const COPY = {
       {
         q: "Quantas pessoas posso convidar?",
         a:
-          "Plano gratuito: 3 no total (incluindo você). Pro (€3,99 Android · €4,99 iPhone): até 8 membros.",
+          "A Mesh Família chega a até 8 membros (incluindo você) com FitMesh Pro. Cada pessoa testa tudo grátis por 14 dias e depois ativa o Pro: vitalício (€3,99 Android · €4,99 iPhone) ou €1,19 a cada 6 meses.",
       },
     ],
     final_cta_h2: "Comece hoje: 3 minutos para criar seu primeiro grupo",
@@ -656,7 +656,7 @@ const COPY = {
       {
         title: "Invitez qui vous voulez via un lien",
         body:
-          "L'app génère un code MESH-XXXX et un lien partageable (WhatsApp, SMS, e-mail). Celui qui clique télécharge l'app gratuitement et rejoint le groupe. Jusqu'à 3 membres gratuits, 8 avec FitMesh Pro.",
+          "L'app génère un code MESH-XXXX et un lien partageable (WhatsApp, SMS, e-mail). Celui qui clique télécharge l'app et rejoint le groupe. La Mesh Famille va jusqu'à 8 membres avec FitMesh Pro: chacun essaie toutes les fonctions gratuitement pendant 14 jours, puis active Pro.",
       },
       {
         title: "Chacun choisit ce qu'il partage",
@@ -694,9 +694,9 @@ const COPY = {
     techstack_body:
       "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Si l'un d'entre vous possède un appareil différent, il lui suffit d'écrire les données sur Health Connect (toutes les grandes marques le font depuis 2024). Aucun engagement envers une marque.",
     pricing_kicker: "Combien ça coûte",
-    pricing_h2: "Gratuit jusqu'à 3 membres",
+    pricing_h2: "Mesh Famille jusqu'à 8 membres avec Pro",
     pricing_body:
-      "Le plan gratuit couvre vous plus 2 membres de la famille (3 au total). Avec FitMesh Pro (achat unique: 3,99 € sur Android · 4,99 € sur iPhone) vous débloquez jusqu'à 8 membres, un historique étendu et la priorité de synchronisation. Sans abonnement, sans essais expirés, sans carte de crédit requise.",
+      "La Mesh Famille est une fonction de FitMesh Pro: elle va jusqu'à 8 membres, avec un historique étendu et la priorité de synchronisation. Chaque personne essaie toutes les fonctions gratuitement pendant 14 jours (y compris ceux qui rejoignent la Mesh); ensuite elle active FitMesh Pro à vie (achat unique: 3,99 € sur Android · 4,99 € sur iPhone, prix de lancement) ou l'abonnement à 1,19 € tous les 6 mois.",
     faq_kicker: "Questions fréquentes",
     faq_h2: "Questions et réponses",
     faqs: [
@@ -728,7 +728,7 @@ const COPY = {
       {
         q: "Combien de personnes puis-je inviter?",
         a:
-          "Plan gratuit: 3 au total (vous inclus). Pro (3,99 € Android · 4,99 € iPhone): jusqu'à 8 membres.",
+          "La Mesh Famille va jusqu'à 8 membres (vous inclus) avec FitMesh Pro. Chacun essaie tout gratuitement pendant 14 jours, puis active Pro: à vie (3,99 € Android · 4,99 € iPhone) ou 1,19 € tous les 6 mois.",
       },
     ],
     final_cta_h2: "Commencez aujourd'hui: 3 minutes pour créer votre premier groupe",
@@ -772,7 +772,7 @@ const COPY = {
       {
         title: "Zapraszasz kogo chcesz przez link",
         body:
-          "Aplikacja generuje kod MESH-XXXX i link do udostepnienia (WhatsApp, SMS, e-mail). Kto kliknie, pobiera aplikacje za darmo i dolacza. Do 3 czlonków bezplatnie, 8 z FitMesh Pro.",
+          "Aplikacja generuje kod MESH-XXXX i link do udostepnienia (WhatsApp, SMS, e-mail). Kto kliknie, pobiera aplikacje i dolacza. Mesh Rodzina obejmuje do 8 czlonków z FitMesh Pro: kazdy testuje wszystkie funkcje za darmo przez 14 dni, a potem aktywuje Pro.",
       },
       {
         title: "Kazdy wybiera, co udostepnia",
@@ -810,9 +810,9 @@ const COPY = {
     techstack_body:
       "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Jesli ktos z was ma inne urzadzenie, wystarczy ze zapisuje dane do Health Connect (robia to wszystkie wieksze marki od 2024). Zadnego uzaleznienia od jednej marki.",
     pricing_kicker: "Ile kosztuje",
-    pricing_h2: "Bezplatnie do 3 czlonków",
+    pricing_h2: "Mesh Rodzina do 8 czlonków z Pro",
     pricing_body:
-      "Plan bezplatny obejmuje Ciebie i 2 czlonków rodziny (3 lacznie). Z FitMesh Pro (jednorazowy zakup: 3,99 EUR na Androidzie · 4,99 EUR na iPhonie) odblokowujesz do 8 czlonków, rozszerzony histori oraz priorytetowa synchronizacje. Bez subskrypcji, bez wygaslych okresów próbnych, bez karty kredytowej.",
+      "Mesh Rodzina to funkcja FitMesh Pro: obejmuje do 8 czlonków, z rozszerzona historia oraz priorytetowa synchronizacja. Kazda osoba testuje wszystkie funkcje za darmo przez 14 dni (równiez osoby dolaczajace do Mesh); potem aktywuje FitMesh Pro dozywotnio (jednorazowy zakup: 3,99 EUR na Androidzie · 4,99 EUR na iPhonie, cena startowa) albo subskrypcje za 1,19 EUR co 6 miesiecy.",
     faq_kicker: "Czeste pytania",
     faq_h2: "Watpliwosci i odpowiedzi",
     faqs: [
@@ -844,7 +844,7 @@ const COPY = {
       {
         q: "Ile osób moge zaprosic?",
         a:
-          "Plan bezplatny: 3 lacznie (wlaczajac Ciebie). Pro (3,99 EUR Android · 4,99 EUR iPhone): do 8 czlonków.",
+          "Mesh Rodzina obejmuje do 8 czlonków (wlaczajac Ciebie) z FitMesh Pro. Kazda osoba testuje wszystko za darmo przez 14 dni, a potem aktywuje Pro: dozywotnio (3,99 EUR Android · 4,99 EUR iPhone) albo 1,19 EUR co 6 miesiecy.",
       },
     ],
     final_cta_h2: "Zacznij dzis: 3 minuty na stworzenie pierwszej grupy",
@@ -888,7 +888,7 @@ const COPY = {
       {
         title: "Istediginiz kisiyi link ile davet edin",
         body:
-          "Uygulama bir MESH-XXXX kodu ve paylasilabilir bir link olusturur (WhatsApp, SMS, e-posta). Tiklayan kisi uygulamayi ücretsiz indirir ve katilir. 3 üyeye kadar ücretsiz, 8 üyeye kadar FitMesh Pro ile.",
+          "Uygulama bir MESH-XXXX kodu ve paylasilabilir bir link olusturur (WhatsApp, SMS, e-posta). Tiklayan kisi uygulamayi indirir ve katilir. Mesh Aile, FitMesh Pro ile 8 üyeye kadar cikar: herkes tüm özellikleri 14 gün boyunca ücretsiz dener, sonra Pro'yu etkinlestirir.",
       },
       {
         title: "Herkes neyi paylasmak istedigini secer",
@@ -926,9 +926,9 @@ const COPY = {
     techstack_body:
       "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Grubunuzdan birinin farkli bir giyilebiliri varsa, verileri Health Connect'e yazması yeterlidir (tüm büyük markalar bunu 2024'ten beri yapiyor). Herhangi bir markaya bagli kalma zorunlulugu yok.",
     pricing_kicker: "Ne kadar tutar",
-    pricing_h2: "3 üyeye kadar ücretsiz",
+    pricing_h2: "Mesh Aile, Pro ile 8 üyeye kadar",
     pricing_body:
-      "Ücretsiz plan sizi ve 2 aile üyenizi kapsar (toplam 3 kisi). FitMesh Pro ile (tek seferlik satin alma: Android'de 3,99 EUR · iPhone'da 4,99 EUR) 8 üyeye kadar, genisletilmis gecmis ve senkronizasyon önceligi elde edersiniz. Abonelik yok, süresi dolmus deneme yok, kredi karti gerekmiyor.",
+      "Mesh Aile bir FitMesh Pro özelligidir: 8 üyeye kadar cikar, genisletilmis gecmis ve senkronizasyon önceligi sunar. Her kisi tüm özellikleri 14 gün boyunca ücretsiz dener (Mesh'e katilanlar dahil); ardindan FitMesh Pro'yu ömür boyu etkinlestirir (tek seferlik satin alma: Android'de 3,99 EUR · iPhone'da 4,99 EUR, lansman fiyati) ya da 6 ayda bir 1,19 EUR aboneligi secer.",
     faq_kicker: "Sik sorulan sorular",
     faq_h2: "Sorular ve yanitlar",
     faqs: [
@@ -960,7 +960,7 @@ const COPY = {
       {
         q: "Kac kisi davet edebilirim?",
         a:
-          "Ücretsiz plan: toplam 3 (siz dahil). Pro (3,99 EUR Android · 4,99 EUR iPhone): 8 üyeye kadar.",
+          "Mesh Aile, FitMesh Pro ile 8 üyeye kadar cikar (siz dahil). Her kisi her seyi 14 gün boyunca ücretsiz dener, sonra Pro'yu etkinlestirir: ömür boyu (3,99 EUR Android · 4,99 EUR iPhone) ya da 6 ayda bir 1,19 EUR.",
       },
     ],
     final_cta_h2: "Bugün baslayin: ilk grubu olusturmak 3 dakika",
@@ -1030,20 +1030,20 @@ export async function generateMetadata({
         ? "Mesh Aile: yakinlarinizin adimlarini, uyku ve kalp hizini gizlilik öncelikli tek bir panelde takip edin. Cok yakinda: lansmanda bildirim almak icin bekleme listesine kaydolun."
         : "Family Mesh: monitor steps, sleep and heart rate of your loved ones in one privacy-first dashboard. Coming in the next months: join the waitlist to be notified at launch.")
     : (lc === "it"
-        ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, gratis fino a 3 membri, niente posizione condivisa."
+        ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, funzione Pro fino a 8 membri (14 giorni di prova gratis), niente posizione condivisa."
         : lc === "es"
-        ? "Mesh Familia te permite ver pasos, sueño y frecuencia cardíaca de padres, pareja o hijos en un solo panel. Privacidad primero, gratis hasta 3 miembros, sin ubicación compartida."
+        ? "Mesh Familia te permite ver pasos, sueño y frecuencia cardíaca de padres, pareja o hijos en un solo panel. Privacidad primero, función Pro hasta 8 miembros (14 días de prueba gratis), sin ubicación compartida."
         : lc === "de"
-        ? "Mesh Familie zeigt dir Schritte, Schlaf und Herzfrequenz von Eltern, Partner oder Kindern in einem Dashboard. Datenschutz an erster Stelle, kostenlos für bis zu 3 Mitglieder, kein Standort geteilt."
+        ? "Mesh Familie zeigt dir Schritte, Schlaf und Herzfrequenz von Eltern, Partner oder Kindern in einem Dashboard. Datenschutz an erster Stelle, Pro-Funktion für bis zu 8 Mitglieder (14 Tage kostenlos testen), kein Standort geteilt."
         : lc === "pt"
-        ? "Mesh Família permite ver passos, sono e frequência cardíaca de pais, parceiro ou filhos em um único painel. Privacidade em primeiro lugar, grátis para até 3 membros, sem compartilhamento de localização."
+        ? "Mesh Família permite ver passos, sono e frequência cardíaca de pais, parceiro ou filhos em um único painel. Privacidade em primeiro lugar, recurso Pro para até 8 membros (14 dias de teste grátis), sem compartilhamento de localização."
         : lc === "fr"
-        ? "Mesh Famille vous permet de voir les pas, le sommeil et la fréquence cardiaque de parents, partenaire ou enfants dans un tableau de bord. Confidentialité d'abord, gratuit pour 3 membres, sans localisation partagée."
+        ? "Mesh Famille vous permet de voir les pas, le sommeil et la fréquence cardiaque de parents, partenaire ou enfants dans un tableau de bord. Confidentialité d'abord, fonction Pro jusqu'à 8 membres (14 jours d'essai gratuit), sans localisation partagée."
         : lc === "pl"
-        ? "Mesh Rodzina pozwala zobaczyc kroki, sen i tetno rodziców, partnera lub dzieci w jednym panelu. Prywatnosc na pierwszym miejscu, bezplatnie dla 3 czlonków, bez udostepniania lokalizacji."
+        ? "Mesh Rodzina pozwala zobaczyc kroki, sen i tetno rodziców, partnera lub dzieci w jednym panelu. Prywatnosc na pierwszym miejscu, funkcja Pro do 8 czlonków (14 dni testu za darmo), bez udostepniania lokalizacji."
         : lc === "tr"
-        ? "Mesh Aile ebeveynlerinizin, partnerinizin veya cocuklarinizin adim, uyku ve kalp hizini tek panelde görmenizi saglar. Gizlilik önce gelir, 3 üyeye kadar ücretsiz, konum paylasimsiz."
-        : "Family Mesh lets you see steps, sleep, and heart rate of parents, partners or kids in one dashboard. Privacy-first, free up to 3 members, no location sharing.");
+        ? "Mesh Aile ebeveynlerinizin, partnerinizin veya cocuklarinizin adim, uyku ve kalp hizini tek panelde görmenizi saglar. Gizlilik önce gelir, 8 üyeye kadar Pro özelligi (14 gün ücretsiz deneme), konum paylasimsiz."
+        : "Family Mesh lets you see steps, sleep, and heart rate of parents, partners or kids in one dashboard. Privacy-first, Pro feature up to 8 members (14-day free trial), no location sharing.");
 
   return {
     title,
@@ -1319,10 +1319,10 @@ export default async function FamigliaLanding({
         </div>
         <p className="mt-5 text-xs text-text-muted">
           {lc === "it"
-            ? "Niente carta di credito · 3 membri gratis a vita"
+            ? "Niente carta di credito · prova 14 giorni, poi Pro"
             : lc === "es"
-            ? "Sin tarjeta de crédito · 3 miembros gratis de por vida"
-            : "No credit card · 3 members free forever"}
+            ? "Sin tarjeta de crédito · prueba de 14 días, luego Pro"
+            : "No credit card · 14-day trial, then Pro"}
         </p>
         <p className="mt-3 text-xs text-text-muted">
           <a href={PLAY_URL} target="_blank" rel="noopener" className="underline hover:text-text-secondary">
