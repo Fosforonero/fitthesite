@@ -1,27 +1,27 @@
+"use client";
+
 /**
- * Row di download badge — Play Store + App Store affiancati.
+ * Row di download badge: Play Store + App Store affiancati.
  *
- * Pattern: app cross-platform che vuole mostrare entrambe le piattaforme
- * anche quando una è in Coming Soon. La consistency visiva aiuta a
- * comunicare "presto anche su iOS" senza dover scrivere copy esplicita.
- *
- * Default: Play Store attivo, App Store disabled finché iOS non è live in UE.
- * Il go-live iOS è un singolo interruttore: NEXT_PUBLIC_IOS_ENABLED=true su
- * Vercel (vedi lib/flags.ts) attiva il click dell'App Store in tutto il sito.
+ * Play Store sempre attivo. App Store: geo-aware. L'app iOS è live nel mondo ma
+ * non nei 27 paesi UE (verifica DSA in corso), quindi mostriamo "scarica" fuori
+ * UE e "in arrivo" nei 27 UE, leggendo il cookie geo lato client (vedi lib/flags).
+ * Default SSR = "in arrivo" (caso sicuro). Override esplicito via prop iosDisabled.
+ * Go-live globale UE: NEXT_PUBLIC_IOS_ENABLED=true su Vercel.
  */
-import type { CSSProperties } from "react";
+import { useState, useEffect, type CSSProperties } from "react";
 
 import type { Locale } from "@/lib/i18n";
-import { IOS_ENABLED } from "@/lib/flags";
+import { IOS_ENABLED, EU27, countryFromCookie } from "@/lib/flags";
 import AppleStoreButton from "./AppleStoreButton";
 import PlayStoreButton from "./PlayStoreButton";
 
 type Props = {
   /** Locale per i label localizzati ("In arrivo" vs "Coming Soon"). */
   locale: Locale;
-  /** Forza il Play Store disabled (default false — app live su Play Store). */
+  /** Forza il Play Store disabled (default false: app live su Play Store). */
   playDisabled?: boolean;
-  /** Forza l'App Store disabled. Default: !IOS_ENABLED (flag centrale). */
+  /** Override esplicito dell'App Store disabled. Se assente: deciso dalla geo. */
   iosDisabled?: boolean;
   /** Classi extra sul wrapper flex. */
   className?: string;
@@ -31,10 +31,23 @@ type Props = {
 export default function StoreButtonsRow({
   locale,
   playDisabled = false,
-  iosDisabled = !IOS_ENABLED,
+  iosDisabled: iosDisabledProp,
   className = "",
   style,
 }: Props) {
+  // Default sicuro: App Store "in arrivo". Dopo il mount, se il visitatore è
+  // fuori dai 27 UE (o il flag globale è on), abilita il click.
+  const [iosDisabled, setIosDisabled] = useState(iosDisabledProp ?? !IOS_ENABLED);
+  useEffect(() => {
+    if (iosDisabledProp !== undefined) return; // override esplicito vince
+    if (IOS_ENABLED) {
+      setIosDisabled(false);
+      return;
+    }
+    const c = countryFromCookie();
+    if (c && !EU27.has(c)) setIosDisabled(false);
+  }, [iosDisabledProp]);
+
   const PLAY = {
     it: { small: "Disponibile su", store: "Google Play", soon: "In arrivo" },
     en: { small: "GET IT ON", store: "Google Play", soon: "Coming Soon" },

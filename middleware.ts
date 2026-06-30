@@ -175,6 +175,13 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // Geo cookie per il gating iOS (fuori UE vs 27 UE). Best-effort: solo se Vercel
+  // espone il paese. Letto lato client da StoreButtonsRow / IosAwareText.
+  const country = request.headers.get('x-vercel-ip-country');
+  if (country) {
+    response.cookies.set('fm_geo', country, { path: '/', maxAge: 60 * 60 * 24, sameSite: 'lax' });
+  }
+
   return response;
 }
 
