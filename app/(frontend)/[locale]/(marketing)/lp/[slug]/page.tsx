@@ -180,6 +180,38 @@ const I18N: Record<Locale, {
     finalCtaHeading: "시작할 준비가 됐나요?",
     finalCtaSubheading: "Android 스마트폰에 FitMesh Sync를 다운로드하세요. 웹 대시보드가 포함되어 있습니다.",
   },
+  sv: {
+    faqHeading: "Vanliga frågor",
+    disclaimerHeading: "Friskrivning",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync är en oberoende produkt. ${brands.join(", ")} ${brands.length > 1 ? "är varumärken" : "är ett varumärke"} som tillhör respektive ägare. Den här sidan innebär ingen anknytning eller sponsring.`,
+    finalCtaHeading: "Redo att börja?",
+    finalCtaSubheading: "Ladda ned FitMesh Sync på din Android-telefon. Webbpanelen ingår.",
+  },
+  da: {
+    faqHeading: "Ofte stillede spørgsmål",
+    disclaimerHeading: "Ansvarsfraskrivelse",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync er et uafhængigt produkt. ${brands.join(", ")} ${brands.length > 1 ? "er varemærker" : "er et varemærke"} tilhørende deres respektive ejere. Denne side indebærer ingen tilknytning eller sponsorering.`,
+    finalCtaHeading: "Klar til at starte?",
+    finalCtaSubheading: "Download FitMesh Sync på din Android-telefon. Webdashboardet er inkluderet.",
+  },
+  no: {
+    faqHeading: "Vanlige spørsmål",
+    disclaimerHeading: "Ansvarsfraskrivelse",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync er et uavhengig produkt. ${brands.join(", ")} ${brands.length > 1 ? "er varemerker" : "er et varemerke"} som tilhører sine respektive eiere. Denne siden innebærer ingen tilknytning eller sponsing.`,
+    finalCtaHeading: "Klar til å starte?",
+    finalCtaSubheading: "Last ned FitMesh Sync på Android-telefonen din. Nettdashbordet er inkludert.",
+  },
+  fi: {
+    faqHeading: "Usein kysytyt kysymykset",
+    disclaimerHeading: "Vastuuvapauslauseke",
+    disclaimer: (brands: string[]) =>
+      `FitMesh Sync on riippumaton tuote. ${brands.join(", ")} ${brands.length > 1 ? "ovat omistajiensa tavaramerkkejä" : "on omistajansa tavaramerkki"}. Tämä sivu ei tarkoita kumppanuutta tai sponsorointia.`,
+    finalCtaHeading: "Valmis aloittamaan?",
+    finalCtaSubheading: "Lataa FitMesh Sync Android-puhelimeesi. Verkkokäyttöliittymä sisältyy.",
+  },
 };
 
 export default async function LandingPage({

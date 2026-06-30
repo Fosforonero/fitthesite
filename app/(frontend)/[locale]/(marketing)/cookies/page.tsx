@@ -28,6 +28,10 @@ export async function generateMetadata(
     nl: "Cookiebeleid",
     ja: "Cookieポリシー",
     ko: "쿠키 정책",
+    sv: "Cookiepolicy",
+    da: "Cookiepolitik",
+    no: "Cookie-policy",
+    fi: "Evästekäytäntö",
   };
   const desc: Record<Locale, string> = {
     it: "Quali cookie usa fitmesh.fit e perché. Cookie tecnici essenziali + Google Analytics 4 con consenso esplicito.",
@@ -41,6 +45,10 @@ export async function generateMetadata(
     nl: "Welke cookies fitmesh.fit gebruikt en waarom. Strikt noodzakelijke cookies plus Google Analytics 4 alleen met expliciete toestemming.",
     ja: "fitmesh.fitが使用するCookieとその理由。必須の技術的Cookieとユーザーの同意に基づくGoogle Analytics 4。",
     ko: "fitmesh.fit이 사용하는 쿠키와 그 이유. 필수 기술 쿠키 + 명시적 동의를 통한 Google Analytics 4.",
+    sv: "Vilka cookies fitmesh.fit använder och varför. Absolut nödvändiga cookies plus Google Analytics 4 med uttryckligt samtycke.",
+    da: "Hvilke cookies fitmesh.fit bruger og hvorfor. Strengt nødvendige cookies plus Google Analytics 4 med udtrykkeligt samtykke.",
+    no: "Hvilke informasjonskapsler fitmesh.fit bruker og hvorfor. Strengt nødvendige informasjonskapsler pluss Google Analytics 4 med uttrykkelig samtykke.",
+    fi: "Mitä evästeitä fitmesh.fit käyttää ja miksi. Ehdottoman välttämättömät evästeet sekä Google Analytics 4 nimenomaisella suostumuksella.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {

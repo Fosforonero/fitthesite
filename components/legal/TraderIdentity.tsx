@@ -29,6 +29,10 @@ const LABELS: Record<Locale, Labels> = {
   nl: { trader: "Juridische entiteit & exploitant", representative: "Wettelijke vertegenwoordiger", address: "Vestigingsadres", vat: "Btw-nummer", contact: "Contact" },
   ja: { trader: "事業者", representative: "代表者", address: "所在地", vat: "VAT番号", contact: "連絡先" },
   ko: { trader: "사업자", representative: "대표자", address: "주소", vat: "VAT 번호", contact: "연락처" },
+  sv: { trader: "Juridisk enhet och operatör", representative: "Rättslig företrädare", address: "Registrerad adress", vat: "Momsnummer", contact: "Kontakt" },
+  da: { trader: "Juridisk enhed og operatør", representative: "Juridisk repræsentant", address: "Registreret adresse", vat: "Momsnummer", contact: "Kontakt" },
+  no: { trader: "Juridisk enhet og operatør", representative: "Juridisk representant", address: "Registrert adresse", vat: "MVA-nummer", contact: "Kontakt" },
+  fi: { trader: "Oikeushenkilö ja ylläpitäjä", representative: "Laillinen edustaja", address: "Rekisteröity osoite", vat: "ALV-numero", contact: "Yhteystiedot" },
 };
 
 /** Etichetta del link "Impressum / Note legali" per Footer e pagina. */
@@ -44,6 +48,10 @@ export const IMPRINT_NAV_LABEL: Record<Locale, string> = {
   nl: "Colofon",
   ja: "運営者情報",
   ko: "법적 고지",
+  sv: "Juridisk information",
+  da: "Juridisk information",
+  no: "Juridisk informasjon",
+  fi: "Oikeudelliset tiedot",
 };
 
 /** True quando la P.IVA reale è stata impostata (non più il placeholder). */

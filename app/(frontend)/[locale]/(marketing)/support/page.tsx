@@ -10,7 +10,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
   const { locale } = await params;
-  const titles: Record<Locale, string> = { it: "Supporto", en: "Support", es: "Soporte", de: "Support", pt: "Suporte", fr: "Assistance", pl: "Wsparcie", tr: "Destek", nl: "Ondersteuning", ja: "サポート", ko: "고객 지원" };
+  const titles: Record<Locale, string> = { it: "Supporto", en: "Support", es: "Soporte", de: "Support", pt: "Suporte", fr: "Assistance", pl: "Wsparcie", tr: "Destek", nl: "Ondersteuning", ja: "サポート", ko: "고객 지원", sv: "Support", da: "Support", no: "Support", fi: "Tuki" };
   const desc: Record<Locale, string> = {
     it: "FAQ, troubleshooting e contatti per FitMesh Sync. Risposte rapide ai problemi più comuni.",
     en: "FAQ, troubleshooting and contacts for FitMesh Sync. Quick answers to the most common questions.",
@@ -23,6 +23,10 @@ export async function generateMetadata(
     nl: "FAQ, probleemoplossing en contact voor FitMesh Sync. Snelle antwoorden op de meest gestelde vragen.",
     ja: "FitMesh SyncのFAQ、トラブルシューティング、お問い合わせ。よくある質問への迅速な回答。",
     ko: "FitMesh Sync FAQ, 문제 해결 및 연락처. 가장 자주 묻는 질문에 대한 빠른 답변.",
+    sv: "Vanliga frågor, felsökning och kontakt för FitMesh Sync. Snabba svar på de vanligaste frågorna.",
+    da: "Ofte stillede spørgsmål, fejlfinding og kontakt til FitMesh Sync. Hurtige svar på de mest almindelige spørgsmål.",
+    no: "Vanlige spørsmål, feilsøking og kontakt for FitMesh Sync. Raske svar på de vanligste spørsmålene.",
+    fi: "Usein kysytyt kysymykset, vianmääritys ja yhteystiedot FitMesh Syncille. Nopeat vastaukset yleisimpiin kysymyksiin.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {

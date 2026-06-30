@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "support": "Support",
+    "privacy": "Integritet",
+    "download": "Ladda ner"
+  },
+  "hero": {
+    "badge": "Tillgänglig på Android · iOS kommer snart",
+    "heading_1": "En global dashboard",
+    "heading_accent": "för alla dina enheter.",
+    "description": "Samla Galaxy Watch, Wear OS, Health Connect och molntjänster i en vy. Steg, sömn, puls, återhämtning och trender, utan att byta mellan appar.",
+    "cta_secondary": "Läs mer",
+    "pricing": "Engångsköp från 3,99 €, eller 1,19 € var 6:e månad · säker betalning",
+    "coming_soon": "Kommer snart"
+  },
+  "features": {
+    "kicker": "Funktioner",
+    "heading": "Allt som din smartklocka registrerar, ordnat och visualiserat.",
+    "items": [
+      {
+        "title": "Steg & distans",
+        "desc": "Automatisk synkning med Health Connect och Samsung Health. Körs i bakgrunden, även när telefonen är låst."
+      },
+      {
+        "title": "Puls & VO₂ max",
+        "desc": "Dagligt medelvärde, min/max-intervall, vilopuls. Upptäck trender i din kardiovaskulära hälsa över tid."
+      },
+      {
+        "title": "Sömn med faser",
+        "desc": "Total varaktighet, djup, REM, lätt, vaken. Färgkodad stapel och direkt kvalitetsmärke."
+      },
+      {
+        "title": "Kalorier & aktivitet",
+        "desc": "Aktiva och basala kalorier, rutt, höjdmeter, trappor. Promenader i grönt, träning i rött."
+      },
+      {
+        "title": "Global dashboard för flera enheter",
+        "desc": "Flera klockor, flera leverantörer, en vy. FitMesh slår samman källorna, tar bort dubbletter och behåller det bästa värdet för varje mått."
+      },
+      {
+        "title": "Byggd för anhörigvårdare",
+        "desc": "Avancerat läge kommer snart: familjegrupp med morgonaviseringar om synkning när en äldre släkting blir tyst."
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "Integritet först",
+    "heading": "Din hälsodata är inte en produkt.",
+    "description": "FitMesh Sync säljer, delar eller profilerar aldrig. Dina data stannar på servern du väljer (din NAS hemma, din VPS eller vår delade endpoint). Du bestämmer i appens inställningar.",
+    "cta": "Läs integritetspolicyn"
+  },
+  "final_cta": {
+    "heading": "Redo att börja?",
+    "description": "Ladda ner appen, ge Health Connect-behörigheter, och på 30 sekunder är dina data live."
+  },
+  "footer": {
+    "tagline": "Synka din smartklockas data till en egen premium-dashboard. Integritet först. Inga ogenomskinliga moln, inga annonsspårare.",
+    "product": "Produkt",
+    "legal": "Juridiskt",
+    "rights": "Alla rättigheter förbehållna.",
+    "made_with": "Skapad med omsorg i Italien",
+    "fosforonero_label": "Ett projekt av",
+    "links": {
+      "features": "Funktioner",
+      "download": "Ladda ner",
+      "support": "Support",
+      "privacy": "Integritetspolicy",
+      "terms": "Användarvillkor",
+      "cookies": "Cookiepolicy"
+    }
+  },
+  "cookie_banner": {
+    "title": "Cookies & integritet",
+    "description": "Vi använder strikt nödvändiga cookies för att webbplatsen ska fungera och, med ditt samtycke, Google Analytics för att lära oss hur vi kan förbättra produkten. Inga annons- eller profileringscookies.",
+    "details_link": "Detaljer",
+    "accept": "Acceptera alla",
+    "reject": "Avvisa valfria"
+  },
+  "legal": {
+    "last_updated": "Senast uppdaterad",
+    "privacy_title": "Integritetspolicy",
+    "terms_title": "Användarvillkor",
+    "cookies_title": "Cookiepolicy",
+    "support_title": "Vanliga frågor",
+    "section": "Juridiskt"
+  },
+  "auth": {
+    "login": {
+      "heading": "Logga in på FitMesh",
+      "subheading": "Vi skickar dig en länk via e-post. Inga lösenord att komma ihåg.",
+      "email_label": "E-post",
+      "email_placeholder": "du@email.com",
+      "submit": "Skicka mig inloggningslänken",
+      "sending": "Skickar…",
+      "success_title": "Kolla din e-post",
+      "success_body": "Vi skickade en inloggningslänk. Öppna e-posten och klicka för att logga in.",
+      "try_again": "Skicka igen",
+      "disclaimer": "Genom att logga in godkänner du våra villkor och vår integritetspolicy. Din hälsodata delas aldrig och används aldrig för medicinsk rådgivning."
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "devices": "Enheter",
+      "settings": "Inställningar",
+      "logout": "Logga ut"
+    },
+    "disclaimer": "De data som visas är endast informativa. FitMesh är inte en medicinsk enhet och ersätter inte professionell medicinsk rådgivning.",
+    "dashboard": {
+      "welcome": "Välkommen",
+      "steps": "Steg idag",
+      "heart_rate": "Genomsnittlig BPM",
+      "sleep": "Sömn",
+      "no_data": "Ingen enhet ansluten"
+    },
+    "next_step": {
+      "title": "Kom igång: anslut din första enhet",
+      "body": "Gå till 'Enheter' och generera en parningskod. Ange den sedan i FitMesh-appen på din telefon.",
+      "cta": "Anslut enhet →"
+    },
+    "devices": {
+      "heading": "Dina enheter",
+      "subheading": "Smartklockor och telefoner anslutna till ditt konto.",
+      "add_title": "Lägg till enhet",
+      "add_body": "Generera en kod och ange den i FitMesh Sync-appen för att ansluta en ny telefon.",
+      "add_cta": "Generera kod",
+      "coming_soon": "(kommer snart)",
+      "list_title": "Anslutna enheter",
+      "empty": "Inga enheter anslutna ännu.",
+      "error": "Fel vid inläsning av enheter.",
+      "revoked": "återkallad",
+      "last_sync": "Senaste synkning",
+      "never": "aldrig"
+    },
+    "settings": {
+      "heading": "Inställningar",
+      "profile_heading": "Profil",
+      "display_name": "Namn",
+      "locale": "Språk",
+      "timezone": "Tidszon",
+      "member_since": "Medlem sedan",
+      "privacy_heading": "Integritet & data",
+      "privacy_body": "Din hälsodata delas aldrig, behandlas aldrig för medicinska syften, används aldrig för att ge medicinsk rådgivning. Endast för din personliga dashboard och gamification.",
+      "export": "Exportera mina data",
+      "danger_heading": "Farozon",
+      "delete_description": "Radera permanent ditt konto och all tillhörande data. Du har 24 timmar på dig att avbryta via e-post.",
+      "delete_cta": "Radera mitt konto",
+      "delete_confirm_title": "Är du verkligen säker?",
+      "delete_confirm_body": "Detta raderas permanent: profil, all hälsodata, anslutna enheter, träningssessioner. Detta sparas anonymiserat för efterlevnad: tekniska loggar (90 dagar) och administratörsgranskning (5 år).",
+      "delete_confirm_input": "Skriv DELETE för att bekräfta",
+      "delete_confirm_submit": "Bekräfta radering",
+      "cancel": "Avbryt",
+      "delete_scheduled_title": "Begäran mottagen",
+      "delete_scheduled_body": "Du får ett e-postmeddelande med länken för att avbryta. Om du inte gör något inom 24 timmar raderas ditt konto permanent."
+    }
+  },
+  "admin": {
+    "banner": "ADMINLÄGE: dina åtgärder spåras",
+    "nav": {
+      "overview": "Översikt",
+      "users": "Användare",
+      "devices": "Enheter",
+      "events": "Händelser",
+      "exit": "Lämna admin"
+    },
+    "overview": {
+      "heading": "Översikt",
+      "subheading": "Systemstatus, aggregerade mått, ingen personlig hälsodata.",
+      "total_users": "Totalt antal användare",
+      "active_7d": "Aktiva 7d",
+      "active_30d": "Aktiva 30d",
+      "new_7d": "Nya 7d",
+      "total_devices": "Totalt antal enheter",
+      "active_devices": "Aktiva enheter",
+      "syncs_24h": "Synkningar 24h",
+      "failed_syncs_24h": "Misslyckade synkningar 24h"
+    },
+    "privacy_notice": "Integritet: denna dashboard visar endast metadata och aggregerade mått. Användarnas hälsodata är INTE tillgänglig för någon administratör (tvingas via Postgres RLS)."
+  },
+  "showcase": {
+    "kicker": "Appen",
+    "heading": "Se FitMesh i praktiken",
+    "sub": "Riktiga skärmar från Android-appen, direkt från telefonen.",
+    "captions": {
+      "sleep": "Sömnfaser & hjärthälsa",
+      "trends": "Trender för steg & kalorier",
+      "vitals": "SpO₂ & avancerade mått"
+    }
+  }
+}

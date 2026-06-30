@@ -6,7 +6,7 @@
  * + content nei page component conditionali.
  */
 
-export const locales = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const;
+export const locales = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi"] as const;
 export type Locale = (typeof locales)[number];
 export const defaultLocale: Locale = "it";
 
@@ -22,6 +22,10 @@ export const localeNames: Record<Locale, string> = {
   nl: "Nederlands",
   ja: "日本語",
   ko: "한국어",
+  sv: "Svenska",
+  da: "Dansk",
+  no: "Norsk",
+  fi: "Suomi",
 };
 
 export const localeFlags: Record<Locale, string> = {
@@ -36,6 +40,10 @@ export const localeFlags: Record<Locale, string> = {
   nl: "🇳🇱",
   ja: "🇯🇵",
   ko: "🇰🇷",
+  sv: "🇸🇪",
+  da: "🇩🇰",
+  no: "🇳🇴",
+  fi: "🇫🇮",
 };
 
 /**
@@ -54,6 +62,10 @@ export const ogLocale: Record<Locale, string> = {
   nl: "nl_NL",
   ja: "ja_JP",
   ko: "ko_KR",
+  sv: "sv_SE",
+  da: "da_DK",
+  no: "nb_NO",
+  fi: "fi_FI",
 };
 
 /**
@@ -71,6 +83,10 @@ export const htmlLang: Record<Locale, string> = {
   nl: "nl",
   ja: "ja",
   ko: "ko",
+  sv: "sv",
+  da: "da",
+  no: "no",
+  fi: "fi",
 };
 
 /**

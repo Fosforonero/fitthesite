@@ -36,6 +36,10 @@ export async function generateMetadata({
     nl: "Wat is nieuw in FitMesh Sync — elke update uitgelegd",
     ja: "FitMesh Syncの新着情報 — 各アップデートの変更点",
     ko: "FitMesh Sync의 새로운 기능 — 업데이트마다 무엇이 바뀌는지",
+    sv: "Nyheter i FitMesh Sync: varje uppdatering förklarad",
+    da: "Nyheder i FitMesh Sync: hver opdatering forklaret",
+    no: "Nyheter i FitMesh Sync: hver oppdatering forklart",
+    fi: "Mitä uutta FitMesh Syncissä: jokainen päivitys selitettynä",
   };
   const descriptions: Record<Locale, string> = {
     it: "Le novità di FitMesh Sync versione dopo versione: nuove funzioni, dispositivi supportati e miglioramenti. In chiaro, senza gergo tecnico.",
@@ -49,6 +53,10 @@ export async function generateMetadata({
     nl: "Het nieuws van FitMesh Sync, update na update: nieuwe functies, ondersteunde apparaten en verbeteringen. Duidelijk, zonder jargon.",
     ja: "FitMesh Syncの新着情報をアップデートごとに紹介：新機能、対応デバイス、改善点。わかりやすく、専門用語なしで。",
     ko: "FitMesh Sync의 소식을 업데이트마다 전해드립니다: 새 기능, 지원 기기, 개선 사항. 전문 용어 없이 알기 쉽게.",
+    sv: "FitMesh Syncs nyheter version efter version: nya funktioner, stödda enheter och förbättringar. Klarspråk, ingen teknisk jargong.",
+    da: "FitMesh Syncs nyheder version efter version: nye funktioner, understøttede enheder og forbedringer. Klart sprog, ingen teknisk jargon.",
+    no: "FitMesh Syncs nyheter versjon etter versjon: nye funksjoner, støttede enheter og forbedringer. Klarspråk, ingen teknisk sjargong.",
+    fi: "FitMesh Syncin uutiset versio toisensa jälkeen: uudet ominaisuudet, tuetut laitteet ja parannukset. Selkeää kieltä, ei teknistä jargonia.",
   };
   const title = titles[lc];
   const description = descriptions[lc];
@@ -184,6 +192,42 @@ const I18N: Record<
     readMin: (m: number) => `${m}분 읽기`,
     explore: "읽기 →",
     empty: "첫 번째 업데이트가 곧 출시됩니다. 다시 방문해주세요.",
+  },
+  sv: {
+    kicker: "Nyheter",
+    heading: "Nyheter i FitMesh Sync",
+    headingAccent: "version efter version",
+    lead: "Vad vi lagt till och förbättrat i varje appuppdatering: nya funktioner, stödda enheter och vad som ändras för dig. Klarspråk, ingen jargong.",
+    readMin: (m: number) => `${m} min läsning`,
+    explore: "Läs →",
+    empty: "De första nyheterna kommer snart. Kom tillbaka snart.",
+  },
+  da: {
+    kicker: "Nyheder",
+    heading: "Nyheder i FitMesh Sync",
+    headingAccent: "version efter version",
+    lead: "Hvad vi har tilføjet og forbedret i hver app-opdatering: nye funktioner, understøttede enheder og hvad der ændrer sig for dig. Klart sprog, ingen jargon.",
+    readMin: (m: number) => `${m} min læsning`,
+    explore: "Læs →",
+    empty: "De første nyheder kommer snart. Kig forbi igen.",
+  },
+  no: {
+    kicker: "Nyheter",
+    heading: "Nyheter i FitMesh Sync",
+    headingAccent: "versjon etter versjon",
+    lead: "Hva vi har lagt til og forbedret i hver app-oppdatering: nye funksjoner, støttede enheter og hva som endrer seg for deg. Klarspråk, ingen sjargong.",
+    readMin: (m: number) => `${m} min lesing`,
+    explore: "Les →",
+    empty: "De første nyhetene kommer snart. Kom tilbake snart.",
+  },
+  fi: {
+    kicker: "Uutta",
+    heading: "Mitä uutta FitMesh Syncissä",
+    headingAccent: "versio toisensa jälkeen",
+    lead: "Mitä lisäsimme ja paransimme jokaisessa sovelluspäivityksessä: uudet ominaisuudet, tuetut laitteet ja mikä muuttuu sinulle. Selkeää kieltä, ei jargonia.",
+    readMin: (m: number) => `${m} min lukuaika`,
+    explore: "Lue →",
+    empty: "Ensimmäiset uutiset tulevat pian. Käy uudelleen pian.",
   },
 };
 

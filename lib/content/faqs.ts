@@ -119,7 +119,8 @@ const FAQ_KO: Faq[] = [
   { q: "iOS 지원은요?", a: "개발 중입니다. iOS는 2026년에 동일한 아키텍처로 출시될 예정입니다: Apple HealthKit에서 데이터를 읽는 네이티브 SwiftUI 앱입니다. hello@fitmesh.fit로 등록하시면 알림을 받으실 수 있습니다." },
 ];
 
-// pl and tr inherit Italian, like the rest of the support page.
+// pl and tr inherit Italian; sv/da/no/fi inherit English for now (Nordic FAQ
+// translation is a fast-follow), like the rest of the support page.
 export const SUPPORT_FAQS: Record<Locale, Faq[]> = {
   it: FAQ_IT,
   en: FAQ_EN,
@@ -132,4 +133,8 @@ export const SUPPORT_FAQS: Record<Locale, Faq[]> = {
   nl: FAQ_NL,
   ja: FAQ_JA,
   ko: FAQ_KO,
+  sv: FAQ_EN,
+  da: FAQ_EN,
+  no: FAQ_EN,
+  fi: FAQ_EN,
 };

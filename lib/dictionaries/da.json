@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "support": "Support",
+    "privacy": "Privatliv",
+    "download": "Download"
+  },
+  "hero": {
+    "badge": "Tilgængelig på Android · iOS kommer snart",
+    "heading_1": "Ét globalt dashboard",
+    "heading_accent": "til alle dine enheder.",
+    "description": "Saml Galaxy Watch, Wear OS, Health Connect og cloud-udbydere i én visning. Skridt, søvn, puls, restitution og tendenser, uden at skifte mellem apps.",
+    "cta_secondary": "Læs mere",
+    "pricing": "Engangskøb fra 3,99 €, eller 1,19 € hver 6. måned · sikker betaling",
+    "coming_soon": "Kommer snart"
+  },
+  "features": {
+    "kicker": "Funktioner",
+    "heading": "Alt, hvad dit smartwatch registrerer, organiseret og visualiseret.",
+    "items": [
+      {
+        "title": "Skridt og distance",
+        "desc": "Automatisk synkronisering med Health Connect og Samsung Health. Kører i baggrunden, selv når telefonen er låst."
+      },
+      {
+        "title": "Puls og VO₂ max",
+        "desc": "Dagligt gennemsnit, min/max-interval, hvilepuls. Få øje på tendenser i dit hjerte-kar-helbred over tid."
+      },
+      {
+        "title": "Søvn med faser",
+        "desc": "Samlet varighed, dyb, REM, let, vågen. Farvekodet søjle og øjeblikkeligt kvalitetsmærke."
+      },
+      {
+        "title": "Kalorier og aktivitet",
+        "desc": "Aktive og basale kalorier, rute, højdemeter, etager. Gåture i grønt, træning i rødt."
+      },
+      {
+        "title": "Globalt dashboard til flere enheder",
+        "desc": "Flere ure, flere udbydere, én visning. FitMesh samler kilderne, fjerner dubletter og beholder den bedste værdi for hver måling."
+      },
+      {
+        "title": "Lavet til pårørende",
+        "desc": "Avanceret tilstand kommer snart: familiegruppe med advarsler om morgenen, når en ældre slægtning ikke synkroniserer."
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "Privatliv først",
+    "heading": "Dine sundhedsdata er ikke en vare.",
+    "description": "FitMesh Sync sælger, deler eller profilerer aldrig. Dine data bliver på den server, du vælger (din NAS derhjemme, din VPS eller vores delte endpoint). Du bestemmer i appens indstillinger.",
+    "cta": "Læs privatlivspolitikken"
+  },
+  "final_cta": {
+    "heading": "Klar til at starte?",
+    "description": "Download appen, giv Health Connect-tilladelser, og på 30 sekunder er dine data live."
+  },
+  "footer": {
+    "tagline": "Synkronisér dine smartwatch-data til dit eget premium-dashboard. Privatliv først. Ingen uigennemsigtige skyer, ingen reklametrackere.",
+    "product": "Produkt",
+    "legal": "Juridisk",
+    "rights": "Alle rettigheder forbeholdes.",
+    "made_with": "Lavet med omhu i Italien",
+    "fosforonero_label": "Et projekt af",
+    "links": {
+      "features": "Funktioner",
+      "download": "Download",
+      "support": "Support",
+      "privacy": "Privatlivspolitik",
+      "terms": "Servicevilkår",
+      "cookies": "Cookiepolitik"
+    }
+  },
+  "cookie_banner": {
+    "title": "Cookies og privatliv",
+    "description": "Vi bruger strengt nødvendige cookies, så siden fungerer, og med dit samtykke Google Analytics for at lære, hvordan vi forbedrer produktet. Ingen reklame- eller profileringscookies.",
+    "details_link": "Detaljer",
+    "accept": "Accepter alle",
+    "reject": "Afvis valgfrie"
+  },
+  "legal": {
+    "last_updated": "Senest opdateret",
+    "privacy_title": "Privatlivspolitik",
+    "terms_title": "Servicevilkår",
+    "cookies_title": "Cookiepolitik",
+    "support_title": "Ofte stillede spørgsmål",
+    "section": "Juridisk"
+  },
+  "auth": {
+    "login": {
+      "heading": "Log ind på FitMesh",
+      "subheading": "Vi sender dig et link via e-mail. Ingen adgangskoder at huske.",
+      "email_label": "E-mail",
+      "email_placeholder": "dig@email.com",
+      "submit": "Send mig login-linket",
+      "sending": "Sender…",
+      "success_title": "Tjek din e-mail",
+      "success_body": "Vi har sendt dig et login-link. Åbn e-mailen, og klik for at logge ind.",
+      "try_again": "Send igen",
+      "disclaimer": "Når du logger ind, accepterer du vores vilkår og privatlivspolitik. Dine sundhedsdata bliver aldrig delt og aldrig brugt til lægelig rådgivning."
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "devices": "Enheder",
+      "settings": "Indstillinger",
+      "logout": "Log ud"
+    },
+    "disclaimer": "De viste data er kun til orientering. FitMesh er ikke en medicinsk enhed og erstatter ikke professionel lægelig rådgivning.",
+    "dashboard": {
+      "welcome": "Velkommen",
+      "steps": "Skridt i dag",
+      "heart_rate": "Gennemsnitlig BPM",
+      "sleep": "Søvn",
+      "no_data": "Ingen enhed forbundet"
+    },
+    "next_step": {
+      "title": "Kom i gang: forbind din første enhed",
+      "body": "Gå til 'Enheder', og generér en parringskode. Indtast den derefter i FitMesh-appen på din telefon.",
+      "cta": "Forbind enhed →"
+    },
+    "devices": {
+      "heading": "Dine enheder",
+      "subheading": "Smartwatches og telefoner forbundet til din konto.",
+      "add_title": "Tilføj enhed",
+      "add_body": "Generér en kode, og indtast den i FitMesh Sync-appen for at forbinde en ny telefon.",
+      "add_cta": "Generér kode",
+      "coming_soon": "(kommer snart)",
+      "list_title": "Forbundne enheder",
+      "empty": "Ingen enheder forbundet endnu.",
+      "error": "Fejl ved indlæsning af enheder.",
+      "revoked": "tilbagekaldt",
+      "last_sync": "Seneste synkronisering",
+      "never": "aldrig"
+    },
+    "settings": {
+      "heading": "Indstillinger",
+      "profile_heading": "Profil",
+      "display_name": "Navn",
+      "locale": "Sprog",
+      "timezone": "Tidszone",
+      "member_since": "Medlem siden",
+      "privacy_heading": "Privatliv og data",
+      "privacy_body": "Dine sundhedsdata bliver aldrig delt, aldrig behandlet til medicinske formål, aldrig brugt til at give lægelig rådgivning. Kun til dit personlige dashboard og gamification.",
+      "export": "Eksportér mine data",
+      "danger_heading": "Farezone",
+      "delete_description": "Slet din konto og alle tilknyttede data permanent. Du har 24 timer til at fortryde via e-mail.",
+      "delete_cta": "Slet min konto",
+      "delete_confirm_title": "Er du helt sikker?",
+      "delete_confirm_body": "Disse slettes permanent: profil, alle sundhedsdata, forbundne enheder, træningssessioner. Disse opbevares anonymiseret af hensyn til compliance: tekniske logfiler (90 dage) og admin-audit (5 år).",
+      "delete_confirm_input": "Skriv DELETE for at bekræfte",
+      "delete_confirm_submit": "Bekræft sletning",
+      "cancel": "Annuller",
+      "delete_scheduled_title": "Anmodning modtaget",
+      "delete_scheduled_body": "Du modtager en e-mail med linket til at fortryde. Hvis du ikke gør noget inden for 24 timer, slettes din konto permanent."
+    }
+  },
+  "admin": {
+    "banner": "ADMIN MODE: dine handlinger spores",
+    "nav": {
+      "overview": "Oversigt",
+      "users": "Brugere",
+      "devices": "Enheder",
+      "events": "Hændelser",
+      "exit": "Forlad admin"
+    },
+    "overview": {
+      "heading": "Oversigt",
+      "subheading": "Systemstatus, samlede metrikker, ingen personlige sundhedsdata.",
+      "total_users": "Brugere i alt",
+      "active_7d": "Aktive 7 dage",
+      "active_30d": "Aktive 30 dage",
+      "new_7d": "Nye 7 dage",
+      "total_devices": "Enheder i alt",
+      "active_devices": "Aktive enheder",
+      "syncs_24h": "Synkroniseringer 24 t",
+      "failed_syncs_24h": "Mislykkede synkroniseringer 24 t"
+    },
+    "privacy_notice": "Privatliv: dette dashboard viser kun metadata og samlede metrikker. Brugernes sundhedsdata er IKKE tilgængelige for nogen admin (håndhævet via Postgres RLS)."
+  },
+  "showcase": {
+    "kicker": "Appen",
+    "heading": "Se FitMesh i aktion",
+    "sub": "Rigtige skærmbilleder fra Android-appen, direkte fra telefonen.",
+    "captions": {
+      "sleep": "Søvnfaser og hjertesundhed",
+      "trends": "Tendenser for skridt og kalorier",
+      "vitals": "SpO₂ og avancerede metrikker"
+    }
+  }
+}

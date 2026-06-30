@@ -21,6 +21,10 @@ const SUBTITLE: Record<Locale, string> = {
   nl: "Informatie over de exploitant van fitmesh.fit",
   ja: "fitmesh.fit のサービス運営者情報",
   ko: "fitmesh.fit 서비스 운영자 정보",
+  sv: "Information om operatören av tjänsten fitmesh.fit",
+  da: "Oplysninger om operatøren af tjenesten fitmesh.fit",
+  no: "Informasjon om operatøren av tjenesten fitmesh.fit",
+  fi: "Tietoja fitmesh.fit-palvelun ylläpitäjästä",
 };
 
 /** Intro con riferimento al DSA. */
@@ -36,6 +40,10 @@ const INTRO: Record<Locale, string> = {
   nl: "Informatie over de dienstverlener overeenkomstig Verordening (EU) 2022/2065 (digitaledienstenverordening) en toepasselijk recht.",
   ja: "規則 (EU) 2022/2065（デジタルサービス法）および適用法に基づくサービス提供者情報。",
   ko: "규정 (EU) 2022/2065(디지털 서비스법) 및 관련 법률에 따른 서비스 제공자 정보.",
+  sv: "Information om tjänsteleverantören enligt förordning (EU) 2022/2065 (rättsakten om digitala tjänster) och tillämplig lag.",
+  da: "Oplysninger om tjenesteudbyderen i henhold til forordning (EU) 2022/2065 (forordningen om digitale tjenester) og gældende ret.",
+  no: "Informasjon om tjenestetilbyderen i henhold til forordning (EU) 2022/2065 (forordningen om digitale tjenester) og gjeldende rett.",
+  fi: "Tietoja palveluntarjoajasta asetuksen (EU) 2022/2065 (digipalvelusäädös) ja sovellettavan lain mukaisesti.",
 };
 
 /** Titolo della sezione identità. */
@@ -51,6 +59,10 @@ const SECTION_OPERATOR: Record<Locale, string> = {
   nl: "Dienstverlener",
   ja: "サービス運営者",
   ko: "서비스 운영자",
+  sv: "Tjänsteoperatör",
+  da: "Tjenesteoperatør",
+  no: "Tjenesteoperatør",
+  fi: "Palvelun ylläpitäjä",
 };
 
 /** Titolo della sezione documenti correlati. */
@@ -66,6 +78,10 @@ const SECTION_DOCS: Record<Locale, string> = {
   nl: "Privacy, voorwaarden en cookies",
   ja: "プライバシー・規約・Cookie",
   ko: "개인정보, 약관 및 쿠키",
+  sv: "Integritet, villkor och cookies",
+  da: "Privatliv, vilkår og cookies",
+  no: "Personvern, vilkår og informasjonskapsler",
+  fi: "Yksityisyys, ehdot ja evästeet",
 };
 
 const NOTE_LEAD: Record<Locale, string> = {
@@ -80,6 +96,10 @@ const NOTE_LEAD: Record<Locale, string> = {
   nl: "Voor de verwerking van persoonsgegevens en de gebruiksvoorwaarden, zie:",
   ja: "個人データの取り扱いおよび利用規約については、以下をご覧ください:",
   ko: "개인정보 처리 및 이용약관은 다음을 참조하세요:",
+  sv: "För behandling av personuppgifter och användarvillkor, se:",
+  da: "For behandling af personoplysninger og brugsvilkår, se:",
+  no: "For behandling av personopplysninger og bruksvilkår, se:",
+  fi: "Henkilötietojen käsittelystä ja käyttöehdoista, katso:",
 };
 
 const DESC: Record<Locale, string> = {
@@ -94,6 +114,10 @@ const DESC: Record<Locale, string> = {
   nl: "Colofon en identiteit van de exploitant van fitmesh.fit (DSA): entiteit, adres en contact.",
   ja: "fitmesh.fit の運営者情報（DSA）：事業者名、所在地、連絡先。",
   ko: "fitmesh.fit 운영자 정보(DSA): 사업자명, 주소 및 연락처.",
+  sv: "Juridisk information och operatörsidentitet för fitmesh.fit (DSA): juridisk enhet, registrerad adress och kontakt.",
+  da: "Juridisk meddelelse og operatøridentitet for fitmesh.fit (DSA): juridisk enhed, registreret adresse og kontakt.",
+  no: "Juridisk informasjon og operatøridentitet for fitmesh.fit (DSA): juridisk enhet, registrert adresse og kontakt.",
+  fi: "Oikeudelliset tiedot ja palvelun ylläpitäjän tiedot fitmesh.fit-sivustolle (DSA): oikeushenkilö, rekisteröity osoite ja yhteystiedot.",
 };
 
 export async function generateMetadata(

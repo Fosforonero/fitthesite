@@ -15,6 +15,10 @@ const COPY: Record<Locale, { taken: string; left: (n: number) => string }> = {
   nl: { taken: "founder plekken bezet", left: (n) => `${n} plekken over` },
   ja: { taken: "ファウンダー枠埋まり", left: (n) => `残り${n}枠` },
   ko: { taken: "파운더 자리 차있음", left: (n) => `${n}자리 남음` },
+  sv: { taken: "founder-platser tagna", left: (n) => `${n} platser kvar` },
+  da: { taken: "founder-pladser taget", left: (n) => `${n} pladser tilbage` },
+  no: { taken: "founder-plasser tatt", left: (n) => `${n} plasser igjen` },
+  fi: { taken: "founder-paikkaa varattu", left: (n) => `${n} paikkaa jäljellä` },
 };
 
 /**

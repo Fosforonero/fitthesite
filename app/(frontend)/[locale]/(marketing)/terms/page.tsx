@@ -29,6 +29,10 @@ export async function generateMetadata(
     nl: "Gebruiksvoorwaarden",
     ja: "利用規約",
     ko: "이용약관",
+    sv: "Användarvillkor",
+    da: "Servicevilkår",
+    no: "Vilkår for bruk",
+    fi: "Käyttöehdot",
   };
   const desc: Record<Locale, string> = {
     it: "Termini e condizioni d'uso di FitMesh Sync: licenza, acquisti, disclaimer salute, recesso UE, limitazione di responsabilità.",
@@ -42,6 +46,10 @@ export async function generateMetadata(
     nl: "Gebruiksvoorwaarden van FitMesh Sync: licentie, aankopen, gezondheidsdisclaimer, EU-herroepingsrecht en aansprakelijkheidsbeperking.",
     ja: "FitMesh Sync利用規約: ライセンス、購入、健康免責事項、EU撤回権、責任制限。",
     ko: "FitMesh Sync 이용약관: 라이선스, 구매, 건강 고지, EU 철회권, 책임 제한.",
+    sv: "FitMesh Syncs villkor: licens, köp, hälsoförbehåll, EU-ångerrätt och ansvarsbegränsning.",
+    da: "FitMesh Syncs vilkår: licens, køb, sundhedsforbehold, EU-fortrydelsesret og ansvarsbegrænsning.",
+    no: "FitMesh Syncs vilkår: lisens, kjøp, helseforbehold, EU-angrerett og ansvarsbegrensning.",
+    fi: "FitMesh Syncin ehdot: lisenssi, ostokset, terveysvastuuvapauslauseke, EU-peruuttamisoikeus ja vastuunrajoitus.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {

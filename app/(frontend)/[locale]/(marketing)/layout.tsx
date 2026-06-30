@@ -37,6 +37,10 @@ export async function generateMetadata(
     nl: "FitMesh Sync — Één global dashboard voor al je apparaten",
     ja: "FitMesh Sync — すべてのデバイスをひとつのグローバルダッシュボードへ",
     ko: "FitMesh Sync — 모든 기기를 위한 하나의 글로벌 대시보드",
+    sv: "FitMesh Sync: En global dashboard för alla dina enheter",
+    da: "FitMesh Sync: Ét globalt dashboard til alle dine enheder",
+    no: "FitMesh Sync: Ett globalt dashbord for alle enhetene dine",
+    fi: "FitMesh Sync: Yksi maailmanlaajuinen koontinäyttö kaikille laitteillesi",
   };
   const descriptions: Record<Locale, string> = {
     it: "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in una dashboard globale: passi, battito, sonno, recupero e trend. Privacy-first, niente tracker.",
@@ -50,6 +54,10 @@ export async function generateMetadata(
     nl: "FitMesh Sync brengt Galaxy Watch, Wear OS, Health Connect en cloudproviders samen in één global dashboard: stappen, hartslag, slaap, herstel en trends. Privacy-first. Geen trackers.",
     ja: "FitMesh Syncは、Galaxy Watch、Wear OS、Health Connect、およびクラウドプロバイダーを1つのグローバルダッシュボードに統合：ステップ数、心拍数、睡眠、回復、傾向。プライバシーを最優先に、EUサーバー、GDPR準拠。トラッカーなし。",
     ko: "FitMesh Sync은 Galaxy Watch, Wear OS, Health Connect 및 클라우드 제공업체를 한 글로벌 대시보드로 통합합니다: 걸음 수, 심박수, 수면, 회복, 추세. 개인정보 보호를 최우선으로, EU 서버, GDPR 준수. 트래커 없음.",
+    sv: "FitMesh Sync samlar Galaxy Watch, Wear OS, Health Connect och molntjänster i en global dashboard: steg, puls, sömn, återhämtning och trender. Integritet först. Inga spårare.",
+    da: "FitMesh Sync samler Galaxy Watch, Wear OS, Health Connect og cloud-udbydere i ét globalt dashboard: skridt, puls, søvn, restitution og tendenser. Privatliv først. Ingen trackere.",
+    no: "FitMesh Sync samler Galaxy Watch, Wear OS, Health Connect og skytjenester i ett globalt dashbord: skritt, puls, søvn, restitusjon og trender. Personvern først. Ingen sporere.",
+    fi: "FitMesh Sync kokoaa Galaxy Watchin, Wear OS:n, Health Connectin ja pilvipalvelut yhteen maailmanlaajuiseen koontinäyttöön: askeleet, syke, uni, palautuminen ja trendit. Yksityisyys edellä. Ei seurantaa.",
   };
 
   return {

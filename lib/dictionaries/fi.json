@@ -1,0 +1,190 @@
+{
+  "nav": {
+    "support": "Tuki",
+    "privacy": "Tietosuoja",
+    "download": "Lataa"
+  },
+  "hero": {
+    "badge": "Saadaan ladattua Androidille · iOS tulee pian",
+    "heading_1": "Yksi globaali yhteenveto",
+    "heading_accent": "kaikille laitteillesi.",
+    "description": "Koko Galaxy Watch, Wear OS, Health Connect ja pilvipalveluntarjoajien tiedot yhdestä näkymästä. Askeleet, uni, syke, palautuminen ja kehitys ilman sovellusten välillä hylkäämistä.",
+    "cta_secondary": "Lue lisää",
+    "pricing": "Yksi kerta €3.99, tai €1.19 joka kuusi kuukautta · turvallinen maksu",
+    "coming_soon": "Tulee pian"
+  },
+  "features": {
+    "kicker": "Ominaisuudet",
+    "heading": "Kaikki alykellon tallentamat tiedot, järjestetty ja visuaalisesti esitetty.",
+    "items": [
+      {
+        "title": "Askeleet & etäisyys",
+        "desc": "Automaattinen synkronointi Health Connect ja Samsung Health kanssa. Toimii taustalla, vaikka puhelimesi olisi lukittu."
+      },
+      {
+        "title": "Syke & VO₂ max",
+        "desc": "Päivittäinen keskiarvo, min/max-alue, lepopulsseihin. Havaitse kehitysiä kardiologisessa terveydessä ajan myötä."
+      },
+      {
+        "title": "Uni vaiheina",
+        "desc": "Kokonaisaika, syvän, REM, valon, herkän. Väritysbar ja hetkellinen laatuviiva."
+      },
+      {
+        "title": "Kalorit & aktiviteetti",
+        "desc": "Aktiiviset ja peruskalorit, reitti, korkeus, kerrottu kerros. Kävely vihreänä, harjoitukset punaisena."
+      },
+      {
+        "title": "Globaali monilaitteinen yhteenveto",
+        "desc": "Useita kelloja, useita palveluntarjoajia, yksi näkymä. FitMesh yhdistää lähteet, poistaa päällekkäiset tiedot ja säilyttää parhaan arvon jokaiselle mittareille."
+      },
+      {
+        "title": "Rakennettu hoitajille",
+        "desc": "Laajennettu tila tulee pian: perhe ryhmä, johon kuuluu aamulla synchronisointihälytykset, kun vanhempi sukulainen jää hiljalle."
+      }
+    ]
+  },
+  "privacy_block": {
+    "kicker": "Tietosuoja-ensin",
+    "heading": "Terveysdatasi ei ole tuote.",
+    "description": "FitMesh Sync ei koskaan myy, jaa tai profiloitu. Tiedot pysyvät palvelimella, jonka valitset (kotiasuntosi NAS, omasi VPS tai yhteinen loppupiste). Päättää sovelluksen asetuksissa.",
+    "cta": "Lue tietosuojakäytäntö"
+  },
+  "final_cta": {
+    "heading": "Valmis aloittamaan?",
+    "description": "Lataa sovellus, anna Health Connect -oikeudet ja 30 sekunnissa tiedot ovat aktiivisia."
+  },
+  "footer": {
+    "tagline": "Synkronoi alykellon tiedot omalle premium-palkkiisi. Tietosuoja-ensin. Ei epäselviä pilvejä, ei mainonnan seurantaa.",
+    "product": "Tuote",
+    "legal": "Oikeudet",
+    "rights": "Kaikki oikeudet pidätetään.",
+    "made_with": "Tehty huolellisesti Italiaan",
+    "fosforonero_label": "Projekti",
+    "links": {
+      "features": "Ominaisuudet",
+      "download": "Lataa",
+      "support": "Tuki",
+      "privacy": "Tietosuojakäytäntö",
+      "terms": "Käyttöehdot",
+      "cookies": "Rakennepalvelujen käytäntö"
+    }
+  },
+  "cookie_banner": {
+    "title": "Rakennepalvelut & tietosuoja",
+    "description": "Käytämme ainoastaan pakollisia rakennepalveluita sivuston toimintaan ja, kun hyväksyt, Google Analytics -palvelua parantaaksemme tuotetta. Ei mainonnan tai profiloivan rakennepalveluiden käyttöä.",
+    "details_link": "Tiedot",
+    "accept": "Hyväksy kaikki",
+    "reject": "Hylkää valinnaiset"
+  },
+  "legal": {
+    "last_updated": "Viimeisimmät päivitykset",
+    "privacy_title": "Tietosuojakäytäntö",
+    "terms_title": "Käyttöehdot",
+    "cookies_title": "Rakennepalvelujen käytäntö",
+    "support_title": "Usein kysytyt kysymykset",
+    "section": "Oikeudet"
+  },
+  "auth": {
+    "login": {
+      "heading": "Kirjaudu sisään FitMeshiin",
+      "subheading": "Lähetämme sinulle linkin sähköpostitse. Ei salasanoja muistettavaa.",
+      "email_label": "Sähköpostiosoite",
+      "email_placeholder": "you@email.com",
+      "submit": "Lähetä kirjautumislinkki",
+      "sending": "Lähetetään…",
+      "success_title": "Tarkista sähköpostisi",
+      "success_body": "Lähetimme sinulle kirjautumislinkin. Avaa sähköposti ja klikkaa sisäänkirjoitukseen.",
+      "try_again": "Lähetä uudelleen",
+      "disclaimer": "Kirjauduttuasi hyväksyt meidän käyttöehdot ja yksityisyydensuoja-asetukset. Terveysdatasi ei koskaan jaeta eikä sitä käytetä lääketieteelliseen neuvontaan."
+    }
+  },
+  "app": {
+    "nav": {
+      "dashboard": "Kojelauta",
+      "devices": "Laitteet",
+      "settings": "Asetukset",
+      "logout": "Kirjaudu ulos"
+    },
+    "disclaimer": "Näytettävät tiedot ovat ainoastaan tiedonantajana. FitMesh ei ole lääkinnällinen laite ja ei korvaa ammattimistaan lääkärin neuvoa.",
+    "dashboard": {
+      "welcome": "Tervetuloa",
+      "steps": "Askelten määrä tänään",
+      "heart_rate": "Keskimääräinen syke (BPM)",
+      "sleep": "Uni",
+      "no_data": "Ei laitetta yhdistetty"
+    },
+    "next_step": {
+      "title": "Aloita: yhdistä ensimmäinen laite",
+      "body": "Mene kohtaan 'Laitteet' ja luo parituskoodi. Sitten syötä se FitMesh-sovellukseen puhelimesi.",
+      "cta": "Yhdistä laite →"
+    },
+    "devices": {
+      "heading": "Laitteesi",
+      "subheading": "Tiliisi yhdistetyt älykellot ja puhelimet.",
+      "add_title": "Lisää laite",
+      "add_body": "Luo koodi ja syötä se FitMesh Sync -sovellukseen yhdistääksesi uuden puhelimen.",
+      "add_cta": "Luo koodi",
+      "coming_soon": "(tulossa pian)",
+      "list_title": "Yhdistetyt laitteet",
+      "empty": "Ei vielä yhdistettyjä laitteita.",
+      "error": "Virhe laitteiden lataamisessa.",
+      "revoked": "peruutettu",
+      "last_sync": "Viimeisin synkronointi",
+      "never": "ei koskaan"
+    },
+    "settings": {
+      "heading": "Asetukset",
+      "profile_heading": "Profiili",
+      "display_name": "Nimi",
+      "locale": "Kieli",
+      "timezone": "Aikavyöhyke",
+      "member_since": "Jäsen alkaen",
+      "privacy_heading": "Yksityisyys ja tiedot",
+      "privacy_body": "Terveystietojasi ei koskaan jaeta, käsitellä lääketieteellisiin tarkoituksiin eikä käytetä lääketieteellisten neuvojen antamiseen. Vain henkilökohtaista koontinäyttöäsi ja pelillistämistä varten.",
+      "export": "Vie tietoni",
+      "danger_heading": "Vaaravyöhyke",
+      "delete_description": "Poista tilisi ja kaikki siihen liittyvät tiedot pysyvästi. Sinulla on 24 tuntia aikaa peruuttaa sähköpostitse.",
+      "delete_cta": "Poista tilini",
+      "delete_confirm_title": "Oletko aivan varma?",
+      "delete_confirm_body": "Nämä poistetaan pysyvästi: profiili, kaikki terveystiedot, yhdistetyt laitteet, harjoitusistunnot. Nämä säilytetään anonymisoituina vaatimustenmukaisuuden vuoksi: tekniset lokit (90 päivää) ja hallinnan tarkastus (5 vuotta).",
+      "delete_confirm_input": "Vahvista kirjoittamalla DELETE",
+      "delete_confirm_submit": "Vahvista poisto",
+      "cancel": "Peruuta",
+      "delete_scheduled_title": "Pyyntö vastaanotettu",
+      "delete_scheduled_body": "Saat sähköpostin, jossa on peruutuslinkki. Jos et tee mitään 24 tunnin kuluessa, tilisi poistetaan pysyvästi."
+    }
+  },
+  "admin": {
+    "banner": "ADMIN-TILA: toimesi kirjataan",
+    "nav": {
+      "overview": "Yleiskatsaus",
+      "users": "Käyttäjät",
+      "devices": "Laitteet",
+      "events": "Tapahtumat",
+      "exit": "Lopeta ylläpito"
+    },
+    "overview": {
+      "heading": "Yleiskatsaus",
+      "subheading": "Järjestelmän tila, yhteenvetoindikaattorit, ei henkilökohtaista terveyttä tietoa.",
+      "total_users": "Käyttäjien määrä",
+      "active_7d": "Aktiiviset 7p",
+      "active_30d": "Aktiiviset 30p",
+      "new_7d": "Uudet 7p",
+      "total_devices": "Laitteiden määrä",
+      "active_devices": "Aktiiviset laitteet",
+      "syncs_24h": "Synkronointi 24h",
+      "failed_syncs_24h": "Epäonnistuneet synkronointi 24h"
+    },
+    "privacy_notice": "Tietosuoja: tämä hallintopaneeli näyttää vain metadatan ja yhteenvetoindikaattorit. Käyttäjien terveyttietoja ei ole saatavilla ylläpitoille (rajoitettu Postgres RLS:n kautta)."
+  },
+  "showcase": {
+    "kicker": "Sovellus",
+    "heading": "Katso FitMesh toiminnassa",
+    "sub": "Reaaliaikaiset näytöt Android-sovelluksesta, suoraan puhelimesta.",
+    "captions": {
+      "sleep": "Univaiheet & sydänsairaudet",
+      "trends": "Askeleet & kaloritrendit",
+      "vitals": "SpO₂ & laajennetut indikaattorit"
+    }
+  }
+}

@@ -60,6 +60,10 @@ export default function StoreButtonsRow({
     nl: { small: "Beschikbaar op", store: "Google Play", soon: "Binnenkort" },
     ja: { small: "手に入れよう", store: "Google Play", soon: "近日公開" },
     ko: { small: "지금 다운로드", store: "Google Play", soon: "출시 예정" },
+    sv: { small: "Ladda ned på", store: "Google Play", soon: "Kommer snart" },
+    da: { small: "Hent på", store: "Google Play", soon: "Kommer snart" },
+    no: { small: "Last ned på", store: "Google Play", soon: "Kommer snart" },
+    fi: { small: "Lataa palvelusta", store: "Google Play", soon: "Tulossa pian" },
   };
   const APPLE = {
     it: { small: "Scarica su", store: "App Store", soon: "In arrivo" },
@@ -73,6 +77,10 @@ export default function StoreButtonsRow({
     nl: { small: "Downloaden in de", store: "App Store", soon: "Binnenkort" },
     ja: { small: "ダウンロード", store: "App Store", soon: "近日公開" },
     ko: { small: "다운로드", store: "App Store", soon: "출시 예정" },
+    sv: { small: "Ladda ned i", store: "App Store", soon: "Kommer snart" },
+    da: { small: "Hent i", store: "App Store", soon: "Kommer snart" },
+    no: { small: "Last ned i", store: "App Store", soon: "Kommer snart" },
+    fi: { small: "Lataa", store: "App Store", soon: "Tulossa pian" },
   };
   const playLabels = PLAY[locale] ?? PLAY.en;
   const appleLabels = APPLE[locale] ?? APPLE.en;

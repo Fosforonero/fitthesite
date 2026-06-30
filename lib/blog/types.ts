@@ -25,6 +25,10 @@ export type Localized = {
   nl?: string;
   ja?: string;
   ko?: string;
+  sv?: string;
+  da?: string;
+  no?: string;
+  fi?: string;
 };
 export type LocalizedList = {
   it: string[];
@@ -38,6 +42,10 @@ export type LocalizedList = {
   nl?: string[];
   ja?: string[];
   ko?: string[];
+  sv?: string[];
+  da?: string[];
+  no?: string[];
+  fi?: string[];
 };
 
 /**

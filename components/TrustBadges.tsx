@@ -80,6 +80,34 @@ const COPY = {
     indie: "인디 개발",
     title: "정성껏 만들었습니다",
   },
+  sv: {
+    madeIn: "Made in Italy",
+    serverEu: "EU-servrar",
+    gdpr: "GDPR-integritet",
+    indie: "Indie-utvecklare",
+    title: "Byggd med omsorg",
+  },
+  da: {
+    madeIn: "Made in Italy",
+    serverEu: "EU-servere",
+    gdpr: "GDPR-privatliv",
+    indie: "Indie-udvikler",
+    title: "Bygget med omhu",
+  },
+  no: {
+    madeIn: "Made in Italy",
+    serverEu: "EU-servere",
+    gdpr: "GDPR-personvern",
+    indie: "Indie-utvikler",
+    title: "Bygget med omtanke",
+  },
+  fi: {
+    madeIn: "Made in Italy",
+    serverEu: "EU-palvelimet",
+    gdpr: "GDPR-yksityisyys",
+    indie: "Indie-kehittäjä",
+    title: "Rakennettu huolella",
+  },
 } as const;
 
 export default function TrustBadges({

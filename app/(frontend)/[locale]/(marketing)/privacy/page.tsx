@@ -29,6 +29,10 @@ export async function generateMetadata(
     nl: "Privacybeleid",
     ja: "プライバシーポリシー",
     ko: "개인정보 처리방침",
+    sv: "Integritetspolicy",
+    da: "Privatlivspolitik",
+    no: "Personvernerklæring",
+    fi: "Tietosuojakäytäntö",
   };
   const desc: Record<Locale, string> = {
     it: "Come FitMesh Sync raccoglie, utilizza e protegge i dati di salute. Conforme GDPR.",
@@ -42,6 +46,10 @@ export async function generateMetadata(
     nl: "Hoe FitMesh Sync gezondheidsgegevens verzamelt, gebruikt en beschermt. AVG-conform.",
     ja: "FitMesh Syncが健康データをどのように収集、使用、保護するか。GDPR準拠。",
     ko: "FitMesh Sync가 건강 데이터를 수집, 사용 및 보호하는 방법. GDPR 준수.",
+    sv: "Hur FitMesh Sync samlar in, använder och skyddar hälsodata. GDPR-kompatibel.",
+    da: "Hvordan FitMesh Sync indsamler, bruger og beskytter sundhedsdata. GDPR-kompatibel.",
+    no: "Hvordan FitMesh Sync samler inn, bruker og beskytter helsedata. GDPR-kompatibel.",
+    fi: "Miten FitMesh Sync kerää, käyttää ja suojaa terveystietoja. GDPR-yhteensopiva.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {

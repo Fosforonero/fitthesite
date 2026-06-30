@@ -997,6 +997,10 @@ export async function generateMetadata({
     nl: "Pers & Mediakit — FitMesh Sync",
     ja: "プレス＆メディアキット — FitMesh Sync",
     ko: "프레스 & 미디어 키트 — FitMesh Sync",
+    sv: "Press och mediakit: FitMesh Sync",
+    da: "Presse og mediekit: FitMesh Sync",
+    no: "Presse og mediekit: FitMesh Sync",
+    fi: "Lehdistö ja mediapaketti: FitMesh Sync",
   };
   const descriptions: Record<Locale, string> = {
     it: "Risorse per giornalisti, blogger e creator che scrivono di FitMesh Sync: tagline, descrizioni copia-incolla, asset, founder bio, contatto stampa diretto.",
@@ -1010,6 +1014,10 @@ export async function generateMetadata({
     nl: "Materiaal voor journalisten, bloggers en creators die over FitMesh Sync schrijven: tagline, kant-en-klare beschrijvingen, assets, oprichtersbio en direct perscontact.",
     ja: "FitMesh Syncについて書くジャーナリスト・ブロガー・クリエイター向けの資料：タグライン、コピペ用の説明文、アセット、創業者プロフィール、プレス直通連絡先。",
     ko: "FitMesh Sync에 관해 글을 쓰는 기자, 블로거, 크리에이터를 위한 자료: 태그라인, 복사해 붙여넣는 설명, 에셋, 창업자 소개, 프레스 직통 연락처.",
+    sv: "Resurser för journalister, bloggare och kreatörer som skriver om FitMesh Sync: tagline, färdiga beskrivningar att kopiera, assets, grundarbio och direkt presskontakt.",
+    da: "Ressourcer til journalister, bloggere og kreatorer, der skriver om FitMesh Sync: tagline, klar-til-kopiering-beskrivelser, assets, stifterbio og direkte pressekontakt.",
+    no: "Ressurser for journalister, bloggere og skapere som skriver om FitMesh Sync: tagline, ferdige beskrivelser til kopiering, assets, gründerbio og direkte pressekontakt.",
+    fi: "Resursseja toimittajille, bloggaajille ja sisällöntekijöille, jotka kirjoittavat FitMesh Syncistä: tagline, valmiit kopioitavat kuvaukset, materiaalit, perustajan esittely ja suora lehdistöyhteys.",
   };
   const title = titles[lc];
   const description = descriptions[lc];

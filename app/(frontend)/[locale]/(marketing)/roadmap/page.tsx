@@ -34,6 +34,10 @@ export async function generateMetadata({
     nl: "Publieke roadmap — FitMesh Sync",
     ja: "公開ロードマップ — FitMesh Sync",
     ko: "공개 로드맵 — FitMesh Sync",
+    sv: "Publik roadmap: FitMesh Sync",
+    da: "Offentlig roadmap: FitMesh Sync",
+    no: "Offentlig veikart: FitMesh Sync",
+    fi: "Julkinen tiekartta: FitMesh Sync",
   };
   const descriptions: Record<Locale, string> = {
     it: "Cosa è già live in produzione, cosa arriva nei prossimi 30 giorni, Q3 e Q4 2026, e cosa stiamo esplorando. Roadmap aggiornata in chiaro, senza marketing-speak.",
@@ -47,6 +51,10 @@ export async function generateMetadata({
     nl: "Wat al live is, wat de komende 30 dagen, Q3 en Q4 2026 verschijnt en wat we verkennen. Een heldere roadmap, regelmatig bijgewerkt, zonder marketingpraat.",
     ja: "すでに本番稼働中の機能、今後30日・2026年Q3とQ4に登場するもの、そして検討中の方向性。マーケティング表現なしで定期的に更新する明快なロードマップ。",
     ko: "이미 프로덕션에 출시된 기능, 앞으로 30일·2026년 Q3와 Q4에 출시될 기능, 그리고 검토 중인 방향. 마케팅 표현 없이 정기적으로 업데이트하는 명확한 로드맵.",
+    sv: "Vad som redan är live, vad som kommer de närmaste 30 dagarna, Q3 och Q4 2026, och vad vi utforskar. En tydlig roadmap utan marknadsföringsprat, uppdaterad regelbundet.",
+    da: "Hvad der allerede er live, hvad der kommer de næste 30 dage, Q3 og Q4 2026, og hvad vi udforsker. Et tydeligt roadmap uden markedsføringssnak, opdateret jævnligt.",
+    no: "Hva som allerede er live, hva som kommer de neste 30 dagene, Q3 og Q4 2026, og hva vi utforsker. Et tydelig veikart uten markedsføringsprat, oppdatert jevnlig.",
+    fi: "Mikä on jo julkaistu, mitä tulee seuraavan 30 päivän aikana, Q3 ja Q4 2026, ja mitä tutkimme. Selkeä tiekartta ilman markkinointipuhetta, säännöllisesti päivitetty.",
   };
   const title = titles[lc];
   const description = descriptions[lc];

@@ -32,6 +32,10 @@ export async function generateMetadata({
     nl: 'FitMesh Sync — Synchroniseer je smartwatch met een persoonlijk dashboard',
     ja: 'FitMesh Sync — スマートウォッチを個人ダッシュボードへ同期',
     ko: 'FitMesh Sync — 스마트워치를 개인 대시보드와 동기화',
+    sv: 'FitMesh Sync: Synka din smartklocka till en personlig dashboard',
+    da: 'FitMesh Sync: Synkronisér dit smartwatch til et personligt dashboard',
+    no: 'FitMesh Sync: Synkroniser smartklokken din til et personlig dashbord',
+    fi: 'FitMesh Sync: Synkronoi älykellosi henkilökohtaiseen koontinäyttöön',
   };
   const descriptions: Record<Locale, string> = {
     it: 'FitMesh Sync sincronizza Galaxy Watch e Wear OS con una dashboard premium: passi, battito, sonno, calorie e VO₂ max. Privacy-first, niente cloud opachi, niente tracker.',
@@ -45,6 +49,10 @@ export async function generateMetadata({
     nl: 'FitMesh Sync spiegelt Galaxy Watch en Wear OS data naar een premium persoonlijk dashboard: stappen, hartslag, slaap, calorieën en VO₂ max. Privacy-first. Geen ondoorzichtige clouds. Geen trackers.',
     ja: 'FitMesh SyncはGalaxy WatchとWear OSのデータをプレミアムダッシュボードへ同期: 歩数、心拍数、睡眠、カロリー、VO₂ max。プライバシーファースト。',
     ko: 'FitMesh Sync는 Galaxy Watch와 Wear OS 데이터를 프리미엄 대시보드에 동기화: 걸음 수, 심박수, 수면, 칼로리, VO₂ max. 개인정보 보호 최우선.',
+    sv: 'FitMesh Sync speglar data från Galaxy Watch och Wear OS till en premium personlig dashboard: steg, puls, sömn, kalorier och VO₂ max. Integritet först. Inga oklara moln. Inga spårare.',
+    da: 'FitMesh Sync spejler data fra Galaxy Watch og Wear OS til et premium personligt dashboard: skridt, puls, søvn, kalorier og VO₂ max. Privatliv først. Ingen uklare skyer. Ingen trackere.',
+    no: 'FitMesh Sync speiler data fra Galaxy Watch og Wear OS til et premium personlig dashbord: skritt, puls, søvn, kalorier og VO₂ max. Personvern først. Ingen uklare skyer. Ingen sporere.',
+    fi: 'FitMesh Sync peilaa Galaxy Watchin ja Wear OS:n tiedot premium-koontinäyttöön: askeleet, syke, uni, kalorit ja VO₂ max. Yksityisyys edellä. Ei epämääräisiä pilviä. Ei seurantaa.',
   };
 
   return {
