@@ -1,2 +1,4 @@
 .preview/
 .tm/
+.env
+*.local
