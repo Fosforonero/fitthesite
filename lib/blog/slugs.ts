@@ -222,6 +222,18 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "android-kara-iphone-fitness-data",
     ko: "android-eseo-iphone-fitness-deiteo",
   },
+  "anello-orologio-scenari-reali": {
+    en: "smart-ring-and-watch-real-scenarios",
+    es: "anillo-y-reloj-escenarios-reales",
+    de: "ring-und-uhr-echte-szenarien",
+    pt: "anel-e-relogio-cenarios-reais",
+    fr: "bague-et-montre-scenarios-reels",
+    pl: "pierscien-i-zegarek-realne-scenariusze",
+    tr: "yuzuk-ve-saat-gercek-senaryolar",
+    nl: "ring-en-horloge-echte-scenarios",
+    ja: "ring-watch-real-scenarios",
+    ko: "ring-watch-real-scenarios",
+  },
   "gdpr-dati-fitness-smartwatch": {
     en: "gdpr-fitness-data-smartwatch",
     es: "gdpr-datos-fitness-smartwatch",
