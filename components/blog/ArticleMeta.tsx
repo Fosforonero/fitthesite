@@ -107,18 +107,17 @@ function StatChip({
   value: number;
 }) {
   return (
-    <div className="flex items-center gap-2" title={label}>
+    <div
+      className="flex-none flex items-center gap-1.5"
+      title={label}
+      aria-label={`${label}: ${value}`}
+    >
       <span className="text-text-muted">
         <Icon kind={icon} />
       </span>
-      <div className="leading-tight">
-        <span className="block text-[10px] uppercase tracking-[0.16em] text-text-muted">
-          {label}
-        </span>
-        <span className="block text-sm font-medium text-text-primary tabular-nums">
-          {fmtCount(value)}
-        </span>
-      </div>
+      <span className="text-sm font-medium text-text-primary tabular-nums">
+        {fmtCount(value)}
+      </span>
     </div>
   );
 }
@@ -246,9 +245,9 @@ export function ArticleMeta({
   }
 
   return (
-    <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 border-y border-divider py-4">
+    <div className="mt-6 flex items-center gap-x-5 sm:gap-x-6 border-y border-divider py-4 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {items.map((it, i) => (
-        <div key={i} className="flex items-center gap-2">
+        <div key={i} className="flex-none flex items-center gap-2 whitespace-nowrap">
           <span className="text-text-muted">
             <Icon kind={it.icon} />
           </span>
@@ -271,7 +270,7 @@ export function ArticleMeta({
       <button
         type="button"
         onClick={share}
-        className="ml-auto flex items-center gap-2 text-text-muted hover:text-brand-aqua transition"
+        className="ml-auto flex-none flex items-center gap-2 whitespace-nowrap pl-2 text-text-muted hover:text-brand-aqua transition"
       >
         <span className={copied ? "text-brand-green" : ""}>
           <Icon kind={copied ? "check" : "share"} />
