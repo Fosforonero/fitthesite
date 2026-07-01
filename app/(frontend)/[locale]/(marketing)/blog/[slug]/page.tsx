@@ -17,6 +17,7 @@ import { categoryLabel, tl, tll } from "@/lib/blog/types";
 import {
   getBlogPostBySlug,
   getBlogSlugs,
+  getBlogPosts,
   getRelatedPosts,
 } from "@/lib/blog/payload-source";
 import { isPostTranslated, type NordicLang } from "@/lib/blog/nordic-overlay";
@@ -647,6 +648,15 @@ export default async function BlogArticle({
 
   const related = await getRelatedPosts(post.related);
 
+  // Prev/next per data (successivo = piu' recente, precedente = piu' vecchio).
+  const ordered = [...(await getBlogPosts())].sort(
+    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+  );
+  const curIdx = ordered.findIndex((p) => p.slug === post.slug);
+  const newerPost = curIdx > 0 ? ordered[curIdx - 1] : null;
+  const olderPost =
+    curIdx >= 0 && curIdx < ordered.length - 1 ? ordered[curIdx + 1] : null;
+
   return (
     <>
       <JsonLd data={articleLd} />
@@ -912,6 +922,44 @@ export default async function BlogArticle({
               ))}
             </div>
           </section>
+        )}
+
+        {/* PREV / NEXT — link interni con rel per i crawler */}
+        {(olderPost || newerPost) && (
+          <nav className="max-w-3xl mx-auto px-4 sm:px-6 pb-20 grid gap-4 sm:grid-cols-2">
+            {olderPost ? (
+              <Link
+                rel="prev"
+                href={`/${lc}/blog/${localizedBlogSlug(olderPost.slug, lc)}`}
+                className="card p-5 group hover:-translate-y-0.5 transition-transform"
+              >
+                <span className="text-xs text-text-muted" aria-hidden>
+                  ←
+                </span>
+                <p className="mt-1 font-display text-base font-semibold tracking-tight text-text-primary group-hover:text-brand-aqua transition leading-snug line-clamp-2">
+                  {tl(olderPost.hero.title, lc)}
+                </p>
+              </Link>
+            ) : (
+              <span />
+            )}
+            {newerPost ? (
+              <Link
+                rel="next"
+                href={`/${lc}/blog/${localizedBlogSlug(newerPost.slug, lc)}`}
+                className="card p-5 group hover:-translate-y-0.5 transition-transform sm:text-right"
+              >
+                <span className="text-xs text-text-muted" aria-hidden>
+                  →
+                </span>
+                <p className="mt-1 font-display text-base font-semibold tracking-tight text-text-primary group-hover:text-brand-aqua transition leading-snug line-clamp-2">
+                  {tl(newerPost.hero.title, lc)}
+                </p>
+              </Link>
+            ) : (
+              <span />
+            )}
+          </nav>
         )}
       </article>
     </>
