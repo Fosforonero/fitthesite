@@ -2,6 +2,10 @@
 /node_modules
 /.pnp
 .pnp.js
+
+# loctron nordic wave scratch files (extraction/translation intermediates)
+.wave2-*
+*.bak
 .yarn/install-state.gz
 
 # Testing

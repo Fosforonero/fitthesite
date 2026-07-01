@@ -8705,191 +8705,285 @@
   "colmi-ring-fitmesh": {
     "hero.kicker": {
       "sv": "Stödstolpsguide",
-      "da": "Søjlevejledning"
+      "da": "Søjlevejledning",
+      "fi": "Pilariopas",
+      "no": "Grunnleggende guide"
     },
     "hero.title": {
       "sv": "Colmi R02: den smarta ringen för 25 euro som äntligen synkroniserar alla dina hälsodata",
-      "da": "Colmi R02: den smarte ring til 25 €, der endelig synkroniserer alle dine sundhedsdata"
+      "da": "Colmi R02: den smarte ring til 25 €, der endelig synkroniserer alle dine sundhedsdata",
+      "fi": "Colmi R02: 25 euron älysormus, joka vihdoin synkronoi kaikki terveystietosi",
+      "no": "Colmi R02: den smarte ringen til 25 € som endelig synkroniserer alle helsedataene dine"
     },
     "hero.subtitle": {
       "sv": "Colmi R02 mäter steg, puls, SpO2, HRV, stress och batterinivå. Nackdelen: uppgifterna är låsta i tillverkarens app. FitMesh Sync ansluts direkt via Bluetooth och sammanför all information i din instrumentpanel – ingen app krävs.",
-      "da": "Colmi R02 måler skridt, puls, SpO2, HRV, stress og batteriniveau. Ulempen er, at dataene er låst inde i producentens ledsagerapp. FitMesh Sync opretter forbindelse direkte via Bluetooth og samler alt i dit kontrolpanel – der kræves ingen ledsagerapp."
+      "da": "Colmi R02 måler skridt, puls, SpO2, HRV, stress og batteriniveau. Ulempen er, at dataene er låst inde i producentens ledsagerapp. FitMesh Sync opretter forbindelse direkte via Bluetooth og samler alt i dit kontrolpanel – der kræves ingen ledsagerapp.",
+      "fi": "Colmi R02 mittaa askeleet, sykkeen, SpO2:n, HRV:n, stressin ja akun. Ongelma: tiedot lukittuvat valmistajan omaan sovellukseen. FitMesh Sync yhdistyy suoraan Bluetoothin kautta ja kokoaa kaiken yhteen koontinäyttöön, ilman erillistä sovellusta.",
+      "no": "Colmi R02 måler skritt, puls, SpO2, HRV, stress og batteri. Haken: dataene er låst inne i produsentens følgeapp. FitMesh Sync kobler seg direkte til over Bluetooth og samler alt i dashbordet ditt, uten at det trengs noen følgeapp."
     },
     "metaDescription": {
       "sv": "Colmi R02 och R03 med FitMesh Sync: direkt BLE-anslutning, ingen mobilapp, data sammanställs med din smartklocka på en och samma översiktssida. Färgad batteriindikator, stressindex 0–100, laddningsaviseringar.",
-      "da": "Colmi R02 og R03 med FitMesh Sync: direkte BLE, ingen ledsagerapp, data samlet med dit smartwatch på ét kontrolpanel. Farvet batteriindikator, stressscore fra 0 til 100, opladningsbeskeder."
+      "da": "Colmi R02 og R03 med FitMesh Sync: direkte BLE, ingen ledsagerapp, data samlet med dit smartwatch på ét kontrolpanel. Farvet batteriindikator, stressscore fra 0 til 100, opladningsbeskeder.",
+      "fi": "Colmi R02 ja R03 yhdessä FitMesh Syncin kanssa: suora BLE, ei erillistä sovellusta, tiedot yhdistettynä älykellosi kanssa yhdellä koontinäytöllä. Värikoodattu akkuilmaisin, 0-100 stressipisteet, latausilmoitukset.",
+      "no": "Colmi R02 og R03 med FitMesh Sync: direkte BLE, ingen følgeapp, data samlet med smartklokken din på ett dashbord. Fargekodet batteriindikator, stresscore 0-100, ladevarsler."
     },
     "primaryKeyword": {
       "sv": "Colmi R02 – Appens datapanel",
-      "da": "colmi r02-appens datadashboard"
+      "da": "colmi r02-appens datadashboard",
+      "fi": "colmi r02 sovellus tietojen koontinäyttö",
+      "no": "colmi r02 app data dashbord"
     },
     "body.0.text": {
       "sv": "Colmi R02 är den bästsäljande smarta ringen på Amazon i prisklassen under 30 euro. Den mäter samma parametrar som ringar som kostar tre eller fyra gånger så mycket: kontinuerlig pulsmätning via optisk PPG, sömn SpO2, HRV, steg, sträcka, kalorier, stressindex och ett batteri som vanligtvis håller i 5 till 7 dagar. Det finns dock en hake: data är låsta i tillverkarens app och kan inte kopplas ihop med något annat. FitMesh Sync löser detta med en direkt Bluetooth-anslutning till ringen (ingen app behövs) och sammanför data till en enda översikt tillsammans med din smartklocka.",
-      "da": "Colmi R02 er den bedst sælgende smartring på Amazon til under 30 €. Den måler de samme parametre som ringe, der koster tre eller fire gange så meget: kontinuerlig pulsmåling via optisk PPG, søvnmåling SpO2, HRV, skridt, distance, kalorier, stressscore og et batteri, der typisk holder 5 til 7 dage. Der er dog én hage: dataene er låst inde i producentens ledsagerapp og adskilt fra alt andet. FitMesh Sync løser dette problem med en direkte Bluetooth-forbindelse til ringen (ingen ledsagerapp nødvendig) og samler dataene i et enkelt dashboard sammen med dit smartwatch."
+      "da": "Colmi R02 er den bedst sælgende smartring på Amazon til under 30 €. Den måler de samme parametre som ringe, der koster tre eller fire gange så meget: kontinuerlig pulsmåling via optisk PPG, søvnmåling SpO2, HRV, skridt, distance, kalorier, stressscore og et batteri, der typisk holder 5 til 7 dage. Der er dog én hage: dataene er låst inde i producentens ledsagerapp og adskilt fra alt andet. FitMesh Sync løser dette problem med en direkte Bluetooth-forbindelse til ringen (ingen ledsagerapp nødvendig) og samler dataene i et enkelt dashboard sammen med dit smartwatch.",
+      "fi": "Colmi R02 on Amazonin myydyin älysormus alle 30 euron hinnalla. Se seuraa samoja mittareita kuin kolme tai neljä kertaa kalliimmat sormukset: jatkuvaa sykettä optisen PPG:n avulla, SpO2:ta yön aikana, HRV:tä, askeleita, matkaa, kaloreita, stressipisteitä ja akkua, joka kestää tyypillisesti 5–7 päivää. Ongelma on yksi: tiedot lukittuvat valmistajan omaan sovellukseen, irrallaan kaikesta muusta. FitMesh Sync korjaa tämän yhdistymällä suoraan sormukseen Bluetoothin kautta (ilman erillistä sovellusta) ja kokoaa tiedot yhteen koontinäyttöön älykellosi rinnalle.",
+      "no": "Colmi R02 er den mestselgende smarte ringen på Amazon under 30 €. Den registrerer de samme målingene som ringer til tre eller fire ganger prisen: kontinuerlig puls via optisk PPG, SpO2 gjennom natten, HRV, skritt, distanse, kalorier, stresscore og et batteri som vanligvis varer 5 til 7 dager. Haken er én ting: dataene er låst inne i produsentens følgeapp, adskilt fra alt annet. FitMesh Sync løser dette med en direkte Bluetooth-tilkobling til ringen (uten behov for følgeapp) og samler dataene i ett enkelt dashbord sammen med smartklokken din."
     },
     "body.1.title": {
       "sv": "I korthet",
-      "da": "TL;DR"
+      "da": "TL;DR",
+      "fi": "TL;DR",
+      "no": "TL;DR"
     },
     "body.1.body": {
       "sv": "Colmi R02/R03 och kompatibla OEM-kloner ansluts till FitMesh Sync via direkt Bluetooth. Ingen app krävs. Tillgängliga mätvärden: steg, sträcka, kalorier, puls, vilopuls, SpO2, HRV, stress (0–100), sömn med olika faser (lätt, djup, REM, vaken), färgkodad batteriindikator. Sammanställning av data från flera enheter eliminerar dubbelräkning mellan nattklockan och smartklockan under dagen.",
-      "da": "Colmi R02/R03 og kompatible OEM-kloner opretter forbindelse til FitMesh Sync via direkte Bluetooth. Der kræves ingen ledsagerapp. Tilgængelige målinger: skridt, afstand, kalorier, puls, hvilepuls, SpO2, HRV, stress (0-100), søvn med faser (let, dyb, REM, vågen), farvekodet batteriindikator. Fusion af flere enheder eliminerer dobbelttælling mellem nattringen og smartwatch'et om dagen."
+      "da": "Colmi R02/R03 og kompatible OEM-kloner opretter forbindelse til FitMesh Sync via direkte Bluetooth. Der kræves ingen ledsagerapp. Tilgængelige målinger: skridt, afstand, kalorier, puls, hvilepuls, SpO2, HRV, stress (0-100), søvn med faser (let, dyb, REM, vågen), farvekodet batteriindikator. Fusion af flere enheder eliminerer dobbelttælling mellem nattringen og smartwatch'et om dagen.",
+      "fi": "Colmi R02/R03 ja yhteensopivat OEM-kloonit yhdistyvät FitMesh Synciin suoran Bluetoothin kautta. Erillistä sovellusta ei tarvita. Saatavilla olevat mittarit: askeleet, matka, kalorit, syke, leposyke, SpO2, HRV, stressi (0-100), uni vaiheineen (kevyt, syvä, REM, valve), värikoodattu akkuilmaisin. Monilaitefuusio poistaa kaksinkertaisen laskennan yösormuksen ja päiväaikaisen älykellon väliltä.",
+      "no": "Colmi R02/R03 og kompatible OEM-kloner kobler seg til FitMesh Sync via direkte Bluetooth. Ingen følgeapp kreves. Tilgjengelige målinger: skritt, distanse, kalorier, puls, hvilepuls, SpO2, HRV, stress (0-100), søvn med faser (lett, dyp, REM, våken), fargekodet batteriindikator. Fusjon av flere enheter fjerner dobbelttelling mellom ringen om natten og smartklokken om dagen."
     },
     "body.2.text": {
       "sv": "Vad Colmi R02 är och varför den blev ett fenomen bland budgetringar",
-      "da": "Hvad Colmi R02 er, og hvorfor den blev et fænomen blandt budgetringe"
+      "da": "Hvad Colmi R02 er, og hvorfor den blev et fænomen blandt budgetringe",
+      "fi": "Mikä Colmi R02 on ja miksi siitä tuli edullisten sormusten ilmiö",
+      "no": "Hva Colmi R02 er, og hvorfor den ble budsjettringens store fenomen"
     },
     "body.3.text": {
       "sv": "Colmi R02 levereras från Amazon inom två dagar, kostar mellan 20 och 35 euro och kräver inget abonnemang. Den mäter samma parametrar som ringar som kostar tre eller fyra gånger så mycket: kontinuerlig pulsmätning via optisk PPG, sömn SpO2, HRV, steg, sträcka, kalorier, stressindex och ett batteri som vanligtvis håller i 5 till 7 dagar. R03, dess efterföljare, använder samma BLE-protokoll men har några uppgraderade sensorer.",
-      "da": "Colmi R02 kan leveres fra Amazon på to dage, koster mellem 20 og 35 euro og kræver intet abonnement. Den måler de samme parametre som ringe, der koster tre eller fire gange så meget: kontinuerlig pulsmåling via optisk PPG, søvnmåling SpO2, HRV, skridt, distance, kalorieforbrug, stressscore og et batteri, der typisk holder 5 til 7 dage. R03, dens efterfølger, kører på samme BLE-protokol med et par sensoropgraderinger."
+      "da": "Colmi R02 kan leveres fra Amazon på to dage, koster mellem 20 og 35 euro og kræver intet abonnement. Den måler de samme parametre som ringe, der koster tre eller fire gange så meget: kontinuerlig pulsmåling via optisk PPG, søvnmåling SpO2, HRV, skridt, distance, kalorieforbrug, stressscore og et batteri, der typisk holder 5 til 7 dage. R03, dens efterfølger, kører på samme BLE-protokol med et par sensoropgraderinger.",
+      "fi": "Colmi R02 toimitetaan Amazonista kahdessa päivässä, maksaa 20 ja 35 euron väliltä eikä vaadi tilausta. Se seuraa samoja mittareita kuin kolme tai neljä kertaa kalliimmat sormukset: jatkuvaa sykettä optisen PPG:n avulla, SpO2:ta yön aikana, HRV:tä, askeleita, matkaa, kaloreita, stressipisteitä ja akkua, joka kestää tyypillisesti 5–7 päivää. R03, sen seuraaja, käyttää samaa BLE-protokollaa muutamin sensoriparannuksin.",
+      "no": "Colmi R02 leveres på Amazon på to dager, koster mellom 20 € og 35 € og krever ikke noe abonnement. Den registrerer de samme målingene som ringer til tre eller fire ganger prisen: kontinuerlig puls via optisk PPG, SpO2 gjennom natten, HRV, skritt, distanse, kalorier, stresscore og et batteri som vanligvis varer 5 til 7 dager. R03, etterfølgeren, kjører den samme BLE-protokollen med noen få sensoroppgraderinger."
     },
     "body.4.text": {
       "sv": "Det finns OEM-kloner som säljs under olika namn (din ring kanske använder QRing-appen eller ett gränssnitt som ser identiskt ut) och som har samma firmware och protokoll: alla är kompatibla med FitMesh-integrationen. Varför har dessa ringar blivit så vanliga så snabbt? Formen fungerar helt enkelt bättre för sömn än en smartklocka gör. Inget armband, ingen tyngd på handleden, inget behov av att ta av den. När det gäller mätvärden under natten (HRV, SpO2, vilopuls) vinner ringen på komfort, inte nödvändigtvis på sensorns noggrannhet.",
-      "da": "Der findes OEM-kloner, der sælges under forskellige navne (din ring bruger måske QRing-appen eller en brugergrænseflade, der ser identisk ud), og som har samme firmware og protokol: De er alle kompatible med FitMesh-integrationen. Hvorfor er disse ringe blevet så udbredte på så kort tid? Formfaktoren fungerer ganske enkelt bedre til søvn end et smartwatch gør. Ingen rem, ingen vægt på håndleddet, ingen grund til at tage den af. Når det gælder målinger om natten (HRV, SpO2, hvilepuls), vinder ringen på komfort, ikke nødvendigvis på sensorens nøjagtighed."
+      "da": "Der findes OEM-kloner, der sælges under forskellige navne (din ring bruger måske QRing-appen eller en brugergrænseflade, der ser identisk ud), og som har samme firmware og protokol: De er alle kompatible med FitMesh-integrationen. Hvorfor er disse ringe blevet så udbredte på så kort tid? Formfaktoren fungerer ganske enkelt bedre til søvn end et smartwatch gør. Ingen rem, ingen vægt på håndleddet, ingen grund til at tage den af. Når det gælder målinger om natten (HRV, SpO2, hvilepuls), vinder ringen på komfort, ikke nødvendigvis på sensorens nøjagtighed.",
+      "fi": "On olemassa eri nimillä myytäviä OEM-klooneja (sormuksesi saattaa käyttää QRing-sovellusta tai täysin samannäköistä käyttöliittymää), joissa on sama laiteohjelmisto ja protokolla: kaikki yhteensopivia FitMesh-integraation kanssa. Miksi nämä sormukset yleistyivät niin nopeasti? Muotoilu yksinkertaisesti sopii uneen paremmin kuin älykello. Ei ranneketta, ei painoa ranteessa, ei tarvetta ottaa sitä pois. Yön aikaisissa mittareissa (HRV, SpO2, leposyke) sormus voittaa mukavuudessa, ei välttämättä sensorin tarkkuudessa.",
+      "no": "Det finnes OEM-kloner som selges under ulike navn (ringen din kan bruke QRing-appen eller et grensesnitt som ser identisk ut) som deler samme fastvare og protokoll: alle kompatible med FitMesh-integrasjonen. Hvorfor spredte disse ringene seg så raskt? Formfaktoren fungerer rett og slett bedre for søvn enn en smartklokke gjør. Ingen reim, ingen vekt på håndleddet, ingen grunn til å ta den av. For målinger gjennom natten (HRV, SpO2, hvilepuls) vinner ringen på komfort, ikke nødvendigvis på sensornøyaktighet."
     },
     "body.5.text": {
       "sv": "Vad Colmi R02 mäter: nyckeltal i korthet",
-      "da": "Hvad Colmi R02 måler: nøgletal i kort form"
+      "da": "Hvad Colmi R02 måler: nøgletal i kort form",
+      "fi": "Mitä Colmi R02 mittaa: mittarit yhdellä silmäyksellä",
+      "no": "Hva Colmi R02 måler: målingene i korte trekk"
     },
     "body.6.caption": {
       "sv": "Colmi R02/R03-mått finns tillgängliga i FitMesh Sync",
-      "da": "Colmi R02/R03-målinger tilgængelige i FitMesh Sync"
+      "da": "Colmi R02/R03-målinger tilgængelige i FitMesh Sync",
+      "fi": "Colmi R02/R03 -mittarit, jotka ovat saatavilla FitMesh Syncissä",
+      "no": "Målinger fra Colmi R02/R03 tilgjengelig i FitMesh Sync"
     },
     "body.7.text": {
       "sv": "Det vanliga problemet: data som är låsta i den tillhörande appen",
-      "da": "Det sædvanlige problem: data, der er låst inde i ledsagerappen"
+      "da": "Det sædvanlige problem: data, der er låst inde i ledsagerappen",
+      "fi": "Tuttu ongelma: tiedot lukittuina valmistajan sovellukseen",
+      "no": "Det vanlige problemet: data låst inne i følgeappen"
     },
     "body.8.text": {
       "sv": "Alla som har köpt en Colmi R02 känner till situationen: appen som hör till enheten (som heter QRing eller något liknande, beroende på vilken klon det gäller) visar data men låter inte exportera dem i något användbart format. Ingen Health Connect-integration, inget offentligt API, ingen ordentlig CSV-export. Uppgifterna stannar kvar inom appens ekosystem, isolerade från allt annat du spårar.",
-      "da": "Alle, der har købt en Colmi R02, kender historien: ledsagerappen (der hedder QRing eller noget lignende, afhængigt af klonen) viser dataene, men vil ikke eksportere dem i noget brugbart format. Ingen Health Connect-integration, intet offentligt API, ingen ordentlig CSV-eksport. Dataene forbliver inden for ledsagerappens økosystem, isoleret fra alt andet, du sporer."
+      "da": "Alle, der har købt en Colmi R02, kender historien: ledsagerappen (der hedder QRing eller noget lignende, afhængigt af klonen) viser dataene, men vil ikke eksportere dem i noget brugbart format. Ingen Health Connect-integration, intet offentligt API, ingen ordentlig CSV-eksport. Dataene forbliver inden for ledsagerappens økosystem, isoleret fra alt andet, du sporer.",
+      "fi": "Kuka tahansa Colmi R02:n ostanut tuntee tarinan: valmistajan sovellus (nimeltään QRing tai jokin vastaava kloonista riippuen) näyttää tiedot mutta ei vie niitä missään hyödyllisessä muodossa. Ei Health Connect -integraatiota, ei julkista API:a, ei kelvollista CSV-vientiä. Tiedot jäävät valmistajan sovelluksen ekosysteemiin, eristyksiin kaikesta muusta seuraamastasi.",
+      "no": "Alle som har kjøpt en Colmi R02 kjenner historien: følgeappen (kalt QRing eller noe lignende avhengig av klonen) viser dataene, men eksporterer dem ikke i noe brukbart format. Ingen Health Connect-integrasjon, ingen offentlig API, ingen anstendig CSV-eksport. Dataene forblir inne i følgeappens økosystem, isolert fra alt annet du registrerer."
     },
     "body.9.text": {
       "sv": "Det praktiska resultatet: om du också har en smartklocka slutar det med att du öppnar två appar, försöker manuellt pussla ihop vad som hänt under dagen och går miste om det sammanlagda värdet av båda enheterna. Ring på natten, klocka på dagen: det är bara meningsfullt om uppgifterna samlas på ett och samma ställe.",
-      "da": "Det praktiske resultat: Hvis du også har et smartwatch, ender du med at åbne to apps, hvor du manuelt skal forsøge at stykke sammen, hvad der er sket i løbet af dagen, og dermed går den samlede værdi af begge enheder tabt. Ring om natten, se på uret om dagen: Det giver kun mening, hvis dataene ender ét sted."
+      "da": "Det praktiske resultat: Hvis du også har et smartwatch, ender du med at åbne to apps, hvor du manuelt skal forsøge at stykke sammen, hvad der er sket i løbet af dagen, og dermed går den samlede værdi af begge enheder tabt. Ring om natten, se på uret om dagen: Det giver kun mening, hvis dataene ender ét sted.",
+      "fi": "Käytännön seuraus: jos omistat myös älykellon, päädyt avaamaan kaksi sovellusta, yrittämään manuaalisesti koota kokonaiskuvaa päivästä ja menetät molempien laitteiden yhteisarvon. Sormus yöllä, kello päivällä: se on järkevää vain jos tiedot päätyvät yhteen paikkaan.",
+      "no": "Det praktiske resultatet: hvis du også har en smartklokke, ender du opp med å åpne to apper, forsøke å sette sammen manuelt hva som skjedde i løpet av dagen, og du mister den kombinerte verdien av begge enhetene. Ring om natten, klokke om dagen: det gir bare mening hvis dataene havner på ett sted."
     },
     "body.10.text": {
       "sv": "FitMesh-metoden: direkt Bluetooth och sammanfogning av flera enheter",
-      "da": "FitMesh-metoden: direkte Bluetooth og fusion af flere enheder"
+      "da": "FitMesh-metoden: direkte Bluetooth og fusion af flere enheder",
+      "fi": "FitMesh-lähestymistapa: suora Bluetooth ja monilaitefuusio",
+      "no": "FitMesh-tilnærmingen: direkte Bluetooth og fusjon av flere enheter"
     },
     "body.11.text": {
       "sv": "FitMesh Sync ansluter direkt till Colmi R02/R03 via Bluetooth, utan att gå via tillverkarens app. Health Connect är inte inblandat (ringens BLE-protokoll använder inte Android-standardens hälsodatalager). Appen hämtar data i omgångar när ringen är i närheten, bearbetar den och matar in den i samma översiktspanel där dina data från Galaxy Watch, Pixel Watch, Garmin eller Amazfit redan finns.",
-      "da": "FitMesh Sync opretter forbindelse til Colmi R02/R03 direkte via Bluetooth uden at gå gennem producentens app. Health Connect er ikke involveret (ringens BLE-protokol bruger ikke Android-standardlaget for sundhedsdata). Appen henter data i portioner, når ringen er i nærheden, behandler dem og sender dem videre til det samme kontrolpanel, hvor dine data fra Galaxy Watch, Pixel Watch, Garmin eller Amazfit allerede findes."
+      "da": "FitMesh Sync opretter forbindelse til Colmi R02/R03 direkte via Bluetooth uden at gå gennem producentens app. Health Connect er ikke involveret (ringens BLE-protokol bruger ikke Android-standardlaget for sundhedsdata). Appen henter data i portioner, når ringen er i nærheden, behandler dem og sender dem videre til det samme kontrolpanel, hvor dine data fra Galaxy Watch, Pixel Watch, Garmin eller Amazfit allerede findes.",
+      "fi": "FitMesh Sync yhdistyy Colmi R02/R03:een suoraan Bluetoothin kautta, ohittaen valmistajan sovelluksen. Health Connect ei ole mukana (sormuksen BLE-protokolla ei käytä Androidin standardia terveystietokerrosta). Sovellus lataa tiedot erissä, kun sormus on lähellä, käsittelee ne ja syöttää ne samaan koontinäyttöön, jossa Galaxy Watch-, Pixel Watch-, Garmin- tai Amazfit-tietosi jo ovat.",
+      "no": "FitMesh Sync kobler seg til Colmi R02/R03 direkte over Bluetooth, uten å gå via produsentens app. Health Connect er ikke involvert (ringens BLE-protokoll bruker ikke Androids standardlag for helsedata). Appen laster ned data i partier når ringen er i nærheten, behandler dem og mater dem inn i det samme dashbordet der dataene fra Galaxy Watch, Pixel Watch, Garmin eller Amazfit allerede ligger."
     },
     "body.12.text": {
       "sv": "Sammanställning av data från flera enheter: ingen dubbelräkning",
-      "da": "Sammenkobling af flere enheder: ingen dobbelttælling"
+      "da": "Sammenkobling af flere enheder: ingen dobbelttælling",
+      "fi": "Monilaitefuusio: ei kaksinkertaista laskentaa",
+      "no": "Fusjon av flere enheter: ingen dobbelttelling"
     },
     "body.13.text": {
       "sv": "Det verkliga värdet ligger inte bara i att ”se data”, utan i att på ett intelligent sätt sammanfoga information från olika källor. En typisk konfiguration för någon som använder både en ring och en smartklocka ser ut så här: ringen på natten (bättre sömn utan smartklockan på), klockan under dagen (GPS, träning, aviseringar). Problemet med denna konfiguration, om den hanteras manuellt, är dubbelräkning: om båda enheterna registrerar steg under samma tidsperiod ger summeringen felaktiga siffror.",
-      "da": "Den egentlige værdi ligger ikke blot i at »se dataene«: det handler om intelligent sammenkobling på tværs af kilder. Den typiske opsætning for en person, der bruger en ring og et smartur, er følgende: ringen om natten (bedre søvn uden smarturet på), uret om dagen (GPS, træning, notifikationer). Problemet med denne konfiguration, hvis den styres manuelt, er dobbelttælling: hvis begge enheder registrerer skridt i samme tidsrum, giver det forkerte tal, når man lægger dem sammen."
+      "da": "Den egentlige værdi ligger ikke blot i at »se dataene«: det handler om intelligent sammenkobling på tværs af kilder. Den typiske opsætning for en person, der bruger en ring og et smartur, er følgende: ringen om natten (bedre søvn uden smarturet på), uret om dagen (GPS, træning, notifikationer). Problemet med denne konfiguration, hvis den styres manuelt, er dobbelttælling: hvis begge enheder registrerer skridt i samme tidsrum, giver det forkerte tal, når man lægger dem sammen.",
+      "fi": "Todellinen arvo ei ole vain tietojen näkeminen: se on älykäs yhdistäminen eri lähteistä. Tyypillinen kokoonpano sormusta ja älykelloa käyttävälle on tämä: sormus yön ajaksi (parempi uni ilman älykelloa ranteessa), kello päivällä (GPS, harjoitukset, ilmoitukset). Tämän kokoonpanon ongelma, jos sitä hallitaan manuaalisesti, on kaksinkertainen laskenta: jos molemmat laitteet tallentavat askeleita saman aikaikkunan aikana, niiden yhteenlaskeminen antaa vääriä lukuja.",
+      "no": "Den virkelige verdien er ikke bare å \"se dataene\": det er intelligent sammenslåing på tvers av kilder. Det typiske oppsettet for noen som bruker en ring og en smartklokke er dette: ring gjennom natten (bedre søvn uten en smartklokke på), klokke om dagen (GPS, treningsøkter, varsler). Problemet med denne konfigurasjonen, hvis den håndteres manuelt, er dobbelttelling: hvis begge enhetene registrerer skritt i samme tidsvindu, gir det feil tall å legge dem sammen."
     },
     "body.14.text": {
       "sv": "FitMesh hanterar detta genom att tilldela prioritet på tidsfönsternivå: för varje intervall, om både klockan och ringen har registrerat steg, används den konfigurerade primära källan (eller den med mest data, om du inte har ställt in någon prioritet). Under natten HRV och SpO2, då ringen vanligtvis är den enda källan, visar FitMesh ringens data utan konflikter.",
-      "da": "FitMesh håndterer dette ved at tildele prioritet på tidsvinduesniveau: For hvert interval gælder det, at hvis både uret og ringen har registreret skridt, anvendes den konfigurerede primære kilde (eller den med flest data, hvis du ikke har angivet en prioritet). Om natten HRV og SpO2, hvor ringen typisk er den eneste kilde, viser FitMesh ringdataene uden konflikter."
+      "da": "FitMesh håndterer dette ved at tildele prioritet på tidsvinduesniveau: For hvert interval gælder det, at hvis både uret og ringen har registreret skridt, anvendes den konfigurerede primære kilde (eller den med flest data, hvis du ikke har angivet en prioritet). Om natten HRV og SpO2, hvor ringen typisk er den eneste kilde, viser FitMesh ringdataene uden konflikter.",
+      "fi": "FitMesh hoitaa tämän määrittämällä prioriteetin aikaikkunatasolla: jokaisen jakson osalta, jos sekä kello että sormus tallensivat askeleita, käytetään määritettyä ensisijaista lähdettä (tai sitä, jolla on enemmän tietoa, jos et ole asettanut prioriteettia). Yön aikaisessa HRV:ssä ja SpO2:ssa, joissa sormus on tyypillisesti ainoa lähde, FitMesh nostaa sormuksen tiedot esiin ilman ristiriitoja.",
+      "no": "FitMesh håndterer dette ved å tildele prioritet på tidsvindunivå: for hvert intervall, dersom både klokken og ringen registrerte skritt, brukes den konfigurerte primærkilden (eller den med mest data, dersom du ikke har angitt en prioritet). For HRV og SpO2 gjennom natten, der ringen vanligvis er den eneste kilden, viser FitMesh ringdataene uten konflikter."
     },
     "body.15.text": {
       "sv": "Batteri och aviseringar: inga fler oväntade avbrott i samtalet",
-      "da": "Batteri og notifikationer: ingen uventede afbrydelser mere"
+      "da": "Batteri og notifikationer: ingen uventede afbrydelser mere",
+      "fi": "Akku ja ilmoitukset: ei enää yllättäen tyhjentynyttä sormusta",
+      "no": "Batteri og varsler: ingen flere overraskelser med tom ring"
     },
     "body.16.text": {
       "sv": "FitMesh Sync avläser ringens laddningsnivå vid varje synkronisering och visar den på instrumentpanelen med en färgkodad indikator: grön när batterinivån är över 50 %, gul i intervallet 20–49 % och röd under 20 %. Utöver procenttalet beräknar instrumentpanelen en uppskattning av återstående drifttid baserat på den faktiska förbrukningen under de senaste dagarna – inte ett fast värde från specifikationsbladet, utan en prognos som är kalibrerad efter den faktiska användningen.",
-      "da": "FitMesh Sync aflæser ringens opladningsniveau ved hver synkronisering og viser det på dashboardet med en farvekodet indikator: grøn, når batteriet er over 50 %, gul i intervallet 20–49 % og rød under 20 %. Ud over procentdelen beregner dashboardet et skøn over den resterende driftstid baseret på det faktiske strømforbrug de seneste dage – ikke en fast værdi fra specifikationsarket, men en prognose, der er kalibreret efter den faktiske brug."
+      "da": "FitMesh Sync aflæser ringens opladningsniveau ved hver synkronisering og viser det på dashboardet med en farvekodet indikator: grøn, når batteriet er over 50 %, gul i intervallet 20–49 % og rød under 20 %. Ud over procentdelen beregner dashboardet et skøn over den resterende driftstid baseret på det faktiske strømforbrug de seneste dage – ikke en fast værdi fra specifikationsarket, men en prognose, der er kalibreret efter den faktiske brug.",
+      "fi": "FitMesh Sync lukee sormuksen varaustason jokaisella synkronoinnilla ja näyttää sen koontinäytössä värikoodatulla ilmaisimella: vihreä kun akkua on yli 50 %, keltainen välillä 20–49 %, punainen alle 20 %. Prosenttiluvun ohella koontinäyttö laskee arvion jäljellä olevasta käyttöajasta viime päivien todellisen kulutuksen perusteella, ei kiinteän teknisen arvon perusteella, vaan todelliseen käyttöön kalibroituna ennusteena.",
+      "no": "FitMesh Sync leser ringens ladenivå ved hver synkronisering og viser det i dashbordet med en fargekodet indikator: grønn når batteriet er over 50 %, gul i området 20-49 %, rød under 20 %. Ved siden av prosenten beregner dashbordet et estimat på gjenværende driftstid basert på reelt forbruk de siste dagene, ikke en fast verdi fra spesifikasjonsarket, men en prognose kalibrert til faktisk bruk."
     },
     "body.17.text": {
       "sv": "Tre automatiska aviseringar sköter laddningscykeln utan att du behöver övervaka den aktivt: en när ringen når 100 % (då kan du koppla ur den), en vid 50 % (halvvägs, ett bra tillfälle att planera nästa laddning) och en vid 25 % (rekommenderas att ladda snart). På så sätt vet du alltid när det är dags att ladda utan att behöva öppna någon annan app.",
-      "da": "Tre automatiske meddelelser styrer opladningscyklussen uden behov for aktiv overvågning: én, når ringen når 100 % (du kan trække stikket ud), én ved 50 % (halvvejs, et godt tidspunkt at planlægge den næste opladning) og én ved 25 % (det anbefales snart at oplade). På den måde ved du altid, hvornår du skal oplade, uden at skulle åbne en anden app."
+      "da": "Tre automatiske meddelelser styrer opladningscyklussen uden behov for aktiv overvågning: én, når ringen når 100 % (du kan trække stikket ud), én ved 50 % (halvvejs, et godt tidspunkt at planlægge den næste opladning) og én ved 25 % (det anbefales snart at oplade). På den måde ved du altid, hvornår du skal oplade, uden at skulle åbne en anden app.",
+      "fi": "Kolme automaattista ilmoitusta hallitsee latauskiertoa ilman aktiivista seurantaa: yksi kun sormus saavuttaa 100 % (voit irrottaa sen laturista), yksi 50 %:ssa (puolivälissä, hyvä hetki suunnitella seuraava lataus) ja yksi 25 %:ssa (lataus suositeltavaa pian). Näin tiedät aina, milloin ladata, avaamatta mitään muuta sovellusta.",
+      "no": "Tre automatiske varsler styrer ladesyklusen uten at det kreves aktiv overvåking: ett når ringen når 100 % (du kan koble den fra), ett ved 50 % (halvveis, et godt tidspunkt for å planlegge neste lading), og ett ved 25 % (lading anbefales snart). På denne måten vet du alltid når du bør lade, uten å åpne noen annen app."
     },
     "body.18.text": {
       "sv": "Stress 0–100: det mått som din smartklocka inte visar via Health Connect",
-      "da": "Stress 0-100: den måleenhed, som dit smartwatch ikke viser via Health Connect"
+      "da": "Stress 0-100: den måleenhed, som dit smartwatch ikke viser via Health Connect",
+      "fi": "Stressi 0-100: mittari, jota älykellosi ei tarjoa Health Connectin kautta",
+      "no": "Stress 0-100: målingen smartklokken din ikke gir via Health Connect"
     },
     "body.19.text": {
       "sv": "Colmi-ringen beräknar ett stressvärde mellan 0 och 100, baserat på hjärtfrekvensvariabiliteten (HRV) och den aktuella hjärtfrekvensen. Låga värden indikerar återhämtning och avslappning, medan höga värden indikerar fysiologisk aktivering till följd av fysisk ansträngning, kognitiv stress eller otillräcklig sömn.",
-      "da": "Colmi-ringen beregner en stressscore fra 0 til 100, der er baseret på hjertefrekvensvariabilitet (HRV) og den aktuelle hjertefrekvens. Lave værdier indikerer restitution og afslapning, mens høje værdier indikerer fysiologisk aktivering som følge af fysisk anstrengelse, kognitiv stress eller utilstrækkelig søvn."
+      "da": "Colmi-ringen beregner en stressscore fra 0 til 100, der er baseret på hjertefrekvensvariabilitet (HRV) og den aktuelle hjertefrekvens. Lave værdier indikerer restitution og afslapning, mens høje værdier indikerer fysiologisk aktivering som følge af fysisk anstrengelse, kognitiv stress eller utilstrækkelig søvn.",
+      "fi": "Colmi-sormus laskee stressipisteet 0:sta 100:aan, jotka johdetaan sykevälin vaihtelusta (HRV) ja hetkellisestä sykkeestä. Matalat arvot kertovat palautumisesta ja rentoutumisesta; korkeat arvot kertovat fysiologisesta aktivoitumisesta, joka johtuu fyysisestä rasituksesta, kognitiivisesta kuormituksesta tai riittämättömästä unesta.",
+      "no": "Colmi-ringen beregner en stresscore fra 0 til 100, utledet fra pulsvariabilitet (HRV) og øyeblikkelig puls. Lave verdier indikerer restitusjon og avslapning; høye verdier indikerer fysiologisk aktivering fra fysisk anstrengelse, kognitivt stress eller utilstrekkelig søvn."
     },
     "body.20.title": {
       "sv": "Varför din smartklocka inte erbjuder den här funktionen via Health Connect",
-      "da": "Hvorfor dit smartwatch ikke tilbyder denne funktion via Health Connect"
+      "da": "Hvorfor dit smartwatch ikke tilbyder denne funktion via Health Connect",
+      "fi": "Miksi älykellosi ei tarjoa tätä Health Connectin kautta",
+      "no": "Hvorfor smartklokken din ikke gir dette via Health Connect"
     },
     "body.20.body": {
       "sv": "Smartklockor (Galaxy Watch, Pixel Watch, Garmin) mäter sitt eget stressvärde internt, men Health Connect har ingen standardiserad datatyp för stress. Varje tillverkare håller den mätvärdet inlåst i sitt eget ekosystem. Colmi-ringen, som avläses via direkt BLE av FitMesh, för in det värdet i din instrumentpanel utan att vara beroende av Health Connect.",
-      "da": "Smarture (Galaxy Watch, Pixel Watch, Garmin) beregner internt deres egen stressscore, men Health Connect har ingen standardiseret datatype for stress. Hver producent holder denne måling låst inde i sit eget økosystem. Colmi-ringen, der aflæses via direkte BLE af FitMesh, bringer denne score ind på dit dashboard uden at være afhængig af Health Connect."
+      "da": "Smarture (Galaxy Watch, Pixel Watch, Garmin) beregner internt deres egen stressscore, men Health Connect har ingen standardiseret datatype for stress. Hver producent holder denne måling låst inde i sit eget økosystem. Colmi-ringen, der aflæses via direkte BLE af FitMesh, bringer denne score ind på dit dashboard uden at være afhængig af Health Connect.",
+      "fi": "Älykellot (Galaxy Watch, Pixel Watch, Garmin) mittaavat oman stressipisteensä sisäisesti, mutta Health Connectilla ei ole standardoitua tietotyyppiä stressille. Jokainen valmistaja pitää tämän mittarin lukittuna omaan ekosysteemiinsä. Colmi-sormus, jonka FitMesh lukee suoran BLE:n kautta, tuo nämä pisteet koontinäyttöösi ilman riippuvuutta Health Connectista.",
+      "no": "Smartklokker (Galaxy Watch, Pixel Watch, Garmin) måler sin egen stresscore internt, men Health Connect har ingen standardisert datatype for stress. Hver produsent holder den målingen låst i sitt eget økosystem. Colmi-ringen, avlest via direkte BLE av FitMesh, bringer den scoren inn i dashbordet ditt uten å være avhengig av Health Connect."
     },
     "body.21.text": {
       "sv": "Så här ansluter du Colmi R02 till FitMesh: 3 steg",
-      "da": "Sådan tilsluttes Colmi R02 til FitMesh: 3 trin"
+      "da": "Sådan tilsluttes Colmi R02 til FitMesh: 3 trin",
+      "fi": "Kuinka yhdistää Colmi R02 FitMeshiin: 3 vaihetta",
+      "no": "Slik kobler du Colmi R02 til FitMesh: 3 trinn"
     },
     "body.22.text": {
       "sv": "Anslutningsprocessen kommer att vara enkel när funktionen lanseras:",
-      "da": "Forløbet vil være ligetil, når funktionen bliver lanceret:"
+      "da": "Forløbet vil være ligetil, når funktionen bliver lanceret:",
+      "fi": "Yhdistämisen kulku on suoraviivainen heti kun ominaisuus julkaistaan:",
+      "no": "Tilkoblingsflyten blir grei så snart funksjonen lanseres:"
     },
     "body.24.text": {
       "sv": "Vid den första synkroniseringen hämtas alla historiska data som finns tillgängliga på ringen (vanligtvis 7 till 30 dagar, beroende på modell). Därefter sker synkroniseringen automatiskt så fort telefonen befinner sig i närheten.",
-      "da": "Ved den første synkronisering hentes alle historiske data, der er tilgængelige på ringen (typisk 7 til 30 dage, afhængigt af modellen). Derefter foregår synkroniseringen automatisk, hver gang telefonen er i nærheden."
+      "da": "Ved den første synkronisering hentes alle historiske data, der er tilgængelige på ringen (typisk 7 til 30 dage, afhængigt af modellen). Derefter foregår synkroniseringen automatisk, hver gang telefonen er i nærheden.",
+      "fi": "Ensimmäinen synkronointi lataa kaikki sormuksessa saatavilla olevat historiatiedot (tyypillisesti 7–30 päivää mallista riippuen). Sen jälkeen synkronointi tapahtuu automaattisesti aina kun puhelin on lähellä.",
+      "no": "Den første synkroniseringen laster ned alle historiske data som er tilgjengelige på ringen (vanligvis 7 til 30 dager avhengig av modell). Etter det skjer synkroniseringen automatisk når som helst telefonen er i nærheten."
     },
     "body.25.title": {
       "sv": "Funktion i privat betaversion",
-      "da": "Funktion i privat betaversion"
+      "da": "Funktion i privat betaversion",
+      "fi": "Ominaisuus yksityisessä betavaiheessa",
+      "no": "Funksjon i privat beta"
     },
     "body.25.body": {
       "sv": "Funktionen Colmi ring är under aktiv utveckling. Den kommer att bli tillgänglig för användare i den privata betaversionen så snart den släpps. Anmäl dig till betaversionen på /beta för att få tillgång till den vid lanseringen.",
-      "da": "Colmi-ring-funktionen er under aktiv udvikling. Den vil være tilgængelig for brugere af den private betaversion, så snart den lanceres. Tilmeld dig betaversionen på /beta for at få adgang ved lanceringen."
+      "da": "Colmi-ring-funktionen er under aktiv udvikling. Den vil være tilgængelig for brugere af den private betaversion, så snart den lanceres. Tilmeld dig betaversionen på /beta for at få adgang ved lanceringen.",
+      "fi": "Colmi-sormuksen ominaisuus on aktiivisessa kehityksessä. Se on yksityisten betakäyttäjien saatavilla heti kun se julkaistaan. Ilmoittaudu betaan osoitteessa /beta saadaksesi pääsyn julkaisussa.",
+      "no": "Colmi-ringfunksjonen er under aktiv utvikling. Den blir tilgjengelig for brukere i privat beta så snart den lanseres. Meld deg på betaen på /beta for å få tilgang ved lansering."
     },
     "body.26.title": {
       "sv": "Har du en Colmi R02 eller en OEM-klon?",
-      "da": "Har du en Colmi R02 eller en OEM-klon?"
+      "da": "Har du en Colmi R02 eller en OEM-klon?",
+      "fi": "Onko sinulla Colmi R02 tai OEM-klooni?",
+      "no": "Har du en Colmi R02 eller en OEM-klon?"
     },
     "body.26.body": {
       "sv": "FitMesh Sync finns tillgängligt på Google Play. De första 1 000 grundarna får Pro gratis för alltid, inklusive tillgång till Colmi-ringfunktionen så snart den lanseras. Registrera dig nu för att säkra din plats.",
-      "da": "FitMesh Sync er tilgængeligt på Google Play. De første 1.000 grundlæggere får gratis Pro-abonnement på livstid, herunder adgang til Colmi-ring-funktionen, så snart den lanceres. Tilmeld dig nu for at sikre dig en plads."
+      "da": "FitMesh Sync er tilgængeligt på Google Play. De første 1.000 grundlæggere får gratis Pro-abonnement på livstid, herunder adgang til Colmi-ring-funktionen, så snart den lanceres. Tilmeld dig nu for at sikre dig en plads.",
+      "fi": "FitMesh Sync on saatavilla Google Playssa. Ensimmäiset 1 000 perustajaa saavat elinikäisen Pro-tilauksen ilmaiseksi, mukaan lukien pääsy Colmi-sormuksen ominaisuuteen heti kun se julkaistaan. Ilmoittaudu nyt varmistaaksesi paikkasi.",
+      "no": "FitMesh Sync er tilgjengelig på Google Play. De første 1 000 grunnleggerne får livstidstilgang til Pro gratis, inkludert tilgang til Colmi-ringfunksjonen så snart den lanseres. Meld deg på nå for å beholde plassen din."
     },
     "body.26.ctaLabel": {
       "sv": "Anmäl dig till betaversionen →",
-      "da": "Tilmeld dig betaversionen →"
+      "da": "Tilmeld dig betaversionen →",
+      "fi": "Ilmoittaudu betaan →",
+      "no": "Meld deg på beta →"
     },
     "body.27.text": {
       "sv": "Sammanfattningsvis",
-      "da": "Sammenfattende"
+      "da": "Sammenfattende",
+      "fi": "Yhteenvetona",
+      "no": "Oppsummert"
     },
     "faq.0.q": {
       "sv": "Fungerar det även med Colmi R03 och OEM-kloner?",
-      "da": "Fungerer det også med Colmi R03 og OEM-kloner?"
+      "da": "Fungerer det også med Colmi R03 og OEM-kloner?",
+      "fi": "Toimiiko se myös Colmi R03:n ja OEM-kloonien kanssa?",
+      "no": "Fungerer den også med Colmi R03 og OEM-kloner?"
     },
     "faq.0.a": {
       "sv": "Ja. FitMesh använder BLE-protokollet som även används av Colmi R02, R03 och flera OEM-ringar som kör samma firmware. Om din ring använder QRing-appen eller en tillhörande app med samma gränssnittslayout är den troligtvis kompatibel. Den uppdaterade listan över bekräftade modeller kommer att finnas på integrationssidan vid lanseringen.",
-      "da": "Ja. FitMesh bruger BLE-protokollen, som også anvendes af Colmi R02, R03 og flere OEM-ringe, der kører den samme firmware. Hvis din ring bruger QRing-appen eller en ledsagerapp med samme interface-layout, er den sandsynligvis kompatibel. Den opdaterede liste over bekræftede modeller vil være tilgængelig på integrationssiden ved lanceringen."
+      "da": "Ja. FitMesh bruger BLE-protokollen, som også anvendes af Colmi R02, R03 og flere OEM-ringe, der kører den samme firmware. Hvis din ring bruger QRing-appen eller en ledsagerapp med samme interface-layout, er den sandsynligvis kompatibel. Den opdaterede liste over bekræftede modeller vil være tilgængelig på integrationssiden ved lanceringen.",
+      "fi": "Kyllä. FitMesh käyttää BLE-protokollaa, joka on yhteinen Colmi R02:lle, R03:lle ja useille OEM-sormuksille, joissa on sama laiteohjelmisto. Jos sormuksesi käyttää QRing-sovellusta tai valmistajan sovellusta samalla käyttöliittymäasettelulla, se on todennäköisesti yhteensopiva. Päivitetty lista vahvistetuista malleista löytyy integraatiosivulta julkaisussa.",
+      "no": "Ja. FitMesh bruker BLE-protokollen som deles av Colmi R02, R03 og flere OEM-ringer som kjører samme fastvare. Hvis ringen din bruker QRing-appen eller en følgeapp med samme grensesnittoppsett, er den sannsynligvis kompatibel. Den oppdaterte listen over bekreftede modeller vil ligge på integrasjonssiden ved lansering."
     },
     "faq.1.q": {
       "sv": "Måste jag ha tillverkarens app installerad?",
-      "da": "Skal jeg beholde producentens app installeret?"
+      "da": "Skal jeg beholde producentens app installeret?",
+      "fi": "Pitääkö minun pitää valmistajan sovellus asennettuna?",
+      "no": "Må jeg beholde produsentens app installert?"
     },
     "faq.1.a": {
       "sv": "Nr. FitMesh ansluter direkt till ringen via Bluetooth, hämtar rådata och bearbetar den på egen hand. Tillverkarens app behövs inte. Du kan gärna avinstallera den om du vill.",
-      "da": "Nr. FitMesh opretter direkte forbindelse til ringen via Bluetooth, henter rådata og behandler dem selv. Producentens ledsagerapp er ikke nødvendig. Du kan roligt afinstallere den, hvis du vil."
+      "da": "Nr. FitMesh opretter direkte forbindelse til ringen via Bluetooth, henter rådata og behandler dem selv. Producentens ledsagerapp er ikke nødvendig. Du kan roligt afinstallere den, hvis du vil.",
+      "fi": "Ei. FitMesh yhdistyy sormukseen suoraan Bluetoothin kautta, lataa raakatiedot ja käsittelee ne itse. Valmistajan sovellusta ei tarvita. Voit poistaa sen halutessasi.",
+      "no": "Nei. FitMesh kobler seg til ringen direkte over Bluetooth, laster ned rådata og behandler dem på egen hånd. Produsentens følgeapp er ikke nødvendig. Du kan gjerne avinstallere den om du vil."
     },
     "faq.2.q": {
       "sv": "Hur fungerar batteriindikatorn och laddningsmeddelandena?",
-      "da": "Hvordan fungerer batteriindikatoren og opladningsmeddelelserne?"
+      "da": "Hvordan fungerer batteriindikatoren og opladningsmeddelelserne?",
+      "fi": "Miten akkuilmaisin ja latausilmoitukset toimivat?",
+      "no": "Hvordan fungerer batteriindikatoren og ladevarslene?"
     },
     "faq.2.a": {
       "sv": "FitMesh hämtar data i omgångar när ringen befinner sig i närheten, utan att upprätthålla en kontinuerlig BLE-anslutning. Vid varje synkronisering avläser den även laddningsnivån och visar den med en färgindikator: grön över 50 %, gul mellan 20–49 %, röd under 20 %. Du får automatiska aviseringar när batteriet är fulladdat (100 %), vid 50 % och vid 25 %, så du behöver inte aktivt övervaka ringen.",
-      "da": "FitMesh henter data i portioner, når ringen er i nærheden, uden at opretholde en kontinuerlig BLE-forbindelse. Ved hver synkronisering aflæser den også opladningsniveauet og viser det med en farveindikator: grøn over 50 %, gul mellem 20 og 49 %, rød under 20 %. Du modtager automatiske notifikationer, når batteriet er fuldt opladet (100 %), ved 50 % og ved 25 %, så du behøver ikke aktivt at holde øje med ringen."
+      "da": "FitMesh henter data i portioner, når ringen er i nærheden, uden at opretholde en kontinuerlig BLE-forbindelse. Ved hver synkronisering aflæser den også opladningsniveauet og viser det med en farveindikator: grøn over 50 %, gul mellem 20 og 49 %, rød under 20 %. Du modtager automatiske notifikationer, når batteriet er fuldt opladet (100 %), ved 50 % og ved 25 %, så du behøver ikke aktivt at holde øje med ringen.",
+      "fi": "FitMesh lataa tiedot erissä, kun sormus on lähellä, ilman jatkuvaa BLE-yhteyttä. Jokaisella synkronoinnilla se lukee myös varaustason ja näyttää sen väri-ilmaisimella: vihreä yli 50 %, keltainen välillä 20-49 %, punainen alle 20 %. Saat automaattiset ilmoitukset täydellä latauksella (100 %), 50 %:ssa ja 25 %:ssa, joten sinun ei tarvitse aktiivisesti seurata sormusta.",
+      "no": "FitMesh laster ned data i partier når ringen er i nærheten, uten å opprettholde en kontinuerlig BLE-tilkobling. Ved hver synkronisering leser den også av ladenivået og viser det med en fargeindikator: grønn over 50 %, gul mellom 20-49 %, rød under 20 %. Du mottar automatiske varsler ved full lading (100 %), ved 50 % og ved 25 %, slik at du ikke trenger å overvåke ringen aktivt."
     },
     "faq.3.q": {
       "sv": "Hur exakta är mätningarna av hjärtfrekvens och SpO2?",
-      "da": "Hvor nøjagtige er puls- og SpO2-målingerne?"
+      "da": "Hvor nøjagtige er puls- og SpO2-målingerne?",
+      "fi": "Kuinka tarkkoja syke- ja SpO2-lukemat ovat?",
+      "no": "Hvor nøyaktige er puls- og SpO2-avlesningene?"
     },
     "faq.3.a": {
       "sv": "Ärligt svar: det här är uppskattningar, inte kliniska mätningar. Optiska PPG-sensorer i den här prisklassen ger mätvärden som är användbara för att följa personliga trender (vilopuls över tid, sömnkvalitet genom HRV, SpO2-fluktuationer under natten), men de ersätter inte certifierade medicintekniska produkter. För personligt informationsbruk är uppgifterna tillförlitliga. För kliniska eller diagnostiska ändamål bör du rådfråga vårdpersonal. FitMesh betraktar alla dessa uppgifter som informativa, aldrig diagnostiska.",
-      "da": "Ærligt svar: Det drejer sig om skøn, ikke om kliniske målinger. Optiske PPG-sensorer i denne prisklasse leverer målinger, der er nyttige til at følge personlige tendenser (hvilepuls over tid, søvnkvalitet via HRV, SpO2-udsving i løbet af natten), men de kan ikke erstatte certificerede medicinske apparater. Til personlig orientering er dataene pålidelige. Til kliniske eller diagnostiske formål bør du konsultere en sundhedsfaglig person. FitMesh betragter alle disse data som orienterende, aldrig som diagnostiske."
+      "da": "Ærligt svar: Det drejer sig om skøn, ikke om kliniske målinger. Optiske PPG-sensorer i denne prisklasse leverer målinger, der er nyttige til at følge personlige tendenser (hvilepuls over tid, søvnkvalitet via HRV, SpO2-udsving i løbet af natten), men de kan ikke erstatte certificerede medicinske apparater. Til personlig orientering er dataene pålidelige. Til kliniske eller diagnostiske formål bør du konsultere en sundhedsfaglig person. FitMesh betragter alle disse data som orienterende, aldrig som diagnostiske.",
+      "fi": "Rehellinen vastaus: nämä ovat arvioita, eivät kliinisiä mittauksia. Tämän hintaluokan optiset PPG-sensorit antavat lukemia, jotka ovat hyödyllisiä henkilökohtaisten trendien seurantaan (leposyke ajan mittaan, unen laatu HRV:n kautta, SpO2:n vaihtelut yön aikana), mutta ne eivät korvaa sertifioituja lääkinnällisiä laitteita. Henkilökohtaiseen tiedolliseen käyttöön tiedot ovat luotettavia. Kliinisiin tai diagnostisiin tarkoituksiin ota yhteyttä terveydenhuollon ammattilaiseen. FitMesh käsittelee kaikkia näitä tietoja tiedollisina, ei koskaan diagnostisina.",
+      "no": "Ærlig svar: dette er estimater, ikke kliniske målinger. Optiske PPG-sensorer i dette prissjiktet gir avlesninger som er nyttige for å følge personlige trender (hvilepuls over tid, søvnkvalitet gjennom HRV, SpO2-variasjoner gjennom natten), men de er ikke en erstatning for sertifiserte medisinske apparater. Til personlig informasjonsbruk er dataene pålitelige. Til kliniske eller diagnostiske formål bør du konsultere en helsepersonell. FitMesh behandler alle disse dataene som informative, aldri diagnostiske."
     },
     "faq.4.q": {
       "sv": "Är mina uppgifter skyddade? Vart hamnar de?",
-      "da": "Er mine data fortrolige? Hvor ender de?"
+      "da": "Er mine data fortrolige? Hvor ender de?",
+      "fi": "Ovatko tietoni yksityisiä? Minne ne menevät?",
+      "no": "Er dataene mine private? Hvor havner de?"
     },
     "faq.4.a": {
       "sv": "Data läses in via Bluetooth direkt på din telefon och skickas endast till Supabase-backenden för ditt FitMesh-konto, på servrar inom EU. Uppgifterna passerar inte genom ringtillverkarens servrar. Ditt konto är personligt och delar inte data med tredje part utan ditt uttryckliga samtycke. Fullt GDPR-kompatibelt.",
-      "da": "Dataene læses via Bluetooth direkte på din telefon og sendes udelukkende til Supabase-backend’en for din FitMesh-konto, som er placeret på servere i EU. De passerer ikke gennem ringproducentens servere. Din konto er personlig, og der deles ikke data med tredjeparter uden dit udtrykkelige samtykke. Fuldt GDPR-kompatibel."
+      "da": "Dataene læses via Bluetooth direkte på din telefon og sendes udelukkende til Supabase-backend’en for din FitMesh-konto, som er placeret på servere i EU. De passerer ikke gennem ringproducentens servere. Din konto er personlig, og der deles ikke data med tredjeparter uden dit udtrykkelige samtykke. Fuldt GDPR-kompatibel.",
+      "fi": "Tiedot luetaan Bluetoothin kautta suoraan puhelimeesi ja lähetetään vain FitMesh-tilisi Supabase-taustajärjestelmään, EU:ssa sijaitseville palvelimille. Ne eivät kulje sormuksen valmistajan palvelinten kautta. Tilisi on henkilökohtainen eikä jaa tietoja kolmansille osapuolille ilman nimenomaista suostumustasi. Täysin GDPR-yhteensopiva.",
+      "no": "Dataene leses via Bluetooth direkte på telefonen din og sendes kun til Supabase-backenden til FitMesh-kontoen din, på servere i EU. De går ikke gjennom ringprodusentens servere. Kontoen din er personlig og deler ikke data med tredjeparter uten ditt uttrykkelige samtykke. Fullt ut i samsvar med GDPR."
     },
     "secondaryKeywords": {
       "sv": [
@@ -8909,6 +9003,24 @@
         "sundhedsdata fra smartring",
         "qring-alternativ",
         "colmi ring – ingen ledsager-app"
+      ],
+      "fi": [
+        "colmi r02 tietojen vienti",
+        "colmi ring synkronointi",
+        "edullisen älysormuksen koontinäyttö",
+        "colmi r02 android-sovellus",
+        "älysormuksen terveystiedot",
+        "qring vaihtoehto",
+        "colmi ring ilman erillistä sovellusta"
+      ],
+      "no": [
+        "colmi r02 eksporter data",
+        "colmi ring synkronisering",
+        "budsjett smart ring dashbord",
+        "colmi r02 android app",
+        "smart ring helsedata",
+        "qring alternativ",
+        "colmi ring ingen følgeapp"
       ]
     },
     "tldr": {
@@ -8925,6 +9037,20 @@
         "Ringen er søvnspecialisten: den vinder om natten, mens smarturet vinder om dagen. Sammenkoblingen af flere enheder forhindrer dobbelttælling.",
         "Farvekodet batteriindikator, realistisk skøn over driftstid og notifikationer ved 100 %/50 %/25 %.",
         "Dataene opbevares på din FitMesh-konto i EU og ikke på producentens servere."
+      ],
+      "fi": [
+        "Colmi R02/R03 ja OEM-kloonit yhdistyvät FitMeshiin suoran Bluetoothin kautta, valmistajan sovellusta ei tarvita.",
+        "Luetut mittarit: askeleet, matka, kalorit, syke, leposyke, SpO2, HRV, stressi (0-100) ja uni vaiheineen.",
+        "Sormus on unen erikoisosaaja: se voittaa yöllä, älykello voittaa päivällä. Monilaitefuusio poistaa kaksinkertaisen laskennan.",
+        "Värikoodattu akkuilmaisin, todellinen käyttöaika-arvio ja ilmoitukset 100 %/50 %/25 %.",
+        "Tiedot pysyvät FitMesh-tililläsi EU:ssa, eivät valmistajan palvelimilla."
+      ],
+      "no": [
+        "Colmi R02/R03 og OEM-kloner kobler seg til FitMesh over direkte Bluetooth, ingen produsentapp kreves.",
+        "Målinger som leses: skritt, distanse, kalorier, puls, hvilepuls, SpO2, HRV, stress (0-100) og søvn med faser.",
+        "Ringen er søvnspesialisten: den vinner gjennom natten, smartklokken vinner om dagen. Fusjon av flere enheter fjerner dobbelttelling.",
+        "Fargekodet batteriindikator, reelt driftstidsestimat og varsler ved 100 %/50 %/25 %.",
+        "Dataene forblir på FitMesh-kontoen din i EU, ikke på produsentens servere."
       ]
     },
     "body.6.headers": {
@@ -8937,6 +9063,16 @@
         "Metrisk",
         "Fås nu i FitMesh",
         "Noter"
+      ],
+      "fi": [
+        "Mittari",
+        "Saatavilla FitMeshissä nyt",
+        "Huomiot"
+      ],
+      "no": [
+        "Måling",
+        "Tilgjengelig i FitMesh nå",
+        "Merknader"
       ]
     },
     "body.6.rows.0": {
@@ -8949,6 +9085,16 @@
         "Trin",
         "Ja",
         "Daglig log + intradag"
+      ],
+      "fi": [
+        "Askeleet",
+        "Kyllä",
+        "Päivittäinen loki + päivänsisäinen"
+      ],
+      "no": [
+        "Skritt",
+        "Ja",
+        "Daglig logg + gjennom dagen"
       ]
     },
     "body.6.rows.1": {
@@ -8961,6 +9107,16 @@
         "Afstand",
         "Ja",
         "Beregnet ud fra antal skridt"
+      ],
+      "fi": [
+        "Matka",
+        "Kyllä",
+        "Laskettu askeleista"
+      ],
+      "no": [
+        "Distanse",
+        "Ja",
+        "Beregnet fra skritt"
       ]
     },
     "body.6.rows.2": {
@@ -8973,6 +9129,16 @@
         "Kalorier",
         "Ja",
         "Skøn over aktiviteten"
+      ],
+      "fi": [
+        "Kalorit",
+        "Kyllä",
+        "Aktiivisuusarvio"
+      ],
+      "no": [
+        "Kalorier",
+        "Ja",
+        "Aktivitetsestimat"
       ]
     },
     "body.6.rows.3": {
@@ -8985,6 +9151,16 @@
         "Puls",
         "Ja",
         "Daglig log + hvilepuls"
+      ],
+      "fi": [
+        "Syke",
+        "Kyllä",
+        "Päivittäinen loki + leposyke"
+      ],
+      "no": [
+        "Puls",
+        "Ja",
+        "Daglig logg + hvilepuls"
       ]
     },
     "body.6.rows.4": {
@@ -8997,6 +9173,16 @@
         "SpO2",
         "Ja",
         "Øjebliksmålinger og målinger over natten"
+      ],
+      "fi": [
+        "SpO2",
+        "Kyllä",
+        "Yksittäiset ja yön aikaiset lukemat"
+      ],
+      "no": [
+        "SpO2",
+        "Ja",
+        "Punktvise avlesninger og avlesninger gjennom natten"
       ]
     },
     "body.6.rows.5": {
@@ -9006,6 +9192,16 @@
         "Förenklat HF/RMSSD-index"
       ],
       "da": [
+        "HRV",
+        "Ja",
+        "Forenklet HF/RMSSD-indeks"
+      ],
+      "fi": [
+        "HRV",
+        "Kyllä",
+        "Yksinkertaistettu HF/RMSSD-indeksi"
+      ],
+      "no": [
         "HRV",
         "Ja",
         "Forenklet HF/RMSSD-indeks"
@@ -9021,6 +9217,16 @@
         "Stress",
         "Ja",
         "0-100-score beregnet ud fra HRV og puls (ikke tilgængelig på smartwatches via Health Connect)"
+      ],
+      "fi": [
+        "Stressi",
+        "Kyllä",
+        "0-100 pisteet, jotka johdetaan HRV:stä ja sykkeestä (ei saatavilla älykelloilla Health Connectin kautta)"
+      ],
+      "no": [
+        "Stress",
+        "Ja",
+        "Score 0-100 utledet fra HRV og puls (ikke tilgjengelig på smartklokker via Health Connect)"
       ]
     },
     "body.6.rows.7": {
@@ -9033,6 +9239,16 @@
         "Ringbatteri",
         "Ja",
         "Farveindikator (grøn >50 %, gul 20–49 %, rød <20 %) + estimeret driftstid"
+      ],
+      "fi": [
+        "Sormuksen akku",
+        "Kyllä",
+        "Väri-ilmaisin (vihreä >50 %, keltainen 20-49 %, punainen <20 %) + käyttöaika-arvio"
+      ],
+      "no": [
+        "Ringbatteri",
+        "Ja",
+        "Fargeindikator (grønn >50 %, gul 20-49 %, rød <20 %) + driftstidsestimat"
       ]
     },
     "body.6.rows.8": {
@@ -9045,6 +9261,16 @@
         "Søvn i faser",
         "Ja",
         "Let, dyb, REM og vågen: Ringen er søvnspecialisten og vinder natten over"
+      ],
+      "fi": [
+        "Uni vaiheineen",
+        "Kyllä",
+        "Kevyt, syvä, REM ja valve: sormus on unen erikoisosaaja ja voittaa yöllä"
+      ],
+      "no": [
+        "Søvn med faser",
+        "Ja",
+        "Lett, dyp, REM og våken: ringen er søvnspesialisten og vinner gjennom natten"
       ]
     },
     "body.23.items": {
@@ -9057,6 +9283,16 @@
         "**Åbn FitMesh Sync** og gå til Indstillinger > Enheder. Find det nye afsnit »Smartringe (BLE)«.",
         "**Tryk på »Tilslut ring«**. FitMesh søger efter BLE-enheder i nærheden, der er kompatible med Colmi-protokollen. Sørg for, at ringen er opladet og sidder på fingeren (eller holdes i hånden).",
         "**Bekræft parringen**. Ingen PIN-kode, ingen login: Forbindelsen sker direkte mellem to Bluetooth-enheder. Fra det øjeblik synkroniserer FitMesh ringen automatisk."
+      ],
+      "fi": [
+        "**Avaa FitMesh Sync** ja mene kohtaan Asetukset > Laitteet. Etsi uusi \"Älysormukset (BLE)\" -osio.",
+        "**Napauta \"Yhdistä sormus\"**. FitMesh skannaa lähellä olevia Colmi-protokollan kanssa yhteensopivia BLE-laitteita. Varmista, että sormus on ladattu ja käytössä (tai kädessäsi).",
+        "**Vahvista laiteparin muodostus**. Ei PIN-koodia, ei kirjautumista: yhteys on Bluetooth laitteesta laitteeseen. Siitä hetkestä lähtien FitMesh synkronoi sormuksen automaattisesti."
+      ],
+      "no": [
+        "**Åpne FitMesh Sync** og gå til Innstillinger > Enheter. Finn den nye delen \"Smarte ringer (BLE)\".",
+        "**Trykk på \"Koble til ring\"**. FitMesh søker etter BLE-enheter i nærheten som er kompatible med Colmi-protokollen. Sørg for at ringen er ladet og båret (eller holdt i hånden).",
+        "**Bekreft paringen**. Ingen PIN-kode, ingen innlogging: koblingen er Bluetooth fra enhet til enhet. Fra det øyeblikket synkroniserer FitMesh ringen automatisk."
       ]
     },
     "body.28.items": {
@@ -9075,6 +9311,22 @@
         "Stress-scoren 0-100 er en eksklusiv måleparameter for ringen, som smartwatches ikke viser via Health Connect.",
         "Sammenkobling af flere enheder (ring om natten, smartwatch om dagen) undgår dobbelttælling og samler alt i ét samlet overblik.",
         "Dataene sendes til din FitMesh-konto i EU, ikke til ringproducentens servere."
+      ],
+      "fi": [
+        "Colmi R02/R03 ja yhteensopivat OEM-kloonit yhdistyvät FitMesh Synciin suoran Bluetoothin kautta, erillistä sovellusta ei tarvita.",
+        "Luetut mittarit: askeleet, matka, kalorit, syke, leposyke, SpO2, HRV, stressi (0-100), akku. Univaiheet tulossa pian.",
+        "Akkuilmaisin on värikoodattu (vihreä >50 %, keltainen 20-49 %, punainen <20 %) todelliseen kulutukseen perustuvalla käyttöaika-arviolla ja ilmoituksilla täydellä latauksella, 50 %:ssa ja 25 %:ssa.",
+        "0-100 stressipisteet ovat sormuksen yksinomainen mittari, jota älykellot eivät tarjoa Health Connectin kautta.",
+        "Monilaitefuusio (sormus yöllä, älykello päivällä) poistaa kaksinkertaisen laskennan ja yhdistää kaiken yhteen koontinäyttöön.",
+        "Tiedot menevät FitMesh-tilillesi EU:ssa, eivät sormuksen valmistajan palvelimille."
+      ],
+      "no": [
+        "Colmi R02/R03 og kompatible OEM-kloner vil koble seg til FitMesh Sync via direkte Bluetooth, ingen følgeapp kreves.",
+        "Målinger som leses: skritt, distanse, kalorier, puls, hvilepuls, SpO2, HRV, stress (0-100), batteri. Søvnfaser kommer snart.",
+        "Batteriindikatoren er fargekodet (grønn >50 %, gul 20-49 %, rød <20 %) med driftstidsestimat basert på reelt forbruk og varsler ved full lading, 50 % og 25 %.",
+        "Stresscoren 0-100 er en eksklusiv ringmåling som smartklokker ikke eksponerer via Health Connect.",
+        "Fusjon av flere enheter (ring gjennom natten, smartklokke om dagen) fjerner dobbelttelling og samler alt i ett dashbord.",
+        "Dataene går til FitMesh-kontoen din i EU, ikke til ringprodusentens servere."
       ]
     }
   },
@@ -9705,223 +9957,333 @@
   "piu-smartwatch-insieme-dati-doppi": {
     "hero.kicker": {
       "sv": "Stödstolpsguide",
-      "da": "Søjlevejledning"
+      "da": "Søjlevejledning",
+      "fi": "Pilariopas",
+      "no": "Grunnleggende guide"
     },
     "hero.title": {
       "sv": "Flera smartklockor, inga dubbla data: en guide till datareducering vid användning av flera bärbara enheter",
-      "da": "Flere smartwatches, ingen dublerede data: Vejledning i deduplikering ved brug af flere wearables"
+      "da": "Flere smartwatches, ingen dublerede data: Vejledning i deduplikering ved brug af flere wearables",
+      "fi": "Useita älykelloja, ei päällekkäisiä tietoja: opas usean puettavan laitteen kaksoiskappaleiden poistoon",
+      "no": "Flere smartklokker, ingen dupliserte data: guiden til deduplisering på tvers av wearables"
     },
     "hero.subtitle": {
       "sv": "Varje bärbar enhet tror att den är den enda sanna källan, och ur sitt eget perspektiv har den rätt. Problemet uppstår när fem sanna källor alla skriver till Health Connect och ingen av dem vet att de andra finns.",
-      "da": "Hvert eneste bærbart enhed tror, at det er den eneste sandhedskilde, og set fra dets eget perspektiv har det ret. Problemet opstår, når fem sandhedskilder alle skriver til Health Connect, og ingen af dem ved, at de andre findes."
+      "da": "Hvert eneste bærbart enhed tror, at det er den eneste sandhedskilde, og set fra dets eget perspektiv har det ret. Problemet opstår, når fem sandhedskilder alle skriver til Health Connect, og ingen af dem ved, at de andre findes.",
+      "fi": "Jokainen puettava laite luulee olevansa ainoa totuuden lähde, ja omasta näkökulmastaan se on oikeassa. Ongelma alkaa siitä, kun viisi totuuden lähdettä kirjoittaa kaikki Health Connect -palveluun eikä yksikään niistä tiedä muiden olemassaolosta.",
+      "no": "Hver wearable tror den er den eneste kilden til sannhet, og den har rett fra sitt eget perspektiv. Problemet begynner når fem kilder til sannhet alle skriver til Health Connect og ingen av dem vet at de andre finnes."
     },
     "metaDescription": {
       "sv": "Använder du flera bärbara enheter samtidigt (smartklocka, smartring, GPS-klocka)? Här förklarar vi varför data dupliceras, hur deduplicering fungerar och vad du behöver ställa in själv jämfört med vad FitMesh Sync sköter automatiskt.",
-      "da": "Bruger du flere wearables på samme tid (smartwatch, smartring, GPS-ur)? Her kan du læse, hvorfor dataene bliver duplikeret, hvordan deduplikering fungerer, og hvad du selv skal konfigurere, i modsætning til hvad FitMesh Sync klarer automatisk."
+      "da": "Bruger du flere wearables på samme tid (smartwatch, smartring, GPS-ur)? Her kan du læse, hvorfor dataene bliver duplikeret, hvordan deduplikering fungerer, og hvad du selv skal konfigurere, i modsætning til hvad FitMesh Sync klarer automatisk.",
+      "fi": "Käytätkö useita puettavia laitteita yhdessä (älykello, älysormus, GPS-kello)? Tässä selitetään, miksi tiedot kahdentuvat, miten kaksoiskappaleiden poisto toimii ja mitä sinun täytyy määrittää itse verrattuna siihen, minkä FitMesh Sync hoitaa automaattisesti.",
+      "no": "Bruker du flere wearables sammen (smartklokke, smartring, GPS-klokke)? Her er hvorfor data dupliseres, hvordan deduplisering fungerer, og hva du må konfigurere kontra hva FitMesh Sync håndterer automatisk."
     },
     "primaryKeyword": {
       "sv": "Flera smartklockor – datareducering",
-      "da": "Flere smartwatches – deduplikering af data"
+      "da": "Flere smartwatches – deduplikering af data",
+      "fi": "useita älykelloja päällekkäiset tiedot kaksoiskappaleiden poisto",
+      "no": "flere smartklokker dupliserte data deduplisering"
     },
     "body.0.text": {
       "sv": "Om du bär mer än en bärbar enhet blir ditt stegantal nästan säkert för högt. Det beror inte på något fel: det är det förväntade beteendet hos ett ekosystem som är utformat för enstaka enheter, men som används av någon som har insett att olika verktyg är bäst på olika saker. En Galaxy Watch för vardagsbruk, en smart ring för sömn, en Garmin för långa löprundor, en Suunto för segling eller bergsvandringar: varje enhet utmärker sig i sitt sammanhang. Men instrumentpanelen måste veta att de 8 000 stegen på morgonen inte ska läggas till de 8 000 stegen Garmin som registrerades under eftermiddagens löprunda som gick längs samma gator.",
-      "da": "Hvis du bærer mere end ét wearable, er dit skridttal næsten helt sikkert for højt. Ikke på grund af en fejl: Det er den forventede adfærd i et økosystem, der er designet til enkeltstående enheder, og som bruges af en person, der har indset, at forskellige værktøjer er bedre til forskellige ting. En Galaxy Watch til daglig brug, en smart ring til søvn, en Garmin til lange løbeture, en Suunto til sejlads eller bjergture: hver enhed udmærker sig i sin sammenhæng. Men kontrolpanelet skal vide, at de 8.000 skridt om morgenen ikke skal lægges sammen med de 8.000 skridt Garmin, der blev registreret under eftermiddagsløbeturen, som gik gennem de samme gader."
+      "da": "Hvis du bærer mere end ét wearable, er dit skridttal næsten helt sikkert for højt. Ikke på grund af en fejl: Det er den forventede adfærd i et økosystem, der er designet til enkeltstående enheder, og som bruges af en person, der har indset, at forskellige værktøjer er bedre til forskellige ting. En Galaxy Watch til daglig brug, en smart ring til søvn, en Garmin til lange løbeture, en Suunto til sejlads eller bjergture: hver enhed udmærker sig i sin sammenhæng. Men kontrolpanelet skal vide, at de 8.000 skridt om morgenen ikke skal lægges sammen med de 8.000 skridt Garmin, der blev registreret under eftermiddagsløbeturen, som gik gennem de samme gader.",
+      "fi": "Jos käytät useampaa kuin yhtä puettavaa laitetta, askelmääräsi on lähes varmasti liioiteltu. Ei virheen takia: se on odotettu käyttäytyminen ekosysteemissä, joka on suunniteltu yksittäisille laitteille mutta jota käyttää joku, joka on tajunnut, että eri työkalut tekevät eri asioita paremmin. Galaxy Watch arkikäyttöön, älysormus unen seurantaan, Garmin pitkille juoksulenkeille, Suunto purjehdukseen tai vuoristoretkiin: jokainen laite loistaa omassa kontekstissaan. Mutta koontinäytön täytyy tietää, ettei aamun 8 000 askelta pidä laskea yhteen niiden 8 000 askeleen kanssa, jotka Garmin tallensi iltapäivän juoksulenkillä samoja katuja pitkin.",
+      "no": "Hvis du har på deg mer enn én wearable, er skrittellingen din nesten helt sikkert oppblåst. Ikke på grunn av en feil: det er den forventede oppførselen til et økosystem laget for enkeltenheter, brukt av noen som har skjønt at ulike verktøy gjør ulike ting bedre. En Galaxy Watch til hverdags, en smartring til søvn, en Garmin til lange løpeturer, en Suunto til seiling eller fjellturer: hver enhet utmerker seg i sin kontekst. Men dashbordet må vite at de 8 000 morgenskrittene ikke skal legges til de 8 000 skrittene Garmin registrerte under ettermiddagsløpet som gikk gjennom de samme gatene."
     },
     "body.1.title": {
       "sv": "TL;DR: det som verkligen spelar roll",
-      "da": "TL;DR: Det, der virkelig betyder noget"
+      "da": "TL;DR: Det, der virkelig betyder noget",
+      "fi": "TL;DR: mikä oikeasti on tärkeää",
+      "no": "TL;DR: det som faktisk betyr noe"
     },
     "body.1.body": {
       "sv": "Data dupliceras eftersom Health Connect saknar en inbyggd mekanism för deduplicering mellan appar: varje källa skriver sin egen post självständigt. Lösningen är inte att inaktivera enheter, utan att tilldela en prioriterad källa till varje datatyp (”vinnaren tar allt” baserat på tidpunkt på dygnet, sammanfogning på fältnivå för dagliga mätvärden, tidsbaserad klustring för sömn). FitMesh Sync hanterar detta automatiskt i de flesta fall; vissa avancerade scenarier kräver manuell konfiguration som beskrivs i denna guide.",
-      "da": "Der opstår dataduplikater, fordi Health Connect ikke har en indbygget mekanisme til deduplikering på tværs af apps: hver kilde skriver sin egen post uafhængigt. Løsningen er ikke at deaktivere enheder, men at tildele en primær kilde til hver datatype (»vinderen tager det hele« baseret på tidspunkt på dagen, sammenlægning på feltniveau for daglige målinger, tidsmæssig gruppering for søvn). FitMesh Sync håndterer dette automatisk i de fleste tilfælde; nogle avancerede scenarier kræver manuel konfiguration, som beskrives i denne vejledning."
+      "da": "Der opstår dataduplikater, fordi Health Connect ikke har en indbygget mekanisme til deduplikering på tværs af apps: hver kilde skriver sin egen post uafhængigt. Løsningen er ikke at deaktivere enheder, men at tildele en primær kilde til hver datatype (»vinderen tager det hele« baseret på tidspunkt på dagen, sammenlægning på feltniveau for daglige målinger, tidsmæssig gruppering for søvn). FitMesh Sync håndterer dette automatisk i de fleste tilfælde; nogle avancerede scenarier kræver manuel konfiguration, som beskrives i denne vejledning.",
+      "fi": "Tiedot kahdentuvat, koska Health Connectissa ei ole natiivia sovellusten välistä kaksoiskappaleiden poistomekanismia: jokainen lähde kirjoittaa oman tietueensa itsenäisesti. Ratkaisu ei ole laitteiden poistaminen käytöstä, vaan voittavan lähteen määrittäminen kullekin tietotyypille (voittaja vie kaiken vuorokaudenajan mukaan, kenttätason yhdistäminen päivittäisille mittareille, ajallinen ryhmittely unelle). FitMesh Sync hoitaa tämän automaattisesti useimmissa tapauksissa; jotkin edistyneet skenaariot vaativat manuaalista määritystä, joka kuvataan tässä oppaassa.",
+      "no": "Data dupliseres fordi Health Connect ikke har noen innebygd mekanisme for deduplisering på tvers av apper: hver kilde skriver sin egen post uavhengig. Løsningen er ikke å deaktivere enheter, men å tildele en vinnende kilde til hver datatype (vinneren tar alt etter tid på døgnet, sammenslåing på feltnivå for daglige målinger, tidsmessig klynging for søvn). FitMesh Sync håndterer dette automatisk i de fleste tilfeller; enkelte avanserte scenarier krever manuell konfigurasjon som beskrives i denne guiden."
     },
     "body.2.text": {
       "sv": "Varför uppstår dubbletter i data: den tekniska grundorsaken",
-      "da": "Hvorfor opstår der dataduplikater: den tekniske årsag"
+      "da": "Hvorfor opstår der dataduplikater: den tekniske årsag",
+      "fi": "Miksi tiedot kahdentuvat: tekninen perimmäinen syy",
+      "no": "Hvorfor data dupliseres: den tekniske grunnårsaken"
     },
     "body.3.text": {
       "sv": "Health Connect är en lokal databas på Android. Alla appar med rätt behörigheter kan skriva in poster av vilken typ som helst: steg, hjärtfrekvens, sömnsessioner, träningspass. Health Connect kan inte avgöra om två poster representerar samma sak som mätts två gånger: den har inget fält för ”primär källa” och utför ingen automatisk deduplicering. Detta är ett medvetet designval, inte en teknisk begränsning: systemet är källneutralt för att undvika att gynna någon tillverkare.",
-      "da": "Health Connect er en lokal database på Android. Enhver app med de rette tilladelser kan gemme poster af enhver type: skridt, puls, søvnperioder, træningspas. Health Connect ved ikke, om to poster repræsenterer den samme ting, der er målt to gange: den har ikke noget felt for »primær kilde« og fjerner ikke dubletter automatisk. Dette er et bevidst designvalg, ikke en teknisk begrænsning: systemet er kildeneutralt for at undgå at favorisere nogen bestemt producent."
+      "da": "Health Connect er en lokal database på Android. Enhver app med de rette tilladelser kan gemme poster af enhver type: skridt, puls, søvnperioder, træningspas. Health Connect ved ikke, om to poster repræsenterer den samme ting, der er målt to gange: den har ikke noget felt for »primær kilde« og fjerner ikke dubletter automatisk. Dette er et bevidst designvalg, ikke en teknisk begrænsning: systemet er kildeneutralt for at undgå at favorisere nogen bestemt producent.",
+      "fi": "Health Connect on paikallinen tietokanta Androidissa. Mikä tahansa sovellus, jolla on oikeat käyttöoikeudet, voi kirjoittaa minkä tahansa tyyppisiä tietueita: askelia, sykettä, uni-istuntoja, harjoituksia. Health Connect ei tiedä, edustavatko kaksi tietuetta samaa asiaa kahdesti mitattuna: siinä ei ole ensisijaisen lähteen kenttää eikä se poista kaksoiskappaleita automaattisesti. Tämä on tietoinen suunnitteluvalinta, ei tekninen rajoitus: järjestelmä on lähdeneutraali, jotta se ei suosisi mitään valmistajaa.",
+      "no": "Health Connect er en lokal database på Android. Enhver app med de riktige tillatelsene kan skrive poster av enhver type: skritt, puls, søvnøkter, treningsøkter. Health Connect vet ikke om to poster representerer det samme målt to ganger: den har ikke noe felt for \"primærkilde\" og dedupliserer ikke automatisk. Dette er et bevisst designvalg, ikke en teknisk begrensning: systemet er kildenøytralt for å unngå å favorisere noen produsent."
     },
     "body.4.text": {
       "sv": "Det konkreta problemet: när man bär både en Galaxy Watch och en Garmin under ett 10 km-lopp, visar båda Health Connect. Galaxy Watch registrerar sina 9 847 steg, Garmin registrerar sina 10 124 steg (siffrorna skiljer sig åt eftersom sensorkalibreringarna varierar). En app som läser av Health Connect utan logik för att eliminera dubbelräkningar summerar dem: resultatet blir 19 971 steg för en 10 km-löpning. Det är dubbelt så många. Och när det gäller hjärtfrekvensen är det ännu värre: genomsnittet förvanskas av mätningar som gjorts i olika fysiska sammanhang.",
-      "da": "Det konkrete problem: Når man har både en Galaxy Watch og en Garmin på under et 10 km-løb, viser begge Health Connect. Galaxy Watch registrerer sine 9.847 skridt, Garmin registrerer sine 10.124 skridt (tallene afviger, fordi sensorkalibreringerne er forskellige). En app, der aflæser Health Connect uden deduplikationslogik, summerer dem sammen: resultatet bliver 19.971 skridt for en 10 km-løbetur. Det er det dobbelte. Og for puls er det endnu værre: gennemsnittene forvanskes af målinger, der er taget i forskellige fysiske sammenhænge."
+      "da": "Det konkrete problem: Når man har både en Galaxy Watch og en Garmin på under et 10 km-løb, viser begge Health Connect. Galaxy Watch registrerer sine 9.847 skridt, Garmin registrerer sine 10.124 skridt (tallene afviger, fordi sensorkalibreringerne er forskellige). En app, der aflæser Health Connect uden deduplikationslogik, summerer dem sammen: resultatet bliver 19.971 skridt for en 10 km-løbetur. Det er det dobbelte. Og for puls er det endnu værre: gennemsnittene forvanskes af målinger, der er taget i forskellige fysiske sammenhænge.",
+      "fi": "Konkreettinen ongelma: kun käytät sekä Galaxy Watchia että Garminia 10 kilometrin juoksulenkillä, molemmat kirjoittavat Health Connect -palveluun. Galaxy Watch kirjoittaa omat 9 847 askeltaan, Garmin kirjoittaa omat 10 124 askeltaan (luvut eroavat, koska anturien kalibroinnit poikkeavat toisistaan). Sovellus, joka lukee Health Connectia ilman kaksoiskappaleiden poistologiikkaa, laskee ne yhteen: tuloksena 19 971 askelta 10 kilometrin juoksulenkiltä. Se on kaksinkertainen. Ja sykkeen osalta se on vielä pahempaa: keskiarvot saastuvat eri fyysisissä konteksteissa otetuista mittauksista.",
+      "no": "Det konkrete problemet: når du har på deg både en Galaxy Watch og en Garmin under et løp på 10 km, skriver begge til Health Connect. Galaxy Watch skriver sine 9 847 skritt, Garmin skriver sine 10 124 skritt (tallene spriker fordi sensorkalibreringene er ulike). En app som leser Health Connect uten dedupliseringslogikk summerer dem: resultat, 19 971 skritt for et løp på 10 km. Det er det dobbelte. Og for puls er det verre: gjennomsnittene blir forurenset av målinger tatt i ulike fysiske kontekster."
     },
     "body.5.text": {
       "sv": "Tre typer av dubbletter som jag oftast stöter på",
-      "da": "De tre mønstre for gentagelser, jeg oftest støder på"
+      "da": "De tre mønstre for gentagelser, jeg oftest støder på",
+      "fi": "Kolme kahdentumismallia, joita kohtaan useimmin",
+      "no": "Tre dupliseringsmønstre jeg møter oftest"
     },
     "body.7.title": {
       "sv": "Okej: Samsung Health skrivs två gånger",
-      "da": "Forstået: Samsung Health skrives to gange"
+      "da": "Forstået: Samsung Health skrives to gange",
+      "fi": "Sudenkuoppa: Samsung Health kirjoittaa kahdesti",
+      "no": "Fallgruve: Samsung Health skriver to ganger"
     },
     "body.7.body": {
       "sv": "Samsung Health på Galaxy Watch skriver till Health Connect, men på vissa Samsung-telefoner skriver den även till Google Fit (körs fortfarande i bakgrunden på enheter från före 2024). Om Google Fit i sin tur har en aktiv Health Connect-integration hamnar samma stegpost i Health Connect två gånger med olika source_app. Resultat: även utan Garmin dubbleras dina steg. Lösning: gå till Samsung Health > Inställningar > Anslutna appar och kontrollera att Google Fit INTE har aktiv skrivbehörighet.",
-      "da": "Samsung Health på Galaxy Watch skriver til Health Connect, men på visse Samsung-telefoner skriver den også til Google Fit (kører stadig i baggrunden på enheder fra før 2024). Hvis Google Fit til gengæld har en aktiv Health Connect-integration, ender den samme skridtregistrering i Health Connect to gange med forskellige source_app. Resultat: selv uden Garmin bliver dine skridt talt dobbelt. Løsning: Gå til Samsung Health > Indstillinger > Tilsluttede apps og kontroller, at Google Fit IKKE har aktiv skrivetilladelse."
+      "da": "Samsung Health på Galaxy Watch skriver til Health Connect, men på visse Samsung-telefoner skriver den også til Google Fit (kører stadig i baggrunden på enheder fra før 2024). Hvis Google Fit til gengæld har en aktiv Health Connect-integration, ender den samme skridtregistrering i Health Connect to gange med forskellige source_app. Resultat: selv uden Garmin bliver dine skridt talt dobbelt. Løsning: Gå til Samsung Health > Indstillinger > Tilsluttede apps og kontroller, at Google Fit IKKE har aktiv skrivetilladelse.",
+      "fi": "Samsung Health Galaxy Watchissa kirjoittaa Health Connect -palveluun, mutta joissakin Samsung-puhelimissa se kirjoittaa myös Google Fit -palveluun (joka on yhä käynnissä taustalla ennen vuotta 2024 valmistetuissa laitteissa). Jos Google Fitillä puolestaan on aktiivinen Health Connect -integraatio, sama askeltietue päätyy Health Connect -palveluun kahdesti eri source_app -arvolla. Tuloksena: jopa ilman Garminia askeleesi kaksinkertaistuvat. Korjaus: mene kohtaan Samsung Health > Asetukset > Yhdistetyt sovellukset ja varmista, ettei Google Fitillä ole aktiivista kirjoitusoikeutta.",
+      "no": "Samsung Health på Galaxy Watch skriver til Health Connect, men på enkelte Samsung-telefoner skriver den også til Google Fit (fortsatt aktiv i bakgrunnen på enheter fra før 2024). Hvis Google Fit i sin tur har en aktiv Health Connect-integrasjon, havner den samme skrittposten i Health Connect to ganger med ulik source_app. Resultat: selv uten Garmin blir skrittene dine doblet. Løsning: gå til Samsung Health > Innstillinger > Tilkoblede apper og kontroller at Google Fit IKKE har aktiv skrivetillatelse."
     },
     "body.8.text": {
       "sv": "Den konfiguration jag beskriver: fyra bärbara enheter, fyra roller",
-      "da": "Den opsætning, jeg beskriver: fire bærbare enheder, fire roller"
+      "da": "Den opsætning, jeg beskriver: fire bærbare enheder, fire roller",
+      "fi": "Kuvaamani kokoonpano: neljä puettavaa laitetta, neljä roolia",
+      "no": "Oppsettet jeg beskriver: fire wearables, fire roller"
     },
     "body.9.text": {
       "sv": "För att vara mer konkret arbetar jag med just den här kombinationen: en smartklocka för vardagsbruk (Galaxy Watch 7) som registrerar allt i bakgrunden, en smart ring (Galaxy Ring eller Oura Ring) som är optimerad för sömnövervakning med sensorer som är överlägsna jämfört med smartklockor, en GPS-klocka för löpning (Garmin Forerunner) för löprundor med exakt GPS och avancerad VO2max-analys, samt en frilufts-/seglingsklocka (Suunto Race eller Suunto Ocean) för båtturer och vandringar där GPS-loggning och barometrisk höjdmätare är viktiga. Fyra enheter, fyra användningsfall, fyra appar som skriver till Health Connect.",
-      "da": "For at være helt konkret arbejder jeg med netop denne opsætning: et smartwatch til daglig brug (Galaxy Watch 7), der registrerer alt i baggrunden, en smart ring (Galaxy Ring eller Oura Ring), der er optimeret til søvnovervågning med sensorer, der er bedre end dem i smartwatches, et GPS-løbeur (Garmin Forerunner) til løbetræning med præcis GPS og avanceret VO2max-analyse samt et udendørs-/sejlerur (Suunto Race eller Suunto Ocean) til sejlture og vandreture, hvor GPS-logning og barometrisk højdemåler er vigtige. Fire enheder, fire anvendelsesscenarier, fire apps, der skriver til Health Connect."
+      "da": "For at være helt konkret arbejder jeg med netop denne opsætning: et smartwatch til daglig brug (Galaxy Watch 7), der registrerer alt i baggrunden, en smart ring (Galaxy Ring eller Oura Ring), der er optimeret til søvnovervågning med sensorer, der er bedre end dem i smartwatches, et GPS-løbeur (Garmin Forerunner) til løbetræning med præcis GPS og avanceret VO2max-analyse samt et udendørs-/sejlerur (Suunto Race eller Suunto Ocean) til sejlture og vandreture, hvor GPS-logning og barometrisk højdemåler er vigtige. Fire enheder, fire anvendelsesscenarier, fire apps, der skriver til Health Connect.",
+      "fi": "Ollakseni konkreettinen työskentelen tämän tietyn kokoonpanon parissa: arkikäyttöön tarkoitettu älykello (Galaxy Watch 7), joka seuraa kaikkea taustalla, älysormus (Galaxy Ring tai Oura Ring), joka on optimoitu unen seurantaan älykelloihin verrattuna paremmilla antureilla, juoksuun tarkoitettu GPS-kello (Garmin Forerunner) juoksusessioihin tarkalla GPS:llä ja edistyneellä VO2max-analyysillä, sekä ulkoilu- ja purjehduskello (Suunto Race tai Suunto Ocean) veneretkiin ja vaelluksiin, joissa GPS-tallennus ja ilmanpaineeseen perustuva korkeusmittari ovat tärkeitä. Neljä laitetta, neljä käyttötapausta, neljä sovellusta, jotka kirjoittavat Health Connect -palveluun.",
+      "no": "For å være konkret jobber jeg med dette spesifikke oppsettet: hverdags-smartklokke (Galaxy Watch 7) som sporer alt i bakgrunnen, smartring (Galaxy Ring eller Oura Ring) optimalisert for søvnovervåking med bedre sensorer sammenlignet med smartklokker, GPS-løpeklokke (Garmin Forerunner) til løpeøkter med presis GPS og avansert VO2max-analyse, utendørs-/seilerklokke (Suunto Race eller Suunto Ocean) til båtturer og turgåing der GPS-logging og barometrisk høydemåler betyr noe. Fire enheter, fire bruksområder, fire apper som skriver til Health Connect."
     },
     "body.10.caption": {
       "sv": "Vilken bärbar enhet vinner enligt vilket mått (”vinnaren tar allt” beroende på sammanhanget)",
-      "da": "Hvilket wearable vinder på hvilket kriterium (»vinderen tager det hele« afhængigt af sammenhængen)"
+      "da": "Hvilket wearable vinder på hvilket kriterium (»vinderen tager det hele« afhængigt af sammenhængen)",
+      "fi": "Mikä puettava laite voittaa millä mittarilla (voittaja vie kaiken kontekstin mukaan)",
+      "no": "Hvilken wearable vinner på hvilken måling (vinneren tar alt etter kontekst)"
     },
     "body.11.text": {
       "sv": "Så här fungerar deduplicering: tre konkreta strategier",
-      "da": "Sådan fungerer deduplikering: tre konkrete strategier"
+      "da": "Sådan fungerer deduplikering: tre konkrete strategier",
+      "fi": "Miten kaksoiskappaleiden poisto toimii: kolme konkreettista strategiaa",
+      "no": "Hvordan deduplisering fungerer: tre konkrete strategier"
     },
     "body.12.text": {
       "sv": "1. ”Vinnaren tar allt” efter källa och tidsfönster",
-      "da": "1. »Vinderen tager det hele« efter kilde og tidsvindue"
+      "da": "1. »Vinderen tager det hele« efter kilde og tidsvindue",
+      "fi": "1. Voittaja vie kaiken lähteen ja aikaikkunan mukaan",
+      "no": "1. Vinneren tar alt etter kilde og tidsvindu"
     },
     "body.13.text": {
       "sv": "När det gäller puls- och träningsdata under dagen är den mest tillförlitliga metoden att ange en källprioritet för varje tidsfönster. Om Garmin skrev in pulsdata mellan 17:30 och 18:45 (löpningens varaktighet), använder alla seriösa instrumentpaneler dessa data och ignorerar data som skrivits in av Galaxy Watch under samma tidsfönster. Galaxy Watch blir ”vinnande” igen från och med kl. 18:46, när Garmin inte längre skriver aktiva poster.",
-      "da": "For puls- og træningsdata i løbet af dagen er den mest pålidelige metode at fastlægge en kildeprioritet for hvert tidsvindue. Hvis Garmin har skrevet pulsdata mellem kl. 17:30 og 18:45 (løbetiden), bruger ethvert seriøst dashboard disse data og ignorerer data skrevet af Galaxy Watch i det samme vindue. Galaxy Watch bliver igen den 'førende' fra kl. 18:46 og frem, når Garmin ikke længere skriver aktive poster."
+      "da": "For puls- og træningsdata i løbet af dagen er den mest pålidelige metode at fastlægge en kildeprioritet for hvert tidsvindue. Hvis Garmin har skrevet pulsdata mellem kl. 17:30 og 18:45 (løbetiden), bruger ethvert seriøst dashboard disse data og ignorerer data skrevet af Galaxy Watch i det samme vindue. Galaxy Watch bliver igen den 'førende' fra kl. 18:46 og frem, når Garmin ikke længere skriver aktive poster.",
+      "fi": "Vuorokauden aikaisen sykkeen ja harjoitustietojen osalta luotettavin menetelmä on lähdeprioriteetin määrittäminen kullekin aikaikkunalle. Jos Garmin kirjoitti sykedataa klo 17:30 ja 18:45 välillä (juoksun kesto), mikä tahansa vakavasti otettava koontinäyttö käyttää tuota dataa ja jättää huomiotta Galaxy Watchin samaan ikkunaan kirjoittaman datan. Galaxy Watchista tulee taas voittaja klo 18:46 alkaen, kun Garmin ei enää kirjoita aktiivisia tietueita.",
+      "no": "For puls og treningsdata i løpet av dagen er den mest pålitelige metoden å definere en kildeprioritet for hvert tidsvindu. Hvis Garmin skrev pulsdata mellom 17:30 og 18:45 (løpets varighet), bruker et hvilket som helst seriøst dashbord de dataene og ignorerer data skrevet av Galaxy Watch i samme vindu. Galaxy Watch blir \"vinnende\" igjen fra 18:46 og utover, når Garmin ikke lenger skriver aktive poster."
     },
     "body.14.text": {
       "sv": "I praktiken sker detta genom att man läser in ExerciseSession-poster från Health Connect: varje träningspass har en startTime och en endTime. Dedupliceringslogiken använder dessa tidsfönster för att avgöra vilken källa som ska prioriteras för mätvärdena inom det aktuella tidsfönstret.",
-      "da": "I praksis sker dette ved at læse ExerciseSession-poster fra Health Connect: Hver træningssession har en startTime og en endTime. Deduplikeringslogikken bruger disse tidsvinduer til at afgøre, hvilken kilde der har forrang for målingerne inden for det pågældende tidsvindue."
+      "da": "I praksis sker dette ved at læse ExerciseSession-poster fra Health Connect: Hver træningssession har en startTime og en endTime. Deduplikeringslogikken bruger disse tidsvinduer til at afgøre, hvilken kilde der har forrang for målingerne inden for det pågældende tidsvindue.",
+      "fi": "Käytännössä tämä toteutetaan lukemalla ExerciseSession-tietueita Health Connect -palvelusta: jokaisella harjoitusistunnolla on startTime ja endTime. Kaksoiskappaleiden poistologiikka käyttää näitä ikkunoita päättääkseen, mikä lähde saa etusijan kyseisen aikaikkunan sisäisille mittareille.",
+      "no": "I praksis implementeres dette ved å lese ExerciseSession-poster fra Health Connect: hver treningsøkt har en startTime og en endTime. Dedupliseringslogikken bruker disse vinduene til å avgjøre hvilken kilde som har prioritet for målinger innenfor det tidsvinduet."
     },
     "body.15.text": {
       "sv": "2. Sammanfogning på fältnivå för aggregerade dagliga mått",
-      "da": "2. Sammenlægning på feltniveau for aggregerede daglige nøgletal"
+      "da": "2. Sammenlægning på feltniveau for aggregerede daglige nøgletal",
+      "fi": "2. Kenttätason yhdistäminen koostetuille päivittäisille mittareille",
+      "no": "2. Sammenslåing på feltnivå for aggregerte daglige målinger"
     },
     "body.16.text": {
       "sv": "När det gäller det totala antalet steg per dag är principen ”vinnaren tar allt” inte rätt lösning: Galaxy Watch samlar in steg mellan kl. 07:00 och 17:29, Garmin samlar in steg mellan kl. 17:30 och 18:45. Att lägga ihop dem är korrekt, det är inte dubbelräkning. Problemet uppstår när båda har registrerat steg under samma tidsfönster.",
-      "da": "Når det gælder det samlede antal skridt pr. dag, er »vinderen tager det hele« ikke den rigtige løsning: Galaxy Watch registrerer skridt fra kl. 07:00 til 17:29, Garmin registrerer skridt fra kl. 17:30 til 18:45. Det er korrekt at lægge dem sammen, det er ikke en dobbelttælling. Problemet opstår, når begge har registreret skridt i det samme tidsvindue."
+      "da": "Når det gælder det samlede antal skridt pr. dag, er »vinderen tager det hele« ikke den rigtige løsning: Galaxy Watch registrerer skridt fra kl. 07:00 til 17:29, Garmin registrerer skridt fra kl. 17:30 til 18:45. Det er korrekt at lægge dem sammen, det er ikke en dobbelttælling. Problemet opstår, når begge har registreret skridt i det samme tidsvindue.",
+      "fi": "Päivittäisten kokonaisaskelien osalta voittaja vie kaiken ei ole oikea ratkaisu: Galaxy Watch kerää askelia klo 07:00 ja 17:29 välillä, Garmin kerää askelia klo 17:30 ja 18:45 välillä. Niiden yhteenlaskeminen on oikein, ei kahdentumista. Ongelma on silloin, kun molemmat ovat tallentaneet askelia samaan aikaikkunaan.",
+      "no": "For totalt antall daglige skritt er ikke vinneren-tar-alt den riktige løsningen: Galaxy Watch samler skritt fra 07:00 til 17:29, Garmin samler skritt fra 17:30 til 18:45. Å legge dem sammen er korrekt, ikke duplisering. Problemet oppstår når begge har registrert skritt i samme tidsvindu."
     },
     "body.17.text": {
       "sv": "Sammanfogning på fältnivå fungerar så här: dela upp dagen i 15-minutersintervaller. För varje intervall behåller man endast den post som har det högsta värdet från alla källor (en konservativ metod, där man utgår från att det högsta värdet är det mest exakta). Summera maxvärdena per intervall: då får du en deduplicerad dagssumma. Denna metod fungerar eftersom två enheter som registrerar samma steg ger liknande värden (det högsta värdet är en uppskattning av det verkliga värdet), medan två enheter i olika sammanhang ger värden som läggs ihop.",
-      "da": "Sammenlægning på feltniveau fungerer således: Delt dagen op i intervaller på 15 minutter. For hvert interval skal man kun beholde den post med det højeste antal på tværs af alle kilder (en konservativ tilgang, der antager, at den højeste værdi er den mest nøjagtige). Summer de højeste værdier for hvert tidsinterval: så får du et dedupliceret dagligt totalresultat. Denne fremgangsmåde fungerer, fordi to enheder, der registrerer det samme antal skridt, giver lignende værdier (den højeste værdi er et skøn over den faktiske værdi), mens to enheder i forskellige sammenhænge giver værdier, der lægges sammen."
+      "da": "Sammenlægning på feltniveau fungerer således: Delt dagen op i intervaller på 15 minutter. For hvert interval skal man kun beholde den post med det højeste antal på tværs af alle kilder (en konservativ tilgang, der antager, at den højeste værdi er den mest nøjagtige). Summer de højeste værdier for hvert tidsinterval: så får du et dedupliceret dagligt totalresultat. Denne fremgangsmåde fungerer, fordi to enheder, der registrerer det samme antal skridt, giver lignende værdier (den højeste værdi er et skøn over den faktiske værdi), mens to enheder i forskellige sammenhænge giver værdier, der lægges sammen.",
+      "fi": "Kenttätason yhdistäminen toimii näin: jaa päivä 15 minuutin lohkoihin. Säilytä kustakin lohkosta vain suurimman lukumäärän tietue kaikkien lähteiden joukosta (konservatiivinen, olettaa suurimman arvon olevan tarkin). Laske lohkokohtaiset maksimit yhteen: saat kaksoiskappaleista puhdistetun päivittäisen kokonaissumman. Tämä lähestymistapa toimii, koska kaksi samoja askelia tallentavaa laitetta tuottaa samankaltaisia arvoja (suurin on arvio totuudesta), kun taas kaksi eri konteksteissa olevaa laitetta tuottaa yhteenlaskettavia arvoja.",
+      "no": "Sammenslåing på feltnivå fungerer slik: del dagen inn i 15-minutters luker. For hver luke beholder du bare posten med høyest antall på tvers av alle kilder (konservativt, antar at den høyeste verdien er mest nøyaktig). Summer maksimumsverdiene per luke: du får en deduplisert dagssum. Denne tilnærmingen fungerer fordi to enheter som registrerer de samme skrittene gir like verdier (den høyeste er et estimat av sannheten), mens to enheter i ulike kontekster gir verdier som skal legges sammen."
     },
     "body.18.text": {
       "sv": "3. Tidsmässig gruppering av sömnsessioner",
-      "da": "3. Tidsmæssig gruppering af søvnperioder"
+      "da": "3. Tidsmæssig gruppering af søvnperioder",
+      "fi": "3. Ajallinen ryhmittely uni-istunnoille",
+      "no": "3. Tidsmessig klynging for søvnøkter"
     },
     "body.19.text": {
       "sv": "När det gäller sömn är problemet ett annat: Oura Ring och Galaxy Watch-sessioner för samma natt överlappar varandra nästan helt, men ingen av dem är felaktig. De mäter helt enkelt samma sak med olika sensorer. Strategin bygger på klustring: om två sömnsessioner överlappar varandra med mer än 80 % av sin varaktighet behandlas de som samma natt. Därefter tillämpas källprioritet: den smarta ringen vinner eftersom optiska sensorer på fingret statistiskt sett är mer exakta för sömnstadier än sensorer på handleden.",
-      "da": "Når det gælder søvn, er problemet et andet: Oura Ring- og Galaxy Watch-sessioner for samme nat overlapper næsten fuldstændigt, men ingen af dem er forkerte. De måler ganske enkelt det samme ved hjælp af forskellige sensorer. Strategien er klyngedannelse: hvis to søvnsessioner overlapper hinanden med mere end 80 % af deres varighed, behandles de som den samme nat. Derefter anvendes kildeprioritet: den smarte ring vinder, fordi optiske sensorer på fingeren statistisk set er mere præcise til at måle søvnfaser end sensorer på håndleddet."
+      "da": "Når det gælder søvn, er problemet et andet: Oura Ring- og Galaxy Watch-sessioner for samme nat overlapper næsten fuldstændigt, men ingen af dem er forkerte. De måler ganske enkelt det samme ved hjælp af forskellige sensorer. Strategien er klyngedannelse: hvis to søvnsessioner overlapper hinanden med mere end 80 % af deres varighed, behandles de som den samme nat. Derefter anvendes kildeprioritet: den smarte ring vinder, fordi optiske sensorer på fingeren statistisk set er mere præcise til at måle søvnfaser end sensorer på håndleddet.",
+      "fi": "Unen osalta ongelma on erilainen: Oura Ringin ja Galaxy Watchin istunnot samalle yölle menevät päällekkäin lähes kokonaan, mutta kumpikaan ei ole väärässä. Ne yksinkertaisesti mittaavat samaa asiaa eri antureilla. Strategia on ryhmittely: jos kaksi uni-istuntoa menee päällekkäin yli 80-prosenttisesti kestostaan, niitä käsitellään samana yönä. Sen jälkeen sovelletaan lähdeprioriteettia: älysormus voittaa, koska sormessa olevat optiset anturit ovat tilastollisesti tarkempia univaiheiden mittaamisessa kuin ranteessa olevat anturit.",
+      "no": "For søvn er problemet et annet: øktene til Oura Ring og Galaxy Watch for samme natt overlapper nesten fullstendig, men ingen av dem tar feil. De måler rett og slett det samme med ulike sensorer. Strategien er klynging: hvis to søvnøkter overlapper med mer enn 80 % av varigheten, behandles de som samme natt. Deretter brukes kildeprioritet: smartringen vinner fordi optiske sensorer ved fingeren statistisk sett er mer presise for søvnstadier enn sensorer på håndleddet."
     },
     "body.20.title": {
       "sv": "Min tydliga ståndpunkt om deduplicering",
-      "da": "Mit klare standpunkt om deduplikering"
+      "da": "Mit klare standpunkt om deduplikering",
+      "fi": "Selkeä kantani kaksoiskappaleiden poistoon",
+      "no": "Mitt klare standpunkt om deduplisering"
     },
     "body.20.body": {
       "sv": "Deduplicering är inte en valfri funktion i en översiktspanel för flera bärbara enheter: det är en nödvändig förutsättning. En översiktspanel som visar dubbla steg eller dubbla sömntimmar är inte användbar – den är till och med sämre än ingen översiktspanel alls, eftersom den skapar en falsk trygghet i felaktiga data. Om du utvärderar en sammanställningsapp och inte kan hitta tydlig dokumentation om hur den hanterar dubbletter, bör du se det som ett tecken på att problemet inte har lösts.",
-      "da": "Deduplikering er ikke en valgfri funktion i et dashboard, der kan bruges med flere wearables: det er en forudsætning. Et dashboard, der viser fordoblede skridt eller fordoblede søvntimer, er ikke nyttigt – det er værre end slet intet dashboard, fordi det skaber en falsk tillid til forkerte data. Hvis du vurderer en aggregeringsapp og ikke kan finde eksplicit dokumentation for, hvordan den håndterer dubletter, skal du betragte det som et tegn på, at problemet ikke er løst."
+      "da": "Deduplikering er ikke en valgfri funktion i et dashboard, der kan bruges med flere wearables: det er en forudsætning. Et dashboard, der viser fordoblede skridt eller fordoblede søvntimer, er ikke nyttigt – det er værre end slet intet dashboard, fordi det skaber en falsk tillid til forkerte data. Hvis du vurderer en aggregeringsapp og ikke kan finde eksplicit dokumentation for, hvordan den håndterer dubletter, skal du betragte det som et tegn på, at problemet ikke er løst.",
+      "fi": "Kaksoiskappaleiden poisto ei ole usean puettavan laitteen koontinäytön valinnainen ominaisuus: se on edellytys. Koontinäyttö, joka näyttää kaksinkertaiset askeleet tai kaksinkertaiset unitunnit, ei ole hyödyllinen, se on pahempi kuin ei koontinäyttöä lainkaan, koska se luo väärää luottamusta virheelliseen dataan. Jos arvioit koontisovellusta etkä löydä selkeää dokumentaatiota siitä, miten se käsittelee kaksoiskappaleita, pidä sitä merkkinä siitä, ettei ongelmaa ole ratkaistu.",
+      "no": "Deduplisering er ikke en valgfri funksjon i et dashbord for flere wearables: det er forutsetningen. Et dashbord som viser doble skritt eller doble søvntimer er ikke nyttig, det er verre enn ingen dashbord fordi det skaper falsk tillit til feil data. Hvis du vurderer en aggregeringsapp og ikke finner eksplisitt dokumentasjon på hvordan den håndterer duplikater, bør du tolke det som et tegn på at problemet ikke er løst."
     },
     "body.21.text": {
       "sv": "Vad du behöver ställa in: de tre viktigaste inställningarna",
-      "da": "Det, du skal konfigurere: de tre vigtige indstillinger"
+      "da": "Det, du skal konfigurere: de tre vigtige indstillinger",
+      "fi": "Mitä sinun täytyy määrittää: kolme kriittistä asetusta",
+      "no": "Hva du må konfigurere: de tre kritiske innstillingene"
     },
     "body.22.text": {
       "sv": "Allt går inte att automatisera. Det finns tre inställningar som kräver att användaren gör ett val, eftersom de beror på personliga vanor som ingen algoritm kan avläsa.",
-      "da": "Ikke alt kan automatiseres. Der er tre indstillinger, der kræver brugerindgreb, da de afhænger af personlige vaner, som ingen algoritme kan udlede."
+      "da": "Ikke alt kan automatiseres. Der er tre indstillinger, der kræver brugerindgreb, da de afhænger af personlige vaner, som ingen algoritme kan udlede.",
+      "fi": "Kaikkea ei voi automatisoida. On kolme määritystä, jotka vaativat käyttäjän syötteen, koska ne riippuvat henkilökohtaisista tottumuksista, joita mikään algoritmi ei voi päätellä.",
+      "no": "Ikke alt kan automatiseres. Det er tre konfigurasjoner som krever brukerinput fordi de avhenger av personlige vaner som ingen algoritme kan utlede."
     },
     "body.24.text": {
       "sv": "Suunto-fallet: data som inte går igenom Health Connect",
-      "da": "Suunto-sagen: data, der ikke går igennem Health Connect"
+      "da": "Suunto-sagen: data, der ikke går igennem Health Connect",
+      "fi": "Suunto-tapaus: dataa, joka ei kulje Health Connectin kautta",
+      "no": "Suunto-tilfellet: data som ikke går gjennom Health Connect"
     },
     "body.25.text": {
       "sv": "Suunto utgör ett undantag i detta sammanhang. Till skillnad från Garmin (som skriver till Health Connect direkt från Garmin Connect Android) har Suunto-appen på Android inte inbyggd Health Connect-integration för alla datatyper. GPS-spår och träningsdata från Suunto är tillgängliga via Suunto Sport Engine API, inte via Health Connect.",
-      "da": "Suunto udgør en undtagelse i denne sammenhæng. I modsætning til Garmin (som skriver til Health Connect direkte fra Garmin Connect Android), har Suunto-appen på Android ikke indbygget Health Connect-integration for alle datatyper. GPS-ruter og træningsdata fra Suunto er tilgængelige via Suunto Sport Engine API, ikke via Health Connect."
+      "da": "Suunto udgør en undtagelse i denne sammenhæng. I modsætning til Garmin (som skriver til Health Connect direkte fra Garmin Connect Android), har Suunto-appen på Android ikke indbygget Health Connect-integration for alle datatyper. GPS-ruter og træningsdata fra Suunto er tilgængelige via Suunto Sport Engine API, ikke via Health Connect.",
+      "fi": "Suunto on poikkeus tässä skenaariossa. Toisin kuin Garmin (joka kirjoittaa Health Connect -palveluun natiivisti Garmin Connect Androidista), Suunnon Android-sovelluksella ei ole natiivia Health Connect -integraatiota kaikille tietotyypeille. Suunnon GPS-jäljet ja harjoitustiedot ovat saatavilla Suunto Sport Engine API:n kautta, ei Health Connectin kautta.",
+      "no": "Suunto er unntaket i dette scenariet. I motsetning til Garmin (som skriver til Health Connect innebygd fra Garmin Connect på Android), har ikke Suunto-appen på Android innebygd Health Connect-integrasjon for alle datatyper. GPS-spor og treningsdata fra Suunto er tilgjengelige via Suunto Sport Engine API, ikke via Health Connect."
     },
     "body.26.text": {
       "sv": "Detta innebär att integrationen av Suunto i en instrumentpanel med flera datakällor kräver en separat koppling som hämtar data från Suunto Sport Engine API med OAuth-autentisering. FitMesh Sync stöder denna integration separat: gå till inställningarna, avsnittet Enheter, och lägg till Suunto som en OAuth-källa. När anslutningen är upprättad slås Suunto-data samman med Health Connect-strömmen med samma logik för deduplicering.",
-      "da": "Det betyder, at integration af Suunto i et dashboard med flere datakilder kræver en separat connector, der henter data fra Suunto Sport Engine API ved hjælp af OAuth-godkendelse. FitMesh Sync understøtter denne integration separat: Gå til indstillinger, afsnittet Enheder, og tilføj Suunto som en OAuth-kilde. Når forbindelsen er oprettet, flettes Suunto-dataene sammen med Health Connect-strømmen med den samme deduplikationslogik."
+      "da": "Det betyder, at integration af Suunto i et dashboard med flere datakilder kræver en separat connector, der henter data fra Suunto Sport Engine API ved hjælp af OAuth-godkendelse. FitMesh Sync understøtter denne integration separat: Gå til indstillinger, afsnittet Enheder, og tilføj Suunto som en OAuth-kilde. Når forbindelsen er oprettet, flettes Suunto-dataene sammen med Health Connect-strømmen med den samme deduplikationslogik.",
+      "fi": "Tämä tarkoittaa, että Suunnon integroiminen usean lähteen koontinäyttöön vaatii erillisen liitännän, joka lukee Suunto Sport Engine API:sta OAuth-todennuksella. FitMesh Sync tukee tätä integraatiota erikseen: mene asetuksiin, Laitteet-osioon, ja lisää Suunto OAuth-lähteeksi. Kun yhteys on muodostettu, Suunnon data yhdistetään Health Connectin virtaan samalla kaksoiskappaleiden poistologiikalla.",
+      "no": "Det betyr at å integrere Suunto i et dashbord med flere kilder krever en egen kobling som leser fra Suunto Sport Engine API med OAuth-autentisering. FitMesh Sync støtter denne integrasjonen separat: gå til innstillinger, seksjonen Enheter, og legg til Suunto som en OAuth-kilde. Når den er tilkoblet, slås Suunto-dataene sammen med Health Connect-strømmen med samme dedupliseringslogikk."
     },
     "body.27.text": {
       "sv": "Förvrängd genomsnittlig hjärtfrekvens: ett verkligt exempel",
-      "da": "Forvrænget gennemsnitlig puls: et konkret eksempel"
+      "da": "Forvrænget gennemsnitlig puls: et konkret eksempel",
+      "fi": "Saastunut sykkeen keskiarvo: todellinen esimerkki",
+      "no": "Forurenset gjennomsnittspuls: et virkelig eksempel"
     },
     "body.28.text": {
       "sv": "Det här är det problem som jag tycker är minst uppenbart men mest skadligt för personer som använder data för att följa sin hälsa över tid. Scenario: du springer i 45 minuter med ett Polar H10-bröstbälte anslutet till Garmin (tillförlitliga träningsdata, genomsnitt 148 bpm). Samtidigt registrerar Galaxy Watch din puls var 10:e minut i bakgrunden och visar värden mellan 145 och 155 bpm (vilket stämmer, du springer ju). Efter löpningen sitter du i två timmar med en puls på 62–68 bpm. Galaxy Watch registrerar fortfarande.",
-      "da": "Dette er det problem, jeg finder mindst indlysende, men mest skadeligt for folk, der bruger data til at overvåge deres helbred over tid. Scenarie: Du løber i 45 minutter med et Polar H10-brystbælte tilsluttet Garmin (pålidelige træningsdata, gennemsnit 148 bpm). I mellemtiden registrerer Galaxy Watch din puls hvert 10. minut i baggrunden og viser værdier mellem 145 og 155 bpm (korrekt, du løber jo). Efter løbeturen sidder du i to timer med en puls på 62-68 bpm. Galaxy Watch registrerer stadig."
+      "da": "Dette er det problem, jeg finder mindst indlysende, men mest skadeligt for folk, der bruger data til at overvåge deres helbred over tid. Scenarie: Du løber i 45 minutter med et Polar H10-brystbælte tilsluttet Garmin (pålidelige træningsdata, gennemsnit 148 bpm). I mellemtiden registrerer Galaxy Watch din puls hvert 10. minut i baggrunden og viser værdier mellem 145 og 155 bpm (korrekt, du løber jo). Efter løbeturen sidder du i to timer med en puls på 62-68 bpm. Galaxy Watch registrerer stadig.",
+      "fi": "Tämä on ongelma, jonka koen vähiten ilmeiseksi mutta kaikkein vahingollisimmaksi ihmisille, jotka käyttävät dataa terveyden seurantaan ajan mittaan. Skenaario: juokset 45 minuuttia Polar H10 -rintavyön kanssa, joka on yhdistetty Garminiin (luotettavat harjoitustiedot, keskiarvo 148 bpm). Samaan aikaan Galaxy Watch tallentaa sykkeesi 10 minuutin välein taustalla nähden arvoja 145 ja 155 bpm välillä (oikein, olet juoksemassa). Juoksun jälkeen istut kaksi tuntia sykkeen ollessa 62-68 bpm. Galaxy Watch tallentaa yhä.",
+      "no": "Dette er problemet jeg synes er minst åpenbart, men mest skadelig for folk som bruker data til å overvåke helsen over tid. Scenario: du løper i 45 minutter med et Polar H10 brystbelte koblet til Garmin (pålitelige treningsdata, snitt 148 bpm). Samtidig registrerer Galaxy Watch pulsen din hvert tiende minutt i bakgrunnen og ser verdier mellom 145 og 155 bpm (korrekt, du løper). Etter løpet sitter du i to timer med puls på 62-68 bpm. Galaxy Watch registrerer fortsatt."
     },
     "body.29.text": {
       "sv": "En översiktssida som beräknar ”daglig genomsnittlig puls” utan att skilja mellan olika källor tar alla dessa data, summerar dem och delar. Resultatet blir ett tal som varken representerar vilopuls eller träningspuls: det är ett genomsnitt av saker som inte bör räknas samman. Därför visar FitMesh Sync vilopuls (beräknad exklusive träningsperioder) och träningspuls (beräknad per aktivitetstyp) separat, istället för att visa ett enda dagligt genomsnitt.",
-      "da": "Et dashboard, der beregner »daglig gennemsnitlig puls« uden at skelne mellem kilderne, tager alle disse data, summerer dem og dividerer. Resultatet er et tal, der hverken repræsenterer hvilepuls eller træningspuls: Det er gennemsnittet af ting, der ikke bør gennemsnitsberegnes sammen. Derfor viser FitMesh Sync hvilepuls (beregnet uden træningsperioder) og træningspuls (beregnet pr. aktivitetstype) separat, i stedet for at vise et enkelt dagligt gennemsnit."
+      "da": "Et dashboard, der beregner »daglig gennemsnitlig puls« uden at skelne mellem kilderne, tager alle disse data, summerer dem og dividerer. Resultatet er et tal, der hverken repræsenterer hvilepuls eller træningspuls: Det er gennemsnittet af ting, der ikke bør gennemsnitsberegnes sammen. Derfor viser FitMesh Sync hvilepuls (beregnet uden træningsperioder) og træningspuls (beregnet pr. aktivitetstype) separat, i stedet for at vise et enkelt dagligt gennemsnit.",
+      "fi": "Koontinäyttö, joka laskee päivittäisen sykkeen keskiarvon erottelematta lähteitä, ottaa kaiken tämän datan, laskee sen yhteen ja jakaa. Tuloksena on luku, joka ei edusta leposykettä eikä harjoitussykettä: se on niiden asioiden keskiarvo, joita ei pitäisi laskea keskiarvoksi yhdessä. Siksi FitMesh Sync näyttää leposykkeen (laskettu harjoitusikkunat pois lukien) ja harjoitussykkeen (laskettu aktiviteettityypeittäin) erikseen sen sijaan, että se näyttäisi yhden päivittäisen keskiarvon.",
+      "no": "Et dashbord som beregner \"daglig gjennomsnittspuls\" uten å skille mellom kilder tar alle disse dataene, summerer dem og deler. Resultatet er et tall som verken representerer hvilepuls eller treningspuls: det er gjennomsnittet av ting som ikke burde gjennomsnittsberegnes sammen. Derfor viser FitMesh Sync hvilepuls (beregnet ved å utelate treningsvinduer) og treningspuls (beregnet per aktivitetstype) hver for seg, i stedet for å vise et enkelt daglig gjennomsnitt."
     },
     "body.30.text": {
       "sv": "Vad FitMesh Sync hanterar automatiskt",
-      "da": "Hvad FitMesh Sync klarer automatisk"
+      "da": "Hvad FitMesh Sync klarer automatisk",
+      "fi": "Mitä FitMesh Sync hoitaa automaattisesti",
+      "no": "Hva FitMesh Sync håndterer automatisk"
     },
     "body.32.text": {
       "sv": "Realistiska gränser: vad som ännu inte går att automatisera",
-      "da": "Realistiske grænser: hvad der endnu ikke kan automatiseres"
+      "da": "Realistiske grænser: hvad der endnu ikke kan automatiseres",
+      "fi": "Rehelliset rajat: mitä ei vielä voi automatisoida",
+      "no": "Ærlige begrensninger: hva som ikke kan automatiseres ennå"
     },
     "body.33.text": {
       "sv": "Jag vill inte överdriva vad en instrumentpanel kan åstadkomma på egen hand. Det finns situationer som fortfarande kräver manuellt ingripande eller som ger ungefärliga resultat:",
-      "da": "Jeg vil ikke overdrive, hvad et dashboard kan præstere på egen hånd. Der er situationer, hvor der stadig er behov for manuel indgriben, eller hvor resultaterne kun er omtrentlige:"
+      "da": "Jeg vil ikke overdrive, hvad et dashboard kan præstere på egen hånd. Der er situationer, hvor der stadig er behov for manuel indgriben, eller hvor resultaterne kun er omtrentlige:",
+      "fi": "En halua liioitella sitä, mitä koontinäyttö voi tehdä itsenäisesti. On skenaarioita, jotka vaativat yhä manuaalista toimenpidettä tai jotka tuottavat likimääräisiä tuloksia:",
+      "no": "Jeg vil ikke overselge hva et dashbord kan gjøre på egen hånd. Det finnes scenarier som fortsatt krever manuell inngripen eller som gir omtrentlige resultater:"
     },
     "body.35.title": {
       "sv": "Vill du se dina data för flera bärbara enheter utan dubbletter?",
-      "da": "Vil du se dine data for flere bærbare enheder uden dubletter?"
+      "da": "Vil du se dine data for flere bærbare enheder uden dubletter?",
+      "fi": "Haluatko nähdä usean puettavan laitteen datasi ilman kaksoiskappaleita?",
+      "no": "Vil du se dataene fra flere wearables uten duplikater?"
     },
     "body.35.body": {
       "sv": "FitMesh Sync läser in data från Health Connect, Garmin och Suunto, tillämpar den automatiska avdupliceringen som beskrivs i den här guiden och visar steg, sömn och hjärtfrekvens uppdelade efter sammanhang. Data lagras på servrar i EU och uppfyller kraven i GDPR.",
-      "da": "FitMesh Sync henter data fra Health Connect, Garmin og Suunto, anvender den automatiske deduplikering, der er beskrevet i denne vejledning, og viser skridt, søvn og puls opdelt efter kontekst. Data lagres på servere i EU og overholder GDPR."
+      "da": "FitMesh Sync henter data fra Health Connect, Garmin og Suunto, anvender den automatiske deduplikering, der er beskrevet i denne vejledning, og viser skridt, søvn og puls opdelt efter kontekst. Data lagres på servere i EU og overholder GDPR.",
+      "fi": "FitMesh Sync lukee Health Connectista, Garminista ja Suunnosta, soveltaa tässä oppaassa kuvattua automaattista kaksoiskappaleiden poistoa ja näyttää askeleet, unen ja sykkeen kontekstin mukaan eroteltuina. Data EU-palvelimilla, GDPR-yhteensopiva.",
+      "no": "FitMesh Sync leser fra Health Connect, Garmin og Suunto, bruker den automatiske dedupliseringen som beskrives i denne guiden, og viser skritt, søvn og puls adskilt etter kontekst. Data på EU-servere, GDPR-kompatibel."
     },
     "body.35.ctaLabel": {
       "sv": "Prova FitMesh Sync →",
-      "da": "Prøv FitMesh Sync →"
+      "da": "Prøv FitMesh Sync →",
+      "fi": "Kokeile FitMesh Synciä →",
+      "no": "Prøv FitMesh Sync →"
     },
     "body.36.text": {
       "sv": "Sammanfattningsvis",
-      "da": "Sammenfattende"
+      "da": "Sammenfattende",
+      "fi": "Yhteenvetona",
+      "no": "Oppsummert"
     },
     "faq.0.q": {
       "sv": "Kan jag använda Galaxy Watch och Garmin tillsammans utan dubbla data?",
-      "da": "Kan jeg bruge Galaxy Watch og Garmin sammen uden dobbeltdata?"
+      "da": "Kan jeg bruge Galaxy Watch og Garmin sammen uden dobbeltdata?",
+      "fi": "Voinko käyttää Galaxy Watchia ja Garminia yhdessä ilman kaksinkertaista dataa?",
+      "no": "Kan jeg bruke Galaxy Watch og Garmin sammen uten doble data?"
     },
     "faq.0.a": {
       "sv": "Ja, men det kräver en aggregator som hanterar deduplicering. Både Galaxy Watch och Garmin skriver till Health Connect, så om du öppnar Health Connect kommer du att se poster från båda för samma mätvärden. En app som FitMesh Sync använder ”vinnaren tar allt”-logik för träningsfönster (Garmin vinner under löpningen) och 15-minuters sammanslagning av tidsluckor för dagliga steg (ingen källa går förlorad, men dubbletter elimineras).",
-      "da": "Ja, men det kræver en aggregator, der håndterer deduplikering. Galaxy Watch og Garmin skriver begge til Health Connect, så hvis du åbner Health Connect, vil du se poster fra begge for de samme måleværdier. En app som FitMesh Sync bruger »vinder-tager-alt«-logik for træningsvinduer (Garmin vinder under løbeturen) og 15-minutters slot-sammenlægning for daglige skridt (ingen kilder går tabt, men dubletter fjernes)."
+      "da": "Ja, men det kræver en aggregator, der håndterer deduplikering. Galaxy Watch og Garmin skriver begge til Health Connect, så hvis du åbner Health Connect, vil du se poster fra begge for de samme måleværdier. En app som FitMesh Sync bruger »vinder-tager-alt«-logik for træningsvinduer (Garmin vinder under løbeturen) og 15-minutters slot-sammenlægning for daglige skridt (ingen kilder går tabt, men dubletter fjernes).",
+      "fi": "Kyllä, mutta se vaatii koostimen, joka hoitaa kaksoiskappaleiden poiston. Sekä Galaxy Watch että Garmin kirjoittavat Health Connect -palveluun, joten jos avaat Health Connectin, näet molempien tietueita samoista mittareista. FitMesh Syncin kaltainen sovellus käyttää voittaja vie kaiken -logiikkaa harjoitusikkunoille (Garmin voittaa juoksun aikana) ja 15 minuutin lohkojen yhdistämistä päivittäisille askelille (mitään lähdettä ei menetetä, mutta kaksoiskappaleet poistetaan).",
+      "no": "Ja, men det krever en aggregator som håndterer deduplisering. Både Galaxy Watch og Garmin skriver til Health Connect, så hvis du åpner Health Connect ser du poster fra begge for de samme målingene. En app som FitMesh Sync bruker vinneren-tar-alt-logikk for treningsvinduer (Garmin vinner under løpet) og 15-minutters lukesammenslåing for daglige skritt (ingen kilde går tapt, men duplikater elimineres)."
     },
     "faq.1.q": {
       "sv": "Synkroniseras Oura-ringen med Health Connect?",
-      "da": "Synkroniseres Oura-ringen med Health Connect?"
+      "da": "Synkroniseres Oura-ringen med Health Connect?",
+      "fi": "Synkronoituuko Oura Ring Health Connectin kanssa?",
+      "no": "Synkroniserer Oura Ring med Health Connect?"
     },
     "faq.1.a": {
       "sv": "Ja, sedan 2024 skriver Oura Ring in sömn-, puls- och aktivitetsdata till Health Connect på Android. Oura:s sömndata är särskilt detaljerade (REM, lätta och djupa sömnfaser med detaljerad tidsstämpling) och sparas som SleepSession-poster. Om du även har Galaxy Watch aktiverat på natten kommer du att se två SleepSession-poster för samma natt: en aggregator som inte grupperar data kommer att resultera i dubbla sömntimmar.",
-      "da": "Ja, siden 2024 Oura gemmer Ring data om søvn, puls og aktivitet på Health Connect på Android. Ouras søvndata er særligt detaljerede (REM, lette og dybe faser med detaljerede tidsstempler) og gemmes som SleepSession-poster. Hvis du også har Galaxy Watch aktivt om natten, vil du se to SleepSession-poster for den samme nat: en aggregator, der ikke grupperer, vil resultere i fordoblede søvntimer."
+      "da": "Ja, siden 2024 Oura gemmer Ring data om søvn, puls og aktivitet på Health Connect på Android. Ouras søvndata er særligt detaljerede (REM, lette og dybe faser med detaljerede tidsstempler) og gemmes som SleepSession-poster. Hvis du også har Galaxy Watch aktivt om natten, vil du se to SleepSession-poster for den samme nat: en aggregator, der ikke grupperer, vil resultere i fordoblede søvntimer.",
+      "fi": "Kyllä, vuodesta 2024 lähtien Oura Ring kirjoittaa uni-, syke- ja aktiivisuustiedot Health Connect -palveluun Androidissa. Ouran unidata on erityisen yksityiskohtaista (REM, kevyt, syvä vaihe tarkalla aikaleimauksella) ja se kirjoitetaan SleepSession-tietueina. Jos sinulla on myös Galaxy Watch aktiivisena yöllä, näet kaksi SleepSession-tietuetta samalle yölle: koostin, joka ei ryhmittele, tuottaa kaksinkertaiset unitunnit.",
+      "no": "Ja, siden 2024 skriver Oura Ring søvn-, puls- og aktivitetsdata til Health Connect på Android. Ouras søvndata er spesielt detaljerte (REM, lette og dype stadier med granulert tidsmerking) og skrives som SleepSession-poster. Hvis du også har Galaxy Watch aktiv om natten, ser du to SleepSession-poster for samme natt: en aggregator som ikke klynger vil gi doble søvntimer."
     },
     "faq.2.q": {
       "sv": "Hur räknas stegen samman när flera bärbara enheter följer med mig när jag går?",
-      "da": "Hvordan fjernes dubletter af skridt, når jeg går sammen med flere wearables?"
+      "da": "Hvordan fjernes dubletter af skridt, når jeg går sammen med flere wearables?",
+      "fi": "Miten askeleiden kaksoiskappaleet poistetaan, kun useat puettavat laitteet kävelevät mukanani?",
+      "no": "Hvordan dedupliseres skritt når flere wearables er med meg på tur?"
     },
     "faq.2.a": {
       "sv": "Den mest tillförlitliga metoden är ”time-window slot-merge”. Dagen delas in i intervall (vanligtvis 5–15 minuter). För varje intervall tas det högsta värdet från alla källor. Detta fungerar eftersom två enheter som mäter samma promenad ger liknande värden (det högsta värdet är en uppskattning av det verkliga värdet), medan två enheter vid olika tidpunkter ger värden som kan läggas ihop korrekt. Resultatet blir en daglig summa som inte räknar samma promenader dubbelt, men som korrekt inkluderar morgonpromenaden med Galaxy Watch och eftermiddagslöpningen med Garmin.",
-      "da": "Den mest pålidelige metode er »time-window slot-merge«. Dagen inddeles i intervaller (typisk 5–15 minutter). For hvert interval tages den maksimale værdi på tværs af alle kilder. Dette fungerer, fordi to enheder, der måler den samme gåtur, giver lignende værdier (maksimumet er et skøn over den faktiske værdi), mens to enheder på forskellige tidspunkter giver værdier, der kan lægges korrekt sammen. Resultatet er et dagligt total, der ikke tæller de samme gåture dobbelt, men korrekt medtager morgengåturen med Galaxy Watch og eftermiddagsløbet med Garmin."
+      "da": "Den mest pålidelige metode er »time-window slot-merge«. Dagen inddeles i intervaller (typisk 5–15 minutter). For hvert interval tages den maksimale værdi på tværs af alle kilder. Dette fungerer, fordi to enheder, der måler den samme gåtur, giver lignende værdier (maksimumet er et skøn over den faktiske værdi), mens to enheder på forskellige tidspunkter giver værdier, der kan lægges korrekt sammen. Resultatet er et dagligt total, der ikke tæller de samme gåture dobbelt, men korrekt medtager morgengåturen med Galaxy Watch og eftermiddagsløbet med Garmin.",
+      "fi": "Vankin menetelmä on aikaikkunan lohkojen yhdistäminen. Päivä jaetaan väleihin (tyypillisesti 5-15 minuuttia). Kultakin väliltä otetaan suurin arvo kaikkien lähteiden joukosta. Tämä toimii, koska kaksi samaa kävelyä mittaavaa laitetta tuottaa samankaltaisia arvoja (maksimi on arvio totuudesta), kun taas kaksi eri aikoina olevaa laitetta tuottaa oikein yhteenlaskettavia arvoja. Tuloksena on päivittäinen kokonaissumma, joka ei laske samoja kävelyjä kahteen kertaan mutta sisältää oikein aamukävelyn Galaxy Watchin kanssa ja iltapäivän juoksun Garminin kanssa.",
+      "no": "Den mest robuste metoden er lukesammenslåing per tidsvindu. Dagen deles inn i intervaller (typisk 5-15 minutter). For hvert intervall tas maksimumsverdien på tvers av alle kilder. Dette fungerer fordi to enheter som måler den samme turen gir like verdier (maksimum er et estimat av sannheten), mens to enheter på ulike tidspunkt gir verdier som korrekt skal legges sammen. Resultatet er en dagssum som ikke teller de samme turene dobbelt, men korrekt inkluderer morgenturen med Galaxy Watch og ettermiddagsløpet med Garmin."
     },
     "faq.3.q": {
       "sv": "Skriver Suunto till Health Connect?",
-      "da": "Skriver Suunto til Health Connect?"
+      "da": "Skriver Suunto til Health Connect?",
+      "fi": "Kirjoittaako Suunto Health Connect -palveluun?",
+      "no": "Skriver Suunto til Health Connect?"
     },
     "faq.3.a": {
       "sv": "Inte helt. Till skillnad från Garmin, som har inbyggd Health Connect-integration via sin Android-app, tillhandahåller Suunto data främst via Suunto Sport Engine API med OAuth-autentisering. Detta innebär att en integration av Suunto i en instrumentpanel med flera datakällor kräver en separat koppling som hämtar data från Suunto API. FitMesh Sync innehåller denna koppling: när Suunto har lagts till som en OAuth-källa slås data samman i huvudflödet med samma logik för deduplicering.",
-      "da": "Ikke helt. I modsætning til Garmin, som har indbygget Health Connect-integration via sin Android-app, stiller Suunto primært data til rådighed via Suunto Sport Engine API med OAuth-godkendelse. Det betyder, at integration af Suunto i et dashboard med flere datakilder kræver en separat connector, der henter data fra Suunto API. FitMesh Sync indeholder denne connector: Når Suunto er tilføjet som en OAuth-kilde, flettes dataene ind i hovedstrømmen med den samme deduplikationslogik."
+      "da": "Ikke helt. I modsætning til Garmin, som har indbygget Health Connect-integration via sin Android-app, stiller Suunto primært data til rådighed via Suunto Sport Engine API med OAuth-godkendelse. Det betyder, at integration af Suunto i et dashboard med flere datakilder kræver en separat connector, der henter data fra Suunto API. FitMesh Sync indeholder denne connector: Når Suunto er tilføjet som en OAuth-kilde, flettes dataene ind i hovedstrømmen med den samme deduplikationslogik.",
+      "fi": "Ei täysin. Toisin kuin Garmin, jolla on natiivi Health Connect -integraatio Android-sovelluksestaan, Suunto tarjoaa datansa pääasiassa Suunto Sport Engine API:n kautta OAuth-todennuksella. Tämä tarkoittaa, että Suunnon integroiminen usean lähteen koontinäyttöön vaatii erillisen liitännän, joka lukee Suunto API:sta. FitMesh Sync sisältää tämän liitännän: kun Suunto on lisätty OAuth-lähteeksi, data yhdistetään pääasialliseen virtaan samalla kaksoiskappaleiden poistologiikalla.",
+      "no": "Ikke fullstendig. I motsetning til Garmin, som har innebygd Health Connect-integrasjon fra Android-appen sin, eksponerer Suunto data primært gjennom Suunto Sport Engine API med OAuth-autentisering. Det betyr at å integrere Suunto i et dashbord med flere kilder krever en egen kobling som leser fra Suunto API. FitMesh Sync inkluderer denne koblingen: når Suunto er lagt til som en OAuth-kilde, slås dataene sammen i hovedstrømmen med samme dedupliseringslogikk."
     },
     "faq.4.q": {
       "sv": "Varför verkar min genomsnittliga puls vara för hög eller för låg när jag använder flera olika bärbara enheter?",
-      "da": "Hvorfor virker min gennemsnitlige puls for høj eller for lav, når jeg bruger flere forskellige wearables?"
+      "da": "Hvorfor virker min gennemsnitlige puls for høj eller for lav, når jeg bruger flere forskellige wearables?",
+      "fi": "Miksi sykkeeni keskiarvo vaikuttaa liian korkealta tai liian matalalta usean puettavan laitteen kanssa?",
+      "no": "Hvorfor virker gjennomsnittspulsen min for høy eller for lav med flere wearables?"
     },
     "faq.4.a": {
       "sv": "Det är med största sannolikhet ett problem med blandade sammanhang. Om din översiktssida beräknar den dagliga genomsnittliga hjärtfrekvensen genom att summera alla mätvärden från alla källor, leder det till att vilopuls och träningspuls räknas samman. Lösningen är att separera sammanhangen: vilopuls (beräknad endast under timmar utanför träningsfönstren) och genomsnittlig träningspuls (beräknad endast under träningspass, per aktivitetstyp). Ett enda dagligt genomsnitt från flera källor har ingen fysisk betydelse.",
-      "da": "Det er næsten helt sikkert et problem med blandede kontekster. Hvis dit dashboard beregner den daglige gennemsnitlige puls ved at sammenlægge alle registreringer fra alle kilder, ender det med at udregne et gennemsnit af hvilepuls og træningspuls. Løsningen er at adskille konteksterne: hvilepuls (beregnet udelukkende på timer uden for træningsvinduer), gennemsnitlig træningspuls (beregnet udelukkende under træningssessioner, pr. aktivitetstype). Et enkelt dagligt gennemsnit fra flere kilder har ingen fysisk betydning."
+      "da": "Det er næsten helt sikkert et problem med blandede kontekster. Hvis dit dashboard beregner den daglige gennemsnitlige puls ved at sammenlægge alle registreringer fra alle kilder, ender det med at udregne et gennemsnit af hvilepuls og træningspuls. Løsningen er at adskille konteksterne: hvilepuls (beregnet udelukkende på timer uden for træningsvinduer), gennemsnitlig træningspuls (beregnet udelukkende under træningssessioner, pr. aktivitetstype). Et enkelt dagligt gennemsnit fra flere kilder har ingen fysisk betydning.",
+      "fi": "Kyseessä on lähes varmasti sekakontekstiongelma. Jos koontinäyttösi laskee päivittäisen sykkeen keskiarvon laskemalla yhteen kaikki tietueet kaikista lähteistä, se päätyy laskemaan leposykkeen ja harjoitussykkeen keskiarvon yhteen. Korjaus on kontekstien erottaminen: leposyke (laskettu vain harjoitusikkunoiden ulkopuolisilta tunneilta), harjoitussykkeen keskiarvo (laskettu vain harjoitussessioiden aikana, aktiviteettityypeittäin). Yhdellä päivittäisellä usean lähteen keskiarvolla ei ole fyysistä merkitystä.",
+      "no": "Det er nesten helt sikkert et problem med blandet kontekst. Hvis dashbordet ditt beregner daglig gjennomsnittspuls ved å summere alle poster fra alle kilder, ender det opp med å gjennomsnittsberegne hvilepuls sammen med treningspuls. Løsningen er å skille kontekstene: hvilepuls (beregnet bare på timer utenfor treningsvinduer), gjennomsnittlig treningspuls (beregnet bare under treningsøkter, per aktivitetstype). Et enkelt daglig gjennomsnitt fra flere kilder har ingen fysisk betydning."
     },
     "faq.5.q": {
       "sv": "Förekommer Galaxy Ring och Galaxy Watch dubbelt i sömndata?",
-      "da": "Er der overlapning mellem Galaxy Ring og Galaxy Watch i søvndataene?"
+      "da": "Er der overlapning mellem Galaxy Ring og Galaxy Watch i søvndataene?",
+      "fi": "Kahdentavatko Galaxy Ring ja Galaxy Watch unidataa?",
+      "no": "Dupliserer Galaxy Ring og Galaxy Watch søvndata?"
     },
     "faq.5.a": {
       "sv": "Ja, om du använder båda på natten. Både Galaxy Ring och Galaxy Watch registrerar sömnsessioner i Health Connect för samma natt. Samsung Health försöker hantera detta internt (Galaxy Ring har prioritet om den upptäcks som den aktiva nattkällan), men beteendet kan inte garanteras på alla enheter och i alla versioner av One UI. Om du använder en tredjepartsaggregator som FitMesh Sync löser logiken för sömnkluster problemet oberoende av Samsung Health.",
-      "da": "Ja, hvis du har begge på om natten. Både Galaxy Ring og Galaxy Watch registrerer søvnperioder i Health Connect for den samme nat. Samsung Health forsøger at håndtere dette internt (Galaxy Ring har prioritet, hvis den registreres som den aktive natlige kilde), men denne adfærd er ikke garanteret på alle enheder og i alle One UI-versioner. Hvis du bruger en tredjepartsaggregator som FitMesh Sync, løser logikken for søvnklyngedannelse problemet uafhængigt af Samsung Health."
+      "da": "Ja, hvis du har begge på om natten. Både Galaxy Ring og Galaxy Watch registrerer søvnperioder i Health Connect for den samme nat. Samsung Health forsøger at håndtere dette internt (Galaxy Ring har prioritet, hvis den registreres som den aktive natlige kilde), men denne adfærd er ikke garanteret på alle enheder og i alle One UI-versioner. Hvis du bruger en tredjepartsaggregator som FitMesh Sync, løser logikken for søvnklyngedannelse problemet uafhængigt af Samsung Health.",
+      "fi": "Kyllä, jos käytät molempia yöllä. Sekä Galaxy Ring että Galaxy Watch kirjoittavat uni-istuntoja Health Connect -palveluun samalle yölle. Samsung Health yrittää käsitellä tätä sisäisesti (Galaxy Ring saa etusijan, jos se tunnistetaan aktiiviseksi yölliseksi lähteeksi), mutta käyttäytymistä ei taata kaikilla laitteilla ja One UI -versioilla. Jos käytät FitMesh Syncin kaltaista kolmannen osapuolen koostinta, unen ryhmittelylogiikka ratkaisee ongelman Samsung Healthista riippumatta.",
+      "no": "Ja, hvis du har på deg begge om natten. Både Galaxy Ring og Galaxy Watch skriver søvnøkter til Health Connect for samme natt. Samsung Health prøver å håndtere dette internt (Galaxy Ring får prioritet hvis den oppdages som den aktive nattkilden), men oppførselen er ikke garantert på tvers av alle enheter og One UI-versjoner. Hvis du bruker en tredjeparts-aggregator som FitMesh Sync, løser søvnklyngelogikken problemet uavhengig av Samsung Health."
     },
     "secondaryKeywords": {
       "sv": [
@@ -9939,6 +10301,22 @@
         "pulsdata fra forskellige kilder",
         "Garmin Suunto Galaxy Watch sammen",
         "Fjern dubletter i sundhedsdata – Health Connect"
+      ],
+      "fi": [
+        "usean lähteen puettavan laitteen koontinäyttö",
+        "askeleet laskettu kahdesti älykello",
+        "päällekkäinen unidata älysormus",
+        "syke sekoittuneet lähteet",
+        "Garmin Suunto Galaxy Watch yhdessä",
+        "poista terveystietojen kaksoiskappaleet health connect"
+      ],
+      "no": [
+        "dashbord for wearables med flere kilder",
+        "skritt telt to ganger smartklokke",
+        "dupliserte søvndata smartring",
+        "puls blandede kilder",
+        "Garmin Suunto Galaxy Watch sammen",
+        "deduplisere helsedata health connect"
       ]
     },
     "tldr": {
@@ -9955,6 +10333,20 @@
         "Den rigtige strategi kombinerer tre teknikker: »vinderen tager det hele« efter tidsvindue (HR), sammenlægning af 15-minutters tidsintervaller (steps) og gruppering med kildeprioritet (sleep).",
         "Der er to ting, der skal konfigureres manuelt: hvilken enhed du har på om natten, og at deaktivere Google Fit som skrivekilde, hvis den stadig er aktiv.",
         "FitMesh Sync anvender denne deduplikering automatisk og skelner altid mellem hvilepuls og træningspuls."
+      ],
+      "fi": [
+        "Health Connect ei poista kaksoiskappaleita: se on lähdeneutraali tietokanta ja jokainen sovellus kirjoittaa itsenäisesti. Kaksoiskappaleiden poistologiikan täytyy sijaita koostavassa sovelluksessa.",
+        "Kolme tyypillistä ongelmaa: kaksinkertaiset askeleet päällekkäisistä kumulatiivisista tietueista, kaksinkertaiset uni-istunnot, eri kontekstien saastuttama sykkeen keskiarvo.",
+        "Oikea strategia yhdistää kolme tekniikkaa: voittaja vie kaiken aikaikkunan mukaan (syke), 15 minuutin lohkojen yhdistäminen (askeleet), ryhmittely lähdeprioriteetilla (uni).",
+        "Kaksi asiaa vaatii manuaalista määritystä: mitä laitetta käytät yöllä ja Google Fitin poistaminen kirjoituslähteenä, jos se on yhä aktiivinen.",
+        "FitMesh Sync soveltaa tätä kaksoiskappaleiden poistoa automaattisesti ja erottaa aina leposykkeen harjoitussykkeestä."
+      ],
+      "no": [
+        "Health Connect dedupliserer ikke: det er en kildenøytral database, og hver app skriver uavhengig. Dedupliseringslogikken må ligge i aggregeringsappen.",
+        "Tre typiske problemer: dupliserte skritt fra overlappende kumulative poster, dupliserte søvnøkter, gjennomsnittspuls forurenset av ulike kontekster.",
+        "Den riktige strategien kombinerer tre teknikker: vinneren tar alt etter tidsvindu (puls), 15-minutters lukesammenslåing (skritt), klynging med kildeprioritet (søvn).",
+        "To ting krever manuell konfigurasjon: hvilken enhet du har på deg om natten, og å deaktivere Google Fit som skrivekilde hvis den fortsatt er aktiv.",
+        "FitMesh Sync bruker denne dedupliseringen automatisk og skiller alltid hvilepuls fra treningspuls."
       ]
     },
     "body.6.items": {
@@ -9967,6 +10359,16 @@
         "**Akkumulerede samletal**: Når det gælder skridt, registrerer nogle apps akkumulerede tal (»samlet antal skridt indtil nu i dag«) i stedet for daglige tal. Hvis både Galaxy Watch og Garmin Connect bruger kumulative registreringer, er det samlede antal ved dagens afslutning summen af de to totaler, ikke et total, hvor dubletter er fjernet.",
         "**Overlappende søvnperioder**: Galaxy Ring eller Oura registrerer en søvnperiode fra 22:30 til 06:45. Galaxy Watch registrerer 22:35–06:40 (samme nat, med lidt forskellige tidsvinduer). En aggregator, der ikke grupperer søvnperioder tidsmæssigt, viser to nætter med søvn, hvilket fordobler det samlede antal timer og forvrider gennemsnittet for søvnscoren.",
         "**Dagligt gennemsnit af puls fra forskellige kilder**: Dit Polar H10-brystbælte angiver 147 bpm som træningsgennemsnit. Galaxy Watch angav 72 bpm som eftermiddagens hvilegennemsnit. Uden at markere tidsvinduer bliver det daglige gennemsnit et fysisk meningsløst tal."
+      ],
+      "fi": [
+        "**Yhteenlasketut kumulatiiviset tietueet**: askeleiden osalta jotkin sovellukset kirjoittavat kumulatiivisia tietueita ('kokonaisaskeleet tähän mennessä tänään') vuorokauden aikaisten tietueiden sijaan. Jos sekä Galaxy Watch että Garmin Connect käyttävät kumulatiivisia tietueita, päivän lopun kokonaissumma on kahden kokonaissumman summa, ei kaksoiskappaleista puhdistettu kokonaissumma.",
+        "**Päällekkäiset uni-istunnot**: Galaxy Ring tai Oura kirjoittaa uni-istunnon 22:30-06:45. Galaxy Watch kirjoittaa 22:35-06:40 (sama yö, hieman eri ikkunat). Koostin, joka ei ryhmittele istuntoja ajallisesti, näyttää kaksi yötä unta, kaksinkertaistaen kokonaistuntimäärän ja vääristäen unipisteiden keskiarvoja.",
+        "**Päivittäinen sykkeen keskiarvo sekoittuneista lähteistä**: Polar H10 -rintavyösi kirjoittaa 147 bpm harjoituksen keskiarvona. Galaxy Watch kirjoitti 72 bpm iltapäivän leposykkeen keskiarvona. Ilman aikaikkunoiden merkitsemistä päivittäisestä keskiarvosta tulee fyysisesti merkityksetön luku."
+      ],
+      "no": [
+        "**Summerte kumulative poster**: for skritt skriver enkelte apper kumulative poster (\"totalt antall skritt så langt i dag\") i stedet for poster gjennom dagen. Hvis både Galaxy Watch og Garmin Connect bruker kumulative poster, blir dagssummen summen av to totaler, ikke en deduplisert total.",
+        "**Overlappende søvnøkter**: Galaxy Ring eller Oura skriver en søvnøkt 22:30-06:45. Galaxy Watch skriver 22:35-06:40 (samme natt, litt ulike vinduer). En aggregator som ikke klynger øktene tidsmessig viser to netter med søvn, dobler totale timer og forskyver gjennomsnittene for søvnscore.",
+        "**Daglig gjennomsnittspuls fra blandede kilder**: ditt Polar H10 brystbelte skriver 147 bpm som treningsgjennomsnitt. Galaxy Watch skrev 72 bpm som ettermiddagens hvilegjennomsnitt. Uten å merke tidsvinduene blir det daglige gjennomsnittet et fysisk meningsløst tall."
       ]
     },
     "body.10.headers": {
@@ -9981,6 +10383,18 @@
         "Foretrukken kilde",
         "Begrundelse",
         "Kilder, man bør ignorere"
+      ],
+      "fi": [
+        "Mittari",
+        "Ensisijainen lähde",
+        "Syy",
+        "Ohitettavat lähteet"
+      ],
+      "no": [
+        "Måling",
+        "Foretrukket kilde",
+        "Grunn",
+        "Kilder å ignorere"
       ]
     },
     "body.10.rows.0": {
@@ -9995,6 +10409,18 @@
         "Smart ring (Oura / Galaxy Ring)",
         "PPG-sensorerne sidder tættere på fingeren, hvilket mindsker forstyrrelser fra bevægelser om natten",
         "Galaxy Watch, Garmin (samme aften)"
+      ],
+      "fi": [
+        "Uni (kesto, vaiheet, pisteet)",
+        "Älysormus (Oura / Galaxy Ring)",
+        "PPG-anturit lähempänä sormea, vähemmän häiriötä yöllisistä liikkeistä",
+        "Galaxy Watch, Garmin (sama yö)"
+      ],
+      "no": [
+        "Søvn (varighet, stadier, score)",
+        "Smartring (Oura / Galaxy Ring)",
+        "PPG-sensorer nærmere fingeren, mindre forstyrrelser fra bevegelser om natten",
+        "Galaxy Watch, Garmin (samme natt)"
       ]
     },
     "body.10.rows.1": {
@@ -10009,6 +10435,18 @@
         "Galaxy Watch (når den bæres)",
         "Altid på håndleddet, dækker hele dagen",
         "Garmin, Suunto (blev ikke båret hele dagen)"
+      ],
+      "fi": [
+        "Päivittäiset askeleet (ei harjoitus)",
+        "Galaxy Watch (kun käytössä)",
+        "Aina ranteessa, kattaa koko päivän",
+        "Garmin, Suunto (ei käytössä koko päivää)"
+      ],
+      "no": [
+        "Daglige skritt (utenom trening)",
+        "Galaxy Watch (når den brukes)",
+        "Alltid på håndleddet, dekker hele dagen",
+        "Garmin, Suunto (ikke brukt hele dagen)"
       ]
     },
     "body.10.rows.2": {
@@ -10023,6 +10461,18 @@
         "Garmin Forløber",
         "Præcis GPS, løbespecifik kadencekalibrering",
         "Galaxy Watch (mindre præcis på lange afstande)"
+      ],
+      "fi": [
+        "Askeleet ja matka juoksun aikana",
+        "Garmin Forerunner",
+        "Tarkka GPS, juoksukohtainen askeltiheyden kalibrointi",
+        "Galaxy Watch (vähemmän tarkka pitkillä matkoilla)"
+      ],
+      "no": [
+        "Skritt og distanse under løp",
+        "Garmin Forerunner",
+        "Presis GPS, løpsspesifikk kadenskalibrering",
+        "Galaxy Watch (mindre presis på lange distanser)"
       ]
     },
     "body.10.rows.3": {
@@ -10037,6 +10487,18 @@
         "Træningsspecifik kilde (Garmin til løbeture, Suunto til udendørsaktiviteter)",
         "Optiske/fysiske sensorer på enheden, der er udviklet til netop denne sammenhæng",
         "Galaxy Watch (kører i baggrunden i samme tidsvindue)"
+      ],
+      "fi": [
+        "Syke harjoituksen aikana",
+        "Harjoituskohtainen lähde (Garmin juoksuille, Suunto ulkoiluun)",
+        "Kyseiseen kontekstiin suunnitellun laitteen optiset/fyysiset anturit",
+        "Galaxy Watch (käynnissä taustalla samassa aikaikkunassa)"
+      ],
+      "no": [
+        "Puls under trening",
+        "Treningsspesifikk kilde (Garmin for løp, Suunto for utendørs)",
+        "Optiske/fysiske sensorer på enheten designet for den konteksten",
+        "Galaxy Watch (kjører i bakgrunnen i samme tidsvindu)"
       ]
     },
     "body.10.rows.4": {
@@ -10051,6 +10513,18 @@
         "Smart ring (måling om natten)",
         "Målt i dyb hvile, hvilket er den mest pålidelige sammenhæng for HRV",
         "Galaxy Watch (mindre standardiseret måling i dagtimerne)"
+      ],
+      "fi": [
+        "HRV (sykevälivaihtelu)",
+        "Älysormus (yöllinen mittaus)",
+        "Mitattu syvässä levossa, luotettavin konteksti HRV:lle",
+        "Galaxy Watch (vähemmän standardoitu päiväaikainen mittaus)"
+      ],
+      "no": [
+        "HRV (hjertefrekvensvariabilitet)",
+        "Smartring (måling om natten)",
+        "Målt i dyp hvile, den mest pålitelige konteksten for HRV",
+        "Galaxy Watch (mindre standardisert måling på dagtid)"
       ]
     },
     "body.10.rows.5": {
@@ -10065,6 +10539,18 @@
         "Suunto",
         "Barometrisk højdemåler, maritim GPS, sporlogning over længere tid",
         "Galaxy Watch, Garmin (ikke i en udendørs sammenhæng)"
+      ],
+      "fi": [
+        "GPS-loki ja korkeusmittaus (ulkoilu/purjehdus)",
+        "Suunto",
+        "Ilmanpaineeseen perustuva korkeusmittari, merellinen GPS, pitkäkestoinen jäljen tallennus",
+        "Galaxy Watch, Garmin (ei ulkoiluun erikoistunut konteksti)"
+      ],
+      "no": [
+        "GPS-logg og høydemåling (utendørs/seiling)",
+        "Suunto",
+        "Barometrisk høydemåler, marin GPS, sporlogging over lang tid",
+        "Galaxy Watch, Garmin (ikke utendørsspesifikk kontekst)"
       ]
     },
     "body.23.items": {
@@ -10077,6 +10563,16 @@
         "**Angiv, hvilken enhed der er din primære søvnkilde.** Hvis du har både en Galaxy Watch og en smart ring, skal du angive dette udtrykkeligt. FitMesh Sync spørger om dette under oprettelsen („Hvilken enhed bærer du om natten?“). Hvis du ikke angiver noget, vælges Galaxy Watch som standard, da det er den mest almindelige løsning, men det er et vilkårligt valg.",
         "**Deaktiver Google Fit som skrivekilde, hvis den stadig er aktiv.** Gå til Health Connect > Tilladelsesstyring > Google Fit og kontroller, at den har læseadgang, ikke skriveadgang. Den forældede Google Fit, der stadig skriver til Health Connect, er den største årsag til tredobbelte trin i opsætninger med flere wearables.",
         "**Angiv de perioder, hvor bestemte enheder er aktive.** Hvis du kun bærer Garmin under løbeture (aldrig i hvile), kan systemet se bort fra pulsdataene fra denne enhed uden for træningsperioderne. Uden denne information kan den hvilepuls, der måles af Garmin under en rolig aktivitet, forvride gennemsnitsværdien for hvilepulsen."
+      ],
+      "fi": [
+        "**Määritä, mikä laite on ensisijainen unilähteesi.** Jos sinulla on sekä Galaxy Watch että älysormus, sinun täytyy ilmoittaa se nimenomaisesti. FitMesh Sync kysyy tämän käyttöönoton aikana ('Mitä laitetta käytät yöllä?'). Jos et määritä sitä, oletuksena on Galaxy Watch yleisimpänä varavaihtoehtona, mutta se on mielivaltainen valinta.",
+        "**Poista Google Fit kirjoituslähteenä käytöstä, jos se on yhä aktiivinen.** Mene kohtaan Health Connect > Käyttöoikeuksien hallinta > Google Fit ja varmista, että sillä on vain lukuoikeus, ei kirjoitusoikeutta. Vanhentunut Google Fit, joka kirjoittaa yhä Health Connect -palveluun, on ykkössyy kolminkertaistuneisiin askeliin usean puettavan laitteen kokoonpanoissa.",
+        "**Määritä aktiiviset ajanjaksot tietyille laitteille.** Jos käytät Garminia vain juoksuilla (et koskaan levossa), järjestelmä voi jättää huomiotta sen sykedatan harjoitusikkunoiden ulkopuolelta. Ilman tätä tietoa Garminin hitaan aktiviteetin aikana mittaama leposyke voi saastuttaa leposykkeen keskiarvon."
+      ],
+      "no": [
+        "**Definer hvilken enhet som er din primære søvnkilde.** Hvis du har både en Galaxy Watch og en smartring, må du si det eksplisitt. FitMesh Sync spør under onboarding (\"Hvilken enhet har du på deg om natten?\"). Hvis du ikke spesifiserer det, settes Galaxy Watch som standard som den vanligste reserveløsningen, men det er et vilkårlig valg.",
+        "**Deaktiver Google Fit som skrivekilde hvis den fortsatt er aktiv.** Gå til Health Connect > Tillatelsesstyring > Google Fit og kontroller at den har lesetillatelse, ikke skrivetillatelse. Utfaset Google Fit som fortsatt skriver til Health Connect er den vanligste årsaken til tredoblede skritt i oppsett med flere wearables.",
+        "**Angi aktive perioder for spesifikke enheter.** Hvis du bare har på deg Garmin under løp (aldri i hvile), kan systemet ignorere pulsdataene dens utenfor treningsvinduer. Uten denne informasjonen kan hvilepuls målt av Garmin under en rolig aktivitet forurense hvilegjennomsnittet."
       ]
     },
     "body.31.items": {
@@ -10093,6 +10589,20 @@
         "**Gruppering af søvnsessioner**: Grupperer sessioner, der overlapper hinanden med mere end 80 %, og prioriterer ring > smartwatch ved fastlæggelse af søvnfaser.",
         "**Skelnen mellem hvilepuls og træningspuls**: Træningsperioder medtages ikke i beregningen af hvilepulsen.",
         "**Fjernelse af dubletter i Samsung-poster**: filtrerer poster med samme tidsstempel og gentaget source_package (den kendte fejl med dobbelt skrivning hos Samsung)."
+      ],
+      "fi": [
+        "**Automaattinen harjoitussessioiden tunnistus**: lukee ExerciseSession-tietueita Health Connect -palvelusta ja rakentaa aktiivisen ikkunan kartan kullekin lähteelle.",
+        "**15 minuutin lohkojen yhdistäminen askelille**: ottaa maksimin lohkoa kohti kaikkien lähteiden joukosta, poistaen päällekkäisyyden menettämättä yhteenlaskettavaa dataa (Galaxy Watch aamulla + Garmin iltapäivän juoksu).",
+        "**Uni-istuntojen ryhmittely**: ryhmittelee yli 80-prosenttisesti päällekkäin menevät istunnot ja soveltaa prioriteettia sormus > älykello univaiheille.",
+        "**Lepo- ja harjoitussykkeen erottaminen**: harjoitusikkunat jätetään pois leposykkeen laskennasta.",
+        "**Samsungin kaksoistietueiden poisto**: suodattaa tietueet, joilla on sama aikaleima ja toistuva source_package (tunnettu Samsungin kaksoiskirjoitusvirhe)."
+      ],
+      "no": [
+        "**Automatisk gjenkjenning av treningsøkter**: leser ExerciseSession-poster fra Health Connect og bygger kartet over aktive vinduer for hver kilde.",
+        "**15-minutters lukesammenslåing for skritt**: tar maksimum per luke på tvers av alle kilder, eliminerer overlapp uten å miste data som skal legges sammen (Galaxy Watch om morgenen + Garmin-løp om ettermiddagen).",
+        "**Klynging av søvnøkter**: grupperer økter som overlapper med mer enn 80 % og bruker prioriteten ring > smartklokke for søvnstadier.",
+        "**Skille mellom hvile- og treningspuls**: treningsvinduer utelates fra beregningen av hvilepuls.",
+        "**Deduplisering av dupliserte Samsung-poster**: filtrerer poster med samme tidsstempel og gjentatt source_package (den kjente Samsung-feilen med dobbeltskriving)."
       ]
     },
     "body.34.items": {
@@ -10105,6 +10615,16 @@
         "**Svømmetræning med overlappende Suunto og Galaxy Watch**: Galaxy Watch genkender svømning som en træningssession (typen SWIMMING), som Suunto registrerer via Sport Engine API. Hvis tidsstemplerne delvist overlapper hinanden (f.eks. baneskift mellem baner), er sammenlægningen konservativ, men ikke perfekt.",
         "**VO2max fra forskellige kilder**: Garmin beregner sin VO2max ved hjælp af en egenudviklet algoritme (FirstBeat), mens Galaxy Watch anvender en anden metode. Værdierne kan ikke sammenlignes: FitMesh Sync viser i øjeblikket de to værdier hver for sig og ikke samlet.",
         "**HRV fra brystbæltet om dagen kontra ringen om natten**: Hvis du bruger en Polar H10 til morgenmålingen HRV og ringen til den natlige måling HRV, er værdierne korrekte i deres respektive sammenhænge, men de kan ikke sammenlignes direkte. Dette er en begrænsning ved biometri, ikke ved softwaren: HRV varierer afhængigt af tidspunktet på døgnet og kropsstillingen."
+      ],
+      "fi": [
+        "**Uintiharjoitukset päällekkäisillä Suunnon ja Galaxy Watchin tiedoilla**: Galaxy Watch tunnistaa uinnin ExerciseSessioniksi (tyyppi SWIMMING), Suunto tallentaa Sport Engine API:n kautta. Jos aikaleimat menevät osittain päällekkäin (esim. ratavaihdot altaanpätkien välillä), yhdistäminen on konservatiivinen mutta ei täydellinen.",
+        "**VO2max eri lähteistä**: Garmin laskee oman VO2max-arvonsa yksityisellä algoritmilla (FirstBeat), Galaxy Watch käyttää eri menetelmää. Arviot eivät ole vertailukelpoisia: FitMesh Sync näyttää tällä hetkellä kaksi mittaria erikseen, ei yhdistettyinä.",
+        "**HRV rintavyöstä päivällä vs. sormus yöllä**: jos käytät Polar H10:tä aamun HRV:hen ja sormusta yölliseen HRV:hen, arvot ovat oikein omissa konteksteissaan mutta eivät suoraan vertailukelpoisia. Tämä on biometriikan rajoitus, ei ohjelmiston: HRV vaihtelee vuorokaudenajan ja kehon asennon mukaan."
+      ],
+      "no": [
+        "**Svømmeøkter med overlappende Suunto og Galaxy Watch**: Galaxy Watch gjenkjenner svømming som en ExerciseSession (type SWIMMING), Suunto logger via Sport Engine API. Hvis tidsstemplene delvis overlapper (f.eks. banebytter mellom lengder), er sammenslåingen konservativ, men ikke perfekt.",
+        "**VO2max fra ulike kilder**: Garmin beregner sin VO2max med en proprietær algoritme (FirstBeat), Galaxy Watch bruker en annen metode. Estimatene er ikke sammenlignbare: FitMesh Sync viser for øyeblikket de to målingene hver for seg, ikke sammenslått.",
+        "**HRV fra brystbelte på dagtid kontra ring om natten**: hvis du bruker et Polar H10 til HRV om morgenen og ringen til HRV om natten, er verdiene korrekte i sine kontekster, men ikke direkte sammenlignbare. Dette er en begrensning i biometrikk, ikke programvare: HRV varierer med tid på døgnet og kroppsstilling."
       ]
     },
     "body.37.items": {
@@ -10123,6 +10643,22 @@
         "Der er to ting, der skal konfigureres manuelt: hvilken enhed du har på om natten, og at deaktivere Google Fit som skrivekilde, hvis den stadig er aktiv.",
         "Suunto går ikke via Health Connect: Der kræves en separat OAuth-forbindelse. Dataene samles derefter i den samme deduplikationslogik.",
         "Den daglige gennemsnitlige puls uden kontekstuel skelnen er et fysisk meningsløst tal: Man skal altid skelne mellem hvilepuls og træningspuls."
+      ],
+      "fi": [
+        "Health Connect ei poista kaksoiskappaleita: se on lähdeneutraali tietokanta, ja jokainen sovellus kirjoittaa itsenäisesti. Kaksoiskappaleiden poistologiikan täytyy sijaita koostavassa sovelluksessa.",
+        "Kolme päälähtökohtaa usean puettavan laitteen kokoonpanoissa ovat: kaksinkertaiset askeleet päällekkäisistä kumulatiivisista tietueista, kaksinkertaiset uni-istunnot laitteista, jotka mittaavat samaa yötä, saastunut sykkeen keskiarvo eri fyysisissä konteksteissa otetuista mittauksista.",
+        "Oikea strategia yhdistää kolme toisiaan täydentävää tekniikkaa: voittaja vie kaiken aikaikkunan mukaan (vuorokauden aikainen syke), 15 minuutin lohkojen yhdistäminen (askeleet), ajallinen ryhmittely lähdeprioriteetilla (uni).",
+        "Kaksi asiaa vaatii manuaalista määritystä: mitä laitetta käytät yöllä ja Google Fitin poistaminen kirjoituslähteenä, jos se on yhä aktiivinen.",
+        "Suunto ei kulje Health Connectin kautta: tarvitaan erillinen OAuth-liitäntä. Data yhdistetään sitten samaan kaksoiskappaleiden poistologiikkaan.",
+        "Päivittäinen sykkeen keskiarvo ilman kontekstierottelua on fyysisesti merkityksetön luku: erota aina leposyke harjoitussykkeestä."
+      ],
+      "no": [
+        "Health Connect dedupliserer ikke: det er en kildenøytral database, og hver app skriver uavhengig. Dedupliseringslogikken må ligge i aggregeringsappen.",
+        "De tre hovedproblemene i oppsett med flere wearables er: dupliserte skritt fra overlappende kumulative poster, dupliserte søvnøkter fra enheter som måler samme natt, forurenset gjennomsnittspuls fra målinger i ulike fysiske kontekster.",
+        "Den riktige strategien kombinerer tre komplementære teknikker: vinneren tar alt etter tidsvindu (puls gjennom dagen), 15-minutters lukesammenslåing (skritt), tidsmessig klynging med kildeprioritet (søvn).",
+        "To ting krever manuell konfigurasjon: hvilken enhet du har på deg om natten, og å deaktivere Google Fit som skrivekilde hvis den fortsatt er aktiv.",
+        "Suunto går ikke gjennom Health Connect: en egen OAuth-kobling er nødvendig. Dataene forenes deretter i den samme dedupliseringslogikken.",
+        "Daglig gjennomsnittspuls uten kontekstskille er et fysisk meningsløst tall: skill alltid hvilepuls fra treningspuls."
       ]
     }
   },
