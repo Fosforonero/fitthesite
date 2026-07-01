@@ -93,13 +93,30 @@ export type NordicOverlay = Record<string, PostOverlay>;
 export function applyNordicOverlay(post: BlogPost, overlay: NordicOverlay): void {
   const po = overlay[post.slug];
   if (!po) return;
-  for (const e of walkPost(post)) {
-    const v = po[e.path];
-    if (!v) continue;
-    for (const lang of NORDIC_LANGS) {
-      const t = (v as Record<string, unknown>)[lang];
-      if (t == null) continue;
-      (e.node as Record<string, unknown>)[lang] = t;
+  const entries = walkPost(post);
+  // Tutto-o-niente per lingua: inietta una lingua solo se l'overlay copre TUTTI
+  // i campi del post (niente pagine miste nordico/inglese). Le lingue incomplete
+  // restano in fallback EN e restano `noindex` (vedi isPostTranslated).
+  for (const lang of NORDIC_LANGS) {
+    let complete = true;
+    for (const e of entries) {
+      const v = po[e.path];
+      const t = v ? (v as Record<string, unknown>)[lang] : undefined;
+      if (t == null) {
+        complete = false;
+        break;
+      }
+      if (e.kind === "list") {
+        const src = e.node.en ?? e.node.it;
+        if (!Array.isArray(t) || t.length !== src.length) {
+          complete = false;
+          break;
+        }
+      }
+    }
+    if (!complete) continue;
+    for (const e of entries) {
+      (e.node as Record<string, unknown>)[lang] = (po[e.path] as Record<string, unknown>)[lang];
     }
   }
 }
@@ -115,6 +132,24 @@ export function isFullyTranslated(post: BlogPost, overlay: NordicOverlay): boole
     if (!v) return false;
     for (const lang of NORDIC_LANGS) {
       if ((v as Record<string, unknown>)[lang] == null) return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * True se il post ha TUTTI i campi tradotti nella lingua data (legge i valori
+ * gia' iniettati dall'overlay). Usato per togliere il noindex per-post/per-lingua.
+ */
+export function isPostTranslated(post: BlogPost, lang: NordicLang): boolean {
+  const entries = walkPost(post);
+  if (entries.length === 0) return false;
+  for (const e of entries) {
+    const val = (e.node as Record<string, unknown>)[lang];
+    if (val == null) return false;
+    if (e.kind === "list") {
+      const src = e.node.en ?? e.node.it;
+      if (!Array.isArray(val) || val.length !== src.length) return false;
     }
   }
   return true;

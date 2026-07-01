@@ -80,8 +80,14 @@ export async function translateSegments(
       for (let j = 0; j < take.length; j++) {
         const i = take[j];
         const raw = outBatch[j];
-        if (raw == null || raw.trim().length === 0) continue;
-        if (!deps.glossary.placeholdersIntact(raw, masks[i].tokens)) continue;
+        if (
+          raw == null ||
+          raw.trim().length === 0 ||
+          !deps.glossary.placeholdersIntact(raw, masks[i].tokens)
+        ) {
+          if (engine.name === "deepl") deeplBudget += masks[i].masked.length; // rimborsa i falliti
+          continue;
+        }
         const final = deps.glossary.unmask(raw, masks[i].tokens);
         done[i] = final;
         usedBy[i] = engine.name;

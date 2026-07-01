@@ -33,6 +33,7 @@ export class DeepLEngine implements Engine {
     const tl = TARGET[target] ?? target.toUpperCase();
     const sl = SOURCE[ctx.sourceLang] ?? ctx.sourceLang.toUpperCase();
     const out: (string | null)[] = [];
+    const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
     for (let i = 0; i < texts.length; i += 50) {
       const batch = texts.slice(i, i + 50);
       const body = new URLSearchParams();
@@ -40,17 +41,26 @@ export class DeepLEngine implements Engine {
       body.set("source_lang", sl);
       body.set("target_lang", tl);
       body.set("preserve_formatting", "1");
-      const r = await fetch(`${this.host}/v2/translate`, {
-        method: "POST",
-        headers: { ...this.authHeaders(), "Content-Type": "application/x-www-form-urlencoded" },
-        body,
-      });
-      if (!r.ok) {
-        for (let k = 0; k < batch.length; k++) out.push(null);
-        continue;
+      let got: string[] | null = null;
+      for (let attempt = 0; attempt < 6; attempt++) {
+        const r = await fetch(`${this.host}/v2/translate`, {
+          method: "POST",
+          headers: { ...this.authHeaders(), "Content-Type": "application/x-www-form-urlencoded" },
+          body,
+        });
+        if (r.status === 429) {
+          await sleep(800 * (attempt + 1)); // rate-limit: backoff e riprova
+          continue;
+        }
+        if (r.status === 456) throw new Error("DeepL quota mensile esaurita (456)");
+        if (!r.ok) break;
+        const d = (await r.json()) as { translations: { text: string }[] };
+        got = d.translations.map((t) => t.text);
+        break;
       }
-      const d = (await r.json()) as { translations: { text: string }[] };
-      for (const tr of d.translations) out.push(tr.text);
+      if (got) for (const t of got) out.push(t);
+      else for (let k = 0; k < batch.length; k++) out.push(null);
+      await sleep(120); // pacing gentile tra i batch
     }
     return out;
   }

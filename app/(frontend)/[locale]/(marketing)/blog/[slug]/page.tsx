@@ -18,6 +18,7 @@ import {
   getBlogSlugs,
   getRelatedPosts,
 } from "@/lib/blog/payload-source";
+import { isPostTranslated, type NordicLang } from "@/lib/blog/nordic-overlay";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -131,9 +132,11 @@ export async function generateMetadata({
     title: `${title} · FitMesh`,
     description,
     keywords,
-    robots: UNTRANSLATED_CONTENT_LOCALES.has(lc)
-      ? { index: false, follow: true }
-      : undefined,
+    robots:
+      UNTRANSLATED_CONTENT_LOCALES.has(lc) &&
+      !isPostTranslated(post, lc as NordicLang)
+        ? { index: false, follow: true }
+        : undefined,
     alternates: {
       canonical: `${SITE_URL}${path}`,
       languages: blogLanguages(post.slug),
