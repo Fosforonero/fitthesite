@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import Script from "next/script";
 import { Inter, Space_Grotesk } from "next/font/google";
 import { htmlLang, type Locale } from "@/lib/i18n";
+import OutboundTracker from "@/components/OutboundTracker";
 import "./globals.css";
 
 const SITE_URL = "https://www.fitmesh.fit";
@@ -112,6 +113,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="min-h-screen flex flex-col font-sans bg-page antialiased">
         {children}
+        <OutboundTracker />
       </body>
     </html>
   );
