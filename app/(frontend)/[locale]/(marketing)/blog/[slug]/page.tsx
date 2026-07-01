@@ -11,6 +11,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogRenderer } from "@/components/blog/BlogRenderer";
 import { ArticleMeta } from "@/components/blog/ArticleMeta";
+import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
 import { locales, type Locale, ogLocale, UNTRANSLATED_CONTENT_LOCALES } from "@/lib/i18n";
 import { categoryLabel, tl, tll } from "@/lib/blog/types";
 import {
@@ -583,6 +584,12 @@ export default async function BlogArticle({
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     url: `${SITE_URL}${path}`,
+    image: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}${coverSrc(post)}`,
+      width: COVER_W,
+      height: COVER_H,
+    },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}${path}` },
     // E-E-A-T critical su YMYL: author Person con bio + sameAs.
     // Google penalizza articoli salute con author=Organization generico.
@@ -707,6 +714,19 @@ export default async function BlogArticle({
             ]}
           />
         </header>
+
+        {/* COVER */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 mb-8">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={coverSrc(post)}
+            alt={tl(post.hero.title, lc)}
+            width={COVER_W}
+            height={COVER_H}
+            decoding="async"
+            className="w-full h-auto rounded-card border border-white/5"
+          />
+        </div>
 
         {/* TL;DR — il succo in 10 secondi, stile Claude. Solo se presente. */}
         {post.tldr && tll(post.tldr, lc).length > 0 && (

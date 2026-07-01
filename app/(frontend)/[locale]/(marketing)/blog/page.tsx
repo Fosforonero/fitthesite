@@ -8,6 +8,7 @@ import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { categoryLabel, tl } from "@/lib/blog/types";
 import { getBlogPosts } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
+import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -318,6 +319,7 @@ export default async function BlogIndex({
       datePublished: p.publishedAt,
       dateModified: p.updatedAt,
       description: tl(p.metaDescription, lc),
+      image: `${SITE_URL}${coverSrc(p)}`,
     })),
   };
 
@@ -365,6 +367,16 @@ export default async function BlogIndex({
                   className="absolute -top-24 -right-24 w-72 h-72 rounded-full opacity-15 blur-3xl bg-brand-aqua"
                 />
                 <div className="relative">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={coverSrc(p)}
+                    alt={tl(p.hero.title, lc)}
+                    width={COVER_W}
+                    height={COVER_H}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full aspect-video object-cover rounded-lg mb-5 border border-white/5"
+                  />
                   <div className="flex items-center gap-2 text-xs">
                     <span className="px-2 py-0.5 rounded-pill border border-brand-aqua/40 bg-brand-aqua/10 text-brand-aqua font-medium">
                       {t.pillarLabel}
@@ -402,6 +414,16 @@ export default async function BlogIndex({
               href={`/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`}
               className="card p-6 group hover:-translate-y-0.5 transition-transform flex flex-col"
             >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={coverSrc(p)}
+                alt={tl(p.hero.title, lc)}
+                width={COVER_W}
+                height={COVER_H}
+                loading="lazy"
+                decoding="async"
+                className="w-full aspect-video object-cover rounded-lg mb-4 border border-white/5"
+              />
               <div className="flex items-center gap-2 text-xs">
                 <span className="text-brand-aqua font-medium">
                   {categoryLabel(p.category, lc)}
