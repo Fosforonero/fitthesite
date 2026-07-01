@@ -43,6 +43,12 @@ export async function translateSegments(
     }
     if (pending.length === 0) continue;
 
+    // context DeepL a livello richiesta: solo se il lotto e' omogeneo (tutti i
+    // segmenti con lo stesso contesto), altrimenti omesso. Plumbing per il
+    // futuro raggruppamento per contesto.
+    const ctxSet = new Set(pending.map((s) => s.context).filter((c): c is string => !!c));
+    const batchContext = ctxSet.size === 1 ? [...ctxSet][0] : undefined;
+
     const masks = pending.map((s) => deps.glossary.mask(s.source));
     const done = new Array<string | null>(pending.length).fill(null);
     const usedBy = new Array<EngineName | null>(pending.length).fill(null);
@@ -71,7 +77,7 @@ export async function translateSegments(
       const masked = take.map((i) => masks[i].masked);
       let outBatch: (string | null)[];
       try {
-        outBatch = await engine.translate(masked, lang, { sourceLang: deps.sourceLang, glossaryHint });
+        outBatch = await engine.translate(masked, lang, { sourceLang: deps.sourceLang, glossaryHint, context: batchContext });
       } catch {
         if (engine.name === "deepl") for (const i of take) deeplBudget += masks[i].masked.length;
         continue;

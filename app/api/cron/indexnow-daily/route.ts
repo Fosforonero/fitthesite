@@ -3,6 +3,7 @@ import { pingIndexNow } from "@/lib/seo/indexnow";
 import { getBlogPosts } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { localizedLandingSlug } from "@/lib/blog/slug-i18n";
+import { isPostTranslated, NORDIC_LANGS } from "@/lib/blog/nordic-overlay";
 import { LANDING_PAGES } from "@/lib/landing/data";
 import { PROVIDERS } from "@/lib/providers/data";
 import { PROVIDER_MODELS } from "@/lib/providers/models";
@@ -26,11 +27,24 @@ export async function GET(req: Request) {
   const sevenDaysAgo = Date.now() - 7 * 24 * 60 * 60 * 1000;
 
   // Blog posts updated in the last 7 days
-  for (const post of await getBlogPosts()) {
+  const posts = await getBlogPosts();
+  for (const post of posts) {
     const updated = new Date(post.updatedAt ?? post.publishedAt).getTime();
     if (updated > sevenDaysAgo) {
       for (const locale of LOCALES) {
         urls.push(`${SITE_URL}/${locale}/blog/${localizedBlogSlug(post.slug, locale)}`);
+      }
+    }
+  }
+
+  // Nordic blog posts — ping SOLO le coppie (post, lingua) davvero tradotte, e
+  // quindi indicizzabili. isPostTranslated rispecchia il noindex per-post/lingua,
+  // quindi non pinghiamo mai un URL ancora in noindex. Nessun gate a 7 giorni:
+  // tradurre un post non ne cambia updatedAt, quindi restano incluse finche' live.
+  for (const post of posts) {
+    for (const lang of NORDIC_LANGS) {
+      if (isPostTranslated(post, lang)) {
+        urls.push(`${SITE_URL}/${lang}/blog/${localizedBlogSlug(post.slug, lang)}`);
       }
     }
   }

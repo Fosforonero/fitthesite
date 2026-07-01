@@ -34,6 +34,8 @@ export interface Translated {
 export interface TranslateCtx {
   sourceLang: Lang;
   glossaryHint: string;
+  /** Contesto per la MT (DeepL context param: non tradotto, non conteggiato). */
+  context?: string;
 }
 
 export interface Engine {

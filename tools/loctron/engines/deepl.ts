@@ -4,6 +4,10 @@ import type { Engine, Lang, TranslateCtx } from "../core/types.ts";
 const TARGET: Record<string, string> = { sv: "SV", da: "DA", no: "NB", nb: "NB", fi: "FI", en: "EN-GB" };
 const SOURCE: Record<string, string> = { en: "EN", it: "IT", sv: "SV", da: "DA", no: "NB", nb: "NB", fi: "FI" };
 
+// Free tier: /v2/usage dichiara character_limit=1.000.000 ma il limite REALE
+// applicato e' 500k (456 Quota exceeded a ~501k).
+const FREE_MONTHLY_CAP = 500_000;
+
 /** Adapter DeepL via HTTP (zero dipendenze). Free vs Pro dedotto dal suffisso ":fx" della key. */
 export class DeepLEngine implements Engine {
   readonly name = "deepl";
@@ -25,7 +29,11 @@ export class DeepLEngine implements Engine {
     const r = await fetch(`${this.host}/v2/usage`, { headers: this.authHeaders() });
     if (!r.ok) throw new Error(`DeepL /usage HTTP ${r.status}`);
     const d = (await r.json()) as { character_count: number; character_limit: number };
-    return { count: d.character_count, limit: d.character_limit };
+    // Su Free il limite dichiarato inganna: clampa a quello reale cosi' il budget
+    // non pianifica ~500k di quota fantasma. Su Pro usa il valore vero.
+    const isFree = this.host.includes("api-free");
+    const limit = isFree ? Math.min(d.character_limit, FREE_MONTHLY_CAP) : d.character_limit;
+    return { count: d.character_count, limit };
   }
 
   async translate(texts: string[], target: Lang, ctx: TranslateCtx): Promise<(string | null)[]> {
@@ -41,6 +49,9 @@ export class DeepLEngine implements Engine {
       body.set("source_lang", sl);
       body.set("target_lang", tl);
       body.set("preserve_formatting", "1");
+      // context: non tradotto e NON conteggiato nel budget. Valore pieno quando
+      // il batch e' omogeneo per contesto (vedi pipeline).
+      if (ctx.context) body.set("context", ctx.context);
       let got: string[] | null = null;
       for (let attempt = 0; attempt < 6; attempt++) {
         const r = await fetch(`${this.host}/v2/translate`, {
