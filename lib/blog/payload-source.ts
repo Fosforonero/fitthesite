@@ -3,6 +3,8 @@ import { getPayload } from 'payload';
 
 import { BLOG_POSTS } from './data';
 import type { BlogCategory, BlogPost, BlogSection, Localized } from './types';
+import nordicOverlay from './nordic-overlay.json';
+import { applyNordicOverlay, type NordicOverlay } from './nordic-overlay';
 
 /**
  * Sorgente blog da Payload CMS, con FALLBACK ai moduli TS (`./data`) se il CMS
@@ -171,12 +173,19 @@ export function getBlogPosts(): Promise<BlogPost[]> {
   // solo per gli articoli che esistono unicamente lì. Se il CMS non risponde,
   // fallback ai soli moduli TS.
   memo ??= loadFromPayload().then((cms) => {
-    if (!cms || cms.length === 0) return BLOG_POSTS;
-    const tsSlugs = new Set(BLOG_POSTS.map((p) => p.slug));
-    const cmsOnly = cms.filter((p) => !tsSlugs.has(p.slug));
-    return [...BLOG_POSTS, ...cmsOnly].sort((a, b) =>
-      b.publishedAt.localeCompare(a.publishedAt),
-    );
+    const base =
+      !cms || cms.length === 0
+        ? BLOG_POSTS
+        : (() => {
+            const tsSlugs = new Set(BLOG_POSTS.map((p) => p.slug));
+            const cmsOnly = cms.filter((p) => !tsSlugs.has(p.slug));
+            return [...BLOG_POSTS, ...cmsOnly].sort((a, b) =>
+              b.publishedAt.localeCompare(a.publishedAt),
+            );
+          })();
+    // Inietta le traduzioni nordiche (sv/da/no/fi) dall'overlay JSON.
+    for (const p of base) applyNordicOverlay(p, nordicOverlay as NordicOverlay);
+    return base;
   });
   return memo;
 }
