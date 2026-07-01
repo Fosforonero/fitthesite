@@ -47,11 +47,14 @@ export const projects: Record<string, ProjectConfig> = {
   // App Flutter: file ARB, sorgente italiano (template app_it.arb). Bokmål = nb.
   app: {
     key: "app",
-    sourceLang: "it",
+    // Sorgente EN (non IT): in inglese i brand sono gia' separati e non ambigui
+    // (Android "Health Connect" vs iOS "Apple Health"), coerenti col doNotTranslate.
+    // Tradurre dall'IT faceva trapelare "Connessione Salute"/"Salute" nelle nordiche.
+    sourceLang: "en",
     targetLangs: ["sv", "da", "nb", "fi"],
     adapter: "arb",
     sourceDir: join(PARENT_ROOT, "AppFitmesh", "flutter_app", "lib", "l10n"),
-    templateFile: "app_it.arb",
+    templateFile: "app_en.arb",
     filePattern: "app_$lang.arb",
     outDir: join(LOCTRON_ROOT, ".preview", "app"),
   },
