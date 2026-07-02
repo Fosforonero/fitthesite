@@ -5,6 +5,7 @@
 
 # loctron nordic wave scratch files (extraction/translation intermediates)
 .wave2-*
+.landing-es-*
 *.bak
 .yarn/install-state.gz
 

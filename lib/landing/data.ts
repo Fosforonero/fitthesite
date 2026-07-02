@@ -8,6 +8,8 @@
  */
 
 import type { BlogSection, BlogQA, Localized, LocalizedList } from "@/lib/blog/types";
+import esOverlay from "./es-overlay.json";
+import { applyLandingEsOverlay, type EsOverlay } from "./es-overlay";
 
 export interface LandingPage {
   /** Slug URL — kebab-case, stabile, SEO-critical. */
@@ -7094,6 +7096,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
   },
 ];
 
+// Completa lo spagnolo mancante via overlay (gap-fill, non riscrive i 13 LP).
+applyLandingEsOverlay(LANDING_PAGES_RAW, esOverlay as EsOverlay);
 export const LANDING_PAGES: LandingPage[] = LANDING_PAGES_RAW;
 
 export const LANDING_PAGES_BY_SLUG: Record<string, LandingPage> = Object.fromEntries(
