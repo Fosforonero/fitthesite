@@ -2,7 +2,7 @@
  * Cover dei post del blog: set piccolo e riutilizzabile (illustrazioni text-free
  * warm + accenti brand). Un tipo per argomento, assegnato per slug. Usate come
  * miniatura nell'index, cover nell'header, e `image` nel JSON-LD.
- * File in `public/blog/covers/`. news/metrics: fallback finche' non arrivano.
+ * File in `public/blog/covers/`. news: fallback finche' non arriva la dedicata.
  */
 import type { BlogPost } from "./types";
 
@@ -16,7 +16,9 @@ export type CoverType =
   | "news"
   | "compare"
   | "dashboard"
-  | "metrics";
+  | "metrics"
+  | "troubleshooting"
+  | "export";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -30,8 +32,10 @@ const COVER_FILE: Record<CoverType, string> = {
   privacy: "shield.webp",
   platform: "smartphones.webp",
   dashboard: "dashboard.webp",
+  metrics: "hearth.webp",
+  troubleshooting: "gear.webp",
+  export: "data-sync.webp",
   news: "dashboard.webp", // TODO: news.webp quando arriva
-  metrics: "devices.webp", // TODO: metrics.webp quando arriva
 };
 
 /** Assegnazione esplicita per slug (i 51 post attuali). */
@@ -42,14 +46,14 @@ const POST_COVER: Record<string, CoverType> = {
   "novita-fitmesh-su-app-store": "news",
   "google-health-google-fit": "sync",
   "huawei-health-health-connect-sincronizzazione": "sync",
-  "garmin-body-battery-health-connect": "metrics",
+  "garmin-body-battery-health-connect": "troubleshooting",
   "polar-health-connect-sync": "sync",
   "sleep-tracker-comparison-2026": "compare",
   "garmin-samsung-health-sync-guide": "sync",
   "galaxy-ring-android-health-connect": "ring",
   "vo2-max-wearable-comparison-2026": "compare",
   "oura-ring-health-connect-android": "ring",
-  "esportare-dati-xiaomi-amazfit": "sync",
+  "esportare-dati-xiaomi-amazfit": "export",
   "sincronizzare-withings": "sync",
   "dati-pixel-watch-dashboard": "dashboard",
   "anello-smart-guida-completa": "ring",
@@ -67,23 +71,23 @@ const POST_COVER: Record<string, CoverType> = {
   "novita-anello-colmi-sonno": "sleep",
   "piu-smartwatch-insieme-dati-doppi": "multidevice",
   "novita-dashboard-multi-device": "dashboard",
-  "fitbit-data-not-syncing-android": "sync",
+  "fitbit-data-not-syncing-android": "troubleshooting",
   "best-health-data-sync-app-android": "compare",
   "smartwatch-estate-2026": "multidevice",
-  "health-connect-not-syncing": "sync",
-  "how-to-export-apple-health-data": "platform",
+  "health-connect-not-syncing": "troubleshooting",
+  "how-to-export-apple-health-data": "export",
   "smartwatch-per-anziani-guida": "compare",
-  "esportare-dati-garmin": "sync",
+  "esportare-dati-garmin": "export",
   "sync-samsung-health-google-fit": "sync",
   "best-smartwatch-for-elderly": "compare",
   "come-funziona-health-connect": "sync",
   "hrv-cose-significato-valori": "metrics",
-  "passi-non-si-sincronizzano-galaxy-watch": "sync",
+  "passi-non-si-sincronizzano-galaxy-watch": "troubleshooting",
   "guida-sync-wearable-2026": "sync",
   "scegliere-smartwatch-dati-2026": "compare",
   "health-connect-vs-samsung-health": "compare",
-  "backup-galaxy-watch-pc": "sync",
-  "esportare-dati-fitbit-google": "sync",
+  "backup-galaxy-watch-pc": "export",
+  "esportare-dati-fitbit-google": "export",
   "vedere-dati-wearable-browser-pc": "dashboard",
   "alternative-app-sync-wearable-2026": "compare",
   "gdpr-dati-fitness-smartwatch": "privacy",

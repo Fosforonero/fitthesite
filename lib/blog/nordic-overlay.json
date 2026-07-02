@@ -11779,203 +11779,345 @@
   "guida-sync-wearable-2026": {
     "hero.kicker": {
       "sv": "Stödstolpsguide",
-      "da": "Søjlevejledning"
+      "da": "Grundlæggende guide",
+      "fi": "Pilariopas",
+      "no": "Pilarguide"
     },
     "hero.title": {
       "sv": "Den fullständiga guiden till synkronisering av bärbara enheter år 2026",
-      "da": "Den komplette guide til synkronisering af bærbare enheder i 2026"
+      "da": "Den komplette guide til wearable-synkronisering i 2026",
+      "fi": "Täydellinen opas puettavien laitteiden synkronointiin vuonna 2026",
+      "no": "Den komplette guiden til synkronisering av wearables i 2026"
     },
     "hero.subtitle": {
       "sv": "Tre standarder existerar parallellt, tio varumärken marknadsför var och en sin egen molntjänst, en praktisk regel för att spara tid: välj datakanalen innan du väljer enheten.",
-      "da": "Der findes tre standarder side om side, ti mærker promoverer hver deres egen cloud, én praktisk regel for at spare tid: Vælg datakanalen før selve enheden."
+      "da": "Tre standarder eksisterer side om side, ti mærker skubber hver deres egen sky, og én praktisk regel sparer tid: vælg datakanalen før dimsen.",
+      "fi": "Kolme standardia elää rinnakkain, kymmenen merkkiä työntää kukin omaa pilveään, yksi käytännön sääntö säästää aikaa: valitse datan kulkuväylä ennen laitetta.",
+      "no": "Tre standarder eksisterer side om side, ti merker skyver hver sin egen sky, og én praktisk regel sparer deg for tid: velg datakanalen før dingsen."
     },
     "metaDescription": {
       "sv": "Allt du behöver för att synkronisera din bärbara enhet år 2026: Health Connect, Samsung Health, officiella OAuth-autentiseringar, GDPR och hur du jämför alternativen utan att bli lurad.",
-      "da": "Alt, hvad du har brug for for at synkronisere dit wearable i 2026: Health Connect, Samsung Health, officielle OAuth-metoder, GDPR, og hvordan du sammenligner mulighederne uden at blive snydt."
+      "da": "Alt hvad du skal bruge for at synkronisere din wearable i 2026: Health Connect, Samsung Health, officielle OAuth-flows, GDPR, og hvordan du sammenligner mulighederne uden at blive narret.",
+      "fi": "Kaikki mitä tarvitset puettavan laitteesi synkronointiin vuonna 2026: Health Connect, Samsung Health, viralliset OAuth-rajapinnat, GDPR ja miten vertailla vaihtoehtoja tulematta huijatuksi.",
+      "no": "Alt du trenger for å synkronisere din wearable i 2026: Health Connect, Samsung Health, offisielle OAuth-integrasjoner, GDPR, og hvordan du sammenligner alternativene uten å bli lurt."
     },
     "primaryKeyword": {
       "sv": "synkronisera smartklockans instrumentpanel",
-      "da": "synkroniseringsdashboard til smartwatch"
+      "da": "synkronisér smartwatch dashboard",
+      "fi": "älykellon synkronointi kojelaudalle",
+      "no": "synkronisere smartklokke dashbord"
     },
     "body.0.text": {
       "sv": "År 2026 är den enda praktiska regeln för att undvika att slösa tid på synkronisering av bärbara enheter enkel: välj dataförbindelsen före själva enheten. Tre standarder existerar parallellt (Health Connect, officiella OAuth-metoder, manuell export), tio varumärken marknadsför var och en sin egen molntjänst, och att förstå vilken väg man ska välja löser 90 % av problemen redan innan man ens öppnar en app.",
-      "da": "I 2026 er den eneste praktiske regel for at undgå at spilde tid på synkronisering af wearables ganske enkel: Vælg datakanalen før selve enheden. Der findes tre standarder (Health Connect, officielle OAuth-metoder, manuel eksport), ti mærker promoverer hver især deres egen cloud, og hvis man forstår, hvilken metode man skal bruge, løser det 90 % af problemerne, før man overhovedet åbner en app."
+      "da": "I 2026 er den ene praktiske regel til at undgå at spilde tid på wearable-synkronisering simpel: vælg datakanalen før dimsen. Tre standarder eksisterer side om side (Health Connect, officielle OAuth-flows, manuel eksport), ti mærker skubber hver deres egen sky, og at forstå hvilken vej du skal bruge løser 90% af problemerne, før du overhovedet åbner en app.",
+      "fi": "Vuonna 2026 se yksi käytännön sääntö, jolla vältät ajanhukan puettavien laitteiden synkronoinnissa, on yksinkertainen: valitse datan kulkuväylä ennen laitetta. Kolme standardia elää rinnakkain (Health Connect, viralliset OAuth-rajapinnat, manuaalinen vienti), kymmenen merkkiä työntää kukin omaa pilveään, ja sen ymmärtäminen, mitä reittiä käyttää, ratkaisee 90 % ongelmista jo ennen kuin avaat sovelluksen.",
+      "no": "I 2026 er den ene praktiske regelen for å slippe å kaste bort tid på synkronisering av wearables enkel: velg datakanalen før dingsen. Tre standarder eksisterer side om side (Health Connect, offisielle OAuth-integrasjoner, manuell eksport), ti merker skyver hver sin egen sky, og det å forstå hvilken vei du skal bruke løser 90 % av problemene før du i det hele tatt åpner en app."
     },
     "body.1.text": {
       "sv": "Den här guiden är en ärlig utgångspunkt: den förklarar de verkliga tekniska standarderna (Health Connect, officiella OAuth-API:er, manuell export), hur de största tillverkarna agerar idag, vad som gör skillnad för dem som faktiskt vill ha tillgång till sina egna data, och hur man jämför synkroniseringslösningar utan att låta sig luras av marknadsföringsfloskler.",
-      "da": "Denne guide er et ærligt udgangspunkt: Den forklarer de reelle tekniske standarder (Health Connect, officielle OAuth-API’er, manuelle eksportfunktioner), hvordan de største producenter fungerer i dag, hvad der gør en forskel for dem, der rent faktisk ønsker at få fat i deres egne data, og hvordan man sammenligner synkroniseringsløsninger uden at lade sig narre af markedsføringssnak."
+      "da": "Denne guide er det ærlige udgangspunkt: den forklarer de reelle tekniske standarder (Health Connect, officielle OAuth-API'er, manuelle eksporter), hvordan de vigtigste producenter opfører sig i dag, hvad der gør forskellen for folk, der faktisk vil have deres egne data, og hvordan man sammenligner synkroniseringsløsninger uden at hoppe på markedsføringssnak.",
+      "fi": "Tämä opas on rehellinen lähtökohta: se selittää todelliset tekniset standardit (Health Connect, viralliset OAuth-rajapinnat, manuaaliset viennit), miten tärkeimmät valmistajat toimivat tänään, mikä ratkaisee niille, jotka oikeasti haluavat oman datansa, ja miten vertailla synkronointiratkaisuja lankeamatta markkinointipuheisiin.",
+      "no": "Denne guiden er det ærlige utgangspunktet: den forklarer de reelle tekniske standardene (Health Connect, offisielle OAuth-API-er, manuell eksport), hvordan de viktigste produsentene oppfører seg i dag, hva som utgjør forskjellen for folk som faktisk vil eie sine egne data, og hvordan du sammenligner synkroniseringsløsninger uten å gå på limpinnen for markedsføringsprat."
     },
     "body.2.text": {
       "sv": "De tre verkliga sätten att hämta data från din bärbara enhet",
-      "da": "De tre konkrete måder at hente data ud af dit wearable på"
+      "da": "De tre reelle måder at få data ud af din wearable på",
+      "fi": "Kolme todellista tapaa saada data ulos puettavasta laitteestasi",
+      "no": "De tre reelle måtene å få data ut av din wearable"
     },
     "body.3.text": {
       "sv": "Sluta läsa recensioner och fråga dig själv: hur lämnar data den här enheten? Det finns tre tekniska svar, i fallande ordning efter tillförlitlighet.",
-      "da": "Hold op med at læse anmeldelser, og spørg dig selv: Hvordan forlader data denne enhed? Der er tre tekniske svar, opstillet i faldende rækkefølge efter pålidelighed."
+      "da": "Hold op med at læse anmeldelser og spørg dig selv: hvordan forlader data denne enhed? Der er tre tekniske svar, i faldende rækkefølge efter pålidelighed.",
+      "fi": "Lopeta arvostelujen lukeminen ja kysy itseltäsi: miten data poistuu tästä laitteesta? Teknisiä vastauksia on kolme, luotettavuuden mukaan laskevassa järjestyksessä.",
+      "no": "Slutt å lese anmeldelser og spør deg selv: hvordan forlater dataene denne enheten? Det finnes tre tekniske svar, i synkende rekkefølge etter pålitelighet."
     },
     "body.4.text": {
       "sv": "1. Health Connect (Android, sedan 2024)",
-      "da": "1. Health Connect (Android, siden 2024)"
+      "da": "1. Health Connect (Android, siden 2024)",
+      "fi": "1. Health Connect (Android, vuodesta 2024)",
+      "no": "1. Health Connect (Android, siden 2024)"
     },
     "body.5.text": {
       "sv": "Health Connect är Androids officiella utbyteslager för hälsodata. Tillverkarnas appar (Samsung Health, Fitbit, Garmin Connect, Polar Flow, Mi Fitness, Withings Health Mate, Zepp för Amazfit) skriver till Health Connect; appar från tredje part läser. Inget OAuth, inga API-nycklar, inget mellanliggande moln: data lagras på telefonen, och appen från tredje part ber operativsystemet om tillstånd för varje datatyp.",
-      "da": "Health Connect er Androids officielle lag til udveksling af sundhedsdata. Producentapps (Samsung Health, Fitbit, Garmin Connect, Polar Flow, Mi Fitness, Withings Health Mate, Zepp for Amazfit) skriver til Health Connect; tredjepartsapps læser. Ingen OAuth, ingen API-nøgler, ingen mellemliggende cloud: dataene findes på telefonen, og tredjepartsappen beder operativsystemet om tilladelse for hver datatype."
+      "da": "Health Connect er Androids officielle udvekslingslag for sundhedsdata. Producent-apps (Samsung Health, Fitbit, Garmin Connect, Polar Flow, Mi Fitness, Withings Health Mate, Zepp til Amazfit) skriver til Health Connect; tredjepartsapps læser. Ingen OAuth, ingen API-nøgler, ingen mellemliggende sky: data ligger på telefonen, og tredjepartsappen beder styresystemet om tilladelse pr. datatype.",
+      "fi": "Health Connect on Androidin virallinen terveysdatan vaihtokerros. Valmistajien sovellukset (Samsung Health, Fitbit, Garmin Connect, Polar Flow, Mi Fitness, Withings Health Mate, Zepp Amazfit-laitteille) kirjoittavat Health Connect -palveluun; kolmannen osapuolen sovellukset lukevat. Ei OAuth-todennusta, ei API-avaimia, ei välikätenä toimivaa pilveä: data sijaitsee puhelimessa, ja kolmannen osapuolen sovellus pyytää käyttöjärjestelmältä luvan datatyyppikohtaisesti.",
+      "no": "Health Connect er Androids offisielle lag for utveksling av helsedata. Produsentapper (Samsung Health, Fitbit, Garmin Connect, Polar Flow, Mi Fitness, Withings Health Mate, Zepp for Amazfit) skriver til Health Connect, og tredjepartsapper leser. Ingen OAuth, ingen API-nøkler, ingen mellomliggende sky: dataene bor på telefonen, og tredjepartsappen ber operativsystemet om tillatelse per datatype."
     },
     "body.7.text": {
       "sv": "2. Officiella OAuth-API:er",
-      "da": "2. Officielle OAuth-API’er"
+      "da": "2. Officielle OAuth-API'er",
+      "fi": "2. Viralliset OAuth-rajapinnat",
+      "no": "2. Offisielle OAuth-API-er"
     },
     "body.8.text": {
       "sv": "Om du vill ha tillgång till alla tillverkarens egna mätvärden (Fitbit REM/djup- och lätt sömnfaser, Garmin Body Battery och träningsbelastning, Polar Nightly Recharge, Oura Readiness Score, Withings EKG), behöver du tillverkarens officiella API via OAuth 2.0. Det är en moln-till-moln-integration: du godkänner en gång, och sedan hämtar tredjepartsappen data från tillverkarens moln, vanligtvis med en historik på 6–12 månader vid den första anslutningen.",
-      "da": "Hvis du ønsker adgang til alle de proprietære målinger (Fitbit REM/dyb/let søvnfaser, Garmin Body Battery og træningsbelastning, Polar Nightly Recharge, Oura Readiness Score, Withings EKG), skal du bruge producentens officielle API via OAuth 2.0. Det er en cloud-til-cloud-integration: Du giver tilladelse én gang, hvorefter tredjepartsappen henter data fra producentens cloud, normalt med en historisk dataopdatering på 6–12 måneder ved den første forbindelse."
+      "da": "Når du vil have de fulde proprietære metrikker (Fitbit REM/dyb/let søvnfaser, Garmin Body Battery og Training Load, Polar Nightly Recharge, Oura Readiness Score, Withings EKG), skal du bruge producentens officielle API via OAuth 2.0. Det er en sky-til-sky-integration: du godkender én gang, tredjepartsappen henter data fra producentens sky, som regel med 6–12 måneders historisk backfill ved første forbindelse.",
+      "fi": "Kun haluat täydet valmistajakohtaiset mittarit (Fitbit-sovelluksen REM-/syvä-/kevytunivaiheet, Garmin Body Battery ja Training Load, Polar Nightly Recharge, Oura Readiness Score, Withings ECG), tarvitset valmistajan virallista API-rajapintaa OAuth 2.0 -protokollan kautta. Kyseessä on pilvestä pilveen -integraatio: annat valtuutuksen kerran, ja kolmannen osapuolen sovellus lataa datan valmistajan pilvestä, yleensä 6–12 kuukauden historian täytöllä ensimmäisen yhdistämisen yhteydessä.",
+      "no": "Når du vil ha alle de proprietære metrikkene (Fitbit REM/dyp/lett søvnstadier, Garmin Body Battery og Training Load, Polar Nightly Recharge, Oura Readiness Score, Withings ECG), trenger du produsentens offisielle API via OAuth 2.0. Det er en sky-til-sky-integrasjon: du autoriserer én gang, og tredjepartsappen laster ned data fra produsentens sky, vanligvis med et historisk tilbakefyll på 6-12 måneder ved første tilkobling."
     },
     "body.10.text": {
       "sv": "3. Manuell export (CSV, GPX, FIT)",
-      "da": "3. Manuel eksport (CSV, GPX, FIT)"
+      "da": "3. Manuel eksport (CSV, GPX, FIT)",
+      "fi": "3. Manuaalinen vienti (CSV, GPX, FIT)",
+      "no": "3. Manuell eksport (CSV, GPX, FIT)"
     },
     "body.11.text": {
       "sv": "Den universella reservlösningen. Samsung, Garmin, Polar, Fitbit (via Google Takeout sedan 2023), Withings, Apple Health: alla möjliggör export av rådata i något format. Långsamt, manuellt, men rättsligt garanterat (GDPR artikel 20, rätten till dataportabilitet) och därför ämnat att överleva alla policyförändringar.",
-      "da": "Den universelle reserve løsning. Samsung, Garmin, Polar, Fitbit (via Google Takeout siden 2023), Withings, Apple Health: Alle muliggør eksport af rådata i et eller andet format. Det er langsomt og manuelt, men juridisk garanteret (GDPR artikel 20, retten til dataportabilitet) og vil derfor overleve enhver ændring i politikken."
+      "da": "Den universelle nødløsning. Samsung, Garmin, Polar, Fitbit (via Google Takeout siden 2023), Withings, Apple Health: alle tillader eksport af rådata i et eller andet format. Langsomt, manuelt, men juridisk garanteret (GDPR artikel 20, retten til dataportabilitet) og derfor bestemt til at overleve enhver ændring af vilkårene.",
+      "fi": "Yleiskäyttöinen varakeino. Samsung, Garmin, Polar, Fitbit (Google Takeout -palvelun kautta vuodesta 2023), Withings, Apple Health: kaikki mahdollistavat raakadatan viennin jossain muodossa. Hidas ja manuaalinen, mutta laillisesti taattu (GDPR-artikla 20, oikeus siirtää tiedot järjestelmästä toiseen) ja siksi se säilyy mistä tahansa käytäntömuutoksesta huolimatta.",
+      "no": "Den universelle reserveløsningen. Samsung, Garmin, Polar, Fitbit (via Google Takeout siden 2023), Withings, Apple Health: alle tillater eksport av rådata i et eller annet format. Tregt, manuelt, men juridisk garantert (GDPR artikkel 20, retten til dataportabilitet) og derfor bestemt til å overleve enhver policyendring."
     },
     "body.12.title": {
       "sv": "Praktisk regel",
-      "da": "Praktisk regel"
+      "da": "Praktisk regel",
+      "fi": "Käytännön sääntö",
+      "no": "Praktisk regel"
     },
     "body.12.body": {
       "sv": "Om du ska köpa en enhet år 2026, gör det här testet först: Googla ”[enhetens namn] Health Connect”. Om du hittar en officiell bruksanvisning från tillverkaren är allt som det ska. Om du bara hittar Reddit-trådar från 2023 med tillfälliga lösningar, så låser du dig fast i ett slutet ekosystem.",
-      "da": "Hvis du køber en enhed i 2026, skal du først udføre denne test: Søg på Google efter »[enhedsnavn] Health Connect«. Hvis du finder en officiel vejledning fra producenten, er alt i orden. Hvis du kun finder Reddit-tråde fra 2023 med midlertidige løsninger, binder du dig til et lukket økosystem."
+      "da": "Hvis du køber en enhed i 2026, så lav denne test først: google '[enhedsnavn] Health Connect'. Hvis du finder en officiel producentguide, er du på den sikre side. Hvis du kun finder Reddit-tråde fra 2023 med workarounds, er du ved at låse dig fast i et lukket økosystem.",
+      "fi": "Jos ostat laitetta vuonna 2026, tee ensin tämä testi: googlaa '[laitteen nimi] Health Connect'. Jos löydät valmistajan virallisen ohjeen, olet turvassa. Jos löydät vain vuoden 2023 Reddit-ketjuja kiertoteineen, olet lukittautumassa suljettuun ekosysteemiin.",
+      "no": "Hvis du kjøper en enhet i 2026, kjør denne testen først: Google '[enhetsnavn] Health Connect'. Finner du en offisiell produsentguide, er du på trygg grunn. Finner du bare Reddit-tråder fra 2023 med omveisløsninger, låser du deg inn i et lukket økosystem."
     },
     "body.13.text": {
       "sv": "Health Connect är inte Google Fit (och varför det spelar roll)",
-      "da": "Health Connect er ikke Google Fit (og hvorfor det er vigtigt)"
+      "da": "Health Connect er ikke Google Fit (og hvorfor det betyder noget)",
+      "fi": "Health Connect ei ole Google Fit (ja miksi sillä on väliä)",
+      "no": "Health Connect er ikke Google Fit (og hvorfor det er viktig)"
     },
     "body.14.text": {
       "sv": "Google Fit har, både som fristående app och som plattform, fasats ut. Från och med den 30 juni 2025 slutade appen Google Fit att fungera; Google Fit Web-API:er stängdes av i juli 2024 och togs bort helt i juni 2025. Allt har migrerats till Health Connect. Om du läser gamla guider som handlar om ”Google Fit API” är de föråldrade och ingen kommer att uppdatera dem.",
-      "da": "Google Fit er, både som selvstændig app og som platform, udfaset. Fra den 30. juni 2025 fungerede Google Fit-appen ikke længere; Google Fit Web-API'erne blev deaktiveret i juli 2024 og fuldstændigt fjernet i juni 2025. Alt er migreret til Health Connect. Hvis du læser gamle vejledninger, der omtaler 'Google Fit API', er de forældede, og ingen vil opdatere dem."
+      "da": "Google Fit er som selvstændig app og som platform blevet udfaset. Fra den 30. juni 2025 holdt Google Fit-appen op med at virke; Google Fit Web-API'erne blev slukket i juli 2024 og helt fjernet inden juni 2025. Alt migrerede til Health Connect. Hvis du læser gamle guides, der taler om 'Google Fit API', er de forældede, og ingen kommer til at opdatere dem.",
+      "fi": "Google Fit on poistettu käytöstä sekä erillisenä sovelluksena että alustana. 30. kesäkuuta 2025 alkaen Google Fit -sovellus lakkasi toimimasta; Google Fit -alustan Web-rajapinnat suljettiin heinäkuussa 2024 ja poistettiin kokonaan kesäkuuhun 2025 mennessä. Kaikki siirtyi Health Connect -palveluun. Jos luet vanhoja oppaita, jotka puhuvat 'Google Fit API' -rajapinnasta, ne ovat vanhentuneita eikä kukaan päivitä niitä.",
+      "no": "Google Fit, både som frittstående app og som plattform, er avviklet. Fra 30. juni 2025 sluttet Google Fit-appen å fungere; Google Fit Web-API-ene ble slått av i juli 2024 og fullstendig fjernet innen juni 2025. Alt ble flyttet over til Health Connect. Hvis du leser gamle guider som snakker om 'Google Fit API', er de utdaterte, og ingen kommer til å oppdatere dem."
     },
     "body.15.text": {
       "sv": "Health Connect har tre egenskaper som gör att det strukturellt skiljer sig från Google Fit:",
-      "da": "Health Connect har tre egenskaber, der gør, at den strukturelt adskiller sig fra Google Fit:"
+      "da": "Health Connect har tre egenskaber, der gør den strukturelt forskellig fra Google Fit:",
+      "fi": "Health Connect -palvelussa on kolme ominaisuutta, jotka tekevät siitä rakenteellisesti erilaisen kuin Google Fit:",
+      "no": "Health Connect har tre egenskaper som gjør den strukturelt forskjellig fra Google Fit:"
     },
     "body.17.text": {
       "sv": "Läget för de största varumärkena i maj 2026",
-      "da": "Oversigt over de største mærker pr. maj 2026"
+      "da": "Status for de vigtigste mærker pr. maj 2026",
+      "fi": "Tärkeimpien merkkien tilanne toukokuussa 2026",
+      "no": "Tilstanden til de viktigste merkene per mai 2026"
     },
     "body.18.text": {
       "sv": "Nedan redovisas den verifierade statusen för de offentliga datapipelinerna hos de största tillverkarna. Förhållandena förändras över tid: använd denna tabell som utgångspunkt och kontrollera sedan uppgifterna vid köptillfället.",
-      "da": "Nedenfor vises den verificerede status for de offentlige datapipelines hos de største producenter. Forholdene ændrer sig med tiden: Brug denne tabel som udgangspunkt, og tjek oplysningerne igen, når du skal købe."
+      "da": "Det følgende er den verificerede status for de offentlige datakanaler hos de store producenter. Tingene ændrer sig over tid: brug denne tabel som udgangspunkt, og verificér så på købstidspunktet.",
+      "fi": "Seuraavaksi esitetään suurten valmistajien julkisten dataputkien varmennettu tilanne. Asiat muuttuvat ajan myötä: käytä tätä taulukkoa lähtökohtana ja varmista tilanne ostohetkellä.",
+      "no": "Det følgende er den verifiserte tilstanden til de offentlige datakanalene for de store produsentene. Ting endrer seg over tid: bruk denne tabellen som en referanse, og verifiser deretter ved kjøpstidspunktet."
     },
     "body.19.caption": {
       "sv": "Officiella dataströmmar för de största bärbara enheterna, maj 2026.",
-      "da": "Officielle datastrømme for de største wearables, maj 2026."
+      "da": "Officielle datakanaler for de store wearables, maj 2026.",
+      "fi": "Suurten puettavien laitteiden viralliset dataputket, toukokuu 2026.",
+      "no": "Offisielle datakanaler for de store wearablene, mai 2026."
     },
     "body.20.title": {
       "sv": "Apple Watch är en helt egen värld",
-      "da": "Apple Watch er en verden for sig"
+      "da": "Apple Watch er sin egen verden",
+      "fi": "Apple Watch on oma maailmansa",
+      "no": "Apple Watch er en verden for seg"
     },
     "body.20.body": {
       "sv": "Allt du läser här gäller för Android. Apple Watch fungerar endast med iPhone och dess data lagras i Apple Health (iOS). Det finns ingen motsvarighet till Health Connect på iOS: Apple har HealthKit, men den finns per definition på enheten, och ingen tredjepartstillverkare kan skriva till iCloud åt dig. Om du vill ha en plattformsoberoende översikt med utgångspunkt från Apple Watch måste du exportera manuellt eller använda särskilda iOS-appar.",
-      "da": "Alt, hvad du læser her, gælder for Android. Apple Watch fungerer kun sammen med iPhone, og dens data findes i Apple Health (iOS). Der findes ikke noget Health Connect-ækvivalent på iOS: Apple har HealthKit, men det ligger pr. definition på selve enheden, og ingen tredjepartsproducenter kan skrive til iCloud på dine vegne. Hvis du ønsker et platformsuafhængigt kontrolpanel med udgangspunkt i Apple Watch, skal du eksportere manuelt eller bruge dedikerede iOS-apps."
+      "da": "Alt hvad du læser her, gælder for Android. Apple Watch virker kun sammen med iPhone, og dens data ligger i Apple Health (iOS). Der findes ingen tilsvarende Health Connect på iOS: Apple har HealthKit, men det er per definition on-device, og ingen tredjepartsproducent kan skrive til iCloud på dine vegne. Hvis du vil have et tværplatforms-dashboard med udgangspunkt i Apple Watch, skal du eksportere manuelt eller bruge dedikerede iOS-apps.",
+      "fi": "Kaikki mitä tässä luet, koskee Androidia. Apple Watch toimii vain iPhonen kanssa, ja sen data sijaitsee Apple Health -sovelluksessa (iOS). iOS-järjestelmässä ei ole Health Connect -palvelun vastinetta: Applella on HealthKit, mutta se on määritelmällisesti laitteella, eikä mikään kolmannen osapuolen valmistaja voi kirjoittaa iCloudiin puolestasi. Jos haluat alustariippumattoman kojelaudan Apple Watchista, sinun on vietävä tiedot manuaalisesti tai käytettävä erillisiä iOS-sovelluksia.",
+      "no": "Alt du leser her gjelder Android. Apple Watch fungerer bare med iPhone, og dataene bor i Apple Health (iOS). Det finnes ingen tilsvarende Health Connect på iOS: Apple har HealthKit, men det er per definisjon på enheten, og ingen tredjepartsprodusent kan skrive til iCloud på dine vegne. Vil du ha et dashbord på tvers av plattformer med utgangspunkt i Apple Watch, må du eksportere manuelt eller bruke dedikerte iOS-apper."
     },
     "body.21.text": {
       "sv": "GDPR, hälsodata och vad din puls hamnar på",
-      "da": "GDPR, sundhedsdata og hvor din puls ender"
+      "da": "GDPR, sundhedsdata og hvor din puls ender",
+      "fi": "GDPR, terveysdata ja se, minne sykkeesi päätyy",
+      "no": "GDPR, helsedata og hvor pulsen din havner"
     },
     "body.22.text": {
       "sv": "Puls, sömn, vikt, menstruationscykel, blodsocker: i Europa räknas dessa som hälsouppgifter (GDPR artikel 9). Insamling kräver uttryckligt (inte underförstått) samtycke och behandlingen omfattas av strängare regler än för andra personuppgifter. Har tillverkaren av din bärbara enhet en juridisk enhet i Europa? Troligen inte. Polar är finskt, Withings är franskt, men Samsung, Google, Fitbit, Garmin, Xiaomi och Huawei har sina huvudkontor utanför EU.",
-      "da": "Puls, søvn, vægt, menstruationscyklus, blodsukker: I Europa betragtes disse som sundhedsdata (GDPR artikel 9). Indsamling kræver udtrykkeligt (ikke implicit) samtykke, og behandlingen er underlagt strengere regler end andre personoplysninger. Har producenten af dit wearable en juridisk enhed i Europa? Sandsynligvis ikke. Polar er finsk, Withings er fransk, men Samsung, Google, Fitbit, Garmin, Xiaomi og Huawei har hovedkvarter uden for EU."
+      "da": "Puls, søvn, vægt, menstruationscyklus, blodsukker: i Europa er dette sundhedsdata (GDPR artikel 9). Indsamling kræver et udtrykkeligt (ikke stiltiende) samtykke, og behandlingen er underlagt strengere regler end andre personoplysninger. Har producenten af din wearable en juridisk enhed i Europa? Sandsynligvis ikke. Polar er finsk, Withings er fransk, men Samsung, Google, Fitbit, Garmin, Xiaomi og Huawei har hovedsæde uden for EU.",
+      "fi": "Syke, uni, paino, kuukautiskierto, verensokeri: Euroopassa nämä ovat terveysdataa (GDPR-artikla 9). Kerääminen edellyttää nimenomaista (ei oletettua) suostumusta, ja käsittelyä koskevat tiukemmat säännöt kuin muita henkilötietoja. Onko puettavan laitteesi valmistajalla oikeushenkilöä Euroopassa? Todennäköisesti ei. Polar on suomalainen ja Withings ranskalainen, mutta Samsung, Google, Fitbit, Garmin, Xiaomi ja Huawei ovat pääkonttoriltaan EU:n ulkopuolella.",
+      "no": "Puls, søvn, vekt, menstruasjonssyklus, blodsukker: i Europa er dette helsedata (GDPR artikkel 9). Innsamling krever uttrykkelig (ikke implisitt) samtykke, og behandlingen er underlagt strengere regler enn andre personopplysninger. Har produsenten av din wearable en juridisk enhet i Europa? Sannsynligvis ikke. Polar er finsk, Withings er fransk, men Samsung, Google, Fitbit, Garmin, Xiaomi og Huawei har hovedkontor utenfor EU."
     },
     "body.23.text": {
       "sv": "Vad detta innebär i praktiken:",
-      "da": "Hvad det betyder i praksis:"
+      "da": "Hvad det betyder i praksis:",
+      "fi": "Mitä tämä käytännössä tarkoittaa:",
+      "no": "Hva dette betyr i praksis:"
     },
     "body.25.title": {
-      "sv": "Vill du veta vart dina uppgifter tar vägen utan att behöva läsa 50 sidor med integritetspolicy?"
+      "sv": "Vill du veta vart dina uppgifter tar vägen utan att behöva läsa 50 sidor med integritetspolicy?",
+      "da": "Vil du forstå, hvor dine data ender, uden at læse 50 siders privatlivspolitik?",
+      "fi": "Haluatko ymmärtää, minne datasi menee, lukematta 50 sivua tietosuojaselostetta?",
+      "no": "Vil du forstå hvor dataene dine havner uten å lese 50 sider med personvernerklæring?"
     },
     "body.25.body": {
-      "sv": "Vi har skrivit en ingående artikel om träningsdata och GDPR, med praktiska exempel på hur de olika stora varumärkena hanterar din puls."
+      "sv": "Vi har skrivit en ingående artikel om träningsdata och GDPR, med praktiska exempel på hur de olika stora varumärkena hanterar din puls.",
+      "da": "Vi har skrevet en dedikeret dybdegående artikel om fitnessdata og GDPR med praktiske eksempler på, hvordan hvert af de store mærker håndterer din puls.",
+      "fi": "Kirjoitimme oman syväluotaavan artikkelin fitnessdatasta ja GDPR-sääntelystä, käytännön esimerkkeineen siitä, miten kukin suuri merkki käsittelee sykettäsi.",
+      "no": "Vi har skrevet en egen fordypning om treningsdata og GDPR, med praktiske eksempler på hvordan hvert av de store merkene håndterer pulsen din."
     },
     "body.25.ctaLabel": {
-      "sv": "Läs den GDPR djupgående analysen →"
+      "sv": "Läs den GDPR djupgående analysen →",
+      "da": "Læs den dybdegående GDPR-artikel →",
+      "fi": "Lue GDPR-syväsukellus →",
+      "no": "Les GDPR-fordypningen →"
     },
     "body.26.text": {
-      "sv": "Jämförelseramverk: hur man väljer en synkroniseringslösning"
+      "sv": "Jämförelseramverk: hur man väljer en synkroniseringslösning",
+      "da": "Sammenligningsramme: sådan vælger du en synkroniseringsløsning",
+      "fi": "Vertailukehys: miten valita synkronointiratkaisu",
+      "no": "Sammenligningsrammeverk: hvordan velge en synkroniseringsløsning"
     },
     "body.27.text": {
-      "sv": "När du utvärderar en app eller tjänst för att samla dina data från dina bärbara enheter bör du ställa dig dessa fem frågor. Det är samma frågor som vi ställer oss internt inför varje integration vi lägger till i FitMesh Sync."
+      "sv": "När du utvärderar en app eller tjänst för att samla dina data från dina bärbara enheter bör du ställa dig dessa fem frågor. Det är samma frågor som vi ställer oss internt inför varje integration vi lägger till i FitMesh Sync.",
+      "da": "Når du vurderer en app eller tjeneste til at samle dine wearable-data, så stil disse fem spørgsmål. Det er de samme, vi stiller os selv internt for hver integration, vi tilføjer til FitMesh Sync.",
+      "fi": "Kun arvioit sovellusta tai palvelua puettavien laitteidesi datan keskittämiseen, kysy nämä viisi kysymystä. Ne ovat samat, jotka kysymme itseltämme sisäisesti jokaisesta integraatiosta, jonka lisäämme FitMesh Sync -palveluun.",
+      "no": "Når du vurderer en app eller tjeneste for å samle wearable-dataene dine på ett sted, still disse fem spørsmålene. Det er de samme vi stiller oss selv internt for hver integrasjon vi legger til i FitMesh Sync."
     },
     "body.29.text": {
-      "sv": "Djupgående analyser av specifika varumärken"
+      "sv": "Djupgående analyser av specifika varumärken",
+      "da": "Mærkespecifikke dybdegående artikler",
+      "fi": "Merkkikohtaiset syväsukellukset",
+      "no": "Merkespesifikke fordypninger"
     },
     "body.30.text": {
-      "sv": "Varje ekosystem har sina egenheter. Nedan följer detaljerade genomgångar av de vanligaste fallen: läs dem om de är relevanta för din miljö, annars kan du hoppa över dem."
+      "sv": "Varje ekosystem har sina egenheter. Nedan följer detaljerade genomgångar av de vanligaste fallen: läs dem om de är relevanta för din miljö, annars kan du hoppa över dem.",
+      "da": "Hvert økosystem har sine særheder. Nedenfor finder du dedikerede dybdegående artikler til de hyppigste tilfælde: læs dem, hvis de er relevante for din opsætning, og spring dem over ellers.",
+      "fi": "Jokaisella ekosysteemillä on omat erikoisuutensa. Alla on omat syväsukelluksensa yleisimpiin tapauksiin: lue ne, jos ne koskevat kokoonpanoasi, muuten ohita.",
+      "no": "Hvert økosystem har sine særegenheter. Nedenfor finner du dedikerte fordypninger for de vanligste tilfellene: les dem hvis de er relevante for oppsettet ditt, ellers hopp over."
     },
     "body.32.text": {
-      "sv": "Leverantörer som stöds idag på FitMesh Sync"
+      "sv": "Leverantörer som stöds idag på FitMesh Sync",
+      "da": "Udbydere, der understøttes i dag på FitMesh Sync",
+      "fi": "FitMesh Sync -palvelussa tänään tuetut palveluntarjoajat",
+      "no": "Leverandører som støttes i dag i FitMesh Sync"
     },
     "body.33.text": {
-      "sv": "För tydlighetens skull: FitMesh Sync är den produkt vi utvecklar och anledningen till att den här guiden finns. Den fungerar redan idag direkt med alla Android-bärbara enheter som skriver till Health Connect, och vi har planerat OAuth-integrationer för avancerade data. Inga vaga löften: här är den tydliga statusen för varje integration."
+      "sv": "För tydlighetens skull: FitMesh Sync är den produkt vi utvecklar och anledningen till att den här guiden finns. Den fungerar redan idag direkt med alla Android-bärbara enheter som skriver till Health Connect, och vi har planerat OAuth-integrationer för avancerade data. Inga vaga löften: här är den tydliga statusen för varje integration.",
+      "da": "For gennemsigtighedens skyld: FitMesh Sync er det produkt, vi bygger, og grunden til, at denne guide findes. Den virker i dag indbygget med alle Android-wearables, der skriver til Health Connect, og vi har planlagt OAuth-integrationer til avancerede data. Ingen vage løfter: her er den eksplicitte status for hver integration.",
+      "fi": "Läpinäkyvyyden vuoksi: FitMesh Sync on tuote, jota rakennamme, ja syy tämän oppaan olemassaoloon. Se toimii tänään natiivisti jokaisen Android-puettavan laitteen kanssa, joka kirjoittaa Health Connect -palveluun, ja meillä on suunnitteilla OAuth-integraatioita edistyneelle datalle. Ei epämääräisiä lupauksia: tässä on jokaisen integraation selkeä tila.",
+      "no": "For åpenhetens skyld: FitMesh Sync er produktet vi bygger, og grunnen til at denne guiden finnes. Det fungerer i dag naturlig med enhver Android-wearable som skriver til Health Connect, og vi har planlagt OAuth-integrasjoner for avanserte data. Ingen vage løfter: her er den uttrykkelige statusen for hver integrasjon."
     },
     "body.35.title": {
-      "sv": "Är du redo att samla dina data från dina bärbara enheter på ett ställe?"
+      "sv": "Är du redo att samla dina data från dina bärbara enheter på ett ställe?",
+      "da": "Klar til at samle dine wearable-data?",
+      "fi": "Valmis keskittämään puettavan laitteesi datan?",
+      "no": "Klar til å samle wearable-dataene dine på ett sted?"
     },
     "body.35.body": {
-      "sv": "FitMesh Sync är gratis för de första 1 000 grundarna: Pro-abonnemang för hela livet. Android-app på Google Play, inklusive webbpanel."
+      "sv": "FitMesh Sync är gratis för de första 1 000 grundarna: Pro-abonnemang för hela livet. Android-app på Google Play, inklusive webbpanel.",
+      "da": "FitMesh Sync er gratis for de første 1.000 founders: Pro på livstid. Android-app på Google Play, web-dashboard inkluderet.",
+      "fi": "FitMesh Sync on ilmainen ensimmäiselle 1 000 perustajajäsenelle: elinikäinen Pro. Android-sovellus Google Play -kaupassa, web-kojelauta mukana.",
+      "no": "FitMesh Sync er gratis for de første 1 000 grunnleggerne: livstids Pro. Android-app på Google Play, web-dashbord inkludert."
     },
     "body.35.ctaLabel": {
-      "sv": "Delta i betatestningen"
+      "sv": "Delta i betatestningen",
+      "da": "Deltag i betaen",
+      "fi": "Liity betaan",
+      "no": "Bli med i betaen"
     },
     "body.36.text": {
-      "sv": "Vad kommer att förändras under de kommande 18 månaderna"
+      "sv": "Vad kommer att förändras under de kommande 18 månaderna",
+      "da": "Hvad der ændrer sig i de næste 18 måneder",
+      "fi": "Mikä muuttuu seuraavan 18 kuukauden aikana",
+      "no": "Hva som kommer til å endre seg de neste 18 månedene"
     },
     "body.37.text": {
-      "sv": "Health Connect kommer att utvidgas: Google samarbetar med tillverkare för att lägga till egna datatyper (intradag HRV, sömncoaching, träningsberedskap) som valfria tillämpningsområden. Europeiska kommissionen utvärderar möjligheten att inkludera personliga hälsodata som genereras av bärbara enheter i omfattningen av det europeiska hälsodatautrymmet (EHDS), vilket skulle kunna tvinga mer slutna ekosystem (med Apple i spetsen) att öppna upp för en minimigrad av interoperabilitet senast 2027–2028."
+      "sv": "Health Connect kommer att utvidgas: Google samarbetar med tillverkare för att lägga till egna datatyper (intradag HRV, sömncoaching, träningsberedskap) som valfria tillämpningsområden. Europeiska kommissionen utvärderar möjligheten att inkludera personliga hälsodata som genereras av bärbara enheter i omfattningen av det europeiska hälsodatautrymmet (EHDS), vilket skulle kunna tvinga mer slutna ekosystem (med Apple i spetsen) att öppna upp för en minimigrad av interoperabilitet senast 2027–2028.",
+      "da": "Health Connect står til at udvide sig: Google samarbejder med producenter om at tilføje proprietære datatyper (løbende HRV, søvncoaching, training readiness) som valgfrie scopes. Europa-Kommissionen overvejer at inkludere personlige sundhedsdata genereret af wearables i anvendelsesområdet for European Health Data Space (EHDS), hvilket kan tvinge flere lukkede økosystemer (Apple først) til at åbne for en minimumsinteroperabilitet inden 2027–2028.",
+      "fi": "Health Connect on laajenemassa: Google työskentelee valmistajien kanssa lisätäkseen valmistajakohtaisia datatyyppejä (päivänsisäinen HRV, univalmennus, harjoitusvalmius) valinnaisina scopeina. Euroopan komissio arvioi puettavien laitteiden tuottaman henkilökohtaisen terveysdatan sisällyttämistä eurooppalaisen terveysdata-avaruuden (EHDS) piiriin, mikä voisi pakottaa useammat suljetut ekosysteemit (Apple ensimmäisenä) avaamaan vähimmäisyhteentoimivuuden vuoteen 2027–2028 mennessä.",
+      "no": "Health Connect skal utvides: Google jobber med produsenter for å legge til proprietære datatyper (intradag-HRV, søvnveiledning, treningsberedskap) som valgfrie tilganger. Europakommisjonen vurderer å inkludere wearable-genererte personlige helsedata i omfanget av European Health Data Space (EHDS), noe som kan tvinge flere lukkede økosystemer (Apple først) til å åpne for et minimum av samhandlingsevne innen 2027-2028."
     },
     "body.38.text": {
-      "sv": "På affärssidan: vi förväntar oss att åtminstone ett av Garmin eller Polar kommer att lansera ett helt öppet självbetjänings-API (idag kräver båda godkännande från utvecklare); Huawei kommer att satsa mer på Health Kit utanför Kina; Oura kommer att lansera ett företagsabonnemang med gratis API-åtkomst i utbyte mot volym. Allt detta är välgrundade spekulationer. Ta det med en nypa salt."
+      "sv": "På affärssidan: vi förväntar oss att åtminstone ett av Garmin eller Polar kommer att lansera ett helt öppet självbetjänings-API (idag kräver båda godkännande från utvecklare); Huawei kommer att satsa mer på Health Kit utanför Kina; Oura kommer att lansera ett företagsabonnemang med gratis API-åtkomst i utbyte mot volym. Allt detta är välgrundade spekulationer. Ta det med en nypa salt.",
+      "da": "På den kommercielle front: vi forventer, at mindst én af Garmin eller Polar lancerer et fuldt offentligt selvbetjenings-API (i dag kræver begge udviklergodkendelse); at Huawei skubber Health Kit mere uden for Kina; at Oura introducerer en enterprise-plan med gratis API-adgang til gengæld for volumen. Alt dette er kvalificerede gæt. Tag det med et gran salt.",
+      "fi": "Kaupallisella rintamalla: odotamme, että ainakin Garmin tai Polar julkaisee täysin julkisen itsepalvelu-API-rajapinnan (tänään molemmat vaativat kehittäjän hyväksynnän); Huawei edistää Health Kit -rajapintaa enemmän Kiinan ulkopuolella; Oura tuo yritystason tilauksen, jossa on ilmainen API-käyttö volyymia vastaan. Kaikki tämä on valistunutta spekulaatiota. Suhtaudu siihen varauksella.",
+      "no": "På det kommersielle planet: vi forventer at minst ett av Garmin eller Polar lanserer et fullt offentlig selvbetjenings-API (i dag krever begge utviklergodkjenning); at Huawei skyver Health Kit mer utenfor Kina; at Oura introduserer en bedriftsplan med gratis API-tilgang i bytte mot volum. Alt dette er kvalifisert spekulasjon. Ta det med en klype salt."
     },
     "body.39.text": {
-      "sv": "En praktisk utgångspunkt"
+      "sv": "En praktisk utgångspunkt",
+      "da": "Praktisk udgangspunkt",
+      "fi": "Käytännön lähtökohta",
+      "no": "Praktisk utgangspunkt"
     },
     "body.40.text": {
-      "sv": "Om du har läst så här långt och vill vidta konkreta åtgärder: öppna din Android-telefon, installera Health Connect (om den inte redan finns där), öppna tillverkarens huvudapp, gå till inställningarna och aktivera Health Connect-synkronisering. Från och med då är dina data tillgängliga för alla appar som begär rätt behörighet. Det är bokstavligen grunden."
+      "sv": "Om du har läst så här långt och vill vidta konkreta åtgärder: öppna din Android-telefon, installera Health Connect (om den inte redan finns där), öppna tillverkarens huvudapp, gå till inställningarna och aktivera Health Connect-synkronisering. Från och med då är dina data tillgängliga för alla appar som begär rätt behörighet. Det är bokstavligen grunden.",
+      "da": "Hvis du har læst så langt og vil have en konkret handling: åbn din Android-telefon, installer Health Connect (hvis den ikke allerede er der), åbn appen fra din primære producent, gå til indstillinger og aktivér Health Connect-synkronisering. Fra det øjeblik er dine data tilgængelige for enhver app, der beder om den rette tilladelse. Det er bogstaveligt talt fundamentet.",
+      "fi": "Jos luit tänne asti ja haluat konkreettisen toimen: avaa Android-puhelimesi, asenna Health Connect (jos sitä ei jo ole), avaa päävalmistajasi sovellus, mene asetuksiin ja ota Health Connect -synkronointi käyttöön. Siitä hetkestä lähtien datasi on minkä tahansa oikean käyttöoikeuden pyytävän sovelluksen saatavilla. Se on kirjaimellisesti perusta.",
+      "no": "Hvis du har lest så langt og vil ha konkret handling: åpne Android-telefonen, installer Health Connect (hvis den ikke allerede er der), åpne appen til hovedprodusenten din, gå til innstillinger og aktiver Health Connect-synkronisering. Fra det punktet er dataene dine tilgjengelige for enhver app som ber om riktig tillatelse. Det er bokstavelig talt fundamentet."
     },
     "body.41.text": {
-      "sv": "Om du sedan vill se dem i en överskådlig översikt istället för utspridda över fem appar, kan du prova FitMesh Sync. Om du hellre vill fortsätta använda tillverkarens appar har du nu verktygen du behöver för att förstå deras begränsningar och veta när det är dags att byta till något annat."
+      "sv": "Om du sedan vill se dem i en överskådlig översikt istället för utspridda över fem appar, kan du prova FitMesh Sync. Om du hellre vill fortsätta använda tillverkarens appar har du nu verktygen du behöver för att förstå deras begränsningar och veta när det är dags att byta till något annat.",
+      "da": "Hvis du derefter vil se dem i et rent dashboard i stedet for spredt ud over fem apps, så prøv FitMesh Sync. Hvis du foretrækker at blive ved producent-apps, har du nu værktøjerne til at forstå deres begrænsninger, og hvornår du skal springe over til noget andet.",
+      "fi": "Jos sitten haluat nähdä ne selkeällä kojelaudalla sen sijaan, että ne ovat hajallaan viidessä sovelluksessa, kokeile FitMesh Sync -palvelua. Jos haluat pysyä valmistajan sovelluksissa, sinulla on nyt työkalut ymmärtää niiden rajat ja se, milloin kannattaa siirtyä johonkin muuhun.",
+      "no": "Deretter, hvis du vil se dem i et ryddig dashbord i stedet for fragmentert på tvers av fem apper, prøv FitMesh Sync. Foretrekker du å holde deg til produsentappene, har du nå verktøyene til å forstå begrensningene deres og når du bør hoppe over til noe annet."
     },
     "body.42.text": {
       "sv": "Sammanfattningsvis",
-      "da": "Sammenfattende"
+      "da": "Kort fortalt",
+      "fi": "Yhteenvetona",
+      "no": "Kort oppsummert"
     },
     "faq.0.q": {
-      "sv": "Måste jag använda Health Connect?"
+      "sv": "Måste jag använda Health Connect?",
+      "da": "Skal jeg bruge Health Connect?",
+      "fi": "Onko minun pakko käyttää Health Connect -palvelua?",
+      "no": "Må jeg bruke Health Connect?"
     },
     "faq.0.a": {
-      "sv": "På moderna Android-telefoner är detta i praktiken standarden för all synkronisering med bärbara enheter från tredjepartsleverantörer. Det finns fortfarande appar som läser data direkt från tillverkarens molntjänst via OAuth (Strava, Oura, Garmin Connect IQ), men för de flesta ”grundläggande” data är Health Connect det snabbaste och mest integritetsvänliga alternativet. På iOS finns Health Connect inte: där är referensen HealthKit."
+      "sv": "På moderna Android-telefoner är detta i praktiken standarden för all synkronisering med bärbara enheter från tredjepartsleverantörer. Det finns fortfarande appar som läser data direkt från tillverkarens molntjänst via OAuth (Strava, Oura, Garmin Connect IQ), men för de flesta ”grundläggande” data är Health Connect det snabbaste och mest integritetsvänliga alternativet. På iOS finns Health Connect inte: där är referensen HealthKit.",
+      "da": "På moderne Android-telefoner er den reelt standarden for al wearable-synkronisering fra tredjepart. Der findes stadig apps, der læser direkte fra producentens sky via OAuth (Strava, Oura, Garmin Connect IQ), men for de fleste 'basale' data er Health Connect den hurtigste og mest privatlivsvenlige vej. På iOS findes Health Connect ikke: der er referencen HealthKit.",
+      "fi": "Nykyaikaisissa Android-puhelimissa se on käytännössä standardi kaikelle kolmannen osapuolen puettavien laitteiden synkronoinnille. On yhä sovelluksia, jotka lukevat suoraan valmistajan pilvestä OAuth-yhteyden kautta (Strava, Oura, Garmin Connect IQ), mutta useimmalle 'perusdatalle' Health Connect on nopein ja yksityisyyden kannalta ystävällisin reitti. iOS-järjestelmässä Health Connect -palvelua ei ole: siellä viitepiste on HealthKit.",
+      "no": "På moderne Android-telefoner er det i praksis standarden for all synkronisering av tredjeparts-wearables. Det finnes fortsatt apper som leser direkte fra produsentens sky via OAuth (Strava, Oura, Garmin Connect IQ), men for de fleste 'grunnleggende' data er Health Connect den raskeste og mest personvernvennlige veien. På iOS finnes ikke Health Connect: der er HealthKit referansen."
     },
     "faq.1.q": {
-      "sv": "Spionerar Health Connect på mig? Ser Google mina uppgifter?"
+      "sv": "Spionerar Health Connect på mig? Ser Google mina uppgifter?",
+      "da": "Spionerer Health Connect på mig? Ser Google mine data?",
+      "fi": "Vakoileeko Health Connect minua? Näkeekö Google datani?",
+      "no": "Spionerer Health Connect på meg? Ser Google dataene mine?"
     },
     "faq.1.a": {
-      "sv": "Nej, Health Connect fungerar uteslutande på enheten. Google tillhandahåller programvaran och API:et, men data lämnar inte telefonen förrän du uttryckligen ger tillstånd till en tredjepartsapp. Det är annorlunda när du installerar appen Fitbit (Googles) som synkroniseras med molnet Fitbit: där är den registeransvarige Fitbit/Google, inte Health Connect."
+      "sv": "Nej, Health Connect fungerar uteslutande på enheten. Google tillhandahåller programvaran och API:et, men data lämnar inte telefonen förrän du uttryckligen ger tillstånd till en tredjepartsapp. Det är annorlunda när du installerar appen Fitbit (Googles) som synkroniseras med molnet Fitbit: där är den registeransvarige Fitbit/Google, inte Health Connect.",
+      "da": "Nej, Health Connect er udelukkende on-device. Google leverer softwaren og API'et, men dine data forlader ikke telefonen, før du udtrykkeligt giver en tredjepartsapp tilladelse. Det er anderledes, når du installerer Fitbit-appen (Googles), som synkroniserer med Fitbit-skyen: der er den dataansvarlige Fitbit/Google, ikke Health Connect.",
+      "fi": "Ei, Health Connect toimii tiukasti laitteella. Google tarjoaa ohjelmiston ja API-rajapinnan, mutta data ei poistu puhelimesta ennen kuin nimenomaisesti myönnät luvan kolmannen osapuolen sovellukselle. Tilanne on toinen, kun asennat Fitbit-sovelluksen (Googlen), joka synkronoituu Fitbit-pilven kanssa: siellä rekisterinpitäjä on Fitbit/Google, ei Health Connect.",
+      "no": "Nei, Health Connect er utelukkende på enheten. Google leverer programvaren og API-et, men dataene forlater ikke telefonen før du uttrykkelig gir en tredjepartsapp tillatelse. Det er annerledes når du installerer Fitbit-appen (Googles) som synkroniserer med Fitbit-skyen: der er den behandlingsansvarlige Fitbit/Google, ikke Health Connect."
     },
     "faq.2.q": {
-      "sv": "Kan jag se Garmin Body Battery i en app från en tredjepartsleverantör?"
+      "sv": "Kan jag se Garmin Body Battery i en app från en tredjepartsleverantör?",
+      "da": "Kan jeg se Garmin Body Battery i en tredjepartsapp?",
+      "fi": "Voinko nähdä Garmin Body Battery -arvon kolmannen osapuolen sovelluksessa?",
+      "no": "Kan jeg se Garmin Body Battery i en tredjepartsapp?"
     },
     "faq.2.a": {
-      "sv": "Inte idag via Health Connect: HC visar inte tillverkarspecifika mått som Body Battery, träningsbelastning och återhämtningstid. För att få tillgång till dessa i en tredjepartsapp krävs tillverkarens officiella API (Garmin Health API) och att tredjepartsappen är godkänd för att använda det. Garmin kräver godkännande från utvecklaren; vissa appar, som Athlytic, får det, andra inte."
+      "sv": "Inte idag via Health Connect: HC visar inte tillverkarspecifika mått som Body Battery, träningsbelastning och återhämtningstid. För att få tillgång till dessa i en tredjepartsapp krävs tillverkarens officiella API (Garmin Health API) och att tredjepartsappen är godkänd för att använda det. Garmin kräver godkännande från utvecklaren; vissa appar, som Athlytic, får det, andra inte.",
+      "da": "Ikke i dag via Health Connect: HC eksponerer ikke proprietære metrikker som Body Battery, Training Load, Recovery Time. For at få dem i en tredjepartsapp skal du bruge producentens officielle API (Garmin Health API), og tredjepartsappen skal være godkendt til at bruge det. Garmin kræver udviklergodkendelse; nogle apps som Athlytic får det, andre ikke.",
+      "fi": "Ei tänään Health Connect -palvelun kautta: HC ei tarjoa valmistajakohtaisia mittareita kuten Body Battery, Training Load tai Recovery Time. Saadaksesi ne kolmannen osapuolen sovellukseen tarvitset valmistajan virallisen API-rajapinnan (Garmin Health API) ja sen, että kolmannen osapuolen sovellus on hyväksytty käyttämään sitä. Garmin vaatii kehittäjän hyväksynnän; jotkin sovellukset kuten Athlytic saavat sen, toiset eivät.",
+      "no": "Ikke i dag via Health Connect: HC eksponerer ikke proprietære metrikker som Body Battery, Training Load eller Recovery Time. For å få dem i en tredjepartsapp trenger du produsentens offisielle API (Garmin Health API), og tredjepartsappen må være godkjent for å bruke det. Garmin krever utviklergodkjenning; noen apper som Athlytic får den, andre ikke."
     },
     "faq.3.q": {
-      "sv": "Vad händer om jag byter smartklocka mitt under året?"
+      "sv": "Vad händer om jag byter smartklocka mitt under året?",
+      "da": "Hvad hvis jeg skifter smartwatch midt på året?",
+      "fi": "Entä jos vaihdan älykelloa kesken vuoden?",
+      "no": "Hva om jeg bytter smartklokke midt i året?"
     },
     "faq.3.a": {
-      "sv": "Om båda (det gamla och det nya) skriver till Health Connect, visas historiken för steg/hjärtfrekvens/sömn sida vid sida utan luckor: HC är oberoende av källa. Om du byter mellan slutna ekosystem (t.ex. Apple Watch → Galaxy Watch) måste du exportera Apple Health-data manuellt och importera dem på nytt (det finns ingen automatisering). En bra rutin är att exportera dina data var sjätte månad för säkerhets skull."
+      "sv": "Om båda (det gamla och det nya) skriver till Health Connect, visas historiken för steg/hjärtfrekvens/sömn sida vid sida utan luckor: HC är oberoende av källa. Om du byter mellan slutna ekosystem (t.ex. Apple Watch → Galaxy Watch) måste du exportera Apple Health-data manuellt och importera dem på nytt (det finns ingen automatisering). En bra rutin är att exportera dina data var sjätte månad för säkerhets skull.",
+      "da": "Hvis begge (gammelt og nyt) skriver til Health Connect, ligger historikken for skridt/puls/søvn side om side uden huller: HC er kildeagnostisk. Hvis du skifter mellem lukkede økosystemer (f.eks. Apple Watch → Galaxy Watch), skal du eksportere Apple Health-data manuelt og importere dem igen (der er ingen automatisering). En god praksis er at eksportere dine data hver 6. måned for en sikkerheds skyld.",
+      "fi": "Jos molemmat (vanha ja uusi) kirjoittavat Health Connect -palveluun, askel-/syke-/unihistoria on rinnakkain ilman aukkoja: HC on lähteestä riippumaton. Jos vaihdat suljettujen ekosysteemien välillä (esim. Apple Watch → Galaxy Watch), sinun on vietävä Apple Health -data manuaalisesti ja tuotava se uudelleen (automaatiota ei ole). Hyvä käytäntö on viedä datasi turvallisuuden vuoksi 6 kuukauden välein.",
+      "no": "Hvis begge (gammel og ny) skriver til Health Connect, ligger historikken for skritt/puls/søvn side om side uten hull: HC er kildeagnostisk. Hvis du bytter mellom lukkede økosystemer (f.eks. Apple Watch → Galaxy Watch), må du eksportere Apple Health-dataene manuelt og importere dem på nytt (det finnes ingen automatikk). En god vane er å eksportere dataene dine hver 6. måned for sikkerhets skyld."
     },
     "faq.4.q": {
-      "sv": "Finns det några gratisappar som gör samma sak?"
+      "sv": "Finns det några gratisappar som gör samma sak?",
+      "da": "Findes der gratis apps, der gør det samme?",
+      "fi": "Onko olemassa ilmaisia sovelluksia, jotka tekevät saman?",
+      "no": "Finnes det gratisapper som gjør det samme?"
     },
     "faq.4.a": {
-      "sv": "Ja, men med vissa förbehåll. Gratisappar genererar vanligtvis intäkter på tre sätt: annonser (datainsamling för annonsteknik), uppsäljning av premiumtjänster (gratis för grundfunktioner, betalt för de funktioner man faktiskt vill ha) eller försäljning av aggregerade data (hälsodata är mycket värdefullt). När det gäller hälsodata är ”betalt, inga annonser, inga spårare” den enda prismodellen med tydlig anpassning av incitamenten. Ärligt talat: välj det som passar din nivå av misstro, men var medveten om vad du väljer."
+      "sv": "Ja, men med vissa förbehåll. Gratisappar genererar vanligtvis intäkter på tre sätt: annonser (datainsamling för annonsteknik), uppsäljning av premiumtjänster (gratis för grundfunktioner, betalt för de funktioner man faktiskt vill ha) eller försäljning av aggregerade data (hälsodata är mycket värdefullt). När det gäller hälsodata är ”betalt, inga annonser, inga spårare” den enda prismodellen med tydlig anpassning av incitamenten. Ärligt talat: välj det som passar din nivå av misstro, men var medveten om vad du väljer.",
+      "da": "Ja, nogle med forbehold. Gratis apps tjener typisk penge på tre måder: reklamer (dataindsamling til ad-tech), premium-opsalg (gratis for basale funktioner, betalt for dem, du faktisk vil have), eller salg af aggregerede data (sundhedsdata er meget værdifulde). For sundhedsdata er 'betalt, ingen reklamer, ingen trackere' den eneste prismodel med rene incitamenter. Helt ærligt: vælg det, der passer til dit paranoia-niveau, men vær opmærksom.",
+      "fi": "Kyllä, joitakin varauksin. Ilmaiset sovellukset ansaitsevat tyypillisesti kolmella tavalla: mainoksilla (datan keruu mainosteknologialle), premium-lisämyynnillä (ilmainen perusominaisuuksille, maksullinen niille, joita todella haluat) tai koostetun datan myynnillä (terveysdata on erittäin arvostettua). Terveysdatalle 'maksullinen, ei mainoksia, ei seurantaa' on ainoa hinnoittelumalli, jonka kannustimet ovat aidosti linjassa. Rehellisesti: valitse se, joka vastaa paranoiatasoasi, mutta ole tietoinen asiasta.",
+      "no": "Ja, noen med forbehold. Gratisapper tjener vanligvis penger på tre måter: reklame (datainnsamling for annonseteknologi), premium-oppsalg (gratis for grunnleggende funksjoner, betalt for dem du faktisk vil ha), eller salg av aggregerte data (helsedata er høyt verdsatt). For helsedata er 'betalt, ingen reklame, ingen sporere' den eneste prismodellen med rene, sammenfallende insentiver. Ærlig talt: velg det som passer ditt paranoianivå, men vær klar over det."
     },
     "secondaryKeywords": {
       "sv": [
@@ -11986,11 +12128,25 @@
         "personlig hälsoöversikt"
       ],
       "da": [
+        "health connect 2026",
+        "samsung health eksport",
+        "wearable oauth",
+        "gdpr fitnessdata",
+        "personligt sundhedsdashboard"
+      ],
+      "fi": [
         "Health Connect 2026",
-        "eksport fra Samsung Health",
-        "bærbar OAuth",
-        "GDPR-fitnessdata",
-        "personligt sundhedsoversigtspanel"
+        "Samsung Health vienti",
+        "puettavan laitteen OAuth",
+        "GDPR fitnessdata",
+        "henkilökohtainen terveyskojelauta"
+      ],
+      "no": [
+        "health connect 2026",
+        "samsung health eksport",
+        "wearable oauth",
+        "gdpr treningsdata",
+        "personlig helsedashbord"
       ]
     },
     "tldr": {
@@ -12002,11 +12158,25 @@
         "När det gäller hälsodata är den enda affärsmodellen med samstämmiga incitament ”betalmodell, inga annonser, inga spårare”: gratisappar finansieras ofta genom att sälja aggregerade data."
       ],
       "da": [
-        "Den praktiske regel for 2026: Vælg datakilden før enheden. Det løser 90 % af problemerne, før du åbner en app.",
-        "Tre konkrete måder at hente data ud på: Health Connect (på selve enheden, Android), officielle OAuth-API’er (fuldstændige proprietære data, kræver godkendelse), manuel eksport (langsom, men garanteret i henhold til GDPR, artikel 20).",
-        "Health Connect er ikke Google Fit: Google Fit blev udfaset i juni 2025, Health Connect er den fælles Android-standard og fungerer udelukkende på selve enheden.",
+        "Den praktiske regel for 2026: vælg datakanalen før dimsen. Den løser 90% af problemerne, før du åbner en app.",
+        "Tre reelle måder at få data ud på: Health Connect (on-device, Android), officielle OAuth-API'er (fulde proprietære data, kræver godkendelse), manuel eksport (langsom, men garanteret af GDPR art. 20).",
+        "Health Connect er ikke Google Fit: Google Fit blev udfaset i juni 2025, Health Connect er den samlede Android-standard og udelukkende on-device.",
         "Samsung, Fitbit, Garmin, Polar og Withings skriver til Health Connect; Oura og Huawei kræver OAuth eller er lukkede økosystemer.",
-        "Når det gælder sundhedsdata, er den eneste forretningsmodel med sammenfaldende incitamenter »betalingsmodel, ingen reklamer, ingen sporingsværktøjer«: Gratis apps tjener ofte penge ved at sælge aggregerede data."
+        "For sundhedsdata er den eneste forretningsmodel med afstemte incitamenter 'betalt, ingen reklamer, ingen trackere': gratis apps tjener ofte penge ved at sælge aggregerede data."
+      ],
+      "fi": [
+        "Vuoden 2026 käytännön sääntö: valitse datan kulkuväylä ennen laitetta. Se ratkaisee 90 % ongelmista ennen kuin avaat sovelluksen.",
+        "Kolme todellista tapaa saada data ulos: Health Connect (laitteella, Android), viralliset OAuth-rajapinnat (täysi valmistajakohtainen data, vaatii hyväksynnän), manuaalinen vienti (hidas mutta GDPR-artiklan 20 takaama).",
+        "Health Connect ei ole Google Fit: Google Fit poistettiin käytöstä kesäkuussa 2025, Health Connect on yhtenäinen Android-standardi ja toimii tiukasti laitteella.",
+        "Samsung, Fitbit, Garmin, Polar ja Withings kirjoittavat Health Connect -palveluun; Oura ja Huawei vaativat OAuth-yhteyden tai ovat suljettuja ekosysteemejä.",
+        "Terveysdatalle ainoa liiketoimintamalli, jonka kannustimet ovat linjassa, on 'maksullinen, ei mainoksia, ei seurantaa': ilmaiset sovellukset ansaitsevat usein myymällä koostettua dataa."
+      ],
+      "no": [
+        "Den praktiske regelen for 2026: velg datakanalen før dingsen. Den løser 90 % av problemene før du åpner en app.",
+        "Tre reelle måter å få data ut: Health Connect (på enheten, Android), offisielle OAuth-API-er (alle proprietære data, krever godkjenning), manuell eksport (treg, men garantert av GDPR art. 20).",
+        "Health Connect er ikke Google Fit: Google Fit ble avviklet i juni 2025, Health Connect er den samlede Android-standarden og utelukkende på enheten.",
+        "Samsung, Fitbit, Garmin, Polar og Withings skriver til Health Connect; Oura og Huawei krever OAuth eller er lukkede økosystemer.",
+        "For helsedata er den eneste forretningsmodellen med sammenfallende insentiver 'betalt, ingen reklame, ingen sporere': gratisapper tjener ofte penger på å selge aggregerte data."
       ]
     },
     "body.6.items": {
@@ -12016,9 +12186,19 @@
         "**När**: För de allra flesta användare som vill ha information om steg, puls, sömn, kalorier och träning är detta det rätta valet år 2026."
       ],
       "da": [
-        "**Fordele**: strukturel privatlivsbeskyttelse (dataene passerer ikke gennem nogen ekstern server), ingen besvær ved opsætningen, typisk ventetid på 5–30 minutter.",
-        "**Ulemper**: begrænset detaljeringsgrad (visse proprietære måleværdier som Garmin Body Battery eller Polar Recovery Pro vises ikke), ingen historiske data ud over dem, der findes på telefonen.",
-        "**Hvornår**: For langt de fleste brugere, der er interesserede i skridt, puls, søvn, kalorier og træning, er dette det rigtige valg i 2026."
+        "**Fordele**: strukturelt privatliv (data passerer ikke gennem nogen ekstern server), nul opsætningsbøvl, typisk latenstid 5–30 minutter.",
+        "**Ulemper**: reduceret granularitet (nogle proprietære metrikker som Garmin Body Battery eller Polar Recovery Pro eksponeres ikke), ingen historisk backfill ud over det, der ligger på telefonen.",
+        "**Hvornår**: for langt størstedelen af brugere, der vil have skridt/puls/søvn/kalorier/træning, er dette det rigtige valg i 2026."
+      ],
+      "fi": [
+        "**Plussat**: rakenteellinen yksityisyys (data ei kulje minkään ulkoisen palvelimen kautta), nolla käyttöönottokitkaa, tyypillinen viive 5–30 minuuttia.",
+        "**Miinukset**: pienempi tarkkuus (joitakin valmistajakohtaisia mittareita kuten Garmin Body Battery tai Polar Recovery Pro ei tarjota), ei historian täyttöä sen ulkopuolelta mitä puhelimessa on.",
+        "**Milloin**: valtaosalle käyttäjistä, jotka haluavat askeleet/sykkeen/unen/kalorit/treenit, tämä on oikea valinta vuonna 2026."
+      ],
+      "no": [
+        "**Fordeler**: strukturelt personvern (dataene passerer ikke gjennom noen ekstern server), null oppsettsfriksjon, typisk forsinkelse på 5-30 minutter.",
+        "**Ulemper**: redusert granularitet (enkelte proprietære metrikker som Garmin Body Battery eller Polar Recovery Pro eksponeres ikke), ingen historisk tilbakefyll utover det som ligger på telefonen.",
+        "**Når**: for det store flertallet av brukere som vil ha skritt/puls/søvn/kalorier/treningsøkter, er dette det riktige valget i 2026."
       ]
     },
     "body.9.items": {
@@ -12028,9 +12208,19 @@
         "**När**: om du är en seriös idrottare eller en datanörd som behöver specifika mätvärden från din enhet."
       ],
       "da": [
-        "**Fordele**: mere detaljerede og fuldstændige data, adgang til mærkespecifikke nøgletal, historiske data.",
-        "**Ulemper**: Data sendes først gennem en tredjeparts cloud, de fleste producenter kræver godkendelse (Garmin Godkendelse til udviklerprogrammet kan tage 4–8 uger), 15–30 minutters forsinkelse ved polling.",
-        "**Hvornår**: hvis du er en seriøs atlet eller en datanørd, der har brug for specifikke målinger fra din enhed."
+        "**Fordele**: mere granulære og komplette data, adgang til mærkespecifikke metrikker, historisk backfill.",
+        "**Ulemper**: data passerer først gennem en tredje sky, de fleste producenter kræver godkendelse (Garmin Developer Program kan tage 4–8 uger), 15–30 minutters polling-latenstid.",
+        "**Hvornår**: hvis du er en seriøs atlet eller datanørd, der har brug for specifikke metrikker fra din enhed."
+      ],
+      "fi": [
+        "**Plussat**: tarkempi ja täydellisempi data, pääsy merkkikohtaisiin mittareihin, historian täyttö.",
+        "**Miinukset**: data kulkee ensin kolmannen osapuolen pilven kautta, useimmat valmistajat vaativat hyväksynnän (Garmin Developer Program voi kestää 4–8 viikkoa), 15–30 minuutin kyselyviive.",
+        "**Milloin**: jos olet tosissaan harjoitteleva urheilija tai datanörtti, joka tarvitsee laitteestaan tiettyjä mittareita."
+      ],
+      "no": [
+        "**Fordeler**: mer granulære og komplette data, tilgang til merkespesifikke metrikker, historisk tilbakefyll.",
+        "**Ulemper**: dataene passerer først gjennom en tredje sky, de fleste produsenter krever godkjenning (Garmin Developer Program kan ta 4-8 uker), 15-30 minutters spørringsforsinkelse.",
+        "**Når**: hvis du er en seriøs utøver eller data-nerd som trenger spesifikke metrikker fra enheten din."
       ]
     },
     "body.16.items": {
@@ -12040,9 +12230,19 @@
         "**Officiell Android-standard**: förinstallerad på Android 14 och senare, distribuerad av Google, reglerad av Google Play Protect."
       ],
       "da": [
-        "**Lokalt på enheden, ikke i skyen**: Dataene forbliver på telefonen. Google har ikke adgang til dem. Det har tredjepartsappen heller ikke, før du udtrykkeligt anmoder om overførsel.",
-        "**Detaljerede tilladelser**: Du kan tildele »trin« uden samtidig at tildele »søvn«. Hver datatype udgør en separat tilladelse.",
-        "**Officiel Android-standard**: forudinstalleret på Android 14 og nyere, distribueret af Google, reguleret af Google Play Protect."
+        "**On-device, ikke sky**: data bliver på telefonen. Google ser dem ikke. Det gør tredjepartsappen heller ikke, før du udtrykkeligt anmoder om overførsel.",
+        "**Granulære tilladelser**: du kan give adgang til 'skridt' uden også at give adgang til 'søvn'. Hver datatype er en separat tilladelse.",
+        "**Officiel Android-standard**: forudinstalleret på Android 14+, distribueret af Google, styret af Google Play Protect."
+      ],
+      "fi": [
+        "**Laitteessa, ei pilvessä**: data pysyy puhelimessa. Google ei näe sitä. Ei myöskään kolmannen osapuolen sovellus, ennen kuin nimenomaisesti pyydät tiedonsiirtoa.",
+        "**Tarkat käyttöoikeudet**: voit myöntää oikeuden 'askeliin' myöntämättä oikeutta 'uneen'. Jokainen datatyyppi on erillinen käyttöoikeus.",
+        "**Virallinen Android-standardi**: esiasennettu Android 14+ -versioihin, Googlen jakama, Google Play Protect -palvelun hallinnoima."
+      ],
+      "no": [
+        "**På enheten, ikke i skyen**: dataene blir på telefonen. Google ser dem ikke. Det gjør heller ikke tredjepartsappen, før du uttrykkelig ber om overføring.",
+        "**Granulære tillatelser**: du kan gi tillatelse til 'skritt' uten også å gi tillatelse til 'søvn'. Hver datatype er en egen tillatelse.",
+        "**Offisiell Android-standard**: forhåndsinstallert på Android 14+, distribuert av Google, styrt av Google Play Protect."
       ]
     },
     "body.19.headers": {
@@ -12056,6 +12256,18 @@
         "Mærke",
         "Health Connect (i dag)",
         "Officiel OAuth",
+        "Eksport"
+      ],
+      "fi": [
+        "Merkki",
+        "Health Connect (tänään)",
+        "Virallinen OAuth",
+        "Vienti"
+      ],
+      "no": [
+        "Merke",
+        "Health Connect (i dag)",
+        "Offisiell OAuth",
         "Eksport"
       ]
     },
@@ -12071,6 +12283,18 @@
         "Ja, indbygget via Samsung Health",
         "Samsung Health API (begrænset)",
         "Ja, fra Samsung Health"
+      ],
+      "fi": [
+        "Samsung Galaxy Watch",
+        "Kyllä, natiivisti Samsung Health -sovelluksen kautta",
+        "Samsung Health API (rajoitettu)",
+        "Kyllä, Samsung Health -sovelluksesta"
+      ],
+      "no": [
+        "Samsung Galaxy Watch",
+        "Ja, naturlig via Samsung Health",
+        "Samsung Health API (begrenset)",
+        "Ja, fra Samsung Health"
       ]
     },
     "body.19.rows.1": {
@@ -12083,7 +12307,19 @@
       "da": [
         "Pixel Watch",
         "Ja, via Fitbit-appen",
-        "Fitbit Web-API (kræver godkendelse)",
+        "Fitbit Web API (kræver godkendelse)",
+        "Ja, via Google Takeout"
+      ],
+      "fi": [
+        "Pixel Watch",
+        "Kyllä, Fitbit-sovelluksen kautta",
+        "Fitbit Web API (vaatii hyväksynnän)",
+        "Kyllä, Google Takeout -palvelun kautta"
+      ],
+      "no": [
+        "Pixel Watch",
+        "Ja, via Fitbit-appen",
+        "Fitbit Web API (krever godkjenning)",
         "Ja, via Google Takeout"
       ]
     },
@@ -12095,9 +12331,21 @@
         "Ja, via Google Takeout"
       ],
       "da": [
-        "Fitbit (Opladning/Måling/Versa)",
+        "Fitbit (Charge/Sense/Versa)",
         "Ja, siden 2024",
-        "Fitbit Web-API",
+        "Fitbit Web API",
+        "Ja, via Google Takeout"
+      ],
+      "fi": [
+        "Fitbit (Charge/Sense/Versa)",
+        "Kyllä, vuodesta 2024",
+        "Fitbit Web API",
+        "Kyllä, Google Takeout -palvelun kautta"
+      ],
+      "no": [
+        "Fitbit (Charge/Sense/Versa)",
+        "Ja, siden 2024",
+        "Fitbit Web API",
         "Ja, via Google Takeout"
       ]
     },
@@ -12110,8 +12358,20 @@
       ],
       "da": [
         "Garmin (alle)",
-        "Ja, grundlæggende (skridt, puls, samlet søvn)",
+        "Ja, basale (skridt, puls, samlet søvn)",
         "Garmin Health API (udviklerprogram)",
+        "Ja, fra Garmin Connect"
+      ],
+      "fi": [
+        "Garmin (kaikki)",
+        "Kyllä, perustiedot (askeleet, syke, kokonaisuni)",
+        "Garmin Health API (kehittäjäohjelma)",
+        "Kyllä, Garmin Connect -sovelluksesta"
+      ],
+      "no": [
+        "Garmin (alle)",
+        "Ja, grunnleggende (skritt, puls, total søvn)",
+        "Garmin Health API (utviklerprogram)",
         "Ja, fra Garmin Connect"
       ]
     },
@@ -12124,7 +12384,19 @@
       ],
       "da": [
         "Polar (Vantage, Grit X)",
-        "Ja, grundlæggende",
+        "Ja, basale",
+        "Polar Accesslink",
+        "Ja, fra Polar Flow"
+      ],
+      "fi": [
+        "Polar (Vantage, Grit X)",
+        "Kyllä, perustiedot",
+        "Polar Accesslink",
+        "Kyllä, Polar Flow -sovelluksesta"
+      ],
+      "no": [
+        "Polar (Vantage, Grit X)",
+        "Ja, grunnleggende",
         "Polar Accesslink",
         "Ja, fra Polar Flow"
       ]
@@ -12138,9 +12410,21 @@
       ],
       "da": [
         "Oura Ring",
-        "Nej (ingen indbygget Android HC-app)",
+        "Nej (ingen indbygget Android-HC-app)",
         "Oura Cloud API v2",
-        "Ja, fra appen/websiden"
+        "Ja, fra app/web"
+      ],
+      "fi": [
+        "Oura Ring",
+        "Ei (ei natiivia Android-HC-sovellusta)",
+        "Oura Cloud API v2",
+        "Kyllä, sovelluksesta/verkosta"
+      ],
+      "no": [
+        "Oura Ring",
+        "Nei (ingen naturlig Android-HC-app)",
+        "Oura Cloud API v2",
+        "Ja, fra app/web"
       ]
     },
     "body.19.rows.6": {
@@ -12151,6 +12435,18 @@
         "Ja, från Health Mate"
       ],
       "da": [
+        "Withings",
+        "Ja, siden 2024",
+        "Withings API v2",
+        "Ja, fra Health Mate"
+      ],
+      "fi": [
+        "Withings",
+        "Kyllä, vuodesta 2024",
+        "Withings API v2",
+        "Kyllä, Health Mate -sovelluksesta"
+      ],
+      "no": [
         "Withings",
         "Ja, siden 2024",
         "Withings API v2",
@@ -12167,8 +12463,20 @@
       "da": [
         "Xiaomi Mi Band 7+",
         "Ja, via Mi Fitness",
-        "Ingen offentlig tredjeparts-API",
+        "Intet offentligt tredjeparts-API",
         "Begrænset"
+      ],
+      "fi": [
+        "Xiaomi Mi Band 7+",
+        "Kyllä, Mi Fitness -sovelluksen kautta",
+        "Ei julkista kolmannen osapuolen API-rajapintaa",
+        "Rajoitettu"
+      ],
+      "no": [
+        "Xiaomi Mi Band 7+",
+        "Ja, via Mi Fitness",
+        "Ingen offentlig tredjeparts-API",
+        "Begrenset"
       ]
     },
     "body.19.rows.8": {
@@ -12180,9 +12488,21 @@
       ],
       "da": [
         "Huawei Watch (med HMS)",
-        "Nej (et separat økosystem)",
+        "Nej (separat økosystem)",
         "Huawei Health Kit",
         "Begrænset"
+      ],
+      "fi": [
+        "Huawei Watch (HMS:n kanssa)",
+        "Ei (erillinen ekosysteemi)",
+        "Huawei Health Kit",
+        "Rajoitettu"
+      ],
+      "no": [
+        "Huawei Watch (med HMS)",
+        "Nei (separat økosystem)",
+        "Huawei Health Kit",
+        "Begrenset"
       ]
     },
     "body.19.rows.9": {
@@ -12196,7 +12516,19 @@
         "Apple Watch",
         "Nej (lukket iOS-økosystem)",
         "HealthKit (kun iOS)",
-        "Ja, fra appen »Sundhed«"
+        "Ja, fra Health-appen"
+      ],
+      "fi": [
+        "Apple Watch",
+        "Ei (suljettu iOS-ekosysteemi)",
+        "HealthKit (vain iOS)",
+        "Kyllä, Health-sovelluksesta"
+      ],
+      "no": [
+        "Apple Watch",
+        "Nei (lukket iOS-økosystem)",
+        "HealthKit (kun iOS)",
+        "Ja, fra Health-appen"
       ]
     },
     "body.19.rows.10": {
@@ -12208,9 +12540,21 @@
       ],
       "da": [
         "Strava (platform)",
-        "Nej (import fra Watch, ingen HC-synkronisering)",
+        "Nej (importerer fra uret, ingen HC-synkronisering)",
         "Strava API v3",
-        "Ja, fra internettet"
+        "Ja, fra web"
+      ],
+      "fi": [
+        "Strava (alusta)",
+        "Ei (tuo tiedot kellosta, ei HC-synkronointia)",
+        "Strava API v3",
+        "Kyllä, verkosta"
+      ],
+      "no": [
+        "Strava (plattform)",
+        "Nei (importerer fra klokke, ingen HC-synkronisering)",
+        "Strava API v3",
+        "Ja, fra web"
       ]
     },
     "body.24.items": {
@@ -12218,6 +12562,21 @@
         "**Rätt till tillgång (artikel 15)**: Du kan begära en kopia av dina uppgifter från vilken tillverkare som helst. De har 30 dagar på sig att tillhandahålla uppgifterna i ett läsbart format. Fitbit och Google Fit gör detta via Google Takeout; Garmin via kontoinställningarna; Samsung Health via intern export.",
         "**Rätten till dataportabilitet (artikel 20)**: Du har rätt att få ut dina uppgifter i ett strukturerat, allmänt använt format (CSV, JSON) och att överföra dem till en annan personuppgiftsansvarig. Detta är den rättsliga grunden som gör det omöjligt att helt låsa in användaren i ett ekosystem.",
         "**Rätten till radering (artikel 17)**: När du raderar ditt konto måste de radera uppgifterna. I praktiken behåller vissa företag säkerhetskopior i 30–90 dagar av driftsmässiga skäl, vilket är tillåtet men måste dokumenteras i integritetspolicyn."
+      ],
+      "da": [
+        "**Ret til indsigt (art. 15)**: du kan bede enhver producent om en kopi af dine data. De har 30 dage til at levere den i et læsbart format. Fitbit og Google Fit gør det via Google Takeout; Garmin via kontoindstillinger; Samsung Health via intern eksport.",
+        "**Ret til dataportabilitet (art. 20)**: du har ret til at modtage dine data i et struktureret, almindeligt format (CSV, JSON) og til at overføre dem til en anden dataansvarlig. Det er det juridiske grundlag, der gør total lock-in i et økosystem umulig.",
+        "**Ret til sletning (art. 17)**: at slette din konto betyder, at de skal slette dataene. I praksis beholder nogle backups i 30–90 dage af driftsmæssige årsager, hvilket er tilladt, men dokumenteret i privatlivspolitikkerne."
+      ],
+      "fi": [
+        "**Tarkastusoikeus (art. 15)**: voit pyytää miltä tahansa valmistajalta kopion datastasi. Heillä on 30 päivää aikaa toimittaa se luettavassa muodossa. Fitbit ja Google Fit hoitavat tämän Google Takeout -palvelun kautta; Garmin tilin asetusten kautta; Samsung Health sisäisen viennin kautta.",
+        "**Oikeus siirtää tiedot (art. 20)**: sinulla on oikeus saada datasi jäsennellyssä, yleisessä muodossa (CSV, JSON) ja siirtää se toiselle rekisterinpitäjälle. Tämä on oikeusperusta, joka tekee täydellisestä ekosysteemilukituksesta mahdotonta.",
+        "**Oikeus tietojen poistamiseen (art. 17)**: tilisi poistaminen tarkoittaa, että datan on poistuttava. Käytännössä osa säilyttää varmuuskopioita 30–90 päivää toiminnallisista syistä, mikä on sallittua mutta dokumentoitu tietosuojaselosteissa."
+      ],
+      "no": [
+        "**Rett til innsyn (art. 15)**: du kan be enhver produsent om en kopi av dataene dine. De har 30 dager på seg til å levere den i et lesbart format. Fitbit og Google Fit gjør dette via Google Takeout; Garmin via kontoinnstillinger; Samsung Health via intern eksport.",
+        "**Rett til dataportabilitet (art. 20)**: du har rett til å motta dataene dine i et strukturert, vanlig format (CSV, JSON), og til å overføre dem til en annen behandlingsansvarlig. Dette er det rettslige grunnlaget som gjør total innlåsing i økosystemer umulig.",
+        "**Rett til sletting (art. 17)**: å slette kontoen din betyr at de må slette dataene. I praksis beholder noen sikkerhetskopier i 30-90 dager av driftsmessige grunner, tillatt, men dokumentert i personvernerklæringene."
       ]
     },
     "body.28.items": {
@@ -12227,6 +12586,27 @@
         "**Går det att exportera?** Även från synkroniseringsappen, inte bara från tillverkaren. En tjänst som låter dig komma in men inte ut är en fälla.",
         "**Vem står bakom appen?** Ta reda på vem som betalar räkningarna: om appen är gratis och inte visar några annonser säljer den troligen data. Alternativet ”betald, utan annonser och utan spårningsverktyg” är det enda hållbara när det gäller hälsodata.",
         "**Vad händer om de lägger ner verksamheten?** Har ni en plan för automatisk export? Kommer det att gå att ladda ner era data även om grundaren säljer företaget imorgon?"
+      ],
+      "da": [
+        "**Hvor ligger data?** On-device (foretrukket), producentens sky (acceptabelt), uigennemsigtig tredje sky (advarselstegn).",
+        "**Hvilke tilladelser kræver den?** Health Connect → granulær pr. datatype. OAuth → granulær pr. scope. Hvis appen beder om 'alt eller intet', er det et advarselstegn.",
+        "**Kan du eksportere?** Også fra synkroniseringsappen, ikke kun fra producenten. En tjeneste, der lukker dig ind, men ikke ud, er en fælde.",
+        "**Hvem står bag appen?** Find ud af, hvem der betaler regningerne: hvis den er gratis og ikke viser reklamer, sælger den sandsynligvis data. Vejen 'betalt, ingen reklamer, ingen trackere' er den eneste bæredygtige for sundhedsdata.",
+        "**Hvad sker der, hvis de lukker?** Har du en plan for automatisk eksport? Kan dine data downloades, selv hvis stifteren sælger virksomheden i morgen?"
+      ],
+      "fi": [
+        "**Missä data sijaitsee?** Laitteella (suositeltavin), valmistajan pilvessä (hyväksyttävä), läpinäkymättömässä kolmannen osapuolen pilvessä (hälytysmerkki).",
+        "**Mitä käyttöoikeuksia se tarvitsee?** Health Connect → tarkka datatyyppikohtaisesti. OAuth → tarkka scope-kohtaisesti. Jos sovellus pyytää 'kaikki tai ei mitään', se on varoitusmerkki.",
+        "**Voitko viedä tiedot?** Myös synkronointisovelluksesta, ei vain valmistajalta. Palvelu, joka päästää sisään mutta ei ulos, on ansa.",
+        "**Kuka on sovelluksen takana?** Selvitä, kuka maksaa laskut: jos se on ilmainen eikä näytä mainoksia, se todennäköisesti myy dataa. 'Maksullinen, ei mainoksia, ei seurantaa' on ainoa kestävä tie terveysdatalle.",
+        "**Mitä tapahtuu, jos toiminta lopetetaan?** Onko sinulla automaattinen vientisuunnitelma? Onko datasi ladattavissa, vaikka perustaja myisi yhtiön huomenna?"
+      ],
+      "no": [
+        "**Hvor bor dataene?** På enheten (foretrukket), produsentens sky (akseptabelt), en ugjennomsiktig tredje sky (varsellampe).",
+        "**Hvilke tillatelser trenger den?** Health Connect → granulært per datatype. OAuth → granulært per tilgang. Hvis appen ber om 'alt eller ingenting', er det et faresignal.",
+        "**Kan du eksportere?** Fra synkroniseringsappen også, ikke bare fra produsenten. En tjeneste som slipper deg inn, men ikke ut, er en felle.",
+        "**Hvem står bak appen?** Finn ut hvem som betaler regningene: hvis den er gratis og ikke viser reklame, selger den sannsynligvis data. Veien 'betalt, ingen reklame, ingen sporere' er den eneste bærekraftige for helsedata.",
+        "**Hva skjer hvis de legger ned?** Har du en plan for automatisk eksport? Vil dataene dine kunne lastes ned selv om grunnleggeren selger selskapet i morgen?"
       ]
     },
     "body.31.items": {
@@ -12237,6 +12617,30 @@
         "**Webbläsarens kontrollpanel**: Om du vill se steg, sömn och puls på en dator utan mobilapp är vägen dit inte helt uppenbar, men den finns. Se guiden [Så här visar du data från din bärbara enhet i en webbläsare](/en/blog/vedere-dati-wearable-browser-pc).",
         "**Moln-till-moln-broappar**: kategorin ”bro mellan ekosystem” förändras i snabb takt. En fullständig översikt finns i [Alternativ för synkronisering av bärbara enheter 2026](/en/blog/alternative-app-sync-wearable-2026).",
         "**GDPR i praktiken**: vart puls- och sömndata faktiskt hamnar enligt de verkliga integritetspolicyerna. Se [GDPR och träningsdata](/en/blog/gdpr-dati-fitness-smartwatch)."
+      ],
+      "da": [
+        "**Galaxy Watch**: kanalen er Samsung Health → Health Connect, men du skal vide, hvilke tilladelser der er slået fra som standard. Se [Galaxy Watch-backup uden Samsung Cloud](/en/blog/backup-galaxy-watch-pc).",
+        "**Fitbit efter Google**: efter Googles opkøb af Fitbit i 2021 og kontomigreringen i 2022–2023 er der væsentlige ændringer i, hvordan man eksporterer. Se [Sådan eksporterer du Fitbit-data efter Googles opkøb](/en/blog/esportare-dati-fitbit-google).",
+        "**Health Connect vs Samsung Health**: to lag, der arbejder sammen. Hvornår du skal bruge hvad, forklarer vi i [Health Connect vs Samsung Health 2026](/en/blog/health-connect-vs-samsung-health).",
+        "**Browser-dashboard**: hvis du vil se skridt/søvn/puls på en PC uden en mobilapp, er vejen ikke oplagt, men den findes. Guide i [Se wearable-data fra en browser](/en/blog/vedere-dati-wearable-browser-pc).",
+        "**Sky-til-sky-bro-apps**: kategorien 'bro mellem økosystemer' ændrer sig hurtigt. Fuldt overblik i [Alternativer til wearable-synkronisering 2026](/en/blog/alternative-app-sync-wearable-2026).",
+        "**GDPR i praksis**: hvor puls og søvn faktisk ender ifølge rigtige privatlivspolitikker. Se [GDPR og fitnessdata](/en/blog/gdpr-dati-fitness-smartwatch)."
+      ],
+      "fi": [
+        "**Galaxy Watch**: putki on Samsung Health → Health Connect, mutta sinun on tiedettävä, mitkä käyttöoikeudet ovat oletuksena pois päältä. Katso [Galaxy Watch -varmuuskopiointi ilman Samsung Cloudia](/en/blog/backup-galaxy-watch-pc).",
+        "**Fitbit Googlen jälkeen**: sen jälkeen kun Google osti Fitbit-yhtiön vuonna 2021 ja tilit siirrettiin 2022–2023, viennissä on merkittäviä muutoksia. Katso [Fitbit-datan vienti Google-oston jälkeen](/en/blog/esportare-dati-fitbit-google).",
+        "**Health Connect vs Samsung Health**: kaksi kerrosta, jotka toimivat yhdessä. Milloin kumpaakin käytetään, selitämme artikkelissa [Health Connect vs Samsung Health 2026](/en/blog/health-connect-vs-samsung-health).",
+        "**Selainkojelauta**: jos haluat nähdä askeleet/unen/sykkeen tietokoneella ilman mobiilisovellusta, reitti ei ole ilmeinen mutta se on olemassa. Ohje artikkelissa [Puettavan laitteen datan katselu selaimessa](/en/blog/vedere-dati-wearable-browser-pc).",
+        "**Pilvestä pilveen -siltasovellukset**: 'ekosysteemien välinen silta' -kategoria muuttuu nopeasti. Koko kenttä artikkelissa [Puettavien laitteiden synkronoinnin vaihtoehdot 2026](/en/blog/alternative-app-sync-wearable-2026).",
+        "**GDPR käytännössä**: minne syke ja uni todella päätyvät todellisten tietosuojaselosteiden mukaan. Katso [GDPR ja fitnessdata](/en/blog/gdpr-dati-fitness-smartwatch)."
+      ],
+      "no": [
+        "**Galaxy Watch**: kanalen er Samsung Health → Health Connect, men du må vite hvilke tillatelser som er av som standard. Se [Sikkerhetskopiering av Galaxy Watch uten Samsung Cloud](/en/blog/backup-galaxy-watch-pc).",
+        "**Fitbit etter Google**: etter Googles oppkjøp av Fitbit i 2021 og kontomigreringen i 2022-2023 er det betydelige endringer i hvordan man eksporterer. Se [Eksportere Fitbit-data etter Googles oppkjøp](/en/blog/esportare-dati-fitbit-google).",
+        "**Health Connect vs Samsung Health**: to lag som fungerer sammen. Når du bør bruke hva, forklarer vi i [Health Connect vs Samsung Health 2026](/en/blog/health-connect-vs-samsung-health).",
+        "**Nettleser-dashbord**: hvis du vil se skritt/søvn/puls på en PC uten en mobilapp, er veien ikke opplagt, men den finnes. Guide i [Se wearable-data fra en nettleser](/en/blog/vedere-dati-wearable-browser-pc).",
+        "**Sky-til-sky-bro-apper**: kategorien 'bro mellom økosystemer' er i rask endring. Full oversikt i [Alternativer for synkronisering av wearables 2026](/en/blog/alternative-app-sync-wearable-2026).",
+        "**GDPR i praksis**: hvor puls og søvn faktisk havner ifølge reelle personvernerklæringer. Se [GDPR og treningsdata](/en/blog/gdpr-dati-fitness-smartwatch)."
       ]
     },
     "body.34.items": {
@@ -12252,6 +12656,45 @@
         "[Strava](/en/sync/strava): Endast OAuth, lanseras under tredje kvartalet 2026.",
         "[Oura Ring](/en/sync/oura): Endast OAuth, lanseras under fjärde kvartalet 2026.",
         "[Huawei](/en/sync/huawei): Health Kit OAuth, under utvärdering."
+      ],
+      "da": [
+        "[Galaxy Watch](/en/sync/galaxy-watch): indbygget via Samsung Health + HC.",
+        "[Wear OS / Pixel Watch](/en/sync/wear-os): indbygget via Fitbit-appen + HC.",
+        "[Pixel Watch dedikeret](/en/sync/pixel-watch): specifik guide til Fitbit-app-kæden.",
+        "[Xiaomi Mi Band / Watch](/en/sync/xiaomi-mi-band): indbygget via Mi Fitness + HC (Mi Band 7+).",
+        "[Fitbit](/en/sync/fitbit): virker i dag via HC, Web API OAuth på roadmap for Q3 2026.",
+        "[Garmin](/en/sync/garmin): basale i dag via HC, Body Battery/Training Load kommer i Q3 2026.",
+        "[Polar](/en/sync/polar): basale i dag via HC, Accesslink OAuth kommer i Q4 2026.",
+        "[Withings](/en/sync/withings): basale i dag via HC, API v2 OAuth på roadmap for Q4 2026.",
+        "[Strava](/en/sync/strava): kun OAuth, kommer i Q3 2026.",
+        "[Oura Ring](/en/sync/oura): kun OAuth, kommer i Q4 2026.",
+        "[Huawei](/en/sync/huawei): Health Kit OAuth, under evaluering."
+      ],
+      "fi": [
+        "[Galaxy Watch](/en/sync/galaxy-watch): natiivisti Samsung Health + HC:n kautta.",
+        "[Wear OS / Pixel Watch](/en/sync/wear-os): natiivisti Fitbit-sovelluksen + HC:n kautta.",
+        "[Pixel Watch erikseen](/en/sync/pixel-watch): erityinen Fitbit-sovelluksen ketjuohje.",
+        "[Xiaomi Mi Band / Watch](/en/sync/xiaomi-mi-band): natiivisti Mi Fitness + HC:n kautta (Mi Band 7+).",
+        "[Fitbit](/en/sync/fitbit): toimii tänään HC:n kautta, Web API OAuth Q3 2026 -tiekartalla.",
+        "[Garmin](/en/sync/garmin): perustiedot tänään HC:n kautta, Body Battery/Training Load tulossa Q3 2026.",
+        "[Polar](/en/sync/polar): perustiedot tänään HC:n kautta, Accesslink OAuth tulossa Q4 2026.",
+        "[Withings](/en/sync/withings): perustiedot tänään HC:n kautta, API v2 OAuth Q4 2026 -tiekartalla.",
+        "[Strava](/en/sync/strava): vain OAuth, tulossa Q3 2026.",
+        "[Oura Ring](/en/sync/oura): vain OAuth, tulossa Q4 2026.",
+        "[Huawei](/en/sync/huawei): Health Kit OAuth, arvioinnissa."
+      ],
+      "no": [
+        "[Galaxy Watch](/en/sync/galaxy-watch): naturlig via Samsung Health + HC.",
+        "[Wear OS / Pixel Watch](/en/sync/wear-os): naturlig via Fitbit-appen + HC.",
+        "[Pixel Watch dedikert](/en/sync/pixel-watch): spesifikk guide for Fitbit-app-kjeden.",
+        "[Xiaomi Mi Band / Watch](/en/sync/xiaomi-mi-band): naturlig via Mi Fitness + HC (Mi Band 7+).",
+        "[Fitbit](/en/sync/fitbit): fungerer i dag via HC, Web API OAuth på veikartet for Q3 2026.",
+        "[Garmin](/en/sync/garmin): grunnleggende i dag via HC, Body Battery/Training Load kommer Q3 2026.",
+        "[Polar](/en/sync/polar): grunnleggende i dag via HC, Accesslink OAuth kommer Q4 2026.",
+        "[Withings](/en/sync/withings): grunnleggende i dag via HC, API v2 OAuth på veikartet for Q4 2026.",
+        "[Strava](/en/sync/strava): kun OAuth, kommer Q3 2026.",
+        "[Oura Ring](/en/sync/oura): kun OAuth, kommer Q4 2026.",
+        "[Huawei](/en/sync/huawei): Health Kit OAuth, under vurdering."
       ]
     },
     "body.43.items": {
@@ -12261,215 +12704,513 @@
         "Samsung, Fitbit, Garmin, Polar och Withings skriver till Health Connect. Oura och Huawei gör det inte: de kräver OAuth eller är slutna ekosystem.",
         "Innan du köper en bärbar enhet bör du göra följande test: sök på ”[enhetens namn] Health Connect” på Google. Om det inte finns någon officiell guide från tillverkaren innebär det att du låser dig till ett slutet ekosystem.",
         "När det gäller hälsodata är den enda affärsmodellen med samstämmiga incitament ”betalmodell, inga annonser, inga spårare”: gratisappar finansieras nästan alltid genom försäljning av aggregerade data."
+      ],
+      "da": [
+        "Der er tre reelle måder at få data ud af en wearable på: Health Connect (on-device, ingen opsætning, Android), officielle OAuth-API'er (fulde proprietære data, kræver godkendelse), manuel eksport (langsom, men juridisk garanteret af GDPR art. 20).",
+        "Health Connect er ikke Google Fit: Google Fit blev udfaset i juni 2025, Health Connect er den samlede Android-standard og udelukkende on-device.",
+        "Samsung, Fitbit, Garmin, Polar og Withings skriver til Health Connect. Det gør Oura og Huawei ikke: de kræver OAuth eller er lukkede økosystemer.",
+        "Før du køber en wearable, så lav testen: søg efter '[enhedsnavn] Health Connect' på Google. Hvis der ikke findes en officiel producentguide, låser du dig fast i et lukket økosystem.",
+        "For sundhedsdata er den eneste forretningsmodel med afstemte incitamenter 'betalt, ingen reklamer, ingen trackere': gratis apps tjener næsten altid penge ved at sælge aggregerede data."
+      ],
+      "fi": [
+        "Puettavasta laitteesta saa datan ulos kolmella todellisella tavalla: Health Connect (laitteella, ei käyttöönottoa, Android), viralliset OAuth-rajapinnat (täysi valmistajakohtainen data, vaatii hyväksynnän), manuaalinen vienti (hidas mutta GDPR-artiklan 20 laillisesti takaama).",
+        "Health Connect ei ole Google Fit: Google Fit poistettiin käytöstä kesäkuussa 2025, Health Connect on yhtenäinen Android-standardi ja toimii tiukasti laitteella.",
+        "Samsung, Fitbit, Garmin, Polar ja Withings kirjoittavat Health Connect -palveluun. Oura ja Huawei eivät: ne vaativat OAuth-yhteyden tai ovat suljettuja ekosysteemejä.",
+        "Ennen puettavan laitteen ostamista tee testi: hae '[laitteen nimi] Health Connect' Googlesta. Jos valmistajan virallista ohjetta ei ole, olet lukittautumassa suljettuun ekosysteemiin.",
+        "Terveysdatalle ainoa liiketoimintamalli, jonka kannustimet ovat linjassa, on 'maksullinen, ei mainoksia, ei seurantaa': ilmaiset sovellukset ansaitsevat lähes aina myymällä koostettua dataa."
+      ],
+      "no": [
+        "Det finnes tre reelle måter å få data ut av en wearable: Health Connect (på enheten, null oppsett, Android), offisielle OAuth-API-er (alle proprietære data, krever godkjenning), manuell eksport (treg, men juridisk garantert av GDPR art. 20).",
+        "Health Connect er ikke Google Fit: Google Fit ble avviklet i juni 2025, Health Connect er den samlede Android-standarden og utelukkende på enheten.",
+        "Samsung, Fitbit, Garmin, Polar og Withings skriver til Health Connect. Oura og Huawei gjør det ikke: de krever OAuth eller er lukkede økosystemer.",
+        "Før du kjøper en wearable, kjør testen: søk '[enhetsnavn] Health Connect' på Google. Finnes det ingen offisiell produsentguide, låser du deg inn i et lukket økosystem.",
+        "For helsedata er den eneste forretningsmodellen med sammenfallende insentiver 'betalt, ingen reklame, ingen sporere': gratisapper tjener nesten alltid penger på å selge aggregerte data."
       ]
     }
   },
   "scegliere-smartwatch-dati-2026": {
     "hero.kicker": {
-      "sv": "Stödstolpsguide",
-      "da": "Søjlevejledning"
+      "sv": "Pelarguide",
+      "da": "Grundlæggende guide",
+      "fi": "Pilariopas",
+      "no": "Pilarguide"
     },
     "hero.title": {
-      "sv": "Så här väljer du en smartklocka när du vill ha kontroll över dina data"
+      "sv": "Så väljer du en smartwatch när du vill ha kontroll över dina data",
+      "da": "Sådan vælger du et smartwatch, når du vil have kontrol over dine data",
+      "fi": "Näin valitset älykellon, kun haluat hallita omia tietojasi",
+      "no": "Slik velger du en smartklokke når du vil ha kontroll over dataene dine"
     },
     "hero.subtitle": {
-      "sv": "Strukturell integritet, verklig exportbarhet, undvikbar inlåsning. En ärlig guide från en teknikrådgivare, inte en leverantör."
+      "sv": "Strukturell integritet, verklig exporterbarhet, undvikbar inlåsning. En ärlig guide från en teknikrådgivare, inte en säljare.",
+      "da": "Strukturelt privatliv, reel mulighed for eksport, lock-in der kan undgås. En ærlig guide fra en teknologirådgiver, ikke en sælger.",
+      "fi": "Rakenteellinen yksityisyys, todellinen vietävyys, vältettävissä oleva lukkiutuminen. Rehellinen opas teknologianeuvojalta, ei myyjältä.",
+      "no": "Strukturelt personvern, reell eksporterbarhet, innlåsing du kan unngå. En ærlig guide fra en teknologirådgiver, ikke en selger."
     },
     "metaDescription": {
-      "sv": "Så här väljer du en smartklocka år 2026 med utgångspunkt i datakontroll: integritet, överförbarhet och ekosystembindning. Rekommendationer för idrottare, hälsoentusiaster, sömnmätare och föräldrar som vill övervaka sina barn."
+      "sv": "Så väljer du en smartwatch 2026 med utgångspunkt i datakontroll: integritet, exporterbarhet, inlåsning i ekosystem. Rekommendationer för idrottare, longevity-nördar, sömnspårning och övervakning av anhöriga.",
+      "da": "Sådan vælger du et smartwatch i 2026 med udgangspunkt i datakontrol: privatliv, eksporterbarhed, lock-in i økosystemer. Anbefalinger til atleter, longevity-nørder, søvntrackere og overvågning af forældre.",
+      "fi": "Näin valitset älykellon vuonna 2026 tietojen hallinnasta lähtien: yksityisyys, vietävyys, ekosysteemiin lukkiutuminen. Suositukset urheilijoille, pitkäikäisyysnörteille, unenseuraajille ja vanhempien seurantaan.",
+      "no": "Slik velger du en smartklokke i 2026 med utgangspunkt i datakontroll: personvern, eksporterbarhet, innlåsing i økosystemet. Anbefalinger for idrettsutøvere, longevity-nerder, søvnmåling og omsorg for foreldre."
     },
     "primaryKeyword": {
-      "sv": "Hur man väljer en smartklocka för personuppgifter"
+      "sv": "hur man väljer en smartwatch för personliga data",
+      "da": "sådan vælger du et smartwatch til personlige data",
+      "fi": "kuinka valita älykello omien tietojen hallintaan",
+      "no": "hvordan velge smartklokke for personlige data"
     },
     "body.0.text": {
-      "sv": "Det viktigaste kriteriet när du väljer en smartklocka år 2026 är inte batteritiden eller sensorerna: det är den kontroll du kommer att ha över dina data om två år. Strukturell integritet, verklig överförbarhet och möjligheten att undvika inlåsning avgör om din bärbara enhet fortfarande kommer att vara användbar när du byter telefon, märke eller abonnemang. Den här guiden ger dig konkreta kriterier för att välja utifrån dessa faktorer istället för marknadsföringsargument."
+      "sv": "Det viktigaste kriteriet när du väljer en smartwatch 2026 är inte batteritid eller sensorer: det är kontrollen du kommer att ha över dina data om två år. Strukturell integritet, verklig exporterbarhet och undvikbar inlåsning avgör om din wearable fortfarande är användbar när du byter telefon, varumärke eller abonnemang. Den här guiden ger dig konkreta kriterier för att välja utifrån dessa faktorer i stället för marknadsföringsfunktioner.",
+      "da": "Det vigtigste kriterium, når du skal vælge et smartwatch i 2026, er ikke batteritid eller sensorer: det er den kontrol, du har over dine data om to år. Strukturelt privatliv, reel mulighed for eksport og lock-in, der kan undgås, afgør, om din wearable stadig er brugbar, når du skifter telefon, mærke eller abonnement. Denne guide giver dig konkrete kriterier, så du kan vælge ud fra disse faktorer i stedet for marketingfunktioner.",
+      "fi": "Tärkein kriteeri älykellon valinnassa vuonna 2026 ei ole akunkesto tai anturit: se on se hallinta, joka sinulla on tiedoistasi kahden vuoden kuluttua. Rakenteellinen yksityisyys, todellinen vietävyys ja vältettävissä oleva lukkiutuminen ratkaisevat, onko puettava laitteesi yhä hyödyllinen, kun vaihdat puhelinta, merkkiä tai tilausta. Tämä opas antaa sinulle konkreettiset kriteerit valintaan näiden tekijöiden pohjalta markkinointiominaisuuksien sijaan.",
+      "no": "Det viktigste kriteriet for å velge en smartklokke i 2026 er ikke batteritid eller sensorer: det er kontrollen du kommer til å ha over dataene dine om to år. Strukturelt personvern, reell eksporterbarhet og innlåsing du kan unngå avgjør om den bærbare enheten din fortsatt er nyttig når du bytter telefon, merke eller abonnement. Denne guiden gir deg konkrete kriterier for å velge ut fra disse faktorene i stedet for markedsføringsfunksjoner."
     },
     "body.1.text": {
-      "sv": "Vi kommer inte att säga åt dig att ”köpa X”. Vi kommer istället att säga: här är användningsmönstren, här är de verkliga avvägningarna mellan olika varumärken, här är vanliga varningssignaler. Det är du som fattar det slutgiltiga beslutet."
+      "sv": "Vi kommer inte att säga 'köp X'. Vi säger: här är användararketyperna, här är de verkliga avvägningarna mellan varumärken, här är vanliga varningstecken. Det slutgiltiga beslutet är ditt.",
+      "da": "Vi kommer ikke til at sige 'køb X'. Vi siger: her er brugsarketyperne, her er de reelle kompromiser mellem mærkerne, her er de typiske advarselstegn. Den endelige beslutning er din.",
+      "fi": "Emme sano sinulle 'osta X'. Sanomme: tässä ovat käyttöarkkityypit, tässä ovat merkkien väliset todelliset kompromissit, tässä ovat yleiset varoitusmerkit. Lopullinen päätös on sinun.",
+      "no": "Vi kommer ikke til å si 'kjøp X'. Vi sier: her er brukstypene, her er de reelle avveiningene mellom merkene, her er vanlige faresignaler. Den endelige avgjørelsen er din."
     },
     "body.2.text": {
-      "sv": "Vad ”datakontroll” egentligen innebär"
+      "sv": "Vad 'datakontroll' egentligen betyder",
+      "da": "Hvad 'datakontrol' egentlig betyder",
+      "fi": "Mitä 'tietojen hallinta' oikeasti tarkoittaa",
+      "no": "Hva 'datakontroll' egentlig betyr"
     },
     "body.3.text": {
-      "sv": "”Datakontroll” är ett uttjatat uttryck. När vi använder det här avser vi fem specifika saker, i ordning efter praktisk betydelse:"
+      "sv": "'Datakontroll' är ett överanvänt uttryck. När vi använder det här menar vi fem exakta saker, i ordning efter praktisk betydelse:",
+      "da": "'Datakontrol' er et overforbrugt udtryk. Når vi bruger det her, mener vi fem præcise ting, i rækkefølge efter praktisk betydning:",
+      "fi": "'Tietojen hallinta' on kulunut ilmaisu. Kun käytämme sitä tässä, tarkoitamme viittä täsmällistä asiaa, käytännön tärkeysjärjestyksessä:",
+      "no": "'Datakontroll' er et overbrukt uttrykk. Når vi bruker det her, mener vi fem presise ting, i rekkefølge etter praktisk betydning:"
     },
     "body.5.title": {
-      "sv": "Blanda inte ihop ”integritet” med ”kontroll”"
+      "sv": "Förväxla inte 'integritet' med 'kontroll'",
+      "da": "Forveksl ikke 'privatliv' med 'kontrol'",
+      "fi": "Älä sekoita 'yksityisyyttä' ja 'hallintaa'",
+      "no": "Ikke forveksle 'personvern' med 'kontroll'"
     },
     "body.5.body": {
-      "sv": "Apple Watch värnar starkt om integriteten (data lagras på enheten, slutet HealthKit) men är extremt inlåst (ingen Android, inget webb-API, ingen enkel export till standardformat). Garmin är mindre restriktivt när det gäller kommersiell integritet men betydligt mer öppet för export och interoperabilitet. Integritet ≠ kontroll. Fundera på vad du faktiskt behöver."
+      "sv": "Apple Watch är mycket integritetsvänlig (data på enheten, stängt HealthKit) men innebär extrem inlåsning (ingen Android, inget webb-API, ingen enkel export till standardformat). Garmin är mindre aggressiv när det gäller kommersiell integritet men betydligt öppnare för export och interoperabilitet. Integritet ≠ kontroll. Tänk på vad du faktiskt behöver.",
+      "da": "Apple Watch respekterer i høj grad privatlivet (data på enheden, lukket HealthKit), men har ekstrem lock-in (ingen Android, ingen web-API, ingen nem eksport til standardformater). Garmin er mindre aggressiv omkring kommerciel privatliv, men langt mere åben over for eksport og interoperabilitet. Privatliv ≠ kontrol. Tænk over, hvad du faktisk har brug for.",
+      "fi": "Apple Watch kunnioittaa yksityisyyttä erittäin hyvin (tiedot laitteessa, suljettu HealthKit), mutta lukitsee käyttäjän äärimmäisen tiukasti (ei Android-tukea, ei verkkopohjaista API-rajapintaa, ei helppoa vientiä vakiomuotoihin). Garmin on kaupallisen yksityisyyden suhteen vähemmän aggressiivinen, mutta paljon avoimempi viennille ja yhteentoimivuudelle. Yksityisyys ≠ hallinta. Mieti, mitä oikeasti tarvitset.",
+      "no": "Apple Watch er svært personvernvennlig (data på enheten, lukket HealthKit), men ekstremt innlåsende (ingen Android, ingen web-API, ingen enkel eksport til standardformater). Garmin er mindre aggressiv på kommersielt personvern, men mye mer åpen for eksport og samhandling. Personvern ≠ kontroll. Tenk over hva du faktisk trenger."
     },
     "body.6.text": {
-      "sv": "De fyra användningsarketyperna"
+      "sv": "De fyra användararketyperna",
+      "da": "De fire brugsarketyper",
+      "fi": "Neljä käyttöarkkityyppiä",
+      "no": "De fire brukstypene"
     },
     "body.7.text": {
-      "sv": "Innan du tittar på modellerna bör du fundera över vilken profil du känner igen dig i. Det är förenklingar (verkligheten är mer nyanserad), men de hjälper till att sålla bort oväsentligheter."
+      "sv": "Innan du tittar på modeller, identifiera vilken profil du känner igen dig i. De är förenklingar (verkligheten är luddig) men de hjälper dig att sålla bort bruset.",
+      "da": "Før du kigger på modeller, skal du finde ud af, hvilken profil du genkender dig selv i. Det er forenklinger (virkeligheden er mudret), men de hjælper med at skære støjen fra.",
+      "fi": "Ennen kuin katsot malleja, tunnista, mihin profiiliin samastut. Ne ovat yksinkertaistuksia (todellisuus on sumeampi), mutta ne auttavat karsimaan hälyä.",
+      "no": "Før du ser på modeller, finn ut hvilken profil du kjenner deg igjen i. De er forenklinger (virkeligheten er uklar), men de hjelper deg å kutte ut støy."
     },
     "body.8.text": {
-      "sv": "Seriös idrottare (uthållighet, prestationsinriktad)"
+      "sv": "Seriös idrottare (uthållighet, prestation)",
+      "da": "Seriøs atlet (udholdenhed, præstation)",
+      "fi": "Tosissaan urheileva (kestävyys, suorituskyky)",
+      "no": "Seriøs idrettsutøver (utholdenhet, prestasjon)"
     },
     "body.9.text": {
-      "sv": "Oavsett om du springer maraton, tävlar i triathlon, deltar i ultratrail-lopp eller följer ett strukturerat träningsprogram – här är de data du behöver: exakt GPS, uppskattad VO₂ max, träningsbelastning, återhämtningstid, HRV under träningen samt detaljerade pulszoner. Du behöver en enhet som klarar mer än 8 timmar med aktiv GPS och en avancerad analysplattform."
+      "sv": "Du springer maraton, tävlar i triathlon, gör ultratrail eller följer ett strukturerat program. Datan du behöver: exakt GPS, uppskattad VO₂ max, träningsbelastning, återhämtningstid, HRV under träning, detaljerade pulszoner. Du behöver en enhet som klarar 8+ timmar med aktiv GPS och en seriös analysplattform.",
+      "da": "Du løber maraton, konkurrerer i triatlon, laver ultra-trails eller følger en struktureret plan. De data, du har brug for: præcis GPS, estimeret VO₂ max, træningsbelastning, restitutionstid, HRV under træning, detaljerede pulszoner. Du har brug for en enhed, der holder 8+ timer med aktiv GPS, og en seriøs analyseplatform.",
+      "fi": "Juokset maratoneja, kilpailet triathlonissa, teet ultratrail-juoksuja tai noudatat jäsenneltyä harjoitusohjelmaa. Tarvitsemasi tiedot: tarkka GPS, arvioitu VO₂ max, harjoituskuormitus, palautumisaika, harjoituksenaikainen HRV, yksityiskohtaiset sykealueet. Tarvitset laitteen, joka kestää yli 8 tuntia GPS aktiivisena, sekä kunnollisen analytiikka-alustan.",
+      "no": "Du løper maraton, konkurrerer i triatlon, deltar i ultraløp eller følger en strukturert plan. Dataene du trenger: presis GPS, estimert VO₂ max, treningsbelastning, restitusjonstid, HRV under økten, detaljerte HR-soner. Du trenger en enhet som overlever 8+ timer med aktiv GPS og en seriøs analyseplattform."
     },
     "body.11.text": {
-      "sv": "Långlivnadsnörd (HRV, sömn, biomarkörer)"
+      "sv": "Longevity-nörd (HRV, sömn, biomarkörer)",
+      "da": "Longevity-nørd (HRV, søvn, biomarkører)",
+      "fi": "Pitkäikäisyysnörtti (HRV, uni, biomarkkerit)",
+      "no": "Longevity-nerd (HRV, søvn, biomarkører)"
     },
     "body.12.text": {
-      "sv": "Du lägger större vikt vid HRV stabilitet över tid, sömnkvalitet per sömnfas, SpO₂, hudtemperatur, andningsfrekvens och enstaka EKG-mätningar. Du har läst Attia, följer Huberman och tränar i zon 2. Du behöver en sensor med hög precision för natten, inte för löpningen."
+      "sv": "Du bryr dig mer om HRV-stabilitet över tid, sömnkvalitet per fas, SpO₂, hudtemperatur, andningsfrekvens och tillfälligt EKG. Du har läst Attia, följer Huberman och tränar zon 2. Du behöver sensorprecision för natten, inte för löprundor.",
+      "da": "Du går mere op i HRV-stabilitet over tid, søvnkvalitet fordelt på stadier, SpO₂, hudtemperatur, respirationsfrekvens og lejlighedsvis EKG. Du har læst Attia, følger Huberman og træner i zone 2. Du har brug for sensorpræcision om natten, ikke til løbeture.",
+      "fi": "Välität enemmän HRV-arvon vakaudesta ajan mittaan, unen laadusta univaiheittain, SpO₂-tasosta, ihon lämpötilasta, hengitystiheydestä ja satunnaisesta EKG:stä. Olet lukenut Attiaa, seuraat Hubermania, teet vyöhyke 2 -harjoittelua. Tarvitset anturitarkkuutta yöhön, et juoksuihin.",
+      "no": "Du bryr deg mer om HRV-stabilitet over tid, søvnkvalitet etter fase, SpO₂, hudtemperatur, respirasjonsfrekvens og av og til EKG. Du har lest Attia, følger Huberman, trener i sone 2. Du trenger sensorpresisjon for natten, ikke for løpeturer."
     },
     "body.14.text": {
-      "sv": "Daglig användare (notiser, lätt träning, grundläggande hälsa)"
+      "sv": "Vardagsanvändare (notiser, lätt träning, grundläggande hälsa)",
+      "da": "Hverdagsbruger (notifikationer, let fitness, grundlæggende sundhed)",
+      "fi": "Arkikäyttäjä (ilmoitukset, kevyt liikunta, perusterveys)",
+      "no": "Hverdagsbruker (varsler, lett trening, grunnleggende helse)"
     },
     "body.15.text": {
-      "sv": "Du promenerar, tränar lätt på gymmet, mäter antal steg och sömn, och vill ha aviseringar på handleden. Du behöver varken Body Battery eller Training Readiness: du behöver en enhet som håller i 5 dagar utan laddning och som inte slösar bort din tid. Att kontrollera data är något man gör ”för säkerhets skull”, inte en daglig prioritet."
+      "sv": "Du promenerar, tränar lätt på gym, spårar steg och sömn och vill ha notiser på handleden. Du behöver inte Body Battery eller Training Readiness: du behöver något som håller 5 dagar utan laddning och inte slösar bort din tid. Datakontroll är 'för säkerhets skull', inte en daglig prioritet.",
+      "da": "Du går ture, træner let i fitnesscenteret, tracker skridt og søvn og vil have notifikationer på håndleddet. Du har ikke brug for Body Battery eller Training Readiness: du har brug for noget, der holder 5 dage uden opladning og ikke spilder din tid. Datakontrol er 'for en sikkerheds skyld', ikke en daglig prioritet.",
+      "fi": "Kävelet, teet kevyttä kuntosaliharjoittelua, seuraat askelia ja unta ja haluat ilmoitukset ranteeseen. Et tarvitse Body Battery- tai Training Readiness -mittareita: tarvitset laitteen, joka kestää 5 päivää ilman latausta eikä tuhlaa aikaasi. Tietojen hallinta on 'varmuuden vuoksi', ei päivittäinen prioriteetti.",
+      "no": "Du går turer, trener lett på treningssenter, sporer skritt og søvn, vil ha varsler på håndleddet. Du trenger ikke Body Battery eller Training Readiness: du trenger noe som varer i 5 dager uten lading og ikke kaster bort tiden din. Datakontroll er 'i tilfelle', ikke en daglig prioritet."
     },
     "body.17.text": {
-      "sv": "Föräldrarnas tillsyn/omsorg"
+      "sv": "Övervakning av anhöriga / omsorg",
+      "da": "Overvågning af forældre / pleje",
+      "fi": "Vanhemman seuranta / hoiva",
+      "no": "Overvåking av foreldre / omsorg"
     },
     "body.18.text": {
-      "sv": "Du vill hålla koll på en åldrande förälder, en familjemedlem med en kronisk sjukdom eller ditt barn. Viktiga data: fallavkänning, onormala hjärtfrekvensvärden, position (valfritt), oregelbunden hjärtrytm. Prioriteten ligger på sensorns tillförlitlighet och att det ska vara enkelt att dela utvalda data med dig (eller en läkare), inte på prestationsanalyser."
+      "sv": "Du vill övervaka en åldrande förälder, en familjemedlem med en kronisk sjukdom eller ditt barn. Kritiska data: falldetektering, avvikande puls, plats (valfritt), oregelbunden hjärtrytm. Prioriteten är sensorernas tillförlitlighet + enkel selektiv datadelning med dig (eller en läkare), inte prestandaanalys.",
+      "da": "Du vil overvåge en aldrende forælder, et familiemedlem med en kronisk lidelse eller dit barn. Kritiske data: faldregistrering, unormal puls, placering (valgfrit), uregelmæssig hjerterytme. Prioriteten er pålidelige sensorer + nem, selektiv datadeling med dig (eller en læge), ikke præstationsanalyse.",
+      "fi": "Haluat seurata ikääntyvää vanhempaa, kroonisesti sairasta perheenjäsentä tai lastasi. Kriittiset tiedot: kaatumisen tunnistus, poikkeava syke, sijainti (valinnainen), epäsäännöllinen sydämen rytmi. Prioriteettina on anturien luotettavuus ja helppo, valikoiva tietojen jakaminen kanssasi (tai lääkärin kanssa), ei suorituskyvyn analytiikka.",
+      "no": "Du vil holde øye med en aldrende forelder, et familiemedlem med en kronisk sykdom eller barnet ditt. Kritiske data: fallregistrering, unormal HR, posisjon (valgfritt), uregelmessig hjerterytme. Prioriteten er pålitelige sensorer + enkel og selektiv datadeling med deg (eller en lege), ikke prestasjonsanalyse."
     },
     "body.20.text": {
-      "sv": "Övergripande varningssignaler"
+      "sv": "Genomgående varningstecken",
+      "da": "Gennemgående advarselstegn",
+      "fi": "Kaikille yhteiset varoitusmerkit",
+      "no": "Faresignaler på tvers"
     },
     "body.21.text": {
-      "sv": "Oavsett modell finns det vissa mönster som bör få dig att tänka efter innan du drar kortet."
+      "sv": "Oavsett modell finns det mönster som bör få dig att tveka innan du drar kortet.",
+      "da": "Uanset model er der mønstre, der bør få dig til at tøve, før du trækker kortet.",
+      "fi": "Mallista riippumatta on olemassa merkkejä, joiden pitäisi saada sinut pysähtymään ennen kuin vedät korttisi lukijaan.",
+      "no": "Uansett modell finnes det mønstre som bør få deg til å stoppe opp før du drar kortet."
     },
     "body.23.text": {
-      "sv": "Pris kontra funktionalitet: den verkliga mentala modellen"
+      "sv": "Pris kontra funktionalitet: den verkliga tankemodellen",
+      "da": "Pris vs. funktionalitet: den rigtige tankemodel",
+      "fi": "Hinta vs. toiminnallisuus: todellinen ajattelumalli",
+      "no": "Pris vs. funksjonalitet: den riktige tankemodellen"
     },
     "body.24.text": {
-      "sv": "Sluta jämföra 200 euro med 600 euro i absoluta tal. Tänk istället på kostnaden per år vid effektiv användning. En Garmin Forerunner som håller i 5 år och kostar 350 euro = 70 euro/år. En Whoop med ett abonnemang på 30 euro per månad i 5 år = 1 800 euro. En Apple Watch för 450 euro som du förmodligen byter ut om 3 år = 150 euro per år + beroende av iPhone."
+      "sv": "Sluta jämföra €200 mot €600 i absoluta tal. Tänk i kostnad per år av faktisk användning. En Garmin Forerunner som håller 5 år för €350 = €70/år. En Whoop med abonnemang på €30/månad i 5 år = €1800. En Apple Watch för €450 som du troligen byter ut efter 3 år = €150/år + beroende av iPhone.",
+      "da": "Hold op med at sammenligne €200 vs. €600 i absolutte tal. Tænk i pris pr. år med reel brug. En Garmin Forerunner, der holder 5 år til €350 = €70/år. En Whoop med abonnement til €30/måned i 5 år = €1800. Et Apple Watch til €450, som du sandsynligvis udskifter efter 3 år = €150/år + afhængighed af iPhone.",
+      "fi": "Lopeta 200 €:n ja 600 €:n vertailu absoluuttisina lukuina. Ajattele kustannusta tehokasta käyttövuotta kohden. 5 vuotta kestävä Garmin Forerunner hintaan 350 € = 70 €/vuosi. Whoop 30 €:n kuukausitilauksella viideltä vuodelta = 1800 €. Apple Watch hintaan 450 €, jonka luultavasti vaihdat 3 vuoden kuluttua = 150 €/vuosi + iPhone-riippuvuus.",
+      "no": "Slutt å sammenligne €200 mot €600 i absolutte tall. Tenk i kostnad per år med effektiv bruk. En Garmin Forerunner som varer i 5 år til €350 = €70/år. En Whoop med abonnement på €30/måned i 5 år = €1800. En Apple Watch til €450 som du sannsynligvis bytter ut etter 3 år = €150/år + avhengighet av iPhone."
     },
     "body.25.aTitle": {
-      "sv": "Engångsköp"
+      "sv": "Engångsköp",
+      "da": "Engangskøb",
+      "fi": "Kertaosto",
+      "no": "Engangskjøp"
     },
     "body.25.bTitle": {
-      "sv": "Prenumerationsmodell"
+      "sv": "Abonnemangsmodell",
+      "da": "Abonnementsmodel",
+      "fi": "Tilausmalli",
+      "no": "Abonnementsmodell"
     },
     "body.26.title": {
-      "sv": "Prenumeration = gisslan för data"
+      "sv": "Abonnemang = data som gisslan",
+      "da": "Abonnement = data som gidsel",
+      "fi": "Tilaus = tiedot panttivankina",
+      "no": "Abonnement = data som gissel"
     },
     "body.26.body": {
-      "sv": "När tillgången till dina historiska data är beroende av en återkommande betalning äger du dem inte riktigt. Om du imorgon inte har råd med prenumerationen förlorar du möjligheten att visualisera (och ibland även ladda ner) din historik. Detta är inte bara en teoretisk fråga: det är den uttryckliga modellen för Whoop och delvis Oura."
+      "sv": "När tillgången till dina historiska data beror på en återkommande betalning äger du dem inte på riktigt. Om du i morgon inte har råd med abonnemanget förlorar du möjligheten att visualisera (ibland även ladda ner) din historik. Det här är inte teoretiskt: det är den uttalade modellen hos Whoop och delvis Oura.",
+      "da": "Når adgangen til dine historiske data afhænger af en tilbagevendende betaling, ejer du dem ikke rigtigt. Hvis du i morgen ikke har råd til abonnementet, mister du visningen (nogle gange også download) af din historik. Det er ikke teoretisk: det er den udtrykkelige model hos Whoop og delvist Oura.",
+      "fi": "Kun pääsy historiatietoihisi riippuu toistuvasta maksusta, et todella omista niitä. Jos et huomenna pysty maksamaan tilausta, menetät historiasi visualisoinnin (joskus myös lataamisen). Tämä ei ole teoreettista: näin toimivat nimenomaisesti Whoop ja osittain Oura.",
+      "no": "Når tilgangen til de historiske dataene dine avhenger av en løpende betaling, eier du dem ikke egentlig. Hvis du i morgen ikke har råd til abonnementet, mister du visningen (noen ganger også nedlastingen) av historikken din. Dette er ikke teoretisk: det er den uttalte modellen til Whoop og delvis Oura."
     },
     "body.27.text": {
-      "sv": "Ekosystemberoende: den dolda kostnaden"
+      "sv": "Inlåsning i ekosystem: den dolda kostnaden",
+      "da": "Lock-in i økosystemer: den skjulte omkostning",
+      "fi": "Ekosysteemiin lukkiutuminen: piilokustannus",
+      "no": "Innlåsing i økosystemet: den skjulte kostnaden"
     },
     "body.28.text": {
-      "sv": "När man köper en smartklocka köper man inte bara själva enheten: man binder sig också till en app, ett moln och oftast en telefon. Hur mycket kostar det att byta ekosystem om två år?"
+      "sv": "När du köper en smartwatch köper du inte bara enheten: du gifter dig också med en tillhörande app, ett moln och vanligtvis en telefon. Hur mycket kostar det att byta ekosystem om två år?",
+      "da": "Når du køber et smartwatch, køber du ikke bare enheden: du gifter dig også med en ledsager-app, en sky og typisk en telefon. Hvor meget koster det at skifte økosystem om to år?",
+      "fi": "Kun ostat älykellon, et osta pelkkää laitetta: sitoudut myös kumppanisovellukseen, pilveen ja tyypillisesti tiettyyn puhelimeen. Kuinka paljon maksaa ekosysteemin vaihtaminen kahden vuoden kuluttua?",
+      "no": "Når du kjøper en smartklokke, kjøper du ikke bare enheten: du gifter deg også med en følgeapp, en sky og som regel en telefon. Hvor mye koster det å bytte økosystem om to år?"
     },
     "body.30.text": {
-      "sv": "Vad jag skulle göra idag (maj 2026)"
+      "sv": "Vad jag skulle göra i dag (maj 2026)",
+      "da": "Hvad jeg ville gøre i dag (maj 2026)",
+      "fi": "Mitä tekisin tänään (toukokuu 2026)",
+      "no": "Hva jeg ville gjort i dag (mai 2026)"
     },
     "body.31.text": {
-      "sv": "Detta är en åsiktsartikel, vilket uttryckligen anges. Det är varken en köprekommendation eller personlig rådgivning."
+      "sv": "Ett tyckande avsnitt, öppet deklarerat som sådant. Inte en köprekommendation eller personlig rådgivning.",
+      "da": "Et afsnit med holdninger, erklæret som sådan. Ikke en købsanbefaling eller personlig rådgivning.",
+      "fi": "Mielipiteellinen osio, avoimesti sellaiseksi ilmoitettu. Ei ostosuositus eikä henkilökohtainen neuvo.",
+      "no": "Meningsbasert del, erklært som det. Ikke en kjøpsanbefaling eller personlig rådgivning."
     },
     "body.33.title": {
-      "sv": "Mitt direkta förslag"
+      "sv": "Min direkta rekommendation",
+      "da": "Min direkte anbefaling",
+      "fi": "Suora suositukseni",
+      "no": "Min direkte anbefaling"
     },
     "body.33.body": {
-      "sv": "Om du använder Android och inte är någon seriös idrottare klarar Xiaomi Mi Band 9 för 50 euro 90 % av det du behöver. Bindningstiden är minimal (skriver till Health Connect), batteriet håller i 14 dagar och du har inget att förlora om du ändrar dig. Att lägga mer pengar är bara vettigt om du vet exakt vilka ytterligare mätvärden du behöver och varför."
+      "sv": "Om du använder Android och inte är en seriös idrottare kostar Xiaomi Mi Band 9 bara €50 och klarar 90 % av det som behövs. Inlåsningen är minimal (skriver till Health Connect), batteriet håller 14 dagar och du har inget att förlora om du ändrar dig. Att lägga mer pengar är bara vettigt om du vet exakt vilket ytterligare mätvärde du behöver och varför.",
+      "da": "Hvis du bruger Android og ikke er en seriøs atlet, klarer Xiaomi Mi Band 9 til €50 90% af det, der er brug for. Lock-in er minimal (skriver til Health Connect), batteriet holder 14 dage, og du har intet at tabe, hvis du skifter mening. Det giver kun mening at bruge flere penge, hvis du ved præcis, hvilken ekstra måling du har brug for og hvorfor.",
+      "fi": "Jos olet Android-käyttäjä etkä ole tosissaan urheileva, Xiaomi Mi Band 9 hintaan 50 € tekee 90 % siitä, mitä tarvitaan. Lukkiutuminen on minimaalista (kirjoittaa Health Connect -palveluun), akku kestää 14 päivää, eikä sinulla ole mitään menetettävää, jos muutat mielesi. Enemmän kannattaa käyttää vain, jos tiedät tarkalleen, minkä lisämittarin tarvitset ja miksi.",
+      "no": "Hvis du bruker Android og ikke er en seriøs idrettsutøver, dekker Xiaomi Mi Band 9 til €50 90 % av behovet. Innlåsingen er minimal (skriver til Health Connect), batteriet varer i 14 dager, og du har ingenting å tape hvis du ombestemmer deg. Å bruke mer gir bare mening hvis du vet nøyaktig hvilken ekstra måleverdi du trenger og hvorfor."
     },
     "body.34.text": {
-      "sv": "Sammanfattningsvis",
-      "da": "Sammenfattende"
+      "sv": "Sammanfattning",
+      "da": "Kort fortalt",
+      "fi": "Yhteenveto",
+      "no": "Oppsummert"
     },
     "body.36.title": {
-      "sv": "Har du redan en smartklocka och vill bara ha en överskådlig instrumentpanel?"
+      "sv": "Har du redan en smartwatch och vill bara ha en ren instrumentpanel?",
+      "da": "Har du allerede et smartwatch og vil bare have et rent dashboard?",
+      "fi": "Onko sinulla jo älykello ja haluat vain selkeän koontinäkymän?",
+      "no": "Har du allerede en smartklokke og vil bare ha et ryddig dashbord?"
     },
     "body.36.body": {
-      "sv": "FitMesh Sync hämtar data från Health Connect (valfri Android-bärbar enhet) och planerar att införa OAuth för Garmin, Polar, Oura, Withings och Strava. 30 sekunders installation, inga annonser, inga spårare."
+      "sv": "FitMesh Sync läser från Health Connect (alla Android-wearables) och planerar OAuth för Garmin, Polar, Oura, Withings, Strava. 30 sekunders installation, inga annonser, inga spårare.",
+      "da": "FitMesh Sync læser fra Health Connect (enhver Android-wearable) og planlægger OAuth til Garmin, Polar, Oura, Withings, Strava. 30 sekunders opsætning, ingen reklamer, ingen trackere.",
+      "fi": "FitMesh Sync lukee Health Connect -palvelusta (mikä tahansa Android-puettava) ja suunnittelee OAuth-integraatioita seuraaville palveluille: Garmin, Polar, Oura, Withings ja Strava. 30 sekunnin käyttöönotto, ei mainoksia, ei seurantaa.",
+      "no": "FitMesh Sync leser fra Health Connect (alle bærbare Android-enheter) og planlegger OAuth for Garmin, Polar, Oura, Withings, Strava. 30 sekunders oppsett, ingen annonser, ingen sporere."
     },
     "body.36.ctaLabel": {
-      "sv": "Visa alla integrationer"
+      "sv": "Se alla integrationer",
+      "da": "Se alle integrationer",
+      "fi": "Katso kaikki integraatiot",
+      "no": "Se alle integrasjoner"
     },
     "body.37.text": {
-      "sv": "En checklista för att inte göra bort sig"
+      "sv": "En checklista för att inte göra bort dig",
+      "da": "En tjekliste, så du ikke kvajer dig",
+      "fi": "Tarkistuslista, jotta et mokaa",
+      "no": "En sjekkliste for ikke å trå feil"
     },
     "body.38.text": {
-      "sv": "Innan du köper, installera appen på den telefon du redan har. Kontrollera att den finns på ditt språk och i ditt land. Googla ”[modell] integritetspolicy dataexport”. Läs de senaste fem enstjärniga recensionerna på Play Store / App Store: där hittar du de verkliga vardagsproblemen. Om allt ser bra ut kan du köpa den."
+      "sv": "Installera den tillhörande appen på telefonen du redan har innan du köper. Kontrollera att den finns på ditt språk och i ditt land. Googla '[modell] privacy policy data export'. Läs de 5 senaste enstjärniga recensionerna på Play Store / App Store: det är där du hittar de verkliga vardagsproblemen. Om allt håller, kör på.",
+      "da": "Før du køber, skal du installere ledsager-appen på den telefon, du allerede har. Tjek, at den findes på dit sprog og i dit land. Søg på Google efter '[model] privatlivspolitik dataeksport'. Læs de seneste 5 anmeldelser med én stjerne på Play Store / App Store: det er der, du finder de reelle problemer i hverdagen. Hvis alt holder, så kør på.",
+      "fi": "Ennen ostoa asenna kumppanisovellus puhelimeen, joka sinulla jo on. Tarkista, että se on saatavilla omalla kielelläsi ja maassasi. Googlaa '[malli] tietosuojaseloste tietojen vienti'. Lue viisi uusinta yhden tähden arvostelua Play Store- tai App Store -sovelluskaupassa: sieltä löydät todelliset arjen ongelmat. Jos kaikki pitää, etene.",
+      "no": "Før du kjøper, installer følgeappen på telefonen du allerede har. Sjekk at den finnes på ditt språk og i ditt land. Søk på Google etter '[modell] personvernerklæring dataeksport'. Les de siste 5 énstjernes anmeldelsene på Play Store / App Store: det er der du finner de reelle problemene i hverdagen. Hvis alt holder mål, kjør på."
     },
     "faq.0.q": {
-      "sv": "Är Apple Watch verkligen så sluten?"
+      "sv": "Är Apple Watch verkligen så stängd?",
+      "da": "Er Apple Watch virkelig så lukket?",
+      "fi": "Onko Apple Watch todella noin suljettu?",
+      "no": "Er Apple Watch virkelig så lukket?"
     },
     "faq.0.a": {
-      "sv": "Ja, men det finns vissa nyanser. Insamlade data lagras i Apple Health (iPhone). Därifrån kan du exportera som XML (en mycket detaljerad fullständig dump, inte särskilt lämplig för analys), och det finns iOS-appar som läser via HealthKit och genererar användbara CSV- eller JSON-filer. Men du kan inte synkronisera automatiskt till en Android-app eller en fristående webbpanel utan att bygga något skräddarsytt. För de flesta användare är inlåsningen effektiv."
+      "sv": "Ja, med vissa nyanser. Insamlad data ligger i Apple Health (iPhone). Därifrån kan du exportera som XML (en mycket omfångsrik, fullständig dataexport, inte analysvänlig), och det finns iOS-appar som läser via HealthKit och skapar användbar CSV eller JSON. Men du kan inte automatiskt synka till en Android-app eller en fristående webbaserad instrumentpanel utan att bygga något skräddarsytt. För de flesta användare är inlåsningen reell.",
+      "da": "Ja, med nuancer. De indsamlede data ligger i Apple Health (iPhone). Derfra kan du eksportere som XML (et meget omfattende fuldt dump, ikke analysevenligt), og der findes iOS-apps, der læser via HealthKit og laver brugbar CSV eller JSON. Men du kan ikke automatisk synkronisere til en Android-app eller et uafhængigt web-dashboard uden at bygge noget skræddersyet. For de fleste brugere er lock-in reel.",
+      "fi": "Kyllä, tietyin vivahtein. Kerätyt tiedot sijaitsevat Apple Health -sovelluksessa (iPhone). Sieltä voit viedä ne XML-muodossa (erittäin monisanainen täysvedos, joka ei sovi analytiikkaan), ja on olemassa iOS-sovelluksia, jotka lukevat HealthKitin kautta ja tuottavat käyttökelpoista CSV- tai JSON-tiedostoa. Et kuitenkaan voi synkronoida tietoja automaattisesti Android-sovellukseen tai itsenäiseen verkkopohjaiseen koontinäkymään ilman räätälöityä ratkaisua. Useimmille käyttäjille lukkiutuminen on tosiasiallista.",
+      "no": "Ja, med nyanser. Innsamlede data ligger i Apple Health (iPhone). Derfra kan du eksportere som XML (en svært omstendelig full dump, ikke egnet for analyse), og det finnes iOS-apper som leser via HealthKit og lager nyttig CSV eller JSON. Men du kan ikke automatisk synkronisere til en Android-app eller et uavhengig web-dashbord uten å bygge noe skreddersydd. For de fleste brukere er innlåsingen reell."
     },
     "faq.1.q": {
-      "sv": "Kan jag köpa ett kinesiskt varumärke utan att det innebär någon risk för min integritet?"
+      "sv": "Kan jag köpa ett kinesiskt varumärke utan integritetsrisk?",
+      "da": "Kan jeg købe et kinesisk mærke uden privatlivsrisiko?",
+      "fi": "Voinko ostaa kiinalaisen merkin ilman yksityisyysriskiä?",
+      "no": "Kan jeg kjøpe et kinesisk merke uten personvernrisiko?"
     },
     "faq.1.a": {
-      "sv": "Både Xiaomi och Huawei har under de senaste tre åren infört mer transparenta rutiner i Europa under GDPR påtryckningar. Xiaomi använder Mi Fitness för att skriva till Health Connect (lokal kontroll i Android), vilket är den mest betryggande lösningen. Huawei har ett mer slutet ekosystem (HMS) utanför Kina. Frågan man bör ställa sig är: utgör ett främmande land eller ett företag som säljer data till annonsteknikbranschen ett hot mot mig? För de flesta användare är den verkliga risken det senare, och där skiljer sig Xiaomi inte strukturellt från Samsung eller Google."
+      "sv": "Både Xiaomi och Huawei har infört mer transparenta rutiner i Europa under de senaste 3 åren, under tryck från GDPR. Xiaomi skriver via Mi Fitness till Health Connect (lokal kontroll på Android), vilket är den mest betryggande lösningen. Huawei har ett mer stängt ekosystem (HMS) utanför Kina. Frågan att ställa: är mitt hot en främmande stat eller ett företag som säljer data till annonsteknikföretag? För de flesta användare är den verkliga risken den andra, och där skiljer sig Xiaomi inte strukturellt från Samsung eller Google.",
+      "da": "Både Xiaomi og Huawei har over de seneste 3 år indført mere gennemsigtige praksisser i Europa under pres fra GDPR. Xiaomi skriver via Mi Fitness til Health Connect (lokal kontrol på Android), hvilket er den mest betryggende opsætning. Huawei har et mere lukket økosystem (HMS) uden for Kina. Spørgsmålet, du skal stille: er min trussel en fremmed stat eller en virksomhed, der sælger data til ad-tech? For de fleste brugere er den reelle risiko den anden, og der adskiller Xiaomi sig ikke strukturelt fra Samsung eller Google.",
+      "fi": "Sekä Xiaomi että Huawei ovat ottaneet käyttöön läpinäkyvämpiä käytäntöjä Euroopassa viimeisten 3 vuoden aikana GDPR-paineen alla. Xiaomi kirjoittaa Mi Fitnessin kautta tiedot Health Connect -palveluun (paikallinen hallinta Android-laitteella), mikä on rauhoittavin kokoonpano. Huaweilla on Kiinan ulkopuolella suljetumpi ekosysteemi (HMS). Kysymys, joka kannattaa esittää: onko uhkani vieras valtio vai yritys, joka myy tietoja mainosteknologialle? Useimmille käyttäjille todellinen riski on jälkimmäinen, eikä Xiaomi siinä suhteessa rakenteellisesti eroa Samsungista tai Googlesta.",
+      "no": "Både Xiaomi og Huawei har innført mer åpne praksiser i Europa de siste 3 årene under press fra GDPR. Xiaomi skriver via Mi Fitness til Health Connect (lokal Android-kontroll), som er det mest betryggende oppsettet. Huawei har et mer lukket økosystem (HMS) utenfor Kina. Spørsmålet du bør stille: er trusselen min en fremmed stat eller et selskap som selger data til ad-tech? For de fleste brukere er den reelle risikoen den andre, og der er ikke Xiaomi strukturelt forskjellig fra Samsung eller Google."
     },
     "faq.2.q": {
-      "sv": "Är en prenumerationsmodell som Whoop värt pengarna?"
+      "sv": "Är abonnemangsmodellen som Whoop värd det?",
+      "da": "Er abonnementsmodellen som Whoop det værd?",
+      "fi": "Kannattaako Whoopin kaltainen tilausmalli?",
+      "no": "Er abonnementsmodellen som Whoop verdt det?"
     },
     "faq.2.a": {
-      "sv": "Endast om du anser att mervärdet av den proprietära analysfunktionen överstiger den sammanlagda kostnaden. Whoop kostar 30 €/månad = 360 €/år = 1 800 € över 5 år. För någon som är djupt engagerad i att följa sin hälsa kan det vara vettigt; för de flesta är det inte det. Räkna alltid ut den totala ägandekostnaden, inte månadspriset."
+      "sv": "Bara om du anser att mervärdet från den proprietära analysen överstiger den samlade kostnaden. Whoop för €30/månad = €360/år = €1800 över 5 år. För någon som är djupt inne i en hälsospårningsresa kan det vara vettigt; för de flesta är det inte det. Räkna alltid på den totala ägandekostnaden, inte månadspriset.",
+      "da": "Kun hvis du vurderer, at merværdien af den proprietære analyse overstiger de samlede omkostninger. Whoop til €30/måned = €360/år = €1800 over 5 år. For en, der er dybt inde i en sundhedstracking-rejse, kan det give mening; for de fleste gør det ikke. Beregn altid de samlede ejeromkostninger, ikke den månedlige pris.",
+      "fi": "Vain jos arvostat sitä, että patentoidun analytiikan tuoma lisäarvo ylittää kumulatiiviset kustannukset. Whoop 30 €/kk = 360 €/vuosi = 1800 € viidessä vuodessa. Terveysseurantaan syvälle uppoutuneelle se voi olla järkevää; useimmille ei. Laske aina omistamisen kokonaiskustannus, ei kuukausihintaa.",
+      "no": "Bare hvis du mener at merverdien fra den proprietære analysen overstiger den samlede kostnaden. Whoop til €30/måned = €360/år = €1800 over 5 år. For noen som er dypt inne i en helsemålingsreise kan det gi mening; for de fleste gjør det ikke det. Regn alltid ut den totale eierkostnaden, ikke månedsprisen."
     },
     "faq.3.q": {
-      "sv": "Vad är skillnaden mellan ”konsumentprodukter” och ”medicinska produkter”?"
+      "sv": "Vad är skillnaden mellan 'konsument-' och 'medicintekniska' enheter?",
+      "da": "Hvad er forskellen mellem 'forbruger'- og 'medicinske' enheder?",
+      "fi": "Mikä ero on 'kuluttaja-' ja 'lääkinnällisillä' laitteilla?",
+      "no": "Hva er forskjellen mellom 'forbruker'- og 'medisinske' enheter?"
     },
     "faq.3.a": {
-      "sv": "Medicintekniska produkter (CE-märkta i klass IIa eller högre) omfattas av lagstadgade garantier avseende sensorns noggrannhet och kliniska valideringsprocesser. Nästan alla smartklockor för konsumenter (Apple, Garmin, Samsung, Fitbit) har inte medicinsk användning som huvudfunktion, även om de har certifierade funktioner (Apple Watch EKG eller KardiaMobile, SpO₂ på vissa modeller). För hemmabruk är konsumentprodukter fullt tillräckliga; vid kliniska beslut ska man alltid använda validerade medicintekniska produkter och professionell tolkning."
+      "sv": "Medicintekniska produkter (CE-märkta klass IIa eller högre) har regulatoriska garantier för sensorprecision och kliniska valideringsprocesser. Nästan alla konsumentsmartwatches (Apple, Garmin, Samsung, Fitbit) är inte medicintekniska i sin huvudfunktion, även med certifierade funktioner (EKG på Apple Watch eller KardiaMobile, SpO₂ på vissa modeller). För hemmabruk räcker konsumentprodukter; för kliniska beslut ska du alltid använda validerade medicintekniska produkter och professionell tolkning.",
+      "da": "Medicinsk udstyr (CE-mærket klasse IIa eller højere) har regulatoriske garantier for sensorpræcision og kliniske valideringsprocesser. Næsten alle forbruger-smartwatches (Apple, Garmin, Samsung, Fitbit) er ikke medicinske i deres hovedfunktion, selv med certificerede funktioner (Apple Watch EKG eller KardiaMobile, SpO₂ på visse modeller). Til brug i hjemmet er forbrugerudstyr fint; til kliniske beslutninger skal du altid bruge valideret medicinsk udstyr og professionel fortolkning.",
+      "fi": "Lääkinnällisillä laitteilla (CE-merkityt, luokka IIa tai korkeampi) on viranomaistakuut anturitarkkuudesta ja kliinisistä validointiprosesseista. Lähes kaikki kuluttajaälykellot (Apple, Garmin, Samsung, Fitbit) eivät ole päätoiminnaltaan lääkinnällisiä, vaikka niissä olisi sertifioituja ominaisuuksia (Apple Watchin EKG tai KardiaMobile, SpO₂ tietyissä malleissa). Kotikäyttöön kuluttajalaite riittää; kliinisiä päätöksiä varten käytä aina validoituja lääkinnällisiä laitteita ja ammattilaisen tulkintaa.",
+      "no": "Medisinske enheter (CE-merket klasse IIa eller høyere) har regulatoriske garantier for sensorpresisjon og kliniske valideringsprosesser. Nesten alle forbrukersmartklokker (Apple, Garmin, Samsung, Fitbit) er ikke medisinske i sin hovedfunksjon, selv med sertifiserte funksjoner (EKG på Apple Watch eller KardiaMobile, SpO₂ på enkelte modeller). Til hjemmebruk er forbrukerenheter greit; for kliniske beslutninger bør du alltid bruke validerte medisinske enheter og profesjonell tolkning."
     },
     "secondaryKeywords": {
       "sv": [
-        "smartklocka med integritet i fokus",
-        "Export av data från smartklockor",
-        "smartklocka utan bindningstid",
-        "Bästa smartklockan för hälsodata 2026"
+        "integritetsfokuserad smartwatch",
+        "dataexport smartwatch",
+        "smartwatch utan inlåsning",
+        "bästa smartwatch för hälsodata 2026"
+      ],
+      "da": [
+        "smartwatch med fokus på privatliv",
+        "smartwatch dataeksport",
+        "smartwatch uden lock-in",
+        "bedste smartwatch til sundhedsdata 2026"
+      ],
+      "fi": [
+        "yksityisyyttä korostava älykello",
+        "älykellon tietojen vienti",
+        "älykello ilman lukkiutumista",
+        "paras älykello terveystiedoille 2026"
+      ],
+      "no": [
+        "personvern-først smartklokke",
+        "dataeksport smartklokke",
+        "smartklokke uten innlåsing",
+        "beste smartklokke for helsedata 2026"
       ]
     },
     "body.4.items": {
       "sv": [
-        "**Inbyggd exportfunktion**: Jag kan ladda ner alla mina data i vanliga format (CSV, JSON, GPX, FIT) utan att behöva kontakta supporten via e-post eller försöka rekonstruera odokumenterade API:er.",
-        "**Transparens i dataflödet**: Jag vet vart mina data tar vägen. Lagrar de sig på enheten? I tillverkarens moln? Säljs de vidare till annonsteknikföretag? Kan jag läsa integritetspolicyn och få reda på det på fem minuter?",
-        "**Behörighetsnivå**: Kan jag ange för ekosystemet ”ja till HR, nej till GPS”, eller är det allt eller inget?",
-        "**Kompatibilitet**: Kan jag använda min enhet med appar från tredje part (Strava, Komoot, alternativa hälsoappar) utan att behöva be tillverkaren om tillstånd?",
-        "**Anpassningsförmåga**: Om varumärket skulle bli uppköpt eller lägga ner en verksamhetsgren imorgon, har jag då en plan B?"
+        "**Inbyggd exporterbarhet**: jag kan ladda ner alla mina data i vanliga format (CSV, JSON, GPX, FIT) utan att mejla supporten eller baklängeskonstruera odokumenterade API:er.",
+        "**Transparens i dataflödet**: jag vet vart mina data tar vägen. På enheten? Tillverkarens moln? Sålt till annonsteknikföretag? Kan jag läsa integritetspolicyn och lista ut det på 5 minuter?",
+        "**Granularitet i behörigheter**: kan jag säga till ekosystemet 'ja till puls, nej till GPS' eller är det allt-eller-inget?",
+        "**Interoperabilitet**: kan jag använda min enhet med tredjepartsappar (Strava, Komoot, alternativa hälsoappar) utan att be tillverkaren om lov?",
+        "**Motståndskraft vid byte**: om varumärket köps upp eller lägger ner en division i morgon, har jag en plan B?"
+      ],
+      "da": [
+        "**Indbygget eksporterbarhed**: Jeg kan downloade alle mine data i almindelige formater (CSV, JSON, GPX, FIT) uden at skrive til support eller reverse-engineere udokumenterede API'er.",
+        "**Gennemsigtighed i datastrømmen**: Jeg ved, hvor mine data ender. På enheden? Producentens sky? Solgt til ad-tech? Kan jeg læse privatlivspolitikken og finde ud af det på 5 minutter?",
+        "**Granulære tilladelser**: kan jeg sige til økosystemet 'ja til puls, nej til GPS', eller er det alt eller intet?",
+        "**Interoperabilitet**: kan jeg bruge min enhed med tredjepartsapps (Strava, Komoot, alternative sundhedsapps) uden at bede producenten om lov?",
+        "**Modstandsdygtighed ved skift**: hvis mærket bliver opkøbt eller lukker en afdeling i morgen, har jeg så en plan B?"
+      ],
+      "fi": [
+        "**Natiivi vietävyys**: voin ladata kaikki tietoni yleisissä muodoissa (CSV, JSON, GPX, FIT) ilman että lähetän sähköpostia tukeen tai takaisinmallinnan dokumentoimattomia API-rajapintoja.",
+        "**Tietoputken läpinäkyvyys**: tiedän, minne tietoni menevät. Laitteessa? Valmistajan pilvessä? Myyty mainosteknologialle? Voinko lukea tietosuojaselosteen ja selvittää sen 5 minuutissa?",
+        "**Lupien hienojakoisuus**: voinko sanoa ekosysteemille 'kyllä syke, ei GPS' vai onko se kaikki tai ei mitään?",
+        "**Yhteentoimivuus**: voinko käyttää laitettani kolmannen osapuolen sovellusten kanssa (Strava, Komoot, vaihtoehtoiset terveyssovellukset) pyytämättä valmistajalta lupaa?",
+        "**Vaihtokestävyys**: jos merkki ostetaan tai se lakkauttaa jonkin osastonsa huomenna, onko minulla varasuunnitelma?"
+      ],
+      "no": [
+        "**Innebygd eksporterbarhet**: Jeg kan laste ned alle dataene mine i vanlige formater (CSV, JSON, GPX, FIT) uten å sende e-post til kundestøtte eller reversutvikle udokumenterte API-er.",
+        "**Åpenhet om datastrømmen**: Jeg vet hvor dataene mine havner. På enheten? I produsentens sky? Solgt til ad-tech? Kan jeg lese personvernerklæringen og finne ut av det på 5 minutter?",
+        "**Detaljstyring av tillatelser**: Kan jeg si til økosystemet 'ja til HR, nei til GPS', eller er det alt eller ingenting?",
+        "**Samhandlingsevne**: Kan jeg bruke enheten min med tredjepartsapper (Strava, Komoot, alternative helseapper) uten å spørre produsenten om lov?",
+        "**Robusthet ved bytte**: Hvis merket blir kjøpt opp eller legger ned en avdeling i morgen, har jeg en plan B?"
       ]
     },
     "body.10.items": {
       "sv": [
-        "**Standard**: Garmin (Forerunner 265/965, Fenix 8, Enduro). Inbyggd FIT/GPX-export, officiellt API, Connect IQ-community.",
-        "**Alternativ**: Polar Vantage V3 eller Grit X2 Pro. Effektiv sömncoaching och Recovery Pro, fullständig export via Polar Flow.",
-        "**Outsider**: Coros Apex 2 Pro. Färre funktioner, men fullständig exportfunktion och ett mycket konkurrenskraftigt pris.",
-        "**Undvik**: Apple Watch for ultra (begränsad batteritid vid GPS-användning), Fitbit Sense (grundläggande prestationsmått)."
+        "**Förstahandsval**: Garmin (Forerunner 265/965, Fenix 8, Enduro). Inbyggd FIT/GPX-export, officiellt API, Connect IQ-gemenskap.",
+        "**Alternativ**: Polar Vantage V3 eller Grit X2 Pro. Stark sömncoachning och Recovery Pro, fullständig export via Polar Flow.",
+        "**Utmanare**: Coros Apex 2 Pro. Färre funktioner, men fullständig export och aggressiv prissättning.",
+        "**Undvik**: Apple Watch för ultralopp (begränsad GPS-batteritid), Fitbit Sense (begränsade prestandamätvärden)."
+      ],
+      "da": [
+        "**Standardvalg**: Garmin (Forerunner 265/965, Fenix 8, Enduro). Indbygget FIT/GPX-eksport, officielt API, Connect IQ-community.",
+        "**Alternativ**: Polar Vantage V3 eller Grit X2 Pro. Stærk søvncoaching og Recovery Pro, fuld eksport via Polar Flow.",
+        "**Outsider**: Coros Apex 2 Pro. Færre funktioner, men fuld eksport og aggressiv prissætning.",
+        "**Undgå**: Apple Watch til ultra (begrænset GPS-batteri), Fitbit Sense (lette præstationsmålinger)."
+      ],
+      "fi": [
+        "**Oletusvalinta**: Garmin (Forerunner 265/965, Fenix 8, Enduro). Natiivi FIT/GPX-vienti, virallinen API, Connect IQ -yhteisö.",
+        "**Vaihtoehto**: Polar Vantage V3 tai Grit X2 Pro. Vahva unen valmennus ja Recovery Pro, täysi vienti Polar Flow'n kautta.",
+        "**Villi kortti**: Coros Apex 2 Pro. Vähemmän ominaisuuksia, mutta täysi vienti ja aggressiivinen hinnoittelu.",
+        "**Vältä**: Apple Watch ultramatkoille (rajallinen GPS-akku), Fitbit Sense (kevyet suorituskykymittarit)."
+      ],
+      "no": [
+        "**Standardvalg**: Garmin (Forerunner 265/965, Fenix 8, Enduro). Innebygd FIT/GPX-eksport, offisielt API, Connect IQ-fellesskap.",
+        "**Alternativ**: Polar Vantage V3 eller Grit X2 Pro. God søvncoaching og Recovery Pro, full eksport via Polar Flow.",
+        "**Outsider**: Coros Apex 2 Pro. Færre funksjoner, men full eksport og aggressiv prising.",
+        "**Unngå**: Apple Watch til ultraløp (begrenset GPS-batteri), Fitbit Sense (svake prestasjonsdata)."
       ]
     },
     "body.13.items": {
       "sv": [
-        "**Standard**: Oura Ring Gen 4. Förstklassiga sömnsensorer, officiellt API, månadsabonnemang (observera: fullständig data ligger bakom betalvägg).",
-        "**Alternativ**: Whoop 4.0. Endast via prenumeration, ingen skärm, helt inriktat på HRV/återhämtning. Exportmöjlighet finns, men är begränsad.",
-        "**För dig som också vill ha en klocka**: Garmin Venu 3 eller Forerunner 265: Garmin sömnpoäng + varje natt HRV utan abonnemangsbegränsning.",
-        "**Smarta vågar**: lägg till Withings Body Comp eller Body Cardio. Health Mate har fullständig exportfunktion och ett stabilt API."
+        "**Förstahandsval**: Oura Ring Gen 4. Sömnsensorer i toppklass, officiellt API, månadsabonnemang (obs: fullständig data bakom betalvägg).",
+        "**Alternativ**: Whoop 4.0. Endast abonnemang, ingen skärm, rent fokus på HRV/återhämtning. Export finns men är begränsad.",
+        "**För dig som även vill ha en klocka**: Garmin Venu 3 eller Forerunner 265: Garmin Sleep Score + nattlig HRV utan abonnemangslås.",
+        "**Smarta vågar**: komplettera med Withings Body Comp eller Body Cardio. Health Mate har fullständig export och stabilt API."
+      ],
+      "da": [
+        "**Standardvalg**: Oura Ring Gen 4. Sensorer i topklasse til søvn, officielt API, månedligt abonnement (forbehold: alle data bag betalingsmur).",
+        "**Alternativ**: Whoop 4.0. Kun abonnement, ingen skærm, rent fokus på HRV/restitution. Eksport tilgængelig, men begrænset.",
+        "**For dem, der også vil have et ur**: Garmin Venu 3 eller Forerunner 265: Garmin Sleep Score + natlig HRV uden abonnementsbinding.",
+        "**Smarte vægte**: tilføj Withings Body Comp eller Body Cardio. Health Mate har fuld eksport og et stabilt API."
+      ],
+      "fi": [
+        "**Oletusvalinta**: Oura Ring Gen 4. Huipputason unianturit, virallinen API, kuukausitilaus (huomio: kaikki tiedot maksumuurin takana).",
+        "**Vaihtoehto**: Whoop 4.0. Vain tilauksella, ei näyttöä, keskittyy puhtaasti HRV- ja palautumisdataan. Vienti mahdollista mutta rajallista.",
+        "**Niille, jotka haluavat myös kellon**: Garmin Venu 3 tai Forerunner 265: Garmin Sleep Score + öinen HRV ilman tilauslukkoa.",
+        "**Älyvaa'at**: lisää Withings Body Comp tai Body Cardio. Health Matessa on täysi vienti ja vakaa API."
+      ],
+      "no": [
+        "**Standardvalg**: Oura Ring Gen 4. Sensorer i toppklasse for søvn, offisielt API, månedlig abonnement (forbehold: alle data ligger bak en betalingsmur).",
+        "**Alternativ**: Whoop 4.0. Kun abonnement, ingen skjerm, rent fokus på HRV/restitusjon. Eksport er tilgjengelig, men begrenset.",
+        "**For deg som også vil ha en klokke**: Garmin Venu 3 eller Forerunner 265: Garmin Sleep Score + nattlig HRV uten abonnementsbinding.",
+        "**Smarte vekter**: legg til Withings Body Comp eller Body Cardio. Health Mate har full eksport og et stabilt API."
       ]
     },
     "body.16.items": {
       "sv": [
-        "**Standard-Android**: Galaxy Watch 7 eller Watch Ultra. Inbyggt Health Connect, stabilt Samsung Health ekosystem, utmärkt prisvärde.",
-        "**Standard för iOS**: Apple Watch SE (3:e generationen): det finns inget motsvarande alternativ vad gäller integrationen med iPhone.",
-        "**Prisvärda Android-enheter**: Xiaomi Mi Band 9 eller Xiaomi Watch Active. Mi Fitness visar Health Connect, lågt pris, utmärkt batteritid.",
-        "**Pixel-specifikt**: Pixel Watch 3 om du redan befinner dig i Googles ekosystem. Obs! Använder Fitbit som backend, vilket innebär att man är dubbelt beroende av Google."
+        "**Förstahandsval Android**: Galaxy Watch 7 eller Watch Ultra. Inbyggt Health Connect, solitt Samsung Health-ekosystem, mycket för pengarna.",
+        "**Förstahandsval iOS**: Apple Watch SE (3:e gen): inget likvärdigt alternativ när det gäller integration med iPhone.",
+        "**Budget Android**: Xiaomi Mi Band 9 eller Xiaomi Watch Active. Mi Fitness skriver till Health Connect, lågt pris, utmärkt batteritid.",
+        "**Förstahandsval Pixel**: Pixel Watch 3 om du redan är i Googles ekosystem. Obs: använder Fitbit som underliggande plattform, alltså dubbelt beroende av Google."
+      ],
+      "da": [
+        "**Standardvalg til Android**: Galaxy Watch 7 eller Watch Ultra. Indbygget Health Connect, solidt Samsung Health-økosystem, god værdi for pengene.",
+        "**Standardvalg til iOS**: Apple Watch SE (3. gen): intet tilsvarende alternativ, hvad angår iPhone-integration.",
+        "**Budget Android**: Xiaomi Mi Band 9 eller Xiaomi Watch Active. Mi Fitness skriver til Health Connect, lav pris, fremragende batteritid.",
+        "**Pixel indbygget**: Pixel Watch 3, hvis du allerede er i Googles økosystem. Forbehold: bruger Fitbit som backend, så du er dobbelt afhængig af Google."
+      ],
+      "fi": [
+        "**Android-oletusvalinta**: Galaxy Watch 7 tai Watch Ultra. Natiivi Health Connect, vankka Samsung Health -ekosysteemi, erinomainen hinta-laatusuhde.",
+        "**iOS-oletusvalinta**: Apple Watch SE (3. sukupolvi): iPhone-integraationa ei vastaavaa vaihtoehtoa.",
+        "**Edullinen Android-valinta**: Xiaomi Mi Band 9 tai Xiaomi Watch Active. Mi Fitness kirjoittaa Health Connect -palveluun, matala hinta, erinomainen akunkesto.",
+        "**Pixel-natiivi**: Pixel Watch 3, jos olet jo Googlen ekosysteemissä. Huomio: käyttää taustajärjestelmänä Fitbit-alustaa, joten olet kaksinkertaisesti riippuvainen Googlesta."
+      ],
+      "no": [
+        "**Standardvalg Android**: Galaxy Watch 7 eller Watch Ultra. Innebygd Health Connect, solid Samsung Health-økosystem, god verdi for pengene.",
+        "**Standardvalg iOS**: Apple Watch SE (3. generasjon): ingen tilsvarende alternativ når det gjelder iPhone-integrasjon.",
+        "**Budsjett Android**: Xiaomi Mi Band 9 eller Xiaomi Watch Active. Mi Fitness skriver til Health Connect, lav pris, utmerket batteritid.",
+        "**For Pixel-brukere**: Pixel Watch 3 hvis du allerede er i Google-økosystemet. Forbehold: bruker Fitbit som bakende, så du er dobbelt avhengig av Google."
       ]
     },
     "body.19.items": {
       "sv": [
-        "**Standard**: Apple Watch SE eller Series 10 med Family Setup. EKG, fallavkänning och Emergency SOS fungerar pålitligt. Ett slutet ekosystem, men i det här fallet är det en fördel, inte en nackdel.",
-        "**Alternativ för Android**: Galaxy Watch 7 med EKG. Samsung Health erbjuder delningsfunktion för vårdgivare i vissa länder.",
-        "**För delning av medicinska data**: Withings ScanWatch 2: kontinuerligt EKG + SpO₂, rapportintegration via Health Mate, väl mottaget av europeiska läkare.",
-        "**Barn**: specialanpassade enheter (Garmin Bounce, Fitbit Ace): inbyggda integritetsskydd, inga sociala funktioner, ingen öppen chatt."
+        "**Förstahandsval**: Apple Watch SE eller Series 10 med Family Setup. EKG, falldetektering och Emergency SOS är tillförlitliga. Stängt ekosystem, men här är det en funktion, inte en bugg.",
+        "**Android-alternativ**: Galaxy Watch 7 med EKG. Samsung Health har delning med vårdgivare i vissa länder.",
+        "**För att dela medicinska data**: Withings ScanWatch 2: kontinuerligt EKG + SpO₂, rapportintegration via Health Mate, väl accepterad av europeiska läkare.",
+        "**Barn**: dedikerade enheter (Garmin Bounce, Fitbit Ace): med inbyggda integritetsbegränsningar, inget socialt nätverk, ingen öppen chatt."
+      ],
+      "da": [
+        "**Standardvalg**: Apple Watch SE eller Series 10 med Family Setup. EKG, faldregistrering og Emergency SOS er pålidelige. Lukket økosystem, men her er det en fordel, ikke en fejl.",
+        "**Android-alternativ**: Galaxy Watch 7 med EKG. Samsung Health har deling med pårørende i nogle lande.",
+        "**Til deling af medicinske data**: Withings ScanWatch 2: kontinuerligt EKG + SpO₂, rapportintegration via Health Mate, velaccepteret af europæiske læger.",
+        "**Børn**: dedikerede enheder (Garmin Bounce, Fitbit Ace): privatlivsbegrænsede fra bunden, ingen sociale funktioner, ingen åben chat."
+      ],
+      "fi": [
+        "**Oletusvalinta**: Apple Watch SE tai Series 10 ja Family Setup. EKG, kaatumisen tunnistus ja Emergency SOS ovat luotettavia. Suljettu ekosysteemi, mutta tässä se on ominaisuus, ei vika.",
+        "**Android-vaihtoehto**: Galaxy Watch 7 ja EKG. Samsung Health -sovelluksessa on joissakin maissa mahdollisuus jakaa tiedot omaishoitajalle.",
+        "**Lääketieteellisten tietojen jakamiseen**: Withings ScanWatch 2: jatkuva EKG + SpO₂, raporttien integrointi Health Maten kautta, eurooppalaisten lääkärien hyvin hyväksymä.",
+        "**Lapset**: erilliset laitteet (Garmin Bounce, Fitbit Ace): yksityisyys rajattu jo lähtökohtaisesti, ei sosiaalista mediaa, ei avointa chattia."
+      ],
+      "no": [
+        "**Standardvalg**: Apple Watch SE eller Series 10 med Family Setup. EKG, fallregistrering og Emergency SOS er pålitelige. Lukket økosystem, men her er det en funksjon, ikke en feil.",
+        "**Android-alternativ**: Galaxy Watch 7 med EKG. Samsung Health har deling med omsorgspersoner i enkelte land.",
+        "**For deling av medisinske data**: Withings ScanWatch 2: kontinuerlig EKG + SpO₂, rapportintegrasjon via Health Mate, godt mottatt av europeiske leger.",
+        "**Barn**: dedikerte enheter (Garmin Bounce, Fitbit Ace): personvernbegrenset i utgangspunktet, ingen sosiale funksjoner, ingen åpen chat."
       ]
     },
     "body.22.items": {
       "sv": [
-        "**Tillhörande app är inte tillgänglig i Europa eller har inte uppdaterats på 12 månader**. Tecken på låg försäljning → risk för att produkten tas ur sortimentet → dina data blir övergivna.",
-        "**Officiellt API som finns dokumenterat men kräver en ”företagskontakt”**. Översättning: stängt för privat bruk, endast tillgängligt för kommersiella samarbetspartner. Historiskt exempel: Huawei Health Kit utanför Kina har betydande hinder.",
-        "**Export är endast möjlig via e-post till supporten**. Det innebär att det inte är en funktion utan en tillåtelse: den kan återkallas eller drabbas av godtyckliga förseningar.",
-        "**Ett helt nytt varumärke med oklara investerare**. Det är trevligt att stödja oberoende aktörer, men när det gäller hälsodata bör man välja företag som har minst fem års historia och offentliggjorda finansiella rapporter.",
-        "**Integritetspolicy där det står att ”vi delar aggregerade uppgifter med forskningspartner”**. Även aggregerade och anonymiserade uppgifter kan avanonymiseras genom att jämföra dem med andra datamängder. Läs mer."
+        "**Den tillhörande appen är inte tillgänglig i Europa eller har inte uppdaterats på 12 månader**. Tecken på låg försäljning → risk för nedläggning → dina data blir föräldralösa.",
+        "**Officiellt API är dokumenterat men kräver 'företagskontakt'**. Översättning: stängt för privat bruk, endast tillgängligt för kommersiella partner. Historiskt exempel: Huawei Health Kit utanför Kina har betydande hinder.",
+        "**Export är endast möjlig via mejl till supporten**. Det betyder att det inte är en funktion utan en eftergift: den kan dras tillbaka eller drabbas av godtyckliga förseningar.",
+        "**Ett helt nytt varumärke med oklara investerare**. Trevligt att stötta oberoende aktörer, men för hälsodata bör du välja aktörer med minst 5 års historik och offentlig ekonomisk redovisning.",
+        "**En integritetspolicy som säger 'vi delar aggregerad data med forskningspartner'**. Även aggregerad och anonymiserad data kan avanonymiseras genom att korsa datamängder. Läs detaljerna."
+      ],
+      "da": [
+        "**Ledsager-app ikke tilgængelig i Europa eller ikke opdateret i 12 måneder**. Tegn på lavt salg → risiko for udfasning → dine data efterladt uden ejer.",
+        "**Officielt API dokumenteret, men kræver 'enterprise-kontakt'**. Oversættelse: lukket for privat brug, kun tilgængeligt for kommercielle partnere. Historisk eksempel: Huawei Health Kit uden for Kina har betydelige barrierer.",
+        "**Eksport kun mulig via e-mail til support**. Betyder, at det ikke er en funktion, men en indrømmelse: den kan trækkes tilbage eller blive udsat vilkårligt.",
+        "**Helt nyt mærke med uklare investorer**. Hyggeligt at støtte de små, men til sundhedsdata bør du vælge virksomheder med mindst 5 års historik og offentlige regnskaber.",
+        "**Privatlivspolitik, der siger 'vi deler aggregerede data med forskningspartnere'**. Selv aggregerede og anonymiserede data kan af-anonymiseres ved at krydse datasæt. Læs detaljerne."
+      ],
+      "fi": [
+        "**Kumppanisovellus ei ole saatavilla Euroopassa tai sitä ei ole päivitetty 12 kuukauteen**. Merkki alhaisesta myynnistä → lopettamisriski → tietosi jäävät orvoiksi.",
+        "**Virallinen API on dokumentoitu, mutta vaatii 'yritystason yhteydenottoa'**. Käännös: suljettu henkilökohtaiseen käyttöön, vain kaupallisten kumppanien saatavilla. Historiallinen esimerkki: Huawei Health Kit -rajapinnalla on Kiinan ulkopuolella merkittäviä esteitä.",
+        "**Vienti onnistuu vain lähettämällä sähköpostia tukeen**. Tämä tarkoittaa, ettei se ole ominaisuus vaan myönnytys: se voidaan peruuttaa tai siihen voi kohdistua mielivaltaisia viiveitä.",
+        "**Aivan uusi merkki, jonka sijoittajat ovat epäselvät**. On mukavaa tukea pieniä toimijoita, mutta terveystietojen osalta valitse toimijoita, joilla on vähintään 5 vuoden historia ja julkiset taloustiedot.",
+        "**Tietosuojaseloste, jossa lukee 'jaamme aggregoituja tietoja tutkimuskumppaneiden kanssa'**. Jopa aggregoidut ja anonymisoidut tiedot voidaan de-anonymisoida yhdistämällä eri tietojoukkoja. Lue yksityiskohdat."
+      ],
+      "no": [
+        "**Følgeappen er ikke tilgjengelig i Europa eller ikke oppdatert på 12 måneder**. Tegn på lavt salg → risiko for at den legges ned → dataene dine blir foreldreløse.",
+        "**Offisielt API er dokumentert, men krever 'enterprise-kontakt'**. Oversatt: lukket for privat bruk, kun tilgjengelig for kommersielle partnere. Historisk eksempel: Huawei Health Kit utenfor Kina har betydelige barrierer.",
+        "**Eksport er bare mulig via e-post til kundestøtte**. Det betyr at det ikke er en funksjon, men en innrømmelse: den kan trekkes tilbake eller bli utsatt vilkårlig.",
+        "**Helt nytt merke med uklare investorer**. Fint å støtte de små, men for helsedata bør du velge aktører med minst 5 års historikk og offentlige regnskap.",
+        "**Personvernerklæring som sier 'vi deler aggregerte data med forskningspartnere'**. Selv aggregerte og anonymiserte data kan avanonymiseres ved å krysse datasett. Les detaljene."
       ]
     },
     "body.25.aItems": {
@@ -12481,52 +13222,217 @@
         "Xiaomi Mi Band",
         "Polar Vantage",
         "Pixel Watch"
+      ],
+      "da": [
+        "Garmin Forerunner / Fenix",
+        "Samsung Galaxy Watch",
+        "Apple Watch",
+        "Withings ScanWatch",
+        "Xiaomi Mi Band",
+        "Polar Vantage",
+        "Pixel Watch"
+      ],
+      "fi": [
+        "Garmin Forerunner / Fenix",
+        "Samsung Galaxy Watch",
+        "Apple Watch",
+        "Withings ScanWatch",
+        "Xiaomi Mi Band",
+        "Polar Vantage",
+        "Pixel Watch"
+      ],
+      "no": [
+        "Garmin Forerunner / Fenix",
+        "Samsung Galaxy Watch",
+        "Apple Watch",
+        "Withings ScanWatch",
+        "Xiaomi Mi Band",
+        "Polar Vantage",
+        "Pixel Watch"
       ]
     },
     "body.25.bItems": {
       "sv": [
-        "Whoop 4.0 (~30 euro/månad)",
-        "Oura Ring Gen 4 (cirka 6 euro/månad för full datamängd)",
-        "Fitbit Premium (~10 €/månad, valfritt men vissa funktioner är låsta)",
-        "Garmin Connect+ (tillval, ca 8 €/månad, AI-coaching)"
+        "Whoop 4.0 (~€30/månad)",
+        "Oura Ring Gen 4 (~€6/månad för fullständig data)",
+        "Fitbit Premium (~€10/månad, valfritt men vissa funktioner låsta)",
+        "Garmin Connect+ (valfritt, ~€8/månad, AI-coachning)"
+      ],
+      "da": [
+        "Whoop 4.0 (~€30/måned)",
+        "Oura Ring Gen 4 (~€6/måned for alle data)",
+        "Fitbit Premium (~€10/måned, valgfrit, men nogle funktioner er låst)",
+        "Garmin Connect+ (valgfrit, ~€8/måned, AI-coaching)"
+      ],
+      "fi": [
+        "Whoop 4.0 (~30 €/kk)",
+        "Oura Ring Gen 4 (~6 €/kk täysille tiedoille)",
+        "Fitbit Premium (~10 €/kk, valinnainen mutta osa ominaisuuksista lukittuna)",
+        "Garmin Connect+ (valinnainen, ~8 €/kk, tekoälyvalmennus)"
+      ],
+      "no": [
+        "Whoop 4.0 (~€30/måned)",
+        "Oura Ring Gen 4 (~€6/måned for alle data)",
+        "Fitbit Premium (~€10/måned, valgfritt, men enkelte funksjoner er låst)",
+        "Garmin Connect+ (valgfritt, ~€8/måned, AI-coaching)"
       ]
     },
     "body.29.items": {
       "sv": [
-        "**Apple Watch → Android**: ~100 % förlust av historik (Apple Health finns endast på iOS, ingen läsbar export till Android). Hård inlåsning.",
-        "**Galaxy Watch → annan Android**: Samsung Health historik kan exporteras som CSV och importeras till Health Connect. Måttlig låsning, hanterbart.",
-        "**Garmin Se → annat märke**: fullständig FIT/GPX-export, men de egna mätvärdena (Body Battery, Training Status) har inga direkta motsvarigheter. Medelstor låsning.",
-        "**Fitbit → annat**: Google Takeout fungerar, data i JSON-format. Låg inlåsning (för tillfället, beror på Googles beslut).",
-        "**Oura → övrigt**: Det officiella API:et tillhandahåller fullständiga data till dem som vet hur man hämtar dem. Låg teknisk inlåsning, men hög psykologisk (Oura-mått är utmärkande)."
+        "**Apple Watch → Android**: ~100 % förlust av historik (Apple Health finns bara på iOS, ingen läsbar Android-export). Hård inlåsning.",
+        "**Galaxy Watch → annan Android**: Samsung Health-historiken kan exporteras som CSV och importeras till Health Connect. Mjuk inlåsning, hanterbar.",
+        "**Garmin-klocka → annat varumärke**: fullständig FIT/GPX-export, men proprietära mätvärden (Body Battery, Training Status) saknar direkta motsvarigheter. Medelhög inlåsning.",
+        "**Fitbit → annat**: Google Takeout fungerar, data i JSON. Låg inlåsning (tills vidare, beror på Googles beslut).",
+        "**Oura → annat**: officiellt API ger fullständig data till dem som vet hur man laddar ner den. Låg teknisk inlåsning, men hög psykologisk (Ouras mätvärden är särpräglade)."
+      ],
+      "da": [
+        "**Apple Watch → Android**: ~100% tab af historik (Apple Health er kun til iOS, ingen læsbar Android-eksport). Hård lock-in.",
+        "**Galaxy Watch → anden Android**: Samsung Health-historik kan eksporteres som CSV og importeres i Health Connect. Blød lock-in, til at håndtere.",
+        "**Garmin Watch → andet mærke**: fuld FIT/GPX-eksport, men proprietære målinger (Body Battery, Training Status) har ingen direkte modstykker. Middel lock-in.",
+        "**Fitbit → andet**: Google Takeout virker, data i JSON. Lav lock-in (indtil videre, afhænger af Googles beslutninger).",
+        "**Oura → andet**: det officielle API giver alle data til dem, der ved, hvordan de downloader dem. Lav teknisk lock-in, men høj psykologisk (Ouras målinger er særegne)."
+      ],
+      "fi": [
+        "**Apple Watch → Android**: ~100 % historian menetys (Apple Health vain iOS-laitteille, ei luettavaa Android-vientiä). Kova lukkiutuminen.",
+        "**Galaxy Watch → muu Android**: Samsung Health -historia vietävissä CSV-muotoon, tuotavissa Health Connect -palveluun. Pehmeä lukkiutuminen, hallittavissa.",
+        "**Garmin-kello → toinen merkki**: täysi FIT/GPX-vienti, mutta patentoiduilla mittareilla (Body Battery, Training Status) ei ole suoria vastineita. Keskitason lukkiutuminen.",
+        "**Fitbit → muu**: Google Takeout toimii, tiedot JSON-muodossa. Matala lukkiutuminen (toistaiseksi, riippuu Googlen päätöksistä).",
+        "**Oura → muu**: virallinen API tarjoaa kaikki tiedot niille, jotka osaavat ladata ne. Matala tekninen lukkiutuminen, mutta korkea psykologinen (Oura-mittarit ovat omaleimaisia)."
+      ],
+      "no": [
+        "**Apple Watch → Android**: ~100 % tap av historikk (Apple Health er kun for iOS, ingen lesbar Android-eksport). Hard innlåsing.",
+        "**Galaxy Watch → andre Android-enheter**: Samsung Health-historikk kan eksporteres som CSV og importeres til Health Connect. Myk innlåsing, håndterbar.",
+        "**Garmin-klokke → annet merke**: full FIT/GPX-eksport, men proprietære måleverdier (Body Battery, Training Status) har ingen direkte motstykker. Middels innlåsing.",
+        "**Fitbit → andre**: Google Takeout fungerer, data i JSON. Lav innlåsing (foreløpig, avhenger av Googles beslutninger).",
+        "**Oura → andre**: det offisielle API-et gir alle data til dem som vet hvordan de laster dem ned. Lav teknisk innlåsing, men høy psykologisk (Ouras måleverdier er særegne)."
       ]
     },
     "body.32.items": {
       "sv": [
-        "Om jag vore en seriös Android-löpare: Garmin Forerunner 265 + Withings Body Comp för viktmätning.",
-        "Om jag vore en sömnnörd: Oura Ring Gen 4 + en Galaxy Watch 7 för aktivitet/notiser. En dyr kombination, men den täcker alla behov.",
-        "Om jag vore en vanlig Android-användare med begränsad budget: Xiaomi Mi Band 9 (50 euro), synkroniseras via Health Connect, klarar 90 % av det som behövs.",
-        "Om jag var en daglig iOS-användare: Apple Watch SE 3:e generationen. Acceptera att man blir bunden till ett visst system som priset för bekvämligheten.",
-        "Om jag skulle övervaka en förälder: Apple Watch eller Withings ScanWatch 2, beroende på vilken telefon bäraren har."
+        "Om jag vore en seriös Android-löpare: Garmin Forerunner 265 + Withings Body Comp för vikt.",
+        "Om jag vore en sömnnörd: Oura Ring Gen 4 + en Galaxy Watch 7 för aktivitet/notiser. Dyr kombination men täcker allt.",
+        "Om jag vore en budgetmedveten Android-vardagsanvändare: Xiaomi Mi Band 9 (€50), synkar via Health Connect, klarar 90 % av det som behövs.",
+        "Om jag vore en iOS-vardagsanvändare: Apple Watch SE 3:e gen. Acceptera inlåsningen som priset för bekvämlighet.",
+        "Om jag skulle övervaka en förälder: Apple Watch eller Withings ScanWatch 2, beroende på bärarens telefon."
+      ],
+      "da": [
+        "Hvis jeg var en seriøs Android-løber: Garmin Forerunner 265 + Withings Body Comp til vægt.",
+        "Hvis jeg var en søvnnørd: Oura Ring Gen 4 + et Galaxy Watch 7 til aktivitet/notifikationer. Dyr kombination, men dækker det hele.",
+        "Hvis jeg var en budget-Android-hverdagsbruger: Xiaomi Mi Band 9 (€50), synkroniserer via Health Connect, klarer 90% af det, der er brug for.",
+        "Hvis jeg var en iOS-hverdagsbruger: Apple Watch SE 3. gen. Accepter lock-in som prisen for bekvemmelighed.",
+        "Hvis jeg skulle overvåge en forælder: Apple Watch eller Withings ScanWatch 2, afhængigt af bærerens telefon."
+      ],
+      "fi": [
+        "Jos olisin tosissaan juokseva Android-käyttäjä: Garmin Forerunner 265 + Withings Body Comp painonseurantaan.",
+        "Jos olisin uninörtti: Oura Ring Gen 4 + Galaxy Watch 7 aktiivisuutta ja ilmoituksia varten. Kallis yhdistelmä, mutta kattaa kaiken.",
+        "Jos olisin edullista ratkaisua etsivä Android-arkikäyttäjä: Xiaomi Mi Band 9 (50 €), synkronoi Health Connect -palvelun kautta, tekee 90 % siitä, mitä tarvitaan.",
+        "Jos olisin iOS-arkikäyttäjä: Apple Watch SE 3. sukupolvi. Hyväksy lukkiutuminen mukavuuden hintana.",
+        "Jos seuraisin vanhempaa: Apple Watch tai Withings ScanWatch 2, käyttäjän puhelimesta riippuen."
+      ],
+      "no": [
+        "Hvis jeg var en seriøs Android-løper: Garmin Forerunner 265 + Withings Body Comp for vekt.",
+        "Hvis jeg var en søvnnerd: Oura Ring Gen 4 + en Galaxy Watch 7 for aktivitet/varsler. Dyr kombinasjon, men dekker alt.",
+        "Hvis jeg var en budsjettbevisst daglig Android-bruker: Xiaomi Mi Band 9 (€50), synkroniserer via Health Connect, gjør 90 % av det som trengs.",
+        "Hvis jeg var en daglig iOS-bruker: Apple Watch SE 3. generasjon. Godta innlåsingen som prisen for bekvemmelighet.",
+        "Hvis jeg overvåket en forelder: Apple Watch eller Withings ScanWatch 2, avhengig av telefonen til den som bruker den."
       ]
     },
     "body.35.items": {
       "sv": [
-        "Med ”datakontroll” avses fem olika aspekter: inbyggd exportbarhet, transparens i datapipeline, detaljerad behörighetsstyrning, interoperabilitet och motståndskraft mot avbrott. Integritet och kontroll är inte samma sak.",
-        "Apple Watch har stark integritetsskydd men är svårt att byta bort (endast iOS, ingen export till webben). Garmin är mer öppet men har sämre kommersiellt integritetsskydd. Välj utifrån den faktiska hotbilden.",
-        "Prenumerationsmodeller (Whoop, Oura) kopplar tillgången till historiska data till återkommande betalningar: beräkna den totala kostnaden över 5 år, inte månadspriset.",
-        "Övergången från Apple Watch till Android innebär en nästan total låsning (100 % förlust av historik). Övergången Galaxy Watch till andra Android-enheter är smidig och hanterbar. Övergången Garmin till andra märken är medelsvår.",
-        "Innan du köper bör du installera tillhörande app och söka efter ”[modell] dataexport” i de officiella vanliga frågorna. Om du inte hittar något svar inom 5 minuter är det en varningssignal."
+        "'Datakontroll' betyder fem olika saker: inbyggd exporterbarhet, transparens i dataflödet, granularitet i behörigheter, interoperabilitet och motståndskraft vid byte. Integritet och kontroll är inte samma sak.",
+        "Apple Watch har stark integritet men hård inlåsning (enbart iOS, ingen webbexport). Garmin är öppnare men har sämre kommersiell integritet. Välj utifrån ditt faktiska hot.",
+        "Abonnemangsmodeller (Whoop, Oura) knyter tillgången till historiska data till en återkommande betalning: räkna på den totala kostnaden över 5 år, inte månadspriset.",
+        "Inlåsningen från Apple Watch till Android är nästan total (100 % förlust av historik). Från Galaxy Watch till annan Android är den mjuk och hanterbar. Från Garmin till ett annat varumärke är den medelhög.",
+        "Installera den tillhörande appen innan du köper och sök '[modell] data export' i officiella FAQ. Om du inte hittar ett svar inom 5 minuter är det ett varningstecken."
+      ],
+      "da": [
+        "'Datakontrol' betyder fem forskellige ting: indbygget eksporterbarhed, gennemsigtighed i datastrømmen, granulære tilladelser, interoperabilitet og modstandsdygtighed ved skift. Privatliv og kontrol er ikke det samme.",
+        "Apple Watch har stærkt privatliv, men hård lock-in (kun iOS, ingen web-eksport). Garmin har mere åbenhed, men mindre kommercielt privatliv. Vælg ud fra din reelle trussel.",
+        "Abonnementsmodeller (Whoop, Oura) binder adgang til historiske data op på en tilbagevendende betaling: beregn de samlede omkostninger over 5 år, ikke den månedlige pris.",
+        "Lock-in fra Apple Watch til Android er næsten total (100% tab af historik). Fra Galaxy Watch til anden Android er den blød og til at håndtere. Fra Garmin til et andet mærke er den middel.",
+        "Før du køber, skal du installere ledsager-appen og søge efter '[model] dataeksport' i de officielle FAQ'er. Hvis du ikke kan finde et svar på 5 minutter, er det et advarselstegn."
+      ],
+      "fi": [
+        "'Tietojen hallinta' tarkoittaa viittä eri asiaa: natiivia vietävyyttä, tietoputken läpinäkyvyyttä, lupien hienojakoisuutta, yhteentoimivuutta ja vaihtokestävyyttä. Yksityisyys ja hallinta eivät ole sama asia.",
+        "Apple Watchilla on vahva yksityisyys mutta kova lukkiutuminen (vain iOS, ei verkkovientiä). Garmin on avoimempi, mutta kaupallisesti vähemmän yksityinen. Valitse todellisen uhkasi perusteella.",
+        "Tilausmallit (Whoop, Oura) sitovat historiatietojen käytön toistuvaan maksuun: laske kokonaiskustannus viideltä vuodelta, ei kuukausihintaa.",
+        "Apple Watch -laitteesta Android-puolelle lukkiutuminen on lähes täydellistä (100 % historian menetys). Galaxy Watch -laitteesta muuhun Android-laitteeseen se on pehmeä ja hallittavissa. Garmin-laitteesta toiseen merkkiin keskitasoa.",
+        "Ennen ostoa asenna kumppanisovellus ja etsi '[malli] tietojen vienti' virallisista UKK:ista. Jos et löydä vastausta 5 minuutissa, se on varoitusmerkki."
+      ],
+      "no": [
+        "'Datakontroll' betyr fem ulike ting: innebygd eksporterbarhet, åpenhet om datastrømmen, detaljstyring av tillatelser, samhandlingsevne og robusthet ved bytte. Personvern og kontroll er ikke det samme.",
+        "Apple Watch har sterkt personvern, men hard innlåsing (kun iOS, ingen web-eksport). Garmin er mer åpen, men har mindre kommersielt personvern. Velg ut fra din faktiske trussel.",
+        "Abonnementsmodeller (Whoop, Oura) knytter tilgangen til historiske data til løpende betaling: regn ut den totale kostnaden over 5 år, ikke månedsprisen.",
+        "Innlåsingen fra Apple Watch til Android er nesten total (100 % tap av historikk). Fra Galaxy Watch til andre Android-enheter er den myk og håndterbar. Fra Garmin til et annet merke er den middels.",
+        "Før du kjøper, installer følgeappen og søk etter '[modell] dataeksport' i den offisielle FAQ-en. Hvis du ikke finner et svar på 5 minutter, er det et faresignal."
       ]
     },
     "body.39.items": {
       "sv": [
-        "✓ Appen finns tillgänglig i mitt land och har uppdaterats under de senaste 6 månaderna",
-        "✓ Export dokumenterad (sök efter ”dataexport” i den officiella FAQ:en)",
-        "✓ Synkronisering Health Connect (Android) eller HealthKit (iOS) bekräftad",
-        "✓ En integritetspolicy som går att läsa igenom på 10 minuter, utan klausuler av typen ”vi delar information med ospecificerade samarbetspartner”",
-        "✓ Varumärke med minst 5 års historia eller en gedigen europeisk garanti",
-        "✓ Årskostnad för förväntad användning som passar min budget",
-        "✓ Det finns minst en alternativ app från en tredje part som kan läsa mina data om jag skulle ändra mig"
+        "✓ Den tillhörande appen finns i mitt land och har uppdaterats de senaste 6 månaderna",
+        "✓ Export är dokumenterad (sök 'data export' i officiell FAQ)",
+        "✓ Health Connect-synk (Android) eller HealthKit (iOS) bekräftad",
+        "✓ Integritetspolicyn går att läsa på 10 minuter, inga klausuler av typen 'vi delar med icke specificerade partner'",
+        "✓ Varumärke med minst 5 års historik eller solid europeisk garanti",
+        "✓ Kostnad per år av förväntad användning i linje med min budget",
+        "✓ Det finns minst en alternativ tredjepartsapp som kan läsa mina data om jag ändrar mig"
+      ],
+      "da": [
+        "✓ Ledsager-app tilgængelig i mit land og opdateret inden for de sidste 6 måneder",
+        "✓ Eksport dokumenteret (søg efter 'dataeksport' i den officielle FAQ)",
+        "✓ Health Connect-synkronisering (Android) eller HealthKit (iOS) bekræftet",
+        "✓ Privatlivspolitik, der kan læses på 10 minutter, uden klausuler om at 'vi deler med uspecificerede partnere'",
+        "✓ Mærke med mindst 5 års historik eller solid europæisk garanti",
+        "✓ Pris pr. år med forventet brug, der passer til mit budget",
+        "✓ Der findes mindst én alternativ tredjepartsapp, der kan læse mine data, hvis jeg skifter mening"
+      ],
+      "fi": [
+        "✓ Kumppanisovellus saatavilla maassani ja päivitetty viimeisen 6 kuukauden aikana",
+        "✓ Vienti dokumentoitu (etsi 'tietojen vienti' virallisesta UKK:sta)",
+        "✓ Health Connect -synkronointi (Android) tai HealthKit (iOS) vahvistettu",
+        "✓ Tietosuojaseloste luettavissa 10 minuutissa, ei 'jaamme määrittelemättömien kumppaneiden kanssa' -lausekkeita",
+        "✓ Merkillä vähintään 5 vuoden historia tai vankka eurooppalainen takuu",
+        "✓ Odotettua käyttövuotta kohti laskettu kustannus vastaa budjettiani",
+        "✓ Vähintään yksi vaihtoehtoinen kolmannen osapuolen sovellus, joka voi lukea tietojani, jos muutan mieleni"
+      ],
+      "no": [
+        "✓ Følgeappen er tilgjengelig i landet mitt og oppdatert i løpet av de siste 6 månedene",
+        "✓ Eksport er dokumentert (søk etter 'dataeksport' i den offisielle FAQ-en)",
+        "✓ Health Connect-synkronisering (Android) eller HealthKit (iOS) er bekreftet",
+        "✓ Personvernerklæringen kan leses på 10 minutter, ingen klausuler om 'vi deler med uspesifiserte partnere'",
+        "✓ Et merke med minst 5 års historikk eller solid europeisk garanti",
+        "✓ Kostnaden per år med forventet bruk er i tråd med budsjettet mitt",
+        "✓ Det finnes minst én alternativ tredjepartsapp som kan lese dataene mine hvis jeg ombestemmer meg"
+      ]
+    },
+    "tldr": {
+      "da": [
+        "'Datakontrol' betyder fem forskellige ting: indbygget eksporterbarhed, gennemsigtighed i datastrømmen, granulære tilladelser, interoperabilitet og modstandsdygtighed ved skift.",
+        "Privatliv og kontrol er ikke det samme: Apple Watch har stærkt privatliv, men iOS-eksklusiv lock-in; Garmin er mere åben over for eksport, men mindre privat kommercielt.",
+        "Abonnementsmodeller (Whoop, Oura) binder adgang til historikken op på betaling: beregn de samlede omkostninger over 5 år, ikke den månedlige pris.",
+        "Lock-in fra Apple Watch til Android er næsten total; fra Galaxy Watch til anden Android er den til at håndtere; fra Garmin til et andet mærke er den middel.",
+        "Før du køber: installer ledsager-appen og søg efter '[model] dataeksport' i de officielle FAQ'er. Intet svar på 5 minutter er et advarselstegn."
+      ],
+      "fi": [
+        "'Tietojen hallinta' tarkoittaa viittä eri asiaa: natiivia vietävyyttä, tietoputken läpinäkyvyyttä, lupien hienojakoisuutta, yhteentoimivuutta ja vaihtokestävyyttä.",
+        "Yksityisyys ja hallinta eivät ole sama asia: Apple Watchilla on vahva yksityisyys mutta vain iOS-lukkiutuminen; Garmin on avoimempi viennille mutta kaupallisesti vähemmän yksityinen.",
+        "Tilausmallit (Whoop, Oura) sitovat historian käytön maksuun: laske kokonaiskustannus viideltä vuodelta, ei kuukausihintaa.",
+        "Lukkiutuminen Apple Watch -laitteesta Android-puolelle on lähes täydellistä; Galaxy Watch -laitteesta muuhun Android-laitteeseen se on hallittavissa; Garmin-laitteesta toiseen merkkiin keskitasoa.",
+        "Ennen ostoa: asenna kumppanisovellus ja etsi '[malli] tietojen vienti' virallisista UKK:ista. Jos vastausta ei löydy 5 minuutissa, se on varoitusmerkki."
+      ],
+      "no": [
+        "'Datakontroll' betyr fem ulike ting: innebygd eksporterbarhet, åpenhet om datastrømmen, detaljstyring av tillatelser, samhandlingsevne og robusthet ved bytte.",
+        "Personvern og kontroll er ikke det samme: Apple Watch har sterkt personvern, men innlåsing kun til iOS; Garmin er mer åpen for eksport, men mindre privat kommersielt.",
+        "Abonnementsmodeller (Whoop, Oura) knytter tilgang til historikk til betaling: regn ut den totale kostnaden over 5 år, ikke månedsprisen.",
+        "Innlåsingen fra Apple Watch til Android er nesten total; fra Galaxy Watch til andre Android-enheter er den håndterbar; fra Garmin til et annet merke er den middels.",
+        "Før du kjøper: installer følgeappen og søk etter '[modell] dataeksport' i den offisielle FAQ-en. Ingen svar på 5 minutter er et faresignal."
+      ],
+      "sv": [
+        "'Datakontroll' betyder fem olika saker: inbyggd exporterbarhet, transparens i dataflödet, granularitet i behörigheter, interoperabilitet och motståndskraft vid byte.",
+        "Integritet och kontroll är inte samma sak: Apple Watch har stark integritet men inlåsning enbart till iOS; Garmin är öppnare för export men mindre integritetsvänlig kommersiellt.",
+        "Abonnemangsmodeller (Whoop, Oura) knyter tillgången till historiken till betalning: räkna på den totala kostnaden över 5 år, inte månadspriset.",
+        "Inlåsningen från Apple Watch till Android är nästan total; från Galaxy Watch till annan Android är den hanterbar; från Garmin till ett annat varumärke är den medelhög.",
+        "Innan du köper: installera den tillhörande appen och sök '[modell] data export' i officiella FAQ. Inget svar inom 5 minuter är ett varningstecken."
       ]
     }
   },
