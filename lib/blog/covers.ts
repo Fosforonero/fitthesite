@@ -94,6 +94,7 @@ const POST_COVER: Record<string, CoverType> = {
   "fitmesh-gratis-prezzo-founder": "dashboard",
   "anello-colmi-r02-affidabile": "ring",
   "cambiare-smartwatch-senza-perdere-dati": "multidevice",
+  "come-funziona-fitmesh": "dashboard",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */

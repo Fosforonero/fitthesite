@@ -655,6 +655,18 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "oura-ring-health-connect-android",
     ko: "oura-ring-health-connect-android",
   },
+  "come-funziona-fitmesh": {
+    en: "how-fitmesh-works",
+    es: "como-funciona-fitmesh",
+    de: "wie-fitmesh-funktioniert",
+    pt: "como-funciona-o-fitmesh",
+    fr: "comment-fonctionne-fitmesh",
+    pl: "jak-dziala-fitmesh",
+    tr: "fitmesh-nasil-calisir",
+    nl: "hoe-werkt-fitmesh",
+    ja: "fitmesh-tsukaikata",
+    ko: "fitmesh-sayongbeop",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {

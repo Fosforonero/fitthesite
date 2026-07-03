@@ -83,6 +83,8 @@ import { post as fitmeshGratisPrezzoFounder } from "./posts/fitmesh-gratis-prezz
 // Backlog 02/07: affidabilità Colmi R02 + cambio wearable senza perdere storico
 import { post as anelloColmiR02Affidabile } from "./posts/anello-colmi-r02-affidabile";
 import { post as cambiareSmartwatchSenzaPerdereDati } from "./posts/cambiare-smartwatch-senza-perdere-dati";
+// Guida "come funziona" con screenshot reali
+import { post as comeFunzionaFitmesh } from "./posts/come-funziona-fitmesh";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -153,6 +155,7 @@ const RAW_POSTS: BlogPost[] = [
   fitmeshGratisPrezzoFounder,
   anelloColmiR02Affidabile,
   cambiareSmartwatchSenzaPerdereDati,
+  comeFunzionaFitmesh,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
