@@ -5,7 +5,7 @@ import type { BlogPost } from "../types";
  * dell'installazione. Articolo chiave per i ricavi: onestà sul modello
  * (niente free tier permanente), gancio founder (primi 1000 = Pro a vita),
  * prova 14 giorni, cosa include il Pro. CTA a /beta.
- * Locali: it/en/es/de.
+ * Locali: it/en/es/de/pt/fr.
  */
 export const post: BlogPost = {
   slug: "fitmesh-gratis-prezzo-founder",
@@ -42,12 +42,28 @@ export const post: BlogPost = {
       "Nach den 14 Tagen behältst du FitMesh mit einem leichten Abo (weniger als ein Kaffee alle sechs Monate) oder mit der Freischaltung auf Lebenszeit (weniger als eine Pizza), oder du schließt das Konto.",
       "Pro umfasst das Web-Dashboard, alle Wearables zusammengeführt und ohne Duplikate, den vollständigen Verlauf und den Colmi-Ring über Bluetooth.",
     ],
+    pt: [
+      "O FitMesh não tem um plano gratuito permanente: quem procura 'grátis para sempre' precisa saber disso já de cara.",
+      "Os primeiros 1000 inscritos viram founder e recebem o Pro vitalício, grátis, incluindo os recursos futuros.",
+      "Todos os outros têm 14 dias de teste completo, com cada recurso Pro liberado.",
+      "Depois dos 14 dias você mantém o FitMesh com uma assinatura leve (como um café a cada seis meses) ou com o desbloqueio vitalício (menos que uma pizza), ou então encerra a conta.",
+      "O Pro inclui o painel web, todos os wearables unidos e sem duplicatas, histórico completo e o anel Colmi via Bluetooth.",
+    ],
+    fr: [
+      "FitMesh n'a pas de forfait gratuit permanent : si vous cherchez 'gratuit pour toujours', autant le savoir tout de suite.",
+      "Les 1000 premiers inscrits deviennent founder et reçoivent le Pro à vie, gratuit, fonctions futures comprises.",
+      "Tous les autres profitent d'un essai complet de 14 jours, avec chaque fonction Pro débloquée.",
+      "Après les 14 jours, vous gardez FitMesh avec un abonnement léger (moins qu'un café tous les six mois) ou avec le déblocage à vie (moins qu'une pizza), ou bien vous fermez le compte.",
+      "Le Pro inclut le tableau de bord web, tous les wearables réunis et dédupliqués, l'historique complet et la bague Colmi via Bluetooth.",
+    ],
   },
   primaryKeyword: {
     it: "fitmesh è gratis",
     en: "is fitmesh free",
     es: "fitmesh es gratis",
     de: "ist fitmesh kostenlos",
+    pt: "fitmesh é grátis",
+    fr: "fitmesh est gratuit",
   },
   secondaryKeywords: {
     it: [
@@ -86,12 +102,32 @@ export const post: BlogPost = {
       "fitmesh abo",
       "fitmesh für immer kostenlos",
     ],
+    pt: [
+      "fitmesh preço",
+      "fitmesh quanto custa",
+      "fitmesh teste grátis",
+      "fitmesh pro vitalício",
+      "fitmesh vagas founder",
+      "fitmesh assinatura",
+      "fitmesh grátis para sempre",
+    ],
+    fr: [
+      "fitmesh prix",
+      "fitmesh combien ça coûte",
+      "fitmesh essai gratuit",
+      "fitmesh pro à vie",
+      "fitmesh places founder",
+      "fitmesh abonnement",
+      "fitmesh gratuit pour toujours",
+    ],
   },
   metaDescription: {
     it: "FitMesh è gratis? Niente piano gratuito permanente: primi 1000 founder col Pro a vita gratis, per gli altri prova completa di 14 giorni poi abbonamento. Ecco come funziona.",
     en: "Is FitMesh free? No permanent free plan: the first 1,000 founders get lifetime Pro free, everyone else gets a full 14-day trial then a Pro subscription. Here's how it works.",
     es: "¿FitMesh es gratis? Sin plan gratuito permanente: los primeros 1000 founder con Pro de por vida gratis, para el resto prueba completa de 14 días y luego suscripción. Así funciona.",
     de: "Ist FitMesh kostenlos? Kein dauerhaft kostenloser Plan: die ersten 1000 founder mit Pro auf Lebenszeit gratis, für alle anderen eine vollständige 14-Tage-Testphase und danach ein Abo. So funktioniert es.",
+    pt: "O FitMesh é grátis? Nenhum plano gratuito permanente: os primeiros 1000 founder com Pro vitalício grátis, para os outros um teste completo de 14 dias e depois assinatura. Veja como funciona.",
+    fr: "FitMesh est gratuit ? Pas de forfait gratuit permanent : les 1000 premiers founder ont le Pro à vie gratuit, les autres un essai complet de 14 jours puis un abonnement. Voici comment ça marche.",
   },
   hero: {
     kicker: {
@@ -99,18 +135,24 @@ export const post: BlogPost = {
       en: "Pricing guide",
       es: "Guía de precios",
       de: "Preisübersicht",
+      pt: "Guia de preços",
+      fr: "Guide des prix",
     },
     title: {
       it: "FitMesh è gratis? Prezzo, prova di 14 giorni e posti founder",
       en: "Is FitMesh free? Pricing, the 14-day trial and founder spots",
       es: "¿FitMesh es gratis? Precio, prueba de 14 días y plazas founder",
       de: "Ist FitMesh kostenlos? Preis, 14-Tage-Testphase und founder-Plätze",
+      pt: "O FitMesh é grátis? Preço, teste de 14 dias e vagas founder",
+      fr: "FitMesh est gratuit ? Prix, essai de 14 jours et places founder",
     },
     subtitle: {
       it: "La risposta onesta prima di installare: non esiste un piano gratuito per sempre, ma i primi 1000 iscritti ottengono il Pro a vita gratis e tutti gli altri hanno 14 giorni di prova completa. Ecco esattamente come funziona il prezzo e cosa include il Pro.",
       en: "The honest answer before you install: there's no free-forever plan, but the first 1,000 sign-ups get lifetime Pro for free and everyone else gets a full 14-day trial. Here's exactly how pricing works and what Pro includes.",
       es: "La respuesta honesta antes de instalar: no existe un plan gratuito para siempre, pero los primeros 1000 registrados consiguen el Pro de por vida gratis y todos los demás tienen 14 días de prueba completa. Aquí tienes exactamente cómo funciona el precio y qué incluye el Pro.",
       de: "Die ehrliche Antwort vor der Installation: Es gibt keinen für immer kostenlosen Plan, aber die ersten 1000 Anmeldungen bekommen Pro auf Lebenszeit gratis und alle anderen erhalten eine vollständige 14-tägige Testphase. Hier erfährst du genau, wie der Preis funktioniert und was Pro umfasst.",
+      pt: "A resposta honesta antes de instalar: não existe um plano gratuito para sempre, mas os primeiros 1000 inscritos ganham o Pro vitalício grátis e todos os outros têm 14 dias de teste completo. Veja exatamente como funciona o preço e o que o Pro inclui.",
+      fr: "La réponse honnête avant d'installer : il n'existe pas de forfait gratuit à vie, mais les 1000 premiers inscrits obtiennent le Pro à vie gratuit et tous les autres profitent d'un essai complet de 14 jours. Voici exactement comment fonctionne le prix et ce que le Pro comprend.",
     },
   },
   body: [
@@ -121,6 +163,8 @@ export const post: BlogPost = {
         en: "If you're searching for \"is FitMesh free\" before installing, here's the direct answer with no spin: there is no permanent free plan, but there are two concrete ways to use FitMesh Sync without paying anything today. The first is the 1,000 founder spots, which grant Pro for life for free. The second is the full 14-day trial, open to everyone, with every feature unlocked. At the end of the trial you choose how to keep it: a small subscription or a lifetime unlock, or you close the account. This guide explains exactly how little it costs, the work behind it, what Pro includes, and how to keep a founder spot while they last.",
         es: "Si estás buscando \"FitMesh es gratis\" antes de instalar, esta es la respuesta directa y sin rodeos: no existe un plan gratuito permanente, pero hay dos formas concretas de usar FitMesh Sync sin gastar nada hoy. La primera son las 1000 plazas founder, que dan el Pro de por vida gratis. La segunda es la prueba completa de 14 días, abierta a todos, con todas las funciones desbloqueadas. Al terminar la prueba eliges cómo conservarlo: una pequeña suscripción o el desbloqueo de por vida, o bien cierras la cuenta. En esta guía explicamos exactamente lo poco que cuesta, el trabajo que hay detrás, qué incluye el Pro y cómo reservar una plaza founder mientras queden.",
         de: "Wenn du vor der Installation nach \"FitMesh ist kostenlos\" suchst, hier die direkte Antwort ohne Umschweife: Es gibt keinen dauerhaft kostenlosen Plan, aber es gibt zwei konkrete Wege, FitMesh Sync heute ohne Ausgaben zu nutzen. Der erste sind die 1000 founder-Plätze, die Pro auf Lebenszeit gratis geben. Der zweite ist die vollständige 14-tägige Testphase, offen für alle, mit sämtlichen freigeschalteten Funktionen. Am Ende der Testphase entscheidest du, wie du es behältst: ein kleines Abo oder die Freischaltung auf Lebenszeit, oder du schließt das Konto. In diesem Guide erklären wir genau, wie wenig es kostet, welche Arbeit dahintersteckt, was Pro umfasst und wie du dir einen founder-Platz sicherst, solange es welche gibt.",
+        pt: "Se você está procurando \"o FitMesh é grátis\" antes de instalar, aqui vai a resposta direta e sem rodeios: não existe um plano gratuito permanente, mas há duas formas concretas de usar o FitMesh Sync sem gastar nada hoje. A primeira são as 1000 vagas founder, que dão o Pro vitalício grátis. A segunda é o teste completo de 14 dias, aberto a todos, com cada recurso liberado. Ao final do teste você escolhe como mantê-lo: uma pequena assinatura ou o desbloqueio vitalício, ou então encerra a conta. Neste guia explicamos exatamente quanto custa (pouco), o trabalho que há por trás, o que o Pro inclui e como garantir uma vaga founder enquanto ainda existem.",
+        fr: "Si vous cherchez \"FitMesh est gratuit\" avant d'installer, voici la réponse directe et sans détour : il n'existe pas de forfait gratuit permanent, mais il y a deux façons concrètes d'utiliser FitMesh Sync sans rien dépenser aujourd'hui. La première, ce sont les 1000 places founder, qui donnent le Pro à vie gratuit. La seconde, c'est l'essai complet de 14 jours, ouvert à tous, avec chaque fonction débloquée. À la fin de l'essai, vous choisissez comment le garder : un petit abonnement ou le déblocage à vie, ou bien vous fermez le compte. Dans ce guide, nous expliquons exactement combien ça coûte (peu), le travail qui se cache derrière, ce que le Pro comprend et comment vous réserver une place founder tant qu'il en reste.",
       },
     },
     {
@@ -131,12 +175,16 @@ export const post: BlogPost = {
         en: "Quick answer",
         es: "Respuesta rápida",
         de: "Schnelle Antwort",
+        pt: "Resposta rápida",
+        fr: "Réponse rapide",
       },
       body: {
         it: "FitMesh non ha un piano gratuito per sempre, ma costa pochissimo. I primi 1000 iscritti diventano founder e ottengono il Pro a vita, gratis. Tutti gli altri hanno 14 giorni di prova completa, poi tengono FitMesh con un abbonamento leggero (circa un caffè ogni sei mesi) o con lo sblocco a vita (meno di una pizza). Il prezzo aggiornato per il tuo Paese è mostrato nell'app.",
         en: "FitMesh has no free-forever plan, but it costs very little. The first 1,000 sign-ups become founders and get Pro for life, free. Everyone else gets a full 14-day trial, then keeps FitMesh with a light subscription (about a coffee every six months) or a one-time lifetime unlock (less than a pizza). The current price for your country is shown in the app.",
         es: "FitMesh no tiene un plan gratuito para siempre, pero cuesta muy poco. Los primeros 1000 registrados se convierten en founder y obtienen el Pro de por vida, gratis. Todos los demás tienen 14 días de prueba completa y luego conservan FitMesh con una suscripción ligera (como un café cada seis meses) o con el desbloqueo de por vida (menos que una pizza). El precio actualizado para tu país se muestra en la app.",
         de: "FitMesh hat keinen für immer kostenlosen Plan, kostet aber sehr wenig. Die ersten 1000 Anmeldungen werden founder und erhalten Pro auf Lebenszeit, gratis. Alle anderen bekommen eine vollständige 14-tägige Testphase und behalten FitMesh dann mit einem leichten Abo (weniger als ein Kaffee alle sechs Monate) oder mit der Freischaltung auf Lebenszeit (weniger als eine Pizza). Der aktuelle Preis für dein Land wird in der App angezeigt.",
+        pt: "O FitMesh não tem um plano gratuito para sempre, mas custa pouquíssimo. Os primeiros 1000 inscritos viram founder e ganham o Pro vitalício, grátis. Todos os outros têm 14 dias de teste completo e depois mantêm o FitMesh com uma assinatura leve (como um café a cada seis meses) ou com o desbloqueio vitalício (menos que uma pizza). O preço atualizado para o seu país aparece no app.",
+        fr: "FitMesh n'a pas de forfait gratuit à vie, mais coûte très peu. Les 1000 premiers inscrits deviennent founder et obtiennent le Pro à vie, gratuit. Tous les autres profitent d'un essai complet de 14 jours, puis gardent FitMesh avec un abonnement léger (moins qu'un café tous les six mois) ou avec le déblocage à vie (moins qu'une pizza). Le prix actualisé pour votre pays s'affiche dans l'app.",
       },
     },
     {
@@ -147,6 +195,8 @@ export const post: BlogPost = {
         en: "Is FitMesh free? The honest answer",
         es: "¿FitMesh es gratis? La respuesta honesta",
         de: "Ist FitMesh kostenlos? Die ehrliche Antwort",
+        pt: "O FitMesh é grátis? A resposta honesta",
+        fr: "FitMesh est gratuit ? La réponse honnête",
       },
     },
     {
@@ -156,6 +206,8 @@ export const post: BlogPost = {
         en: "Plenty of apps in this space promise \"free forever\" and then fund themselves by selling your data or filling the screen with ads. FitMesh does the opposite: your health data stays on your account in the EU cloud, we don't sell it and we don't show ads. Reading data from your wearables, deduplicating it (the same step never counted twice) and showing it in one unified web panel has a real running cost. That's why the model is simple and transparent: early adopters are rewarded with lifetime Pro for free (the founder spots), everyone else tries the full app for 14 days and then decides whether Pro is worth the price of a subscription. No crippled tier holding you hostage, no hidden fees.",
         es: "Muchas apps de este tipo prometen \"gratis para siempre\" y luego se financian vendiendo tus datos o llenando la pantalla de publicidad. FitMesh hace lo contrario: tus datos de salud se quedan en tu cuenta en la nube en la UE, no los vendemos y no mostramos publicidad. Leer los datos de tus wearables, quitar los duplicados (el mismo paso nunca contado dos veces) y mostrarlos en un único panel web tiene un coste real de gestión. Por eso el modelo es sencillo y transparente: quien llega pronto recibe como premio el Pro de por vida gratis (las plazas founder), y todos los demás prueban la app completa durante 14 días y luego deciden si el Pro vale el precio de una suscripción. Sin ninguna versión recortada que te tenga como rehén, sin costes ocultos.",
         de: "Viele Apps dieser Art versprechen \"für immer gratis\" und finanzieren sich dann, indem sie deine Daten verkaufen oder den Bildschirm mit Werbung füllen. FitMesh macht das Gegenteil: Deine Gesundheitsdaten bleiben in deinem Konto in der EU-Cloud, wir verkaufen sie nicht und zeigen keine Werbung. Die Daten deiner Wearables zu lesen, Duplikate zu entfernen (derselbe Schritt wird nie doppelt gezählt) und sie in einem einzigen Web-Panel anzuzeigen, verursacht echte laufende Kosten. Deshalb ist das Modell einfach und transparent: Wer früh dabei ist, wird mit Pro auf Lebenszeit gratis belohnt (die founder-Plätze), alle anderen testen die komplette App 14 Tage lang und entscheiden dann, ob Pro den Preis eines Abos wert ist. Keine halbierte Version, die dich als Geisel hält, keine versteckten Kosten.",
+        pt: "Muitos apps desse tipo prometem \"grátis para sempre\" e depois se financiam vendendo os dados ou enchendo a tela de publicidade. O FitMesh faz o contrário: os seus dados de saúde ficam na sua conta na nuvem na UE, não os vendemos e não mostramos publicidade. Ler os dados dos seus wearables, remover as duplicatas (o mesmo passo nunca contado duas vezes) e mostrá-los em um único painel web tem um custo real de operação. Por isso o modelo é simples e transparente: quem chega cedo é recompensado com o Pro vitalício grátis (as vagas founder), todos os outros experimentam o app completo por 14 dias e depois decidem se o Pro vale o preço de uma assinatura. Nenhuma versão pela metade que te mantém refém, nenhum custo escondido.",
+        fr: "Beaucoup d'applis de ce type promettent \"gratuit pour toujours\", puis se financent en vendant vos données ou en remplissant l'écran de publicité. FitMesh fait l'inverse : vos données de santé restent sur votre compte dans le cloud en UE, nous ne les vendons pas et n'affichons aucune publicité. Lire les données de vos wearables, les dédupliquer (le même pas n'est jamais compté deux fois) et les afficher dans un seul panneau web représente un vrai coût de fonctionnement. C'est pourquoi le modèle est simple et transparent : ceux qui arrivent tôt sont récompensés par le Pro à vie gratuit (les places founder), tous les autres essaient l'appli complète pendant 14 jours puis décident si le Pro vaut le prix d'un abonnement. Aucune version bridée qui vous prend en otage, aucun coût caché.",
       },
     },
     {
@@ -166,6 +218,8 @@ export const post: BlogPost = {
         en: "1,000 founder spots: Pro for life, free",
         es: "1000 plazas founder: Pro de por vida, gratis",
         de: "1000 founder-Plätze: Pro auf Lebenszeit, gratis",
+        pt: "1000 vagas founder: Pro vitalício, grátis",
+        fr: "1000 places founder : Pro à vie, gratuit",
       },
     },
     {
@@ -175,6 +229,8 @@ export const post: BlogPost = {
         en: "The strongest offer is also the simplest: the first 1,000 sign-ups become founders and get Pro for life, free. Not a long trial, not a discount: full access with no expiry. It's how we thank the people who back the project while it's still early. There are 1,000 spots and not one more: once they're gone, the founder offer closes and only the trial and the subscription remain. Becoming a founder today means never paying for the subscription in the future, including the features still to come.",
         es: "La oferta más fuerte es también la más sencilla: los primeros 1000 registrados se convierten en founder y reciben el Pro de por vida, gratis. No una prueba larga, no un descuento: acceso completo sin caducidad. Es la forma en que damos las gracias a quien cree en el proyecto cuando aún está empezando. Las plazas son 1000 y ni una más: cuando se acaban, la oferta founder se cierra y solo quedan la prueba y la suscripción. Convertirte en founder hoy significa no pagar nunca la suscripción en el futuro, con las funciones que llegarán incluidas.",
         de: "Das stärkste Angebot ist zugleich das einfachste: Die ersten 1000 Anmeldungen werden founder und erhalten Pro auf Lebenszeit, gratis. Keine lange Testphase, kein Rabatt: voller Zugang ohne Ablaufdatum. So bedanken wir uns bei denen, die an das Projekt glauben, während es noch am Anfang steht. Es gibt 1000 Plätze und keinen mehr: Sind sie weg, schließt das founder-Angebot und es bleiben nur die Testphase und das Abo. Heute founder zu werden bedeutet, das Abo in Zukunft nie zu bezahlen, inklusive der Funktionen, die noch kommen.",
+        pt: "A oferta mais forte é também a mais simples: os primeiros 1000 inscritos viram founder e recebem o Pro vitalício, grátis. Não é um teste longo, não é um desconto: acesso completo sem prazo de validade. É a nossa forma de agradecer a quem acredita no projeto quando ele ainda está no começo. São 1000 vagas e nem uma a mais: quando acabam, a oferta founder se encerra e restam apenas o teste e a assinatura. Virar founder hoje significa nunca pagar a assinatura no futuro, incluindo os recursos que ainda vão chegar.",
+        fr: "L'offre la plus forte est aussi la plus simple : les 1000 premiers inscrits deviennent founder et reçoivent le Pro à vie, gratuit. Pas un long essai, pas une remise : un accès complet sans date d'expiration. C'est notre façon de remercier ceux qui croient au projet alors qu'il en est encore à ses débuts. Il y a 1000 places et pas une de plus : une fois épuisées, l'offre founder se ferme et il ne reste que l'essai et l'abonnement. Devenir founder aujourd'hui, c'est ne jamais payer l'abonnement à l'avenir, fonctions à venir comprises.",
       },
     },
     {
@@ -208,6 +264,20 @@ export const post: BlogPost = {
           "Neue Integrationen, sobald sie erscheinen, wie der Colmi-Ring und die iOS-App.",
           "Ein gesicherter Platz, an dein Konto gebunden, bevor die 1000 aufgebraucht sind.",
         ],
+        pt: [
+          "Pro vitalício, sem prazo de validade e sem renovações a pagar.",
+          "Todos os recursos Pro atuais e futuros incluídos.",
+          "O painel web completo, acessível de qualquer navegador.",
+          "As novas integrações à medida que chegam, como o anel Colmi e o app iOS.",
+          "Uma vaga garantida, ligada à sua conta, antes que as 1000 acabem.",
+        ],
+        fr: [
+          "Pro à vie, sans expiration et sans renouvellements à payer.",
+          "Toutes les fonctions Pro actuelles et futures comprises.",
+          "Le tableau de bord web complet, accessible depuis n'importe quel navigateur.",
+          "Les nouvelles intégrations au fur et à mesure de leur sortie, comme la bague Colmi et l'appli iOS.",
+          "Une place assurée, liée à votre compte, avant que les 1000 ne soient épuisées.",
+        ],
       },
     },
     {
@@ -218,12 +288,16 @@ export const post: BlogPost = {
         en: "How to become a founder",
         es: "Cómo convertirte en founder",
         de: "So wirst du founder",
+        pt: "Como virar founder",
+        fr: "Comment devenir founder",
       },
       body: {
         it: "Per prendere un posto founder ti iscrivi alla beta da /it/beta: scarichi l'app Android (già sul Play Store) o entri in lista per iOS (in arrivo). Il posto è legato al tuo account: una volta founder, resti founder. Non serve la carta di credito per registrarti.",
         en: "To claim a founder spot you sign up for the beta at /en/beta: install the Android app (already on the Play Store) or join the list for iOS (coming soon). The spot is tied to your account: once a founder, always a founder. No credit card needed to register.",
         es: "Para conseguir una plaza founder te apuntas a la beta en /es/beta: descargas la app Android (ya en el Play Store) o entras en la lista para iOS (próximamente). La plaza está ligada a tu cuenta: una vez founder, sigues siendo founder. No hace falta tarjeta de crédito para registrarte.",
         de: "Um einen founder-Platz zu bekommen, meldest du dich unter /de/beta für die Beta an: Du lädst die Android-App herunter (schon im Play Store) oder trägst dich in die Liste für iOS ein (kommt bald). Der Platz ist an dein Konto gebunden: Einmal founder, immer founder. Für die Registrierung ist keine Kreditkarte nötig.",
+        pt: "Para garantir uma vaga founder você se inscreve na beta em /pt/beta: baixa o app Android (já no Play Store) ou entra na lista para iOS (em breve). A vaga fica ligada à sua conta: uma vez founder, você continua founder. Não é preciso cartão de crédito para se cadastrar.",
+        fr: "Pour obtenir une place founder, vous vous inscrivez à la bêta sur /fr/beta : vous téléchargez l'appli Android (déjà sur le Play Store) ou vous rejoignez la liste pour iOS (à venir). La place est liée à votre compte : une fois founder, vous restez founder. Aucune carte bancaire n'est nécessaire pour vous inscrire.",
       },
     },
     {
@@ -234,6 +308,8 @@ export const post: BlogPost = {
         en: "Founder spots gone? A full 14-day trial",
         es: "¿Se acabaron las plazas founder? Prueba completa de 14 días",
         de: "Keine founder-Plätze mehr? Eine vollständige 14-Tage-Testphase",
+        pt: "Acabaram as vagas founder? Teste completo de 14 dias",
+        fr: "Plus de places founder ? Un essai complet de 14 jours",
       },
     },
     {
@@ -243,6 +319,8 @@ export const post: BlogPost = {
         en: "If the 1,000 founder spots are gone by the time you arrive, you're not left out: you get a full 14-day trial. \"Full\" means every Pro feature is unlocked during the trial, exactly like it is for a founder. You connect your wearables, open the web dashboard, look at your history, try the Colmi ring over Bluetooth: everything on, no artificial limits. The 14 days let you evaluate the app on your real data, not on a canned demo. It's the fairest way to see whether FitMesh does what you need before you decide.",
         es: "Si las 1000 plazas founder están agotadas cuando llegas, no te quedas fuera: tienes 14 días de prueba completa. \"Completa\" significa que durante la prueba todas las funciones Pro están desbloqueadas, exactamente igual que para un founder. Conectas tus wearables, abres el dashboard web, miras el historial, pruebas el anillo Colmi por Bluetooth: todo activo, sin límites artificiales. Los 14 días sirven para que valores la app con tus datos reales, no con una demo prefabricada. Es la forma más justa de saber si FitMesh hace lo que necesitas antes de decidir.",
         de: "Wenn die 1000 founder-Plätze bei deiner Ankunft vergeben sind, bleibst du nicht außen vor: Du erhältst eine vollständige 14-tägige Testphase. \"Vollständig\" heißt, dass während der Testphase jede Pro-Funktion freigeschaltet ist, genau wie bei einem founder. Du verbindest deine Wearables, öffnest das Web-Dashboard, siehst dir den Verlauf an, testest den Colmi-Ring über Bluetooth: alles aktiv, ohne künstliche Grenzen. Die 14 Tage sind dazu da, die App mit deinen echten Daten zu bewerten, nicht mit einer vorgefertigten Demo. So findest du am fairsten heraus, ob FitMesh das tut, was du brauchst, bevor du dich entscheidest.",
+        pt: "Se as 1000 vagas founder já acabaram quando você chega, você não fica de fora: tem 14 dias de teste completo. \"Completo\" significa que durante o teste cada recurso Pro está liberado, exatamente como para um founder. Você conecta os seus wearables, abre o painel web, olha o histórico, experimenta o anel Colmi via Bluetooth: tudo ativo, sem limites artificiais. Os 14 dias servem para você avaliar o app com os seus dados reais, não com uma demonstração pronta. É a forma mais justa de entender se o FitMesh faz o que você precisa antes de decidir.",
+        fr: "Si les 1000 places founder sont épuisées à votre arrivée, vous n'êtes pas laissé de côté : vous avez 14 jours d'essai complet. \"Complet\" veut dire que pendant l'essai chaque fonction Pro est débloquée, exactement comme pour un founder. Vous connectez vos wearables, ouvrez le tableau de bord web, consultez l'historique, testez la bague Colmi via Bluetooth : tout est actif, sans limites artificielles. Les 14 jours servent à évaluer l'appli sur vos vraies données, pas sur une démo préformatée. C'est la façon la plus juste de voir si FitMesh fait ce dont vous avez besoin avant de décider.",
       },
     },
     {
@@ -253,6 +331,8 @@ export const post: BlogPost = {
         en: "What happens after the 14 days",
         es: "Qué pasa después de los 14 días",
         de: "Was nach den 14 Tagen passiert",
+        pt: "O que acontece depois dos 14 dias",
+        fr: "Ce qui se passe après les 14 jours",
       },
     },
     {
@@ -262,6 +342,8 @@ export const post: BlogPost = {
         en: "At the end of the 14 days you choose how to carry on, with no traps: keep FitMesh with a small subscription or a one-time lifetime unlock (founders pay nothing), or, if you decide it's not for you, close the account. There's no reduced free version sitting there half-working: either FitMesh is useful to you and you keep it for a small price, or you let it go and your data is removed. It's an honest choice, and it's exactly why the trial is full: we want you to decide with the real app in front of you, after seeing [your smartwatches merged with no double data](/en/blog/piu-smartwatch-insieme-dati-doppi) in the dashboard, not on promises.",
         es: "Al terminar los 14 días eliges cómo continuar, sin trampas: conservas FitMesh con una pequeña suscripción o con el desbloqueo de por vida (los founder no pagan nada), o bien, si decides que no es para ti, cierras la cuenta. No hay una versión gratuita recortada que se queda ahí a medias: o FitMesh te resulta útil y lo conservas por un precio pequeño, o lo dejas y tus datos se eliminan. Es una elección honesta, y es justo el motivo por el que la prueba es completa: queremos que decidas con la app de verdad delante, después de ver [tus smartwatches unidos sin datos duplicados](/es/blog/piu-smartwatch-insieme-dati-doppi) en el dashboard, no con promesas.",
         de: "Am Ende der 14 Tage entscheidest du, wie es weitergeht, ohne Fallen: Du behältst FitMesh mit einem kleinen Abo oder mit der Freischaltung auf Lebenszeit (founder zahlen nichts), oder, falls du entscheidest, dass es nichts für dich ist, schließt du das Konto. Es gibt keine halbierte Gratisversion, die halb funktionierend herumsteht: Entweder ist FitMesh für dich nützlich und du behältst es zu einem kleinen Preis, oder du lässt es los und deine Daten werden entfernt. Das ist eine ehrliche Entscheidung, und genau darum ist die Testphase vollständig: Wir möchten, dass du mit der echten App vor dir entscheidest, nachdem du [deine Smartwatches ohne doppelte Daten zusammengeführt](/de/blog/piu-smartwatch-insieme-dati-doppi) im Dashboard gesehen hast, nicht aufgrund von Versprechen.",
+        pt: "Ao final dos 14 dias você escolhe como continuar, sem pegadinhas: mantém o FitMesh com uma pequena assinatura ou com o desbloqueio vitalício (os founder não pagam nada), ou então, se decidir que não é para você, encerra a conta. Não existe uma versão gratuita pela metade que fica ali funcionando só um pouco: ou o FitMesh é útil para você e você o mantém por um preço pequeno, ou você o abandona e os seus dados são removidos. É uma escolha honesta, e é justamente por isso que o teste é completo: queremos que você decida com o app de verdade na sua frente, depois de ver [os seus smartwatches unidos sem dados duplicados](/pt/blog/piu-smartwatch-insieme-dati-doppi) no painel, não com base em promessas.",
+        fr: "À la fin des 14 jours, vous choisissez comment continuer, sans pièges : vous gardez FitMesh avec un petit abonnement ou avec le déblocage à vie (les founder ne paient rien), ou bien, si vous décidez que ce n'est pas pour vous, vous fermez le compte. Il n'y a pas de version gratuite bridée qui reste là à moitié fonctionnelle : soit FitMesh vous est utile et vous le gardez pour un petit prix, soit vous le laissez et vos données sont supprimées. C'est un choix honnête, et c'est précisément pour cela que l'essai est complet : nous voulons que vous décidiez avec la vraie appli sous les yeux, après avoir vu [vos smartwatches réunis sans données en double](/fr/blog/piu-smartwatch-insieme-dati-doppi) dans le tableau de bord, pas sur des promesses.",
       },
     },
     {
@@ -272,6 +354,8 @@ export const post: BlogPost = {
         en: "What Pro includes",
         es: "Qué incluye el Pro",
         de: "Was Pro umfasst",
+        pt: "O que o Pro inclui",
+        fr: "Ce que comprend le Pro",
       },
     },
     {
@@ -281,6 +365,8 @@ export const post: BlogPost = {
         en: "Pro is all of FitMesh, with no confusing tiers. In practice it unlocks the unified web dashboard, the merging of all your wearables with deduplication, the full history and the direct reading of the Colmi ring over Bluetooth. On Android the app reads data through Health Connect and also reads the Colmi ring over Bluetooth; the iOS app is coming and will write to Apple Health. If you want the full picture on the ring, there's the [complete Colmi ring guide](/en/blog/colmi-ring-fitmesh), and to see how the panel works from a computer there's the guide to [viewing your wearable data in the browser](/en/blog/vedere-dati-wearable-browser-pc).",
         es: "El Pro es todo FitMesh, sin niveles confusos. En la práctica desbloquea el dashboard web unificado, la unión de todos los wearables con la eliminación de duplicados, el historial completo y la lectura directa del anillo Colmi por Bluetooth. En Android la app lee los datos a través de Health Connect y además lee el anillo Colmi por Bluetooth; la app iOS está en camino y escribirá en Apple Health. Si quieres el panorama completo sobre el anillo, tienes la [guía completa del anillo Colmi](/es/blog/colmi-ring-fitmesh), y para entender cómo funciona el panel desde el ordenador encontrarás la guía para [ver los datos de los wearables en el navegador](/es/blog/vedere-dati-wearable-browser-pc).",
         de: "Pro ist ganz FitMesh, ohne verwirrende Stufen. In der Praxis schaltet es das einheitliche Web-Dashboard frei, das Zusammenführen aller Wearables mit Duplikatentfernung, den vollständigen Verlauf und das direkte Auslesen des Colmi-Rings über Bluetooth. Unter Android liest die App die Daten über Health Connect und liest zusätzlich den Colmi-Ring über Bluetooth; die iOS-App kommt bald und wird in Apple Health schreiben. Wenn du den kompletten Überblick über den Ring willst, gibt es den [vollständigen Guide zum Colmi-Ring](/de/blog/colmi-ring-fitmesh), und um zu verstehen, wie das Panel vom Computer aus funktioniert, findest du den Guide zum [Anzeigen der Wearable-Daten im Browser](/de/blog/vedere-dati-wearable-browser-pc).",
+        pt: "O Pro é o FitMesh inteiro, sem níveis confusos. Na prática, ele libera o painel web unificado, a união de todos os wearables com a remoção de duplicatas, o histórico completo e a leitura direta do anel Colmi via Bluetooth. No Android o app lê os dados através do Health Connect e ainda lê o anel Colmi via Bluetooth; o app iOS está a caminho e vai escrever no Apple Health. Se você quer o panorama completo sobre o anel, há o [guia completo do anel Colmi](/pt/blog/colmi-ring-fitmesh), e para entender como o painel funciona no computador você encontra o guia para [ver os dados dos wearables no navegador](/pt/blog/vedere-dati-wearable-browser-pc).",
+        fr: "Le Pro, c'est tout FitMesh, sans niveaux compliqués. Concrètement, il débloque le tableau de bord web unifié, la fusion de tous les wearables avec la déduplication, l'historique complet et la lecture directe de la bague Colmi via Bluetooth. Sous Android, l'appli lit les données via Health Connect et lit en plus la bague Colmi via Bluetooth ; l'appli iOS arrive bientôt et écrira dans Apple Health. Si vous voulez le tableau complet sur la bague, il y a le [guide complet de la bague Colmi](/fr/blog/colmi-ring-fitmesh), et pour comprendre comment fonctionne le panneau depuis l'ordinateur, vous trouverez le guide pour [voir les données des wearables dans le navigateur](/fr/blog/vedere-dati-wearable-browser-pc).",
       },
     },
     {
@@ -290,12 +376,16 @@ export const post: BlogPost = {
         en: "What Pro (and the founder spot) unlocks in FitMesh Sync",
         es: "Qué desbloquea el Pro (y la plaza founder) en FitMesh Sync",
         de: "Was Pro (und der founder-Platz) in FitMesh Sync freischaltet",
+        pt: "O que o Pro (e a vaga founder) libera no FitMesh Sync",
+        fr: "Ce que le Pro (et la place founder) débloque dans FitMesh Sync",
       },
       headers: {
         it: ["Funzione", "Cosa fa"],
         en: ["Feature", "What it does"],
         es: ["Función", "Qué hace"],
         de: ["Funktion", "Was sie macht"],
+        pt: ["Recurso", "O que faz"],
+        fr: ["Fonction", "Ce qu'elle fait"],
       },
       rows: [
         {
@@ -303,30 +393,40 @@ export const post: BlogPost = {
           en: ["Web dashboard", "Open your data from any browser with the same account"],
           es: ["Dashboard web", "Abre tus datos desde cualquier navegador con la misma cuenta"],
           de: ["Web-Dashboard", "Öffne deine Daten von jedem Browser aus mit demselben Konto"],
+          pt: ["Painel web", "Abra os seus dados de qualquer navegador com a mesma conta"],
+          fr: ["Tableau de bord web", "Ouvrez vos données depuis n'importe quel navigateur avec le même compte"],
         },
         {
           it: ["Tutti i wearable uniti", "Health Connect e anello Colmi in un unico pannello, deduplicati"],
           en: ["All wearables merged", "Health Connect and the Colmi ring in one panel, deduplicated"],
           es: ["Todos los wearables unidos", "Health Connect y el anillo Colmi en un único panel, sin duplicados"],
           de: ["Alle Wearables zusammengeführt", "Health Connect und Colmi-Ring in einem einzigen Panel, ohne Duplikate"],
+          pt: ["Todos os wearables unidos", "Health Connect e anel Colmi em um único painel, sem duplicatas"],
+          fr: ["Tous les wearables réunis", "Health Connect et bague Colmi dans un seul panneau, dédupliqués"],
         },
         {
           it: ["Storico completo", "La cronologia dei tuoi dati resta salvata sul tuo account"],
           en: ["Full history", "Your data history stays saved on your account"],
           es: ["Historial completo", "El historial de tus datos permanece guardado en tu cuenta"],
           de: ["Vollständiger Verlauf", "Der Verlauf deiner Daten bleibt in deinem Konto gespeichert"],
+          pt: ["Histórico completo", "O histórico dos seus dados fica salvo na sua conta"],
+          fr: ["Historique complet", "L'historique de vos données reste enregistré sur votre compte"],
         },
         {
           it: ["Anello Colmi via Bluetooth", "Passi, battito, SpO2, sonno con fasi, stress, batteria"],
           en: ["Colmi ring over Bluetooth", "Steps, heart rate, SpO2, sleep with stages, stress, battery"],
           es: ["Anillo Colmi por Bluetooth", "Pasos, ritmo cardíaco, SpO2, sueño con fases, estrés, batería"],
           de: ["Colmi-Ring über Bluetooth", "Schritte, Herzfrequenz, SpO2, Schlaf mit Phasen, Stress, Akku"],
+          pt: ["Anel Colmi via Bluetooth", "Passos, batimentos, SpO2, sono com fases, estresse, bateria"],
+          fr: ["Bague Colmi via Bluetooth", "Pas, fréquence cardiaque, SpO2, sommeil avec phases, stress, batterie"],
         },
         {
           it: ["Dati nel cloud in UE", "Sul tuo account, non sui server del produttore del dispositivo"],
           en: ["Data in the EU cloud", "On your account, not on the device maker's servers"],
           es: ["Datos en la nube en la UE", "En tu cuenta, no en los servidores del fabricante del dispositivo"],
           de: ["Daten in der EU-Cloud", "In deinem Konto, nicht auf den Servern des Geräteherstellers"],
+          pt: ["Dados na nuvem na UE", "Na sua conta, não nos servidores do fabricante do dispositivo"],
+          fr: ["Données dans le cloud en UE", "Sur votre compte, pas sur les serveurs du fabricant de l'appareil"],
         },
       ],
     },
@@ -338,6 +438,8 @@ export const post: BlogPost = {
         en: "Founder vs trial: the differences",
         es: "Founder o prueba: las diferencias",
         de: "Founder oder Testphase: die Unterschiede",
+        pt: "Founder ou teste: as diferenças",
+        fr: "Founder ou essai : les différences",
       },
     },
     {
@@ -347,6 +449,8 @@ export const post: BlogPost = {
         en: "Founder spot (first 1,000)",
         es: "Plaza founder (primeros 1000)",
         de: "Founder-Platz (erste 1000)",
+        pt: "Vaga founder (primeiros 1000)",
+        fr: "Place founder (les 1000 premiers)",
       },
       aItems: {
         it: [
@@ -373,12 +477,26 @@ export const post: BlogPost = {
           "Kein Abo zu bezahlen, niemals.",
           "Begrenzte Plätze: Sind sie weg, kommen sie nicht zurück.",
         ],
+        pt: [
+          "Pro vitalício, grátis, sem prazo de validade.",
+          "Todas as funções atuais e futuras incluídas.",
+          "Nenhuma assinatura a pagar, nunca.",
+          "Vagas limitadas: acabam e não voltam.",
+        ],
+        fr: [
+          "Pro à vie, gratuit, sans expiration.",
+          "Toutes les fonctions actuelles et futures comprises.",
+          "Aucun abonnement à payer, jamais.",
+          "Places limitées : une fois épuisées, elles ne reviennent pas.",
+        ],
       },
       bTitle: {
         it: "Prova di 14 giorni (tutti gli altri)",
         en: "14-day trial (everyone else)",
         es: "Prueba de 14 días (todos los demás)",
         de: "14-Tage-Testphase (alle anderen)",
+        pt: "Teste de 14 dias (todos os outros)",
+        fr: "Essai de 14 jours (tous les autres)",
       },
       bItems: {
         it: [
@@ -405,6 +523,18 @@ export const post: BlogPost = {
           "Danach: ein kleines Abo oder die Freischaltung auf Lebenszeit (oder du schließt das Konto).",
           "Immer verfügbar, auch wenn die founder-Plätze vergeben sind.",
         ],
+        pt: [
+          "Cada recurso Pro liberado por 14 dias.",
+          "Nenhum cartão de crédito exigido para começar.",
+          "Depois: uma pequena assinatura ou o desbloqueio vitalício (ou você encerra a conta).",
+          "Sempre disponível, mesmo com as vagas founder esgotadas.",
+        ],
+        fr: [
+          "Chaque fonction Pro débloquée pendant 14 jours.",
+          "Aucune carte bancaire requise pour commencer.",
+          "Ensuite : un petit abonnement ou le déblocage à vie (ou vous fermez le compte).",
+          "Toujours disponible, même une fois les places founder épuisées.",
+        ],
       },
     },
     {
@@ -415,6 +545,8 @@ export const post: BlogPost = {
         en: "The work behind such a small price",
         es: "El trabajo detrás de un precio tan pequeño",
         de: "Die Arbeit hinter einem so kleinen Preis",
+        pt: "O trabalho por trás de um preço tão pequeno",
+        fr: "Le travail derrière un prix aussi petit",
       },
     },
     {
@@ -424,6 +556,8 @@ export const post: BlogPost = {
         en: "Behind that coffee every six months there's a lot of work. FitMesh is the result of hands-on research and integration: reading dozens of different wearables and the Colmi ring over Bluetooth, making sense of each maker's data formats, and lining the data up with a deduplication system so the same step is never counted twice. On top of that come the EU servers (which cost money), the ongoing development of new integrations and the iOS app, and the choice to show no ads and never sell your data: you can read how we handle it in the guide on [GDPR and fitness data](/en/blog/gdpr-dati-fitness-smartwatch). That's why there's no \"free forever\": in the apps that offer it, that free is almost always paid for elsewhere, with ads or with your data. A small, clear, honest price is what keeps the project alive and independent. And it really does stay small: a coffee every six months, or one pizza skipped just once.",
         es: "Detrás de ese café cada seis meses hay bastante trabajo. FitMesh nace de una labor artesanal de investigación e integración: leer decenas de wearables distintos y el anillo Colmi por Bluetooth, entender los formatos de cada fabricante y hacer que los datos encajen con un sistema de eliminación de duplicados para que el mismo paso no se cuente dos veces. A esto se suman los servidores en la UE (que tienen un coste), el desarrollo continuo de nuevas integraciones y de la app iOS, y la decisión de no mostrar publicidad ni vender tus datos: puedes leer cómo los tratamos en la guía sobre [GDPR y datos fitness](/es/blog/gdpr-dati-fitness-smartwatch). Por eso no existe un \"gratis para siempre\": ese gratis, en las apps que lo ofrecen, casi siempre lo pagas en otro sitio, con la publicidad o con tus datos. Un precio pequeño, claro y honesto es lo que mantiene el proyecto vivo e independiente. Y de verdad sigue siendo pequeño: un café cada seis meses, o una pizza que te saltas una sola vez.",
         de: "Hinter diesem Kaffee alle sechs Monate steckt eine Menge Arbeit. FitMesh entsteht aus sorgfältiger Recherche- und Integrationsarbeit: Dutzende verschiedener Wearables und den Colmi-Ring über Bluetooth auslesen, die Datenformate jedes Herstellers verstehen und die Daten mit einem System zur Duplikatentfernung in Einklang bringen, damit derselbe Schritt nicht zweimal gezählt wird. Dazu kommen die EU-Server (die Geld kosten), die laufende Entwicklung neuer Integrationen und der iOS-App sowie die Entscheidung, keine Werbung zu zeigen und deine Daten nicht zu verkaufen: Wie wir damit umgehen, kannst du im Guide zu [DSGVO und Fitnessdaten](/de/blog/gdpr-dati-fitness-smartwatch) nachlesen. Deshalb gibt es kein \"für immer gratis\": Dieses Gratis bezahlst du bei den Apps, die es anbieten, fast immer woanders, mit Werbung oder mit deinen Daten. Ein kleiner, klarer und ehrlicher Preis ist es, was das Projekt lebendig und unabhängig hält. Und es bleibt wirklich klein: ein Kaffee alle sechs Monate oder eine Pizza, die man sich ein einziges Mal spart.",
+        pt: "Por trás desse café a cada seis meses há bastante trabalho. O FitMesh nasce de um trabalho artesanal de pesquisa e integração: ler dezenas de wearables diferentes e o anel Colmi via Bluetooth, entender os formatos de cada fabricante e fazer os dados baterem com um sistema de remoção de duplicatas para que o mesmo passo não seja contado duas vezes. A isso se somam os servidores na UE (que têm um custo), o desenvolvimento contínuo de novas integrações e do app iOS, e a escolha de não mostrar publicidade e não vender os seus dados: você pode ler como os tratamos no guia sobre [GDPR e dados de fitness](/pt/blog/gdpr-dati-fitness-smartwatch). É por isso que não existe um \"grátis para sempre\": esse grátis, nos apps que o oferecem, quase sempre você paga em outro lugar, com publicidade ou com os seus dados. Um preço pequeno, claro e honesto é o que mantém o projeto vivo e independente. E ele continua realmente pequeno: um café a cada seis meses, ou uma pizza que você deixa de comer uma única vez.",
+        fr: "Derrière ce café tous les six mois se cache pas mal de travail. FitMesh est né d'un travail artisanal de recherche et d'intégration : lire des dizaines de wearables différents et la bague Colmi via Bluetooth, comprendre les formats de chaque fabricant et faire correspondre les données grâce à un système de déduplication pour que le même pas ne soit jamais compté deux fois. À cela s'ajoutent les serveurs en UE (qui ont un coût), le développement continu de nouvelles intégrations et de l'appli iOS, et le choix de ne pas afficher de publicité et de ne jamais vendre vos données : vous pouvez lire comment nous les traitons dans le guide sur [le RGPD et les données de fitness](/fr/blog/gdpr-dati-fitness-smartwatch). Voilà pourquoi il n'existe pas de \"gratuit pour toujours\" : dans les applis qui le proposent, ce gratuit, vous le payez presque toujours ailleurs, avec la publicité ou avec vos données. Un prix petit, clair et honnête, c'est ce qui garde le projet vivant et indépendant. Et il reste vraiment petit : un café tous les six mois, ou une pizza sautée une seule fois.",
       },
     },
     {
@@ -434,6 +568,8 @@ export const post: BlogPost = {
         en: "How much is Pro? Less than you'd think",
         es: "¿Cuánto cuesta el Pro? Menos de lo que crees",
         de: "Was kostet Pro? Weniger, als du denkst",
+        pt: "Quanto custa o Pro? Menos do que você imagina",
+        fr: "Combien coûte le Pro ? Moins que vous ne le pensez",
       },
     },
     {
@@ -443,6 +579,8 @@ export const post: BlogPost = {
         en: "Here's the surprise: Pro costs very little, and you choose how to pay for it. You can take a light subscription, less than a coffee every six months (at launch €1.19 every six months), or a one-time lifetime unlock that doesn't even reach the price of a pizza (at launch €3.99 on Android, €4.99 on iPhone). You're not forced into a recurring plan: if you prefer, you pay once and stay Pro forever. The current price for your country is always shown in the app when you sign up. And if you grab a founder spot, it's zero for you, forever. The Android app and the web dashboard are available now; the iOS app is coming (in App Store review).",
         es: "Aquí está la sorpresa: el Pro cuesta muy poco, y eliges tú cómo pagarlo. Puedes coger una suscripción ligera, como un café cada seis meses (en el lanzamiento 1,19 € cada seis meses), o el desbloqueo de por vida de una sola vez, que no llega al precio de una pizza (en el lanzamiento 3,99 € en Android, 4,99 € en iPhone). No estás obligado a lo recurrente: si lo prefieres, pagas una vez y sigues siendo Pro para siempre. El precio actualizado para tu país siempre se muestra en la app en el momento de registrarte. Y si consigues una plaza founder, para ti es cero, para siempre. La app Android y el dashboard web están disponibles ahora; la app iOS está en camino (en revisión en el App Store).",
         de: "Hier kommt die Überraschung: Pro kostet sehr wenig, und du entscheidest, wie du es bezahlst. Du kannst ein leichtes Abo nehmen, weniger als ein Kaffee alle sechs Monate (zum Start 1,19 € alle sechs Monate), oder die einmalige Freischaltung auf Lebenszeit, die nicht einmal den Preis einer Pizza erreicht (zum Start 3,99 € unter Android, 4,99 € auf dem iPhone). Du bist nicht zum Abo gezwungen: Wenn du möchtest, zahlst du einmal und bleibst für immer Pro. Der aktuelle Preis für dein Land wird in der App immer bei der Anmeldung angezeigt. Und wenn du dir einen founder-Platz sicherst, ist es für dich null, für immer. Die Android-App und das Web-Dashboard sind jetzt verfügbar; die iOS-App kommt bald (in Prüfung im App Store).",
+        pt: "Aqui está a surpresa: o Pro custa pouquíssimo, e você escolhe como pagar. Você pode pegar uma assinatura leve, como um café a cada seis meses (no lançamento €1,19 a cada seis meses), ou o desbloqueio vitalício de uma vez só, que não chega ao preço de uma pizza (no lançamento €3,99 no Android, €4,99 no iPhone). Você não é obrigado a ficar no recorrente: se preferir, paga uma vez e continua Pro para sempre. O preço atualizado para o seu país aparece sempre no app no momento da inscrição. E se você pegar uma vaga founder, para você é zero, para sempre. O app Android e o painel web já estão disponíveis; o app iOS está a caminho (em revisão na App Store).",
+        fr: "Voici la surprise : le Pro coûte très peu, et c'est vous qui choisissez comment le payer. Vous pouvez prendre un abonnement léger, moins qu'un café tous les six mois (au lancement 1,19 € tous les six mois), ou le déblocage à vie en une seule fois, qui n'atteint même pas le prix d'une pizza (au lancement 3,99 € sur Android, 4,99 € sur iPhone). Vous n'êtes pas contraint au récurrent : si vous préférez, vous payez une fois et restez Pro pour toujours. Le prix actualisé pour votre pays s'affiche toujours dans l'appli au moment de l'inscription. Et si vous prenez une place founder, pour vous c'est zéro, pour toujours. L'appli Android et le tableau de bord web sont disponibles maintenant ; l'appli iOS arrive bientôt (en cours d'examen sur l'App Store).",
       },
     },
     {
@@ -452,24 +590,32 @@ export const post: BlogPost = {
         en: "Grab a founder spot while they last",
         es: "Consigue una plaza founder mientras queden",
         de: "Sichere dir einen founder-Platz, solange es welche gibt",
+        pt: "Garanta uma vaga founder enquanto ainda existem",
+        fr: "Réservez une place founder tant qu'il en reste",
       },
       body: {
         it: "I 1000 posti founder danno il Pro a vita, gratis: dashboard web, tutti i wearable uniti, storico completo e anello Colmi. L'app Android è già sul Play Store, l'iOS è in arrivo. Iscriviti alla beta e assicurati il posto prima che finiscano.",
         en: "The 1,000 founder spots grant Pro for life, free: web dashboard, all wearables merged, full history and the Colmi ring. The Android app is already on the Play Store, iOS is coming. Sign up for the beta and secure your spot before they're gone.",
         es: "Las 1000 plazas founder dan el Pro de por vida, gratis: dashboard web, todos los wearables unidos, historial completo y anillo Colmi. La app Android ya está en el Play Store, la de iOS está en camino. Apúntate a la beta y asegúrate la plaza antes de que se acaben.",
         de: "Die 1000 founder-Plätze geben Pro auf Lebenszeit, gratis: Web-Dashboard, alle Wearables zusammengeführt, vollständiger Verlauf und Colmi-Ring. Die Android-App ist schon im Play Store, die iOS-App kommt bald. Melde dich für die Beta an und sichere dir den Platz, bevor sie weg sind.",
+        pt: "As 1000 vagas founder dão o Pro vitalício, grátis: painel web, todos os wearables unidos, histórico completo e anel Colmi. O app Android já está no Play Store, o de iOS está a caminho. Inscreva-se na beta e garanta a sua vaga antes que acabem.",
+        fr: "Les 1000 places founder donnent le Pro à vie, gratuit : tableau de bord web, tous les wearables réunis, historique complet et bague Colmi. L'appli Android est déjà sur le Play Store, celle pour iOS arrive bientôt. Inscrivez-vous à la bêta et réservez votre place avant qu'elles ne soient épuisées.",
       },
       ctaLabel: {
         it: "Diventa founder →",
         en: "Become a founder →",
         es: "Hazte founder →",
         de: "Werde founder →",
+        pt: "Torne-se founder →",
+        fr: "Devenez founder →",
       },
       ctaHref: {
         it: "/it/beta",
         en: "/en/beta",
         es: "/es/beta",
         de: "/de/beta",
+        pt: "/pt/beta",
+        fr: "/fr/beta",
       },
     },
     {
@@ -480,6 +626,8 @@ export const post: BlogPost = {
         en: "In summary",
         es: "En resumen",
         de: "Zusammengefasst",
+        pt: "Em resumo",
+        fr: "En résumé",
       },
     },
     {
@@ -517,6 +665,22 @@ export const post: BlogPost = {
           "Pro umfasst das Web-Dashboard, zusammengeführte und duplikatfreie Wearables, den vollständigen Verlauf und den Colmi-Ring über Bluetooth.",
           "Es kostet sehr wenig: ein Kaffee alle sechs Monate oder weniger als eine Pizza auf Lebenszeit, und der Preis für dein Land steht in der App; für founder ist es null, für immer.",
         ],
+        pt: [
+          "O FitMesh não tem um plano gratuito permanente: é o que você precisa saber antes de instalar.",
+          "Primeiros 1000 inscritos = founder com Pro vitalício grátis, incluindo os recursos futuros.",
+          "Todos os outros = teste completo de 14 dias, cada recurso Pro liberado.",
+          "Depois dos 14 dias: uma pequena assinatura (como um café a cada seis meses) ou o desbloqueio vitalício (menos que uma pizza), ou então encerra a conta.",
+          "O Pro inclui o painel web, wearables unidos e sem duplicatas, histórico completo e anel Colmi via Bluetooth.",
+          "Custa pouquíssimo: um café a cada seis meses ou menos que uma pizza para sempre, e o preço do seu país está no app; para os founder é zero, para sempre.",
+        ],
+        fr: [
+          "FitMesh n'a pas de forfait gratuit permanent : c'est la chose à savoir avant d'installer.",
+          "Les 1000 premiers inscrits = founder avec le Pro à vie gratuit, fonctions futures comprises.",
+          "Tous les autres = un essai complet de 14 jours, chaque fonction Pro débloquée.",
+          "Après les 14 jours : un petit abonnement (moins qu'un café tous les six mois) ou le déblocage à vie (moins qu'une pizza), ou bien vous fermez le compte.",
+          "Le Pro inclut le tableau de bord web, les wearables réunis et dédupliqués, l'historique complet et la bague Colmi via Bluetooth.",
+          "Ça coûte très peu : un café tous les six mois ou moins qu'une pizza à vie, et le prix de votre pays est dans l'appli ; pour les founder c'est zéro, pour toujours.",
+        ],
       },
     },
   ],
@@ -527,12 +691,16 @@ export const post: BlogPost = {
         en: "Is FitMesh free?",
         es: "¿FitMesh es gratis?",
         de: "Ist FitMesh kostenlos?",
+        pt: "O FitMesh é grátis?",
+        fr: "FitMesh est gratuit ?",
       },
       a: {
         it: "Non esiste un piano gratuito permanente, ma costa pochissimo. I primi 1000 iscritti diventano founder e ottengono il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa, poi tengono FitMesh con un abbonamento leggero (circa un caffè ogni sei mesi) o con lo sblocco a vita (meno di una pizza), oppure chiudono l'account.",
         en: "There is no permanent free plan, but it costs very little. The first 1,000 sign-ups become founders and get Pro for life for free; everyone else gets a full 14-day trial, then keeps FitMesh with a light subscription (about a coffee every six months) or a lifetime unlock (less than a pizza), or closes the account.",
         es: "No existe un plan gratuito permanente, pero cuesta muy poco. Los primeros 1000 registrados se convierten en founder y obtienen el Pro de por vida gratis; todos los demás tienen 14 días de prueba completa y luego conservan FitMesh con una suscripción ligera (como un café cada seis meses) o con el desbloqueo de por vida (menos que una pizza), o bien cierran la cuenta.",
         de: "Es gibt keinen dauerhaft kostenlosen Plan, aber es kostet sehr wenig. Die ersten 1000 Anmeldungen werden founder und erhalten Pro auf Lebenszeit gratis; alle anderen bekommen eine vollständige 14-tägige Testphase und behalten FitMesh dann mit einem leichten Abo (weniger als ein Kaffee alle sechs Monate) oder mit der Freischaltung auf Lebenszeit (weniger als eine Pizza), oder sie schließen das Konto.",
+        pt: "Não existe um plano gratuito permanente, mas custa pouquíssimo. Os primeiros 1000 inscritos viram founder e ganham o Pro vitalício grátis; todos os outros têm 14 dias de teste completo e depois mantêm o FitMesh com uma assinatura leve (como um café a cada seis meses) ou com o desbloqueio vitalício (menos que uma pizza), ou então encerram a conta.",
+        fr: "Il n'existe pas de forfait gratuit permanent, mais cela coûte très peu. Les 1000 premiers inscrits deviennent founder et obtiennent le Pro à vie gratuit ; tous les autres profitent d'un essai complet de 14 jours, puis gardent FitMesh avec un abonnement léger (moins qu'un café tous les six mois) ou avec le déblocage à vie (moins qu'une pizza), ou bien ferment le compte.",
       },
     },
     {
@@ -541,12 +709,16 @@ export const post: BlogPost = {
         en: "What happens after the 14-day trial?",
         es: "¿Qué pasa después de los 14 días de prueba?",
         de: "Was passiert nach den 14 Tagen Testphase?",
+        pt: "O que acontece depois dos 14 dias de teste?",
+        fr: "Que se passe-t-il après les 14 jours d'essai ?",
       },
       a: {
         it: "Scegli come continuare: tieni FitMesh con un piccolo abbonamento (circa un caffè ogni sei mesi) o con lo sblocco a vita (meno di una pizza), e i founder non pagano nulla. Se invece decidi che non fa per te, chiudi l'account e i tuoi dati vengono rimossi. Non c'è una versione gratuita dimezzata.",
         en: "You choose how to carry on: keep FitMesh with a small subscription (about a coffee every six months) or a lifetime unlock (less than a pizza), and founders pay nothing. If instead you decide it's not for you, you close the account and your data is removed. There's no reduced free version.",
         es: "Eliges cómo continuar: conservas FitMesh con una pequeña suscripción (como un café cada seis meses) o con el desbloqueo de por vida (menos que una pizza), y los founder no pagan nada. Si en cambio decides que no es para ti, cierras la cuenta y tus datos se eliminan. No hay una versión gratuita recortada.",
         de: "Du entscheidest, wie es weitergeht: Du behältst FitMesh mit einem kleinen Abo (weniger als ein Kaffee alle sechs Monate) oder mit der Freischaltung auf Lebenszeit (weniger als eine Pizza), und founder zahlen nichts. Falls du stattdessen entscheidest, dass es nichts für dich ist, schließt du das Konto und deine Daten werden entfernt. Es gibt keine halbierte Gratisversion.",
+        pt: "Você escolhe como continuar: mantém o FitMesh com uma pequena assinatura (como um café a cada seis meses) ou com o desbloqueio vitalício (menos que uma pizza), e os founder não pagam nada. Se, em vez disso, decidir que não é para você, encerra a conta e os seus dados são removidos. Não há uma versão gratuita pela metade.",
+        fr: "Vous choisissez comment continuer : vous gardez FitMesh avec un petit abonnement (moins qu'un café tous les six mois) ou avec le déblocage à vie (moins qu'une pizza), et les founder ne paient rien. Si, au contraire, vous décidez que ce n'est pas pour vous, vous fermez le compte et vos données sont supprimées. Il n'y a pas de version gratuite bridée.",
       },
     },
     {
@@ -555,12 +727,16 @@ export const post: BlogPost = {
         en: "How do I become a founder?",
         es: "¿Cómo me hago founder?",
         de: "Wie werde ich founder?",
+        pt: "Como eu viro founder?",
+        fr: "Comment devenir founder ?",
       },
       a: {
         it: "Ti iscrivi alla beta da /it/beta con l'app Android (già sul Play Store) o entri in lista per iOS. I posti sono 1000 e legati al tuo account: una volta founder, resti founder. Non serve la carta di credito per registrarti.",
         en: "You sign up for the beta at /en/beta with the Android app (already on the Play Store) or join the iOS list. There are 1,000 spots, tied to your account: once a founder, always a founder. No credit card is needed to register.",
         es: "Te apuntas a la beta en /es/beta con la app Android (ya en el Play Store) o entras en la lista para iOS. Las plazas son 1000 y están ligadas a tu cuenta: una vez founder, sigues siendo founder. No hace falta tarjeta de crédito para registrarte.",
         de: "Du meldest dich unter /de/beta für die Beta an, mit der Android-App (schon im Play Store), oder du trägst dich in die Liste für iOS ein. Es gibt 1000 Plätze, an dein Konto gebunden: Einmal founder, immer founder. Für die Registrierung ist keine Kreditkarte nötig.",
+        pt: "Você se inscreve na beta em /pt/beta com o app Android (já no Play Store) ou entra na lista para iOS. São 1000 vagas, ligadas à sua conta: uma vez founder, você continua founder. Não é preciso cartão de crédito para se cadastrar.",
+        fr: "Vous vous inscrivez à la bêta sur /fr/beta avec l'appli Android (déjà sur le Play Store) ou vous rejoignez la liste pour iOS. Il y a 1000 places, liées à votre compte : une fois founder, vous restez founder. Aucune carte bancaire n'est nécessaire pour vous inscrire.",
       },
     },
     {
@@ -569,12 +745,16 @@ export const post: BlogPost = {
         en: "How much does Pro cost?",
         es: "¿Cuánto cuesta el Pro?",
         de: "Was kostet Pro?",
+        pt: "Quanto custa o Pro?",
+        fr: "Combien coûte le Pro ?",
       },
       a: {
         it: "Pochissimo, e scegli tu come pagarlo: al lancio un abbonamento leggero di €1,19 ogni sei mesi (circa un caffè) oppure lo sblocco a vita a €3,99 su Android e €4,99 su iPhone (meno di una pizza, una volta sola). Il prezzo aggiornato per il tuo Paese è sempre mostrato nell'app. Per i founder è zero, per sempre.",
         en: "Very little, and you choose how to pay: at launch a light subscription of €1.19 every six months (about a coffee) or a one-time lifetime unlock at €3.99 on Android and €4.99 on iPhone (less than a pizza, once). The current price for your country is always shown in the app. For founders it's zero, forever.",
         es: "Muy poco, y eliges tú cómo pagarlo: en el lanzamiento una suscripción ligera de 1,19 € cada seis meses (como un café) o el desbloqueo de por vida a 3,99 € en Android y 4,99 € en iPhone (menos que una pizza, una sola vez). El precio actualizado para tu país siempre se muestra en la app. Para los founder es cero, para siempre.",
         de: "Sehr wenig, und du entscheidest, wie du zahlst: zum Start ein leichtes Abo von 1,19 € alle sechs Monate (weniger als ein Kaffee) oder die Freischaltung auf Lebenszeit für 3,99 € unter Android und 4,99 € auf dem iPhone (weniger als eine Pizza, ein einziges Mal). Der aktuelle Preis für dein Land wird immer in der App angezeigt. Für founder ist es null, für immer.",
+        pt: "Pouquíssimo, e você escolhe como pagar: no lançamento uma assinatura leve de €1,19 a cada seis meses (como um café) ou o desbloqueio vitalício por €3,99 no Android e €4,99 no iPhone (menos que uma pizza, uma vez só). O preço atualizado para o seu país aparece sempre no app. Para os founder é zero, para sempre.",
+        fr: "Très peu, et c'est vous qui choisissez comment payer : au lancement un abonnement léger de 1,19 € tous les six mois (moins qu'un café) ou le déblocage à vie à 3,99 € sur Android et 4,99 € sur iPhone (moins qu'une pizza, une seule fois). Le prix actualisé pour votre pays s'affiche toujours dans l'appli. Pour les founder, c'est zéro, pour toujours.",
       },
     },
     {
@@ -583,12 +763,16 @@ export const post: BlogPost = {
         en: "Can I cancel the subscription?",
         es: "¿Puedo cancelar la suscripción?",
         de: "Kann ich das Abo kündigen?",
+        pt: "Posso cancelar a assinatura?",
+        fr: "Puis-je résilier l'abonnement ?",
       },
       a: {
         it: "Sì. Se scegli l'abbonamento, lo gestisci e lo disdici dallo store da cui l'hai attivato (Google Play, e App Store quando l'app iOS sarà disponibile), come qualsiasi altro abbonamento. Se invece scegli lo sblocco a vita, paghi una volta sola e non c'è nulla da rinnovare o disdire. I founder non hanno alcun abbonamento.",
         en: "Yes. If you pick the subscription, you manage and cancel it from the store where you activated it (Google Play, and the App Store once the iOS app is available), like any other subscription. If you pick the lifetime unlock, you pay once and there's nothing to renew or cancel. Founders have no subscription at all.",
         es: "Sí. Si eliges la suscripción, la gestionas y la cancelas desde la tienda en la que la activaste (Google Play, y App Store cuando la app iOS esté disponible), como cualquier otra suscripción. Si en cambio eliges el desbloqueo de por vida, pagas una sola vez y no hay nada que renovar ni cancelar. Los founder no tienen ninguna suscripción.",
         de: "Ja. Wenn du das Abo wählst, verwaltest und kündigst du es in dem Store, in dem du es aktiviert hast (Google Play und App Store, sobald die iOS-App verfügbar ist), wie jedes andere Abo. Wenn du stattdessen die Freischaltung auf Lebenszeit wählst, zahlst du einmalig und es gibt nichts zu verlängern oder zu kündigen. Founder haben gar kein Abo.",
+        pt: "Sim. Se você escolher a assinatura, você a gerencia e cancela na loja onde a ativou (Google Play e, quando o app iOS estiver disponível, App Store), como qualquer outra assinatura. Se, em vez disso, escolher o desbloqueio vitalício, paga uma única vez e não há nada para renovar ou cancelar. Os founder não têm assinatura nenhuma.",
+        fr: "Oui. Si vous choisissez l'abonnement, vous le gérez et le résiliez depuis la boutique où vous l'avez activé (Google Play, et l'App Store une fois l'appli iOS disponible), comme n'importe quel autre abonnement. Si, au contraire, vous choisissez le déblocage à vie, vous payez une seule fois et il n'y a rien à renouveler ni à résilier. Les founder n'ont aucun abonnement.",
       },
     },
   ],

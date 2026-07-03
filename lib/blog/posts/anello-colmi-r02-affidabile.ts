@@ -5,7 +5,7 @@ import type { BlogPost } from "../types";
  * Framing benessere non medico: come leggere e contestualizzare i dati (trend nel
  * tempo, coerenza giorno-su-giorno), non accuratezza clinica. Posiziona FitMesh
  * come lo strumento che legge davvero l'anello via Bluetooth.
- * NB: it/en/es/de.
+ * NB: it/en/es/de/pt/fr.
  */
 export const post: BlogPost = {
   slug: "anello-colmi-r02-affidabile",
@@ -19,18 +19,24 @@ export const post: BlogPost = {
       en: "Guide - Colmi R02",
       es: "Guía - Colmi R02",
       de: "Ratgeber - Colmi R02",
+      pt: "Guia - Colmi R02",
+      fr: "Guide - Colmi R02",
     },
     title: {
       it: "Quanto sono affidabili i dati dell'anello Colmi R02",
       en: "How reliable is Colmi R02 ring data, really",
       es: "Hasta qué punto son fiables los datos del anillo Colmi R02",
       de: "Wie zuverlässig sind die Daten des Colmi R02 Rings wirklich",
+      pt: "Quão confiáveis são de fato os dados do anel Colmi R02",
+      fr: "Les données de la bague Colmi R02 sont-elles vraiment fiables",
     },
     subtitle: {
       it: "La domanda giusta non è se il Colmi R02 sia preciso come uno strumento medico (non lo è, e non deve esserlo), ma se i suoi dati siano abbastanza coerenti da essere utili. Lo sono, se sai leggerli come trend. Ecco cosa misura l'anello, come interpretare ogni metrica e come FitMesh lo legge via Bluetooth mostrandolo nel pannello web insieme allo smartwatch.",
       en: "The right question is not whether the Colmi R02 is as precise as a medical instrument (it is not, and it does not need to be), but whether its data is consistent enough to be useful. It is, if you read it as trends. Here is what the ring measures, how to interpret each metric, and how FitMesh reads it over Bluetooth and shows it in the web panel alongside your smartwatch.",
       es: "La pregunta correcta no es si el Colmi R02 es tan preciso como un instrumento médico (no lo es, y no tiene por qué serlo), sino si sus datos son lo bastante coherentes como para resultar útiles. Lo son, si sabes leerlos como tendencias. Aquí tienes qué mide el anillo, cómo interpretar cada métrica y cómo FitMesh lo lee por Bluetooth y lo muestra en el panel web junto a tu smartwatch.",
       de: "Die richtige Frage ist nicht, ob der Colmi R02 so genau ist wie ein medizinisches Instrument (das ist er nicht, und das muss er auch nicht sein), sondern ob seine Daten konsistent genug sind, um nützlich zu sein. Das sind sie, wenn du sie als Trends liest. Hier erfährst du, was der Ring misst, wie du jede Kennzahl deutest und wie FitMesh ihn per Bluetooth ausliest und im Web-Panel neben deiner Smartwatch anzeigt.",
+      pt: "A pergunta certa não é se o Colmi R02 é tão preciso quanto um instrumento médico (não é, e nem precisa ser), mas se os seus dados são coerentes o bastante para serem úteis. E são, se você souber lê-los como tendências. Aqui está o que o anel mede, como interpretar cada métrica e como o FitMesh o lê via Bluetooth, mostrando tudo no painel web junto com o seu smartwatch.",
+      fr: "La bonne question n'est pas de savoir si le Colmi R02 est aussi précis qu'un instrument médical (il ne l'est pas, et il n'a pas à l'être), mais si ses données sont assez cohérentes pour être utiles. Elles le sont, à condition de les lire comme des tendances. Voici ce que la bague mesure, comment interpréter chaque mesure et comment FitMesh la lit via Bluetooth pour tout afficher dans le panneau web, aux côtés de votre montre connectée.",
     },
   },
   metaDescription: {
@@ -38,12 +44,16 @@ export const post: BlogPost = {
     en: "How reliable is Colmi R02 data? Read steps, heart rate, SpO2, sleep and stress as wellness trends, and see how FitMesh reads the ring over Bluetooth.",
     es: "¿Hasta qué punto son fiables los datos del Colmi R02? Cómo leer pasos, frecuencia cardíaca, SpO2, sueño y estrés como tendencias de bienestar, leídos por FitMesh vía Bluetooth.",
     de: "Wie zuverlässig sind die Daten des Colmi R02? Schritte, Herzfrequenz, SpO2, Schlaf und Stress als Wohlfühl-Trends lesen, von FitMesh per Bluetooth ausgelesen.",
+    pt: "Quão confiáveis são os dados do Colmi R02? Como ler passos, batimentos, SpO2, sono e estresse como tendências de bem-estar, lidos pelo FitMesh via Bluetooth.",
+    fr: "Les données du Colmi R02 sont-elles fiables ? Comment lire les pas, la fréquence cardiaque, la SpO2, le sommeil et le stress comme des tendances de bien-être, lus par FitMesh via Bluetooth.",
   },
   primaryKeyword: {
     it: "anello colmi r02 affidabile",
     en: "colmi r02 ring accuracy",
     es: "anillo colmi r02 fiable",
     de: "colmi r02 ring genauigkeit",
+    pt: "anel colmi r02 confiável",
+    fr: "bague colmi r02 fiable",
   },
   secondaryKeywords: {
     it: [
@@ -82,6 +92,24 @@ export const post: BlogPost = {
       "smart ring daten trends",
       "colmi r02 herzfrequenz genauigkeit",
     ],
+    pt: [
+      "colmi r02 preciso",
+      "colmi r02 precisão dos dados",
+      "anel colmi r02 como ler os dados",
+      "colmi r02 spo2 confiável",
+      "colmi r02 sono preciso",
+      "confiabilidade dados anel inteligente",
+      "colmi r02 tendências de saúde",
+    ],
+    fr: [
+      "colmi r02 précis",
+      "colmi r02 précision des données",
+      "bague colmi r02 comment lire les données",
+      "colmi r02 spo2 fiable",
+      "colmi r02 sommeil précis",
+      "fiabilité données bague connectée",
+      "colmi r02 tendances de santé",
+    ],
   },
   tldr: {
     it: [
@@ -112,6 +140,20 @@ export const post: BlogPost = {
       "Trage ihn immer auf dieselbe Weise und lies ihn in Wochen, nicht in Minuten: so werden die Daten nützlich.",
       "FitMesh liest den Ring per Bluetooth aus und zeigt alles im Web-Panel neben deiner Smartwatch an, ohne Doppelzählungen.",
     ],
+    pt: [
+      "\"Confiável\", para um anel de consumo, não significa preciso como um instrumento clínico: significa coerente dia após dia, para que as tendências façam sentido.",
+      "O Colmi R02 mede passos, frequência cardíaca, SpO2, sono com fases, estresse e bateria como métricas de bem-estar, não como dados de diagnóstico.",
+      "O valor está em comparar você com você mesmo ao longo do tempo: a direção da tendência importa mais do que o número isolado de uma única noite.",
+      "Use sempre da mesma forma e leia em semanas, não em minutos: é assim que os dados se tornam úteis.",
+      "O FitMesh lê o anel via Bluetooth e mostra tudo no painel web junto com o seu smartwatch, sem contagens duplicadas.",
+    ],
+    fr: [
+      "\"Fiable\", pour une bague grand public, ne veut pas dire aussi précise qu'un instrument clinique : cela veut dire cohérente jour après jour, pour que les tendances aient du sens.",
+      "Le Colmi R02 mesure les pas, la fréquence cardiaque, la SpO2, le sommeil avec ses phases, le stress et la batterie comme des mesures de bien-être, pas comme des données de diagnostic.",
+      "La valeur tient dans la comparaison de soi avec soi au fil du temps : la direction de la tendance compte plus que le chiffre isolé d'une seule nuit.",
+      "Portez-la toujours de la même manière et lisez-la en semaines, pas en minutes : c'est ainsi que les données deviennent utiles.",
+      "FitMesh lit la bague via Bluetooth et affiche tout dans le panneau web aux côtés de votre montre connectée, sans double comptage.",
+    ],
   },
   body: [
     {
@@ -121,6 +163,8 @@ export const post: BlogPost = {
         en: "You bought a Colmi R02, or you are about to, and the question is always the same: can you trust the data? It is the right question, but it is almost always asked the wrong way. \"Reliable\", for a ring that costs a few tens of euros, does not mean as precise as a clinical instrument, and it does not need to. It means something else, something far more useful day to day: the numbers are consistent enough, night after night, to show you a direction. This guide covers what the Colmi R02 actually measures, how to read each metric without fooling yourself, and how FitMesh reads the ring over Bluetooth to show everything in the web panel alongside your smartwatch.",
         es: "Has comprado un Colmi R02, o estás a punto de hacerlo, y la pregunta es siempre la misma: ¿te puedes fiar de estos datos? Es la pregunta correcta, pero casi siempre se plantea de forma equivocada. \"Fiable\", para un anillo de unas pocas decenas de euros, no significa preciso como un instrumento clínico, y no tiene por qué serlo. Significa otra cosa, mucho más útil en la vida real: los números son lo bastante coherentes, noche tras noche, como para mostrarte una dirección. En esta guía encontrarás qué mide de verdad el Colmi R02, cómo leer cada métrica sin engañarte y cómo FitMesh lee el anillo por Bluetooth para mostrártelo todo en el panel web junto a tu smartwatch.",
         de: "Du hast einen Colmi R02 gekauft, oder du bist kurz davor, und die Frage ist immer dieselbe: Kann man diesen Daten trauen? Es ist die richtige Frage, aber sie wird fast immer falsch gestellt. \"Zuverlässig\" bedeutet bei einem Ring für ein paar Dutzend Euro nicht so präzise wie ein klinisches Instrument, und das muss er auch nicht sein. Es bedeutet etwas anderes, etwas viel Nützlicheres im Alltag: die Zahlen sind konsistent genug, Nacht für Nacht, um dir eine Richtung zu zeigen. In diesem Ratgeber erfährst du, was der Colmi R02 wirklich misst, wie du jede Kennzahl liest, ohne dich zu täuschen, und wie FitMesh den Ring per Bluetooth ausliest, um dir alles im Web-Panel neben deiner Smartwatch zu zeigen.",
+        pt: "Você comprou um Colmi R02, ou está prestes a comprar, e a pergunta é sempre a mesma: dá para confiar nesses dados? É a pergunta certa, mas quase sempre é feita do jeito errado. \"Confiável\", para um anel que custa poucas dezenas de euros, não significa preciso como um instrumento clínico, e nem precisa significar isso. Significa outra coisa, bem mais útil no dia a dia: os números são coerentes o bastante, noite após noite, para mostrar uma direção. Neste guia você encontra o que o Colmi R02 realmente mede, como ler cada métrica sem se iludir e como o FitMesh lê o anel via Bluetooth para mostrar tudo no painel web junto com o seu smartwatch.",
+        fr: "Vous avez acheté un Colmi R02, ou vous êtes sur le point de le faire, et la question est toujours la même : peut-on se fier à ces données ? C'est la bonne question, mais elle est presque toujours posée de la mauvaise manière. \"Fiable\", pour une bague qui coûte quelques dizaines d'euros, ne veut pas dire aussi précise qu'un instrument clinique, et cela n'a pas à l'être. Cela veut dire autre chose, bien plus utile au quotidien : les chiffres sont assez cohérents, nuit après nuit, pour vous montrer une direction. Dans ce guide, vous trouverez ce que le Colmi R02 mesure vraiment, comment lire chaque mesure sans vous leurrer et comment FitMesh lit la bague via Bluetooth pour tout afficher dans le panneau web aux côtés de votre montre connectée.",
       },
     },
     {
@@ -131,12 +175,16 @@ export const post: BlogPost = {
         en: "How to read this guide",
         es: "Cómo leer esta guía",
         de: "Wie du diesen Ratgeber liest",
+        pt: "Como ler este guia",
+        fr: "Comment lire ce guide",
       },
       body: {
         it: "Il Colmi R02 è un dispositivo di benessere di consumo, non un dispositivo medico. Passi, frequenza cardiaca, SpO2, sonno e stress sono metriche informative pensate per farti seguire i tuoi trend nel tempo, non valori diagnostici. Non usarli per diagnosticare o escludere condizioni: per qualsiasi domanda di salute il riferimento resta il tuo medico. FitMesh tratta questi dati esattamente così: informativi, mai clinici.",
         en: "The Colmi R02 is a consumer wellness device, not a medical device. Steps, heart rate, SpO2, sleep and stress are informational metrics meant to help you follow your own trends over time, not diagnostic readings. Do not use them to diagnose or rule out any condition: for any health question, your doctor stays the reference. FitMesh treats this data exactly that way: informational, never clinical.",
         es: "El Colmi R02 es un dispositivo de bienestar de consumo, no un dispositivo médico. Pasos, frecuencia cardíaca, SpO2, sueño y estrés son métricas informativas pensadas para que sigas tus tendencias a lo largo del tiempo, no valores diagnósticos. No los uses para diagnosticar ni descartar afecciones: para cualquier duda de salud, tu médico sigue siendo la referencia. FitMesh trata estos datos exactamente así: informativos, nunca clínicos.",
         de: "Der Colmi R02 ist ein Wohlfühl-Gerät für Verbraucher, kein Medizinprodukt. Schritte, Herzfrequenz, SpO2, Schlaf und Stress sind informative Kennzahlen, die dir helfen sollen, deinen eigenen Trends über die Zeit zu folgen, keine diagnostischen Werte. Nutze sie nicht, um etwas zu diagnostizieren oder auszuschließen: bei jeder Gesundheitsfrage bleibt dein Arzt die Referenz. FitMesh behandelt diese Daten genau so: informativ, niemals klinisch.",
+        pt: "O Colmi R02 é um dispositivo de bem-estar de consumo, não um dispositivo médico. Passos, frequência cardíaca, SpO2, sono e estresse são métricas informativas, pensadas para você acompanhar as suas tendências ao longo do tempo, não valores de diagnóstico. Não os use para diagnosticar ou descartar condições: para qualquer dúvida de saúde, a referência continua sendo o seu médico. O FitMesh trata esses dados exatamente assim: informativos, nunca clínicos.",
+        fr: "Le Colmi R02 est un appareil de bien-être grand public, pas un dispositif médical. Les pas, la fréquence cardiaque, la SpO2, le sommeil et le stress sont des mesures informatives, pensées pour vous aider à suivre vos propres tendances au fil du temps, pas des valeurs de diagnostic. Ne les utilisez pas pour diagnostiquer ou écarter une quelconque condition : pour toute question de santé, votre médecin reste la référence. FitMesh traite ces données exactement ainsi : informatives, jamais cliniques.",
       },
     },
     {
@@ -147,6 +195,8 @@ export const post: BlogPost = {
         en: "\"Reliable\" for a consumer ring: what it actually means",
         es: "\"Fiable\" para un anillo de consumo: qué significa de verdad",
         de: "\"Zuverlässig\" bei einem Consumer-Ring: was das wirklich bedeutet",
+        pt: "\"Confiável\" para um anel de consumo: o que isso realmente significa",
+        fr: "\"Fiable\" pour une bague grand public : ce que cela veut vraiment dire",
       },
     },
     {
@@ -156,6 +206,8 @@ export const post: BlogPost = {
         en: "An instrument is reliable when, under the same conditions, it repeats the same reading. That is not the same as \"correct to the decimal\". A consumer ring can read your resting heart rate a few points above or below the true value and still be genuinely useful, because what matters is that it errs consistently in the same direction: if tonight it reads a few points higher than your average over the past two weeks, that comparison is informative even if the absolute number is not textbook. The Colmi R02 works well exactly on this ground. Its strength is not the single reading, it is the series: dozens of aligned readings that draw a baseline that is yours, personal, and against which you compare each day.",
         es: "Un instrumento es fiable cuando, en las mismas condiciones, repite la misma lectura. No es lo mismo que \"exacto hasta el decimal\". Un anillo de consumo puede leer tu frecuencia cardíaca en reposo unos puntos por encima o por debajo del valor real y seguir siendo utilísimo, porque lo que importa es que se equivoque siempre en la misma dirección: si esta noche marca unos puntos más que tu media de las últimas dos semanas, esa comparación es informativa aunque el número absoluto no sea de manual. El Colmi R02 trabaja bien precisamente en este terreno. Su fuerza no es la medida aislada, es la serie: decenas de lecturas alineadas que dibujan tu línea base personal, con la que comparas cada día.",
         de: "Ein Instrument ist zuverlässig, wenn es unter denselben Bedingungen dieselbe Messung wiederholt. Das ist nicht dasselbe wie \"auf die Nachkommastelle genau\". Ein Consumer-Ring kann deine Ruheherzfrequenz ein paar Schläge über oder unter dem echten Wert anzeigen und trotzdem äußerst nützlich sein, denn was zählt, ist, dass er sich immer in dieselbe Richtung irrt: wenn er heute Nacht ein paar Schläge höher anzeigt als dein Durchschnitt der letzten zwei Wochen, ist dieser Vergleich aussagekräftig, selbst wenn die absolute Zahl nicht lehrbuchmäßig ist. Genau auf diesem Feld ist der Colmi R02 stark. Seine Stärke ist nicht die einzelne Messung, sondern die Reihe: Dutzende aufeinander abgestimmte Messungen, die eine Basislinie zeichnen, die deine ist, persönlich, und mit der du jeden Tag vergleichst.",
+        pt: "Um instrumento é confiável quando, nas mesmas condições, repete a mesma leitura. Isso não é a mesma coisa que \"exato na casa decimal\". Um anel de consumo pode ler a sua frequência cardíaca em repouso alguns pontos acima ou abaixo do valor real e mesmo assim ser utilíssimo, porque o que importa é que ele erre sempre na mesma direção: se hoje à noite marcar alguns pontos a mais do que a sua média das últimas duas semanas, essa comparação é informativa mesmo que o número absoluto não seja de manual. É justamente nesse terreno que o Colmi R02 se sai bem. A sua força não é a medida isolada, é a série: dezenas de leituras alinhadas que desenham uma linha de base pessoal, sua, com a qual você compara cada dia.",
+        fr: "Un instrument est fiable quand, dans les mêmes conditions, il répète la même mesure. Ce n'est pas la même chose qu'\"exact à la décimale\". Une bague grand public peut lire votre fréquence cardiaque au repos quelques points au-dessus ou en dessous de la valeur réelle et rester tout de même très utile, car ce qui compte, c'est qu'elle se trompe toujours dans le même sens : si ce soir elle affiche quelques points de plus que votre moyenne des deux dernières semaines, cette comparaison est parlante même si le chiffre absolu n'est pas parfait. C'est précisément sur ce terrain que le Colmi R02 excelle. Sa force n'est pas la mesure isolée, c'est la série : des dizaines de mesures alignées qui dessinent une ligne de base bien à vous, personnelle, à laquelle vous comparez chaque journée.",
       },
     },
     {
@@ -166,6 +218,8 @@ export const post: BlogPost = {
         en: "What the Colmi R02 measures (and how to read each metric)",
         es: "Qué mide el Colmi R02 (y cómo se lee cada dato)",
         de: "Was der Colmi R02 misst (und wie man jede Kennzahl liest)",
+        pt: "O que o Colmi R02 mede (e como ler cada dado)",
+        fr: "Ce que le Colmi R02 mesure (et comment lire chaque mesure)",
       },
     },
     {
@@ -175,12 +229,16 @@ export const post: BlogPost = {
         en: "The Colmi R02 metrics and how to read them as wellness trends",
         es: "Las métricas del Colmi R02 y cómo leerlas como tendencias de bienestar",
         de: "Die Kennzahlen des Colmi R02 und wie man sie als Wohlfühl-Trends liest",
+        pt: "As métricas do Colmi R02 e como lê-las como tendências de bem-estar",
+        fr: "Les mesures du Colmi R02 et comment les lire comme des tendances de bien-être",
       },
       headers: {
         it: ["Metrica", "Cosa mostra", "Come leggerla bene"],
         en: ["Metric", "What it shows", "How to read it well"],
         es: ["Métrica", "Qué muestra", "Cómo leerla bien"],
         de: ["Kennzahl", "Was sie zeigt", "Wie man sie richtig liest"],
+        pt: ["Métrica", "O que mostra", "Como ler bem"],
+        fr: ["Mesure", "Ce que ça montre", "Comment bien la lire"],
       },
       rows: [
         {
@@ -188,42 +246,56 @@ export const post: BlogPost = {
           en: ["Steps and distance", "Daily movement", "Look at the weekly average, not a single day"],
           es: ["Pasos y distancia", "Movimiento diario", "Mira la media semanal, no el día suelto"],
           de: ["Schritte und Distanz", "Tägliche Bewegung", "Schau auf den Wochendurchschnitt, nicht auf den einzelnen Tag"],
+          pt: ["Passos e distância", "Movimento diário", "Olhe a média semanal, não o dia isolado"],
+          fr: ["Pas et distance", "Mouvement quotidien", "Regardez la moyenne hebdomadaire, pas la journée isolée"],
         },
         {
           it: ["Frequenza cardiaca", "Battito nel corso della giornata", "Segui l'andamento a riposo e sotto sforzo nel tempo"],
           en: ["Heart rate", "Beat through the day", "Follow the pattern at rest and under effort over time"],
           es: ["Frecuencia cardíaca", "Pulsaciones a lo largo del día", "Sigue la evolución en reposo y bajo esfuerzo con el tiempo"],
           de: ["Herzfrequenz", "Puls im Tagesverlauf", "Verfolge den Verlauf in Ruhe und bei Belastung über die Zeit"],
+          pt: ["Frequência cardíaca", "Batimentos ao longo do dia", "Acompanhe a evolução em repouso e sob esforço ao longo do tempo"],
+          fr: ["Fréquence cardiaque", "Battements au fil de la journée", "Suivez l'évolution au repos et à l'effort dans le temps"],
         },
         {
           it: ["FC a riposo", "Battito quando sei fermo, tipicamente di notte", "Trattala come la tua linea di base: nota gli scostamenti dalla tua media"],
           en: ["Resting HR", "Beat when still, typically at night", "Treat it as your baseline: note shifts from your own average"],
           es: ["FC en reposo", "Pulso cuando estás quieto, normalmente de noche", "Trátala como tu línea base: fíjate en las desviaciones de tu media"],
           de: ["Ruhe-HF", "Puls in Ruhe, meist nachts", "Behandle sie als deine Basislinie: achte auf Abweichungen von deinem Durchschnitt"],
+          pt: ["FC em repouso", "Batimentos quando você está parado, geralmente à noite", "Trate como a sua linha de base: note os desvios da sua média"],
+          fr: ["FC au repos", "Battements à l'arrêt, généralement la nuit", "Traitez-la comme votre ligne de base : notez les écarts par rapport à votre moyenne"],
         },
         {
           it: ["SpO2 notturna", "Saturazione stimata durante il sonno", "Leggila come trend su più notti, mai come misura puntuale"],
           en: ["Overnight SpO2", "Estimated saturation during sleep", "Read it as a trend across nights, never as a spot reading"],
           es: ["SpO2 nocturna", "Saturación estimada durante el sueño", "Léela como tendencia de varias noches, nunca como medida puntual"],
           de: ["Nächtliche SpO2", "Geschätzte Sättigung im Schlaf", "Lies sie als Trend über mehrere Nächte, nie als Einzelmessung"],
+          pt: ["SpO2 noturna", "Saturação estimada durante o sono", "Leia como tendência ao longo de várias noites, nunca como medida pontual"],
+          fr: ["SpO2 nocturne", "Saturation estimée pendant le sommeil", "Lisez-la comme une tendance sur plusieurs nuits, jamais comme une mesure ponctuelle"],
         },
         {
           it: ["Sonno con fasi", "Leggero, profondo, REM, veglia", "Usa durata e regolarità, non la percentuale esatta di una notte"],
           en: ["Sleep with stages", "Light, deep, REM, awake", "Use duration and regularity, not one night's exact percentage"],
           es: ["Sueño con fases", "Ligero, profundo, REM, vigilia", "Usa la duración y la regularidad, no el porcentaje exacto de una noche"],
           de: ["Schlaf mit Phasen", "Leicht, tief, REM, wach", "Nutze Dauer und Regelmäßigkeit, nicht den exakten Prozentwert einer Nacht"],
+          pt: ["Sono com fases", "Leve, profundo, REM, desperto", "Use duração e regularidade, não a porcentagem exata de uma noite"],
+          fr: ["Sommeil avec phases", "Léger, profond, REM, éveillé", "Utilisez la durée et la régularité, pas le pourcentage exact d'une nuit"],
         },
         {
           it: ["Stress", "Indice 0-100 dalla variabilità del battito", "Segui la curva della giornata e i picchi che si ripetono"],
           en: ["Stress", "0-100 index from heart rate variability", "Follow the daily curve and the peaks that recur"],
           es: ["Estrés", "Índice 0-100 a partir de la variabilidad del pulso", "Sigue la curva del día y los picos que se repiten"],
           de: ["Stress", "Index 0-100 aus der Herzfrequenzvariabilität", "Verfolge die Tageskurve und die wiederkehrenden Spitzen"],
+          pt: ["Estresse", "Índice de 0 a 100 a partir da variabilidade dos batimentos", "Acompanhe a curva do dia e os picos que se repetem"],
+          fr: ["Stress", "Indice de 0 à 100 à partir de la variabilité cardiaque", "Suivez la courbe de la journée et les pics qui reviennent"],
         },
         {
           it: ["Batteria", "Carica residua dell'anello", "Indicatore pratico per sapere quando ricaricare"],
           en: ["Battery", "Ring's remaining charge", "Practical indicator for when to recharge"],
           es: ["Batería", "Carga restante del anillo", "Indicador práctico para saber cuándo recargar"],
           de: ["Akku", "Verbleibende Ladung des Rings", "Praktischer Hinweis, wann aufzuladen ist"],
+          pt: ["Bateria", "Carga restante do anel", "Indicador prático para saber quando recarregar"],
+          fr: ["Batterie", "Charge restante de la bague", "Indicateur pratique pour savoir quand recharger"],
         },
       ],
     },
@@ -235,6 +307,8 @@ export const post: BlogPost = {
         en: "Four rules for reading the data without fooling yourself",
         es: "Cuatro reglas para leer los datos sin engañarte",
         de: "Vier Regeln, um die Daten zu lesen, ohne dich zu täuschen",
+        pt: "Quatro regras para ler os dados sem se iludir",
+        fr: "Quatre règles pour lire les données sans se leurrer",
       },
     },
     {
@@ -265,6 +339,18 @@ export const post: BlogPost = {
           "Trage ihn konsequent. Gleicher Finger, stabile Position, eng anliegend, aber nicht zu fest: die Beständigkeit des Kontakts zwischen Sensor und Haut macht zwei Messungen vergleichbar.",
           "Gib der Basislinie Zeit. Es braucht ein bis zwei Wochen durchgehendes Tragen, Nächte inklusive, bevor die Trends überhaupt etwas bedeuten. Die ersten Tage sind Rauschen, kein Signal.",
         ],
+        pt: [
+          "Leia as tendências, não os números isolados. Uma noite ruim não diz nada; sete noites em queda dizem algo. A direção conta mais do que o valor de uma única medida.",
+          "Compare você com você mesmo. A sua linha de base pessoal é a única régua que faz sentido: os valores \"médios\" de referência genéricos servem de pouco quando o anel está no dedo de outra pessoa.",
+          "Use de forma constante. Mesmo dedo, posição estável, justo mas não apertado: a constância do contato entre sensor e pele é o que torna duas leituras comparáveis.",
+          "Dê tempo à base. São necessárias uma ou duas semanas de uso contínuo, noites incluídas, antes que as tendências comecem a fazer sentido. Os primeiros dias são ruído, não sinal.",
+        ],
+        fr: [
+          "Lisez les tendances, pas les chiffres isolés. Une mauvaise nuit ne dit rien ; sept nuits en baisse disent quelque chose. La direction compte plus que la valeur d'une seule mesure.",
+          "Comparez-vous à vous-même. Votre ligne de base personnelle est le seul repère qui tienne : les valeurs \"moyennes\" de référence génériques servent à peu de chose quand la bague est au doigt de quelqu'un d'autre.",
+          "Portez-la de façon constante. Même doigt, position stable, ajustée mais pas serrée : la constance du contact entre le capteur et la peau est ce qui rend deux mesures comparables.",
+          "Laissez du temps à la base. Il faut une ou deux semaines de port continu, nuits comprises, avant que les tendances commencent à avoir du sens. Les premiers jours sont du bruit, pas du signal.",
+        ],
       },
     },
     {
@@ -275,12 +361,16 @@ export const post: BlogPost = {
         en: "The habit that makes data reliable",
         es: "El hábito que hace fiables los datos",
         de: "Die Gewohnheit, die Daten zuverlässig macht",
+        pt: "O hábito que torna os dados confiáveis",
+        fr: "L'habitude qui rend les données fiables",
       },
       body: {
         it: "Se devi ricordare una sola cosa: indossa l'anello sempre, anche di notte, e leggilo a settimane invece che a minuti. La costanza dell'uso vale più di qualsiasi confronto tra modelli. Un anello indossato tutte le notti allo stesso modo ti dà trend puliti; un anello messo a intermittenza ti dà numeri che sembrano precisi e non lo sono.",
         en: "If you remember one thing: wear the ring all the time, at night too, and read it in weeks rather than minutes. Consistent use is worth more than any comparison between models. A ring worn every night the same way gives you clean trends; a ring worn on and off gives you numbers that look precise and are not.",
         es: "Si tienes que recordar una sola cosa: lleva el anillo siempre, también de noche, y léelo por semanas en lugar de por minutos. La constancia en el uso vale más que cualquier comparación entre modelos. Un anillo que llevas todas las noches de la misma forma te da tendencias limpias; un anillo que pones de forma intermitente te da números que parecen precisos y no lo son.",
         de: "Wenn du dir nur eine Sache merkst: trage den Ring immer, auch nachts, und lies ihn in Wochen statt in Minuten. Beständige Nutzung ist mehr wert als jeder Vergleich zwischen Modellen. Ein Ring, den du jede Nacht auf dieselbe Weise trägst, gibt dir saubere Trends; ein Ring, den du mal an, mal ab trägst, gibt dir Zahlen, die präzise aussehen und es nicht sind.",
+        pt: "Se você tiver que lembrar de uma só coisa: use o anel sempre, inclusive à noite, e leia em semanas em vez de minutos. A constância no uso vale mais do que qualquer comparação entre modelos. Um anel usado todas as noites da mesma forma dá tendências limpas; um anel colocado de forma intermitente dá números que parecem precisos e não são.",
+        fr: "Si vous ne devez retenir qu'une seule chose : portez la bague en permanence, la nuit aussi, et lisez-la en semaines plutôt qu'en minutes. La régularité du port vaut plus que n'importe quelle comparaison entre modèles. Une bague portée chaque nuit de la même manière vous donne des tendances propres ; une bague portée par intermittence vous donne des chiffres qui semblent précis mais ne le sont pas.",
       },
     },
     {
@@ -291,6 +381,8 @@ export const post: BlogPost = {
         en: "Where the data is more consistent, where caution helps",
         es: "Dónde los datos son más coherentes, dónde conviene cautela",
         de: "Wo die Daten konsistenter sind und wo Vorsicht hilft",
+        pt: "Onde os dados são mais coerentes, onde é preciso cautela",
+        fr: "Où les données sont plus cohérentes, où la prudence s'impose",
       },
     },
     {
@@ -300,6 +392,8 @@ export const post: BlogPost = {
         en: "Where the ring is more consistent",
         es: "Dónde el anillo es más coherente",
         de: "Wo der Ring konsistenter ist",
+        pt: "Onde o anel é mais coerente",
+        fr: "Où la bague est plus cohérente",
       },
       aItems: {
         it: [
@@ -326,12 +420,26 @@ export const post: BlogPost = {
           "Schritt-Trend über die Woche betrachtet",
           "Stressverlauf an einem typischen Tag",
         ],
+        pt: [
+          "FC em repouso à noite: a mão está parada e o contato é estável, a leitura está entre as mais sólidas",
+          "Regularidade do sono: horários de adormecer e acordar, duração total",
+          "Tendência dos passos lida ao longo da semana",
+          "Evolução do estresse ao longo de um dia típico",
+        ],
+        fr: [
+          "FC au repos la nuit : la main est immobile et le contact stable, la mesure est parmi les plus solides",
+          "Régularité du sommeil : heures d'endormissement et de réveil, durée totale",
+          "Tendance des pas lue sur la semaine",
+          "Évolution du stress au fil d'une journée type",
+        ],
       },
       bTitle: {
         it: "Dove leggere con più cautela",
         en: "Where to read with more caution",
         es: "Dónde leer con más cautela",
         de: "Wo man mit mehr Vorsicht liest",
+        pt: "Onde ler com mais cautela",
+        fr: "Où lire avec plus de prudence",
       },
       bItems: {
         it: [
@@ -358,6 +466,18 @@ export const post: BlogPost = {
           "Die Schlafphasen, wenn man sie als exakten Prozentwert einer einzigen Nacht nimmt",
           "Der Puls bei sehr intensiver Belastung mit bewegter Hand",
         ],
+        pt: [
+          "A SpO2 como valor absoluto de uma única noite: olhe para ela como tendência de várias noites",
+          "A contagem de passos durante trabalhos manuais ou ao dirigir: o movimento da mão confunde o sensor",
+          "As fases do sono tomadas como porcentagem exata de uma só noite",
+          "Os batimentos durante esforços muito intensos com a mão em movimento",
+        ],
+        fr: [
+          "La SpO2 comme valeur absolue d'une seule nuit : regardez-la comme une tendance sur plusieurs nuits",
+          "Le comptage des pas pendant les travaux manuels ou la conduite : le mouvement de la main trouble le capteur",
+          "Les phases du sommeil prises comme pourcentage exact d'une seule nuit",
+          "La fréquence cardiaque pendant des efforts très intenses avec la main en mouvement",
+        ],
       },
     },
     {
@@ -368,6 +488,8 @@ export const post: BlogPost = {
         en: "FitMesh: the tool that actually reads the ring",
         es: "FitMesh: la herramienta que lee de verdad el anillo",
         de: "FitMesh: das Werkzeug, das den Ring wirklich ausliest",
+        pt: "FitMesh: a ferramenta que lê de verdade o anel",
+        fr: "FitMesh : l'outil qui lit vraiment la bague",
       },
     },
     {
@@ -377,6 +499,8 @@ export const post: BlogPost = {
         en: "The Colmi R02's limit is not its sensors, it is where the data ends up. Out of the box it stays locked in the manufacturer's app, cut off from everything else. FitMesh Sync fixes that: it connects to the ring over direct Bluetooth, pulls steps, heart rate, SpO2, sleep with stages, stress and battery level, and shows them in the web panel next to your smartwatch data. One place to watch the trends, reachable from any browser with the same account. On Android the app is already on the Play Store: it reads the phone's health platform and, on top of that, reads the Colmi ring directly over Bluetooth. The iOS version is on the way. Your data stays on your account, on servers in Europe, not on the ring maker's servers. For the full overview see the [complete Colmi ring guide](/en/blog/colmi-ring-fitmesh); for sleep, [how to track sleep with the ring](/en/blog/tracciare-sonno-anello); and to make sense of the stress index, [what HRV means and its values](/en/blog/hrv-cose-significato-valori).",
         es: "El límite del Colmi R02 no son sus sensores, es dónde acaban los datos. De serie se quedan encerrados en la app del fabricante, aislados de todo lo demás. FitMesh Sync resuelve esto: se conecta al anillo por Bluetooth directo, descarga pasos, frecuencia cardíaca, SpO2, sueño con fases, estrés y nivel de batería, y los muestra en el panel web junto a los datos de tu smartwatch. Un único sitio donde mirar las tendencias, accesible desde cualquier navegador con la misma cuenta. En Android la app ya está disponible en el Play Store: lee la plataforma de salud del teléfono y, además, lee el anillo Colmi directamente por Bluetooth. La versión iOS está en camino. Tus datos se quedan en tu cuenta, en servidores en Europa, no en los servidores del fabricante del anillo. Para la panorámica completa está la [guía completa del anillo Colmi](/es/blog/colmi-ring-fitmesh); para el sueño, [cómo registrar el sueño con el anillo](/es/blog/tracciare-sonno-anello); y para entender el índice de estrés, [qué significa la HRV y sus valores](/es/blog/hrv-cose-significato-valori).",
         de: "Die Grenze des Colmi R02 sind nicht seine Sensoren, sondern wo die Daten landen. Ab Werk bleiben sie in der App des Herstellers eingeschlossen, abgeschnitten von allem anderen. FitMesh Sync löst das: es verbindet sich per direktem Bluetooth mit dem Ring, holt Schritte, Herzfrequenz, SpO2, Schlaf mit Phasen, Stress und Akkustand und zeigt sie im Web-Panel neben den Daten deiner Smartwatch. Ein einziger Ort, um die Trends zu betrachten, von jedem Browser mit demselben Konto erreichbar. Auf Android ist die App bereits im Play Store: sie liest die Gesundheitsplattform des Telefons und darüber hinaus den Colmi Ring direkt per Bluetooth. Die iOS-Version ist unterwegs. Deine Daten bleiben in deinem Konto, auf Servern in Europa, nicht auf den Servern des Ringherstellers. Für den vollständigen Überblick gibt es den [kompletten Ratgeber zum Colmi Ring](/de/blog/colmi-ring-fitmesh); für den Schlaf [wie du den Schlaf mit dem Ring aufzeichnest](/de/blog/tracciare-sonno-anello); und um den Stressindex zu verstehen, [was HRV bedeutet und seine Werte](/de/blog/hrv-cose-significato-valori).",
+        pt: "O limite do Colmi R02 não são os sensores, é onde os dados vão parar. De fábrica eles ficam presos no app do fabricante, isolados de todo o resto. O FitMesh Sync resolve isso: conecta-se ao anel via Bluetooth direto, baixa passos, frequência cardíaca, SpO2, sono com fases, estresse e nível de bateria, e mostra tudo no painel web ao lado dos dados do seu smartwatch. Um único lugar para acompanhar as tendências, acessível de qualquer navegador com a mesma conta. No Android, o app já está disponível na Play Store: lê a plataforma de saúde do telefone e, além disso, lê o anel Colmi diretamente via Bluetooth. A versão iOS está a caminho. Os seus dados ficam na sua conta, em servidores na Europa, não nos servidores do fabricante do anel. Para a visão completa, há o [guia completo do anel Colmi](/pt/blog/colmi-ring-fitmesh); para o sono, [como monitorar o sono com o anel](/pt/blog/tracciare-sonno-anello); e para entender o índice de estresse, [o que significa a HRV e seus valores](/pt/blog/hrv-cose-significato-valori).",
+        fr: "La limite du Colmi R02, ce ne sont pas ses capteurs, c'est là où finissent les données. D'origine, elles restent enfermées dans l'application du fabricant, coupées de tout le reste. FitMesh Sync règle cela : il se connecte à la bague en Bluetooth direct, récupère les pas, la fréquence cardiaque, la SpO2, le sommeil avec ses phases, le stress et le niveau de batterie, et les affiche dans le panneau web à côté des données de votre montre connectée. Un seul endroit pour suivre les tendances, accessible depuis n'importe quel navigateur avec le même compte. Sur Android, l'application est déjà sur le Play Store : elle lit la plateforme de santé du téléphone et, en plus, lit la bague Colmi directement en Bluetooth. La version iOS arrive bientôt. Vos données restent sur votre compte, sur des serveurs en Europe, pas sur les serveurs du fabricant de la bague. Pour un tour d'horizon complet, il y a le [guide complet de la bague Colmi](/fr/blog/colmi-ring-fitmesh) ; pour le sommeil, [comment suivre le sommeil avec la bague](/fr/blog/tracciare-sonno-anello) ; et pour comprendre l'indice de stress, [ce que signifie la HRV et ses valeurs](/fr/blog/hrv-cose-significato-valori).",
       },
     },
     {
@@ -387,6 +511,8 @@ export const post: BlogPost = {
         en: "Ring by night, smartwatch by day: no double counting",
         es: "Anillo de noche, smartwatch de día: sin conteos duplicados",
         de: "Ring bei Nacht, Smartwatch bei Tag: ohne Doppelzählungen",
+        pt: "Anel à noite, smartwatch de dia: sem contagens duplicadas",
+        fr: "La bague la nuit, la montre connectée le jour : sans double comptage",
       },
     },
     {
@@ -396,6 +522,8 @@ export const post: BlogPost = {
         en: "Many people use the Colmi R02 for the night, where it is comfortable, and a smartwatch by day, where it has GPS and a screen. The obvious risk is counting the same step or the same hour of sleep twice when you wear both. FitMesh merges the two sources and deduplicates: the same step does not get counted twice, and when two devices cover the same time window the app keeps the reading best suited to that moment. The result is a single, coherent day instead of two overlapping timelines. If you use several devices together, [how to combine them without double data](/en/blog/piu-smartwatch-insieme-dati-doppi) explains the logic in detail. This is where the ring shines: as the overnight specialist inside a picture that also covers the rest of the day.",
         es: "Mucha gente usa el Colmi R02 para la noche, donde resulta cómodo, y un smartwatch de día, donde tiene GPS y pantalla. El riesgo evidente es contar dos veces el mismo paso o la misma hora de sueño cuando llevas ambos. FitMesh une las dos fuentes y elimina duplicados: el mismo paso no acaba contado dos veces, y cuando dos dispositivos cubren la misma franja horaria la app se queda con la lectura más adecuada para ese momento. El resultado es un solo día, coherente, en vez de dos líneas de tiempo superpuestas. Si usas varios dispositivos a la vez, [cómo combinarlos sin datos duplicados](/es/blog/piu-smartwatch-insieme-dati-doppi) explica la lógica en detalle. Aquí es donde el anillo da lo mejor de sí: como especialista nocturno dentro de un cuadro que también abarca el resto del día.",
         de: "Viele nutzen den Colmi R02 für die Nacht, wo er bequem ist, und tagsüber eine Smartwatch, die GPS und Display hat. Das offensichtliche Risiko: denselben Schritt oder dieselbe Stunde Schlaf doppelt zu zählen, wenn du beides trägst. FitMesh führt die beiden Quellen zusammen und entfernt Duplikate: derselbe Schritt wird nicht zweimal gezählt, und wenn zwei Geräte dasselbe Zeitfenster abdecken, behält die App die für diesen Moment passendste Messung. Das Ergebnis ist ein einziger, stimmiger Tag statt zweier sich überlappender Zeitleisten. Wenn du mehrere Geräte zusammen nutzt, erklärt [wie du sie ohne doppelte Daten kombinierst](/de/blog/piu-smartwatch-insieme-dati-doppi) die Logik im Detail. Genau hier spielt der Ring seine Stärke aus: als Nachtspezialist innerhalb eines Bildes, das auch den Rest des Tages umfasst.",
+        pt: "Muita gente usa o Colmi R02 à noite, onde ele é confortável, e um smartwatch de dia, onde tem GPS e tela. O risco óbvio é contar duas vezes o mesmo passo ou a mesma hora de sono quando você usa os dois. O FitMesh une as duas fontes e remove duplicatas: o mesmo passo não acaba contado duas vezes e, quando dois dispositivos cobrem a mesma faixa horária, o app fica com a leitura mais adequada àquele momento. O resultado é um único dia, coerente, em vez de duas linhas do tempo sobrepostas. Se você usa vários dispositivos juntos, [como combiná-los sem dados duplicados](/pt/blog/piu-smartwatch-insieme-dati-doppi) explica a lógica em detalhe. É aqui que o anel dá o seu melhor: como especialista noturno dentro de um quadro que abrange também o resto do dia.",
+        fr: "Beaucoup utilisent le Colmi R02 pour la nuit, où il est confortable, et une montre connectée le jour, avec son GPS et son écran. Le risque évident : compter deux fois le même pas ou la même heure de sommeil quand vous portez les deux. FitMesh réunit les deux sources et supprime les doublons : le même pas n'est pas compté deux fois, et quand deux appareils couvrent la même plage horaire, l'application garde la mesure la mieux adaptée à ce moment. Le résultat est une seule journée cohérente, au lieu de deux chronologies qui se chevauchent. Si vous utilisez plusieurs appareils ensemble, [comment les combiner sans données en double](/fr/blog/piu-smartwatch-insieme-dati-doppi) explique la logique en détail. C'est là que la bague donne le meilleur d'elle-même : en spécialiste de la nuit, dans un tableau qui couvre aussi le reste de la journée.",
       },
     },
     {
@@ -405,24 +533,32 @@ export const post: BlogPost = {
         en: "Actually read your Colmi R02",
         es: "Lee de verdad tu Colmi R02",
         de: "Lies deinen Colmi R02 wirklich aus",
+        pt: "Leia de verdade o seu Colmi R02",
+        fr: "Lisez vraiment votre Colmi R02",
       },
       body: {
         it: "FitMesh Sync legge l'anello via Bluetooth e mostra passi, sonno, battito, SpO2 e stress nel pannello web, insieme allo smartwatch, senza doppi conteggi. L'app Android è disponibile ora, con la dashboard web inclusa; la versione iOS è in arrivo. I primi 1000 iscritti ottengono il piano Pro a vita gratis; dopo, una prova completa di 14 giorni e poi un unico abbonamento Pro.",
         en: "FitMesh Sync reads the ring over Bluetooth and shows steps, sleep, heart rate, SpO2 and stress in the web panel, alongside your smartwatch, with no double counting. The Android app is available now, web dashboard included; the iOS version is on the way. The first 1000 members get the Pro plan free for life; after that, a full 14-day trial and then a single Pro subscription.",
         es: "FitMesh Sync lee el anillo por Bluetooth y muestra pasos, sueño, pulso, SpO2 y estrés en el panel web, junto a tu smartwatch, sin conteos duplicados. La app Android está disponible ahora, con el panel web incluido; la versión iOS está en camino. Los primeros 1000 inscritos consiguen el plan Pro gratis de por vida. Después, una prueba completa de 14 días y luego eliges cómo seguir con Pro: la suscripción por 1,19 € cada seis meses, como un café cada seis meses, o el desbloqueo de por vida por 3,99 € en Android y 4,99 € en iPhone, menos que una pizza. Pagar poco mantiene la app viva y tus datos en servidores en Europa.",
         de: "FitMesh Sync liest den Ring per Bluetooth aus und zeigt Schritte, Schlaf, Puls, SpO2 und Stress im Web-Panel, neben deiner Smartwatch, ohne Doppelzählungen. Die Android-App ist ab sofort verfügbar, mit integriertem Web-Dashboard; die iOS-Version ist unterwegs. Die ersten 1000 Mitglieder erhalten den Pro-Plan lebenslang gratis. Danach eine vollständige 14-Tage-Testphase und dann entscheidest du, wie es mit Pro weitergeht: das Abo für 1,19 € alle sechs Monate, weniger als ein Kaffee alle sechs Monate, oder die lebenslange Freischaltung für 3,99 € auf Android und 4,99 € auf iPhone, weniger als eine Pizza. Ein kleiner Betrag hält die App am Leben und deine Daten auf Servern in Europa.",
+        pt: "O FitMesh Sync lê o anel via Bluetooth e mostra passos, sono, batimentos, SpO2 e estresse no painel web, junto com o seu smartwatch, sem contagens duplicadas. O app Android já está disponível, com o painel web incluído; a versão iOS está a caminho. Os primeiros 1000 inscritos ganham o plano Pro vitalício de graça. Depois, um teste completo de 14 dias e então você escolhe como continuar com o Pro: a assinatura por 1,19 € a cada seis meses, como um café a cada seis meses, ou o desbloqueio vitalício por 3,99 € no Android e 4,99 € no iPhone, menos que uma pizza. Pagar pouco mantém o app vivo e os seus dados em servidores na Europa.",
+        fr: "FitMesh Sync lit la bague via Bluetooth et affiche les pas, le sommeil, la fréquence cardiaque, la SpO2 et le stress dans le panneau web, aux côtés de votre montre connectée, sans double comptage. L'application Android est disponible dès maintenant, tableau de bord web inclus ; la version iOS arrive bientôt. Les 1000 premiers inscrits obtiennent le plan Pro à vie gratuitement. Ensuite, un essai complet de 14 jours, puis vous choisissez comment continuer avec Pro : l'abonnement à 1,19 € tous les six mois, moins qu'un café tous les six mois, ou le déverrouillage à vie à 3,99 € sur Android et 4,99 € sur iPhone, moins qu'une pizza. Payer peu garde l'application en vie et vos données sur des serveurs en Europe.",
       },
       ctaLabel: {
         it: "Unisciti alla beta →",
         en: "Join the beta →",
         es: "Únete a la beta →",
         de: "Tritt der Beta bei →",
+        pt: "Participe da beta →",
+        fr: "Rejoindre la bêta →",
       },
       ctaHref: {
         it: "/it/beta",
         en: "/en/beta",
         es: "/es/beta",
         de: "/de/beta",
+        pt: "/pt/beta",
+        fr: "/fr/beta",
       },
     },
   ],
@@ -433,12 +569,16 @@ export const post: BlogPost = {
         en: "What exactly does the Colmi R02 measure?",
         es: "¿Qué mide exactamente el Colmi R02?",
         de: "Was genau misst der Colmi R02?",
+        pt: "O que exatamente o Colmi R02 mede?",
+        fr: "Que mesure exactement le Colmi R02 ?",
       },
       a: {
         it: "Passi e distanza, frequenza cardiaca durante la giornata, frequenza cardiaca a riposo, SpO2 notturna, sonno con fasi (leggero, profondo, REM, veglia), un indice di stress da 0 a 100 e il livello di batteria dell'anello. Sono tutte metriche di benessere di consumo, pensate per seguire i tuoi trend, non per fare diagnosi.",
         en: "Steps and distance, heart rate through the day, resting heart rate, overnight SpO2, sleep with stages (light, deep, REM, awake), a stress index from 0 to 100 and the ring's battery level. These are all consumer wellness metrics, meant to follow your trends, not to make a diagnosis.",
         es: "Pasos y distancia, frecuencia cardíaca a lo largo del día, frecuencia cardíaca en reposo, SpO2 nocturna, sueño con fases (ligero, profundo, REM, vigilia), un índice de estrés de 0 a 100 y el nivel de batería del anillo. Todas son métricas de bienestar de consumo, pensadas para seguir tus tendencias, no para hacer diagnósticos.",
         de: "Schritte und Distanz, Herzfrequenz im Tagesverlauf, Ruheherzfrequenz, nächtliche SpO2, Schlaf mit Phasen (leicht, tief, REM, wach), ein Stressindex von 0 bis 100 und den Akkustand des Rings. Das sind alles Wohlfühl-Kennzahlen für Verbraucher, gedacht, um deinen Trends zu folgen, nicht um eine Diagnose zu stellen.",
+        pt: "Passos e distância, frequência cardíaca ao longo do dia, frequência cardíaca em repouso, SpO2 noturna, sono com fases (leve, profundo, REM, desperto), um índice de estresse de 0 a 100 e o nível de bateria do anel. São todas métricas de bem-estar de consumo, feitas para acompanhar as suas tendências, não para dar um diagnóstico.",
+        fr: "Les pas et la distance, la fréquence cardiaque au fil de la journée, la fréquence cardiaque au repos, la SpO2 nocturne, le sommeil avec ses phases (léger, profond, REM, éveillé), un indice de stress de 0 à 100 et le niveau de batterie de la bague. Ce sont toutes des mesures de bien-être grand public, faites pour suivre vos tendances, pas pour établir un diagnostic.",
       },
     },
     {
@@ -447,12 +587,16 @@ export const post: BlogPost = {
         en: "Is the Colmi R02 data reliable?",
         es: "¿Son fiables los datos del Colmi R02?",
         de: "Sind die Daten des Colmi R02 zuverlässig?",
+        pt: "Os dados do Colmi R02 são confiáveis?",
+        fr: "Les données du Colmi R02 sont-elles fiables ?",
       },
       a: {
         it: "Sono affidabili nel senso che conta davvero: sono coerenti nel tempo. Non aspettarti la precisione di uno strumento clinico, ma se indossi l'anello con costanza le letture ripetute disegnano trend leggibili (battito a riposo, regolarità del sonno, andamento dello stress) che ti dicono se stai andando in una direzione o nell'altra. La singola misura di un singolo momento vale poco; la serie di molte misure vale molto.",
         en: "It is reliable in the sense that actually matters: it is consistent over time. Do not expect the precision of a clinical instrument, but if you wear the ring consistently the repeated readings draw legible trends (resting heart rate, sleep regularity, stress pattern) that tell you whether you are heading one way or another. A single reading at a single moment is worth little; the series of many readings is worth a lot.",
         es: "Son fiables en el sentido que de verdad importa: son coherentes a lo largo del tiempo. No esperes la precisión de un instrumento clínico, pero si llevas el anillo con constancia las lecturas repetidas dibujan tendencias legibles (pulso en reposo, regularidad del sueño, evolución del estrés) que te dicen si vas en una dirección o en otra. La medida aislada de un momento aislado vale poco; la serie de muchas medidas vale mucho.",
         de: "Sie sind zuverlässig in dem Sinn, der wirklich zählt: sie sind über die Zeit konsistent. Erwarte nicht die Präzision eines klinischen Instruments, aber wenn du den Ring beständig trägst, zeichnen die wiederholten Messungen lesbare Trends (Ruhepuls, Schlafregelmäßigkeit, Stressverlauf), die dir sagen, ob du in die eine oder die andere Richtung gehst. Die einzelne Messung eines einzelnen Moments ist wenig wert; die Reihe vieler Messungen ist viel wert.",
+        pt: "São confiáveis no sentido que realmente importa: são coerentes ao longo do tempo. Não espere a precisão de um instrumento clínico, mas se você usar o anel com constância as leituras repetidas desenham tendências legíveis (batimentos em repouso, regularidade do sono, evolução do estresse) que dizem se você está indo para um lado ou para o outro. A medida isolada de um momento isolado vale pouco; a série de muitas medidas vale muito.",
+        fr: "Elles sont fiables dans le sens qui compte vraiment : elles sont cohérentes dans le temps. N'attendez pas la précision d'un instrument clinique, mais si vous portez la bague avec régularité, les mesures répétées dessinent des tendances lisibles (fréquence cardiaque au repos, régularité du sommeil, évolution du stress) qui vous disent si vous allez dans un sens ou dans l'autre. La mesure isolée d'un instant isolé vaut peu ; la série de nombreuses mesures vaut beaucoup.",
       },
     },
     {
@@ -461,12 +605,16 @@ export const post: BlogPost = {
         en: "How do you read the trends without getting it wrong?",
         es: "¿Cómo se leen las tendencias sin equivocarse?",
         de: "Wie liest man die Trends, ohne sich zu irren?",
+        pt: "Como ler as tendências sem errar?",
+        fr: "Comment lire les tendances sans se tromper ?",
       },
       a: {
         it: "Confronta te con te stesso e ragiona a settimane, non a minuti. Prendi la tua media delle ultime due settimane come linea di base e guarda in che direzione si muove: una notte fuori scala è rumore, un movimento che si ripete per giorni è un segnale. Evita di dare peso al valore assoluto della singola notte, soprattutto per SpO2 e fasi del sonno, che vanno lette sull'insieme di più notti.",
         en: "Compare yourself with yourself and think in weeks, not minutes. Take your average over the past two weeks as a baseline and watch which way it moves: a single off-the-chart night is noise, a shift that repeats over days is a signal. Avoid weighting a single night's absolute value, especially for SpO2 and sleep stages, which should be read across several nights.",
         es: "Compárate contigo mismo y razona por semanas, no por minutos. Toma tu media de las últimas dos semanas como línea base y mira en qué dirección se mueve: una noche fuera de escala es ruido, un movimiento que se repite durante días es una señal. Evita dar peso al valor absoluto de una sola noche, sobre todo en SpO2 y fases del sueño, que se leen sobre el conjunto de varias noches.",
         de: "Vergleiche dich mit dir selbst und denke in Wochen, nicht in Minuten. Nimm deinen Durchschnitt der letzten zwei Wochen als Basislinie und schau, in welche Richtung er sich bewegt: eine Nacht außerhalb der Skala ist Rauschen, eine Bewegung, die sich über Tage wiederholt, ist ein Signal. Gib dem absoluten Wert einer einzelnen Nacht wenig Gewicht, vor allem bei SpO2 und Schlafphasen, die über mehrere Nächte hinweg gelesen werden sollten.",
+        pt: "Compare você com você mesmo e raciocine em semanas, não em minutos. Tome a sua média das últimas duas semanas como linha de base e observe em que direção ela se move: uma noite fora da escala é ruído, um movimento que se repete por dias é um sinal. Evite dar peso ao valor absoluto de uma única noite, sobretudo para SpO2 e fases do sono, que devem ser lidas no conjunto de várias noites.",
+        fr: "Comparez-vous à vous-même et raisonnez en semaines, pas en minutes. Prenez votre moyenne des deux dernières semaines comme ligne de base et regardez dans quel sens elle évolue : une nuit hors norme est du bruit, un mouvement qui se répète sur plusieurs jours est un signal. Évitez d'accorder du poids à la valeur absolue d'une seule nuit, surtout pour la SpO2 et les phases du sommeil, qui se lisent sur l'ensemble de plusieurs nuits.",
       },
     },
     {
@@ -475,12 +623,16 @@ export const post: BlogPost = {
         en: "Can the Colmi R02 replace a doctor or a diagnosis?",
         es: "¿Puede el Colmi R02 sustituir a un médico o a un diagnóstico?",
         de: "Kann der Colmi R02 einen Arzt oder eine Diagnose ersetzen?",
+        pt: "O Colmi R02 pode substituir um médico ou um diagnóstico?",
+        fr: "Le Colmi R02 peut-il remplacer un médecin ou un diagnostic ?",
       },
       a: {
         it: "No, e non è pensato per farlo. È un dispositivo di benessere di consumo, non un dispositivo medico: i suoi dati sono informativi e servono a farti notare i tuoi cambiamenti, non a diagnosticare o escludere qualcosa. Se un trend ti preoccupa o hai un sintomo, il riferimento è il tuo medico. FitMesh mostra questi dati come informazioni personali, mai come referti clinici.",
         en: "No, and it is not designed to. It is a consumer wellness device, not a medical device: its data is informational and meant to help you notice your own changes, not to diagnose or rule anything out. If a trend worries you or you have a symptom, your doctor is the reference. FitMesh shows this data as personal information, never as clinical reports.",
         es: "No, y no está pensado para eso. Es un dispositivo de bienestar de consumo, no un dispositivo médico: sus datos son informativos y sirven para que notes tus propios cambios, no para diagnosticar ni descartar nada. Si una tendencia te preocupa o tienes un síntoma, la referencia es tu médico. FitMesh muestra estos datos como información personal, nunca como informes clínicos.",
         de: "Nein, und dafür ist er nicht gedacht. Er ist ein Wohlfühl-Gerät für Verbraucher, kein Medizinprodukt: seine Daten sind informativ und sollen dir helfen, deine eigenen Veränderungen zu bemerken, nicht etwas zu diagnostizieren oder auszuschließen. Wenn dich ein Trend beunruhigt oder du ein Symptom hast, ist dein Arzt die Referenz. FitMesh zeigt diese Daten als persönliche Information, niemals als klinische Befunde.",
+        pt: "Não, e ele não foi feito para isso. É um dispositivo de bem-estar de consumo, não um dispositivo médico: os seus dados são informativos e servem para você notar as suas próprias mudanças, não para diagnosticar ou descartar algo. Se uma tendência preocupa você ou se você tem um sintoma, a referência é o seu médico. O FitMesh mostra esses dados como informação pessoal, nunca como laudos clínicos.",
+        fr: "Non, et il n'est pas conçu pour cela. C'est un appareil de bien-être grand public, pas un dispositif médical : ses données sont informatives et servent à vous faire remarquer vos propres changements, pas à diagnostiquer ou à écarter quoi que ce soit. Si une tendance vous inquiète ou si vous avez un symptôme, la référence est votre médecin. FitMesh présente ces données comme des informations personnelles, jamais comme des comptes rendus cliniques.",
       },
     },
     {
@@ -489,12 +641,16 @@ export const post: BlogPost = {
         en: "How do I connect the Colmi R02 to FitMesh?",
         es: "¿Cómo conecto el Colmi R02 a FitMesh?",
         de: "Wie verbinde ich den Colmi R02 mit FitMesh?",
+        pt: "Como conecto o Colmi R02 ao FitMesh?",
+        fr: "Comment connecter le Colmi R02 à FitMesh ?",
       },
       a: {
         it: "Installi FitMesh Sync su Android dal Play Store, crei l'account e aggiungi l'anello: l'app lo trova via Bluetooth e ne scarica i dati direttamente, senza bisogno dell'app del produttore. Da quel momento vedi passi, sonno, battito, SpO2 e stress nel pannello web, accessibile da qualsiasi browser con lo stesso account. La versione iOS è in arrivo. Per i passaggi in dettaglio c'è la [guida alla configurazione del Colmi R02](/it/blog/colmi-r02-setup).",
         en: "You install FitMesh Sync on Android from the Play Store, create your account and add the ring: the app finds it over Bluetooth and pulls the data directly, with no need for the manufacturer's app. From then on you see steps, sleep, heart rate, SpO2 and stress in the web panel, reachable from any browser with the same account. The iOS version is on the way. For step-by-step setup see the [Colmi R02 setup guide](/en/blog/colmi-r02-setup).",
         es: "Instalas FitMesh Sync en Android desde el Play Store, creas la cuenta y añades el anillo: la app lo encuentra por Bluetooth y descarga los datos directamente, sin necesidad de la app del fabricante. A partir de ese momento ves pasos, sueño, pulso, SpO2 y estrés en el panel web, accesible desde cualquier navegador con la misma cuenta. La versión iOS está en camino. Para los pasos en detalle está la [guía de configuración del Colmi R02](/es/blog/colmi-r02-setup).",
         de: "Du installierst FitMesh Sync auf Android aus dem Play Store, erstellst dein Konto und fügst den Ring hinzu: die App findet ihn per Bluetooth und holt die Daten direkt, ohne die App des Herstellers. Ab dann siehst du Schritte, Schlaf, Puls, SpO2 und Stress im Web-Panel, von jedem Browser mit demselben Konto erreichbar. Die iOS-Version ist unterwegs. Für die Schritte im Detail gibt es den [Ratgeber zur Einrichtung des Colmi R02](/de/blog/colmi-r02-setup).",
+        pt: "Você instala o FitMesh Sync no Android pela Play Store, cria a conta e adiciona o anel: o app o encontra via Bluetooth e baixa os dados diretamente, sem precisar do app do fabricante. A partir desse momento, você vê passos, sono, batimentos, SpO2 e estresse no painel web, acessível de qualquer navegador com a mesma conta. A versão iOS está a caminho. Para os passos em detalhe, há o [guia de configuração do Colmi R02](/pt/blog/colmi-r02-setup).",
+        fr: "Vous installez FitMesh Sync sur Android depuis le Play Store, créez votre compte et ajoutez la bague : l'application la trouve en Bluetooth et récupère les données directement, sans avoir besoin de l'application du fabricant. À partir de là, vous voyez les pas, le sommeil, la fréquence cardiaque, la SpO2 et le stress dans le panneau web, accessible depuis n'importe quel navigateur avec le même compte. La version iOS arrive bientôt. Pour les étapes en détail, il y a le [guide de configuration du Colmi R02](/fr/blog/colmi-r02-setup).",
       },
     },
   ],
