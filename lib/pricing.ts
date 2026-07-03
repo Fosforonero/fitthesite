@@ -12,6 +12,10 @@
  *  2. lib/dictionaries/it.json   riga 13  →  hero.pricing
  *     valore attuale: "Acquisto unico €3,99 · pagamento sicuro Google Play"
  *     costante usata: PRICING.lifetimeAndroid.it
+ *
+ *  3. lib/blog/posts/fitmesh-gratis-prezzo-founder.ts  →  sezioni prezzo + FAQ
+ *     cita "al lancio €1,19 ogni 6 mesi" e "€3,99 Android / €4,99 iPhone"
+ *     piu' le analogie caffe'/pizza. Aggiornare le cifre qui se cambiano.
  * ──────────────────────────────────────────────────────────────────────────
  */
 

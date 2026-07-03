@@ -2,7 +2,7 @@
  * Cover dei post del blog: set piccolo e riutilizzabile (illustrazioni text-free
  * warm + accenti brand). Un tipo per argomento, assegnato per slug. Usate come
  * miniatura nell'index, cover nell'header, e `image` nel JSON-LD.
- * File in `public/blog/covers/`. news: fallback finche' non arriva la dedicata.
+ * File in `public/blog/covers/`.
  */
 import type { BlogPost } from "./types";
 
@@ -35,7 +35,7 @@ const COVER_FILE: Record<CoverType, string> = {
   metrics: "hearth.webp",
   troubleshooting: "gear.webp",
   export: "data-sync.webp",
-  news: "dashboard.webp", // TODO: news.webp quando arriva
+  news: "news.webp",
 };
 
 /** Assegnazione esplicita per slug (i 51 post attuali). */

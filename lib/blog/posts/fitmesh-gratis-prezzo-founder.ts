@@ -11,21 +11,21 @@ export const post: BlogPost = {
   slug: "fitmesh-gratis-prezzo-founder",
   category: "guides",
   publishedAt: "2026-07-02",
-  updatedAt: "2026-07-02",
+  updatedAt: "2026-07-03",
   readMinutes: 8,
   tldr: {
     it: [
       "FitMesh non ha un piano gratuito permanente: chi cerca 'gratis per sempre' deve saperlo subito.",
       "I primi 1000 iscritti diventano founder e ricevono il Pro a vita, gratis, incluse le funzioni future.",
       "Tutti gli altri hanno 14 giorni di prova completa, con ogni funzione Pro sbloccata.",
-      "Dopo i 14 giorni si sceglie: abbonamento Pro oppure eliminazione dell'account, senza versione dimezzata.",
+      "Dopo i 14 giorni tieni FitMesh con un abbonamento leggero (circa un caffè ogni sei mesi) o con lo sblocco a vita (meno di una pizza), oppure chiudi l'account.",
       "Il Pro include dashboard web, tutti i wearable uniti e deduplicati, storico completo e anello Colmi via Bluetooth.",
     ],
     en: [
       "FitMesh has no permanent free plan: if you're searching for 'free forever', you should know that up front.",
       "The first 1,000 sign-ups become founders and get Pro for life, free, including future features.",
       "Everyone else gets a full 14-day trial with every Pro feature unlocked.",
-      "After 14 days you choose: a Pro subscription or deleting the account, with no half-crippled free tier.",
+      "After 14 days you keep FitMesh with a light subscription (about a coffee every six months) or a one-time lifetime unlock (less than a pizza), or you close the account.",
       "Pro includes the web dashboard, all your wearables merged and deduplicated, full history and the Colmi ring over Bluetooth.",
     ],
   },
@@ -75,8 +75,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Se stai cercando \"FitMesh è gratis\" prima di installare, ecco la risposta diretta e senza giri di parole: non esiste un piano gratuito permanente, ma ci sono due modi concreti per usare FitMesh Sync senza spendere nulla oggi. Il primo sono i 1000 posti founder, che danno il Pro a vita gratis. Il secondo è la prova completa di 14 giorni, aperta a tutti, con ogni funzione sbloccata. Alla fine della prova scegli: abbonamento Pro oppure elimini l'account. In questa guida spieghiamo esattamente come funziona il prezzo, cosa include il Pro e come tenerti un posto founder finché ci sono.",
-        en: "If you're searching for \"is FitMesh free\" before installing, here's the direct answer with no spin: there is no permanent free plan, but there are two concrete ways to use FitMesh Sync without paying anything today. The first is the 1,000 founder spots, which grant Pro for life for free. The second is the full 14-day trial, open to everyone, with every feature unlocked. At the end of the trial you choose: a Pro subscription or you delete the account. This guide explains exactly how pricing works, what Pro includes, and how to keep a founder spot while they last.",
+        it: "Se stai cercando \"FitMesh è gratis\" prima di installare, ecco la risposta diretta e senza giri di parole: non esiste un piano gratuito permanente, ma ci sono due modi concreti per usare FitMesh Sync senza spendere nulla oggi. Il primo sono i 1000 posti founder, che danno il Pro a vita gratis. Il secondo è la prova completa di 14 giorni, aperta a tutti, con ogni funzione sbloccata. Alla fine della prova scegli come tenerlo: un piccolo abbonamento o lo sblocco a vita, oppure chiudi l'account. In questa guida spieghiamo esattamente quanto costa (poco), il lavoro che c'è dietro, cosa include il Pro e come tenerti un posto founder finché ci sono.",
+        en: "If you're searching for \"is FitMesh free\" before installing, here's the direct answer with no spin: there is no permanent free plan, but there are two concrete ways to use FitMesh Sync without paying anything today. The first is the 1,000 founder spots, which grant Pro for life for free. The second is the full 14-day trial, open to everyone, with every feature unlocked. At the end of the trial you choose how to keep it: a small subscription or a lifetime unlock, or you close the account. This guide explains exactly how little it costs, the work behind it, what Pro includes, and how to keep a founder spot while they last.",
       },
     },
     {
@@ -87,8 +87,8 @@ export const post: BlogPost = {
         en: "Quick answer",
       },
       body: {
-        it: "FitMesh non ha un piano gratuito per sempre. I primi 1000 iscritti diventano founder e ottengono il Pro a vita, gratis. Tutti gli altri hanno 14 giorni di prova completa, poi scelgono tra abbonamento Pro ed eliminazione dell'account. Il prezzo esatto del Pro è mostrato nell'app al momento dell'iscrizione.",
-        en: "FitMesh has no free-forever plan. The first 1,000 sign-ups become founders and get Pro for life, free. Everyone else gets a full 14-day trial, then chooses between a Pro subscription and deleting the account. The exact Pro price is shown in the app when you sign up.",
+        it: "FitMesh non ha un piano gratuito per sempre, ma costa pochissimo. I primi 1000 iscritti diventano founder e ottengono il Pro a vita, gratis. Tutti gli altri hanno 14 giorni di prova completa, poi tengono FitMesh con un abbonamento leggero (circa un caffè ogni sei mesi) o con lo sblocco a vita (meno di una pizza). Il prezzo aggiornato per il tuo Paese è mostrato nell'app.",
+        en: "FitMesh has no free-forever plan, but it costs very little. The first 1,000 sign-ups become founders and get Pro for life, free. Everyone else gets a full 14-day trial, then keeps FitMesh with a light subscription (about a coffee every six months) or a one-time lifetime unlock (less than a pizza). The current price for your country is shown in the app.",
       },
     },
     {
@@ -178,8 +178,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Alla fine dei 14 giorni la scelta è netta e senza trappole: attivi l'abbonamento Pro e continui esattamente come prima, oppure elimini l'account. Non c'è una versione gratuita ridotta che resta lì a metà: o il Pro ti è utile e paghi, o chiudi e i tuoi dati vengono rimossi. È una scelta scomoda da scrivere, ma onesta da rispettare, ed è proprio il motivo per cui la prova è completa. Vogliamo che tu decida con l'app vera davanti, dopo aver visto [i tuoi smartwatch uniti senza dati doppi](/it/blog/piu-smartwatch-insieme-dati-doppi) nella dashboard, non su promesse.",
-        en: "At the end of the 14 days the choice is clean and free of traps: you activate the Pro subscription and carry on exactly as before, or you delete the account. There's no reduced free version sitting there half-working: either Pro is useful to you and you pay, or you close it and your data is removed. It's an uncomfortable thing to write, but an honest one to stand by, and it's exactly why the trial is full. We want you to decide with the real app in front of you, after seeing [your smartwatches merged with no double data](/en/blog/piu-smartwatch-insieme-dati-doppi) in the dashboard, not on promises.",
+        it: "Alla fine dei 14 giorni scegli come continuare, senza trappole: tieni FitMesh con un piccolo abbonamento o con lo sblocco a vita (i founder non pagano nulla), oppure, se decidi che non fa per te, chiudi l'account. Non c'è una versione gratuita dimezzata che resta lì a metà: o FitMesh ti è utile e lo tieni a un prezzo piccolo, o lo lasci e i tuoi dati vengono rimossi. È una scelta onesta, ed è proprio il motivo per cui la prova è completa: vogliamo che tu decida con l'app vera davanti, dopo aver visto [i tuoi smartwatch uniti senza dati doppi](/it/blog/piu-smartwatch-insieme-dati-doppi) nella dashboard, non su promesse.",
+        en: "At the end of the 14 days you choose how to carry on, with no traps: keep FitMesh with a small subscription or a one-time lifetime unlock (founders pay nothing), or, if you decide it's not for you, close the account. There's no reduced free version sitting there half-working: either FitMesh is useful to you and you keep it for a small price, or you let it go and your data is removed. It's an honest choice, and it's exactly why the trial is full: we want you to decide with the real app in front of you, after seeing [your smartwatches merged with no double data](/en/blog/piu-smartwatch-insieme-dati-doppi) in the dashboard, not on promises.",
       },
     },
     {
@@ -266,13 +266,13 @@ export const post: BlogPost = {
         it: [
           "Ogni funzione Pro sbloccata per 14 giorni.",
           "Nessuna carta di credito richiesta per iniziare.",
-          "Dopo: abbonamento Pro oppure elimini l'account.",
+          "Dopo: un piccolo abbonamento o lo sblocco a vita (o chiudi l'account).",
           "Sempre disponibile, anche a posti founder esauriti.",
         ],
         en: [
           "Every Pro feature unlocked for 14 days.",
           "No credit card required to start.",
-          "After: a Pro subscription or you delete the account.",
+          "After: a small subscription or a lifetime unlock (or you close the account).",
           "Always available, even once founder spots are gone.",
         ],
       },
@@ -281,30 +281,30 @@ export const post: BlogPost = {
       type: "heading",
       level: 2,
       text: {
-        it: "Perché non c'è un piano gratuito per sempre",
-        en: "Why there's no free-forever plan",
+        it: "Il lavoro dietro un prezzo così piccolo",
+        en: "The work behind such a small price",
       },
     },
     {
       type: "paragraph",
       text: {
-        it: "La domanda è legittima: perché non tenere una versione gratuita per sempre come fanno tante bridge app del settore? Perché quel \"gratis\" quasi sempre si paga altrove, con la pubblicità o con la vendita dei dati. Noi teniamo i tuoi dati sul tuo account nel cloud in UE e non li monetizziamo: puoi leggere come li trattiamo nella guida su [GDPR e dati fitness](/it/blog/gdpr-dati-fitness-smartwatch). Un abbonamento unico e chiaro è ciò che tiene in piedi il servizio senza compromessi sulla privacy. La prova completa e i posti founder sono il modo per farti entrare senza rischio, con l'app intera davanti, prima di decidere.",
-        en: "It's a fair question: why not keep a free version forever like so many bridge apps in the industry do? Because that \"free\" is almost always paid for elsewhere, with ads or by selling your data. We keep your data on your account in the EU cloud and don't monetize it: you can read how we handle it in the guide on [GDPR and fitness data](/en/blog/gdpr-dati-fitness-smartwatch). A single, clear subscription is what keeps the service running without compromising on privacy. The full trial and the founder spots are how we let you in risk-free, with the whole app in front of you, before you decide.",
+        it: "Dietro quel caffè ogni sei mesi c'è parecchio lavoro. FitMesh nasce da un lavoro artigianale di ricerca e integrazione: leggere decine di wearable diversi e l'anello Colmi via Bluetooth, capire i formati di ogni produttore, e far combaciare i dati con un sistema di deduplica perché lo stesso passo non venga contato due volte. A questo si aggiungono i server in UE (che hanno un costo), lo sviluppo continuo di nuove integrazioni e dell'app iOS, e la scelta di non mostrare pubblicità e di non vendere i tuoi dati: puoi leggere come li trattiamo nella guida su [GDPR e dati fitness](/it/blog/gdpr-dati-fitness-smartwatch). Ecco perché non esiste un \"gratis per sempre\": quel gratis, nelle app che lo offrono, quasi sempre lo paghi altrove, con la pubblicità o con i tuoi dati. Un prezzo piccolo, chiaro e onesto è ciò che tiene il progetto vivo e indipendente. E resta piccolo davvero: un caffè ogni sei mesi, o una pizza saltata una volta sola.",
+        en: "Behind that coffee every six months there's a lot of work. FitMesh is the result of hands-on research and integration: reading dozens of different wearables and the Colmi ring over Bluetooth, making sense of each maker's data formats, and lining the data up with a deduplication system so the same step is never counted twice. On top of that come the EU servers (which cost money), the ongoing development of new integrations and the iOS app, and the choice to show no ads and never sell your data: you can read how we handle it in the guide on [GDPR and fitness data](/en/blog/gdpr-dati-fitness-smartwatch). That's why there's no \"free forever\": in the apps that offer it, that free is almost always paid for elsewhere, with ads or with your data. A small, clear, honest price is what keeps the project alive and independent. And it really does stay small: a coffee every six months, or one pizza skipped just once.",
       },
     },
     {
       type: "heading",
       level: 2,
       text: {
-        it: "Quanto costa? Dove vedere il prezzo",
-        en: "How much does it cost? Where to see the price",
+        it: "Quanto costa il Pro? Meno di quanto pensi",
+        en: "How much is Pro? Less than you'd think",
       },
     },
     {
       type: "paragraph",
       text: {
-        it: "Il Pro è un unico abbonamento, senza livelli confusi da scegliere. Il prezzo aggiornato lo vedi direttamente nell'app al momento dell'iscrizione, così è sempre quello reale per il tuo Paese e non una cifra vecchia scritta in un articolo. Se prendi un posto founder, il prezzo per te è zero, per sempre. L'app Android e la dashboard web sono disponibili ora; l'app iOS è in arrivo (in revisione sull'App Store) e potrai entrare in lista dalla beta.",
-        en: "Pro is a single subscription, with no confusing tiers to pick. You see the current price directly in the app when you sign up, so it's always the real one for your country and not an outdated figure written in an article. If you take a founder spot, the price for you is zero, forever. The Android app and the web dashboard are available now; the iOS app is coming (in App Store review) and you'll be able to join the list from the beta.",
+        it: "Qui sta la sorpresa: il Pro costa pochissimo, e scegli tu come pagarlo. Puoi prendere un abbonamento leggero, circa un caffè ogni sei mesi (al lancio €1,19 ogni sei mesi), oppure lo sblocco a vita una tantum, che non arriva al prezzo di una pizza (al lancio €3,99 su Android, €4,99 su iPhone). Non sei costretto al ricorrente: se preferisci, paghi una volta e resti Pro per sempre. Il prezzo aggiornato per il tuo Paese è sempre mostrato nell'app al momento dell'iscrizione. E se prendi un posto founder, per te è zero, per sempre. L'app Android e la dashboard web sono disponibili ora; l'app iOS è in arrivo (in revisione sull'App Store).",
+        en: "Here's the surprise: Pro costs very little, and you choose how to pay for it. You can take a light subscription, less than a coffee every six months (at launch €1.19 every six months), or a one-time lifetime unlock that doesn't even reach the price of a pizza (at launch €3.99 on Android, €4.99 on iPhone). You're not forced into a recurring plan: if you prefer, you pay once and stay Pro forever. The current price for your country is always shown in the app when you sign up. And if you grab a founder spot, it's zero for you, forever. The Android app and the web dashboard are available now; the iOS app is coming (in App Store review).",
       },
     },
     {
@@ -341,17 +341,17 @@ export const post: BlogPost = {
           "FitMesh non ha un piano gratuito permanente: è la cosa da sapere prima di installare.",
           "Primi 1000 iscritti = founder con Pro a vita gratis, incluse le funzioni future.",
           "Tutti gli altri = prova completa di 14 giorni, ogni funzione Pro sbloccata.",
-          "Dopo i 14 giorni: abbonamento Pro oppure elimini l'account, senza versione dimezzata.",
+          "Dopo i 14 giorni: un piccolo abbonamento (circa un caffè ogni sei mesi) o lo sblocco a vita (meno di una pizza), oppure chiudi l'account.",
           "Il Pro include dashboard web, wearable uniti e deduplicati, storico completo e anello Colmi via Bluetooth.",
-          "Il prezzo esatto è mostrato nell'app; per i founder è zero, per sempre.",
+          "Costa pochissimo: un caffè ogni sei mesi o meno di una pizza a vita, e il prezzo del tuo Paese è nell'app; per i founder è zero, per sempre.",
         ],
         en: [
           "FitMesh has no permanent free plan: that's the thing to know before installing.",
           "First 1,000 sign-ups = founders with lifetime Pro for free, future features included.",
           "Everyone else = a full 14-day trial with every Pro feature unlocked.",
-          "After 14 days: a Pro subscription or you delete the account, with no crippled tier.",
+          "After 14 days: a small subscription (about a coffee every six months) or a lifetime unlock (less than a pizza), or you close the account.",
           "Pro includes the web dashboard, merged and deduplicated wearables, full history and the Colmi ring over Bluetooth.",
-          "The exact price is shown in the app; for founders it's zero, forever.",
+          "It costs very little: a coffee every six months or less than a pizza for lifetime, with your country's price in the app; for founders it's zero, forever.",
         ],
       },
     },
@@ -363,8 +363,8 @@ export const post: BlogPost = {
         en: "Is FitMesh free?",
       },
       a: {
-        it: "Non esiste un piano gratuito permanente. I primi 1000 iscritti diventano founder e ottengono il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa, poi scelgono tra abbonamento Pro ed eliminazione dell'account.",
-        en: "There is no permanent free plan. The first 1,000 sign-ups become founders and get Pro for life for free; everyone else gets a full 14-day trial, then chooses between a Pro subscription and deleting the account.",
+        it: "Non esiste un piano gratuito permanente, ma costa pochissimo. I primi 1000 iscritti diventano founder e ottengono il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa, poi tengono FitMesh con un abbonamento leggero (circa un caffè ogni sei mesi) o con lo sblocco a vita (meno di una pizza), oppure chiudono l'account.",
+        en: "There is no permanent free plan, but it costs very little. The first 1,000 sign-ups become founders and get Pro for life for free; everyone else gets a full 14-day trial, then keeps FitMesh with a light subscription (about a coffee every six months) or a lifetime unlock (less than a pizza), or closes the account.",
       },
     },
     {
@@ -373,8 +373,8 @@ export const post: BlogPost = {
         en: "What happens after the 14-day trial?",
       },
       a: {
-        it: "La scelta è netta: attivi l'abbonamento Pro e continui come prima, oppure elimini l'account. Non c'è una versione gratuita ridotta: o paghi il Pro, o chiudi e i tuoi dati vengono rimossi.",
-        en: "The choice is clean: you activate the Pro subscription and carry on as before, or you delete the account. There's no reduced free version: either you pay for Pro, or you close it and your data is removed.",
+        it: "Scegli come continuare: tieni FitMesh con un piccolo abbonamento (circa un caffè ogni sei mesi) o con lo sblocco a vita (meno di una pizza), e i founder non pagano nulla. Se invece decidi che non fa per te, chiudi l'account e i tuoi dati vengono rimossi. Non c'è una versione gratuita dimezzata.",
+        en: "You choose how to carry on: keep FitMesh with a small subscription (about a coffee every six months) or a lifetime unlock (less than a pizza), and founders pay nothing. If instead you decide it's not for you, you close the account and your data is removed. There's no reduced free version.",
       },
     },
     {
@@ -393,8 +393,8 @@ export const post: BlogPost = {
         en: "How much does Pro cost?",
       },
       a: {
-        it: "Il Pro è un unico abbonamento e il prezzo aggiornato è mostrato nell'app al momento dell'iscrizione, così è sempre quello reale per il tuo Paese. Per i founder il prezzo è zero, per sempre.",
-        en: "Pro is a single subscription and the current price is shown in the app when you sign up, so it's always the real one for your country. For founders the price is zero, forever.",
+        it: "Pochissimo, e scegli tu come pagarlo: al lancio un abbonamento leggero di €1,19 ogni sei mesi (circa un caffè) oppure lo sblocco a vita a €3,99 su Android e €4,99 su iPhone (meno di una pizza, una volta sola). Il prezzo aggiornato per il tuo Paese è sempre mostrato nell'app. Per i founder è zero, per sempre.",
+        en: "Very little, and you choose how to pay: at launch a light subscription of €1.19 every six months (about a coffee) or a one-time lifetime unlock at €3.99 on Android and €4.99 on iPhone (less than a pizza, once). The current price for your country is always shown in the app. For founders it's zero, forever.",
       },
     },
     {
@@ -403,8 +403,8 @@ export const post: BlogPost = {
         en: "Can I cancel the subscription?",
       },
       a: {
-        it: "Sì. L'abbonamento Pro si gestisce e si disdice dallo store da cui è stato attivato (Google Play, e App Store quando l'app iOS sarà disponibile), come qualsiasi altro abbonamento. I posti founder non hanno alcun abbonamento da disdire.",
-        en: "Yes. The Pro subscription is managed and cancelled from the store where it was activated (Google Play, and the App Store once the iOS app is available), like any other subscription. Founder spots have no subscription to cancel.",
+        it: "Sì. Se scegli l'abbonamento, lo gestisci e lo disdici dallo store da cui l'hai attivato (Google Play, e App Store quando l'app iOS sarà disponibile), come qualsiasi altro abbonamento. Se invece scegli lo sblocco a vita, paghi una volta sola e non c'è nulla da rinnovare o disdire. I founder non hanno alcun abbonamento.",
+        en: "Yes. If you pick the subscription, you manage and cancel it from the store where you activated it (Google Play, and the App Store once the iOS app is available), like any other subscription. If you pick the lifetime unlock, you pay once and there's nothing to renew or cancel. Founders have no subscription at all.",
       },
     },
   ],
