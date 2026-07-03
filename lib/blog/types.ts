@@ -116,6 +116,23 @@ export type BlogSection =
       body: Localized;
       ctaLabel: Localized;
       ctaHref: Localized;
+    }
+  | {
+      /**
+       * Immagine inline (es. screenshot anonimizzato nelle guide "come funziona").
+       * `src` = path in `public/` servito come `<img>` semplice (non next/image, per
+       * non pagare l'ottimizzazione Vercel). `alt` obbligatorio (accessibilità +
+       * SEO) e `caption` opzionale, entrambi localizzati. `width`/`height` intrinseci
+       * per stabilità del layout (CLS). `narrow` per screenshot verticali da telefono
+       * (centrati, larghezza contenuta).
+       */
+      type: "image";
+      src: string;
+      alt: Localized;
+      caption?: Localized;
+      width?: number;
+      height?: number;
+      narrow?: boolean;
     };
 
 /**

@@ -144,6 +144,11 @@ export function sectionsToLexical(body: BlogSection[], lc: L): LexNode {
           ctaLabel: pick(s.ctaLabel, lc),
           ctaHref: pick(s.ctaHref, lc),
         });
+      case 'image':
+        // Il CMS non ha un blocco immagine dedicato: in migrazione lo screenshot
+        // e' rappresentato dalla sua didascalia/alt come paragrafo. Le guide con
+        // screenshot vivono nei file .ts statici, non nel CMS.
+        return paragraphNode(s.caption ? pick(s.caption, lc) : pick(s.alt, lc));
     }
   });
 

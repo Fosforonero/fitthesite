@@ -347,6 +347,32 @@ export function BlogRenderer({
             );
           }
 
+          case "image": {
+            const alt = tl(s.alt, locale);
+            const caption = s.caption ? tl(s.caption, locale) : null;
+            return (
+              <figure key={i} className="my-8">
+                {/* eslint-disable-next-line @next/next/no-img-element -- <img> voluto: no next/image per non pagare l'ottimizzazione Vercel (come le cover) */}
+                <img
+                  src={s.src}
+                  alt={alt}
+                  width={s.width}
+                  height={s.height}
+                  loading="lazy"
+                  decoding="async"
+                  className={`rounded-card border border-divider bg-bg-card ${
+                    s.narrow ? "mx-auto block max-w-[360px] w-full" : "w-full"
+                  }`}
+                />
+                {caption && (
+                  <figcaption className="mt-2 text-center text-sm text-text-secondary">
+                    {renderMarkdownInline(caption, locale)}
+                  </figcaption>
+                )}
+              </figure>
+            );
+          }
+
           default: {
             // Exhaustiveness check: TS si lamenta se manca un variant.
             const _exhaustive: never = s;

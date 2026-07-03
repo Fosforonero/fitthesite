@@ -80,6 +80,11 @@ function walkSection(s: BlogSection, base: string, out: Entry[]): void {
       loc(`${base}.ctaLabel`, s.ctaLabel);
       // ctaHref: URL/path, non si traduce.
       break;
+    case "image":
+      loc(`${base}.alt`, s.alt);
+      if (s.caption) loc(`${base}.caption`, s.caption);
+      // src/width/height/narrow: non testo, non si traduce.
+      break;
   }
 }
 
