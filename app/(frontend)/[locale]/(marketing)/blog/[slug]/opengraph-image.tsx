@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { BLOG_POSTS, BLOG_POSTS_BY_SLUG, categoryLabel } from "@/lib/blog/data";
+import { tl } from "@/lib/blog/types";
 import { locales, type Locale } from "@/lib/i18n";
 
 export const alt = "FitMesh Blog";
@@ -19,15 +20,17 @@ export default async function OGBlogPost({
   params: Promise<{ locale: string; slug: string }>;
 }) {
   const { locale, slug } = await params;
-  const lc = locale === "en" ? "en" : "it";
+  const lc: Locale = locales.includes(locale as Locale)
+    ? (locale as Locale)
+    : "it";
   const post = BLOG_POSTS_BY_SLUG[slug];
 
   if (!post) {
     return new ImageResponse(<div style={{ background: "#050816" }} />, { ...size });
   }
 
-  const title = post.hero.title[lc];
-  const category = categoryLabel(post.category, lc as Locale);
+  const title = tl(post.hero.title, lc);
+  const category = categoryLabel(post.category, lc);
   const readLabel = lc === "it" ? `${post.readMinutes} min di lettura` : `${post.readMinutes} min read`;
 
   return new ImageResponse(

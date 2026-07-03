@@ -620,5 +620,11 @@ export const post: BlogPost = {
       },
     },
   ],
+  related: [
+    "esportare-dati-garmin",
+    "garmin-samsung-health-sync-guide",
+    "come-funziona-health-connect",
+    "health-connect-not-syncing",
+  ],
   brandsMentioned: ["Garmin"],
 };

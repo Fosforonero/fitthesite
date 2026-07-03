@@ -12,7 +12,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogRenderer } from "@/components/blog/BlogRenderer";
 import { ArticleMeta } from "@/components/blog/ArticleMeta";
 import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
-import { locales, type Locale, ogLocale, UNTRANSLATED_CONTENT_LOCALES } from "@/lib/i18n";
+import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { categoryLabel, tl, tll } from "@/lib/blog/types";
 import {
   getBlogPostBySlug,
@@ -20,7 +20,8 @@ import {
   getBlogPosts,
   getRelatedPosts,
 } from "@/lib/blog/payload-source";
-import { isPostTranslated, type NordicLang } from "@/lib/blog/nordic-overlay";
+import { isBlogVariantIndexable } from "@/lib/blog/indexability";
+import type { BlogPost } from "@/lib/blog/types";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -79,12 +80,16 @@ export async function generateStaticParams() {
 }
 
 /** hreflang alternates: ogni lingua → il suo slug localizzato; x-default = IT. */
-function blogLanguages(canonical: string): Record<string, string> {
+function blogLanguages(post: BlogPost): Record<string, string> {
   const langs: Record<string, string> = {};
   for (const l of locales) {
-    langs[l] = `${SITE_URL}/${l}/blog/${localizedBlogSlug(canonical, l)}`;
+    // Salta le varianti nordiche non tradotte (sono `noindex`): l'hreflang non
+    // deve puntare a pagine escluse dall'indice. Stessa fonte di verità di
+    // robots e sitemap.
+    if (!isBlogVariantIndexable(post, l)) continue;
+    langs[l] = `${SITE_URL}/${l}/blog/${localizedBlogSlug(post.slug, l)}`;
   }
-  langs["x-default"] = `${SITE_URL}/it/blog/${canonical}`;
+  langs["x-default"] = `${SITE_URL}/it/blog/${post.slug}`;
   return langs;
 }
 
@@ -134,14 +139,12 @@ export async function generateMetadata({
     title: `${title} · FitMesh`,
     description,
     keywords,
-    robots:
-      UNTRANSLATED_CONTENT_LOCALES.has(lc) &&
-      !isPostTranslated(post, lc as NordicLang)
-        ? { index: false, follow: true }
-        : undefined,
+    robots: isBlogVariantIndexable(post, lc)
+      ? undefined
+      : { index: false, follow: true },
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: blogLanguages(post.slug),
+      languages: blogLanguages(post),
     },
     openGraph: {
       type: "article",

@@ -8,6 +8,7 @@ import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { locales, type Locale } from "@/lib/i18n";
 import { tl } from "@/lib/blog/types";
 import { coverSrc } from "@/lib/blog/covers";
+import { isBlogVariantIndexable } from "@/lib/blog/indexability";
 
 export const dynamic = "force-static";
 
@@ -16,6 +17,11 @@ const SITE_URL = "https://www.fitmesh.fit";
 const CHANNEL_DESC: Partial<Record<string, string>> = {
   it: "Guide e novita' su come unificare i dati dei tuoi wearable in un'unica dashboard, privacy-first.",
   en: "Guides and news on unifying your wearable health data into one private dashboard.",
+  es: "Guias y novedades para unificar los datos de tus wearables en un solo panel, con la privacidad primero.",
+  de: "Anleitungen und News, um die Daten deiner Wearables in einem privaten Dashboard zu vereinen.",
+  pt: "Guias e novidades para unificar os dados dos teus wearables num unico painel, privacidade em primeiro.",
+  fr: "Guides et actualites pour reunir les donnees de tes wearables dans un tableau de bord prive.",
+  nl: "Gidsen en nieuws om de gegevens van je wearables te verenigen in een prive dashboard.",
 };
 
 export function generateStaticParams() {
@@ -37,9 +43,14 @@ export async function GET(
   const { locale } = await params;
   const lc = (locales.includes(locale as Locale) ? locale : "en") as Locale;
 
-  const posts = [...(await getBlogPosts())].sort(
-    (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-  );
+  // Escludi le varianti `noindex` (post nordici non tradotti): il feed non deve
+  // proporre come indicizzabile un item che punta a una pagina noindex.
+  const posts = [...(await getBlogPosts())]
+    .filter((p) => isBlogVariantIndexable(p, lc))
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
 
   const self = `${SITE_URL}/${lc}/blog/feed.xml`;
   const items = posts

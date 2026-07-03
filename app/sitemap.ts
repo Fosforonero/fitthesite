@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
-import { locales, type Locale } from "@/lib/i18n";
+import { locales, type Locale, UNTRANSLATED_CONTENT_LOCALES } from "@/lib/i18n";
 import { PROVIDERS } from "@/lib/providers/data";
 import { PROVIDER_MODELS } from "@/lib/providers/models";
 import { getBlogPosts } from "@/lib/blog/payload-source";
 import { LANDING_PAGES } from "@/lib/landing/data";
 import { localizedBlogSlug, localizedLandingSlug } from "@/lib/blog/slug-i18n";
+import { isBlogVariantIndexable } from "@/lib/blog/indexability";
 
 const BASE = "https://www.fitmesh.fit";
 
@@ -30,6 +31,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified?: Date;
     /** Path localizzato per lingua (blog/lp: slug tradotto). Default: `path`. */
     localized?: (lc: Locale) => string;
+    /**
+     * Locali indicizzabili per questa route (default: tutti). Esclude dalle
+     * URL e dagli hreflang le varianti `noindex` (contenuto nordico non
+     * tradotto), così la sitemap non contraddice il robots della pagina.
+     */
+    indexableLocales?: (lc: Locale) => boolean;
   }> = [
     { path: "",              changeFrequency: "monthly", priority: 1.0 },
     { path: "/about",        changeFrequency: "monthly", priority: 0.85 },
@@ -53,6 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       path: `/sync/${p.slug}`,
       changeFrequency: "monthly",
       priority: 0.8,
+      indexableLocales: (lc) => !UNTRANSLATED_CONTENT_LOCALES.has(lc),
     });
   }
 
@@ -63,6 +71,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         path: `/sync/${providerSlug}/${m.slug}`,
         changeFrequency: "yearly",
         priority: 0.7,
+        indexableLocales: (lc) => !UNTRANSLATED_CONTENT_LOCALES.has(lc),
       });
     }
   }
@@ -76,6 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.7,
       lastModified: new Date(p.updatedAt),
+      indexableLocales: (lc) => isBlogVariantIndexable(p, lc),
     });
   }
 
@@ -93,7 +103,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
   for (const r of routes) {
     const pathFor = (lc: Locale) => (r.localized ? r.localized(lc) : r.path);
-    for (const lc of locales) {
+    // Solo i locali indicizzabili: le varianti `noindex` (contenuto nordico non
+    // tradotto) non vanno né come URL propria né come hreflang alternate.
+    const langs = locales.filter((lc) =>
+      r.indexableLocales ? r.indexableLocales(lc) : true,
+    );
+    for (const lc of langs) {
       entries.push({
         url: `${BASE}/${lc}${pathFor(lc)}`,
         lastModified: r.lastModified ?? now,
@@ -101,7 +116,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: r.priority,
         alternates: {
           languages: Object.fromEntries([
-            ...locales.map((l) => [l, `${BASE}/${l}${pathFor(l)}`]),
+            ...langs.map((l) => [l, `${BASE}/${l}${pathFor(l)}`]),
             ["x-default", `${BASE}/it${pathFor("it")}`],
           ]),
         },

@@ -78,6 +78,11 @@ import { post as garminSamsungHealthSyncGuide } from "./posts/garmin-samsung-hea
 import { post as galaxyRingAndroidHealthConnect } from "./posts/galaxy-ring-android-health-connect";
 import { post as vo2MaxWearableComparison2026 } from "./posts/vo2-max-wearable-comparison-2026";
 import { post as ouraRingHealthConnectAndroid } from "./posts/oura-ring-health-connect-android";
+// BOFU pricing / founder
+import { post as fitmeshGratisPrezzoFounder } from "./posts/fitmesh-gratis-prezzo-founder";
+// Backlog 02/07: affidabilità Colmi R02 + cambio wearable senza perdere storico
+import { post as anelloColmiR02Affidabile } from "./posts/anello-colmi-r02-affidabile";
+import { post as cambiareSmartwatchSenzaPerdereDati } from "./posts/cambiare-smartwatch-senza-perdere-dati";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -144,6 +149,10 @@ const RAW_POSTS: BlogPost[] = [
   galaxyRingAndroidHealthConnect,
   vo2MaxWearableComparison2026,
   ouraRingHealthConnectAndroid,
+  // BOFU pricing / founder
+  fitmeshGratisPrezzoFounder,
+  anelloColmiR02Affidabile,
+  cambiareSmartwatchSenzaPerdereDati,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

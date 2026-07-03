@@ -91,6 +91,9 @@ const POST_COVER: Record<string, CoverType> = {
   "vedere-dati-wearable-browser-pc": "dashboard",
   "alternative-app-sync-wearable-2026": "compare",
   "gdpr-dati-fitness-smartwatch": "privacy",
+  "fitmesh-gratis-prezzo-founder": "dashboard",
+  "anello-colmi-r02-affidabile": "ring",
+  "cambiare-smartwatch-senza-perdere-dati": "multidevice",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */
