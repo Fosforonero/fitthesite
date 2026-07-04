@@ -622,7 +622,7 @@ export const post: BlogPost = {
           it: [
             "Funzione",
             "Anello intelligente",
-            "Orologio智能手表",
+            "Orologio smart",
             "Sensori del letto",
           ],
           en: [

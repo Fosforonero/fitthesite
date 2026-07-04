@@ -9,6 +9,14 @@ import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
+/**
+ * Locales with fully translated body content on this page (COLUMNS/STATUS_BADGE
+ * below, accessed via the `tlr()` helper). `sv`/`da`/`no`/`fi` aren't part of the
+ * `LocalizedText` type at all — they silently fall back to English body copy via
+ * `tlr()`'s `text[lc] ?? text.en` — so they must stay out of the index.
+ */
+import { ROADMAP_COMPLETE_LOCALES as COMPLETE_LOCALES } from "@/lib/content/static-page-locales";
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
@@ -63,6 +71,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    ...(COMPLETE_LOCALES.includes(lc) ? {} : { robots: { index: false, follow: false } }),
     alternates: {
       canonical: `${SITE_URL}${path}`,
       languages: localeAlternates((l) => `${SITE_URL}/${l}/roadmap`),
@@ -549,6 +558,25 @@ const COLUMNS: RoadmapColumn[] = [
   },
 ];
 
+/**
+ * Short, citable "what is FitMesh Sync" sentence for the hero. Only rendered for
+ * `COMPLETE_LOCALES` (see above) — it reuses the same `LocalizedText`/`tlr()`
+ * pattern as COLUMNS, so it's naturally absent for the noindexed locales.
+ */
+const PRODUCT_DEFINITION: LocalizedText = {
+  it: "FitMesh Sync è l'app privacy-first che unifica passi, frequenza cardiaca, sonno e allenamenti da Health Connect, Apple Salute, Galaxy Watch, Fitbit e anello Colmi in un'unica dashboard.",
+  en: "FitMesh Sync is the privacy-first app that unifies steps, heart rate, sleep and workouts from Health Connect, Apple Health, Galaxy Watch, Fitbit and Colmi rings into one dashboard.",
+  es: "FitMesh Sync es la app privacy-first que unifica pasos, frecuencia cardíaca, sueño y entrenamientos desde Health Connect, Apple Salud, Galaxy Watch, Fitbit y el anillo Colmi en un único panel.",
+  de: "FitMesh Sync ist die datenschutzfreundliche App, die Schritte, Herzfrequenz, Schlaf und Trainings aus Health Connect, Apple Health, Galaxy Watch, Fitbit und dem Colmi-Ring in einem Dashboard vereint.",
+  pt: "FitMesh Sync é o app privacy-first que unifica passos, frequência cardíaca, sono e treinos do Health Connect, Apple Saúde, Galaxy Watch, Fitbit e do anel Colmi em um único painel.",
+  fr: "FitMesh Sync est l'application privacy-first qui réunit les pas, la fréquence cardiaque, le sommeil et les séances d'entraînement de Health Connect, Apple Santé, Galaxy Watch, Fitbit et de la bague Colmi dans un tableau de bord unique.",
+  pl: "FitMesh Sync to aplikacja stawiająca na prywatność, która łączy kroki, tętno, sen i treningi z Health Connect, Apple Health, Galaxy Watch, Fitbit i pierścienia Colmi w jednym panelu.",
+  tr: "FitMesh Sync; Health Connect, Apple Health, Galaxy Watch, Fitbit ve Colmi yüzüğünden gelen adım, kalp hızı, uyku ve antrenman verilerini tek bir panelde birleştiren gizlilik öncelikli uygulamadır.",
+  nl: "FitMesh Sync is de privacy-first app die stappen, hartslag, slaap en trainingen van Health Connect, Apple Gezondheid, Galaxy Watch, Fitbit en de Colmi-ring samenbrengt in één dashboard.",
+  ja: "FitMesh Syncは、Health Connect・Apple ヘルス・Galaxy Watch・Fitbit・COLMIリングの歩数・心拍数・睡眠・ワークアウトを一つのダッシュボードに統合する、プライバシー重視のアプリです。",
+  ko: "FitMesh Sync는 Health Connect, Apple 건강, Galaxy Watch, Fitbit, Colmi 링의 걸음 수, 심박수, 수면, 운동 데이터를 하나의 대시보드로 통합하는 프라이버시 우선 앱입니다.",
+};
+
 const STATUS_BADGE: Record<RoadmapStatus, { it: string; en: string; es: string; de: string; pt: string; fr: string; pl: string; tr: string; nl: string; ja: string; ko: string; color: string }> = {
   live: { it: "Live", en: "Live", es: "Disponible", de: "Live", pt: "Disponível", fr: "Disponible", pl: "Live", tr: "Yayinda", nl: "Live", ja: "稼働中", ko: "실시간", color: "#31E981" },
   "in-progress": { it: "In sviluppo", en: "In progress", es: "En desarrollo", de: "In Entwicklung", pt: "Em desenvolvimento", fr: "En développement", pl: "W trakcie", tr: "Devam ediyor", nl: "In ontwikkeling", ja: "開発中", ko: "개발 중", color: "#21E6C1" },
@@ -604,6 +632,11 @@ export default async function RoadmapPage({
             {t("cosa stiamo esplorando.", "what we're exploring.", "qué estamos explorando.")}
           </span>
         </h1>
+        {COMPLETE_LOCALES.includes(lc) && (
+          <p className="mt-5 text-base text-text-primary/90 max-w-2xl leading-relaxed font-medium">
+            {tlr(PRODUCT_DEFINITION, lc)}
+          </p>
+        )}
         <p className="mt-6 text-lg text-text-secondary max-w-2xl leading-relaxed">
           {t(
             "Roadmap in chiaro, aggiornata ogni sprint. Niente marketing-speak: solo lo stato reale di ogni integrazione e feature, con date ETA dove le abbiamo e onestà dove non le abbiamo.",

@@ -11,6 +11,15 @@ import { PRICE_LIFETIME_ANDROID_RAW, PRICING } from "@/lib/pricing";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
+/**
+ * Il body copy sotto passa SOLO per `t(it, en, es, de, pt, fr)` (6 argomenti):
+ * qualunque altro locale (pl/tr/nl/ja/ko/sv/da/no/fi) cade silenziosamente sul
+ * ramo `en`. Senza gate, quei 9 locali indicizzerebbero contenuto inglese
+ * sotto un URL non-inglese, autocanonicalizzato → duplicate content in Search
+ * Console. Whitelist = esattamente gli argomenti reali di `t()`.
+ */
+import { ABOUT_TRANSLATED_LOCALES } from "@/lib/content/static-page-locales";
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
@@ -53,6 +62,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    robots: ABOUT_TRANSLATED_LOCALES.includes(lc) ? undefined : { index: false, follow: false },
     alternates: {
       canonical: `${SITE_URL}${path}`,
       languages: localeAlternates((l) => `${SITE_URL}/${l}/about`),

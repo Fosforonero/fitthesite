@@ -37,7 +37,7 @@ const config: Config = {
           primary:   "#FFFFFF",
           secondary: "#B7C2D8",
           muted:     "#7F8AA3",
-          disabled:  "#556078",
+          disabled:  "#7A85A0",
         },
 
         // ── Semantic states ───────────────────────────────────────────────

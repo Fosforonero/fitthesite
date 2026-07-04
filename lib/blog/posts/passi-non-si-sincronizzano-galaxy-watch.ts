@@ -51,16 +51,16 @@ export const post: BlogPost = {
     ],
     pl: [
       "Ciąg synchronizacji ma pięć etapów: Watch→Bluetooth→Samsung Health→Health Connect→app trzecia. Problem występuje prawie zawsze na drugim lub czwartym etapie.",
-      "Przy.reason.number.1: optymalizacja baterii Android zawiesza Samsung Health w tle. Wyłącz ją dla Samsung Health i Galaxy Wearable.",
-      "Na jednej UI sprawdza również 'Uruchom aplikację' i włącza手动模式和后台自动启动。",
+      "Powód numer jeden: optymalizacja baterii Android zawiesza Samsung Health w tle. Wyłącz ją dla Samsung Health i Galaxy Wearable.",
+      "Sprawdź też w One UI 'Uruchamianie aplikacji' i włącz ręcznie automatyczne uruchamianie oraz uruchamianie w tle.",
       "Dane historyczne nie są synchronizowane wstecznie na Health Connect: przeszłość pozostaje w Samsung Health.",
       "Jeśli wszystko się nie uda, usuń bufor Samsung Health (nie dane) i uruchom ponownie.",
     ],
     tr: [
       "Günlük sinkronizasyonun döngüsü beş adımdan oluşur: Watch→Bluetooth→Samsung Health→Health Connect→app üçüncü taraf. Problemin neredeyse her zaman ikinci veya dördüncü adıma rastlanır.",
-      "Cümlenin birincisi: L'ottimizzazione batteria Android sospende Samsung Health in background. Disabilitala per Samsung Health e giyilebilir cihaz.\n\nCümlenin ikinciği: Causa numero uno: l'ottimizzazione batteria Android sospende Samsung Health in background. Disabilitala per Samsung Health e Galaxy Wearable.",
-      "Güneş One UI 'Uygulama Başlatıcısı'nı denetler ve otomatik ve arka planda başlatmayı manuel olarak etkinleştirir.",
-      "Geçmiş veriler geri döndürülebilir olarak Health Connect'a synkronize edilmez: geçmiş kalmaya kalır Samsung Health.",
+      "Birinci sebep: Android pil optimizasyonu Samsung Health'i arka planda askıya alır. Bunu Samsung Health ve Galaxy Wearable için devre dışı bırakın.",
+      "One UI'de ayrıca 'Uygulama Başlatma'yı kontrol edin ve otomatik ile arka planda başlatmayı manuel olarak etkinleştirin.",
+      "Geçmiş veriler Health Connect'e geriye dönük olarak senkronize edilmez: geçmiş veriler Samsung Health'te kalır.",
       "Eğer her şey başarısız olursa, Samsung Health önbelleğini temizle (verileri silme) ve yeniden başlat.",
     ],
     nl: [
@@ -435,7 +435,7 @@ export const post: BlogPost = {
         pl: [
           "Sprawdź, czy Smartwatch jest połączony i podłączony: w aplikacji Galaxy Wearable stan powinien być «Podłączony».",
           "Jeśli połączenie jest niestabilne, spróbuj zapomnieć o urządzeniu Bluetooth i ponownie przepairować.",
-          "Roz大奖复手表和电话：解决大部分临时连接问题。",
+          "Zrestartuj zegarek i telefon: to rozwiązuje większość tymczasowych problemów z połączeniem.",
         ],
         tr: [
           "kontrol etmek için giyilebilir cihazın paired ve connected durumunda olması: Galaxy Wearable uygulamasında durum 'Connected' olmalıdır.",

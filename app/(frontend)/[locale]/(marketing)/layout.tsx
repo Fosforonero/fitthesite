@@ -102,12 +102,44 @@ export default async function LocaleLayout({
 
   // JSON-LD @graph: Organization + WebSite + MobileApplication. Tutti gli
   // schemi sono cross-referenziati via @id per knowledge graph stability.
-  const orgDescription = lc === "it"
-    ? "FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard personale privacy-first. Galaxy Watch, Wear OS, Health Connect."
-    : "FitMesh Sync mirrors your smartwatch data to a privacy-first personal dashboard. Galaxy Watch, Wear OS, Health Connect.";
-  const appDescription = lc === "it"
-    ? "Sincronizza Galaxy Watch e Wear OS con una dashboard premium: passi, battito, sonno, calorie e VO₂ max. Niente cloud opachi."
-    : "Mirror Galaxy Watch and Wear OS data to a premium personal dashboard: steps, heart rate, sleep, calories, VO₂ max. No opaque clouds.";
+  // Testi adattati dalle meta description già tradotte in
+  // app/(frontend)/[locale]/layout.tsx (stessa copy, riformulata per JSON-LD).
+  const orgDescriptions: Record<Locale, string> = {
+    it: "FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard personale privacy-first. Galaxy Watch, Wear OS, Health Connect.",
+    en: "FitMesh Sync mirrors your smartwatch data to a privacy-first personal dashboard. Galaxy Watch, Wear OS, Health Connect.",
+    es: "FitMesh Sync sincroniza los datos de tu smartwatch en un panel personal centrado en la privacidad. Galaxy Watch, Wear OS, Health Connect.",
+    de: "FitMesh Sync synchronisiert deine Smartwatch-Daten mit einem datenschutzorientierten persönlichen Dashboard. Galaxy Watch, Wear OS, Health Connect.",
+    pt: "O FitMesh Sync sincroniza os dados do seu smartwatch com um painel pessoal focado na privacidade. Galaxy Watch, Wear OS, Health Connect.",
+    fr: "FitMesh Sync synchronise les données de votre montre connectée avec un tableau de bord personnel axé sur la confidentialité. Galaxy Watch, Wear OS, Health Connect.",
+    pl: "FitMesh Sync synchronizuje dane Twojego smartwatcha z osobistym panelem, który stawia prywatność na pierwszym miejscu. Galaxy Watch, Wear OS, Health Connect.",
+    tr: "FitMesh Sync, akıllı saatinizin verilerini gizlilik öncelikli kişisel bir panele yansıtır. Galaxy Watch, Wear OS, Health Connect.",
+    nl: "FitMesh Sync spiegelt de data van je smartwatch naar een privacy-first persoonlijk dashboard. Galaxy Watch, Wear OS, Health Connect.",
+    ja: "FitMesh Syncは、スマートウォッチのデータをプライバシーファーストな個人ダッシュボードに同期します。Galaxy Watch、Wear OS、Health Connect。",
+    ko: "FitMesh Sync는 스마트워치 데이터를 개인정보 보호를 최우선으로 하는 개인 대시보드에 동기화합니다. Galaxy Watch, Wear OS, Health Connect.",
+    sv: "FitMesh Sync speglar din smartklockas data till en integritetsfokuserad personlig dashboard. Galaxy Watch, Wear OS, Health Connect.",
+    da: "FitMesh Sync spejler dit smartwatchs data til et privatlivsfokuseret personligt dashboard. Galaxy Watch, Wear OS, Health Connect.",
+    no: "FitMesh Sync speiler smartklokkens data til et personvernfokusert personlig dashbord. Galaxy Watch, Wear OS, Health Connect.",
+    fi: "FitMesh Sync peilaa älykellosi tiedot henkilökohtaiseen koontinäyttöön. Yksityisyys edellä. Galaxy Watch, Wear OS, Health Connect.",
+  };
+  const appDescriptions: Record<Locale, string> = {
+    it: "Sincronizza Galaxy Watch e Wear OS con una dashboard premium: passi, battito, sonno, calorie e VO₂ max. Niente cloud opachi.",
+    en: "Mirror Galaxy Watch and Wear OS data to a premium personal dashboard: steps, heart rate, sleep, calories, VO₂ max. No opaque clouds.",
+    es: "Sincroniza Galaxy Watch y Wear OS con un panel premium: pasos, frecuencia cardíaca, sueño, calorías y VO₂ máx. Sin nubes opacas.",
+    de: "Synchronisiert Galaxy Watch und Wear OS mit einem Premium-Dashboard: Schritte, Herzfrequenz, Schlaf, Kalorien und VO₂ max. Keine undurchsichtigen Clouds.",
+    pt: "Sincroniza Galaxy Watch e Wear OS com um painel premium: passos, frequência cardíaca, sono, calorias e VO₂ máx. Sem nuvens opacas.",
+    fr: "Synchronise Galaxy Watch et Wear OS avec un tableau de bord premium : pas, fréquence cardiaque, sommeil, calories et VO₂ max. Aucun cloud opaque.",
+    pl: "Synchronizuje Galaxy Watch i Wear OS z panelem premium: kroki, tętno, sen, kalorie i VO₂ max. Bez ukrytych chmur.",
+    tr: "Galaxy Watch ve Wear OS verilerini premium bir kişisel panele yansıtır: adımlar, kalp atışı, uyku, kalori ve VO₂ maks. Opak bulut yok.",
+    nl: "Spiegelt Galaxy Watch en Wear OS data naar een premium persoonlijk dashboard: stappen, hartslag, slaap, calorieën en VO₂ max. Geen ondoorzichtige clouds.",
+    ja: "Galaxy WatchとWear OSのデータをプレミアムダッシュボードへ同期: 歩数、心拍数、睡眠、カロリー、VO₂ max。プライバシーファースト。",
+    ko: "Galaxy Watch와 Wear OS 데이터를 프리미엄 대시보드에 동기화: 걸음 수, 심박수, 수면, 칼로리, VO₂ max. 개인정보 보호 최우선.",
+    sv: "Speglar data från Galaxy Watch och Wear OS till en premium personlig dashboard: steg, puls, sömn, kalorier och VO₂ max. Inga oklara moln.",
+    da: "Spejler data fra Galaxy Watch og Wear OS til et premium personligt dashboard: skridt, puls, søvn, kalorier og VO₂ max. Ingen uklare skyer.",
+    no: "Speiler data fra Galaxy Watch og Wear OS til et premium personlig dashbord: skritt, puls, søvn, kalorier og VO₂ max. Ingen uklare skyer.",
+    fi: "Peilaa Galaxy Watchin ja Wear OS:n tiedot premium-koontinäyttöön: askeleet, syke, uni, kalorit ja VO₂ max. Ei epämääräisiä pilviä.",
+  };
+  const orgDescription = orgDescriptions[lc];
+  const appDescription = appDescriptions[lc];
 
   const featureList = lc === "it"
     ? [

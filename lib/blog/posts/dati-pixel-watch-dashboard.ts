@@ -142,10 +142,10 @@ export const post: BlogPost = {
       "afficher données santé Android",
     ],
     pl: [
-      "__RODO__ __FOUNDERS__",
-      "pulp Health Connect panel",
-      "dane Health Connect Wear OS",
-      "unięcie smartwatch dashboard",
+      "Pixel Watch Health Connect",
+      "Fitbit Health Connect panel",
+      "dane Wear OS Health Connect",
+      "połączenie danych smartwatch panel",
       "wyświetla dane zdrowotne Android",
     ],
     tr: [

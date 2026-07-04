@@ -23,6 +23,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
+import { isLocaleInCopy } from "@/lib/content/page-copy-gate";
 
 const SITE_URL = "https://www.fitmesh.fit";
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
@@ -1048,6 +1049,11 @@ export async function generateMetadata({
   return {
     title,
     description,
+    // Gate indicizzazione sui locali che hanno davvero il body copy in COPY.
+    // Vale sia in modalità COMING_SOON sia in modalità piena: nessuna delle
+    // due branch title/description sopra cambia il set di locali coperti da
+    // COPY, quindi il gate resta corretto in entrambi i casi.
+    robots: isLocaleInCopy(COPY, lc) ? undefined : { index: false, follow: false },
     alternates: {
       canonical: `${SITE_URL}/${lc}/famiglia`,
       languages: localeAlternates((l) => `${SITE_URL}/${l}/famiglia`),
@@ -1425,9 +1431,38 @@ function ComingSoonState({
         availability_body: "Family Mesh requires the app published on both stores to work end-to-end (the family member you invite must be able to install from Play Store or App Store). Android is already live in beta; iOS is in development. Family Mesh release planned once both platforms are in production.",
       };
 
+  // FAQ: relocated verbatim from the full-mode COPY object (never rendered
+  // while COMING_SOON=true, since generateMetadata/FamigliaLanding return
+  // early into this component). Trimmed to 4 of the 6 existing questions —
+  // the ones about ease of use, location privacy, data security and medical
+  // device status — dropping "leaving the group" and "how many members" as
+  // those are feature-mechanics details that don't apply pre-launch. Only
+  // wired for it/es/en, the 3 locales this component has real translated
+  // copy for above (all other locales fall back to the English `copy`
+  // object and would otherwise show an English FAQ under a non-English
+  // canonical, mismatched with this page's own JSON-LD language claims).
+  const faqLocale = lc === "it" || lc === "es" ? lc : "en";
+  const faqSource = COPY[faqLocale];
+  const faqs =
+    lc === "it" || lc === "es" || lc === "en"
+      ? [faqSource.faqs[0], faqSource.faqs[1], faqSource.faqs[3], faqSource.faqs[4]]
+      : null;
+  const faqLd = faqs
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      }
+    : null;
+
   return (
     <article className="relative">
       <JsonLd data={webPageLd} />
+      {faqLd && <JsonLd data={faqLd} />}
       <Breadcrumbs items={[{ name: crumbName, path }]} locale={lc} />
 
       <section className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-12 pb-16 sm:pt-20 sm:pb-20 text-center">
@@ -1474,6 +1509,36 @@ function ComingSoonState({
           ))}
         </div>
       </section>
+
+      {faqs && (
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+          <p className="text-center text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
+            {faqSource.faq_kicker}
+          </p>
+          <h2 className="mt-3 text-center font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
+            {faqSource.faq_h2}
+          </h2>
+          <dl className="mt-8 space-y-4">
+            {faqs.map((f) => (
+              <details
+                key={f.q}
+                className="group rounded-2xl border border-text-muted/15 bg-bg-elevated/40 p-5 sm:p-6"
+              >
+                <summary className="cursor-pointer list-none font-display font-semibold text-text-primary flex items-start gap-3">
+                  <span className="flex-1">{f.q}</span>
+                  <span
+                    aria-hidden
+                    className="shrink-0 mt-1 text-brand-aqua transition-transform group-open:rotate-45"
+                  >
+                    +
+                  </span>
+                </summary>
+                <p className="mt-4 text-sm text-text-secondary leading-relaxed">{f.a}</p>
+              </details>
+            ))}
+          </dl>
+        </section>
+      )}
 
       <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12 text-center">
         <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">

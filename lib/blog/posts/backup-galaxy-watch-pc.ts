@@ -826,11 +826,11 @@ export const post: BlogPost = {
           "Health Connect połączony z trzecią aplikacją jest jedyną opcją z rzeczywistą automatyzacją: dane przepływają bez interwencji manualnej, ale obejmuje tylko typy danych, które Samsung Health zapisuje na HC.",
           "Zażądanie GDPR obejmuje wyeksportowanie wewnętrzne (zakłada metadane i logi), ale wymaga do 30 dni: używaj tylko do zapisu przed-zamknięcia konta.",
           "ADB jest dla technicznych użytkowników: bezpośredni dostęp do bazy danych SQLite, najwyższa kompletność, wysoki ryzyko w przypadku braku wiedzy o działaniu.",
-          "Dane Państwo Samsung (Kompozycja ciała, Kontynuowana Ocena Stresu) nie przechodzą przez Health Connect: dla tych wymaga zawsze eksportu手动操作。",
+          "Dane własne Samsung (kompozycja ciała, ciągła ocena stresu) nie przechodzą przez Health Connect: dla nich zawsze wymagany jest ręczny eksport.",
         ],
         tr: [
           "İç aktarma (Samsung Health ayarları → kişisel verileri indir) en kapsamlı ve ücretsiz yöntemdir: tüm tarihi bir CSV paketini oluşturur.",
-          "Health Connect bir üçüncü taraf uygulamasına bağlıysa, gerçek otomasyonun tek seçenekidir: veriler_manual_intervention_gereksiz,kendiliğinden akar ancak sadece Samsung Health HC üzerinde yazdığı veri tiplerini kapsar.",
+          "Health Connect bir üçüncü taraf uygulamasına bağlıysa, gerçek otomasyonun tek seçenekidir: veriler manuel müdahale gerekmeden kendiliğinden akar, ancak yalnızca Samsung Health'in HC'ye yazdığı veri tiplerini kapsar.",
           "Güvenlik GDPR isteği içeren export yerel (metadataları ve logları da içerir) ancak bu işlem için en fazla 30 gün gerekebilir: sadece hesap kapatma öncesi arşivlemek amaçlı kullanın.",
           "ADB için teknik kullanıcılar için: SQLite veritabanına doğrudan erişim, en kapsamlı ama yanlış kullanılmasıyla yüksek risk.",
           "Veri sahip Samsung (Kütle Üzeyi Analizi, Sürekli Basınç Puanı) KVKK: için geçmez: o verilere her zaman el ile export yapılması gerekmektedir.",

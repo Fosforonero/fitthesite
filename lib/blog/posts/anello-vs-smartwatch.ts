@@ -410,7 +410,7 @@ export const post: BlogPost = {
             "Tak (średnia/i wysoka fascja)",
           ],
           tr: [
-            "Kartlı接触支付",
+            "Temassız ödeme",
             "No",
             "Evet (yarı yüksek/yaşam stili)",
           ],

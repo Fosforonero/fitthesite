@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
@@ -16,6 +17,30 @@ import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
 
 const SITE_URL = "https://www.fitmesh.fit";
+
+/**
+ * Below-the-fold marketing copy on this page (How it works, Integrations
+ * teaser, Privacy bullets, Final CTA) is written as inline `lc === "it" ? ... :
+ * lc === "es" ? ... : "<english>"` ternaries — it only ever branches it/es/en,
+ * every other locale silently falls back to English body text under a
+ * localized URL (self-canonicalized → duplicate content). Gate those locales
+ * out of the index until real translations land; title/description are
+ * untouched here since they already cover all 15 locales via the parent
+ * `[locale]/layout.tsx` generateMetadata.
+ */
+import { HOME_COMPLETE_LOCALES as COMPLETE_BODY_LOCALES } from "@/lib/content/static-page-locales";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
+  return {
+    robots: COMPLETE_BODY_LOCALES.includes(lc) ? undefined : { index: false, follow: false },
+  };
+}
 
 const KPI_COLORS = ["#21E6C1", "#7CFF5B", "#1DA1FF", "#A78BFA", "#FFB547", "#FF5C7A"];
 
@@ -157,6 +182,16 @@ export default async function Home({
               <br className="hidden sm:inline" />{" "}
               <span className="text-brand-gradient">{t.hero.heading_accent}</span>
             </h1>
+
+            {COMPLETE_BODY_LOCALES.includes(lc) && (
+              <p className="mt-5 text-base text-text-secondary max-w-2xl leading-relaxed">
+                {lc === "it"
+                  ? "FitMesh Sync è la dashboard che unisce i dati di Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit e altri wearable Android in un'unica vista privacy-first, con server in UE."
+                  : lc === "es"
+                  ? "FitMesh Sync es el panel que unifica los datos de Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit y otros wearables Android en una sola vista privacy-first, con servidores en la UE."
+                  : "FitMesh Sync is the dashboard that brings Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit and other Android wearables into one privacy-first view, with EU servers."}
+              </p>
+            )}
 
             <p className="mt-7 text-lg sm:text-xl text-text-secondary max-w-xl leading-relaxed">
               {t.hero.description}
@@ -555,7 +590,7 @@ export default async function Home({
         <div className="grid gap-5 md:grid-cols-3 items-stretch">
           {/* Free */}
           <div className="card p-7 flex flex-col">
-            <p className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.freeName, lc)}</p>
+            <h3 className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.freeName, lc)}</h3>
             <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.freeTagline, lc)}</p>
             <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-text-primary">{tl(PRICING_SECTION.freeLabel, lc)}</p>
             <ul className="mt-5 space-y-2.5 flex-1">
@@ -572,7 +607,7 @@ export default async function Home({
           </div>
           {/* Pro */}
           <div className="card p-7 flex flex-col">
-            <p className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.proName, lc)}</p>
+            <h3 className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.proName, lc)}</h3>
             <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.proTagline, lc)}</p>
             <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-text-primary">{p("lifetimeBothShort", lc)}</p>
             <p className="mt-1 text-xs text-text-muted">
@@ -592,7 +627,7 @@ export default async function Home({
             <span className="absolute top-4 right-4 text-[10px] uppercase tracking-[0.18em] font-semibold text-[#050816] bg-brand-aqua rounded-pill px-2.5 py-1">
               {tl(PRICING_SECTION.founderBadge, lc)}
             </span>
-            <p className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.founderName, lc)}</p>
+            <h3 className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.founderName, lc)}</h3>
             <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.founderTagline, lc)}</p>
             <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.freeLabel, lc)}</p>
             <p className="mt-1 text-xs text-text-secondary">{p("founderPromo", lc)}</p>

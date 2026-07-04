@@ -6,9 +6,10 @@ import { Fragment, type ReactNode } from "react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
-import { locales, type Locale, ogLocale, localeAlternates, UNTRANSLATED_CONTENT_LOCALES } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { PROVIDERS_BY_SLUG } from "@/lib/providers/data";
 import { PROVIDER_MODELS } from "@/lib/providers/models";
+import { isProviderModelVariantIndexable } from "@/lib/providers/indexability";
 import { tl } from "@/lib/blog/types";
 import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
 
@@ -203,9 +204,11 @@ export async function generateMetadata({
   return {
     title,
     description,
-    robots: UNTRANSLATED_CONTENT_LOCALES.has(lc)
-      ? { index: false, follow: true }
-      : undefined,
+    // Check reale per-campo (description/FAQ), non solo "è un locale nordico":
+    // vedi lib/providers/indexability.ts (gemello di lib/blog/indexability.ts).
+    robots: isProviderModelVariantIndexable(m, lc)
+      ? undefined
+      : { index: false, follow: true },
     alternates: {
       canonical: `${SITE_URL}${path}`,
       languages: localeAlternates(

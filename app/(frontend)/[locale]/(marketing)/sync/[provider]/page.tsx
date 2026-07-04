@@ -6,12 +6,13 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
-import { locales, type Locale, ogLocale, localeAlternates, UNTRANSLATED_CONTENT_LOCALES } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import {
   PROVIDERS,
   PROVIDERS_BY_SLUG,
   type Provider,
 } from "@/lib/providers/data";
+import { isProviderVariantIndexable } from "@/lib/providers/indexability";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { tl, tll, categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
@@ -192,9 +193,12 @@ export async function generateMetadata({
     title,
     description,
     keywords: tll(p.seoKeywords, lc).join(", "),
-    robots: UNTRANSLATED_CONTENT_LOCALES.has(lc)
-      ? { index: false, follow: true }
-      : undefined,
+    // Check reale per-campo (tagline/longDesc/FAQ): non solo "è un locale nordico",
+    // ma "questo provider ha DAVVERO title/description/FAQ tradotti per lc, non
+    // il fallback EN sotto una chiave locale diversa". Vedi lib/providers/indexability.ts.
+    robots: isProviderVariantIndexable(p, lc)
+      ? undefined
+      : { index: false, follow: true },
     alternates: {
       canonical: `${SITE_URL}${path}`,
       languages: localeAlternates((l) => `${SITE_URL}/${l}/sync/${p.slug}`),

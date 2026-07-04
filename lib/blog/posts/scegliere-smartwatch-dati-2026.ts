@@ -328,7 +328,7 @@ export const post: BlogPost = {
           "**Wydurenie zmian**: a jeśli jutro marka zostanie zakupiona lub zakończy działalność na tym segmencie, mam plan B?",
         ],
         tr: [
-          "**Natif转入能力**: 可以将所有数据下载为通用格式(CSV, JSON, GPX, FIT)，无需给支持团队发邮件或破解未文档化的API。",
+          "**Native taşınabilirlik**: tüm verilerinizi yaygın formatlarda (CSV, JSON, GPX, FIT) indirebilirsiniz, destek ekibine e-posta atmadan veya dokümante edilmemiş API'leri tersine mühendislik yapmadan.",
           "**Transparenciy piplini**: sizi verileriniz nereye gittiğini öğrenmek için. Giyilebilir cihazda? Üretici bulutunda? Yeniden satıcılar için ad-teknolojilere satıldı mı? 5 dakika içinde gizlilik ilkesini okuyabilirim ve anlamak mümkün mü?",
           "**Permisyonun granüllülüğü**: ecosisteme \"evet BPM, hayır GPS\" verebilir miyim veya tam ya da hiç olacak mı?",
           "**İnteroperability:** Üreticinin izni istemeden kendi cihazım ile üçüncü taraf uygulamaları (Strava, Komoot, alternatif sağlık uygulamaları) kullanabilirim mi?",
@@ -951,7 +951,7 @@ export const post: BlogPost = {
           "Samsung Galaxy Watch",
           "Smartwatch",
           "Withings MonitorSmartWatch",
-          "__RODO__ __FOUNDERS__",
+          "Xiaomi Mi Band",
           "Polar Wantage",
           "Pixel Watch",
         ],

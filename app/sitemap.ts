@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { locales, type Locale, UNTRANSLATED_CONTENT_LOCALES } from "@/lib/i18n";
+import { locales, type Locale } from "@/lib/i18n";
 import { PROVIDERS } from "@/lib/providers/data";
 import { PROVIDER_MODELS } from "@/lib/providers/models";
 import { getBlogPosts } from "@/lib/blog/payload-source";
@@ -7,6 +7,17 @@ import { LANDING_PAGES } from "@/lib/landing/data";
 import { isLandingVariantIndexable } from "@/lib/landing/indexability";
 import { localizedBlogSlug, localizedLandingSlug } from "@/lib/blog/slug-i18n";
 import { isBlogVariantIndexable } from "@/lib/blog/indexability";
+import {
+  isProviderVariantIndexable,
+  isProviderModelVariantIndexable,
+} from "@/lib/providers/indexability";
+import {
+  HOME_COMPLETE_LOCALES,
+  ABOUT_TRANSLATED_LOCALES,
+  PRESS_COMPLETE_LOCALES,
+  FAMIGLIA_COMPLETE_LOCALES,
+  ROADMAP_COMPLETE_LOCALES,
+} from "@/lib/content/static-page-locales";
 
 const BASE = "https://www.fitmesh.fit";
 
@@ -34,17 +45,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     localized?: (lc: Locale) => string;
     /**
      * Locali indicizzabili per questa route (default: tutti). Esclude dalle
-     * URL e dagli hreflang le varianti `noindex` (contenuto nordico non
-     * tradotto), così la sitemap non contraddice il robots della pagina.
+     * URL e dagli hreflang le varianti `noindex` (contenuto non tradotto per
+     * quel locale — nordico o altro), così la sitemap non contraddice il
+     * robots della pagina.
      */
     indexableLocales?: (lc: Locale) => boolean;
   }> = [
-    { path: "",              changeFrequency: "monthly", priority: 1.0 },
-    { path: "/about",        changeFrequency: "monthly", priority: 0.85 },
-    { path: "/press",        changeFrequency: "monthly", priority: 0.7 },
-    { path: "/famiglia",     changeFrequency: "monthly", priority: 0.95 },
+    { path: "",              changeFrequency: "monthly", priority: 1.0,  indexableLocales: (lc) => HOME_COMPLETE_LOCALES.includes(lc) },
+    { path: "/about",        changeFrequency: "monthly", priority: 0.85, indexableLocales: (lc) => ABOUT_TRANSLATED_LOCALES.includes(lc) },
+    { path: "/press",        changeFrequency: "monthly", priority: 0.7,  indexableLocales: (lc) => PRESS_COMPLETE_LOCALES.includes(lc) },
+    { path: "/famiglia",     changeFrequency: "monthly", priority: 0.95, indexableLocales: (lc) => FAMIGLIA_COMPLETE_LOCALES.includes(lc) },
     { path: "/integrations", changeFrequency: "weekly",  priority: 0.9 },
-    { path: "/roadmap",      changeFrequency: "weekly",  priority: 0.6 },
+    { path: "/roadmap",      changeFrequency: "weekly",  priority: 0.6,  indexableLocales: (lc) => ROADMAP_COMPLETE_LOCALES.includes(lc) },
     { path: "/beta",         changeFrequency: "weekly",  priority: 0.95 },
     { path: "/blog",         changeFrequency: "daily",   priority: 0.85 },
     { path: "/novita",       changeFrequency: "weekly",  priority: 0.8 },
@@ -61,7 +73,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       path: `/sync/${p.slug}`,
       changeFrequency: "monthly",
       priority: 0.8,
-      indexableLocales: (lc) => !UNTRANSLATED_CONTENT_LOCALES.has(lc),
+      indexableLocales: (lc) => isProviderVariantIndexable(p, lc),
     });
   }
 
@@ -72,7 +84,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         path: `/sync/${providerSlug}/${m.slug}`,
         changeFrequency: "yearly",
         priority: 0.7,
-        indexableLocales: (lc) => !UNTRANSLATED_CONTENT_LOCALES.has(lc),
+        indexableLocales: (lc) => isProviderModelVariantIndexable(m, lc),
       });
     }
   }

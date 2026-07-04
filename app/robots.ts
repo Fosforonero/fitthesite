@@ -12,7 +12,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/app/", "/admin/", "/auth/", "/oauth/", "/api/"],
+        disallow: ["/app/", "/cms/", "/auth/", "/oauth/", "/api/"],
       },
     ],
     sitemap: "https://www.fitmesh.fit/sitemap.xml",
