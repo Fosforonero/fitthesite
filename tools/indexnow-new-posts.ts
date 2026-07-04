@@ -11,6 +11,7 @@ const NEW = new Set([
   "anello-colmi-r02-affidabile",
   "cambiare-smartwatch-senza-perdere-dati",
   "come-funziona-fitmesh",
+  "dove-sono-i-tuoi-dati-server-ue",
 ]);
 
 async function main(): Promise<void> {
