@@ -39,7 +39,7 @@ function localizeInternalHref(href: string, locale: Locale): string {
  * Pattern derivato da `sync/[provider]/page.tsx` esteso con link inline.
  * Link relativi vengono renderizzati con Next.js Link, link esterni come anchor.
  */
-function renderMarkdownInline(text: string, locale: Locale): ReactNode[] {
+export function renderMarkdownInline(text: string, locale: Locale): ReactNode[] {
   // Pattern combinato: cattura **bold** OPPURE [label](href)
   const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
   return parts.map((part, i) => {

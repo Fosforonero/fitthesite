@@ -9,7 +9,7 @@ import {
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { BlogRenderer } from "@/components/blog/BlogRenderer";
+import { BlogRenderer, renderMarkdownInline } from "@/components/blog/BlogRenderer";
 import { ArticleMeta } from "@/components/blog/ArticleMeta";
 import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
@@ -169,7 +169,7 @@ export async function generateMetadata({
 const I18N = {
   it: {
     backToBlog: "← Tutti gli articoli",
-    pillarLabel: "Pilastro",
+    pillarLabel: "Guida principale",
     readMin: (m: number) => `${m} min di lettura`,
     publishedOn: "Pubblicato",
     updated: "Aggiornato",
@@ -193,7 +193,7 @@ const I18N = {
   },
   en: {
     backToBlog: "← All articles",
-    pillarLabel: "Pillar",
+    pillarLabel: "Main guide",
     readMin: (m: number) => `${m} min read`,
     publishedOn: "Published",
     updated: "Updated",
@@ -217,7 +217,7 @@ const I18N = {
   },
   es: {
     backToBlog: "← Todos los artículos",
-    pillarLabel: "Artículo principal",
+    pillarLabel: "Guía principal",
     readMin: (m: number) => `${m} min de lectura`,
     publishedOn: "Publicado",
     updated: "Actualizado",
@@ -289,7 +289,7 @@ const I18N = {
   },
   fr: {
     backToBlog: "← Tous les articles",
-    pillarLabel: "Article pilier",
+    pillarLabel: "Guide principal",
     readMin: (m: number) => `${m} min de lecture`,
     publishedOn: "Publié le",
     updated: "Mis à jour",
@@ -756,7 +756,7 @@ export default async function BlogArticle({
                         <circle cx="3" cy="3" r="3" fill="currentColor" />
                       </svg>
                     </span>
-                    <span>{point}</span>
+                    <span>{renderMarkdownInline(point, lc)}</span>
                   </li>
                 ))}
               </ul>

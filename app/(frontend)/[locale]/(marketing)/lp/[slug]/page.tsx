@@ -12,7 +12,8 @@ import { BlogRenderer } from "@/components/blog/BlogRenderer";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { tl } from "@/lib/blog/types";
-import { LANDING_PAGES, LANDING_PAGES_BY_SLUG } from "@/lib/landing/data";
+import { LANDING_PAGES, LANDING_PAGES_BY_SLUG, type LandingPage } from "@/lib/landing/data";
+import { isLandingVariantIndexable } from "@/lib/landing/indexability";
 
 const SITE_URL = "https://www.fitmesh.fit";
 
@@ -22,13 +23,14 @@ export function generateStaticParams() {
   );
 }
 
-/** hreflang alternates: ogni lingua → slug landing localizzato; x-default = IT. */
-function landingLanguages(canonical: string): Record<string, string> {
+/** hreflang alternates: ogni lingua indicizzabile → slug landing localizzato; x-default = IT. */
+function landingLanguages(lp: LandingPage): Record<string, string> {
   const langs: Record<string, string> = {};
   for (const l of locales) {
-    langs[l] = `${SITE_URL}/${l}/lp/${localizedLandingSlug(canonical, l)}`;
+    if (!isLandingVariantIndexable(lp, l)) continue;
+    langs[l] = `${SITE_URL}/${l}/lp/${localizedLandingSlug(lp.slug, l)}`;
   }
-  langs["x-default"] = `${SITE_URL}/it/lp/${canonical}`;
+  langs["x-default"] = `${SITE_URL}/it/lp/${lp.slug}`;
   return langs;
 }
 
@@ -64,9 +66,12 @@ export async function generateMetadata({
     title: `${title} — FitMesh Sync`,
     description,
     keywords: [tl(lp.primaryKeyword, lc), ...secKw].join(", "),
+    robots: isLandingVariantIndexable(lp, lc)
+      ? undefined
+      : { index: false, follow: true },
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: landingLanguages(lp.slug),
+      languages: landingLanguages(lp),
     },
     openGraph: {
       type: "website",

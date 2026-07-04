@@ -149,7 +149,7 @@ export default async function OGBlogPost({
             <>
               <span style={{ fontSize: 13, color: "#7F8AA3" }}>·</span>
               <span style={{ fontSize: 13, color: "#21E6C1", fontWeight: 600 }}>
-                {lc === "it" ? "Pilastro" : "Pillar"}
+                {lc === "it" ? "Guida principale" : "Main guide"}
               </span>
             </>
           )}

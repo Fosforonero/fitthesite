@@ -201,12 +201,12 @@ export const post: BlogPost = {
   },
   hero: {
     kicker: {
-      it: "Guida pilastro",
-      en: "Pillar guide",
-      es: "Guía pilar",
-      de: "Hauptanleitung",
+      it: "Guida principale",
+      en: "Main guide",
+      es: "Guía principal",
+      de: "Hauptartikel",
       pt: "Guia principal",
-      fr: "Guide pilier",
+      fr: "Guide principal",
       pl: "Przewodnik główny",
       tr: "Ana rehber",
       nl: "Hoofdgids",

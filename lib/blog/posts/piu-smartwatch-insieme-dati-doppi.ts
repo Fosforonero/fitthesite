@@ -180,7 +180,7 @@ export const post: BlogPost = {
     ko: "스마트워치, 스마트 링, GPS 워치 등 여러 웨어러블을 함께 사용하고 있나요? 데이터가 중복되는 이유, 중복 제거 방법, FitMesh Sync가 자동으로 처리하는 내용을 알아보세요.",
   },
   hero: {
-    kicker: { it: "Guida pilastro", en: "Pillar guide", es: "Guía pilar", de: "Pillar-Anleitung", pt: "Guia pilar", fr: "Guide pilier", pl: "Przewodnik pilarski", tr: "Pilatöstrü Kılavuz", nl: "Pijlergids", ja: "ピラーガイド", ko: "핵심 가이드" },
+    kicker: { it: "Guida principale", en: "Main guide", es: "Guía principal", de: "Hauptartikel", pt: "Guia principal", fr: "Guide principal", pl: "Przewodnik główny", tr: "Ana rehber", nl: "Hoofdgids", ja: "メインガイド", ko: "메인 가이드" },
     title: {
       it: "Più smartwatch insieme senza dati doppi: guida alla deduplicazione multi-wearable",
       en: "Multiple smartwatches, no duplicate data: the multi-wearable deduplication guide",

@@ -154,7 +154,7 @@ export interface BlogPost {
   /** Stessa data di publish, o data ultima revisione contenuto. */
   updatedAt: string;
   /**
-   * Pillar cornerstone hub. Mostrato come badge "Pilastro" e usato dal renderer
+   * Pillar cornerstone hub. Mostrato come badge "Guida principale" e usato dal renderer
    * per allungare il container max-width. Solo i 2 cornerstone hanno `true`.
    */
   pillar?: boolean;

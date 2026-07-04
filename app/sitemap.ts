@@ -4,6 +4,7 @@ import { PROVIDERS } from "@/lib/providers/data";
 import { PROVIDER_MODELS } from "@/lib/providers/models";
 import { getBlogPosts } from "@/lib/blog/payload-source";
 import { LANDING_PAGES } from "@/lib/landing/data";
+import { isLandingVariantIndexable } from "@/lib/landing/indexability";
 import { localizedBlogSlug, localizedLandingSlug } from "@/lib/blog/slug-i18n";
 import { isBlogVariantIndexable } from "@/lib/blog/indexability";
 
@@ -97,6 +98,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "weekly",
       priority: 0.75,
       lastModified: new Date(lp.updatedAt),
+      indexableLocales: (lc) => isLandingVariantIndexable(lp, lc),
     });
   }
 

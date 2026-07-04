@@ -729,7 +729,7 @@ export default async function ProviderLanding({
                 >
                   <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
                     {post.pillar
-                      ? t("Pilastro · ", "Pillar · ", "Referencia · ", "Pijler · ", "柱 · ", "기둥 · ")
+                      ? t("Guida principale · ", "Main guide · ", "Guía principal · ", "Hoofdgids · ", "柱 · ", "기둥 · ")
                       : ""}
                     {blogCategoryLabel(post.category, lc)}
                   </p>

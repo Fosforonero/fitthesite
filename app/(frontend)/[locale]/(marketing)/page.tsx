@@ -661,7 +661,7 @@ export default async function Home({
                 >
                   <p className="text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
                     {post.pillar
-                      ? (lc === "it" ? "Pilastro" : lc === "es" ? "Pilar" : "Pillar")
+                      ? (lc === "it" ? "Guida principale" : lc === "es" ? "Guía principal" : "Main guide")
                       : (lc === "it" ? "Guida" : lc === "es" ? "Guía" : "Guide")}
                     {" · "}
                     {post.readMinutes} min

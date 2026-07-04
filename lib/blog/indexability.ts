@@ -1,22 +1,46 @@
 /**
  * Fonte di verità UNICA per "questa variante (post, locale) è indicizzabile?".
  *
- * Un post del blog esce `noindex` solo per i locali nordici (sv/da/no/fi)
- * finché non è completamente tradotto: altrimenti mostrerebbe il contenuto EN
- * di fallback sotto un URL nordico. Prima questa logica era duplicata a mano in
- * `blog/[slug]/page.tsx` (robots + hreflang), in `sitemap.ts` e in `feed.xml`, e
- * i tre divergevano: sitemap/feed/hreflang sottomettevano le varianti nordiche
- * non tradotte come indicizzabili mentre la pagina emetteva `noindex` (warning
- * "Submitted URL marked noindex" in Search Console). Un solo helper qui è la
- * fonte di verità: tutti e tre lo importano, quindi non possono più divergere.
+ * Un post del blog esce `noindex` per QUALSIASI locale (non solo le nordiche)
+ * finché non è completamente tradotto per quel campo per campo: altrimenti
+ * mostrerebbe il contenuto EN di fallback sotto un URL con un locale diverso,
+ * self-canonicalizzato come se fosse originale. Google lo rileva come
+ * "Duplicate without user-selected canonical" (contenuto identico a
+ * /en/blog/... sotto un URL diverso, ciascuno con canonical su se stesso).
+ *
+ * Prima (fino al 03/07) il gate copriva SOLO le nordiche via
+ * `UNTRANSLATED_CONTENT_LOCALES`: un post nuovo tradotto solo in it/en/es/de
+ * risultava "indicizzabile" anche in pl/tr/nl/ja/ko, che in realtà mostravano
+ * fallback EN → 136 pagine duplicate rilevate (diagnostica 04/07). Ora il
+ * check è generico: per OGNI locale diverso da it/en (sempre required, quindi
+ * sempre completi) verifica che OGNI campo traducibile abbia quella lingua.
+ *
+ * Usato da `blog/[slug]/page.tsx` (robots + hreflang), `sitemap.ts` e
+ * `feed.xml`: un solo helper, i tre non possono più divergere.
  */
-import { UNTRANSLATED_CONTENT_LOCALES, type Locale } from "@/lib/i18n";
-import { isPostTranslated, type NordicLang } from "@/lib/blog/nordic-overlay";
+import type { Locale } from "@/lib/i18n";
+import { walkPost } from "@/lib/blog/nordic-overlay";
 import type { BlogPost } from "@/lib/blog/types";
+
+/** True se OGNI campo traducibile del post ha un valore per `lc` (nessun fallback en/it). */
+export function isPostLocaleComplete(post: BlogPost, lc: Locale): boolean {
+  const entries = walkPost(post);
+  if (entries.length === 0) return false;
+  for (const e of entries) {
+    const node = e.node as Record<string, unknown>;
+    const val = node[lc];
+    if (val == null) return false;
+    if (e.kind === "list") {
+      const src = (node.en ?? node.it) as unknown[];
+      if (!Array.isArray(val) || val.length !== src.length) return false;
+    }
+  }
+  return true;
+}
 
 /** True se la pagina `(post, locale)` è indicizzabile (NON esce `noindex`). */
 export function isBlogVariantIndexable(post: BlogPost, lc: Locale): boolean {
-  if (!UNTRANSLATED_CONTENT_LOCALES.has(lc)) return true;
-  // Qui `lc` è per forza un locale nordico (l'insieme = NORDIC_LANGS).
-  return isPostTranslated(post, lc as NordicLang);
+  // it/en sono campi `required` nel tipo Localized: sempre presenti, mai fallback.
+  if (lc === "it" || lc === "en") return true;
+  return isPostLocaleComplete(post, lc);
 }

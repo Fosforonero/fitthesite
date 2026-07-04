@@ -180,7 +180,7 @@ export const post: BlogPost = {
     ko: "2026년 데이터 관리를 기반으로 스마트워치 선택하는 방법: 프라이버시, 내보내기 가능성, 에코시스템 잠금. 운동선수, 장수 목적, 수면 추적, 부모 모니터링을 위한 추천.",
   },
   hero: {
-    kicker: { it: "Guida pilastro", en: "Pillar guide", es: "Guía de referencia", de: "Pillar-Guide", pt: "Guia pilar", fr: "Guide de référence", pl: "Przewodnik pilarski", tr: "Pilatöstrü Kılavuz", nl: "Kernhandleiding", ja: "基礎ガイド", ko: "핵심 가이드" },
+    kicker: { it: "Guida principale", en: "Main guide", es: "Guía principal", de: "Hauptartikel", pt: "Guia principal", fr: "Guide principal", pl: "Przewodnik główny", tr: "Ana rehber", nl: "Hoofdgids", ja: "メインガイド", ko: "메인 가이드" },
     title: {
       it: "Smartwatch e controllo dei dati: come scegliere",
       en: "How to choose a smartwatch when you want control over your data",

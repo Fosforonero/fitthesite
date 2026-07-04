@@ -183,7 +183,7 @@ export const post: BlogPost = {
     ko: "2026년 웨어러블 동기화에 필요한 모든 것: Health Connect, Samsung Health, 공식 OAuth, GDPR, 그리고 속지 않고 옵션을 비교하는 방법.",
   },
   hero: {
-    kicker: { it: "Guida pilastro", en: "Pillar guide", es: "Guía pilar", de: "Pillar-Guide", pt: "Guia principal", fr: "Guide pilier", pl: "Przewodnik filarowy", tr: "Temel rehber", nl: "Pijlergids", ja: "柱となるガイド", ko: "핵심 가이드" },
+    kicker: { it: "Guida principale", en: "Main guide", es: "Guía principal", de: "Hauptartikel", pt: "Guia principal", fr: "Guide principal", pl: "Przewodnik główny", tr: "Ana rehber", nl: "Hoofdgids", ja: "メインガイド", ko: "메인 가이드" },
     title: {
       it: "Guida completa al sync wearable nel 2026",
       en: "The complete guide to wearable sync in 2026",
