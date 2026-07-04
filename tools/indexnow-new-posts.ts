@@ -12,6 +12,9 @@ const NEW = new Set([
   "cambiare-smartwatch-senza-perdere-dati",
   "come-funziona-fitmesh",
   "dove-sono-i-tuoi-dati-server-ue",
+  "mesh-famiglia-lancio",
+  "fitmesh-vs-alternative-sync",
+  "perche-diventare-founder-fitmesh",
 ]);
 
 async function main(): Promise<void> {

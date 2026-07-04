@@ -87,6 +87,10 @@ import { post as cambiareSmartwatchSenzaPerdereDati } from "./posts/cambiare-sma
 import { post as comeFunzionaFitmesh } from "./posts/come-funziona-fitmesh";
 // BOFU fiducia: server UE
 import { post as doveSonoITuoiDatiServerUe } from "./posts/dove-sono-i-tuoi-dati-server-ue";
+// Annuncio Mesh Famiglia + comparison competitor + BOFU urgenza founder (04/07)
+import { post as meshFamigliaLancio } from "./posts/mesh-famiglia-lancio";
+import { post as fitmeshVsAlternativeSync } from "./posts/fitmesh-vs-alternative-sync";
+import { post as percheDiventareFounderFitmesh } from "./posts/perche-diventare-founder-fitmesh";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -159,6 +163,10 @@ const RAW_POSTS: BlogPost[] = [
   cambiareSmartwatchSenzaPerdereDati,
   comeFunzionaFitmesh,
   doveSonoITuoiDatiServerUe,
+  // Mesh Famiglia + comparison competitor + BOFU urgenza founder (04/07)
+  meshFamigliaLancio,
+  fitmeshVsAlternativeSync,
+  percheDiventareFounderFitmesh,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
