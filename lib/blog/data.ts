@@ -85,6 +85,8 @@ import { post as anelloColmiR02Affidabile } from "./posts/anello-colmi-r02-affid
 import { post as cambiareSmartwatchSenzaPerdereDati } from "./posts/cambiare-smartwatch-senza-perdere-dati";
 // Guida "come funziona" con screenshot reali
 import { post as comeFunzionaFitmesh } from "./posts/come-funziona-fitmesh";
+// BOFU fiducia: server UE
+import { post as doveSonoITuoiDatiServerUe } from "./posts/dove-sono-i-tuoi-dati-server-ue";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -156,6 +158,7 @@ const RAW_POSTS: BlogPost[] = [
   anelloColmiR02Affidabile,
   cambiareSmartwatchSenzaPerdereDati,
   comeFunzionaFitmesh,
+  doveSonoITuoiDatiServerUe,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

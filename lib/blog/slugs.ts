@@ -667,6 +667,18 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "fitmesh-tsukaikata",
     ko: "fitmesh-sayongbeop",
   },
+  "dove-sono-i-tuoi-dati-server-ue": {
+    en: "where-your-data-lives-eu-server",
+    es: "donde-estan-tus-datos-servidor-ue",
+    de: "wo-deine-daten-sind-eu-server",
+    pt: "onde-estao-seus-dados-servidor-ue",
+    fr: "ou-sont-tes-donnees-serveur-ue",
+    pl: "gdzie-sa-twoje-dane-serwer-ue",
+    tr: "verilerin-nerede-ab-sunucusu",
+    nl: "waar-staan-je-gegevens-eu-server",
+    ja: "data-hokanbasho-eu-server",
+    ko: "data-jeojanwichi-eu-seobeo",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {
