@@ -38,8 +38,8 @@
         "desc": "Multiple watches, multiple providers, one view. FitMesh merges sources, deduplicates data and keeps the best value for every metric."
       },
       {
-        "title": "Built for caregivers",
-        "desc": "Advanced mode coming soon: family group with morning sync alerts when an elderly relative goes silent."
+        "title": "Family Mesh",
+        "desc": "Create a group and share steps, sleep and heart rate with your family: parents, partner, kids. Everyone decides what to show."
       }
     ]
   },

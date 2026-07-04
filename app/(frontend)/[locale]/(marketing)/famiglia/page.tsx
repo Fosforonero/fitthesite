@@ -41,23 +41,23 @@ const COMING_SOON = true;
 const COPY = {
   it: {
     hero_kicker: "Mesh Famiglia",
-    hero_h1: "Vedi se i tuoi cari stanno bene, senza chiederlo ogni giorno",
+    hero_h1: "La salute di tutta la famiglia, in un'unica dashboard",
     hero_sub:
-      "Crei un gruppo, inviti chi vuoi (genitori, partner, figli), e vedi in un'unica dashboard chi ha camminato oggi, chi ha dormito poco, chi ha avuto un battito anomalo. Privacy first: ognuno sceglie cosa condividere.",
+      "Crei un gruppo, inviti chi vuoi (genitori, partner, figli), e ognuno condivide con gli altri passi, sonno e frequenza cardiaca in un'unica dashboard. Privacy first: ognuno sceglie cosa condividere.",
     cta_primary: "Scarica l'app",
     cta_secondary: "Come funziona",
     why_kicker: "Perchè serve",
-    why_h2: "Tre modi di stare vicini a chi conta",
+    why_h2: "Tre situazioni, la stessa dashboard",
     why_items: [
       {
-        title: "Genitori anziani autonomi",
+        title: "Genitori e figli adulti",
         body:
-          "Tua madre vive da sola e indossa il Galaxy Watch che le hai regalato. Non vuoi essere invadente, ma vorresti sapere se ha smesso di camminare o se la frequenza cardiaca a riposo cambia. Mesh Famiglia te lo dice senza che lei debba aprire app o mandarti messaggi.",
+          "Vivete in case diverse ma vi tenete aggiornati a vicenda: chi ha camminato oggi, chi ha dormito bene. Ognuno condivide i propri dati con gli altri, senza dover chiedere o scrivere messaggi ogni giorno.",
       },
       {
         title: "Famiglia con figli adolescenti",
         body:
-          "Tuo figlio ha la Mi Band. Tu vuoi che si muova, dorma abbastanza, non strapazzi il cuore allenandosi senza sapere. Vedi i suoi dati salute nella tua app: niente social, niente chat, solo numeri.",
+          "Tuo figlio ha la Mi Band, tu il Galaxy Watch. Vedete a vicenda passi, sonno e frequenza cardiaca nella stessa app: niente social, niente chat, solo numeri condivisi tra voi.",
       },
       {
         title: "Partner / coniugi",
@@ -88,7 +88,7 @@ const COPY = {
     privacy_h2: "Quello che vedi, e quello che NON vedi",
     privacy_columns: [
       {
-        title: "Cosa vede l'admin del gruppo",
+        title: "Cosa vedono gli altri membri",
         items: [
           "Nome che il membro ha scelto (es. 'Mamma', 'Luca')",
           "Conteggio passi giornaliero",
@@ -121,9 +121,9 @@ const COPY = {
     faq_h2: "Dubbi e risposte",
     faqs: [
       {
-        q: "Mia madre/mio padre e' tecnologicamente impreparato. Riesce a usarla?",
+        q: "Un familiare non e' molto pratico di tecnologia. Riesce a usarla?",
         a:
-          "Sì. Una volta installata l'app e cliccato il link di invito che gli mandi, non deve fare nient'altro. L'app sincronizza da sola in background. Tu vedi i suoi dati dalla tua app. Lui/lei non deve aprire mai piu' nulla.",
+          "Sì. Una volta installata l'app e cliccato il link di invito che gli mandi, non deve fare nient'altro. L'app sincronizza da sola in background. Il resto della famiglia vede i suoi dati dalla propria app. Non deve aprire più nulla.",
       },
       {
         q: "Posso vedere la posizione dei membri famiglia?",
@@ -157,23 +157,23 @@ const COPY = {
   },
   en: {
     hero_kicker: "Family Mesh",
-    hero_h1: "See if your loved ones are doing well, without asking every day",
+    hero_h1: "Your whole family's health, in one dashboard",
     hero_sub:
-      "Create a group, invite anyone (parents, partner, kids), and see in one dashboard who walked today, who slept poorly, whose heart rate spiked. Privacy-first: everyone chooses what to share.",
+      "Create a group, invite anyone (parents, partner, kids), and everyone shares steps, sleep and heart rate with each other in one dashboard. Privacy-first: everyone chooses what to share.",
     cta_primary: "Get the app",
     cta_secondary: "How it works",
     why_kicker: "Why it matters",
-    why_h2: "Three ways to stay close to those who count",
+    why_h2: "Three situations, the same dashboard",
     why_items: [
       {
-        title: "Independent aging parents",
+        title: "Parents and adult kids",
         body:
-          "Your mother lives alone and wears the Galaxy Watch you gave her. You don't want to be intrusive, but you'd like to know if she stopped walking or if her resting heart rate changes. Family Mesh tells you without her having to open apps or text you.",
+          "You live in different homes but keep each other in the loop: who walked today, who slept well. Everyone shares their own data with the others, without having to ask or text every day.",
       },
       {
         title: "Families with teenagers",
         body:
-          "Your kid has the Mi Band. You want them to move, sleep enough, not overdo workouts blindly. See their health data in your app: no social, no chats, just numbers.",
+          "Your kid has a Mi Band, you have a Galaxy Watch. You see each other's steps, sleep and heart rate in the same app: no social, no chats, just numbers shared between you.",
       },
       {
         title: "Partners / spouses",
@@ -204,7 +204,7 @@ const COPY = {
     privacy_h2: "What you see, and what you NEVER see",
     privacy_columns: [
       {
-        title: "What the group admin sees",
+        title: "What other members see",
         items: [
           "Name the member chose (e.g. 'Mom', 'Luca')",
           "Daily step count",
@@ -237,9 +237,9 @@ const COPY = {
     faq_h2: "FAQs",
     faqs: [
       {
-        q: "My mother/father is not tech-savvy. Can they use it?",
+        q: "A family member isn't very tech-savvy. Can they use it?",
         a:
-          "Yes. Once the app is installed and they tap the invite link you send, they don't need to do anything else. The app syncs in background automatically. You see their data in your app. They never need to open it again.",
+          "Yes. Once the app is installed and they tap the invite link you send, they don't need to do anything else. The app syncs in background automatically. The rest of the family sees their data in their own app. They never need to open it again.",
       },
       {
         q: "Can I see family members' location?",
@@ -273,23 +273,23 @@ const COPY = {
   },
   es: {
     hero_kicker: "Mesh Familia",
-    hero_h1: "Sabe si tus seres queridos están bien, sin preguntarlo cada día",
+    hero_h1: "La salud de toda la familia, en un solo panel",
     hero_sub:
-      "Creas un grupo, invitas a quien quieras (padres, pareja, hijos) y ves en un solo panel quién caminó hoy, quién durmió poco, quién tuvo una frecuencia cardíaca inusual. Privacidad primero: cada persona elige qué compartir.",
+      "Creas un grupo, invitas a quien quieras (padres, pareja, hijos), y cada uno comparte con los demás pasos, sueño y frecuencia cardíaca en un solo panel. Privacidad primero: cada persona elige qué compartir.",
     cta_primary: "Descarga la app",
     cta_secondary: "Cómo funciona",
     why_kicker: "Por qué lo necesitas",
-    why_h2: "Tres formas de estar cerca de quienes importan",
+    why_h2: "Tres situaciones, el mismo panel",
     why_items: [
       {
-        title: "Personas mayores independientes",
+        title: "Padres e hijos adultos",
         body:
-          "Tu madre vive sola y lleva el Galaxy Watch que le regalaste. No quieres ser invasivo, pero te gustaría saber si ha dejado de caminar o si su frecuencia cardíaca en reposo cambia. Mesh Familia te lo dice sin que ella tenga que abrir ninguna app ni enviarte mensajes.",
+          "Vivís en casas distintas pero os mantenéis al día: quién caminó hoy, quién durmió bien. Cada uno comparte sus propios datos con los demás, sin tener que preguntar ni escribir mensajes todos los días.",
       },
       {
         title: "Familia con hijos adolescentes",
         body:
-          "Tu hijo tiene la Mi Band. Quieres que se mueva, que duerma lo suficiente, que no fuerce el corazón entrenando sin control. Ves sus datos de salud en tu app: sin redes sociales, sin chats, solo números.",
+          "Tu hijo tiene la Mi Band, tú el Galaxy Watch. Veis los pasos, el sueño y la frecuencia cardíaca del otro en la misma app: sin redes sociales, sin chats, solo números compartidos entre vosotros.",
       },
       {
         title: "Parejas",
@@ -320,7 +320,7 @@ const COPY = {
     privacy_h2: "Lo que ves y lo que NUNCA verás",
     privacy_columns: [
       {
-        title: "Qué ve el administrador del grupo",
+        title: "Qué ven los demás miembros",
         items: [
           "El nombre que eligió el miembro (por ejemplo, 'Mamá', 'Luis')",
           "Recuento diario de pasos",
@@ -353,9 +353,9 @@ const COPY = {
     faq_h2: "Dudas y respuestas",
     faqs: [
       {
-        q: "Mi madre/mi padre no sabe mucho de tecnología. ¿Puede usarla?",
+        q: "Un familiar no es muy hábil con la tecnología. ¿Puede usarla?",
         a:
-          "Sí. Una vez instalada la app y tocado el enlace de invitación que le envías, no tiene que hacer nada más. La app sincroniza sola en segundo plano. Tú ves sus datos desde tu app. Él o ella no necesita volver a abrirla nunca más.",
+          "Sí. Una vez instalada la app y tocado el enlace de invitación que le envías, no tiene que hacer nada más. La app sincroniza sola en segundo plano. El resto de la familia ve sus datos desde su propia app. No necesita volver a abrirla nunca más.",
       },
       {
         q: "¿Puedo ver la ubicación de los miembros de la familia?",
@@ -389,23 +389,23 @@ const COPY = {
   },
   de: {
     hero_kicker: "Mesh Familie",
-    hero_h1: "Sieh, wie es deinen Liebsten geht, ohne täglich nachfragen zu müssen",
+    hero_h1: "Die Gesundheit der ganzen Familie, in einem Dashboard",
     hero_sub:
-      "Du erstellst eine Gruppe, lädst ein, wen du möchtest (Eltern, Partner, Kinder), und siehst in einem Dashboard, wer heute gelaufen ist, wer schlecht geschlafen hat, wessen Herzfrequenz gestiegen ist. Datenschutz an erster Stelle: Jeder entscheidet selbst, was er teilt.",
+      "Du erstellst eine Gruppe, lädst ein, wen du möchtest (Eltern, Partner, Kinder), und jeder teilt Schritte, Schlaf und Herzfrequenz mit den anderen in einem Dashboard. Datenschutz an erster Stelle: Jeder entscheidet selbst, was er teilt.",
     cta_primary: "App herunterladen",
     cta_secondary: "So funktioniert es",
     why_kicker: "Warum es wichtig ist",
-    why_h2: "Drei Wege, nah bei denen zu sein, die dir wichtig sind",
+    why_h2: "Drei Situationen, dasselbe Dashboard",
     why_items: [
       {
-        title: "Selbstständige ältere Eltern",
+        title: "Eltern und erwachsene Kinder",
         body:
-          "Deine Mutter lebt allein und trägt die Galaxy Watch, die du ihr geschenkt hast. Du möchtest nicht aufdringlich sein, aber du würdest gerne wissen, ob sie aufgehört hat zu laufen oder ob sich ihre Ruheherzfrequenz verändert. Mesh Familie informiert dich, ohne dass sie eine App öffnen oder dir schreiben muss.",
+          "Ihr lebt in unterschiedlichen Haushalten, haltet euch aber gegenseitig auf dem Laufenden: wer heute gelaufen ist, wer gut geschlafen hat. Jeder teilt seine eigenen Daten mit den anderen, ohne täglich nachfragen oder schreiben zu müssen.",
       },
       {
         title: "Familie mit Teenagern",
         body:
-          "Dein Kind hat ein Mi Band. Du möchtest, dass es sich bewegt, ausreichend schläft und sein Herz beim Training nicht überlastet. Sieh seine Gesundheitsdaten in deiner App: kein Social Media, kein Chat, nur Zahlen.",
+          "Dein Kind hat ein Mi Band, du eine Galaxy Watch. Ihr seht gegenseitig Schritte, Schlaf und Herzfrequenz in derselben App: kein Social Media, kein Chat, nur Zahlen, die ihr miteinander teilt.",
       },
       {
         title: "Partner und Eheleute",
@@ -436,7 +436,7 @@ const COPY = {
     privacy_h2: "Was du siehst und was du NIEMALS siehst",
     privacy_columns: [
       {
-        title: "Was der Gruppen-Admin sieht",
+        title: "Was die anderen Mitglieder sehen",
         items: [
           "Name, den das Mitglied gewählt hat (z. B. 'Mama', 'Luca')",
           "Tägliche Schrittanzahl",
@@ -469,9 +469,9 @@ const COPY = {
     faq_h2: "Fragen und Antworten",
     faqs: [
       {
-        q: "Meine Mutter/mein Vater ist nicht technikaffin. Kann sie/er die App nutzen?",
+        q: "Ein Familienmitglied ist nicht sehr technikaffin. Kann es die App trotzdem nutzen?",
         a:
-          "Ja. Sobald die App installiert ist und sie/er auf den Einladungslink tippt, den du sendest, ist nichts weiter nötig. Die App synchronisiert automatisch im Hintergrund. Du siehst ihre/seine Daten in deiner App. Sie/er muss die App nie wieder öffnen.",
+          "Ja. Sobald die App installiert ist und die Person auf den Einladungslink tippt, den du sendest, ist nichts weiter nötig. Die App synchronisiert automatisch im Hintergrund. Der Rest der Familie sieht die Daten in der eigenen App. Die Person muss die App nie wieder öffnen.",
       },
       {
         q: "Kann ich den Standort der Familienmitglieder sehen?",
@@ -505,23 +505,23 @@ const COPY = {
   },
   pt: {
     hero_kicker: "Mesh Família",
-    hero_h1: "Veja como seus entes queridos estão, sem precisar perguntar todo dia",
+    hero_h1: "A saúde de toda a família, em um único painel",
     hero_sub:
-      "Você cria um grupo, convida quem quiser (pais, parceiro, filhos) e vê em um único painel quem caminhou hoje, quem dormiu pouco, quem teve a frequência cardíaca elevada. Privacidade em primeiro lugar: cada pessoa escolhe o que compartilhar.",
+      "Você cria um grupo, convida quem quiser (pais, parceiro, filhos), e cada um compartilha com os demais passos, sono e frequência cardíaca em um único painel. Privacidade em primeiro lugar: cada pessoa escolhe o que compartilhar.",
     cta_primary: "Baixe o app",
     cta_secondary: "Como funciona",
     why_kicker: "Por que faz diferença",
-    why_h2: "Três formas de estar perto de quem importa",
+    why_h2: "Três situações, o mesmo painel",
     why_items: [
       {
-        title: "Pais idosos independentes",
+        title: "Pais e filhos adultos",
         body:
-          "Sua mãe mora sozinha e usa o Galaxy Watch que você deu de presente. Você não quer ser invasivo, mas gostaria de saber se ela parou de caminhar ou se a frequência cardíaca em repouso mudou. O Mesh Família te avisa sem que ela precise abrir nenhum app ou te mandar mensagem.",
+          "Vocês moram em casas diferentes, mas se mantêm atualizados um sobre o outro: quem caminhou hoje, quem dormiu bem. Cada um compartilha seus próprios dados com os demais, sem precisar perguntar ou mandar mensagem todo dia.",
       },
       {
         title: "Família com filhos adolescentes",
         body:
-          "Seu filho tem uma Mi Band. Você quer que ele se mexa, durma bem e não sobrecarregue o coração se exercitando sem controle. Veja os dados de saúde dele no seu app: sem redes sociais, sem chats, só números.",
+          "Seu filho tem uma Mi Band, você tem um Galaxy Watch. Vocês veem os passos, o sono e a frequência cardíaca um do outro no mesmo app: sem redes sociais, sem chats, só números compartilhados entre vocês.",
       },
       {
         title: "Casais e parceiros",
@@ -552,7 +552,7 @@ const COPY = {
     privacy_h2: "O que você vê e o que você NUNCA vê",
     privacy_columns: [
       {
-        title: "O que o administrador do grupo vê",
+        title: "O que os outros membros veem",
         items: [
           "Nome que o membro escolheu (por exemplo, 'Mãe', 'Lucas')",
           "Contagem diária de passos",
@@ -585,9 +585,9 @@ const COPY = {
     faq_h2: "Dúvidas e respostas",
     faqs: [
       {
-        q: "Minha mãe/meu pai não tem muita familiaridade com tecnologia. Consegue usar?",
+        q: "Um familiar não tem muita intimidade com tecnologia. Consegue usar?",
         a:
-          "Sim. Depois de instalar o app e tocar no link de convite que você envia, ela/ele não precisa fazer mais nada. O app sincroniza automaticamente em segundo plano. Você vê os dados dela/dele no seu app. Ela/ele nunca mais precisa abrir nada.",
+          "Sim. Depois de instalar o app e tocar no link de convite que você envia, essa pessoa não precisa fazer mais nada. O app sincroniza automaticamente em segundo plano. O resto da família vê os dados dela no próprio app. Ela nunca mais precisa abrir nada.",
       },
       {
         q: "Posso ver a localização dos membros da família?",
@@ -621,23 +621,23 @@ const COPY = {
   },
   fr: {
     hero_kicker: "Mesh Famille",
-    hero_h1: "Voyez si vos proches vont bien, sans leur demander chaque jour",
+    hero_h1: "La santé de toute la famille, dans un seul tableau de bord",
     hero_sub:
-      "Vous créez un groupe, invitez qui vous voulez (parents, partenaire, enfants) et voyez dans un seul tableau de bord qui a marché aujourd'hui, qui a mal dormi, dont la fréquence cardiaque a augmenté. La confidentialité d'abord: chacun choisit ce qu'il partage.",
+      "Vous créez un groupe, invitez qui vous voulez (parents, partenaire, enfants), et chacun partage avec les autres ses pas, son sommeil et sa fréquence cardiaque dans un seul tableau de bord. La confidentialité d'abord: chacun choisit ce qu'il partage.",
     cta_primary: "Téléchargez l'app",
     cta_secondary: "Comment ça marche",
     why_kicker: "Pourquoi c'est utile",
-    why_h2: "Trois façons de rester proches de ceux qui comptent",
+    why_h2: "Trois situations, le même tableau de bord",
     why_items: [
       {
-        title: "Parents âgés autonomes",
+        title: "Parents et enfants adultes",
         body:
-          "Votre mère vit seule et porte la Galaxy Watch que vous lui avez offerte. Vous ne voulez pas être intrusif, mais vous aimeriez savoir si elle a arrêté de marcher ou si sa fréquence cardiaque au repos change. Mesh Famille vous le dit sans qu'elle ait besoin d'ouvrir une application ou de vous envoyer un message.",
+          "Vous vivez dans des foyers différents mais vous vous tenez informés l'un l'autre: qui a marché aujourd'hui, qui a bien dormi. Chacun partage ses propres données avec les autres, sans avoir à demander ou à envoyer un message chaque jour.",
       },
       {
         title: "Famille avec des adolescents",
         body:
-          "Votre enfant a un Mi Band. Vous voulez qu'il bouge, dorme suffisamment et ne surcharge pas son coeur à l'entraînement. Consultez ses données de santé dans votre app: pas de réseaux sociaux, pas de chats, juste des chiffres.",
+          "Votre enfant a un Mi Band, vous avez une Galaxy Watch. Vous voyez mutuellement vos pas, votre sommeil et votre fréquence cardiaque dans la même app: pas de réseaux sociaux, pas de chats, juste des chiffres partagés entre vous.",
       },
       {
         title: "Partenaires et conjoints",
@@ -668,7 +668,7 @@ const COPY = {
     privacy_h2: "Ce que vous voyez et ce que vous ne verrez JAMAIS",
     privacy_columns: [
       {
-        title: "Ce que l'administrateur du groupe voit",
+        title: "Ce que voient les autres membres",
         items: [
           "Le nom que le membre a choisi (par exemple, 'Maman', 'Luca')",
           "Nombre de pas quotidien",
@@ -701,9 +701,9 @@ const COPY = {
     faq_h2: "Questions et réponses",
     faqs: [
       {
-        q: "Ma mère/mon père n'est pas à l'aise avec la technologie. Peut-il ou elle l'utiliser?",
+        q: "Un membre de la famille n'est pas très à l'aise avec la technologie. Peut-il l'utiliser?",
         a:
-          "Oui. Une fois l'app installée et le lien d'invitation que vous envoyez touché, il n'y a rien d'autre à faire. L'app synchronise automatiquement en arrière-plan. Vous voyez ses données dans votre app. Il ou elle n'a plus jamais besoin de l'ouvrir.",
+          "Oui. Une fois l'app installée et le lien d'invitation que vous envoyez touché, cette personne n'a rien d'autre à faire. L'app synchronise automatiquement en arrière-plan. Le reste de la famille voit ses données dans sa propre app. Elle n'a plus jamais besoin de l'ouvrir.",
       },
       {
         q: "Puis-je voir la localisation des membres de la famille?",
@@ -737,23 +737,23 @@ const COPY = {
   },
   pl: {
     hero_kicker: "Mesh Rodzina",
-    hero_h1: "Sprawdz, czy Twoi bliscy czuja sie dobrze, nie pytajac o to codziennie",
+    hero_h1: "Zdrowie calej rodziny, w jednym panelu",
     hero_sub:
-      "Tworzysz grupe, zapraszasz kogo chcesz (rodziców, partnera, dzieci) i widzisz w jednym panelu, kto dzis chodzil, kto malo spal, u kogo wzroslo tetno. Prywatnosc przede wszystkim: kazdy sam decyduje, co udostepnia.",
+      "Tworzysz grupe, zapraszasz kogo chcesz (rodziców, partnera, dzieci), a kazdy udostepnia innym swoje kroki, sen i tetno w jednym panelu. Prywatnosc przede wszystkim: kazdy sam decyduje, co udostepnia.",
     cta_primary: "Pobierz aplikacje",
     cta_secondary: "Jak to dziala",
     why_kicker: "Dlaczego warto",
-    why_h2: "Trzy sposoby na bycie blisko tych, którzy sa wazni",
+    why_h2: "Trzy sytuacje, ten sam panel",
     why_items: [
       {
-        title: "Samodzielni starsi rodzice",
+        title: "Rodzice i dorosle dzieci",
         body:
-          "Twoja mama mieszka sama i nosi Galaxy Watch, który jej podarowales. Nie chcesz byc nachalny, ale chcialbys wiedziec, czy przestala chodzic albo czy jej tetno spoczynkowe sie zmienia. Mesh Rodzina powie Ci o tym bez koniecznosci otwierania przez nia aplikacji ani wysylania wiadomosci.",
+          "Mieszkacie osobno, ale trzymacie sie na biezaco: kto dzis chodzil, kto dobrze spal. Kazdy udostepnia swoje dane innym, bez koniecznosci pytania czy pisania wiadomosci codziennie.",
       },
       {
         title: "Rodzina z nastolatkami",
         body:
-          "Twoje dziecko ma Mi Band. Chcesz, zeby sie ruszalo, wysypialo i nie przeciazalo serca treningiem bez kontroli. Widzisz jego dane zdrowotne w swojej aplikacji: bez mediów spolecznosciowych, bez chatów, tylko liczby.",
+          "Twoje dziecko ma Mi Band, ty masz Galaxy Watch. Widzicie nawzajem swoje kroki, sen i tetno w tej samej aplikacji: bez mediów spolecznosciowych, bez czatów, tylko liczby, którymi sie dzielicie.",
       },
       {
         title: "Partnerzy i malzonkowie",
@@ -784,7 +784,7 @@ const COPY = {
     privacy_h2: "Co widzisz i czego NIGDY nie widzisz",
     privacy_columns: [
       {
-        title: "Co widzi administrator grupy",
+        title: "Co widza inni czlonkowie",
         items: [
           "Imie, które wybralo wybrany przez czlonka (np. 'Mama', 'Luca')",
           "Dzienna liczba kroków",
@@ -817,9 +817,9 @@ const COPY = {
     faq_h2: "Watpliwosci i odpowiedzi",
     faqs: [
       {
-        q: "Moja mama/mój tata nie radzi sobie z technologia. Da rade uzyc aplikacji?",
+        q: "Czlonek rodziny nie radzi sobie dobrze z technologia. Czy moze korzystac z aplikacji?",
         a:
-          "Tak. Po zainstalowaniu aplikacji i kliknieciu w link zaproszenia, który wyslesz, nie musi robic nic wiecej. Aplikacja synchronizuje sie automatycznie w tle. Ty widzisz jego/jej dane w swojej aplikacji. On/ona nie musi juz nigdy wiecej jej otwierac.",
+          "Tak. Po zainstalowaniu aplikacji i kliknieciu w link zaproszenia, który wyslesz, ta osoba nie musi robic nic wiecej. Aplikacja synchronizuje sie automatycznie w tle. Reszta rodziny widzi jej dane we wlasnej aplikacji. Nie musi juz nigdy jej otwierac.",
       },
       {
         q: "Czy moge zobaczyc lokalizacje czlonków rodziny?",
@@ -853,23 +853,23 @@ const COPY = {
   },
   tr: {
     hero_kicker: "Mesh Aile",
-    hero_h1: "Yakinlarinizin iyi olup olmadigini her gün sormadan ögrenir misiniz",
+    hero_h1: "Tüm ailenizin sagligi, tek bir panelde",
     hero_sub:
-      "Bir grup olusturursunuz, istediginiz kisiyi davet edersiniz (ebeveynler, partner, cocuklar) ve tek bir panelde bugün kimin yürüdügünü, kimin az uyudugunu, kimin kalp hizinin arttigini görürsünüz. Gizlilik önce gelir: herkes neyi paylasmak istedigine kendisi karar verir.",
+      "Bir grup olusturursunuz, istediginiz kisiyi davet edersiniz (ebeveynler, partner, cocuklar), ve herkes birbiriyle adim, uyku ve kalp hizini tek bir panelde paylasir. Gizlilik önce gelir: herkes neyi paylasacagina kendisi karar verir.",
     cta_primary: "Uygulamayi indir",
     cta_secondary: "Nasil calisir",
     why_kicker: "Neden gerekli",
-    why_h2: "Önemli kisilerle yakin kalmak icin üc yol",
+    why_h2: "Üc durum, ayni panel",
     why_items: [
       {
-        title: "Bagimsiz yasli ebeveynler",
+        title: "Ebeveynler ve yetiskin cocuklar",
         body:
-          "Anneniz yalniz yasiyor ve ona hediye ettiginiz Galaxy Watch'u takiyor. Müdahaleci olmak istemiyorsunuz ama yürümeyi birakip birakmadigini ya da dinlenme kalp hizinin degisip degismedigini bilmek istiyorsunuz. Mesh Aile bunu ona bir uygulama actirmaniza ya da mesaj gondertmenize gerek kalmadan size söyler.",
+          "Farkli evlerde yasarsiniz ama birbirinizden haberdar olursunuz: bugün kim yürüdü, kim iyi uyudu. Herkes kendi verilerini digerleriyle paylasir, her gün sormaya ya da mesaj atmaya gerek kalmadan.",
       },
       {
         title: "Ergenlik caginda cocugu olan aileler",
         body:
-          "Cocugunuzun Mi Band'i var. Hareket etmesini, yeterince uyumasini ve kontrol etmeksizin antrenman yaparak kalbini yormamasini istiyorsunuz. Saglik verilerini kendi uygulamanizda görün: sosyal medya yok, sohbet yok, sadece sayilar.",
+          "Cocugunuzun Mi Band'i var, sizin Galaxy Watch'unuz. Ayni uygulamada birbirinizin adimlarini, uykusunu ve kalp hizini görürsünüz: sosyal medya yok, sohbet yok, sadece aranizda paylasilan sayilar.",
       },
       {
         title: "Esler ve partnerler",
@@ -900,7 +900,7 @@ const COPY = {
     privacy_h2: "Ne görürsünüz ve ASLA ne görmezsiniz",
     privacy_columns: [
       {
-        title: "Grup yöneticisinin gördükleri",
+        title: "Diger üyelerin gördükleri",
         items: [
           "Üyenin sectigi isim (örnegin 'Anne', 'Luca')",
           "Günlük adim sayisi",
@@ -933,9 +933,9 @@ const COPY = {
     faq_h2: "Sorular ve yanitlar",
     faqs: [
       {
-        q: "Annem/babam teknolojiyi pek bilmiyor. Kullanabilir mi?",
+        q: "Bir aile üyesi teknolojiyle pek arasi iyi degil. Uygulamayi kullanabilir mi?",
         a:
-          "Evet. Uygulama yüklendikten ve gonderdiginiz davet linkine tiklandiktan sonra baska bir sey yapmasi gerekmiyor. Uygulama arka planda otomatik olarak senkronize olur. Onlarin verilerini kendi uygulamanizda görürsünüz. Onlarin bir daha uygulamayi acmasi gerekmiyor.",
+          "Evet. Uygulama yüklendikten ve gonderdiginiz davet linkine tiklandiktan sonra baska bir sey yapmasi gerekmiyor. Uygulama arka planda otomatik olarak senkronize olur. Ailenin geri kalani verilerini kendi uygulamasinda görür. Bir daha uygulamayi acmasina gerek kalmaz.",
       },
       {
         q: "Aile üyelerinin konumunu görebilir miyim?",
@@ -999,36 +999,36 @@ export async function generateMetadata({
         ? "Mesh Aile — Cok yakinda | FitMesh Sync"
         : "Family Mesh — Coming soon | FitMesh Sync")
     : (lc === "it"
-        ? "Mesh Famiglia — Monitora la salute dei tuoi cari | FitMesh Sync"
+        ? "Mesh Famiglia — Condividi la salute con la tua famiglia | FitMesh Sync"
         : lc === "es"
-        ? "Mesh Familia — Controla la salud de tus seres queridos | FitMesh Sync"
+        ? "Mesh Familia — Comparte tu salud con tu familia | FitMesh Sync"
         : lc === "de"
-        ? "Mesh Familie — Überwache die Gesundheit deiner Liebsten | FitMesh Sync"
+        ? "Mesh Familie — Teile Gesundheitsdaten mit deiner Familie | FitMesh Sync"
         : lc === "pt"
-        ? "Mesh Família — Acompanhe a saúde de quem você ama | FitMesh Sync"
+        ? "Mesh Família — Compartilhe a saúde com sua família | FitMesh Sync"
         : lc === "fr"
-        ? "Mesh Famille — Suivez la santé de vos proches | FitMesh Sync"
+        ? "Mesh Famille — Partagez votre santé avec votre famille | FitMesh Sync"
         : lc === "pl"
-        ? "Mesh Rodzina — Monitoruj zdrowie swoich bliskich | FitMesh Sync"
+        ? "Mesh Rodzina — Dziel się zdrowiem z rodziną | FitMesh Sync"
         : lc === "tr"
-        ? "Mesh Aile — Yakinlarinizin sagligini takip edin | FitMesh Sync"
-        : "Family Mesh — Monitor your loved ones' health | FitMesh Sync");
+        ? "Mesh Aile — Sagliginizi ailenizle paylasin | FitMesh Sync"
+        : "Family Mesh — Share health with your family | FitMesh Sync");
   const description = COMING_SOON
     ? (lc === "it"
-        ? "Mesh Famiglia: monitora passi, sonno e battito dei tuoi cari in un'unica dashboard privacy-first. Feature in arrivo nei prossimi mesi: iscriviti alla waitlist per essere avvisato al lancio."
+        ? "Mesh Famiglia: condividi passi, sonno e frequenza cardiaca con la tua famiglia in un'unica dashboard privacy-first. Feature in arrivo nei prossimi mesi: iscriviti alla waitlist per essere avvisato al lancio."
         : lc === "es"
-        ? "Mesh Familia: controla pasos, sueño y frecuencia cardíaca de tus seres queridos en un panel privado. Próximamente: únete a la lista de espera para recibir aviso en el lanzamiento."
+        ? "Mesh Familia: comparte pasos, sueño y frecuencia cardíaca con tu familia en un panel privado. Próximamente: únete a la lista de espera para recibir aviso en el lanzamiento."
         : lc === "de"
-        ? "Mesh Familie: Schritte, Schlaf und Herzfrequenz deiner Liebsten in einem datenschutzfreundlichen Dashboard. Demnächst verfügbar: Trage dich in die Warteliste ein und erhalte eine Benachrichtigung zum Launch."
+        ? "Mesh Familie: Teile Schritte, Schlaf und Herzfrequenz mit deiner Familie in einem datenschutzfreundlichen Dashboard. Demnächst verfügbar: Trage dich in die Warteliste ein und erhalte eine Benachrichtigung zum Launch."
         : lc === "pt"
-        ? "Mesh Família: acompanhe passos, sono e frequência cardíaca de quem você ama em um painel com privacidade em primeiro lugar. Em breve: entre na lista de espera para ser avisado no lançamento."
+        ? "Mesh Família: compartilhe passos, sono e frequência cardíaca com sua família em um painel com privacidade em primeiro lugar. Em breve: entre na lista de espera para ser avisado no lançamento."
         : lc === "fr"
-        ? "Mesh Famille: suivez les pas, le sommeil et la fréquence cardiaque de vos proches dans un tableau de bord axé sur la confidentialité. Bientôt disponible: rejoignez la liste d'attente pour être informé au lancement."
+        ? "Mesh Famille: partagez vos pas, votre sommeil et votre fréquence cardiaque avec votre famille dans un tableau de bord axé sur la confidentialité. Bientôt disponible: rejoignez la liste d'attente pour être informé au lancement."
         : lc === "pl"
-        ? "Mesh Rodzina: sledz kroki, sen i tetno swoich bliskich w jednym panelu z prywatnoscią na pierwszym miejscu. Wkrótce: dolacz do listy oczekujacych, aby otrzymac powiadomienie przy starcie."
+        ? "Mesh Rodzina: dziel sie krokami, snem i tetnem z rodzina w jednym panelu z prywatnoscia na pierwszym miejscu. Wkrótce: dolacz do listy oczekujacych, aby otrzymac powiadomienie przy starcie."
         : lc === "tr"
-        ? "Mesh Aile: yakinlarinizin adimlarini, uyku ve kalp hizini gizlilik öncelikli tek bir panelde takip edin. Cok yakinda: lansmanda bildirim almak icin bekleme listesine kaydolun."
-        : "Family Mesh: monitor steps, sleep and heart rate of your loved ones in one privacy-first dashboard. Coming in the next months: join the waitlist to be notified at launch.")
+        ? "Mesh Aile: adimlarinizi, uykunuzu ve kalp hizinizi ailenizle gizlilik öncelikli tek bir panelde paylasin. Cok yakinda: lansmanda bildirim almak icin bekleme listesine kaydolun."
+        : "Family Mesh: share steps, sleep and heart rate with your family in one privacy-first dashboard. Coming in the next months: join the waitlist to be notified at launch.")
     : (lc === "it"
         ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, funzione Pro fino a 8 membri (14 giorni di prova gratis), niente posizione condivisa."
         : lc === "es"
@@ -1089,15 +1089,15 @@ export default async function FamigliaLanding({
     "@id": `${SITE_URL}${path}#webpage`,
     url: `${SITE_URL}${path}`,
     name: lc === "it"
-      ? "Mesh Famiglia — Monitora la salute dei tuoi cari"
+      ? "Mesh Famiglia — Condividi la salute con la tua famiglia"
       : lc === "es"
-      ? "Mesh Familia — Controla la salud de tus seres queridos"
-      : "Family Mesh — Monitor your loved ones' health",
+      ? "Mesh Familia — Comparte tu salud con tu familia"
+      : "Family Mesh — Share health with your family",
     description: lc === "it"
-      ? "Crea un gruppo famiglia, invita genitori/partner/figli, vedi passi/sonno/battito di ognuno in una dashboard. Privacy-first."
+      ? "Crea un gruppo famiglia, invita genitori/partner/figli: ognuno condivide passi/sonno/frequenza cardiaca con gli altri in un'unica dashboard. Privacy-first."
       : lc === "es"
-      ? "Crea un grupo familiar, invita a padres/pareja/hijos, ve pasos/sueño/frecuencia cardíaca de cada uno en un panel. Privacidad primero."
-      : "Create a family group, invite parents/partner/kids, see steps/sleep/heart rate of each in one dashboard. Privacy-first.",
+      ? "Crea un grupo familiar, invita a padres/pareja/hijos: cada uno comparte pasos/sueño/frecuencia cardíaca con los demás en un solo panel. Privacidad primero."
+      : "Create a family group, invite parents/partner/kids: everyone shares steps/sleep/heart rate with each other in one dashboard. Privacy-first.",
     inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
     isPartOf: { "@id": `${SITE_URL}#website` },
     about: { "@id": `${SITE_URL}#mobile-app` },
@@ -1353,15 +1353,15 @@ function ComingSoonState({
   const copy = lc === "it"
     ? {
         kicker: "Mesh Famiglia",
-        h1: "In arrivo: monitora la salute dei tuoi cari, privacy-first",
-        sub: "Stiamo finendo Mesh Famiglia: una dashboard per vedere passi, sonno e battito di genitori, partner o figli, senza posizione condivisa, senza ads. Aprirà quando FitMesh Sync sarà disponibile su entrambi gli store (Android + iOS). Iscriviti alla waitlist per essere avvisato al lancio.",
+        h1: "In arrivo: la salute di tutta la famiglia, in un'unica dashboard",
+        sub: "Stiamo finendo Mesh Famiglia: crei un gruppo e ogni membro condivide con gli altri passi, sonno e frequenza cardiaca, tutto in un'unica dashboard. Niente posizione condivisa, niente pubblicità. Aprirà quando FitMesh Sync sarà disponibile su entrambi gli store (Android + iOS). Iscriviti alla waitlist per essere avvisato al lancio.",
         cta: "Iscriviti alla waitlist",
         secondary: "Nel frattempo: scarica FitMesh Sync su Android",
         why_h2: "Perché serve",
         why_items: [
           {
-            title: "Genitori anziani autonomi",
-            body: "Vorresti sapere se tuo padre o tua madre ha camminato oggi, se ha dormito bene, se la frequenza cardiaca è stabile, senza chiedere ogni giorno e senza app invasive.",
+            title: "Un nucleo familiare, una sola vista",
+            body: "Genitori, partner, figli: ognuno condivide passi, sonno e frequenza cardiaca con gli altri membri della famiglia, in un'unica dashboard. Niente app da controllare una per una.",
           },
           {
             title: "Privacy by design",
@@ -1378,15 +1378,15 @@ function ComingSoonState({
     : lc === "es"
     ? {
         kicker: "Mesh Familia",
-        h1: "Próximamente: controla la salud de tus seres queridos, con privacidad primero",
-        sub: "Estamos terminando Mesh Familia: un panel para ver pasos, sueño y frecuencia cardíaca de padres, pareja o hijos, sin ubicación compartida y sin publicidad. Se lanzará cuando FitMesh Sync esté disponible en ambas tiendas (Android + iOS). Únete a la lista de espera para recibir aviso en el lanzamiento.",
+        h1: "Próximamente: la salud de toda la familia, en un solo panel",
+        sub: "Estamos terminando Mesh Familia: creas un grupo y cada miembro comparte con los demás pasos, sueño y frecuencia cardíaca, todo en un único panel. Sin ubicación compartida, sin publicidad. Se lanzará cuando FitMesh Sync esté disponible en ambas tiendas (Android + iOS). Únete a la lista de espera para recibir aviso en el lanzamiento.",
         cta: "Únete a la lista de espera",
         secondary: "Mientras tanto: descarga FitMesh Sync en Android",
         why_h2: "Por qué lo necesitas",
         why_items: [
           {
-            title: "Personas mayores independientes",
-            body: "Te gustaría saber si tu padre o tu madre caminó hoy, si durmió bien, si su frecuencia cardíaca en reposo es estable, sin preguntarlo cada día y sin apps invasivas.",
+            title: "Un núcleo familiar, una sola vista",
+            body: "Padres, pareja, hijos: cada uno comparte pasos, sueño y frecuencia cardíaca con el resto de la familia, en un único panel. Sin tener que revisar apps por separado, una por una.",
           },
           {
             title: "Privacidad por diseño",
@@ -1402,15 +1402,15 @@ function ComingSoonState({
       }
     : {
         kicker: "Family Mesh",
-        h1: "Coming soon: monitor your loved ones' health, privacy-first",
-        sub: "We're finishing Family Mesh: a dashboard to see steps, sleep, and heart rate of parents, partners, or kids, with no location sharing and no ads. It will launch once FitMesh Sync is available on both stores (Android + iOS). Join the waitlist to be notified at launch.",
+        h1: "Coming soon: your whole family's health, in one dashboard",
+        sub: "We're finishing Family Mesh: you create a group and every member shares steps, sleep, and heart rate with each other, all in one dashboard. No location sharing, no ads. It will launch once FitMesh Sync is available on both stores (Android + iOS). Join the waitlist to be notified at launch.",
         cta: "Join the waitlist",
         secondary: "Meanwhile: download FitMesh Sync on Android",
         why_h2: "Why it matters",
         why_items: [
           {
-            title: "Independent elderly parents",
-            body: "You'd like to know if your father or mother walked today, slept well, has a stable resting heart rate, without asking every day and without invasive apps.",
+            title: "One household, one shared view",
+            body: "Parents, partners, kids: everyone shares steps, sleep, and heart rate with the rest of the family, in one dashboard. No need to check separate apps one by one.",
           },
           {
             title: "Privacy by design",

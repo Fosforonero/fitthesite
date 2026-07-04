@@ -741,14 +741,29 @@ export default async function BlogArticle({
           />
         </div>
 
-        {/* TL;DR — il succo in 10 secondi, stile Claude. Solo se presente. */}
+        {/* TL;DR — il succo in 10 secondi. Un solo box per post: NON aggiungere un
+            callout "TL;DR" manuale nel body, duplica questo (vedi check-blog-integrity.ts). */}
         {post.tldr && tll(post.tldr, lc).length > 0 && (
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <div className="rounded-card border border-brand-aqua/30 bg-gradient-to-br from-brand-aqua/[0.07] to-bg-card p-5 sm:p-6">
-              <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-                {t.tldrLabel}
-              </p>
-              <ul className="mt-3 space-y-2">
+            <div className="relative overflow-hidden rounded-card border border-brand-aqua/25 bg-gradient-to-br from-brand-aqua/[0.08] via-bg-card to-bg-card p-5 sm:p-6">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-12 -right-12 h-36 w-36 rounded-full bg-brand-aqua/10 blur-3xl"
+              />
+              <div className="relative flex items-center gap-2.5">
+                <span
+                  aria-hidden
+                  className="flex h-6 w-6 flex-none items-center justify-center rounded-md bg-brand-gradient"
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" fill="#050816" />
+                  </svg>
+                </span>
+                <p className="text-xs uppercase tracking-[0.2em] text-brand-aqua font-bold">
+                  {t.tldrLabel}
+                </p>
+              </div>
+              <ul className="relative mt-4 space-y-2.5">
                 {tll(post.tldr, lc).map((point, i) => (
                   <li key={i} className="flex gap-2.5 text-text-secondary leading-relaxed">
                     <span aria-hidden className="text-brand-aqua mt-1.5 flex-none">

@@ -538,22 +538,22 @@ export default async function AboutPage({
           className="mt-16 font-display text-display font-semibold tracking-tightest text-text-primary"
         >
           {t(
-            "Modalità famiglia (in arrivo)",
-            "Family mode (coming soon)",
-            "Mesh Familia (próximamente)",
-            "Mesh Familie (demnächst verfügbar)",
-            "Mesh Família (em breve)",
-            "Mesh Famille (bientôt disponible)",
+            "Mesh Famiglia",
+            "Family Mesh",
+            "Mesh Familia",
+            "Mesh Familie",
+            "Mesh Família",
+            "Mesh Famille",
           )}
         </h2>
         <p className="mt-4 text-text-secondary leading-relaxed">
           {t(
-            "Dal Q4 2026 attiveremo il gruppo famiglia: aggiungi parenti (es. un genitore anziano) e ricevi notifica se non sincronizzano al mattino. Pensato per chi vuole tenere d'occhio i propri cari senza diventare invasivo. Compliance GDPR esplicita: ogni utente del gruppo deve dare consenso scritto in-app per condividere i propri dati col caregiver.",
-            "From Q4 2026 we'll enable family groups: add relatives (e.g. an elderly parent) and get notified if they don't sync in the morning. Built for people who want to keep an eye on loved ones without being invasive. Explicit GDPR compliance: each group member must give written in-app consent to share their data with the caregiver.",
-            "Desde el Q4 de 2026 activaremos el grupo familiar: añade familiares (por ejemplo, un padre o madre mayor) y recibe una notificación si no sincronizan por la mañana. Diseñado para quienes quieren estar pendientes de sus seres queridos sin resultar invasivos. Cumplimiento explícito del RGPD: cada miembro del grupo debe dar su consentimiento escrito dentro de la app para compartir sus datos con los cuidadores.",
-            "Ab Q4 2026 aktivieren wir Familiengruppen: Füge Familienmitglieder (z. B. einen älteren Elternteil) hinzu und erhalte eine Benachrichtigung, wenn sie morgens nicht synchronisieren. Gedacht für Menschen, die ihre Liebsten im Blick behalten möchten, ohne aufdringlich zu sein. Explizite DSGVO-Konformität: Jedes Gruppenmitglied muss in der App schriftlich zustimmen, seine Daten mit der Betreuungsperson zu teilen.",
-            "A partir do Q4 de 2026, ativaremos os grupos familiares: adicione familiares (por exemplo, um pai ou mãe idoso) e receba uma notificação se eles não sincronizarem pela manhã. Feito para quem quer acompanhar seus entes queridos sem ser invasivo. Conformidade explícita com o RGPD: cada membro do grupo deve dar consentimento por escrito no app para compartilhar seus dados com o cuidador.",
-            "À partir du Q4 2026, nous activerons les groupes familiaux: ajoutez des proches (par exemple un parent âgé) et recevez une notification s'ils ne synchronisent pas le matin. Conçu pour ceux qui souhaitent garder un oeil sur leurs proches sans être intrusifs. Conformité RGPD explicite: chaque membre du groupe doit donner son consentement écrit dans l'application pour partager ses données avec l'aidant.",
+            "Mesh Famiglia ti permette di creare un gruppo con chi vuoi (genitori, partner, figli): ogni membro condivide passi, sonno e frequenza cardiaca con gli altri, in un'unica dashboard. Compliance GDPR esplicita: ogni utente del gruppo sceglie autonomamente cosa condividere e dà consenso scritto in-app prima di farlo.",
+            "Family Mesh lets you create a group with anyone you want (parents, partner, kids): every member shares steps, sleep and heart rate with the others, in one dashboard. Explicit GDPR compliance: each group member independently chooses what to share and gives written in-app consent before doing so.",
+            "Mesh Familia te permite crear un grupo con quien quieras (padres, pareja, hijos): cada miembro comparte pasos, sueño y frecuencia cardíaca con los demás, en un solo panel. Cumplimiento explícito del RGPD: cada miembro del grupo elige de forma independiente qué compartir y da su consentimiento por escrito en la app antes de hacerlo.",
+            "Mit Mesh Familie erstellst du eine Gruppe mit wem du möchtest (Eltern, Partner, Kinder): Jedes Mitglied teilt Schritte, Schlaf und Herzfrequenz mit den anderen, in einem Dashboard. Explizite DSGVO-Konformität: Jedes Gruppenmitglied entscheidet selbstständig, was es teilt, und gibt vorher eine schriftliche Zustimmung in der App.",
+            "O Mesh Família permite criar um grupo com quem você quiser (pais, parceiro, filhos): cada membro compartilha passos, sono e frequência cardíaca com os demais, em um único painel. Conformidade explícita com o RGPD: cada membro do grupo escolhe de forma independente o que compartilhar e dá consentimento por escrito no app antes de fazê-lo.",
+            "Mesh Famille vous permet de créer un groupe avec qui vous voulez (parents, partenaire, enfants): chaque membre partage ses pas, son sommeil et sa fréquence cardiaque avec les autres, dans un seul tableau de bord. Conformité RGPD explicite: chaque membre du groupe choisit indépendamment ce qu'il partage et donne son consentement écrit dans l'application avant de le faire.",
           )}
         </p>
 

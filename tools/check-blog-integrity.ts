@@ -1,10 +1,14 @@
 /**
- * Guardrail integrità blog — impedisce il ripetersi dei bug SEO trovati il 02/07.
+ * Guardrail integrità blog — impedisce il ripetersi dei bug SEO/contenuto trovati.
  *
  * Fallisce (exit 1) se:
  *  1. un post del blog non ha una entry `BLOG_SLUGS` con TUTTI i 10 locali non-IT
  *     (senza, quel post userebbe lo slug canonico IT in ogni lingua = SEO rotta);
  *  2. uno slug localizzato è vuoto o collide con un altro post nello stesso locale.
+ *  3. un post ha un callout nel body con titolo che contiene "TL;DR" (in QUALSIASI
+ *     lingua): il campo `post.tldr` già renderizza il SUO box in cima all'articolo,
+ *     un callout manuale duplicato crea due box "TL;DR" sulla stessa pagina (trovato
+ *     e rimosso il 04/07 su 2 post: colmi-ring-fitmesh, piu-smartwatch-insieme-dati-doppi).
  *
  * Uso (Docker, nessun runtime locale):
  *   docker run --rm -v "$PWD":/work -v "$PWD/fitthesite/node_modules":/work/fitthesite-f1/node_modules:ro \
@@ -16,6 +20,7 @@
 import { BLOG_POSTS } from "@/lib/blog/data";
 import { BLOG_SLUGS as SLUG_MAP } from "@/lib/blog/slugs";
 import { locales, UNTRANSLATED_CONTENT_LOCALES } from "@/lib/i18n";
+import type { BlogSection } from "@/lib/blog/types";
 
 // BLOG_SLUGS copre i 10 locali "stabili": l'IT usa il canonico, e i locali
 // nordici (UNTRANSLATED_CONTENT_LOCALES) usano anch'essi il canonico per gli
@@ -56,6 +61,19 @@ for (const lc of NON_IT) {
       seen.set(s, post.slug);
     }
   }
+}
+
+// 3. Nessun callout nel body duplica il box TL;DR con un titolo "TL;DR...".
+for (const post of BLOG_POSTS) {
+  (post.body as BlogSection[]).forEach((section, i) => {
+    if (section.type !== "callout" || !section.title) return;
+    const titles = Object.values(section.title as Record<string, string | undefined>);
+    if (titles.some((t) => t && /tl;dr/i.test(t))) {
+      problems.push(
+        `[tldr-duplicato] "${post.slug}" body[${i}] è un callout con "TL;DR" nel titolo: duplica il box post.tldr già renderizzato in cima. Rimuovere il callout.`,
+      );
+    }
+  });
 }
 
 if (problems.length > 0) {

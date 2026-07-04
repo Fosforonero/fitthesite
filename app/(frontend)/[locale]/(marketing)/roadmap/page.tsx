@@ -496,10 +496,10 @@ const COLUMNS: RoadmapColumn[] = [
       },
       {
         status: "exploration",
-        title: { it: "Family group + caregiver mode", en: "Family group + caregiver mode", es: "Grupo familiar + modo cuidadores", de: "Familiengruppe + Betreuungsmodus", pt: "Grupo familiar + modo cuidadores", fr: "Groupe familial + mode aidants", pl: "Mesh Rodzina + tryb opiekuna", tr: "Mesh Aile + bakim modu", nl: "Familiegroep + mantelzorgmodus", ja: "ファミリーグループ＋介護者モード", ko: "가족 그룹 + 돌봄 모드" },
+        title: { it: "Gruppo famiglia avanzato", en: "Advanced family group", es: "Grupo familiar + modo cuidadores", de: "Familiengruppe + Betreuungsmodus", pt: "Grupo familiar + modo cuidadores", fr: "Groupe familial + mode aidants", pl: "Mesh Rodzina + tryb opiekuna", tr: "Mesh Aile + bakim modu", nl: "Familiegroep + mantelzorgmodus", ja: "ファミリーグループ＋介護者モード", ko: "가족 그룹 + 돌봄 모드" },
         desc: {
-          it: "Condivisione dashboard limitata a persone di fiducia (genitori, caregiver) con permessi granulari e revoca istantanea.",
-          en: "Limited dashboard sharing with trusted people (parents, caregivers) via granular permissions and instant revocation.",
+          it: "Condivisione dashboard con la famiglia, con permessi granulari per metrica e revoca istantanea.",
+          en: "Dashboard sharing with your family, with granular per-metric permissions and instant revocation.",
           es: "Compartir el panel con personas de confianza (familiares, cuidadores) con permisos detallados y revocación instantánea.",
           de: "Eingeschränkte Dashboard-Freigabe für Vertrauenspersonen (Eltern, Betreuungspersonen) mit granularen Berechtigungen und sofortiger Widerrufsmöglichkeit.",
           pt: "Compartilhamento limitado do painel com pessoas de confiança (pais, cuidadores) via permissões granulares e revogação instantânea.",
