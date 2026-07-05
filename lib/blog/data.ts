@@ -91,6 +91,8 @@ import { post as doveSonoITuoiDatiServerUe } from "./posts/dove-sono-i-tuoi-dati
 import { post as meshFamigliaLancio } from "./posts/mesh-famiglia-lancio";
 import { post as fitmeshVsAlternativeSync } from "./posts/fitmesh-vs-alternative-sync";
 import { post as percheDiventareFounderFitmesh } from "./posts/perche-diventare-founder-fitmesh";
+// Stato Colmi ring: cosa funziona oggi (R02/R03) + sviluppo temperatura R09 (05/07)
+import { post as colmiR09TemperaturaSviluppo } from "./posts/colmi-r09-temperatura-sviluppo";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -167,6 +169,7 @@ const RAW_POSTS: BlogPost[] = [
   meshFamigliaLancio,
   fitmeshVsAlternativeSync,
   percheDiventareFounderFitmesh,
+  colmiR09TemperaturaSviluppo,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

@@ -15,6 +15,7 @@ const NEW = new Set([
   "mesh-famiglia-lancio",
   "fitmesh-vs-alternative-sync",
   "perche-diventare-founder-fitmesh",
+  "colmi-r09-temperatura-sviluppo",
 ]);
 
 async function main(): Promise<void> {

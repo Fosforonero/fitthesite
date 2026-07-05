@@ -715,6 +715,18 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "fitmesh-founder-ima-naru-riyuu",
     ko: "fitmesh-founder-jigeum-doeneun-iyu",
   },
+  "colmi-r09-temperatura-sviluppo": {
+    en: "colmi-r09-temperature-sensor-status",
+    es: "sensor-temperatura-colmi-r09-estado-actual",
+    de: "colmi-r09-temperatursensor-status",
+    pt: "sensor-temperatura-colmi-r09-status-atual",
+    fr: "capteur-temperature-colmi-r09-etat-actuel",
+    pl: "czujnik-temperatury-colmi-r09-status",
+    tr: "colmi-r09-sicaklik-sensoru-durumu",
+    nl: "colmi-r09-temperatuursensor-status",
+    ja: "colmi-r09-ondo-sensa-genjou",
+    ko: "colmi-r09-ondo-senseo-hyeonhwang",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {
