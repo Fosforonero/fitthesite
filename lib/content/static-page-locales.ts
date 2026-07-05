@@ -16,7 +16,7 @@ export const HOME_COMPLETE_LOCALES: readonly Locale[] = [
 ];
 
 export const ROADMAP_COMPLETE_LOCALES: readonly Locale[] = [
-  "it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko",
+  "it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi",
 ];
 
 export const ABOUT_TRANSLATED_LOCALES: readonly Locale[] = [
