@@ -549,7 +549,7 @@ export const post: BlogPost = {
           "**Balances connectées** : ajoute Withings Body Comp ou Body Cardio. Health Mate offre un export complet et une API stable.",
         ],
         pl: [
-          "**Domyślne**: Oura Ring Gen 4. Najlepsze sensorы snu, oficjalna API, miesięczny subscription (uwaga: pełne dane są związanе z płatnoścю).",
+          "**Domyślne**: Oura Ring Gen 4. Najlepsze sensory snu, oficjalna API, miesięczny abonament (uwaga: pełne dane są związane z płatnością).",
           "**Alternatywa**: Whoop 4.0. Tylko abonament, bez wyświetlacza, skupia się wyłącznie na HRV/rehabilitacji. Wyeksportowanie dostępne, ale ograniczone.",
           "**Dla kogo również chce zegarka**: Garmin Venu 3 lub Forerunner 265: Ocena Senu Garmin + HRV codziennie bez ograniczonych subskrypcji.",
           "**Balans i balans smart**: dodaj Withings Body Comp lub Body Cardio. Zdrowie Mate ma pełną eksportację i stabilne API.",

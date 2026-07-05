@@ -433,7 +433,7 @@ export const post: BlogPost = {
           pl: [
             "Sono",
             "Si",
-            "Ogólny czas oraz fazы (lékcyjny, głęboki, REM) jeśli zarejestrowane",
+            "Łączna liczba godzin oraz fazy snu (lekka, głęboka, REM), jeśli zarejestrowane",
           ],
           tr: [
             "Uykuyu",

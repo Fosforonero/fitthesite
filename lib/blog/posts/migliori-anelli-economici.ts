@@ -1041,7 +1041,7 @@ export const post: BlogPost = {
         ],
         pl: [
           "**Masz już smartwatch?** Jeśli tak, szukaj ankiety kompatibilej z FitMesh, aby unifikować dane. Jeśli nie, oceniaj, czy ankaeta jest wystarczająca dla Twoich potrzeb, czy też potrzebujesz również GPS.",
-          "**Co=\"<<FM_PH_0>> vuoi monitorare principalmente?** Sonno e recupero: l'anello è ideale. Sport con <<FM_TERM_0>>: ti serve anche il smartwatch.**",
+          "**Co chcesz monitorować przede wszystkim?** Sen i regeneracja: pierścień jest idealny. Sport z GPS: potrzebujesz również smartwatcha.",
           "**Jak jest Twój rzeczywisty budżet?** Poniżej 35 euro opcje OEM Colmi są solidne do użytku informacyjnego. Nie oczekuj precyzji klinicznej.",
           "**Czy pętla jest kompatybilna z FitMesh?** Sprawdź stronę integracji przed zakupem: kompatybilność zmienia doświadczenie.",
         ],

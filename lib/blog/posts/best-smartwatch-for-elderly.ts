@@ -782,7 +782,7 @@ export const post: BlogPost = {
           "**Częstotliwość serca ciągła**: wszystkie wymienione modele ją pomiarują. Użyteczne do monitorowania trendów i wyraźnych anomaliów.",
           "**ECG jednopłytka**: Apple Watch Series 4+ i Samsung Galaxy Watch 4+ mają tę funkcję. Może wykryć fibrilację atrium (AFib), ale jest to narzędzie diagnostyczne, a nie przekonawcze. Zawsze pokazuj go lekarzowi.",
           "**Ostrzegawcze wysokich/niskich ciśnień**: dostosowalne na Apple Watch i Samsung Galaxy Watch. Wyświetl notyfikację, gdy BPM przekroczy lub spadnie poniżej ustawionych próg.",
-          "**Nie zastępuje urządzenia lekarskie**: smartwatch nie jest monitorом Holtera, nie wykonuje ecokardiogramu, nie pomaga w mierzeniu ciśnienia krwi senownego za pomocą dedykowanego sensora. Komplementuje lekarski monitoren, nie zastępuje go.",
+          "**Nie zastępuje urządzeń medycznych**: smartwatch nie jest monitorem Holtera, nie wykonuje echokardiogramu, nie mierzy ciśnienia krwi za pomocą dedykowanego czujnika. Uzupełnia opiekę medyczną, ale jej nie zastępuje.",
         ],
         tr: [
           "**Devam eden kalp atesi**: tüm yukarıda listelenen modellerde ölçülüyor. Önemli olan, eğilimleri ve açıkça ortaya çıkan abartıları izlemek için.",

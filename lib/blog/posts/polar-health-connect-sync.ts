@@ -377,7 +377,7 @@ export const post: BlogPost = {
             "Polar Flow'u aç ve sağ üst köşede profil simgesine tıklayın.",
             "'Ayarlar'a gidin ve 'Bağlı Uygulamalar'ı kaydırın.",
             "'Sağlık Bağlantısı'na tıklayın ve ardından 'Sağlık Bağlantısına Bağlan'a tıklayın.",
-            "Bir izin diyalогuna gidin. Gerekli izinleri etkinleştirin: adımlar, uyku, kalp hızı, egzersiz oturumları (yazılımlar), beden ölçümü ve mevcutse VO2 Max.",
+            "Bir izin penceresi açılır. Şunlar için yazma izinlerini etkinleştirin: adımlar, uyku, kalp atış hızı, antrenmanlar (egzersiz oturumları), vücut ölçümleri ve varsa VO2 Max.",
             "'İzin Ver' düğmesine tıklayın. Onaylamak için. Polar Flow mevcut verilerini Sağlık Bağlantısına gönderecek.",
           ],
           nl: [

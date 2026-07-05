@@ -137,7 +137,7 @@ export const post: BlogPost = {
     ],
     pl: [
       "Anell Colmi się połącza bezpośrednio z FitMesh Sync poprzez Bluetooth, bez przechodzenia przez intermedialne aplikacje.",
-      "S:numel seno viene zarejestrowany ze wszystkimi fazami: głębokim, REM i lekkim, widocznych w panelu dashborду.",
+      "Sen jest rejestrowany ze wszystkimi fazami: głębokimi, REM i lekkimi, widocznymi w panelu dashboardu.",
       "Bateria pierścienia jest zawsze widoczna w aplikacji, a funkcja 'Znajdź pierścień' sprawia, że miga, aby łatwiej go zidentyfikować.",
       "Cel premiery: 7 dni rzeczywistych danych z pierścienia odblokowuje 6 miesięcy bezpłatnego Pro.",
     ],
@@ -250,7 +250,7 @@ export const post: BlogPost = {
         de: "Der am häufigsten gewünschte Datenpunkt war der detaillierte Schlaf, und der Colmi Ring liefert ihn mit drei Stufen: Tiefschlaf, REM und Leichtschlaf. Jeden Morgen findest du in der Dashboard die vollständige Aufschlüsselung der Nacht, mit den Minuten für jede Phase. Die Daten integrieren sich mit denen anderer verbundener Geräte ohne Doppelzählung: Wenn du auch einen Smartwatch trägst, behält FitMesh Sync den besten Wert und addiert nicht fälschlicherweise dieselben Stunden.",
         pt: "O dado mais solicitado era o sono detalhado, e o anel Colmi o entrega com três níveis: sono profundo, REM e leve. Toda manhã você encontra no painel o detalhamento completo da noite, com os minutos de cada fase. Os dados se integram com os de outros dispositivos conectados sem duplicações: se você também usa um smartwatch, FitMesh Sync mantém o melhor valor e não soma erroneamente as mesmas horas.",
         fr: "La donnée la plus demandée était le sommeil détaillé, et la bague Colmi le fournit avec trois niveaux: sommeil profond, REM et léger. Chaque matin, vous trouvez dans le tableau de bord la répartition complète de la nuit, avec les minutes pour chaque phase. Les données s'intègrent avec celles des autres appareils connectés sans double comptage: si vous portez aussi une montre connectée, FitMesh Sync conserve la meilleure valeur et n'additionne pas par erreur les mêmes heures.",
-        pl: "Najczęściej proszony był szczegółowy sen, a pęczek Colmi dostarcza go na trzech poziomach: sen głęboki, REM i lżejszy. Każdego ranka w panelu widokowym znajdziesz pełną podziałkę nocy, z minutami dla każdej fazы. Dane integrują się z innymi urządzeniami połączonego sprzętu bez powtarzania liczenia: jeśli nosisz również smartwatch, FitMesh Sync przechowuje najlepsze wartości i nie sumuje błędnie tych samych godzin.",
+        pl: "Najbardziej pożądanym parametrem był szczegółowy sen, a pierścień Colmi dostarcza go na trzech poziomach: sen głęboki, REM i lekki. Każdego ranka znajdziesz w panelu pełny podział nocy, z liczbą minut dla każdej fazy. Dane integrują się z danymi z innych podłączonych urządzeń bez podwójnego liczenia: jeśli nosisz również smartwatch, FitMesh Sync zachowuje najlepszą wartość i nie sumuje błędnie tych samych godzin.",
         tr: "Ensembledatum ist am häufigsten gefragt und wird vom Ring Colmi in drei Stufen angeboten: tiefes Schlafphasen, REM und leichtes Schlafphasen. Jeden Morgen findest du in der Dashboard die vollständige Aufteilung der Nacht, mit den Minuten für jede Phase. Die Daten integrieren sich mit denen anderer verbundener Geräte ohne Doppeltage: Wenn du auch einen akıllı saat FitMesh Sync trägst, hält es das beste Wert und fügt nicht falsch die gleichen Stunden hinzu.",
         nl: "Het meest gevraagde gegeven was gedetailleerde slaap, en de Colmi ring levert dat met drie niveaus: diepe slaap, REM en lichte slaap. Elke ochtend vind je in het dashboard een volledige uitsplitsing van de nacht, met minuten per fase. De gegevens worden geintegreerd met die van andere verbonden apparaten zonder dubbeltelling: als je ook een smartwatch draagt, behoudt FitMesh Sync de beste waarde en telt dezelfde uren niet foutief op.",
         ja: "最も要望の多かったのは詳細な睡眠データで、Colmiリングは3つのレベルで提供します。深い睡眠、REM、浅い睡眠です。毎朝ダッシュボードで夜間の完全な内訳を各ステージの分数とともに確認できます。他の接続デバイスのデータと二重カウントなしで統合されます。スマートウォッチも装着している場合、FitMesh Syncは最も詳細な値を保持し、同じ時間を誤って合算しません。",
@@ -340,7 +340,7 @@ export const post: BlogPost = {
         pl: [
           "**Zawsze widoczna bateria.** Poziom naładowania anelku pojawia się na głównym ekranie: nie musisz otworzyć żadnej oddzielnej aplikacji, aby wiedzieć kiedy i jak często go naładować.",
           "**Znajdź pęczek.** Zsunąłeś pęczek i nie go znajdziesz? Nacisk na aplikację sprawia, że się chwyci za światło przez kilka sekund, dzięki czemu natychmiast go zauważysz.",
-          "**Nie podwójny licznik.** Pierścień dodaje się do już istniejących źródeł, ale FitMesh Sync zarządza połączeniami: każda metryka jest zliczona tylko raz, korzystając z najbardziej precyzyjnego źródła dostępного.",
+          "**Brak podwójnego liczenia.** Pierścień jest dodawany do już istniejących źródeł, ale FitMesh Sync zarządza nakładającymi się danymi: każda metryka jest liczona tylko raz, korzystając z najbardziej precyzyjnego dostępnego źródła.",
         ],
         tr: [
           "**Şarj her zaman görünür.** Döngü seviyesi şeridan ana ekranında görünür: her zaman ayrı bir uygulama açmamanız gerekmez, ne ve ne zaman şarj edileceği konusunda bilgi almanıza.",

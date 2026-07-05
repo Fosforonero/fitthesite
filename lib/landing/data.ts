@@ -3087,7 +3087,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "**Częstotliwość serca**: próby ciągłe i średnia dzienna",
             "**SpO2**: satywkatę tlenu w krwi",
             "**Snyt w fazach**: całkowita trwałość, Łagodny, Profundny, REM, Boleśnie wywodzący",
-            "**Streszczanie**: ocena opartая на вариабельности сердечного ритма",
+            "**Stres**: wynik oparty na zmienności rytmu serca",
             "**Bateria**: poziom residualny cargu anelku",
           ],
           tr: [
@@ -5721,7 +5721,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: "HRV während des Schlafs ist das nützlichste Wiederherstellungsmaß. Ein höherer HRV-Wert über Nacht bedeutet, dass dein Körper gut wiederholt ist. Schlafphasen (insbesondere die Menge an tiefem Schlaf) sagen etwas über physische Wiederherstellung. Verfolge den Trend über Wochen, nicht nur eine einzelne Nacht.",
           pt: "A HRV durante o sono é a indicadora mais útil da recuperação. Um valor mais alto de HRV durante a noite significa que seu corpo se recuperou bem. As fases do sono (especialmente a quantidade de sono profundo) informam sobre a restauração física. Acompanhe a tendência ao longo das semanas, não apenas uma única noite.",
           fr: "L'HRV pendant le sommeil est l’indicateur le plus utile pour évaluer la récupération. Un HRV plus élevé signifie que votre corps s'est bien récupéré. Les phases de sommeil (surtout la quantité de sommeil profond) indiquent la restauration physique. Suivez la tendance sur plusieurs semaines, pas une seule nuit.",
-          pl: "HRV podczas snu jest najbardziej użytecznym indykatorом odzyskania. Wyższa HRV w ciągu nocy oznacza, że Twój organizm odzyskał się dobrze. Stadiów senowych (w szczególności ilość głębokiego snu) powiedzą Ci coś o fizycznej rekonstrukcji. Śledź trend po kilku tygodniach, a nie pojedynczy noc.",
+          pl: "HRV podczas snu jest najbardziej użytecznym wskaźnikiem regeneracji. Wyższe nocne HRV oznacza, że Twój organizm dobrze wypoczął. Fazy snu (zwłaszcza ilość snu głębokiego) mówią coś o regeneracji fizycznej. Śledź trend na przestrzeni tygodni, a nie pojedynczej nocy.",
           tr: "Uyku sırasında HRV en faydalı geri dönüşüm göstericisidir. Gece boyunca yüksek bir HRV, vücudunuzun iyi bir şekilde geri dönüşüm yaptığını gösterir. Uykunuzun aşamaları (özellikle derin uykunun miktarı) fiziksel yenilenme hakkında bilgi verir. Haftalar üzerinden trendi takip etmek yerine tek bir gece için verileri incelemeyin.",
           nl: "HRV tijdens slaap is het meest nuttige herstelindicator. Een hogere HRV over nachten betekent dat je lichaam goed heeft gerecovered. Slaaproef (vooral de hoeveelheid diepe slaap) vertelt je over fysieke hersteling. Volg de trend over weken, niet een enkele nacht.",
           ja: "はい。HRV（心拍数変動）は最も有用な回復指標です。夜間の高いHRVは、あなたの体がよく回復したことを示します。睡眠段階（特に深い眠りの量）は物理的な修復について教えてくれます。週単位でのトレンドを追跡してください。",

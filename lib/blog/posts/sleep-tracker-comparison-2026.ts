@@ -406,7 +406,7 @@ export const post: BlogPost = {
           ],
           pl: [
             "Działalność plus sen w jednym urządzeniu, mniej do ładowania",
-            "Pozycja naручnej przepędza większą ilość artefaktów ruchu podczas senu",
+            "Pozycja na nadgarstku oznacza więcej artefaktów ruchu podczas snu",
             "Bateria zwykle 1-4 dni w zależności od użycia GPS",
             "Vibracje mogą przerwać sen, jeśli nie są wyłączone",
             "Więcej kontekstu: możesz korelować codzienne działanie z jakością snu",
@@ -522,7 +522,7 @@ export const post: BlogPost = {
           pl: [
             "**Fazy senu (REM, głęboki, lekki):** Podstawa. REM jest związany z pamięcią i nastrojem; głęboki sen (wolne wody) to kiedy dzieje się fizyczna regeneracja. Czujniki współczesnych opancerzeń szacują te fazy na podstawie częstotliwości serca i ruchu. Zgodność z polisomnografią wynosi około 70-80%.",
             "**HRV podczas senu:** Największa zmienność częstotliwości serca występuje w trakcie głębokiego snu. Sudden spadek na nocy relaksowej często oznacza, że chcesz zachorować lub zbyt dużo alkoholu piłeś przedtem.",
-            "**Częstotliwość oddychania:** Podwyższone oddychanie (powyżej 18 oddechów na minutę w relaksie) może być wcześnieшим wskaźnikiem choroby lub stresu. Pętle tendują do lepszej mierzenia tego niż urządzenia na nadgarstku.",
+            "**Częstotliwość oddychania:** Podwyższona częstotliwość oddechów (powyżej 18 oddechów na minutę w spoczynku) może być wczesnym wskaźnikiem choroby lub stresu. Pierścienie zazwyczaj mierzą to dokładniej niż urządzenia noszone na nadgarstku.",
             "**Częstotliwość serca w spoczynku:** Proste do dokładnego pomiaru z dowolnego urządzenia. Znaczne wzrosty powyżej swojej średniej wartości po wielu dniach są użytecznym wskaźnikiem regeneracji.",
             "**Ocena snu:** Liczba obliczana przez producentów urządzenia na podstawie powyższych. Użyteczna jako szybki zrównoważone spojrzenie, ale zawsze sprawdzaj dane oryginalne, jeśli czujesz się niepokojąco.",
           ],

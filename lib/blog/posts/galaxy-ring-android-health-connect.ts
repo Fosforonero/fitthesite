@@ -628,7 +628,7 @@ export const post: BlogPost = {
           ],
           pl: [
             "Otwórz systemową aplikację Health Connect (szukaj jej w kabinie aplikacji).",
-            "Kliknij 'Uprawnienia aplikacji' i znайдź Samsung Health.",
+            "Kliknij 'Uprawnienia aplikacji' i znajdź Samsung Health.",
             "Upewnij się, że Samsung Health ma uprawnienia do zapisu dla senu, kroku, frekwencji serca, SpO2 oraz innych typów danych.",
             "Każda trzecia strona, która prosi o dostęp do czytania w Health Connect, może następnie wyświetlić dane z Galaxy Ring.",
           ],

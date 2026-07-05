@@ -861,7 +861,7 @@ export const post: BlogPost = {
           "Si vous êtes sur Android et souhaitez commencer tout de suite, FitMesh Sync est sur Google Play avec un accès bêta ouvert.",
         ],
         pl: [
-          "Wyślij historyczne dane z Google Fit za pomocą Google Takeout zanim usługa станет менее доступной.",
+          "Wyeksportuj historyczne dane z Google Fit za pomocą Google Takeout, zanim usługa stanie się mniej dostępna.",
           "Sprawdź, czy używane aplikacje przeszły już do Health Connect (większość aktywnych aplikacji to już zrobiło).",
           "Sprawdź w Health Connect → Autoryzacje app, czy Twoje towarzyszące appy (Samsung Health, Fitbit, itp.) mają pozwolenie na zapisanie typów danych, które Cię interesują.",
           "Jeśli używasz wielu wearables, rozważ zainstalowanie aplikacji agregującej, która zarządza duplikatami i pokazuje źródło danych dla każdej metryki.",

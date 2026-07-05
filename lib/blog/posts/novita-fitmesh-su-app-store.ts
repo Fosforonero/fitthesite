@@ -358,7 +358,7 @@ export const post: BlogPost = {
         ],
         ja: [
           "**1つのアカウントでAndroidとiPhoneを一緒に**：同じGoogleまたはAppleログインでサインインすると、両方のスマートフォンとブラウザで同じダッシュボードを利用できます。",
-          "**Apple Health書き込みブリッジ**（オプトイン）：AndroidスマートウォッチやリングのデータがクラウドР経由で届き、重複なしにApple Healthに書き込まれます。",
+          "**Apple Health書き込みブリッジ**（オプトイン）：Androidスマートウォッチやリングのデータがクラウド経由で届き、重複なしにApple Healthに書き込まれます。",
           "**EUクラウドとGDPR**：データは欧州のデータセンターに保存され、GDPRに準拠。第三者への販売はありません。",
           "**BluetoothでColmiリング接続**：iOSアプリはColmi R02/R03スマートリングをAndroid版と同様に直接BLEで読み取ります。",
         ],

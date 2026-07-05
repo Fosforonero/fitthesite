@@ -1274,7 +1274,7 @@ export const post: BlogPost = {
           "Les données non synchronisées s'accumulent localement dans Health Connect: une fois le problème résolu, la synchronisation rétroactive s'effectue automatiquement.",
         ],
         pl: [
-          "90% problemów synchronizacji można rozwiązać trzema akcjami: sprawdzeniem uprawnień w Health Connect, wyłączением optymalizacji baterii dla zainteresowanych aplikacji oraz wymuszeniem otwarcia źródłowej aplikacji.",
+          "90% problemów synchronizacji można rozwiązać trzema akcjami: sprawdzeniem uprawnień w Health Connect, wyłączeniem optymalizacji baterii dla zainteresowanych aplikacji oraz wymuszeniem otwarcia źródłowej aplikacji.",
           "NaSamsung, konkretny naprawMMddyle to rozłączanie i ponowne podłączenie łańcucha Samsung Health → Health Connect z ustawień Samsung Health.",
           "Wyczyśćć bufor Health Connect nie usuwa danych: jest bezpieczne to zrobić i często rozwiązuje błędy stanu uszkodzonego.",
           "Jeśli dane są opóźnione, ale nie brakają, problem prawie zawsze wynika z optymalizacji baterii blokującej synchronizację w tle.",
