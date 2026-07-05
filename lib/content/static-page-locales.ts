@@ -11,14 +11,16 @@ import type { Locale } from "@/lib/i18n";
  * `page.tsx` esportino solo il set noto (`default`, `generateMetadata`, ...) e
  * fallisce il typecheck su qualunque altro export nominato.
  */
-export const HOME_COMPLETE_LOCALES: readonly Locale[] = ["it", "en", "es"];
+export const HOME_COMPLETE_LOCALES: readonly Locale[] = [
+  "it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi",
+];
 
 export const ROADMAP_COMPLETE_LOCALES: readonly Locale[] = [
   "it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko",
 ];
 
 export const ABOUT_TRANSLATED_LOCALES: readonly Locale[] = [
-  "it", "en", "es", "de", "pt", "fr",
+  "it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi",
 ];
 
 /**

@@ -29,6 +29,7 @@ const SITE_URL = "https://www.fitmesh.fit";
  * `[locale]/layout.tsx` generateMetadata.
  */
 import { HOME_COMPLETE_LOCALES as COMPLETE_BODY_LOCALES } from "@/lib/content/static-page-locales";
+import { HOMEPAGE_COPY, tli } from "@/lib/content/homepage-copy";
 
 export async function generateMetadata({
   params,
@@ -183,15 +184,9 @@ export default async function Home({
               <span className="text-brand-gradient">{t.hero.heading_accent}</span>
             </h1>
 
-            {COMPLETE_BODY_LOCALES.includes(lc) && (
-              <p className="mt-5 text-base text-text-secondary max-w-2xl leading-relaxed">
-                {lc === "it"
-                  ? "FitMesh Sync è la dashboard che unisce i dati di Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit e altri wearable Android in un'unica vista privacy-first, con server in UE."
-                  : lc === "es"
-                  ? "FitMesh Sync es el panel que unifica los datos de Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit y otros wearables Android en una sola vista privacy-first, con servidores en la UE."
-                  : "FitMesh Sync is the dashboard that brings Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit and other Android wearables into one privacy-first view, with EU servers."}
-              </p>
-            )}
+            <p className="mt-5 text-base text-text-secondary max-w-2xl leading-relaxed">
+              {tl(HOMEPAGE_COPY.leadSentence, lc)}
+            </p>
 
             <p className="mt-7 text-lg sm:text-xl text-text-secondary max-w-xl leading-relaxed">
               {t.hero.description}
@@ -203,7 +198,7 @@ export default async function Home({
                 href={`/${lc}/beta`}
                 className="group inline-flex items-center gap-2 px-5 py-3 rounded-pill btn-ghost text-sm"
               >
-                {lc === "it" ? "Diventa founder" : lc === "es" ? "Conviértete en founder" : "Become a founder"}
+                {tl(HOMEPAGE_COPY.founderCta, lc)}
                 <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
               </Link>
             </div>
@@ -217,7 +212,7 @@ export default async function Home({
                   1000<span className="text-brand-aqua">·</span>
                 </p>
                 <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
-                  {lc === "it" ? "Founder slot" : lc === "es" ? "Plazas founder" : "Founder seats"}
+                  {tl(HOMEPAGE_COPY.founderSeatsLabel, lc)}
                 </p>
               </li>
               <li>
@@ -225,7 +220,7 @@ export default async function Home({
                   {PROVIDERS.length}+
                 </p>
                 <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
-                  {lc === "it" ? "Wearable supportati" : lc === "es" ? "Wearables compatibles" : "Wearables supported"}
+                  {tl(HOMEPAGE_COPY.wearablesSupportedLabel, lc)}
                 </p>
               </li>
               <li>
@@ -233,7 +228,7 @@ export default async function Home({
                   🇪🇺
                 </p>
                 <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
-                  {lc === "it" ? "Server in UE · GDPR" : lc === "es" ? "Servidores en la UE · GDPR" : "EU servers · GDPR"}
+                  {tl(HOMEPAGE_COPY.euServersLabel, lc)}
                 </p>
               </li>
             </ul>
@@ -260,7 +255,7 @@ export default async function Home({
        *  ════════════════════════════════════════════════════════════ */}
       <section className="relative overflow-hidden border-y border-white/[0.05] bg-white/[0.015] py-8" data-reveal>
         <p className="text-center text-[10px] uppercase tracking-[0.28em] text-text-muted font-semibold mb-6">
-          {lc === "it" ? "Compatibile con" : lc === "es" ? "Compatible con" : "Works with"}
+          {tl(HOMEPAGE_COPY.worksWithKicker, lc)}
         </p>
         <div
           className="relative flex gap-10 sm:gap-14 animate-marquee whitespace-nowrap"
@@ -369,37 +364,16 @@ export default async function Home({
       <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
         <div className="max-w-2xl">
           <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-            {lc === "it" ? "Come funziona" : lc === "es" ? "Cómo funciona" : "How it works"}
+            {tl(HOMEPAGE_COPY.howItWorksKicker, lc)}
           </p>
           <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
-            {lc === "it"
-              ? "Trenta secondi. Niente di più."
-              : lc === "es"
-              ? "Treinta segundos. Nada más."
-              : "Thirty seconds. Nothing more."}
+            {tl(HOMEPAGE_COPY.howItWorksHeading, lc)}
           </h2>
         </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {(lc === "it"
-            ? [
-                { n: 1, t: "Scarica & autorizza", d: "Installa l'app dal Play Store, dai accesso a Health Connect." },
-                { n: 2, t: "FitMesh legge tutto", d: "Passi, battito, sonno, calorie. Anche in background, anche notte." },
-                { n: 3, t: "La tua dashboard è live", d: "Apri il browser da qualsiasi device. Niente account social, niente cloud opachi." },
-              ]
-            : lc === "es"
-            ? [
-                { n: 1, t: "Descarga y autoriza", d: "Instala la app desde Play Store y permite el acceso a Health Connect." },
-                { n: 2, t: "FitMesh lo lee todo", d: "Pasos, frecuencia cardíaca, sueño, calorías. En segundo plano, incluso de noche." },
-                { n: 3, t: "Tu panel está en vivo", d: "Ábrelo desde cualquier navegador. Sin cuentas sociales, sin nubes opacas." },
-              ]
-            : [
-                { n: 1, t: "Download & grant", d: "Install the app from Play Store, allow Health Connect access." },
-                { n: 2, t: "FitMesh reads it all", d: "Steps, heart rate, sleep, calories. In background, even overnight." },
-                { n: 3, t: "Your dashboard is live", d: "Open it in any browser. No social accounts, no opaque clouds." },
-              ]
-          ).map((s, i) => (
-            <div key={s.n} className="relative card-glass p-7 hover:-translate-y-0.5 transition-transform">
+          {tli(HOMEPAGE_COPY.steps, lc).map((s, i) => (
+            <div key={i} className="relative card-glass p-7 hover:-translate-y-0.5 transition-transform">
               <div className="flex items-center gap-3">
                 <span
                   className="font-display text-2xl font-bold tracking-tightest"
@@ -411,10 +385,10 @@ export default async function Home({
                     color: "transparent",
                   }}
                 >
-                  0{s.n}
+                  0{i + 1}
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-semibold">
-                  {lc === "it" ? "Step" : "Step"}
+                  {tl(HOMEPAGE_COPY.stepLabel, lc)}
                 </span>
               </div>
               <h3 className="mt-3 font-display text-lg font-semibold text-text-primary">{s.t}</h3>
@@ -431,21 +405,17 @@ export default async function Home({
         <div className="flex items-end justify-between gap-4 flex-wrap mb-10">
           <div>
             <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-              {lc === "it" ? "Integrazioni" : lc === "es" ? "Integraciones" : "Integrations"}
+              {tl(HOMEPAGE_COPY.integrationsKicker, lc)}
             </p>
             <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
-              {lc === "it"
-                ? "Funziona con quello che hai già."
-                : lc === "es"
-                ? "Funciona con lo que ya tienes."
-                : "Works with what you already have."}
+              {tl(HOMEPAGE_COPY.integrationsHeading, lc)}
             </h2>
           </div>
           <Link
             href={`/${lc}/integrations`}
             className="group inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition"
           >
-            {lc === "it" ? "Vedi tutte" : lc === "es" ? "Ver todas" : "See all"}
+            {tl(HOMEPAGE_COPY.seeAll, lc)}
             <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
           </Link>
         </div>
@@ -528,24 +498,7 @@ export default async function Home({
             </div>
 
             <ul className="grid grid-cols-1 gap-3">
-              {(lc === "it"
-                ? [
-                    { t: "Server in UE", d: "Postgres su infrastruttura europea. Niente trasferimenti USA." },
-                    { t: "Zero tracker pubblicitari", d: "I tuoi dati salute non alimentano nessun algoritmo pubblicitario. Niente profilazione, niente dati condivisi con terzi." },
-                    { t: "Cancellazione in 48h", d: "Un click in app, e tutto è cancellato. Compliance GDPR completa." },
-                  ]
-                : lc === "es"
-                ? [
-                    { t: "Servidores en la UE", d: "Postgres en infraestructura europea. Sin transferencias a EE. UU." },
-                    { t: "Cero rastreadores publicitarios", d: "Tus datos de salud no alimentan ningún algoritmo publicitario. Sin perfilado, sin datos compartidos con terceros." },
-                    { t: "Eliminación en 48 h", d: "Un clic en la app y todo desaparece. Cumplimiento total del RGPD." },
-                  ]
-                : [
-                    { t: "EU servers", d: "Postgres on European infrastructure. No US transfers." },
-                    { t: "Zero ad trackers", d: "Your health data feeds no advertising algorithm. No cross-site tracking, no third-party data sharing." },
-                    { t: "Delete in 48h", d: "One click in-app, everything gone. Full GDPR compliance." },
-                  ]
-              ).map((p) => (
+              {tli(HOMEPAGE_COPY.privacyPoints, lc).map((p) => (
                 <li
                   key={p.t}
                   className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 flex gap-4"
@@ -611,7 +564,7 @@ export default async function Home({
             <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.proTagline, lc)}</p>
             <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-text-primary">{p("lifetimeBothShort", lc)}</p>
             <p className="mt-1 text-xs text-text-muted">
-              {lc === "it" ? `oppure ${p("subSixMonthsLabel", lc)}` : lc === "es" ? `o ${p("subSixMonthsLabel", lc)}` : `or ${p("subSixMonthsLabel", lc)}`}
+              {`${tl(HOMEPAGE_COPY.orLabel, lc)} ${p("subSixMonthsLabel", lc)}`}
             </p>
             <ul className="mt-5 space-y-2.5 flex-1">
               {tll(PRICING_SECTION.proFeatures, lc).map((f) => (
@@ -667,21 +620,17 @@ export default async function Home({
             <div className="flex items-end justify-between gap-4 flex-wrap mb-10">
               <div>
                 <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-                  {lc === "it" ? "Approfondisci" : lc === "es" ? "Más información" : "Read more"}
+                  {tl(HOMEPAGE_COPY.readMoreKicker, lc)}
                 </p>
                 <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
-                  {lc === "it"
-                    ? "Guide e confronti per scegliere bene."
-                    : lc === "es"
-                    ? "Guías y comparativas para elegir bien."
-                    : "Guides and comparisons to choose well."}
+                  {tl(HOMEPAGE_COPY.readMoreHeading, lc)}
                 </h2>
               </div>
               <Link
                 href={`/${lc}/blog`}
                 className="group inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition"
               >
-                {lc === "it" ? "Tutti gli articoli" : lc === "es" ? "Todos los artículos" : "All articles"}
+                {tl(HOMEPAGE_COPY.allArticles, lc)}
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </Link>
             </div>
@@ -695,9 +644,7 @@ export default async function Home({
                   style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}
                 >
                   <p className="text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
-                    {post.pillar
-                      ? (lc === "it" ? "Guida principale" : lc === "es" ? "Guía principal" : "Main guide")
-                      : (lc === "it" ? "Guida" : lc === "es" ? "Guía" : "Guide")}
+                    {post.pillar ? tl(HOMEPAGE_COPY.mainGuideLabel, lc) : tl(HOMEPAGE_COPY.guideLabel, lc)}
                     {" · "}
                     {post.readMinutes} min
                   </p>
@@ -708,7 +655,7 @@ export default async function Home({
                     {tl(post.hero.subtitle, lc)}
                   </p>
                   <span className="mt-4 text-xs text-brand-aqua font-medium inline-flex items-center gap-1">
-                    {lc === "it" ? "Leggi" : lc === "es" ? "Leer" : "Read"} →
+                    {tl(HOMEPAGE_COPY.readLabel, lc)} →
                   </span>
                 </Link>
               ))}
@@ -732,8 +679,8 @@ export default async function Home({
           <div className="relative">
             <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
               <IosAwareText
-                live={lc === "it" ? "Android e iOS · 1000 founder" : lc === "es" ? "Android e iOS · 1000 founders" : "Android & iOS · 1000 founders"}
-                coming={lc === "it" ? "Android live · iOS in arrivo · 1000 founder" : lc === "es" ? "Android disponible · iOS próximamente · 1000 founders" : "Android live · iOS coming · 1000 founders"}
+                live={tl(HOMEPAGE_COPY.finalCtaBadgeLive, lc)}
+                coming={tl(HOMEPAGE_COPY.finalCtaBadgeComing, lc)}
               />
             </p>
             <h2 className="mt-4 font-display text-display-lg font-semibold tracking-tightest text-text-primary text-balance">
@@ -747,18 +694,14 @@ export default async function Home({
                 href={`/${lc}/beta`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-pill btn-cta text-sm"
               >
-                {lc === "it" ? "Voglio essere founder" : lc === "es" ? "Quiero ser founder" : "I want to be a founder"}
+                {tl(HOMEPAGE_COPY.finalCtaButton, lc)}
                 <span aria-hidden>→</span>
               </Link>
               <StoreButtonsRow locale={lc} className="justify-center" />
             </div>
             <p className="mt-6 text-xs text-text-muted">
               {p("founderPromo", lc)}.{" "}
-              {lc === "it"
-                ? `Dopo il lancio pubblico, acquisto unico ${p("fromLifetime", lc)}.`
-                : lc === "es"
-                ? `Tras el lanzamiento público, pago único ${p("fromLifetime", lc)}.`
-                : `After public launch, one-time ${p("fromLifetime", lc)}.`}
+              {`${tl(HOMEPAGE_COPY.finalCtaAfterLaunch, lc)} ${p("fromLifetime", lc)}.`}
             </p>
           </div>
         </div>
