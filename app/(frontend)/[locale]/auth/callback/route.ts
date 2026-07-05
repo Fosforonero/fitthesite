@@ -10,8 +10,12 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
 import { createClient } from '@/lib/supabase/server';
+import { locales, UNTRANSLATED_CONTENT_LOCALES } from '@/lib/i18n';
 
-const LOCALES = ['it', 'en', 'es', 'de', 'pt', 'fr'] as const;
+// L'app Flutter mappa già sv/da/no/fi -> en prima di costruire il link
+// (locale senza contenuto tradotto), quindi qui accettiamo lo stesso set
+// "completo" di 11 locali usato altrove nel sito (vedi lib/i18n.ts).
+const LOCALES = locales.filter((l) => !UNTRANSLATED_CONTENT_LOCALES.has(l));
 
 function safeLocale(l: string | undefined): string {
   return l && (LOCALES as readonly string[]).includes(l) ? l : 'it';
