@@ -24,6 +24,10 @@ const ADMIN_ALLOWLIST = new Set([
   "app/api/v1/billing/validate-purchase/route.ts",
   "app/api/v1/family-events/webhook/route.ts",
   "app/api/v1/invites/[code]/preview/route.ts",
+  // Contatori pubblici aggregati (nessun dato utente, nessun contesto RLS):
+  // service_role serve per contare/incrementare righe cross-utente.
+  "app/api/v1/beta/spots/route.ts",
+  "app/api/v1/posts/stats/route.ts",
 ]);
 
 function walk(dir) {
