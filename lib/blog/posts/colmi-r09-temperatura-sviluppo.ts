@@ -31,6 +31,8 @@ export const post: BlogPost = {
       de: "Ratgeber - Colmi-Ring",
       pt: "Guia - Anel Colmi",
       fr: "Guide - Bague Colmi",
+      tr: "Rehber - Colmi Yüzük",
+      pl: "Poradnik - pierścień Colmi",
     },
     title: {
       it: "Anello Colmi in FitMesh: tutto quello che leggiamo oggi, più la temperatura dell'R09",
@@ -39,6 +41,8 @@ export const post: BlogPost = {
       de: "Colmi-Ring in FitMesh: Alles, was wir heute schon auslesen, plus der Temperatursensor der R09",
       pt: "Anel Colmi no FitMesh: tudo o que lemos hoje, mais o sensor de temperatura do R09",
       fr: "Bague Colmi dans FitMesh : tout ce que nous lisons aujourd'hui, plus le capteur de température de la R09",
+      tr: "FitMesh'te Colmi yüzük: bugün okuduğumuz her şey, artı R09'un sıcaklık sensörü",
+      pl: "Pierścień Colmi w FitMesh: wszystko, co już dziś odczytujemy, plus czujnik temperatury R09",
     },
     subtitle: {
       it: "Con la serie R Colmi (R02-R10) e i cloni OEM con lo stesso protocollo BLE, FitMesh Sync legge già oggi passi, distanza, calorie, battito, FC a riposo, SpO2, HRV, stress, sonno con fasi e batteria via Bluetooth diretto, fusi con i dati del tuo smartwatch senza doppi conteggi. Il modello R09 ha in più un sensore di temperatura cutanea che l'R02/R03 non hanno: ecco cosa fa già l'anello oggi, e come usiamo quel sensore per un segnale di benessere in più — verificato su hardware fisico, incluso nella versione attuale dell'app.",
@@ -47,6 +51,8 @@ export const post: BlogPost = {
       de: "Mit der Colmi R-Serie (R02-R10) und OEM-Klonen mit demselben BLE-Protokoll liest FitMesh Sync schon heute Schritte, Distanz, Kalorien, Herzfrequenz, Ruhepuls, SpO2, HRV, Stress, Schlaf mit Phasen und den Akkustand direkt per Bluetooth aus – zusammengeführt mit den Daten deiner Smartwatch, ohne doppelte Zählung. Das Modell R09 hat zusätzlich einen Hauttemperatursensor, den die R02/R03 nicht haben: Hier erfährst du, was der Ring heute schon leistet – und wie wir diesen Sensor für ein weiteres Wellness-Signal nutzen, verifiziert auf physischer Hardware und enthalten in der aktuellen Version der App.",
       pt: "Com a série R Colmi (R02-R10) e os clones OEM com o mesmo protocolo BLE, o FitMesh Sync já lê hoje passos, distância, calorias, batimentos, FC em repouso, SpO2, HRV, estresse, sono com fases e bateria via Bluetooth direto, fundidos com os dados do seu smartwatch sem contagens duplicadas. O modelo R09 tem, além disso, um sensor de temperatura cutânea que o R02/R03 não têm: aqui está o que o anel já faz hoje, e como usamos esse sensor para mais um sinal de bem-estar — verificado em hardware físico, incluído na versão atual do app.",
       fr: "Avec la série R Colmi (R02-R10) et les clones OEM partageant le même protocole BLE, FitMesh Sync lit déjà aujourd'hui les pas, la distance, les calories, la fréquence cardiaque, la fréquence cardiaque au repos, la SpO2, la HRV, le stress, le sommeil avec ses phases et la batterie via Bluetooth direct, fusionnés avec les données de votre montre connectée sans double comptage. Le modèle R09 dispose en plus d'un capteur de température cutanée que la R02/R03 n'ont pas : voici ce que la bague fait déjà aujourd'hui, et comment nous utilisons ce capteur pour un signal de bien-être supplémentaire — vérifié sur du matériel physique, inclus dans la version actuelle de l'application.",
+      tr: "Colmi R serisi (R02-R10) ve aynı BLE protokolünü paylaşan OEM klonlarıyla FitMesh Sync, doğrudan Bluetooth üzerinden adım sayısını, mesafeyi, kaloriyi, nabzı, dinlenme nabzını, SpO2'yi, HRV'yi, stresi, evrelere ayrılmış uykuyu ve pil seviyesini bugünden okuyor; bunlar akıllı saatinizin verileriyle çift sayım olmadan birleştiriliyor. R09 modeli, R02/R03'te bulunmayan bir cilt sıcaklığı sensörü ekliyor: işte yüzüğün bugün zaten yaptığı her şey ve bu sensörü bir esenlik sinyali daha olarak nasıl kullandığımız — fiziksel donanımda doğrulandı, uygulamanın güncel sürümüne dahil.",
+      pl: "Dzięki serii Colmi R (R02-R10) oraz klonom OEM korzystającym z tego samego protokołu BLE, FitMesh Sync już dziś odczytuje kroki, dystans, kalorie, tętno, tętno spoczynkowe, SpO2, HRV, stres, sen z fazami oraz poziom baterii przez bezpośrednie Bluetooth, łącząc te dane z danymi twojego smartwatcha bez podwójnego liczenia. Model R09 ma dodatkowo czujnik temperatury skóry, którego R02/R03 nie mają: oto co pierścień robi już dziś i jak wykorzystujemy ten czujnik jako dodatkowy sygnał dobrostanu — zweryfikowany na fizycznym sprzęcie, uwzględniony w obecnej wersji aplikacji.",
     },
   },
   metaDescription: {
@@ -56,6 +62,8 @@ export const post: BlogPost = {
     de: "Was FitMesh Sync heute aus deinem Colmi-Ring ausliest (R02-R10 und kompatible OEM-Klone): Schritte, Herzfrequenz, SpO2, HRV, Stress, Schlaf mit Phasen. Außerdem: der Temperatursensor der R09, verifiziert auf physischer Hardware.",
     pt: "O que o FitMesh Sync lê hoje do seu anel Colmi (série R02-R10 e clones OEM compatíveis): passos, batimentos, SpO2, HRV, estresse, sono com fases. Além do sensor de temperatura do R09, verificado em hardware físico.",
     fr: "Ce que FitMesh Sync lit aujourd'hui depuis votre bague Colmi (série R02-R10 et clones OEM compatibles) : pas, fréquence cardiaque, SpO2, HRV, stress, sommeil avec ses phases. Plus le capteur de température de la R09, vérifié sur du matériel physique.",
+    tr: "FitMesh Sync'in Colmi yüzüğünüzden bugün okuduğu veriler (R02-R10 serisi ve uyumlu OEM klonlar): adım sayısı, nabız, SpO2, HRV, stres, evrelere ayrılmış uyku. Ayrıca R09'un sıcaklık sensörü, fiziksel donanımda doğrulandı.",
+    pl: "Co FitMesh Sync odczytuje dziś z twojego pierścienia Colmi (seria R02-R10 i kompatybilne klony OEM): kroki, tętno, SpO2, HRV, stres, sen z fazami. Plus czujnik temperatury R09, zweryfikowany na fizycznym sprzęcie.",
   },
   primaryKeyword: {
     it: "anello colmi r09 temperatura fitmesh",
@@ -64,6 +72,8 @@ export const post: BlogPost = {
     de: "colmi r09 temperatur fitmesh",
     pt: "anel colmi r09 temperatura fitmesh",
     fr: "bague colmi r09 température fitmesh",
+    tr: "colmi r09 sıcaklık fitmesh",
+    pl: "pierścień colmi r09 temperatura fitmesh",
   },
   secondaryKeywords: {
     it: [
@@ -120,6 +130,24 @@ export const post: BlogPost = {
       "que mesure la bague colmi",
       "colmi r09 date de sortie",
     ],
+    tr: [
+      "colmi yüzük verileri fitmesh",
+      "colmi r09 sıcaklık sensörü",
+      "colmi r02 r03 uyumlu klonlar",
+      "akıllı yüzük cilt sıcaklığı",
+      "colmi yüzük toparlanma endeksi",
+      "colmi yüzük neyi ölçer",
+      "colmi r09 çıkış tarihi",
+    ],
+    pl: [
+      "dane pierścienia colmi fitmesh",
+      "colmi r09 czujnik temperatury",
+      "colmi r02 r03 kompatybilne klony",
+      "temperatura skóry inteligentny pierścień",
+      "colmi ring wskaźnik regeneracji",
+      "co mierzy pierścień colmi",
+      "colmi r09 data premiery",
+    ],
   },
   tldr: {
     it: [
@@ -164,6 +192,20 @@ export const post: BlogPost = {
       "La R09 dispose d'un vrai capteur de température cutanée, unique dans la gamme Colmi : le support est vérifié sur une bague physique et inclus dans la version actuelle de l'application.",
       "La température est un signal de bien-être informatif, pas diagnostique — pas un outil clinique.",
     ],
+    tr: [
+      "Bugün, Colmi R serisi (R02-R10) ve aynı BLE protokolünü paylaşan OEM klonlarıyla FitMesh Sync, doğrudan Bluetooth üzerinden adım sayısını, mesafeyi, kaloriyi, nabzı (dinlenme nabzıyla birlikte), SpO2'yi, HRV'yi, stresi ve evrelere ayrılmış uykuyu okuyor, ayrıca yüzüğün pil seviyesini gösteriyor.",
+      "Yüzük verileri, aynı panoda akıllı saatinizin verileriyle birleşir: uyku konusunda gece boyunca yüzük öncelik kazanır, ikisini birden taktığınızda asla çift sayım olmaz.",
+      "Antrenmanlar yüzükten okunmaz: bunun için şu an bir akıllı saate veya bağlı başka bir kaynağa ihtiyacınız var.",
+      "R09'da, Colmi serisinde tek olan gerçek bir cilt sıcaklığı sensörü bulunuyor: destek fiziksel bir yüzükte doğrulandı ve uygulamanın güncel sürümüne dahil edildi.",
+      "Sıcaklık, tanısal olmayan bir esenlik sinyalidir — klinik bir araç değildir.",
+    ],
+    pl: [
+      "Dziś, dzięki serii Colmi R (R02-R10) i klonom OEM korzystającym z tego samego protokołu BLE, FitMesh Sync odczytuje przez bezpośrednie Bluetooth kroki, dystans, kalorie, tętno (z tętnem spoczynkowym), SpO2, HRV, stres i sen z fazami, plus poziom baterii pierścienia.",
+      "Dane pierścienia łączą się z danymi twojego smartwatcha w tym samym panelu: pierścień wygrywa w nocy przy śnie, nigdy nie ma podwójnego liczenia, gdy nosisz oba urządzenia.",
+      "Treningi nie są odczytywane z pierścienia: do tego potrzebny jest dziś smartwatch lub inne podłączone źródło.",
+      "R09 ma prawdziwy czujnik temperatury skóry, unikalny w gamie Colmi: obsługa jest zweryfikowana na fizycznym pierścieniu i uwzględniona w obecnej wersji aplikacji.",
+      "Temperatura to niediagnostyczny sygnał dobrostanu — nie narzędzie kliniczne.",
+    ],
   },
   body: [
     {
@@ -175,6 +217,8 @@ export const post: BlogPost = {
         de: "Wenn du einen Colmi-Ring trägst, liest FitMesh Sync schon heute vieles von dem aus, was er misst – ganz ohne die Companion-App des Herstellers. Diese Seite behandelt zwei getrennte Themen: Erstens, was heute tatsächlich funktioniert, wenn du einen Colmi-Ring der R-Serie (R02-R10) oder einen OEM-Klon mit demselben BLE-Protokoll trägst. Zweitens, was das Modell R09 zusätzlich leistet dank eines Temperatursensors, den die anderen nicht haben – eine Funktion, die inzwischen auf physischer Hardware verifiziert und in der App verfügbar ist.",
         pt: "Se você usa um anel Colmi, o FitMesh Sync já lê boa parte do que ele mede, sem precisar do app companion do fabricante. Esta página faz um balanço de duas coisas distintas: primeiro, o que realmente funciona hoje para quem usa um Colmi da série R (R02-R10) ou um clone OEM com o mesmo protocolo BLE. Segundo, o que o modelo R09 faz a mais graças a um sensor de temperatura que os outros modelos não têm — uma função já verificada em hardware físico e disponível no app.",
         fr: "Si vous portez une bague Colmi, FitMesh Sync lit déjà une grande partie de ce qu'elle mesure, sans besoin de l'app compagnon du fabricant. Cette page fait le point sur deux choses distinctes : d'abord, ce qui fonctionne vraiment aujourd'hui pour qui porte une bague Colmi de la série R (R02-R10) ou un clone OEM avec le même protocole BLE. Ensuite, ce que le modèle R09 fait en plus grâce à un capteur de température que les autres modèles n'ont pas — une fonctionnalité désormais vérifiée sur du matériel physique et disponible dans l'application.",
+        tr: "Bir Colmi yüzük takıyorsanız, FitMesh Sync ölçtüğü verilerin çoğunu üreticinin companion uygulaması olmadan zaten okuyor. Bu sayfa iki ayrı konuyu ele alıyor: birincisi, Colmi R serisi (R02-R10) bir yüzük veya aynı BLE protokolünü paylaşan bir OEM klon taktığınızda bugün gerçekten neyin çalıştığı. İkincisi, R09 modelinin diğer modellerde bulunmayan bir sıcaklık sensörü sayesinde ek olarak ne yaptığı — artık fiziksel donanımda doğrulanmış ve uygulamada kullanılabilir bir özellik.",
+        pl: "Jeśli nosisz pierścień Colmi, FitMesh Sync już dziś odczytuje wiele z tego, co on mierzy, bez potrzeby aplikacji towarzyszącej producenta. Ta strona porusza dwie odrębne kwestie: po pierwsze, co naprawdę działa dziś, jeśli nosisz pierścień Colmi z serii R (R02-R10) lub klon OEM korzystający z tego samego protokołu BLE. Po drugie, co dodatkowo robi model R09 dzięki czujnikowi temperatury, którego inne modele nie mają — funkcja teraz zweryfikowana na fizycznym sprzęcie i dostępna w aplikacji.",
       },
     },
     {
@@ -187,6 +231,8 @@ export const post: BlogPost = {
         de: "Kurze Antwort",
         pt: "Resposta rápida",
         fr: "Réponse rapide",
+        tr: "Hızlı yanıt",
+        pl: "Szybka odpowiedź",
       },
       body: {
         it: "Oggi: passi, distanza, calorie, battito (con FC a riposo), SpO2, HRV, stress e sonno con fasi arrivano nella dashboard da un Colmi della serie R (R02-R10) o da un clone OEM con lo stesso protocollo BLE, fusi con i dati del tuo smartwatch. Inoltre: il sensore di temperatura cutanea dell'R09, verificato su anello fisico e incluso nella build attuale dell'app.",
@@ -195,6 +241,8 @@ export const post: BlogPost = {
         de: "Heute: Schritte, Distanz, Kalorien, Herzfrequenz (mit Ruhepuls), SpO2, HRV, Stress und Schlaf mit Phasen landen in deinem Dashboard – von einem Colmi-Ring der R-Serie (R02-R10) oder einem OEM-Klon mit demselben BLE-Protokoll, zusammengeführt mit den Daten deiner Smartwatch. Außerdem: der Hauttemperatursensor der R09, verifiziert auf physischer Hardware und in der aktuellen Version der App enthalten.",
         pt: "Hoje: passos, distância, calorias, batimentos (com FC em repouso), SpO2, HRV, estresse e sono com fases chegam no painel a partir de um Colmi da série R (R02-R10) ou de um clone OEM com o mesmo protocolo BLE, fundidos com os dados do seu smartwatch. Além disso: o sensor de temperatura cutânea do R09, verificado em um anel físico e incluído na versão atual do app.",
         fr: "Aujourd'hui : les pas, la distance, les calories, la fréquence cardiaque (avec la fréquence cardiaque au repos), la SpO2, la HRV, le stress et le sommeil avec ses phases arrivent dans le tableau de bord depuis une bague Colmi de la série R (R02-R10) ou un clone OEM avec le même protocole BLE, fusionnés avec les données de votre montre connectée. En plus : le capteur de température cutanée de la R09, vérifié sur une bague physique et inclus dans la version actuelle de l'application.",
+        tr: "Bugün: adım sayısı, mesafe, kalori, nabız (dinlenme nabzıyla birlikte), SpO2, HRV, stres ve evrelere ayrılmış uyku, Colmi R serisi (R02-R10) bir yüzükten veya aynı BLE protokolünü paylaşan bir OEM klondan panonuza ulaşıyor, akıllı saatinizin verileriyle birleştiriliyor. Buna ek olarak: R09'un cilt sıcaklığı sensörü, fiziksel donanımda doğrulandı ve uygulamanın güncel sürümüne dahil edildi.",
+        pl: "Dziś: kroki, dystans, kalorie, tętno (z tętnem spoczynkowym), SpO2, HRV, stres i sen z fazami trafiają do panelu z pierścienia Colmi z serii R (R02-R10) lub klonu OEM korzystającego z tego samego protokołu BLE, połączone z danymi twojego smartwatcha. Dodatkowo: czujnik temperatury skóry R09, zweryfikowany na fizycznym sprzęcie i uwzględniony w obecnej wersji aplikacji.",
       },
     },
     {
@@ -207,6 +255,8 @@ export const post: BlogPost = {
         de: "Was FitMesh heute schon aus deinem Colmi-Ring ausliest",
         pt: "O que o FitMesh já lê hoje do seu anel Colmi",
         fr: "Ce que FitMesh lit déjà aujourd'hui depuis votre bague Colmi",
+        tr: "FitMesh'in Colmi yüzüğünüzden bugün zaten okuduğu veriler",
+        pl: "Co FitMesh już dziś odczytuje z twojego pierścienia Colmi",
       },
     },
     {
@@ -218,6 +268,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync verbindet sich direkt per Bluetooth mit dem Ring, ohne Companion-App dazwischen. Mit einem Colmi-Ring der R-Serie (R02-R10) oder einem OEM-Klon mit demselben BLE-Protokoll bekommst du Schritte, Distanz, Kalorien, Herzfrequenz mit Tagesprotokoll plus Ruhepuls, SpO2, HRV (RMSSD), einen Stressindex sowie vollständigen Schlaf mit Phasen (leicht, tief, REM, wach). Der Akkustand des Rings ist immer in der App sichtbar. Ein Datenpunkt, den der Ring nicht abdeckt: Trainingseinheiten. Für die Aufzeichnung von Trainingssessions brauchst du aktuell eine Smartwatch oder eine andere verbundene Quelle.",
         pt: "O FitMesh Sync se conecta ao anel via Bluetooth direto, sem app companion no meio do caminho. Com um anel Colmi da série R (R02-R10) ou um clone OEM com o mesmo protocolo BLE, hoje você tem passos, distância, calorias, frequência cardíaca com registro diário e FC em repouso, SpO2, HRV (RMSSD), um índice de estresse e o sono completo com fases (leve, profundo, REM, desperto). A bateria do anel fica sempre visível no app. Um dado que o anel não cobre: os treinos. Para registrar as sessões de treino, hoje é preciso um smartwatch ou outra fonte conectada.",
         fr: "FitMesh Sync se connecte à la bague via Bluetooth direct, sans app compagnon au milieu. Avec une bague Colmi de la série R (R02-R10) ou un clone OEM avec le même protocole BLE, vous avez aujourd'hui les pas, la distance, les calories, la fréquence cardiaque avec un journal quotidien et la fréquence cardiaque au repos, la SpO2, la HRV (RMSSD), un indice de stress et le sommeil complet avec ses phases (léger, profond, REM, éveil). La batterie de la bague est toujours visible dans l'application. Une donnée que la bague ne couvre pas : les entraînements. Pour enregistrer les séances d'entraînement, il faut aujourd'hui une montre connectée ou une autre source connectée.",
+        tr: "FitMesh Sync, aradan companion uygulama girmeden yüzüğe doğrudan Bluetooth üzerinden bağlanır. Colmi R serisi (R02-R10) bir yüzükle veya aynı BLE protokolünü paylaşan bir OEM klonla bugün adım sayısına, mesafeye, kaloriye, günlük kayıtla birlikte nabza artı dinlenme nabzına, SpO2'ye, HRV'ye (RMSSD), bir stres endeksine ve evrelere ayrılmış (hafif, derin, REM, uyanık) tam uykuya sahip olursunuz. Yüzüğün pil seviyesi uygulamada her zaman görünür. Yüzüğün kapsamadığı bir veri: antrenmanlar. Antrenman seanslarını kaydetmek için şu an bir akıllı saat veya bağlı başka bir kaynak gerekiyor.",
+        pl: "FitMesh Sync łączy się z pierścieniem przez bezpośrednie Bluetooth, bez pośredniczącej aplikacji producenta. Z pierścieniem Colmi z serii R (R02-R10) lub klonem OEM korzystającym z tego samego protokołu BLE masz dziś kroki, dystans, kalorie, tętno z dziennym rejestrem oraz tętno spoczynkowe, SpO2, HRV (RMSSD), wskaźnik stresu i pełny sen z fazami (lekki, głęboki, REM, czuwanie). Poziom baterii pierścienia jest zawsze widoczny w aplikacji. Jedna rzecz, której pierścień nie obejmuje: treningi. Do rejestrowania sesji treningowych potrzebny jest dziś smartwatch lub inne podłączone źródło.",
       },
     },
     {
@@ -229,6 +281,8 @@ export const post: BlogPost = {
         de: "Colmi-Ring-Metriken, die FitMesh Sync bereits unterstützt",
         pt: "Métricas do anel Colmi já disponíveis no FitMesh Sync",
         fr: "Métriques de la bague Colmi déjà dans FitMesh Sync",
+        tr: "FitMesh Sync'te zaten bulunan Colmi yüzük metrikleri",
+        pl: "Metryki pierścienia Colmi już dostępne w FitMesh Sync",
       },
       headers: {
         it: ["Metrica", "Disponibile oggi", "Note"],
@@ -237,6 +291,8 @@ export const post: BlogPost = {
         de: ["Metrik", "Heute verfügbar", "Anmerkungen"],
         pt: ["Métrica", "Disponível hoje", "Observações"],
         fr: ["Métrique", "Disponible aujourd'hui", "Remarques"],
+        tr: ["Metrik", "Bugün kullanılabilir", "Notlar"],
+        pl: ["Metryka", "Dostępne dziś", "Uwagi"],
       },
       rows: [
         {
@@ -246,6 +302,8 @@ export const post: BlogPost = {
           de: ["Schritte", "Ja", "Tagesprotokoll"],
           pt: ["Passos", "Sim", "Registro diário"],
           fr: ["Pas", "Oui", "Journal quotidien"],
+          tr: ["Adım sayısı", "Evet", "Günlük kayıt"],
+          pl: ["Kroki", "Tak", "Dziennik codzienny"],
         },
         {
           it: ["Distanza", "Sì", "Calcolata da passi"],
@@ -254,6 +312,8 @@ export const post: BlogPost = {
           de: ["Distanz", "Ja", "Berechnet aus Schritten"],
           pt: ["Distância", "Sim", "Calculada a partir dos passos"],
           fr: ["Distance", "Oui", "Calculée à partir des pas"],
+          tr: ["Mesafe", "Evet", "Adımlardan hesaplanır"],
+          pl: ["Dystans", "Tak", "Obliczany na podstawie kroków"],
         },
         {
           it: ["Calorie", "Sì", "Stima da attività"],
@@ -262,6 +322,8 @@ export const post: BlogPost = {
           de: ["Kalorien", "Ja", "Aktivitätsschätzung"],
           pt: ["Calorias", "Sim", "Estimativa por atividade"],
           fr: ["Calories", "Oui", "Estimation d'activité"],
+          tr: ["Kalori", "Evet", "Aktivite tahmini"],
+          pl: ["Kalorie", "Tak", "Szacunek na podstawie aktywności"],
         },
         {
           it: ["Frequenza cardiaca", "Sì", "Log giornaliero + FC a riposo"],
@@ -270,6 +332,8 @@ export const post: BlogPost = {
           de: ["Herzfrequenz", "Ja", "Tagesprotokoll + Ruhepuls"],
           pt: ["Frequência cardíaca", "Sim", "Registro diário + FC em repouso"],
           fr: ["Fréquence cardiaque", "Oui", "Journal quotidien + fréquence cardiaque au repos"],
+          tr: ["Nabız", "Evet", "Günlük kayıt + dinlenme nabzı"],
+          pl: ["Tętno", "Tak", "Dziennik codzienny + tętno spoczynkowe"],
         },
         {
           it: ["SpO2", "Sì", "Lettura spot e notturna"],
@@ -278,6 +342,8 @@ export const post: BlogPost = {
           de: ["SpO2", "Ja", "Einzelmessung und nächtliche Messung"],
           pt: ["SpO2", "Sim", "Leitura pontual e noturna"],
           fr: ["SpO2", "Oui", "Mesure ponctuelle et nocturne"],
+          tr: ["SpO2", "Evet", "Anlık ve gece boyu ölçüm"],
+          pl: ["SpO2", "Tak", "Pomiar doraźny i nocny"],
         },
         {
           it: ["HRV", "Sì", "Indice RMSSD"],
@@ -286,6 +352,8 @@ export const post: BlogPost = {
           de: ["HRV", "Ja", "RMSSD-Index"],
           pt: ["HRV", "Sim", "Índice RMSSD"],
           fr: ["HRV", "Oui", "Indice RMSSD"],
+          tr: ["HRV", "Evet", "RMSSD endeksi"],
+          pl: ["HRV", "Tak", "Wskaźnik RMSSD"],
         },
         {
           it: ["Stress", "Sì", "Indice 0-100"],
@@ -294,6 +362,8 @@ export const post: BlogPost = {
           de: ["Stress", "Ja", "Index 0-100"],
           pt: ["Estresse", "Sim", "Índice 0-100"],
           fr: ["Stress", "Oui", "Indice 0-100"],
+          tr: ["Stres", "Evet", "0-100 endeksi"],
+          pl: ["Stres", "Tak", "Wskaźnik 0-100"],
         },
         {
           it: ["Sonno con fasi", "Sì", "L'anello vince di notte nella fusione multi-device"],
@@ -302,6 +372,8 @@ export const post: BlogPost = {
           de: ["Schlaf mit Phasen", "Ja", "Der Ring hat nachts bei der Multi-Device-Fusion Vorrang"],
           pt: ["Sono com fases", "Sim", "O anel vence à noite na fusão multi-dispositivo"],
           fr: ["Sommeil avec phases", "Oui", "La bague l'emporte la nuit dans la fusion multi-appareils"],
+          tr: ["Evrelere ayrılmış uyku", "Evet", "Çoklu cihaz birleştirmesinde gece boyunca yüzük öncelik kazanır"],
+          pl: ["Sen z fazami", "Tak", "Pierścień wygrywa w nocy przy łączeniu wielu urządzeń"],
         },
         {
           it: ["Batteria", "Sì", "Sempre visibile in app"],
@@ -310,6 +382,8 @@ export const post: BlogPost = {
           de: ["Akku", "Ja", "Immer in der App sichtbar"],
           pt: ["Bateria", "Sim", "Sempre visível no app"],
           fr: ["Batterie", "Oui", "Toujours visible dans l'application"],
+          tr: ["Pil", "Evet", "Uygulamada her zaman görünür"],
+          pl: ["Bateria", "Tak", "Zawsze widoczna w aplikacji"],
         },
         {
           it: ["Allenamenti", "No", "Serve uno smartwatch o un'altra fonte collegata"],
@@ -318,6 +392,8 @@ export const post: BlogPost = {
           de: ["Trainingseinheiten", "Nein", "Erfordert eine Smartwatch oder eine andere verbundene Quelle"],
           pt: ["Treinos", "Não", "Requer um smartwatch ou outra fonte conectada"],
           fr: ["Entraînements", "Non", "Nécessite une montre connectée ou une autre source connectée"],
+          tr: ["Antrenmanlar", "Hayır", "Bir akıllı saat veya bağlı başka bir kaynak gerektirir"],
+          pl: ["Treningi", "Nie", "Wymaga smartwatcha lub innego podłączonego źródła"],
         },
         {
           it: ["Temperatura cutanea (solo R09)", "Sì", "Verificata su hardware fisico"],
@@ -326,6 +402,8 @@ export const post: BlogPost = {
           de: ["Hauttemperatur (nur R09)", "Ja", "Verifiziert auf physischer Hardware"],
           pt: ["Temperatura cutânea (somente R09)", "Sim", "Verificada em hardware físico"],
           fr: ["Température cutanée (R09 uniquement)", "Oui", "Vérifiée sur du matériel physique"],
+          tr: ["Cilt sıcaklığı (yalnızca R09)", "Evet", "Fiziksel donanımda doğrulandı"],
+          pl: ["Temperatura skóry (tylko R09)", "Tak", "Zweryfikowana na fizycznym sprzęcie"],
         },
       ],
     },
@@ -339,6 +417,8 @@ export const post: BlogPost = {
         de: "Wie die Ring-Daten mit deinen Smartwatch-Daten zusammengeführt werden",
         pt: "Como os dados do anel se fundem com os do smartwatch",
         fr: "Comment les données de la bague se fusionnent avec celles de la montre connectée",
+        tr: "Yüzük verileri akıllı saat verilerinizle nasıl birleşiyor",
+        pl: "Jak dane pierścienia łączą się z danymi smartwatcha",
       },
     },
     {
@@ -350,6 +430,8 @@ export const post: BlogPost = {
         de: "Wenn du zusätzlich eine Smartwatch trägst, addiert FitMesh Sync die beiden Quellen nicht einfach: Es wendet eine Fusion nach Quellenpriorität an, bei der der Ring der Spezialist für Schlaf ist und nachts Vorrang hat, während die Smartwatch tagsüber bei den Metriken vorrangig ist, bei denen sie präziser misst. Jede Metrik wird nur einmal gezählt, mit der jeweils besten verfügbaren Quelle – keine doppelten Schritte, keine doppelten Schlafstunden.",
         pt: "Se você também usa um smartwatch, o FitMesh Sync não soma as duas fontes: ele aplica uma fusão por prioridade de fonte, na qual o anel é o especialista em sono e prevalece à noite, enquanto o smartwatch prevalece de dia nas métricas em que é mais preciso. Cada métrica é contada uma única vez, com a melhor fonte disponível naquele momento — nada de passos duplicados, nada de horas de sono duplicadas.",
         fr: "Si vous portez aussi une montre connectée, FitMesh Sync n'additionne pas les deux sources : il applique une fusion à priorité de source, où la bague est la spécialiste du sommeil et l'emporte la nuit, tandis que la montre connectée l'emporte le jour pour les métriques où elle est plus précise. Chaque métrique n'est comptée qu'une seule fois, avec la meilleure source disponible à ce moment-là — pas de pas en double, pas d'heures de sommeil en double.",
+        tr: "Bir akıllı saat de takıyorsanız, FitMesh Sync iki kaynağı birbirine eklemez: yüzüğün uyku uzmanı olduğu ve gece boyunca öncelik kazandığı, akıllı saatin ise daha isabetli olduğu metriklerde gündüz öncelik kazandığı bir kaynak önceliğine dayalı bir birleştirme uygular. Her metrik, o an mevcut en iyi kaynakla yalnızca bir kez sayılır — ne çift adım, ne çift uyku saati.",
+        pl: "Jeśli nosisz również smartwatch, FitMesh Sync nie sumuje obu źródeł: stosuje łączenie według priorytetu źródła, w którym pierścień jest specjalistą od snu i wygrywa w nocy, podczas gdy smartwatch wygrywa w ciągu dnia w metrykach, w których jest dokładniejszy. Każda metryka jest liczona tylko raz, z najlepszym dostępnym w danym momencie źródłem — bez podwojonych kroków, bez podwojonych godzin snu.",
       },
     },
     {
@@ -362,6 +444,8 @@ export const post: BlogPost = {
         de: "Die R09: gleiches Protokoll, ein Sensor mehr",
         pt: "O R09: mesmo protocolo, um sensor a mais",
         fr: "La R09 : même protocole, un capteur en plus",
+        tr: "R09: aynı protokol, bir sensör fazlası",
+        pl: "R09: ten sam protokół, jeden dodatkowy czujnik",
       },
     },
     {
@@ -373,6 +457,8 @@ export const post: BlogPost = {
         de: "Die Colmi R09 gehört zur selben R-Serie (R02-R10), die FitMesh heute unterstützt – gleiches BLE-Protokoll, gleiche Basismetriken. Der Unterschied liegt in der Hardware: Die R09 (und die verwandte Yawell R05) hat zusätzlich einen echten Temperatursensor, den der Rest der Serie nicht hat. Heute liest FitMesh auch diesen Sensor aus, verifiziert an einem physisch getragenen Ring.",
         pt: "O Colmi R09 faz parte da mesma série R (R02-R10) que o FitMesh já suporta hoje — mesmo protocolo BLE, mesmas métricas básicas. A diferença é de hardware: o R09 (e o similar Yawell R05) integra, além disso, um sensor de temperatura real, que os outros modelos da série não têm. Hoje esse sensor também é lido pelo FitMesh, verificado em um anel físico usado.",
         fr: "La Colmi R09 fait partie de la même série R (R02-R10) que FitMesh prend en charge aujourd'hui — même protocole BLE, mêmes métriques de base. La différence est matérielle : la R09 (et la Yawell R05 qui lui est apparentée) intègre en plus un véritable capteur de température, que le reste de la série n'a pas. Aujourd'hui, ce capteur est aussi lu par FitMesh, vérifié sur une bague physique portée.",
+        tr: "Colmi R09, FitMesh'in bugün desteklediği aynı R serisinin (R02-R10) bir parçasıdır — aynı BLE protokolü, aynı temel metrikler. Fark donanımdadır: R09 (ve benzeri Yawell R05), serinin geri kalanında bulunmayan gerçek bir sıcaklık sensörü de içerir. Bugün bu sensör de FitMesh tarafından okunuyor, fiziksel olarak takılan bir yüzükte doğrulandı.",
+        pl: "Colmi R09 należy do tej samej serii R (R02-R10), którą FitMesh obsługuje już dziś — ten sam protokół BLE, te same podstawowe metryki. Różnica leży w sprzęcie: R09 (oraz pokrewny Yawell R05) ma dodatkowo prawdziwy czujnik temperatury, którego reszta serii nie posiada. Dziś ten czujnik jest również odczytywany przez FitMesh, zweryfikowany na fizycznym, noszonym pierścieniu.",
       },
     },
     {
@@ -385,6 +471,8 @@ export const post: BlogPost = {
         de: "Temperatur als Wellness-Signal",
         pt: "Temperatura como sinal de bem-estar",
         fr: "La température comme signal de bien-être",
+        tr: "Bir esenlik sinyali olarak sıcaklık",
+        pl: "Temperatura jako sygnał dobrostanu",
       },
     },
     {
@@ -396,6 +484,8 @@ export const post: BlogPost = {
         de: "Der Befehl, mit dem die R09 die Temperatur bereitstellt, war zuvor noch nie in FitMesh dokumentiert: Wir haben ihn durch die Analyse des BLE-Protokolls des Rings gefunden, eine Reverse-Engineering-Arbeit, die auch durch öffentliche Recherchen des Open-Source-Projekts Gadgetbridge zu Ringen mit ähnlicher Hardware unterstützt wurde. Der Code zum Auslesen und Interpretieren dieser Daten – im Protokoll-Parser des Rings und in der Pipeline, die sie mit anderen Quellen zusammenführt – ist geschrieben, verifiziert an einem physisch getragenen R09-Ring, und unsere automatisierten Tests laufen erfolgreich durch. Der Recovery Index erhält einen Faktor, der an die Temperaturabweichung von deiner persönlichen Baseline gekoppelt ist, und die Herzgesundheits-Karte zeigt einen Hinweis, wenn die Temperatur über deiner Norm liegt.",
         pt: "O comando que o R09 usa para expor a temperatura nunca tinha sido documentado no FitMesh antes de agora: nós o identificamos analisando o protocolo BLE do anel, um trabalho de engenharia reversa informado também pela pesquisa pública do projeto de código aberto Gadgetbridge sobre anéis com hardware semelhante. O código para ler e interpretar esse dado — no parser do protocolo do anel e no pipeline que funde os dados com as outras fontes — está escrito, verificado em um anel R09 físico usado, e nossos testes automatizados passam. O índice de recuperação ganha um fator ligado ao desvio de temperatura em relação à sua linha de base pessoal, e o cartão de saúde cardíaca mostra uma nota quando a temperatura está acima da sua média.",
         fr: "La commande que la R09 utilise pour exposer la température n'avait jamais été documentée dans FitMesh auparavant : nous l'avons identifiée en analysant le protocole BLE de la bague, un travail de rétro-ingénierie informé en partie par les recherches publiques du projet open source Gadgetbridge sur des bagues au matériel similaire. Le code pour lire et interpréter cette donnée — dans l'analyseur du protocole de la bague et dans le pipeline qui la fusionne avec les autres sources — est écrit, vérifié sur une bague R09 physique portée, et nos tests automatisés passent. L'indice de récupération gagne un facteur lié à l'écart de température par rapport à votre référence personnelle, et la carte santé cardiaque affiche une note quand la température dépasse votre norme.",
+        tr: "R09'un sıcaklığı açığa çıkarmak için kullandığı komut, daha önce FitMesh'te hiç belgelenmemişti: yüzüğün BLE protokolünü inceleyerek bulduk; bu tersine mühendislik çalışmasına, benzer donanıma sahip yüzükler üzerine açık kaynaklı Gadgetbridge projesinin kamuya açık araştırması da kısmen ışık tuttu. Bu veriyi okuyup yorumlayan kod — yüzüğün protokol ayrıştırıcısında ve onu diğer kaynaklarla birleştiren hatta — yazıldı, fiziksel olarak takılan bir R09 yüzüğünde doğrulandı ve otomatik testlerimiz başarıyla geçiyor. Toparlanma endeksi, kişisel taban çizginizden sıcaklık sapmasına bağlı bir faktör kazanıyor ve kalp sağlığı kartı, sıcaklık normunuzun üzerinde olduğunda bir not gösteriyor.",
+        pl: "Polecenie, którego R09 używa do udostępniania temperatury, nigdy wcześniej nie było udokumentowane w FitMesh: znaleźliśmy je, analizując protokół BLE pierścienia — praca z zakresu inżynierii wstecznej, wsparta częściowo publicznymi badaniami projektu open source Gadgetbridge dotyczącymi pierścieni o podobnym sprzęcie. Kod do odczytu i interpretacji tych danych — w parserze protokołu pierścienia oraz w potoku łączącym je z innymi źródłami — jest napisany, zweryfikowany na fizycznym, noszonym pierścieniu R09, a nasze automatyczne testy przechodzą pomyślnie. Wskaźnik regeneracji zyskuje czynnik powiązany z odchyleniem temperatury od twojej osobistej wartości bazowej, a karta zdrowia serca pokazuje notatkę, gdy temperatura przekracza twoją normę.",
       },
     },
     {
@@ -408,6 +498,8 @@ export const post: BlogPost = {
         de: "Auf physischer Hardware verifiziert",
         pt: "Verificado em hardware físico",
         fr: "Vérifié sur du matériel physique",
+        tr: "Fiziksel donanımda doğrulandı",
+        pl: "Zweryfikowane na fizycznym sprzęcie",
       },
       body: {
         it: "Il supporto alla temperatura dell'R09 è stato verificato su un anello fisico, indossato, ed è incluso nella versione di FitMesh Sync disponibile oggi. Come per SpO2 e HRV, resta un segnale di benessere informativo: non uno strumento diagnostico e non un dispositivo medico.",
@@ -416,6 +508,8 @@ export const post: BlogPost = {
         de: "Die Temperaturunterstützung der R09 wurde auf einem physischen, getragenen Ring verifiziert und ist in der heute verfügbaren Version von FitMesh Sync enthalten. Wie SpO2 und HRV bleibt sie ein informatives Wellness-Signal – kein diagnostisches Werkzeug und kein Medizinprodukt.",
         pt: "O suporte à temperatura do R09 foi verificado em um anel físico, usado no corpo, e está incluído na versão do FitMesh Sync disponível hoje. Assim como o SpO2 e o HRV, continua sendo um sinal de bem-estar informativo — não uma ferramenta de diagnóstico nem um dispositivo médico.",
         fr: "Le support de la température de la R09 a été vérifié sur une bague physique, portée, et il est inclus dans la version de FitMesh Sync disponible aujourd'hui. Comme la SpO2 et la HRV, il reste un signal de bien-être informatif — pas un outil diagnostique et pas un dispositif médical.",
+        tr: "R09 sıcaklık desteği, fiziksel olarak takılan bir yüzükte doğrulandı ve bugün kullanılabilen FitMesh Sync sürümüne dahil edildi. SpO2 ve HRV gibi, bu da bilgilendirici bir esenlik sinyali olmaya devam ediyor — tanı aracı değil, tıbbi cihaz değil.",
+        pl: "Obsługa temperatury R09 została zweryfikowana na fizycznym, noszonym pierścieniu i jest uwzględniona w wersji FitMesh Sync dostępnej już dziś. Podobnie jak SpO2 i HRV, pozostaje to informacyjnym sygnałem dobrostanu — nie narzędziem diagnostycznym ani wyrobem medycznym.",
       },
     },
     {
@@ -428,6 +522,8 @@ export const post: BlogPost = {
         de: "Warum Temperatur nie eine Diagnose sein wird",
         pt: "Por que a temperatura nunca será um diagnóstico",
         fr: "Pourquoi la température ne sera jamais un diagnostic",
+        tr: "Sıcaklık neden asla bir teşhis olmayacak",
+        pl: "Dlaczego temperatura nigdy nie będzie diagnozą",
       },
     },
     {
@@ -439,6 +535,8 @@ export const post: BlogPost = {
         de: "Genau wie die SpO2-Daten des Rings heute – behandelt als informative Schätzung möglicher nächtlicher Muster, nicht als Diagnose – ist auch die Hauttemperatur ein informatives Wellness-Signal ohne diagnostischen Anspruch, kein diagnostisches Werkzeug. Smarte Ringe, einschließlich der R09, sind keine Medizinprodukte und nicht dafür zertifiziert, Krankheiten oder Gesundheitszustände zu diagnostizieren. Eine Temperaturabweichung von deiner persönlichen Baseline ist ein weiterer Datenpunkt, den du über die Zeit beobachtest, kein klinisches Urteil. Bei echten Symptomen zählt die Einschätzung eines echten Arztes.",
         pt: "Assim como já acontece hoje com os dados de SpO2 do anel — tratados como uma estimativa informativa sobre possíveis padrões noturnos, não como diagnóstico —, a temperatura cutânea também é um sinal de bem-estar informativo, não uma ferramenta de diagnóstico. Os anéis inteligentes, incluindo o R09, não são dispositivos médicos e não são certificados para diagnosticar doenças ou condições de saúde. Um desvio de temperatura em relação à sua linha de base pessoal é mais um dado a observar ao longo do tempo, não um veredito clínico. Para qualquer sintoma real, a avaliação de um médico continua sendo o que importa.",
         fr: "Comme déjà aujourd'hui les données de SpO2 de la bague — traitées comme une estimation informative sur d'éventuels schémas nocturnes, pas comme un diagnostic — la température cutanée est elle aussi un signal de bien-être informatif, pas un outil diagnostique. Les bagues connectées, y compris la R09, ne sont pas des dispositifs médicaux et ne sont pas certifiées pour diagnostiquer des maladies ou des problèmes de santé. Un écart de température par rapport à votre référence personnelle est une donnée de plus à observer dans le temps, pas un verdict clinique. Pour tout symptôme réel, l'évaluation d'un médecin reste la référence.",
+        tr: "Tıpkı yüzüğün bugünkü SpO2 verileri gibi — olası gece boyu örüntüler hakkında bilgilendirici bir tahmin olarak ele alınır, bir teşhis olarak değil — cilt sıcaklığı verisi de tanısal olmayan bir esenlik sinyalidir, bir teşhis aracı değildir. R09 dahil akıllı yüzükler tıbbi cihaz değildir ve hastalık veya sağlık durumlarını teşhis etmek için sertifikalı değildir. Kişisel taban çizginizden bir sıcaklık sapması, zaman içinde izlenecek bir veri noktası daha demektir, klinik bir hüküm değil. Gerçek herhangi bir belirti için önemli olan, gerçek bir doktorun değerlendirmesidir.",
+        pl: "Podobnie jak dziś dane SpO2 pierścienia — traktowane jako informacyjny szacunek dotyczący możliwych wzorców nocnych, a nie diagnoza — temperatura skóry jest również informacyjnym sygnałem dobrostanu, a nie narzędziem diagnostycznym. Inteligentne pierścienie, w tym R09, nie są wyrobami medycznymi i nie posiadają certyfikatu do diagnozowania chorób ani stanów zdrowia. Odchylenie temperatury od twojej osobistej wartości bazowej to kolejna dana do obserwowania w czasie, a nie kliniczny werdykt. W przypadku jakichkolwiek rzeczywistych objawów liczy się ocena lekarza.",
       },
     },
     {
@@ -451,6 +549,8 @@ export const post: BlogPost = {
         de: "Wie wir die Temperatur der R09 verifiziert haben",
         pt: "Como verificamos a temperatura do R09",
         fr: "Comment nous avons vérifié la température de la R09",
+        tr: "R09 sıcaklığını nasıl doğruladık",
+        pl: "Jak zweryfikowaliśmy temperaturę R09",
       },
     },
     {
@@ -462,6 +562,8 @@ export const post: BlogPost = {
         de: "Bevor wir sie in eine öffentliche Version aufgenommen haben, haben wir verifiziert, dass der Sensor auf einem physischen, getragenen R09-Ring funktioniert – wir haben geprüft, ob die Temperaturmessung tatsächlich in der richtigen Karte erscheint und ob der Recovery Index sie korrekt nutzt. Diese Verifizierung ist abgeschlossen: Du findest sie bereits in der heute verfügbaren Version von FitMesh Sync. Details zu den Neuigkeiten in der App findest du im Bereich Neuigkeiten.",
         pt: "Antes de incluí-la em uma versão pública, verificamos que o sensor funcionava em um anel R09 físico, usado no corpo — checando se a leitura de temperatura realmente aparecia no cartão certo e se o índice de recuperação a usava corretamente. Essa verificação foi concluída: você já encontra o recurso na versão do FitMesh Sync disponível hoje. Para os detalhes do que há de novo no app, veja a seção Novidades.",
         fr: "Avant de l'inclure dans une version publique, nous avons vérifié que le capteur fonctionnait sur une bague R09 physique, portée — en vérifiant que la lecture de température se remplissait bien dans la bonne carte et que l'indice de récupération l'utilisait correctement. Cette vérification est terminée : vous la trouvez déjà dans la version de FitMesh Sync disponible aujourd'hui. Pour les détails sur les nouveautés de l'application, consultez la section Nouveautés.",
+        tr: "Herkese açık bir sürüme dahil etmeden önce, sensörün fiziksel olarak takılan bir R09 yüzüğünde çalıştığını doğruladık — sıcaklık okumasının gerçekten doğru kartta göründüğünü ve toparlanma endeksinin bunu doğru kullandığını kontrol ettik. Bu doğrulama tamamlandı: özellik zaten bugün kullanılabilen FitMesh Sync sürümünde yer alıyor. Uygulamadaki yeniliklerin ayrıntıları için Yenilikler bölümüne bakın.",
+        pl: "Zanim dodaliśmy tę funkcję do publicznej wersji, zweryfikowaliśmy działanie czujnika na fizycznym, noszonym pierścieniu R09 — sprawdzając, czy odczyt temperatury faktycznie pojawia się na właściwej karcie i czy wskaźnik regeneracji poprawnie go wykorzystuje. Ta weryfikacja została zakończona: znajdziesz ją już w wersji FitMesh Sync dostępnej dziś. Szczegóły dotyczące nowości w aplikacji znajdziesz w sekcji Nowości.",
       },
     },
     {
@@ -473,6 +575,8 @@ export const post: BlogPost = {
         de: "Probiere FitMesh heute mit deinem Colmi-Ring aus",
         pt: "Experimente o FitMesh com o seu anel Colmi hoje",
         fr: "Essayez FitMesh avec votre bague Colmi dès aujourd'hui",
+        tr: "FitMesh'i bugün Colmi yüzüğünüzle deneyin",
+        pl: "Wypróbuj FitMesh ze swoim pierścieniem Colmi już dziś",
       },
       body: {
         it: "Passi, battito, SpO2, HRV, stress e sonno con fasi, fusi con i dati del tuo smartwatch senza doppi conteggi. I primi 1000 iscritti founder ottengono il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa.",
@@ -481,6 +585,8 @@ export const post: BlogPost = {
         de: "Schritte, Herzfrequenz, SpO2, HRV, Stress und Schlaf mit Phasen, zusammengeführt mit den Daten deiner Smartwatch, ohne doppelte Zählung. Die ersten 1.000 Founder-Anmeldungen erhalten Pro lebenslang gratis; alle anderen bekommen eine vollständige 14-tägige Testphase.",
         pt: "Passos, batimentos, SpO2, HRV, estresse e sono com fases, fundidos com os dados do seu smartwatch sem contagens duplicadas. Os primeiros 1000 inscritos founders ganham o Pro vitalício grátis; todos os outros têm um teste completo de 14 dias.",
         fr: "Les pas, la fréquence cardiaque, la SpO2, la HRV, le stress et le sommeil avec ses phases, fusionnés avec les données de votre montre connectée sans double comptage. Les 1 000 premiers inscrits fondateurs obtiennent le Pro à vie gratuit ; tous les autres ont un essai complet de 14 jours.",
+        tr: "Adım sayısı, nabız, SpO2, HRV, stres ve evrelere ayrılmış uyku, akıllı saatinizin verileriyle çift sayım olmadan birleştirilir. İlk 1.000 kurucu üye kaydı ömür boyu ücretsiz Pro kazanır; diğer herkes tam 14 günlük deneme süresi alır.",
+        pl: "Kroki, tętno, SpO2, HRV, stres i sen z fazami, połączone z danymi twojego smartwatcha bez podwójnego liczenia. Pierwsze 1000 zapisów founder otrzymuje Pro na zawsze za darmo; wszyscy pozostali mają pełne 14 dni okresu próbnego.",
       },
       ctaLabel: {
         it: "Unisciti alla beta →",
@@ -489,6 +595,8 @@ export const post: BlogPost = {
         de: "Der Beta beitreten →",
         pt: "Participe da beta →",
         fr: "Rejoindre la bêta →",
+        tr: "Betaya katıl →",
+        pl: "Dołącz do bety →",
       },
       ctaHref: {
         it: "/it/beta",
@@ -497,6 +605,8 @@ export const post: BlogPost = {
         de: "/de/beta",
         pt: "/pt/beta",
         fr: "/fr/beta",
+        tr: "/tr/beta",
+        pl: "/pl/beta",
       },
     },
   ],
@@ -509,6 +619,8 @@ export const post: BlogPost = {
         de: "Welche Colmi-Ring-Modelle funktionieren mit FitMesh?",
         pt: "Quais modelos de anel Colmi funcionam com o FitMesh?",
         fr: "Quels modèles de bague Colmi fonctionnent avec FitMesh ?",
+        tr: "Hangi Colmi yüzük modelleri FitMesh ile çalışır?",
+        pl: "Jakie modele pierścienia Colmi działają z FitMesh?",
       },
       a: {
         it: "La serie R Colmi (R02-R10) e i cloni OEM con lo stesso protocollo BLE. Passi, distanza, calorie, battito, SpO2, HRV, stress e sonno con fasi funzionano su questi modelli.",
@@ -517,6 +629,8 @@ export const post: BlogPost = {
         de: "Die Colmi R-Serie (R02-R10) und OEM-Klone mit demselben BLE-Protokoll. Schritte, Distanz, Kalorien, Herzfrequenz, SpO2, HRV, Stress und Schlaf mit Phasen funktionieren bei all diesen Modellen.",
         pt: "A série R Colmi (R02-R10) e os clones OEM com o mesmo protocolo BLE. Passos, distância, calorias, batimentos, SpO2, HRV, estresse e sono com fases funcionam nesses modelos.",
         fr: "La série R Colmi (R02-R10) et les clones OEM avec le même protocole BLE. Les pas, la distance, les calories, la fréquence cardiaque, la SpO2, la HRV, le stress et le sommeil avec ses phases fonctionnent sur ces modèles.",
+        tr: "Colmi R serisi (R02-R10) ve aynı BLE protokolünü paylaşan OEM klonlar. Adım sayısı, mesafe, kalori, nabız, SpO2, HRV, stres ve evrelere ayrılmış uyku bu modellerin tamamında çalışır.",
+        pl: "Seria Colmi R (R02-R10) oraz klony OEM korzystające z tego samego protokołu BLE. Kroki, dystans, kalorie, tętno, SpO2, HRV, stres i sen z fazami działają na tych modelach.",
       },
     },
     {
@@ -527,6 +641,8 @@ export const post: BlogPost = {
         de: "Liest FitMesh die Temperatur der R09 schon aus?",
         pt: "O FitMesh já lê a temperatura do R09?",
         fr: "FitMesh lit-il déjà la température de la R09 ?",
+        tr: "FitMesh, R09 sıcaklığını zaten okuyor mu?",
+        pl: "Czy FitMesh już odczytuje temperaturę R09?",
       },
       a: {
         it: "Sì. Il supporto è stato verificato su un anello R09 fisico, indossato, ed è incluso nella build attuale di FitMesh Sync.",
@@ -535,6 +651,8 @@ export const post: BlogPost = {
         de: "Ja. Die Unterstützung wurde auf einem physischen, getragenen R09-Ring verifiziert und ist in der aktuellen Version von FitMesh Sync enthalten.",
         pt: "Sim. O suporte foi verificado em um anel R09 físico, usado no corpo, e está incluído na versão atual do FitMesh Sync.",
         fr: "Oui. Le support a été vérifié sur une bague R09 physique, portée, et il est inclus dans la version actuelle de FitMesh Sync.",
+        tr: "Evet. Destek, fiziksel olarak takılan bir R09 yüzüğünde doğrulandı ve FitMesh Sync'in güncel sürümüne dahil edildi.",
+        pl: "Tak. Obsługa została zweryfikowana na fizycznym, noszonym pierścieniu R09 i jest uwzględniona w obecnej wersji FitMesh Sync.",
       },
     },
     {
@@ -545,6 +663,8 @@ export const post: BlogPost = {
         de: "Kann mir die Ring-Temperatur sagen, ob ich krank werde?",
         pt: "A temperatura do anel vai poder me dizer se estou ficando doente?",
         fr: "La température de la bague pourra-t-elle me dire si je tombe malade ?",
+        tr: "Yüzük sıcaklığı, hastalanıp hastalanmadığımı söyleyebilecek mi?",
+        pl: "Czy temperatura pierścienia będzie mogła powiedzieć mi, czy się rozchorowuję?",
       },
       a: {
         it: "No. La temperatura è un segnale di benessere informativo, non uno strumento diagnostico. Gli anelli smart non sono dispositivi medici. Per qualsiasi sintomo reale, rivolgiti a un medico.",
@@ -553,6 +673,8 @@ export const post: BlogPost = {
         de: "Nein. Die Temperatur ist ein informatives Wellness-Signal ohne diagnostischen Anspruch, kein diagnostisches Werkzeug. Smarte Ringe sind keine Medizinprodukte. Bei echten Symptomen wende dich an einen Arzt.",
         pt: "Não. A temperatura é um sinal de bem-estar informativo, não uma ferramenta de diagnóstico. Anéis inteligentes não são dispositivos médicos. Para qualquer sintoma real, procure um médico.",
         fr: "Non. La température est un signal de bien-être informatif, pas un outil diagnostique. Les bagues connectées ne sont pas des dispositifs médicaux. Pour tout symptôme réel, consultez un médecin.",
+        tr: "Hayır. Sıcaklık, tanısal olmayan bir esenlik sinyalidir, bir teşhis aracı değildir. Akıllı yüzükler tıbbi cihaz değildir. Gerçek herhangi bir belirti için bir doktora başvurun.",
+        pl: "Nie. Temperatura to niediagnostyczny sygnał dobrostanu, a nie narzędzie diagnostyczne. Inteligentne pierścienie nie są wyrobami medycznymi. W przypadku jakichkolwiek rzeczywistych objawów zgłoś się do lekarza.",
       },
     },
     {
@@ -563,6 +685,8 @@ export const post: BlogPost = {
         de: "Zeichnet der Ring meine Trainingseinheiten auf?",
         pt: "O anel registra os meus treinos?",
         fr: "La bague enregistre-t-elle mes entraînements ?",
+        tr: "Yüzük antrenmanlarımı kaydediyor mu?",
+        pl: "Czy pierścień rejestruje moje treningi?",
       },
       a: {
         it: "Non ancora. Passi, distanza e calorie sì, ma il riconoscimento delle sessioni di allenamento richiede oggi uno smartwatch o un'altra fonte collegata.",
@@ -571,6 +695,8 @@ export const post: BlogPost = {
         de: "Noch nicht. Schritte, Distanz und Kalorien schon – aber die Erkennung von Trainingseinheiten erfordert aktuell eine Smartwatch oder eine andere verbundene Quelle.",
         pt: "Ainda não. Passos, distância e calorias, sim — mas a detecção das sessões de treino hoje requer um smartwatch ou outra fonte conectada.",
         fr: "Pas encore. Les pas, la distance et les calories, oui, mais la détection des séances d'entraînement nécessite aujourd'hui une montre connectée ou une autre source connectée.",
+        tr: "Henüz değil. Adım sayısı, mesafe ve kalori evet — ama antrenman seansı tespiti şu an bir akıllı saat veya bağlı başka bir kaynak gerektiriyor.",
+        pl: "Jeszcze nie. Kroki, dystans i kalorie tak, ale wykrywanie sesji treningowych wymaga dziś smartwatcha lub innego podłączonego źródła.",
       },
     },
     {
@@ -581,6 +707,8 @@ export const post: BlogPost = {
         de: "Werden Daten doppelt gezählt, wenn ich zusätzlich eine Smartwatch trage?",
         pt: "Se eu também uso um smartwatch, os dados se duplicam?",
         fr: "Si je porte aussi une montre connectée, les données se dupliquent-elles ?",
+        tr: "Ayrıca bir akıllı saat de takarsam veriler çoğalır mı?",
+        pl: "Jeśli noszę też smartwatch, czy dane się dublują?",
       },
       a: {
         it: "No. FitMesh Sync fonde le fonti per priorità: l'anello prevale di notte per il sonno, lo smartwatch prevale di giorno dove è più preciso. Ogni metrica è contata una sola volta.",
@@ -589,6 +717,8 @@ export const post: BlogPost = {
         de: "Nein. FitMesh Sync führt die Quellen nach Priorität zusammen: Der Ring hat nachts beim Schlaf Vorrang, die Smartwatch tagsüber dort, wo sie präziser misst. Jede Metrik wird nur einmal gezählt.",
         pt: "Não. O FitMesh Sync funde as fontes por prioridade: o anel prevalece à noite para o sono, o smartwatch prevalece de dia onde é mais preciso. Cada métrica é contada uma única vez.",
         fr: "Non. FitMesh Sync fusionne les sources par priorité : la bague l'emporte la nuit pour le sommeil, la montre connectée l'emporte le jour là où elle est plus précise. Chaque métrique n'est comptée qu'une seule fois.",
+        tr: "Hayır. FitMesh Sync kaynakları önceliğe göre birleştirir: uyku için gece boyunca yüzük öncelik kazanır, daha isabetli olduğu yerlerde gündüz akıllı saat öncelik kazanır. Her metrik yalnızca bir kez sayılır.",
+        pl: "Nie. FitMesh Sync łączy źródła według priorytetu: pierścień wygrywa w nocy przy śnie, smartwatch wygrywa w ciągu dnia tam, gdzie jest dokładniejszy. Każda metryka jest liczona tylko raz.",
       },
     },
     {
@@ -599,6 +729,8 @@ export const post: BlogPost = {
         de: "Wie habt ihr verifiziert, dass die Temperatur der R09 wirklich funktioniert?",
         pt: "Como vocês verificaram que a temperatura do R09 realmente funciona?",
         fr: "Comment avez-vous vérifié que la température de la R09 fonctionnait vraiment ?",
+        tr: "R09 sıcaklığının gerçekten çalıştığını nasıl doğruladınız?",
+        pl: "Jak zweryfikowaliście, że temperatura R09 naprawdę działa?",
       },
       a: {
         it: "Abbiamo testato la lettura su un anello R09 fisico, indossato, verificando che il dato di temperatura arrivasse correttamente nella scheda salute e che l'indice di recupero lo usasse come previsto, prima di includerlo nella build pubblica.",
@@ -607,6 +739,8 @@ export const post: BlogPost = {
         de: "Wir haben die Messung auf einem physischen, getragenen R09-Ring getestet und geprüft, ob die Temperaturdaten korrekt in der Gesundheitskarte ankommen und ob der Recovery Index sie wie vorgesehen nutzt, bevor wir sie in die öffentliche Version aufgenommen haben.",
         pt: "Testamos a leitura em um anel R09 físico, usado no corpo, verificando se o dado de temperatura chegava corretamente ao cartão de saúde e se o índice de recuperação o usava como previsto, antes de incluí-lo na versão pública.",
         fr: "Nous avons testé la lecture sur une bague R09 physique, portée, en vérifiant que la donnée de température arrivait correctement dans la carte santé et que l'indice de récupération l'utilisait comme prévu, avant de l'inclure dans la version publique.",
+        tr: "Herkese açık sürüme dahil etmeden önce okumayı fiziksel olarak takılan bir R09 yüzüğünde test ettik; sıcaklık verisinin sağlık kartına doğru şekilde ulaştığını ve toparlanma endeksinin bunu amaçlandığı gibi kullandığını kontrol ettik.",
+        pl: "Przetestowaliśmy odczyt na fizycznym, noszonym pierścieniu R09, sprawdzając, czy dane o temperaturze poprawnie trafiają do karty zdrowia i czy wskaźnik regeneracji wykorzystuje je zgodnie z założeniami, zanim dodaliśmy tę funkcję do publicznej wersji.",
       },
     },
   ],
