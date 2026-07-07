@@ -526,6 +526,88 @@ export default async function Home({
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
+       *  BRING YOUR OWN AI — manifesto gemello del privacy block: stessa
+       *  card-glass, stesso halo, 2 colonne (pitch + link /ai | checklist).
+       *  Tagline in EN non tradotta di proposito (slogan globale).
+       *  ════════════════════════════════════════════════════════════ */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
+        <div className="card-glass p-10 sm:p-14 relative overflow-hidden">
+          <div
+            aria-hidden
+            className="halo-conic absolute -top-24 -left-24 w-[420px] h-[420px] opacity-50 animate-float"
+          />
+
+          <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-16">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
+                {lc === "it" ? "La tua AI, le tue regole" : lc === "es" ? "Tu IA, tus reglas" : "Your AI, your rules"}
+              </p>
+              <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
+                Use your favorite AI assistant with your own health data.
+              </h2>
+              <p className="mt-5 text-text-secondary text-lg leading-relaxed">
+                {lc === "it"
+                  ? "FitMesh non ti chiude in un assistente proprietario. Prepara un riepilogo pulito dei tuoi dati e sei tu a scegliere con chi condividerlo: ChatGPT, Claude, Gemini o quello che preferisci."
+                  : lc === "es"
+                  ? "FitMesh no te encierra en un asistente propio. Prepara un resumen claro de tus datos y tú eliges con quién compartirlo: ChatGPT, Claude, Gemini o el que prefieras."
+                  : "FitMesh doesn't lock you into a proprietary assistant. It prepares a clean summary of your data, and you choose who to share it with: ChatGPT, Claude, Gemini, or whatever you use."}
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Link
+                  href={`/${lc}/ai`}
+                  className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
+                >
+                  {lc === "it" ? "Scopri come funziona" : lc === "es" ? "Descubre cómo funciona" : "See how it works"}
+                </Link>
+              </div>
+            </div>
+
+            <ul className="grid grid-cols-1 gap-3">
+              {[
+                {
+                  t: "Bring your own wearable.",
+                  d: lc === "it"
+                    ? "Galaxy Watch, Wear OS, anello smart, Health Connect: colleghi quello che hai già."
+                    : lc === "es"
+                    ? "Galaxy Watch, Wear OS, anillo inteligente, Health Connect: conectas lo que ya tienes."
+                    : "Galaxy Watch, Wear OS, a smart ring, Health Connect: connect whatever you already own.",
+                },
+                {
+                  t: "Bring your own AI.",
+                  d: lc === "it"
+                    ? "Nessun chatbot proprietario. Il riepilogo è tuo, l'assistente lo scegli tu."
+                    : lc === "es"
+                    ? "Sin chatbot propio. El resumen es tuyo, el asistente lo eliges tú."
+                    : "No proprietary chatbot. The summary is yours, you pick the assistant.",
+                },
+              ].map((it) => (
+                <li
+                  key={it.t}
+                  className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 flex gap-4"
+                >
+                  <span
+                    className="w-9 h-9 flex-shrink-0 rounded-xl flex items-center justify-center"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(29,161,255,0.18), rgba(167,139,250,0.10))",
+                      boxShadow: "inset 0 0 0 1px rgba(29,161,255,0.30)",
+                    }}
+                  >
+                    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="#1DA1FF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                      <path d="M5 13l4 4L19 7" />
+                    </svg>
+                  </span>
+                  <div>
+                    <p className="font-display text-base font-semibold text-text-primary">{it.t}</p>
+                    <p className="mt-1 text-sm text-text-secondary leading-relaxed">{it.d}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════
        *  PRICING — Free / Pro / Founder (enfasi founder: Pro a vita gratis)
        *  ════════════════════════════════════════════════════════════ */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>

@@ -56,6 +56,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/press",        changeFrequency: "monthly", priority: 0.7,  indexableLocales: (lc) => PRESS_COMPLETE_LOCALES.includes(lc) },
     { path: "/famiglia",     changeFrequency: "monthly", priority: 0.95, indexableLocales: (lc) => FAMIGLIA_COMPLETE_LOCALES.includes(lc) },
     { path: "/integrations", changeFrequency: "weekly",  priority: 0.9 },
+    { path: "/ai",           changeFrequency: "monthly", priority: 0.85 },
     { path: "/roadmap",      changeFrequency: "weekly",  priority: 0.6,  indexableLocales: (lc) => ROADMAP_COMPLETE_LOCALES.includes(lc) },
     { path: "/beta",         changeFrequency: "weekly",  priority: 0.95 },
     { path: "/blog",         changeFrequency: "daily",   priority: 0.85 },
