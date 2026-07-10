@@ -133,6 +133,33 @@ const nextConfig = {
       { source: '/en/blog/alternative-health-sync-2026', destination: '/en/blog/alternative-app-sync-wearable-2026', permanent: true },
     ];
 
+    // Slug IT fix (2026-07-10): la chiave canonico/IT era rimasta per errore in
+    // spagnolo ("cierra-alternativas") invece di uno slug italiano. Contenuto
+    // sempre stato in italiano corretto, solo l'URL era sbagliato. Il vecchio
+    // slug canonico viene rediretto sotto TUTTI i locali supportati (non solo
+    // /it/), per intercettare eventuali URL indicizzati/salvati con lo slug
+    // canonico sotto un prefisso locale diverso da /it/. Destinazione = slug
+    // localizzato attualmente valido per quel locale (vedi lib/blog/slugs.ts).
+    const oldCanonicalGoogleFitSlug = 'google-fit-cierra-alternativas-health-connect';
+    const googleFitApiSlugByLocale = {
+      it: 'google-fit-api-dismissione-2026',
+      en: 'google-fit-shutting-down-alternative',
+      es: 'google-fit-cierra-alternativa-health-connect',
+      de: 'google-fit-eingestellt-alternative',
+      pt: 'google-fit-encerrando-alternativa',
+      fr: 'google-fit-fermeture-alternative',
+      pl: 'google-fit-zamkniety-alternatywa-health-connect',
+      tr: 'google-fit-kapaniyor-alternatif',
+      nl: 'google-fit-gesloten-alternatieven-health-connect',
+      ja: 'google-fit-shuuryou-health-connect-daian',
+      ko: 'google-fit-jongryeo-health-connect-daean',
+    };
+    const itSlugFixRedirects = Object.entries(googleFitApiSlugByLocale).map(([lc, slug]) => ({
+      source: `/${lc}/blog/${oldCanonicalGoogleFitSlug}`,
+      destination: `/${lc}/blog/${slug}`,
+      permanent: true,
+    }));
+
     return [
       // App Links / Universal Links: l'apex `fitmesh.fit` deve poter servire
       // `/.well-known/*` SENZA redirect — Android (assetlinks.json) e Apple
@@ -174,6 +201,8 @@ const nextConfig = {
       ...cannibalRedirects,
       // Brand standalone cleanup (vedi sopra).
       ...standaloneRedirects,
+      // Slug IT fix (vedi sopra).
+      ...itSlugFixRedirects,
     ];
   },
 };

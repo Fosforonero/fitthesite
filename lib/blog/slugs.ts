@@ -258,7 +258,7 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "fitness-data-privacy-smartwatch",
     ko: "fitness-deiteo-gaeinjungbo-smartwatch",
   },
-  "google-fit-cierra-alternativas-health-connect": {
+  "google-fit-api-dismissione-2026": {
     en: "google-fit-shutting-down-alternative",
     es: "google-fit-cierra-alternativa-health-connect",
     de: "google-fit-eingestellt-alternative",
