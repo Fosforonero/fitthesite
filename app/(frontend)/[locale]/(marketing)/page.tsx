@@ -8,6 +8,7 @@ import { IosAwareText } from "@/components/IosAwareText";
 import FounderBanner from "@/components/FounderBanner";
 import TrustBadges from "@/components/TrustBadges";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { MobileApplicationJsonLd } from "@/components/seo/MobileApplicationJsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
@@ -15,8 +16,7 @@ import { tl, tll } from "@/lib/blog/types";
 import { p } from "@/lib/pricing";
 import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
 
 /**
  * Below-the-fold marketing copy on this page (How it works, Integrations
@@ -154,6 +154,7 @@ export default async function Home({
     <>
       <JsonLd data={homeLd} />
       <JsonLd data={homeBreadcrumbLd} />
+      <MobileApplicationJsonLd locale={lc} />
       {/* ════════════════════════════════════════════════════════════════
        *  HERO
        *  Composizione asimmetrica: testo 7 colonne a sinistra, visual 5

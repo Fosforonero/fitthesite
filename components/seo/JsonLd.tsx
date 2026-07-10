@@ -15,11 +15,26 @@
  *     ...(dateModified && { dateModified }),
  *   }
  */
+
+/**
+ * `JSON.stringify` non esegue escape di `<`: una stringa proveniente dal CMS
+ * o da contenuto editoriale (es. una FAQ answer, una bio, una meta
+ * description) che contenesse letteralmente `</script>` chiuderebbe il tag e
+ * inietterebbe markup/script arbitrario nella pagina. `<` è
+ * un'escape JSON valida — `JSON.parse`/i parser structured-data di
+ * Google la decodificano correttamente in "<" — ma non è interpretabile
+ * dall'HTML parser come apertura di un nuovo tag, quindi neutralizza
+ * `</script>` (e qualunque altro `<...>`) senza rompere il JSON.
+ */
+function safeJsonLdString(data: object): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
 export function JsonLd({ data }: { data: object }) {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: safeJsonLdString(data) }}
     />
   );
 }

@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 
-import {
-  localizedBlogSlug,
-  canonicalFromBlogUrl,
-} from "@/lib/blog/slug-i18n";
+import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
@@ -15,62 +12,15 @@ import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { categoryLabel, tl, tll } from "@/lib/blog/types";
 import {
-  getBlogPostBySlug,
   getBlogSlugs,
   getBlogPosts,
   getRelatedPosts,
 } from "@/lib/blog/payload-source";
+import { resolveBlogPost } from "@/lib/blog/resolve";
 import { isBlogVariantIndexable } from "@/lib/blog/indexability";
 import type { BlogPost } from "@/lib/blog/types";
-
-const SITE_URL = "https://www.fitmesh.fit";
-
-/**
- * Author info — Person Matteo Pizzi.
- *
- * E-E-A-T (Experience-Expertise-Authoritativeness-Trustworthiness) e' un
- * fattore SEO critico per i topic YMYL ("Your Money or Your Life") come
- * salute/fitness. Google penalizza articoli salute con `author: Organization`
- * generico; preferisce `author: Person` con bio reale + social profili
- * verificati (sameAs).
- *
- * Per cambiare autore (es. ospiti): override `post.authorOverride` nel
- * blog data model (TODO se serve).
- */
-const AUTHOR = {
-  name: "Matteo Pizzi",
-  jobTitle: "Founder & Solo Dev, FitMesh Sync · Fosforonero",
-  bioIt:
-    "Sviluppatore software italiano. Ho costruito FitMesh Sync per riempire il vuoto tra il mio smartwatch e una vera dashboard personale. Privacy-first, indie, server EU.",
-  bioEn:
-    "Italian software developer. I built FitMesh Sync to fill the gap between my smartwatch and a real personal dashboard. Privacy-first, indie, EU servers.",
-  bioEs:
-    "Desarrollador de software italiano. Construí FitMesh Sync para cubrir el espacio entre mi smartwatch y un panel personal real. Privacidad ante todo, indie, servidores en la UE.",
-  bioDe:
-    "Italienischer Softwareentwickler. Ich habe FitMesh Sync entwickelt, um die Lücke zwischen meinem Smartwatch und einem echten persönlichen Dashboard zu schließen. Datenschutz zuerst, indie, EU-Server.",
-  bioPt:
-    "Desenvolvedor de software italiano. Criei o FitMesh Sync para preencher a lacuna entre o meu smartwatch e um painel pessoal de verdade. Privacidade em primeiro lugar, indie, servidores na UE.",
-  bioFr:
-    "Développeur de logiciels italien. J'ai créé FitMesh Sync pour combler le fossé entre ma montre connectée et un vrai tableau de bord personnel. Confidentialité avant tout, indie, serveurs UE.",
-  bioPl:
-    "Włoski programista. Stworzyłem FitMesh Sync, aby wypełnić lukę między moim smartwatchem a prawdziwym osobistym dashboardem. Prywatność na pierwszym miejscu, indie, serwery w UE.",
-  bioTr:
-    "İtalyan yazılım geliştirici. FitMesh Sync'i akıllı saatim ile gerçek bir kişisel kontrol paneli arasındaki boşluğu doldurmak için kurdum. Gizlilik odaklı, bağımsız, AB sunucuları.",
-  bioNl:
-    "Italiaanse softwareontwikkelaar. Ik bouwde FitMesh Sync om de kloof tussen mijn smartwatch en een echt persoonlijk dashboard te overbruggen. Privacy-first, indie, EU-servers.",
-  bioJa:
-    "イタリア人ソフトウェア開発者。スマートウォッチと本物のパーソナルダッシュボードのギャップを埋めるためにFitMesh Syncを構築しました。プライバシーファースト、インディー、EUサーバー。",
-  bioko:
-    "이탈리아 소프트웨어 개발자. 스마트워치와 진정한 개인 대시보드 사이의 격차를 메우기 위해 FitMesh Sync를 구축했습니다. 개인정보 보호 우선, 독립적, EU 서버.",
-  url: `${SITE_URL}/it/about`,
-  // sameAs: profili pubblici per verifica autorevolezza. Vuoto = aggiungi
-  // LinkedIn/Twitter quando disponibili (Matteo ha LinkedIn personale?).
-  sameAs: [
-    "https://www.fosforonero.com",
-  ],
-};
-// Publisher Organization name (per JSON-LD Article.publisher).
-const PUBLISHER_NAME = "FitMesh Sync";
+import { SITE_URL } from "@/lib/product-facts";
+import { AUTHOR, authorBio, authorRef } from "@/lib/seo/entities";
 
 export async function generateStaticParams() {
   const slugs = await getBlogSlugs();
@@ -91,26 +41,6 @@ function blogLanguages(post: BlogPost): Record<string, string> {
   }
   langs["x-default"] = `${SITE_URL}/it/blog/${post.slug}`;
   return langs;
-}
-
-/**
- * Risolve lo slug d'URL (localizzato) → post. Se l'URL usa il vecchio slug IT su
- * un locale non-IT (link/indice storici), ritorna `redirectTo` con lo slug
- * localizzato corretto (308 permanente, SEO-safe).
- */
-async function resolveBlogPost(urlSlug: string, lc: Locale) {
-  const canonical = canonicalFromBlogUrl(urlSlug, lc);
-  if (canonical) {
-    const post = await getBlogPostBySlug(canonical);
-    if (post) return { post, redirectTo: null as string | null };
-  }
-  const post = await getBlogPostBySlug(urlSlug);
-  if (!post) return { post: null, redirectTo: null as string | null };
-  const correct = localizedBlogSlug(urlSlug, lc);
-  return {
-    post,
-    redirectTo: correct !== urlSlug ? `/${lc}/blog/${correct}` : null,
-  };
 }
 
 export async function generateMetadata({
@@ -595,37 +525,14 @@ export default async function BlogArticle({
       height: COVER_H,
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}${path}` },
-    // E-E-A-T critical su YMYL: author Person con bio + sameAs.
-    // Google penalizza articoli salute con author=Organization generico.
-    author: {
-      "@type": "Person",
-      "@id": `${SITE_URL}/it/about#matteo-pizzi`,
-      name: AUTHOR.name,
-      jobTitle: AUTHOR.jobTitle,
-      description:
-        lc === "it" ? AUTHOR.bioIt :
-        lc === "es" ? AUTHOR.bioEs :
-        lc === "de" ? AUTHOR.bioDe :
-        lc === "pt" ? AUTHOR.bioPt :
-        lc === "fr" ? AUTHOR.bioFr :
-        lc === "pl" ? AUTHOR.bioPl :
-        lc === "tr" ? AUTHOR.bioTr :
-        lc === "nl" ? AUTHOR.bioNl :
-        lc === "ja" ? AUTHOR.bioJa :
-        lc === "ko" ? AUTHOR.bioko :
-        AUTHOR.bioEn,
-      url: AUTHOR.url,
-      sameAs: AUTHOR.sameAs,
-    },
-    publisher: {
-      "@type": "Organization",
-      name: PUBLISHER_NAME,
-      url: SITE_URL,
-      logo: {
-        "@type": "ImageObject",
-        url: `${SITE_URL}/icon-square.png`,
-      },
-    },
+    // E-E-A-T su YMYL: author e publisher referenziati per @id invece di
+    // essere ridichiarati inline — l'entità Person completa vive in un solo
+    // posto (Organization.founder nel layout globale, lib/seo/entities.ts),
+    // l'Organization completa nel layout globale (components/seo/OrganizationJsonLd).
+    // Entrambe sono presenti su questa stessa pagina (il layout la avvolge),
+    // quindi il riferimento risolve correttamente.
+    author: authorRef,
+    publisher: { "@id": `${SITE_URL}#organization` },
     keywords: [
       tl(post.primaryKeyword, lc),
       ...tll({ it: post.secondaryKeywords.it, en: post.secondaryKeywords.en }, lc),
@@ -873,21 +780,7 @@ export default async function BlogArticle({
               </p>
               <p className="mt-0.5 text-xs text-text-muted">{AUTHOR.jobTitle}</p>
               <p className="mt-3 text-sm text-text-secondary leading-relaxed">
-                {lc === "it"
-                  ? AUTHOR.bioIt
-                  : lc === "es"
-                    ? AUTHOR.bioEs
-                    : lc === "de"
-                      ? AUTHOR.bioDe
-                      : lc === "pt"
-                        ? AUTHOR.bioPt
-                        : lc === "fr"
-                          ? AUTHOR.bioFr
-                          : lc === "pl"
-                            ? AUTHOR.bioPl
-                            : lc === "tr"
-                              ? AUTHOR.bioTr
-                              : AUTHOR.bioEn}
+                {authorBio(lc)}
               </p>
               <Link
                 href={`/${lc}/about`}

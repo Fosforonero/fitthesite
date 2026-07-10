@@ -16,10 +16,8 @@ import { isProviderVariantIndexable } from "@/lib/providers/indexability";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { tl, tll, categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
-import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
+import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
 
-const SITE_URL = "https://www.fitmesh.fit";
-const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
 const WAITLIST_EMAIL = "waitlist@fitmesh.fit";
 
 /**
@@ -254,7 +252,7 @@ export default async function ProviderLanding({
     description: tl(p.longDesc, lc),
     url: `${SITE_URL}${path}`,
     inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
-    offers: { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR" },
+    offers: appOffers("android"),
     downloadUrl: PLAY_URL,
   };
 

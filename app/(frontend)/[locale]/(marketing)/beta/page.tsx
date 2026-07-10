@@ -7,10 +7,10 @@ import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { MobileApplicationJsonLd } from "@/components/seo/MobileApplicationJsonLd";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { PRICING } from "@/lib/pricing";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -112,6 +112,7 @@ export default async function BetaPage({
           url: `${SITE_URL}/${lc}/beta`,
         }}
       />
+      <MobileApplicationJsonLd locale={lc} />
 
       {/* Page-local atmospheric layers (sopra al MarketingBackdrop globale) */}
       <div

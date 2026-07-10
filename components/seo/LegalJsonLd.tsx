@@ -8,8 +8,7 @@
  */
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ogLocale, type Locale } from "@/lib/i18n";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
 
 export function LegalJsonLd({
   locale,

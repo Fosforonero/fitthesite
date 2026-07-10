@@ -86,6 +86,12 @@ const nextConfig = {
         source: '/.well-known/apple-app-site-association',
         destination: '/api/apple-app-site-association',
       },
+      // /llms.txt generato da lib/product-facts.ts (route handler, force-static)
+      // invece del file statico obsoleto che viveva in public/.
+      {
+        source: '/llms.txt',
+        destination: '/api/llms-txt',
+      },
     ];
   },
 

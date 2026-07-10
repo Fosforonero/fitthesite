@@ -11,11 +11,7 @@ import { PROVIDERS_BY_SLUG } from "@/lib/providers/data";
 import { PROVIDER_MODELS } from "@/lib/providers/models";
 import { isProviderModelVariantIndexable } from "@/lib/providers/indexability";
 import { tl } from "@/lib/blog/types";
-import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
-
-const SITE_URL = "https://www.fitmesh.fit";
-const PLAY_URL =
-  "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
+import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
 
 function renderInlineBold(text: string): ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
@@ -274,11 +270,7 @@ export default async function ModelPage({
     description: desc,
     inLanguage: lc,
     url: pageUrl,
-    offers: {
-      "@type": "Offer",
-      price: String(PRICE_LIFETIME_ANDROID_RAW),
-      priceCurrency: "EUR",
-    },
+    offers: appOffers("android"),
     downloadUrl: PLAY_URL,
   };
 

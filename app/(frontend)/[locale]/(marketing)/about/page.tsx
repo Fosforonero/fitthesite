@@ -7,9 +7,8 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { IosAwareText } from "@/components/IosAwareText";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
-import { PRICE_LIFETIME_ANDROID_RAW, PRICING } from "@/lib/pricing";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { PRICING } from "@/lib/pricing";
+import { SITE_URL, appOffers } from "@/lib/product-facts";
 
 /**
  * Il body copy sotto viene da `lib/content/about-copy.ts` via `tl(...)`, oggi
@@ -101,7 +100,7 @@ export default async function AboutPage({
       name: "FitMesh Sync",
       applicationCategory: "HealthApplication",
       operatingSystem: "ANDROID",
-      offers: { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR" },
+      offers: appOffers("android"),
     },
   };
 
