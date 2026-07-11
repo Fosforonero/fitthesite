@@ -142,10 +142,14 @@ const nextConfig = {
     // Slug IT fix (2026-07-10): la chiave canonico/IT era rimasta per errore in
     // spagnolo ("cierra-alternativas") invece di uno slug italiano. Contenuto
     // sempre stato in italiano corretto, solo l'URL era sbagliato. Il vecchio
-    // slug canonico viene rediretto sotto TUTTI i locali supportati (non solo
-    // /it/), per intercettare eventuali URL indicizzati/salvati con lo slug
-    // canonico sotto un prefisso locale diverso da /it/. Destinazione = slug
-    // localizzato attualmente valido per quel locale (vedi lib/blog/slugs.ts).
+    // slug canonico viene rediretto sotto TUTTI i 15 locali supportati (non
+    // solo /it/), per intercettare eventuali URL indicizzati/salvati con lo
+    // slug canonico sotto un prefisso locale diverso da /it/. Destinazione =
+    // slug localizzato attualmente valido per quel locale (vedi
+    // lib/blog/slugs.ts). sv/da/no/fi non hanno un override in BLOG_SLUGS per
+    // questo post (contenuto ancora in fallback EN, vedi
+    // UNTRANSLATED_CONTENT_LOCALES in lib/i18n.ts): localizedBlogSlug() cade
+    // sul canonico per quei 4 locali, quindi puntano allo stesso slug IT.
     const oldCanonicalGoogleFitSlug = 'google-fit-cierra-alternativas-health-connect';
     const googleFitApiSlugByLocale = {
       it: 'google-fit-api-dismissione-2026',
@@ -159,6 +163,10 @@ const nextConfig = {
       nl: 'google-fit-gesloten-alternatieven-health-connect',
       ja: 'google-fit-shuuryou-health-connect-daian',
       ko: 'google-fit-jongryeo-health-connect-daean',
+      sv: 'google-fit-api-dismissione-2026',
+      da: 'google-fit-api-dismissione-2026',
+      no: 'google-fit-api-dismissione-2026',
+      fi: 'google-fit-api-dismissione-2026',
     };
     const itSlugFixRedirects = Object.entries(googleFitApiSlugByLocale).map(([lc, slug]) => ({
       source: `/${lc}/blog/${oldCanonicalGoogleFitSlug}`,

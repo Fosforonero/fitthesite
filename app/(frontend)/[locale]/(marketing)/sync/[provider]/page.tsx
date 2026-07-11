@@ -17,6 +17,8 @@ import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { tl, tll, categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
 import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
+import { APPLE_STORE_URL } from "@/lib/flags";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
 const WAITLIST_EMAIL = "waitlist@fitmesh.fit";
 
@@ -242,18 +244,28 @@ export default async function ProviderLanding({
     lc === "it" ? it : lc === "es" ? es : lc === "nl" ? (nl ?? en) : lc === "ja" ? (ja ?? en) : lc === "ko" ? (ko ?? en) : en;
 
   // ── JSON-LD ──────────────────────────────────────────────────────────
+  // Piattaforma-aware: la maggior parte dei provider è Android-only (Health
+  // Connect), ma "apple-health" è iOS-only e "colmi-ring" funziona su
+  // entrambe (BLE diretto) — p.platforms lo dichiara esplicitamente (default
+  // ["android"] se omesso). Prima questo blocco era hardcoded "ANDROID" +
+  // Play Store per OGNI provider, incluse le pagine apple-health/colmi-ring.
   const path = `/${lc}/sync/${p.slug}`;
+  const platforms = p.platforms ?? ["android"];
   const softwareLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: `FitMesh Sync — ${p.name}`,
     applicationCategory: "HealthApplication",
-    operatingSystem: "ANDROID",
+    operatingSystem: platforms.map((plat) => (plat === "ios" ? "IOS" : "ANDROID")).join(", "),
     description: tl(p.longDesc, lc),
     url: `${SITE_URL}${path}`,
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
-    offers: appOffers("android"),
-    downloadUrl: PLAY_URL,
+    inLanguage: schemaLanguage(lc),
+    offers: platforms.flatMap((plat) => appOffers(plat)),
+    // downloadUrl: solo per provider single-platform — con due piattaforme
+    // (colmi-ring) non c'è un unico store "giusto" da linkare qui.
+    ...(platforms.length === 1 && {
+      downloadUrl: platforms[0] === "ios" ? APPLE_STORE_URL : PLAY_URL,
+    }),
   };
 
   const faqLd =
@@ -289,7 +301,7 @@ export default async function ProviderLanding({
             `${p.name}을 FitMesh Sync에 연결하는 방법`,
           ),
           description: tl(p.longDesc, lc),
-          inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
+          inLanguage: schemaLanguage(lc),
           step: howToSteps.map((stepText, i) => ({
             "@type": "HowToStep",
             position: i + 1,

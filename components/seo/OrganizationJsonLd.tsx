@@ -11,10 +11,19 @@ import {
 } from "@/lib/product-facts";
 
 /**
- * Organization — entità stabile, stesso `@id` su ogni pagina (renderizzata
- * dal layout marketing globale). `founder` è il nodo Person completo, con lo
- * stesso `@id` riusato (per riferimento) dall'author dell'Article sui post
- * del blog — vedi lib/seo/entities.ts.
+ * Organization — versione COMPLETA, emessa solo su homepage e /about (non
+ * più nel layout globale: prima appariva su ogni pagina marketing, inclusi
+ * tutti gli articoli del blog, il che rendeva "Organization completa
+ * ovunque" indistinguibile da "MobileApplication ovunque", lo stesso
+ * problema che questo sprint corregge per l'app). `founder` è il nodo Person
+ * completo, con lo stesso `@id` riusato dal nodo Person COMPATTO che compare
+ * su Article/altre pagine — vedi lib/seo/entities.ts.
+ *
+ * Sulle pagine dove l'Organization completa non è co-presente (Article,
+ * /beta, pagine legali) usa invece `organizationCompactRef()` sotto: stesso
+ * `@id`/`name`/`url`, ma senza address/sameAs/contactPoint/founder — un nodo
+ * autosufficiente che non lascia riferimenti "a vuoto" (`{"@id": ...}` senza
+ * una definizione completa altrove nella STESSA pagina).
  *
  * `areaServed` volutamente OMESSO: Android è live ovunque, iOS fuori UE, non
  * esiste un valore Schema.org pulito che rappresenti "tutto il mondo tranne
@@ -28,7 +37,7 @@ export function organizationJsonLdData(locale: Locale) {
     "@type": "Organization",
     "@id": `${SITE_URL}#organization`,
     name: PRODUCT_NAME,
-    alternateName: ["FitMesh", "FitMesh Sync Health Dashboard", "FitMesh Android Health Tracker"],
+    alternateName: ["FitMesh", "FitMesh Sync Health Dashboard"],
     legalName: TRADER.legalName,
     url: SITE_URL,
     description: ORG_DESCRIPTIONS[locale] ?? ORG_DESCRIPTIONS.en,
@@ -64,4 +73,26 @@ export function organizationJsonLdData(locale: Locale) {
 
 export function OrganizationJsonLd({ locale }: { locale: Locale }) {
   return <JsonLd data={organizationJsonLdData(locale)} />;
+}
+
+/**
+ * Riferimento COMPATTO ma completo (non un bare `{"@id": ...}`): stesso
+ * `@id`/`name`/`url`/`logo` della Organization piena, così un motore di
+ * ricerca (o qualunque parser JSON-LD) che legga SOLO questa pagina — senza
+ * mai vedere homepage/about — ottiene comunque un'entità valida e coerente,
+ * non un riferimento a un nodo mai definito. Usato da publisher su Article,
+ * MobileApplicationJsonLd (che compare anche su /beta, dove l'Organization
+ * piena non è co-presente) e dalle pagine legali.
+ */
+export function organizationCompactRef() {
+  return {
+    "@type": "Organization" as const,
+    "@id": `${SITE_URL}#organization`,
+    name: PRODUCT_NAME,
+    url: SITE_URL,
+    logo: {
+      "@type": "ImageObject" as const,
+      url: `${SITE_URL}/icon-square.png`,
+    },
+  };
 }

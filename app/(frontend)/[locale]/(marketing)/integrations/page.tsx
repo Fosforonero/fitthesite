@@ -13,8 +13,8 @@ import {
   statusLabel,
   type ProviderCategory,
 } from "@/lib/providers/data";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -129,13 +129,15 @@ export default async function IntegrationsHub({
     "@type": "CollectionPage",
     name: t("Integrazioni FitMesh Sync", "FitMesh Sync Integrations", "Integraciones FitMesh Sync", "FitMesh Sync Integrationen", "Integrações FitMesh Sync", "Intégrations FitMesh Sync", "FitMesh Sync Integraties", "FitMesh Sync 連携", "FitMesh Sync 연동"),
     url: `${SITE_URL}/${lc}/integrations`,
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
+    inLanguage: schemaLanguage(lc),
     hasPart: PROVIDERS.map((p) => ({
       "@type": "SoftwareApplication",
       name: `FitMesh Sync — ${p.name}`,
       url: `${SITE_URL}/${lc}/sync/${p.slug}`,
       applicationCategory: "HealthApplication",
-      operatingSystem: "ANDROID",
+      operatingSystem: (p.platforms ?? ["android"])
+        .map((plat) => (plat === "ios" ? "IOS" : "ANDROID"))
+        .join(", "),
     })),
   };
 

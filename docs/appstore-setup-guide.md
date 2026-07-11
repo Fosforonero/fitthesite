@@ -34,12 +34,12 @@
 | **Reference Name** | FitMesh Pro — 6 mesi |
 | **Product ID** | `fitmesh_pro_sub` |
 | **Subscription Duration** | 6 Months |
-| **Price** | EUR €0.99 (Tier 1) |
+| **Price** | EUR €1,19 di riferimento (vedi `lib/pricing.ts` → `PRICE_SUB_6M_RAW`, unica fonte). Il Tier ASC esatto va verificato in App Store Connect al momento della configurazione: non assumere che il tier più vicino corrisponda esattamente a questa cifra o che il prezzo mostrato in altre valute (USD, GBP, ecc.) sia una conversione 1:1. |
 
-> **Calcolo commissioni:**
-> - Android (Google, 15%): €0.99 × 0.85 = **€0.84 netto**
-> - Apple con Small Business (15%): €0.99 × 0.85 = **€0.84 netto** ✓ pari
-> - Apple senza Small Business, anno 1 (30%): €0.99 × 0.70 = €0.69 — per questo iscriviti al programma prima
+> **Calcolo commissioni (sul riferimento €1,19, da riverificare col Tier ASC reale):**
+> - Android (Google, 15%): €1,19 × 0.85 = **€1,01 netto**
+> - Apple con Small Business (15%): €1,19 × 0.85 = **€1,01 netto** ✓ pari
+> - Apple senza Small Business, anno 1 (30%): €1,19 × 0.70 = €0,83 — per questo iscriviti al programma prima
 
 ### Subscription Display Name (per gli utenti)
 | Lingua | Display Name |
@@ -238,7 +238,7 @@ First release on the App Store. Connect Apple Watch, Colmi smart ring, Garmin an
 
 - [ ] Small Business Program approvato (https://developer.apple.com/app-store/small-business-program/)
 - [ ] Subscription Group "FitMesh Pro" creato
-- [ ] IAP `fitmesh_pro_sub` — 6 mesi — €0.99 — stato **Ready to Submit**
+- [ ] IAP `fitmesh_pro_sub` — 6 mesi — €1,19 di riferimento (verifica il Tier ASC esatto) — stato **Ready to Submit**
 - [ ] IAP `fitmesh_pro_lifetime` — Non-Consumable — €4.99 — stato **Ready to Submit**
 - [ ] Screenshot caricati (iPhone 6.9", iPhone 6.5", iPad 12.9" se applicabile)
 - [ ] App icon 1024×1024 caricata

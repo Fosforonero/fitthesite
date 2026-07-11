@@ -6,8 +6,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
 /**
  * Locales with fully translated body content on this page (COLUMNS/STATUS_BADGE
@@ -311,24 +311,24 @@ const COLUMNS: RoadmapColumn[] = [
     accent: "#21E6C1",
     items: [
       {
-        status: "in-progress",
+        status: "live",
         title: { it: "App iOS (Apple Salute)", en: "iOS app (Apple Health)", es: "App iOS (HealthKit)", de: "iOS-App (Apple Health)", pt: "App iOS (Apple Health)", fr: "App iOS (Apple Santé)", pl: "Aplikacja iOS (Apple Health)", tr: "iOS uygulamasi (Apple Health)", nl: "iOS-app (Apple Gezondheid)", ja: "iOSアプリ（Apple ヘルス）", ko: "iOS 앱 (Apple 건강)", sv: "iOS-app (Apple Health)", da: "iOS-app (Apple Health)", no: "iOS-app (Apple Health)", fi: "iOS-sovellus (Apple Health)" },
         desc: {
-          it: "App per iPhone pronta: lettura Apple Salute e un ponte che porta in Apple Salute i dati di Galaxy Watch e anello Colmi. Lancio su App Store imminente.",
-          en: "iPhone app ready: Apple Health read, plus a bridge that brings Galaxy Watch and Colmi ring data into Apple Health. App Store launch imminent.",
-          es: "App para iPhone lista: lectura de HealthKit y un puente que lleva los datos de Galaxy Watch y el anillo Colmi a HealthKit. Lanzamiento en el App Store inminente.",
-          de: "iPhone-App bereit: Lesen aus Apple Health und eine Brücke, die Galaxy Watch- und Colmi-Ring-Daten in Apple Health überträgt. App Store-Start steht unmittelbar bevor.",
-          pt: "App para iPhone pronta: leitura do Apple Health e uma ponte que leva os dados do Galaxy Watch e do anel Colmi para o Apple Health. Lançamento no App Store iminente.",
-          fr: "Application iPhone prête: lecture d'Apple Santé et un pont qui apporte les données Galaxy Watch et de la bague Colmi dans Apple Santé. Lancement sur l'App Store imminent.",
-          pl: "Aplikacja na iPhone gotowa: odczyt Apple Health oraz pomost przesylajacy dane Galaxy Watch i pierscienia Colmi do Apple Health. Premiera w App Store juz niedlugo.",
-          tr: "iPhone uygulamasi hazir: Apple Health okuma ve Galaxy Watch ile Colmi yüzük verilerini Apple Health'e aktaran bir köprü. App Store lansmaní yakindir.",
-          nl: "iPhone-app klaar: uitlezen van Apple Gezondheid en een brug die Galaxy Watch- en COLMI-ringdata naar Apple Gezondheid brengt. Lancering op App Store nakend.",
-          ja: "iPhone用アプリ準備完了：Apple ヘルスの読み取りと、Galaxy WatchおよびCOLMIリングのデータをApple ヘルスに連携するブリッジ機能。App Storeへの近日リリース予定。",
-          ko: "iPhone 앱 준비 완료: Apple 건강 읽기와 Galaxy Watch 및 COLMI 링 데이터를 Apple 건강으로 연결하는 브리지. App Store 출시 임박.",
-          sv: "iPhone-appen är klar: läsning från Apple Health samt en brygga som för in data från Galaxy Watch och Colmi-ringar i Apple Health. Lansering i App Store är nära förestående.",
-          da: "iPhone-appen er klar: læsning fra Apple Health samt en bro, der bringer data fra Galaxy Watch og Colmi-ring ind i Apple Health. Lancering i App Store er nært forestående.",
-          no: "iPhone-appen er klar: lesetilgang til Apple Health, pluss en bro som henter data fra Galaxy Watch og Colmi-ring inn i Apple Health. Lansering på App Store er nært forestående.",
-          fi: "iPhone-sovellus valmis: Apple Healthin lukutuki sekä silta, joka tuo Galaxy Watchin ja Colmi-sormuksen tiedot Apple Healthiin. Julkaisu App Storessa lähiaikoina.",
+          it: "App per iPhone già live sull'App Store: legge Apple Salute e include un ponte che porta in Apple Salute i dati di Galaxy Watch e anello Colmi. Disponibile negli store supportati al di fuori dell'Unione Europea; il rilascio nei 27 paesi UE è in corso.",
+          en: "iPhone app live on the App Store: reads Apple Health, plus a bridge that brings Galaxy Watch and Colmi ring data into Apple Health. Live in supported storefronts outside the European Union; the rollout in the 27 EU countries is in progress.",
+          es: "App para iPhone ya disponible en el App Store: lee HealthKit y añade un puente que lleva los datos de Galaxy Watch y el anillo Colmi a HealthKit. Disponible en las tiendas compatibles fuera de la Unión Europea; el despliegue en los 27 países de la UE está en curso.",
+          de: "iPhone-App live im App Store: liest aus Apple Health und bringt über eine Brücke Galaxy-Watch- und Colmi-Ring-Daten in Apple Health. Verfügbar in unterstützten Stores außerhalb der Europäischen Union; die Einführung in den 27 EU-Ländern läuft.",
+          pt: "App para iPhone já disponível na App Store: lê o Apple Health e inclui uma ponte que leva os dados do Galaxy Watch e do anel Colmi para o Apple Health. Disponível nas lojas compatíveis fora da União Europeia; o lançamento nos 27 países da UE está em andamento.",
+          fr: "Application iPhone en ligne sur l'App Store : lit Apple Santé et intègre un pont qui apporte les données Galaxy Watch et de la bague Colmi dans Apple Santé. Disponible dans les boutiques prises en charge en dehors de l'Union européenne ; le déploiement dans les 27 pays de l'UE est en cours.",
+          pl: "Aplikacja na iPhone juz dostepna w App Store: odczytuje Apple Health oraz zawiera pomost przesylajacy dane Galaxy Watch i pierscienia Colmi do Apple Health. Dostepna w obslugiwanych sklepach poza Unia Europejska; wdrozenie w 27 krajach UE jest w toku.",
+          tr: "iPhone uygulamasi App Store'da yayinda: Apple Health'ten okuma yapiyor ve Galaxy Watch ile Colmi yüzük verilerini Apple Health'e aktaran bir köprü içeriyor. Desteklenen magazalarda Avrupa Birligi disinda yayinda; AB'deki 27 ülkede kullanima acilma süreci sürüyor.",
+          nl: "iPhone-app live in de App Store: leest Apple Gezondheid uit en bevat een brug die Galaxy Watch- en COLMI-ringdata naar Apple Gezondheid brengt. Beschikbaar in ondersteunde stores buiten de Europese Unie; de uitrol in de 27 EU-landen is bezig.",
+          ja: "iPhone用アプリはApp Storeで公開中：Apple ヘルスを読み取り、Galaxy WatchおよびCOLMIリングのデータをApple ヘルスに連携するブリッジ機能も搭載。EU域外の対応ストアで利用可能。EU加盟27カ国への展開は進行中です。",
+          ko: "iPhone 앱이 App Store에 정식 출시됨: Apple 건강 데이터를 읽고, Galaxy Watch 및 COLMI 링 데이터를 Apple 건강으로 연결하는 브리지도 포함. EU 역외의 지원되는 스토어에서 이용 가능하며, EU 27개국 출시는 진행 중입니다.",
+          sv: "iPhone-appen är live i App Store: läser Apple Health samt har en brygga som för in data från Galaxy Watch och Colmi-ringar i Apple Health. Tillgänglig i stödda butiker utanför EU; utrullningen i de 27 EU-länderna pågår.",
+          da: "iPhone-appen er live i App Store: læser Apple Health og har en bro, der bringer data fra Galaxy Watch og Colmi-ring ind i Apple Health. Tilgængelig i understøttede butikker uden for EU; udrulningen i de 27 EU-lande er i gang.",
+          no: "iPhone-appen er live i App Store: leser Apple Health og har en bro som henter data fra Galaxy Watch og Colmi-ring inn i Apple Health. Tilgjengelig i støttede butikker utenfor EU; utrullingen i de 27 EU-landene pågår.",
+          fi: "iPhone-sovellus on julkaistu App Storessa: lukee Apple Healthia ja sisältää sillan, joka tuo Galaxy Watchin ja Colmi-sormuksen tiedot Apple Healthiin. Saatavilla tuetuissa kaupoissa EU:n ulkopuolella; julkaisu 27 EU-maassa on käynnissä.",
         },
       },
       {
@@ -790,7 +790,7 @@ export default async function RoadmapPage({
     "@type": "ItemList",
     name: tlr(HERO_COPY.jsonLdName, lc),
     url: `${SITE_URL}${path}`,
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
+    inLanguage: schemaLanguage(lc),
     itemListElement: COLUMNS.flatMap((col, ci) =>
       col.items.map((it, ii) => ({
         "@type": "ListItem",

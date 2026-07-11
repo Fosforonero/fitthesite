@@ -8,8 +8,8 @@ import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { getPostsByCategory } from "@/lib/blog/payload-source";
 import { tl } from "@/lib/blog/types";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -233,7 +233,7 @@ const I18N: Record<
 
 function formatDate(iso: string, lc: Locale): string {
   const d = new Date(iso);
-  return d.toLocaleDateString(ogLocale[lc].replace("_", "-"), {
+  return d.toLocaleDateString(schemaLanguage(lc), {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -262,7 +262,7 @@ export default async function NovitaIndex({
         : lc === "es"
           ? "Novedades de FitMesh Sync"
           : "FitMesh Sync What's New",
-    inLanguage: ogLocale[lc].replace("_", "-"),
+    inLanguage: schemaLanguage(lc),
     url: `${SITE_URL}/${lc}/novita`,
     mainEntity: {
       "@type": "ItemList",

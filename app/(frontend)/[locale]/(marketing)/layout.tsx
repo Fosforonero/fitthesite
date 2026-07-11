@@ -5,8 +5,6 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import MarketingBackdrop from "@/components/MarketingBackdrop";
-import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
-import { WebSiteJsonLd } from "@/components/seo/WebSiteJsonLd";
 import { IOS_ENABLED, APPLE_APP_ID } from "@/lib/flags";
 import { SITE_URL } from "@/lib/product-facts";
 
@@ -100,8 +98,6 @@ export default async function LocaleLayout({
 
   return (
     <>
-      <OrganizationJsonLd locale={lc} />
-      <WebSiteJsonLd locale={lc} />
       <MarketingBackdrop />
       <Header dict={dict} locale={lc} />
       <main className="flex-1">{children}</main>

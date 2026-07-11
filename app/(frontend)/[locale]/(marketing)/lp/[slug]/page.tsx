@@ -14,8 +14,8 @@ import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { tl } from "@/lib/blog/types";
 import { LANDING_PAGES, LANDING_PAGES_BY_SLUG, type LandingPage } from "@/lib/landing/data";
 import { isLandingVariantIndexable } from "@/lib/landing/indexability";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
 export function generateStaticParams() {
   return LANDING_PAGES.flatMap((p) =>
@@ -242,10 +242,9 @@ export default async function LandingPage({
     name: tl(lp.hero.title, lc),
     description: tl(lp.metaDescription, lc),
     url: `${SITE_URL}${path}`,
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
+    inLanguage: schemaLanguage(lc),
     datePublished: lp.publishedAt,
     dateModified: lp.updatedAt,
-    isPartOf: { "@id": `${SITE_URL}#website` },
   };
 
   const faqLd =

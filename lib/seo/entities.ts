@@ -53,5 +53,18 @@ export function authorPersonNode(lc: Locale) {
   };
 }
 
-/** Riferimento leggero — usato ovunque l'entità sia già definita altrove nella stessa pagina (Article.author). */
-export const authorRef = { "@id": AUTHOR_ID };
+/**
+ * Nodo COMPATTO ma completo — usato su Article e ovunque il Person completo
+ * (con bio/jobTitle/sameAs, in Organization.founder) non sia co-presente
+ * nella stessa pagina. Solo @type/@id/name/url: un bare `{"@id": ...}"`
+ * senza definizione completa altrove nella pagina sarebbe un riferimento a
+ * vuoto per qualunque parser che legga quella pagina da sola.
+ */
+export function authorCompactNode() {
+  return {
+    "@type": "Person" as const,
+    "@id": AUTHOR_ID,
+    name: AUTHOR.name,
+    url: AUTHOR.url,
+  };
+}

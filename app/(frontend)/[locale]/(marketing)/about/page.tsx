@@ -9,6 +9,8 @@ import { IosAwareText } from "@/components/IosAwareText";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { PRICING } from "@/lib/pricing";
 import { SITE_URL, appOffers } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
+import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 
 /**
  * Il body copy sotto viene da `lib/content/about-copy.ts` via `tl(...)`, oggi
@@ -83,29 +85,19 @@ export default async function AboutPage({
     "@type": "AboutPage",
     name: tl(ABOUT_COPY.jsonLdName, lc),
     url: `${SITE_URL}${path}`,
-    inLanguage:
-      lc === "it"
-        ? "it-IT"
-        : lc === "es"
-        ? "es-ES"
-        : lc === "de"
-        ? "de-DE"
-        : lc === "pt"
-        ? "pt-BR"
-        : lc === "fr"
-        ? "fr-FR"
-        : "en-US",
+    inLanguage: schemaLanguage(lc),
     mainEntity: {
       "@type": "SoftwareApplication",
       name: "FitMesh Sync",
       applicationCategory: "HealthApplication",
-      operatingSystem: "ANDROID",
-      offers: appOffers("android"),
+      operatingSystem: (["android", "ios"] as const).map((plat) => (plat === "ios" ? "IOS" : "ANDROID")).join(", "),
+      offers: (["android", "ios"] as const).flatMap((plat) => appOffers(plat)),
     },
   };
 
   return (
     <>
+      <OrganizationJsonLd locale={lc} />
       <JsonLd data={aboutLd} />
       <Breadcrumbs
         items={[

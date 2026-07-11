@@ -20,7 +20,9 @@ import { resolveBlogPost } from "@/lib/blog/resolve";
 import { isBlogVariantIndexable } from "@/lib/blog/indexability";
 import type { BlogPost } from "@/lib/blog/types";
 import { SITE_URL } from "@/lib/product-facts";
-import { AUTHOR, authorBio, authorRef } from "@/lib/seo/entities";
+import { AUTHOR, authorBio, authorCompactNode } from "@/lib/seo/entities";
+import { organizationCompactRef } from "@/components/seo/OrganizationJsonLd";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
 export async function generateStaticParams() {
   const slugs = await getBlogSlugs();
@@ -461,19 +463,7 @@ const I18N = {
 
 function formatDate(iso: string, lc: Locale): string {
   const d = new Date(iso);
-  const bcp47 =
-    lc === "it" ? "it-IT" :
-    lc === "es" ? "es-ES" :
-    lc === "de" ? "de-DE" :
-    lc === "pt" ? "pt-BR" :
-    lc === "fr" ? "fr-FR" :
-    lc === "pl" ? "pl-PL" :
-    lc === "tr" ? "tr-TR" :
-    lc === "nl" ? "nl-NL" :
-    lc === "ja" ? "ja-JP" :
-    lc === "ko" ? "ko-KR" :
-    "en-US";
-  return d.toLocaleDateString(bcp47, {
+  return d.toLocaleDateString(schemaLanguage(lc), {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -503,18 +493,7 @@ export default async function BlogArticle({
     "@id": `${SITE_URL}${path}#article`,
     headline: tl(post.hero.title, lc),
     description: tl(post.metaDescription, lc),
-    inLanguage:
-      lc === "it" ? "it-IT" :
-      lc === "es" ? "es-ES" :
-      lc === "de" ? "de-DE" :
-      lc === "pt" ? "pt-BR" :
-      lc === "fr" ? "fr-FR" :
-      lc === "pl" ? "pl-PL" :
-      lc === "tr" ? "tr-TR" :
-      lc === "nl" ? "nl-NL" :
-      lc === "ja" ? "ja-JP" :
-      lc === "ko" ? "ko-KR" :
-      "en-US",
+    inLanguage: schemaLanguage(lc),
     datePublished: post.publishedAt,
     dateModified: post.updatedAt,
     url: `${SITE_URL}${path}`,
@@ -525,14 +504,13 @@ export default async function BlogArticle({
       height: COVER_H,
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}${path}` },
-    // E-E-A-T su YMYL: author e publisher referenziati per @id invece di
-    // essere ridichiarati inline — l'entità Person completa vive in un solo
-    // posto (Organization.founder nel layout globale, lib/seo/entities.ts),
-    // l'Organization completa nel layout globale (components/seo/OrganizationJsonLd).
-    // Entrambe sono presenti su questa stessa pagina (il layout la avvolge),
-    // quindi il riferimento risolve correttamente.
-    author: authorRef,
-    publisher: { "@id": `${SITE_URL}#organization` },
+    // E-E-A-T su YMYL: nodi COMPATTI ma completi (stesso @id della versione
+    // piena su homepage/about, ma autosufficienti) — l'Organization/Person
+    // completi non sono più nel layout globale (ora solo homepage/about), un
+    // bare `{"@id": ...}` qui sarebbe un riferimento a vuoto per chi legge
+    // solo questa pagina. Vedi lib/seo/entities.ts e components/seo/OrganizationJsonLd.tsx.
+    author: authorCompactNode(),
+    publisher: organizationCompactRef(),
     keywords: [
       tl(post.primaryKeyword, lc),
       ...tll({ it: post.secondaryKeywords.it, en: post.secondaryKeywords.en }, lc),

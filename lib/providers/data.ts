@@ -39,6 +39,25 @@ export interface Provider {
   vendor: string;
   category: ProviderCategory;
   status: ProviderStatus;
+  /**
+   * Piattaforme FitMesh su cui questo provider è effettivamente leggibile.
+   * Default (campo omesso) = `["android"]`, per compatibilità con i provider
+   * esistenti (tutti Health Connect / Android-only). Va impostato esplicitamente
+   * solo per i provider che divergono dal default: "apple-health" (`["ios"]`,
+   * legge nativamente HealthKit) e "colmi-ring" (`["android", "ios"]`, BLE
+   * diretto su entrambe le piattaforme). Guida operatingSystem/offers/store
+   * link nel JSON-LD delle pagine /sync/[provider] — vedi quelle pagine.
+   */
+  platforms?: Array<"android" | "ios">;
+  /**
+   * Come i dati arrivano a FitMesh. Default (campo omesso) = "health-connect"
+   * — vale per i 15 provider Android/Health-Connect esistenti. Va impostato
+   * esplicitamente solo per i due che divergono: "colmi-ring" (BLE diretto,
+   * niente Health Connect) e "apple-health" (HealthKit nativo iOS). Usato
+   * dalle pagine /sync/[provider]/[model] per non mostrare copy "Health
+   * Connect" generico su provider che non ci passano.
+   */
+  syncMechanism?: "health-connect" | "direct-ble" | "healthkit";
   /** Colore brand del provider (esadecimale). Usato per il monogramma badge. */
   brandColor: string;
   /** Lettera o emoji per il monogramma (no logo proprietario per ora). */
@@ -5988,6 +6007,8 @@ export const PROVIDERS: Provider[] = [
     vendor: "Colmi",
     category: "wearable",
     status: "live",
+    platforms: ["android", "ios"],
+    syncMechanism: "direct-ble",
     brandColor: "#7CFF5B",
     initial: "C",
     tagline: {
@@ -6165,17 +6186,17 @@ export const PROVIDERS: Provider[] = [
           ko: "Colmi Ring이 CRing 또는 Colmi 앱이 필요해 FitMesh와 작동하나요?",
         },
         a: {
-          it: "No. FitMesh si connette direttamente al Colmi Ring via Bluetooth, bypassando completamente l'app dell'ufficio produttore. Non hai bisogno di avere installati il CRing o l'app Colmi. FitMesh è una soluzione indipendente per la sincronizzazione dei dati del Colmi Ring con il tuo telefono Android.",
-          en: "No. FitMesh connects directly to Colmi Ring via Bluetooth, bypassing the manufacturer's app entirely. You don't need the CRing or Colmi app installed. FitMesh is a standalone solution for syncing Colmi Ring data to your Android phone.",
-          es: "No. FitMesh se conecta directamente al Colmi Ring mediante Bluetooth, evitando por completo la app del fabricante. No es necesario instalar el CRing o la app de Colmi. FitMesh es una solución independiente para sincronizar los datos del Colmi Ring con su teléfono Android.",
-          de: "Nein. FitMesh verbindet sich direkt zum Colmi Ring über Bluetooth und ignoriert dabei vollständig das Herstellerapp. Es ist nicht erforderlich, dass Sie CRing oder die Colmi App installieren. FitMesh ist eine unabhängige Lösung zur Synchronisierung von Colmi Ring-Daten auf Ihrem Android-Phone.",
-          pt: "Não. O FitMesh conecta diretamente ao Colmi Ring via Bluetooth, desviando completamente do app da fabricante. Você não precisa ter o CRing ou o app Colmi instalado. O FitMesh é uma solução independente para sincronizar os dados do Colmi Ring com seu telefone Android.",
-          fr: "Non. FitMesh se connecte directement au Colmi Ring via Bluetooth, en évitant complètement l'application des fabricants. Vous n'avez pas besoin d'avoir l'application CRing ou Colmi installée. FitMesh est une solution autonome pour synchroniser les données du Colmi Ring vers votre téléphone Android.",
-          pl: "Nie. FitMesh połącza się bezpośrednio ze Colmi Ring poprzez Bluetooth, pomijając aplikację producenta. Nie potrzebujesz ani CRing ani aplikacji Colmi zainstalowanej. FitMesh jest samodzielnym rozwiązaniem do synchronizacji danych z pęstrza do Twojego telefonu Android.",
-          tr: "Hayır. FitMesh, Bluetooth üzerinden Colmi Çengimize doğrudan bağlanarak üreticinin uygulamasını atlatır. CRing veya Colmi uygulaması yüklemeyi gerekli kılmazsınız. FitMesh, Colmi Çengiminizden verilerinizi Android telefonunuzda sychronize etmek için bağımsız bir çözüm sağlar.",
-          nl: "Nee. FitMesh verbindt rechtstreeks met de Colmi Ring via Bluetooth, het maakt gebruik van het fabrikantapparaat volledig uit. Je hebt geen CRing of de Colmi app nodig geïnstalleerd. FitMesh is een afhankelijke oplossing voor het synchroon van Colmi Ring data naar je Android telefoon.",
-          ja: "いいえ。FitMeshはBluetooth経由でColmi Ringに直接接続し、メーカーのアプリを完全にバイパスします。CRingまたはColmiアプリをインストールする必要はありません。FitMeshは、AndroidスマートフォンにColmi Ringのデータを同期するためのスタンドアローンのソリューションです。",
-          ko: "필요하지 않습니다. FitMesh는 블루투스를 통해 Colmi Ring에 직접 연결되어 제조사 앱을 완전히 우회합니다. CRing 또는 Colmi 앱이 설치되어 있지 않아도 됩니다. FitMesh는 Colmi Ring 데이터를 Android 폰으로 동기화하기 위한 독립적인 솔루션입니다.",
+          it: "No. FitMesh si connette direttamente al Colmi Ring via Bluetooth, bypassando completamente l'app del produttore. Non hai bisogno di avere installati il CRing o l'app Colmi. FitMesh è una soluzione indipendente per la sincronizzazione dei dati del Colmi Ring, disponibile sia su Android sia su iPhone.",
+          en: "No. FitMesh connects directly to Colmi Ring via Bluetooth, bypassing the manufacturer's app entirely. You don't need the CRing or Colmi app installed. FitMesh is a standalone solution for syncing Colmi Ring data, available on both Android and iPhone.",
+          es: "No. FitMesh se conecta directamente al Colmi Ring mediante Bluetooth, evitando por completo la app del fabricante. No es necesario instalar el CRing o la app de Colmi. FitMesh es una solución independiente para sincronizar los datos del Colmi Ring, disponible tanto en Android como en iPhone.",
+          de: "Nein. FitMesh verbindet sich direkt per Bluetooth mit dem Colmi Ring und umgeht dabei vollständig die Hersteller-App. Du musst weder CRing noch die Colmi-App installiert haben. FitMesh ist eine eigenständige Lösung zur Synchronisierung von Colmi-Ring-Daten, verfügbar sowohl für Android als auch für iPhone.",
+          pt: "Não. O FitMesh conecta diretamente ao Colmi Ring via Bluetooth, desviando completamente do app do fabricante. Você não precisa ter o CRing ou o app Colmi instalado. O FitMesh é uma solução independente para sincronizar os dados do Colmi Ring, disponível tanto no Android quanto no iPhone.",
+          fr: "Non. FitMesh se connecte directement au Colmi Ring via Bluetooth, en évitant complètement l'application du fabricant. Vous n'avez pas besoin d'avoir l'application CRing ou Colmi installée. FitMesh est une solution autonome pour synchroniser les données du Colmi Ring, disponible sur Android comme sur iPhone.",
+          pl: "Nie. FitMesh łączy się bezpośrednio z Colmi Ring przez Bluetooth, całkowicie pomijając aplikację producenta. Nie potrzebujesz zainstalowanej aplikacji CRing ani Colmi. FitMesh to samodzielne rozwiązanie do synchronizacji danych z Colmi Ring, dostępne zarówno na Androidzie, jak i na iPhonie.",
+          tr: "Hayır. FitMesh, Bluetooth üzerinden Colmi Ring'e doğrudan bağlanarak üretici uygulamasını tamamen atlar. CRing veya Colmi uygulamasını yüklemenize gerek yok. FitMesh, Colmi Ring verilerini senkronize etmek için hem Android hem de iPhone'da kullanılabilen bağımsız bir çözümdür.",
+          nl: "Nee. FitMesh maakt rechtstreeks via Bluetooth verbinding met de Colmi Ring en slaat de app van de fabrikant volledig over. Je hebt de CRing- of Colmi-app niet nodig. FitMesh is een zelfstandige oplossing voor het synchroniseren van Colmi Ring-gegevens, beschikbaar op zowel Android als iPhone.",
+          ja: "いいえ。FitMeshはBluetooth経由でColmi Ringに直接接続し、メーカーのアプリを完全にバイパスします。CRingまたはColmiアプリをインストールする必要はありません。FitMeshはColmi Ringのデータを同期するためのスタンドアロンのソリューションで、AndroidとiPhoneの両方で利用できます。",
+          ko: "필요하지 않습니다. FitMesh는 블루투스를 통해 Colmi Ring에 직접 연결되어 제조사 앱을 완전히 우회합니다. CRing 또는 Colmi 앱이 설치되어 있지 않아도 됩니다. FitMesh는 Colmi Ring 데이터를 동기화하기 위한 독립적인 솔루션으로, Android와 iPhone 모두에서 사용할 수 있습니다.",
         },
       },
     ],
@@ -6246,40 +6267,42 @@ export const PROVIDERS: Provider[] = [
     name: "Apple Health",
     vendor: "Apple",
     category: "health-platform",
-    status: "beta",
+    status: "live",
+    platforms: ["ios"],
+    syncMechanism: "healthkit",
     brandColor: "#FF2D55",
     initial: "🍎",
     tagline: {
-      it: "App iOS in beta TestFlight, uscita App Store imminente. Legge Apple Salute, scrive dati di wearable Android in Apple Salute (opt-in, niente doppioni).",
-      en: "iOS app in TestFlight beta, App Store launch imminent. Reads Apple Health, writes Android wearable data into Apple Health (opt-in, no duplicates).",
-      es: "App para iOS en beta de TestFlight, con lanzamiento en App Store inminente. Lee datos de Apple Health y escribe los datos de wearables Android en Apple Health (opcional, sin duplicados).",
-      de: "iOS-App in TestFlight-Beta, App Store-Launch steht bevor. Liest Apple Health, schreibt Android-Wearable-Daten in Apple Health (opt-in, keine Doppeleinträge).",
-      pt: "App iOS em beta no TestFlight, lançamento na App Store iminente. Lê o Apple Health, escreve dados de wearables Android no Apple Health (opt-in, sem duplicatas).",
-      fr: "App iOS en bêta TestFlight, lancement App Store imminent. Lit Apple Health, écrit les données des wearables Android dans Apple Health (opt-in, sans doublons).",
-      nl: "iOS-app in TestFlight beta, App Store-lancering op handen. Leest Apple Health, schrijft Android wearable-gegevens naar Apple Health (opt-in, geen duplicaten).",
-      ja: "iOSアプリTestFlightベータ中、App Storeリリース間近。Apple Healthを読み取り、AndroidウェアラブルデータをApple Healthに書き込み（オプトイン、重複なし）。",
-      ko: "iOS 앱 TestFlight 베타, App Store 출시 임박. Apple Health를 읽고 Android 웨어러블 데이터를 Apple Health에 씁니다 (옵트인, 중복 없음).",
+      it: "App iOS live sull'App Store, in rollout nell'UE. Legge Apple Salute (HealthKit) e si collega direttamente al Colmi Ring via Bluetooth, senza app del produttore.",
+      en: "iOS app live on the App Store, EU rollout in progress. Reads Apple Health (HealthKit) and connects directly to the Colmi Ring via Bluetooth, no manufacturer app needed.",
+      es: "App para iOS activa en la App Store, con despliegue en la UE en curso. Lee Apple Health (HealthKit) y se conecta directamente al anillo Colmi por Bluetooth, sin app del fabricante.",
+      de: "iOS-App live im App Store, EU-Rollout läuft. Liest Apple Health (HealthKit) und verbindet sich direkt per Bluetooth mit dem Colmi-Ring, ohne Hersteller-App.",
+      pt: "App iOS ativo na App Store, com lançamento na UE em andamento. Lê o Apple Health (HealthKit) e se conecta diretamente ao anel Colmi via Bluetooth, sem app do fabricante.",
+      fr: "App iOS active sur l'App Store, déploiement dans l'UE en cours. Lit Apple Health (HealthKit) et se connecte directement à la bague Colmi via Bluetooth, sans application du fabricant.",
+      nl: "iOS-app live in de App Store, EU-uitrol bezig. Leest Apple Health (HealthKit) en verbindt rechtstreeks via Bluetooth met de Colmi Ring, zonder app van de fabrikant.",
+      ja: "iOSアプリはApp Storeで提供中（EUでの展開は準備中）。Apple Health（HealthKit）を読み取り、Colmi Ringに製造元アプリなしで直接Bluetooth接続します。",
+      ko: "iOS 앱은 App Store에 출시되어 있으며 EU 배포가 진행 중입니다. Apple Health(HealthKit)를 읽고 제조사 앱 없이 Colmi Ring에 블루투스로 직접 연결됩니다.",
     },
     longDesc: {
-      it: "FitMesh Sync è in arrivo su iPhone: la beta TestFlight è attiva e la submission App Store è in corso. L'app iOS legge i dati da Apple Health / HealthKit (passi, frequenza cardiaca, sonno con fasi, SpO₂, calorie) e li mostra nella stessa dashboard unificata che già conosci su Android. Feature di punta: il ponte di scrittura Apple Salute (opt-in) porta i dati dei wearable Android (Galaxy Watch, anello Colmi, qualsiasi device che scrive su Health Connect) dentro l'app Salute di iPhone, senza creare doppioni. Un account FitMesh funziona su Android, iPhone e web.",
-      en: "FitMesh Sync is coming to iPhone: the TestFlight beta is active and App Store submission is underway. The iOS app reads data from Apple Health / HealthKit (steps, heart rate, sleep with stages, SpO₂, calories) and shows it in the same unified dashboard you already know from Android. Flagship feature: the Apple Health write bridge (opt-in) brings data from Android wearables (Galaxy Watch, Colmi ring, any device writing to Health Connect) into the iPhone Health app, without creating duplicates. One FitMesh account works on Android, iPhone and web.",
-      es: "FitMesh Sync llega a iPhone: la beta de TestFlight ya está activa y el envío a App Store está en marcha. La app para iOS lee datos de Apple Health / HealthKit (pasos, frecuencia cardíaca, sueño con fases, SpO2, calorías) y los muestra en el mismo panel unificado que ya conoces en Android. Función estrella: el puente de escritura hacia Apple Health (opcional) lleva los datos de wearables Android (Galaxy Watch, anillo Colmi, cualquier dispositivo que escriba en Health Connect) a Apple Health en el iPhone, sin crear duplicados. Una sola cuenta de FitMesh funciona en Android, iPhone y web.",
-      de: "FitMesh Sync kommt auf das iPhone: Die TestFlight-Beta ist aktiv und die App Store-Einreichung läuft. Die iOS-App liest Daten aus Apple Health / HealthKit (Schritte, Herzfrequenz, Schlaf mit Phasen, SpO₂, Kalorien) und zeigt sie im gleichen einheitlichen Dashboard, das du bereits von Android kennst. Hauptfeature: Die Apple Health-Schreibbrücke (opt-in) bringt Daten von Android-Wearables (Galaxy Watch, Colmi-Ring, jedes Gerät, das in Health Connect schreibt) in die iPhone-Gesundheits-App, ohne Doppeleinträge zu erstellen. Ein FitMesh-Konto funktioniert auf Android, iPhone und Web.",
-      pt: "O FitMesh Sync está chegando ao iPhone: a beta no TestFlight está ativa e a submissão à App Store está em andamento. O app iOS lê dados do Apple Health / HealthKit (passos, frequência cardíaca, sono com fases, SpO₂, calorias) e os exibe no mesmo painel unificado que você já conhece do Android. Destaque: a ponte de escrita para o Apple Health (opt-in) traz dados de wearables Android (Galaxy Watch, anel Colmi, qualquer dispositivo que escreva no Health Connect) para o app Saúde do iPhone, sem criar duplicatas. Uma conta FitMesh funciona no Android, iPhone e web.",
-      fr: "FitMesh Sync arrive sur iPhone : la bêta TestFlight est active et la soumission App Store est en cours. L'app iOS lit les données d'Apple Health / HealthKit (pas, fréquence cardiaque, sommeil avec phases, SpO₂, calories) et les affiche dans le même tableau de bord unifié que vous connaissez déjà sur Android. Fonctionnalité phare : le pont d'écriture Apple Health (opt-in) apporte les données des wearables Android (Galaxy Watch, bague Colmi, tout appareil écrivant dans Health Connect) dans l'app Santé de l'iPhone, sans créer de doublons. Un compte FitMesh fonctionne sur Android, iPhone et web.",
-      nl: "FitMesh Sync komt naar iPhone: de TestFlight beta is actief en de App Store-indiening is bezig. De iOS-app leest gegevens van Apple Health / HealthKit (stappen, hartslag, slaap met fasen, SpO₂, calorieën) en toont ze in hetzelfde uniforme dashboard dat je al kent van Android. Vlaggenschipfunctie: de Apple Health schrijfbrug (opt-in) brengt gegevens van Android-wearables (Galaxy Watch, Colmi-ring, elk apparaat dat naar Health Connect schrijft) naar de iPhone Gezondheid-app, zonder duplicaten. Een FitMesh-account werkt op Android, iPhone en web.",
-      ja: "FitMesh SyncがiPhoneに登場：TestFlightベータが開始され、App Storeへの申請が進行中です。iOSアプリはApple Health / HealthKit（歩数、心拍数、睡眠ステージ、SpO₂、カロリー）のデータを読み取り、Androidで既に知っている同じ統合ダッシュボードに表示します。目玉機能：Apple Health書き込みブリッジ（オプトイン）がAndroidウェアラブル（Galaxy Watch、Colmiリング、Health Connectに書き込む任意のデバイス）のデータをiPhoneのヘルスアプリに持ち込み、重複を作成しません。1つのFitMeshアカウントがAndroid、iPhone、Webで機能します。",
-      ko: "FitMesh Sync가 iPhone에 출시됩니다: TestFlight 베타가 활성화되었고 App Store 제출이 진행 중입니다. iOS 앱은 Apple Health / HealthKit(걸음 수, 심박수, 수면 단계, SpO₂, 칼로리)에서 데이터를 읽어 Android에서 이미 알고 있는 동일한 통합 대시보드에 표시합니다. 핵심 기능: Apple Health 쓰기 브리지(옵트인)가 Android 웨어러블(Galaxy Watch, Colmi 반지, Health Connect에 쓰는 모든 기기)의 데이터를 iPhone 건강 앱으로 가져오며 중복 없이 처리합니다. 하나의 FitMesh 계정이 Android, iPhone, 웹에서 작동합니다.",
+      it: "FitMesh Sync è disponibile su iPhone: l'app è live sull'App Store nei mercati supportati fuori dall'Unione Europea, con il rollout nei 27 paesi UE in corso (verifica di conformità DSA). L'app iOS legge i dati da Apple Salute / HealthKit (passi, frequenza cardiaca, sonno con fasi, SpO₂, calorie) e li mostra nella stessa dashboard unificata che già conosci su Android, e si collega inoltre direttamente via Bluetooth al Colmi Ring, senza bisogno dell'app del produttore. Un account FitMesh funziona su Android, iPhone e web.",
+      en: "FitMesh Sync is available on iPhone: the app is live on the App Store in supported storefronts outside the European Union, with the rollout in the 27 EU countries in progress (pending DSA compliance verification). The iOS app reads data from Apple Health / HealthKit (steps, heart rate, sleep with stages, SpO₂, calories) and shows it in the same unified dashboard you already know from Android, and also connects directly over Bluetooth to the Colmi Ring, no manufacturer app needed. One FitMesh account works on Android, iPhone and web.",
+      es: "FitMesh Sync está disponible en iPhone: la app está activa en la App Store en los mercados compatibles fuera de la Unión Europea, con el despliegue en los 27 países de la UE en curso (pendiente de verificación de cumplimiento DSA). La app para iOS lee datos de Apple Health / HealthKit (pasos, frecuencia cardíaca, sueño con fases, SpO2, calorías) y los muestra en el mismo panel unificado que ya conoces en Android, y además se conecta directamente por Bluetooth al anillo Colmi, sin necesidad de la app del fabricante. Una sola cuenta de FitMesh funciona en Android, iPhone y web.",
+      de: "FitMesh Sync ist auf dem iPhone verfügbar: Die App ist im App Store in unterstützten Ländern außerhalb der Europäischen Union live, der Rollout in den 27 EU-Ländern läuft (vorbehaltlich der DSA-Compliance-Prüfung). Die iOS-App liest Daten aus Apple Health / HealthKit (Schritte, Herzfrequenz, Schlaf mit Phasen, SpO₂, Kalorien) und zeigt sie im gleichen einheitlichen Dashboard, das du bereits von Android kennst, und verbindet sich zudem direkt per Bluetooth mit dem Colmi-Ring, ohne Hersteller-App. Ein FitMesh-Konto funktioniert auf Android, iPhone und Web.",
+      pt: "O FitMesh Sync está disponível no iPhone: o app está ativo na App Store nas lojas compatíveis fora da União Europeia, com o lançamento nos 27 países da UE em andamento (aguardando verificação de conformidade DSA). O app iOS lê dados do Apple Health / HealthKit (passos, frequência cardíaca, sono com fases, SpO₂, calorias) e os exibe no mesmo painel unificado que você já conhece do Android, além de se conectar diretamente por Bluetooth ao anel Colmi, sem precisar do app do fabricante. Uma conta FitMesh funciona no Android, iPhone e web.",
+      fr: "FitMesh Sync est disponible sur iPhone : l'app est active sur l'App Store dans les vitrines prises en charge en dehors de l'Union européenne, avec un déploiement dans les 27 pays de l'UE en cours (en attente de vérification de conformité DSA). L'app iOS lit les données d'Apple Health / HealthKit (pas, fréquence cardiaque, sommeil avec phases, SpO₂, calories) et les affiche dans le même tableau de bord unifié que vous connaissez déjà sur Android, et se connecte également directement en Bluetooth à la bague Colmi, sans application du fabricant. Un compte FitMesh fonctionne sur Android, iPhone et web.",
+      nl: "FitMesh Sync is beschikbaar op iPhone: de app is live in de App Store in ondersteunde landen buiten de Europese Unie, met de uitrol in de 27 EU-landen bezig (in afwachting van DSA-nalevingscontrole). De iOS-app leest gegevens van Apple Health / HealthKit (stappen, hartslag, slaap met fasen, SpO₂, calorieën) en toont ze in hetzelfde uniforme dashboard dat je al kent van Android, en verbindt bovendien rechtstreeks via Bluetooth met de Colmi Ring, zonder app van de fabrikant. Een FitMesh-account werkt op Android, iPhone en web.",
+      ja: "FitMesh SyncはiPhoneで利用可能です。アプリは欧州連合(EU)域外の対応App Storeで提供中で、EU加盟27カ国での展開も進行中です（DSAコンプライアンス確認待ち）。iOSアプリはApple Health / HealthKit（歩数、心拍数、睡眠ステージ、SpO₂、カロリー）のデータを読み取り、Androidで既に知っている同じ統合ダッシュボードに表示するほか、製造元アプリなしでColmi Ringに直接Bluetooth接続します。1つのFitMeshアカウントがAndroid、iPhone、Webで機能します。",
+      ko: "FitMesh Sync는 iPhone에서 이용 가능합니다: 앱은 유럽연합(EU) 역외의 지원되는 App Store에 출시되어 있으며, EU 27개국 배포가 진행 중입니다(DSA 준수 확인 대기 중). iOS 앱은 Apple Health / HealthKit(걸음 수, 심박수, 수면 단계, SpO₂, 칼로리)에서 데이터를 읽어 Android에서 이미 알고 있는 동일한 통합 대시보드에 표시하며, 제조사 앱 없이 Colmi Ring에 블루투스로 직접 연결됩니다. 하나의 FitMesh 계정이 Android, iPhone, 웹에서 작동합니다.",
     },
     techNote: {
-      it: "Lettura via HealthKit API (iOS). Scrittura idempotente su Apple Health: verifica l'esistenza di dati sovrapposti prima di scrivere qualsiasi sample e scrive solo dove Apple Salute non ha già copertura da un'altra sorgente. Dati in transito e a riposo su cloud EU, cifrati. Permessi HealthKit granulari: richiesti solo i tipi di dato che l'utente ha configurato.",
-      en: "Read via HealthKit API (iOS). Idempotent write to Apple Health: checks for overlapping data before writing any sample and only writes where Apple Health has no existing coverage from another source. Data in transit and at rest on EU cloud, encrypted. Granular HealthKit permissions: only the data types the user has configured are requested.",
-      de: "Lesen über HealthKit API (iOS). Idempotentes Schreiben in Apple Health: Prüft auf überlappende Daten vor dem Schreiben eines Samples und schreibt nur dort, wo Apple Health noch keine Abdeckung von einer anderen Quelle hat. Daten im Transit und im Ruhezustand auf EU-Cloud, verschlüsselt. Granulare HealthKit-Berechtigungen: nur die vom Nutzer konfigurierten Datentypen werden angefordert.",
-      pt: "Leitura via HealthKit API (iOS). Escrita idempotente no Apple Health: verifica a existência de dados sobrepostos antes de escrever qualquer amostra e escreve apenas onde o Apple Health ainda não tem cobertura de outra fonte. Dados em trânsito e em repouso na nuvem EU, criptografados. Permissões HealthKit granulares: apenas os tipos de dados configurados pelo usuário são solicitados.",
-      fr: "Lecture via HealthKit API (iOS). Écriture idempotente dans Apple Health : vérifie l'existence de données chevauchantes avant d'écrire un échantillon et n'écrit que là où Apple Health n'a pas encore de couverture d'une autre source. Données en transit et au repos sur cloud EU, chiffrées. Permissions HealthKit granulaires : seuls les types de données configurés par l'utilisateur sont demandés.",
-      nl: "Lezen via HealthKit API (iOS). Idempotent schrijven naar Apple Health: controleert op overlappende gegevens voordat een sample wordt geschreven en schrijft alleen waar Apple Health nog geen dekking heeft van een andere bron. Gegevens onderweg en in rust op EU-cloud, versleuteld. Granulaire HealthKit-machtigingen: alleen de gegevenstypen die de gebruiker heeft geconfigureerd worden gevraagd.",
-      ja: "HealthKit API（iOS）経由で読み取り。Apple Healthへのべき等書き込み：サンプルを書き込む前に重複データを確認し、他のソースからのカバレッジがない場所にのみ書き込みます。転送中および保管中のデータはEUクラウドで暗号化。粒度の細かいHealthKit権限：ユーザーが設定したデータタイプのみリクエスト。",
-      ko: "HealthKit API(iOS)를 통해 읽기. Apple Health로 멱등 쓰기: 샘플을 쓰기 전에 겹치는 데이터를 확인하고 다른 소스의 기존 커버리지가 없는 곳에만 씁니다. 전송 중 및 저장 중 데이터는 EU 클라우드에서 암호화. 세분화된 HealthKit 권한: 사용자가 구성한 데이터 유형만 요청합니다.",
+      it: "Lettura via HealthKit API (iOS 14.0 e successivi) e connessione Bluetooth diretta al Colmi Ring — nessuna app del produttore, nessun passaggio da Health Connect (che è specifico di Android). Dati in transito e a riposo su cloud EU, cifrati. Permessi HealthKit granulari: richiesti solo i tipi di dato che l'utente ha configurato.",
+      en: "Read via HealthKit API (iOS 14.0 and later) and direct Bluetooth connection to the Colmi Ring — no manufacturer app, no Health Connect involved (that's Android-specific). Data in transit and at rest on EU cloud, encrypted. Granular HealthKit permissions: only the data types the user has configured are requested.",
+      de: "Lesen über HealthKit API (iOS 14.0 und höher) und direkte Bluetooth-Verbindung zum Colmi-Ring — keine Hersteller-App, kein Health Connect (das ist Android-spezifisch). Daten im Transit und im Ruhezustand auf EU-Cloud, verschlüsselt. Granulare HealthKit-Berechtigungen: nur die vom Nutzer konfigurierten Datentypen werden angefordert.",
+      pt: "Leitura via HealthKit API (iOS 14.0 ou posterior) e conexão Bluetooth direta com o anel Colmi — sem app do fabricante, sem envolvimento do Health Connect (que é específico do Android). Dados em trânsito e em repouso na nuvem EU, criptografados. Permissões HealthKit granulares: apenas os tipos de dados configurados pelo usuário são solicitados.",
+      fr: "Lecture via HealthKit API (iOS 14.0 et versions ultérieures) et connexion Bluetooth directe à la bague Colmi — sans application du fabricant, sans Health Connect (spécifique à Android). Données en transit et au repos sur cloud EU, chiffrées. Permissions HealthKit granulaires : seuls les types de données configurés par l'utilisateur sont demandés.",
+      nl: "Lezen via HealthKit API (iOS 14.0 en hoger) en directe Bluetooth-verbinding met de Colmi Ring — geen app van de fabrikant, geen Health Connect (dat is Android-specifiek). Gegevens onderweg en in rust op EU-cloud, versleuteld. Granulaire HealthKit-machtigingen: alleen de gegevenstypen die de gebruiker heeft geconfigureerd worden gevraagd.",
+      ja: "HealthKit API（iOS 14.0以降）経由の読み取りと、Colmi Ringへの直接Bluetooth接続（製造元アプリ不要、Android専用のHealth Connectは不使用）。転送中および保管中のデータはEUクラウドで暗号化。粒度の細かいHealthKit権限：ユーザーが設定したデータタイプのみリクエスト。",
+      ko: "HealthKit API(iOS 14.0 이상)를 통한 읽기와 Colmi Ring에 대한 직접 블루투스 연결 — 제조사 앱 불필요, Health Connect 미사용(Android 전용). 전송 중 및 저장 중 데이터는 EU 클라우드에서 암호화. 세분화된 HealthKit 권한: 사용자가 구성한 데이터 유형만 요청합니다.",
     },
     dataTypes: [
       { key: "steps", label: { it: "Passi", en: "Steps", de: "Schritte", pt: "Passos", fr: "Pas", nl: "Stappen", ja: "歩数", ko: "걸음 수" }, supported: true },
@@ -6341,9 +6364,9 @@ export const PROVIDERS: Provider[] = [
           de: "FitMesh liest Schritte, Herzkraft, HRV (SDNN und RMSSD), Schlafphasen, Kalorien, Entfernung, Trainingsroutinen, SpO₂, VO₂ max, Atemfrequenz, Blutdruck und Körperfettanteile aus Apple Health auf iPhone ein.",
           pt: "O FitMesh lê passos, ritmo cardíaco, HRV (SDNN e RMSSD), fases de sono, calorias, distância, treinos, SpO₂, VO₂ max, taxa respiratória, pressão arterial e composição corporal do Apple Health no iPhone.",
           fr: "FitMesh reads steps, heart rate, HRV (SDNN and RMSSD), sleep stages, calories, distance, workouts, SpO₂, VO₂ max, respiratory rate, blood pressure, and body composition from Apple Health on iPhone.",
-          pl: "FitMesh odczytuje kroki, }};",
-          tr: "FitMesh adım sayısını, kalp hızını (SDNN ve RMSSD), uyumlu uygulamaları dahil olmak üzere Apple Health'tan iPhone'da atılmış adımları, kalp hızlarını, HRV'yi, uyku aşamaları, kalori verilerini, mesafeyi, eğitimlerini, SpO₂, VO₂ maksimum değerini, nefes hızını, kan basıncını ve vücudunuzu okur.",
-          nl: "FitMesh leest stapjes, hartslag, HRV (SDNN en RMSSD), slapend fase, calorieën, afstand, workout, SpO₂, VO₂ max, ademhalingssnelheid, bloeddruk en lichaamscompensatie van Apple Health op iPhone.",
+          pl: "FitMesh odczytuje kroki, tętno, HRV (SDNN i RMSSD), fazy snu, kalorie, dystans, treningi, SpO₂, VO₂ max, częstość oddechów, ciśnienie krwi i skład ciała z Apple Health na iPhonie.",
+          tr: "FitMesh, iPhone'daki Apple Health'ten adım sayısı, kalp atış hızı, HRV (SDNN ve RMSSD), uyku evreleri, kalori, mesafe, antrenmanlar, SpO₂, VO₂ maks, solunum hızı, kan basıncı ve vücut kompozisyonu verilerini okur.",
+          nl: "FitMesh leest stappen, hartslag, HRV (SDNN en RMSSD), slaapfasen, calorieën, afstand, workouts, SpO₂, VO₂ max, ademhalingsfrequentie, bloeddruk en lichaamssamenstelling van Apple Health op iPhone.",
           ja: "iPhoneのApple Healthから、FitMeshは歩数、心拍数、HRV（SDNNおよびRMSSD）、睡眠ステージ、カロリー、距離、ワークアウト、SpO₂、VO₂ max、呼吸数、血圧、および体成分を読み取ります。",
           ko: "FitMesh는 iPhone에서 Apple Health에서 걸음 수, 심박수, HRV (SDNN 및 RMSSD), 수면 단계, 칼로리, 거리, 운동, SpO₂, VO₂ max, 호흡률, 혈압 및 체성분 데이터를 읽습니다.",
         },
@@ -6494,57 +6517,49 @@ export const PROVIDERS: Provider[] = [
     setupGuide: {
       steps: {
         it: [
-          "**Iscriviti alla beta** dalla pagina /beta di questo sito: ricevi l'invito TestFlight entro 24 ore.",
-          "Installa **FitMesh Sync** tramite il link TestFlight nell'email ricevuta.",
+          "**Scarica FitMesh Sync dall'App Store** — l'app è live nei mercati supportati fuori dall'UE (nell'UE il rollout è in corso).",
           "Accedi con lo stesso **account Google o Apple** che usi (o hai) su Android.",
           "Concedi i **permessi HealthKit** richiesti (puoi scegliere tipo per tipo).",
           "Facoltativo: attiva il **Ponte di scrittura Apple Salute** da Impostazioni → Apple Health per ricevere i dati dei device Android in Apple Salute.",
         ],
         en: [
-          "**Sign up for the beta** from the /beta page on this site: you'll get a TestFlight invite within 24 hours.",
-          "Install **FitMesh Sync** via the TestFlight link in the email you receive.",
+          "**Download FitMesh Sync from the App Store** — the app is live in supported storefronts outside the EU (EU rollout in progress).",
           "Sign in with the same **Google or Apple account** you use (or have) on Android.",
           "Grant the requested **HealthKit permissions** (you can choose type by type).",
           "Optional: activate the **Apple Health write bridge** from Settings → Apple Health to receive Android device data in Apple Health.",
         ],
         de: [
-          "**Melde dich für die Beta an** über die /beta-Seite dieser Website: Du erhältst die TestFlight-Einladung innerhalb von 24 Stunden.",
-          "Installiere **FitMesh Sync** über den TestFlight-Link in der erhaltenen E-Mail.",
+          "**Lade FitMesh Sync aus dem App Store herunter** — die App ist in unterstützten Ländern außerhalb der EU live (EU-Rollout läuft).",
           "Melde dich mit demselben **Google- oder Apple-Konto** an, das du auf Android verwendest.",
           "Erteile die angeforderten **HealthKit-Berechtigungen** (du kannst Typ für Typ wählen).",
           "Optional: Aktiviere die **Apple Health-Schreibbrücke** unter Einstellungen → Apple Health, um Android-Gerätedaten in Apple Health zu empfangen.",
         ],
         pt: [
-          "**Inscreva-se na beta** pela página /beta deste site: você receberá o convite do TestFlight em até 24 horas.",
-          "Instale o **FitMesh Sync** pelo link do TestFlight no e-mail recebido.",
+          "**Baixe o FitMesh Sync na App Store** — o app está ativo nas lojas compatíveis fora da UE (lançamento na UE em andamento).",
           "Entre com a mesma **conta Google ou Apple** que você usa (ou tem) no Android.",
           "Conceda as **permissões HealthKit** solicitadas (você pode escolher tipo a tipo).",
           "Opcional: ative a **Ponte de escrita para o Apple Health** em Configurações → Apple Health para receber dados dos dispositivos Android no Apple Health.",
         ],
         fr: [
-          "**Inscrivez-vous à la bêta** depuis la page /beta de ce site : vous recevrez l'invitation TestFlight sous 24 heures.",
-          "Installez **FitMesh Sync** via le lien TestFlight dans l'e-mail reçu.",
+          "**Téléchargez FitMesh Sync depuis l'App Store** — l'app est active dans les vitrines prises en charge en dehors de l'UE (déploiement dans l'UE en cours).",
           "Connectez-vous avec le même **compte Google ou Apple** que vous utilisez (ou avez) sur Android.",
           "Accordez les **permissions HealthKit** demandées (vous pouvez choisir type par type).",
           "Optionnel : activez le **pont d'écriture Apple Health** depuis Paramètres → Apple Health pour recevoir les données des appareils Android dans Apple Health.",
         ],
         nl: [
-          "**Schrijf je in voor de beta** via de /beta-pagina van deze site: je ontvangt de TestFlight-uitnodiging binnen 24 uur.",
-          "Installeer **FitMesh Sync** via de TestFlight-link in de ontvangen e-mail.",
+          "**Download FitMesh Sync uit de App Store** — de app is live in ondersteunde landen buiten de EU (EU-uitrol bezig).",
           "Log in met hetzelfde **Google- of Apple-account** dat je op Android gebruikt (of hebt).",
           "Verleen de gevraagde **HealthKit-machtigingen** (je kunt type per type kiezen).",
           "Optioneel: activeer de **Apple Health schrijfbrug** via Instellingen → Apple Health om gegevens van Android-apparaten in Apple Health te ontvangen.",
         ],
         ja: [
-          "このサイトの/betaページから**ベータに登録**する：24時間以内にTestFlightの招待が届きます。",
-          "受け取ったメールのTestFlightリンクから**FitMesh Sync**をインストールする。",
+          "**App StoreからFitMesh Syncをダウンロード** — アプリはEU域外の対応ストアで提供中です（EUでの展開は進行中）。",
           "AndroidでもつかっているのとおなじGoogleまたはAppleアカウントでサインインする。",
           "要求された**HealthKit権限**を付与する（タイプごとに選択可能）。",
           "オプション：設定 → Apple Healthから**Apple Health書き込みブリッジ**を有効化して、AndroidデバイスのデータをApple Healthに受け取る。",
         ],
         ko: [
-          "이 사이트의 /beta 페이지에서 **베타에 등록**하세요: 24시간 이내에 TestFlight 초대를 받습니다.",
-          "받은 이메일의 TestFlight 링크를 통해 **FitMesh Sync**를 설치하세요.",
+          "**App Store에서 FitMesh Sync를 다운로드하세요** — 앱은 EU 역외의 지원되는 스토어에 출시되어 있습니다(EU 배포 진행 중).",
           "Android에서 사용하는 (또는 보유한) 것과 동일한 **Google 또는 Apple 계정**으로 로그인하세요.",
           "요청된 **HealthKit 권한**을 부여하세요 (유형별로 선택 가능).",
           "선택 사항: 설정 → Apple Health에서 **Apple Health 쓰기 브리지**를 활성화하여 Android 기기 데이터를 Apple Health에서 받으세요.",
@@ -6701,14 +6716,14 @@ export const PROVIDERS: Provider[] = [
         },
       ],
       technicalNotes: {
-        it: "Lettura tramite HealthKit API standard (iOS 16+). Scrittura idempotente: prima di ogni batch, query HealthKit per sample sovrapposti nello stesso intervallo e stesso HKSampleType. Scrittura solo sugli slot scoperti. Cloud FitMesh EU: datacenter certificati, TLS 1.3 in transito, AES-256 a riposo. Beta TestFlight attiva; uscita App Store imminente.",
-        en: "Reading via standard HealthKit API (iOS 16+). Idempotent writing: before each batch, HealthKit query for overlapping samples in the same interval and same HKSampleType. Writing only to uncovered slots. FitMesh EU cloud: certified datacenters, TLS 1.3 in transit, AES-256 at rest. TestFlight beta active; App Store launch imminent.",
-        de: "Lesen über Standard-HealthKit API (iOS 16+). Idempotentes Schreiben: vor jedem Batch HealthKit-Abfrage für überlappende Samples im gleichen Intervall und gleichen HKSampleType. Schreiben nur auf unabgedeckte Slots. FitMesh EU-Cloud: zertifizierte Rechenzentren, TLS 1.3 im Transit, AES-256 im Ruhezustand. TestFlight-Beta aktiv; App Store-Launch bevorstehend.",
-        pt: "Leitura via HealthKit API padrão (iOS 16+). Escrita idempotente: antes de cada lote, consulta HealthKit por amostras sobrepostas no mesmo intervalo e mesmo HKSampleType. Escrita apenas nos slots descobertos. Cloud FitMesh EU: datacenters certificados, TLS 1.3 em trânsito, AES-256 em repouso. Beta no TestFlight ativa; lançamento na App Store iminente.",
-        fr: "Lecture via l'API HealthKit standard (iOS 16+). Écriture idempotente : avant chaque batch, requête HealthKit pour les échantillons chevauchants dans le même intervalle et le même HKSampleType. Écriture uniquement sur les créneaux non couverts. Cloud FitMesh EU : datacenters certifiés, TLS 1.3 en transit, AES-256 au repos. Bêta TestFlight active ; lancement App Store imminent.",
-        nl: "Lezen via standaard HealthKit API (iOS 16+). Idempotent schrijven: voor elke batch HealthKit-query voor overlappende samples in hetzelfde interval en hetzelfde HKSampleType. Schrijven alleen naar ongedekte slots. FitMesh EU-cloud: gecertificeerde datacenters, TLS 1.3 onderweg, AES-256 in rust. TestFlight-beta actief; App Store-lancering op handen.",
-        ja: "標準HealthKit API（iOS 16+）経由での読み取り。べき等書き込み：各バッチの前に、同じインターバルと同じHKSampleTypeの重複サンプルをHealthKitでクエリ。カバーされていないスロットにのみ書き込み。FitMesh EUクラウド：認定データセンター、転送時TLS 1.3、保存時AES-256。TestFlightベータ稼働中；App Storeリリース間近。",
-        ko: "표준 HealthKit API(iOS 16+)를 통해 읽기. 멱등 쓰기: 각 배치 전에 동일한 간격과 동일한 HKSampleType의 겹치는 샘플에 대해 HealthKit 쿼리. 커버되지 않은 슬롯에만 쓰기. FitMesh EU 클라우드: 인증된 데이터센터, 전송 시 TLS 1.3, 저장 시 AES-256. TestFlight 베타 활성; App Store 출시 임박.",
+        it: "Lettura tramite HealthKit API standard (iOS 14.0 e successivi). Scrittura idempotente: prima di ogni batch, query HealthKit per sample sovrapposti nello stesso intervallo e stesso HKSampleType. Scrittura solo sugli slot scoperti. Cloud FitMesh EU: datacenter certificati, TLS 1.3 in transito, AES-256 a riposo. App live sull'App Store nei mercati supportati fuori dall'UE; rollout nell'UE in corso.",
+        en: "Reading via standard HealthKit API (iOS 14.0 and later). Idempotent writing: before each batch, HealthKit query for overlapping samples in the same interval and same HKSampleType. Writing only to uncovered slots. FitMesh EU cloud: certified datacenters, TLS 1.3 in transit, AES-256 at rest. App live on the App Store in supported storefronts outside the EU; EU rollout in progress.",
+        de: "Lesen über Standard-HealthKit API (iOS 14.0 und höher). Idempotentes Schreiben: vor jedem Batch HealthKit-Abfrage für überlappende Samples im gleichen Intervall und gleichen HKSampleType. Schreiben nur auf unabgedeckte Slots. FitMesh EU-Cloud: zertifizierte Rechenzentren, TLS 1.3 im Transit, AES-256 im Ruhezustand. App im App Store in unterstützten Ländern außerhalb der EU live; EU-Rollout läuft.",
+        pt: "Leitura via HealthKit API padrão (iOS 14.0 ou posterior). Escrita idempotente: antes de cada lote, consulta HealthKit por amostras sobrepostas no mesmo intervalo e mesmo HKSampleType. Escrita apenas nos slots descobertos. Cloud FitMesh EU: datacenters certificados, TLS 1.3 em trânsito, AES-256 em repouso. App ativo na App Store nas lojas compatíveis fora da UE; lançamento na UE em andamento.",
+        fr: "Lecture via l'API HealthKit standard (iOS 14.0 et versions ultérieures). Écriture idempotente : avant chaque batch, requête HealthKit pour les échantillons chevauchants dans le même intervalle et le même HKSampleType. Écriture uniquement sur les créneaux non couverts. Cloud FitMesh EU : datacenters certifiés, TLS 1.3 en transit, AES-256 au repos. App active sur l'App Store dans les vitrines prises en charge en dehors de l'UE ; déploiement dans l'UE en cours.",
+        nl: "Lezen via standaard HealthKit API (iOS 14.0 en hoger). Idempotent schrijven: voor elke batch HealthKit-query voor overlappende samples in hetzelfde interval en hetzelfde HKSampleType. Schrijven alleen naar ongedekte slots. FitMesh EU-cloud: gecertificeerde datacenters, TLS 1.3 onderweg, AES-256 in rust. App live in de App Store in ondersteunde landen buiten de EU; EU-uitrol bezig.",
+        ja: "標準HealthKit API（iOS 14.0以降）経由での読み取り。べき等書き込み：各バッチの前に、同じインターバルと同じHKSampleTypeの重複サンプルをHealthKitでクエリ。カバーされていないスロットにのみ書き込み。FitMesh EUクラウド：認定データセンター、転送時TLS 1.3、保存時AES-256。アプリはEU域外の対応App Storeで提供中、EU展開は進行中。",
+        ko: "표준 HealthKit API(iOS 14.0 이상)를 통해 읽기. 멱등 쓰기: 각 배치 전에 동일한 간격과 동일한 HKSampleType의 겹치는 샘플에 대해 HealthKit 쿼리. 커버되지 않은 슬롯에만 쓰기. FitMesh EU 클라우드: 인증된 데이터센터, 전송 시 TLS 1.3, 저장 시 AES-256. 앱은 EU 역외의 지원되는 App Store에 출시되어 있으며 EU 배포가 진행 중입니다.",
       },
     },
     relatedBlogSlugs: ["how-to-export-apple-health-data", "dati-anello-smart-apple-salute", "fitmesh-arriva-su-iphone", "hrv-cose-significato-valori", "sleep-tracker-comparison-2026"],
