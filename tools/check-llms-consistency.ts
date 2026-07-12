@@ -334,6 +334,122 @@ for (const file of filesToScan) {
   }
 }
 
+// ── 7. Sprint P0.2 — Fitness Data Sync Category: guardrail estesi ─────────
+// Fase 2 dello sprint chiede controlli su: trial 14gg, founder 1000 senza
+// recensione, prezzi Android/iOS distinti, e lo stato reale delle capacità
+// prodotto (Strava/TrainingPeaks/write-back), che una ricerca puramente
+// testuale audit ha rivelato essere invertito rispetto a quanto lo sprint
+// stesso assumeva: Strava e TrainingPeaks sono LIVE oggi, non roadmap.
+
+// 7a. Trial 14 giorni (bug reale trovato e corretto in questo sprint: la
+// pagina roadmap dichiarava "7 giorni", in contraddizione con
+// PRICING_FACTS.trialDays e ogni altra superficie del sito).
+if (PRICING_FACTS.trialDays !== 14) {
+  problems.push(`[product-facts] PRICING_FACTS.trialDays is ${PRICING_FACTS.trialDays}, expected 14.`);
+}
+const TRIAL_DEAD_PHRASES: { label: string; needle: string }[] = [
+  { label: "stale 7-day trial (it)", needle: "Trial gratuito 7 giorni" },
+  { label: "stale 7-day trial (en)", needle: "7-day free trial" },
+  { label: "stale 7-day trial body (it)", needle: "Una settimana per provare tutto" },
+  { label: "stale 7-day trial body (en)", needle: "One week to try everything" },
+];
+
+// 7b. Founder: 1000 posti, nessuna recensione richiesta come precondizione.
+if (FOUNDER_PROGRAM.totalSeats !== 1000) {
+  problems.push(`[product-facts] FOUNDER_PROGRAM.totalSeats is ${FOUNDER_PROGRAM.totalSeats}, expected 1000.`);
+}
+if (!/no review required/i.test(FOUNDER_PROGRAM.benefit)) {
+  problems.push(`[product-facts] FOUNDER_PROGRAM.benefit does not state "no review required": "${FOUNDER_PROGRAM.benefit}"`);
+}
+// Needle mirato su una CLAIM affermativa ("devi lasciare una recensione"),
+// non sulla domanda FAQ "Devo lasciare una recensione...? No." che è invece
+// il pattern corretto già presente nel sito (perche-diventare-founder-
+// fitmesh.ts) — un needle troppo largo su "recensione per diventare founder"
+// matcherebbe anche la domanda, dando un falso positivo.
+const FOUNDER_REVIEW_DEAD_PHRASES: { label: string; needle: string }[] = [
+  { label: "review required for founder (en)", needle: "you must leave a review to become a founder" },
+  { label: "review required for founder (en, alt)", needle: "required to leave a review to get founder" },
+  { label: "review required for founder (it)", needle: "devi lasciare una recensione per diventare founder" },
+  { label: "review required for founder (it, alt)", needle: "è necessario lasciare una recensione per diventare founder" },
+];
+
+// 7c. Prezzi Android/iOS: cifre esatte, non sole di riferimento generiche.
+if (PRICING_FACTS.lifetimeAndroid.amount !== "3.99") {
+  problems.push(`[product-facts] PRICING_FACTS.lifetimeAndroid.amount is "${PRICING_FACTS.lifetimeAndroid.amount}", expected "3.99".`);
+}
+if (PRICING_FACTS.lifetimeIos.amount !== "4.99") {
+  problems.push(`[product-facts] PRICING_FACTS.lifetimeIos.amount is "${PRICING_FACTS.lifetimeIos.amount}", expected "4.99".`);
+}
+if (PRICING_FACTS.subSixMonths.amount !== "1.19") {
+  problems.push(`[product-facts] PRICING_FACTS.subSixMonths.amount is "${PRICING_FACTS.subSixMonths.amount}", expected "1.19".`);
+}
+
+// 7d. Strava: LIVE oggi (OAuth read + write opzionale), non roadmap Q3 2026.
+// Controllo strutturale (fonte di verità) + scansione testuale di regressione
+// sulla frase specifica corretta in questo sprint.
+const strava = PROVIDERS.find((p) => p.slug === "strava");
+if (!strava) {
+  problems.push('[providers] No provider with slug "strava" found in PROVIDERS.');
+} else if (strava.status !== "live") {
+  problems.push(`[providers] strava status is "${strava.status}", expected "live" — Strava has a real production OAuth client ID (build-with-secrets.sh) and a live read+write integration in the Flutter app (strava_provider.dart).`);
+}
+
+// 7e. TrainingPeaks: integrazione reale (export TCX via Personal Access
+// Token), non "non previsto". Non esiste una entry PROVIDERS dedicata (è
+// un destination-only export path, non un source provider), quindi qui è
+// solo una scansione testuale di regressione sulle frasi corrette in questo
+// sprint — non un controllo strutturale.
+const CAPABILITY_DEAD_PHRASES: { label: string; needle: string }[] = [
+  { label: "Strava on Q3 2026 roadmap (en)", needle: "Strava integration is planned for Q3 2026" },
+  { label: "Strava non ancora attiva (it)", needle: "l'integrazione con Strava è prevista per il terzo quadrimestre" },
+  { label: "TrainingPeaks not planned (en)", needle: "no planned TrainingPeaks integration" },
+  { label: "TrainingPeaks non previsto (it)", needle: "non c'è un'integrazione TrainingPeaks pianificata" },
+  { label: "unqualified read-only dashboard claim (en)", needle: "FitMesh is a read-only dashboard" },
+];
+
+for (const file of filesToScan) {
+  const content = fs.readFileSync(file, "utf-8");
+  const rel = path.relative(repoRoot, file);
+  for (const { label, needle } of [...TRIAL_DEAD_PHRASES, ...FOUNDER_REVIEW_DEAD_PHRASES, ...CAPABILITY_DEAD_PHRASES]) {
+    if (content.includes(needle)) {
+      problems.push(`[stale-claim scan] ${rel} contains dead phrase [${label}]: "${needle}"`);
+    }
+  }
+}
+
+// "Strava" + "Q3 2026"/"roadmap" nello stesso punto di testo è il pattern
+// invertito che questo sprint ha corretto ovunque: Strava è live, non
+// roadmap. Scansione di prossimità (non frase fissa) per coprire varianti
+// non elencate sopra letteralmente.
+//
+// Esclusioni necessarie (falsi positivi verificati durante questo stesso
+// sprint):
+//  - Oura resta correttamente roadmap ("Strava ... (Oura in arrivo)" o
+//    "Strava. L'OAuth per Oura è ancora in arrivo"): se "Oura" appare tra
+//    "Strava" e la parola-roadmap matchata, la frase riguarda Oura, non
+//    Strava — non è un falso claim su Strava.
+//  - Elenco generico di nomi provider in meta description ("Strava, Polar,
+//    Oura, Withings. Stato live e roadmap aggiornata."): non è una claim
+//    per-provider, quindi si richiede che non ci sia un punto fermo tra
+//    "Strava" e la parola-roadmap (stessa frase, non due frasi diverse).
+const STRAVA_ROADMAP_WINDOW = 60;
+for (const file of filesToScan) {
+  const content = fs.readFileSync(file, "utf-8");
+  const rel = path.relative(repoRoot, file);
+  const stravaRe = /Strava/g;
+  let sMatch: RegExpExecArray | null;
+  while ((sMatch = stravaRe.exec(content)) !== null) {
+    const windowText = content.slice(sMatch.index, Math.min(content.length, sMatch.index + STRAVA_ROADMAP_WINDOW));
+    const roadmapMatch = windowText.match(/Q3 2026|roadmap|in arrivo|coming soon|não planejado|nicht geplant/i);
+    if (!roadmapMatch) continue;
+    const between = windowText.slice(0, roadmapMatch.index);
+    if (/Oura/i.test(between)) continue; // la frase-roadmap riguarda Oura, non Strava
+    if (/\./.test(between)) continue; // parola-roadmap in una frase successiva, non la stessa claim
+    if (/OAuth,\s*/i.test(windowText)) continue; // "Strava... OAuth, attivo/live today" — pattern corretto
+    problems.push(`[strava-roadmap scan] ${rel} has "Strava" near a roadmap/Q3-2026/coming-soon phrase within ${STRAVA_ROADMAP_WINDOW} chars — Strava is live today, this reads as the pre-sprint stale claim: "...${windowText.replace(/\s+/g, " ")}..."`);
+  }
+}
+
 if (problems.length > 0) {
   console.error(`❌ llms consistency: ${problems.length} problema/i.\n`);
   for (const p of problems) console.error(`  - ${p}`);
