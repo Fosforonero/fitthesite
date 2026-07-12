@@ -41,9 +41,17 @@ function _parseJsonString(val: unknown): unknown {
   }
 }
 
+// Contratto normalizzato: type (identificativo stabile) e title (titolo
+// genuino custom) sono la coppia primaria; name e' accettato come input
+// legacy (client pre-fix "Workout Identity Preservation" che mandano solo
+// questo) e sourceApp preserva la provenienza. Prima, name/sourceApp non
+// erano nello schema: z.object() senza .passthrough() li scartava in
+// silenzio, quindi le righe finivano in fitness_metrics.exercise_sessions
+// SENZA alcun identificativo di attivita' per i client vecchi.
 const exerciseSessionSchema = z.object({
   type: z.string().optional(),
   title: z.string().optional(),
+  name: z.string().optional(),
   startMs: z.number().int(),
   endMs: z.number().int(),
   durationMin: z.number().int().optional(),
@@ -54,6 +62,7 @@ const exerciseSessionSchema = z.object({
   hrMin: z.number().int().optional(),
   paceSecPerKm: z.number().int().optional(),
   steps: z.number().int().optional(),
+  sourceApp: z.string().optional(),
 });
 
 const payloadSchema = z.object({
@@ -250,6 +259,12 @@ export async function POST(req: Request) {
   if (insErr) return jsonError(500, "insert_metrics_failed", insErr.message);
 
   // ── 5. INSERT workouts da exercise_sessions ────────────────────────
+  // Dedup NON fatto qui apposta (sprint 187A): un SELECT-before-INSERT
+  // aggiungerebbe una query DB a OGNI sync e non e' comunque atomico sotto
+  // concorrenza. Il dedup vero (unique constraint/upsert reviewato) e'
+  // rimandato a un follow-up separato — la dashboard app oggi legge
+  // fitness_metrics.exercise_sessions, non questa tabella (vedi
+  // docs/superpowers/plans/2026-07-11-workout-identity-preservation.md).
   if (p.exerciseSessionsJson && p.exerciseSessionsJson.length > 0) {
     const workoutRows = p.exerciseSessionsJson.map((s) => ({
       user_id: userId,
