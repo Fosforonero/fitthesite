@@ -206,6 +206,7 @@ const SCAN_DIRS = [
   "lib/blog/posts",
   "lib/landing",
   "lib/providers",
+  "lib/content",
   "app/(frontend)/[locale]/(marketing)",
 ];
 const SCAN_EXTENSIONS = new Set([".ts", ".tsx"]);
@@ -447,6 +448,38 @@ for (const file of filesToScan) {
     if (/\./.test(between)) continue; // parola-roadmap in una frase successiva, non la stessa claim
     if (/OAuth,\s*/i.test(windowText)) continue; // "Strava... OAuth, attivo/live today" — pattern corretto
     problems.push(`[strava-roadmap scan] ${rel} has "Strava" near a roadmap/Q3-2026/coming-soon phrase within ${STRAVA_ROADMAP_WINDOW} chars — Strava is live today, this reads as the pre-sprint stale claim: "...${windowText.replace(/\s+/g, " ")}..."`);
+  }
+}
+
+// ── 8. Sprint P0.2 Fase 3 — granularità live/roadmap/read/write/export ────
+// Il sito non deve mai usare "bidirectional sync" come claim generale su
+// FitMesh (ogni integrazione ha una direzione propria, vedi la matrice
+// /fitness-data-sync) — e TrainingPeaks specificamente non deve mai essere
+// descritto come "live" (l'upload non è collegato a nessuna azione UI reale,
+// vedi commit "feat(destinations): wire up TrainingPeaks/RideWithGPS send,
+// Strava write re-auth, Drive export" per lo stato esatto al 2026-07-12,
+// non ancora verificato su device).
+const BIDIRECTIONAL_WINDOW = 120;
+for (const file of filesToScan) {
+  const content = fs.readFileSync(file, "utf-8");
+  const rel = path.relative(repoRoot, file);
+
+  const biRe = /bidirectional sync|sync bidirezionale/gi;
+  let biMatch: RegExpExecArray | null;
+  while ((biMatch = biRe.exec(content)) !== null) {
+    const before = content.slice(Math.max(0, biMatch.index - BIDIRECTIONAL_WINDOW), biMatch.index);
+    if (/FitMesh/i.test(before)) {
+      problems.push(`[bidirectional-sync scan] ${rel} uses "${biMatch[0]}" as a general claim near "FitMesh" — describe direction per integration (see /fitness-data-sync compatibility matrix), never as a blanket "bidirectional sync" claim.`);
+    }
+  }
+
+  const tpLiveRe = /TrainingPeaks/g;
+  let tpMatch: RegExpExecArray | null;
+  while ((tpMatch = tpLiveRe.exec(content)) !== null) {
+    const windowText = content.slice(tpMatch.index, Math.min(content.length, tpMatch.index + 80));
+    if (/\blive\b|\bnow available\b|\balready works\b/i.test(windowText) && !/development|roadmap|not yet|coming/i.test(windowText)) {
+      problems.push(`[trainingpeaks-live scan] ${rel} describes TrainingPeaks as live/available near "${windowText.replace(/\s+/g, " ").slice(0, 100)}..." — the saved PAT token isn't wired to any send action yet (verified 2026-07-12), this must read as in-development/roadmap, not live.`);
+    }
   }
 }
 

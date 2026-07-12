@@ -17,6 +17,7 @@ import {
   PRESS_COMPLETE_LOCALES,
   FAMIGLIA_COMPLETE_LOCALES,
   ROADMAP_COMPLETE_LOCALES,
+  FITNESS_DATA_SYNC_COMPLETE_LOCALES,
 } from "@/lib/content/static-page-locales";
 import { SITE_URL as BASE } from "@/lib/product-facts";
 
@@ -63,6 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/integrations" },
     { path: "/ai" },
     { path: "/roadmap",      indexableLocales: (lc) => ROADMAP_COMPLETE_LOCALES.includes(lc) },
+    { path: "/fitness-data-sync", indexableLocales: (lc) => FITNESS_DATA_SYNC_COMPLETE_LOCALES.includes(lc) },
     { path: "/beta" },
     { path: "/blog" },
     { path: "/novita" },

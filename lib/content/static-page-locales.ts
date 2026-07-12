@@ -37,3 +37,9 @@ export const PRESS_COMPLETE_LOCALES: readonly Locale[] = [
 export const FAMIGLIA_COMPLETE_LOCALES: readonly Locale[] = [
   "it", "en", "es", "de", "pt", "fr", "pl", "tr",
 ];
+
+/**
+ * Landing "fitness data sync" (sprint P0.2). Fase 3 pubblica solo EN;
+ * IT/DE/ES arrivano in Fase 7 (traduzione) e vanno aggiunti qui quando pronti.
+ */
+export const FITNESS_DATA_SYNC_COMPLETE_LOCALES: readonly Locale[] = ["en"];
