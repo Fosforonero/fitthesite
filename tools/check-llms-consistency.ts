@@ -385,14 +385,18 @@ if (PRICING_FACTS.subSixMonths.amount !== "1.19") {
   problems.push(`[product-facts] PRICING_FACTS.subSixMonths.amount is "${PRICING_FACTS.subSixMonths.amount}", expected "1.19".`);
 }
 
-// 7d. Strava: LIVE oggi (OAuth read + write opzionale), non roadmap Q3 2026.
+// 7d. Strava: READ è live oggi (OAuth read), non roadmap Q3 2026. Il WRITE
+// (invio allenamenti a Strava) resta "in development" finché non supera la
+// checklist di promozione (docs/seo/capability-promotion-checklist.md) —
+// vedi sezione 8 sotto per il controllo dedicato che impedisce di descrivere
+// Strava come "live" per la scrittura.
 // Controllo strutturale (fonte di verità) + scansione testuale di regressione
 // sulla frase specifica corretta in questo sprint.
 const strava = PROVIDERS.find((p) => p.slug === "strava");
 if (!strava) {
   problems.push('[providers] No provider with slug "strava" found in PROVIDERS.');
 } else if (strava.status !== "live") {
-  problems.push(`[providers] strava status is "${strava.status}", expected "live" — Strava has a real production OAuth client ID (build-with-secrets.sh) and a live read+write integration in the Flutter app (strava_provider.dart).`);
+  problems.push(`[providers] strava status is "${strava.status}", expected "live" — Strava has a real production OAuth client ID (build-with-secrets.sh) and a live READ integration in the Flutter app (strava_provider.dart). Write (sending workouts to Strava) is implemented but not yet reachable from any UI screen — describe it as "in development", never as live/read+write.`);
 }
 
 // 7e. TrainingPeaks: integrazione reale (export TCX via Personal Access
@@ -454,12 +458,15 @@ for (const file of filesToScan) {
 // ── 8. Sprint P0.2 Fase 3 — granularità live/roadmap/read/write/export ────
 // Il sito non deve mai usare "bidirectional sync" come claim generale su
 // FitMesh (ogni integrazione ha una direzione propria, vedi la matrice
-// /fitness-data-sync) — e TrainingPeaks specificamente non deve mai essere
-// descritto come "live" (l'upload non è collegato a nessuna azione UI reale,
-// vedi commit "feat(destinations): wire up TrainingPeaks/RideWithGPS send,
-// Strava write re-auth, Drive export" per lo stato esatto al 2026-07-12,
-// non ancora verificato su device).
+// /fitness-data-sync) — e le destinazioni write-only sotto non devono mai
+// essere descritte come "live" finché non superano la checklist di
+// promozione (docs/seo/capability-promotion-checklist.md). Al 2026-07-12
+// tutte e tre sono "quick win" implementati in app (commit
+// "feat(destinations): wire up TrainingPeaks/RideWithGPS send, Strava write
+// re-auth, Drive export") ma NON verificati end-to-end su device fisico:
+// funzione raggiungibile dalla UI non equivale a "live" per questo sito.
 const BIDIRECTIONAL_WINDOW = 120;
+const UNVERIFIED_DESTINATIONS = ["TrainingPeaks", "RideWithGPS", "Google Drive"];
 for (const file of filesToScan) {
   const content = fs.readFileSync(file, "utf-8");
   const rel = path.relative(repoRoot, file);
@@ -473,12 +480,14 @@ for (const file of filesToScan) {
     }
   }
 
-  const tpLiveRe = /TrainingPeaks/g;
-  let tpMatch: RegExpExecArray | null;
-  while ((tpMatch = tpLiveRe.exec(content)) !== null) {
-    const windowText = content.slice(tpMatch.index, Math.min(content.length, tpMatch.index + 80));
-    if (/\blive\b|\bnow available\b|\balready works\b/i.test(windowText) && !/development|roadmap|not yet|coming/i.test(windowText)) {
-      problems.push(`[trainingpeaks-live scan] ${rel} describes TrainingPeaks as live/available near "${windowText.replace(/\s+/g, " ").slice(0, 100)}..." — the saved PAT token isn't wired to any send action yet (verified 2026-07-12), this must read as in-development/roadmap, not live.`);
+  for (const dest of UNVERIFIED_DESTINATIONS) {
+    const destRe = new RegExp(dest.replace(/\s+/g, "\\s+"), "g");
+    let destMatch: RegExpExecArray | null;
+    while ((destMatch = destRe.exec(content)) !== null) {
+      const windowText = content.slice(destMatch.index, Math.min(content.length, destMatch.index + 80));
+      if (/\blive\b|\bnow available\b|\balready works\b/i.test(windowText) && !/development|roadmap|not yet|coming/i.test(windowText)) {
+        problems.push(`[unverified-destination-live scan] ${rel} describes "${dest}" as live/available near "${windowText.replace(/\s+/g, " ").slice(0, 100)}..." — this destination is wired in app code but not verified end-to-end on a physical device (see docs/seo/capability-promotion-checklist.md), must read as in-development, not live.`);
+      }
     }
   }
 }

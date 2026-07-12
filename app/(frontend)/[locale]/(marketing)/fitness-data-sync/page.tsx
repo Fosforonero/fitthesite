@@ -425,6 +425,14 @@ export default async function FitnessDataSyncPage({
             available on the web in addition to the mobile apps, so you can
             check your data without opening your phone.
           </p>
+          <p className="mt-4 text-text-secondary leading-relaxed">
+            Write-back also behaves differently per platform. On Android,
+            turning on Health Connect write-back exports once at that moment;
+            it doesn't keep exporting automatically as new data comes in, you
+            need to toggle it off and on again to re-export. On iOS, once you
+            turn on Apple Health write-back, FitMesh re-exports after every
+            successful sync.
+          </p>
         </div>
 
         {/* Privacy, storage, export */}
@@ -435,8 +443,9 @@ export default async function FitnessDataSyncPage({
           <p className="mt-4 text-text-secondary leading-relaxed">
             Your data is stored on EU servers. You control every write-back
             toggle individually, and you can export your own workouts as GPX
-            or TCX files at any time (a Pro feature, native share sheet or
-            Google Drive) to keep your own copy outside FitMesh.
+            or TCX files at any time (a Pro feature) via the native share
+            sheet, to keep your own copy outside FitMesh. Saving exports
+            directly to Google Drive is in development.
           </p>
         </div>
 
@@ -447,8 +456,9 @@ export default async function FitnessDataSyncPage({
           </h2>
           <ul className="mt-4 space-y-2 text-text-secondary text-sm leading-relaxed list-disc list-inside">
             <li>It doesn't sync every fitness app to every other fitness app. Check the compatibility table for the specific source or destination you need.</li>
-            <li>Sending workouts to Strava and TrainingPeaks specifically is still in development, not available today.</li>
+            <li>Sending workouts to Strava, TrainingPeaks or RideWithGPS is still in development, not available today. Saving exports directly to Google Drive is also in development; use the share sheet instead.</li>
             <li>Write-back to Health Connect and Apple Health doesn't cover every metric (no HRV write on either platform, no weight write on Android).</li>
+            <li>Write-back timing differs by platform: Health Connect (Android) exports once per toggle activation, not continuously; Apple Health (iOS) re-exports after every successful sync.</li>
             <li>FIT file export isn't available (licensing); GPX and TCX are.</li>
           </ul>
         </div>
