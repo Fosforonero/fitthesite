@@ -1,5 +1,6 @@
 /**
- * POST /api/v1/beta/signup — registrazione founder Beta (max 100 posti).
+ * POST /api/v1/beta/signup — waitlist "avvisami al lancio iOS" (non grant
+ * founder: quello è il trigger Supabase handle_new_founder(), primi 1000 account).
  *
  * Endpoint anonimo: usa anon key Supabase + RLS policy "anon can insert signup".
  * Approvazione manuale dall'admin via Supabase dashboard (per ora).

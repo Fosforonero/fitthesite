@@ -328,7 +328,9 @@ export default async function ModelPage({
     description: desc,
     inLanguage: schemaLanguage(lc),
     url: pageUrl,
-    offers: modelPlatforms.flatMap((plat) => appOffers(plat)),
+    // appOffers() ritorna sempre lo stesso free-download Offer indipendentemente
+    // dalla piattaforma: niente flatMap multi-piattaforma, altrimenti duplica il nodo.
+    offers: appOffers(modelPlatforms[0]),
     ...(modelPlatforms.length === 1 && {
       downloadUrl: modelPlatforms[0] === "ios" ? APPLE_STORE_URL : PLAY_URL,
     }),

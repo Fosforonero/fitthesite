@@ -260,7 +260,9 @@ export default async function ProviderLanding({
     description: tl(p.longDesc, lc),
     url: `${SITE_URL}${path}`,
     inLanguage: schemaLanguage(lc),
-    offers: platforms.flatMap((plat) => appOffers(plat)),
+    // appOffers() ritorna sempre lo stesso free-download Offer indipendentemente
+    // dalla piattaforma: niente flatMap multi-piattaforma, altrimenti duplica il nodo.
+    offers: appOffers(platforms[0]),
     // downloadUrl: solo per provider single-platform — con due piattaforme
     // (colmi-ring) non c'è un unico store "giusto" da linkare qui.
     ...(platforms.length === 1 && {

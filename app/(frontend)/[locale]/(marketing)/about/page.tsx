@@ -7,7 +7,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { IosAwareText } from "@/components/IosAwareText";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
-import { PRICING } from "@/lib/pricing";
+import { p } from "@/lib/pricing";
 import { SITE_URL, appOffers } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
@@ -71,13 +71,7 @@ export default async function AboutPage({
   const lc = locale as Locale;
   const path = `/${lc}/about`;
 
-  // Precio para el locale actual
-  const lifetimeBothShort =
-    lc === "it"
-      ? PRICING.lifetimeBothShort.it
-      : lc === "es"
-      ? "€3,99 Android · €4,99 iPhone"
-      : PRICING.lifetimeBothShort.en;
+  const lifetimeBothShort = p("lifetimeBothShort", lc);
 
   // AboutPage JSON-LD per knowledge graph
   const aboutLd = {
@@ -168,13 +162,13 @@ export default async function AboutPage({
                 "Garmin Forerunner/Fenix/Venu (via Garmin Connect)",
                 "Polar Vantage/Grit X (via Polar Flow)",
                 "Withings Body+/ScanWatch (via Health Mate)",
+                "Strava (via OAuth)",
               ],
               color: "#31E981",
             },
             {
               h: tl(ABOUT_COPY.comingWithOauth, lc),
               items: [
-                "Strava (Q3 2026)",
                 "Oura Ring Gen 3/4 (Q4 2026)",
                 tl(ABOUT_COPY.fitbitHistoricalGps, lc),
                 "Garmin Body Battery + Training Load (Q3 2026)",
