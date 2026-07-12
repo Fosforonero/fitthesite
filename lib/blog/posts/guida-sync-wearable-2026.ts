@@ -4,16 +4,34 @@ import type { BlogPost } from "../types";
  * Pillar cornerstone: hub generale sul sync wearable.
  * Linka a tutti i supporting articles + 11 landing /sync/[provider].
  * Lunghezza target: 2500+ parole.
+ *
+ * Sprint P0.2 Fase 4 (2026-07-12): retargeting da "guida sync wearable
+ * Android/Health Connect" a intento generico "come sincronizzare dati
+ * fitness tra app e wearable" — nuova sezione "Le quattro architetture"
+ * (health hub / bridge app / dashboard indipendente / export-API) inserita
+ * dopo l'intro, con CTA verso /fitness-data-sync. Contenuto tecnico
+ * preesistente (Health Connect, OAuth, export manuale) mantenuto invariato:
+ * resta il deep-dive sui meccanismi che alimentano le architetture 1 e 4,
+ * non è in contraddizione con la nuova tassonomia a livello di prodotto.
+ * Slug INVARIATO (già indicizzato). Retarget completo solo per it/en/de/es
+ * (stesse 4 locale di FITNESS_DATA_SYNC_COMPLETE_LOCALES/FDS_LOCALES) — le
+ * altre 7 locale mantengono titolo/TL;DR/sezione-riassunto pre-esistenti in
+ * lingua propria; la nuova sezione "quattro architetture" per quelle 7
+ * locale mostra il testo EN (fallback tl()) finché la Fase 7 non estende
+ * la traduzione. Vedi tools/check-llms-consistency.ts per il motivo per cui
+ * Strava/TrainingPeaks/RideWithGPS/Google Drive restano "in development"
+ * in questo articolo.
  */
 export const post: BlogPost = {
   slug: "guida-sync-wearable-2026",
   category: "guides",
   publishedAt: "2026-05-21",
-  updatedAt: "2026-05-21",
+  updatedAt: "2026-07-12",
   pillar: true,
   readMinutes: 14,
   tldr: {
     it: [
+      "Quattro architetture diverse rispondono a bisogni diversi: health hub di sistema, bridge app, dashboard indipendente, export manuale o API. Scegli in base al problema, non al primo tool che trovi.",
       "Regola pratica del 2026: scegli la pipeline dati prima del gadget. Risolve il 90% dei problemi prima di aprire un'app.",
       "Tre modi reali per portare via i dati: Health Connect (on-device, Android), OAuth API ufficiali (dati proprietari completi, richiede approvazione), export manuale (lento ma garantito dal GDPR art. 20).",
       "Health Connect non è Google Fit: Google Fit è deprecato da giugno 2025, Health Connect è lo standard Android unificato e strettamente on-device.",
@@ -21,6 +39,7 @@ export const post: BlogPost = {
       "Per dati salute, l'unico modello con incentivi allineati è 'a pagamento, no ads, no tracker': le app gratis monetizzano spesso vendendo dati aggregati.",
     ],
     en: [
+      "Four different architectures answer different needs: OS health hub, bridge app, independent dashboard, manual export or API. Pick based on the problem, not the first tool you find.",
       "The 2026 practical rule: pick the data pipe before the gadget. It resolves 90% of problems before you open an app.",
       "Three real ways to get data out: Health Connect (on-device, Android), official OAuth APIs (full proprietary data, requires approval), manual export (slow but guaranteed by GDPR art. 20).",
       "Health Connect is not Google Fit: Google Fit was deprecated in June 2025, Health Connect is the unified Android standard and strictly on-device.",
@@ -28,6 +47,7 @@ export const post: BlogPost = {
       "For health data, the only business model with aligned incentives is 'paid, no ads, no trackers': free apps often monetize by selling aggregated data.",
     ],
     es: [
+      "Cuatro arquitecturas distintas responden a necesidades distintas: hub de salud del sistema, bridge app, panel independiente, exportación manual o API. Elige según el problema, no según la primera herramienta que encuentres.",
       "La regla práctica de 2026: elige la ruta de datos antes que el dispositivo. Resuelve el 90% de los problemas antes de abrir ninguna app.",
       "Tres formas reales de exportar tus datos: Health Connect (en el dispositivo, Android), OAuth APIs oficiales (datos propietarios completos, requiere aprobación), exportación manual (lenta pero garantizada por el RGPD art. 20).",
       "Health Connect no es Google Fit: Google Fit quedó obsoleto en junio de 2025, Health Connect es el estándar unificado de Android y funciona estrictamente en el dispositivo.",
@@ -35,6 +55,7 @@ export const post: BlogPost = {
       "Para datos de salud, el único modelo con incentivos alineados es 'pago único, sin anuncios, sin rastreadores': las apps gratuitas suelen monetizar vendiendo datos agregados.",
     ],
     de: [
+      "Vier unterschiedliche Architekturen lösen unterschiedliche Bedürfnisse: System-Health-Hub, Bridge-App, unabhängiges Dashboard, manueller Export oder API. Wähle nach dem Problem, nicht nach dem ersten Tool, das du findest.",
       "Die praktische Regel für 2026: Wähle die Datenpipeline vor dem Gerät. Das löst 90 % der Probleme, bevor du eine App öffnest.",
       "Drei echte Wege, um Daten herauszuholen: Health Connect (auf dem Gerät, Android), offizielle OAuth-APIs (vollständige proprietäre Daten, erfordert Genehmigung), manueller Export (langsam, aber durch DSGVO Art. 20 garantiert).",
       "Health Connect ist nicht Google Fit: Google Fit wurde im Juni 2025 eingestellt, Health Connect ist der einheitliche Android-Standard und funktioniert strikt auf dem Gerät.",
@@ -92,10 +113,10 @@ export const post: BlogPost = {
     ],
   },
   primaryKeyword: {
-    it: "sincronizzare smartwatch dashboard",
-    en: "sync smartwatch dashboard",
-    es: "sincronizar smartwatch panel",
-    de: "Smartwatch synchronisieren Dashboard",
+    it: "sincronizzare dati fitness tra app",
+    en: "sync fitness data between apps",
+    es: "sincronizar datos de fitness entre apps",
+    de: "Fitnessdaten zwischen Apps synchronisieren",
     pt: "sincronizar smartwatch painel",
     fr: "synchroniser montre connectée tableau de bord",
     pl: "synchronizuj smartwatch panel",
@@ -170,10 +191,10 @@ export const post: BlogPost = {
     ],
   },
   metaDescription: {
-    it: "Tutto quello che ti serve per sincronizzare il tuo wearable nel 2026: Health Connect, Samsung Health, OAuth ufficiali, GDPR, e come confrontare le opzioni senza farsi fregare.",
-    en: "Everything you need to sync your wearable in 2026: Health Connect, Samsung Health, official OAuths, GDPR, and how to compare the options without getting fooled.",
-    es: "Todo lo que necesitas para sincronizar tu wearable en 2026: Health Connect, Samsung Health, OAuth oficiales, RGPD y cómo comparar las opciones sin dejarte engañar.",
-    de: "Alles, was du brauchst, um dein Wearable 2026 zu synchronisieren: Health Connect, Samsung Health, offizielle OAuths, DSGVO und wie du die Optionen vergleichst, ohne getäuscht zu werden.",
+    it: "Le quattro architetture reali per sincronizzare dati fitness tra app e wearable nel 2026: health hub, bridge app, dashboard indipendente, export/API. Confronto onesto, senza promesse di marketing.",
+    en: "The four real architectures for syncing fitness data between apps and wearables in 2026: health hub, bridge app, independent dashboard, manual export/API. An honest comparison, no marketing promises.",
+    es: "Las cuatro arquitecturas reales para sincronizar datos de fitness entre apps y wearables en 2026: hub de salud, bridge app, panel independiente, exportación manual/API. Comparación honesta, sin promesas de marketing.",
+    de: "Die vier echten Architekturen zum Synchronisieren von Fitnessdaten zwischen Apps und Wearables 2026: Health-Hub, Bridge-App, unabhängiges Dashboard, manueller Export/API. Ehrlicher Vergleich, keine Marketingversprechen.",
     pt: "Tudo o que você precisa para sincronizar seu wearable em 2026: Health Connect, Samsung Health, OAuth oficiais, GDPR e como comparar as opções sem ser enganado.",
     fr: "Tout ce dont vous avez besoin pour synchroniser votre appareil connecté en 2026 : Health Connect, Samsung Health, OAuth officiels, RGPD et comment comparer les options sans se faire avoir.",
     pl: "Wszystko, czego potrzebujesz, aby zsynchronizować swoje urządzenie wearable w 2026 roku: Health Connect, Samsung Health, oficjalne OAuth, RODO i jak porównywać opcje bez dania się nabrać.",
@@ -185,10 +206,10 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Guida principale", en: "Main guide", es: "Guía principal", de: "Hauptartikel", pt: "Guia principal", fr: "Guide principal", pl: "Przewodnik główny", tr: "Ana rehber", nl: "Hoofdgids", ja: "メインガイド", ko: "메인 가이드" },
     title: {
-      it: "Guida completa al sync wearable nel 2026",
-      en: "The complete guide to wearable sync in 2026",
-      es: "Guía completa para sincronizar tu wearable en 2026",
-      de: "Der vollständige Leitfaden zur Wearable-Synchronisierung 2026",
+      it: "Come sincronizzare i dati fitness tra app e wearable nel 2026",
+      en: "How to Sync Fitness Data Between Apps and Wearables in 2026",
+      es: "Cómo sincronizar datos de fitness entre apps y wearables en 2026",
+      de: "So synchronisierst du Fitnessdaten zwischen Apps und Wearables 2026",
       pt: "O guia completo para sincronização de wearables em 2026",
       fr: "Le guide complet pour synchroniser vos appareils connectés en 2026",
       pl: "Kompletny przewodnik po synchronizacji urządzeń wearable w 2026 roku",
@@ -198,10 +219,10 @@ export const post: BlogPost = {
       ko: "2026년 웨어러블 동기화 완전 가이드",
     },
     subtitle: {
-      it: "Tre standard convivono, dieci brand spingono ognuno il proprio cloud, una sola regola pratica per non perdere tempo: scegli la pipa dati prima del gadget.",
-      en: "Three standards coexist, ten brands each push their own cloud, one practical rule to save time: pick the data pipe before the gadget.",
-      es: "Tres estándares conviven, diez marcas impulsan cada una su propio servicio en la nube, y hay una sola regla práctica para no perder tiempo: elige la ruta de datos antes que el dispositivo.",
-      de: "Drei Standards koexistieren, zehn Marken pushen jeweils ihre eigene Cloud. Eine praktische Regel spart Zeit: Wähle die Datenpipeline vor dem Gerät.",
+      it: "Quattro architetture diverse risolvono il sync in modo diverso: health hub del sistema, bridge app, dashboard indipendente, export manuale o API. Scegli la pipeline giusta prima del gadget.",
+      en: "Four different architectures solve sync differently: OS health hub, bridge app, independent dashboard, manual export or API. Pick the right pipeline before the gadget.",
+      es: "Cuatro arquitecturas distintas resuelven la sincronización de forma diferente: hub de salud del sistema, bridge app, panel independiente, exportación manual o API. Elige la ruta correcta antes que el dispositivo.",
+      de: "Vier unterschiedliche Architekturen lösen Sync auf unterschiedliche Weise: Health-Hub des Systems, Bridge-App, unabhängiges Dashboard, manueller Export oder API. Wähle die richtige Pipeline vor dem Gerät.",
       pt: "Três padrões coexistem, dez marcas empurram cada uma sua própria nuvem. Uma única regra prática economiza tempo: escolha a pipeline de dados antes do dispositivo.",
       fr: "Trois standards coexistent, dix marques poussent chacune leur propre cloud. Une seule règle pratique pour gagner du temps : choisissez le circuit de données avant l'appareil.",
       pl: "Trzy standardy współistnieją, dziesięć marek promuje własną chmurę. Jedna praktyczna zasada, by zaoszczędzić czas: wybierz kanał danych przed urządzeniem.",
@@ -242,6 +263,82 @@ export const post: BlogPost = {
         nl: "Deze gids is het eerlijke startpunt: het legt de echte technische standaarden uit (Health Connect, officiële OAuth API's, handmatige exports), hoe de belangrijkste fabrikanten zich tegenwoordig gedragen, wat het verschil maakt voor mensen die echt hun eigen gegevens willen, en hoe synchronisatieoplossingen te vergelijken zonder te vallen voor marketingpraat.",
         ja: "このガイドは正直な出発点です：本当の技術標準（Health Connect、公式OAuth API、手動エクスポート）、主要メーカーが現在どのように振る舞っているか、実際に自分のデータを望む人にとって何が違いを生むか、そしてマーケティングの誇大宣伝に騙されずに同期ソリューションを比較する方法を説明します。",
         ko: "이 가이드는 솔직한 출발점입니다: 실제 기술 표준(Health Connect, 공식 OAuth API, 수동 내보내기), 주요 제조업체가 오늘날 어떻게 행동하는지, 실제로 자신의 데이터를 원하는 사람들에게 무엇이 차이를 만드는지, 그리고 마케팅 과장에 속지 않고 동기화 솔루션을 비교하는 방법을 설명합니다.",
+      },
+    },
+    {
+      type: "heading",
+      level: 2,
+      text: {
+        it: "Le quattro architetture per sincronizzare i dati fitness",
+        en: "The four architectures for syncing fitness data",
+        es: "Las cuatro arquitecturas para sincronizar datos de fitness",
+        de: "Die vier Architekturen zum Synchronisieren von Fitnessdaten",
+      },
+    },
+    {
+      type: "paragraph",
+      text: {
+        it: "Prima di scegliere uno strumento, aiuta sapere che problema stai risolvendo. Esistono quattro modi diversi in cui un prodotto può \"sincronizzare i dati fitness\", e non sono intercambiabili: (1) un health hub del sistema operativo, integrato nel telefono; (2) una bridge app che sposta dati da una fonte a una destinazione specifica; (3) una dashboard indipendente che legge da più fonti e le mostra insieme; (4) un'esportazione manuale o un accesso via API. Le due sezioni tecniche che seguono (Health Connect e le opzioni di esportazione) approfondiscono nel dettaglio come funzionano le architetture 1 e 4.",
+        en: "Before picking a tool, it helps to know which problem you're actually solving. There are four different ways a product can \"sync fitness data\", and they aren't interchangeable: (1) an OS-level health hub, built into the phone; (2) a bridge app that moves data from one specific source to one specific destination; (3) an independent dashboard that reads from multiple sources and shows them together; (4) a manual export or API access. The two technical sections below (Health Connect and the export options) go deep on how architectures 1 and 4 actually work.",
+        es: "Antes de elegir una herramienta, ayuda saber qué problema estás resolviendo realmente. Hay cuatro formas distintas en las que un producto puede \"sincronizar datos de fitness\", y no son intercambiables: (1) un hub de salud a nivel de sistema operativo, integrado en el teléfono; (2) una bridge app que mueve datos de una fuente específica a un destino específico; (3) un panel independiente que lee de varias fuentes y las muestra juntas; (4) una exportación manual o acceso por API. Las dos secciones técnicas que siguen (Health Connect y las opciones de exportación) profundizan en cómo funcionan realmente las arquitecturas 1 y 4.",
+        de: "Bevor du ein Tool auswählst, hilft es zu wissen, welches Problem du eigentlich lösen willst. Es gibt vier unterschiedliche Wege, wie ein Produkt \"Fitnessdaten synchronisieren\" kann, und sie sind nicht austauschbar: (1) ein Health-Hub auf Betriebssystemebene, ins Telefon integriert; (2) eine Bridge-App, die Daten von einer bestimmten Quelle zu einem bestimmten Ziel verschiebt; (3) ein unabhängiges Dashboard, das aus mehreren Quellen liest und sie zusammen anzeigt; (4) ein manueller Export oder API-Zugriff. Die beiden technischen Abschnitte weiter unten (Health Connect und die Export-Optionen) gehen im Detail darauf ein, wie die Architekturen 1 und 4 tatsächlich funktionieren.",
+      },
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: {
+        it: [
+          "**Health hub del sistema operativo** (Health Connect su Android, Apple Health su iOS): un archivio dati gestito dal permesso, integrato nel telefono. Le app leggono e scrivono lì, ma l'hub non ha una propria dashboard e vede solo quel singolo dispositivo.",
+          "**Bridge app**: sposta dati da una fonte specifica a una destinazione specifica, di solito per un caso d'uso ristretto (per esempio esportare un singolo allenamento verso una piattaforma di allenamento). Non è pensata per darti una visione d'insieme.",
+          "**Dashboard indipendente** (es. FitMesh Sync): legge da più fonti connesse contemporaneamente, deduplica i dati sovrapposti e li mostra in un'unica vista. Non promette di scrivere ovunque possa farlo una bridge app.",
+          "**Esportazione manuale o API**: scarichi i tuoi dati grezzi (CSV, GPX, FIT) o li leggi via API ufficiale. Più lento da configurare, ma è l'unico modo garantito per legge (GDPR art. 20) di ottenere ogni dato, non solo quello che un'app decide di mostrarti.",
+        ],
+        en: [
+          "**OS-level health hub** (Health Connect on Android, Apple Health on iOS): a permission-gated data store built into the phone. Apps read and write to it, but the hub has no dashboard of its own and only sees that one device.",
+          "**Bridge app**: moves data from one specific source to one specific destination, usually for a narrow use case (for example, exporting a single workout to a training platform). It isn't built to show you an overview.",
+          "**Independent dashboard** (e.g. FitMesh Sync): reads from multiple connected sources at once, deduplicates overlapping data, and shows it together in one view. It doesn't promise to write everywhere a bridge app might.",
+          "**Manual export or API**: you download your raw data (CSV, GPX, FIT) or read it via an official API. Slower to set up, but it's the only way legally guaranteed (GDPR art. 20) to get every data point, not just what an app chooses to show you.",
+        ],
+        es: [
+          "**Hub de salud a nivel de sistema operativo** (Health Connect en Android, Apple Health en iOS): un almacén de datos gestionado por permisos, integrado en el teléfono. Las apps leen y escriben ahí, pero el hub no tiene panel propio y solo ve ese dispositivo.",
+          "**Bridge app**: mueve datos de una fuente específica a un destino específico, normalmente para un caso de uso concreto (por ejemplo, exportar un único entrenamiento a una plataforma de entrenamiento). No está pensada para darte una visión de conjunto.",
+          "**Panel independiente** (p. ej. FitMesh Sync): lee de varias fuentes conectadas a la vez, deduplica los datos superpuestos y los muestra juntos en una sola vista. No promete escribir en todas partes donde podría hacerlo una bridge app.",
+          "**Exportación manual o API**: descargas tus datos en bruto (CSV, GPX, FIT) o los lees mediante una API oficial. Más lento de configurar, pero es la única forma legalmente garantizada (RGPD art. 20) de obtener cada dato, no solo lo que una app decide mostrarte.",
+        ],
+        de: [
+          "**Health-Hub auf Betriebssystemebene** (Health Connect auf Android, Apple Health auf iOS): ein berechtigungsgesteuerter Datenspeicher, der ins Telefon integriert ist. Apps lesen und schreiben dort, aber der Hub hat kein eigenes Dashboard und sieht nur dieses eine Gerät.",
+          "**Bridge-App**: verschiebt Daten von einer bestimmten Quelle zu einem bestimmten Ziel, meist für einen engen Anwendungsfall (zum Beispiel den Export eines einzelnen Workouts auf eine Trainingsplattform). Sie ist nicht dafür gebaut, dir einen Überblick zu geben.",
+          "**Unabhängiges Dashboard** (z. B. FitMesh Sync): liest gleichzeitig aus mehreren verbundenen Quellen, dedupliziert überlappende Daten und zeigt sie zusammen in einer Ansicht. Es verspricht nicht, überall zu schreiben, wo eine Bridge-App das könnte.",
+          "**Manueller Export oder API**: Du lädst deine Rohdaten herunter (CSV, GPX, FIT) oder liest sie über eine offizielle API. Aufwendiger einzurichten, aber der einzige gesetzlich garantierte Weg (DSGVO Art. 20), jeden Datenpunkt zu bekommen, nicht nur das, was eine App dir zeigen will.",
+        ],
+      },
+    },
+    {
+      type: "cta",
+      title: {
+        it: "Vuoi vedere l'architettura 3 (dashboard indipendente) in dettaglio?",
+        en: "Want to see architecture 3 (independent dashboard) in detail?",
+        es: "¿Quieres ver la arquitectura 3 (panel independiente) en detalle?",
+        de: "Möchtest du Architektur 3 (unabhängiges Dashboard) im Detail sehen?",
+      },
+      body: {
+        it: "La landing dedicata elenca esattamente cosa è live, cosa è read-only e cosa è ancora in sviluppo, con data di verifica per ogni integrazione.",
+        en: "The dedicated landing page lists exactly what's live, what's read-only, and what's still in development, with a verification date for every integration.",
+        es: "La landing dedicada enumera exactamente qué está en vivo, qué es solo lectura y qué sigue en desarrollo, con fecha de verificación para cada integración.",
+        de: "Die dedizierte Landingpage listet genau auf, was live ist, was nur lesend funktioniert und was sich noch in Entwicklung befindet, mit einem Verifizierungsdatum für jede Integration.",
+      },
+      ctaLabel: {
+        it: "Vedi la matrice di compatibilità",
+        en: "See the compatibility matrix",
+        es: "Ver la matriz de compatibilidad",
+        de: "Kompatibilitätsmatrix ansehen",
+      },
+      ctaHref: {
+        it: "/it/fitness-data-sync",
+        en: "/en/fitness-data-sync",
+        es: "/es/fitness-data-sync",
+        de: "/de/fitness-data-sync",
       },
     },
     {
@@ -1612,28 +1709,28 @@ export const post: BlogPost = {
       type: "list",
       items: {
         it: [
-          "Ci sono tre modi reali per portare via dati da un wearable: Health Connect (on-device, zero setup, Android), OAuth API ufficiali (dati proprietari completi, richiede approvazione), export manuale (lento ma garantito per legge dal GDPR art. 20).",
+          "Quattro architetture diverse risolvono il sync in modo diverso (health hub, bridge app, dashboard indipendente, export/API); sotto il cofano, portare via dati da un wearable succede in tre modi tecnici: Health Connect (on-device, zero setup, Android), OAuth API ufficiali (dati proprietari completi, richiede approvazione), export manuale (lento ma garantito per legge dal GDPR art. 20).",
           "Health Connect non è Google Fit: Google Fit è deprecato dal giugno 2025, Health Connect è lo standard Android unificato e strettamente on-device.",
           "Samsung, Fitbit, Garmin, Polar, Withings scrivono su Health Connect. Oura e Huawei no: richiedono OAuth o sono ecosistemi chiusi.",
           "Prima di acquistare un wearable, fai il test: cerca '[nome device] Health Connect' su Google. Se non c'è una guida ufficiale del produttore, ti stai legando a un ecosistema chiuso.",
           "Per dati salute, l'unico modello economico con incentivi allineati è 'a pagamento, no ads, no tracker': le app gratis monetizzano quasi sempre vendendo i dati aggregati.",
         ],
         en: [
-          "There are three real ways to get data out of a wearable: Health Connect (on-device, zero setup, Android), official OAuth APIs (full proprietary data, requires approval), manual export (slow but legally guaranteed by GDPR art. 20).",
+          "Four different architectures solve sync differently (health hub, bridge app, independent dashboard, manual export/API); under the hood, getting data out of a wearable happens through three technical mechanisms: Health Connect (on-device, zero setup, Android), official OAuth APIs (full proprietary data, requires approval), manual export (slow but legally guaranteed by GDPR art. 20).",
           "Health Connect is not Google Fit: Google Fit was deprecated in June 2025, Health Connect is the unified Android standard and strictly on-device.",
           "Samsung, Fitbit, Garmin, Polar, Withings write to Health Connect. Oura and Huawei don't: they require OAuth or are closed ecosystems.",
           "Before buying a wearable, run the test: search '[device name] Health Connect' on Google. If there's no official manufacturer guide, you're locking into a closed ecosystem.",
           "For health data, the only business model with aligned incentives is 'paid, no ads, no trackers': free apps almost always monetize by selling aggregated data.",
         ],
         es: [
-          "Hay tres formas reales de exportar datos de un wearable: Health Connect (en el dispositivo, sin configuración, Android), OAuth APIs oficiales (datos propietarios completos, requiere aprobación), exportación manual (lenta pero garantizada por ley por el RGPD art. 20).",
+          "Cuatro arquitecturas distintas resuelven la sincronización de forma diferente (hub de salud, bridge app, panel independiente, exportación manual/API); por debajo, extraer datos de un wearable ocurre mediante tres mecanismos técnicos: Health Connect (en el dispositivo, sin configuración, Android), OAuth APIs oficiales (datos propietarios completos, requiere aprobación), exportación manual (lenta pero garantizada por ley por el RGPD art. 20).",
           "Health Connect no es Google Fit: Google Fit quedó obsoleto en junio de 2025, Health Connect es el estándar unificado de Android y funciona estrictamente en el dispositivo.",
           "Samsung, Fitbit, Garmin, Polar y Withings escriben en Health Connect. Oura y Huawei no: requieren OAuth o son ecosistemas cerrados.",
           "Antes de comprar un wearable, haz la prueba: busca '[nombre del dispositivo] Health Connect' en Google. Si no hay una guía oficial del fabricante, te estás atando a un ecosistema cerrado.",
           "Para datos de salud, el único modelo de negocio con incentivos alineados es 'de pago, sin anuncios, sin rastreadores': las apps gratuitas casi siempre monetizan vendiendo datos agregados.",
         ],
         de: [
-          "Es gibt drei echte Wege, Daten aus einem Wearable herauszuholen: Health Connect (auf dem Gerät, null Setup, Android), offizielle OAuth-APIs (vollständige proprietäre Daten, erfordert Genehmigung), manueller Export (langsam, aber gesetzlich garantiert durch DSGVO Art. 20).",
+          "Vier unterschiedliche Architekturen lösen Sync unterschiedlich (Health-Hub, Bridge-App, unabhängiges Dashboard, manueller Export/API); unter der Haube passiert das Herausholen von Daten aus einem Wearable über drei technische Mechanismen: Health Connect (auf dem Gerät, null Setup, Android), offizielle OAuth-APIs (vollständige proprietäre Daten, erfordert Genehmigung), manueller Export (langsam, aber gesetzlich garantiert durch DSGVO Art. 20).",
           "Health Connect ist nicht Google Fit: Google Fit wurde im Juni 2025 eingestellt, Health Connect ist der einheitliche Android-Standard und funktioniert strikt auf dem Gerät.",
           "Samsung, Fitbit, Garmin, Polar und Withings schreiben in Health Connect. Oura und Huawei nicht: Sie erfordern OAuth oder sind geschlossene Ökosysteme.",
           "Bevor du ein Wearable kaufst, mach den Test: Suche auf Google '[Gerätename] Health Connect'. Wenn es keine offizielle Herstelleranleitung gibt, bindest du dich an ein geschlossenes Ökosystem.",
