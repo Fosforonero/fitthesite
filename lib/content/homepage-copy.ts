@@ -315,6 +315,19 @@ export const HOMEPAGE_COPY = {
     fi: "Katso kaikki",
   } satisfies Localized,
 
+  /**
+   * Sprint P0.2 Fase 6 (2026-07-12): teaser sotto integrationsHeading, link a
+   * /fitness-data-sync. Tradotto solo it/en/de/es (stesso scope della
+   * landing, vedi FITNESS_DATA_SYNC_COMPLETE_LOCALES) — le altre locale
+   * cadono su en via tl().
+   */
+  integrationsDashboardTeaser: {
+    it: "Vuoi sapere cosa è live e cosa è ancora in sviluppo?",
+    en: "Want to know what's live and what's still in development?",
+    es: "¿Quieres saber qué está en vivo y qué sigue en desarrollo?",
+    de: "Möchtest du wissen, was live ist und was sich noch in Entwicklung befindet?",
+  } satisfies Localized,
+
   privacyPoints: {
     it: [
       { t: "Server in UE", d: "Postgres su infrastruttura europea. Niente trasferimenti USA." },

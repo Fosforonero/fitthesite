@@ -335,23 +335,42 @@ export default async function IntegrationsHub({
               "Health Connect에 데이터를 쓰는 모든 앱이나 스마트워치는 FitMesh에서 자동으로 읽을 수 있습니다: Huawei Health, Mobvoi, OnePlus Health, Zepp / Amazfit (최신 모델), Coros, Withings (일부), Garmin Connect (일부), Polar Flow (일부). 전용 OAuth 연동은 Health Connect가 제공하지 않는 고급 데이터(Training Load, Body Battery, GPS 트랙)를 추가합니다.",
             )}
           </p>
-          <Link
-            href={`/${lc}/blog/${localizedBlogSlug("guida-sync-wearable-2026", lc)}`}
-            className="mt-6 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
-          >
-            {t(
-              "Approfondisci nella guida completa al sync wearable",
-              "Read the complete guide to wearable sync",
-              "Lee la guía completa de sincronización de wearables",
-              undefined,
-              undefined,
-              undefined,
-              "Lees de complete gids voor wearable sync",
-              "ウェアラブルsyncの完全ガイドを読む",
-              "웨어러블 동기화 전체 가이드 읽기",
-            )}
-            <span className="transition-transform group-hover:translate-x-1">→</span>
-          </Link>
+          <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+            <Link
+              href={`/${lc}/blog/${localizedBlogSlug("guida-sync-wearable-2026", lc)}`}
+              className="inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
+            >
+              {t(
+                "Approfondisci nella guida completa al sync wearable",
+                "Read the complete guide to wearable sync",
+                "Lee la guía completa de sincronización de wearables",
+                undefined,
+                undefined,
+                undefined,
+                "Lees de complete gids voor wearable sync",
+                "ウェアラブルsyncの完全ガイドを読む",
+                "웨어러블 동기화 전체 가이드 읽기",
+              )}
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </Link>
+            <Link
+              href={`/${lc}/fitness-data-sync`}
+              className="inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
+            >
+              {t(
+                "Vedi cosa è live, read-only o ancora in sviluppo",
+                "See what's live, read-only, or still in development",
+                "Mira qué está en vivo, es solo lectura o sigue en desarrollo",
+                undefined,
+                undefined,
+                undefined,
+                "Bekijk wat live, alleen-lezen of nog in ontwikkeling is",
+                "何がライブで、読み取り専用で、まだ開発中かを確認",
+                "무엇이 라이브인지, 읽기 전용인지, 아직 개발 중인지 확인하기",
+              )}
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 

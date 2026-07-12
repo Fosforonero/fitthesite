@@ -444,6 +444,19 @@ export default async function ProviderLanding({
                 "FitMesh Sync는 독립적인 제품입니다. 상표는 해당 소유자에게 귀속되며 이 페이지는 어떠한 제휴나 후원도 의미하지 않습니다.",
               )}
             </p>
+            <Link
+              href={`/${lc}/fitness-data-sync`}
+              className="mt-3 inline-flex items-center gap-1.5 text-xs text-text-muted hover:text-brand-aqua transition"
+            >
+              {t(
+                "Come si confronta con le altre architetture di sync",
+                "How this compares to other sync architectures",
+                "Cómo se compara con otras arquitecturas de sincronización",
+                "Hoe dit zich verhoudt tot andere sync-architecturen",
+                "他の同期アーキテクチャとの比較",
+                "다른 동기화 아키텍처와의 비교",
+              )}
+            </Link>
           </div>
 
           {/* Provider monogram card */}

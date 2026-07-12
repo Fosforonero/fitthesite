@@ -416,6 +416,13 @@ export default async function Home({
             <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
               {tl(HOMEPAGE_COPY.integrationsHeading, lc)}
             </h2>
+            <Link
+              href={`/${lc}/fitness-data-sync`}
+              className="group mt-3 inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-brand-aqua transition"
+            >
+              {tl(HOMEPAGE_COPY.integrationsDashboardTeaser, lc)}
+              <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+            </Link>
           </div>
           <Link
             href={`/${lc}/integrations`}
