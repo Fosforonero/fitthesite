@@ -39,7 +39,10 @@ export const FAMIGLIA_COMPLETE_LOCALES: readonly Locale[] = [
 ];
 
 /**
- * Landing "fitness data sync" (sprint P0.2). Fase 3 pubblica solo EN;
- * IT/DE/ES arrivano in Fase 7 (traduzione) e vanno aggiunti qui quando pronti.
+ * Landing "fitness data sync" (sprint P0.2). Fase 3 ha pubblicato solo EN;
+ * Fase 7 (2026-07-12) ha tradotto it/de/es a mano (vedi
+ * lib/content/fitness-data-sync-copy.ts) — tutte e 4 le locale supportate
+ * da questa route (FDS_LOCALES in .../fitness-data-sync/page.tsx) sono ora
+ * indicizzabili.
  */
-export const FITNESS_DATA_SYNC_COMPLETE_LOCALES: readonly Locale[] = ["en"];
+export const FITNESS_DATA_SYNC_COMPLETE_LOCALES: readonly Locale[] = ["en", "it", "de", "es"];

@@ -480,12 +480,17 @@ for (const file of filesToScan) {
     }
   }
 
+  // Hedge multilingua (Fase 7 dello sprint ha tradotto la matrice
+  // /fitness-data-sync a mano in it/en/es/de — "in sviluppo"/"in Entwicklung"/
+  // "en desarrollo" sono hedge validi tanto quanto l'inglese "in development",
+  // stesso pattern già usato dallo scanner Strava-roadmap qui sopra).
+  const DEST_HEDGE_RE = /development|roadmap|not yet|coming|sviluppo|Entwicklung|desarrollo|noch nicht|aún no|ancora|todavía/i;
   for (const dest of UNVERIFIED_DESTINATIONS) {
     const destRe = new RegExp(dest.replace(/\s+/g, "\\s+"), "g");
     let destMatch: RegExpExecArray | null;
     while ((destMatch = destRe.exec(content)) !== null) {
       const windowText = content.slice(destMatch.index, Math.min(content.length, destMatch.index + 80));
-      if (/\blive\b|\bnow available\b|\balready works\b/i.test(windowText) && !/development|roadmap|not yet|coming/i.test(windowText)) {
+      if (/\blive\b|\bnow available\b|\balready works\b/i.test(windowText) && !DEST_HEDGE_RE.test(windowText)) {
         problems.push(`[unverified-destination-live scan] ${rel} describes "${dest}" as live/available near "${windowText.replace(/\s+/g, " ").slice(0, 100)}..." — this destination is wired in app code but not verified end-to-end on a physical device (see docs/seo/capability-promotion-checklist.md), must read as in-development, not live.`);
       }
     }
