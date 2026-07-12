@@ -838,18 +838,6 @@ export const LANDING_SLUGS: Record<string, SlugSet> = {
     ja: "health-connect-dashboard-android",
     ko: "health-connect-daeshibodeu-android",
   },
-  "garmin-health-connect": {
-    en: "garmin-health-connect-sync",
-    es: "garmin-health-connect-sincronizacion",
-    de: "garmin-health-connect-synchronisierung",
-    pt: "garmin-health-connect-sincronizacao",
-    fr: "garmin-health-connect-synchronisation",
-    pl: "garmin-health-connect-synchronizacja",
-    tr: "garmin-health-connect-senkronizasyon",
-    nl: "garmin-health-connect-synchronisatie",
-    ja: "garmin-health-connect-douki",
-    ko: "garmin-health-connect-dongkihwa",
-  },
   "sleep-tracking": {
     en: "sleep-tracking-wearable-android",
     es: "seguimiento-sueno-wearable-android",
