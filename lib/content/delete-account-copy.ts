@@ -8,6 +8,16 @@
  * (tools/local-translator o Ollama diretto) e rivisto a mano: vedi
  * commit history per il record di traduzione.
  *
+ * P0 minimo (2026-07-13): un caso limite noto (proprietari di gruppo Mesh
+ * Famiglia/palestra) puo' far fallire silenziosamente la cancellazione
+ * automatica dalla dashboard web — fix rimandato a uno sprint dedicato
+ * (P0.4E), non applicato qui. Finche' non e' corretto, i percorsi
+ * presentati come affidabili sono SOLO: cancellazione immediata dall'app
+ * mobile, e richiesta manuale via privacy@fitmesh.fit (verificata da una
+ * persona, non dal cron automatico). La dashboard web puo' essere
+ * menzionata SOLO con la frase esatta concordata (vedi `timelineBody`),
+ * senza alcuna garanzia di completamento automatico entro 24 ore.
+ *
  * Ogni fatto qui dentro e' verificato contro il codice (non inventato):
  *  - 24 ore, non 48: da supabase/migrations/20260616090000_gdpr_deletion_execution.sql
  *    (`gdpr_process_deletions`, cron ogni 10 min, grace `interval '24 hours'`).
@@ -64,7 +74,7 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
   en: {
     metaTitle: "Delete your FitMesh account",
     metaDescription:
-      "How to permanently delete your FitMesh account and data, from the app, the web dashboard, or by email. No login required to start.",
+      "How to permanently delete your FitMesh account and data, from the app or by email. No login required to start.",
     kicker: "Account & data",
     h1: "Delete your FitMesh account",
     lastUpdated: "Last updated: July 13, 2026",
@@ -72,16 +82,16 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "FitMesh is an app published by Fosforonero (Fosforonero di Matteo Pizzi). This is the official account deletion page for FitMesh, reachable without installing or opening the app, as required by Google Play and the App Store.",
     toggleLabel: "Italiano",
     howTitle: "How to delete your account",
-    howAppTitle: "From the app or the web dashboard (fastest)",
+    howAppTitle: "From the mobile app (immediate)",
     howAppBody:
-      "If you can sign in, go to Settings and choose Delete my account, either in the FitMesh mobile app or on the web dashboard at fitmesh.fit. You'll be asked to type a confirmation phrase before anything happens. Deleting from the mobile app is immediate and cannot be undone. Deleting from the web dashboard schedules the deletion with a 24 hour window in which you can still cancel by email.",
+      "In the FitMesh mobile app, go to Settings and choose Delete my account. You'll be asked to type a confirmation phrase. This deletes your account and all its data immediately and cannot be undone.",
     howEmailTitle: "By email, without logging in",
     howEmailBody:
-      "Email us from the address linked to your account and ask us to delete it. We reply to confirm before we act.",
+      "Email us from the address linked to your account and ask us to delete it. We verify it's really you, then delete your account and its data ourselves.",
     emailButtonLabel: "Email us to delete my account",
     identityTitle: "Verifying it's you",
     identityBody:
-      "When you delete your account from inside the app or the web dashboard, you're already signed in, so your session verifies your identity. When you ask by email, we check that the request comes from the email address on your account, and we may ask a follow-up question before processing it. We never delete an account based on an email alone if the sender address doesn't match the account.",
+      "When you delete your account from inside the app, you're already signed in, so your session verifies your identity. When you ask by email, we check that the request comes from the email address on your account, and we may ask a follow-up question before processing it. We never delete an account based on an email alone if the sender address doesn't match the account.",
     whatDeletedTitle: "What gets deleted",
     whatDeletedIntro:
       "Deleting your account permanently removes your sign-in credentials and, with them, everything tied to your profile:",
@@ -107,12 +117,12 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "If you subscribed or bought FitMesh Pro through Google Play or the App Store, deleting your FitMesh account does not cancel that subscription and does not issue a refund. Apple and Google handle billing on their own systems. To cancel a subscription or request a refund, use your Google Play or App Store account settings directly.",
     timelineTitle: "How long it takes",
     timelineBody:
-      "Deletion from the mobile app happens immediately. Deletion requested from the web dashboard or by email is processed automatically within 24 hours after the grace window (or after we verify an email request). That 24 hour figure is our own internal operational target, not a legal deadline: no law fixes a specific number of hours for erasure, though data protection law does require it to happen without undue delay.",
+      "Deletion from the mobile app happens immediately. Deletion requested by email is carried out by us after we verify your identity. Requests made from the web dashboard enter a 24-hour grace period. If the deletion is not completed, contact privacy@fitmesh.fit.",
     faqTitle: "Frequently asked questions",
     faq: [
       {
         q: "Can I cancel a deletion request?",
-        a: "Yes, if you requested it from the web dashboard: during the 24 hour window before deletion runs, email privacy@fitmesh.fit and we'll stop it. Deletion started from the mobile app is immediate and cannot be cancelled.",
+        a: "Deletion started from the mobile app is immediate and cannot be cancelled. For anything else, contact privacy@fitmesh.fit.",
       },
       {
         q: "Does this delete my data in Health Connect, Garmin, Fitbit, or Apple Health?",
@@ -133,7 +143,7 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
   it: {
     metaTitle: "Elimina il tuo account FitMesh",
     metaDescription:
-      "Come eliminare definitivamente il tuo account FitMesh e i tuoi dati, dall'app, dalla dashboard web o via email. Nessun login richiesto per iniziare.",
+      "Come eliminare definitivamente il tuo account FitMesh e i tuoi dati, dall'app o via email. Nessun login richiesto per iniziare.",
     kicker: "Account e dati",
     h1: "Elimina il tuo account FitMesh",
     lastUpdated: "Ultimo aggiornamento: 13 luglio 2026",
@@ -141,16 +151,16 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "FitMesh e' un'app pubblicata da Fosforonero (Fosforonero di Matteo Pizzi). Questa e' la pagina ufficiale per la cancellazione dell'account FitMesh, raggiungibile senza installare o aprire l'app, come richiesto da Google Play e dall'App Store.",
     toggleLabel: "English",
     howTitle: "Come eliminare il tuo account",
-    howAppTitle: "Dall'app o dalla dashboard web (piu' veloce)",
+    howAppTitle: "Dall'app mobile (immediata)",
     howAppBody:
-      "Se riesci ad accedere, vai in Impostazioni e scegli Elimina il mio account, sia nell'app mobile FitMesh sia nella dashboard web su fitmesh.fit. Ti verra' chiesto di digitare una frase di conferma prima che succeda qualsiasi cosa. L'eliminazione dall'app mobile e' immediata e non puo' essere annullata. L'eliminazione dalla dashboard web pianifica la cancellazione con una finestra di 24 ore entro cui puoi ancora annullarla via email.",
+      "Nell'app mobile FitMesh, vai in Impostazioni e scegli Elimina il mio account. Ti verra' chiesto di digitare una frase di conferma. Questo elimina immediatamente il tuo account e tutti i suoi dati; non puo' essere annullato.",
     howEmailTitle: "Via email, senza accedere",
     howEmailBody:
-      "Scrivici dall'indirizzo collegato al tuo account e chiedici di eliminarlo. Rispondiamo per confermare prima di agire.",
+      "Scrivici dall'indirizzo collegato al tuo account e chiedici di eliminarlo. Verifichiamo che sia davvero tu, poi eliminiamo noi stessi il tuo account e i suoi dati.",
     emailButtonLabel: "Scrivici per eliminare il mio account",
     identityTitle: "Verifica della tua identita'",
     identityBody:
-      "Quando elimini l'account dall'app o dalla dashboard web, hai gia' effettuato l'accesso, quindi la tua sessione verifica la tua identita'. Quando lo chiedi via email, controlliamo che la richiesta arrivi dall'indirizzo email del tuo account e potremmo farti una domanda di verifica prima di procedere. Non eliminiamo mai un account solo sulla base di un'email se l'indirizzo del mittente non corrisponde a quello dell'account.",
+      "Quando elimini l'account dall'app, hai gia' effettuato l'accesso, quindi la tua sessione verifica la tua identita'. Quando lo chiedi via email, controlliamo che la richiesta arrivi dall'indirizzo email del tuo account e potremmo farti una domanda di verifica prima di procedere. Non eliminiamo mai un account solo sulla base di un'email se l'indirizzo del mittente non corrisponde a quello dell'account.",
     whatDeletedTitle: "Cosa viene eliminato",
     whatDeletedIntro:
       "Eliminare il tuo account rimuove in modo permanente le tue credenziali di accesso e, con esse, tutto cio' che e' legato al tuo profilo:",
@@ -176,12 +186,12 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "Se ti sei abbonato o hai acquistato FitMesh Pro tramite Google Play o l'App Store, eliminare il tuo account FitMesh non annulla quell'abbonamento e non genera un rimborso. Apple e Google gestiscono la fatturazione sui propri sistemi. Per annullare un abbonamento o richiedere un rimborso, usa direttamente le impostazioni del tuo account Google Play o App Store.",
     timelineTitle: "Quanto tempo ci vuole",
     timelineBody:
-      "L'eliminazione dall'app mobile avviene immediatamente. L'eliminazione richiesta dalla dashboard web o via email viene eseguita automaticamente entro 24 ore dopo la finestra di grazia (o dopo che verifichiamo una richiesta via email). Questa cifra di 24 ore e' il nostro obiettivo operativo interno, non una scadenza di legge: nessuna norma fissa un numero preciso di ore per la cancellazione, anche se la normativa sulla protezione dei dati richiede che avvenga senza ingiustificato ritardo.",
+      "L'eliminazione dall'app mobile avviene immediatamente. L'eliminazione richiesta via email viene eseguita da noi dopo aver verificato la tua identita'. Le richieste effettuate dalla dashboard web prevedono un periodo di ripensamento di 24 ore. Se la cancellazione non viene completata, contatta privacy@fitmesh.fit.",
     faqTitle: "Domande frequenti",
     faq: [
       {
         q: "Posso annullare una richiesta di cancellazione?",
-        a: "Si', se l'hai richiesta dalla dashboard web: entro la finestra di 24 ore prima che la cancellazione venga eseguita, scrivi a privacy@fitmesh.fit e la fermeremo. La cancellazione avviata dall'app mobile e' immediata e non puo' essere annullata.",
+        a: "La cancellazione avviata dall'app mobile e' immediata e non puo' essere annullata. Per qualsiasi altro caso, contatta privacy@fitmesh.fit.",
       },
       {
         q: "Questo elimina i miei dati in Health Connect, Garmin, Fitbit o Apple Health?",
