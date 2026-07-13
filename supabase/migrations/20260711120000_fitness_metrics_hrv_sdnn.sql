@@ -4,7 +4,10 @@
 -- RMSSD. Both were being written into hrv_rmssd. This adds hrv_sdnn as a
 -- sibling column so the two are never conflated again. Historical
 -- hrv_rmssd rows written from an iOS source remain ambiguous — NOT
--- reclassified here, see the separate Phase 5 backfill proposal.
+-- reclassified here, see the separate, decoupled, LATER-gated proposal in
+-- 20260711120001_fitness_metrics_hrv_historical_correction.sql (do not
+-- apply that one until this column exists AND the write path is confirmed
+-- live — see its own header for the full prerequisite order).
 -- ⚠️ REVIEW ONLY — do not apply until Matteo confirms the Supabase
 -- connector points at the real FitMesh project and approves the run.
 -- ─────────────────────────────────────────────────────────
