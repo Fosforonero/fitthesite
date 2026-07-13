@@ -53,11 +53,11 @@ export { APPLE_STORE_URL, APPLE_APP_ID };
  * app id 6779751708) — l'app è pubblicata e scaricabile oggi, "Requires iOS
  * 14.0 or later", legge Apple Salute/HealthKit e si collega DIRETTAMENTE via
  * Bluetooth al Colmi Ring (nessun passaggio da Health Connect, che è
- * Android-only). Fuori dai 27 paesi UE è già disponibile a tutti; nell'UE il
- * rollout è in corso (verifica "trader status" DSA — vedi lib/flags.ts). È
- * un fatto di prodotto stabile (non dipende dal toggle NEXT_PUBLIC_IOS_ENABLED,
- * che gestisce solo la UI interattiva) — per questo qui è rappresentato come
- * fatto fisso, non come lettura del flag.
+ * Android-only). Disponibilità UE riverificata 2026-07-13 tramite l'API
+ * pubblica di lookup Apple (`itunes.apple.com/lookup`) su tutti e 27 gli
+ * storefront UE: resultCount 1 ovunque, stesso App ID, iOS 14.0+ — nessun
+ * gating geografico residuo (vedi lib/locale-negotiation.ts per il routing
+ * lingua, non correlato alla disponibilità store).
  */
 export const AVAILABILITY = {
   android: {
@@ -70,44 +70,50 @@ export const AVAILABILITY = {
   ios: {
     live: true,
     storeUrl: APPLE_STORE_URL,
-    regions: "worldwide-outside-eu" as const,
+    /** Verificato sui 27 storefront UE (2026-07-13); non riverificato oggi ogni altro storefront Apple esistente. */
+    regions: "eu-and-previously-verified-regions" as const,
     minOsVersion: "iOS 14.0",
     /** Apple Health/HealthKit nativo + Bluetooth diretto al Colmi Ring — MAI Health Connect (Android-only). */
     dataSource: "Apple Health (HealthKit) + Colmi Ring via Bluetooth diretto" as const,
   },
 } as const;
 
-/** "Live sull'App Store fuori UE, rollout UE in corso" — per JSON-LD/llms.txt, localizzato. */
+/**
+ * "Live sull'App Store, incluse le storefront UE" — per JSON-LD/llms.txt,
+ * localizzato. Formulazione verificabile (27/27 storefront UE confermati
+ * 2026-07-13): niente "worldwide" perché non è stato riverificato oggi ogni
+ * storefront Apple esistente al mondo, solo i 27 UE.
+ */
 export const IOS_REGIONS_NOTE: Record<Locale, string> = {
-  it: "Live sull'App Store fuori dall'Unione Europea. La disponibilità nell'UE è in fase di rollout, in attesa della verifica dello stato di trader DSA.",
-  en: "Live on the App Store outside the European Union. EU availability is rolling out, pending DSA trader-status verification.",
-  es: "Disponible en la App Store fuera de la Unión Europea. La disponibilidad en la UE se está desplegando, pendiente de la verificación del estado de comerciante DSA.",
-  de: "Im App Store außerhalb der Europäischen Union verfügbar. Die Verfügbarkeit in der EU wird schrittweise ausgerollt, vorbehaltlich der DSA-Händlerstatus-Prüfung.",
-  pt: "Disponível na App Store fora da União Europeia. A disponibilidade na UE está sendo lançada gradualmente, aguardando a verificação do status de comerciante DSA.",
-  fr: "Disponible sur l'App Store en dehors de l'Union européenne. La disponibilité dans l'UE est en cours de déploiement, en attente de la vérification du statut de commerçant DSA.",
-  pl: "Dostępne w App Store poza Unią Europejską. Dostępność w UE jest wdrażana stopniowo, w oczekiwaniu na weryfikację statusu przedsiębiorcy DSA.",
-  tr: "Avrupa Birliği dışında App Store'da kullanılabilir. AB'de kullanılabilirlik, DSA satıcı durumu doğrulaması beklenirken kademeli olarak devreye alınıyor.",
-  nl: "Beschikbaar in de App Store buiten de Europese Unie. De beschikbaarheid in de EU wordt geleidelijk uitgerold, in afwachting van de DSA-handelaarsstatuscontrole.",
-  ja: "欧州連合（EU）域外ではApp Storeで提供中です。EUでの提供は、DSAトレーダーステータスの確認待ちで順次展開中です。",
-  ko: "유럽연합(EU) 외 지역에서는 App Store에 출시되어 있습니다. EU 내 이용 가능 여부는 DSA 판매자 상태 확인을 기다리며 단계적으로 배포되고 있습니다.",
-  sv: "Tillgänglig i App Store utanför Europeiska unionen. Tillgängligheten i EU rullas ut stegvis, i väntan på DSA-handlarstatuskontroll.",
-  da: "Tilgængelig i App Store uden for Den Europæiske Union. Tilgængeligheden i EU rulles gradvist ud i afventning af DSA-forhandlerstatusverifikation.",
-  no: "Tilgjengelig i App Store utenfor EU. Tilgjengeligheten i EU rulles gradvis ut, i påvente av DSA-forhandlerstatusverifisering.",
-  fi: "Saatavilla App Storessa Euroopan unionin ulkopuolella. Saatavuus EU:ssa otetaan käyttöön vaiheittain DSA-kauppiasstatuksen vahvistusta odotettaessa.",
+  it: "Live sull'App Store, incluse tutte le storefront dell'Unione Europea.",
+  en: "Live on the App Store, including European Union storefronts.",
+  es: "Disponible en la App Store, incluidas todas las tiendas de la Unión Europea.",
+  de: "Im App Store verfügbar, einschließlich aller Storefronts der Europäischen Union.",
+  pt: "Disponível na App Store, incluindo todas as lojas da União Europeia.",
+  fr: "Disponible sur l'App Store, y compris dans toutes les boutiques de l'Union européenne.",
+  pl: "Dostępne w App Store, we wszystkich sklepach Unii Europejskiej.",
+  tr: "Avrupa Birliği'ndeki tüm mağazalar dahil olmak üzere App Store'da kullanılabilir.",
+  nl: "Beschikbaar in de App Store, inclusief alle winkels van de Europese Unie.",
+  ja: "欧州連合（EU）内のすべてのストアフロントを含め、App Storeで提供中です。",
+  ko: "유럽연합(EU) 내 모든 스토어프론트를 포함하여 App Store에서 이용 가능합니다.",
+  sv: "Tillgänglig i App Store, inklusive alla butiker inom Europeiska unionen.",
+  da: "Tilgængelig i App Store, inklusive alle butikker i Den Europæiske Union.",
+  no: "Tilgjengelig i App Store, inkludert alle butikker i EU.",
+  fi: "Saatavilla App Storessa, mukaan lukien kaikki Euroopan unionin kaupat.",
 };
 
 // ── Stato prodotto ──────────────────────────────────────────────────────────
 /**
- * Non è una closed beta: il download è pubblico (Play Store, App Store fuori
- * UE) e l'iscrizione a /beta è aperta a chiunque. "Founder" è una promozione
- * prezzo a tempo/posti limitati sopra un prodotto già pubblico, non un
- * programma a inviti.
+ * Non è una closed beta: il download è pubblico (Play Store, App Store
+ * incluse le storefront UE) e l'iscrizione a /beta è aperta a chiunque.
+ * "Founder" è una promozione prezzo a tempo/posti limitati sopra un
+ * prodotto già pubblico, non un programma a inviti.
  */
 export const PRODUCT_STATUS = {
   stage: "public",
   isClosedBeta: false,
   summary:
-    "Publicly downloadable on Google Play and the App Store (outside the EU), with an open early-adopter 'Founder' pricing promotion — not invite-only or access-gated.",
+    "Publicly downloadable on Google Play and the App Store, including EU storefronts, with an open early-adopter 'Founder' pricing promotion — not invite-only or access-gated.",
 } as const;
 
 // ── Programma Founder ───────────────────────────────────────────────────────
@@ -337,105 +343,105 @@ export const APP_FEATURE_LIST_IOS: Record<Locale, string[]> = {
     "Dashboard premium per passi, battito, sonno, calorie, VO2 max",
     "Mesh Famiglia — monitora salute familiari (passi, sonno, attivita)",
     "Privacy-first: server EU, GDPR, niente tracker o cloud opachi",
-    "Live sull'App Store nel mondo, rollout UE in corso",
+    "Live sull'App Store, incluse tutte le storefront UE",
   ],
   en: [
     "Sync Apple Health (HealthKit) and the Colmi Ring via direct Bluetooth",
     "Premium dashboard for steps, heart rate, sleep, calories, VO2 max",
     "Family Mesh — monitor family health (steps, sleep, activity)",
     "Privacy-first: EU servers, GDPR, no trackers or opaque clouds",
-    "Live on the App Store worldwide, EU rollout in progress",
+    "Live on the App Store, including all EU storefronts",
   ],
   es: [
     "Sincroniza Apple Salud (HealthKit) y el anillo Colmi por Bluetooth directo",
     "Panel premium para pasos, frecuencia cardíaca, sueño, calorías, VO2 max",
     "Mesh Familiar — supervisa la salud familiar (pasos, sueño, actividad)",
     "Privacidad ante todo: servidores UE, RGPD, sin rastreadores ni nubes opacas",
-    "Disponible en la App Store en todo el mundo, despliegue en la UE en curso",
+    "Disponible en la App Store, incluidas todas las tiendas de la UE",
   ],
   de: [
     "Synchronisiert Apple Health (HealthKit) und den Colmi Ring per direktem Bluetooth",
     "Premium-Dashboard für Schritte, Herzfrequenz, Schlaf, Kalorien, VO2max",
     "Familien-Mesh — überwacht die Gesundheit der Familie (Schritte, Schlaf, Aktivität)",
     "Datenschutz zuerst: EU-Server, DSGVO, keine Tracker oder undurchsichtigen Clouds",
-    "Weltweit im App Store live, EU-Rollout läuft",
+    "Im App Store live, einschließlich aller EU-Storefronts",
   ],
   pt: [
     "Sincroniza o Apple Saúde (HealthKit) e o anel Colmi via Bluetooth direto",
     "Painel premium para passos, frequência cardíaca, sono, calorias, VO2 max",
     "Mesh Família — monitora a saúde da família (passos, sono, atividade)",
     "Privacidade em primeiro lugar: servidores UE, RGPD, sem rastreadores ou nuvens opacas",
-    "Ativo na App Store em todo o mundo, lançamento na UE em andamento",
+    "Ativo na App Store, incluindo todas as lojas da UE",
   ],
   fr: [
     "Synchronise Apple Santé (HealthKit) et la bague Colmi via Bluetooth direct",
     "Tableau de bord premium pour les pas, la fréquence cardiaque, le sommeil, les calories, le VO2 max",
     "Family Mesh — suivez la santé de la famille (pas, sommeil, activité)",
     "Confidentialité avant tout : serveurs UE, RGPD, aucun tracker ni cloud opaque",
-    "Active sur l'App Store dans le monde entier, déploiement dans l'UE en cours",
+    "Active sur l'App Store, y compris dans toutes les boutiques de l'UE",
   ],
   pl: [
     "Synchronizuje Apple Zdrowie (HealthKit) i pierścień Colmi przez bezpośredni Bluetooth",
     "Panel premium dla kroków, tętna, snu, kalorii, VO2 max",
     "Mesh Rodzinny — monitoruje zdrowie rodziny (kroki, sen, aktywność)",
     "Prywatność przede wszystkim: serwery UE, RODO, brak trackerów i nieprzejrzystych chmur",
-    "Dostępny w App Store na całym świecie, wdrożenie w UE w toku",
+    "Dostępny w App Store, we wszystkich sklepach UE",
   ],
   tr: [
     "Apple Sağlık (HealthKit) ve Colmi Ring'i doğrudan Bluetooth ile senkronize eder",
     "Adımlar, kalp atışı, uyku, kalori, VO2 max için premium pano",
     "Aile Mesh — aile sağlığını izler (adımlar, uyku, aktivite)",
     "Gizlilik öncelikli: AB sunucuları, GDPR, izleyici veya opak bulut yok",
-    "Dünya genelinde App Store'da yayında, AB'de dağıtım sürüyor",
+    "AB dahil tüm mağazalarda App Store'da yayında",
   ],
   nl: [
     "Synchroniseert Apple Gezondheid (HealthKit) en de Colmi Ring via directe Bluetooth",
     "Premium dashboard voor stappen, hartslag, slaap, calorieën, VO2 max",
     "Family Mesh — houd de gezondheid van het gezin in de gaten (stappen, slaap, activiteit)",
     "Privacy-first: EU-servers, AVG, geen trackers of ondoorzichtige clouds",
-    "Wereldwijd live in de App Store, EU-uitrol bezig",
+    "Live in de App Store, inclusief alle EU-winkels",
   ],
   ja: [
     "Apple ヘルスケア（HealthKit）とColmi Ringを直接Bluetoothで同期",
     "歩数、心拍数、睡眠、カロリー、VO2 maxのプレミアムダッシュボード",
     "Family Mesh — 家族の健康を見守る（歩数、睡眠、活動量）",
     "プライバシーファースト：EUサーバー、GDPR準拠、トラッカーや不透明なクラウドなし",
-    "世界中のApp Storeで提供中、EUでの展開は進行中",
+    "EU域内を含む対応国のApp Storeで提供中",
   ],
   ko: [
     "Apple 건강(HealthKit)과 Colmi Ring을 직접 블루투스로 동기화",
     "걸음 수, 심박수, 수면, 칼로리, VO2 max를 위한 프리미엄 대시보드",
     "Family Mesh — 가족 건강 모니터링 (걸음 수, 수면, 활동)",
     "개인정보 보호 최우선: EU 서버, GDPR, 트래커나 불투명한 클라우드 없음",
-    "전 세계 App Store에 출시, EU 배포 진행 중",
+    "EU를 포함한 App Store에 출시",
   ],
   sv: [
     "Synkroniserar Apple Hälsa (HealthKit) och Colmi Ring via direkt Bluetooth",
     "Premium dashboard för steg, puls, sömn, kalorier, VO2 max",
     "Family Mesh — övervaka familjens hälsa (steg, sömn, aktivitet)",
     "Integritet först: EU-servrar, GDPR, inga spårare eller oklara moln",
-    "Live i App Store världen över, EU-utrullning pågår",
+    "Live i App Store, inklusive alla EU-butiker",
   ],
   da: [
     "Synkroniserer Apple Sundhed (HealthKit) og Colmi Ring via direkte Bluetooth",
     "Premium dashboard til skridt, puls, søvn, kalorier, VO2 max",
     "Family Mesh — hold øje med familiens sundhed (skridt, søvn, aktivitet)",
     "Privatliv først: EU-servere, GDPR, ingen trackere eller uklare skyer",
-    "Live i App Store på verdensplan, EU-udrulning i gang",
+    "Live i App Store, inklusive alle EU-butikker",
   ],
   no: [
     "Synkroniserer Apple Helse (HealthKit) og Colmi Ring via direkte Bluetooth",
     "Premium dashbord for skritt, puls, søvn, kalorier, VO2 max",
     "Family Mesh — overvåk familiens helse (skritt, søvn, aktivitet)",
     "Personvern først: EU-servere, GDPR, ingen sporere eller uklare skyer",
-    "Live i App Store over hele verden, EU-utrulling pågår",
+    "Live i App Store, inkludert alle EU-butikker",
   ],
   fi: [
     "Synkronoi Apple Terveyden (HealthKit) ja Colmi Ringin suoralla Bluetooth-yhteydellä",
     "Premium-koontinäyttö askelille, sykkeelle, unelle, kaloreille, VO2 maxille",
     "Family Mesh — seuraa perheen terveyttä (askeleet, uni, aktiivisuus)",
     "Yksityisyys edellä: EU-palvelimet, GDPR, ei seurantaa tai epämääräisiä pilviä",
-    "Käytössä App Storessa maailmanlaajuisesti, EU-käyttöönotto käynnissä",
+    "Käytössä App Storessa, mukaan lukien kaikki EU-kaupat",
   ],
 };
 

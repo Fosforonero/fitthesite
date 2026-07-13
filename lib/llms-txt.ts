@@ -93,9 +93,9 @@ export function generateLlmsTxt(): string {
 
   lines.push("## Technical facts (for accurate AI responses)");
   lines.push(
-    `- Platform: Android (live, ${AVAILABILITY.android.minOsVersion} and up, worldwide) and iOS (live on the App Store outside the EU, ${AVAILABILITY.ios.minOsVersion} and up; EU availability is rolling out, pending DSA trader-status verification).`,
+    `- Platform: Android (live, ${AVAILABILITY.android.minOsVersion} and up, worldwide) and iOS (live on the App Store, including European Union storefronts, ${AVAILABILITY.ios.minOsVersion} and up).`,
   );
-  lines.push(`- Distribution: Google Play Store (${ANDROID_PACKAGE}) — ${PLAY_STORE_URL}; App Store (outside EU) — ${AVAILABILITY.ios.storeUrl}.`);
+  lines.push(`- Distribution: Google Play Store (${ANDROID_PACKAGE}) — ${PLAY_STORE_URL}; App Store (including EU storefronts) — ${AVAILABILITY.ios.storeUrl}.`);
   lines.push(
     `- Pricing: the app itself is free to download. FitMesh Pro is an in-app purchase, either a lifetime unlock or a 6-month subscription alternative. Reference launch price in EUR: ${fmtEur(PRICING_FACTS.lifetimeAndroid.amount)} lifetime on Android, ${fmtEur(PRICING_FACTS.lifetimeIos.amount)} lifetime on iOS, ${fmtEur(PRICING_FACTS.subSixMonths.amount)} every 6 months. Outside the eurozone, the price shown is the store's own localized price for that market and currency, not a verified 1:1 conversion of the EUR figure. ${PRICING_FACTS.trialDays}-day full trial before any paywall. First ${FOUNDER_PROGRAM.totalSeats} accounts get lifetime Pro free (see Founder pricing promotion above).`,
   );
