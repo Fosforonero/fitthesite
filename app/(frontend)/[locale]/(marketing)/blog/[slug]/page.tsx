@@ -59,10 +59,7 @@ export async function generateMetadata({
   const path = `/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`;
   const title = tl(post.hero.title, lc);
   const description = tl(post.metaDescription, lc);
-  const secondaryKw = tll(
-    { it: post.secondaryKeywords.it, en: post.secondaryKeywords.en },
-    lc,
-  );
+  const secondaryKw = tll(post.secondaryKeywords, lc);
   const keywords = [tl(post.primaryKeyword, lc), ...secondaryKw].join(", ");
 
   // Brand suffix corto (10c) per stare entro 65c totali raccomandati Bing/Google.
@@ -513,9 +510,10 @@ export default async function BlogArticle({
     publisher: organizationCompactRef(),
     keywords: [
       tl(post.primaryKeyword, lc),
-      ...tll({ it: post.secondaryKeywords.it, en: post.secondaryKeywords.en }, lc),
+      ...tll(post.secondaryKeywords, lc),
     ].join(", "),
     articleSection: categoryLabel(post.category, lc),
+    ...(post.sources?.length ? { citation: post.sources } : {}),
   };
 
   const faqLd =

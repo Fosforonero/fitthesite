@@ -179,6 +179,8 @@ export interface BlogPost {
   faq?: BlogQA[];
   /** Slug di articoli correlati (rendered come card a fondo pagina). */
   related?: string[];
+  /** Fonti primarie citate nel contenuto, emesse anche come `citation` nel JSON-LD. */
+  sources?: string[];
   /**
    * Brand citati nell'articolo. Footer disclaimer auto-inserito:
    * "non affiliato a {brand}, marchi citati...".
