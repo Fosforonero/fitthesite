@@ -520,6 +520,21 @@ puntuali (che cambiano ad ogni sprint).
    dovrebbe consolidare authority su un solo URL invece di dividerla su
    due.
 
+### Incidente tecnico P0.4C (2026-07-13) — reload automatico iOS Safari
+
+Non una decisione SEO/contenuto: un bug di piattaforma (`Critical-CH:
+Sec-CH-Prefers-Color-Scheme` forza un retry/reload obbligatorio del
+browser sulla prima visita a un origin, per specifica Client Hints — non
+dichiarato da nessun file di questo repository). Impatta comunque
+l'esperienza utente reale (visitatori da Reddit su iOS Safari) e quindi
+potenzialmente bounce rate / permanenza, segnali che alimentano questo
+piano. Registro completo (causa, evidenze, fix, SHA, header prima/dopo,
+stato test dispositivo reale) in
+[seo-results-log.md](./seo-results-log.md), sezione "Incidente tecnico
+P0.4C" — non duplicato qui per lo stesso motivo per cui il decision log
+non e' duplicato: questo file resta la strategia, i dati puntuali vivono
+nel results log.
+
 Verdetto (keep/iterate/revert) per tutte e tre: **da registrare dopo il
 controllo dei 14 giorni** (2026-07-27) — non anticipare un verdetto senza
 dati.

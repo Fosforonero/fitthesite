@@ -287,6 +287,90 @@ Nessuna riga sopra è ancora "risultato misurato": i controlli 14/28/90
 giorni restano da eseguire alle date indicate, non anticipare un
 risultato.
 
+## Incidente tecnico P0.4C — reload automatico iOS Safari (ingresso da Reddit)
+
+- **Segnalazione**: video reale dell'utente,
+  `ScreenRecording_07-13-2026 20-39-30_1.MP4` (Matteo, 2026-07-13). Mostra:
+  ingresso da Reddit su `fitmesh.fit` → selezione lingua tedesca → `/de`
+  visibile brevemente → ricaricamento automatico → pagina di nuovo visibile
+  → ulteriore ricaricamento automatico. Dispositivo del segnalatore: iPhone
+  Safari, con VPN attiva e AdGuard in background (dettaglio raccolto ma non
+  trattato come "problema dell'utente" — vedi sotto).
+- **Causa confermata** (non un'ipotesi): ogni singola risposta servita da
+  `https://www.fitmesh.fit`/`https://fitmesh.fit` in produzione — documento
+  HTML, chunk JS, immagini ottimizzate (`_next/image`), font, payload RSC —
+  porta gli header `Accept-CH: Sec-CH-Prefers-Color-Scheme` e
+  `Critical-CH: Sec-CH-Prefers-Color-Scheme`. Per la specifica Client Hints,
+  `Critical-CH` impone al browser un **retry obbligatorio** di qualunque
+  richiesta fatta senza quell'hint già in cache per l'origin — cioè
+  esattamente un "reload" automatico alla primissima visita di un contesto
+  browser che non ha ancora quell'hint memorizzato. Nessun file di questo
+  repository dichiara questi header (verificato via grep esaustivo su
+  `next.config.mjs`, `vercel.json`, ogni `headers()`/route handler in
+  `app/lib/components`): l'origine è una funzionalità di piattaforma
+  (Vercel), non applicativa.
+  - Riprodotto in modo **deterministico**, non solo ipotizzato: nuovo
+    guardrail `tools/check-anti-loop.ts` (Playwright, rileva l'evento DOM
+    reale `beforeunload` — non un conteggio di `framenavigated`, artefatto
+    già escluso nello sprint P0.4A) mostra `beforeunload` che scatta su
+    **ogni** hit diretto a `/it`, `/en`, `/de` e sull'apex, non solo sui
+    redirect. Run contro produzione PRE-fix (2026-07-13, baseline
+    "PRIMA"): 205 violazioni totali, ~200 risposte con `Critical-CH`
+    presente, `beforeunload` rilevato in 6 scenari su 7.
+  - Un secondo problema distinto, solo sull'apex: il redirect
+    `fitmesh.fit` → `www.fitmesh.fit` (dichiarato in `next.config.mjs`
+    `redirects()`) restituiva anche `Refresh: 0;url=https://www.fitmesh.fit/`
+    e `content-type: text/plain` — un comportamento del meccanismo
+    dichiarativo Vercel-side per quel redirect, non riproducibile in
+    locale, e comunque un doppio hop (apex→www, poi www→lingua) invece di
+    uno solo.
+  - VPN/AdGuard non sono la causa: il fenomeno è riprodotto in modo
+    identico senza nessuno dei due (curl semplice, Playwright senza
+    proxy). Sono probabili **amplificatori** (latenza maggiore rende il
+    doppio-load visibile invece che istantaneo) e il contesto "browser in-
+    app di Reddit" — sempre privo di cache Client Hints pregressa — spiega
+    perché la riproduzione da Reddit sia più affidabile di un test manuale
+    su Safari già usato in precedenza sullo stesso dominio (che ha già
+    l'hint in cache e quindi non mostra il retry).
+- **Fix (SHA locale, branch `hotfix/p04c-ios-safari-reload`)**: `7900712`.
+  - `middleware.ts`: rimuove esplicitamente `Accept-CH`/`Critical-CH` da
+    ogni risposta costruita da middleware (redirect e passthrough);
+    canonicalizzazione apex→www riscritta come `NextResponse.redirect`
+    esplicito (niente `Refresh`, un solo hop anche quando serve negoziare
+    la lingua); round-trip Supabase (`getUser`) ristretto a `/app` e
+    `/admin`, non più su ogni pagina marketing pubblica.
+  - `next.config.mjs`: rimossi i redirect apex-specifici da `redirects()`
+    (ora in middleware); aggiunto override `Accept-CH`/`Critical-CH` a
+    stringa vuota su `/(.*)` in `headers()` — copre ANCHE gli asset
+    statici (`_next/static`, `_next/image`) che middleware non può
+    toccare (matcher li esclude, Next.js non invoca codice applicativo
+    per servirli).
+  - `lib/dictionaries/de.json`: `hero.heading_1` "Eine globale Dashboard"
+    → "Ein globales Dashboard" (Dashboard è neutro in tedesco).
+  - **Limite noto**: se `Critical-CH` viene iniettato a valle di
+    QUALSIASI header configurabile da questo repository (es. un proxy
+    Vercel esterno all'app), questi due livelli di rimozione non
+    basterebbero — servirebbe un intervento in Vercel Project Settings.
+    Verificabile solo con un controllo header reale post-deploy (vedi
+    sotto).
+- **Header prima/dopo**: "prima" = 2026-07-13T19:11Z, curl diretto contro
+  produzione (pre-fix): apex 308 con `refresh: 0;url=https://www.fitmesh.fit/`,
+  `content-type: text/plain`, `accept-ch`/`critical-ch: Sec-CH-Prefers-Color-Scheme`;
+  `/it`,`/en`,`/de` 200 con `accept-ch`/`critical-ch` presenti. "Dopo" =
+  **da compilare al prossimo controllo, subito dopo il merge e il deploy
+  di produzione** — non anticipare un risultato prima della verifica reale.
+- **Test su dispositivo reale**: **non eseguito da Claude** — nessuna
+  capacità di test su iPhone/Safari fisico o browser in-app Reddit in
+  questo ambiente. Playwright (incluso WebKit mobile) non è sufficiente a
+  chiudere l'incidente, come esplicitamente richiesto: serve un test
+  manuale di Matteo su iPhone Safari reale, incluso un ingresso da Reddit,
+  dopo il deploy di produzione, con permanenza sulla pagina per almeno
+  60 secondi. Rollback immediato se il loop persiste.
+- **Stato**: **verificato in Docker** (build, tsc, guardrail, test
+  routing/social/iOS-EU/refresh-loop tutti verdi su questo branch). Non
+  ancora deployato — PR aperta, in attesa di revisione e di UN solo
+  deploy di produzione dopo approvazione.
+
 ## Decision log
 
 Vedi [seo-geo-master-plan.md](./seo-geo-master-plan.md) sezione 10 per il
