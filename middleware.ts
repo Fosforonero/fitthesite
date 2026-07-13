@@ -1,14 +1,21 @@
 /**
- * Next.js middleware — auth session refresh + route protection.
+ * Next.js middleware — canonicalizzazione host, negoziazione lingua, auth.
  *
- * Eseguito su OGNI request (vedi `config.matcher` in fondo). Due compiti:
+ * Eseguito su OGNI request (vedi `config.matcher` in fondo). Compiti, in
+ * ordine di esecuzione:
  *
- *  1. Refresh dei cookie di sessione Supabase per mantenere il JWT valido
- *     (l'SDK aggiorna il refresh token in modo trasparente)
- *  2. Redirect `/[locale]/app/*` e `/[locale]/admin/*` a `/auth/login` se
- *     non loggato. La verifica `is_admin` per `/admin/*` viene fatta in
- *     `app/[locale]/admin/layout.tsx` server-side (qui non possiamo chiamare
- *     RPC perché siamo in Edge runtime ristretto).
+ *  1. Canonicalizzazione `fitmesh.fit` -> `www.fitmesh.fit` (apex), un solo
+ *     hop, con negoziazione lingua collassata nella stessa risposta quando
+ *     serve (P0.4C).
+ *  2. Rate limiting su route ad alto rischio (sync, signup, invite preview).
+ *  3. Redirect di root `/` e deep link senza prefisso lingua al path
+ *     localizzato corretto (negoziazione cookie -> Accept-Language -> geo
+ *     IP -> 'en').
+ *  4. Refresh dei cookie di sessione Supabase + verifica utente — SOLO su
+ *     `/[locale]/app/*` e `/[locale]/admin/*` (P0.4C Fase 4: le pagine
+ *     marketing pubbliche non fanno piu' questo round-trip). La verifica
+ *     `is_admin` per `/admin/*` resta in `app/[locale]/admin/layout.tsx`
+ *     server-side (qui non possiamo chiamare RPC, Edge runtime ristretto).
  *
  * Best practice 2026: usare `getUser()` invece di `getSession()` per il check
  * (verifica il JWT contro Supabase Auth, vs leggere solo il cookie locale).
@@ -74,8 +81,78 @@ function needsLocalePrefix(pathname: string): boolean {
   return true;
 }
 
+/**
+ * Aggiunge gli header di risposta comuni a ogni redirect emesso da questo
+ * middleware, e rimuove esplicitamente `Accept-CH`/`Critical-CH` se una
+ * qualsiasi versione a monte (Next.js/Vercel) li avesse gia' impostati su
+ * questa risposta.
+ *
+ * P0.4C — incidente: `Critical-CH: Sec-CH-Prefers-Color-Scheme` forza,
+ * per specifica Client Hints, un retry OBBLIGATORIO lato browser sulla
+ * primissima richiesta di un contesto che non ha ancora quell'hint in
+ * cache per l'origin — cioe' un secondo "load" automatico della stessa
+ * pagina. Ne' `Accept-CH` ne' `Critical-CH` sono dichiarati da nessun file
+ * di questo repository (verificato: assenti da next.config.mjs, vercel.json,
+ * e da ogni headers()/route handler in app/lib/components) — l'origine e'
+ * quindi una qualche funzionalita' di piattaforma (Vercel Toolbar o simile),
+ * non applicativa. FitMesh non fa alcun rendering server-side dipendente dal
+ * colorScheme del client (dark/light e' gestito interamente in CSS via
+ * `prefers-color-scheme` media query), quindi non ha alcun bisogno di questi
+ * header: la rimozione qui e' un tentativo best-effort — se lo strato che li
+ * inietta si trova A VALLE di questa risposta (proxy Vercel esterno al
+ * codice applicativo), va rimosso invece da Vercel Project Settings.
+ */
+function stripClientHintHeaders(response: NextResponse): NextResponse {
+  response.headers.delete('Accept-CH');
+  response.headers.delete('Critical-CH');
+  return response;
+}
+
+const CANONICAL_HOST = 'www.fitmesh.fit';
+const APEX_HOST = 'fitmesh.fit';
+
 export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
+  const host = request.headers.get('host') ?? '';
+
+  // ── Canonicalizzazione apex -> www (P0.4C) ──────────────────────────────
+  //
+  // Prima di questo fix il redirect apex->www viveva in next.config.mjs
+  // (`redirects()`), un meccanismo dichiarativo Vercel-side che — per motivi
+  // non riproducibili in locale, verificati via curl in produzione — serviva
+  // anche un header `Refresh: 0;url=...` (fallback legacy) e una risposta
+  // `content-type: text/plain` invece dell'HTML applicativo. Sostituito con
+  // un redirect esplicito NextResponse.redirect qui: nessun header Refresh,
+  // pieno controllo su Cache-Control/Vary, e — cosa che il vecchio
+  // meccanismo NON faceva — canonicalizzazione host + negoziazione lingua
+  // collassate in UN solo hop invece di due (apex->www seguito da un
+  // secondo redirect per la lingua).
+  //
+  // `/.well-known/*` non viene MAI rediretto: Android (assetlinks.json) e
+  // Apple (apple-app-site-association) verificano la proprieta' del dominio
+  // richiedendo questo path SENZA seguire redirect.
+  if (host === APEX_HOST && !pathname.startsWith('/.well-known')) {
+    const targetUrl = new URL(request.nextUrl.toString());
+    targetUrl.host = CANONICAL_HOST;
+
+    if (needsLocalePrefix(pathname)) {
+      const locale = resolveNegotiatedLocale({
+        cookieLocale: request.cookies.get(LOCALE_COOKIE_NAME)?.value,
+        acceptLanguage: request.headers.get('accept-language'),
+        country: request.headers.get('x-vercel-ip-country'),
+      });
+      targetUrl.pathname = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`;
+      const redirectResponse = NextResponse.redirect(targetUrl, 307);
+      redirectResponse.headers.set('Cache-Control', 'private, no-store');
+      redirectResponse.headers.set('Vary', 'Accept-Language, Cookie');
+      return stripClientHintHeaders(redirectResponse);
+    }
+
+    // Path gia' localizzato (es. /de) o route di sistema non localizzata
+    // (/api, /cms, /oauth, /mockups, /_next): swap host puro, path
+    // preservato as-is, nessuna decisione di lingua coinvolta -> cacheable.
+    return stripClientHintHeaders(NextResponse.redirect(targetUrl, 308));
+  }
 
   // Rate limit FIRST (P0-001 cybersec): blocca abuse-via-curl prima di
   // sprecare round-trip Supabase auth refresh. Fail-open su errore Supabase.
@@ -126,7 +203,7 @@ export async function middleware(request: NextRequest) {
     const redirectResponse = NextResponse.redirect(url, 307);
     redirectResponse.headers.set('Cache-Control', 'private, no-store');
     redirectResponse.headers.set('Vary', 'Accept-Language, Cookie');
-    return redirectResponse;
+    return stripClientHintHeaders(redirectResponse);
   }
 
   // Inject locale into a custom request header so the root layout can set
@@ -137,8 +214,19 @@ export async function middleware(request: NextRequest) {
   void search; // already preserved by NextResponse.next
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-fitmesh-locale', detectedLocale);
-  let response = NextResponse.next({ request: { headers: requestHeaders } });
+  const response = NextResponse.next({ request: { headers: requestHeaders } });
 
+  // P0.4C Fase 4: il round-trip Supabase (getUser + refresh cookie) ora gira
+  // SOLO su /app e /admin (route realmente autenticate), non piu' su ogni
+  // pagina marketing pubblica. Riduce latenza/Fluid CPU/superficie di errore
+  // sulla stragrande maggioranza del traffico (homepage, blog, landing).
+  // Non e' provato che questo fosse causa del reload di Safari — e' un
+  // irrobustimento indipendente, non una correzione del loop in se'.
+  if (!isProtected(pathname)) {
+    return stripClientHintHeaders(response);
+  }
+
+  let authResponse = response;
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -151,9 +239,9 @@ export async function middleware(request: NextRequest) {
           cookiesToSet.forEach(({ name, value }) => {
             request.cookies.set(name, value);
           });
-          response = NextResponse.next({ request });
+          authResponse = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) => {
-            response.cookies.set(name, value, options);
+            authResponse.cookies.set(name, value, options);
           });
         },
       },
@@ -166,7 +254,7 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (isProtected(pathname) && !user) {
+  if (!user) {
     const locale = detectLocale(pathname);
     const url = request.nextUrl.clone();
     url.pathname = `/${locale}/auth/login`;
@@ -174,7 +262,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  return response;
+  return stripClientHintHeaders(authResponse);
 }
 
 export const config = {

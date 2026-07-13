@@ -69,6 +69,32 @@ const nextConfig = {
           // in console browser senza rompere il sito. Quando confermato pulito,
           // sostituire la chiave con 'Content-Security-Policy' (enforce).
           { key: 'Content-Security-Policy-Report-Only', value: csp },
+          // P0.4C — incidente reload iOS Safari/Reddit (2026-07-13): in
+          // produzione OGNI risposta (documento HTML, chunk JS, immagini
+          // ottimizzate, font, payload RSC) porta `Accept-CH`/`Critical-CH:
+          // Sec-CH-Prefers-Color-Scheme`, verificato via curl e via un
+          // guardrail Playwright (tools/check-anti-loop.ts) su ~200 risposte
+          // reali. Nessun file di questo repository dichiara questi header
+          // (grep su next.config.mjs, vercel.json, ogni headers()/route
+          // handler): l'origine e' una funzionalita' di piattaforma, non
+          // applicativa. Per specifica Client Hints, `Critical-CH` forza un
+          // retry OBBLIGATORIO del browser sulla primissima richiesta di un
+          // contesto senza quell'hint in cache per l'origin — cioe' un
+          // secondo "load" automatico, riprodotto in modo deterministico
+          // (evento `beforeunload` reale, non un artefatto di conteggio) su
+          // /it, /en, /de e l'apex. FitMesh non fa alcun rendering
+          // server-side dipendente da colorScheme (dark/light e' puro CSS
+          // `prefers-color-scheme`), quindi non serve a nulla. Override qui
+          // a stringa vuota per coprire ANCHE gli asset statici (_next/
+          // static, _next/image) che middleware.ts non puo' toccare (il suo
+          // matcher li esclude esplicitamente, e Next.js non invoca alcun
+          // codice applicativo per servirli). Se l'header persiste dopo il
+          // deploy nonostante questo, la sua iniezione avviene a valle di
+          // QUALSIASI header configurabile da questo repository — la
+          // rimozione richiede allora un intervento in Vercel Project
+          // Settings (Toolbar o funzionalita' equivalente), non nel codice.
+          { key: 'Accept-CH', value: '' },
+          { key: 'Critical-CH', value: '' },
         ],
       },
     ];
@@ -206,27 +232,21 @@ const nextConfig = {
     }));
 
     return [
-      // App Links / Universal Links: l'apex `fitmesh.fit` deve poter servire
-      // `/.well-known/*` SENZA redirect — Android (assetlinks.json) e Apple
-      // (apple-app-site-association) NON seguono i redirect quando verificano
-      // la proprietà del dominio. Per tutto il resto l'apex resta rediretto a
-      // www (canonical SEO, 308 via `permanent`), così le pagine non vengono
-      // duplicate.
-      // NB OPERATIVO (Vercel): il dominio `fitmesh.fit` NON deve essere in
-      // "Redirect to www.fitmesh.fit" ma ASSEGNATO al progetto, altrimenti il
-      // redirect Vercel a monte vince e questa regola non viene mai raggiunta.
-      {
-        source: "/",
-        has: [{ type: "host", value: "fitmesh.fit" }],
-        destination: "https://www.fitmesh.fit/",
-        permanent: true,
-      },
-      {
-        source: "/:path((?!\\.well-known).*)",
-        has: [{ type: "host", value: "fitmesh.fit" }],
-        destination: "https://www.fitmesh.fit/:path",
-        permanent: true,
-      },
+      // L'apex `fitmesh.fit` -> `www.fitmesh.fit` NON e' piu' gestito qui
+      // (P0.4C, incidente reload iOS Safari/Reddit, 2026-07-13): il redirect
+      // dichiarativo di next.config.mjs risultava in produzione con un
+      // header `Refresh: 0;url=...` aggiuntivo e `content-type: text/plain`
+      // (verificato via curl -D-, non riproducibile in locale — comportamento
+      // del meccanismo Vercel-side che processa questa config, non del nostro
+      // codice), oltre a produrre DUE hop (apex->www, poi www->locale) invece
+      // di uno. Sostituito da un redirect esplicito in middleware.ts che
+      // collassa canonicalizzazione host + negoziazione lingua in un solo
+      // hop, senza header Refresh, e preserva `/.well-known/*` senza redirect
+      // per Android/Apple App Links. Vedi middleware.ts per l'implementazione
+      // e per la nota operativa Vercel (dominio "assegnato al progetto", non
+      // "Redirect to www.fitmesh.fit", altrimenti il redirect Vercel a monte
+      // vince su QUALSIASI meccanismo applicativo, questo incluso).
+      //
       // /privacy → EN: usato da Google Play Console + audience globale.
       // I link IT-specifici (Header app, footer) puntano già a /it/privacy.
       { source: '/privacy', destination: '/en/privacy', permanent: true },
