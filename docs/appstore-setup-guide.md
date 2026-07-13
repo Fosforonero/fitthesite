@@ -165,7 +165,7 @@ Apple Watch · Fitbit · Garmin · Suunto · Anelli smart Colmi R02/R03 · Quals
 Con Pro hai accesso alla dashboard completa, alla cronologia senza limiti e alle analisi avanzate su HRV, sonno e recupero. Puoi scegliere tra l'abbonamento semestrale con rinnovo automatico o l'acquisto una tantum a vita — paghi una volta sola e hai tutto per sempre.
 
 — PRIVACY —
-I dati di salute vivono su server europei. Nessun tracker pubblicitario, nessun broker dati. I dati non vengono mai venduti né condivisi con terze parti. La cancellazione di account e dati avviene entro 48 ore su richiesta, come previsto dal GDPR.
+I dati di salute vivono su server europei. Nessun tracker pubblicitario, nessun broker dati. I dati non vengono mai venduti né condivisi con terze parti. La cancellazione di account e dati avviene entro 48 ore su richiesta: è il nostro obiettivo operativo interno.
 ```
 *(1.993 caratteri — ben dentro i 4000)*
 
@@ -200,7 +200,7 @@ Apple Watch · Fitbit · Garmin · Suunto · Colmi R02/R03 smart rings · Any Ap
 With Pro you get the full dashboard, unlimited history and advanced analysis on HRV, sleep and recovery. Choose between a 6-month auto-renewing subscription or a one-time lifetime purchase — pay once and keep everything forever.
 
 — PRIVACY —
-Your health data lives on European servers. No ad trackers, no data brokers. Data is never sold or shared with third parties. Account and data deletion within 48 hours on request, as required by GDPR.
+Your health data lives on European servers. No ad trackers, no data brokers. Data is never sold or shared with third parties. Account and data deletion within 48 hours on request: that's our internal operational target.
 ```
 *(1.925 characters — well within 4000)*
 

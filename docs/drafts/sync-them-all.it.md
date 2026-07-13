@@ -62,7 +62,7 @@ Nessun buco, nessun doppione. Una sola linea continua, indipendentemente da cosa
 
 ## Privacy: i tuoi dati restano tuoi
 
-Unire tutto in un posto solo ha senso solo se quel posto è sicuro. I dati salute di FitMesh vivono su server europei, sono accessibili solo a te tramite il tuo account, non vengono mai venduti né condivisi con terze parti, e non c'è alcun tracker pubblicitario. La cancellazione di account e dati avviene entro 48 ore, come previsto dal GDPR.
+Unire tutto in un posto solo ha senso solo se quel posto è sicuro. I dati salute di FitMesh vivono su server europei, sono accessibili solo a te tramite il tuo account, non vengono mai venduti né condivisi con terze parti, e non c'è alcun tracker pubblicitario. La cancellazione di account e dati avviene entro 48 ore: è il nostro obiettivo operativo interno.
 
 ## Domande frequenti
 
