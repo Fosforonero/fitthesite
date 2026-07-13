@@ -129,15 +129,26 @@ export async function middleware(request: NextRequest) {
   // ── Canonicalizzazione apex -> www (P0.4C) ──────────────────────────────
   //
   // Prima di questo fix il redirect apex->www viveva in next.config.mjs
-  // (`redirects()`), un meccanismo dichiarativo Vercel-side che — per motivi
-  // non riproducibili in locale, verificati via curl in produzione — serviva
-  // anche un header `Refresh: 0;url=...` (fallback legacy) e una risposta
-  // `content-type: text/plain` invece dell'HTML applicativo. Sostituito con
-  // un redirect esplicito NextResponse.redirect qui: nessun header Refresh,
-  // pieno controllo su Cache-Control/Vary, e — cosa che il vecchio
-  // meccanismo NON faceva — canonicalizzazione host + negoziazione lingua
-  // collassate in UN solo hop invece di due (apex->www seguito da un
-  // secondo redirect per la lingua).
+  // (`redirects()`), un meccanismo dichiarativo che serviva anche una
+  // risposta `content-type: text/plain` invece dell'HTML applicativo (oltre
+  // a produrre due hop invece di uno). Sostituito con un redirect esplicito
+  // NextResponse.redirect qui: pieno controllo su Cache-Control/Vary, e —
+  // cosa che il vecchio meccanismo NON faceva — canonicalizzazione host +
+  // negoziazione lingua collassate in UN solo hop invece di due (apex->www
+  // seguito da un secondo redirect per la lingua).
+  //
+  // P0.4C follow-up (2026-07-13): l'header `Refresh: 0;url=...` non veniva
+  // dal vecchio meccanismo `redirects()` come ipotizzato inizialmente, ma
+  // dal runtime server di Next.js stesso, che aggiunge incondizionatamente
+  // `Refresh` su QUALSIASI redirect con status 308 (Permanent Redirect),
+  // come compatibilita' legacy IE11, indipendentemente da dove il redirect
+  // viene emesso (middleware incluso). 307 non e' interessato (branch
+  // sopra, negoziazione lingua).
+  // Per questo la branch sotto usa 301 invece di 308 per lo swap host puro:
+  // 301 e' altrettanto "permanente" per browser/crawler/SEO e non ha questo
+  // effetto collaterale. Eccezione: `/api/*` resta 308 per preservare il
+  // metodo HTTP (un redirect di una richiesta POST non deve degradare a GET
+  // in client legacy che seguono 301 in modo non conforme a RFC 7538).
   //
   // `/.well-known/*` non viene MAI rediretto: Android (assetlinks.json) e
   // Apple (apple-app-site-association) verificano la proprieta' del dominio
@@ -162,7 +173,10 @@ export async function middleware(request: NextRequest) {
     // Path gia' localizzato (es. /de) o route di sistema non localizzata
     // (/api, /cms, /oauth, /mockups, /_next): swap host puro, path
     // preservato as-is, nessuna decisione di lingua coinvolta -> cacheable.
-    return stripClientHintHeaders(NextResponse.redirect(targetUrl, 308));
+    if (pathname.startsWith('/api')) {
+      return stripClientHintHeaders(NextResponse.redirect(targetUrl, 308));
+    }
+    return stripClientHintHeaders(NextResponse.redirect(targetUrl, 301));
   }
 
   // Rate limit FIRST (P0-001 cybersec): blocca abuse-via-curl prima di

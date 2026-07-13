@@ -74,25 +74,24 @@ const nextConfig = {
           // ottimizzate, font, payload RSC) porta `Accept-CH`/`Critical-CH:
           // Sec-CH-Prefers-Color-Scheme`, verificato via curl e via un
           // guardrail Playwright (tools/check-anti-loop.ts) su ~200 risposte
-          // reali. Nessun file di questo repository dichiara questi header
-          // (grep su next.config.mjs, vercel.json, ogni headers()/route
-          // handler): l'origine e' una funzionalita' di piattaforma, non
-          // applicativa. Per specifica Client Hints, `Critical-CH` forza un
-          // retry OBBLIGATORIO del browser sulla primissima richiesta di un
+          // reali. Per specifica Client Hints, `Critical-CH` forza un retry
+          // OBBLIGATORIO del browser sulla primissima richiesta di un
           // contesto senza quell'hint in cache per l'origin — cioe' un
           // secondo "load" automatico, riprodotto in modo deterministico
           // (evento `beforeunload` reale, non un artefatto di conteggio) su
           // /it, /en, /de e l'apex. FitMesh non fa alcun rendering
           // server-side dipendente da colorScheme (dark/light e' puro CSS
-          // `prefers-color-scheme`), quindi non serve a nulla. Override qui
-          // a stringa vuota per coprire ANCHE gli asset statici (_next/
-          // static, _next/image) che middleware.ts non puo' toccare (il suo
-          // matcher li esclude esplicitamente, e Next.js non invoca alcun
-          // codice applicativo per servirli). Se l'header persiste dopo il
-          // deploy nonostante questo, la sua iniezione avviene a valle di
-          // QUALSIASI header configurabile da questo repository — la
-          // rimozione richiede allora un intervento in Vercel Project
-          // Settings (Toolbar o funzionalita' equivalente), non nel codice.
+          // `prefers-color-scheme`), quindi non serve a nulla.
+          //
+          // Impostarli qui a stringa vuota NON basta da solo: una dipendenza
+          // di terze parti usata da questo sito accoda una PROPRIA regola
+          // `headers()` che reimposta questi stessi header al valore reale,
+          // DOPO questa regola — quindi vince lei. La rimozione effettiva
+          // avviene nel wrapper subito dopo la sua inizializzazione in fondo
+          // a questo file, che filtra quella regola come ultimo passo.
+          // Questo override a stringa vuota resta qui solo come prima difesa
+          // e per coprire gli asset statici (_next/static, _next/image) che
+          // middleware.ts non puo' toccare.
           { key: 'Accept-CH', value: '' },
           { key: 'Critical-CH', value: '' },
         ],
@@ -274,4 +273,30 @@ const nextConfig = {
   },
 };
 
-export default withPayload(nextConfig);
+const payloadConfig = withPayload(nextConfig);
+
+/**
+ * P0.4C follow-up (2026-07-13): il wrapper di terze parti sopra accoda,
+ * DOPO la nostra regola, una propria voce `headers()` (applicata a tutto
+ * il sito) che reimposta `Accept-CH`/`Critical-CH`/`Vary` al valore reale.
+ * Non esiste un'opzione di configurazione per disattivarlo: l'iniezione
+ * e' incondizionata a monte. Wrappiamo qui il config GIA' completo
+ * restituito dal wrapper e filtriamo quella regola come ultimissimo passo
+ * prima che Next.js la usi — nessun altro livello puo' piu' sovrascriverla
+ * dopo.
+ */
+export default {
+  ...payloadConfig,
+  headers: async () => {
+    const rules = await payloadConfig.headers();
+    return rules.map((rule) => ({
+      ...rule,
+      headers: rule.headers.filter(
+        (h) =>
+          h.key !== 'Accept-CH' &&
+          h.key !== 'Critical-CH' &&
+          !(h.key === 'Vary' && h.value === 'Sec-CH-Prefers-Color-Scheme'),
+      ),
+    }));
+  },
+};
