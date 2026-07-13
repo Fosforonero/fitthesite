@@ -538,3 +538,19 @@ nel results log.
 Verdetto (keep/iterate/revert) per tutte e tre: **da registrare dopo il
 controllo dei 14 giorni** (2026-07-27) — non anticipare un verdetto senza
 dati.
+
+**Aggiornamento (2026-07-13, durante P0.4D)**: il fix P0.4C committato non
+risolve ancora l'incidente. Causa isolata a una fonte interna alla
+toolchain del sito, non a un layer Vercel esterno come ipotizzato. Sintesi
+in [seo-results-log.md](./seo-results-log.md), addendum P0.4C; dettaglio
+tecnico completo non pubblicato qui, disponibile a richiesta in sessione.
+PR #12 non va considerato risolutivo per questo incidente finché non
+corretto e riverificato.
+
+### Pagina cancellazione account — P0.4D (2026-07-13)
+
+Requisito Google Play/App Store, non una decisione SEO discrezionale:
+`/delete-account`, pagina pubblica non localizzata. Dettagli completi
+(route, contenuto, self-service verificato non ricostruito, gap scoperto
+in `gdpr_process_deletions()`, bonifica claim GDPR sitewide, stato test)
+in [seo-results-log.md](./seo-results-log.md), sezione "Sprint P0.4D".
