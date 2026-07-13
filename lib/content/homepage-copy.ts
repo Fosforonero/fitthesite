@@ -550,23 +550,6 @@ export const HOMEPAGE_COPY = {
     fi: "Android ja iOS · 1000 perustajaa",
   } satisfies Localized,
 
-  finalCtaBadgeComing: {
-    it: "Android live · iOS in arrivo · 1000 founder",
-    en: "Android live · iOS coming · 1000 founders",
-    es: "Android disponible · iOS próximamente · 1000 founders",
-    de: "Android live · iOS bald · 1000 Founder",
-    pt: "Android disponível · iOS brevemente · 1000 fundadores",
-    fr: "Android disponible · iOS à venir · 1000 fondateurs",
-    pl: "Android już dostępny · iOS wkrótce · 1000 founderów",
-    tr: "Android yayında · iOS yakında · 1000 kurucu üye",
-    nl: "Android live · iOS binnenkort · 1000 founders",
-    ja: "Android提供中・iOS近日公開・ファウンダー1000名",
-    ko: "Android 출시 중 · iOS 출시 예정 · 파운더 1000명",
-    sv: "Android live · iOS kommer · 1000 founder-platser",
-    da: "Android live · iOS på vej · 1000 founders",
-    no: "Android live · iOS kommer · 1000 grunnleggere",
-    fi: "Android saatavilla · iOS tulossa · 1000 perustajaa",
-  } satisfies Localized,
 
   finalCtaButton: {
     it: "Voglio essere founder",

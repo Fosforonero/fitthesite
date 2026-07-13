@@ -5,13 +5,12 @@
     "download": "Herunterladen"
   },
   "hero": {
-    "badge": "Verfügbar auf Android · iOS demnächst verfügbar",
+    "badge": "Verfügbar auf Android und iOS",
     "heading_1": "Eine globale Dashboard",
     "heading_accent": "für alle deine Geräte.",
     "description": "Verbinde Galaxy Watch, Wear OS, Health Connect und Cloud-Anbieter in einer einzigen Ansicht. Schritte, Schlaf, Herzfrequenz, Erholung und Trends, ohne zwischen verschiedenen Apps zu wechseln.",
     "cta_secondary": "Mehr erfahren",
-    "pricing": "Einmalkauf ab 3,99 €, oder 1,19 € alle 6 Monate · sichere Zahlung",
-    "coming_soon": "Demnächst verfügbar"
+    "pricing": "Einmalkauf ab 3,99 €, oder 1,19 € alle 6 Monate · sichere Zahlung"
   },
   "features": {
     "kicker": "Funktionen",

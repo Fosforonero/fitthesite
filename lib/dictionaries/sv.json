@@ -5,13 +5,12 @@
     "download": "Ladda ner"
   },
   "hero": {
-    "badge": "Tillgänglig på Android · iOS kommer snart",
+    "badge": "Tillgänglig på Android och iOS",
     "heading_1": "En global dashboard",
     "heading_accent": "för alla dina enheter.",
     "description": "Samla Galaxy Watch, Wear OS, Health Connect och molntjänster i en vy. Steg, sömn, puls, återhämtning och trender, utan att byta mellan appar.",
     "cta_secondary": "Läs mer",
-    "pricing": "Engångsköp från 3,99 €, eller 1,19 € var 6:e månad · säker betalning",
-    "coming_soon": "Kommer snart"
+    "pricing": "Engångsköp från 3,99 €, eller 1,19 € var 6:e månad · säker betalning"
   },
   "features": {
     "kicker": "Funktioner",

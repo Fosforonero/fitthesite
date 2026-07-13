@@ -148,7 +148,6 @@ export type Dictionary = {
     description: string;
     cta_secondary: string;
     pricing: string;
-    coming_soon: string;
   };
   features: {
     kicker: string;

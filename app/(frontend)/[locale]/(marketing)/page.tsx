@@ -4,7 +4,6 @@ import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import MockupShowcase from "@/components/MockupShowcase";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
-import { IosAwareText } from "@/components/IosAwareText";
 import FounderBanner from "@/components/FounderBanner";
 import TrustBadges from "@/components/TrustBadges";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -773,10 +772,7 @@ export default async function Home({
           />
           <div className="relative">
             <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-              <IosAwareText
-                live={tl(HOMEPAGE_COPY.finalCtaBadgeLive, lc)}
-                coming={tl(HOMEPAGE_COPY.finalCtaBadgeComing, lc)}
-              />
+              {tl(HOMEPAGE_COPY.finalCtaBadgeLive, lc)}
             </p>
             <h2 className="mt-4 font-display text-display-lg font-semibold tracking-tightest text-text-primary text-balance">
               {t.final_cta.heading}

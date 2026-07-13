@@ -5,13 +5,12 @@
     "download": "Pobierz"
   },
   "hero": {
-    "badge": "Dostępne na Android · iOS wkrótce",
+    "badge": "Dostępne na Androida i iOS",
     "heading_1": "Jeden globalny panel",
     "heading_accent": "dla wszystkich Twoich urządzeń.",
     "description": "Połącz Galaxy Watch, Wear OS, Health Connect i dostawców chmurowych w jednym widoku. Kroki, sen, tętno, regeneracja i trendy, bez przełączania się między aplikacjami.",
     "cta_secondary": "Dowiedz się więcej",
-    "pricing": "Jednorazowy zakup od €3,99 lub €1,19 co 6 miesięcy · bezpieczna płatność",
-    "coming_soon": "Wkrótce"
+    "pricing": "Jednorazowy zakup od €3,99 lub €1,19 co 6 miesięcy · bezpieczna płatność"
   },
   "features": {
     "kicker": "Funkcje",

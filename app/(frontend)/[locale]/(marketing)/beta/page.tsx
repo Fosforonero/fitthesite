@@ -219,7 +219,7 @@ export default async function BetaPage({
           </ol>
         </section>
 
-        {/* Form — riposizionato: notifica disponibilita' iOS per i paesi UE (rollout in corso) */}
+        {/* Form iscrizione beta/founder */}
         <section
           className="card-glass p-8 md:p-10 relative overflow-hidden"
           data-reveal
@@ -287,7 +287,7 @@ const IT = {
     {
       emoji: "⚡",
       title: "Anche su iOS",
-      desc: "L'app iOS è già live sull'App Store nei paesi supportati fuori dall'Unione Europea; nei 27 paesi UE il lancio è in corso. Il Pro Founder vale su entrambe le piattaforme.",
+      desc: "L'app iOS è già live sull'App Store in tutti i Paesi supportati, incluse le storefront dell'Unione Europea. Il Pro Founder vale su entrambe le piattaforme.",
     },
     {
       emoji: "🛠️",
@@ -295,9 +295,9 @@ const IT = {
       desc: "Tu suggerisci, io ascolto. Le feature più richieste dai founder hanno priorità nella roadmap.",
     },
   ],
-  formTitle: "Vuoi FitMesh anche su iPhone?",
+  formTitle: "Diventa founder",
   formSub:
-    "L'app iOS è già live sull'App Store nei paesi supportati fuori dall'Unione Europea; nei 27 paesi UE il lancio è in corso. Lascia l'email e ti avviso appena è disponibile anche nel tuo paese.",
+    "L'app iOS è già live sull'App Store in tutti i Paesi supportati, incluse le storefront dell'Unione Europea. Lascia l'email per essere avvisato di novità e aggiornamenti sul programma founder.",
   nextTitle: "Come funziona",
   nextSteps: [
     {
@@ -370,7 +370,7 @@ const ES = {
     {
       emoji: "⚡",
       title: "También en iOS",
-      desc: "La app iOS ya está disponible en la App Store en los países compatibles fuera de la Unión Europea; en los 27 países de la UE el lanzamiento está en curso. El Pro Founder es válido en ambas plataformas.",
+      desc: "La app iOS ya está disponible en la App Store en todos los países compatibles, incluidas todas las tiendas de la Unión Europea. El Pro Founder es válido en ambas plataformas.",
     },
     {
       emoji: "🛠️",
@@ -380,7 +380,7 @@ const ES = {
   ],
   formTitle: "¿Quieres FitMesh también en iPhone?",
   formSub:
-    "La app iOS ya está disponible en la App Store en los países compatibles fuera de la Unión Europea; en los 27 países de la UE el lanzamiento está en curso. Deja tu email y te aviso en cuanto esté disponible también en tu país.",
+    "La app iOS ya está disponible en la App Store en todos los países compatibles, incluidas todas las tiendas de la Unión Europea. Deja tu email y te aviso en cuanto esté disponible también en tu país.",
   nextTitle: "Cómo funciona",
   nextSteps: [
     {
@@ -453,7 +453,7 @@ const EN = {
     {
       emoji: "⚡",
       title: "Also on iOS",
-      desc: "The iOS app is live on the App Store in supported countries outside the European Union; the rollout in the 27 EU countries is in progress. Founder Pro works on both platforms.",
+      desc: "The iOS app is live on the App Store in all supported countries, including all European Union storefronts. Founder Pro works on both platforms.",
     },
     {
       emoji: "🛠️",
@@ -461,9 +461,9 @@ const EN = {
       desc: "You suggest, I listen. Founder-requested features take priority in the roadmap.",
     },
   ],
-  formTitle: "Want FitMesh on iPhone too?",
+  formTitle: "Become a founder",
   formSub:
-    "The iOS app is live on the App Store in supported countries outside the European Union; the rollout in the 27 EU countries is in progress. Leave your email and I'll let you know as soon as it's available in your country too.",
+    "The iOS app is live on the App Store in all supported countries, including all European Union storefronts. Leave your email to be notified about founder program news and updates.",
   nextTitle: "How it works",
   nextSteps: [
     {
@@ -536,7 +536,7 @@ const DE = {
     {
       emoji: "⚡",
       title: "Auch auf iOS",
-      desc: "Die iOS-App ist bereits im App Store in unterstützten Ländern außerhalb der EU live; in den 27 EU-Ländern läuft der Rollout. Der Founder-Pro gilt auf beiden Plattformen.",
+      desc: "Die iOS-App ist bereits im App Store in allen unterstützten Ländern live, einschließlich aller Storefronts der Europäischen Union. Der Founder-Pro gilt auf beiden Plattformen.",
     },
     {
       emoji: "🛠️",
@@ -546,7 +546,7 @@ const DE = {
   ],
   formTitle: "FitMesh auch auf dem iPhone?",
   formSub:
-    "Die iOS-App ist bereits im App Store in unterstützten Ländern außerhalb der EU live; in den 27 EU-Ländern läuft der Rollout. Hinterlasse deine E-Mail-Adresse und ich benachrichtige dich, sobald sie auch in deinem Land verfügbar ist.",
+    "Die iOS-App ist bereits im App Store in allen unterstützten Ländern live, einschließlich aller Storefronts der Europäischen Union. Hinterlasse deine E-Mail-Adresse und ich benachrichtige dich, sobald sie auch in deinem Land verfügbar ist.",
   nextTitle: "So funktioniert es",
   nextSteps: [
     {
@@ -619,7 +619,7 @@ const PT = {
     {
       emoji: "⚡",
       title: "Também no iOS",
-      desc: "O app iOS já está ao vivo na App Store nos países compatíveis fora da União Europeia; nos 27 países da UE o lançamento está em andamento. O Pro Founder vale nas duas plataformas.",
+      desc: "O app iOS já está ao vivo na App Store em todos os países compatíveis, incluindo todas as lojas da União Europeia. O Pro Founder vale nas duas plataformas.",
     },
     {
       emoji: "🛠️",
@@ -629,7 +629,7 @@ const PT = {
   ],
   formTitle: "Quer o FitMesh também no iPhone?",
   formSub:
-    "O app iOS já está ao vivo na App Store nos países compatíveis fora da União Europeia; nos 27 países da UE o lançamento está em andamento. Deixe seu e-mail e eu aviso assim que estiver disponível também no seu país.",
+    "O app iOS já está ao vivo na App Store em todos os países compatíveis, incluindo todas as lojas da União Europeia. Deixe seu e-mail e eu aviso assim que estiver disponível também no seu país.",
   nextTitle: "Como funciona",
   nextSteps: [
     {
@@ -702,7 +702,7 @@ const FR = {
     {
       emoji: "⚡",
       title: "Aussi sur iOS",
-      desc: "L'app iOS est déjà disponible sur l'App Store dans les pays pris en charge en dehors de l'Union européenne; le déploiement dans les 27 pays de l'UE est en cours. Le Pro Founder est valable sur les deux plateformes.",
+      desc: "L'app iOS est déjà disponible sur l'App Store dans tous les pays pris en charge, y compris dans toutes les boutiques de l'Union européenne. Le Pro Founder est valable sur les deux plateformes.",
     },
     {
       emoji: "🛠️",
@@ -712,7 +712,7 @@ const FR = {
   ],
   formTitle: "Vous voulez FitMesh sur iPhone aussi?",
   formSub:
-    "L'app iOS est déjà disponible sur l'App Store dans les pays pris en charge en dehors de l'Union européenne; le déploiement dans les 27 pays de l'UE est en cours. Laissez votre e-mail et je vous préviens dès qu'elle sera disponible aussi dans votre pays.",
+    "L'app iOS est déjà disponible sur l'App Store dans tous les pays pris en charge, y compris dans toutes les boutiques de l'Union européenne. Laissez votre e-mail et je vous préviens dès qu'elle sera disponible aussi dans votre pays.",
   nextTitle: "Comment ça marche",
   nextSteps: [
     {
@@ -785,7 +785,7 @@ const NL = {
     {
       emoji: "⚡",
       title: "Ook op iOS",
-      desc: "De iOS-app is al live in de App Store in ondersteunde landen buiten de Europese Unie; de uitrol in de 27 EU-landen loopt. De Founder Pro geldt op beide platforms.",
+      desc: "De iOS-app is al live in de App Store in alle ondersteunde landen, inclusief alle winkels van de Europese Unie. De Founder Pro geldt op beide platforms.",
     },
     {
       emoji: "🛠️",
@@ -795,7 +795,7 @@ const NL = {
   ],
   formTitle: "Wil je FitMesh ook op je iPhone?",
   formSub:
-    "De iOS-app is al live in de App Store in ondersteunde landen buiten de Europese Unie; de uitrol in de 27 EU-landen loopt. Laat je e-mailadres achter en ik laat het je weten zodra hij ook in jouw land beschikbaar is.",
+    "De iOS-app is al live in de App Store in alle ondersteunde landen, inclusief alle winkels van de Europese Unie. Laat je e-mailadres achter en ik laat het je weten zodra hij ook in jouw land beschikbaar is.",
   nextTitle: "Hoe het werkt",
   nextSteps: [
     {
@@ -868,7 +868,7 @@ const JA = {
     {
       emoji: "⚡",
       title: "iOSでも利用可能",
-      desc: "iOSアプリはすでにEU域外の対応国・地域のApp Storeで公開中です。EU加盟27カ国への展開は現在進行中です。Founder Proは両プラットフォームで有効です。",
+      desc: "iOSアプリはすでに対応するすべての国・地域のApp Storeで公開中で、EU域内を含め利用可能です。Founder Proは両プラットフォームで有効です。",
     },
     {
       emoji: "🛠️",
@@ -878,7 +878,7 @@ const JA = {
   ],
   formTitle: "iPhoneでもFitMeshを使いたいですか？",
   formSub:
-    "iOSアプリはすでにEU域外の対応国・地域のApp Storeで公開中です。EU加盟27カ国への展開は現在進行中です。メールアドレスを登録すると、お住まいの国でも利用可能になり次第お知らせします。",
+    "iOSアプリはすでに対応するすべての国・地域のApp Storeで公開中で、EU域内を含め利用可能です。メールアドレスを登録すると、お住まいの国でも利用可能になり次第お知らせします。",
   nextTitle: "仕組み",
   nextSteps: [
     {
@@ -951,7 +951,7 @@ const KO = {
     {
       emoji: "⚡",
       title: "iOS에서도 이용 가능",
-      desc: "iOS 앱은 이미 EU 역외 지원 국가의 App Store에 출시되어 있습니다. EU 27개국 출시는 현재 진행 중입니다. Founder Pro는 두 플랫폼 모두에서 유효합니다.",
+      desc: "iOS 앱은 이미 지원되는 모든 국가의 App Store에 출시되어 있으며, EU 지역을 포함하여 이용 가능합니다. Founder Pro는 두 플랫폼 모두에서 유효합니다.",
     },
     {
       emoji: "🛠️",
@@ -961,7 +961,7 @@ const KO = {
   ],
   formTitle: "iPhone에서도 FitMesh를 원하시나요?",
   formSub:
-    "iOS 앱은 이미 EU 역외 지원 국가의 App Store에 출시되어 있습니다. EU 27개국 출시는 현재 진행 중입니다. 이메일을 남겨주시면 거주 국가에서도 이용 가능해지는 즉시 알려드립니다.",
+    "iOS 앱은 이미 지원되는 모든 국가의 App Store에 출시되어 있으며, EU 지역을 포함하여 이용 가능합니다. 이메일을 남겨주시면 거주 국가에서도 이용 가능해지는 즉시 알려드립니다.",
   nextTitle: "이용 방법",
   nextSteps: [
     {

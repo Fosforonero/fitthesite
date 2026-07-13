@@ -36,11 +36,13 @@ del momento in cui sono state scritte, non vanno riscritte.
 - **Baseline GSC 2026-07-13**: nessuna presenza rilevata per "fitness data
   sync" generico prima del lancio — baseline è zero, non "basso" (vedi
   master plan sezione 3).
-- **Stato 2026-07-13 (prima del deploy di questo sprint)**: **corretto
-  localmente** — verificato in Fase 4 di questo sprint con build/server
-  locale (canonical, hreflang it/en/de/es/x-default, redirect 308 a singolo
-  hop, JSON-LD WebPage+FAQPage+BreadcrumbList, robots indicizzabile). Non
-  ancora deployato in produzione.
+- **Stato 2026-07-13**: **validato post-deploy**. Verificato in Fase 4 con
+  build/server locale (canonical, hreflang it/en/de/es/x-default, redirect
+  308 a singolo hop, JSON-LD WebPage+FAQPage+BreadcrumbList, robots
+  indicizzabile), poi ri-verificato in produzione dopo il deploy (vedi
+  tabella sotto): tutte e 4 le locale 200, hreflang e JSON-LD identici a
+  quanto verificato in locale, redirect Garmin/Samsung 308 a singolo hop
+  su tutte le 11 locale su `www.fitmesh.fit`.
 
 ### Fix cluster Google Fit
 
@@ -58,10 +60,10 @@ del momento in cui sono state scritte, non vanno riscritte.
 - **Cosa**: fatti iOS platform-corretti, scoping JSON-LD, llms.txt 15
   locale, riconciliazione prezzi/entitlement/capacità prodotto, guardrail
   esteso (trial length, founder review, stato Strava/TrainingPeaks).
-- **Commit**: `00b53d3`, `417a816`, `de6c5cf`, `070ad87`.
-- **Stato**: **corretto localmente**, portato nel branch di questo sprint,
-  non ancora deployato (fa parte dei 13 commit da `origin/main` a HEAD del
-  worktree `fitthesite-article-duplicates`).
+- **Commit finali su `main`** (hash rehashati dal rebase pre-merge):
+  `1f544c8`, `1e1327f`, `341f48e`, `3b365a1`.
+- **Stato**: **validato post-deploy** — live su `www.fitmesh.fit` dal
+  merge SHA `e7641d4c6a6d06f3df9e235cb0b8094f79a8eed5`.
 
 ### Fix Bing 2026-07-13
 
@@ -72,10 +74,10 @@ del momento in cui sono state scritte, non vanno riscritte.
   `smartphone-android` EN, `amazfit-zepp` EN); 1 noindex accidentale
   (`health-connect-not-syncing` variante NL); warning domain-level backlink
   Bing (off-site, non un bug tecnico, non "corretto" con link artificiali).
-- **Commit**: `5dfa31b`.
-- **Verifica di questo sprint (Fase 2)**: `tools/check-bing-seo-recommendations.ts`
+- **Commit**: `7fe15db` (hash finale post-rebase; originariamente `5dfa31b`).
+- **Verifica di questo sprint (Fase 2, locale)**: `tools/check-bing-seo-recommendations.ts`
   verde (`2 title ≤70c, 7 meta description 150-160c, variante NL
-  indicizzabile`). Verifica diretta aggiuntiva su server locale: NL
+  indicizzabile`). Verifica diretta su server locale: NL
   `health-connect-synchroniseert-niet` → 200, nessun tag `robots noindex`
   (assenza = index,follow, confermato per contrasto con una pagina
   genuinamente noindex), canonical self-referencing corretto, presente in
@@ -83,7 +85,15 @@ del momento in cui sono state scritte, non vanno riscritte.
   NL genuinamente tradotto (non fallback EN, verificato via
   `isBlogVariantIndexable`/`isPostLocaleComplete`, che richiede OGNI campo
   tradotto in NL).
-- **Stato**: **corretto localmente**, non ancora deployato.
+- **Verifica post-deploy (Fase 9, `www.fitmesh.fit`, 2026-07-13T08:4x UTC)**:
+  entrambi i title EN 200 e ≤70c (`export-fitbit-data-after-google` 62c,
+  `export-garmin-data` 60c); tutte e 7 le meta description 150-160c
+  (`suunto` 159, `oura` 157, `galaxy-watch` 156, `oneplus-health` 153,
+  `withings` JA 160, `smartphone-android` 156, `amazfit-zepp` 158); NL
+  `health-connect-synchroniseert-niet` → 200, nessun `robots noindex`,
+  canonical corretto, presente in sitemap.xml (6 occorrenze: 1 `<loc>` +
+  5 hreflang alternate da altre locale).
+- **Stato**: **validato post-deploy**.
 
 ### Nuovo articolo duplicate fitness data (IT/EN)
 
@@ -94,8 +104,9 @@ del momento in cui sono state scritte, non vanno riscritte.
   deduplicazione dei totali aggregati (Attività/Sonno, via priorità
   sorgenti) e allenamenti/record grezzi (richiedono diagnosi separata,
   spesso da loop di sincronizzazione).
-- **Commit**: `9bbc52b`. Scritto da Codex in worktree separato — non
-  modificato da Claude in questo sprint (vincolo esplicito).
+- **Commit**: `7648009` (hash finale post-rebase; originariamente
+  `9bbc52b`). Scritto da Codex in worktree separato — non modificato da
+  Claude in questo sprint (vincolo esplicito).
 - **Verifica di questo sprint (Fase 3)**: entrambi 200; title IT 62c, EN
   62c (≤70 ✓); meta description IT 153c, EN 147c (120-160 ✓); canonical
   self-referencing; risposta diretta nel primo blocco body dopo l'hero;
@@ -110,9 +121,12 @@ del momento in cui sono state scritte, non vanno riscritte.
   structured data) +BreadcrumbList, `inLanguage: it-IT`, author/publisher
   con `@id` validi; le altre 9 locale tutte noindex+308+assenti da
   sitemap/hreflang per questo slug.
-- **Stato**: **corretto localmente** (già verificato dall'autore Codex nel
-  proprio worktree, ri-verificato indipendentemente da Claude in questo
-  sprint), non ancora deployato.
+- **Verifica post-deploy (Fase 9, `www.fitmesh.fit`)**: IT/EN entrambi 200;
+  hreflang e JSON-LD (`BlogPosting`+`FAQPage`+`BreadcrumbList`) identici a
+  quanto verificato in locale.
+- **Stato**: **validato post-deploy** (già verificato dall'autore Codex nel
+  proprio worktree, ri-verificato indipendentemente da Claude sia in
+  locale sia in produzione).
 
 ### Audit truth-review di questo sprint (Fase 1, nuovo lavoro non preesistente)
 
@@ -140,25 +154,138 @@ del momento in cui sono state scritte, non vanno riscritte.
   non menzionava affatto lo stato export/write-back né la landing
   `/fitness-data-sync` — gap reale trovato in Fase 4, non preesistente nel
   guardrail.
-- **Commit**: non ancora committato al momento della stesura di questa riga
-  (verrà committato in Fase 6 come commit dedicato ai fix di verità di
-  questo sprint, separato dal commit del piano SEO/GEO).
+- **Commit**: `8802967` — "fix(seo): remove unsourced stats, correct
+  Garmin claim, expand llms.txt" (piano SEO/GEO in commit separato:
+  `5b727ca`).
 - **Verifica**: `tools/check-llms-consistency.ts` verde prima e dopo ogni
   modifica (verificato con rerun dopo ciascuna correzione, non solo alla
   fine).
-- **Stato**: **corretto localmente**, non ancora deployato.
+- **Verifica post-deploy (Fase 9, `www.fitmesh.fit`)**: `/llms.txt` in
+  produzione contiene la riga "Export / write-back status" (assente
+  prima di questo sprint) — confermato con
+  `curl https://www.fitmesh.fit/llms.txt | grep -c "Export / write-back status"`
+  → 1.
+- **Stato**: **validato post-deploy**.
 
-## Sezioni da compilare dopo il deploy (Fase 7-9)
+### Policy: Vercel deployment solo su `main` (2026-07-13, richiesta esplicita di Matteo)
 
-Le colonne sotto restano vuote finché non esistono dati reali — non
-compilare in anticipo:
+- **Cosa**: `vercel.json` → `git.deploymentEnabled` (`main: true`,
+  `**: false`). Nessuna Preview Deployment per branch feature/content/seo/
+  hotfix; un solo deploy di produzione per merge su `main`. Motivato dalla
+  Preview SSO-protetta (non ispezionabile via curl) e dal deploy di
+  produzione cancellato esternamente incontrati in questo stesso sprint.
+- **Commit**: `c1296cd` (branch `chore/vercel-main-only-deploys`, PR #10).
+- **Verifica pre-merge (Docker)**: `tsc --noEmit` 0 errori, `next build`
+  3427 pagine exit 0, `check-llms-consistency.ts` e
+  `check-bing-seo-recommendations.ts` verdi.
+- **Verifica del meccanismo stesso**: push del branch confermato via API
+  Vercel (`list_deployments` con filtro `since`) — **zero** nuove
+  deployment create per quel push, a conferma che la regola ha effetto
+  immediato sul commit che la introduce.
+- **Merge**: PR #10 mergiata manualmente da Matteo con merge commit
+  `e7641d4c6a6d06f3df9e235cb0b8094f79a8eed5`. Questo merge ha generato
+  **una sola** deployment di produzione (`dpl_462XUPZ1gybT4wgcXwRW5ZRXpaHd`),
+  confermato via API Vercel — nessuna preview parallela.
+- **Stato**: **validato post-deploy** (la regola è ora attiva in
+  produzione: verificata sia sul push pre-merge sia sul merge stesso).
+
+### Sprint P0.4 — OG image sitewide
+
+- **Cosa**: `og:image`/`twitter:image` assenti su tutte le pagine marketing
+  prive di un'immagine dedicata (solo blog/[slug], lp/[slug],
+  sync/[provider] ce l'avevano). Root cause: `app/opengraph-image.tsx`
+  viveva fuori dall'albero di risoluzione metadata del route group
+  `(frontend)` (nessun `app/layout.tsx` a livello radice — il progetto usa
+  root layout separati per route group), compilato da Next.js come
+  endpoint orfano `/opengraph-image` mai referenziato da alcuna pagina
+  reale. Confermato nel manifest di build (`● /opengraph-image` fuori da
+  qualsiasi `[locale]`) e dal warning
+  `metadataBase property... not set, using "http://localhost:3000"`.
+- **Route coinvolte**: tutte le pagine sotto `[locale]` prive di file
+  dedicato — fallback globale in
+  `app/(frontend)/[locale]/opengraph-image.tsx`; immagine dedicata in
+  `app/(frontend)/[locale]/(marketing)/fitness-data-sync/opengraph-image.tsx`.
+  Scoperta durante la verifica: 9 pagine (`about`, `ai`, `beta`, `blog`
+  index, `famiglia`, `integrations`, `novita`, `press`, `roadmap`)
+  dichiarano un proprio oggetto `openGraph` in `generateMetadata` — Next.js
+  resetta `target.openGraph` in modo stateless ad ogni segmento che
+  dichiara un proprio `openGraph` (anche senza `images`), quindi il
+  fallback a `[locale]` non veniva ereditato da quelle pagine (verificato
+  empiricamente su `/en/integrations` vs `/en/support` + in
+  `next/dist/lib/metadata/resolve-metadata.js`). Fix: un
+  `opengraph-image.tsx` colocato per ciascuna delle 9, tutti re-export del
+  medesimo componente in `lib/og/fallback-image.tsx` — zero duplicazione
+  visiva, zero modifiche a `generateMetadata()`.
+- **File modificati**: rimosso `app/opengraph-image.tsx`; aggiunti
+  `lib/og/fallback-image.tsx`,
+  `app/(frontend)/[locale]/opengraph-image.tsx`,
+  `app/(frontend)/[locale]/(marketing)/fitness-data-sync/opengraph-image.tsx`,
+  9× `app/(frontend)/[locale]/(marketing)/{about,ai,beta,blog,famiglia,
+  integrations,novita,press,roadmap}/opengraph-image.tsx`,
+  `tools/check-social-metadata.ts` (nuovo guardrail).
+- **QA visiva**: immagini renderizzate (1200×630 PNG confermate via
+  `file`) e ispezionate direttamente — fallback e fitness-data-sync
+  (en/it/de). Trovato e corretto un problema reale: la prima versione
+  della composizione fitness-data-sync sovrapponeva l'headline alle icone
+  sorgente impilate verticalmente (altezza totale > area disponibile);
+  fix: icone sorgente disposte in riga orizzontale, non in colonna.
+  `tools/local-vision/analyze-image.sh` citato nello sprint non esiste in
+  questo repository — sostituito con ispezione visiva diretta delle PNG
+  renderizzate.
+- **Guardrail**: nuovo `tools/check-social-metadata.ts` — verifica via
+  HTTP 11 route rappresentative (una per famiglia: fallback,
+  fitness-data-sync×4 locale, blog, lp, sync-provider) contro un server
+  `next start` reale: `og:image`/`twitter:image` presenti, `twitter:card`
+  = `summary_large_image`, 1200×630, alt non vuoto, URL assoluto, nessun
+  `localhost`/`.vercel.app` fuori da run locali, specificità verificata
+  sulla struttura del path (non su hash Next). Controllo negativo
+  informativo su `/it/auth/login` (non bloccante).
+- **Build Docker**: primo tentativo `pnpm run build` fallito silenziosamente
+  (`node pnpm run build` → `Cannot find module '/app/pnpm'`, corepack non
+  attivato nello stesso invocation del container — errore di tooling
+  locale, non del sito). Comando corretto:
+  `corepack enable && corepack prepare pnpm@10.28.0 --activate && pnpm run build`
+  — build finale verde, `exit 0`, 3446 pagine.
+- **Verifiche Docker**: `tsc --noEmit` 0 errori; `next build` exit 0;
+  `check-llms-consistency.ts`, `check-bing-seo-recommendations.ts`,
+  `check-blog-integrity.ts`, `check-translation-corruption.ts`,
+  `check-social-metadata.ts` tutti verdi; `git diff --check` pulito.
+- **Stato**: **verificato in Docker**. Non ancora deployato — PR aperta,
+  in attesa di merge manuale.
+
+## Deploy di produzione (Fase 7-9, dati reali)
+
+- **Merge SHA (Sprint P0.3 content)**: `2e653e8866ab323b6b5a0599e18652461eee970f`
+  (PR #9, "Create a merge commit", mergiata manualmente da Matteo).
+- **Deployment Vercel per quel merge**: `dpl_HjkBFQhsijZWnGBArrn3gcbY3YCt`
+  — **CANCELED** esternamente durante la build (nessun errore nei log,
+  cancellazione non causata da Claude; nessuna azione di recovery
+  tentata, come da istruzione).
+- **Merge SHA (policy Vercel main-only)**: `e7641d4c6a6d06f3df9e235cb0b8094f79a8eed5`
+  (PR #10, "Create a merge commit", mergiata manualmente da Matteo).
+- **Deployment Vercel per quel merge**: `dpl_462XUPZ1gybT4wgcXwRW5ZRXpaHd`
+  — **READY**, target `production`, alias `www.fitmesh.fit`/`fitmesh.fit`.
+  Build avviata 2026-07-13T08:30:14Z, pronta 2026-07-13T08:39:57Z (~9m37s
+  per 3427 pagine). Questo è il deploy che ha effettivamente portato in
+  produzione TUTTO il contenuto di questo sprint (P0.2 + fix Bing + nuovo
+  articolo + audit truth-review + la policy stessa), perché contiene
+  `2e653e8` come antenato.
+- **IndexNow**: inviato 2026-07-13T08:48:39Z, 52 URL (solo quelle toccate
+  da questo sprint — vedi elenco nelle righe sopra), HTTP 200 da
+  `api.indexnow.org`.
 
 | Iniziativa | Commit produzione | Timestamp deploy | URL live verificato | Status code | Canonical | Robots | Sitemap | IndexNow | Controllo 14gg | Controllo 28gg | Controllo 90gg |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| P0.2 fitness-data-sync | — | — | — | — | — | — | — | — | 2026-07-27 | 2026-08-10 | 2026-10-11 |
-| Fix Bing | — | — | — | — | — | — | — | — | 2026-07-27 | 2026-08-10 | 2026-10-11 |
-| Nuovo articolo duplicate data | — | — | — | — | — | — | — | — | 2026-07-27 | 2026-08-10 | 2026-10-11 |
-| Audit truth-review P0.3 | — | — | — | — | — | — | — | — | 2026-07-27 | 2026-08-10 | 2026-10-11 |
+| P0.2 fitness-data-sync | `e7641d4c` | 2026-07-13T08:39:57Z | `/it,en,de,es/fitness-data-sync` | 200×4 | ✓ | index | ✓ | ✓ | 2026-07-27 | 2026-08-10 | 2026-10-11 |
+| Fix Bing | `e7641d4c` | 2026-07-13T08:39:57Z | 2 title + 7 meta + 1 NL | 200×10 | ✓ | index (NL) | ✓ (NL) | ✓ | 2026-07-27 | 2026-08-10 | 2026-10-11 |
+| Nuovo articolo duplicate data | `e7641d4c` | 2026-07-13T08:39:57Z | `/it,en/blog/...` | 200×2 | ✓ | index | ✓ | ✓ | 2026-07-27 | 2026-08-10 | 2026-10-11 |
+| Audit truth-review P0.3 | `e7641d4c` | 2026-07-13T08:39:57Z | `health-connect-not-syncing`, `esportare-dati-garmin` (11 locale ciascuno), `/llms.txt` | 200 | ✓ | index | n/a | ✓ | 2026-07-27 | 2026-08-10 | 2026-10-11 |
+| Redirect Garmin/Samsung | `e7641d4c` | 2026-07-13T08:39:57Z | 11 `/lp/garmin-health-connect*` → 11 blog | 308→200 | n/a | n/a | ✓ (destinazioni) | ✓ (destinazioni) | 2026-07-27 | 2026-08-10 | 2026-10-11 |
+| Policy Vercel main-only | `e7641d4c` | 2026-07-13T08:39:57Z | n/a (config, non una pagina) | n/a | n/a | n/a | n/a | n/a | — | — | — |
+
+Nessuna riga sopra è ancora "risultato misurato": i controlli 14/28/90
+giorni restano da eseguire alle date indicate, non anticipare un
+risultato.
 
 ## Decision log
 

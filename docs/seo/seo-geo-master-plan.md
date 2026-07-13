@@ -361,21 +361,35 @@ poca differenziazione possibile per FitMesh.
   landing/pillar per evitare la situazione P0.2 (consolidamento
   Garmin/Samsung) — vedi precedente in
   [seo-results-log.md](./seo-results-log.md).
-- **`og:image` assente su tutto il sito (rilevato 2026-07-13, Fase 4 di
-  questo sprint)**: verificato su server locale che homepage, `/integrations`
-  e le 4 pagine `/fitness-data-sync` non emettono NESSUN tag `<meta
-  property="og:image">` — non è un problema di localizzazione (l'immagine
-  condivisa in IT su tutte le locale, come inizialmente ipotizzato), è
-  un'assenza totale. `app/opengraph-image.tsx` esiste come fallback
-  root ma non risulta agganciato alle route in `[locale]/(marketing)/` che
-  non hanno un proprio file `opengraph-image.tsx` dedicato (a differenza di
-  `blog/[slug]`, `lp/[slug]` e `sync/[provider]`, che invece ce l'hanno e
-  presumibilmente funzionano). Condividere queste pagine su
-  Slack/Twitter/LinkedIn oggi non mostra alcuna immagine di anteprima.
-  Root-cause non ancora diagnosticata (richiede investigare la risoluzione
-  delle route Next.js per le immagini OG basate su file, fuori scope per
-  questo sprint di verità/verifica) — backlog per un mini-sprint tecnico
-  dedicato.
+- **`og:image` assente sitewide — risolto (Sprint P0.4, `verificato in
+  Docker`)**: root cause confermata su `app/opengraph-image.tsx` — il file
+  viveva direttamente in `app/`, un livello SOPRA il route group
+  `(frontend)`, e senza un `app/layout.tsx` a livello radice (il progetto usa
+  root layout separati per route group: `(frontend)` e `(payload)`) quel
+  segmento non appartiene all'albero di risoluzione metadata di nessuna
+  pagina reale. Next.js lo compilava come endpoint standalone orfano
+  `/opengraph-image`, mai referenziato — confermato nel manifest di build e
+  dal warning `metadataBase property... not set, using "http://localhost:3000"`
+  (il file "vedeva" un `metadataBase` fuori scope). Fix: file spostato in
+  `app/(frontend)/[locale]/opengraph-image.tsx` (fallback globale,
+  language-neutral, icone/brand senza testo) + `.../fitness-data-sync/opengraph-image.tsx`
+  dedicata (headline riusata testualmente da `META_TITLE`, nessuna nuova
+  claim). Scoperta aggiuntiva durante la verifica: 9 pagine marketing
+  (`about`, `ai`, `beta`, `blog` index, `famiglia`, `integrations`,
+  `novita`, `press`, `roadmap`) dichiarano un proprio oggetto `openGraph` in
+  `generateMetadata` — Next.js resetta `target.openGraph` in modo stateless
+  ad ogni segmento che dichiara un proprio `openGraph` (anche senza
+  `images`), quindi il fallback a livello `[locale]` non veniva ereditato da
+  quelle pagine (verificato empiricamente e in
+  `next/dist/lib/metadata/resolve-metadata.js`). Fix: un
+  `opengraph-image.tsx` colocato per ciascuna, re-esportato da un unico
+  componente condiviso in `lib/og/fallback-image.tsx` — zero duplicazione
+  visiva, zero modifiche a `generateMetadata()`. Nuovo guardrail
+  `tools/check-social-metadata.ts` verifica 11 route rappresentative (una
+  per famiglia: fallback, fitness-data-sync, blog, lp, sync-provider) via
+  HTTP contro un server reale, senza basarsi su hash generati da Next
+  (specificità verificata sulla struttura del path, es. `/blog/` vs nessun
+  marker = fallback).
 - **Traduzione corrotta incidentalmente scoperta**: durante l'audit
   2026-07-13 di `health-connect-not-syncing.ts` sono stati trovati e
   corretti bug di traduzione pre-esistenti non legati alle statistiche

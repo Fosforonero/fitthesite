@@ -5,13 +5,12 @@
     "download": "İndir"
   },
   "hero": {
-    "badge": "Android'de mevcut · iOS yakında",
+    "badge": "Android ve iOS'ta mevcut",
     "heading_1": "Tek bir global panel",
     "heading_accent": "tüm cihazlarınız için.",
     "description": "Galaxy Watch, Wear OS, Health Connect ve bulut sağlayıcılarını tek bir görünümde birleştirin. Adımlar, uyku, kalp atış hızı, toparlanma ve eğilimler, uygulamalar arasında geçiş yapmadan.",
     "cta_secondary": "Daha fazla bilgi",
-    "pricing": "€3,99'dan başlayan tek seferlik ödeme veya 6 ayda bir €1,19 · güvenli ödeme",
-    "coming_soon": "Yakında"
+    "pricing": "€3,99'dan başlayan tek seferlik ödeme veya 6 ayda bir €1,19 · güvenli ödeme"
   },
   "features": {
     "kicker": "Özellikler",

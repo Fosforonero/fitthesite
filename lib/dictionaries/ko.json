@@ -5,13 +5,12 @@
     "download": "다운로드"
   },
   "hero": {
-    "badge": "Android 지원 · iOS 출시 예정",
+    "badge": "Android와 iOS 지원",
     "heading_1": "모든 기기를",
     "heading_accent": "하나의 대시보드로.",
     "description": "Galaxy Watch, Wear OS, Health Connect, 클라우드 공급자를 하나의 화면으로 통합하세요. 앱을 전환하지 않고 걸음 수, 수면, 심박수, 회복 상태, 트렌드를 확인할 수 있습니다.",
     "cta_secondary": "자세히 보기",
-    "pricing": "일회 결제 €3.99부터, 또는 6개월 €1.19 · 안전한 결제",
-    "coming_soon": "출시 예정"
+    "pricing": "일회 결제 €3.99부터, 또는 6개월 €1.19 · 안전한 결제"
   },
   "features": {
     "kicker": "기능",

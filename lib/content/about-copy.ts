@@ -498,11 +498,4 @@ export const ABOUT_COPY = {
     da: "Tilgængelig nu på Android og iOS.", no: "Tilgjengelig nå på Android og iOS.", fi: "Saatavilla nyt Androidille ja iOS:lle.",
   } satisfies Localized,
 
-  availableComing: {
-    it: "Disponibile ora su Android. iOS in arrivo.", en: "Available now on Android. iOS coming soon.", es: "Disponible ahora en Android. iOS próximamente.",
-    de: "Jetzt für Android verfügbar. iOS demnächst verfügbar.", pt: "Disponível agora para Android. iOS em breve.", fr: "Disponible maintenant sur Android. iOS bientôt disponible.",
-    pl: "Dostępna już na Androida. iOS już wkrótce.", tr: "Şu anda Android'de kullanılabilir. iOS yakında geliyor.", nl: "Nu beschikbaar voor Android. iOS volgt binnenkort.",
-    ja: "Androidで今すぐご利用いただけます。iOS版は近日公開予定です。", ko: "지금 Android에서 이용 가능합니다. iOS는 곧 출시됩니다.", sv: "Tillgänglig nu på Android. iOS kommer snart.",
-    da: "Tilgængelig nu på Android. iOS kommer snart.", no: "Tilgjengelig nå på Android. iOS kommer snart.", fi: "Saatavilla nyt Androidille. iOS tulossa pian.",
-  } satisfies Localized,
 } as const;

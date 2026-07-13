@@ -79,10 +79,10 @@
       "fi": "Kokeile sitä iPhonella"
     },
     "body.8.body": {
-      "sv": "iOS-appen finns nu tillgänglig på App Store i de flesta länder. I de 27 EU-länderna kommer den att lanseras under de närmaste dagarna.",
-      "da": "iOS-appen er nu tilgængelig på App Store i de fleste lande. I de 27 EU-lande vil den blive lanceret i løbet af de kommende dage.",
-      "no": "iOS-appen er nå tilgjengelig på App Store i de fleste land. I de 27 EU-landene vil den bli lansert i løpet av de neste dagene.",
-      "fi": "iOS-sovellus on nyt saatavilla App Store:ssa useimmissa maissa. EU:n 27 jäsenmaassa se otetaan käyttöön lähipäivinä."
+      "sv": "iOS-appen är nu tillgänglig på App Store i alla länder som stöds, inklusive samtliga 27 EU-länder.",
+      "da": "iOS-appen er nu tilgængelig på App Store i alle understøttede lande, inklusive alle 27 EU-lande.",
+      "no": "iOS-appen er nå tilgjengelig på App Store i alle land som støttes, inkludert alle de 27 EU-landene.",
+      "fi": "iOS-sovellus on nyt saatavilla App Storessa kaikissa tuetuissa maissa, mukaan lukien kaikki 27 EU-maata."
     },
     "body.8.ctaLabel": {
       "sv": "Utsikt över App Store",
@@ -174,28 +174,28 @@
         "Nästan alla appar läser endast från Apple Health. FitMesh skriver även data från din Android-bärbara enhet till den, om du väljer att tillåta det.",
         "Den registrerar sömn i olika faser, vilopuls, SpO2, vikt, steg, sträcka och förbrända kalorier.",
         "Den skriver inte om det som Apple Health redan innehåller och räknar aldrig samma aktivitet två gånger.",
-        "IOS-appen är live på App Store världen över; i de 27 EU-länderna lanseras den under de kommande dagarna."
+        "iOS-appen är live på App Store i alla länder som stöds, inklusive samtliga 27 EU-länder."
       ],
       "da": [
         "På iPhone viser Apple Health kun data fra iPhone og Apple Watch: dine data fra ring Galaxy Watch eller Colmi mangler.",
         "Næsten alle apps læser kun fra Apple Health. FitMesh skriver også data fra dit Android-wearable til det – hvis du giver dit samtykke.",
         "Den registrerer søvn i faser, hvilepuls, SpO2, vægt, skridt, distance og forbrændte kalorier.",
         "Den overskriver ikke det, som Apple Health allerede indeholder, og tæller aldrig den samme aktivitet to gange.",
-        "iOS-appen er nu tilgængelig på App Store over hele verden; i de 27 EU-lande vil den blive lanceret i løbet af de kommende dage."
+        "iOS-appen er nu tilgængelig på App Store i alle understøttede lande, inklusive alle 27 EU-lande."
       ],
       "no": [
         "På iPhone viser Apple Health kun data fra iPhone og Apple Watch: dataene fra ringene Galaxy Watch eller Colmi mangler.",
         "Nesten alle apper leser kun fra Apple Health. FitMesh skriver også data fra Android-wearable-enheten din inn i den – dette må du aktivere selv.",
         "Den registrerer søvn med søvnfaser, hvilepuls, SpO2, vekt, skritt, distanse og forbrente kalorier.",
         "Den overskriver ikke det som allerede står i Apple Health, og teller aldri den samme aktiviteten to ganger.",
-        "iOS-appen er nå tilgjengelig på App Store over hele verden; i de 27 EU-landene vil den bli lansert i løpet av de neste dagene."
+        "iOS-appen er nå tilgjengelig på App Store i alle land som støttes, inkludert alle de 27 EU-landene."
       ],
       "fi": [
         "iPhonessa Apple Health näyttää vain iPhonen ja Apple Watchin tiedot: Galaxy Watch- tai Colmi-soittorengastiedot puuttuvat.",
         "Lähes kaikki sovellukset lukevat tietoja vain Apple Health:sta. FitMesh tallentaa sinne myös Android-älylaitteesi tiedot, mikäli olet antanut siihen suostumuksesi.",
         "Se tallentaa unen vaiheet, leposykkeen, SpO2, painon, askelmäärän, matkan ja aktiivisen kalorinkulutuksen.",
         "Se ei korvaa sitä, mitä Apple Health:ssa jo on, eikä se koskaan laske samaa toimintaa kahdesti.",
-        "iOS-sovellus on jo saatavilla App Store:ssa ympäri maailmaa; EU:n 27 jäsenmaassa se otetaan käyttöön lähipäivinä."
+        "iOS-sovellus on jo saatavilla App Storessa kaikissa tuetuissa maissa, mukaan lukien kaikki 27 EU-maata."
       ]
     },
     "body.4.items": {
@@ -271,10 +271,10 @@
       "fi": "Opas"
     },
     "body.8.body": {
-      "sv": "iOS-appen finns nu tillgänglig på App Store i de flesta länder. I de 27 EU-länderna kommer den att lanseras under de närmaste dagarna.",
-      "da": "iOS-appen er nu tilgængelig på App Store i de fleste lande. I de 27 EU-lande vil den blive lanceret i løbet af de kommende dage.",
-      "no": "iOS-appen er nå tilgjengelig på App Store i de fleste land. I de 27 EU-landene vil den bli lansert i løpet av de neste dagene.",
-      "fi": "iOS-sovellus on nyt saatavilla App Store:ssa useimmissa maissa. EU:n 27 jäsenmaassa se otetaan käyttöön lähipäivinä."
+      "sv": "iOS-appen är nu tillgänglig på App Store i alla länder som stöds, inklusive samtliga 27 EU-länder.",
+      "da": "iOS-appen er nu tilgængelig på App Store i alle understøttede lande, inklusive alle 27 EU-lande.",
+      "no": "iOS-appen er nå tilgjengelig på App Store i alle land som støttes, inkludert alle de 27 EU-landene.",
+      "fi": "iOS-sovellus on nyt saatavilla App Storessa kaikissa tuetuissa maissa, mukaan lukien kaikki 27 EU-maata."
     },
     "body.8.ctaLabel": {
       "sv": "Utsikt över App Store",
@@ -364,8 +364,8 @@
       "da": "Er det tilgængeligt i mit land?"
     },
     "faq.3.a": {
-      "sv": "iOS-appen finns nu tillgänglig på App Store i de flesta länder. I de 27 EU-länderna kommer den att lanseras under de närmaste dagarna.",
-      "da": "iOS-appen er nu tilgængelig på App Store i de fleste lande. I de 27 EU-lande vil den blive lanceret i løbet af de kommende dage."
+      "sv": "iOS-appen är nu tillgänglig på App Store i alla länder som stöds, inklusive samtliga 27 EU-länder.",
+      "da": "iOS-appen er nu tilgængelig på App Store i alle understøttede lande, inklusive alle 27 EU-lande."
     },
     "secondaryKeywords": {
       "sv": [
@@ -389,14 +389,14 @@
         "FitMesh fungerar som en länk: behåll din bärbara enhet, data skickas till molnet i EU och du hittar den i Apple Health på den nya iPhone-enheten, med samma konto.",
         "Den fungerar med Galaxy Watch, Garmin, Fitbit, Colmi-ringen och andra Android-bärbara enheter.",
         "Du kan behålla båda telefonerna på ett och samma abonnemang, eller byta helt till iPhone.",
-        "iOS-appen är nu tillgänglig över hela världen på App Store; i de 27 EU-länderna lanseras den under de kommande dagarna."
+        "iOS-appen är nu tillgänglig på App Store i alla länder som stöds, inklusive samtliga 27 EU-länder."
       ],
       "da": [
         "Når du skifter til iPhone, er Apple Health tom ved opstart, og Health Connect findes ikke på iOS: Der er risiko for, at din historik fra dit wearable ikke overføres.",
         "FitMesh sørger for forbindelsen: Behold dit wearable, dataene sendes til EU-skyen, og du finder dem i Apple Health på den nye iPhone – samme konto.",
         "Den fungerer med Galaxy Watch, Garmin, Fitbit, Colmi-ringen og andre Android-wearables.",
         "Du kan beholde begge telefoner på én og samme konto eller skifte helt over til iPhone.",
-        "iOS-appen er nu tilgængelig på App Store på verdensplan; i de 27 EU-lande vil den blive lanceret i løbet af de kommende dage."
+        "iOS-appen er nu tilgængelig på App Store i alle understøttede lande, inklusive alle 27 EU-lande."
       ]
     },
     "body.6.items": {
@@ -2856,12 +2856,12 @@
       "da": "For tekniske detaljer om Colmi-integrationen kan du læse den [fulde Colmi ringvejledning](/en/blog/colmi-ring-fitmesh)."
     },
     "body.18.title": {
-      "sv": "FitMesh på iPhone: iOS-appen kommer snart",
-      "da": "FitMesh på iPhone: iOS-appen kommer snart"
+      "sv": "FitMesh på iPhone: iOS-appen finns på App Store",
+      "da": "FitMesh på iPhone: iOS-appen findes på App Store"
     },
     "body.18.body": {
-      "sv": "Colmi-ringen registrerar sömnfaser via Bluetooth på Android. Med ett FitMesh-konto kan du även se dina sömndata på iPhone (iOS-appen kommer snart, lansering inom kort) och data kan överföras till Apple Health via den valfria bryggan. App Store-tillgänglighet krävs inte för att få tillgång till betaversionen.",
-      "da": "Colmi-ringen registrerer søvnfaser via Bluetooth på Android. Med en FitMesh-konto kan du også se dine søvndata på iPhone (iOS-appen kommer snart, lanceringen er lige om hjørnet) og overføre dem til Apple Health via den valgfri bridge. App Store-tilgængelighed er ikke påkrævet for at få adgang til betaversionen."
+      "sv": "Colmi-ringen registrerar sömnfaser via Bluetooth på Android. Med ett FitMesh-konto kan du även se dina sömndata på iPhone (iOS-appen finns på App Store, inklusive alla 27 EU-länder) och data kan överföras till Apple Health via den valfria bryggan.",
+      "da": "Colmi-ringen registrerer søvnfaser via Bluetooth på Android. Med en FitMesh-konto kan du også se dine søvndata på iPhone (iOS-appen findes på App Store, inklusive alle 27 EU-lande) og overføre dem til Apple Health via den valgfri bro."
     },
     "body.19.text": {
       "sv": "Praktiska tips för bättre spårning under natten",
@@ -2937,14 +2937,14 @@
         "Colmi R02 mäter sömnfaser, vilopuls, HRV, SpO2 och rörelse med hjälp av en optisk PPG-sensor och en accelerometer.",
         "Dessa värden är vägledande uppskattningar som är användbara för att följa personliga trender, men utgör inte kliniska mätningar.",
         "FitMesh sammanför data från nattläget med mätvärden från smartklockan under dagtid på en och samma översiktssida, utan dubbelräkning.",
-        "På iPhone: med ett FitMesh-konto visas dina sömndata även på iOS (appen lanseras snart) och kan överföras till Apple Health."
+        "På iPhone: med ett FitMesh-konto visas dina sömndata även på iOS (appen finns på App Store) och kan överföras till Apple Health."
       ],
       "da": [
         "Ingen rem og en batterilevetid på 5–7 dage: to konkrete fordele, der sikrer kontinuerlig dataindsamling om natten.",
         "Colmi R02 registrerer søvnfaser, hvilepuls, HRV, SpO2 og bevægelse via en optisk PPG-sensor og et accelerometer.",
         "Disse tal er vejledende skøn, der kan bruges til at følge personlige tendenser, men er ikke kliniske målinger.",
         "FitMesh samler data fra natten med dagtimernes smartwatch-målinger på ét dashboard uden dobbelttælling.",
-        "På iPhone: Med en FitMesh-konto kan du også se dine søvndata på iOS (appen kommer snart), og de kan overføres til Apple Health."
+        "På iPhone: Med en FitMesh-konto kan du også se dine søvndata på iOS (appen findes på App Store), og de kan overføres til Apple Health."
       ]
     },
     "body.7.headers": {
@@ -3158,16 +3158,16 @@
       "da": "iPhone og Apple Health: hvad sker der, når du er klar?"
     },
     "body.16.text": {
-      "sv": "Bluetooth-anslutningen mellan FitMesh Sync och Colmi-ringen sker via Android, där data samlas in och laddas upp till ditt FitMesh-konto. När data väl finns på ditt konto kan du dock komma åt den var som helst: appen FitMesh för iPhone (iOS) och Apple Health-bryggan kommer snart.",
-      "da": "Bluetooth-forbindelsen mellem FitMesh Sync og Colmi-ringen oprettes på Android, hvor dataene indsamles og uploades til din FitMesh-konto. Når dataene først er på din konto, kan du dog få adgang til dem hvor som helst: FitMesh-appen til iPhone (iOS) og Apple Health-broen kommer snart."
+      "sv": "Bluetooth-anslutningen mellan FitMesh Sync och Colmi-ringen sker via Android, där data samlas in och laddas upp till ditt FitMesh-konto. När data väl finns på ditt konto kan du dock komma åt den var som helst: appen FitMesh för iPhone (iOS) finns nu på App Store, inklusive alla 27 EU-länder, med Apple Health-bryggan inkluderad.",
+      "da": "Bluetooth-forbindelsen mellem FitMesh Sync og Colmi-ringen oprettes på Android, hvor dataene indsamles og uploades til din FitMesh-konto. Når dataene først er på din konto, kan du dog få adgang til dem hvor som helst: FitMesh-appen til iPhone (iOS) findes nu på App Store, inklusive alle 27 EU-lande, med Apple Health-broen inkluderet."
     },
     "body.17.title": {
-      "sv": "Användning på iPhone (iOS-appen kommer snart)",
-      "da": "Brug på iPhone (iOS-app kommer snart)"
+      "sv": "Användning på iPhone (iOS-appen finns på App Store)",
+      "da": "Brug på iPhone (iOS-appen findes på App Store)"
     },
     "body.17.body": {
-      "sv": "Om du använder en iPhone ställer du in Colmi-ringen via FitMesh Sync på en Android-enhet (din egen eller en familjemedlems). Uppgifterna laddas upp till ditt FitMesh-konto och blir tillgängliga i iOS-appen så snart de finns tillgängliga. Dessutom gör den valfria Apple Health-bryggan att data från ring (sömn, hjärtfrekvens, SpO2) kan överföras direkt till Apples Hälso-app. iOS-appen FitMesh Sync finns ännu inte tillgänglig på App Store: anmäl dig till betaversionen för att vara bland de första som får tillgång till den.",
-      "da": "Hvis du bruger en iPhone, skal du konfigurere Colmi-ringen via FitMesh Sync på en Android-enhed (din egen eller et familiemedlems). Dataene overføres til din FitMesh-konto og vil være tilgængelige i iOS-appen, så snart de er klar. Derudover vil den valgfri Apple Health-bro sørge for, at ring-data (søvn, puls, SpO2) overføres direkte til Apples Health-app. FitMesh Sync iOS-appen er endnu ikke tilgængelig på App Store: Tilmeld dig betaversionen for at være blandt de første, der får adgang til den."
+      "sv": "Om du använder en iPhone ställer du in Colmi-ringen via FitMesh Sync på en Android-enhet (din egen eller en familjemedlems). Uppgifterna laddas upp till ditt FitMesh-konto och blir omedelbart tillgängliga i iOS-appen. Dessutom gör den valfria Apple Health-bryggan att data från ringen (sömn, hjärtfrekvens, SpO2) kan överföras direkt till Apples Hälso-app. iOS-appen FitMesh Sync finns nu på App Store, inklusive alla 27 EU-länder.",
+      "da": "Hvis du bruger en iPhone, skal du konfigurere Colmi-ringen via FitMesh Sync på en Android-enhed (din egen eller et familiemedlems). Dataene overføres til din FitMesh-konto og er straks tilgængelige i iOS-appen. Derudover sørger den valgfri Apple Health-bro for, at ring-data (søvn, puls, SpO2) overføres direkte til Apples Health-app. FitMesh Sync iOS-appen findes nu på App Store, inklusive alle 27 EU-lande."
     },
     "body.18.text": {
       "sv": "Att förstå uppgifterna i FitMesh-instrumentpanelen",
@@ -3230,8 +3230,8 @@
       "da": "Fungerer Colmi-ringen med iPhone?"
     },
     "faq.2.a": {
-      "sv": "Bluetooth-anslutningen mellan FitMesh Sync och Colmi-ringen kräver Android. När du väl har konfigurerat den på Android laddas dock data upp till ditt FitMesh-konto och kan visas på iPhone via FitMesh iOS-appen (kommer snart) och valfritt i Apple Health. Om du bara har en iPhone kan du anmäla dig till betaversionen: du kommer att få ett meddelande när iOS-appen lanseras.",
-      "da": "Bluetooth-forbindelsen mellem FitMesh Sync og Colmi-ringen kræver Android. Når den er konfigureret på Android, uploades dataene dog til din FitMesh-konto og kan ses på iPhone via FitMesh iOS-appen (kommer snart) og eventuelt i Apple Health. Hvis du kun har en iPhone, kan du tilmelde dig betaversionen: Du vil blive underrettet, når iOS-appen lanceres."
+      "sv": "Bluetooth-anslutningen mellan FitMesh Sync och Colmi-ringen kräver Android. När du väl har konfigurerat den på Android laddas dock data upp till ditt FitMesh-konto och kan visas på iPhone via FitMesh iOS-appen (finns på App Store, inklusive alla 27 EU-länder) och valfritt i Apple Health. Om du bara har en iPhone behöver du bara låna en Android-enhet för att para ihop ringen första gången.",
+      "da": "Bluetooth-forbindelsen mellem FitMesh Sync og Colmi-ringen kræver Android. Når den er konfigureret på Android, uploades dataene dog til din FitMesh-konto og kan ses på iPhone via FitMesh iOS-appen (findes på App Store, inklusive alle 27 EU-lande) og eventuelt i Apple Health. Hvis du kun har en iPhone, skal du blot låne en Android-enhed til ringens første parring."
     },
     "faq.3.q": {
       "sv": "Hur mycket historiska data laddas ner vid den första parkopplingen?",
@@ -3264,14 +3264,14 @@
         "Sätt på dig Colmi-ringen på ringfingret eller långfingret på din icke-dominanta hand, med sensorn vänd mot handflatan.",
         "Batteriet håller i 5–7 dagar; ladda det med den magnetiska skivan ansluten till valfri vanlig USB-adapter.",
         "Det tar 6 steg att ansluta till FitMesh Sync på Android och det krävs ingen app från tillverkaren.",
-        "När du har konfigurerat det kan du även se dina FitMesh-kontouppgifter på iPhone (iOS-appen kommer snart) och de kan överföras till Apple Health.",
+        "När du har konfigurerat det kan du även se dina FitMesh-kontouppgifter på iPhone (iOS-appen finns på App Store) och de kan överföras till Apple Health.",
         "Data från natten (HRV, SpO2, sömnfaser) hämtas automatiskt varje morgon efter den första synkroniseringen."
       ],
       "da": [
         "Bær Colmi-ringen på ringfingeren eller langfingeren på din ikke-dominerende hånd, så sensoren vender mod din håndflade.",
         "Batteriet holder i 5–7 dage; oplad det ved at tilslutte den magnetiske skive til en hvilken som helst standard USB-adapter.",
         "Det tager 6 trin at oprette forbindelse til FitMesh Sync på Android, og der kræves ingen app fra producenten.",
-        "Når opsætningen er færdig, kan dine FitMesh-kontodata også ses på iPhone (iOS-appen kommer snart) og kan overføres til Apple Health.",
+        "Når opsætningen er færdig, kan dine FitMesh-kontodata også ses på iPhone (iOS-appen findes på App Store) og kan overføres til Apple Health.",
         "Data fra natten (HRV, SpO2, søvnfaser) hentes automatisk hver morgen efter den første synkronisering."
       ]
     },
@@ -3880,24 +3880,24 @@
       "da": "Når man skal dele specifikke data med en læge, har Apple Health en indbygget funktion, der er enklere end den fulde XML-eksport:"
     },
     "body.11.text": {
-      "sv": "Metod 3: Webbpanelen – det smidigaste sättet (kommer snart till iOS)",
-      "da": "Metode 3: Web-dashboard – den mest praktiske måde (kommer snart til iOS)"
+      "sv": "Metod 3: Webbpanelen – det smidigaste sättet (nu även på iOS)",
+      "da": "Metode 3: Web-dashboard – den mest praktiske måde (nu også på iOS)"
     },
     "body.12.text": {
       "sv": "Det smidigaste alternativet (att ha Apple Health data på en webbpanel som är tillgänglig från vilken webbläsare som helst, utan att behöva exportera data manuellt varje gång) kräver en app som läser in Apple Health och synkroniserar den till molnet.",
       "da": "Den mest praktiske løsning (hvor man har Apple Health data på et webbaseret dashboard, der kan tilgås fra enhver browser, uden at man hver gang skal eksportere dataene manuelt) kræver en app, der læser Apple Health og synkroniserer det med skyen."
     },
     "body.13.text": {
-      "sv": "FitMesh Sync kommer snart till iPhone: TestFlight-betaversionen är aktiv och lanseringen av App Store står för dörren. iPhone-appen läser in data från Apple Health (HealthKit), synkroniserar den automatiskt och visar den på samma webbpanel som redan används för Android. Extra funktion: skrivbryggan (opt-in) överför data från Android-wearables direkt till Apple Health, vilket är praktiskt om du har både en Android-enhet och en iPhone.",
-      "da": "FitMesh Sync er på vej til iPhone: TestFlight-betaversionen er aktiv, og lanceringen af App Store står for døren. iPhone-appen læser data fra Apple Health (HealthKit), synkroniserer dem automatisk og viser dem på det samme web-dashboard, som allerede bruges til Android. Ekstra funktion: Write Bridge (tilvalg) overfører data fra Android-wearables direkte til Apple Health, hvilket er nyttigt, hvis du har både en Android-enhed og en iPhone."
+      "sv": "FitMesh Sync för iPhone är live på App Store, inklusive alla 27 EU-länder. iPhone-appen läser in data från Apple Health (HealthKit), synkroniserar den automatiskt och visar den på samma webbpanel som redan används för Android. Extra funktion: skrivbryggan (opt-in) överför data från Android-wearables direkt till Apple Health, vilket är praktiskt om du har både en Android-enhet och en iPhone.",
+      "da": "FitMesh Sync til iPhone er live på App Store, inklusive alle 27 EU-lande. iPhone-appen læser data fra Apple Health (HealthKit), synkroniserer dem automatisk og viser dem på det samme web-dashboard, som allerede bruges til Android. Ekstra funktion: Write Bridge (tilvalg) overfører data fra Android-wearables direkte til Apple Health, hvilket er nyttigt, hvis du har både en Android-enhed og en iPhone."
     },
     "body.14.title": {
       "sv": "Om du har både en iPhone och en Android-enhet",
       "da": "Hvis du har både en iPhone og en Android-telefon"
     },
     "body.14.body": {
-      "sv": "Många användare har en iPhone men en Android-baserad bärbar enhet (t.ex. Galaxy Watch eller en smart ring). Med FitMesh Sync Android kan du redan synkronisera dessa data till webben. iOS-versionen (för närvarande i betaversion, App Store kommer snart) lägger dessutom till en valfri skrivbro: data från Android-wearables skrivs direkt in i Apple Health, så att du kan se den i Hälso-appen på iPhone utan att behöva exportera den manuellt.",
-      "da": "Mange brugere har en iPhone, men et Android-wearable (f.eks. Galaxy Watch eller en smartring). Med FitMesh Sync Android kan du allerede synkronisere disse data til nettet. iOS-versionen (i beta nu, App Store kommer snart) tilføjer også en valgfri skrivebro: Data fra Android-wearables skrives direkte ind i Apple Health, så du kan se dem i iPhone-appen Sundhed uden at skulle eksportere dem manuelt."
+      "sv": "Många användare har en iPhone men en Android-baserad bärbar enhet (t.ex. Galaxy Watch eller en smart ring). Med FitMesh Sync Android kan du redan synkronisera dessa data till webben. iOS-versionen (nu live på App Store) lägger dessutom till en valfri skrivbro: data från Android-wearables skrivs direkt in i Apple Health, så att du kan se den i Hälso-appen på iPhone utan att behöva exportera den manuellt.",
+      "da": "Mange brugere har en iPhone, men et Android-wearable (f.eks. Galaxy Watch eller en smartring). Med FitMesh Sync Android kan du allerede synkronisere disse data til nettet. iOS-versionen (nu live på App Store) tilføjer også en valgfri skrivebro: Data fra Android-wearables skrives direkte ind i Apple Health, så du kan se dem i iPhone-appen Sundhed uden at skulle eksportere dem manuelt."
     },
     "body.15.title": {
       "sv": "Varför du bör exportera dina data nu, och inte först när du slutar använda Apple Watch",
@@ -3916,16 +3916,16 @@
       "da": "Sammenfattende"
     },
     "body.20.title": {
-      "sv": "Webbpanel för iPhone: anmäl dig till väntelistan för iOS",
-      "da": "Web-dashboard til iPhone: Tilmeld dig ventelisten til iOS"
+      "sv": "Webbpanel för iPhone: ladda ner FitMesh Sync på App Store",
+      "da": "Web-dashboard til iPhone: Download FitMesh Sync på App Store"
     },
     "body.20.body": {
-      "sv": "FitMesh Sync finns i TestFlight-betaversionen för iPhone, App Store lanseras inom kort. Appen läser in data från Apple Health och synkroniserar dem automatiskt till webben, utan att man behöver exportera dem manuellt. Gå med i den kostnadsfria betaversionen och bli en av de första att testa den. Bonus: skrivbryggan (opt-in) överför även data från Android-wearables till Apple Health.",
-      "da": "FitMesh Sync er i TestFlight-betaversion på iPhone, App Store lanceres snart. Appen henter data fra Apple Health og synkroniserer dem automatisk til nettet, så der er ikke behov for manuel eksport. Tilmeld dig den gratis betaversion, og vær blandt de første til at prøve den. Bonus: Write Bridge (tilvalg) overfører også data fra Android-wearables til Apple Health."
+      "sv": "FitMesh Sync finns nu på App Store för iPhone, inklusive alla 27 EU-länder. Appen läser in data från Apple Health och synkroniserar dem automatiskt till webben, utan att man behöver exportera dem manuellt. Ladda ner den gratis och prova den redan idag. Bonus: skrivbryggan (opt-in) överför även data från Android-wearables till Apple Health.",
+      "da": "FitMesh Sync findes nu på App Store til iPhone, inklusive alle 27 EU-lande. Appen henter data fra Apple Health og synkroniserer dem automatisk til nettet, så der er ikke behov for manuel eksport. Download den gratis, og prøv den allerede i dag. Bonus: Write Bridge (tilvalg) overfører også data fra Android-wearables til Apple Health."
     },
     "body.20.ctaLabel": {
-      "sv": "Gå med i iOS-betaprogrammet →",
-      "da": "Tilmeld dig iOS-betaversionen →"
+      "sv": "Ladda ner i App Store →",
+      "da": "Download i App Store →"
     },
     "faq.0.q": {
       "sv": "Är Apple Health säkert ur integritetssynpunkt vid export?",
@@ -3983,14 +3983,14 @@
         "För att läsa XML-filen på en dator krävs ytterligare verktyg: Python-skript med öppen källkod eller Apple Shortcuts för specifika mätvärden.",
         "Om du vill dela specifika uppgifter med en läkare kan du använda exportfunktionen för enskilda mått direkt från diagrammet i Health: den genererar en överskådlig CSV-fil.",
         "XML-filen är okrypterad: behandla den som ett känsligt medicinskt dokument och ladda inte upp den till offentliga molntjänster.",
-        "Det smidigaste sättet är en webbaserad kontrollpanel utan manuella exportar: det krävs en app som läser in data från HealthKit och synkroniserar i bakgrunden. FitMesh iOS-versionen finns i betaversion på TestFlight, App Store lanseringen är nära förestående."
+        "Det smidigaste sättet är en webbaserad kontrollpanel utan manuella exportar: det krävs en app som läser in data från HealthKit och synkroniserar i bakgrunden. FitMesh iOS-versionen är live på App Store, inklusive alla 27 EU-länder."
       ],
       "da": [
         "Den mest omfattende metode er den indbyggede XML-eksport (Sundhed → profil → Eksporter alle sundhedsdata): Den indeholder alle poster, men filen kan blive op til 2 GB stor og kan ikke læses direkte.",
         "For at kunne læse XML-filer på en pc kræves der yderligere værktøjer: open source-Python-scripts eller Apple Shortcuts til bestemte målinger.",
         "Hvis du vil dele specifikke data med en læge, kan du bruge eksportfunktionen for de enkelte målinger direkte fra diagrammet i Health: den genererer en overskuelig CSV-fil.",
         "XML-filen er ukrypteret: Behandl den som et fortroligt medicinsk dokument, og undlad at uploade den til offentlige cloudtjenester.",
-        "Den mest praktiske løsning er et webbaseret kontrolpanel uden manuelle eksportfunktioner: Det kræver en app, der henter data fra HealthKit og synkroniserer i baggrunden. FitMesh iOS-versionen er i betafasen på TestFlight, App Store og lanceringen er lige om hjørnet."
+        "Den mest praktiske løsning er et webbaseret kontrolpanel uden manuelle eksportfunktioner: Det kræver en app, der henter data fra HealthKit og synkroniserer i baggrunden. FitMesh iOS-versionen er live på App Store, inklusive alle 27 EU-lande."
       ]
     },
     "body.3.items": {
@@ -4071,14 +4071,14 @@
         "För att läsa XML-filen på en dator krävs ytterligare verktyg: Python-skript med öppen källkod på GitHub eller Apple Shortcuts för specifika mätvärden.",
         "Om du vill dela specifika uppgifter med en läkare kan du använda exportfunktionen för enskilda mätvärden direkt från diagrammet i Health: det genererar en ren CSV-fil.",
         "XML-filen är okrypterad: behandla den som ett känsligt medicinskt dokument och ladda inte upp den till offentliga molntjänster.",
-        "Det smidigaste sättet (webbpanel utan manuella export) kräver en app som läser in data från HealthKit och synkroniserar i bakgrunden: FitMesh iOS-versionen finns i TestFlight-betaversion, App Store lanseringen är nära förestående."
+        "Det smidigaste sättet (webbpanel utan manuella export) kräver en app som läser in data från HealthKit och synkroniserar i bakgrunden: FitMesh iOS-versionen är live på App Store, inklusive alla 27 EU-länder."
       ],
       "da": [
         "Den mest omfattende metode er den indbyggede XML-eksport (Sundhed → profil → Eksporter alle sundhedsdata): Den indeholder alle poster med tidsstempler, men filen kan blive på 2 GB og kan ikke læses direkte.",
         "For at kunne læse XML-filer på en pc kræves der yderligere værktøjer: open source-Python-scripts på GitHub eller Apple Shortcuts til bestemte målinger.",
         "Hvis du vil dele specifikke data med en læge, skal du bruge eksportfunktionen for de enkelte målinger direkte fra diagrammet i Health: det genererer en overskuelig CSV-fil.",
         "XML-filen er ukrypteret: Behandl den som et fortroligt medicinsk dokument, og undlad at uploade den til offentlige cloud-tjenester.",
-        "Den mest praktiske løsning (webdashboard uden manuelle eksportfunktioner) kræver en app, der læser data fra HealthKit og synkroniserer i baggrunden: FitMesh iOS-versionen er i TestFlight-betafasen, App Store lanceringen er lige om hjørnet."
+        "Den mest praktiske løsning (webdashboard uden manuelle eksportfunktioner) kræver en app, der læser data fra HealthKit og synkroniserer i baggrunden: FitMesh iOS-versionen er live på App Store, inklusive alle 27 EU-lande."
       ]
     }
   },
@@ -6106,28 +6106,28 @@
       "da": "FitMesh Sync er nu på App Store"
     },
     "hero.subtitle": {
-      "sv": "iOS-appen är nu officiellt tillgänglig: ladda ner den gratis (med köp i appen), logga in med samma Android-konto och importera data från dina Android-bärbara enheter till Apple Health. Tillgänglig i större delen av världen; lanseras i EU under de kommande dagarna.",
-      "da": "iOS-appen er nu officielt tilgængelig: Download den gratis (med køb i appen), log ind med den samme Android-konto, og overfør dine data fra dit Android-wearable til Apple Health. Tilgængelig i det meste af verden; lanceres i hele EU i løbet af de kommende dage."
+      "sv": "iOS-appen är nu officiellt tillgänglig: ladda ner den gratis (med köp i appen), logga in med samma Android-konto och importera data från dina Android-bärbara enheter till Apple Health. Tillgänglig i alla länder som stöds, inklusive samtliga 27 EU-länder.",
+      "da": "iOS-appen er nu officielt tilgængelig: Download den gratis (med køb i appen), log ind med den samme Android-konto, og overfør dine data fra dit Android-wearable til Apple Health. Tilgængelig i alle understøttede lande, inklusive alle 27 EU-lande."
     },
     "metaDescription": {
-      "sv": "FitMesh Sync finns nu på App Store, gratis med köp i appen. Ett konto för Android och iPhone, Apple Health skrivbro, EU/GDPR molntjänst. Tillgängligt i större delen av världen; lanseras i EU inom några dagar.",
-      "da": "FitMesh Sync er nu tilgængelig på App Store, gratis med køb i appen. Én konto til Android og iPhone, Apple Health skrivebro, EU/GDPR cloud. Tilgængelig i det meste af verden; lancering i EU inden for få dage."
+      "sv": "FitMesh Sync finns nu på App Store, gratis med köp i appen. Ett konto för Android och iPhone, Apple Health skrivbro, EU/GDPR molntjänst. Live i alla länder som stöds, inklusive EU.",
+      "da": "FitMesh Sync er nu tilgængelig på App Store, gratis med køb i appen. Én konto til Android og iPhone, Apple Health skrivebro, EU/GDPR cloud. Live i alle understøttede lande, inklusive EU."
     },
     "primaryKeyword": {
       "sv": "Fitmesh Sync App Store",
       "da": "Fitmesh Sync App Store"
     },
     "body.0.text": {
-      "sv": "Nu är vi här: FitMesh Sync finns nu på App Store. iOS-versionen innehåller allt du redan känner till från Android-appen – ett konto, en samlad översiktssida, molnsynkronisering inom EU – och lägger till det som iPhone-användarna saknade: skrivfunktionen till Apple Health. Appen är gratis med köp i appen (Pro-livstidslicens för 4,99 € på iPhone) och kan laddas ner i större delen av världen; i de 27 EU-länderna pågår lanseringen och appen kommer att finnas tillgänglig inom de närmaste dagarna.",
-      "da": "Så er vi her: FitMesh Sync er nu på App Store. iOS-versionen indeholder alt det, du allerede kender fra Android-appen — én konto, et samlet kontrolpanel, EU-skysynkronisering — og tilføjer det, som iPhone-brugere har savnet: skriveadgangen til Apple Health. Appen er gratis med køb i appen (Pro-livstidsabonnement til 4,99 € på iPhone) og kan downloades i det meste af verden; i de 27 EU-lande er udrulningen i gang og vil være tilgængelig i løbet af de kommende dage."
+      "sv": "Nu är vi här: FitMesh Sync finns nu på App Store. iOS-versionen innehåller allt du redan känner till från Android-appen – ett konto, en samlad översiktssida, molnsynkronisering inom EU – och lägger till det som iPhone-användarna saknade: skrivfunktionen till Apple Health. Appen är gratis med köp i appen (Pro-livstidslicens för 4,99 € på iPhone) och kan laddas ner i alla länder som stöds, inklusive samtliga 27 EU-länder.",
+      "da": "Så er vi her: FitMesh Sync er nu på App Store. iOS-versionen indeholder alt det, du allerede kender fra Android-appen — én konto, et samlet kontrolpanel, EU-skysynkronisering — og tilføjer det, som iPhone-brugere har savnet: skriveadgangen til Apple Health. Appen er gratis med køb i appen (Pro-livstidsabonnement til 4,99 € på iPhone) og kan downloades i alle understøttede lande, inklusive alle 27 EU-lande."
     },
     "body.1.title": {
       "sv": "Nu på App Store",
       "da": "Nu på App Store"
     },
     "body.1.body": {
-      "sv": "FitMesh Sync finns nu tillgängligt på App Store, gratis med köp i appen. Tjänsten är tillgänglig i större delen av världen; lanseringen i EU sker inom de närmaste dagarna.",
-      "da": "FitMesh Sync er nu tilgængeligt på App Store, gratis med køb i appen. Tjenesten er tilgængelig i det meste af verden; i EU lanceres den i løbet af de kommende dage."
+      "sv": "FitMesh Sync finns nu tillgängligt på App Store, gratis med köp i appen. Tjänsten är live i alla länder som stöds, inklusive EU.",
+      "da": "FitMesh Sync er nu tilgængeligt på App Store, gratis med køb i appen. Tjenesten er live i alle understøttede lande, inklusive EU."
     },
     "body.1.ctaLabel": {
       "sv": "Visa på App Store →",
@@ -6142,8 +6142,8 @@
       "da": "En bemærkning om EU"
     },
     "body.4.body": {
-      "sv": "Just nu är appen tillgänglig i större delen av världen, men ännu inte i de 27 EU-länderna: Lanseringen i EU väntar på att Apple ska verifiera vår status som handlare enligt DSA och kommer att ske inom de närmaste dagarna. Om du befinner dig i EU och inte ser appen än, kan du kolla igen om några dagar.",
-      "da": "Appen er i øjeblikket tilgængelig i det meste af verden, men endnu ikke i de 27 EU-lande: Lanceringen i EU afventer Apples verifikation af vores status som forhandler i henhold til DSA og vil blive rullet ud i løbet af de kommende dage. Hvis du befinder dig i EU og ikke kan se appen endnu, kan du prøve igen om et par dage."
+      "sv": "Appen är live i alla länder som stöds, inklusive samtliga 27 EU-länder (verifierat 2026-07-13).",
+      "da": "Appen er live i alle understøttede lande, inklusive alle 27 EU-lande (verificeret 13-07-2026)."
     },
     "secondaryKeywords": {
       "sv": [
@@ -7216,8 +7216,8 @@
       "da": "iPhone-versionen kommer om et par dage"
     },
     "body.9.text": {
-      "sv": "Vi håller på att slutföra de sista stegen för att lansera FitMesh Sync även på iPhone: iOS-versionen kommer inom några dagar. Om du vill få ett meddelande så snart den släpps kan du läsa mer om det här: [FitMesh Sync kommer till iPhone](/en/blog/fitmesh-arriva-su-iphone).",
-      "da": "Vi er ved at lægge sidste hånd på arbejdet med at bringe FitMesh Sync til iPhone: iOS-versionen kommer inden for få dage. Hvis du vil have besked, så snart den er ude, kan du læse mere her: [FitMesh Sync kommer til iPhone](/en/blog/fitmesh-arriva-su-iphone)."
+      "sv": "FitMesh Sync finns nu även på iPhone: iOS-versionen är live på App Store, inklusive alla 27 EU-länder. Läs mer om lanseringen här: [FitMesh Sync kommer till iPhone](/en/blog/fitmesh-arriva-su-iphone).",
+      "da": "FitMesh Sync findes nu også til iPhone: iOS-versionen er live på App Store, inklusive alle 27 EU-lande. Læs mere om lanceringen her: [FitMesh Sync kommer til iPhone](/en/blog/fitmesh-arriva-su-iphone)."
     },
     "body.10.title": {
       "sv": "Ladda ner den nu på Google Play",
@@ -7364,8 +7364,8 @@
       "da": "Integration og kompatibilitet"
     },
     "body.11.body": {
-      "sv": "Colmi-ringen ansluts via Bluetooth på Android. Med ett enda FitMesh Sync-konto kan du även komma åt dina data på iPhone (iOS-appen lanseras inom kort) och överföra dem till Apple Health via en valfri brygga. För mer information om integrationen, läs den [fullständiga Colmi ring-guiden](/en/blog/colmi-ring-fitmesh).",
-      "da": "Colmi-ringen opretter forbindelse via Bluetooth på Android. Med en enkelt FitMesh Sync-konto kan du også få adgang til dine data på iPhone (iOS-appen kommer meget snart) og overføre dem til Apple Health via en valgfri bro. Læs [den fulde Colmi ring-vejledning](/en/blog/colmi-ring-fitmesh) for detaljer om integrationen."
+      "sv": "Colmi-ringen ansluts via Bluetooth på Android. Med ett enda FitMesh Sync-konto kan du även komma åt dina data på iPhone (iOS-appen finns på App Store) och överföra dem till Apple Health via en valfri brygga. För mer information om integrationen, läs den [fullständiga Colmi ring-guiden](/en/blog/colmi-ring-fitmesh).",
+      "da": "Colmi-ringen opretter forbindelse via Bluetooth på Android. Med en enkelt FitMesh Sync-konto kan du også få adgang til dine data på iPhone (iOS-appen findes på App Store) og overføre dem til Apple Health via en valgfri bro. Læs [den fulde Colmi ring-vejledning](/en/blog/colmi-ring-fitmesh) for detaljer om integrationen."
     },
     "body.12.text": {
       "sv": "Behöver man verkligen både en smartring och en smartklocka?",
@@ -7734,16 +7734,16 @@
       "da": "Kompatibilitet med iOS og Android: Sådan fungerer det"
     },
     "body.16.text": {
-      "sv": "En budgetring som Colmi R02 avläses via Bluetooth på Android: FitMesh ansluter direkt till enheten, hämtar data och visar den i instrumentpanelen. Med ett FitMesh-konto är all synkroniserad data även tillgänglig på iPhone via FitMesh Sync iOS-appen, som snart kommer (lansering inom kort). En valfri Apple Health-brygga finns också tillgänglig för användare som vill se data i Apples ekosystem.",
-      "da": "Et budgetur som Colmi R02 aflæses via Bluetooth på Android: FitMesh opretter direkte forbindelse til enheden, henter data og viser dem i kontrolpanelet. Med en FitMesh-konto er alle synkroniserede data også tilgængelige på iPhone via FitMesh Sync iOS-appen, som snart kommer (lancering forventes inden for kort tid). En valgfri Apple Health-bro er også tilgængelig for brugere, der ønsker at se data i Apple-økosystemet."
+      "sv": "En budgetring som Colmi R02 avläses via Bluetooth på Android: FitMesh ansluter direkt till enheten, hämtar data och visar den i instrumentpanelen. Med ett FitMesh-konto är all synkroniserad data även tillgänglig på iPhone via FitMesh Sync iOS-appen, som finns på App Store. En valfri Apple Health-brygga finns också tillgänglig för användare som vill se data i Apples ekosystem.",
+      "da": "Et budgetur som Colmi R02 aflæses via Bluetooth på Android: FitMesh opretter direkte forbindelse til enheden, henter data og viser dem i kontrolpanelet. Med en FitMesh-konto er alle synkroniserede data også tilgængelige på iPhone via FitMesh Sync iOS-appen, som findes på App Store. En valgfri Apple Health-bro er også tilgængelig for brugere, der ønsker at se data i Apple-økosystemet."
     },
     "body.17.title": {
-      "sv": "iOS-app: kommer snart",
-      "da": "iOS-app: kommer snart"
+      "sv": "iOS-app: tillgänglig på App Store",
+      "da": "iOS-app: tilgængelig på App Store"
     },
     "body.17.body": {
-      "sv": "Den direkta Bluetooth-anslutningen till ringen sker via Android. Appen FitMesh Sync för iOS kommer snart: när den är tillgänglig kommer dina ringdata att visas även på iPhone, med en valfri Apple Health-brygga. Den är ännu inte tillgänglig på App Store.",
-      "da": "Den direkte Bluetooth-forbindelse til ringen oprettes via Android. FitMesh Sync-appen til iOS kommer snart: Når den er tilgængelig, vil dine ringdata også kunne ses på iPhone ved hjælp af en valgfri Apple Health-bro. Den er endnu ikke tilgængelig på App Store."
+      "sv": "Den direkta Bluetooth-anslutningen till ringen sker via Android. Appen FitMesh Sync för iOS finns på App Store: dina ringdata visas även på iPhone, med en valfri Apple Health-brygga.",
+      "da": "Den direkte Bluetooth-forbindelse til ringen oprettes via Android. FitMesh Sync-appen til iOS findes på App Store: dine ringdata kan også ses på iPhone ved hjælp af en valgfri Apple Health-bro."
     },
     "body.18.text": {
       "sv": "Hur FitMesh förvandlar vilken budgetring som helst till ett verkligt användbart verktyg",
@@ -7826,14 +7826,14 @@
         "Under 35 euro, Colmi R02/R03 och kompatibla OEM-kloner mäter kontinuerlig puls, SpO2, HRV och sömn: hårdvaran är inte längre flaskhalsen.",
         "Den verkliga begränsningen för budgetringar har alltid varit mjukvaran: slutna tillhörande appar, ingen integration, isolerade data.",
         "FitMesh ansluts direkt via Bluetooth till Colmi R02/R03 utan någon tillverkarsapp och samordnar data med din smartklocka.",
-        "På Android sker anslutningen direkt; med ett FitMesh-konto är data tillgängliga även på iPhone (iOS-appen kommer snart), med en valfri Apple Health-brygga.",
+        "På Android sker anslutningen direkt; med ett FitMesh-konto är data tillgängliga även på iPhone (iOS-appen finns på App Store), med en valfri Apple Health-brygga.",
         "Innan du köper: kontrollera FitMesh kompatibiliteten på integrationssidan för att få ut mesta möjliga av ditt köp."
       ],
       "da": [
         "Under 35 €, Colmi R02/R03 og kompatible OEM-kloner måler kontinuerlig puls, SpO2, HRV og søvn: hardware er ikke længere flaskehalsen.",
         "Den egentlige begrænsning ved budgetringe har altid været softwaren: lukkede ledsagerapps, manglende integration og isolerede data.",
         "FitMesh opretter direkte forbindelse via Bluetooth til Colmi R02/R03 uden brug af en app fra producenten og samler dataene sammen med dit smartwatch.",
-        "På Android er forbindelsen direkte; med en FitMesh-konto er dataene også tilgængelige på iPhone (iOS-appen kommer snart), med en valgfri Apple Health-bro.",
+        "På Android er forbindelsen direkte; med en FitMesh-konto er dataene også tilgængelige på iPhone (iOS-appen findes på App Store), med en valgfri Apple Health-bro.",
         "Før du køber: Tjek FitMesh-kompatibiliteten på integrationssiden for at få mest muligt ud af dit køb."
       ]
     },
@@ -8018,8 +8018,8 @@
       "da": "Løsningen: en hub, der kommunikerer med alt"
     },
     "body.6.text": {
-      "sv": "FitMesh ligger i mitten. Den hämtar data från Health Connect (Galaxy Watch, Pixel Watch, Fitbit och alla kompatibla bärbara enheter), från molntjänstleverantörer som Garmin och Suunto, samt direkt via Bluetooth från smarta ringar som Colmi R02/R03. Allt samlas i **en enda översiktssida**, som är tillgänglig från samma konto på [både Android och iPhone](/en/lp/due-telefoni) (iOS-appen kommer snart, lanseringen är nära förestående).",
-      "da": "FitMesh sidder i midten. Den henter data fra Health Connect (Galaxy Watch, Pixel Watch, Fitbit og alle kompatible wearables), fra cloududbydere som Garmin og Suunto samt direkte via Bluetooth fra smartringe som f.eks. Colmi R02/R03. Alt samles i **ét enkelt dashboard**, som du kan få adgang til fra den samme konto på [både Android og iPhone](/en/lp/due-telefoni) (iOS-appen kommer snart, lanceringen er lige om hjørnet)."
+      "sv": "FitMesh ligger i mitten. Den hämtar data från Health Connect (Galaxy Watch, Pixel Watch, Fitbit och alla kompatibla bärbara enheter), från molntjänstleverantörer som Garmin och Suunto, samt direkt via Bluetooth från smarta ringar som Colmi R02/R03. Allt samlas i **en enda översiktssida**, som är tillgänglig från samma konto på [både Android och iPhone](/en/lp/due-telefoni) (iOS-appen finns på App Store, inklusive alla 27 EU-länder).",
+      "da": "FitMesh sidder i midten. Den henter data fra Health Connect (Galaxy Watch, Pixel Watch, Fitbit og alle kompatible wearables), fra cloududbydere som Garmin og Suunto samt direkte via Bluetooth fra smartringe som f.eks. Colmi R02/R03. Alt samles i **ét enkelt dashboard**, som du kan få adgang til fra den samme konto på [både Android og iPhone](/en/lp/due-telefoni) (iOS-appen findes på App Store, inklusive alle 27 EU-lande)."
     },
     "body.7.caption": {
       "sv": "Varje enhetstyp fyller en specifik funktion: FitMesh sammanför dem alla",
@@ -8062,8 +8062,8 @@
       "da": "Én konto, Android og iPhone"
     },
     "body.17.text": {
-      "sv": "FitMesh Sync finns tillgängligt på Android med Health Connect integrerat. iPhone-appen lanseras inom kort: med samma konto kommer du att kunna se din översiktssida på båda telefonerna, med en valfri koppling till Apple Health för dem som även vill föra in data i Apples ekosystem. [Android och iPhone tillsammans](/en/lp/due-telefoni): ett konto, en hälsohistorik.",
-      "da": "FitMesh Sync er tilgængelig på Android med Health Connect integreret. iPhone-appen lanceres snart: Med den samme konto vil du kunne se dit kontrolpanel på begge telefoner, med en valgfri forbindelse til Apple Health for dem, der også ønsker at overføre data til Apples økosystem. [Android og iPhone sammen](/en/lp/due-telefoni): én konto, én sundhedshistorik."
+      "sv": "FitMesh Sync finns tillgängligt på Android med Health Connect integrerat, och iPhone-appen finns redan på App Store, inklusive alla 27 EU-länder: med samma konto kan du se din översiktssida på båda telefonerna, med en valfri koppling till Apple Health för dem som även vill föra in data i Apples ekosystem. [Android och iPhone tillsammans](/en/lp/due-telefoni): ett konto, en hälsohistorik.",
+      "da": "FitMesh Sync er tilgængelig på Android med Health Connect integreret, og iPhone-appen findes allerede på App Store, inklusive alle 27 EU-lande: Med den samme konto kan du se dit kontrolpanel på begge telefoner, med en valgfri forbindelse til Apple Health for dem, der også ønsker at overføre data til Apples økosystem. [Android og iPhone sammen](/en/lp/due-telefoni): én konto, én sundhedshistorik."
     },
     "body.18.text": {
       "sv": "Integritet: dina uppgifter förblir dina",
@@ -8106,8 +8106,8 @@
       "da": "Fungerer FitMesh også på iPhone?"
     },
     "faq.2.a": {
-      "sv": "iOS-appen lanseras inom kort. Med samma FitMesh-konto kommer du att kunna komma åt din kontrollpanel på både Android och iPhone, med en valfri koppling till Apple Health. Anmäl dig till betaversionen för att vara bland de första som får tillgång till den.",
-      "da": "iOS-appen lanceres snart. Med den samme FitMesh-konto kan du få adgang til dit kontrolpanel på både Android og iPhone, med en valgfri forbindelse til Apple Health. Tilmeld dig betaversionen for at være blandt de første, der får adgang til den."
+      "sv": "Ja. iOS-appen finns redan på App Store, inklusive alla 27 EU-länder. Med samma FitMesh-konto kan du komma åt din kontrollpanel på både Android och iPhone, med en valfri koppling till Apple Health.",
+      "da": "Ja. iOS-appen findes allerede på App Store, inklusive alle 27 EU-lande. Med den samme FitMesh-konto kan du få adgang til dit kontrolpanel på både Android og iPhone, med en valgfri forbindelse til Apple Health."
     },
     "secondaryKeywords": {
       "sv": [
@@ -8132,14 +8132,14 @@
     "tldr": {
       "sv": [
         "Dina bärbara enheter använder olika ekosystem: FitMesh sammanför dem i en enda översiktspanel utan att du tvingas välja en enda enhet.",
-        "Ett FitMesh-konto fungerar på Android och iPhone (iOS kommer snart), med en valfri Apple Health-brygga.",
+        "Ett FitMesh-konto fungerar på Android och iPhone (iOS finns på App Store), med en valfri Apple Health-brygga.",
         "Smart fusion: För varje mått och varje tidsfönster väljs den bästa källan, aldrig summan av två.",
         "Ju fler enheter du ansluter, desto mer komplett blir din översiktssida: varje enhet fyller i de delar som tidigare var tomma.",
         "Uppgifterna lagras på europeiska servrar, delas aldrig med tredje part och uppfyller kraven till fullo GDPR."
       ],
       "da": [
         "Dine wearables bruger forskellige platforme: FitMesh samler dem i ét samlet overblik, uden at du er nødt til at vælge en bestemt enhed.",
-        "Én FitMesh-konto fungerer på Android og iPhone (iOS kommer snart), med valgfri Apple Health-bro.",
+        "Én FitMesh-konto fungerer på Android og iPhone (iOS findes på App Store), med valgfri Apple Health-bro.",
         "Smart fusion: For hver måleværdi og hvert tidsvindue vælges den bedste kilde – aldrig summen af to.",
         "Jo flere enheder du tilslutter, desto mere komplet bliver dit kontrolpanel: Hver enhed udfylder de sektioner, der før var tomme.",
         "Data opbevares på europæiske servere, deles aldrig med tredjeparter, fuld GDPR overholdelse."
@@ -8854,32 +8854,32 @@
       "da": "Meddelelse"
     },
     "hero.title": {
-      "sv": "FitMesh Sync lanseras för iPhone",
-      "da": "FitMesh Sync kommer til iPhone"
+      "sv": "FitMesh Sync finns nu på iPhone",
+      "da": "FitMesh Sync er nu på iPhone"
     },
     "hero.subtitle": {
-      "sv": "Efter flera månaders utveckling är iOS-appen nu tillgänglig på App Store i större delen av världen (i EU lanseras den inom de närmaste dagarna). Ett enda konto för både Android och iPhone. Och en ny funktion: data från dina Android-bärbara enheter sparas direkt i Apple Health.",
-      "da": "Efter flere måneders udvikling er iOS-appen nu tilgængelig på App Store i det meste af verden (i EU lanceres den i løbet af de kommende dage). Én konto til både Android og iPhone. Og en ny funktion: data fra dit Android-wearable overføres direkte til Apple Health."
+      "sv": "Efter flera månaders utveckling är iOS-appen nu live på App Store i alla länder som stöds, inklusive samtliga 27 EU-länder. Ett enda konto för både Android och iPhone. Och en ny funktion: data från dina Android-bärbara enheter sparas direkt i Apple Health.",
+      "da": "Efter flere måneders udvikling er iOS-appen nu live på App Store i alle understøttede lande, inklusive alle 27 EU-lande. Én konto til både Android og iPhone. Og en ny funktion: data fra dit Android-wearable overføres direkte til Apple Health."
     },
     "metaDescription": {
-      "sv": "FitMesh Sync finns nu på App Store: tillgängligt i större delen av världen, lanseras inom EU inom några dagar. Ett enda konto för både Android och iPhone. Huvudfunktion: Apple Health skrivbro för data från dina Android-bärbara enheter.",
-      "da": "FitMesh Sync er nu tilgængelig på App Store: live i det meste af verden, og lanceringen i EU sker inden for få dage. Én konto til både Android og iPhone. Hovedfunktion: Apple Health-synkroniseringsbro til data fra dit Android-wearable."
+      "sv": "FitMesh Sync finns nu på App Store: live i alla länder som stöds, inklusive EU. Ett enda konto för både Android och iPhone. Huvudfunktion: Apple Health skrivbro för data från dina Android-bärbara enheter.",
+      "da": "FitMesh Sync er nu tilgængelig på App Store: live i alle understøttede lande, inklusive EU. Én konto til både Android og iPhone. Hovedfunktion: Apple Health-synkroniseringsbro til data fra dit Android-wearable."
     },
     "primaryKeyword": {
       "sv": "FitMesh-synkronisering med iPhone",
       "da": "FitMesh-synkronisering med iPhone"
     },
     "body.0.text": {
-      "sv": "Idag, den 29 juni 2026, är FitMesh Sync tillgänglig på App Store. Appen kan laddas ner i större delen av världen (lanseringen i EU sker inom de närmaste dagarna) och har redan testats i praktiken med inloggning via Google och Apple, fullständig Apple Health-avläsning, molnsynkronisering och BLE-anslutning till Colmi-ringen. Det här är ingen demoversion: det är den riktiga appen, med alla funktioner som du redan känner till från Android-versionen.",
-      "da": "I dag, den 29. juni 2026, er FitMesh Sync tilgængelig på App Store. Appen kan downloades i det meste af verden (EU følger i løbet af de kommende dage) og er allerede afprøvet i praksis med Google- og Apple-login, fuld Apple Health-aflæsning, cloud-synkronisering og BLE-forbindelse til Colmi-ringen. Dette er ikke en demo: Det er den rigtige app med alle de funktioner, du allerede kender fra Android-versionen."
+      "sv": "Idag är FitMesh Sync tillgänglig på App Store. Appen kan laddas ner i alla länder som stöds, inklusive samtliga 27 EU-länder, och har redan testats i praktiken med inloggning via Google och Apple, fullständig Apple Health-avläsning, molnsynkronisering och BLE-anslutning till Colmi-ringen. Det här är ingen demoversion: det är den riktiga appen, med alla funktioner som du redan känner till från Android-versionen.",
+      "da": "I dag er FitMesh Sync tilgængelig på App Store. Appen kan downloades i alle understøttede lande, inklusive alle 27 EU-lande, og er allerede afprøvet i praksis med Google- og Apple-login, fuld Apple Health-aflæsning, cloud-synkronisering og BLE-forbindelse til Colmi-ringen. Dette er ikke en demo: Det er den rigtige app med alle de funktioner, du allerede kender fra Android-versionen."
     },
     "body.1.title": {
       "sv": "Nu på App Store",
       "da": "Nu på App Store"
     },
     "body.1.body": {
-      "sv": "FitMesh Sync är nu tillgängligt på App Store och kan användas i större delen av världen. I EU kommer tjänsten att lanseras under de närmaste dagarna.",
-      "da": "FitMesh Sync er nu tilgængeligt på App Store i det meste af verden. I EU vil det blive lanceret i løbet af de kommende dage."
+      "sv": "FitMesh Sync är nu tillgängligt på App Store och kan användas i alla länder som stöds, inklusive samtliga 27 EU-länder.",
+      "da": "FitMesh Sync er nu tilgængeligt på App Store i alle understøttede lande, inklusive alle 27 EU-lande."
     },
     "body.1.ctaLabel": {
       "sv": "Visa på App Store →",
@@ -8954,8 +8954,8 @@
       "da": "Er FitMesh iOS allerede på App Store?"
     },
     "faq.0.a": {
-      "sv": "Ja. Appen finns nu tillgänglig på App Store, den är gratis med köp i appen och finns tillgänglig i större delen av världen. Inom EU pågår fortfarande lanseringen (kommer inom de närmaste dagarna): om du inte ser den i din appbutik än, kan du kolla igen om några dagar.",
-      "da": "Ja. Appen er nu tilgængelig på App Store, den er gratis med køb i appen og kan downloades i det meste af verden. I EU er udrulningen stadig i gang (kommer i løbet af de næste par dage): hvis du ikke kan se den i din app-butik endnu, kan du prøve igen om et par dage."
+      "sv": "Ja. Appen finns nu tillgänglig på App Store, den är gratis med köp i appen och finns tillgänglig i alla länder som stöds, inklusive samtliga 27 EU-länder.",
+      "da": "Ja. Appen er nu tilgængelig på App Store, den er gratis med køb i appen og kan downloades i alle understøttede lande, inklusive alle 27 EU-lande."
     },
     "faq.1.q": {
       "sv": "Måste jag skapa ett nytt konto för iOS?",
@@ -9007,14 +9007,14 @@
     },
     "tldr": {
       "sv": [
-        "FitMesh Sync finns nu LIVE på App Store för iPhone: inloggning via Google eller Apple, Apple Health/HealthKit-läsning, molnsynkronisering, Colmi-ringning via Bluetooth. Tillgänglig i större delen av världen; lanseras i EU under de kommande dagarna.",
+        "FitMesh Sync finns nu LIVE på App Store för iPhone: inloggning via Google eller Apple, Apple Health/HealthKit-läsning, molnsynkronisering, Colmi-ringning via Bluetooth. Tillgänglig i alla länder som stöds, inklusive samtliga 27 EU-länder.",
         "Ett konto fungerar både på Android och iPhone: kontrollpanelen är identisk på båda telefonerna, och data hämtas från samma molntjänst inom EU.",
         "Huvudfunktion: Apple Health-skrivbryggan (valfri funktion). Data från din Android-smartklocka eller smarta ring skickas via FitMesh molnet och skrivs in i Apple Health, utan dubbletter.",
         "Användare med två telefoner (t.ex. Android + iPhone) kan se ring-sömn och steg från klockan direkt i appen Apple Health/Fitness.",
         "EU-moln, GDPR, ingen försäljning av data till tredje part. Övergången sker enligt principen ”opt-in”: om Apple Health redan har dessa data kommer FitMesh inte att skriva över dem. Inga dubbletter."
       ],
       "da": [
-        "FitMesh Sync er nu LIVE på App Store til iPhone: Log ind med Google eller Apple, Apple Health/HealthKit-afspilning, synkronisering i skyen, Colmi-ringetone via Bluetooth. Tilgængelig i det meste af verden; lanceres i hele EU i løbet af de kommende dage.",
+        "FitMesh Sync er nu LIVE på App Store til iPhone: Log ind med Google eller Apple, Apple Health/HealthKit-afspilning, synkronisering i skyen, Colmi-ringetone via Bluetooth. Tilgængelig i alle understøttede lande, inklusive alle 27 EU-lande.",
         "Én konto fungerer på både Android og iPhone: kontrolpanelet er det samme på begge telefoner, og dataene hentes fra den samme EU-cloud.",
         "Hovedfunktion: Apple Health-skrivebroen (skal aktiveres). Data fra dit Android-smartur eller din smartring sendes via FitMesh-skyen og skrives ind i Apple Health uden dubletter.",
         "Brugere med to telefoner (f.eks. Android + iPhone) kan se ring-sleep og skridt fra uret direkte i Apple Health/Fitness-appen.",
@@ -9069,13 +9069,13 @@
     },
     "body.16.items": {
       "sv": [
-        "FitMesh Sync finns nu tillgängligt på App Store för iPhone och kan användas i större delen av världen (i EU kommer tjänsten att lanseras inom de närmaste dagarna).",
+        "FitMesh Sync finns nu tillgängligt på App Store för iPhone och kan användas i alla länder som stöds, inklusive samtliga 27 EU-länder.",
         "Ett konto, två telefoner: samma kontrollpanel på Android och iPhone, data från samma EU-moln.",
         "Apple Health-bron (opt-in) överför data från din Android-bärbara enhet till appen Hälsa på iPhone: sömn med olika faser, steg, aktivitet – utan dubbletter.",
         "EU/GDPR integritet: ingen försäljning av uppgifter, opt-in-lösning, kan återkallas när som helst."
       ],
       "da": [
-        "FitMesh Sync er nu tilgængelig på App Store til iPhone i det meste af verden (i EU lanceres den i løbet af de kommende dage).",
+        "FitMesh Sync er nu tilgængelig på App Store til iPhone i alle understøttede lande, inklusive alle 27 EU-lande.",
         "Én konto, to telefoner: det samme kontrolpanel på Android og iPhone, data fra den samme EU-cloud.",
         "Apple Health-broen (opt-in) overfører data fra dit Android-wearable til iPhone-appen »Sundhed«: søvn med søvnfaser, skridt, aktivitet – uden dubletter.",
         "EU/GDPR privatliv: ingen salg af data, opt-in-mekanisme, kan til enhver tid tilbagekaldes."
@@ -9176,16 +9176,16 @@
       "da": "Sammenfattende"
     },
     "body.18.title": {
-      "sv": "Testa Apple Health-bron i betaversionen",
-      "da": "Prøv Apple Health-broen i betaversionen"
+      "sv": "Testa Apple Health-bron",
+      "da": "Prøv Apple Health-broen"
     },
     "body.18.body": {
-      "sv": "FitMesh iOS finns nu i TestFlight-betaversionen. Registrera dig för att testa Apple Health Write Bridge och importera data från dina Android-bärbara enheter till appen Hälsa på iPhone.",
-      "da": "FitMesh iOS er nu tilgængelig i TestFlight-betaversionen. Tilmeld dig for at prøve Apple Health Write Bridge og overføre data fra dit Android-wearable til iPhone-appen »Sundhed«."
+      "sv": "FitMesh iOS är nu live på App Store, inklusive alla 27 EU-länder. Ladda ner appen för att testa Apple Health Write Bridge och importera data från dina Android-bärbara enheter till appen Hälsa på iPhone.",
+      "da": "FitMesh iOS er nu live på App Store, inklusive alle 27 EU-lande. Download appen for at prøve Apple Health Write Bridge og overføre data fra dit Android-wearable til iPhone-appen »Sundhed«."
     },
     "body.18.ctaLabel": {
-      "sv": "Gå med i iOS-betaprogrammet →",
-      "da": "Tilmeld dig iOS-betaversionen →"
+      "sv": "Ladda ner i App Store →",
+      "da": "Download i App Store →"
     },
     "faq.0.q": {
       "sv": "Skriver bron över data som redan finns i Apple Health?",
@@ -9279,7 +9279,7 @@
     },
     "body.15.items": {
       "sv": [
-        "Installera FitMesh Sync på iPhone (TestFlight-betaversion finns nu, App Store kommer snart).",
+        "Installera FitMesh Sync på iPhone från App Store (tillgänglig i alla 27 EU-länder).",
         "Logga in med samma konto som du använder på Android.",
         "Gå till **Inställningar → Apple Health → Skriv Bridge**.",
         "Aktivera funktionen och bevilja de begärda HealthKit behörigheterna.",
@@ -9287,7 +9287,7 @@
         "FitMesh synkroniserar tillgängliga data och skriver in dem i Apple Health inom några minuter."
       ],
       "da": [
-        "Installer FitMesh Sync på iPhone (TestFlight-betaversion nu, App Store kommer snart).",
+        "Installer FitMesh Sync på iPhone fra App Store (tilgængelig i alle 27 EU-lande).",
         "Log ind med den samme konto, som du bruger på Android.",
         "Gå til **Indstillinger → Apple Health → Skriv Bridge**.",
         "Aktivér den, og tildel de ønskede HealthKit rettigheder.",

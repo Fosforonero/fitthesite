@@ -25,10 +25,11 @@ import {
  * autosufficiente che non lascia riferimenti "a vuoto" (`{"@id": ...}` senza
  * una definizione completa altrove nella STESSA pagina).
  *
- * `areaServed` volutamente OMESSO: Android è live ovunque, iOS fuori UE, non
- * esiste un valore Schema.org pulito che rappresenti "tutto il mondo tranne
- * un sottoinsieme in rollout" senza essere fuorviante. Meglio ometterlo che
- * dichiarare (come prima) `["IT", "EU"]`, falso per entrambe le piattaforme.
+ * `areaServed` volutamente OMESSO: sia Android che iOS sono live ovunque
+ * (nessuna eccezione UE residua, verificato 2026-07-13), ma organization-level
+ * `areaServed` non è comunque il posto giusto per dichiarare disponibilità
+ * per-piattaforma — quella vive in `MobileApplicationJsonLd` (offers/regions
+ * per singola app), non qui.
  */
 /** Costruzione dati pura (nessun JSX) — testabile in isolamento. */
 export function organizationJsonLdData(locale: Locale) {

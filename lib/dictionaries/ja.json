@@ -5,13 +5,12 @@
     "download": "ダウンロード"
   },
   "hero": {
-    "badge": "Android対応 · iOSは近日公開",
+    "badge": "AndroidとiOSに対応",
     "heading_1": "すべてのデバイスを",
     "heading_accent": "ひとつのダッシュボードに。",
     "description": "Galaxy Watch、Wear OS、Health Connect、クラウドプロバイダーをひとつの画面に統合。歩数、睡眠、心拍数、回復状態、トレンドをアプリを切り替えずに確認できます。",
     "cta_secondary": "詳細を見る",
-    "pricing": "買い切り €3.99〜、または6ヶ月 €1.19 · 安全なお支払い",
-    "coming_soon": "近日公開"
+    "pricing": "買い切り €3.99〜、または6ヶ月 €1.19 · 安全なお支払い"
   },
   "features": {
     "kicker": "機能",

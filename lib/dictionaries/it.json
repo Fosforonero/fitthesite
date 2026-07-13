@@ -5,13 +5,12 @@
     "download": "Scarica"
   },
   "hero": {
-    "badge": "Disponibile su Android · iOS in arrivo",
+    "badge": "Disponibile su Android e iOS",
     "heading_1": "Una dashboard globale",
     "heading_accent": "per tutti i tuoi dispositivi.",
     "description": "Unisci Galaxy Watch, Wear OS, Health Connect e provider cloud in una vista unica. Passi, sonno, battito, recupero e trend, senza saltare tra app diverse.",
     "cta_secondary": "Scopri di più",
-    "pricing": "Acquisto unico da €3,99, oppure €1,19 ogni 6 mesi · pagamento sicuro",
-    "coming_soon": "In arrivo"
+    "pricing": "Acquisto unico da €3,99, oppure €1,19 ogni 6 mesi · pagamento sicuro"
   },
   "features": {
     "kicker": "Funzionalità",
