@@ -98,6 +98,18 @@ async function runScenario(opts: ScenarioOpts): Promise<ScenarioResult> {
     return { label: opts.label, failed };
   }
 
+  // Fix metodologico (2026-07-13): ogni `context.newPage()` parte da
+  // `about:blank`, e l'init script del listener `beforeunload` e' gia'
+  // attaccato a QUEL documento prima ancora di navigare. La navigazione
+  // about:blank -> `opts.url` fa scattare un beforeunload sul documento
+  // uscente (about:blank stesso) — comportamento Chromium/WebKit universale,
+  // riprodotto identico anche su `data:text/html,...` e `https://example.com`,
+  // zero relazione col codice applicativo. Senza questo reset il contatore
+  // parte sempre da 1 per costruzione, indipendentemente da un vero reload:
+  // il guardrail avrebbe sempre fallito, anche a incidente risolto. Si conta
+  // solo cio' che succede DOPO che la pagina bersaglio e' realmente caricata.
+  beforeUnloadCount = 0;
+
   const urlAfterLoad = page.url();
   const bodyTextAfterLoad = (await page.locator("body").innerText().catch(() => "")).trim();
 
