@@ -81,3 +81,77 @@ describe("buildFitnessMetricsRow — hrv_rmssd / hrv_sdnn restano colonne separa
     expect(row.hrv_sdnn).toBeNull();
   });
 });
+
+describe("buildFitnessMetricsRow — normalizzazione legacy sorgenti iOS", () => {
+  const ctx = { userId: "user-1", deviceId: "device-1" };
+
+  it("payload iOS legacy (source=healthkit, solo hrvRmssd) -> salvato come SOLO hrv_sdnn", () => {
+    const p = payloadSchema.parse({
+      ...BASE_PAYLOAD,
+      source: "healthkit",
+      hrvRmssd: 45,
+    });
+    const row = buildFitnessMetricsRow(p, ctx);
+    expect(row.hrv_sdnn).toBe(45);
+    expect(row.hrv_rmssd).toBeNull();
+  });
+
+  it("payload iOS legacy (source=apple_health, solo hrvRmssd) -> stesso comportamento", () => {
+    const p = payloadSchema.parse({
+      ...BASE_PAYLOAD,
+      source: "apple_health",
+      hrvRmssd: 58,
+    });
+    const row = buildFitnessMetricsRow(p, ctx);
+    expect(row.hrv_sdnn).toBe(58);
+    expect(row.hrv_rmssd).toBeNull();
+  });
+
+  it("payload iOS 187+ (source=healthkit, hrvSdnn esplicito) -> hrv_sdnn preferito su un hrvRmssd legacy eventualmente presente", () => {
+    const p = payloadSchema.parse({
+      ...BASE_PAYLOAD,
+      source: "healthkit",
+      hrvSdnn: 62,
+    });
+    const row = buildFitnessMetricsRow(p, ctx);
+    expect(row.hrv_sdnn).toBe(62);
+    expect(row.hrv_rmssd).toBeNull();
+  });
+
+  it("sorgente Android legacy (source=health_connect) NON viene normalizzata: hrvRmssd resta RMSSD genuino", () => {
+    const p = payloadSchema.parse({
+      ...BASE_PAYLOAD,
+      source: "health_connect",
+      hrvRmssd: 50,
+    });
+    const row = buildFitnessMetricsRow(p, ctx);
+    expect(row.hrv_rmssd).toBe(50);
+    expect(row.hrv_sdnn).toBeNull();
+  });
+
+  it("REGRESSIONE: un payload iOS con ENTRAMBI i campi non puo' mai lasciare la riga dual-valued — hrv_sdnn vince, hrv_rmssd resta sempre null", () => {
+    const healthkit = buildFitnessMetricsRow(
+      payloadSchema.parse({
+        ...BASE_PAYLOAD,
+        source: "healthkit",
+        hrvRmssd: 45,
+        hrvSdnn: 62,
+      }),
+      ctx,
+    );
+    expect(healthkit.hrv_sdnn).toBe(62);
+    expect(healthkit.hrv_rmssd).toBeNull();
+
+    const appleHealth = buildFitnessMetricsRow(
+      payloadSchema.parse({
+        ...BASE_PAYLOAD,
+        source: "apple_health",
+        hrvRmssd: 45,
+        hrvSdnn: 62,
+      }),
+      ctx,
+    );
+    expect(appleHealth.hrv_sdnn).toBe(62);
+    expect(appleHealth.hrv_rmssd).toBeNull();
+  });
+});

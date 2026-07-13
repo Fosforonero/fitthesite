@@ -135,15 +135,56 @@ export const payloadSchema = z.object({
 export type SyncPayload = z.infer<typeof payloadSchema>;
 
 /**
+ * Sorgenti iOS/HealthKit: l'unica metrica HRV che espongono e' SDNN, mai
+ * RMSSD. App pubblicate prima di questo sprint scrivevano quel valore SDNN
+ * nel campo payload legacy `hrvRmssd` (era l'unico che esisteva) — quel
+ * comportamento resta nel campo finche' quelle build sono in circolazione,
+ * a prescindere da quando esce la 187. Deve combaciare esattamente con la
+ * clausola `source in (...)` della migration di correzione storica
+ * (20260711120001_fitness_metrics_hrv_historical_correction.sql).
+ */
+const IOS_HRV_SOURCES = new Set(['healthkit', 'apple_health']);
+
+/**
+ * Normalizzazione SEMANTICA (rietichetta il campo giusto), MAI conversione
+ * NUMERICA (nessuna formula tra SDNN e RMSSD — restano algoritmi diversi).
+ * Per sorgenti iOS: hrv_sdnn = hrvSdnn esplicito se presente (client 187+),
+ * altrimenti il valore legacy in hrvRmssd (client pre-187, che li' dentro
+ * ha sempre e solo SDNN); hrv_rmssd resta SEMPRE null per queste sorgenti,
+ * anche se un payload malformato/di transizione invia entrambi i campi —
+ * HealthKit non produce mai RMSSD genuino, quindi la riga non deve MAI
+ * risultare dual-valued lato iOS. Per ogni altra sorgente, comportamento
+ * invariato: hrvRmssd/hrvSdnn passano cosi' come arrivano.
+ */
+function normalizedHrv(
+  p: SyncPayload,
+): { hrvRmssd: number | null; hrvSdnn: number | null } {
+  if (p.source != null && IOS_HRV_SOURCES.has(p.source)) {
+    const sdnn = p.hrvSdnn ?? p.hrvRmssd;
+    return {
+      hrvRmssd: null,
+      hrvSdnn: sdnn == null ? null : Math.round(sdnn),
+    };
+  }
+  return {
+    hrvRmssd: p.hrvRmssd == null ? null : Math.round(p.hrvRmssd),
+    hrvSdnn: p.hrvSdnn == null ? null : Math.round(p.hrvSdnn),
+  };
+}
+
+/**
  * Riga `fitness_metrics` dal payload validato. Pura: nessuna dipendenza da
  * Supabase/Next, quindi testabile in isolamento (vedi schema.test.ts).
  * hrv_rmssd e hrv_sdnn restano SEMPRE colonne indipendenti — non toccarle
- * insieme, non far scrivere all'una il fallback dell'altra.
+ * insieme, non far scrivere all'una il fallback dell'altra (a parte la
+ * normalizzazione per sorgente iOS in normalizedHrv, che e' rietichettatura
+ * legacy dichiarata, non un merge dei due algoritmi).
  */
 export function buildFitnessMetricsRow(
   p: SyncPayload,
   ctx: { userId: string; deviceId: string },
 ) {
+  const hrv = normalizedHrv(p);
   return {
     user_id: ctx.userId,
     device_id: ctx.deviceId,
@@ -162,8 +203,8 @@ export function buildFitnessMetricsRow(
     sleep_start_ms: p.sleepStartMillis ?? null,
     sleep_end_ms: p.sleepEndMillis ?? null,
     distance_meters: p.distanceMeters ?? null,
-    hrv_rmssd: p.hrvRmssd == null ? null : Math.round(p.hrvRmssd),
-    hrv_sdnn: p.hrvSdnn == null ? null : Math.round(p.hrvSdnn),
+    hrv_rmssd: hrv.hrvRmssd,
+    hrv_sdnn: hrv.hrvSdnn,
     stress_avg: p.stressAvg == null ? null : Math.round(p.stressAvg),
     vo2_max: p.vo2Max ?? null,
     floors_climbed:
