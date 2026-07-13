@@ -542,3 +542,22 @@ deploy — nessuna suite automatica lo sostituisce.
 **P0.4E** (nuovo sprint separato, apertura subito dopo questo rilascio):
 correggere e testare la funzione di cancellazione automatica per il caso
 limite di Fase 3, non corretta qui di proposito.
+
+### Post-deploy — verifica pubblica (2026-07-13)
+
+Merge PR #12 → `main` (SHA `9502515`), un solo deployment di produzione
+(`dpl_BcRr6qjuPjg6AftFR1Xtb5vkQFiX`, ~14 minuti di build per 3583 pagine
+statiche, nessun errore). Zero Preview Deployment generati durante l'intero
+sprint (verificato via API prima e dopo ogni push).
+
+Verificato via curl contro `fitmesh.fit`/`www.fitmesh.fit` reali:
+apex → 301 → `www.fitmesh.fit/delete-account` in un solo hop, zero
+`Refresh`/`Accept-CH`/`Critical-CH`; `www.fitmesh.fit/delete-account` → 200,
+title/canonical/robots corretti, link email cliccabile con subject
+precompilato visibile senza login; `/it/delete-account` → 404 (non
+localizzata); sitemap aggiornata. `check-anti-loop.ts` rieseguito contro
+produzione reale (non solo Docker): 7/7 scenari verdi, zero beforeunload,
+zero header residui, tenuto 60s ciascuno.
+
+**Stato**: validato post-deploy. Test su iPhone Safari reale (ingresso da
+Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
