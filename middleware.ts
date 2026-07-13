@@ -23,6 +23,7 @@ import {
   limitSync,
 } from '@/lib/rate-limit/limiter';
 import { locales } from '@/lib/i18n';
+import { resolveNegotiatedLocale, LOCALE_COOKIE_NAME } from '@/lib/locale-negotiation';
 
 type CookieToSet = { name: string; value: string; options: CookieOptions };
 
@@ -60,8 +61,6 @@ function detectLocale(pathname: string): string {
 const NON_LOCALIZED_PREFIXES = ['/api', '/cms', '/oauth', '/mockups', '/_next', '/.well-known'] as const;
 
 function needsLocalePrefix(pathname: string): boolean {
-  // Root path '/' lo lasciamo intoccato (la page.tsx top-level fa il redirect).
-  if (pathname === '/') return false;
   // Skip route non localizzate.
   if (NON_LOCALIZED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`))) {
     return false;
@@ -70,25 +69,9 @@ function needsLocalePrefix(pathname: string): boolean {
   if (/\.(svg|png|jpg|jpeg|gif|webp|ico|txt|xml|json)$/i.test(pathname)) return false;
   // Gia' ha un locale prefix.
   if (LOCALES.some((l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`))) return false;
+  // Root '/' e ogni altro deep link senza prefisso lingua passano dalla
+  // negoziazione (cookie -> Accept-Language -> geo IP -> 'en').
   return true;
-}
-
-function bestLocaleFromAcceptLanguage(header: string | null): string {
-  if (!header) return 'it';
-  const lower = header.toLowerCase();
-  // Prima preferenza vince. Default 'it' (mercato primario).
-  if (lower.startsWith('it') || lower.includes(',it')) return 'it';
-  if (lower.startsWith('es') || lower.includes(',es')) return 'es';
-  if (lower.startsWith('ja') || lower.includes(',ja')) return 'ja';
-  if (lower.startsWith('ko') || lower.includes(',ko')) return 'ko';
-  if (lower.startsWith('nl') || lower.includes(',nl')) return 'nl';
-  if (lower.startsWith('de') || lower.includes(',de')) return 'de';
-  if (lower.startsWith('fr') || lower.includes(',fr')) return 'fr';
-  if (lower.startsWith('pt') || lower.includes(',pt')) return 'pt';
-  if (lower.startsWith('pl') || lower.includes(',pl')) return 'pl';
-  if (lower.startsWith('tr') || lower.includes(',tr')) return 'tr';
-  if (lower.startsWith('en') || lower.includes(',en')) return 'en';
-  return 'it';
 }
 
 export async function middleware(request: NextRequest) {
@@ -119,15 +102,31 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Redirect deeplink senza locale (es. share URL "/famiglia/join/CODE") al
-  // path localizzato corretto. Risolve il 404 quando l'app condivide URL
-  // senza prefix locale. Fa il redirect PRIMA del refresh sessione per
-  // evitare di sprecare round-trip Supabase su una request che cambia URL.
+  // Redirect di root '/' e deeplink senza locale (es. share URL
+  // "/famiglia/join/CODE") al path localizzato corretto. Risolve il 404
+  // quando l'app condivide URL senza prefix locale, e sostituisce il
+  // precedente permanentRedirect('/it') hardcoded in app/(frontend)/page.tsx.
+  // Fa il redirect PRIMA del refresh sessione per evitare di sprecare
+  // round-trip Supabase su una request che cambia URL.
+  //
+  // 307 (temporaneo), non 308: la lingua scelta può cambiare da una visita
+  // all'altra (cookie/Accept-Language/IP), quindi non è un redirect
+  // "permanente" nel senso HTTP del termine — un browser/crawler non deve
+  // memorizzarlo come canonico per sempre. Cache-Control: private, no-store
+  // e Vary: Accept-Language, Cookie impediscono a CDN/browser di servire la
+  // stessa destinazione a visitatori con segnali diversi.
   if (needsLocalePrefix(pathname)) {
-    const locale = bestLocaleFromAcceptLanguage(request.headers.get('accept-language'));
+    const locale = resolveNegotiatedLocale({
+      cookieLocale: request.cookies.get(LOCALE_COOKIE_NAME)?.value,
+      acceptLanguage: request.headers.get('accept-language'),
+      country: request.headers.get('x-vercel-ip-country'),
+    });
     const url = request.nextUrl.clone();
-    url.pathname = `/${locale}${pathname}`;
-    return NextResponse.redirect(url);
+    url.pathname = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`;
+    const redirectResponse = NextResponse.redirect(url, 307);
+    redirectResponse.headers.set('Cache-Control', 'private, no-store');
+    redirectResponse.headers.set('Vary', 'Accept-Language, Cookie');
+    return redirectResponse;
   }
 
   // Inject locale into a custom request header so the root layout can set
@@ -173,13 +172,6 @@ export async function middleware(request: NextRequest) {
     url.pathname = `/${locale}/auth/login`;
     url.searchParams.set('next', pathname);
     return NextResponse.redirect(url);
-  }
-
-  // Geo cookie per il gating iOS (fuori UE vs 27 UE). Best-effort: solo se Vercel
-  // espone il paese. Letto lato client da StoreButtonsRow / IosAwareText.
-  const country = request.headers.get('x-vercel-ip-country');
-  if (country) {
-    response.cookies.set('fm_geo', country, { path: '/', maxAge: 60 * 60 * 24, sameSite: 'lax' });
   }
 
   return response;

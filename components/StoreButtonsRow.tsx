@@ -1,27 +1,22 @@
-"use client";
-
 /**
  * Row di download badge: Play Store + App Store affiancati.
  *
- * Play Store sempre attivo. App Store: geo-aware. L'app iOS è live nel mondo ma
- * non nei 27 paesi UE (verifica DSA in corso), quindi mostriamo "scarica" fuori
- * UE e "in arrivo" nei 27 UE, leggendo il cookie geo lato client (vedi lib/flags).
- * Default SSR = "in arrivo" (caso sicuro). Override esplicito via prop iosDisabled.
- * Go-live globale UE: NEXT_PUBLIC_IOS_ENABLED=true su Vercel.
+ * Entrambi live di default: Play Store e App Store (incluse tutte le
+ * storefront UE, verificato 2026-07-13). Nessun gating geografico, nessuna
+ * dipendenza da cookie o hydration — il markup è identico SSR e client.
  */
-import { useState, useEffect, type CSSProperties } from "react";
+import type { CSSProperties } from "react";
 
 import type { Locale } from "@/lib/i18n";
-import { IOS_ENABLED, EU27, countryFromCookie } from "@/lib/flags";
 import AppleStoreButton from "./AppleStoreButton";
 import PlayStoreButton from "./PlayStoreButton";
 
 type Props = {
-  /** Locale per i label localizzati ("In arrivo" vs "Coming Soon"). */
+  /** Locale per i label localizzati. */
   locale: Locale;
   /** Forza il Play Store disabled (default false: app live su Play Store). */
   playDisabled?: boolean;
-  /** Override esplicito dell'App Store disabled. Se assente: deciso dalla geo. */
+  /** Forza l'App Store disabled (default false: app live sull'App Store). */
   iosDisabled?: boolean;
   /** Classi extra sul wrapper flex. */
   className?: string;
@@ -31,23 +26,10 @@ type Props = {
 export default function StoreButtonsRow({
   locale,
   playDisabled = false,
-  iosDisabled: iosDisabledProp,
+  iosDisabled = false,
   className = "",
   style,
 }: Props) {
-  // Default sicuro: App Store "in arrivo". Dopo il mount, se il visitatore è
-  // fuori dai 27 UE (o il flag globale è on), abilita il click.
-  const [iosDisabled, setIosDisabled] = useState(iosDisabledProp ?? !IOS_ENABLED);
-  useEffect(() => {
-    if (iosDisabledProp !== undefined) return; // override esplicito vince
-    if (IOS_ENABLED) {
-      setIosDisabled(false);
-      return;
-    }
-    const c = countryFromCookie();
-    if (c && !EU27.has(c)) setIosDisabled(false);
-  }, [iosDisabledProp]);
-
   const PLAY = {
     it: { small: "Disponibile su", store: "Google Play", soon: "In arrivo" },
     en: { small: "GET IT ON", store: "Google Play", soon: "Coming Soon" },

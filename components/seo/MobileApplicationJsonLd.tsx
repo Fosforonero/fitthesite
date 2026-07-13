@@ -40,11 +40,10 @@ import {
  *  - minOsVersion iOS: "iOS 14.0" (verificato sulla scheda live App Store),
  *    prima "iOS 15.0" qui e "iOS 16+" in lib/providers/data.ts — due fonti
  *    in disaccordo fra loro.
- *  - Il nodo iOS è emesso incondizionatamente (non dietro il flag
- *    IOS_ENABLED): l'app è live sull'App Store oggi (verificato) — nasconderla
- *    dal JSON-LD contraddiceva sia questo fatto sia il testo già pubblicato
- *    sul sito (blog "FitMesh arriva su iPhone"). Il limite UE è reso
- *    esplicito in `description` (IOS_REGIONS_NOTE, localizzato), non con un
+ *  - Il nodo iOS è emesso incondizionatamente: l'app è live sull'App Store
+ *    oggi, incluse tutte le storefront UE (verificato 2026-07-13, vedi
+ *    lib/product-facts.ts). `description` include IOS_REGIONS_NOTE
+ *    (localizzato) per rendere esplicita la copertura UE senza un
  *    `areaServed` fuorviante.
  *  - Nessun `aggregateRating`/`review`: non esistono recensioni verificate da
  *    mostrare, e non se ne inventano.

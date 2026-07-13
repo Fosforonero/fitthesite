@@ -4,6 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { locales, localeNames, localeFlags, type Locale } from "@/lib/i18n";
+import { LOCALE_COOKIE_NAME } from "@/lib/locale-negotiation";
+
+/**
+ * Persiste la scelta esplicita dell'utente: prevale su IP/Accept-Language
+ * alla prossima visita di '/' (vedi middleware.ts). Un anno di durata,
+ * SameSite=Lax (letto anche su navigazione top-level da link esterni).
+ */
+function persistLocaleChoice(locale: Locale) {
+  if (typeof document === "undefined") return;
+  document.cookie = `${LOCALE_COOKIE_NAME}=${locale}; Path=/; Max-Age=31536000; SameSite=Lax`;
+}
 
 /**
  * Selettore lingua a tendina (tutte le lingue in `locales`). Mostra la lingua corrente; al click
@@ -78,7 +89,10 @@ export default function LanguageSwitcher({ current }: { current: Locale }) {
                 <Link
                   href={pathFor(l)}
                   hrefLang={l}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    persistLocaleChoice(l);
+                    setOpen(false);
+                  }}
                   className={`flex items-center gap-3 px-4 py-2.5 text-[13px] transition ${
                     active
                       ? "bg-bg-card text-text-primary font-semibold"

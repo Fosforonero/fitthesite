@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import MarketingBackdrop from "@/components/MarketingBackdrop";
-import { IOS_ENABLED, APPLE_APP_ID } from "@/lib/flags";
+import { APPLE_APP_ID } from "@/lib/flags";
 import { SITE_URL } from "@/lib/product-facts";
 
 /** Pre-render both locales at build time for SEO. */
@@ -77,10 +77,9 @@ export async function generateMetadata(
       title: "FitMesh Sync",
       description: descriptions[lc],
     },
-    // Smart App Banner iOS — attivo solo a go-live (flag) con App Store ID reale.
-    ...(IOS_ENABLED && {
-      other: { "apple-itunes-app": `app-id=${APPLE_APP_ID.replace(/^id/, "")}` },
-    }),
+    // Smart App Banner iOS — sempre emesso, l'app è live sull'App Store
+    // (incluse tutte le storefront UE, verificato 2026-07-13).
+    other: { "apple-itunes-app": `app-id=${APPLE_APP_ID}` },
   };
 }
 
