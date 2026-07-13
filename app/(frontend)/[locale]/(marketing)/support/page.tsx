@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -151,6 +152,13 @@ export default async function SupportPage({
     : "Scrivi a support@fitmesh.fit";
 
   const crumbName = lc === "en" ? "Support" : lc === "es" ? "Soporte" : lc === "de" ? "Support" : lc === "pt" ? "Suporte" : lc === "fr" ? "Assistance" : lc === "nl" ? "Ondersteuning" : lc === "ja" ? "サポート" : lc === "ko" ? "고객 지원" : "Supporto";
+
+  // Solo IT/EN tradotti per ora (P0.4D, fase 5): le altre lingue ricadono
+  // sull'inglese invece di lasciare il link assente, come gia' fa altrove
+  // questo file (es. moreQuestionsHeading non ha varianti per pl/tr/sv/da/no/fi).
+  const deleteAccountLinkText = lc === "it"
+    ? "Vuoi eliminare il tuo account? Vai alla pagina dedicata"
+    : "Want to delete your account? Go to the dedicated page";
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
       <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/support` }]} locale={lc} />
@@ -171,6 +179,14 @@ export default async function SupportPage({
             {writeUsLabel}
           </a>
           .
+        </p>
+        <p className="mt-2 text-sm">
+          <Link
+            href="/delete-account"
+            className="text-brand-aqua hover:text-brand-blue underline underline-offset-4"
+          >
+            {deleteAccountLinkText}
+          </Link>
         </p>
       </header>
 

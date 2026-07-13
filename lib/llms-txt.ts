@@ -87,6 +87,9 @@ export function generateLlmsTxt(): string {
   lines.push(`- [Terms of service](${IT("/terms")})`);
   lines.push(`- [Cookie policy](${IT("/cookies")})`);
   lines.push(`- [Support FAQ](${IT("/support")}): contact, common questions`);
+  lines.push(
+    `- [Delete your account](${SITE_URL}/delete-account): official Google Play / App Store account deletion page, not localized, reachable without logging in`,
+  );
   lines.push("- Support email: support@fitmesh.fit");
   lines.push("- Privacy contact: privacy@fitmesh.fit");
   lines.push("");

@@ -61,11 +61,22 @@ function detectLocale(pathname: string): string {
       return locale;
     }
   }
+  // /delete-account (P0.4D): pagina non localizzata con inglese come lingua
+  // di default (il toggle IT client-side aggiorna <html lang> da solo, vedi
+  // components/DeleteAccountView.tsx) — senza questo caso il fallback 'it'
+  // sotto renderebbe <html lang="it"> su una pagina il cui contenuto SSR e'
+  // in inglese, la stessa contraddizione che il P0.4C ha eliminato altrove.
+  if (pathname === '/delete-account' || pathname.startsWith('/delete-account/')) {
+    return 'en';
+  }
   return 'it';
 }
 
 // Path prefixes che NON richiedono il locale prefix (route top-level non-i18n).
-const NON_LOCALIZED_PREFIXES = ['/api', '/cms', '/oauth', '/mockups', '/_next', '/.well-known'] as const;
+// `/delete-account` (P0.4D): requisito Google Play/App Store, un solo URL
+// pubblico raggiungibile senza login ne' redirect di lingua — mai
+// `/it/delete-account`, `/de/delete-account`, ecc.
+const NON_LOCALIZED_PREFIXES = ['/api', '/cms', '/oauth', '/mockups', '/delete-account', '/_next', '/.well-known'] as const;
 
 function needsLocalePrefix(pathname: string): boolean {
   // Skip route non localizzate.
