@@ -112,13 +112,23 @@ Stato di questi 4 finding a fine Sprint P0.3: vedi
 
 1. **rilevato** — un problema o un'opportunità è stata identificata.
 2. **corretto localmente** — il fix esiste nel branch/worktree, non ancora buildato/pushato.
-3. **in preview** — verificato su un URL di preview (Vercel), non ancora in produzione.
-4. **deployato** — live su `fitmesh.fit`, non ancora ri-verificato post-deploy.
+3. **verificato in Docker** — build, typecheck, guardrail e test HTTP/JSON-LD/redirect/sitemap/robots/hreflang eseguiti in locale via Docker (`next build` + `next start` in container, contro un server locale), non ancora in produzione.
+4. **deployato in produzione** — live su `fitmesh.fit`, non ancora ri-verificato post-deploy.
 5. **validato post-deploy** — controllato con curl/validator sull'URL pubblico dopo il deploy.
 6. **risultato misurato** — ha un numero GSC/Bing a 14/28/90 giorni nel results log.
 
 Non saltare stati nel results log: un'iniziativa che non è ancora
 "validato post-deploy" non va descritta come "risultato misurato".
+
+**Nota permanente (2026-07-13)**: le Preview Deployment Vercel per branch
+non-`main` sono disabilitate via `vercel.json` (`git.deploymentEnabled`:
+`main: true`, `**: false`). La verifica pre-merge passa quindi SOLO dallo
+stadio 3 (Docker), mai da una preview Vercel pubblica. Una preview
+pubblica è ammessa solo con autorizzazione esplicita di Matteo per quel
+caso specifico — non è più il default. Questo elimina sia lo spreco di
+build (ogni branch feature buildava ~3427 pagine su infrastruttura
+condivisa) sia il problema di preview protette da Vercel SSO non
+ispezionabili via curl incontrato nello Sprint P0.3.
 
 ## 4. Roadmap ordinata
 
