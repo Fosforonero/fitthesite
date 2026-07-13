@@ -17,8 +17,9 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
+import { SITE_URL } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
-const SITE_URL = "https://www.fitmesh.fit";
 const TAGLINE = "Use your favorite AI assistant with your own health data.";
 
 const COPY = {
@@ -234,9 +235,7 @@ export default async function AiLanding({
     url: `${SITE_URL}${path}`,
     name: lc === "it" ? "Condividi con AI — FitMesh Sync" : "Share with AI — FitMesh Sync",
     description: t.hero_sub,
-    inLanguage: lc === "it" ? "it-IT" : "en-US",
-    isPartOf: { "@id": `${SITE_URL}#website` },
-    about: { "@id": `${SITE_URL}#mobile-app` },
+    inLanguage: schemaLanguage(lc),
   };
 
   const faqLd = {

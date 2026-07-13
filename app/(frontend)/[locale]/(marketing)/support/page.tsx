@@ -3,8 +3,8 @@ import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SUPPORT_FAQS } from "@/lib/content/faqs";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -53,7 +53,7 @@ export default async function SupportPage({
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
+    inLanguage: schemaLanguage(lc),
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.q,

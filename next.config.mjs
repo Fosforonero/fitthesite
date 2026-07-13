@@ -86,6 +86,12 @@ const nextConfig = {
         source: '/.well-known/apple-app-site-association',
         destination: '/api/apple-app-site-association',
       },
+      // /llms.txt generato da lib/product-facts.ts (route handler, force-static)
+      // invece del file statico obsoleto che viveva in public/.
+      {
+        source: '/llms.txt',
+        destination: '/api/llms-txt',
+      },
     ];
   },
 
@@ -133,6 +139,72 @@ const nextConfig = {
       { source: '/en/blog/alternative-health-sync-2026', destination: '/en/blog/alternative-app-sync-wearable-2026', permanent: true },
     ];
 
+    // Cannibalization consolidation (sprint P0.2 Fase 5, 2026-07-12): la
+    // landing /lp/garmin-health-connect e il blog post
+    // /blog/garmin-samsung-health-sync-guide competevano per lo stesso query
+    // cluster ("garmin health connect android sync"). Winner = il blog post
+    // (guida passo-passo + troubleshooting + FAQ + CTA verso FitMesh, contenuto
+    // piu' ricco e difendibile della landing, che era generica e senza la
+    // parte Samsung Health). Entry landing rimossa da lib/landing/data.ts,
+    // LANDING_SLUGS["garmin-health-connect"] rimossa da lib/blog/slugs.ts.
+    // Redirect 308 su tutte le 11 locale con slug tradotto (sv/da/no/fi non
+    // hanno mai avuto ne' la landing ne' questo blog post tradotti).
+    const garminSamsungConsolidationSlugs = {
+      it: { from: 'garmin-health-connect', to: 'garmin-samsung-health-sync-guide' },
+      en: { from: 'garmin-health-connect-sync', to: 'sync-garmin-samsung-health-guide' },
+      es: { from: 'garmin-health-connect-sincronizacion', to: 'sincronizar-garmin-samsung-health-guia' },
+      de: { from: 'garmin-health-connect-synchronisierung', to: 'garmin-samsung-health-synchronisieren-anleitung' },
+      pt: { from: 'garmin-health-connect-sincronizacao', to: 'sincronizar-garmin-samsung-health-guia' },
+      fr: { from: 'garmin-health-connect-synchronisation', to: 'synchroniser-garmin-samsung-health-guide' },
+      pl: { from: 'garmin-health-connect-synchronizacja', to: 'synchronizacja-garmin-samsung-health-poradnik' },
+      tr: { from: 'garmin-health-connect-senkronizasyon', to: 'garmin-samsung-health-senkronizasyon-rehberi' },
+      nl: { from: 'garmin-health-connect-synchronisatie', to: 'garmin-samsung-health-synchroniseren-gids' },
+      ja: { from: 'garmin-health-connect-douki', to: 'garmin-samsung-health-douki-gaido' },
+      ko: { from: 'garmin-health-connect-dongkihwa', to: 'garmin-samsung-health-dongkihwa-gaidu' },
+    };
+    const garminSamsungConsolidationRedirects = Object.entries(garminSamsungConsolidationSlugs).map(
+      ([lc, { from, to }]) => ({
+        source: `/${lc}/lp/${from}`,
+        destination: `/${lc}/blog/${to}`,
+        permanent: true,
+      }),
+    );
+
+    // Slug IT fix (2026-07-10): la chiave canonico/IT era rimasta per errore in
+    // spagnolo ("cierra-alternativas") invece di uno slug italiano. Contenuto
+    // sempre stato in italiano corretto, solo l'URL era sbagliato. Il vecchio
+    // slug canonico viene rediretto sotto TUTTI i 15 locali supportati (non
+    // solo /it/), per intercettare eventuali URL indicizzati/salvati con lo
+    // slug canonico sotto un prefisso locale diverso da /it/. Destinazione =
+    // slug localizzato attualmente valido per quel locale (vedi
+    // lib/blog/slugs.ts). sv/da/no/fi non hanno un override in BLOG_SLUGS per
+    // questo post (contenuto ancora in fallback EN, vedi
+    // UNTRANSLATED_CONTENT_LOCALES in lib/i18n.ts): localizedBlogSlug() cade
+    // sul canonico per quei 4 locali, quindi puntano allo stesso slug IT.
+    const oldCanonicalGoogleFitSlug = 'google-fit-cierra-alternativas-health-connect';
+    const googleFitApiSlugByLocale = {
+      it: 'google-fit-api-dismissione-2026',
+      en: 'google-fit-shutting-down-alternative',
+      es: 'google-fit-cierra-alternativa-health-connect',
+      de: 'google-fit-eingestellt-alternative',
+      pt: 'google-fit-encerrando-alternativa',
+      fr: 'google-fit-fermeture-alternative',
+      pl: 'google-fit-zamkniety-alternatywa-health-connect',
+      tr: 'google-fit-kapaniyor-alternatif',
+      nl: 'google-fit-gesloten-alternatieven-health-connect',
+      ja: 'google-fit-shuuryou-health-connect-daian',
+      ko: 'google-fit-jongryeo-health-connect-daean',
+      sv: 'google-fit-api-dismissione-2026',
+      da: 'google-fit-api-dismissione-2026',
+      no: 'google-fit-api-dismissione-2026',
+      fi: 'google-fit-api-dismissione-2026',
+    };
+    const itSlugFixRedirects = Object.entries(googleFitApiSlugByLocale).map(([lc, slug]) => ({
+      source: `/${lc}/blog/${oldCanonicalGoogleFitSlug}`,
+      destination: `/${lc}/blog/${slug}`,
+      permanent: true,
+    }));
+
     return [
       // App Links / Universal Links: l'apex `fitmesh.fit` deve poter servire
       // `/.well-known/*` SENZA redirect — Android (assetlinks.json) e Apple
@@ -174,6 +246,10 @@ const nextConfig = {
       ...cannibalRedirects,
       // Brand standalone cleanup (vedi sopra).
       ...standaloneRedirects,
+      // Cannibalization consolidation garmin-health-connect (vedi sopra).
+      ...garminSamsungConsolidationRedirects,
+      // Slug IT fix (vedi sopra).
+      ...itSlugFixRedirects,
     ];
   },
 };

@@ -32,7 +32,7 @@ Hub-and-spoke: 6 pillar che linkano i cluster.
 
 ### ✅ Già coperti (mappa piano → esistente)
 - **Health Connect**: come-funziona-health-connect, health-connect-vs-samsung-health,
-  health-connect-not-syncing, google-fit-cierra-alternativas-health-connect (angolo deprecazione 2026).
+  health-connect-not-syncing, google-fit-api-dismissione-2026 (angolo deprecazione 2026, ex google-fit-cierra-alternativas-health-connect).
 - **Galaxy Watch**: backup-galaxy-watch-pc, passi-non-si-sincronizzano-galaxy-watch, vedere-dati-wearable-browser-pc.
 - **Dashboard**: novita-dashboard-multi-device, piu-smartwatch-insieme-dati-doppi.
 - **Smart Ring**: anello-vs-smartwatch, migliori-anelli-economici, colmi-r02-setup, colmi-ring-fitmesh,

@@ -1,16 +1,24 @@
 import { ImageResponse } from "next/og";
-import { BLOG_POSTS, BLOG_POSTS_BY_SLUG, categoryLabel } from "@/lib/blog/data";
-import { tl } from "@/lib/blog/types";
+import { categoryLabel, tl } from "@/lib/blog/types";
 import { locales, type Locale } from "@/lib/i18n";
+import { getBlogSlugs } from "@/lib/blog/payload-source";
+import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
+import { resolveBlogPost } from "@/lib/blog/resolve";
 
 export const alt = "FitMesh Blog";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** Pre-render OG image for every (locale, slug) combination at build time. */
-export function generateStaticParams() {
-  return BLOG_POSTS.flatMap((p) =>
-    locales.map((locale) => ({ locale, slug: p.slug })),
+/**
+ * Pre-render OG image per ogni (locale, slug LOCALIZZATO) combination — non
+ * per lo slug canonico IT ripetuto sotto ogni locale (bug precedente: gli URL
+ * reali dell'articolo per i locale non-IT usano uno slug tradotto, quindi
+ * quei path pre-renderizzati non corrispondevano a nessun URL reale).
+ */
+export async function generateStaticParams() {
+  const slugs = await getBlogSlugs();
+  return slugs.flatMap((slug) =>
+    locales.map((locale) => ({ locale, slug: localizedBlogSlug(slug, locale) })),
   );
 }
 
@@ -23,10 +31,14 @@ export default async function OGBlogPost({
   const lc: Locale = locales.includes(locale as Locale)
     ? (locale as Locale)
     : "it";
-  const post = BLOG_POSTS_BY_SLUG[slug];
+  // Stesso resolver della pagina articolo (CMS + fallback TS + overlay
+  // nordico, slug localizzato → canonico): prima questa route leggeva
+  // `BLOG_POSTS_BY_SLUG` (solo post TS, solo slug canonico IT) e falliva
+  // silenziosamente su ogni post CMS-only e ogni URL non-IT.
+  const { post } = await resolveBlogPost(slug, lc);
 
   if (!post) {
-    return new ImageResponse(<div style={{ background: "#050816" }} />, { ...size });
+    return new ImageResponse(<div style={{ background: "#050816", width: "100%", height: "100%" }} />, { ...size });
   }
 
   const title = tl(post.hero.title, lc);

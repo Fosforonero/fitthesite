@@ -7,10 +7,10 @@ import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { MobileApplicationJsonLd } from "@/components/seo/MobileApplicationJsonLd";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { PRICING } from "@/lib/pricing";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -45,22 +45,22 @@ export async function generateMetadata({
       : "FitMesh Sync Founder — Lifetime Pro for the first 1000";
   const description =
     lc === "it"
-      ? "Scarica FitMesh Sync da Google Play e crea l'account: i primi 1000 ricevono il Pro a vita in regalo, attivato automaticamente. Più accesso prioritario alla versione iOS."
+      ? "Scarica FitMesh Sync da Google Play e crea l'account: i primi 1000 ricevono il Pro a vita in regalo, attivato automaticamente. Vale anche su iOS, già live sull'App Store."
       : lc === "es"
-      ? "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben Pro vitalicio gratis, activado automáticamente. Además, acceso prioritario a la versión iOS."
+      ? "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben Pro vitalicio gratis, activado automáticamente. También válido en iOS, ya disponible en la App Store."
       : lc === "de"
-      ? "Lade FitMesh Sync bei Google Play herunter und erstelle dein Konto: Die ersten 1000 erhalten automatisch Lifetime-Pro gratis. Plus: Prioritätszugang zur iOS-Version."
+      ? "Lade FitMesh Sync bei Google Play herunter und erstelle dein Konto: Die ersten 1000 erhalten automatisch Lifetime-Pro gratis. Gilt auch für iOS, bereits im App Store verfügbar."
       : lc === "pt"
-      ? "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem Pro vitalício grátis, ativado automaticamente. Mais acesso prioritário à versão iOS."
+      ? "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem Pro vitalício grátis, ativado automaticamente. Válido também no iOS, já disponível na App Store."
       : lc === "fr"
-      ? "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent le Pro à vie gratuit, activé automatiquement. Plus un accès prioritaire à la version iOS."
+      ? "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent le Pro à vie gratuit, activé automatiquement. Valable aussi sur iOS, déjà disponible sur l'App Store."
       : lc === "nl"
-      ? "Download de app, maak je account aan: de eerste 1000 krijgen Pro voor altijd gratis, automatisch geactiveerd. Bovendien prioritaire toegang tot iOS."
+      ? "Download de app, maak je account aan: de eerste 1000 krijgen Pro voor altijd gratis, automatisch geactiveerd. Ook geldig op iOS, al beschikbaar in de App Store."
       : lc === "ja"
-      ? "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にPro永久無料が自動的に付与されます。さらにiOSへの優先アクセスも。"
+      ? "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にPro永久無料が自動的に付与されます。iOSでも有効で、すでにApp Storeで公開中です。"
       : lc === "ko"
-      ? "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 평생 Pro가 자동으로 활성화됩니다. iOS 우선 접근권도 제공됩니다."
-      : "Download FitMesh Sync on Google Play and create your account: the first 1000 get lifetime Pro free, activated automatically. Plus priority access to the iOS version.";
+      ? "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 평생 Pro가 자동으로 활성화됩니다. iOS에서도 유효하며, 이미 App Store에 출시되어 있습니다."
+      : "Download FitMesh Sync on Google Play and create your account: the first 1000 get lifetime Pro free, activated automatically. Also valid on iOS, already live on the App Store.";
 
   const path = `/${lc}/beta`;
   return {
@@ -112,6 +112,7 @@ export default async function BetaPage({
           url: `${SITE_URL}/${lc}/beta`,
         }}
       />
+      <MobileApplicationJsonLd locale={lc} />
 
       {/* Page-local atmospheric layers (sopra al MarketingBackdrop globale) */}
       <div
@@ -218,7 +219,7 @@ export default async function BetaPage({
           </ol>
         </section>
 
-        {/* Form — riposizionato: lista d'attesa iOS (i founder hanno priorità) */}
+        {/* Form — riposizionato: notifica disponibilita' iOS per i paesi UE (rollout in corso) */}
         <section
           className="card-glass p-8 md:p-10 relative overflow-hidden"
           data-reveal
@@ -269,7 +270,7 @@ export default async function BetaPage({
 const IT = {
   metaTitle: "FitMesh Sync Founder — Pro a vita per i primi 1000",
   metaDesc:
-    "Scarica l'app, crea l'account: i primi 1000 ricevono il Pro a vita, attivato automaticamente. Più accesso prioritario a iOS.",
+    "Scarica l'app, crea l'account: i primi 1000 ricevono il Pro a vita, attivato automaticamente. Vale anche su iOS, già live.",
   kicker: "Founder · 1000 posti",
   h1_a: "Diventa uno dei primi",
   h1_b: "1000 founder",
@@ -285,8 +286,8 @@ const IT = {
     },
     {
       emoji: "⚡",
-      title: "Primo su iOS",
-      desc: "Android è già live. I founder ricevono l'accesso alla versione iOS non appena esce, prima di chiunque altro.",
+      title: "Anche su iOS",
+      desc: "L'app iOS è già live sull'App Store nei paesi supportati fuori dall'Unione Europea; nei 27 paesi UE il lancio è in corso. Il Pro Founder vale su entrambe le piattaforme.",
     },
     {
       emoji: "🛠️",
@@ -296,7 +297,7 @@ const IT = {
   ],
   formTitle: "Vuoi FitMesh anche su iPhone?",
   formSub:
-    "Lascia l'email e ti avviso al lancio iOS: i founder hanno accesso prioritario alla prima build.",
+    "L'app iOS è già live sull'App Store nei paesi supportati fuori dall'Unione Europea; nei 27 paesi UE il lancio è in corso. Lascia l'email e ti avviso appena è disponibile anche nel tuo paese.",
   nextTitle: "Come funziona",
   nextSteps: [
     {
@@ -352,7 +353,7 @@ const IT = {
 const ES = {
   metaTitle: "FitMesh Sync Founder — Pro vitalicio para los primeros 1000",
   metaDesc:
-    "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben Pro vitalicio gratis, activado automáticamente. Además, acceso prioritario a la versión iOS.",
+    "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben Pro vitalicio gratis, activado automáticamente. También válido en iOS, ya disponible.",
   kicker: "Founder · 1000 plazas",
   h1_a: "Sé uno de los primeros",
   h1_b: "1000 founders",
@@ -368,8 +369,8 @@ const ES = {
     },
     {
       emoji: "⚡",
-      title: "Primero en iOS",
-      desc: "Android ya está disponible. Los founders reciben acceso a la versión iOS en cuanto se lanza, antes que nadie.",
+      title: "También en iOS",
+      desc: "La app iOS ya está disponible en la App Store en los países compatibles fuera de la Unión Europea; en los 27 países de la UE el lanzamiento está en curso. El Pro Founder es válido en ambas plataformas.",
     },
     {
       emoji: "🛠️",
@@ -379,7 +380,7 @@ const ES = {
   ],
   formTitle: "¿Quieres FitMesh también en iPhone?",
   formSub:
-    "Deja tu email y te aviso cuando salga en iOS: los founders tienen acceso prioritario a la primera versión.",
+    "La app iOS ya está disponible en la App Store en los países compatibles fuera de la Unión Europea; en los 27 países de la UE el lanzamiento está en curso. Deja tu email y te aviso en cuanto esté disponible también en tu país.",
   nextTitle: "Cómo funciona",
   nextSteps: [
     {
@@ -435,7 +436,7 @@ const ES = {
 const EN = {
   metaTitle: "FitMesh Sync Founder — Lifetime Pro for the first 1000",
   metaDesc:
-    "Download the app, create your account: the first 1000 get lifetime Pro free, activated automatically. Plus priority iOS access.",
+    "Download the app, create your account: the first 1000 get lifetime Pro free, activated automatically. Also live on iOS.",
   kicker: "Founder · 1000 seats",
   h1_a: "Become one of the first",
   h1_b: "1000 founders",
@@ -451,8 +452,8 @@ const EN = {
     },
     {
       emoji: "⚡",
-      title: "First on iOS",
-      desc: "Android is already live. Founders get iOS access the moment it launches, before anyone else.",
+      title: "Also on iOS",
+      desc: "The iOS app is live on the App Store in supported countries outside the European Union; the rollout in the 27 EU countries is in progress. Founder Pro works on both platforms.",
     },
     {
       emoji: "🛠️",
@@ -462,7 +463,7 @@ const EN = {
   ],
   formTitle: "Want FitMesh on iPhone too?",
   formSub:
-    "Leave your email and I'll ping you at iOS launch: founders get priority access to the first build.",
+    "The iOS app is live on the App Store in supported countries outside the European Union; the rollout in the 27 EU countries is in progress. Leave your email and I'll let you know as soon as it's available in your country too.",
   nextTitle: "How it works",
   nextSteps: [
     {
@@ -518,7 +519,7 @@ const EN = {
 const DE = {
   metaTitle: "FitMesh Sync Founder — Lifetime-Pro für die ersten 1000",
   metaDesc:
-    "Lade FitMesh Sync bei Google Play herunter und erstelle dein Konto: Die ersten 1000 erhalten automatisch Lifetime-Pro gratis. Plus: Prioritätszugang zur iOS-Version.",
+    "Lade FitMesh Sync bei Google Play herunter und erstelle dein Konto: Die ersten 1000 erhalten automatisch Lifetime-Pro gratis. Gilt auch für iOS, bereits verfügbar.",
   kicker: "Founder · 1000 Plätze",
   h1_a: "Werde einer der ersten",
   h1_b: "1000 Founder",
@@ -534,8 +535,8 @@ const DE = {
     },
     {
       emoji: "⚡",
-      title: "Als Erster auf iOS",
-      desc: "Android ist bereits verfügbar. Founder erhalten Zugang zur iOS-Version, sobald sie erscheint, vor allen anderen.",
+      title: "Auch auf iOS",
+      desc: "Die iOS-App ist bereits im App Store in unterstützten Ländern außerhalb der EU live; in den 27 EU-Ländern läuft der Rollout. Der Founder-Pro gilt auf beiden Plattformen.",
     },
     {
       emoji: "🛠️",
@@ -545,7 +546,7 @@ const DE = {
   ],
   formTitle: "FitMesh auch auf dem iPhone?",
   formSub:
-    "Hinterlasse deine E-Mail-Adresse und ich benachrichtige dich beim iOS-Launch: Founder erhalten Prioritätszugang zum ersten Build.",
+    "Die iOS-App ist bereits im App Store in unterstützten Ländern außerhalb der EU live; in den 27 EU-Ländern läuft der Rollout. Hinterlasse deine E-Mail-Adresse und ich benachrichtige dich, sobald sie auch in deinem Land verfügbar ist.",
   nextTitle: "So funktioniert es",
   nextSteps: [
     {
@@ -601,7 +602,7 @@ const DE = {
 const PT = {
   metaTitle: "FitMesh Sync Founder — Pro vitalício para os primeiros 1000",
   metaDesc:
-    "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem Pro vitalício grátis, ativado automaticamente. Mais acesso prioritário à versão iOS.",
+    "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem Pro vitalício grátis, ativado automaticamente. Válido também no iOS, já disponível.",
   kicker: "Founder · 1000 vagas",
   h1_a: "Seja um dos primeiros",
   h1_b: "1000 founders",
@@ -617,8 +618,8 @@ const PT = {
     },
     {
       emoji: "⚡",
-      title: "Primeiro no iOS",
-      desc: "O Android já está disponível. Os founders recebem acesso à versão iOS assim que ela for lançada, antes de qualquer pessoa.",
+      title: "Também no iOS",
+      desc: "O app iOS já está ao vivo na App Store nos países compatíveis fora da União Europeia; nos 27 países da UE o lançamento está em andamento. O Pro Founder vale nas duas plataformas.",
     },
     {
       emoji: "🛠️",
@@ -628,7 +629,7 @@ const PT = {
   ],
   formTitle: "Quer o FitMesh também no iPhone?",
   formSub:
-    "Deixe seu e-mail e eu aviso no lançamento do iOS: os founders têm acesso prioritário ao primeiro build.",
+    "O app iOS já está ao vivo na App Store nos países compatíveis fora da União Europeia; nos 27 países da UE o lançamento está em andamento. Deixe seu e-mail e eu aviso assim que estiver disponível também no seu país.",
   nextTitle: "Como funciona",
   nextSteps: [
     {
@@ -684,7 +685,7 @@ const PT = {
 const FR = {
   metaTitle: "FitMesh Sync Founder — Pro à vie pour les 1000 premiers",
   metaDesc:
-    "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent le Pro à vie gratuit, activé automatiquement. Plus un accès prioritaire à la version iOS.",
+    "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent le Pro à vie gratuit, activé automatiquement. Valable aussi sur iOS, déjà disponible.",
   kicker: "Founder · 1000 places",
   h1_a: "Devenez l'un des premiers",
   h1_b: "1000 founders",
@@ -700,8 +701,8 @@ const FR = {
     },
     {
       emoji: "⚡",
-      title: "Premier sur iOS",
-      desc: "Android est déjà disponible. Les founders reçoivent l'accès à la version iOS dès son lancement, avant tout le monde.",
+      title: "Aussi sur iOS",
+      desc: "L'app iOS est déjà disponible sur l'App Store dans les pays pris en charge en dehors de l'Union européenne; le déploiement dans les 27 pays de l'UE est en cours. Le Pro Founder est valable sur les deux plateformes.",
     },
     {
       emoji: "🛠️",
@@ -711,7 +712,7 @@ const FR = {
   ],
   formTitle: "Vous voulez FitMesh sur iPhone aussi?",
   formSub:
-    "Laissez votre e-mail et je vous préviens au lancement iOS: les founders ont un accès prioritaire au premier build.",
+    "L'app iOS est déjà disponible sur l'App Store dans les pays pris en charge en dehors de l'Union européenne; le déploiement dans les 27 pays de l'UE est en cours. Laissez votre e-mail et je vous préviens dès qu'elle sera disponible aussi dans votre pays.",
   nextTitle: "Comment ça marche",
   nextSteps: [
     {
@@ -767,7 +768,7 @@ const FR = {
 const NL = {
   metaTitle: "FitMesh Sync Founder — Pro voor altijd voor de eerste 1000",
   metaDesc:
-    "Download de app, maak je account aan: de eerste 1000 krijgen Pro voor altijd gratis, automatisch geactiveerd. Bovendien prioritaire toegang tot iOS.",
+    "Download de app, maak je account aan: de eerste 1000 krijgen Pro voor altijd gratis, automatisch geactiveerd. Ook geldig op iOS, al beschikbaar.",
   kicker: "Founder · 1000 plaatsen",
   h1_a: "Word een van de eerste",
   h1_b: "1000 founders",
@@ -783,8 +784,8 @@ const NL = {
     },
     {
       emoji: "⚡",
-      title: "Als eerste op iOS",
-      desc: "Android is al live. Founders krijgen iOS-toegang zodra het uitkomt, vóór iedereen anders.",
+      title: "Ook op iOS",
+      desc: "De iOS-app is al live in de App Store in ondersteunde landen buiten de Europese Unie; de uitrol in de 27 EU-landen loopt. De Founder Pro geldt op beide platforms.",
     },
     {
       emoji: "🛠️",
@@ -794,7 +795,7 @@ const NL = {
   ],
   formTitle: "Wil je FitMesh ook op je iPhone?",
   formSub:
-    "Laat je e-mailadres achter en ik laat je weten wanneer iOS lanceert: founders krijgen prioritaire toegang tot de eerste build.",
+    "De iOS-app is al live in de App Store in ondersteunde landen buiten de Europese Unie; de uitrol in de 27 EU-landen loopt. Laat je e-mailadres achter en ik laat het je weten zodra hij ook in jouw land beschikbaar is.",
   nextTitle: "Hoe het werkt",
   nextSteps: [
     {
@@ -850,7 +851,7 @@ const NL = {
 const JA = {
   metaTitle: "FitMesh Sync Founder — 最初の1000名にPro永久無料",
   metaDesc:
-    "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にPro永久無料が自動的に付与されます。さらにiOSへの優先アクセスも。",
+    "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にPro永久無料が自動的に付与されます。iOSでもすでに利用可能です。",
   kicker: "Founder · 1000席",
   h1_a: "最初の",
   h1_b: "1000人のFounder",
@@ -866,8 +867,8 @@ const JA = {
     },
     {
       emoji: "⚡",
-      title: "iOSへ最速アクセス",
-      desc: "Androidはすでに公開中。Founderはリリース直後に、誰よりも先にiOSにアクセスできます。",
+      title: "iOSでも利用可能",
+      desc: "iOSアプリはすでにEU域外の対応国・地域のApp Storeで公開中です。EU加盟27カ国への展開は現在進行中です。Founder Proは両プラットフォームで有効です。",
     },
     {
       emoji: "🛠️",
@@ -877,7 +878,7 @@ const JA = {
   ],
   formTitle: "iPhoneでもFitMeshを使いたいですか？",
   formSub:
-    "メールアドレスを登録するとiOS公開時にお知らせします。Founderは最初のビルドへの優先アクセス権を取得できます。",
+    "iOSアプリはすでにEU域外の対応国・地域のApp Storeで公開中です。EU加盟27カ国への展開は現在進行中です。メールアドレスを登録すると、お住まいの国でも利用可能になり次第お知らせします。",
   nextTitle: "仕組み",
   nextSteps: [
     {
@@ -933,7 +934,7 @@ const JA = {
 const KO = {
   metaTitle: "FitMesh Sync Founder — 처음 1000명에게 평생 Pro 무료",
   metaDesc:
-    "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 평생 Pro가 자동으로 활성화됩니다. iOS 우선 접근권도 제공됩니다.",
+    "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 평생 Pro가 자동으로 활성화됩니다. iOS에서도 이미 이용 가능합니다.",
   kicker: "Founder · 1000석",
   h1_a: "처음",
   h1_b: "1000명의 Founder",
@@ -949,8 +950,8 @@ const KO = {
     },
     {
       emoji: "⚡",
-      title: "iOS 최초 접근",
-      desc: "Android는 이미 출시됨. Founder는 출시 즉시 누구보다 먼저 iOS에 접근할 수 있습니다.",
+      title: "iOS에서도 이용 가능",
+      desc: "iOS 앱은 이미 EU 역외 지원 국가의 App Store에 출시되어 있습니다. EU 27개국 출시는 현재 진행 중입니다. Founder Pro는 두 플랫폼 모두에서 유효합니다.",
     },
     {
       emoji: "🛠️",
@@ -960,7 +961,7 @@ const KO = {
   ],
   formTitle: "iPhone에서도 FitMesh를 원하시나요?",
   formSub:
-    "이메일을 남겨주시면 iOS 출시 시 알려드립니다. Founder는 첫 번째 빌드에 우선 접근할 수 있습니다.",
+    "iOS 앱은 이미 EU 역외 지원 국가의 App Store에 출시되어 있습니다. EU 27개국 출시는 현재 진행 중입니다. 이메일을 남겨주시면 거주 국가에서도 이용 가능해지는 즉시 알려드립니다.",
   nextTitle: "이용 방법",
   nextSteps: [
     {

@@ -8,6 +8,9 @@ import { IosAwareText } from "@/components/IosAwareText";
 import FounderBanner from "@/components/FounderBanner";
 import TrustBadges from "@/components/TrustBadges";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { MobileApplicationJsonLd } from "@/components/seo/MobileApplicationJsonLd";
+import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
+import { WebSiteJsonLd } from "@/components/seo/WebSiteJsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
@@ -15,8 +18,8 @@ import { tl, tll } from "@/lib/blog/types";
 import { p } from "@/lib/pricing";
 import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
 /**
  * Below-the-fold marketing copy on this page (How it works, Integrations
@@ -127,7 +130,7 @@ export default async function Home({
       : lc === "es"
       ? "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect y proveedores en la nube en un panel global centrado en la privacidad: pasos, frecuencia cardíaca, sueño, recuperación y tendencias."
       : "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one privacy-first global dashboard: steps, heart rate, sleep, recovery and trends.",
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
+    inLanguage: schemaLanguage(lc),
     isPartOf: { "@id": `${SITE_URL}#website` },
     about: { "@id": `${SITE_URL}#mobile-app` },
     primaryImageOfPage: {
@@ -152,8 +155,11 @@ export default async function Home({
 
   return (
     <>
+      <OrganizationJsonLd locale={lc} />
+      <WebSiteJsonLd locale={lc} />
       <JsonLd data={homeLd} />
       <JsonLd data={homeBreadcrumbLd} />
+      <MobileApplicationJsonLd locale={lc} />
       {/* ════════════════════════════════════════════════════════════════
        *  HERO
        *  Composizione asimmetrica: testo 7 colonne a sinistra, visual 5
@@ -410,6 +416,13 @@ export default async function Home({
             <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
               {tl(HOMEPAGE_COPY.integrationsHeading, lc)}
             </h2>
+            <Link
+              href={`/${lc}/fitness-data-sync`}
+              className="group mt-3 inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-brand-aqua transition"
+            >
+              {tl(HOMEPAGE_COPY.integrationsDashboardTeaser, lc)}
+              <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+            </Link>
           </div>
           <Link
             href={`/${lc}/integrations`}

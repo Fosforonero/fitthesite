@@ -16,10 +16,11 @@ import { isProviderVariantIndexable } from "@/lib/providers/indexability";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { tl, tll, categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
-import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
+import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
+import { APPLE_STORE_URL } from "@/lib/flags";
+import { schemaLanguage } from "@/lib/seo/schema-language";
+import { toMetaDescription } from "@/lib/seo/meta-description";
 
-const SITE_URL = "https://www.fitmesh.fit";
-const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
 const WAITLIST_EMAIL = "waitlist@fitmesh.fit";
 
 /**
@@ -186,7 +187,10 @@ export async function generateMetadata({
               : lc === "ko"
                 ? `${p.name}을 FitMesh Sync와 동기화`
                 : `Sync ${p.name} to FitMesh Sync`;
-  const description = tl(p.tagline, lc);
+  // La tagline (58-113 caratteri su molte integrazioni) è adatta alle card,
+  // ma Bing la segnala come meta description troppo corta. La longDesc è
+  // unica per provider e viene ridotta a uno snippet leggibile <=160c.
+  const description = toMetaDescription(tl(p.longDesc, lc));
 
   const path = `/${lc}/sync/${p.slug}`;
   return {
@@ -244,18 +248,30 @@ export default async function ProviderLanding({
     lc === "it" ? it : lc === "es" ? es : lc === "nl" ? (nl ?? en) : lc === "ja" ? (ja ?? en) : lc === "ko" ? (ko ?? en) : en;
 
   // ── JSON-LD ──────────────────────────────────────────────────────────
+  // Piattaforma-aware: la maggior parte dei provider è Android-only (Health
+  // Connect), ma "apple-health" è iOS-only e "colmi-ring" funziona su
+  // entrambe (BLE diretto) — p.platforms lo dichiara esplicitamente (default
+  // ["android"] se omesso). Prima questo blocco era hardcoded "ANDROID" +
+  // Play Store per OGNI provider, incluse le pagine apple-health/colmi-ring.
   const path = `/${lc}/sync/${p.slug}`;
+  const platforms = p.platforms ?? ["android"];
   const softwareLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: `FitMesh Sync — ${p.name}`,
     applicationCategory: "HealthApplication",
-    operatingSystem: "ANDROID",
+    operatingSystem: platforms.map((plat) => (plat === "ios" ? "IOS" : "ANDROID")).join(", "),
     description: tl(p.longDesc, lc),
     url: `${SITE_URL}${path}`,
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
-    offers: { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR" },
-    downloadUrl: PLAY_URL,
+    inLanguage: schemaLanguage(lc),
+    // appOffers() ritorna sempre lo stesso free-download Offer indipendentemente
+    // dalla piattaforma: niente flatMap multi-piattaforma, altrimenti duplica il nodo.
+    offers: appOffers(platforms[0]),
+    // downloadUrl: solo per provider single-platform — con due piattaforme
+    // (colmi-ring) non c'è un unico store "giusto" da linkare qui.
+    ...(platforms.length === 1 && {
+      downloadUrl: platforms[0] === "ios" ? APPLE_STORE_URL : PLAY_URL,
+    }),
   };
 
   const faqLd =
@@ -291,7 +307,7 @@ export default async function ProviderLanding({
             `${p.name}을 FitMesh Sync에 연결하는 방법`,
           ),
           description: tl(p.longDesc, lc),
-          inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : lc === "de" ? "de-DE" : lc === "pt" ? "pt-BR" : lc === "fr" ? "fr-FR" : lc === "nl" ? "nl-NL" : lc === "ja" ? "ja-JP" : lc === "ko" ? "ko-KR" : "en-US",
+          inLanguage: schemaLanguage(lc),
           step: howToSteps.map((stepText, i) => ({
             "@type": "HowToStep",
             position: i + 1,
@@ -432,6 +448,19 @@ export default async function ProviderLanding({
                 "FitMesh Sync는 독립적인 제품입니다. 상표는 해당 소유자에게 귀속되며 이 페이지는 어떠한 제휴나 후원도 의미하지 않습니다.",
               )}
             </p>
+            <Link
+              href={`/${lc}/fitness-data-sync`}
+              className="mt-3 inline-flex items-center gap-1.5 text-xs text-text-muted hover:text-brand-aqua transition"
+            >
+              {t(
+                "Come si confronta con le altre architetture di sync",
+                "How this compares to other sync architectures",
+                "Cómo se compara con otras arquitecturas de sincronización",
+                "Hoe dit zich verhoudt tot andere sync-architecturen",
+                "他の同期アーキテクチャとの比較",
+                "다른 동기화 아키텍처와의 비교",
+              )}
+            </Link>
           </div>
 
           {/* Provider monogram card */}

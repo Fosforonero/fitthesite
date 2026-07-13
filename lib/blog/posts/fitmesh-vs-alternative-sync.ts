@@ -267,8 +267,8 @@ export const post: BlogPost = {
     {
       q: { it: "Quale costa meno?", en: "Which one costs the least?" },
       a: {
-        it: "Gadgetbridge è gratuito (sostenuto da donazioni). Health Sync ha un acquisto una tantum economico (3,99 $ confermato su iOS). FitnessSyncer e FitMesh Sync hanno entrambe un piano gratuito limitato e un piano a pagamento più completo; FitMesh Sync offre anche uno sblocco a vita e il Pro gratis a vita per i primi 1000 iscritti founder.",
-        en: "Gadgetbridge is free (donation-supported). Health Sync has a cheap one-time purchase ($3.99 confirmed on iOS). FitnessSyncer and FitMesh Sync both have a limited free tier and a fuller paid tier; FitMesh Sync also offers a lifetime unlock and free-for-life Pro for the first 1,000 founder sign-ups.",
+        it: "Gadgetbridge è gratuito (sostenuto da donazioni). Health Sync ha un acquisto una tantum economico (3,99 $ confermato su iOS). FitnessSyncer ha un piano gratuito limitato e un piano a pagamento più completo. FitMesh Sync non ha un piano gratuito permanente: offre una prova completa di 14 giorni, poi un abbonamento leggero o lo sblocco a vita, con il Pro gratis a vita per i primi 1000 iscritti founder.",
+        en: "Gadgetbridge is free (donation-supported). Health Sync has a cheap one-time purchase ($3.99 confirmed on iOS). FitnessSyncer has a limited free tier and a fuller paid tier. FitMesh Sync has no permanent free plan: it offers a full 14-day trial, then a light subscription or a lifetime unlock, with free-for-life Pro for the first 1,000 founder sign-ups.",
       },
     },
     {

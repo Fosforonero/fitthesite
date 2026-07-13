@@ -14,7 +14,7 @@ import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 const TOTAL_SPOTS = 1000;
-// I 17 beta tester della closed beta sono i primi founder: occupano slot
+// I 7 beta tester della closed beta sono i primi founder: occupano slot
 // anche se i loro grant non hanno note='founder-launch' (sono pro a vita).
 const LEGACY_FOUNDERS = 7;
 // Live fresh ad ogni request: il counter deve muoversi appena qualcuno

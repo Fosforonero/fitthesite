@@ -57,7 +57,7 @@ const POST_COVER: Record<string, CoverType> = {
   "sincronizzare-withings": "sync",
   "dati-pixel-watch-dashboard": "dashboard",
   "anello-smart-guida-completa": "ring",
-  "google-fit-cierra-alternativas-health-connect": "sync",
+  "google-fit-api-dismissione-2026": "sync",
   "novita-fonte-del-dato": "news",
   "fitmesh-sync-disponibile-google-play": "news",
   "anello-vs-smartwatch": "compare",

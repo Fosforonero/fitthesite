@@ -258,7 +258,7 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "fitness-data-privacy-smartwatch",
     ko: "fitness-deiteo-gaeinjungbo-smartwatch",
   },
-  "google-fit-cierra-alternativas-health-connect": {
+  "google-fit-api-dismissione-2026": {
     en: "google-fit-shutting-down-alternative",
     es: "google-fit-cierra-alternativa-health-connect",
     de: "google-fit-eingestellt-alternative",
@@ -837,18 +837,6 @@ export const LANDING_SLUGS: Record<string, SlugSet> = {
     nl: "health-connect-dashboard-android",
     ja: "health-connect-dashboard-android",
     ko: "health-connect-daeshibodeu-android",
-  },
-  "garmin-health-connect": {
-    en: "garmin-health-connect-sync",
-    es: "garmin-health-connect-sincronizacion",
-    de: "garmin-health-connect-synchronisierung",
-    pt: "garmin-health-connect-sincronizacao",
-    fr: "garmin-health-connect-synchronisation",
-    pl: "garmin-health-connect-synchronizacja",
-    tr: "garmin-health-connect-senkronizasyon",
-    nl: "garmin-health-connect-synchronisatie",
-    ja: "garmin-health-connect-douki",
-    ko: "garmin-health-connect-dongkihwa",
   },
   "sleep-tracking": {
     en: "sleep-tracking-wearable-android",

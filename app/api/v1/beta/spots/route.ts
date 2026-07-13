@@ -2,7 +2,7 @@
  * GET /api/v1/beta/spots — contatore posti Founder occupati (X/1000).
  *
  * Usa admin client per contare i grant note='founder-launch' in user_roles,
- * allineato con FounderBanner (server component). Aggiunge 17 legacy founders
+ * allineato con FounderBanner (server component). Aggiunge 7 legacy founders
  * della closed beta che non hanno note='founder-launch'.
  *
  * Risposta: { taken: number, total: 1000 }

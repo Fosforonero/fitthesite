@@ -11,11 +11,10 @@ import { PROVIDERS_BY_SLUG } from "@/lib/providers/data";
 import { PROVIDER_MODELS } from "@/lib/providers/models";
 import { isProviderModelVariantIndexable } from "@/lib/providers/indexability";
 import { tl } from "@/lib/blog/types";
-import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
-
-const SITE_URL = "https://www.fitmesh.fit";
-const PLAY_URL =
-  "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
+import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
+import { APPLE_STORE_URL } from "@/lib/flags";
+import { schemaLanguage } from "@/lib/seo/schema-language";
+import { toMetaDescription } from "@/lib/seo/meta-description";
 
 function renderInlineBold(text: string): ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
@@ -60,6 +59,21 @@ const UI = {
     ja: "とFitMesh — Health Connectガイド",
     ko: "과 FitMesh — Health Connect 가이드",
   },
+  // Variante per provider con syncMechanism "direct-ble" (oggi: colmi-ring),
+  // che non passa da Health Connect — vedi lib/providers/data.ts.
+  titleSuffixBle: {
+    it: "con FitMesh — guida Bluetooth diretto",
+    en: "with FitMesh — direct Bluetooth guide",
+    es: "con FitMesh — guía Bluetooth directo",
+    de: "mit FitMesh — direkte Bluetooth-Anleitung",
+    pt: "com FitMesh — guia Bluetooth direto",
+    fr: "avec FitMesh — guide Bluetooth direct",
+    pl: "z FitMesh — przewodnik Bluetooth",
+    tr: "FitMesh ile — doğrudan Bluetooth kılavuzu",
+    nl: "met FitMesh — directe Bluetooth-handleiding",
+    ja: "とFitMesh — 直接Bluetooth接続ガイド",
+    ko: "과 FitMesh — 직접 블루투스 가이드",
+  },
   hcFeaturesTitle: {
     it: "Dati scritti su Health Connect",
     en: "Data written to Health Connect",
@@ -72,6 +86,19 @@ const UI = {
     nl: "Gegevens geschreven naar Health Connect",
     ja: "Health Connectに書き込まれるデータ",
     ko: "Health Connect에 기록되는 데이터",
+  },
+  hcFeaturesTitleBle: {
+    it: "Dati letti via Bluetooth diretto",
+    en: "Data read via direct Bluetooth",
+    es: "Datos leídos por Bluetooth directo",
+    de: "Über direktes Bluetooth gelesene Daten",
+    pt: "Dados lidos via Bluetooth direto",
+    fr: "Données lues via Bluetooth direct",
+    pl: "Dane odczytywane przez bezpośredni Bluetooth",
+    tr: "Doğrudan Bluetooth ile okunan veriler",
+    nl: "Gegevens gelezen via directe Bluetooth",
+    ja: "直接Bluetooth経由で読み取られるデータ",
+    ko: "직접 블루투스로 읽는 데이터",
   },
   faqTitle: {
     it: "Domande frequenti",
@@ -151,6 +178,19 @@ const UI = {
     ja: "FitMeshはHealth Connectからデータを読み取ります（",
     ko: "FitMesh는 Health Connect에서 데이터를 읽습니다 —",
   },
+  ctaBodyBle: {
+    it: "FitMesh si collega direttamente via Bluetooth — incluso il tuo",
+    en: "FitMesh connects directly via Bluetooth — including your",
+    es: "FitMesh se conecta directamente por Bluetooth — incluido tu",
+    de: "FitMesh verbindet sich direkt per Bluetooth — einschließlich deines",
+    pt: "FitMesh se conecta diretamente via Bluetooth — incluindo seu",
+    fr: "FitMesh se connecte directement en Bluetooth — y compris votre",
+    pl: "FitMesh łączy się bezpośrednio przez Bluetooth — w tym Twój",
+    tr: "FitMesh doğrudan Bluetooth ile bağlanır — dahil",
+    nl: "FitMesh maakt rechtstreeks via Bluetooth verbinding — inclusief je",
+    ja: "FitMeshはBluetoothで直接接続します（",
+    ko: "FitMesh는 블루투스로 직접 연결됩니다 —",
+  },
   ctaLabel: {
     it: "Inizia gratis",
     en: "Get started free",
@@ -169,6 +209,20 @@ const UI = {
 function t(key: keyof typeof UI, lc: Locale): string {
   const map = UI[key] as Record<string, string>;
   return map[lc] ?? map["en"];
+}
+
+/**
+ * Come `t()`, ma sceglie fra una stringa "Health Connect" e la sua variante
+ * BLE in base a `provider.syncMechanism` — di default (campo omesso) i
+ * provider passano da Health Connect, quindi `baseKey` resta il default.
+ */
+function tSync(
+  baseKey: keyof typeof UI,
+  bleKey: keyof typeof UI,
+  lc: Locale,
+  provider: { syncMechanism?: "health-connect" | "direct-ble" | "healthkit" },
+): string {
+  return t(provider.syncMechanism === "direct-ble" ? bleKey : baseKey, lc);
 }
 
 // ── Static generation ─────────────────────────────────────────────────────────
@@ -197,8 +251,10 @@ export async function generateMetadata({
   const m = models.find((x) => x.slug === modelSlug);
   if (!p || !m) return {};
 
-  const title = `${t("titlePrefix", lc)} ${m.name} ${t("titleSuffix", lc)}`;
-  const description = (m.description[lc] ?? m.description["en"] ?? "").slice(0, 160);
+  const title = `${t("titlePrefix", lc)} ${m.name} ${tSync("titleSuffix", "titleSuffixBle", lc, p)}`;
+  const description = toMetaDescription(
+    m.description[lc] ?? m.description["en"] ?? "",
+  );
   const path = `/${lc}/sync/${p.slug}/${m.slug}`;
 
   return {
@@ -265,21 +321,22 @@ export default async function ModelPage({
       }
     : null;
 
+  const modelPlatforms = p.platforms ?? ["android"];
   const appSchema = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     name: `FitMesh Sync — ${m.name}`,
     applicationCategory: "HealthApplication",
-    operatingSystem: "ANDROID",
+    operatingSystem: modelPlatforms.map((plat) => (plat === "ios" ? "IOS" : "ANDROID")).join(", "),
     description: desc,
-    inLanguage: lc,
+    inLanguage: schemaLanguage(lc),
     url: pageUrl,
-    offers: {
-      "@type": "Offer",
-      price: String(PRICE_LIFETIME_ANDROID_RAW),
-      priceCurrency: "EUR",
-    },
-    downloadUrl: PLAY_URL,
+    // appOffers() ritorna sempre lo stesso free-download Offer indipendentemente
+    // dalla piattaforma: niente flatMap multi-piattaforma, altrimenti duplica il nodo.
+    offers: appOffers(modelPlatforms[0]),
+    ...(modelPlatforms.length === 1 && {
+      downloadUrl: modelPlatforms[0] === "ios" ? APPLE_STORE_URL : PLAY_URL,
+    }),
   };
 
   return (
@@ -322,7 +379,9 @@ export default async function ModelPage({
 
           <h1 className="text-3xl sm:text-4xl font-bold mb-4 leading-tight">
             {m.name}{" "}
-            <span className="text-accent-primary">Health Connect</span>{" "}
+            <span className="text-accent-primary">
+              {p.syncMechanism === "direct-ble" ? "Bluetooth" : "Health Connect"}
+            </span>{" "}
             sync guide {new Date().getFullYear()}
           </h1>
 
@@ -338,7 +397,7 @@ export default async function ModelPage({
         {/* HC Features */}
         <section className="max-w-5xl mx-auto px-4 pb-12">
           <h2 className="text-xl font-semibold mb-4">
-            {t("hcFeaturesTitle", lc)}
+            {tSync("hcFeaturesTitle", "hcFeaturesTitleBle", lc, p)}
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {m.hcFeatures.map((feat) => (
@@ -418,7 +477,7 @@ export default async function ModelPage({
           <div className="bg-bg-secondary rounded-2xl px-8 py-10 text-center">
             <h2 className="text-2xl font-bold mb-3">{t("ctaTitle", lc)}</h2>
             <p className="text-text-secondary mb-6 max-w-md mx-auto">
-              {t("ctaBody", lc)} {m.name}.
+              {tSync("ctaBody", "ctaBodyBle", lc, p)} {m.name}.
             </p>
             {isLive ? (
               <a

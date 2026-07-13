@@ -24,15 +24,18 @@ import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { isLocaleInCopy } from "@/lib/content/page-copy-gate";
+import { SITE_URL } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
-const SITE_URL = "https://www.fitmesh.fit";
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
 
 /**
  * Mesh Famiglia feature temporaneamente sospesa lato app (FeatureFlags
- * meshFamigliaEnabled=false) finché l'app non è live su entrambi gli store
- * (Android Play Store + iOS App Store). Quando l'app raggiunge entrambi
- * gli store: flip a `false` per riattivare la landing piena.
+ * meshFamigliaEnabled=false). L'app è ormai live sia su Android (Play
+ * Store, worldwide) sia su iOS (App Store, live negli store supportati
+ * fuori UE; nei 27 paesi UE il rollout è in corso) — la sospensione non
+ * dipende più dalla disponibilità sugli store. Quando la feature lato app sarà pronta:
+ * flip `COMING_SOON` a `false` per riattivare la landing piena.
  *
  * Mantenuto l'URL stabile per SEO (Google ha già indicizzato) ma il body
  * mostra uno stato "in arrivo" con CTA waitlist via /it/beta.
@@ -1104,9 +1107,7 @@ export default async function FamigliaLanding({
       : lc === "es"
       ? "Crea un grupo familiar, invita a padres/pareja/hijos: cada uno comparte pasos/sueño/frecuencia cardíaca con los demás en un solo panel. Privacidad primero."
       : "Create a family group, invite parents/partner/kids: everyone shares steps/sleep/heart rate with each other in one dashboard. Privacy-first.",
-    inLanguage: lc === "it" ? "it-IT" : lc === "es" ? "es-ES" : "en-US",
-    isPartOf: { "@id": `${SITE_URL}#website` },
-    about: { "@id": `${SITE_URL}#mobile-app` },
+    inLanguage: schemaLanguage(lc),
   };
 
   if (COMING_SOON) {
@@ -1375,11 +1376,11 @@ function ComingSoonState({
           },
           {
             title: "Multi-vendor, niente lock-in",
-            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: qualsiasi wearable supportato da Health Connect (Android) o HealthKit (iOS, in arrivo).",
+            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: qualsiasi wearable supportato da Health Connect (Android) o HealthKit (iOS).",
           },
         ],
         availability_h2: "Quando arriva",
-        availability_body: "Mesh Famiglia richiede l'app pubblicata su entrambi gli store per funzionare end-to-end (il familiare che inviti deve poter installare da Play Store o App Store). Android è già live in beta; iOS è in sviluppo. Rilascio Mesh Famiglia previsto quando entrambe le piattaforme sono in produzione.",
+        availability_body: "Mesh Famiglia richiede l'app pubblicata su entrambi gli store per funzionare end-to-end (il familiare che inviti deve poter installare da Play Store o App Store). Android è già live in tutto il mondo; l'app iOS è live sull'App Store negli store supportati al di fuori dell'Unione Europea, con il rollout nei 27 paesi UE in corso. Rilascio Mesh Famiglia previsto quando entrambe le piattaforme sono in produzione.",
       }
     : lc === "es"
     ? {
@@ -1400,11 +1401,11 @@ function ComingSoonState({
           },
           {
             title: "Multi-dispositivo, sin ataduras",
-            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: cualquier wearable compatible con Health Connect (Android) o HealthKit (iOS, próximamente).",
+            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: cualquier wearable compatible con Health Connect (Android) o HealthKit (iOS).",
           },
         ],
         availability_h2: "Cuándo llega",
-        availability_body: "Mesh Familia requiere que la app esté publicada en ambas tiendas para funcionar de extremo a extremo (el familiar que invites debe poder instalarla desde Play Store o App Store). Android ya está disponible en beta; iOS está en desarrollo. El lanzamiento de Mesh Familia está previsto cuando ambas plataformas estén en producción.",
+        availability_body: "Mesh Familia requiere que la app esté publicada en ambas tiendas para funcionar de extremo a extremo (el familiar que invites debe poder instalarla desde Play Store o App Store). Android ya está disponible en todo el mundo; la app de iOS ya está disponible en la App Store en las tiendas compatibles fuera de la Unión Europea, y el despliegue en los 27 países de la UE está en curso. El lanzamiento de Mesh Familia está previsto cuando ambas plataformas estén en producción.",
       }
     : {
         kicker: "Family Mesh",
@@ -1424,11 +1425,11 @@ function ComingSoonState({
           },
           {
             title: "Multi-vendor, no lock-in",
-            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: any wearable supported by Health Connect (Android) or HealthKit (iOS, coming).",
+            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: any wearable supported by Health Connect (Android) or HealthKit (iOS).",
           },
         ],
         availability_h2: "When it arrives",
-        availability_body: "Family Mesh requires the app published on both stores to work end-to-end (the family member you invite must be able to install from Play Store or App Store). Android is already live in beta; iOS is in development. Family Mesh release planned once both platforms are in production.",
+        availability_body: "Family Mesh requires the app published on both stores to work end-to-end (the family member you invite must be able to install from Play Store or App Store). Android is already live worldwide; the iOS app is live on the App Store in supported storefronts outside the European Union, with rollout to the 27 EU countries in progress. Family Mesh release planned once both platforms are in production.",
       };
 
   // FAQ: relocated verbatim from the full-mode COPY object (never rendered

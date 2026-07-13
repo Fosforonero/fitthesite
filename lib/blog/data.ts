@@ -60,8 +60,8 @@ import { post as syncThemAll } from "./posts/sync-them-all";
 import { post as novitaFonteDelDato } from "./posts/novita-fonte-del-dato";
 // Novità: lancio su Google Play
 import { post as fitmeshSyncDisponibileGooglePlay } from "./posts/fitmesh-sync-disponibile-google-play";
-// Google Fit cierra: alternativas y Health Connect
-import { post as googleFitCierra } from "./posts/google-fit-cierra-alternativas-health-connect";
+// Google Fit: dismissione API 2026 (intento developer)
+import { post as googleFitApiDismissione } from "./posts/google-fit-api-dismissione-2026";
 // Net-new 18/06: Xiaomi/Amazfit, Withings, Pixel Watch
 import { post as esportareDatiXiaomiAmazfit } from "./posts/esportare-dati-xiaomi-amazfit";
 import { post as sincronizzareWithings } from "./posts/sincronizzare-withings";
@@ -141,8 +141,8 @@ const RAW_POSTS: BlogPost[] = [
   syncThemAll,
   novitaFonteDelDato,
   fitmeshSyncDisponibileGooglePlay,
-  // Google Fit cierra
-  googleFitCierra,
+  // Google Fit: dismissione API 2026
+  googleFitApiDismissione,
   // Net-new 18/06
   esportareDatiXiaomiAmazfit,
   sincronizzareWithings,

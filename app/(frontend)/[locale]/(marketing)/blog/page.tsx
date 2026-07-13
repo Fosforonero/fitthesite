@@ -9,8 +9,8 @@ import { categoryLabel, tl } from "@/lib/blog/types";
 import { getBlogPosts } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -261,19 +261,7 @@ const I18N = {
 
 function formatDate(iso: string, lc: Locale): string {
   const d = new Date(iso);
-  const locale =
-    lc === "it" ? "it-IT" :
-    lc === "es" ? "es-ES" :
-    lc === "de" ? "de-DE" :
-    lc === "pt" ? "pt-BR" :
-    lc === "fr" ? "fr-FR" :
-    lc === "pl" ? "pl-PL" :
-    lc === "tr" ? "tr-TR" :
-    lc === "nl" ? "nl-NL" :
-    lc === "ja" ? "ja-JP" :
-    lc === "ko" ? "ko-KR" :
-    "en-US";
-  return d.toLocaleDateString(locale, {
+  return d.toLocaleDateString(schemaLanguage(lc), {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -300,18 +288,7 @@ export default async function BlogIndex({
     "@type": "Blog",
     "@id": `${SITE_URL}/${lc}/blog#blog`,
     name: "FitMesh Sync Blog",
-    inLanguage:
-      lc === "it" ? "it-IT" :
-      lc === "es" ? "es-ES" :
-      lc === "de" ? "de-DE" :
-      lc === "pt" ? "pt-BR" :
-      lc === "fr" ? "fr-FR" :
-      lc === "pl" ? "pl-PL" :
-      lc === "tr" ? "tr-TR" :
-      lc === "nl" ? "nl-NL" :
-      lc === "ja" ? "ja-JP" :
-      lc === "ko" ? "ko-KR" :
-      "en-US",
+    inLanguage: schemaLanguage(lc),
     url: `${SITE_URL}/${lc}/blog`,
     blogPost: posts.map((p) => ({
       "@type": "BlogPosting",

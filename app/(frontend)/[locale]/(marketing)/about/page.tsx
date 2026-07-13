@@ -7,9 +7,10 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { IosAwareText } from "@/components/IosAwareText";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
-import { PRICE_LIFETIME_ANDROID_RAW, PRICING } from "@/lib/pricing";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { p } from "@/lib/pricing";
+import { SITE_URL, appOffers } from "@/lib/product-facts";
+import { schemaLanguage } from "@/lib/seo/schema-language";
+import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 
 /**
  * Il body copy sotto viene da `lib/content/about-copy.ts` via `tl(...)`, oggi
@@ -70,13 +71,7 @@ export default async function AboutPage({
   const lc = locale as Locale;
   const path = `/${lc}/about`;
 
-  // Precio para el locale actual
-  const lifetimeBothShort =
-    lc === "it"
-      ? PRICING.lifetimeBothShort.it
-      : lc === "es"
-      ? "€3,99 Android · €4,99 iPhone"
-      : PRICING.lifetimeBothShort.en;
+  const lifetimeBothShort = p("lifetimeBothShort", lc);
 
   // AboutPage JSON-LD per knowledge graph
   const aboutLd = {
@@ -84,29 +79,19 @@ export default async function AboutPage({
     "@type": "AboutPage",
     name: tl(ABOUT_COPY.jsonLdName, lc),
     url: `${SITE_URL}${path}`,
-    inLanguage:
-      lc === "it"
-        ? "it-IT"
-        : lc === "es"
-        ? "es-ES"
-        : lc === "de"
-        ? "de-DE"
-        : lc === "pt"
-        ? "pt-BR"
-        : lc === "fr"
-        ? "fr-FR"
-        : "en-US",
+    inLanguage: schemaLanguage(lc),
     mainEntity: {
       "@type": "SoftwareApplication",
       name: "FitMesh Sync",
       applicationCategory: "HealthApplication",
-      operatingSystem: "ANDROID",
-      offers: { "@type": "Offer", price: PRICE_LIFETIME_ANDROID_RAW, priceCurrency: "EUR" },
+      operatingSystem: (["android", "ios"] as const).map((plat) => (plat === "ios" ? "IOS" : "ANDROID")).join(", "),
+      offers: (["android", "ios"] as const).flatMap((plat) => appOffers(plat)),
     },
   };
 
   return (
     <>
+      <OrganizationJsonLd locale={lc} />
       <JsonLd data={aboutLd} />
       <Breadcrumbs
         items={[
@@ -177,13 +162,13 @@ export default async function AboutPage({
                 "Garmin Forerunner/Fenix/Venu (via Garmin Connect)",
                 "Polar Vantage/Grit X (via Polar Flow)",
                 "Withings Body+/ScanWatch (via Health Mate)",
+                "Strava (via OAuth)",
               ],
               color: "#31E981",
             },
             {
               h: tl(ABOUT_COPY.comingWithOauth, lc),
               items: [
-                "Strava (Q3 2026)",
                 "Oura Ring Gen 3/4 (Q4 2026)",
                 tl(ABOUT_COPY.fitbitHistoricalGps, lc),
                 "Garmin Body Battery + Training Load (Q3 2026)",

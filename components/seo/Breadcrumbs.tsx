@@ -1,7 +1,6 @@
 import type { Locale } from "@/lib/i18n";
 import { JsonLd } from "./JsonLd";
-
-const SITE_URL = "https://www.fitmesh.fit";
+import { SITE_URL } from "@/lib/product-facts";
 
 export interface BreadcrumbItem {
   /** Etichetta visibile (es. "Privacy") */
