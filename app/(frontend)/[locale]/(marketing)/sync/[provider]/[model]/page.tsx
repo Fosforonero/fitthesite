@@ -14,6 +14,7 @@ import { tl } from "@/lib/blog/types";
 import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
 import { APPLE_STORE_URL } from "@/lib/flags";
 import { schemaLanguage } from "@/lib/seo/schema-language";
+import { toMetaDescription } from "@/lib/seo/meta-description";
 
 function renderInlineBold(text: string): ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*)/g);
@@ -251,7 +252,9 @@ export async function generateMetadata({
   if (!p || !m) return {};
 
   const title = `${t("titlePrefix", lc)} ${m.name} ${tSync("titleSuffix", "titleSuffixBle", lc, p)}`;
-  const description = (m.description[lc] ?? m.description["en"] ?? "").slice(0, 160);
+  const description = toMetaDescription(
+    m.description[lc] ?? m.description["en"] ?? "",
+  );
   const path = `/${lc}/sync/${p.slug}/${m.slug}`;
 
   return {

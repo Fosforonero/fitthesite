@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: "health-connect-not-syncing",
   category: "guides",
   publishedAt: "2026-05-30",
-  updatedAt: "2026-05-30",
+  updatedAt: "2026-07-13",
   readMinutes: 8,
   tldr: {
     it: [
@@ -148,6 +148,7 @@ export const post: BlogPost = {
       "samsung health synchroniseert niet met health connect",
       "stappen worden niet weergegeven in health connect",
       "health connect problemen oplossen",
+      "health connect synchroniseert niet",
     ],
     ja: [
       "health connect 動かない",
@@ -1354,6 +1355,19 @@ export const post: BlogPost = {
       ctaHref: {
         it: "/it/integrations",
         en: "/en/integrations",
+        es: "/es/integrations",
+        de: "/de/integrations",
+        pt: "/pt/integrations",
+        fr: "/fr/integrations",
+        pl: "/pl/integrations",
+        tr: "/tr/integrations",
+        nl: "/nl/integrations",
+        ja: "/ja/integrations",
+        ko: "/ko/integrations",
+        sv: "/sv/integrations",
+        da: "/da/integrations",
+        no: "/no/integrations",
+        fi: "/fi/integrations",
       },
     },
   ],

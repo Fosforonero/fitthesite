@@ -19,6 +19,7 @@ import { tl, tll, categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
 import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
 import { APPLE_STORE_URL } from "@/lib/flags";
 import { schemaLanguage } from "@/lib/seo/schema-language";
+import { toMetaDescription } from "@/lib/seo/meta-description";
 
 const WAITLIST_EMAIL = "waitlist@fitmesh.fit";
 
@@ -186,7 +187,10 @@ export async function generateMetadata({
               : lc === "ko"
                 ? `${p.name}을 FitMesh Sync와 동기화`
                 : `Sync ${p.name} to FitMesh Sync`;
-  const description = tl(p.tagline, lc);
+  // La tagline (58-113 caratteri su molte integrazioni) è adatta alle card,
+  // ma Bing la segnala come meta description troppo corta. La longDesc è
+  // unica per provider e viene ridotta a uno snippet leggibile <=160c.
+  const description = toMetaDescription(tl(p.longDesc, lc));
 
   const path = `/${lc}/sync/${p.slug}`;
   return {

@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: "esportare-dati-fitbit-google",
   category: "ecosystem",
   publishedAt: "2026-05-21",
-  updatedAt: "2026-05-21",
+  updatedAt: "2026-07-13",
   readMinutes: 8,
   tldr: {
     it: [
@@ -158,7 +158,7 @@ export const post: BlogPost = {
     },
     title: {
       it: "Esportare dati Fitbit dopo l'acquisto Google",
-      en: "Exporting Fitbit data after the Google acquisition: practical guide",
+      en: "How to Export Fitbit Data with Google Takeout (2026)",
       es: "Exportar datos de Fitbit después de la compra por Google: guía práctica",
       de: "Fitbit-Daten nach der Google-Übernahme exportieren: praktischer Leitfaden",
       pt: "Exportar dados do Fitbit após a aquisição pelo Google: guia prático",

@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: "esportare-dati-garmin",
   category: "guides",
   publishedAt: "2026-05-23",
-  updatedAt: "2026-05-23",
+  updatedAt: "2026-07-13",
   readMinutes: 9,
   tldr: {
     it: [
@@ -180,7 +180,7 @@ export const post: BlogPost = {
     kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Anleitung", pt: "Guia", fr: "Guide", pl: "Przewodnik", tr: "Kılavuz", nl: "Gids", ja: "ガイド", ko: "가이드" },
     title: {
       it: "Esportare dati Garmin: GPX, TCX, FIT, CSV",
-      en: "Exporting Garmin data: GPX, TCX, FIT and CSV, a complete guide",
+      en: "How to Export Garmin Data: GPX, TCX, FIT & CSV",
       es: "Exportar datos de Garmin: GPX, TCX, FIT y CSV, guía completa",
       de: "Garmin Daten exportieren: GPX, TCX, FIT und CSV, vollständige Anleitung",
       pt: "Exportar dados da Garmin: GPX, TCX, FIT e CSV, guia completo",
