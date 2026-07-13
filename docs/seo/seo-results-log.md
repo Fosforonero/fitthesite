@@ -189,6 +189,70 @@ del momento in cui sono state scritte, non vanno riscritte.
 - **Stato**: **validato post-deploy** (la regola è ora attiva in
   produzione: verificata sia sul push pre-merge sia sul merge stesso).
 
+### Sprint P0.4 — OG image sitewide
+
+- **Cosa**: `og:image`/`twitter:image` assenti su tutte le pagine marketing
+  prive di un'immagine dedicata (solo blog/[slug], lp/[slug],
+  sync/[provider] ce l'avevano). Root cause: `app/opengraph-image.tsx`
+  viveva fuori dall'albero di risoluzione metadata del route group
+  `(frontend)` (nessun `app/layout.tsx` a livello radice — il progetto usa
+  root layout separati per route group), compilato da Next.js come
+  endpoint orfano `/opengraph-image` mai referenziato da alcuna pagina
+  reale. Confermato nel manifest di build (`● /opengraph-image` fuori da
+  qualsiasi `[locale]`) e dal warning
+  `metadataBase property... not set, using "http://localhost:3000"`.
+- **Route coinvolte**: tutte le pagine sotto `[locale]` prive di file
+  dedicato — fallback globale in
+  `app/(frontend)/[locale]/opengraph-image.tsx`; immagine dedicata in
+  `app/(frontend)/[locale]/(marketing)/fitness-data-sync/opengraph-image.tsx`.
+  Scoperta durante la verifica: 9 pagine (`about`, `ai`, `beta`, `blog`
+  index, `famiglia`, `integrations`, `novita`, `press`, `roadmap`)
+  dichiarano un proprio oggetto `openGraph` in `generateMetadata` — Next.js
+  resetta `target.openGraph` in modo stateless ad ogni segmento che
+  dichiara un proprio `openGraph` (anche senza `images`), quindi il
+  fallback a `[locale]` non veniva ereditato da quelle pagine (verificato
+  empiricamente su `/en/integrations` vs `/en/support` + in
+  `next/dist/lib/metadata/resolve-metadata.js`). Fix: un
+  `opengraph-image.tsx` colocato per ciascuna delle 9, tutti re-export del
+  medesimo componente in `lib/og/fallback-image.tsx` — zero duplicazione
+  visiva, zero modifiche a `generateMetadata()`.
+- **File modificati**: rimosso `app/opengraph-image.tsx`; aggiunti
+  `lib/og/fallback-image.tsx`,
+  `app/(frontend)/[locale]/opengraph-image.tsx`,
+  `app/(frontend)/[locale]/(marketing)/fitness-data-sync/opengraph-image.tsx`,
+  9× `app/(frontend)/[locale]/(marketing)/{about,ai,beta,blog,famiglia,
+  integrations,novita,press,roadmap}/opengraph-image.tsx`,
+  `tools/check-social-metadata.ts` (nuovo guardrail).
+- **QA visiva**: immagini renderizzate (1200×630 PNG confermate via
+  `file`) e ispezionate direttamente — fallback e fitness-data-sync
+  (en/it/de). Trovato e corretto un problema reale: la prima versione
+  della composizione fitness-data-sync sovrapponeva l'headline alle icone
+  sorgente impilate verticalmente (altezza totale > area disponibile);
+  fix: icone sorgente disposte in riga orizzontale, non in colonna.
+  `tools/local-vision/analyze-image.sh` citato nello sprint non esiste in
+  questo repository — sostituito con ispezione visiva diretta delle PNG
+  renderizzate.
+- **Guardrail**: nuovo `tools/check-social-metadata.ts` — verifica via
+  HTTP 11 route rappresentative (una per famiglia: fallback,
+  fitness-data-sync×4 locale, blog, lp, sync-provider) contro un server
+  `next start` reale: `og:image`/`twitter:image` presenti, `twitter:card`
+  = `summary_large_image`, 1200×630, alt non vuoto, URL assoluto, nessun
+  `localhost`/`.vercel.app` fuori da run locali, specificità verificata
+  sulla struttura del path (non su hash Next). Controllo negativo
+  informativo su `/it/auth/login` (non bloccante).
+- **Build Docker**: primo tentativo `pnpm run build` fallito silenziosamente
+  (`node pnpm run build` → `Cannot find module '/app/pnpm'`, corepack non
+  attivato nello stesso invocation del container — errore di tooling
+  locale, non del sito). Comando corretto:
+  `corepack enable && corepack prepare pnpm@10.28.0 --activate && pnpm run build`
+  — build finale verde, `exit 0`, 3446 pagine.
+- **Verifiche Docker**: `tsc --noEmit` 0 errori; `next build` exit 0;
+  `check-llms-consistency.ts`, `check-bing-seo-recommendations.ts`,
+  `check-blog-integrity.ts`, `check-translation-corruption.ts`,
+  `check-social-metadata.ts` tutti verdi; `git diff --check` pulito.
+- **Stato**: **verificato in Docker**. Non ancora deployato — PR aperta,
+  in attesa di merge manuale.
+
 ## Deploy di produzione (Fase 7-9, dati reali)
 
 - **Merge SHA (Sprint P0.3 content)**: `2e653e8866ab323b6b5a0599e18652461eee970f`
