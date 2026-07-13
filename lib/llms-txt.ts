@@ -41,6 +41,7 @@ export function generateLlmsTxt(): string {
   lines.push(`- [Homepage](${IT("")}): product overview, features, download`);
   lines.push(`- [About](${IT("/about")}): mission, founder story, why FitMesh`);
   lines.push(`- [Integrations](${IT("/integrations")}): all supported wearables and sync sources`);
+  lines.push(`- [Fitness data sync](${IT("/fitness-data-sync")}): the four sync architectures explained (read-only mirror, opt-in write-back, manual export, cloud-to-cloud bridge), plus a per-integration compatibility matrix with read/write direction and last-verified date.`);
   lines.push(`- [Roadmap](${IT("/roadmap")}): public roadmap with shipped and upcoming features`);
   lines.push("");
 
@@ -122,6 +123,9 @@ export function generateLlmsTxt(): string {
   );
   lines.push(
     "- Privacy: GDPR-compliant, EU-only data storage, no third-party analytics on health data, no advertising IDs collected.",
+  );
+  lines.push(
+    `- Export / write-back status (see ${SITE_URL}/it/fitness-data-sync for the full matrix): Strava read is live via OAuth. Strava write, TrainingPeaks (PAT + TCX dispatch), RideWithGPS (TCX dispatch), and Google Drive export are implemented in the app but still in development — not yet verified end to end on a physical device. Health Connect write-back on Android and Apple Health write-back on iOS are live, opt-in, and off by default: Android exports once when the toggle is activated, iOS re-exports after every successful sync. Never describe FitMesh as a general "bidirectional sync" or "universal bridge" — direction is per integration.`,
   );
   lines.push("");
 
