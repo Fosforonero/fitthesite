@@ -8,8 +8,15 @@
 
 ## Convenzione di stato
 
-`rilevato` → `corretto localmente` → `in preview` → `deployato` →
-`validato post-deploy` → `risultato misurato`.
+`rilevato` → `corretto localmente` → `verificato in Docker` →
+`deployato in produzione` → `validato post-deploy` → `risultato misurato`.
+
+Dal 2026-07-13 le Preview Deployment Vercel sono disabilitate per branch
+non-`main` (`vercel.json` → `git.deploymentEnabled`); lo stadio "in
+preview" è sostituito da "verificato in Docker" (build/typecheck/
+guardrail/test HTTP eseguiti localmente in container). Righe precedenti
+a questa data che usano ancora "in preview" descrivono uno stato reale
+del momento in cui sono state scritte, non vanno riscritte.
 
 ## Iniziative
 

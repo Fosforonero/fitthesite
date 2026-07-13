@@ -3,6 +3,20 @@
 Automated daily/weekly SEO governance for fitmesh.fit.
 Three specialized AI agents, human-review PR workflow for content.
 
+## Deployment policy (2026-07-13)
+
+`vercel.json` sets `git.deploymentEnabled` to `main: true, **: false`:
+only `main` triggers a Vercel deployment (one production build per merge).
+Feature/content/seo/hotfix branches get pushed and reviewed via GitHub PR
+as usual, but no Vercel Preview Deployment is built for them — pre-merge
+verification runs entirely in Docker (build, typecheck, guardrails, a
+local `next start` server for HTTP/JSON-LD/redirect/sitemap/robots/
+hreflang checks). A public preview is created only with Matteo's explicit
+authorization for that specific case, via a manual Vercel Redeploy/CLI
+action he runs himself — not the default path. See
+`docs/seo/seo-geo-master-plan.md` section 3 for the 6-stage status
+convention this replaced ("in preview" → "verificato in Docker").
+
 ## Architecture
 
 ```
