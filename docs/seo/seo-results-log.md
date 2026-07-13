@@ -479,3 +479,66 @@ EN/fallback su altre 9), support (tutte le lingue). Non ancora deployato.
 spec. Traduzione fatta a mano (non con Ollama: istruzione esplicita
 dell'utente durante lo sprint di non usarlo per questo task), riusando
 terminologia già stabilita nella Privacy Policy italiana esistente.
+
+### Rilascio P0 minimo (2026-07-13, stesso giorno) — copy corretta, P0.4C completato per davvero
+
+Prima del merge, tre correzioni:
+
+1. **Copy `/delete-account` corretta**: rimossa ogni garanzia che la
+   cancellazione dalla dashboard web si completi sempre automaticamente
+   entro 24 ore (conseguenza diretta del gap trovato in Fase 3, ancora non
+   corretto — vedi sopra). I percorsi presentati come affidabili sono ora
+   solo due: cancellazione immediata dall'app mobile, e richiesta manuale
+   via privacy@fitmesh.fit (verificata da una persona). La dashboard web è
+   menzionata solo con una frase concordata che rimanda esplicitamente a
+   privacy@fitmesh.fit se la cancellazione non si completa, senza alcuna
+   promessa di completamento automatico. Il percorso email resta sempre
+   visibile e cliccabile indipendentemente da tutto il resto.
+2. **P0.4C completato**: la causa isolata nell'addendum precedente aveva
+   due componenti distinte, corrette entrambe.
+   - `Accept-CH`/`Critical-CH`: una libreria di terze parti usata dal sito
+     (non applicativa) aggiungeva una propria regola di header dopo quella
+     già scritta in questo repo, vincendo su di essa. Corretto avvolgendo
+     il risultato finale di quella libreria e filtrando la sua regola come
+     ultimo passo, cosa che nessun livello successivo può più sovrascrivere.
+   - `Refresh`: causa DIVERSA da quella ipotizzata nell'addendum precedente
+     (non la stessa libreria) — un comportamento di compatibilità legacy
+     di Next.js stesso, applicato automaticamente a QUALSIASI redirect con
+     status "permanente" nella forma specifica usata su una rotta di
+     canonicalizzazione host. Corretto usando una forma di redirect
+     permanente equivalente per SEO/cache che non ha questo effetto
+     collaterale, lasciando invariato il comportamento per le rotte che
+     richiedono la preservazione del metodo HTTP.
+   - Verificato in Docker (server reale, non solo lettura statica del
+     codice): zero `Accept-CH`, zero `Critical-CH`, zero `Refresh` su
+     `/delete-account`, sul suo redirect apex, e sitewide (`/en`, `/it`,
+     `/de`, root).
+3. **Bug nel guardrail stesso, trovato e corretto**: `check-anti-loop.ts`
+   contava un evento `beforeunload` che scatta SEMPRE, su qualunque pagina
+   (riprodotto identico anche su un sito di controllo estraneo a FitMesh),
+   per un motivo legato al ciclo di vita di una pagina browser appena
+   aperta prima ancora di navigare altrove — non un reload reale. Il
+   contatore non veniva azzerato dopo il primo caricamento, quindi ogni
+   scenario partiva già "in errore" per costruzione, indipendentemente da
+   un vero loop. Corretto azzerando il contatore subito dopo il primo
+   caricamento riuscito: da quel punto in poi conta solo un vero reload
+   della pagina di destinazione. Questo NON invalida la diagnosi originale
+   del P0.4C (la presenza di `Critical-CH` su ~200 risposte reali era
+   stata confermata separatamente via ispezione diretta degli header, non
+   tramite questo contatore), ma va tenuto presente rileggendo i numeri
+   "prima" già registrati sopra.
+
+**Rieseguito in Docker con il fix del guardrail**: 7/7 scenari verdi
+(apex+referrer stile Reddit, apex pulito, www root, /de, /it, /en, WebKit
+mobile), tenuti aperti 60s ciascuno: zero richieste di navigazione
+ripetute, zero beforeunload dopo il caricamento, zero `Critical-CH`/
+`Refresh` su ogni risposta osservata, CTA store cliccabili.
+
+**Stato**: verificato in Docker. Non ancora deployato. Resta comunque
+valido quanto già scritto sopra: il test su dispositivo reale (iPhone
+Safari, ingresso da Reddit, permanenza ≥60s) va fatto da Matteo dopo il
+deploy — nessuna suite automatica lo sostituisce.
+
+**P0.4E** (nuovo sprint separato, apertura subito dopo questo rilascio):
+correggere e testare la funzione di cancellazione automatica per il caso
+limite di Fase 3, non corretta qui di proposito.
