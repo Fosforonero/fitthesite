@@ -32,9 +32,9 @@ const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.
 /**
  * Mesh Famiglia feature temporaneamente sospesa lato app (FeatureFlags
  * meshFamigliaEnabled=false). L'app è ormai live sia su Android (Play
- * Store, worldwide) sia su iOS (App Store, live negli store supportati
- * fuori UE; nei 27 paesi UE il rollout è in corso) — la sospensione non
- * dipende più dalla disponibilità sugli store. Quando la feature lato app sarà pronta:
+ * Store, worldwide) sia su iOS (App Store, disponibile in tutti gli store
+ * supportati, incluse tutte le storefront dell'Unione Europea) — la
+ * sospensione non dipende più dalla disponibilità sugli store. Quando la feature lato app sarà pronta:
  * flip `COMING_SOON` a `false` per riattivare la landing piena.
  *
  * Mantenuto l'URL stabile per SEO (Google ha già indicizzato) ma il body
@@ -1380,7 +1380,7 @@ function ComingSoonState({
           },
         ],
         availability_h2: "Quando arriva",
-        availability_body: "Mesh Famiglia richiede l'app pubblicata su entrambi gli store per funzionare end-to-end (il familiare che inviti deve poter installare da Play Store o App Store). Android è già live in tutto il mondo; l'app iOS è live sull'App Store negli store supportati al di fuori dell'Unione Europea, con il rollout nei 27 paesi UE in corso. Rilascio Mesh Famiglia previsto quando entrambe le piattaforme sono in produzione.",
+        availability_body: "Mesh Famiglia richiede l'app pubblicata su entrambi gli store per funzionare end-to-end (il familiare che inviti deve poter installare da Play Store o App Store). Android è già live in tutto il mondo; l'app iOS è live sull'App Store, disponibile in tutti i Paesi supportati, incluse le storefront UE. Rilascio Mesh Famiglia previsto quando entrambe le piattaforme sono in produzione.",
       }
     : lc === "es"
     ? {
@@ -1405,7 +1405,7 @@ function ComingSoonState({
           },
         ],
         availability_h2: "Cuándo llega",
-        availability_body: "Mesh Familia requiere que la app esté publicada en ambas tiendas para funcionar de extremo a extremo (el familiar que invites debe poder instalarla desde Play Store o App Store). Android ya está disponible en todo el mundo; la app de iOS ya está disponible en la App Store en las tiendas compatibles fuera de la Unión Europea, y el despliegue en los 27 países de la UE está en curso. El lanzamiento de Mesh Familia está previsto cuando ambas plataformas estén en producción.",
+        availability_body: "Mesh Familia requiere que la app esté publicada en ambas tiendas para funcionar de extremo a extremo (el familiar que invites debe poder instalarla desde Play Store o App Store). Android ya está disponible en todo el mundo; la app de iOS ya está disponible en la App Store, incluidas todas las tiendas de la Unión Europea. El lanzamiento de Mesh Familia está previsto cuando ambas plataformas estén en producción.",
       }
     : {
         kicker: "Family Mesh",
@@ -1429,7 +1429,7 @@ function ComingSoonState({
           },
         ],
         availability_h2: "When it arrives",
-        availability_body: "Family Mesh requires the app published on both stores to work end-to-end (the family member you invite must be able to install from Play Store or App Store). Android is already live worldwide; the iOS app is live on the App Store in supported storefronts outside the European Union, with rollout to the 27 EU countries in progress. Family Mesh release planned once both platforms are in production.",
+        availability_body: "Family Mesh requires the app published on both stores to work end-to-end (the family member you invite must be able to install from Play Store or App Store). Android is already live worldwide; the iOS app is live on the App Store, including all European Union storefronts. Family Mesh release planned once both platforms are in production.",
       };
 
   // FAQ: relocated verbatim from the full-mode COPY object (never rendered

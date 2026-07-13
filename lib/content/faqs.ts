@@ -12,7 +12,7 @@ const FAQ_IT: Faq[] = [
   { q: "Posso usare un server privato?", a: "Sì, su richiesta. Per esigenze enterprise (RSA, cliniche, studi medici, gruppi famiglia con dati segregati) configuriamo un server dedicato con il tuo dominio, backup gestiti e SLA dedicato. Scrivi a sales@fitmesh.fit indicando volume utenti previsto e requisiti di conservazione dati." },
   { q: "Quanto costa FitMesh Sync?", a: "€3,99 su Android · €4,99 su iPhone (prezzo di riferimento in euro; fuori dall'area euro vale il prezzo mostrato dal tuo store): acquisto unico, niente abbonamento, niente rinnovi automatici, niente sorprese in fattura." },
   { q: "Ho cambiato telefono. Perdo i miei dati?", a: "No. I dati sono sul server, non sul telefono. Reinstalla l'app, fai login (o inserisci il tuo device ID precedente nelle impostazioni se hai un account avanzato) e ritrovi tutto." },
-  { q: "Supporto iOS?", a: "Sì: l'app iOS è disponibile negli store supportati fuori dall'Unione Europea, con un'app Flutter nativa che integra Apple HealthKit per leggere i tuoi dati. Il rollout nell'UE è in corso: se non la trovi ancora nel tuo Paese, ricontrolla più avanti." },
+  { q: "Supporto iOS?", a: "Sì: l'app iOS è disponibile su App Store in tutti i 27 Paesi dell'Unione Europea, oltre che negli altri store supportati, con un'app Flutter nativa che integra Apple HealthKit per leggere i tuoi dati." },
 ];
 
 const FAQ_EN: Faq[] = [
@@ -25,7 +25,7 @@ const FAQ_EN: Faq[] = [
   { q: "Can I have my own private server?", a: "Yes, on request. For enterprise needs (nursing homes, clinics, medical practices, family groups with segregated data) we deploy a dedicated server with your domain, managed backups and a dedicated SLA. Email sales@fitmesh.fit with expected user volume and data retention requirements." },
   { q: "How much does FitMesh Sync cost?", a: "€3.99 on Android · €4.99 on iPhone (reference price in euros; outside the eurozone your store shows its own localized price): one-time purchase, no subscription, no auto-renewals, no billing surprises." },
   { q: "I switched phones. Do I lose my data?", a: "No. Data is on the server, not the phone. Reinstall the app, log in (or enter your previous device ID in settings if you have an advanced account) and you get everything back." },
-  { q: "iOS support?", a: "Yes: the iOS app is available in supported storefronts outside the European Union, built as a native Flutter app with HealthKit integration to read your data. EU rollout is in progress: if you don't see it in your country yet, check back later." },
+  { q: "iOS support?", a: "Yes: the iOS app is available on the App Store in all 27 European Union countries, as well as other supported storefronts, built as a native Flutter app with HealthKit integration to read your data." },
 ];
 
 const FAQ_ES: Faq[] = [
@@ -38,7 +38,7 @@ const FAQ_ES: Faq[] = [
   { q: "¿Puedo usar un servidor privado?", a: "Sí, bajo petición. Para necesidades empresariales (residencias, clínicas, consultorios, grupos familiares con datos segregados) configuramos un servidor dedicado con tu dominio, copias de seguridad gestionadas y un SLA dedicado. Escribe a sales@fitmesh.fit indicando el volumen de usuarios previsto y los requisitos de conservación de datos." },
   { q: "¿Cuánto cuesta FitMesh Sync?", a: "3,99 € en Android · 4,99 € en iPhone (precio de referencia en euros; fuera de la eurozona tu tienda muestra su propio precio localizado): pago único, sin suscripción, sin renovaciones automáticas, sin sorpresas en la factura." },
   { q: "Cambié de teléfono. ¿Pierdo mis datos?", a: "No. Los datos están en el servidor, no en el teléfono. Reinstala la app, inicia sesión (o introduce tu ID de dispositivo anterior en los ajustes si tienes una cuenta avanzada) y recuperas todo." },
-  { q: "¿Habrá soporte para iOS?", a: "Sí: la app iOS está disponible en las tiendas compatibles fuera de la Unión Europea, con una app Flutter nativa que se integra con Apple HealthKit para leer tus datos. El despliegue en la UE está en curso: si aún no la ves en tu país, vuelve a comprobarlo más adelante." },
+  { q: "¿Habrá soporte para iOS?", a: "Sí: la app iOS está disponible en el App Store en los 27 países de la Unión Europea, además de en el resto de tiendas compatibles, con una app Flutter nativa que se integra con Apple HealthKit para leer tus datos." },
 ];
 
 const FAQ_DE: Faq[] = [
@@ -51,7 +51,7 @@ const FAQ_DE: Faq[] = [
   { q: "Kann ich einen eigenen privaten Server nutzen?", a: "Ja, auf Anfrage. Für Unternehmensanforderungen (Pflegeheime, Kliniken, Arztpraxen, Familiengruppen mit getrennten Daten) richten wir einen dedizierten Server mit deiner Domain, verwalteten Backups und einem dedizierten SLA ein. Schreib uns an sales@fitmesh.fit und gib die erwartete Nutzeranzahl sowie deine Anforderungen zur Datenspeicherung an." },
   { q: "Was kostet FitMesh Sync?", a: "3,99 € auf Android · 4,99 € auf iPhone (Referenzpreis in Euro; außerhalb der Eurozone zeigt dein Store seinen eigenen lokalisierten Preis): Einmalkauf, kein Abonnement, keine automatischen Verlängerungen, keine Überraschungen auf der Rechnung." },
   { q: "Ich habe mein Telefon gewechselt. Verliere ich meine Daten?", a: "Nein. Die Daten liegen auf dem Server, nicht auf dem Gerät. Installiere die App neu, melde dich an (oder gib in den Einstellungen deine vorherige Geräte-ID ein, falls du ein erweitertes Konto hast) und du findest alles wieder." },
-  { q: "Gibt es iOS-Unterstützung?", a: "Ja: Die iOS-App ist in den unterstützten Stores außerhalb der Europäischen Union verfügbar, als native Flutter-App mit HealthKit-Integration zum Lesen deiner Daten. Der Rollout in der EU läuft: Solltest du sie in deinem Land noch nicht finden, schau später erneut vorbei." },
+  { q: "Gibt es iOS-Unterstützung?", a: "Ja: Die iOS-App ist im App Store in allen 27 Ländern der Europäischen Union sowie in den weiteren unterstützten Stores verfügbar, als native Flutter-App mit HealthKit-Integration zum Lesen deiner Daten." },
 ];
 
 const FAQ_PT: Faq[] = [
@@ -64,7 +64,7 @@ const FAQ_PT: Faq[] = [
   { q: "Posso usar um servidor privado?", a: "Sim, sob solicitação. Para necessidades corporativas (casas de repouso, clínicas, consultórios, grupos familiares com dados separados) configuramos um servidor dedicado com seu domínio, backups gerenciados e um SLA dedicado. Escreva para sales@fitmesh.fit informando o volume de usuários esperado e os requisitos de retenção de dados." },
   { q: "Quanto custa o FitMesh Sync?", a: "€3,99 no Android · €4,99 no iPhone (preço de referência em euros; fora da zona do euro sua loja mostra o preço localizado dela): compra única, sem assinatura, sem renovações automáticas, sem surpresas na fatura." },
   { q: "Troquei de celular. Perco meus dados?", a: "Não. Os dados estão no servidor, não no celular. Reinstale o app, faça login (ou insira seu ID de dispositivo anterior nas configurações se você tiver uma conta avançada) e encontrará tudo de volta." },
-  { q: "Haverá suporte para iOS?", a: "Sim: o app iOS está disponível nas lojas compatíveis fora da União Europeia, como um app Flutter nativo com integração ao Apple HealthKit para ler seus dados. O lançamento na UE está em andamento: se ainda não encontrar o app no seu país, verifique novamente mais tarde." },
+  { q: "Haverá suporte para iOS?", a: "Sim: o app iOS está disponível na App Store nos 27 países da União Europeia, além das demais lojas compatíveis, como um app Flutter nativo com integração ao Apple HealthKit para ler seus dados." },
 ];
 
 const FAQ_FR: Faq[] = [
@@ -77,7 +77,7 @@ const FAQ_FR: Faq[] = [
   { q: "Puis-je utiliser un serveur privé ?", a: "Oui, sur demande. Pour les besoins des entreprises (maisons de retraite, cliniques, cabinets médicaux, groupes familiaux avec données séparées), nous déployons un serveur dédié avec votre domaine, des sauvegardes gérées et un SLA dédié. Écrivez à sales@fitmesh.fit en indiquant le volume d'utilisateurs prévu et vos exigences de conservation des données." },
   { q: "Combien coûte FitMesh Sync ?", a: "3,99 € sur Android · 4,99 € sur iPhone (prix de référence en euros ; hors zone euro, votre boutique affiche son propre prix localisé) : achat unique, sans abonnement, sans renouvellements automatiques, sans mauvaises surprises sur la facture." },
   { q: "J'ai changé de téléphone. Vais-je perdre mes données ?", a: "Non. Les données sont sur le serveur, pas sur le téléphone. Réinstallez l'application, connectez-vous (ou saisissez votre identifiant d'appareil précédent dans les paramètres si vous avez un compte avancé) et vous retrouvez tout." },
-  { q: "Y aura-t-il une prise en charge iOS ?", a: "Oui : l'application iOS est disponible dans les boutiques prises en charge en dehors de l'Union européenne, sous la forme d'une application Flutter native intégrant Apple HealthKit pour lire vos données. Le déploiement dans l'UE est en cours : si vous ne la trouvez pas encore dans votre pays, revenez vérifier plus tard." },
+  { q: "Y aura-t-il une prise en charge iOS ?", a: "Oui : l'application iOS est disponible sur l'App Store dans les 27 pays de l'Union européenne, ainsi que dans les autres boutiques prises en charge, sous la forme d'une application Flutter native intégrant Apple HealthKit pour lire vos données." },
 ];
 
 const FAQ_NL: Faq[] = [
@@ -90,7 +90,7 @@ const FAQ_NL: Faq[] = [
   { q: "Kan ik een eigen privéserver gebruiken?", a: "Ja, op aanvraag. Voor zakelijke behoeften (verzorgingshuizen, klinieken, medische praktijken, familiegroepen met gescheiden gegevens) zetten we een dedicated server op met uw domein, beheerde back-ups en een dedicated SLA. Schrijf naar sales@fitmesh.fit met het verwachte gebruikersvolume en uw bewaarvereisten voor gegevens." },
   { q: "Hoeveel kost FitMesh Sync?", a: "€3,99 op Android · €4,99 op iPhone (referentieprijs in euro's; buiten de eurozone toont uw store de eigen gelokaliseerde prijs): eenmalige aankoop, geen abonnement, geen automatische verlengingen, geen verrassingen op de factuur." },
   { q: "Ik heb van telefoon gewisseld. Verlies ik mijn gegevens?", a: "Nee. De gegevens staan op de server, niet op de telefoon. Installeer de app opnieuw, log in (of voer uw vorige apparaat-ID in de instellingen in als u een geavanceerd account heeft) en u krijgt alles terug." },
-  { q: "iOS-ondersteuning?", a: "Ja: de iOS-app is beschikbaar in de ondersteunde stores buiten de Europese Unie, als een native Flutter-app met HealthKit-integratie om uw gegevens te lezen. De uitrol in de EU is bezig: als u de app in uw land nog niet ziet, kijk dan later opnieuw." },
+  { q: "iOS-ondersteuning?", a: "Ja: de iOS-app is beschikbaar in de App Store in alle 27 landen van de Europese Unie, en ook in de overige ondersteunde stores, als een native Flutter-app met HealthKit-integratie om uw gegevens te lezen." },
 ];
 
 const FAQ_JA: Faq[] = [
@@ -103,7 +103,7 @@ const FAQ_JA: Faq[] = [
   { q: "プライベートサーバーを使用できますか？", a: "はい、ご要望に応じて対応します。企業向けのニーズ（介護施設、クリニック、医療機関、データを分離管理したい家族グループなど）には、ご指定のドメインで専用サーバーをセットアップし、管理されたバックアップと専用SLAを提供します。予想ユーザー数とデータ保持要件を添えてsales@fitmesh.fitまでお知らせください。" },
   { q: "FitMesh Syncの価格は？", a: "Android €3.99 · iPhone €4.99（ユーロ建ての参考価格。ユーロ圏外ではご利用のストアに表示される現地価格が適用されます）：買い切りプラン、サブスクリプションなし、自動更新なし、請求の驚きなし。" },
   { q: "機種変更しました。データは失われますか？", a: "いいえ。データはサーバーに保存されており、端末には保存されていません。アプリを再インストールしてログインするか（高度なアカウントをお持ちの場合は、設定に以前のデバイスIDを入力してください）、すべてのデータが元に戻ります。" },
-  { q: "iOSのサポートは？", a: "はい。iOSアプリは欧州連合（EU）域外の対応ストアで提供されており、Apple HealthKitと連携するネイティブFlutterアプリです。EUでの展開は進行中です。お住まいの国でまだ表示されない場合は、しばらくしてから再度ご確認ください。" },
+  { q: "iOSのサポートは？", a: "はい。iOSアプリは欧州連合（EU）加盟27カ国すべてを含む対応App Storeで提供されており、Apple HealthKitと連携するネイティブFlutterアプリです。" },
 ];
 
 const FAQ_KO: Faq[] = [
@@ -116,7 +116,7 @@ const FAQ_KO: Faq[] = [
   { q: "프라이빗 서버를 사용할 수 있나요?", a: "네, 요청 시 가능합니다. 기업용 수요(요양원, 클리닉, 의료기관, 데이터를 분리 관리해야 하는 가족 그룹 등)에 대해 고객님의 도메인으로 전용 서버를 설정해 드리며, 관리형 백업과 전용 SLA를 제공합니다. 예상 사용자 수와 데이터 보관 요건을 sales@fitmesh.fit로 이메일 주세요." },
   { q: "FitMesh Sync 가격은 얼마인가요?", a: "Android €3.99 · iPhone €4.99(유로 기준 참고 가격이며, 유로존 외 지역에서는 스토어에 표시되는 현지 가격이 적용됩니다): 일회성 구매, 구독 없음, 자동 갱신 없음, 청구 시 예상치 못한 요금 없음." },
   { q: "휴대폰을 바꿨습니다. 데이터가 사라지나요?", a: "아니요. 데이터는 서버에 저장되어 있으며 휴대폰에는 없습니다. 앱을 재설치하고 로그인하거나(고급 계정의 경우 설정에서 이전 기기 ID를 입력하시면) 모든 데이터를 되찾을 수 있습니다." },
-  { q: "iOS 지원은요?", a: "네, iOS 앱은 유럽연합(EU) 외 지역의 지원되는 스토어에서 이용 가능하며, Apple HealthKit과 연동되는 네이티브 Flutter 앱입니다. EU 내 배포는 진행 중입니다. 아직 해당 국가에서 앱이 보이지 않는다면 나중에 다시 확인해 주세요." },
+  { q: "iOS 지원은요?", a: "네, iOS 앱은 유럽연합(EU) 회원국 27개국을 포함한 지원되는 App Store에서 이용 가능하며, Apple HealthKit과 연동되는 네이티브 Flutter 앱입니다." },
 ];
 
 // pl and tr inherit Italian; sv/da/no/fi inherit English for now (Nordic FAQ

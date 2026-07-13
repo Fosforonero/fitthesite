@@ -5,13 +5,12 @@
     "download": "Lataa"
   },
   "hero": {
-    "badge": "Saadaan ladattua Androidille · iOS tulee pian",
+    "badge": "Saatavilla Androidille ja iOS:lle",
     "heading_1": "Yksi globaali yhteenveto",
     "heading_accent": "kaikille laitteillesi.",
     "description": "Koko Galaxy Watch, Wear OS, Health Connect ja pilvipalveluntarjoajien tiedot yhdestä näkymästä. Askeleet, uni, syke, palautuminen ja kehitys ilman sovellusten välillä hylkäämistä.",
     "cta_secondary": "Lue lisää",
-    "pricing": "Yksi kerta €3.99, tai €1.19 joka kuusi kuukautta · turvallinen maksu",
-    "coming_soon": "Tulee pian"
+    "pricing": "Yksi kerta €3.99, tai €1.19 joka kuusi kuukautta · turvallinen maksu"
   },
   "features": {
     "kicker": "Ominaisuudet",

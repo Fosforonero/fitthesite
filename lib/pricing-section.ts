@@ -91,12 +91,12 @@ export const PRICING_SECTION = {
     fr: "1000 premiers comptes, activation automatique",
   } as Localized,
   founderFeatures: {
-    it: ["Tutto Pro, a vita", "Zero costi, nessuna carta", "Accesso prioritario alla versione iOS"],
-    en: ["Everything in Pro, for life", "Zero cost, no card", "Priority access to the iOS version"],
-    es: ["Todo Pro, de por vida", "Coste cero, sin tarjeta", "Acceso prioritario a la versión iOS"],
-    de: ["Alles aus Pro, lebenslang", "Keine Kosten, keine Karte", "Vorrangiger Zugang zur iOS-Version"],
-    pt: ["Tudo do Pro, vitalício", "Custo zero, sem cartão", "Acesso prioritário à versão iOS"],
-    fr: ["Tout Pro, à vie", "Coût zéro, sans carte", "Accès prioritaire à la version iOS"],
+    it: ["Tutto Pro, a vita", "Zero costi, nessuna carta", "Voce diretta sulla roadmap"],
+    en: ["Everything in Pro, for life", "Zero cost, no card", "Direct voice on the roadmap"],
+    es: ["Todo Pro, de por vida", "Coste cero, sin tarjeta", "Voz directa en la hoja de ruta"],
+    de: ["Alles aus Pro, lebenslang", "Keine Kosten, keine Karte", "Direkte Stimme bei der Roadmap"],
+    pt: ["Tudo do Pro, vitalício", "Custo zero, sem cartão", "Voz direta no roadmap"],
+    fr: ["Tout Pro, à vie", "Coût zéro, sans carte", "Voix directe sur la feuille de route"],
   } as LocalizedList,
   founderCta: {
     it: "Diventa founder",

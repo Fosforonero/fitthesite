@@ -5,13 +5,12 @@
     "download": "Downloaden"
   },
   "hero": {
-    "badge": "Beschikbaar op Android · iOS binnenkort",
+    "badge": "Beschikbaar op Android en iOS",
     "heading_1": "Één global dashboard",
     "heading_accent": "voor al je apparaten.",
     "description": "Breng Galaxy Watch, Wear OS, Health Connect en cloudproviders samen in één overzicht. Stappen, slaap, hartslag, herstel en trends — zonder tussen apps te wisselen.",
     "cta_secondary": "Meer informatie",
-    "pricing": "Eenmalig vanaf €3,99, of €1,19 per 6 maanden · veilige betaling",
-    "coming_soon": "Binnenkort"
+    "pricing": "Eenmalig vanaf €3,99, of €1,19 per 6 maanden · veilige betaling"
   },
   "features": {
     "kicker": "Functies",

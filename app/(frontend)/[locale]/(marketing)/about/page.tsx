@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
-import { IosAwareText } from "@/components/IosAwareText";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { p } from "@/lib/pricing";
 import { SITE_URL, appOffers } from "@/lib/product-facts";
@@ -299,10 +298,7 @@ export default async function AboutPage({
             {tl(ABOUT_COPY.readyToTry, lc)}
           </h3>
           <p className="mt-3 text-text-secondary max-w-md mx-auto">
-            <IosAwareText
-              live={tl(ABOUT_COPY.availableLive, lc)}
-              coming={tl(ABOUT_COPY.availableComing, lc)}
-            />
+            {tl(ABOUT_COPY.availableLive, lc)}
           </p>
           <div className="mt-6 flex justify-center">
             <StoreButtonsRow locale={lc} className="justify-center" />

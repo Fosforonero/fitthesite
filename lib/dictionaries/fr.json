@@ -5,13 +5,12 @@
     "download": "Télécharger"
   },
   "hero": {
-    "badge": "Disponible sur Android · iOS bientôt disponible",
+    "badge": "Disponible sur Android et iOS",
     "heading_1": "Un tableau de bord global",
     "heading_accent": "pour tous vos appareils.",
     "description": "Réunissez Galaxy Watch, Wear OS, Health Connect et les fournisseurs cloud en une seule vue. Pas, sommeil, fréquence cardiaque, récupération et tendances, sans jongler entre plusieurs applications.",
     "cta_secondary": "Découvrir",
-    "pricing": "Achat unique à partir de 3,99 €, ou 1,19 € tous les 6 mois · paiement sécurisé",
-    "coming_soon": "Bientôt disponible"
+    "pricing": "Achat unique à partir de 3,99 €, ou 1,19 € tous les 6 mois · paiement sécurisé"
   },
   "features": {
     "kicker": "Fonctionnalités",
