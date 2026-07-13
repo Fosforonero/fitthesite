@@ -135,5 +135,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
   }
+
+  // /delete-account (P0.4D): URL unico, non localizzato (niente hreflang
+  // alternates, non esistono varianti /it/delete-account, /de/delete-account,
+  // ecc — vedi middleware.ts NON_LOCALIZED_PREFIXES).
+  entries.push({ url: `${BASE}/delete-account` });
+
   return entries;
 }

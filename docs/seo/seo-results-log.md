@@ -287,9 +287,258 @@ Nessuna riga sopra è ancora "risultato misurato": i controlli 14/28/90
 giorni restano da eseguire alle date indicate, non anticipare un
 risultato.
 
+## Incidente tecnico P0.4C — reload automatico iOS Safari (ingresso da Reddit)
+
+- **Segnalazione**: video reale dell'utente,
+  `ScreenRecording_07-13-2026 20-39-30_1.MP4` (Matteo, 2026-07-13). Mostra:
+  ingresso da Reddit su `fitmesh.fit` → selezione lingua tedesca → `/de`
+  visibile brevemente → ricaricamento automatico → pagina di nuovo visibile
+  → ulteriore ricaricamento automatico. Dispositivo del segnalatore: iPhone
+  Safari, con VPN attiva e AdGuard in background (dettaglio raccolto ma non
+  trattato come "problema dell'utente" — vedi sotto).
+- **Causa confermata** (non un'ipotesi): ogni singola risposta servita da
+  `https://www.fitmesh.fit`/`https://fitmesh.fit` in produzione — documento
+  HTML, chunk JS, immagini ottimizzate (`_next/image`), font, payload RSC —
+  porta gli header `Accept-CH: Sec-CH-Prefers-Color-Scheme` e
+  `Critical-CH: Sec-CH-Prefers-Color-Scheme`. Per la specifica Client Hints,
+  `Critical-CH` impone al browser un **retry obbligatorio** di qualunque
+  richiesta fatta senza quell'hint già in cache per l'origin — cioè
+  esattamente un "reload" automatico alla primissima visita di un contesto
+  browser che non ha ancora quell'hint memorizzato. Nessun file di questo
+  repository dichiara questi header (verificato via grep esaustivo su
+  `next.config.mjs`, `vercel.json`, ogni `headers()`/route handler in
+  `app/lib/components`): l'origine è una funzionalità di piattaforma
+  (Vercel), non applicativa.
+  - Riprodotto in modo **deterministico**, non solo ipotizzato: nuovo
+    guardrail `tools/check-anti-loop.ts` (Playwright, rileva l'evento DOM
+    reale `beforeunload` — non un conteggio di `framenavigated`, artefatto
+    già escluso nello sprint P0.4A) mostra `beforeunload` che scatta su
+    **ogni** hit diretto a `/it`, `/en`, `/de` e sull'apex, non solo sui
+    redirect. Run contro produzione PRE-fix (2026-07-13, baseline
+    "PRIMA"): 205 violazioni totali, ~200 risposte con `Critical-CH`
+    presente, `beforeunload` rilevato in 6 scenari su 7.
+  - Un secondo problema distinto, solo sull'apex: il redirect
+    `fitmesh.fit` → `www.fitmesh.fit` (dichiarato in `next.config.mjs`
+    `redirects()`) restituiva anche `Refresh: 0;url=https://www.fitmesh.fit/`
+    e `content-type: text/plain` — un comportamento del meccanismo
+    dichiarativo Vercel-side per quel redirect, non riproducibile in
+    locale, e comunque un doppio hop (apex→www, poi www→lingua) invece di
+    uno solo.
+  - VPN/AdGuard non sono la causa: il fenomeno è riprodotto in modo
+    identico senza nessuno dei due (curl semplice, Playwright senza
+    proxy). Sono probabili **amplificatori** (latenza maggiore rende il
+    doppio-load visibile invece che istantaneo) e il contesto "browser in-
+    app di Reddit" — sempre privo di cache Client Hints pregressa — spiega
+    perché la riproduzione da Reddit sia più affidabile di un test manuale
+    su Safari già usato in precedenza sullo stesso dominio (che ha già
+    l'hint in cache e quindi non mostra il retry).
+- **Fix (SHA locale, branch `hotfix/p04c-ios-safari-reload`)**: `7900712`.
+  - `middleware.ts`: rimuove esplicitamente `Accept-CH`/`Critical-CH` da
+    ogni risposta costruita da middleware (redirect e passthrough);
+    canonicalizzazione apex→www riscritta come `NextResponse.redirect`
+    esplicito (niente `Refresh`, un solo hop anche quando serve negoziare
+    la lingua); round-trip Supabase (`getUser`) ristretto a `/app` e
+    `/admin`, non più su ogni pagina marketing pubblica.
+  - `next.config.mjs`: rimossi i redirect apex-specifici da `redirects()`
+    (ora in middleware); aggiunto override `Accept-CH`/`Critical-CH` a
+    stringa vuota su `/(.*)` in `headers()` — copre ANCHE gli asset
+    statici (`_next/static`, `_next/image`) che middleware non può
+    toccare (matcher li esclude, Next.js non invoca codice applicativo
+    per servirli).
+  - `lib/dictionaries/de.json`: `hero.heading_1` "Eine globale Dashboard"
+    → "Ein globales Dashboard" (Dashboard è neutro in tedesco).
+  - **Limite noto**: se `Critical-CH` viene iniettato a valle di
+    QUALSIASI header configurabile da questo repository (es. un proxy
+    Vercel esterno all'app), questi due livelli di rimozione non
+    basterebbero — servirebbe un intervento in Vercel Project Settings.
+    Verificabile solo con un controllo header reale post-deploy (vedi
+    sotto).
+- **Header prima/dopo**: "prima" = 2026-07-13T19:11Z, curl diretto contro
+  produzione (pre-fix): apex 308 con `refresh: 0;url=https://www.fitmesh.fit/`,
+  `content-type: text/plain`, `accept-ch`/`critical-ch: Sec-CH-Prefers-Color-Scheme`;
+  `/it`,`/en`,`/de` 200 con `accept-ch`/`critical-ch` presenti. "Dopo" =
+  **da compilare al prossimo controllo, subito dopo il merge e il deploy
+  di produzione** — non anticipare un risultato prima della verifica reale.
+- **Test su dispositivo reale**: **non eseguito da Claude** — nessuna
+  capacità di test su iPhone/Safari fisico o browser in-app Reddit in
+  questo ambiente. Playwright (incluso WebKit mobile) non è sufficiente a
+  chiudere l'incidente, come esplicitamente richiesto: serve un test
+  manuale di Matteo su iPhone Safari reale, incluso un ingresso da Reddit,
+  dopo il deploy di produzione, con permanenza sulla pagina per almeno
+  60 secondi. Rollback immediato se il loop persiste.
+- **Stato**: **verificato in Docker** (build, tsc, guardrail, test
+  routing/social/iOS-EU/refresh-loop tutti verdi su questo branch). Non
+  ancora deployato — PR aperta, in attesa di revisione e di UN solo
+  deploy di produzione dopo approvazione.
+
+### Addendum urgente (2026-07-13, durante lo sprint P0.4D) — il fix P0.4C non è ancora sufficiente
+
+Verifica locale (Docker, non produzione) contro `/en`, `/it` e la nuova
+pagina `/delete-account`: `Accept-CH`/`Critical-CH` risultano ancora
+presenti con il valore reale su ogni risposta, nonostante il fix P0.4C
+già committato in `middleware.ts`/`next.config.mjs`. Causa isolata a una
+seconda sorgente, interna alla toolchain del sito, che aggiunge questi
+header indipendentemente dal codice applicativo di questo repository (non
+un layer Vercel esterno come ipotizzato in P0.4C). Dettaglio tecnico
+completo tenuto fuori da questo file pubblico per non pubblicare una
+mappa di un problema non ancora risolto; disponibile a richiesta in
+sessione.
+
+**PR #12 non va considerato risolutivo per l'incidente P0.4C finché
+questo non è corretto e riverificato con un nuovo controllo header
+post-fix.**
+
 ## Decision log
 
 Vedi [seo-geo-master-plan.md](./seo-geo-master-plan.md) sezione 10 per il
 formato. Le tre decisioni di questo sprint sono registrate lì; il verdetto
 (keep/iterate/revert/inconclusive) va aggiunto QUI come nuova riga dopo il
 controllo dei 14 giorni (2026-07-27), non anticipato.
+
+## Sprint P0.4D — Pagina pubblica di cancellazione account (Google Play/App Store)
+
+**Obiettivo**: rendere disponibile `https://fitmesh.fit/delete-account`,
+requisito Google Play per la cancellazione account fuori dall'app. Aggiunta
+a PR #12 (`hotfix/p04c-ios-safari-reload`) con commit separati, non una PR
+a parte, per un solo merge/deploy finale.
+
+**Route**: `app/(frontend)/delete-account/page.tsx`, non localizzata di
+proposito (mai `/it/delete-account`), inglese di default, italiano
+disponibile via toggle client-side che aggiorna anche `document.documentElement.lang`.
+Aggiunta a `middleware.ts` `NON_LOCALIZED_PREFIXES` + `detectLocale` (fallback
+`en` invece di `it` per questa route, altrimenti l'header `x-fitmesh-locale`
+avrebbe reso `<html lang="it">` su una pagina il cui SSR è in inglese).
+
+**Logica di cancellazione: verificata, non ricostruita**. Due meccanismi
+già live e già correttamente protetti sono stati verificati (non
+modificati, dettaglio implementativo non riportato qui) e la pagina si
+limita a esporli/collegarli:
+- App Flutter: cancellazione immediata, azionabile solo dall'utente
+  autenticato sul proprio account, nessuna finestra di grazia. Fuori
+  scope (app Flutter non toccata).
+- Dashboard web (già live): l'utente autenticato programma la
+  cancellazione, che viene eseguita automaticamente dopo 24 ore di
+  grazia (non 48 — vedi bonifica claim sotto).
+- Percorso email (nuovo su questa pagina, P0 richiesto anche senza login):
+  `mailto:privacy@fitmesh.fit?subject=FitMesh%20account%20deletion%20request`.
+
+**Fase 7 (self-service automatico nuovo, magic link/OAuth) deliberatamente
+NON implementata**: un self-service già funzionante esiste (dashboard web +
+app Flutter, sopra). Costruire un secondo flusso di autenticazione
+parallelo sul sito marketing pubblico avrebbe aggiunto superficie di rischio
+senza benefico reale, e la spec stessa subordina questa fase a "non
+rallentare il rilascio P0". La pagina collega gli utenti autenticati al
+self-service esistente e offre l'email a tutti gli altri.
+
+**Gap scoperto durante l'audit di Fase 3, non corretto (fuori scope, serve
+approvazione esplicita prima di toccare una funzione Postgres live)**: un
+utente proprietario di un gruppo Mesh Famiglia o di una palestra che
+richiede la cancellazione dalla dashboard web o via email può, in un caso
+limite, non vedere completata la cancellazione automatica pur avendo
+ricevuto conferma che è stata programmata. Dettaglio tecnico completo
+(meccanismo esatto, tabelle coinvolte) tenuto fuori da questo file
+pubblico; disponibile a richiesta in sessione. **Raccomandazione**: fix
+dedicato in una migration separata, con approvazione esplicita prima di
+applicarla a una funzione Postgres live con cron attivo.
+
+**Bonifica claim GDPR falso (fase 6)**: rimossa l'attribuzione normativa
+falsa "GDPR/DSGVO/RGPD/AVG/RODO richiede la cancellazione entro 48 ore" in
+24 occorrenze su 5 file (9 lingue in `beta/page.tsx`, 11 lingue nel post
+blog `lib/blog/posts/sync-them-all.ts`, IT+EN in `docs/appstore-setup-guide.md`
+e nei due draft `docs/drafts/sync-them-all.{en,it}.md`). Il GDPR non fissa
+un numero di ore per la cancellazione (art. 17: "senza ingiustificato
+ritardo"; l'art. 12(3), citato correttamente altrove nel sito, riguarda la
+RISPOSTA a una richiesta, 30 giorni, non l'esecuzione). Le 48 ore sono ora
+descritte ovunque come obiettivo operativo interno, non come requisito di
+legge. La citazione corretta dell'art. 12 (30 giorni, privacy/page.tsx) è
+stata lasciata intatta. Nuovo guardrail: `tools/check-gdpr-claim-guardrail.ts`
+(verificato: fallisce sulle 24 occorrenze pre-fix, passa pulito dopo, zero
+falsi positivi sulla citazione corretta).
+
+**Retention backup**: non riverificabile dagli MCP tool Supabase disponibili
+(nessuno espone il piano/retention PITR del progetto). La pagina NON ripete
+un numero non riverificato: rimanda invece alla sezione retention della
+Privacy Policy (che già cita "rotazione 7 giorni su backup Supabase
+point-in-time recovery"). **HUMAN_ONLY — verificare piano e retention reale
+nel pannello Supabase**, idealmente riconciliando questo stesso numero tra
+le due pagine.
+
+**Verificato in Docker**: `tsc --noEmit` pulito; `pnpm run build` pulito
+(route `/delete-account` generata, 6.57 kB); server reale (`next start`)
+verificato via curl: `/delete-account` 200, title/H1/meta description/canonical
+(`https://www.fitmesh.fit/delete-account`)/robots `index,follow`/OG+Twitter
+(immagine assoluta, 1200x630 PNG servito, 164KB) tutti corretti; JSON-LD
+WebPage+Organization+BreadcrumbList+FAQPage (4 domande) presenti; apex
+`fitmesh.fit` → `www.fitmesh.fit/delete-account` in un solo hop (308,
+nessun header Refresh proprio — resta però il problema Critical-CH sitewide
+descritto sopra, non specifico a questa pagina); sitemap.xml e /llms.txt
+aggiornati; link funzionante da footer (tutte le lingue), privacy (IT +
+EN/fallback su altre 9), support (tutte le lingue). Non ancora deployato.
+
+**Lingue**: solo IT/EN per il contenuto della pagina, come da fase 5 della
+spec. Traduzione fatta a mano (non con Ollama: istruzione esplicita
+dell'utente durante lo sprint di non usarlo per questo task), riusando
+terminologia già stabilita nella Privacy Policy italiana esistente.
+
+### Rilascio P0 minimo (2026-07-13, stesso giorno) — copy corretta, P0.4C completato per davvero
+
+Prima del merge, tre correzioni:
+
+1. **Copy `/delete-account` corretta**: rimossa ogni garanzia che la
+   cancellazione dalla dashboard web si completi sempre automaticamente
+   entro 24 ore (conseguenza diretta del gap trovato in Fase 3, ancora non
+   corretto — vedi sopra). I percorsi presentati come affidabili sono ora
+   solo due: cancellazione immediata dall'app mobile, e richiesta manuale
+   via privacy@fitmesh.fit (verificata da una persona). La dashboard web è
+   menzionata solo con una frase concordata che rimanda esplicitamente a
+   privacy@fitmesh.fit se la cancellazione non si completa, senza alcuna
+   promessa di completamento automatico. Il percorso email resta sempre
+   visibile e cliccabile indipendentemente da tutto il resto.
+2. **P0.4C completato**: la causa isolata nell'addendum precedente aveva
+   due componenti distinte, corrette entrambe.
+   - `Accept-CH`/`Critical-CH`: una libreria di terze parti usata dal sito
+     (non applicativa) aggiungeva una propria regola di header dopo quella
+     già scritta in questo repo, vincendo su di essa. Corretto avvolgendo
+     il risultato finale di quella libreria e filtrando la sua regola come
+     ultimo passo, cosa che nessun livello successivo può più sovrascrivere.
+   - `Refresh`: causa DIVERSA da quella ipotizzata nell'addendum precedente
+     (non la stessa libreria) — un comportamento di compatibilità legacy
+     di Next.js stesso, applicato automaticamente a QUALSIASI redirect con
+     status "permanente" nella forma specifica usata su una rotta di
+     canonicalizzazione host. Corretto usando una forma di redirect
+     permanente equivalente per SEO/cache che non ha questo effetto
+     collaterale, lasciando invariato il comportamento per le rotte che
+     richiedono la preservazione del metodo HTTP.
+   - Verificato in Docker (server reale, non solo lettura statica del
+     codice): zero `Accept-CH`, zero `Critical-CH`, zero `Refresh` su
+     `/delete-account`, sul suo redirect apex, e sitewide (`/en`, `/it`,
+     `/de`, root).
+3. **Bug nel guardrail stesso, trovato e corretto**: `check-anti-loop.ts`
+   contava un evento `beforeunload` che scatta SEMPRE, su qualunque pagina
+   (riprodotto identico anche su un sito di controllo estraneo a FitMesh),
+   per un motivo legato al ciclo di vita di una pagina browser appena
+   aperta prima ancora di navigare altrove — non un reload reale. Il
+   contatore non veniva azzerato dopo il primo caricamento, quindi ogni
+   scenario partiva già "in errore" per costruzione, indipendentemente da
+   un vero loop. Corretto azzerando il contatore subito dopo il primo
+   caricamento riuscito: da quel punto in poi conta solo un vero reload
+   della pagina di destinazione. Questo NON invalida la diagnosi originale
+   del P0.4C (la presenza di `Critical-CH` su ~200 risposte reali era
+   stata confermata separatamente via ispezione diretta degli header, non
+   tramite questo contatore), ma va tenuto presente rileggendo i numeri
+   "prima" già registrati sopra.
+
+**Rieseguito in Docker con il fix del guardrail**: 7/7 scenari verdi
+(apex+referrer stile Reddit, apex pulito, www root, /de, /it, /en, WebKit
+mobile), tenuti aperti 60s ciascuno: zero richieste di navigazione
+ripetute, zero beforeunload dopo il caricamento, zero `Critical-CH`/
+`Refresh` su ogni risposta osservata, CTA store cliccabili.
+
+**Stato**: verificato in Docker. Non ancora deployato. Resta comunque
+valido quanto già scritto sopra: il test su dispositivo reale (iPhone
+Safari, ingresso da Reddit, permanenza ≥60s) va fatto da Matteo dopo il
+deploy — nessuna suite automatica lo sostituisce.
+
+**P0.4E** (nuovo sprint separato, apertura subito dopo questo rilascio):
+correggere e testare la funzione di cancellazione automatica per il caso
+limite di Fase 3, non corretta qui di proposito.

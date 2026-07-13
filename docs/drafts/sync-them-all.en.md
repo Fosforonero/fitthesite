@@ -62,7 +62,7 @@ No gaps, no duplicates. One continuous line, regardless of what you were wearing
 
 ## Privacy: your data stays yours
 
-Bringing everything into one place only makes sense if that place is secure. FitMesh's health data lives on European servers, is accessible only to you through your account, is never sold or shared with third parties, and there are no ad trackers. Account and data deletion happens within 48 hours, as required by GDPR.
+Bringing everything into one place only makes sense if that place is secure. FitMesh's health data lives on European servers, is accessible only to you through your account, is never sold or shared with third parties, and there are no ad trackers. Account and data deletion happens within 48 hours: that's our internal operational target.
 
 ## Frequently asked questions
 

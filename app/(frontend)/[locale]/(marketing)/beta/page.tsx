@@ -345,7 +345,7 @@ const IT = {
     },
     {
       q: "Posso cancellare l'account?",
-      a: "Sì, in qualsiasi momento, direttamente dall'app o scrivendo a privacy@fitmesh.fit. Cancelliamo account e dati entro 48h, come previsto dal GDPR.",
+      a: "Sì, in qualsiasi momento, direttamente dall'app o scrivendo a privacy@fitmesh.fit. Cancelliamo account e dati entro 48h: è il nostro obiettivo operativo interno.",
     },
   ],
 };
@@ -428,7 +428,7 @@ const ES = {
     },
     {
       q: "¿Puedo eliminar mi cuenta?",
-      a: "Sí, en cualquier momento, directamente desde la app o escribiendo a privacy@fitmesh.fit. Eliminamos la cuenta y todos los datos en un plazo de 48h, conforme al GDPR.",
+      a: "Sí, en cualquier momento, directamente desde la app o escribiendo a privacy@fitmesh.fit. Eliminamos la cuenta y todos los datos en un plazo de 48h: es nuestro objetivo operativo interno.",
     },
   ],
 };
@@ -511,7 +511,7 @@ const EN = {
     },
     {
       q: "Can I delete my account?",
-      a: "Yes, anytime, directly from the app or by writing to privacy@fitmesh.fit. We delete the account and all data within 48h, as required by GDPR.",
+      a: "Yes, anytime, directly from the app or by writing to privacy@fitmesh.fit. We delete the account and all data within 48h: that's our internal operational target.",
     },
   ],
 };
@@ -594,7 +594,7 @@ const DE = {
     },
     {
       q: "Kann ich mein Konto löschen?",
-      a: "Ja, jederzeit, direkt in der App oder per E-Mail an privacy@fitmesh.fit. Wir löschen Konto und alle Daten innerhalb von 48 Stunden, wie es die DSGVO vorschreibt.",
+      a: "Ja, jederzeit, direkt in der App oder per E-Mail an privacy@fitmesh.fit. Wir löschen Konto und alle Daten innerhalb von 48 Stunden: das ist unser internes Betriebsziel.",
     },
   ],
 };
@@ -677,7 +677,7 @@ const PT = {
     },
     {
       q: "Posso excluir minha conta?",
-      a: "Sim, a qualquer momento, diretamente pelo app ou escrevendo para privacy@fitmesh.fit. Excluímos a conta e todos os dados em até 48h, conforme exige o GDPR.",
+      a: "Sim, a qualquer momento, diretamente pelo app ou escrevendo para privacy@fitmesh.fit. Excluímos a conta e todos os dados em até 48h: é a nossa meta operacional interna.",
     },
   ],
 };
@@ -760,7 +760,7 @@ const FR = {
     },
     {
       q: "Puis-je supprimer mon compte?",
-      a: "Oui, à tout moment, directement depuis l'app ou en écrivant à privacy@fitmesh.fit. Nous supprimons le compte et toutes les données dans les 48h, conformément au RGPD.",
+      a: "Oui, à tout moment, directement depuis l'app ou en écrivant à privacy@fitmesh.fit. Nous supprimons le compte et toutes les données dans les 48h: c'est notre objectif opérationnel interne.",
     },
   ],
 };
@@ -843,7 +843,7 @@ const NL = {
     },
     {
       q: "Kan ik mijn account verwijderen?",
-      a: "Ja, op elk moment, rechtstreeks vanuit de app of door te schrijven naar privacy@fitmesh.fit. We verwijderen het account en alle gegevens binnen 48 uur, zoals vereist door de AVG.",
+      a: "Ja, op elk moment, rechtstreeks vanuit de app of door te schrijven naar privacy@fitmesh.fit. We verwijderen het account en alle gegevens binnen 48 uur: dat is ons interne operationele doel.",
     },
   ],
 };
@@ -926,7 +926,7 @@ const JA = {
     },
     {
       q: "アカウントを削除できますか？",
-      a: "はい、いつでも、アプリから直接またはprivacy@fitmesh.fitへのメールで可能です。GDPRに基づき、アカウントとすべてのデータを48時間以内に削除します。",
+      a: "はい、いつでも、アプリから直接またはprivacy@fitmesh.fitへのメールで可能です。社内の運用目標として、アカウントとすべてのデータを48時間以内に削除します。",
     },
   ],
 };
@@ -1009,7 +1009,7 @@ const KO = {
     },
     {
       q: "계정을 삭제할 수 있나요?",
-      a: "네, 언제든지 앱에서 직접 또는 privacy@fitmesh.fit으로 이메일을 보내시면 됩니다. GDPR에 따라 48시간 이내에 계정과 모든 데이터를 삭제합니다.",
+      a: "네, 언제든지 앱에서 직접 또는 privacy@fitmesh.fit으로 이메일을 보내시면 됩니다. 48시간 이내 삭제는 저희의 내부 운영 목표입니다.",
     },
   ],
 };

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
 import { LegalPage, Section, List, Callout } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
@@ -240,7 +241,12 @@ function PrivacyIT() {
           <a className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" href="mailto:privacy@fitmesh.fit">
             privacy@fitmesh.fit
           </a>
-          . Rispondiamo entro 30 giorni come previsto dall'art. 12 GDPR.
+          . Rispondiamo entro 30 giorni come previsto dall'art. 12 GDPR. Per la pagina dedicata
+          alla cancellazione dell'account, con tutte le opzioni disponibili, vedi{" "}
+          <Link className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" href="/delete-account">
+            fitmesh.fit/delete-account
+          </Link>
+          .
         </p>
       </Section>
 
@@ -450,7 +456,12 @@ function PrivacyEN() {
           <a className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" href="mailto:privacy@fitmesh.fit">
             privacy@fitmesh.fit
           </a>
-          . We reply within 30 days as required by GDPR Art. 12.
+          . We reply within 30 days as required by GDPR Art. 12. For the dedicated account
+          deletion page, with every available option, see{" "}
+          <Link className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" href="/delete-account">
+            fitmesh.fit/delete-account
+          </Link>
+          .
         </p>
       </Section>
 

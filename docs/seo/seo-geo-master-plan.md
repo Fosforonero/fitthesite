@@ -289,6 +289,56 @@ garantito), stato, owner, prossimo controllo.
   niente numeri inventati — vedi principio "fonti primarie", sezione 2).
   **Dipendenze**: nessuna bloccante. **Stato**: idea, non iniziato.
 
+### P1 — Founder graduation e social proof verificato (TRIGGER: 1.000/1.000)
+
+Attivare solo quando tutti i 1.000 posti Founder risultano realmente
+assegnati nel sistema di verita'. Il candidato successivo non diventa
+"Founder 1001": il contatore Founder viene congelato come traguardo
+storico (`1.000 / 1.000 posti assegnati`) e la CTA passa ai download
+standard degli store.
+
+**Nuova proof bar homepage:** mantenere separati e chiaramente etichettati
+`1.000 Founding Members`, download verificati, rating Google Play e rating
+App Store. Usare "valutazioni" per il conteggio delle stelle e
+"recensioni" solo per i testi effettivamente pubblicati. Non creare una
+media combinata Apple+Google.
+
+**Fonte e aggiornamento:** i download provengono esclusivamente da Play
+Console e App Store Connect (mai click sui badge o stime). Documentare la
+definizione usata — prime acquisizioni/installazioni, senza update — e
+mostrare `verificato il YYYY-MM-DD`. Rating Apple separato per storefront;
+rating Google separato. Snapshot statico verificato settimanalmente o
+mensilmente, senza fetch runtime per visita e senza deploy giornalieri.
+
+**Truth layer e schema:** aggiungere metriche per piattaforma alla SSOT
+con `sourceUrl`, `territory` e `lastVerifiedAt`. Esporre due nodi
+`MobileApplication`, Android e iOS, ciascuno col proprio
+`AggregateRating`, solo quando gli stessi valori sono visibili nella
+pagina. Guardrail bloccante se un valore e' privo di fonte o non viene
+verificato da oltre 30 giorni. Valori server-rendered e accessibili; la
+rotazione grafica rispetta `prefers-reduced-motion` e non nasconde il
+testo ai crawler.
+
+**Asset SEO/GEO del traguardo:** mantenere la pagina Founder come archivio
+evergreen, pubblicare IT/EN un articolo "FitMesh reaches 1,000 founders"
+con metodologia e dati reali (paesi, wearable, combinazioni e problemi di
+sync piu' frequenti), derivarne un mini-report `State of Wearable Data
+Sync 2026` e aggiornare press kit/llms.txt. Dati utenti solo aggregati e
+solo dopo i gate privacy definiti nella sezione 8. Il contatore migliora
+soprattutto fiducia e conversione; dati originali, report e digital PR
+sono gli elementi destinati a generare backlink e citazioni AI.
+
+**Recensioni:** richiederle esclusivamente tramite le API ufficiali degli
+store, con prompt neutro dopo un evento utile reale e senza premi, review
+gating, scambi, acquisti o incentivi. Eventuali testimonianze sul sito
+richiedono consenso e fonte. Qualunque review swap o manipolazione e' un
+gate bloccante per il rilascio di questa iniziativa.
+
+**KPI a 14/28/90 giorni:** CTR delle CTA store, conversione store-click,
+download attribuibili, crescita organica delle valutazioni, impression e
+click dell'articolo milestone, referring domain editoriali e citazioni AI
+verificate. Il numero di download non e' di per se' un KPI SEO.
+
 ### P3 — Research con dati utenti (SOLO dopo privacy/legal gate)
 
 - **Obiettivo**: "FitMesh Health Report" — insight aggregati basati su dati
@@ -520,6 +570,44 @@ puntuali (che cambiano ad ogni sprint).
    dovrebbe consolidare authority su un solo URL invece di dividerla su
    due.
 
+### Incidente tecnico P0.4C (2026-07-13) — reload automatico iOS Safari
+
+Non una decisione SEO/contenuto: un bug di piattaforma (`Critical-CH:
+Sec-CH-Prefers-Color-Scheme` forza un retry/reload obbligatorio del
+browser sulla prima visita a un origin, per specifica Client Hints — non
+dichiarato da nessun file di questo repository). Impatta comunque
+l'esperienza utente reale (visitatori da Reddit su iOS Safari) e quindi
+potenzialmente bounce rate / permanenza, segnali che alimentano questo
+piano. Registro completo (causa, evidenze, fix, SHA, header prima/dopo,
+stato test dispositivo reale) in
+[seo-results-log.md](./seo-results-log.md), sezione "Incidente tecnico
+P0.4C" — non duplicato qui per lo stesso motivo per cui il decision log
+non e' duplicato: questo file resta la strategia, i dati puntuali vivono
+nel results log.
+
 Verdetto (keep/iterate/revert) per tutte e tre: **da registrare dopo il
 controllo dei 14 giorni** (2026-07-27) — non anticipare un verdetto senza
 dati.
+
+**Aggiornamento (2026-07-13, durante P0.4D)**: il fix P0.4C committato non
+risolveva ancora l'incidente. Causa isolata a una fonte interna alla
+toolchain del sito, non a un layer Vercel esterno come ipotizzato.
+
+**Aggiornamento 2 (2026-07-13, stesso giorno, rilascio P0 minimo)**:
+corretto per davvero, sia l'header di piattaforma sia un secondo problema
+distinto trovato nello stesso giro (un comportamento di compatibilità
+legacy di Next.js su un tipo specifico di redirect). Rieseguito in Docker
+il guardrail anti-loop (che a sua volta aveva un bug metodologico, trovato
+e corretto): 7/7 scenari verdi, zero header residui, zero reload reali su
+60s di osservazione ciascuno. Resta comunque necessario il test su
+dispositivo reale post-deploy, mai sostituito da una suite automatica.
+Sintesi completa in [seo-results-log.md](./seo-results-log.md); dettaglio
+tecnico non pubblicato qui, disponibile a richiesta in sessione.
+
+### Pagina cancellazione account — P0.4D (2026-07-13)
+
+Requisito Google Play/App Store, non una decisione SEO discrezionale:
+`/delete-account`, pagina pubblica non localizzata. Dettagli completi
+(route, contenuto, self-service verificato non ricostruito, gap scoperto
+in `gdpr_process_deletions()`, bonifica claim GDPR sitewide, stato test)
+in [seo-results-log.md](./seo-results-log.md), sezione "Sprint P0.4D".
