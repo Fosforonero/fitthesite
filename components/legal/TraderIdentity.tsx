@@ -54,9 +54,6 @@ export const IMPRINT_NAV_LABEL: Record<Locale, string> = {
   fi: "Oikeudelliset tiedot",
 };
 
-/** True quando la P.IVA reale è stata impostata (non più il placeholder). */
-const VAT_CONFIGURED = TRADER.vat !== "IT00000000000";
-
 export function TraderIdentity({
   locale,
   className = "",
@@ -79,11 +76,9 @@ export function TraderIdentity({
       <p>
         <strong className="text-text-primary">{l.address}:</strong> {TRADER_ADDRESS_LINE}
       </p>
-      {VAT_CONFIGURED && (
-        <p>
-          <strong className="text-text-primary">{l.vat}:</strong> {TRADER.vat}
-        </p>
-      )}
+      <p>
+        <strong className="text-text-primary">{l.vat}:</strong> {TRADER.vat}
+      </p>
       {showContact && (
         <p>
           <strong className="text-text-primary">{l.contact}:</strong>{" "}

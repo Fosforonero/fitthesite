@@ -193,7 +193,7 @@ function PrivacyIT() {
           ["Metriche di salute", "conservate finché l'account utente è attivo. La cancellazione dell'account viene eseguita automaticamente entro 24 ore dalla richiesta (processo pianificato attivo), che elimina definitivamente i dati di salute associati"],
           ["Log applicativi e sync log", "conservati 90 giorni a fini di troubleshooting, poi eliminati automaticamente"],
           ["Email di contatto (privacy/support)", "conservate 24 mesi per garantire continuità del supporto, poi cancellate"],
-          ["Backup database", "rotazione 7 giorni su backup Supabase point-in-time recovery"],
+          ["Copie di sicurezza del database", "conservate per garantire la continuità del servizio in caso di incidente tecnico; non garantiamo una finestra di conservazione fissa"],
           ["Dati account beta signup", "conservati fino al lancio pubblico, poi anonimizzati o cancellati"],
         ]} />
       </Section>
@@ -408,7 +408,7 @@ function PrivacyEN() {
           ["Health metrics", "kept while the user account is active. Account deletion runs automatically within 24 hours of the request (active scheduled job), permanently erasing the associated health data"],
           ["Application and sync logs", "kept for 90 days for troubleshooting, then automatically purged"],
           ["Contact emails (privacy/support)", "kept for 24 months to ensure support continuity, then deleted"],
-          ["Database backups", "7-day rotation on Supabase point-in-time recovery"],
+          ["Database backups", "kept to ensure service continuity in the event of a technical incident; we do not guarantee a fixed retention window"],
           ["Beta signup data", "kept until public launch, then anonymized or deleted"],
         ]} />
       </Section>
@@ -625,7 +625,7 @@ function PrivacyES() {
           ["Métricas de salud", "conservadas mientras la cuenta del usuario esté activa. La eliminación de la cuenta se ejecuta automáticamente en un plazo de 24 horas desde la solicitud (proceso programado activo), que borra de forma definitiva los datos de salud asociados"],
           ["Registros de aplicación y sincronización", "conservados 90 días con fines de diagnóstico y, después, eliminados automáticamente"],
           ["Correos de contacto (privacidad/soporte)", "conservados 24 meses para garantizar la continuidad del soporte y, después, eliminados"],
-          ["Copias de seguridad de la base de datos", "rotación de 7 días en la recuperación point-in-time de Supabase"],
+          ["Copias de seguridad de la base de datos", "se conservan para garantizar la continuidad del servicio en caso de incidente técnico; no garantizamos una ventana de conservación fija"],
           ["Datos de registro beta", "conservados hasta el lanzamiento público y, después, anonimizados o eliminados"],
         ]} />
       </Section>
@@ -844,7 +844,7 @@ function PrivacyDE() {
           ["Gesundheitsmetriken", "gespeichert solange das Nutzerkonto aktiv ist. Die Kontolöschung erfolgt automatisch innerhalb von 24 Stunden nach Anfrage (aktiver geplanter Prozess) und löscht die zugehörigen Gesundheitsdaten endgültig"],
           ["Anwendungs- und Sync-Logs", "90 Tage zur Fehlerbehebung aufbewahrt, danach automatisch gelöscht"],
           ["Kontakt-E-Mails (Datenschutz/Support)", "24 Monate zur Sicherstellung des Support-Kontinuums aufbewahrt, danach gelöscht"],
-          ["Datenbank-Backups", "7-Tage-Rotation über Supabase Point-in-Time-Recovery"],
+          ["Datenbank-Sicherungskopien", "werden zur Sicherstellung der Dienstkontinuität bei technischen Störungen aufbewahrt; wir garantieren kein festes Aufbewahrungsfenster"],
           ["Beta-Anmeldedaten", "bis zum öffentlichen Launch aufbewahrt, danach anonymisiert oder gelöscht"],
         ]} />
       </Section>
@@ -1064,7 +1064,7 @@ function PrivacyPT() {
           ["Métricas de saúde", "mantidas enquanto a conta do usuário estiver ativa. A exclusão da conta é executada automaticamente em até 24 horas após a solicitação (processo agendado ativo), eliminando definitivamente os dados de saúde associados"],
           ["Logs de aplicação e sincronização", "mantidos por 90 dias para fins de diagnóstico, depois excluídos automaticamente"],
           ["E-mails de contato (privacidade/suporte)", "mantidos por 24 meses para garantir a continuidade do suporte, depois excluídos"],
-          ["Backups do banco de dados", "rotação de 7 dias via recuperação point-in-time do Supabase"],
+          ["Backups do banco de dados", "mantidos para garantir a continuidade do serviço em caso de incidente técnico; não garantimos uma janela de retenção fixa"],
           ["Dados de cadastro beta", "mantidos até o lançamento público, depois anonimizados ou excluídos"],
         ]} />
       </Section>
@@ -1283,7 +1283,7 @@ function PrivacyFR() {
           ["Métriques de santé", "conservées tant que le compte utilisateur est actif. La suppression du compte est exécutée automatiquement dans les 24 heures suivant la demande (processus planifié actif), supprimant définitivement les données de santé associées"],
           ["Journaux applicatifs et de synchronisation", "conservés 90 jours à des fins de diagnostic, puis supprimés automatiquement"],
           ["E-mails de contact (confidentialité/support)", "conservés 24 mois pour assurer la continuité du support, puis supprimés"],
-          ["Sauvegardes de la base de données", "rotation sur 7 jours via la récupération point-in-time de Supabase"],
+          ["Sauvegardes de la base de données", "conservées pour assurer la continuité du service en cas d'incident technique; nous ne garantissons pas de fenêtre de conservation fixe"],
           ["Données d'inscription bêta", "conservées jusqu'au lancement public, puis anonymisées ou supprimées"],
         ]} />
       </Section>

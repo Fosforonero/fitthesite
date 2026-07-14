@@ -43,7 +43,8 @@ export function organizationJsonLdData(locale: Locale) {
     url: SITE_URL,
     description: ORG_DESCRIPTIONS[locale] ?? ORG_DESCRIPTIONS.en,
     address: TRADER_POSTAL_ADDRESS,
-    ...(TRADER.vat !== "IT00000000000" && { vatID: TRADER.vat, taxID: TRADER.vat }),
+    vatID: TRADER.vat,
+    taxID: TRADER.vat,
     logo: {
       "@type": "ImageObject",
       url: `${SITE_URL}/icon-square.png`,

@@ -1,35 +1,51 @@
 /**
  * Copy per /delete-account (pagina pubblica, non localizzata, richiesta da
- * Google Play e App Store: cancellazione account fuori dall'app).
+ * Google Play e App Store: cancellazione account fuori dall'app, e
+ * cancellazione dati senza cancellare l'account, dichiarata su Play Console
+ * Data Safety).
  *
- * Solo EN (sorgente) + IT per ora (P0.4D, fase 5): le altre 13 lingue del
- * sito restano fuori scope, la pagina serve inglese di default con
- * l'italiano disponibile via toggle. IT tradotto con la pipeline locale
- * (tools/local-translator o Ollama diretto) e rivisto a mano: vedi
- * commit history per il record di traduzione.
+ * Solo EN (sorgente) + IT per ora: le altre 13 lingue del sito restano fuori
+ * scope, la pagina serve inglese di default con l'italiano disponibile via
+ * toggle.
  *
- * P0 minimo (2026-07-13): un caso limite noto (proprietari di gruppo Mesh
- * Famiglia/palestra) puo' far fallire silenziosamente la cancellazione
- * automatica dalla dashboard web — fix rimandato a uno sprint dedicato
- * (P0.4E), non applicato qui. Finche' non e' corretto, i percorsi
- * presentati come affidabili sono SOLO: cancellazione immediata dall'app
- * mobile, e richiesta manuale via privacy@fitmesh.fit (verificata da una
- * persona, non dal cron automatico). La dashboard web puo' essere
- * menzionata SOLO con la frase esatta concordata (vedi `timelineBody`),
- * senza alcuna garanzia di completamento automatico entro 24 ore.
- *
- * Ogni fatto qui dentro e' verificato contro il codice (non inventato):
- *  - 24 ore, non 48: da supabase/migrations/20260616090000_gdpr_deletion_execution.sql
- *    (`gdpr_process_deletions`, cron ogni 10 min, grace `interval '24 hours'`).
+ * Sprint di completamento (2026-07-14) — fatti verificati, non inventati:
+ *  - Cancellazione SOLO dati (non account): `deleteMetricsForRange()` in
+ *    `AppFitmesh/flutter_app/lib/features/settings/data/data_export_service.dart`,
+ *    invocata da Impostazioni -> Privacy & dati -> "Elimina dati
+ *    sincronizzati..." (stringhe esatte verificate in app_en.arb/app_it.arb).
+ *    Cancella solo `fitness_metrics` nel periodo scelto (7/30/90 giorni o
+ *    intervallo personalizzato); account, impostazioni e device collegati
+ *    non vengono toccati. Nessun equivalente sulla dashboard web ad oggi
+ *    (verificato: solo cancellazione account completo in
+ *    `app/(frontend)/[locale]/app/settings/DeleteAccountSection.tsx`).
+ *  - 24 ore per la dashboard web: da
+ *    supabase/migrations/20260616090000_gdpr_deletion_execution.sql
+ *    (`gdpr_process_deletions`, job pg_cron interno a Postgres — non un cron
+ *    Vercel, quindi non soggetto al limite "solo daily" di vercel.json/Hobby
+ *    plan). Verificato 2026-07-14 via query dirette: il job esiste, è attivo,
+ *    gira ogni 10 minuti, le ultime esecuzioni sono tutte "succeeded", e
+ *    zero richieste pendenti hanno più di 24 ore. Il caso limite noto
+ *    (proprietari di gruppo Mesh Famiglia/palestra possono far fallire
+ *    silenziosamente la propria cancellazione) resta non corretto, spostato
+ *    allo sprint separato P0.4E. Finche' non e' risolto, i percorsi
+ *    presentati come affidabili sono SOLO: cancellazione immediata dall'app
+ *    mobile, e richiesta manuale via privacy@fitmesh.fit (verificata da una
+ *    persona). La dashboard web puo' essere menzionata SOLO con la frase
+ *    esatta concordata (vedi `timelineBody`), senza garanzia di
+ *    completamento automatico.
  *  - Cancellazione immediata da app mobile: da
  *    AppFitmesh/docs/account-deletion/delete_current_user.sql (`delete_current_user()`,
  *    nessuna grace, invocata direttamente da app Flutter — fuori scope, non modificata).
  *  - Dati anonimizzati non cancellati (audit_logs, admin_events): da
  *    supabase/migrations/20260513120005_init_consents_settings.sql
  *    (`anonymize_user_audit_on_delete`).
- *  - Retention backup: NON riverificabile da qui (impostazione plan/PITR Supabase,
- *    non esposta dagli MCP tool disponibili) — la pagina rimanda alla Privacy
- *    Policy invece di ripetere un numero non riverificabile in questa sede.
+ *  - Backup: il progetto Supabase e' su piano Free (verificato via API
+ *    2026-07-14), che NON ha point-in-time recovery ne' backup giornalieri
+ *    garantiti (feature Pro+ secondo la documentazione ufficiale). Il claim
+ *    precedente "rotazione 7 giorni" era quindi falso e non riverificabile:
+ *    rimosso qui e nella Privacy Policy (6 lingue), sostituito con una
+ *    frase onesta senza numero specifico, per decisione esplicita
+ *    dell'utente.
  */
 
 export type DeleteAccountCopy = {
@@ -48,6 +64,8 @@ export type DeleteAccountCopy = {
   emailButtonLabel: string;
   identityTitle: string;
   identityBody: string;
+  dataOnlyTitle: string;
+  dataOnlyBody: string;
   whatDeletedTitle: string;
   whatDeletedIntro: string;
   whatDeletedItems: string[];
@@ -77,7 +95,7 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "How to permanently delete your FitMesh account and data, from the app or by email. No login required to start.",
     kicker: "Account & data",
     h1: "Delete your FitMesh account",
-    lastUpdated: "Last updated: July 13, 2026",
+    lastUpdated: "Last updated: July 14, 2026",
     intro:
       "FitMesh is an app published by Fosforonero (Fosforonero di Matteo Pizzi). This is the official account deletion page for FitMesh, reachable without installing or opening the app, as required by Google Play and the App Store.",
     toggleLabel: "Italiano",
@@ -92,6 +110,9 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
     identityTitle: "Verifying it's you",
     identityBody:
       "When you delete your account from inside the app, you're already signed in, so your session verifies your identity. When you ask by email, we check that the request comes from the email address on your account, and we may ask a follow-up question before processing it. We never delete an account based on an email alone if the sender address doesn't match the account.",
+    dataOnlyTitle: "Delete your data without deleting your account",
+    dataOnlyBody:
+      "If you'd rather keep your account and just clear your synced health data, you can do that from the mobile app: go to Settings, then Privacy & data, then Delete synced data. Pick a period (the last 7, 30, or 90 days, or a custom date range) and type DELETE to confirm. This permanently removes your steps, heart rate, sleep, and every other synced metric for that period. Your account, your settings, and your connected devices are not touched. This isn't available yet from the web dashboard; email privacy@fitmesh.fit if you'd like it done that way instead.",
     whatDeletedTitle: "What gets deleted",
     whatDeletedIntro:
       "Deleting your account permanently removes your sign-in credentials and, with them, everything tied to your profile:",
@@ -107,7 +128,7 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "A small amount of technical information survives in anonymized form: security and error logs, and an internal record that a deletion took place. Both have your identity stripped out as part of the deletion itself, so neither can be traced back to you afterwards. We keep them briefly for troubleshooting and fraud prevention, as described in our Privacy Policy.",
     backupsTitle: "Backups",
     backupsBody:
-      "Short-term database backups may retain a copy of your data for a limited time after deletion. Backups exist only for disaster recovery and are never used to bring back an account you've asked us to delete. See the data retention section of our Privacy Policy for details.",
+      "We keep copies of our data for service continuity in case of a technical incident. We don't guarantee a fixed retention window for these copies, and they are never used to bring back an account you've asked us to delete. See the data retention section of our Privacy Policy for details.",
     backupsLinkLabel: "Read the retention section in our Privacy Policy",
     externalTitle: "Data held by other services",
     externalBody:
@@ -117,7 +138,7 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "If you subscribed or bought FitMesh Pro through Google Play or the App Store, deleting your FitMesh account does not cancel that subscription and does not issue a refund. Apple and Google handle billing on their own systems. To cancel a subscription or request a refund, use your Google Play or App Store account settings directly.",
     timelineTitle: "How long it takes",
     timelineBody:
-      "Deletion from the mobile app happens immediately. Deletion requested by email is carried out by us after we verify your identity. Requests made from the web dashboard enter a 24-hour grace period. If the deletion is not completed, contact privacy@fitmesh.fit.",
+      "These three paths take different amounts of time because each one verifies who you are differently. Deletion from the mobile app happens immediately, because you're already signed in on that device and there's nothing left to check. Deletion requested by email is carried out by us after we verify your identity, since anyone could otherwise write in claiming to be you. Requests made from the web dashboard enter a 24-hour grace period. If the deletion is not completed, contact privacy@fitmesh.fit.",
     faqTitle: "Frequently asked questions",
     faq: [
       {
@@ -146,7 +167,7 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "Come eliminare definitivamente il tuo account FitMesh e i tuoi dati, dall'app o via email. Nessun login richiesto per iniziare.",
     kicker: "Account e dati",
     h1: "Elimina il tuo account FitMesh",
-    lastUpdated: "Ultimo aggiornamento: 13 luglio 2026",
+    lastUpdated: "Ultimo aggiornamento: 14 luglio 2026",
     intro:
       "FitMesh e' un'app pubblicata da Fosforonero (Fosforonero di Matteo Pizzi). Questa e' la pagina ufficiale per la cancellazione dell'account FitMesh, raggiungibile senza installare o aprire l'app, come richiesto da Google Play e dall'App Store.",
     toggleLabel: "English",
@@ -161,6 +182,9 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
     identityTitle: "Verifica della tua identita'",
     identityBody:
       "Quando elimini l'account dall'app, hai gia' effettuato l'accesso, quindi la tua sessione verifica la tua identita'. Quando lo chiedi via email, controlliamo che la richiesta arrivi dall'indirizzo email del tuo account e potremmo farti una domanda di verifica prima di procedere. Non eliminiamo mai un account solo sulla base di un'email se l'indirizzo del mittente non corrisponde a quello dell'account.",
+    dataOnlyTitle: "Elimina i tuoi dati senza eliminare l'account",
+    dataOnlyBody:
+      "Se preferisci mantenere il tuo account e cancellare solo i dati di salute sincronizzati, puoi farlo dall'app mobile: vai in Impostazioni, poi Privacy e dati, poi Elimina dati sincronizzati. Scegli un periodo (gli ultimi 7, 30 o 90 giorni, oppure un intervallo di date personalizzato) e digita ELIMINA per confermare. Questo rimuove in modo permanente i tuoi passi, la frequenza cardiaca, il sonno e ogni altra metrica sincronizzata per quel periodo. Il tuo account, le tue impostazioni e i dispositivi collegati non vengono toccati. Questa opzione non e' ancora disponibile dalla dashboard web; scrivi a privacy@fitmesh.fit se preferisci che venga fatto in quel modo.",
     whatDeletedTitle: "Cosa viene eliminato",
     whatDeletedIntro:
       "Eliminare il tuo account rimuove in modo permanente le tue credenziali di accesso e, con esse, tutto cio' che e' legato al tuo profilo:",
@@ -176,8 +200,8 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "Una piccola quantita' di informazioni tecniche sopravvive in forma anonima: log di sicurezza e di errore, e un record interno che attesta che una cancellazione ha avuto luogo. In entrambi i casi la tua identita' viene rimossa come parte della cancellazione stessa, quindi nessuno dei due puo' essere ricollegato a te in seguito. Li conserviamo brevemente per motivi di troubleshooting e prevenzione frodi, come descritto nella nostra Privacy Policy.",
     backupsTitle: "Backup",
     backupsBody:
-      "I backup del database a breve termine possono conservare una copia dei tuoi dati per un periodo limitato dopo la cancellazione. I backup esistono solo per il disaster recovery e non vengono mai usati per ripristinare un account di cui hai chiesto la cancellazione. Per i dettagli, vedi la sezione sulla conservazione dei dati nella nostra Privacy Policy.",
-    backupsLinkLabel: "Leggi la sezione retention nella Privacy Policy",
+      "Conserviamo copie di sicurezza per garantire la continuita' del servizio in caso di incidente tecnico. Non garantiamo una finestra di conservazione fissa per queste copie, e non vengono mai usate per ripristinare un account di cui hai chiesto la cancellazione. Per i dettagli, vedi la sezione sulla conservazione dei dati nella nostra Privacy Policy.",
+    backupsLinkLabel: "Leggi la sezione sulla conservazione dei dati nella Privacy Policy",
     externalTitle: "Dati presenti in altri servizi",
     externalBody:
       "FitMesh legge i dati dai servizi che scegli di collegare, come Health Connect, Samsung Health, Garmin, Fitbit, Apple Health, o l'app del tuo anello smart Colmi. Eliminare il tuo account FitMesh cancella solo la copia conservata dentro FitMesh. Non elimina, modifica o scollega nulla in quegli altri servizi. Se vuoi che i tuoi dati vengano rimossi anche li', devi farlo separatamente, direttamente con ciascun fornitore.",
@@ -186,7 +210,7 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "Se ti sei abbonato o hai acquistato FitMesh Pro tramite Google Play o l'App Store, eliminare il tuo account FitMesh non annulla quell'abbonamento e non genera un rimborso. Apple e Google gestiscono la fatturazione sui propri sistemi. Per annullare un abbonamento o richiedere un rimborso, usa direttamente le impostazioni del tuo account Google Play o App Store.",
     timelineTitle: "Quanto tempo ci vuole",
     timelineBody:
-      "L'eliminazione dall'app mobile avviene immediatamente. L'eliminazione richiesta via email viene eseguita da noi dopo aver verificato la tua identita'. Le richieste effettuate dalla dashboard web prevedono un periodo di ripensamento di 24 ore. Se la cancellazione non viene completata, contatta privacy@fitmesh.fit.",
+      "Questi tre percorsi richiedono tempi diversi perche' ciascuno verifica la tua identita' in modo diverso. L'eliminazione dall'app mobile avviene immediatamente, perche' hai gia' effettuato l'accesso su quel dispositivo e non c'e' altro da controllare. L'eliminazione richiesta via email viene eseguita da noi dopo aver verificato la tua identita', perche' altrimenti chiunque potrebbe scriverci fingendo di essere te. Le richieste effettuate dalla dashboard web prevedono un periodo di ripensamento di 24 ore. Se la cancellazione non viene completata, contatta privacy@fitmesh.fit.",
     faqTitle: "Domande frequenti",
     faq: [
       {

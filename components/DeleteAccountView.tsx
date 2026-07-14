@@ -78,6 +78,10 @@ export function DeleteAccountView() {
           <p>{t.identityBody}</p>
         </Section>
 
+        <Section title={t.dataOnlyTitle}>
+          <p>{t.dataOnlyBody}</p>
+        </Section>
+
         <Section title={t.whatDeletedTitle}>
           <p>{t.whatDeletedIntro}</p>
           <ul className="space-y-2 mt-3">

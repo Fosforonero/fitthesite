@@ -11,8 +11,12 @@
  *   - il componente <TraderIdentity/> (Terms, Privacy)
  *   - la pagina /imprint (Impressum, obbligatorio in DE e in più stati UE)
  *
- * ⚠️ DA COMPILARE: la P.IVA reale (vedi `vat`). Una ditta individuale italiana,
- * anche in regime forfettario, ha una partita IVA (formato UE: "IT" + 11 cifre).
+ * P.IVA reale confermata 2026-07-14 (sprint completamento /delete-account):
+ * IT16166801007, REA LI-218580 (Livorno/Rosignano Marittimo). L'indirizzo
+ * di sede resta Via Collazia 20, Roma — confermato esplicitamente da Matteo
+ * come indirizzo ufficiale nonostante la registrazione REA a Rosignano
+ * Marittimo (comune diverso da quello della sede, caso comune per ditte
+ * individuali). Non un'incongruenza da correggere.
  */
 
 export const TRADER = {
@@ -20,8 +24,8 @@ export const TRADER = {
   legalName: "FOSFORONERO DI MATTEO PIZZI",
   /** Persona fisica titolare della ditta individuale. */
   representative: "Matteo Pizzi",
-  /** Partita IVA UE. ⚠️ TODO: sostituire con il valore reale (IT + 11 cifre). */
-  vat: "IT00000000000",
+  /** Partita IVA UE, confermata reale 2026-07-14. */
+  vat: "IT16166801007",
   address: {
     street: "Via Collazia 20",
     postalCode: "00183",
