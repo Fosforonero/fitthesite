@@ -193,7 +193,7 @@ function PrivacyIT() {
           ["Metriche di salute", "conservate finché l'account utente è attivo. La cancellazione dell'account viene eseguita automaticamente entro 24 ore dalla richiesta (processo pianificato attivo), che elimina definitivamente i dati di salute associati"],
           ["Log applicativi e sync log", "conservati 90 giorni a fini di troubleshooting, poi eliminati automaticamente"],
           ["Email di contatto (privacy/support)", "conservate 24 mesi per garantire continuità del supporto, poi cancellate"],
-          ["Copie di sicurezza del database", "conservate per garantire la continuità del servizio in caso di incidente tecnico; non garantiamo una finestra di conservazione fissa"],
+          ["Copie di sicurezza del database", "FitMesh non crea né conserva attualmente backup separati del database. Il fornitore del database può conservare copie tecniche di ripristino della piattaforma per un massimo di 7 giorni. Eventuali dati residui presenti in tali copie dopo la cancellazione dell'account non vengono utilizzati da FitMesh per il trattamento ordinario e vengono eliminati alla scadenza del ciclo del fornitore"],
           ["Dati account beta signup", "conservati fino al lancio pubblico, poi anonimizzati o cancellati"],
         ]} />
       </Section>
@@ -408,7 +408,7 @@ function PrivacyEN() {
           ["Health metrics", "kept while the user account is active. Account deletion runs automatically within 24 hours of the request (active scheduled job), permanently erasing the associated health data"],
           ["Application and sync logs", "kept for 90 days for troubleshooting, then automatically purged"],
           ["Contact emails (privacy/support)", "kept for 24 months to ensure support continuity, then deleted"],
-          ["Database backups", "kept to ensure service continuity in the event of a technical incident; we do not guarantee a fixed retention window"],
+          ["Database backups", "FitMesh does not currently create or retain separate database backups. The database provider may retain platform recovery copies for up to 7 days. Any data remaining in those copies after account deletion is not used by FitMesh for normal processing and expires with the provider's backup cycle"],
           ["Beta signup data", "kept until public launch, then anonymized or deleted"],
         ]} />
       </Section>
@@ -625,7 +625,7 @@ function PrivacyES() {
           ["Métricas de salud", "conservadas mientras la cuenta del usuario esté activa. La eliminación de la cuenta se ejecuta automáticamente en un plazo de 24 horas desde la solicitud (proceso programado activo), que borra de forma definitiva los datos de salud asociados"],
           ["Registros de aplicación y sincronización", "conservados 90 días con fines de diagnóstico y, después, eliminados automáticamente"],
           ["Correos de contacto (privacidad/soporte)", "conservados 24 meses para garantizar la continuidad del soporte y, después, eliminados"],
-          ["Copias de seguridad de la base de datos", "se conservan para garantizar la continuidad del servicio en caso de incidente técnico; no garantizamos una ventana de conservación fija"],
+          ["Copias de seguridad de la base de datos", "FitMesh no crea ni conserva actualmente copias de seguridad de la base de datos independientes. El proveedor de la base de datos puede conservar copias técnicas de recuperación de la plataforma durante un máximo de 7 días. Los datos que puedan quedar en esas copias tras la eliminación de la cuenta no se utilizan para el tratamiento habitual y caducan con el ciclo de copias de seguridad del proveedor"],
           ["Datos de registro beta", "conservados hasta el lanzamiento público y, después, anonimizados o eliminados"],
         ]} />
       </Section>
@@ -844,7 +844,7 @@ function PrivacyDE() {
           ["Gesundheitsmetriken", "gespeichert solange das Nutzerkonto aktiv ist. Die Kontolöschung erfolgt automatisch innerhalb von 24 Stunden nach Anfrage (aktiver geplanter Prozess) und löscht die zugehörigen Gesundheitsdaten endgültig"],
           ["Anwendungs- und Sync-Logs", "90 Tage zur Fehlerbehebung aufbewahrt, danach automatisch gelöscht"],
           ["Kontakt-E-Mails (Datenschutz/Support)", "24 Monate zur Sicherstellung des Support-Kontinuums aufbewahrt, danach gelöscht"],
-          ["Datenbank-Sicherungskopien", "werden zur Sicherstellung der Dienstkontinuität bei technischen Störungen aufbewahrt; wir garantieren kein festes Aufbewahrungsfenster"],
+          ["Datenbank-Sicherungskopien", "FitMesh erstellt oder speichert derzeit keine eigenen Datenbank-Sicherungskopien. Der Datenbankanbieter kann technische Wiederherstellungskopien der Plattform bis zu 7 Tage lang aufbewahren. Verbleibende Daten in diesen Kopien werden nach der Kontolöschung nicht von FitMesh für die normale Verarbeitung genutzt und verfallen mit dem Sicherungszyklus des Anbieters"],
           ["Beta-Anmeldedaten", "bis zum öffentlichen Launch aufbewahrt, danach anonymisiert oder gelöscht"],
         ]} />
       </Section>
@@ -1064,7 +1064,7 @@ function PrivacyPT() {
           ["Métricas de saúde", "mantidas enquanto a conta do usuário estiver ativa. A exclusão da conta é executada automaticamente em até 24 horas após a solicitação (processo agendado ativo), eliminando definitivamente os dados de saúde associados"],
           ["Logs de aplicação e sincronização", "mantidos por 90 dias para fins de diagnóstico, depois excluídos automaticamente"],
           ["E-mails de contato (privacidade/suporte)", "mantidos por 24 meses para garantir a continuidade do suporte, depois excluídos"],
-          ["Backups do banco de dados", "mantidos para garantir a continuidade do serviço em caso de incidente técnico; não garantimos uma janela de retenção fixa"],
+          ["Backups do banco de dados", "A FitMesh não cria nem mantém atualmente cópias de segurança separadas do banco de dados. O fornecedor do banco de dados pode manter cópias técnicas de recuperação da plataforma por até 7 dias. Os dados que permaneçam nessas cópias após a eliminação da conta não são utilizados pela FitMesh para o tratamento normal e expiram com o ciclo de backup do fornecedor"],
           ["Dados de cadastro beta", "mantidos até o lançamento público, depois anonimizados ou excluídos"],
         ]} />
       </Section>
@@ -1283,7 +1283,7 @@ function PrivacyFR() {
           ["Métriques de santé", "conservées tant que le compte utilisateur est actif. La suppression du compte est exécutée automatiquement dans les 24 heures suivant la demande (processus planifié actif), supprimant définitivement les données de santé associées"],
           ["Journaux applicatifs et de synchronisation", "conservés 90 jours à des fins de diagnostic, puis supprimés automatiquement"],
           ["E-mails de contact (confidentialité/support)", "conservés 24 mois pour assurer la continuité du support, puis supprimés"],
-          ["Sauvegardes de la base de données", "conservées pour assurer la continuité du service en cas d'incident technique; nous ne garantissons pas de fenêtre de conservation fixe"],
+          ["Sauvegardes de la base de données", "FitMesh ne crée ni ne conserve actuellement de sauvegardes distinctes de la base de données. Le fournisseur de la base de données peut conserver des copies techniques de récupération de la plateforme pendant un maximum de 7 jours. Les données éventuellement restantes dans ces copies après la suppression du compte ne sont pas utilisées par FitMesh pour le traitement normal et expirent avec le cycle de sauvegarde du fournisseur"],
           ["Données d'inscription bêta", "conservées jusqu'au lancement public, puis anonymisées ou supprimées"],
         ]} />
       </Section>

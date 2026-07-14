@@ -42,10 +42,16 @@
  *  - Backup: il progetto Supabase e' su piano Free (verificato via API
  *    2026-07-14), che NON ha point-in-time recovery ne' backup giornalieri
  *    garantiti (feature Pro+ secondo la documentazione ufficiale). Il claim
- *    precedente "rotazione 7 giorni" era quindi falso e non riverificabile:
- *    rimosso qui e nella Privacy Policy (6 lingue), sostituito con una
- *    frase onesta senza numero specifico, per decisione esplicita
- *    dell'utente.
+ *    precedente "rotazione 7 giorni" era falso e non riverificabile, rimosso.
+ *    Hotfix P0.5A0 (stesso giorno): FitMesh non crea ancora backup propri
+ *    (in disegno separato, non ancora attivo — vedi sprint P0.5A/P0.5B); il
+ *    testo pubblico dichiara questo E segnala che il fornitore del database
+ *    puo' comunque conservare copie tecniche indipendenti (fino a 7 giorni,
+ *    non garantito da FitMesh). Non affermare "nessuna copia rimane in
+ *    assoluto": non e' verificabile lato fornitore. Quando il backup cifrato
+ *    FitMesh sara' realmente operativo (post primo restore drill riuscito),
+ *    questo testo va aggiornato a una retention reale fino a 30 giorni, mai
+ *    prima.
  */
 
 export type DeleteAccountCopy = {
@@ -128,8 +134,8 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
       "A small amount of technical information survives in anonymized form: security and error logs, and an internal record that a deletion took place. Both have your identity stripped out as part of the deletion itself, so neither can be traced back to you afterwards. We keep them briefly for troubleshooting and fraud prevention, as described in our Privacy Policy.",
     backupsTitle: "Backups",
     backupsBody:
-      "We keep copies of our data for service continuity in case of a technical incident. We don't guarantee a fixed retention window for these copies, and they are never used to bring back an account you've asked us to delete. See the data retention section of our Privacy Policy for details.",
-    backupsLinkLabel: "Read the retention section in our Privacy Policy",
+      "FitMesh does not currently create or retain separate database backups. Our database provider may retain platform recovery copies for up to 7 days under its current backup cycle. After account deletion, any data remaining in those copies is not used by FitMesh for normal processing and expires with the provider's backup cycle.",
+    backupsLinkLabel: "Read our Privacy Policy",
     externalTitle: "Data held by other services",
     externalBody:
       "FitMesh reads data from services you choose to connect, such as Health Connect, Samsung Health, Garmin, Fitbit, Apple Health, or a Colmi smart ring's own app. Deleting your FitMesh account only deletes the copy stored inside FitMesh. It does not delete, change, or disconnect anything in those other services. If you also want your data removed there, you need to do that separately, directly with each provider.",
@@ -198,10 +204,10 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
     whatKeptTitle: "Cosa conserviamo, e perche'",
     whatKeptBody:
       "Una piccola quantita' di informazioni tecniche sopravvive in forma anonima: log di sicurezza e di errore, e un record interno che attesta che una cancellazione ha avuto luogo. In entrambi i casi la tua identita' viene rimossa come parte della cancellazione stessa, quindi nessuno dei due puo' essere ricollegato a te in seguito. Li conserviamo brevemente per motivi di troubleshooting e prevenzione frodi, come descritto nella nostra Privacy Policy.",
-    backupsTitle: "Backup",
+    backupsTitle: "Copie di sicurezza",
     backupsBody:
-      "Conserviamo copie di sicurezza per garantire la continuita' del servizio in caso di incidente tecnico. Non garantiamo una finestra di conservazione fissa per queste copie, e non vengono mai usate per ripristinare un account di cui hai chiesto la cancellazione. Per i dettagli, vedi la sezione sulla conservazione dei dati nella nostra Privacy Policy.",
-    backupsLinkLabel: "Leggi la sezione sulla conservazione dei dati nella Privacy Policy",
+      "FitMesh non crea né conserva attualmente backup separati del database. Il nostro fornitore del database può conservare copie tecniche di ripristino della piattaforma per un massimo di 7 giorni, secondo il ciclo di backup attuale. Dopo la cancellazione dell'account, eventuali dati residui presenti in tali copie non vengono utilizzati da FitMesh per il trattamento ordinario e vengono eliminati alla scadenza del ciclo del fornitore.",
+    backupsLinkLabel: "Leggi la nostra Privacy Policy",
     externalTitle: "Dati presenti in altri servizi",
     externalBody:
       "FitMesh legge i dati dai servizi che scegli di collegare, come Health Connect, Samsung Health, Garmin, Fitbit, Apple Health, o l'app del tuo anello smart Colmi. Eliminare il tuo account FitMesh cancella solo la copia conservata dentro FitMesh. Non elimina, modifica o scollega nulla in quegli altri servizi. Se vuoi che i tuoi dati vengano rimossi anche li', devi farlo separatamente, direttamente con ciascun fornitore.",
