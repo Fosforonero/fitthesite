@@ -73,13 +73,18 @@ function buildHtml(email: string): string {
 }
 
 Deno.serve(async (req) => {
-  // Accetta solo richieste autorizzate dal cron (CRON_SECRET)
+  // Fail-closed: senza CRON_SECRET configurato l'endpoint resta inaccessibile.
+  // Il controllo avviene prima di creare il client Supabase, interrogare
+  // user_roles o contattare Resend.
   const secret = Deno.env.get("CRON_SECRET");
-  if (secret) {
-    const auth = req.headers.get("authorization");
-    if (auth !== `Bearer ${secret}`) {
-      return new Response("Unauthorized", { status: 401 });
-    }
+  if (!secret) {
+    console.error("CRON_SECRET is not configured");
+    return new Response("Service unavailable", { status: 503 });
+  }
+
+  const auth = req.headers.get("authorization");
+  if (auth !== `Bearer ${secret}`) {
+    return new Response("Unauthorized", { status: 401 });
   }
 
   const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
@@ -120,7 +125,7 @@ Deno.serve(async (req) => {
   }
 
   let sent = 0;
-  const failed: string[] = [];
+  let failedCount = 0;
 
   for (const row of founders) {
     const profile = row.profiles as { email: string };
@@ -142,9 +147,12 @@ Deno.serve(async (req) => {
       });
 
       if (!res.ok) {
-        const body = await res.text();
-        console.error(`Resend error for ${email}:`, body);
-        failed.push(email);
+        // Solo dati tecnici aggregati nei log: mai email, user_id o il body
+        // grezzo del provider (privacy).
+        console.error("Founder review email provider request failed", {
+          status: res.status,
+        });
+        failedCount++;
         continue;
       }
 
@@ -157,13 +165,19 @@ Deno.serve(async (req) => {
 
       sent++;
     } catch (err) {
-      console.error(`Exception for ${email}:`, err);
-      failed.push(email);
+      // Solo il tipo di errore, mai l'eccezione completa (potrebbe contenere
+      // email o altri dati personali).
+      console.error("Founder review email send failed", {
+        errorType: err instanceof Error ? err.name : "unknown",
+      });
+      failedCount++;
     }
   }
 
+  // Solo contatori aggregati nella response: mai email o identificatori
+  // per-destinatario (privacy).
   return new Response(
-    JSON.stringify({ sent, failed: failed.length, failedEmails: failed }),
+    JSON.stringify({ sent, failed: failedCount }),
     { headers: { "content-type": "application/json" } }
   );
 });
