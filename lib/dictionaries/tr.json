@@ -8,7 +8,7 @@
     "badge": "Android ve iOS'ta mevcut",
     "heading_1": "Tek bir global panel",
     "heading_accent": "tüm cihazlarınız için.",
-    "description": "Galaxy Watch, Wear OS, Health Connect ve bulut sağlayıcılarını tek bir görünümde birleştirin. Adımlar, uyku, kalp atış hızı, toparlanma ve eğilimler, uygulamalar arasında geçiş yapmadan.",
+    "description": "Android giyilebilir cihazlardan Health Connect üzerinden ve iPhone'da Apple Sağlık ile desteklenen yüzüklerden gelen sağlık verilerini tek bir görünümde birleştirin. Adımlar, uyku, kalp atış hızı, toparlanma ve eğilimler, uygulamalar arasında geçiş yapmadan.",
     "cta_secondary": "Daha fazla bilgi",
     "pricing": "€3,99'dan başlayan tek seferlik ödeme veya 6 ayda bir €1,19 · güvenli ödeme"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "Adımlar ve mesafe",
-        "desc": "Health Connect ve Samsung Health ile otomatik senkronizasyon. Telefon kilitli olsa bile arka planda çalışır."
+        "desc": "Health Connect ve Samsung Health ile senkronize olur. Pil optimizasyonu devre dışı bırakıldığında Android'de best-effort arka plan güncellemeleri; uygulamayı açtığınızda her zaman güncel."
       },
       {
-        "title": "Kalp atış hızı ve VO₂ max",
+        "title": "Kalp atış hızı",
         "desc": "Günlük ortalama, min/maks aralığı, dinlenme kalp atış hızı. Kardiyovasküler sağlığınızdaki eğilimleri zamanla takip edin."
       },
       {

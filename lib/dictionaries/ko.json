@@ -8,7 +8,7 @@
     "badge": "Android와 iOS 지원",
     "heading_1": "모든 기기를",
     "heading_accent": "하나의 대시보드로.",
-    "description": "Galaxy Watch, Wear OS, Health Connect, 클라우드 공급자를 하나의 화면으로 통합하세요. 앱을 전환하지 않고 걸음 수, 수면, 심박수, 회복 상태, 트렌드를 확인할 수 있습니다.",
+    "description": "Android 웨어러블의 건강 데이터는 Health Connect를 통해, iPhone에서는 Apple 건강 및 지원되는 반지의 데이터를 하나의 화면으로 통합하세요. 앱을 전환하지 않고 걸음 수, 수면, 심박수, 회복 상태, 트렌드를 확인할 수 있습니다.",
     "cta_secondary": "자세히 보기",
     "pricing": "일회 결제 €3.99부터, 또는 6개월 €1.19 · 안전한 결제"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "걸음 수 & 거리",
-        "desc": "Health Connect 및 Samsung Health와 자동 동기화. 화면이 잠긴 상태에서도 백그라운드에서 실행됩니다."
+        "desc": "Health Connect 및 Samsung Health와 동기화됩니다. 배터리 최적화를 비활성화한 Android에서는 최선형(best-effort) 백그라운드 업데이트가 이루어집니다. 앱을 열면 항상 최신 상태입니다."
       },
       {
-        "title": "심박수 & VO₂ max",
+        "title": "심박수",
         "desc": "일일 평균, 최소/최대 범위, 안정 심박수. 시간에 따른 심혈관 건강 트렌드를 파악하세요."
       },
       {

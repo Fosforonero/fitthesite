@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: "%s — FitMesh Sync",
   },
   description:
-    "FitMesh Sync syncs Galaxy Watch and Wear OS to a premium personal dashboard. Steps, heart rate, sleep, calories, VO₂ max. Privacy-first.",
+    "FitMesh Sync syncs Galaxy Watch and Wear OS to a premium personal dashboard. Steps, heart rate, sleep, calories. Privacy-first.",
   robots: { index: true, follow: true },
   verification: {
     google: "EvwBVKmgChv3GxUVdL6lPEoaHc_ZeHSf1Y9G6F9RZf0",

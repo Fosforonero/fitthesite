@@ -456,8 +456,8 @@ export function SettingsMockup() {
         <Row icon="🔄" title="Sincronizza ora" subtitle="Ultimo: 2 min fa" />
         <Row icon="❤️" title="Apri Health Connect" subtitle="" />
         <RowToggle
-          title="Sync automatico in background"
-          subtitle="Ogni 30 min, anche con app chiusa"
+          title="Sync automatico in background (Android)"
+          subtitle="Ogni 15-30 min circa, se il risparmio energetico è disattivato"
           on
         />
 
@@ -874,7 +874,7 @@ export function MultiDeviceMockup() {
     { name: "Galaxy Watch 7", metric: "8.742 passi", color: "#21E6C1", last: "2 min fa", active: true },
     { name: "Pixel Watch 3", metric: "Sonno 7h 42m", color: "#1DA1FF", last: "34 min fa", active: true },
     { name: "Garmin Forerunner", metric: "Corsa 5,2 km", color: "#7CFF5B", last: "1h fa", active: true },
-    { name: "Health Connect", metric: "Hub dati", color: "#A78BFA", last: "in tempo reale", active: true },
+    { name: "Health Connect", metric: "Hub dati", color: "#A78BFA", last: "5 min fa", active: true },
   ];
 
   return (
@@ -1252,7 +1252,7 @@ export function SyncCenterMockup() {
           className="mt-6 text-center"
           style={{ fontSize: "21px", color: "#7F8AA3" }}
         >
-          Sync automatico in background ogni 30 minuti
+          Sync automatico in background su Android, ogni 15-30 min circa
         </p>
 
         {/* Storico sync */}

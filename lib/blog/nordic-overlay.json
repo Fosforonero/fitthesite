@@ -760,158 +760,6 @@
       ]
     }
   },
-  "garmin-body-battery-health-connect": {
-    "hero.kicker": {
-      "sv": "Guide",
-      "da": "Vejledning",
-      "no": "Veiledning",
-      "fi": "Opas"
-    },
-    "hero.title": {
-      "sv": "Garmin Body Battery visas inte i Health Connect: varför och vad man ska göra",
-      "da": "Garmin Body Battery vises ikke i Health Connect: hvorfor, og hvad skal man gøre?"
-    },
-    "hero.subtitle": {
-      "sv": "Body Battery är inte data som Garmin delar med Health Connect. Det är inget fel: det är ett medvetet val. Här är vad du kan göra redan idag.",
-      "da": "Body Battery er ikke data, som Garmin deler med Health Connect. Det er ikke en fejl: det er et bevidst valg. Her er, hvad du kan gøre i dag."
-    },
-    "metaDescription": {
-      "sv": "Garmin Body Battery visas inte i Health Connect eftersom det är företagsspecifik data. Här förklarar vi varför det blir så, vad du kan göra redan idag för att få tillgång till alla övriga Garmin data och hur du kan läsa av Body Battery med FitMesh Pro.",
-      "da": "Garmin Body Battery vises ikke i Health Connect, da det er proprietære data. Her kan du læse, hvorfor det er sådan, hvad du kan gøre i dag for at få adgang til alle de øvrige Garmin data, og hvordan du kan se Body Battery med FitMesh Pro."
-    },
-    "primaryKeyword": {
-      "sv": "Garmin Body Battery Health Connect",
-      "da": "Garmin Body Battery Health Connect"
-    },
-    "body.0.text": {
-      "sv": "Om du har en Garmin-klocka och försöker se Body Battery i Health Connect eller någon annan Android-app, visas alltid noll. Steg, puls, sömn, kalorier: allt visas. Body Battery: ingenting. Det är inte ett konfigurationsproblem. Garmin exporterar medvetet inte den informationen, och det finns en anledning till det.",
-      "da": "Hvis du har et Garmin-ur og prøver at se Body Battery i Health Connect eller en anden Android-app, vil du altid se nul. Skridt, puls, søvn, kalorier: det hele vises. Body Battery: intet. Det er ikke et konfigurationsproblem. Garmin eksporterer det bevidst ikke, og der er en grund til det."
-    },
-    "body.1.text": {
-      "sv": "Varför Body Battery inte når Health Connect",
-      "da": "Hvorfor Body Battery ikke når op på Health Connect"
-    },
-    "body.2.text": {
-      "sv": "Body Battery är ett återhämtningsvärde som Garmin beräknar internt genom att kombinera HRV, stress, sömnkvalitet och aktivitet. Det är inte ett rått mått som steg eller hjärtfrekvens: det är bearbetade data som baseras på en algoritm som Garmin inte har dokumenterat offentligt. Följaktligen finns det ingen datatyp som heter ”Body Battery” i den officiella Health Connect-katalogen. Health Connect kan endast hantera datatyper som Google har standardiserat: steg, kalorier, hjärtfrekvens, sömn, SpO2 och andra. Ett värde som beräknas internt av en tillverkare passar inte in i någon av dessa kategorier.",
-      "da": "Body Battery er en restitutionsscore, som Garmin beregner internt ved at kombinere HRV, stress, søvnkvalitet og aktivitet. Det er ikke en rå måleværdi som skridt eller puls: det er bearbejdede data ved hjælp af en algoritme, som Garmin ikke har offentliggjort. Derfor findes der ingen datatype ved navn 'Body Battery' i det officielle Health Connect-katalog. Health Connect kan kun indeholde datatyper, som Google har standardiseret: skridt, kalorier, puls, søvn, SpO2 og andre. En score, der beregnes internt af en producent, passer ikke ind i nogen af disse kategorier."
-    },
-    "body.3.text": {
-      "sv": "Vad som fungerar: de Garmin-data som faktiskt når Health Connect",
-      "da": "Hvad der virker: de Garmin data, der faktisk når frem til Health Connect"
-    },
-    "body.4.text": {
-      "sv": "Innan vi fokuserar på vad som saknas är det värt att ta reda på vad som fungerar bra. Garmin Connect exporterar regelbundet data till Health Connect: dagliga steg, sträcka, aktiva och totala kalorier, hjärtfrekvens (genomsnitt, vilopuls, under dagen om enheten stöder det), sömndata (total varaktighet och sömnfaser om klockan registrerar dem), SpO2 och träningsdata. Allt detta skickas till Health Connect och därifrån vidare till alla appar med läsbehörighet, inklusive FitMesh Sync.",
-      "da": "Inden vi ser nærmere på, hvad der mangler, er det en god idé at vide, hvad der fungerer godt. Garmin Connect eksporterer regelmæssigt til Health Connect: daglige skridt, distance, forbrændte kalorier (aktiv og samlet), puls (gennemsnit, hvilepuls, intradag, hvis enheden understøtter det), søvndata (samlet varighed og faser, hvis uret registrerer dem), SpO2 og træningsdata. Alt dette sendes til Health Connect og derfra videre til enhver app med læsetilladelse, herunder FitMesh Sync."
-    },
-    "body.5.text": {
-      "sv": "Så här aktiverar du Garmin-Health Connect-integrationen",
-      "da": "Sådan aktiveres Garmin-Health Connect-integrationen"
-    },
-    "body.7.text": {
-      "sv": "Så här avläser du Body Battery i FitMesh",
-      "da": "Sådan aflæses Body Battery i FitMesh"
-    },
-    "body.8.text": {
-      "sv": "Eftersom Body Battery aldrig sjunker under Health Connect är det enda sättet att läsa av värdena i en tredjepartsapp att ansluta direkt till Garmin Connect API via OAuth. FitMesh Pro erbjuder denna anslutning: när auktoriseringen är klar hämtar FitMesh Body Battery, stress, VO2 max och andra avancerade data direkt från Garmin, utan att gå via Health Connect. OAuth-anslutningen använder officiella Garmin-inloggningsuppgifter: ditt lösenord delas aldrig med FitMesh.",
-      "da": "Da Body Battery aldrig falder til Health Connect, er den eneste måde at aflæse værdien i en tredjepartsapp på at oprette en direkte forbindelse til Garmin Connect API via OAuth. FitMesh Pro tilbyder denne forbindelse: Når der er givet tilladelse, henter FitMesh Body Battery, stress, VO2 max og andre avancerede data direkte fra Garmin uden at gå via Health Connect. OAuth-forbindelsen bruger officielle Garmin-loginoplysninger: din adgangskode deles aldrig med FitMesh."
-    },
-    "body.9.title": {
-      "sv": "Sammanfattningsvis",
-      "da": "Sammenfattende"
-    },
-    "body.9.body": {
-      "sv": "Om du vill ha alla Garmin data i Health Connect (steg, sömn, puls, kalorier, träningspass): aktivera integrationen i Garmin Connect enligt beskrivningen ovan. Om du även vill ha Body Battery, stress och VO2 max i FitMesh: aktivera FitMesh Pro och anslut ditt Garmin-konto. De två sätten kompletterar varandra, de utesluter inte varandra.",
-      "da": "Hvis du vil have alle Garmin data i Health Connect (skridt, søvn, puls, kalorier, træningspas): Aktiver integrationen i Garmin Connect som beskrevet ovenfor. Hvis du også vil have Body Battery, stress og VO2 max i FitMesh: aktiver FitMesh Pro og tilslut din Garmin-konto. De to metoder supplerer hinanden og udelukker ikke hinanden."
-    },
-    "faq.0.q": {
-      "sv": "Kommer Body Battery någonsin att nå Health Connect?",
-      "da": "Vil Body Battery nogensinde nå ned på Health Connect?"
-    },
-    "faq.0.a": {
-      "sv": "Det finns inget officiellt uttalande i den riktningen. Body Battery är ett mått som beräknas internt med hjälp av en odokumenterad algoritm: för att kunna exportera det till Health Connect skulle Garmin antingen behöva offentliggöra beräkningsmetoden eller samarbeta med Google för att införa en ny standarddatatyp. Inget av detta har skett hittills.",
-      "da": "Der er ikke kommet nogen officiel meddelelse i den retning. Body Battery er en måleværdi, der beregnes internt ved hjælp af en udokumenteret algoritme: For at kunne eksportere den til Health Connect, ville Garmin enten være nødt til at offentliggøre beregningsmetoden eller samarbejde med Google om at tilføje en ny standarddatatype. Ingen af delene er sket indtil videre."
-    },
-    "faq.1.q": {
-      "sv": "Om jag ansluter Garmin till FitMesh Pro, kommer då Health Connect data att dupliceras?",
-      "da": "Hvis jeg tilslutter Garmin til FitMesh Pro, bliver dataene fra Health Connect så duplikeret?"
-    },
-    "faq.1.a": {
-      "sv": "Nr FitMesh hanterar deduplicering automatiskt: när den tar emot samma data från både Health Connect och Garmin API behåller den endast det senaste värdet för varje mätvärde. Du kommer inte att se att steg eller puls räknas dubbelt.",
-      "da": "Nr. FitMesh håndterer automatisk deduplikering: Når den modtager de samme data fra både Health Connect og Garmin API’en, gemmer den kun den seneste værdi for hver måling. Du vil ikke se, at skridt eller puls tælles to gange."
-    },
-    "faq.2.q": {
-      "sv": "Har andra Garmin-värden (stress, VO2 max) samma problem som Body Battery?",
-      "da": "Har andre Garmin-værdier (stress, VO2 max) det samme problem som Body Battery?"
-    },
-    "faq.2.a": {
-      "sv": "Ja, samma situation. Garmin:s stresspoäng och VO2 max är också internt beräknade mått som inte exporteras till Health Connect. Båda är tillgängliga via FitMesh Pro med en Garmin OAuth-anslutning.",
-      "da": "Ja, det er den samme situation. Garmin’s stressscore og VO2 max er også internt beregnede målinger, som ikke eksporteres til Health Connect. Begge er tilgængelige via FitMesh Pro med en Garmin OAuth-forbindelse."
-    },
-    "faq.3.q": {
-      "sv": "Måste jag avinstallera Garmin Connect för att kunna använda FitMesh?",
-      "da": "Skal jeg afinstallere Garmin Connect for at kunne bruge FitMesh?"
-    },
-    "faq.3.a": {
-      "sv": "Nej, absolut inte. Garmin Connect måste vara installerat: det är den appen som synkroniserar data från din klocka till din telefon och skriver in dem i Health Connect. FitMesh läser från Health Connect och, om så önskas, från Garmin Connect via OAuth för avancerade data. De två kan användas samtidigt utan problem.",
-      "da": "Nej, absolut ikke. Garmin Connect skal forblive installeret: Det er den app, der synkroniserer data fra dit ur til din telefon og gemmer dem i Health Connect. FitMesh læser fra Health Connect og eventuelt fra Garmin Connect via OAuth for avancerede data. De to kan uden problemer køre sideløbende."
-    },
-    "faq.4.q": {
-      "sv": "Varför kommer mina Garmin-data för sent till Health Connect?",
-      "da": "Hvorfor kommer mine Garmin-data for sent i Health Connect?"
-    },
-    "faq.4.a": {
-      "sv": "Garmin Connect skriver till Health Connect endast när det aktivt synkroniseras med klockan. Om du håller klockan borta från din telefon i flera timmar kommer data att skickas i stora mängder när du öppnar Garmin Connect igen inom Bluetooth-räckvidden. För att få färskare data kan du manuellt tvinga fram en Garmin Connect-synkronisering eller se till att din telefon och klocka är i närheten av varandra.",
-      "da": "Garmin Connect skriver kun til Health Connect, når det aktivt synkroniserer med uret. Hvis du holder uret væk fra din telefon i flere timer, vil dataene blive overført samlet, når du åbner Garmin Connect igen inden for Bluetooth-rækkevidde. For at få de nyeste data skal du manuelt tvinge en Garmin Connect-synkronisering eller holde din telefon og dit ur tæt på hinanden."
-    },
-    "secondaryKeywords": {
-      "sv": [
-        "Garmin Connect, Health Connect, Android",
-        "Body Battery är inte tillgängligt",
-        "Garmin-data saknas i Health Connect",
-        "Garmin Recovery Score – app från tredje part"
-      ],
-      "da": [
-        "Garmin Connect, Health Connect, Android",
-        "Body Battery er ikke tilgængelig",
-        "Garmin-data mangler i Health Connect",
-        "Garmin Recovery Score – tredjepartsapp"
-      ]
-    },
-    "tldr": {
-      "sv": [
-        "Body Battery når inte Health Connect eftersom Garmin betraktar det som proprietära data och inte exporterar det.",
-        "Alla övriga Garmin-data (steg, puls, sömn, kalorier) överförs regelbundet via Health Connect om du aktiverar integrationen i Garmin Connect-inställningarna.",
-        "För att kunna läsa av Body Battery i FitMesh behöver du FitMesh Pro med en direkt OAuth-anslutning till Garmin Connect.",
-        "Body Battery är inte en Health Connect-standard: det är en indikator som beräknas internt av Garmin med hjälp av en egenutvecklad algoritm.",
-        "Den praktiska lösningen: aktivera Garmin-Health Connect-integreringen för alla övriga data, och överväg sedan FitMesh Pro för Body Battery."
-      ],
-      "da": [
-        "Body Battery når ikke ned til Health Connect, fordi Garmin betragter det som fortrolige data og ikke eksporterer det.",
-        "Alle andre Garmin-data (skridt, puls, søvn, kalorier) overføres regelmæssigt via Health Connect, hvis du aktiverer integrationen i Garmin Connect-indstillingerne.",
-        "For at kunne læse Body Battery i FitMesh skal du have FitMesh Pro med en direkte OAuth-forbindelse til Garmin Connect.",
-        "Body Battery er ikke en Health Connect-standard: Det er en indikator, der beregnes internt af Garmin ved hjælp af en proprietær algoritme.",
-        "Den praktiske løsning: Aktiver Garmin-Health Connect-integrationen for alle andre data, og overvej derefter FitMesh Pro til Body Battery."
-      ]
-    },
-    "body.6.items": {
-      "sv": [
-        "Öppna **Garmin Connect** på din telefon.",
-        "Tryck på menyn uppe till vänster och gå sedan till **Inställningar** (kugghjulsikonen uppe till höger).",
-        "Leta efter avsnittet **Hälsokopplingar** eller **Integrationer** (namnet kan variera något mellan olika versioner). Välj **Health Connect**.",
-        "Om posten inte visas ska du uppdatera Garmin Connect till den senaste versionen som finns tillgänglig i Play Store.",
-        "Aktivera växlingsknappen och bevilja de begärda behörigheterna. Garmin kommer att börja skriva dina data till Health Connect vid varje synkronisering.",
-        "För att tvinga fram en första uppladdning öppnar du Garmin Connect, går till din profil och trycker på **Synkronisera**. Uppgifterna kommer att visas i Health Connect inom några minuter."
-      ],
-      "da": [
-        "Åbn **Garmin Connect** på din telefon.",
-        "Tryk på menuen øverst til venstre, og gå derefter til **Indstillinger** (tandhjulsikonet øverst til højre).",
-        "Find afsnittet **Health connections** eller **Integrations** (navnet varierer lidt fra version til version). Vælg **Health Connect**.",
-        "Hvis posten ikke vises, skal du opdatere Garmin Connect til den nyeste version, der er tilgængelig i Play Store.",
-        "Aktivér kontakten, og tildel de ønskede tilladelser. Garmin vil ved hver synkronisering begynde at skrive dine data til Health Connect.",
-        "For at udløse en første upload skal du åbne Garmin Connect, gå til din profil og trykke på **Synkroniser**. Dataene vises i Health Connect inden for få minutter."
-      ]
-    }
-  },
   "polar-health-connect-sync": {
     "hero.kicker": {
       "sv": "Guide",
@@ -976,8 +824,8 @@
       "da": "Se alle dine Polar-data samlet ét sted"
     },
     "body.12.body": {
-      "sv": "FitMesh läser av dina Polar träningspass, sömn, HRV och VO2 max från Health Connect och visar allt tillsammans med data från alla andra enheter du använder.",
-      "da": "FitMesh henter dine Polar træningsdata, søvn, HRV og VO2 Max fra Health Connect og viser det hele sammen med data fra alle andre enheder, du bruger."
+      "sv": "FitMesh läser av dina Polar träningspass, sömn och HRV från Health Connect och visar allt tillsammans med data från alla andra enheter. VO2 max läses inte av FitMesh idag, oavsett källa.",
+      "da": "FitMesh henter dine Polar træningsdata, søvn og HRV fra Health Connect og viser det hele sammen med data fra alle andre enheder. VO2 Max hentes ikke af FitMesh i dag, uanset kilde."
     },
     "body.12.ctaLabel": {
       "sv": "Prova FitMesh gratis",
@@ -1004,8 +852,8 @@
       "da": "Kan jeg se Polar VO2 Max-skøn i andre apps?"
     },
     "faq.2.a": {
-      "sv": "Ja. Polar skriver in uppskattningar av VO2 Max till Health Connect:s datatyp Vo2Max. Alla kompatibla appar kan läsa detta, inklusive FitMesh. Observera att det absoluta värdet kan skilja sig något från det som visas i Polar Flow, beroende på hur appen visar Health Connect-data.",
-      "da": "Ja. Polar skriver estimater for VO2 Max til Health Connect’s Vo2Max-datatype. Enhver kompatibel app kan læse dette, herunder FitMesh. Bemærk, at den absolutte værdi kan afvige en smule fra det, som Polar Flow viser, afhængigt af hvordan appen viser Health Connect-data."
+      "sv": "Polar skriver in uppskattningar av VO2 Max till Health Connect:s datatyp Vo2Max, så i teorin skulle vilken kompatibel app som helst kunna läsa det. FitMesh gör inte det idag: FitMesh läser inte VO2 Max från någon källa.",
+      "da": "Polar skriver estimater for VO2 Max til Health Connect’s Vo2Max-datatype, så enhver kompatibel app kunne i teorien læse det. FitMesh gør ikke det i dag: FitMesh læser ikke VO2 Max fra nogen kilde."
     },
     "faq.3.q": {
       "sv": "Jag har bytt från Garmin till Polar. Kan jag se mina gamla Garmin-data och mina nya Polar-data tillsammans?",
@@ -6818,8 +6666,8 @@
       "da": "Følg udviklingen i din VO2 max på tværs af enheder"
     },
     "body.11.body": {
-      "sv": "FitMesh hämtar dina tidigare VO2 Max-värden från Health Connect och visar dina framsteg över flera månader, oavsett vilken enhet som har registrerat dem.",
-      "da": "FitMesh henter dine tidligere VO2 Max-værdier fra Health Connect og viser dine fremskridt over flere måneder, uanset hvilken enhed der har registreret dem."
+      "sv": "FitMesh hämtar inte VO2 Max-värden från någon källa idag.",
+      "da": "FitMesh henter ikke VO2 Max-værdier fra nogen kilde i dag."
     },
     "body.11.ctaLabel": {
       "sv": "Prova FitMesh gratis",
@@ -6885,14 +6733,14 @@
         "Garmin och Polar har de mest validerade algoritmerna. Galaxy Watch och Apple Watch ligger nära, men är mindre testade.",
         "För tränade löpare ligger noggrannheten vanligtvis inom 3–5 ml/kg/min jämfört med ett laboratorietest, medan avvikelsen är större för nybörjare.",
         "Trenden är viktigare än det absoluta värdet. En stigande VO2 max under 8 veckor innebär att din kondition förbättras.",
-        "Health Connect sparar VO2 Max på Android. FitMesh kan visa utvecklingen över tid på flera enheter."
+        "Health Connect sparar VO2 Max på Android om en enhet skriver dit. FitMesh läser eller visar inte detta värde idag."
       ],
       "da": [
         "»Wearable VO2 Max« er et skøn, der er baseret på puls og tempo under løb, og ikke en laboratoriemåling.",
         "Garmin og Polar har de mest validerede algoritmer. Galaxy Watch og Apple Watch ligger tæt på, men er mindre gennemtestede.",
         "Nøjagtigheden ligger typisk inden for 3–5 ml/kg/min i forhold til en laboratorietest for trænede løbere, mens afvigelsen er større for begyndere.",
         "Tendensen er vigtigere end det absolutte tal. En stigende VO2 Max over 8 uger betyder, at din kondition forbedres.",
-        "Health Connect gemmer VO2 Max på Android. FitMesh kan vise udviklingen over tid på tværs af enheder."
+        "Health Connect gemmer VO2 Max på Android, hvis en enhed skriver det dertil. FitMesh læser eller viser ikke denne værdi i dag."
       ]
     },
     "body.5.headers": {

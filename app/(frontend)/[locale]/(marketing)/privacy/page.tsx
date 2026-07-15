@@ -129,7 +129,7 @@ function PrivacyIT() {
           ["Frequenza cardiaca", "media, range minimo/massimo, frequenza a riposo, HRV"],
           ["Sonno", "durata totale, fasi (profondo, REM, leggero, sveglio), orari inizio/fine"],
           ["Composizione corporea", "peso, altezza, BMI (se forniti dall'utente)"],
-          ["Altri parametri", "saturazione ossigeno (SpO₂), VO₂ max, temperatura cutanea, dislivello"],
+          ["Altri parametri", "saturazione ossigeno (SpO₂), temperatura cutanea, dislivello"],
           ["Sessioni di esercizio", "tipo di attività, durata, distanza, calorie"],
           ["Account", "indirizzo email (per autenticazione tramite Supabase Auth) e identificativo dispositivo"],
         ]} />
@@ -204,9 +204,9 @@ function PrivacyIT() {
           ["Health Connect", "per leggere i dati di salute dal sistema operativo Android"],
           ["Samsung Health (opzionale)", "se hai un Galaxy Watch, per dati aggiuntivi non esposti da Health Connect"],
           ["Accesso Internet", "per sincronizzare i dati con il backend FitMesh Sync"],
-          ["Sync in background", "per inviare dati periodicamente anche quando l'app è chiusa"],
+          ["Sync in background", "per inviare dati periodicamente anche quando l'app è chiusa (best-effort: dipende dal sistema operativo)"],
           ["Notifiche", "per ricevere promemoria sync e notifiche di sistema"],
-          ["Esclusione ottimizzazione batteria", "per garantire la sync regolare (richiesto su Android 14+)"],
+          ["Esclusione ottimizzazione batteria", "per ridurre le probabilità che il sistema operativo blocchi la sync in background"],
         ]} />
         <p>
           Tutti i permessi sono richiesti esplicitamente e puoi revocarli in qualsiasi momento dalle
@@ -347,7 +347,7 @@ function PrivacyEN() {
           ["Heart rate", "average, min/max range, resting heart rate, HRV"],
           ["Sleep", "total duration, stages (deep, REM, light, awake), start/end times"],
           ["Body composition", "weight, height, BMI (when provided by the user)"],
-          ["Other metrics", "oxygen saturation (SpO₂), VO₂ max, skin temperature, elevation gain"],
+          ["Other metrics", "oxygen saturation (SpO₂), skin temperature, elevation gain"],
           ["Exercise sessions", "activity type, duration, distance, calories"],
           ["Account", "email address (Supabase Auth) and device identifier"],
         ]} />
@@ -419,9 +419,9 @@ function PrivacyEN() {
           ["Health Connect", "to read health data from the Android operating system"],
           ["Samsung Health (optional)", "if you own a Galaxy Watch, for extra data not exposed by Health Connect"],
           ["Internet access", "to sync data with the FitMesh Sync backend"],
-          ["Background sync", "to send data periodically even when the app is closed"],
+          ["Background sync", "to send data periodically even when the app is closed (best-effort: depends on the operating system)"],
           ["Notifications", "to receive sync reminders and system notices"],
-          ["Battery optimization exemption", "to guarantee regular sync (required on Android 14+)"],
+          ["Battery optimization exemption", "to reduce the chance the operating system blocks background sync"],
         ]} />
         <p>
           All permissions are requested explicitly and you can revoke them at any time from the
@@ -560,7 +560,7 @@ function PrivacyES() {
           ["Frecuencia cardíaca", "media, rango mínimo/máximo, frecuencia cardíaca en reposo, HRV"],
           ["Sueño", "duración total, fases (profundo, REM, ligero, despierto), horarios de inicio y fin"],
           ["Composición corporal", "peso, altura, IMC (si los facilita el usuario)"],
-          ["Otros parámetros", "saturación de oxígeno (SpO₂), VO₂ máx, temperatura cutánea, desnivel"],
+          ["Otros parámetros", "saturación de oxígeno (SpO₂), temperatura cutánea, desnivel"],
           ["Sesiones de entrenamiento", "tipo de actividad, duración, distancia, calorías"],
           ["Cuenta", "dirección de correo electrónico (para autenticación mediante Supabase Auth) e identificador de dispositivo"],
         ]} />
@@ -636,9 +636,9 @@ function PrivacyES() {
           ["Health Connect", "para leer los datos de salud del sistema operativo Android"],
           ["Samsung Health (opcional)", "si tienes un Galaxy Watch, para obtener datos adicionales que Health Connect no expone"],
           ["Acceso a Internet", "para sincronizar los datos con el backend de FitMesh Sync"],
-          ["Sincronización en segundo plano", "para enviar datos periódicamente incluso cuando la app está cerrada"],
+          ["Sincronización en segundo plano", "para enviar datos periódicamente incluso cuando la app está cerrada (best-effort: depende del sistema operativo)"],
           ["Notificaciones", "para recibir recordatorios de sincronización y avisos del sistema"],
-          ["Exención de optimización de batería", "para garantizar la sincronización regular (obligatorio en Android 14+)"],
+          ["Exención de optimización de batería", "para reducir la probabilidad de que el sistema operativo bloquee la sincronización en segundo plano"],
         ]} />
         <p>
           Todos los permisos se solicitan de forma explícita y puedes revocarlos en cualquier
@@ -779,7 +779,7 @@ function PrivacyDE() {
           ["Herzfrequenz", "Durchschnitt, Minimum/Maximum, Ruheherzfrequenz, HRV"],
           ["Schlaf", "Gesamtdauer, Schlafphasen (Tiefschlaf, REM, Leichtschlaf, wach), Einschlaf- und Aufwachzeiten"],
           ["Körperzusammensetzung", "Gewicht, Größe, BMI (sofern vom Nutzer angegeben)"],
-          ["Weitere Parameter", "Sauerstoffsättigung (SpO₂), VO₂ max, Hauttemperatur, Höhenunterschied"],
+          ["Weitere Parameter", "Sauerstoffsättigung (SpO₂), Hauttemperatur, Höhenunterschied"],
           ["Trainingseinheiten", "Aktivitätstyp, Dauer, Distanz, Kalorien"],
           ["Konto", "E-Mail-Adresse (zur Authentifizierung über Supabase Auth) und Gerätekennung"],
         ]} />
@@ -855,9 +855,9 @@ function PrivacyDE() {
           ["Health Connect", "zum Lesen von Gesundheitsdaten aus dem Android-Betriebssystem"],
           ["Samsung Health (optional)", "bei Besitz einer Galaxy Watch, für zusätzliche Daten, die Health Connect nicht bereitstellt"],
           ["Internetzugang", "zur Synchronisierung der Daten mit dem FitMesh Sync-Backend"],
-          ["Hintergrund-Sync", "zum periodischen Senden von Daten auch wenn die App geschlossen ist"],
+          ["Hintergrund-Sync", "zum periodischen Senden von Daten auch wenn die App geschlossen ist (best-effort: abhängig vom Betriebssystem)"],
           ["Benachrichtigungen", "zum Empfang von Sync-Erinnerungen und Systemmeldungen"],
-          ["Ausnahme von der Akkuoptimierung", "zur Gewährleistung regelmäßiger Synchronisierung (erforderlich ab Android 14+)"],
+          ["Ausnahme von der Akkuoptimierung", "um die Wahrscheinlichkeit zu verringern, dass das Betriebssystem die Hintergrundsynchronisierung blockiert"],
         ]} />
         <p>
           Alle Berechtigungen werden ausdrücklich angefordert und können jederzeit in den
@@ -1000,7 +1000,7 @@ function PrivacyPT() {
           ["Frequência cardíaca", "média, mínimo/máximo, frequência cardíaca em repouso, HRV"],
           ["Sono", "duração total, fases (profundo, REM, leve, acordado), horários de início e fim"],
           ["Composição corporal", "peso, altura, IMC (quando fornecidos pelo usuário)"],
-          ["Outros parâmetros", "saturação de oxigênio (SpO₂), VO₂ máx, temperatura da pele, ganho de elevação"],
+          ["Outros parâmetros", "saturação de oxigênio (SpO₂), temperatura da pele, ganho de elevação"],
           ["Sessões de treino", "tipo de atividade, duração, distância, calorias"],
           ["Conta", "endereço de e-mail (para autenticação via Supabase Auth) e identificador do dispositivo"],
         ]} />
@@ -1075,9 +1075,9 @@ function PrivacyPT() {
           ["Health Connect", "para ler dados de saúde do sistema operacional Android"],
           ["Samsung Health (opcional)", "se você possui uma Galaxy Watch, para dados adicionais não disponibilizados pelo Health Connect"],
           ["Acesso à internet", "para sincronizar os dados com o backend do FitMesh Sync"],
-          ["Sincronização em segundo plano", "para enviar dados periodicamente mesmo quando o app está fechado"],
+          ["Sincronização em segundo plano", "para enviar dados periodicamente mesmo quando o app está fechado (best-effort: depende do sistema operacional)"],
           ["Notificações", "para receber lembretes de sincronização e avisos do sistema"],
-          ["Isenção de otimização de bateria", "para garantir a sincronização regular (necessário no Android 14+)"],
+          ["Isenção de otimização de bateria", "para reduzir a probabilidade de o sistema operacional bloquear a sincronização em segundo plano"],
         ]} />
         <p>
           Todas as permissões são solicitadas explicitamente e você pode revogá-las a qualquer
@@ -1218,7 +1218,7 @@ function PrivacyFR() {
           ["Fréquence cardiaque", "moyenne, plage min/max, fréquence cardiaque au repos, HRV"],
           ["Sommeil", "durée totale, phases (profond, REM, léger, éveillé), heures de début et de fin"],
           ["Composition corporelle", "poids, taille, IMC (si renseignés par l'utilisateur)"],
-          ["Autres paramètres", "saturation en oxygène (SpO₂), VO₂ max, température cutanée, dénivelé"],
+          ["Autres paramètres", "saturation en oxygène (SpO₂), température cutanée, dénivelé"],
           ["Séances d'entraînement", "type d'activité, durée, distance, calories"],
           ["Compte", "adresse e-mail (pour l'authentification via Supabase Auth) et identifiant de l'appareil"],
         ]} />
@@ -1294,9 +1294,9 @@ function PrivacyFR() {
           ["Health Connect", "pour lire les données de santé depuis le système d'exploitation Android"],
           ["Samsung Health (optionnel)", "si vous possédez une Galaxy Watch, pour des données supplémentaires non exposées par Health Connect"],
           ["Accès à Internet", "pour synchroniser les données avec le backend FitMesh Sync"],
-          ["Synchronisation en arrière-plan", "pour envoyer des données périodiquement même lorsque l'application est fermée"],
+          ["Synchronisation en arrière-plan", "pour envoyer des données périodiquement même lorsque l'application est fermée (best-effort : dépend du système d'exploitation)"],
           ["Notifications", "pour recevoir des rappels de synchronisation et des avis système"],
-          ["Exemption d'optimisation de la batterie", "pour garantir une synchronisation régulière (requis sous Android 14+)"],
+          ["Exemption d'optimisation de la batterie", "pour réduire le risque que le système d'exploitation bloque la synchronisation en arrière-plan"],
         ]} />
         <p>
           Toutes les autorisations sont demandées explicitement et vous pouvez les révoquer à

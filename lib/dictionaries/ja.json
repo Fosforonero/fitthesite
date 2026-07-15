@@ -8,7 +8,7 @@
     "badge": "AndroidとiOSに対応",
     "heading_1": "すべてのデバイスを",
     "heading_accent": "ひとつのダッシュボードに。",
-    "description": "Galaxy Watch、Wear OS、Health Connect、クラウドプロバイダーをひとつの画面に統合。歩数、睡眠、心拍数、回復状態、トレンドをアプリを切り替えずに確認できます。",
+    "description": "Androidウェアラブルの健康データをHealth Connect経由で、iPhoneではApple ヘルスケアと対応するリングのデータを、ひとつの画面に統合。歩数、睡眠、心拍数、回復状態、トレンドをアプリを切り替えずに確認できます。",
     "cta_secondary": "詳細を見る",
     "pricing": "買い切り €3.99〜、または6ヶ月 €1.19 · 安全なお支払い"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "歩数・距離",
-        "desc": "Health ConnectとSamsung Healthと自動同期。画面ロック中もバックグラウンドで動作します。"
+        "desc": "Health ConnectおよびSamsung Healthと同期します。バッテリー最適化を無効にしたAndroidではベストエフォート方式でバックグラウンド更新されます。アプリを開くと常に最新の状態になります。"
       },
       {
-        "title": "心拍数・VO₂ max",
+        "title": "心拍数",
         "desc": "日次平均、最小/最大範囲、安静時心拍数。心血管の健康トレンドを時系列で把握できます。"
       },
       {

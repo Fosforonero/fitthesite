@@ -8,7 +8,7 @@
     "badge": "Dostępne na Androida i iOS",
     "heading_1": "Jeden globalny panel",
     "heading_accent": "dla wszystkich Twoich urządzeń.",
-    "description": "Połącz Galaxy Watch, Wear OS, Health Connect i dostawców chmurowych w jednym widoku. Kroki, sen, tętno, regeneracja i trendy, bez przełączania się między aplikacjami.",
+    "description": "Połącz dane zdrowotne z wearables na Androidzie przez Health Connect oraz, na iPhonie, z Apple Zdrowie i obsługiwanych pierścieni, w jednym widoku. Kroki, sen, tętno, regeneracja i trendy, bez przełączania się między aplikacjami.",
     "cta_secondary": "Dowiedz się więcej",
     "pricing": "Jednorazowy zakup od €3,99 lub €1,19 co 6 miesięcy · bezpieczna płatność"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "Kroki i dystans",
-        "desc": "Automatyczna synchronizacja z Health Connect i Samsung Health. Działa w tle, nawet gdy telefon jest zablokowany."
+        "desc": "Synchronizuje się z Health Connect i Samsung Health. Aktualizacje w tle na Androidzie w trybie best-effort, gdy optymalizacja baterii jest wyłączona; zawsze aktualne po otwarciu aplikacji."
       },
       {
-        "title": "Tętno i VO₂ max",
+        "title": "Tętno",
         "desc": "Dzienna średnia, zakres min/max, tętno spoczynkowe. Obserwuj trendy zdrowia układu sercowo-naczyniowego w czasie."
       },
       {

@@ -63,9 +63,9 @@ export function generateLlmsTxt(): string {
   lines.push(
     "Landing pages with setup instructions, FAQ, and HowTo schema per wearable brand:",
   );
-  lines.push(`- [Samsung Galaxy Watch](${IT("/sync/samsung-health")})`);
-  lines.push(`- [Pixel Watch / Wear OS](${IT("/sync/google-fit")})`);
-  lines.push(`- [Xiaomi Mi Band / Smart Band](${IT("/sync/mi-fitness")})`);
+  lines.push(`- [Samsung Galaxy Watch](${IT("/sync/galaxy-watch")})`);
+  lines.push(`- [Pixel Watch / Wear OS](${IT("/sync/wear-os")})`);
+  lines.push(`- [Xiaomi Mi Band / Smart Band](${IT("/sync/xiaomi-mi-band")})`);
   lines.push(`- [Garmin Connect](${IT("/sync/garmin")})`);
   lines.push(`- [Fitbit](${IT("/sync/fitbit")})`);
   lines.push(`- [Polar Flow](${IT("/sync/polar")})`);

@@ -252,8 +252,8 @@ export const post: BlogPost = {
         en: "A family member isn't very tech-savvy. Will they be able to use it?",
       },
       a: {
-        it: "Sì. Una volta installata l'app e cliccato il link di invito che gli mandi, non deve fare nient'altro: l'app sincronizza da sola in background e il resto della famiglia vede i suoi dati dalla propria app. Non deve aprire più nulla.",
-        en: "Yes. Once the app is installed and they tap the invite link you send, they don't need to do anything else: the app syncs on its own in the background, and the rest of the family sees their data in their own app. They never need to open anything again.",
+        it: "Sì. Una volta installata l'app e cliccato il link di invito che gli mandi, non deve fare nient'altro di complicato: basta che apra FitMesh ogni tanto perché i suoi dati si sincronizzino, e il resto della famiglia li vede dalla propria app. Nessuna configurazione aggiuntiva.",
+        en: "Yes. Once the app is installed and they tap the invite link you send, there's nothing complicated left to do: they just need to open FitMesh every so often for their data to sync, and the rest of the family sees it in their own app. No extra setup required.",
       },
     },
     {
