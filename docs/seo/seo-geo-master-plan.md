@@ -249,7 +249,7 @@ garantito), stato, owner, prossimo controllo.
 
 - **Obiettivo**: fondare "FitMesh Labs", un sotto-brand per calcolatori/tool
   gratuiti vicini al prodotto (vedi sezione 5, top 20%).
-- **URL**: probabile `/labs` o sottodominio.
+- **URL**: `/labs` — confermato (non sottodominio), solo it/en.
 - **Problema utente**: varia per singolo tool (vedi sezione 5).
 - **Impatto**: 8/10 (fondazione per multipli tool ad alto potenziale).
   **Effort**: 5/10 per la fondazione (routing, template, brand), poi
@@ -258,10 +258,19 @@ garantito), stato, owner, prossimo controllo.
   calcolatori con formula visibile sono altamente citabili). **Backlink
   potential**: alto. **Difficoltà**: media. **Dipendenze**: gate YMYL
   (sezione 7) per i primi 3 tool, che sono tutti a carattere salute.
-  **KPI**: visite/completamenti tool. **Scenario 12 mesi**: non garantito.
-  **Stato**: idea, non iniziato. **Owner**: da assegnare. **Prossimo
-  controllo**: prima del kickoff, verificare il gate YMYL per i 3 tool
-  prioritari.
+  **KPI**: visite/completamenti tool.
+  **Stato (2026-07-16, Sprint P1.0)**: fondazione + primo tool (HRV RMSSD
+  calculator) implementati su branch `seo/labs-hrv-foundation`, verificati
+  in Docker — dettaglio completo in
+  [seo-results-log.md](./seo-results-log.md), sezione "Sprint P1.0". Gate
+  YMYL (sezione 7) superato su 7/8 criteri; UN gap esplicitamente dichiarato
+  e non nascosto: nessun revisore medico indipendente identificato (non
+  esiste), la pagina dichiara solo "revisione tecnico-editoriale" — vedi
+  nota nella sezione 7 sotto. **Owner**: Matteo Pizzi. **Prossimo
+  controllo**: decisione esplicita di Matteo su se/quando procurare una
+  revisione medica indipendente prima di espandere oltre il primo tool, o
+  se la sola revisione tecnico-editoriale resta la policy per l'intera
+  categoria Labs.
 
 ### P2 — Digital PR basata sugli asset
 
@@ -481,6 +490,22 @@ Nessuno di questi può pubblicare senza TUTTI i seguenti:
 Questo gate blocca esplicitamente P1 (FitMesh Labs, primi 3 tool) e P3
 (Calcolatori salute generici) finché non è superato per ciascun tool
 specifico — non è un gate one-time per il progetto, è per-tool.
+
+**Aggiornamento (2026-07-16, Sprint P1.0 — HRV RMSSD calculator)**: 7/8
+criteri soddisfatti (fonti mediche primarie citate con PMID/DOI, formula
+visibile con esempio numerico, limiti e incertezza dichiarati in sezione
+dedicata, autore identificato via entità esistenti, `reviewedAt` distinto
+da `publishedAt`, disclaimer visibile, nessun linguaggio diagnostico
+enforced da guardrail automatico, `MedicalWebPage` deliberatamente NON
+usato — `WebApplication` invece). **Un criterio non soddisfatto e
+dichiarato esplicitamente, non nascosto**: "revisore competente
+identificato, non lo stesso autore" — non esiste un revisore medico per
+questo tool; per istruzione esplicita di Matteo la pagina dichiara solo
+"revisione tecnico-editoriale (formule, fonti, guardrail automatico)",
+mai un revisore medico inventato. Questa è una deviazione consapevole dal
+gate originale di questo stesso documento, non un errore: resta annotata
+qui finché Matteo non decide se procurare una revisione medica reale per
+Labs o mantenere la policy attuale per l'intera categoria.
 
 ## 8. Research e GDPR
 
