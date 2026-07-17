@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import BetaSignupForm from "@/components/BetaSignupForm";
-import FounderCounter from "@/components/FounderCounter";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
@@ -145,11 +144,6 @@ export default async function BetaPage({
           <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl">
             {t.sub}
           </p>
-
-          {/* Social proof: posti founder occupati in tempo reale */}
-          <div className="flex justify-center">
-            <FounderCounter locale={lc} />
-          </div>
 
           {/* CTA primaria: il founder si attiva scaricando l'app, non con un form */}
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -325,7 +319,7 @@ const IT = {
     },
     {
       q: "Come so se sono tra i primi 1000?",
-      a: "Il contatore in homepage mostra i posti rimasti in tempo reale. In ogni caso lo vedi subito nell'app: se il grant è attivo, la schermata Pro mostra \"Founder · Pro · Lifetime\".",
+      a: "Controlla la schermata Pro nell'app. Se il beneficio Founder è stato assegnato al tuo account, vedrai \"Founder · Pro · Lifetime\". Il sito non mostra più un contatore pubblico finché il conteggio non sarà riconciliato e verificato.",
     },
     {
       q: "Il Pro Founder ha una scadenza?",
@@ -408,7 +402,7 @@ const ES = {
     },
     {
       q: "¿Cómo sé si estoy entre los primeros 1000?",
-      a: "El contador en la página principal muestra las plazas restantes en tiempo real. De todos modos lo verás directamente en la app: si el acceso está activo, la pantalla Pro mostrará \"Founder · Pro · Lifetime\".",
+      a: "Consulta la pantalla Pro en la app. Si el beneficio Founder se ha asignado a tu cuenta, verás \"Founder · Pro · Lifetime\". El sitio ya no muestra un contador público hasta que el recuento esté conciliado y verificado.",
     },
     {
       q: "¿El Pro Founder tiene fecha de vencimiento?",
@@ -491,7 +485,7 @@ const EN = {
     },
     {
       q: "How do I know if I'm in the first 1000?",
-      a: "The homepage counter shows remaining seats in real time. Either way you'll see it in the app: if the grant is active, the Pro screen shows \"Founder · Pro · Lifetime\".",
+      a: "Check the Pro screen in the app. If the Founder benefit has been assigned to your account, you will see \"Founder · Pro · Lifetime\". The website no longer shows a public counter until the count has been reconciled and verified.",
     },
     {
       q: "Does Founder Pro ever expire?",
@@ -574,7 +568,7 @@ const DE = {
     },
     {
       q: "Woher weiß ich, ob ich zu den ersten 1000 gehöre?",
-      a: "Der Zähler auf der Startseite zeigt die verbleibenden Plätze in Echtzeit. In jedem Fall siehst du es direkt in der App: Wenn der Zugang aktiv ist, zeigt der Pro-Bildschirm \"Founder · Pro · Lifetime\".",
+      a: "Sieh im Pro-Bildschirm der App nach. Wenn der Founder-Vorteil deinem Konto zugewiesen wurde, siehst du \"Founder · Pro · Lifetime\". Die Website zeigt keinen öffentlichen Zähler mehr an, bis die Zählung abgeglichen und verifiziert ist.",
     },
     {
       q: "Läuft Founder Pro irgendwann ab?",
@@ -657,7 +651,7 @@ const PT = {
     },
     {
       q: "Como sei se estou entre os primeiros 1000?",
-      a: "O contador na página inicial mostra as vagas restantes em tempo real. De qualquer forma, você vê direto no app: se o acesso estiver ativo, a tela Pro mostra \"Founder · Pro · Lifetime\".",
+      a: "Verifique a tela Pro no app. Se o benefício Founder foi atribuído à sua conta, você verá \"Founder · Pro · Lifetime\". O site não exibe mais um contador público até que a contagem seja reconciliada e verificada.",
     },
     {
       q: "O Pro Founder tem prazo de validade?",
@@ -740,7 +734,7 @@ const FR = {
     },
     {
       q: "Comment savoir si je fais partie des 1000 premiers?",
-      a: "Le compteur sur la page d'accueil affiche les places restantes en temps réel. Dans tous les cas, vous le verrez dans l'app: si l'accès est actif, l'écran Pro affiche \"Founder · Pro · Lifetime\".",
+      a: "Vérifiez l'écran Pro dans l'app. Si l'avantage Founder a été attribué à votre compte, vous verrez \"Founder · Pro · Lifetime\". Le site n'affiche plus de compteur public tant que le décompte n'a pas été réconcilié et vérifié.",
     },
     {
       q: "Le Pro Founder expire-t-il un jour?",
@@ -823,7 +817,7 @@ const NL = {
     },
     {
       q: "Hoe weet ik of ik bij de eerste 1000 hoor?",
-      a: "De teller op de homepage toont de resterende plaatsen in realtime. Hoe dan ook zie je het in de app: als de toekenning actief is, toont het Pro-scherm \"Founder · Pro · Lifetime\".",
+      a: "Kijk naar het Pro-scherm in de app. Als het Founder-voordeel aan jouw account is toegekend, zie je \"Founder · Pro · Lifetime\". De site toont geen publieke teller meer totdat de telling is gecontroleerd en geverifieerd.",
     },
     {
       q: "Verloopt Founder Pro ooit?",
@@ -906,7 +900,7 @@ const JA = {
     },
     {
       q: "先着1000名に入っているか確認する方法は？",
-      a: "ホームページのカウンターがリアルタイムで残席数を表示します。アプリでも確認できます：権限が有効な場合、Pro画面に「Founder · Pro · Lifetime」と表示されます。",
+      a: "アプリのPro画面を確認してください。Founder特典があなたのアカウントに付与されている場合、「Founder · Pro · Lifetime」と表示されます。サイトでは、集計が照合・検証されるまで公開カウンターを表示しなくなりました。",
     },
     {
       q: "Founder Proに有効期限はありますか？",
@@ -989,7 +983,7 @@ const KO = {
     },
     {
       q: "처음 1000명에 포함되었는지 어떻게 알 수 있나요?",
-      a: "홈페이지 카운터에서 남은 자리를 실시간으로 확인할 수 있습니다. 앱에서도 확인 가능합니다: 혜택이 활성화된 경우 Pro 화면에 \"Founder · Pro · Lifetime\"이 표시됩니다.",
+      a: "앱의 Pro 화면을 확인하세요. Founder 혜택이 계정에 부여되었다면 \"Founder · Pro · Lifetime\"이 표시됩니다. 집계가 검증되고 확인될 때까지 웹사이트에는 더 이상 공개 카운터가 표시되지 않습니다.",
     },
     {
       q: "Founder Pro는 만료되나요?",

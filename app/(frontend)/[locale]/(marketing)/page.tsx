@@ -4,7 +4,6 @@ import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import MockupShowcase from "@/components/MockupShowcase";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
-import FounderBanner from "@/components/FounderBanner";
 import TrustBadges from "@/components/TrustBadges";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { MobileApplicationJsonLd } from "@/components/seo/MobileApplicationJsonLd";
@@ -214,10 +213,10 @@ export default async function Home({
             <ul className="mt-10 grid grid-cols-3 max-w-md gap-6 text-left">
               <li>
                 <p className="font-display text-2xl font-semibold text-text-primary tracking-tightest">
-                  1000<span className="text-brand-aqua">·</span>
+                  Android + iOS
                 </p>
                 <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
-                  {tl(HOMEPAGE_COPY.founderSeatsLabel, lc)}
+                  {tl(HOMEPAGE_COPY.platformsAvailableLabel, lc)}
                 </p>
               </li>
               <li>
@@ -245,8 +244,6 @@ export default async function Home({
           </div>
         </div>
       </section>
-
-      <FounderBanner locale={lc} />
 
       {/* Trust signals (E-E-A-T): Made in Italy · EU servers · GDPR · Indie. */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-8">

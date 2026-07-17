@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import type { Locale } from "@/lib/i18n";
 
@@ -360,7 +360,6 @@ export default function BetaSignupForm({ locale }: Props) {
   const t = T[(locale in T ? locale : "en") as keyof typeof T];
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [spots, setSpots] = useState<{ taken: number; total: number } | null>(null);
 
   // Field values
   const [email, setEmail] = useState("");
@@ -378,13 +377,6 @@ export default function BetaSignupForm({ locale }: Props) {
   // Anti-bot: timestamp mount + honeypot (vedi onSubmit)
   const mountedAt = useRef<number>(Date.now());
   const honeypotRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    fetch("/api/v1/beta/spots")
-      .then((r) => r.json())
-      .then((d) => setSpots(d))
-      .catch(() => {});
-  }, []);
 
   const emailSt = useMemo(() => emailState(email, true), [email]);
   const googleSt = useMemo(() => emailState(googleEmail, false), [googleEmail]);

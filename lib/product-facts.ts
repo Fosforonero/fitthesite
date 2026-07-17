@@ -6,10 +6,13 @@
  * (prezzi in lib/pricing.ts, iOS/geo in lib/flags.ts, provider in
  * lib/providers/data.ts), questo file lo IMPORTA e lo ricompone — non lo
  * ridichiara mai. Se un dato cambia in continuo e non può essere letto qui
- * in modo affidabile (es. il conteggio LIVE dei founder rimasti, che dipende
- * da una query Supabase runtime), va OMESSO, non hardcodato: vedi
- * `FOUNDER_PROGRAM` sotto, che espone solo i fatti stabili (tot. posti,
- * beneficio) e rimanda a `/{locale}/beta` per il numero live.
+ * in modo affidabile va OMESSO, non hardcodato: vedi `FOUNDER_PROGRAM` sotto,
+ * che espone solo i fatti stabili (tot. posti, beneficio). Il contatore
+ * pubblico dei posti Founder occupati è stato rimosso (Hotfix P0.6C,
+ * vedi `founderAutoGrant.note` sotto): il conteggio non era riconciliato
+ * con i grant realmente assegnati, quindi non va reintrodotto in nessuna
+ * forma (badge, banner, endpoint) finché `founderAutoGrant.status` non è
+ * `live_verified`.
  *
  * Android e iOS sono piattaforme DIVERSE con fonti dati diverse — Android
  * legge da Health Connect (Galaxy Watch, Wear OS, Fitbit, Garmin, ecc.),
@@ -153,21 +156,20 @@ export const CAPABILITY_STATUS: Record<
   founderAutoGrant: {
     status: "pending_production_verification",
     note:
-      "Sprint P0.6B (freeze esplicito): il codice SQL del trigger di auto-grant Founder esiste nel repo, ma il codice presente NON costituisce prova di funzionamento in produzione. Restano da verificare, con dati reali di produzione: (1) il trigger è effettivamente applicato al DB di produzione, non solo presente in una migration; (2) una registrazione reale con un utente normale (non un account di test creato per l'occasione) attiva il grant; (3) il grant assegnato è corretto (lifetime Pro, non altro); (4) il cap di 1000 posti e il comportamento anti-race reggono sotto scrittura concorrente; (5) il conteggio dei posti usati è coerente con i grant realmente assegnati. Nessuna di queste verifiche deve avvenire creando account QA — solo osservando dati di produzione reali una volta che lo sprint Build 189 le esegue. Fino ad allora: non modificare il contatore, non pubblicicizzare il raggiungimento dei 1000, non affermare che ogni registrazione garantisca l'auto-grant come fatto verificato.",
+      "Sprint P0.6B (freeze esplicito): il codice SQL del trigger di auto-grant Founder esiste nel repo, ma il codice presente NON costituisce prova di funzionamento in produzione. Restano da verificare, con dati reali di produzione: (1) il trigger è effettivamente applicato al DB di produzione, non solo presente in una migration; (2) una registrazione reale con un utente normale (non un account di test creato per l'occasione) attiva il grant; (3) il grant assegnato è corretto (lifetime Pro, non altro); (4) il cap di 1000 posti e il comportamento anti-race reggono sotto scrittura concorrente; (5) il conteggio dei posti usati è coerente con i grant realmente assegnati. Nessuna di queste verifiche deve avvenire creando account QA — solo osservando dati di produzione reali una volta che lo sprint Build 189 le esegue. Hotfix P0.6C (2026-07-17): il contatore pubblico dei posti Founder occupati (FounderCounter, FounderBanner, GET /api/v1/beta/spots) è stato rimosso dal sito perché il conteggio non è riconciliato con i grant realmente assegnati in produzione — era fermo a 705 e non verificabile. Non reintrodurre alcuna forma di contatore/badge/banner pubblico che mostri un numero di posti Founder occupati o rimasti finché questo status non passa a live_verified con il report coordinato dello sprint app/Build 189. Termini Founder, entitlement, trigger Supabase, cap 1000 e grant utenti non sono toccati da questo hotfix: resta tutto come nel freeze P0.6B.",
   },
 };
 
 // ── Programma Founder ───────────────────────────────────────────────────────
 /**
- * `totalSeats` è stabile (cifra di programma, confermata in lib/pricing.ts,
- * components/FounderBanner.tsx, app/api/v1/beta/spots/route.ts). Il numero di
- * posti GIÀ USATI cambia in continuo (query Supabase a runtime): non va
- * hardcodato qui, va letto live su /{locale}/beta.
+ * `totalSeats` è stabile (cifra di programma, confermata in lib/pricing.ts).
+ * Il numero di posti GIÀ USATI non è esposto pubblicamente (Hotfix P0.6C):
+ * vedi `founderAutoGrant.note` sopra per il motivo. Nessun campo qui punta
+ * a un conteggio live: se ne serve uno in futuro, va riconciliato prima.
  */
 export const FOUNDER_PROGRAM = {
   totalSeats: 1000,
   benefit: "lifetime Pro access, free, no review required",
-  liveCountPath: "/beta",
 } as const;
 
 // ── Prezzi e trial ──────────────────────────────────────────────────────────

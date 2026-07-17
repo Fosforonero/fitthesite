@@ -128,7 +128,7 @@ export const PRICING = {
   // ── Promo founder (UNICA frase canonica) ─────────────────────────────
   // Allineata ai Termini di servizio: i primi 1000 account ricevono il Pro
   // a vita gratis, senza condizioni (nessuna recensione richiesta).
-  // Vedi anche components/FounderBanner.tsx e app/.../terms/page.tsx.
+  // Vedi anche app/.../terms/page.tsx.
 
   /** "Pro a vita gratis per i primi 1000 founder" */
   founderPromo: {

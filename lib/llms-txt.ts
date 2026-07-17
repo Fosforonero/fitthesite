@@ -68,7 +68,7 @@ export function generateLlmsTxt(): string {
 
   lines.push("## Founder pricing promotion");
   lines.push(
-    `- [Founder signup](${IT("/beta")}): first ${FOUNDER_PROGRAM.totalSeats} accounts get ${FOUNDER_PROGRAM.benefit}. Public, open signup — no invite required, no access gate. Live remaining-seat count is shown on the page (not reproduced here — it changes continuously).`,
+    `- [Founder signup](${IT("/beta")}): first ${FOUNDER_PROGRAM.totalSeats} accounts get ${FOUNDER_PROGRAM.benefit}. Public, open signup — no invite required, no access gate. The site does not display a public remaining-seat count (the figure was not reconciled against actual grants); check the app's Pro screen to confirm your own Founder status.`,
   );
   lines.push("");
 

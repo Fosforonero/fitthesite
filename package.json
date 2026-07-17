@@ -10,7 +10,8 @@
     "test": "vitest run",
     "seo:truth-check": "tsx tools/check-llms-consistency.ts",
     "labs:truth-check": "tsx tools/check-labs-truth.ts",
-    "labs:privacy-check": "tsx tools/check-labs-privacy.ts"
+    "labs:privacy-check": "tsx tools/check-labs-privacy.ts",
+    "founder:counter-check": "tsx tools/check-founder-counter-removed.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",
