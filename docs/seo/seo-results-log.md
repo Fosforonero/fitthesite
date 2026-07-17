@@ -561,3 +561,106 @@ zero header residui, tenuto 60s ciascuno.
 
 **Stato**: validato post-deploy. Test su iPhone Safari reale (ingresso da
 Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
+
+## Sprint P1.0 — FitMesh Labs + HRV RMSSD Calculator
+
+- **Cosa**: nuova sezione `/labs` (indice + registry tipizzato) e primo tool
+  live, `/it/labs/calcolatore-hrv-rmssd` + `/en/labs/hrv-rmssd-calculator` —
+  calcolatore RMSSD/deviazione standard da intervalli RR/IBI, calcolo
+  interamente client-side (zero rete), formule documentate, fonti citate
+  (PMID 8598068, PMID 37438010, Peltola 2012), FAQ, citazione, esempio
+  numerico riproducibile. Solo it/en: nessuna pagina indicizzabile nelle
+  altre 13 locale (redirect 307 tramite il routing lingua esistente, non un
+  nuovo sistema di geolocalizzazione — vedi `lib/labs/locale-redirect.ts`).
+- **Branch/worktree**: `seo/labs-hrv-foundation`, worktree separato da
+  `site/p06-build189-truth-sync`, partito dal commit `9b3cc99` per esplicita
+  richiesta di non toccare/mergiare la PR #13 in corso.
+- **Intent mapping (Fase 1)**: primary EN "HRV calculator", secondary
+  "RMSSD calculator"/"RR interval calculator"/"SDNN calculator"/"calculate
+  HRV from RR intervals"; primary IT "calcolatore HRV", secondary "calcolo
+  RMSSD"/"calcolare HRV da intervalli RR"/"calcolatore SDNN"/"intervalli RR
+  HRV". Cannibalizzazione verificata contro l'articolo esistente
+  `hrv-cose-significato-valori.ts` (2026-05-22): l'articolo risponde
+  all'intento informativo ("cos'è/quanto vale la mia HRV"), il Lab
+  all'intento operativo ("calcola il mio RMSSD da questi numeri") —
+  differenziazione strutturale, non solo di keyword. Collegati
+  bidirezionalmente (vedi sotto).
+- **Guardrail nuovo**: `tools/check-labs-truth.ts` (`pnpm run
+  labs:truth-check`), scope ristretto a `lib/labs/` + route `.../labs/` —
+  blocca diagnosi/classificazione di un risultato, valori normativi
+  universali (tabelle età/sesso), claim di upload/invio remoto inesistente.
+  Verificato che intercetti violazioni reali prima di essere corretto per i
+  falsi positivi (2 casi: domande FAQ che pongono il claim vietato solo per
+  negarlo nella risposta — aggiunto un guard "è una domanda?" oltre alla
+  finestra di negazione già presente).
+- **Test matematici**: `lib/labs/hrv/rmssd-math.test.ts`, 26 test — verificati
+  contro un'implementazione Python scritta da zero (non riusa le funzioni
+  TypeScript sotto test), non solo contro se stessi. Serie costante, serie
+  nota, due soli intervalli, dataset da 32 intervalli, tutti i separatori,
+  entrambe le unità, valori vuoti/negativi/zero/NaN, ambiguità
+  virgola-decimale (3 bug reali trovati e corretti in questa fase: comma
+  finale prima di uno spazio scambiato per ambiguo, valori negativi e testo
+  non numerico dentro una lista con virgola che facevano fallire l'intero
+  chunk invece del solo valore invalido).
+- **Internal linking**: articolo HRV → calcolatore (nuovo paragrafo, 11
+  lingue, link funzionante solo verso `/it/labs/...` per IT e
+  `/en/labs/...` per le altre 10, dato che il Lab non esiste in quelle
+  lingue); calcolatore → articolo HRV; footer → `/labs` (tutte le 15
+  locale, redirect gestisce le non-it/en); calcolatore → `/fitness-data-sync`
+  con CTA che dichiara esplicitamente che FitMesh non importa intervalli RR
+  grezzi (verificato: nessun tipo Health Connect/Apple Health per RR grezzi
+  in uso nel codice, solo metriche HRV già aggregate dal dispositivo).
+- **Decisione rimandata**: l'articolo `hrv-cose-significato-valori.ts`
+  (sprint precedente, non di questo sprint) contiene un range HRV
+  indicativo per fascia d'età (con proprio disclaimer "non usare per
+  diagnosi medica"). Il principio non-negoziabile di P1.0 ("niente tabelle
+  universali per età") si applica al nuovo Lab, non retroattivamente a
+  questo articolo — segnalato qui esplicitamente invece di correggerlo
+  d'ufficio (fuori scope dichiarato) o di ignorarlo silenziosamente.
+- **translate-ts.sh — non applicabile, verificato empiricamente**: lo
+  strumento richiede almeno 2 lingue già presenti in un gruppo per
+  considerarlo traducibile (`len(g.present) < 2` → skip, verificato leggendo
+  `ts_localize.py` e riprodotto con un file di test: "0 groups needing
+  ['en']" su contenuto solo-IT). Coerente con la convenzione già in uso nel
+  sito (IT+EN scritti insieme a mano come coppia base, es.
+  `about-copy.ts`/dictionaries — il tool serve solo per ESPANDERE oltre la
+  coppia base a una terza lingua). Dato che Labs si ferma deliberatamente a
+  IT+EN, non esiste una "terza lingua" per cui il tool possa fare qualcosa:
+  EN scritto a mano seguendo la stessa convenzione. `technical-review.sh`
+  (qwen2.5-coder:14b) eseguito realmente su `content.ts`: verdetto **PASS
+  WITH FIXES** (solo suggerimenti di stile: estrarre URL delle fonti in
+  costanti, dare nomi alle "magic number" — nessun problema di correttezza).
+  `review.sh` (qwen3:14b) tentato due volte, timeout entrambe le volte per
+  contesa di risorse con la build Docker in corso in parallelo — advisory,
+  non bloccante per policy del progetto (AGENTS.md: "Prefer mechanically
+  verified facts... over local model reports").
+- **Verifica privacy reale (Playwright, non lettura statica)**:
+  `tools/check-labs-privacy.ts` — digitati 4 valori-marcatore
+  fisiologicamente impossibili (813371/824682/795913/801247 ms), calcolato,
+  copiato risultati, scaricato CSV: **12 richieste di rete post-load
+  osservate, zero contengono i valori marcatore** (né in URL né in
+  postData), URL della pagina invariato durante tutta l'interazione,
+  clipboard verificato contenere i risultati SOLO dopo il click esplicito,
+  download CSV via `blob:` locale (non un URL di rete), zero errori console
+  inattesi.
+- **Build e guardrail (Docker, `node:22`, tutti exit 0)**: `tsc --noEmit`;
+  `vitest run` (57/57 test, inclusi i 26 nuovi); `labs:truth-check` (9 file,
+  0 problemi); `seo:truth-check` (112 file scansionati, 0 problemi — include
+  il nuovo contenuto Labs); `check-translation-corruption` (107 file, 52200
+  stringhe, 0 leak); `check-blog-integrity` (60 post, 0 collisioni);
+  `check-bing-seo-recommendations`; `check-gdpr-claim-guardrail` (338 file);
+  build produzione completa (exit 0, nessun errore); `check-ios-eu-truth`
+  contro server reale (0 claim stale, 307 file); `check-social-metadata`
+  contro server reale (11 route); `labs:privacy-check` (vedi sopra).
+- **Screenshot**: catturati via Playwright reale (desktop 1440×900, mobile
+  390×844) per `/it/labs` e `/it/labs/calcolatore-hrv-rmssd` con dati di
+  esempio inseriti — verificati visivamente: layout coerente col resto del
+  sito (stessa tipografia, colori brand, pattern breadcrumb/hero/card),
+  card "in preparazione" correttamente disabilitate, link footer "FitMesh
+  Labs" presente.
+- **Commit**: `[da registrare qui il nuovo hash dopo il commit — vedi
+  consegna finale in sessione]`.
+- **Stato**: verificato in Docker, tutti i gate verdi. Non ancora
+  pushato, nessuna PR aperta — richiesta esplicita: attendere che la PR
+  #13 sia mergiata, poi rebase su `origin/main` e riverifica completa
+  prima di aprire la PR. Nessun merge o deploy autonomo.

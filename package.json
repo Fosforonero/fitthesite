@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
-    "seo:truth-check": "tsx tools/check-llms-consistency.ts"
+    "seo:truth-check": "tsx tools/check-llms-consistency.ts",
+    "labs:truth-check": "tsx tools/check-labs-truth.ts",
+    "labs:privacy-check": "tsx tools/check-labs-privacy.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",

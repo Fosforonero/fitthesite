@@ -19,6 +19,7 @@ import {
   ROADMAP_COMPLETE_LOCALES,
   FITNESS_DATA_SYNC_COMPLETE_LOCALES,
 } from "@/lib/content/static-page-locales";
+import { LABS_LOCALES, liveLabsTools, localizedLabsSlug } from "@/lib/labs/registry";
 import { SITE_URL as BASE } from "@/lib/product-facts";
 
 /**
@@ -66,6 +67,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/roadmap",      indexableLocales: (lc) => ROADMAP_COMPLETE_LOCALES.includes(lc) },
     { path: "/fitness-data-sync", indexableLocales: (lc) => FITNESS_DATA_SYNC_COMPLETE_LOCALES.includes(lc) },
     { path: "/beta" },
+    // FitMesh Labs (sprint P1.0): solo it/en, mai le altre 13 locale —
+    // vedi lib/labs/registry.ts (LABS_LOCALES) e locale-redirect.ts. Stessa
+    // fonte di verità usata da generateStaticParams delle pagine Labs, così
+    // sitemap e route non possono contraddirsi.
+    { path: "/labs", indexableLocales: (lc) => LABS_LOCALES.includes(lc) },
     { path: "/blog" },
     { path: "/novita" },
     { path: "/support" },
@@ -74,6 +80,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/cookies" },
     { path: "/imprint" },
   ];
+
+  // Tool FitMesh Labs — slug localizzato per it/en, mai le altre locale.
+  for (const tool of liveLabsTools()) {
+    routes.push({
+      path: `/labs/${tool.key}`,
+      localized: (lc) => `/labs/${localizedLabsSlug(tool, lc as "it" | "en")}`,
+      indexableLocales: (lc) => LABS_LOCALES.includes(lc),
+    });
+  }
 
   // Una landing per provider.
   for (const p of PROVIDERS) {
