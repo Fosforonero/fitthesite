@@ -8,7 +8,7 @@
     "badge": "Available on Android and iOS",
     "heading_1": "One global dashboard",
     "heading_accent": "for all your devices.",
-    "description": "Bring Galaxy Watch, Wear OS, Health Connect and cloud providers into one view. Steps, sleep, heart rate, recovery and trends, without jumping between apps.",
+    "description": "Bring health data from Android wearables through Health Connect and, on iPhone, from Apple Health and supported rings, into one view. Steps, sleep, heart rate, recovery and trends, without jumping between apps.",
     "cta_secondary": "Learn more",
     "pricing": "One-time from €3.99, or €1.19 every 6 months · secure payment"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "Steps & distance",
-        "desc": "Auto-sync with Health Connect and Samsung Health. Runs in the background, even with your phone locked."
+        "desc": "Syncs with Health Connect and Samsung Health. Best-effort background updates on Android when battery optimization is disabled; always current when you open the app."
       },
       {
-        "title": "Heart rate & VO₂ max",
+        "title": "Heart rate",
         "desc": "Daily average, min/max range, resting heart rate. Spot trends in your cardiovascular health over time."
       },
       {

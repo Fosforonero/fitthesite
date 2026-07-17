@@ -8,7 +8,7 @@
     "badge": "Tilgjengelig på Android og iOS",
     "heading_1": "Ett globalt dashbord",
     "heading_accent": "for alle enhetene dine.",
-    "description": "Samle Galaxy Watch, Wear OS, Health Connect og skytjenester i én visning. Skritt, søvn, puls, restitusjon og trender, uten å bytte mellom apper.",
+    "description": "Samle helsedata fra Android-wearables via Health Connect og, på iPhone, fra Apple Helse og støttede ringer, i én visning. Skritt, søvn, puls, restitusjon og trender, uten å bytte mellom apper.",
     "cta_secondary": "Lær mer",
     "pricing": "Engangskjøp fra 3,99 €, eller 1,19 € hver 6. måned · sikker betaling"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "Skritt og distanse",
-        "desc": "Automatisk synkronisering med Health Connect og Samsung Health. Kjører i bakgrunnen, selv når telefonen er låst."
+        "desc": "Synkroniserer med Health Connect og Samsung Health. Best-effort bakgrunnsoppdateringer på Android når batterioptimalisering er deaktivert; alltid oppdatert når du åpner appen."
       },
       {
-        "title": "Puls og VO₂ max",
+        "title": "Puls",
         "desc": "Daglig gjennomsnitt, min/max-område, hvilepuls. Oppdag trender i hjerte- og karhelsen din over tid."
       },
       {

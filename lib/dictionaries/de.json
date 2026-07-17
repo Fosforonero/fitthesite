@@ -8,7 +8,7 @@
     "badge": "Verfügbar auf Android und iOS",
     "heading_1": "Ein globales Dashboard",
     "heading_accent": "für alle deine Geräte.",
-    "description": "Verbinde Galaxy Watch, Wear OS, Health Connect und Cloud-Anbieter in einer einzigen Ansicht. Schritte, Schlaf, Herzfrequenz, Erholung und Trends, ohne zwischen verschiedenen Apps zu wechseln.",
+    "description": "Bringe Gesundheitsdaten von Android-Wearables über Health Connect und, auf dem iPhone, von Apple Health und unterstützten Ringen in eine einzige Ansicht. Schritte, Schlaf, Herzfrequenz, Erholung und Trends, ohne zwischen verschiedenen Apps zu wechseln.",
     "cta_secondary": "Mehr erfahren",
     "pricing": "Einmalkauf ab 3,99 €, oder 1,19 € alle 6 Monate · sichere Zahlung"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "Schritte und Distanz",
-        "desc": "Automatische Synchronisierung mit Health Connect und Samsung Health. Auch im Hintergrund, auch wenn das Telefon gesperrt ist."
+        "desc": "Synchronisiert mit Health Connect und Samsung Health. Best-effort-Hintergrundaktualisierungen auf Android, wenn die Akkuoptimierung deaktiviert ist; immer aktuell beim Öffnen der App."
       },
       {
-        "title": "Herzfrequenz und VO₂ max",
+        "title": "Herzfrequenz",
         "desc": "Tagesdurchschnitt, Min/Max-Bereich, Ruheherzfrequenz. Beobachte die Muster deines Herzens im Zeitverlauf."
       },
       {

@@ -6,10 +6,13 @@
  * (prezzi in lib/pricing.ts, iOS/geo in lib/flags.ts, provider in
  * lib/providers/data.ts), questo file lo IMPORTA e lo ricompone — non lo
  * ridichiara mai. Se un dato cambia in continuo e non può essere letto qui
- * in modo affidabile (es. il conteggio LIVE dei founder rimasti, che dipende
- * da una query Supabase runtime), va OMESSO, non hardcodato: vedi
- * `FOUNDER_PROGRAM` sotto, che espone solo i fatti stabili (tot. posti,
- * beneficio) e rimanda a `/{locale}/beta` per il numero live.
+ * in modo affidabile va OMESSO, non hardcodato: vedi `FOUNDER_PROGRAM` sotto,
+ * che espone solo i fatti stabili (tot. posti, beneficio). Il contatore
+ * pubblico dei posti Founder occupati è stato rimosso (Hotfix P0.6C,
+ * vedi `founderAutoGrant.note` sotto): il conteggio non era riconciliato
+ * con i grant realmente assegnati, quindi non va reintrodotto in nessuna
+ * forma (badge, banner, endpoint) finché `founderAutoGrant.status` non è
+ * `live_verified`.
  *
  * Android e iOS sono piattaforme DIVERSE con fonti dati diverse — Android
  * legge da Health Connect (Galaxy Watch, Wear OS, Fitbit, Garmin, ecc.),
@@ -116,17 +119,57 @@ export const PRODUCT_STATUS = {
     "Publicly downloadable on Google Play and the App Store, including EU storefronts, with an open early-adopter 'Founder' pricing promotion — not invite-only or access-gated.",
 } as const;
 
+// ── Capability truth layer (Sprint P0.6A) ───────────────────────────────────
+/**
+ * Fonte unica per lo stato di capacità del prodotto usate come claim
+ * pubblici. Stati ammessi (Sprint P0.6 Fase 1): "live_verified" (unica
+ * pubblicabile senza riserva), "live_limited" (pubblicabile con riserva
+ * esplicita), "release_candidate", "in_development", "planned",
+ * "unsupported", "unknown".
+ *
+ * `tools/check-llms-consistency.ts` legge questo oggetto invece di avere il
+ * ban hardcodato nel testo dello script: quando una capacità passa un test
+ * reale su device fisico e lo stato qui sopra viene aggiornato a
+ * "live_verified", il guardrail corrispondente si sblocca da solo — nessuna
+ * modifica allo script stesso.
+ */
+export const CAPABILITY_STATUS: Record<
+  string,
+  {
+    status:
+      | "live_verified"
+      | "live_limited"
+      | "release_candidate"
+      | "in_development"
+      | "planned"
+      | "pending_production_verification"
+      | "unsupported"
+      | "unknown";
+    note: string;
+  }
+> = {
+  vo2max: {
+    status: "unsupported",
+    note:
+      "vo2Max è sempre null in health_repository.dart, nessuna versione del plugin health espone VO2_MAX (verificato fino alla 13.3.1), nessun bridge nativo su nessuna piattaforma. Non promuovere a live_verified senza che health esponga davvero VO2_MAX E health_repository.dart lo legga (non più null hardcoded).",
+  },
+  founderAutoGrant: {
+    status: "pending_production_verification",
+    note:
+      "Sprint P0.6B (freeze esplicito): il codice SQL del trigger di auto-grant Founder esiste nel repo, ma il codice presente NON costituisce prova di funzionamento in produzione. Restano da verificare, con dati reali di produzione: (1) il trigger è effettivamente applicato al DB di produzione, non solo presente in una migration; (2) una registrazione reale con un utente normale (non un account di test creato per l'occasione) attiva il grant; (3) il grant assegnato è corretto (lifetime Pro, non altro); (4) il cap di 1000 posti e il comportamento anti-race reggono sotto scrittura concorrente; (5) il conteggio dei posti usati è coerente con i grant realmente assegnati. Nessuna di queste verifiche deve avvenire creando account QA — solo osservando dati di produzione reali una volta che lo sprint Build 189 le esegue. Hotfix P0.6C (2026-07-17): il contatore pubblico dei posti Founder occupati (FounderCounter, FounderBanner, GET /api/v1/beta/spots) è stato rimosso dal sito perché il conteggio non è riconciliato con i grant realmente assegnati in produzione — era fermo a 705 e non verificabile. Non reintrodurre alcuna forma di contatore/badge/banner pubblico che mostri un numero di posti Founder occupati o rimasti finché questo status non passa a live_verified con il report coordinato dello sprint app/Build 189. Termini Founder, entitlement, trigger Supabase, cap 1000 e grant utenti non sono toccati da questo hotfix: resta tutto come nel freeze P0.6B.",
+  },
+};
+
 // ── Programma Founder ───────────────────────────────────────────────────────
 /**
- * `totalSeats` è stabile (cifra di programma, confermata in lib/pricing.ts,
- * components/FounderBanner.tsx, app/api/v1/beta/spots/route.ts). Il numero di
- * posti GIÀ USATI cambia in continuo (query Supabase a runtime): non va
- * hardcodato qui, va letto live su /{locale}/beta.
+ * `totalSeats` è stabile (cifra di programma, confermata in lib/pricing.ts).
+ * Il numero di posti GIÀ USATI non è esposto pubblicamente (Hotfix P0.6C):
+ * vedi `founderAutoGrant.note` sopra per il motivo. Nessun campo qui punta
+ * a un conteggio live: se ne serve uno in futuro, va riconciliato prima.
  */
 export const FOUNDER_PROGRAM = {
   totalSeats: 1000,
   benefit: "lifetime Pro access, free, no review required",
-  liveCountPath: "/beta",
 } as const;
 
 // ── Prezzi e trial ──────────────────────────────────────────────────────────
@@ -194,251 +237,251 @@ export const ORG_DESCRIPTIONS: Record<Locale, string> = {
 // riusava quella Android (menzionava Galaxy Watch/Wear OS su iOS, dove non
 // esistono/non si applicano).
 export const APP_DESCRIPTIONS_ANDROID: Record<Locale, string> = {
-  it: "Sincronizza Galaxy Watch e Wear OS con una dashboard premium: passi, battito, sonno, calorie e VO₂ max. Niente cloud opachi.",
-  en: "Mirror Galaxy Watch and Wear OS data to a premium personal dashboard: steps, heart rate, sleep, calories, VO₂ max. No opaque clouds.",
-  es: "Sincroniza Galaxy Watch y Wear OS con un panel premium: pasos, frecuencia cardíaca, sueño, calorías y VO₂ máx. Sin nubes opacas.",
-  de: "Synchronisiert Galaxy Watch und Wear OS mit einem Premium-Dashboard: Schritte, Herzfrequenz, Schlaf, Kalorien und VO₂ max. Keine undurchsichtigen Clouds.",
-  pt: "Sincroniza Galaxy Watch e Wear OS com um painel premium: passos, frequência cardíaca, sono, calorias e VO₂ máx. Sem nuvens opacas.",
-  fr: "Synchronise Galaxy Watch et Wear OS avec un tableau de bord premium : pas, fréquence cardiaque, sommeil, calories et VO₂ max. Aucun cloud opaque.",
-  pl: "Synchronizuje Galaxy Watch i Wear OS z panelem premium: kroki, tętno, sen, kalorie i VO₂ max. Bez ukrytych chmur.",
-  tr: "Galaxy Watch ve Wear OS verilerini premium bir kişisel panele yansıtır: adımlar, kalp atışı, uyku, kalori ve VO₂ maks. Opak bulut yok.",
-  nl: "Spiegelt Galaxy Watch en Wear OS data naar een premium persoonlijk dashboard: stappen, hartslag, slaap, calorieën en VO₂ max. Geen ondoorzichtige clouds.",
-  ja: "Galaxy WatchとWear OSのデータをプレミアムダッシュボードへ同期: 歩数、心拍数、睡眠、カロリー、VO₂ max。プライバシーファースト。",
-  ko: "Galaxy Watch와 Wear OS 데이터를 프리미엄 대시보드에 동기화: 걸음 수, 심박수, 수면, 칼로리, VO₂ max. 개인정보 보호 최우선.",
-  sv: "Speglar data från Galaxy Watch och Wear OS till en premium personlig dashboard: steg, puls, sömn, kalorier och VO₂ max. Inga oklara moln.",
-  da: "Spejler data fra Galaxy Watch og Wear OS til et premium personligt dashboard: skridt, puls, søvn, kalorier og VO₂ max. Ingen uklare skyer.",
-  no: "Speiler data fra Galaxy Watch og Wear OS til et premium personlig dashbord: skritt, puls, søvn, kalorier og VO₂ max. Ingen uklare skyer.",
-  fi: "Peilaa Galaxy Watchin ja Wear OS:n tiedot premium-koontinäyttöön: askeleet, syke, uni, kalorit ja VO₂ max. Ei epämääräisiä pilviä.",
+  it: "Sincronizza Galaxy Watch e Wear OS con una dashboard premium: passi, battito, sonno, calorie. Niente cloud opachi.",
+  en: "Mirror Galaxy Watch and Wear OS data to a premium personal dashboard: steps, heart rate, sleep, calories. No opaque clouds.",
+  es: "Sincroniza Galaxy Watch y Wear OS con un panel premium: pasos, frecuencia cardíaca, sueño, calorías. Sin nubes opacas.",
+  de: "Synchronisiert Galaxy Watch und Wear OS mit einem Premium-Dashboard: Schritte, Herzfrequenz, Schlaf, Kalorien. Keine undurchsichtigen Clouds.",
+  pt: "Sincroniza Galaxy Watch e Wear OS com um painel premium: passos, frequência cardíaca, sono, calorias. Sem nuvens opacas.",
+  fr: "Synchronise Galaxy Watch et Wear OS avec un tableau de bord premium : pas, fréquence cardiaque, sommeil, calories. Aucun cloud opaque.",
+  pl: "Synchronizuje Galaxy Watch i Wear OS z panelem premium: kroki, tętno, sen, kalorie. Bez ukrytych chmur.",
+  tr: "Galaxy Watch ve Wear OS verilerini premium bir kişisel panele yansıtır: adımlar, kalp atışı, uyku, kalori. Opak bulut yok.",
+  nl: "Spiegelt Galaxy Watch en Wear OS data naar een premium persoonlijk dashboard: stappen, hartslag, slaap, calorieën. Geen ondoorzichtige clouds.",
+  ja: "Galaxy WatchとWear OSのデータをプレミアムダッシュボードへ同期: 歩数、心拍数、睡眠、カロリー。プライバシーファースト。",
+  ko: "Galaxy Watch와 Wear OS 데이터를 프리미엄 대시보드에 동기화: 걸음 수, 심박수, 수면, 칼로리. 개인정보 보호 최우선.",
+  sv: "Speglar data från Galaxy Watch och Wear OS till en premium personlig dashboard: steg, puls, sömn, kalorier. Inga oklara moln.",
+  da: "Spejler data fra Galaxy Watch og Wear OS til et premium personligt dashboard: skridt, puls, søvn, kalorier. Ingen uklare skyer.",
+  no: "Speiler data fra Galaxy Watch og Wear OS til et premium personlig dashbord: skritt, puls, søvn, kalorier. Ingen uklare skyer.",
+  fi: "Peilaa Galaxy Watchin ja Wear OS:n tiedot premium-koontinäyttöön: askeleet, syke, uni, kalorit. Ei epämääräisiä pilviä.",
 };
 
 export const APP_DESCRIPTIONS_IOS: Record<Locale, string> = {
-  it: "Sincronizza Apple Salute e il Colmi Ring con una dashboard premium: passi, battito, sonno, calorie e VO₂ max. Niente cloud opachi.",
-  en: "Mirror Apple Health and Colmi Ring data to a premium personal dashboard: steps, heart rate, sleep, calories, VO₂ max. No opaque clouds.",
-  es: "Sincroniza Apple Salud y el anillo Colmi con un panel premium: pasos, frecuencia cardíaca, sueño, calorías y VO₂ máx. Sin nubes opacas.",
-  de: "Synchronisiert Apple Health und den Colmi Ring mit einem Premium-Dashboard: Schritte, Herzfrequenz, Schlaf, Kalorien und VO₂ max. Keine undurchsichtigen Clouds.",
-  pt: "Sincroniza o Apple Saúde e o anel Colmi com um painel premium: passos, frequência cardíaca, sono, calorias e VO₂ máx. Sem nuvens opacas.",
-  fr: "Synchronise Apple Santé et la bague Colmi avec un tableau de bord premium : pas, fréquence cardiaque, sommeil, calories et VO₂ max. Aucun cloud opaque.",
-  pl: "Synchronizuje Apple Zdrowie i pierścień Colmi z panelem premium: kroki, tętno, sen, kalorie i VO₂ max. Bez ukrytych chmur.",
-  tr: "Apple Sağlık ve Colmi Ring verilerini premium bir kişisel panele yansıtır: adımlar, kalp atışı, uyku, kalori ve VO₂ maks. Opak bulut yok.",
-  nl: "Spiegelt Apple Gezondheid en Colmi Ring-data naar een premium persoonlijk dashboard: stappen, hartslag, slaap, calorieën en VO₂ max. Geen ondoorzichtige clouds.",
-  ja: "Apple ヘルスケアとColmi Ringのデータをプレミアムダッシュボードへ同期: 歩数、心拍数、睡眠、カロリー、VO₂ max。プライバシーファースト。",
-  ko: "Apple 건강과 Colmi Ring 데이터를 프리미엄 대시보드에 동기화: 걸음 수, 심박수, 수면, 칼로리, VO₂ max. 개인정보 보호 최우선.",
-  sv: "Speglar data från Apple Hälsa och Colmi Ring till en premium personlig dashboard: steg, puls, sömn, kalorier och VO₂ max. Inga oklara moln.",
-  da: "Spejler data fra Apple Sundhed og Colmi Ring til et premium personligt dashboard: skridt, puls, søvn, kalorier og VO₂ max. Ingen uklare skyer.",
-  no: "Speiler data fra Apple Helse og Colmi Ring til et premium personlig dashbord: skritt, puls, søvn, kalorier og VO₂ max. Ingen uklare skyer.",
-  fi: "Peilaa Apple Terveys- ja Colmi Ring -tiedot premium-koontinäyttöön: askeleet, syke, uni, kalorit ja VO₂ max. Ei epämääräisiä pilviä.",
+  it: "Sincronizza Apple Salute e il Colmi Ring con una dashboard premium: passi, battito, sonno, calorie. Niente cloud opachi.",
+  en: "Mirror Apple Health and Colmi Ring data to a premium personal dashboard: steps, heart rate, sleep, calories. No opaque clouds.",
+  es: "Sincroniza Apple Salud y el anillo Colmi con un panel premium: pasos, frecuencia cardíaca, sueño, calorías. Sin nubes opacas.",
+  de: "Synchronisiert Apple Health und den Colmi Ring mit einem Premium-Dashboard: Schritte, Herzfrequenz, Schlaf, Kalorien. Keine undurchsichtigen Clouds.",
+  pt: "Sincroniza o Apple Saúde e o anel Colmi com um painel premium: passos, frequência cardíaca, sono, calorias. Sem nuvens opacas.",
+  fr: "Synchronise Apple Santé et la bague Colmi avec un tableau de bord premium : pas, fréquence cardiaque, sommeil, calories. Aucun cloud opaque.",
+  pl: "Synchronizuje Apple Zdrowie i pierścień Colmi z panelem premium: kroki, tętno, sen, kalorie. Bez ukrytych chmur.",
+  tr: "Apple Sağlık ve Colmi Ring verilerini premium bir kişisel panele yansıtır: adımlar, kalp atışı, uyku, kalori. Opak bulut yok.",
+  nl: "Spiegelt Apple Gezondheid en Colmi Ring-data naar een premium persoonlijk dashboard: stappen, hartslag, slaap, calorieën. Geen ondoorzichtige clouds.",
+  ja: "Apple ヘルスケアとColmi Ringのデータをプレミアムダッシュボードへ同期: 歩数、心拍数、睡眠、カロリー。プライバシーファースト。",
+  ko: "Apple 건강과 Colmi Ring 데이터를 프리미엄 대시보드에 동기화: 걸음 수, 심박수, 수면, 칼로리. 개인정보 보호 최우선.",
+  sv: "Speglar data från Apple Hälsa och Colmi Ring till en premium personlig dashboard: steg, puls, sömn, kalorier. Inga oklara moln.",
+  da: "Spejler data fra Apple Sundhed og Colmi Ring til et premium personligt dashboard: skridt, puls, søvn, kalorier. Ingen uklare skyer.",
+  no: "Speiler data fra Apple Helse og Colmi Ring til et premium personlig dashbord: skritt, puls, søvn, kalorier. Ingen uklare skyer.",
+  fi: "Peilaa Apple Terveys- ja Colmi Ring -tiedot premium-koontinäyttöön: askeleet, syke, uni, kalorit. Ei epämääräisiä pilviä.",
 };
 
 export const APP_FEATURE_LIST_ANDROID: Record<Locale, string[]> = {
   it: [
     "Sincronizza Galaxy Watch, Wear OS e wearable Health Connect",
-    "Dashboard premium per passi, battito, sonno, calorie, VO2 max",
+    "Dashboard premium per passi, battito, sonno, calorie",
     "Mesh Famiglia — monitora salute familiari (passi, sonno, attivita)",
     "Privacy-first: server EU, GDPR, niente tracker o cloud opachi",
-    "Offline-first con sync background ogni 15-30 minuti",
+    "Offline-first: i dati restano in coda e si inviano alla prossima apertura dell'app",
   ],
   en: [
     "Sync Galaxy Watch, Wear OS, and Health Connect wearables",
-    "Premium dashboard for steps, heart rate, sleep, calories, VO2 max",
+    "Premium dashboard for steps, heart rate, sleep, calories",
     "Family Mesh — monitor family health (steps, sleep, activity)",
     "Privacy-first: EU servers, GDPR, no trackers or opaque clouds",
-    "Offline-first with background sync every 15-30 minutes",
+    "Offline-first: data queues up and syncs the next time you open the app",
   ],
   es: [
     "Sincroniza Galaxy Watch, Wear OS y wearables compatibles con Health Connect",
-    "Panel premium para pasos, frecuencia cardíaca, sueño, calorías, VO2 max",
+    "Panel premium para pasos, frecuencia cardíaca, sueño, calorías",
     "Mesh Familiar — supervisa la salud familiar (pasos, sueño, actividad)",
     "Privacidad ante todo: servidores UE, RGPD, sin rastreadores ni nubes opacas",
-    "Offline-first con sincronización en segundo plano cada 15-30 minutos",
+    "Offline-first: los datos quedan en cola y se envían al abrir la app de nuevo",
   ],
   de: [
     "Synchronisiert Galaxy Watch, Wear OS und Health-Connect-Wearables",
-    "Premium-Dashboard für Schritte, Herzfrequenz, Schlaf, Kalorien, VO2max",
+    "Premium-Dashboard für Schritte, Herzfrequenz, Schlaf, Kalorien",
     "Familien-Mesh — überwacht die Gesundheit der Familie (Schritte, Schlaf, Aktivität)",
     "Datenschutz zuerst: EU-Server, DSGVO, keine Tracker oder undurchsichtigen Clouds",
-    "Offline-first mit Hintergrundsynchronisierung alle 15-30 Minuten",
+    "Offline-first: Daten werden zwischengespeichert und beim nächsten Öffnen der App gesendet",
   ],
   pt: [
     "Sincroniza Galaxy Watch, Wear OS e wearables compatíveis com Health Connect",
-    "Painel premium para passos, frequência cardíaca, sono, calorias, VO2 max",
+    "Painel premium para passos, frequência cardíaca, sono, calorias",
     "Mesh Família — monitora a saúde da família (passos, sono, atividade)",
     "Privacidade em primeiro lugar: servidores UE, RGPD, sem rastreadores ou nuvens opacas",
-    "Offline-first com sincronização em segundo plano a cada 15-30 minutos",
+    "Offline-first: os dados ficam em espera e são enviados na próxima abertura da app",
   ],
   fr: [
     "Synchronise Galaxy Watch, Wear OS et les wearables compatibles Health Connect",
-    "Tableau de bord premium pour les pas, la fréquence cardiaque, le sommeil, les calories, le VO2 max",
+    "Tableau de bord premium pour les pas, la fréquence cardiaque, le sommeil, les calories",
     "Family Mesh — suivez la santé de la famille (pas, sommeil, activité)",
     "Confidentialité avant tout : serveurs UE, RGPD, aucun tracker ni cloud opaque",
-    "Offline-first avec synchronisation en arrière-plan toutes les 15-30 minutes",
+    "Offline-first : les données restent en attente et sont envoyées à la prochaine ouverture de l'app",
   ],
   pl: [
     "Synchronizuje Galaxy Watch, Wear OS i wearables zgodne z Health Connect",
-    "Panel premium dla kroków, tętna, snu, kalorii, VO2 max",
+    "Panel premium dla kroków, tętna, snu, kalorii",
     "Mesh Rodzinny — monitoruje zdrowie rodziny (kroki, sen, aktywność)",
     "Prywatność przede wszystkim: serwery UE, RODO, brak trackerów i nieprzejrzystych chmur",
-    "Offline-first z synchronizacją w tle co 15-30 minut",
+    "Offline-first: dane czekają w kolejce i wysyłają się przy następnym otwarciu aplikacji",
   ],
   tr: [
     "Galaxy Watch, Wear OS ve Health Connect uyumlu giyilebilirleri senkronize eder",
-    "Adımlar, kalp atışı, uyku, kalori, VO2 max için premium pano",
+    "Adımlar, kalp atışı, uyku, kalori için premium pano",
     "Aile Mesh — aile sağlığını izler (adımlar, uyku, aktivite)",
     "Gizlilik öncelikli: AB sunucuları, GDPR, izleyici veya opak bulut yok",
-    "Her 15-30 dakikada bir arka plan senkronizasyonu ile offline-first",
+    "Offline-first: veriler kuyrukta bekler ve uygulamayı bir sonraki açışında gönderilir",
   ],
   nl: [
     "Synchroniseert Galaxy Watch, Wear OS en Health Connect-wearables",
-    "Premium dashboard voor stappen, hartslag, slaap, calorieën, VO2 max",
+    "Premium dashboard voor stappen, hartslag, slaap, calorieën",
     "Family Mesh — houd de gezondheid van het gezin in de gaten (stappen, slaap, activiteit)",
     "Privacy-first: EU-servers, AVG, geen trackers of ondoorzichtige clouds",
-    "Offline-first met achtergrondsynchronisatie elke 15-30 minuten",
+    "Offline-first: gegevens blijven in de wachtrij en worden verzonden bij de volgende keer openen van de app",
   ],
   ja: [
     "Galaxy Watch、Wear OS、Health Connect対応ウェアラブルを同期",
-    "歩数、心拍数、睡眠、カロリー、VO2 maxのプレミアムダッシュボード",
+    "歩数、心拍数、睡眠、カロリーのプレミアムダッシュボード",
     "Family Mesh — 家族の健康を見守る（歩数、睡眠、活動量）",
     "プライバシーファースト：EUサーバー、GDPR準拠、トラッカーや不透明なクラウドなし",
-    "15〜30分ごとのバックグラウンド同期によるオフラインファースト",
+    "オフラインファースト：データは一時保存され、次にアプリを開いたときに送信されます",
   ],
   ko: [
     "Galaxy Watch, Wear OS 및 Health Connect 웨어러블 동기화",
-    "걸음 수, 심박수, 수면, 칼로리, VO2 max를 위한 프리미엄 대시보드",
+    "걸음 수, 심박수, 수면, 칼로리를 위한 프리미엄 대시보드",
     "Family Mesh — 가족 건강 모니터링 (걸음 수, 수면, 활동)",
     "개인정보 보호 최우선: EU 서버, GDPR, 트래커나 불투명한 클라우드 없음",
-    "15-30분마다 백그라운드 동기화하는 오프라인 우선 설계",
+    "오프라인 우선: 데이터는 대기열에 저장되었다가 앱을 다음에 열 때 전송됩니다",
   ],
   sv: [
     "Synkroniserar Galaxy Watch, Wear OS och Health Connect-wearables",
-    "Premium dashboard för steg, puls, sömn, kalorier, VO2 max",
+    "Premium dashboard för steg, puls, sömn, kalorier",
     "Family Mesh — övervaka familjens hälsa (steg, sömn, aktivitet)",
     "Integritet först: EU-servrar, GDPR, inga spårare eller oklara moln",
-    "Offline-first med bakgrundssynkronisering var 15-30:e minut",
+    "Offline-first: data köas och skickas nästa gång du öppnar appen",
   ],
   da: [
     "Synkroniserer Galaxy Watch, Wear OS og Health Connect-wearables",
-    "Premium dashboard til skridt, puls, søvn, kalorier, VO2 max",
+    "Premium dashboard til skridt, puls, søvn, kalorier",
     "Family Mesh — hold øje med familiens sundhed (skridt, søvn, aktivitet)",
     "Privatliv først: EU-servere, GDPR, ingen trackere eller uklare skyer",
-    "Offline-first med baggrundssynkronisering hvert 15.-30. minut",
+    "Offline-first: data ligger i kø og sendes, næste gang du åbner appen",
   ],
   no: [
     "Synkroniserer Galaxy Watch, Wear OS og Health Connect-wearables",
-    "Premium dashbord for skritt, puls, søvn, kalorier, VO2 max",
+    "Premium dashbord for skritt, puls, søvn, kalorier",
     "Family Mesh — overvåk familiens helse (skritt, søvn, aktivitet)",
     "Personvern først: EU-servere, GDPR, ingen sporere eller uklare skyer",
-    "Offline-first med bakgrunnssynkronisering hvert 15.-30. minutt",
+    "Offline-first: data legges i kø og sendes neste gang du åpner appen",
   ],
   fi: [
     "Synkronoi Galaxy Watchin, Wear OS:n ja Health Connect -yhteensopivat puettavat laitteet",
-    "Premium-koontinäyttö askelille, sykkeelle, unelle, kaloreille, VO2 maxille",
+    "Premium-koontinäyttö askelille, sykkeelle, unelle, kaloreille",
     "Family Mesh — seuraa perheen terveyttä (askeleet, uni, aktiivisuus)",
     "Yksityisyys edellä: EU-palvelimet, GDPR, ei seurantaa tai epämääräisiä pilviä",
-    "Offline-first-toiminto taustasynkronoinnilla 15-30 minuutin välein",
+    "Offline-first: tiedot jonottavat ja lähtevät, kun avaat sovelluksen seuraavan kerran",
   ],
 };
 
 export const APP_FEATURE_LIST_IOS: Record<Locale, string[]> = {
   it: [
     "Sincronizza Apple Salute (HealthKit) e il Colmi Ring via Bluetooth diretto",
-    "Dashboard premium per passi, battito, sonno, calorie, VO2 max",
+    "Dashboard premium per passi, battito, sonno, calorie",
     "Mesh Famiglia — monitora salute familiari (passi, sonno, attivita)",
     "Privacy-first: server EU, GDPR, niente tracker o cloud opachi",
     "Live sull'App Store, incluse tutte le storefront UE",
   ],
   en: [
     "Sync Apple Health (HealthKit) and the Colmi Ring via direct Bluetooth",
-    "Premium dashboard for steps, heart rate, sleep, calories, VO2 max",
+    "Premium dashboard for steps, heart rate, sleep, calories",
     "Family Mesh — monitor family health (steps, sleep, activity)",
     "Privacy-first: EU servers, GDPR, no trackers or opaque clouds",
     "Live on the App Store, including all EU storefronts",
   ],
   es: [
     "Sincroniza Apple Salud (HealthKit) y el anillo Colmi por Bluetooth directo",
-    "Panel premium para pasos, frecuencia cardíaca, sueño, calorías, VO2 max",
+    "Panel premium para pasos, frecuencia cardíaca, sueño, calorías",
     "Mesh Familiar — supervisa la salud familiar (pasos, sueño, actividad)",
     "Privacidad ante todo: servidores UE, RGPD, sin rastreadores ni nubes opacas",
     "Disponible en la App Store, incluidas todas las tiendas de la UE",
   ],
   de: [
     "Synchronisiert Apple Health (HealthKit) und den Colmi Ring per direktem Bluetooth",
-    "Premium-Dashboard für Schritte, Herzfrequenz, Schlaf, Kalorien, VO2max",
+    "Premium-Dashboard für Schritte, Herzfrequenz, Schlaf, Kalorien",
     "Familien-Mesh — überwacht die Gesundheit der Familie (Schritte, Schlaf, Aktivität)",
     "Datenschutz zuerst: EU-Server, DSGVO, keine Tracker oder undurchsichtigen Clouds",
     "Im App Store live, einschließlich aller EU-Storefronts",
   ],
   pt: [
     "Sincroniza o Apple Saúde (HealthKit) e o anel Colmi via Bluetooth direto",
-    "Painel premium para passos, frequência cardíaca, sono, calorias, VO2 max",
+    "Painel premium para passos, frequência cardíaca, sono, calorias",
     "Mesh Família — monitora a saúde da família (passos, sono, atividade)",
     "Privacidade em primeiro lugar: servidores UE, RGPD, sem rastreadores ou nuvens opacas",
     "Ativo na App Store, incluindo todas as lojas da UE",
   ],
   fr: [
     "Synchronise Apple Santé (HealthKit) et la bague Colmi via Bluetooth direct",
-    "Tableau de bord premium pour les pas, la fréquence cardiaque, le sommeil, les calories, le VO2 max",
+    "Tableau de bord premium pour les pas, la fréquence cardiaque, le sommeil, les calories",
     "Family Mesh — suivez la santé de la famille (pas, sommeil, activité)",
     "Confidentialité avant tout : serveurs UE, RGPD, aucun tracker ni cloud opaque",
     "Active sur l'App Store, y compris dans toutes les boutiques de l'UE",
   ],
   pl: [
     "Synchronizuje Apple Zdrowie (HealthKit) i pierścień Colmi przez bezpośredni Bluetooth",
-    "Panel premium dla kroków, tętna, snu, kalorii, VO2 max",
+    "Panel premium dla kroków, tętna, snu, kalorii",
     "Mesh Rodzinny — monitoruje zdrowie rodziny (kroki, sen, aktywność)",
     "Prywatność przede wszystkim: serwery UE, RODO, brak trackerów i nieprzejrzystych chmur",
     "Dostępny w App Store, we wszystkich sklepach UE",
   ],
   tr: [
     "Apple Sağlık (HealthKit) ve Colmi Ring'i doğrudan Bluetooth ile senkronize eder",
-    "Adımlar, kalp atışı, uyku, kalori, VO2 max için premium pano",
+    "Adımlar, kalp atışı, uyku, kalori için premium pano",
     "Aile Mesh — aile sağlığını izler (adımlar, uyku, aktivite)",
     "Gizlilik öncelikli: AB sunucuları, GDPR, izleyici veya opak bulut yok",
     "AB dahil tüm mağazalarda App Store'da yayında",
   ],
   nl: [
     "Synchroniseert Apple Gezondheid (HealthKit) en de Colmi Ring via directe Bluetooth",
-    "Premium dashboard voor stappen, hartslag, slaap, calorieën, VO2 max",
+    "Premium dashboard voor stappen, hartslag, slaap, calorieën",
     "Family Mesh — houd de gezondheid van het gezin in de gaten (stappen, slaap, activiteit)",
     "Privacy-first: EU-servers, AVG, geen trackers of ondoorzichtige clouds",
     "Live in de App Store, inclusief alle EU-winkels",
   ],
   ja: [
     "Apple ヘルスケア（HealthKit）とColmi Ringを直接Bluetoothで同期",
-    "歩数、心拍数、睡眠、カロリー、VO2 maxのプレミアムダッシュボード",
+    "歩数、心拍数、睡眠、カロリーのプレミアムダッシュボード",
     "Family Mesh — 家族の健康を見守る（歩数、睡眠、活動量）",
     "プライバシーファースト：EUサーバー、GDPR準拠、トラッカーや不透明なクラウドなし",
     "EU域内を含む対応国のApp Storeで提供中",
   ],
   ko: [
     "Apple 건강(HealthKit)과 Colmi Ring을 직접 블루투스로 동기화",
-    "걸음 수, 심박수, 수면, 칼로리, VO2 max를 위한 프리미엄 대시보드",
+    "걸음 수, 심박수, 수면, 칼로리를 위한 프리미엄 대시보드",
     "Family Mesh — 가족 건강 모니터링 (걸음 수, 수면, 활동)",
     "개인정보 보호 최우선: EU 서버, GDPR, 트래커나 불투명한 클라우드 없음",
     "EU를 포함한 App Store에 출시",
   ],
   sv: [
     "Synkroniserar Apple Hälsa (HealthKit) och Colmi Ring via direkt Bluetooth",
-    "Premium dashboard för steg, puls, sömn, kalorier, VO2 max",
+    "Premium dashboard för steg, puls, sömn, kalorier",
     "Family Mesh — övervaka familjens hälsa (steg, sömn, aktivitet)",
     "Integritet först: EU-servrar, GDPR, inga spårare eller oklara moln",
     "Live i App Store, inklusive alla EU-butiker",
   ],
   da: [
     "Synkroniserer Apple Sundhed (HealthKit) og Colmi Ring via direkte Bluetooth",
-    "Premium dashboard til skridt, puls, søvn, kalorier, VO2 max",
+    "Premium dashboard til skridt, puls, søvn, kalorier",
     "Family Mesh — hold øje med familiens sundhed (skridt, søvn, aktivitet)",
     "Privatliv først: EU-servere, GDPR, ingen trackere eller uklare skyer",
     "Live i App Store, inklusive alle EU-butikker",
   ],
   no: [
     "Synkroniserer Apple Helse (HealthKit) og Colmi Ring via direkte Bluetooth",
-    "Premium dashbord for skritt, puls, søvn, kalorier, VO2 max",
+    "Premium dashbord for skritt, puls, søvn, kalorier",
     "Family Mesh — overvåk familiens helse (skritt, søvn, aktivitet)",
     "Personvern først: EU-servere, GDPR, ingen sporere eller uklare skyer",
     "Live i App Store, inkludert alle EU-butikker",
   ],
   fi: [
     "Synkronoi Apple Terveyden (HealthKit) ja Colmi Ringin suoralla Bluetooth-yhteydellä",
-    "Premium-koontinäyttö askelille, sykkeelle, unelle, kaloreille, VO2 maxille",
+    "Premium-koontinäyttö askelille, sykkeelle, unelle, kaloreille",
     "Family Mesh — seuraa perheen terveyttä (askeleet, uni, aktiivisuus)",
     "Yksityisyys edellä: EU-palvelimet, GDPR, ei seurantaa tai epämääräisiä pilviä",
     "Käytössä App Storessa, mukaan lukien kaikki EU-kaupat",

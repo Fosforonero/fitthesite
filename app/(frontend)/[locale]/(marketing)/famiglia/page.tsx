@@ -1361,9 +1361,9 @@ function ComingSoonState({
     ? {
         kicker: "Mesh Famiglia",
         h1: "In arrivo: la salute di tutta la famiglia, in un'unica dashboard",
-        sub: "Stiamo finendo Mesh Famiglia: crei un gruppo e ogni membro condivide con gli altri passi, sonno e frequenza cardiaca, tutto in un'unica dashboard. Niente posizione condivisa, niente pubblicità. Aprirà quando FitMesh Sync sarà disponibile su entrambi gli store (Android + iOS). Iscriviti alla waitlist per essere avvisato al lancio.",
+        sub: "Stiamo finendo Mesh Famiglia: crei un gruppo e ogni membro condivide con gli altri passi, sonno e frequenza cardiaca, tutto in un'unica dashboard. Niente posizione condivisa, niente pubblicità. Iscriviti alla waitlist per essere avvisato al lancio.",
         cta: "Iscriviti alla waitlist",
-        secondary: "Nel frattempo: scarica FitMesh Sync su Android",
+        secondary: "Nel frattempo: scarica FitMesh Sync su Android o iOS",
         why_h2: "Perché serve",
         why_items: [
           {
@@ -1380,15 +1380,15 @@ function ComingSoonState({
           },
         ],
         availability_h2: "Quando arriva",
-        availability_body: "Mesh Famiglia richiede l'app pubblicata su entrambi gli store per funzionare end-to-end (il familiare che inviti deve poter installare da Play Store o App Store). Android è già live in tutto il mondo; l'app iOS è live sull'App Store, disponibile in tutti i Paesi supportati, incluse le storefront UE. Rilascio Mesh Famiglia previsto quando entrambe le piattaforme sono in produzione.",
+        availability_body: "Mesh Famiglia richiede l'app pubblicata su entrambi gli store per funzionare end-to-end (il familiare che inviti deve poter installare da Play Store o App Store): condizione già soddisfatta, Android e iOS sono entrambi live, incluse le storefront UE. La feature è in sviluppo attivo, senza una data di rilascio confermata.",
       }
     : lc === "es"
     ? {
         kicker: "Mesh Familia",
         h1: "Próximamente: la salud de toda la familia, en un solo panel",
-        sub: "Estamos terminando Mesh Familia: creas un grupo y cada miembro comparte con los demás pasos, sueño y frecuencia cardíaca, todo en un único panel. Sin ubicación compartida, sin publicidad. Se lanzará cuando FitMesh Sync esté disponible en ambas tiendas (Android + iOS). Únete a la lista de espera para recibir aviso en el lanzamiento.",
+        sub: "Estamos terminando Mesh Familia: creas un grupo y cada miembro comparte con los demás pasos, sueño y frecuencia cardíaca, todo en un único panel. Sin ubicación compartida, sin publicidad. Únete a la lista de espera para recibir aviso en el lanzamiento.",
         cta: "Únete a la lista de espera",
-        secondary: "Mientras tanto: descarga FitMesh Sync en Android",
+        secondary: "Mientras tanto: descarga FitMesh Sync en Android o iOS",
         why_h2: "Por qué lo necesitas",
         why_items: [
           {
@@ -1405,14 +1405,14 @@ function ComingSoonState({
           },
         ],
         availability_h2: "Cuándo llega",
-        availability_body: "Mesh Familia requiere que la app esté publicada en ambas tiendas para funcionar de extremo a extremo (el familiar que invites debe poder instalarla desde Play Store o App Store). Android ya está disponible en todo el mundo; la app de iOS ya está disponible en la App Store, incluidas todas las tiendas de la Unión Europea. El lanzamiento de Mesh Familia está previsto cuando ambas plataformas estén en producción.",
+        availability_body: "Mesh Familia requiere que la app esté publicada en ambas tiendas para funcionar de extremo a extremo (el familiar que invites debe poder instalarla desde Play Store o App Store): esa condición ya se cumple, Android e iOS ya están disponibles, incluidas todas las tiendas de la Unión Europea. La función está en desarrollo activo, sin fecha de lanzamiento confirmada.",
       }
     : {
         kicker: "Family Mesh",
         h1: "Coming soon: your whole family's health, in one dashboard",
-        sub: "We're finishing Family Mesh: you create a group and every member shares steps, sleep, and heart rate with each other, all in one dashboard. No location sharing, no ads. It will launch once FitMesh Sync is available on both stores (Android + iOS). Join the waitlist to be notified at launch.",
+        sub: "We're finishing Family Mesh: you create a group and every member shares steps, sleep, and heart rate with each other, all in one dashboard. No location sharing, no ads. Join the waitlist to be notified at launch.",
         cta: "Join the waitlist",
-        secondary: "Meanwhile: download FitMesh Sync on Android",
+        secondary: "Meanwhile: download FitMesh Sync on Android or iOS",
         why_h2: "Why it matters",
         why_items: [
           {
@@ -1429,7 +1429,7 @@ function ComingSoonState({
           },
         ],
         availability_h2: "When it arrives",
-        availability_body: "Family Mesh requires the app published on both stores to work end-to-end (the family member you invite must be able to install from Play Store or App Store). Android is already live worldwide; the iOS app is live on the App Store, including all European Union storefronts. Family Mesh release planned once both platforms are in production.",
+        availability_body: "Family Mesh requires the app published on both stores to work end-to-end (the family member you invite must be able to install from Play Store or App Store): that condition is already met, Android and iOS are both live, including all European Union storefronts. The feature is in active development, with no confirmed release date.",
       };
 
   // FAQ: relocated verbatim from the full-mode COPY object (never rendered

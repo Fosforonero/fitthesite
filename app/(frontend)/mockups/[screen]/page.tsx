@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import {
@@ -22,8 +23,21 @@ import {
  * Accedi via /mockups/<screen>:
  *   /mockups/dashboard, /mockups/sync, /mockups/settings,
  *   /mockups/onboarding, /mockups/pairing, /mockups/integrations
+ *
+ * Sprint P0.6B: strumento interno per generare screenshot Play/App Store
+ * (via Playwright, vedi tools/screenshots.mjs) — non pensato per essere
+ * indicizzato. Già assente da app/sitemap.ts, ma non aveva mai avuto un
+ * robots noindex esplicito: una route statica raggiungibile e crawlabile
+ * per URL diretto, anche senza link in entrata. Il noindex qui sotto non
+ * sostituisce la correzione dei claim nel contenuto dei mockup stessi
+ * (vedi screens.tsx) — copre solo l'indicizzabilità della route.
  */
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  title: "Mockup: strumento interno",
+  robots: { index: false, follow: false },
+};
 
 const SCREENS = {
   dashboard: DashboardMockup,

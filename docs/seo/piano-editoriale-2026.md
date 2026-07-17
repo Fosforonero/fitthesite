@@ -64,3 +64,30 @@ Hub-and-spoke: 6 pillar che linkano i cluster.
 ## Per ogni articolo (checklist)
 EN/IT base → traduzione umanizzata (glossario) → FAQ → JSON-LD Article/FAQ → OG dedicato →
 hero image → internal link (home, dashboard, privacy, pillar, correlati) → IndexNow ping.
+
+## FitMesh Labs — categoria separata dagli articoli (nuovo, Sprint P1.0, 2026-07-16)
+
+`/labs` non è un articolo del piano editoriale sopra: è una nuova categoria
+di contenuto, calcolatori interattivi standalone (registry in
+`lib/labs/registry.ts`), non un pillar/cluster testuale. Regole proprie:
+- **Solo IT/EN** (non segue la sequenza lingue generale del piano sopra —
+  policy dedicata, non ancora estesa a ES/PT/DE/FR).
+- **Un solo tool live per ora**: calcolatore HRV RMSSD/SDNN
+  (`/it/labs/calcolatore-hrv-rmssd`, `/en/labs/hrv-rmssd-calculator`).
+  Sleep Efficiency e Heart Rate Zones registrati come "in preparazione"
+  (nessun URL, nessuna pagina vuota indicizzabile).
+  Vedi `docs/seo/seo-geo-master-plan.md` sezione "P1 — FitMesh Labs
+  foundation" per impatto/effort/dipendenze, e
+  `docs/seo/seo-results-log.md` sezione "Sprint P1.0" per lo stato di
+  verifica.
+- **Collegato al cluster HRV esistente** (pillar 5, "HRV & Recovery"):
+  link bidirezionale fra l'articolo `hrv-cose-significato-valori` (intento
+  informativo) e il calcolatore (intento operativo) — non duplica il
+  pillar, lo completa. Prossimo cluster HRV-depth (vedi gap #4 sopra) può
+  linkare il calcolatore allo stesso modo.
+- **Checklist propria** (diversa da quella articoli sopra, vedi Fase 4-8
+  dello sprint): risposta diretta + definizioni + formule + esempio
+  numerico + limiti + privacy + FAQ + fonti con PMID/DOI + citazione
+  strutturata + JSON-LD `@graph` unico (WebPage/WebApplication/
+  BreadcrumbList/FAQPage, mai `MedicalWebPage`) + guardrail dedicato
+  (`tools/check-labs-truth.ts`).

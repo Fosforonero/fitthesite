@@ -8,7 +8,7 @@
     "badge": "Beschikbaar op Android en iOS",
     "heading_1": "Één global dashboard",
     "heading_accent": "voor al je apparaten.",
-    "description": "Breng Galaxy Watch, Wear OS, Health Connect en cloudproviders samen in één overzicht. Stappen, slaap, hartslag, herstel en trends — zonder tussen apps te wisselen.",
+    "description": "Breng gezondheidsgegevens van Android-wearables via Health Connect en, op iPhone, van Apple Gezondheid en ondersteunde ringen samen in één overzicht. Stappen, slaap, hartslag, herstel en trends, zonder tussen apps te wisselen.",
     "cta_secondary": "Meer informatie",
     "pricing": "Eenmalig vanaf €3,99, of €1,19 per 6 maanden · veilige betaling"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "Stappen & afstand",
-        "desc": "Automatische synchronisatie met Health Connect en Samsung Health. Werkt op de achtergrond, ook als je telefoon vergrendeld is."
+        "desc": "Synchroniseert met Health Connect en Samsung Health. Best-effort achtergrondupdates op Android wanneer batterijoptimalisatie is uitgeschakeld; altijd actueel wanneer je de app opent."
       },
       {
-        "title": "Hartslag & VO₂ max",
+        "title": "Hartslag",
         "desc": "Dagelijks gemiddelde, min/max bereik, rusthartslag. Ontdek trends in je cardiovasculaire gezondheid over tijd."
       },
       {

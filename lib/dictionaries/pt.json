@@ -8,7 +8,7 @@
     "badge": "Disponível no Android e iOS",
     "heading_1": "Um painel global",
     "heading_accent": "para todos os seus dispositivos.",
-    "description": "Reúna Galaxy Watch, Wear OS, Health Connect e provedores na nuvem em uma só visualização. Passos, sono, frequência cardíaca, recuperação e tendências, sem precisar alternar entre diferentes apps.",
+    "description": "Reúna os dados de saúde dos wearables Android via Health Connect e, no iPhone, do Apple Saúde e dos anéis compatíveis, em uma só visualização. Passos, sono, frequência cardíaca, recuperação e tendências, sem precisar alternar entre diferentes apps.",
     "cta_secondary": "Saiba mais",
     "pricing": "Compra única a partir de €3,99, ou €1,19 a cada 6 meses · pagamento seguro"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "Passos e distância",
-        "desc": "Sincronização automática com Health Connect e Samsung Health. Também em segundo plano, mesmo com o celular bloqueado."
+        "desc": "Sincroniza com o Health Connect e o Samsung Health. Atualizações em segundo plano no Android quando a otimização de bateria está desativada (best-effort); sempre atualizado ao abrir o app."
       },
       {
-        "title": "Frequência cardíaca e VO₂ máx",
+        "title": "Frequência cardíaca",
         "desc": "Média diária, faixa mín/máx, frequência cardíaca em repouso. Acompanhe os padrões do seu coração ao longo do tempo."
       },
       {

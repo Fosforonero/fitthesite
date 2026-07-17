@@ -8,7 +8,7 @@
     "badge": "Disponible sur Android et iOS",
     "heading_1": "Un tableau de bord global",
     "heading_accent": "pour tous vos appareils.",
-    "description": "Réunissez Galaxy Watch, Wear OS, Health Connect et les fournisseurs cloud en une seule vue. Pas, sommeil, fréquence cardiaque, récupération et tendances, sans jongler entre plusieurs applications.",
+    "description": "Réunissez les données de santé des wearables Android via Health Connect et, sur iPhone, d'Apple Santé et des bagues compatibles, en une seule vue. Pas, sommeil, fréquence cardiaque, récupération et tendances, sans jongler entre plusieurs applications.",
     "cta_secondary": "Découvrir",
     "pricing": "Achat unique à partir de 3,99 €, ou 1,19 € tous les 6 mois · paiement sécurisé"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "Pas et distance",
-        "desc": "Synchronisation automatique avec Health Connect et Samsung Health. Également en arrière-plan, même lorsque le téléphone est verrouillé."
+        "desc": "Se synchronise avec Health Connect et Samsung Health. Mises à jour en arrière-plan sur Android en best-effort lorsque l'optimisation de la batterie est désactivée ; toujours à jour à l'ouverture de l'application."
       },
       {
-        "title": "Fréquence cardiaque et VO₂ max",
+        "title": "Fréquence cardiaque",
         "desc": "Moyenne journalière, plage min/max, fréquence cardiaque au repos. Observez les tendances de votre cœur au fil du temps."
       },
       {

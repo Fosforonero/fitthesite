@@ -5,15 +5,16 @@ import type { BlogPost } from "../types";
  * fitmesh-gratis-prezzo-founder), spiega perché muoversi ORA sul founder
  * conviene rispetto ad aspettare. Leva su meccanismo verificabile (grant
  * automatico lato server, tetto fisso 1000, protetto da ToS) invece che su
- * urgenza finta. Niente numero di posti rimasti hardcoded: rimanda al
- * conteggio live in /beta e nel banner home. it/en; gli altri locali si
- * aggiungono dopo.
+ * urgenza finta. Niente numero di posti rimasti hardcoded: il sito non
+ * pubblica più un conteggio pubblico dei posti occupati (rimosso, Hotfix
+ * P0.6C, perché non riconciliato con i grant realmente assegnati). it/en;
+ * gli altri locali si aggiungono dopo.
  */
 export const post: BlogPost = {
   slug: "perche-diventare-founder-fitmesh",
   category: "guides",
   publishedAt: "2026-07-04",
-  updatedAt: "2026-07-04",
+  updatedAt: "2026-07-17",
   readMinutes: 7,
   hero: {
     kicker: { it: "Programma founder", en: "Founder program" },
@@ -60,14 +61,14 @@ export const post: BlogPost = {
       "Il tetto di 1000 è fisso e applicato dal server, non da un contatore di marketing: una volta raggiunto, l'assegnazione si ferma da sola e non riparte.",
       "Lo status founder è scritto nei Termini di servizio: non dipende da recensioni, non è revocabile se non per violazione dei Termini, e resta valido per tutta la durata del servizio.",
       "Chi arriva dopo i 1000 ha comunque 14 giorni di prova completa, ma alla fine sceglie tra un abbonamento leggero o uno sblocco a vita a pagamento, a un prezzo che può salire in futuro.",
-      "Il numero esatto di posti rimasti cambia in continuazione: si vede in tempo reale nel banner in home o nella pagina /beta, non lo trovi scritto qui.",
+      "Il numero esatto di posti rimasti non è più mostrato pubblicamente: per sapere se sei tra i primi 1000, controlla la schermata Pro nell'app dopo la registrazione.",
     ],
     en: [
       "The first 1,000 accounts created get lifetime Pro for free, automatically, the moment the profile is registered: no review needed, nothing to do beyond signing up.",
       "The 1,000 cap is fixed and enforced by the server, not a marketing counter: once it's reached, the grant stops itself and doesn't resume.",
       "Founder status is written into the Terms of Service: it doesn't depend on reviews, it can't be revoked except for a Terms violation, and it stays valid for the entire life of the service.",
       "Anyone arriving after the 1,000 still gets a full 14-day trial, but at the end has to choose between a light subscription or a paid lifetime unlock, at a price that may rise later.",
-      "The exact number of remaining spots keeps changing: you can see it live on the homepage banner or the /beta page, it isn't printed here.",
+      "The exact number of remaining spots is no longer shown publicly: to check whether you made it into the first 1,000, look at the Pro screen in the app after signing up.",
     ],
   },
   body: [
@@ -83,8 +84,8 @@ export const post: BlogPost = {
       variant: "info",
       title: { it: "Risposta rapida", en: "Quick answer" },
       body: {
-        it: "I primi 1000 account registrati su FitMesh ricevono il Pro a vita gratis, assegnato in automatico dal server al momento della registrazione, senza revisione né acquisto. Il tetto è fisso: una volta esaurito, chi arriva dopo ha 14 giorni di prova completa e poi sceglie tra abbonamento o sblocco a vita a pagamento. Lo status founder è protetto dai Termini di servizio e non è revocabile salvo violazioni. Il conteggio dei posti rimasti è live nel banner in home e nella pagina /beta.",
-        en: "The first 1,000 accounts registered on FitMesh get lifetime Pro for free, granted automatically by the server at sign-up, with no review and nothing to buy. The cap is fixed: once it's used up, anyone arriving after gets a full 14-day trial and then chooses between a subscription or a paid lifetime unlock. Founder status is protected by the Terms of Service and can't be revoked except for violations. The remaining-spots count is live on the homepage banner and the /beta page.",
+        it: "I primi 1000 account registrati su FitMesh ricevono il Pro a vita gratis, assegnato in automatico dal server al momento della registrazione, senza revisione né acquisto. Il tetto è fisso: una volta esaurito, chi arriva dopo ha 14 giorni di prova completa e poi sceglie tra abbonamento o sblocco a vita a pagamento. Lo status founder è protetto dai Termini di servizio e non è revocabile salvo violazioni. Il sito non mostra più un conteggio pubblico dei posti rimasti: controlla la schermata Pro nell'app per sapere se il tuo account è tra i primi 1000.",
+        en: "The first 1,000 accounts registered on FitMesh get lifetime Pro for free, granted automatically by the server at sign-up, with no review and nothing to buy. The cap is fixed: once it's used up, anyone arriving after gets a full 14-day trial and then chooses between a subscription or a paid lifetime unlock. Founder status is protected by the Terms of Service and can't be revoked except for violations. The website no longer shows a public count of remaining spots: check the Pro screen in the app to see whether your account made it into the first 1,000.",
       },
     },
     {
@@ -169,15 +170,15 @@ export const post: BlogPost = {
       type: "heading",
       level: 2,
       text: {
-        it: "Perché non trovi scritto qui quanti posti restano",
-        en: "Why you won't find the remaining spot count printed here",
+        it: "Perché non troverai un conteggio dei posti rimasti",
+        en: "Why there's no remaining-spot count to show",
       },
     },
     {
       type: "paragraph",
       text: {
-        it: "Potresti aspettarti un numero preciso: \"restano X posti founder\". Non lo scriviamo apposta, perché sarebbe sbagliato nel momento stesso in cui lo pubblichiamo: il conteggio cambia a ogni nuova registrazione, e un numero fisso in un articolo diventa vecchio in poche ore. Il conteggio vero, aggiornato in tempo reale, è mostrato nel banner in home di FitMesh e nella pagina della beta: lì vedi esattamente quanti posti restano sui 1000 totali, calcolati sullo stesso meccanismo che assegna il Pro, non su una stima di marketing separata.",
-        en: "You might expect an exact number here: \"X founder spots left\". We deliberately don't print one, because it would be wrong the moment we publish it: the count changes with every new sign-up, and a fixed number in an article goes stale within hours. The real, live count is shown on FitMesh's homepage banner and on the beta page: there you can see exactly how many spots remain out of the 1,000 total, calculated from the same mechanism that grants Pro, not from a separate marketing estimate.",
+        it: "Potresti aspettarti un numero preciso: \"restano X posti founder\". Non lo pubblichiamo: un contatore pubblico che avevamo mostrato in home e nella pagina beta è stato rimosso perché il conteggio non era riconciliato con i grant realmente assegnati in produzione. Finché quella verifica non sarà completata, l'unico modo affidabile per sapere se il tuo account è tra i primi 1000 è controllare la schermata Pro nell'app dopo la registrazione: se il grant è attivo, vedi \"Founder · Pro · Lifetime\".",
+        en: "You might expect an exact number here: \"X founder spots left\". We don't publish one: a public counter we used to show on the homepage and the beta page has been removed because the count wasn't reconciled against the grants actually issued in production. Until that verification is complete, the only reliable way to know whether your account made it into the first 1,000 is to check the Pro screen in the app after signing up: if the grant is active, you'll see \"Founder · Pro · Lifetime\".",
       },
     },
     {
@@ -194,8 +195,8 @@ export const post: BlogPost = {
         en: "Claim your founder spot before the 1,000 run out",
       },
       body: {
-        it: "Pro a vita, gratis, assegnato in automatico appena crei l'account. Guarda il conteggio live dei posti rimasti nella pagina beta e registrati in un minuto, senza carta di credito.",
-        en: "Lifetime Pro, free, granted automatically the moment you create your account. Check the live count of remaining spots on the beta page and sign up in under a minute, no credit card needed.",
+        it: "Pro a vita, gratis, assegnato in automatico appena crei l'account. Registrati in un minuto, senza carta di credito, poi controlla la schermata Pro nell'app per sapere se sei tra i primi 1000.",
+        en: "Lifetime Pro, free, granted automatically the moment you create your account. Sign up in under a minute, no credit card needed, then check the Pro screen in the app to see if you made it into the first 1,000.",
       },
       ctaLabel: { it: "Vai alla pagina beta →", en: "Go to the beta page →" },
       ctaHref: { it: "/it/beta", en: "/en/beta" },
@@ -226,8 +227,8 @@ export const post: BlogPost = {
     {
       q: { it: "Quanti posti founder restano adesso?", en: "How many founder spots are left right now?" },
       a: {
-        it: "Non lo pubblichiamo qui perché cambia continuamente: trovi il conteggio aggiornato in tempo reale nel banner in home di FitMesh e nella pagina beta.",
-        en: "We don't publish it here because it keeps changing: you'll find the live, up-to-date count on FitMesh's homepage banner and on the beta page.",
+        it: "Non lo pubblichiamo: il contatore pubblico che mostravamo qui e in home è stato rimosso perché non era riconciliato con i grant realmente assegnati. Controlla la schermata Pro nell'app per sapere se il tuo account rientra nei primi 1000.",
+        en: "We don't publish it: the public counter we used to show here and on the homepage has been removed because it wasn't reconciled against the grants actually issued. Check the Pro screen in the app to see if your account made it into the first 1,000.",
       },
     },
     {

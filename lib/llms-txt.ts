@@ -17,6 +17,7 @@ import {
   ROADMAP_PROVIDERS_IOS,
   ANDROID_PACKAGE,
 } from "@/lib/product-facts";
+import { liveLabsTools, localizedLabsSlug } from "@/lib/labs/registry";
 
 const IT = (path: string) => `${SITE_URL}/it${path}`;
 
@@ -45,6 +46,18 @@ export function generateLlmsTxt(): string {
   lines.push(`- [Roadmap](${IT("/roadmap")}): public roadmap with shipped and upcoming features`);
   lines.push("");
 
+  lines.push("## FitMesh Labs — free calculation tools");
+  lines.push(
+    "Independent, standalone calculators for health/fitness metrics — not tied to a FitMesh account, all computation runs client-side in the browser, no data is ever sent to a server. Available in Italian and English only.",
+  );
+  lines.push(`- [FitMesh Labs index](${IT("/labs")}): mission, privacy model, tool list`);
+  for (const tool of liveLabsTools()) {
+    lines.push(
+      `- [${tool.name.en}](${SITE_URL}/en/labs/${localizedLabsSlug(tool, "en")}): ${tool.shortDescription.en}`,
+    );
+  }
+  lines.push("");
+
   lines.push("## Family / caregiver use case (Mesh Famiglia)");
   lines.push(`- [Mesh Famiglia landing IT](${IT("/famiglia")}): family health monitoring, privacy controls, pricing`);
   lines.push(`- [Family Mesh landing EN](${SITE_URL}/en/famiglia): same in English`);
@@ -55,7 +68,7 @@ export function generateLlmsTxt(): string {
 
   lines.push("## Founder pricing promotion");
   lines.push(
-    `- [Founder signup](${IT("/beta")}): first ${FOUNDER_PROGRAM.totalSeats} accounts get ${FOUNDER_PROGRAM.benefit}. Public, open signup — no invite required, no access gate. Live remaining-seat count is shown on the page (not reproduced here — it changes continuously).`,
+    `- [Founder signup](${IT("/beta")}): first ${FOUNDER_PROGRAM.totalSeats} accounts get ${FOUNDER_PROGRAM.benefit}. Public, open signup — no invite required, no access gate. The site does not display a public remaining-seat count (the figure was not reconciled against actual grants); check the app's Pro screen to confirm your own Founder status.`,
   );
   lines.push("");
 
@@ -63,9 +76,9 @@ export function generateLlmsTxt(): string {
   lines.push(
     "Landing pages with setup instructions, FAQ, and HowTo schema per wearable brand:",
   );
-  lines.push(`- [Samsung Galaxy Watch](${IT("/sync/samsung-health")})`);
-  lines.push(`- [Pixel Watch / Wear OS](${IT("/sync/google-fit")})`);
-  lines.push(`- [Xiaomi Mi Band / Smart Band](${IT("/sync/mi-fitness")})`);
+  lines.push(`- [Samsung Galaxy Watch](${IT("/sync/galaxy-watch")})`);
+  lines.push(`- [Pixel Watch / Wear OS](${IT("/sync/wear-os")})`);
+  lines.push(`- [Xiaomi Mi Band / Smart Band](${IT("/sync/xiaomi-mi-band")})`);
   lines.push(`- [Garmin Connect](${IT("/sync/garmin")})`);
   lines.push(`- [Fitbit](${IT("/sync/fitbit")})`);
   lines.push(`- [Polar Flow](${IT("/sync/polar")})`);

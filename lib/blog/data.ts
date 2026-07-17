@@ -69,6 +69,14 @@ import { post as datiPixelWatchDashboard } from "./posts/dati-pixel-watch-dashbo
 // Huawei Health integration guide
 import { post as huaweiHealthHealthConnect } from "./posts/huawei-health-health-connect-sincronizzazione";
 // Garmin Body Battery / Health Connect gap
+// REWRITTEN 2026-07-15 (Sprint P0.6A): the original article's core premise
+// ("FitMesh Pro offers a direct Garmin OAuth connection for Body Battery/
+// stress/VO2 max") did not exist in the app and was unpublished 2026-07-14.
+// Rewritten to describe reality: Garmin's basic metrics (steps/HR/sleep/
+// calories/SpO2/workouts) reach FitMesh via the generic Health Connect
+// bridge; Body Battery/stress/VO2 max reach neither Health Connect nor
+// FitMesh, since Garmin doesn't export them and FitMesh has no direct
+// Garmin OAuth connection. Same slug/canonical/publishedAt preserved.
 import { post as garminBodyBatteryHealthConnect } from "./posts/garmin-body-battery-health-connect";
 // SEO wave 21/06
 import { post as polarHealthConnectSync } from "./posts/polar-health-connect-sync";

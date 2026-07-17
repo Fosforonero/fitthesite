@@ -115,7 +115,7 @@
     ],
     "body.2.items": [
       "**Instala FitMesh Sync en el iPhone**: concede los permisos de HealthKit para los tipos de datos que quieras sincronizar.",
-      "**Sincronización automática en segundo plano**: FitMesh lee los datos de Apple Health y los envía al panel en la nube sin que tengas que hacer nada.",
+      "**Sincronización al abrir la app**: FitMesh lee los datos de Apple Health y los envía al panel en la nube cuando abres la app; iOS no permite hoy una sincronización periódica en segundo plano.",
       "**Accede al panel desde cualquier navegador**: misma cuenta, mismos datos, desde PC, tablet o móvil.",
       "**Multi-wearable unificado**: Apple Watch, Garmin, Oura, Fitbit, si escriben en Apple Health, FitMesh los agrupa todos juntos."
     ],
@@ -135,7 +135,7 @@
     "metaDescription": "Copia de seguridad automática de los datos de tu Galaxy Watch en un panel que es tuyo, sin Samsung Cloud. Configuración en 30 segundos con Health Connect. Privacidad ante todo.",
     "primaryKeyword": "copia de seguridad galaxy watch",
     "body.0.text": "Galaxy Watch es estupendo, Samsung Health es muy completo, pero si quieres sacar tus datos de Samsung Cloud (para archivarlos, analizarlos en el PC o comparar entre años), el camino nativo es engorroso. Abres la aplicación, vas a los ajustes, descargas la exportación, esperas el correo, lo descomprimes e importas a Excel. Cada vez, sin falta.",
-    "body.1.text": "FitMesh Sync es el camino automático. Instala la aplicación Android, concede el permiso de Health Connect y, a partir de ahí, los datos de tu Galaxy Watch se reflejan en un panel web que puedes abrir desde cualquier navegador. Sincronización automática cada 15 minutos, cero trabajo manual.",
+    "body.1.text": "FitMesh Sync es el camino automático. Instala la aplicación Android, concede el permiso de Health Connect y, a partir de ahí, los datos de tu Galaxy Watch se reflejan en un panel web que puedes abrir desde cualquier navegador. Se sincroniza cuando abres la app, y en segundo plano cada 15-30 minutos aproximadamente si desactivas la optimización de batería (el sistema puede retrasarlo igualmente).",
     "body.2.text": "Qué se guarda",
     "body.4.text": "Configuración en 3 pasos",
     "body.6.title": "Sin dependencia de Samsung Cloud",
@@ -163,8 +163,7 @@
       "Entrenamientos con tipo, duración, kcal y frecuencia cardiaca media",
       "Calorías activas y basales",
       "Distancia",
-      "SpO₂ (si tu reloj lo mide)",
-      "VO₂ max (cuando se mide)"
+      "SpO₂ (si tu reloj lo mide)"
     ],
     "body.5.items": [
       "Instala FitMesh Sync desde Play Store e inicia sesión con Google.",
@@ -214,15 +213,15 @@
       "panel de salud multi-dispositivo"
     ],
     "body.3.items": [
-      "**Una cuenta, dos apps**: la misma cuenta de FitMesh funciona en Android y iPhone. Sin perfiles separados ni sincronización manual: el panel web siempre muestra los datos más recientes, desde cualquier dispositivo.",
-      "**Android: lectura nativa desde Health Connect**: en Android, FitMesh lee los datos de Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit y cualquier app que escriba en Health Connect. Los datos se actualizan automáticamente en segundo plano.",
+      "**Una cuenta, dos apps**: la misma cuenta de FitMesh funciona en Android y iPhone. Sin perfiles separados ni sincronización manual: el panel web muestra los datos de la última sincronización, desde cualquier dispositivo.",
+      "**Android: lectura nativa desde Health Connect**: en Android, FitMesh lee los datos de Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit y cualquier app que escriba en Health Connect. Los datos se actualizan al abrir la app, y en segundo plano cada 15-30 minutos aproximadamente si desactivas la optimización de batería (el sistema puede retrasarlo igualmente).",
       "**iOS: lectura nativa desde Apple Health (HealthKit)**: en el iPhone, FitMesh accede a Apple Health con los permisos que elijas. Lee lo que Apple Health ya recopila: pasos del iPhone, datos del Apple Watch y cualquier app autorizada.",
       "**Anillo Colmi en ambas plataformas**: el anillo inteligente Colmi se conecta por Bluetooth a la app de FitMesh, tanto en Android como en iPhone. Los datos (sueño con fases, pasos, frecuencia cardiaca) se sincronizan con tu cuenta en la nube y, en iOS, se escriben en Apple Health.",
       "**Nube en la UE, GDPR**: todos los datos se almacenan en servidores de la UE (Fráncfort). Cifrado en tránsito y en reposo, Row Level Security, eliminación completa de la cuenta bajo demanda."
     ],
     "body.8.items": [
       "**No escribe en Health Connect**: la escritura en Health Connect (Android) está en la hoja de ruta, pero todavía no está disponible. Hoy FitMesh lee de Health Connect, no escribe en él.",
-      "**La sincronización en iOS no es en tiempo real**: en el iPhone, la sincronización en segundo plano es periódica (aproximadamente cada 15-30 minutos), según lo impuesto por el sistema operativo iOS. No esperes actualizaciones segundo a segundo."
+      "**La sincronización en iPhone solo ocurre cuando abres la app**: iOS no permite hoy una actualización periódica en segundo plano. No esperes datos en tiempo real si la app permanece cerrada."
     ],
     "body.10.headers": [
       "Función",
@@ -295,7 +294,7 @@
     ],
     "body.2.items": [
       "Panel web sencillo accesible desde PC, tablet y móvil",
-      "Sincronización automática a través de Health Connect (Fitbit app → HC → FitMesh)",
+      "Sincronización periódica a través de Health Connect (Fitbit app → HC → FitMesh), al abrir la app o en segundo plano best-effort",
       "Historial almacenado en nuestro backend de la UE (Fráncfort)",
       "Exportación de datos CSV/JSON cuando quieras",
       "Sin Fitbit Premium, sin suscripción a FitMesh",
@@ -345,12 +344,12 @@
     "primaryKeyword": "sincronizar datos de oura ring",
     "body.0.text": "Oura Ring encanta a atletas, biohackers y a cualquiera que quiera controlar el sueño y la recuperación con discreción: sin pantalla, sin notificaciones, solo sensores. El problema clásico: los datos de Oura se quedan en la app de Oura y en la nube de Oura. Si quieres verlos en un PC, compararlos con los datos de tu Galaxy Watch o tener una copia de seguridad independiente, no hay opciones nativas sencillas.",
     "body.1.text": "Cómo funciona hoy: Oura → Health Connect → FitMesh",
-    "body.2.text": "La app de Oura en Android escribe algunos datos en Health Connect: pasos, calorías, sueño (duración total y fases básicas). FitMesh lee de Health Connect, así que recibe estos datos automáticamente en cuanto se configura la conexión.",
+    "body.2.text": "La app de Oura en Android escribe algunos datos en Health Connect: pasos, calorías, sueño (duración total y fases básicas). FitMesh lee de Health Connect al abrir la app, y en segundo plano cada 15-30 minutos aproximadamente si desactivas la optimización de batería.",
     "body.4.text": "Configuración en 4 pasos",
     "body.6.title": "Multi-wearable: Oura y Galaxy Watch juntos",
     "body.6.body": "Muchas personas usan Oura por la noche (para el sueño y la recuperación) y un Galaxy Watch o Garmin durante el día (para el deporte y las notificaciones). FitMesh unifica ambos en un solo panel: tu Oura Readiness Score (cuando esté disponible vía API) junto a los pasos y entrenamientos del Watch.",
     "body.7.title": "Mantén tus datos de Oura en una plataforma que controlas tú",
-    "body.7.body": "1000 plazas de fundador: Pro de por vida gratis. App de Android y panel web. Sincronización automática desde Oura vía Health Connect, hoja de ruta de la API de Oura para métricas avanzadas.",
+    "body.7.body": "1000 plazas de fundador: Pro de por vida gratis. App de Android y panel web. Sincronización periódica desde Oura vía Health Connect (al abrir la app, o en segundo plano best-effort), hoja de ruta de la API de Oura para métricas avanzadas.",
     "body.7.ctaLabel": "Únete a la beta →",
     "faq.0.q": "¿Veré el Readiness Score de Oura?",
     "faq.0.a": "Todavía no: el Readiness Score es una métrica propietaria de Oura que no se expone a través de Health Connect. Está en la hoja de ruta con la integración OAuth de la API de Oura. Hoy, vía HC, ves el sueño con fases, los pasos y las calorías.",
@@ -385,12 +384,12 @@
     "primaryKeyword": "exportar datos de polar flow",
     "body.0.text": "Polar tiene una larga trayectoria en el deporte de resistencia: monitores de frecuencia cardíaca, GPS para ciclismo y running, análisis de carga de entrenamiento. El problema es el mismo que en muchas marcas deportivas: los datos viven solo en Polar Flow. Si además tienes un Galaxy Watch para el uso diario, o quieres reunir todos tus datos en un mismo lugar en el PC, Polar no te ayuda de forma nativa.",
     "body.1.text": "Cómo funciona hoy: Polar → Health Connect → FitMesh",
-    "body.2.text": "La app Polar Flow en Android sincroniza pasos, frecuencia cardíaca y entrenamientos con Health Connect. FitMesh lee de Health Connect, así que recibe estos datos automáticamente.",
+    "body.2.text": "La app Polar Flow en Android sincroniza pasos, frecuencia cardíaca y entrenamientos con Health Connect. FitMesh lee de Health Connect al abrir la app, y en segundo plano cada 15-30 minutos aproximadamente si desactivas la optimización de batería.",
     "body.4.text": "Quién se beneficia más de esta integración",
     "body.6.title": "La API Polar Accesslink está en la hoja de ruta",
     "body.6.body": "Las métricas avanzadas de Polar (Training Load, Nightly Recharge, Recovery Pro) no pasan por Health Connect: son propietarias. La integración vía la API Polar Accesslink está en la hoja de ruta del cuarto trimestre de 2026, sujeta a la aprobación del Polar Developer Program.",
     "body.7.title": "Tus datos de Polar en un panel que controlas tú",
-    "body.7.body": "1000 plazas de fundador: Pro de por vida gratis. App de Android y panel web. Sincronización automática desde Polar Flow vía Health Connect.",
+    "body.7.body": "1000 plazas de fundador: Pro de por vida gratis. App de Android y panel web. Sincronización periódica desde Polar Flow vía Health Connect (al abrir la app, o en segundo plano best-effort).",
     "body.7.ctaLabel": "Únete a la beta →",
     "faq.0.q": "¿Qué dispositivos Polar son compatibles?",
     "faq.0.a": "Todos los dispositivos Polar compatibles con la app Polar Flow en Android: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite y modelos anteriores. El único requisito es que la sincronización se realice a través de la app Polar Flow para Android con Health Connect activado.",

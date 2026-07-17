@@ -8,7 +8,7 @@
     "badge": "Saatavilla Androidille ja iOS:lle",
     "heading_1": "Yksi globaali yhteenveto",
     "heading_accent": "kaikille laitteillesi.",
-    "description": "Koko Galaxy Watch, Wear OS, Health Connect ja pilvipalveluntarjoajien tiedot yhdestä näkymästä. Askeleet, uni, syke, palautuminen ja kehitys ilman sovellusten välillä hylkäämistä.",
+    "description": "Kokoa terveystiedot Android-puettavista laitteista Health Connectin kautta ja, iPhonessa, Apple Terveydestä ja tuetuista sormuksista, yhteen näkymään. Askeleet, uni, syke, palautuminen ja kehitys ilman sovellusten välillä hyppäämistä.",
     "cta_secondary": "Lue lisää",
     "pricing": "Yksi kerta €3.99, tai €1.19 joka kuusi kuukautta · turvallinen maksu"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "Askeleet & etäisyys",
-        "desc": "Automaattinen synkronointi Health Connect ja Samsung Health kanssa. Toimii taustalla, vaikka puhelimesi olisi lukittu."
+        "desc": "Synkronoi Health Connectin ja Samsung Healthin kanssa. Parhaan kykynsä mukaiset taustapäivitykset Androidilla, kun akun optimointi on poistettu käytöstä; aina ajan tasalla, kun avaat sovelluksen."
       },
       {
-        "title": "Syke & VO₂ max",
+        "title": "Syke",
         "desc": "Päivittäinen keskiarvo, min/max-alue, lepopulsseihin. Havaitse kehitysiä kardiologisessa terveydessä ajan myötä."
       },
       {

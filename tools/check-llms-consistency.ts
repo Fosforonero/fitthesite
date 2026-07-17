@@ -22,18 +22,27 @@
  * TestFlight, minOS superato, claim "scriverà su Apple Salute" non
  * verificato).
  *
- * Uso (Docker, nessun runtime locale):
- *   docker run --rm -v "$PWD":/app -w /app node:22 npx -y tsx tools/check-llms-consistency.ts
+ * Uso ufficiale (Sprint P0.6B): `tsx` è una devDependency reale del progetto,
+ * quindi il comando gira con `pnpm` puro, senza `pnpm dlx` né installazioni
+ * temporanee:
+ *   pnpm run seo:truth-check
+ * In Docker (nessun runtime locale sull'host):
+ *   docker run --rm -v "$PWD":/app -w /app node:22 sh -c "corepack enable && pnpm install --frozen-lockfile --silent && pnpm run seo:truth-check"
+ * Nota storica: `npx -y tsx ...` e persino `pnpm dlx tsx ...` sono entrambi
+ * inaffidabili in questo repo (un conflitto locale npm/pnpm su `npx` lo rompe
+ * del tutto); da qui la scelta di renderlo uno script package.json vero.
  */
 import fs from "node:fs";
 import path from "node:path";
 import { generateLlmsTxt } from "../lib/llms-txt";
 import {
+  SITE_URL,
   PLAY_STORE_URL,
   AVAILABILITY,
   FOUNDER_PROGRAM,
   PRICING_FACTS,
   appOffers,
+  CAPABILITY_STATUS,
 } from "../lib/product-facts";
 import { mobileApplicationJsonLdData } from "../components/seo/MobileApplicationJsonLd";
 import { schemaLanguage } from "../lib/seo/schema-language";
@@ -494,6 +503,409 @@ for (const file of filesToScan) {
         problems.push(`[unverified-destination-live scan] ${rel} describes "${dest}" as live/available near "${windowText.replace(/\s+/g, " ").slice(0, 100)}..." — this destination is wired in app code but not verified end-to-end on a physical device (see docs/seo/capability-promotion-checklist.md), must read as in-development, not live.`);
       }
     }
+  }
+}
+
+// ── Sprint P06 Truth Sync — file extra non coperti da SCAN_DIRS ────────────
+// filesToScan (sezione 6) copre già lib/blog/posts, lib/landing,
+// lib/providers (data.ts + models.ts), lib/content e la roadmap sotto
+// app/(frontend)/[locale]/(marketing) — ma NON lib/product-facts.ts e
+// lib/llms-txt.ts (file singoli, non dentro una delle SCAN_DIRS) né
+// lib/blog/nordic-overlay.json (dentro lib/blog/, non lib/blog/posts/, ed è
+// .json non .ts/.tsx quindi fuori da SCAN_EXTENSIONS). Le sezioni 9-12 sotto
+// devono scandire anche questi tre file esplicitamente, quindi si estende
+// filesToScan con un elenco ad-hoc invece di allargare SCAN_DIRS/SCAN_EXTENSIONS
+// (che restano quelli usati dalle sezioni 6-8 sopra).
+const EXTRA_SCAN_FILES = [
+  path.join(repoRoot, "lib/product-facts.ts"),
+  path.join(repoRoot, "lib/llms-txt.ts"),
+  path.join(repoRoot, "lib/blog/nordic-overlay.json"),
+].filter((f) => fs.existsSync(f));
+const filesToScanWithExtras = [...filesToScan, ...EXTRA_SCAN_FILES];
+
+// ── 9. VO2 max ban (legge dalla capability truth layer) ────────────────────
+// Lo stato reale vive in lib/product-facts.ts (CAPABILITY_STATUS.vo2max), non
+// hardcodato qui: se un giorno Build 189/190 verifica che health espone
+// VO2_MAX E health_repository.dart lo legge davvero, si aggiorna lo stato a
+// "live_verified" in product-facts.ts e questo guardrail si sblocca da solo,
+// senza toccare lo script. Oggi lo stato è "unsupported" (vedi il commento
+// nella truth layer per l'evidenza).
+//
+// NON deve bloccare menzioni educative/generiche di VO2 max che non
+// affermano una capacità di FitMesh — es. lib/blog/posts/vo2-max-wearable-
+// comparison-2026.ts spiega cos'è il VO2 max e come lo stimano Garmin/Polar/
+// Apple Watch, e dichiara esplicitamente "FitMesh does not read or display
+// this value today" / "Il VO2 Max non viene letto da FitMesh oggi" —
+// negazioni corrette, non claim, sia in forma attiva ("FitMesh legge/reads")
+// sia passiva ("letto da FitMesh"/"read by FitMesh").
+//
+// Bug corretto in questo sprint: il controllo precedente cercava un verbo di
+// capacità ("FitMesh legge"/"FitMesh reads") in TUTTA una finestra di 150
+// caratteri attorno al termine VO2 max, quindi un vero claim su un'altra
+// capacità (es. "FitMesh legge i tuoi allenamenti Polar da Health Connect")
+// veniva scambiato per un claim sul VO2 max solo perché una frase onesta
+// successiva ("Il VO2 Max non viene letto da FitMesh oggi") cadeva nella
+// stessa finestra. Fix: il match di capacità deve stare nella STESSA frase
+// del termine VO2 max (nessun punto/esclamativo/interrogativo tra i due),
+// stesso principio già usato dallo scanner Strava-roadmap più sotto in
+// questo file ("se c'è un punto fermo tra i due, sono frasi diverse").
+const VO2_RE = /VO2\s*max|VO₂\s*max|VO2max/gi;
+const VO2_PROXIMITY_WINDOW = 150;
+const VO2_CAPABILITY_ACTIVE_RE = /\bFitMesh\b([^.?!]{0,40}?)\b(reads|legge|shows|mostra|displays|visualizza|imports|importa|tracks|sincronizza|syncs)\b/gi;
+const VO2_CAPABILITY_PASSIVE_RE = /\b(letto|letta|mostrato|mostrata|visualizzato|visualizzata|sincronizzato|sincronizzata|importato|importata|read|shown|displayed|imported|synced)\b([^.?!]{0,40}?)\bFitMesh\b/gi;
+const VO2_NEGATION_RE = /\bnon\b|\bnot\b|\bnever\b|\bmai\b|n't\b|\bdoesn't\b|\bdoes not\b/i;
+
+if (CAPABILITY_STATUS.vo2max?.status !== "live_verified") {
+  for (const file of filesToScanWithExtras) {
+    const content = fs.readFileSync(file, "utf-8");
+    const rel = path.relative(repoRoot, file);
+
+    let vo2Match: RegExpExecArray | null;
+    VO2_RE.lastIndex = 0;
+    while ((vo2Match = VO2_RE.exec(content)) !== null) {
+      const windowStart = Math.max(0, vo2Match.index - VO2_PROXIMITY_WINDOW);
+      const windowEnd = Math.min(content.length, vo2Match.index + vo2Match[0].length + VO2_PROXIMITY_WINDOW);
+      const window = content.slice(windowStart, windowEnd);
+      const vo2StartInWindow = vo2Match.index - windowStart;
+      const vo2EndInWindow = vo2StartInWindow + vo2Match[0].length;
+
+      // Testo tra il match di capacità e il termine VO2 max (in entrambe le
+      // direzioni) — usato sia per il controllo "stessa frase" sia per
+      // cercare una negazione OVUNQUE in quel tratto, non solo subito prima
+      // del verbo. Bug corretto in questo sprint: una frase come "FitMesh
+      // legge esclusivamente quello che arriva in Health Connect, quindi
+      // non riceve Body Battery, stress o VO2 max" ha un verbo di capacità
+      // reale ("FitMesh legge", su Health Connect in generale) seguito più
+      // avanti — nella STESSA frase — da una negazione ("non riceve") che
+      // nega specificamente il VO2 max. Un controllo solo sul testo subito
+      // prima del verbo non la vede; un controllo sull'intero tratto sì.
+      const betweenText = (matchIndex: number, matchLength: number) =>
+        matchIndex + matchLength <= vo2StartInWindow
+          ? window.slice(matchIndex + matchLength, vo2StartInWindow)
+          : window.slice(vo2EndInWindow, matchIndex);
+
+      const sameSentence = (matchIndex: number, matchLength: number) =>
+        !/[.!?]/.test(betweenText(matchIndex, matchLength));
+
+      let found = false;
+
+      let capMatch: RegExpExecArray | null;
+      VO2_CAPABILITY_ACTIVE_RE.lastIndex = 0;
+      while (!found && (capMatch = VO2_CAPABILITY_ACTIVE_RE.exec(window)) !== null) {
+        if (VO2_NEGATION_RE.test(capMatch[1])) continue; // "FitMesh non legge/does not read" — negazione corretta
+        if (!sameSentence(capMatch.index, capMatch[0].length)) continue; // capacità menzionata in un'altra frase
+        if (VO2_NEGATION_RE.test(betweenText(capMatch.index, capMatch[0].length))) continue; // negazione più avanti nella stessa frase ("...quindi non riceve...VO2 max")
+        problems.push(`[vo2max scan] ${rel} has "${vo2Match[0]}" near "FitMesh${capMatch[1]}${capMatch[2]}" (capability status: ${CAPABILITY_STATUS.vo2max?.status}) — ${CAPABILITY_STATUS.vo2max?.note} Context: "...${window.replace(/\s+/g, " ")}..."`);
+        found = true;
+      }
+
+      let passiveMatch: RegExpExecArray | null;
+      VO2_CAPABILITY_PASSIVE_RE.lastIndex = 0;
+      while (!found && (passiveMatch = VO2_CAPABILITY_PASSIVE_RE.exec(window)) !== null) {
+        // La negazione precede il verbo passivo ("non viene letto"/"is not
+        // read"), non sta tra il verbo e "FitMesh" — a differenza della forma
+        // attiva, qui va controllato il testo PRIMA del match, non il gruppo
+        // catturato dopo il verbo.
+        const precedingText = window.slice(Math.max(0, passiveMatch.index - 20), passiveMatch.index);
+        if (VO2_NEGATION_RE.test(precedingText)) continue; // "non viene letto da FitMesh/not read by FitMesh" — negazione corretta
+        if (!sameSentence(passiveMatch.index, passiveMatch[0].length)) continue;
+        if (VO2_NEGATION_RE.test(betweenText(passiveMatch.index, passiveMatch[0].length))) continue;
+        problems.push(`[vo2max scan] ${rel} has "${vo2Match[0]}" near "${passiveMatch[1]}${passiveMatch[2]}FitMesh" (capability status: ${CAPABILITY_STATUS.vo2max?.status}) — ${CAPABILITY_STATUS.vo2max?.note} Context: "...${window.replace(/\s+/g, " ")}..."`);
+        found = true;
+      }
+    }
+  }
+}
+
+// ── 10. Garmin OAuth / FitMesh Pro ban ─────────────────────────────────────
+// FitMesh non ha oggi alcuna integrazione OAuth Garmin diretta e live: la
+// partnership è stata richiesta ma non ha mai ricevuto risposta, e non esiste
+// alcun codice OAuth Garmin funzionante nel repo app (nessun client_id reale,
+// nessun provider Garmin raggiungibile dalla UI). Questo NON significa che
+// Garmin sia del tutto assente dal sito: il bridge generico Health Connect
+// (Android) e Apple Salute (iPhone) — entrambi scritti da Garmin Connect, non
+// da FitMesh — restano un percorso legittimo per i dati di base, descritto
+// onestamente in lib/blog/posts/garmin-body-battery-health-connect.ts
+// (riscritto in Sprint P0.6A, non più disabilitato). Questo guardrail
+// impedisce che un claim di OAuth Garmin DIRETTO in FitMesh (via "FitMesh
+// Pro" o altrimenti) ricompaia altrove, inclusi i JSON di traduzione.
+//
+// Prima di riabilitare un claim "FitMesh Pro" + Garmin OAuth diretto:
+// verificare che esista un vero client OAuth Garmin (build-with-secrets.sh o
+// equivalente) E che l'app Flutter abbia un provider Garmin funzionante e
+// raggiungibile dalla UI, non solo un mockup in roadmap.
+const GARMIN_PRO_WINDOW = 200;
+const FITMESH_PRO_RE = /FitMesh Pro/g;
+const GARMIN_PRO_CONTEXT_RE = /\bOAuth\b|Body Battery|\bstress\b/i;
+// Sprint P0.6A: il post è stato riscritto (non più disabilitato) per dire
+// esplicitamente "non esiste alcuna integrazione OAuth Garmin in FitMesh, né
+// in FitMesh Pro" — una negazione onesta che DEVE poter menzionare "FitMesh
+// Pro" + "Garmin" + "OAuth" nella stessa finestra senza far scattare il
+// guardrail. A differenza della sezione 9 (VO2 max), qui la negazione può
+// stare PRIMA o DOPO "FitMesh Pro" nella frase a seconda della lingua (es.
+// turco/giapponese/coreano mettono il verbo negato a fine frase) — quindi il
+// controllo cerca la negazione in tutta la finestra, non solo subito prima
+// del match, con un elenco di frasi-negazione per lingua invece di un
+// singolo pattern posizionale.
+const GARMIN_PRO_NEGATION_RE =
+  /\bnon esiste\b|\bnessun[ao]?\b|\bné\b|\bno existe\b|\bni en\b|\bkeine\b|\bnicht\b|\bnem no\b|\baucune\b|\bni dans\b|\bnie istnieje\b|\bani w\b|\bbulunmamaktadır\b|\bniet\b|\bdoes not exist\b|\bdoesn't exist\b|\bthere is no\b|\bnone in\b|存在しません|존재하지 않습니다/i;
+
+for (const file of filesToScanWithExtras) {
+  const content = fs.readFileSync(file, "utf-8");
+  const rel = path.relative(repoRoot, file);
+
+  let proMatch: RegExpExecArray | null;
+  FITMESH_PRO_RE.lastIndex = 0;
+  while ((proMatch = FITMESH_PRO_RE.exec(content)) !== null) {
+    const windowStart = Math.max(0, proMatch.index - GARMIN_PRO_WINDOW);
+    const windowEnd = Math.min(content.length, proMatch.index + proMatch[0].length + GARMIN_PRO_WINDOW);
+    const window = content.slice(windowStart, windowEnd);
+    if (!/Garmin/i.test(window) || !GARMIN_PRO_CONTEXT_RE.test(window)) continue;
+    if (GARMIN_PRO_NEGATION_RE.test(window)) continue; // negazione onesta ("nessuna integrazione OAuth Garmin, né in FitMesh Pro")
+    problems.push(`[garmin-oauth-pro scan] ${rel} has "FitMesh Pro" near "Garmin" + OAuth/Body Battery/stress — FitMesh has no live direct Garmin OAuth integration today: the partnership request was never answered and no working Garmin OAuth code (real client_id, reachable UI) exists anywhere in the app repo. This is the exact false-claim pattern already fixed in lib/blog/posts/garmin-body-battery-health-connect.ts (rewritten in Sprint P0.6A to describe the real Health Connect/Apple Health bridge instead) — do not let it resurface. Context: "...${window.replace(/\s+/g, " ")}..."`);
+  }
+}
+
+// ── 11. Background-sync claim assoluto ban ─────────────────────────────────
+// Non esiste, e non può onestamente esistere, un sync in background
+// GARANTITO: su Android, WorkManager è realmente configurato di default e
+// l'app richiede davvero l'esenzione dall'ottimizzazione batteria
+// all'utente (onboarding + dashboard, verificato sul codice Flutter reale in
+// Sprint P0.6A — l'affermazione precedente che l'esenzione non fosse mai
+// richiesta era obsoleta) — ma anche con l'esenzione concessa resta un
+// "best-effort": Doze mode e i battery manager dei singoli produttori
+// Android possono comunque ritardare o saltare le esecuzioni. iOS non ha
+// nessun HKObserverQuery/enableBackgroundDelivery reale (solo polling in
+// foreground), e la catena BLE dell'anello ha zero background su entrambe le
+// piattaforme. Il claim da bloccare è quindi "background sync garantito/
+// sempre attivo", non "background best-effort su Android quando l'esenzione
+// è concessa" (quest'ultimo è vero e pubblicabile). Vedi
+// AppFitmesh/docs/sprints/sprint-004-universal-sync-reliability.md per il
+// contesto originale (sui punti diversi da questo, il documento resta
+// valido: nessun sync realmente universale, iOS/anello invariati).
+//
+// Il controllo cerca un claim assoluto (sempre/always/non devi aprire
+// l'app/you don't need to open the app/in tempo reale/real-time/near
+// real-time/seamlessly/senza che tu debba fare niente) vicino a una
+// co-occorrenza di "background" + "sync"/"sincronizza", a meno che (a) la
+// stessa finestra di testo contenga già un qualificatore onesto (depends
+// on/dipende da/quando apri l'app/when you open the app — gli stessi usati
+// altrove in questo file per claim analoghe), oppure (b) subito prima del
+// claim assoluto compaia una negazione ("non"/"not" — stesso principio della
+// sezione free-plan sopra: "FitMesh non è real-time istantaneo, ma è
+// automatico" è una negazione onesta, non una promessa assoluta).
+//
+// Nota (rivisto manualmente in Sprint P0.6A, come previsto dal commento
+// originale sopra): il controllo su "sempre"/"always" dava un falso positivo
+// verificato su contenuti diagnostici/troubleshooting che descrivono DOVE si
+// verifica un problema di sync ("il problema si trova quasi sempre al
+// secondo o quarto passaggio" / "the break is almost always at the second or
+// fourth") piuttosto che promettere affidabilità. "Quasi sempre"/"almost
+// always" è già un hedge onesto (non è "sempre" assoluto) — se il match è
+// immediatamente preceduto da "quasi"/"almost" non è la claim assoluta che
+// questo controllo vuole bloccare.
+const BG_SYNC_PROXIMITY_WINDOW = 160;
+const BG_SYNC_NEGATION_WINDOW = 40;
+// "\bsync\b" (con \b finale) NON matcherebbe "syncs"/"syncing"/"synced" —
+// stesso tipo di bug \b già documentato altrove in questo file (vedi
+// commento su "non c'è" sopra): il confine di parola richiede una
+// transizione tra \w e non-\w, ma tra "sync" e la "s" di "syncs" non c'è
+// alcuna transizione (entrambi sono \w). Niente \b finale, quindi.
+const BG_SYNC_CONTEXT_RE = /\bsync|\bsincronizza/i;
+const BG_SYNC_HONEST_QUALIFIER_RE = /depends on|dipende da|quando apri l'app|when you open the app/i;
+const BG_SYNC_NEGATION_RE = /\bnon\b|\bnot\b/i;
+const BG_ABSOLUTE_CLAIMS: { label: string; re: RegExp }[] = [
+  { label: "sempre/always", re: /\bsempre\b|\balways\b/gi },
+  { label: "non devi aprire l'app / you don't need to open the app", re: /non devi aprire (?:l'app|alcuna app)|you (?:don't|do not) need to open (?:the|any) app/gi },
+  { label: "real-time / in tempo reale / near real-time", re: /real[- ]?time|tempo reale/gi },
+  { label: "seamlessly", re: /seamlessly/gi },
+  { label: "senza che tu debba fare niente", re: /senza che tu debba fare niente/gi },
+  // "guaranteed"/"garantito" applicato al sync in background è esattamente
+  // la distinzione che questo controllo deve far rispettare: il background
+  // work su Android è reale ma best-effort, MAI garantito (Doze/battery
+  // manager possono ancora interferire anche con l'esenzione concessa).
+  { label: "guaranteed/garantito background sync", re: /guaranteed|garantit[oa]/gi },
+];
+
+for (const file of filesToScanWithExtras) {
+  const content = fs.readFileSync(file, "utf-8");
+  const rel = path.relative(repoRoot, file);
+
+  for (const { label, re } of BG_ABSOLUTE_CLAIMS) {
+    re.lastIndex = 0;
+    let claimMatch: RegExpExecArray | null;
+    while ((claimMatch = re.exec(content)) !== null) {
+      const ctxStart = Math.max(0, claimMatch.index - BG_SYNC_PROXIMITY_WINDOW);
+      const ctxEnd = Math.min(content.length, claimMatch.index + claimMatch[0].length + BG_SYNC_PROXIMITY_WINDOW);
+      const ctx = content.slice(ctxStart, ctxEnd);
+      if (!/background/i.test(ctx)) continue;
+      if (!BG_SYNC_CONTEXT_RE.test(ctx)) continue;
+      if (BG_SYNC_HONEST_QUALIFIER_RE.test(ctx)) continue; // qualificatore onesto già presente, claim non assoluta
+
+      const negStart = Math.max(0, claimMatch.index - BG_SYNC_NEGATION_WINDOW);
+      const negWindow = content.slice(negStart, claimMatch.index);
+      if (BG_SYNC_NEGATION_RE.test(negWindow)) continue; // negazione onesta immediatamente prima del match
+      if (/\b(quasi|almost)\s*$/i.test(negWindow)) continue; // "quasi sempre"/"almost always" è già un hedge, non una claim assoluta
+
+      problems.push(`[background-sync-absolute scan] ${rel} has "${claimMatch[0]}" (${label}) near a "background"+"sync" co-occurrence with no honest qualifier nearby (depends on/dipende da/quando apri l'app/when you open the app) and no negation immediately before it — no universal always-on background sync exists or can honestly exist: Android OEM battery killers (no battery exemption granted), iOS has no real HKObserverQuery/enableBackgroundDelivery (foreground polling only), the BLE ring chain has zero background path. See AppFitmesh/docs/sprints/sprint-004-universal-sync-reliability.md. Context: "...${ctx.replace(/\s+/g, " ")}..."`);
+    }
+  }
+}
+
+// ── 12. Founder iOS-waitlist ban ────────────────────────────────────────────
+// iOS è live sull'App Store dal 2026-07-10 (confermato su tutte le storefront
+// UE il 2026-07-13 tramite l'API pubblica di lookup Apple). Qualunque copy
+// che tratti iOS come "in arrivo"/"da avvisare al lancio" — form o CTA di
+// raccolta email in stile "iscriviti alla waitlist per iOS" — è obsoleta:
+// oggi non esiste alcun form di waitlist iOS nel sito (verificato durante
+// questo sprint), quindi questo controllo è puramente un guardrail di
+// regressione per il futuro, non la correzione di un problema già trovato.
+// Prima di riabilitare un claim simile, verificare che iOS sia davvero
+// tornato non disponibile su App Store (non il caso oggi).
+const IOS_WAITLIST_WINDOW = 150;
+const IOS_RE = /\biOS\b/g;
+const WAITLIST_TERMS_RE = /\bwaitlist\b|lista d'attesa|\bavvisami\b|notify me|lancio iOS|iOS launch/i;
+// "Founder" is a pricing promotion, not a beta waitlist" (e o l'equivalente
+// italiano) è il disclaimer CORRETTO che questo stesso sprint ha scritto —
+// nega esplicitamente l'esistenza di una waitlist, non ne promette una. Bug
+// trovato in P0.6A: il match di "iOS" su una riga vicina ma non correlata
+// (es. "Health Connect on Android and ... on iOS") faceva scattare il
+// controllo anche quando la frase-waitlist trovata era questa negazione.
+const WAITLIST_NEGATION_RE = /not a (?:beta )?waitlist|non è una (?:beta )?lista d'attesa|not invite-only/i;
+
+for (const file of filesToScanWithExtras) {
+  const content = fs.readFileSync(file, "utf-8");
+  const rel = path.relative(repoRoot, file);
+
+  let iosMatch: RegExpExecArray | null;
+  IOS_RE.lastIndex = 0;
+  while ((iosMatch = IOS_RE.exec(content)) !== null) {
+    // "scarica su Android o iOS"/"download on Android or iOS" è un claim di
+    // disponibilità congiunta (entrambe le piattaforme sono già live), non un
+    // claim "aspetta iOS" — se "iOS" è preceduto a breve distanza da
+    // "Android" + connettore, non è la frase-waitlist che questo controllo
+    // vuole bloccare, anche se compare vicino a una waitlist di UN'ALTRA
+    // feature (es. Mesh Famiglia, ancora in sviluppo indipendentemente dalla
+    // disponibilità store). Stesso principio già usato per "Android ...
+    // worldwide" più sopra in questo file.
+    const beforeIos = content.slice(Math.max(0, iosMatch.index - 20), iosMatch.index);
+    if (/Android\s+(?:or|and|e|o|und|y|et|i|ve)\s*$/i.test(beforeIos)) continue;
+
+    const windowStart = Math.max(0, iosMatch.index - IOS_WAITLIST_WINDOW);
+    const windowEnd = Math.min(content.length, iosMatch.index + iosMatch[0].length + IOS_WAITLIST_WINDOW);
+    const window = content.slice(windowStart, windowEnd);
+    const waitlistMatch = window.match(WAITLIST_TERMS_RE);
+    if (!waitlistMatch) continue;
+    const waitlistCtxStart = Math.max(0, (waitlistMatch.index ?? 0) - 40);
+    const waitlistCtxEnd = Math.min(window.length, (waitlistMatch.index ?? 0) + waitlistMatch[0].length + 40);
+    if (WAITLIST_NEGATION_RE.test(window.slice(waitlistCtxStart, waitlistCtxEnd))) continue; // negazione corretta ("non è una waitlist")
+    problems.push(`[ios-waitlist scan] ${rel} has "iOS" near a waitlist/notify-me phrase (waitlist/lista d'attesa/avvisami/notify me/lancio iOS/iOS launch) — iOS has been live on the App Store since 2026-07-10 (confirmed on every EU storefront 2026-07-13 via the public Apple lookup API), it is not "coming soon" and does not need a waitlist signup. Context: "...${window.replace(/\s+/g, " ")}..."`);
+  }
+}
+
+// ── 13. llms.txt internal link check ────────────────────────────────────────
+// /llms.txt è rivolto ai crawler AI: un link marcato come pagina reale che in
+// realtà fa 404 è peggio di nessun link (un assistente AI cita l'URL rotto
+// come fonte). Questo controllo estrae OGNI URL interno (SITE_URL + path) dal
+// testo generato da generateLlmsTxt() (già disponibile in `txt`, sezione 1) e
+// verifica che esista davvero una route App Router sotto
+// app/(frontend)/[locale]/ — o, per i pochi path non localizzati come
+// /delete-account, sotto app/(frontend)/ direttamente.
+//
+// La verifica cammina il filesystem delle route invece di elencare gli slug
+// validi a mano: attraversa i route group tra parentesi ("(marketing)"), che
+// non consumano un segmento URL, e le cartelle dinamiche "[slug]"/
+// "[...slug]", che ne consumano uno (o tutti i rimanenti, se catch-all) — lo
+// stesso meccanismo di risoluzione di Next.js App Router, non un elenco
+// statico da tenere sincronizzato a mano ogni volta che una pagina si sposta.
+const LLMS_APP_ROOT = path.join(repoRoot, "app", "(frontend)");
+const LLMS_LOCALE_APP_ROOT = path.join(LLMS_APP_ROOT, "[locale]");
+const LLMS_PAGE_FILES = ["page.tsx", "page.ts", "page.jsx", "page.js"];
+const LLMS_ROUTE_FILES = ["route.ts", "route.tsx", "route.js"];
+
+function llmsHasLeafRoute(dir: string): boolean {
+  return [...LLMS_PAGE_FILES, ...LLMS_ROUTE_FILES].some((f) => fs.existsSync(path.join(dir, f)));
+}
+
+function llmsIsRouteGroup(name: string): boolean {
+  return name.startsWith("(") && name.endsWith(")");
+}
+
+function llmsIsDynamicSegment(name: string): boolean {
+  return name.startsWith("[") && name.endsWith("]");
+}
+
+function llmsIsCatchAllSegment(name: string): boolean {
+  return name.startsWith("[...") || name.startsWith("[[...");
+}
+
+/**
+ * Risolve `segments` (path già spezzato su "/", senza segmenti vuoti) a
+ * partire da `dir`, attraversando route group e cartelle dinamiche come
+ * farebbe Next.js App Router. Ritorna true se esiste una page/route reale a
+ * cui l'URL corrisponde.
+ */
+function llmsRouteExists(dir: string, segments: string[]): boolean {
+  let entries: fs.Dirent[];
+  try {
+    entries = fs.readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return false;
+  }
+  const subdirs = entries.filter((e) => e.isDirectory()).map((e) => e.name);
+
+  if (segments.length === 0) {
+    if (llmsHasLeafRoute(dir)) return true;
+    // La pagina foglia può stare dentro un route group senza consumare altri
+    // segmenti URL (es. /it → (marketing)/page.tsx).
+    return subdirs.some(
+      (name) => llmsIsRouteGroup(name) && llmsRouteExists(path.join(dir, name), segments),
+    );
+  }
+
+  const [first, ...rest] = segments;
+  for (const name of subdirs) {
+    if (llmsIsRouteGroup(name)) {
+      if (llmsRouteExists(path.join(dir, name), segments)) return true;
+      continue;
+    }
+    if (name === first) {
+      if (llmsRouteExists(path.join(dir, name), rest)) return true;
+      continue;
+    }
+    if (llmsIsDynamicSegment(name)) {
+      const nextSegments = llmsIsCatchAllSegment(name) ? [] : rest;
+      if (llmsRouteExists(path.join(dir, name), nextSegments)) return true;
+    }
+  }
+  return false;
+}
+
+const SITE_URL_ESCAPED = SITE_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const LLMS_INTERNAL_URL_RE = new RegExp(`${SITE_URL_ESCAPED}([\\/\\w.-]*)`, "g");
+
+const llmsInternalUrlPaths = new Set<string>();
+let llmsUrlMatch: RegExpExecArray | null;
+LLMS_INTERNAL_URL_RE.lastIndex = 0;
+while ((llmsUrlMatch = LLMS_INTERNAL_URL_RE.exec(txt)) !== null) {
+  llmsInternalUrlPaths.add(llmsUrlMatch[1] ?? "");
+}
+
+for (const rawPath of llmsInternalUrlPaths) {
+  // Query string/hash non sono mai emessi da generateLlmsTxt() oggi, ma il
+  // controllo li strippa comunque per non dipendere da quella garanzia.
+  const pathWithoutQueryHash = rawPath.split("?")[0].split("#")[0];
+  const segments = pathWithoutQueryHash.split("/").filter(Boolean);
+
+  if (segments.length === 0) continue; // link nudo a SITE_URL senza path, non un caso reale oggi
+
+  const [maybeLocale, ...restSegments] = segments;
+  const isLocalized = (locales as readonly string[]).includes(maybeLocale);
+  const baseDir = isLocalized ? LLMS_LOCALE_APP_ROOT : LLMS_APP_ROOT;
+  const routeSegments = isLocalized ? restSegments : segments;
+
+  if (!llmsRouteExists(baseDir, routeSegments)) {
+    problems.push(`[llms-txt-link scan] generateLlmsTxt() links to "${SITE_URL}${rawPath}" but no matching page/route exists under ${path.relative(repoRoot, baseDir)}/ for segments [${routeSegments.join("/")}] — fix the slug in lib/llms-txt.ts, or remove the link entirely if no equivalent page exists.`);
   }
 }
 

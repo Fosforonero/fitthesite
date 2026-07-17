@@ -49,6 +49,17 @@ export function tll(l: LocalizedList, lc: Locale): string[] {
 }
 
 export type IntegrationDirection = "read" | "write" | "read-write" | "export";
+/**
+ * Vocabolario deliberatamente più piccolo di `ProviderStatus` in
+ * `lib/providers/data.ts` (che ha anche `"live-basic"`, per il caso
+ * "bridge generico Health Connect funziona oggi, OAuth dedicato ancora no").
+ * Qui quel caso (Fitbit, Polar, Garmin, Withings) è rappresentato con
+ * `"beta"` per mancanza di un valore migliore — NON significa "in fase di
+ * test", significa "solo il bridge generico funziona oggi". Non assumere
+ * parità 1:1 con `"beta"` di `data.ts` (dove Suunto usa lo stesso valore per
+ * indicare un'integrazione OAuth dedicata reale ma non ancora collaudata su
+ * larga scala — un significato diverso sotto la stessa parola).
+ */
 export type IntegrationStatus =
   | "live"
   | "in-development"
@@ -485,12 +496,12 @@ export const OTHER_PROVIDERS_COMPATIBILITY: CompatibilityRow[] = [
     syncFrequency: { it: "N/D", en: "N/A", es: "N/D", de: "N/A" },
     status: "roadmap",
     limitations: {
-      it: "Non ancora collegabile tramite l'integrazione Oura dedicata di FitMesh. Se la tua app Oura scrive già su Health Connect sul telefono, la lettura generica di Health Connect di FitMesh potrebbe comunque raccogliere quei dati indipendentemente.",
-      en: "Not connectable yet through FitMesh's dedicated Oura integration. If your Oura app already writes to Health Connect on your phone, FitMesh's generic Health Connect read may still pick up that data independently.",
-      es: "Todavía no se puede conectar a través de la integración dedicada de Oura de FitMesh. Si tu app de Oura ya escribe en Health Connect en tu teléfono, la lectura genérica de Health Connect de FitMesh podría seguir recogiendo esos datos de forma independiente.",
-      de: "Noch nicht über FitMeshs dedizierte Oura-Integration verbindbar. Wenn deine Oura-App bereits in Health Connect auf deinem Telefon schreibt, kann FitMeshs generisches Health-Connect-Lesen diese Daten trotzdem unabhängig erfassen.",
+      it: "Non ancora collegabile tramite l'integrazione Oura dedicata di FitMesh: il client OAuth non è configurato in nessuna build reale, quindi il pulsante di connessione non compare nell'app. Se la tua app Oura scrive già su Health Connect sul telefono, la lettura generica di Health Connect di FitMesh potrebbe comunque raccogliere quei dati indipendentemente.",
+      en: "Not connectable yet through FitMesh's dedicated Oura integration: the OAuth client isn't configured in any real build, so the connect button doesn't appear in the app. If your Oura app already writes to Health Connect on your phone, FitMesh's generic Health Connect read may still pick up that data independently.",
+      es: "Todavía no se puede conectar a través de la integración dedicada de Oura de FitMesh: el cliente OAuth no está configurado en ninguna build real, por lo que el botón de conexión no aparece en la app. Si tu app de Oura ya escribe en Health Connect en tu teléfono, la lectura genérica de Health Connect de FitMesh podría seguir recogiendo esos datos de forma independiente.",
+      de: "Noch nicht über FitMeshs dedizierte Oura-Integration verbindbar: Der OAuth-Client ist in keinem realen Build konfiguriert, daher erscheint die Verbindungsschaltfläche nicht in der App. Wenn deine Oura-App bereits in Health Connect auf deinem Telefon schreibt, kann FitMeshs generisches Health-Connect-Lesen diese Daten trotzdem unabhängig erfassen.",
     },
-    lastVerified: "2026-07-12",
+    lastVerified: "2026-07-15",
   },
   {
     source: "Huawei Health",

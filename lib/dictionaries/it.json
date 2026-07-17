@@ -8,7 +8,7 @@
     "badge": "Disponibile su Android e iOS",
     "heading_1": "Una dashboard globale",
     "heading_accent": "per tutti i tuoi dispositivi.",
-    "description": "Unisci Galaxy Watch, Wear OS, Health Connect e provider cloud in una vista unica. Passi, sonno, battito, recupero e trend, senza saltare tra app diverse.",
+    "description": "Porta i dati dei wearable Android tramite Health Connect e, su iPhone, di Apple Salute e degli anelli supportati, in un'unica vista. Passi, sonno, battito, recupero e trend, senza saltare tra app diverse.",
     "cta_secondary": "Scopri di più",
     "pricing": "Acquisto unico da €3,99, oppure €1,19 ogni 6 mesi · pagamento sicuro"
   },
@@ -18,10 +18,10 @@
     "items": [
       {
         "title": "Passi & distanza",
-        "desc": "Sincronizzazione automatica con Health Connect e Samsung Health. Anche in background, anche quando il telefono è bloccato."
+        "desc": "Sincronizza con Health Connect e Samsung Health. Aggiornamenti in background su Android quando disattivi l'ottimizzazione batteria (best-effort); sempre aggiornato quando apri l'app."
       },
       {
-        "title": "Battito e VO₂ max",
+        "title": "Battito cardiaco",
         "desc": "Media giornaliera, range min/max, frequenza a riposo. Vedi i pattern del tuo cuore nel tempo."
       },
       {

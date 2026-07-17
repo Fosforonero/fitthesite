@@ -1,11 +1,21 @@
+import type { Metadata } from "next";
+
 /**
  * Feature graphic Play Store — 1024×500 px obbligatorio.
  *
  * Posizione: top della scheda app sul Play Store (hero banner).
  * Spec: no text vital (Google scala su devices diversi), brand-forward,
  * mostra il monogramma + tagline + 2 mockup phone laterali.
+ *
+ * Sprint P0.6B: stesso trattamento noindex di app/(frontend)/mockups/[screen] —
+ * strumento interno per Playwright, non pensato per essere indicizzato.
  */
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  title: "Mockup: strumento interno",
+  robots: { index: false, follow: false },
+};
 
 export default function FeatureGraphic() {
   return (
