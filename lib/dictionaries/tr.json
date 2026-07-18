@@ -142,15 +142,15 @@
       "privacy_body": "Sağlık verileriniz hiçbir zaman paylaşılmaz, tıbbi amaçlarla işlenmez ve tıbbi tavsiye üretmek için kullanılmaz. Yalnızca kişisel paneliniz ve oyunlaştırma için.",
       "export": "Verilerimi dışa aktar",
       "danger_heading": "Tehlike bölgesi",
-      "delete_description": "Hesabınızı ve tüm ilgili verileri kalıcı olarak silin. E-posta yoluyla 24 saat içinde iptal edebilirsiniz.",
+      "delete_description": "Hesabınızın ve ilişkili verilerin aktif sistemlerden silinmesini planlayın. Talep, 24 saat sonra yürütülebilir hale gelir.",
       "delete_cta": "Hesabımı sil",
       "delete_confirm_title": "Gerçekten emin misiniz?",
-      "delete_confirm_body": "Kalıcı olarak silinecekler: profil, tüm sağlık verileri, bağlı cihazlar, antrenman seansları. Uyumluluk için anonimleştirilmiş olarak saklanacaklar: teknik günlükler (90 gün) ve yönetici denetimi (5 yıl).",
+      "delete_confirm_body": "Profil, sağlık verileri, bağlı cihazlar ve antrenman seansları aktif sistemlerden silinecektir. Bazı teknik ve denetim kayıtları hesabın silinmesinden sonra ayrıca saklanabilir.",
       "delete_confirm_input": "Onaylamak için DELETE yazın",
       "delete_confirm_submit": "Silmeyi onayla",
       "cancel": "İptal",
       "delete_scheduled_title": "İstek alındı",
-      "delete_scheduled_body": "İptal bağlantısını içeren bir e-posta alacaksınız. 24 saat içinde hiçbir şey yapmazsanız hesabınız kalıcı olarak silinecektir."
+      "delete_scheduled_body": "Dashboard üzerinden talep edilen silme işlemi 24 saat sonra yürütülebilir hale gelecek ve bir sonraki otomatik döngüde işlenecektir."
     }
   },
   "admin": {

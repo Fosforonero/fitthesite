@@ -102,13 +102,13 @@ export default async function SettingsPage({
           heading: t.app?.settings?.danger_heading ?? 'Zona pericolo',
           description:
             t.app?.settings?.delete_description ??
-            'Elimina permanentemente il tuo account e tutti i dati associati. Hai 24h per annullare via email.',
+            'Programma la cancellazione del tuo account e dei dati associati dai sistemi attivi. La richiesta diventa eseguibile dopo 24 ore.',
           deleteCta: t.app?.settings?.delete_cta ?? 'Cancella il mio account',
           confirmTitle:
             t.app?.settings?.delete_confirm_title ?? 'Sei davvero sicuro?',
           confirmBody:
             t.app?.settings?.delete_confirm_body ??
-            'Verranno eliminati permanentemente: profilo, tutti i dati di salute, dispositivi collegati, sessioni di allenamento. Verranno conservati anonimizzati per compliance: log tecnici (90gg) e audit admin (5 anni).',
+            'Verranno eliminati dai sistemi attivi il profilo, i dati di salute, i dispositivi collegati e le sessioni di allenamento. Alcune registrazioni tecniche e di audit possono essere conservate separatamente dopo la cancellazione dell\'account.',
           confirmInputLabel:
             t.app?.settings?.delete_confirm_input ??
             'Per confermare, digita "CANCELLA"',
@@ -119,7 +119,7 @@ export default async function SettingsPage({
             t.app?.settings?.delete_scheduled_title ?? 'Richiesta ricevuta',
           scheduledBody:
             t.app?.settings?.delete_scheduled_body ??
-            'Riceverai un\'email con il link per annullare. Se non fai nulla entro 24h, il tuo account verrà eliminato permanentemente.',
+            'La cancellazione richiesta dalla dashboard diventerà eseguibile dopo 24 ore e verrà elaborata durante il successivo ciclo automatico.',
         }}
       />
     </div>

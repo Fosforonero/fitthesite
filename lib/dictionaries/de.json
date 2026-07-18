@@ -142,15 +142,15 @@
       "privacy_body": "Deine Gesundheitsdaten werden niemals weitergegeben, nicht für medizinische Zwecke verarbeitet und nicht zur Erstellung medizinischer Aussagen verwendet. Alles dient ausschließlich deiner persönlichen Dashboard und Gamification.",
       "export": "Meine Daten exportieren",
       "danger_heading": "Gefahrenzone",
-      "delete_description": "Lösche dein Konto und alle zugehörigen Daten dauerhaft. Du hast 24 Stunden Zeit, den Vorgang per E-Mail abzubrechen.",
+      "delete_description": "Plane die Löschung deines Kontos und der zugehörigen Daten aus den aktiven Systemen. Die Anfrage wird nach 24 Stunden ausführbar.",
       "delete_cta": "Mein Konto löschen",
       "delete_confirm_title": "Bist du wirklich sicher?",
-      "delete_confirm_body": "Folgendes wird dauerhaft gelöscht: Profil, alle Gesundheitsdaten, verbundene Geräte, Trainingseinheiten. Zur Einhaltung gesetzlicher Vorschriften anonymisiert aufbewahrt: technische Protokolle (90 Tage) und Admin-Audit (5 Jahre).",
+      "delete_confirm_body": "Profil, Gesundheitsdaten, verbundene Geräte und Trainingseinheiten werden aus den aktiven Systemen gelöscht. Einige technische Protokolle und Audit-Aufzeichnungen können nach der Löschung des Kontos separat aufbewahrt werden.",
       "delete_confirm_input": "Zur Bestätigung tippe LÖSCHEN",
       "delete_confirm_submit": "Löschung bestätigen",
       "cancel": "Abbrechen",
       "delete_scheduled_title": "Anfrage eingegangen",
-      "delete_scheduled_body": "Du erhältst eine E-Mail mit dem Link zum Abbrechen. Wenn du innerhalb von 24 Stunden nichts unternimmst, wird dein Konto dauerhaft gelöscht."
+      "delete_scheduled_body": "Die über das Dashboard angeforderte Löschung wird nach 24 Stunden ausführbar und im nächsten automatischen Zyklus verarbeitet."
     }
   },
   "admin": {
