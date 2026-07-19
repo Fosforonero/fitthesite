@@ -11,11 +11,16 @@
  *   3. validate payload con Zod
  *   4. INSERT in fitness_metrics via user-bound client (RLS policy
  *      "users insert own metrics" enforced — migration 007)
+ *   4.5. RPC record_first_sync_transition('success', ...) — Founder P0:
+ *      grant first-sync-success legato al primo sync realmente riuscito,
+ *      mai al signup. Best-effort: un fallimento qui NON fa fallire il
+ *      sync (i dati salute sono gia' committati al passo 4). Platform e'
+ *      telemetria opzionale (derivata da osVersion, mai un requisito).
  *   5. INSERT in workouts per ogni exercise_session (se presente)
  *   6. UPDATE devices.last_seen_at + app_version + os_version
  *
  * Risposte:
- *   200 { ok: true, metricsId }
+ *   200 { ok: true, metricsId, founderGrant }
  *   400 invalid_payload
  *   401 missing/invalid token
  *   404 device_not_paired
@@ -25,6 +30,11 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
 
+import {
+  derivePlatform,
+  resolveFounderGrantStatus,
+  type FounderGrantStatus,
+} from "./founder-grant";
 import { buildFitnessMetricsRow, payloadSchema } from "./schema";
 
 // Cast a SupabaseClient generico (senza Database) perché i types non sono
@@ -45,7 +55,7 @@ export async function POST(req: Request) {
 
   const { data: device, error: devErr } = await sb
     .from("devices")
-    .select("id")
+    .select("id, os_version")
     .eq("user_id", userId)
     .eq("device_fingerprint", fingerprint)
     .is("revoked_at", null)
@@ -89,6 +99,44 @@ export async function POST(req: Request) {
 
   if (insErr) return jsonError(500, "insert_metrics_failed", insErr.message);
 
+  // ── 4.5. Founder P0: grant first-sync-success (best-effort) ─────────
+  // La route resta valida anche se questa chiamata fallisce: l'ingest dati
+  // e' gia' committato al passo 4. Chiamata SEMPRE, indipendentemente da
+  // osVersion (P0.4): platform e' solo telemetria, mai un requisito.
+  let founderGrant: FounderGrantStatus = "retry_needed";
+  const platform =
+    derivePlatform(p.osVersion) ??
+    derivePlatform((device as { os_version?: string | null }).os_version);
+  try {
+    const { data: transitionResult, error: transitionErr } = await sb.rpc(
+      "record_first_sync_transition",
+      {
+        p_device_fingerprint: fingerprint,
+        p_state: "success",
+        p_platform: platform,
+        p_app_version: p.appVersion ?? null,
+      },
+    );
+    if (transitionErr) {
+      // Nessuna email/dato sanitario nel log: solo deviceId + codice errore.
+      console.error("[sync] first_sync_transition_failed", {
+        deviceId: device.id,
+        code: transitionErr.code,
+      });
+      founderGrant = resolveFounderGrantStatus(null, true);
+    } else {
+      founderGrant = resolveFounderGrantStatus(
+        transitionResult as Record<string, unknown> | null,
+        false,
+      );
+    }
+  } catch {
+    console.error("[sync] first_sync_transition_exception", {
+      deviceId: device.id,
+    });
+    founderGrant = resolveFounderGrantStatus(null, true);
+  }
+
   // ── 5. INSERT workouts da exercise_sessions ────────────────────────
   // Dedup NON fatto qui apposta (sprint 187A): un SELECT-before-INSERT
   // aggiungerebbe una query DB a OGNI sync e non e' comunque atomico sotto
@@ -126,5 +174,9 @@ export async function POST(req: Request) {
     })
     .eq("id", (device as { id: string }).id);
 
-  return jsonOk({ ok: true, metricsId: (inserted as { id: number } | null)?.id });
+  return jsonOk({
+    ok: true,
+    metricsId: (inserted as { id: number } | null)?.id,
+    founderGrant,
+  });
 }
