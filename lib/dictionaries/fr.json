@@ -142,15 +142,15 @@
       "privacy_body": "Vos données de santé ne sont jamais partagées, ne sont pas traitées à des fins médicales et ne sont pas utilisées pour produire des avis médicaux. Tout est réservé à votre tableau de bord personnel et à la gamification.",
       "export": "Exporter mes données",
       "danger_heading": "Zone de danger",
-      "delete_description": "Supprime définitivement votre compte et toutes les données associées. Vous disposez de 24 h pour annuler par e-mail.",
+      "delete_description": "Programmez la suppression de votre compte et des données associées des systèmes actifs. La demande devient exécutable après 24 heures.",
       "delete_cta": "Supprimer mon compte",
       "delete_confirm_title": "Êtes-vous absolument certain ?",
-      "delete_confirm_body": "Seront supprimés définitivement : profil, toutes les données de santé, appareils connectés, séances d'entraînement. Seront conservés sous forme anonymisée pour des raisons de conformité : journaux techniques (90 jours) et audit administrateur (5 ans).",
+      "delete_confirm_body": "Le profil, les données de santé, les appareils connectés et les séances d'entraînement seront supprimés des systèmes actifs. Certains enregistrements techniques et d'audit peuvent être conservés séparément après la suppression du compte.",
       "delete_confirm_input": "Pour confirmer, saisissez SUPPRIMER",
       "delete_confirm_submit": "Confirmer la suppression",
       "cancel": "Annuler",
       "delete_scheduled_title": "Demande reçue",
-      "delete_scheduled_body": "Vous recevrez un e-mail avec le lien pour annuler. Si vous ne faites rien dans les 24 h, votre compte sera définitivement supprimé."
+      "delete_scheduled_body": "La suppression demandée depuis le dashboard deviendra exécutable après 24 heures et sera traitée lors du prochain cycle automatique."
     }
   },
   "admin": {

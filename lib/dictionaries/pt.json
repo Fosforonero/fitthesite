@@ -142,15 +142,15 @@
       "privacy_body": "Seus dados de saúde nunca são compartilhados, não são usados para fins médicos nem para gerar pareceres médicos. Tudo apenas para seu painel pessoal e gamificação.",
       "export": "Exportar meus dados",
       "danger_heading": "Zona de perigo",
-      "delete_description": "Exclui permanentemente sua conta e todos os dados associados. Você tem 24 horas para cancelar por e-mail.",
+      "delete_description": "Programe a exclusão da sua conta e dos dados associados dos sistemas ativos. A solicitação passa a ser executável após 24 horas.",
       "delete_cta": "Excluir minha conta",
       "delete_confirm_title": "Você tem certeza absoluta?",
-      "delete_confirm_body": "Serão excluídos permanentemente: perfil, todos os dados de saúde, dispositivos conectados, sessões de treino. Serão mantidos de forma anonimizada por conformidade legal: logs técnicos (90 dias) e auditoria de admin (5 anos).",
+      "delete_confirm_body": "Serão excluídos dos sistemas ativos o perfil, os dados de saúde, os dispositivos conectados e as sessões de treino. Alguns registros técnicos e de auditoria podem ser mantidos separadamente após a exclusão da conta.",
       "delete_confirm_input": "Para confirmar, digite EXCLUIR",
       "delete_confirm_submit": "Confirmar exclusão",
       "cancel": "Cancelar",
       "delete_scheduled_title": "Solicitação recebida",
-      "delete_scheduled_body": "Você receberá um e-mail com o link para cancelar. Se não fizer nada em 24 horas, sua conta será excluída permanentemente."
+      "delete_scheduled_body": "A exclusão solicitada pelo dashboard passará a ser executável após 24 horas e será processada durante o próximo ciclo automático."
     }
   },
   "admin": {

@@ -142,15 +142,15 @@
       "privacy_body": "Twoje dane zdrowotne nigdy nie są udostępniane, nigdy nie są przetwarzane w celach medycznych, nigdy nie służą do wydawania porad medycznych. Wyłącznie na potrzeby Twojego osobistego panelu i grywalizacji.",
       "export": "Eksportuj moje dane",
       "danger_heading": "Strefa niebezpieczna",
-      "delete_description": "Trwale usuń konto i wszystkie powiązane dane. Masz 24h na anulowanie przez e-mail.",
+      "delete_description": "Zaplanuj usunięcie konta i powiązanych danych z aktywnych systemów. Żądanie staje się wykonywalne po 24 godzinach.",
       "delete_cta": "Usuń moje konto",
       "delete_confirm_title": "Czy na pewno chcesz to zrobić?",
-      "delete_confirm_body": "Trwale usunięte zostaną: profil, wszystkie dane zdrowotne, podłączone urządzenia, sesje treningowe. Zachowane w formie anonimowej dla zgodności z przepisami: logi techniczne (90 dni) i audyt administratora (5 lat).",
+      "delete_confirm_body": "Profil, dane zdrowotne, podłączone urządzenia i sesje treningowe zostaną usunięte z aktywnych systemów. Niektóre zapisy techniczne i audytowe mogą być przechowywane odrębnie po usunięciu konta.",
       "delete_confirm_input": "Aby potwierdzić, wpisz DELETE",
       "delete_confirm_submit": "Potwierdź usunięcie",
       "cancel": "Anuluj",
       "delete_scheduled_title": "Żądanie przyjęte",
-      "delete_scheduled_body": "Otrzymasz e-mail z linkiem do anulowania. Jeśli nie podejmiesz żadnych działań w ciągu 24h, Twoje konto zostanie trwale usunięte."
+      "delete_scheduled_body": "Usunięcie zgłoszone z dashboardu stanie się wykonywalne po 24 godzinach i zostanie przetworzone podczas następnego automatycznego cyklu."
     }
   },
   "admin": {

@@ -142,15 +142,15 @@
       "privacy_body": "Your health data is never shared, never processed for medical purposes, never used to produce medical advice. Only for your personal dashboard and gamification.",
       "export": "Export my data",
       "danger_heading": "Danger zone",
-      "delete_description": "Permanently delete your account and all associated data. You have 24h to cancel via email.",
+      "delete_description": "Schedule the deletion of your account and associated data from active systems. The request becomes eligible to run after 24 hours.",
       "delete_cta": "Delete my account",
       "delete_confirm_title": "Are you really sure?",
-      "delete_confirm_body": "These will be permanently deleted: profile, all health data, connected devices, workout sessions. These will be kept anonymized for compliance: technical logs (90 days) and admin audit (5 years).",
+      "delete_confirm_body": "The profile, health data, connected devices, and workout sessions will be deleted from active systems. Some technical and audit records may be retained separately after account deletion.",
       "delete_confirm_input": "To confirm, type DELETE",
       "delete_confirm_submit": "Confirm deletion",
       "cancel": "Cancel",
       "delete_scheduled_title": "Request received",
-      "delete_scheduled_body": "You will receive an email with the link to cancel. If you do nothing within 24h, your account will be permanently deleted."
+      "delete_scheduled_body": "The deletion requested from the dashboard becomes eligible to run after 24 hours and will be processed during the next automatic cycle."
     }
   },
   "admin": {

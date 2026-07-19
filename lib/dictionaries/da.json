@@ -142,15 +142,15 @@
       "privacy_body": "Dine sundhedsdata bliver aldrig delt, aldrig behandlet til medicinske formål, aldrig brugt til at give lægelig rådgivning. Kun til dit personlige dashboard og gamification.",
       "export": "Eksportér mine data",
       "danger_heading": "Farezone",
-      "delete_description": "Slet din konto og alle tilknyttede data permanent. Du har 24 timer til at fortryde via e-mail.",
+      "delete_description": "Planlæg sletning af din konto og tilhørende data fra aktive systemer. Anmodningen bliver eksekverbar efter 24 timer.",
       "delete_cta": "Slet min konto",
       "delete_confirm_title": "Er du helt sikker?",
-      "delete_confirm_body": "Disse slettes permanent: profil, alle sundhedsdata, forbundne enheder, træningssessioner. Disse opbevares anonymiseret af hensyn til compliance: tekniske logfiler (90 dage) og admin-audit (5 år).",
+      "delete_confirm_body": "Profil, sundhedsdata, forbundne enheder og træningssessioner fjernes fra de aktive systemer. Nogle tekniske og revisionsregistreringer kan opbevares separat efter kontoen er slettet.",
       "delete_confirm_input": "Skriv DELETE for at bekræfte",
       "delete_confirm_submit": "Bekræft sletning",
       "cancel": "Annuller",
       "delete_scheduled_title": "Anmodning modtaget",
-      "delete_scheduled_body": "Du modtager en e-mail med linket til at fortryde. Hvis du ikke gør noget inden for 24 timer, slettes din konto permanent."
+      "delete_scheduled_body": "Sletningen, der anmodes om fra dashboardet, bliver eksekverbar efter 24 timer og behandles i den næste automatiske cyklus."
     }
   },
   "admin": {

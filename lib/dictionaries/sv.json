@@ -142,15 +142,15 @@
       "privacy_body": "Din hälsodata delas aldrig, behandlas aldrig för medicinska syften, används aldrig för att ge medicinsk rådgivning. Endast för din personliga dashboard och gamification.",
       "export": "Exportera mina data",
       "danger_heading": "Farozon",
-      "delete_description": "Radera permanent ditt konto och all tillhörande data. Du har 24 timmar på dig att avbryta via e-post.",
+      "delete_description": "Schemalägg raderingen av ditt konto och tillhörande data från aktiva system. Begäran blir körbar efter 24 timmar.",
       "delete_cta": "Radera mitt konto",
       "delete_confirm_title": "Är du verkligen säker?",
-      "delete_confirm_body": "Detta raderas permanent: profil, all hälsodata, anslutna enheter, träningssessioner. Detta sparas anonymiserat för efterlevnad: tekniska loggar (90 dagar) och administratörsgranskning (5 år).",
+      "delete_confirm_body": "Profilen, hälsodata, anslutna enheter och träningssessioner tas bort från aktiva system. Vissa tekniska och granskningsrelaterade poster kan sparas separat efter att kontot har raderats.",
       "delete_confirm_input": "Skriv DELETE för att bekräfta",
       "delete_confirm_submit": "Bekräfta radering",
       "cancel": "Avbryt",
       "delete_scheduled_title": "Begäran mottagen",
-      "delete_scheduled_body": "Du får ett e-postmeddelande med länken för att avbryta. Om du inte gör något inom 24 timmar raderas ditt konto permanent."
+      "delete_scheduled_body": "Raderingen som begärts från dashboarden blir körbar efter 24 timmar och behandlas under nästa automatiska cykel."
     }
   },
   "admin": {

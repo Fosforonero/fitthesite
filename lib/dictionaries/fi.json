@@ -142,15 +142,15 @@
       "privacy_body": "Terveystietojasi ei koskaan jaeta, käsitellä lääketieteellisiin tarkoituksiin eikä käytetä lääketieteellisten neuvojen antamiseen. Vain henkilökohtaista koontinäyttöäsi ja pelillistämistä varten.",
       "export": "Vie tietoni",
       "danger_heading": "Vaaravyöhyke",
-      "delete_description": "Poista tilisi ja kaikki siihen liittyvät tiedot pysyvästi. Sinulla on 24 tuntia aikaa peruuttaa sähköpostitse.",
+      "delete_description": "Ajoita tilisi ja siihen liittyvien tietojen poisto aktiivisista järjestelmistä. Pyyntö muuttuu suoritettavaksi 24 tunnin kuluttua.",
       "delete_cta": "Poista tilini",
       "delete_confirm_title": "Oletko aivan varma?",
-      "delete_confirm_body": "Nämä poistetaan pysyvästi: profiili, kaikki terveystiedot, yhdistetyt laitteet, harjoitusistunnot. Nämä säilytetään anonymisoituina vaatimustenmukaisuuden vuoksi: tekniset lokit (90 päivää) ja hallinnan tarkastus (5 vuotta).",
+      "delete_confirm_body": "Profiili, terveystiedot, yhdistetyt laitteet ja harjoitusistunnot poistetaan aktiivisista järjestelmistä. Joitakin teknisiä ja auditointiin liittyviä tietoja voidaan säilyttää erikseen tilin poistamisen jälkeen.",
       "delete_confirm_input": "Vahvista kirjoittamalla DELETE",
       "delete_confirm_submit": "Vahvista poisto",
       "cancel": "Peruuta",
       "delete_scheduled_title": "Pyyntö vastaanotettu",
-      "delete_scheduled_body": "Saat sähköpostin, jossa on peruutuslinkki. Jos et tee mitään 24 tunnin kuluessa, tilisi poistetaan pysyvästi."
+      "delete_scheduled_body": "Dashboardista pyydetty poisto muuttuu suoritettavaksi 24 tunnin kuluttua ja käsitellään seuraavan automaattisen jakson aikana."
     }
   },
   "admin": {

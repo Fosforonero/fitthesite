@@ -142,15 +142,15 @@
       "privacy_body": "Je gezondheidsdata wordt nooit gedeeld, nooit verwerkt voor medische doeleinden en nooit gebruikt voor medisch advies. Alleen voor je persoonlijk dashboard.",
       "export": "Mijn gegevens exporteren",
       "danger_heading": "Gevarenzone",
-      "delete_description": "Verwijder permanent je account en alle bijbehorende gegevens. Je hebt 24 uur om te annuleren via e-mail.",
+      "delete_description": "Plan de verwijdering van je account en de bijbehorende gegevens uit de actieve systemen. Het verzoek wordt na 24 uur uitvoerbaar.",
       "delete_cta": "Mijn account verwijderen",
       "delete_confirm_title": "Weet je het zeker?",
-      "delete_confirm_body": "Dit wordt permanent verwijderd: profiel, alle gezondheidsgegevens, verbonden apparaten, workoutsessies. Dit blijft geanonimiseerd bewaard voor compliance: technische logboeken (90 dagen) en admin-audit (5 jaar).",
+      "delete_confirm_body": "Het profiel, de gezondheidsgegevens, de verbonden apparaten en de workoutsessies worden uit de actieve systemen verwijderd. Sommige technische en audit-registraties kunnen na verwijdering van het account afzonderlijk worden bewaard.",
       "delete_confirm_input": "Typ DELETE om te bevestigen",
       "delete_confirm_submit": "Verwijdering bevestigen",
       "cancel": "Annuleren",
       "delete_scheduled_title": "Verzoek ontvangen",
-      "delete_scheduled_body": "Je ontvangt een e-mail met de link om te annuleren. Als je binnen 24 uur niets doet, wordt je account permanent verwijderd."
+      "delete_scheduled_body": "De via het dashboard aangevraagde verwijdering wordt na 24 uur uitvoerbaar en wordt verwerkt tijdens de volgende automatische cyclus."
     }
   },
   "admin": {
