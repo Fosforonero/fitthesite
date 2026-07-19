@@ -12,22 +12,34 @@
 -- SECURITY DEFINER che ne chiama un'altra esegue con i privilegi del suo
 -- owner, non del chiamante originale).
 --
--- Revisionata due volte da Matteo prima di questo commit:
+-- Revisionata tre volte da Matteo prima di questo commit:
 --   v1 -> v2: rimossa una RPC standalone che avrebbe permesso self-grant a
 --     qualunque authenticated (bug reale, trovato in review).
---   v2 -> v3 (questo file): P0.3 — l'evidenza (fitness_metrics per
---     quello user+device) va verificata PRIMA di scrivere
---     first_sync_state='success', non solo prima del grant. Altrimenti un
---     primo tentativo senza dati ancora caricati sarebbe rimasto
---     "terminale" per sempre, senza mai piu' un retry possibile. P0.4 — la
---     piattaforma e' telemetria opzionale (NULL accettato), mai un
---     requisito che blocca transizione o grant.
+--   v2 -> v3: P0.3 — l'evidenza (fitness_metrics per quello user+device) va
+--     verificata PRIMA di scrivere first_sync_state='success', non solo
+--     prima del grant. P0.4 — la piattaforma e' telemetria opzionale (NULL
+--     accettato), mai un requisito che blocca transizione o grant.
+--   v3 -> v4 (questo file): contratto di risposta esplicito
+--     (transitionAccepted / transitionRecordedNow / effectiveState) invece
+--     di dedurre l'accettazione dall'assenza di notEligibleReason; race sul
+--     cap corretta (ricontrollo "gia' pro" DOPO il lock, prima di contare);
+--     search_path ristretto a pg_catalog, public, private; limite di
+--     lunghezza su p_device_fingerprint.
 --
 -- Validata su Postgres 17 disposable (Docker, non branch Supabase a
--- pagamento): 14 scenari, inclusi anonimo rifiutato, cross-user, device
--- revocato, evidenza mancante -> arrivo dati -> retry riuscito, cap
--- concorrente sull'ultimo slot (mai >1000), guasto simulato nel grant con
--- rollback della transizione e retry successivo riuscito.
+-- pagamento): 17 scenari numerati (1-17, incluso 15 = race concorrente
+-- sullo STESSO utente su due device), script in
+-- AppFitmesh/../scratchpad founder-p0-test/{03_tests.sql,04_concurrency.sh,
+-- 05_test12_and_restore.sql} — conteggio riproducibile eseguendo quegli
+-- script in sequenza su un container pulito. Verificata anche via replay
+-- dell'intera catena migration su supabase/postgres ufficiale (schema
+-- Supabase reale, non simulato, auth.users/auth.uid() veri) da database
+-- vuoto: un file pre-esistente non-founder (20260514120004_init_b2c_subs.sql)
+-- ha un bug di sintassi indipendente (parametro chiamato `row`, parola
+-- riservata Postgres) che blocca il replay letterale con `psql -f`; non
+-- toccato (fuori scope, gia' applicato in produzione). La catena
+-- founder/first-sync (incluse le 5 migration backfillate + questa) applica
+-- pulita una volta superato quel punto, senza dipendenze mancanti.
 --
 -- NON APPLICATA in produzione da questo commit — richiede apply esplicita
 -- dopo review.
@@ -36,7 +48,7 @@ create or replace function private.grant_founder_launch_core(p_user_id uuid, p_d
 returns jsonb
 language plpgsql
 security definer
-set search_path to 'public', 'private'
+set search_path to pg_catalog, public, private
 as $$
 declare
   founder_cap constant int := 1000;
@@ -72,6 +84,8 @@ begin
     );
   end if;
 
+  -- Fast path pre-lock: puramente un'ottimizzazione (evita di prendere il
+  -- lock per il caso comune "utente gia' Founder"), MAI la fonte di verita'.
   if exists (select 1 from public.user_roles where user_id = p_user_id and role = 'pro') then
     return jsonb_build_object(
       'grantCreated', false, 'alreadyHadEligibleGrant', true,
@@ -80,6 +94,20 @@ begin
   end if;
 
   perform pg_advisory_xact_lock(hashtext('founder-launch-grant'));
+
+  -- Ricontrollo POST-lock: fonte di verita'. Una chiamata concorrente per
+  -- lo STESSO utente (due device, un retry di rete) puo' aver gia' inserito
+  -- il ruolo mentre questa chiamata attendeva il lock. Senza questo
+  -- ricontrollo, questa chiamata conterebbe il cap e potrebbe riportare
+  -- erroneamente capReached anche se l'utente e' gia' Founder — bug di
+  -- race trovato in review (2026-07-19): mai riportare cap_reached a un
+  -- utente che in realta' ha gia' il ruolo.
+  if exists (select 1 from public.user_roles where user_id = p_user_id and role = 'pro') then
+    return jsonb_build_object(
+      'grantCreated', false, 'alreadyHadEligibleGrant', true,
+      'grantKind', null, 'capReached', false, 'notEligibleReason', null
+    );
+  end if;
 
   -- Cap contato per utente distinto, non per riga.
   select count(distinct user_id) into v_taken from public.user_roles where note = 'founder-launch';
@@ -120,7 +148,7 @@ create or replace function public.record_first_sync_transition(
 ) returns jsonb
 language plpgsql
 security definer
-set search_path to 'public', 'private'
+set search_path to pg_catalog, public, private
 as $$
 declare
   v_uid uuid := auth.uid();
@@ -128,6 +156,7 @@ declare
   v_current_state text;
   v_rows int;
   v_grant jsonb;
+  v_effective_state text;
 begin
   if v_uid is null then
     raise exception 'auth_required' using errcode = 'P0001';
@@ -147,6 +176,10 @@ begin
   if p_app_version is not null and char_length(p_app_version) > 32 then
     raise exception 'record_first_sync_transition: p_app_version too long';
   end if;
+  if p_device_fingerprint is null or char_length(p_device_fingerprint) = 0
+     or char_length(p_device_fingerprint) > 200 then
+    raise exception 'record_first_sync_transition: invalid p_device_fingerprint';
+  end if;
 
   select id, first_sync_state into v_device_id, v_current_state
   from public.devices
@@ -154,28 +187,50 @@ begin
     and user_id = v_uid
     and revoked_at is null;
 
+  -- Device inesistente/cross-user/revocato: NON accettato. Resta
+  -- retryable lato client (mai messo in cache) — un re-pairing o una
+  -- revoca temporanea non deve restare bloccata per sempre.
   if v_device_id is null then
-    return jsonb_build_object('firstSyncRecorded', false);
+    return jsonb_build_object(
+      'transitionAccepted', false,
+      'transitionRecordedNow', false,
+      'effectiveState', null
+    );
   end if;
 
+  -- Gia' a questo stato, o gia' terminale ('success'): nessuna scrittura,
+  -- ma il device e' valido -> accepted=true. effectiveState riflette la
+  -- verita' ATTUALE del server, non necessariamente lo stato richiesto da
+  -- questa chiamata (es. p_state='read_error' ma il device e' gia'
+  -- 'success': effectiveState resta 'success').
   if v_current_state = 'success' or v_current_state = p_state then
-    return jsonb_build_object('firstSyncRecorded', false);
+    v_effective_state := v_current_state;
+    if v_effective_state = 'success' then
+      v_grant := private.grant_founder_launch_core(v_uid, v_device_id);
+    end if;
+    return jsonb_build_object(
+      'transitionAccepted', true,
+      'transitionRecordedNow', false,
+      'effectiveState', v_effective_state
+    ) || coalesce(v_grant, '{}'::jsonb);
   end if;
 
   -- P0.3: per una transizione a 'success', l'evidenza deve esistere PRIMA
   -- di scrivere qualunque cosa. Se manca: nessuna UPDATE, first_sync_state
   -- e first_sync_at restano quello che erano (mai settati la prima volta),
-  -- cosi' una chiamata successiva (dopo che i dati sono arrivati) puo'
-  -- ritentare la stessa transizione da zero. La correttezza non dipende
-  -- dall'ordine con cui il client chiama upload vs transition.
+  -- transitionAccepted=false -> il client NON mette in cache, una chiamata
+  -- successiva (dopo che i dati sono arrivati) ritenta da zero. La
+  -- correttezza non dipende dall'ordine con cui il client chiama upload vs
+  -- transition.
   if p_state = 'success' and not exists (
     select 1 from public.fitness_metrics
     where user_id = v_uid and device_id = v_device_id
   ) then
     return jsonb_build_object(
-      'firstSyncRecorded', false,
-      'grantCreated', false, 'alreadyHadEligibleGrant', false,
-      'grantKind', null, 'capReached', false, 'notEligibleReason', 'no_metrics_evidence'
+      'transitionAccepted', false,
+      'transitionRecordedNow', false,
+      'effectiveState', v_current_state,
+      'notEligibleReason', 'no_metrics_evidence'
     );
   end if;
 
@@ -194,25 +249,59 @@ begin
 
   get diagnostics v_rows = row_count;
 
-  -- Grant tentato SOLO se QUESTA chiamata ha prodotto la transizione a
-  -- 'success' ora. Un errore imprevisto dentro grant_founder_launch_core
-  -- fa fallire l'intera funzione (stessa transazione della UPDATE => va in
-  -- rollback insieme): first_sync_state non diventa mai 'success' senza
-  -- che il grant sia stato tentato. Un esito di non-eleggibilita'
-  -- legittimo (cap, account escluso, gia' pro) NON e' un errore: non
-  -- verra' ritentato, e' una decisione di business, non un guasto.
-  if v_rows > 0 and p_state = 'success' then
+  if v_rows = 0 then
+    -- Race con un'altra chiamata concorrente per lo STESSO device (due
+    -- isolate/richieste quasi simultanee) che ha gia' scritto mentre
+    -- questa chiamata leggeva lo stato pre-UPDATE: rileggi la verita' vera
+    -- invece di fidarti del v_current_state ormai stantio.
+    select first_sync_state into v_current_state
+    from public.devices where id = v_device_id;
+    v_effective_state := v_current_state;
+    if v_effective_state = 'success' then
+      v_grant := private.grant_founder_launch_core(v_uid, v_device_id);
+    end if;
+    return jsonb_build_object(
+      'transitionAccepted', true,
+      'transitionRecordedNow', false,
+      'effectiveState', v_effective_state
+    ) || coalesce(v_grant, '{}'::jsonb);
+  end if;
+
+  v_effective_state := p_state;
+  if p_state = 'success' then
     v_grant := private.grant_founder_launch_core(v_uid, v_device_id);
   end if;
 
-  return jsonb_build_object('firstSyncRecorded', v_rows > 0)
-    || coalesce(v_grant, '{}'::jsonb);
+  return jsonb_build_object(
+    'transitionAccepted', true,
+    'transitionRecordedNow', true,
+    'effectiveState', v_effective_state
+  ) || coalesce(v_grant, '{}'::jsonb);
 end;
 $$;
 
 revoke all on function public.record_first_sync_transition(text, text, text, text) from public;
 revoke execute on function public.record_first_sync_transition(text, text, text, text) from anon;
 grant execute on function public.record_first_sync_transition(text, text, text, text) to authenticated;
+
+-- Guardia anti-regressione: fallisce l'intera migration se il trigger
+-- signup-time riappare (per errore, merge accidentale, restore di un
+-- backup vecchio). Founder P0 dipende esplicitamente sul fatto che
+-- l'unico grant automatico sia questo, mai piu' un trigger a ogni signup.
+do $$
+begin
+  if exists (
+    select 1 from pg_trigger
+    where tgname = 'on_profile_created_founder'
+      and tgrelid = 'public.profiles'::regclass
+  ) then
+    raise exception 'Founder P0 guard: on_profile_created_founder trigger e'' '
+      'ricomparso su public.profiles. Il grant a signup e'' stato '
+      'esplicitamente disabilitato (vedi 20260715183049) e non va mai '
+      'riattivato: DROP il trigger prima di riapplicare questa migration.';
+  end if;
+end;
+$$;
 
 -- Dopo l'apply: rieseguire get_advisors(security) — verificare che
 -- nessuna delle 2 funzioni compaia come "SECURITY DEFINER senza

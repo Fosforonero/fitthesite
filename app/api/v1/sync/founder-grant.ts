@@ -27,8 +27,15 @@ export function derivePlatform(
   return null;
 }
 
+/**
+ * Contratto v4 di record_first_sync_transition (Founder P0 review, punto 1):
+ * transitionAccepted/transitionRecordedNow/effectiveState sono espliciti,
+ * mai dedotti dall'assenza di notEligibleReason.
+ */
 type FirstSyncTransitionResult = {
-  firstSyncRecorded?: boolean;
+  transitionAccepted?: boolean;
+  transitionRecordedNow?: boolean;
+  effectiveState?: string | null;
   grantCreated?: boolean;
   alreadyHadEligibleGrant?: boolean;
   capReached?: boolean;
@@ -37,20 +44,23 @@ type FirstSyncTransitionResult = {
 
 /**
  * Mappa il jsonb di record_first_sync_transition (o un errore RPC) sullo
- * stato compatto restituito al client. "retry_needed" copre sia un errore
- * RPC vero e proprio sia notEligibleReason='no_metrics_evidence' (l'unico
- * esito di non-eleggibilita' che un sync successivo puo' risolvere da
- * solo, dato che il P0.3 garantisce che la transizione non resti mai
- * terminale senza evidenza).
+ * stato compatto restituito al client.
+ *
+ * "retry_needed" copre: un errore RPC vero e proprio, un device
+ * inesistente/cross-user/revocato (transitionAccepted=false, effectiveState
+ * null) e notEligibleReason='no_metrics_evidence' (transitionAccepted=false)
+ * — tutti e tre i casi in cui un sync successivo puo' risolversi da solo,
+ * dato che il P0.3 garantisce che la transizione non resti mai terminale
+ * senza evidenza ne' per un device che il server non ha potuto risolvere.
  */
 export function resolveFounderGrantStatus(
   result: FirstSyncTransitionResult | null | undefined,
   hadError: boolean,
 ): FounderGrantStatus {
   if (hadError || result == null) return "retry_needed";
+  if (!result.transitionAccepted) return "retry_needed";
   if (result.grantCreated) return "granted";
   if (result.alreadyHadEligibleGrant) return "already_granted";
   if (result.capReached) return "cap_reached";
-  if (result.notEligibleReason === "no_metrics_evidence") return "retry_needed";
   return "ineligible";
 }

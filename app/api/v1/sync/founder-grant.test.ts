@@ -26,42 +26,79 @@ describe("derivePlatform — P0.4, platform e' telemetria opzionale", () => {
   });
 });
 
-describe("resolveFounderGrantStatus", () => {
-  it("grantCreated=true -> granted", () => {
+describe("resolveFounderGrantStatus — contratto v4 (transitionAccepted esplicito)", () => {
+  it("transitionAccepted=true + grantCreated=true -> granted", () => {
     expect(
-      resolveFounderGrantStatus({ grantCreated: true }, false),
+      resolveFounderGrantStatus(
+        { transitionAccepted: true, grantCreated: true },
+        false,
+      ),
     ).toBe("granted");
   });
 
-  it("alreadyHadEligibleGrant=true -> already_granted", () => {
+  it("transitionAccepted=true + alreadyHadEligibleGrant=true -> already_granted", () => {
     expect(
-      resolveFounderGrantStatus({ alreadyHadEligibleGrant: true }, false),
+      resolveFounderGrantStatus(
+        { transitionAccepted: true, alreadyHadEligibleGrant: true },
+        false,
+      ),
     ).toBe("already_granted");
   });
 
-  it("capReached=true -> cap_reached", () => {
-    expect(resolveFounderGrantStatus({ capReached: true }, false)).toBe(
-      "cap_reached",
-    );
-  });
-
-  it("notEligibleReason=excluded_account -> ineligible (non retry-worthy)", () => {
+  it("transitionAccepted=true + capReached=true -> cap_reached", () => {
     expect(
       resolveFounderGrantStatus(
-        { notEligibleReason: "excluded_account" },
+        { transitionAccepted: true, capReached: true },
+        false,
+      ),
+    ).toBe("cap_reached");
+  });
+
+  it("transitionAccepted=true + notEligibleReason=excluded_account -> ineligible (non retry-worthy)", () => {
+    expect(
+      resolveFounderGrantStatus(
+        { transitionAccepted: true, notEligibleReason: "excluded_account" },
         false,
       ),
     ).toBe("ineligible");
   });
 
-  it("notEligibleReason=no_metrics_evidence -> retry_needed (P0.3: puo' risolversi da solo)", () => {
-    expect(
-      resolveFounderGrantStatus(
-        { notEligibleReason: "no_metrics_evidence" },
-        false,
-      ),
-    ).toBe("retry_needed");
-  });
+  it(
+    "transitionAccepted=false + notEligibleReason=no_metrics_evidence -> retry_needed " +
+      "(P0.3: puo' risolversi da solo)",
+    () => {
+      expect(
+        resolveFounderGrantStatus(
+          {
+            transitionAccepted: false,
+            notEligibleReason: "no_metrics_evidence",
+          },
+          false,
+        ),
+      ).toBe("retry_needed");
+    },
+  );
+
+  it(
+    "transitionAccepted=false, device inesistente/cross-user/revocato " +
+      "(nessun notEligibleReason) -> retry_needed, mai ineligible",
+    () => {
+      expect(
+        resolveFounderGrantStatus(
+          { transitionAccepted: false, effectiveState: null },
+          false,
+        ),
+      ).toBe("retry_needed");
+    },
+  );
+
+  it(
+    "l'assenza di notEligibleReason da sola non implica accettazione: " +
+      "senza transitionAccepted=true esplicito resta retry_needed",
+    () => {
+      expect(resolveFounderGrantStatus({}, false)).toBe("retry_needed");
+    },
+  );
 
   it("errore RPC -> retry_needed, mai un blocco del sync", () => {
     expect(resolveFounderGrantStatus(null, true)).toBe("retry_needed");
@@ -71,9 +108,15 @@ describe("resolveFounderGrantStatus", () => {
     expect(resolveFounderGrantStatus(undefined, false)).toBe("retry_needed");
   });
 
-  it("firstSyncRecorded=false senza altri campi (cross-user/revoked device) -> ineligible", () => {
-    expect(
-      resolveFounderGrantStatus({ firstSyncRecorded: false }, false),
-    ).toBe("ineligible");
-  });
+  it(
+    "transitionAccepted=true ma effectiveState non e' 'success' (es. block_permission) -> ineligible",
+    () => {
+      expect(
+        resolveFounderGrantStatus(
+          { transitionAccepted: true, effectiveState: "block_permission" },
+          false,
+        ),
+      ).toBe("ineligible");
+    },
+  );
 });
