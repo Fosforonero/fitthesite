@@ -57,6 +57,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
      * robots della pagina.
      */
     indexableLocales?: (lc: Locale) => boolean;
+    /**
+     * Locale usato per l'hreflang "x-default" di questa route. Default "it"
+     * (comportamento storico, invariato per tutto il sito). Labs (P1.1 Fase
+     * 1) è l'unica eccezione: pubblico internazionale, x-default -> "en",
+     * stessa scelta già fatta in labs/page.tsx e labs/[tool]/page.tsx.
+     */
+    xDefaultLocale?: Locale;
   }> = [
     { path: "",              indexableLocales: (lc) => HOME_COMPLETE_LOCALES.includes(lc) },
     { path: "/about",        indexableLocales: (lc) => ABOUT_TRANSLATED_LOCALES.includes(lc) },
@@ -71,7 +78,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // vedi lib/labs/registry.ts (LABS_LOCALES) e locale-redirect.ts. Stessa
     // fonte di verità usata da generateStaticParams delle pagine Labs, così
     // sitemap e route non possono contraddirsi.
-    { path: "/labs", indexableLocales: (lc) => LABS_LOCALES.includes(lc) },
+    { path: "/labs", indexableLocales: (lc) => LABS_LOCALES.includes(lc), xDefaultLocale: "en" },
     { path: "/blog" },
     { path: "/novita" },
     { path: "/support" },
@@ -87,6 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       path: `/labs/${tool.key}`,
       localized: (lc) => `/labs/${localizedLabsSlug(tool, lc as "it" | "en")}`,
       indexableLocales: (lc) => LABS_LOCALES.includes(lc),
+      xDefaultLocale: "en",
     });
   }
 
@@ -144,7 +152,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         alternates: {
           languages: Object.fromEntries([
             ...langs.map((l) => [l, `${BASE}/${l}${pathFor(l)}`]),
-            ["x-default", `${BASE}/it${pathFor("it")}`],
+            ["x-default", `${BASE}/${r.xDefaultLocale ?? "it"}${pathFor(r.xDefaultLocale ?? "it")}`],
           ]),
         },
       });

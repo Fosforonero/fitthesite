@@ -11,6 +11,7 @@ import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
+import { LABS_TEASER_COPY } from "@/lib/content/labs-teaser-copy";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -325,6 +326,16 @@ export default async function BlogIndex({
         <p className="mt-6 text-lg text-text-secondary max-w-2xl leading-relaxed">
           {t.lead}
         </p>
+
+        {/* Richiamo editoriale a FitMesh Labs — P1.1 Fase 2.1 */}
+        <Link
+          href={`/${lc === "it" ? "it" : "en"}/labs`}
+          className="mt-6 inline-flex items-center gap-2 rounded-pill border border-brand-aqua/25 bg-brand-aqua/[0.06] px-4 py-2 text-sm text-text-secondary hover:border-brand-aqua/40 hover:text-text-primary transition"
+        >
+          <span aria-hidden>🧪</span>
+          {tl(LABS_TEASER_COPY.heading, lc)}
+          <span aria-hidden>→</span>
+        </Link>
       </section>
 
       {/* PILLAR CARDS — più grandi */}

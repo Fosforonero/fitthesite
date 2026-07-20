@@ -727,6 +727,31 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "colmi-r09-ondo-sensa-genjou",
     ko: "colmi-r09-ondo-senseo-hyeonhwang",
   },
+  // P1.1 Fase 9: content cluster FitMesh Labs.
+  "efficienza-del-sonno-formula-calcolo": {
+    en: "sleep-efficiency-formula-calculation",
+    es: "eficiencia-del-sueno-formula-calculo",
+    de: "schlafeffizienz-formel-berechnung",
+    pt: "eficiencia-do-sono-formula-calculo",
+    fr: "efficacite-du-sommeil-formule-calcul",
+    pl: "efektywnosc-snu-wzor-obliczanie",
+    tr: "uyku-verimliligi-formul-hesaplama",
+    nl: "slaapefficientie-formule-berekening",
+    ja: "suimin-koritsu-keisan-shiki",
+    ko: "sumyeon-hyoyul-gongsik-gyesan",
+  },
+  "metriche-recupero-hrv-sonno-frequenza-cardiaca": {
+    en: "recovery-metrics-hrv-sleep-heart-rate",
+    es: "metricas-recuperacion-hrv-sueno-frecuencia-cardiaca",
+    de: "erholungsmetriken-hrv-schlaf-herzfrequenz",
+    pt: "metricas-recuperacao-hrv-sono-frequencia-cardiaca",
+    fr: "metriques-recuperation-hrv-sommeil-frequence-cardiaque",
+    pl: "metryki-regeneracji-hrv-sen-tetno",
+    tr: "toparlanma-metrikleri-hrv-uyku-kalp-atis-hizi",
+    nl: "herstelstatistieken-hrv-slaap-hartslag",
+    ja: "kaifuku-metorikkusu-hrv-suimin-shinpakusu",
+    ko: "hoebok-jipyo-hrv-sumyeon-simbaksu",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {

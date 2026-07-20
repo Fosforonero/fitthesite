@@ -1087,8 +1087,8 @@ export const post: BlogPost = {
         ko: "스마트 링을 고려 중이신가요?",
       },
       body: {
-        it: "FitMesh Sync è disponibile su Google Play. I primi 1000 founder ricevono il Pro a vita gratis, incluso l'accesso alla feature anello Colmi non appena rilasciata. Iscriviti per tenere il posto.",
-        en: "FitMesh Sync is available on Google Play. The first 1,000 founders get lifetime Pro free, including access to the Colmi ring feature as soon as it ships. Sign up to keep your spot.",
+        it: "FitMesh Sync è disponibile su Google Play. I primi 1000 founder ricevono il Pro a vita gratis, incluso l'accesso alla feature anello Colmi non appena rilasciata. Iscriviti entro il 31 luglio 2026 per tenere il posto.",
+        en: "FitMesh Sync is available on Google Play. The first 1,000 founders get lifetime Pro free, including access to the Colmi ring feature as soon as it ships. Sign up by July 31, 2026 to keep your spot.",
         es: "FitMesh Sync está disponible en Google Play. Los primeros 1000 founders obtienen el Pro de por vida gratis, incluido el acceso a la función de anillo Colmi en cuanto se lance. Regístrate para reservar tu lugar.",
         de: "FitMesh Sync ist auf Google Play verfügbar. Die ersten 1000 Founder erhalten lebenslang Pro kostenlos, einschließlich des Zugangs zur Colmi-Ring-Funktion, sobald sie verfügbar ist. Melde dich an, um deinen Platz zu sichern.",
         pt: "FitMesh Sync está disponível no Google Play. Os primeiros 1000 founders recebem o Pro vitalício grátis, incluindo acesso ao recurso de anel Colmi assim que for lançado. Cadastre-se para garantir seu lugar.",

@@ -1611,8 +1611,8 @@ export const post: BlogPost = {
         ko: "웨어러블 데이터를 중앙화할 준비가 되셨나요?",
       },
       body: {
-        it: "FitMesh Sync si scarica gratis per tutti; i primi 1000 founder ricevono anche il Pro a vita gratis. App Android su Google Play, dashboard web inclusa.",
-        en: "FitMesh Sync is free to download for everyone; the first 1,000 founders also get lifetime Pro free. Android app on Google Play, web dashboard included.",
+        it: "FitMesh Sync si scarica gratis per tutti; i primi 1000 founder (fino al 31 luglio 2026) ricevono anche il Pro a vita gratis. App Android su Google Play, dashboard web inclusa.",
+        en: "FitMesh Sync is free to download for everyone; the first 1,000 founders (through July 31, 2026) also get lifetime Pro free. Android app on Google Play, web dashboard included.",
         es: "FitMesh Sync se descarga gratis para todos; los primeros 1000 founders reciben además el Pro de por vida gratis. App Android en Google Play, panel web incluido.",
         de: "FitMesh Sync steht für alle kostenlos zum Download; die ersten 1000 Founder erhalten zusätzlich lebenslanges Pro gratis. Android-App auf Google Play, Web-Dashboard inklusive.",
         pt: "FitMesh Sync é gratuito para baixar por qualquer pessoa; os primeiros 1000 founders recebem também o Pro vitalício grátis. App Android no Google Play, painel web incluído.",

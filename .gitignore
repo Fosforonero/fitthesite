@@ -47,3 +47,16 @@ supabase/.branches
 supabase/seed.local.sql
 .pnpm-store/
 .claude/
+
+# P1.1 Fase 7: vettori oracle generati (rigenerati a ogni check, non da committare)
+.oracle-vectors.json
+
+# Python oracle (P1.1 Fase 7): bytecode cache, mai da committare
+__pycache__/
+*.pyc
+
+# P1.1B Fase 6: un solo lockfile operativo (pnpm-lock.yaml). Il progetto usa
+# pnpm ovunque (Vercel installCommand, Docker, questo repo) - se un comando
+# npm locale rigenera package-lock.json per errore, non deve rientrare nel
+# repo (successo esattamente questo in una sessione precedente).
+package-lock.json

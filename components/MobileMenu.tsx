@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 
 const INTEGRATIONS_LABEL: Partial<Record<Locale, string>> = {
   it: "Integrazioni",
@@ -38,7 +39,7 @@ export default function MobileMenu({
 
   return (
     <>
-      {/* Hamburger button — hidden on md+ */}
+      {/* Hamburger button - hidden on md+ */}
       <button
         className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] rounded-lg hover:bg-white/5 transition-colors"
         onClick={() => setOpen((v) => !v)}
@@ -100,6 +101,14 @@ export default function MobileMenu({
             onClick={() => setOpen(false)}
           >
             Blog
+          </Link>
+          <Link
+            href={`/${resolveLabsLocale(locale)}/labs`}
+            data-testid="nav-labs-mobile"
+            className="px-3 py-3 rounded-xl text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
+            onClick={() => setOpen(false)}
+          >
+            Labs
           </Link>
           <Link
             href={`/${locale}/beta`}

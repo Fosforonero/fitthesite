@@ -985,8 +985,8 @@ export const post: BlogPost = {
         ko: "통합 대시보드를 사용해보고 싶으신가요?",
       },
       body: {
-        it: "FitMesh Sync si scarica gratis per tutti; i primi 1000 founder ricevono anche il Pro a vita gratis. Funziona oggi con tutti i wearable che scrivono su Health Connect.",
-        en: "FitMesh Sync is free to download for everyone; the first 1,000 founders also get lifetime Pro free. Works today with all wearables writing to Health Connect.",
+        it: "FitMesh Sync si scarica gratis per tutti; i primi 1000 founder (fino al 31 luglio 2026) ricevono anche il Pro a vita gratis. Funziona oggi con tutti i wearable che scrivono su Health Connect.",
+        en: "FitMesh Sync is free to download for everyone; the first 1,000 founders (through July 31, 2026) also get lifetime Pro free. Works today with all wearables writing to Health Connect.",
         es: "FitMesh Sync se descarga gratis para todos; los primeros 1000 founders reciben además el Pro de por vida gratis. Funciona hoy con todos los wearables que escriben en Health Connect.",
         de: "FitMesh Sync steht für alle kostenlos zum Download; die ersten 1000 Founder erhalten zusätzlich lebenslanges Pro gratis. Funktioniert heute mit allen Wearables, die in Health Connect schreiben.",
         pt: "FitMesh Sync é gratuito para baixar por qualquer pessoa; os primeiros 1000 founders recebem também o Pro vitalício grátis. Funciona hoje com todos os wearables que escrevem no Health Connect.",

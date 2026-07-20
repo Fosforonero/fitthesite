@@ -725,8 +725,8 @@ export const post: BlogPost = {
         ko: "FitMesh Sync로 링과 스마트워치를 하나로",
       },
       body: {
-        it: "FitMesh Sync è disponibile su Google Play. I primi 1000 founder ricevono il Pro a vita gratis, inclusa la fusione multi-device di anello e smartwatch in un'unica dashboard. Iscriviti ora per tenere il posto.",
-        en: "FitMesh Sync is available on Google Play. The first 1,000 founders get lifetime Pro free, including multi-device fusion of ring and smartwatch in a single dashboard. Sign up now to keep your spot.",
+        it: "FitMesh Sync è disponibile su Google Play. I primi 1000 founder ricevono il Pro a vita gratis, inclusa la fusione multi-device di anello e smartwatch in un'unica dashboard. Iscriviti entro il 31 luglio 2026 per tenere il posto.",
+        en: "FitMesh Sync is available on Google Play. The first 1,000 founders get lifetime Pro free, including multi-device fusion of ring and smartwatch in a single dashboard. Sign up by July 31, 2026 to keep your spot.",
         es: "FitMesh Sync está disponible en Google Play. Los primeros 1000 founders obtienen el Pro de por vida gratis, incluida la fusión multidispositivo de anillo y smartwatch en un solo panel. Apúntate ahora para reservar tu lugar.",
         de: "FitMesh Sync ist auf Google Play verfügbar. Die ersten 1000 Founder erhalten lebenslang Pro kostenlos, einschließlich der Multi-Device-Zusammenführung von Ring und Smartwatch in einem einzigen Dashboard. Melde dich jetzt an, um deinen Platz zu sichern.",
         pt: "FitMesh Sync está disponível no Google Play. Os primeiros 1000 founders recebem o Pro vitalício grátis, incluindo a fusão multi-device de anel e smartwatch em um único painel. Cadastre-se agora para garantir seu lugar.",
@@ -884,8 +884,8 @@ export const post: BlogPost = {
         ko: "스마트 링을 사용하려면 구독이 필요한가요?",
       },
       a: {
-        it: "Dipende dal modello. Alcuni anelli premium richiedono un abbonamento per sbloccare le funzioni avanzate; gli anelli economici di solito no. Con FitMesh Sync i dati dell'anello confluiscono in un'unica dashboard e i primi 1000 founder ricevono il Pro a vita gratis.",
-        en: "It depends on the model. Some premium rings require a subscription to unlock advanced features; budget rings usually don't. With FitMesh Sync your ring data flows into one dashboard, and the first 1,000 founders get lifetime Pro free.",
+        it: "Dipende dal modello. Alcuni anelli premium richiedono un abbonamento per sbloccare le funzioni avanzate; gli anelli economici di solito no. Con FitMesh Sync i dati dell'anello confluiscono in un'unica dashboard e i primi 1000 founder (fino al 31 luglio 2026) ricevono il Pro a vita gratis.",
+        en: "It depends on the model. Some premium rings require a subscription to unlock advanced features; budget rings usually don't. With FitMesh Sync your ring data flows into one dashboard, and the first 1,000 founders (through July 31, 2026) get lifetime Pro free.",
         es: "Depende del modelo. Algunos anillos premium requieren una suscripción para desbloquear las funciones avanzadas; los económicos normalmente no. Con FitMesh Sync los datos del anillo confluyen en un único panel, y los primeros 1000 founders obtienen el Pro de por vida gratis.",
         de: "Das hängt vom Modell ab. Einige Premium-Ringe erfordern ein Abonnement, um erweiterte Funktionen freizuschalten; günstige Ringe in der Regel nicht. Mit FitMesh Sync fließen deine Ringdaten in ein einziges Dashboard, und die ersten 1000 Founder erhalten lebenslang Pro kostenlos.",
         pt: "Depende do modelo. Alguns anéis premium exigem uma assinatura para desbloquear as funções avançadas; os econômicos geralmente não. Com FitMesh Sync os dados do anel confluem em um único painel, e os primeiros 1000 founders recebem o Pro vitalício grátis.",

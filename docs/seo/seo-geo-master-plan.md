@@ -574,8 +574,11 @@ Baseline GSC completa e claim rimossi: vedi
 Smartwatch Authority Refresh". Query primaria EN ("smart ring vs
 smartwatch") a posizione 55 su 2 impression, pagina EN a 23 impression/0
 click/posizione 23,65 — presenza minima, intento "uso combinato" non
-ancora coperto prima di questo refresh. Controlli 14/28/90gg da calcolare
-sulla data di deploy effettiva, non ancora avvenuto.
+ancora coperto prima di questo refresh.
+
+**Deploy reale 2026-07-20** (PR #18, merge commit `11d6a91`, dettaglio
+completo in seo-results-log.md, sezione "P1.2B"). Controlli GSC
+programmati: **+14gg 2026-08-03, +28gg 2026-08-17, +90gg 2026-10-18**.
 
 ## 10. Decision log
 

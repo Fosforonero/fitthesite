@@ -891,3 +891,49 @@ Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
 - **Zero Preview Deployment** anche in questo giro.
 - **Non mergiata**: PR #18 aggiornata con nuovi commit, nessun merge
   autonomo.
+
+### P1.2B — Merge, deploy pubblico, verifica live e IndexNow (2026-07-20)
+
+- **Merge**: autorizzato esplicitamente da Matteo, eseguito da lui via
+  GitHub (`mergedBy: Fosforonero`, non da questa sessione). Merge commit
+  `11d6a91bb611b8e1d103835524add4e88ed550db` su `main`, merge commit
+  normale (non squash/rebase). Branch `seo/p1-2-smart-ring-smartwatch-refresh`
+  mantenuto, non cancellato.
+- **Deployment Vercel**: un solo status context (`Vercel`) osservato sul
+  commit di merge dall'apertura (`pending`, "Vercel is deploying your app",
+  14:09:32Z) fino a `success` ("Deployment has completed") — nessun secondo
+  deployment parallelo rilevato.
+- **Verifica pubblica IT/EN** (`https://www.fitmesh.fit`):
+  entrambe 200; `<title>` e canonical corrispondono a quanto specificato
+  in Fase 3; hreflang solo it/en/x-default su entrambe; 3 blocchi JSON-LD
+  (BlogPosting con `inLanguage` `it-IT`/`en-US` corretti, FAQPage con le 8
+  domande, BreadcrumbList); testo delle domande FAQ presente sia nel markup
+  visibile sia nel JSON-LD (stessa fonte); og:image/twitter:image assoluti,
+  risolvono 200 `image/png`; link interni citati nell'articolo presenti e
+  puntano a slug reali.
+- **Verifica pubblica delle 13 varianti locale fallback** (es, de, pt, fr,
+  pl, tr, nl, ja, ko, sv, da, no, fi): tutte **307** verso
+  `/en/blog/smart-ring-vs-smartwatch`, singolo hop verificato seguendo il
+  redirect fino al 200 finale (nessuna catena, nessun loop).
+- **Sitemap e feed pubblici**: `sitemap.xml` e `blog/feed.xml` (it, en)
+  verificati non contenere nessuno dei 9 slug localizzati non-it/en di
+  questo post; IT/EN presenti in entrambi.
+- **IndexNow**: inviati esclusivamente i 2 URL indicizzabili
+  (`https://www.fitmesh.fit/it/blog/anello-vs-smartwatch`,
+  `https://www.fitmesh.fit/en/blog/smart-ring-vs-smartwatch`) via
+  `tools/indexnow-2026-07-20-ring-watch.ts` — HTTP 200 dall'endpoint
+  IndexNow. Nessun URL 307 inviato (per costruzione: lo script elenca solo
+  i 2 URL, non itera sulle altre locale).
+- **Nessuna verifica pubblica fallita** — nessun commit vuoto, nessun
+  redeploy manuale necessario.
+- **seo-geo-master-plan.md §9 — controlli GSC programmati**, calcolati
+  sulla data di deploy reale (2026-07-20, non la data di stesura del
+  piano):
+  - **+14 giorni**: 2026-08-03
+  - **+28 giorni**: 2026-08-17
+  - **+90 giorni**: 2026-10-18
+- **Nota su questo aggiornamento**: registrato SOLO in locale su questo
+  worktree/branch, non pushato — per non generare un secondo deployment
+  Vercel puramente documentale (richiesta esplicita di Matteo). Da
+  includere nel prossimo push utile (bundle con altro lavoro reale su
+  questo branch, o un push dedicato quando Matteo lo richiede).

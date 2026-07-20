@@ -30,9 +30,12 @@
  */
 
 import type { LabsText, LabsTextList } from "@/lib/labs/registry";
+import { liveLabsToolByKey } from "@/lib/labs/registry";
 
-export const METHODOLOGY_VERSION = "1.0";
-export const LAST_REVIEWED = "2026-07-16";
+// P1.1 Fase 1: methodologyVersion/lastRevised vivono nel registry (unica
+// fonte di verità, vedi lib/labs/registry.ts), non più dichiarate qui.
+export const METHODOLOGY_VERSION = liveLabsToolByKey("hrv-rmssd").methodologyVersion;
+export const LAST_REVIEWED = liveLabsToolByKey("hrv-rmssd").lastRevised;
 export const PUBLISHED_AT = "2026-07-16";
 
 interface ProseSectionContent {
@@ -129,6 +132,16 @@ export interface HrvToolContent {
     unitsMs: LabsText;
     unitsBpm: LabsText;
     noResultsYet: LabsText;
+    // P1.1 Fase 4: grafici, evidenza outlier, condivisione.
+    rrChartHeading: LabsText;
+    diffChartHeading: LabsText;
+    chartTableToggleLabel: LabsText;
+    chartIndexHeader: LabsText;
+    chartValueHeader: LabsText;
+    implausibleLabel: LabsText;
+    implausibleCountWarning: LabsText;
+    shareButton: LabsText;
+    sharedButton: LabsText;
   };
 }
 
@@ -346,12 +359,12 @@ export const HRV_TOOL_CONTENT: HrvToolContent = {
         it: [
           "Tutti i calcoli avvengono nel tuo browser, nel codice JavaScript di questa pagina. Nessun intervallo RR, nessun risultato e nessun input viene mai inviato a un server, incluso a un server FitMesh: digitare o calcolare non genera alcuna richiesta di rete.",
           "Nessun valore entra in parametri URL, cookie, localStorage o eventi analytics. \"Copia risultati\" copia il testo negli appunti solo dopo che clicchi il pulsante, un'azione esplicita, mai automatica. \"Scarica CSV\" genera un file localmente nel tuo browser: non c'è upload.",
-          "Il pulsante \"Condividi\" (se presente) condivide solo l'indirizzo di questa pagina, mai i dati che hai inserito o i risultati calcolati.",
+          "Il pulsante \"Condividi\" apre il pannello di condivisione nativo del tuo browser/sistema operativo con un riepilogo testuale dei risultati calcolati e l'indirizzo di questa pagina - mai gli intervalli RR grezzi che hai inserito. Nessun dato entra nell'URL: la condivisione avviene interamente in locale, tramite il sistema operativo, non tramite un server FitMesh.",
         ],
         en: [
           "All calculations happen in your browser, in this page's JavaScript code. No RR interval, no result, and no input is ever sent to a server, including a FitMesh server: typing or calculating never generates a network request.",
           "No value ever enters URL parameters, cookies, localStorage, or analytics events. \"Copy results\" copies text to the clipboard only after you click the button, an explicit action, never automatic. \"Download CSV\" generates a file locally in your browser: there is no upload.",
-          "The \"Share\" button (if present) only shares this page's address, never the data you entered or the calculated results.",
+          "The \"Share\" button opens your browser/OS's native share sheet with a text summary of the calculated results and this page's address - never the raw RR intervals you entered. No data ever enters the URL: sharing happens entirely locally, through the operating system, not through a FitMesh server.",
         ],
       },
     },
@@ -468,17 +481,23 @@ export const HRV_TOOL_CONTENT: HrvToolContent = {
       },
     },
   ],
+  // P1.1 Fase 4: formule in LaTeX (renderizzate via KaTeX, vedi
+  // components/labs/math), non più stringhe unicode semplici. La formula
+  // RMSSD è quella mandata dallo sprint P1.1 alla lettera.
   formulaRows: [
-    { label: { it: "RMSSD", en: "RMSSD" }, formula: "√[ Σ(RRᵢ₊₁ − RRᵢ)² / (n − 1) ]" },
+    {
+      label: { it: "RMSSD", en: "RMSSD" },
+      formula: String.raw`\mathrm{RMSSD} = \sqrt{ \frac{ \sum_{i=1}^{n-1} \left(RR_{i+1}-RR_i\right)^2 }{n-1} }`,
+    },
     {
       label: { it: "Deviazione standard (campionaria)", en: "Standard deviation (sample)" },
-      formula: "√[ Σ(RRᵢ − RR̄)² / (n − 1) ]",
+      formula: String.raw`\mathrm{SD} = \sqrt{ \frac{ \sum_{i=1}^{n} \left(RR_i - \overline{RR}\right)^2 }{n-1} }`,
     },
     {
       label: { it: "Frequenza cardiaca derivata", en: "Derived heart rate" },
-      formula: "60000 / RR medio (ms)",
+      formula: String.raw`\mathrm{HR} = \frac{60000}{\overline{RR}\ (\mathrm{ms})}`,
     },
-    { label: { it: "ln(RMSSD)", en: "ln(RMSSD)" }, formula: "logaritmo naturale di RMSSD" },
+    { label: { it: "ln(RMSSD)", en: "ln(RMSSD)" }, formula: String.raw`\ln(\mathrm{RMSSD})` },
   ],
   citationHeading: { it: "Come citare questo strumento", en: "How to cite this tool" },
   citationText: {
@@ -579,5 +598,17 @@ export const HRV_TOOL_CONTENT: HrvToolContent = {
       it: "Inserisci almeno 2 intervalli RR validi per vedere i risultati.",
       en: "Enter at least 2 valid RR intervals to see the results.",
     },
+    rrChartHeading: { it: "Intervalli RR", en: "RR intervals" },
+    diffChartHeading: { it: "Differenze successive", en: "Successive differences" },
+    chartTableToggleLabel: { it: "Mostra come tabella", en: "Show as table" },
+    chartIndexHeader: { it: "#", en: "#" },
+    chartValueHeader: { it: "Valore", en: "Value" },
+    implausibleLabel: { it: "fuori range plausibile", en: "outside plausible range" },
+    implausibleCountWarning: {
+      it: "valore/i fuori dal range fisiologicamente plausibile (300–2000 ms): inclusi comunque nel calcolo, non rimossi automaticamente. Verifica se sono un errore di inserimento.",
+      en: "value(s) outside the physiologically plausible range (300–2000 ms): still included in the calculation, not automatically removed. Check whether they're a data-entry error.",
+    },
+    shareButton: { it: "Condividi", en: "Share" },
+    sharedButton: { it: "Condiviso", en: "Shared" },
   },
 };

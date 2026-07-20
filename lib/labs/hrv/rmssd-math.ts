@@ -224,6 +224,31 @@ export function isShortSample(validIntervalCount: number): boolean {
   return validIntervalCount < SHORT_SAMPLE_INTERVAL_THRESHOLD;
 }
 
+/**
+ * Soglia di plausibilità fisiologica per un singolo intervallo RR (P1.1
+ * Fase 4): 300ms↔2000ms copre indicativamente 30-200 bpm. Scelta editoriale
+ * prudente (non un limite clinico), usata SOLO per evidenziare visivamente
+ * un valore sospetto nella UI - mai per escluderlo dal calcolo: il tool
+ * include ogni intervallo valido (non zero/negativo/non-numerico) nel
+ * risultato, l'utente decide se fidarsene, coerente con "nessuna rimozione
+ * automatica di intervalli sospetti" già dichiarato sopra per stddev/SDNN.
+ */
+export const PLAUSIBLE_RR_MIN_MS = 300;
+export const PLAUSIBLE_RR_MAX_MS = 2000;
+
+export function isPhysiologicallyImplausible(rrMs: number): boolean {
+  return rrMs < PLAUSIBLE_RR_MIN_MS || rrMs > PLAUSIBLE_RR_MAX_MS;
+}
+
+/** Indici (nell'array di intervalli validi, in ordine) fisiologicamente implausibili. */
+export function findImplausibleIndices(validIntervalsMs: number[]): number[] {
+  const out: number[] = [];
+  validIntervalsMs.forEach((rr, i) => {
+    if (isPhysiologicallyImplausible(rr)) out.push(i);
+  });
+  return out;
+}
+
 /** Dati di esempio precaricabili nel form: usati anche come test vector. */
 export const SAMPLE_RR_INTERVALS_MS: readonly number[] = [
   812, 828, 795, 840, 803, 822, 788, 831, 806, 819, 797, 825, 811, 804, 833,
