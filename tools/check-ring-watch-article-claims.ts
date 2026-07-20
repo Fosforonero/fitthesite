@@ -1,6 +1,8 @@
 /**
- * Guardrail Sprint P1.2 Fase 11 — impedisce il ritorno dei claim falsi
- * rimossi da lib/blog/posts/anello-vs-smartwatch.ts nel refresh 2026-07-20.
+ * Guardrail Sprint P1.2 Fase 11 (+ P1.2A) — impedisce il ritorno dei claim
+ * falsi rimossi da lib/blog/posts/anello-vs-smartwatch.ts nel refresh
+ * 2026-07-20, E impedisce che un body inglese di fallback torni
+ * indicizzabile sotto un URL locale diverso (P1.2A, 2026-07-20).
  *
  * Fallisce (exit 1) se il file contiene di nuovo:
  *  1. "iOS coming soon" / "l'app iOS arriva a breve" o equivalenti — falso,
@@ -27,16 +29,37 @@
  *     anche dal JSON-LD, perche' sono la STESSA fonte — questo guardrail
  *     verifica che nessuno abbia aggiunto un secondo array/override FAQ nel
  *     file, che romperebbe quella garanzia strutturale).
+ *  9. (P1.2A) Un body inglese di fallback torna indicizzabile sotto un URL
+ *     locale diverso: verifica STRUTTURALE (non regex) sui dati veri del
+ *     post — per ogni locale diverso da it/en, `isBlogVariantIndexable`
+ *     deve essere false (nessuna variante "completa" accidentale) E il
+ *     post deve comparire in `REDIRECT_INCOMPLETE_LOCALE_SLUGS` (altrimenti
+ *     quelle varianti restano `noindex` con un <html lang> incoerente col
+ *     contenuto invece del redirect 307 scelto per questo articolo).
  *
  * Uso (Docker): npx tsx tools/check-ring-watch-article-claims.ts
  */
 import fs from "node:fs";
 import path from "node:path";
+import { locales } from "@/lib/i18n";
+import { post as ringWatchPost } from "@/lib/blog/posts/anello-vs-smartwatch";
+import { isBlogVariantIndexable, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "@/lib/blog/indexability";
 
 const repoRoot = path.resolve(__dirname, "..");
 const TARGET = "lib/blog/posts/anello-vs-smartwatch.ts";
 const full = path.join(repoRoot, TARGET);
 const errors: string[] = [];
+
+// ── 9. Nessun body EN di fallback indicizzabile sotto una locale diversa ──
+for (const lc of locales) {
+  if (lc === "it" || lc === "en") continue;
+  if (isBlogVariantIndexable(ringWatchPost, lc)) {
+    errors.push(`[locale-fallback-indicizzabile] "${lc}" risulta indicizzabile (isBlogVariantIndexable=true) — se e' un fallback EN reintrodotto per errore, va corretto; se e' una traduzione vera e completa, e' un falso positivo di QUESTO guardrail, non del sito.`);
+  }
+}
+if (!REDIRECT_INCOMPLETE_LOCALE_SLUGS.has(ringWatchPost.slug)) {
+  errors.push(`[redirect-non-registrato] "${ringWatchPost.slug}" non e' in REDIRECT_INCOMPLETE_LOCALE_SLUGS (lib/blog/indexability.ts) — le varianti locale incomplete tornerebbero a un semplice noindex invece del redirect 307 verso /en/... scelto per questo articolo (P1.2A).`);
+}
 
 if (!fs.existsSync(full)) {
   console.error(`❌ File atteso non trovato: ${TARGET}`);

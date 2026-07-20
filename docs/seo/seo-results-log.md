@@ -776,3 +776,118 @@ Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
   deploy effettiva (non ancora avvenuto in questa sessione) — vedi
   `seo-geo-master-plan.md` §9 per la convenzione; non anticipare date
   prima che il deploy sia reale.
+
+### P1.2A — Hardening pre-merge delle locale fallback (addendum, PR #18 non mergiata)
+
+- **Scoperta**: il meccanismo per "post/locale con fallback EN non
+  indicizzabile" esiste già sitewide (`lib/blog/indexability.ts`,
+  `isBlogVariantIndexable`/`isPostLocaleComplete`, usato da
+  `blog/[slug]/page.tsx` per robots+hreflang, `sitemap.ts`, `feed.xml`) —
+  costruito il 04/07 dopo un incidente reale (136 pagine duplicate
+  rilevate). Per QUESTO post, con il refresh P1.2, il meccanismo era già
+  correttamente attivo: le 9 lingue non-IT/EN (nordiche incluse) risultavano
+  già `noindex,follow`, escluse da hreflang/sitemap/feed prima ancora di
+  questo addendum — verificato negli HTTP check di P1.2, non una scoperta
+  nuova.
+- **Gap reale trovato**: `noindex` da solo non risolve l'incoerenza tra
+  `<html lang="es">` (impostato dal layout della route, che non sa nulla
+  dello stato di fallback di un singolo post) e il contenuto realmente
+  mostrato (inglese). Lo stesso vale per `inLanguage` nel JSON-LD
+  (`lib/seo/schema-language.ts`, puramente funzione della locale di route).
+  Questo è esattamente il motivo per cui il redirect è preferibile,
+  indicato nella richiesta.
+- **Decisione presa**: redirect 307 verso `/en/blog/...`, non noindex
+  rafforzato — perché un redirect evita il problema alla radice (la pagina
+  in quella lingua non viene mai renderizzata, quindi `<html lang>` e
+  `inLanguage` sbagliati non possono mai comparire), mentre "riparare" il
+  noindex avrebbe richiesto toccare `layout.tsx` (condiviso da OGNI pagina
+  di quella locale, non solo il blog) per renderlo consapevole dello stato
+  di un singolo post — cambio più invasivo e a raggio più ampio.
+- **Scelta di scope esplicita**: il redirect è **opt-in per post**
+  (`REDIRECT_INCOMPLETE_LOCALE_SLUGS` in `lib/blog/indexability.ts`, oggi
+  contiene solo `anello-vs-smartwatch`), non il nuovo comportamento
+  automatico per ogni post con `isBlogVariantIndexable` false. Gli altri
+  59 post mantengono il `noindex` esistente. Motivo: estendere il redirect
+  a tutti sarebbe un cambio di comportamento sitewide non richiesto in
+  questo sprint e non verificato post per post — segnalato qui come
+  possibile lavoro futuro, non deciso silenziosamente.
+- **Implementazione**: `app/(frontend)/[locale]/(marketing)/blog/[slug]/page.tsx`
+  — redirect (Next.js `redirect()`, 307) sia in `generateMetadata` sia nel
+  componente pagina, subito dopo la risoluzione del post e PRIMA del
+  redirect 308 esistente per slug non canonico (`permanentRedirect`) —
+  condizioni mutuamente esclusive, verificato che non si incatenano (vedi
+  test HTTP sotto, un solo hop).
+- **Guardrail aggiornato**: `tools/check-ring-watch-article-claims.ts`
+  aggiunge un check STRUTTURALE (importa i dati veri del post e
+  `isBlogVariantIndexable`, non regex) che fallisce se una qualunque
+  locale diversa da it/en risultasse indicizzabile per questo post, o se
+  il post non fosse registrato in `REDIRECT_INCOMPLETE_LOCALE_SLUGS`.
+  Efficacia verificata deliberatamente (rimosso il post dal set,
+  confermato il fallimento, ripristinato).
+- **Verifica prodotto (Flutter reale, non la copia del sito)**: richiesta
+  esplicita di non fidarsi di `lib/providers/data.ts` come fonte primaria.
+  Verificato contro `AppFitmesh/flutter_app` (repo reale):
+  - Colmi BLE Android: `lib/features/ring/data/ring_ble_client.dart:1-636`
+    (`flutter_blue_plus`, pubspec.yaml:56), wired nel sync reale via
+    `lib/core/di/providers.dart:392-433`.
+  - Colmi BLE iOS: STESSO codice, zero gating `Platform.isIOS` in
+    `lib/features/ring/**`; `ios/Runner/Info.plist:65-68` dichiara
+    `NSBluetoothAlwaysUsageDescription`/`NSBluetoothPeripheralUsageDescription`
+    per il ring; commit `7f5f9191` (2026-06-12) e `e9ad6f98` (2026-07-01)
+    confermano il flusso solo-anello su iOS come intenzionale, non un
+    accidente. Nessuna prova nei commit di validazione su iPhone fisico
+    per il ring (nota già presente altrove nel codice, `health_repository.dart:2010-2011`,
+    sulla stessa lacuna per Apple Watch) — non contraddice il claim
+    dell'articolo (il meccanismo BLE esiste identico su entrambe le
+    piattaforme), ma è una lacuna di test hardware, non di codice.
+  - Metriche lette dal ring: battery, passi/distanza/calorie, FC
+    riposo+intraday+realtime, SpO2 realtime+storico, stress, HRV/RMSSD,
+    sonno con fasi, temperatura (gated R09/R05) —
+    `lib/features/ring/data/colmi_protocol.dart` +
+    `ring_ble_client.dart:328-558` + `ring_enricher.dart:58-182`.
+  - Apple Watch: **nessuna integrazione diretta** — zero
+    `WatchConnectivity`/`WCSession` in `lib/`/`ios/`; companion app watchOS
+    è backlog dichiarato (`ROADMAP.md:645`, "Sprint 20 futuro"). Unico
+    codice Apple-Watch-aware è un'euristica generica su `sourceName`
+    HealthKit, esplicitamente segnalata come non verificata su device
+    reale nel commento del codice stesso (`health_repository.dart:2005-2017`).
+  - Galaxy Watch: **nessuna integrazione diretta** — zero SDK Tizen/Wear OS
+    in `lib/`/`android/`; "Samsung Health SDK reattivazione" è
+    esplicitamente in una tabella HUMAN_ONLY/disabilitata nel `CLAUDE.md`
+    del repo app.
+  - Lettura HealthKit: generica, nessun filtro per sorgente in ingresso
+    (`health_repository.dart:127-155,500`) — qualunque dato scritto da
+    Apple Watch sarebbe letto come qualunque altra sorgente. Confermato
+    quindi che "Apple Watch → HealthKit → FitMesh" è un percorso reale, non
+    un'illazione. Filtro applicato solo in USCITA (esclude i propri
+    campioni scritti e, quando l'anello è appaiato via BLE, esclude il
+    pacchetto dell'app OEM del ring per non contare due volte,
+    `providers.dart:189-195`).
+  - Lettura Health Connect: stesso pattern generico, nessun filtro sorgente
+    (`health_repository.dart:157-191,498-506`), permessi ampi
+    `android.permission.health.READ_*` (`AndroidManifest.xml:69-86`).
+  - **Nessun claim dell'articolo ridotto**: tutti confermati dal codice
+    reale dell'app, non solo dalla copia del sito.
+  - **Differenza di piattaforma trovata ma non aggiunta all'articolo**
+    (fuori scope dichiarato, "non trasformare in guida tecnica"): la sync
+    del ring è foreground-only su ENTRAMBE le piattaforme (mai richiamata
+    da `background_sync.dart`) — non un'asimmetria Android/iOS, ma un
+    limite generale non menzionato nell'articolo. Segnalato, non aggiunto.
+- **Gate finale (Docker, tutti exit 0)**: `tsc --noEmit`; `vitest run`
+  (84/84); `check-blog-integrity`; `check-translation-corruption`;
+  `check-gdpr-claim-guardrail`; `seo:truth-check`; `ring-watch:claims-check`
+  (col nuovo check strutturale); build produzione completa. Contro server
+  reale (`next start` Docker + guardrail HTTP da container `--network
+  host`): tutte e 15 le locale testate — `it`/`en` → 200 self-canonical,
+  hreflang solo it/en/x-default su entrambe; le altre 13 (incluse
+  sv/da/no/fi nordiche) → **307** verso `/en/blog/smart-ring-vs-smartwatch`,
+  un solo hop verificato seguendo il redirect fino al 200 finale, nessuna
+  catena; sitemap.xml verificato non contenere più nessuno dei 9 slug
+  localizzati non-it/en di questo post (0 occorrenze ciascuno), IT/EN
+  ancora presenti; `inLanguage` JSON-LD corretto su IT (`it-IT`) ed EN
+  (`en-US`) — non applicabile alle altre locale, che non renderizzano più
+  una pagina propria; `check-ios-eu-truth` e `check-social-metadata`
+  riverificati contro la nuova route, verdi; robots.txt invariato (200).
+- **Zero Preview Deployment** anche in questo giro.
+- **Non mergiata**: PR #18 aggiornata con nuovi commit, nessun merge
+  autonomo.
