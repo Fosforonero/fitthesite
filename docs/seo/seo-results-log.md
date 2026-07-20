@@ -768,9 +768,10 @@ Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
 - **Zero Preview Deployment**: nessun push, nessuna PR, nessun deploy
   Vercel eseguito o richiesto in questa sessione (`vercel.json` disabilita
   comunque le preview per branch non-`main`, invariato).
-- **Commit**: `[da registrare dopo il commit]`.
-- **Stato**: **verificato in Docker**, tutti i gate verdi. Non ancora
-  pushato, nessuna PR aperta. Nessun merge o deploy autonomo.
+- **Commit**: `c518e09` (branch `seo/p1-2-smart-ring-smartwatch-refresh`).
+- **Stato**: **verificato in Docker**, tutti i gate verdi. Pushato con PR
+  aperta subito dopo la registrazione di questa riga. Nessun merge
+  autonomo.
 - **Controlli programmati**: 14/28/90 giorni DA CALCOLARE sulla data di
   deploy effettiva (non ancora avvenuto in questa sessione) — vedi
   `seo-geo-master-plan.md` §9 per la convenzione; non anticipare date
