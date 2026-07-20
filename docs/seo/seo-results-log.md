@@ -664,3 +664,230 @@ Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
   pushato, nessuna PR aperta — richiesta esplicita: attendere che la PR
   #13 sia mergiata, poi rebase su `origin/main` e riverifica completa
   prima di aprire la PR. Nessun merge o deploy autonomo.
+
+### P1.2 — Smart Ring + Smartwatch Authority Refresh
+
+- **Cosa**: refresh editoriale completo (non un nuovo articolo, slug/
+  canonical/storico invariati) di `lib/blog/posts/anello-vs-smartwatch.ts`
+  (`/it/blog/anello-vs-smartwatch`, `/en/blog/smart-ring-vs-smartwatch`).
+  Struttura body interamente nuova (9 sezioni: risposta diretta, tabella,
+  notte-ring, giorno-watch, uso insieme + fonte Samsung, 3 configurazioni
+  reali con percorso dati verificato, gestione multi-sorgente FitMesh vs
+  HealthKit/Health Connect con fonti ufficiali, albero decisionale, limiti),
+  FAQ 8 domande identiche a JSON-LD, metadata IT/EN nuovi. Refresh completo
+  solo IT/EN (decisione esplicita Matteo); le altre 9 lingue già pubblicate
+  ricadono in automatico sul testo EN via il fallback `tl()`/`tll()` già
+  esistente in `lib/blog/types.ts` (chiavi locale non popolate per i nuovi
+  blocchi) — zero claim falsi residui su quelle 9 lingue per costruzione,
+  nessuna traduzione non rivista pubblicata.
+- **Baseline GSC al 10/07/2026** (fornita da Matteo, non riverificata
+  indipendentemente in questa sessione):
+
+  | Query/pagina | Impression | Click | CTR | Posizione media |
+  |---|---|---|---|---|
+  | Pagina EN (`/en/blog/smart-ring-vs-smartwatch`) | 23 | 0 | 0% | 23,65 |
+  | "smart ring vs smartwatch" | 2 | — | — | 55 |
+  | "smartwatch vs smart ring" | 1 | — | — | 50 |
+  | "smart ring vs smart watch" | 1 | — | — | 56 |
+
+  Lettura: presenza minima, zero click, posizioni fuori dalla prima pagina
+  per tutte le varianti della query primaria EN — coerente con un articolo
+  che finora copriva solo il confronto 1:1 "quale scegliere", non l'intento
+  "uso combinato" che la query e il refresh indirizzano.
+- **Claim rimossi in questo refresh** (Fase 1): "l'app iOS arriva a breve" /
+  "iOS app coming very soon" (falso: iOS è live, incluse le 27 storefront
+  UE, `lib/product-facts.ts`); "Prova FitMesh in beta" (prodotto pubblico,
+  non closed beta, `PRODUCT_STATUS.isClosedBeta: false`); range di prezzo
+  Colmi €20-35 non sourciato (rimosso dalla tabella, non più presente);
+  claim di autonomia universali per categoria ("5-7 giorni" per l'anello,
+  "1-3 giorni" per lo smartwatch, senza distinzione di modello); claim
+  "il ring è più accurato" implicito nel vecchio confronto sonno (sostituito
+  con un callout esplicito "Cosa NON diciamo"); l'affermazione che l'anello
+  Colmi si connetta "solo su Android" (falso: BLE diretto su Android e iOS,
+  `lib/providers/data.ts`, `syncMechanism: "direct-ble"`,
+  `platforms: ["android", "ios"]`); wording assoluto "elimina i doppi
+  conteggi" sostituito con la formulazione prudente prescritta ("prova ad
+  evitare somme e sovrapposizioni; alcuni conflitti possono comunque
+  richiedere la scelta manuale della sorgente preferita").
+- **Fonti citate** (Fase 5, con URL verificato via WebFetch/WebSearch,
+  consultate 2026-07-20): Samsung Support — ["Combining Galaxy Ring and
+  Galaxy Watch for health tracking"](https://www.samsung.com/us/support/answer/ANS10003609/)
+  (modelli nominati: Galaxy Watch7, Galaxy Watch Ultra; comportamento di
+  handoff e claim +30% autonomia attribuiti esplicitamente a Samsung, non
+  verificati indipendentemente); Apple Developer —
+  [HealthKit](https://developer.apple.com/documentation/healthkit)
+  (sistema progettato per gestire dati da più fonti); Android Developers —
+  [Read aggregated data](https://developer.android.com/health-and-fitness/health-connect/aggregate-data)
+  (priorità sorgente impostabile dall'utente, Aggregate API deduplica le
+  metriche cumulative come i passi) — quest'ultimo URL già in uso altrove
+  nel sito, non una fonte nuova non verificata.
+- **Decisione di architettura registrata**: `hero.title` guida sia l'H1 sia
+  il tag `<title>` (con suffisso `· FitMesh`) — non esistono due campi
+  distinti nel modello dati per "SEO title" e "H1". Usato il testo H1
+  prescritto da Matteo (renderizzato anche come `<title>`); la variante
+  "SEO title" leggermente diversa non è iniettabile separatamente con lo
+  schema attuale — segnalato qui, non deciso silenziosamente altrove.
+- **Guardrail nuovo**: `tools/check-ring-watch-article-claims.ts`
+  (`pnpm run ring-watch:claims-check`) — impedisce il ritorno di: iOS
+  "in arrivo", claim beta fuori contesto, deduplicazione assoluta,
+  autonomia senza riferimento al modello, prezzo Colmi non sourciato,
+  "ring più accurato" senza fonte, cross-link IT/EN scambiati, un secondo
+  array FAQ. Efficacia verificata deliberatamente (reintrodotto un claim
+  bandito, confermato il fallimento, ripristinato) prima di considerarlo
+  affidabile — stesso pattern già in uso nel progetto per gli altri
+  guardrail.
+- **Build e verifica (Docker, `node:22` via pnpm, tutti exit 0)**: `pnpm
+  install --frozen-lockfile`; `tsc --noEmit`; `vitest run` (84/84 test);
+  `check-blog-integrity` (60 post, 0 collisioni); `check-translation-
+  corruption` (107 file, 51199 stringhe, 0 leak); `check-gdpr-claim-
+  guardrail` (341 file, 0 attribuzioni false); `seo:truth-check` (112 file,
+  0 problemi); `ring-watch:claims-check` (0 problemi); build produzione
+  completa (`next build`, exit 0). Contro server reale (`next start` in
+  Docker, porta pubblicata, guardrail HTTP eseguiti da un secondo
+  container `--network host`): `check-ios-eu-truth` (309 file + 9 casi
+  HTTP, 0 claim stale); `check-social-metadata` (11 route, og:image/
+  twitter:image assoluti 1200×630, alt non vuoto) — un solo avviso
+  informativo non correlato (HTTP 500 su `/it/auth/login` per assenza di
+  credenziali Supabase reali nell'ambiente locale, atteso, il check lo
+  tratta come tale). Verificato manualmente sul server reale: HTTP 200 su
+  entrambe le pagine; canonical e hreflang it/en/x-default corretti;
+  `<title>` e meta description corrispondono a quanto specificato in Fase
+  3; 3 blocchi JSON-LD (BlogPosting, FAQPage con le 8 domande esatte,
+  BreadcrumbList); il testo delle 8 domande FAQ compare identico sia nel
+  markup visibile sia nel JSON-LD (stesso array sorgente, non duplicato);
+  tutti i link interni citati nel testo risolvono a slug reali e
+  correttamente localizzati (verificato via `lib/blog/slugs.ts`); sitemap
+  include l'URL aggiornato.
+- **Screenshot**: catturati via Playwright reale (Docker,
+  `mcr.microsoft.com/playwright`, desktop 1440×900 e mobile 390×844) per
+  `/it/blog/anello-vs-smartwatch` e `/en/blog/smart-ring-vs-smartwatch` —
+  verificati visivamente: layout coerente col resto del sito (tipografia,
+  colori brand, hero/TL;DR/tabella/callout/FAQ/fonti/related), nessun
+  overflow visibile, tabella a 13 righe leggibile, FAQ in accordion,
+  nessun testo tagliato o non tradotto.
+- **Zero Preview Deployment**: nessun push, nessuna PR, nessun deploy
+  Vercel eseguito o richiesto in questa sessione (`vercel.json` disabilita
+  comunque le preview per branch non-`main`, invariato).
+- **Commit**: `c518e09` (branch `seo/p1-2-smart-ring-smartwatch-refresh`).
+- **Stato**: **verificato in Docker**, tutti i gate verdi. Pushato con PR
+  aperta subito dopo la registrazione di questa riga. Nessun merge
+  autonomo.
+- **Controlli programmati**: 14/28/90 giorni DA CALCOLARE sulla data di
+  deploy effettiva (non ancora avvenuto in questa sessione) — vedi
+  `seo-geo-master-plan.md` §9 per la convenzione; non anticipare date
+  prima che il deploy sia reale.
+
+### P1.2A — Hardening pre-merge delle locale fallback (addendum, PR #18 non mergiata)
+
+- **Scoperta**: il meccanismo per "post/locale con fallback EN non
+  indicizzabile" esiste già sitewide (`lib/blog/indexability.ts`,
+  `isBlogVariantIndexable`/`isPostLocaleComplete`, usato da
+  `blog/[slug]/page.tsx` per robots+hreflang, `sitemap.ts`, `feed.xml`) —
+  costruito il 04/07 dopo un incidente reale (136 pagine duplicate
+  rilevate). Per QUESTO post, con il refresh P1.2, il meccanismo era già
+  correttamente attivo: le 9 lingue non-IT/EN (nordiche incluse) risultavano
+  già `noindex,follow`, escluse da hreflang/sitemap/feed prima ancora di
+  questo addendum — verificato negli HTTP check di P1.2, non una scoperta
+  nuova.
+- **Gap reale trovato**: `noindex` da solo non risolve l'incoerenza tra
+  `<html lang="es">` (impostato dal layout della route, che non sa nulla
+  dello stato di fallback di un singolo post) e il contenuto realmente
+  mostrato (inglese). Lo stesso vale per `inLanguage` nel JSON-LD
+  (`lib/seo/schema-language.ts`, puramente funzione della locale di route).
+  Questo è esattamente il motivo per cui il redirect è preferibile,
+  indicato nella richiesta.
+- **Decisione presa**: redirect 307 verso `/en/blog/...`, non noindex
+  rafforzato — perché un redirect evita il problema alla radice (la pagina
+  in quella lingua non viene mai renderizzata, quindi `<html lang>` e
+  `inLanguage` sbagliati non possono mai comparire), mentre "riparare" il
+  noindex avrebbe richiesto toccare `layout.tsx` (condiviso da OGNI pagina
+  di quella locale, non solo il blog) per renderlo consapevole dello stato
+  di un singolo post — cambio più invasivo e a raggio più ampio.
+- **Scelta di scope esplicita**: il redirect è **opt-in per post**
+  (`REDIRECT_INCOMPLETE_LOCALE_SLUGS` in `lib/blog/indexability.ts`, oggi
+  contiene solo `anello-vs-smartwatch`), non il nuovo comportamento
+  automatico per ogni post con `isBlogVariantIndexable` false. Gli altri
+  59 post mantengono il `noindex` esistente. Motivo: estendere il redirect
+  a tutti sarebbe un cambio di comportamento sitewide non richiesto in
+  questo sprint e non verificato post per post — segnalato qui come
+  possibile lavoro futuro, non deciso silenziosamente.
+- **Implementazione**: `app/(frontend)/[locale]/(marketing)/blog/[slug]/page.tsx`
+  — redirect (Next.js `redirect()`, 307) sia in `generateMetadata` sia nel
+  componente pagina, subito dopo la risoluzione del post e PRIMA del
+  redirect 308 esistente per slug non canonico (`permanentRedirect`) —
+  condizioni mutuamente esclusive, verificato che non si incatenano (vedi
+  test HTTP sotto, un solo hop).
+- **Guardrail aggiornato**: `tools/check-ring-watch-article-claims.ts`
+  aggiunge un check STRUTTURALE (importa i dati veri del post e
+  `isBlogVariantIndexable`, non regex) che fallisce se una qualunque
+  locale diversa da it/en risultasse indicizzabile per questo post, o se
+  il post non fosse registrato in `REDIRECT_INCOMPLETE_LOCALE_SLUGS`.
+  Efficacia verificata deliberatamente (rimosso il post dal set,
+  confermato il fallimento, ripristinato).
+- **Verifica prodotto (Flutter reale, non la copia del sito)**: richiesta
+  esplicita di non fidarsi di `lib/providers/data.ts` come fonte primaria.
+  Verificato contro `AppFitmesh/flutter_app` (repo reale):
+  - Colmi BLE Android: `lib/features/ring/data/ring_ble_client.dart:1-636`
+    (`flutter_blue_plus`, pubspec.yaml:56), wired nel sync reale via
+    `lib/core/di/providers.dart:392-433`.
+  - Colmi BLE iOS: STESSO codice, zero gating `Platform.isIOS` in
+    `lib/features/ring/**`; `ios/Runner/Info.plist:65-68` dichiara
+    `NSBluetoothAlwaysUsageDescription`/`NSBluetoothPeripheralUsageDescription`
+    per il ring; commit `7f5f9191` (2026-06-12) e `e9ad6f98` (2026-07-01)
+    confermano il flusso solo-anello su iOS come intenzionale, non un
+    accidente. Nessuna prova nei commit di validazione su iPhone fisico
+    per il ring (nota già presente altrove nel codice, `health_repository.dart:2010-2011`,
+    sulla stessa lacuna per Apple Watch) — non contraddice il claim
+    dell'articolo (il meccanismo BLE esiste identico su entrambe le
+    piattaforme), ma è una lacuna di test hardware, non di codice.
+  - Metriche lette dal ring: battery, passi/distanza/calorie, FC
+    riposo+intraday+realtime, SpO2 realtime+storico, stress, HRV/RMSSD,
+    sonno con fasi, temperatura (gated R09/R05) —
+    `lib/features/ring/data/colmi_protocol.dart` +
+    `ring_ble_client.dart:328-558` + `ring_enricher.dart:58-182`.
+  - Apple Watch: **nessuna integrazione diretta** — zero
+    `WatchConnectivity`/`WCSession` in `lib/`/`ios/`; companion app watchOS
+    è backlog dichiarato (`ROADMAP.md:645`, "Sprint 20 futuro"). Unico
+    codice Apple-Watch-aware è un'euristica generica su `sourceName`
+    HealthKit, esplicitamente segnalata come non verificata su device
+    reale nel commento del codice stesso (`health_repository.dart:2005-2017`).
+  - Galaxy Watch: **nessuna integrazione diretta** — zero SDK Tizen/Wear OS
+    in `lib/`/`android/`; "Samsung Health SDK reattivazione" è
+    esplicitamente in una tabella HUMAN_ONLY/disabilitata nel `CLAUDE.md`
+    del repo app.
+  - Lettura HealthKit: generica, nessun filtro per sorgente in ingresso
+    (`health_repository.dart:127-155,500`) — qualunque dato scritto da
+    Apple Watch sarebbe letto come qualunque altra sorgente. Confermato
+    quindi che "Apple Watch → HealthKit → FitMesh" è un percorso reale, non
+    un'illazione. Filtro applicato solo in USCITA (esclude i propri
+    campioni scritti e, quando l'anello è appaiato via BLE, esclude il
+    pacchetto dell'app OEM del ring per non contare due volte,
+    `providers.dart:189-195`).
+  - Lettura Health Connect: stesso pattern generico, nessun filtro sorgente
+    (`health_repository.dart:157-191,498-506`), permessi ampi
+    `android.permission.health.READ_*` (`AndroidManifest.xml:69-86`).
+  - **Nessun claim dell'articolo ridotto**: tutti confermati dal codice
+    reale dell'app, non solo dalla copia del sito.
+  - **Differenza di piattaforma trovata ma non aggiunta all'articolo**
+    (fuori scope dichiarato, "non trasformare in guida tecnica"): la sync
+    del ring è foreground-only su ENTRAMBE le piattaforme (mai richiamata
+    da `background_sync.dart`) — non un'asimmetria Android/iOS, ma un
+    limite generale non menzionato nell'articolo. Segnalato, non aggiunto.
+- **Gate finale (Docker, tutti exit 0)**: `tsc --noEmit`; `vitest run`
+  (84/84); `check-blog-integrity`; `check-translation-corruption`;
+  `check-gdpr-claim-guardrail`; `seo:truth-check`; `ring-watch:claims-check`
+  (col nuovo check strutturale); build produzione completa. Contro server
+  reale (`next start` Docker + guardrail HTTP da container `--network
+  host`): tutte e 15 le locale testate — `it`/`en` → 200 self-canonical,
+  hreflang solo it/en/x-default su entrambe; le altre 13 (incluse
+  sv/da/no/fi nordiche) → **307** verso `/en/blog/smart-ring-vs-smartwatch`,
+  un solo hop verificato seguendo il redirect fino al 200 finale, nessuna
+  catena; sitemap.xml verificato non contenere più nessuno dei 9 slug
+  localizzati non-it/en di questo post (0 occorrenze ciascuno), IT/EN
+  ancora presenti; `inLanguage` JSON-LD corretto su IT (`it-IT`) ed EN
+  (`en-US`) — non applicabile alle altre locale, che non renderizzano più
+  una pagina propria; `check-ios-eu-truth` e `check-social-metadata`
+  riverificati contro la nuova route, verdi; robots.txt invariato (200).
+- **Zero Preview Deployment** anche in questo giro.
+- **Non mergiata**: PR #18 aggiornata con nuovi commit, nessun merge
+  autonomo.

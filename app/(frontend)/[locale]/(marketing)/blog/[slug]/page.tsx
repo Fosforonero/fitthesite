@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, permanentRedirect } from "next/navigation";
+import { notFound, permanentRedirect, redirect } from "next/navigation";
 
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 
@@ -17,7 +17,7 @@ import {
   getRelatedPosts,
 } from "@/lib/blog/payload-source";
 import { resolveBlogPost } from "@/lib/blog/resolve";
-import { isBlogVariantIndexable } from "@/lib/blog/indexability";
+import { isBlogVariantIndexable, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "@/lib/blog/indexability";
 import type { BlogPost } from "@/lib/blog/types";
 import { SITE_URL } from "@/lib/product-facts";
 import { AUTHOR, authorBio, authorCompactNode } from "@/lib/seo/entities";
@@ -55,6 +55,17 @@ export async function generateMetadata({
   const lc = locale as Locale;
   const { post } = await resolveBlogPost(slug, lc);
   if (!post) return {};
+  // Sprint P1.2A: stesso redirect del componente pagina sotto — vedi il
+  // commento lì per il ragionamento completo. Duplicato qui perché
+  // generateMetadata e il componente pagina sono invocazioni separate.
+  if (
+    lc !== "it" &&
+    lc !== "en" &&
+    REDIRECT_INCOMPLETE_LOCALE_SLUGS.has(post.slug) &&
+    !isBlogVariantIndexable(post, lc)
+  ) {
+    redirect(`/en/blog/${localizedBlogSlug(post.slug, "en")}`);
+  }
 
   const path = `/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`;
   const title = tl(post.hero.title, lc);
@@ -478,6 +489,24 @@ export default async function BlogArticle({
   const { post, redirectTo } = await resolveBlogPost(slug, lc);
   if (redirectTo) permanentRedirect(redirectTo);
   if (!post) notFound();
+  // Sprint P1.2A: per i post opt-in (REDIRECT_INCOMPLETE_LOCALE_SLUGS), una
+  // variante locale incompleta (fallback EN) va in 307 verso la pagina EN
+  // invece di renderizzare con `noindex` — evita l'incoerenza tra
+  // <html lang> (impostato dal layout sulla route, non sa nulla del
+  // fallback di un singolo post) e la lingua reale del contenuto. it/en
+  // sono sempre completi per costruzione, quindi mai in questo ramo. Non
+  // può incatenarsi col redirect sopra: quello copre uno slug URL errato
+  // per la lingua, questo un post/lingua già risolto correttamente ma con
+  // contenuto incompleto — condizioni mutuamente esclusive per la stessa
+  // richiesta.
+  if (
+    lc !== "it" &&
+    lc !== "en" &&
+    REDIRECT_INCOMPLETE_LOCALE_SLUGS.has(post.slug) &&
+    !isBlogVariantIndexable(post, lc)
+  ) {
+    redirect(`/en/blog/${localizedBlogSlug(post.slug, "en")}`);
+  }
   const t = I18N[lc];
 
   const path = `/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`;

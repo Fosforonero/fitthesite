@@ -44,3 +44,21 @@ export function isBlogVariantIndexable(post: BlogPost, lc: Locale): boolean {
   if (lc === "it" || lc === "en") return true;
   return isPostLocaleComplete(post, lc);
 }
+
+/**
+ * Sprint P1.2A: slug dei post per cui una variante locale incompleta
+ * (fallback EN, `isBlogVariantIndexable` false) va in redirect 307 verso
+ * `/en/blog/...` invece del `noindex,follow` generico sopra.
+ *
+ * Perché un'eccezione e non il default per tutti i post non completi:
+ * `noindex` lascia comunque la pagina raggiungibile con `<html lang>`
+ * impostato dal layout sulla lingua della route (es. "es") mentre il
+ * contenuto renderizzato è inglese di fallback — incoerenza che il
+ * redirect evita del tutto (la pagina in quella lingua non viene mai
+ * renderizzata). Applicarlo subito a TUTTI i post con varianti
+ * incomplete sarebbe un cambio di comportamento sitewide non richiesto
+ * e non verificato per gli altri post: qui è opt-in, un post alla volta.
+ */
+export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
+  "anello-vs-smartwatch",
+]);
