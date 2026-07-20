@@ -1,0 +1,11 @@
+-- Build 189 Founder P0, Option A (approved by Matteo 2026-07-15): the
+-- automatic founder-launch grant fires on EVERY new signup with no allowlist
+-- check beyond the .invalid guard, consuming real founder slots (288/1000,
+-- 93% of all 309 users) with zero eligibility criteria. Disable the trigger
+-- entirely; the legitimate path (founder_grants allowlist +
+-- claim_founder_grant_if_eligible()) is untouched. handle_new_founder() is
+-- kept in place (unused) for rollback/history only.
+--
+-- Backfillata nel repository il 2026-07-19 (Founder P0 review, punto 3):
+-- contenuto verbatim recuperato da supabase_migrations.schema_migrations.
+drop trigger if exists on_profile_created_founder on public.profiles;

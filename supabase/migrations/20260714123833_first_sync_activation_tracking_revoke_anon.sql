@@ -1,0 +1,11 @@
+-- Verifica post-migration ha trovato che `anon` mantiene EXECUTE nonostante
+-- `revoke all from public` (stesso pattern gia' osservato su altre RPC del
+-- progetto, es. increment_pairing_attempts — grant di default non coperto
+-- da REVOKE ALL FROM PUBLIC, che non e' sinonimo del ruolo anon). Funzionalmente
+-- innocuo (auth.uid() e' NULL per anon, la WHERE clause non fa mai match),
+-- ma chiudo esplicitamente per aderire all'intento dichiarato "solo utenti
+-- autenticati".
+--
+-- Backfillata nel repository il 2026-07-19 (Founder P0 review, punto 3):
+-- contenuto verbatim recuperato da supabase_migrations.schema_migrations.
+revoke execute on function public.record_first_sync_transition(text, text, text, text) from anon;
