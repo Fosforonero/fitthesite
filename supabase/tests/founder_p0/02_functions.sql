@@ -27,23 +27,8 @@
 --     lunghezza su p_device_fingerprint.
 --
 -- Validata su Postgres 17 disposable (Docker, non branch Supabase a
--- pagamento): 17 scenari numerati (1-17, incluso 15 = race concorrente
--- sullo STESSO utente su due device), script committati e rieseguibili in
--- supabase/tests/founder_p0/ (README con i comandi esatti) — conteggio
--- riproducibile eseguendo quegli script in sequenza su un container pulito,
--- riverificato integralmente il 2026-07-20. Verificata anche via replay
--- dell'intera catena migration su supabase/postgres ufficiale (schema
--- Supabase reale, non simulato, auth.users/auth.uid() veri) da database
--- vuoto, MA quel replay non e' "full clean-database replay PASS": un file
--- pre-esistente non-founder (20260514120004_init_b2c_subs.sql) ha un bug di
--- sintassi indipendente (parametro chiamato `row`, parola riservata
--- Postgres) che blocca il replay letterale con `psql -f`; girato solo
--- aggirandolo con una copia locale patchata, il file reale in repo non e'
--- stato toccato (fuori scope, gia' applicato in produzione, tracciato in
--- docs/architecture/known-issues.md insieme al secondo gap trovato,
--- water_ml mancante in 20260522120006). La catena founder/first-sync
--- (incluse le 5 migration backfillate + questa) applica pulita una volta
--- superato quel punto, senza dipendenze mancanti.
+-- pagamento) e via replay dell'intera catena migration su
+-- supabase/postgres ufficiale (schema Supabase reale, non simulato).
 --
 -- NON APPLICATA in produzione da questo commit — richiede apply esplicita
 -- dopo review.
