@@ -66,7 +66,10 @@ begin
   end if;
 
   select email into v_email from auth.users where id = p_user_id;
-  if v_email is null or v_email ilike '%.invalid' or lower(v_email) = lower('appreview.demo@fitmesh.fit') then
+  if v_email is null
+     or v_email ilike '%.invalid'
+     or lower(v_email) = lower('review@fitmesh.fit')
+     or lower(v_email) = lower('appreview.demo@fitmesh.fit') then
     return jsonb_build_object(
       'grantCreated', false, 'alreadyHadEligibleGrant', false,
       'grantKind', null, 'capReached', false, 'notEligibleReason', 'excluded_account'

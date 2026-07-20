@@ -33,6 +33,14 @@ docker exec founder-p0-pg psql -U postgres -f /03_tests.sql 2>&1 | grep -E "PASS
 
 docker exec founder-p0-pg psql -U postgres -f /05_test12_and_restore.sql 2>&1 | grep -E "PASS|FAIL|ERROR"
 
+# TEST A-E: esclusione review@fitmesh.fit + alias appreview.demo@fitmesh.fit
+# (migration 20260720120247_founder_launch_exclude_review_email_alias.sql,
+# applicata in produzione il 2026-07-20). 02_functions.sql sopra include
+# gia' l'esclusione: se lo esegui da solo per un run parziale, assicurati
+# che il suo controllo esclusione includa anche review@fitmesh.fit.
+docker cp supabase/tests/founder_p0/06_appreview_alias.sql founder-p0-pg:/06_appreview_alias.sql
+docker exec founder-p0-pg psql -U postgres -f /06_appreview_alias.sql 2>&1 | grep -E "PASS|FAIL|ERROR"
+
 docker rm -f founder-p0-pg
 ```
 
@@ -60,3 +68,4 @@ internamente, non una risalita a psql).
 | `03_tests.sql` | Scenari 1-10, 13, 14, 16, 17 (sequenziali, `test.assert()`) |
 | `04_concurrency.sh` | Scenari 11 (cap, utenti diversi) e 15 (stesso utente, due device) |
 | `05_test12_and_restore.sql` | Ripristina la funzione reale dopo 04 + scenario 12 (rollback su guasto simulato) |
+| `06_appreview_alias.sql` | TEST A-E: esclusione case-insensitive di `review@fitmesh.fit` (canonico, gia' pro) e `appreview.demo@fitmesh.fit` (alias storico), nessuna regressione utente normale |
