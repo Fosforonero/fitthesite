@@ -567,6 +567,16 @@ il timestamp di deploy reale in
 [seo-results-log.md](./seo-results-log.md) e correggere se il deploy
 avviene in data diversa da 2026-07-13.)
 
+### P1.2 — Smart Ring + Smartwatch Authority Refresh (baseline 2026-07-10)
+
+Baseline GSC completa e claim rimossi: vedi
+[seo-results-log.md](./seo-results-log.md), sezione "P1.2 — Smart Ring +
+Smartwatch Authority Refresh". Query primaria EN ("smart ring vs
+smartwatch") a posizione 55 su 2 impression, pagina EN a 23 impression/0
+click/posizione 23,65 — presenza minima, intento "uso combinato" non
+ancora coperto prima di questo refresh. Controlli 14/28/90gg da calcolare
+sulla data di deploy effettiva, non ancora avvenuto.
+
 ## 10. Decision log
 
 Ogni modifica SEO importante registra: data, URL, problema, ipotesi, dati

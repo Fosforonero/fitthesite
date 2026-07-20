@@ -11,7 +11,8 @@
     "seo:truth-check": "tsx tools/check-llms-consistency.ts",
     "labs:truth-check": "tsx tools/check-labs-truth.ts",
     "labs:privacy-check": "tsx tools/check-labs-privacy.ts",
-    "founder:counter-check": "tsx tools/check-founder-counter-removed.ts"
+    "founder:counter-check": "tsx tools/check-founder-counter-removed.ts",
+    "ring-watch:claims-check": "tsx tools/check-ring-watch-article-claims.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",

@@ -664,3 +664,114 @@ Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
   pushato, nessuna PR aperta — richiesta esplicita: attendere che la PR
   #13 sia mergiata, poi rebase su `origin/main` e riverifica completa
   prima di aprire la PR. Nessun merge o deploy autonomo.
+
+### P1.2 — Smart Ring + Smartwatch Authority Refresh
+
+- **Cosa**: refresh editoriale completo (non un nuovo articolo, slug/
+  canonical/storico invariati) di `lib/blog/posts/anello-vs-smartwatch.ts`
+  (`/it/blog/anello-vs-smartwatch`, `/en/blog/smart-ring-vs-smartwatch`).
+  Struttura body interamente nuova (9 sezioni: risposta diretta, tabella,
+  notte-ring, giorno-watch, uso insieme + fonte Samsung, 3 configurazioni
+  reali con percorso dati verificato, gestione multi-sorgente FitMesh vs
+  HealthKit/Health Connect con fonti ufficiali, albero decisionale, limiti),
+  FAQ 8 domande identiche a JSON-LD, metadata IT/EN nuovi. Refresh completo
+  solo IT/EN (decisione esplicita Matteo); le altre 9 lingue già pubblicate
+  ricadono in automatico sul testo EN via il fallback `tl()`/`tll()` già
+  esistente in `lib/blog/types.ts` (chiavi locale non popolate per i nuovi
+  blocchi) — zero claim falsi residui su quelle 9 lingue per costruzione,
+  nessuna traduzione non rivista pubblicata.
+- **Baseline GSC al 10/07/2026** (fornita da Matteo, non riverificata
+  indipendentemente in questa sessione):
+
+  | Query/pagina | Impression | Click | CTR | Posizione media |
+  |---|---|---|---|---|
+  | Pagina EN (`/en/blog/smart-ring-vs-smartwatch`) | 23 | 0 | 0% | 23,65 |
+  | "smart ring vs smartwatch" | 2 | — | — | 55 |
+  | "smartwatch vs smart ring" | 1 | — | — | 50 |
+  | "smart ring vs smart watch" | 1 | — | — | 56 |
+
+  Lettura: presenza minima, zero click, posizioni fuori dalla prima pagina
+  per tutte le varianti della query primaria EN — coerente con un articolo
+  che finora copriva solo il confronto 1:1 "quale scegliere", non l'intento
+  "uso combinato" che la query e il refresh indirizzano.
+- **Claim rimossi in questo refresh** (Fase 1): "l'app iOS arriva a breve" /
+  "iOS app coming very soon" (falso: iOS è live, incluse le 27 storefront
+  UE, `lib/product-facts.ts`); "Prova FitMesh in beta" (prodotto pubblico,
+  non closed beta, `PRODUCT_STATUS.isClosedBeta: false`); range di prezzo
+  Colmi €20-35 non sourciato (rimosso dalla tabella, non più presente);
+  claim di autonomia universali per categoria ("5-7 giorni" per l'anello,
+  "1-3 giorni" per lo smartwatch, senza distinzione di modello); claim
+  "il ring è più accurato" implicito nel vecchio confronto sonno (sostituito
+  con un callout esplicito "Cosa NON diciamo"); l'affermazione che l'anello
+  Colmi si connetta "solo su Android" (falso: BLE diretto su Android e iOS,
+  `lib/providers/data.ts`, `syncMechanism: "direct-ble"`,
+  `platforms: ["android", "ios"]`); wording assoluto "elimina i doppi
+  conteggi" sostituito con la formulazione prudente prescritta ("prova ad
+  evitare somme e sovrapposizioni; alcuni conflitti possono comunque
+  richiedere la scelta manuale della sorgente preferita").
+- **Fonti citate** (Fase 5, con URL verificato via WebFetch/WebSearch,
+  consultate 2026-07-20): Samsung Support — ["Combining Galaxy Ring and
+  Galaxy Watch for health tracking"](https://www.samsung.com/us/support/answer/ANS10003609/)
+  (modelli nominati: Galaxy Watch7, Galaxy Watch Ultra; comportamento di
+  handoff e claim +30% autonomia attribuiti esplicitamente a Samsung, non
+  verificati indipendentemente); Apple Developer —
+  [HealthKit](https://developer.apple.com/documentation/healthkit)
+  (sistema progettato per gestire dati da più fonti); Android Developers —
+  [Read aggregated data](https://developer.android.com/health-and-fitness/health-connect/aggregate-data)
+  (priorità sorgente impostabile dall'utente, Aggregate API deduplica le
+  metriche cumulative come i passi) — quest'ultimo URL già in uso altrove
+  nel sito, non una fonte nuova non verificata.
+- **Decisione di architettura registrata**: `hero.title` guida sia l'H1 sia
+  il tag `<title>` (con suffisso `· FitMesh`) — non esistono due campi
+  distinti nel modello dati per "SEO title" e "H1". Usato il testo H1
+  prescritto da Matteo (renderizzato anche come `<title>`); la variante
+  "SEO title" leggermente diversa non è iniettabile separatamente con lo
+  schema attuale — segnalato qui, non deciso silenziosamente altrove.
+- **Guardrail nuovo**: `tools/check-ring-watch-article-claims.ts`
+  (`pnpm run ring-watch:claims-check`) — impedisce il ritorno di: iOS
+  "in arrivo", claim beta fuori contesto, deduplicazione assoluta,
+  autonomia senza riferimento al modello, prezzo Colmi non sourciato,
+  "ring più accurato" senza fonte, cross-link IT/EN scambiati, un secondo
+  array FAQ. Efficacia verificata deliberatamente (reintrodotto un claim
+  bandito, confermato il fallimento, ripristinato) prima di considerarlo
+  affidabile — stesso pattern già in uso nel progetto per gli altri
+  guardrail.
+- **Build e verifica (Docker, `node:22` via pnpm, tutti exit 0)**: `pnpm
+  install --frozen-lockfile`; `tsc --noEmit`; `vitest run` (84/84 test);
+  `check-blog-integrity` (60 post, 0 collisioni); `check-translation-
+  corruption` (107 file, 51199 stringhe, 0 leak); `check-gdpr-claim-
+  guardrail` (341 file, 0 attribuzioni false); `seo:truth-check` (112 file,
+  0 problemi); `ring-watch:claims-check` (0 problemi); build produzione
+  completa (`next build`, exit 0). Contro server reale (`next start` in
+  Docker, porta pubblicata, guardrail HTTP eseguiti da un secondo
+  container `--network host`): `check-ios-eu-truth` (309 file + 9 casi
+  HTTP, 0 claim stale); `check-social-metadata` (11 route, og:image/
+  twitter:image assoluti 1200×630, alt non vuoto) — un solo avviso
+  informativo non correlato (HTTP 500 su `/it/auth/login` per assenza di
+  credenziali Supabase reali nell'ambiente locale, atteso, il check lo
+  tratta come tale). Verificato manualmente sul server reale: HTTP 200 su
+  entrambe le pagine; canonical e hreflang it/en/x-default corretti;
+  `<title>` e meta description corrispondono a quanto specificato in Fase
+  3; 3 blocchi JSON-LD (BlogPosting, FAQPage con le 8 domande esatte,
+  BreadcrumbList); il testo delle 8 domande FAQ compare identico sia nel
+  markup visibile sia nel JSON-LD (stesso array sorgente, non duplicato);
+  tutti i link interni citati nel testo risolvono a slug reali e
+  correttamente localizzati (verificato via `lib/blog/slugs.ts`); sitemap
+  include l'URL aggiornato.
+- **Screenshot**: catturati via Playwright reale (Docker,
+  `mcr.microsoft.com/playwright`, desktop 1440×900 e mobile 390×844) per
+  `/it/blog/anello-vs-smartwatch` e `/en/blog/smart-ring-vs-smartwatch` —
+  verificati visivamente: layout coerente col resto del sito (tipografia,
+  colori brand, hero/TL;DR/tabella/callout/FAQ/fonti/related), nessun
+  overflow visibile, tabella a 13 righe leggibile, FAQ in accordion,
+  nessun testo tagliato o non tradotto.
+- **Zero Preview Deployment**: nessun push, nessuna PR, nessun deploy
+  Vercel eseguito o richiesto in questa sessione (`vercel.json` disabilita
+  comunque le preview per branch non-`main`, invariato).
+- **Commit**: `[da registrare dopo il commit]`.
+- **Stato**: **verificato in Docker**, tutti i gate verdi. Non ancora
+  pushato, nessuna PR aperta. Nessun merge o deploy autonomo.
+- **Controlli programmati**: 14/28/90 giorni DA CALCOLARE sulla data di
+  deploy effettiva (non ancora avvenuto in questa sessione) — vedi
+  `seo-geo-master-plan.md` §9 per la convenzione; non anticipare date
+  prima che il deploy sia reale.
