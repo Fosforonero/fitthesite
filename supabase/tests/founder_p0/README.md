@@ -3,7 +3,8 @@
 17 scenari numerati (1-10, 13, 14, 16, 17 sequenziali; 11 e 15 concorrenza;
 12 guasto simulato+rollback+retry) che verificano
 `private.grant_founder_launch_core` e `public.record_first_sync_transition`
-(migration `20260719120000_founder_launch_first_sync_grant.sql`) su un
+(migration `20260720055513_founder_launch_first_sync_grant.sql`, applicata in
+produzione il 2026-07-20) su un
 container Postgres **usa e getta**, mai su un branch Supabase a pagamento e
 mai su produzione.
 

@@ -45,8 +45,12 @@
 -- (incluse le 5 migration backfillate + questa) applica pulita una volta
 -- superato quel punto, senza dipendenze mancanti.
 --
--- NON APPLICATA in produzione da questo commit — richiede apply esplicita
--- dopo review.
+-- APPLICATA in produzione il 2026-07-20 (dry-run pre-apply: cap 313/1000,
+-- 0 utenti eleggibili senza pro da backfillare, trigger signup assente,
+-- nessuna RPC standalone di grant introdotta da questo file). Versione
+-- realmente assegnata da Supabase: 20260720055513 (differisce dal
+-- timestamp 20260719120000 usato durante lo sviluppo — filename Git
+-- riallineato per non introdurre drift col database reale).
 
 create or replace function private.grant_founder_launch_core(p_user_id uuid, p_device_id uuid)
 returns jsonb
