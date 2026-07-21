@@ -13,12 +13,65 @@ attese. Nessun push, nessun deploy oggi.
 
 ## Fase 1 — Inventario placeholder
 
-**Conteggio esatto (verificato via script, non a occhio):** **101**
-occorrenze di `[TBD` in `lib/blog/posts/galaxy-watch-ultra-2-health-connect.ts`
-(unico file con placeholder pubblicabili). Nessun altro file di codice o
-contenuto pubblicabile contiene `[TBD]` relativo a questo articolo.
+<!-- PLACEHOLDER_COUNT_DECLARED: 101 -->
+**Conteggio esatto (verificato via script automatico, non a occhio):**
+**101** occorrenze di `[TBD` in `lib/blog/posts/galaxy-watch-ultra-2-health-connect.ts`
+(unico file con placeholder pubblicabili). Il marcatore HTML sopra
+(`PLACEHOLDER_COUNT_DECLARED`) è letto automaticamente da
+`tools/check-galaxy-watch-placeholder-count.ts`: se questo numero e il
+conteggio reale nel post divergono, il check fallisce con exit 1.
 
-Comando di verifica (Fase 2, da rieseguire ogni volta prima del gate):
+**Cronologia di questo numero, per trasparenza**: 101 alla prima stesura
+di questa mappa -> 109 dopo l'aggiunta di 2 righe matrice (frequenza
+respiratoria, durata/calorie) nello stesso commit di preflight -> il
+check automatico ha correttamente rilevato quella divergenza quando
+richiesto con una verifica read-only esplicita, non l'ho trovata da
+solo -> **101** di nuovo oggi, dopo la correzione architetturale
+Samsung Health SDK/Health Connect/Google Health: la Tabella A
+sostituisce la vecchia matrice a 5 colonne con una a 6 colonne ma con
+un solo tag `[TBD]` per cella invece di due ("misurata dal watch" +
+"scritta in HC" erano entrambi taggati separatamente prima; ora
+"misurata da Samsung Health"/riga e "scritta in HC"/riga sono ancora
+distinti ma alcune righe hanno perso una colonna TBD perché il dato
+FitMesh-side è ora certo indipendentemente dal nuovo modello, es.
+pressione arteriosa e apnea). Il numero uguale a prima (101) è una
+coincidenza aritmetica, non un segnale che nulla sia cambiato: il
+check automatico l'ha ri-verificato da zero dopo la riscrittura, non
+l'ho semplicemente ripristinato.
+
+Esecuzione (Docker):
+```bash
+npx tsx tools/check-galaxy-watch-placeholder-count.ts
+```
+
+Output raggruppato per categoria/fatto (non solo per occorrenza), con
+split IT/EN best-effort:
+
+| Categoria | Totale | IT | EN |
+|---|---|---|---|
+| Metadata (slug/date/keyword/readMinutes) | 4 | 4 | 0 |
+| Hero (title/subtitle) | 5 | 4 | 1 |
+| TL;DR | 2 | 2 | 0 |
+| Paragrafo "cosa ha annunciato" | 2 | 1 | 1 |
+| Tabella specifiche ufficiali | 18 | 9 | 9 |
+| Funzioni salute (paragrafo modello-specifico) | 2 | 1 | 1 |
+| Matrice verificata (Tabella A, Tabella B non ha TBD) | 50 | 25 | 25 |
+| Compatibilità Android | 2 | 1 | 1 |
+| Limiti da verificare | 6 | 6 | 0 |
+| FAQ | 10 | 0* | 10* |
+| **Totale** | **101** | **53** | **48** |
+
+\* **Split IT/EN impreciso per la categoria FAQ**: ogni riga FAQ ha DUE
+coppie it/en (`q:` e `a:`), ma l'euristica dello script taglia al primo
+"en:" trovato sulla riga (quello di `q:`), quindi attribuisce tutto ciò
+che segue (incluso l'it di `a:`) alla colonna EN. Il totale per riga è
+comunque corretto (2 per domanda, 5 domande = 10), la sola ripartizione
+IT/EN interna alla categoria FAQ non è affidabile. Non ho corretto
+l'euristica oggi (richiederebbe un parser vero, non un taglio su
+stringa) — segnalato esplicitamente invece di presentarlo come esatto.
+
+Comando di verifica generale placeholder (Fase 2, da rieseguire ogni
+volta prima del gate):
 
 ```bash
 rg -n '\[TBD\]|TBD|provvisor|provisional|to be confirmed|da confermare' \

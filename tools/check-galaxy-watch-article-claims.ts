@@ -51,12 +51,29 @@
  *  14. (Solo con `GW_EVENT_DAY=1`) Qualsiasi occorrenza residua di "[TBD"
  *      nel contenuto pubblicabile — gate da usare il giorno della
  *      pubblicazione reale, non prima.
+ *  15. (Strutturale, subprocess) `check-galaxy-watch-placeholder-count.ts`
+ *      fallisce se la replacement map e il conteggio reale divergono.
+ *  16. L'articolo NON menziona affatto "Samsung Health Data SDK" (percorso
+ *      diretto omesso, mostrerebbe solo Health Connect).
+ *  17. Samsung Health Data SDK ed Health Connect equiparati esplicitamente
+ *      ("X è Y", "X cioè Y") in una direzione o nell'altra.
+ *  18. Disponibilità nel Samsung SDK propagata automaticamente a "FitMesh
+ *      legge/supporta" ("quindi FitMesh legge"/"so FitMesh reads").
+ *  19. Google Health API descritta come sostituta/successore di Health
+ *      Connect.
+ *  20. Google Health API descritta come percorso automatico per i dati
+ *      Galaxy Watch (in un contesto affermativo, non di negazione).
+ *  21. Google Health app e Google Health API nominate sulla stessa riga
+ *      senza una parola che le distingua esplicitamente come prodotti
+ *      separati.
+ *  22. FitMesh dichiarato integrato con TUTTI i data type/dati Samsung.
  *
  * Uso (Docker): npx tsx tools/check-galaxy-watch-article-claims.ts
  * Uso event-day: GW_EVENT_DAY=1 npx tsx tools/check-galaxy-watch-article-claims.ts
  */
 import fs from "node:fs";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
 import { locales } from "@/lib/i18n";
 import { post as galaxyWatchPost } from "@/lib/blog/posts/galaxy-watch-ultra-2-health-connect";
 import { isBlogVariantIndexable, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "@/lib/blog/indexability";
@@ -178,10 +195,15 @@ const SKIN_TEMP_TERMS = /temperatura cutanea|skin temperature/i;
 lines.forEach((line, i) => {
   if (!SKIN_TEMP_TERMS.test(line)) return;
   if (/\[TBD/.test(line)) return;
-  const isNegated = /non\s+legge|doesn['’]?t\s+read|does\s+not\s+read|cannot\s+read|escluso|excluded|BodyTemperatureRecord.{0,20}(invece|diverso|instead|different)/i.test(line);
-  const claimsFitmeshReads = /fitmesh\s+(legge|puo['’]\s+leggere|importa)|fitmesh\s+(reads?|imports?)/i.test(line);
-  if (claimsFitmeshReads && !isNegated) {
-    errors.push(`[fitmesh-temperatura-cutanea] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+  // Claim legittimo (verificato nel codice, Fase 4 P1.3N-B): FitMesh legge
+  // temperatura cutanea SOLO via il canale diretto Samsung Health SDK
+  // (samsungSkinTemperatureC, gap-fill), MAI via Health Connect/
+  // SkinTemperatureRecord. Qualificare con "canale diretto"/"Samsung SDK"/
+  // "gap-fill" rende il claim corretto, non va bloccato.
+  const isQualifiedOrNegated = /non\s+legge|doesn['’]?t\s+read|does\s+not\s+read|cannot\s+read|escluso|excluded|BodyTemperatureRecord.{0,20}(invece|diverso|instead|different)|canale diretto|direct.{0,10}channel|samsung.{0,10}sdk|gap-fill/i.test(line);
+  const claimsFitmeshReadsViaHC = /(fitmesh\s+(legge|puo['’]\s+leggere|importa)|fitmesh\s+(reads?|imports?)).{0,60}health connect|health connect.{0,60}(fitmesh\s+(legge|reads?))/i.test(line);
+  if (claimsFitmeshReadsViaHC && !isQualifiedOrNegated) {
+    errors.push(`[fitmesh-temperatura-cutanea-via-hc] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
   }
 });
 
@@ -217,6 +239,76 @@ if (process.env.GW_EVENT_DAY === "1") {
     }
   });
 }
+
+// ── 15. Replacement map e conteggio reale placeholder devono coincidere ──
+try {
+  execFileSync("npx", ["tsx", "tools/check-galaxy-watch-placeholder-count.ts"], {
+    cwd: repoRoot,
+    stdio: "pipe",
+  });
+} catch {
+  errors.push(`[placeholder-count-divergente] tools/check-galaxy-watch-placeholder-count.ts ha fallito: la replacement map e il conteggio reale nel post non coincidono. Eseguire quello script per il dettaglio.`);
+}
+
+// ── 16. L'articolo deve descrivere esplicitamente il percorso diretto ────
+const HAS_DIRECT_PATH_MENTION = /samsung health data sdk/i.test(content);
+if (!HAS_DIRECT_PATH_MENTION) {
+  errors.push(`[percorso-diretto-omesso] Il file non menziona "Samsung Health Data SDK": l'articolo non può descrivere solo Health Connect.`);
+}
+
+// ── 17. Samsung Health Data SDK confuso con Health Connect ───────────────
+lines.forEach((line, i) => {
+  if (/samsung health (data )?sdk\s*(è|is|=|cioè)\s*(lo stesso di\s*)?health connect/i.test(line)
+    || /health connect\s*(è|is|=|cioè)\s*(lo stesso di\s*)?samsung health (data )?sdk/i.test(line)) {
+    errors.push(`[sdk-confuso-con-hc] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+  }
+});
+
+// ── 18. Disponibilità Samsung SDK trasformata in supporto FitMesh automatico ─
+const SDK_TO_FITMESH_AUTOPROP = /(quindi|di conseguenza|so|which means)\s+fitmesh\s+(la\s+|lo\s+)?(legge|supporta|reads?|supports?)/i;
+lines.forEach((line, i) => {
+  if (/samsung (health data )?sdk/i.test(line) && SDK_TO_FITMESH_AUTOPROP.test(line)) {
+    errors.push(`[autoprop-sdk-fitmesh] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+  }
+});
+
+// ── 19. Google Health API descritta come sostituta di Health Connect ────
+lines.forEach((line, i) => {
+  const isNegated = /non\s+sostituisce|doesn['’]?t\s+replace|does\s+not\s+replace/i.test(line);
+  if (isNegated) return;
+  if (/google health api.{0,40}(sostituisce|sostituto|successore|replaces?|substitut\w*)\s+.{0,10}health connect/i.test(line)
+    || /health connect.{0,40}(sostituit[ao]|superat[ao]|replaced by)\s+.{0,10}google health api/i.test(line)) {
+    errors.push(`[google-health-api-sostituta-hc] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+  }
+});
+
+// ── 20. Google Health API descritta come percorso automatico Galaxy Watch ─
+lines.forEach((line, i) => {
+  if (/google health api/i.test(line) && /galaxy watch/i.test(line) && /automatic|automatica|automaticamente/i.test(line)) {
+    const isNegated = /non\s+(riceve|dichiara|automatica)|doesn['’]?t\s+(automatically\s+)?receive|no\s+automatic/i.test(line);
+    if (!isNegated) {
+      errors.push(`[google-health-api-percorso-automatico] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+    }
+  }
+});
+
+// ── 21. Google Health app e Google Health API trattate come lo stesso prodotto ─
+lines.forEach((line, i) => {
+  if (/google health app/i.test(line) && /google health api/i.test(line)) {
+    const distinguishes = /distint[ao]|separat[ao]|non\s+(è|sono)\s+la\s+stessa|distinct|different\s+product|separate\s+product/i.test(line);
+    if (!distinguishes) {
+      errors.push(`[google-health-app-api-confusi] riga ${i + 1}: "${line.trim().slice(0, 140)}" (menzionati insieme senza una parola di distinzione nelle vicinanze)`);
+    }
+  }
+});
+
+// ── 22. FitMesh dichiarato integrato con TUTTI i data type Samsung ───────
+const FITMESH_ALL_SAMSUNG_TYPES = /fitmesh\s+(legge|integra|supporta|importa|reads?|integrates?|supports?|imports?)\s+(tutti i (tipi di )?data type|tutti i dati|all\s+(the\s+)?data types?).{0,40}samsung/i;
+lines.forEach((line, i) => {
+  if (FITMESH_ALL_SAMSUNG_TYPES.test(line)) {
+    errors.push(`[fitmesh-tutti-i-data-type] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+  }
+});
 
 if (errors.length > 0) {
   console.error(`❌ Galaxy Watch article claims guardrail: ${errors.length} problema/i\n`);
