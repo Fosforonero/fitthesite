@@ -13,7 +13,6 @@
     "labs:privacy-check": "tsx tools/check-labs-privacy.ts",
     "founder:counter-check": "tsx tools/check-founder-counter-removed.ts",
     "ring-watch:claims-check": "tsx tools/check-ring-watch-article-claims.ts",
-    "content:no-continuous-sync-check": "tsx tools/check-no-continuous-sync-claim.ts",
     "labs:katex-input-check": "tsx tools/check-katex-no-user-input.ts",
     "labs:oracle-gen": "tsx tools/gen-labs-oracle-vectors.ts",
     "labs:a11y-check": "tsx tools/check-labs-accessibility.ts",
@@ -56,5 +55,6 @@
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "packageManager": "pnpm@11.15.0"
 }

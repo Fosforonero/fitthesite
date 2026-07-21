@@ -1,15 +1,18 @@
 import { ImageResponse } from "next/og";
-import { LABS_LOCALES, lt } from "@/lib/labs/registry";
+import { lt } from "@/lib/labs/registry";
 import { LABS_INDEX_CONTENT } from "@/lib/labs/index-content";
 
 export const alt = "FitMesh Labs";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export function generateImageMetadata() {
-  return (LABS_LOCALES as readonly ("it" | "en")[]).map((locale) => ({ id: locale }));
-}
-
+// Niente `generateImageMetadata`: non serve una variante per locale, questa
+// route e' gia' annidata sotto `[locale]` (static params ereditati dalla
+// pagina). Un `generateImageMetadata` che enumera OGNI locale (bug P1.3
+// trovato in produzione locale) fa comparire piu' tag `og:image` sulla
+// stessa pagina invece di uno solo, e l'URL costruito a mano altrove nel
+// codice per il meta tag non puo' comunque replicare l'hash/id che questa
+// API richiede - la sola pagina con parametro `locale` reale gia' basta.
 export default async function LabsIndexOgImage({
   params,
 }: {

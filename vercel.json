@@ -6,7 +6,7 @@
       "**": false
     }
   },
-  "installCommand": "pnpm install --no-frozen-lockfile",
+  "installCommand": "pnpm install --frozen-lockfile",
   "crons": [
     {
       "path": "/api/cron/beta-welcome-emails",

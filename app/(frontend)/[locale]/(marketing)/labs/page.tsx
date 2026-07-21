@@ -54,7 +54,11 @@ export async function generateMetadata({
       description,
       url: `${SITE_URL}${path}`,
       type: "website",
-      images: [{ url: `${SITE_URL}${path}/opengraph-image`, width: 1200, height: 630 }],
+      // Nessun `images` esplicito: la convenzione file `opengraph-image.tsx`
+      // (generateImageMetadata per locale) inietta l'URL corretto con hash
+      // + id automaticamente. Un `images` manuale qui sovrascriverebbe
+      // quell'iniezione con un URL senza hash/id che risulta sempre 404
+      // (trovato P1.3, stesso pattern del bug in labs/[tool]/page.tsx).
     },
     twitter: {
       card: "summary_large_image",

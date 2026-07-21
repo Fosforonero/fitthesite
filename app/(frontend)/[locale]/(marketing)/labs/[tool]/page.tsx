@@ -40,7 +40,6 @@ export async function generateMetadata({
   if (!found) return {};
 
   const path = `/${lc}/labs/${localizedLabsSlug(found, lc)}`;
-  const ogImagePath = `${path}/opengraph-image`;
   const { title, description } = metaForTool(found.key, lc);
 
   return {
@@ -60,7 +59,14 @@ export async function generateMetadata({
       description,
       url: `${SITE_URL}${path}`,
       type: "website",
-      images: [{ url: `${SITE_URL}${ogImagePath}`, width: 1200, height: 630 }],
+      // Nessun `images` esplicito: la convenzione file `opengraph-image.tsx`
+      // (generateImageMetadata per tool+locale) inietta l'URL corretto con
+      // hash + id automaticamente. Un `images` manuale qui sovrascriverebbe
+      // quell'iniezione con un URL senza hash/id che risulta sempre 404
+      // (trovato P1.3: verificato in produzione locale, entrambi i due
+      // `opengraph-image.tsx` di Labs usano generateImageMetadata, quindi
+      // la route reale ha sempre un segmento [__metadata_id__] che un URL
+      // costruito a mano non può replicare).
     },
     twitter: {
       card: "summary_large_image",

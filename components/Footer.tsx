@@ -34,7 +34,7 @@ export default function Footer({
           {/* Status pill */}
           <div className="mt-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-pill border border-white/[0.06] bg-white/[0.02] text-xs text-text-muted">
             <span className="relative flex w-2 h-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75 animate-ping" />
+              <span className="absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75 animate-ping motion-reduce:animate-none" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-green" />
             </span>
             {locale === "it" ? "Tutti i sistemi operativi" : "All systems operational"}
@@ -60,7 +60,7 @@ export default function Footer({
             <li>
               <Link href={`/${locale}/beta`} className="inline-flex items-center gap-1.5 text-brand-aqua hover:text-brand-green transition font-medium">
                 <span className="relative flex w-1.5 h-1.5">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75 animate-ping" />
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75 animate-ping motion-reduce:animate-none" />
                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-green" />
                 </span>
                 {locale === "it" ? "Founder · Pro a vita gratis" : "Founder · lifetime Pro free"}
@@ -99,7 +99,7 @@ export default function Footer({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-text-muted">
           <span>© {new Date().getFullYear()} FitMesh Sync. {dict.footer.rights}</span>
           <span className="inline-flex items-center gap-2 text-center">
-            <span className="w-1 h-1 rounded-full bg-brand-green animate-pulse" />
+            <span className="w-1 h-1 rounded-full bg-brand-green animate-pulse motion-reduce:animate-none" />
             {dict.footer.made_with}
           </span>
           <span className="inline-flex items-center gap-1.5">
