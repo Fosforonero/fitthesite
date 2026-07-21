@@ -891,3 +891,238 @@ Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
 - **Zero Preview Deployment** anche in questo giro.
 - **Non mergiata**: PR #18 aggiornata con nuovi commit, nessun merge
   autonomo.
+
+### P1.2B — Merge, deploy pubblico, verifica live e IndexNow (2026-07-20)
+
+- **Merge**: autorizzato esplicitamente da Matteo, eseguito da lui via
+  GitHub (`mergedBy: Fosforonero`, non da questa sessione). Merge commit
+  `11d6a91bb611b8e1d103835524add4e88ed550db` su `main`, merge commit
+  normale (non squash/rebase). Branch `seo/p1-2-smart-ring-smartwatch-refresh`
+  mantenuto, non cancellato.
+- **Deployment Vercel**: un solo status context (`Vercel`) osservato sul
+  commit di merge dall'apertura (`pending`, "Vercel is deploying your app",
+  14:09:32Z) fino a `success` ("Deployment has completed") — nessun secondo
+  deployment parallelo rilevato.
+- **Verifica pubblica IT/EN** (`https://www.fitmesh.fit`):
+  entrambe 200; `<title>` e canonical corrispondono a quanto specificato
+  in Fase 3; hreflang solo it/en/x-default su entrambe; 3 blocchi JSON-LD
+  (BlogPosting con `inLanguage` `it-IT`/`en-US` corretti, FAQPage con le 8
+  domande, BreadcrumbList); testo delle domande FAQ presente sia nel markup
+  visibile sia nel JSON-LD (stessa fonte); og:image/twitter:image assoluti,
+  risolvono 200 `image/png`; link interni citati nell'articolo presenti e
+  puntano a slug reali.
+- **Verifica pubblica delle 13 varianti locale fallback** (es, de, pt, fr,
+  pl, tr, nl, ja, ko, sv, da, no, fi): tutte **307** verso
+  `/en/blog/smart-ring-vs-smartwatch`, singolo hop verificato seguendo il
+  redirect fino al 200 finale (nessuna catena, nessun loop).
+- **Sitemap e feed pubblici**: `sitemap.xml` e `blog/feed.xml` (it, en)
+  verificati non contenere nessuno dei 9 slug localizzati non-it/en di
+  questo post; IT/EN presenti in entrambi.
+- **IndexNow**: inviati esclusivamente i 2 URL indicizzabili
+  (`https://www.fitmesh.fit/it/blog/anello-vs-smartwatch`,
+  `https://www.fitmesh.fit/en/blog/smart-ring-vs-smartwatch`) via
+  `tools/indexnow-2026-07-20-ring-watch.ts` — HTTP 200 dall'endpoint
+  IndexNow. Nessun URL 307 inviato (per costruzione: lo script elenca solo
+  i 2 URL, non itera sulle altre locale).
+- **Nessuna verifica pubblica fallita** — nessun commit vuoto, nessun
+  redeploy manuale necessario.
+- **seo-geo-master-plan.md §9 — controlli GSC programmati**, calcolati
+  sulla data di deploy reale (2026-07-20, non la data di stesura del
+  piano):
+  - **+14 giorni**: 2026-08-03
+  - **+28 giorni**: 2026-08-17
+  - **+90 giorni**: 2026-10-18
+- **Nota su questo aggiornamento**: registrato SOLO in locale su questo
+  worktree/branch, non pushato — per non generare un secondo deployment
+  Vercel puramente documentale (richiesta esplicita di Matteo). Da
+  includere nel prossimo push utile (bundle con altro lavoro reale su
+  questo branch, o un push dedicato quando Matteo lo richiede).
+
+### P1.3 — Labs Release + Sleep Efficiency Authority Cluster
+
+- **Cosa**: porta in produzione il lavoro Labs già completato (P1.0/P1.1/
+  P1.1B/P1.1C/P1.1D, mai mergiato su `main`) — secondo tool live (Sleep
+  Efficiency Calculator), hardening HRV, KaTeX fail-closed, oracle
+  matematico indipendente, CSV realmente letto, accessibilità Chromium+
+  WebKit, `prefers-reduced-motion`, guardrail dedicati, discoverability
+  (Header/MobileMenu/homepage), JSON-LD, internal linking — e costruisce
+  il cluster editoriale sonno/HRV attorno ai due calcolatori. Branch
+  `seo/p1-3-labs-sleep-authority`, worktree separato, partito da
+  `origin/main` aggiornato dopo il merge P1.2 (`11d6a91`).
+
+- **Fase 0 — matrice file-per-file**: il lavoro Labs esisteva su due
+  branch mai mergiati, entrambi con lo stesso contenuto Labs byte-per-byte
+  ma storie diverse:
+  - `sprint-p07-labs-seo` (tip `d4d176d`, msg "isolato dal backend
+    Founder") — verificato per diff diretto: **zero** tocchi a
+    `lib/founder/*`, `lib/pricing*`, `lib/product-facts.ts`, migration o
+    test `founder_p0` rispetto a `origin/main`. Claim del commit
+    confermato, non solo assunto.
+  - `feat/p11-founder-close-fase0` (tip `176df1c`) — stessa identica
+    Labs (diff Labs-only fra i due tip: zero righe), ma con in più
+    commit Founder Fase 0 nella storia (chiusura programma, incidente
+    trigger) e un secondo, indipendente incidente Founder gestito in
+    parallelo (vedi `docs/seo/labs/p11-delivery-report.md`, sezione
+    "Incidente Founder trigger").
+  - **Scelta**: `d4d176d` come sorgente, per diff mirato file-per-file
+    (non un merge/cherry-pick della storia intera, che avrebbe portato
+    dentro i commit Founder anche se poi "annullati" da un revert).
+  - **Verifica di divergenza da `main`**: per ogni file Labs-correlato,
+    controllato `git diff <merge-base> origin/main -- <file>` per capire
+    se `main` avesse cambiato indipendentemente qualcosa nel frattempo
+    (P1.2/P1.2A). Trovati 2 file con vero conflitto (non "Labs manca
+    qualcosa", ma "main ha aggiunto qualcosa che Labs non ha"):
+    - `lib/blog/indexability.ts` e `blog/[slug]/page.tsx`: `d4d176d`
+      precede il redirect 307 di fallback locale P1.2A — mantenuta la
+      versione di `main` (superset stretto), **non** presa da `d4d176d`.
+    - `lib/blog/posts/anello-vs-smartwatch.ts`: `d4d176d` ha il body
+      pre-refresh P1.2 — mantenuta la versione P1.2 di `main`.
+  - **Esclusi esplicitamente** (bundle nello stesso commit storico ma
+    fuori scope P1.3): `supabase/migrations/20260629100000_fitness_
+    metrics_sleep_apnea.sql`, `app/api/v1/garmin/webhook/sleeps/route.ts`,
+    `app/api/v1/suunto/webhook/sleep/route.ts` — la regola esplicita
+    "nessuna modifica a Supabase o migration" vale a prescindere dal fatto
+    che fossero raggruppati nello stesso commit Labs; il calcolatore Sleep
+    Efficiency è client-side puro e non ne ha bisogno.
+  - **`tools/check-no-continuous-sync-claim.ts` escluso**: non richiesto
+    dallo scope guardrail di P1.3, e la sua unica dipendenza di contenuto
+    (fix copy `lib/content/about-copy.ts`, rimozione claim "sync
+    continuo") vive esclusivamente sul branch Founder-misto — portarla
+    avrebbe significato adottare copy Founder-adiacente per soddisfare un
+    guardrail che questo sprint non ha chiesto.
+  - **Toolchain riportato da P1.1B** (verificato non-Founder via diff):
+    `packageManager: pnpm@11.15.0` pinnato, `vercel.json`
+    `--frozen-lockfile` (era `--no-frozen-lockfile`), `package-lock.json`
+    non più tracciato (unico lockfile operativo `pnpm-lock.yaml`).
+  - **Commit P1.2B (`71b61a2`, locale non pushato)**: recuperato via
+    `git show`, verificato che tocca ESCLUSIVAMENTE `seo-results-log.md` +
+    `seo-geo-master-plan.md` (più uno script IndexNow one-shot, escluso
+    perché fuori dalla condizione "solo results-log/master-plan"), SHA
+    (`11d6a91`) e date GSC (2026-08-03/08-17/10-18) confermati corretti,
+    applicato via patch (blob hash coincidenti, nessun overwrite di nulla
+    di più recente).
+
+- **Bug reali trovati durante la QA Docker (Fase 13), non dal report di
+  consegna P1.1 precedente**:
+  1. **OG image sempre 404**: sia `labs/opengraph-image.tsx` sia
+     `labs/[tool]/opengraph-image.tsx` esportavano `generateImageMetadata()`
+     enumerando OGNI locale (o locale×tool) invece dei soli parametri
+     della route corrente — Next.js richiede quindi un segmento hashato
+     `[__metadata_id__]` che l'URL costruito a mano in `generateMetadata`
+     (`openGraph.images`) non poteva mai replicare (404 sempre). Rimossa
+     la `images` manuale in entrambe le pagine (la convenzione file
+     inietta l'URL corretto da sola, stesso pattern già corretto delle
+     pagine blog) e rimosso `generateImageMetadata` da entrambe le route
+     immagine (non serve: una sola immagine per route via i segmenti
+     `[locale]`/`[tool]` già esistenti). Verificato: un solo tag
+     `og:image` per pagina, risolve 200 `image/png` 1200×630 reale
+     (controllato visivamente).
+  2. **Regressione `prefers-reduced-motion`** su tutte e 4 le pagine
+     Labs: `components/Footer.tsx` (renderizzato sitewide, incluso sotto
+     Labs) aveva 3 span `animate-ping`/`animate-pulse` non corretti. Il
+     fix vive solo sul branch Founder-misto, nello stesso hunk di una
+     riscrittura copy Founder non correlata (pillola datata, import
+     `lib/founder/program-window`) — applicata SOLO la classe
+     `motion-reduce:animate-none` ai 3 span, zero copy/logica Founder
+     adottata.
+  - Il report P1.1 precedente non aveva rilevato nessuno dei due: il
+    controllo OG verificava solo che il TESTO del tag differisse fra
+    tool (mai che l'URL risolvesse), e il controllo reduced-motion
+    copriva solo i 3 elementi già noti allora (Header, sync/[provider]),
+    non Footer.tsx (il quarto elemento, sync/[provider], era stato
+    aggiunto in P1.1B Fase 4 — Footer.tsx non era mai stato riscannerizzato
+    da quando il fix era stato spostato sul branch Founder).
+  3. **Em-dash nel copy visibile del cluster**: 15 occorrenze reali (non
+     in commento) in `efficienza-del-sonno-formula-calcolo.ts` (8),
+     `metriche-recupero-hrv-sonno-frequenza-cardiaca.ts` (6) e
+     `HrvCharts.tsx` (1, etichetta outlier nella tabella RR) — violazione
+     della regola sitewide "niente em-dash", esplicitamente richiesta come
+     guardrail da questo sprint ("em dash nello scope Labs", Fase 12) ma
+     mai verificata dal report P1.1 (nessun guardrail dedicato esisteva).
+     Corrette tutte e 15 (virgola/due punti/parentesi al posto dell'em-dash,
+     stesso significato). Aggiunto nuovo guardrail
+     `pnpm run labs:no-em-dash-check` (`tools/check-labs-no-em-dash.ts`,
+     15 file di contenuto Labs scansionati, righe di commento escluse) —
+     efficacia verificata deliberatamente (iniettata una violazione di
+     test, confermato il fallimento, ripristinato l'originale). Un'unica
+     occorrenza residua rilevata nell'HTML delle pagine ("ADMIN MODE — i
+     tuoi accessi sono tracciati") è una stringa sitewide pre-esistente
+     non-Labs (presente identica anche in homepage), correttamente fuori
+     scope per questo guardrail.
+
+- **Fase 1 — audit collisioni**: verificato che nessun articolo esistente
+  copra lo stesso intento "formula/definizione efficienza del sonno":
+  `tracciare-sonno-anello` (guida d'uso anello), `sleep-tracker-
+  comparison-2026` (confronto prodotti), `novita-anello-colmi-sonno`
+  (annuncio feature), `metriche-recupero-hrv-sonno-frequenza-cardiaca`
+  (pillar recovery, collega HRV+Sleep Efficiency), `hrv-cose-significato-
+  valori` (definizione HRV, sorella strutturale). Nessuna cannibalizzazione
+  — intento distinto per ciascuna, tutte collegate bidirezionalmente al
+  nuovo cluster (verificato da `labs:internal-linking-check`, 42/42 URL).
+
+- **Formule e fonti**: RMSSD (Shaffer & Ginsberg 2017); Sleep Efficiency
+  = tempo totale di sonno / tempo a letto × 100 (Reed & Sacco 2016, J Clin
+  Sleep Med, PMID 26194727 — ambiguità del denominatore; Buysse et al.
+  1989, PSQI; AASM scoring manual 2007). Nessuna soglia clinica presentata
+  come universale; wearable vs polisonnografia distinti esplicitamente nei
+  Limiti. Verificate live via WebFetch/WebSearch durante lo sviluppo
+  originale (non a memoria) — citazioni con anno+PMID/DOI presenti nei
+  commenti sorgente (`lib/labs/sleep-efficiency/content.ts`,
+  `lib/labs/hrv/content.ts`).
+
+- **JSON-LD**: Labs index → `CollectionPage` + `ItemList` (esattamente i 2
+  tool live, nessun tool "in preparazione") + `BreadcrumbList`; calcolatori
+  → `WebPage`+`WebApplication` (`applicationCategory: HealthApplication`,
+  `isAccessibleForFree: true`, `price: "0"`) + `FAQPage` + `BreadcrumbList`;
+  articolo → `BlogPosting` + `FAQPage` (5 domande, identiche fra markup
+  visibile e JSON-LD, stessa fonte per costruzione) + `BreadcrumbList`.
+  Verificato: zero `MedicalWebPage`/`MedicalEntity`/`Review`/
+  `AggregateRating` su nessuna pagina Labs.
+
+- **Route matrix, sitemap, hreflang** (verificati contro server Next
+  locale in modalità production, Docker `next start`, non Vercel):
+  `/it/labs` e `/en/labs` → 200; entrambi i tool → 200; slug IT sotto EN e
+  slug EN sotto IT → 404 (4/4); locale non supportata (13, incluse
+  nordiche) → 307 singolo hop verso `/en/labs`, mai una catena;
+  `sitemap.xml` contiene esattamente le 6 URL Labs attese (2 index + 4
+  tool), hreflang solo it/en/x-default (x-default → en) su tutte.
+
+- **Guardrail (tutti in Docker, tutti exit 0)**: `pnpm install
+  --frozen-lockfile`; `tsc --noEmit`; `vitest run` (145/145 — 124 Labs/
+  pre-esistenti + 21 pre-esistenti non-Labs, zero test Founder essendo
+  `lib/founder/*` escluso); `seo:truth-check`; `labs:truth-check`;
+  `ring-watch:claims-check`; `labs:katex-input-check`; `founder:counter-
+  check` (pre-esistente, non toccato); oracle Python indipendente (24 HRV
+  + 28 Sleep Efficiency validi + 15 vettori d'errore, concordanza 1e-6);
+  `labs:formulas-render-check` (10 formule, HTML+MathML, `throwOnError:
+  true`); build produzione completa (3650+ pagine); `labs:privacy-check`
+  (6/6 combinazioni tool×locale×modalità, CSV letto e verificato
+  realmente, zero esfiltrazione); `labs:a11y-check` (4 pagine × 2 motori,
+  0 problemi); `labs:cross-browser-check` (4 pagine × Chromium+WebKit ×
+  3 viewport, reduced-motion verde dopo il fix Footer.tsx);
+  `labs:perf-check` (LCP/CLS/interazione entro target su tutte e 4);
+  `labs:internal-linking-check` (42/42 URL); `labs:no-em-dash-check`
+  (nuovo, 15 file di contenuto scansionati, 0 em-dash). Screenshot Playwright
+  (desktop 1440×900 + mobile 390×844) di Labs index IT/EN e dei 2
+  calcolatori, verificati visivamente: layout coerente, card "in
+  preparazione" non cliccabile, nessun testo tagliato.
+
+- **Limiti noti**: performance misurata su server Docker locale
+  (`next start`), non su edge Vercel reale — proxy ragionevole, non
+  sostituisce un audit Lighthouse post-deploy. Il file `docs/seo/labs/
+  p11-delivery-report.md` portato as-is descrive ANCHE lo stato Founder
+  del branch sorgente (sezione "Incidente Founder trigger") — mantenuto
+  per onestà storica/contesto, non riflette lo stato di `main` né lo
+  scope di questo sprint. Le altre 13 locale del sito continuano a NON
+  avere Labs (per design, fallback 307 verso EN) — nessuna traduzione
+  aggiuntiva in questo sprint, come da mandato.
+
+- **Commit**: `fe45338` (ricostruzione Fase 0) + `715c0be` (fix QA: OG
+  image, reduced-motion, toolchain) su branch
+  `seo/p1-3-labs-sleep-authority`.
+- **Zero Preview Deployment**: nessun push, nessuna PR, nessun comando
+  Vercel eseguito in questa sessione (`vercel.json` disabilita comunque le
+  preview per branch non-`main`, invariato).
+- **Stato**: verificato in Docker, tutti i gate verdi. Push e apertura PR
+  seguono subito dopo la registrazione di questa riga. Nessun merge
+  autonomo.

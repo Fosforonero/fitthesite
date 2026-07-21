@@ -1,15 +1,18 @@
 import { ImageResponse } from "next/og";
-import { labsToolByLocalizedSlug, allLabsStaticParams, lt } from "@/lib/labs/registry";
+import { labsToolByLocalizedSlug, lt } from "@/lib/labs/registry";
 import { HRV_TOOL_CONTENT } from "@/lib/labs/hrv/content";
+import { SLEEP_EFFICIENCY_TOOL_CONTENT } from "@/lib/labs/sleep-efficiency/content";
 
 export const alt = "FitMesh Labs";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export function generateImageMetadata() {
-  return allLabsStaticParams().map((p) => ({ id: `${p.locale}-${p.tool}` }));
-}
-
+// Niente `generateImageMetadata`: questa route e' gia' annidata sotto
+// `[locale]/[tool]` (static params ereditati dalla pagina). Il precedente
+// `generateImageMetadata` enumerava OGNI combinazione locale x tool (bug
+// P1.3 trovato in produzione locale: una singola pagina mostrava 4 tag
+// `og:image` invece di uno, coprendo anche le pagine di ALTRI tool/locale)
+// invece di limitarsi ai parametri della pagina corrente.
 /**
  * OG image dedicata per tool Labs (non il fallback generico brand-only):
  * titolo localizzato reale, così il preview su social/chat mostra di cosa
@@ -23,7 +26,14 @@ export default async function LabsToolOgImage({
   const { locale, tool } = await params;
   const lc = locale === "it" ? "it" : "en";
   const found = labsToolByLocalizedSlug(tool, lc);
-  const title = found ? lt(HRV_TOOL_CONTENT.heroTitle, lc) : "FitMesh Labs";
+  // P1.1 Fase 10: era hardcoded su HRV_TOOL_CONTENT indipendentemente dal
+  // tool richiesto: con un secondo tool live (Sleep Efficiency) mostrava
+  // il titolo HRV anche nell'anteprima social dell'altro strumento.
+  const title = !found
+    ? "FitMesh Labs"
+    : found.key === "hrv-rmssd"
+      ? lt(HRV_TOOL_CONTENT.heroTitle, lc)
+      : lt(SLEEP_EFFICIENCY_TOOL_CONTENT.heroTitle, lc);
   const kicker = "FITMESH LABS";
 
   return new ImageResponse(

@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileMenu from "./MobileMenu";
 import type { Dictionary, Locale } from "@/lib/i18n";
+import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 
 export default function Header({
   dict,
@@ -13,7 +14,7 @@ export default function Header({
 }) {
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-bg/60 border-b border-white/[0.06] supports-[backdrop-filter]:bg-bg/40">
-      {/* Tiny accent line — a 1px gradient strip under the header for premium feel */}
+      {/* Tiny accent line - a 1px gradient strip under the header for premium feel */}
       <div
         aria-hidden
         className="absolute inset-x-0 bottom-0 h-px opacity-60"
@@ -56,10 +57,17 @@ export default function Header({
             Blog
           </Link>
           <Link
+            href={`/${resolveLabsLocale(locale)}/labs`}
+            data-testid="nav-labs-desktop"
+            className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden md:inline-block"
+          >
+            Labs
+          </Link>
+          <Link
             href={`/${locale}/beta`}
             className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden sm:inline-block relative"
           >
-            <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse" />
+            <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse motion-reduce:animate-none" />
             Beta
           </Link>
           <Link

@@ -480,7 +480,7 @@ export default async function ProviderLanding({
               <div className="relative">
                 <div
                   aria-hidden
-                  className="absolute inset-0 -m-3 rounded-full opacity-60 animate-pulse"
+                  className="absolute inset-0 -m-3 rounded-full opacity-60 animate-pulse motion-reduce:animate-none"
                   style={{
                     background: `conic-gradient(from 0deg, ${p.brandColor}00, ${p.brandColor}66, ${p.brandColor}00)`,
                     filter: "blur(6px)",

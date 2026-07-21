@@ -4,8 +4,12 @@ import {
   calculateHrvMetrics,
   parseRrInput,
   isShortSample,
+  isPhysiologicallyImplausible,
+  findImplausibleIndices,
   SAMPLE_RR_INTERVALS_MS,
   SHORT_SAMPLE_INTERVAL_THRESHOLD,
+  PLAUSIBLE_RR_MIN_MS,
+  PLAUSIBLE_RR_MAX_MS,
 } from "./rmssd-math";
 
 /**
@@ -213,5 +217,28 @@ describe("isShortSample", () => {
   });
   it("sopra soglia -> false", () => {
     expect(isShortSample(SHORT_SAMPLE_INTERVAL_THRESHOLD + 10)).toBe(false);
+  });
+});
+
+describe("isPhysiologicallyImplausible / findImplausibleIndices (P1.1 Fase 4)", () => {
+  it("valori dentro il range plausibile -> false", () => {
+    expect(isPhysiologicallyImplausible(800)).toBe(false);
+    expect(isPhysiologicallyImplausible(PLAUSIBLE_RR_MIN_MS)).toBe(false);
+    expect(isPhysiologicallyImplausible(PLAUSIBLE_RR_MAX_MS)).toBe(false);
+  });
+  it("sotto il minimo -> true", () => {
+    expect(isPhysiologicallyImplausible(PLAUSIBLE_RR_MIN_MS - 1)).toBe(true);
+  });
+  it("sopra il massimo -> true", () => {
+    expect(isPhysiologicallyImplausible(PLAUSIBLE_RR_MAX_MS + 1)).toBe(true);
+  });
+  it("findImplausibleIndices individua solo gli indici fuori range, preservando l'ordine, senza rimuovere nulla", () => {
+    const intervals = [800, 100, 810, 5000, 790];
+    expect(findImplausibleIndices(intervals)).toEqual([1, 3]);
+    // L'array originale non viene mai mutato/filtrato da questa funzione.
+    expect(intervals).toEqual([800, 100, 810, 5000, 790]);
+  });
+  it("nessun implausibile -> array vuoto", () => {
+    expect(findImplausibleIndices([700, 800, 900])).toEqual([]);
   });
 });

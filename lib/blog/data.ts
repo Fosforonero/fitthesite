@@ -101,6 +101,9 @@ import { post as fitmeshVsAlternativeSync } from "./posts/fitmesh-vs-alternative
 import { post as percheDiventareFounderFitmesh } from "./posts/perche-diventare-founder-fitmesh";
 // Stato Colmi ring: cosa funziona oggi (R02/R03) + sviluppo temperatura R09 (05/07)
 import { post as colmiR09TemperaturaSviluppo } from "./posts/colmi-r09-temperatura-sviluppo";
+// P1.1 Fase 9: content cluster FitMesh Labs (HRV + Sleep Efficiency).
+import { post as efficienzaDelSonnoFormulaCalcolo } from "./posts/efficienza-del-sonno-formula-calcolo";
+import { post as metricheRecuperoHrvSonnoFrequenzaCardiaca } from "./posts/metriche-recupero-hrv-sonno-frequenza-cardiaca";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -178,6 +181,8 @@ const RAW_POSTS: BlogPost[] = [
   fitmeshVsAlternativeSync,
   percheDiventareFounderFitmesh,
   colmiR09TemperaturaSviluppo,
+  efficienzaDelSonnoFormulaCalcolo,
+  metricheRecuperoHrvSonnoFrequenzaCardiaca,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

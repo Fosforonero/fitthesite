@@ -5,11 +5,13 @@ import {
   calculateHrvMetrics,
   isShortSample,
   parseRrInput,
+  findImplausibleIndices,
   SAMPLE_RR_INTERVALS_MS,
   type RrUnit,
 } from "@/lib/labs/hrv/rmssd-math";
 import { lt, type LabsText } from "@/lib/labs/registry";
 import type { HrvToolContent } from "@/lib/labs/hrv/content";
+import { RrIntervalChart, SuccessiveDiffChart } from "@/components/labs/HrvCharts";
 
 /**
  * Area interattiva del calcolatore HRV/RMSSD.
@@ -53,10 +55,15 @@ export function HrvRmssdCalculator({
   const [rawInput, setRawInput] = useState("");
   const [unit, setUnit] = useState<RrUnit>("ms");
   const [copied, setCopied] = useState(false);
+  const [shared, setShared] = useState(false);
 
   const parsed = useMemo(() => parseRrInput(rawInput, unit), [rawInput, unit]);
   const metrics = useMemo(
     () => calculateHrvMetrics(parsed.validIntervalsMs),
+    [parsed.validIntervalsMs],
+  );
+  const implausibleIndices = useMemo(
+    () => findImplausibleIndices(parsed.validIntervalsMs),
     [parsed.validIntervalsMs],
   );
 
@@ -103,21 +110,46 @@ export function HrvRmssdCalculator({
     }
   }
 
+  async function shareResults() {
+    const text = resultsAsText();
+    if (!text) return;
+    // Condivide un riepilogo testuale + l'URL pulito della pagina (mai dati
+    // nell'URL stesso): Web Share API se disponibile, altrimenti stesso
+    // comportamento di "Copia risultati" - mai una richiesta di rete.
+    if (typeof navigator !== "undefined" && "share" in navigator) {
+      try {
+        await navigator.share({ title: document.title, text, url: window.location.href });
+        setShared(true);
+        window.setTimeout(() => setShared(false), 2000);
+        return;
+      } catch {
+        return; // utente ha annullato: nessun fallback silenzioso ulteriore
+      }
+    }
+    await copyResults();
+  }
+
   function downloadCsv() {
     if (!metrics) return;
+    // Mai formatNumber() (toLocaleString, separatore delle migliaia) per un
+    // valore CSV: un "1,234.567" non quotato spezza silenziosamente il
+    // conteggio delle colonne in qualunque parser CSV standard. toFixed()
+    // non inserisce mai virgole - riservato a questo file, la UI a schermo
+    // continua a usare formatNumber() per la leggibilità.
+    const csvNum = (n: number, digits: number) => n.toFixed(digits);
     const rows = [
       ["metric", "value", "unit"],
       ["valid_interval_count", String(metrics.validIntervalCount), "count"],
-      ["total_duration", formatNumber(metrics.totalDurationMs / 1000, 3), "s"],
-      ["mean_rr", formatNumber(metrics.meanRrMs, 3), "ms"],
-      ["derived_heart_rate", formatNumber(metrics.derivedHeartRateBpm, 2), "bpm"],
-      ["rmssd", formatNumber(metrics.rmssdMs, 3), "ms"],
+      ["total_duration", csvNum(metrics.totalDurationMs / 1000, 3), "s"],
+      ["mean_rr", csvNum(metrics.meanRrMs, 3), "ms"],
+      ["derived_heart_rate", csvNum(metrics.derivedHeartRateBpm, 2), "bpm"],
+      ["rmssd", csvNum(metrics.rmssdMs, 3), "ms"],
       [
         "ln_rmssd",
-        metrics.lnRmssd === null ? "undefined" : formatNumber(metrics.lnRmssd, 4),
+        metrics.lnRmssd === null ? "undefined" : csvNum(metrics.lnRmssd, 4),
         "",
       ],
-      ["stddev_intervals_n_minus_1", formatNumber(metrics.stdDevMs, 3), "ms"],
+      ["stddev_intervals_n_minus_1", csvNum(metrics.stdDevMs, 3), "ms"],
     ];
     const csv = rows.map((r) => r.join(",")).join("\n");
     // Blob locale, mai un upload: l'URL è object URL in-memory, mai inviato
@@ -137,7 +169,7 @@ export function HrvRmssdCalculator({
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 mt-8">
-      <div className="rounded-card border border-divider bg-bg-card/60 p-5 sm:p-6">
+      <div data-testid="hrv-calculator" className="rounded-card border border-divider bg-bg-card/60 p-5 sm:p-6">
         <label htmlFor={textareaId} className="block text-sm font-medium text-text-primary">
           {labels.textareaLabel}
         </label>
@@ -245,7 +277,7 @@ export function HrvRmssdCalculator({
               : labels.noResultsYet}
           </p>
         ) : (
-          <div className="rounded-card border border-divider bg-bg-card/40 p-5 sm:p-6">
+          <div data-testid="labs-calculation-results" className="rounded-card border border-divider bg-bg-card/40 p-5 sm:p-6">
             <h2 className="font-display text-lg font-semibold text-text-primary">
               {labels.resultsHeading}
             </h2>
@@ -256,6 +288,15 @@ export function HrvRmssdCalculator({
                 className="mt-3 rounded-md border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-200"
               >
                 {labels.shortSampleWarning}
+              </div>
+            )}
+
+            {implausibleIndices.length > 0 && (
+              <div
+                role="alert"
+                className="mt-3 rounded-md border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-200"
+              >
+                {implausibleIndices.length} {labels.implausibleCountWarning}
               </div>
             )}
 
@@ -277,6 +318,7 @@ export function HrvRmssdCalculator({
                 label={labels.resultRmssd}
                 value={`${formatNumber(metrics.rmssdMs)} ${labels.unitsMs}`}
                 highlight
+                testId="labs-result-value"
               />
               <ResultCell
                 label={labels.resultLnRmssd}
@@ -295,6 +337,22 @@ export function HrvRmssdCalculator({
               {labels.resultStdDevNote}
             </p>
 
+            <RrIntervalChart
+              intervalsMs={parsed.validIntervalsMs}
+              heading={labels.rrChartHeading}
+              tableToggleLabel={labels.chartTableToggleLabel}
+              indexHeader={labels.chartIndexHeader}
+              valueHeader={labels.chartValueHeader}
+              implausibleLabel={labels.implausibleLabel}
+            />
+            <SuccessiveDiffChart
+              intervalsMs={parsed.validIntervalsMs}
+              heading={labels.diffChartHeading}
+              tableToggleLabel={labels.chartTableToggleLabel}
+              indexHeader={labels.chartIndexHeader}
+              valueHeader={labels.chartValueHeader}
+            />
+
             <div className="mt-5 flex flex-wrap gap-3">
               <button
                 type="button"
@@ -310,6 +368,13 @@ export function HrvRmssdCalculator({
               >
                 {labels.downloadCsvButton}
               </button>
+              <button
+                type="button"
+                onClick={shareResults}
+                className="rounded-pill border border-divider px-4 py-1.5 text-xs font-medium text-text-secondary hover:border-white/20 hover:text-text-primary transition"
+              >
+                {shared ? labels.sharedButton : labels.shareButton}
+              </button>
             </div>
           </div>
         )}
@@ -322,15 +387,18 @@ function ResultCell({
   label,
   value,
   highlight,
+  testId,
 }: {
   label: string;
   value: string;
   highlight?: boolean;
+  testId?: string;
 }) {
   return (
     <div>
       <dt className="text-[11px] uppercase tracking-wide text-text-muted">{label}</dt>
       <dd
+        data-testid={testId}
         className={`mt-1 font-mono text-lg ${highlight ? "text-brand-aqua font-semibold" : "text-text-primary"}`}
       >
         {value}

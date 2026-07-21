@@ -12,7 +12,15 @@
     "labs:truth-check": "tsx tools/check-labs-truth.ts",
     "labs:privacy-check": "tsx tools/check-labs-privacy.ts",
     "founder:counter-check": "tsx tools/check-founder-counter-removed.ts",
-    "ring-watch:claims-check": "tsx tools/check-ring-watch-article-claims.ts"
+    "ring-watch:claims-check": "tsx tools/check-ring-watch-article-claims.ts",
+    "labs:katex-input-check": "tsx tools/check-katex-no-user-input.ts",
+    "labs:oracle-gen": "tsx tools/gen-labs-oracle-vectors.ts",
+    "labs:a11y-check": "tsx tools/check-labs-accessibility.ts",
+    "labs:perf-check": "tsx tools/check-labs-performance.ts",
+    "labs:cross-browser-check": "tsx tools/check-labs-cross-browser.ts",
+    "labs:formulas-render-check": "tsx tools/check-labs-formulas-render.ts",
+    "labs:internal-linking-check": "tsx tools/check-labs-internal-linking.ts",
+    "labs:no-em-dash-check": "tsx tools/check-labs-no-em-dash.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",
@@ -24,7 +32,9 @@
     "@supabase/ssr": "^0.6.1",
     "@supabase/supabase-js": "^2.105.4",
     "firebase-admin": "^13.10.0",
+    "graphql": "^16.8.1",
     "jose": "^4.15.4",
+    "katex": "^0.16.11",
     "next": "^15.1.6",
     "payload": "^3.85.1",
     "react": "^19.0.0",
@@ -32,6 +42,7 @@
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@types/katex": "^0.16.7",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -45,5 +56,6 @@
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "packageManager": "pnpm@11.15.0"
 }

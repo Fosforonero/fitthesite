@@ -37,6 +37,15 @@ export function ltl(list: LabsTextList, lc: "it" | "en"): string[] {
  * Il campo `slug` è per-locale perché lo sprint richiede URL localizzati
  * diversi (`/it/labs/calcolatore-hrv-rmssd` vs `/en/labs/hrv-rmssd-calculator`),
  * stesso pattern di `localizedBlogSlug`/`localizedLandingSlug`.
+ *
+ * `lastRevised` e `methodologyVersion` sono qui (non duplicati nel content
+ * file per-tool) perché il registry deve restare l'unica fonte di verità
+ * P1.1 Fase 1.3: i content file (es. lib/labs/hrv/content.ts) le
+ * IMPORTANO da qui via `liveLabsToolByKey`, non le ridichiarano.
+ *
+ * `relatedKeys` è opzionale: se assente, `relatedLabsTools()` mostra tutti
+ * gli altri tool live (comportamento storico, corretto finché c'è un solo
+ * tool live). Con 2+ tool live va valorizzato con una relazione curata.
  */
 export interface LiveLabsTool {
   key: string;
@@ -44,8 +53,16 @@ export interface LiveLabsTool {
   slug: LabsText;
   name: LabsText;
   shortDescription: LabsText;
+  /** Emoji usata su card indice e blocchi "tool correlati". */
+  icon: string;
   /** Categoria per raggruppamento futuro sull'indice (non ancora usata per filtri). */
   category: "cardio" | "sleep" | "activity";
+  /** ISO date (YYYY-MM-DD) dell'ultima revisione tecnico-editoriale del contenuto. */
+  lastRevised: string;
+  /** Versione della metodologia di calcolo (bump quando cambia la formula/i criteri). */
+  methodologyVersion: string;
+  /** Chiavi di altri tool live correlati, in ordine di rilevanza. */
+  relatedKeys?: readonly string[];
 }
 
 /**
@@ -58,6 +75,7 @@ export interface PlannedLabsTool {
   status: "coming-soon";
   name: LabsText;
   shortDescription: LabsText;
+  icon: string;
   category: "cardio" | "sleep" | "activity";
 }
 
@@ -73,17 +91,26 @@ export const LABS_TOOLS: readonly LabsTool[] = [
       it: "Calcola RMSSD, deviazione standard e frequenza cardiaca derivata dal RR medio, da una serie di intervalli RR/IBI, interamente nel browser.",
       en: "Calculate RMSSD, standard deviation, and heart rate derived from mean RR, from a series of RR/IBI intervals, entirely in your browser.",
     },
+    icon: "❤️",
     category: "cardio",
+    lastRevised: "2026-07-17",
+    methodologyVersion: "1.1",
+    relatedKeys: ["sleep-efficiency"],
   },
   {
     key: "sleep-efficiency",
-    status: "coming-soon",
-    name: { it: "Efficienza del sonno", en: "Sleep Efficiency" },
+    status: "live",
+    slug: { it: "calcolatore-efficienza-sonno", en: "sleep-efficiency-calculator" },
+    name: { it: "Calcolatore efficienza del sonno", en: "Sleep Efficiency Calculator" },
     shortDescription: {
-      it: "Calcolo dell'efficienza del sonno da tempo a letto e tempo dormito.",
-      en: "Sleep efficiency calculation from time in bed and time asleep.",
+      it: "Calcola l'efficienza del sonno da tempo a letto e tempo dormito (modalità semplice o avanzata), interamente nel browser.",
+      en: "Calculate sleep efficiency from time in bed and time asleep (simple or advanced mode), entirely in your browser.",
     },
+    icon: "🌙",
     category: "sleep",
+    lastRevised: "2026-07-17",
+    methodologyVersion: "1.0",
+    relatedKeys: ["hrv-rmssd"],
   },
   {
     key: "heart-rate-zones",
@@ -93,6 +120,7 @@ export const LABS_TOOLS: readonly LabsTool[] = [
       it: "Calcolo delle zone di frequenza cardiaca con i metodi più diffusi.",
       en: "Heart rate zone calculation using the most common methods.",
     },
+    icon: "🎯",
     category: "activity",
   },
 ] as const;
@@ -120,6 +148,31 @@ export function labsToolByLocalizedSlug(
   lc: "it" | "en",
 ): LiveLabsTool | undefined {
   return liveLabsTools().find((t) => t.slug[lc] === slug);
+}
+
+/**
+ * Metadata di un tool live per key. Lancia se la key non esiste: è un errore
+ * di programmazione (content file che referenzia una key sbagliata), non un
+ * caso da gestire silenziosamente con un fallback.
+ */
+export function liveLabsToolByKey(key: string): LiveLabsTool {
+  const found = liveLabsTools().find((t) => t.key === key);
+  if (!found) throw new Error(`liveLabsToolByKey: nessun tool live con key "${key}"`);
+  return found;
+}
+
+/**
+ * Tool correlati per un dato tool: usa `relatedKeys` se presente (relazione
+ * curata, in ordine), altrimenti tutti gli altri tool live (fallback storico
+ * per quando c'è un solo altro tool o nessuna relazione esplicita).
+ */
+export function relatedLabsTools(tool: LiveLabsTool): LiveLabsTool[] {
+  if (tool.relatedKeys && tool.relatedKeys.length > 0) {
+    return tool.relatedKeys
+      .map((k) => liveLabsTools().find((t) => t.key === k))
+      .filter((t): t is LiveLabsTool => t !== undefined);
+  }
+  return liveLabsTools().filter((t) => t.key !== tool.key);
 }
 
 /** Tutte le combinazioni {locale, slug} per generateStaticParams: solo it/en, solo tool live. */

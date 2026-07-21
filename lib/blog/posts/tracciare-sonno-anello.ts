@@ -1149,8 +1149,8 @@ export const post: BlogPost = {
         ko: "수면 데이터가 낮 시간 지표와 통합된 모습을 보고 싶으신가요?",
       },
       body: {
-        it: "FitMesh Sync è disponibile su Google Play. I primi 1000 founder ricevono il Pro a vita gratis, incluso l'accesso alla dashboard unificata anello + smartwatch non appena disponibile.",
-        en: "FitMesh Sync is available on Google Play. The first 1,000 founders get lifetime Pro free, including access to the unified ring and smartwatch dashboard as soon as it ships.",
+        it: "FitMesh Sync è disponibile su Google Play. I primi 1000 founder (fino al 31 luglio 2026) ricevono il Pro a vita gratis, incluso l'accesso alla dashboard unificata anello + smartwatch non appena disponibile.",
+        en: "FitMesh Sync is available on Google Play. The first 1,000 founders (through July 31, 2026) get lifetime Pro free, including access to the unified ring and smartwatch dashboard as soon as it ships.",
         es: "FitMesh Sync está disponible en Google Play. Los primeros 1000 founders obtienen el Pro de por vida gratis, incluido el acceso al panel unificado de anillo y smartwatch en cuanto esté disponible.",
         de: "FitMesh Sync ist auf Google Play verfügbar. Die ersten 1000 Founder erhalten lebenslang Pro kostenlos, einschließlich Zugang zum einheitlichen Ring- und Smartwatch-Dashboard, sobald es verfügbar ist.",
         pt: "FitMesh Sync está disponível no Google Play. Os primeiros 1000 founders recebem o Pro vitalício grátis, incluindo acesso ao painel unificado de anel e smartwatch assim que estiver disponível.",

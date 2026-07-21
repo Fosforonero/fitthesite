@@ -31,6 +31,8 @@ import { schemaLanguage } from "@/lib/seo/schema-language";
  */
 import { HOME_COMPLETE_LOCALES as COMPLETE_BODY_LOCALES } from "@/lib/content/static-page-locales";
 import { HOMEPAGE_COPY, tli } from "@/lib/content/homepage-copy";
+import { LABS_TEASER_COPY } from "@/lib/content/labs-teaser-copy";
+import { liveLabsTools, localizedLabsSlug, lt as labsLt } from "@/lib/labs/registry";
 
 export async function generateMetadata({
   params,
@@ -467,6 +469,54 @@ export default async function Home({
             );
           })}
         </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════
+       *  FITMESH LABS — sezione statica, P1.1 Fase 2.2. Nessuna richiesta
+       *  di rete: solo link verso le pagine tool reali (liveLabsTools()),
+       *  mai una card verso un tool "coming-soon" (niente URL vuoti).
+       *  ════════════════════════════════════════════════════════════ */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-wider text-brand-aqua">
+              {tl(LABS_TEASER_COPY.kicker, lc)}
+            </p>
+            <h2 className="mt-2 font-display text-display font-semibold tracking-tightest text-text-primary">
+              {tl(LABS_TEASER_COPY.heading, lc)}
+            </h2>
+            <p className="mt-2 text-text-secondary max-w-xl">{tl(LABS_TEASER_COPY.subheading, lc)}</p>
+          </div>
+          <Link
+            href={`/${lc === "it" ? "it" : "en"}/labs`}
+            className="shrink-0 text-sm text-brand-aqua hover:underline"
+          >
+            {tl(LABS_TEASER_COPY.ctaLabel, lc)} →
+          </Link>
+        </div>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {liveLabsTools().map((tool) => {
+            const toolLocale = lc === "it" ? "it" : "en";
+            return (
+              <Link
+                key={tool.key}
+                href={`/${toolLocale}/labs/${localizedLabsSlug(tool, toolLocale)}`}
+                className="block h-full rounded-card border border-brand-aqua/25 bg-gradient-to-br from-brand-aqua/[0.06] via-bg-card to-bg-card p-5 hover:border-brand-aqua/40 transition"
+              >
+                <p className="font-medium text-text-primary">
+                  <span aria-hidden className="mr-2">{tool.icon}</span>
+                  {labsLt(tool.name, toolLocale)}
+                </p>
+                <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+                  {labsLt(tool.shortDescription, toolLocale)}
+                </p>
+              </Link>
+            );
+          })}
+        </div>
+
+        <p className="mt-4 text-xs text-text-muted">{tl(LABS_TEASER_COPY.privacyNote, lc)}</p>
       </section>
 
       {/* ════════════════════════════════════════════════════════════════

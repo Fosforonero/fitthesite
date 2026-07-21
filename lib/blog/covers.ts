@@ -95,6 +95,8 @@ const POST_COVER: Record<string, CoverType> = {
   "anello-colmi-r02-affidabile": "ring",
   "cambiare-smartwatch-senza-perdere-dati": "multidevice",
   "come-funziona-fitmesh": "dashboard",
+  "efficienza-del-sonno-formula-calcolo": "sleep",
+  "metriche-recupero-hrv-sonno-frequenza-cardiaca": "metrics",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */

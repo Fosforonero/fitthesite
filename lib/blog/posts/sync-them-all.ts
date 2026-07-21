@@ -733,8 +733,8 @@ export const post: BlogPost = {
         ko: "처음 1000명 안에 드시나요?",
       },
       body: {
-        it: "FitMesh Sync è disponibile su Google Play. Crea l'account: i primi 1000 founder ricevono il Pro a vita gratis, si attiva da solo. Porta tutti i tuoi dispositivi in un'unica dashboard.",
-        en: "FitMesh Sync is available on Google Play. Create your account: the first 1,000 founders get lifetime Pro free, it activates automatically. Bring all your devices into one dashboard.",
+        it: "FitMesh Sync è disponibile su Google Play. Crea l'account: i primi 1000 founder (fino al 31 luglio 2026) ricevono il Pro a vita gratis, si attiva da solo. Porta tutti i tuoi dispositivi in un'unica dashboard.",
+        en: "FitMesh Sync is available on Google Play. Create your account: the first 1,000 founders (through July 31, 2026) get lifetime Pro free, it activates automatically. Bring all your devices into one dashboard.",
         es: "FitMesh Sync está disponible en Google Play. Crea tu cuenta: los primeros 1000 founders obtienen el Pro de por vida gratis, se activa solo. Lleva todos tus dispositivos a un único panel.",
         de: "FitMesh Sync ist auf Google Play verfügbar. Erstelle dein Konto: Die ersten 1000 Founder erhalten lebenslang Pro kostenlos, es aktiviert sich automatisch. Bringe alle deine Geräte in ein einziges Dashboard.",
         pt: "FitMesh Sync está disponível no Google Play. Crie sua conta: os primeiros 1000 founders recebem o Pro vitalício grátis, ele se ativa automaticamente. Leve todos os seus dispositivos para um único painel.",

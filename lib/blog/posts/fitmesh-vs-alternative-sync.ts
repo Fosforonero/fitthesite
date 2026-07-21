@@ -191,8 +191,8 @@ export const post: BlogPost = {
           en: ["Gadgetbridge", "No, in-app charts only", "No cloud: no Internet permission by design", "Yes, AGPLv3", "Free (donation-based)"],
         },
         {
-          it: ["FitMesh Sync", "Sì, app + dashboard web", "Server nell'Unione Europea, GDPR", "No, chiuso", "Abbonamento leggero o sblocco a vita; primi 1000 founder gratis a vita"],
-          en: ["FitMesh Sync", "Yes, app + web dashboard", "Servers in the European Union, GDPR", "No, closed", "Light subscription or lifetime unlock; first 1,000 founders free for life"],
+          it: ["FitMesh Sync", "Sì, app + dashboard web", "Server nell'Unione Europea, GDPR", "No, chiuso", "Abbonamento leggero o sblocco a vita; primi 1000 founder gratis a vita fino al 31/7/2026"],
+          en: ["FitMesh Sync", "Yes, app + web dashboard", "Servers in the European Union, GDPR", "No, closed", "Light subscription or lifetime unlock; first 1,000 founders free for life through 7/31/2026"],
         },
       ],
     },

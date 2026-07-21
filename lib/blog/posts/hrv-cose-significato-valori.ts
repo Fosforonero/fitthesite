@@ -272,6 +272,22 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "paragraph",
+      text: {
+        it: "In termini formali: **RMSSD = radice quadrata della media dei quadrati delle differenze fra intervalli RR consecutivi**. Puoi vedere questa formula applicata passo per passo ai tuoi dati, con un esempio numerico completo, nel [Calcolatore HRV di FitMesh Labs](/it/labs/calcolatore-hrv-rmssd).",
+        en: "In formal terms: **RMSSD = the square root of the mean of the squared differences between consecutive RR intervals**. You can see this formula applied step by step to your own data, with a full worked example, in the [FitMesh Labs HRV Calculator](/en/labs/hrv-rmssd-calculator).",
+        es: "En términos formales: **RMSSD = raíz cuadrada de la media de los cuadrados de las diferencias entre intervalos RR consecutivos**. Puedes ver esta fórmula aplicada paso a paso a tus datos en la calculadora de HRV de FitMesh Labs.",
+        de: "Formal ausgedrückt: **RMSSD = Quadratwurzel des Mittelwerts der quadrierten Differenzen zwischen aufeinanderfolgenden RR-Intervallen**. Du kannst diese Formel Schritt für Schritt auf deine eigenen Daten angewendet sehen, im HRV-Rechner von FitMesh Labs.",
+        pt: "Em termos formais: **RMSSD = raiz quadrada da média dos quadrados das diferenças entre intervalos RR consecutivos**. Podes ver esta fórmula aplicada passo a passo aos teus dados na calculadora de HRV do FitMesh Labs.",
+        fr: "En termes formels : **RMSSD = racine carrée de la moyenne des carrés des différences entre intervalles RR consécutifs**. Vous pouvez voir cette formule appliquée pas à pas à vos données dans le calculateur HRV de FitMesh Labs.",
+        pl: "Formalnie: **RMSSD = pierwiastek kwadratowy ze średniej kwadratów różnic między kolejnymi odstępami RR**. Możesz zobaczyć tę formułę zastosowaną krok po kroku do własnych danych w kalkulatorze HRV FitMesh Labs.",
+        tr: "Resmi olarak: **RMSSD = ardışık RR aralıkları arasındaki farkların karelerinin ortalamasının kareköküdür**. Bu formülün kendi verilerinize adım adım nasıl uygulandığını FitMesh Labs HRV Hesaplayıcısında görebilirsiniz.",
+        nl: "Formeel: **RMSSD = de vierkantswortel van het gemiddelde van de kwadratische verschillen tussen opeenvolgende RR-intervallen**. Je kunt deze formule stap voor stap toegepast zien op je eigen data in de HRV-calculator van FitMesh Labs.",
+        ja: "数式で表すと: **RMSSD = 連続するRR間隔の差の二乗の平均の平方根** です。この式が自分のデータにどう適用されるかは、FitMesh LabsのHRV計算ツールで実際の数値例とともに確認できます。",
+        ko: "수식으로 표현하면: **RMSSD = 연속된 RR 간격 차이의 제곱 평균의 제곱근**입니다. 이 공식이 실제 데이터에 단계별로 적용되는 모습은 FitMesh Labs의 HRV 계산기에서 확인할 수 있습니다.",
+      },
+    },
+    {
       type: "heading",
       level: 2,
       text: {
@@ -953,7 +969,16 @@ export const post: BlogPost = {
     "guida-sync-wearable-2026",
     "scegliere-smartwatch-dati-2026",
     "health-connect-vs-samsung-health",
+    "metriche-recupero-hrv-sonno-frequenza-cardiaca",
+    "efficienza-del-sonno-formula-calcolo",
   ],
   brandsMentioned: ["Garmin", "Samsung", "Oura", "Polar", "Apple", "Google"],
+  // P1.1 Fase 9.3: fonti primarie aggiunte, stesse gia' verificate live per
+  // il contenuto del Calcolatore HRV (lib/labs/hrv/content.ts).
+  sources: [
+    "https://pubmed.ncbi.nlm.nih.gov/8598068/",
+    "https://pubmed.ncbi.nlm.nih.gov/37438010/",
+    "https://doi.org/10.3389/fphys.2012.00148",
+  ],
   ldType: "BlogPosting",
 };

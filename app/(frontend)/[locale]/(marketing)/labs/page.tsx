@@ -43,7 +43,10 @@ export async function generateMetadata({
       languages: {
         it: `${SITE_URL}/it/labs`,
         en: `${SITE_URL}/en/labs`,
-        "x-default": `${SITE_URL}/it/labs`,
+        // P1.1 Fase 1: x-default punta all'inglese (pagina stabile 200,
+        // non una catena di redirect) - non all'italiano come nel resto
+        // del sito, perché Labs è pensato per un pubblico internazionale.
+        "x-default": `${SITE_URL}/en/labs`,
       },
     },
     openGraph: {
@@ -51,7 +54,11 @@ export async function generateMetadata({
       description,
       url: `${SITE_URL}${path}`,
       type: "website",
-      images: [{ url: `${SITE_URL}${path}/opengraph-image`, width: 1200, height: 630 }],
+      // Nessun `images` esplicito: la convenzione file `opengraph-image.tsx`
+      // (generateImageMetadata per locale) inietta l'URL corretto con hash
+      // + id automaticamente. Un `images` manuale qui sovrascriverebbe
+      // quell'iniezione con un URL senza hash/id che risulta sempre 404
+      // (trovato P1.3, stesso pattern del bug in labs/[tool]/page.tsx).
     },
     twitter: {
       card: "summary_large_image",
@@ -80,16 +87,29 @@ export default async function LabsIndexPage({
   const live = liveLabsTools();
   const planned = plannedLabsTools();
 
-  const webPageLd = {
+  // P1.1 Fase 10: CollectionPage (non WebPage) + ItemList dei soli tool
+  // live: un tool "coming-soon" non ha slug/URL (vedi registry.ts), quindi
+  // non può comparire qui: l'ItemList resta sempre composta solo da pagine
+  // realmente raggiungibili.
+  const collectionPageLd = {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "@id": `${SITE_URL}${path}#webpage`,
+    "@type": "CollectionPage",
+    "@id": `${SITE_URL}${path}#collectionpage`,
     url: `${SITE_URL}${path}`,
     name: lt(c.metaTitle, lc),
     description: lt(c.metaDescription, lc),
     inLanguage: schemaLanguage(lc),
     publisher: organizationCompactRef(),
     author: authorCompactNode(),
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: live.map((tool, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `${SITE_URL}/${lc}/labs/${localizedLabsSlug(tool, lc)}`,
+        name: lt(tool.name, lc),
+      })),
+    },
   };
 
   const breadcrumbLd = {
@@ -103,7 +123,7 @@ export default async function LabsIndexPage({
 
   return (
     <>
-      <JsonLd data={webPageLd} />
+      <JsonLd data={collectionPageLd} />
       <JsonLd data={breadcrumbLd} />
 
       <LabsBreadcrumbNav
