@@ -22,8 +22,8 @@ export const post: BlogPost = {
       en: "Recovery metrics: HRV, sleep and resting heart rate",
     },
     subtitle: {
-      it: "HRV, frequenza cardiaca a riposo, durata ed efficienza del sonno: metriche diverse, spesso confuse fra loro. Questa guida spiega cosa misura ciascuna, come si collegano, e dove calcolarle gratis nel browser — senza ridurle a un singolo punteggio 'di recupero' universale.",
-      en: "HRV, resting heart rate, sleep duration and sleep efficiency: different metrics, often confused with one another. This guide explains what each one measures, how they connect, and where to calculate them for free in your browser — without reducing them to a single universal \"recovery score\".",
+      it: "HRV, frequenza cardiaca a riposo, durata ed efficienza del sonno: metriche diverse, spesso confuse fra loro. Questa guida spiega cosa misura ciascuna, come si collegano, e dove calcolarle gratis nel browser, senza ridurle a un singolo punteggio 'di recupero' universale.",
+      en: "HRV, resting heart rate, sleep duration and sleep efficiency: different metrics, often confused with one another. This guide explains what each one measures, how they connect, and where to calculate them for free in your browser, without reducing them to a single universal \"recovery score\".",
     },
   },
   metaDescription: {
@@ -52,18 +52,18 @@ export const post: BlogPost = {
   },
   tldr: {
     it: [
-      "Il 'recupero' non è una singola metrica: è la combinazione di più segnali distinti — HRV, frequenza cardiaca a riposo, durata ed efficienza del sonno.",
+      "Il 'recupero' non è una singola metrica: è la combinazione di più segnali distinti, HRV, frequenza cardiaca a riposo, durata ed efficienza del sonno.",
       "HRV (RMSSD) riflette l'attività del sistema nervoso autonomo battito-per-battito, non la qualità del sonno in sé.",
       "L'efficienza del sonno dice quanto del tempo a letto era sonno reale; la durata dice quante ore hai dormito: sono due numeri diversi.",
       "Il debito di sonno (l'accumulo di sonno mancato su più notti) è un concetto reale nella letteratura, ma FitMesh non ha ancora uno strumento dedicato per calcolarlo.",
-      "Puoi calcolare HRV ed efficienza del sonno gratis, nel browser, con FitMesh Labs — nessun punteggio composito, solo i numeri con la formula esplicita.",
+      "Puoi calcolare HRV ed efficienza del sonno gratis, nel browser, con FitMesh Labs: nessun punteggio composito, solo i numeri con la formula esplicita.",
     ],
     en: [
-      "\"Recovery\" isn't a single metric: it's the combination of several distinct signals — HRV, resting heart rate, sleep duration and sleep efficiency.",
+      "\"Recovery\" isn't a single metric: it's the combination of several distinct signals, HRV, resting heart rate, sleep duration and sleep efficiency.",
       "HRV (RMSSD) reflects autonomic nervous system activity beat-by-beat, not sleep quality itself.",
       "Sleep efficiency tells you how much of your time in bed was real sleep; duration tells you how many hours you slept: two different numbers.",
       "Sleep debt (the accumulation of missed sleep across multiple nights) is a real concept in the literature, but FitMesh doesn't have a dedicated tool to calculate it yet.",
-      "You can calculate HRV and sleep efficiency for free, in your browser, with FitMesh Labs — no composite score, just the numbers with the explicit formula.",
+      "You can calculate HRV and sleep efficiency for free, in your browser, with FitMesh Labs: no composite score, just the numbers with the explicit formula.",
     ],
   },
   body: [

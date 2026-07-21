@@ -89,7 +89,7 @@ export function RrIntervalChart({
                 <tr key={i} className={isPhysiologicallyImplausible(v) ? "text-warning" : "text-text-secondary"}>
                   <td>{i + 1}</td>
                   <td>
-                    {Math.round(v)} ms{isPhysiologicallyImplausible(v) ? ` — ${implausibleLabel}` : ""}
+                    {Math.round(v)} ms{isPhysiologicallyImplausible(v) ? ` (${implausibleLabel})` : ""}
                   </td>
                 </tr>
               ))}

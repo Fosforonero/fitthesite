@@ -19,7 +19,8 @@
     "labs:perf-check": "tsx tools/check-labs-performance.ts",
     "labs:cross-browser-check": "tsx tools/check-labs-cross-browser.ts",
     "labs:formulas-render-check": "tsx tools/check-labs-formulas-render.ts",
-    "labs:internal-linking-check": "tsx tools/check-labs-internal-linking.ts"
+    "labs:internal-linking-check": "tsx tools/check-labs-internal-linking.ts",
+    "labs:no-em-dash-check": "tsx tools/check-labs-no-em-dash.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",

@@ -20,8 +20,8 @@ export const post: BlogPost = {
       en: "Sleep efficiency: formula, calculation and interpretation",
     },
     subtitle: {
-      it: "Quanto del tempo passato a letto è davvero sonno? La formula è semplice, ma il numero che ne esce dipende da come definisci 'tempo a letto' — questa guida spiega la formula, un esempio completo e i limiti da conoscere prima di fidartene.",
-      en: "How much of the time you spend in bed is actually sleep? The formula is simple, but the number you get depends on how you define \"time in bed\" — this guide covers the formula, a full worked example, and the limits worth knowing before you trust it.",
+      it: "Quanto del tempo passato a letto è davvero sonno? La formula è semplice, ma il numero che ne esce dipende da come definisci 'tempo a letto': questa guida spiega la formula, un esempio completo e i limiti da conoscere prima di fidartene.",
+      en: "How much of the time you spend in bed is actually sleep? The formula is simple, but the number you get depends on how you define \"time in bed\": this guide covers the formula, a full worked example, and the limits worth knowing before you trust it.",
     },
   },
   metaDescription: {
@@ -54,14 +54,14 @@ export const post: BlogPost = {
       "Esempio: 8 ore a letto, 7 ore dormite → efficienza = 87,5%.",
       "Il denominatore 'tempo a letto' non ha un'unica definizione in letteratura: strumenti diversi possono dare numeri diversi per la stessa notte.",
       "Non esiste una soglia universale di 'buono/cattivo' applicata qui: la CBT-I usa soglie operative guidate da un professionista, non un giudizio automatico su un singolo calcolo.",
-      "Puoi calcolarla gratis, nel browser, con il Calcolatore Efficienza del Sonno di FitMesh Labs — nessun dato inviato a un server.",
+      "Puoi calcolarla gratis, nel browser, con il Calcolatore Efficienza del Sonno di FitMesh Labs: nessun dato inviato a un server.",
     ],
     en: [
       "Sleep efficiency = Total Sleep Time divided by Time in Bed, multiplied by 100.",
       "Example: 8 hours in bed, 7 hours asleep → efficiency = 87.5%.",
       "The \"time in bed\" denominator doesn't have one single definition in the literature: different tools can give different numbers for the same night.",
       "There's no universal \"good/bad\" threshold applied here: CBT-I uses professional-guided operational thresholds, not an automatic judgment on a single calculation.",
-      "You can calculate it for free, in your browser, with FitMesh Labs' Sleep Efficiency Calculator — no data sent to a server.",
+      "You can calculate it for free, in your browser, with FitMesh Labs' Sleep Efficiency Calculator: no data sent to a server.",
     ],
   },
   body: [
@@ -138,8 +138,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "La definizione che questa guida usa (TST / TIB × 100) è quella più diffusa, ma non è l'unica in letteratura. Uno studio pubblicato sul Journal of Clinical Sleep Medicine (Reed & Sacco, 2016) mostra che scegliere un denominatore diverso — per esempio la 'durata dell'episodio di sonno' invece del tempo a letto grezzo — può cambiare il risultato di diversi punti percentuali per la stessa notte. Non è un difetto della formula: è un motivo in più per sapere esattamente quale definizione sta usando lo strumento che stai guardando, prima di confrontare numeri fra dispositivi diversi.",
-        en: "The definition this guide uses (TST / TIB × 100) is the most common, but it's not the only one in the literature. A study published in the Journal of Clinical Sleep Medicine (Reed & Sacco, 2016) shows that choosing a different denominator — for example \"sleep episode duration\" instead of raw time in bed — can shift the result by several percentage points for the same night. That's not a flaw in the formula: it's one more reason to know exactly which definition the tool you're looking at is using, before comparing numbers across different devices.",
+        it: "La definizione che questa guida usa (TST / TIB × 100) è quella più diffusa, ma non è l'unica in letteratura. Uno studio pubblicato sul Journal of Clinical Sleep Medicine (Reed & Sacco, 2016) mostra che scegliere un denominatore diverso (per esempio la 'durata dell'episodio di sonno' invece del tempo a letto grezzo) può cambiare il risultato di diversi punti percentuali per la stessa notte. Non è un difetto della formula: è un motivo in più per sapere esattamente quale definizione sta usando lo strumento che stai guardando, prima di confrontare numeri fra dispositivi diversi.",
+        en: "The definition this guide uses (TST / TIB × 100) is the most common, but it's not the only one in the literature. A study published in the Journal of Clinical Sleep Medicine (Reed & Sacco, 2016) shows that choosing a different denominator (for example \"sleep episode duration\" instead of raw time in bed) can shift the result by several percentage points for the same night. That's not a flaw in the formula: it's one more reason to know exactly which definition the tool you're looking at is using, before comparing numbers across different devices.",
       },
     },
     {
@@ -153,12 +153,12 @@ export const post: BlogPost = {
         it: [
           "**Actigrafia**: stima il sonno dal movimento (accelerometro): meno movimento = probabile sonno. Metodo storico, usato anche in ricerca clinica, ma può confondere l'immobilità sveglia con il sonno.",
           "**PPG (fotopletismografia)**: aggiunge il segnale del battito cardiaco/variabilità HRV al movimento per classificare le fasi del sonno con più precisione, tipico di anelli e orologi moderni.",
-          "**Diario del sonno (self-report)**: quello che percepisci tu al risveglio — spesso meno preciso per la latenza esatta e i risvegli brevi che non ricordi, ma è l'unico metodo che non richiede un dispositivo.",
+          "**Diario del sonno (self-report)**: quello che percepisci tu al risveglio, spesso meno preciso per la latenza esatta e i risvegli brevi che non ricordi, ma è l'unico metodo che non richiede un dispositivo.",
         ],
         en: [
           "**Actigraphy**: estimates sleep from movement (accelerometer): less movement = likely sleep. The historical method, also used in clinical research, but can confuse being still while awake with sleep.",
           "**PPG (photoplethysmography)**: adds heart rate/HRV signal to movement to classify sleep stages more precisely, typical of modern rings and watches.",
-          "**Sleep diary (self-report)**: what you perceive when you wake up — often less precise for exact latency and brief awakenings you don't remember, but it's the only method that needs no device.",
+          "**Sleep diary (self-report)**: what you perceive when you wake up, often less precise for exact latency and brief awakenings you don't remember, but it's the only method that needs no device.",
         ],
       },
     },

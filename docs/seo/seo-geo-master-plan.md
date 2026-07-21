@@ -580,6 +580,18 @@ ancora coperto prima di questo refresh.
 completo in seo-results-log.md, sezione "P1.2B"). Controlli GSC
 programmati: **+14gg 2026-08-03, +28gg 2026-08-17, +90gg 2026-10-18**.
 
+### P1.3 — Labs Release + Sleep Efficiency Authority Cluster
+
+Porta in produzione FitMesh Labs (mai mergiato su `main` prima d'ora) più
+il secondo tool live (Sleep Efficiency Calculator) e il cluster editoriale
+sonno/HRV/recovery attorno ai due calcolatori. Dettaglio completo
+(matrice file-per-file, bug trovati e corretti in QA, formule/fonti,
+guardrail, screenshot) in [seo-results-log.md](./seo-results-log.md),
+sezione "P1.3 — Labs Release + Sleep Efficiency Authority Cluster".
+Branch `seo/p1-3-labs-sleep-authority`. Controlli GSC 14/28/90gg da
+calcolare sulla data di deploy effettiva, non ancora avvenuto alla
+scrittura di questa voce.
+
 ## 10. Decision log
 
 Ogni modifica SEO importante registra: data, URL, problema, ipotesi, dati
