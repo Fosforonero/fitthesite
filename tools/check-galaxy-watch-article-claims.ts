@@ -7,7 +7,10 @@
  * NOTA: prima dell'evento (2026-07-22) il file contiene deliberatamente
  * placeholder "[TBD]" per nome prodotto/hardware/prezzo — questo NON è un
  * problema, è lo stato atteso. Il guardrail blocca solo claim scritti come
- * FATTO senza qualificazione, non i placeholder stessi.
+ * FATTO senza qualificazione, non i placeholder stessi, TRANNE con la
+ * variabile d'ambiente `GW_EVENT_DAY=1` (vedi check 14): quel modo va
+ * usato SOLO il giorno della pubblicazione reale, dopo aver risolto ogni
+ * riga di `docs/seo/galaxy-watch/event-day-replacement-map.md`.
  *
  * Fallisce (exit 1) se il file contiene:
  *  1. Una specifica hardware bandita (batteria mAh, autonomia "3-4 giorni",
@@ -32,8 +35,25 @@
  *  8. Un secondo array "faq:" (garanzia strutturale visibile === JSON-LD).
  *  9. (Strutturale) Il post non risulta in REDIRECT_INCOMPLETE_LOCALE_SLUGS,
  *     o una locale diversa da it/en risulta indicizzabile.
+ *  10. FitMesh descritto come capace di leggere la temperatura cutanea
+ *      reale (SkinTemperatureRecord) in un contesto affermativo — stesso
+ *      pattern del check 6, dedicato perché "temperatura cutanea" non
+ *      rientra in PROPRIETARY_TERMS.
+ *  11. Una funzione Samsung Health marcata come automaticamente disponibile
+ *      in Health Connect solo perché visibile nell'app ("quindi disponibile
+ *      in Health Connect"/"therefore available in Health Connect" e varianti).
+ *  12. Un tipo di dato Health Connect marcato come automaticamente letto da
+ *      FitMesh solo perché il tipo esiste ("quindi FitMesh la legge"/
+ *      "so FitMesh reads it" e varianti).
+ *  13. (Strutturale) Una sezione `body` di tipo "image" che referenzia un
+ *      file diverso dalla cover originale registrata (nessuna immagine non
+ *      registrata/esterna ammessa).
+ *  14. (Solo con `GW_EVENT_DAY=1`) Qualsiasi occorrenza residua di "[TBD"
+ *      nel contenuto pubblicabile — gate da usare il giorno della
+ *      pubblicazione reale, non prima.
  *
  * Uso (Docker): npx tsx tools/check-galaxy-watch-article-claims.ts
+ * Uso event-day: GW_EVENT_DAY=1 npx tsx tools/check-galaxy-watch-article-claims.ts
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -152,6 +172,51 @@ lines.forEach((line, i) => {
     errors.push(`[em-dash] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
   }
 });
+
+// ── 10. FitMesh che "legge" la temperatura cutanea reale (affermativo) ───
+const SKIN_TEMP_TERMS = /temperatura cutanea|skin temperature/i;
+lines.forEach((line, i) => {
+  if (!SKIN_TEMP_TERMS.test(line)) return;
+  if (/\[TBD/.test(line)) return;
+  const isNegated = /non\s+legge|doesn['’]?t\s+read|does\s+not\s+read|cannot\s+read|escluso|excluded|BodyTemperatureRecord.{0,20}(invece|diverso|instead|different)/i.test(line);
+  const claimsFitmeshReads = /fitmesh\s+(legge|puo['’]\s+leggere|importa)|fitmesh\s+(reads?|imports?)/i.test(line);
+  if (claimsFitmeshReads && !isNegated) {
+    errors.push(`[fitmesh-temperatura-cutanea] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+  }
+});
+
+// ── 11. Samsung Health → Health Connect: propagazione automatica vietata ──
+const SH_TO_HC_AUTOPROP = /(quindi|di conseguenza|therefore|which means it['’]?s?)\s+(disponibile in health connect|available in health connect|scritt[oa] in health connect|written to health connect)/i;
+lines.forEach((line, i) => {
+  if (SH_TO_HC_AUTOPROP.test(line)) {
+    errors.push(`[autoprop-samsunghealth-healthconnect] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+  }
+});
+
+// ── 12. Health Connect → FitMesh: propagazione automatica vietata ────────
+const HC_TO_FITMESH_AUTOPROP = /(quindi|di conseguenza|so|which means)\s+fitmesh\s+(la\s+legge|lo\s+legge|reads?\s+it)/i;
+lines.forEach((line, i) => {
+  if (HC_TO_FITMESH_AUTOPROP.test(line)) {
+    errors.push(`[autoprop-healthconnect-fitmesh] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+  }
+});
+
+// ── 13. Solo la cover originale registrata è ammessa come immagine body ──
+const ALLOWED_IMAGE_SRCS = new Set(["/blog/covers/galaxy-watch-unpacked.webp"]);
+for (const item of galaxyWatchPost.body) {
+  if (item.type === "image" && !ALLOWED_IMAGE_SRCS.has(item.src)) {
+    errors.push(`[immagine-non-registrata] src non in allowlist: "${item.src}"`);
+  }
+}
+
+// ── 14. Event-day: zero placeholder residui (opt-in, GW_EVENT_DAY=1) ─────
+if (process.env.GW_EVENT_DAY === "1") {
+  lines.forEach((line, i) => {
+    if (/\[TBD/.test(line)) {
+      errors.push(`[event-day-placeholder-residuo] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+    }
+  });
+}
 
 if (errors.length > 0) {
   console.error(`❌ Galaxy Watch article claims guardrail: ${errors.length} problema/i\n`);

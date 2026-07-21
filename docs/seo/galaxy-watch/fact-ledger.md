@@ -111,6 +111,31 @@ agganciato all'app/SDK Samsung Health, non specificamente al Watch — da
 verificare più a fondo se rilevante per la sezione Fase 8 dell'articolo
 (percorso alternativo, non quello "ordinario" citato nel mandato).
 
+**Aggiornamento 2026-07-21 (preflight P1.3N-B, Fase 4)** — verificato lo
+stesso canale diretto Samsung Health SDK per pressione arteriosa, in
+preparazione della riga matrice "pressione arteriosa":
+
+| Metrica | Stato codice | Citazione |
+|---|---|---|
+| Pressione arteriosa (systolic/diastolic) | **Letta SOLO via il canale diretto Samsung Health SDK**, non Health Connect (nessun `BloodPressureRecord` nella lista letta sopra); gap-fill (usata solo se il valore HC primario è assente), non priorità come FC/sonno | `health_repository.dart:764-765` (`samsungBloodPressureSystolic`/`samsungBloodPressureDiastolic`, passati da `_samsung.readDay`); `health_snapshot.dart:218-219,274-276` (merge gap-fill: `bloodPressureSystolic ?? samsungBloodPressureSystolic`) |
+
+Stesso canale, stesso pattern già noto per `samsungSleepApneaDetected`
+(riga sopra) — **non un dato nuovo del percorso Health Connect**, quindi
+la stessa cautela editoriale si applica: se citata nell'articolo, va
+descritta come "solo via canale diretto Samsung Health, non Health
+Connect", mai come dato Health Connect standard.
+
+Verificato inoltre, per completezza della matrice Fase 4 (ricerca mirata
+`ECG`/`Electrocardiogram`, `HeartRateZone`, `coaching`/`AiCoach` nel
+codice Flutter, 2026-07-21): **nessun ECG, nessuna zona di frequenza
+cardiaca dedicata, nessun punteggio di coaching AI Samsung** risultano
+letti da FitMesh in alcun percorso (né Health Connect né canale diretto
+Samsung). L'unico "recovery index" presente nel codice
+(`lib/features/dashboard/utils/recovery_index.dart`) è una feature
+FitMesh propria, deterministica, non basata su AI né collegata a un
+punteggio Samsung — da non confondere con Fitness Index/Heart Health
+Score se mai citata in questo articolo.
+
 **Conclusioni per l'articolo (Fase 8), da usare come stato per metrica**:
 - HeartRateRecord, HeartRateVariabilityRmssdRecord, RestingHeartRateRecord,
   OxygenSaturationRecord, RespiratoryRateRecord, SleepSessionRecord,
@@ -127,6 +152,11 @@ verificare più a fondo se rilevante per la sezione Fase 8 dell'articolo
 - Energy Score, Daily Cardio Load, Fitness Index, AGEs Index (punteggi
   proprietari Samsung): **not_supported** — nessun equivalente diretto in
   Health Connect, FitMesh non li legge né li replica.
+- Pressione arteriosa: **implemented_samsung_direct_channel_only** — mai
+  via Health Connect, solo gap-fill dal canale diretto Samsung Health SDK
+  (stesso pattern dell'apnea notturna).
+- ECG, zone di frequenza cardiaca dedicate, coaching/punteggi AI Samsung:
+  **not_supported** — nessuna lettura in nessun percorso, verificato.
 
 ## Registro verifiche
 
