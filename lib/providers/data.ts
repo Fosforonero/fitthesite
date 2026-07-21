@@ -673,7 +673,7 @@ export const PROVIDERS: Provider[] = [
         ko: "Health Connect를 통한 연결, OAuth 없음. Watch에서 대시보드까지 일반적인 지연 시간 5~15분. 세분성: 분당 걸음 수와 심박수, 단계별 수면, 세션별 운동. 데이터는 기기에 남아 있으며 FitMesh 계정의 Supabase 백엔드에만 전송됩니다.",
       },
     },
-    relatedBlogSlugs: ["backup-galaxy-watch-pc", "health-connect-vs-samsung-health", "sync-samsung-health-google-fit", "passi-non-si-sincronizzano-galaxy-watch", "sleep-tracker-comparison-2026"],
+    relatedBlogSlugs: ["backup-galaxy-watch-pc", "health-connect-vs-samsung-health", "sync-samsung-health-google-fit", "passi-non-si-sincronizzano-galaxy-watch", "sleep-tracker-comparison-2026", "galaxy-watch-ultra-2-health-connect"],
   },
   {
     slug: "wear-os",

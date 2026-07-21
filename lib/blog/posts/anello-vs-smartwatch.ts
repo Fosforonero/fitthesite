@@ -446,6 +446,7 @@ export const post: BlogPost = {
     "anello-smart-guida-completa",
     "tracciare-sonno-anello",
     "piu-smartwatch-insieme-dati-doppi",
+    "galaxy-watch-ultra-2-health-connect",
   ],
   sources: [
     "https://www.samsung.com/us/support/answer/ANS10003609/",

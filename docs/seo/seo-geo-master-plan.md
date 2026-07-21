@@ -592,6 +592,49 @@ Branch `seo/p1-3-labs-sleep-authority`. Controlli GSC 14/28/90gg da
 calcolare sulla data di deploy effettiva, non ancora avvenuto alla
 scrittura di questa voce.
 
+### P1.3N — Galaxy Watch Unpacked Authority Article (Fase 0, audit anti-cannibalizzazione)
+
+**Contesto**: nuovo Galaxy Watch atteso a Galaxy Unpacked 2026-07-22
+(14:00 BST/15:00 CEST). Articolo da preparare oggi (draft non pubblico,
+non indicizzabile, non registrato in `lib/blog/data.ts`/slugs/sitemap/
+feed) e completare/pubblicare dopo l'evento, una volta confermati nome
+prodotto, specifiche e funzioni salute reali.
+
+**Branch**: `content/p1-3n-galaxy-watch-health-connect`, da `origin/main`
+aggiornato (che include già il merge di PR #19/P1.3, `763a84b`) — non
+stacked su `seo/p1-3-labs-sleep-authority` come originariamente previsto:
+quella PR era già stata mergiata da Matteo prima che questo sprint
+iniziasse, quindi non più riapribile per uno stack. Confermato con
+Matteo: nuovo branch indipendente, PR nuova e diretta verso `main` a
+fine lavoro (non un aggiornamento della #19, già chiusa).
+
+**Intento della nuova pagina**: lancio del nuovo Galaxy Watch, nuove
+metriche salute (Vitals, Daily Cardio Load, Fitness Index, AGEs Index),
+interoperabilità Health Connect, compatibilità reale con FitMesh — non
+un'altra guida generica, non un troubleshooting, non un confronto
+commerciale.
+
+**Audit collisioni — nessuna trovata**, pagine esistenti verificate per
+slug/intento:
+
+| Pagina esistente | Intento | Collisione? |
+|---|---|---|
+| `/sync/galaxy-watch` (+ model pages watch-4/5/6/7/ultra) | Landing prodotto evergreen "collega il tuo Galaxy Watch a FitMesh", copre la gamma già rilasciata | No — la nuova pagina riguarda il lancio di un modello non ancora esistente in questa pagina; linkano fra loro (Fase 10) |
+| `come-funziona-health-connect` | Spiegazione generica Health Connect Android | No — pillar generico, non specifico al nuovo Watch |
+| `health-connect-vs-samsung-health` | Confronto piattaforme | No — intento diverso |
+| `health-connect-not-syncing` | Troubleshooting sync | No — intento diverso, esplicitamente escluso dallo scope di questa pagina |
+| `passi-non-si-sincronizzano-galaxy-watch` | Troubleshooting passi | No — intento diverso |
+| `galaxy-ring-android-health-connect` | Prodotto diverso (Ring, non Watch) | No |
+| `sync-samsung-health-google-fit`, `garmin-samsung-health-sync-guide`, `backup-galaxy-watch-pc` | Sync/backup, prodotti/piattaforme diversi | No |
+| `anello-vs-smartwatch` (P1.2) | Confronto ring/watch generico | No — linkata in uscita solo dove contestualmente utile (Fase 10), non stessa query target |
+
+Nessun articolo/pagina esistente copre l'intento "lancio nuovo Galaxy
+Watch + nuove metriche proprietarie + esportabilità Health Connect
+reale". Nessuna pagina da aggiornare al posto di crearne una nuova.
+Slug provvisorio (da confermare Fase 5 dopo l'annuncio ufficiale):
+`galaxy-watch-ultra-2-health-connect` — **non fissare** prima che Samsung
+confermi il nome commerciale.
+
 ## 10. Decision log
 
 Ogni modifica SEO importante registra: data, URL, problema, ipotesi, dati
