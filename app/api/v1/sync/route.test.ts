@@ -17,8 +17,8 @@ const mocks = vi.hoisted(() => ({
   getUser: vi.fn(),
   deviceMaybeSingle: vi.fn(),
   upsertMetrics: vi.fn(),
+  upsertWorkouts: vi.fn(),
   founderRpc: vi.fn(),
-  workoutsInsert: vi.fn(),
   deviceUpdateEq: vi.fn(),
 }));
 
@@ -29,10 +29,6 @@ vi.mock("@supabase/supabase-js", () => {
     is: () => deviceQuery,
     maybeSingle: mocks.deviceMaybeSingle,
   };
-  const workoutsInsertQuery = {
-    then: (resolve: (v: unknown) => unknown) =>
-      Promise.resolve(mocks.workoutsInsert()).then(resolve),
-  };
   const deviceUpdateQuery = {
     eq: () => Promise.resolve(mocks.deviceUpdateEq()),
   };
@@ -40,21 +36,20 @@ vi.mock("@supabase/supabase-js", () => {
   return {
     createClient: () => ({
       auth: { getUser: mocks.getUser },
-      from: (table: string) => ({
+      from: () => ({
         select: () => deviceQuery,
-        insert: () => workoutsInsertQuery,
         update: () => deviceUpdateQuery,
       }),
-      // Sprint 189-RC2: fitness_metrics is now written via
-      // rpc("upsert_fitness_metrics_v189", ...) instead of a plain insert —
-      // dispatch by RPC name so each keeps its own independently-configurable
-      // mock, exactly like two different endpoints would. `workouts` is
-      // still written via a plain insert (restored after adversarial review
-      // found it's read by ExportDataClient.tsx's GDPR export).
-      rpc: (name: string, params: unknown) =>
-        name === "upsert_fitness_metrics_v189"
-          ? mocks.upsertMetrics(params)
-          : mocks.founderRpc(name, params),
+      // Sprint 189-RC2: both fitness_metrics AND workouts are now written via
+      // RPC (upsert_fitness_metrics_v189, upsert_workouts_v189 — Blocker 2)
+      // instead of plain inserts — dispatch by RPC name so each keeps its own
+      // independently-configurable mock, exactly like two different
+      // endpoints would.
+      rpc: (name: string, params: unknown) => {
+        if (name === "upsert_fitness_metrics_v189") return mocks.upsertMetrics(params);
+        if (name === "upsert_workouts_v189") return mocks.upsertWorkouts(params);
+        return mocks.founderRpc(name, params);
+      },
     }),
   };
 });
@@ -95,7 +90,7 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
       error: null,
     });
     mocks.upsertMetrics.mockResolvedValue({ data: 42, error: null });
-    mocks.workoutsInsert.mockResolvedValue({ data: null, error: null });
+    mocks.upsertWorkouts.mockResolvedValue({ data: 1, error: null });
     mocks.deviceUpdateEq.mockResolvedValue({ data: null, error: null });
   });
 
@@ -236,6 +231,7 @@ describe("Sprint 189-RC2 — canonical upsert wiring", () => {
       error: null,
     });
     mocks.upsertMetrics.mockResolvedValue({ data: 42, error: null });
+    mocks.upsertWorkouts.mockResolvedValue({ data: 1, error: null });
     mocks.founderRpc.mockResolvedValue({ data: { transitionAccepted: true }, error: null });
     mocks.deviceUpdateEq.mockResolvedValue({ data: null, error: null });
   });
@@ -278,7 +274,8 @@ describe("Sprint 189-RC2 — canonical upsert wiring", () => {
   it(
     "public.workouts VIENE ancora scritta quando ci sono exercise_sessions " +
       "(Sprint 189-RC2 correction: adversarial review found ExportDataClient.tsx " +
-      "reads this table for GDPR export — restored, not removed)",
+      "reads this table for GDPR export — restored, not removed) via " +
+      "rpc('upsert_workouts_v189'), non piu' un insert diretto (Blocker 2)",
     async () => {
       const exerciseSessionsJson = JSON.stringify([
         { type: "running", startMs: 100, endMs: 3_700_100 },
@@ -287,7 +284,43 @@ describe("Sprint 189-RC2 — canonical upsert wiring", () => {
       const res = await POST(makeRequest({ ...BASE_PAYLOAD, exerciseSessionsJson }));
 
       expect(res.status).toBe(200);
-      expect(mocks.workoutsInsert).toHaveBeenCalledTimes(1);
+      expect(mocks.upsertWorkouts).toHaveBeenCalledTimes(1);
+      expect(mocks.upsertWorkouts).toHaveBeenCalledWith({
+        p_row: expect.objectContaining({
+          user_id: "user-1",
+          device_id: "device-1",
+          start_ms: 100,
+          end_ms: 3_700_100,
+          type: "running",
+        }),
+      });
     },
   );
+
+  it("upsert_workouts_v189 fallisce -> sync resta 200 (best-effort, il dato salute e' gia' committato)", async () => {
+    mocks.upsertWorkouts.mockResolvedValue({
+      data: null,
+      error: { code: "23503", message: "boom" },
+    });
+    const exerciseSessionsJson = JSON.stringify([
+      { type: "running", startMs: 100, endMs: 3_700_100 },
+    ]);
+
+    const res = await POST(makeRequest({ ...BASE_PAYLOAD, exerciseSessionsJson }));
+    const json = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(json).toMatchObject({ ok: true, metricsId: 42 });
+  });
+
+  it("piu' exercise_sessions nello stesso payload -> upsert_workouts_v189 chiamata una volta per sessione", async () => {
+    const exerciseSessionsJson = JSON.stringify([
+      { type: "running", startMs: 100, endMs: 3_700_100 },
+      { type: "cycling", startMs: 4_000_000, endMs: 7_600_000 },
+    ]);
+
+    await POST(makeRequest({ ...BASE_PAYLOAD, exerciseSessionsJson }));
+
+    expect(mocks.upsertWorkouts).toHaveBeenCalledTimes(2);
+  });
 });

@@ -19,9 +19,11 @@
  *      mai al signup. Best-effort: un fallimento qui NON fa fallire il
  *      sync (i dati salute sono gia' committati al passo 4). Platform e'
  *      telemetria opzionale (derivata da osVersion, mai un requisito).
- *   5. INSERT in workouts per ogni exercise_session (se presente) — best-effort,
- *      NON deduplicato (debito pre-esistente, letto da ExportDataClient.tsx
- *      per l'export GDPR, vedi commento nel codice)
+ *   5. RPC upsert_workouts_v189 per ogni exercise_session (se presente) —
+ *      best-effort, canonical (Sprint 189-RC2 Blocker 2, migration
+ *      20260722091000): identity (user, device, start_ms, end_ms, type),
+ *      retry/resync in place invece di riga duplicata. Letto da
+ *      ExportDataClient.tsx per l'export GDPR.
  *   6. UPDATE devices.last_seen_at + app_version + os_version
  *
  * Risposte:
@@ -146,48 +148,51 @@ export async function POST(req: Request) {
     founderGrant = resolveFounderGrantStatus(null, true);
   }
 
-  // ── 5. INSERT workouts da exercise_sessions ────────────────────────
-  // Sprint 189-RC2 correction: an earlier pass of this sprint removed this
-  // write, believing public.workouts was write-only/dead (repo-wide grep
-  // across flutter_app/lib and fitthesite/app found no `.from("workouts")`
-  // reader). Adversarial review found that premise FALSE:
-  // app/(frontend)/[locale]/app/export/ExportDataClient.tsx (the GDPR
-  // Article 20 "download my data" page, linked from account settings and
-  // promised by the public Privacy Policy in 6 locales) does
-  // `supabase.from(table).select("*")` over a TABLES array that includes
-  // "workouts" — a real, reachable read the original grep missed because the
-  // table name only appears as an array element, never as a literal
-  // `.from("workouts")` string. Removing the write would have made every
-  // future workout silently absent from that export while the Privacy
-  // Policy keeps promising "all of your data". Restored, unchanged from
-  // pre-189-RC2 behavior.
-  //
-  // Still NOT deduplicated (pre-existing issue, not introduced or worsened
-  // by this sprint, not fixed by it either): 29,666 rows for 4,249 distinct
-  // workouts in production as of this audit, 62.9% pure duplicates. A
-  // SELECT-before-INSERT would add a DB round-trip to every sync and still
-  // not be atomic under concurrency; a proper idempotent key/upsert for this
-  // table is a separate, not-yet-scoped follow-up — flagged in the Sprint
-  // 189-RC2 report as known, unaddressed debt, not silently left as if
-  // solved.
+  // ── 5. UPSERT workouts da exercise_sessions (Sprint 189-RC2 Blocker 2) ──
+  // public.workouts is read by ExportDataClient.tsx (GDPR Art. 20 export),
+  // so this write stays (an earlier pass of this sprint removed it on a
+  // false "write-only/dead table" premise, reverted after adversarial
+  // review). Was a raw INSERT: every re-sync of an already-finished workout
+  // (a full-day HealthConnect/HealthKit re-read resending the same session)
+  // appended a fresh duplicate row forever — 30,575 rows for 4,345 distinct
+  // (user, device, start_ms, end_ms, type) identities as of this audit,
+  // ~86% duplicates. Now calls upsert_workouts_v189 (migration
+  // 20260722091000_workouts_canonical_upsert.sql): identical retries land on
+  // the same row, later syncs enrich title/duration/distance/calories/HR
+  // without erasing what a previous sync already populated. Each session
+  // upserted independently and best-effort (one failing must not fail the
+  // others or the main sync, which already committed at step 4).
   if (p.exerciseSessionsJson && p.exerciseSessionsJson.length > 0) {
-    const workoutRows = p.exerciseSessionsJson.map((s) => ({
-      user_id: userId,
-      device_id: device.id,
-      start_ms: s.startMs,
-      end_ms: s.endMs,
-      type: s.type ?? null,
-      title: s.title ?? null,
-      duration_min: s.durationMin ?? null,
-      distance_meters: s.distanceMeters ?? null,
-      calories_kcal: s.caloriesKcal ?? null,
-      hr_avg: s.hrAvg ?? null,
-      hr_max: s.hrMax ?? null,
-      hr_min: s.hrMin ?? null,
-      pace_sec_per_km: s.paceSecPerKm ?? null,
-    }));
-    // best-effort: anche se workouts fail, il sync principale resta valido
-    await sb.from("workouts").insert(workoutRows);
+    await Promise.all(
+      p.exerciseSessionsJson.map((s) =>
+        sb
+          .rpc("upsert_workouts_v189", {
+            p_row: {
+              user_id: userId,
+              device_id: device.id,
+              start_ms: s.startMs,
+              end_ms: s.endMs,
+              type: s.type ?? null,
+              title: s.title ?? null,
+              duration_min: s.durationMin ?? null,
+              distance_meters: s.distanceMeters ?? null,
+              calories_kcal: s.caloriesKcal ?? null,
+              hr_avg: s.hrAvg ?? null,
+              hr_max: s.hrMax ?? null,
+              hr_min: s.hrMin ?? null,
+              pace_sec_per_km: s.paceSecPerKm ?? null,
+            },
+          })
+          .then(({ error }) => {
+            if (error) {
+              console.error("[sync] upsert_workouts_failed", {
+                deviceId: device.id,
+                code: error.code,
+              });
+            }
+          }),
+      ),
+    );
   }
 
   // ── 6. Touch device.last_seen_at + app/os version ──────────────────
