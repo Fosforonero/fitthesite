@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { buildFitnessMetricsRow, payloadSchema } from "./schema";
+import { buildFitnessMetricsRow, payloadSchema, utcDayFallbackKey } from "./schema";
 
 const BASE_PAYLOAD = {
   windowStartMillis: 1_720_000_000_000,
@@ -154,4 +154,63 @@ describe("buildFitnessMetricsRow — normalizzazione legacy sorgenti iOS", () =>
     expect(appleHealth.hrv_sdnn).toBe(62);
     expect(appleHealth.hrv_rmssd).toBeNull();
   });
+});
+
+describe("Sprint 189-RC2 — localDayKey contratto canonico", () => {
+  const ctx = { userId: "u1", deviceId: "d1" };
+
+  it("client 189+ invia localDayKey -> usato as-is, nessuna ricomputazione", () => {
+    const row = buildFitnessMetricsRow(
+      payloadSchema.parse({ ...BASE_PAYLOAD, localDayKey: "2026-07-21" }),
+      ctx,
+    );
+    expect(row.local_day_key).toBe("2026-07-21");
+  });
+
+  it("client legacy (senza localDayKey) -> fallback UTC day da collectedAtMillis", () => {
+    const row = buildFitnessMetricsRow(payloadSchema.parse(BASE_PAYLOAD), ctx);
+    expect(row.local_day_key).toBe(utcDayFallbackKey(BASE_PAYLOAD.collectedAtMillis));
+    expect(row.local_day_key).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+
+  it("localDayKey malformato viene rifiutato da Zod (400 invalid_payload a monte)", () => {
+    const result = payloadSchema.safeParse({
+      ...BASE_PAYLOAD,
+      localDayKey: "21/07/2026",
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it("utcDayFallbackKey e' deterministico e coerente con il giorno UTC del timestamp", () => {
+    // 2026-07-21T23:30:00Z -> ancora 21 luglio in UTC, anche se in molti fusi
+    // locali sarebbe gia' il 22 (limite noto e documentato del fallback: solo
+    // per client legacy, mai per 189+ che inviano il vero localDayKey).
+    expect(utcDayFallbackKey(Date.UTC(2026, 6, 21, 23, 30, 0))).toBe("2026-07-21");
+    expect(utcDayFallbackKey(Date.UTC(2026, 6, 22, 0, 30, 0))).toBe("2026-07-22");
+  });
+
+  it(
+    "adversarial review fix: collectedAtMillis fuori range (es. Number.MAX_SAFE_INTEGER, " +
+      "un sentinel 'unset' Kotlin/Java plausibile) e' rifiutato da Zod PRIMA di " +
+      "raggiungere utcDayFallbackKey, non piu' un RangeError non catturato",
+    () => {
+      const result = payloadSchema.safeParse({
+        ...BASE_PAYLOAD,
+        collectedAtMillis: Number.MAX_SAFE_INTEGER,
+      });
+      expect(result.success).toBe(false);
+    },
+  );
+
+  it(
+    "adversarial review fix: utcDayFallbackKey non lancia mai, anche se chiamata " +
+      "direttamente con un epoch patologico (difesa in profondita' oltre il bound Zod, " +
+      "dato che upsert_fitness_metrics_v189 e' RPC-callable direttamente e bypassa questo schema)",
+    () => {
+      expect(() => utcDayFallbackKey(Number.MAX_SAFE_INTEGER)).not.toThrow();
+      expect(utcDayFallbackKey(Number.MAX_SAFE_INTEGER)).toBe("1970-01-01");
+      expect(() => utcDayFallbackKey(-Number.MAX_SAFE_INTEGER)).not.toThrow();
+      expect(utcDayFallbackKey(-Number.MAX_SAFE_INTEGER)).toBe("1970-01-01");
+    },
+  );
 });

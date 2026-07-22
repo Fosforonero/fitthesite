@@ -16,8 +16,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => ({
   getUser: vi.fn(),
   deviceMaybeSingle: vi.fn(),
-  metricsInsertSingle: vi.fn(),
-  rpc: vi.fn(),
+  upsertMetrics: vi.fn(),
+  founderRpc: vi.fn(),
   workoutsInsert: vi.fn(),
   deviceUpdateEq: vi.fn(),
 }));
@@ -28,10 +28,6 @@ vi.mock("@supabase/supabase-js", () => {
     eq: () => deviceQuery,
     is: () => deviceQuery,
     maybeSingle: mocks.deviceMaybeSingle,
-  };
-  const metricsInsertQuery = {
-    select: () => metricsInsertQuery,
-    single: mocks.metricsInsertSingle,
   };
   const workoutsInsertQuery = {
     then: (resolve: (v: unknown) => unknown) =>
@@ -46,11 +42,19 @@ vi.mock("@supabase/supabase-js", () => {
       auth: { getUser: mocks.getUser },
       from: (table: string) => ({
         select: () => deviceQuery,
-        insert: () =>
-          table === "fitness_metrics" ? metricsInsertQuery : workoutsInsertQuery,
+        insert: () => workoutsInsertQuery,
         update: () => deviceUpdateQuery,
       }),
-      rpc: mocks.rpc,
+      // Sprint 189-RC2: fitness_metrics is now written via
+      // rpc("upsert_fitness_metrics_v189", ...) instead of a plain insert —
+      // dispatch by RPC name so each keeps its own independently-configurable
+      // mock, exactly like two different endpoints would. `workouts` is
+      // still written via a plain insert (restored after adversarial review
+      // found it's read by ExportDataClient.tsx's GDPR export).
+      rpc: (name: string, params: unknown) =>
+        name === "upsert_fitness_metrics_v189"
+          ? mocks.upsertMetrics(params)
+          : mocks.founderRpc(name, params),
     }),
   };
 });
@@ -90,16 +94,13 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
       data: { id: "device-1", os_version: null },
       error: null,
     });
-    mocks.metricsInsertSingle.mockResolvedValue({
-      data: { id: 42 },
-      error: null,
-    });
+    mocks.upsertMetrics.mockResolvedValue({ data: 42, error: null });
     mocks.workoutsInsert.mockResolvedValue({ data: null, error: null });
     mocks.deviceUpdateEq.mockResolvedValue({ data: null, error: null });
   });
 
   it("insert riuscito -> RPC awaited con i parametri esatti -> founderGrant=granted nella risposta", async () => {
-    mocks.rpc.mockResolvedValue({
+    mocks.founderRpc.mockResolvedValue({
       data: {
         transitionAccepted: true,
         transitionRecordedNow: true,
@@ -118,7 +119,7 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
 
     expect(res.status).toBe(200);
     expect(json).toMatchObject({ ok: true, metricsId: 42, founderGrant: "granted" });
-    expect(mocks.rpc).toHaveBeenCalledWith("record_first_sync_transition", {
+    expect(mocks.founderRpc).toHaveBeenCalledWith("record_first_sync_transition", {
       p_device_fingerprint: "device-abc",
       p_state: "success",
       p_platform: "android",
@@ -127,7 +128,7 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
   });
 
   it("errore RPC -> founderGrant=retry_needed, MA il sync resta 200 (i dati salute sono gia' committati)", async () => {
-    mocks.rpc.mockResolvedValue({
+    mocks.founderRpc.mockResolvedValue({
       data: null,
       error: { code: "500", message: "boom" },
     });
@@ -140,7 +141,7 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
   });
 
   it("eccezione lanciata dalla chiamata RPC -> founderGrant=retry_needed, sync comunque 200", async () => {
-    mocks.rpc.mockRejectedValue(new Error("network down"));
+    mocks.founderRpc.mockRejectedValue(new Error("network down"));
 
     const res = await POST(makeRequest(BASE_PAYLOAD));
     const json = await res.json();
@@ -150,7 +151,7 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
   });
 
   it("cap raggiunto -> founderGrant=cap_reached, mai un blocco del sync", async () => {
-    mocks.rpc.mockResolvedValue({
+    mocks.founderRpc.mockResolvedValue({
       data: {
         transitionAccepted: true,
         transitionRecordedNow: true,
@@ -174,7 +175,7 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
     "payload senza osVersion -> platform NULL passato alla RPC, sync comunque valido " +
       "(P0.4: platform mai bloccante)",
     async () => {
-      mocks.rpc.mockResolvedValue({
+      mocks.founderRpc.mockResolvedValue({
         data: {
           transitionAccepted: true,
           transitionRecordedNow: true,
@@ -190,7 +191,7 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
 
       expect(res.status).toBe(200);
       expect(json).toMatchObject({ ok: true, founderGrant: "granted" });
-      expect(mocks.rpc).toHaveBeenCalledWith(
+      expect(mocks.founderRpc).toHaveBeenCalledWith(
         "record_first_sync_transition",
         expect.objectContaining({ p_platform: null }),
       );
@@ -205,7 +206,7 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
         data: { id: "device-1", os_version: "iOS 17.5" },
         error: null,
       });
-      mocks.rpc.mockResolvedValue({
+      mocks.founderRpc.mockResolvedValue({
         data: { transitionAccepted: true, grantCreated: true },
         error: null,
       });
@@ -213,10 +214,80 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
       const { osVersion: _osVersion, ...payloadWithoutOsVersion } = BASE_PAYLOAD;
       await POST(makeRequest(payloadWithoutOsVersion));
 
-      expect(mocks.rpc).toHaveBeenCalledWith(
+      expect(mocks.founderRpc).toHaveBeenCalledWith(
         "record_first_sync_transition",
         expect.objectContaining({ p_platform: "ios" }),
       );
+    },
+  );
+});
+
+describe("Sprint 189-RC2 — canonical upsert wiring", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    process.env.NEXT_PUBLIC_SUPABASE_URL = "https://xcdyhkuyxukaifhhtadr.supabase.co";
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "test-anon-key";
+    mocks.getUser.mockResolvedValue({
+      data: { user: { id: "user-1", email: "user1@example.com" } },
+      error: null,
+    });
+    mocks.deviceMaybeSingle.mockResolvedValue({
+      data: { id: "device-1", os_version: null },
+      error: null,
+    });
+    mocks.upsertMetrics.mockResolvedValue({ data: 42, error: null });
+    mocks.founderRpc.mockResolvedValue({ data: { transitionAccepted: true }, error: null });
+    mocks.deviceUpdateEq.mockResolvedValue({ data: null, error: null });
+  });
+
+  it("fitness_metrics e' scritta via rpc('upsert_fitness_metrics_v189', {p_row}), MAI via insert diretto", async () => {
+    const res = await POST(makeRequest(BASE_PAYLOAD));
+    const json = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(json).toMatchObject({ ok: true, metricsId: 42 });
+    expect(mocks.upsertMetrics).toHaveBeenCalledWith({
+      p_row: expect.objectContaining({
+        user_id: "user-1",
+        device_id: "device-1",
+        local_day_key: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+      }),
+    });
+  });
+
+  it("payload 189+ con localDayKey esplicito -> passato as-is nel p_row, nessun ricalcolo", async () => {
+    await POST(makeRequest({ ...BASE_PAYLOAD, localDayKey: "2026-07-21" }));
+
+    expect(mocks.upsertMetrics).toHaveBeenCalledWith({
+      p_row: expect.objectContaining({ local_day_key: "2026-07-21" }),
+    });
+  });
+
+  it("upsert_fitness_metrics_v189 fallisce -> 500 insert_metrics_failed, nessuna RPC founder chiamata", async () => {
+    mocks.upsertMetrics.mockResolvedValue({
+      data: null,
+      error: { code: "23505", message: "constraint violation" },
+    });
+
+    const res = await POST(makeRequest(BASE_PAYLOAD));
+
+    expect(res.status).toBe(500);
+    expect(mocks.founderRpc).not.toHaveBeenCalled();
+  });
+
+  it(
+    "public.workouts VIENE ancora scritta quando ci sono exercise_sessions " +
+      "(Sprint 189-RC2 correction: adversarial review found ExportDataClient.tsx " +
+      "reads this table for GDPR export — restored, not removed)",
+    async () => {
+      const exerciseSessionsJson = JSON.stringify([
+        { type: "running", startMs: 100, endMs: 3_700_100 },
+      ]);
+
+      const res = await POST(makeRequest({ ...BASE_PAYLOAD, exerciseSessionsJson }));
+
+      expect(res.status).toBe(200);
+      expect(mocks.workoutsInsert).toHaveBeenCalledTimes(1);
     },
   );
 });

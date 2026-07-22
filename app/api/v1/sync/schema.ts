@@ -39,12 +39,21 @@ export const exerciseSessionSchema = z.object({
   sourceApp: z.string().optional(),
 });
 
+// Bounds generosi (anno 2000-2100) solo per escludere epoch-ms patologici
+// (es. Number.MAX_SAFE_INTEGER come sentinel Kotlin/Java "unset") che
+// farebbero esplodere `new Date(ms).toISOString()` dentro
+// utcDayFallbackKey() con un RangeError non catturato — 400 invalid_payload
+// qui, non un 500 fuori contratto. Adversarial review, Sprint 189-RC2: senza
+// questo bound Zod accettava qualunque intero, incluso MAX_SAFE_INTEGER.
+const MIN_VALID_EPOCH_MS = 946_684_800_000; // 2000-01-01T00:00:00Z
+const MAX_VALID_EPOCH_MS = 4_102_444_800_000; // 2100-01-01T00:00:00Z
+
 export const payloadSchema = z.object({
   schemaVersion: z.number().int().default(1),
   source: z.string().nullish(),
   windowStartMillis: z.number().int(),
   windowEndMillis: z.number().int(),
-  collectedAtMillis: z.number().int(),
+  collectedAtMillis: z.number().int().min(MIN_VALID_EPOCH_MS).max(MAX_VALID_EPOCH_MS),
   // Metriche aggregate (tutte opzionali — non sempre tutte popolate)
   steps: z.number().int().nullish(),
   heartRateBpm: z.number().nullish(),
@@ -130,6 +139,16 @@ export const payloadSchema = z.object({
   // Metadata client (opzionale, per UPDATE devices)
   appVersion: z.string().nullish(),
   osVersion: z.string().nullish(),
+  // Sprint 189-RC2: giorno logico locale calcolato dal client con la STESSA
+  // dayKeyForRow() gia' usata per la cache locale (day_key.dart) — non
+  // ricalcolato qui per evitare una seconda implementazione dell'algoritmo
+  // (fuso locale + regola "il sonno appartiene al giorno del risveglio") che
+  // rischierebbe di disallinearsi silenziosamente da quella. Assente sui
+  // client legacy (185-188): vedi utcDayFallbackKey() sotto.
+  localDayKey: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .nullish(),
 });
 
 export type SyncPayload = z.infer<typeof payloadSchema>;
@@ -173,6 +192,30 @@ function normalizedHrv(
 }
 
 /**
+ * Fallback SOLO per client legacy (185-188) che non inviano `localDayKey`:
+ * un giorno UTC calendario, deliberatamente più semplice e meno preciso del
+ * vero dayKeyForRow() di Flutter (niente fuso locale, niente regola
+ * sonno-appartiene-al-risveglio). Non è un secondo tentativo di replicare
+ * quell'algoritmo — è accettato come approssimazione, backstoppato dal fatto
+ * che collapseRowGroup() lato client resta il read path autorevole su TUTTA
+ * la storia (righe storiche + questa riga canonica), quindi un confine di
+ * giorno leggermente impreciso qui non perde mai dati, al più li attribuisce
+ * al giorno sbagliato per un client che non può fare di meglio.
+ */
+export function utcDayFallbackKey(collectedAtMs: number): string {
+  // Difesa in profondità oltre al bound su collectedAtMillis in
+  // payloadSchema: questa funzione non ha altro chiamante oggi, ma
+  // upsert_fitness_metrics_v189 e' comunque invocabile direttamente via RPC
+  // bypassando Zod (adversarial review, Sprint 189-RC2) — non deve MAI
+  // lanciare, ne' produrre una stringa che non sia 'YYYY-MM-DD'.
+  const date = new Date(collectedAtMs);
+  if (Number.isNaN(date.getTime()) || date.getUTCFullYear() < 1000 || date.getUTCFullYear() > 9999) {
+    return "1970-01-01";
+  }
+  return date.toISOString().slice(0, 10);
+}
+
+/**
  * Riga `fitness_metrics` dal payload validato. Pura: nessuna dipendenza da
  * Supabase/Next, quindi testabile in isolamento (vedi schema.test.ts).
  * hrv_rmssd e hrv_sdnn restano SEMPRE colonne indipendenti — non toccarle
@@ -193,6 +236,7 @@ export function buildFitnessMetricsRow(
     window_start_ms: p.windowStartMillis,
     window_end_ms: p.windowEndMillis,
     collected_at_ms: p.collectedAtMillis,
+    local_day_key: p.localDayKey ?? utcDayFallbackKey(p.collectedAtMillis),
     steps: p.steps ?? null,
     heart_rate_bpm: p.heartRateBpm ?? null,
     resting_heart_rate_bpm: p.restingHeartRateBpm ?? null,

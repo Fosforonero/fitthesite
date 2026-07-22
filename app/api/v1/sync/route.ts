@@ -9,14 +9,19 @@
  *   1. requireUser(req) → userId + user-bound supabase client
  *   2. extract fingerprint header → lookup devices(user_id, fingerprint, NOT revoked)
  *   3. validate payload con Zod
- *   4. INSERT in fitness_metrics via user-bound client (RLS policy
- *      "users insert own metrics" enforced — migration 007)
+ *   4. RPC upsert_fitness_metrics_v189 via user-bound client (SECURITY
+ *      INVOKER, RLS "users insert/update own metrics" enforced — Sprint
+ *      189-RC2, migration 20260721180000). Canonical row per
+ *      user/device/source/day: a repeat sync for the same identity updates
+ *      in place instead of appending, see the migration for merge semantics.
  *   4.5. RPC record_first_sync_transition('success', ...) — Founder P0:
  *      grant first-sync-success legato al primo sync realmente riuscito,
  *      mai al signup. Best-effort: un fallimento qui NON fa fallire il
  *      sync (i dati salute sono gia' committati al passo 4). Platform e'
  *      telemetria opzionale (derivata da osVersion, mai un requisito).
- *   5. INSERT in workouts per ogni exercise_session (se presente)
+ *   5. INSERT in workouts per ogni exercise_session (se presente) — best-effort,
+ *      NON deduplicato (debito pre-esistente, letto da ExportDataClient.tsx
+ *      per l'export GDPR, vedi commento nel codice)
  *   6. UPDATE devices.last_seen_at + app_version + os_version
  *
  * Risposte:
@@ -90,12 +95,16 @@ export async function POST(req: Request) {
   }
   const p = parsed.data;
 
-  // ── 4. INSERT fitness_metrics ──────────────────────────────────────
-  const { data: inserted, error: insErr } = await sb
-    .from("fitness_metrics")
-    .insert(buildFitnessMetricsRow(p, { userId, deviceId: device.id }))
-    .select("id")
-    .single();
+  // ── 4. UPSERT fitness_metrics (Sprint 189-RC2: canonical row per
+  // user/device/source/day, no more one-row-per-sync append — see
+  // upsert_fitness_metrics_v189 in migration
+  // 20260721180000_fitness_metrics_canonical_upsert.sql for the merge
+  // semantics). SECURITY INVOKER: runs as this request's authenticated user,
+  // enforced by the same RLS policies a raw insert/update would hit.
+  const { data: metricsId, error: insErr } = await sb.rpc(
+    "upsert_fitness_metrics_v189",
+    { p_row: buildFitnessMetricsRow(p, { userId, deviceId: device.id }) },
+  );
 
   if (insErr) return jsonError(500, "insert_metrics_failed", insErr.message);
 
@@ -138,12 +147,29 @@ export async function POST(req: Request) {
   }
 
   // ── 5. INSERT workouts da exercise_sessions ────────────────────────
-  // Dedup NON fatto qui apposta (sprint 187A): un SELECT-before-INSERT
-  // aggiungerebbe una query DB a OGNI sync e non e' comunque atomico sotto
-  // concorrenza. Il dedup vero (unique constraint/upsert reviewato) e'
-  // rimandato a un follow-up separato — la dashboard app oggi legge
-  // fitness_metrics.exercise_sessions, non questa tabella (vedi
-  // docs/superpowers/plans/2026-07-11-workout-identity-preservation.md).
+  // Sprint 189-RC2 correction: an earlier pass of this sprint removed this
+  // write, believing public.workouts was write-only/dead (repo-wide grep
+  // across flutter_app/lib and fitthesite/app found no `.from("workouts")`
+  // reader). Adversarial review found that premise FALSE:
+  // app/(frontend)/[locale]/app/export/ExportDataClient.tsx (the GDPR
+  // Article 20 "download my data" page, linked from account settings and
+  // promised by the public Privacy Policy in 6 locales) does
+  // `supabase.from(table).select("*")` over a TABLES array that includes
+  // "workouts" — a real, reachable read the original grep missed because the
+  // table name only appears as an array element, never as a literal
+  // `.from("workouts")` string. Removing the write would have made every
+  // future workout silently absent from that export while the Privacy
+  // Policy keeps promising "all of your data". Restored, unchanged from
+  // pre-189-RC2 behavior.
+  //
+  // Still NOT deduplicated (pre-existing issue, not introduced or worsened
+  // by this sprint, not fixed by it either): 29,666 rows for 4,249 distinct
+  // workouts in production as of this audit, 62.9% pure duplicates. A
+  // SELECT-before-INSERT would add a DB round-trip to every sync and still
+  // not be atomic under concurrency; a proper idempotent key/upsert for this
+  // table is a separate, not-yet-scoped follow-up — flagged in the Sprint
+  // 189-RC2 report as known, unaddressed debt, not silently left as if
+  // solved.
   if (p.exerciseSessionsJson && p.exerciseSessionsJson.length > 0) {
     const workoutRows = p.exerciseSessionsJson.map((s) => ({
       user_id: userId,
@@ -176,7 +202,7 @@ export async function POST(req: Request) {
 
   return jsonOk({
     ok: true,
-    metricsId: (inserted as { id: number } | null)?.id,
+    metricsId: metricsId as number | null,
     founderGrant,
   });
 }
