@@ -752,24 +752,23 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "kaifuku-metorikkusu-hrv-suimin-shinpakusu",
     ko: "hoebok-jipyo-hrv-sumyeon-simbaksu",
   },
-  // P1.3N — slug PROVVISORIO (nome prodotto non ancora confermato da
-  // Samsung). `SlugSet` richiede tutte le chiavi per il typecheck, ma
-  // solo `en` è mai raggiungibile: il redirect 307 verso EN per le altre
-  // 13 locale scatta per COMPLETEZZA CONTENUTO (isPostLocaleComplete su
-  // hero/tldr/body/faq, non su questa mappa slug) via
-  // REDIRECT_INCOMPLETE_LOCALE_SLUGS (stesso meccanismo di P1.2A) — questi
-  // valori placeholder non vengono mai serviti.
-  "galaxy-watch-ultra-2-health-connect": {
-    en: "galaxy-watch-ultra-2-health-connect",
-    es: "galaxy-watch-ultra-2-health-connect",
-    de: "galaxy-watch-ultra-2-health-connect",
-    pt: "galaxy-watch-ultra-2-health-connect",
-    fr: "galaxy-watch-ultra-2-health-connect",
-    pl: "galaxy-watch-ultra-2-health-connect",
-    tr: "galaxy-watch-ultra-2-health-connect",
-    nl: "galaxy-watch-ultra-2-health-connect",
-    ja: "galaxy-watch-ultra-2-health-connect",
-    ko: "galaxy-watch-ultra-2-health-connect",
+  // P1.3N-C: pubblicato solo IT/EN il 22/07/2026. `SlugSet` richiede tutte
+  // le chiavi per il typecheck, ma solo `en` è mai raggiungibile: il
+  // redirect 307 verso EN per le altre 13 locale scatta per COMPLETEZZA
+  // CONTENUTO (isPostLocaleComplete su hero/tldr/body/faq, non su questa
+  // mappa slug) via REDIRECT_INCOMPLETE_LOCALE_SLUGS (stesso meccanismo di
+  // P1.2A) — questi valori non vengono mai serviti.
+  "galaxy-watch-ultra2-watch9-health-connect": {
+    en: "galaxy-watch-ultra2-watch9-health-connect",
+    es: "galaxy-watch-ultra2-watch9-health-connect",
+    de: "galaxy-watch-ultra2-watch9-health-connect",
+    pt: "galaxy-watch-ultra2-watch9-health-connect",
+    fr: "galaxy-watch-ultra2-watch9-health-connect",
+    pl: "galaxy-watch-ultra2-watch9-health-connect",
+    tr: "galaxy-watch-ultra2-watch9-health-connect",
+    nl: "galaxy-watch-ultra2-watch9-health-connect",
+    ja: "galaxy-watch-ultra2-watch9-health-connect",
+    ko: "galaxy-watch-ultra2-watch9-health-connect",
   },
 };
 

@@ -1,22 +1,23 @@
 /**
- * Guardrail Sprint P1.3N — impedisce che l'articolo Galaxy Watch Unpacked
- * (`lib/blog/posts/galaxy-watch-ultra-2-health-connect.ts`) pubblichi
- * specifiche non confermate, claim medici sostenibili solo se sourciati,
- * o un body EN di fallback indicizzabile sotto un'altra locale.
+ * Guardrail Sprint P1.3N-C — impedisce che l'articolo Galaxy Watch
+ * Ultra2/Watch9 (`lib/blog/posts/galaxy-watch-ultra2-watch9-health-connect.ts`)
+ * pubblichi specifiche non confermate, claim medici sostenibili solo se
+ * sourciati, o un body EN di fallback indicizzabile sotto un'altra locale.
  *
- * NOTA: prima dell'evento (2026-07-22) il file contiene deliberatamente
- * placeholder "[TBD]" per nome prodotto/hardware/prezzo — questo NON è un
- * problema, è lo stato atteso. Il guardrail blocca solo claim scritti come
- * FATTO senza qualificazione, non i placeholder stessi, TRANNE con la
- * variabile d'ambiente `GW_EVENT_DAY=1` (vedi check 14): quel modo va
- * usato SOLO il giorno della pubblicazione reale, dopo aver risolto ogni
- * riga di `docs/seo/galaxy-watch/event-day-replacement-map.md`.
+ * NOTA POST-EVENTO (dal 2026-07-22): Samsung ha confermato nome, specifiche
+ * e prezzi. Il check 1 non banna più questi valori in blocco: li richiede
+ * accompagnati da un riferimento "samsung" nelle vicinanze (stesso schema
+ * del check 5 per la certificazione clinica), cosi' un numero sourciato
+ * nella tabella specifiche passa, ma un numero introdotto senza fonte no.
+ * Il check 14 (`GW_EVENT_DAY=1`, zero placeholder residui) e' il gate da
+ * usare per QUESTA pubblicazione: deve essere verde prima della PR.
  *
  * Fallisce (exit 1) se il file contiene:
- *  1. Una specifica hardware bandita (batteria mAh, autonomia "3-4 giorni",
- *     nit display, spessore mm, IP69K, 10 ATM, GB storage, 5G, prezzo €)
- *     scritta come FATTO (fuori da un blocco "[TBD]"/tabella con "[TBD]"),
- *     senza un riferimento a fonte nelle vicinanze.
+ *  1. Una specifica hardware (batteria mAh, autonomia "3-4 giorni",
+ *     nit display, spessore mm, IP69K/IP68, ATM, GB storage, 5G, prezzo €,
+ *     nome processore) scritta come FATTO senza un riferimento "samsung"
+ *     nelle vicinanze (±3 righe) — non piu' un divieto assoluto, ora
+ *     richiede sourcing esplicito.
  *  2. Snapdragon Wear Elite attribuito al Watch senza "Samsung conferma"/
  *     "Samsung confirms" nelle vicinanze.
  *  3. "rileva/detects" + "infezione.../infection..." (claim diagnostico vietato).
@@ -75,11 +76,11 @@ import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
 import { locales } from "@/lib/i18n";
-import { post as galaxyWatchPost } from "@/lib/blog/posts/galaxy-watch-ultra-2-health-connect";
+import { post as galaxyWatchPost } from "@/lib/blog/posts/galaxy-watch-ultra2-watch9-health-connect";
 import { isBlogVariantIndexable, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "@/lib/blog/indexability";
 
 const repoRoot = path.resolve(__dirname, "..");
-const TARGET = "lib/blog/posts/galaxy-watch-ultra-2-health-connect.ts";
+const TARGET = "lib/blog/posts/galaxy-watch-ultra2-watch9-health-connect.ts";
 const full = path.join(repoRoot, TARGET);
 const errors: string[] = [];
 
@@ -102,33 +103,44 @@ if (!fs.existsSync(full)) {
 const content = fs.readFileSync(full, "utf8");
 const lines = content.split("\n");
 
-// ── 1. Specifiche hardware bandite senza fonte nelle vicinanze ───────────
-// Un valore dentro "[TBD]" e' atteso e non bandito; qui cerchiamo cifre
-// SPECIFICHE scritte come se fossero gia' fatto accertato.
+// ── 1. Specifiche hardware senza fonte "samsung" nelle vicinanze ─────────
+// Un valore dentro "[TBD]" e' atteso e non bandito. Post-evento, questi
+// valori sono spesso VERI (confermati da Samsung): il check non li banna
+// piu' in blocco, richiede solo che "samsung" compaia nella stessa riga o
+// nelle 3 righe circostanti (stesso schema del check 5), cosi' un numero
+// sourciato in tabella passa ma uno introdotto senza contesto Samsung no.
 const BANNED_HW_PATTERNS: Array<{ re: RegExp; label: string }> = [
   { re: /\b\d{3,4}\s*mAh\b/i, label: "batteria in mAh" },
   { re: /\b3[-–]4\s*(giorni|days)\b/i, label: "autonomia 3-4 giorni" },
-  { re: /\b5[.,]?000\s*nit/i, label: "display 5000 nit" },
+  { re: /\b[35][.,]?000\s*nit/i, label: "nit display" },
   { re: /\b10[.,]6\s*mm\b/i, label: "spessore 10.6mm" },
-  { re: /\bIP69K\b/i, label: "IP69K" },
-  { re: /\b10\s*ATM\b/i, label: "10 ATM" },
-  { re: /\b64\s*GB\b/i, label: "64GB storage" },
+  { re: /\bIP6[89]K?\b/i, label: "IP68/IP69K" },
+  { re: /\b(10|5)\s*ATM\b/i, label: "ATM (resistenza acqua)" },
+  { re: /\b(32|64)\s*GB\b/i, label: "GB storage" },
   { re: /\b5G\b/, label: "5G" },
-  { re: /€\s*749|\b749\s*€/i, label: "prezzo 749€" },
+  { re: /€\s*(409|439|459|489|749)|\b(409|439|459|489|749)\s*€/i, label: "prezzo €" },
+  { re: /\bSDW6100\b/i, label: "nome processore" },
 ];
 lines.forEach((line, i) => {
   if (/\[TBD/.test(line)) return; // riga placeholder, non e' un claim di fatto
   for (const { re, label } of BANNED_HW_PATTERNS) {
-    if (re.test(line)) {
-      errors.push(`[specifica-non-confermata:${label}] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+    if (!re.test(line)) continue;
+    const context = lines.slice(Math.max(0, i - 3), i + 4).join(" ");
+    if (!/samsung/i.test(context)) {
+      errors.push(`[specifica-non-sourciata:${label}] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
     }
   }
 });
 
 // ── 2. Snapdragon Wear Elite senza conferma Samsung esplicita ────────────
+// Accetta entrambe le direzioni: "Samsung conferma/confirms X" e "X,
+// confermato da Samsung"/"X, confirmed by Samsung" (post-evento, Samsung
+// ha confermato il chip: la formulazione naturale spesso mette Samsung
+// alla fine della frase, non solo all'inizio).
+const SAMSUNG_CONFIRMS_NEARBY = /samsung\s+(conferma|confirms?)|confermat[oa]\s+da\s+samsung|confirmed\s+by\s+samsung/i;
 lines.forEach((line, i) => {
   if (/\[TBD/.test(line)) return;
-  if (/snapdragon\s+wear\s+elite/i.test(line) && !/samsung\s+(conferma|confirms?)/i.test(line)) {
+  if (/snapdragon\s+wear\s+elite/i.test(line) && !SAMSUNG_CONFIRMS_NEARBY.test(line)) {
     errors.push(`[snapdragon-non-confermato] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
   }
 });

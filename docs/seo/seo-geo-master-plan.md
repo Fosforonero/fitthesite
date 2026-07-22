@@ -631,9 +631,9 @@ slug/intento:
 Nessun articolo/pagina esistente copre l'intento "lancio nuovo Galaxy
 Watch + nuove metriche proprietarie + esportabilità Health Connect
 reale". Nessuna pagina da aggiornare al posto di crearne una nuova.
-Slug provvisorio (da confermare Fase 5 dopo l'annuncio ufficiale):
-`galaxy-watch-ultra-2-health-connect` — **non fissare** prima che Samsung
-confermi il nome commerciale.
+Pubblicato il 2026-07-22 (P1.3N-C, post-evento Galaxy Unpacked) con slug
+definitivo `galaxy-watch-ultra2-watch9-health-connect`, nome commerciale
+confermato da Samsung ("Galaxy Watch Ultra2" e "Galaxy Watch9").
 
 ## 10. Decision log
 

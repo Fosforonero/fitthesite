@@ -29,22 +29,24 @@ import fs from "node:fs";
 import path from "node:path";
 
 const repoRoot = path.resolve(__dirname, "..");
-const POST_FILE = path.join(repoRoot, "lib/blog/posts/galaxy-watch-ultra-2-health-connect.ts");
+const POST_FILE = path.join(repoRoot, "lib/blog/posts/galaxy-watch-ultra2-watch9-health-connect.ts");
 const MAP_FILE = path.join(repoRoot, "docs/seo/galaxy-watch/event-day-replacement-map.md");
 
 const CATEGORY_MARKERS: Array<{ label: string; startsAt: string }> = [
   { label: "metadata (slug/date/keyword/readMinutes)", startsAt: "__START__" },
   { label: "hero (title/subtitle)", startsAt: `hero: {` },
   { label: "tldr", startsAt: `tldr: {` },
-  { label: "paragrafo \"cosa ha annunciato\"", startsAt: `"Cosa ha annunciato realmente Samsung"` },
+  { label: "diagramma due percorsi (lista ordinata)", startsAt: `Galaxy Watch Ultra2 e Galaxy Watch9 misurano i dati` },
+  { label: "paragrafo \"cosa ha annunciato\"", startsAt: `"Cosa ha annunciato Samsung"` },
   { label: "tabella specifiche ufficiali", startsAt: `"Specifiche ufficiali"` },
   { label: "funzioni salute (paragrafo modello-specifico)", startsAt: `"Funzioni salute:` },
   { label: "matrice verificata", startsAt: `"La matrice verificata` },
   { label: "prosa post-matrice (letture FitMesh/dato grezzo)", startsAt: `"Cosa può leggere FitMesh oggi"` },
   { label: "compatibilità Android", startsAt: `"Compatibilità e requisiti Android"` },
-  { label: "limiti da verificare", startsAt: `"Limiti e funzioni da verificare` },
+  { label: "cosa puoi verificare personalmente", startsAt: `"Cosa puoi verificare personalmente"` },
+  { label: "limiti da verificare", startsAt: `"Limiti e funzioni ancora da verificare` },
   { label: "faq", startsAt: `faq: [` },
-  { label: "coda (fonti/cronologia, non dovrebbe avere TBD)", startsAt: `"Fonti e cronologia degli aggiornamenti"` },
+  { label: "coda (fonti/metodologia, non dovrebbe avere TBD)", startsAt: `"Fonti, metodologia e data di verifica"` },
 ];
 
 if (!fs.existsSync(POST_FILE)) {

@@ -1,5 +1,21 @@
 # Galaxy Watch Unpacked — Fact Ledger (P1.3N)
 
+## RISOLUZIONE POST-EVENTO (P1.3N-C, 2026-07-22)
+
+Samsung ha confermato Galaxy Watch Ultra2 e Galaxy Watch9 il 22/07/2026.
+Tutte le righe `reported_not_confirmed` sotto (nome prodotto, specifiche
+hardware, prezzi) sono state verificate contro il comunicato ufficiale
+Samsung Newsroom (fetch diretto, incrociato con lettura del sorgente
+HTML grezzo per i valori numerici, dopo che un primo fetch AI-riassunto
+aveva trascritto erroneamente il nome del processore come "SW6100"
+anziché il corretto "Qualcomm SDW6100") e integrate nell'articolo
+pubblicato: `lib/blog/posts/galaxy-watch-ultra2-watch9-health-connect.ts`.
+Il resto di questo ledger (sotto) è il registro storico di verifica
+pre-evento, conservato per tracciabilità: non riscritto riga per riga,
+ma ogni fatto rilevante è stato ri-verificato oggi contro le fonti live
+prima della pubblicazione, non semplicemente promosso da
+`reported_not_confirmed` a `confirmed_by_samsung` per assunzione.
+
 Sprint P1.3N, Fase 1. Scritto il 2026-07-21 (giorno prima di Galaxy
 Unpacked, 2026-07-22 14:00 BST / 15:00 CEST, Londra). Ogni claim ha:
 testo, stato, fonte, data/ora di verifica, decisione editoriale, nota

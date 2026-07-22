@@ -1,19 +1,67 @@
 # Galaxy Watch — Event-Day Replacement Map (P1.3N-B Preflight)
 
 Scritto 2026-07-21, giorno prima di Galaxy Unpacked (2026-07-22, 14:00
-BST / 15:00 CEST). Unico documento da cui partire domani dopo l'evento:
-elenca ogni placeholder residuo, la fonte ufficiale attesa, l'azione se
-Samsung non conferma, la checklist di rinomina, la watchlist delle fonti
-e i template editoriali pronti ma non pubblicati.
+BST / 15:00 CEST). Documento di preflight: elenca ogni placeholder
+residuo, la fonte ufficiale attesa, l'azione se Samsung non conferma, la
+checklist di rinomina, la watchlist delle fonti e i template editoriali
+pronti ma non pubblicati. Il contenuto sotto questa nota è quello
+scritto il 21/07, prima dell'evento: conservato come registro storico
+del processo, non aggiornato riga per riga.
 
-Non contiene nessuna informazione dell'evento: solo struttura e fonti
-attese. Nessun push, nessun deploy oggi.
+---
+
+## RISOLUZIONE POST-EVENTO (P1.3N-C, 2026-07-22)
+
+Samsung ha confermato "Galaxy Watch Ultra2" e "Galaxy Watch9" (nessuno
+spazio prima del numero, esatto come atteso nel Caso A/nome singolo di
+questo documento, esteso a due modelli). Rinominato: slug, file, entry
+`slugs.ts`/`covers.ts`/`indexability.ts`/`data.ts`/`providers/data.ts`,
+`related[]` nei 4 post correlati, guardrail (`check-galaxy-watch-article-claims.ts`,
+`check-galaxy-watch-placeholder-count.ts`). Nessun redirect creato dal
+vecchio slug provvisorio: non è mai stato pubblico (confermato via
+`git ls-remote` prima di ogni modifica).
+
+**Placeholder**: 109 (inizio sessione P1.3N-B) → 101 (dopo la
+correzione architetturale SDK/HC/Google Health, stesso conteggio per
+motivi strutturali, non per fatti risolti) → **0** (oggi, dopo
+l'integrazione delle fonti ufficiali dell'evento). `PLACEHOLDER_COUNT_DECLARED`
+aggiornato a 0 sotto.
+
+**Placeholder risolti tramite fonti ufficiali** (nome prodotto, tutte le
+specifiche hardware, tutti i prezzi Italia, date preordine/disponibilità,
+funzioni salute annunciate per questo lancio): tutti quelli della Fase 1
+sopra, verificati sul comunicato Samsung Newsroom del 22/07 (fetch
+diretto + verifica sul sorgente HTML grezzo per i valori numerici).
+
+**Placeholder eliminati perché Samsung non ha comunicato il dato** (non
+riempiti con una supposizione, sostituiti con una dichiarazione esplicita
+del limite): scrittura per-metrica in Health Connect per questo modello
+specifico (Samsung non lo documenta per nessuna metrica), disponibilità
+per singolo paese delle funzioni regolamentate (Sleep Apnea, Vitals,
+ecc.), riga "ECG" (non menzionato, stato "non verificato" non "no"
+categorico dove non c'era una verifica diretta).
+
+**Claim leak confermati dall'evento**: nessuno — non abbiamo mai
+pubblicato claim da leak/rumor pre-evento; tutte le specifiche pre-evento
+erano marcate `reported_not_confirmed` e sono state sostituite da fatti
+Samsung diretti, non "confermate" a posteriori.
+
+**Claim leak smentiti**: il nome processore riportato da alcune fonti
+secondarie pre-evento non è stato usato (non lo avevamo pubblicato);
+verificato oggi che il nome ufficiale è "Qualcomm SDW6100" (non
+"SW6100": un fetch AI-riassunto di una fonte ufficiale ha inizialmente
+trascritto male la sigla, corretto leggendo l'HTML grezzo direttamente).
+
+**Fatti ancora omessi** (non pubblicati, restano limiti dichiarati
+nell'articolo): comportamento empirico reale su hardware fisico (nessun
+device Ultra2/Watch9 ancora testato da FitMesh), disponibilità Italia
+per funzione regolamentata.
 
 ---
 
 ## Fase 1 — Inventario placeholder
 
-<!-- PLACEHOLDER_COUNT_DECLARED: 101 -->
+<!-- PLACEHOLDER_COUNT_DECLARED: 0 -->
 **Conteggio esatto (verificato via script automatico, non a occhio):**
 **101** occorrenze di `[TBD` in `lib/blog/posts/galaxy-watch-ultra-2-health-connect.ts`
 (unico file con placeholder pubblicabili). Il marcatore HTML sopra

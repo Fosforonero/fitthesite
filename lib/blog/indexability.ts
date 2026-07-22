@@ -61,6 +61,6 @@ export function isBlogVariantIndexable(post: BlogPost, lc: Locale): boolean {
  */
 export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
   "anello-vs-smartwatch",
-  // P1.3N: pubblicazione iniziale solo it/en, stesso meccanismo.
-  "galaxy-watch-ultra-2-health-connect",
+  // P1.3N-C: pubblicazione iniziale solo it/en, stesso meccanismo.
+  "galaxy-watch-ultra2-watch9-health-connect",
 ]);

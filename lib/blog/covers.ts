@@ -37,8 +37,8 @@ const COVER_FILE: Record<CoverType, string> = {
   troubleshooting: "gear.webp",
   export: "data-sync.webp",
   news: "news.webp",
-  // P1.3N: cover originale dedicata (watch -> hub dati), NON riusata da altri
-  // post. Illustrazione FitMesh generata esternamente (2026-07-21):
+  // P1.3N-C: cover originale dedicata (watch -> hub dati), NON riusata da
+  // altri post. Illustrazione FitMesh generata esternamente (2026-07-21):
   // smartwatch rugged generico, nessun logo Samsung, nessuna copia esatta
   // di un prodotto reale, nessun testo incorporato.
   watch: "galaxy-watch-unpacked.webp",
@@ -103,10 +103,7 @@ const POST_COVER: Record<string, CoverType> = {
   "come-funziona-fitmesh": "dashboard",
   "efficienza-del-sonno-formula-calcolo": "sleep",
   "metriche-recupero-hrv-sonno-frequenza-cardiaca": "metrics",
-  // P1.3N — slug PROVVISORIO: se Samsung annuncia un nome diverso da
-  // "Galaxy Watch Ultra 2", questa entry va rinominata insieme al file
-  // del post, allo slug in slugs.ts, e a tutti i riferimenti correlati.
-  "galaxy-watch-ultra-2-health-connect": "watch",
+  "galaxy-watch-ultra2-watch9-health-connect": "watch",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */
