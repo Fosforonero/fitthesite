@@ -22,7 +22,9 @@
     "labs:internal-linking-check": "tsx tools/check-labs-internal-linking.ts",
     "labs:no-em-dash-check": "tsx tools/check-labs-no-em-dash.ts",
     "galaxy-watch:claims-check": "tsx tools/check-galaxy-watch-article-claims.ts",
-    "galaxy-watch:placeholder-count": "tsx tools/check-galaxy-watch-placeholder-count.ts"
+    "galaxy-watch:placeholder-count": "tsx tools/check-galaxy-watch-placeholder-count.ts",
+    "samsung-health-pillar:claims-check": "tsx tools/check-samsung-health-pillar-claims.ts",
+    "blog:locale-near-miss-check": "tsx tools/check-blog-locale-near-miss.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",

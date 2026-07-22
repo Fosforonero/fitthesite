@@ -18,6 +18,7 @@ import {
 } from "@/lib/blog/payload-source";
 import { resolveBlogPost } from "@/lib/blog/resolve";
 import { isBlogVariantIndexable, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "@/lib/blog/indexability";
+import { filterBlogContentForLocale } from "@/lib/blog/locale-filter";
 import type { BlogPost } from "@/lib/blog/types";
 import { SITE_URL } from "@/lib/product-facts";
 import { AUTHOR, authorBio, authorCompactNode } from "@/lib/seo/entities";
@@ -509,6 +510,12 @@ export default async function BlogArticle({
   }
   const t = I18N[lc];
 
+  // P1.3M: unica superficie per "questo blocco è visibile in questa locale?" —
+  // usata sia per il rendering (BlogRenderer, FAQ visibili) sia per il JSON-LD
+  // (FAQPage), così HTML e structured data non possono divergere.
+  const visibleBody = filterBlogContentForLocale(post.body, lc);
+  const visibleFaq = filterBlogContentForLocale(post.faq ?? [], lc);
+
   const path = `/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`;
   const ldType = post.ldType ?? "BlogPosting";
 
@@ -546,11 +553,11 @@ export default async function BlogArticle({
   };
 
   const faqLd =
-    post.faq && post.faq.length > 0
+    visibleFaq.length > 0
       ? {
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          mainEntity: post.faq.map((f) => ({
+          mainEntity: visibleFaq.map((f) => ({
             "@type": "Question",
             name: tl(f.q, lc),
             acceptedAnswer: {
@@ -693,17 +700,17 @@ export default async function BlogArticle({
 
         {/* BODY */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4">
-          <BlogRenderer sections={post.body} locale={lc} />
+          <BlogRenderer sections={visibleBody} locale={lc} />
         </div>
 
         {/* FAQ */}
-        {post.faq && post.faq.length > 0 && (
+        {visibleFaq.length > 0 && (
           <section className="max-w-3xl mx-auto px-4 sm:px-6 mt-12 pb-12">
             <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
               {t.faqHeading}
             </h2>
             <div className="mt-6 space-y-4">
-              {post.faq.map((f, i) => (
+              {visibleFaq.map((f, i) => (
                 <details
                   key={i}
                   className="card p-5 group [&_summary::-webkit-details-marker]:hidden"

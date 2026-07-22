@@ -7,6 +7,8 @@
  * caricamento (vedi `payload-source`). Chiave: slug -> path del campo -> lingua.
  * Path stabile prodotto da `walkPost` (usato sia per estrarre sia per applicare).
  */
+import type { Locale } from "@/lib/i18n";
+import { isBlogContentAvailableForLocale } from "./locale-filter";
 import type { BlogPost, BlogSection, Localized, LocalizedList } from "./types";
 
 export type NordicLang = "sv" | "da" | "no" | "fi";
@@ -16,8 +18,15 @@ export type Entry =
   | { path: string; kind: "loc"; node: Localized }
   | { path: string; kind: "list"; node: LocalizedList };
 
-/** Percorre i campi traducibili del post, con path stabile e riferimento all'oggetto. */
-export function walkPost(post: BlogPost): Entry[] {
+/**
+ * Percorre i campi traducibili del post, con path stabile e riferimento
+ * all'oggetto. Se `locale` è passato (P1.3M), le sezioni/FAQ con `locales`
+ * che non la includono sono escluse dal walk: quella locale non le vede e
+ * non conta ai fini della completezza. Senza `locale`, comportamento
+ * storico invariato (walk di tutto, usato dagli strumenti di estrazione
+ * dell'overlay che non ragionano per singola locale).
+ */
+export function walkPost(post: BlogPost, locale?: Locale): Entry[] {
   const out: Entry[] = [];
   const loc = (path: string, node: Localized | undefined) => {
     if (node) out.push({ path, kind: "loc", node });
@@ -34,9 +43,17 @@ export function walkPost(post: BlogPost): Entry[] {
   list("secondaryKeywords", post.secondaryKeywords);
   if (post.tldr) list("tldr", post.tldr);
 
-  post.body.forEach((s, i) => walkSection(s, `body.${i}`, out));
+  // Indice naturale dell'array ORIGINALE (non filtrato): il path deve restare
+  // stabile indipendentemente da quali altre sezioni sono escluse per questa
+  // locale, altrimenti lo stesso "body.2" indicherebbe sezioni diverse a
+  // seconda della locale — romperebbe le chiavi salvate in nordic-overlay.json.
+  post.body.forEach((s, i) => {
+    if (locale != null && !isBlogContentAvailableForLocale(s, locale)) return;
+    walkSection(s, `body.${i}`, out);
+  });
 
   (post.faq ?? []).forEach((f, i) => {
+    if (locale != null && !isBlogContentAvailableForLocale(f, locale)) return;
     loc(`faq.${i}.q`, f.q);
     loc(`faq.${i}.a`, f.a);
   });
@@ -98,11 +115,12 @@ export type NordicOverlay = Record<string, PostOverlay>;
 export function applyNordicOverlay(post: BlogPost, overlay: NordicOverlay): void {
   const po = overlay[post.slug];
   if (!po) return;
-  const entries = walkPost(post);
   // Tutto-o-niente per lingua: inietta una lingua solo se l'overlay copre TUTTI
-  // i campi del post (niente pagine miste nordico/inglese). Le lingue incomplete
-  // restano in fallback EN e restano `noindex` (vedi isPostTranslated).
+  // i campi del post APPLICABILI a quella lingua (P1.3M: una sezione con
+  // `locales` che esclude i nordici non li richiede nemmeno). Le lingue
+  // incomplete restano in fallback EN e restano `noindex` (vedi isPostTranslated).
   for (const lang of NORDIC_LANGS) {
+    const entries = walkPost(post, lang);
     let complete = true;
     for (const e of entries) {
       const v = po[e.path];
@@ -130,7 +148,10 @@ export function applyNordicOverlay(post: BlogPost, overlay: NordicOverlay): void
 export function isFullyTranslated(post: BlogPost, overlay: NordicOverlay): boolean {
   const po = overlay[post.slug];
   if (!po) return false;
-  const entries = walkPost(post);
+  // P1.3M: un `locales` che esclude i nordici li esclude per costruzione
+  // tutti e 4 insieme (mai uno specifico), quindi il set di entry applicabili
+  // ai nordici è identico per qualunque dei 4 usato come riferimento qui.
+  const entries = walkPost(post, NORDIC_LANGS[0]);
   if (entries.length === 0) return false;
   for (const e of entries) {
     const v = po[e.path];
@@ -147,7 +168,7 @@ export function isFullyTranslated(post: BlogPost, overlay: NordicOverlay): boole
  * gia' iniettati dall'overlay). Usato per togliere il noindex per-post/per-lingua.
  */
 export function isPostTranslated(post: BlogPost, lang: NordicLang): boolean {
-  const entries = walkPost(post);
+  const entries = walkPost(post, lang);
   if (entries.length === 0) return false;
   for (const e of entries) {
     const val = (e.node as Record<string, unknown>)[lang];

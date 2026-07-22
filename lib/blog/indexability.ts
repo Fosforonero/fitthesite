@@ -17,14 +17,21 @@
  *
  * Usato da `blog/[slug]/page.tsx` (robots + hreflang), `sitemap.ts` e
  * `feed.xml`: un solo helper, i tre non possono più divergere.
+ *
+ * P1.3M: `walkPost(post, lc)` è locale-aware — una sezione/FAQ con `locales`
+ * che esclude `lc` (vedi `lib/blog/locale-filter.ts`) non genera entry per
+ * `lc` e quindi non la rende incompleta. Una locale ESCLUSA da un blocco
+ * nuovo non deve MAI risultare incompleta solo perché quel blocco non la
+ * riguarda; una locale INCLUSA ma priva della traduzione richiesta continua
+ * a risultare incompleta come prima (nessuna eccezione sulla traduzione).
  */
 import type { Locale } from "@/lib/i18n";
 import { walkPost } from "@/lib/blog/nordic-overlay";
 import type { BlogPost } from "@/lib/blog/types";
 
-/** True se OGNI campo traducibile del post ha un valore per `lc` (nessun fallback en/it). */
+/** True se OGNI campo traducibile applicabile a `lc` ha un valore per `lc` (nessun fallback en/it). */
 export function isPostLocaleComplete(post: BlogPost, lc: Locale): boolean {
-  const entries = walkPost(post);
+  const entries = walkPost(post, lc);
   if (entries.length === 0) return false;
   for (const e of entries) {
     const node = e.node as Record<string, unknown>;
