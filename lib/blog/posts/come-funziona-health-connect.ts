@@ -1304,6 +1304,7 @@ export const post: BlogPost = {
     "health-connect-vs-samsung-health",
     "guida-sync-wearable-2026",
     "passi-non-si-sincronizzano-galaxy-watch",
+    "galaxy-watch-ultra2-watch9-health-connect",
   ],
   brandsMentioned: ["Google", "Samsung", "Garmin", "Fitbit", "Polar"],
   ldType: "BlogPosting",

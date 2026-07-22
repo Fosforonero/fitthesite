@@ -18,7 +18,8 @@ export type CoverType =
   | "dashboard"
   | "metrics"
   | "troubleshooting"
-  | "export";
+  | "export"
+  | "watch";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -36,6 +37,11 @@ const COVER_FILE: Record<CoverType, string> = {
   troubleshooting: "gear.webp",
   export: "data-sync.webp",
   news: "news.webp",
+  // P1.3N-C: cover originale dedicata (watch -> hub dati), NON riusata da
+  // altri post. Illustrazione FitMesh generata esternamente (2026-07-21):
+  // smartwatch rugged generico, nessun logo Samsung, nessuna copia esatta
+  // di un prodotto reale, nessun testo incorporato.
+  watch: "galaxy-watch-unpacked.webp",
 };
 
 /** Assegnazione esplicita per slug (i 51 post attuali). */
@@ -97,6 +103,7 @@ const POST_COVER: Record<string, CoverType> = {
   "come-funziona-fitmesh": "dashboard",
   "efficienza-del-sonno-formula-calcolo": "sleep",
   "metriche-recupero-hrv-sonno-frequenza-cardiaca": "metrics",
+  "galaxy-watch-ultra2-watch9-health-connect": "watch",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */

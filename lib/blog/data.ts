@@ -104,6 +104,9 @@ import { post as colmiR09TemperaturaSviluppo } from "./posts/colmi-r09-temperatu
 // P1.1 Fase 9: content cluster FitMesh Labs (HRV + Sleep Efficiency).
 import { post as efficienzaDelSonnoFormulaCalcolo } from "./posts/efficienza-del-sonno-formula-calcolo";
 import { post as metricheRecuperoHrvSonnoFrequenzaCardiaca } from "./posts/metriche-recupero-hrv-sonno-frequenza-cardiaca";
+// P1.3N-C: Galaxy Watch Ultra2 e Galaxy Watch9, pubblicato 2026-07-22
+// (Galaxy Unpacked), solo it/en.
+import { post as galaxyWatchUltra2HealthConnect } from "./posts/galaxy-watch-ultra2-watch9-health-connect";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -183,6 +186,7 @@ const RAW_POSTS: BlogPost[] = [
   colmiR09TemperaturaSviluppo,
   efficienzaDelSonnoFormulaCalcolo,
   metricheRecuperoHrvSonnoFrequenzaCardiaca,
+  galaxyWatchUltra2HealthConnect,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
