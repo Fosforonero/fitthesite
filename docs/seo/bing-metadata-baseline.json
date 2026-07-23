@@ -1,0 +1,10 @@
+{
+  "generatedAt": "P0.8 (2026-07-23)",
+  "note": "Debito sitewide preesistente, non affrontato in P0.8 (fuori scope: solo le 10 URL title + 8 URL description esplicite + cause condivise nei template). In gran parte locale non tradotte che ricadono sul fallback EN su pagine non-blog (integrations/beta/ai/support/roadmap/sync-provider) — stesso meccanismo di lib/i18n.ts UNTRANSLATED_CONTENT_LOCALES, ma su pagine diverse dal blog, quindi non coperto da check-blog-locale-near-miss.ts. Il guardrail fallisce se questi numeri AUMENTANO rispetto a qui.",
+  "totalIndexableUrls": 1397,
+  "sitewideLongTitles": 711,
+  "sitewideShortOrLongDescriptions": 795,
+  "duplicateTitles": 33,
+  "duplicateDescriptions": 7,
+  "sitemapButRedirectOrNoindex": 1
+}
