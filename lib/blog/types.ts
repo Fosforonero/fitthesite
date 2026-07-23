@@ -71,6 +71,13 @@ export type BlogCategory =
   | "news"; // release notes / novità app (sezione /novita)
 
 export interface BlogQA {
+  /**
+   * P1.3M: se presente, questa FAQ è valutata e mostrata SOLO per le locale
+   * elencate (assente = tutte, comportamento storico). Vedi
+   * `lib/blog/locale-filter.ts` per la semantica esatta e l'unica funzione
+   * di filtro condivisa da usare per leggerla.
+   */
+  locales?: readonly Locale[];
   q: Localized;
   a: Localized;
 }
@@ -78,8 +85,15 @@ export interface BlogQA {
 /**
  * Sezione di un articolo. Variant-tagged così il renderer fa pattern matching
  * esaustivo. Non aggiungere variant senza estendere `BlogRenderer`.
+ *
+ * `locales?` (P1.3M): stessa semantica di `BlogQA.locales` — assente = la
+ * sezione si applica a tutte le locale (storico); presente = solo alle
+ * locale elencate. Intersecato sull'intera union così vale per OGNI variant
+ * senza ripeterlo 7 volte. Leggere sempre tramite
+ * `isBlogContentAvailableForLocale`/`filterBlogContentForLocale`
+ * (`lib/blog/locale-filter.ts`), mai un controllo ad-hoc.
  */
-export type BlogSection =
+export type BlogSection = (
   | { type: "heading"; level: 2 | 3; text: Localized }
   | { type: "paragraph"; text: Localized }
   | { type: "list"; ordered?: boolean; items: LocalizedList }
@@ -133,7 +147,8 @@ export type BlogSection =
       width?: number;
       height?: number;
       narrow?: boolean;
-    };
+    }
+) & { locales?: readonly Locale[] };
 
 /**
  * Hero header dell'articolo. `kicker` è la microcategoria (es. "Guida",

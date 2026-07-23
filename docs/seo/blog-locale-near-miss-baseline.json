@@ -1,0 +1,692 @@
+{
+  "description": "P1.3Q — debito tecnico noto: post/locale gia' noindex per 1-2 campi mancanti (quasi sempre secondaryKeywords senza chiave es/de, root cause identica a health-connect-vs-samsung-health/P1.3M). Fuori scope P1.3M. Il guardrail fallisce solo se compaiono NUOVE combinazioni oltre questa lista; puo' diminuire liberamente quando vengono corrette.",
+  "scannedAt": "2026-07-22",
+  "total": 97,
+  "entries": [
+    {
+      "slug": "anello-smart-guida-completa",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "anello-smart-guida-completa",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "novita-fonte-del-dato",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "novita-fonte-del-dato",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "fitmesh-sync-disponibile-google-play",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "fitmesh-sync-disponibile-google-play",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "migliori-anelli-economici",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "migliori-anelli-economici",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "tracciare-sonno-anello",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "colmi-r02-setup",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "colmi-r02-setup",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "sync-them-all",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "sync-them-all",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "colmi-ring-fitmesh",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "colmi-ring-fitmesh",
+      "locale": "de",
+      "missingFields": [
+        "primaryKeyword",
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "fitmesh-arriva-su-iphone",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "fitmesh-arriva-su-iphone",
+      "locale": "de",
+      "missingFields": [
+        "primaryKeyword",
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "dati-anello-smart-apple-salute",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "dati-anello-smart-apple-salute",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "novita-anello-colmi-sonno",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "novita-anello-colmi-sonno",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "novita-dashboard-multi-device",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "novita-dashboard-multi-device",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "fitbit-data-not-syncing-android",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "fitbit-data-not-syncing-android",
+      "locale": "de",
+      "missingFields": [
+        "primaryKeyword",
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "best-health-data-sync-app-android",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "best-health-data-sync-app-android",
+      "locale": "de",
+      "missingFields": [
+        "primaryKeyword",
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "best-health-data-sync-app-android",
+      "locale": "pt",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-health-data-sync-app-android",
+      "locale": "fr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-health-data-sync-app-android",
+      "locale": "pl",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-health-data-sync-app-android",
+      "locale": "tr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-health-data-sync-app-android",
+      "locale": "nl",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-health-data-sync-app-android",
+      "locale": "ja",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-health-data-sync-app-android",
+      "locale": "ko",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "smartwatch-estate-2026",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "smartwatch-estate-2026",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "health-connect-not-syncing",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "health-connect-not-syncing",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "health-connect-not-syncing",
+      "locale": "pt",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "health-connect-not-syncing",
+      "locale": "fr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "health-connect-not-syncing",
+      "locale": "pl",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "health-connect-not-syncing",
+      "locale": "tr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "health-connect-not-syncing",
+      "locale": "ja",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "health-connect-not-syncing",
+      "locale": "ko",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "how-to-export-apple-health-data",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "how-to-export-apple-health-data",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "how-to-export-apple-health-data",
+      "locale": "pt",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "how-to-export-apple-health-data",
+      "locale": "fr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "how-to-export-apple-health-data",
+      "locale": "pl",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "how-to-export-apple-health-data",
+      "locale": "tr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "how-to-export-apple-health-data",
+      "locale": "nl",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "how-to-export-apple-health-data",
+      "locale": "ja",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "how-to-export-apple-health-data",
+      "locale": "ko",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "smartwatch-per-anziani-guida",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "smartwatch-per-anziani-guida",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "smartwatch-per-anziani-guida",
+      "locale": "pt",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "smartwatch-per-anziani-guida",
+      "locale": "fr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "esportare-dati-garmin",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "esportare-dati-garmin",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "sync-samsung-health-google-fit",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "sync-samsung-health-google-fit",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "sync-samsung-health-google-fit",
+      "locale": "pt",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "sync-samsung-health-google-fit",
+      "locale": "fr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "sync-samsung-health-google-fit",
+      "locale": "pl",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "sync-samsung-health-google-fit",
+      "locale": "tr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "sync-samsung-health-google-fit",
+      "locale": "nl",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "sync-samsung-health-google-fit",
+      "locale": "ja",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "sync-samsung-health-google-fit",
+      "locale": "ko",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-smartwatch-for-elderly",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "best-smartwatch-for-elderly",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "best-smartwatch-for-elderly",
+      "locale": "pt",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-smartwatch-for-elderly",
+      "locale": "fr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-smartwatch-for-elderly",
+      "locale": "pl",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-smartwatch-for-elderly",
+      "locale": "tr",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-smartwatch-for-elderly",
+      "locale": "nl",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-smartwatch-for-elderly",
+      "locale": "ja",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "best-smartwatch-for-elderly",
+      "locale": "ko",
+      "missingFields": [
+        "secondaryKeywords (length mismatch)"
+      ]
+    },
+    {
+      "slug": "come-funziona-health-connect",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "come-funziona-health-connect",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "hrv-cose-significato-valori",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "hrv-cose-significato-valori",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "passi-non-si-sincronizzano-galaxy-watch",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "passi-non-si-sincronizzano-galaxy-watch",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "guida-sync-wearable-2026",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "guida-sync-wearable-2026",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "scegliere-smartwatch-dati-2026",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "backup-galaxy-watch-pc",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "backup-galaxy-watch-pc",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "esportare-dati-fitbit-google",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "esportare-dati-fitbit-google",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "vedere-dati-wearable-browser-pc",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords",
+        "body.16.ctaLabel"
+      ]
+    },
+    {
+      "slug": "vedere-dati-wearable-browser-pc",
+      "locale": "pt",
+      "missingFields": [
+        "body.16.ctaLabel"
+      ]
+    },
+    {
+      "slug": "vedere-dati-wearable-browser-pc",
+      "locale": "fr",
+      "missingFields": [
+        "body.16.ctaLabel"
+      ]
+    },
+    {
+      "slug": "alternative-app-sync-wearable-2026",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "alternative-app-sync-wearable-2026",
+      "locale": "de",
+      "missingFields": [
+        "primaryKeyword",
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "gdpr-dati-fitness-smartwatch",
+      "locale": "es",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    },
+    {
+      "slug": "gdpr-dati-fitness-smartwatch",
+      "locale": "de",
+      "missingFields": [
+        "secondaryKeywords"
+      ]
+    }
+  ]
+}

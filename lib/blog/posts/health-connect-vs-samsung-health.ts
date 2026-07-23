@@ -4,8 +4,13 @@ export const post: BlogPost = {
   slug: "health-connect-vs-samsung-health",
   category: "comparisons",
   publishedAt: "2026-05-21",
-  updatedAt: "2026-05-21",
-  readMinutes: 8,
+  updatedAt: "2026-07-22",
+  // P1.3M: bump per il pillar completo IT/EN/DE (contenuto ~3x più lungo).
+  // Numero unico non locale-scoped: le altre locale (contenuto invariato,
+  // più corto) mostreranno una stima leggermente sovrastimata — imprecisione
+  // cosmetica minore, non un cambio di contenuto, accettata deliberatamente
+  // per non introdurre un readMinutes per-locale non richiesto dallo sprint.
+  readMinutes: 17,
   tldr: {
     it: [
       "Samsung Health e Health Connect non sono concorrenti: lavorano insieme.",
@@ -86,10 +91,10 @@ export const post: BlogPost = {
     ],
   },
   primaryKeyword: {
-    it: "health connect vs samsung health",
-    en: "health connect vs samsung health",
+    it: "samsung health health connect google health",
+    en: "samsung health health connect google health",
     es: "health connect vs samsung health",
-    de: "health connect vs samsung health",
+    de: "samsung health health connect google health",
     pt: "health connect vs samsung health",
     fr: "health connect vs samsung health",
     pl: "health connect vs samsung health",
@@ -110,6 +115,18 @@ export const post: BlogPost = {
       "health connect works with galaxy watch",
       "samsung health 2026",
       "samsung health export data",
+    ],
+    es: [
+      "samsung health o health connect",
+      "health connect funciona con galaxy watch",
+      "samsung health 2026",
+      "samsung health exportar datos",
+    ],
+    de: [
+      "samsung health oder health connect",
+      "health connect funktioniert mit galaxy watch",
+      "samsung health 2026",
+      "samsung health daten exportieren",
     ],
     pt: [
       "samsung health ou health connect",
@@ -155,10 +172,10 @@ export const post: BlogPost = {
     ],
   },
   metaDescription: {
-    it: "Health Connect vs Samsung Health spiegati semplicemente: a cosa servono, perché lavorano insieme, e quando usare cosa nel 2026. Galaxy Watch incluso.",
-    en: "Health Connect vs Samsung Health explained simply: what they do, why they work together, and when to use which in 2026. Galaxy Watch included.",
+    it: "Samsung Health, Health Connect e Google Health: dove finiscono davvero i dati del Galaxy Watch, con i due percorsi FitMesh verificati nel codice sorgente.",
+    en: "Samsung Health, Health Connect, and Google Health: where your Galaxy Watch data actually goes, with the two FitMesh paths verified in the source code.",
     es: "Health Connect vs Samsung Health explicados de forma sencilla: para qué sirven, por qué trabajan juntos y cuándo usar cada uno en 2026. Galaxy Watch incluido.",
-    de: "Health Connect vs Samsung Health einfach erklärt: Was sie tun, warum sie zusammenarbeiten und wann man welches 2026 verwendet. Galaxy Watch inklusive.",
+    de: "Samsung Health, Health Connect und Google Health: wo Gesundheitsdaten der Galaxy Watch wirklich landen, mit zwei im Quellcode verifizierten FitMesh-Wegen.",
     pt: "Health Connect vs Samsung Health explicados de forma simples: para que servem, por que trabalham juntos e quando usar cada um em 2026. Galaxy Watch incluído.",
     fr: "Health Connect vs Samsung Health expliqués simplement : à quoi ils servent, pourquoi ils fonctionnent ensemble et lequel utiliser en 2026. Galaxy Watch inclus.",
     pl: "Health Connect kontra Samsung Health – proste wyjaśnienie: do czego służą, dlaczego współpracują i kiedy używać którego w 2026 roku. Galaxy Watch uwzględniony.",
@@ -169,11 +186,16 @@ export const post: BlogPost = {
   },
   hero: {
     kicker: { it: "Confronto", en: "Comparison", es: "Comparativa", de: "Vergleich", pt: "Comparação", fr: "Comparatif", pl: "Porównanie", tr: "Karşılaştırma", nl: "Vergelijking", ja: "比較", ko: "비교" },
+    // P1.3M: title/H1 aggiornato SOLO it/en/de (pillar completo). Le altre
+    // locale (es/pt/fr/pl/tr/nl/ja/ko) mantengono il title precedente,
+    // coerente col loro contenuto invariato — nessuno scoping strutturale
+    // necessario qui: `Localized` e' gia' un valore indipendente per lingua,
+    // non un array a lunghezza condivisa come `body`/`faq`.
     title: {
-      it: "Health Connect vs Samsung Health: differenze 2026",
-      en: "Health Connect vs Samsung Health: differences and when to use which in 2026",
+      it: "Dove finiscono davvero i dati del Galaxy Watch?",
+      en: "Where Does Your Galaxy Watch Health Data Actually Go?",
       es: "Health Connect vs Samsung Health: diferencias y cuándo usar cada uno en 2026",
-      de: "Health Connect vs Samsung Health: Unterschiede und wann man was 2026 verwendet",
+      de: "Wo landen die Gesundheitsdaten deiner Galaxy Watch wirklich?",
       pt: "Health Connect vs Samsung Health: diferenças e quando usar cada um em 2026",
       fr: "Health Connect vs Samsung Health: différences et lequel utiliser en 2026",
       pl: "Health Connect vs Samsung Health: różnice i kiedy używać którego w 2026 roku",
@@ -975,6 +997,397 @@ export const post: BlogPost = {
       },
       ctaHref: { it: "/it/sync/galaxy-watch", en: "/en/sync/galaxy-watch" },
     },
+
+    // ── P1.3M: pillar completo, SOLO it/en/de (vedi lib/blog/locale-filter.ts).
+    // Aggiunto in coda, mai inserito/riordinato: gli indici delle sezioni sopra
+    // restano stabili per l'overlay nordico (sv/da/no/fi) che li referenzia per
+    // path "body.N". Le altre locale (es/pt/fr/pl/tr/nl/ja/ko/sv/da/no/fi) non
+    // vedono queste sezioni e non ne risultano incomplete.
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en", "de"],
+      text: {
+        it: "Il quadro completo: Galaxy Watch, Samsung Health, Health Connect e Google Health",
+        en: "The Full Picture: Galaxy Watch, Samsung Health, Health Connect, and Google Health",
+        de: "Das Gesamtbild: Galaxy Watch, Samsung Health, Health Connect und Google Health",
+      },
+    },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "Il Galaxy Watch invia prima i dati a Samsung Health. Health Connect è un livello di scambio on-device su Android, non un cloud: raccoglie ciò che Samsung Health decide di scrivervi. Google Health può importare parte di quei dati proprio tramite Health Connect, ma non si collega mai direttamente al Galaxy Watch. FitMesh, a sua volta, può leggere gli stessi dati attraverso due percorsi distinti e verificati nel codice: il canale diretto Samsung Health Data SDK e Health Connect (approfondisci su [fitness-data-sync](/it/fitness-data-sync)). Non tutte le metriche attraversano tutti questi livelli. Verificato il 22 luglio 2026.",
+        en: "The Galaxy Watch first sends data to Samsung Health. Health Connect is an on-device exchange layer on Android, not a cloud: it holds whatever Samsung Health decides to write to it. Google Health can import some of that data precisely through Health Connect, but it never connects directly to the Galaxy Watch. FitMesh, in turn, can read the same data through two distinct paths verified in the code: the direct Samsung Health Data SDK channel and Health Connect (more on [fitness-data-sync](/en/fitness-data-sync)). Not every metric crosses every one of these layers. Verified July 22, 2026.",
+        de: "Die Galaxy Watch sendet Daten zunächst an Samsung Health. Health Connect ist eine Austauschebene auf dem Gerät unter Android, keine Cloud: Es speichert, was Samsung Health dorthin schreibt. Google Health kann einen Teil dieser Daten genau über Health Connect importieren, verbindet sich aber nie direkt mit der Galaxy Watch. FitMesh wiederum kann dieselben Daten über zwei unterschiedliche, im Code verifizierte Wege lesen: den direkten Kanal des Samsung Health Data SDK und Health Connect (mehr dazu unter [fitness-data-sync](/de/fitness-data-sync)). Nicht jede Kennzahl durchläuft jede dieser Ebenen. Überprüft am 22. Juli 2026.",
+      },
+    },
+    {
+      type: "list",
+      ordered: true,
+      locales: ["it", "en", "de"],
+      items: {
+        it: [
+          "Galaxy Watch misura i segnali e li invia a Samsung Health.",
+          "Da Samsung Health, il Samsung Health Data SDK offre un canale diretto e in sola lettura verso FitMesh, indipendente da Health Connect.",
+          "Sempre da Samsung Health, i dati scritti in Health Connect raggiungono sia FitMesh sia l'app Google Health, tramite due collegamenti separati.",
+          "La Google Health API è un sistema a parte: un'infrastruttura cloud evoluta dalla Fitbit Web API, distinta sia dall'app Google Health sia da Health Connect, che non riceve automaticamente i dati del Galaxy Watch.",
+        ],
+        en: [
+          "Galaxy Watch measures the signals and sends them to Samsung Health.",
+          "From Samsung Health, the Samsung Health Data SDK offers a direct, read-only channel to FitMesh, independent of Health Connect.",
+          "Still from Samsung Health, data written to Health Connect reaches both FitMesh and the Google Health app, via two separate links.",
+          "The Google Health API is a separate system: a cloud infrastructure evolved from the Fitbit Web API, distinct from both the Google Health app and Health Connect, which doesn't automatically receive Galaxy Watch data.",
+        ],
+        de: [
+          "Die Galaxy Watch misst die Signale und sendet sie an Samsung Health.",
+          "Von Samsung Health aus bietet das Samsung Health Data SDK einen direkten, schreibgeschützten Kanal zu FitMesh, unabhängig von Health Connect.",
+          "Ebenfalls von Samsung Health aus erreichen die in Health Connect geschriebenen Daten sowohl FitMesh als auch die Google-Health-App, über zwei getrennte Verbindungen.",
+          "Die Google Health API ist ein eigenständiges System: eine Cloud-Infrastruktur, die aus der Fitbit Web API hervorgegangen ist, getrennt von der Google-Health-App und von Health Connect, die nicht automatisch Daten der Galaxy Watch empfängt.",
+        ],
+      },
+    },
+    {
+      type: "callout",
+      variant: "warning",
+      locales: ["it", "en", "de"],
+      title: {
+        it: "Capacità tecnica non è disponibilità reale",
+        en: "Technical Capability Isn't Real Availability",
+        de: "Technische Fähigkeit ist keine tatsächliche Verfügbarkeit",
+      },
+      body: {
+        it: "Il fatto che Google Health supporti un tipo di dato in Health Connect non significa che Samsung Health lo condivida: disponibilità tecnica e disponibilità effettiva della sorgente sono due livelli distinti.",
+        en: "The fact that Google Health supports a data type in Health Connect doesn't mean Samsung Health shares it: technical availability and the source's actual availability are two distinct levels.",
+        de: "Dass Google Health einen Datentyp in Health Connect unterstützt, bedeutet nicht, dass Samsung Health ihn auch teilt: technische Verfügbarkeit und die tatsächliche Verfügbarkeit der Quelle sind zwei getrennte Ebenen.",
+      },
+    },
+
+    { type: "heading", level: 3, locales: ["it", "en", "de"], text: { it: "Galaxy Watch", en: "Galaxy Watch", de: "Galaxy Watch" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "Origine dei segnali: passi, battito, sonno, SpO₂ e le altre misurazioni grezze nascono qui, dai sensori del watch (incluso il sensore BioActive su Ultra2/Watch9). Un limite spesso trascurato: un insight calcolato dall'app (un punteggio, una media, una categoria) non è la stessa cosa di un dato misurato dal watch. Attribuire al watch stesso ciò che in realtà calcola Samsung Health è un errore comune da evitare.",
+        en: "Where the signals originate: steps, heart rate, sleep, SpO2, and the other raw measurements come from here, the watch's sensors (including the BioActive sensor on Ultra2/Watch9). A commonly overlooked distinction: an insight the app calculates (a score, an average, a category) is not the same thing as a value the watch measures. Attributing to the watch itself what Samsung Health actually computes is a common mistake to avoid.",
+        de: "Ursprung der Signale: Schritte, Herzfrequenz, Schlaf, SpO2 und die anderen Rohmessungen entstehen hier, in den Sensoren der Watch (einschließlich des BioActive-Sensors bei Ultra2/Watch9). Eine oft übersehene Unterscheidung: Ein von der App berechneter Insight (ein Score, ein Durchschnitt, eine Kategorie) ist nicht dasselbe wie ein von der Watch gemessener Wert. Der Watch selbst zuzuschreiben, was tatsächlich Samsung Health berechnet, ist ein häufiger Fehler.",
+      },
+    },
+
+    { type: "heading", level: 3, locales: ["it", "en", "de"], text: { it: "Samsung Health", en: "Samsung Health", de: "Samsung Health" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "L'app e l'ecosistema Samsung che raccoglie e interpreta i dati del Galaxy Watch. Distinguere sempre tre livelli: dati grezzi (battito, passi, ore di sonno, con un'unità di misura standard); riepiloghi (medie, trend, confronti col giorno prima); punteggi proprietari (Heart Health Score, Daily Cardio Load, Fitness Index), calcolati con una formula Samsung non pubblica. Alcune funzioni dipendono da regione, modello di watch e versione dell'app: una funzione visibile su un dispositivo può non esserlo su un altro.",
+        en: "The Samsung app and ecosystem that collects and interprets Galaxy Watch data. Always distinguish three levels: raw data (heart rate, steps, hours of sleep, with a standard unit); summaries (averages, trends, comparisons with the previous day); proprietary scores (Heart Health Score, Daily Cardio Load, Fitness Index), computed with a non-public Samsung formula. Some features depend on region, watch model, and app version: a feature visible on one device may not be on another.",
+        de: "Die Samsung-App und das Ökosystem, die die Daten der Galaxy Watch sammeln und interpretieren. Immer drei Ebenen unterscheiden: Rohdaten (Herzfrequenz, Schritte, Schlafstunden, mit einer Standardeinheit); Zusammenfassungen (Durchschnittswerte, Trends, Vergleiche mit dem Vortag); proprietäre Scores (Heart Health Score, Daily Cardio Load, Fitness Index), berechnet mit einer nicht öffentlichen Samsung-Formel. Manche Funktionen hängen von Region, Watch-Modell und App-Version ab: Eine auf einem Gerät sichtbare Funktion ist es auf einem anderen möglicherweise nicht.",
+      },
+    },
+
+    { type: "heading", level: 3, locales: ["it", "en", "de"], text: { it: "Samsung Health Data SDK", en: "Samsung Health Data SDK", de: "Samsung Health Data SDK" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "Il canale per app partner approvate da Samsung (come FitMesh), distinto da Health Connect: la documentazione ufficiale Samsung tratta i due sistemi separatamente, senza mai collegarli esplicitamente. Richiede una registrazione di package name e firma SHA-256 presso Samsung prima della produzione. Un punto spesso frainteso: che un tipo di dato esista nell'elenco teorico dell'SDK (23 in lettura, 12 in scrittura secondo la documentazione ufficiale) non dimostra che un'app specifica, come FitMesh, lo richieda o lo legga davvero. Sono due domande distinte, verificabili solo guardando il codice dell'app in questione.",
+        en: "The channel for apps approved as Samsung partners (like FitMesh), distinct from Health Connect: Samsung's official documentation treats the two systems separately, never explicitly linking them. It requires registering a package name and SHA-256 signature with Samsung before production. A commonly misunderstood point: a data type existing in the SDK's theoretical list (23 readable, 12 writable per the official documentation) doesn't prove that a specific app, like FitMesh, requests or actually reads it. These are two separate questions, verifiable only by looking at that app's own code.",
+        de: "Der Kanal für von Samsung als Partner zugelassene Apps (wie FitMesh), getrennt von Health Connect: Samsungs offizielle Dokumentation behandelt die beiden Systeme separat und verknüpft sie nie explizit. Erfordert vor der Produktion die Registrierung von Package-Name und SHA-256-Signatur bei Samsung. Ein oft missverstandener Punkt: Dass ein Datentyp in der theoretischen Liste des SDK existiert (laut offizieller Dokumentation 23 lesbare, 12 schreibbare), beweist nicht, dass eine bestimmte App wie FitMesh ihn anfordert oder tatsächlich liest. Das sind zwei getrennte Fragen, die sich nur durch einen Blick in den Code dieser App beantworten lassen.",
+      },
+    },
+
+    { type: "heading", level: 3, locales: ["it", "en", "de"], text: { it: "Health Connect", en: "Health Connect", de: "Health Connect" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "L'archivio e il livello di autorizzazione on-device di Android, gestito da Google: secondo la documentazione ufficiale, \"stores and structures health and fitness data\" e fornisce funzioni standard di inserimento, aggiornamento ed eliminazione, oltre alla possibilità per le app client di sincronizzare i dati fuori da Health Connect. Non è una dashboard con grafici propri, non è Google Health, e soprattutto non garantisce che ogni dato visibile in Samsung Health venga effettivamente scritto qui: sono due passaggi distinti.",
+        en: "Android's on-device data store and permission layer, run by Google: per the official documentation, it \"stores and structures health and fitness data\" and provides standard insert, update, and delete functions, plus the ability for client apps to sync data out of Health Connect. It's not a dashboard with its own charts, it's not Google Health, and above all it doesn't guarantee that every data point visible in Samsung Health actually gets written here: these are two separate steps.",
+        de: "Der geräteinterne Datenspeicher und die Berechtigungsebene von Android, betrieben von Google: laut offizieller Dokumentation \"stores and structures health and fitness data\" und bietet Standardfunktionen zum Einfügen, Aktualisieren und Löschen sowie die Möglichkeit für Client-Apps, Daten aus Health Connect heraus zu synchronisieren. Es ist kein Dashboard mit eigenen Diagrammen, es ist nicht Google Health, und vor allem garantiert es nicht, dass jeder in Samsung Health sichtbare Datenpunkt hier tatsächlich geschrieben wird: Das sind zwei getrennte Schritte.",
+      },
+    },
+
+    { type: "heading", level: 3, locales: ["it", "en", "de"], text: { it: "Google Health (app)", en: "Google Health (app)", de: "Google Health (App)" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "L'app consumer Google per Android e iOS, erede dell'app Fitbit. Per un Galaxy Watch, riceve dati attraverso Samsung Health e Health Connect, non dal watch direttamente: la pagina di supporto ufficiale Google lo dichiara esplicitamente, \"The Google Health app does not connect directly to Samsung Galaxy watches.\" Serve anche un consenso esplicito dentro Samsung Health per attivare la sincronizzazione verso Google Health.",
+        en: "Google's consumer app for Android and iOS, successor to the Fitbit app. For a Galaxy Watch, it receives data through Samsung Health and Health Connect, not directly from the watch: Google's official support page states this explicitly, \"The Google Health app does not connect directly to Samsung Galaxy watches.\" It also requires explicit consent inside Samsung Health to activate the sync toward Google Health.",
+        de: "Googles Consumer-App für Android und iOS, Nachfolgerin der Fitbit-App. Bei einer Galaxy Watch empfängt sie Daten über Samsung Health und Health Connect, nicht direkt von der Watch: Googles offizielle Support-Seite stellt das ausdrücklich fest, \"The Google Health app does not connect directly to Samsung Galaxy watches.\" Zusätzlich ist eine ausdrückliche Zustimmung innerhalb von Samsung Health nötig, um die Synchronisierung zu Google Health zu aktivieren.",
+      },
+    },
+
+    { type: "heading", level: 3, locales: ["it", "en", "de"], text: { it: "Google Health API", en: "Google Health API", de: "Google Health API" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "Un'API cloud distinta, evoluzione della Fitbit Web API: la documentazione ufficiale Google la descrive come gestione di dati salute/fitness da \"Fitbit, Pixel Watch, and other third-party devices and apps\" su un'infrastruttura unificata, senza mai nominare Samsung o Health Connect. Non sostituisce Health Connect: sono due sistemi Google distinti, con meccanismi di accesso diversi (API cloud via OAuth contro store on-device). Non è automaticamente collegata ai dati del Galaxy Watch. Approfondimento correlato: [la dismissione della Google Fit API](/it/blog/google-fit-api-dismissione-2026), un'evoluzione distinta da questa.",
+        en: "A distinct cloud API, the evolution of the Fitbit Web API: Google's official documentation describes it as managing health/fitness data from \"Fitbit, Pixel Watch, and other third-party devices and apps\" on a unified infrastructure, never naming Samsung or Health Connect. It doesn't replace Health Connect: they're two distinct Google systems, with different access mechanisms (cloud OAuth API versus on-device store). It isn't automatically linked to Galaxy Watch data. Related reading: [the Google Fit API's shutdown](/en/blog/google-fit-api-dismissione-2026), a distinct evolution from this one.",
+        de: "Eine eigenständige Cloud-API, die Weiterentwicklung der Fitbit Web API: Googles offizielle Dokumentation beschreibt sie als Verwaltung von Gesundheits-/Fitnessdaten von \"Fitbit, Pixel Watch, and other third-party devices and apps\" auf einer einheitlichen Infrastruktur, ohne Samsung oder Health Connect je zu erwähnen. Sie ersetzt Health Connect nicht: Es sind zwei getrennte Google-Systeme mit unterschiedlichen Zugriffsmechanismen (Cloud-API über OAuth gegenüber geräteinternem Speicher). Sie ist nicht automatisch mit Galaxy-Watch-Daten verbunden. Verwandter Artikel: [die Abschaltung der Google Fit API](/de/blog/google-fit-api-dismissione-2026), eine andere Weiterentwicklung als diese hier.",
+      },
+    },
+
+    { type: "heading", level: 3, locales: ["it", "en", "de"], text: { it: "FitMesh: due percorsi, verificati nel codice", en: "FitMesh: Two Paths, Verified in the Code", de: "FitMesh: Zwei Wege, im Code verifiziert" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "FitMesh legge i dati del Galaxy Watch attraverso due percorsi paralleli, verificati direttamente nel codice sorgente dell'app, non dedotti dalla documentazione Samsung o Google. Via Health Connect: battito, HRV, sonno, SpO₂, frequenza respiratoria, allenamenti. Via il canale diretto Samsung Health Data SDK (approvazione partner già ottenuta, in produzione, non dietro feature flag): battito e sonno con priorità sul dato Health Connect, più temperatura cutanea, allenamenti, composizione corporea, pressione arteriosa e apnea notturna (quest'ultima solo come flag booleano) disponibili solo da questo canale. FitMesh non legge il VO₂ max (escluso esplicitamente dal codice) e non replica nessun punteggio proprietario Samsung. Tutte le sorgenti supportate: [pagina integrazioni](/it/integrations).",
+        en: "FitMesh reads Galaxy Watch data through two parallel paths, verified directly in the app's source code, not inferred from Samsung or Google documentation. Via Health Connect: heart rate, HRV, sleep, SpO2, respiratory rate, workouts. Via the direct Samsung Health Data SDK channel (partner approval already obtained, live in production, not behind a feature flag): heart rate and sleep with priority over the Health Connect value, plus skin temperature, workouts, body composition, blood pressure, and sleep apnea (the latter only as a boolean flag) available only from this channel. FitMesh doesn't read VO2 max (explicitly excluded from the code) and doesn't replicate any proprietary Samsung score. All supported sources: [integrations page](/en/integrations).",
+        de: "FitMesh liest die Daten der Galaxy Watch über zwei parallele Wege, direkt im Quellcode der App verifiziert, nicht aus der Samsung- oder Google-Dokumentation abgeleitet. Über Health Connect: Herzfrequenz, HRV, Schlaf, SpO2, Atemfrequenz, Trainingseinheiten. Über den direkten Kanal des Samsung Health Data SDK (Partner-Freigabe bereits erhalten, live in Produktion, nicht hinter einem Feature-Flag): Herzfrequenz und Schlaf mit Priorität gegenüber dem Health-Connect-Wert, außerdem Hauttemperatur, Trainingseinheiten, Körperzusammensetzung, Blutdruck und Schlafapnoe (Letzteres nur als boolesches Flag), ausschließlich über diesen Kanal verfügbar. FitMesh liest kein VO2max (im Code explizit ausgeschlossen) und repliziert keinen proprietären Samsung-Score. Alle unterstützten Quellen: [Integrationsseite](/de/integrations).",
+      },
+    },
+
+    { type: "heading", level: 2, locales: ["it", "en", "de"], text: { it: "Cosa può leggere Google Health: la capacità generica di Health Connect", en: "What Google Health Can Read: Health Connect's Generic Capability", de: "Was Google Health lesen kann: die generische Fähigkeit von Health Connect" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "Secondo la pagina di supporto ufficiale Google su Health Connect e l'app Google Health, questi sono i tipi di dato che Google Health è genericamente capace di leggere e scrivere tramite Health Connect, come sistema. Questa è una capacità tecnica dell'app, non una prova che una fonte specifica (come Samsung Health) condivida davvero quel dato: la sezione successiva verifica separatamente cosa condivide Samsung per il Galaxy Watch.",
+        en: "Per Google's official support page on Health Connect and the Google Health app, these are the data types Google Health is generically capable of reading and writing via Health Connect, as a system. This is a technical capability of the app, not proof that a specific source (like Samsung Health) actually shares that data: the next section separately verifies what Samsung shares for the Galaxy Watch.",
+        de: "Laut Googles offizieller Support-Seite zu Health Connect und der Google-Health-App sind dies die Datentypen, die Google Health als System generell über Health Connect lesen und schreiben kann. Das ist eine technische Fähigkeit der App, kein Beweis dafür, dass eine bestimmte Quelle (wie Samsung Health) diese Daten tatsächlich teilt: Der nächste Abschnitt prüft separat, was Samsung für die Galaxy Watch teilt.",
+      },
+    },
+    {
+      type: "table",
+      locales: ["it", "en", "de"],
+      caption: {
+        it: "Capacità generica (non specifica per il Galaxy Watch). Fonte: supporto ufficiale Google Health, verificato con fetch grezzo il 22/07/2026",
+        en: "Generic capability (not Galaxy Watch-specific). Source: official Google Health support, verified via raw fetch on 07/22/2026",
+        de: "Generische Fähigkeit (nicht Galaxy-Watch-spezifisch). Quelle: offizieller Google-Health-Support, verifiziert per Rohabruf am 22.07.2026",
+      },
+      headers: {
+        it: ["Categoria", "Google Health legge da Health Connect (capacità generica)", "Google Health scrive su Health Connect (capacità generica)"],
+        en: ["Category", "Google Health Can Read from Health Connect (Generic Capability)", "Google Health Can Write to Health Connect (Generic Capability)"],
+        de: ["Kategorie", "Google Health kann aus Health Connect lesen (generische Fähigkeit)", "Google Health kann in Health Connect schreiben (generische Fähigkeit)"],
+      },
+      rows: [
+        { it: ["Fitness", "Passi, VO₂ max, Piani saliti, Calorie attive, Distanza, Allenamento, Calorie totali", "Passi, Velocità, Cadenza passo, VO₂ max, Piani saliti, Distanza, Dislivello, Allenamento, Percorso allenamento, Calorie totali"], en: ["Fitness", "Steps, VO2 max, Floors, Active calories burned, Distance, Exercise, Total calories burned", "Steps, Speed, Step cadence, VO2 max, Floors, Distance, Elevation gained, Exercise, Exercise route, Total calories burned"], de: ["Fitness", "Schritte, VO2max, Stockwerke, Aktive Kalorien, Distanz, Training, Gesamtkalorien", "Schritte, Geschwindigkeit, Schrittkadenz, VO2max, Stockwerke, Distanz, Höhenmeter, Training, Trainingsroute, Gesamtkalorien"] },
+        { it: ["Temperatura", "Temperatura corporea", "Temperatura corporea"], en: ["Temperature", "Body temperature", "Body temperature"], de: ["Temperatur", "Körpertemperatur", "Körpertemperatur"] },
+        { it: ["Sonno", "Sessione di sonno, Fasi del sonno", "Sessione di sonno, Fasi del sonno"], en: ["Sleep", "Sleep session, Sleep stages", "Sleep session, Sleep stages"], de: ["Schlaf", "Schlafsitzung, Schlafphasen", "Schlafsitzung, Schlafphasen"] },
+        { it: ["Vitali", "Temperatura cutanea, Glicemia, Battito, HRV, SpO₂, Frequenza respiratoria, Battito a riposo", "Temperatura cutanea, Glicemia, Battito, HRV, Frequenza respiratoria, Battito a riposo"], en: ["Vitals", "Skin temperature, Blood glucose, Heart rate, Heart rate variability, Oxygen saturation, Respiratory rate, Resting heart rate", "Skin temperature, Blood glucose, Heart rate, Heart rate variability, Respiratory rate, Resting heart rate"], de: ["Vitalwerte", "Hauttemperatur, Blutzucker, Herzfrequenz, HRV, SpO₂, Atemfrequenz, Ruheherzfrequenz", "Hauttemperatur, Blutzucker, Herzfrequenz, HRV, Atemfrequenz, Ruheherzfrequenz"] },
+        { it: ["Misure corporee", "Peso, Percentuale di grasso corporeo", "Peso, Percentuale di grasso corporeo"], en: ["Body measurements", "Weight, Body fat percentage", "Weight, Body fat percentage"], de: ["Körpermaße", "Gewicht, Körperfettanteil", "Gewicht, Körperfettanteil"] },
+        { it: ["Nutrizione", "Idratazione, Nutrizione (cibo, tipo pasto, energia, macro)", "Idratazione, Nutrizione (cibo, tipo pasto, energia, macro)"], en: ["Nutrition", "Hydration, Nutrition (food, meal type, energy, macros)", "Hydration, Nutrition (food, meal type, energy, macros)"], de: ["Ernährung", "Flüssigkeitszufuhr, Ernährung (Essen, Mahlzeitentyp, Energie, Makros)", "Flüssigkeitszufuhr, Ernährung (Essen, Mahlzeitentyp, Energie, Makros)"] },
+        { it: ["Benessere mentale", "Durata della sessione", "Non disponibile (solo lettura)"], en: ["Mental wellbeing", "Session duration", "N/A (read-only)"], de: ["Mentales Wohlbefinden", "Sitzungsdauer", "Nicht verfügbar (nur Lesen)"] },
+      ],
+    },
+    {
+      type: "callout",
+      variant: "info",
+      locales: ["it", "en", "de"],
+      title: { it: "Assenti dalla tabella ufficiale, in entrambe le direzioni", en: "Absent from the Official Table, in Both Directions", de: "In der offiziellen Tabelle nicht enthalten, in beide Richtungen" },
+      body: {
+        it: "Percorsi GPS dettagliati/lap split, ECG, notifiche di ritmo irregolare e la granularità minuto/ora non compaiono in questa tabella né in lettura né in scrittura (verificato cercando nel testo completo della pagina): significa non documentato, non equivale a un'esclusione dichiarata esplicitamente da Google.",
+        en: "Detailed GPS routes/lap splits, ECG, irregular rhythm notifications, and minute/hour granularity don't appear in this table for either reading or writing (verified by searching the page's full text): this means not documented, not the same as an exclusion explicitly stated by Google.",
+        de: "Detaillierte GPS-Strecken/Rundensplits, EKG, Benachrichtigungen zu unregelmäßigem Rhythmus und Minuten-/Stundenauflösung erscheinen in dieser Tabelle weder beim Lesen noch beim Schreiben (durch Volltextsuche auf der Seite verifiziert): Das bedeutet nicht dokumentiert, nicht dasselbe wie ein von Google ausdrücklich erklärter Ausschluss.",
+      },
+    },
+
+    { type: "heading", level: 2, locales: ["it", "en", "de"], text: { it: "Cosa condivide davvero Samsung Health con Google Health per il Galaxy Watch", en: "What Samsung Health Actually Shares with Google Health for the Galaxy Watch", de: "Was Samsung Health für die Galaxy Watch tatsächlich mit Google Health teilt" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "La tabella sopra descrive una capacità generica di Google Health, non il comportamento di Samsung. Per il percorso specifico Galaxy Watch, la stessa pagina di supporto Google dedica una sezione a \"Samsung Galaxy Watch\" con due liste esplicite: i dati che il dispositivo condivide davvero e quelli che non condivide. Serve inoltre un consenso esplicito attivato dentro Samsung Health per attivare qualunque sincronizzazione verso Google Health.",
+        en: "The table above describes a generic Google Health capability, not Samsung's actual behavior. For the specific Galaxy Watch path, the same Google support page dedicates a section to \"Samsung Galaxy Watch\" with two explicit lists: the data the device actually shares, and the data it doesn't. It also requires explicit consent activated inside Samsung Health before any sync toward Google Health can happen.",
+        de: "Die Tabelle oben beschreibt eine generische Fähigkeit von Google Health, nicht das tatsächliche Verhalten von Samsung. Für den spezifischen Galaxy-Watch-Weg widmet dieselbe Google-Support-Seite der \"Samsung Galaxy Watch\" einen eigenen Abschnitt mit zwei expliziten Listen: die Daten, die das Gerät tatsächlich teilt, und die, die es nicht teilt. Außerdem ist eine ausdrückliche, innerhalb von Samsung Health aktivierte Zustimmung erforderlich, bevor überhaupt eine Synchronisierung zu Google Health stattfinden kann.",
+      },
+    },
+    {
+      type: "table",
+      locales: ["it", "en", "de"],
+      caption: {
+        it: "Fonte: supporto ufficiale Google Health, sezione dispositivo \"Samsung Galaxy Watch\". Verificato con fetch grezzo il 23/07/2026",
+        en: "Source: official Google Health support, \"Samsung Galaxy Watch\" device section. Verified via raw fetch on 07/23/2026",
+        de: "Quelle: offizieller Google-Health-Support, Geräteabschnitt \"Samsung Galaxy Watch\". Verifiziert per Rohabruf am 23.07.2026",
+      },
+      headers: {
+        it: ["Dato", "Condiviso da Samsung Health verso Google Health"],
+        en: ["Data", "Shared by Samsung Health to Google Health"],
+        de: ["Daten", "Von Samsung Health an Google Health geteilt"],
+      },
+      rows: [
+        { it: ["Passi, distanza, energia (totale aggregato)", "Sì"], en: ["Steps, distance, energy (aggregate total)", "Yes"], de: ["Schritte, Distanz, Energie (aggregierter Gesamtwert)", "Ja"] },
+        { it: ["Sonno (durata, fasi, orario)", "Sì"], en: ["Sleep (duration, stages, schedule)", "Yes"], de: ["Schlaf (Dauer, Phasen, Zeitplan)", "Ja"] },
+        { it: ["Riepilogo sessione di allenamento", "Sì"], en: ["Exercise session summaries", "Yes"], de: ["Zusammenfassung der Trainingseinheit", "Ja"] },
+        { it: ["Battito", "Sì"], en: ["Heart rate", "Yes"], de: ["Herzfrequenz", "Ja"] },
+        { it: ["SpO₂ (ossigeno nel sangue)", "Sì"], en: ["SpO2 (blood oxygen)", "Yes"], de: ["SpO2 (Blutsauerstoff)", "Ja"] },
+        { it: ["VO₂ max", "Sì"], en: ["VO2 max", "Yes"], de: ["VO2max", "Ja"] },
+        { it: ["Misure corporee (peso)", "Sì"], en: ["Body measurements (weight)", "Yes"], de: ["Körpermaße (Gewicht)", "Ja"] },
+        { it: ["Piani saliti", "No"], en: ["Floors climbed", "No"], de: ["Stockwerke", "Nein"] },
+        { it: ["Temperatura cutanea", "No"], en: ["Skin temperature", "No"], de: ["Hauttemperatur", "Nein"] },
+        { it: ["Frequenza cardiaca a riposo", "No"], en: ["Resting heart rate", "No"], de: ["Ruheherzfrequenz", "Nein"] },
+        { it: ["HRV (variabilità della frequenza cardiaca)", "No"], en: ["HRV (heart rate variability)", "No"], de: ["HRV (Herzfrequenzvariabilität)", "Nein"] },
+        { it: ["Frequenza respiratoria", "No"], en: ["Respiratory rate", "No"], de: ["Atemfrequenz", "Nein"] },
+        { it: ["Passi/energia a granularità minuto/ora", "No"], en: ["Steps/energy at minute/hour granularity", "No"], de: ["Schritte/Energie in Minuten-/Stundenauflösung", "Nein"] },
+        { it: ["Percorsi/mappe della sessione di allenamento", "No"], en: ["Exercise session maps and routes", "No"], de: ["Karten und Strecken der Trainingseinheit", "Nein"] },
+        { it: ["Dettaglio sessione (es. split per giro)", "No"], en: ["Detailed session data (e.g. lap splits)", "No"], de: ["Detaillierte Trainingsdaten (z. B. Rundensplits)", "Nein"] },
+        { it: ["Avvisi salute (ECG, ritmo irregolare)", "No"], en: ["Health alerts (ECG, irregular rhythm)", "No"], de: ["Gesundheitshinweise (EKG, unregelmäßiger Rhythmus)", "Nein"] },
+      ],
+    },
+    {
+      type: "callout",
+      variant: "warning",
+      locales: ["it", "en", "de"],
+      title: {
+        it: "La correzione chiave: cinque metriche tecnicamente supportate, mai condivise da Samsung",
+        en: "The Key Correction: Five Metrics Technically Supported, Never Shared by Samsung",
+        de: "Die entscheidende Korrektur: fünf Kennzahlen technisch unterstützt, von Samsung aber nie geteilt",
+      },
+      body: {
+        it: "Piani saliti, temperatura cutanea, frequenza cardiaca a riposo, HRV e frequenza respiratoria compaiono nella tabella di capacità generica di Google Health sopra, ma la pagina di supporto specifica per il Galaxy Watch li elenca esplicitamente tra i dati non condivisi da Samsung Health. Il VO₂ max è l'eccezione: Samsung lo condivide davvero, secondo la stessa pagina Samsung-specifica.",
+        en: "Floors climbed, skin temperature, resting heart rate, HRV, and respiratory rate appear in Google Health's generic capability table above, but the Galaxy Watch-specific support page explicitly lists them among the data Samsung Health doesn't share. VO2 max is the exception: Samsung does share it, according to that same Samsung-specific page.",
+        de: "Stockwerke, Hauttemperatur, Ruheherzfrequenz, HRV und Atemfrequenz erscheinen oben in der generischen Fähigkeitstabelle von Google Health, aber die Galaxy-Watch-spezifische Support-Seite listet sie ausdrücklich unter den Daten auf, die Samsung Health nicht teilt. VO2max ist die Ausnahme: Laut derselben Samsung-spezifischen Seite teilt Samsung es tatsächlich.",
+      },
+    },
+
+    { type: "heading", level: 2, locales: ["it", "en", "de"], text: { it: "La matrice completa: 25 metriche attraverso quattro sistemi", en: "The Full Matrix: 25 Metrics Across Four Systems", de: "Die vollständige Matrix: 25 Kennzahlen über vier Systeme" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "Ogni cella deriva da una fonte ufficiale o dal codice FitMesh verificato, mai da una propagazione logica del tipo \"Samsung Health lo ha, quindi Health Connect lo esporta, quindi FitMesh lo legge\": sono tre verifiche separate. La colonna \"Samsung → Google Health\" è distinta dalla capacità generica di Google Health: la prima viene dalla pagina Samsung-specifica (14236613), la seconda dalla tabella generica (14506680), non sono intercambiabili. Stati usati: disponibile; condiviso; disponibile con limiti; non condiviso; non letto da FitMesh; non documentato; non verificato sulla versione pubblica.",
+        en: "Every cell comes from an official source or from verified FitMesh code, never from a logical chain like \"Samsung Health has it, so Health Connect exports it, so FitMesh reads it\": these are three separate checks. The \"Samsung → Google Health\" column is distinct from Google Health's generic capability: the former comes from the Samsung-specific page (14236613), the latter from the generic table (14506680), they aren't interchangeable. States used: available; shared; available with limits; not shared; not read by FitMesh; not documented; not verified on the public version.",
+        de: "Jede Zelle stammt aus einer offiziellen Quelle oder aus verifiziertem FitMesh-Code, nie aus einer logischen Kette wie \"Samsung Health hat es, also exportiert Health Connect es, also liest FitMesh es\": Das sind drei getrennte Prüfungen. Die Spalte \"Samsung → Google Health\" ist von der generischen Fähigkeit von Google Health zu unterscheiden: Erstere stammt von der Samsung-spezifischen Seite (14236613), Letztere von der generischen Tabelle (14506680), sie sind nicht austauschbar. Verwendete Zustände: verfügbar; geteilt; verfügbar mit Einschränkungen; nicht geteilt; nicht von FitMesh gelesen; nicht dokumentiert; auf der öffentlichen Version nicht verifiziert.",
+      },
+    },
+    {
+      type: "table",
+      locales: ["it", "en", "de"],
+      caption: { it: "Fonti: Samsung Newsroom, Samsung/Android/Google Developer, codice FitMesh (audit 2026-07-21)", en: "Sources: Samsung Newsroom, Samsung/Android/Google Developer docs, FitMesh code (2026-07-21 audit)", de: "Quellen: Samsung Newsroom, Samsung/Android/Google-Entwicklerdokumentation, FitMesh-Code (Audit 2026-07-21)" },
+      headers: {
+        it: ["Metrica", "Samsung Health", "Health Connect", "Google Health (capacità generica)", "Samsung → Google Health", "FitMesh (Samsung diretto)", "FitMesh (Health Connect)", "Note"],
+        en: ["Metric", "Samsung Health", "Health Connect", "Google Health (Generic Capability)", "Samsung → Google Health", "FitMesh (Direct Samsung)", "FitMesh (Health Connect)", "Notes"],
+        de: ["Kennzahl", "Samsung Health", "Health Connect", "Google Health (generische Fähigkeit)", "Samsung → Google Health", "FitMesh (Samsung direkt)", "FitMesh (Health Connect)", "Hinweise"],
+      },
+      rows: [
+        { it: ["Passi", "disponibile", "disponibile", "disponibile", "condiviso (aggregato; non a livello di minuto/ora)", "disponibile", "disponibile", ""], en: ["Steps", "available", "available", "available", "shared (aggregate; not at minute/hour granularity)", "available", "available", ""], de: ["Schritte", "verfügbar", "verfügbar", "verfügbar", "geteilt (aggregiert; nicht in Minuten-/Stundenauflösung)", "verfügbar", "verfügbar", ""] },
+        { it: ["Distanza", "disponibile", "disponibile", "disponibile", "condiviso", "disponibile", "disponibile", ""], en: ["Distance", "available", "available", "available", "shared", "available", "available", ""], de: ["Distanz", "verfügbar", "verfügbar", "verfügbar", "geteilt", "verfügbar", "verfügbar", ""] },
+        { it: ["Piani saliti", "non verificato sulla versione pubblica", "disponibile", "disponibile", "NON condiviso (fonte Samsung-specifica)", "disponibile", "non letto da FitMesh", "Google Health lo legge/scrive genericamente via Health Connect; Samsung Health non lo condivide per il Galaxy Watch; FitMesh non lo richiede via Health Connect"], en: ["Floors climbed", "not verified on the public version", "available", "available", "NOT shared (Samsung-specific source)", "available", "not read by FitMesh", "Google Health generically reads/writes it via Health Connect; Samsung Health doesn't share it for the Galaxy Watch; FitMesh doesn't request it via Health Connect"], de: ["Stockwerke", "auf der öffentlichen Version nicht verifiziert", "verfügbar", "verfügbar", "NICHT geteilt (Samsung-spezifische Quelle)", "verfügbar", "nicht von FitMesh gelesen", "Google Health liest/schreibt es generisch über Health Connect; Samsung Health teilt es für die Galaxy Watch nicht; FitMesh fordert es via Health Connect nicht an"] },
+        { it: ["Calorie", "disponibile", "disponibile", "disponibile", "condiviso (aggregato; non a livello di minuto/ora)", "disponibile", "disponibile", ""], en: ["Calories", "available", "available", "available", "shared (aggregate; not at minute/hour granularity)", "available", "available", ""], de: ["Kalorien", "verfügbar", "verfügbar", "verfügbar", "geteilt (aggregiert; nicht in Minuten-/Stundenauflösung)", "verfügbar", "verfügbar", ""] },
+        { it: ["Battito", "disponibile", "disponibile", "disponibile", "condiviso", "disponibile, priorità Samsung", "disponibile", ""], en: ["Heart rate", "available", "available", "available", "shared", "available, Samsung priority", "available", ""], de: ["Herzfrequenz", "verfügbar", "verfügbar", "verfügbar", "geteilt", "verfügbar, Samsung-Priorität", "verfügbar", ""] },
+        { it: ["Battito a riposo", "disponibile", "disponibile", "disponibile", "NON condiviso (fonte Samsung-specifica)", "disponibile, priorità Samsung", "disponibile", "Google Health lo supporta genericamente via Health Connect; Samsung Health non lo condivide per il Galaxy Watch"], en: ["Resting heart rate", "available", "available", "available", "NOT shared (Samsung-specific source)", "available, Samsung priority", "available", "Google Health generically supports it via Health Connect; Samsung Health doesn't share it for the Galaxy Watch"], de: ["Ruheherzfrequenz", "verfügbar", "verfügbar", "verfügbar", "NICHT geteilt (Samsung-spezifische Quelle)", "verfügbar, Samsung-Priorität", "verfügbar", "Google Health unterstützt es generisch über Health Connect; Samsung Health teilt es für die Galaxy Watch nicht"] },
+        { it: ["HRV", "disponibile (Vitals)", "disponibile", "disponibile", "NON condiviso (fonte Samsung-specifica)", "non letto da FitMesh", "disponibile", "Non esposto dall'SDK Samsung: solo via Health Connect per FitMesh. Google Health lo supporta genericamente, ma Samsung Health non lo condivide per il Galaxy Watch"], en: ["HRV", "available (Vitals)", "available", "available", "NOT shared (Samsung-specific source)", "not read by FitMesh", "available", "Not exposed by the Samsung SDK: Health Connect only for FitMesh. Google Health generically supports it, but Samsung Health doesn't share it for the Galaxy Watch"], de: ["HRV", "verfügbar (Vitals)", "verfügbar", "verfügbar", "NICHT geteilt (Samsung-spezifische Quelle)", "nicht von FitMesh gelesen", "verfügbar", "Nicht vom Samsung SDK bereitgestellt: für FitMesh nur über Health Connect. Google Health unterstützt es generisch, aber Samsung Health teilt es für die Galaxy Watch nicht"] },
+        { it: ["Frequenza respiratoria", "disponibile (Vitals)", "disponibile", "disponibile", "NON condiviso (fonte Samsung-specifica)", "non letto da FitMesh", "disponibile", "Solo via Health Connect per FitMesh. Google Health lo supporta genericamente, ma Samsung Health non lo condivide per il Galaxy Watch"], en: ["Respiratory rate", "available (Vitals)", "available", "available", "NOT shared (Samsung-specific source)", "not read by FitMesh", "available", "Health Connect only for FitMesh. Google Health generically supports it, but Samsung Health doesn't share it for the Galaxy Watch"], de: ["Atemfrequenz", "verfügbar (Vitals)", "verfügbar", "verfügbar", "NICHT geteilt (Samsung-spezifische Quelle)", "nicht von FitMesh gelesen", "verfügbar", "Für FitMesh nur über Health Connect. Google Health unterstützt es generisch, aber Samsung Health teilt es für die Galaxy Watch nicht"] },
+        { it: ["Sonno", "disponibile", "disponibile", "disponibile", "condiviso", "disponibile, priorità Samsung (blocco intero)", "disponibile", ""], en: ["Sleep", "available", "available", "available", "shared", "available, Samsung priority (whole block)", "available", ""], de: ["Schlaf", "verfügbar", "verfügbar", "verfügbar", "geteilt", "verfügbar, Samsung-Priorität (gesamter Block)", "verfügbar", ""] },
+        { it: ["Fasi del sonno", "disponibile", "disponibile (incluse nel blocco)", "disponibile", "condiviso (incluse nel riepilogo sonno)", "disponibile, come parte del blocco atomico", "disponibile", ""], en: ["Sleep stages", "available", "available (part of the block)", "available", "shared (included in the sleep summary)", "available, as part of the atomic block", "available", ""], de: ["Schlafphasen", "verfügbar", "verfügbar (Teil des Blocks)", "verfügbar", "geteilt (Teil der Schlafzusammenfassung)", "verfügbar, als Teil des atomaren Blocks", "verfügbar", ""] },
+        { it: ["SpO₂", "disponibile (Vitals)", "disponibile", "disponibile", "condiviso", "disponibile con limiti (gap-fill)", "disponibile", "Health Connect ha priorità su FitMesh"], en: ["SpO2", "available (Vitals)", "available", "available", "shared", "available with limits (gap-fill)", "available", "Health Connect has priority for FitMesh"], de: ["SpO2", "verfügbar (Vitals)", "verfügbar", "verfügbar", "geteilt", "verfügbar mit Einschränkungen (Gap-Fill)", "verfügbar", "Health Connect hat für FitMesh Priorität"] },
+        { it: ["Temperatura cutanea", "disponibile (Vitals)", "disponibile", "disponibile", "NON condiviso (fonte Samsung-specifica)", "disponibile (gap-fill)", "non letto da FitMesh", "FitMesh legge un tipo diverso (temperatura corporea) via Health Connect, mai la temperatura cutanea vera e propria da questo percorso. Google Health la supporta genericamente, ma Samsung Health non la condivide con Google Health per il Galaxy Watch"], en: ["Skin temperature", "available (Vitals)", "available", "available", "NOT shared (Samsung-specific source)", "available (gap-fill)", "not read by FitMesh", "FitMesh reads a different type (body temperature) via Health Connect, never true skin temperature from this path. Google Health generically supports it, but Samsung Health doesn't share it with Google Health for the Galaxy Watch"], de: ["Hauttemperatur", "verfügbar (Vitals)", "verfügbar", "verfügbar", "NICHT geteilt (Samsung-spezifische Quelle)", "verfügbar (Gap-Fill)", "nicht von FitMesh gelesen", "FitMesh liest über Health Connect einen anderen Typ (Körpertemperatur), nie die echte Hauttemperatur über diesen Weg. Google Health unterstützt sie generisch, aber Samsung Health teilt sie für die Galaxy Watch nicht mit Google Health"] },
+        { it: ["Allenamenti", "disponibile", "disponibile", "disponibile", "condiviso (riepilogo sessione)", "disponibile (gap-fill)", "disponibile, priorità Health Connect", ""], en: ["Workouts", "available", "available", "available", "shared (session summary)", "available (gap-fill)", "available, Health Connect priority", ""], de: ["Trainingseinheiten", "verfügbar", "verfügbar", "verfügbar", "geteilt (Sitzungszusammenfassung)", "verfügbar (Gap-Fill)", "verfügbar, Health-Connect-Priorität", ""] },
+        { it: ["Dettaglio allenamenti", "disponibile", "disponibile", "disponibile", "condiviso (riepilogo sessione)", "disponibile", "disponibile", "Non include mappa GPS né split per singolo giro: quello è tracciato separatamente nella riga \"Percorsi GPS\" sotto, non condiviso da Samsung"], en: ["Workout detail", "available", "available", "available", "shared (session summary)", "available", "available", "Doesn't include the GPS map or per-lap splits: those are tracked separately in the \"GPS routes\" row below, not shared by Samsung"], de: ["Trainingsdetails", "verfügbar", "verfügbar", "verfügbar", "geteilt (Sitzungszusammenfassung)", "verfügbar", "verfügbar", "Enthält keine GPS-Karte und keine Rundensplits: Diese werden separat in der Zeile \"GPS-Strecken\" unten erfasst, von Samsung nicht geteilt"] },
+        { it: ["Percorsi GPS", "non verificato sulla versione pubblica", "disponibile con limiti (solo scrittura nella tabella Google)", "disponibile con limiti (scrive il percorso, non risulta leggerlo)", "NON condiviso (fonte Samsung-specifica)", "non letto da FitMesh", "non letto da FitMesh", "Nessun campo GPS richiesto dal codice FitMesh in nessun percorso. Samsung Health non condivide mappe/percorsi di allenamento con Google Health per il Galaxy Watch"], en: ["GPS routes", "not verified on the public version", "available with limits (write-only in Google's table)", "available with limits (writes the route, doesn't appear to read it)", "NOT shared (Samsung-specific source)", "not read by FitMesh", "not read by FitMesh", "No GPS field requested by FitMesh's code in either path. Samsung Health doesn't share workout maps/routes with Google Health for the Galaxy Watch"], de: ["GPS-Strecken", "auf der öffentlichen Version nicht verifiziert", "verfügbar mit Einschränkungen (in Googles Tabelle nur schreibend)", "verfügbar mit Einschränkungen (schreibt die Route, liest sie offenbar nicht)", "NICHT geteilt (Samsung-spezifische Quelle)", "nicht von FitMesh gelesen", "nicht von FitMesh gelesen", "Kein GPS-Feld wird vom FitMesh-Code über einen der beiden Wege angefordert. Samsung Health teilt Trainingskarten/-strecken für die Galaxy Watch nicht mit Google Health"] },
+        { it: ["VO₂ max", "disponibile (input di Fitness Index)", "disponibile", "disponibile", "condiviso (fonte Samsung-specifica)", "non letto da FitMesh", "non letto da FitMesh", "Samsung Health lo condivide con Google Health secondo la pagina Samsung-specifica; FitMesh continua a escluderlo deliberatamente dal codice: ogni app sceglie i propri data type"], en: ["VO2 max", "available (Fitness Index input)", "available", "available", "shared (Samsung-specific source)", "not read by FitMesh", "not read by FitMesh", "Samsung Health shares it with Google Health per the Samsung-specific page; FitMesh still deliberately excludes it from the code: every app chooses its own data types"], de: ["VO2max", "verfügbar (Fitness-Index-Eingabe)", "verfügbar", "verfügbar", "geteilt (Samsung-spezifische Quelle)", "nicht von FitMesh gelesen", "nicht von FitMesh gelesen", "Samsung Health teilt es laut der Samsung-spezifischen Seite mit Google Health; FitMesh schließt es im Code weiterhin bewusst aus: jede App wählt ihre eigenen Datentypen"] },
+        { it: ["Peso", "disponibile", "disponibile", "disponibile", "condiviso", "disponibile (gap-fill)", "non letto da FitMesh", "Solo via canale diretto Samsung per FitMesh"], en: ["Weight", "available", "available", "available", "shared", "available (gap-fill)", "not read by FitMesh", "Direct Samsung channel only for FitMesh"], de: ["Gewicht", "verfügbar", "verfügbar", "verfügbar", "geteilt", "verfügbar (Gap-Fill)", "nicht von FitMesh gelesen", "Für FitMesh nur über den direkten Samsung-Kanal"] },
+        { it: ["Composizione corporea", "disponibile", "disponibile con limiti", "disponibile (percentuale di grasso)", "non documentato (non citato nella pagina Samsung-specifica)", "disponibile (gap-fill)", "non letto da FitMesh", "Solo via canale diretto Samsung per FitMesh"], en: ["Body composition", "available", "available with limits", "available (fat percentage)", "not documented (not mentioned on the Samsung-specific page)", "available (gap-fill)", "not read by FitMesh", "Direct Samsung channel only for FitMesh"], de: ["Körperzusammensetzung", "verfügbar", "verfügbar mit Einschränkungen", "verfügbar (Fettanteil)", "nicht dokumentiert (auf der Samsung-spezifischen Seite nicht erwähnt)", "verfügbar (Gap-Fill)", "nicht von FitMesh gelesen", "Für FitMesh nur über den direkten Samsung-Kanal"] },
+        { it: ["Pressione arteriosa", "non verificato sulla versione pubblica", "non documentato in questa tabella specifica", "non documentato in questa tabella specifica", "non documentato (non citato nella pagina Samsung-specifica)", "disponibile (gap-fill)", "non letto da FitMesh", "Solo via canale diretto Samsung per FitMesh"], en: ["Blood pressure", "not verified on the public version", "not documented in this specific table", "not documented in this specific table", "not documented (not mentioned on the Samsung-specific page)", "available (gap-fill)", "not read by FitMesh", "Direct Samsung channel only for FitMesh"], de: ["Blutdruck", "auf der öffentlichen Version nicht verifiziert", "in dieser speziellen Tabelle nicht dokumentiert", "in dieser speziellen Tabelle nicht dokumentiert", "nicht dokumentiert (auf der Samsung-spezifischen Seite nicht erwähnt)", "verfügbar (Gap-Fill)", "nicht von FitMesh gelesen", "Für FitMesh nur über den direkten Samsung-Kanal"] },
+        { it: ["Apnea notturna", "disponibile (funzione con autorizzazione FDA)", "non condiviso (non è un tipo di dato Health Connect)", "non condiviso", "non condiviso (non è un tipo di dato Health Connect)", "disponibile con limiti (solo flag booleano, priorità Samsung)", "non condiviso", "Mai il dato grezzo, solo un flag rilevata/non rilevata"], en: ["Sleep apnea", "available (FDA-cleared feature)", "not shared (not a Health Connect data type)", "not shared", "not shared (not a Health Connect data type)", "available with limits (boolean flag only, Samsung priority)", "not shared", "Never the raw data, only a detected/not-detected flag"], de: ["Schlafapnoe", "verfügbar (FDA-zugelassene Funktion)", "nicht geteilt (kein Health-Connect-Datentyp)", "nicht geteilt", "nicht geteilt (kein Health-Connect-Datentyp)", "verfügbar mit Einschränkungen (nur boolesches Flag, Samsung-Priorität)", "nicht geteilt", "Nie die Rohdaten, nur ein Erkannt/Nicht-erkannt-Flag"] },
+        { it: ["ECG", "non verificato sulla versione pubblica", "non documentato", "non documentato", "NON condiviso (esplicito nella fonte Samsung-specifica, come \"avviso salute\")", "non letto da FitMesh", "non letto da FitMesh", "Assente da tutte le fonti verificate, in entrambe le direzioni; la pagina Samsung-specifica lo esclude esplicitamente insieme alle notifiche di ritmo irregolare"], en: ["ECG", "not verified on the public version", "not documented", "not documented", "NOT shared (explicit on the Samsung-specific source, as a \"health alert\")", "not read by FitMesh", "not read by FitMesh", "Absent from every verified source, in both directions; the Samsung-specific page explicitly excludes it along with irregular rhythm notifications"], de: ["EKG", "auf der öffentlichen Version nicht verifiziert", "nicht dokumentiert", "nicht dokumentiert", "NICHT geteilt (explizit auf der Samsung-spezifischen Quelle, als \"Gesundheitshinweis\")", "nicht von FitMesh gelesen", "nicht von FitMesh gelesen", "In keiner verifizierten Quelle vorhanden, in beide Richtungen; die Samsung-spezifische Seite schließt es zusammen mit Benachrichtigungen zu unregelmäßigem Rhythmus ausdrücklich aus"] },
+        { it: ["Daily Cardio Load", "disponibile", "non condiviso (punteggio proprietario)", "non condiviso", "non condiviso (punteggio proprietario)", "non letto da FitMesh", "non condiviso", "Calcolo interno Samsung Health, nessun tipo di dato Health Connect corrispondente"], en: ["Daily Cardio Load", "available", "not shared (proprietary score)", "not shared", "not shared (proprietary score)", "not read by FitMesh", "not shared", "Internal Samsung Health calculation, no corresponding Health Connect data type"], de: ["Daily Cardio Load", "verfügbar", "nicht geteilt (proprietärer Score)", "nicht geteilt", "nicht geteilt (proprietärer Score)", "nicht von FitMesh gelesen", "nicht geteilt", "Interne Samsung-Health-Berechnung, kein entsprechender Health-Connect-Datentyp"] },
+        { it: ["Fitness Index", "disponibile", "non condiviso", "non condiviso", "non condiviso", "non letto da FitMesh", "non condiviso", "Richiede BIA e VO₂ max come input interni a Samsung Health; FitMesh non lo replica"], en: ["Fitness Index", "available", "not shared", "not shared", "not shared", "not read by FitMesh", "not shared", "Requires BIA and VO2 max as internal Samsung Health inputs; FitMesh doesn't replicate it"], de: ["Fitness Index", "verfügbar", "nicht geteilt", "nicht geteilt", "nicht geteilt", "nicht von FitMesh gelesen", "nicht geteilt", "Erfordert BIA und VO2max als interne Samsung-Health-Eingaben; FitMesh repliziert ihn nicht"] },
+        { it: ["Heart Health Score", "disponibile", "non condiviso", "non condiviso", "non condiviso", "non letto da FitMesh", "non condiviso", "Punteggio proprietario Samsung, formula non pubblica"], en: ["Heart Health Score", "available", "not shared", "not shared", "not shared", "not read by FitMesh", "not shared", "Proprietary Samsung score, non-public formula"], de: ["Heart Health Score", "verfügbar", "nicht geteilt", "nicht geteilt", "nicht geteilt", "nicht von FitMesh gelesen", "nicht geteilt", "Proprietärer Samsung-Score, nicht öffentliche Formel"] },
+        { it: ["Vitals (funzione aggregata)", "disponibile", "non applicabile", "non applicabile", "non applicabile (vedi sopra)", "vedi le metriche componenti sopra", "vedi le metriche componenti sopra", "Non è un dato singolo esportabile: le sue 5 metriche (battito, HRV, freq. respiratoria, temp. cutanea, SpO₂) sono valutate riga per riga sopra"], en: ["Vitals (aggregate feature)", "available", "not applicable", "not applicable", "not applicable (see above)", "see the component metrics above", "see the component metrics above", "Not a single exportable data point: its 5 metrics (heart rate, HRV, respiratory rate, skin temperature, SpO2) are evaluated row by row above"], de: ["Vitals (Sammelfunktion)", "verfügbar", "nicht zutreffend", "nicht zutreffend", "nicht zutreffend (siehe oben)", "siehe Einzelkennzahlen oben", "siehe Einzelkennzahlen oben", "Kein einzelner exportierbarer Datenpunkt: seine 5 Kennzahlen (Herzfrequenz, HRV, Atemfrequenz, Hauttemperatur, SpO2) werden oben zeilenweise bewertet"] },
+      ],
+    },
+
+    { type: "heading", level: 2, locales: ["it", "en", "de"], text: { it: "Perché una metrica può sparire lungo il percorso", en: "Why a Metric Can Disappear Along the Path", de: "Warum eine Kennzahl auf dem Weg verschwinden kann" } },
+    {
+      type: "list",
+      locales: ["it", "en", "de"],
+      items: {
+        it: [
+          "È un punteggio proprietario (Heart Health Score, Fitness Index, Daily Cardio Load), non un dato grezzo: non esiste come tipo di dato esportabile.",
+          "Samsung Health non lo scrive in Health Connect per quel modello o quella versione.",
+          "Il tipo di dato esiste nello standard Health Connect, ma l'app sorgente non lo pubblica comunque.",
+          "L'app destinataria non richiede il permesso per quel tipo di dato specifico.",
+          "La funzione è limitata per regione o dispositivo.",
+          "La sincronizzazione tra Galaxy Watch e Samsung Health non è ancora avvenuta.",
+          "L'app destinataria calcola un valore diverso con la propria formula, non lo stesso dato.",
+          "Duplicati e priorità tra fonti diverse possono cambiare il valore finale mostrato.",
+        ],
+        en: [
+          "It's a proprietary score (Heart Health Score, Fitness Index, Daily Cardio Load), not raw data: it doesn't exist as an exportable data type.",
+          "Samsung Health doesn't write it to Health Connect for that model or version.",
+          "The data type exists in the Health Connect standard, but the source app doesn't publish it anyway.",
+          "The receiving app doesn't request permission for that specific data type.",
+          "The feature is limited by region or device.",
+          "Syncing between the Galaxy Watch and Samsung Health hasn't happened yet.",
+          "The receiving app computes a different value with its own formula, not the same data.",
+          "Duplicates and source priority can change the final value shown.",
+        ],
+        de: [
+          "Es ist ein proprietärer Score (Heart Health Score, Fitness Index, Daily Cardio Load), keine Rohdaten: Er existiert nicht als exportierbarer Datentyp.",
+          "Samsung Health schreibt ihn für dieses Modell oder diese Version nicht in Health Connect.",
+          "Der Datentyp existiert im Health-Connect-Standard, aber die Quell-App veröffentlicht ihn trotzdem nicht.",
+          "Die empfangende App fordert keine Berechtigung für diesen spezifischen Datentyp an.",
+          "Die Funktion ist regional oder geräteabhängig eingeschränkt.",
+          "Die Synchronisierung zwischen Galaxy Watch und Samsung Health hat noch nicht stattgefunden.",
+          "Die empfangende App berechnet mit ihrer eigenen Formel einen anderen Wert, nicht dieselben Daten.",
+          "Duplikate und Quellenpriorität können den angezeigten Endwert verändern.",
+        ],
+      },
+    },
+    { type: "heading", level: 3, locales: ["it", "en", "de"], text: { it: "Checklist pratica", en: "Practical Checklist", de: "Praktische Checkliste" } },
+    {
+      type: "list",
+      locales: ["it", "en", "de"],
+      items: {
+        it: [
+          "Controlla l'ultimo sync del Galaxy Watch con Samsung Health.",
+          "Verifica i permessi di Samsung Health per quel tipo di dato.",
+          "Controlla di aver dato il consenso al trattamento dei dati salute.",
+          "In Health Connect, verifica le autorizzazioni per tipo di dato, non solo per app.",
+          "Controlla l'origine del record dentro Health Connect (quale app lo ha scritto).",
+          "Verifica l'intervallo temporale che stai guardando.",
+          "Controlla la versione di Samsung Health installata.",
+          "Controlla la versione di Android.",
+          "Verifica la disponibilità regionale della funzione specifica.",
+        ],
+        en: [
+          "Check the Galaxy Watch's last sync with Samsung Health.",
+          "Check Samsung Health's permissions for that data type.",
+          "Check that you've given consent for health data processing.",
+          "In Health Connect, check permissions by data type, not just by app.",
+          "Check the record's origin inside Health Connect (which app wrote it).",
+          "Check the time range you're looking at.",
+          "Check the installed Samsung Health version.",
+          "Check the Android version.",
+          "Check the regional availability of the specific feature.",
+        ],
+        de: [
+          "Prüfe die letzte Synchronisierung der Galaxy Watch mit Samsung Health.",
+          "Prüfe die Berechtigungen von Samsung Health für diesen Datentyp.",
+          "Prüfe, ob du der Verarbeitung von Gesundheitsdaten zugestimmt hast.",
+          "Prüfe in Health Connect die Berechtigungen pro Datentyp, nicht nur pro App.",
+          "Prüfe die Herkunft des Eintrags innerhalb von Health Connect (welche App ihn geschrieben hat).",
+          "Prüfe den Zeitraum, den du betrachtest.",
+          "Prüfe die installierte Samsung-Health-Version.",
+          "Prüfe die Android-Version.",
+          "Prüfe die regionale Verfügbarkeit der spezifischen Funktion.",
+        ],
+      },
+    },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "Questa checklist aiuta a diagnosticare la maggior parte dei casi, non a risolverli tutti.",
+        en: "This checklist helps diagnose most cases, not resolve every single one.",
+        de: "Diese Checkliste hilft, die meisten Fälle zu diagnostizieren, nicht jeden einzelnen zu lösen.",
+      },
+    },
+
+    { type: "heading", level: 2, locales: ["it", "en", "de"], text: { it: "Metodologia e fonti", en: "Methodology and Sources", de: "Methodik und Quellen" } },
+    {
+      type: "paragraph",
+      locales: ["it", "en", "de"],
+      text: {
+        it: "Ogni claim su Samsung Health, Health Connect e Google Health in questa sezione è verificato direttamente sul testo delle pagine ufficiali citate (fetch diretto, incrociato con lettura del sorgente HTML grezzo dove il contenuto lo richiedeva). Le affermazioni sul comportamento di FitMesh sono verificate nel codice sorgente dell'app, non dedotte dalla documentazione Samsung o Google. Durante un audit tecnico dei percorsi di sincronizzazione abbiamo verificato che la disponibilità di una metrica cambia a seconda del canale utilizzato: nessun claim di questa sezione generalizza oltre la fonte che lo sostiene. Data di verifica: 22 luglio 2026.",
+        en: "Every claim about Samsung Health, Health Connect, and Google Health in this section is verified directly against the text of the official pages cited (direct fetch, cross-checked against the raw HTML source where the content required it). Claims about FitMesh's behavior are verified in the app's source code, not inferred from Samsung or Google documentation. During a technical audit of the sync paths, we verified that a metric's availability changes depending on the channel used: no claim in this section generalizes beyond the source that supports it. Verification date: July 22, 2026.",
+        de: "Jede Behauptung zu Samsung Health, Health Connect und Google Health in diesem Abschnitt ist direkt am Text der zitierten offiziellen Seiten überprüft (direkter Abruf, abgeglichen mit dem rohen HTML-Quelltext, wo der Inhalt es erforderte). Aussagen zum Verhalten von FitMesh sind im Quellcode der App verifiziert, nicht aus der Samsung- oder Google-Dokumentation abgeleitet. Bei einem technischen Audit der Synchronisierungswege haben wir festgestellt, dass die Verfügbarkeit einer Kennzahl je nach genutztem Kanal variiert: Keine Aussage in diesem Abschnitt verallgemeinert über die sie stützende Quelle hinaus. Datum der Überprüfung: 22. Juli 2026.",
+      },
+    },
   ],
   faq: [
     {
@@ -1061,11 +1474,146 @@ export const post: BlogPost = {
         ko: "세 가지 일반적인 경우. 첫째: Samsung Health → 설정 → Health Connect가 승인되지 않음(2024년까지 많은 기기의 기본 상태). 둘째: 일부 데이터 유형만 승인됨. 셋째: 오래된 Samsung Health 버전(약 6.20 미만)에는 HC 동기화가 없음. 업데이트하고 재승인하세요.",
       },
     },
+
+    // ── P1.3M: FAQ nuove, SOLO it/en/de. Aggiunte in coda, mai riordinate:
+    // stessa ragione di stabilità path degli indici body sopra.
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Samsung Health e Health Connect sono la stessa cosa?", en: "Are Samsung Health and Health Connect the Same Thing?", de: "Sind Samsung Health und Health Connect dasselbe?" },
+      a: {
+        it: "No. Samsung Health è l'app che riceve i dati dal Galaxy Watch e mostra punteggi proprietari; Health Connect è il livello di scambio on-device di Android su cui Samsung Health può scrivere un sottoinsieme dei suoi dati.",
+        en: "No. Samsung Health is the app that receives data from the Galaxy Watch and displays proprietary scores; Health Connect is Android's on-device exchange layer that Samsung Health can write a subset of its data to.",
+        de: "Nein. Samsung Health ist die App, die Daten von der Galaxy Watch empfängt und proprietäre Scores anzeigt; Health Connect ist die geräteinterne Austauschebene von Android, in die Samsung Health einen Teil seiner Daten schreiben kann.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Google Health sostituisce Health Connect?", en: "Does Google Health Replace Health Connect?", de: "Ersetzt Google Health Health Connect?" },
+      a: {
+        it: "No. Sono due sistemi Google distinti: la Google Health API è un'infrastruttura cloud (evoluzione della Fitbit Web API), Health Connect è uno store on-device. La documentazione ufficiale non li collega esplicitamente e non dichiara una sostituzione.",
+        en: "No. They're two distinct Google systems: the Google Health API is a cloud infrastructure (the evolution of the Fitbit Web API), Health Connect is an on-device store. The official documentation doesn't explicitly link them and doesn't declare a replacement.",
+        de: "Nein. Es sind zwei getrennte Google-Systeme: Die Google Health API ist eine Cloud-Infrastruktur (die Weiterentwicklung der Fitbit Web API), Health Connect ist ein geräteinterner Speicher. Die offizielle Dokumentation verknüpft sie nicht explizit und erklärt keinen Ersatz.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Google Health si collega direttamente al Galaxy Watch?", en: "Does Google Health Connect Directly to the Galaxy Watch?", de: "Verbindet sich Google Health direkt mit der Galaxy Watch?" },
+      a: {
+        it: "No. Il supporto ufficiale Google lo dichiara esplicitamente: \"The Google Health app does not connect directly to Samsung Galaxy watches.\" Riceve dati solo tramite Samsung Health e Health Connect, con consenso esplicito attivato in Samsung Health.",
+        en: "No. Google's official support states this explicitly: \"The Google Health app does not connect directly to Samsung Galaxy watches.\" It only receives data through Samsung Health and Health Connect, with explicit consent activated in Samsung Health.",
+        de: "Nein. Der offizielle Google-Support stellt das ausdrücklich fest: \"The Google Health app does not connect directly to Samsung Galaxy watches.\" Sie empfängt Daten nur über Samsung Health und Health Connect, mit ausdrücklicher Zustimmung, die in Samsung Health aktiviert wird.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "FitMesh legge direttamente Samsung Health?", en: "Does FitMesh Read Samsung Health Directly?", de: "Liest FitMesh Samsung Health direkt aus?" },
+      a: {
+        it: "FitMesh legge un sottoinsieme di dati Samsung Health tramite un canale diretto (Samsung Health Data SDK, approvazione partner ottenuta), verificato nel codice: battito e sonno con priorità, più temperatura cutanea, allenamenti, composizione corporea, pressione arteriosa e apnea notturna (solo come flag) disponibili solo da questo canale.",
+        en: "FitMesh reads a subset of Samsung Health data through a direct channel (Samsung Health Data SDK, partner approval obtained), verified in the code: heart rate and sleep with priority, plus skin temperature, workouts, body composition, blood pressure, and sleep apnea (flag only) available only from this channel.",
+        de: "FitMesh liest über einen direkten Kanal (Samsung Health Data SDK, Partner-Freigabe erhalten) einen Teil der Samsung-Health-Daten, im Code verifiziert: Herzfrequenz und Schlaf mit Priorität, außerdem Hauttemperatur, Trainingseinheiten, Körperzusammensetzung, Blutdruck und Schlafapnoe (nur als Flag), ausschließlich über diesen Kanal verfügbar.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Perché un dato appare in Samsung Health ma non in Health Connect?", en: "Why Does a Value Show in Samsung Health but Not in Health Connect?", de: "Warum erscheint ein Wert in Samsung Health, aber nicht in Health Connect?" },
+      a: {
+        it: "Spesso perché è un punteggio proprietario (non un tipo di dato standard) oppure perché Samsung Health non lo scrive in Health Connect per quel modello o quella versione: sono due passaggi distinti, non automatici.",
+        en: "Often because it's a proprietary score (not a standard data type), or because Samsung Health doesn't write it to Health Connect for that model or version: these are two separate, non-automatic steps.",
+        de: "Oft, weil es sich um einen proprietären Score handelt (kein Standarddatentyp), oder weil Samsung Health ihn für dieses Modell oder diese Version nicht in Health Connect schreibt: Das sind zwei getrennte, nicht automatische Schritte.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Perché Google Health riceve VO₂ max ma FitMesh no?", en: "Why Does Google Health Get VO2 Max but FitMesh Doesn't?", de: "Warum erhält Google Health VO2max, FitMesh aber nicht?" },
+      a: {
+        it: "La documentazione ufficiale Google elenca il VO₂ max tra i dati che Google Health legge e scrive tramite Health Connect. FitMesh lo esclude deliberatamente nel proprio codice: ogni applicazione sceglie quali tipi di dato implementare, la disponibilità in un'app non implica la disponibilità in un'altra.",
+        en: "Google's official documentation lists VO2 max among the data Google Health reads and writes via Health Connect. FitMesh deliberately excludes it in its own code: every application chooses which data types to implement, availability in one app doesn't imply availability in another.",
+        de: "Googles offizielle Dokumentation führt VO2max unter den Daten auf, die Google Health über Health Connect liest und schreibt. FitMesh schließt es in seinem eigenen Code bewusst aus: Jede Anwendung entscheidet selbst, welche Datentypen sie implementiert, Verfügbarkeit in einer App bedeutet nicht Verfügbarkeit in einer anderen.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Health Connect conserva i dati nel cloud?", en: "Does Health Connect Store Data in the Cloud?", de: "Speichert Health Connect Daten in der Cloud?" },
+      a: {
+        it: "No. Secondo la documentazione ufficiale Android, Health Connect è uno store on-device: i dati restano sul telefono, non in un cloud Google o Samsung.",
+        en: "No. Per the official Android documentation, Health Connect is an on-device store: data stays on the phone, not in a Google or Samsung cloud.",
+        de: "Nein. Laut offizieller Android-Dokumentation ist Health Connect ein geräteinterner Speicher: Die Daten bleiben auf dem Telefon, nicht in einer Google- oder Samsung-Cloud.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Quali dati Galaxy Watch non arrivano a Google Health?", en: "Which Galaxy Watch Data Doesn't Reach Google Health?", de: "Welche Galaxy-Watch-Daten erreichen Google Health nicht?" },
+      a: {
+        it: "Due gruppi distinti. Non documentati da nessuna delle due fonti Google (né lette né scritte, per nessuna app): percorsi GPS dettagliati/lap split, ECG e notifiche di ritmo irregolare, oltre alla granularità minuto/ora. Documentati come tecnicamente supportati da Google Health ma esplicitamente non condivisi da Samsung Health per il Galaxy Watch: piani saliti, temperatura cutanea, frequenza cardiaca a riposo, HRV e frequenza respiratoria. Sono due tipi di assenza diversi: il primo è \"non documentato\", il secondo è \"documentato come non condiviso da Samsung\".",
+        en: "Two distinct groups. Not documented by either Google source at all (neither read nor written, for any app): detailed GPS routes/lap splits, ECG, and irregular rhythm notifications, plus minute/hour granularity. Documented as technically supported by Google Health but explicitly not shared by Samsung Health for the Galaxy Watch: floors climbed, skin temperature, resting heart rate, HRV, and respiratory rate. These are two different kinds of absence: the first is \"not documented,\" the second is \"documented as not shared by Samsung.\"",
+        de: "Zwei unterschiedliche Gruppen. Von keiner der beiden Google-Quellen dokumentiert (weder gelesen noch geschrieben, für keine App): detaillierte GPS-Strecken/Rundensplits, EKG und Benachrichtigungen zu unregelmäßigem Rhythmus sowie Minuten-/Stundenauflösung. Als technisch von Google Health unterstützt dokumentiert, aber von Samsung Health für die Galaxy Watch ausdrücklich nicht geteilt: Stockwerke, Hauttemperatur, Ruheherzfrequenz, HRV und Atemfrequenz. Das sind zwei verschiedene Arten des Fehlens: Die erste ist \"nicht dokumentiert\", die zweite ist \"dokumentiert als von Samsung nicht geteilt\".",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Se Google Health supporta HRV o temperatura cutanea, perché non vedo i dati del Galaxy Watch?", en: "If Google Health Supports HRV or Skin Temperature, Why Don't I See My Galaxy Watch Data?", de: "Wenn Google Health HRV oder Hauttemperatur unterstützt, warum sehe ich meine Galaxy-Watch-Daten nicht?" },
+      a: {
+        it: "Perché sono due domande distinte. Health Connect definisce quali tipi di dato esistono come standard; Google Health può essere tecnicamente capace di leggerli tramite Health Connect; ma è Samsung Health a decidere quali tipi effettivamente esportare per un dato dispositivo, e per il Galaxy Watch HRV e temperatura cutanea non sono tra quelli condivisi verso Google Health, secondo la pagina di supporto Samsung-specifica. La disponibilità reale cambia anche in base a permessi concessi, versione dell'app e regione: nessuno di questi fattori è sostituibile dagli altri.",
+        en: "Because they're two separate questions. Health Connect defines which data types exist as a standard; Google Health may be technically capable of reading them via Health Connect; but Samsung Health is the one that decides which types it actually exports for a given device, and for the Galaxy Watch, HRV and skin temperature aren't among those shared to Google Health, per the Samsung-specific support page. Real availability also depends on granted permissions, app version, and region: none of these factors substitutes for the others.",
+        de: "Weil es zwei getrennte Fragen sind. Health Connect legt fest, welche Datentypen als Standard existieren; Google Health mag technisch in der Lage sein, sie über Health Connect zu lesen; aber Samsung Health entscheidet, welche Typen es für ein bestimmtes Gerät tatsächlich exportiert, und für die Galaxy Watch gehören HRV und Hauttemperatur laut der Samsung-spezifischen Support-Seite nicht zu den mit Google Health geteilten Daten. Die tatsächliche Verfügbarkeit hängt zusätzlich von erteilten Berechtigungen, App-Version und Region ab: Keiner dieser Faktoren ersetzt die anderen.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "FitMesh legge Energy Score o Daily Cardio Load?", en: "Does FitMesh Read Energy Score or Daily Cardio Load?", de: "Liest FitMesh den Energy Score oder Daily Cardio Load?" },
+      a: {
+        it: "No. Sono punteggi proprietari calcolati internamente da Samsung Health, senza un tipo di dato Health Connect corrispondente: FitMesh non li legge né li replica in nessun percorso.",
+        en: "No. They're proprietary scores calculated internally by Samsung Health, with no corresponding Health Connect data type: FitMesh doesn't read or replicate them via either path.",
+        de: "Nein. Es sind proprietäre Scores, die intern von Samsung Health berechnet werden, ohne entsprechenden Health-Connect-Datentyp: FitMesh liest oder repliziert sie über keinen der beiden Wege.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Posso usare FitMesh senza Google Health?", en: "Can I Use FitMesh Without Google Health?", de: "Kann ich FitMesh ohne Google Health nutzen?" },
+      a: {
+        it: "Sì. FitMesh non richiede Google Health: legge i dati del Galaxy Watch tramite Health Connect e il canale diretto Samsung Health Data SDK, indipendentemente da qualunque connessione con l'app o l'API Google Health.",
+        en: "Yes. FitMesh doesn't require Google Health: it reads Galaxy Watch data via Health Connect and the direct Samsung Health Data SDK channel, independent of any connection to the Google Health app or API.",
+        de: "Ja. FitMesh benötigt Google Health nicht: Es liest Galaxy-Watch-Daten über Health Connect und den direkten Samsung Health Data SDK-Kanal, unabhängig von jeder Verbindung zur Google-Health-App oder -API.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Il Samsung Health Data SDK funziona anche su iPhone?", en: "Does the Samsung Health Data SDK Work on iPhone Too?", de: "Funktioniert das Samsung Health Data SDK auch auf dem iPhone?" },
+      a: {
+        it: "No. Richiede Android 10 o superiore e l'app Samsung Health installata: la documentazione ufficiale lo conferma disponibile \"on all Samsung smartphones and non-Samsung Android smartphones\", non su iOS.",
+        en: "No. It requires Android 10 or higher and the Samsung Health app installed: the official documentation confirms it's available \"on all Samsung smartphones and non-Samsung Android smartphones,\" not on iOS.",
+        de: "Nein. Es erfordert Android 10 oder höher und die installierte Samsung-Health-App: Die offizielle Dokumentation bestätigt die Verfügbarkeit \"on all Samsung smartphones and non-Samsung Android smartphones\", nicht auf iOS.",
+      },
+    },
+    {
+      locales: ["it", "en", "de"],
+      q: { it: "Come posso verificare quale app ha scritto un dato?", en: "How Can I Check Which App Wrote a Piece of Data?", de: "Wie kann ich prüfen, welche App einen Datenpunkt geschrieben hat?" },
+      a: {
+        it: "Apri Health Connect, vai alla scheda del tipo di dato che ti interessa e controlla le app di origine con relativo permesso di scrittura: questo mostra quale app ha effettivamente scritto quel valore specifico.",
+        en: "Open Health Connect, go to the page for the data type you're interested in, and check the source apps with write permission: this shows which app actually wrote that specific value.",
+        de: "Öffne Health Connect, gehe zur Seite des betreffenden Datentyps und prüfe die Quell-Apps mit Schreibberechtigung: So siehst du, welche App diesen konkreten Wert tatsächlich geschrieben hat.",
+      },
+    },
   ],
   related: [
+    "galaxy-watch-ultra2-watch9-health-connect",
+    "come-funziona-health-connect",
+    "google-health-google-fit",
     "guida-sync-wearable-2026",
     "backup-galaxy-watch-pc",
-    "galaxy-watch-ultra2-watch9-health-connect",
+    "google-fit-api-dismissione-2026",
+  ],
+  // P1.3M: fonti primarie, valide per il JSON-LD `citation` di TUTTE le
+  // locale (metadato di schema, non contenuto visibile: non tocca cosa
+  // vedono le locale il cui body/faq restano invariati).
+  sources: [
+    "https://developer.samsung.com/health/data/overview.html",
+    "https://developer.samsung.com/health/data/process.html",
+    "https://developer.android.com/health-and-fitness/health-connect",
+    "https://developer.android.com/health-and-fitness/health-connect/data-types",
+    "https://support.google.com/googlehealth/answer/14236613",
+    "https://support.google.com/googlehealth/answer/14506680",
+    "https://developers.google.com/health",
   ],
   brandsMentioned: ["Samsung", "Google"],
   ldType: "BlogPosting",
