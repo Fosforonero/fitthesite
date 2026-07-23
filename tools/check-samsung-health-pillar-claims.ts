@@ -30,12 +30,31 @@
  * 13. Placeholder "[TBD" residuo nel contenuto pubblicabile.
  * 14. Em dash nel copy visibile (righe non-commento).
  *
+ * P1.3M-A (correzione bloccante 2026-07-23): 14506680 (capacità generica di
+ * Google Health via Health Connect) e 14236613 (condivisione effettiva
+ * Samsung -> Google Health, sezione Galaxy Watch) sono due fonti distinte
+ * che NON si correggono a vicenda. Un tipo di dato supportato da Google
+ * Health non è automaticamente condiviso da Samsung Health.
+ * 15. (Prosa) Una delle 5 metriche che Samsung NON condivide (piani saliti,
+ *     temperatura cutanea, frequenza cardiaca a riposo, HRV, frequenza
+ *     respiratoria) descritta in un contesto affermativo come condivisa da
+ *     Samsung verso Google Health (non negato).
+ * 16. (Strutturale) Le tabelle strutturate (matrice 25 metriche e tabella
+ *     Samsung-specifica) devono riportare le 5 metriche sopra come NON
+ *     condivise nella colonna "Samsung -> Google Health", anche se la
+ *     capacità generica di Google Health resta "disponibile"; VO2 max deve
+ *     restare l'eccezione documentata (condiviso).
+ * 17. (Strutturale/testuale) Le due fonti Google devono restare
+ *     esplicitamente distinte nel testo (dicitura "capacità generica" +
+ *     riferimento alla sezione Samsung-specifica); nessuna riga può
+ *     descrivere una fonte come "correzione" dell'altra.
+ *
  * Uso (Docker): npx tsx tools/check-samsung-health-pillar-claims.ts
  */
 import { post } from "@/lib/blog/posts/health-connect-vs-samsung-health";
 import { filterBlogContentForLocale } from "@/lib/blog/locale-filter";
 import { isBlogVariantIndexable } from "@/lib/blog/indexability";
-import { tl } from "@/lib/blog/types";
+import { tl, type BlogSection } from "@/lib/blog/types";
 import { locales } from "@/lib/i18n";
 import fs from "node:fs";
 import path from "node:path";
@@ -206,6 +225,150 @@ lines.forEach((line, i) => {
   const isComment = trimmed.startsWith("//") || trimmed.startsWith("*") || trimmed.startsWith("/*");
   if (!isComment && line.includes("—")) {
     errors.push(`[em-dash] riga ${i + 1}: "${line.trim().slice(0, 140)}"`);
+  }
+});
+
+// ── P1.3M-A: le 5 metriche che Samsung NON condivide con Google Health ──
+// (fonte Samsung-specifica 14236613), distinte dalla capacità generica di
+// Google Health via Health Connect (fonte generica 14506680). VO2 max è
+// l'eccezione nota: Samsung lo condivide davvero.
+const SAMSUNG_NOT_SHARED_METRICS = [
+  { key: "piani-saliti", re: /floors climbed|piani saliti|stockwerke/i },
+  { key: "temperatura-cutanea", re: /skin temperature|temperatura cutanea|hauttemperatur/i },
+  { key: "battito-a-riposo", re: /resting heart rate|battito a riposo|frequenza cardiaca a riposo|ruheherzfrequenz/i },
+  { key: "hrv", re: /\bhrv\b|heart rate variability|variabilit[aà] della frequenza cardiaca|herzfrequenzvariabilit[aä]t/i },
+  { key: "frequenza-respiratoria", re: /respiratory rate|frequenza respiratoria|atemfrequenz/i },
+];
+
+// ── 15. (Prosa) Metrica non condivisa da Samsung descritta come condivisa
+// verso Google Health, in un contesto affermativo non negato. Opera per
+// FRASE sui valori testuali già parsati di `post` (non su righe sorgente
+// grezze): le righe grezze mescolano it/en/de sullo stesso rigo fisico e un
+// controllo per riga produrrebbe falsi positivi su frasi corrette che
+// enumerano più metriche prima di una negazione lontana nella frase.
+const LOCALES3 = ["it", "en", "de"] as const;
+type TextHit = { path: string; text: string };
+const proseTexts: TextHit[] = [];
+post.body.forEach((section, idx) => {
+  if (section.type === "paragraph") {
+    for (const lc of LOCALES3) {
+      const v = section.text[lc];
+      if (v) proseTexts.push({ path: `body[${idx}].text.${lc}`, text: v });
+    }
+  } else if (section.type === "callout") {
+    for (const lc of LOCALES3) {
+      const v = section.body[lc];
+      if (v) proseTexts.push({ path: `body[${idx}].body.${lc}`, text: v });
+      const t = section.title?.[lc];
+      if (t) proseTexts.push({ path: `body[${idx}].title.${lc}`, text: t });
+    }
+  }
+});
+for (const faqItem of post.faq ?? []) {
+  for (const lc of LOCALES3) {
+    const v = faqItem.a[lc];
+    if (v) proseTexts.push({ path: `faq.a.${lc}`, text: v });
+  }
+}
+
+for (const { path, text } of proseTexts) {
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  for (const sentence of sentences) {
+    if (!/samsung/i.test(sentence) || !/google health/i.test(sentence)) continue;
+    // "condivid-e/i/a/ono" (presente/congiuntivo) E "condivis-o/a/i/e"
+    // (participio, stem irregolare come "dividere" -> "diviso"): una sola
+    // regex deve coprire entrambi, altrimenti "non condiviso" (participio,
+    // la forma più usata) sfuggirebbe al controllo.
+    const sharingVerb = /condivi[ds]\w*|shares?\b|shared\b|sharing\b|teilt\b|geteilt\b|teilen\b/i.test(sentence);
+    if (!sharingVerb) continue;
+    const negated = /\bnon\b|\bnot\b|\bnicht\b|\baren['’]?t\b|\bisn['’]?t\b|\bdoesn['’]?t\b|\bdon['’]?t\b/i.test(sentence);
+    if (negated) continue;
+    for (const m of SAMSUNG_NOT_SHARED_METRICS) {
+      if (m.re.test(sentence)) {
+        errors.push(`[samsung-non-condivide-${m.key}] ${path}: "${sentence.trim().slice(0, 160)}"`);
+      }
+    }
+  }
+}
+
+// ── 16. (Strutturale) Le tabelle riportano le 5 metriche come NON condivise
+// da Samsung, distinte dalla capacità generica di Google Health ─────────
+const isTable = (s: BlogSection): s is Extract<BlogSection, { type: "table" }> => s.type === "table";
+const tables = post.body.filter(isTable);
+
+const MATRIX_LABELS: Record<string, string> = {
+  "piani-saliti": "Piani saliti",
+  "temperatura-cutanea": "Temperatura cutanea",
+  "battito-a-riposo": "Battito a riposo",
+  hrv: "HRV",
+  "frequenza-respiratoria": "Frequenza respiratoria",
+};
+const matrixTable = tables.find((t) => t.headers.it[0] === "Metrica");
+if (!matrixTable) {
+  errors.push('[matrice-25-metriche-assente] nessuna tabella con header "Metrica" trovata nel post');
+} else {
+  const ghGenericIdx = matrixTable.headers.it.findIndex((h) => h.startsWith("Google Health"));
+  const samsungGhIdx = matrixTable.headers.it.findIndex((h) => h === "Samsung → Google Health");
+  if (samsungGhIdx === -1) {
+    errors.push('[colonna-samsung-google-health-assente] la matrice 25 metriche non ha una colonna "Samsung → Google Health" distinta dalla capacità generica');
+  } else {
+    for (const [key, label] of Object.entries(MATRIX_LABELS)) {
+      const row = matrixTable.rows.find((r) => r.it[0] === label);
+      if (!row) {
+        errors.push(`[matrice-riga-assente] riga "${label}" non trovata nella matrice 25 metriche`);
+        continue;
+      }
+      const value = row.it[samsungGhIdx] ?? "";
+      if (!/non condiviso/i.test(value)) {
+        errors.push(`[matrice-samsung-condivide-erroneamente-${key}] "${label}": colonna "Samsung → Google Health" = "${value}" (atteso "NON condiviso")`);
+      }
+      if (ghGenericIdx !== -1 && !/disponibile/i.test(row.it[ghGenericIdx] ?? "")) {
+        errors.push(`[matrice-capacita-generica-sparita-${key}] "${label}": la capacità generica di Google Health non risulta più "disponibile" (valore: "${row.it[ghGenericIdx]}"), la distinzione P1.3M-A perderebbe di senso`);
+      }
+    }
+  }
+}
+
+const TABLE_LABELS: Record<string, string> = {
+  "piani-saliti": "Piani saliti",
+  "temperatura-cutanea": "Temperatura cutanea",
+  "battito-a-riposo": "Frequenza cardiaca a riposo",
+  hrv: "HRV (variabilità della frequenza cardiaca)",
+  "frequenza-respiratoria": "Frequenza respiratoria",
+};
+const samsungTable = tables.find((t) => t.headers.it[0] === "Dato" && t.headers.it[1] === "Condiviso da Samsung Health verso Google Health");
+if (!samsungTable) {
+  errors.push("[tabella-samsung-specifica-assente] la tabella Samsung-specifica (fonte 14236613) non è stata trovata nel post");
+} else {
+  for (const [key, label] of Object.entries(TABLE_LABELS)) {
+    const row = samsungTable.rows.find((r) => r.it[0] === label);
+    if (!row) {
+      errors.push(`[tabella-samsung-riga-assente-${key}] riga "${label}" non trovata nella tabella Samsung-specifica`);
+      continue;
+    }
+    if (row.it[1] !== "No") {
+      errors.push(`[tabella-samsung-condivide-erroneamente-${key}] "${label}": stato = "${row.it[1]}" (atteso "No")`);
+    }
+  }
+  const vo2Row = samsungTable.rows.find((r) => r.it[0] === "VO₂ max");
+  if (!vo2Row || vo2Row.it[1] !== "Sì") {
+    errors.push(`[tabella-samsung-vo2max-alterato] VO₂ max dovrebbe restare "Sì" (l'unica eccezione condivisa): trovato "${vo2Row?.it[1]}"`);
+  }
+}
+
+// ── 17. (Strutturale/testuale) Le due fonti restano esplicitamente distinte ─
+if (!/capacit[aà]\s+generic|generic\s+capability|generische\s+F[aä]higkeit/i.test(content)) {
+  errors.push('[fonti-non-distinte] nessuna dicitura "capacità generica"/"generic capability" trovata: la tabella generica di Google Health rischia di essere confusa con la condivisione Samsung-specifica');
+}
+if (!/Samsung Galaxy Watch/i.test(content)) {
+  errors.push("[fonti-non-distinte] nessun riferimento alla sezione Samsung Galaxy Watch (fonte Samsung-specifica): rischio di fusione tra le due fonti");
+}
+lines.forEach((line, i) => {
+  const onesourceCorrectsTheOther =
+    /14506680.{0,60}(corregge|correct[s]?|corrigge|korrigiert).{0,60}14236613/i.test(line) ||
+    /14236613.{0,60}(corregge|correct[s]?|corrigge|korrigiert).{0,60}14506680/i.test(line);
+  if (onesourceCorrectsTheOther) {
+    errors.push(`[fonti-fuse-erroneamente] riga ${i + 1}: una fonte descritta come "correzione" dell'altra, il bug esatto di P1.3M-A: "${line.trim().slice(0, 160)}"`);
   }
 });
 
