@@ -1,5 +1,5 @@
 /**
- * P0.8 — guardrail sitewide title/description contro un `next start` reale.
+ * P0.8/P0.8A — guardrail sitewide title/description contro un `next start` reale.
  *
  * A differenza del vecchio `check-bing-seo-recommendations.ts` (che leggeva
  * `tl(post.hero.title, lc)` direttamente dal sorgente TS), questo script
@@ -10,15 +10,31 @@
  *
  * Tre livelli di severità:
  *  1. Bug sempre veri, a prescindere dalla baseline: title/description
- *     mancanti, duplicati su canonical diversi, URL in sitemap che risulta
- *     redirect/noindex quando fetchato dal vivo.
- *  2. Le due liste esplicite P0.8 (10 title Bing, 8 description Bing):
- *     soglie dure (title ≤60c, description 140-160c Unicode).
- *  3. Debito sitewide preesistente (title >60c o description fuori
- *     140-160c su URL NON nella lista P0.8): non bloccante di per sé, ma
- *     il conteggio non deve MAI aumentare oltre la baseline registrata in
- *     `docs/seo/bing-metadata-baseline.json` — altrimenti è una regressione
- *     nuova, non debito vecchio.
+ *     mancanti su URL indicizzabili (mai baselineabili).
+ *  2. Le due liste esplicite P0.8 (10 title Bing, 8 description Bing — la
+ *     seconda e' un sottoinsieme delle 28 segnalate da Bing Webmaster
+ *     Tools, in attesa dell'export CSV completo, vedi PR): soglie dure
+ *     (title <=60c, description 140-160c Unicode).
+ *  3. Debito sitewide preesistente (title >60c, description fuori
+ *     140-160c, URL in sitemap non realmente indicizzabile dal vivo,
+ *     title/description duplicati) su URL NON nella lista P0.8: non
+ *     bloccante di per se', ma tracciato con IDENTITA' STABILE (lista di
+ *     URL esatte, non un conteggio aggregato) in
+ *     `docs/seo/bing-metadata-baseline.json`.
+ *
+ *     P0.8A: il conteggio aggregato nascondeva regressioni — una URL
+ *     vecchia poteva essere corretta mentre una URL nuova entrava nello
+ *     stesso debito, lasciando il totale invariato e il guardrail verde
+ *     per errore. Ora ogni categoria e' un insieme di URL: un problema
+ *     baseline puo' scomparire senza intervento, ma qualunque URL NON
+ *     presente nell'insieme baseline corrispondente fa fallire il
+ *     guardrail — non puo' essere assorbita da un conteggio che resta
+ *     sotto soglia. Per i gruppi duplicati la chiave e' il testo esatto
+ *     (title o description) mappato all'insieme di URL che lo condividono:
+ *     una nuova URL che si aggiunge a un gruppo duplicato gia' noto viene
+ *     rilevata anche se il gruppo esisteva gia'. Aggiornare la baseline
+ *     richiede sempre `--write-baseline` esplicito e un diff revisionabile
+ *     in git — non viene mai rigenerata automaticamente in build/CI.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -31,7 +47,7 @@ const FETCH_TIMEOUT_MS = 15000;
 
 const errors: string[] = [];
 
-// ── Le due liste esplicite P0.8 (Bing Webmaster Tools + Keyword Report) ────
+// ── Le due liste esplicite P0.8 (Bing Webmaster Tools) ─────────────────────
 
 // Nota: la URL Bing originale per #7 era troncata ("/it/blog/fitbit-data-not",
 // 404 reale) — risolta come unico match plausibile per prefisso di slug
@@ -49,6 +65,12 @@ const BING_TITLE_URLS = [
   "/pl/blog/pixel-watch-dane-osobisty-panel",
 ];
 
+// P0.8A: Bing segnala 28 URL "description troppo corta" in totale; questa
+// lista contiene solo le 8 fornite come esempio nel brief originale. Le 20
+// restanti richiedono l'export CSV reale di Bing Webmaster Tools
+// (Recommendations -> Meta descriptions on many pages are too short ->
+// Download all) — NON dedotte dalle 795 anomalie sitewide, per istruzione
+// esplicita. Vedi PR: bloccato in attesa del CSV.
 const BING_DESCRIPTION_URLS = [
   "/ja/blog/fitbit-data-google-ekusupoto",
   "/ja/blog",
@@ -129,6 +151,53 @@ async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T)
   return results;
 }
 
+// ── Baseline identity-based (P0.8A) ─────────────────────────────────────
+
+interface DuplicateGroupEntry {
+  value: string;
+  urls: string[];
+}
+
+interface Baseline {
+  generatedAt: string;
+  note: string;
+  totalIndexableUrls: number;
+  longTitleUrls: string[];
+  outOfRangeDescriptionUrls: string[];
+  sitemapInconsistentUrls: string[];
+  duplicateTitleGroups: DuplicateGroupEntry[];
+  duplicateDescriptionGroups: DuplicateGroupEntry[];
+}
+
+function groupsToMap(groups: DuplicateGroupEntry[]): Map<string, Set<string>> {
+  const m = new Map<string, Set<string>>();
+  for (const g of groups) m.set(g.value, new Set(g.urls));
+  return m;
+}
+
+function diffUrlSet(label: string, current: string[], baselineList: string[] | undefined): string[] {
+  const baselineSet = new Set(baselineList ?? []);
+  return current
+    .filter((u) => !baselineSet.has(u))
+    .map((u) => `[regressione-${label}] ${u} — nuovo, non presente in baseline`);
+}
+
+function diffDuplicateGroups(label: string, current: DuplicateGroupEntry[], baseline: DuplicateGroupEntry[] | undefined): string[] {
+  const baselineMap = groupsToMap(baseline ?? []);
+  const out: string[] = [];
+  for (const group of current) {
+    const baselineUrls = baselineMap.get(group.value);
+    for (const url of group.urls) {
+      if (!baselineUrls || !baselineUrls.has(url)) {
+        out.push(
+          `[regressione-${label}] ${url} — nuovo in un gruppo duplicato (valore: "${group.value.slice(0, 60)}${group.value.length > 60 ? "…" : ""}")`,
+        );
+      }
+    }
+  }
+  return out;
+}
+
 // ── Fase A: sitemap come fonte di verità per l'universo indicizzabile ────
 
 async function main() {
@@ -155,11 +224,13 @@ async function main() {
   const descOwners = new Map<string, string[]>();
   let missingTitle = 0;
   let missingDescription = 0;
-  const inconsistentSitemapEntries: string[] = [];
+  const sitemapInconsistentUrls: string[] = [];
+  const sitemapInconsistentDetails: string[] = [];
 
   for (const p of pages) {
     if (p.isRedirect || p.status !== 200 || (p.robots && /noindex/i.test(p.robots))) {
-      inconsistentSitemapEntries.push(
+      sitemapInconsistentUrls.push(p.pathname);
+      sitemapInconsistentDetails.push(
         p.isRedirect || p.status !== 200
           ? `${p.pathname} risponde ${p.status} dal vivo`
           : `${p.pathname} ha robots="${p.robots}" (noindex) dal vivo`,
@@ -183,29 +254,26 @@ async function main() {
       descOwners.set(p.description, owners);
     }
   }
+  sitemapInconsistentUrls.sort();
 
-  // Duplicati e URL sitemap non realmente indicizzabili dal vivo: debito
-  // sitewide PRE-ESISTENTE in larga parte dovuto a locale non tradotte che
-  // ricadono sul fallback EN (stesso meccanismo di lib/i18n.ts
-  // UNTRANSLATED_CONTENT_LOCALES, ma su pagine diverse dal blog) — fuori
-  // scope P0.8. Baselineati sotto insieme a title/description sitewide,
-  // NON hard-error incondizionato: altrimenti il guardrail fallirebbe per
-  // sempre su debito noto invece di catturare regressioni NUOVE.
-  const duplicateTitleDetails: string[] = [];
-  for (const [title, owners] of titleOwners) {
-    if (owners.length > 1) {
-      duplicateTitleDetails.push(`"${title}" condiviso da ${owners.length} URL: ${owners.slice(0, 5).join(", ")}${owners.length > 5 ? "…" : ""}`);
-    }
-  }
-  const duplicateDescriptionDetails: string[] = [];
-  for (const [desc, owners] of descOwners) {
-    if (owners.length > 1) {
-      duplicateDescriptionDetails.push(`"${desc.slice(0, 60)}…" condivisa da ${owners.length} URL: ${owners.slice(0, 5).join(", ")}${owners.length > 5 ? "…" : ""}`);
-    }
-  }
-  const duplicateTitles = duplicateTitleDetails.length;
-  const duplicateDescriptions = duplicateDescriptionDetails.length;
-  const sitemapButRedirectOrNoindex = inconsistentSitemapEntries.length;
+  // Duplicati: debito sitewide PRE-ESISTENTE in larga parte dovuto a locale
+  // non tradotte che ricadono sul fallback EN (stesso meccanismo di
+  // lib/i18n.ts UNTRANSLATED_CONTENT_LOCALES, ma su pagine diverse dal
+  // blog) — fuori scope P0.8. Tracciato per identita' (value -> URL), non
+  // per conteggio aggregato: vedi commento di testa del file.
+  const currentDuplicateTitleGroups: DuplicateGroupEntry[] = [...titleOwners.entries()]
+    .filter(([, owners]) => owners.length > 1)
+    .map(([value, owners]) => ({ value, urls: [...owners].sort() }))
+    .sort((a, b) => a.value.localeCompare(b.value));
+  const currentDuplicateDescriptionGroups: DuplicateGroupEntry[] = [...descOwners.entries()]
+    .filter(([, owners]) => owners.length > 1)
+    .map(([value, owners]) => ({ value, urls: [...owners].sort() }))
+    .sort((a, b) => a.value.localeCompare(b.value));
+
+  // Metrica informativa (non usata per l'enforcement, solo per il riepilogo):
+  // sum(max(0, owners.length - 1)) per categoria.
+  const duplicateTitleUrlCount = currentDuplicateTitleGroups.reduce((sum, g) => sum + Math.max(0, g.urls.length - 1), 0);
+  const duplicateDescriptionUrlCount = currentDuplicateDescriptionGroups.reduce((sum, g) => sum + Math.max(0, g.urls.length - 1), 0);
 
   // ── Le 10 URL Bing: title renderizzato ≤60c ──────────────────────────
   let bingTitleFailures = 0;
@@ -226,7 +294,7 @@ async function main() {
     }
   }
 
-  // ── Le 8 URL Bing: description renderizzata 140-160c ─────────────────
+  // ── Le URL Bing description (sottoinsieme noto delle 28): 140-160c ───
   let bingDescFailures = 0;
   for (const pathname of BING_DESCRIPTION_URLS) {
     const page = pages.find((p) => p.pathname === pathname);
@@ -245,73 +313,60 @@ async function main() {
     }
   }
 
-  // ── Debito sitewide preesistente: baseline esplicita, non allowlist ──
-  const sitewideLongTitles = pages.filter(
-    (p) => p.title && !p.isRedirect && p.status === 200 && !BING_TITLE_URLS.includes(p.pathname) && unicodeLength(p.title) > 60,
-  ).length;
-  const sitewideShortOrLongDescriptions = pages.filter((p) => {
-    if (!p.description || p.isRedirect || p.status !== 200 || BING_DESCRIPTION_URLS.includes(p.pathname)) return false;
-    const len = unicodeLength(p.description);
-    return len < 140 || len > 160;
-  }).length;
+  // ── Debito sitewide preesistente: identita' stabile per URL ──────────
+  const currentLongTitleUrls = pages
+    .filter((p) => p.title && !p.isRedirect && p.status === 200 && !BING_TITLE_URLS.includes(p.pathname) && unicodeLength(p.title) > 60)
+    .map((p) => p.pathname)
+    .sort();
+  const currentOutOfRangeDescriptionUrls = pages
+    .filter((p) => {
+      if (!p.description || p.isRedirect || p.status !== 200 || BING_DESCRIPTION_URLS.includes(p.pathname)) return false;
+      const len = unicodeLength(p.description);
+      return len < 140 || len > 160;
+    })
+    .map((p) => p.pathname)
+    .sort();
 
-  interface Baseline {
-    sitewideLongTitles: number;
-    sitewideShortOrLongDescriptions: number;
-    duplicateTitles: number;
-    duplicateDescriptions: number;
-    sitemapButRedirectOrNoindex: number;
-    totalIndexableUrls: number;
-  }
   let baseline: Baseline | null = null;
   if (fs.existsSync(BASELINE_PATH)) {
     baseline = JSON.parse(fs.readFileSync(BASELINE_PATH, "utf-8"));
   }
 
-  const regressionChecks: Array<[label: string, current: number, key: keyof Baseline]> = [
-    ["title-sitewide", sitewideLongTitles, "sitewideLongTitles"],
-    ["description-sitewide", sitewideShortOrLongDescriptions, "sitewideShortOrLongDescriptions"],
-    ["title-duplicato", duplicateTitles, "duplicateTitles"],
-    ["description-duplicata", duplicateDescriptions, "duplicateDescriptions"],
-    ["sitemap-inconsistente", sitemapButRedirectOrNoindex, "sitemapButRedirectOrNoindex"],
-  ];
-
   if (!baseline) {
     errors.push(
-      `[baseline-mancante] ${path.relative(repoRoot, BASELINE_PATH)} non esiste — esegui con --write-baseline per generarla (debito attuale: ${sitewideLongTitles} title >60c, ${sitewideShortOrLongDescriptions} description fuori 140-160c, ${duplicateTitles} title duplicati, ${duplicateDescriptions} description duplicate, ${sitemapButRedirectOrNoindex} URL sitemap non indicizzabili dal vivo, su ${pathnames.length} URL totali)`,
+      `[baseline-mancante] ${path.relative(repoRoot, BASELINE_PATH)} non esiste — esegui con --write-baseline per generarla (debito attuale: ${currentLongTitleUrls.length} title >60c, ${currentOutOfRangeDescriptionUrls.length} description fuori 140-160c, ${currentDuplicateTitleGroups.length} gruppi title duplicati, ${currentDuplicateDescriptionGroups.length} gruppi description duplicate, ${sitemapInconsistentUrls.length} URL sitemap non indicizzabili dal vivo, su ${pathnames.length} URL totali)`,
     );
   } else {
-    for (const [label, current, key] of regressionChecks) {
-      if (current > baseline[key]) {
-        errors.push(`[regressione-${label}] ${current} (baseline ${baseline[key]}) — nuova regressione, non debito noto`);
-      }
-    }
+    errors.push(...diffUrlSet("title-sitewide", currentLongTitleUrls, baseline.longTitleUrls));
+    errors.push(...diffUrlSet("description-sitewide", currentOutOfRangeDescriptionUrls, baseline.outOfRangeDescriptionUrls));
+    errors.push(...diffUrlSet("sitemap-inconsistente", sitemapInconsistentUrls, baseline.sitemapInconsistentUrls));
+    errors.push(...diffDuplicateGroups("title-duplicato", currentDuplicateTitleGroups, baseline.duplicateTitleGroups));
+    errors.push(...diffDuplicateGroups("description-duplicata", currentDuplicateDescriptionGroups, baseline.duplicateDescriptionGroups));
   }
 
   if (process.argv.includes("--write-baseline")) {
-    fs.writeFileSync(
-      BASELINE_PATH,
-      JSON.stringify(
-        {
-          generatedAt: "P0.8 (2026-07-23)",
-          note: "Debito sitewide preesistente, non affrontato in P0.8 (fuori scope: solo le 10 URL title + 8 URL description esplicite + cause condivise nei template). In gran parte locale non tradotte che ricadono sul fallback EN su pagine non-blog (integrations/beta/ai/support/roadmap/sync-provider) — stesso meccanismo di lib/i18n.ts UNTRANSLATED_CONTENT_LOCALES, ma su pagine diverse dal blog, quindi non coperto da check-blog-locale-near-miss.ts. Il guardrail fallisce se questi numeri AUMENTANO rispetto a qui.",
-          totalIndexableUrls: pathnames.length,
-          sitewideLongTitles,
-          sitewideShortOrLongDescriptions,
-          duplicateTitles,
-          duplicateDescriptions,
-          sitemapButRedirectOrNoindex,
-        },
-        null,
-        2,
-      ) + "\n",
-    );
-    console.log(`Baseline scritta in ${path.relative(repoRoot, BASELINE_PATH)}.`);
+    const newBaseline: Baseline = {
+      generatedAt: "P0.8A (2026-07-23)",
+      note:
+        "Debito sitewide preesistente, non affrontato in P0.8/P0.8A (fuori scope: solo le URL title/description esplicite di Bing + cause condivise nei template). In gran parte locale non tradotte che ricadono sul fallback EN su pagine non-blog (integrations/beta/ai/support/roadmap/sync-provider) — stesso meccanismo di lib/i18n.ts UNTRANSLATED_CONTENT_LOCALES, ma su pagine diverse dal blog, quindi non coperto da check-blog-locale-near-miss.ts. Formato identity-based (P0.8A): ogni categoria e' un insieme esplicito di URL (o di gruppi URL per i duplicati), non un conteggio. Il guardrail fallisce se una URL non presente nell'insieme baseline corrispondente compare nel debito corrente. Rigenerare SOLO con --write-baseline esplicito e revisionare il diff in git.",
+      totalIndexableUrls: pathnames.length,
+      longTitleUrls: currentLongTitleUrls,
+      outOfRangeDescriptionUrls: currentOutOfRangeDescriptionUrls,
+      sitemapInconsistentUrls,
+      duplicateTitleGroups: currentDuplicateTitleGroups,
+      duplicateDescriptionGroups: currentDuplicateDescriptionGroups,
+    };
+    fs.writeFileSync(BASELINE_PATH, JSON.stringify(newBaseline, null, 2) + "\n");
+    console.log(`Baseline identity-based scritta in ${path.relative(repoRoot, BASELINE_PATH)}.`);
   }
 
-  console.log(`Riepilogo: ${pathnames.length} URL sitemap, ${missingTitle} title mancanti, ${missingDescription} description mancanti, ${duplicateTitles} title duplicati, ${duplicateDescriptions} description duplicate, ${sitemapButRedirectOrNoindex} URL sitemap non realmente indicizzabili dal vivo.`);
-  console.log(`10 URL Bing title: ${BING_TITLE_URLS.length - bingTitleFailures}/${BING_TITLE_URLS.length} ≤60c. 8 URL Bing description: ${BING_DESCRIPTION_URLS.length - bingDescFailures}/${BING_DESCRIPTION_URLS.length} in 140-160c.`);
-  console.log(`Debito sitewide preesistente: ${sitewideLongTitles} title >60c, ${sitewideShortOrLongDescriptions} description fuori 140-160c (baseline: ${baseline ? `${baseline.sitewideLongTitles}/${baseline.sitewideShortOrLongDescriptions}` : "assente"}).`);
+  console.log(
+    `Riepilogo: ${pathnames.length} URL sitemap, ${missingTitle} title mancanti, ${missingDescription} description mancanti, ${duplicateTitleUrlCount} URL in title duplicati (${currentDuplicateTitleGroups.length} gruppi), ${duplicateDescriptionUrlCount} URL in description duplicate (${currentDuplicateDescriptionGroups.length} gruppi), ${sitemapInconsistentUrls.length} URL sitemap non realmente indicizzabili dal vivo.`,
+  );
+  console.log(`10 URL Bing title: ${BING_TITLE_URLS.length - bingTitleFailures}/${BING_TITLE_URLS.length} ≤60c. ${BING_DESCRIPTION_URLS.length} URL Bing description (sottoinsieme noto delle 28): ${BING_DESCRIPTION_URLS.length - bingDescFailures}/${BING_DESCRIPTION_URLS.length} in 140-160c.`);
+  console.log(
+    `Debito sitewide preesistente: ${currentLongTitleUrls.length} title >60c, ${currentOutOfRangeDescriptionUrls.length} description fuori 140-160c (baseline: ${baseline?.longTitleUrls ? `${baseline.longTitleUrls.length}/${baseline.outOfRangeDescriptionUrls.length}` : "assente o formato precedente"}).`,
+  );
 
   if (errors.length > 0) {
     console.error(`❌ Bing metadata guardrail: ${errors.length} problema/i`);
