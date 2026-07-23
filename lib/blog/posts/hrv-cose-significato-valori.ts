@@ -162,6 +162,20 @@ export const post: BlogPost = {
       "낮은 HRV가 의미하는 것",
       "HRV 스마트워치",
     ],
+    de: [
+      "HRV Normalwerte",
+      "Herzfrequenzvariabilität",
+      "HRV Bedeutung Sport",
+      "niedrige HRV was bedeutet das",
+      "HRV Smartwatch",
+    ],
+    es: [
+      "valores normales de hrv",
+      "variabilidad de la frecuencia cardíaca",
+      "significado de hrv en el deporte",
+      "qué significa hrv baja",
+      "hrv smartwatch",
+    ],
   },
   metaDescription: {
     it: "Cos'è la HRV (variabilità della frequenza cardiaca), perché non esiste un valore normale universale, cosa significa quando è alta o bassa, e come leggerla sul tuo wearable nel 2026.",

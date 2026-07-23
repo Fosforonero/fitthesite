@@ -84,6 +84,20 @@ export const post: BlogPost = {
       "웨어러블 데이터 통합",
       "걸음 수는 한 번만 계산",
     ],
+    de: [
+      "Daten mehrerer Smartwatches ein Dashboard",
+      "keine doppelten Wearable-Daten",
+      "FitMesh Sync Dashboard",
+      "Wearable-Daten zusammenführen",
+      "Schritte nur einmal gezählt",
+    ],
+    es: [
+      "datos de varios smartwatches en un panel",
+      "sin duplicados de datos wearable",
+      "panel fitmesh sync",
+      "combinar datos wearable",
+      "pasos contados una sola vez",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync lancia la dashboard multi dispositivo: orologi e anello in un'unica vista, senza doppioni. Ogni metrica viene tenuta una volta sola, con la fonte migliore disponibile.",

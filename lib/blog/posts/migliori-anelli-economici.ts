@@ -162,6 +162,24 @@ export const post: BlogPost = {
       "colmi r02 리뷰",
       "스마트 링 구매 가이드",
     ],
+    de: [
+      "bester günstiger Smart-Ring",
+      "bester Smart-Ring 2026",
+      "Smart-Ring Preis",
+      "Smart-Ring unter 50 Euro",
+      "Smart-Ring Budget",
+      "Colmi R02 Preis",
+      "Smart-Ring Kaufratgeber",
+    ],
+    es: [
+      "mejor anillo inteligente económico",
+      "mejor anillo inteligente 2026",
+      "precio anillo inteligente",
+      "anillo inteligente por menos de 50 euros",
+      "anillo inteligente económico",
+      "precio colmi r02",
+      "guía de compra anillo inteligente",
+    ],
   },
   tldr: {
     it: [

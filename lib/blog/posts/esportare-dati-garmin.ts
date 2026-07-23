@@ -162,6 +162,20 @@ export const post: BlogPost = {
       "가민 데이터 csv",
       "가민 데이터 다른 앱으로 전송",
     ],
+    de: [
+      "Garmin-Connect-Trainings herunterladen",
+      "Garmin Export GPX TCX FIT",
+      "Garmin Connect Aktivitäten exportieren",
+      "Garmin Daten als CSV",
+      "Garmin-Daten in andere App übertragen",
+    ],
+    es: [
+      "descargar entrenamientos de garmin connect",
+      "exportar garmin gpx tcx fit",
+      "descargar actividades de garmin connect",
+      "datos garmin en csv",
+      "llevar datos de garmin a otra app",
+    ],
   },
   metaDescription: {
     it: "Come esportare dati Garmin: guida pratica per scaricare allenamenti in GPX, TCX, FIT e CSV da Garmin Connect (sito web, app mobile e API). Pro e contro di ogni metodo.",

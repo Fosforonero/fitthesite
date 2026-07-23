@@ -96,6 +96,7 @@ export const post: BlogPost = {
     nl: "fitmesh sync iphone",
     ja: "fitmesh sync iphone",
     ko: "fitmesh sync iphone",
+    de: "fitmesh sync iphone",
   },
   secondaryKeywords: {
     it: [
@@ -160,6 +161,20 @@ export const post: BlogPost = {
       "android 스마트워치 데이터 apple health 쓰기",
       "apple health 브릿지 웨어러블 android",
       "건강 데이터 대시보드 iphone",
+    ],
+    de: [
+      "FitMesh iOS Beta",
+      "Gesundheits-App iPhone Smartwatch Android",
+      "Android-Smartwatch mit Apple Health synchronisieren",
+      "Apple-Health-Brücke für Wearables",
+      "Gesundheits-Dashboard iPhone",
+    ],
+    es: [
+      "fitmesh ios beta",
+      "app de salud iphone smartwatch android",
+      "sincronizar smartwatch android con apple salud",
+      "puente apple salud wearable android",
+      "panel de salud iphone",
     ],
   },
   metaDescription: {

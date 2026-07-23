@@ -153,6 +153,18 @@ export const post: BlogPost = {
       "Samsung Health 백업",
       "Samsung Cloud 없이 갤럭시 워치 백업",
     ],
+    de: [
+      "Samsung Health Daten herunterladen",
+      "Galaxy Watch Daten exportieren",
+      "Samsung Health Backup",
+      "Galaxy Watch Backup ohne Samsung Cloud",
+    ],
+    es: [
+      "descargar datos de samsung health",
+      "exportar datos del galaxy watch",
+      "copia de seguridad samsung health",
+      "backup galaxy watch sin samsung cloud",
+    ],
   },
   metaDescription: {
     it: "Come fare backup dei dati Galaxy Watch su PC senza Samsung Cloud: esportazione Samsung Health, GDPR data request, dashboard alternative. Guida passo passo 2026.",

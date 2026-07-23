@@ -84,6 +84,20 @@ export const post: BlogPost = {
       "내 Colmi 링 찾기",
       "무료 Pro 배지 FitMesh",
     ],
+    de: [
+      "Smart-Ring Schlafphasen",
+      "Colmi Ring FitMesh",
+      "Tiefschlaf REM Überwachung",
+      "Colmi Ring finden",
+      "Pro-Abzeichen gratis FitMesh",
+    ],
+    es: [
+      "fases del sueño anillo inteligente",
+      "colmi ring fitmesh",
+      "monitoreo sueño profundo rem",
+      "encontrar mi anillo colmi",
+      "insignia pro gratis fitmesh",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync ora legge l'anello Colmi via Bluetooth: sonno con fasi, batteria sempre visibile, funzione Trova anello. E 7 giorni di dati sbloccano 6 mesi di Pro gratis.",

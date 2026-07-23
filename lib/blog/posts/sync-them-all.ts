@@ -165,6 +165,24 @@ export const post: BlogPost = {
       "건강 데이터 허브",
       "모든 건강 기기를 위한 하나의 계정",
     ],
+    de: [
+      "ein Wearable-Dashboard",
+      "Smartwatch-Daten zusammenführen",
+      "mehrere Smartwatches synchronisieren",
+      "App für alle Wearables",
+      "Gesundheits-App Multi-Device",
+      "Wearable-Daten fusionieren",
+      "ein Konto für alle Gesundheitsgeräte",
+    ],
+    es: [
+      "panel wearable único",
+      "combinar datos de smartwatch",
+      "sincronizar varios smartwatches",
+      "app para todos los wearables",
+      "app de salud multi-dispositivo",
+      "fusión de datos wearable",
+      "una cuenta para todos los dispositivos de salud",
+    ],
   },
 
   tldr: {

@@ -102,6 +102,7 @@ export const post: BlogPost = {
     nl: "colmi r02 app gegevens dashboard",
     ja: "colmi r02 アプリ データ ダッシュボード",
     ko: "colmi r02 앱 데이터 대시보드",
+    de: "Colmi R02 App Daten Dashboard",
   },
   secondaryKeywords: {
     it: [
@@ -184,6 +185,24 @@ export const post: BlogPost = {
       "colmi r03 데이터",
       "qring 대안",
       "컴패니언 앱 없는 스마트 링",
+    ],
+    de: [
+      "Colmi R02 Deutsch",
+      "günstiger Smart-Ring App",
+      "Colmi Ring Dashboard",
+      "Smart-Ring Bluetooth Android",
+      "Colmi R03 Daten",
+      "QRing Alternative",
+      "Smart-Ring ohne Begleit-App",
+    ],
+    es: [
+      "colmi r02 español",
+      "anillo inteligente económico app",
+      "colmi ring panel",
+      "anillo inteligente bluetooth android",
+      "colmi r03 datos",
+      "alternativa a qring",
+      "anillo inteligente sin app complementaria",
     ],
   },
   metaDescription: {

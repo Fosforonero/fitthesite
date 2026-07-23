@@ -153,6 +153,22 @@ export const post: BlogPost = {
       "colmi r02 작동 원리",
       "colmi 링 fitmesh",
     ],
+    de: [
+      "Colmi R02 Einrichtung",
+      "Colmi R02 Anleitung Deutsch",
+      "Colmi R02 Bedienung",
+      "Colmi R02 Setup",
+      "Colmi R02 wie es funktioniert",
+      "Colmi Ring FitMesh",
+    ],
+    es: [
+      "configuración colmi r02",
+      "instrucciones colmi r02 español",
+      "cómo usar colmi r02",
+      "configurar colmi r02",
+      "cómo funciona colmi r02",
+      "anillo colmi fitmesh",
+    ],
   },
   tldr: {
     it: [

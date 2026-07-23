@@ -96,6 +96,7 @@ export const post: BlogPost = {
     nl: "beste app voor synchronisatie van gezondheidsgegevens android",
     ja: "android 健康データ同期アプリ おすすめ",
     ko: "안드로이드 최고의 건강 데이터 동기화 앱",
+    de: "beste App für Gesundheitsdaten-Synchronisierung Android",
   },
   secondaryKeywords: {
     it: [
@@ -152,6 +153,20 @@ export const post: BlogPost = {
       "health connect 안드로이드 동기화",
       "웨어러블 동기화 앱 안드로이드 2026",
       "삼성 헬스 구글 피트 동기화",
+    ],
+    de: [
+      "Gesundheitsdaten Android synchronisieren",
+      "Health Connect Android Synchronisierung",
+      "Wearable-Sync-App Android 2026",
+      "Samsung Health Google Fit synchronisieren",
+      "native Health Connect App Android",
+    ],
+    es: [
+      "sincronizar datos de salud android",
+      "sincronización health connect android",
+      "app sincronización wearable android 2026",
+      "sincronizar samsung health google fit",
+      "app nativa health connect android",
     ],
   },
   metaDescription: {

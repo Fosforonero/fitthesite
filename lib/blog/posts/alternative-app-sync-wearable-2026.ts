@@ -85,6 +85,7 @@ export const post: BlogPost = {
     nl: "alternatieven voor wearable synchronisatie-apps",
     ja: "ウェアラブル同期アプリの代替",
     ko: "웨어러블 동기화 앱 대안",
+    de: "Alternative zu Wearable-Sync-Apps",
   },
   secondaryKeywords: {
     it: [
@@ -140,6 +141,18 @@ export const post: BlogPost = {
       "android 건강 데이터 브리지",
       "samsung health garmin 동기화",
       "통합 웨어러블 대시보드",
+    ],
+    de: [
+      "Wearable-Sync-App Android",
+      "Android Gesundheitsdaten-Brücke",
+      "Samsung Health Garmin synchronisieren",
+      "einheitliches Wearable-Dashboard",
+    ],
+    es: [
+      "app sincronización wearable android",
+      "puente de datos de salud android",
+      "sincronizar samsung health garmin",
+      "panel wearable unificado",
     ],
   },
   metaDescription: {
