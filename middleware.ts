@@ -122,9 +122,35 @@ function stripClientHintHeaders(response: NextResponse): NextResponse {
 const CANONICAL_HOST = 'www.fitmesh.fit';
 const APEX_HOST = 'fitmesh.fit';
 
+// 'nb' (norvegese bokmål) e 'nn' (nynorsk) non sono mai state locale
+// supportate (vedi lib/i18n.ts: solo 'no' esiste) — ma non essendo in
+// LOCALES, un path '/nb/...' non veniva riconosciuto come "già prefissato"
+// da needsLocalePrefix() sotto, che lo trattava come un deep link SENZA
+// prefisso e ci PREPENDEVA davanti la lingua negoziata: risultato
+// '/it/nb/blog/...'. Canonicalizzazione esplicita PRIMA di tutto il resto.
+const NORWEGIAN_PREFIX_RE = /^\/(?:nb|nn)(?=\/|$)/;
+
+function canonicalizeNorwegianPrefix(pathname: string): string | null {
+  if (!NORWEGIAN_PREFIX_RE.test(pathname)) return null;
+  return pathname.replace(NORWEGIAN_PREFIX_RE, '/no');
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const host = request.headers.get('host') ?? '';
+
+  // ── Canonicalizzazione /nb, /nn -> /no (P0.8) ───────────────────────────
+  // Deterministico (non dipende da cookie/Accept-Language/IP): 308
+  // permanente, un solo hop anche da apex (host + prefisso collassati
+  // insieme, stesso pattern del branch apex->www sotto), pathname restante
+  // e query string preservati da new URL(...).
+  const norwegianPathname = canonicalizeNorwegianPrefix(pathname);
+  if (norwegianPathname) {
+    const targetUrl = new URL(request.nextUrl.toString());
+    targetUrl.host = CANONICAL_HOST;
+    targetUrl.pathname = norwegianPathname;
+    return stripClientHintHeaders(NextResponse.redirect(targetUrl, 308));
+  }
 
   // ── Canonicalizzazione apex -> www (P0.4C) ──────────────────────────────
   //

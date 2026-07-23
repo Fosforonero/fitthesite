@@ -32,6 +32,18 @@ describe("parseAcceptLanguageLocale — q-value priority, not list order", () =>
   it("returns null when nothing in the header is supported", () => {
     expect(parseAcceptLanguageLocale("zh-CN,ru-RU")).toBeNull();
   });
+
+  it("maps Norwegian Bokmål (nb-NO) to the editorial locale 'no'", () => {
+    expect(parseAcceptLanguageLocale("nb-NO")).toBe("no");
+  });
+
+  it("maps Norwegian Nynorsk (nn-NO) to the editorial locale 'no'", () => {
+    expect(parseAcceptLanguageLocale("nn-NO")).toBe("no");
+  });
+
+  it("resolves no-NO to 'no' directly (already supported, unaffected by the nb/nn alias)", () => {
+    expect(parseAcceptLanguageLocale("no-NO")).toBe("no");
+  });
 });
 
 describe("localeFromCountry — geo fallback map", () => {
@@ -114,5 +126,13 @@ describe("resolveNegotiatedLocale — priority: cookie > Accept-Language > geo I
 
   it("fr-FR Accept-Language alone resolves to fr", () => {
     expect(resolveNegotiatedLocale({ acceptLanguage: "fr-FR,fr;q=0.9" })).toBe("fr");
+  });
+
+  it("nb-NO Accept-Language alone resolves to 'no' (P0.8)", () => {
+    expect(resolveNegotiatedLocale({ acceptLanguage: "nb-NO,nb;q=0.9" })).toBe("no");
+  });
+
+  it("nn-NO Accept-Language alone resolves to 'no' (P0.8)", () => {
+    expect(resolveNegotiatedLocale({ acceptLanguage: "nn-NO,nn;q=0.9" })).toBe("no");
   });
 });

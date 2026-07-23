@@ -42,6 +42,15 @@ function isSupportedLocale(value: string): value is Locale {
 }
 
 /**
+ * 'nb' (bokmål) e 'nn' (nynorsk) non sono locale supportate: l'unica locale
+ * editoriale norvegese è 'no' (vedi lib/i18n.ts). Senza questo alias, un
+ * Accept-Language "nb-NO"/"nn-NO" su un deep link senza prefisso (es. root
+ * '/') veniva scartato da isSupportedLocale e cadeva sul fallback
+ * geo/inglese invece di atterrare su '/no'.
+ */
+const NORWEGIAN_VARIANT_TO_LOCALE: Record<string, Locale> = { nb: "no", nn: "no" };
+
+/**
  * Parsa un header Accept-Language rispettando i valori `q` (RFC 9110 §12.5.4).
  * Esempio: "en-US;q=0.5,de-DE;q=0.9,it;q=0.2" -> "de" (q piu' alto vince, non
  * la prima lingua elencata).
@@ -69,7 +78,8 @@ export function parseAcceptLanguageLocale(header: string | null | undefined): Lo
 
   for (const { lang } of entries) {
     const base = lang.split("-")[0];
-    if (isSupportedLocale(base)) return base;
+    const normalized = NORWEGIAN_VARIANT_TO_LOCALE[base] ?? base;
+    if (isSupportedLocale(normalized)) return normalized;
   }
   return null;
 }
