@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import Script from "next/script";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { htmlLang, type Locale } from "@/lib/i18n";
 import OutboundTracker from "@/components/OutboundTracker";
 import "./globals.css";
@@ -114,6 +115,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="min-h-screen flex flex-col font-sans bg-page antialiased">
         {children}
         <OutboundTracker />
+        <Analytics />
       </body>
     </html>
   );
