@@ -146,6 +146,20 @@ export const post: BlogPost = {
       "낙상 감지 스마트워치",
       "노인 안전 스마트워치",
     ],
+    de: [
+      "beste Smartwatch für Senioren 2026",
+      "Smartwatch für Senioren mit Gesundheitsüberwachung",
+      "Smartwatch Sturzerkennung Senioren",
+      "Smartwatch für Senioren mit Herzproblemen",
+      "einfache Smartwatch für Senioren",
+],
+    es: [
+      "mejor smartwatch para personas mayores 2026",
+      "smartwatch para mayores con monitoreo de salud",
+      "smartwatch detección de caídas mayores",
+      "smartwatch para mayores con problemas cardíacos",
+      "smartwatch fácil de usar para mayores",
+    ],
   },
   metaDescription: {
     it: "I migliori smartwatch per anziani nel 2026: rilevamento cadute, SOS, facilità d'uso, durata batteria. Guida onesta con consigli per caregiver.",

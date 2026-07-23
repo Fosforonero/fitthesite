@@ -73,6 +73,15 @@ const STALE_PATTERNS: { label: string; re: RegExp }[] = [
   { label: "TestFlight as current status", re: /\bTestFlight\b/ },
   { label: "join iOS beta (en)", re: /join the iOS beta/i },
   { label: "únete a la beta de iOS (es)", re: /únete a la beta de iOS/i },
+  // P1.3T-Q-A (2026-07-23): "fitmesh ios beta" (o varianti di casing/lingua)
+  // sopravviveva come secondary keyword pubblica su fitmesh-arriva-su-iphone
+  // (emessa in <meta name="keywords"> e BlogPosting.keywords) molto dopo che
+  // l'app era già live sull'App Store. Pattern ampio e multi-lingua: intercetta
+  // "ios beta"/"beta ios" ovunque compaiano vicini, incluse le forme
+  // transliterate giapponese/coreano usate come loanword.
+  { label: "ios beta / beta ios (keyword, multi-lingua)", re: /\bios[\s-]*beta\b|\bbeta[\s-]*ios\b/i },
+  { label: "iOS beta transliterato (ja/ko loanword)", re: /ios\s*(?:ベータ|베타)|(?:ベータ|베타)\s*ios/i },
+  { label: "iOS non ancora pubblicata (it)", re: /iOS[^.]{0,20}non\s*(?:è|ancora)\s*(?:ancora\s*)?(?:disponibil|pubblicat)/i },
 ];
 
 // File con match legittimi verificati manualmente (2026-07-13), non legati al
@@ -84,10 +93,14 @@ const STALE_PATTERNS: { label: string; re: RegExp }[] = [
 //     ancora pubblicata").
 //   - guida-sync-wearable-2026.ts: sede legale dei produttori wearable
 //     (Samsung/Google/Fitbit/Garmin/Xiaomi/Huawei), non disponibilità iOS.
+//   - anello-vs-smartwatch.ts: commento di sorgente che AFFERMA L'ASSENZA di
+//     un claim iOS-beta ("Nessun claim iOS-beta"), non il claim stesso —
+//     verificato manualmente (2026-07-23, P1.3T-Q-A).
 const KNOWN_SAFE_FILES = new Set([
   path.join("app", "(frontend)", "[locale]", "(marketing)", "privacy", "page.tsx"),
   path.join("lib", "billing", "app-store.ts"),
   path.join("lib", "blog", "posts", "guida-sync-wearable-2026.ts"),
+  path.join("lib", "blog", "posts", "anello-vs-smartwatch.ts"),
 ]);
 
 for (const file of filesToScan) {

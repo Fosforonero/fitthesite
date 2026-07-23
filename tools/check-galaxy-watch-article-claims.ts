@@ -85,8 +85,15 @@ const full = path.join(repoRoot, TARGET);
 const errors: string[] = [];
 
 // ── 9. Nessun body EN di fallback indicizzabile sotto una locale diversa ──
+// P1.3T-Q (2026-07-23): de/es hanno ricevuto una traduzione integrale reale
+// (non un fallback EN), quindi sono ora legittimamente indicizzabili insieme
+// a it/en. Le restanti locale (pt/fr/pl/tr/nl/ja/ko/sv/da/no/fi) non hanno
+// contenuto proprio in questo file: se una di queste risultasse comunque
+// indicizzabile sarebbe un fallback EN mascherato da correggere, non un
+// risultato atteso.
+const FULLY_TRANSLATED_LOCALES = new Set(["it", "en", "de", "es"]);
 for (const lc of locales) {
-  if (lc === "it" || lc === "en") continue;
+  if (FULLY_TRANSLATED_LOCALES.has(lc)) continue;
   if (isBlogVariantIndexable(galaxyWatchPost, lc)) {
     errors.push(`[locale-fallback-indicizzabile] "${lc}" risulta indicizzabile.`);
   }

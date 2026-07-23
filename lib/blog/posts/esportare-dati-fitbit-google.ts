@@ -128,6 +128,18 @@ export const post: BlogPost = {
     nl: ["fitbit google takeout", "fitbit account migratie", "fitbit gegevens downloaden", "fitbit gegevensgeschiedenis"],
     ja: ["fitbit google takeout", "fitbitアカウント移行", "fitbitデータダウンロード", "fitbitデータ履歴"],
     ko: ["fitbit google takeout", "fitbit 계정 마이그레이션", "fitbit 데이터 다운로드", "fitbit 데이터 기록"],
+    de: [
+      "Fitbit Google Takeout",
+      "Fitbit Konto Migration",
+      "Fitbit Daten herunterladen",
+      "Fitbit Datenverlauf",
+    ],
+    es: [
+      "fitbit google takeout",
+      "migración de cuenta fitbit",
+      "descargar datos de fitbit",
+      "historial de datos fitbit",
+    ],
   },
   metaDescription: {
     it: "Dopo l'acquisizione Fitbit da parte di Google: come esportare i tuoi dati Fitbit nel 2026, cosa cambia se hai migrato a Google Account, alternative pratiche.",

@@ -153,6 +153,22 @@ export const post: BlogPost = {
       "저렴한 스마트 링",
       "스마트 링 심박수",
     ],
+    de: [
+      "was misst ein Smart-Ring",
+      "wie funktioniert ein Smart-Ring",
+      "Smart-Ring auswählen",
+      "Smart-Ring Schlaf",
+      "günstiger Smart-Ring",
+      "Smart-Ring Herzfrequenz",
+    ],
+    es: [
+      "qué mide un anillo inteligente",
+      "cómo funciona un anillo inteligente",
+      "cómo elegir un anillo inteligente",
+      "anillo inteligente sueño",
+      "anillo inteligente económico",
+      "anillo inteligente frecuencia cardíaca",
+    ],
   },
   tldr: {
     it: [

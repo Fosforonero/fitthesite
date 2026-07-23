@@ -84,6 +84,20 @@ export const post: BlogPost = {
       "웨어러블 데이터 앱",
       "파운더 평생 무료 Pro",
     ],
+    de: [
+      "App zum Zusammenführen von Smartwatch-Daten",
+      "Android Gesundheits-Dashboard",
+      "FitMesh Sync herunterladen",
+      "Wearable-Daten-App auf Deutsch",
+      "lebenslang Pro als Founder gratis",
+    ],
+    es: [
+      "app para unificar datos del smartwatch",
+      "panel de salud android",
+      "descargar fitmesh sync",
+      "app de datos wearable en español",
+      "pro de por vida gratis founder",
+    ],
   },
   metaDescription: {
     it: "FitMesh Sync è disponibile su Google Play: unisci i dati di smartwatch e anello in un'unica dashboard, con i tuoi dati su server in Europa. L'app iOS è già disponibile, incluse tutte le storefront dell'Unione Europea.",

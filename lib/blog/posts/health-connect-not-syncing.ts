@@ -164,6 +164,22 @@ export const post: BlogPost = {
       "걸음 수가 health connect에 표시 안됨",
       "health connect 동기화 수정 방법",
     ],
+    de: [
+      "Health Connect funktioniert nicht",
+      "Health Connect fehlende Daten",
+      "Samsung Health aktualisiert Health Connect nicht",
+      "Schritte nicht synchronisiert Health Connect",
+      "Health Connect Problem beheben",
+      "Google Health Connect Fehlerbehebung",
+],
+    es: [
+      "health connect no funciona",
+      "health connect datos faltantes",
+      "samsung health no actualiza health connect",
+      "pasos no sincronizados health connect",
+      "cómo solucionar health connect",
+      "solución de problemas google health connect",
+    ],
   },
   metaDescription: {
     it: "Health Connect non si sincronizza? Ecco 7 soluzioni verificate: permessi, ottimizzazione batteria, cache, impostazioni Samsung Health. Guida completa 2026.",

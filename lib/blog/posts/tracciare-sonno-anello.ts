@@ -159,6 +159,15 @@ export const post: BlogPost = {
       "스마트 링이 수면을 추적하는 방법",
       "야간 HRV 링",
     ],
+    es: [
+      "anillo inteligente sueño",
+      "monitoreo del sueño con anillo",
+      "anillo para dormir",
+      "colmi r02 fases del sueño",
+      "anillo inteligente vs reloj sueño",
+      "cómo funciona el anillo de sueño",
+      "hrv nocturno anillo",
+    ],
   },
   tldr: {
     it: [

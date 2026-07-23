@@ -152,6 +152,12 @@ export const post: BlogPost = {
       "걸음 수 PC에서 보기",
       "수면 컴퓨터에서 보기",
     ],
+    es: [
+      "panel wearable navegador",
+      "panel web smartwatch",
+      "ver pasos en pc",
+      "ver sueño en el ordenador",
+    ],
   },
   metaDescription: {
     it: "Vuoi vedere passi, sonno e battito del tuo wearable da browser desktop? Quattro vie reali nel 2026, con pro e contro di ciascuna.",
@@ -679,7 +685,7 @@ export const post: BlogPost = {
         ja: "FitMesh SyncはHealth Connectからデータを読み取り、すべてをどのデスクトップブラウザからもアクセスできるすっきりしたウェブアプリに表示します。不透明なクラウドなし、広告なし。",
         ko: "FitMesh Sync는 Health Connect에서 데이터를 읽어 모든 데이터를 어느 데스크톱 브라우저에서도 접근 가능한 깔끔한 웹 앱에 표시합니다. 불투명한 클라우드 없음, 광고 없음.",
       },
-      ctaLabel: { it: "Vedi tutte le integrazioni", en: "See all integrations", pl: "Zobacz wszystkie integracje", tr: "Tüm entegrasyonları gör", nl: "Bekijk alle integraties", ja: "すべての連携を見る", ko: "모든 연동 보기" },
+      ctaLabel: { it: "Vedi tutte le integrazioni", en: "See all integrations", pl: "Zobacz wszystkie integracje", tr: "Tüm entegrasyonları gör", nl: "Bekijk alle integraties", ja: "すべての連携を見る", ko: "모든 연동 보기", es: "Ver todas las integraciones" },
       ctaHref: { it: "/it/integrations", en: "/en/integrations", pl: "/pl/integrations", tr: "/tr/integrations", nl: "/nl/integrations", ja: "/ja/integrations", ko: "/ko/integrations" },
     },
   ],

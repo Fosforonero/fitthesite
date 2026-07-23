@@ -96,6 +96,7 @@ export const post: BlogPost = {
     nl: "fitbit gegevens synchroniseren niet android",
     ja: "fitbit データ 同期しない android",
     ko: "fitbit 데이터 동기화 안됨 android",
+    de: "Fitbit synchronisiert nicht mit Android",
   },
   secondaryKeywords: {
     it: [
@@ -160,6 +161,20 @@ export const post: BlogPost = {
       "fitbit health connect 권한",
       "fitbit google fit android",
       "fitbit 동기화 작동 안함",
+    ],
+    de: [
+      "Fitbit Health Connect Android",
+      "Fitbit synchronisiert Daten nicht",
+      "Fitbit Health Connect Berechtigungen",
+      "Fitbit Google Fit Android",
+      "Fitbit-Synchronisierung funktioniert nicht",
+    ],
+    es: [
+      "fitbit health connect android",
+      "fitbit no sincroniza datos",
+      "permisos fitbit health connect",
+      "fitbit google fit android",
+      "la sincronización de fitbit no funciona",
     ],
   },
   metaDescription: {

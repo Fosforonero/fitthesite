@@ -189,6 +189,20 @@ export const post: BlogPost = {
       "gdpr 피트니스 데이터",
       "개인 건강 대시보드",
     ],
+    de: [
+      "Health Connect 2026",
+      "Samsung Health Export",
+      "OAuth Wearable",
+      "DSGVO Fitnessdaten",
+      "persönliches Gesundheits-Dashboard",
+    ],
+    es: [
+      "health connect 2026",
+      "exportar samsung health",
+      "oauth wearable",
+      "rgpd datos de fitness",
+      "panel de salud personal",
+    ],
   },
   metaDescription: {
     it: "Le quattro architetture reali per sincronizzare dati fitness tra app e wearable nel 2026: health hub, bridge app, dashboard indipendente, export/API. Confronto onesto, senza promesse di marketing.",

@@ -163,6 +163,20 @@ export const post: BlogPost = {
       "해변용 스마트워치 2026",
       "스마트워치 수영 방수",
     ],
+    de: [
+      "wasserdichte Smartwatch Schwimmen",
+      "Smartwatch Hitze Akku",
+      "Gesundheitsdaten im Urlaub synchronisieren",
+      "Smartwatch Strand 2026",
+      "wasserdichte Smartwatch Sommer",
+    ],
+    es: [
+      "smartwatch resistente al agua natación",
+      "smartwatch calor batería",
+      "sincronizar datos de salud en vacaciones",
+      "smartwatch para la playa 2026",
+      "smartwatch sumergible verano",
+    ],
   },
   metaDescription: {
     it: "Smartwatch in estate 2026: resistenza all'acqua, autonomia sotto il sole, e come non perdere i tuoi dati salute in vacanza. Guida pratica con consigli reali.",

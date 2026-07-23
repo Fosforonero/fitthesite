@@ -1126,3 +1126,63 @@ Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
 - **Stato**: verificato in Docker, tutti i gate verdi. Push e apertura PR
   seguono subito dopo la registrazione di questa riga. Nessun merge
   autonomo.
+
+### P1.3T-Q — Recupero indicizzabilità DE/ES + traduzione Galaxy Watch DE/ES
+
+- **Baseline GSC verificata al 2026-07-23** (export
+  `fitmesh.fit-Performance-on-Search-2026-07-23`, periodo effettivo
+  2026-05-11 → 2026-07-20, "Last 3 months"): totale periodo 258 click /
+  16.985 impression / CTR 1,52%. Ultimi 14 giorni (07-07→07-20): 174 click /
+  11.749 impression. 14 giorni precedenti (06-23→07-06): 76 click / 5.042
+  impression. Tutti i numeri ricalcolati indipendentemente da `Chart.csv` e
+  corrispondono esattamente. Germania (periodo intero, `Countries.csv`): 41
+  click / 2.301 impression / CTR 1,78%. Spagna (periodo intero): 12 click /
+  904 impression / CTR 1,33%. **Nota**: le cifre Germania/Spagna a 14 giorni
+  citate nel brief (39/2.009 e 19/1.203) NON sono verificabili da questo
+  export: `Countries.csv` fornisce solo l'aggregato sull'intero periodo di 3
+  mesi, non una scomposizione per Paese×giorno. Pagina DE Garmin/Samsung
+  (`garmin-samsung-health-synchronisieren-anleitung`): 17 click / 563
+  impression / CTR 3,02% / posizione 6,94 — verificato esatto in `Pages.csv`.
+- **P1.3Q, recupero DE/ES**: baseline near-miss passata da 97 (31 es + 28 de
+  + 38 altre locale) a 38 (0 es + 0 de + 38 altre locale, invariate).
+  Dettaglio completo in `docs/seo/p1-3q-blog-locale-near-miss.md`.
+- **Galaxy Watch Ultra2/Watch9, traduzione integrale DE/ES**: pillar
+  `galaxy-watch-ultra2-watch9-health-connect` tradotto per intero (title,
+  meta, TL;DR, tutte le sezioni body, Tabella A 25 righe, Tabella B 5 righe,
+  10 FAQ, alt/caption immagine) in tedesco e spagnolo via pipeline
+  traduci→verifica-fatti-bloccanti→revisione manuale (dettaglio sotto). Slug
+  invariato su tutte le locale (per design, come altri post branded). IT/EN
+  semanticamente invariati. Routing verificato: IT/EN/DE/ES 200 diretti (0
+  hop), le altre 11 locale 307→EN in 1 hop, hreflang limitato a
+  it/en/de/es/x-default, sitemap/feed presenti solo per le 4 varianti
+  complete, `BlogPosting.inLanguage` corretto per locale, FAQ visibili = 10
+  = FAQPage JSON-LD su tutte e 4, OG image 200/1200×630, nessun overflow a
+  320/390px.
+- **Guardrail aggiornato**: `check-galaxy-watch-article-claims.ts` check 9
+  assumeva l'articolo it/en-only; aggiornato per riconoscere de/es come
+  locale ora legittimamente tradotte (non fallback), mantenendo l'allarme
+  per qualunque altra locale.
+- **Internal linking**: aggiunto collegamento bidirezionale mancante tra
+  l'articolo Galaxy Watch e `garmin-samsung-health-sync-guide` (prima solo
+  monodirezionale verso il pillar/provider/ring-vs-watch, già presenti).
+- **Pipeline di traduzione**: workflow multi-agente (16 chiamate di
+  traduzione a blocchi tematici + 6 verifiche avversarie mirate sulle frasi
+  a rischio fattuale — Nutrition Alert, Trail Run, immersioni, VO₂ max,
+  punteggi proprietari). Zero violazioni riportate dalle verifiche; controllo
+  manuale a campione sulle frasi più a rischio (esclusione VO₂ max, polarità
+  Sì/No in Tabella A) confermato corretto. `translate-ts.sh`/`review.sh`
+  usati in precedenza nello stesso sprint per il recupero P1.3Q hanno
+  prodotto output non utilizzabile (parole chiave errate o incomplete):
+  documentato, non riutilizzato per la traduzione dell'articolo.
+- **Redirect Garmin/Samsung verificati** (Fase 4): le 4 vecchie landing
+  `/lp/garmin-health-connect*` per it/en/es/de rispondono con un solo hop
+  308→200 verso `garmin-samsung-health-sync-guide` localizzato. Nessuna
+  modifica: solo verifica.
+- **Commit hash e PR**: registrati dopo il push (vedi sezione successiva).
+- **Controlli programmati**: date +14/+28/+90 giorni da calcolare sulla data
+  reale del deploy di produzione, dopo il GO al merge.
+- **Zero Preview Deployment**: da confermare via Vercel MCP dopo il push
+  (branch non-`main`, `vercel.json` limita comunque i deploy a `main`).
+- **Stato**: verificato in Docker (typecheck, 173/173 vitest, guardrail
+  dedicati, build produzione, `next dev` reale + Playwright), pronto per
+  push e PR. Nessun merge autonomo.

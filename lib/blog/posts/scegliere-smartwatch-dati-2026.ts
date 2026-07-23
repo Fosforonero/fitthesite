@@ -165,6 +165,12 @@ export const post: BlogPost = {
       "잠금 없는 스마트워치",
       "2026년 건강 데이터를 위한 최고의 스마트워치",
     ],
+    es: [
+      "smartwatch que respeta la privacidad",
+      "exportabilidad de datos del smartwatch",
+      "smartwatch sin dependencia de marca",
+      "mejor smartwatch para datos de salud 2026",
+    ],
   },
   metaDescription: {
     it: "Come scegliere uno smartwatch nel 2026 partendo dal controllo dei tuoi dati: privacy, esportabilità, lock-in ecosistema. Raccomandazioni per atleta, longevità, sleep nerd, parent monitoring.",

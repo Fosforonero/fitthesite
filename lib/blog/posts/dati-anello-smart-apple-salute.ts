@@ -162,6 +162,20 @@ export const post: BlogPost = {
       "Android 수면 데이터를 Apple 건강 앱에 가져오는 방법",
       "FitMesh Apple Health 쓰기 브리지",
     ],
+    de: [
+      "Wearable-Daten Android nach Apple Health schreiben",
+      "Apple-Health-Brücke Android Smartwatch",
+      "Smart-Ring iPhone Apple Health",
+      "Android-Schlafdaten zu Apple Health übertragen",
+      "FitMesh Apple-Health-Brücke",
+    ],
+    es: [
+      "escribir datos wearable android en apple salud",
+      "puente apple salud smartwatch android",
+      "anillo inteligente iphone apple salud",
+      "llevar sueño de android a apple salud",
+      "puente fitmesh apple salud",
+    ],
   },
   metaDescription: {
     it: "Come FitMesh Sync porta i dati del tuo anello smart o smartwatch Android dentro Apple Salute: bridge opt-in, zero duplicati, sonno con fasi. Privacy EU, GDPR. Guida completa.",
