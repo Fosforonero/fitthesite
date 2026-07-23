@@ -916,5 +916,5 @@ export const post: BlogPost = {
     },
   ],
   brandsMentioned: ["Garmin", "Samsung"],
-  related: ["esportare-dati-garmin", "health-connect-not-syncing", "sync-samsung-health-google-fit"],
+  related: ["esportare-dati-garmin", "health-connect-not-syncing", "sync-samsung-health-google-fit", "galaxy-watch-ultra2-watch9-health-connect"],
 };
