@@ -219,6 +219,10 @@ export const post: BlogPost = {
       ko: "95%의 경우 근본 원인은 하나입니다: Health Connect 권한. Bluetooth도 아니고, 재설치도 아닙니다. 확인해야 할 곳을 알아보세요.",
     },
   },
+  // P0.8: <title> renderizzato it superava 60 caratteri (78). H1 invariato.
+  seoTitle: {
+    it: "Fitbit non si sincronizza su Android: la causa",
+  },
   body: [
     {
       type: "paragraph",

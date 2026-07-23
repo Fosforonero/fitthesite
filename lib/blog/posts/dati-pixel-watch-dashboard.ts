@@ -231,6 +231,10 @@ export const post: BlogPost = {
       ko: "Pixel Watch는 모든 것을 Fitbit에 기록하고, Fitbit은 이를 Health Connect에 씁니다. 거기서 FitMesh Sync가 걸음 수, 심박수, 수면, 칼로리를 수집하여 사용하는 다른 기기와 함께 하나의 패널에 표시합니다.",
     },
   },
+  // P0.8: <title> renderizzato pl superava 60 caratteri (83). H1 invariato.
+  seoTitle: {
+    pl: "Dane Pixel Watch i Health Connect: jak działa",
+  },
   body: [
     {
       type: "paragraph",

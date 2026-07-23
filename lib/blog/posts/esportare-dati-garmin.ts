@@ -219,6 +219,11 @@ export const post: BlogPost = {
       ko: "Garmin은 당신의 운동을 자체 클라우드에 저장하지만, 데이터는 당신의 것입니다. 각 방법의 솔직한 한계와 함께 모든 추출 방법을 소개합니다.",
     },
   },
+  // P0.8: <title> renderizzato pl superava 60 caratteri (81) e conteneva un
+  // em dash vietato ("— kompletny przewodnik"). H1 invariato.
+  seoTitle: {
+    pl: "Eksport danych Garmin: GPX, TCX, FIT, CSV",
+  },
   body: [
     {
       type: "paragraph",

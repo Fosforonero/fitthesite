@@ -27,9 +27,15 @@ const grotesk = Space_Grotesk({
  */
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // P0.8: em dash rimosso (regola editoriale, nessun em dash nel copy
+  // pubblico) e suffisso ridotto alla forma minima. Verificato: ogni pagina
+  // reale sotto [locale] imposta il proprio title (spesso già con un suffisso
+  // dedicato, es. blog usa "· FitMesh"), quindi questo default/template si
+  // applica solo a route non-[locale] senza title proprio — nessun title
+  // pubblico osservato che lo eredita oggi, ma resta corretto per design.
   title: {
-    default: "FitMesh Sync — Sync your smartwatch to a personal dashboard",
-    template: "%s — FitMesh Sync",
+    default: "FitMesh Sync | Sync your smartwatch to a personal dashboard",
+    template: "%s | FitMesh",
   },
   description:
     "FitMesh Sync syncs Galaxy Watch and Wear OS to a premium personal dashboard. Steps, heart rate, sleep, calories. Privacy-first.",

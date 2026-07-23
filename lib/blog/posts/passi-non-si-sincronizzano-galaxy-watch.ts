@@ -231,6 +231,10 @@ export const post: BlogPost = {
       ko: "Galaxy Watch가 손목에서 걸음 수를 세고 있는데 Samsung Health나 다른 앱에서 보이지 않나요? 이 문제는 정확한 원인이 있으며 마법이 아닙니다. 이 가이드는 잘못된 해결책에 시간을 낭비하지 않고 확률 순서대로 진단에서 해결책으로 안내합니다.",
     },
   },
+  // P0.8: <title> renderizzato fr superava 60 caratteri (87). H1 invariato.
+  seoTitle: {
+    fr: "Galaxy Watch : pas non synchronisés, solution",
+  },
   body: [
     {
       type: "paragraph",

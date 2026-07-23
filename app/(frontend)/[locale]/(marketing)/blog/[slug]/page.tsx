@@ -10,7 +10,7 @@ import { BlogRenderer, renderMarkdownInline } from "@/components/blog/BlogRender
 import { ArticleMeta } from "@/components/blog/ArticleMeta";
 import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
-import { categoryLabel, tl, tll } from "@/lib/blog/types";
+import { blogSeoTitle, categoryLabel, tl, tll } from "@/lib/blog/types";
 import {
   getBlogSlugs,
   getBlogPosts,
@@ -69,7 +69,7 @@ export async function generateMetadata({
   }
 
   const path = `/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`;
-  const title = tl(post.hero.title, lc);
+  const title = blogSeoTitle(post, lc);
   const description = tl(post.metaDescription, lc);
   const secondaryKw = tll(post.secondaryKeywords, lc);
   const keywords = [tl(post.primaryKeyword, lc), ...secondaryKw].join(", ");
@@ -524,7 +524,7 @@ export default async function BlogArticle({
     "@context": "https://schema.org",
     "@type": ldType,
     "@id": `${SITE_URL}${path}#article`,
-    headline: tl(post.hero.title, lc),
+    headline: blogSeoTitle(post, lc),
     description: tl(post.metaDescription, lc),
     inLanguage: schemaLanguage(lc),
     datePublished: post.publishedAt,
