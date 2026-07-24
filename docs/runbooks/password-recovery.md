@@ -51,8 +51,15 @@ con `<loc>` ∈ {it, en, es, de, pt, fr, pl, tr, nl, ja, ko}.
 
 Sostituire il body con il contenuto di `supabase/templates/recovery.html`
 (mostra `{{ .Token }}`, link solo a `{{ .RedirectTo }}`, MAI
-`{{ .ConfirmationURL }}`). Subject: "Codice per reimpostare la password
-FitMesh" (vedi `supabase/config.toml`, sezione `[auth.email.template.recovery]`).
+`{{ .ConfirmationURL }}`). Subject: "FitMesh password reset code" (vedi
+`supabase/config.toml`, sezione `[auth.email.template.recovery]`).
+
+**Il template Supabase è GLOBALE** (uno solo per l'intero progetto, non
+parametrizzabile per la locale del destinatario): subject e corpo sono in
+inglese di proposito (English-first, comprensibile a chiunque lo riceva).
+La pagina web È tradotta in tutte le 11 locale reali; l'email NO. Questo non
+è un difetto di questo hotfix, è un limite della piattaforma — non
+dichiarare mai il template "localizzato".
 
 ### Diff esatto da applicare (Dashboard, dato che `supabase config push` non è
 stato eseguito in questo hotfix)
@@ -60,8 +67,8 @@ stato eseguito in questo hotfix)
 | Campo | Prima (da verificare, non ancora confermato in produzione) | Dopo |
 |---|---|---|
 | Redirect URLs | assenti per `/auth/reset-password` (confermato solo per il config.toml locale, NOT VERIFIED IN PRODUCTION) | +22 voci sopra |
-| Template recovery | sconosciuto (Dashboard-only, NOT VERIFIED IN PRODUCTION) | `supabase/templates/recovery.html` |
-| Subject template recovery | sconosciuto | "Codice per reimpostare la password FitMesh" |
+| Template recovery | sconosciuto (Dashboard-only, NOT VERIFIED IN PRODUCTION) | `supabase/templates/recovery.html` (globale, English-first) |
+| Subject template recovery | sconosciuto | "FitMesh password reset code" |
 
 ## Rollback
 
@@ -85,18 +92,92 @@ stato eseguito in questo hotfix)
 4. `curl -sD- https://www.fitmesh.fit/it/auth/reset-password -o /dev/null | grep -i "cache-control\|referrer-policy"`
    → deve mostrare `no-store` e `no-referrer`.
 
+## E2E eseguito (Supabase locale + Mailpit, database disposable, 2026-07-24)
+
+Ambiente: `supabase start` locale (Postgres+GoTrue+Mailpit via Docker), le
+migrazioni `public.*` NON sono state applicate per questo run (2 bug SQL
+preesistenti e indipendenti dal hotfix le bloccano, vedi sezione dedicata
+sotto — l'auth/recovery non dipende dallo schema `public`). Container e utenti
+QA distrutti a fine test (`supabase stop` + rimozione volumi Docker
+`supabase_db_fitmesh`/`supabase_edge_runtime_fitmesh`/`supabase_storage_fitmesh`).
+
+Risultato dei 14 punti richiesti:
+
+1. Redirect URL per locale: verificato per `en` (server live, vedi Fase 5);
+   le altre 10 condividono lo stesso codice/allowlist, non ri-testate una per
+   una a mano.
+2. Pagina senza OTP: submit senza codice → `errorMissingFields`, nessuna
+   chiamata a `updateUser` (guard nativo `required` + guard JS separato,
+   entrambi testati).
+3. Sessione browser esistente: il client isolato non ha mai letto una
+   sessione ambient (nessun `getSession()` nel codice; verificato anche via
+   `localStorage`/`cookie` del browser reale dopo il flusso completo — zero
+   artefatti Supabase, solo cookie-consent/GA preesistenti).
+4. Link scanner-safe: mount della pagina (incluso un secondo "doppio open")
+   → zero richieste di rete verso Supabase, OTP ancora valido dopo.
+5. Doppia apertura simulata: vedi punto 4.
+6. Email+OTP+password reali (utente QA A, Mailpit) → submit via browser
+   reale (Playwright) → schermata di successo.
+7. `verifyOtp(recovery)` → `updateUser`: confermato nell'ordine corretto
+   (verifyOtp prima di updateUser, mai invertito).
+8. Login con password nuova: **PASS**.
+9. Login con password vecchia: **FAIL** (Invalid login credentials).
+10. Riutilizzo dello stesso OTP: **FAIL** ("Token has expired or is
+    invalid" lato Supabase → UX `errorExpiredOrUsed` mostrata, form resta
+    utilizzabile).
+11. Due richieste consecutive per lo stesso utente: **solo la PIÙ RECENTE
+    resta valida** (verificato: il token della richiesta #1 viene rifiutato
+    non appena la richiesta #2 e' stata emessa; il token #2 viene accettato).
+    Comportamento Supabase nativo, coerente con la copy
+    `errorExpiredOrUsed` ("usa soltanto l'email più recente").
+12. Browser/sessione B + recovery A: **verificato a livello backend** (non
+    tramite cookie reali nello stesso browser: la pagina di login del sito
+    usa magic-link protetto da Cloudflare Turnstile, non completabile in
+    automazione locale — limite dell'ambiente di test, non della pagina di
+    recovery). Prova diretta: dopo il completamento del recovery di A,
+    l'utente B effettua login con la SUA password originale invariata →
+    **PASS**, a conferma che nessuna operazione su A ha toccato l'account B.
+13. Nessuna sessione persistita dopo il completamento: verificato via
+    ispezione diretta di `localStorage`/`document.cookie` nel browser dopo
+    il flusso completo → nessun artefatto Supabase.
+14. Nessuna email/OTP/password nei log: verificato via grep su console
+    browser (client) e log del dev server (server) per l'intera sessione di
+    test → zero occorrenze.
+
+## Build production reale (2026-07-24)
+
+`next build` eseguito nativamente (non in Docker: `next build` con Payload
+CMS deve girare a diretto contatto col filesystem/DB) contro lo stesso
+Postgres disposable dell'E2E. **Ha trovato un bug reale**: Next.js valida gli
+export di un file `page.tsx` contro un allowlist fissa, e rifiuta named
+export extra anche se `tsc --noEmit` da solo non lo segnala — i miei
+`RESET_PASSWORD_LOCALES`/`TRANSLATIONS`/tipi esportati direttamente da
+`page.tsx` rompevano la build. Fix: spostati in un modulo dedicato
+(`translations.ts`), `page.tsx` torna a esportare solo `default` +
+`dynamic`. Rebuild dopo il fix: **verde, zero errori/warning**.
+
 ## Limiti noti / follow-up non inclusi in questo hotfix
 
-- Copy tradotta solo per it/es/en (pattern preesistente della pagina); le
-  altre 8 locali (de, pt, fr, pl, tr, nl, ja, ko) mostrano testo inglese,
-  invariato rispetto a prima. Traduzione reale richiede il pipeline
-  loctron/DeepL, non un translator locale (regola esistente).
 - `confirmation`/`magic_link` non hanno un template versionato in repo (solo
   `subject` in `config.toml`): stesso rischio di divergenza Dashboard/codice
   di prima di questo hotfix per QUEI due flussi. Non toccato qui, fuori scope.
 - `next lint` non eseguibile in questo ambiente: nessuna configurazione ESLint
   committata nel repo (prompt interattivo di setup), gap preesistente non
   causato da questo hotfix.
-- `next build` non eseguito in questo ambiente (richiede credenziali database
-  Payload non disponibili qui). Verificato invece: `tsc --noEmit` pulito su
-  tutto il progetto, `vitest run` 196/196 verdi (184 preesistenti + 12 nuovi).
+- **2 bug SQL preesistenti, indipendenti da questo hotfix**, bloccano
+  `supabase start` con le migrazioni `public.*` applicate (ho dovuto
+  escluderle temporaneamente, MAI committato, per eseguire l'E2E auth):
+  - `supabase/migrations/20260514120004_init_b2c_subs.sql:35` — `row` come
+    nome parametro non quotato in una funzione SQL, sintassi non valida.
+  - `supabase/migrations/20260522120006_rls_health_data_group_sharing.sql`
+    — riferimento a una colonna `water_ml` che non esiste nello schema
+    ricostruito da zero (probabile drift tra migrazioni committate e stato
+    reale di produzione).
+  Questi bug meritano un fix separato: al momento **nessuno sviluppatore può
+  bootstrappare l'ambiente Supabase locale di questo progetto da zero**.
+  Non ho toccato questi file (fuori scope per un hotfix auth), li segnalo
+  qui esplicitamente.
+- Login page del sito (magic-link) protetta da Cloudflare Turnstile: non
+  completabile in automazione locale, per questo il punto 12 dell'E2E è
+  stato verificato a livello backend invece che con una sessione-cookie
+  browser reale per l'account B.

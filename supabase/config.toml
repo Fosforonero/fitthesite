@@ -93,8 +93,12 @@ subject = "Il tuo link di accesso FitMesh"
 # email che pre-visita il link non brucia l'OTP. Fonte versionata qui invece
 # che solo nel Dashboard, per evitare che i due tornino a divergere (vedi
 # runbook docs/runbooks/password-recovery.md).
+# Subject/corpo in inglese: il template Supabase e' GLOBALE (uno per tutto
+# il progetto, non parametrizzabile per locale del destinatario). La pagina
+# web e' tradotta in tutte le locale reali, l'email no: questo e' un limite
+# della piattaforma, non dichiarato come "localizzato" da nessuna parte.
 [auth.email.template.recovery]
-subject = "Codice per reimpostare la password FitMesh"
+subject = "FitMesh password reset code"
 content_path = "./supabase/templates/recovery.html"
 
 [auth.sms]
