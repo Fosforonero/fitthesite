@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <body style="margin:0;padding:0;background-color:#f5f5f5;font-family:Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f5f5;padding:32px 0;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;padding:32px;">
+            <tr>
+              <td style="font-size:20px;font-weight:600;color:#111111;padding-bottom:16px;">
+                Reimposta la password FitMesh
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size:15px;line-height:1.5;color:#333333;padding-bottom:24px;">
+                Hai richiesto di reimpostare la password del tuo account FitMesh.
+                Usa questo codice nella pagina di recupero:
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding-bottom:24px;">
+                <span style="display:inline-block;font-size:32px;font-weight:700;letter-spacing:6px;color:#111111;background-color:#f0f0f0;border-radius:8px;padding:16px 24px;">
+                  {{ .Token }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size:14px;line-height:1.5;color:#555555;padding-bottom:24px;">
+                Il codice è valido per pochi minuti ed è utilizzabile una sola volta.
+                Se non l'hai richiesto tu, ignora questa email: la tua password non cambia.
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size:14px;line-height:1.5;color:#555555;padding-bottom:8px;">
+                Puoi aprire la pagina di recupero da qui (non basta cliccare: dovrai comunque inserire il codice sopra):
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                <a href="{{ .RedirectTo }}" style="display:inline-block;background-color:#111111;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 24px;border-radius:24px;">
+                  Vai alla pagina di recupero
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

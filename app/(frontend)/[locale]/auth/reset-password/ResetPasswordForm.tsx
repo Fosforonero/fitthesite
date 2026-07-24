@@ -1,22 +1,44 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { createClient } from '@/lib/supabase/client';
+import { createRecoveryClient } from '@/lib/supabase/recovery-client';
+import { classifyRecoveryError } from '@/lib/recovery/classify-error';
 import type { Locale } from '@/lib/i18n';
 
-interface Translations {
+export interface ResetPasswordTranslations {
+  emailLabel: string;
+  emailPlaceholder: string;
+  otpLabel: string;
+  otpPlaceholder: string;
+  otpHint: string;
   passwordLabel: string;
   passwordPlaceholder: string;
   confirmLabel: string;
   submit: string;
   saving: string;
   success: string;
+  errorMissingFields: string;
   errorTooShort: string;
   errorMismatch: string;
-  errorMissingToken: string;
+  errorExpiredOrUsed: string;
+  errorRateLimited: string;
+  errorNetwork: string;
   errorGeneric: string;
   backToLogin: string;
+}
+
+function messageFor(t: ResetPasswordTranslations, kind: ReturnType<typeof classifyRecoveryError>): string {
+  switch (kind) {
+    case 'expired_or_used':
+      return t.errorExpiredOrUsed;
+    case 'rate_limited':
+      return t.errorRateLimited;
+    case 'network':
+      return t.errorNetwork;
+    default:
+      return t.errorGeneric;
+  }
 }
 
 export function ResetPasswordForm({
@@ -24,69 +46,27 @@ export function ResetPasswordForm({
   translations,
 }: {
   locale: Locale;
-  translations: Translations;
+  translations: ResetPasswordTranslations;
 }) {
+  const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [sessionReady, setSessionReady] = useState(false);
-
-  useEffect(() => {
-    const supabase = createClient();
-    const hash = typeof window !== 'undefined' ? window.location.hash : '';
-    const search = typeof window !== 'undefined' ? window.location.search : '';
-
-    async function init() {
-      // Supabase recovery email link arriva con #access_token=...&type=recovery
-      // (legacy implicit flow) OPPURE ?code=... (PKCE flow nuovo).
-      // Proviamo entrambi in ordine.
-      const hashParams = new URLSearchParams(hash.replace(/^#/, ''));
-      const accessToken = hashParams.get('access_token');
-      const refreshToken = hashParams.get('refresh_token');
-      const queryParams = new URLSearchParams(search);
-      const code = queryParams.get('code');
-
-      if (accessToken && refreshToken) {
-        const { error: setErr } = await supabase.auth.setSession({
-          access_token: accessToken,
-          refresh_token: refreshToken,
-        });
-        if (setErr) {
-          setError(translations.errorMissingToken);
-          return;
-        }
-        setSessionReady(true);
-        return;
-      }
-
-      if (code) {
-        const { error: exErr } = await supabase.auth.exchangeCodeForSession(code);
-        if (exErr) {
-          setError(translations.errorMissingToken);
-          return;
-        }
-        setSessionReady(true);
-        return;
-      }
-
-      // Nessun token nei params: l'utente ha aperto la pagina manualmente.
-      const { data } = await supabase.auth.getSession();
-      if (data.session) {
-        setSessionReady(true);
-      } else {
-        setError(translations.errorMissingToken);
-      }
-    }
-
-    void init();
-  }, [translations.errorMissingToken]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
 
+    const trimmedEmail = email.trim();
+    const trimmedOtp = otp.trim();
+
+    if (!trimmedEmail || !trimmedOtp) {
+      setError(translations.errorMissingFields);
+      return;
+    }
     if (password.length < 8) {
       setError(translations.errorTooShort);
       return;
@@ -97,15 +77,45 @@ export function ResetPasswordForm({
     }
 
     setSubmitting(true);
-    const supabase = createClient();
-    const { error: updateErr } = await supabase.auth.updateUser({ password });
-    setSubmitting(false);
 
-    if (updateErr) {
-      setError(translations.errorGeneric);
-      return;
+    try {
+      // Client isolato, istanza nuova per questo submit: mai il singleton
+      // cookie-backed del sito, nessuna sessione ambient puo' influenzare
+      // questo flusso (vedi lib/supabase/recovery-client.ts).
+      const recovery = createRecoveryClient();
+
+      const { error: verifyErr } = await recovery.auth.verifyOtp({
+        email: trimmedEmail,
+        token: trimmedOtp,
+        type: 'recovery',
+      });
+
+      if (verifyErr) {
+        setError(messageFor(translations, classifyRecoveryError(verifyErr)));
+        return;
+      }
+
+      const { error: updateErr } = await recovery.auth.updateUser({ password });
+
+      if (updateErr) {
+        setError(messageFor(translations, classifyRecoveryError(updateErr)));
+        return;
+      }
+
+      // Igiene: anche se persistSession:false non scrive nulla su disco,
+      // questo chiude esplicitamente lo stato in-memory del client appena
+      // usato invece di lasciarlo alla garbage collection.
+      await recovery.auth.signOut({ scope: 'local' });
+
+      setDone(true);
+    } catch (rawError) {
+      // fetch() a livello di rete (DNS, offline, CORS) lancia invece di
+      // restituire { error }: senza questo catch la UI resterebbe bloccata
+      // su "submitting" per sempre, senza alcun messaggio.
+      setError(messageFor(translations, classifyRecoveryError(rawError)));
+    } finally {
+      setSubmitting(false);
     }
-    setDone(true);
   }
 
   if (done) {
@@ -134,6 +144,42 @@ export function ResetPasswordForm({
       )}
 
       <div>
+        <label className="block text-sm text-text-secondary mb-1.5" htmlFor="email">
+          {translations.emailLabel}
+        </label>
+        <input
+          id="email"
+          type="email"
+          required
+          autoComplete="email"
+          disabled={submitting}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder={translations.emailPlaceholder}
+          className="w-full rounded-pill border border-divider bg-bg-card px-4 py-2.5 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand-aqua disabled:opacity-50"
+        />
+      </div>
+
+      <div>
+        <label className="block text-sm text-text-secondary mb-1.5" htmlFor="otp">
+          {translations.otpLabel}
+        </label>
+        <input
+          id="otp"
+          type="text"
+          inputMode="numeric"
+          autoComplete="one-time-code"
+          required
+          disabled={submitting}
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          placeholder={translations.otpPlaceholder}
+          className="w-full rounded-pill border border-divider bg-bg-card px-4 py-2.5 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand-aqua disabled:opacity-50"
+        />
+        <p className="mt-1 text-xs text-text-muted">{translations.otpHint}</p>
+      </div>
+
+      <div>
         <label className="block text-sm text-text-secondary mb-1.5" htmlFor="password">
           {translations.passwordLabel}
         </label>
@@ -143,7 +189,7 @@ export function ResetPasswordForm({
           required
           autoComplete="new-password"
           minLength={8}
-          disabled={!sessionReady || submitting}
+          disabled={submitting}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder={translations.passwordPlaceholder}
@@ -161,7 +207,7 @@ export function ResetPasswordForm({
           required
           autoComplete="new-password"
           minLength={8}
-          disabled={!sessionReady || submitting}
+          disabled={submitting}
           value={confirm}
           onChange={(e) => setConfirm(e.target.value)}
           className="w-full rounded-pill border border-divider bg-bg-card px-4 py-2.5 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-brand-aqua disabled:opacity-50"
@@ -170,7 +216,7 @@ export function ResetPasswordForm({
 
       <button
         type="submit"
-        disabled={!sessionReady || submitting}
+        disabled={submitting}
         className="w-full rounded-pill btn-cta py-3 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {submitting ? translations.saving : translations.submit}
