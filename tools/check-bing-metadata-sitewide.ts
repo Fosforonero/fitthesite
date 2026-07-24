@@ -11,10 +11,13 @@
  * Tre livelli di severità:
  *  1. Bug sempre veri, a prescindere dalla baseline: title/description
  *     mancanti su URL indicizzabili (mai baselineabili).
- *  2. Le due liste esplicite P0.8 (10 title Bing, 8 description Bing — la
- *     seconda e' un sottoinsieme delle 28 segnalate da Bing Webmaster
- *     Tools, in attesa dell'export CSV completo, vedi PR): soglie dure
- *     (title <=60c, description 140-160c Unicode).
+ *  2. Le due liste esplicite Bing (10 title, 28 description — URL esatte
+ *     dagli export ufficiali Bing Webmaster Tools "Download all",
+ *     `fitmesh.fit_FailingUrls_7_23_2026.csv` e
+ *     `fitmesh.fit_FailingUrls_7_23_2026 (1).csv`, verificate 1:1 contro
+ *     `fitmesh.fit_SEOAnalysisSummary_2026_07_23.csv`: 10+28 righe, 38 URL
+ *     uniche, zero sovrapposizioni): soglie dure (title <=60c, description
+ *     140-160c Unicode).
  *  3. Debito sitewide preesistente (title >60c, description fuori
  *     140-160c, URL in sitemap non realmente indicizzabile dal vivo,
  *     title/description duplicati) su URL NON nella lista P0.8: non
@@ -47,40 +50,84 @@ const FETCH_TIMEOUT_MS = 15000;
 
 const errors: string[] = [];
 
-// ── Le due liste esplicite P0.8 (Bing Webmaster Tools) ─────────────────────
-
-// Nota: la URL Bing originale per #7 era troncata ("/it/blog/fitbit-data-not",
-// 404 reale) — risolta come unico match plausibile per prefisso di slug
-// esistente (fitbit-data-not-syncing-android.ts). Vedi PR per dettaglio.
+// ── Le due liste esplicite Bing (export ufficiali "Download all") ─────────
+//
+// Fonte: fitmesh.fit_FailingUrls_7_23_2026.csv (10 righe, title) e
+// fitmesh.fit_FailingUrls_7_23_2026 (1).csv (28 righe, description),
+// scaricati da Bing Webmaster Tools -> Recommendations -> [singolo
+// recommendation] -> Download all. Conteggio incrociato con
+// fitmesh.fit_SEOAnalysisSummary_2026_07_23.csv (il riepilogo aggregato,
+// che riporta "Title too long": 10 e "Meta descriptions... too short": 28
+// ma NESSUNA URL — da solo insufficiente, per questo servivano i due export
+// di dettaglio). Verificate: 10 righe/10 URL uniche, 28 righe/28 URL
+// uniche, zero sovrapposizioni tra le due liste.
+//
+// Nota su #7: la URL Bing per il title era gia' completa in questo export
+// ("/it/blog/fitbit-data-not-syncing-android") — un incollaggio precedente
+// in una fase di lavoro l'aveva troncata a "/it/blog/fitbit-data-not"
+// (404 reale), risolta all'epoca come unico match plausibile per prefisso
+// di slug; l'export ufficiale conferma che il match era corretto.
 const BING_TITLE_URLS = [
   "/en/blog/export-fitbit-data-after-google",
-  "/en/blog/google-fit-shutting-down-alternative",
-  "/en/blog/health-connect-vs-samsung-health",
   "/en/blog/sync-samsung-health-google-fit",
-  "/fr/blog/pas-ne-synchronisent-pas-galaxy-watch",
-  "/fr/blog/xiaomi-amazfit-donnees-health-connect-tableau-de-bord",
-  "/it/blog/fitbit-data-not-syncing-android",
-  "/nl/blog/health-connect-synchroniseert-niet",
+  "/en/blog/google-fit-shutting-down-alternative",
   "/pl/blog/eksportuj-dane-garmin",
   "/pl/blog/pixel-watch-dane-osobisty-panel",
+  "/fr/blog/pas-ne-synchronisent-pas-galaxy-watch",
+  "/en/blog/health-connect-vs-samsung-health",
+  "/it/blog/fitbit-data-not-syncing-android",
+  "/fr/blog/xiaomi-amazfit-donnees-health-connect-tableau-de-bord",
+  "/nl/blog/health-connect-synchroniseert-niet",
 ];
 
-// P0.8A: Bing segnala 28 URL "description troppo corta" in totale; questa
-// lista contiene solo le 8 fornite come esempio nel brief originale. Le 20
-// restanti richiedono l'export CSV reale di Bing Webmaster Tools
-// (Recommendations -> Meta descriptions on many pages are too short ->
-// Download all) — NON dedotte dalle 795 anomalie sitewide, per istruzione
-// esplicita. Vedi PR: bloccato in attesa del CSV.
+// Le 28 URL description ufficiali. Una di queste (vedi
+// KNOWN_DESCRIPTION_REDIRECTS sotto) e' un vecchio slug che oggi risponde
+// con un redirect singolo verso lo slug locale corrente dello stesso post
+// — non e' un URL indicizzabile con una description da correggere
+// (classificazione D), quindi e' verificata separatamente, non tramite la
+// sitemap.
 const BING_DESCRIPTION_URLS = [
   "/ja/blog/fitbit-data-google-ekusupoto",
   "/ja/blog",
   "/ja/blog/natsu-osusume-smartwatch-2026",
   "/ja/sync/withings",
+  "/en/sync/suunto",
   "/en/sync/oura",
   "/en/sync/smartphone-android",
   "/ko/blog/yesan-choego-smart-ring",
   "/ko/blog/colmi-r02-seoljeong-bangbeop",
+  "/en/sync/galaxy-watch",
+  "/en/sync/fitbit",
+  "/ko/blog/sleep-tracker-comparison-2026",
+  "/ko/blog/yeoreum-choego-smartwatch-2026",
+  "/ja/blog/galaxy-ring-android-health-connect",
+  "/ko/blog/fitbit-deiteo-google-naebonae",
+  "/ja/blog/wearable-douki-apuri-daian-2026",
+  "/de/sync/strava",
+  "/ja/blog/osusume-kosu-smart-ring",
+  "/ja/blog/suimin-tracker-hikaku-2026",
+  "/ko/blog/smartwatch-seontaek-deiteo-2026",
+  "/ko/blog/smart-ring-wanbyeok-gaidu",
+  "/ja/blog/smart-ring-kanzen-gaido",
+  "/en/sync/amazfit-zepp",
+  "/pt/imprint",
+  "/en/support",
+  "/ja/sync/smartphone-android",
+  "/ja/blog/colmi-r02-settei-houhou",
+  "/ja/lp/fitbit-google-ekusupoto",
 ];
+
+// Classificazione D (Task 1): "/ko/blog/sleep-tracker-comparison-2026" usa
+// letteralmente lo slug canonico/EN come path sotto /ko/ — non e' mai stato
+// lo slug ko corrente (lib/blog/slugs.ts mappa "ko: sumyeon-tracker-bigyo-2026"
+// per questo canonical). resolveBlogPost() lo riconosce via reverse-lookup
+// cross-locale e fa un 308 singolo verso lo slug ko corretto: comportamento
+// SEMPRE ESISTITO (canonicalizzazione cross-locale, non un redirect "legacy"
+// aggiunto ora), verificato NON in loop e con destinazione 200 diretta.
+// Non e' una description da correggere: non ha una pagina propria.
+const KNOWN_DESCRIPTION_REDIRECTS: Record<string, string> = {
+  "/ko/blog/sleep-tracker-comparison-2026": "/ko/blog/sumyeon-tracker-bigyo-2026",
+};
 
 // ── Helpers ─────────────────────────────────────────────────────────────
 
@@ -294,12 +341,32 @@ async function main() {
     }
   }
 
-  // ── Le URL Bing description (sottoinsieme noto delle 28): 140-160c ───
+  // ── Le 28 URL Bing description: 140-160c, fetch diretto (non dipende
+  // dalla sitemap: una di queste e' un redirect classificato D, mai
+  // presente in sitemap per design) ───────────────────────────────────
   let bingDescFailures = 0;
+  let bingDescClassifiedD = 0;
   for (const pathname of BING_DESCRIPTION_URLS) {
-    const page = pages.find((p) => p.pathname === pathname);
-    if (!page) {
-      errors.push(`[bing-description-url-non-in-sitemap] ${pathname} non trovato in sitemap.xml — impossibile verificare`);
+    const knownRedirectTarget = KNOWN_DESCRIPTION_REDIRECTS[pathname];
+    const page = await fetchPageMeta(pathname);
+    if (page.isRedirect) {
+      if (knownRedirectTarget) {
+        bingDescClassifiedD++;
+        // Verifica che il redirect noto sia ancora un singolo hop verso una
+        // pagina 200 reale, non un loop o una rottura silenziosa.
+        const target = await fetchPageMeta(knownRedirectTarget);
+        if (target.status !== 200) {
+          errors.push(
+            `[bing-description-redirect-rotto] ${pathname} (classificazione D) -> ${knownRedirectTarget} risponde ${target.status} invece di 200`,
+          );
+        }
+        continue;
+      }
+      errors.push(`[bing-description-redirect-non-documentato] ${pathname} risponde ${page.status} verso "${page.robots ?? "?"}" ma non e' nella lista dei redirect noti — classificare (D) prima di ignorare`);
+      continue;
+    }
+    if (page.status !== 200) {
+      errors.push(`[bing-description-status-inatteso] ${pathname}: HTTP ${page.status} (atteso 200 o un redirect documentato)`);
       continue;
     }
     if (!page.description) {
@@ -363,7 +430,11 @@ async function main() {
   console.log(
     `Riepilogo: ${pathnames.length} URL sitemap, ${missingTitle} title mancanti, ${missingDescription} description mancanti, ${duplicateTitleUrlCount} URL in title duplicati (${currentDuplicateTitleGroups.length} gruppi), ${duplicateDescriptionUrlCount} URL in description duplicate (${currentDuplicateDescriptionGroups.length} gruppi), ${sitemapInconsistentUrls.length} URL sitemap non realmente indicizzabili dal vivo.`,
   );
-  console.log(`10 URL Bing title: ${BING_TITLE_URLS.length - bingTitleFailures}/${BING_TITLE_URLS.length} ≤60c. ${BING_DESCRIPTION_URLS.length} URL Bing description (sottoinsieme noto delle 28): ${BING_DESCRIPTION_URLS.length - bingDescFailures}/${BING_DESCRIPTION_URLS.length} in 140-160c.`);
+  const bingDescCompliant = BING_DESCRIPTION_URLS.length - bingDescFailures - bingDescClassifiedD;
+  const bingDescCheckable = BING_DESCRIPTION_URLS.length - bingDescClassifiedD;
+  console.log(
+    `10 URL Bing title: ${BING_TITLE_URLS.length - bingTitleFailures}/${BING_TITLE_URLS.length} ≤60c. 28 URL Bing description: ${bingDescCompliant}/${bingDescCheckable} in 140-160c (${bingDescClassifiedD} classificata/e D — redirect noto verso pagina viva, non una description da correggere).`,
+  );
   console.log(
     `Debito sitewide preesistente: ${currentLongTitleUrls.length} title >60c, ${currentOutOfRangeDescriptionUrls.length} description fuori 140-160c (baseline: ${baseline?.longTitleUrls ? `${baseline.longTitleUrls.length}/${baseline.outOfRangeDescriptionUrls.length}` : "assente o formato precedente"}).`,
   );
