@@ -257,15 +257,14 @@ export async function middleware(request: NextRequest) {
     return stripClientHintHeaders(redirectResponse);
   }
 
-  // Inject locale into a custom request header so the root layout can set
-  // <html lang> correctly without duplicating the detection logic.
-  // We clone the existing headers and add our custom one, then pass to
-  // NextResponse.next so Server Components can read it via headers().
-  const detectedLocale = detectLocale(pathname);
-  void search; // already preserved by NextResponse.next
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-fitmesh-locale', detectedLocale);
-  const response = NextResponse.next({ request: { headers: requestHeaders } });
+  // P0.9: niente piu' iniezione di 'x-fitmesh-locale' — il root layout
+  // localizzato (app/(frontend)/[locale]/layout.tsx) ricava la lingua da
+  // `params.locale`, non da un header di richiesta. Leggere un header via
+  // headers() e' una Dynamic API (Next.js 15) e rendeva dinamico l'intero
+  // albero (frontend), vanificando generateStaticParams() ovunque — vedi
+  // docs/ops/vercel-fluid-cpu-audit-2026-07-24.md.
+  void search; // gia' preservata da NextResponse.next
+  const response = NextResponse.next();
 
   // P0.4C Fase 4: il round-trip Supabase (getUser + refresh cookie) ora gira
   // SOLO su /app e /admin (route realmente autenticate), non piu' su ogni
@@ -316,13 +315,61 @@ export async function middleware(request: NextRequest) {
   return stripClientHintHeaders(authResponse);
 }
 
+// P0.9: matcher ridotto da "tutto tranne asset statici" a una lista
+// positiva di casi realmente motivati — le pagine marketing localizzate su
+// www.fitmesh.fit (la stragrande maggioranza del traffico) non attraversano
+// piu' affatto il middleware. Vedi
+// docs/ops/vercel-fluid-cpu-audit-2026-07-24.md per il prima/dopo (446
+// invocazioni middleware su 7gg prima di questo cambio).
+//
+// Ogni entry e' una string literal semplice, MAI un template literal con
+// interpolazione (`${...}`): Next.js analizza `config.matcher` staticamente
+// a livello di sorgente (AST) per estrarlo senza eseguire il bundle del
+// middleware, e un template literal con espressioni fa fallire la build
+// ("Unsupported template literal with expressions at config.matcher[n]").
+// L'alternanza locale (it|en|es|...) e' quindi scritta per esteso in ogni
+// pattern che la usa, invece che referenziata da una costante condivisa —
+// tenerla sincronizzata A MANO con lib/i18n.ts LOCALES, stesso principio di
+// manutenzione gia' presente per NON_LOCALIZED_PREFIXES in questo file.
+// Verificato da middleware.matcher.test.ts e da
+// tools/check-vercel-fluid-cpu.ts.
 export const config = {
-  // Match tutte le route eccetto asset statici, _next, e file pubblici.
   matcher: [
-    // Esclude: asset statici, /mockups (route interna per screenshot generator),
-    // /.well-known/* (asset links Android, OpenID discovery, ecc — devono essere
-    // serviti senza cookie refresh Supabase), /oauth/* (callback redirect dei
-    // provider OAuth, devono essere puliti e veloci).
-    '/((?!_next/static|_next/image|favicon.ico|logo-.*|mockups|\\.well-known|oauth|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
+    // 1. Root: negoziazione lingua (ed eventuale swap apex->www in un colpo solo).
+    '/',
+
+    // 2. Deep link SENZA prefisso locale valido — include /nb, /nn
+    //    (canonicalizzazione deterministica verso /no, P0.8) e qualunque
+    //    altro path non riconosciuto, per la negoziazione lingua. Esclude
+    //    esplicitamente: asset Next.js, file statici, le 15 locale reali
+    //    (ora servite direttamente da www senza passare qui), e le route
+    //    di sistema che non necessitano piu' di alcuna elaborazione qui
+    //    (/api tranne i 3 endpoint rate-limited sotto, /cms, /oauth,
+    //    /mockups, /delete-account, /.well-known).
+    '/((?!_next/static|_next/image|favicon\\.ico|logo-.*|(?:it|en|es|de|pt|fr|pl|tr|nl|ja|ko|sv|da|no|fi)(?:/|$)|api(?:/|$)|cms(?:/|$)|oauth(?:/|$)|mockups(?:/|$)|delete-account(?:/|$)|\\.well-known|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
+
+    // 3. Route protette (refresh sessione + verifica utente Supabase):
+    //    /[locale]/app/* e /[locale]/admin/*. Un solo gruppo catturante
+    //    esterno subito dopo lo slash iniziale (come il pattern #2 sopra):
+    //    path-to-regexp non riconosce gruppi non-catturanti multipli a
+    //    livello superiore ("Pattern cannot start with '?'"), ma tratta il
+    //    contenuto di UN gruppo esterno come regex grezza per quel singolo
+    //    parametro posizionale — stessa tecnica del pattern #2.
+    '/((?:it|en|es|de|pt|fr|pl|tr|nl|ja|ko|sv|da|no|fi)/(?:app|admin)(?:/.*)?)',
+
+    // 4. Rate limit — SOLO questi 3 endpoint API ad alto rischio (P0-001
+    //    cybersec). Ogni altro /api/* non ha bisogno del middleware: nessun
+    //    rate limit, nessun refresh sessione (isProtected copre solo
+    //    /app e /admin), l'iniezione locale e' stata rimossa (punto 2 sopra).
+    '/api/v1/sync',
+    '/api/v1/beta/signup',
+    '/api/v1/invites/:path*',
+
+    // 5. famiglia/join/[code]: anti-enumerazione codici invito. Copre sia
+    //    il deep link senza locale (gia' incluso dal punto 2, ma esplicito
+    //    qui per chiarezza) sia la variante con prefisso locale esplicito
+    //    (es. /it/famiglia/join/MESH-XXXX), che il punto 2 escluderebbe.
+    '/famiglia/join/:code*',
+    '/((?:it|en|es|de|pt|fr|pl|tr|nl|ja|ko|sv|da|no|fi)/famiglia/join/.*)',
   ],
 };
