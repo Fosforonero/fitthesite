@@ -41,7 +41,35 @@ additional_redirect_urls = [
   "https://fitmesh.fit/en/auth/callback",
   "https://www.fitmesh.fit/it/auth/callback",
   "https://www.fitmesh.fit/en/auth/callback",
-  "fitmesh://auth/callback"
+  "fitmesh://auth/callback",
+  # Password recovery hotfix (2026-07-24): `siteLocaleFor()` nell'app Flutter
+  # (AppFitmesh/flutter_app/lib/core/config/site_locale.dart) mappa QUALSIASI
+  # lingua app non pubblicata sul sito (sv/da/no/fi) a 'en' prima di costruire
+  # redirectTo, quindi l'app non genera mai un link con quei 4 segmenti. Le 11
+  # voci sotto sono l'elenco ESATTO e completo dei redirectTo realmente
+  # generabili per /auth/reset-password: niente wildcard, niente locali extra.
+  "http://localhost:3000/it/auth/reset-password",
+  "http://localhost:3000/en/auth/reset-password",
+  "http://localhost:3000/es/auth/reset-password",
+  "http://localhost:3000/de/auth/reset-password",
+  "http://localhost:3000/pt/auth/reset-password",
+  "http://localhost:3000/fr/auth/reset-password",
+  "http://localhost:3000/pl/auth/reset-password",
+  "http://localhost:3000/tr/auth/reset-password",
+  "http://localhost:3000/nl/auth/reset-password",
+  "http://localhost:3000/ja/auth/reset-password",
+  "http://localhost:3000/ko/auth/reset-password",
+  "https://www.fitmesh.fit/it/auth/reset-password",
+  "https://www.fitmesh.fit/en/auth/reset-password",
+  "https://www.fitmesh.fit/es/auth/reset-password",
+  "https://www.fitmesh.fit/de/auth/reset-password",
+  "https://www.fitmesh.fit/pt/auth/reset-password",
+  "https://www.fitmesh.fit/fr/auth/reset-password",
+  "https://www.fitmesh.fit/pl/auth/reset-password",
+  "https://www.fitmesh.fit/tr/auth/reset-password",
+  "https://www.fitmesh.fit/nl/auth/reset-password",
+  "https://www.fitmesh.fit/ja/auth/reset-password",
+  "https://www.fitmesh.fit/ko/auth/reset-password"
 ]
 jwt_expiry = 3600           # 1 hour access token
 enable_refresh_token_rotation = true
@@ -58,6 +86,20 @@ subject = "Conferma il tuo account FitMesh"
 
 [auth.email.template.magic_link]
 subject = "Il tuo link di accesso FitMesh"
+
+# Password recovery hotfix (2026-07-24): usa {{ .Token }} (OTP a 6 cifre) come
+# percorso principale, NON {{ .ConfirmationURL }}. Il link nell'email punta
+# solo a {{ .RedirectTo }} e non verifica/consuma nulla da solo: uno scanner
+# email che pre-visita il link non brucia l'OTP. Fonte versionata qui invece
+# che solo nel Dashboard, per evitare che i due tornino a divergere (vedi
+# runbook docs/runbooks/password-recovery.md).
+# Subject/corpo in inglese: il template Supabase e' GLOBALE (uno per tutto
+# il progetto, non parametrizzabile per locale del destinatario). La pagina
+# web e' tradotta in tutte le locale reali, l'email no: questo e' un limite
+# della piattaforma, non dichiarato come "localizzato" da nessuna parte.
+[auth.email.template.recovery]
+subject = "FitMesh password reset code"
+content_path = "./supabase/templates/recovery.html"
 
 [auth.sms]
 enable_signup = false

@@ -96,6 +96,18 @@ const nextConfig = {
           { key: 'Critical-CH', value: '' },
         ],
       },
+      // Password recovery hotfix (2026-07-24): pagina con OTP/password in
+      // transito, mai da cachare (CDN o browser) e mai da mandare come
+      // referrer a link esterni. Regola piu' specifica dopo quella globale:
+      // per Cache-Control/Referrer-Policy vince l'ultima che matcha lo stesso
+      // path (vedi Next.js headers() config merge order).
+      {
+        source: '/:locale/auth/reset-password',
+        headers: [
+          { key: 'Cache-Control', value: 'no-store' },
+          { key: 'Referrer-Policy', value: 'no-referrer' },
+        ],
+      },
     ];
   },
 

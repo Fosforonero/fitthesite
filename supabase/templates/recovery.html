@@ -1,0 +1,57 @@
+<!--
+  Password recovery hotfix (2026-07-24): il template Supabase e' GLOBALE,
+  uno solo per l'intero progetto, non parametrizzabile per la locale del
+  destinatario. Corpo in inglese (English-first) per essere comprensibile a
+  chiunque lo riceva, indipendentemente dalla lingua dell'app/sito. Non
+  dichiarare questo template "localizzato": non lo e', per limite della
+  piattaforma (vedi docs/runbooks/password-recovery.md).
+-->
+<!DOCTYPE html>
+<html>
+  <body style="margin:0;padding:0;background-color:#f5f5f5;font-family:Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f5f5;padding:32px 0;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;padding:32px;">
+            <tr>
+              <td style="font-size:20px;font-weight:600;color:#111111;padding-bottom:16px;">
+                Reset your FitMesh password
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size:15px;line-height:1.5;color:#333333;padding-bottom:24px;">
+                You requested to reset the password for your FitMesh account.
+                Use this code on the recovery page:
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding-bottom:24px;">
+                <span style="display:inline-block;font-size:32px;font-weight:700;letter-spacing:6px;color:#111111;background-color:#f0f0f0;border-radius:8px;padding:16px 24px;">
+                  {{ .Token }}
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size:14px;line-height:1.5;color:#555555;padding-bottom:24px;">
+                This code is valid for a few minutes and can only be used once.
+                If you did not request this, ignore this email: your password will not change.
+              </td>
+            </tr>
+            <tr>
+              <td style="font-size:14px;line-height:1.5;color:#555555;padding-bottom:8px;">
+                You can open the recovery page from here (clicking alone does nothing: you will still need to enter the code above):
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                <a href="{{ .RedirectTo }}" style="display:inline-block;background-color:#111111;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 24px;border-radius:24px;">
+                  Go to the recovery page
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

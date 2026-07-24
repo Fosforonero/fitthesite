@@ -1,5 +1,6 @@
-import { locales, type Locale } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n';
 import { ResetPasswordForm } from './ResetPasswordForm';
+import { RESET_PASSWORD_LOCALES, TRANSLATIONS, type ResetPasswordLocale } from './translations';
 
 export const dynamic = 'force-static';
 
@@ -9,63 +10,11 @@ export default async function ResetPasswordPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const lc = (locales as readonly string[]).includes(locale)
-    ? (locale as Locale)
-    : 'it';
+  const lc: ResetPasswordLocale = (RESET_PASSWORD_LOCALES as readonly string[]).includes(locale)
+    ? (locale as ResetPasswordLocale)
+    : 'en';
 
-  const t = lc === 'it'
-    ? {
-        title: 'Imposta una nuova password',
-        subtitle:
-          'Inserisci la nuova password che vuoi usare per il tuo account FitMesh. Dopo averla salvata torna sull\'app e fai login.',
-        passwordLabel: 'Nuova password',
-        passwordPlaceholder: 'Almeno 8 caratteri',
-        confirmLabel: 'Conferma password',
-        submit: 'Salva nuova password',
-        saving: 'Salvataggio in corso…',
-        success: 'Password aggiornata! Torna sull\'app FitMesh e accedi con la nuova password.',
-        errorTooShort: 'La password deve avere almeno 8 caratteri.',
-        errorMismatch: 'Le due password non corrispondono.',
-        errorMissingToken:
-          'Link di reset non valido o scaduto. Richiedi un nuovo link dall\'app (Password dimenticata?).',
-        errorGeneric: 'Errore durante il salvataggio. Riprova o richiedi un nuovo link.',
-        backToLogin: 'Torna alla home',
-      }
-    : lc === 'es'
-    ? {
-        title: 'Establece una nueva contraseña',
-        subtitle:
-          'Elige una nueva contraseña para tu cuenta de FitMesh. Después de guardarla, vuelve a la app e inicia sesión.',
-        passwordLabel: 'Nueva contraseña',
-        passwordPlaceholder: 'Al menos 8 caracteres',
-        confirmLabel: 'Confirma la contraseña',
-        submit: 'Guardar nueva contraseña',
-        saving: 'Guardando…',
-        success: 'Contraseña actualizada. Vuelve a la app FitMesh e inicia sesión con tu nueva contraseña.',
-        errorTooShort: 'La contraseña debe tener al menos 8 caracteres.',
-        errorMismatch: 'Las dos contraseñas no coinciden.',
-        errorMissingToken:
-          'El enlace de restablecimiento no es válido o ha caducado. Solicita uno nuevo desde la app (¿Olvidaste tu contraseña?).',
-        errorGeneric: 'Error al guardar. Vuelve a intentarlo o solicita un nuevo enlace.',
-        backToLogin: 'Volver al inicio',
-      }
-    : {
-        title: 'Set a new password',
-        subtitle:
-          'Choose a new password for your FitMesh account. After saving, go back to the app and sign in.',
-        passwordLabel: 'New password',
-        passwordPlaceholder: 'At least 8 characters',
-        confirmLabel: 'Confirm password',
-        submit: 'Save new password',
-        saving: 'Saving…',
-        success: 'Password updated! Go back to the FitMesh app and sign in with your new password.',
-        errorTooShort: 'Password must be at least 8 characters.',
-        errorMismatch: 'The two passwords do not match.',
-        errorMissingToken:
-          'Reset link is invalid or expired. Request a new one from the app (Forgot password?).',
-        errorGeneric: 'Error while saving. Try again or request a new link.',
-        backToLogin: 'Back to home',
-      };
+  const t = TRANSLATIONS[lc];
 
   return (
     <main className="max-w-md mx-auto px-4 sm:px-6 py-16 sm:py-24">
@@ -76,7 +25,7 @@ export default async function ResetPasswordPage({
         <p className="mt-3 text-text-secondary leading-relaxed">{t.subtitle}</p>
       </div>
 
-      <ResetPasswordForm locale={lc} translations={t} />
+      <ResetPasswordForm locale={lc as Locale} translations={t} />
     </main>
   );
 }
