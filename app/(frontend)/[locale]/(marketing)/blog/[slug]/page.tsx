@@ -621,12 +621,9 @@ export default async function BlogArticle({
             {tl(post.hero.subtitle, lc)}
           </p>
           <ArticleMeta
-            slug={post.slug}
             shareLabel={t.metaShare}
             copiedLabel={t.metaCopied}
             copyLabel={t.metaCopy}
-            viewsLabel={t.metaViews}
-            sharesLabel={t.metaShares}
             items={[
               {
                 icon: "category",
