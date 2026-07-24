@@ -165,7 +165,7 @@ export const post: BlogPost = {
     pl: "Przegląd 2026 aplikacji do synchronizacji urządzeń wearable na Androidzie: mosty chmura-chmura, wbudowany Health Connect, ujednolicone panele. Zalety i wady dla każdego przypadku użycia.",
     tr: "Android'de giyilebilir cihazları senkronize etmek için 2026 uygulama panoraması: bulut-bulut köprüleri, yerleşik Health Connect, birleşik paneller. Her kullanım senaryosu için artıları ve eksileri.",
     nl: "Overzicht 2026 van apps voor het synchroniseren van wearables op Android: cloud-naar-cloud-bruggen, ingebouwd Health Connect, uniforme dashboards. Voor- en nadelen per gebruiksscenario.",
-    ja: "2026年のAndroidウェアラブル同期アプリ全景：クラウド間ブリッジ、組み込みHealth Connect、統合ダッシュボード。ユースケース別のメリット・デメリット。",
+    ja: "2026年のAndroidウェアラブル同期アプリ全景：クラウド間ブリッジ、無料で標準搭載のHealth Connect、統合ダッシュボードという3つのカテゴリを比較。間違った選択をすると、Androidが既に無料で提供する機能に料金を払うことになりかねません。ユースケース別のメリット・デメリットを解説します。",
     ko: "2026년 Android 웨어러블 동기화 앱 전망: 클라우드 간 브리지, 내장 Health Connect, 통합 대시보드. 사용 사례별 장단점.",
   },
   hero: {

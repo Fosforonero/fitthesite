@@ -64,7 +64,7 @@ export const post: BlogPost = {
     pl: "Konfiguracja Colmi R02: jak go nosić, ładować i połączyć z FitMesh, aby zobaczyć wszystkie dane w jednym panelu. Praktyczny przewodnik krok po kroku.",
     tr: "Colmi R02 kurulumu: nasıl takılır, şarj edilir ve tüm verilerinizi tek bir panelde görmek için FitMesh'e nasıl bağlanır. Adım adım pratik kılavuz.",
     nl: "Colmi R02 instellen: hoe je hem draagt, oplaadt en verbindt met FitMesh voor een unified gezondheidsoverzicht. Praktische stap-voor-stap gids.",
-    ja: "Colmi R02 のセットアップ：装着方法、充電方法、FitMesh に接続してすべての健康データを一つのダッシュボードで確認する方法。ステップごとの実践ガイド。",
+    ja: "Colmi R02 のセットアップガイド：正しい装着方法、充電方法、バッテリー管理のコツに加え、心拍数、SpO2、睡眠などすべての健康データをスマートウォッチと一つのダッシュボードで確認するためにFitMeshへ接続する方法を一つずつ分かりやすく丁寧に解説する実践的なガイドです。",
     ko: "Colmi R02 설정 가이드: 올바른 착용 방법, 충전 방법, 배터리 관리법과 함께 심박수, 산소포화도, 수면 등 모든 건강 데이터를 스마트워치와 하나의 대시보드에서 함께 보기 위해 FitMesh에 연결하는 방법을 단계별로 설명하는 실용 가이드입니다.",
   },
   primaryKeyword: {

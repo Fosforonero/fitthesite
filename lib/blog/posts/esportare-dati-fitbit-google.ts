@@ -152,7 +152,7 @@ export const post: BlogPost = {
     tr: "Google'ın Fitbit satın almasının ardından: 2026'da Fitbit verilerinizi nasıl dışa aktarırsınız, Google Hesabına geçişte ne değişiyor ve pratik alternatifler.",
     nl: "Na de overname van Fitbit door Google: hoe exporteer je je Fitbit-gegevens in 2026, wat verandert er bij migratie naar een Google-account en welke alternatieven zijn er.",
     ja: "GoogleによるFitbit買収後：2026年にFitbitデータをエクスポートする方法を解説。Google Takeoutで全履歴を保存する方法と、Health Connect経由で日々のデータを他アプリと共有する方法の2通り、アカウント移行の変更点、実用的な代替手段も紹介します。",
-    ko: "Google의 Fitbit 인수 이후: 2026년 Fitbit 데이터를 내보내는 방법, Google 계정으로 마이그레이션 시 무엇이 달라지는지, 실용적인 대안.",
+    ko: "Google의 Fitbit 인수(2021년)와 2023년 계정 통합 이후 2026년 Fitbit 데이터를 내보내는 방법을 설명합니다. 전체 기록 보관용 Google Takeout과 타사 앱으로의 일상 데이터 흐름을 위한 Health Connect, 두 경로와 실용적인 대안을 다룹니다.",
   },
   hero: {
     kicker: {
