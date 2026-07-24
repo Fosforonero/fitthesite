@@ -235,6 +235,10 @@ export const post: BlogPost = {
       ko: "사라지는 걸음 수, 누락된 수면 데이터, 업데이트되지 않는 심박수. 가장 일반적인 Health Connect 문제를 진단하고 수정하는 방법을 알아보세요.",
     },
   },
+  // P0.8: <title> renderizzato nl superava 60 caratteri (77). H1 invariato.
+  seoTitle: {
+    nl: "Health Connect synchroniseert niet: 7 oplossingen",
+  },
   body: [
     {
       type: "paragraph",

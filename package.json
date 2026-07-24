@@ -24,7 +24,8 @@
     "galaxy-watch:claims-check": "tsx tools/check-galaxy-watch-article-claims.ts",
     "galaxy-watch:placeholder-count": "tsx tools/check-galaxy-watch-placeholder-count.ts",
     "samsung-health-pillar:claims-check": "tsx tools/check-samsung-health-pillar-claims.ts",
-    "blog:locale-near-miss-check": "tsx tools/check-blog-locale-near-miss.ts"
+    "blog:locale-near-miss-check": "tsx tools/check-blog-locale-near-miss.ts",
+    "vercel:fluid-check": "tsx tools/check-vercel-fluid-cpu.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",

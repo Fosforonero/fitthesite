@@ -7,6 +7,20 @@
     }
   },
   "installCommand": "pnpm install --frozen-lockfile",
+  "redirects": [
+    {
+      "source": "/api/:path*",
+      "has": [{ "type": "host", "value": "fitmesh.fit" }],
+      "destination": "https://www.fitmesh.fit/api/:path*",
+      "statusCode": 308
+    },
+    {
+      "source": "/:path((?:it|en|es|de|pt|fr|pl|tr|nl|ja|ko|sv|da|no|fi|cms|oauth|mockups|delete-account)(?:/.*)?)",
+      "has": [{ "type": "host", "value": "fitmesh.fit" }],
+      "destination": "https://www.fitmesh.fit/:path",
+      "statusCode": 301
+    }
+  ],
   "crons": [
     {
       "path": "/api/cron/beta-welcome-emails",

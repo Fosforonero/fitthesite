@@ -26,18 +26,24 @@ export async function generateMetadata({
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
 
+  // P0.8: em dash rimosso da tutte le locale (regola editoriale, nessun em
+  // dash nel copy pubblico) — sostituito con i due punti, stesso schema
+  // "Blog FitMesh: argomento" leggibile in ogni lingua.
   const title =
-    lc === "it" ? "Blog FitMesh — Sync wearable, Health Connect, privacy salute" :
-    lc === "es" ? "Blog FitMesh — Sincronización de wearables, Health Connect, privacidad de salud" :
-    lc === "de" ? "FitMesh Blog — Wearable-Synchronisierung, Health Connect, Gesundheits-Datenschutz" :
-    lc === "pt" ? "Blog FitMesh — Sincronização de wearables, Health Connect, privacidade de saúde" :
-    lc === "fr" ? "Blog FitMesh — Synchronisation wearable, Health Connect, confidentialité santé" :
-    lc === "pl" ? "Blog FitMesh — Synchronizacja wearables, Health Connect, prywatność zdrowotna" :
-    lc === "tr" ? "FitMesh Blog — Giyilebilir senkronizasyon, Health Connect, sağlık gizliliği" :
-    lc === "nl" ? "FitMesh Blog — Wearable synchronisatie, Health Connect, gezondheidsdata" :
-    lc === "ja" ? "FitMesh ブログ — ウェアラブル同期・Health Connect・健康データプライバシー" :
-    lc === "ko" ? "FitMesh 블로그 — 웨어러블 동기화·Health Connect·건강 데이터 프라이버시" :
-    "FitMesh Blog — Wearable sync, Health Connect, health privacy";
+    lc === "it" ? "Blog FitMesh: sync wearable, Health Connect, privacy salute" :
+    lc === "es" ? "Blog FitMesh: sincronización de wearables, Health Connect, privacidad de salud" :
+    lc === "de" ? "FitMesh Blog: Wearable-Synchronisierung, Health Connect, Gesundheits-Datenschutz" :
+    lc === "pt" ? "Blog FitMesh: sincronização de wearables, Health Connect, privacidade de saúde" :
+    lc === "fr" ? "Blog FitMesh: synchronisation wearable, Health Connect, confidentialité santé" :
+    lc === "pl" ? "Blog FitMesh: synchronizacja wearables, Health Connect, prywatność zdrowotna" :
+    lc === "tr" ? "FitMesh Blog: giyilebilir senkronizasyon, Health Connect, sağlık gizliliği" :
+    lc === "nl" ? "FitMesh Blog: wearable synchronisatie, Health Connect, gezondheidsdata" :
+    lc === "ja" ? "FitMesh ブログ：ウェアラブル同期・Health Connect・健康データプライバシー" :
+    lc === "ko" ? "FitMesh 블로그: 웨어러블 동기화·Health Connect·건강 데이터 프라이버시" :
+    "FitMesh Blog: Wearable sync, Health Connect, health privacy";
+  // P0.8: descrizione ja estesa (era 91 caratteri, sotto la soglia Bing
+  // 140-160) con un dettaglio reale già vero del prodotto (dashboard multi
+  // dispositivo FitMesh Sync), non padding ripetitivo.
   const description =
     lc === "it" ? "Guide oneste su sync wearable, Health Connect, esportazione dati Galaxy Watch / Fitbit / Garmin, GDPR e privacy. Niente hype, solo informazioni utili." :
     lc === "es" ? "Guías honestas sobre sincronización de wearables, Health Connect, exportación de datos de Galaxy Watch y Garmin, GDPR y privacidad. Sin hype, solo información útil." :
@@ -47,7 +53,7 @@ export async function generateMetadata({
     lc === "pl" ? "Rzetelne poradniki o synchronizacji wearables, Health Connect, eksporcie danych Galaxy Watch i Garmin, RODO i prywatności. Bez przesady, tylko przydatne informacje." :
     lc === "tr" ? "Giyilebilir senkronizasyon, Health Connect, Galaxy Watch ve Garmin veri dışa aktarma, KVKK ve gizlilik hakkında dürüst rehberler. Abartı yok, sadece faydalı bilgiler." :
     lc === "nl" ? "Eerlijke gidsen over wearable synchronisatie, Health Connect, data-export van Galaxy Watch en Garmin, AVG en privacy. Geen hype, alleen nuttige informatie." :
-    lc === "ja" ? "ウェアラブル同期・Health Connect・Galaxy Watch/Garminのデータエクスポート・GDPRとプライバシーに関する誠実なガイド。誇大広告なし、役立つ情報のみ。" :
+    lc === "ja" ? "ウェアラブル同期・Health Connect・Galaxy Watch/Garminのデータエクスポート・GDPRとプライバシーに関する誠実なガイドを掲載。誇大広告なし、役立つ情報のみ。複数デバイスのデータをFitMesh Syncで1つのダッシュボードにまとめる方法も解説します。" :
     lc === "ko" ? "웨어러블 동기화, Health Connect, Galaxy Watch/Garmin 데이터 내보내기, GDPR 및 개인정보 보호에 관한 정직한 가이드. 과장 없이 유용한 정보만." :
     "Honest guides on wearable sync, Health Connect, Galaxy Watch / Fitbit / Garmin data export, GDPR and privacy. No hype, just useful information.";
 

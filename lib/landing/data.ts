@@ -530,7 +530,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       pl: "Chcesz eksportować i wyświetlać dane Fitbit po pobraniu Google? Alternatywna panelowa strona internetowa za pomocą Health Connect, bez Fitbit Premium, priorytet prywatności.",
       tr: "İstediğinizde Fitbit verilerini dışa aktarabilir ve görebilirsiniz mi Google sonucu? Web tabanlı alternatif panel Health Connect yoluyla, Fitbit Premium olmadan, gizlilik ilkeli.",
       nl: "Wil je je Fitbit-gegevens exporteren en bekijken na de overname door Google? Alternatief webdashboard via Health Connect, geen Fitbit Premium, privacy voorop.",
-      ja: "Google による買収後も Fitbit データをエクスポートして見たいですか?Health Connect 経由の代替ウェブダッシュボード、Fitbit Premium 不要、プライバシー優先。",
+      ja: "Google による買収後も Fitbit データをエクスポートしたいですか?Health Connect 経由の代替ウェブダッシュボードなら、主要モデルで自動連携、セットアップは一度だけ5分。Fitbit Premium 不要、プライバシー優先で他のデバイスのデータもまとめられます。",
       ko: "Google 인수 이후에도 Fitbit 데이터를 내보내고 보고 싶으신가요? Health Connect 를 통한 대체 웹 대시보드, Fitbit Premium 불필요, 프라이버시 우선.",
     },
     hero: {

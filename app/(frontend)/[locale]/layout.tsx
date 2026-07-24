@@ -1,9 +1,13 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 
-import { locales, type Locale, ogLocale, localeAlternates } from '@/lib/i18n';
+import { locales, type Locale, htmlLang, ogLocale, localeAlternates } from '@/lib/i18n';
+import { RootHtmlShell } from '@/components/RootHtmlShell';
+import { ROOT_METADATA_BASE, ROOT_VIEWPORT } from '@/lib/root-metadata';
 
 const SITE_URL = 'https://www.fitmesh.fit';
+
+export const viewport: Viewport = ROOT_VIEWPORT;
 
 /** Pre-render both locales at build time for SEO. */
 export function generateStaticParams() {
@@ -17,7 +21,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  if (!locales.includes(locale as Locale)) return {};
+  if (!locales.includes(locale as Locale)) return ROOT_METADATA_BASE;
   const lc = locale as Locale;
 
   const titles: Record<Locale, string> = {
@@ -56,6 +60,7 @@ export async function generateMetadata({
   };
 
   return {
+    ...ROOT_METADATA_BASE,
     title: titles[lc],
     description: descriptions[lc],
     alternates: {
@@ -82,7 +87,11 @@ export async function generateMetadata({
 }
 
 /**
- * Root locale layout — minimal wrapper.
+ * Root layout per tutte le route `/[locale]/*` (P0.9: vero root layout —
+ * definisce `<html lang>`/`<body>` tramite RootHtmlShell, nessun layout
+ * condiviso sopra di questo). `params.locale` e' sempre noto staticamente
+ * (generateStaticParams sopra copre le 15 locale), quindi `<html lang>` si
+ * risolve interamente server-side senza leggere alcun header di richiesta.
  *
  * Header/Footer/CookieBanner sono SPECIFICI del route group `(marketing)`.
  * Le route `/app/*` (private area) e `/admin/*` hanno layout propri con
@@ -97,5 +106,6 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!locales.includes(locale as Locale)) notFound();
-  return <>{children}</>;
+  const lc = locale as Locale;
+  return <RootHtmlShell lang={htmlLang[lc]}>{children}</RootHtmlShell>;
 }

@@ -216,6 +216,10 @@ export const post: BlogPost = {
       ko: "Samsung Health에서 Google Fit으로의 직접 동기화는 더 이상 존재하지 않습니다. 무슨 일이 있었는지, 현재 작동하는 Health Connect 우회 방법, 그리고 알아야 할 제한 사항을 설명합니다.",
     },
   },
+  // P0.8: <title> renderizzato en superava 60 caratteri (76). H1 invariato.
+  seoTitle: {
+    en: "Samsung Health to Google Fit Sync (2026)",
+  },
   body: [
     {
       type: "paragraph",
