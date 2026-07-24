@@ -218,6 +218,14 @@ export const post: BlogPost = {
       ko: "경쟁자가 아닙니다. 함께 작동합니다. 하지만 잘못된 것을 비활성화하지 않으려면 누가 무엇을 하는지 이해하는 것이 중요합니다.",
     },
   },
+  // P0.8: <title> renderizzato en superava 60 caratteri (63). H1 invariato.
+  // P0.8A: sostituito "Where Does Galaxy Watch Health Data Go?" — troppo
+  // debole per il cluster Samsung Health/Health Connect/Google Health che
+  // la description (riga 176) gia' descrive come confronto a tre; il nuovo
+  // title riflette quel confronto invece di restringersi al solo Galaxy Watch.
+  seoTitle: {
+    en: "Samsung Health vs Health Connect vs Google Health",
+  },
   body: [
     {
       type: "paragraph",

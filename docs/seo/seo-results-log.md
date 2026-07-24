@@ -1178,11 +1178,114 @@ Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
   `/lp/garmin-health-connect*` per it/en/es/de rispondono con un solo hop
   308→200 verso `garmin-samsung-health-sync-guide` localizzato. Nessuna
   modifica: solo verifica.
-- **Commit hash e PR**: registrati dopo il push (vedi sezione successiva).
-- **Controlli programmati**: date +14/+28/+90 giorni da calcolare sulla data
-  reale del deploy di produzione, dopo il GO al merge.
-- **Zero Preview Deployment**: da confermare via Vercel MCP dopo il push
+- **Commit hash e PR**: `29ba682` push iniziale, PR #23
+  (https://github.com/Fosforonero/fitthesite/pull/23).
+- **Zero Preview Deployment**: confermato via Vercel MCP dopo il push
   (branch non-`main`, `vercel.json` limita comunque i deploy a `main`).
-- **Stato**: verificato in Docker (typecheck, 173/173 vitest, guardrail
-  dedicati, build produzione, `next dev` reale + Playwright), pronto per
-  push e PR. Nessun merge autonomo.
+- **Stato pre-merge**: verificato in Docker (typecheck, 173/173 vitest,
+  guardrail dedicati, build produzione, `next dev` reale + Playwright).
+
+### P1.3T-Q-A — Correzione bloccante pre-merge: keyword "fitmesh ios beta" stale
+
+- **Problema**: `fitmesh-arriva-su-iphone.secondaryKeywords[0]` conteneva
+  ancora `"fitmesh ios beta"` (o variante locale) in tutte le 11 locale del
+  post TS, emessa pubblicamente in `<meta name="keywords">` e
+  `BlogPosting.keywords` — FitMesh iOS è live sull'App Store (storefront UE
+  incluse), non più beta/TestFlight. Trovato anche lo stesso bug in
+  `lib/blog/nordic-overlay.json` per sv/da (stesso post), non menzionato nel
+  brief ma stessa causa reale: corretto anch'esso.
+- **Fix**: sostituita con equivalente naturale locale di "fitmesh ios app
+  store" in tutte le 11+2 locale (it/en/de/es dirette; pt/fr/pl/tr/nl/ja/ko
+  generate e verificate via workflow traduci→revisiona-madrelingua; sv/da
+  nell'overlay nordico). Nessun altro campo toccato.
+- **Guardrail esteso**: `tools/check-ios-eu-truth.ts` — nuovo pattern
+  multi-lingua `ios beta`/`beta ios` (incl. traslitterazione ja/ko). Testato
+  deliberatamente reintroducendo la stringa (guardrail fallisce
+  correttamente), poi ripristinato. Un falso positivo pre-esistente
+  allowlistato (`anello-vs-smartwatch.ts`, commento che afferma l'ASSENZA di
+  un claim iOS-beta).
+- **Commit**: `cc9e9ad`, stesso branch/PR #23. Rieseguiti tutti i gate
+  (typecheck, 173/173 vitest, guardrail, build produzione Docker, HTTP
+  reale su `next start`): tutti verdi.
+
+### P1.3T-Q + P1.3T-Q-A — Merge, deploy, QA pubblico, IndexNow (2026-07-23)
+
+- **Merge**: PR #23 con merge commit regolare (non squash) su `main`.
+  Merge SHA `1e9cd2aab0275e61fa07f9a3a1158c4b69bf87e1`. Branch
+  `content/p1-3t-q-deq-recovery-galaxy-i18n` mantenuto (non cancellato,
+  `delete_branch_on_merge=false` a livello repo).
+- **Deployment**: esattamente un nuovo deployment di produzione generato dal
+  merge, `dpl_HdVd4gV4Cb8vUSsU2rf34tKnwurT`, READY alle
+  2026-07-23T11:38:01Z. Nessun secondo deployment, nessun redeploy, nessuna
+  Vercel CLI, nessun commit vuoto.
+- **Incidente ambientale (non bloccante)**: durante l'attesa del deploy il
+  disco esterno che ospita il worktree si è scollegato (nessun comando
+  distruttivo eseguito da me; volume assente da `diskutil list`), poi
+  ricollegato dall'utente. Nessuna perdita dati (albero git verificato
+  identico prima/dopo). Effetto collaterale residuo: il file-sharing Docker
+  Desktop per quel volume è rimasto rotto (`not a directory` su ogni mount),
+  probabile mount virtiofs non risincronizzato — non forzato con un riavvio
+  autonomo di Docker Desktop; girato usando verifiche via HTTP reale su
+  produzione invece di Docker dove possibile.
+- **QA pubblico — 59 varianti DE/ES recuperate**: tutte le 59 URL (31 post
+  × es, 28 post × de, elenco esatto in
+  `docs/seo/p1-3q-blog-locale-near-miss.md`) verificate individualmente
+  contro produzione: HTTP 200 (59/59), nessun `noindex` (59/59), canonical
+  self-referenziante esatto (59/59), `inLanguage` corretto (`es-ES`/`de-DE`,
+  formato BCP-47 con regione, coerente con it-IT/en-US sitewide — verificato
+  non è un difetto), presenti in `sitemap.xml` (59/59, 1397 URL totali nella
+  sitemap). Hreflang verificato a campione su 3/59 (prima/metà/ultima riga):
+  reciproco e corretto, solo locale indicizzabili elencate.
+- **Near-miss**: 38 confermato (0 es, 0 de) — verificato per identità di
+  albero git (`git diff --stat origin/main cc9e9ad` vuoto: il contenuto
+  mergiato è byte-identico a quanto già testato pre-merge con il guardrail
+  dedicato, quindi il risultato 38/38 resta valido senza dover rieseguire lo
+  script contro un ambiente Docker rotto dall'incidente disco).
+- **Galaxy Watch**: IT/EN/DE/ES tutti 200 diretti (0 hop) verificato in
+  produzione. Altre 11 locale: 10/11 (pt/fr/pl/tr/nl/ja/ko/sv/da/fi)
+  307→`/en/blog/galaxy-watch-ultra2-watch9-health-connect` in un solo hop,
+  corretto. **1/11 (nb) anomalo**: `/nb/blog/...` risponde 307 verso
+  `/it/nb/blog/...` (path malformato a doppio prefisso locale). **Verificato
+  essere un bug preesistente e sitewide, non introdotto da questo merge**:
+  riproducibile anche su un post normale mai toccato da questo sprint
+  (`fitmesh-arriva-su-iphone`), e `git diff --stat b777597 cc9e9ad` conferma
+  che questo branch non ha mai toccato `middleware.ts`/`lib/locale*`/
+  `lib/i18n*`. Non corretto (fuori perimetro), segnalato come candidato per
+  un hotfix dedicato futuro.
+- **FAQ e OG image**: Galaxy Watch DE/ES — 10/10 domande `FAQPage`
+  JSON-LD trovate anche come testo visibile in pagina (0 mancanti). OG image
+  200, PNG 1200×630 confermato via lettura header binario (non solo status
+  code).
+- **iOS beta/TestFlight**: zero occorrenze in `<meta name="keywords">` e
+  `BlogPosting.keywords` su IT/EN/DE/ES dell'articolo iPhone, verificato
+  direttamente in produzione post-merge (non solo pre-merge). Le uniche
+  occorrenze residue della sottostringa "beta" sul sito sono il link di
+  navigazione "Founder Beta" (`/it/beta`), estraneo e verificato.
+- **Mobile 390px**: Galaxy Watch DE/ES, nessun overflow orizzontale a
+  livello documento (`scrollWidth == clientWidth`); le 3 tabelle di ogni
+  pagina sono correttamente contenute in wrapper `<figure
+  class="...overflow-x-auto">` indipendenti (scroll orizzontale isolato per
+  tabella, non della pagina) — verificato via DOM reale (Playwright),
+  browser isolato (mai la finestra reale dell'utente).
+- **Sitewide, nessuna regressione**: homepage IT/EN 200, blog index IT 200
+  (titolo/H1/63 link reali, non un fallback 404 — la sottostringa "404"
+  trovata era solo il componente not-found bundlato nel payload RSC di
+  Next.js, normale), `robots.txt` 200 (Allow /, Sitemap corretta, disallow
+  invariati), `sitemap.xml` 200 (1397 URL), `llms.txt` 200 (contenuto
+  coerente).
+- **IndexNow**: inviate **74 URL** deduplicate (0 duplicati, verificato
+  programmaticamente) — 59 varianti DE/ES recuperate + 11 varianti
+  aggiuntive dell'articolo iPhone la cui keyword è stata corretta
+  (it/en/pt/fr/pl/tr/nl/ja/ko/sv/da — es/de già conteggiate nelle 59) + 4
+  varianti Galaxy Watch cambiate in questo deploy (it/en/de/es: DE/ES
+  tradotte ex novo, IT/EN hanno ricevuto l'addendum P1.3N-D + link
+  `related` verso `garmin-samsung-health-sync-guide`, mai deployato prima
+  d'ora). Risposta IndexNow: HTTP 200. Non inviate: le 121 URL 307 (11
+  Galaxy Watch + redirect vari), le 38 varianti near-miss residue rimaste
+  `noindex`, nessuna URL non modificata.
+- **Controlli programmati** (calcolati sulla data reale del deploy
+  2026-07-23): +14gg → **2026-08-06**, +28gg → **2026-08-20**, +90gg →
+  **2026-10-21**. Nessun dato di crescita SEO dichiarabile prima di queste
+  date.
+- **Risultati log**: questa sezione è locale, non pushata (nessun secondo
+  deployment generato solo per la documentazione).

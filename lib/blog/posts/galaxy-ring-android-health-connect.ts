@@ -57,7 +57,7 @@ export const post: BlogPost = {
       pl: "Przewodnik do ustawienia Galaxy Ring na Android: jak go parować, jakie dane zdrowia śledzi i jak uzyskać dostęp do danych za pomocą Health Connect i aplikacji trzecich.",
       tr: "Galaxy Ring ayar rehberi için Android: nasıl çiftleştiğini, hangi sağlık verilerini takip ettiğini ve Samsung Health ve üçüncü taraf uygulamalar üzerinden veri erişimini öğrenin.",
       nl: "Handig leidraad voor Android om de Galaxy Ring te configureren: hoe je het kunt verbinden, welke gezondheidsdata het volgt en hoe je toegang krijgt tot je data via Health Connect en derdepartijdse apps.",
-      ja: "Galaxy Ring のAndroid設定ガイド：どのようにペアリングするか、追跡される健康データは何なのか、そしてSamsung Healthや第三者アプリでデータを読み込む方法。",
+      ja: "Galaxy Ring のAndroid設定ガイド：ペアリング方法、追跡される健康データ、Samsung Healthや第三者アプリでの読み込み方法を解説。Oura Ringと違い専用アプリやサブスクリプション不要で、Samsung Health内で完結して使える点も紹介します。",
       ko: "Galaxy Ring setup guide for Android: how to pair it, what health data it tracks, and how to access your data via Health Connect and third-party apps.",
     },
   primaryKeyword: {

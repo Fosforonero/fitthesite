@@ -174,6 +174,19 @@ export interface BlogPost {
    */
   pillar?: boolean;
   hero: BlogHero;
+  /**
+   * Titolo SEO alternativo per `<title>`/og:title/twitter:title/JSON-LD
+   * `headline`, usato SOLO quando `hero.title` (l'H1) supera il budget di
+   * lunghezza per il title renderizzato (~60 caratteri incluso il suffisso
+   * brand). `Partial<Record<Locale, string>>` invece di `Localized`
+   * deliberatamente: serve un override sparso (spesso UNA sola locale), non
+   * un oggetto che obbliga a riempire `it`/`en` con copie inerti solo per
+   * soddisfare il type-check. Locale assenti da questa mappa ricadono su
+   * `hero.title` come sempre (nessun cambio per i post che non lo
+   * definiscono). L'H1 stesso resta invariato: non va mai accorciato solo
+   * per SEO se è già corretto e leggibile (vedi P0.8).
+   */
+  seoTitle?: Partial<Record<Locale, string>>;
   /** Meta description e OG description. ~140-160 caratteri ideale. */
   metaDescription: Localized;
   /** Parola/frase chiave principale (per `keywords` meta). */
@@ -215,4 +228,15 @@ export const CATEGORY_LABEL: Record<BlogCategory, Localized> = {
 
 export function categoryLabel(c: BlogCategory, lc: Locale): string {
   return tl(CATEGORY_LABEL[c], lc);
+}
+
+/**
+ * Titolo da usare per `<title>`/og:title/twitter:title/JSON-LD `headline`:
+ * `seoTitle` se il post lo definisce per questa locale, altrimenti `hero.title`
+ * (H1). Unica fonte di verità condivisa da generateMetadata e dal componente
+ * pagina (invocazioni separate — vedi blog/[slug]/page.tsx) per evitare che
+ * finiscano fuori sincrono.
+ */
+export function blogSeoTitle(post: Pick<BlogPost, "hero" | "seoTitle">, lc: Locale): string {
+  return post.seoTitle?.[lc] ?? tl(post.hero.title, lc);
 }

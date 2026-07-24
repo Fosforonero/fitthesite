@@ -107,7 +107,7 @@ const DESC: Record<Locale, string> = {
   en: "Legal notice and service operator identity for fitmesh.fit (DSA): legal entity, registered address and contact.",
   es: "Aviso legal e identidad del operador de fitmesh.fit (DSA): razón social, domicilio y contacto.",
   de: "Impressum und Anbieterkennzeichnung für fitmesh.fit (DSA): Firma, Anschrift und Kontakt.",
-  pt: "Informação legal e identidade do operador de fitmesh.fit (DSA): firma, sede e contacto.",
+  pt: "Informação legal e identidade do operador de fitmesh.fit ao abrigo do DSA (UE): entidade titular, representante legal, sede registada e contacto direto.",
   fr: "Mentions légales et identité de l'exploitant de fitmesh.fit (DSA) : entité légale, siège et contact.",
   pl: "Nota prawna i tożsamość operatora fitmesh.fit (DSA): podmiot, siedziba i kontakt.",
   tr: "fitmesh.fit için künye ve işletmeci kimliği (DSA): firma, adres ve iletişim.",

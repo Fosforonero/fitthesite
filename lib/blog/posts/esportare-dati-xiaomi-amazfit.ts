@@ -231,6 +231,10 @@ export const post: BlogPost = {
       ko: "Mi Band와 Amazfit 데이터는 Zepp 또는 Mi Fitness 앱에 잠겨 있지만, Health Connect를 사용하면 꺼내서 다른 기기와 통합하고 나만의 대시보드에서 볼 수 있습니다. 솔직한 한계와 함께 방법을 알아보세요.",
     },
   },
+  // P0.8: <title> renderizzato fr superava 60 caratteri (82). H1 invariato.
+  seoTitle: {
+    fr: "Xiaomi et Amazfit: données sur Health Connect",
+  },
   body: [
     {
       type: "paragraph",

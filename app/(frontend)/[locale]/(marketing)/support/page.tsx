@@ -14,7 +14,7 @@ export async function generateMetadata(
   const titles: Record<Locale, string> = { it: "Supporto", en: "Support", es: "Soporte", de: "Support", pt: "Suporte", fr: "Assistance", pl: "Wsparcie", tr: "Destek", nl: "Ondersteuning", ja: "サポート", ko: "고객 지원", sv: "Support", da: "Support", no: "Support", fi: "Tuki" };
   const desc: Record<Locale, string> = {
     it: "FAQ, troubleshooting e contatti per FitMesh Sync. Risposte rapide ai problemi più comuni.",
-    en: "FAQ, troubleshooting and contacts for FitMesh Sync. Quick answers to the most common questions.",
+    en: "FAQ and troubleshooting for FitMesh Sync: missing data, battery use, offline syncing, phone switching, pricing, private servers. Contact options included.",
     es: "Preguntas frecuentes, solución de problemas y contacto para FitMesh Sync. Respuestas rápidas a las dudas más habituales.",
     de: "Häufige Fragen, Fehlerbehebung und Kontakt für FitMesh Sync. Schnelle Antworten auf die häufigsten Probleme.",
     pt: "Perguntas frequentes, solução de problemas e contato do FitMesh Sync. Respostas rápidas para as dúvidas mais comuns.",
