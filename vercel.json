@@ -3,7 +3,6 @@
   "git": {
     "deploymentEnabled": {
       "main": true,
-      "hotfix/password-recovery-otp": true,
       "**": false
     }
   },
