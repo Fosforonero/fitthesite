@@ -24,13 +24,30 @@ export const RESET_PASSWORD_LOCALES = locales.filter(
   (l) => !UNTRANSLATED_CONTENT_LOCALES.has(l),
 ) as readonly ResetPasswordLocale[];
 
-export type PageTranslations = ResetPasswordTranslations & { title: string; subtitle: string };
+/**
+ * `metaTitle`/`metaDescription` sono separati da `title`/`subtitle`: i primi
+ * finiscono in <title>/<meta name="description"> (fuori dalla pagina, nella
+ * SERP o in un tab del browser, dove serve nominare esplicitamente FitMesh),
+ * i secondi restano l'H1 e il sommario dentro la pagina, dove il contesto e'
+ * gia' chiaro. Senza questi, la route ereditava titolo, description E
+ * canonical dal root layout, cioe' quelli della HOMEPAGE (verificato in
+ * produzione il 2026-07-25 su tutte e 11 le locale).
+ */
+export type PageTranslations = ResetPasswordTranslations & {
+  title: string;
+  subtitle: string;
+  metaTitle: string;
+  metaDescription: string;
+};
 
 export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
   it: {
     title: 'Imposta una nuova password',
     subtitle:
       'Il codice arriva dall\'app FitMesh via email: inseriscilo qui insieme alla nuova password.',
+    metaTitle: 'Recupero password | FitMesh',
+    metaDescription:
+      'Inserisci il codice ricevuto via email e scegli una nuova password per il tuo account FitMesh.',
     emailLabel: 'Email',
     emailPlaceholder: 'La tua email FitMesh',
     otpLabel: 'Codice ricevuto via email',
@@ -56,6 +73,9 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     title: 'Establece una nueva contraseña',
     subtitle:
       'El código llega desde la app FitMesh por email: introdúcelo aquí junto con tu nueva contraseña.',
+    metaTitle: 'Recuperar contraseña | FitMesh',
+    metaDescription:
+      'Introduce el código que has recibido por email y elige una nueva contraseña para tu cuenta de FitMesh.',
     emailLabel: 'Email',
     emailPlaceholder: 'Tu email de FitMesh',
     otpLabel: 'Código recibido por email',
@@ -81,6 +101,9 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     title: 'Set a new password',
     subtitle:
       'The code arrives from the FitMesh app by email: enter it here together with your new password.',
+    metaTitle: 'Password recovery | FitMesh',
+    metaDescription:
+      'Enter the code you received by email and choose a new password for your FitMesh account.',
     emailLabel: 'Email',
     emailPlaceholder: 'Your FitMesh email',
     otpLabel: 'Code received by email',
@@ -106,6 +129,9 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     title: 'Neues Passwort festlegen',
     subtitle:
       'Der Code kommt per E-Mail von der FitMesh-App: Gib ihn hier zusammen mit deinem neuen Passwort ein.',
+    metaTitle: 'Passwort zurücksetzen | FitMesh',
+    metaDescription:
+      'Gib den per E-Mail erhaltenen Code ein und wähle ein neues Passwort für dein FitMesh-Konto.',
     emailLabel: 'E-Mail',
     emailPlaceholder: 'Deine FitMesh-E-Mail',
     otpLabel: 'Per E-Mail erhaltener Code',
@@ -130,6 +156,9 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
   pt: {
     title: 'Defina uma nova senha',
     subtitle: 'O código chega no seu email pelo app FitMesh: digite-o aqui junto com a nova senha.',
+    metaTitle: 'Recuperação de senha | FitMesh',
+    metaDescription:
+      'Digite o código recebido por email e escolha uma nova senha para a sua conta FitMesh.',
     emailLabel: 'Email',
     emailPlaceholder: 'Seu email do FitMesh',
     otpLabel: 'Código recebido por email',
@@ -153,6 +182,9 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
   fr: {
     title: 'Définir un nouveau mot de passe',
     subtitle: 'Le code arrive par email depuis l\'app FitMesh : saisis-le ici avec ton nouveau mot de passe.',
+    metaTitle: 'Récupération du mot de passe | FitMesh',
+    metaDescription:
+      'Saisis le code reçu par email et choisis un nouveau mot de passe pour ton compte FitMesh.',
     emailLabel: 'Email',
     emailPlaceholder: 'Ton email FitMesh',
     otpLabel: 'Code reçu par email',
@@ -177,6 +209,9 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
   pl: {
     title: 'Ustaw nowe hasło',
     subtitle: 'Kod przychodzi mailem z aplikacji FitMesh: wpisz go tutaj razem z nowym hasłem.',
+    metaTitle: 'Odzyskiwanie hasła | FitMesh',
+    metaDescription:
+      'Wpisz kod otrzymany mailem i wybierz nowe hasło do swojego konta FitMesh.',
     emailLabel: 'Email',
     emailPlaceholder: 'Twój email FitMesh',
     otpLabel: 'Kod otrzymany mailem',
@@ -200,6 +235,9 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
   tr: {
     title: 'Yeni bir şifre belirle',
     subtitle: 'Kod, FitMesh uygulamasından e-postayla gelir: buraya yeni şifrenle birlikte gir.',
+    metaTitle: 'Şifre kurtarma | FitMesh',
+    metaDescription:
+      'E-postayla aldığın kodu gir ve FitMesh hesabın için yeni bir şifre belirle.',
     emailLabel: 'E-posta',
     emailPlaceholder: 'FitMesh e-postan',
     otpLabel: 'E-postayla alınan kod',
@@ -223,6 +261,9 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
   nl: {
     title: 'Stel een nieuw wachtwoord in',
     subtitle: 'De code komt via email vanuit de FitMesh-app: vul hem hier in samen met je nieuwe wachtwoord.',
+    metaTitle: 'Wachtwoord herstellen | FitMesh',
+    metaDescription:
+      'Vul de code in die je via email hebt ontvangen en kies een nieuw wachtwoord voor je FitMesh-account.',
     emailLabel: 'Email',
     emailPlaceholder: 'Je FitMesh-email',
     otpLabel: 'Ontvangen code via email',
@@ -246,6 +287,9 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
   ja: {
     title: '新しいパスワードを設定',
     subtitle: 'コードはFitMeshアプリからメールで届きます。ここに新しいパスワードと一緒に入力してください。',
+    metaTitle: 'パスワードの再設定 | FitMesh',
+    metaDescription:
+      'メールで受け取ったコードを入力し、FitMeshアカウントの新しいパスワードを設定してください。',
     emailLabel: 'メールアドレス',
     emailPlaceholder: 'FitMeshに登録したメールアドレス',
     otpLabel: 'メールで届いたコード',
@@ -269,6 +313,9 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
   ko: {
     title: '새 비밀번호 설정',
     subtitle: '코드는 FitMesh 앱에서 이메일로 전송됩니다. 새 비밀번호와 함께 여기에 입력하세요.',
+    metaTitle: '비밀번호 재설정 | FitMesh',
+    metaDescription:
+      '이메일로 받은 코드를 입력하고 FitMesh 계정의 새 비밀번호를 설정하세요.',
     emailLabel: '이메일',
     emailPlaceholder: 'FitMesh 이메일',
     otpLabel: '이메일로 받은 코드',

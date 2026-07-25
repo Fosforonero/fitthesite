@@ -1,8 +1,49 @@
+import type { Metadata } from 'next';
 import type { Locale } from '@/lib/i18n';
 import { ResetPasswordForm } from './ResetPasswordForm';
 import { RESET_PASSWORD_LOCALES, TRANSLATIONS, type ResetPasswordLocale } from './translations';
 
 export const dynamic = 'force-static';
+
+function resolveLocale(locale: string): ResetPasswordLocale {
+  return (RESET_PASSWORD_LOCALES as readonly string[]).includes(locale)
+    ? (locale as ResetPasswordLocale)
+    : 'en';
+}
+
+/**
+ * Senza questo, la route ereditava titolo, description e canonical dal root
+ * layout, cioe' quelli della HOMEPAGE: in produzione le 11 pagine servivano
+ * `<meta name="robots" content="index, follow">` e un canonical verso
+ * `/<locale>`, invitando l'indicizzazione di una pagina di auth e
+ * consolidandola sulla home (verificato dal vivo il 2026-07-25).
+ *
+ * `noindex, nofollow` e' dichiarato QUI e non come `Disallow` in robots.txt di
+ * proposito: un path bloccato da robots.txt non viene letto, quindi il crawler
+ * non vedrebbe mai il noindex e l'URL potrebbe restare indicizzato "alla
+ * cieca". Lasciare la route leggibile e' cio' che rende il noindex efficace.
+ * (Il `Disallow: /auth/` gia' presente in robots.txt non copre comunque questi
+ * path, che sono `/<locale>/auth/...`.)
+ *
+ * Nessun Open Graph/Twitter: una pagina di recupero password non e' pensata
+ * per essere condivisa.
+ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const lc = resolveLocale(locale);
+  const t = TRANSLATIONS[lc];
+
+  return {
+    title: t.metaTitle,
+    description: t.metaDescription,
+    robots: { index: false, follow: false },
+    alternates: { canonical: `https://www.fitmesh.fit/${lc}/auth/reset-password` },
+  };
+}
 
 export default async function ResetPasswordPage({
   params,
@@ -10,9 +51,7 @@ export default async function ResetPasswordPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const lc: ResetPasswordLocale = (RESET_PASSWORD_LOCALES as readonly string[]).includes(locale)
-    ? (locale as ResetPasswordLocale)
-    : 'en';
+  const lc = resolveLocale(locale);
 
   const t = TRANSLATIONS[lc];
 
