@@ -25,8 +25,12 @@ function resolveLocale(locale: string): ResetPasswordLocale {
  * (Il `Disallow: /auth/` gia' presente in robots.txt non copre comunque questi
  * path, che sono `/<locale>/auth/...`.)
  *
- * Nessun Open Graph/Twitter: una pagina di recupero password non e' pensata
- * per essere condivisa.
+ * `openGraph`/`twitter` sono dedicati alla recovery, non un `{}` vuoto: un
+ * `generateMetadata` che non definisce `openGraph` erediterebbe quello del
+ * layout `[locale]` (title/description/url della HOMEPAGE) — lo stesso bug
+ * di title/canonical gia' corretto sopra, ma nella superficie social. Nessuna
+ * immagine dedicata: quella della homepage (da file convention, fuori da
+ * questo oggetto) resta valida senza bisogno di duplicarla qui.
  */
 export async function generateMetadata({
   params,
@@ -36,12 +40,23 @@ export async function generateMetadata({
   const { locale } = await params;
   const lc = resolveLocale(locale);
   const t = TRANSLATIONS[lc];
+  const canonical = `https://www.fitmesh.fit/${lc}/auth/reset-password`;
 
   return {
     title: t.metaTitle,
     description: t.metaDescription,
     robots: { index: false, follow: false },
-    alternates: { canonical: `https://www.fitmesh.fit/${lc}/auth/reset-password` },
+    alternates: { canonical },
+    openGraph: {
+      type: 'website',
+      url: canonical,
+      title: t.metaTitle,
+      description: t.metaDescription,
+    },
+    twitter: {
+      title: t.metaTitle,
+      description: t.metaDescription,
+    },
   };
 }
 
