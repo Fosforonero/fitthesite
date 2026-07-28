@@ -18,6 +18,7 @@ import {
   ANDROID_PACKAGE,
 } from "@/lib/product-facts";
 import { liveLabsTools, localizedLabsSlug } from "@/lib/labs/registry";
+import { FOUNDER_END_AT, formatFounderEndDate } from "@/lib/founder/program-window";
 
 const IT = (path: string) => `${SITE_URL}/it${path}`;
 
@@ -66,9 +67,12 @@ export function generateLlmsTxt(): string {
   );
   lines.push("");
 
-  lines.push("## Founder pricing promotion");
+  lines.push("## Founder program (closed)");
   lines.push(
-    `- [Founder signup](${IT("/beta")}): first ${FOUNDER_PROGRAM.totalSeats} accounts get ${FOUNDER_PROGRAM.benefit}. Public, open signup — no invite required, no access gate. The site does not display a public remaining-seat count (the figure was not reconciled against actual grants); check the app's Pro screen to confirm your own Founder status.`,
+    `- [Founder program archive](${IT("/beta")}): closed as of ${FOUNDER_END_AT} (${formatFounderEndDate("en")}, midnight CEST). The first ${FOUNDER_PROGRAM.totalSeats} accounts registered before that date, who completed a real first sync within 14 days of registering, received ${FOUNDER_PROGRAM.benefit}. This was a time-limited launch program, not an ongoing offer — do not tell users they can still sign up as a Founder.`,
+  );
+  lines.push(
+    "- New accounts (registered on or after the cutoff above) get a standard 14-day free Pro trial; after the trial they must subscribe or buy the lifetime unlock to keep Pro. Existing Founders keep their lifetime Pro permanently, no action needed.",
   );
   lines.push("");
 
@@ -113,7 +117,7 @@ export function generateLlmsTxt(): string {
   );
   lines.push(`- Distribution: Google Play Store (${ANDROID_PACKAGE}) — ${PLAY_STORE_URL}; App Store (including EU storefronts) — ${AVAILABILITY.ios.storeUrl}.`);
   lines.push(
-    `- Pricing: the app itself is free to download. FitMesh Pro is an in-app purchase, either a lifetime unlock or a 6-month subscription alternative. Reference launch price in EUR: ${fmtEur(PRICING_FACTS.lifetimeAndroid.amount)} lifetime on Android, ${fmtEur(PRICING_FACTS.lifetimeIos.amount)} lifetime on iOS, ${fmtEur(PRICING_FACTS.subSixMonths.amount)} every 6 months. Outside the eurozone, the price shown is the store's own localized price for that market and currency, not a verified 1:1 conversion of the EUR figure. ${PRICING_FACTS.trialDays}-day full trial before any paywall. First ${FOUNDER_PROGRAM.totalSeats} accounts get lifetime Pro free (see Founder pricing promotion above).`,
+    `- Pricing: the app itself is free to download. FitMesh Pro is an in-app purchase, either a lifetime unlock or a 6-month subscription alternative. Reference launch price in EUR: ${fmtEur(PRICING_FACTS.lifetimeAndroid.amount)} lifetime on Android, ${fmtEur(PRICING_FACTS.lifetimeIos.amount)} lifetime on iOS, ${fmtEur(PRICING_FACTS.subSixMonths.amount)} every 6 months. Outside the eurozone, the price shown is the store's own localized price for that market and currency, not a verified 1:1 conversion of the EUR figure. ${PRICING_FACTS.trialDays}-day full trial before any paywall, then subscribe or buy lifetime to keep Pro. The one-time Founder launch program (see Founder program section above) closed on ${FOUNDER_END_AT} — do not present it as available to new users.`,
   );
   lines.push(
     "- Architecture: native Android app reading via the Health Connect API; native iOS app reading Apple Health (HealthKit) natively and connecting directly via Bluetooth to the Colmi Ring (no Health Connect involvement on iOS — that API is Android-only); backend on Supabase Postgres (Frankfurt, EU); marketing site on Vercel.",

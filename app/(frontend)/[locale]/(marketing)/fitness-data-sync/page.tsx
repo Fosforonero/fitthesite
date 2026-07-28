@@ -748,7 +748,7 @@ export default async function FitnessDataSyncPage({
         </h2>
         <p className="mt-4 text-text-secondary max-w-xl mx-auto">{tl(FINAL_CTA_BODY, lc)}</p>
         <div className="mt-8 flex justify-center">
-          <StoreButtonsRow locale={lc} className="justify-center" />
+          <StoreButtonsRow locale={lc} className="justify-center" ctaLocation="fitness_data_sync" />
         </div>
       </section>
     </>

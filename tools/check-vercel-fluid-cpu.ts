@@ -179,6 +179,12 @@ if (!fs.existsSync(PRERENDER_MANIFEST_PATH)) {
     "/it/about",
     "/it/integrations",
     "/it/sync/galaxy-watch",
+    // Sprint P0.10: /beta diventa archivio Founder ma DEVE restare statica
+    // (nessun force-dynamic) esattamente come la homepage — zero decisione
+    // temporale lato server, il gate aperto/chiuso e' interamente client
+    // side (FounderClientGate), vedi check 9 sotto.
+    "/it/beta",
+    "/en/beta",
   ];
   for (const p of REQUIRED_PRERENDERED_SAMPLE) {
     if (!staticRoutes.has(p)) {
@@ -191,6 +197,48 @@ if (!fs.existsSync(PRERENDER_MANIFEST_PATH)) {
   const staticallyLeakedPrivateRoutes = [...staticRoutes].filter((r) => PRIVATE_PREFIXES_RE.test(r));
   if (staticallyLeakedPrivateRoutes.length > 0) {
     errors.push(`[route-privata-diventata-statica] le seguenti route /[locale]/app|admin risultano prerenderizzate/cacheable, il che esporrebbe dati per-utente a tutti i visitatori: ${staticallyLeakedPrivateRoutes.join(", ")}`);
+  }
+}
+
+// ── 9. FounderClientGate resta client-only, zero rete (ridondante con
+//    founder:window-check di proposito: quel guardrail puo' evolvere per
+//    altre ragioni, questo resta l'ultima linea di difesa Fluid CPU) ──────
+const FOUNDER_GATE_REL = "components/founder/FounderClientGate.tsx";
+const founderGateRaw = read(FOUNDER_GATE_REL);
+if (founderGateRaw === null) {
+  errors.push(`[founder-gate-mancante] ${FOUNDER_GATE_REL} non esiste.`);
+} else {
+  const founderGateCode = stripComments(founderGateRaw);
+  if (/\bfetch\s*\(|supabase|createClient|pg\.|Pool\(/i.test(founderGateCode)) {
+    errors.push(
+      `[founder-gate-rete] ${FOUNDER_GATE_REL} contiene un pattern di rete/DB — la decisione Founder aperto/chiuso deve costare zero Fluid CPU, letta solo dall'orologio del browser.`,
+    );
+  }
+  if (!/^["']use client["'];?/m.test(founderGateRaw)) {
+    errors.push(`[founder-gate-non-client] ${FOUNDER_GATE_REL} non ha "use client" — se diventasse un Server Component la decisione tornerebbe lato server.`);
+  }
+}
+
+// ── 10. Il numero di route dinamiche non deve superare la baseline P0.10 ──
+// (registrata il 2026-07-28, subito dopo aver verificato che homepage/beta
+// restano statiche e che i 3561 prerendered route del baseline P0.9 sono
+// invariati). Un aumento non e' automaticamente un errore di per se', ma
+// deve essere una scelta esplicita: se cresce, alza IL NUMERO qui SOLO dopo
+// aver verificato che il motivo e' legittimo (nuova route realmente
+// necessaria, non una regressione accidentale force-dynamic).
+const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
+const DYNAMIC_ROUTES_BASELINE = 56;
+if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
+  errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
+} else {
+  const routesManifest = JSON.parse(fs.readFileSync(ROUTES_MANIFEST_PATH, "utf-8")) as {
+    dynamicRoutes?: unknown[];
+  };
+  const dynamicCount = routesManifest.dynamicRoutes?.length ?? 0;
+  if (dynamicCount > DYNAMIC_ROUTES_BASELINE) {
+    errors.push(
+      `[route-dinamiche-aumentate] .next/routes-manifest.json dichiara ${dynamicCount} route dinamiche, oltre la baseline P0.10 di ${DYNAMIC_ROUTES_BASELINE} — se l'aumento e' intenzionale e motivato, aggiorna DYNAMIC_ROUTES_BASELINE qui sopra con una nota su cosa l'ha causato.`,
+    );
   }
 }
 

@@ -25,13 +25,26 @@ export const PRICING_SECTION = {
     pt: "14 dias de teste. Como founder, Pro vitalício.",
     fr: "Essai de 14 jours. En founder, Pro à vie.",
   } as Localized,
+  // Sprint P0.10: la frase Founder era in coda a `subhead`, mostrata SENZA
+  // alcun gating (bug trovato solo verificando l'HTML reale servito, non dal
+  // solo code review — vedi report P0.10). Spezzata in due campi: `subhead`
+  // resta sempre vero (evergreen), `subheadFounderSuffix` va mostrato SOLO
+  // dentro un <FounderClientGate founder={...} evergreen={null}>.
   subhead: {
-    it: "Provi tutto per 14 giorni, senza carta. Poi attivi il Pro a prezzo di lancio: abbonamento o sblocco a vita. I primi 1000 founder hanno il Pro a vita gratis.",
-    en: "Try everything for 14 days, no card. Then go Pro at launch price: subscription or lifetime unlock. The first 1,000 founders get lifetime Pro free.",
-    es: "Pruebas todo durante 14 días, sin tarjeta. Luego activas el Pro a precio de lanzamiento: suscripción o desbloqueo de por vida. Los primeros 1000 founders tienen Pro de por vida gratis.",
-    de: "Du testest 14 Tage alles, ohne Karte. Dann holst du Pro zum Startpreis: Abo oder lebenslange Freischaltung. Die ersten 1000 Founder erhalten lebenslanges Pro gratis.",
-    pt: "Experimentas tudo durante 14 dias, sem cartão. Depois ativas o Pro a preço de lançamento: assinatura ou desbloqueio vitalício. Os primeiros 1000 founders têm Pro vitalício grátis.",
-    fr: "Vous essayez tout pendant 14 jours, sans carte. Ensuite vous passez à Pro au prix de lancement : abonnement ou achat à vie. Les 1000 premiers founders ont le Pro à vie gratuit.",
+    it: "Provi tutto per 14 giorni, senza carta. Poi attivi il Pro a prezzo di lancio: abbonamento o sblocco a vita.",
+    en: "Try everything for 14 days, no card. Then go Pro at launch price: subscription or lifetime unlock.",
+    es: "Pruebas todo durante 14 días, sin tarjeta. Luego activas el Pro a precio de lanzamiento: suscripción o desbloqueo de por vida.",
+    de: "Du testest 14 Tage alles, ohne Karte. Dann holst du Pro zum Startpreis: Abo oder lebenslange Freischaltung.",
+    pt: "Experimentas tudo durante 14 dias, sem cartão. Depois ativas o Pro a preço de lançamento: assinatura ou desbloqueio vitalício.",
+    fr: "Vous essayez tout pendant 14 jours, sans carte. Ensuite vous passez à Pro au prix de lancement : abonnement ou achat à vie.",
+  } as Localized,
+  subheadFounderSuffix: {
+    it: " I primi 1000 founder hanno il Pro a vita gratis.",
+    en: " The first 1,000 founders get lifetime Pro free.",
+    es: " Los primeros 1000 founders tienen Pro de por vida gratis.",
+    de: " Die ersten 1000 Founder erhalten lebenslanges Pro gratis.",
+    pt: " Os primeiros 1000 founders têm Pro vitalício grátis.",
+    fr: " Les 1000 premiers founders ont le Pro à vie gratuit.",
   } as Localized,
 
   // ── Tier: Prova (14 giorni) ────────────────────────────────────────

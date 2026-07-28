@@ -73,7 +73,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/ai" },
     { path: "/roadmap",      indexableLocales: (lc) => ROADMAP_COMPLETE_LOCALES.includes(lc) },
     { path: "/fitness-data-sync", indexableLocales: (lc) => FITNESS_DATA_SYNC_COMPLETE_LOCALES.includes(lc) },
-    { path: "/beta" },
+    // /beta RIMOSSA dalla sitemap in P0.10: e' diventata un archivio
+    // informativo del programma Founder concluso (noindex, follow) —
+    // non e' piu' una pagina che vogliamo indicizzare/scansionare come
+    // target di acquisizione. Vedi generateMetadata in beta/page.tsx.
     // FitMesh Labs (sprint P1.0): solo it/en, mai le altre 13 locale —
     // vedi lib/labs/registry.ts (LABS_LOCALES) e locale-redirect.ts. Stessa
     // fonte di verità usata da generateStaticParams delle pagine Labs, così

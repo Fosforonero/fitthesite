@@ -57,6 +57,50 @@ export const HOMEPAGE_COPY = {
     fi: "Ryhdy perustajajäseneksi",
   } satisfies Localized,
 
+  /**
+   * Sprint P0.10 — copy evergreen post-Founder, usata da FounderClientGate
+   * per la card prova nella sezione pricing e per la riga finale della
+   * banda CTA. Il programma Founder chiude il 31/07/2026 22:00 UTC
+   * (FOUNDER_END_AT in lib/founder/program-window.ts): da quel momento
+   * questi due campi sostituiscono founderName/founderTagline e
+   * founderPromo/finalCtaAfterLaunch nell'HTML, senza alcuna richiesta di
+   * rete (decisione client-only).
+   */
+  trialName: {
+    it: "14 giorni gratis",
+    en: "14-day trial",
+    es: "14 días gratis",
+    de: "14 Tage gratis",
+    pt: "14 dias grátis",
+    fr: "14 jours gratuits",
+    pl: "14 dni za darmo",
+    tr: "14 gün ücretsiz",
+    nl: "14 dagen gratis",
+    ja: "14日間無料",
+    ko: "14일 무료",
+    sv: "14 dagar gratis",
+    da: "14 dage gratis",
+    no: "14 dager gratis",
+    fi: "14 päivää ilmaiseksi",
+  } satisfies Localized,
+  trialTagline: {
+    it: "Prova Pro gratis, poi scegli il piano più adatto",
+    en: "Try Pro free, then choose the plan that fits you",
+    es: "Prueba Pro gratis y luego elige el plan que más te convenga",
+    de: "Teste Pro kostenlos und wähle danach den passenden Plan",
+    pt: "Experimenta o Pro grátis e depois escolhe o plano ideal",
+    fr: "Essaie Pro gratuitement, puis choisis la formule qui te convient",
+    pl: "Wypróbuj Pro za darmo, a potem wybierz odpowiedni plan",
+    tr: "Pro'yu ücretsiz dene, ardından sana uygun planı seç",
+    nl: "Probeer Pro gratis en kies daarna het plan dat bij je past",
+    ja: "Proを無料体験後、最適なプランをお選びください",
+    ko: "Pro를 무료로 체험한 후 나에게 맞는 요금제를 선택하세요",
+    sv: "Testa Pro gratis och välj sedan den plan som passar dig",
+    da: "Prøv Pro gratis, og vælg derefter den plan, der passer dig",
+    no: "Prøv Pro gratis, og velg deretter planen som passer deg",
+    fi: "Kokeile Pro-versiota ilmaiseksi ja valitse sitten sinulle sopiva paketti",
+  } satisfies Localized,
+
   platformsAvailableLabel: {
     it: "Disponibile ora",
     en: "Available now",
