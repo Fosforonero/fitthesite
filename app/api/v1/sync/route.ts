@@ -49,17 +49,39 @@ import { buildFitnessMetricsRow, payloadSchema } from "./schema";
 // fatto `npm run supabase:gen-types`.
 type Sb = SupabaseClient;
 
+// Sprint P0.10A FASE 8A — profiling temporaneo e campionato delle fasi di
+// questa route (77,7% della Fluid CPU del progetto, Vercel Observability).
+// Obiettivo: individuare quale fase e' davvero costosa PRIMA di ottimizzare
+// nulla — nessuna ottimizzazione speculativa su Zod/workout/protocollo senza
+// misura reale. Wall time (qui misurato) NON equivale ad Active CPU
+// fatturata da Vercel: usare questi numeri solo per individuare i blocchi
+// candidati, poi confermare su giornate intere in Observability. Nessun
+// dato sanitario, payload, email, token, fingerprint, UUID o localita' nel
+// log — solo durate in ms per fase + l'esito Founder gia' pubblico nella
+// risposta. Rimuovere (o azzerare SYNC_PROFILE_SAMPLE_RATE) una volta
+// raccolti abbastanza campioni.
+const SYNC_PROFILE_SAMPLE_RATE = 0.05;
+
 export async function POST(req: Request) {
+  const tStart = performance.now();
+  const timingsMs: Record<string, number> = {};
+  const mark = (label: string, from: number) => {
+    timingsMs[label] = Math.round((performance.now() - from) * 100) / 100;
+  };
+
   // ── 1. Auth ─────────────────────────────────────────────────────────
+  const tAuth = performance.now();
   const auth = await requireUser(req);
   if (auth instanceof Response) return auth;
   const { userId } = auth;
   const sb = auth.supabase as unknown as Sb;
+  mark("auth", tAuth);
 
   // ── 2. Device lookup ────────────────────────────────────────────────
   const fingerprint = req.headers.get("x-device-fingerprint");
   if (!fingerprint) return jsonError(400, "missing_device_fingerprint");
 
+  const tDeviceLookup = performance.now();
   const { data: device, error: devErr } = await sb
     .from("devices")
     .select("id, os_version")
@@ -67,6 +89,7 @@ export async function POST(req: Request) {
     .eq("device_fingerprint", fingerprint)
     .is("revoked_at", null)
     .maybeSingle();
+  mark("deviceLookup", tDeviceLookup);
 
   if (devErr) return jsonError(500, "device_lookup_failed", devErr.message);
   if (!device) return jsonError(404, "device_not_paired");
@@ -80,13 +103,17 @@ export async function POST(req: Request) {
     return jsonError(413, "payload_too_large");
   }
   let body: unknown;
+  const tJsonParse = performance.now();
   try {
     body = await req.json();
   } catch {
     return jsonError(400, "invalid_json");
   }
+  mark("jsonParse", tJsonParse);
 
+  const tZodValidate = performance.now();
   const parsed = payloadSchema.safeParse(body);
+  mark("zodValidate", tZodValidate);
   if (!parsed.success) {
     // Log dettagli validation per debug futuro (visibile in Vercel logs).
     console.error("[sync] invalid_payload", {
@@ -103,10 +130,16 @@ export async function POST(req: Request) {
   // 20260721180000_fitness_metrics_canonical_upsert.sql for the merge
   // semantics). SECURITY INVOKER: runs as this request's authenticated user,
   // enforced by the same RLS policies a raw insert/update would hit.
+  const tBuildRow = performance.now();
+  const fitnessMetricsRow = buildFitnessMetricsRow(p, { userId, deviceId: device.id });
+  mark("buildFitnessMetricsRow", tBuildRow);
+
+  const tUpsertMetrics = performance.now();
   const { data: metricsId, error: insErr } = await sb.rpc(
     "upsert_fitness_metrics_v189",
-    { p_row: buildFitnessMetricsRow(p, { userId, deviceId: device.id }) },
+    { p_row: fitnessMetricsRow },
   );
+  mark("upsertFitnessMetrics", tUpsertMetrics);
 
   if (insErr) return jsonError(500, "insert_metrics_failed", insErr.message);
 
@@ -118,6 +151,7 @@ export async function POST(req: Request) {
   const platform =
     derivePlatform(p.osVersion) ??
     derivePlatform((device as { os_version?: string | null }).os_version);
+  const tFounder = performance.now();
   try {
     const { data: transitionResult, error: transitionErr } = await sb.rpc(
       "record_first_sync_transition",
@@ -147,6 +181,7 @@ export async function POST(req: Request) {
     });
     founderGrant = resolveFounderGrantStatus(null, true);
   }
+  mark("founder", tFounder);
 
   // ── 5. UPSERT workouts da exercise_sessions (Sprint 189-RC2 Blocker 2) ──
   // public.workouts is read by ExportDataClient.tsx (GDPR Art. 20 export),
@@ -162,6 +197,7 @@ export async function POST(req: Request) {
   // without erasing what a previous sync already populated. Each session
   // upserted independently and best-effort (one failing must not fail the
   // others or the main sync, which already committed at step 4).
+  const tWorkoutUpsert = performance.now();
   if (p.exerciseSessionsJson && p.exerciseSessionsJson.length > 0) {
     await Promise.all(
       p.exerciseSessionsJson.map((s) =>
@@ -194,8 +230,10 @@ export async function POST(req: Request) {
       ),
     );
   }
+  mark("workoutUpsert", tWorkoutUpsert);
 
   // ── 6. Touch device.last_seen_at + app/os version ──────────────────
+  const tDeviceUpdate = performance.now();
   await sb
     .from("devices")
     .update({
@@ -204,6 +242,14 @@ export async function POST(req: Request) {
       ...(p.osVersion ? { os_version: p.osVersion } : {}),
     })
     .eq("id", (device as { id: string }).id);
+  mark("deviceUpdate", tDeviceUpdate);
+
+  mark("total", tStart);
+  // Campionato, PII-free: solo durate per fase + l'esito Founder (gia'
+  // pubblico nella risposta sotto). Vedi commento FASE 8A in testa al file.
+  if (Math.random() < SYNC_PROFILE_SAMPLE_RATE) {
+    console.info("[sync] phase_timings_ms", { ...timingsMs, founderGrant });
+  }
 
   return jsonOk({
     ok: true,

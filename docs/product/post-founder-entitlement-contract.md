@@ -1,9 +1,30 @@
-# Contratto entitlement post-Founder (Sprint P0.10)
+# Contratto entitlement post-Founder (Sprint P0.10, corretto in P0.10A)
+
+**Stato requisito "trial → pagamento": `pending_device_and_store_verification`.**
+Vale per l'intera durata di questo sprint e del successivo P0.10A: nessuna
+riga qui sotto lo cambia, perché nessuna delle due migration tocca il
+percorso trial/pagamento (fuori perimetro, vedi sotto). Non declassare
+questo stato senza una conferma esplicita dell'agente AppFitmesh su device
+reale (le 6 voci **Bloccante** in fondo a questo documento).
 
 Cutoff unico: `FOUNDER_END_AT = 2026-07-31T22:00:00Z` (`lib/founder/program-window.ts`),
 equivalente a `2026-08-01T00:00:00+02:00` CEST. Stesso valore lato SQL in
 `private.grant_founder_launch_core` (verificato dal guardrail
 `founder:window-check`, che confronta i due letteralmente).
+
+**Nota P0.10A**: la bozza P0.10 originaria di `grant_founder_launch_core`
+misurava la finestra di 14 giorni contro `now()` al momento di OGNI
+chiamata (bug: una sync ripetuta poteva far scadere retroattivamente un
+utente già eleggibile) e calcolava il cap 1000 contando le righe
+`user_roles` correnti (bug: un account cancellato liberava il posto, i
+posti riservati/non applicati in `founder_grants` non erano contati).
+Corretto in P0.10A con un ledger persistente
+(`private.founder_seats`/`private.founder_evaluations`, ripreso e adattato
+dal design Sprint P0.7) e la finestra ancorata a `devices.first_sync_at`
+(evidenza scritta una sola volta, alla prima sync riuscita — mai
+rivalutata). La matrice sotto descrive il comportamento CORRETTO
+(P0.10A); dove la formulazione poteva far pensare a un confronto con
+`now()` corrente è stata aggiornata.
 
 ## Perché questo documento esiste
 
@@ -20,7 +41,7 @@ dichiarare l'intero requisito "trial → pagamento" completato.
 |---|---|---|
 | `auth.users.created_at` (Postgres) | Data di registrazione reale, mai un timestamp client | Sì, è l'unico input usato dal cutoff/finestra 14gg |
 | `public.user_roles` (role='pro', note) | Chi ha Pro oggi e da quale fonte (`founder-launch`, o altra nota per acquisti) | Sì, letto/scritto solo da `grant_founder_launch_core` per il ramo Founder |
-| `private.grant_founder_launch_core` | Eligibility Founder: cutoff + finestra 14gg + cap 1000 + esclusioni | Sì, 14/14 scenari su Postgres 17 disposable (vedi report P0.10) |
+| `private.grant_founder_launch_core` | Eligibility Founder: cutoff + finestra 14gg (da `devices.first_sync_at`) + cap 1000 su ledger persistente + esclusioni + esito terminale mai rivalutato | Sì, suite in 8 fasi su `supabase/postgres` reale — funzionale, GDPR, ACL, esclusione+cutoff combinati, multi-device, fast-path esito terminale, concorrenza (vedi report P0.10A) |
 | Introductory offer nativo Apple/Google (store-side) | Durata e applicazione del trial 14gg per i NON-Founder | **No** — nessun endpoint in questo repo verifica ricevute IAP; nessuna migration crea/scade un trial lato Supabase per il percorso non-Founder |
 | AppFitmesh (Flutter, lato client) | UI paywall, chiamata a `record_first_sync_transition`, lettura entitlement, restore purchase | **No** — fuori dal perimetro di questo agente |
 
@@ -38,7 +59,7 @@ richiede conferma su device reale.
 |---|---|---|---|---|---|
 | **Nuovo account dopo cutoff** (`created_at >= FOUNDER_END_AT`) | `auth.users.created_at` | Nessun ruolo Founder. Solo l'eventuale trial nativo store, poi piani a pagamento. | Nessun badge/riferimento Founder in UI. | `grant_founder_launch_core` ritorna `notEligibleReason: "program_closed"` a ogni tentativo, sempre `grantCreated: false`. Verificato (scenari 2, 3). | Confermare che l'app non mostri MAI più "founder"/"Pro a vita gratis" per account creati dopo il cutoff, in nessuna schermata. |
 | **Account pre-cutoff, entro la grazia individuale (14gg)** | `auth.users.created_at` + prima sync riuscita entro `created_at + 14gg` | `role='pro', note='founder-launch', expires_at=null` se prima sync riuscita e cap non pieno. | Badge "Founder · Pro · Lifetime" (pattern esistente nell'app). | `grant_founder_launch_core` concede il grant. Verificato (scenari 1, 4, 9). | Confermare che il grant reale arrivi all'app entro un ciclo di sync normale (nessun refresh manuale necessario). |
-| **Account pre-cutoff, fuori dalla grazia (prima sync oltre 14gg)** | Come sopra, ma `now() > created_at + 14gg` | Nessun ruolo Founder. Trial nativo store standard, poi a pagamento. | Nessun badge Founder; comportamento identico a un account "normale". | `grant_founder_launch_core` ritorna `notEligibleReason: "window_expired"`. Verificato (scenario 5). | Confermare che l'app non prometta il Founder a un utente che ha solo installato in tempo ma sincronizzato tardi: il messaggio (se esiste) deve riflettere che la finestra dei 14gg è scaduta. |
+| **Account pre-cutoff, fuori dalla grazia (prima sync oltre 14gg)** | Come sopra, ma prima sync riuscita (`devices.first_sync_at`) oltre `created_at + 14gg` — mai il `now()` di una sync successiva | Nessun ruolo Founder. Trial nativo store standard, poi a pagamento. | Nessun badge Founder; comportamento identico a un account "normale". | `grant_founder_launch_core` ritorna `notEligibleReason: "window_expired"`, persistito in `private.founder_evaluations` (mai rivalutato, anche se richiamato di nuovo dallo stesso o da un altro device dell'utente). Verificato P0.10A (funzionale + multi-device). | Confermare che l'app non prometta il Founder a un utente che ha solo installato in tempo ma sincronizzato tardi: il messaggio (se esiste) deve riflettere che la finestra dei 14gg è scaduta. |
 | **Founder già assegnato** (grant esistente, qualunque `created_at`) | `public.user_roles` (`role='pro'`, già presente) | Pro a vita, invariato, per sempre. | Badge Founder invariato. | Fast-path pre-lock in `grant_founder_launch_core`: `alreadyHadEligibleGrant: true`, mai rivalutato contro cutoff/finestra, mai toccato. Verificato (scenario 6, anche con `created_at` volutamente dopo il cutoff). | Nessuna azione richiesta lato app: il ruolo persiste; QA solo per confermare che nessun flusso app tenti un nuovo grant/refresh che possa alterarlo. |
 | **Trial attivo** (nei 14gg dal primo avvio/registrazione, nessun grant Founder) | **Non verificabile da questo repo** — probabile introductory offer nativo Apple/Google, nessuna riga Supabase dedicata trovata | Accesso Pro completo per la durata del trial. | Countdown/indicazione trial nell'app (pattern esistente, non modificato qui). | N/A lato Supabase: nessuna migration in questo repo crea/aggiorna un trial per il percorso non-Founder (`grant_b2c_trial()` esiste ma è del sistema Gym/challenge separato, mai chiamato da `/api/v1`). | **Bloccante**: confermare a chi appartiene davvero l'enforcement del trial 14gg (store-side vs un meccanismo app-only non presente in questo repo) e come l'app lo verifica ad ogni avvio. |
 | **Trial scaduto senza acquisto** | Come sopra | Nessun accesso Pro; solo funzioni free. | Paywall bloccante. | N/A lato Supabase per lo stesso motivo. | **Bloccante**: verificare su device reale che il paywall scatti davvero allo scadere dei 14gg, senza fallback che lasci Pro attivo. |
@@ -50,14 +71,21 @@ richiede conferma su device reale.
 
 ## Non dichiarare completato "dopo il trial deve pagare" finché AppFitmesh non conferma
 
-Per la nota `founderAutoGrant.status` (in `lib/product-facts.ts`, invariata da
-questo sprint: resta `pending_production_verification`, la migration di
-P0.10 non è stata applicata in produzione) e per l'intero percorso trial,
-questo sprint dichiara GO solo sulla parte verificabile qui (cutoff,
-finestra, cap, esclusioni, non-sovrascrittura). Il requisito completo
+Stato di questa riga: **`pending_device_and_store_verification`** — non
+declassare a "completato"/"verificato" senza una conferma esplicita
+dell'agente AppFitmesh su device reale. Diverso e indipendente dalla nota
+`founderAutoGrant.status` in `lib/product-facts.ts` (`pending_production_verification`,
+Sprint P0.6B, riguarda la riconciliazione del trigger/contatore Founder
+storico — non toccata né da P0.10 né da P0.10A).
+
+Né la migration P0.10 né la sua correzione P0.10A toccano il percorso
+trial/pagamento (fuori perimetro di entrambi gli sprint, invariato). Questo
+sprint dichiara GO solo sulla parte verificabile qui (cutoff, finestra
+ancorata a `first_sync_at`, cap su ledger persistente, esclusioni,
+non-sovrascrittura, esito terminale mai rivalutato). Il requisito completo
 "trial → pagamento" resta **NON verificato** finché l'agente app non
 conferma su device reale, elencato esplicitamente anche nel report finale
-P0.10:
+P0.10A:
 
 - paywall che scatta davvero dopo la scadenza del trial;
 - acquisto Android (Google Play Billing) end-to-end;
