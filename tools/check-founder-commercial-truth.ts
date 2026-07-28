@@ -133,12 +133,100 @@ for (const file of allFiles) {
   }
 }
 
+// ── 4: claim editoriali statiche "Founder + 2026" fuori da gate/helper ────
+// Sprint P0.10E addendum: contenuto editoriale (press kit, blog, landing
+// programmatiche) non passa da FounderClientGate (non ha una variante
+// client-side, e' prosa fissa generata al build) — una frase tipo "i primi
+// 1000 founder (programma chiuso dal 31 luglio 2026)" e' vera solo in META'
+// del tempo (prima O dopo il cutoff, mai in entrambe), se hardcoded.
+// lib/founder/historical-note.ts risolve la frase al momento del build
+// leggendo isFounderProgramOpen() — questo check richiede che qualunque
+// file con una frase "founder...2026" nella stessa proposizione importi
+// quell'helper, sia in GATED_SURFACES/allow-list qui sopra, o sia
+// esplicitamente su questa TODO-list (debito noto, audit Sprint P0.10E,
+// da chiudere in un giro di contenuto dedicato con revisione manuale
+// IT/EN — niente Ollama per queste lingue).
+const KNOWN_UNGATED_DATE_CLAIM_DEBT = new Set([
+  "lib/landing/data.ts",
+  "lib/blog/posts/come-funziona-fitmesh.ts",
+  "lib/blog/posts/migliori-anelli-economici.ts",
+  "lib/blog/posts/tracciare-sonno-anello.ts",
+  "lib/blog/posts/anello-smart-guida-completa.ts",
+  "lib/blog/posts/fitmesh-sync-disponibile-google-play.ts",
+  "lib/blog/posts/colmi-ring-fitmesh.ts",
+  "lib/blog/posts/sync-them-all.ts",
+  "lib/blog/posts/cambiare-smartwatch-senza-perdere-dati.ts",
+  "lib/blog/posts/colmi-r02-setup.ts",
+  "lib/blog/posts/dove-sono-i-tuoi-dati-server-ue.ts",
+  "lib/blog/posts/fitmesh-vs-alternative-sync.ts",
+  "lib/blog/posts/colmi-r09-temperatura-sviluppo.ts",
+  "lib/blog/posts/anello-colmi-r02-affidabile.ts",
+  "lib/blog/posts/alternative-app-sync-wearable-2026.ts",
+  "lib/blog/posts/guida-sync-wearable-2026.ts",
+  "lib/blog/posts/perche-diventare-founder-fitmesh.ts",
+]);
+// Finestra a caratteri fissi (non "fino al prossimo punto"): un delimitatore
+// a punteggiatura si rompe su codice strutturato (array/oggetti TS senza
+// periodi fra un valore e l'altro), facendo "sanguinare" il match fra due
+// stringhe vicine ma semanticamente non correlate (falso positivo osservato
+// su OrganizationJsonLd.tsx/lib/blog/covers.ts/lib/product-facts.ts: parola
+// "founder" nel senso di fondatore-persona vicino a un "2026" scollegato).
+// Richiedere ANCHE "1000"/"1.000"/"1,000" (i posti Founder) e' il segnale
+// specifico della claim del PROGRAMMA, non del sostantivo "founder" da solo
+// (che compare anche per Matteo Pizzi "founder" dell'azienda, schema.org
+// Organization.founder, ecc. — tutti legittimi, fuori scope di questo check).
+const FOUNDER_SEATS_WINDOW = 200;
+const FOUNDER_WORD_RE = /\bfounders?\b/gi;
+const SEATS_NEARBY_RE = /\b1[.,]?000\b/;
+const YEAR_NEARBY_RE = /\b2026\b/;
+const HELPER_CALL_RE = /founderHistorical(Clause|KeyFact)\s*\(/g;
+
+for (const file of allFiles) {
+  const rel = path.relative(repoRoot, file);
+  if (GATED_SURFACES.includes(rel)) continue;
+  if (KNOWN_UNGATED_DATE_CLAIM_DEBT.has(rel)) continue;
+  // fitmesh-gratis-prezzo-founder.ts e' gia' nell'allow-list storica/legale
+  // del check #2 sopra (ALLOWED_UNGATED_FILES): stessa copy gia' rivista,
+  // corretta e datata esplicitamente ("chiuso dal 31 luglio 2026"), non un
+  // nuovo debito.
+  if (ALLOWED_UNGATED_FILES.has(rel)) continue;
+  const content = fs.readFileSync(file, "utf8");
+
+  // PER-OCCORRENZA, non per-file: un singolo import dell'helper in cima NON
+  // deve assolvere l'intero file. Il caso reale che ha motivato questa
+  // scelta: press/page.tsx ha 15 blocchi locale, ne erano stati convertiti 2
+  // (it/en) e un check "il file importa l'helper? allora e' a posto" passava
+  // in verde lasciando 13 locale con la claim hardcoded sbagliata. Qui
+  // ciascuna occorrenza deve essere risolta per conto suo: si considera
+  // coperta solo se l'helper e' invocato DENTRO la stessa finestra di testo.
+  let hit: RegExpExecArray | null;
+  FOUNDER_WORD_RE.lastIndex = 0;
+  const uncovered: number[] = [];
+  while ((hit = FOUNDER_WORD_RE.exec(content)) !== null) {
+    const windowStart = Math.max(0, hit.index - FOUNDER_SEATS_WINDOW);
+    const windowEnd = Math.min(content.length, hit.index + hit[0].length + FOUNDER_SEATS_WINDOW);
+    const window = content.slice(windowStart, windowEnd);
+    if (!SEATS_NEARBY_RE.test(window) || !YEAR_NEARBY_RE.test(window)) continue;
+    if (HELPER_CALL_RE.test(window)) {
+      HELPER_CALL_RE.lastIndex = 0;
+      continue;
+    }
+    HELPER_CALL_RE.lastIndex = 0;
+    uncovered.push(content.slice(0, hit.index).split("\n").length);
+  }
+  if (uncovered.length === 0) continue;
+  const lineList = uncovered.slice(0, 8).join(", ") + (uncovered.length > 8 ? `, ... (+${uncovered.length - 8})` : "");
+  errors.push(
+    `${rel}: ${uncovered.length} occorrenza/e di "founder" + "1000/1.000" + "2026" ravvicinate (claim hardcoded sullo stato del programma Founder) NON risolte da founderHistoricalClause()/founderHistoricalKeyFact() — righe ${lineList}. Una claim del genere e' vera solo per meta' del calendario. Nota: l'import in cima al file NON basta, ogni occorrenza va convertita. Se e' debito gia' noto e accettato, aggiungi il file a KNOWN_UNGATED_DATE_CLAIM_DEBT.`,
+  );
+}
+
 if (errors.length > 0) {
   console.error("❌ founder:commercial-truth-check FALLITO:\n");
   for (const e of errors) console.error(`  - ${e}`);
   process.exit(1);
 } else {
   console.log(
-    "✅ founder:commercial-truth-check: homepage/nav/footer/beta gateano tutti FounderClientGate, nessun founderPromo/founderSeats fuori gate o allow-list, zero urgenza artificiale.",
+    "✅ founder:commercial-truth-check: homepage/nav/footer/beta gateano tutti FounderClientGate, nessun founderPromo/founderSeats fuori gate o allow-list, zero urgenza artificiale, claim editoriali founder+2026 tracciate (gate/helper/TODO-list nota).",
   );
 }

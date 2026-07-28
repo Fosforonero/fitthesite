@@ -13,16 +13,36 @@
 -- Sicuro da eseguire quante volte serve, in qualunque ordine.
 
 -- ============================================================================
--- 1. Snapshot migration history
+-- 1. Snapshot migration history — COMPLETA, non solo la coda (Sprint P0.10E
+--    Fase 0: "confrontare tutta la history locale/remota, non soltanto le
+--    sei migration RC2"). Eseguire SENZA limit, poi confrontare riga per
+--    riga con `ls supabase/migrations/` di questo branch.
 -- ============================================================================
 select version, name
 from supabase_migrations.schema_migrations
-order by version desc
-limit 20;
--- Atteso: l'ultima versione applicata e' 20260720120247. Qualunque versione
--- successiva non presente in supabase/migrations/ di questo branch e' un
--- segnale di STOP immediato (un'altra sessione ha applicato qualcosa di
--- non tracciato qui).
+order by version asc;
+-- Stato noto a oggi (2026-07-28, da esecuzione precedente di Matteo,
+-- confermata fino alla coda): ultima versione vista = 20260722145516
+-- (workouts_fuzzy_merge_and_race_lock). Le 6 versioni Sprint 189-RC2 subito
+-- precedenti risultavano REGISTRATE con timestamp diversi da quelli usati
+-- nei nomi file locali originari, ma contenuto normalizzato identico -
+-- GIA' RICONCILIATO rinominando i 6 file locali (commit f43a2c1) per farli
+-- coincidere esattamente con le versioni remote. 20260728090000 (Founder),
+-- 20260728100000 (hardening grant_b2c_trial) e 20260728110000 (entitlement
+-- contract) sono le uniche attese come NON ANCORA applicate.
+--
+-- Questa query da sola pero' NON basta per la Fase 0: mostra solo cosa e'
+-- REGISTRATO come applicato, non se il file locale con quella stessa
+-- versione ha contenuto identico a quanto realmente eseguito (il caso RC2
+-- lo ha dimostrato: stesso contenuto, timestamp diverso, scoperto solo
+-- confrontando manualmente). Se possibile, preferire
+-- `supabase migration list --linked` invece di questa query: quel comando
+-- del CLI confronta Local/Remote fianco a fianco e segnala da solo
+-- eventuali divergenze, senza bisogno di un diff manuale come quello fatto
+-- per i 6 file RC2. NON eseguire `supabase db push` o qualunque comando che
+-- applicherebbe TUTTE le migration pending in un colpo solo: l'obiettivo e'
+-- applicare ISOLATAMENTE le 3 migration di questo sprint, mai un push
+-- cieco dell'intera coda.
 
 -- ============================================================================
 -- 2. DDL reale di public.founder_grants
@@ -252,3 +272,129 @@ from public.user_roles where role = 'pro' and note = 'founder-launch';
 
 select count(*) as founder_grants_before
 from public.founder_grants;
+
+-- ============================================================================
+-- 14. Sprint P0.10E addendum — le 3 riserve NON passano mai da
+--     grant_founder_launch_core (verificato leggendo il testo della
+--     migration: founder_grants viene letta SOLO per contare
+--     v_reserved_pending, mai per assegnare un founder_number a un
+--     `applied_user_id` — quel binding, se avviene, avviene altrove).
+--     Chi lo fa e' claim_founder_grant_if_eligible() / _apply_founder_grant()
+--     — funzioni MAI create da alcuna migration in questo repo (drift di
+--     schema non tracciato, come lo schema `private` stesso). Senza il loro
+--     corpo reale non e' possibile confermare che rispettino
+--     auth.users.created_at >= cutoff -> mai Founder. QUESTO E' IL BLOCCO
+--     PIU' IMPORTANTE DI QUESTO PREFLIGHT: eseguire prima di qualunque GO.
+-- ============================================================================
+-- ATTENZIONE, QUESTA E' LA QUERY PIU' IMPORTANTE DELL'INTERO PREFLIGHT.
+-- Evidenza gia' raccolta (docs/architecture/founder-p0-grant-design-v3.md,
+-- branch feat/p11-founder-close-fase0, "Stato live confermato 19-20/07"):
+-- il contratto JSON live di questa funzione e'
+--   {"eligible": true,  "reason": "granted"}
+--   {"eligible": false, "reason": "not_in_allowlist"}
+-- cioe' l'UNICO motivo di rifiuto documentato e' "email non in allowlist".
+-- Nessun controllo di data. Se il corpo reale lo conferma, un account
+-- creato DOPO il cutoff che usa una delle 3 email riservate otterrebbe
+-- Founder scavalcando 20260728090000 -> conflitto di specifica, NO-GO,
+-- decisione a Matteo (vedi p010-founder-pre-apply-checklist.md).
+-- Cercare esplicitamente nel corpo restituito: 'created_at', '2026-07-31',
+-- 'cutoff', 'founder_cutoff'. Se non compaiono, il bypass e' confermato.
+select pg_get_functiondef(oid) as claim_founder_grant_if_eligible_body,
+       p.prosecdef as security_definer,
+       r.rolname as owner,
+       p.proconfig as search_path_setting
+from pg_proc p
+join pg_roles r on r.oid = p.proowner
+where p.proname = 'claim_founder_grant_if_eligible' and p.pronamespace = 'public'::regnamespace;
+
+select pg_get_functiondef(oid) as apply_founder_grant_body,
+       p.prosecdef as security_definer,
+       r.rolname as owner
+from pg_proc p
+join pg_roles r on r.oid = p.proowner
+where p.proname = '_apply_founder_grant';
+-- Se questa query non trova nulla, il nome esatto potrebbe essere diverso
+-- (drift non tracciato = nome non garantito): eseguire anche
+--   select proname, pronamespace::regnamespace from pg_proc
+--   where proname ilike '%founder%' and pronamespace not in ('private'::regnamespace, 'pg_catalog'::regnamespace);
+-- per un elenco completo di TUTTE le funzioni Founder realmente esistenti,
+-- comprese quelle mai viste da nessuna migration in git.
+
+select routine_name, grantee, privilege_type
+from information_schema.routine_privileges
+where routine_name in ('claim_founder_grant_if_eligible', '_apply_founder_grant');
+-- Se anon/authenticated/PUBLIC compaiono qui E il corpo sopra non verifica
+-- esplicitamente auth.users.created_at contro il cutoff, esiste un
+-- percorso per cui un account creato DOPO il cutoff potrebbe ottenere
+-- Founder tramite una delle 3 email riservate — conflitto di specifica,
+-- fermarsi con NO-GO senza decidere autonomamente (istruzione esplicita
+-- di Matteo, Sprint P0.10E Fase 2).
+
+-- Ri-verifica handle_new_founder() (questa e' TRACCIATA da una migration
+-- in git, 20260610120002 — ma la produzione potrebbe averla modificata
+-- fuori banda come founder_grants/schema private: non assumere che
+-- coincida con git senza controllare). Attesa: RETURNS TRIGGER (Postgres
+-- rifiuta l'invocazione diretta via RPC anche se EXECUTE fosse concesso a
+-- PUBLIC — verificare comunque che il trigger on_profile_created_founder
+-- risulti assente, gia' controllato al punto 9).
+select pg_get_functiondef('public.handle_new_founder()'::regprocedure) as handle_new_founder_body_live;
+
+-- ============================================================================
+-- 15. Sprint P0.10E addendum — grant_b2c_trial(): audit corretto (non e' B2B/
+--     gym, e' il trial B2C 7gg legacy in b2c_subscriptions). L'agente app ha
+--     confermato zero caller in Flutter/Kotlin/Swift/backend/git history: il
+--     trial reale e' applicativo, 14gg da auth.users.created_at, non passa
+--     mai da questa funzione. Verificare comunque runtime/ACL reali prima
+--     dell'hardening (migration separata 20260728100000, gia' preparata,
+--     NON ancora applicata).
+-- ============================================================================
+select pg_get_functiondef('public.grant_b2c_trial()'::regprocedure) as grant_b2c_trial_body_live;
+
+select routine_name, grantee, privilege_type
+from information_schema.routine_privileges
+where routine_name = 'grant_b2c_trial';
+-- Se questa NON mostra piu' anon/authenticated dopo l'apply di
+-- 20260728100000, l'hardening ha funzionato. PRIMA dell'apply, atteso che
+-- li mostri ancora (coerente con l'advisor P0.10D: "ancora eseguibile da
+-- PUBLIC/anon/authenticated").
+
+-- Uso runtime recente, senza PII: SOLO conteggio e ultima data, mai
+-- user_id/email.
+select count(*) as trial_rows_total,
+       count(*) filter (where state = 'active') as trial_rows_active,
+       max(created_at) as most_recent_trial_row_created_at
+from public.b2c_subscriptions
+where billing_source = 'trial';
+-- Se most_recent_trial_row_created_at e' recente (giorni, non mesi), il
+-- codice "orfano lato app" viene comunque invocato da qualcosa (un client
+-- vecchio ancora installato, un cron, un test manuale) — da investigare
+-- PRIMA di considerare l'hardening a rischio zero, anche se la conferma
+-- app dice "nessun caller mobile trovato".
+
+-- Idempotenza/ripetibilita' (risposta strutturale, gia' letta dal corpo in
+-- git): `insert ... on conflict (user_id) do nothing` su una PK
+-- (user_id) — una seconda chiamata per lo stesso utente non inserisce
+-- nulla e ritorna false. Non e' quindi possibile riottenere o estendere i
+-- 7 giorni chiamandola piu' volte. Resta pero' possibile ottenere le 7
+-- giorni UNA VOLTA senza mai essere passati dal vero trial applicativo, se
+-- authenticated ha ancora EXECUTE — da qui l'hardening, non perche' sia
+-- "abusabile ripetutamente" (non lo e').
+
+-- ============================================================================
+-- 16. Sprint P0.10E addendum — valori REALI di user_roles.note per role='pro'
+--     (mai vincolati da un CHECK constraint, mai creati da una migration in
+--     git per i valori 'grandfather-prelaunch'/'beta-tester...' — servono
+--     per confermare/correggere il match `note ilike '%grandfather%'` usato
+--     da public.get_entitlement_status(), migration 20260728110000).
+-- ============================================================================
+select note, count(*)
+from public.user_roles
+where role = 'pro'
+group by note
+order by count(*) desc;
+-- Se compare un valore che dovrebbe essere "grandfather" ma non contiene
+-- letteralmente quella parola (es. 'pre-lancio', 'early-access'), il
+-- pattern ilike '%grandfather%' in get_entitlement_status va corretto
+-- PRIMA di applicare 20260728110000 — altrimenti quegli utenti finiscono
+-- nel bucket 'lifetime' invece di 'grandfather' (esito comunque permanente
+-- e non-Founder, non un bug di sicurezza, ma non fedele al contratto).

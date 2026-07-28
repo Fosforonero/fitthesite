@@ -63,6 +63,14 @@ const ALLOWED_FILES = new Set([
   "lib/pricing.ts",
   "lib/pricing-section.ts", // definizione delle stringhe, il rendering (page.tsx) è già gated
   "lib/content/homepage-copy.ts",
+  // Sprint P0.10E: è il file che RISOLVE il problema che questo guardrail
+  // cerca, non un caso da segnalare. Contiene entrambe le varianti (aperto/
+  // chiuso) di ogni frase Founder per tutte e 15 le locale e restituisce
+  // quella corretta secondo isFounderProgramOpen(): la variante "gratis a
+  // vita" al presente esiste qui solo come ramo `open`, servito solo finché
+  // il programma è davvero aperto. Nessun punto di rendering: chi lo usa
+  // (press/page.tsx) è già in questa allow-list.
+  "lib/founder/historical-note.ts",
   "app/(frontend)/[locale]/(marketing)/beta/page.tsx", // gated internamente, verificato da founder:commercial-truth-check
   // Copy editoriale storica (post-cutoff): racconta un beneficio Founder
   // GIA' concesso ai primi 1000 iscritti, con la data di chiusura del

@@ -1,4 +1,96 @@
-# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B/D)
+# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B/D/E)
+
+## Sprint P0.10E — TRE migration ora in coda, da autorizzare separatamente
+
+L'apply non riguarda più un solo file. Ordine obbligatorio (dipendenze reali,
+non stilistiche):
+
+| # | File | Cosa fa | Autorizzazione |
+|---|---|---|---|
+| 1 | `20260728090000_founder_launch_cutoff_and_window.sql` | Sunset Founder: cutoff + finestra + ledger persistente + backfill 375 righe | `GO APPLY P0.10` |
+| 2 | `20260728100000_harden_legacy_b2c_trial_acl.sql` | Revoca EXECUTE su `grant_b2c_trial()` da public/anon/authenticated | **separata**, va autorizzata esplicitamente |
+| 3 | `20260728110000_entitlement_status_contract.sql` | Nuova RPC `get_entitlement_status()` server-authoritative | **separata**, va autorizzata esplicitamente |
+
+La #1 è l'unica che scrive dati (backfill). La #2 tocca solo ACL. La #3 crea
+una funzione nuova senza toccare nulla di esistente. Nessuna delle tre
+dipende dalle altre a livello SQL: possono essere applicate in qualunque
+ordine, o singolarmente. Sono tenute separate proprio per poterle autorizzare
+una alla volta (istruzione esplicita di Matteo: non mescolare l'hardening
+alla migration Founder).
+
+SHA-256 al momento della consegna (se cambiano, riconfermare):
+```
+3e79bc3d110fd2ca2d50d3c4d3383c8b5f4297e895129e6fabd84094f5885813  20260728090000_founder_launch_cutoff_and_window.sql
+9a9c0a954702b273996d583c58d3797027b7209f43325ba24d1bcdacb0767522  20260728100000_harden_legacy_b2c_trial_acl.sql
+bbefd851eef89db7ea3b22c9f7e0ec773a9a0132fcb6da5949807b97a6081ef8  20260728110000_entitlement_status_contract.sql
+```
+
+### BLOCCANTE P0.10E: le 3 riserve possono bypassare il cutoff
+
+`private.grant_founder_launch_core` (la #1) è verificata airtight: il suo
+controllo cutoff (`created_at >= 2026-07-31T22:00:00Z` → `program_closed`)
+precede qualunque logica di cap/allocatore, e la funzione **non assegna mai**
+un posto riservato a un utente specifico (usa `founder_grants` solo per un
+`count(*)` dei posti non applicati).
+
+Ma il percorso che *reclama* una delle 3 email riservate è un'altra
+funzione: `public.claim_founder_grant_if_eligible()`, mai creata da alcuna
+migration su questo branch (drift non tracciato, come `founder_grants` e lo
+schema `private`).
+
+**Evidenza trovata in review avversariale** — `docs/architecture/founder-p0-grant-design-v3.md`
+sul branch orfano `feat/p11-founder-close-fase0`, sezione "Stato live
+confermato (chiuso, 2026-07-19/20)", documenta il contratto JSON reale della
+funzione live:
+
+```
+{"eligible": true,  "reason": "granted"}
+{"eligible": false, "reason": "not_in_allowlist"}
+```
+
+L'unico motivo di ineleggibilità documentato è `not_in_allowlist`. **Nessun
+controllo di data, nessun cutoff.** Se questo è ancora il corpo live — e
+l'advisor di produzione conferma che la funzione è tuttora eseguibile da
+`authenticated` — allora un account creato **dopo** il cutoff che si registra
+con una delle 3 email riservate otterrebbe Founder, scavalcando interamente
+il blocco della migration #1.
+
+Questo è esattamente il caso che Matteo ha chiesto di trattare come conflitto
+di specifica da NON risolvere in autonomia (Sprint P0.10E, Fase 2). **NO-GO.**
+
+Da confermare prima di qualunque decisione, con la query §14 del preflight
+(`pg_get_functiondef` + ACL reali). La fonte qui citata è secondaria e datata
+19/20 luglio: va verificata contro il corpo live attuale, non assunta.
+
+Le tre opzioni sul tavolo, tutte da decidere da Matteo, nessuna implementata:
+1. lasciare le 3 riserve valide oltre il cutoff (eccezione grandfathered
+   esplicita e documentata);
+2. estendere il cutoff anche a `claim_founder_grant_if_eligible()` con una
+   quarta migration dedicata;
+3. revocare l'ACL della funzione legacy se il flusso allowlist non è più
+   usato da nessun client.
+
+### Risolto in P0.10E: valore reale di `user_roles.note` per i grandfather
+
+Lo stesso documento conferma il cohort: **`grandfather-prelaunch`, 8 utenti
+permanenti, zero sovrapposizione con `founder-launch`**. Il match
+`note ILIKE '%grandfather%'` usato da `get_entitlement_status()` (#3) è
+quindi corretto sui dati reali. Resta comunque nel preflight (§16) la query
+di conferma sui valori distinti attuali: il dato citato è di dieci giorni fa.
+
+### Rollback delle due migration nuove
+
+- **#2 (hardening ACL)**: `grant execute on function public.grant_b2c_trial() to authenticated;`
+  ripristina lo stato precedente. Nessun dato coinvolto, reversibile al 100%.
+- **#3 (entitlement RPC)**: `drop function if exists public.get_entitlement_status();`
+  La funzione è nuova e non referenziata da nulla in produzione (l'app non è
+  wired: il consumer lato Flutter esiste ma è inerte, commit `247fca9`/`0db854a`
+  su `develop/post-189`). Drop sicuro, nessun dato coinvolto.
+- **#1**: invariata rispetto a quanto già documentato sotto (mai droppare
+  ledger non vuoti).
+
+---
+
 
 **Sprint P0.10D (2026-07-28) — riconciliazione con dati reali di produzione.**
 Matteo ha eseguito le 13 verifiche read-only del preflight
