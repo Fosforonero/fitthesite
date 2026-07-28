@@ -46,7 +46,7 @@ begin
   if v_outcome is not null then
     return jsonb_build_object('grantCreated', false, 'alreadyHadEligibleGrant', false, 'grantKind', null,
       'capReached', v_outcome = 'cap_reached',
-      'notEligibleReason', case when v_outcome = 'cap_reached' then 'cap_reached' else 'window_expired' end);
+      'notEligibleReason', v_outcome);
   end if;
   if not exists (select 1 from public.fitness_metrics where user_id = p_user_id and device_id = p_device_id) then
     return jsonb_build_object('grantCreated', false, 'alreadyHadEligibleGrant', false,
@@ -74,14 +74,14 @@ begin
   end if;
   if v_created_at is null or v_created_at >= founder_cutoff then
     insert into private.founder_evaluations (user_id, outcome, registered_at, rule_version)
-    values (p_user_id, 'not_eligible', v_created_at, v_rule_version) on conflict (user_id) do nothing;
+    values (p_user_id, 'program_closed', v_created_at, v_rule_version) on conflict (user_id) do nothing;
     return jsonb_build_object('grantCreated', false, 'alreadyHadEligibleGrant', false,
       'grantKind', null, 'capReached', false, 'notEligibleReason', 'program_closed');
   end if;
   select first_sync_at into v_first_sync_at from public.devices where id = p_device_id;
   if v_first_sync_at is null or v_first_sync_at > v_created_at + founder_window then
     insert into private.founder_evaluations (user_id, outcome, registered_at, rule_version)
-    values (p_user_id, 'not_eligible', v_created_at, v_rule_version) on conflict (user_id) do nothing;
+    values (p_user_id, 'window_expired', v_created_at, v_rule_version) on conflict (user_id) do nothing;
     return jsonb_build_object('grantCreated', false, 'alreadyHadEligibleGrant', false,
       'grantKind', null, 'capReached', false, 'notEligibleReason', 'window_expired');
   end if;

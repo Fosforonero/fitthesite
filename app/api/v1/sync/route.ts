@@ -36,6 +36,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
+import { buildRateLimitResponse, limitSync } from "@/lib/rate-limit/limiter";
 
 import {
   derivePlatform,
@@ -60,6 +61,12 @@ type Sb = SupabaseClient;
 // log — solo durate in ms per fase + l'esito Founder gia' pubblico nella
 // risposta. Rimuovere (o azzerare SYNC_PROFILE_SAMPLE_RATE) una volta
 // raccolti abbastanza campioni.
+//
+// Sprint P0.10C FASE 3: estende il profiler con requestBytes (da
+// Content-Length, mai da JSON.stringify(body) — costerebbe CPU/memoria in
+// piu' esattamente sul percorso che si vuole alleggerire) e
+// contentEncoding, per capire quanto pesano davvero le richieste prima di
+// discutere compressione/payload delta con l'agente app.
 const SYNC_PROFILE_SAMPLE_RATE = 0.05;
 
 export async function POST(req: Request) {
@@ -68,6 +75,25 @@ export async function POST(req: Request) {
   const mark = (label: string, from: number) => {
     timingsMs[label] = Math.round((performance.now() - from) * 100) / 100;
   };
+  const requestBytesHeader = req.headers.get("content-length");
+  const requestBytes = requestBytesHeader ? Number(requestBytesHeader) : null;
+  const contentEncoding = req.headers.get("content-encoding") ?? "none";
+
+  // ── 0. Rate limit (Sprint P0.10C FASE 1) ───────────────────────────
+  // Spostato dal Middleware: prima viveva li' (config.matcher includeva
+  // esplicitamente questo path), ma Middleware + Function sono due hop
+  // Vercel distinti — secondo la documentazione Vercel Fast Origin
+  // Transfer, il body di una richiesta che attraversa entrambi puo'
+  // maturare FOT due volte. limitSync/buildRateLimitResponse leggono solo
+  // header (Authorization per lo user_id, IP di fallback) — MAI il body —
+  // quindi eseguirli qui, PRIMA di requireUser/device lookup/req.json()/
+  // Zod/qualunque scrittura, blocca una richiesta rifiutata nel modo piu'
+  // economico possibile, con la STESSA policy (60/min, keying identico,
+  // fail-open, stesso 429 + header RateLimit-*) di prima.
+  const rateLimitResult = await limitSync(req);
+  if (!rateLimitResult.allowed) {
+    return buildRateLimitResponse(rateLimitResult);
+  }
 
   // ── 1. Auth ─────────────────────────────────────────────────────────
   const tAuth = performance.now();
@@ -116,9 +142,13 @@ export async function POST(req: Request) {
   mark("zodValidate", tZodValidate);
   if (!parsed.success) {
     // Log dettagli validation per debug futuro (visibile in Vercel logs).
+    // Solo NOMI dei campi ricevuti (schema, non dati sanitari) — calcolati
+    // qui fuori dalla console.error per tenere il payload grezzo fuori
+    // dall'argomento del log (vedi sync:log-privacy-check).
+    const receivedFieldNames = Object.keys(body as object).slice(0, 30);
     console.error("[sync] invalid_payload", {
       issues: parsed.error.issues,
-      sampleKeys: Object.keys(body as object).slice(0, 30),
+      sampleKeys: receivedFieldNames,
     });
     return jsonError(400, "invalid_payload", parsed.error.flatten());
   }
@@ -163,9 +193,10 @@ export async function POST(req: Request) {
       },
     );
     if (transitionErr) {
-      // Nessuna email/dato sanitario nel log: solo deviceId + codice errore.
+      // Sprint P0.10B FASE 2: nessun identificatore nel log (né deviceId né
+      // altro) — solo nome evento + codice errore Postgres/PostgREST, non
+      // identificante di per sé (es. "23503", "P0001").
       console.error("[sync] first_sync_transition_failed", {
-        deviceId: device.id,
         code: transitionErr.code,
       });
       founderGrant = resolveFounderGrantStatus(null, true);
@@ -176,9 +207,7 @@ export async function POST(req: Request) {
       );
     }
   } catch {
-    console.error("[sync] first_sync_transition_exception", {
-      deviceId: device.id,
-    });
+    console.error("[sync] first_sync_transition_exception");
     founderGrant = resolveFounderGrantStatus(null, true);
   }
   mark("founder", tFounder);
@@ -221,8 +250,8 @@ export async function POST(req: Request) {
           })
           .then(({ error }) => {
             if (error) {
+              // Sprint P0.10B FASE 2: nessun identificatore — solo evento + codice.
               console.error("[sync] upsert_workouts_failed", {
-                deviceId: device.id,
                 code: error.code,
               });
             }
@@ -245,10 +274,18 @@ export async function POST(req: Request) {
   mark("deviceUpdate", tDeviceUpdate);
 
   mark("total", tStart);
-  // Campionato, PII-free: solo durate per fase + l'esito Founder (gia'
-  // pubblico nella risposta sotto). Vedi commento FASE 8A in testa al file.
+  // Campionato, PII-free: durate per fase + l'esito Founder (gia' pubblico
+  // nella risposta sotto) + dimensione richiesta letta SOLO da
+  // Content-Length (mai da JSON.stringify(body), P0.10C FASE 3) + status.
+  // Nessun body/UUID/fingerprint/email/token/metrica/localita' nel log.
   if (Math.random() < SYNC_PROFILE_SAMPLE_RATE) {
-    console.info("[sync] phase_timings_ms", { ...timingsMs, founderGrant });
+    console.info("[sync] phase_timings_ms", {
+      ...timingsMs,
+      founderGrant,
+      requestBytes,
+      contentEncoding,
+      status: 200,
+    });
   }
 
   return jsonOk({

@@ -81,6 +81,22 @@
 --
 -- NON APPLICATA IN PRODUZIONE. Richiede snapshot pre-apply, suite di test
 -- locale completa e GO esplicito di Matteo (vedi report Sprint P0.10A).
+--
+-- CORREZIONE Sprint P0.10B: la prima versione di questo file (P0.10A)
+-- persisteva SEMPRE 'not_eligible' in private.founder_evaluations.outcome
+-- sia per program_closed sia per window_expired (l'unico vincolo CHECK era
+-- 'not_eligible'/'cap_reached') — il fast-path di rilettura poi MAPPAVA
+-- quel valore generico di nuovo a 'window_expired' incondizionatamente.
+-- Risultato: un account post-cutoff otteneva 'program_closed' alla prima
+-- valutazione ma 'window_expired' a ogni sync successiva — violazione del
+-- contratto stabile richiesto da docs/product/post-founder-entitlement-
+-- contract.md (lo stesso utente, con lo stesso stato, deve ricevere sempre
+-- lo stesso notEligibleReason). Corretto: `outcome` ora e' esattamente il
+-- notEligibleReason (tre valori: program_closed/window_expired/
+-- cap_reached, non piu' un bucket con perdita di informazione) e il
+-- fast-path lo restituisce verbatim, senza alcuna rimappatura. Zero
+-- cambi al contratto JSON pubblico e zero cambi a FounderGrantStatus
+-- (TypeScript) — solo la fedelta' del valore persistito internamente.
 
 -- ============================================================================
 -- 0. Riconciliazione schema public.founder_grants (posti storici/riservati,
@@ -162,13 +178,16 @@ create unique index if not exists founder_seats_user_id_idx on private.founder_s
 create index if not exists founder_seats_source_idx on private.founder_seats (source);
 alter table private.founder_seats enable row level security;
 
--- Esito terminale SENZA posto consumato (not_eligible/cap_reached).
--- Persistito: mai rivalutato, mai ricalcolato da un conteggio corrente
--- (BLOCCO 3). Cascade delete: nessun posto scarso in gioco, minimizzazione
--- dati corretta alla cancellazione GDPR.
+-- Esito terminale SENZA posto consumato. `outcome` e' esattamente il
+-- notEligibleReason restituito dall'API (P0.10B: non piu' un bucket
+-- generico 'not_eligible' che perdeva la distinzione program_closed vs
+-- window_expired) — persistito una sola volta, mai rivalutato, mai
+-- ricalcolato da un conteggio corrente (BLOCCO 3). Cascade delete: nessun
+-- posto scarso in gioco, minimizzazione dati corretta alla cancellazione
+-- GDPR.
 create table if not exists private.founder_evaluations (
   user_id uuid primary key references auth.users(id) on delete cascade,
-  outcome text not null check (outcome in ('not_eligible', 'cap_reached')),
+  outcome text not null check (outcome in ('program_closed', 'window_expired', 'cap_reached')),
   registered_at timestamptz null,
   decided_at timestamptz not null default now(),
   rule_version text not null
@@ -381,12 +400,17 @@ begin
       'grantKind', null, 'capReached', false, 'notEligibleReason', null
     );
   end if;
+  -- P0.10B: `outcome` E' il notEligibleReason esatto della prima
+  -- valutazione (program_closed/window_expired/cap_reached) — restituito
+  -- verbatim, mai rimappato. Prima di questa correzione un valore generico
+  -- 'not_eligible' veniva sempre riletto come 'window_expired', anche per
+  -- un account che era stato originariamente program_closed.
   select outcome into v_outcome from private.founder_evaluations where user_id = p_user_id;
   if v_outcome is not null then
     return jsonb_build_object(
       'grantCreated', false, 'alreadyHadEligibleGrant', false, 'grantKind', null,
       'capReached', v_outcome = 'cap_reached',
-      'notEligibleReason', case when v_outcome = 'cap_reached' then 'cap_reached' else 'window_expired' end
+      'notEligibleReason', v_outcome
     );
   end if;
 
@@ -441,7 +465,7 @@ begin
   -- isFounderProgramOpen lato TypeScript).
   if v_created_at is null or v_created_at >= founder_cutoff then
     insert into private.founder_evaluations (user_id, outcome, registered_at, rule_version)
-    values (p_user_id, 'not_eligible', v_created_at, v_rule_version)
+    values (p_user_id, 'program_closed', v_created_at, v_rule_version)
     on conflict (user_id) do nothing;
     return jsonb_build_object(
       'grantCreated', false, 'alreadyHadEligibleGrant', false,
@@ -458,7 +482,7 @@ begin
   select first_sync_at into v_first_sync_at from public.devices where id = p_device_id;
   if v_first_sync_at is null or v_first_sync_at > v_created_at + founder_window then
     insert into private.founder_evaluations (user_id, outcome, registered_at, rule_version)
-    values (p_user_id, 'not_eligible', v_created_at, v_rule_version)
+    values (p_user_id, 'window_expired', v_created_at, v_rule_version)
     on conflict (user_id) do nothing;
     return jsonb_build_object(
       'grantCreated', false, 'alreadyHadEligibleGrant', false,

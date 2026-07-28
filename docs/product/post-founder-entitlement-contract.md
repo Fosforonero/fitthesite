@@ -1,11 +1,29 @@
-# Contratto entitlement post-Founder (Sprint P0.10, corretto in P0.10A)
+# Contratto entitlement post-Founder (Sprint P0.10, corretto in P0.10A e P0.10B)
 
 **Stato requisito "trial → pagamento": `pending_device_and_store_verification`.**
-Vale per l'intera durata di questo sprint e del successivo P0.10A: nessuna
-riga qui sotto lo cambia, perché nessuna delle due migration tocca il
-percorso trial/pagamento (fuori perimetro, vedi sotto). Non declassare
-questo stato senza una conferma esplicita dell'agente AppFitmesh su device
-reale (le 6 voci **Bloccante** in fondo a questo documento).
+Vale per l'intera durata di questo sprint e dei due successivi (P0.10A,
+P0.10B): nessuna riga qui sotto lo cambia, perché nessuna delle tre
+migration tocca il percorso trial/pagamento (fuori perimetro, vedi sotto).
+Non declassare questo stato senza una conferma esplicita dell'agente
+AppFitmesh su device reale (le 6 voci **Bloccante** in fondo a questo
+documento).
+
+**Nota P0.10B — contratto stabile del motivo terminale**: la correzione
+P0.10A aveva un bug di persistenza (trovato in revisione indipendente,
+mai applicato in produzione): `private.founder_evaluations.outcome`
+salvava sempre il valore generico `not_eligible` sia per `program_closed`
+sia per `window_expired`, e il fast-path di rilettura rimappava quel
+generico SEMPRE a `window_expired` — un account valutato `program_closed`
+alla prima sync diventava `window_expired` alla seconda, violando il
+requisito "stesso stato → stesso `notEligibleReason` a ogni chiamata" già
+implicito in questo documento. Corretto: `outcome` ora conserva il motivo
+esatto (`program_closed`/`window_expired`/`cap_reached`), il fast-path lo
+restituisce verbatim. Verificato esplicitamente con chiamate ripetute
+(prima e seconda sync, stesso risultato letterale) per tutti e quattro gli
+scenari terminali rilevanti: cutoff esatto, registrazione dopo il cutoff,
+finestra scaduta, cap pieno — vedi `supabase/tests/founder_p010a/60-terminal-fastpath-tests.sql`.
+Zero cambi al contratto JSON pubblico e a `FounderGrantStatus` (TypeScript):
+la correzione riguarda solo la fedeltà del valore persistito internamente.
 
 Cutoff unico: `FOUNDER_END_AT = 2026-07-31T22:00:00Z` (`lib/founder/program-window.ts`),
 equivalente a `2026-08-01T00:00:00+02:00` CEST. Stesso valore lato SQL in

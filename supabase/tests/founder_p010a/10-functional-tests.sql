@@ -93,10 +93,12 @@ begin
     raise exception 'CASO 3: FAIL - %', v_result;
   end if;
 
-  if (select outcome from private.founder_evaluations where user_id = v_user) = 'not_eligible' then
-    raise notice 'CASO 3b (persistito in founder_evaluations): PASS';
+  -- P0.10B: outcome deve essere il motivo ESATTO (window_expired), non un
+  -- bucket generico 'not_eligible' che poi verrebbe rimappato a caso.
+  if (select outcome from private.founder_evaluations where user_id = v_user) = 'window_expired' then
+    raise notice 'CASO 3b (persistito in founder_evaluations come window_expired, non un bucket generico): PASS';
   else
-    raise exception 'CASO 3b: FAIL';
+    raise exception 'CASO 3b: FAIL - outcome=%', (select outcome from private.founder_evaluations where user_id = v_user);
   end if;
 
   v_result := private.grant_founder_launch_core(v_user, v_device);

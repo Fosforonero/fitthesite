@@ -49,17 +49,18 @@ do $$
 declare
   v_user uuid; v_device_a uuid; v_device_b uuid; v_result_a jsonb; v_result_b jsonb;
 begin
-  -- Simmetrico: device A valutato PER PRIMO fuori finestra -> not_eligible
-  -- persistito. Device B (stesso utente), timing proprio DENTRO la
-  -- finestra, sincronizza dopo -> l'esito resta not_eligible (l'esito
-  -- terminale e' per l'utente, mai riaperto da un device diverso).
+  -- Simmetrico: device A valutato PER PRIMO fuori finestra -> window_expired
+  -- persistito (motivo esatto, P0.10B). Device B (stesso utente), timing
+  -- proprio DENTRO la finestra, sincronizza dopo -> l'esito resta
+  -- window_expired (l'esito terminale e' per l'utente, mai riaperto da un
+  -- device diverso).
   v_user := test.mkuser('multidevice-d@example.com', now() - interval '20 days');
   v_device_a := test.mkdevice(v_user, 'fp-md-d', now());
   insert into public.fitness_metrics (user_id, device_id) values (v_user, v_device_a);
 
   v_result_a := private.grant_founder_launch_core(v_user, v_device_a);
   if (v_result_a->>'notEligibleReason') = 'window_expired' then
-    raise notice 'CASO D (primo device, fuori finestra, not_eligible persistito): PASS - %', v_result_a;
+    raise notice 'CASO D (primo device, fuori finestra, window_expired persistito): PASS - %', v_result_a;
   else
     raise exception 'CASO D: FAIL - %', v_result_a;
   end if;
@@ -75,9 +76,9 @@ begin
   end if;
 
   if not exists (select 1 from private.founder_seats where user_id = v_user) then
-    raise notice 'CASO F (nessun seat consumato, coerente con l''esito not_eligible originale): PASS';
+    raise notice 'CASO F (nessun seat consumato, coerente con l''esito window_expired originale): PASS';
   else
-    raise exception 'CASO F: FAIL - un seat e'' stato consumato per un utente gia'' valutato not_eligible';
+    raise exception 'CASO F: FAIL - un seat e'' stato consumato per un utente gia'' valutato window_expired';
   end if;
 end $$;
 

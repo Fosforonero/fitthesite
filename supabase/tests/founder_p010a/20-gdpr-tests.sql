@@ -91,7 +91,7 @@ do $$
 declare
   v_user uuid; v_device uuid; v_result jsonb;
 begin
-  -- Utente not_eligible cancellato: founder_evaluations deve sparire
+  -- Utente window_expired cancellato: founder_evaluations deve sparire
   -- (cascade), nessun posto in gioco, nessuna PII residua.
   v_user := test.mkuser('gdpr3@example.com', now() - interval '20 days');
   v_device := test.mkdevice(v_user, 'fp-gdpr3', now());
@@ -107,7 +107,7 @@ begin
   reset role;
 
   if not exists (select 1 from private.founder_evaluations where user_id = v_user) then
-    raise notice 'ASSERT GDPR (founder_evaluations cascade-eliminata per not_eligible, nessuna PII residua): PASS';
+    raise notice 'ASSERT GDPR (founder_evaluations cascade-eliminata per window_expired, nessuna PII residua): PASS';
   else
     raise exception 'ASSERT GDPR: FAIL - founder_evaluations non eliminata';
   end if;
