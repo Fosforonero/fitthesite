@@ -1,4 +1,62 @@
-# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B)
+# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B/D)
+
+**Sprint P0.10D (2026-07-28) — riconciliazione con dati reali di produzione.**
+Matteo ha eseguito le 13 verifiche read-only del preflight
+(`docs/architecture/p010-preflight-readonly-queries.sql`) su un accesso
+Supabase autenticato esterno a questa sessione. Risultati e riconciliazione:
+
+| Voce | Assunto (P0.10A/B) | Reale (P0.10D, 2026-07-28) | Esito |
+|---|---|---|---|
+| Ultima migration applicata | `20260720120247` | `20260722145516` (6 migration Sprint 189-RC2 in più, tutte non-Founder) | **Deriva di naming, non di contenuto** — vedi §-1 sotto. Corretta rinominando i 6 file locali. |
+| `founder_grants` totali | ~21 | 21 | ✅ confermato |
+| `founder_grants` applicati | non noto con precisione | 18 | ✅ nessuna sorpresa (`legacy_allowlist` = 18) |
+| `founder_grants` riservati | 3 | 3 | ✅ confermato, zero account associati |
+| `user_roles` founder-launch | non noto | 361 righe = 361 utenti distinti | ✅ nessuna duplicazione |
+| Backfill totale atteso | non calcolato | **375** (18 legacy_allowlist + 357 legacy_autogrant) | ✅ ricalcolato a mano dalla union `founder_grants.applied_user_id` ∪ `user_roles(founder-launch)` — combacia esattamente con la dry-run SQL §12 |
+| Founder_number duplicati | 0 atteso | 0 | ✅ |
+| `founder_grants` applicati senza nota founder-launch | non previsto esplicitamente | 14 (7 beta tester, 7 grandfather-prelaunch, tutti già Pro) | ✅ **non è un'anomalia**: il backfill li include comunque via `legacy_allowlist` (basato su `founder_grants.applied_user_id`, non su `user_roles`) — nessuna riga scritta in `user_roles` dal backfill, nessun doppio entitlement |
+| Schema `private` | drift non tracciato, atteso pre-esistente | esiste, owner postgres, USAGE revocato per anon/authenticated/service_role | ✅ conferma il pattern già documentato |
+| `private.founder_seats`/`founder_evaluations` | attese assenti | assenti | ✅ |
+| `grant_founder_launch_core` | atteso invariato da `20260720120247` | MD5 combacia col corpo di `20260720120247` | ✅ nessuna delle 6 migration intermedie lo tocca (verificato anche via grep locale) |
+| RLS/grants `founder_grants` | atteso solo service_role | policy `founder_grants_service_only` (service_role, USING/CHECK true) + grant residui table-level per anon/authenticated bloccati solo da RLS default-deny | ⚠️ `revoke all ... from public, anon, authenticated` di questo file è un hardening reale (non solo un no-op) — rimuove un grant ridondante, non un fix di una falla attiva (RLS già negava l'accesso) |
+| RPC legacy (`claim_founder_grant_if_eligible`, `handle_new_founder`, `grant_b2c_trial`) | — | ancora eseguibili da PUBLIC/anon/authenticated secondo l'advisor | **Non bloccante per questa migration** — deferral già esplicito nel file stesso (righe finali, commento "DELIBERATAMENTE NON TOCCATE"), ereditato da Sprint P0.7. `handle_new_founder()` è `returns trigger`: Postgres rifiuta l'invocazione diretta via RPC, il grant PUBLIC è inerte. `claim_founder_grant_if_eligible()` già verificato in P0.7 come non sfruttabile via RLS su `founder_grants`. `grant_b2c_trial()` appartiene a un sottosistema diverso (trial B2B/gym-gateway, 7gg, product id `fitmesh_b2c_trial_7d`, zero subscription reali) — non correlato al Founder-launch o al trial 14gg del pricing pivot. Hardening di tutti e tre raccomandato come sprint separato, non come blocco di questa apply. |
+
+### §-1. Fix applicato: rinomina dei 6 file migration (Sprint 189-RC2)
+
+Le 6 migration Sprint 189-RC2 erano committate in questo repo con timestamp
+diversi da quelli realmente assegnati da Supabase all'apply (content
+normalizzato identico, solo il prefisso-versione differiva). Rinominate
+(solo `git mv`, **zero modifica al contenuto SQL**, ordine di applicazione
+invariato — verificato che l'ordine relativo resta lo stesso prima e dopo):
+
+- `20260721180000` → `20260722062946_fitness_metrics_canonical_upsert.sql`
+- `20260722090000` → `20260722084132_sleep_lossless_merge_and_helper_schema_move.sql`
+- `20260722091000` → `20260722084223_workouts_canonical_upsert.sql`
+- `20260722100000` → `20260722084840_advisor_fixes_search_path_and_rls_initplan.sql`
+- `20260722110000` → `20260722111746_explicit_revoke_anon_execute_189rc2.sql`
+- `20260722130000` → `20260722145516_workouts_fuzzy_merge_and_race_lock.sql`
+
+Nessuna delle 6 tocca `founder_grants`, `user_roles`, lo schema `private` o
+`grant_founder_launch_core` (verificato via grep sul contenuto). Riferimenti
+ai vecchi timestamp nei commenti di `app/api/v1/sync/route.ts` aggiornati di
+conseguenza (solo commenti, nessun cambio funzionale — tsc/vitest/build
+rieseguiti verdi dopo la modifica).
+
+**Ancora da fare, non eseguibile da questa sessione**: rieseguire
+`supabase migration list --linked` (o dashboard) DOPO la rinomina per
+confermare che l'unica migration `pending` risulti `20260728090000` e che
+Supabase non richieda un `migration repair` (non deve servirne uno: i nomi
+locali ora coincidono esattamente con le versioni registrate da remoto).
+
+**Non ancora deciso da Matteo, non bloccante per l'apply**: i 3 posti
+riservati restano permanentemente sottratti dal cap (`v_reserved_pending`
+in `grant_founder_launch_core`, righe 496-498) indipendentemente da
+qualunque decisione — il design esistente (approvato in P0.10A) già li
+tratta come eccezioni grandfathered a tempo indeterminato. Non serve una
+nuova decisione per procedere; serve solo la conferma che questo
+comportamento resta quello voluto.
+
+---
 
 **Nessuna di queste query è stata eseguita da questa sessione**: nessun
 accesso Supabase production autenticato disponibile (MCP Supabase non

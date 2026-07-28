@@ -11,7 +11,7 @@
  *   3. validate payload con Zod
  *   4. RPC upsert_fitness_metrics_v189 via user-bound client (SECURITY
  *      INVOKER, RLS "users insert/update own metrics" enforced — Sprint
- *      189-RC2, migration 20260721180000). Canonical row per
+ *      189-RC2, migration 20260722062946). Canonical row per
  *      user/device/source/day: a repeat sync for the same identity updates
  *      in place instead of appending, see the migration for merge semantics.
  *   4.5. RPC record_first_sync_transition('success', ...) — Founder P0:
@@ -21,7 +21,7 @@
  *      telemetria opzionale (derivata da osVersion, mai un requisito).
  *   5. RPC upsert_workouts_v189 per ogni exercise_session (se presente) —
  *      best-effort, canonical (Sprint 189-RC2 Blocker 2, migration
- *      20260722091000): identity (user, device, start_ms, end_ms, type),
+ *      20260722084223): identity (user, device, start_ms, end_ms, type),
  *      retry/resync in place invece di riga duplicata. Letto da
  *      ExportDataClient.tsx per l'export GDPR.
  *   6. UPDATE devices.last_seen_at + app_version + os_version
@@ -157,7 +157,7 @@ export async function POST(req: Request) {
   // ── 4. UPSERT fitness_metrics (Sprint 189-RC2: canonical row per
   // user/device/source/day, no more one-row-per-sync append — see
   // upsert_fitness_metrics_v189 in migration
-  // 20260721180000_fitness_metrics_canonical_upsert.sql for the merge
+  // 20260722062946_fitness_metrics_canonical_upsert.sql for the merge
   // semantics). SECURITY INVOKER: runs as this request's authenticated user,
   // enforced by the same RLS policies a raw insert/update would hit.
   const tBuildRow = performance.now();
@@ -221,7 +221,7 @@ export async function POST(req: Request) {
   // appended a fresh duplicate row forever — 30,575 rows for 4,345 distinct
   // (user, device, start_ms, end_ms, type) identities as of this audit,
   // ~86% duplicates. Now calls upsert_workouts_v189 (migration
-  // 20260722091000_workouts_canonical_upsert.sql): identical retries land on
+  // 20260722084223_workouts_canonical_upsert.sql): identical retries land on
   // the same row, later syncs enrich title/duration/distance/calories/HR
   // without erasing what a previous sync already populated. Each session
   // upserted independently and best-effort (one failing must not fail the
