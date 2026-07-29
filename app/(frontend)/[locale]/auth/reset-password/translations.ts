@@ -24,13 +24,30 @@ export const RESET_PASSWORD_LOCALES = locales.filter(
   (l) => !UNTRANSLATED_CONTENT_LOCALES.has(l),
 ) as readonly ResetPasswordLocale[];
 
-export type PageTranslations = ResetPasswordTranslations & { title: string; subtitle: string };
+/**
+ * `metaTitle`/`metaDescription` sono separati da `title`/`subtitle`: i primi
+ * finiscono in <title>/<meta name="description"> (fuori dalla pagina, nella
+ * SERP o in un tab del browser, dove serve nominare esplicitamente FitMesh),
+ * i secondi restano l'H1 e il sommario dentro la pagina, dove il contesto e'
+ * gia' chiaro. Senza questi, la route ereditava titolo, description E
+ * canonical dal root layout, cioe' quelli della HOMEPAGE (verificato in
+ * produzione il 2026-07-25 su tutte e 11 le locale).
+ */
+export type PageTranslations = ResetPasswordTranslations & {
+  title: string;
+  subtitle: string;
+  metaTitle: string;
+  metaDescription: string;
+};
 
 export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
   it: {
     title: 'Imposta una nuova password',
     subtitle:
       'Il codice arriva dall\'app FitMesh via email: inseriscilo qui insieme alla nuova password.',
+    metaTitle: 'Recupero password | FitMesh',
+    metaDescription:
+      'Inserisci il codice ricevuto via email e scegli una nuova password per il tuo account FitMesh.',
     emailLabel: 'Email',
     emailPlaceholder: 'La tua email FitMesh',
     otpLabel: 'Codice ricevuto via email',
@@ -50,12 +67,20 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: 'Troppi tentativi. Aspetta qualche minuto e riprova.',
     errorNetwork: 'Problema di connessione. Controlla la rete e riprova.',
     errorGeneric: 'Errore durante il salvataggio. Riprova o richiedi un nuovo codice dall\'app.',
+    noCodeTitle: 'Non hai un codice?',
+    noCodeBody: 'Per cambiare password serve un codice ricevuto via email. Richiedilo qui: arriva in pochi istanti.',
+    requestCode: 'Richiedi un codice',
+    staleLinkTitle: 'Questo collegamento non e\' piu\' utilizzabile',
+    staleLinkBody: 'Il link che hai aperto e\' scaduto o e\' gia\' stato usato. Richiedi un nuovo codice e inseriscilo qui sotto.',
     backToLogin: 'Torna alla home',
   },
   es: {
     title: 'Establece una nueva contraseña',
     subtitle:
       'El código llega desde la app FitMesh por email: introdúcelo aquí junto con tu nueva contraseña.',
+    metaTitle: 'Recuperar contraseña | FitMesh',
+    metaDescription:
+      'Introduce el código que has recibido por email y elige una nueva contraseña para tu cuenta de FitMesh.',
     emailLabel: 'Email',
     emailPlaceholder: 'Tu email de FitMesh',
     otpLabel: 'Código recibido por email',
@@ -75,12 +100,20 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: 'Demasiados intentos. Espera unos minutos y vuelve a intentarlo.',
     errorNetwork: 'Problema de conexión. Revisa la red y vuelve a intentarlo.',
     errorGeneric: 'Error al guardar. Vuelve a intentarlo o solicita un nuevo código desde la app.',
+    noCodeTitle: '¿No tienes un código?',
+    noCodeBody: 'Para cambiar la contraseña necesitas un código enviado por email. Solicítalo aquí: llega en unos instantes.',
+    requestCode: 'Solicitar un código',
+    staleLinkTitle: 'Este enlace ya no se puede usar',
+    staleLinkBody: 'El enlace que has abierto ha caducado o ya se ha usado. Solicita un código nuevo e introdúcelo abajo.',
     backToLogin: 'Volver al inicio',
   },
   en: {
     title: 'Set a new password',
     subtitle:
       'The code arrives from the FitMesh app by email: enter it here together with your new password.',
+    metaTitle: 'Password recovery | FitMesh',
+    metaDescription:
+      'Enter the code you received by email and choose a new password for your FitMesh account.',
     emailLabel: 'Email',
     emailPlaceholder: 'Your FitMesh email',
     otpLabel: 'Code received by email',
@@ -100,12 +133,20 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: 'Too many attempts. Wait a few minutes and try again.',
     errorNetwork: 'Connection problem. Check your network and try again.',
     errorGeneric: 'Error while saving. Try again or request a new code from the app.',
+    noCodeTitle: 'Don\'t have a code?',
+    noCodeBody: 'To change your password you need a code sent by email. Request one here: it arrives in moments.',
+    requestCode: 'Request a code',
+    staleLinkTitle: 'This link can no longer be used',
+    staleLinkBody: 'The link you opened has expired or was already used. Request a new code and enter it below.',
     backToLogin: 'Back to home',
   },
   de: {
     title: 'Neues Passwort festlegen',
     subtitle:
       'Der Code kommt per E-Mail von der FitMesh-App: Gib ihn hier zusammen mit deinem neuen Passwort ein.',
+    metaTitle: 'Passwort zurücksetzen | FitMesh',
+    metaDescription:
+      'Gib den per E-Mail erhaltenen Code ein und wähle ein neues Passwort für dein FitMesh-Konto.',
     emailLabel: 'E-Mail',
     emailPlaceholder: 'Deine FitMesh-E-Mail',
     otpLabel: 'Per E-Mail erhaltener Code',
@@ -125,11 +166,19 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: 'Zu viele Versuche. Warte ein paar Minuten und versuche es erneut.',
     errorNetwork: 'Verbindungsproblem. Prüfe deine Netzwerkverbindung und versuche es erneut.',
     errorGeneric: 'Fehler beim Speichern. Versuche es erneut oder fordere einen neuen Code in der App an.',
+    noCodeTitle: 'Kein Code erhalten?',
+    noCodeBody: 'Um dein Passwort zu ändern, brauchst du einen per E-Mail gesendeten Code. Fordere ihn hier an: Er kommt in wenigen Augenblicken.',
+    requestCode: 'Code anfordern',
+    staleLinkTitle: 'Dieser Link ist nicht mehr verwendbar',
+    staleLinkBody: 'Der geöffnete Link ist abgelaufen oder wurde bereits verwendet. Fordere einen neuen Code an und gib ihn unten ein.',
     backToLogin: 'Zurück zur Startseite',
   },
   pt: {
     title: 'Defina uma nova senha',
     subtitle: 'O código chega no seu email pelo app FitMesh: digite-o aqui junto com a nova senha.',
+    metaTitle: 'Recuperação de senha | FitMesh',
+    metaDescription:
+      'Digite o código recebido por email e escolha uma nova senha para a sua conta FitMesh.',
     emailLabel: 'Email',
     emailPlaceholder: 'Seu email do FitMesh',
     otpLabel: 'Código recebido por email',
@@ -148,11 +197,19 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: 'Muitas tentativas. Aguarde alguns minutos e tente novamente.',
     errorNetwork: 'Problema de conexão. Verifique sua rede e tente novamente.',
     errorGeneric: 'Erro ao salvar. Tente novamente ou peça um novo código no app.',
+    noCodeTitle: 'Não tens um código?',
+    noCodeBody: 'Para mudar a palavra-passe precisas de um código enviado por email. Pede-o aqui: chega em poucos instantes.',
+    requestCode: 'Pedir um código',
+    staleLinkTitle: 'Esta ligação já não pode ser usada',
+    staleLinkBody: 'A ligação que abriste expirou ou já foi usada. Pede um novo código e introduz-o abaixo.',
     backToLogin: 'Voltar ao início',
   },
   fr: {
     title: 'Définir un nouveau mot de passe',
     subtitle: 'Le code arrive par email depuis l\'app FitMesh : saisis-le ici avec ton nouveau mot de passe.',
+    metaTitle: 'Récupération du mot de passe | FitMesh',
+    metaDescription:
+      'Saisis le code reçu par email et choisis un nouveau mot de passe pour ton compte FitMesh.',
     emailLabel: 'Email',
     emailPlaceholder: 'Ton email FitMesh',
     otpLabel: 'Code reçu par email',
@@ -172,11 +229,19 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: 'Trop de tentatives. Attends quelques minutes et réessaie.',
     errorNetwork: 'Problème de connexion. Vérifie ton réseau et réessaie.',
     errorGeneric: 'Erreur lors de l\'enregistrement. Réessaie ou demande un nouveau code depuis l\'app.',
+    noCodeTitle: 'Vous n\'avez pas de code ?',
+    noCodeBody: 'Pour changer votre mot de passe, il vous faut un code envoyé par email. Demandez-le ici : il arrive en quelques instants.',
+    requestCode: 'Demander un code',
+    staleLinkTitle: 'Ce lien n\'est plus utilisable',
+    staleLinkBody: 'Le lien que vous avez ouvert a expiré ou a déjà été utilisé. Demandez un nouveau code et saisissez-le ci-dessous.',
     backToLogin: 'Retour à l\'accueil',
   },
   pl: {
     title: 'Ustaw nowe hasło',
     subtitle: 'Kod przychodzi mailem z aplikacji FitMesh: wpisz go tutaj razem z nowym hasłem.',
+    metaTitle: 'Odzyskiwanie hasła | FitMesh',
+    metaDescription:
+      'Wpisz kod otrzymany mailem i wybierz nowe hasło do swojego konta FitMesh.',
     emailLabel: 'Email',
     emailPlaceholder: 'Twój email FitMesh',
     otpLabel: 'Kod otrzymany mailem',
@@ -195,11 +260,19 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: 'Zbyt wiele prób. Odczekaj kilka minut i spróbuj ponownie.',
     errorNetwork: 'Problem z połączeniem. Sprawdź sieć i spróbuj ponownie.',
     errorGeneric: 'Błąd podczas zapisywania. Spróbuj ponownie lub poproś o nowy kod w aplikacji.',
+    noCodeTitle: 'Nie masz kodu?',
+    noCodeBody: 'Aby zmienić hasło, potrzebujesz kodu wysłanego emailem. Poproś o niego tutaj: przyjdzie w kilka chwil.',
+    requestCode: 'Poproś o kod',
+    staleLinkTitle: 'Tego linku nie można już użyć',
+    staleLinkBody: 'Otwarty link wygasł lub został już użyty. Poproś o nowy kod i wpisz go poniżej.',
     backToLogin: 'Powrót do strony głównej',
   },
   tr: {
     title: 'Yeni bir şifre belirle',
     subtitle: 'Kod, FitMesh uygulamasından e-postayla gelir: buraya yeni şifrenle birlikte gir.',
+    metaTitle: 'Şifre kurtarma | FitMesh',
+    metaDescription:
+      'E-postayla aldığın kodu gir ve FitMesh hesabın için yeni bir şifre belirle.',
     emailLabel: 'E-posta',
     emailPlaceholder: 'FitMesh e-postan',
     otpLabel: 'E-postayla alınan kod',
@@ -218,11 +291,19 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: 'Çok fazla deneme. Birkaç dakika bekleyip tekrar dene.',
     errorNetwork: 'Bağlantı sorunu. Ağını kontrol edip tekrar dene.',
     errorGeneric: 'Kaydedilirken hata oluştu. Tekrar dene veya uygulamadan yeni bir kod iste.',
+    noCodeTitle: 'Kodun yok mu?',
+    noCodeBody: 'Şifreni değiştirmek için e-posta ile gönderilen bir koda ihtiyacın var. Buradan iste: birkaç saniye içinde gelir.',
+    requestCode: 'Kod iste',
+    staleLinkTitle: 'Bu bağlantı artık kullanılamıyor',
+    staleLinkBody: 'Açtığın bağlantının süresi dolmuş veya daha önce kullanılmış. Yeni bir kod iste ve aşağıya gir.',
     backToLogin: 'Ana sayfaya dön',
   },
   nl: {
     title: 'Stel een nieuw wachtwoord in',
     subtitle: 'De code komt via email vanuit de FitMesh-app: vul hem hier in samen met je nieuwe wachtwoord.',
+    metaTitle: 'Wachtwoord herstellen | FitMesh',
+    metaDescription:
+      'Vul de code in die je via email hebt ontvangen en kies een nieuw wachtwoord voor je FitMesh-account.',
     emailLabel: 'Email',
     emailPlaceholder: 'Je FitMesh-email',
     otpLabel: 'Ontvangen code via email',
@@ -241,11 +322,19 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: 'Te veel pogingen. Wacht een paar minuten en probeer het opnieuw.',
     errorNetwork: 'Verbindingsprobleem. Controleer je netwerk en probeer het opnieuw.',
     errorGeneric: 'Fout bij opslaan. Probeer het opnieuw of vraag een nieuwe code aan in de app.',
+    noCodeTitle: 'Geen code ontvangen?',
+    noCodeBody: 'Om je wachtwoord te wijzigen heb je een per e-mail verstuurde code nodig. Vraag hem hier aan: hij komt binnen enkele ogenblikken.',
+    requestCode: 'Code aanvragen',
+    staleLinkTitle: 'Deze link kan niet meer worden gebruikt',
+    staleLinkBody: 'De geopende link is verlopen of al gebruikt. Vraag een nieuwe code aan en vul die hieronder in.',
     backToLogin: 'Terug naar home',
   },
   ja: {
     title: '新しいパスワードを設定',
     subtitle: 'コードはFitMeshアプリからメールで届きます。ここに新しいパスワードと一緒に入力してください。',
+    metaTitle: 'パスワードの再設定 | FitMesh',
+    metaDescription:
+      'メールで受け取ったコードを入力し、FitMeshアカウントの新しいパスワードを設定してください。',
     emailLabel: 'メールアドレス',
     emailPlaceholder: 'FitMeshに登録したメールアドレス',
     otpLabel: 'メールで届いたコード',
@@ -264,11 +353,19 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: '試行回数が多すぎます。数分待ってからもう一度お試しください。',
     errorNetwork: '接続に問題があります。ネットワークを確認してもう一度お試しください。',
     errorGeneric: '保存中にエラーが発生しました。もう一度お試しいただくか、アプリから新しいコードをリクエストしてください。',
+    noCodeTitle: 'コードをお持ちでない場合',
+    noCodeBody: 'パスワードを変更するにはメールで届くコードが必要です。ここからリクエストしてください。すぐに届きます。',
+    requestCode: 'コードをリクエスト',
+    staleLinkTitle: 'このリンクは使用できません',
+    staleLinkBody: '開いたリンクは有効期限が切れているか、すでに使用されています。新しいコードをリクエストして、下に入力してください。',
     backToLogin: 'ホームに戻る',
   },
   ko: {
     title: '새 비밀번호 설정',
     subtitle: '코드는 FitMesh 앱에서 이메일로 전송됩니다. 새 비밀번호와 함께 여기에 입력하세요.',
+    metaTitle: '비밀번호 재설정 | FitMesh',
+    metaDescription:
+      '이메일로 받은 코드를 입력하고 FitMesh 계정의 새 비밀번호를 설정하세요.',
     emailLabel: '이메일',
     emailPlaceholder: 'FitMesh 이메일',
     otpLabel: '이메일로 받은 코드',
@@ -287,6 +384,11 @@ export const TRANSLATIONS: Record<ResetPasswordLocale, PageTranslations> = {
     errorRateLimited: '시도 횟수가 너무 많습니다. 몇 분 후 다시 시도하세요.',
     errorNetwork: '연결 문제가 있습니다. 네트워크를 확인하고 다시 시도하세요.',
     errorGeneric: '저장 중 오류가 발생했습니다. 다시 시도하거나 앱에서 새 코드를 요청하세요.',
+    noCodeTitle: '코드가 없으신가요?',
+    noCodeBody: '비밀번호를 변경하려면 이메일로 받은 코드가 필요합니다. 여기서 요청하세요. 곧 도착합니다.',
+    requestCode: '코드 요청',
+    staleLinkTitle: '이 링크는 더 이상 사용할 수 없습니다',
+    staleLinkBody: '열어보신 링크는 만료되었거나 이미 사용되었습니다. 새 코드를 요청하여 아래에 입력하세요.',
     backToLogin: '홈으로 돌아가기',
   },
 };

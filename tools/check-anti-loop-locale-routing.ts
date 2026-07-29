@@ -11,19 +11,32 @@
  * al primo istante) — stesso standard del guardrail P0.4C
  * (`check-anti-loop.ts`), applicato al bug specifico di questa PR.
  *
- * A differenza di `check-anti-loop.ts` (che gira di default contro
- * PRODUZIONE perche' verifica header Critical-CH/Refresh iniettati da un
- * livello che un `next start` locale non riproduce), questo script gira
- * SEMPRE contro BASE_URL locale: il fix nb/nn vive solo su questo branch,
- * non ancora in produzione — testare contro produzione darebbe un falso
- * verde (il bug originale, se ancora presente, non verrebbe rilevato).
+ * Scenari 1-16 girano contro BASE_URL locale: verificano la canonicalizzazione
+ * nb/nn -> no, che va provata PRIMA del deploy (testarla in produzione prima
+ * che il fix sia live darebbe un falso verde, il bug originale non verrebbe
+ * rilevato). Scenari 17-19 girano deliberatamente contro PRODUZIONE, come
+ * `check-anti-loop.ts`: verificano la negoziazione reale Accept-Language/
+ * country, che dipende da x-vercel-ip-country — header iniettato solo
+ * dall'edge Vercel vero, mai riproducibile da un `next start` locale.
  *
  * Richiede Playwright con i browser gia' installati (immagine Docker
  * mcr.microsoft.com/playwright, non il node:22 nudo).
+ *
+ * Scenari 17-19 (produzione): la negoziazione reale (lib/locale-negotiation.ts)
+ * e' cookie -> Accept-Language -> x-vercel-ip-country -> 'en' finale. Un
+ * ambiente di test SENZA alcun segnale non e' "nessun segnale" in produzione:
+ * Vercel inietta comunque x-vercel-ip-country in base all'IP del chiamante,
+ * quindi da un IP italiano '/' -> '/it' e' il comportamento CORRETTO, non un
+ * bug. 'en' e' il fallback finale solo quando mancano cookie, Accept-Language
+ * E country. Locale (nessun header Vercel possibile) resta l'unico posto
+ * dove "nessun segnale -> /en" e' un'asserzione deterministica valida.
  */
 import { chromium, webkit, type Browser, type Page } from "playwright";
+import { locales } from "@/lib/i18n";
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
+const PRODUCTION_BASE_URL = "https://www.fitmesh.fit";
+const SUPPORTED_LOCALE_ROOT_PATHS = locales.map((l) => `/${l}`);
 const HOLD_MS_DEFAULT = 20_000;
 const HOLD_MS_CRITICAL = 45_000; // scenari WebKit "critici" — richiesta esplicita 30-60s
 const REDDIT_REFERER = "https://www.reddit.com/";
@@ -40,13 +53,17 @@ const DOUBLE_LOCALE_BUG_RE = /^\/[a-z]{2}\/(?:nb|nn)\b/;
 interface ScenarioOpts {
   label: string;
   browserType: "chromium" | "webkit";
+  baseUrl?: string; // default BASE_URL; scenari produzione lo sovrascrivono con PRODUCTION_BASE_URL
   path: string;
   extraHTTPHeaders?: Record<string, string>;
   referer?: string;
   isMobile?: boolean;
   holdMs?: number;
   expectedNavigationCount: number; // 1 = nessun redirect, 2 = un hop
-  expectedFinalPath: string; // pathname + search atteso dopo l'assestamento
+  // pathname + search atteso dopo l'assestamento. Una stringa esatta per gli
+  // scenari deterministici; { oneOf } quando l'esito dipende da un segnale
+  // runtime non riproducibile in ambiente di test (GeoIP dell'IP chiamante).
+  expectedFinalPath: string | { oneOf: readonly string[] };
 }
 
 interface ScenarioResult {
@@ -102,7 +119,7 @@ async function runScenario(opts: ScenarioOpts): Promise<ScenarioResult> {
     // pressione CPU. Le assert reali (richieste ripetute, beforeunload,
     // contenuto, URL finale) restano identiche e vengono verificate DOPO
     // l'hold, non al momento del goto — "load" e' solo il gate di partenza.
-    await page.goto(`${BASE_URL}${opts.path}`, { waitUntil: "load", referer: opts.referer, timeout: 45_000 });
+    await page.goto(`${opts.baseUrl ?? BASE_URL}${opts.path}`, { waitUntil: "load", referer: opts.referer, timeout: 45_000 });
   } catch (err) {
     failed.push(`navigazione iniziale fallita: ${(err as Error).message}`);
     await browser.close();
@@ -145,8 +162,14 @@ async function runScenario(opts: ScenarioOpts): Promise<ScenarioResult> {
 
   const finalUrlObj = new URL(finalUrl);
   const actualFinalPath = finalUrlObj.pathname + finalUrlObj.search;
-  if (actualFinalPath !== opts.expectedFinalPath) {
-    failed.push(`URL finale = "${actualFinalPath}" (atteso "${opts.expectedFinalPath}")`);
+  if (typeof opts.expectedFinalPath === "string") {
+    if (actualFinalPath !== opts.expectedFinalPath) {
+      failed.push(`URL finale = "${actualFinalPath}" (atteso "${opts.expectedFinalPath}")`);
+    }
+  } else if (!opts.expectedFinalPath.oneOf.includes(actualFinalPath)) {
+    failed.push(
+      `URL finale = "${actualFinalPath}" non e' una locale supportata tra quelle attese (${opts.expectedFinalPath.oneOf.join(", ")})`,
+    );
   }
 
   if (beforeUnloadCount > 0) {
@@ -170,9 +193,15 @@ async function main() {
     // "/" negozia SEMPRE un redirect verso una locale di default (307) —
     // comportamento pre-esistente, non correlato al fix nb/nn (vedi
     // check-refresh-loop.ts: "/ -> 307 -> /<locale>" e' la baseline nota).
-    // Con Accept-Language di default del container questo browser risolve
-    // a /en: 2 richieste di navigazione (non 1), atteso.
-    { label: "1. / (root, header default) -> /en, Chromium", browserType: "chromium", path: "/", expectedNavigationCount: 2, expectedFinalPath: "/en" },
+    // Questo scenario gira SEMPRE contro BASE_URL locale (mai produzione):
+    // e' l'unico posto dove "nessun segnale" e' davvero vero, perche' un
+    // `next start` locale non riceve mai x-vercel-ip-country (header
+    // iniettato solo dall'edge Vercel) — cookie assente, Accept-Language
+    // assente/non risolvibile, country assente -> 'en' e' l'unico esito
+    // deterministico possibile (vedi resolveNegotiatedLocale in
+    // lib/locale-negotiation.ts). In produzione questa stessa richiesta
+    // risolverebbe secondo il country dell'IP chiamante — vedi scenario 19.
+    { label: "1. / locale, nessun segnale (niente cookie/Accept-Language/country) -> /en, Chromium", browserType: "chromium", path: "/", expectedNavigationCount: 2, expectedFinalPath: "/en" },
     { label: "2. /it esplicita, Chromium", browserType: "chromium", path: "/it", expectedNavigationCount: 1, expectedFinalPath: "/it" },
     { label: "3. /en esplicita, Chromium", browserType: "chromium", path: "/en", expectedNavigationCount: 1, expectedFinalPath: "/en" },
     { label: "4. /no esplicita (stabilita', nessun redirect), Chromium", browserType: "chromium", path: "/no", expectedNavigationCount: 1, expectedFinalPath: "/no" },
@@ -188,6 +217,18 @@ async function main() {
     { label: "14. [WebKit mobile critico] /nb/blog?utm_source=x -> /no/blog?utm_source=x", browserType: "webkit", path: "/nb/blog?utm_source=x", isMobile: true, holdMs: HOLD_MS_CRITICAL, expectedNavigationCount: 2, expectedFinalPath: "/no/blog?utm_source=x" },
     { label: "15. [WebKit mobile critico] Accept-Language nb-NO su / -> /no", browserType: "webkit", path: "/", extraHTTPHeaders: { "accept-language": "nb-NO" }, isMobile: true, holdMs: HOLD_MS_CRITICAL, expectedNavigationCount: 2, expectedFinalPath: "/no" },
     { label: "16. [WebKit mobile critico] /no con Accept-Language it-IT in conflitto (stabilita')", browserType: "webkit", path: "/no", extraHTTPHeaders: { "accept-language": "it-IT" }, isMobile: true, holdMs: HOLD_MS_CRITICAL, expectedNavigationCount: 1, expectedFinalPath: "/no" },
+
+    // 17-19. [PRODUZIONE] negoziazione reale cookie/Accept-Language/country.
+    // A differenza di 1-16 (sempre locali), questi puntano deliberatamente a
+    // PRODUCTION_BASE_URL: x-vercel-ip-country esiste solo dietro l'edge
+    // Vercel vero, non riproducibile da un `next start` locale.
+    { label: "17. [PRODUZIONE] Accept-Language en-US esplicito -> /en, Chromium", browserType: "chromium", baseUrl: PRODUCTION_BASE_URL, path: "/", extraHTTPHeaders: { "accept-language": "en-US,en;q=0.9" }, expectedNavigationCount: 2, expectedFinalPath: "/en" },
+    { label: "18. [PRODUZIONE] Accept-Language de-DE esplicito -> /de, Chromium", browserType: "chromium", baseUrl: PRODUCTION_BASE_URL, path: "/", extraHTTPHeaders: { "accept-language": "de-DE,de;q=0.9" }, expectedNavigationCount: 2, expectedFinalPath: "/de" },
+    // Nessun Accept-Language esplicito: l'esito dipende dal country dell'IP
+    // di chi esegue il test (non deterministico tra ambienti/CI), quindi
+    // verifichiamo solo che sia una delle 15 locale supportate, stabile e
+    // senza loop — MAI un'asserzione rigida su quale locale specifica.
+    { label: "19. [PRODUZIONE] nessun Accept-Language esplicito -> locale determinata dal country Vercel (qualunque locale supportata, stabile), Chromium", browserType: "chromium", baseUrl: PRODUCTION_BASE_URL, path: "/", expectedNavigationCount: 2, expectedFinalPath: { oneOf: SUPPORTED_LOCALE_ROOT_PATHS } },
   ];
 
   // Concorrenza limitata: 16 browser Chromium/WebKit lanciati tutti insieme
@@ -226,7 +267,7 @@ async function main() {
   }
 
   console.log(
-    `\n✅ Anti-loop locale routing guardrail: ${results.length} scenari (Chromium desktop + WebKit mobile, Accept-Language nb-NO/nn-NO/no-NO, referrer Reddit, conflitto Accept-Language vs /no esplicita, query string) verificati contro ${BASE_URL} — zero richieste ripetute, zero beforeunload dopo l'assestamento, un solo hop dove atteso, nessun /it/nb o doppio prefisso, contenuto sempre presente.`,
+    `\n✅ Anti-loop locale routing guardrail: ${results.length} scenari (1-16 contro ${BASE_URL}: Chromium desktop + WebKit mobile, Accept-Language nb-NO/nn-NO/no-NO, referrer Reddit, conflitto Accept-Language vs /no esplicita, query string; 17-19 contro ${PRODUCTION_BASE_URL}: Accept-Language esplicito -> locale corrispondente, nessun Accept-Language -> qualunque locale supportata via country Vercel) — zero richieste ripetute, zero beforeunload dopo l'assestamento, un solo hop dove atteso, nessun /it/nb o doppio prefisso, contenuto sempre presente.`,
   );
 }
 

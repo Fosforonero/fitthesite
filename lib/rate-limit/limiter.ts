@@ -151,6 +151,98 @@ export async function limitInvitePreview(req: Request): Promise<LimitResult> {
   return callRateLimitRpc(key, 20, 60);
 }
 
+/**
+ * Hotfix P0.10R — digest opaco per le chiavi di rate limit del recupero
+ * password.
+ *
+ * Le chiavi finiscono in `public.rate_limit_buckets`, che e' una tabella
+ * normale: scriverci dentro `recovery:email:mario@rossi.it` significherebbe
+ * costruire, come effetto collaterale di un limite anti-abuso, un elenco in
+ * chiaro di chi ha provato a recuperare la password. Stesso discorso per
+ * l'IP. Qui si scrive solo un digest.
+ *
+ * HMAC-SHA256 quando `IP_HASH_SALT` esiste (segreto server-only gia' in uso
+ * per lo stesso scopo in /api/v1/beta/signup), altrimenti SHA-256 semplice
+ * con namespace. **Nessuna nuova variabile Vercel obbligatoria**: senza il
+ * segreto l'endpoint funziona lo stesso, con una garanzia piu' debole —
+ * un digest non-keyed di un indirizzo email e' teoricamente attaccabile per
+ * forza bruta da chi abbia gia' accesso in lettura alla tabella (che pero'
+ * e' service-role only). Impostare `IP_HASH_SALT` chiude anche quello.
+ *
+ * Web Crypto e non `node:crypto`: questo modulo e' importato anche dal
+ * middleware, che gira su Edge runtime.
+ */
+async function opaqueKey(namespace: string, value: string): Promise<string> {
+  const secret = process.env.IP_HASH_SALT;
+  const encoder = new TextEncoder();
+  const data = encoder.encode(`${namespace}:${value}`);
+
+  let digest: ArrayBuffer;
+  if (secret) {
+    const key = await crypto.subtle.importKey(
+      'raw',
+      encoder.encode(secret),
+      { name: 'HMAC', hash: 'SHA-256' },
+      false,
+      ['sign'],
+    );
+    digest = await crypto.subtle.sign('HMAC', key, data);
+  } else {
+    digest = await crypto.subtle.digest('SHA-256', data);
+  }
+
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('')
+    .slice(0, 32);
+}
+
+/**
+ * Normalizzazione dell'indirizzo prima del digest: solo `trim` + `toLowerCase`.
+ *
+ * Deliberatamente NIENTE stripping del plus-address e nessuna manipolazione
+ * del dominio: `mario+fitmesh@x.it` e `mario@x.it` sono, per Supabase Auth,
+ * due account potenzialmente distinti — normalizzarli insieme farebbe
+ * scattare il limite di uno sull'altro, cioe' un utente potrebbe bloccare il
+ * recupero password di un altro.
+ */
+export function normalizeRecoveryEmail(email: string): string {
+  return email.trim().toLowerCase();
+}
+
+/**
+ * Recupero password, DUE limiti indipendenti — entrambi sempre valutati.
+ *
+ * L'endpoint e' pubblico, non autenticato, e fa partire un'email verso un
+ * indirizzo scelto da chi chiama: senza limite server-side e' utilizzabile
+ * sia per floodare la casella di una vittima, sia per bruciare la quota di
+ * invio del progetto. La guardia lato interfaccia (bottone disabilitato)
+ * non conta: chiunque puo' chiamare l'endpoint con curl.
+ *
+ * Perche' due chiavi separate e non una:
+ * - per EMAIL (3 / 15 min): impedisce di martellare la casella di una
+ *   singola vittima ruotando IP (VPN, botnet, IPv6 /64).
+ * - per IP (20 / 15 min): impedisce a un singolo chiamante di enumerare o
+ *   spammare molti indirizzi diversi, cosa che la chiave per email non
+ *   vedrebbe mai.
+ * Nessuna delle due da sola copre l'altro scenario. Basta che UNA scatti.
+ *
+ * FAIL-OPEN, come tutto il resto del limiter (vedi intestazione del file):
+ * se la RPC Supabase fallisce, la richiesta viene permessa. E' una scelta
+ * gia' presa per questo modulo (mai bloccare la produzione per un nostro
+ * disservizio) e qui la si eredita senza modificarla.
+ */
+export async function limitForgotPasswordByEmail(email: string): Promise<LimitResult> {
+  const key = await opaqueKey('recovery:email', normalizeRecoveryEmail(email));
+  return callRateLimitRpc(`recovery:email:${key}`, 3, 900);
+}
+
+/** Vedi `limitForgotPasswordByEmail`: namespace distinto, chiave indipendente. */
+export async function limitForgotPasswordByIp(req: Request): Promise<LimitResult> {
+  const key = await opaqueKey('recovery:ip', getClientIp(req));
+  return callRateLimitRpc(`recovery:ip:${key}`, 20, 900);
+}
+
 /** Costruisce response 429 standard con headers RateLimit-*. */
 export function buildRateLimitResponse(result: LimitResult): Response {
   return new Response(

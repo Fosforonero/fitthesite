@@ -5,6 +5,8 @@ import { RESET_PASSWORD_LOCALES, TRANSLATIONS } from "./translations";
 const REQUIRED_KEYS = [
   "title",
   "subtitle",
+  "metaTitle",
+  "metaDescription",
   "emailLabel",
   "emailPlaceholder",
   "otpLabel",
