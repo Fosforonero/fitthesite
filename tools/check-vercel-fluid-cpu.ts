@@ -179,6 +179,12 @@ if (!fs.existsSync(PRERENDER_MANIFEST_PATH)) {
     "/it/about",
     "/it/integrations",
     "/it/sync/galaxy-watch",
+    // Sprint P0.10: /beta diventa archivio Founder ma DEVE restare statica
+    // (nessun force-dynamic) esattamente come la homepage — zero decisione
+    // temporale lato server, il gate aperto/chiuso e' interamente client
+    // side (FounderClientGate), vedi check 9 sotto.
+    "/it/beta",
+    "/en/beta",
   ];
   for (const p of REQUIRED_PRERENDERED_SAMPLE) {
     if (!staticRoutes.has(p)) {
@@ -194,6 +200,142 @@ if (!fs.existsSync(PRERENDER_MANIFEST_PATH)) {
   }
 }
 
+// ── 9. FounderClientGate resta client-only, zero rete (ridondante con
+//    founder:window-check di proposito: quel guardrail puo' evolvere per
+//    altre ragioni, questo resta l'ultima linea di difesa Fluid CPU) ──────
+const FOUNDER_GATE_REL = "components/founder/FounderClientGate.tsx";
+const founderGateRaw = read(FOUNDER_GATE_REL);
+if (founderGateRaw === null) {
+  errors.push(`[founder-gate-mancante] ${FOUNDER_GATE_REL} non esiste.`);
+} else {
+  const founderGateCode = stripComments(founderGateRaw);
+  if (/\bfetch\s*\(|supabase|createClient|pg\.|Pool\(/i.test(founderGateCode)) {
+    errors.push(
+      `[founder-gate-rete] ${FOUNDER_GATE_REL} contiene un pattern di rete/DB — la decisione Founder aperto/chiuso deve costare zero Fluid CPU, letta solo dall'orologio del browser.`,
+    );
+  }
+  if (!/^["']use client["'];?/m.test(founderGateRaw)) {
+    errors.push(`[founder-gate-non-client] ${FOUNDER_GATE_REL} non ha "use client" — se diventasse un Server Component la decisione tornerebbe lato server.`);
+  }
+}
+
+// ── 10. Il numero di route dinamiche non deve superare la baseline P0.10 ──
+// (registrata il 2026-07-28, subito dopo aver verificato che homepage/beta
+// restano statiche e che i 3561 prerendered route del baseline P0.9 sono
+// invariati). Un aumento non e' automaticamente un errore di per se', ma
+// deve essere una scelta esplicita: se cresce, alza IL NUMERO qui SOLO dopo
+// aver verificato che il motivo e' legittimo (nuova route realmente
+// necessaria, non una regressione accidentale force-dynamic).
+const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
+// 56 -> 57 (2026-07-29, hotfix P0.10R): nuova
+// POST /api/v1/auth/forgot-password. Necessariamente dinamica (rate limit
+// server-side stateful su Postgres, mai statica per definizione) — non una
+// regressione, una route reale in piu' rispetto al baseline P0.9/P0.10.
+const DYNAMIC_ROUTES_BASELINE = 57;
+if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
+  errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
+} else {
+  const routesManifest = JSON.parse(fs.readFileSync(ROUTES_MANIFEST_PATH, "utf-8")) as {
+    dynamicRoutes?: unknown[];
+  };
+  const dynamicCount = routesManifest.dynamicRoutes?.length ?? 0;
+  if (dynamicCount > DYNAMIC_ROUTES_BASELINE) {
+    errors.push(
+      `[route-dinamiche-aumentate] .next/routes-manifest.json dichiara ${dynamicCount} route dinamiche, oltre la baseline P0.10 di ${DYNAMIC_ROUTES_BASELINE} — se l'aumento e' intenzionale e motivato, aggiorna DYNAMIC_ROUTES_BASELINE qui sopra con una nota su cosa l'ha causato.`,
+    );
+  }
+}
+
+// ── 11-14: Sprint P0.10C — anti-regressione Fast Origin Transfer ──────────
+// Il rate limit di /api/v1/sync e' stato spostato dal Middleware dentro la
+// Function stessa (Middleware + Function sono due hop Vercel distinti; per
+// documentazione Vercel un body che attraversa entrambi puo' maturare Fast
+// Origin Transfer due volte) — vedi
+// docs/ops/vercel-fast-origin-transfer-audit-2026-07-28.md.
+
+// 11. /api/v1/sync non deve ricomparire nel matcher del middleware.
+if (middlewareConfig.matcher.some((m) => m === "/api/v1/sync" || m.includes("v1/sync"))) {
+  errors.push(
+    "[sync-nel-middleware-matcher] '/api/v1/sync' e' ricomparso in middleware.ts config.matcher — il suo rate limit vive ora nella Function, farlo ripassare anche dal Middleware reintroduce il doppio hop Fast Origin Transfer (P0.10C).",
+  );
+}
+
+// 12. middleware.ts non deve richiamare/importare piu' limitSync.
+const middlewareSrc = stripComments(read("middleware.ts") ?? "");
+if (/\blimitSync\b/.test(middlewareSrc)) {
+  errors.push(
+    "[limitsync-nel-middleware] middleware.ts referenzia ancora 'limitSync' — il rate limit di /api/v1/sync deve vivere SOLO dentro la Function (P0.10C), non anche nel Middleware.",
+  );
+}
+
+// 13. POST /api/v1/sync deve eseguire il rate limit PRIMA di requireUser e
+//     req.json() — altrimenti una richiesta bloccata avrebbe gia' sprecato
+//     il round-trip auth e/o letto il body, vanificando il punto di questo
+//     spostamento.
+const syncRouteSrc = stripComments(read("app/api/v1/sync/route.ts") ?? "");
+{
+  const limitSyncIndex = syncRouteSrc.search(/\blimitSync\s*\(/);
+  const requireUserIndex = syncRouteSrc.search(/\brequireUser\s*\(/);
+  const reqJsonIndex = syncRouteSrc.search(/\breq\.json\s*\(/);
+  if (limitSyncIndex === -1) {
+    errors.push("[sync-senza-rate-limit] app/api/v1/sync/route.ts non chiama piu' limitSync — il rate limit di questo endpoint e' sparito, non solo spostato.");
+  } else {
+    if (requireUserIndex !== -1 && limitSyncIndex > requireUserIndex) {
+      errors.push("[sync-rate-limit-dopo-auth] in app/api/v1/sync/route.ts limitSync viene chiamato DOPO requireUser — una richiesta da bloccare sprecherebbe comunque il round-trip di autenticazione.");
+    }
+    if (reqJsonIndex !== -1 && limitSyncIndex > reqJsonIndex) {
+      errors.push("[sync-rate-limit-dopo-json] in app/api/v1/sync/route.ts limitSync viene chiamato DOPO req.json() — una richiesta da bloccare avrebbe comunque fatto leggere/parsare il body.");
+    }
+  }
+}
+
+// 14. Nessun log di /api/v1/sync deve contenere un identificatore
+//     (deviceId/userId/fingerprint/email/token/payload/body) — ridondante
+//     di proposito con 'sync:log-privacy-check' (tools/check-sync-log-
+//     privacy.ts): due guardrail indipendenti sullo stesso rischio, non
+//     un'unica linea di difesa.
+{
+  const SYNC_LOG_FORBIDDEN: Array<{ label: string; re: RegExp }> = [
+    { label: "deviceId", re: /\bdeviceId\b/ },
+    { label: "userId", re: /\buserId\b/ },
+    { label: "fingerprint", re: /\bfingerprint\b/i },
+    { label: "email", re: /\bemail\b/i },
+    { label: "token", re: /\btoken\b/i },
+    { label: "payload/body grezzo", re: /\b(payload|body)\b/i },
+  ];
+  const callStart = /console\.(log|error|warn|info)\s*\(/g;
+  let m: RegExpExecArray | null;
+  while ((m = callStart.exec(syncRouteSrc)) !== null) {
+    const openParenIndex = m.index + m[0].length - 1;
+    let depth = 0;
+    let i = openParenIndex;
+    let inString: '"' | "'" | "`" | null = null;
+    for (; i < syncRouteSrc.length; i++) {
+      const ch = syncRouteSrc[i];
+      if (inString) {
+        if (ch === "\\") i++;
+        else if (ch === inString) inString = null;
+        continue;
+      }
+      if (ch === '"' || ch === "'" || ch === "`") {
+        inString = ch;
+        continue;
+      }
+      if (ch === "(" || ch === "{" || ch === "[") depth++;
+      else if (ch === ")" || ch === "}" || ch === "]") {
+        depth--;
+        if (depth === 0) break;
+      }
+    }
+    const call = syncRouteSrc.slice(openParenIndex, i + 1);
+    for (const { label, re } of SYNC_LOG_FORBIDDEN) {
+      if (re.test(call)) {
+        errors.push(`[sync-log-identificatore] app/api/v1/sync/route.ts logga "${label}" in una console.* — vedi anche 'npm run sync:log-privacy-check'.`);
+      }
+    }
+  }
+}
+
 // ── Esito ────────────────────────────────────────────────────────────────
 if (errors.length > 0) {
   console.error(`❌ Vercel Fluid CPU guardrail: ${errors.length} problema/i`);
@@ -201,5 +343,5 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  "✅ Vercel Fluid CPU guardrail: nessun root/marketing layout usa Dynamic API, nessun force-dynamic marketing, x-fitmesh-locale assente, middleware non copre le 15 locale, ArticleMeta non chiama posts/stats, posts/stats resta un tombstone leggero, campione pagine pubbliche prerenderizzato, nessuna route privata diventata statica.",
+  "✅ Vercel Fluid CPU guardrail: nessun root/marketing layout usa Dynamic API, nessun force-dynamic marketing, x-fitmesh-locale assente, middleware non copre le 15 locale, ArticleMeta non chiama posts/stats, posts/stats resta un tombstone leggero, campione pagine pubbliche prerenderizzato, nessuna route privata diventata statica, /api/v1/sync fuori dal middleware con rate limit prima di auth/json, nessun log con identificatori.",
 );

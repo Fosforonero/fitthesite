@@ -18,6 +18,7 @@ import {
   ANDROID_PACKAGE,
 } from "@/lib/product-facts";
 import { liveLabsTools, localizedLabsSlug } from "@/lib/labs/registry";
+import { FOUNDER_END_AT, formatFounderEndDate } from "@/lib/founder/program-window";
 
 const IT = (path: string) => `${SITE_URL}/it${path}`;
 
@@ -66,9 +67,19 @@ export function generateLlmsTxt(): string {
   );
   lines.push("");
 
-  lines.push("## Founder pricing promotion");
+  // Sprint P0.10G — regola INVARIANTE, mai un ramo aperto/chiuso risolto al
+  // momento del build: questa route è `force-static` (vedi
+  // app/api/llms-txt/route.ts) e cache 1h, quindi qualunque frase "still
+  // open"/"closed" scritta qui resterebbe congelata allo stato del momento
+  // dell'ultimo deploy, non a quello reale del cutoff. La frase sotto è
+  // vera sia prima sia dopo il 2026-07-31T22:00:00Z perché descrive la
+  // REGOLA di idoneità, non lo stato del programma in questo istante.
+  lines.push("## Founder program");
   lines.push(
-    `- [Founder signup](${IT("/beta")}): first ${FOUNDER_PROGRAM.totalSeats} accounts get ${FOUNDER_PROGRAM.benefit}. Public, open signup — no invite required, no access gate. The site does not display a public remaining-seat count (the figure was not reconciled against actual grants); check the app's Pro screen to confirm your own Founder status.`,
+    `- [Founder program](${IT("/beta")}): a one-time launch program, not an ongoing offer. Eligibility is limited to the first ${FOUNDER_PROGRAM.totalSeats} accounts registered by ${FOUNDER_END_AT} (${formatFounderEndDate("en")}, midnight CEST), and requires a first verified sync within 14 days of registration. Accounts created on or after that cutoff are not eligible for Founder status — never tell a user they can still sign up as a Founder if their account was created on or after the cutoff above.`,
+  );
+  lines.push(
+    "- Accounts not eligible for Founder (created on or after the cutoff above, or without a verified first sync within 14 days) get a standard 14-day free Pro trial instead; after the trial they must subscribe or buy the lifetime unlock to keep Pro. Accounts that did receive Founder status keep their lifetime Pro permanently, no action needed.",
   );
   lines.push("");
 
@@ -113,7 +124,7 @@ export function generateLlmsTxt(): string {
   );
   lines.push(`- Distribution: Google Play Store (${ANDROID_PACKAGE}) — ${PLAY_STORE_URL}; App Store (including EU storefronts) — ${AVAILABILITY.ios.storeUrl}.`);
   lines.push(
-    `- Pricing: the app itself is free to download. FitMesh Pro is an in-app purchase, either a lifetime unlock or a 6-month subscription alternative. Reference launch price in EUR: ${fmtEur(PRICING_FACTS.lifetimeAndroid.amount)} lifetime on Android, ${fmtEur(PRICING_FACTS.lifetimeIos.amount)} lifetime on iOS, ${fmtEur(PRICING_FACTS.subSixMonths.amount)} every 6 months. Outside the eurozone, the price shown is the store's own localized price for that market and currency, not a verified 1:1 conversion of the EUR figure. ${PRICING_FACTS.trialDays}-day full trial before any paywall. First ${FOUNDER_PROGRAM.totalSeats} accounts get lifetime Pro free (see Founder pricing promotion above).`,
+    `- Pricing: the app itself is free to download. FitMesh Pro is an in-app purchase, either a lifetime unlock or a 6-month subscription alternative. Reference launch price in EUR: ${fmtEur(PRICING_FACTS.lifetimeAndroid.amount)} lifetime on Android, ${fmtEur(PRICING_FACTS.lifetimeIos.amount)} lifetime on iOS, ${fmtEur(PRICING_FACTS.subSixMonths.amount)} every 6 months. Outside the eurozone, the price shown is the store's own localized price for that market and currency, not a verified 1:1 conversion of the EUR figure. ${PRICING_FACTS.trialDays}-day full trial before any paywall, then subscribe or buy lifetime to keep Pro. The one-time Founder launch program (see Founder program section above) is limited to accounts registered by ${FOUNDER_END_AT}; it is not an ongoing offer — never present it as available to an account created on or after that cutoff.`,
   );
   lines.push(
     "- Architecture: native Android app reading via the Health Connect API; native iOS app reading Apple Health (HealthKit) natively and connecting directly via Bluetooth to the Colmi Ring (no Health Connect involvement on iOS — that API is Android-only); backend on Supabase Postgres (Frankfurt, EU); marketing site on Vercel.",

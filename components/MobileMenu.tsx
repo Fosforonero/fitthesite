@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
+import { FounderClientGate } from "@/components/founder/FounderClientGate";
 
 const INTEGRATIONS_LABEL: Partial<Record<Locale, string>> = {
   it: "Integrazioni",
@@ -132,13 +133,26 @@ export default function MobileMenu({
             {dict.nav.privacy}
           </Link>
           <div className="h-px bg-white/[0.06] my-1" />
-          <Link
-            href={`/${locale}/beta`}
-            className="mx-1 mb-1 flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl btn-cta text-sm font-medium"
-            onClick={() => setOpen(false)}
-          >
-            Founder →
-          </Link>
+          <FounderClientGate
+            founder={
+              <Link
+                href={`/${locale}/beta`}
+                className="mx-1 mb-1 flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl btn-cta text-sm font-medium"
+                onClick={() => setOpen(false)}
+              >
+                Founder →
+              </Link>
+            }
+            evergreen={
+              <Link
+                href={`/${locale}#download`}
+                className="mx-1 mb-1 flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl btn-cta text-sm font-medium"
+                onClick={() => setOpen(false)}
+              >
+                {dict.nav.download} →
+              </Link>
+            }
+          />
         </nav>
       </div>
     </>

@@ -7,7 +7,10 @@
  *  1. Canonicalizzazione `fitmesh.fit` -> `www.fitmesh.fit` (apex), un solo
  *     hop, con negoziazione lingua collassata nella stessa risposta quando
  *     serve (P0.4C).
- *  2. Rate limiting su route ad alto rischio (sync, signup, invite preview).
+ *  2. Rate limiting su route ad alto rischio (signup, invite preview —
+ *     /api/v1/sync ha il proprio rate limit dentro la Function stessa dal
+ *     Sprint P0.10C, per evitare un doppio hop Middleware+Function sul suo
+ *     payload).
  *  3. Redirect di root `/` e deep link senza prefisso lingua al path
  *     localizzato corretto (negoziazione cookie -> Accept-Language -> geo
  *     IP -> 'en').
@@ -27,7 +30,6 @@ import {
   buildRateLimitResponse,
   limitInvitePreview,
   limitSignup,
-  limitSync,
 } from '@/lib/rate-limit/limiter';
 import { locales } from '@/lib/i18n';
 import { resolveNegotiatedLocale, LOCALE_COOKIE_NAME } from '@/lib/locale-negotiation';
@@ -236,12 +238,18 @@ export async function middleware(request: NextRequest) {
   // Rate limit FIRST (P0-001 cybersec): blocca abuse-via-curl prima di
   // sprecare round-trip Supabase auth refresh. Fail-open su errore Supabase.
   // Solo route ad alto rischio. Resto del traffico passa through.
-  if (pathname === '/api/v1/sync') {
-    const result = await limitSync(request);
-    if (!result.allowed) {
-      return buildRateLimitResponse(result);
-    }
-  } else if (pathname === '/api/v1/beta/signup') {
+  //
+  // P0.10C FASE 1: /api/v1/sync NON passa piu' da qui — il rate limit per
+  // quell'endpoint vive ora dentro POST /api/v1/sync (stessa policy 60/min,
+  // stesso keying, stesso fail-open, stesso 429). Motivo: Middleware e
+  // Function sono due hop Vercel distinti, e secondo la documentazione
+  // Vercel Fast Origin Transfer il body di una richiesta che attraversa
+  // entrambi puo' maturare FOT due volte — /api/v1/sync e' l'endpoint a
+  // payload piu' pesante del progetto (dati salute), quindi il candidato
+  // con il beneficio piu' alto a evitare quel doppio hop. signup/invite
+  // restano qui: payload minuscoli, nessun beneficio dimostrato a
+  // spostarli, non toccati da questo sprint.
+  if (pathname === '/api/v1/beta/signup') {
     const result = await limitSignup(request);
     if (!result.allowed) {
       return buildRateLimitResponse(result);
@@ -397,11 +405,17 @@ export const config = {
     //    parametro posizionale — stessa tecnica del pattern #2.
     '/((?:it|en|es|de|pt|fr|pl|tr|nl|ja|ko|sv|da|no|fi)/(?:app|admin)(?:/.*)?)',
 
-    // 4. Rate limit — SOLO questi 3 endpoint API ad alto rischio (P0-001
+    // 4. Rate limit — SOLO questi 2 endpoint API ad alto rischio (P0-001
     //    cybersec). Ogni altro /api/* non ha bisogno del middleware: nessun
     //    rate limit, nessun refresh sessione (isProtected copre solo
     //    /app e /admin), l'iniezione locale e' stata rimossa (punto 2 sopra).
-    '/api/v1/sync',
+    //    /api/v1/sync NON compare piu' qui (P0.10C FASE 1): il suo rate
+    //    limit vive ora dentro la Function stessa, per evitare che il
+    //    payload attraversi due hop Vercel distinti (Middleware + Function)
+    //    e maturi Fast Origin Transfer due volte — vedi
+    //    docs/ops/vercel-fast-origin-transfer-audit-2026-07-28.md. Non
+    //    reintrodurre: tools/check-vercel-fluid-cpu.ts fallisce se
+    //    '/api/v1/sync' ricompare in questo matcher.
     '/api/v1/beta/signup',
     '/api/v1/invites/:path*',
 

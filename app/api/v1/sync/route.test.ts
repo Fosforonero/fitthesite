@@ -20,6 +20,28 @@ const mocks = vi.hoisted(() => ({
   upsertWorkouts: vi.fn(),
   founderRpc: vi.fn(),
   deviceUpdateEq: vi.fn(),
+  limitSync: vi.fn(),
+}));
+
+// Sprint P0.10C — il rate limit vive ora dentro la route stessa (spostato
+// dal Middleware). Mockato qui per isolare il comportamento della route dal
+// meccanismo di fail-open reale del limiter (coperto invece in
+// lib/rate-limit/limiter.test.ts).
+vi.mock("@/lib/rate-limit/limiter", () => ({
+  limitSync: (req: Request) => mocks.limitSync(req),
+  buildRateLimitResponse: (result: { limit: number; remaining: number }) =>
+    new Response(
+      JSON.stringify({ error: "rate_limited", message: "Too many requests. Please retry later.", retryAfter: 60 }),
+      {
+        status: 429,
+        headers: {
+          "content-type": "application/json",
+          "retry-after": "60",
+          "x-ratelimit-limit": String(result.limit),
+          "x-ratelimit-remaining": String(result.remaining),
+        },
+      },
+    ),
 }));
 
 vi.mock("@supabase/supabase-js", () => {
@@ -81,6 +103,9 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
     vi.clearAllMocks();
     process.env.NEXT_PUBLIC_SUPABASE_URL = "https://xcdyhkuyxukaifhhtadr.supabase.co";
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "test-anon-key";
+    // Sprint P0.10C: default "consentito" per ogni test che non riguarda
+    // esplicitamente il rate limit — vedi describe dedicato sotto.
+    mocks.limitSync.mockResolvedValue({ allowed: true, limit: 60, remaining: 59 });
     mocks.getUser.mockResolvedValue({
       data: { user: { id: "user-1", email: "user1@example.com" } },
       error: null,
@@ -222,6 +247,9 @@ describe("Sprint 189-RC2 — canonical upsert wiring", () => {
     vi.clearAllMocks();
     process.env.NEXT_PUBLIC_SUPABASE_URL = "https://xcdyhkuyxukaifhhtadr.supabase.co";
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "test-anon-key";
+    // Sprint P0.10C: default "consentito" per ogni test che non riguarda
+    // esplicitamente il rate limit — vedi describe dedicato sotto.
+    mocks.limitSync.mockResolvedValue({ allowed: true, limit: 60, remaining: 59 });
     mocks.getUser.mockResolvedValue({
       data: { user: { id: "user-1", email: "user1@example.com" } },
       error: null,
@@ -322,5 +350,80 @@ describe("Sprint 189-RC2 — canonical upsert wiring", () => {
     await POST(makeRequest({ ...BASE_PAYLOAD, exerciseSessionsJson }));
 
     expect(mocks.upsertWorkouts).toHaveBeenCalledTimes(2);
+  });
+});
+
+describe("Sprint P0.10C — rate limit spostato nella route (prima di auth/device/json/Zod/scritture)", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    process.env.NEXT_PUBLIC_SUPABASE_URL = "https://xcdyhkuyxukaifhhtadr.supabase.co";
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "test-anon-key";
+    mocks.getUser.mockResolvedValue({
+      data: { user: { id: "user-1", email: "user1@example.com" } },
+      error: null,
+    });
+    mocks.deviceMaybeSingle.mockResolvedValue({ data: { id: "device-1", os_version: null }, error: null });
+    mocks.upsertMetrics.mockResolvedValue({ data: 42, error: null });
+    mocks.upsertWorkouts.mockResolvedValue({ data: 1, error: null });
+    mocks.deviceUpdateEq.mockResolvedValue({ data: null, error: null });
+    mocks.founderRpc.mockResolvedValue({ data: { transitionAccepted: true }, error: null });
+  });
+
+  it("richiesta consentita: passa normalmente alla route, limitSync chiamato esattamente una volta", async () => {
+    mocks.limitSync.mockResolvedValue({ allowed: true, limit: 60, remaining: 59 });
+
+    const res = await POST(makeRequest(BASE_PAYLOAD));
+
+    expect(res.status).toBe(200);
+    expect(mocks.limitSync).toHaveBeenCalledTimes(1);
+    expect(mocks.getUser).toHaveBeenCalledTimes(1);
+  });
+
+  it(
+    "richiesta bloccata: 429 invariato, requireUser MAI chiamato, il body non viene letto, " +
+      "nessuna RPC metrics/Founder/workout eseguita",
+    async () => {
+      mocks.limitSync.mockResolvedValue({ allowed: false, limit: 60, remaining: 0 });
+
+      // Body deliberatamente non-JSON valido: se venisse anche solo letto/
+      // parsato, la route fallirebbe con 400 invalid_json PRIMA di arrivare
+      // a un eventuale controllo successivo — ottenere 429 qui è la prova
+      // diretta che req.json() non viene mai chiamato quando il rate limit
+      // blocca la richiesta.
+      const req = new Request("https://fitmesh.fit/api/v1/sync", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: "Bearer test-token",
+          "x-device-fingerprint": "device-abc",
+        },
+        body: "{not valid json",
+      });
+
+      const res = await POST(req);
+      const json = await res.json();
+
+      expect(res.status).toBe(429);
+      expect(json).toMatchObject({ error: "rate_limited" });
+      expect(mocks.getUser).not.toHaveBeenCalled();
+      expect(mocks.deviceMaybeSingle).not.toHaveBeenCalled();
+      expect(mocks.upsertMetrics).not.toHaveBeenCalled();
+      expect(mocks.founderRpc).not.toHaveBeenCalled();
+      expect(mocks.upsertWorkouts).not.toHaveBeenCalled();
+    },
+  );
+
+  it("esito fail-open del limiter (allowed=true anche su errore interno) -> la route procede normalmente", async () => {
+    // Il meccanismo di fail-open vero e proprio (errore di rete -> allowed
+    // true) e' testato in lib/rate-limit/limiter.test.ts; qui si verifica
+    // solo che la route non aggiunga alcun blocco extra sopra un risultato
+    // "allowed" comunque ottenuto (limit/remaining a 0, come restituisce
+    // ALLOWED_FAILOPEN).
+    mocks.limitSync.mockResolvedValue({ allowed: true, limit: 0, remaining: 0 });
+
+    const res = await POST(makeRequest(BASE_PAYLOAD));
+
+    expect(res.status).toBe(200);
+    expect(mocks.getUser).toHaveBeenCalledTimes(1);
   });
 });

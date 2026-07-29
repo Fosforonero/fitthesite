@@ -12,6 +12,13 @@
     "labs:truth-check": "tsx tools/check-labs-truth.ts",
     "labs:privacy-check": "tsx tools/check-labs-privacy.ts",
     "founder:counter-check": "tsx tools/check-founder-counter-removed.ts",
+    "founder:window-check": "tsx tools/check-founder-window.ts",
+    "founder:backend-check": "tsx tools/check-founder-backend.ts",
+    "founder:commercial-truth-check": "tsx tools/check-founder-commercial-truth.ts",
+    "founder:cutoff-render-check": "tsx tools/check-founder-cutoff-render.ts",
+    "founder:migration-identity-check": "tsx tools/check-founder-migration-identity.ts",
+    "founder:static-invariant-check": "tsx tools/check-founder-static-invariant.ts",
+    "post-founder:pricing-check": "tsx tools/check-post-founder-pricing.ts",
     "ring-watch:claims-check": "tsx tools/check-ring-watch-article-claims.ts",
     "labs:katex-input-check": "tsx tools/check-katex-no-user-input.ts",
     "labs:oracle-gen": "tsx tools/gen-labs-oracle-vectors.ts",
@@ -25,7 +32,8 @@
     "galaxy-watch:placeholder-count": "tsx tools/check-galaxy-watch-placeholder-count.ts",
     "samsung-health-pillar:claims-check": "tsx tools/check-samsung-health-pillar-claims.ts",
     "blog:locale-near-miss-check": "tsx tools/check-blog-locale-near-miss.ts",
-    "vercel:fluid-check": "tsx tools/check-vercel-fluid-cpu.ts"
+    "vercel:fluid-check": "tsx tools/check-vercel-fluid-cpu.ts",
+    "sync:log-privacy-check": "tsx tools/check-sync-log-privacy.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",

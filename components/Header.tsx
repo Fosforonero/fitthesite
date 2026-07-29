@@ -4,6 +4,7 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import MobileMenu from "./MobileMenu";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
+import { FounderClientGate } from "@/components/founder/FounderClientGate";
 
 export default function Header({
   dict,
@@ -83,13 +84,27 @@ export default function Header({
             {dict.nav.privacy}
           </Link>
           {/* CTA primaria desktop */}
-          <Link
-            href={`/${locale}/beta`}
-            className="ml-1 hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-pill btn-cta text-sm"
-          >
-            Founder
-            <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-          </Link>
+          <FounderClientGate
+            as="span"
+            founder={
+              <Link
+                href={`/${locale}/beta`}
+                className="ml-1 hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-pill btn-cta text-sm"
+              >
+                Founder
+                <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              </Link>
+            }
+            evergreen={
+              <Link
+                href={`/${locale}#download`}
+                className="ml-1 hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-pill btn-cta text-sm"
+              >
+                {dict.nav.download}
+                <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+              </Link>
+            }
+          />
           <LanguageSwitcher current={locale} />
           <MobileMenu dict={dict} locale={locale} />
         </nav>

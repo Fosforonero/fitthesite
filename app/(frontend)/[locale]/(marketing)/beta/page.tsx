@@ -10,6 +10,22 @@ import { MobileApplicationJsonLd } from "@/components/seo/MobileApplicationJsonL
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { PRICING } from "@/lib/pricing";
 import { SITE_URL } from "@/lib/product-facts";
+import { FounderClientGate } from "@/components/founder/FounderClientGate";
+
+type BetaCopy = typeof IT;
+type BetaClosedCopy = {
+  kicker: string;
+  h1: string;
+  sub: string;
+  bullets: { title: string; desc: string }[];
+  faqTitle: string;
+  faqs: { q: string; a: string }[];
+};
+
+/** Fallback en per le locale non compilate qui sotto, stesso pattern di `t` nel componente. */
+function tliClosed(l: Record<string, BetaClosedCopy>, lc: Locale): BetaClosedCopy {
+  return l[lc] ?? l.en;
+}
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -24,42 +40,48 @@ export async function generateMetadata({
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
 
+  // Sprint P0.10: questa pagina resta statica (nessun force-dynamic), quindi
+  // title/description NON possono dipendere dall'ora corrente — devono
+  // restare veri sia prima sia dopo il cutoff (31/07/2026 22:00 UTC). Non
+  // affermano piu' "ancora aperto": descrivono il programma come fatto
+  // storico/meccanismo, lo stato esatto (aperto/chiuso) e' nel corpo pagina,
+  // deciso client-side da FounderClientGate.
   const title =
     lc === "it"
-      ? "FitMesh Sync Founder — Pro a vita per i primi 1000"
+      ? "FitMesh Sync · Programma Founder"
       : lc === "es"
-      ? "FitMesh Sync Founder — Pro vitalicio para los primeros 1000"
+      ? "FitMesh Sync · Programa Founder"
       : lc === "de"
-      ? "FitMesh Sync Founder — Lifetime-Pro für die ersten 1000"
+      ? "FitMesh Sync · Founder-Programm"
       : lc === "pt"
-      ? "FitMesh Sync Founder — Pro vitalício para os primeiros 1000"
+      ? "FitMesh Sync · Programa Founder"
       : lc === "fr"
-      ? "FitMesh Sync Founder — Pro à vie pour les 1000 premiers"
+      ? "FitMesh Sync · Programme Founder"
       : lc === "nl"
-      ? "FitMesh Sync Founder — Pro voor altijd voor de eerste 1000"
+      ? "FitMesh Sync · Founder-programma"
       : lc === "ja"
-      ? "FitMesh Sync Founder — 最初の1000名にPro永久無料"
+      ? "FitMesh Sync · ファウンダープログラム"
       : lc === "ko"
-      ? "FitMesh Sync Founder — 처음 1000명에게 평생 Pro 무료"
-      : "FitMesh Sync Founder — Lifetime Pro for the first 1000";
+      ? "FitMesh Sync · 파운더 프로그램"
+      : "FitMesh Sync · Founder Program";
   const description =
     lc === "it"
-      ? "Scarica FitMesh Sync da Google Play e crea l'account: i primi 1000 ricevono il Pro a vita in regalo, attivato automaticamente. Vale anche su iOS, già live sull'App Store."
+      ? "Le prime 1000 registrazioni di FitMesh Sync ricevono Pro a vita gratis. Scopri come funziona il programma Founder e cosa prevede per i nuovi account."
       : lc === "es"
-      ? "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben Pro vitalicio gratis, activado automáticamente. También válido en iOS, ya disponible en la App Store."
+      ? "Las primeras 1000 cuentas de FitMesh Sync reciben Pro de por vida gratis. Descubre cómo funciona el programa Founder y qué implica para las cuentas nuevas."
       : lc === "de"
-      ? "Lade FitMesh Sync bei Google Play herunter und erstelle dein Konto: Die ersten 1000 erhalten automatisch Lifetime-Pro gratis. Gilt auch für iOS, bereits im App Store verfügbar."
+      ? "Die ersten 1000 Konten von FitMesh Sync erhalten lebenslanges Pro gratis. Erfahre, wie das Founder-Programm funktioniert und was für neue Konten gilt."
       : lc === "pt"
-      ? "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem Pro vitalício grátis, ativado automaticamente. Válido também no iOS, já disponível na App Store."
+      ? "As primeiras 1000 contas do FitMesh Sync recebem Pro vitalício grátis. Descobre como funciona o programa Founder e o que está previsto para as novas contas."
       : lc === "fr"
-      ? "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent le Pro à vie gratuit, activé automatiquement. Valable aussi sur iOS, déjà disponible sur l'App Store."
+      ? "Les 1000 premiers comptes FitMesh Sync reçoivent le Pro à vie gratuit. Découvrez comment fonctionne le programme Founder et ce qui s'applique aux nouveaux comptes."
       : lc === "nl"
-      ? "Download de app, maak je account aan: de eerste 1000 krijgen Pro voor altijd gratis, automatisch geactiveerd. Ook geldig op iOS, al beschikbaar in de App Store."
+      ? "De eerste 1000 accounts van FitMesh Sync krijgen Pro voor altijd gratis. Ontdek hoe het Founder-programma werkt en wat geldt voor nieuwe accounts."
       : lc === "ja"
-      ? "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にPro永久無料が自動的に付与されます。iOSでも有効で、すでにApp Storeで公開中です。"
+      ? "FitMesh Syncの先着1000アカウントにPro永久ライセンスが無料で付与されます。ファウンダープログラムの仕組みと新規アカウントの扱いをご確認ください。"
       : lc === "ko"
-      ? "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 평생 Pro가 자동으로 활성화됩니다. iOS에서도 유효하며, 이미 App Store에 출시되어 있습니다."
-      : "Download FitMesh Sync on Google Play and create your account: the first 1000 get lifetime Pro free, activated automatically. Also valid on iOS, already live on the App Store.";
+      ? "FitMesh Sync 처음 1000개 계정은 평생 Pro를 무료로 받습니다. 파운더 프로그램이 어떻게 작동하는지, 신규 계정에는 어떻게 적용되는지 확인하세요."
+      : "The first 1,000 FitMesh Sync accounts get lifetime Pro for free. See how the Founder program works and what applies to new accounts.";
 
   const path = `/${lc}/beta`;
   return {
@@ -82,7 +104,10 @@ export async function generateMetadata({
       title,
       description,
     },
-    robots: { index: true, follow: true },
+    // Sprint P0.10: /beta diventa archivio informativo del programma
+    // Founder concluso — noindex (non e' piu' un target di acquisizione),
+    // follow (i link interni/esterni restano validi da seguire).
+    robots: { index: false, follow: true },
   };
 }
 
@@ -96,6 +121,7 @@ export default async function BetaPage({
   const lc = locale as Locale;
 
   const t = lc === "it" ? IT : lc === "es" ? ES : lc === "de" ? DE : lc === "pt" ? PT : lc === "fr" ? FR : lc === "nl" ? NL : lc === "ja" ? JA : lc === "ko" ? KO : EN;
+  const closed = tliClosed(BETA_CLOSED_COPY, lc);
 
   return (
     // <div> e non <main>: il layout (marketing)/layout.tsx wrappa gia' i
@@ -125,6 +151,27 @@ export default async function BetaPage({
           items={[{ name: "Founder", path: `/${lc}/beta` }]}
         />
 
+        {/*
+         * Sprint P0.10: questa pagina resta STATICA (nessun force-dynamic,
+         * nessuna decisione temporale lato server) — l'HTML iniziale mostra
+         * SEMPRE l'archivio evergreen (visibile anche a crawler/client senza
+         * JS), e solo dopo l'hydration, se isFounderProgramOpen() e' ancora
+         * vero secondo l'orologio del browser, viene sostituito dal
+         * contenuto storico del programma attivo. Stesso pattern della
+         * homepage (FounderClientGate), zero richieste di rete.
+         */}
+        <FounderClientGate
+          founder={<FounderOpenBody t={t} lc={lc} />}
+          evergreen={<FounderClosedBody closed={closed} lc={lc} />}
+        />
+      </div>
+    </div>
+  );
+}
+
+function FounderOpenBody({ t, lc }: { t: BetaCopy; lc: Locale }) {
+  return (
+    <>
         {/* Hero */}
         <header className="mb-16 mt-8 text-center" data-reveal>
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent backdrop-blur-sm">
@@ -147,7 +194,7 @@ export default async function BetaPage({
 
           {/* CTA primaria: il founder si attiva scaricando l'app, non con un form */}
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <StoreButtonsRow locale={lc} />
+            <StoreButtonsRow locale={lc} ctaLocation="beta_archive" />
           </div>
           <p className="mt-4 text-xs text-text-muted">{t.ctaNote}</p>
         </header>
@@ -256,8 +303,74 @@ export default async function BetaPage({
             ))}
           </div>
         </section>
-      </div>
-    </div>
+    </>
+  );
+}
+
+/**
+ * Sprint P0.10 — archivio evergreen: mostrato SEMPRE nell'HTML statico
+ * iniziale (fallback SSR di FounderClientGate) e, dopo il cutoff, anche
+ * dopo l'hydration. Deliberatamente piu' corto della variante founder: la
+ * pagina diventa un archivio informativo, non un mirror 1:1 della landing
+ * promozionale (niente form, niente step di iscrizione, niente FAQ sui
+ * wearable gia' coperte altrove sul sito).
+ */
+function FounderClosedBody({ closed, lc }: { closed: BetaClosedCopy; lc: Locale }) {
+  const colors = ["#7CFF5B", "#21E6C1", "#1DA1FF"];
+  return (
+    <>
+      <header className="mb-16 mt-8 text-center" data-reveal>
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted backdrop-blur-sm">
+          {closed.kicker}
+        </div>
+        <h1 className="font-display text-balance text-4xl font-semibold leading-[1.05] tracking-tightest md:text-5xl lg:text-display-xl">
+          {closed.h1}
+        </h1>
+        <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl">
+          {closed.sub}
+        </p>
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+          <StoreButtonsRow locale={lc} ctaLocation="beta_archive" />
+        </div>
+      </header>
+
+      <section className="mb-16 grid gap-4 sm:grid-cols-3" data-reveal style={{ "--reveal-delay": "150ms" } as React.CSSProperties}>
+        {closed.bullets.map((bullet, i) => (
+          <div
+            key={bullet.title}
+            className="group relative rounded-2xl border border-white/[0.06] bg-white/[0.02] p-6 overflow-hidden hover:-translate-y-1 transition-all duration-300"
+          >
+            <div
+              aria-hidden
+              className="absolute -top-16 -right-12 w-40 h-40 rounded-full blur-3xl opacity-0 group-hover:opacity-30 transition-opacity duration-500"
+              style={{ background: colors[i] }}
+            />
+            <h3 className="relative font-display text-lg font-semibold text-text-primary">{bullet.title}</h3>
+            <p className="relative mt-2 text-sm leading-relaxed text-text-secondary">{bullet.desc}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="mt-6">
+        <TrustBadges locale={lc} variant="compact" />
+      </section>
+
+      <section className="mt-20" data-reveal>
+        <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">FAQ</p>
+        <h2 className="mt-3 mb-8 font-display text-display font-semibold tracking-tightest text-text-primary">{closed.faqTitle}</h2>
+        <div className="space-y-3">
+          {closed.faqs.map((faq) => (
+            <details key={faq.q} className="group card p-5 [&_summary::-webkit-details-marker]:hidden">
+              <summary className="flex cursor-pointer items-center justify-between gap-4 font-medium text-text-primary">
+                {faq.q}
+                <span className="text-brand-aqua text-xl leading-none transition-transform duration-300 group-open:rotate-45">+</span>
+              </summary>
+              <p className="mt-3 text-sm leading-relaxed text-text-secondary">{faq.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -1006,4 +1119,205 @@ const KO = {
       a: "네, 언제든지 앱에서 직접 또는 privacy@fitmesh.fit으로 이메일을 보내시면 됩니다. 48시간 이내 삭제는 저희의 내부 운영 목표입니다.",
     },
   ],
+};
+
+/**
+ * Sprint P0.10 — copy dell'archivio evergreen post-cutoff (31/07/2026
+ * 22:00 UTC, FOUNDER_END_AT in lib/founder/program-window.ts). Stesse 8
+ * locale compilate sopra (it/es/de/pt/fr/nl/ja/ko) + fallback en per le
+ * altre, via tliClosed(). Deliberatamente piu' corta della copy IT/ES/...
+ * sopra: niente step di iscrizione, niente form, FAQ ridotta a 2 domande
+ * sullo stato del programma (le FAQ generiche su wearable/privacy/
+ * cancellazione restano coperte altrove sul sito, non duplicate qui).
+ */
+const BETA_CLOSED_COPY: Record<string, BetaClosedCopy> = {
+  it: {
+    kicker: "Programma Founder",
+    h1: "Il programma Founder è concluso",
+    sub: "Le prime 1000 registrazioni hanno ricevuto Pro a vita gratis. Chi si è registrato in tempo mantiene il proprio Pro per sempre.",
+    bullets: [
+      { title: "Founder esistenti", desc: "Pro a vita, nessuna azione richiesta." },
+      { title: "Nuovi account", desc: "Prova Pro gratuita di 14 giorni." },
+      { title: "Dopo la prova", desc: "Abbonamento o sblocco a vita per continuare con Pro." },
+    ],
+    faqTitle: "Domande frequenti",
+    faqs: [
+      {
+        q: "Posso ancora diventare Founder?",
+        a: "No, il programma Founder si è chiuso il 31 luglio 2026. I nuovi account seguono la prova gratuita di 14 giorni e poi i piani a pagamento.",
+      },
+      {
+        q: "Ero già Founder: il mio Pro a vita è ancora valido?",
+        a: "Sì. Se hai ricevuto il Pro a vita da Founder prima della chiusura del programma, resta valido per sempre: non serve fare nulla.",
+      },
+    ],
+  },
+  es: {
+    kicker: "Programa Founder",
+    h1: "El programa Founder ha terminado",
+    sub: "Las primeras 1000 cuentas recibieron Pro de por vida gratis. Quien se registró a tiempo conserva su Pro para siempre.",
+    bullets: [
+      { title: "Founders existentes", desc: "Pro de por vida, no se requiere ninguna acción." },
+      { title: "Cuentas nuevas", desc: "Prueba gratuita de Pro de 14 días." },
+      { title: "Después de la prueba", desc: "Suscripción o desbloqueo de por vida para seguir con Pro." },
+    ],
+    faqTitle: "Preguntas frecuentes",
+    faqs: [
+      {
+        q: "¿Todavía puedo hacerme Founder?",
+        a: "No, el programa Founder se cerró el 31 de julio de 2026. Las cuentas nuevas tienen la prueba gratuita estándar de 14 días y luego los planes de pago.",
+      },
+      {
+        q: "Ya era Founder: ¿mi Pro de por vida sigue siendo válido?",
+        a: "Sí. Si recibiste el Pro de por vida como Founder antes del cierre del programa, sigue siendo válido para siempre: no necesitas hacer nada.",
+      },
+    ],
+  },
+  de: {
+    kicker: "Founder-Programm",
+    h1: "Das Founder-Programm ist beendet",
+    sub: "Die ersten 1000 Konten haben lebenslanges Pro gratis erhalten. Wer sich rechtzeitig registriert hat, behält sein Pro für immer.",
+    bullets: [
+      { title: "Bestehende Founder", desc: "Lebenslanges Pro, keine Aktion nötig." },
+      { title: "Neue Konten", desc: "Kostenlose 14-tägige Pro-Testphase." },
+      { title: "Nach der Testphase", desc: "Abo oder lebenslange Freischaltung, um Pro zu behalten." },
+    ],
+    faqTitle: "Häufige Fragen",
+    faqs: [
+      {
+        q: "Kann ich noch Founder werden?",
+        a: "Nein, das Founder-Programm wurde am 31. Juli 2026 geschlossen. Neue Konten erhalten die reguläre 14-tägige kostenlose Testphase und danach die kostenpflichtigen Pläne.",
+      },
+      {
+        q: "Ich war bereits Founder: ist mein lebenslanges Pro noch gültig?",
+        a: "Ja. Wenn du das lebenslange Pro als Founder vor dem Ende des Programms erhalten hast, bleibt es für immer gültig: du musst nichts tun.",
+      },
+    ],
+  },
+  pt: {
+    kicker: "Programa Founder",
+    h1: "O programa Founder terminou",
+    sub: "As primeiras 1000 contas receberam Pro vitalício grátis. Quem se registou a tempo mantém o Pro para sempre.",
+    bullets: [
+      { title: "Founders existentes", desc: "Pro vitalício, sem necessidade de qualquer ação." },
+      { title: "Novas contas", desc: "Teste gratuito de Pro de 14 dias." },
+      { title: "Depois do teste", desc: "Assinatura ou desbloqueio vitalício para continuar com o Pro." },
+    ],
+    faqTitle: "Perguntas frequentes",
+    faqs: [
+      {
+        q: "Ainda posso tornar-me Founder?",
+        a: "Não, o programa Founder terminou a 31 de julho de 2026. As novas contas têm o teste gratuito padrão de 14 dias e depois os planos pagos.",
+      },
+      {
+        q: "Já era Founder: o meu Pro vitalício continua válido?",
+        a: "Sim. Se recebeste o Pro vitalício como Founder antes do encerramento do programa, continua válido para sempre: não precisas de fazer nada.",
+      },
+    ],
+  },
+  fr: {
+    kicker: "Programme Founder",
+    h1: "Le programme Founder est terminé",
+    sub: "Les 1000 premiers comptes ont reçu le Pro à vie gratuitement. Toute personne inscrite à temps conserve son Pro pour toujours.",
+    bullets: [
+      { title: "Founders existants", desc: "Pro à vie, aucune action requise." },
+      { title: "Nouveaux comptes", desc: "Essai gratuit de Pro de 14 jours." },
+      { title: "Après l'essai", desc: "Abonnement ou déblocage à vie pour continuer avec Pro." },
+    ],
+    faqTitle: "Questions fréquentes",
+    faqs: [
+      {
+        q: "Puis-je encore devenir Founder ?",
+        a: "Non, le programme Founder s'est terminé le 31 juillet 2026. Les nouveaux comptes bénéficient de l'essai gratuit standard de 14 jours, puis des formules payantes.",
+      },
+      {
+        q: "J'étais déjà Founder : mon Pro à vie est-il toujours valable ?",
+        a: "Oui. Si vous avez reçu le Pro à vie en tant que Founder avant la fin du programme, il reste valable pour toujours : aucune action n'est nécessaire.",
+      },
+    ],
+  },
+  nl: {
+    kicker: "Founder-programma",
+    h1: "Het Founder-programma is beëindigd",
+    sub: "De eerste 1000 accounts kregen Pro voor altijd gratis. Wie op tijd was, houdt zijn Pro voor altijd.",
+    bullets: [
+      { title: "Bestaande founders", desc: "Pro voor altijd, geen actie nodig." },
+      { title: "Nieuwe accounts", desc: "Gratis proefperiode van 14 dagen voor Pro." },
+      { title: "Na de proefperiode", desc: "Abonnement of levenslange ontgrendeling om Pro te behouden." },
+    ],
+    faqTitle: "Veelgestelde vragen",
+    faqs: [
+      {
+        q: "Kan ik nog founder worden?",
+        a: "Nee, het Founder-programma is op 31 juli 2026 gesloten. Nieuwe accounts krijgen de standaard gratis proefperiode van 14 dagen en daarna de betaalde abonnementen.",
+      },
+      {
+        q: "Ik was al founder: is mijn Pro voor altijd nog geldig?",
+        a: "Ja. Als je als founder Pro voor altijd hebt gekregen vóór de sluiting van het programma, blijft dit voor altijd geldig: je hoeft niets te doen.",
+      },
+    ],
+  },
+  ja: {
+    kicker: "ファウンダープログラム",
+    h1: "ファウンダープログラムは終了しました",
+    sub: "先着1000アカウントにPro永久ライセンスが無料で付与されました。期限内に登録した方はProを永久にご利用いただけます。",
+    bullets: [
+      { title: "既存のファウンダー", desc: "Pro永久ライセンス、追加の操作は不要です。" },
+      { title: "新規アカウント", desc: "14日間の無料Proトライアル。" },
+      { title: "トライアル終了後", desc: "サブスクリプションまたは買い切りでProを継続。" },
+    ],
+    faqTitle: "よくある質問",
+    faqs: [
+      {
+        q: "まだファウンダーになれますか？",
+        a: "いいえ、ファウンダープログラムは2026年7月31日に終了しました。新規アカウントは通常の14日間無料トライアルの後、有料プランに移行します。",
+      },
+      {
+        q: "すでにファウンダーでした。永久Proライセンスは有効ですか？",
+        a: "はい。プログラム終了前にファウンダーとして永久Proライセンスを受け取った場合、そのライセンスは永久に有効です。特別な操作は必要ありません。",
+      },
+    ],
+  },
+  ko: {
+    kicker: "파운더 프로그램",
+    h1: "파운더 프로그램이 종료되었습니다",
+    sub: "처음 1000개 계정은 평생 Pro를 무료로 받았습니다. 기한 내에 등록한 분은 Pro를 영구적으로 유지합니다.",
+    bullets: [
+      { title: "기존 파운더", desc: "평생 Pro, 추가 조치가 필요하지 않습니다." },
+      { title: "신규 계정", desc: "14일 무료 Pro 체험." },
+      { title: "체험 종료 후", desc: "구독 또는 평생 잠금 해제로 Pro를 계속 이용." },
+    ],
+    faqTitle: "자주 묻는 질문",
+    faqs: [
+      {
+        q: "아직 파운더가 될 수 있나요?",
+        a: "아니요, 파운더 프로그램은 2026년 7월 31일에 종료되었습니다. 신규 계정은 표준 14일 무료 체험 후 유료 요금제를 이용합니다.",
+      },
+      {
+        q: "이미 파운더였는데, 평생 Pro가 계속 유효한가요?",
+        a: "네. 프로그램 종료 전에 파운더로 평생 Pro를 받았다면 영구히 유효합니다. 별도 조치가 필요하지 않습니다.",
+      },
+    ],
+  },
+  en: {
+    kicker: "Founder program",
+    h1: "The Founder program has ended",
+    sub: "The first 1,000 sign-ups received lifetime Pro for free. Anyone who registered in time keeps their Pro forever.",
+    bullets: [
+      { title: "Existing founders", desc: "Lifetime Pro, no action needed." },
+      { title: "New accounts", desc: "A free 14-day Pro trial." },
+      { title: "After the trial", desc: "Subscribe or unlock lifetime to keep Pro." },
+    ],
+    faqTitle: "Frequently asked questions",
+    faqs: [
+      {
+        q: "Can I still become a Founder?",
+        a: "No, the Founder program closed on July 31, 2026. New accounts get the standard 14-day free trial, then paid plans.",
+      },
+      {
+        q: "I was already a Founder: is my lifetime Pro still valid?",
+        a: "Yes. If you received lifetime Pro as a Founder before the program closed, it remains valid forever: no action needed.",
+      },
+    ],
+  },
 };

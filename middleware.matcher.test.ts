@@ -91,10 +91,14 @@ describe("middleware matcher — explicit identity list (path-to-regexp entries)
   // questi entry fa fallire il test, e per comportamento reale via
   // tools/check-locale-routing.ts / check-anti-loop-locale-routing.ts
   // contro un vero `next start`.
-  it("keeps exactly the rate-limited API endpoints", () => {
-    expect(config.matcher).toContain("/api/v1/sync");
+  it("keeps exactly the rate-limited API endpoints still handled by the middleware", () => {
     expect(config.matcher).toContain("/api/v1/beta/signup");
     expect(config.matcher).toContain("/api/v1/invites/:path*");
+  });
+
+  it("no longer matches /api/v1/sync (P0.10C — rate limit moved into the route itself, avoids a double Middleware+Function Fast Origin Transfer hop)", () => {
+    expect(config.matcher).not.toContain("/api/v1/sync");
+    expect(config.matcher.some((m) => m.includes("v1/sync"))).toBe(false);
   });
 
   it("keeps famiglia/join covered both with and without a locale prefix", () => {

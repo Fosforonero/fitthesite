@@ -21,6 +21,15 @@ type Props = {
   /** Classi extra sul wrapper flex. */
   className?: string;
   style?: CSSProperties;
+  /**
+   * Sprint P0.10 — identifica dove vive questa CTA nel funnel (es.
+   * "homepage_hero", "homepage_pricing", "beta_archive"). Letto da
+   * OutboundTracker via `closest("[data-cta-location]")` e propagato come
+   * `cta_location` nell'evento GA4 `store_click`. Opzionale: se assente,
+   * l'attributo non viene emesso e il click resta comunque tracciato
+   * (nessuna regressione per le chiamate esistenti non ancora annotate).
+   */
+  ctaLocation?: string;
 };
 
 export default function StoreButtonsRow({
@@ -29,6 +38,7 @@ export default function StoreButtonsRow({
   iosDisabled = false,
   className = "",
   style,
+  ctaLocation,
 }: Props) {
   const PLAY = {
     it: { small: "Disponibile su", store: "Google Play", soon: "In arrivo" },
@@ -71,6 +81,7 @@ export default function StoreButtonsRow({
     <div
       className={`flex flex-wrap items-center gap-3 ${className}`}
       style={style}
+      data-cta-location={ctaLocation}
     >
       <PlayStoreButton
         disabled={playDisabled}
