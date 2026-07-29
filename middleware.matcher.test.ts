@@ -113,4 +113,22 @@ describe("middleware matcher — explicit identity list (path-to-regexp entries)
   it("no longer contains the removed x-fitmesh-locale-only catch-all shape (sanity: matcher length is the new narrow list, not the old single entry)", () => {
     expect(config.matcher.length).toBeGreaterThan(1);
   });
+
+  /**
+   * Hotfix P0.10R. Il rate limit di /api/v1/auth/forgot-password vive
+   * INTERAMENTE dentro la route (vedi app/api/v1/auth/forgot-password/
+   * route.ts): applicarlo anche qui significherebbe che la richiesta
+   * attraversa sia il Middleware sia la Function per lo stesso limite,
+   * doppio hop e doppio conteggio Fast Origin Transfer, oltre a un secondo
+   * punto dove l'esito potrebbe accidentalmente diventare osservabile
+   * (header diversi, timing diverso fra i due livelli).
+   */
+  it("does not rate-limit /api/v1/auth/forgot-password itself (single hop, handled entirely in the route)", () => {
+    expect(config.matcher).not.toContain("/api/v1/auth/forgot-password");
+    const middlewareSource = require("node:fs").readFileSync(
+      require("node:path").join(__dirname, "middleware.ts"),
+      "utf8",
+    ) as string;
+    expect(middlewareSource).not.toMatch(/pathname === ['"]\/api\/v1\/auth\/forgot-password['"]/);
+  });
 });

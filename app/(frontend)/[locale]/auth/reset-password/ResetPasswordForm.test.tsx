@@ -15,6 +15,11 @@ vi.mock("@/lib/supabase/recovery-client", () => ({
 }));
 
 const t: ResetPasswordTranslations = {
+  noCodeTitle: "No code?",
+  noCodeBody: "Request one",
+  requestCode: "Request a code",
+  staleLinkTitle: "Link no longer usable",
+  staleLinkBody: "Request a new code",
   emailLabel: "Email",
   emailPlaceholder: "email",
   otpLabel: "Code",

@@ -1,9 +1,15 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 import { createClient } from '@/lib/supabase/server';
 import { getDictionary, locales, type Locale } from '@/lib/i18n';
 
 import { LoginForm } from './LoginForm';
+import {
+  FORGOT_PASSWORD_LOCALES,
+  TRANSLATIONS as FORGOT_PASSWORD_TRANSLATIONS,
+  type ForgotPasswordLocale,
+} from '../forgot-password/translations';
 
 export const dynamic = 'force-dynamic';
 
@@ -58,6 +64,26 @@ export default async function LoginPage({
         }}
         initialError={error ?? null}
       />
+
+      {/*
+        Hotfix P0.10R: chi ha impostato una password dall'app FitMesh e non
+        la ricorda finiva qui senza alcuna via d'uscita (questo form manda
+        un magic link, non risolve una password dimenticata). La copy arriva
+        dalle traduzioni di forgot-password, non dal dizionario del sito,
+        cosi' resta allineata alla pagina di destinazione.
+      */}
+      <p className="mt-6 text-center">
+        <Link
+          href={`/${lc}/auth/forgot-password`}
+          className="text-sm text-text-secondary hover:text-text-primary transition"
+        >
+          {FORGOT_PASSWORD_TRANSLATIONS[
+            (FORGOT_PASSWORD_LOCALES as readonly string[]).includes(lc)
+              ? (lc as ForgotPasswordLocale)
+              : 'en'
+          ].fromLoginLink}
+        </Link>
+      </p>
 
       <p className="mt-8 text-center text-xs text-text-muted">
         {t.auth?.login?.disclaimer ??
