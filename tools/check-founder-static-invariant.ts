@@ -45,6 +45,10 @@ const ALLOWLIST_IMPORT_IS_OPEN = new Set([
   "lib/founder/program-window.ts",
   "lib/founder/program-window.test.ts",
   "components/founder/FounderClientGate.tsx",
+  // Sprint P0.10H — gate a 3 stati dedicato a /beta (pending/open/closed),
+  // stesso pattern di auto-transizione client-only di FounderClientGate,
+  // vedi header del file per il perche' serve un terzo stato.
+  "components/founder/BetaFounderGate.tsx",
 ]);
 
 const SCAN_DIRS = ["app", "components", "lib"];
@@ -135,14 +139,22 @@ for (const rel of filesToCheck) {
   }
 }
 
-// ── CONTROLLO 3 — FounderClientGate resta "use client" ──────────────────
-const gatePath = path.join(repoRoot, "components/founder/FounderClientGate.tsx");
-if (!fs.existsSync(gatePath)) {
-  errors.push("components/founder/FounderClientGate.tsx non trovato — il gate client-only per Founder è sparito.");
-} else {
+// ── CONTROLLO 3 — i gate client-only restano "use client" ────────────────
+// Sprint P0.10H: stesso controllo anche su BetaFounderGate.tsx, il secondo
+// (e finora unico altro) gate client-only per Founder.
+const CLIENT_GATE_FILES = [
+  "components/founder/FounderClientGate.tsx",
+  "components/founder/BetaFounderGate.tsx",
+];
+for (const rel of CLIENT_GATE_FILES) {
+  const gatePath = path.join(repoRoot, rel);
+  if (!fs.existsSync(gatePath)) {
+    errors.push(`${rel} non trovato — un gate client-only per Founder è sparito.`);
+    continue;
+  }
   const gateContent = fs.readFileSync(gatePath, "utf8");
   if (!/^["']use client["'];?/m.test(gateContent)) {
-    errors.push("components/founder/FounderClientGate.tsx: manca \"use client\" — la decisione aperto/chiuso rischia di essere valutata lato server/al build.");
+    errors.push(`${rel}: manca "use client" — la decisione aperto/chiuso rischia di essere valutata lato server/al build.`);
   }
 }
 
@@ -152,6 +164,6 @@ if (errors.length > 0) {
   process.exit(1);
 } else {
   console.log(
-    `✅ founder:static-invariant-check: isFounderProgramOpen() importata solo dall'allowlist (${allFiles.length} file TS/TSX scansionati), nessun pattern aperto/chiuso hardcoded ricomparso in llms.txt/historical-note/press/blog/landing, FounderClientGate resta "use client".`,
+    `✅ founder:static-invariant-check: isFounderProgramOpen() importata solo dall'allowlist (${allFiles.length} file TS/TSX scansionati), nessun pattern aperto/chiuso hardcoded ricomparso in llms.txt/historical-note/press/blog/landing, FounderClientGate e BetaFounderGate restano "use client".`,
   );
 }
