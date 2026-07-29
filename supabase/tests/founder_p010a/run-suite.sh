@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Sprint P0.10A — verifica delle migration Founder REALI (non riscritte, a
-# parte 20260728090000 che E' l'oggetto di questa revisione) su
+# parte 20260729161059 — rinominata da 20260728090000 in Sprint P0.10F dopo
+# l'apply reale, vedi docs/architecture/p010-post-apply-migration-mapping.md
+# — che E' l'oggetto di questa revisione) su
 # supabase/postgres reale (auth.users/auth.uid()/ruoli/owner veri —
 # supabase_auth_admin possiede auth.users, postgres non e' superuser ma e'
 # membro di supabase_auth_admin — lo stesso identico setup di produzione).
@@ -28,7 +30,7 @@ CHAIN=(
   "$MIGRATIONS/20260715183049_disable_founder_launch_autogrant_trigger.sql"
   "$MIGRATIONS/20260720055513_founder_launch_first_sync_grant.sql"
   "$MIGRATIONS/20260720120247_founder_launch_exclude_review_email_alias.sql"
-  "$MIGRATIONS/20260728090000_founder_launch_cutoff_and_window.sql"
+  "$MIGRATIONS/20260729161059_founder_launch_cutoff_and_window.sql"
 )
 
 cleanup() { docker rm -f "$CID" >/dev/null 2>&1 || true; }
@@ -72,7 +74,7 @@ run_test_file() {
   docker exec -e PGPASSWORD=postgres "$CID" psql -U "$pguser" -d postgres -v ON_ERROR_STOP=1 -f /tmp/test.sql
 }
 
-log "1/7 - catena migration reale + 20260728090000 (fresh)"
+log "1/7 - catena migration reale + 20260729161059 (fresh)"
 _fresh_db_with_chain
 log "chain OK"
 

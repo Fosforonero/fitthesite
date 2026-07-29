@@ -1,6 +1,8 @@
 -- Schema minimo per testare public.get_entitlement_status() (migration
--- 20260728110000, REALE, non riscritta) e l'hardening di grant_b2c_trial
--- (migration 20260728100000, REALE) su supabase/postgres reale
+-- 20260729161245, rinominata da 20260728110000 in Sprint P0.10F dopo
+-- l'apply reale — vedi docs/architecture/p010-post-apply-migration-mapping.md
+-- — REALE, non riscritta) e l'hardening di grant_b2c_trial (migration
+-- 20260729161132, rinominata da 20260728100000, REALE) su supabase/postgres reale
 -- (auth.users/auth.uid() veri). Non un replay completo delle 45 migration
 -- del repo (known-issues.md, gia' documentato, blocca un replay letterale
 -- da zero) — solo le tabelle/funzioni REALMENTE lette da queste due
@@ -62,7 +64,8 @@ $$;
 
 -- Da 20260514120006_sprint0_fixes.sql, versione "race-safe via ON CONFLICT"
 -- realmente live — necessaria qui SOLO perche' la migration di hardening
--- (20260728100000) fa `revoke execute on function public.grant_b2c_trial()`
+-- (20260729161132, rinominata da 20260728100000) fa
+-- `revoke execute on function public.grant_b2c_trial()`
 -- e fallirebbe se la funzione non esistesse.
 create or replace function public.grant_b2c_trial()
 returns boolean

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Sprint P0.10E-E — verifica la migration REALE, non riscritta qui
-# (20260729120000_founder_reserve_cutoff_gate.sql) su supabase/postgres
+# (20260729161341_founder_reserve_cutoff_gate.sql, rinominata da 20260729120000
+# in Sprint P0.10F dopo l'apply reale) su supabase/postgres
 # reale. PRE_FIX_MD5 e' invariato da P0.10E-D (il corpo live in produzione
 # non e' mai cambiato in questo sprint — solo la sua ricostruzione qui e'
 # stata corretta contro la convenzione live reale, vedi la migration per il
@@ -33,7 +34,7 @@ docker cp "$DIR/00-minimal-schema.sql" "$CID":/tmp/schema.sql >/dev/null
 docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/schema.sql
 
 log "2/10 - TEST NEGATIVO del guard MD5: applicare la migration con l'hash di PRODUZIONE contro questo stub locale deve ABORTIRE, prima di qualunque modifica"
-docker cp "$MIGRATIONS/20260729120000_founder_reserve_cutoff_gate.sql" "$CID":/tmp/migration-real-hash.sql >/dev/null
+docker cp "$MIGRATIONS/20260729161341_founder_reserve_cutoff_gate.sql" "$CID":/tmp/migration-real-hash.sql >/dev/null
 set +e
 docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/migration-real-hash.sql >/tmp/negative-guard-$$.out 2>&1
 NEGATIVE_STATUS=$?
@@ -59,7 +60,7 @@ rm -f /tmp/negative-guard-$$.out
 log "3/10 - calcolo MD5 locale dello stub _apply_founder_grant, sostituzione nella copia di migration per il test (necessariamente diverso dall'hash reale di produzione: testo diverso per costruzione)"
 LOCAL_MD5=$(docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -q -X -t -A -c "select md5(pg_get_functiondef('public._apply_founder_grant(uuid, text)'::regprocedure));")
 echo "MD5 locale dello stub pre-migration: $LOCAL_MD5"
-sed "s/${PRE_FIX_MD5}/${LOCAL_MD5}/" "$MIGRATIONS/20260729120000_founder_reserve_cutoff_gate.sql" > "/tmp/migration-local-hash-$$.sql"
+sed "s/${PRE_FIX_MD5}/${LOCAL_MD5}/" "$MIGRATIONS/20260729161341_founder_reserve_cutoff_gate.sql" > "/tmp/migration-local-hash-$$.sql"
 docker cp "/tmp/migration-local-hash-$$.sql" "$CID":/tmp/apply.sql >/dev/null
 rm -f "/tmp/migration-local-hash-$$.sql"
 

@@ -1,4 +1,16 @@
-# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B/D/E/E-A/E-B/E-C/E-D)
+# Pre-apply checklist — migration 20260729161059 (Sprint P0.10A/B/D/E/E-A/E-B/E-C/E-D/E-E/F)
+
+## ✅ Sprint P0.10F — LE QUATTRO MIGRATION SONO STATE APPLICATE IN PRODUZIONE
+
+Autorizzato da Matteo ("GO APPLY P0.10") e applicato il 2026-07-29. I quattro
+file migration sono stati rinominati con `git mv` (contenuto invariato,
+SHA-256 identici) per riflettere i timestamp REALMENTE registrati da
+Supabase al momento dell'apply (diversi dai timestamp originali nei nomi
+file, per via di come lo strumento di apply genera la versione). Mapping
+completo, hash pre/post delle funzioni, e nota PG15 vs PG17 in
+`docs/architecture/p010-post-apply-migration-mapping.md`. Il resto di
+questo documento descrive lo stato PRE-apply (storico) — non più lo stato
+attuale del database, mantenuto per il contesto delle decisioni prese.
 
 ## ⚠️ I conteggi in questo documento sono un MOMENTO, non un valore fisso
 
@@ -280,10 +292,13 @@ Ordine di apply (invariato, 4 migration separate):
 
 | # | File | Cosa fa | Autorizzazione |
 |---|---|---|---|
-| 1 | `20260728090000_founder_launch_cutoff_and_window.sql` | Sunset Founder: cutoff + finestra + ledger persistente + backfill (popolazione attesa: **ricalcolare al momento**, non 378 statico) | `GO APPLY P0.10` |
-| 2 | `20260728100000_harden_legacy_b2c_trial_acl.sql` | Revoca EXECUTE su `grant_b2c_trial()` da public/anon/authenticated | **separata**, va autorizzata esplicitamente |
-| 3 | `20260728110000_entitlement_status_contract.sql` | Nuova RPC `get_entitlement_status()` server-authoritative | **separata**, va autorizzata esplicitamente |
-| 4 | `20260729120000_founder_reserve_cutoff_gate.sql` (RISCRITTA, Sprint P0.10E-E) | Sposta `claim_founder_grant_if_eligible()` in `private`, ricrea il nome pubblico originale come wrapper cutoff+finestra+no-clobber+ri-verifica FASE 5, **riscrive** `_apply_founder_grant()` con la convenzione live ESATTA (P0.10E-E, non piu' quella dedotta per analogia in P0.10E-D) + allowlist/null-check ripristinati + barriera atomica whitelist + GET STACKED DIAGNOSTICS/CONSTRAINT_NAME, hardening `handle_new_founder()` | **separata**, va autorizzata esplicitamente. §17a e §17c PASS |
+| 1 | `20260729161059_founder_launch_cutoff_and_window.sql` (rinominata da `20260728090000`) | Sunset Founder: cutoff + finestra + ledger persistente + backfill — **APPLICATA**, backfill reale 380 (18 legacy_allowlist + 362 legacy_autogrant) | ✅ APPLICATA 2026-07-29 |
+| 2 | `20260729161132_harden_legacy_b2c_trial_acl.sql` (rinominata da `20260728100000`) | Revoca EXECUTE su `grant_b2c_trial()` da public/anon/authenticated | ✅ APPLICATA 2026-07-29 |
+| 3 | `20260729161245_entitlement_status_contract.sql` (rinominata da `20260728110000`) | Nuova RPC `get_entitlement_status()` server-authoritative | ✅ APPLICATA 2026-07-29 |
+| 4 | `20260729161341_founder_reserve_cutoff_gate.sql` (rinominata da `20260729120000`, RISCRITTA Sprint P0.10E-E) | Sposta `claim_founder_grant_if_eligible()` in `private`, ricrea il nome pubblico originale come wrapper cutoff+finestra+no-clobber+ri-verifica FASE 5, **riscrive** `_apply_founder_grant()` con la convenzione live ESATTA (P0.10E-E) + allowlist/null-check ripristinati + barriera atomica whitelist + GET STACKED DIAGNOSTICS/CONSTRAINT_NAME, hardening `handle_new_founder()` | ✅ APPLICATA 2026-07-29, guard MD5 superato pulito |
+
+Dettaglio completo apply (conteggi pre/post, ACL, advisor, hash) in
+`docs/architecture/p010-post-apply-migration-mapping.md`.
 
 La #1 è l'unica che scrive dati (backfill). La #2/#4 toccano ACL + funzioni
 (la #4 ora scrive anche dati reali in `b2c_subscriptions`/`founder_grants`
@@ -293,13 +308,14 @@ dipendono l'una dall'altra a livello SQL. Tenute separate proprio per
 poterle autorizzare una alla volta (istruzione esplicita di Matteo: non
 mescolare l'hardening alla migration Founder).
 
-SHA-256 al momento della consegna (se cambiano, riconfermare — le prime tre
-sono invariate dalla consegna precedente; la #4 e' cambiata in P0.10E-E):
+SHA-256 (invariati dalla consegna pre-apply — Sprint P0.10F ha rinominato
+solo i FILE con `git mv`, zero modifiche al contenuto, hash riverificati
+identici dopo la rinomina):
 ```
-3e79bc3d110fd2ca2d50d3c4d3383c8b5f4297e895129e6fabd84094f5885813  20260728090000_founder_launch_cutoff_and_window.sql
-9a9c0a954702b273996d583c58d3797027b7209f43325ba24d1bcdacb0767522  20260728100000_harden_legacy_b2c_trial_acl.sql
-af78448c477f95eedbd2a028dc5ad0310fdfb6fee449db2fcf645e8a0532948e  20260728110000_entitlement_status_contract.sql
-2a13364a721463acc4efe664bcaa4b3bc42f194da592f8615aaff6246cd4b559  20260729120000_founder_reserve_cutoff_gate.sql
+3e79bc3d110fd2ca2d50d3c4d3383c8b5f4297e895129e6fabd84094f5885813  20260729161059_founder_launch_cutoff_and_window.sql
+9a9c0a954702b273996d583c58d3797027b7209f43325ba24d1bcdacb0767522  20260729161132_harden_legacy_b2c_trial_acl.sql
+af78448c477f95eedbd2a028dc5ad0310fdfb6fee449db2fcf645e8a0532948e  20260729161245_entitlement_status_contract.sql
+2a13364a721463acc4efe664bcaa4b3bc42f194da592f8615aaff6246cd4b559  20260729161341_founder_reserve_cutoff_gate.sql
 ```
 
 MD5 delle funzioni riscritte dentro la #4 (per la guardia in cima al
@@ -332,8 +348,9 @@ endpoint parallelo che nessun client conosce.
 
 **Trovato da Matteo in verifica diretta su produzione, non da questa
 sessione.** Corretto riscrivendo per intero la #4: vedi
-`supabase/migrations/20260729120000_founder_reserve_cutoff_gate.sql` per il
-commento completo. In sintesi, l'approccio ora è:
+`supabase/migrations/20260729161341_founder_reserve_cutoff_gate.sql`
+(rinominata da `20260729120000` in Sprint P0.10F) per il commento completo.
+In sintesi, l'approccio ora è:
 
 1. `ALTER FUNCTION public.claim_founder_grant_if_eligible() SET SCHEMA private` — sposta la funzione ESISTENTE (corpo mai letto, mai riscritto) fuori dal nome pubblico, preservandola bit-per-bit.
 2. Chiude l'accesso diretto alla funzione ora in `private`.
@@ -697,11 +714,13 @@ ai vecchi timestamp nei commenti di `app/api/v1/sync/route.ts` aggiornati di
 conseguenza (solo commenti, nessun cambio funzionale — tsc/vitest/build
 rieseguiti verdi dopo la modifica).
 
-**Ancora da fare, non eseguibile da questa sessione**: rieseguire
-`supabase migration list --linked` (o dashboard) DOPO la rinomina per
-confermare che l'unica migration `pending` risulti `20260728090000` e che
-Supabase non richieda un `migration repair` (non deve servirne uno: i nomi
-locali ora coincidono esattamente con le versioni registrate da remoto).
+**Aggiornamento Sprint P0.10F**: `20260728090000` (la migration Founder che
+all'epoca era la successiva `pending`) è stata nel frattempo applicata e
+poi rinominata in `20260729161059` — vedi il mapping completo in
+`docs/architecture/p010-post-apply-migration-mapping.md`. `supabase
+migration list --linked` è stato rieseguito con accesso reale: nessuna
+migration locale pending, nessuna migration remota priva di file locale,
+nessun `migration repair` necessario.
 
 **Non ancora deciso da Matteo, non bloccante per l'apply**: i 3 posti
 riservati restano permanentemente sottratti dal cap (`v_reserved_pending`
@@ -837,7 +856,9 @@ dell'apply. Questo è il termine di paragone per il confronto post-apply.
 ## 8. Applicazione (solo dopo GO esplicito di Matteo)
 
 Un solo file, una sola transazione (comportamento standard Supabase):
-`supabase/migrations/20260728090000_founder_launch_cutoff_and_window.sql`.
+`supabase/migrations/20260729161059_founder_launch_cutoff_and_window.sql`
+(rinominata da `20260728090000` in Sprint P0.10F, dopo l'apply reale del
+2026-07-29 — vedi `docs/architecture/p010-post-apply-migration-mapping.md`).
 Il backfill interno stamperà via `raise notice` il conteggio
 legacy_allowlist/legacy_autogrant — **leggere quell'output**, deve
 coincidere con §3/§4.

@@ -1,13 +1,14 @@
 -- Sprint P0.10D — Preflight produzione READ-ONLY per la migration
--- 20260728090000_founder_launch_cutoff_and_window.sql.
+-- 20260729161059_founder_launch_cutoff_and_window.sql (rinominata da
+-- 20260728090000 in Sprint P0.10F).
 --
--- QUESTO FILE NON E' MAI STATO ESEGUITO CONTRO PRODUZIONE: nessun accesso
--- Supabase autenticato disponibile da questa sessione (MCP Supabase non
--- autorizzato, ambiente non-interattivo, nessuna credenziale nel repo).
--- Da eseguire manualmente (SQL editor Supabase o `psql` con connection
--- string reale) da chi ha accesso, poi incollare l'output di nuovo qui
--- perche' io possa confrontarlo con le assunzioni della migration e dare
--- un GO/NO-GO basato su dati reali invece che su quanto atteso.
+-- AGGIORNAMENTO Sprint P0.10F (2026-07-29): le quattro migration P0.10 sono
+-- state APPLICATE in produzione con accesso Supabase MCP reale (disponibile
+-- in quella sessione, a differenza di quanto assunto quando questo file fu
+-- scritto). Risultati reali, hash, ACL, advisor: vedi
+-- docs/architecture/p010-post-apply-migration-mapping.md. Le query sotto
+-- restano valide come riferimento per un futuro preflight (altre migration,
+-- altri sprint) — non descrivono più lo stato ATTUALE del database.
 --
 -- Interamente SELECT/lettura di catalogo — zero INSERT/UPDATE/DELETE/DDL.
 -- Sicuro da eseguire quante volte serve, in qualunque ordine.
@@ -27,9 +28,12 @@ order by version asc;
 -- precedenti risultavano REGISTRATE con timestamp diversi da quelli usati
 -- nei nomi file locali originari, ma contenuto normalizzato identico -
 -- GIA' RICONCILIATO rinominando i 6 file locali (commit f43a2c1) per farli
--- coincidere esattamente con le versioni remote. 20260728090000 (Founder),
--- 20260728100000 (hardening grant_b2c_trial) e 20260728110000 (entitlement
--- contract) sono le uniche attese come NON ANCORA applicate.
+-- coincidere esattamente con le versioni remote. 20260729161059 (Founder,
+-- rinominata da 20260728090000), 20260729161132 (hardening grant_b2c_trial,
+-- rinominata da 20260728100000) e 20260729161245 (entitlement contract,
+-- rinominata da 20260728110000) sono state applicate il 2026-07-29 (Sprint
+-- P0.10F) e rinominate agli stessi timestamp REALMENTE registrati qui —
+-- vedi docs/architecture/p010-post-apply-migration-mapping.md.
 --
 -- Questa query da sola pero' NON basta per la Fase 0: mostra solo cosa e'
 -- REGISTRATO come applicato, non se il file locale con quella stessa
@@ -260,7 +264,8 @@ select
 -- 13. Verifica che la migration non modifichi ruoli/entitlement esistenti
 -- ============================================================================
 -- Non una query — verificato leggendo il testo della migration stessa
--- (supabase/migrations/20260728090000_founder_launch_cutoff_and_window.sql):
+-- (supabase/migrations/20260729161059_founder_launch_cutoff_and_window.sql,
+-- rinominata da 20260728090000):
 -- l'unica scrittura su public.user_roles e' un `insert ... on conflict
 -- (user_id, role) do nothing` dentro grant_founder_launch_core (mai
 -- raggiunta per un utente gia' pro, per costruzione del fast-path) — zero
@@ -295,7 +300,7 @@ from public.founder_grants;
 -- cioe' l'UNICO motivo di rifiuto documentato e' "email non in allowlist".
 -- Nessun controllo di data. Se il corpo reale lo conferma, un account
 -- creato DOPO il cutoff che usa una delle 3 email riservate otterrebbe
--- Founder scavalcando 20260728090000 -> conflitto di specifica, NO-GO,
+-- Founder scavalcando 20260729161059 (rinominata da 20260728090000) -> conflitto di specifica, NO-GO,
 -- decisione a Matteo (vedi p010-founder-pre-apply-checklist.md).
 -- Cercare esplicitamente nel corpo restituito: 'created_at', '2026-07-31',
 -- 'cutoff', 'founder_cutoff'. Se non compaiono, il bypass e' confermato.
@@ -345,8 +350,8 @@ select pg_get_functiondef('public.handle_new_founder()'::regprocedure) as handle
 --     confermato zero caller in Flutter/Kotlin/Swift/backend/git history: il
 --     trial reale e' applicativo, 14gg da auth.users.created_at, non passa
 --     mai da questa funzione. Verificare comunque runtime/ACL reali prima
---     dell'hardening (migration separata 20260728100000, gia' preparata,
---     NON ancora applicata).
+--     dell'hardening (migration separata 20260729161132, rinominata da
+--     20260728100000, APPLICATA il 2026-07-29 — Sprint P0.10F).
 -- ============================================================================
 select pg_get_functiondef('public.grant_b2c_trial()'::regprocedure) as grant_b2c_trial_body_live;
 
@@ -354,8 +359,9 @@ select routine_name, grantee, privilege_type
 from information_schema.routine_privileges
 where routine_name = 'grant_b2c_trial';
 -- Se questa NON mostra piu' anon/authenticated dopo l'apply di
--- 20260728100000, l'hardening ha funzionato. PRIMA dell'apply, atteso che
--- li mostri ancora (coerente con l'advisor P0.10D: "ancora eseguibile da
+-- 20260729161132 (rinominata da 20260728100000), l'hardening ha
+-- funzionato — CONFERMATO post-apply (Sprint P0.10F): ACL ora solo
+-- postgres/service_role (coerente con l'advisor P0.10D: "ancora eseguibile da
 -- PUBLIC/anon/authenticated").
 
 -- Uso runtime recente, senza PII: SOLO conteggio e ultima data, mai
@@ -385,7 +391,8 @@ where billing_source = 'trial';
 --     (mai vincolati da un CHECK constraint, mai creati da una migration in
 --     git per i valori 'grandfather-prelaunch'/'beta-tester...' — servono
 --     per confermare/correggere il match `note ilike '%grandfather%'` usato
---     da public.get_entitlement_status(), migration 20260728110000).
+--     da public.get_entitlement_status(), migration 20260729161245,
+--     rinominata da 20260728110000).
 -- ============================================================================
 select note, count(*)
 from public.user_roles
@@ -395,13 +402,14 @@ order by count(*) desc;
 -- Se compare un valore che dovrebbe essere "grandfather" ma non contiene
 -- letteralmente quella parola (es. 'pre-lancio', 'early-access'), il
 -- pattern ilike '%grandfather%' in get_entitlement_status va corretto
--- PRIMA di applicare 20260728110000 — altrimenti quegli utenti finiscono
+-- PRIMA di applicare 20260729161245 (rinominata da 20260728110000) — altrimenti quegli utenti finiscono
 -- nel bucket 'lifetime' invece di 'grandfather' (esito comunque permanente
 -- e non-Founder, non un bug di sicurezza, ma non fedele al contratto).
 
 -- ============================================================================
 -- 17. Sprint P0.10E-B/C/D/E addendum — verifiche prima di applicare la
---     migration riserve corretta (20260729120000).
+--     migration riserve corretta (20260729161341, rinominata da
+--     20260729120000 in Sprint P0.10F dopo l'apply reale del 2026-07-29).
 --
 -- 17a e 17c: PASS, confermati da Matteo il 2026-07-29 via lettura diretta:
 --   - owner di claim_founder_grant_if_eligible/_apply_founder_grant/

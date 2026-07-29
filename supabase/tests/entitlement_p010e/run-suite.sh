@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Sprint P0.10E addendum — verifica get_entitlement_status() (20260728110000)
-# e hardening grant_b2c_trial (20260728100000), migration REALI non
-# riscritte, su supabase/postgres reale (auth.users/auth.uid() veri).
+# Sprint P0.10E addendum — verifica get_entitlement_status() (20260729161245,
+# rinominata da 20260728110000 in Sprint P0.10F dopo l'apply reale — vedi
+# docs/architecture/p010-post-apply-migration-mapping.md) e hardening
+# grant_b2c_trial (20260729161132, rinominata da 20260728100000), migration
+# REALI non riscritte, su supabase/postgres reale (auth.users/auth.uid() veri).
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
@@ -29,7 +31,7 @@ docker cp "$DIR/00-minimal-schema.sql" "$CID":/tmp/apply.sql >/dev/null
 docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/apply.sql
 
 log "2/3 - migration reali (hardening + entitlement contract)"
-for f in "20260728100000_harden_legacy_b2c_trial_acl.sql" "20260728110000_entitlement_status_contract.sql"; do
+for f in "20260729161132_harden_legacy_b2c_trial_acl.sql" "20260729161245_entitlement_status_contract.sql"; do
   docker cp "$MIGRATIONS/$f" "$CID":/tmp/apply.sql >/dev/null
   docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/apply.sql
 done

@@ -277,10 +277,16 @@ accesso identico (permanente, non-Founder), solo etichetta diversa.
 ## 11. SHA-256 dei file backend consegnati
 
 ```
-bbefd851eef89db7ea3b22c9f7e0ec773a9a0132fcb6da5949807b97a6081ef8  supabase/migrations/20260728110000_entitlement_status_contract.sql
-9a9c0a954702b273996d583c58d3797027b7209f43325ba24d1bcdacb0767522  supabase/migrations/20260728100000_harden_legacy_b2c_trial_acl.sql
-3e79bc3d110fd2ca2d50d3c4d3383c8b5f4297e895129e6fabd84094f5885813  supabase/migrations/20260728090000_founder_launch_cutoff_and_window.sql
+af78448c477f95eedbd2a028dc5ad0310fdfb6fee449db2fcf645e8a0532948e  supabase/migrations/20260729161245_entitlement_status_contract.sql
+9a9c0a954702b273996d583c58d3797027b7209f43325ba24d1bcdacb0767522  supabase/migrations/20260729161132_harden_legacy_b2c_trial_acl.sql
+3e79bc3d110fd2ca2d50d3c4d3383c8b5f4297e895129e6fabd84094f5885813  supabase/migrations/20260729161059_founder_launch_cutoff_and_window.sql
 ```
 
-Gli SHA valgono per il contenuto attuale del branch `sprint/p10-founder-sunset`.
-Se cambiano prima dell'apply, il contratto va riconfermato.
+Sprint P0.10F (2026-07-29): applicate in produzione, poi rinominate ai
+timestamp realmente registrati da Supabase (vedi
+`docs/architecture/p010-post-apply-migration-mapping.md`). L'hash di
+`entitlement_status_contract.sql` sopra era STALE nella consegna
+precedente (`bbefd851eef89db7ea3b22c9f7e0ec773a9a0132fcb6da5949807b97a6081ef8`,
+non corrispondeva più al contenuto committato) — corretto qui al valore
+reale, verificato identico sia pre sia post rinomina (`git mv` puro,
+zero modifiche al contenuto).

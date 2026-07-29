@@ -19,7 +19,8 @@ set role postgres;
 --      finale sia invariato. Il contratto pubblico non espone il numero di
 --      query eseguite: si usa una copia "probe" della funzione reale,
 --      IDENTICA riga per riga a private.grant_founder_launch_core
---      (20260728090000) tranne due `insert into test.probe_hits` prima
+--      (20260729161059, rinominata da 20260728090000) tranne due
+--      `insert into test.probe_hits` prima
 --      dei due controlli che il riordino Blocco 3 rende raggiungibili SOLO
 --      quando l'utente non e' ancora deciso.
 

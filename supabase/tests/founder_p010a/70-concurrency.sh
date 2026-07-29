@@ -7,7 +7,8 @@
 # Richiede un pg_sleep iniettato DOPO i fast-path pre-lock e PRIMA
 # dell'advisory lock (solo per questo test) per forzare la sovrapposizione
 # reale, invece di sperare in un jitter di processo. Il resto del corpo e'
-# IDENTICO a private.grant_founder_launch_core in 20260728090000 — il
+# IDENTICO a private.grant_founder_launch_core in 20260729161059 (rinominata
+# da 20260728090000 in Sprint P0.10F dopo l'apply reale) — il
 # `create or replace` a fine test ripristina la versione reale applicata
 # dalla migration (il container e' comunque usa-e-getta).
 set -e

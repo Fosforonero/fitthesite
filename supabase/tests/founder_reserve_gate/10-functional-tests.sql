@@ -1,5 +1,6 @@
 -- Sprint P0.10E-E — test funzionali della migration REALE
--- (20260729120000_founder_reserve_cutoff_gate.sql) su supabase/postgres
+-- (20260729161341_founder_reserve_cutoff_gate.sql, rinominata da
+-- 20260729120000 in Sprint P0.10F dopo l'apply reale) su supabase/postgres
 -- reale. Ogni caso chiama SEMPRE public.claim_founder_grant_if_eligible()
 -- (il nome pubblico ORIGINALE, zero argomenti) tramite test.call_gate_as():
 -- e' esattamente cio' che il client gia' pubblicato chiama, quindi ogni

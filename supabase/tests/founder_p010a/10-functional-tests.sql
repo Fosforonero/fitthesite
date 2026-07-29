@@ -1,7 +1,9 @@
 \set ON_ERROR_STOP on
 set role postgres;
 
--- Sprint P0.10A — verifica funzionale di 20260728090000 applicata SOPRA la
+-- Sprint P0.10A — verifica funzionale di 20260729161059 (rinominata da
+-- 20260728090000 in Sprint P0.10F dopo l'apply reale, vedi
+-- docs/architecture/p010-post-apply-migration-mapping.md) applicata SOPRA la
 -- catena reale gia' live (20260720120247 + le storiche). Chiama
 -- private.grant_founder_launch_core esattamente come farebbe
 -- record_first_sync_transition (stessa firma, stesso contratto risposta).

@@ -1,6 +1,8 @@
 -- Sprint P0.10E-E — schema minimo per testare la migration REALE
--- (20260729120000_founder_reserve_cutoff_gate.sql, non riscritta qui) su
--- supabase/postgres reale.
+-- (20260729161341_founder_reserve_cutoff_gate.sql, rinominata da
+-- 20260729120000 in Sprint P0.10F dopo l'apply reale — vedi
+-- docs/architecture/p010-post-apply-migration-mapping.md — non riscritta
+-- qui) su supabase/postgres reale.
 --
 -- IMPORTANTE — due categorie diverse di stub qui sotto:
 --   1. claim_founder_grant_if_eligible()/handle_new_founder(): il loro
@@ -33,7 +35,8 @@ create table test.probe_hits (
 );
 insert into test.probe_hits (n, hits) values (1, 0);
 
--- founder_grants: stessa forma di 20260728090000 (email PK, founder_number,
+-- founder_grants: stessa forma di 20260729161059 (rinominata da
+-- 20260728090000) (email PK, founder_number,
 -- applied_user_id/applied_at) — necessaria qui perche' la nuova
 -- _apply_founder_grant legge (SELECT ... FOR UPDATE) e scrive in questa
 -- tabella.
