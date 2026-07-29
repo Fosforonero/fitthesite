@@ -1,232 +1,127 @@
 /**
- * Sprint P0.10E addendum — frase Founder per superfici NON gate-abili con
+ * Sprint P0.10G — frase Founder INVARIANTE per superfici NON gate-abili con
  * FounderClientGate (contenuto editoriale statico: press kit, blog, landing
  * page programmatiche — non hanno una variante client-side, sono prosa fissa
  * generata al build).
  *
  * Perche' serve: components/founder/FounderClientGate risolve il problema
  * SOLO per le 5 superfici commerciali interattive (homepage/header/footer/
- * menu/beta). Il testo giornalistico/editoriale non passa da li' — se la
- * frase sullo stato del programma resta hardcoded, e' vera solo in una delle
- * due meta' del tempo (prima o dopo il cutoff), mai in entrambe.
+ * menu/beta). Il testo giornalistico/editoriale non passa da li'.
  *
- * Questo helper NON sostituisce il deploy: la correttezza dipende comunque
- * da QUANDO il sito viene ricompilato/pubblicato (isFounderProgramOpen()
- * legge new Date() al momento del build/render server-side, non al momento
- * della visita) — stesso principio gia' vero per tutto il resto del sunset
- * Founder: un sito statico non cambia da solo, serve un deploy umano vicino
- * al cutoff perche' anche questa prosa rifletta lo stato reale.
+ * CORREZIONE BLOCCANTE Sprint P0.10G rispetto alla versione precedente
+ * (P0.10E addendum): la versione precedente aveva un ramo "open"/"closed"
+ * risolto con `isFounderProgramOpen(new Date())` — cioe' ESATTAMENTE
+ * l'orologio al momento del build/render server-side, MAI al momento della
+ * visita reale. Un sito statico non cambia da solo: se l'ultimo deploy
+ * avviene ore o giorni prima del cutoff (quasi certo), la prosa resterebbe
+ * congelata sul ramo sbagliato per tutto il tempo in cui quel build resta
+ * live, finche' un deploy successivo e scollegato non la corregge per
+ * caso. Verificato che questo NON era ipotetico: al momento di questa
+ * correzione (2026-07-29, programma ancora aperto) il ramo "closed" era
+ * gia' presente in produzione in piu' punti (vedi fase di audit P0.10G).
+ *
+ * FIX: zero biforcazione temporale. Un'UNICA frase per locale, vera SIA
+ * prima SIA dopo il cutoff, perche' descrive la REGOLA di idoneita' (chi
+ * puo' diventare founder e a quali condizioni), non lo STATO del momento
+ * in cui il testo e' stato generato. Nessun `new Date()`, nessun import di
+ * isFounderProgramOpen/FOUNDER_END_AT in questo file.
  *
  * COPERTURA: tutte e 15 le locale del sito (it, en, es, de, pt, fr, pl, tr,
- * nl, ja, ko, sv, da, no, fi) hanno ora entrambe le varianti — non c'e' piu'
- * nessuna locale che ricade sul fallback EN.
+ * nl, ja, ko, sv, da, no, fi).
  *
- * PROVENIENZA DELLE STRINGHE — nessuna e' stata tradotta a macchina. Ogni
- * variante e' copia umana gia' esistente nel repo, estratta verbatim:
- *  - variante "closed": dal copy di sunset gia' revisionato in
- *    app/(frontend)/[locale]/(marketing)/press/page.tsx (commit 9600e6e),
- *    parametrizzando la sola data con ${endDate};
- *  - variante "open": dal copy pre-sunset dello stesso file, recuperato da
- *    git a `9600e6e^` (le traduzioni professionali originali).
- * Niente Ollama, niente traduzione automatica, niente frasi inventate: dove
- * la copy umana originale NON conteneva la data limite (il concetto di
- * cutoff e' posteriore), la variante "open" resta senza data invece di
- * forzare un'interpolazione mai scritta da un traduttore. Per la stessa
- * ragione it/en mantengono la formulazione rivista a mano in questo file,
- * non quella recuperata da git.
+ * PROVENIENZA DELLE STRINGHE — nessuna e' stata tradotta a macchina. Le
+ * frasi IT/EN sono il testo esatto fornito da Matteo (Sprint P0.10G). Le
+ * altre 13 locale sono adattate riusando il vocabolario umano gia' presente
+ * in questo stesso file nella versione precedente (varianti "open"/
+ * "closed" gia' tradotte a mano, provenienza documentata nella storia git
+ * di questo file) — non una nuova traduzione automatica, una ricombinazione
+ * di frasi umane gia' esistenti nel repo per esprimere la stessa regola in
+ * forma invariante.
  *
- * Alcune locale (tr, ja, ko) hanno la frase Founder fusa con la proposizione
- * seguente ("attivato automaticamente alla registrazione") perche' nella
- * copy umana il cambio di tempo verbale investe l'intero periodo: in quei
- * casi la clausola restituita e' l'intera frase, cosi' entrambe le varianti
- * restano identiche all'originale umano.
+ * NOTA: la vecchia frase "attivato automaticamente alla registrazione" (in
+ * press/page.tsx e altrove) e' ora FALSA rispetto alla logica reale
+ * (Sprint P0.10A, private.grant_founder_launch_core): il grant richiede una
+ * prima sincronizzazione reale entro 14 giorni, non e' piu' automatico alla
+ * sola registrazione. La nuova clausola incorpora gia' questo requisito,
+ * quindi quella frase va rimossa dove viene concatenata (vedi commit che
+ * accompagna questa modifica).
  */
-import { isFounderProgramOpen, formatFounderEndDate } from "@/lib/founder/program-window";
-
-type FounderVariant = {
-  open: (endDate: string) => string;
-  closed: (endDate: string) => string;
-};
 
 /** Frase da innestare in un paragrafo discorsivo (press kit, blog). */
-const CLAUSE_EN: FounderVariant = {
-  open: (endDate) => `the first 1,000 founders (limited seats, program closing by ${endDate}) get lifetime Pro free`,
-  closed: (endDate) => `the first 1,000 founders (program closed as of ${endDate}) got lifetime Pro free`,
-};
-
-const CLAUSE: Record<string, FounderVariant> = {
-  it: {
-    open: (endDate) =>
-      `i primi 1000 founder (posti limitati, il programma si chiude entro il ${endDate}) ricevono il Pro a vita gratis`,
-    closed: (endDate) =>
-      `i primi 1000 founder (programma chiuso dal ${endDate}) hanno ricevuto il Pro a vita gratis`,
-  },
-  en: CLAUSE_EN,
-  es: {
-    open: () => `los primeros 1.000 fundadores obtienen Pro de por vida gratis`,
-    closed: (endDate) =>
-      `los primeros 1.000 fundadores (programa cerrado desde el ${endDate}) obtuvieron Pro de por vida gratis`,
-  },
-  de: {
-    open: () => `Die ersten 1.000 Gründer erhalten Pro dauerhaft kostenlos`,
-    closed: (endDate) =>
-      `Die ersten 1.000 Gründer (Programm seit dem ${endDate} geschlossen) haben Pro dauerhaft kostenlos erhalten`,
-  },
-  pt: {
-    open: () => `os primeiros 1.000 fundadores recebem o Pro vitalício grátis`,
-    closed: (endDate) =>
-      `os primeiros 1.000 fundadores (programa encerrado desde ${endDate}) receberam o Pro vitalício grátis`,
-  },
-  fr: {
-    open: () => `les 1 000 premiers fondateurs bénéficient du Pro à vie gratuitement`,
-    closed: (endDate) =>
-      `les 1 000 premiers fondateurs (programme clos depuis le ${endDate}) ont bénéficié du Pro à vie gratuitement`,
-  },
-  pl: {
-    open: () => `pierwsze 1000 kont zalozycielskich otrzymuje Pro dozywotnio za darmo`,
-    closed: (endDate) =>
-      `pierwsze 1000 kont zalozycielskich (program zamkniety od ${endDate}) otrzymalo Pro dozywotnio za darmo`,
-  },
-  // tr/ja/ko: clausola = frase intera (vedi nota in testa al file).
-  tr: {
-    open: () => `ilk 1000 kurucu hesap, kayit sirasinda otomatik olarak ömür boyu ücretsiz Pro kazanir`,
-    closed: (endDate) =>
-      `ilk 1000 kurucu hesap (program ${endDate} itibariyla kapandi), kayit sirasinda otomatik olarak ömür boyu ücretsiz Pro kazandi`,
-  },
-  nl: {
-    open: () => `de eerste 1.000 founders krijgen Pro levenslang gratis`,
-    closed: (endDate) =>
-      `de eerste 1.000 founders (programma gesloten sinds ${endDate}) hebben Pro levenslang gratis gekregen`,
-  },
-  ja: {
-    open: () => `最初の1,000人のファウンダーは登録時に自動で生涯Proが無料になります`,
-    closed: (endDate) =>
-      `最初の1,000人のファウンダー（${endDate}に終了したプログラム）は、登録時に自動で生涯Proを無料で取得しました`,
-  },
-  ko: {
-    open: () => `처음 1,000명의 파운더는 가입 시 자동으로 평생 Pro를 무료로 받습니다`,
-    closed: (endDate) =>
-      `처음 1,000명의 파운더(${endDate}에 종료된 프로그램)는 가입 시 자동으로 평생 Pro를 무료로 받았습니다`,
-  },
-  sv: {
-    open: () => `de första 1 000 grundarna får livstids-Pro gratis`,
-    closed: (endDate) =>
-      `de första 1 000 grundarna (programmet stängt sedan den ${endDate}) fick livstids-Pro gratis`,
-  },
-  da: {
-    open: () => `de første 1.000 grundlæggere får livstids-Pro gratis`,
-    closed: (endDate) =>
-      `de første 1.000 grundlæggere (programmet lukket siden den ${endDate}) fik livstids-Pro gratis`,
-  },
-  no: {
-    open: () => `de første 1000 founder-brukerne får livstids Pro gratis`,
-    closed: (endDate) =>
-      `de første 1000 founder-brukerne (programmet stengt siden ${endDate}) fikk livstids Pro gratis`,
-  },
-  fi: {
-    open: () => `ensimmäiset 1 000 perustajakäyttäjää saavat elinikäisen Pro-version ilmaiseksi`,
-    closed: (endDate) =>
-      `ensimmäiset 1 000 perustajakäyttäjää (ohjelma suljettu ${endDate} alkaen) saivat elinikäisen Pro-version ilmaiseksi`,
-  },
+const CLAUSE: Record<string, string> = {
+  it: "i primi 1000 founder, tra gli account registrati entro il 31 luglio 2026 con una prima sincronizzazione reale entro 14 giorni dalla registrazione, ricevono il Pro a vita gratis",
+  en: "the first 1,000 founders, among accounts registered by 31 July 2026 with a first verified sync within 14 days of registration, get lifetime Pro free",
+  es: "los primeros 1.000 fundadores, entre las cuentas registradas antes del 31 de julio de 2026 con una primera sincronización real en los 14 días posteriores al registro, obtienen Pro de por vida gratis",
+  de: "die ersten 1.000 Gründer, unter den bis zum 31. Juli 2026 registrierten Konten mit einer echten ersten Synchronisierung innerhalb von 14 Tagen nach der Registrierung, erhalten Pro dauerhaft kostenlos",
+  pt: "os primeiros 1.000 fundadores, entre as contas registadas até 31 de julho de 2026 com uma primeira sincronização real em até 14 dias após o registo, recebem o Pro vitalício grátis",
+  fr: "les 1 000 premiers fondateurs, parmi les comptes enregistrés avant le 31 juillet 2026 avec une première synchronisation réelle dans les 14 jours suivant l'inscription, bénéficient du Pro à vie gratuitement",
+  pl: "pierwsze 1000 kont zalozycielskich, sposrod kont zarejestrowanych do 31 lipca 2026 z pierwsza rzeczywista synchronizacja w ciagu 14 dni od rejestracji, otrzymuje Pro dozywotnio za darmo",
+  tr: "ilk 1000 kurucu hesap — 31 Temmuz 2026'ya kadar kayit olan ve kayittan itibaren 14 gun icinde gercek bir ilk senkronizasyon yapan hesaplar arasindan — ömür boyu ücretsiz Pro kazanir",
+  nl: "de eerste 1.000 founders, onder de accounts geregistreerd vóór 31 juli 2026 met een echte eerste synchronisatie binnen 14 dagen na registratie, krijgen Pro levenslang gratis",
+  ja: "最初の1,000人のファウンダー（2026年7月31日までに登録し、登録から14日以内に実際の初回同期を行ったアカウントのうち）は生涯Proを無料で取得します",
+  ko: "처음 1,000명의 파운더(2026년 7월 31일까지 가입하고 가입 후 14일 이내에 실제 첫 동기화를 완료한 계정 중)는 평생 Pro를 무료로 받습니다",
+  sv: "de första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, får livstids-Pro gratis",
+  da: "de første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, får livstids-Pro gratis",
+  no: "de første 1000 founder-brukerne, blant kontoene som er registrert innen 31. juli 2026 med en reell første synkronisering innen 14 dager etter registrering, får livstids Pro gratis",
+  fi: "ensimmäiset 1 000 perustajakäyttäjää, niiden tilien joukossa, jotka on rekisteröity viimeistään 31. heinäkuuta 2026 ja jotka ovat tehneet aidon ensimmäisen synkronoinnin 14 päivän kuluessa rekisteröitymisestä, saavat elinikäisen Pro-version ilmaiseksi",
 };
 
 /** Valore breve per una riga "key facts" / tabella. */
-const KEY_FACT_EN: FounderVariant = {
-  open: (endDate) => `First 1,000 accounts (limited seats, through ${endDate}): lifetime Pro free`,
-  closed: (endDate) =>
-    `First 1,000 accounts (program closed as of ${endDate}): lifetime Pro free for those who signed up in time`,
+const KEY_FACT: Record<string, string> = {
+  it: "Primi 1000 account (registrati entro il 31/07/2026, prima sync reale entro 14gg): Pro a vita gratis",
+  en: "First 1,000 accounts (registered by 31 Jul 2026, first real sync within 14 days): lifetime Pro free",
+  es: "Primeras 1.000 cuentas (registradas antes del 31/07/2026, primera sync real en 14 días): Pro de por vida gratis",
+  de: "Erste 1.000 Konten (registriert bis 31.07.2026, echte erste Synchronisierung innerhalb von 14 Tagen): Pro dauerhaft kostenlos",
+  pt: "Primeiras 1.000 contas (registadas até 31/07/2026, primeira sincronização real em 14 dias): Pro vitalício grátis",
+  fr: "1 000 premiers comptes (inscrits avant le 31/07/2026, première synchronisation réelle sous 14 jours) : Pro à vie gratuit",
+  pl: "Pierwsze 1000 kont (zarejestrowane do 31.07.2026, pierwsza rzeczywista synchronizacja w 14 dni): Pro dozywotnio za darmo",
+  tr: "Ilk 1000 hesap (31.07.2026'ya kadar kayit, 14 gun icinde gercek ilk senkronizasyon): ömür boyu ücretsiz Pro",
+  nl: "Eerste 1.000 accounts (geregistreerd vóór 31-07-2026, echte eerste synchronisatie binnen 14 dagen): Pro levenslang gratis",
+  ja: "最初の1,000アカウント（2026年7月31日までに登録、14日以内に実際の初回同期）：生涯Pro無料",
+  ko: "처음 1,000개 계정(2026년 7월 31일까지 가입, 14일 이내 실제 첫 동기화): 평생 Pro 무료",
+  sv: "Första 1 000 kontona (registrerade senast 2026-07-31, verklig första synk inom 14 dagar): livstids-Pro gratis",
+  da: "Første 1.000 konti (registreret senest 31-07-2026, reel første synk inden for 14 dage): livstids-Pro gratis",
+  no: "Første 1000 kontoene (registrert innen 31.07.2026, reell første synk innen 14 dager): livstids Pro gratis",
+  fi: "Ensimmäiset 1 000 tiliä (rekisteröity viimeistään 31.7.2026, aito ensimmäinen synkronointi 14 päivän kuluessa): elinikäinen Pro ilmaiseksi",
 };
 
-const KEY_FACT: Record<string, FounderVariant> = {
-  it: {
-    open: (endDate) => `Primi 1000 account (posti limitati, fino al ${endDate}): Pro a vita gratis`,
-    closed: (endDate) =>
-      `Primi 1000 account (programma chiuso dal ${endDate}): Pro a vita gratis per chi si è registrato in tempo`,
-  },
-  en: KEY_FACT_EN,
-  es: {
-    open: () => `Primeros 1.000 cuentas: Pro de por vida gratis (activado automáticamente al registrarse)`,
-    closed: (endDate) =>
-      `Primeros 1.000 cuentas (hasta el ${endDate}): Pro de por vida gratis para quienes se registraron a tiempo`,
-  },
-  de: {
-    open: () => `Erste 1.000 Konten: Pro dauerhaft kostenlos (automatisch bei Registrierung)`,
-    closed: (endDate) =>
-      `Erste 1.000 Konten (bis zum ${endDate}): Pro dauerhaft kostenlos für alle, die sich rechtzeitig registriert haben`,
-  },
-  pt: {
-    open: () => `Primeiras 1.000 contas: Pro vitalício grátis (ativado automaticamente no cadastro)`,
-    closed: (endDate) =>
-      `Primeiras 1.000 contas (até ${endDate}): Pro vitalício grátis para quem se cadastrou a tempo`,
-  },
-  fr: {
-    open: () => `1 000 premiers comptes : Pro à vie gratuit (activé automatiquement à l'inscription)`,
-    closed: (endDate) =>
-      `1 000 premiers comptes (jusqu'au ${endDate}) : Pro à vie gratuit pour ceux qui se sont inscrits à temps`,
-  },
-  pl: {
-    open: () => `Pierwsze 1000 kont: Pro dozywotnio za darmo (automatycznie przy rejestracji)`,
-    closed: (endDate) =>
-      `Pierwsze 1000 kont (do ${endDate}): Pro dozywotnio za darmo dla tych, ktorzy zarejestrowali sie na czas`,
-  },
-  tr: {
-    open: () => `Ilk 1000 hesap: ömür boyu ücretsiz Pro (kayitta otomatik)`,
-    closed: (endDate) => `Ilk 1000 hesap (${endDate}'ya kadar): zamaninda kayit olanlar icin ömür boyu ücretsiz Pro`,
-  },
-  nl: {
-    open: () => `Eerste 1.000 accounts: Pro levenslang gratis (automatisch bij registratie)`,
-    closed: (endDate) =>
-      `Eerste 1.000 accounts (tot ${endDate}): Pro levenslang gratis voor wie zich op tijd heeft aangemeld`,
-  },
-  ja: {
-    open: () => `最初の1,000アカウント：生涯Pro無料（登録時に自動付与）`,
-    closed: (endDate) => `最初の1,000アカウント（${endDate}まで）：期限内に登録した方には生涯Pro無料（登録時に自動付与）`,
-  },
-  ko: {
-    open: () => `처음 1,000개 계정: 평생 Pro 무료 (가입 시 자동 부여)`,
-    closed: (endDate) => `처음 1,000개 계정(${endDate}까지): 제때 가입한 분에게는 평생 Pro 무료 (가입 시 자동 부여)`,
-  },
-  sv: {
-    open: () => `Första 1 000 kontona: livstids-Pro gratis (tilldelas automatiskt vid registrering)`,
-    closed: (endDate) =>
-      `Första 1 000 kontona (till den ${endDate}): livstids-Pro gratis för dem som registrerade sig i tid`,
-  },
-  da: {
-    open: () => `De første 1.000 konti: livstids-Pro gratis (tildeles automatisk ved tilmelding)`,
-    closed: (endDate) =>
-      `De første 1.000 konti (indtil den ${endDate}): livstids-Pro gratis for dem, der tilmeldte sig i tide`,
-  },
-  no: {
-    open: () => `De første 1000 kontoene: livstids Pro gratis (tildelt automatisk ved registrering)`,
-    closed: (endDate) =>
-      `De første 1000 kontoene (innen ${endDate}): livstids Pro gratis for dem som registrerte seg i tide`,
-  },
-  fi: {
-    open: () => `Ensimmäiset 1 000 tiliä: elinikäinen Pro ilmaiseksi (myönnetään automaattisesti rekisteröitymisessä)`,
-    closed: (endDate) => `Ensimmäiset 1 000 tiliä (${endDate} asti): elinikäinen Pro ilmaiseksi ajoissa rekisteröityneille`,
-  },
+/**
+ * Frase completa (2 periodi, standalone) per articoli/landing dove serve
+ * spiegare per intero la regola, non solo innestarla in una frase esistente
+ * — testo esatto IT/EN fornito da Matteo, altre locale adattate dallo
+ * stesso vocabolario umano di CLAUSE/KEY_FACT sopra.
+ */
+const STATEMENT: Record<string, string> = {
+  it: "L'idoneità Founder è limitata ai primi 1.000 account registrati entro il 31 luglio 2026 e richiede una prima sincronizzazione reale entro 14 giorni dalla registrazione. Gli account creati dal 1° agosto 2026 non sono idonei al programma Founder: ricevono 14 giorni di prova Pro, poi serve un acquisto o un abbonamento.",
+  en: "Founder eligibility is limited to the first 1,000 accounts registered by 31 July 2026 and requires a first verified sync within 14 days of registration. Accounts created from 1 August 2026 are not eligible for Founder status: they receive a 14-day Pro trial, followed by a purchase or subscription.",
+  es: "La elegibilidad para el programa Founder está limitada a las primeras 1.000 cuentas registradas antes del 31 de julio de 2026 y requiere una primera sincronización real en los 14 días posteriores al registro. Las cuentas creadas a partir del 1 de agosto de 2026 no son elegibles para el programa Founder: reciben una prueba Pro de 14 días, tras la cual es necesaria una compra o suscripción.",
+  de: "Die Teilnahme am Founder-Programm ist auf die ersten 1.000 bis zum 31. Juli 2026 registrierten Konten beschränkt und erfordert eine echte erste Synchronisierung innerhalb von 14 Tagen nach der Registrierung. Ab dem 1. August 2026 erstellte Konten sind nicht mehr für das Founder-Programm berechtigt: Sie erhalten eine 14-tägige Pro-Testphase, danach ist ein Kauf oder Abonnement erforderlich.",
+  pt: "A elegibilidade para o programa Founder está limitada às primeiras 1.000 contas registadas até 31 de julho de 2026 e requer uma primeira sincronização real nos 14 dias seguintes ao registo. As contas criadas a partir de 1 de agosto de 2026 não são elegíveis para o programa Founder: recebem um período de teste Pro de 14 dias, após o qual é necessária uma compra ou subscrição.",
+  fr: "L'éligibilité au programme Founder est limitée aux 1 000 premiers comptes enregistrés avant le 31 juillet 2026 et nécessite une première synchronisation réelle dans les 14 jours suivant l'inscription. Les comptes créés à partir du 1er août 2026 ne sont pas éligibles au programme Founder : ils bénéficient d'un essai Pro de 14 jours, suivi d'un achat ou d'un abonnement.",
+  pl: "Uczestnictwo w programie Founder jest ograniczone do pierwszych 1000 kont zarejestrowanych do 31 lipca 2026 i wymaga pierwszej rzeczywistej synchronizacji w ciagu 14 dni od rejestracji. Konta utworzone od 1 sierpnia 2026 nie kwalifikuja sie do programu Founder: otrzymuja 14-dniowy okres próbny Pro, po którym wymagany jest zakup lub subskrypcja.",
+  tr: "Kurucu (Founder) uygunlugu, 31 Temmuz 2026'ya kadar kayit olan ilk 1000 hesapla sinirlidir ve kayittan itibaren 14 gun icinde gercek bir ilk senkronizasyon gerektirir. 1 Agustos 2026'dan itibaren olusturulan hesaplar Kurucu programina uygun degildir: 14 günlük ücretsiz Pro denemesi alirlar, ardindan satin alma veya abonelik gerekir.",
+  nl: "Founder-geschiktheid is beperkt tot de eerste 1.000 accounts die vóór 31 juli 2026 zijn geregistreerd en vereist een echte eerste synchronisatie binnen 14 dagen na registratie. Accounts die vanaf 1 augustus 2026 worden aangemaakt, komen niet in aanmerking voor de Founder-status: zij krijgen een gratis proefperiode van 14 dagen voor Pro, waarna een aankoop of abonnement nodig is.",
+  ja: "ファウンダー資格は2026年7月31日までに登録された最初の1,000アカウントに限定され、登録から14日以内の実際の初回同期が必要です。2026年8月1日以降に作成されたアカウントはファウンダープログラムの対象外です：14日間のProトライアルが提供され、その後は購入またはサブスクリプションが必要になります。",
+  ko: "파운더 자격은 2026년 7월 31일까지 가입한 처음 1,000개 계정으로 제한되며, 가입 후 14일 이내에 실제 첫 동기화가 필요합니다. 2026년 8월 1일 이후 생성된 계정은 파운더 프로그램 대상이 아닙니다: 14일간의 Pro 체험판이 제공되며, 이후에는 구매 또는 구독이 필요합니다.",
+  sv: "Rätten att bli grundare är begränsad till de första 1 000 kontona som registrerats senast den 31 juli 2026 och kräver en verklig första synkronisering inom 14 dagar efter registreringen. Konton som skapas från och med den 1 augusti 2026 är inte berättigade till grundarprogrammet: de får en 14 dagars gratis Pro-provperiod, följt av ett köp eller en prenumeration.",
+  da: "Berettigelse til grundlæggerprogrammet er begrænset til de første 1.000 konti, der er registreret senest den 31. juli 2026, og kræver en reel første synkronisering inden for 14 dage efter tilmelding. Konti oprettet fra den 1. august 2026 er ikke berettigede til grundlæggerprogrammet: de får en 14-dages gratis Pro-prøveperiode, hvorefter et køb eller abonnement er nødvendigt.",
+  no: "Founder-kvalifisering er begrenset til de første 1000 kontoene som er registrert innen 31. juli 2026, og krever en reell første synkronisering innen 14 dager etter registrering. Kontoer opprettet fra og med 1. august 2026 er ikke kvalifisert for founder-programmet: de får en 14-dagers gratis Pro-prøveperiode, etterfulgt av kjøp eller abonnement.",
+  fi: "Perustajakäyttäjän kelpoisuus rajoittuu ensimmäiseen 1 000 tiliin, jotka on rekisteröity viimeistään 31. heinäkuuta 2026, ja edellyttää aitoa ensimmäistä synkronointia 14 päivän kuluessa rekisteröitymisestä. 1. elokuuta 2026 tai sen jälkeen luodut tilit eivät ole oikeutettuja perustajakäyttäjän ohjelmaan: ne saavat 14 päivän ilmaisen Pro-kokeilun, jonka jälkeen tarvitaan osto tai tilaus.",
 };
 
-function render(
-  table: Record<string, FounderVariant>,
-  fallback: FounderVariant,
-  locale: string,
-  now: Date,
-): string {
-  // Fallback EN difensivo: se una locale nuova arrivasse senza copy umana,
-  // meglio l'inglese corretto di una frase falsa o vuota (dopo questo
-  // sprint tutte e 15 le locale del sito sono presenti nelle mappe).
-  const variant = table[locale] ?? fallback;
-  const endDate = formatFounderEndDate(table[locale] ? locale : "en");
-  return isFounderProgramOpen(now) ? variant.open(endDate) : variant.closed(endDate);
+const FALLBACK_LOCALE = "en";
+
+/** Frase da inserire in un paragrafo discorsivo (press kit, blog). Invariante: vera sia prima sia dopo il cutoff. */
+export function founderHistoricalClause(locale: string): string {
+  return CLAUSE[locale] ?? CLAUSE[FALLBACK_LOCALE];
 }
 
-/** Frase da inserire in un paragrafo discorsivo (press kit, blog). */
-export function founderHistoricalClause(locale: string, now: Date = new Date()): string {
-  return render(CLAUSE, CLAUSE_EN, locale, now);
+/** Valore breve per una riga "key facts" / tabella. Invariante. */
+export function founderHistoricalKeyFact(locale: string): string {
+  return KEY_FACT[locale] ?? KEY_FACT[FALLBACK_LOCALE];
 }
 
-/** Valore breve per una riga "key facts" / tabella. */
-export function founderHistoricalKeyFact(locale: string, now: Date = new Date()): string {
-  return render(KEY_FACT, KEY_FACT_EN, locale, now);
+/** Frase completa standalone (2 periodi) per articoli/landing/FAQ. Invariante. */
+export function founderEligibilityStatement(locale: string): string {
+  return STATEMENT[locale] ?? STATEMENT[FALLBACK_LOCALE];
 }

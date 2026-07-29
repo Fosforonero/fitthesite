@@ -139,15 +139,36 @@ for (const file of allFiles) {
 // client-side, e' prosa fissa generata al build) — una frase tipo "i primi
 // 1000 founder (programma chiuso dal 31 luglio 2026)" e' vera solo in META'
 // del tempo (prima O dopo il cutoff, mai in entrambe), se hardcoded.
-// lib/founder/historical-note.ts risolve la frase al momento del build
-// leggendo isFounderProgramOpen() — questo check richiede che qualunque
-// file con una frase "founder...2026" nella stessa proposizione importi
-// quell'helper, sia in GATED_SURFACES/allow-list qui sopra, o sia
-// esplicitamente su questa TODO-list (debito noto, audit Sprint P0.10E,
-// da chiudere in un giro di contenuto dedicato con revisione manuale
-// IT/EN — niente Ollama per queste lingue).
+//
+// Sprint P0.10G — AGGIORNAMENTO: il debito e' stato CHIUSO con una
+// correzione di contenuto dedicata (audit + riscrittura invariante, non
+// traduzione automatica). I file sotto NON hanno piu' una claim
+// aperto/chiuso legata alla data — la parentetica e' stata riscritta da
+// "programma chiuso dal 31 luglio 2026" (falso META' del tempo) a "entro il
+// 31 luglio 2026" (vero SEMPRE: descrive il limite della regola, non lo
+// stato del momento). Restano in questa lista non perche' sia debito
+// residuo, ma perche' la correzione e' stata fatta come sostituzione
+// testuale mirata della sola parentetica, non richiamando sintatticamente
+// founderHistoricalClause()/founderHistoricalKeyFact() — quindi questo
+// check (che cerca una CHIAMATA all'helper, non la correttezza semantica
+// del testo) non li riconoscerebbe come "coperti" senza questa esclusione
+// esplicita. Verificato in P0.10G (founder:static-invariant-check +
+// ispezione diretta dell'HTML buildato) che nessuno di questi file contiene
+// piu' il pattern falso.
+// Sprint P0.10G: lib/founder/historical-note.ts e' la DEFINIZIONE di
+// founderHistoricalClause()/founderHistoricalKeyFact()/
+// founderEligibilityStatement() — contiene per costruzione le stringhe
+// letterali "founder"+"1000"+"2026" (sono il VALORE DI RITORNO della
+// funzione, ora invariante: nessun ramo aperto/chiuso, solo la regola di
+// idoneita'), non una chiamata alla funzione stessa. Un helper non deve
+// "chiamare se stesso" per essere considerato coperto — escluso qui,
+// altrimenti il check fallirebbe sempre non appena la data compare come
+// stringa letterale invece che come parametro ${endDate} dinamico (era
+// cosi' nella versione precedente, pre-P0.10G, per questo il file passava
+// senza bisogno di questa esclusione esplicita).
+const HELPER_DEFINITION_FILES = new Set(["lib/founder/historical-note.ts"]);
+
 const KNOWN_UNGATED_DATE_CLAIM_DEBT = new Set([
-  "lib/landing/data.ts",
   "lib/blog/posts/come-funziona-fitmesh.ts",
   "lib/blog/posts/migliori-anelli-economici.ts",
   "lib/blog/posts/tracciare-sonno-anello.ts",
@@ -184,6 +205,7 @@ const HELPER_CALL_RE = /founderHistorical(Clause|KeyFact)\s*\(/g;
 for (const file of allFiles) {
   const rel = path.relative(repoRoot, file);
   if (GATED_SURFACES.includes(rel)) continue;
+  if (HELPER_DEFINITION_FILES.has(rel)) continue;
   if (KNOWN_UNGATED_DATE_CLAIM_DEBT.has(rel)) continue;
   // fitmesh-gratis-prezzo-founder.ts e' gia' nell'allow-list storica/legale
   // del check #2 sopra (ALLOWED_UNGATED_FILES): stessa copy gia' rivista,

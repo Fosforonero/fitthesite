@@ -8,6 +8,12 @@
  * per lo scenario completo, con un passaggio strutturale leggero sulle
  * restanti 13 locale.
  *
+ * Sprint P0.10G: eseguito su DUE motori — Chromium e WebKit (Safari) — non
+ * solo Chromium. Motivazione: WebKit ha storicamente un parsing di
+ * `Date`/fusi orari diverso da V8, e una quota reale di utenti (iOS Safari)
+ * visita il sito con quel motore — un bug al confine esatto del cutoff
+ * visibile solo su WebKit non verrebbe mai scoperto testando solo Chromium.
+ *
  * L'orologio del browser viene fissato via `context.addInitScript` che
  * sovrascrive `Date`/`Date.now` PRIMA che qualunque script della pagina
  * giri — stesso principio gia' usato in check-anti-loop-locale-routing.ts
@@ -23,9 +29,14 @@
  * Playwright con i browser installati (immagine mcr.microsoft.com/playwright,
  * non node:22 nudo — stesso requisito di check-anti-loop-locale-routing.ts).
  */
-import { chromium, type Browser, type Page } from "playwright";
+import { chromium, webkit, type Browser, type BrowserType, type Page } from "playwright";
 import { locales } from "@/lib/i18n";
 import { FOUNDER_END_AT_MS } from "@/lib/founder/program-window";
+
+const ENGINES: Array<{ name: string; launcher: BrowserType }> = [
+  { name: "chromium", launcher: chromium },
+  { name: "webkit", launcher: webkit },
+];
 
 const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
 
@@ -183,14 +194,13 @@ async function checkBeta(page: Page, locale: string, expectOpen: boolean, failur
   }
 }
 
-async function main() {
-  const failures: Failure[] = [];
-  const browser = await chromium.launch();
+async function runForEngine(engineName: string, launcher: BrowserType, failures: Failure[]) {
+  const browser = await launcher.launch();
 
-  console.log("== 1/2 — scenari completi IT/EN sui 3 istanti di cutoff ==");
+  console.log(`== [${engineName}] 1/2 — scenari completi IT/EN sui 3 istanti di cutoff ==`);
   for (const locale of ["it", "en"]) {
     for (const instant of INSTANTS) {
-      const label = `${locale} @ ${instant.label}`;
+      const label = `${engineName}:${locale} @ ${instant.label}`;
       const page = await withFixedClock(browser, instant.ms);
       try {
         await checkHomepageDesktop(page, locale, instant.expectOpen, failures, label, instant.ms);
@@ -209,7 +219,7 @@ async function main() {
     }
   }
 
-  console.log("== 2/2 — completezza strutturale sulle restanti 13 locale (nessuna richiesta di rete per decidere lo stato, homepage renderizza senza errori) ==");
+  console.log(`== [${engineName}] 2/2 — completezza strutturale sulle restanti 13 locale (nessuna richiesta di rete per decidere lo stato, homepage renderizza senza errori) ==`);
   const otherLocales = locales.filter((l) => l !== "it" && l !== "en");
   for (const locale of otherLocales) {
     const context = await browser.newContext();
@@ -224,10 +234,10 @@ async function main() {
       await page.goto(`${BASE_URL}/${locale}`, { waitUntil: "networkidle", timeout: 30_000 });
       const bodyText = await page.locator("body").innerText();
       if (bodyText.trim().length < 50) {
-        failures.push({ scenario: `structural:${locale}`, detail: `homepage ${locale} sembra vuota o non renderizzata.` });
+        failures.push({ scenario: `${engineName}:structural:${locale}`, detail: `homepage ${locale} sembra vuota o non renderizzata.` });
       }
     } catch (err) {
-      failures.push({ scenario: `structural:${locale}`, detail: `errore navigazione: ${(err as Error).message}` });
+      failures.push({ scenario: `${engineName}:structural:${locale}`, detail: `errore navigazione: ${(err as Error).message}` });
     } finally {
       await context.close();
     }
@@ -235,6 +245,18 @@ async function main() {
   }
 
   await browser.close();
+}
+
+async function main() {
+  const failures: Failure[] = [];
+
+  // Sprint P0.10G: entrambi i motori, non solo Chromium — vedi commento di
+  // testa al file per il perche' (WebKit/Safari ha un parsing Date/fuso
+  // diverso da V8, e una quota reale di utenti iOS visita il sito con
+  // quel motore).
+  for (const { name, launcher } of ENGINES) {
+    await runForEngine(name, launcher, failures);
+  }
 
   if (failures.length > 0) {
     console.error(`\n❌ founder:cutoff-render-check: ${failures.length} problema/i\n`);
@@ -242,7 +264,7 @@ async function main() {
     process.exit(1);
   } else {
     console.log(
-      "\n✅ founder:cutoff-render-check: header/footer/menu mobile/beta mostrano la variante corretta a cutoff-1s/esatto/+1s su IT/EN, nessuna CTA/badge Founder residua dopo il cutoff, nessun form residuo su /beta, 13 locale strutturalmente renderizzate.",
+      `\n✅ founder:cutoff-render-check: header/footer/menu mobile/beta mostrano la variante corretta a cutoff-1s/esatto/+1s su IT/EN su ${ENGINES.map((e) => e.name).join(" e ")}, nessuna CTA/badge Founder residua dopo il cutoff, nessun form residuo su /beta, 13 locale strutturalmente renderizzate su entrambi i motori.`,
     );
   }
 }

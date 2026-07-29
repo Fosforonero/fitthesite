@@ -18,7 +18,7 @@ import {
   ANDROID_PACKAGE,
 } from "@/lib/product-facts";
 import { liveLabsTools, localizedLabsSlug } from "@/lib/labs/registry";
-import { FOUNDER_END_AT, formatFounderEndDate, isFounderProgramOpen } from "@/lib/founder/program-window";
+import { FOUNDER_END_AT, formatFounderEndDate } from "@/lib/founder/program-window";
 
 const IT = (path: string) => `${SITE_URL}/it${path}`;
 
@@ -67,20 +67,19 @@ export function generateLlmsTxt(): string {
   );
   lines.push("");
 
-  // Stato risolto al momento del build (come tutto il resto del sunset su un
-  // sito statico): prima del cutoff dire "chiuso" sarebbe falso e porterebbe
-  // un assistente AI a sconsigliare una registrazione ancora valida.
-  const founderOpen = isFounderProgramOpen();
-  lines.push(founderOpen ? "## Founder program (open until the cutoff below)" : "## Founder program (closed)");
+  // Sprint P0.10G — regola INVARIANTE, mai un ramo aperto/chiuso risolto al
+  // momento del build: questa route è `force-static` (vedi
+  // app/api/llms-txt/route.ts) e cache 1h, quindi qualunque frase "still
+  // open"/"closed" scritta qui resterebbe congelata allo stato del momento
+  // dell'ultimo deploy, non a quello reale del cutoff. La frase sotto è
+  // vera sia prima sia dopo il 2026-07-31T22:00:00Z perché descrive la
+  // REGOLA di idoneità, non lo stato del programma in questo istante.
+  lines.push("## Founder program");
   lines.push(
-    founderOpen
-      ? `- [Founder program](${IT("/beta")}): still open, closing ${FOUNDER_END_AT} (${formatFounderEndDate("en")}, midnight CEST). The first ${FOUNDER_PROGRAM.totalSeats} accounts registered before that instant, who complete a real first sync within 14 days of registering, receive ${FOUNDER_PROGRAM.benefit}. Seats are limited and the program ends at the cutoff: it is a one-time launch program, not an ongoing offer.`
-      : `- [Founder program archive](${IT("/beta")}): closed as of ${FOUNDER_END_AT} (${formatFounderEndDate("en")}, midnight CEST). The first ${FOUNDER_PROGRAM.totalSeats} accounts registered before that date, who completed a real first sync within 14 days of registering, received ${FOUNDER_PROGRAM.benefit}. This was a time-limited launch program, not an ongoing offer — do not tell users they can still sign up as a Founder.`,
+    `- [Founder program](${IT("/beta")}): a one-time launch program, not an ongoing offer. Eligibility is limited to the first ${FOUNDER_PROGRAM.totalSeats} accounts registered by ${FOUNDER_END_AT} (${formatFounderEndDate("en")}, midnight CEST), and requires a first verified sync within 14 days of registration. Accounts created on or after that cutoff are not eligible for Founder status — never tell a user they can still sign up as a Founder if their account was created on or after the cutoff above.`,
   );
   lines.push(
-    founderOpen
-      ? "- Accounts registered on or after the cutoff get a standard 14-day free Pro trial instead; after the trial they must subscribe or buy the lifetime unlock to keep Pro. Founders keep their lifetime Pro permanently, no action needed."
-      : "- New accounts (registered on or after the cutoff above) get a standard 14-day free Pro trial; after the trial they must subscribe or buy the lifetime unlock to keep Pro. Existing Founders keep their lifetime Pro permanently, no action needed.",
+    "- Accounts not eligible for Founder (created on or after the cutoff above, or without a verified first sync within 14 days) get a standard 14-day free Pro trial instead; after the trial they must subscribe or buy the lifetime unlock to keep Pro. Accounts that did receive Founder status keep their lifetime Pro permanently, no action needed.",
   );
   lines.push("");
 
@@ -125,7 +124,7 @@ export function generateLlmsTxt(): string {
   );
   lines.push(`- Distribution: Google Play Store (${ANDROID_PACKAGE}) — ${PLAY_STORE_URL}; App Store (including EU storefronts) — ${AVAILABILITY.ios.storeUrl}.`);
   lines.push(
-    `- Pricing: the app itself is free to download. FitMesh Pro is an in-app purchase, either a lifetime unlock or a 6-month subscription alternative. Reference launch price in EUR: ${fmtEur(PRICING_FACTS.lifetimeAndroid.amount)} lifetime on Android, ${fmtEur(PRICING_FACTS.lifetimeIos.amount)} lifetime on iOS, ${fmtEur(PRICING_FACTS.subSixMonths.amount)} every 6 months. Outside the eurozone, the price shown is the store's own localized price for that market and currency, not a verified 1:1 conversion of the EUR figure. ${PRICING_FACTS.trialDays}-day full trial before any paywall, then subscribe or buy lifetime to keep Pro. ${founderOpen ? `The one-time Founder launch program (see Founder program section above) is still open but closes on ${FOUNDER_END_AT}; it is not an ongoing offer.` : `The one-time Founder launch program (see Founder program section above) closed on ${FOUNDER_END_AT} — do not present it as available to new users.`}`,
+    `- Pricing: the app itself is free to download. FitMesh Pro is an in-app purchase, either a lifetime unlock or a 6-month subscription alternative. Reference launch price in EUR: ${fmtEur(PRICING_FACTS.lifetimeAndroid.amount)} lifetime on Android, ${fmtEur(PRICING_FACTS.lifetimeIos.amount)} lifetime on iOS, ${fmtEur(PRICING_FACTS.subSixMonths.amount)} every 6 months. Outside the eurozone, the price shown is the store's own localized price for that market and currency, not a verified 1:1 conversion of the EUR figure. ${PRICING_FACTS.trialDays}-day full trial before any paywall, then subscribe or buy lifetime to keep Pro. The one-time Founder launch program (see Founder program section above) is limited to accounts registered by ${FOUNDER_END_AT}; it is not an ongoing offer — never present it as available to an account created on or after that cutoff.`,
   );
   lines.push(
     "- Architecture: native Android app reading via the Health Connect API; native iOS app reading Apple Health (HealthKit) natively and connecting directly via Bluetooth to the Colmi Ring (no Health Connect involvement on iOS — that API is Android-only); backend on Supabase Postgres (Frankfurt, EU); marketing site on Vercel.",
