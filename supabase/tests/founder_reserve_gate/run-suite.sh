@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-# Sprint P0.10E-D — verifica la migration REALE, non riscritta qui
+# Sprint P0.10E-E — verifica la migration REALE, non riscritta qui
 # (20260729120000_founder_reserve_cutoff_gate.sql) su supabase/postgres
-# reale.
+# reale. PRE_FIX_MD5 e' invariato da P0.10E-D (il corpo live in produzione
+# non e' mai cambiato in questo sprint — solo la sua ricostruzione qui e'
+# stata corretta contro la convenzione live reale, vedi la migration per il
+# dettaglio completo dei due bug trovati e corretti in P0.10E-E).
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
@@ -63,7 +66,7 @@ rm -f "/tmp/migration-local-hash-$$.sql"
 log "4/10 - migration reale (con hash pre-fix sostituito per il test locale, hash post-fix INVARIATO)"
 docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/apply.sql
 
-log "5/10 - test funzionali (32 casi, incl. barriera atomica _apply_founder_grant e ri-verifica FASE 5)"
+log "5/10 - test funzionali (39 casi, incl. barriera atomica _apply_founder_grant, ri-verifica FASE 5, allowlist/null-check/CONSTRAINT_NAME P0.10E-E)"
 docker cp "$DIR/10-functional-tests.sql" "$CID":/tmp/test.sql >/dev/null
 docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/test.sql
 
@@ -289,5 +292,5 @@ rm -f /tmp/founder-race-a-$$.out /tmp/founder-race-b-$$.out
 
 echo ""
 echo "=========================================="
-echo "Sprint P0.10E-D: TUTTE LE VERIFICHE OK"
+echo "Sprint P0.10E-E: TUTTE LE VERIFICHE OK"
 echo "=========================================="

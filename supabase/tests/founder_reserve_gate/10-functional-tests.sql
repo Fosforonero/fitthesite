@@ -1,4 +1,4 @@
--- Sprint P0.10E-D — test funzionali della migration REALE
+-- Sprint P0.10E-E — test funzionali della migration REALE
 -- (20260729120000_founder_reserve_cutoff_gate.sql) su supabase/postgres
 -- reale. Ogni caso chiama SEMPRE public.claim_founder_grant_if_eligible()
 -- (il nome pubblico ORIGINALE, zero argomenti) tramite test.call_gate_as():
@@ -7,6 +7,9 @@
 -- collaterale, non solo il caso 1. Casi 16-22: no-clobber sottoscrizioni
 -- commerciali nel wrapper (BLOCCO 3). Casi 24-32: barriera atomica REALE
 -- dentro _apply_founder_grant (FASE 4) e ri-verifica post-delega (FASE 5).
+-- Casi 37-39 (P0.10E-E): allowlist reale/null-check ripristinati e
+-- selettivita' del GET STACKED DIAGNOSTICS/CONSTRAINT_NAME — 33-36 sono
+-- riservati ai test di concorrenza reale in run-suite.sh (bash).
 \set ON_ERROR_STOP on
 set role postgres;
 
@@ -38,6 +41,12 @@ declare
   v_user uuid := test.mkuser('allowlisted@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
+  -- P0.10E-E: _apply_founder_grant ora ha una propria allowlist REALE
+  -- basata su founder_grants (non solo il prefisso 'allowlisted' dello
+  -- stub legacy) — senza questa riga la delega raggiungerebbe comunque
+  -- _apply_founder_grant, che pero' ritornerebbe false (email non
+  -- presente nel ledger), rompendo l'aspettativa granted di questo caso.
+  insert into public.founder_grants (email, founder_number) values ('allowlisted@test.local', 9010);
   v_res := test.call_gate_as(v_user);
   perform test.assert(v_res->>'eligible' = 'true', 'Caso 1: atteso eligible=true, trovato ' || (v_res->>'eligible'));
   perform test.assert(v_res->>'reason' = 'granted', 'Caso 1: atteso reason=granted, trovato ' || (v_res->>'reason'));
@@ -288,10 +297,12 @@ declare
   v_res1 jsonb;
   v_res2 jsonb;
 begin
+  insert into public.founder_grants (email, founder_number) values ('allowlisted-double-call@test.local', 9011);
   v_res1 := test.call_gate_as(v_user);
   v_res2 := test.call_gate_as(v_user);
-  perform test.assert(v_res1 = v_res2, 'Caso 13: due chiamate consecutive per lo stesso account devono restituire la stessa risposta dal wrapper (stub stateless)');
-  raise notice 'Caso 13 OK: doppia chiamata, nessun errore, risposta stabile (limite: stub stateless, non prova idempotenza del corpo reale)';
+  perform test.assert(v_res1 = v_res2, 'Caso 13: due chiamate consecutive per lo stesso account devono restituire la stessa risposta dal wrapper');
+  perform test.assert(v_res1->>'eligible' = 'true', 'Caso 13: con una riga founder_grants reale la doppia chiamata deve risultare eligible=true (non solo stabile)');
+  raise notice 'Caso 13 OK: doppia chiamata, nessun errore, risposta stabile ed eligible=true (allowlist reale via founder_grants, P0.10E-E)';
 end $$;
 
 -- ============================================================================
@@ -392,12 +403,20 @@ do $$
 declare
   v_user uuid := test.mkuser('allowlisted-trial@test.local', now() - interval '5 days');
   v_res jsonb;
+  v_row public.b2c_subscriptions%rowtype;
 begin
+  insert into public.founder_grants (email, founder_number) values ('allowlisted-trial@test.local', 9012);
   perform test.mkcommercial(v_user, 'trial', 'active');
   v_res := test.call_gate_as(v_user);
   perform test.assert(v_res->>'eligible' = 'true', 'Caso 20: trial non deve bloccare il claim Founder, atteso eligible=true, trovato ' || (v_res->>'eligible'));
   perform test.assert(v_res->>'reason' = 'granted', 'Caso 20: atteso reason=granted (delega avvenuta), trovato ' || (v_res->>'reason'));
-  raise notice 'Caso 20 OK: trial non blocca, Founder delega normalmente (sostituzione lasciata al corpo legacy invariato)';
+
+  select * into v_row from public.b2c_subscriptions where user_id = v_user;
+  perform test.assert(v_row.billing_source = 'founder_grant', 'Caso 20: trial deve essere sostituito da founder_grant (convenzione live)');
+  perform test.assert(v_row.external_product_id = 'lifetime_founder', 'Caso 20: external_product_id deve essere lifetime_founder anche nel ramo di promozione da trial');
+  perform test.assert(v_row.external_subscription_id = 'founder_grant_9012', 'Caso 20: external_subscription_id deve usare il founder_number reale anche nel ramo di promozione da trial');
+  perform test.assert(v_row.active_until = '2099-12-31 23:59:59+00'::timestamptz, 'Caso 20: active_until deve diventare 2099-12-31 23:59:59+00 (non restare la scadenza breve del trial)');
+  raise notice 'Caso 20 OK: trial non blocca, Founder delega e sostituisce con la convenzione live esatta';
 end $$;
 
 -- ============================================================================
@@ -412,6 +431,7 @@ declare
   v_user uuid := test.mkuser('allowlisted-already-founder@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
+  insert into public.founder_grants (email, founder_number) values ('allowlisted-already-founder@test.local', 9013);
   perform test.mkcommercial(v_user, 'founder_grant', 'active');
   v_res := test.call_gate_as(v_user);
   perform test.assert(v_res->>'reason' != 'existing_commercial_entitlement', 'Caso 21: founder_grant non deve mai essere trattato come sottoscrizione commerciale');
@@ -431,6 +451,7 @@ declare
   v_user uuid := test.mkuser('allowlisted-no-subscription-row@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
+  insert into public.founder_grants (email, founder_number) values ('allowlisted-no-subscription-row@test.local', 9014);
   perform test.assert(not exists (select 1 from public.b2c_subscriptions where user_id = v_user), 'Caso 22: precondizione, nessuna riga b2c_subscriptions per questo utente');
   v_res := test.call_gate_as(v_user);
   perform test.assert(v_res->>'eligible' = 'true', 'Caso 22: nessuna riga b2c_subscriptions deve risultare in flusso legacy normale, atteso eligible=true');
@@ -445,52 +466,112 @@ end $$;
 -- isolare la sola logica della barriera.
 -- ============================================================================
 
--- Caso 24: nessuna riga b2c_subscriptions -> insert normale, ROW_COUNT>0,
--- founder_grants marcata, ritorna true.
+-- Caso 24 (P0.10E-E): nessuna riga b2c_subscriptions -> insert normale,
+-- ROW_COUNT>0, founder_grants marcata, ritorna true. Verifica ANCHE la
+-- struttura esatta byte-per-byte contro la convenzione live delle 18 righe
+-- founder_grant reali (lifetime_founder / founder_grant_<n> / 2099-12-31
+-- 23:59:59+00 / raw_payload completo con source=rpc_claim) — copre in un
+-- solo caso i requisiti "struttura esatta", "raw_payload completo" e
+-- "founder_number usato in external_subscription_id".
 do $$
 declare
   v_user uuid := test.mkuser('direct-apply-insert@test.local', now() - interval '5 days');
   v_result boolean;
+  v_row public.b2c_subscriptions%rowtype;
 begin
   insert into public.founder_grants (email, founder_number) values ('direct-apply-insert@test.local', 9001);
   v_result := public._apply_founder_grant(v_user, 'direct-apply-insert@test.local');
   perform test.assert(v_result = true, 'Caso 24: insert normale deve ritornare true');
-  perform test.assert((select billing_source from public.b2c_subscriptions where user_id = v_user) = 'founder_grant', 'Caso 24: billing_source deve essere founder_grant dopo l''insert');
+
+  select * into v_row from public.b2c_subscriptions where user_id = v_user;
+  perform test.assert(v_row.billing_source = 'founder_grant', 'Caso 24: billing_source deve essere founder_grant dopo l''insert');
+  perform test.assert(v_row.external_product_id = 'lifetime_founder', 'Caso 24: external_product_id deve essere lifetime_founder (convenzione live, NON fitmesh_founder_grant), trovato ' || v_row.external_product_id);
+  perform test.assert(v_row.external_subscription_id = 'founder_grant_9001', 'Caso 24: external_subscription_id deve essere founder_grant_<founder_number> (convenzione live, NON founder-<user_id>), trovato ' || v_row.external_subscription_id);
+  perform test.assert(v_row.active_until = '2099-12-31 23:59:59+00'::timestamptz, 'Caso 24: active_until deve essere 2099-12-31 23:59:59+00 (convenzione live, NON 9999-12-31), trovato ' || v_row.active_until::text);
+  perform test.assert(v_row.auto_renewing = false, 'Caso 24: auto_renewing deve essere false');
+  perform test.assert(v_row.state = 'active', 'Caso 24: state deve essere active');
+  perform test.assert(v_row.raw_payload is not null, 'Caso 24: raw_payload non deve essere null (assente del tutto nella riscrittura P0.10E-D)');
+  perform test.assert(v_row.raw_payload->>'source' = 'rpc_claim', 'Caso 24: raw_payload.source deve essere rpc_claim, trovato ' || (v_row.raw_payload->>'source'));
+  perform test.assert((v_row.raw_payload->>'founder_number')::int = 9001, 'Caso 24: raw_payload.founder_number deve combaciare con founder_grants.founder_number');
+  perform test.assert(v_row.raw_payload->>'grant_email' = 'direct-apply-insert@test.local', 'Caso 24: raw_payload.grant_email deve combaciare con founder_grants.email');
+  perform test.assert(v_row.raw_payload ? 'granted_at', 'Caso 24: raw_payload deve contenere granted_at');
+
   perform test.assert((select applied_user_id from public.founder_grants where email = 'direct-apply-insert@test.local') = v_user, 'Caso 24: founder_grants.applied_user_id deve essere marcato');
   perform test.assert((select applied_at from public.founder_grants where email = 'direct-apply-insert@test.local') is not null, 'Caso 24: founder_grants.applied_at deve essere marcato');
-  raise notice 'Caso 24 OK: nessuna riga -> insert normale, founder_grants marcata, true';
+  raise notice 'Caso 24 OK: struttura byte-per-byte identica alla convenzione live (lifetime_founder/founder_grant_<n>/2099-12-31/raw_payload completo con source=rpc_claim)';
 end $$;
 
--- Caso 25: riga esistente billing_source='trial' -> update permesso
--- (whitelist), ROW_COUNT>0, founder_grants marcata, ritorna true.
+-- Caso 25 (P0.10E-E): riga esistente billing_source='trial' -> update
+-- permesso (whitelist), ROW_COUNT>0, founder_grants marcata, ritorna true.
+-- Verifica anche che il fallback UPDATE scriva la STESSA convenzione live
+-- dell'INSERT (non solo billing_source/state come una bozza precedente).
 do $$
 declare
   v_user uuid := test.mkuser('direct-apply-trial@test.local', now() - interval '5 days');
   v_result boolean;
+  v_row public.b2c_subscriptions%rowtype;
 begin
   insert into public.founder_grants (email, founder_number) values ('direct-apply-trial@test.local', 9002);
   perform test.mkcommercial(v_user, 'trial', 'active');
   v_result := public._apply_founder_grant(v_user, 'direct-apply-trial@test.local');
   perform test.assert(v_result = true, 'Caso 25: sostituzione di un trial deve ritornare true');
-  perform test.assert((select billing_source from public.b2c_subscriptions where user_id = v_user) = 'founder_grant', 'Caso 25: trial deve essere sostituito da founder_grant');
+
+  select * into v_row from public.b2c_subscriptions where user_id = v_user;
+  perform test.assert(v_row.billing_source = 'founder_grant', 'Caso 25: trial deve essere sostituito da founder_grant');
+  perform test.assert(v_row.external_product_id = 'lifetime_founder', 'Caso 25: external_product_id deve essere aggiornato a lifetime_founder anche nel ramo UPDATE, trovato ' || v_row.external_product_id);
+  perform test.assert(v_row.external_subscription_id = 'founder_grant_9002', 'Caso 25: external_subscription_id deve essere aggiornato al founder_number reale anche nel ramo UPDATE, trovato ' || v_row.external_subscription_id);
+  perform test.assert(v_row.active_until = '2099-12-31 23:59:59+00'::timestamptz, 'Caso 25: active_until deve diventare 2099-12-31 23:59:59+00 (non restare la scadenza breve del trial)');
+  perform test.assert(v_row.raw_payload->>'source' = 'rpc_claim', 'Caso 25: raw_payload deve essere scritto anche nel ramo UPDATE');
   perform test.assert((select applied_user_id from public.founder_grants where email = 'direct-apply-trial@test.local') = v_user, 'Caso 25: founder_grants deve essere marcata');
-  raise notice 'Caso 25 OK: trial -> sostituito da founder_grant, true';
+  raise notice 'Caso 25 OK: trial -> sostituito da founder_grant con la convenzione live esatta anche nel ramo UPDATE, true';
 end $$;
 
--- Caso 26: riga esistente billing_source='founder_grant' -> update permesso
--- (idempotente), ROW_COUNT>0, ritorna true.
+-- Caso 26 (P0.10E-E): riga esistente billing_source='founder_grant' ->
+-- update permesso (idempotente), ROW_COUNT>0, ritorna true. Verifica anche
+-- che updated_at avanzi fra le due chiamate (proprieta' live esplicitamente
+-- richiesta: "aggiorna updated_at nel ramo di conflitto").
+--
+-- Le due chiamate sono DELIBERATAMENTE in due blocchi `do $$ $$` separati
+-- (due transazioni distinte), non nello stesso blocco: `now()` resta
+-- congelato per l'intera durata di UNA transazione (stesso principio gia'
+-- documentato ai Casi 7/8) — due chiamate nella STESSA transazione
+-- scriverebbero lo stesso identico updated_at per costruzione, rendendo
+-- l'assert sotto un falso negativo, non una prova reale di avanzamento.
+create temporary table if not exists test_caso26_scratch (updated_at_1 timestamptz);
+
 do $$
 declare
   v_user uuid := test.mkuser('direct-apply-idempotent@test.local', now() - interval '5 days');
   v_result1 boolean;
-  v_result2 boolean;
 begin
   insert into public.founder_grants (email, founder_number) values ('direct-apply-idempotent@test.local', 9003);
   v_result1 := public._apply_founder_grant(v_user, 'direct-apply-idempotent@test.local');
+  perform test.assert(v_result1 = true, 'Caso 26a: prima chiamata deve ritornare true');
+  insert into test_caso26_scratch (updated_at_1) select updated_at from public.b2c_subscriptions where user_id = v_user;
+  perform set_config('test.caso26_user', v_user::text, false);
+end $$;
+
+-- Attesa reale (nuova transazione autocommit sotto, non lo stesso blocco):
+-- garantisce che clock_timestamp()/now() della SECONDA transazione sia
+-- effettivamente successivo, non solo teoricamente diverso.
+select pg_sleep(1);
+
+do $$
+declare
+  v_user uuid := current_setting('test.caso26_user')::uuid;
+  v_result2 boolean;
+  v_updated_at_1 timestamptz;
+  v_updated_at_2 timestamptz;
+begin
+  select updated_at_1 into v_updated_at_1 from test_caso26_scratch limit 1;
   v_result2 := public._apply_founder_grant(v_user, 'direct-apply-idempotent@test.local');
-  perform test.assert(v_result1 = true and v_result2 = true, 'Caso 26: due chiamate consecutive devono ritornare true entrambe (idempotenza reale, non piu'' uno stub stateless)');
-  perform test.assert((select count(*) from public.b2c_subscriptions where user_id = v_user) = 1, 'Caso 26: nessuna riga duplicata dopo la seconda chiamata');
-  raise notice 'Caso 26 OK: founder_grant -> idempotente, nessun duplicato (idempotenza REALE, supera il limite dichiarato del vecchio Caso 13)';
+  select updated_at into v_updated_at_2 from public.b2c_subscriptions where user_id = v_user;
+
+  perform test.assert(v_result2 = true, 'Caso 26b: seconda chiamata deve ritornare true (idempotenza reale)');
+  perform test.assert((select count(*) from public.b2c_subscriptions where user_id = v_user) = 1, 'Caso 26b: nessuna riga duplicata dopo la seconda chiamata');
+  perform test.assert(v_updated_at_2 > v_updated_at_1, 'Caso 26b: updated_at deve avanzare nel ramo UPDATE (proprieta'' live esplicita), prima=' || v_updated_at_1 || ' dopo=' || v_updated_at_2);
+  perform test.assert((select external_subscription_id from public.b2c_subscriptions where user_id = v_user) = 'founder_grant_9003', 'Caso 26b: external_subscription_id deve restare founder_grant_<n> anche dopo la seconda chiamata');
+  raise notice 'Caso 26 OK: founder_grant -> idempotente, nessun duplicato, updated_at avanza correttamente (verificato su due transazioni separate)';
 end $$;
 
 -- Casi 27/28/29: riga esistente commerciale (google_play/apple_iap/stripe)
@@ -572,6 +653,11 @@ declare
   v_user uuid := test.mkuser('allowlisted-simulate-race-google@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
+  -- Riga founder_grants richiesta: senza di essa _apply_founder_grant
+  -- ritornerebbe false per "email non allowlisted" invece che per il
+  -- conflitto commerciale che questo caso vuole davvero esercitare (P0.10E-E:
+  -- l'allowlist ora e' reale, non piu' un placeholder per prefisso).
+  insert into public.founder_grants (email, founder_number) values ('allowlisted-simulate-race-google@test.local', 9015);
   select hits into v_hits_before from test.probe_hits where n = 1;
   v_res := test.call_gate_as(v_user);
   select hits into v_hits_after from test.probe_hits where n = 1;
@@ -587,6 +673,7 @@ declare
   v_user uuid := test.mkuser('allowlisted-simulate-race-apple@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
+  insert into public.founder_grants (email, founder_number) values ('allowlisted-simulate-race-apple@test.local', 9016);
   v_res := test.call_gate_as(v_user);
   perform test.assert(v_res->>'reason' = 'existing_commercial_entitlement', 'Caso 30b: atteso existing_commercial_entitlement, trovato ' || (v_res->>'reason'));
   raise notice 'Caso 30b OK: race simulata (Apple IAP) -> wrapper corregge a existing_commercial_entitlement';
@@ -597,6 +684,7 @@ declare
   v_user uuid := test.mkuser('allowlisted-simulate-race-stripe@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
+  insert into public.founder_grants (email, founder_number) values ('allowlisted-simulate-race-stripe@test.local', 9017);
   v_res := test.call_gate_as(v_user);
   perform test.assert(v_res->>'reason' = 'existing_commercial_entitlement', 'Caso 30c: atteso existing_commercial_entitlement, trovato ' || (v_res->>'reason'));
   raise notice 'Caso 30c OK: race simulata (Stripe) -> wrapper corregge a existing_commercial_entitlement';
@@ -642,5 +730,79 @@ begin
   raise notice 'Caso 32 OK: chiamata ripetuta attraverso la catena reale, idempotente, nessun duplicato';
 end $$;
 
+-- ============================================================================
+-- Sprint P0.10E-E — Casi 37-39: proprieta' ripristinate (allowlist reale,
+-- null-check) e la selettivita' del GET STACKED DIAGNOSTICS/CONSTRAINT_NAME.
+-- Numerazione: 33-36 sono i test di concorrenza reale in run-suite.sh (bash,
+-- non in questo file) — si continua qui da 37 per evitare la collisione dei
+-- numeri fra i due file.
+-- ============================================================================
+
+-- Caso 37: parametri null -> false esplicito, nessuna scrittura, nessuna
+-- eccezione. Il corpo live rifiuta null (P0.10E-D non lo faceva affatto).
+do $$
+declare
+  v_user uuid := test.mkuser('direct-apply-null-email@test.local', now() - interval '5 days');
+  v_result boolean;
+begin
+  insert into public.founder_grants (email, founder_number) values ('direct-apply-null-email@test.local', 9020);
+
+  v_result := public._apply_founder_grant(null, 'direct-apply-null-email@test.local');
+  perform test.assert(v_result = false, 'Caso 37a: p_user_id null deve ritornare false, non sollevare eccezione');
+  perform test.assert((select applied_user_id from public.founder_grants where email = 'direct-apply-null-email@test.local') is null, 'Caso 37a: founder_grants non deve essere marcata con p_user_id null');
+
+  v_result := public._apply_founder_grant(v_user, null);
+  perform test.assert(v_result = false, 'Caso 37b: p_email null deve ritornare false, non sollevare eccezione');
+  perform test.assert(not exists (select 1 from public.b2c_subscriptions where user_id = v_user), 'Caso 37b: nessuna riga b2c_subscriptions scritta con p_email null');
+
+  raise notice 'Caso 37 OK: parametri null gestiti con return false esplicito, nessuna eccezione, nessuna scrittura';
+end $$;
+
+-- Caso 38: email non presente in founder_grants, chiamata DIRETTA (come
+-- farebbe service_role, che ha EXECUTE su questa funzione indipendentemente
+-- dal wrapper pubblico) -> false, zero righe b2c_subscriptions, zero righe
+-- founder_grants modificate. Questa e' esattamente la protezione che
+-- P0.10E-D aveva perso: senza l'allowlist ripristinata, QUALUNQUE
+-- (user_id, email) avrebbe ottenuto un entitlement lifetime valido.
+do $$
+declare
+  v_user uuid := test.mkuser('direct-apply-not-allowlisted@test.local', now() - interval '5 days');
+  v_result boolean;
+begin
+  perform test.assert(not exists (select 1 from public.founder_grants where email = 'direct-apply-not-allowlisted@test.local'), 'Caso 38: precondizione, nessuna riga founder_grants per questa email');
+  v_result := public._apply_founder_grant(v_user, 'direct-apply-not-allowlisted@test.local');
+  perform test.assert(v_result = false, 'Caso 38: email non presente in founder_grants deve ritornare false (allowlist reale, non un placeholder)');
+  perform test.assert(not exists (select 1 from public.b2c_subscriptions where user_id = v_user), 'Caso 38: zero righe b2c_subscriptions scritte per email non allowlisted');
+  raise notice 'Caso 38 OK: chiamata diretta con email non allowlisted -> false, zero scritture (protezione ripristinata rispetto a P0.10E-D)';
+end $$;
+
+-- Caso 39: unique_violation su un vincolo NON riconosciuto (simulato via
+-- trigger di test, vedi 00-minimal-schema.sql) deve essere RILANCIATO
+-- (propagato al chiamante), mai assorbito nel fallback whitelist. Istruzione
+-- esplicita di Matteo: "non catturare indiscriminatamente ogni
+-- unique_violation" - solo b2c_subscriptions_pkey e
+-- b2c_subscriptions_billing_source_external_subscription_id_key sono
+-- trattati come "riga gia' esistente, applica il fallback".
+do $$
+declare
+  v_user uuid := test.mkuser('direct-apply-unexpected-constraint@test.local', now() - interval '5 days');
+  v_raised boolean := false;
+begin
+  insert into public.founder_grants (email, founder_number) values ('direct-apply-unexpected-constraint@test.local', 9021);
+
+  perform set_config('test.force_synthetic_violation', 'true', true);
+  begin
+    perform public._apply_founder_grant(v_user, 'direct-apply-unexpected-constraint@test.local');
+  exception when unique_violation then
+    v_raised := true;
+  end;
+  perform set_config('test.force_synthetic_violation', 'false', true);
+
+  perform test.assert(v_raised, 'Caso 39: un unique_violation su un vincolo NON riconosciuto deve essere rilanciato (RAISE), non assorbito nel fallback whitelist');
+  perform test.assert(not exists (select 1 from public.b2c_subscriptions where user_id = v_user), 'Caso 39: nessuna riga scritta dopo un unique_violation non riconosciuto rilanciato');
+  perform test.assert((select applied_user_id from public.founder_grants where email = 'direct-apply-unexpected-constraint@test.local') is null, 'Caso 39: founder_grants non deve essere marcata quando la funzione rilancia un errore imprevisto');
+  raise notice 'Caso 39 OK: unique_violation su vincolo sconosciuto correttamente rilanciato, non assorbito, nessuna scrittura parziale';
+end $$;
+
 reset role;
-select '✅ TUTTI I CASI FOUNDER_RESERVE_GATE (P0.10E-D) SUPERATI' as risultato;
+select '✅ TUTTI I CASI FOUNDER_RESERVE_GATE (P0.10E-E) SUPERATI' as risultato;

@@ -400,7 +400,7 @@ order by count(*) desc;
 -- e non-Founder, non un bug di sicurezza, ma non fedele al contratto).
 
 -- ============================================================================
--- 17. Sprint P0.10E-B/C/D addendum — verifiche prima di applicare la
+-- 17. Sprint P0.10E-B/C/D/E addendum — verifiche prima di applicare la
 --     migration riserve corretta (20260729120000).
 --
 -- 17a e 17c: PASS, confermati da Matteo il 2026-07-29 via lettura diretta:
@@ -440,7 +440,18 @@ select has_table_privilege('postgres', 'public.b2c_subscriptions', 'SELECT') as 
 
 -- 17b. BLOCCO 3 — RISOLTO in ENTRAMBE le direzioni in Sprint P0.10E-D
 -- (precheck nel wrapper + barriera atomica whitelist dentro
--- _apply_founder_grant, riscritta — non piu' invariata come in P0.10E-C).
+-- _apply_founder_grant, riscritta), CONVENZIONE DI VALORI CORRETTA in
+-- Sprint P0.10E-E dopo che Matteo ha letto il corpo live per intero e
+-- ispezionato le 18 righe founder_grant reali: la convenzione dedotta per
+-- analogia in P0.10E-D (fitmesh_founder_grant/founder-<user_id>/
+-- 9999-12-31, nessun raw_payload) NON corrispondeva a NESSUNA delle 18
+-- righe live. La versione P0.10E-E usa invece esattamente: external_
+-- product_id='lifetime_founder', external_subscription_id=
+-- 'founder_grant_'||founder_number, active_until='2099-12-31 23:59:59+00',
+-- raw_payload completo (founder_number/grant_email/granted_at/
+-- source='rpc_claim'). Ripristina anche l'allowlist reale (SELECT ... FOR
+-- UPDATE su founder_grants, null-check) che P0.10E-D aveva perso senza
+-- saperlo. Vedi la migration e il checklist per il dettaglio completo.
 --
 -- La DDL reale di b2c_subscriptions NON e' piu' un'incognita da verificare
 -- qui: e' gia' TRACCIATA in questo stesso repo,
@@ -455,9 +466,13 @@ select has_table_privilege('postgres', 'public.b2c_subscriptions', 'SELECT') as 
 -- (assente nella migration TRACCIATA — aggiunto da un ALTER non tracciato
 -- in produzione, confermato indirettamente dalle 18 righe reali con questo
 -- valore). UNIQUE(billing_source, external_subscription_id) oltre al PK su
--- user_id — la barriera atomica in _apply_founder_grant gestisce ENTRAMBI
--- gli indici (blocco BEGIN/EXCEPTION WHEN unique_violation), non solo
--- user_id.
+-- user_id — la barriera in _apply_founder_grant gestisce ENTRAMBI gli
+-- indici (blocco BEGIN/EXCEPTION WHEN unique_violation), ma da P0.10E-E
+-- distingue quale vincolo e' stato violato via GET STACKED DIAGNOSTICS +
+-- CONSTRAINT_NAME (solo b2c_subscriptions_pkey e
+-- b2c_subscriptions_billing_source_external_subscription_id_key sono
+-- trattati come "riga gia' esistente" — qualunque altro vincolo fa RAISE,
+-- non e' piu' un blanket WHEN unique_violation come in P0.10E-D).
 --
 -- Questa query resta utile per CONFERMARE (non piu' per progettare un fix)
 -- che nessun ALTER successivo abbia cambiato ulteriormente lo schema

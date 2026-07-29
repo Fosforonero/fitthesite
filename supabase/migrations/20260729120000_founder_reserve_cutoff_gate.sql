@@ -5,7 +5,7 @@
 -- contesto — non ripetere gli stessi errori in una futura modifica.
 --
 -- ============================================================================
--- STORIA (P0.10E-A -> B -> C -> D)
+-- STORIA (P0.10E-A -> B -> C -> D -> E-E)
 --
 -- P0.10E-A (MAI applicata): creava una NUOVA funzione pubblica
 -- `claim_founder_grant_if_eligible_gated()` e revocava EXECUTE
@@ -27,39 +27,73 @@
 -- non esiste ancora (race fra il precheck e un INSERT commerciale
 -- concorrente).
 --
--- P0.10E-D (questo file): chiude quella race con una barriera atomica
--- DENTRO `_apply_founder_grant(uuid, text)` stessa (FASE 4/5 sotto),
--- integrata nella STESSA migration #4, non in una #5 separata (decisione
--- esplicita di Matteo: gate esterno e barriera atomica devono entrare
--- nella stessa transazione di apply, senza finestra intermedia in cui uno
--- dei due sia live senza l'altro). Aggiunge anche un guard MD5 che
--- ABORTISCE l'intera migration se il corpo LIVE di _apply_founder_grant
--- non corrisponde esattamente a quanto verificato manualmente da Matteo
--- (vedi FASE 4 sotto) — questa e' la prima volta in questo sprint che una
--- migration RISCRIVE (non solo sposta/richiude ACL) una funzione il cui
--- corpo completo non e' mai stato letto direttamente in questa sessione:
--- il guard e' la salvaguardia esplicita contro quel rischio.
+-- P0.10E-D: chiude quella race con una barriera atomica DENTRO
+-- `_apply_founder_grant(uuid, text)` stessa (FASE 4/5), integrata nella
+-- STESSA migration #4. QUESTA VERSIONE E' STATA SOSTITUITA (vedi P0.10E-E
+-- sotto): la convenzione di valori usata per la riscrittura (dedotta per
+-- analogia da grant_b2c_trial(), MAI verificata contro le righe reali) si e'
+-- rivelata SBAGLIATA rispetto alle 18 righe founder_grant gia' esistenti in
+-- produzione, e la riscrittura aveva eliminato — senza saperlo, perche' il
+-- corpo live non era ancora stato letto per intero da nessuno — alcune
+-- protezioni che il corpo live ha sempre avuto (null-check, allowlist,
+-- raw_payload). Conservata qui solo per contesto storico.
+--
+-- P0.10E-E (questo file, versione CORRENTE): Matteo ha chiuso direttamente
+-- su Supabase produzione il punto rimasto aperto in P0.10E-D (§17b, secondo
+-- giro) — ha letto INTEGRALMENTE il corpo live di _apply_founder_grant
+-- (stesso MD5 gia' verificato, 5c7649b942f04234c31d3c7961c4c6a0) e
+-- ispezionato le 18 righe reali con billing_source='founder_grant'.
+-- Risultato: la convenzione P0.10E-D era sbagliata (vedi FASE 4 sotto per il
+-- dettaglio completo). Corretto usando ESATTAMENTE i valori/proprieta' live
+-- confermati, non una nuova convenzione. Guard MD5 invariato nel meccanismo
+-- (v_pre_fix_md5 e' lo stesso — il corpo live in produzione non e' mai
+-- cambiato, solo la nostra conoscenza di esso e' migliorata), v_post_fix_md5
+-- ricalcolato per il nuovo corpo.
 -- ============================================================================
 --
--- STATO LIVE VERIFICATO (Matteo, 2026-07-29):
+-- STATO LIVE VERIFICATO (Matteo, 2026-07-29, aggiornato P0.10E-E):
 --   public.claim_founder_grant_if_eligible(): zero argomenti, ritorna
 --     jsonb, SECURITY DEFINER, owner postgres, MD5 corpo live
 --     8419db344a7383ba53f01457335a3494, nessun cutoff/controllo created_at,
---     ACL PUBLIC/anon/authenticated/service_role tutti EXECUTE.
+--     ACL PUBLIC/anon/authenticated/service_role tutti EXECUTE. Corpo MAI
+--     letto per intero in nessuna sessione — solo firma/ACL/MD5 confermati.
 --   public._apply_founder_grant(uuid, text): owner postgres, SECURITY
---     DEFINER, MD5 corpo live 5c7649b942f04234c31d3c7961c4c6a0, ACL solo
---     postgres+service_role, usa ON CONFLICT (user_id) DO UPDATE su
---     b2c_subscriptions (puo' sovrascrivere una riga commerciale), dopo
---     l'upsert aggiorna founder_grants.applied_user_id/applied_at, ritorna
---     true SENZA verificare quante righe siano state realmente
---     inserite/aggiornate — questo e' esattamente il bug che FASE 4 chiude.
+--     DEFINER, MD5 corpo live 5c7649b942f04234c31d3c7961c4c6a0. A differenza
+--     della funzione sopra, QUESTO corpo e' stato letto INTEGRALMENTE da
+--     Matteo (2026-07-29, secondo giro) — non incollato testuale in questo
+--     repo, ma le sue proprieta' comportamentali sono ora note con
+--     precisione: rifiuta p_user_id/p_email null; cerca la riga in
+--     founder_grants per email (allowlist reale) e ritorna false se
+--     assente; usa founder_number per costruire external_subscription_id
+--     ('founder_grant_' || founder_number); external_product_id =
+--     'lifetime_founder'; active_until = '2099-12-31 23:59:59+00'
+--     (NON '9999-12-31'); auto_renewing = false; scrive un raw_payload
+--     completo (founder_number, grant_email, granted_at, source='rpc_claim')
+--     e aggiorna updated_at nel ramo di conflitto. Il difetto che questa
+--     migration corregge (invariato da P0.10E-D): l'upsert su
+--     b2c_subscriptions e' un `ON CONFLICT (user_id) DO UPDATE`
+--     INCONDIZIONATO, senza whitelist su billing_source — puo' sovrascrivere
+--     una riga commerciale gia' esistente. Dopo l'upsert aggiorna
+--     founder_grants.applied_user_id/applied_at e ritorna true SENZA
+--     verificare quante righe siano state realmente scritte — anche questo
+--     e' invariato e viene corretto qui.
 --   public.handle_new_founder(): owner postgres, nessun trigger live
 --     associato, ACL aperta a PUBLIC/anon/authenticated/service_role.
 --   private.grant_founder_launch_core(uuid, uuid): owner postgres, ACL
 --     chiusa a postgres.
 --   public.b2c_subscriptions: owner postgres, postgres ha SELECT/INSERT/
 --     UPDATE/DELETE (precondizione §17c del preflight, ora CONFERMATA PASS
---     — non va piu' riaperta).
+--     — non va piu' riaperta). DDL reale tracciata in
+--     20260514120004_init_b2c_subs.sql: colonne NOT NULL senza default
+--     external_product_id/external_subscription_id/active_until,
+--     auto_renewing con default true (sbagliato per un grant permanente,
+--     va sempre impostato esplicitamente a false), raw_payload jsonb
+--     nullable, UNIQUE(billing_source, external_subscription_id) oltre alla
+--     PK su user_id. CHECK su billing_source non include 'founder_grant'
+--     nel file tracciato — drift non tracciato in produzione (stesso
+--     pattern gia' documentato per founder_grants/schema private/altre
+--     funzioni Founder), confermato indirettamente dalle 18 righe reali che
+--     Matteo ha contato.
 --
 -- QUESTO FILE NON APPLICA ANCORA NULLA IN PRODUZIONE. Vedi
 -- docs/architecture/p010-founder-pre-apply-checklist.md per lo stato
@@ -69,42 +103,50 @@
 -- ============================================================================
 -- GUARD MD5 (PRIMISSIMO passo dell'intero file, prima di qualunque altra
 -- modifica — inclusa la sezione 1 sotto): questa migration sta per
--- SOSTITUIRE per intero il corpo di _apply_founder_grant, una funzione il
--- cui testo completo non e' mai stato letto direttamente in questa
--- sessione — solo il suo comportamento e' stato descritto da Matteo dopo
--- una lettura diretta su produzione. Prima di procedere con QUALUNQUE
--- modifica (compreso lo spostamento di claim_founder_grant_if_eligible
--- nella sezione 1), verifica che il corpo LIVE di _apply_founder_grant
--- corrisponda ESATTAMENTE (stesso MD5) a quello su cui quella descrizione
--- si basa. Se non corrisponde, ABORTISCE l'INTERA migration QUI, prima
--- ancora della sezione 1 — trovato in test locale (run-suite.sh, test
--- negativo dedicato) che posizionare questo guard DOPO lo spostamento
--- della sezione 1 lo rende inutile come "tutto o niente": lo spostamento
--- sarebbe gia' avvenuto quando il guard scopre il mismatch.
+-- SOSTITUIRE per intero il corpo di _apply_founder_grant. Il testo letterale
+-- esatto di quel corpo non e' disponibile in questo repo (Matteo ne ha letto
+-- il contenuto integrale in produzione e riportato qui le proprieta'
+-- comportamentali esatte — vedi STATO LIVE VERIFICATO sopra — non incollato
+-- il codice sorgente). Prima di procedere con QUALUNQUE modifica (compreso
+-- lo spostamento di claim_founder_grant_if_eligible nella sezione 1),
+-- verifica che il corpo LIVE di _apply_founder_grant corrisponda ESATTAMENTE
+-- (stesso MD5) a quello su cui questa descrizione si basa. Se non
+-- corrisponde, ABORTISCE l'INTERA migration QUI, prima ancora della sezione
+-- 1 — trovato in test locale (run-suite.sh, test negativo dedicato) che
+-- posizionare questo guard DOPO lo spostamento della sezione 1 lo rende
+-- inutile come "tutto o niente": lo spostamento sarebbe gia' avvenuto
+-- quando il guard scopre il mismatch.
 --
 -- Il guard accetta DUE hash, non uno solo — trovato mancante nella prima
 -- stesura (avrebbe rotto la riesecuzione, FASE 7 punto 19): dopo la PRIMA
--- apply riuscita, il corpo live e' gia' quello NUOVO (barriera atomica),
--- non piu' quello originale verificato da Matteo. Una riesecuzione della
--- STESSA migration confronterebbe quindi il corpo (gia' corretto) contro
--- l'hash del corpo VECCHIO, fallendo per un falso allarme. v_post_fix_md5
--- e' l'MD5 esatto del corpo NUOVO prodotto da questa stessa migration
--- (calcolato empiricamente una volta, applicando questo stesso CREATE OR
--- REPLACE in isolamento e leggendo pg_get_functiondef del risultato) —
--- accettarlo rende la riesecuzione un no-op sicuro, mentre continua ad
--- abortire su qualunque TERZO stato inatteso (ne' il corpo pre-fix ne'
--- quello post-fix -> drift genuino, fermarsi).
+-- apply riuscita, il corpo live e' gia' quello NUOVO, non piu' quello
+-- originale verificato da Matteo. Una riesecuzione della STESSA migration
+-- confronterebbe quindi il corpo (gia' corretto) contro l'hash del corpo
+-- VECCHIO, fallendo per un falso allarme. v_post_fix_md5 e' l'MD5 esatto del
+-- corpo NUOVO prodotto da questa stessa migration (calcolato empiricamente
+-- una volta, applicando questo stesso CREATE OR REPLACE in isolamento e
+-- leggendo pg_get_functiondef del risultato) — accettarlo rende la
+-- riesecuzione un no-op sicuro, mentre continua ad abortire su qualunque
+-- TERZO stato inatteso (ne' il corpo pre-fix ne' quello post-fix -> drift
+-- genuino, fermarsi).
+--
+-- v_pre_fix_md5 e' INVARIATO da P0.10E-D: il corpo live in produzione non e'
+-- mai cambiato in questo sprint (nessuna apply e' mai avvenuta) — solo la
+-- nostra conoscenza delle sue proprieta' e' migliorata (P0.10E-E). Se questo
+-- valore non corrispondesse piu', significherebbe che qualcos'altro ha
+-- modificato la funzione fuori da questo repo fra le due letture di Matteo —
+-- il guard abortirebbe correttamente anche in quel caso.
 -- ============================================================================
 
 do $$
 declare
   v_actual_md5 text;
   v_pre_fix_md5 constant text := '5c7649b942f04234c31d3c7961c4c6a0';
-  v_post_fix_md5 constant text := '90031930f2d7f52abfe1d0583df58b6d';
+  v_post_fix_md5 constant text := 'a26fee26363735a3b49b65face96c107';
 begin
   select md5(pg_get_functiondef('public._apply_founder_grant(uuid, text)'::regprocedure)) into v_actual_md5;
   if v_actual_md5 is distinct from v_pre_fix_md5 and v_actual_md5 is distinct from v_post_fix_md5 then
-    raise exception 'P0.10E-D: ABORT — MD5 live di public._apply_founder_grant(uuid,text) non corrisponde ne'' al corpo pre-fix verificato manualmente (%) ne'' al corpo post-fix atteso da una riesecuzione (%), trovato %. Non sovrascrivere alla cieca una funzione il cui corpo reale non e'' mai stato letto per intero in questa sessione: fermarsi e riverificare manualmente prima di riprovare.',
+    raise exception 'P0.10E-E: ABORT — MD5 live di public._apply_founder_grant(uuid,text) non corrisponde ne'' al corpo pre-fix verificato manualmente (%) ne'' al corpo post-fix atteso da una riesecuzione (%), trovato %. Non sovrascrivere alla cieca una funzione il cui testo letterale non e'' disponibile in questo repo: fermarsi e riverificare manualmente prima di riprovare.',
       v_pre_fix_md5, v_post_fix_md5, coalesce(v_actual_md5, 'NULL (funzione non trovata con questa firma)');
   end if;
 end $$;
@@ -161,136 +203,135 @@ end $$;
 revoke all on function private.claim_founder_grant_if_eligible() from public, anon, authenticated, service_role;
 
 -- ============================================================================
--- FASE 4 — Barriera atomica in _apply_founder_grant(uuid, text). Il guard
--- MD5 che protegge questa riscrittura e' gia' stato eseguito PRIMA della
--- sezione 1 sopra (vedi in cima al file) — se questa riga viene raggiunta,
--- il corpo live corrispondeva gia' a uno dei due hash attesi.
+-- FASE 4 (Sprint P0.10E-E, CORREZIONE BLOCCANTE rispetto a P0.10E-D) — Il
+-- guard MD5 sopra protegge ancora questa riscrittura, ma la riscrittura
+-- stessa e' ora COMPLETAMENTE diversa da quella consegnata in P0.10E-D.
+--
+-- Matteo ha chiuso direttamente su Supabase produzione il punto aperto
+-- §17b (2026-07-29, secondo giro): ha letto INTEGRALMENTE il corpo live di
+-- _apply_founder_grant (stesso MD5 gia' verificato,
+-- 5c7649b942f04234c31d3c7961c4c6a0) e ispezionato le 18 righe
+-- b2c_subscriptions reali con billing_source='founder_grant'. Risultato:
+-- LA CONVENZIONE INVENTATA IN P0.10E-D ERA SBAGLIATA. Nessuna delle 18
+-- righe live usa 'fitmesh_founder_grant'/'founder-<user_id>' (i valori
+-- dedotti per analogia da grant_b2c_trial(), mai confrontati con le righe
+-- reali) — usano tutte:
+--   external_product_id       = 'lifetime_founder'
+--   external_subscription_id  = 'founder_grant_' || founder_number
+--   active_until               = '2099-12-31 23:59:59+00' (NON '9999-12-31')
+--   auto_renewing              = false
+--   raw_payload                = {founder_number, grant_email, granted_at,
+--                                 source: 'rpc_claim'}
+--   updated_at aggiornato nel ramo di conflitto
+-- Questa versione usa ESATTAMENTE questi valori, non una nuova convenzione:
+-- istruzione esplicita di Matteo, "conserva esattamente i valori live",
+-- niente normalizzazione ne' migration di allineamento senza audit
+-- separato dei consumer.
+--
+-- NOTA su cosa sappiamo e cosa no: Matteo ha letto il corpo per intero e ne
+-- ha riportato qui le proprieta' comportamentali esatte (elencate sopra e
+-- sotto) — non ha incollato il testo sorgente letterale. Questo repo quindi
+-- CONOSCE ORA il contratto comportamentale completo di _apply_founder_grant
+-- con precisione (a differenza di P0.10E-D, che lo ricostruiva per
+-- analogia), ma NON possiede il testo letterale esatto necessario per un
+-- rollback byte-per-byte — resta la FASE 9 di Matteo (pg_get_functiondef
+-- salvato esternamente PRIMA dell'apply reale) il solo modo di ottenerlo.
+--
+-- Il corpo live, oltre alla convenzione dei valori sopra, contiene protezioni
+-- che la riscrittura P0.10E-D aveva ELIMINATO senza saperlo (bug bloccante,
+-- non solo cosmetico):
+--   1. rifiuta p_user_id o p_email null (P0.10E-D non lo faceva affatto —
+--      un null sarebbe passato silenziosamente fino all'INSERT, fallendo
+--      con un errore NOT NULL generico invece di un false esplicito);
+--   2. cerca PRIMA la riga in founder_grants per email (allowlist reale) e
+--      ritorna false se l'email non e' presente — P0.10E-D non verificava
+--      NULLA: qualunque (user_id, email) passato a questa funzione, anche
+--      un'email mai vista in founder_grants, avrebbe creato un entitlement
+--      lifetime valido. Dato che la funzione mantiene EXECUTE per
+--      service_role (non solo per il wrapper pubblico), questo non era un
+--      problema teorico: qualunque chiamata interna diretta via
+--      service_role (script, altra RPC, futuro codice) avrebbe potuto
+--      concedere Founder a chiunque, scavalcando l'intero ledger delle 3
+--      riserve;
+--   3. usa v_grant.founder_number (non un valore derivato da user_id) per
+--      costruire external_subscription_id, e i campi REALI della riga
+--      (v_grant.email, v_grant.granted_at) per raw_payload;
+--   4. scrive un raw_payload completo con source='rpc_claim' (tracciabilita'
+--      dell'origine della scrittura — assente del tutto in P0.10E-D);
+--   5. aggiorna updated_at nel ramo di conflitto (assente in P0.10E-D, che
+--      non toccava affatto quella colonna nell'update).
+--
+-- Il bug ORIGINALE che questa funzione ha sempre avuto in produzione (quello
+-- che questa migration continua a correggere, invariato da P0.10E-D):
+-- l'upsert e' un ON CONFLICT (user_id) DO UPDATE INCONDIZIONATO, senza
+-- alcuna whitelist su billing_source — una riga google_play/apple_iap/
+-- stripe gia' esistente per lo stesso user_id verrebbe sovrascritta da un
+-- founder_grant. Restano quindi due correzioni cumulative in questa
+-- funzione, non alternative: (a) ripristinare TUTTE le protezioni/
+-- convenzioni reali sopra elencate che P0.10E-D aveva perso, (b) aggiungere
+-- la barriera whitelist che il corpo live non ha mai avuto.
+--
+-- SELECT ... FOR UPDATE su founder_grants, PRIMA dell'INSERT su
+-- b2c_subscriptions (istruzione esplicita di Matteo: "la riga deve essere
+-- verificata e bloccata prima dell'INSERT"): blocca la riga founder_grants
+-- per l'intera durata della transazione. Due conseguenze, entrambe
+-- verificate in test: (1) due chiamate concorrenti per la STESSA email si
+-- serializzano completamente (la seconda attende il commit della prima
+-- prima ancora di tentare l'INSERT su b2c_subscriptions — non c'e' piu'
+-- alcuna finestra in cui entrambe leggono "riga presente, non ancora
+-- consumata" e procedono in parallelo); (2) l'UPDATE finale su
+-- founder_grants (piu' sotto) usa la STESSA chiave (email) della riga gia'
+-- bloccata — non puo' strutturalmente modificare zero righe, dato che
+-- nessun'altra sessione puo' cancellare o rinominare quella riga mentre
+-- deteniamo il lock. Il GET DIAGNOSTICS + RAISE EXCEPTION su quell'update
+-- (vedi sotto) e' quindi una difesa "non deve mai scattare per costruzione",
+-- non una scorciatoia per un caso atteso — istruzione esplicita di Matteo:
+-- "impossibile O trattato come errore atomico", soddisfatta da entrambi
+-- (impossibile per costruzione, e comunque un errore atomico se mai
+-- accadesse — RAISE EXCEPTION annulla l'intera funzione, INSERT/UPDATE su
+-- b2c_subscriptions incluso, dato che non c'e' un blocco BEGIN/EXCEPTION
+-- attorno a questo secondo statement).
+--
+-- GET STACKED DIAGNOSTICS + CONSTRAINT_NAME (sostituisce il blanket "WHEN
+-- unique_violation" di P0.10E-D — istruzione esplicita di Matteo: "non
+-- catturare indiscriminatamente ogni unique_violation"): solo le due
+-- collisioni REALMENTE possibili per QUESTA insert vengono trattate come
+-- "riga gia' esistente, applica il fallback whitelist" —
+-- b2c_subscriptions_pkey (stesso user_id) e
+-- b2c_subscriptions_billing_source_external_subscription_id_key (stesso
+-- founder_number riusato per due email diverse — non dovrebbe mai accadere,
+-- ma e' comunque la stessa causa reale: questo user_id ha gia' un
+-- founder_grant). Qualunque ALTRO nome di vincolo (Caso 40 in
+-- 10-functional-tests.sql, simula un vincolo sconosciuto con un trigger di
+-- test dedicato) fa RAISE (ripropaga l'eccezione originale) invece di
+-- essere silenziosamente assorbito nel fallback — un vincolo futuro non
+-- previsto qui non deve mai essere trattato come "riga gia' esistente, va
+-- bene aggiornarla".
+--
+-- Barriera whitelist invariata da P0.10E-D: solo billing_source IN
+-- ('founder_grant', 'trial') puo' essere sovrascritto dal fallback UPDATE —
+-- whitelist, non blacklist, quindi un valore futuro sconosciuto di
+-- billing_source resta protetto per default, non solo i 3 valori
+-- commerciali noti oggi (istruzione esplicita di Matteo, invariata).
+--
+-- is_b2c_lifetime() — INCOERENZA PREESISTENTE, NON CORRETTA QUI (istruzione
+-- esplicita di Matteo): quella funzione (20260514120004_init_b2c_subs.sql)
+-- considera lifetime solo active_until > '9000-01-01', ma le 18 righe
+-- Founder live scadono nel 2099 (< 9000) — is_b2c_lifetime() ritorna quindi
+-- FALSE per un vero Founder grant, sia per le 18 righe esistenti sia per
+-- ogni nuova riga scritta da questa stessa funzione (che usa
+-- deliberatamente '2099-12-31', non '9999-12-31', per restare
+-- byte-identica alla convenzione live). Non e' una svista di questa
+-- migration: e' un difetto preesistente e piu' ampio di is_b2c_lifetime()
+-- stessa, che richiede un audit di TUTTI i suoi consumer prima di essere
+-- toccata (potrebbe gia' essere compensato altrove, o potrebbe essere un
+-- bug attivo che affligge gia' le 18 righe live oggi) — documentato
+-- separatamente in docs/architecture/p010-founder-pre-apply-checklist.md,
+-- da programmare come sprint dedicato, NON risolto ne' mascherato da
+-- questa migration. Non usare questa incoerenza come motivo per cambiare
+-- SOLO le nuove righe a '9999-12-31': violerebbe l'istruzione "conserva
+-- esattamente i valori live" sopra.
 -- ============================================================================
-
--- Riscrittura mirata (FASE 4): CONSERVA firma (uuid, text), owner
--- (postgres), SECURITY DEFINER, search_path fissato. CAMBIA solo la
--- clausola di conflitto su b2c_subscriptions da un ON CONFLICT DO UPDATE
--- incondizionato a uno con WHERE che permette l'update SOLO se la riga
--- esistente e' 'founder_grant' o 'trial' (whitelist, non blacklist: un
--- qualunque valore FUTURO/sconosciuto di billing_source resta protetto per
--- default, non solo i 3 valori commerciali noti oggi). Poi usa
--- GET DIAGNOSTICS ROW_COUNT per sapere se l'upsert ha realmente scritto
--- qualcosa: SOLO con ROW_COUNT > 0 marca founder_grants.applied_user_id/
--- applied_at e ritorna true; con ROW_COUNT = 0 (conflitto contro una riga
--- commerciale protetta) non tocca founder_grants e ritorna false.
---
--- NON sufficiente un ON CONFLICT ... DO UPDATE ... WHERE senza controllare
--- ROW_COUNT (istruzione esplicita di Matteo): la funzione continuerebbe
--- comunque a marcare founder_grants come applicato e a ritornare true
--- anche quando l'update e' stato silenziosamente saltato dalla WHERE,
--- producendo uno stato falso (riserva "consumata" senza che nulla di reale
--- sia stato scritto).
---
--- CORREZIONE CRITICA (trovata in review avversariale, prima della
--- consegna): la DDL REALE di public.b2c_subscriptions e' gia' TRACCIATA in
--- questo stesso repo (supabase/migrations/20260514120004_init_b2c_subs.sql,
--- mai cercata prima d'ora in questo sprint — un errore di processo, non
--- solo di codice) ed ha QUATTRO colonne NOT NULL senza default che la
--- prima bozza di questa funzione non popolava affatto:
--- external_product_id, external_subscription_id, active_until,
--- auto_renewing (quest'ultima ha un default ma non e' il valore corretto
--- per un grant permanente). Una insert senza queste colonne avrebbe
--- fallito con "null value in column ... violates not-null constraint" su
--- OGNI claim Founder reale, non un edge case — trovato SOLO applicando il
--- corpo esatto di questa funzione contro la DDL reale in un test isolato,
--- mai dalla sola lettura.
---
--- Valori scelti: NON inventati — rispecchiano esattamente la convenzione
--- gia' STABILITA e TRACCIATA in questo stesso repo da
--- public.grant_b2c_trial() (supabase/migrations/20260514120006_
--- sprint0_fixes.sql, versione race-safe finale) per il trial 7gg:
--- external_product_id = identificatore sintetico 'fitmesh_b2c_trial_7d',
--- external_subscription_id = 'trial-' || user_id, active_until = now() +
--- 7gg, auto_renewing = false. Per founder_grant si segue la STESSA forma,
--- sostituendo solo i valori specifici del prodotto: external_product_id =
--- 'fitmesh_founder_grant', external_subscription_id = 'founder-' ||
--- user_id (stesso pattern "<tipo>-<user_id>", garantisce unicita' per
--- costruzione rispetto al vincolo UNIQUE(billing_source,
--- external_subscription_id): nessun'altra riga puo' avere lo stesso
--- user_id incorporato), active_until = '9999-12-31' (il sentinel
--- "lifetime" gia' documentato nel commento di testa della tabella stessa e
--- verificato da public.is_b2c_lifetime(), non un valore scelto a caso —
--- Founder e' concettualmente un grant permanente, esattamente come il
--- prodotto lifetime esistente), auto_renewing = false (nessun rinnovo
--- ricorrente, stessa convenzione lifetime).
---
--- L'UPDATE (ramo conflitto permesso) aggiorna ANCHE queste colonne, non
--- solo billing_source/state: convertire un trial (active_until a ~7
--- giorni) in founder_grant SENZA aggiornare active_until lascerebbe la
--- riga con una scadenza imminente nonostante il nuovo billing_source
--- permanente — bug silenzioso, non solo un dettaglio estetico.
---
--- RESIDUO DICHIARATO, ridotto ma non azzerato: i valori letterali sopra
--- sono dedotti dalla convenzione di un'ALTRA funzione (grant_b2c_trial),
--- non confermati leggendo le 18 righe founder_grant gia' esistenti in
--- produzione (create da un corpo di _apply_founder_grant mai letto). Se
--- quel corpo storico usa convenzioni diverse per queste stesse colonne,
--- le nuove righe scritte da questa funzione avrebbero valori
--- STILISTICAMENTE diversi dalle 18 esistenti (mai un errore/crash — sono
--- comunque valori validi e coerenti — solo una possibile incoerenza
--- cosmetica fra righe vecchie e nuove). §17b del preflight (DDL +
--- ispezione delle righe founder_grant esistenti) resta la verifica finale
--- prima dell'apply.
---
--- RESIDUO DICHIARATO — nomi dei parametri: la funzione legacy
--- (private.claim_founder_grant_if_eligible, mai riletta) chiama
--- internamente _apply_founder_grant. Se quella chiamata usasse sintassi a
--- parametri NOMINATI con nomi diversi da p_user_id/p_email scelti qui, la
--- chiamata fallirebbe in modo esplicito al primo utilizzo (mai
--- silenziosamente) — rischio giudicato basso: p_user_id/p_email segue la
--- stessa convenzione gia' osservata in ogni altra funzione Founder di
--- questo stesso progetto (grant_founder_launch_core(p_user_id, p_device_id),
--- _next_founder_number, ecc.), ma non e' stato possibile confermarlo senza
--- il corpo reale.
---
--- RESIDUO DICHIARATO, deliberatamente NON esteso oltre la specifica
--- ricevuta: il ROW_COUNT della UPDATE su founder_grants (poche righe sotto)
--- non viene controllato separatamente — solo quello dell'upsert su
--- b2c_subscriptions decide true/false, esattamente come specificato. Se
--- p_email non corrispondesse a nessuna riga founder_grants (non dovrebbe
--- mai accadere: il chiamante gia' verifica l'allowlist prima di arrivare
--- qui), la UPDATE sotto sarebbe un no-op silenzioso su founder_grants ma
--- la funzione tornerebbe comunque true (l'entitlement b2c_subscriptions e'
--- comunque reale per l'utente) — non un dato corrotto, solo un ledger
--- founder_grants non aggiornato in uno scenario che non dovrebbe
--- presentarsi nel flusso reale.
---
--- CORREZIONE CRITICA #2 (trovata dal test di concorrenza Caso 36 stesso,
--- non da un'ispezione statica): un `ON CONFLICT (user_id) DO UPDATE`
--- risolve conflitti SOLO sull'indice/arbitro nominato (user_id). La DDL
--- reale di b2c_subscriptions ha PERO' un SECONDO vincolo univoco
--- indipendente, UNIQUE(billing_source, external_subscription_id)
--- (20260514120004_init_b2c_subs.sql). Poiche' external_subscription_id
--- qui e' derivato deterministicamente da user_id ('founder-' || user_id),
--- quel secondo vincolo e' logicamente ridondante con user_id per QUESTA
--- funzione — ma Postgres non lo sa, e un ON CONFLICT che nomina un solo
--- arbitro NON sopprime una violazione su un indice univoco diverso. Sotto
--- concorrenza reale (due chiamate per lo stesso user_id nuovo, testato in
--- run-suite.sh Caso 36), la SECONDA chiamata puo' fallire con
--- "duplicate key value violates unique constraint
--- b2c_subscriptions_billing_source_external_subscription_id_key" invece
--- di essere silenziosamente assorbita dalla ON CONFLICT — riprodotto
--- empiricamente, non solo temuto in astratto.
---
--- Corretto sostituendo l'INSERT...ON CONFLICT con un blocco
--- BEGIN/EXCEPTION: il tentativo di INSERT resta il percorso comune (nessun
--- costo aggiuntivo quando non c'e' conflitto); se scatta UNIQUE_VIOLATION
--- (su QUALUNQUE dei due indici — sono comunque sempre imputabili alla
--- stessa causa: esiste gia' una riga per questo user_id, dato che
--- external_subscription_id lo incorpora), il fallback e' un UPDATE
--- esplicito filtrato per user_id CON LA STESSA whitelist
--- (billing_source in ('founder_grant','trial')) del ramo INSERT: se la
--- riga gia' esistente e' commerciale, l'UPDATE modifica zero righe
--- (ROW_COUNT=0), stessa semantica di prima. Se e' gia' founder_grant o
--- trial, l'UPDATE riesce (ROW_COUNT>0). Nessun cambio di comportamento
--- per i casi gia' testati (Casi 24-29, 33-35) — solo la STESSA vittoria
--- commerciale/Founder ora sopravvive anche quando la riga vincitrice non
--- esiste ancora al momento in cui la seconda chiamata tenta l'INSERT.
 create or replace function public._apply_founder_grant(p_user_id uuid, p_email text)
 returns boolean
 language plpgsql
@@ -298,31 +339,62 @@ security definer
 set search_path = pg_catalog, public
 as $$
 declare
+  v_grant public.founder_grants%rowtype;
   v_rows int;
+  v_ledger_rows int;
+  v_constraint_name text;
+  v_raw_payload jsonb;
 begin
+  if p_user_id is null or p_email is null then
+    return false;
+  end if;
+
+  select * into v_grant
+  from public.founder_grants
+  where lower(email) = lower(p_email)
+  for update;
+
+  if not found then
+    return false;
+  end if;
+
+  v_raw_payload := jsonb_build_object(
+    'founder_number', v_grant.founder_number,
+    'grant_email', v_grant.email,
+    'granted_at', v_grant.granted_at,
+    'source', 'rpc_claim'
+  );
+
   begin
     insert into public.b2c_subscriptions (
       user_id, billing_source, external_product_id, external_subscription_id,
-      active_until, auto_renewing, state
+      active_until, auto_renewing, state, raw_payload
     )
     values (
-      p_user_id, 'founder_grant', 'fitmesh_founder_grant', 'founder-' || p_user_id::text,
-      '9999-12-31'::timestamptz, false, 'active'
+      p_user_id, 'founder_grant', 'lifetime_founder',
+      'founder_grant_' || v_grant.founder_number,
+      '2099-12-31 23:59:59+00'::timestamptz, false, 'active', v_raw_payload
     );
     v_rows := 1;
   exception
     when unique_violation then
-      -- Riga gia' esistente per questo user_id (conflitto sul PK o
-      -- sull'indice secondario, sempre la stessa causa reale per questa
-      -- funzione — vedi commento sopra). Fallback esplicito, STESSA
-      -- whitelist del ramo INSERT.
+      get stacked diagnostics v_constraint_name = constraint_name;
+      if v_constraint_name not in (
+        'b2c_subscriptions_pkey',
+        'b2c_subscriptions_billing_source_external_subscription_id_key'
+      ) then
+        raise;
+      end if;
+
       update public.b2c_subscriptions
       set billing_source = 'founder_grant',
-          external_product_id = 'fitmesh_founder_grant',
-          external_subscription_id = 'founder-' || p_user_id::text,
-          active_until = '9999-12-31'::timestamptz,
+          external_product_id = 'lifetime_founder',
+          external_subscription_id = 'founder_grant_' || v_grant.founder_number,
+          active_until = '2099-12-31 23:59:59+00'::timestamptz,
           auto_renewing = false,
-          state = 'active'
+          state = 'active',
+          raw_payload = v_raw_payload,
+          updated_at = now()
       where user_id = p_user_id
         and billing_source in ('founder_grant', 'trial');
       get diagnostics v_rows = row_count;
@@ -338,21 +410,36 @@ begin
   update public.founder_grants
   set applied_user_id = p_user_id,
       applied_at = now()
-  where lower(email) = lower(p_email);
+  where email = v_grant.email;
+  get diagnostics v_ledger_rows = row_count;
+
+  if v_ledger_rows = 0 then
+    raise exception 'P0.10E-E: invariante violata - founder_grants.email % era gia'' bloccata via SELECT ... FOR UPDATE in questa stessa transazione, ma la UPDATE finale ha modificato zero righe. Non deve poter accadere per costruzione (stessa chiave, stesso lock, stessa transazione) - se accade e'' un bug o una corruzione dati, non un esito silenzioso.', v_grant.email;
+  end if;
 
   return true;
 end;
 $$;
 
 comment on function public._apply_founder_grant(uuid, text) is
-  'Sprint P0.10E-D: riscrittura mirata (non il corpo originale, mai letto '
-  'per intero) — barriera atomica whitelist su b2c_subscriptions.'
-  'billing_source (solo founder_grant/trial possono essere sovrascritti), '
-  'ROW_COUNT reale via GET DIAGNOSTICS: founder_grants.applied_user_id/'
-  'applied_at aggiornati SOLO se l''upsert ha davvero scritto una riga. '
-  'Stessa firma/owner/SECURITY DEFINER dell''originale confermato live '
-  '(MD5 5c7649b942f04234c31d3c7961c4c6a0), verificato bit-per-bit prima '
-  'della sostituzione da un guard MD5 in questa stessa migration.';
+  'Sprint P0.10E-E: corpo riscritto per allinearsi ESATTAMENTE alla '
+  'convenzione live delle 18 righe founder_grant esistenti (external_'
+  'product_id=lifetime_founder, external_subscription_id=founder_grant_'
+  '<founder_number>, active_until=2099-12-31 23:59:59+00, raw_payload '
+  'completo con source=rpc_claim) - non una convenzione nuova inventata. '
+  'Ripristina l''allowlist (SELECT ... FOR UPDATE su founder_grants, false '
+  'se email assente, null-check su entrambi i parametri) che la riscrittura '
+  'P0.10E-D aveva perso senza saperlo. Aggiunge la barriera whitelist su '
+  'billing_source (founder_grant/trial sovrascrivibili, tutto il resto '
+  'protetto per default) che il corpo live non ha mai avuto - il bug '
+  'originale che questa migration corregge. GET STACKED DIAGNOSTICS + '
+  'CONSTRAINT_NAME distingue le due collisioni note (pkey, '
+  'billing_source+external_subscription_id) da qualunque altro '
+  'unique_violation, che viene rilanciato, mai assorbito. Stessa firma/'
+  'owner/SECURITY DEFINER dell''originale confermato live (MD5 '
+  '5c7649b942f04234c31d3c7961c4c6a0), letto integralmente da Matteo il '
+  '2026-07-29 (proprieta'' comportamentali note con precisione, testo '
+  'letterale non disponibile in questo repo - vedi FASE 9 per il rollback).';
 
 -- Reassert ACL — gia' vero in produzione oggi (solo postgres/service_role),
 -- questo e' un reassert esplicito, non un fix di una falla attiva.
@@ -364,7 +451,7 @@ begin
   if to_regprocedure('public._apply_founder_grant(uuid, text)') is not null then
     revoke all on function public._apply_founder_grant(uuid, text) from public, anon, authenticated;
   else
-    raise warning 'P0.10E-D: public._apply_founder_grant(uuid, text) non trovata dopo la riscrittura - reassert ACL SALTATO, verificare manualmente.';
+    raise warning 'P0.10E-E: public._apply_founder_grant(uuid, text) non trovata dopo la riscrittura - reassert ACL SALTATO, verificare manualmente.';
   end if;
 end $$;
 
@@ -586,10 +673,17 @@ notify pgrst, 'reload schema';
 --     corso, legge il valore fresco);
 --   - commerciale che arriva DOPO il precheck ma PRIMA/DURANTE la delega
 --     -> bloccato dalla barriera atomica in _apply_founder_grant
---     (whitelist ON CONFLICT + ROW_COUNT), e la risposta al client viene
---     corretta dalla ri-verifica FASE 5 anche se la funzione legacy
---     (mai riletta) non distinguesse internamente questo caso da un
---     generico "non eleggibile".
+--     (whitelist + GET STACKED DIAGNOSTICS/CONSTRAINT_NAME, P0.10E-E), e la
+--     risposta al client viene corretta dalla ri-verifica FASE 5 anche se
+--     la funzione legacy (mai riletta) non distinguesse internamente
+--     questo caso da un generico "non eleggibile".
 -- Non risulta piu' alcuna finestra nota e non protetta per la
 -- sovrascrittura di una sottoscrizione commerciale tramite questa RPC.
+--
+-- P0.10E-E, ulteriore: la barriera ora usa ANCHE la convenzione di valori
+-- e le protezioni (allowlist, null-check, raw_payload) esattamente
+-- confermate contro le 18 righe founder_grant reali — vedi FASE 4 sopra e
+-- docs/architecture/p010-founder-pre-apply-checklist.md per il dettaglio
+-- completo dei due bug corretti (convenzione sbagliata, protezioni perse)
+-- e per l'incoerenza preesistente e NON corretta qui di is_b2c_lifetime().
 -- ============================================================================
