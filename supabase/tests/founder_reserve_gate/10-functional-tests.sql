@@ -1,10 +1,11 @@
--- Sprint P0.10E-B — test funzionali della migration REALE
+-- Sprint P0.10E-C — test funzionali della migration REALE
 -- (20260729120000_founder_reserve_cutoff_gate.sql) su supabase/postgres
 -- reale. Ogni caso chiama SEMPRE public.claim_founder_grant_if_eligible()
 -- (il nome pubblico ORIGINALE, zero argomenti) tramite test.call_gate_as():
 -- e' esattamente cio' che il client gia' pubblicato chiama, quindi ogni
 -- singolo caso valida anche la compatibilita' col client come effetto
--- collaterale, non solo il caso 1.
+-- collaterale, non solo il caso 1. Casi 16-22: no-clobber sottoscrizioni
+-- commerciali (BLOCCO 3, integrato nel wrapper in questo sprint).
 \set ON_ERROR_STOP on
 set role postgres;
 
@@ -292,5 +293,149 @@ begin
   raise notice 'Caso 13 OK: doppia chiamata, nessun errore, risposta stabile (limite: stub stateless, non prova idempotenza del corpo reale)';
 end $$;
 
+-- ============================================================================
+-- Sprint P0.10E-C — no-clobber sottoscrizioni commerciali (BLOCCO 3).
+-- Casi 16/17/18: Google Play / Apple IAP / Stripe attivi -> mai delegare,
+-- founder_grants/b2c_subscriptions mai toccate (probe piatto), riserva mai
+-- consumata, reason esatta 'existing_commercial_entitlement'. Tutti e tre
+-- gli account sono ANCHE allowlisted nello stub (email che inizia con
+-- 'allowlisted') e ben dentro cutoff+finestra: se il no-clobber non
+-- funzionasse, otterrebbero 'granted' invece del blocco, non un rifiuto
+-- generico — la prova e' quindi stringente, non vacua.
+-- ============================================================================
+do $$
+declare
+  v_hits_before int;
+  v_hits_after int;
+  v_user uuid := test.mkuser('allowlisted-google@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'google_play', 'active');
+  select hits into v_hits_before from test.probe_hits where n = 1;
+  v_res := test.call_gate_as(v_user);
+  select hits into v_hits_after from test.probe_hits where n = 1;
+
+  perform test.assert(v_res->>'eligible' = 'false', 'Caso 16: Google Play attivo deve sempre risultare non eligible');
+  perform test.assert(v_res->>'reason' = 'existing_commercial_entitlement', 'Caso 16: atteso reason=existing_commercial_entitlement, trovato ' || (v_res->>'reason'));
+  perform test.assert(v_hits_after = v_hits_before, 'Caso 16: la funzione legacy NON deve essere invocata quando esiste una sottoscrizione Google Play');
+  -- founder_grants/_apply_founder_grant sono raggiungibili SOLO dall'interno
+  -- della funzione legacy (probe sopra) — il probe piatto e' gia' la prova
+  -- che nessuna delle due e' stata toccata, non serve un controllo separato.
+  raise notice 'Caso 16 OK: Google Play attivo -> existing_commercial_entitlement, legacy MAI raggiunta (probe invariato a %)', v_hits_after;
+end $$;
+
+do $$
+declare
+  v_hits_before int;
+  v_hits_after int;
+  v_user uuid := test.mkuser('allowlisted-apple@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'apple_iap', 'active');
+  select hits into v_hits_before from test.probe_hits where n = 1;
+  v_res := test.call_gate_as(v_user);
+  select hits into v_hits_after from test.probe_hits where n = 1;
+
+  perform test.assert(v_res->>'eligible' = 'false', 'Caso 17: Apple IAP attivo deve sempre risultare non eligible');
+  perform test.assert(v_res->>'reason' = 'existing_commercial_entitlement', 'Caso 17: atteso reason=existing_commercial_entitlement, trovato ' || (v_res->>'reason'));
+  perform test.assert(v_hits_after = v_hits_before, 'Caso 17: la funzione legacy NON deve essere invocata quando esiste una sottoscrizione Apple IAP');
+  raise notice 'Caso 17 OK: Apple IAP attivo -> existing_commercial_entitlement, legacy MAI raggiunta (probe invariato a %)', v_hits_after;
+end $$;
+
+do $$
+declare
+  v_hits_before int;
+  v_hits_after int;
+  v_user uuid := test.mkuser('allowlisted-stripe@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'stripe', 'active');
+  select hits into v_hits_before from test.probe_hits where n = 1;
+  v_res := test.call_gate_as(v_user);
+  select hits into v_hits_after from test.probe_hits where n = 1;
+
+  perform test.assert(v_res->>'eligible' = 'false', 'Caso 18: Stripe attivo deve sempre risultare non eligible');
+  perform test.assert(v_res->>'reason' = 'existing_commercial_entitlement', 'Caso 18: atteso reason=existing_commercial_entitlement, trovato ' || (v_res->>'reason'));
+  perform test.assert(v_hits_after = v_hits_before, 'Caso 18: la funzione legacy NON deve essere invocata quando esiste una sottoscrizione Stripe');
+  raise notice 'Caso 18 OK: Stripe attivo -> existing_commercial_entitlement, legacy MAI raggiunta (probe invariato a %)', v_hits_after;
+end $$;
+
+-- ============================================================================
+-- Caso 19: sottoscrizione commerciale SCADUTA (state='expired') -> blocca
+-- comunque, indipendentemente da `state` (decisione esplicita di Matteo: il
+-- blocco e' su billing_source, mai su state).
+-- ============================================================================
+do $$
+declare
+  v_hits_before int;
+  v_hits_after int;
+  v_user uuid := test.mkuser('allowlisted-expired-commercial@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'apple_iap', 'expired');
+  select hits into v_hits_before from test.probe_hits where n = 1;
+  v_res := test.call_gate_as(v_user);
+  select hits into v_hits_after from test.probe_hits where n = 1;
+
+  perform test.assert(v_res->>'eligible' = 'false', 'Caso 19: una sottoscrizione commerciale SCADUTA deve comunque bloccare');
+  perform test.assert(v_res->>'reason' = 'existing_commercial_entitlement', 'Caso 19: atteso reason=existing_commercial_entitlement anche da scaduta, trovato ' || (v_res->>'reason'));
+  perform test.assert(v_hits_after = v_hits_before, 'Caso 19: la funzione legacy NON deve essere invocata anche per una sottoscrizione commerciale scaduta');
+  raise notice 'Caso 19 OK: commerciale scaduto -> existing_commercial_entitlement comunque, legacy MAI raggiunta';
+end $$;
+
+-- ============================================================================
+-- Caso 20: billing_source='trial' -> NON blocca, Founder puo' sostituirla
+-- (entitlement superiore). Delega normalmente, allowlisted -> granted.
+-- ============================================================================
+do $$
+declare
+  v_user uuid := test.mkuser('allowlisted-trial@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'trial', 'active');
+  v_res := test.call_gate_as(v_user);
+  perform test.assert(v_res->>'eligible' = 'true', 'Caso 20: trial non deve bloccare il claim Founder, atteso eligible=true, trovato ' || (v_res->>'eligible'));
+  perform test.assert(v_res->>'reason' = 'granted', 'Caso 20: atteso reason=granted (delega avvenuta), trovato ' || (v_res->>'reason'));
+  raise notice 'Caso 20 OK: trial non blocca, Founder delega normalmente (sostituzione lasciata al corpo legacy invariato)';
+end $$;
+
+-- ============================================================================
+-- Caso 21: billing_source='founder_grant' -> NON blocca (gia' Founder,
+-- idempotenza demandata al corpo legacy invariato). LIMITE DICHIARATO:
+-- come il Caso 13, lo stub non simula una vera logica di idempotenza —
+-- questo caso prova solo che il wrapper non intercetta 'founder_grant'
+-- come se fosse commerciale.
+-- ============================================================================
+do $$
+declare
+  v_user uuid := test.mkuser('allowlisted-already-founder@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'founder_grant', 'active');
+  v_res := test.call_gate_as(v_user);
+  perform test.assert(v_res->>'reason' != 'existing_commercial_entitlement', 'Caso 21: founder_grant non deve mai essere trattato come sottoscrizione commerciale');
+  perform test.assert(v_res->>'reason' = 'granted', 'Caso 21: atteso reason=granted (delega avvenuta), trovato ' || (v_res->>'reason'));
+  raise notice 'Caso 21 OK: founder_grant non blocca, wrapper delega (limite: stub non prova idempotenza reale, vedi Caso 13)';
+end $$;
+
+-- ============================================================================
+-- Caso 22: nessuna riga in b2c_subscriptions -> flusso legacy normale
+-- (v_billing_source NULL, l'IN valuta NULL/falso, si procede a delegare).
+-- Ridondante in senso stretto coi Casi 1/2 (nessuno di quei due utenti ha
+-- mai avuto una riga b2c_subscriptions), ma reso esplicito perche' fa
+-- parte della lista di verifica richiesta per il no-clobber.
+-- ============================================================================
+do $$
+declare
+  v_user uuid := test.mkuser('allowlisted-no-subscription-row@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  perform test.assert(not exists (select 1 from public.b2c_subscriptions where user_id = v_user), 'Caso 22: precondizione, nessuna riga b2c_subscriptions per questo utente');
+  v_res := test.call_gate_as(v_user);
+  perform test.assert(v_res->>'eligible' = 'true', 'Caso 22: nessuna riga b2c_subscriptions deve risultare in flusso legacy normale, atteso eligible=true');
+  perform test.assert(v_res->>'reason' = 'granted', 'Caso 22: atteso reason=granted, trovato ' || (v_res->>'reason'));
+  raise notice 'Caso 22 OK: nessuna riga b2c_subscriptions -> flusso legacy normale';
+end $$;
+
 reset role;
-select '✅ TUTTI I CASI FOUNDER_RESERVE_GATE (P0.10E-B) SUPERATI' as risultato;
+select '✅ TUTTI I CASI FOUNDER_RESERVE_GATE (P0.10E-C) SUPERATI' as risultato;

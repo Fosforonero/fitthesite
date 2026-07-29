@@ -400,7 +400,7 @@ order by count(*) desc;
 -- e non-Founder, non un bug di sicurezza, ma non fedele al contratto).
 
 -- ============================================================================
--- 17. Sprint P0.10E-B addendum — due verifiche PRIMA di applicare la
+-- 17. Sprint P0.10E-B/C addendum — verifiche PRIMA di applicare la
 --     migration riserve corretta (20260729120000).
 -- ============================================================================
 
@@ -422,15 +422,15 @@ from pg_proc p
 where p.proname = 'claim_founder_grant_if_eligible'
   and p.pronamespace = 'public'::regnamespace;
 
--- 17b. BLOCCO 3 (NON RISOLTO da 20260729120000, deliberatamente — vedi
--- commento in fondo a quel file): _apply_founder_grant(uuid, text) usa
--- `ON CONFLICT (user_id) DO UPDATE` e puo' sovrascrivere una riga
--- b2c_subscriptions gia' presente per lo stesso user_id. Serve il corpo
--- INTEGRALE (non solo la clausola ON CONFLICT, gia' confermata a voce) e la
--- struttura reale di b2c_subscriptions per progettare un fix corretto (non
--- un guess) come migration separata (#5) — PRIMA che una delle 3 email
--- riservate venga effettivamente reclamata da un account con una
--- sottoscrizione commerciale gia' attiva.
+-- 17b. BLOCCO 3 — RISOLTO nel wrapper (20260729120000, Sprint P0.10E-C), non
+-- in _apply_founder_grant (mai riscritta). Questa query resta utile per
+-- CONFERMARE (non piu' per progettare un fix) che le assunzioni del wrapper
+-- su b2c_subscriptions corrispondano alla realta': nome colonna
+-- `billing_source`, valori esatti `google_play`/`apple_iap`/`stripe`/
+-- `trial`/`founder_grant` (confermati a voce da Matteo il 2026-07-29 via
+-- conteggio diretto: 18 righe, tutte `founder_grant`), e che `user_id` sia
+-- davvero la colonna con vincolo di unicita' usata da
+-- `ON CONFLICT (user_id)` nel corpo legacy.
 select pg_get_functiondef('public._apply_founder_grant(uuid, text)'::regprocedure) as apply_founder_grant_full_body;
 
 select column_name, data_type, is_nullable, column_default
@@ -441,8 +441,35 @@ order by ordinal_position;
 select conname, pg_get_constraintdef(oid)
 from pg_constraint
 where conrelid = 'public.b2c_subscriptions'::regclass;
--- Cercare in particolare: quale colonna distingue la SORGENTE di una
--- sottoscrizione (google_play/apple_iap/stripe/trial/founder_grant, o
--- equivalente) e se esiste gia' un vincolo o una logica applicativa che
--- impedisce di sovrascrivere una sorgente commerciale con una non
--- commerciale — se non esiste, e' esattamente il gap che BLOCCO 3 descrive.
+-- Cercare in particolare: che `billing_source` sia davvero il nome
+-- colonna (non un alias/vista), che i 5 valori usati dal wrapper siano gli
+-- UNICI valori possibili (un CHECK constraint diverso, o un sesto valore
+-- mai visto nei conteggi odierni, cambierebbe la superficie del blocco), e
+-- che esista un vincolo di unicita' su `user_id` (necessario perche'
+-- `ON CONFLICT (user_id)` nel corpo legacy compili).
+
+-- 17c. Sprint P0.10E-C — PRECONDIZIONE NUOVA, trovata in review avversariale
+-- sul no-clobber: il wrapper usa `SELECT ... FOR UPDATE` su
+-- b2c_subscriptions PRIMA di delegare alla funzione legacy. `FOR UPDATE`
+-- richiede il privilegio UPDATE sulla tabella (non basta SELECT) per il
+-- ruolo che esegue la funzione — cioe' il PROPRIETARIO della funzione
+-- (confermato: postgres), non il chiamante (irrilevante, la funzione e'
+-- SECURITY DEFINER). Se postgres avesse solo SELECT su questa tabella (mai
+-- verificato: il preflight §17b legge solo information_schema.columns, mai
+-- i privilegi), OGNI chiamata che supera cutoff+finestra fallirebbe con un
+-- errore esplicito di permesso negato — non un bypass di sicurezza (fail
+-- loud, coerente con la filosofia del resto del file), ma un'interruzione
+-- del servizio per QUALUNQUE account pre-cutoff in finestra, non solo le 3
+-- email riservate. Verificare PRIMA dell'apply:
+select tableowner
+from pg_tables
+where schemaname = 'public' and tablename = 'b2c_subscriptions';
+
+select has_table_privilege('postgres', 'public.b2c_subscriptions', 'UPDATE') as postgres_can_update,
+       has_table_privilege('postgres', 'public.b2c_subscriptions', 'SELECT') as postgres_can_select;
+-- Atteso: postgres_can_update = true. Se risulta false, la migration NON
+-- va applicata cosi' com'e' — serve prima un `GRANT UPDATE ON
+-- public.b2c_subscriptions TO postgres;` (se legittimo/autorizzato) oppure
+-- una riprogettazione del no-clobber che non richieda FOR UPDATE (con la
+-- meta' della race gia' dichiarata NON chiusa che diventerebbe l'intera
+-- race, non solo meta').

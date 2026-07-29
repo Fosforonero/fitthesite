@@ -1,40 +1,86 @@
-# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B/D/E/E-A/E-B)
+# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B/D/E/E-A/E-B/E-C)
 
-## Sprint P0.10E-B — la #4 è stata RISCRITTA dopo un bug bloccante trovato in produzione
+## ⚠️ I conteggi in questo documento sono un MOMENTO, non un valore fisso
 
-La prima versione della migration #4 (Sprint P0.10E-A) non è mai stata
-applicata e conteneva un bug che avrebbe rotto il client pubblicato — vedi
-"### CORREZIONE BLOCCANTE P0.10E-B" sotto per il dettaglio completo. Il
-resto dell'ordine di apply (4 migration separate, dipendenze fra loro)
-resta invariato:
+Il programma Founder resta aperto fino al cutoff: ogni conteggio citato qui
+(righe `founder_grants`, utenti `user_roles` founder-launch, righe
+`b2c_subscriptions`) è vero al momento in cui è stato letto, non un valore
+statico da riusare. **Ripetere il dry-run (§12 del preflight) IMMEDIATAMENTE
+prima dell'apply reale** e confrontarlo con il `NOTICE` che la migration #1
+stampa durante il backfill — non con i numeri scritti in questo file, che
+per costruzione sono già vecchi nel momento in cui li leggi.
+
+## Sprint P0.10E-C — BLOCCO 3 risolto nel wrapper, conteggi aggiornati (2026-07-29)
+
+Ownership confermata da Matteo via lettura diretta su produzione
+(2026-07-29) — risolve la precondizione aperta da §17a:
+
+| Funzione | Owner |
+|---|---|
+| `public.claim_founder_grant_if_eligible()` | postgres |
+| `public._apply_founder_grant(uuid, text)` | postgres |
+| `public.handle_new_founder()` | postgres |
+| `private.grant_founder_launch_core(uuid, uuid)` | postgres |
+
+Il ruolo usato dal connettore di migration è `postgres` e può eseguire
+`ALTER FUNCTION ... SET SCHEMA` — **§17a è quindi PASS**. Resta aperta una
+NUOVA precondizione (§17c, trovata in review avversariale sul no-clobber
+P0.10E-C): `postgres` deve avere anche il privilegio **UPDATE** (non solo
+SELECT) su `public.b2c_subscriptions`, richiesto da `SELECT ... FOR UPDATE`
+nel wrapper — non ancora verificato.
+
+Conteggi reali (Matteo, 2026-07-29 — **non hardcodare, vedi avviso sopra**):
+
+| Voce | Valore (2026-07-29) |
+|---|---|
+| `founder_grants` totali | 21 |
+| `founder_grants` applicati | 18 |
+| `founder_grants` riservati | 3 |
+| `user_roles` founder-launch (utenti distinti) | 364 |
+| overlap fra applied `founder_grants` e founder-launch | 4 |
+| popolazione distinta attesa dal backfill (18+364-4) | 378 |
+| `b2c_subscriptions` totali | 18 |
+| `b2c_subscriptions` billing_source=founder_grant | 18 |
+| `b2c_subscriptions` billing_source=google_play/apple_iap/stripe | 0 |
+| `b2c_subscriptions` billing_source=trial | 0 |
+
+Il numero "358 righe in founder_grants" citato altrove **non compare in
+nessun file di questo repo** (verificato via grep su tutta la cartella
+`docs/architecture` e sulle migration) — non riportarlo in nessun report
+come se fosse un valore di questa sessione.
+
+L'assenza odierna di righe commerciali (`google_play`/`apple_iap`/`stripe`:
+0) significa che non esiste corruzione già avvenuta — **non** significa che
+la vulnerabilità potesse essere rinviata dopo il 1° agosto: il wrapper
+riserve resta chiamabile durante la finestra individuale di 14gg mentre il
+funnel a pagamento si apre, quindi acquisti commerciali reali possono
+comparire da un momento all'altro. Per questo, su richiesta esplicita di
+Matteo, il no-clobber è stato integrato **direttamente nel wrapper #4**
+(non in una migration #5 separata, dato che #4 non era ancora applicata) —
+vedi "### BLOCCO 3 — RISOLTO nel wrapper" sotto.
+
+Ordine di apply (invariato, 4 migration separate):
 
 | # | File | Cosa fa | Autorizzazione |
 |---|---|---|---|
-| 1 | `20260728090000_founder_launch_cutoff_and_window.sql` | Sunset Founder: cutoff + finestra + ledger persistente + backfill 375 righe | `GO APPLY P0.10` |
+| 1 | `20260728090000_founder_launch_cutoff_and_window.sql` | Sunset Founder: cutoff + finestra + ledger persistente + backfill (popolazione attesa: **ricalcolare al momento**, non 378 statico) | `GO APPLY P0.10` |
 | 2 | `20260728100000_harden_legacy_b2c_trial_acl.sql` | Revoca EXECUTE su `grant_b2c_trial()` da public/anon/authenticated | **separata**, va autorizzata esplicitamente |
 | 3 | `20260728110000_entitlement_status_contract.sql` | Nuova RPC `get_entitlement_status()` server-authoritative | **separata**, va autorizzata esplicitamente |
-| 4 | `20260729120000_founder_reserve_cutoff_gate.sql` (RISCRITTA, Sprint P0.10E-B) | Sposta `claim_founder_grant_if_eligible()` in `private`, ricrea il nome pubblico originale come wrapper cutoff+finestra, hardening `handle_new_founder()` | **separata**, va autorizzata esplicitamente. **Dipende da §17a del preflight** (ownership reale della funzione legacy) |
+| 4 | `20260729120000_founder_reserve_cutoff_gate.sql` (RISCRITTA, Sprint P0.10E-C) | Sposta `claim_founder_grant_if_eligible()` in `private`, ricrea il nome pubblico originale come wrapper cutoff+finestra+no-clobber, hardening `handle_new_founder()` | **separata**, va autorizzata esplicitamente. §17a PASS. **§17c ancora da verificare** (privilegio UPDATE su `b2c_subscriptions`) |
 
 La #1 è l'unica che scrive dati (backfill). La #2/#4 toccano solo ACL +
 funzioni. La #3 crea una funzione nuova senza toccare nulla di esistente.
-#1/#2/#3 non dipendono l'una dall'altra a livello SQL. La #4 presuppone che
-il ruolo che applica la migration sia proprietario (o membro del
-proprietario) di `claim_founder_grant_if_eligible()` — se il preflight §17a
-mostra un owner diverso, la #4 fallisce in modo esplicito al primo passo
-("must be owner of function"), non silenziosamente, e va corretta prima di
-riprovare. Tenute separate proprio per poterle autorizzare una alla volta
-(istruzione esplicita di Matteo: non mescolare l'hardening alla migration
-Founder).
+#1/#2/#3 non dipendono l'una dall'altra a livello SQL. Tenute separate
+proprio per poterle autorizzare una alla volta (istruzione esplicita di
+Matteo: non mescolare l'hardening alla migration Founder).
 
 SHA-256 al momento della consegna (se cambiano, riconfermare — le prime tre
-sono invariate dalla consegna precedente, ricalcolate qui per completezza;
-il valore precedentemente registrato per la #3 in questo stesso file era
-stale/errato, corretto qui contro `git show 3d23c86:...`):
+sono invariate dalla consegna precedente):
 ```
 3e79bc3d110fd2ca2d50d3c4d3383c8b5f4297e895129e6fabd84094f5885813  20260728090000_founder_launch_cutoff_and_window.sql
 9a9c0a954702b273996d583c58d3797027b7209f43325ba24d1bcdacb0767522  20260728100000_harden_legacy_b2c_trial_acl.sql
 af78448c477f95eedbd2a028dc5ad0310fdfb6fee449db2fcf645e8a0532948e  20260728110000_entitlement_status_contract.sql
-131c304f7576c7e7b3f935df8b14ccd30a8a22b39bd3937e3fab2658b8452c0a  20260729120000_founder_reserve_cutoff_gate.sql
+68cbdcac6831070f0b1c317f64d8499d6e7a35440c28eb3d86628b16552b6a64  20260729120000_founder_reserve_cutoff_gate.sql
 ```
 
 ### CORREZIONE BLOCCANTE P0.10E-B: la prima versione della #4 rompeva il client pubblicato
@@ -94,6 +140,13 @@ DOPO (se la #4 corretta viene applicata):
 | `public._apply_founder_grant(uuid, text)` | NO | NO | NO | SÌ | SÌ (implicito) |
 | `public.handle_new_founder()` | NO | NO | NO | SÌ (non toccato, nessuna evidenza per revocarlo) | SÌ (implicito) |
 
+Nuova dipendenza P0.10E-C: il wrapper legge (e blocca in scrittura via `FOR
+UPDATE`) `public.b2c_subscriptions` per `user_id`. Nessun grant nuovo
+necessario per `authenticated` (SECURITY DEFINER, eredita i privilegi del
+proprietario) — ma vedi §17c: il proprietario deve avere EXECUTE **e
+UPDATE** sulla tabella, non solo SELECT, altrimenti la chiamata fallisce
+esplicitamente per ogni account pre-cutoff/in-finestra.
+
 ### Review avversariale della #4 riscritta — 3 bug trovati e corretti prima della consegna
 
 Una review avversariale indipendente (Workflow, general-purpose agent) ha
@@ -142,41 +195,100 @@ di Supabase su ogni funzione nuova in `public` — non fedele allo stato live
 reale (già chiuso) — corretto con un revoke esplicito nello stub stesso.
 
 **13/13 casi funzionali + riesecuzione (Caso 14) + concorrenza (Caso 15) —
-tutti verdi** dopo le correzioni, su Postgres reale
-(`supabase/tests/founder_reserve_gate/`). Le altre due suite del branch
-(`founder_p010a`, `entitlement_p010e`) ri-eseguite invariate: nessuna
-regressione.
+tutti verdi** dopo le correzioni P0.10E-B, su Postgres reale. Estesi in
+P0.10E-C con i Casi 16-22 (no-clobber) + Caso 23 (concorrenza claim vs
+scrittura commerciale) — **22 casi funzionali + riesecuzione + 2 test di
+concorrenza, tutti verdi** (`supabase/tests/founder_reserve_gate/`). Le
+altre due suite del branch (`founder_p010a`, `entitlement_p010e`)
+ri-eseguite invariate ad ogni giro: nessuna regressione.
 
-### BLOCCO 3 — NON RISOLTO, separato deliberatamente da questa migration
+### BLOCCO 3 — RISOLTO nel wrapper (Sprint P0.10E-C)
 
 `_apply_founder_grant(uuid, text)` usa `ON CONFLICT (user_id) DO UPDATE`
 (confermato da Matteo via lettura diretta il 2026-07-29) e può sovrascrivere
 una riga `b2c_subscriptions` già presente per lo stesso `user_id` — cioè un
 utente con una delle 3 email riservate che ha GIÀ una sottoscrizione
 commerciale attiva (Google Play, Apple IAP o Stripe) al momento del claim
-rischia di vedersela sostituita da un `founder_grant`.
+rischiava di vedersela sostituita da un `founder_grant`.
 
-**Non risolto in `20260729120000`** perché il corpo integrale di
-`_apply_founder_grant` e la struttura reale di `b2c_subscriptions` non sono
-mai stati letti per intero in questa sessione — scrivere un guard alla
-cieca su una tabella/logica non letta per intero rischierebbe di introdurre
-un secondo bug al posto del primo (stesso principio già applicato al gate:
-mai riscrivere ciò che non si è letto).
+**Decisione di Matteo**: dato che il wrapper #4 non era ancora applicato, la
+protezione va integrata lì direttamente invece che in una migration #5
+separata — il rischio va chiuso PRIMA che il funnel a pagamento del 1°
+agosto si sovrapponga alla finestra individuale di 14gg delle riserve, non
+dopo (l'assenza odierna di righe commerciali non è una prova che si possa
+rimandare — vedi tabella conteggi sopra).
 
-**Rischio dichiarato, non dichiarato risolto**: narrow ma reale. Superficie
-= i soli 3 posti riservati in `public.founder_grants` (allowlist curata a
-mano, zero account associati ad oggi). Si attiva solo se una di quelle 3
-email specifiche si registra, ha già una sottoscrizione commerciale attiva,
-e chiama questa RPC prima del cutoff e dentro la propria finestra di 14
-giorni. **Non blocca l'apply delle 4 migration di questo sprint** (nessuna
-di esse tocca la logica di `_apply_founder_grant`, solo il reassert ACL già
-vero in produzione oggi) — ma va risolto con un fix dedicato PRIMA che una
-di quelle 3 email venga effettivamente reclamata, non dopo.
+**Implementazione** — nel wrapper, PRIMA di delegare alla funzione legacy:
+```sql
+select billing_source into v_billing_source
+from public.b2c_subscriptions
+where user_id = v_user_id
+for update;
 
-**Prossimo passo**: §17b del preflight richiede il corpo integrale via
-`pg_get_functiondef` e la DDL di `b2c_subscriptions` — solo con quei due
-dati è possibile progettare un fix corretto (non un guess) come migration
-separata (#5).
+if v_billing_source in ('google_play', 'apple_iap', 'stripe') then
+  return jsonb_build_object('eligible', false, 'reason', 'existing_commercial_entitlement');
+end if;
+```
+Blocca su `billing_source` commerciale **indipendentemente da `state`**
+(anche una sottoscrizione scaduta protegge — decisione esplicita: l'utente
+mantiene il collegamento storico con lo store, gestione manuale della
+riserva). `trial` e `founder_grant` NON bloccano (il primo è un entitlement
+inferiore che Founder può sostituire, il secondo è già Founder). Nessuna
+riga → flusso legacy normale.
+
+**Deliberatamente NON usato** `ON CONFLICT (user_id) DO UPDATE ... WHERE
+billing_source = 'founder_grant'` come unica protezione (istruzione
+esplicita di Matteo): un conflict non aggiornato dentro il corpo legacy mai
+letto per intero potrebbe comunque marcare `founder_grants` come applicato
+e restituire `true`, producendo uno stato falso. Il blocco è quindi PRIMA
+della delega — `_apply_founder_grant` non viene mai raggiunta in questi
+casi, non importa cosa faccia il suo corpo interno.
+
+**`FOR UPDATE`**: chiude la metà della race in cui una sottoscrizione
+commerciale ESISTE già ed è in corso di aggiornamento (es. un webhook che
+sta scrivendo) — il wrapper attende il commit e legge il valore fresco, non
+uno stale. **NON chiude** l'altra metà (un INSERT commerciale su una riga
+ancora inesistente nello stesso istante del claim): richiederebbe che il
+percorso di scrittura del pagamento (mai letto in questa sessione) prenda
+lo stesso lock — fuori scope per una migration SQL isolata. Dichiarato
+esplicitamente, non nascosto.
+
+**Test**: Casi 16/17/18 (Google Play/Apple IAP/Stripe attivi → blocco,
+probe legacy piatto), Caso 19 (commerciale scaduto → blocca comunque),
+Caso 20 (trial → non blocca, Founder sostituisce), Caso 21 (founder_grant →
+non blocca), Caso 22 (nessuna riga → flusso normale), Caso 23 (concorrenza
+claim vs UPDATE commerciale in corso, sincronizzazione deterministica via
+marker file — non un `sleep` indovinato — dimostra che il `FOR UPDATE`
+blocca realmente e legge il valore post-commit). Tutti verdi su Postgres
+reale.
+
+**Review avversariale dedicata su questa aggiunta** ha trovato:
+1. **PLAUSIBILE, non confermato — precondizione nuova**: `FOR UPDATE`
+   richiede il privilegio UPDATE (non solo SELECT) su `b2c_subscriptions`
+   per il proprietario della funzione (`postgres`). Se `postgres` avesse
+   solo SELECT su questa tabella, ogni chiamata che supera cutoff+finestra
+   fallirebbe con un errore esplicito — fail loud, non un bypass di
+   sicurezza, ma un'interruzione per QUALUNQUE account pre-cutoff/
+   in-finestra, non solo le 3 riserve. **Aggiunta §17c al preflight** per
+   verificarlo prima dell'apply — vedi sezione ownership sopra.
+2. **CONFERMATO, corretto prima della consegna**: il test di concorrenza
+   (Caso 23) usava un `sleep 1.5` fisso per sincronizzare le due sessioni,
+   fragile sotto jitter (riprodotto: un ritardo di avvio di 2.5s rompeva il
+   test senza errore visibile). Sostituito con un segnale deterministico
+   (marker file scritto dal meta-comando client-side `\!` di psql subito
+   dopo che la UPDATE ha preso il lock, polling invece di un timeout
+   indovinato).
+3. **Nitpick di rigore, nessun gap di copertura reale**: i Casi 20/21/22 in
+   isolamento passerebbero anche se il blocco no-clobber fosse rimosso
+   interamente — ma la suite COMPLETA con `ON_ERROR_STOP=1` si ferma
+   comunque al Caso 16 in quello scenario (verificato per mutazione),
+   quindi non c'è un buco di copertura reale, solo un limite di rigore dei
+   singoli casi presi da soli.
+
+**Superficie del rischio residuo**: narrow, invariata — solo le 3 email
+riservate, solo se una di esse ha già una riga commerciale al momento del
+claim (protetto) o riceve un INSERT commerciale nello stesso istante del
+claim (non protetto, race residua dichiarata).
 
 ### BLOCCANTE P0.10E (storico): le 3 riserve possono bypassare il cutoff — origine del problema
 

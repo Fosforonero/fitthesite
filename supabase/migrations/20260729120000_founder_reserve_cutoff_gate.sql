@@ -41,8 +41,16 @@
 --
 -- QUESTO FILE NON APPLICA ANCORA NULLA IN PRODUZIONE. Vedi
 -- docs/architecture/p010-founder-pre-apply-checklist.md per lo stato GO/NO-GO
--- completo, inclusa la BLOCCO 3 (_apply_founder_grant e le sottoscrizioni
--- commerciali) che QUESTO FILE NON RISOLVE — vedi commento dedicato in fondo.
+-- completo.
+--
+-- Sprint P0.10E-C: BLOCCO 3 (no-clobber sottoscrizioni commerciali) integrato
+-- DIRETTAMENTE nel wrapper sotto, invece di una migration #5 separata
+-- (decisione di Matteo: il wrapper non era ancora stato applicato, e il
+-- rischio — un acquisto commerciale che arriva DOPO l'apertura del funnel a
+-- pagamento del 1° agosto mentre le riserve restano reclamabili nella loro
+-- finestra individuale — deve essere chiuso PRIMA che quella finestra si
+-- sovrapponga a acquisti reali, non dopo). Vedi il blocco dedicato in fondo
+-- a questo file per il dettaglio completo.
 -- ============================================================================
 
 -- ============================================================================
@@ -157,6 +165,7 @@ as $$
 declare
   v_user_id uuid;
   v_created_at timestamptz;
+  v_billing_source text;
   -- Stesso istante letterale di lib/founder/program-window.ts FOUNDER_END_AT
   -- e di private.grant_founder_launch_core.founder_cutoff. Nessun meccanismo
   -- automatico tiene sincronizzate le copie (residuo gia' dichiarato altrove
@@ -187,25 +196,71 @@ begin
     return jsonb_build_object('eligible', false, 'reason', 'window_expired');
   end if;
 
-  -- Account pre-cutoff, dentro la propria finestra individuale:
-  -- comportamento INVARIATO, delega totale alla funzione legacy (ora
-  -- privata). Se non esistesse (nome/firma reali diversi da quanto
-  -- documentato), questa chiamata fallisce in modo rumoroso (funzione non
-  -- trovata) invece di fingere un esito.
+  -- BLOCCO 3 (P0.10E-C, no-clobber sottoscrizioni commerciali) — PRIMA di
+  -- delegare alla funzione legacy, non dopo. `for update`: se la riga
+  -- esiste, la blocca fino a fine chiamata, cosi' una UPDATE concorrente
+  -- gia' in corso sulla STESSA riga (es. un webhook che sta aggiornando lo
+  -- stato di una sottoscrizione esistente) viene attesa e letta nel suo
+  -- valore committed, non in un valore stale. Non elimina l'altra meta'
+  -- della race (un INSERT commerciale che arriva a riga ancora inesistente
+  -- nello stesso istante di questa lettura: non c'e' nulla da bloccare se
+  -- la riga non esiste ancora) — quella meta' richiederebbe che anche il
+  -- percorso di scrittura webhook prenda lo stesso lock, codice mai letto
+  -- in questa sessione, fuori dallo scope di una migration SQL. Vedi il
+  -- blocco dedicato in fondo al file.
+  --
+  -- PRECONDIZIONE (trovata in review avversariale, verificare con §17c del
+  -- preflight PRIMA dell'apply): `for update` richiede il privilegio
+  -- UPDATE su b2c_subscriptions per il proprietario di QUESTA funzione
+  -- (postgres, SECURITY DEFINER — non basta SELECT). Se non verificato e
+  -- sbagliato, l'errore e' esplicito e immediato (fail loud, non un bypass
+  -- di sicurezza silenzioso) ma colpirebbe OGNI chiamata pre-cutoff/
+  -- in-finestra, non solo le 3 email riservate — precondizione da
+  -- verificare live, non da scoprire in produzione.
+  --
+  -- billing_source in ('google_play','apple_iap','stripe'): NON delegare,
+  -- NON toccare founder_grants/b2c_subscriptions, riserva NON consumata,
+  -- indipendentemente da `state` (anche una sottoscrizione commerciale
+  -- SCADUTA blocca — decisione esplicita di Matteo: l'utente mantiene il
+  -- collegamento storico con lo store, gestione manuale della riserva).
+  -- 'trial' e 'founder_grant' non bloccano (il primo e' un entitlement
+  -- inferiore che Founder puo' sostituire, il secondo e' gia' Founder,
+  -- idempotenza gestita dal corpo legacy invariato); nessuna riga -> flusso
+  -- legacy normale (v_billing_source NULL, `in (...)` valuta NULL, il
+  -- test.assert/if tratta NULL come falso, si procede a delegare).
+  select billing_source into v_billing_source
+  from public.b2c_subscriptions
+  where user_id = v_user_id
+  for update;
+
+  if v_billing_source in ('google_play', 'apple_iap', 'stripe') then
+    return jsonb_build_object('eligible', false, 'reason', 'existing_commercial_entitlement');
+  end if;
+
+  -- Account pre-cutoff, dentro la propria finestra individuale, senza una
+  -- sottoscrizione commerciale attiva da proteggere: comportamento
+  -- INVARIATO, delega totale alla funzione legacy (ora privata). Se non
+  -- esistesse (nome/firma reali diversi da quanto documentato), questa
+  -- chiamata fallisce in modo rumoroso (funzione non trovata) invece di
+  -- fingere un esito.
   return private.claim_founder_grant_if_eligible();
 end;
 $$;
 
 comment on function public.claim_founder_grant_if_eligible is
-  'Sprint P0.10E-B: wrapper di cutoff+finestra davanti alla funzione legacy '
-  '(ora private.claim_founder_grant_if_eligible), stesso nome pubblico e '
-  'stessa firma del client gia'' pubblicato. Un account creato al o dopo il '
-  '2026-07-31T22:00:00Z riceve sempre {"eligible":false,"reason":'
-  '"program_closed"}. Un account pre-cutoff la cui finestra individuale di '
-  '14 giorni (da auth.users.created_at) e'' scaduta riceve '
-  '{"eligible":false,"reason":"window_expired"}. Solo un account pre-cutoff '
-  'dentro la propria finestra raggiunge la logica di allowlist legacy, '
-  'invariata.';
+  'Sprint P0.10E-C: wrapper di cutoff+finestra+no-clobber davanti alla '
+  'funzione legacy (ora private.claim_founder_grant_if_eligible), stesso '
+  'nome pubblico e stessa firma del client gia'' pubblicato. Un account '
+  'creato al o dopo il 2026-07-31T22:00:00Z riceve sempre '
+  '{"eligible":false,"reason":"program_closed"}. Un account pre-cutoff la '
+  'cui finestra individuale di 14 giorni (da auth.users.created_at) e'' '
+  'scaduta riceve {"eligible":false,"reason":"window_expired"}. Un account '
+  'con una sottoscrizione commerciale attiva o scaduta (google_play/'
+  'apple_iap/stripe in b2c_subscriptions) riceve sempre '
+  '{"eligible":false,"reason":"existing_commercial_entitlement"} SENZA MAI '
+  'raggiungere la funzione legacy. Solo un account pre-cutoff, dentro la '
+  'propria finestra, senza sottoscrizione commerciale protetta, raggiunge '
+  'la logica di allowlist legacy, invariata.';
 
 -- PUBLIC e anon non devono avere EXECUTE. authenticated si', e' l'unico
 -- percorso esterno verso la logica di riserva.
@@ -275,40 +330,46 @@ end $$;
 notify pgrst, 'reload schema';
 
 -- ============================================================================
--- BLOCCO 3, NON RISOLTO IN QUESTO FILE — _apply_founder_grant(uuid, text)
--- e sottoscrizioni commerciali.
+-- BLOCCO 3 — RISOLTO in questo file (Sprint P0.10E-C), nel wrapper, non
+-- toccando _apply_founder_grant(uuid, text).
 --
 -- Verifica live di Matteo (2026-07-29): il corpo di _apply_founder_grant usa
 -- `ON CONFLICT (user_id) DO UPDATE`, e questo puo' sovrascrivere una riga
 -- b2c_subscriptions gia' presente per lo stesso user_id — cioe' un utente
 -- con una delle 3 email riservate che ha GIA' una sottoscrizione commerciale
--- attiva (Google Play, Apple IAP o Stripe) al momento del claim rischia di
--- vedersela sostituita da un founder_grant.
+-- attiva (Google Play, Apple IAP o Stripe) al momento del claim rischierebbe
+-- di vedersela sostituita da un founder_grant.
 --
--- QUESTO FILE NON TOCCA _apply_founder_grant: il suo corpo reale non e' mai
--- stato letto integralmente in questa sessione (solo la clausola ON
--- CONFLICT e' stata confermata da Matteo via lettura diretta), e la
--- struttura esatta di b2c_subscriptions (colonne/vincoli/quale sorgente
--- vince) non e' nel preflight di questo branch. Scrivere un guard alla
--- cieca su una tabella/logica non letta per intero rischierebbe di
--- introdurre un secondo bug al posto del primo (stesso principio gia'
--- applicato al gate sopra: mai riscrivere cio' che non si e' letto).
+-- Decisione di Matteo: dato che il wrapper non era ancora applicato, la
+-- protezione va integrata li' invece che in una migration #5 separata — il
+-- rischio deve essere chiuso PRIMA che il funnel a pagamento del 1° agosto
+-- si sovrapponga alla finestra individuale di 14 giorni delle riserve, non
+-- dopo. Deliberatamente NON usata `ON CONFLICT (user_id) DO UPDATE ... WHERE
+-- billing_source = 'founder_grant'` come unica protezione (istruzione
+-- esplicita di Matteo): un conflict non aggiornato dentro il corpo legacy
+-- MAI letto per intero potrebbe comunque marcare founder_grants come
+-- applicato e restituire true, producendo uno stato falso (riserva
+-- "consumata" senza che il commerciale sia stato toccato, ma senza che
+-- l'app sappia che non e' successo nulla di reale). Il controllo e' quindi
+-- PRIMA della delega, nel wrapper — vedi il corpo sopra — cosi'
+-- _apply_founder_grant non viene MAI raggiunta per questi casi, non
+-- importa cosa faccia il suo corpo interno.
 --
--- Rischio, non dichiarato risolto: NARROW ma REALE. La superficie e' i soli
--- 3 posti riservati in public.founder_grants (allowlist curata a mano,
--- zero account associati ad oggi) — non l'intera popolazione utenti. Si
--- attiva SOLO se una di quelle 3 email specifiche si registra, ha gia' una
--- sottoscrizione commerciale attiva, e chiama questa RPC prima del cutoff e
--- dentro la propria finestra di 14 giorni. Non e' bloccante per l'apply
--- delle 4 migration di questo sprint (nessuna di esse tocca
--- _apply_founder_grant oltre al reassert ACL sopra, gia' vero in
--- produzione oggi, indipendentemente da qualunque apply) — ma DEVE essere
--- risolto con un fix dedicato PRIMA che una di quelle 3 email venga
--- effettivamente reclamata, non dopo.
+-- Superficie invariata (narrow): i soli 3 posti riservati in
+-- public.founder_grants. Il blocco si attiva SOLO se una di quelle 3 email
+-- specifiche ha gia' una riga b2c_subscriptions con billing_source
+-- commerciale (attiva O scaduta) al momento del claim.
 --
--- Prossimo passo proposto (non eseguito qui): §17 del preflight
--- (p010-preflight-readonly-queries.sql) richiede il corpo integrale di
--- _apply_founder_grant via pg_get_functiondef e la DDL di b2c_subscriptions
--- — solo con quei due dati e' possibile progettare un fix corretto (non un
--- guess) come migration separata (#5).
+-- RESIDUO DICHIARATO, non risolto qui: la protezione sopra (SELECT ... FOR
+-- UPDATE) chiude la race in cui una sottoscrizione commerciale ESISTE gia'
+-- ed e' in corso di aggiornamento nello stesso istante del claim (la nostra
+-- lettura attende il commit della UPDATE concorrente). NON chiude la race
+-- in cui l'INSERT iniziale di una nuova sottoscrizione commerciale arriva
+-- nello stesso istante del claim, PRIMA che quella riga esista: non c'e'
+-- nulla da bloccare con FOR UPDATE su una riga ancora inesistente. Chiudere
+-- anche questa meta' richiederebbe che il percorso di scrittura
+-- (webhook/route del pagamento, mai letto in questa sessione) prenda lo
+-- stesso lock — fuori dallo scope di una migration SQL isolata. Probabilita'
+-- bassa (finestra di millisecondi), impatto bounded (le 3 email riservate,
+-- mai l'intera popolazione), ma dichiarato esplicitamente, non nascosto.
 -- ============================================================================

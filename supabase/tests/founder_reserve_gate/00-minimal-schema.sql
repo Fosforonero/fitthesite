@@ -102,6 +102,21 @@ grant execute on function public.handle_new_founder() to public, anon, authentic
 revoke all on function public._apply_founder_grant(uuid, text) from public, anon, authenticated;
 grant execute on function public._apply_founder_grant(uuid, text) to service_role;
 
+-- Sprint P0.10E-C — stub di b2c_subscriptions per il no-clobber. Colonne e
+-- valori di billing_source confermati da Matteo via conteggio diretto su
+-- produzione il 2026-07-29 (18 righe totali, tutte 'founder_grant'; zero
+-- google_play/apple_iap/stripe/trial ad oggi). user_id PRIMARY KEY: dedotto
+-- (non confermato via DDL diretta, ancora in sospeso — vedi §17b del
+-- preflight) dal fatto che _apply_founder_grant usa
+-- `ON CONFLICT (user_id) DO UPDATE`, che richiede un vincolo di unicita'
+-- esattamente su quella colonna.
+create table if not exists public.b2c_subscriptions (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  billing_source text not null check (billing_source in ('google_play', 'apple_iap', 'stripe', 'trial', 'founder_grant')),
+  state text not null default 'active',
+  created_at timestamptz not null default now()
+);
+
 create or replace function test.mkuser(p_email text, p_created_at timestamptz default now())
 returns uuid
 language plpgsql
