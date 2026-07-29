@@ -1,18 +1,25 @@
--- Sprint P0.10E-A — schema minimo per testare
--- claim_founder_grant_if_eligible_gated() (migration REALE, non riscritta:
--- 20260729120000) su supabase/postgres reale.
+-- Sprint P0.10E-B — schema minimo per testare la migration REALE
+-- (20260729120000_founder_reserve_cutoff_gate.sql, non riscritta qui) su
+-- supabase/postgres reale.
 --
 -- IMPORTANTE: claim_founder_grant_if_eligible()/_apply_founder_grant(uuid,
--- text) qui sotto sono STUB — il loro corpo REALE in produzione non e'
--- mai stato letto (drift di schema non tracciato). Lo stub replica
+-- text)/handle_new_founder() qui sotto sono STUB — il loro corpo REALE in
+-- produzione non e' mai stato letto per intero in questa sessione. Solo
+-- firma/ACL/MD5 del primo sono stati confermati da Matteo il 2026-07-29 via
+-- lettura diretta su produzione (zero argomenti, ritorna jsonb, SECURITY
+-- DEFINER, MD5 8419db344a7383ba53f01457335a3494, ACL PUBLIC/anon/
+-- authenticated/service_role tutti con EXECUTE). Lo stub replica
 -- ESATTAMENTE il contratto JSON live documentato
--- (docs/architecture/founder-p010-founder-pre-apply-checklist.md, sezione
--- "BLOCCANTE P0.10E"): {"eligible":true,"reason":"granted"} /
--- {"eligible":false,"reason":"not_in_allowlist"}. Questi test verificano
--- SOLO che il gate (codice REALE) intercetti correttamente in base al
--- cutoff e deleghi fedelmente altrimenti — MAI la correttezza della logica
--- di allowlist legacy stessa, che resta sconosciuta e fuori dalla portata
--- di questa suite.
+-- ({"eligible":true,"reason":"granted"} / {"eligible":false,"reason":
+-- "not_in_allowlist"}) E l'ACL live di partenza, cosi' che la migration
+-- reale trovi uno stato iniziale fedele da cui spostare/richiudere.
+--
+-- Questi test verificano SOLO che la migration (codice REALE, non questo
+-- file) sposti correttamente la funzione, la richiuda, e la sostituisca con
+-- un wrapper che intercetta cutoff+finestra individuale e deleghi
+-- fedelmente altrimenti — MAI la correttezza della logica di allowlist
+-- legacy stessa, che resta sconosciuta e fuori dalla portata di questa
+-- suite.
 set role postgres;
 
 create schema if not exists test;
@@ -24,10 +31,10 @@ create table test.probe_hits (
 );
 insert into test.probe_hits (n, hits) values (1, 0);
 
--- Stub minimale: "eligible" solo per l'email letteralmente
--- 'allowlisted@test.local', altrimenti 'not_in_allowlist'. Incrementa il
--- contatore probe ad ogni chiamata REALE, per provare che il gate non la
--- raggiunga mai per un account post-cutoff.
+-- Stub minimale: "eligible" solo per un'email che inizia con 'allowlisted',
+-- altrimenti 'not_in_allowlist'. Incrementa il contatore probe ad OGNI
+-- chiamata REALE, per provare che il wrapper non la raggiunga mai quando
+-- non deve (post-cutoff o finestra individuale scaduta).
 create or replace function public.claim_founder_grant_if_eligible()
 returns jsonb
 language plpgsql
@@ -61,12 +68,39 @@ begin
 end;
 $$;
 
--- Nella realta' queste due partono probabilmente gia' aperte a
--- authenticated (e' esattamente il problema che questa migration chiude).
-grant execute on function public.claim_founder_grant_if_eligible() to authenticated;
-grant execute on function public._apply_founder_grant(uuid, text) to authenticated;
+-- Trigger function reale: RETURNS TRIGGER, Postgres rifiuta comunque
+-- l'invocazione diretta via RPC indipendentemente dall'ACL (confermato in
+-- produzione) — serve qui solo per testare che l'ACL venga revocata, mai
+-- per essere effettivamente invocata da questa suite.
+create or replace function public.handle_new_founder()
+returns trigger
+language plpgsql
+security definer
+set search_path = pg_catalog, public
+as $$
+begin
+  return new;
+end;
+$$;
 
-create schema if not exists test;
+-- ACL di partenza fedele allo stato LIVE pre-migration, come confermato da
+-- Matteo il 2026-07-29: claim_founder_grant_if_eligible() e
+-- handle_new_founder() aperte a PUBLIC/anon/authenticated/service_role;
+-- _apply_founder_grant() gia' chiusa a PUBLIC/anon/authenticated (solo
+-- postgres/service_role hanno EXECUTE).
+--
+-- Il REVOKE esplicito su _apply_founder_grant sotto NON e' ridondante:
+-- l'immagine Postgres di Supabase concede EXECUTE a PUBLIC/anon/
+-- authenticated/service_role di default su OGNI funzione appena creata in
+-- `public` (default privileges), verificato direttamente in review
+-- avversariale — senza questo revoke lo stub partirebbe gia' aperto ad
+-- authenticated, contraddicendo lo stato live reale che questo file vuole
+-- riprodurre, e nascondendo un'eventuale regressione del reassert ACL della
+-- migration (il test passerebbe anche se quel passo non facesse nulla).
+grant execute on function public.claim_founder_grant_if_eligible() to public, anon, authenticated, service_role;
+grant execute on function public.handle_new_founder() to public, anon, authenticated, service_role;
+revoke all on function public._apply_founder_grant(uuid, text) from public, anon, authenticated;
+grant execute on function public._apply_founder_grant(uuid, text) to service_role;
 
 create or replace function test.mkuser(p_email text, p_created_at timestamptz default now())
 returns uuid
@@ -89,7 +123,14 @@ declare
 begin
   perform set_config('request.jwt.claim.sub', p_user_id::text, true);
   set local role authenticated;
-  v_result := public.claim_founder_grant_if_eligible_gated();
+  -- Chiama il nome PUBBLICO ORIGINALE: e' esattamente cio' che il client
+  -- Flutter gia' pubblicato chiama, senza alcuna release necessaria. Se la
+  -- migration avesse invece creato un endpoint con un nome diverso (come
+  -- nella prima versione di questo sprint, mai applicata), questa stessa
+  -- chiamata avrebbe raggiunto lo STUB legacy DIRETTAMENTE, bypassando ogni
+  -- controllo di cutoff/finestra — ed e' esattamente cio' che i casi sotto
+  -- provano non accadere.
+  v_result := public.claim_founder_grant_if_eligible();
   reset role;
   return v_result;
 end;

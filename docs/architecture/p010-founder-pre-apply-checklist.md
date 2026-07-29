@@ -1,36 +1,184 @@
-# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B/D/E/E-A)
+# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B/D/E/E-A/E-B)
 
-## Sprint P0.10E-A — QUATTRO migration ora in coda, da autorizzare separatamente
+## Sprint P0.10E-B — la #4 è stata RISCRITTA dopo un bug bloccante trovato in produzione
 
-L'apply non riguarda più un solo file. Ordine obbligatorio (dipendenze reali,
-non stilistiche):
+La prima versione della migration #4 (Sprint P0.10E-A) non è mai stata
+applicata e conteneva un bug che avrebbe rotto il client pubblicato — vedi
+"### CORREZIONE BLOCCANTE P0.10E-B" sotto per il dettaglio completo. Il
+resto dell'ordine di apply (4 migration separate, dipendenze fra loro)
+resta invariato:
 
 | # | File | Cosa fa | Autorizzazione |
 |---|---|---|---|
 | 1 | `20260728090000_founder_launch_cutoff_and_window.sql` | Sunset Founder: cutoff + finestra + ledger persistente + backfill 375 righe | `GO APPLY P0.10` |
 | 2 | `20260728100000_harden_legacy_b2c_trial_acl.sql` | Revoca EXECUTE su `grant_b2c_trial()` da public/anon/authenticated | **separata**, va autorizzata esplicitamente |
 | 3 | `20260728110000_entitlement_status_contract.sql` | Nuova RPC `get_entitlement_status()` server-authoritative | **separata**, va autorizzata esplicitamente |
-| 4 | `20260729120000_founder_reserve_cutoff_gate.sql` | Gate di cutoff davanti a `claim_founder_grant_if_eligible()` legacy — le 3 riserve non scavalcano più il cutoff | **separata**, va autorizzata esplicitamente. **Dipende da #14 del preflight** (nome/firma reali della funzione legacy) |
+| 4 | `20260729120000_founder_reserve_cutoff_gate.sql` (RISCRITTA, Sprint P0.10E-B) | Sposta `claim_founder_grant_if_eligible()` in `private`, ricrea il nome pubblico originale come wrapper cutoff+finestra, hardening `handle_new_founder()` | **separata**, va autorizzata esplicitamente. **Dipende da §17a del preflight** (ownership reale della funzione legacy) |
 
 La #1 è l'unica che scrive dati (backfill). La #2/#4 toccano solo ACL +
-aggiungono una funzione gate. La #3 crea una funzione nuova senza toccare
-nulla di esistente. #1/#2/#3 non dipendono l'una dall'altra a livello SQL.
-La #4 invece presuppone che `claim_founder_grant_if_eligible()` esista con
-la firma documentata — se il preflight §14 mostra un nome/firma diversi, la
-#4 va corretta prima dell'apply (fallirebbe in modo esplicito, non
-silenzioso). Tenute separate proprio per poterle autorizzare una alla volta
+funzioni. La #3 crea una funzione nuova senza toccare nulla di esistente.
+#1/#2/#3 non dipendono l'una dall'altra a livello SQL. La #4 presuppone che
+il ruolo che applica la migration sia proprietario (o membro del
+proprietario) di `claim_founder_grant_if_eligible()` — se il preflight §17a
+mostra un owner diverso, la #4 fallisce in modo esplicito al primo passo
+("must be owner of function"), non silenziosamente, e va corretta prima di
+riprovare. Tenute separate proprio per poterle autorizzare una alla volta
 (istruzione esplicita di Matteo: non mescolare l'hardening alla migration
 Founder).
 
-SHA-256 al momento della consegna (se cambiano, riconfermare):
+SHA-256 al momento della consegna (se cambiano, riconfermare — le prime tre
+sono invariate dalla consegna precedente, ricalcolate qui per completezza;
+il valore precedentemente registrato per la #3 in questo stesso file era
+stale/errato, corretto qui contro `git show 3d23c86:...`):
 ```
 3e79bc3d110fd2ca2d50d3c4d3383c8b5f4297e895129e6fabd84094f5885813  20260728090000_founder_launch_cutoff_and_window.sql
 9a9c0a954702b273996d583c58d3797027b7209f43325ba24d1bcdacb0767522  20260728100000_harden_legacy_b2c_trial_acl.sql
-bbefd851eef89db7ea3b22c9f7e0ec773a9a0132fcb6da5949807b97a6081ef8  20260728110000_entitlement_status_contract.sql
-634fe052f255ab27cfd58ad080b556c75681462a0907d6e5ee244f413caeb846  20260729120000_founder_reserve_cutoff_gate.sql
+af78448c477f95eedbd2a028dc5ad0310fdfb6fee449db2fcf645e8a0532948e  20260728110000_entitlement_status_contract.sql
+131c304f7576c7e7b3f935df8b14ccd30a8a22b39bd3937e3fab2658b8452c0a  20260729120000_founder_reserve_cutoff_gate.sql
 ```
 
-### BLOCCANTE P0.10E: le 3 riserve possono bypassare il cutoff
+### CORREZIONE BLOCCANTE P0.10E-B: la prima versione della #4 rompeva il client pubblicato
+
+Matteo ha eseguito §14 del preflight direttamente su produzione il
+2026-07-29 e confermato: `public.claim_founder_grant_if_eligible()` esiste
+con zero argomenti, ritorna `jsonb`, è `SECURITY DEFINER` (MD5 corpo
+`8419db344a7383ba53f01457335a3494`), non contiene alcun controllo su
+`created_at`, e la sua ACL live concede EXECUTE a **PUBLIC, anon,
+authenticated e service_role**.
+
+La prima versione della #4 (Sprint P0.10E-A, MAI applicata) creava una
+funzione nuova `claim_founder_grant_if_eligible_gated()` e revocava EXECUTE
+sull'originale da `authenticated`. Il client Flutter già pubblicato chiama
+**esclusivamente** il nome originale. Applicata così, quella migration
+avrebbe reso irraggiungibile da `authenticated` la funzione che il client
+chiama davvero — ogni claim legittimo di riserva pre-cutoff sarebbe fallito
+silenziosamente (fire-and-forget lato app) — lasciando `_gated()` come
+endpoint parallelo che nessun client conosce.
+
+**Trovato da Matteo in verifica diretta su produzione, non da questa
+sessione.** Corretto riscrivendo per intero la #4: vedi
+`supabase/migrations/20260729120000_founder_reserve_cutoff_gate.sql` per il
+commento completo. In sintesi, l'approccio ora è:
+
+1. `ALTER FUNCTION public.claim_founder_grant_if_eligible() SET SCHEMA private` — sposta la funzione ESISTENTE (corpo mai letto, mai riscritto) fuori dal nome pubblico, preservandola bit-per-bit.
+2. Chiude l'accesso diretto alla funzione ora in `private`.
+3. Ricrea `public.claim_founder_grant_if_eligible()` (STESSO nome, STESSA firma) come wrapper: verifica `auth.uid()`, poi cutoff globale (`created_at >= 2026-07-31T22:00:00Z` → `program_closed`), poi finestra individuale di 14 giorni (`now() > created_at + 14gg` → `window_expired`, misurata da `created_at` perché questa RPC è chiamata al login senza `device_id`, quindi senza alcuna evidenza di prima-sync disponibile — vedi il commento nel file per il ragionamento completo), poi delega fedelmente a `private.claim_founder_grant_if_eligible()`.
+4. Hardening aggiuntivo (dall'ADDENDUM CORRETTO P0.10E-B): reassert esplicito del REVOKE su `_apply_founder_grant(uuid, text)` (ACL già chiusa in produzione) e revoca EXECUTE su `handle_new_founder()` da PUBLIC/anon/authenticated (nessun trigger live la usa; `service_role` deliberatamente non toccato).
+
+**Zero release Flutter richieste**: il client continua a chiamare lo stesso
+nome/firma/contratto JSON di sempre.
+
+### Function graph — prima e dopo l'apply della #4
+
+```
+PRIMA (stato live confermato 2026-07-29):
+  public.claim_founder_grant_if_eligible()  [EXECUTE: PUBLIC, anon, authenticated, service_role]
+    └─ chiama internamente → public._apply_founder_grant(uuid, text)  [EXECUTE: postgres, service_role]
+  public.handle_new_founder()  [EXECUTE: PUBLIC, anon, authenticated, service_role — nessun trigger attivo]
+
+DOPO (se la #4 corretta viene applicata):
+  public.claim_founder_grant_if_eligible()  [EXECUTE: authenticated soltanto — WRAPPER NUOVO]
+    ├─ program_closed / window_expired → mai raggiunge quanto sotto
+    └─ pre-cutoff, in finestra → delega a:
+       private.claim_founder_grant_if_eligible()  [EXECUTE: nessuno tranne owner — FUNZIONE LEGACY SPOSTATA, corpo invariato]
+         └─ chiama internamente → public._apply_founder_grant(uuid, text)  [EXECUTE: postgres, service_role — invariato, reassert esplicito]
+  public.handle_new_founder()  [EXECUTE: postgres, service_role soltanto — nessun trigger attivo, non eliminata]
+```
+
+### ACL attesa dopo l'apply — matrice completa
+
+| Funzione | PUBLIC | anon | authenticated | service_role | postgres/owner |
+|---|---|---|---|---|---|
+| `public.claim_founder_grant_if_eligible()` (wrapper) | NO | NO | **SÌ** | NO (non concesso esplicitamente — solo owner) | SÌ (implicito) |
+| `private.claim_founder_grant_if_eligible()` (legacy spostata) | NO | NO | NO | NO | SÌ (implicito) |
+| `public._apply_founder_grant(uuid, text)` | NO | NO | NO | SÌ | SÌ (implicito) |
+| `public.handle_new_founder()` | NO | NO | NO | SÌ (non toccato, nessuna evidenza per revocarlo) | SÌ (implicito) |
+
+### Review avversariale della #4 riscritta — 3 bug trovati e corretti prima della consegna
+
+Una review avversariale indipendente (Workflow, general-purpose agent) ha
+verificato empiricamente su `public.ecr.aws/supabase/postgres:15.8.1.085`
+(stessa immagine di `run-suite.sh`) — non solo letto il codice. Trovati e
+corretti:
+
+1. **CONFERMATO — guardia di riesecuzione rotta.** La guardia originale
+   controllava solo "la funzione esiste in `public`" prima di spostarla —
+   ma dopo la prima apply, `public.claim_founder_grant_if_eligible()`
+   esiste ANCORA (è il wrapper, stesso nome/arietà per costruzione). Una
+   riapplicazione del file avrebbe tentato di spostare il WRAPPER dentro
+   `private`, collidendo con la funzione legacy già lì. Corretto aggiungendo
+   `AND NOT EXISTS` la funzione già in `private` alla condizione. **Test
+   aggiunto**: `run-suite.sh` ora riapplica l'intero file una seconda volta
+   contro un DB già migrato (Caso 14) — verificato che sia un no-op pulito.
+2. **CONFERMATO — un revoke con firma sbagliata avrebbe interrotto l'intero
+   file DOPO che il fix critico era già passato**, producendo una migration
+   "fallita" agli occhi dello strumento di apply con il fix vero però già
+   live — un riavvio ingenuo dell'intero file avrebbe poi urtato contro il
+   bug #1. Corretto disaccoppiando i due reassert ACL non critici
+   (`_apply_founder_grant`, `handle_new_founder`) in blocchi `do $$ ... $$`
+   indipendenti che emettono un `RAISE WARNING` esplicito (mai silenzioso)
+   e proseguono se la firma reale non corrisponde, invece di abortire tutto.
+   Verificato anche che `pg_get_function_identity_arguments()` include i
+   NOMI dei parametri (non solo i tipi) — un controllo per firma letterale
+   sarebbe stato fragile anche a parità di tipi con nomi diversi nel corpo
+   reale; sostituito con `to_regprocedure(...)`, che risolve solo per tipi.
+3. **PLAUSIBILE, non confermabile da questa sessione — assunzione di
+   ownership.** Il passo 1 richiede che il ruolo di migration sia
+   proprietario (o membro del proprietario) di
+   `claim_founder_grant_if_eligible()`. Se non lo fosse, l'apply fallisce
+   subito ed esplicitamente ("must be owner of function") — commento
+   corretto nel file, e aggiunta la query di verifica diretta **§17a** del
+   preflight. Da eseguire prima dell'apply reale.
+
+Trovati anche 3 problemi minori nella sola suite di test locale (mai nella
+migration reale), tutti corretti: `test.assert` passava a vuoto su una
+condizione NULL invece di fallire (ora `coalesce(..., false)`); il commento
+sui Caso 7/8 (boundary finestra) attribuiva il margine di 5 secondi a un
+race reale — verificato che `now()` è congelato per l'intera transazione,
+quindi il margine serve solo leggibilità, non a evitare un race (corretto);
+lo stub di `_apply_founder_grant` nel DB di test partiva con EXECUTE aperto
+ad `authenticated` per via dei privilegi di default dell'immagine Postgres
+di Supabase su ogni funzione nuova in `public` — non fedele allo stato live
+reale (già chiuso) — corretto con un revoke esplicito nello stub stesso.
+
+**13/13 casi funzionali + riesecuzione (Caso 14) + concorrenza (Caso 15) —
+tutti verdi** dopo le correzioni, su Postgres reale
+(`supabase/tests/founder_reserve_gate/`). Le altre due suite del branch
+(`founder_p010a`, `entitlement_p010e`) ri-eseguite invariate: nessuna
+regressione.
+
+### BLOCCO 3 — NON RISOLTO, separato deliberatamente da questa migration
+
+`_apply_founder_grant(uuid, text)` usa `ON CONFLICT (user_id) DO UPDATE`
+(confermato da Matteo via lettura diretta il 2026-07-29) e può sovrascrivere
+una riga `b2c_subscriptions` già presente per lo stesso `user_id` — cioè un
+utente con una delle 3 email riservate che ha GIÀ una sottoscrizione
+commerciale attiva (Google Play, Apple IAP o Stripe) al momento del claim
+rischia di vedersela sostituita da un `founder_grant`.
+
+**Non risolto in `20260729120000`** perché il corpo integrale di
+`_apply_founder_grant` e la struttura reale di `b2c_subscriptions` non sono
+mai stati letti per intero in questa sessione — scrivere un guard alla
+cieca su una tabella/logica non letta per intero rischierebbe di introdurre
+un secondo bug al posto del primo (stesso principio già applicato al gate:
+mai riscrivere ciò che non si è letto).
+
+**Rischio dichiarato, non dichiarato risolto**: narrow ma reale. Superficie
+= i soli 3 posti riservati in `public.founder_grants` (allowlist curata a
+mano, zero account associati ad oggi). Si attiva solo se una di quelle 3
+email specifiche si registra, ha già una sottoscrizione commerciale attiva,
+e chiama questa RPC prima del cutoff e dentro la propria finestra di 14
+giorni. **Non blocca l'apply delle 4 migration di questo sprint** (nessuna
+di esse tocca la logica di `_apply_founder_grant`, solo il reassert ACL già
+vero in produzione oggi) — ma va risolto con un fix dedicato PRIMA che una
+di quelle 3 email venga effettivamente reclamata, non dopo.
+
+**Prossimo passo**: §17b del preflight richiede il corpo integrale via
+`pg_get_functiondef` e la DDL di `b2c_subscriptions` — solo con quei due
+dati è possibile progettare un fix corretto (non un guess) come migration
+separata (#5).
+
+### BLOCCANTE P0.10E (storico): le 3 riserve possono bypassare il cutoff — origine del problema
 
 `private.grant_founder_launch_core` (la #1) è verificata airtight: il suo
 controllo cutoff (`created_at >= 2026-07-31T22:00:00Z` → `program_closed`)
@@ -41,65 +189,23 @@ un posto riservato a un utente specifico (usa `founder_grants` solo per un
 Ma il percorso che *reclama* una delle 3 email riservate è un'altra
 funzione: `public.claim_founder_grant_if_eligible()`, mai creata da alcuna
 migration su questo branch (drift non tracciato, come `founder_grants` e lo
-schema `private`).
+schema `private`). Questo è il conflitto di specifica che Matteo ha chiesto
+di trattare come NO-GO da non risolvere in autonomia (Sprint P0.10E, Fase
+2) — confermato dal vivo il 2026-07-29 (§14 del preflight, vedi sopra):
+nessun controllo di data nel corpo live, ACL aperta a PUBLIC/anon/
+authenticated/service_role. Un account creato dopo il cutoff con una delle
+3 email riservate avrebbe altrimenti ottenuto Founder scavalcando
+interamente il blocco della migration #1.
 
-**Evidenza trovata in review avversariale** — `docs/architecture/founder-p0-grant-design-v3.md`
-sul branch orfano `feat/p11-founder-close-fase0`, sezione "Stato live
-confermato (chiuso, 2026-07-19/20)", documenta il contratto JSON reale della
-funzione live:
+**Decisione presa da Matteo (2026-07-29): opzione 2.** Le riserve restano
+reclamabili SOLO da account creati prima del cutoff, e solo dentro una
+finestra individuale di 14 giorni dalla registrazione.
 
-```
-{"eligible": true,  "reason": "granted"}
-{"eligible": false, "reason": "not_in_allowlist"}
-```
-
-L'unico motivo di ineleggibilità documentato è `not_in_allowlist`. **Nessun
-controllo di data, nessun cutoff.** Se questo è ancora il corpo live — e
-l'advisor di produzione conferma che la funzione è tuttora eseguibile da
-`authenticated` — allora un account creato **dopo** il cutoff che si registra
-con una delle 3 email riservate otterrebbe Founder, scavalcando interamente
-il blocco della migration #1.
-
-Questo è esattamente il caso che Matteo ha chiesto di trattare come conflitto
-di specifica da NON risolvere in autonomia (Sprint P0.10E, Fase 2). **NO-GO.**
-
-Da confermare prima di qualunque decisione, con la query §14 del preflight
-(`pg_get_functiondef` + ACL reali). La fonte qui citata è secondaria e datata
-19/20 luglio: va verificata contro il corpo live attuale, non assunta.
-
-**Decisione presa da Matteo (Sprint P0.10E-A, 2026-07-29): opzione 2.**
-Le riserve restano reclamabili SOLO da account creati prima del cutoff.
-
-**Implementato**: `20260729120000_founder_reserve_cutoff_gate.sql` — una
-NUOVA funzione `public.claim_founder_grant_if_eligible_gated()` che
-verifica `auth.users.created_at` PRIMA di toccare la logica legacy: un
-account post-cutoff riceve sempre `{"eligible":false,"reason":
-"program_closed"}` senza mai raggiungere l'allowlist, un account
-pre-cutoff delega interamente e invariata alla funzione esistente. L'ACL
-della funzione grezza (`claim_founder_grant_if_eligible`) e di
-`_apply_founder_grant` viene chiusa per authenticated/anon: il gate resta
-l'unico percorso esterno.
-
-Scelto un GATE esterno invece di riscrivere il corpo legacy proprio perché
-quel corpo non è mai stato letto (vedi sopra) — riscriverlo alla cieca
-avrebbe rischiato di alterare silenziosamente il comportamento per gli
-account pre-cutoff. Il gate non richiede di conoscere l'implementazione
-interna, solo nome e firma (`claim_founder_grant_if_eligible()`, zero
-argomenti, ritorna jsonb) — se questi non fossero esatti, l'apply fallisce
-in modo esplicito (errore "funzione non trovata"), mai in modo silenzioso.
-
-Testato su Postgres reale con uno STUB del contratto legacy documentato
-(mai il corpo vero, sconosciuto): 8/8 casi verdi, incluso il caso che
-conta — un account post-cutoff con email allowlisted nello stub riceve
-comunque `program_closed`, e un contatore probe dedicato conferma che la
-funzione legacy non viene MAI invocata in quel caso
-(`supabase/tests/founder_reserve_gate/`).
-
-**Resta da fare prima dell'apply**: il preflight §14 deve confermare che
-`claim_founder_grant_if_eligible()` esista davvero con questa firma esatta
-(zero argomenti) — se il nome o gli argomenti reali fossero diversi, la
-migration fallisce all'apply (non silenziosamente) e va corretta prima di
-riprovare.
+**Implementazione**: vedi "### CORREZIONE BLOCCANTE P0.10E-B" e il function
+graph in cima a questo documento — la prima implementazione (P0.10E-A,
+`claim_founder_grant_if_eligible_gated()` come endpoint nuovo) non è mai
+stata applicata ed è stata sostituita perché avrebbe rotto il client
+pubblicato. La versione corrente preserva il nome pubblico originale.
 
 ### Risolto in P0.10E: valore reale di `user_roles.note` per i grandfather
 
@@ -117,14 +223,25 @@ di conferma sui valori distinti attuali: il dato citato è di dieci giorni fa.
   La funzione è nuova e non referenziata da nulla in produzione (l'app non è
   wired: il consumer lato Flutter esiste ma è inerte, commit `247fca9`/`0db854a`
   su `develop/post-189`). Drop sicuro, nessun dato coinvolto.
-- **#4 (gate riserve)**:
+- **#4 (gate riserve, aggiornato per la versione P0.10E-B)**:
   ```sql
-  drop function if exists public.claim_founder_grant_if_eligible_gated();
-  grant execute on function public.claim_founder_grant_if_eligible() to authenticated;
-  grant execute on function public._apply_founder_grant(uuid, text) to authenticated;
+  -- Ordine obbligatorio: il wrapper occupa il nome pubblico, va rimosso
+  -- PRIMA di poter rispostare la funzione legacy da private a public
+  -- (stessa collisione di nome/arieta' della migration in avanti).
+  drop function if exists public.claim_founder_grant_if_eligible();
+  alter function private.claim_founder_grant_if_eligible() set schema public;
+  grant execute on function public.claim_founder_grant_if_eligible() to public, anon, authenticated, service_role;
+  grant execute on function public.handle_new_founder() to public, anon, authenticated, service_role;
+  -- _apply_founder_grant NON va ri-aperta: la sua ACL era gia' chiusa a
+  -- PUBLIC/anon/authenticated PRIMA di questa migration (confermato da
+  -- Matteo il 2026-07-29) — riaprirla in un rollback introdurrebbe una
+  -- regressione di sicurezza che non esisteva nemmeno nello stato live
+  -- pre-migration.
   ```
-  Ripristina l'ACL precedente e rimuove il gate. Nessun dato coinvolto — il
-  gate è sola logica, non scrive mai in `founder_grants`/`user_roles`.
+  Ripristina il corpo legacy esatto (mai riscritto, solo spostato) sotto il
+  nome pubblico originale con l'ACL live pre-migration. Nessun dato
+  coinvolto — l'intero flusso #4 è sola logica/ACL, non scrive mai in
+  `founder_grants`/`user_roles`.
 - **#1**: invariata rispetto a quanto già documentato sotto (mai droppare
   ledger non vuoti).
 

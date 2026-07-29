@@ -398,3 +398,51 @@ order by count(*) desc;
 -- PRIMA di applicare 20260728110000 — altrimenti quegli utenti finiscono
 -- nel bucket 'lifetime' invece di 'grandfather' (esito comunque permanente
 -- e non-Founder, non un bug di sicurezza, ma non fedele al contratto).
+
+-- ============================================================================
+-- 17. Sprint P0.10E-B addendum — due verifiche PRIMA di applicare la
+--     migration riserve corretta (20260729120000).
+-- ============================================================================
+
+-- 17a. Ownership di claim_founder_grant_if_eligible(). Trovato in review
+-- avversariale (non ancora confermato su produzione): la migration sposta
+-- questa funzione con `ALTER FUNCTION ... SET SCHEMA private`, un'operazione
+-- che richiede che il ruolo che applica la migration SIA il proprietario
+-- della funzione, O SIA MEMBRO del ruolo proprietario (eredita' di
+-- privilegi). Se nessuna delle due condizioni vale, il passo fallisce in
+-- modo esplicito ("must be owner of function") — mai silenziosamente — ma
+-- e' meglio saperlo PRIMA di un apply reale che a meta' file. Confrontare
+-- l'owner qui sotto con il ruolo che Supabase usa per applicare le
+-- migration (tipicamente lo stesso proprietario storico delle altre
+-- funzioni gia' in `public`/`private` di questo progetto).
+select p.proname,
+       pg_get_userbyid(p.proowner) as owner,
+       p.pronamespace::regnamespace as schema
+from pg_proc p
+where p.proname = 'claim_founder_grant_if_eligible'
+  and p.pronamespace = 'public'::regnamespace;
+
+-- 17b. BLOCCO 3 (NON RISOLTO da 20260729120000, deliberatamente — vedi
+-- commento in fondo a quel file): _apply_founder_grant(uuid, text) usa
+-- `ON CONFLICT (user_id) DO UPDATE` e puo' sovrascrivere una riga
+-- b2c_subscriptions gia' presente per lo stesso user_id. Serve il corpo
+-- INTEGRALE (non solo la clausola ON CONFLICT, gia' confermata a voce) e la
+-- struttura reale di b2c_subscriptions per progettare un fix corretto (non
+-- un guess) come migration separata (#5) — PRIMA che una delle 3 email
+-- riservate venga effettivamente reclamata da un account con una
+-- sottoscrizione commerciale gia' attiva.
+select pg_get_functiondef('public._apply_founder_grant(uuid, text)'::regprocedure) as apply_founder_grant_full_body;
+
+select column_name, data_type, is_nullable, column_default
+from information_schema.columns
+where table_schema = 'public' and table_name = 'b2c_subscriptions'
+order by ordinal_position;
+
+select conname, pg_get_constraintdef(oid)
+from pg_constraint
+where conrelid = 'public.b2c_subscriptions'::regclass;
+-- Cercare in particolare: quale colonna distingue la SORGENTE di una
+-- sottoscrizione (google_play/apple_iap/stripe/trial/founder_grant, o
+-- equivalente) e se esiste gia' un vincolo o una logica applicativa che
+-- impedisce di sovrascrivere una sorgente commerciale con una non
+-- commerciale — se non esiste, e' esattamente il gap che BLOCCO 3 descrive.
