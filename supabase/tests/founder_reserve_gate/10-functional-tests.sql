@@ -1,11 +1,12 @@
--- Sprint P0.10E-C — test funzionali della migration REALE
+-- Sprint P0.10E-D — test funzionali della migration REALE
 -- (20260729120000_founder_reserve_cutoff_gate.sql) su supabase/postgres
 -- reale. Ogni caso chiama SEMPRE public.claim_founder_grant_if_eligible()
 -- (il nome pubblico ORIGINALE, zero argomenti) tramite test.call_gate_as():
 -- e' esattamente cio' che il client gia' pubblicato chiama, quindi ogni
 -- singolo caso valida anche la compatibilita' col client come effetto
 -- collaterale, non solo il caso 1. Casi 16-22: no-clobber sottoscrizioni
--- commerciali (BLOCCO 3, integrato nel wrapper in questo sprint).
+-- commerciali nel wrapper (BLOCCO 3). Casi 24-32: barriera atomica REALE
+-- dentro _apply_founder_grant (FASE 4) e ri-verifica post-delega (FASE 5).
 \set ON_ERROR_STOP on
 set role postgres;
 
@@ -310,7 +311,7 @@ declare
   v_user uuid := test.mkuser('allowlisted-google@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
-  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'google_play', 'active');
+  perform test.mkcommercial(v_user, 'google_play', 'active');
   select hits into v_hits_before from test.probe_hits where n = 1;
   v_res := test.call_gate_as(v_user);
   select hits into v_hits_after from test.probe_hits where n = 1;
@@ -331,7 +332,7 @@ declare
   v_user uuid := test.mkuser('allowlisted-apple@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
-  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'apple_iap', 'active');
+  perform test.mkcommercial(v_user, 'apple_iap', 'active');
   select hits into v_hits_before from test.probe_hits where n = 1;
   v_res := test.call_gate_as(v_user);
   select hits into v_hits_after from test.probe_hits where n = 1;
@@ -349,7 +350,7 @@ declare
   v_user uuid := test.mkuser('allowlisted-stripe@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
-  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'stripe', 'active');
+  perform test.mkcommercial(v_user, 'stripe', 'active');
   select hits into v_hits_before from test.probe_hits where n = 1;
   v_res := test.call_gate_as(v_user);
   select hits into v_hits_after from test.probe_hits where n = 1;
@@ -372,7 +373,7 @@ declare
   v_user uuid := test.mkuser('allowlisted-expired-commercial@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
-  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'apple_iap', 'expired');
+  perform test.mkcommercial(v_user, 'apple_iap', 'expired');
   select hits into v_hits_before from test.probe_hits where n = 1;
   v_res := test.call_gate_as(v_user);
   select hits into v_hits_after from test.probe_hits where n = 1;
@@ -392,7 +393,7 @@ declare
   v_user uuid := test.mkuser('allowlisted-trial@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
-  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'trial', 'active');
+  perform test.mkcommercial(v_user, 'trial', 'active');
   v_res := test.call_gate_as(v_user);
   perform test.assert(v_res->>'eligible' = 'true', 'Caso 20: trial non deve bloccare il claim Founder, atteso eligible=true, trovato ' || (v_res->>'eligible'));
   perform test.assert(v_res->>'reason' = 'granted', 'Caso 20: atteso reason=granted (delega avvenuta), trovato ' || (v_res->>'reason'));
@@ -411,7 +412,7 @@ declare
   v_user uuid := test.mkuser('allowlisted-already-founder@test.local', now() - interval '5 days');
   v_res jsonb;
 begin
-  insert into public.b2c_subscriptions (user_id, billing_source, state) values (v_user, 'founder_grant', 'active');
+  perform test.mkcommercial(v_user, 'founder_grant', 'active');
   v_res := test.call_gate_as(v_user);
   perform test.assert(v_res->>'reason' != 'existing_commercial_entitlement', 'Caso 21: founder_grant non deve mai essere trattato come sottoscrizione commerciale');
   perform test.assert(v_res->>'reason' = 'granted', 'Caso 21: atteso reason=granted (delega avvenuta), trovato ' || (v_res->>'reason'));
@@ -437,5 +438,209 @@ begin
   raise notice 'Caso 22 OK: nessuna riga b2c_subscriptions -> flusso legacy normale';
 end $$;
 
+-- ============================================================================
+-- Sprint P0.10E-D — FASE 4: barriera atomica REALE dentro
+-- _apply_founder_grant (non piu' uno stub passthrough). Casi 24-29
+-- chiamano _apply_founder_grant DIRETTAMENTE (bypassando il wrapper) per
+-- isolare la sola logica della barriera.
+-- ============================================================================
+
+-- Caso 24: nessuna riga b2c_subscriptions -> insert normale, ROW_COUNT>0,
+-- founder_grants marcata, ritorna true.
+do $$
+declare
+  v_user uuid := test.mkuser('direct-apply-insert@test.local', now() - interval '5 days');
+  v_result boolean;
+begin
+  insert into public.founder_grants (email, founder_number) values ('direct-apply-insert@test.local', 9001);
+  v_result := public._apply_founder_grant(v_user, 'direct-apply-insert@test.local');
+  perform test.assert(v_result = true, 'Caso 24: insert normale deve ritornare true');
+  perform test.assert((select billing_source from public.b2c_subscriptions where user_id = v_user) = 'founder_grant', 'Caso 24: billing_source deve essere founder_grant dopo l''insert');
+  perform test.assert((select applied_user_id from public.founder_grants where email = 'direct-apply-insert@test.local') = v_user, 'Caso 24: founder_grants.applied_user_id deve essere marcato');
+  perform test.assert((select applied_at from public.founder_grants where email = 'direct-apply-insert@test.local') is not null, 'Caso 24: founder_grants.applied_at deve essere marcato');
+  raise notice 'Caso 24 OK: nessuna riga -> insert normale, founder_grants marcata, true';
+end $$;
+
+-- Caso 25: riga esistente billing_source='trial' -> update permesso
+-- (whitelist), ROW_COUNT>0, founder_grants marcata, ritorna true.
+do $$
+declare
+  v_user uuid := test.mkuser('direct-apply-trial@test.local', now() - interval '5 days');
+  v_result boolean;
+begin
+  insert into public.founder_grants (email, founder_number) values ('direct-apply-trial@test.local', 9002);
+  perform test.mkcommercial(v_user, 'trial', 'active');
+  v_result := public._apply_founder_grant(v_user, 'direct-apply-trial@test.local');
+  perform test.assert(v_result = true, 'Caso 25: sostituzione di un trial deve ritornare true');
+  perform test.assert((select billing_source from public.b2c_subscriptions where user_id = v_user) = 'founder_grant', 'Caso 25: trial deve essere sostituito da founder_grant');
+  perform test.assert((select applied_user_id from public.founder_grants where email = 'direct-apply-trial@test.local') = v_user, 'Caso 25: founder_grants deve essere marcata');
+  raise notice 'Caso 25 OK: trial -> sostituito da founder_grant, true';
+end $$;
+
+-- Caso 26: riga esistente billing_source='founder_grant' -> update permesso
+-- (idempotente), ROW_COUNT>0, ritorna true.
+do $$
+declare
+  v_user uuid := test.mkuser('direct-apply-idempotent@test.local', now() - interval '5 days');
+  v_result1 boolean;
+  v_result2 boolean;
+begin
+  insert into public.founder_grants (email, founder_number) values ('direct-apply-idempotent@test.local', 9003);
+  v_result1 := public._apply_founder_grant(v_user, 'direct-apply-idempotent@test.local');
+  v_result2 := public._apply_founder_grant(v_user, 'direct-apply-idempotent@test.local');
+  perform test.assert(v_result1 = true and v_result2 = true, 'Caso 26: due chiamate consecutive devono ritornare true entrambe (idempotenza reale, non piu'' uno stub stateless)');
+  perform test.assert((select count(*) from public.b2c_subscriptions where user_id = v_user) = 1, 'Caso 26: nessuna riga duplicata dopo la seconda chiamata');
+  raise notice 'Caso 26 OK: founder_grant -> idempotente, nessun duplicato (idempotenza REALE, supera il limite dichiarato del vecchio Caso 13)';
+end $$;
+
+-- Casi 27/28/29: riga esistente commerciale (google_play/apple_iap/stripe)
+-- -> l'upsert deve modificare ZERO righe, founder_grants NON toccata, la
+-- riga b2c_subscriptions resta byte-identica, ritorna false.
+do $$
+declare
+  v_user uuid := test.mkuser('direct-apply-google@test.local', now() - interval '5 days');
+  v_result boolean;
+  v_row_before record;
+  v_row_after record;
+begin
+  insert into public.founder_grants (email, founder_number) values ('direct-apply-google@test.local', 9004);
+  perform test.mkcommercial(v_user, 'google_play', 'active');
+  select billing_source, state into v_row_before from public.b2c_subscriptions where user_id = v_user;
+
+  v_result := public._apply_founder_grant(v_user, 'direct-apply-google@test.local');
+
+  select billing_source, state into v_row_after from public.b2c_subscriptions where user_id = v_user;
+  perform test.assert(v_result = false, 'Caso 27: Google Play attivo deve rifiutare l''upsert, ritorna false');
+  perform test.assert(v_row_after.billing_source = v_row_before.billing_source and v_row_after.state = v_row_before.state, 'Caso 27: la riga b2c_subscriptions deve restare byte-identica');
+  perform test.assert((select applied_user_id from public.founder_grants where email = 'direct-apply-google@test.local') is null, 'Caso 27: founder_grants NON deve essere marcata');
+  raise notice 'Caso 27 OK: Google Play -> upsert zero righe, byte-identico, founder_grants intatta, false';
+end $$;
+
+do $$
+declare
+  v_user uuid := test.mkuser('direct-apply-apple@test.local', now() - interval '5 days');
+  v_result boolean;
+  v_row_before record;
+  v_row_after record;
+begin
+  insert into public.founder_grants (email, founder_number) values ('direct-apply-apple@test.local', 9005);
+  perform test.mkcommercial(v_user, 'apple_iap', 'expired');
+  select billing_source, state into v_row_before from public.b2c_subscriptions where user_id = v_user;
+
+  v_result := public._apply_founder_grant(v_user, 'direct-apply-apple@test.local');
+
+  select billing_source, state into v_row_after from public.b2c_subscriptions where user_id = v_user;
+  perform test.assert(v_result = false, 'Caso 28: Apple IAP anche SCADUTO deve rifiutare l''upsert, ritorna false');
+  perform test.assert(v_row_after.billing_source = v_row_before.billing_source and v_row_after.state = v_row_before.state, 'Caso 28: la riga b2c_subscriptions (scaduta) deve restare byte-identica');
+  perform test.assert((select applied_user_id from public.founder_grants where email = 'direct-apply-apple@test.local') is null, 'Caso 28: founder_grants NON deve essere marcata');
+  raise notice 'Caso 28 OK: Apple IAP scaduto -> comunque protetto, upsert zero righe, false';
+end $$;
+
+do $$
+declare
+  v_user uuid := test.mkuser('direct-apply-stripe@test.local', now() - interval '5 days');
+  v_result boolean;
+  v_row_before record;
+  v_row_after record;
+begin
+  insert into public.founder_grants (email, founder_number) values ('direct-apply-stripe@test.local', 9006);
+  perform test.mkcommercial(v_user, 'stripe', 'active');
+  select billing_source, state into v_row_before from public.b2c_subscriptions where user_id = v_user;
+
+  v_result := public._apply_founder_grant(v_user, 'direct-apply-stripe@test.local');
+
+  select billing_source, state into v_row_after from public.b2c_subscriptions where user_id = v_user;
+  perform test.assert(v_result = false, 'Caso 29: Stripe attivo deve rifiutare l''upsert, ritorna false');
+  perform test.assert(v_row_after.billing_source = v_row_before.billing_source and v_row_after.state = v_row_before.state, 'Caso 29: la riga b2c_subscriptions deve restare byte-identica');
+  perform test.assert((select applied_user_id from public.founder_grants where email = 'direct-apply-stripe@test.local') is null, 'Caso 29: founder_grants NON deve essere marcata');
+  raise notice 'Caso 29 OK: Stripe -> upsert zero righe, byte-identico, founder_grants intatta, false';
+end $$;
+
+-- ============================================================================
+-- FASE 5 — ri-verifica del wrapper dopo un esito NON eligible dalla
+-- delega. Casi 30a/b/c: simulano (single-threaded, deterministico) una
+-- riga commerciale che appare fra il precheck del wrapper e la chiamata a
+-- _apply_founder_grant (vedi hook nello stub legacy, 00-minimal-schema.sql)
+-- — il wrapper deve comunque restituire existing_commercial_entitlement,
+-- indipendentemente dal reason placeholder che lo stub legacy assegna
+-- internamente a un esito _apply_founder_grant=false.
+-- ============================================================================
+do $$
+declare
+  v_hits_before int;
+  v_hits_after int;
+  v_user uuid := test.mkuser('allowlisted-simulate-race-google@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  select hits into v_hits_before from test.probe_hits where n = 1;
+  v_res := test.call_gate_as(v_user);
+  select hits into v_hits_after from test.probe_hits where n = 1;
+
+  perform test.assert(v_res->>'reason' = 'existing_commercial_entitlement', 'Caso 30a: il wrapper deve correggere la risposta a existing_commercial_entitlement anche se la legacy(stub) ha risposto con un reason diverso internamente, trovato ' || (v_res->>'reason'));
+  perform test.assert(v_hits_after = v_hits_before + 1, 'Caso 30a: la legacy(stub) e'' stata raggiunta esattamente una volta (il precheck del wrapper non vedeva ancora nulla)');
+  perform test.assert((select applied_user_id from public.founder_grants where email = 'allowlisted-simulate-race-google@test.local') is null, 'Caso 30a: founder_grants non deve mai essere marcata in questo scenario');
+  raise notice 'Caso 30a OK: race simulata (Google Play) -> wrapper corregge a existing_commercial_entitlement';
+end $$;
+
+do $$
+declare
+  v_user uuid := test.mkuser('allowlisted-simulate-race-apple@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  v_res := test.call_gate_as(v_user);
+  perform test.assert(v_res->>'reason' = 'existing_commercial_entitlement', 'Caso 30b: atteso existing_commercial_entitlement, trovato ' || (v_res->>'reason'));
+  raise notice 'Caso 30b OK: race simulata (Apple IAP) -> wrapper corregge a existing_commercial_entitlement';
+end $$;
+
+do $$
+declare
+  v_user uuid := test.mkuser('allowlisted-simulate-race-stripe@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  v_res := test.call_gate_as(v_user);
+  perform test.assert(v_res->>'reason' = 'existing_commercial_entitlement', 'Caso 30c: atteso existing_commercial_entitlement, trovato ' || (v_res->>'reason'));
+  raise notice 'Caso 30c OK: race simulata (Stripe) -> wrapper corregge a existing_commercial_entitlement';
+end $$;
+
+-- ============================================================================
+-- Caso 31: percorso end-to-end completo senza alcuna race — allowlisted,
+-- pre-cutoff, in finestra, nessuna sottoscrizione commerciale mai: il
+-- wrapper delega, _apply_founder_grant scrive per davvero, founder_grants
+-- viene marcata correttamente, contratto JSON finale {eligible:true,
+-- reason:granted}.
+-- ============================================================================
+do $$
+declare
+  v_user uuid := test.mkuser('allowlisted-end-to-end@test.local', now() - interval '5 days');
+  v_res jsonb;
+begin
+  insert into public.founder_grants (email, founder_number) values ('allowlisted-end-to-end@test.local', 9007);
+  v_res := test.call_gate_as(v_user);
+  perform test.assert(v_res->>'eligible' = 'true', 'Caso 31: end-to-end senza race deve risultare eligible=true');
+  perform test.assert(v_res->>'reason' = 'granted', 'Caso 31: atteso reason=granted');
+  perform test.assert((select billing_source from public.b2c_subscriptions where user_id = v_user) = 'founder_grant', 'Caso 31: b2c_subscriptions deve mostrare founder_grant dopo il claim reale');
+  perform test.assert((select applied_user_id from public.founder_grants where email = 'allowlisted-end-to-end@test.local') = v_user, 'Caso 31: founder_grants deve essere marcata con lo user_id corretto');
+  raise notice 'Caso 31 OK: end-to-end completo, scrittura reale verificata';
+end $$;
+
+-- ============================================================================
+-- Caso 32: chiamata ripetuta attraverso la catena REALE (non piu' uno stub
+-- stateless come il vecchio Caso 13) — due chiamate consecutive per lo
+-- stesso utente devono restituire lo stesso esito e non duplicare nulla.
+-- ============================================================================
+do $$
+declare
+  v_user uuid := test.mkuser('allowlisted-repeat-real@test.local', now() - interval '5 days');
+  v_res1 jsonb;
+  v_res2 jsonb;
+begin
+  insert into public.founder_grants (email, founder_number) values ('allowlisted-repeat-real@test.local', 9008);
+  v_res1 := test.call_gate_as(v_user);
+  v_res2 := test.call_gate_as(v_user);
+  perform test.assert(v_res1 = v_res2, 'Caso 32: due chiamate reali consecutive devono restituire la stessa risposta');
+  perform test.assert((select count(*) from public.b2c_subscriptions where user_id = v_user) = 1, 'Caso 32: nessuna riga duplicata dopo la seconda chiamata reale');
+  raise notice 'Caso 32 OK: chiamata ripetuta attraverso la catena reale, idempotente, nessun duplicato';
+end $$;
+
 reset role;
-select '✅ TUTTI I CASI FOUNDER_RESERVE_GATE (P0.10E-C) SUPERATI' as risultato;
+select '✅ TUTTI I CASI FOUNDER_RESERVE_GATE (P0.10E-D) SUPERATI' as risultato;

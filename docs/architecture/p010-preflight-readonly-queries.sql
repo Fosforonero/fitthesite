@@ -400,21 +400,24 @@ order by count(*) desc;
 -- e non-Founder, non un bug di sicurezza, ma non fedele al contratto).
 
 -- ============================================================================
--- 17. Sprint P0.10E-B/C addendum — verifiche PRIMA di applicare la
+-- 17. Sprint P0.10E-B/C/D addendum — verifiche prima di applicare la
 --     migration riserve corretta (20260729120000).
+--
+-- 17a e 17c: PASS, confermati da Matteo il 2026-07-29 via lettura diretta:
+--   - owner di claim_founder_grant_if_eligible/_apply_founder_grant/
+--     handle_new_founder/grant_founder_launch_core: postgres per tutte e
+--     quattro;
+--   - public.b2c_subscriptions: owner postgres, e postgres ha
+--     SELECT/INSERT/UPDATE/DELETE (non solo UPDATE per il FOR UPDATE del
+--     wrapper — anche INSERT, ora necessario perche' la barriera atomica
+--     P0.10E-D dentro _apply_founder_grant fa un INSERT reale, non solo
+--     un UPDATE).
+-- Le query sotto restano nel file come RIPETIZIONE da eseguire nel
+-- dry-run immediatamente prima dell'apply (i privilegi potrebbero
+-- cambiare fra oggi e l'apply — non assumere che PASS oggi significhi
+-- PASS per sempre), non piu' come blocco aperto.
 -- ============================================================================
 
--- 17a. Ownership di claim_founder_grant_if_eligible(). Trovato in review
--- avversariale (non ancora confermato su produzione): la migration sposta
--- questa funzione con `ALTER FUNCTION ... SET SCHEMA private`, un'operazione
--- che richiede che il ruolo che applica la migration SIA il proprietario
--- della funzione, O SIA MEMBRO del ruolo proprietario (eredita' di
--- privilegi). Se nessuna delle due condizioni vale, il passo fallisce in
--- modo esplicito ("must be owner of function") — mai silenziosamente — ma
--- e' meglio saperlo PRIMA di un apply reale che a meta' file. Confrontare
--- l'owner qui sotto con il ruolo che Supabase usa per applicare le
--- migration (tipicamente lo stesso proprietario storico delle altre
--- funzioni gia' in `public`/`private` di questo progetto).
 select p.proname,
        pg_get_userbyid(p.proowner) as owner,
        p.pronamespace::regnamespace as schema
@@ -422,16 +425,49 @@ from pg_proc p
 where p.proname = 'claim_founder_grant_if_eligible'
   and p.pronamespace = 'public'::regnamespace;
 
--- 17b. BLOCCO 3 — RISOLTO nel wrapper (20260729120000, Sprint P0.10E-C), non
--- in _apply_founder_grant (mai riscritta). Questa query resta utile per
--- CONFERMARE (non piu' per progettare un fix) che le assunzioni del wrapper
--- su b2c_subscriptions corrispondano alla realta': nome colonna
--- `billing_source`, valori esatti `google_play`/`apple_iap`/`stripe`/
--- `trial`/`founder_grant` (confermati a voce da Matteo il 2026-07-29 via
--- conteggio diretto: 18 righe, tutte `founder_grant`), e che `user_id` sia
--- davvero la colonna con vincolo di unicita' usata da
--- `ON CONFLICT (user_id)` nel corpo legacy.
+select tableowner
+from pg_tables
+where schemaname = 'public' and tablename = 'b2c_subscriptions';
+
+select has_table_privilege('postgres', 'public.b2c_subscriptions', 'SELECT') as postgres_can_select,
+       has_table_privilege('postgres', 'public.b2c_subscriptions', 'INSERT') as postgres_can_insert,
+       has_table_privilege('postgres', 'public.b2c_subscriptions', 'UPDATE') as postgres_can_update;
+-- Atteso: tutti e tre true. Se uno risulta false rispetto a oggi
+-- (2026-07-29), FERMARSI: la migration fallirebbe con un errore esplicito
+-- di permesso negato su OGNI claim pre-cutoff/in-finestra, non solo le 3
+-- riserve — fail loud, non un bypass di sicurezza, ma un'interruzione del
+-- servizio.
+
+-- 17b. BLOCCO 3 — RISOLTO in ENTRAMBE le direzioni in Sprint P0.10E-D
+-- (precheck nel wrapper + barriera atomica whitelist dentro
+-- _apply_founder_grant, riscritta — non piu' invariata come in P0.10E-C).
+--
+-- La DDL reale di b2c_subscriptions NON e' piu' un'incognita da verificare
+-- qui: e' gia' TRACCIATA in questo stesso repo,
+-- supabase/migrations/20260514120004_init_b2c_subs.sql (trovata in review
+-- avversariale su P0.10E-D, dopo che la prima bozza della barriera atomica
+-- falliva "null value in column external_product_id" contro di essa — un
+-- errore di processo, non solo di codice, non cercare la DDL altrove prima
+-- di scrivere codice che la assume). Colonne NOT NULL rilevanti:
+-- external_product_id, external_subscription_id, active_until (nessun
+-- default), auto_renewing (default true, valore corretto per un grant
+-- founder e' false). CHECK live su billing_source include 'founder_grant'
+-- (assente nella migration TRACCIATA — aggiunto da un ALTER non tracciato
+-- in produzione, confermato indirettamente dalle 18 righe reali con questo
+-- valore). UNIQUE(billing_source, external_subscription_id) oltre al PK su
+-- user_id — la barriera atomica in _apply_founder_grant gestisce ENTRAMBI
+-- gli indici (blocco BEGIN/EXCEPTION WHEN unique_violation), non solo
+-- user_id.
+--
+-- Questa query resta utile per CONFERMARE (non piu' per progettare un fix)
+-- che nessun ALTER successivo abbia cambiato ulteriormente lo schema
+-- rispetto a quanto appena descritto:
 select pg_get_functiondef('public._apply_founder_grant(uuid, text)'::regprocedure) as apply_founder_grant_full_body;
+-- Il corpo live va confrontato con l'MD5 5c7649b942f04234c31d3c7961c4c6a0
+-- (gia' verificato da Matteo) — se non corrisponde piu' al momento
+-- dell'apply, il guard nella migration stessa abortisce comunque prima di
+-- qualunque modifica: questa query e' per capire PERCHE', non per
+-- sbloccare l'apply.
 
 select column_name, data_type, is_nullable, column_default
 from information_schema.columns
@@ -441,35 +477,8 @@ order by ordinal_position;
 select conname, pg_get_constraintdef(oid)
 from pg_constraint
 where conrelid = 'public.b2c_subscriptions'::regclass;
--- Cercare in particolare: che `billing_source` sia davvero il nome
--- colonna (non un alias/vista), che i 5 valori usati dal wrapper siano gli
--- UNICI valori possibili (un CHECK constraint diverso, o un sesto valore
--- mai visto nei conteggi odierni, cambierebbe la superficie del blocco), e
--- che esista un vincolo di unicita' su `user_id` (necessario perche'
--- `ON CONFLICT (user_id)` nel corpo legacy compili).
-
--- 17c. Sprint P0.10E-C — PRECONDIZIONE NUOVA, trovata in review avversariale
--- sul no-clobber: il wrapper usa `SELECT ... FOR UPDATE` su
--- b2c_subscriptions PRIMA di delegare alla funzione legacy. `FOR UPDATE`
--- richiede il privilegio UPDATE sulla tabella (non basta SELECT) per il
--- ruolo che esegue la funzione — cioe' il PROPRIETARIO della funzione
--- (confermato: postgres), non il chiamante (irrilevante, la funzione e'
--- SECURITY DEFINER). Se postgres avesse solo SELECT su questa tabella (mai
--- verificato: il preflight §17b legge solo information_schema.columns, mai
--- i privilegi), OGNI chiamata che supera cutoff+finestra fallirebbe con un
--- errore esplicito di permesso negato — non un bypass di sicurezza (fail
--- loud, coerente con la filosofia del resto del file), ma un'interruzione
--- del servizio per QUALUNQUE account pre-cutoff in finestra, non solo le 3
--- email riservate. Verificare PRIMA dell'apply:
-select tableowner
-from pg_tables
-where schemaname = 'public' and tablename = 'b2c_subscriptions';
-
-select has_table_privilege('postgres', 'public.b2c_subscriptions', 'UPDATE') as postgres_can_update,
-       has_table_privilege('postgres', 'public.b2c_subscriptions', 'SELECT') as postgres_can_select;
--- Atteso: postgres_can_update = true. Se risulta false, la migration NON
--- va applicata cosi' com'e' — serve prima un `GRANT UPDATE ON
--- public.b2c_subscriptions TO postgres;` (se legittimo/autorizzato) oppure
--- una riprogettazione del no-clobber che non richieda FOR UPDATE (con la
--- meta' della race gia' dichiarata NON chiusa che diventerebbe l'intera
--- race, non solo meta').
+-- Cercare in particolare: che billing_source ammetta ancora 'founder_grant'
+-- (whitelist della barriera atomica lo assume), che le colonne NOT NULL
+-- elencate sopra siano ancora tali con gli stessi nomi, e che
+-- UNIQUE(billing_source, external_subscription_id) esista ancora accanto
+-- al PK su user_id.

@@ -1,4 +1,4 @@
-# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B/D/E/E-A/E-B/E-C)
+# Pre-apply checklist — migration 20260728090000 (Sprint P0.10A/B/D/E/E-A/E-B/E-C/E-D)
 
 ## ⚠️ I conteggi in questo documento sono un MOMENTO, non un valore fisso
 
@@ -9,6 +9,81 @@ statico da riusare. **Ripetere il dry-run (§12 del preflight) IMMEDIATAMENTE
 prima dell'apply reale** e confrontarlo con il `NOTICE` che la migration #1
 stampa durante il backfill — non con i numeri scritti in questo file, che
 per costruzione sono già vecchi nel momento in cui li leggi.
+
+## Sprint P0.10E-D — barriera atomica reale in `_apply_founder_grant`, due bug critici trovati e corretti
+
+Questo sprint consolida e sostituisce P0.10E-A/B/C in un'unica migration #4
+(FASE 1-6 della richiesta di Matteo). La novità principale: per la prima
+volta in questo sprint, la migration **riscrive** (non solo sposta/richiude
+ACL) `_apply_founder_grant(uuid, text)` — funzione mai letta per intero in
+questa sessione — aggiungendo una barriera atomica whitelist dentro la
+stessa transazione dell'upsert, così la race residua dichiarata in
+P0.10E-C (un INSERT commerciale che arriva su una riga ancora inesistente
+al momento del precheck) è ora chiusa in **entrambe** le direzioni.
+
+**Precondizioni §17a/§17c ora PASS** (confermate da Matteo il 2026-07-29):
+
+| Verifica | Esito |
+|---|---|
+| Owner di tutte e quattro le funzioni Founder | `postgres` — §17a PASS |
+| `postgres` ha EXECUTE/SELECT/INSERT/UPDATE/DELETE su `b2c_subscriptions` | Confermato — §17c PASS |
+
+**DUE BUG CRITICI trovati in review avversariale su Postgres reale, PRIMA
+della consegna — nessuno dei due era visibile dalla sola lettura:**
+
+1. **La DDL reale di `b2c_subscriptions` era già TRACCIATA in questo
+   stesso repo** (`supabase/migrations/20260514120004_init_b2c_subs.sql`)
+   e non è mai stata cercata prima d'ora in questo sprint — un errore di
+   processo, non solo di codice. Ha 4 colonne NOT NULL senza default
+   (`external_product_id`, `external_subscription_id`, `active_until`,
+   più `auto_renewing` con un default sbagliato per un grant permanente)
+   che la prima bozza della barriera atomica non popolava affatto:
+   l'INSERT sarebbe fallito con `null value ... violates not-null
+   constraint` su **ogni** claim Founder reale, non un edge case. Corretto
+   usando gli STESSI valori/convenzione già stabiliti e tracciati per
+   `grant_b2c_trial()` (`20260514120006_sprint0_fixes.sql`): sentinel
+   lifetime `active_until = '9999-12-31'` (già documentato nel commento di
+   testa della tabella e usato da `is_b2c_lifetime()`), `auto_renewing =
+   false`, identificatori sintetici `fitmesh_founder_grant`/`founder-<user_id>`
+   sullo stesso modello di `fitmesh_b2c_trial_7d`/`trial-<user_id>`.
+2. **Trovato dal test di concorrenza stesso (Caso 36), non da un'ispezione
+   statica**: `ON CONFLICT (user_id) DO UPDATE` risolve conflitti SOLO
+   sull'indice nominato. La tabella reale ha un SECONDO vincolo univoco
+   indipendente, `UNIQUE(billing_source, external_subscription_id)`.
+   Poiché `external_subscription_id` qui è derivato deterministicamente da
+   `user_id`, quel vincolo è logicamente ridondante per questa funzione —
+   ma Postgres non lo sa, e sotto concorrenza reale (due chiamate per lo
+   stesso user_id nuovo) la seconda chiamata falliva con "duplicate key
+   value violates unique constraint
+   b2c_subscriptions_billing_source_external_subscription_id_key" invece
+   di essere assorbita dalla ON CONFLICT. Corretto sostituendo l'upsert con
+   un blocco `BEGIN/EXCEPTION WHEN unique_violation` che, su qualunque dei
+   due indici, esegue un fallback UPDATE esplicito filtrato per `user_id`
+   con la STESSA whitelist (`billing_source in ('founder_grant','trial')`)
+   — stessa semantica finale di prima, ma sopravvive anche quando la riga
+   vincitrice non esiste ancora al momento del tentativo di INSERT.
+
+Entrambi i bug sono stati trovati EMPIRICAMENTE (applicando il corpo esatto
+contro la DDL reale tracciata, e da un test di concorrenza reale che ha
+fallito), non dalla sola lettura del codice — coerente con il pattern
+già visto nei round precedenti di questo sprint (ogni bug critico finora
+è stato trovato da esecuzione reale, mai da revisione statica da sola).
+
+**Guard MD5 esteso**: dato che questa migration ora RISCRIVE
+`_apply_founder_grant` (non solo la sposta), un guard in cima al file
+verifica che il corpo LIVE corrisponda esattamente (via MD5) al corpo che
+Matteo ha verificato manualmente, PRIMA di qualunque altra modifica nel
+file (inclusa la sezione che sposta `claim_founder_grant_if_eligible`) —
+se non corrisponde, l'intera migration abortisce senza aver toccato nulla.
+Il guard accetta anche l'hash del proprio corpo NUOVO (calcolato
+empiricamente), così una riesecuzione della migration su un DB già
+corretto è un no-op sicuro, non un falso allarme.
+
+**36 casi funzionali + riesecuzione + 4 test di concorrenza reale
+(precheck FOR UPDATE, 3× barriera atomica vs commerciale, 1× race
+Founder-vince) — tutti verdi**, ri-eseguiti 3 volte consecutive per
+escludere flakiness. Le altre due suite del branch (`founder_p010a`,
+`entitlement_p010e`) invariate, nessuna regressione.
 
 ## Sprint P0.10E-C — BLOCCO 3 risolto nel wrapper, conteggi aggiornati (2026-07-29)
 
@@ -66,13 +141,15 @@ Ordine di apply (invariato, 4 migration separate):
 | 1 | `20260728090000_founder_launch_cutoff_and_window.sql` | Sunset Founder: cutoff + finestra + ledger persistente + backfill (popolazione attesa: **ricalcolare al momento**, non 378 statico) | `GO APPLY P0.10` |
 | 2 | `20260728100000_harden_legacy_b2c_trial_acl.sql` | Revoca EXECUTE su `grant_b2c_trial()` da public/anon/authenticated | **separata**, va autorizzata esplicitamente |
 | 3 | `20260728110000_entitlement_status_contract.sql` | Nuova RPC `get_entitlement_status()` server-authoritative | **separata**, va autorizzata esplicitamente |
-| 4 | `20260729120000_founder_reserve_cutoff_gate.sql` (RISCRITTA, Sprint P0.10E-C) | Sposta `claim_founder_grant_if_eligible()` in `private`, ricrea il nome pubblico originale come wrapper cutoff+finestra+no-clobber, hardening `handle_new_founder()` | **separata**, va autorizzata esplicitamente. §17a PASS. **§17c ancora da verificare** (privilegio UPDATE su `b2c_subscriptions`) |
+| 4 | `20260729120000_founder_reserve_cutoff_gate.sql` (RISCRITTA, Sprint P0.10E-D) | Sposta `claim_founder_grant_if_eligible()` in `private`, ricrea il nome pubblico originale come wrapper cutoff+finestra+no-clobber+ri-verifica FASE 5, **riscrive** `_apply_founder_grant()` con barriera atomica whitelist, hardening `handle_new_founder()` | **separata**, va autorizzata esplicitamente. §17a e §17c PASS |
 
-La #1 è l'unica che scrive dati (backfill). La #2/#4 toccano solo ACL +
-funzioni. La #3 crea una funzione nuova senza toccare nulla di esistente.
-#1/#2/#3 non dipendono l'una dall'altra a livello SQL. Tenute separate
-proprio per poterle autorizzare una alla volta (istruzione esplicita di
-Matteo: non mescolare l'hardening alla migration Founder).
+La #1 è l'unica che scrive dati (backfill). La #2/#4 toccano ACL + funzioni
+(la #4 ora scrive anche dati reali in `b2c_subscriptions`/`founder_grants`
+quando un claim reale va a buon fine — non più solo ACL/logica). La #3
+crea una funzione nuova senza toccare nulla di esistente. #1/#2/#3 non
+dipendono l'una dall'altra a livello SQL. Tenute separate proprio per
+poterle autorizzare una alla volta (istruzione esplicita di Matteo: non
+mescolare l'hardening alla migration Founder).
 
 SHA-256 al momento della consegna (se cambiano, riconfermare — le prime tre
 sono invariate dalla consegna precedente):
@@ -80,7 +157,14 @@ sono invariate dalla consegna precedente):
 3e79bc3d110fd2ca2d50d3c4d3383c8b5f4297e895129e6fabd84094f5885813  20260728090000_founder_launch_cutoff_and_window.sql
 9a9c0a954702b273996d583c58d3797027b7209f43325ba24d1bcdacb0767522  20260728100000_harden_legacy_b2c_trial_acl.sql
 af78448c477f95eedbd2a028dc5ad0310fdfb6fee449db2fcf645e8a0532948e  20260728110000_entitlement_status_contract.sql
-68cbdcac6831070f0b1c317f64d8499d6e7a35440c28eb3d86628b16552b6a64  20260729120000_founder_reserve_cutoff_gate.sql
+438bf223691c7f15c3d7f94cd7b012d9d465a161d6f7fe54ae00ee476ab7fb57  20260729120000_founder_reserve_cutoff_gate.sql
+```
+
+MD5 delle funzioni riscritte dentro la #4 (per la guardia in cima al
+file, non SHA-256 dell'intero file):
+```
+5c7649b942f04234c31d3c7961c4c6a0  _apply_founder_grant PRE-fix (verificato manualmente da Matteo, live)
+90031930f2d7f52abfe1d0583df58b6d  _apply_founder_grant POST-fix (calcolato empiricamente su questo corpo esatto, accettato per riesecuzione sicura)
 ```
 
 ### CORREZIONE BLOCCANTE P0.10E-B: la prima versione della #4 rompeva il client pubblicato
@@ -122,12 +206,17 @@ PRIMA (stato live confermato 2026-07-29):
     └─ chiama internamente → public._apply_founder_grant(uuid, text)  [EXECUTE: postgres, service_role]
   public.handle_new_founder()  [EXECUTE: PUBLIC, anon, authenticated, service_role — nessun trigger attivo]
 
-DOPO (se la #4 corretta viene applicata):
+DOPO (se la #4 corretta viene applicata, Sprint P0.10E-D):
   public.claim_founder_grant_if_eligible()  [EXECUTE: authenticated soltanto — WRAPPER NUOVO]
     ├─ program_closed / window_expired → mai raggiunge quanto sotto
-    └─ pre-cutoff, in finestra → delega a:
+    ├─ precheck no-clobber (FOR UPDATE) → existing_commercial_entitlement senza mai delegare
+    └─ pre-cutoff, in finestra, nessun commerciale visto dal precheck → delega a:
        private.claim_founder_grant_if_eligible()  [EXECUTE: nessuno tranne owner — FUNZIONE LEGACY SPOSTATA, corpo invariato]
-         └─ chiama internamente → public._apply_founder_grant(uuid, text)  [EXECUTE: postgres, service_role — invariato, reassert esplicito]
+         └─ chiama internamente → public._apply_founder_grant(uuid, text)  [EXECUTE: postgres, service_role — ACL invariata, CORPO RISCRITTO]
+              ├─ barriera atomica whitelist (INSERT + fallback UPDATE su UNIQUE_VIOLATION): commerciale protetto → false
+              └─ founder_grant/trial/nessuna riga → scrive per davvero, marca founder_grants, → true
+    └─ FASE 5: se la delega non e' risultata eligible:true, ri-verifica b2c_subscriptions —
+       se ora commerciale (race chiusa dalla barriera atomica ma non visibile al precheck), corregge a existing_commercial_entitlement
   public.handle_new_founder()  [EXECUTE: postgres, service_role soltanto — nessun trigger attivo, non eliminata]
 ```
 
@@ -285,10 +374,47 @@ reale.
    quindi non c'è un buco di copertura reale, solo un limite di rigore dei
    singoli casi presi da soli.
 
-**Superficie del rischio residuo**: narrow, invariata — solo le 3 email
-riservate, solo se una di esse ha già una riga commerciale al momento del
-claim (protetto) o riceve un INSERT commerciale nello stesso istante del
-claim (non protetto, race residua dichiarata).
+**Superficie del rischio residuo (fino a P0.10E-C)**: narrow — solo le 3
+email riservate, solo se una di esse ha già una riga commerciale al
+momento del claim (protetto) o riceve un INSERT commerciale nello stesso
+istante del claim (**non protetto in P0.10E-C** — race residua dichiarata,
+chiusa sotto in P0.10E-D).
+
+### BLOCCO 3 — race residua CHIUSA in entrambe le direzioni (Sprint P0.10E-D)
+
+FASE 4/5 (istruzione esplicita di Matteo, non una migration #5 separata):
+la barriera atomica whitelist dentro `_apply_founder_grant` stessa (vedi
+sopra) chiude la metà che P0.10E-C aveva dichiarato non protetta — un
+INSERT commerciale che arriva DOPO il precheck del wrapper ma PRIMA/
+DURANTE il tentativo di scrittura di `_apply_founder_grant`. La barriera è
+nella stessa istruzione INSERT/UPDATE, non in un secondo controllo
+separato: non c'è finestra temporale fra "verifica" e "scrittura" perché
+sono la stessa operazione atomica.
+
+Rimane un solo dettaglio, non un gap: il **wrapper** (che ha già superato
+il proprio precheck prima di delegare) non sa a priori quale `reason` la
+funzione legacy (mai riletta) assegni internamente quando
+`_apply_founder_grant` ritorna `false` per un conflitto commerciale
+scoperto tardi. La ri-verifica FASE 5 (il wrapper rilegge
+`b2c_subscriptions` dopo un esito non-eligible e corregge la risposta a
+`existing_commercial_entitlement` se ora trova una fonte commerciale)
+garantisce che il CLIENT veda sempre la risposta semanticamente corretta,
+indipendentemente da quel dettaglio interno mai verificato.
+
+**Non risulta più alcuna finestra nota e non protetta** per la
+sovrascrittura di una sottoscrizione commerciale tramite questa RPC — testata
+con tutti e 3 i billing_source commerciali in concorrenza reale (Casi
+33/34/35, sincronizzazione deterministica via marker file, non sleep
+indovinati) più una race Founder-vince (Caso 36, due chiamate concorrenti
+per un utente nuovo, nessun duplicato/corruzione).
+
+**Due bug critici trovati SOLO applicando il codice contro Postgres reale**
+(mai dalla sola lettura — vedi il riepilogo in cima al documento):
+colonne NOT NULL mancanti nell'INSERT (avrebbe fallito su ogni claim
+reale) e un secondo indice univoco non coperto dall'ON CONFLICT (avrebbe
+fallito sotto concorrenza reale, esattamente lo scenario che questa
+migration doveva proteggere). Entrambi corretti, ri-testati 3 volte
+consecutive per escludere flakiness residua.
 
 ### BLOCCANTE P0.10E (storico): le 3 riserve possono bypassare il cutoff — origine del problema
 
@@ -335,7 +461,21 @@ di conferma sui valori distinti attuali: il dato citato è di dieci giorni fa.
   La funzione è nuova e non referenziata da nulla in produzione (l'app non è
   wired: il consumer lato Flutter esiste ma è inerte, commit `247fca9`/`0db854a`
   su `develop/post-189`). Drop sicuro, nessun dato coinvolto.
-- **#4 (gate riserve, aggiornato per la versione P0.10E-B)**:
+- **#4 (gate riserve, aggiornato per la versione P0.10E-D)** — **cambiato
+  in modo sostanziale rispetto a P0.10E-B/C**: da questa versione la #4
+  RISCRIVE `_apply_founder_grant`, non solo la sposta/richiude ad ACL. Un
+  rollback fedele richiede quindi il corpo ESATTO pre-apply, che questo
+  repo non possiede (mai letto per intero) — **da qui la FASE 9 di Matteo:
+  "prima dell'apply salva corpo completo e hash di _apply_founder_grant"**
+  è un prerequisito assoluto del rollback, non solo un nice-to-have.
+  Prima di applicare, eseguire ed salvare ESTERNAMENTE (non in questo
+  repo) l'output di:
+  ```sql
+  select pg_get_functiondef('public._apply_founder_grant(uuid, text)'::regprocedure);
+  ```
+  (deve corrispondere all'MD5 `5c7649b942f04234c31d3c7961c4c6a0` già
+  confermato — se non corrisponde, il guard della migration stessa
+  abortisce comunque prima di qualunque modifica, vedi sopra).
   ```sql
   -- Ordine obbligatorio: il wrapper occupa il nome pubblico, va rimosso
   -- PRIMA di poter rispostare la funzione legacy da private a public
@@ -344,16 +484,23 @@ di conferma sui valori distinti attuali: il dato citato è di dieci giorni fa.
   alter function private.claim_founder_grant_if_eligible() set schema public;
   grant execute on function public.claim_founder_grant_if_eligible() to public, anon, authenticated, service_role;
   grant execute on function public.handle_new_founder() to public, anon, authenticated, service_role;
-  -- _apply_founder_grant NON va ri-aperta: la sua ACL era gia' chiusa a
-  -- PUBLIC/anon/authenticated PRIMA di questa migration (confermato da
-  -- Matteo il 2026-07-29) — riaprirla in un rollback introdurrebbe una
-  -- regressione di sicurezza che non esisteva nemmeno nello stato live
-  -- pre-migration.
+  -- _apply_founder_grant: ripristinare il corpo ESATTO salvato PRIMA
+  -- dell'apply (vedi sopra) con un CREATE OR REPLACE letterale — NON
+  -- lasciare la versione P0.10E-D in produzione con l'ACL riaperta, e NON
+  -- inventare un corpo "equivalente": usare esattamente il testo salvato.
+  -- L'ACL NON va riaperta a PUBLIC/anon/authenticated (era gia' chiusa a
+  -- questi ruoli PRIMA di questa migration, confermato da Matteo il
+  -- 2026-07-29 — riaprirla introdurrebbe una regressione di sicurezza che
+  -- non esisteva nemmeno nello stato live pre-migration).
   ```
-  Ripristina il corpo legacy esatto (mai riscritto, solo spostato) sotto il
-  nome pubblico originale con l'ACL live pre-migration. Nessun dato
-  coinvolto — l'intero flusso #4 è sola logica/ACL, non scrive mai in
-  `founder_grants`/`user_roles`.
+  **Attenzione ai DATI**: a differenza delle versioni precedenti di questo
+  file, la #4 P0.10E-D ORA SCRIVE dati reali quando un claim va a buon
+  fine (righe in `b2c_subscriptions` con `billing_source='founder_grant'`
+  e marcature in `founder_grants.applied_user_id`/`applied_at`). Un
+  rollback del CODICE non annulla claim già concessi con successo prima
+  del rollback — non cancellare mai queste righe: sono founder grant reali
+  e legittimi, esattamente come quelli gia' esistenti prima di questa
+  migration.
 - **#1**: invariata rispetto a quanto già documentato sotto (mai droppare
   ledger non vuoti).
 
