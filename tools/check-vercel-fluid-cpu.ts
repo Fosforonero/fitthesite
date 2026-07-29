@@ -227,7 +227,11 @@ if (founderGateRaw === null) {
 // aver verificato che il motivo e' legittimo (nuova route realmente
 // necessaria, non una regressione accidentale force-dynamic).
 const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
-const DYNAMIC_ROUTES_BASELINE = 56;
+// 56 -> 57 (2026-07-29, hotfix P0.10R): nuova
+// POST /api/v1/auth/forgot-password. Necessariamente dinamica (rate limit
+// server-side stateful su Postgres, mai statica per definizione) — non una
+// regressione, una route reale in piu' rispetto al baseline P0.9/P0.10.
+const DYNAMIC_ROUTES_BASELINE = 57;
 if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
   errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
 } else {

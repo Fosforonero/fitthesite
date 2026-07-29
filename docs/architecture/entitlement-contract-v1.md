@@ -40,7 +40,7 @@ Da client Supabase: `supabase.rpc('get_entitlement_status')`.
 | `trialEndsAt` | timestamptz ISO-8601 | no | `trialStartedAt + 14 giorni`. Valorizzato **sempre**, anche per utenti Founder/lifetime (è un dato derivato, non implica che il trial sia rilevante per quell'utente). |
 | `trialStatus` | enum string | no | `active` \| `expired`. Deciso dal server confrontando `serverNow` con `trialEndsAt`. |
 | `entitlementKind` | enum string | no | Vedi §3. Questo è il campo che decide l'accesso. |
-| `entitlementExpiresAt` | timestamptz ISO-8601 | **sì** | `null` per entitlement permanenti (`founder`, `grandfather`, `lifetime`, `appReview`) e per `none`. Valorizzato per `trial` (= `trialEndsAt`) e per `subscription` (= scadenza reale). |
+| `entitlementExpiresAt` | timestamptz ISO-8601 | **sì** | `null` per entitlement permanenti (`founder`, `grandfather`, `lifetime`, `appReview`) e per `none`. Valorizzato per `trial` (= `trialEndsAt`) e **sempre** per `subscription` — mai `null` in quel ramo, indipendentemente dalla fonte: sia `b2c_subscriptions.active_until` (`evaluationReason='active_subscription_row'`) sia `user_roles.expires_at` (`evaluationReason='timed_pro_role'`) sono `NOT NULL` per costruzione nel punto della funzione dove `entitlementKind` viene impostato a `subscription` (righe 143-153 della migration) — non esiste un percorso che produca `entitlementKind='subscription'` con `entitlementExpiresAt` nullo. **[Risolto mismatch #1 segnalato dall'agente app, 2026-07-29.]**
 | `evaluationReason` | enum string | no | Vedi §4. Motivazione puntuale, più granulare di `entitlementKind`. |
 | `founderEligibility` | enum string | no | Vedi §5. |
 | `founderWindowClosed` | boolean | no | `true` = nessun nuovo grant Founder è più possibile per questo account. Vedi §5. |
@@ -153,6 +153,37 @@ mai lo stato di billing.
 
 Retry: backoff esponenziale, mai bloccante per l'uso dell'app. La verifica
 fallita non deve mai produrre un errore di acquisto visibile all'utente.
+
+**[Risolto mismatch #2 segnalato dall'agente app, 2026-07-29]** — il
+documento non forniva JSON letterali per questi errori. Non sono fixture
+"generate dalla suite" come quelle di §9 (un `raise exception`/un errore
+PostgREST non è testabile con una fixture Postgres pura), ma la forma
+esatta è standard e verificata contro il comportamento reale di
+PostgREST/GoTrue su questo stesso progetto:
+
+```jsonc
+// Nessun JWT / JWT non valido — risposta HTTP diretta di PostgREST,
+// la funzione non viene nemmeno eseguita.
+// HTTP 401
+{ "code": "PGRST301", "message": "JWT expired" }
+
+// auth.uid() null nonostante il token — la funzione ESEGUE e solleva.
+// HTTP 400, corpo PostgREST che avvolge l'eccezione Postgres:
+{ "code": "42501", "details": null, "hint": null, "message": "Not authenticated" }
+
+// Utente non trovato — stesso avvolgimento, SQLSTATE diverso.
+// HTTP 400
+{ "code": "P0002", "details": null, "hint": null, "message": "User not found" }
+
+// Migration non applicata — la funzione non esiste nello schema cache di
+// PostgREST. HTTP 404. QUESTO è lo stato reale oggi, 29/07/2026 (la
+// migration non è ancora applicata).
+{ "code": "PGRST202", "details": "Searched for the function public.get_entitlement_status without parameters, but no matches were found in the schema cache.", "hint": null, "message": "Could not find the function public.get_entitlement_status without parameters in the schema cache" }
+```
+
+Da riconfermare con una chiamata reale non appena l'endpoint è live (non
+bloccante: la forma è quella standard PostgREST/GoTrue, non specifica di
+questo contratto).
 
 ## 9. Fixture JSON (da test reali, non inventate)
 
