@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { createRecoveryClient } from '@/lib/supabase/recovery-client';
 import { classifyRecoveryError } from '@/lib/recovery/classify-error';
+import { classifyRecoveryArrival, stripRecoveryParams } from '@/lib/recovery/signals';
+import { consumeHandoffEmail } from '@/lib/recovery/handoff';
 import type { Locale } from '@/lib/i18n';
 
 export interface ResetPasswordTranslations {
@@ -25,6 +27,11 @@ export interface ResetPasswordTranslations {
   errorRateLimited: string;
   errorNetwork: string;
   errorGeneric: string;
+  noCodeTitle: string;
+  noCodeBody: string;
+  requestCode: string;
+  staleLinkTitle: string;
+  staleLinkBody: string;
   backToLogin: string;
 }
 
@@ -55,27 +62,83 @@ export function ResetPasswordForm({
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [staleLink, setStaleLink] = useState(false);
+  // Hotfix P0.10R (addendum): stessa guardia di ForgotPasswordForm.tsx —
+  // uno `useState` da solo non basta contro due invii nello stesso turno
+  // sincrono (doppio click nativo, doppio Invio), perche' entrambe le
+  // chiamate leggerebbero `submitting === false` dalla stessa closure prima
+  // che React committi il primo aggiornamento.
+  const submittingRef = useRef(false);
+
+  /**
+   * Hotfix P0.10R. Un solo effetto al mount, tre compiti:
+   *
+   * 1. Riconosce un arrivo da vecchio link (token/token_hash/code/error_code/
+   *    error_description, in query O nel fragment) per mostrare una frase
+   *    chiara invece di un vicolo cieco. Legge solo la PRESENZA dei
+   *    parametri: nessun valore viene letto, mostrato, loggato o inviato ad
+   *    analytics.
+   * 2. Ripulisce SUBITO la barra indirizzi da quei parametri con
+   *    `history.replaceState` — senza reload, senza aggiungere una entry
+   *    alla history (quindi nessun loop e nessun "indietro" che ci riporta
+   *    dentro). Cosi' token e messaggi d'errore non restano in cronologia,
+   *    screenshot, bookmark o header `Referer` verso terze parti.
+   * 3. Precompila l'email se veniamo da forgot-password nello stesso tab.
+   *
+   * Le dipendenze sono vuote di proposito: deve girare una volta sola, sul
+   * primo mount, prima che l'utente possa interagire.
+   */
+  useEffect(() => {
+    const { pathname, search, hash } = window.location;
+
+    if (classifyRecoveryArrival(search, hash) === 'stale_link') {
+      setStaleLink(true);
+    }
+
+    if (search || hash) {
+      const cleaned = stripRecoveryParams(pathname, search);
+      window.history.replaceState(window.history.state, '', cleaned);
+    }
+
+    const handoff = consumeHandoffEmail();
+    if (handoff) setEmail(handoff);
+  }, []);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setError(null);
+    if (submittingRef.current) return;
+    submittingRef.current = true;
 
-    const trimmedEmail = email.trim();
-    const trimmedOtp = otp.trim();
+    // Tutte le validazioni sono dentro questo try/finally esterno: un
+    // return anticipato (campo mancante, password troppo corta, mismatch)
+    // deve comunque rilasciare il ref, altrimenti il form resterebbe
+    // bloccato in modo permanente dopo il primo errore di validazione.
+    try {
+      setError(null);
 
-    if (!trimmedEmail || !trimmedOtp) {
-      setError(translations.errorMissingFields);
-      return;
-    }
-    if (password.length < 8) {
-      setError(translations.errorTooShort);
-      return;
-    }
-    if (password !== confirm) {
-      setError(translations.errorMismatch);
-      return;
-    }
+      const trimmedEmail = email.trim();
+      const trimmedOtp = otp.trim();
 
+      if (!trimmedEmail || !trimmedOtp) {
+        setError(translations.errorMissingFields);
+        return;
+      }
+      if (password.length < 8) {
+        setError(translations.errorTooShort);
+        return;
+      }
+      if (password !== confirm) {
+        setError(translations.errorMismatch);
+        return;
+      }
+
+      await submitReset(trimmedEmail, trimmedOtp);
+    } finally {
+      submittingRef.current = false;
+    }
+  }
+
+  async function submitReset(trimmedEmail: string, trimmedOtp: string) {
     setSubmitting(true);
 
     try {
@@ -137,6 +200,26 @@ export function ResetPasswordForm({
 
   return (
     <form onSubmit={onSubmit} className="card p-6 space-y-4">
+      {/*
+        Arrivo da vecchio link: frase fissa e tradotta, MAI il token, l'hash,
+        l'errore Supabase grezzo o il fragment. L'utente non deve capire cosa
+        e' andato storto tecnicamente, deve sapere cosa fare adesso.
+      */}
+      {staleLink && (
+        <div className="rounded-card border border-divider bg-bg-elevated p-4">
+          <p className="text-sm font-medium text-text-primary">{translations.staleLinkTitle}</p>
+          <p className="mt-1 text-sm text-text-secondary leading-relaxed">
+            {translations.staleLinkBody}
+          </p>
+          <Link
+            href={`/${locale}/auth/forgot-password`}
+            className="mt-3 inline-flex items-center px-4 py-2 rounded-pill btn-cta text-sm font-medium"
+          >
+            {translations.requestCode}
+          </Link>
+        </div>
+      )}
+
       {error && (
         <div className="rounded-card border border-error/40 bg-error/10 p-3 text-sm text-error">
           {error}
@@ -217,10 +300,30 @@ export function ResetPasswordForm({
       <button
         type="submit"
         disabled={submitting}
+        aria-busy={submitting}
         className="w-full rounded-pill btn-cta py-3 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {submitting ? translations.saving : translations.submit}
       </button>
+
+      {/*
+        Arrivo senza codice: chi apre questa pagina direttamente (bookmark,
+        link condiviso, ritorno da un tab vecchio) deve avere una via
+        d'uscita visibile, non un form che non puo' compilare. Non e'
+        condizionale allo stato "stale link": vale per QUALUNQUE arrivo,
+        perche' il codice puo' anche essere semplicemente scaduto mentre la
+        pagina era aperta.
+      */}
+      <div className="pt-2 border-t border-divider">
+        <p className="text-sm font-medium text-text-primary">{translations.noCodeTitle}</p>
+        <p className="mt-1 text-sm text-text-secondary leading-relaxed">{translations.noCodeBody}</p>
+        <Link
+          href={`/${locale}/auth/forgot-password`}
+          className="mt-2 inline-block text-sm text-brand-aqua hover:text-brand-green transition font-medium"
+        >
+          {translations.requestCode}
+        </Link>
+      </div>
     </form>
   );
 }

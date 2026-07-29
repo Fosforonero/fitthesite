@@ -33,8 +33,24 @@ import {
 } from '@/lib/rate-limit/limiter';
 import { locales } from '@/lib/i18n';
 import { resolveNegotiatedLocale, LOCALE_COOKIE_NAME } from '@/lib/locale-negotiation';
+import { hasRecoverySignal, stripRecoveryParams } from '@/lib/recovery/signals';
 
 type CookieToSet = { name: string; value: string; options: CookieOptions };
+
+/**
+ * Hotfix P0.10R — toglie i parametri di recupero dall'URL di destinazione.
+ *
+ * Il redirect verso forgot-password non deve trascinarsi dietro il token o
+ * il messaggio d'errore del vecchio link: resterebbero nella barra
+ * indirizzi, in cronologia e nell'header `Referer` della pagina successiva.
+ */
+function clearRecoveryParams(target: URL): void {
+  const cleaned = stripRecoveryParams(target.pathname, target.search);
+  const [pathname, search = ''] = cleaned.split('?');
+  target.pathname = pathname;
+  target.search = search;
+  target.hash = '';
+}
 
 const PROTECTED_PREFIXES = ['/app', '/admin'] as const;
 
@@ -191,7 +207,19 @@ export async function middleware(request: NextRequest) {
         acceptLanguage: request.headers.get('accept-language'),
         country: request.headers.get('x-vercel-ip-country'),
       });
-      targetUrl.pathname = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`;
+      // Hotfix P0.10R: chi arriva sulla radice apex con i resti di un vecchio
+      // link di recupero viene portato direttamente a chiedere un codice
+      // nuovo, IN UN SOLO SALTO (host swap + locale + destinazione insieme),
+      // invece di atterrare sulla home senza capire cosa fare.
+      targetUrl.pathname =
+        pathname === '/' && hasRecoverySignal(request.nextUrl.search)
+          ? `/${locale}/auth/forgot-password`
+          : pathname === '/'
+            ? `/${locale}`
+            : `/${locale}${pathname}`;
+      if (targetUrl.pathname.endsWith('/auth/forgot-password')) {
+        clearRecoveryParams(targetUrl);
+      }
       const redirectResponse = NextResponse.redirect(targetUrl, 307);
       redirectResponse.headers.set('Cache-Control', 'private, no-store');
       redirectResponse.headers.set('Vary', 'Accept-Language, Cookie');
@@ -258,7 +286,19 @@ export async function middleware(request: NextRequest) {
       country: request.headers.get('x-vercel-ip-country'),
     });
     const url = request.nextUrl.clone();
-    url.pathname = pathname === '/' ? `/${locale}` : `/${locale}${pathname}`;
+    // Hotfix P0.10R: la radice con i resti di un vecchio link di recupero
+    // porta direttamente a chiedere un codice nuovo, in un solo salto e
+    // nella lingua negoziata, invece di scaricare l'utente sulla home senza
+    // spiegazioni. Il fragment (dove Supabase mette spesso l'errore) non
+    // arriva mai al server: quel caso resta gestito lato client dalla
+    // pagina di reset. Qui si copre la query string.
+    const recoveryArrival = pathname === '/' && hasRecoverySignal(request.nextUrl.search);
+    url.pathname = recoveryArrival
+      ? `/${locale}/auth/forgot-password`
+      : pathname === '/'
+        ? `/${locale}`
+        : `/${locale}${pathname}`;
+    if (recoveryArrival) clearRecoveryParams(url);
     const redirectResponse = NextResponse.redirect(url, 307);
     redirectResponse.headers.set('Cache-Control', 'private, no-store');
     redirectResponse.headers.set('Vary', 'Accept-Language, Cookie');
