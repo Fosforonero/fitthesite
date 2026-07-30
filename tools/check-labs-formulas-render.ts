@@ -22,6 +22,14 @@ import {
   SLEEP_EFFICIENCY_SYMBOL_TIME_IN_BED_EN,
   SLEEP_EFFICIENCY_SYMBOL_TIME_IN_BED_IT,
 } from "../components/labs/pages/SleepEfficiencyToolPageBody";
+import {
+  HR_MAX_ZONE_LATEX,
+  HR_MAX_ZONE_LATEX_IT,
+  KARVONEN_ZONE_LATEX,
+  KARVONEN_ZONE_LATEX_IT,
+  TANAKA_LATEX,
+  TANAKA_LATEX_IT,
+} from "../components/labs/pages/HeartRateZonesToolPageBody";
 
 interface FormulaEntry {
   label: string;
@@ -41,6 +49,12 @@ const formulas: FormulaEntry[] = [
   { label: "Sleep Efficiency: simbolo Tempo totale di sonno (IT)", tex: SLEEP_EFFICIENCY_SYMBOL_TOTAL_SLEEP_TIME_IT, displayMode: false },
   { label: "Sleep Efficiency: simbolo Time in Bed (EN)", tex: SLEEP_EFFICIENCY_SYMBOL_TIME_IN_BED_EN, displayMode: false },
   { label: "Sleep Efficiency: simbolo Tempo trascorso a letto (IT)", tex: SLEEP_EFFICIENCY_SYMBOL_TIME_IN_BED_IT, displayMode: false },
+  { label: "Heart Rate Zones: stima FC max Tanaka (EN)", tex: TANAKA_LATEX, displayMode: true },
+  { label: "Heart Rate Zones: stima FC max Tanaka (IT)", tex: TANAKA_LATEX_IT, displayMode: true },
+  { label: "Heart Rate Zones: zona % FC max (EN)", tex: HR_MAX_ZONE_LATEX, displayMode: true },
+  { label: "Heart Rate Zones: zona % FC max (IT)", tex: HR_MAX_ZONE_LATEX_IT, displayMode: true },
+  { label: "Heart Rate Zones: zona Karvonen (EN)", tex: KARVONEN_ZONE_LATEX, displayMode: true },
+  { label: "Heart Rate Zones: zona Karvonen (IT)", tex: KARVONEN_ZONE_LATEX_IT, displayMode: true },
 ];
 
 function main() {
@@ -73,7 +87,7 @@ function main() {
   }
 
   console.log(
-    `\n✅ Labs formulas render guardrail: ${formulas.length} formule (HRV: ${HRV_TOOL_CONTENT.formulaRows.length}, Sleep Efficiency: ${formulas.length - HRV_TOOL_CONTENT.formulaRows.length}) renderizzate senza errori, HTML+MathML presenti su tutte.`,
+    `\n✅ Labs formulas render guardrail: ${formulas.length} formule (HRV: ${HRV_TOOL_CONTENT.formulaRows.length}, Sleep Efficiency: 6, Heart Rate Zones: 6) renderizzate senza errori, HTML+MathML presenti su tutte.`,
   );
 }
 

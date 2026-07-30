@@ -107,6 +107,10 @@ import { post as metricheRecuperoHrvSonnoFrequenzaCardiaca } from "./posts/metri
 // P1.3N-C: Galaxy Watch Ultra2 e Galaxy Watch9, pubblicato 2026-07-22
 // (Galaxy Unpacked), solo it/en.
 import { post as galaxyWatchUltra2HealthConnect } from "./posts/galaxy-watch-ultra2-watch9-health-connect";
+// P1.4B: Sleep Score + Zona 2 (cluster atomico col calcolatore Heart Rate
+// Zones), pubblicati 2026-07-30, solo it/en.
+import { post as sleepScoreRegolaritaRitmoCircadiano } from "./posts/sleep-score-regolarita-ritmo-circadiano";
+import { post as percheZona2CambiaSmartwatchApp } from "./posts/perche-zona-2-cambia-smartwatch-app";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -187,6 +191,8 @@ const RAW_POSTS: BlogPost[] = [
   efficienzaDelSonnoFormulaCalcolo,
   metricheRecuperoHrvSonnoFrequenzaCardiaca,
   galaxyWatchUltra2HealthConnect,
+  sleepScoreRegolaritaRitmoCircadiano,
+  percheZona2CambiaSmartwatchApp,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

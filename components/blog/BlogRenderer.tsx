@@ -316,6 +316,8 @@ export function BlogRenderer({
             return (
               <aside
                 key={i}
+                data-cta-id={s.ctaId}
+                data-cta-placement={s.ctaPlacement}
                 className="my-10 rounded-card border border-divider bg-gradient-to-br from-brand-aqua/10 to-brand-green/5 p-6 sm:p-8"
               >
                 <h4 className="font-display text-xl sm:text-2xl font-semibold text-text-primary tracking-tight">

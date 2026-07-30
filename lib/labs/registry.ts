@@ -95,7 +95,7 @@ export const LABS_TOOLS: readonly LabsTool[] = [
     category: "cardio",
     lastRevised: "2026-07-17",
     methodologyVersion: "1.1",
-    relatedKeys: ["sleep-efficiency"],
+    relatedKeys: ["sleep-efficiency", "heart-rate-zones"],
   },
   {
     key: "sleep-efficiency",
@@ -110,18 +110,22 @@ export const LABS_TOOLS: readonly LabsTool[] = [
     category: "sleep",
     lastRevised: "2026-07-17",
     methodologyVersion: "1.0",
-    relatedKeys: ["hrv-rmssd"],
+    relatedKeys: ["hrv-rmssd", "heart-rate-zones"],
   },
   {
     key: "heart-rate-zones",
-    status: "coming-soon",
-    name: { it: "Zone di frequenza cardiaca", en: "Heart Rate Zones" },
+    status: "live",
+    slug: { it: "calcolatore-zone-frequenza-cardiaca", en: "heart-rate-zones-calculator" },
+    name: { it: "Calcolatore zone di frequenza cardiaca", en: "Heart Rate Zones Calculator" },
     shortDescription: {
-      it: "Calcolo delle zone di frequenza cardiaca con i metodi più diffusi.",
-      en: "Heart rate zone calculation using the most common methods.",
+      it: "Calcola le tue zone di frequenza cardiaca con il metodo % FC max e col metodo Karvonen (% riserva cardiaca), affiancati, interamente nel browser.",
+      en: "Calculate your heart rate zones with the %HRmax method and the Karvonen (%heart rate reserve) method, side by side, entirely in your browser.",
     },
     icon: "🎯",
     category: "activity",
+    lastRevised: "2026-07-30",
+    methodologyVersion: "1.0",
+    relatedKeys: ["hrv-rmssd", "sleep-efficiency"],
   },
 ] as const;
 

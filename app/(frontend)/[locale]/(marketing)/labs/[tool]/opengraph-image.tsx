@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import { labsToolByLocalizedSlug, lt } from "@/lib/labs/registry";
 import { HRV_TOOL_CONTENT } from "@/lib/labs/hrv/content";
 import { SLEEP_EFFICIENCY_TOOL_CONTENT } from "@/lib/labs/sleep-efficiency/content";
+import { HEART_RATE_ZONES_TOOL_CONTENT } from "@/lib/labs/heart-rate-zones/content";
 
 export const alt = "FitMesh Labs";
 export const size = { width: 1200, height: 630 };
@@ -33,7 +34,9 @@ export default async function LabsToolOgImage({
     ? "FitMesh Labs"
     : found.key === "hrv-rmssd"
       ? lt(HRV_TOOL_CONTENT.heroTitle, lc)
-      : lt(SLEEP_EFFICIENCY_TOOL_CONTENT.heroTitle, lc);
+      : found.key === "heart-rate-zones"
+        ? lt(HEART_RATE_ZONES_TOOL_CONTENT.heroTitle, lc)
+        : lt(SLEEP_EFFICIENCY_TOOL_CONTENT.heroTitle, lc);
   const kicker = "FITMESH LABS";
 
   return new ImageResponse(

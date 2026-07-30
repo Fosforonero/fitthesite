@@ -192,14 +192,23 @@ export function LabsCta({
   body,
   ctaLabel,
   ctaHref,
+  ctaId,
+  ctaPlacement,
 }: {
   heading: string;
   body: string;
   ctaLabel: string;
   ctaHref: string;
+  /** P1.4B, opzionali: renderizzati come `data-cta-id`/`data-cta-placement` — vedi `OutboundTracker` (`cta_view`/`cta_click`). Assenti = nessun tracking aggiuntivo. */
+  ctaId?: string;
+  ctaPlacement?: string;
 }) {
   return (
-    <section className="max-w-4xl mx-auto px-4 sm:px-6 mt-12">
+    <section
+      data-cta-id={ctaId}
+      data-cta-placement={ctaPlacement}
+      className="max-w-4xl mx-auto px-4 sm:px-6 mt-12"
+    >
       <div className="rounded-card border border-brand-aqua/25 bg-gradient-to-br from-brand-aqua/[0.08] via-bg-card to-bg-card p-6 sm:p-8 text-center">
         <h2 className="font-display text-xl font-semibold text-text-primary">
           {heading}

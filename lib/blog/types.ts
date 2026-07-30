@@ -124,12 +124,19 @@ export type BlogSection = (
       /**
        * CTA box inline: titolo, descrizione, link primario. `href` può essere
        * un path relativo (`/it/beta`) o URL assoluto.
+       *
+       * `ctaId`/`ctaPlacement` (P1.4B, opzionali): se presenti, renderizzati
+       * come `data-cta-id`/`data-cta-placement` sull'elemento cliccabile —
+       * `OutboundTracker` li usa per gli eventi `cta_view`/`cta_click`.
+       * Assenti = nessun tracking aggiuntivo (comportamento storico invariato).
        */
       type: "cta";
       title: Localized;
       body: Localized;
       ctaLabel: Localized;
       ctaHref: Localized;
+      ctaId?: string;
+      ctaPlacement?: string;
     }
   | {
       /**

@@ -985,6 +985,7 @@ export const post: BlogPost = {
     "health-connect-vs-samsung-health",
     "metriche-recupero-hrv-sonno-frequenza-cardiaca",
     "efficienza-del-sonno-formula-calcolo",
+    "perche-zona-2-cambia-smartwatch-app",
   ],
   brandsMentioned: ["Garmin", "Samsung", "Oura", "Polar", "Apple", "Google"],
   // P1.1 Fase 9.3: fonti primarie aggiunte, stesse gia' verificate live per

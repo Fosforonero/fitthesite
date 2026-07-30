@@ -14,6 +14,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { calculateHrvMetrics } from "../lib/labs/hrv/rmssd-math";
 import { calculateSleepEfficiency, type SleepEfficiencyInput } from "../lib/labs/sleep-efficiency/math";
+import { calculateHeartRateZones, type HeartRateZonesInput } from "../lib/labs/heart-rate-zones/math";
 
 const repoRoot = path.resolve(__dirname, "..");
 const OUT_PATH = path.join(repoRoot, ".oracle-vectors.json");
@@ -158,15 +159,73 @@ const sleepEfficiencyErrors = impossibleVectors.map((input, i) => {
   return { label: `${input.mode}-impossible-${i}`, input, expectedErrorCode: code };
 });
 
+// ── Vettori Heart Rate Zones ─────────────────────────────────────────
+const heartRateZonesVectors: HeartRateZonesInput[] = [
+  { maxHrMode: "estimated", age: 40, restingHr: 60 },
+  { maxHrMode: "measured", measuredMaxHr: 185, restingHr: 52 },
+  { maxHrMode: "estimated", age: 20, restingHr: 70 },
+  { maxHrMode: "estimated", age: 65, restingHr: 55 },
+];
+for (let v = 0; v < 15; v++) {
+  const age = randInt(10, 85);
+  const maxHr = 208 - 0.7 * age;
+  const restingHr = randInt(30, Math.min(140, Math.floor(maxHr) - 5));
+  heartRateZonesVectors.push({ maxHrMode: "estimated", age, restingHr });
+}
+for (let v = 0; v < 10; v++) {
+  const measuredMaxHr = randInt(110, 225);
+  const restingHr = randInt(25, measuredMaxHr - 5);
+  heartRateZonesVectors.push({ maxHrMode: "measured", measuredMaxHr, restingHr });
+}
+
+const heartRateZonesResults = heartRateZonesVectors.map((input, i) => {
+  const outcome = calculateHeartRateZones(input);
+  return {
+    label: `${input.maxHrMode}-${i}`,
+    input,
+    tsResult: outcome.ok ? outcome.result : null,
+  };
+});
+const heartRateZonesValid = heartRateZonesResults.filter((r) => r.tsResult !== null);
+
+// ── Vettori Heart Rate Zones deliberatamente IMPOSSIBILI (FC riposo >= FC max) ──
+const impossibleHeartRateZonesVectors: HeartRateZonesInput[] = [
+  { maxHrMode: "estimated", age: 90, restingHr: 148 },
+  { maxHrMode: "measured", measuredMaxHr: 140, restingHr: 140 },
+  { maxHrMode: "measured", measuredMaxHr: 120, restingHr: 130 },
+];
+for (let v = 0; v < 10; v++) {
+  const measuredMaxHr = randInt(100, 150);
+  const restingHr = measuredMaxHr + randInt(0, 5);
+  if (restingHr > 150) continue; // resta dentro il range assoluto RESTING_HR_OUT_OF_RANGE, isola solo il caso "impossibile"
+  impossibleHeartRateZonesVectors.push({ maxHrMode: "measured", measuredMaxHr, restingHr });
+}
+const heartRateZonesErrors = impossibleHeartRateZonesVectors.map((input, i) => {
+  const outcome = calculateHeartRateZones(input);
+  if (outcome.ok) {
+    throw new Error(
+      `Vettore HR zones impossibile #${i} (${JSON.stringify(input)}) è stato calcolato come valido: la generazione dei vettori oracle presume che sia bloccato.`,
+    );
+  }
+  const code = outcome.errors.find((e) => e.code === "RESTING_HR_NOT_BELOW_MAX")?.code ?? outcome.errors[0]?.code;
+  return { label: `hrzones-impossible-${i}`, input, expectedErrorCode: code };
+});
+
 fs.writeFileSync(
   OUT_PATH,
   JSON.stringify(
-    { hrv: hrvResults, sleepEfficiency: sleepEfficiencyValid, sleepEfficiencyErrors },
+    {
+      hrv: hrvResults,
+      sleepEfficiency: sleepEfficiencyValid,
+      sleepEfficiencyErrors,
+      heartRateZones: heartRateZonesValid,
+      heartRateZonesErrors,
+    },
     null,
     2,
   ),
 );
 
 console.log(
-  `✅ Vettori oracle scritti in ${path.relative(repoRoot, OUT_PATH)}: ${hrvResults.length} HRV, ${sleepEfficiencyValid.length} Sleep Efficiency (validi), ${sleepEfficiencyErrors.length} Sleep Efficiency (errori attesi).`,
+  `✅ Vettori oracle scritti in ${path.relative(repoRoot, OUT_PATH)}: ${hrvResults.length} HRV, ${sleepEfficiencyValid.length} Sleep Efficiency (validi), ${sleepEfficiencyErrors.length} Sleep Efficiency (errori attesi), ${heartRateZonesValid.length} Heart Rate Zones (validi), ${heartRateZonesErrors.length} Heart Rate Zones (errori attesi).`,
 );

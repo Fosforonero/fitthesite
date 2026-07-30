@@ -770,6 +770,34 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "galaxy-watch-ultra2-watch9-health-connect",
     ko: "galaxy-watch-ultra2-watch9-health-connect",
   },
+  // P1.4B: pubblicazione solo it/en (REDIRECT_INCOMPLETE_LOCALE_SLUGS, stesso
+  // meccanismo di galaxy-watch-ultra2-watch9-health-connect sopra). Le altre
+  // 10 locale riusano lo slug EN (mai renderizzato: la pagina va in 307 verso
+  // /en/blog/... prima del render, vedi blog/[slug]/page.tsx).
+  "sleep-score-regolarita-ritmo-circadiano": {
+    en: "sleep-score-vs-circadian-score",
+    es: "sleep-score-vs-circadian-score",
+    de: "sleep-score-vs-circadian-score",
+    pt: "sleep-score-vs-circadian-score",
+    fr: "sleep-score-vs-circadian-score",
+    pl: "sleep-score-vs-circadian-score",
+    tr: "sleep-score-vs-circadian-score",
+    nl: "sleep-score-vs-circadian-score",
+    ja: "sleep-score-vs-circadian-score",
+    ko: "sleep-score-vs-circadian-score",
+  },
+  "perche-zona-2-cambia-smartwatch-app": {
+    en: "why-zone-2-differs-watches-apps",
+    es: "why-zone-2-differs-watches-apps",
+    de: "why-zone-2-differs-watches-apps",
+    pt: "why-zone-2-differs-watches-apps",
+    fr: "why-zone-2-differs-watches-apps",
+    pl: "why-zone-2-differs-watches-apps",
+    tr: "why-zone-2-differs-watches-apps",
+    nl: "why-zone-2-differs-watches-apps",
+    ja: "why-zone-2-differs-watches-apps",
+    ko: "why-zone-2-differs-watches-apps",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {

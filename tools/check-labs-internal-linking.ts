@@ -40,8 +40,10 @@ const BASE_URL = process.env.BASE_URL ?? "http://localhost:3000";
 
 const HRV_TOOL = liveLabsTools().find((t) => t.key === "hrv-rmssd")!;
 const SLEEP_TOOL = liveLabsTools().find((t) => t.key === "sleep-efficiency")!;
+const HR_ZONES_TOOL = liveLabsTools().find((t) => t.key === "heart-rate-zones")!;
 const HRV_ARTICLE_CANONICAL = "hrv-cose-significato-valori";
 const SLEEP_ARTICLE_CANONICAL = "efficienza-del-sonno-formula-calcolo";
+const HR_ZONES_ARTICLE_CANONICAL = "perche-zona-2-cambia-smartwatch-app";
 const PILLAR_CANONICAL = "metriche-recupero-hrv-sonno-frequenza-cardiaca";
 
 interface RowResult {
@@ -118,25 +120,38 @@ async function checkToolArticlePillarAndRelatedLinks() {
   for (const lc of ["it", "en"] as const) {
     const hrvToolPath = toolPath(HRV_TOOL, lc);
     const sleepToolPath = toolPath(SLEEP_TOOL, lc);
+    const hrZonesToolPath = toolPath(HR_ZONES_TOOL, lc);
     const hrvArticlePath = articlePath(HRV_ARTICLE_CANONICAL, lc);
     const sleepArticlePath = articlePath(SLEEP_ARTICLE_CANONICAL, lc);
+    const hrZonesArticlePath = articlePath(HR_ZONES_ARTICLE_CANONICAL, lc);
     const pillarPath = articlePath(PILLAR_CANONICAL, lc);
 
     const hrvToolHtml = await (await fetch(`${BASE_URL}${hrvToolPath}`)).text();
     const sleepToolHtml = await (await fetch(`${BASE_URL}${sleepToolPath}`)).text();
+    const hrZonesToolHtml = await (await fetch(`${BASE_URL}${hrZonesToolPath}`)).text();
     const hrvArticleHtml = await (await fetch(`${BASE_URL}${hrvArticlePath}`)).text();
     const sleepArticleHtml = await (await fetch(`${BASE_URL}${sleepArticlePath}`)).text();
+    const hrZonesArticleHtml = await (await fetch(`${BASE_URL}${hrZonesArticlePath}`)).text();
     const pillarHtml = await (await fetch(`${BASE_URL}${pillarPath}`)).text();
 
+    // P1.4B: la Zona 2/Heart Rate Zones non appartiene al cluster pillar
+    // recovery (HRV/sonno) - niente link forzato tool<->pillar per questo
+    // tool, a differenza di HRV/Sleep Efficiency (cluster diverso per tema).
     const presence: Array<[string, string, string]> = [
       [`tool HRV (${lc}) -> articolo HRV`, hrvToolHtml, hrvArticlePath],
       [`tool Sleep (${lc}) -> articolo Sleep`, sleepToolHtml, sleepArticlePath],
+      [`tool HR Zones (${lc}) -> articolo Zona 2`, hrZonesToolHtml, hrZonesArticlePath],
       [`tool HRV (${lc}) -> pillar recovery`, hrvToolHtml, pillarPath],
       [`tool Sleep (${lc}) -> pillar recovery`, sleepToolHtml, pillarPath],
       [`tool HRV (${lc}) -> tool Sleep (correlato)`, hrvToolHtml, sleepToolPath],
       [`tool Sleep (${lc}) -> tool HRV (correlato)`, sleepToolHtml, hrvToolPath],
+      [`tool HRV (${lc}) -> tool HR Zones (correlato)`, hrvToolHtml, hrZonesToolPath],
+      [`tool Sleep (${lc}) -> tool HR Zones (correlato)`, sleepToolHtml, hrZonesToolPath],
+      [`tool HR Zones (${lc}) -> tool HRV (correlato)`, hrZonesToolHtml, hrvToolPath],
+      [`tool HR Zones (${lc}) -> tool Sleep (correlato)`, hrZonesToolHtml, sleepToolPath],
       [`articolo HRV (${lc}) -> tool HRV`, hrvArticleHtml, hrvToolPath],
       [`articolo Sleep (${lc}) -> tool Sleep`, sleepArticleHtml, sleepToolPath],
+      [`articolo Zona 2 (${lc}) -> tool HR Zones`, hrZonesArticleHtml, hrZonesToolPath],
       [`pillar (${lc}) -> tool HRV`, pillarHtml, hrvToolPath],
       [`pillar (${lc}) -> tool Sleep`, pillarHtml, sleepToolPath],
     ];
@@ -147,17 +162,25 @@ async function checkToolArticlePillarAndRelatedLinks() {
       }
     }
 
-    // relatedLabsTools deve confermare la relazione curata bidirezionale a livello di dati, non solo di markup.
+    // relatedLabsTools deve confermare la relazione curata a livello di dati, non solo di markup.
+    // I 3 tool live sono un grafo completamente connesso (P1.4B).
     const hrvRelated = relatedLabsTools(HRV_TOOL).map((t) => t.key);
     const sleepRelated = relatedLabsTools(SLEEP_TOOL).map((t) => t.key);
+    const hrZonesRelated = relatedLabsTools(HR_ZONES_TOOL).map((t) => t.key);
     if (!hrvRelated.includes(SLEEP_TOOL.key)) problems.push(`relatedLabsTools(HRV) non include Sleep Efficiency.`);
+    if (!hrvRelated.includes(HR_ZONES_TOOL.key)) problems.push(`relatedLabsTools(HRV) non include Heart Rate Zones.`);
     if (!sleepRelated.includes(HRV_TOOL.key)) problems.push(`relatedLabsTools(Sleep) non include HRV.`);
+    if (!sleepRelated.includes(HR_ZONES_TOOL.key)) problems.push(`relatedLabsTools(Sleep) non include Heart Rate Zones.`);
+    if (!hrZonesRelated.includes(HRV_TOOL.key)) problems.push(`relatedLabsTools(Heart Rate Zones) non include HRV.`);
+    if (!hrZonesRelated.includes(SLEEP_TOOL.key)) problems.push(`relatedLabsTools(Heart Rate Zones) non include Sleep Efficiency.`);
 
     // Ogni URL della relazione deve risolvere 200 diretto.
     await record(`tool HRV (${lc})`, hrvToolPath, 200);
     await record(`tool Sleep (${lc})`, sleepToolPath, 200);
+    await record(`tool HR Zones (${lc})`, hrZonesToolPath, 200);
     await record(`articolo HRV (${lc})`, hrvArticlePath, 200);
     await record(`articolo Sleep (${lc})`, sleepArticlePath, 200);
+    await record(`articolo Zona 2 (${lc})`, hrZonesArticlePath, 200);
     await record(`pillar (${lc})`, pillarPath, 200);
   }
   console.log("  ✅ link tool<->articolo, tool<->pillar, tool<->tool correlato: presenti nell'HTML e risolvono 200 diretto (it+en).");
@@ -169,11 +192,13 @@ async function checkNoCrossLocaleSlug() {
     `/en/labs/${localizedLabsSlug(HRV_TOOL, "it")}`, // slug IT sotto /en
     `/it/labs/${localizedLabsSlug(SLEEP_TOOL, "en")}`,
     `/en/labs/${localizedLabsSlug(SLEEP_TOOL, "it")}`,
+    `/it/labs/${localizedLabsSlug(HR_ZONES_TOOL, "en")}`,
+    `/en/labs/${localizedLabsSlug(HR_ZONES_TOOL, "it")}`,
   ];
   for (const path of crossLocale) {
     await record("cross-locale slug (deve essere 404)", path, 404);
   }
-  console.log("  ✅ nessuno slug IT raggiungibile sotto /en/labs, nessuno slug EN sotto /it/labs (404 su tutte e 4 le combinazioni).");
+  console.log(`  ✅ nessuno slug IT raggiungibile sotto /en/labs, nessuno slug EN sotto /it/labs (404 su tutte e ${crossLocale.length} le combinazioni).`);
 }
 
 async function checkExternalFallbackStillRedirects() {

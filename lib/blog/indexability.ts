@@ -70,4 +70,7 @@ export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
   "anello-vs-smartwatch",
   // P1.3N-C: pubblicazione iniziale solo it/en, stesso meccanismo.
   "galaxy-watch-ultra2-watch9-health-connect",
+  // P1.4B: Sleep Score + Zona 2, pubblicazione solo it/en, stesso meccanismo.
+  "sleep-score-regolarita-ritmo-circadiano",
+  "perche-zona-2-cambia-smartwatch-app",
 ]);

@@ -11,10 +11,10 @@
  * un evento analytics. Richiede un server reale in esecuzione (BASE_URL,
  * default http://localhost:3000).
  *
- * Copre 6 combinazioni tool×locale×modalità: HRV it/en, Sleep Efficiency
- * semplice it/en, Sleep Efficiency avanzata it/en - gli unici 2 tool live,
- * le uniche 2 locale Labs, ed entrambe le modalità di Sleep Efficiency (vedi
- * lib/labs/registry.ts).
+ * Copre 8 combinazioni tool×locale×modalità: HRV it/en, Sleep Efficiency
+ * semplice it/en, Sleep Efficiency avanzata it/en, Heart Rate Zones it/en -
+ * i 3 tool live, le uniche 2 locale Labs, ed entrambe le modalità di Sleep
+ * Efficiency (vedi lib/labs/registry.ts).
  *
  * P1.1C Fase 2: il vecchio controllo si fermava a "il download usa un
  * blob: URL" - non leggeva mai il contenuto reale del file. Ora, per ogni
@@ -83,6 +83,27 @@ const SLEEP_CSV: CsvExpectation = {
   header: "metric,value_minutes",
   rowLabels: ["timeInBedMinutes", "totalSleepTimeMinutes", "totalTimeAwakeMinutes", "sleepEfficiencyPercent"],
   primaryRowLabel: "sleepEfficiencyPercent",
+};
+
+const HR_ZONES_CSV: CsvExpectation = {
+  filename: "heart-rate-zones.csv",
+  header: "metric,value_bpm_or_range",
+  rowLabels: [
+    "maxHr",
+    "restingHr",
+    "heartRateReserve",
+    "percentMaxHr_z1",
+    "percentMaxHr_z2",
+    "percentMaxHr_z3",
+    "percentMaxHr_z4",
+    "percentMaxHr_z5",
+    "karvonenHrr_z1",
+    "karvonenHrr_z2",
+    "karvonenHrr_z3",
+    "karvonenHrr_z4",
+    "karvonenHrr_z5",
+  ],
+  primaryRowLabel: "maxHr",
 };
 
 interface Target {
@@ -206,6 +227,36 @@ const TARGETS: Target[] = [
       await numberInputs.nth(4).fill("1091");
       await numberInputs.nth(5).fill("0");
       await numberInputs.nth(6).fill("0");
+    },
+  },
+  {
+    label: "Heart Rate Zones - it",
+    path: "/it/labs/calcolatore-zone-frequenza-cardiaca",
+    // Età e FC riposo sono ENTRAMBE fisiologicamente vincolate (5-100 / 25-150,
+    // vedi lib/labs/heart-rate-zones/math.ts): a differenza di HRV (ms senza
+    // limite superiore dichiarato) o delle ore di Sleep Efficiency, qui non
+    // esiste un campo naturalmente "lungo" per un marker univoco - stesso
+    // limite già accettato per i minuti di Sleep Efficiency sopra (0-59, mai
+    // usati come marker). Uso la FC a riposo (range più ampio, 3 cifre
+    // possibili) come marker via confine di parola; l'età resta un valore
+    // realistico, non usata per la scansione.
+    markers: ["130"],
+    csv: HR_ZONES_CSV,
+    fillInputs: async (page) => {
+      const numberInputs = page.locator('input[type="number"]');
+      await numberInputs.nth(0).fill("44"); // età (non marker)
+      await numberInputs.nth(1).fill("130"); // FC a riposo (marker)
+    },
+  },
+  {
+    label: "Heart Rate Zones - en",
+    path: "/en/labs/heart-rate-zones-calculator",
+    markers: ["142"],
+    csv: HR_ZONES_CSV,
+    fillInputs: async (page) => {
+      const numberInputs = page.locator('input[type="number"]');
+      await numberInputs.nth(0).fill("51"); // age (not a marker)
+      await numberInputs.nth(1).fill("142"); // resting HR (marker)
     },
   },
 ];
@@ -430,7 +481,7 @@ async function main() {
   }
 
   console.log(
-    `\n✅ Labs privacy guardrail: ${TARGETS.length} combinazioni tool×locale×modalità verificate (HRV it/en, Sleep Efficiency semplice it/en, Sleep Efficiency avanzata it/en), zero esfiltrazione di valori marcatore, URL invariato, clipboard verificato, CSV letto e verificato realmente (nome file, intestazione, righe, struttura, valore primario coerente con la UI), zero errori console.`,
+    `\n✅ Labs privacy guardrail: ${TARGETS.length} combinazioni tool×locale×modalità verificate (HRV it/en, Sleep Efficiency semplice it/en, Sleep Efficiency avanzata it/en, Heart Rate Zones it/en), zero esfiltrazione di valori marcatore, URL invariato, clipboard verificato, CSV letto e verificato realmente (nome file, intestazione, righe, struttura, valore primario coerente con la UI), zero errori console.`,
   );
 }
 

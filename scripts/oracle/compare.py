@@ -16,6 +16,10 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from hrv_oracle import calculate_hrv_metrics
 from sleep_efficiency_oracle import calculate_advanced, calculate_simple, classify_expected_error
+from heart_rate_zones_oracle import (
+    calculate_heart_rate_zones,
+    classify_expected_error as classify_hr_zones_expected_error,
+)
 
 EPSILON = 1e-6
 VECTORS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".oracle-vectors.json")
@@ -86,6 +90,37 @@ def check_sleep_efficiency_errors(vectors):
             errors.append(f"{label}: TS ha bloccato con {actual!r}, la classificazione Python indipendente si aspetta {expected!r}")
 
 
+def check_heart_rate_zones(vectors):
+    for v in vectors:
+        label = v["label"]
+        ts = v["tsResult"]
+        inp = v["input"]
+        py = calculate_heart_rate_zones(
+            inp["maxHrMode"], inp.get("age"), inp.get("measuredMaxHr"), inp["restingHr"]
+        )
+        close(ts["maxHr"], py["maxHr"], label, "maxHr")
+        close(ts["heartRateReserve"], py["heartRateReserve"], label, "heartRateReserve")
+        for table in ("percentMaxHrZones", "heartRateReserveZones"):
+            for ts_zone, py_zone in zip(ts[table], py[table]):
+                if ts_zone["key"] != py_zone["key"]:
+                    errors.append(f"{label}.{table}: ordine zone diverso ts={ts_zone['key']} py={py_zone['key']}")
+                    continue
+                close(ts_zone["bpmLow"], py_zone["bpmLow"], label, f"{table}.{ts_zone['key']}.bpmLow")
+                close(ts_zone["bpmHigh"], py_zone["bpmHigh"], label, f"{table}.{ts_zone['key']}.bpmHigh")
+
+
+def check_heart_rate_zones_errors(vectors):
+    """Vettori deliberatamente impossibili (FC riposo >= FC max): verifica
+    che la classificazione Python indipendente concordi col codice d'errore
+    realmente riportato da TypeScript."""
+    for v in vectors:
+        label = v["label"]
+        expected = classify_hr_zones_expected_error(v["input"])
+        actual = v["expectedErrorCode"]
+        if expected != actual:
+            errors.append(f"{label}: TS ha bloccato con {actual!r}, la classificazione Python indipendente si aspetta {expected!r}")
+
+
 def main():
     if not os.path.exists(VECTORS_PATH):
         print(f"❌ Oracle compare: {VECTORS_PATH} non trovato - esegui prima tools/gen-labs-oracle-vectors.ts")
@@ -98,6 +133,10 @@ def main():
     check_sleep_efficiency(data["sleepEfficiency"])
     sleep_efficiency_errors = data.get("sleepEfficiencyErrors", [])
     check_sleep_efficiency_errors(sleep_efficiency_errors)
+    heart_rate_zones = data.get("heartRateZones", [])
+    check_heart_rate_zones(heart_rate_zones)
+    heart_rate_zones_errors = data.get("heartRateZonesErrors", [])
+    check_heart_rate_zones_errors(heart_rate_zones_errors)
 
     if errors:
         print(f"❌ Oracle compare: {len(errors)} scostamento/i fra TypeScript e Python\n")
@@ -108,8 +147,9 @@ def main():
     print(
         f"✅ Oracle compare: {len(data['hrv'])} vettori HRV + {len(data['sleepEfficiency'])} vettori "
         f"Sleep Efficiency (risultati validi) + {len(sleep_efficiency_errors)} vettori Sleep Efficiency "
-        f"(errori attesi, classificazione indipendente), TypeScript e Python indipendenti concordano "
-        f"entro {EPSILON}."
+        f"(errori attesi) + {len(heart_rate_zones)} vettori Heart Rate Zones (risultati validi) + "
+        f"{len(heart_rate_zones_errors)} vettori Heart Rate Zones (errori attesi), TypeScript e Python "
+        f"indipendenti concordano entro {EPSILON}."
     )
 
 
