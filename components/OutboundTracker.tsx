@@ -28,6 +28,13 @@ import { useEffect } from "react";
  * layout, il suo useEffect non rigira ad ogni cambio pagina). Nessun dato
  * fisiologico/personale in nessuno dei due eventi: solo id/posizione CTA,
  * path pagina, locale.
+ *
+ * P1.4B-A: `hr_zones_mode_select`, evento per il cambio di modalità FC max
+ * nel calcolatore Zone di Frequenza Cardiaca (`data-hr-zones-mode-select`
+ * su ciascuna label radio in HeartRateZonesCalculator.tsx). Il parametro
+ * `mode` è SOLO uno dei tre valori enum ("tanaka"/"age220"/"measured"):
+ * mai età, FC a riposo, FC massima o qualunque altro valore inserito
+ * dall'utente.
  */
 export default function OutboundTracker() {
   useEffect(() => {
@@ -84,8 +91,23 @@ export default function OutboundTracker() {
       }
     }
 
+    function onHrZonesModeSelect(e: MouseEvent) {
+      const target = e.target as HTMLElement | null;
+      const modeEl = target?.closest?.("[data-hr-zones-mode-select]") as HTMLElement | null;
+      if (!modeEl) return;
+      const gtag = gtagFn();
+      if (typeof gtag === "function") {
+        gtag("event", "hr_zones_mode_select", {
+          mode: modeEl.getAttribute("data-hr-zones-mode-select"),
+          page_path: window.location.pathname,
+          locale: currentLocale(),
+        });
+      }
+    }
+
     document.addEventListener("click", onClick, true);
     document.addEventListener("click", onCtaClick, true);
+    document.addEventListener("click", onHrZonesModeSelect, true);
 
     // cta_view: una sola emissione per elemento, quando entra nel viewport.
     const viewed = new WeakSet<Element>();
@@ -130,6 +152,7 @@ export default function OutboundTracker() {
     return () => {
       document.removeEventListener("click", onClick, true);
       document.removeEventListener("click", onCtaClick, true);
+      document.removeEventListener("click", onHrZonesModeSelect, true);
       io.disconnect();
       mo.disconnect();
     };

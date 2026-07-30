@@ -27,6 +27,8 @@ export const KARVONEN_ZONE_LATEX = String.raw`\mathrm{Zone}_{\mathrm{Karvonen}} 
 export const KARVONEN_ZONE_LATEX_IT = String.raw`\mathrm{Zona}_{\mathrm{Karvonen}} = \mathrm{FC}_{\mathrm{riposo}} + (\mathrm{FC}_{\max} - \mathrm{FC}_{\mathrm{riposo}}) \times \%`;
 export const TANAKA_LATEX = String.raw`\mathrm{HR}_{\max} = 208 - 0.7 \times \mathrm{age}`;
 export const TANAKA_LATEX_IT = String.raw`\mathrm{FC}_{\max} = 208 - 0{,}7 \times \mathrm{et\grave{a}}`;
+export const AGE220_LATEX = String.raw`\mathrm{HR}_{\max} = 220 - \mathrm{age}`;
+export const AGE220_LATEX_IT = String.raw`\mathrm{FC}_{\max} = 220 - \mathrm{et\grave{a}}`;
 
 export function HeartRateZonesToolPageBody({
   found,
@@ -130,6 +132,21 @@ export function HeartRateZonesToolPageBody({
             }}
           />
           <FormulaCard
+            heading={lc === "it" ? "Stima FC massima (220-età)" : "Max heart rate estimate (220-age)"}
+            tex={lc === "it" ? AGE220_LATEX_IT : AGE220_LATEX}
+            ariaLabel={lc === "it" ? "Formula 220 meno età" : "220 minus age formula"}
+            explanation={
+              lc === "it"
+                ? "Stima classica e molto diffusa, non un'equazione precisa o universalmente validata - vedi il confronto con Tanaka sotto."
+                : "Classic, very common estimate, not a precise or universally validated equation - see the comparison with Tanaka below."
+            }
+            variables={[]}
+            example={{
+              label: lc === "it" ? "Esempio" : "Example",
+              lines: lc === "it" ? ["Età 60 → FC max = 220 − 60 = 160 bpm (Tanaka alla stessa età: 166 bpm)"] : ["Age 60 → Max HR = 220 − 60 = 160 bpm (Tanaka at the same age: 166 bpm)"],
+            }}
+          />
+          <FormulaCard
             heading={lc === "it" ? "Zona, metodo % FC massima" : "Zone, %HRmax method"}
             tex={lc === "it" ? HR_MAX_ZONE_LATEX_IT : HR_MAX_ZONE_LATEX}
             ariaLabel={lc === "it" ? "Formula zona % FC massima" : "Zone %HRmax formula"}
@@ -159,6 +176,12 @@ export function HeartRateZonesToolPageBody({
             }}
           />
         </div>
+      </LabsProseSection>
+
+      <LabsProseSection heading={section("ageMethodsComparison").heading}>
+        {section("ageMethodsComparison").paragraphs.map((p, i) => (
+          <RichParagraph key={i} text={p} />
+        ))}
       </LabsProseSection>
 
       <LabsProseSection heading={section("whyDevicesDisagree").heading}>

@@ -464,7 +464,7 @@ async function runForEngine(engineName: string, launcher: BrowserType): Promise<
       const testId = "heart-rate-zones-calculator";
       problems.push(...(await checkNativeRadioSemantics(page, path, engineName, testId)));
 
-      for (const mode of ["estimated", "measured"] as const) {
+      for (const mode of ["tanaka", "age220", "measured"] as const) {
         await page.goto(`${BASE_URL}${path}`, { waitUntil: "networkidle" });
         const modeRadio = page.locator(`[data-testid="${testId}"] input[type="radio"][value="${mode}"]`);
         const modeSwitched = await modeRadio

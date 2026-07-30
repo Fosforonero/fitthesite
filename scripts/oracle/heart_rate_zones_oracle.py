@@ -3,8 +3,12 @@
 FitMesh Labs — oracle Python indipendente per il calcolatore Zone di
 Frequenza Cardiaca. Scritto da zero SENZA leggere/importare
 lib/labs/heart-rate-zones/math.ts: stessa definizione operativa (Tanaka 2001
-per la stima FC max, Karvonen 1957 per il metodo % riserva), implementata
-solo dalla definizione. Vedi hrv_oracle.py per il ragionamento generale.
+o "220-età" per la stima FC max, Karvonen 1957 per il metodo % riserva),
+implementata solo dalla definizione. Vedi hrv_oracle.py per il ragionamento
+generale.
+
+P1.4B-A (hardening 2026-07-30): aggiunta la terza fonte di FC max ("220-età",
+Fase 3) e classify_bpm_into_zone (Fase 5), a specchio del TypeScript.
 
 Nota sull'arrotondamento: TypeScript usa Math.round (arrotonda sempre verso
 l'alto sui .5, mai banker's rounding). Il round() nativo di Python usa
@@ -33,6 +37,18 @@ def estimate_max_hr_tanaka(age):
     return 208 - 0.7 * age
 
 
+def estimate_max_hr_220_age(age):
+    return 220 - age
+
+
+def resolve_max_hr(max_hr_mode, age, measured_max_hr):
+    if max_hr_mode == "tanaka":
+        return estimate_max_hr_tanaka(age)
+    if max_hr_mode == "age220":
+        return estimate_max_hr_220_age(age)
+    return measured_max_hr
+
+
 def build_zones(reference_fn):
     zones = []
     for key in ZONE_KEYS:
@@ -49,8 +65,19 @@ def build_zones(reference_fn):
     return zones
 
 
+def classify_bpm_into_zone(bpm, zones):
+    """Specchio di classifyBpmIntoZone in math.ts: limite inferiore incluso,
+    limite superiore escluso tranne per l'ultima zona (P1.4B-A Fase 5)."""
+    for i, z in enumerate(zones):
+        is_last = i == len(zones) - 1
+        below_upper = bpm <= z["bpmHigh"] if is_last else bpm < z["bpmHigh"]
+        if bpm >= z["bpmLow"] and below_upper:
+            return z["key"]
+    return None
+
+
 def calculate_heart_rate_zones(max_hr_mode, age, measured_max_hr, resting_hr):
-    max_hr = estimate_max_hr_tanaka(age) if max_hr_mode == "estimated" else measured_max_hr
+    max_hr = resolve_max_hr(max_hr_mode, age, measured_max_hr)
     heart_rate_reserve = max_hr - resting_hr
 
     return {
@@ -69,10 +96,8 @@ def classify_expected_error(input_dict):
     confronto (compare.py invia solo vettori validi per il calcolo, e vettori
     deliberatamente impossibili solo per questo controllo)."""
     resting_hr = input_dict["restingHr"]
-    max_hr = (
-        estimate_max_hr_tanaka(input_dict["age"])
-        if input_dict["maxHrMode"] == "estimated"
-        else input_dict["measuredMaxHr"]
+    max_hr = resolve_max_hr(
+        input_dict["maxHrMode"], input_dict.get("age"), input_dict.get("measuredMaxHr")
     )
     if resting_hr >= max_hr:
         return "RESTING_HR_NOT_BELOW_MAX"
@@ -80,5 +105,6 @@ def classify_expected_error(input_dict):
 
 
 if __name__ == "__main__":
-    print(calculate_heart_rate_zones("estimated", 40, None, 60))
+    print(calculate_heart_rate_zones("tanaka", 40, None, 60))
+    print(calculate_heart_rate_zones("age220", 40, None, 60))
     print(calculate_heart_rate_zones("measured", None, 185, 52))

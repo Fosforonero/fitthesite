@@ -89,6 +89,7 @@ const HR_ZONES_CSV: CsvExpectation = {
   filename: "heart-rate-zones.csv",
   header: "metric,value_bpm_or_range",
   rowLabels: [
+    "method",
     "maxHr",
     "restingHr",
     "heartRateReserve",

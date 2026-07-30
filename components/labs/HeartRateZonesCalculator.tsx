@@ -5,15 +5,15 @@ import type { Locale } from "@/lib/i18n";
 import type { HeartRateZonesToolContent } from "@/lib/labs/heart-rate-zones/content";
 import {
   calculateHeartRateZones,
-  SAMPLE_ESTIMATED_INPUT,
+  SAMPLE_TANAKA_INPUT,
+  SAMPLE_AGE220_INPUT,
   SAMPLE_MEASURED_INPUT,
   type HeartRateZonesInput,
   type HeartRateZonesValidationError,
   type HeartRateZonesWarning,
+  type MaxHrMode,
   type ZoneRange,
 } from "@/lib/labs/heart-rate-zones/math";
-
-type MaxHrMode = "estimated" | "measured";
 
 interface FormState {
   maxHrMode: MaxHrMode;
@@ -23,14 +23,40 @@ interface FormState {
 }
 
 const EMPTY_FORM: FormState = {
-  maxHrMode: "estimated",
+  maxHrMode: "tanaka",
   age: "",
   measuredMaxHr: "",
   restingHr: "",
 };
 
+/** true per "tanaka" e "age220": entrambe usano il campo età. */
+function usesAgeInput(mode: MaxHrMode): boolean {
+  return mode === "tanaka" || mode === "age220";
+}
+
+/**
+ * Notazione esplicita e coerente ovunque (UI, CSV, clipboard, articolo Zona
+ * 2): limite inferiore incluso, limite superiore escluso - tranne l'ultima
+ * zona (z5), che include anche il limite superiore (P1.4B-A Fase 5).
+ * Separatore ";" (non ",") apposta: il valore finisce anche in una cella CSV
+ * grezza (vedi downloadCsv) - una virgola lì spezzerebbe la riga in più colonne.
+ */
+function formatZoneRange(z: ZoneRange, isLast: boolean): string {
+  return isLast ? `[${z.bpmLow}; ${z.bpmHigh}]` : `[${z.bpmLow}; ${z.bpmHigh})`;
+}
+
 function toNum(v: string): number | undefined {
   return v === "" ? undefined : Number(v);
+}
+
+function methodLabel(
+  mode: MaxHrMode,
+  labels: HeartRateZonesToolContent["calculatorLabels"],
+  lc: "it" | "en",
+): string {
+  if (mode === "tanaka") return labels.maxHrModeTanaka[lc];
+  if (mode === "age220") return labels.maxHrModeAge220[lc];
+  return labels.maxHrModeMeasured[lc];
 }
 
 type BuildResult =
@@ -40,13 +66,12 @@ type BuildResult =
 
 function buildInput(f: FormState): BuildResult {
   const restingRaw = f.restingHr;
-  const primaryRaw = f.maxHrMode === "estimated" ? f.age : f.measuredMaxHr;
+  const primaryRaw = usesAgeInput(f.maxHrMode) ? f.age : f.measuredMaxHr;
   if (restingRaw === "" && primaryRaw === "") return { status: "empty" };
 
-  const input: HeartRateZonesInput =
-    f.maxHrMode === "estimated"
-      ? { maxHrMode: "estimated", age: toNum(f.age), restingHr: toNum(f.restingHr) as number }
-      : { maxHrMode: "measured", measuredMaxHr: toNum(f.measuredMaxHr), restingHr: toNum(f.restingHr) as number };
+  const input: HeartRateZonesInput = usesAgeInput(f.maxHrMode)
+    ? { maxHrMode: f.maxHrMode, age: toNum(f.age), restingHr: toNum(f.restingHr) as number }
+    : { maxHrMode: "measured", measuredMaxHr: toNum(f.measuredMaxHr), restingHr: toNum(f.restingHr) as number };
 
   return { status: "ready", input };
 }
@@ -113,18 +138,23 @@ function ZoneTable({
           </tr>
         </thead>
         <tbody>
-          {zones.map((z) => (
+          {zones.map((z, i) => (
             <tr key={z.key} className="border-t border-divider">
               <td className="py-1.5 text-text-secondary">
                 {zoneNames[z.key][lc]} <span className="text-text-muted">({z.pctLow}-{z.pctHigh}%)</span>
               </td>
               <td className="py-1.5 text-right text-text-primary font-medium">
-                {z.bpmLow}-{z.bpmHigh}
+                {formatZoneRange(z, i === zones.length - 1)}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <p className="mt-1.5 text-xs text-text-muted">
+        {lc === "it"
+          ? "Limite superiore escluso (tranne l'ultima zona, che lo include)."
+          : "Upper bound excluded (except the last zone, which includes it)."}
+      </p>
     </div>
   );
 }
@@ -154,12 +184,19 @@ export function HeartRateZonesCalculator({
     setForm((prev) => ({ ...prev, [key]: value }));
 
   const loadSample = () => {
-    if (form.maxHrMode === "estimated") {
+    if (form.maxHrMode === "tanaka") {
       setForm({
-        maxHrMode: "estimated",
-        age: String(SAMPLE_ESTIMATED_INPUT.age),
+        maxHrMode: "tanaka",
+        age: String(SAMPLE_TANAKA_INPUT.age),
         measuredMaxHr: "",
-        restingHr: String(SAMPLE_ESTIMATED_INPUT.restingHr),
+        restingHr: String(SAMPLE_TANAKA_INPUT.restingHr),
+      });
+    } else if (form.maxHrMode === "age220") {
+      setForm({
+        maxHrMode: "age220",
+        age: String(SAMPLE_AGE220_INPUT.age),
+        measuredMaxHr: "",
+        restingHr: String(SAMPLE_AGE220_INPUT.restingHr),
       });
     } else {
       setForm({
@@ -177,15 +214,20 @@ export function HeartRateZonesCalculator({
     if (!outcome || !outcome.ok) return "";
     const r = outcome.result;
     const lines = [
+      `${labels.resultMethodLabel[lc]}: ${methodLabel(r.maxHrSource, labels, lc)}`,
       `${labels.resultMaxHr[lc]}: ${r.maxHr} bpm`,
       `${labels.resultRestingHr[lc]}: ${r.restingHr} bpm`,
       `${labels.resultHrr[lc]}: ${r.heartRateReserve} bpm`,
       "",
       labels.percentMaxHrTableHeading[lc] + ":",
-      ...r.percentMaxHrZones.map((z) => `${content.zoneNames[z.key][lc]}: ${z.bpmLow}-${z.bpmHigh} bpm`),
+      ...r.percentMaxHrZones.map(
+        (z, i) => `${content.zoneNames[z.key][lc]}: ${formatZoneRange(z, i === r.percentMaxHrZones.length - 1)} bpm`,
+      ),
       "",
       labels.hrrTableHeading[lc] + ":",
-      ...r.heartRateReserveZones.map((z) => `${content.zoneNames[z.key][lc]}: ${z.bpmLow}-${z.bpmHigh} bpm`),
+      ...r.heartRateReserveZones.map(
+        (z, i) => `${content.zoneNames[z.key][lc]}: ${formatZoneRange(z, i === r.heartRateReserveZones.length - 1)} bpm`,
+      ),
     ];
     return lines.join("\n");
   };
@@ -204,15 +246,16 @@ export function HeartRateZonesCalculator({
     if (!outcome || !outcome.ok) return;
     const r = outcome.result;
     const rows: string[][] = [["metric", "value_bpm_or_range"]];
+    rows.push(["method", r.maxHrSource]);
     rows.push(["maxHr", String(r.maxHr)]);
     rows.push(["restingHr", String(r.restingHr)]);
     rows.push(["heartRateReserve", String(r.heartRateReserve)]);
-    for (const z of r.percentMaxHrZones) {
-      rows.push([`percentMaxHr_${z.key}`, `${z.bpmLow}-${z.bpmHigh}`]);
-    }
-    for (const z of r.heartRateReserveZones) {
-      rows.push([`karvonenHrr_${z.key}`, `${z.bpmLow}-${z.bpmHigh}`]);
-    }
+    r.percentMaxHrZones.forEach((z, i) => {
+      rows.push([`percentMaxHr_${z.key}`, formatZoneRange(z, i === r.percentMaxHrZones.length - 1)]);
+    });
+    r.heartRateReserveZones.forEach((z, i) => {
+      rows.push([`karvonenHrr_${z.key}`, formatZoneRange(z, i === r.heartRateReserveZones.length - 1)]);
+    });
     const csv = rows.map((row) => row.join(",")).join("\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -242,18 +285,29 @@ export function HeartRateZonesCalculator({
       <fieldset className="m-0 border-0 p-0">
         <legend className="mb-1.5 block text-sm text-text-secondary">{labels.maxHrModeLabel[lc]}</legend>
         <div className="flex flex-wrap gap-2">
-          <label className={radioPillClass(form.maxHrMode === "estimated")}>
+          <label className={radioPillClass(form.maxHrMode === "tanaka")} data-hr-zones-mode-select="tanaka">
             <input
               type="radio"
               name={`${uid}-max-hr-mode`}
-              value="estimated"
-              checked={form.maxHrMode === "estimated"}
-              onChange={() => set("maxHrMode", "estimated")}
+              value="tanaka"
+              checked={form.maxHrMode === "tanaka"}
+              onChange={() => set("maxHrMode", "tanaka")}
               className="sr-only"
             />
-            {labels.maxHrModeEstimated[lc]}
+            {labels.maxHrModeTanaka[lc]}
           </label>
-          <label className={radioPillClass(form.maxHrMode === "measured")}>
+          <label className={radioPillClass(form.maxHrMode === "age220")} data-hr-zones-mode-select="age220">
+            <input
+              type="radio"
+              name={`${uid}-max-hr-mode`}
+              value="age220"
+              checked={form.maxHrMode === "age220"}
+              onChange={() => set("maxHrMode", "age220")}
+              className="sr-only"
+            />
+            {labels.maxHrModeAge220[lc]}
+          </label>
+          <label className={radioPillClass(form.maxHrMode === "measured")} data-hr-zones-mode-select="measured">
             <input
               type="radio"
               name={`${uid}-max-hr-mode`}
@@ -265,10 +319,13 @@ export function HeartRateZonesCalculator({
             {labels.maxHrModeMeasured[lc]}
           </label>
         </div>
+        {form.maxHrMode === "age220" && (
+          <p className="mt-1.5 text-xs text-text-muted">{labels.maxHrModeAge220Hint[lc]}</p>
+        )}
       </fieldset>
 
       <div className="mt-5 grid gap-4 sm:grid-cols-2">
-        {form.maxHrMode === "estimated" ? (
+        {usesAgeInput(form.maxHrMode) ? (
           <div>
             <label htmlFor={ids.age} className="mb-1.5 block text-sm text-text-secondary">
               {labels.ageLabel[lc]}
@@ -350,6 +407,10 @@ export function HeartRateZonesCalculator({
             </p>
 
             <dl className="grid gap-2 sm:grid-cols-2 text-sm">
+              <div className="flex justify-between gap-2">
+                <dt className="text-text-secondary">{labels.resultMethodLabel[lc]}</dt>
+                <dd className="text-text-primary">{methodLabel(outcome.result.maxHrSource, labels, lc)}</dd>
+              </div>
               <div className="flex justify-between gap-2">
                 <dt className="text-text-secondary">{labels.resultRestingHr[lc]}</dt>
                 <dd className="text-text-primary">{outcome.result.restingHr} bpm</dd>

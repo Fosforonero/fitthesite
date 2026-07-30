@@ -159,20 +159,39 @@ const sleepEfficiencyErrors = impossibleVectors.map((input, i) => {
   return { label: `${input.mode}-impossible-${i}`, input, expectedErrorCode: code };
 });
 
-// ── Vettori Heart Rate Zones ─────────────────────────────────────────
+// ── Vettori Heart Rate Zones (P1.4B-A Fase 7: >=50 validi, tre fonti FC max,
+// confini interi/decimali, età minima/massima, misurata senza età) ────────
 const heartRateZonesVectors: HeartRateZonesInput[] = [
-  { maxHrMode: "estimated", age: 40, restingHr: 60 },
+  { maxHrMode: "tanaka", age: 40, restingHr: 60 },
+  { maxHrMode: "age220", age: 40, restingHr: 60 }, // incrocio esatto Tanaka/220-età
   { maxHrMode: "measured", measuredMaxHr: 185, restingHr: 52 },
-  { maxHrMode: "estimated", age: 20, restingHr: 70 },
-  { maxHrMode: "estimated", age: 65, restingHr: 55 },
+  { maxHrMode: "tanaka", age: 20, restingHr: 70 },
+  { maxHrMode: "age220", age: 20, restingHr: 70 },
+  { maxHrMode: "tanaka", age: 65, restingHr: 55 },
+  { maxHrMode: "age220", age: 65, restingHr: 55 },
+  // Confine età esatto: 18 (minimo adulto) e 100 (massimo).
+  { maxHrMode: "tanaka", age: 18, restingHr: 45 },
+  { maxHrMode: "age220", age: 18, restingHr: 45 },
+  { maxHrMode: "tanaka", age: 100, restingHr: 40 },
+  { maxHrMode: "age220", age: 100, restingHr: 40 },
+  // Età che produce un confine di zona ESATTAMENTE intero (per verificare
+  // classify_bpm_into_zone / no-overlap su un caso non casuale, oltre a
+  // SAMPLE_TANAKA_INPUT già coperto sopra): età 30 -> Tanaka maxHr=187,
+  // riposo 40 -> HRR=147, entrambi non interi ma i bpm di zona lo sono.
+  { maxHrMode: "tanaka", age: 30, restingHr: 40 },
+  // "Misurata" senza il campo età per niente presente (non solo vuoto).
+  { maxHrMode: "measured", measuredMaxHr: 200, restingHr: 30 },
+  { maxHrMode: "measured", measuredMaxHr: 100, restingHr: 25 }, // entrambi al limite assoluto minimo
+  { maxHrMode: "measured", measuredMaxHr: 230, restingHr: 150 }, // entrambi al limite assoluto massimo (150 < 230: ancora valido)
 ];
-for (let v = 0; v < 15; v++) {
-  const age = randInt(10, 85);
-  const maxHr = 208 - 0.7 * age;
+for (let v = 0; v < 25; v++) {
+  const age = randInt(18, 100);
+  const mode = v % 2 === 0 ? "tanaka" : "age220";
+  const maxHr = mode === "tanaka" ? 208 - 0.7 * age : 220 - age;
   const restingHr = randInt(30, Math.min(140, Math.floor(maxHr) - 5));
-  heartRateZonesVectors.push({ maxHrMode: "estimated", age, restingHr });
+  heartRateZonesVectors.push({ maxHrMode: mode, age, restingHr } as HeartRateZonesInput);
 }
-for (let v = 0; v < 10; v++) {
+for (let v = 0; v < 12; v++) {
   const measuredMaxHr = randInt(110, 225);
   const restingHr = randInt(25, measuredMaxHr - 5);
   heartRateZonesVectors.push({ maxHrMode: "measured", measuredMaxHr, restingHr });
@@ -187,18 +206,34 @@ const heartRateZonesResults = heartRateZonesVectors.map((input, i) => {
   };
 });
 const heartRateZonesValid = heartRateZonesResults.filter((r) => r.tsResult !== null);
+if (heartRateZonesValid.length < 50) {
+  throw new Error(
+    `Attesi almeno 50 vettori Heart Rate Zones validi (P1.4B-A Fase 7), generati solo ${heartRateZonesValid.length}.`,
+  );
+}
 
 // ── Vettori Heart Rate Zones deliberatamente IMPOSSIBILI (FC riposo >= FC max) ──
 const impossibleHeartRateZonesVectors: HeartRateZonesInput[] = [
-  { maxHrMode: "estimated", age: 90, restingHr: 148 },
+  { maxHrMode: "tanaka", age: 90, restingHr: 148 },
+  { maxHrMode: "age220", age: 90, restingHr: 148 },
   { maxHrMode: "measured", measuredMaxHr: 140, restingHr: 140 },
   { maxHrMode: "measured", measuredMaxHr: 120, restingHr: 130 },
 ];
 for (let v = 0; v < 10; v++) {
-  const measuredMaxHr = randInt(100, 150);
+  // measuredMaxHr <= 145 e incremento <= 5: restingHr resta sempre <= 150,
+  // mai filtrato dal range assoluto RESTING_HR_OUT_OF_RANGE (isola il caso
+  // "impossibile" invece di confonderlo con quello già coperto sopra).
+  const measuredMaxHr = randInt(100, 145);
   const restingHr = measuredMaxHr + randInt(0, 5);
-  if (restingHr > 150) continue; // resta dentro il range assoluto RESTING_HR_OUT_OF_RANGE, isola solo il caso "impossibile"
   impossibleHeartRateZonesVectors.push({ maxHrMode: "measured", measuredMaxHr, restingHr });
+}
+for (let v = 0; v < 10; v++) {
+  // età 85-100: Tanaka dà maxHr fra 138 e 148,5, quindi maxHr+incremento
+  // piccolo resta sempre <= 150 (mai filtrato dal range assoluto).
+  const age = randInt(85, 100);
+  const maxHr = 208 - 0.7 * age;
+  const restingHr = Math.ceil(maxHr) + randInt(0, 1);
+  impossibleHeartRateZonesVectors.push({ maxHrMode: "tanaka", age, restingHr });
 }
 const heartRateZonesErrors = impossibleHeartRateZonesVectors.map((input, i) => {
   const outcome = calculateHeartRateZones(input);
@@ -210,6 +245,11 @@ const heartRateZonesErrors = impossibleHeartRateZonesVectors.map((input, i) => {
   const code = outcome.errors.find((e) => e.code === "RESTING_HR_NOT_BELOW_MAX")?.code ?? outcome.errors[0]?.code;
   return { label: `hrzones-impossible-${i}`, input, expectedErrorCode: code };
 });
+if (heartRateZonesErrors.length < 20) {
+  throw new Error(
+    `Attesi almeno 20 vettori Heart Rate Zones impossibili (P1.4B-A Fase 7), generati solo ${heartRateZonesErrors.length}.`,
+  );
+}
 
 fs.writeFileSync(
   OUT_PATH,
