@@ -1,5 +1,5 @@
 /**
- * Guardrail SPRINT P1.4B-A (hardening post-pubblicazione, 2026-07-30).
+ * Guardrail SPRINT P1.4B-A/B (hardening post-pubblicazione, 2026-07-30).
  *
  * Copre esattamente i problemi trovati nell'audit del rilascio P1.4B
  * originale (Sleep Score IT/EN, Zona 2 IT/EN, Calcolatore Zone di Frequenza
@@ -24,8 +24,14 @@
  *     capacità che il codice Flutter (verificato in sola lettura) non ha.
  *  9. Oracle Heart Rate Zones sotto le soglie 50 vettori validi + 20 vettori
  *     impossibili.
+ * 10. (P1.4B-B) Citation Sleep Score: raggiungibilità live reale (fallisce
+ *     su 4xx/5xx), redirect verso un percorso di login, URL non pertinente
+ *     al tema atteso (euristica su parola chiave nel path), e coerenza
+ *     strutturale JSON-LD/ledger (`citation: post.sources` deve restare uno
+ *     spread 1:1 in app/.../blog/[slug]/page.tsx).
  *
- * Uso (Docker): npx tsx tools/check-p14b-hardening.ts
+ * Uso (Docker, richiede accesso di rete in uscita per il controllo 10):
+ * npx tsx tools/check-p14b-hardening.ts
  * Richiede che tools/gen-labs-oracle-vectors.ts sia già stato eseguito
  * almeno una volta (legge .oracle-vectors.json) per il controllo 9.
  */
@@ -64,6 +70,7 @@ const sleepScoreSources = sleepScorePost.sources ?? [];
 
 const BANNED_SOURCE_SUBSTRINGS = [
   "max-heart-rate-training-zones", // la citation Whoop errata dell'audit originale: parla di zone HR, non di sonno
+  "360019623493", // P1.4B-B: la citation Whoop sostitutiva (Sleep Consistency) restituiva 401 in QA pubblica - non deve ricomparire
 ];
 for (const bad of BANNED_SOURCE_SUBSTRINGS) {
   if (sleepScoreSources.some((u) => u.includes(bad))) {
@@ -74,7 +81,8 @@ for (const bad of BANNED_SOURCE_SUBSTRINGS) {
 const REQUIRED_SLEEP_SCORE_SOURCES = [
   "support.ouraring.com", // Oura
   "support.google.com/fitbit", // Fitbit (Google Health)
-  "support.whoop.com", // Whoop
+  "whoop.com/us/en/thelocker/new-feature-sleep-consistency", // Whoop - Sleep Consistency SOLO
+  "support.whoop.com/s/article/WHOOP-Sleep", // Whoop - Sleep Performance SOLO
   "pubmed.ncbi.nlm.nih.gov/37738616", // Windred 2024 SRI
 ];
 for (const required of REQUIRED_SLEEP_SCORE_SOURCES) {
@@ -182,12 +190,88 @@ if (!fs.existsSync(vectorsPath)) {
   }
 }
 
-if (errors.length > 0) {
-  console.error(`\n❌ P1.4B-A hardening guardrail: ${errors.length} problema/i\n`);
-  for (const e of errors) console.error(`  - ${e}`);
-  process.exit(1);
+// ── 10. Citation "salute" (P1.4B-B): raggiungibilità live, no redirect a
+// login, pertinenza, coerenza JSON-LD/ledger. Rete reale - richiede
+// connettività in uscita (Docker con accesso internet).
+const LOGIN_REDIRECT_RE = /\/(login|signin|sign-in|account\/login|auth)(\/|\?|$)/i;
+const BROWSER_UA =
+  "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36";
+
+const TOPIC_RULES: { match: (url: string) => boolean; mustContain: RegExp; label: string }[] = [
+  { match: (u) => u.includes("whoop.com"), mustContain: /sleep/i, label: "Whoop deve riguardare il sonno, non le zone HR" },
+  { match: (u) => u.includes("ouraring.com"), mustContain: /sleep/i, label: "Oura deve riguardare il sonno" },
+];
+
+async function checkCitationHealth(url: string, label: string): Promise<void> {
+  if (LOGIN_REDIRECT_RE.test(url)) {
+    errors.push(`[citation-health] ${label}: l'URL stesso punta a un percorso di login - ${url}`);
+    return;
+  }
+  const topicRule = TOPIC_RULES.find((r) => r.match(url));
+  if (topicRule && !topicRule.mustContain.test(url)) {
+    errors.push(`[citation-health] ${label}: URL non contiene la parola chiave di pertinenza attesa (${topicRule.label}) - ${url}`);
+  }
+  try {
+    const manual = await fetch(url, { redirect: "manual", headers: { "User-Agent": BROWSER_UA } });
+    if (manual.status >= 300 && manual.status < 400) {
+      const location = manual.headers.get("location") ?? "";
+      if (LOGIN_REDIRECT_RE.test(location)) {
+        errors.push(`[citation-health] ${label}: redirect verso un percorso di login (${location}) - ${url}`);
+        return;
+      }
+    }
+    const res = await fetch(url, { redirect: "follow", headers: { "User-Agent": BROWSER_UA } });
+    if (res.status >= 400) {
+      errors.push(`[citation-health] ${label}: ${url} risponde ${res.status} (atteso 2xx/3xx innocuo)`);
+    }
+  } catch (err) {
+    errors.push(`[citation-health] ${label}: errore di rete verso ${url} - ${String(err)}`);
+  }
 }
 
-console.log(
-  "\n✅ P1.4B-A hardening guardrail: meta description entro 140-160, citation Sleep Score pertinenti e complete (no dupe), metodo 220-età presente, range età adulto (18-100) con copy corretta, confini di zona senza overlap/buchi, CTA veritiere, oracle sopra le soglie 50+20.",
+// JSON-LD citation deve restare un riflesso 1:1 di post.sources (verifica
+// strutturale del punto di generazione, non richiede il rendering completo
+// della pagina): se questa riga cambia per non essere più uno spread diretto,
+// una citation potrebbe comparire nel JSON-LD senza essere nel ledger - o
+// viceversa.
+const blogSlugPagePath = path.join(
+  repoRoot,
+  "app",
+  "(frontend)",
+  "[locale]",
+  "(marketing)",
+  "blog",
+  "[slug]",
+  "page.tsx",
 );
+if (!fs.existsSync(blogSlugPagePath)) {
+  errors.push(`[citation-health] ${path.relative(repoRoot, blogSlugPagePath)} non trovato - impossibile verificare il collegamento JSON-LD/ledger`);
+} else {
+  const pageSrc = fs.readFileSync(blogSlugPagePath, "utf8");
+  if (!pageSrc.includes("citation: post.sources")) {
+    errors.push(
+      "[citation-health] app/.../blog/[slug]/page.tsx non genera più `citation: post.sources` 1:1 - una citation potrebbe comparire nel JSON-LD senza essere nel ledger delle fonti (o viceversa)",
+    );
+  }
+}
+
+async function main(): Promise<void> {
+  for (const url of sleepScoreSources) {
+    await checkCitationHealth(url, "Sleep Score");
+  }
+
+  if (errors.length > 0) {
+    console.error(`\n❌ P1.4B-A/B hardening guardrail: ${errors.length} problema/i\n`);
+    for (const e of errors) console.error(`  - ${e}`);
+    process.exit(1);
+  }
+
+  console.log(
+    "\n✅ P1.4B-A/B hardening guardrail: meta description entro 140-160, citation Sleep Score pertinenti/complete/raggiungibili live (no dupe, no redirect a login, JSON-LD=ledger), metodo 220-età presente, range età adulto (18-100) con copy corretta, confini di zona senza overlap/buchi, CTA veritiere, oracle sopra le soglie 50+20.",
+  );
+}
+
+main().catch((err) => {
+  console.error("❌ P1.4B-A/B hardening guardrail: errore inatteso", err);
+  process.exit(1);
+});

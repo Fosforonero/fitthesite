@@ -4,11 +4,32 @@
  * in lib/blog/indexability.ts, 307 verso EN per le altre 13 locale).
  *
  * SPRINT P1.4B-A (hardening 2026-07-30): fonti ri-verificate live dopo che un
- * audit ha trovato due problemi reali nella prima pubblicazione — 1) la fonte
+ * audit ha trovato due problemi reali nella prima pubblicazione - 1) la fonte
  * Whoop puntava a una pagina sulle zone di frequenza cardiaca, non sul sonno;
  * 2) Fitbit non aveva alcuna fonte ufficiale collegata (solo un commento che
  * citava un blog terzo, Android Police, mai messo nell'array `sources`
  * pubblico). Corrette con le documentazioni ufficiali qui sotto.
+ *
+ * SPRINT P1.4B-B (micro-hotfix 2026-07-30): la fonte Whoop introdotta in
+ * P1.4B-A (support.whoop.com/hc/en-us/articles/360019623493-What-is-Sleep-Consistency-)
+ * restituisce 401 in QA pubblica (il vecchio dominio Zendesk/hc/ sembra
+ * dietro un blocco bot/WAF dopo la migrazione di Whoop al nuovo supporto
+ * Salesforce, support.whoop.com/s/). Sostituita con DUE fonti Whoop
+ * distinte, ciascuna usata SOLO per il claim che dichiara esplicitamente
+ * (verificate live, 200 su GET pubblico):
+ *  - whoop.com/thelocker "Sleep Consistency: Why It Matters..." - SOLO per
+ *    la regolarità degli orari/Sleep Consistency (definizione: quanto sono
+ *    simili i tuoi orari di sonno-veglia su una finestra di 4 giorni,
+ *    0-100%) e per la ricerca su regolarità e rischio di mortalità (che
+ *    corrobora, indipendentemente, la fonte SRI 2024 già citata sotto).
+ *  - support.whoop.com/s/article/WHOOP-Sleep - SOLO per la definizione di
+ *    Sleep Performance (ore di sonno ottenute rispetto al Sleep Need
+ *    personalizzato, 0-100%). NON usata per claim sulla relazione fra
+ *    Sleep Performance e Recovery: la vecchia frase "punteggio distinto dal
+ *    Recovery, non annidato al suo interno" è stata rimossa perché non
+ *    verificabile in modo pulito da questa fonte (pagina Salesforce
+ *    renderizzata via JS, non leggibile con un fetch semplice) - meglio
+ *    dire meno di quanto la fonte davvero copra.
  *
  * Fonti citate (verificate live via ricerca web durante lo sviluppo, non a
  * memoria):
@@ -21,9 +42,10 @@
  *    app" (support.google.com/fitbit - Fitbit ha spostato la propria
  *    documentazione ufficiale sotto il dominio Google Health dopo
  *    l'acquisizione; il dispositivo resta commercializzato come Fitbit).
- *  - Whoop, "What is Sleep Consistency?" (support.whoop.com, documentazione
- *    ufficiale: definisce sia Sleep Consistency sia i fattori di Sleep
- *    Performance).
+ *  - Whoop, "Sleep Consistency: Why It Matters and How You Compare"
+ *    (whoop.com/thelocker - Sleep Consistency/regolarità SOLO).
+ *  - Whoop, "WHOOP Sleep" (support.whoop.com/s/article/WHOOP-Sleep - Sleep
+ *    Performance SOLO).
  *
  * Nessun medical reviewer inventato: revisione tecnico-editoriale (fonti +
  * guardrail automatico), non medica - perché non esiste. Nessuna
@@ -64,13 +86,13 @@ export const post: BlogPost = {
   tldr: {
     it: [
       "Lo Sleep Score è un numero composito: combina più metriche (durata, efficienza, fasi, tempistica, a volte frequenza cardiaca) con pesi che ogni azienda tiene in gran parte proprietari.",
-      "Oura dichiara pubblicamente 7 componenti (tempo totale di sonno, efficienza, sensazione di riposo, REM, sonno profondo, latenza, tempistica), ma non i pesi esatti; Fitbit (ora documentato sotto Google Health) dichiara 6 componenti (durata, tempo per raggiungere il sonno stabile, sonno stabile, agitazione, risvegli completi, interruzioni); Whoop non dà uno \"sleep score\" tradizionale ma una Sleep Performance (percentuale del bisogno di sonno personalizzato ottenuto), un punteggio distinto dal Recovery.",
+      "Oura dichiara pubblicamente 7 componenti (tempo totale di sonno, efficienza, sensazione di riposo, REM, sonno profondo, latenza, tempistica), ma non i pesi esatti; Fitbit (ora documentato sotto Google Health) dichiara 6 componenti (durata, tempo per raggiungere il sonno stabile, sonno stabile, agitazione, risvegli completi, interruzioni); Whoop non dà uno \"sleep score\" tradizionale ma una Sleep Performance (percentuale del bisogno di sonno personalizzato ottenuto).",
       "Uno studio del 2024 su oltre 60.000 persone (UK Biobank) ha trovato che la regolarità degli orari di sonno predice il rischio di mortalità meglio della sola durata del sonno - un fattore spesso meno visibile nei punteggi sonno consumer rispetto a durata ed efficienza.",
       "Questo articolo non emette un punteggio: collega alle fonti ufficiali di ogni piattaforma e al calcolatore FitMesh Labs per l'unica metrica davvero trasparente e verificabile, l'efficienza del sonno.",
     ],
     en: [
       "A Sleep Score is a composite number: it combines multiple metrics (duration, efficiency, stages, timing, sometimes heart rate) with weights each company keeps largely proprietary.",
-      "Oura publicly discloses 7 components (total sleep time, efficiency, restfulness, REM, deep sleep, latency, timing), but not the exact weights; Fitbit (now documented under Google Health) discloses 6 components (duration, time to sound sleep, sound sleep, restlessness, full awakenings, interruptions); Whoop doesn't give a traditional \"sleep score\" but a Sleep Performance figure (the percentage of your personalized sleep need obtained), a score distinct from Recovery.",
+      "Oura publicly discloses 7 components (total sleep time, efficiency, restfulness, REM, deep sleep, latency, timing), but not the exact weights; Fitbit (now documented under Google Health) discloses 6 components (duration, time to sound sleep, sound sleep, restlessness, full awakenings, interruptions); Whoop doesn't give a traditional \"sleep score\" but a Sleep Performance figure (the percentage of your personalized sleep need obtained).",
       "A 2024 study of over 60,000 people (UK Biobank) found that the regularity of sleep timing predicts mortality risk better than sleep duration alone - a factor often less visible in consumer sleep scores than duration and efficiency.",
       "This article doesn't issue a score: it links to each platform's official documentation and to the FitMesh Labs calculator for the one genuinely transparent, verifiable metric, sleep efficiency.",
     ],
@@ -117,8 +139,8 @@ export const post: BlogPost = {
           en: ["Fitbit (Google Health)", "Six disclosed factors: sleep duration, time to sound sleep, sound sleep, restlessness, full awakenings, interruptions", "Yes, Sleep Score 0-100"],
         },
         {
-          it: ["Whoop", "Sleep Performance = % del bisogno di sonno personalizzato (Sleep Need) ottenuto; Sleep Consistency (regolarità oraria) ed efficienza tracciate separatamente", "No: nessuno sleep score tradizionale 0-100; Sleep Performance è un punteggio distinto dal Recovery, non annidato al suo interno"],
-          en: ["Whoop", "Sleep Performance = % of personalized Sleep Need actually obtained; Sleep Consistency (timing regularity) and efficiency tracked separately", "No: no traditional 0-100 sleep score; Sleep Performance is a score distinct from Recovery, not nested inside it"],
+          it: ["Whoop", "Sleep Performance = % del bisogno di sonno personalizzato (Sleep Need) ottenuto; Sleep Consistency (regolarità di orari di sonno/veglia su una finestra di 4 giorni) tracciata separatamente", "No: nessuno sleep score tradizionale 0-100; Sleep Performance è la metrica più vicina"],
+          en: ["Whoop", "Sleep Performance = % of personalized Sleep Need actually obtained; Sleep Consistency (sleep/wake timing regularity over a 4-day window) tracked separately", "No: no traditional 0-100 sleep score; Sleep Performance is the closest metric"],
         },
       ],
     },
@@ -244,7 +266,8 @@ export const post: BlogPost = {
     "https://pubmed.ncbi.nlm.nih.gov/37738616/",
     "https://support.ouraring.com/hc/en-us/articles/360057792293-A-Guide-to-Your-Sleep-Contributors",
     "https://support.google.com/fitbit/answer/14236513",
-    "https://support.whoop.com/hc/en-us/articles/360019623493-What-is-Sleep-Consistency-",
+    "https://www.whoop.com/us/en/thelocker/new-feature-sleep-consistency-why-we-track-it/",
+    "https://support.whoop.com/s/article/WHOOP-Sleep?language=en_US",
   ],
   brandsMentioned: ["Oura", "Fitbit", "Whoop"],
   ldType: "BlogPosting",
