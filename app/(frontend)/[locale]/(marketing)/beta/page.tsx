@@ -10,7 +10,8 @@ import { MobileApplicationJsonLd } from "@/components/seo/MobileApplicationJsonL
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { PRICING } from "@/lib/pricing";
 import { SITE_URL } from "@/lib/product-facts";
-import { FounderClientGate } from "@/components/founder/FounderClientGate";
+import { BetaFounderGate } from "@/components/founder/BetaFounderGate";
+import { founderEligibilityStatement } from "@/lib/founder/historical-note";
 
 type BetaCopy = typeof IT;
 type BetaClosedCopy = {
@@ -26,6 +27,25 @@ type BetaClosedCopy = {
 function tliClosed(l: Record<string, BetaClosedCopy>, lc: Locale): BetaClosedCopy {
   return l[lc] ?? l.en;
 }
+
+/**
+ * Sprint P0.10H — H1 NEUTRO per il fallback pre-hydration: stesso vocabolario
+ * gia' usato per il `kicker` di BETA_CLOSED_COPY (es. "Programma Founder"),
+ * solo recombinato col brand. Mai "aperto" ne' "concluso" — la regola di
+ * idoneita' vera e propria vive in founderEligibilityStatement() sotto.
+ * Stessa copertura di locale di BETA_CLOSED_COPY (9 dirette + fallback en).
+ */
+const NEUTRAL_H1: Record<string, string> = {
+  it: "Programma Founder FitMesh",
+  es: "Programa Founder de FitMesh",
+  de: "FitMesh Founder-Programm",
+  pt: "Programa Founder FitMesh",
+  fr: "Programme Founder FitMesh",
+  nl: "FitMesh Founder-programma",
+  ja: "FitMesh ファウンダープログラム",
+  ko: "FitMesh 파운더 프로그램",
+  en: "FitMesh Founder Program",
+};
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -152,17 +172,24 @@ export default async function BetaPage({
         />
 
         {/*
-         * Sprint P0.10: questa pagina resta STATICA (nessun force-dynamic,
-         * nessuna decisione temporale lato server) — l'HTML iniziale mostra
-         * SEMPRE l'archivio evergreen (visibile anche a crawler/client senza
-         * JS), e solo dopo l'hydration, se isFounderProgramOpen() e' ancora
-         * vero secondo l'orologio del browser, viene sostituito dal
-         * contenuto storico del programma attivo. Stesso pattern della
-         * homepage (FounderClientGate), zero richieste di rete.
+         * Sprint P0.10 / corretto in P0.10H: questa pagina resta STATICA
+         * (nessun force-dynamic, nessuna decisione temporale lato server).
+         * L'HTML iniziale mostra SEMPRE il fallback NEUTRO (visibile anche a
+         * crawler/client senza JS) — mai l'affermazione "aperto" ne' quella
+         * "concluso", perche' un sito statico non cambia da solo tra un
+         * deploy e l'altro: prima di P0.10H questo fallback era invece il
+         * corpo "concluso" (BETA_CLOSED_COPY), falso ogni volta che l'ultimo
+         * deploy avveniva prima del vero cutoff (bug verificato live il
+         * 2026-07-29, due giorni prima del cutoff). Solo dopo l'hydration,
+         * leggendo l'orologio del browser, BetaFounderGate sostituisce il
+         * neutro con lo stato REALE: aperto (form + CTA) prima del cutoff,
+         * archivio storico chiuso (senza form) al cutoff e dopo. Zero
+         * richieste di rete in ogni stato.
          */}
-        <FounderClientGate
-          founder={<FounderOpenBody t={t} lc={lc} />}
-          evergreen={<FounderClosedBody closed={closed} lc={lc} />}
+        <BetaFounderGate
+          pending={<FounderPendingBody lc={lc} />}
+          open={<FounderOpenBody t={t} lc={lc} />}
+          closed={<FounderClosedBody closed={closed} lc={lc} />}
         />
       </div>
     </div>
@@ -308,12 +335,41 @@ function FounderOpenBody({ t, lc }: { t: BetaCopy; lc: Locale }) {
 }
 
 /**
- * Sprint P0.10 — archivio evergreen: mostrato SEMPRE nell'HTML statico
- * iniziale (fallback SSR di FounderClientGate) e, dopo il cutoff, anche
- * dopo l'hydration. Deliberatamente piu' corto della variante founder: la
- * pagina diventa un archivio informativo, non un mirror 1:1 della landing
- * promozionale (niente form, niente step di iscrizione, niente FAQ sui
- * wearable gia' coperte altrove sul sito).
+ * Sprint P0.10H — fallback NEUTRO: l'UNICO contenuto mostrato prima che
+ * BetaFounderGate verifichi il vero stato lato client (quindi anche a
+ * crawler/unfurler/screen reader senza JS, e al primissimo frame di ogni
+ * browser). Non afferma ne' "aperto" ne' "concluso" — riporta solo la
+ * REGOLA di idoneita' (founderEligibilityStatement), invariante rispetto al
+ * cutoff. Niente form, niente CTA, niente contatore/progress bar, zero
+ * richieste di rete: e' prosa statica pura.
+ */
+function FounderPendingBody({ lc }: { lc: Locale }) {
+  const h1 = NEUTRAL_H1[lc] ?? NEUTRAL_H1.en;
+  const kicker = tliClosed(BETA_CLOSED_COPY, lc).kicker;
+  return (
+    <header className="mb-16 mt-8 text-center" data-reveal>
+      <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted backdrop-blur-sm">
+        {kicker}
+      </div>
+      <h1 className="font-display text-balance text-4xl font-semibold leading-[1.05] tracking-tightest md:text-5xl lg:text-display-xl">
+        {h1}
+      </h1>
+      <p className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-text-secondary md:text-xl">
+        {founderEligibilityStatement(lc)}
+      </p>
+    </header>
+  );
+}
+
+/**
+ * Sprint P0.10 / corretto in P0.10H — archivio storico: mostrato SOLO dopo
+ * che l'hydration ha confermato che il cutoff e' passato (mai piu' come
+ * fallback SSR: prima di P0.10H questo era anche il default pre-hydration,
+ * bug che affermava "programma concluso" mentre era ancora aperto — vedi
+ * FounderPendingBody sopra). Deliberatamente piu' corto della variante
+ * founder: la pagina diventa un archivio informativo, non un mirror 1:1
+ * della landing promozionale (niente form, niente step di iscrizione,
+ * niente FAQ sui wearable gia' coperte altrove sul sito).
  */
 function FounderClosedBody({ closed, lc }: { closed: BetaClosedCopy; lc: Locale }) {
   const colors = ["#7CFF5B", "#21E6C1", "#1DA1FF"];

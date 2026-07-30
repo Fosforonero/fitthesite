@@ -28,10 +28,22 @@
  * qui verifichiamo solo il comportamento CLIENT-side dopo l'hydration) e
  * Playwright con i browser installati (immagine mcr.microsoft.com/playwright,
  * non node:22 nudo — stesso requisito di check-anti-loop-locale-routing.ts).
+ *
+ * Sprint P0.10H — aggiunta una TERZA categoria di verifica, distinta dalle
+ * due sopra: l'HTML GREZZO di /beta, PRIMA di qualunque hydration — quello
+ * che vede un crawler/unfurler senza JS, o il primissimo frame di ogni
+ * browser. Le due categorie preesistenti (`checkHomepageDesktop`/
+ * `checkMobileMenu`/`checkBeta`) usano sempre `page.goto(..., waitUntil:
+ * "networkidle")`, che ASPETTA l'hydration — non avrebbero mai potuto
+ * scoprire il bug P0.10H (HTML grezzo con "il programma e' concluso" anche
+ * a programma ancora aperto, verificato live il 2026-07-29). Per l'HTML
+ * grezzo usiamo `context.request.get(...)`: una richiesta HTTP pura, senza
+ * alcun motore JS coinvolto — l'equivalente esatto di `curl`.
  */
-import { chromium, webkit, type Browser, type BrowserType, type Page } from "playwright";
+import { chromium, webkit, type Browser, type BrowserContext, type BrowserType, type Page } from "playwright";
 import { locales } from "@/lib/i18n";
 import { FOUNDER_END_AT_MS } from "@/lib/founder/program-window";
+import { founderEligibilityStatement } from "@/lib/founder/historical-note";
 
 const ENGINES: Array<{ name: string; launcher: BrowserType }> = [
   { name: "chromium", launcher: chromium },
@@ -194,8 +206,129 @@ async function checkBeta(page: Page, locale: string, expectOpen: boolean, failur
   }
 }
 
+/**
+ * Testo ESATTO di BETA_CLOSED_COPY[locale].h1 in beta/page.tsx (non
+ * esportato da li', duplicato qui deliberatamente): un frammento letterale
+ * e specifico e' l'unico modo sicuro per rilevare "il vero corpo chiuso e'
+ * finito nel fallback pre-hydration" senza falsi positivi. Un tentativo
+ * precedente con un regex generico su frammenti di parola (chius|termin|
+ * conclus|closed|ended) falliva su OGNI locale: "termin" da solo combacia
+ * anche con "Termini di servizio" nel footer, presente su ogni pagina del
+ * sito, /beta incluso — un falso positivo garantito, non legato al bug
+ * reale. Le locale senza voce dedicata (pl/tr/sv/da/no/fi) ricadono sulla
+ * stessa stringa `en`, stesso fallback di `tliClosed()` nel componente.
+ */
+const CLOSED_H1_BY_LOCALE: Record<string, string> = {
+  it: "Il programma Founder è concluso",
+  es: "El programa Founder ha terminado",
+  de: "Das Founder-Programm ist beendet",
+  pt: "O programa Founder terminou",
+  fr: "Le programme Founder est terminé",
+  nl: "Het Founder-programma is beëindigd",
+  ja: "ファウンダープログラムは終了しました",
+  ko: "파운더 프로그램이 종료되었습니다",
+  en: "The Founder program has ended",
+};
+function closedH1For(locale: string): string {
+  return CLOSED_H1_BY_LOCALE[locale] ?? CLOSED_H1_BY_LOCALE.en;
+}
+
+// Un claim di APERTURA nell'HTML grezzo sarebbe altrettanto sbagliato: vero
+// solo finche' il sito non viene ri-deployato dopo il cutoff — esattamente
+// la classe di bug (P0.10G) gia' corretta altrove, qui verificata anche su
+// /beta.
+const OPEN_CLAIM_RE = /ancora\s+aperto|still\s+open|programma\s+(e|è)\s+aperto|program\s+is\s+(currently\s+)?open/i;
+
+/**
+ * Il documento RSC di Next.js serializza SEMPRE tutti e tre i rami
+ * (pending/open/closed) dentro tag `<script>` (flight data per
+ * l'hydration), anche se il DOM visibile ne mostra uno solo — esattamente
+ * come React fa gia' per FounderClientGate altrove (verificato: la stessa
+ * cosa succede su homepage/header/footer). Verificare il body grezzo COSI'
+ * COM'E' produrrebbe un falso positivo garantito su ogni locale (il ramo
+ * "closed" contiene letteralmente "concluso"/"ended", solo mai visibile).
+ * Rimuoviamo quindi il contenuto di ogni `<script>` prima di testare i
+ * pattern di aperto/chiuso — la stessa metodologia "solo DOM visibile" gia'
+ * usata durante l'audit manuale che ha scoperto il bug originale.
+ */
+function stripScriptTags(html: string): string {
+  return html.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "");
+}
+
+/**
+ * react-dom/server esegue l'escape HTML anche su apostrofi/virgolette nel
+ * testo (`&#x27;`, `&quot;`), non solo su `&<>` — verificato: la clausola
+ * IT (founderEligibilityStatement) inizia con "L'idoneità", quindi un
+ * confronto su stringa letterale fallirebbe SEMPRE senza questo decode.
+ * Bastano le entita' che React produce davvero in output, non un decoder
+ * HTML generico.
+ */
+function decodeHtmlEntities(html: string): string {
+  // &amp; per ultimo: decodificarlo prima farebbe doppio-decode di sequenze
+  // come "&amp;lt;" (letteralmente il testo "&lt;") in "<".
+  return html
+    .replace(/&#x27;/gi, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&amp;/gi, "&");
+}
+
+/**
+ * Sprint P0.10H — verifica l'HTML grezzo (pre-hydration) di /beta per TUTTE
+ * le 15 locale, via richiesta HTTP pura (`context.request.get`, zero motore
+ * JS coinvolto — l'equivalente di `curl`). Tre asserzioni indipendenti sul
+ * DOM VISIBILE (script hydration esclusi): zero claim di chiusura, zero
+ * claim di apertura, presenza del testo neutro invariante
+ * (founderEligibilityStatement) — la STESSA fonte unica gia' usata da
+ * press/blog/landing/llms.txt (Sprint P0.10G).
+ */
+async function checkBetaRawFallback(context: BrowserContext, engineName: string, locale: string, failures: Failure[]) {
+  const label = `${engineName}:raw-html:${locale}`;
+  const res = await context.request.get(`${BASE_URL}/${locale}/beta`);
+  if (res.status() !== 200) {
+    failures.push({ scenario: label, detail: `/beta ha risposto HTTP ${res.status()} invece di 200.` });
+    return;
+  }
+  const html = await res.text();
+  const visible = decodeHtmlEntities(stripScriptTags(html));
+
+  if (visible.includes(closedH1For(locale))) {
+    failures.push({
+      scenario: label,
+      detail: `Il DOM VISIBILE dell'HTML grezzo (pre-hydration, quello visto da crawler/unfurler senza JS) contiene il testo "${closedH1For(locale)}" — claim di CHIUSURA del programma Founder, falso prima del cutoff (2026-07-31T22:00:00Z). Atteso il fallback neutro (FounderPendingBody), mai FounderClosedBody come default SSR.`,
+    });
+  }
+  if (OPEN_CLAIM_RE.test(visible)) {
+    failures.push({
+      scenario: label,
+      detail: `Il DOM VISIBILE dell'HTML grezzo di /beta contiene un claim di APERTURA del programma — diventerebbe falso dopo il cutoff senza un nuovo deploy scollegato. Il fallback pre-hydration deve restare neutro sia prima sia dopo.`,
+    });
+  }
+  if (/<form[\s>]/i.test(visible)) {
+    failures.push({ scenario: label, detail: `Il DOM VISIBILE dell'HTML grezzo di /beta contiene un <form> — atteso zero form/CTA nel fallback pre-hydration (il form vive SOLO nello stato "open" post-hydration).` });
+  }
+  const expectedFragment = founderEligibilityStatement(locale).slice(0, 40);
+  if (!visible.includes(expectedFragment)) {
+    failures.push({
+      scenario: label,
+      detail: `Il DOM VISIBILE dell'HTML grezzo di /beta non contiene il testo neutro atteso (founderEligibilityStatement) — inizio atteso: "${expectedFragment}...". Il fallback pre-hydration potrebbe essere silenziosamente tornato a un contenuto non invariante.`,
+    });
+  }
+}
+
 async function runForEngine(engineName: string, launcher: BrowserType, failures: Failure[]) {
   const browser = await launcher.launch();
+
+  console.log(`== [${engineName}] 0/2 — HTML grezzo (pre-hydration) di /beta su tutte e 15 le locale ==`);
+  {
+    const context = await browser.newContext();
+    for (const locale of locales) {
+      await checkBetaRawFallback(context, engineName, locale, failures);
+      console.log(`  - raw-html:${locale}: fatto`);
+    }
+    await context.close();
+  }
 
   console.log(`== [${engineName}] 1/2 — scenari completi IT/EN sui 3 istanti di cutoff ==`);
   for (const locale of ["it", "en"]) {
@@ -264,7 +397,7 @@ async function main() {
     process.exit(1);
   } else {
     console.log(
-      `\n✅ founder:cutoff-render-check: header/footer/menu mobile/beta mostrano la variante corretta a cutoff-1s/esatto/+1s su IT/EN su ${ENGINES.map((e) => e.name).join(" e ")}, nessuna CTA/badge Founder residua dopo il cutoff, nessun form residuo su /beta, 13 locale strutturalmente renderizzate su entrambi i motori.`,
+      `\n✅ founder:cutoff-render-check: HTML grezzo pre-hydration di /beta neutro su tutte e 15 le locale (zero claim aperto/chiuso, zero form), header/footer/menu mobile/beta mostrano la variante corretta a cutoff-1s/esatto/+1s su IT/EN su ${ENGINES.map((e) => e.name).join(" e ")}, nessuna CTA/badge Founder residua dopo il cutoff, nessun form residuo su /beta, 13 locale strutturalmente renderizzate su entrambi i motori.`,
     );
   }
 }

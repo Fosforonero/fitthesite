@@ -35,7 +35,11 @@ function read(rel: string): string | null {
   return fs.existsSync(full) ? fs.readFileSync(full, "utf8") : null;
 }
 
-// ── 1: le superfici note devono importare E usare FounderClientGate ─────
+// ── 1: le superfici note devono importare E usare un gate client-only ───
+// Sprint P0.10H: /beta usa BetaFounderGate (3 stati: pending/open/closed),
+// non piu' FounderClientGate — vedi components/founder/BetaFounderGate.tsx
+// per il perche'. Entrambi sono gate legittimi, quindi il controllo accetta
+// l'uno o l'altro invece di richiedere sempre lo stesso componente.
 const GATED_SURFACES = [
   "app/(frontend)/[locale]/(marketing)/page.tsx",
   "app/(frontend)/[locale]/(marketing)/beta/page.tsx",
@@ -43,6 +47,8 @@ const GATED_SURFACES = [
   "components/Footer.tsx",
   "components/MobileMenu.tsx",
 ];
+const GATE_IMPORT_RE = /from\s+["']@\/components\/founder\/(FounderClientGate|BetaFounderGate)["']/;
+const GATE_USAGE_RE = /<(FounderClientGate|BetaFounderGate)\b/;
 
 for (const rel of GATED_SURFACES) {
   const content = read(rel);
@@ -50,11 +56,11 @@ for (const rel of GATED_SURFACES) {
     errors.push(`Superficie mancante: ${rel}`);
     continue;
   }
-  const importsGate = /from\s+["']@\/components\/founder\/FounderClientGate["']/.test(content);
-  const usesGate = /<FounderClientGate/.test(content);
+  const importsGate = GATE_IMPORT_RE.test(content);
+  const usesGate = GATE_USAGE_RE.test(content);
   if (!importsGate || !usesGate) {
     errors.push(
-      `${rel}: non importa/usa <FounderClientGate> — se contiene copy Founder attivo (promo, CTA, badge), oggi verrebbe mostrato incondizionatamente anche dopo il cutoff.`,
+      `${rel}: non importa/usa <FounderClientGate>/<BetaFounderGate> — se contiene copy Founder attivo (promo, CTA, badge), oggi verrebbe mostrato incondizionatamente anche dopo il cutoff.`,
     );
   }
 }
@@ -100,9 +106,9 @@ for (const file of allFiles) {
   if (ALLOWED_UNGATED_FILES.has(rel)) continue;
   const content = fs.readFileSync(file, "utf8");
   if (!PROMO_NEEDLE_RE.test(content)) continue;
-  if (!/<FounderClientGate/.test(content)) {
+  if (!GATE_USAGE_RE.test(content)) {
     errors.push(
-      `${rel}: usa founderPromo/founderSeats senza <FounderClientGate> e non e' nell'allow-list storica/legale — rischia di mostrare la promo Founder incondizionatamente dopo il cutoff.`,
+      `${rel}: usa founderPromo/founderSeats senza <FounderClientGate>/<BetaFounderGate> e non e' nell'allow-list storica/legale — rischia di mostrare la promo Founder incondizionatamente dopo il cutoff.`,
     );
   }
 }
@@ -249,6 +255,6 @@ if (errors.length > 0) {
   process.exit(1);
 } else {
   console.log(
-    "✅ founder:commercial-truth-check: homepage/nav/footer/beta gateano tutti FounderClientGate, nessun founderPromo/founderSeats fuori gate o allow-list, zero urgenza artificiale, claim editoriali founder+2026 tracciate (gate/helper/TODO-list nota).",
+    "✅ founder:commercial-truth-check: homepage/nav/footer gateano FounderClientGate, beta gatea BetaFounderGate, nessun founderPromo/founderSeats fuori gate o allow-list, zero urgenza artificiale, claim editoriali founder+2026 tracciate (gate/helper/TODO-list nota).",
   );
 }
