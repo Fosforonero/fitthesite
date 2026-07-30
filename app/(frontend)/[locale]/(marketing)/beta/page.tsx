@@ -51,6 +51,18 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+/**
+ * Sprint P0.10J — hotfix metadata: titolo neutro condiviso fra
+ * `generateMetadata()` e il JSON-LD `WebPage` sotto (unica fonte, invece di
+ * due ternari paralleli). Riusa lo stesso vocabolario di `NEUTRAL_H1` sopra
+ * (mai "aperto" ne' "concluso"), con suffisso brand per il <title> SEO.
+ */
+function betaMetaTitle(lc: Locale): string {
+  // NEUTRAL_H1 include gia' il brand ("Programma Founder FitMesh" ecc.) —
+  // nessun suffisso aggiuntivo, altrimenti "FitMesh" comparirebbe due volte.
+  return NEUTRAL_H1[lc] ?? NEUTRAL_H1.en;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -60,48 +72,19 @@ export async function generateMetadata({
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
 
-  // Sprint P0.10: questa pagina resta statica (nessun force-dynamic), quindi
-  // title/description NON possono dipendere dall'ora corrente — devono
-  // restare veri sia prima sia dopo il cutoff (31/07/2026 22:00 UTC). Non
-  // affermano piu' "ancora aperto": descrivono il programma come fatto
-  // storico/meccanismo, lo stato esatto (aperto/chiuso) e' nel corpo pagina,
-  // deciso client-side da FounderClientGate.
-  const title =
-    lc === "it"
-      ? "FitMesh Sync · Programma Founder"
-      : lc === "es"
-      ? "FitMesh Sync · Programa Founder"
-      : lc === "de"
-      ? "FitMesh Sync · Founder-Programm"
-      : lc === "pt"
-      ? "FitMesh Sync · Programa Founder"
-      : lc === "fr"
-      ? "FitMesh Sync · Programme Founder"
-      : lc === "nl"
-      ? "FitMesh Sync · Founder-programma"
-      : lc === "ja"
-      ? "FitMesh Sync · ファウンダープログラム"
-      : lc === "ko"
-      ? "FitMesh Sync · 파운더 프로그램"
-      : "FitMesh Sync · Founder Program";
-  const description =
-    lc === "it"
-      ? "Le prime 1000 registrazioni di FitMesh Sync ricevono Pro a vita gratis. Scopri come funziona il programma Founder e cosa prevede per i nuovi account."
-      : lc === "es"
-      ? "Las primeras 1000 cuentas de FitMesh Sync reciben Pro de por vida gratis. Descubre cómo funciona el programa Founder y qué implica para las cuentas nuevas."
-      : lc === "de"
-      ? "Die ersten 1000 Konten von FitMesh Sync erhalten lebenslanges Pro gratis. Erfahre, wie das Founder-Programm funktioniert und was für neue Konten gilt."
-      : lc === "pt"
-      ? "As primeiras 1000 contas do FitMesh Sync recebem Pro vitalício grátis. Descobre como funciona o programa Founder e o que está previsto para as novas contas."
-      : lc === "fr"
-      ? "Les 1000 premiers comptes FitMesh Sync reçoivent le Pro à vie gratuit. Découvrez comment fonctionne le programme Founder et ce qui s'applique aux nouveaux comptes."
-      : lc === "nl"
-      ? "De eerste 1000 accounts van FitMesh Sync krijgen Pro voor altijd gratis. Ontdek hoe het Founder-programma werkt en wat geldt voor nieuwe accounts."
-      : lc === "ja"
-      ? "FitMesh Syncの先着1000アカウントにPro永久ライセンスが無料で付与されます。ファウンダープログラムの仕組みと新規アカウントの扱いをご確認ください。"
-      : lc === "ko"
-      ? "FitMesh Sync 처음 1000개 계정은 평생 Pro를 무료로 받습니다. 파운더 프로그램이 어떻게 작동하는지, 신규 계정에는 어떻게 적용되는지 확인하세요."
-      : "The first 1,000 FitMesh Sync accounts get lifetime Pro for free. See how the Founder program works and what applies to new accounts.";
+  // Sprint P0.10J — hotfix: la description precedente (ternario per-locale)
+  // affermava senza data che i primi 1000 ottengono un grant istantaneo alla
+  // sola registrazione — nessun vincolo di cutoff, nessun requisito di prima
+  // sync, quindi falsa/fuorviante sia prima sia (soprattutto) dopo il
+  // 31/07/2026, e mai gated da BetaFounderGate (la metadata di Next.js viene
+  // generata al build, non ha una variante client-side). Sostituita con
+  // `founderEligibilityStatement()`, l'UNICA fonte di verità invariante
+  // (Sprint P0.10G, vedi lib/founder/historical-note.ts): stessa frase
+  // esatta, vera sia prima sia dopo il cutoff, già tradotta a mano in tutte
+  // e 15 le locale (copre anche pl/tr/sv/da/no/fi, che prima ricadevano
+  // silenziosamente sul ternario inglese).
+  const title = betaMetaTitle(lc);
+  const description = founderEligibilityStatement(lc);
 
   const path = `/${lc}/beta`;
   return {
@@ -148,12 +131,23 @@ export default async function BetaPage({
     // children in un <main>. Nesting di landmark rompe WCAG e da'
     // comportamenti incerti agli screen reader iOS/Android.
     <div className="relative overflow-hidden pb-32 pt-20 text-text-primary md:pt-28">
+      {/*
+       * Sprint P0.10J — hotfix: prima usava `t.metaTitle`/`t.metaDesc` (9
+       * oggetti per-locale con un claim di grant istantaneo alla sola
+       * registrazione, non datato, la stessa classe di errore gia' corretta
+       * nel commento di lib/founder/historical-note.ts), renderizzato SEMPRE
+       * perche' questo JsonLd sta fuori dal componente BetaFounderGate qui sotto.
+       * Sostituito con la stessa coppia neutra usata in generateMetadata():
+       * vera sia prima sia dopo il cutoff, nessuna Offer/price/availability
+       * aggiunta qui (resta in MobileApplicationJsonLd, gia' solo download
+       * gratuito).
+       */}
       <JsonLd
         data={{
           "@context": "https://schema.org",
           "@type": "WebPage",
-          name: t.metaTitle,
-          description: t.metaDesc,
+          name: betaMetaTitle(lc),
+          description: founderEligibilityStatement(lc),
           url: `${SITE_URL}/${lc}/beta`,
         }}
       />
@@ -431,9 +425,6 @@ function FounderClosedBody({ closed, lc }: { closed: BetaClosedCopy; lc: Locale 
 }
 
 const IT = {
-  metaTitle: "FitMesh Sync Founder — Pro a vita per i primi 1000",
-  metaDesc:
-    "Scarica l'app, crea l'account: i primi 1000 ricevono il Pro a vita, attivato automaticamente. Vale anche su iOS, già live.",
   kicker: "Founder · 1000 posti",
   h1_a: "Diventa uno dei primi",
   h1_b: "1000 founder",
@@ -514,9 +505,6 @@ const IT = {
 };
 
 const ES = {
-  metaTitle: "FitMesh Sync Founder — Pro vitalicio para los primeros 1000",
-  metaDesc:
-    "Descarga FitMesh Sync en Google Play y crea tu cuenta: los primeros 1000 reciben Pro vitalicio gratis, activado automáticamente. También válido en iOS, ya disponible.",
   kicker: "Founder · 1000 plazas",
   h1_a: "Sé uno de los primeros",
   h1_b: "1000 founders",
@@ -597,9 +585,6 @@ const ES = {
 };
 
 const EN = {
-  metaTitle: "FitMesh Sync Founder — Lifetime Pro for the first 1000",
-  metaDesc:
-    "Download the app, create your account: the first 1000 get lifetime Pro free, activated automatically. Also live on iOS.",
   kicker: "Founder · 1000 seats",
   h1_a: "Become one of the first",
   h1_b: "1000 founders",
@@ -680,9 +665,6 @@ const EN = {
 };
 
 const DE = {
-  metaTitle: "FitMesh Sync Founder — Lifetime-Pro für die ersten 1000",
-  metaDesc:
-    "Lade FitMesh Sync bei Google Play herunter und erstelle dein Konto: Die ersten 1000 erhalten automatisch Lifetime-Pro gratis. Gilt auch für iOS, bereits verfügbar.",
   kicker: "Founder · 1000 Plätze",
   h1_a: "Werde einer der ersten",
   h1_b: "1000 Founder",
@@ -763,9 +745,6 @@ const DE = {
 };
 
 const PT = {
-  metaTitle: "FitMesh Sync Founder — Pro vitalício para os primeiros 1000",
-  metaDesc:
-    "Baixe o FitMesh Sync no Google Play e crie sua conta: os primeiros 1000 recebem Pro vitalício grátis, ativado automaticamente. Válido também no iOS, já disponível.",
   kicker: "Founder · 1000 vagas",
   h1_a: "Seja um dos primeiros",
   h1_b: "1000 founders",
@@ -846,9 +825,6 @@ const PT = {
 };
 
 const FR = {
-  metaTitle: "FitMesh Sync Founder — Pro à vie pour les 1000 premiers",
-  metaDesc:
-    "Téléchargez FitMesh Sync sur Google Play et créez votre compte: les 1000 premiers reçoivent le Pro à vie gratuit, activé automatiquement. Valable aussi sur iOS, déjà disponible.",
   kicker: "Founder · 1000 places",
   h1_a: "Devenez l'un des premiers",
   h1_b: "1000 founders",
@@ -929,9 +905,6 @@ const FR = {
 };
 
 const NL = {
-  metaTitle: "FitMesh Sync Founder — Pro voor altijd voor de eerste 1000",
-  metaDesc:
-    "Download de app, maak je account aan: de eerste 1000 krijgen Pro voor altijd gratis, automatisch geactiveerd. Ook geldig op iOS, al beschikbaar.",
   kicker: "Founder · 1000 plaatsen",
   h1_a: "Word een van de eerste",
   h1_b: "1000 founders",
@@ -1012,9 +985,6 @@ const NL = {
 };
 
 const JA = {
-  metaTitle: "FitMesh Sync Founder — 最初の1000名にPro永久無料",
-  metaDesc:
-    "アプリをダウンロードしてアカウントを作成するだけ：先着1000名にPro永久無料が自動的に付与されます。iOSでもすでに利用可能です。",
   kicker: "Founder · 1000席",
   h1_a: "最初の",
   h1_b: "1000人のFounder",
@@ -1095,9 +1065,6 @@ const JA = {
 };
 
 const KO = {
-  metaTitle: "FitMesh Sync Founder — 처음 1000명에게 평생 Pro 무료",
-  metaDesc:
-    "앱을 다운로드하고 계정을 생성하세요: 처음 1000명에게 평생 Pro가 자동으로 활성화됩니다. iOS에서도 이미 이용 가능합니다.",
   kicker: "Founder · 1000석",
   h1_a: "처음",
   h1_b: "1000명의 Founder",

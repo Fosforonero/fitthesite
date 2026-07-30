@@ -105,7 +105,7 @@ const COPY = {
       "Indie dev italiano costruisce un'alternativa europea privacy-first ai walled garden di Samsung/Apple/Google Fit",
       "Come Health Connect ha cambiato l'ecosistema wearable Android dal 2024, e cosa significa per consumer e dev",
       "Condivisione familiare: vedere i dati di salute di chi ami in un'unica dashboard, senza GPS né app invasive (Mesh Famiglia)",
-      "Beta program founder a vita gratis: alternativa all'hype subscription anche su app fitness",
+      `Perché ${founderHistoricalClause("it")}: un'alternativa storica all'hype da abbonamento, anche nelle app fitness`,
       "Sviluppare un'app salute in Italia: GDPR, server EU, sovranità dati come differenziatore",
     ],
 
@@ -191,7 +191,7 @@ const COPY = {
       "Italian indie dev builds a privacy-first European alternative to Samsung/Apple/Google Fit walled gardens",
       "How Health Connect changed the Android wearable ecosystem since 2024, and what it means for consumers and devs",
       "Family sharing: see the health data of people you care about in one dashboard, without GPS or invasive apps (Family Mesh)",
-      "Lifetime-free founder beta program: an alternative to subscription hype, even in fitness apps",
+      `Why ${founderHistoricalClause("en")}: a look back at an alternative to subscription hype, even in fitness apps`,
       "Building a health app in Italy: GDPR, EU servers, data sovereignty as a differentiator",
     ],
 
@@ -277,7 +277,7 @@ const COPY = {
       "Un desarrollador indie italiano crea una alternativa europea con privacidad por diseño a los jardines cerrados de Samsung, Apple y Google Fit",
       "Cómo Health Connect transformó el ecosistema de wearables Android desde 2024, y qué significa para usuarios y desarrolladores",
       "Compartir en familia: ver los datos de salud de las personas que te importan en un único panel, sin GPS ni apps invasivas (Mesh Familia)",
-      "Programa beta con Plaza Fundador de por vida gratis: una alternativa al modelo de suscripción, también en apps de salud",
+      `Por qué ${founderHistoricalClause("es")}: una alternativa histórica al modelo de suscripción, también en apps de salud`,
       "Desarrollar una app de salud en Italia: RGPD, servidores en la UE y soberanía de datos como diferenciador",
     ],
 
@@ -363,7 +363,7 @@ const COPY = {
       "Italienischer Indie-Entwickler baut datenschutzorientierte europäische Alternative zu den geschlossenen Ökosystemen von Samsung, Apple und Google Fit",
       "Wie Health Connect das Android-Wearable-Ökosystem seit 2024 verändert hat und was das für Verbraucher und Entwickler bedeutet",
       "Familien-Sharing: die Gesundheitsdaten der Menschen, die dir wichtig sind, in einem Dashboard sehen, ohne GPS oder invasive Apps (Mesh Familie)",
-      "Lebenslanges Gründer-Beta-Programm kostenlos: eine Alternative zum Abo-Modell, auch bei Fitness-Apps",
+      `Warum ${founderHistoricalClause("de")}: ein historischer Blick auf eine Alternative zum Abo-Modell, auch bei Fitness-Apps`,
       "Eine Gesundheits-App in Italien entwickeln: DSGVO, EU-Server und Datensouveränität als Alleinstellungsmerkmal",
     ],
 
@@ -449,7 +449,7 @@ const COPY = {
       "Desenvolvedor indie italiano cria alternativa europeia com foco em privacidade aos ecossistemas fechados de Samsung, Apple e Google Fit",
       "Como o Health Connect transformou o ecossistema de wearables Android desde 2024 e o que isso significa para consumidores e desenvolvedores",
       "Compartilhamento familiar: ver os dados de saúde de quem você ama em um único painel, sem GPS nem apps invasivos (Mesh Família)",
-      "Programa beta com vagas de fundador vitalícias grátis: uma alternativa ao modelo de assinatura, mesmo em apps de saúde",
+      `Porque ${founderHistoricalClause("pt")}: uma alternativa histórica ao modelo de assinatura, mesmo em apps de saúde`,
       "Desenvolver um app de saúde na Itália: GDPR, servidores na UE e soberania dos dados como diferencial",
     ],
 
@@ -535,7 +535,7 @@ const COPY = {
       "Un développeur indie italien crée une alternative européenne axée sur la confidentialité aux jardins fermés de Samsung, Apple et Google Fit",
       "Comment Health Connect a transformé l'écosystème des appareils connectés Android depuis 2024, et ce que cela signifie pour les consommateurs et les développeurs",
       "Partage familial : voir les données de santé des personnes qui comptent pour vous dans un seul tableau de bord, sans GPS ni applications intrusives (Mesh Famille)",
-      "Programme bêta avec place fondateur à vie gratuite : une alternative au modèle par abonnement, y compris dans les applications de santé",
+      `Pourquoi ${founderHistoricalClause("fr")} : un regard historique sur une alternative au modèle par abonnement, y compris dans les applications de santé`,
       "Développer une application de santé en Italie : RGPD, serveurs UE et souveraineté des données comme facteur de différenciation",
     ],
 
@@ -621,7 +621,7 @@ const COPY = {
       "Wloski indie developer buduje europejska, prywatna alternatywe dla zamknietych ekosystemów Samsung/Apple/Google Fit",
       "Jak Health Connect zmienil ekosystem urzadzen Android od 2024 roku i co oznacza to dla uzytkowników i programistów",
       "Dzielenie sie danymi w rodzinie: zobacz dane zdrowotne bliskich w jednym panelu, bez GPS ani inwazyjnych aplikacji (Mesh Rodzina)",
-      "Dozywotni bezplatny program beta dla zalozycie: alternatywa dla hype subskrypcyjnego, nawet w aplikacjach fitness",
+      `Dlaczego ${founderHistoricalClause("pl")}: historyczna alternatywa dla hype'u subskrypcyjnego, nawet w aplikacjach fitness`,
       "Tworzenie aplikacji zdrowotnej we Wloszech: RODO, serwery UE i suwerennosc danych jako wyróznnik",
     ],
 
@@ -707,7 +707,7 @@ const COPY = {
       "Italyan indie gelistirici, Samsung/Apple/Google Fit'in kapali ekosistemlerine gizlilik öncelikli Avrupa alternatifi insa ediyor",
       "Health Connect, 2024'ten bu yana Android giyilebilir ekosistemini nasil degistirdi ve bu tüketiciler ile gelistiriciler icin ne anlama geliyor",
       "Aile ici paylasim: önemsedigin kisilerin saglik verilerini tek bir panelde görmek, GPS veya invasif uygulamalar olmadan (Mesh Aile)",
-      "Ömür boyu ücretsiz kurucu beta programi: abonelik yaygaro yerine alternatif, fitness uygulamalarinda bile",
+      `Neden ${founderHistoricalClause("tr")}: abonelik cilginligina tarihi bir alternatif, fitness uygulamalarinda bile`,
       "Italya'da saglik uygulamasi gelistirmek: GDPR, AB sunuculari ve farklilik olarak veri egemenligi",
     ],
 
@@ -793,7 +793,7 @@ const COPY = {
       "Italiaanse indie-ontwikkelaar bouwt een privacy-first Europees alternatief voor de gesloten ecosystemen van Samsung, Apple en Google Fit",
       "Hoe Health Connect het Android-wearable-ecosysteem sinds 2024 veranderde, en wat dat betekent voor consumenten en ontwikkelaars",
       "Gezinsdeling: de gezondheidsdata van wie je dierbaar is in één dashboard zien, zonder GPS of opdringerige apps (Familie Mesh)",
-      "Levenslang gratis founder-betaprogramma: een alternatief voor de abonnementshype, ook in fitness-apps",
+      `Waarom ${founderHistoricalClause("nl")}: een historisch alternatief voor de abonnementshype, ook in fitness-apps`,
       "Een gezondheidsapp bouwen in Italië: GDPR, EU-servers en datasoevereiniteit als onderscheidend kenmerk",
     ],
 
@@ -879,7 +879,7 @@ const COPY = {
       "イタリアのインディー開発者が、Samsung・Apple・Google Fitの囲い込みに対するプライバシーファーストな欧州の代替を構築",
       "Health Connectが2024年以降にAndroidウェアラブルのエコシステムをどう変えたか、そして消費者と開発者にとっての意味",
       "家族間シェア：大切な人の健康データをひとつのダッシュボードで見る、GPSや侵襲的なアプリなしで（Mesh Family）",
-      "生涯無料のファウンダーベータプログラム：フィットネスアプリでもサブスク偏重への代替",
+      `なぜ${founderHistoricalClause("ja")}のか：フィットネスアプリにおけるサブスク偏重への歴史的な代替案`,
       "イタリアで健康アプリを開発する：差別化要因としてのGDPR・EUサーバー・データ主権",
     ],
 
@@ -965,7 +965,7 @@ const COPY = {
       "이탈리아 인디 개발자가 Samsung·Apple·Google Fit의 폐쇄형 생태계에 대한 프라이버시 우선 유럽 대안을 만들다",
       "Health Connect가 2024년 이후 Android 웨어러블 생태계를 어떻게 바꿨고, 소비자와 개발자에게 무엇을 의미하는가",
       "가족 공유: 소중한 사람의 건강 데이터를 하나의 대시보드에서 확인하기, GPS나 침해적인 앱 없이 (Mesh Family)",
-      "평생 무료 파운더 베타 프로그램: 피트니스 앱에서도 구독 과열에 대한 대안",
+      `${founderHistoricalClause("ko")} 이유: 피트니스 앱에서도 구독 과열에 대한 역사적 대안`,
       "이탈리아에서 건강 앱을 개발하기: 차별화 요소로서의 GDPR, EU 서버, 데이터 주권",
     ],
 
@@ -1051,7 +1051,7 @@ const COPY = {
       "Italiensk indieutvecklare bygger ett integritetsfokuserat europeiskt alternativ till Samsungs/Apples/Google Fits inhägnade ekosystem",
       "Hur Health Connect har förändrat Androids wearable-ekosystem sedan 2024, och vad det betyder för konsumenter och utvecklare",
       "Familjedelning: se hälsodata för dem du bryr dig om i en och samma instrumentpanel, utan GPS eller integritetskränkande appar (Family Mesh)",
-      "Livstidsgratis grundarprogram: ett alternativ till prenumerationshypen, även i träningsappar",
+      `Varför ${founderHistoricalClause("sv")}: ett historiskt alternativ till prenumerationshypen, även i träningsappar`,
       "Att bygga en hälsoapp i Italien: GDPR, EU-servrar och datasuveränitet som konkurrensfördel",
     ],
 
@@ -1137,7 +1137,7 @@ const COPY = {
       "Italiensk indie-udvikler bygger et privatlivsorienteret europæisk alternativ til Samsungs/Apples/Googles lukkede Fit-økosystemer",
       "Hvordan Health Connect ændrede Androids wearable-økosystem siden 2024, og hvad det betyder for forbrugere og udviklere",
       "Familiedeling: se sundhedsdata for dem, du holder af, i ét dashboard, uden GPS eller invasive apps (Family Mesh)",
-      "Livstids-gratis founder-betaprogram: et alternativ til abonnementshypen, også i fitness-apps",
+      `Hvorfor ${founderHistoricalClause("da")}: et historisk alternativ til abonnementshypen, også i fitness-apps`,
       "At bygge en sundhedsapp i Italien: GDPR, EU-servere og datasuverænitet som differentiator",
     ],
 
@@ -1223,7 +1223,7 @@ const COPY = {
       "Italiensk indie-utvikler bygger et personvernfokusert europeisk alternativ til de lukkede økosystemene til Samsung/Apple/Google Fit",
       "Hvordan Health Connect har endret Androids wearable-økosystem siden 2024, og hva det betyr for forbrukere og utviklere",
       "Familiedeling: se helsedataene til folk du bryr deg om i ett dashbord, uten GPS eller inntrengende apper (Family Mesh)",
-      "Livstidsgratis founder-betaprogram: et alternativ til abonnementshypen, også i treningsapper",
+      `Hvorfor ${founderHistoricalClause("no")}: et historisk alternativ til abonnementshypen, også i treningsapper`,
       "Å bygge en helseapp i Italia: GDPR, EU-servere og datasuverenitet som differensiator",
     ],
 
@@ -1309,7 +1309,7 @@ const COPY = {
       "Italialainen indie-kehittäjä rakentaa yksityisyyttä kunnioittavan eurooppalaisen vaihtoehdon Samsungin, Applen ja Google Fitin suljetuille ekosysteemeille",
       "Miten Health Connect muutti Androidin puettavien laitteiden ekosysteemin vuodesta 2024 lähtien – ja mitä se merkitsee kuluttajille ja kehittäjille",
       "Perheen kesken jakaminen: näe läheistesi terveystiedot yhdessä koontinäytössä ilman GPS-seurantaa tai tunkeilevia sovelluksia (Family Mesh)",
-      "Elinikäisen ilmaiskäytön perustajaohjelma: vaihtoehto tilausbuumille myös kuntoilusovelluksissa",
+      `Miksi ${founderHistoricalClause("fi")}: historiallinen vaihtoehto tilausbuumille myös kuntoilusovelluksissa`,
       "Terveyssovelluksen rakentaminen Italiassa: GDPR, EU-palvelimet ja datan suvereniteetti kilpailuetuna",
     ],
 
