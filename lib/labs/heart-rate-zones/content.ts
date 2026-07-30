@@ -97,6 +97,7 @@ export interface HeartRateZonesToolContent {
     sampleDataButton: LabsText;
     resetButton: LabsText;
     resultsHeading: LabsText;
+    resultMethodLabel: LabsText;
     resultMaxHr: LabsText;
     resultRestingHr: LabsText;
     resultHrr: LabsText;
@@ -234,12 +235,14 @@ export const HEART_RATE_ZONES_TOOL_CONTENT: HeartRateZonesToolContent = {
       paragraphs: {
         it: [
           "Questo strumento non diagnostica nulla, non sostituisce un test da sforzo o un test del lattato in laboratorio, e non è un consiglio di allenamento personalizzato. Mostra solo i numeri calcolati dai dati che inserisci, con la formula esplicita usata per ottenerli.",
-          "La FC massima stimata con la formula di Tanaka è una media di popolazione, con una variabilità individuale reale intorno alla stima: la FC massima vera di una persona può discostarsi in modo significativo dal valore stimato dall'età, soprattutto per atleti allenati o condizioni individuali particolari. Se conosci la tua FC massima da un test reale, usa la modalità \"misurata\" invece di quella stimata.",
+          "La FC massima stimata con Tanaka o con \"220-età\" è una media di popolazione, con una variabilità individuale reale intorno alla stima: la FC massima vera di una persona può discostarsi in modo significativo dal valore stimato dall'età, soprattutto per atleti allenati o condizioni individuali particolari. Se conosci la tua FC massima da un test reale, usa la modalità \"misurata\" invece di una delle due stime: nessun valore stimato da una formula sostituisce una misurazione individuale.",
+          "L'intervallo 18-100 anni accettato dalle modalità di stima è un limite TECNICO di questo calcolatore, non una dichiarazione che l'intera fascia coincida esattamente con la popolazione studiata da Tanaka et al. (che descrivono la propria meta-analisi come condotta su \"adulti sani\", senza pubblicare i limiti di età esatti di ogni sotto-studio incluso). Alle età più vicine agli estremi di questo intervallo (vicino a 18 o vicino a 100 anni) la stima richiede particolare cautela: la variabilità individuale intorno al valore medio di popolazione tende a essere maggiore lontano dalle età più rappresentate negli studi.",
           "Le 5 fasce percentuali usate qui (50-60/60-70/70-80/80-90/90-100%) sono una convenzione comune, non l'unica in letteratura o nei dispositivi: alcuni sistemi usano 3 zone, altri 7, altri ancorano le zone a soglie di lattato individuali misurate in laboratorio anziché a percentuali fisse - motivo ulteriore per cui il numero di zona che vedi su un dispositivo può non corrispondere a quello di un altro.",
         ],
         en: [
           "This tool does not diagnose anything, does not replace a laboratory exercise or lactate test, and is not personalized training advice. It only shows the numbers calculated from the data you enter, with the explicit formula used to obtain them.",
-          "The max heart rate estimated with the Tanaka formula is a population average, with real individual variability around the estimate: a person's true max heart rate can differ significantly from the value estimated from age, especially for trained athletes or particular individual conditions. If you know your max heart rate from a real test, use \"measured\" mode instead of \"estimated\".",
+          "The max heart rate estimated with Tanaka or with \"220-age\" is a population average, with real individual variability around the estimate: a person's true max heart rate can differ significantly from the value estimated from age, especially for trained athletes or particular individual conditions. If you know your max heart rate from a real test, use \"measured\" mode instead of either estimate: no formula-estimated value replaces an individual measurement.",
+          "The 18-100 year range accepted by the estimate modes is a TECHNICAL limit of this calculator, not a claim that the entire range exactly matches the population studied by Tanaka et al. (who describe their meta-analysis as conducted on \"healthy adults\", without publishing the exact age limits of every included sub-study). At ages closer to the extremes of this range (near 18 or near 100 years), the estimate calls for particular caution: individual variability around the population average tends to be larger further from the ages most represented in the studies.",
           "The 5 percentage bands used here (50-60/60-70/70-80/80-90/90-100%) are a common convention, not the only one in the literature or in devices: some systems use 3 zones, others 7, others anchor zones to individually measured lactate thresholds instead of fixed percentages - a further reason why the zone number you see on one device may not match another.",
         ],
       },
@@ -390,6 +393,7 @@ export const HEART_RATE_ZONES_TOOL_CONTENT: HeartRateZonesToolContent = {
     sampleDataButton: { it: "Usa dati di esempio", en: "Use sample data" },
     resetButton: { it: "Azzera", en: "Reset" },
     resultsHeading: { it: "Risultati", en: "Results" },
+    resultMethodLabel: { it: "Metodo FC massima", en: "Max heart rate method" },
     resultMaxHr: { it: "FC massima", en: "Max heart rate" },
     resultRestingHr: { it: "FC a riposo", en: "Resting heart rate" },
     resultHrr: { it: "Riserva cardiaca (HRR)", en: "Heart rate reserve (HRR)" },

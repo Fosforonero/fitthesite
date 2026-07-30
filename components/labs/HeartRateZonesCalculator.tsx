@@ -49,6 +49,16 @@ function toNum(v: string): number | undefined {
   return v === "" ? undefined : Number(v);
 }
 
+function methodLabel(
+  mode: MaxHrMode,
+  labels: HeartRateZonesToolContent["calculatorLabels"],
+  lc: "it" | "en",
+): string {
+  if (mode === "tanaka") return labels.maxHrModeTanaka[lc];
+  if (mode === "age220") return labels.maxHrModeAge220[lc];
+  return labels.maxHrModeMeasured[lc];
+}
+
 type BuildResult =
   | { status: "empty" }
   | { status: "invalid"; errors: HeartRateZonesValidationError[] }
@@ -204,6 +214,7 @@ export function HeartRateZonesCalculator({
     if (!outcome || !outcome.ok) return "";
     const r = outcome.result;
     const lines = [
+      `${labels.resultMethodLabel[lc]}: ${methodLabel(r.maxHrSource, labels, lc)}`,
       `${labels.resultMaxHr[lc]}: ${r.maxHr} bpm`,
       `${labels.resultRestingHr[lc]}: ${r.restingHr} bpm`,
       `${labels.resultHrr[lc]}: ${r.heartRateReserve} bpm`,
@@ -235,6 +246,7 @@ export function HeartRateZonesCalculator({
     if (!outcome || !outcome.ok) return;
     const r = outcome.result;
     const rows: string[][] = [["metric", "value_bpm_or_range"]];
+    rows.push(["method", r.maxHrSource]);
     rows.push(["maxHr", String(r.maxHr)]);
     rows.push(["restingHr", String(r.restingHr)]);
     rows.push(["heartRateReserve", String(r.heartRateReserve)]);
@@ -273,7 +285,7 @@ export function HeartRateZonesCalculator({
       <fieldset className="m-0 border-0 p-0">
         <legend className="mb-1.5 block text-sm text-text-secondary">{labels.maxHrModeLabel[lc]}</legend>
         <div className="flex flex-wrap gap-2">
-          <label className={radioPillClass(form.maxHrMode === "tanaka")}>
+          <label className={radioPillClass(form.maxHrMode === "tanaka")} data-hr-zones-mode-select="tanaka">
             <input
               type="radio"
               name={`${uid}-max-hr-mode`}
@@ -284,7 +296,7 @@ export function HeartRateZonesCalculator({
             />
             {labels.maxHrModeTanaka[lc]}
           </label>
-          <label className={radioPillClass(form.maxHrMode === "age220")}>
+          <label className={radioPillClass(form.maxHrMode === "age220")} data-hr-zones-mode-select="age220">
             <input
               type="radio"
               name={`${uid}-max-hr-mode`}
@@ -295,7 +307,7 @@ export function HeartRateZonesCalculator({
             />
             {labels.maxHrModeAge220[lc]}
           </label>
-          <label className={radioPillClass(form.maxHrMode === "measured")}>
+          <label className={radioPillClass(form.maxHrMode === "measured")} data-hr-zones-mode-select="measured">
             <input
               type="radio"
               name={`${uid}-max-hr-mode`}
@@ -395,6 +407,10 @@ export function HeartRateZonesCalculator({
             </p>
 
             <dl className="grid gap-2 sm:grid-cols-2 text-sm">
+              <div className="flex justify-between gap-2">
+                <dt className="text-text-secondary">{labels.resultMethodLabel[lc]}</dt>
+                <dd className="text-text-primary">{methodLabel(outcome.result.maxHrSource, labels, lc)}</dd>
+              </div>
               <div className="flex justify-between gap-2">
                 <dt className="text-text-secondary">{labels.resultRestingHr[lc]}</dt>
                 <dd className="text-text-primary">{outcome.result.restingHr} bpm</dd>
