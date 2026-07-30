@@ -1,16 +1,29 @@
 /**
  * SPRINT P1.4B - pubblicazione solo IT/EN (stesso meccanismo di
  * galaxy-watch-ultra2-watch9-health-connect: REDIRECT_INCOMPLETE_LOCALE_SLUGS
- * in lib/blog/locale-filter.ts, 307 verso EN per le altre 13 locale).
+ * in lib/blog/indexability.ts, 307 verso EN per le altre 13 locale).
+ *
+ * SPRINT P1.4B-A (hardening 2026-07-30): fonti ri-verificate live dopo che un
+ * audit ha trovato due problemi reali nella prima pubblicazione — 1) la fonte
+ * Whoop puntava a una pagina sulle zone di frequenza cardiaca, non sul sonno;
+ * 2) Fitbit non aveva alcuna fonte ufficiale collegata (solo un commento che
+ * citava un blog terzo, Android Police, mai messo nell'array `sources`
+ * pubblico). Corrette con le documentazioni ufficiali qui sotto.
  *
  * Fonti citate (verificate live via ricerca web durante lo sviluppo, non a
  * memoria):
  *  - Windred DP, Jones SE, Russell A, et al. "Sleep regularity is a stronger
  *    predictor of mortality risk than sleep duration: A prospective cohort
  *    study." Sleep. 2024;47(1):zsad253. PMID 37738616.
- *  - Oura, "Sleep Score" (documentazione ufficiale prodotto).
- *  - Android Police, spiegazione pubblica del calcolo del Fitbit Sleep Score.
- *  - Whoop, "Heart Rate Zones Explained" / documentazione Sleep Performance.
+ *  - Oura, "A Guide to Your Sleep Contributors" (Oura Help, documentazione
+ *    ufficiale: elenca esplicitamente i 7 contributori del Sleep Score).
+ *  - Google Health / Fitbit, "What's the Sleep Score in the Google Health
+ *    app" (support.google.com/fitbit - Fitbit ha spostato la propria
+ *    documentazione ufficiale sotto il dominio Google Health dopo
+ *    l'acquisizione; il dispositivo resta commercializzato come Fitbit).
+ *  - Whoop, "What is Sleep Consistency?" (support.whoop.com, documentazione
+ *    ufficiale: definisce sia Sleep Consistency sia i fattori di Sleep
+ *    Performance).
  *
  * Nessun medical reviewer inventato: revisione tecnico-editoriale (fonti +
  * guardrail automatico), non medica - perché non esiste. Nessuna
@@ -36,8 +49,8 @@ export const post: BlogPost = {
     },
   },
   metaDescription: {
-    it: "Cos'è lo Sleep Score, perché varia tra Oura, Fitbit e Whoop, e perché la ricerca sulla regolarità del sonno (Sleep Regularity Index) merita attenzione quanto la durata. Nessuna diagnosi, solo fonti verificate.",
-    en: "What a Sleep Score is, why it varies between Oura, Fitbit, and Whoop, and why sleep regularity research (Sleep Regularity Index) deserves as much attention as duration. No diagnosis, just verified sources.",
+    it: "Cos'è lo Sleep Score, perché varia tra Oura, Fitbit e Whoop, e perché la regolarità del sonno conta quanto la durata. Solo fonti verificate, nessuna diagnosi.",
+    en: "What a Sleep Score is, why it varies between Oura, Fitbit, and Whoop, and why sleep regularity matters as much as duration. Verified sources, no diagnosis.",
   },
   primaryKeyword: {
     it: "sleep score cos'è",
@@ -51,13 +64,13 @@ export const post: BlogPost = {
   tldr: {
     it: [
       "Lo Sleep Score è un numero composito: combina più metriche (durata, efficienza, fasi, tempistica, a volte frequenza cardiaca) con pesi che ogni azienda tiene in gran parte proprietari.",
-      "Oura dichiara pubblicamente 7 componenti (tempo totale di sonno, efficienza, sensazione di riposo, REM, sonno profondo, latenza, tempistica), ma non i pesi esatti; Fitbit si basa su durata/qualità/ripristino; Whoop non dà uno \"sleep score\" tradizionale ma una Sleep Performance dentro il suo punteggio di recupero.",
+      "Oura dichiara pubblicamente 7 componenti (tempo totale di sonno, efficienza, sensazione di riposo, REM, sonno profondo, latenza, tempistica), ma non i pesi esatti; Fitbit (ora documentato sotto Google Health) dichiara 6 componenti (durata, tempo per raggiungere il sonno stabile, sonno stabile, agitazione, risvegli completi, interruzioni); Whoop non dà uno \"sleep score\" tradizionale ma una Sleep Performance (percentuale del bisogno di sonno personalizzato ottenuto), un punteggio distinto dal Recovery.",
       "Uno studio del 2024 su oltre 60.000 persone (UK Biobank) ha trovato che la regolarità degli orari di sonno predice il rischio di mortalità meglio della sola durata del sonno - un fattore spesso meno visibile nei punteggi sonno consumer rispetto a durata ed efficienza.",
       "Questo articolo non emette un punteggio: collega alle fonti ufficiali di ogni piattaforma e al calcolatore FitMesh Labs per l'unica metrica davvero trasparente e verificabile, l'efficienza del sonno.",
     ],
     en: [
       "A Sleep Score is a composite number: it combines multiple metrics (duration, efficiency, stages, timing, sometimes heart rate) with weights each company keeps largely proprietary.",
-      "Oura publicly discloses 7 components (total sleep time, efficiency, restfulness, REM, deep sleep, latency, timing), but not the exact weights; Fitbit relies on duration/quality/restoration; Whoop doesn't give a traditional \"sleep score\" but a Sleep Performance figure inside its recovery score.",
+      "Oura publicly discloses 7 components (total sleep time, efficiency, restfulness, REM, deep sleep, latency, timing), but not the exact weights; Fitbit (now documented under Google Health) discloses 6 components (duration, time to sound sleep, sound sleep, restlessness, full awakenings, interruptions); Whoop doesn't give a traditional \"sleep score\" but a Sleep Performance figure (the percentage of your personalized sleep need obtained), a score distinct from Recovery.",
       "A 2024 study of over 60,000 people (UK Biobank) found that the regularity of sleep timing predicts mortality risk better than sleep duration alone - a factor often less visible in consumer sleep scores than duration and efficiency.",
       "This article doesn't issue a score: it links to each platform's official documentation and to the FitMesh Labs calculator for the one genuinely transparent, verifiable metric, sleep efficiency.",
     ],
@@ -100,12 +113,12 @@ export const post: BlogPost = {
           en: ["Oura", "Total sleep time, efficiency, restfulness, REM, deep sleep, latency, timing (7 factors)", "Yes, Sleep Score 0-100"],
         },
         {
-          it: ["Fitbit", "Durata, qualità del sonno, ripristino (frequenza cardiaca notturna + agitazione)", "Sì, Sleep Score 0-100"],
-          en: ["Fitbit", "Duration, sleep quality, restoration (overnight heart rate + restlessness)", "Yes, Sleep Score 0-100"],
+          it: ["Fitbit (Google Health)", "Sei fattori dichiarati: durata del sonno, tempo per raggiungere il sonno stabile, sonno stabile, agitazione, risvegli completi, interruzioni", "Sì, Sleep Score 0-100"],
+          en: ["Fitbit (Google Health)", "Six disclosed factors: sleep duration, time to sound sleep, sound sleep, restlessness, full awakenings, interruptions", "Yes, Sleep Score 0-100"],
         },
         {
-          it: ["Whoop", "Sufficienza del sonno, coerenza degli orari, efficienza, stress del sonno", "No: Sleep Performance % dentro il punteggio di recupero, non uno \"sleep score\" a sé"],
-          en: ["Whoop", "Sleep sufficiency, timing consistency, efficiency, sleep stress", "No: a Sleep Performance % inside the recovery score, not a standalone \"sleep score\""],
+          it: ["Whoop", "Sleep Performance = % del bisogno di sonno personalizzato (Sleep Need) ottenuto; Sleep Consistency (regolarità oraria) ed efficienza tracciate separatamente", "No: nessuno sleep score tradizionale 0-100; Sleep Performance è un punteggio distinto dal Recovery, non annidato al suo interno"],
+          en: ["Whoop", "Sleep Performance = % of personalized Sleep Need actually obtained; Sleep Consistency (timing regularity) and efficiency tracked separately", "No: no traditional 0-100 sleep score; Sleep Performance is a score distinct from Recovery, not nested inside it"],
         },
       ],
     },
@@ -228,10 +241,10 @@ export const post: BlogPost = {
   ],
   related: ["efficienza-del-sonno-formula-calcolo", "perche-zona-2-cambia-smartwatch-app", "hrv-cose-significato-valori"],
   sources: [
-    "https://academic.oup.com/sleep/article/47/1/zsad253/7280269",
     "https://pubmed.ncbi.nlm.nih.gov/37738616/",
-    "https://support.ouraring.com/hc/en-us/articles/360025445574-Sleep-Score",
-    "https://www.whoop.com/us/en/thelocker/max-heart-rate-training-zones/",
+    "https://support.ouraring.com/hc/en-us/articles/360057792293-A-Guide-to-Your-Sleep-Contributors",
+    "https://support.google.com/fitbit/answer/14236513",
+    "https://support.whoop.com/hc/en-us/articles/360019623493-What-is-Sleep-Consistency-",
   ],
   brandsMentioned: ["Oura", "Fitbit", "Whoop"],
   ldType: "BlogPosting",

@@ -32,8 +32,8 @@ export const post: BlogPost = {
     },
   },
   metaDescription: {
-    it: "Perché il tuo anello, smartwatch e le tue app di allenamento mostrano zone di frequenza cardiaca diverse per lo stesso sforzo. Metodi %FC max vs Karvonen, formula di Tanaka, fisiologia della Zona 2, e un calcolatore per vedere la differenza tu stesso.",
-    en: "Why your ring, smartwatch, and training apps show different heart rate zones for the same effort. %HRmax vs Karvonen methods, the Tanaka formula, Zone 2 physiology, and a calculator to see the difference yourself.",
+    it: "Perché anello, smartwatch e app mostrano zone di frequenza cardiaca diverse per lo stesso sforzo. Metodi %FC max, Karvonen e formula di Tanaka, con calcolatore.",
+    en: "Why your ring, smartwatch, and training apps show different heart rate zones for the same effort. %HRmax, Karvonen, and the Tanaka formula, with a calculator.",
   },
   primaryKeyword: {
     it: "perché zona 2 cambia smartwatch",
@@ -81,15 +81,15 @@ export const post: BlogPost = {
       caption: { it: "Confronto diretto, stessa persona (FC max 180, FC riposo 60)", en: "Direct comparison, same person (max HR 180, resting HR 60)" },
       headers: { it: ["Metodo", "Riferimento", "Zona 2 (60-70%) in bpm"], en: ["Method", "Reference", "Zone 2 (60-70%) in bpm"] },
       rows: [
-        { it: ["% FC massima", "Solo FC massima (180)", "108-126 bpm"], en: ["%Max heart rate", "Max HR only (180)", "108-126 bpm"] },
-        { it: ["Karvonen (% riserva cardiaca)", "FC riposo (60) + % di (FC max − FC riposo)", "132-144 bpm"], en: ["Karvonen (%heart rate reserve)", "Resting HR (60) + % of (max HR − resting HR)", "132-144 bpm"] },
+        { it: ["% FC massima", "Solo FC massima (180)", "108 ≤ FC < 126 bpm"], en: ["%Max heart rate", "Max HR only (180)", "108 ≤ HR < 126 bpm"] },
+        { it: ["Karvonen (% riserva cardiaca)", "FC riposo (60) + % di (FC max − FC riposo)", "132 ≤ FC < 144 bpm"], en: ["Karvonen (%heart rate reserve)", "Resting HR (60) + % of (max HR − resting HR)", "132 ≤ HR < 144 bpm"] },
       ],
     },
     {
       type: "paragraph",
       text: {
-        it: "18 bpm di differenza per la stessa zona nominale, sulla stessa persona, allo stesso istante - solo perché il riferimento usato per calcolare la percentuale è diverso. Nessuno dei due metodi è \"sbagliato\": sono scelte di progettazione diverse (vedi il calcolatore in fondo per l'esempio completo).",
-        en: "18 bpm of difference for the same nominal zone, on the same person, at the same instant - purely because the reference used to compute the percentage is different. Neither method is \"wrong\": they are different design choices (see the calculator below for the full worked example).",
+        it: "18 bpm di differenza per la stessa zona nominale, sulla stessa persona, allo stesso istante - solo perché il riferimento usato per calcolare la percentuale è diverso. Nessuno dei due metodi è \"sbagliato\": sono scelte di progettazione diverse (vedi il calcolatore in fondo per l'esempio completo). Convenzione dei confini usata sopra e nel calcolatore: il limite inferiore di ogni zona è incluso, il limite superiore è escluso - tranne per la Zona 5, che include anche il limite superiore.",
+        en: "18 bpm of difference for the same nominal zone, on the same person, at the same instant - purely because the reference used to compute the percentage is different. Neither method is \"wrong\": they are different design choices (see the calculator below for the full worked example). Boundary convention used above and in the calculator: each zone's lower bound is inclusive, its upper bound is exclusive - except for Zone 5, which also includes its upper bound.",
       },
     },
     {
@@ -171,8 +171,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Se vuoi vedere le tue zone reali applicate ai tuoi allenamenti effettivi, invece di calcolarle manualmente ogni volta, FitMesh Sync sincronizza la frequenza cardiaca rilevata dal tuo anello o smartwatch in una dashboard personale.",
-        en: "If you want to see your real zones applied to your actual workouts, instead of calculating them manually every time, FitMesh Sync syncs the heart rate detected by your ring or smartwatch into a personal dashboard.",
+        it: "Se vuoi tenere frequenza cardiaca e allenamenti compatibili in un'unica cronologia, invece di ricalcolarli manualmente ogni volta, FitMesh Sync sincronizza i dati compatibili rilevati dal tuo anello o smartwatch in una dashboard personale. Il calcolatore sopra resta uno strumento educativo indipendente: FitMesh non ricalcola né configura le zone di frequenza cardiaca del tuo dispositivo.",
+        en: "If you want to keep compatible heart rate and workout data in one timeline, instead of recalculating it manually every time, FitMesh Sync syncs compatible data detected by your ring or smartwatch into a personal dashboard. The calculator above remains a separate educational tool: FitMesh does not recalculate or configure your device's heart rate zones.",
       },
     },
     {

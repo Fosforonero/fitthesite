@@ -18,6 +18,7 @@ from hrv_oracle import calculate_hrv_metrics
 from sleep_efficiency_oracle import calculate_advanced, calculate_simple, classify_expected_error
 from heart_rate_zones_oracle import (
     calculate_heart_rate_zones,
+    classify_bpm_into_zone,
     classify_expected_error as classify_hr_zones_expected_error,
 )
 
@@ -109,6 +110,38 @@ def check_heart_rate_zones(vectors):
                 close(ts_zone["bpmHigh"], py_zone["bpmHigh"], label, f"{table}.{ts_zone['key']}.bpmHigh")
 
 
+def check_heart_rate_zones_boundaries(vectors):
+    """P1.4B-A Fase 7: verifica indipendente che le zone prodotte da
+    TypeScript non abbiano overlap ne' buchi - ogni bpm intero fra il minimo e
+    il massimo di ciascuna tabella deve soddisfare la regola di confine
+    (limite inferiore incluso, superiore escluso tranne l'ultima zona) per
+    ESATTAMENTE una zona. Conta le zone che "reclamano" ogni bpm in modo
+    indipendente (non tramite classify_bpm_into_zone, che ritornerebbe solo il
+    primo match e nasconderebbe un eventuale overlap)."""
+    for v in vectors:
+        label = v["label"]
+        ts = v["tsResult"]
+        for table in ("percentMaxHrZones", "heartRateReserveZones"):
+            zones = ts[table]
+            lo = zones[0]["bpmLow"]
+            hi = zones[-1]["bpmHigh"]
+            for bpm in range(int(lo), int(hi) + 1):
+                claims = []
+                for i, z in enumerate(zones):
+                    is_last = i == len(zones) - 1
+                    below_upper = bpm <= z["bpmHigh"] if is_last else bpm < z["bpmHigh"]
+                    if bpm >= z["bpmLow"] and below_upper:
+                        claims.append(z["key"])
+                if len(claims) == 0:
+                    errors.append(f"{label}.{table}: bpm={bpm} in [{lo},{hi}] non classificato da nessuna zona (buco)")
+                elif len(claims) > 1:
+                    errors.append(f"{label}.{table}: bpm={bpm} classificato da più zone: {claims} (overlap)")
+            # classify_bpm_into_zone (funzione condivisa) deve concordare col conteggio sopra
+            # sul confine esatto fra le prime due zone, come controllo incrociato aggiuntivo.
+            if len(zones) >= 2 and classify_bpm_into_zone(zones[0]["bpmHigh"], zones) != zones[1]["key"]:
+                errors.append(f"{label}.{table}: classify_bpm_into_zone non assegna il confine condiviso alla zona successiva")
+
+
 def check_heart_rate_zones_errors(vectors):
     """Vettori deliberatamente impossibili (FC riposo >= FC max): verifica
     che la classificazione Python indipendente concordi col codice d'errore
@@ -135,6 +168,7 @@ def main():
     check_sleep_efficiency_errors(sleep_efficiency_errors)
     heart_rate_zones = data.get("heartRateZones", [])
     check_heart_rate_zones(heart_rate_zones)
+    check_heart_rate_zones_boundaries(heart_rate_zones)
     heart_rate_zones_errors = data.get("heartRateZonesErrors", [])
     check_heart_rate_zones_errors(heart_rate_zones_errors)
 
