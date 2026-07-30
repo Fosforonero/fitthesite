@@ -6,21 +6,27 @@ import { allLabsStaticParams, labsToolByLocalizedSlug, localizedLabsSlug, relate
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 import { HRV_TOOL_CONTENT } from "@/lib/labs/hrv/content";
 import { SLEEP_EFFICIENCY_TOOL_CONTENT } from "@/lib/labs/sleep-efficiency/content";
+import { HEART_RATE_ZONES_TOOL_CONTENT } from "@/lib/labs/heart-rate-zones/content";
 import { HrvToolPageBody } from "@/components/labs/pages/HrvToolPageBody";
 import { SleepEfficiencyToolPageBody } from "@/components/labs/pages/SleepEfficiencyToolPageBody";
+import { HeartRateZonesToolPageBody } from "@/components/labs/pages/HeartRateZonesToolPageBody";
 
 /**
  * Router sottile fra i tool live (P1.1 Fase 5): il rendering vero e proprio
  * vive in components/labs/pages/<Tool>PageBody.tsx, uno per tool - questo
  * file sceglie solo quale montare in base a `found.key`. Generalizzato da
- * un file originariamente hardcoded solo su HRV (sprint P1.0), quando è
- * arrivato il secondo tool live (Sleep Efficiency), come previsto dal
- * commento che c'era qui prima.
+ * un file originariamente hardcoded solo su HRV (sprint P1.0), esteso a un
+ * dispatch esplicito per key con l'arrivo del terzo tool live (Heart Rate
+ * Zones, P1.4B) invece di un if/else binario che assumerebbe sempre e solo
+ * due tool.
  */
 
 function metaForTool(key: string, lc: "it" | "en") {
   if (key === "hrv-rmssd") {
     return { title: lt(HRV_TOOL_CONTENT.metaTitle, lc), description: lt(HRV_TOOL_CONTENT.metaDescription, lc) };
+  }
+  if (key === "heart-rate-zones") {
+    return { title: lt(HEART_RATE_ZONES_TOOL_CONTENT.metaTitle, lc), description: lt(HEART_RATE_ZONES_TOOL_CONTENT.metaDescription, lc) };
   }
   return { title: lt(SLEEP_EFFICIENCY_TOOL_CONTENT.metaTitle, lc), description: lt(SLEEP_EFFICIENCY_TOOL_CONTENT.metaDescription, lc) };
 }
@@ -103,6 +109,9 @@ export default async function LabsToolPage({
 
   if (found.key === "hrv-rmssd") {
     return <HrvToolPageBody found={found} otherTools={otherTools} lc={lc} path={path} />;
+  }
+  if (found.key === "heart-rate-zones") {
+    return <HeartRateZonesToolPageBody found={found} otherTools={otherTools} lc={lc} path={path} />;
   }
   return <SleepEfficiencyToolPageBody found={found} otherTools={otherTools} lc={lc} path={path} />;
 }

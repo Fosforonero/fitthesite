@@ -1,8 +1,8 @@
 /**
  * Guardrail accessibilità FitMesh Labs (P1.1 + P1.1B Fase 2 + P1.1C Fase 3) -
  * verifica via browser reale (Playwright, Chromium E WebKit), non lettura
- * statica del codice, contro le 4 combinazioni tool×locale live (HRV it/en,
- * Sleep Efficiency it/en).
+ * statica del codice, contro le 6 combinazioni tool×locale live (HRV it/en,
+ * Sleep Efficiency it/en, Heart Rate Zones it/en - P1.4B).
  *
  * P1.1B Fase 2 riscrive la parte precedentemente debole: il guardrail
  * originale simulava 8 Tab da un punto imprecisato della pagina (poteva
@@ -41,6 +41,8 @@ const PAGES = [
   { path: "/en/labs/hrv-rmssd-calculator", lc: "en" as const, tool: "hrv" as const },
   { path: "/it/labs/calcolatore-efficienza-sonno", lc: "it" as const, tool: "sleep" as const },
   { path: "/en/labs/sleep-efficiency-calculator", lc: "en" as const, tool: "sleep" as const },
+  { path: "/it/labs/calcolatore-zone-frequenza-cardiaca", lc: "it" as const, tool: "heart-rate-zones" as const },
+  { path: "/en/labs/heart-rate-zones-calculator", lc: "en" as const, tool: "heart-rate-zones" as const },
 ];
 
 const ENGINES: { name: string; launcher: BrowserType }[] = [
@@ -259,9 +261,14 @@ async function checkKeyboardWalk(
 }
 
 /** Il selettore modalità deve usare radio input nativi con lo stesso `name` (semantica nativa, no ARIA reinventata). */
-async function checkNativeRadioSemantics(page: Page, path: string, engine: string): Promise<string[]> {
+async function checkNativeRadioSemantics(
+  page: Page,
+  path: string,
+  engine: string,
+  containerTestId: string = "sleep-efficiency-calculator",
+): Promise<string[]> {
   const problems: string[] = [];
-  const radios = page.locator('[data-testid="sleep-efficiency-calculator"] input[type="radio"]');
+  const radios = page.locator(`[data-testid="${containerTestId}"] input[type="radio"]`);
   const count = await radios.count();
   if (count < 2) {
     problems.push(`[${engine}] [${path}] atteso un fieldset con almeno 2 input[type=radio] per la modalità, trovati ${count}.`);
@@ -274,7 +281,7 @@ async function checkNativeRadioSemantics(page: Page, path: string, engine: strin
   if (names.size !== 1 || names.has("")) {
     problems.push(`[${engine}] [${path}] i radio della modalità non condividono tutti lo stesso attributo name (trovati: ${[...names].join(", ")}).`);
   }
-  const fieldset = page.locator('[data-testid="sleep-efficiency-calculator"] fieldset').first();
+  const fieldset = page.locator(`[data-testid="${containerTestId}"] fieldset`).first();
   if ((await fieldset.count()) === 0) {
     problems.push(`[${engine}] [${path}] il selettore modalità non è dentro un <fieldset>.`);
   } else {
@@ -331,23 +338,37 @@ async function checkResultsRegionPositive(page: Page, path: string, engine: stri
  * vecchio controllo testuale `text=/%/` non avrebbe rilevato un risultato
  * parziale privo del segno %), e i bottoni copia/CSV non devono comparire.
  */
-async function checkResultsRegionBlocked(page: Page, path: string, engine: string): Promise<string[]> {
+async function checkResultsRegionBlocked(
+  page: Page,
+  path: string,
+  engine: string,
+  containerTestId: string = "sleep-efficiency-calculator",
+  fillImpossible?: (container: ReturnType<Page["locator"]>) => Promise<string | null>,
+): Promise<string[]> {
   const problems: string[] = [];
-  const container = page.locator('[data-testid="sleep-efficiency-calculator"]');
+  const container = page.locator(`[data-testid="${containerTestId}"]`);
   const resultsRegion = container.locator('[data-testid="labs-calculation-results"]');
   const copyButton = container.getByRole("button", { name: /copia risultati|copy results/i });
   const downloadButton = container.getByRole("button", { name: /scarica csv|download csv/i });
 
-  const hourInputs = container.locator('input[type="number"]');
-  const count = await hourInputs.count();
-  if (count < 4) {
-    problems.push(`[${engine}] [${path}] attesi almeno 4 input numerici in modalità semplice, trovati ${count}.`);
-    return problems;
+  if (fillImpossible) {
+    const err = await fillImpossible(container);
+    if (err) {
+      problems.push(`[${engine}] [${path}] ${err}`);
+      return problems;
+    }
+  } else {
+    const hourInputs = container.locator('input[type="number"]');
+    const count = await hourInputs.count();
+    if (count < 4) {
+      problems.push(`[${engine}] [${path}] attesi almeno 4 input numerici in modalità semplice, trovati ${count}.`);
+      return problems;
+    }
+    await hourInputs.nth(0).fill("1"); // 1h a letto
+    await hourInputs.nth(1).fill("0");
+    await hourInputs.nth(2).fill("5"); // 5h dormite > 1h a letto: impossibile
+    await hourInputs.nth(3).fill("0");
   }
-  await hourInputs.nth(0).fill("1"); // 1h a letto
-  await hourInputs.nth(1).fill("0");
-  await hourInputs.nth(2).fill("5"); // 5h dormite > 1h a letto: impossibile
-  await hourInputs.nth(3).fill("0");
   await page.waitForTimeout(200);
 
   const alert = container.locator('[role="alert"]');
@@ -435,6 +456,49 @@ async function runForEngine(engineName: string, launcher: BrowserType): Promise<
         ...(await checkCalculatorControls(page, path, engineName, "hrv-calculator", "hrv")),
         ...(await checkKeyboardWalk(page, path, engineName, "hrv-calculator", "hrv")),
         ...(await checkResultsRegionPositive(page, path, engineName)),
+      );
+      continue;
+    }
+
+    if (tool === "heart-rate-zones") {
+      const testId = "heart-rate-zones-calculator";
+      problems.push(...(await checkNativeRadioSemantics(page, path, engineName, testId)));
+
+      for (const mode of ["estimated", "measured"] as const) {
+        await page.goto(`${BASE_URL}${path}`, { waitUntil: "networkidle" });
+        const modeRadio = page.locator(`[data-testid="${testId}"] input[type="radio"][value="${mode}"]`);
+        const modeSwitched = await modeRadio
+          .click({ force: true, timeout: 5000 })
+          .then(() => true)
+          .catch(() => false);
+        if (!modeSwitched) {
+          problems.push(
+            `[${engineName}] [${path}/${mode}] impossibile selezionare la modalità via input[type=radio][value=${mode}] - semantica radio nativa assente o rotta, salto la verifica dei controlli per questa modalità.`,
+          );
+          continue;
+        }
+        await page.waitForTimeout(150);
+        await loadSampleData(page);
+
+        problems.push(
+          ...(await checkCalculatorControls(page, path, engineName, testId, mode)),
+          ...(await checkKeyboardWalk(page, path, engineName, testId, mode)),
+          ...(await checkResultsRegionPositive(page, path, engineName)),
+        );
+      }
+
+      // Percorso bloccante: età 95 (valida, 5-100) -> FC max stimata ~141.5,
+      // FC riposo 145 (valida, 25-150) ma >= FC max stimata: impossibile.
+      await page.goto(`${BASE_URL}${path}`, { waitUntil: "networkidle" });
+      problems.push(
+        ...(await checkResultsRegionBlocked(page, path, engineName, testId, async (container) => {
+          const numberInputs = container.locator('input[type="number"]');
+          const count = await numberInputs.count();
+          if (count < 2) return `attesi almeno 2 input numerici (età/FC max, FC a riposo), trovati ${count}.`;
+          await numberInputs.nth(0).fill("95");
+          await numberInputs.nth(1).fill("145");
+          return null;
+        })),
       );
       continue;
     }

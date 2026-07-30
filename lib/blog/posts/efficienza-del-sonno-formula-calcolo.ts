@@ -234,6 +234,7 @@ export const post: BlogPost = {
     "hrv-cose-significato-valori",
     "metriche-recupero-hrv-sonno-frequenza-cardiaca",
     "tracciare-sonno-anello",
+    "sleep-score-regolarita-ritmo-circadiano",
   ],
   ldType: "BlogPosting",
 };

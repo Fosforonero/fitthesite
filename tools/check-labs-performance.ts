@@ -16,6 +16,9 @@ const PAGES = [
   "/en/labs/hrv-rmssd-calculator",
   "/it/labs/calcolatore-efficienza-sonno",
   "/en/labs/sleep-efficiency-calculator",
+  // P1.4B: terzo tool live.
+  "/it/labs/calcolatore-zone-frequenza-cardiaca",
+  "/en/labs/heart-rate-zones-calculator",
 ];
 
 const LCP_BUDGET_MS = 2000;
