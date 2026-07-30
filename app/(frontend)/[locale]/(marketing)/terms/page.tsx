@@ -203,7 +203,7 @@ function TermsIT() {
             <span><strong className="text-text-primary">Sblocco a vita (acquisto unico), €3,99 su Android (€4,99 su iPhone):</strong> sblocca permanentemente tutte le funzionalità Pro sull'account associato, con un pagamento singolo. Nessun rinnovo.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Founder Pro (primi 1000 account, gratuito):</strong> gli account registrati tra i primi 1000 ricevono automaticamente l'accesso Pro a vita, senza alcun costo. Nessuna scadenza, nessun acquisto richiesto. Il beneficio è concesso automaticamente alla registrazione e <strong className="text-text-primary">non è in alcun modo subordinato</strong> al rilascio di recensioni, valutazioni a stelle o altre azioni promozionali.</span>
+            <span><strong className="text-text-primary">Founder Pro (primi 1.000 account, gratuito):</strong> gli account registrati entro il 31 luglio 2026, con una prima sincronizzazione reale verificata entro 14 giorni dalla registrazione, tra i primi 1.000 a soddisfare questi requisiti, ricevono l'accesso Pro a vita, senza alcun costo, nessuna scadenza e nessun acquisto richiesto. Il beneficio <strong className="text-text-primary">non è in alcun modo subordinato</strong> al rilascio di recensioni, valutazioni a stelle o altre azioni promozionali. Gli account creati dal 1° agosto 2026 non sono idonei al programma Founder.</span>
           </li>
         </ul>
         <p>I prezzi indicati sono prezzi di lancio e potranno aumentare in futuro per i nuovi acquisti; il prezzo applicato resta quello mostrato al momento dell'acquisto.</p>
@@ -410,7 +410,7 @@ function TermsEN() {
             <span><strong className="text-text-primary">Lifetime unlock (one-time purchase), €3.99 on Android (€4.99 on iPhone):</strong> unlocks all Pro features permanently on the associated account with a single payment. No renewal.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Founder Pro (first 1,000 accounts, free):</strong> accounts registered among the first 1,000 automatically receive lifetime Pro access at no cost. No expiry date, no purchase required. The benefit is granted automatically on signup and is <strong className="text-text-primary">in no way conditional</strong> on leaving reviews, star ratings or any other promotional action.</span>
+            <span><strong className="text-text-primary">Founder Pro (first 1,000 accounts, free):</strong> accounts registered by 31 July 2026, with a first verified sync within 14 days of registration, among the first 1,000 to meet these requirements, receive lifetime Pro access at no cost, no expiry date and no purchase required. The benefit is <strong className="text-text-primary">in no way conditional</strong> on leaving reviews, star ratings or any other promotional action. Accounts created from 1 August 2026 are not eligible for the Founder program.</span>
           </li>
         </ul>
         <p>The prices shown are launch prices and may increase in the future for new purchases; the price that applies is the one shown to you at the time of purchase.</p>
@@ -619,7 +619,7 @@ function TermsES() {
             <span><strong className="text-text-primary">Desbloqueo de por vida (pago único), 3,99 € en Android (4,99 € en iPhone):</strong> desbloquea de forma permanente todas las funciones Pro en la cuenta asociada con un único pago. Sin renovación.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Founder Pro (primeras 1.000 cuentas, gratuito):</strong> las cuentas registradas entre las primeras 1.000 reciben automáticamente acceso Pro de por vida, sin coste alguno. Sin fecha de vencimiento, sin compra requerida.</span>
+            <span><strong className="text-text-primary">Founder Pro (primeras 1.000 cuentas, gratuito):</strong> las cuentas registradas antes del 31 de julio de 2026, con una primera sincronización real verificada en los 14 días posteriores al registro, entre las primeras 1.000 en cumplir estos requisitos, reciben acceso Pro de por vida, sin coste alguno, sin fecha de vencimiento y sin compra requerida. El beneficio no está en modo alguno condicionado a dejar reseñas, valoraciones con estrellas u otras acciones promocionales. Las cuentas creadas a partir del 1 de agosto de 2026 no son elegibles para el programa Founder.</span>
           </li>
         </ul>
         <p>Los precios indicados son precios de lanzamiento y podrán aumentar en el futuro para las nuevas compras; el precio aplicable es el que se te muestra en el momento de la compra.</p>
@@ -833,7 +833,7 @@ function TermsDE() {
             <span><strong className="text-text-primary">Lebenslange Freischaltung (Einmalkauf), 3,99 € auf Android (4,99 € auf iPhone):</strong> schaltet mit einer einzigen Zahlung dauerhaft alle Pro-Funktionen für das verknüpfte Konto frei. Keine Verlängerung.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Founder Pro (erste 1.000 Konten, kostenlos):</strong> Konten, die unter den ersten 1.000 registriert wurden, erhalten automatisch lebenslangen Pro-Zugang ohne Kosten. Kein Ablaufdatum, kein Kauf erforderlich.</span>
+            <span><strong className="text-text-primary">Founder Pro (erste 1.000 Konten, kostenlos):</strong> Konten, die bis zum 31. Juli 2026 registriert wurden und eine echte, verifizierte erste Synchronisierung innerhalb von 14 Tagen nach der Registrierung durchgeführt haben, erhalten – sofern sie zu den ersten 1.000 gehören, die diese Voraussetzungen erfüllen – lebenslangen Pro-Zugang ohne Kosten, ohne Ablaufdatum und ohne erforderlichen Kauf. Der Vorteil ist in keiner Weise an das Hinterlassen von Bewertungen, Sternebewertungen oder andere Werbemaßnahmen geknüpft. Ab dem 1. August 2026 erstellte Konten sind nicht für das Founder-Programm berechtigt.</span>
           </li>
         </ul>
         <p>Die angegebenen Preise sind Einführungspreise und können in Zukunft für neue Käufe steigen; es gilt jeweils der Preis, der dir zum Zeitpunkt des Kaufs angezeigt wird.</p>
@@ -1047,7 +1047,7 @@ function TermsPT() {
             <span><strong className="text-text-primary">Desbloqueio vitalício (compra única), €3,99 no Android (€4,99 no iPhone):</strong> desbloqueia permanentemente todas as funcionalidades Pro na conta associada com um único pagamento. Sem renovação.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Founder Pro (primeiras 1.000 contas, gratuito):</strong> contas registradas entre as primeiras 1.000 recebem automaticamente acesso Pro vitalício, sem qualquer custo. Sem data de expiração, sem compra necessária.</span>
+            <span><strong className="text-text-primary">Founder Pro (primeiras 1.000 contas, gratuito):</strong> contas registradas até 31 de julho de 2026, com uma primeira sincronização real verificada em até 14 dias após o registo, entre as primeiras 1.000 a cumprir estes requisitos, recebem acesso Pro vitalício, sem qualquer custo, sem data de expiração e sem compra necessária. O benefício não está de forma alguma condicionado à publicação de avaliações, classificações por estrelas ou outras ações promocionais. Contas criadas a partir de 1 de agosto de 2026 não são elegíveis para o programa Founder.</span>
           </li>
         </ul>
         <p>Os preços indicados são preços de lançamento e poderão aumentar no futuro para novas compras; o preço aplicável é aquele exibido a você no momento da compra.</p>
@@ -1260,7 +1260,7 @@ function TermsFR() {
             <span><strong className="text-text-primary">Déblocage à vie (achat unique), 3,99 € sur Android (4,99 € sur iPhone) :</strong> débloque définitivement toutes les fonctionnalités Pro sur le compte associé avec un paiement unique. Aucun renouvellement.</span>
           </li>
           <li className="flex gap-2"><span className="text-brand-aqua mt-0.5">•</span>
-            <span><strong className="text-text-primary">Founder Pro (1 000 premiers comptes, gratuit) :</strong> les comptes enregistrés parmi les 1 000 premiers reçoivent automatiquement un accès Pro à vie, sans frais. Aucune date d'expiration, aucun achat requis.</span>
+            <span><strong className="text-text-primary">Founder Pro (1 000 premiers comptes, gratuit) :</strong> les comptes enregistrés avant le 31 juillet 2026, avec une première synchronisation réelle vérifiée dans les 14 jours suivant l'inscription, parmi les 1 000 premiers à remplir ces conditions, bénéficient d'un accès Pro à vie, sans frais, sans date d'expiration et sans achat requis. Cet avantage n'est en aucun cas conditionné à la publication d'avis, de notations par étoiles ou à toute autre action promotionnelle. Les comptes créés à partir du 1er août 2026 ne sont pas éligibles au programme Founder.</span>
           </li>
         </ul>
         <p>Les prix indiqués sont des prix de lancement et pourront augmenter à l'avenir pour les nouveaux achats ; le prix applicable est celui qui vous est affiché au moment de l'achat.</p>

@@ -18,6 +18,7 @@
     "founder:cutoff-render-check": "tsx tools/check-founder-cutoff-render.ts",
     "founder:migration-identity-check": "tsx tools/check-founder-migration-identity.ts",
     "founder:static-invariant-check": "tsx tools/check-founder-static-invariant.ts",
+    "founder:metadata-invariant-check": "tsx tools/check-founder-metadata-invariant.ts",
     "post-founder:pricing-check": "tsx tools/check-post-founder-pricing.ts",
     "ring-watch:claims-check": "tsx tools/check-ring-watch-article-claims.ts",
     "labs:katex-input-check": "tsx tools/check-katex-no-user-input.ts",
