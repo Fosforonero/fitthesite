@@ -181,8 +181,13 @@ if (!fs.existsSync(PRERENDER_MANIFEST_PATH)) {
     "/it/sync/galaxy-watch",
     // Sprint P0.10: /beta diventa archivio Founder ma DEVE restare statica
     // (nessun force-dynamic) esattamente come la homepage — zero decisione
-    // temporale lato server, il gate aperto/chiuso e' interamente client
-    // side (FounderClientGate), vedi check 9 sotto.
+    // temporale lato server.
+    // Sprint P0.10K: e ora nemmeno lato client. Il gate aperto/chiuso e'
+    // stato rimosso da entrambe le pagine (chiusura commerciale del sito):
+    // il corpo e' testo invariante renderizzato sempre uguale, quindi la
+    // pretesa di prerender qui e' oggi ancora piu' forte di prima — non c'e'
+    // alcuna ragione residua per cui queste route debbano diventare
+    // dinamiche.
     "/it/beta",
     "/en/beta",
   ];
@@ -203,6 +208,16 @@ if (!fs.existsSync(PRERENDER_MANIFEST_PATH)) {
 // ── 9. FounderClientGate resta client-only, zero rete (ridondante con
 //    founder:window-check di proposito: quel guardrail puo' evolvere per
 //    altre ragioni, questo resta l'ultima linea di difesa Fluid CPU) ──────
+// Sprint P0.10K: il componente NON ha piu' alcun consumer pubblico —
+// homepage, nav, menu mobile, footer e /beta sono state rese statiche e
+// permanenti, il file resta nel repo ma non viene renderizzato da nessuna
+// pagina. Il check resta, e resta invariato, come tripwire: se qualcuno lo
+// ricollega a una superficie, deve trovarlo ancora client-only e senza
+// rete, invece di ritrovarsi il componente nel frattempo "evoluto" a
+// Server Component o con una fetch dentro, cioe' proprio la regressione
+// Fluid CPU che questo file esiste per impedire. Costo zero, valore alto:
+// non e' un controllo su una superficie viva, e' un controllo sull'attrezzo
+// prima che torni in uso.
 const FOUNDER_GATE_REL = "components/founder/FounderClientGate.tsx";
 const founderGateRaw = read(FOUNDER_GATE_REL);
 if (founderGateRaw === null) {

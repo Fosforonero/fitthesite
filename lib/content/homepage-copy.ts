@@ -39,32 +39,12 @@ export const HOMEPAGE_COPY = {
     fi: "FitMesh Sync on hallintapaneeli, joka kokoaa Galaxy Watchin, Wear OS:n, Mi Bandin, Garminin, Fitbitin ja muiden Android-puettavien tiedot yhteen näkymään, joka asettaa yksityisyyden etusijalle ja toimii EU-palvelimilla.",
   } satisfies Localized,
 
-  founderCta: {
-    it: "Diventa founder",
-    en: "Become a founder",
-    es: "Conviértete en founder",
-    de: "Founder werden",
-    pt: "Torna-te fundador",
-    fr: "Devenir fondateur",
-    pl: "Zostań founderem",
-    tr: "Kurucu üye ol",
-    nl: "Word founder",
-    ja: "ファウンダーになる",
-    ko: "파운더 되기",
-    sv: "Bli founder",
-    da: "Bliv founder",
-    no: "Bli grunnlegger",
-    fi: "Ryhdy perustajajäseneksi",
-  } satisfies Localized,
-
   /**
-   * Sprint P0.10 — copy evergreen post-Founder, usata da FounderClientGate
-   * per la card prova nella sezione pricing e per la riga finale della
-   * banda CTA. Il programma Founder chiude il 31/07/2026 22:00 UTC
-   * (FOUNDER_END_AT in lib/founder/program-window.ts): da quel momento
-   * questi due campi sostituiscono founderName/founderTagline e
-   * founderPromo/finalCtaAfterLaunch nell'HTML, senza alcuna richiesta di
-   * rete (decisione client-only).
+   * Sprint P0.10 / P0.10K — copy permanente post-Founder (chiusura
+   * commerciale del sito), usata per la card prova nella sezione pricing e
+   * per la riga finale della banda CTA. Prima del 31/07/2026 questi due
+   * campi erano il ramo `evergreen` di FounderClientGate; ora sono l'unico
+   * contenuto renderizzato, senza gate ne' richiesta di rete.
    */
   trialName: {
     it: "14 giorni gratis",
@@ -576,58 +556,4 @@ export const HOMEPAGE_COPY = {
     fi: "Lue",
   } satisfies Localized,
 
-  finalCtaBadgeLive: {
-    it: "Android e iOS · 1000 founder",
-    en: "Android & iOS · 1000 founders",
-    es: "Android e iOS · 1000 founders",
-    de: "Android & iOS · 1000 Founder",
-    pt: "Android e iOS · 1000 fundadores",
-    fr: "Android et iOS · 1000 fondateurs",
-    pl: "Android i iOS · 1000 founderów",
-    tr: "Android ve iOS · 1000 kurucu üye",
-    nl: "Android & iOS · 1000 founders",
-    ja: "Android & iOS・ファウンダー1000名",
-    ko: "Android & iOS · 파운더 1000명",
-    sv: "Android och iOS · 1000 founder-platser",
-    da: "Android & iOS · 1000 founders",
-    no: "Android og iOS · 1000 grunnleggere",
-    fi: "Android ja iOS · 1000 perustajaa",
-  } satisfies Localized,
-
-
-  finalCtaButton: {
-    it: "Voglio essere founder",
-    en: "I want to be a founder",
-    es: "Quiero ser founder",
-    de: "Ich will Founder werden",
-    pt: "Quero ser fundador",
-    fr: "Je veux être fondateur",
-    pl: "Chcę zostać founderem",
-    tr: "Kurucu üye olmak istiyorum",
-    nl: "Ik wil founder worden",
-    ja: "ファウンダーになりたい",
-    ko: "파운더가 되고 싶어요",
-    sv: "Jag vill bli founder",
-    da: "Jeg vil være founder",
-    no: "Jeg vil bli grunnlegger",
-    fi: "Haluan perustajaksi",
-  } satisfies Localized,
-
-  finalCtaAfterLaunch: {
-    it: "Dopo il lancio pubblico, acquisto unico",
-    en: "After public launch, one-time",
-    es: "Tras el lanzamiento público, pago único",
-    de: "Nach dem offiziellen Launch, einmalig",
-    pt: "Após o lançamento público, pagamento único",
-    fr: "Après le lancement public, paiement unique",
-    pl: "Po oficjalnej premierze, jednorazowo",
-    tr: "Herkese açık lansmandan sonra, tek seferlik",
-    nl: "Na publieke lancering, eenmalig",
-    ja: "正式リリース後は買い切りで",
-    ko: "정식 출시 후, 1회 결제",
-    sv: "Efter lansering till allmänheten, engångskostnad",
-    da: "Efter offentlig lancering, engangsbeløb",
-    no: "Etter offentlig lansering, engangsbeløp",
-    fi: "Julkisen lanseerauksen jälkeen, kertamaksu",
-  } satisfies Localized,
 } as const;

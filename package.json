@@ -19,6 +19,7 @@
     "founder:migration-identity-check": "tsx tools/check-founder-migration-identity.ts",
     "founder:static-invariant-check": "tsx tools/check-founder-static-invariant.ts",
     "founder:metadata-invariant-check": "tsx tools/check-founder-metadata-invariant.ts",
+    "founder:acquisition-surfaces-check": "tsx tools/check-founder-acquisition-surfaces.ts",
     "post-founder:pricing-check": "tsx tools/check-post-founder-pricing.ts",
     "ring-watch:claims-check": "tsx tools/check-ring-watch-article-claims.ts",
     "labs:katex-input-check": "tsx tools/check-katex-no-user-input.ts",

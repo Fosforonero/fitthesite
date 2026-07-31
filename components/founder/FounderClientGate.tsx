@@ -13,6 +13,18 @@ import { FOUNDER_END_AT_MS, isFounderProgramOpen } from "@/lib/founder/program-w
 const MAX_SAFE_DELAY_MS = 2_147_000_000; // poco sotto 2^31-1, margine di sicurezza
 
 /**
+ * Sprint P0.10K (2026-07-31): NESSUN consumer pubblico da questo sprint in
+ * poi — homepage/header/footer/menu mostrano ora sempre e solo il ramo
+ * evergreen, hardcoded, senza gate (chiusura commerciale del sito
+ * anticipata rispetto al cutoff backend). Questo componente resta nel repo
+ * — coperto da FounderClientGate.test.tsx, referenziato dall'allowlist di
+ * check-founder-static-invariant.ts/check-founder-window.ts/
+ * check-vercel-fluid-cpu.ts — invece di essere cancellato: e' un
+ * meccanismo generico (toggle client-side basato sull'orologio con
+ * auto-transizione via singolo setTimeout), non logica di business, e la
+ * sua rimozione forzerebbe una riscrittura non necessaria di quei
+ * guardrail. Non ha piu' alcun punto di rendering pubblico.
+ *
  * Sprint P0.10: homepage e /beta restano completamente STATICHE — nessuna
  * decisione temporale lato server, nessuna query Supabase/API/funzione
  * Vercel coinvolta. Questo componente decide quale variante mostrare

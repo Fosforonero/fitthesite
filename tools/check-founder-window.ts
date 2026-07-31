@@ -8,8 +8,9 @@
  *  1. il modulo non esiste o FOUNDER_END_AT non è esattamente il valore
  *     canonico atteso;
  *  2. quel timestamp (o uno simile ma diverso, sintomo di una scadenza
- *     copiata a mano) compare hardcodato altrove in app/components/lib
- *     fuori dai file ammessi;
+ *     copiata a mano) compare hardcodato NEL CODICE altrove in
+ *     app/components/lib fuori dai file ammessi (i commenti sono esclusi:
+ *     citare il cutoff in prosa non crea una seconda fonte di verità);
  *  3. la funzione SQL `private.grant_founder_launch_core` (nell'ultima
  *     migration che la ridefinisce) non contiene lo stesso timestamp —
  *     cioè se TS e SQL divergono;
@@ -103,7 +104,16 @@ for (const file of filesToScan) {
   const rel = path.relative(repoRoot, file);
   if (ALLOWED_TIMESTAMP_FILES.has(rel)) continue;
 
-  const content = fs.readFileSync(file, "utf8");
+  // stripComments() come nei check 4-7: quello che questo check vieta e' un
+  // timestamp DUPLICATO NEL CODICE (che diverge in silenzio se
+  // program-window.ts cambia). Un commento che cita il cutoff per spiegare
+  // perche' il file NON lo ricopia — vedi l'header di beta/page.tsx, che
+  // dice testualmente "unica fonte di verita' in program-window.ts, il
+  // valore NON va ricopiato qui" — e' documentazione corretta, non una
+  // seconda fonte di verita': non compila, non renderizza, non puo'
+  // divergere. Senza lo strip il guardrail sparava sulla propria
+  // documentazione.
+  const content = stripComments(fs.readFileSync(file, "utf8"));
   let m: RegExpExecArray | null;
   NEARBY_TIMESTAMP_RE.lastIndex = 0;
   while ((m = NEARBY_TIMESTAMP_RE.exec(content)) !== null) {

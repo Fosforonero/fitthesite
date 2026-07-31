@@ -610,32 +610,32 @@
       "da": "FitMesh er i gang med at udvikle en indbygget integration, der henter dine sundheds- og fitnessdata fra Huawei direkte fra Huawei Health Kit-skyen. Det betyder, at den fungerer på alle Android-enheder uden behov for Health Connect. Når integrationen går i luften, vil FitMesh hente dine data direkte fra Huaweis cloud og vise dem i dit samlede kontrolpanel. Datatyper, der er omfattet af den planlagte integration: skridt, søvn, puls, SpO2, kalorier."
     },
     "body.8.text": {
-      "sv": "Så här registrerar du dig för Huaweis betaversion",
-      "da": "Sådan tilmelder du dig Huawei-betaversionen"
+      "sv": "Status för Huawei-integrationen",
+      "da": "Status for Huawei-integrationen"
     },
     "body.9.text": {
-      "sv": "Integrationen med Huawei är under aktiv utveckling. Om du har en Huawei-enhet och vill vara bland de första att testa den kan du anmäla dig till FitMesh-betalistan: vi meddelar dig så snart den blir tillgänglig för testning.",
-      "da": "Integrationen med Huawei er i fuld gang. Hvis du har en Huawei-enhed og gerne vil være blandt de første til at afprøve den, kan du tilmelde dig FitMesh-betalisten: Vi giver dig besked, så snart den er klar til test."
+      "sv": "Den inbyggda Huawei-integrationen är under aktiv utveckling och är ännu inte tillgänglig. När den är klar kommer den med en uppdatering av FitMesh-appen, tillsammans med versionsinformationen som beskriver hur den fungerar.",
+      "da": "Den indbyggede Huawei-integration er under aktiv udvikling og er endnu ikke tilgængelig. Når den er klar, kommer den med en opdatering af FitMesh-appen sammen med de udgivelsesnoter, der beskriver, hvordan den fungerer."
     },
     "body.10.title": {
-      "sv": "Har du en Huawei-enhet? Delta i Huaweis betatest av FitMesh",
-      "da": "Har du en Huawei-enhed? Deltag i Huawei-betaversionen af FitMesh"
+      "sv": "Har du en Huawei-enhet? Huawei-integrationen i FitMesh är på väg",
+      "da": "Har du en Huawei-enhed? Huawei-integrationen i FitMesh er på vej"
     },
     "body.10.body": {
-      "sv": "Vi håller på att utveckla en inbyggd integration som hämtar dina Huawei-data direkt från Huawei Health Kit-molnet, utan att du behöver Health Connect. Anmäl dig till betalistan: vi meddelar dig när det är dags att testa.",
-      "da": "Vi er i gang med at udvikle en indbygget integration, der henter dine Huawei-data direkte fra Huawei Health Kit-skyen – uden brug af Health Connect. Tilmeld dig betatestlisten: Vi giver dig besked, når den er klar til test."
+      "sv": "Vi håller på att utveckla en inbyggd integration som hämtar dina Huawei-data direkt från Huawei Health Kit-molnet, utan att du behöver Health Connect. Under tiden kan du ladda ner FitMesh och prova den synkronisering som redan finns.",
+      "da": "Vi er i gang med at udvikle en indbygget integration, der henter dine Huawei-data direkte fra Huawei Health Kit-skyen, uden brug af Health Connect. I mellemtiden kan du downloade FitMesh og prøve den synkronisering, der allerede er tilgængelig."
     },
     "body.10.ctaLabel": {
-      "sv": "Anmäl dig till betaversionen",
-      "da": "Tilmeld dig betaversionen"
+      "sv": "Ladda ner FitMesh och prova gratis",
+      "da": "Download FitMesh og prøv gratis"
     },
     "faq.0.q": {
       "sv": "Skriver Huawei Health till Health Connect?",
       "da": "Skriver Huawei Health til Health Connect?"
     },
     "faq.0.a": {
-      "sv": "Nej. År 2026 har Huawei Health ingen inbyggd integration med Health Connect. HMS och GMS är separata ekosystem. För att överföra dina data behöver du för närvarande en tredjepartsapp som fungerar som en brygga, eller så kan du registrera dig för betaversionen av FitMesh: FitMesh kommer att läsa dina data direkt från Huawei Health Kit-molnet, på vilken Android-enhet som helst, utan att Health Connect krävs.",
-      "da": "Nej. I 2026 har Huawei Health ikke indbygget integration med Health Connect. HMS og GMS er separate økosystemer. For at overføre dine data skal du i øjeblikket bruge en tredjeparts-bro-app, eller du kan tilmelde dig FitMesh-betaversionen: FitMesh vil læse dine data direkte fra Huawei Health Kit-skyen på enhver Android-enhed, uden at Health Connect er påkrævet."
+      "sv": "Nej. År 2026 har Huawei Health ingen inbyggd integration med Health Connect. HMS och GMS är separata ekosystem. För att överföra dina data behöver du för närvarande en tredjepartsapp som fungerar som en brygga. FitMeshs inbyggda Huawei-stöd, som läser dina data direkt från Huawei Health Kit-molnet på vilken Android-enhet som helst utan att Health Connect krävs, är under utveckling och är ännu inte tillgängligt.",
+      "da": "Nej. I 2026 har Huawei Health ikke indbygget integration med Health Connect. HMS og GMS er separate økosystemer. For at overføre dine data skal du i øjeblikket bruge en tredjeparts-bro-app. FitMeshs indbyggede Huawei-understøttelse, som henter dine data direkte fra Huawei Health Kit-skyen på enhver Android-enhed uden behov for Health Connect, er under udvikling og endnu ikke tilgængelig."
     },
     "faq.1.q": {
       "sv": "Kan jag synkronisera data från Huawei Health till Health Connect idag?",
@@ -650,8 +650,8 @@
       "da": "Hvornår bliver Huawei-support tilgængelig i FitMesh?"
     },
     "faq.2.a": {
-      "sv": "FitMesh:s inbyggda Huawei-integration, som hämtar data direkt från Huawei Health Kit-molnet, är under aktiv utveckling. Det finns ännu inget specifikt datum, men de som är registrerade i Huaweis betaprogram kommer att vara de första som får besked. Registrera dig på /beta för att få uppdateringen.",
-      "da": "FitMesh’s indbyggede Huawei-integration, som henter data direkte fra Huawei Health Kit-skyen, er i fuld gang med at blive udviklet. Der er endnu ingen konkret dato, men Huawei-betabrugere vil være de første, der får besked. Tilmeld dig på /beta for at modtage opdateringen."
+      "sv": "FitMeshs inbyggda Huawei-integration, som hämtar data direkt från Huawei Health Kit-molnet, är under aktiv utveckling och är ännu inte tillgänglig. Det finns ännu inget specifikt datum: uppdateringen aviseras i versionsinformationen för FitMesh-appen. [Ladda ner FitMesh](/sv#download) för att få uppdateringen när den släpps.",
+      "da": "FitMeshs indbyggede Huawei-integration, som henter data direkte fra Huawei Health Kit-skyen, er under aktiv udvikling og endnu ikke tilgængelig. Der er endnu ingen konkret dato: opdateringen bliver annonceret i udgivelsesnoterne for FitMesh-appen. [Download FitMesh](/da#download) for at få opdateringen, når den udkommer."
     },
     "faq.3.q": {
       "sv": "Kan man komma åt Huaweis data via Health Connect?",
@@ -679,12 +679,12 @@
       "sv": [
         "Huawei Health skriver inte direkt till Health Connect. Detta är en strukturell begränsning i HMS-ekosystemet, som är skilt från GMS.",
         "Den enda tillgängliga lösningen just nu är en tredjepartsapp som fungerar som en brygga. FitMesh arbetar med att utveckla direkt åtkomst till molnet via Huawei Health Kit för en inbyggd lösning, som kommer snart.",
-        "Om du har en Huawei-enhet kan du redan nu anmäla dig till FitMesh-betaversionen av Huawei Support så snart den blir tillgänglig"
+        "Den inbyggda Huawei-integrationen är under utveckling och är ännu inte tillgänglig: när den är klar kommer den med en uppdatering av FitMesh-appen"
       ],
       "da": [
         "Huawei Health skriver ikke direkte til Health Connect. Dette er en strukturel begrænsning i HMS-økosystemet, som er adskilt fra GMS.",
         "Den eneste løsning, der er tilgængelig i dag, er en tredjeparts-bro-app. FitMesh er i gang med at udvikle direkte adgang til skyen via Huawei Health Kit som en indbygget løsning, der snart kommer.",
-        "Hvis du har en Huawei-enhed, kan du allerede nu tilmelde dig FitMesh-betaversionen af Huawei Support, så snart den bliver tilgængelig"
+        "Den indbyggede Huawei-integration er under udvikling og endnu ikke tilgængelig: når den er klar, kommer den med en opdatering af FitMesh-appen"
       ]
     },
     "body.7.headers": {
@@ -1446,12 +1446,12 @@
       "da": "Vil du gerne se dine Xiaomi- og Amazfit-data på dit eget kontrolpanel?"
     },
     "body.19.body": {
-      "sv": "FitMesh Sync hämtar data från Health Connect och sammanställer information från Mi Band, Amazfit och alla andra anslutna enheter i en webbpanel som är tillgänglig via webbläsaren. Dina data sparas på din telefon: FitMesh varken säljer eller delar dem med tredje part. Gå med i grundarnas nätverk för att få tidig tillgång.",
-      "da": "FitMesh Sync henter data fra Health Connect og samler data fra Mi Band, Amazfit og alle andre tilsluttede enheder i et webdashboard, der kan tilgås via en browser. Dine data forbliver på din telefon: FitMesh sælger dem ikke og deler dem ikke med tredjeparter. Tilmeld dig sammen med stifterne for at få tidlig adgang."
+      "sv": "FitMesh Sync hämtar data från Health Connect och sammanställer information från Mi Band, Amazfit och alla andra anslutna enheter i en webbpanel som är tillgänglig via webbläsaren. Dina data sparas på din telefon: FitMesh varken säljer eller delar dem med tredje part. Ladda ner FitMesh och prova det gratis.",
+      "da": "FitMesh Sync henter data fra Health Connect og samler data fra Mi Band, Amazfit og alle andre tilsluttede enheder i et webdashboard, der kan tilgås via en browser. Dine data forbliver på din telefon: FitMesh sælger dem ikke og deler dem ikke med tredjeparter. Download FitMesh, og prøv det gratis."
     },
     "body.19.ctaLabel": {
-      "sv": "Gå med i grundarprogrammet →",
-      "da": "Tilmeld dig grundlæggerprogrammet →"
+      "sv": "Ladda ner FitMesh och prova gratis →",
+      "da": "Download FitMesh og prøv gratis →"
     },
     "faq.0.q": {
       "sv": "Synkroniseras Mi Band 8 med Health Connect?",
@@ -1868,8 +1868,8 @@
       "da": "FitMesh Sync indsamler data fra Health Connect og HealthKit (hvor Withings skriver automatisk) og samler dem i et web-dashboard, der er tilgængeligt via browseren. Ingen manuel eksport, ingen ekstra apps: Det fungerer fra det øjeblik, du godkender Health Connect for første gang. Europæiske servere, EU-databeskyttelse, intet abonnement kræves for at komme i gang."
     },
     "body.22.ctaLabel": {
-      "sv": "Anmäl dig till FitMesh Sync-grundarprogrammet",
-      "da": "Bliv en del af FitMesh Sync-grundlæggerprogrammet"
+      "sv": "Ladda ner FitMesh och prova gratis",
+      "da": "Download FitMesh og prøv gratis"
     },
     "faq.0.q": {
       "sv": "Ansluts Withings direkt till Health Connect, eller måste jag göra något?",
@@ -2176,12 +2176,12 @@
       "da": "Vil du prøve at se dine Pixel Watch-data på dashboardet?"
     },
     "body.15.body": {
-      "sv": "FitMesh Sync befinner sig i startfasen: tidig tillgång, fast pris under hela livslängden, möjlighet att vara med och forma produkten. Om du har en Pixel Watch (eller någon annan enhet som kan skriva till Health Connect) och vill ha en personlig webbpanel är det här rätt tillfälle.",
-      "da": "FitMesh Sync er i opstartsfasen: tidlig adgang, fast pris på livstid, mulighed for at være med til at forme produktet. Hvis du har et Pixel Watch (eller en hvilken som helst enhed, der kan skrive til Health Connect) og gerne vil have et personligt web-dashboard, er det nu, du skal slå til."
+      "sv": "FitMesh Sync ger dig en personlig webbpanel med dina Pixel Watch-data. Om du har en Pixel Watch (eller någon annan enhet som kan skriva till Health Connect) kan du testa alla Pro-funktioner gratis i 14 dagar.",
+      "da": "FitMesh Sync giver dig et personligt web-dashboard med dine Pixel Watch-data. Hvis du har et Pixel Watch (eller en hvilken som helst enhed, der kan skrive til Health Connect), kan du prøve alle Pro-funktionerne gratis i 14 dage."
     },
     "body.15.ctaLabel": {
-      "sv": "Bli medgrundare",
-      "da": "Bliv medstifter"
+      "sv": "Prova FitMesh",
+      "da": "Prøv FitMesh"
     },
     "faq.0.q": {
       "sv": "Skriver Pixel Watch automatiskt till Health Connect?",
@@ -2506,12 +2506,12 @@
       "da": "Forbind ringen og smarturet med FitMesh Sync"
     },
     "body.24.body": {
-      "sv": "FitMesh Sync finns tillgängligt på Google Play. De första 1 000 grundarna får Pro-versionen gratis för alltid, inklusive integration av ring och smartklocka på flera enheter i en enda kontrollpanel. Registrera dig nu för att säkra din plats.",
-      "da": "FitMesh Sync er tilgængeligt på Google Play. De første 1.000 grundlæggere får gratis Pro-abonnement på livstid, herunder integration af ring og smartwatch på tværs af enheder i ét samlet kontrolpanel. Tilmeld dig nu for at sikre dig en plads."
+      "sv": "FitMesh Sync finns tillgängligt på Google Play, med integration av ring och smartklocka på flera enheter i en enda kontrollpanel. De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis.",
+      "da": "FitMesh Sync er tilgængeligt på Google Play, med integration af ring og smartwatch på tværs af enheder i ét samlet kontrolpanel. De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis."
     },
     "body.24.ctaLabel": {
-      "sv": "Anmäl dig till betaversionen →",
-      "da": "Tilmeld dig betaversionen →"
+      "sv": "Ladda ner FitMesh och prova gratis →",
+      "da": "Download FitMesh og prøv gratis →"
     },
     "faq.0.q": {
       "sv": "Vad mäter en smart ring?",
@@ -2550,8 +2550,8 @@
       "da": "Skal man have et abonnement for at kunne bruge en smart ring?"
     },
     "faq.4.a": {
-      "sv": "Det beror på modellen. Vissa premiumringar kräver ett abonnemang för att låsa upp avancerade funktioner, medan det oftast inte krävs för budgetringar. Med FitMesh Sync samlas dina ringdata i en enda översiktspanel, och de första 1 000 grundarna får Pro-versionen gratis för alltid.",
-      "da": "Det afhænger af modellen. Nogle premium-ringe kræver et abonnement for at få adgang til avancerede funktioner, mens budget-ringe som regel ikke gør det. Med FitMesh Sync samles dine ringdata i ét samlet overblik, og de første 1.000 grundlæggere får Pro-versionen gratis på livstid."
+      "sv": "Det beror på modellen. Vissa premiumringar kräver ett abonnemang för att låsa upp avancerade funktioner, medan det oftast inte krävs för budgetringar. Med FitMesh Sync samlas dina ringdata i en enda översiktspanel. De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis.",
+      "da": "Det afhænger af modellen. Nogle premium-ringe kræver et abonnement for at få adgang til avancerede funktioner, mens budget-ringe som regel ikke gør det. Med FitMesh Sync samles dine ringdata i ét samlet overblik. De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis."
     },
     "faq.5.q": {
       "sv": "Fungerar en smart ring med iPhone och Android?",
@@ -2720,12 +2720,12 @@
       "da": "Vil du gerne se dine søvndata sammenholdt med dine dagsdata?"
     },
     "body.21.body": {
-      "sv": "FitMesh Sync finns tillgängligt på Google Play. De första 1 000 grundarna får Pro-versionen gratis för alltid, inklusive tillgång till den samlade kontrollpanelen för ring och smartklocka så snart produkten levereras.",
-      "da": "FitMesh Sync er tilgængeligt på Google Play. De første 1.000 grundlæggere får gratis Pro-abonnement på livstid, herunder adgang til det samlede ring- og smartwatch-dashboard, så snart det udkommer."
+      "sv": "FitMesh Sync finns tillgängligt på Google Play, med den samlade kontrollpanelen för ring och smartklocka. De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis.",
+      "da": "FitMesh Sync er tilgængeligt på Google Play, med det samlede ring- og smartwatch-dashboard. De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis."
     },
     "body.21.ctaLabel": {
-      "sv": "Anmäl dig till betaversionen →",
-      "da": "Tilmeld dig betaversionen →"
+      "sv": "Ladda ner FitMesh och prova gratis →",
+      "da": "Download FitMesh og prøv gratis →"
     },
     "faq.0.q": {
       "sv": "Kan en smart ring upptäcka sömnapné?",
@@ -3050,12 +3050,12 @@
       "da": "Har du en Colmi-ring og er du klar til at komme i gang?"
     },
     "body.27.body": {
-      "sv": "FitMesh Sync finns tillgängligt på Google Play. De första 1 000 grundarna får Pro gratis för alltid, inklusive tillgång till Colmi-ringfunktionen så snart den lanseras. Registrera dig nu för att säkra din plats.",
-      "da": "FitMesh Sync er tilgængeligt på Google Play. De første 1.000 grundlæggere får gratis Pro-abonnement på livstid, herunder adgang til Colmi-ring-funktionen, så snart den lanceres. Tilmeld dig nu for at sikre dig en plads."
+      "sv": "FitMesh Sync finns tillgängligt på Google Play, inklusive Colmi-ringfunktionen. De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis.",
+      "da": "FitMesh Sync er tilgængeligt på Google Play, inklusive Colmi-ring-funktionen. De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis."
     },
     "body.27.ctaLabel": {
-      "sv": "Anmäl dig till betaversionen",
-      "da": "Tilmeld dig betaversionen"
+      "sv": "Ladda ner FitMesh och prova gratis",
+      "da": "Download FitMesh og prøv gratis"
     },
     "faq.0.q": {
       "sv": "Är Colmi R02 vattentät?",
@@ -3155,7 +3155,7 @@
     },
     "body.13.items": {
       "sv": [
-        "**Installera FitMesh Sync**: Om du inte redan har gjort det kan du ladda ner den från Google Play Store. Betaversionen nås via en inbjudningslänk på sidan [/en/beta](/en/beta).",
+        "**Installera FitMesh Sync**: Om du inte redan har gjort det kan du ladda ner den från Google Play Store.",
         "**Öppna FitMesh och gå till ”Enheter”**: Välj enhetsmenyn på huvudskärmen eller tryck på ”+”-knappen för att lägga till en ny enhet.",
         "**Välj ”Smart ring” och sedan ”Colmi R02/R03”**: FitMesh startar en Bluetooth-sökning. Se till att Bluetooth är aktiverat på din telefon och att ringen befinner sig i närheten (inom 50 cm).",
         "**Koppla ihop ringen**: När Colmi R02 visas i listan över upptäckta enheter väljer du den. Kopplingen tar några sekunder. Ingen PIN-kod krävs.",
@@ -3163,7 +3163,7 @@
         "**Efterföljande synkroniseringar**: Framtida synkroniseringar sker automatiskt varje gång ringen befinner sig inom räckvidden för din telefon. Du behöver inte göra något manuellt."
       ],
       "da": [
-        "**Installer FitMesh Sync**: Hvis du ikke allerede har gjort det, kan du downloade den fra Google Play Store. Du får adgang til betaversionen via et invitationslink på siden [/en/beta](/en/beta).",
+        "**Installer FitMesh Sync**: Hvis du ikke allerede har gjort det, kan du downloade den fra Google Play Store.",
         "**Åbn FitMesh og gå til »Enheder«**: Vælg menuen »Enheder« på hovedskærmen, eller tryk på »+«-knappen for at tilføje en ny enhed.",
         "**Vælg »Smart ring« og derefter »Colmi R02/R03«**: FitMesh starter en Bluetooth-søgning. Sørg for, at Bluetooth er slået til på din telefon, og at ringen er i nærheden (inden for 50 cm).",
         "**Par ringet**: Når Colmi R02 vises på listen over fundne enheder, skal du vælge den. Parring tager et par sekunder. Der kræves ingen PIN-kode.",
@@ -6932,12 +6932,12 @@
       "da": "Prøv det med dine enheder"
     },
     "body.12.body": {
-      "sv": "Delta i betatestet, anslut din klocka och din ring och se din dag sammanställd på ett och samma ställe, där källan till varje mätvärde alltid framgår tydligt.",
-      "da": "Deltag i betatesten, tilslut dit ur og din ring, og se din dag samlet ét sted, hvor kilden til hver enkelt måling altid fremgår tydeligt."
+      "sv": "Ladda ner FitMesh, anslut din klocka och din ring och se din dag sammanställd på ett och samma ställe, där källan till varje mätvärde alltid framgår tydligt.",
+      "da": "Download FitMesh, tilslut dit ur og din ring, og se din dag samlet ét sted, hvor kilden til hver enkelt måling altid fremgår tydeligt."
     },
     "body.12.ctaLabel": {
-      "sv": "Starta den kostnadsfria betaversionen",
-      "da": "Start den gratis betaversion"
+      "sv": "Ladda ner FitMesh och prova gratis",
+      "da": "Download FitMesh og prøv gratis"
     },
     "faq.0.q": {
       "sv": "Varför visar vissa mätvärden källan medan andra inte gör det?",
@@ -7052,12 +7052,12 @@
       "da": "Sundhedsdata er blandt de mest personlige oplysninger, du har. Derfor opbevares de på servere i Europa, hvor kun du har adgang til dem via din konto – uden reklamer og uden at de nogensinde videresælges til tredjeparter. Du kan finde alle detaljerne på siden [privatlivspolitik](/en/privacy)."
     },
     "body.7.title": {
-      "sv": "Lifetime Pro gratis för de första 1 000 som registrerar sig",
-      "da": "Lifetime Pro er gratis for de første 1.000, der tilmelder sig"
+      "sv": "Lifetime Pro gratis för de första 1 000 grundarna",
+      "da": "Lifetime Pro gratis til de første 1.000 grundlæggere"
     },
     "body.7.body": {
-      "sv": "Ladda ner appen och skapa ditt konto nu: de första 1 000 användarna får ett livstidsabonnemang på Pro-versionen som aktiveras automatiskt. Inget kort, inget abonnemang. Mer information finns på sidan [Founder](/en/beta).",
-      "da": "Download appen og opret din konto nu: De første 1000 får en fuld Pro-konto på livstid, der aktiveres automatisk. Intet kort, intet abonnement. Se nærmere på siden [Founder](/en/beta)."
+      "sv": "De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis. [Ladda ner FitMesh och prova gratis](/sv#download).",
+      "da": "De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis. [Download FitMesh og prøv gratis](/da#download)."
     },
     "body.8.text": {
       "sv": "iPhone-versionen släpps om några dagar",
@@ -7084,8 +7084,8 @@
       "da": "Hvor meget koster FitMesh Sync?"
     },
     "faq.0.a": {
-      "sv": "Du kan testa alla Pro-funktioner gratis i 14 dagar. Därefter väljer du mellan ett lättabonnemang var sjätte månad eller en livstidslicens till lanseringspris. Dessutom får de första 1 000 som registrerar sig Pro-versionen gratis för resten av livet.",
-      "da": "Du kan prøve alle Pro-funktionerne gratis i 14 dage. Derefter kan du vælge mellem et let abonnement hvert halve år eller en livstidsadgang til lanceringsprisen. Desuden får de første 1000, der tilmelder sig, livstidsadgang til Pro-versionen gratis."
+      "sv": "Du kan testa alla Pro-funktioner gratis i 14 dagar. Därefter väljer du mellan ett lättabonnemang var sjätte månad eller en livstidslicens till lanseringspris. De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis.",
+      "da": "Du kan prøve alle Pro-funktionerne gratis i 14 dage. Derefter kan du vælge mellem et let abonnement hvert halve år eller en livstidsadgang til lanceringsprisen. De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis."
     },
     "faq.1.q": {
       "sv": "Vilka enheter är kompatibla?",
@@ -7100,8 +7100,8 @@
       "da": "Hvornår kommer den til iPhone?"
     },
     "faq.2.a": {
-      "sv": "iOS-versionen släpps inom några dagar. De som registrerar sig nu som Founders får förtur till den första iPhone-versionen.",
-      "da": "iOS-versionen kommer inden for få dage. De, der tilmelder sig nu som Founders, får fortrinsret til den første iPhone-version."
+      "sv": "iOS-versionen släpps inom några dagar. Grundarna fick förtur till den första iPhone-versionen.",
+      "da": "iOS-versionen kommer inden for få dage. Grundlæggerne fik fortrinsret til den første iPhone-version."
     },
     "faq.3.q": {
       "sv": "Var lagras mina uppgifter?",
@@ -7132,13 +7132,13 @@
         "FitMesh Sync finns nu tillgängligt på Google Play för alla Android-telefoner.",
         "Samla din klocka, ring och andra enheter på en och samma översiktssida, utan att behöva växla mellan olika appar.",
         "Dina uppgifter lagras på servrar i Europa, utan reklam och utan vidareförsäljning till tredje part.",
-        "De första 1 000 som registrerar sig får Pro-versionen gratis för alltid. iPhone-versionen släpps om några dagar."
+        "Första 1 000 kontona (registrerade senast 2026-07-31, verklig första synk inom 14 dagar): livstids-Pro gratis. iPhone-versionen släpps om några dagar."
       ],
       "da": [
         "FitMesh Sync er nu tilgængelig på Google Play til alle Android-telefoner.",
         "Saml dit ur, din ring og andre enheder i ét kontrolpanel, uden at skulle skifte mellem apps.",
         "Dine data opbevares på servere i Europa, uden reklamer og uden videresalg til tredjeparter.",
-        "De første 1.000, der tilmelder sig, får Pro-versionen gratis på livstid. iPhone-versionen kommer om et par dage."
+        "Første 1.000 konti (registreret senest 31-07-2026, reel første synk inden for 14 dage): livstids-Pro gratis. iPhone-versionen kommer om et par dage."
       ]
     }
   },
@@ -7228,16 +7228,16 @@
       "da": "Hvis du endnu ikke ejer nogen enhed, og dit budget er begrænset, så overvej, hvad du rent faktisk vil bruge den til: Hvis du er en atlet, der har brug for GPS, så start med et ur. Hvis du vil forstå din søvn og restitution, kan en ring være det første skridt. Uanset hvad kommer den samlede værdi først til sin ret, når begge enheder samler dataene ét sted. Det er præcis, hvad FitMesh gør."
     },
     "body.15.title": {
-      "sv": "Prova FitMesh Sync i betaversionen",
-      "da": "Prøv FitMesh Sync i betaversionen"
+      "sv": "Prova FitMesh Sync",
+      "da": "Prøv FitMesh Sync"
     },
     "body.15.body": {
-      "sv": "FitMesh Sync finns tillgängligt på Google Play. De första 1 000 grundarna får Pro gratis för alltid, inklusive tillgång till integration mellan flera enheter – ring och smartklocka. Registrera dig nu för att säkra din plats.",
-      "da": "FitMesh Sync er tilgængeligt på Google Play. De første 1.000 grundlæggere får gratis Pro-abonnement på livstid, herunder adgang til integration mellem ring og smartwatch på tværs af enheder. Tilmeld dig nu for at sikre dig en plads."
+      "sv": "FitMesh Sync finns tillgängligt på Google Play, med integration mellan flera enheter, ring och smartklocka. De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis.",
+      "da": "FitMesh Sync er tilgængeligt på Google Play, med integration mellem ring og smartwatch på tværs af enheder. De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis."
     },
     "body.15.ctaLabel": {
-      "sv": "Anmäl dig till betaversionen →",
-      "da": "Tilmeld dig betaversionen →"
+      "sv": "Ladda ner FitMesh och prova gratis →",
+      "da": "Download FitMesh og prøv gratis →"
     },
     "faq.0.q": {
       "sv": "Behöver jag både en smartring och en smartklocka?",
@@ -7610,12 +7610,12 @@
       "da": "Overvejer du at købe en smart ring?"
     },
     "body.23.body": {
-      "sv": "FitMesh Sync finns tillgängligt på Google Play. De första 1 000 grundarna får Pro gratis för alltid, inklusive tillgång till Colmi-ringfunktionen så snart den lanseras. Registrera dig för att säkra din plats.",
-      "da": "FitMesh Sync er tilgængeligt på Google Play. De første 1.000 grundlæggere får gratis Pro-abonnement på livstid, herunder adgang til Colmi-ring-funktionen, så snart den lanceres. Tilmeld dig for at sikre dig en plads."
+      "sv": "FitMesh Sync finns tillgängligt på Google Play, inklusive Colmi-ringfunktionen. De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis.",
+      "da": "FitMesh Sync er tilgængeligt på Google Play, inklusive Colmi-ring-funktionen. De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis."
     },
     "body.23.ctaLabel": {
-      "sv": "Anmäl dig till betaversionen →",
-      "da": "Tilmeld dig betaversionen →"
+      "sv": "Ladda ner FitMesh och prova gratis →",
+      "da": "Download FitMesh og prøv gratis →"
     },
     "faq.0.q": {
       "sv": "Är prisvärda smarta ringar pålitliga?",
@@ -7922,16 +7922,16 @@
       "da": "Det giver kun mening at samle alt ét sted, hvis det sted er sikkert. FitMeshs sundhedsdata opbevares på europæiske servere, er kun tilgængelige for dig via din konto, sælges eller deles aldrig med tredjeparter, og der er ingen annoncesporere. Sletning af konto og data sker inden for 48 timer, som krævet af GDPR."
     },
     "body.20.title": {
-      "sv": "Bland de första 1 000?",
-      "da": "Er du blandt de første 1000?"
+      "sv": "Samla alla dina enheter på ett ställe",
+      "da": "Saml alle dine enheder ét sted"
     },
     "body.20.body": {
-      "sv": "FitMesh Sync finns tillgängligt på Google Play. Skapa ett konto: de första 1 000 grundarna får Pro-versionen gratis för alltid – den aktiveras automatiskt. Samla alla dina enheter på en och samma kontrollpanel.",
-      "da": "FitMesh Sync er tilgængeligt på Google Play. Opret din konto: De første 1.000 grundlæggere får gratis Pro-adgang på livstid, som aktiveres automatisk. Saml alle dine enheder i ét kontrolpanel."
+      "sv": "FitMesh Sync finns tillgängligt på Google Play och samlar alla dina enheter på en och samma kontrollpanel. De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis.",
+      "da": "FitMesh Sync er tilgængeligt på Google Play og samler alle dine enheder i ét kontrolpanel. De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis."
     },
     "body.20.ctaLabel": {
-      "sv": "Bli grundare",
-      "da": "Bliv medstifter"
+      "sv": "Prova FitMesh",
+      "da": "Prøv FitMesh"
     },
     "faq.0.q": {
       "sv": "Vilka enheter kan jag ansluta till FitMesh?",
@@ -8262,10 +8262,10 @@
       "no": "Funksjon i privat beta"
     },
     "body.25.body": {
-      "sv": "Funktionen Colmi ring är under aktiv utveckling. Den kommer att bli tillgänglig för användare i den privata betaversionen så snart den släpps. Anmäl dig till betaversionen på /beta för att få tillgång till den vid lanseringen.",
-      "da": "Colmi-ring-funktionen er under aktiv udvikling. Den vil være tilgængelig for brugere af den private betaversion, så snart den lanceres. Tilmeld dig betaversionen på /beta for at få adgang ved lanceringen.",
-      "fi": "Colmi-sormuksen ominaisuus on aktiivisessa kehityksessä. Se on yksityisten betakäyttäjien saatavilla heti kun se julkaistaan. Ilmoittaudu betaan osoitteessa /beta saadaksesi pääsyn julkaisussa.",
-      "no": "Colmi-ringfunksjonen er under aktiv utvikling. Den blir tilgjengelig for brukere i privat beta så snart den lanseres. Meld deg på betaen på /beta for å få tilgang ved lansering."
+      "sv": "Funktionen Colmi ring är under aktiv utveckling. Den kommer att bli tillgänglig för användare i den privata betaversionen så snart den släpps. [Ladda ner FitMesh](/sv#download) så har du den vid lanseringen.",
+      "da": "Colmi-ring-funktionen er under aktiv udvikling. Den vil være tilgængelig for brugere af den private betaversion, så snart den lanceres. [Download FitMesh](/da#download), så har du den ved lanceringen.",
+      "fi": "Colmi-sormuksen ominaisuus on aktiivisessa kehityksessä. Se on yksityisten betakäyttäjien saatavilla heti kun se julkaistaan. [Lataa FitMesh](/fi#download), niin saat sen käyttöön julkaisun yhteydessä.",
+      "no": "Colmi-ringfunksjonen er under aktiv utvikling. Den blir tilgjengelig for brukere i privat beta så snart den lanseres. [Last ned FitMesh](/no#download), så har du den ved lansering."
     },
     "body.26.title": {
       "sv": "Har du en Colmi R02 eller en OEM-klon?",
@@ -8274,16 +8274,16 @@
       "no": "Har du en Colmi R02 eller en OEM-klon?"
     },
     "body.26.body": {
-      "sv": "FitMesh Sync finns tillgängligt på Google Play. De första 1 000 grundarna får Pro gratis för alltid, inklusive tillgång till Colmi-ringfunktionen så snart den lanseras. Registrera dig nu för att säkra din plats.",
-      "da": "FitMesh Sync er tilgængeligt på Google Play. De første 1.000 grundlæggere får gratis Pro-abonnement på livstid, herunder adgang til Colmi-ring-funktionen, så snart den lanceres. Tilmeld dig nu for at sikre dig en plads.",
-      "fi": "FitMesh Sync on saatavilla Google Playssa. Ensimmäiset 1 000 perustajaa saavat elinikäisen Pro-tilauksen ilmaiseksi, mukaan lukien pääsy Colmi-sormuksen ominaisuuteen heti kun se julkaistaan. Ilmoittaudu nyt varmistaaksesi paikkasi.",
-      "no": "FitMesh Sync er tilgjengelig på Google Play. De første 1 000 grunnleggerne får livstidstilgang til Pro gratis, inkludert tilgang til Colmi-ringfunksjonen så snart den lanseres. Meld deg på nå for å beholde plassen din."
+      "sv": "FitMesh Sync finns tillgängligt på Google Play, inklusive Colmi-ringfunktionen. De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis.",
+      "da": "FitMesh Sync er tilgængeligt på Google Play, inklusive Colmi-ring-funktionen. De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis.",
+      "fi": "FitMesh Sync on saatavilla Google Playssa, mukaan lukien Colmi-sormuksen ominaisuus. Ensimmäiset 1 000 perustajakäyttäjää, niiden tilien joukossa, jotka on rekisteröity viimeistään 31. heinäkuuta 2026 ja jotka ovat tehneet aidon ensimmäisen synkronoinnin 14 päivän kuluessa rekisteröitymisestä, saivat elinikäisen Pro-version ilmaiseksi.",
+      "no": "FitMesh Sync er tilgjengelig på Google Play, inkludert Colmi-ringfunksjonen. De første 1000 founder-brukerne, blant kontoene som er registrert innen 31. juli 2026 med en reell første synkronisering innen 14 dager etter registrering, fikk livstids Pro gratis."
     },
     "body.26.ctaLabel": {
-      "sv": "Anmäl dig till betaversionen →",
-      "da": "Tilmeld dig betaversionen →",
-      "fi": "Ilmoittaudu betaan →",
-      "no": "Meld deg på beta →"
+      "sv": "Ladda ner FitMesh och prova gratis →",
+      "da": "Download FitMesh og prøv gratis →",
+      "fi": "Lataa FitMesh ja kokeile ilmaiseksi →",
+      "no": "Last ned FitMesh og prøv gratis →"
     },
     "body.27.text": {
       "sv": "Sammanfattningsvis",
@@ -9230,12 +9230,12 @@
       "da": "Prøv FitMesh Sync med din Colmi-ring"
     },
     "body.11.body": {
-      "sv": "Delta i betatestet, anslut ringen och börja samla dina 7 dagar. Sex månaders Pro-abonnemang väntar på dig.",
-      "da": "Deltag i betatesten, tilslut ringen, og begynd at samle dine 7 dage. Der venter dig seks måneders Pro-abonnement."
+      "sv": "Ladda ner FitMesh, anslut ringen och börja samla dina 7 dagar. Sex månaders Pro-abonnemang väntar på dig.",
+      "da": "Download FitMesh, tilslut ringen, og begynd at samle dine 7 dage. Der venter dig seks måneders Pro-abonnement."
     },
     "body.11.ctaLabel": {
-      "sv": "Starta den kostnadsfria betaversionen",
-      "da": "Start den gratis betaversion"
+      "sv": "Ladda ner FitMesh och prova gratis",
+      "da": "Download FitMesh og prøv gratis"
     },
     "faq.0.q": {
       "sv": "Fungerar Colmi-ringen på iPhone eller bara på Android?",
@@ -9394,12 +9394,12 @@
       "da": "Prøv kontrolpanelet til flere enheder"
     },
     "body.13.body": {
-      "sv": "Delta i betatestningen och anslut alla dina bärbara enheter. Den globala översiktspanelen sammanför dem direkt, utan dubbletter och utan manuell konfiguration.",
-      "da": "Deltag i betatesten, og tilslut alle dine wearables. Det globale kontrolpanel samler dem med det samme – uden dubletter og uden manuel konfiguration."
+      "sv": "Ladda ner FitMesh och anslut alla dina bärbara enheter. Den globala översiktspanelen sammanför dem direkt, utan dubbletter och utan manuell konfiguration.",
+      "da": "Download FitMesh, og tilslut alle dine wearables. Det globale kontrolpanel samler dem med det samme – uden dubletter og uden manuel konfiguration."
     },
     "body.13.ctaLabel": {
-      "sv": "Starta den kostnadsfria betaversionen",
-      "da": "Start den gratis betaversion"
+      "sv": "Ladda ner FitMesh och prova gratis",
+      "da": "Download FitMesh og prøv gratis"
     },
     "faq.0.q": {
       "sv": "Om jag ändrar prioritetsordningen mellan enheterna, förändras då historiska data?",
@@ -9578,8 +9578,8 @@
       "da": "FitMesh Sync synkroniserer automatisk Galaxy Watch, Garmin, Fitbit, Oura og andre bærbare enheder med et web-dashboard, der kan tilgås via en browser. Fungerer selv efter flere dage uden internetforbindelse: så snart forbindelsen er genoprettet, fortsætter den der, hvor den slap."
     },
     "body.18.ctaLabel": {
-      "sv": "Gå med i den kostnadsfria betaversionen →",
-      "da": "Tilmeld dig den gratis betaversion →"
+      "sv": "Ladda ner FitMesh och prova gratis →",
+      "da": "Download FitMesh og prøv gratis →"
     },
     "faq.0.q": {
       "sv": "Kan jag simma med Galaxy Watch 7?",
@@ -10664,16 +10664,16 @@
       "no": "Klar til å samle wearable-dataene dine på ett sted?"
     },
     "body.35.body": {
-      "sv": "FitMesh Sync är gratis för de första 1 000 grundarna: Pro-abonnemang för hela livet. Android-app på Google Play, inklusive webbpanel.",
-      "da": "FitMesh Sync er gratis for de første 1.000 founders: Pro på livstid. Android-app på Google Play, web-dashboard inkluderet.",
-      "fi": "FitMesh Sync on ilmainen ensimmäiselle 1 000 perustajajäsenelle: elinikäinen Pro. Android-sovellus Google Play -kaupassa, web-kojelauta mukana.",
-      "no": "FitMesh Sync er gratis for de første 1 000 grunnleggerne: livstids Pro. Android-app på Google Play, web-dashbord inkludert."
+      "sv": "De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis. Android-app på Google Play, inklusive webbpanel.",
+      "da": "De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis. Android-app på Google Play, web-dashboard inkluderet.",
+      "fi": "Ensimmäiset 1 000 perustajakäyttäjää, niiden tilien joukossa, jotka on rekisteröity viimeistään 31. heinäkuuta 2026 ja jotka ovat tehneet aidon ensimmäisen synkronoinnin 14 päivän kuluessa rekisteröitymisestä, saivat elinikäisen Pro-version ilmaiseksi. Android-sovellus Google Play -kaupassa, web-kojelauta mukana.",
+      "no": "De første 1000 founder-brukerne, blant kontoene som er registrert innen 31. juli 2026 med en reell første synkronisering innen 14 dager etter registrering, fikk livstids Pro gratis. Android-app på Google Play, web-dashbord inkludert."
     },
     "body.35.ctaLabel": {
-      "sv": "Delta i betatestningen",
-      "da": "Deltag i betaen",
-      "fi": "Liity betaan",
-      "no": "Bli med i betaen"
+      "sv": "Ladda ner FitMesh och prova gratis",
+      "da": "Download FitMesh og prøv gratis",
+      "fi": "Lataa FitMesh ja kokeile ilmaiseksi",
+      "no": "Last ned FitMesh og prøv gratis"
     },
     "body.36.text": {
       "sv": "Vad kommer att förändras under de kommande 18 månaderna",
@@ -12914,10 +12914,10 @@
       "sv": "Vill du testa vår samlade kontrollpanel?"
     },
     "body.21.body": {
-      "sv": "FitMesh Sync är gratis för de första 1 000 grundarna: Pro-abonnemang för hela livet. Fungerar redan idag med alla bärbara enheter som skriver till Health Connect."
+      "sv": "De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis. Fungerar redan idag med alla bärbara enheter som skriver till Health Connect."
     },
     "body.21.ctaLabel": {
-      "sv": "Gå med i betaversionen"
+      "sv": "Ladda ner FitMesh och prova gratis"
     },
     "faq.0.q": {
       "sv": "Är klassiska bridge-appar fortfarande användbara år 2026?"

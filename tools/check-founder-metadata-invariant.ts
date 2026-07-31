@@ -28,8 +28,23 @@
  * Questo guardrail verifica che la correzione resti in piedi.
  *
  * CONTROLLO 1 — beta/page.tsx usa `betaMetaTitle(lc)`/
- * `founderEligibilityStatement(lc)` in almeno 2 punti ciascuno
- * (generateMetadata + JSON-LD WebPage), non stringhe letterali per-locale.
+ * `founderEligibilityStatement(lc)` DENTRO generateMetadata() e DENTRO il
+ * blocco JSON-LD WebPage, non stringhe letterali per-locale.
+ *
+ * Sprint P0.10K — RI-ANCORATO. Il controllo era "almeno 2 occorrenze nel
+ * file": una soglia globale, che vale solo finché il numero di punti di
+ * rendering non cambia. La rimozione di BetaFounderGate ne ha aggiunto uno
+ * terzo (la pagina ora stampa `founderEligibilityStatement(lc)` anche nel
+ * corpo visibile), e con 3 occorrenze la soglia di 2 si soddisfa da sola:
+ * si poteva riportare la description del JSON-LD a un ternario letterale
+ * per-locale — esattamente il bug che P0.10J aveva corretto — e il gate
+ * restava verde. Alzare la soglia a 3 avrebbe solo spostato il problema al
+ * prossimo punto di rendering aggiunto o tolto. Qui il controllo guarda le
+ * DUE superfici machine-readable reali (il corpo di generateMetadata() e il
+ * payload `data={{...}}` di <JsonLd>), che sono quelle che finiscono in
+ * <head> e nello structured data: se una delle due smette di chiamare
+ * l'helper il guardrail se ne accorge, indipendentemente da quante volte
+ * l'helper compaia nel resto del file.
  *
  * CONTROLLO 2 — nessuna delle frasi "attivato/concesso automaticamente
  * alla registrazione" (equivalenti nelle lingue coperte) può ricomparire
@@ -72,38 +87,97 @@ function count(src: string, needle: string): number {
   return (src.match(new RegExp(needle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g")) || []).length;
 }
 
-// ── CONTROLLO 1 ───────────────────────────────────────────────────────────
-const betaSrc = read(BETA_PAGE);
-// CONTROLLO 2/5 riguardano SOLO la parte di beta/page.tsx senza gate
-// runtime (generateMetadata + il JSON-LD prima di <BetaFounderGate>): oltre
-// quel punto, FounderOpenBody/BETA_CLOSED_COPY sono legittimamente
-// runtime-gated e possono descrivere lo stato reale (es. "il tuo Pro a vita
-// si attiva automaticamente" come perk mostrato SOLO a programma aperto, o
-// "The Founder program has ended" nell'archivio SOLO a programma chiuso) —
-// scansionarle produrrebbe falsi positivi su contenuto già corretto.
-const gateIndex = betaSrc.indexOf("<BetaFounderGate");
-if (gateIndex === -1) {
-  errors.push(`${BETA_PAGE}: non trovo <BetaFounderGate — il file potrebbe essere stato ristrutturato, controllare manualmente lo scoping di questo guardrail.`);
+/**
+ * Un commento che NOMINA l'helper non è una chiamata all'helper: senza lo
+ * strip, la docstring di una funzione basterebbe a "coprire" il codice che
+ * documenta.
+ */
+function stripComments(code: string): string {
+  return code.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
 }
-const betaUngatedSrc = gateIndex === -1 ? betaSrc : betaSrc.slice(0, gateIndex);
-// Conteggio ristretto alla sola parte SENZA gate: `founderEligibilityStatement(lc)`
-// compare anche una terza volta, legittimamente, dentro FounderPendingBody
-// (contenuto gated, P0.10H) — contare su tutto il file maschererebbe la
-// perdita di UNA delle due occorrenze ungated dietro quella terza sempre
-// presente (verificato con un test negativo: sostituire la sola
-// description del JSON-LD con una stringa letterale faceva scendere il
-// conteggio whole-file da 3 a 2, che restava comunque >= 2 e non falliva).
+
+/**
+ * Dal primo `{` dopo `fromIndex` fino alla graffa che lo chiude (conteggio
+ * bilanciato). Le interpolazioni `${...}` dei template literal si bilanciano
+ * da sole, quindi non serve un parser vero.
+ */
+function balancedBraceBlock(src: string, fromIndex: number): string | null {
+  const start = src.indexOf("{", fromIndex);
+  if (start === -1) return null;
+  let depth = 0;
+  for (let i = start; i < src.length; i++) {
+    if (src[i] === "{") depth++;
+    else if (src[i] === "}" && --depth === 0) return src.slice(start, i + 1);
+  }
+  return null;
+}
+
+/**
+ * Regione di una dichiarazione top-level: dalla sua firma fino al prossimo
+ * `export` in colonna 0. Per generateMetadata() non si può usare la prima
+ * graffa bilanciata — quella è il destructuring dei parametri
+ * (`{ params }`), non il corpo.
+ */
+function topLevelDeclarationRegion(src: string, signature: string): string | null {
+  const start = src.indexOf(signature);
+  if (start === -1) return null;
+  const next = src.indexOf("\nexport ", start + signature.length);
+  return src.slice(start, next === -1 ? src.length : next);
+}
+
+// ── CONTROLLO 1 ───────────────────────────────────────────────────────────
+// Sprint P0.10K: beta/page.tsx non ha piu' un gate runtime (BetaFounderGate
+// e' stato rimosso — chiusura commerciale del sito, vedi header del file).
+// L'intera pagina e' ora statica e permanente, quindi il conteggio copre
+// tutto il file: non serve piu' isolare una porzione "senza gate" da una
+// "gated", perche' non esiste piu' alcuna porzione gated.
+const betaSrc = read(BETA_PAGE);
+const betaUngatedSrc = betaSrc;
 const betaMetaTitleCount = count(betaUngatedSrc, "betaMetaTitle(lc)");
 const eligibilityCountBeta = count(betaUngatedSrc, "founderEligibilityStatement(lc)");
-if (betaMetaTitleCount < 2) {
+
+const REQUIRED_HELPERS = ["betaMetaTitle(lc)", "founderEligibilityStatement(lc)"] as const;
+
+// 1a — corpo di generateMetadata(): title/description/OG/Twitter.
+const metadataRegionRaw = topLevelDeclarationRegion(betaSrc, "export async function generateMetadata");
+if (metadataRegionRaw === null) {
   errors.push(
-    `${BETA_PAGE}: betaMetaTitle(lc) atteso in almeno 2 punti SENZA gate (generateMetadata + JSON-LD WebPage), trovato ${betaMetaTitleCount} volta/e — rischio che title torni a un ternario letterale per-locale.`,
+    `${BETA_PAGE}: non trovo \`export async function generateMetadata\` — senza generateMetadata la pagina eredita i metadata del layout, e title/description di /beta smettono di essere verificabili.`,
   );
+} else {
+  const metadataRegion = stripComments(metadataRegionRaw);
+  for (const helper of REQUIRED_HELPERS) {
+    if (!metadataRegion.includes(helper)) {
+      errors.push(
+        `${BETA_PAGE}: generateMetadata() non chiama ${helper} — title/description (e le copie OG/Twitter) tornerebbero a stringhe letterali per-locale, cioè al claim non datato corretto in P0.10J.`,
+      );
+    }
+  }
 }
-if (eligibilityCountBeta < 2) {
+
+// 1b — payload del JSON-LD WebPage: name/description leggibili dai crawler.
+const jsonLdBlocks: string[] = [];
+{
+  const re = /<JsonLd\b/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(betaSrc)) !== null) {
+    const block = balancedBraceBlock(betaSrc, m.index);
+    if (block !== null) jsonLdBlocks.push(stripComments(block));
+  }
+}
+const webPageBlocks = jsonLdBlocks.filter((b) => /"@type":\s*"WebPage"/.test(b));
+if (webPageBlocks.length === 0) {
   errors.push(
-    `${BETA_PAGE}: founderEligibilityStatement(lc) atteso in almeno 2 punti SENZA gate (generateMetadata + JSON-LD WebPage), trovato ${eligibilityCountBeta} volta/e — rischio che description torni a un claim letterale non datato.`,
+    `${BETA_PAGE}: nessun blocco <JsonLd> con "@type": "WebPage" — lo structured data di /beta è la superficie machine-readable che P0.10J ha corretto, non può sparire senza che questo guardrail se ne accorga.`,
   );
+} else {
+  for (const helper of REQUIRED_HELPERS) {
+    if (!webPageBlocks.some((b) => b.includes(helper))) {
+      errors.push(
+        `${BETA_PAGE}: il JSON-LD WebPage non usa ${helper} — name/description dello structured data tornerebbero a un letterale per-locale, disallineato da <head> e dalla regola di idoneità reale.`,
+      );
+    }
+  }
 }
 
 // ── CONTROLLO 2 ───────────────────────────────────────────────────────────
@@ -224,6 +298,6 @@ if (errors.length > 0) {
   process.exit(1);
 } else {
   console.log(
-    `✅ founder:metadata-invariant-check: beta/page.tsx usa betaMetaTitle()/founderEligibilityStatement() (${betaMetaTitleCount}/${eligibilityCountBeta} occorrenze), press kit usa founderHistoricalClause() ${clauseCount} volte, Termini (${founderClauseStarts.length} clausole) contengono cutoff+14gg, nessuna frase "automatico alla registrazione" o dichiarazione statica aperto/concluso su beta/press/terms, llms.txt invariato.`,
+    `✅ founder:metadata-invariant-check: beta/page.tsx chiama betaMetaTitle()/founderEligibilityStatement() sia in generateMetadata() sia nel JSON-LD WebPage (${betaMetaTitleCount}/${eligibilityCountBeta} occorrenze totali nel file, ${webPageBlocks.length} blocco/blocchi WebPage), press kit usa founderHistoricalClause() ${clauseCount} volte, Termini (${founderClauseStarts.length} clausole) contengono cutoff+14gg, nessuna frase "automatico alla registrazione" o dichiarazione statica aperto/concluso su beta/press/terms, llms.txt invariato.`,
   );
 }

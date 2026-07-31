@@ -1,28 +1,49 @@
 /**
  * Sprint P0.10 — guardrail "founder:commercial-truth-check".
  *
- * Nessuna superficie commerciale (homepage, nav desktop, menu mobile,
- * footer, /beta) deve mostrare la promo Founder INCONDIZIONATA dopo il
- * cutoff. L'architettura di questo sprint non CANCELLA il copy Founder (i
- * Founder esistenti e l'archivio storico ne hanno bisogno) — lo GATE
- * dietro components/founder/FounderClientGate, che nell'HTML statico
- * iniziale mostra sempre la variante evergreen e sostituisce con la
- * variante founder solo dopo l'hydration, solo se il programma e' ancora
- * aperto secondo l'orologio del browser.
+ * Sprint P0.10K (2026-07-31) — RISCRITTO: chiusura commerciale del sito
+ * ANTICIPATA rispetto al cutoff tecnico backend (FOUNDER_END_AT,
+ * 2026-07-31T22:00:00Z). Fino a P0.10J l'architettura non cancellava il
+ * copy Founder sulle 5 superfici commerciali interattive (homepage, nav
+ * desktop, menu mobile, footer, /beta) — lo GATE-ava dietro
+ * FounderClientGate/BetaFounderGate, mostrando sempre l'evergreen
+ * nell'HTML statico iniziale e la variante founder solo dopo l'hydration,
+ * solo a programma ancora aperto. Da oggi il sito smette di proporre nuove
+ * adesioni ORE PRIMA del cutoff reale: un gate che decide in base
+ * all'orologio del browser mostrerebbe ancora il form/CTA per le prossime
+ * ore, l'opposto di quanto richiesto. Le 5 superfici sono state riportate a
+ * un rendering STATICO permanente (nessun gate, nessuna decisione
+ * temporale ne' server ne' client) che mostra SEMPRE e SOLO il contenuto
+ * evergreen.
  *
- * Questo guardrail verifica quindi la PRESENZA della gate nelle superfici
- * note, non l'assenza letterale della parola "founder" (che romperebbe
- * l'archivio storico legittimo). La prova comportamentale reale (promo
- * assente dall'HTML esattamente al cutoff) e' nel gate Playwright di FASE
- * 10, non qui.
+ * Questo guardrail verifica quindi l'INVARIANTE NUOVO: nessuna di quelle
+ * superfici puo' contenere una promo/CTA Founder di acquisizione, GATATA O
+ * NO — non piu' "deve avere un gate", ma "non deve avere alcuna promo".
  *
  * Fallisce se:
- *  1. una delle superfici note non importa/usa FounderClientGate;
- *  2. una qualunque locale di lib/pricing.ts (founderPromo/founderSeats)
- *     compare in un file marketing NON presente nell'allow-list storica/
- *     legale E che non importa FounderClientGate;
- *  3. compaiono le frasi di urgenza artificiale bandite (bandiera rossa
- *     indipendente dal gating: non dovrebbero esistere in nessuna forma).
+ *  1. una delle superfici note importa/usa di nuovo FounderClientGate o
+ *     BetaFounderGate (segnale che qualcuno sta ri-abilitando l'adesione
+ *     Founder su una superficie pubblica);
+ *  2. una qualunque di quelle superfici chiama founderPromo(...)/
+ *     founderSeats(...) (le stringhe di prezzo/posti Founder di
+ *     lib/pricing.ts, pensate per contesti storici/legali, non per CTA
+ *     attive);
+ *  3. una qualunque di quelle superfici contiene una frase-CTA azionabile
+ *     nota ("Diventa founder"/"Become a founder" e equivalenti — l'elenco
+ *     esatto delle stringhe rimosse in questo sprint, vedi
+ *     BANNED_CTA_PHRASES); lo stesso elenco viene passato anche su TUTTO
+ *     app/components/lib (check 3b), per ora in sola segnalazione — vedi
+ *     ENFORCE_SITEWIDE_CTA_SCAN;
+ *  4. /beta contiene un <form> (l'iscrizione live e' stata rimossa;
+ *     ridondante con check-founder-cutoff-render.ts, ultima linea di
+ *     difesa qui);
+ *  5. compaiono le frasi di urgenza artificiale bandite (bandiera rossa
+ *     indipendente dal gating: non dovrebbero esistere in nessuna forma,
+ *     ne' qui ne' altrove nel sito);
+ *  6. claim editoriali statiche "Founder + 1000 + 2026" fuori da helper
+ *     invarianti (founderHistoricalClause/founderHistoricalKeyFact),
+ *     sito-wide (non piu' un'eccezione per le 5 superfici: da oggi sono
+ *     statiche come tutto il resto, quindi soggette alla stessa regola).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -35,53 +56,69 @@ function read(rel: string): string | null {
   return fs.existsSync(full) ? fs.readFileSync(full, "utf8") : null;
 }
 
-// ── 1: le superfici note devono importare E usare un gate client-only ───
-// Sprint P0.10H: /beta usa BetaFounderGate (3 stati: pending/open/closed),
-// non piu' FounderClientGate — vedi components/founder/BetaFounderGate.tsx
-// per il perche'. Entrambi sono gate legittimi, quindi il controllo accetta
-// l'uno o l'altro invece di richiedere sempre lo stesso componente.
-const GATED_SURFACES = [
+// ── 1: le ex-superfici gate-ate non devono piu' importare/usare un gate ──
+const KNOWN_SURFACES = [
   "app/(frontend)/[locale]/(marketing)/page.tsx",
   "app/(frontend)/[locale]/(marketing)/beta/page.tsx",
   "components/Header.tsx",
   "components/Footer.tsx",
   "components/MobileMenu.tsx",
 ];
-const GATE_IMPORT_RE = /from\s+["']@\/components\/founder\/(FounderClientGate|BetaFounderGate)["']/;
 const GATE_USAGE_RE = /<(FounderClientGate|BetaFounderGate)\b/;
 
-for (const rel of GATED_SURFACES) {
+for (const rel of KNOWN_SURFACES) {
   const content = read(rel);
   if (content === null) {
     errors.push(`Superficie mancante: ${rel}`);
     continue;
   }
-  const importsGate = GATE_IMPORT_RE.test(content);
-  const usesGate = GATE_USAGE_RE.test(content);
-  if (!importsGate || !usesGate) {
+  if (GATE_USAGE_RE.test(content)) {
     errors.push(
-      `${rel}: non importa/usa <FounderClientGate>/<BetaFounderGate> — se contiene copy Founder attivo (promo, CTA, badge), oggi verrebbe mostrato incondizionatamente anche dopo il cutoff.`,
+      `${rel}: usa di nuovo <FounderClientGate>/<BetaFounderGate> — Sprint P0.10K ha reso questa superficie statica e permanente (chiusura commerciale del sito), un gate qui rischia di ri-esporre l'adesione Founder in base all'orologio del browser prima del vero cutoff backend.`,
     );
   }
 }
 
-// ── 2: founderPromo/founderSeats solo in file che gateano o nell'allow-list ─
-const ALLOWED_UNGATED_FILES = new Set([
-  // Copy storica/legale: spiega un beneficio GIA' concesso, non un'offerta
-  // attiva — corretto che resti visibile senza gating temporale.
-  "app/(frontend)/[locale]/(marketing)/terms/page.tsx",
-  "lib/blog/posts/perche-diventare-founder-fitmesh.ts",
-  "lib/blog/posts/fitmesh-gratis-prezzo-founder.ts",
-  // Definizione delle stringhe/costanti, non un punto di rendering: il
-  // rendering effettivo passa sempre da un file che IMPORTA questi moduli
-  // e che e' gia' coperto da GATED_SURFACES o da questo stesso controllo.
-  "lib/pricing.ts",
-  "lib/content/homepage-copy.ts",
-]);
+// ── 2: founderPromo/founderSeats vietati sulle superfici note ───────────
+const PROMO_NEEDLE_RE = /founderPromo|founderSeats/;
+for (const rel of KNOWN_SURFACES) {
+  const content = read(rel);
+  if (content === null) continue;
+  if (PROMO_NEEDLE_RE.test(content)) {
+    errors.push(`${rel}: chiama founderPromo/founderSeats — queste superfici sono ora permanenti/statiche e non devono piu' presentare prezzo o posti Founder come offerta attiva.`);
+  }
+}
 
+// ── 3: frasi-CTA azionabili note, rimosse in questo sprint ──────────────
+const BANNED_CTA_PHRASES = [
+  /diventa\s+founder/i,
+  /become\s+a\s+founder/i,
+  /devenir\s+founder/i,
+  /hazte\s+founder/i,
+  /founder\s+werden/i,
+  /torne-se\s+founder/i,
+  /voglio\s+essere\s+founder/i,
+  /i\s+want\s+to\s+be\s+a\s+founder/i,
+];
+for (const rel of KNOWN_SURFACES) {
+  const content = read(rel);
+  if (content === null) continue;
+  for (const re of BANNED_CTA_PHRASES) {
+    if (re.test(content)) {
+      errors.push(`${rel}: contiene di nuovo una CTA di acquisizione Founder azionabile (${re}) — rimossa in Sprint P0.10K, non deve ricomparire su una superficie statica permanente.`);
+    }
+  }
+}
+
+// ── 4: /beta non deve avere un <form> ────────────────────────────────────
+const betaContent = read("app/(frontend)/[locale]/(marketing)/beta/page.tsx");
+if (betaContent !== null && /<form[\s>]/i.test(betaContent)) {
+  errors.push(`app/(frontend)/[locale]/(marketing)/beta/page.tsx: contiene un <form> — /beta e' un archivio informativo, zero iscrizione.`);
+}
+
+// ── inventario file sito-wide (usato dai check 3b, 5 e 6) ───────────────
 const SCAN_DIRS = ["app", "components", "lib"];
 const SCAN_EXCLUDE_DIRS = new Set(["node_modules", ".next", ".git"]);
-const PROMO_NEEDLE_RE = /founderPromo|founderSeats/;
 
 function walk(dir: string, out: string[]) {
   let entries: fs.Dirent[];
@@ -101,22 +138,57 @@ function walk(dir: string, out: string[]) {
 const allFiles: string[] = [];
 for (const dir of SCAN_DIRS) walk(path.join(repoRoot, dir), allFiles);
 
+// ── 3b: stesse CTA di acquisizione, ma FUORI dalle 5 superfici note ─────
+// Il check 3 sopra guarda solo KNOWN_SURFACES: una CTA "Diventa founder"
+// dentro un articolo del blog, una landing programmatica o un componente
+// riusato non verrebbe vista, pur essendo esattamente la superficie di
+// acquisizione pubblica che questo sprint deve azzerare. Qui l'elenco gira
+// su tutto app/components/lib.
+//
+// STORIA — al primo giro l'estensione aveva trovato occorrenze in lib/blog/
+// e lib/landing/, file di cui quell'agente NON era proprietario (li stavano
+// lavorando altri agenti in parallelo: correggerli li' avrebbe distrutto il
+// loro lavoro). Silenziarli con un'allow-list sarebbe stato il male
+// peggiore — l'allow-list sopravvive alla bonifica e il buco resta aperto
+// per sempre. Quindi l'estensione e' stata scritta gia' completa, girava ad
+// ogni run e STAMPAVA le violazioni, ma non faceva fallire il gate finche'
+// la costante restava false.
+//
+// Sprint P0.10K — FASE 9 (2026-07-31): la bonifica di blog e landing e'
+// COMPLETA. Verificato eseguendo questo stesso guardrail PRIMA di toccare la
+// costante: il check 3b non stampava piu' alcuna violazione (zero occorrenze
+// su tutto app/components/lib). La costante passa quindi a `true` e la
+// scansione sito-wide diventa BLOCCANTE: da adesso una CTA "Diventa founder"
+// dentro un articolo, una landing programmatica o un componente riusato fa
+// fallire il gate esattamente come sulle 5 superfici note.
+//
+// Copertura residua: questo check 3b resta limitato ai file .ts/.tsx e a una
+// lista chiusa di frasi IT/EN/ES/DE/PT/FR. La scansione strutturale completa
+// — .json di overlay inclusi (lib/blog/nordic-overlay.json,
+// lib/landing/es-overlay.json, che SOVRASCRIVONO il testo dei .ts), 15
+// locale, link/ctaLabel/ctaHref come ancora invece della sola parola — vive
+// in tools/check-founder-acquisition-surfaces.ts
+// (npm run founder:acquisition-surfaces-check).
+const ENFORCE_SITEWIDE_CTA_SCAN = true;
+const sitewideCtaFindings: string[] = [];
+
 for (const file of allFiles) {
   const rel = path.relative(repoRoot, file);
-  if (ALLOWED_UNGATED_FILES.has(rel)) continue;
+  // gia' coperte, in modo bloccante, dal check 3
+  if (KNOWN_SURFACES.includes(rel)) continue;
   const content = fs.readFileSync(file, "utf8");
-  if (!PROMO_NEEDLE_RE.test(content)) continue;
-  if (!GATE_USAGE_RE.test(content)) {
-    errors.push(
-      `${rel}: usa founderPromo/founderSeats senza <FounderClientGate>/<BetaFounderGate> e non e' nell'allow-list storica/legale — rischia di mostrare la promo Founder incondizionatamente dopo il cutoff.`,
+  for (const re of BANNED_CTA_PHRASES) {
+    const m = content.match(re);
+    if (!m || m.index === undefined) continue;
+    const line = content.slice(0, m.index).split("\n").length;
+    sitewideCtaFindings.push(
+      `${rel}:${line}: CTA di acquisizione Founder azionabile (${re}) fuori dalle 5 superfici note — il sito e' post-Founder, nessuna superficie pubblica deve invitare ad aderire.`,
     );
   }
 }
+if (ENFORCE_SITEWIDE_CTA_SCAN) errors.push(...sitewideCtaFindings);
 
-// ── 3: frasi di urgenza artificiale bandite indipendentemente dal gating ──
-// (una negazione entro i 20 caratteri precedenti il match — "non è offerta a
-// tempo", "not a hurry" — capovolge il senso della frase: è esattamente il
-// disclaimer CORRETTO contro l'urgenza artificiale, non l'urgenza stessa.)
+// ── 5: frasi di urgenza artificiale bandite, sito-wide ──────────────────
 const URGENCY_PHRASES = [
   /affrettati/i,
   /ultim[ei]\s+(ore|giorni)\s+per\s+diventare\s+founder/i,
@@ -139,42 +211,34 @@ for (const file of allFiles) {
   }
 }
 
-// ── 4: claim editoriali statiche "Founder + 2026" fuori da gate/helper ────
-// Sprint P0.10E addendum: contenuto editoriale (press kit, blog, landing
-// programmatiche) non passa da FounderClientGate (non ha una variante
-// client-side, e' prosa fissa generata al build) — una frase tipo "i primi
-// 1000 founder (programma chiuso dal 31 luglio 2026)" e' vera solo in META'
-// del tempo (prima O dopo il cutoff, mai in entrambe), se hardcoded.
-//
-// Sprint P0.10G — AGGIORNAMENTO: il debito e' stato CHIUSO con una
-// correzione di contenuto dedicata (audit + riscrittura invariante, non
-// traduzione automatica). I file sotto NON hanno piu' una claim
-// aperto/chiuso legata alla data — la parentetica e' stata riscritta da
-// "programma chiuso dal 31 luglio 2026" (falso META' del tempo) a "entro il
-// 31 luglio 2026" (vero SEMPRE: descrive il limite della regola, non lo
-// stato del momento). Restano in questa lista non perche' sia debito
-// residuo, ma perche' la correzione e' stata fatta come sostituzione
-// testuale mirata della sola parentetica, non richiamando sintatticamente
-// founderHistoricalClause()/founderHistoricalKeyFact() — quindi questo
-// check (che cerca una CHIAMATA all'helper, non la correttezza semantica
-// del testo) non li riconoscerebbe come "coperti" senza questa esclusione
-// esplicita. Verificato in P0.10G (founder:static-invariant-check +
-// ispezione diretta dell'HTML buildato) che nessuno di questi file contiene
-// piu' il pattern falso.
-// Sprint P0.10G: lib/founder/historical-note.ts e' la DEFINIZIONE di
-// founderHistoricalClause()/founderHistoricalKeyFact()/
-// founderEligibilityStatement() — contiene per costruzione le stringhe
-// letterali "founder"+"1000"+"2026" (sono il VALORE DI RITORNO della
-// funzione, ora invariante: nessun ramo aperto/chiuso, solo la regola di
-// idoneita'), non una chiamata alla funzione stessa. Un helper non deve
-// "chiamare se stesso" per essere considerato coperto — escluso qui,
-// altrimenti il check fallirebbe sempre non appena la data compare come
-// stringa letterale invece che come parametro ${endDate} dinamico (era
-// cosi' nella versione precedente, pre-P0.10G, per questo il file passava
-// senza bisogno di questa esclusione esplicita).
+// ── 6: claim editoriali statiche "Founder + 1000 + 2026" fuori da helper ─
+// Sprint P0.10G: contenuto editoriale (press kit, blog, landing
+// programmatiche) e ora (P0.10K) ANCHE le ex-superfici gate-ate, tutte
+// statiche/build-time — una frase tipo "i primi 1000 founder (...2026)" e'
+// vera solo se ancorata a una regola invariante, non a un ternario
+// aperto/chiuso o a una CTA di acquisizione.
 const HELPER_DEFINITION_FILES = new Set(["lib/founder/historical-note.ts"]);
 
+// Sprint P0.10G: debito noto e accettato — vedi commento storico nel
+// guardrail originale. Non ri-verificato in questo giro (fuori scope
+// P0.10K, che riguarda solo le superfici di acquisizione pubbliche).
+//
+// Sprint P0.10K — REGRESSIONE CORRETTA: le prime due voci qui sotto erano
+// esentate su main da ALLOWED_UNGATED_FILES (l'allow-list "storica/legale"
+// del vecchio check 2, che questo sprint ha sostituito con il divieto
+// secco di founderPromo/founderSeats sulle 5 superfici). Sciogliendo
+// quell'allow-list si erano persi anche i due skip legittimi di QUESTO
+// check, che quindi falliva su prosa storica/legale corretta. Non sono
+// CTA di acquisizione e non hanno un ramo aperto/chiuso:
+//  - terms/page.tsx: clausola contrattuale sul beneficio Founder GIA'
+//    concesso, con cutoff + regola dei 14 giorni espliciti nel testo
+//    (invariante, e verificata a parte da founder:metadata-invariant-check
+//    CONTROLLO 4, che e' piu' severo di questo);
+//  - fitmesh-gratis-prezzo-founder.ts: articolo storico sul prezzo, gia'
+//    riscritto e datato esplicitamente, nessuna adesione proposta.
 const KNOWN_UNGATED_DATE_CLAIM_DEBT = new Set([
+  "app/(frontend)/[locale]/(marketing)/terms/page.tsx",
+  "lib/blog/posts/fitmesh-gratis-prezzo-founder.ts",
   "lib/blog/posts/come-funziona-fitmesh.ts",
   "lib/blog/posts/migliori-anelli-economici.ts",
   "lib/blog/posts/tracciare-sonno-anello.ts",
@@ -192,16 +256,7 @@ const KNOWN_UNGATED_DATE_CLAIM_DEBT = new Set([
   "lib/blog/posts/guida-sync-wearable-2026.ts",
   "lib/blog/posts/perche-diventare-founder-fitmesh.ts",
 ]);
-// Finestra a caratteri fissi (non "fino al prossimo punto"): un delimitatore
-// a punteggiatura si rompe su codice strutturato (array/oggetti TS senza
-// periodi fra un valore e l'altro), facendo "sanguinare" il match fra due
-// stringhe vicine ma semanticamente non correlate (falso positivo osservato
-// su OrganizationJsonLd.tsx/lib/blog/covers.ts/lib/product-facts.ts: parola
-// "founder" nel senso di fondatore-persona vicino a un "2026" scollegato).
-// Richiedere ANCHE "1000"/"1.000"/"1,000" (i posti Founder) e' il segnale
-// specifico della claim del PROGRAMMA, non del sostantivo "founder" da solo
-// (che compare anche per Matteo Pizzi "founder" dell'azienda, schema.org
-// Organization.founder, ecc. — tutti legittimi, fuori scope di questo check).
+
 const FOUNDER_SEATS_WINDOW = 200;
 const FOUNDER_WORD_RE = /\bfounders?\b/gi;
 const SEATS_NEARBY_RE = /\b1[.,]?000\b/;
@@ -210,23 +265,10 @@ const HELPER_CALL_RE = /founderHistorical(Clause|KeyFact)\s*\(/g;
 
 for (const file of allFiles) {
   const rel = path.relative(repoRoot, file);
-  if (GATED_SURFACES.includes(rel)) continue;
   if (HELPER_DEFINITION_FILES.has(rel)) continue;
   if (KNOWN_UNGATED_DATE_CLAIM_DEBT.has(rel)) continue;
-  // fitmesh-gratis-prezzo-founder.ts e' gia' nell'allow-list storica/legale
-  // del check #2 sopra (ALLOWED_UNGATED_FILES): stessa copy gia' rivista,
-  // corretta e datata esplicitamente ("chiuso dal 31 luglio 2026"), non un
-  // nuovo debito.
-  if (ALLOWED_UNGATED_FILES.has(rel)) continue;
   const content = fs.readFileSync(file, "utf8");
 
-  // PER-OCCORRENZA, non per-file: un singolo import dell'helper in cima NON
-  // deve assolvere l'intero file. Il caso reale che ha motivato questa
-  // scelta: press/page.tsx ha 15 blocchi locale, ne erano stati convertiti 2
-  // (it/en) e un check "il file importa l'helper? allora e' a posto" passava
-  // in verde lasciando 13 locale con la claim hardcoded sbagliata. Qui
-  // ciascuna occorrenza deve essere risolta per conto suo: si considera
-  // coperta solo se l'helper e' invocato DENTRO la stessa finestra di testo.
   let hit: RegExpExecArray | null;
   FOUNDER_WORD_RE.lastIndex = 0;
   const uncovered: number[] = [];
@@ -245,8 +287,16 @@ for (const file of allFiles) {
   if (uncovered.length === 0) continue;
   const lineList = uncovered.slice(0, 8).join(", ") + (uncovered.length > 8 ? `, ... (+${uncovered.length - 8})` : "");
   errors.push(
-    `${rel}: ${uncovered.length} occorrenza/e di "founder" + "1000/1.000" + "2026" ravvicinate (claim hardcoded sullo stato del programma Founder) NON risolte da founderHistoricalClause()/founderHistoricalKeyFact() — righe ${lineList}. Una claim del genere e' vera solo per meta' del calendario. Nota: l'import in cima al file NON basta, ogni occorrenza va convertita. Se e' debito gia' noto e accettato, aggiungi il file a KNOWN_UNGATED_DATE_CLAIM_DEBT.`,
+    `${rel}: ${uncovered.length} occorrenza/e di "founder" + "1000/1.000" + "2026" ravvicinate (claim hardcoded sullo stato del programma Founder) NON risolte da founderHistoricalClause()/founderHistoricalKeyFact() — righe ${lineList}. Se e' debito gia' noto e accettato, aggiungi il file a KNOWN_UNGATED_DATE_CLAIM_DEBT.`,
   );
+}
+
+if (!ENFORCE_SITEWIDE_CTA_SCAN && sitewideCtaFindings.length > 0) {
+  console.error(
+    `⚠️  founder:commercial-truth-check — ${sitewideCtaFindings.length} CTA di acquisizione Founder fuori dalle 5 superfici note (check 3b, NON bloccante finche' ENFORCE_SITEWIDE_CTA_SCAN=false):\n`,
+  );
+  for (const w of sitewideCtaFindings) console.error(`  ! ${w}`);
+  console.error("");
 }
 
 if (errors.length > 0) {
@@ -255,6 +305,6 @@ if (errors.length > 0) {
   process.exit(1);
 } else {
   console.log(
-    "✅ founder:commercial-truth-check: homepage/nav/footer gateano FounderClientGate, beta gatea BetaFounderGate, nessun founderPromo/founderSeats fuori gate o allow-list, zero urgenza artificiale, claim editoriali founder+2026 tracciate (gate/helper/TODO-list nota).",
+    "✅ founder:commercial-truth-check: homepage/nav/footer/beta sono statiche e permanenti (zero gate, zero CTA/promo Founder azionabile, zero form), zero urgenza artificiale, claim editoriali founder+1000+2026 tracciate (helper/debito noto).",
   );
 }

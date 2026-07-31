@@ -17,6 +17,31 @@
  *     cita "al lancio €1,19 ogni 6 mesi" e "€3,99 Android / €4,99 iPhone"
  *     piu' le analogie caffe'/pizza. Aggiornare le cifre qui se cambiano.
  * ──────────────────────────────────────────────────────────────────────────
+ *
+ * ─── Sprint P0.10K — chiusura commerciale del sito ────────────────────────
+ *  a) COPERTURA 15 LOCALE. Le stringhe display si fermavano a 8 locale
+ *     (it/en/es/de/pt/fr/pl/tr): nl, ja, ko, sv, da, no, fi cadevano sul
+ *     fallback `en` di p(). Aggiunte tutte e 7. Provenienza — nessuna
+ *     traduzione automatica: lib/content/about-copy.ts (metaDescription, 15
+ *     locale, contiene gia' "acquisto unico da €3,99" nella forma e nella
+ *     punteggiatura corretta per ogni lingua: "od €3,99", "vanaf €3,99",
+ *     "€3.99から", "€3.99부터", "från/fra €3,99", "alkaen €3,99") e
+ *     lib/dictionaries/<loc>.json → hero.pricing (forma locale di "ogni 6
+ *     mesi": "per 6 maanden", "6ヶ月", "6개월", "var 6:e månad",
+ *     "hver 6. måned", "joka kuusi kuukautta").
+ *     Il separatore decimale segue la convenzione della lingua cosi' come gia'
+ *     scritta a mano in about-copy: virgola ovunque, punto per ja/ko.
+ *
+ *  b) `founderPromo` RIMOSSA. Era la frase promozionale del programma per i
+ *     primi mille account: con la chiusura commerciale del sito non ha piu'
+ *     alcun consumer (verificato con grep su app/components/lib: restavano
+ *     solo le citazioni del NOME dentro i guardrail tools/check-founder-*.ts,
+ *     che controllano il testo dei file e non importano questo modulo).
+ *     `founderSeats` resta: e' la stessa informazione in forma di "fact"
+ *     storico e i guardrail la citano come SSOT ammessa per i contesti
+ *     storici/legali. Nessuna delle due puo' comparire su una superficie che
+ *     presenta l'offerta corrente — invariante verificata da
+ *     founder:commercial-truth-check (check 2).
  */
 
 import type { Locale } from "@/lib/i18n";
@@ -43,6 +68,13 @@ export const PRICING = {
     fr: "€1,19",
     pl: "€1,19",
     tr: "€1,19",
+    nl: "€1,19",
+    ja: "€1.19",
+    ko: "€1.19",
+    sv: "€1,19",
+    da: "€1,19",
+    no: "€1,19",
+    fi: "€1,19",
   },
   /** Acquisto unico su Android (Play Store) */
   lifetimeAndroid: {
@@ -54,6 +86,13 @@ export const PRICING = {
     fr: "€3,99",
     pl: "€3,99",
     tr: "€3,99",
+    nl: "€3,99",
+    ja: "€3.99",
+    ko: "€3.99",
+    sv: "€3,99",
+    da: "€3,99",
+    no: "€3,99",
+    fi: "€3,99",
   },
   /** Acquisto unico su iPhone (App Store) */
   lifetimeIos: {
@@ -65,11 +104,24 @@ export const PRICING = {
     fr: "€4,99",
     pl: "€4,99",
     tr: "€4,99",
+    nl: "€4,99",
+    ja: "€4.99",
+    ko: "€4.99",
+    sv: "€4,99",
+    da: "€4,99",
+    no: "€4,99",
+    fi: "€4,99",
   },
 
   // ── Frasi composte riusabili ─────────────────────────────────────────
 
-  /** "€3,99 su Android · €4,99 su iPhone" */
+  /**
+   * "€3,99 su Android · €4,99 su iPhone"
+   * Preposizione locale da dictionaries hero.badge ("Disponibile su Android e
+   * iOS" → "op", "på"). fi usa la forma senza preposizione (identica a
+   * lifetimeBothShort): il repo non ha un caso locativo umano da riusare per
+   * "su Android", e non lo si inventa.
+   */
   lifetimeBoth: {
     it: "€3,99 su Android · €4,99 su iPhone",
     en: "€3.99 on Android · €4.99 on iPhone",
@@ -79,6 +131,13 @@ export const PRICING = {
     fr: "€3,99 sur Android · €4,99 sur iPhone",
     pl: "€3,99 na Android · €4,99 na iPhone",
     tr: "Android'de €3,99 · iPhone'da €4,99",
+    nl: "€3,99 op Android · €4,99 op iPhone",
+    ja: "Android €3.99 · iPhone €4.99",
+    ko: "Android €3.99 · iPhone €4.99",
+    sv: "€3,99 på Android · €4,99 på iPhone",
+    da: "€3,99 på Android · €4,99 på iPhone",
+    no: "€3,99 på Android · €4,99 på iPhone",
+    fi: "€3,99 Android · €4,99 iPhone",
   },
   /** "€3,99 Android · €4,99 iPhone" (versione compatta senza preposizione) */
   lifetimeBothShort: {
@@ -90,8 +149,18 @@ export const PRICING = {
     fr: "€3,99 Android · €4,99 iPhone",
     pl: "€3,99 Android · €4,99 iPhone",
     tr: "€3,99 Android · €4,99 iPhone",
+    nl: "€3,99 Android · €4,99 iPhone",
+    ja: "Android €3.99 · iPhone €4.99",
+    ko: "Android €3.99 · iPhone €4.99",
+    sv: "€3,99 Android · €4,99 iPhone",
+    da: "€3,99 Android · €4,99 iPhone",
+    no: "€3,99 Android · €4,99 iPhone",
+    fi: "€3,99 Android · €4,99 iPhone",
   },
-  /** "da €3,99" / "from €3.99" — per contesti che citano solo il prezzo minimo */
+  /**
+   * "da €3,99" / "from €3.99" — per contesti che citano solo il prezzo minimo.
+   * Le 7 locale nuove riusano verbatim la forma di ABOUT_COPY.metaDescription.
+   */
   fromLifetime: {
     it: "da €3,99",
     en: "from €3.99",
@@ -101,6 +170,13 @@ export const PRICING = {
     fr: "à partir de €3,99",
     pl: "od €3,99",
     tr: "€3,99'dan itibaren",
+    nl: "vanaf €3,99",
+    ja: "€3.99から",
+    ko: "€3.99부터",
+    sv: "från €3,99",
+    da: "fra €3,99",
+    no: "fra €3,99",
+    fi: "alkaen €3,99",
   },
   /** "€1,19/6 mesi" / "€1.19/6mo" */
   subSixMonthsLabel: {
@@ -112,6 +188,13 @@ export const PRICING = {
     fr: "€1,19/6 mois",
     pl: "€1,19/6 mies.",
     tr: "€1,19/6 ay",
+    nl: "€1,19/6 maanden",
+    ja: "€1.19/6ヶ月",
+    ko: "€1.19/6개월",
+    sv: "€1,19/6 månader",
+    da: "€1,19/6 måneder",
+    no: "€1,19/6 måneder",
+    fi: "€1,19/6 kuukautta",
   },
   /** "€1,19 ogni 6 mesi" / "€1.19 every 6 months" */
   subSixMonthsFull: {
@@ -123,24 +206,23 @@ export const PRICING = {
     fr: "€1,19 tous les 6 mois",
     pl: "€1,19 co 6 miesięcy",
     tr: "€1,19 6 ayda bir",
+    nl: "€1,19 per 6 maanden",
+    ja: "6ヶ月ごとに €1.19",
+    ko: "6개월마다 €1.19",
+    sv: "€1,19 var 6:e månad",
+    da: "€1,19 hver 6. måned",
+    no: "€1,19 hver 6. måned",
+    fi: "€1,19 joka kuusi kuukautta",
   },
 
-  // ── Promo founder (UNICA frase canonica) ─────────────────────────────
-  // Allineata ai Termini di servizio: i primi 1000 account ricevono il Pro
-  // a vita gratis, senza condizioni (nessuna recensione richiesta).
-  // Vedi anche app/.../terms/page.tsx.
+  // ── Fact storico Founder (NON un'offerta corrente) ───────────────────
+  // Allineato ai Termini di servizio: i primi mille account registrati entro
+  // la data di chiusura hanno ricevuto il Pro a vita gratis, senza condizioni
+  // (nessuna recensione richiesta). Vedi app/.../terms/page.tsx e
+  // lib/founder/historical-note.ts. Da Sprint P0.10K il sito non propone piu'
+  // l'adesione: questa stringa vale solo per contesti storici/legali e NON
+  // deve comparire su homepage/header/footer/menu/beta.
 
-  /** "Pro a vita gratis per i primi 1000 founder" */
-  founderPromo: {
-    it: "Pro a vita gratis per i primi 1000 founder",
-    en: "Lifetime Pro free for the first 1,000 founders",
-    es: "Pro de por vida gratis para los primeros 1000 founders",
-    de: "Lebenslanges Pro gratis für die ersten 1000 Founder",
-    pt: "Pro vitalício grátis para os primeiros 1000 founders",
-    fr: "Pro à vie gratuit pour les 1000 premiers founders",
-    pl: "Dożywotnie Pro za darmo dla pierwszych 1000 founderów",
-    tr: "İlk 1000 kurucu için ömür boyu ücretsiz Pro",
-  },
   /** "Primi 1000 account: Pro a vita gratis" (versione fact/etichetta) */
   founderSeats: {
     it: "Primi 1000 account: Pro a vita gratis",
@@ -154,7 +236,7 @@ export const PRICING = {
   },
 } as const;
 
-/** Helper: ritorna la stringa display per la locale corrente (fallback en per nl/ja/ko) */
+/** Helper: ritorna la stringa display per la locale corrente (fallback en) */
 export function p(key: keyof typeof PRICING, locale: Locale): string {
   const entry = PRICING[key] as Record<string, string>;
   return entry[locale] ?? entry["en"];

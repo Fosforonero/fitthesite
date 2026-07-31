@@ -10,6 +10,14 @@ const MAX_SAFE_DELAY_MS = 2_147_000_000;
 type FounderStatus = "pending" | "open" | "closed";
 
 /**
+ * Sprint P0.10K (2026-07-31): NESSUN consumer pubblico da questo sprint in
+ * poi — /beta/page.tsx renderizza ora sempre lo stesso corpo statico
+ * invariante (chiusura commerciale del sito anticipata rispetto al cutoff
+ * backend), senza gate. Questo componente resta nel repo — coperto da
+ * BetaFounderGate.test.tsx, referenziato dall'allowlist di
+ * check-founder-static-invariant.ts — invece di essere cancellato, stesso
+ * ragionamento di components/founder/FounderClientGate.tsx.
+ *
  * Sprint P0.10H — gate a TRE stati, dedicato esclusivamente a /beta.
  *
  * FounderClientGate (homepage/header/footer/menu) usa solo 2 stati

@@ -2,7 +2,6 @@ import Link from "next/link";
 import Logo from "./Logo";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { IMPRINT_NAV_LABEL } from "@/components/legal/TraderIdentity";
-import { FounderClientGate } from "@/components/founder/FounderClientGate";
 
 export default function Footer({
   dict,
@@ -58,23 +57,17 @@ export default function Footer({
             <li><Link href={`/${locale}/novita`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Novità" : "What's New"}</Link></li>
             <li><Link href={`/${locale}/about`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Chi siamo" : "About"}</Link></li>
             <li><Link href={`/${locale}/press`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Press" : "Press"}</Link></li>
+            {/*
+             * Sprint P0.10K: link statico e permanente verso l'archivio
+             * /beta — non piu' gated da FounderClientGate (era l'unico
+             * `evergreen`, corretto sia prima sia dopo il cutoff: nessuna
+             * promo, nessun badge lampeggiante, nessun claim "Pro a vita
+             * gratis" incondizionato).
+             */}
             <li>
-              <FounderClientGate
-                founder={
-                  <Link href={`/${locale}/beta`} className="inline-flex items-center gap-1.5 text-brand-aqua hover:text-brand-green transition font-medium">
-                    <span className="relative flex w-1.5 h-1.5">
-                      <span className="absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75 animate-ping motion-reduce:animate-none" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-green" />
-                    </span>
-                    {locale === "it" ? "Founder · Pro a vita gratis" : "Founder · lifetime Pro free"}
-                  </Link>
-                }
-                evergreen={
-                  <Link href={`/${locale}/beta`} className="text-text-secondary hover:text-text-primary transition">
-                    Founder
-                  </Link>
-                }
-              />
+              <Link href={`/${locale}/beta`} className="text-text-secondary hover:text-text-primary transition">
+                Founder
+              </Link>
             </li>
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
             <li><Link href={`/${locale}/support`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>

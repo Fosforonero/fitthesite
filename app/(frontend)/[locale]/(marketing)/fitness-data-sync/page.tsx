@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { organizationCompactRef } from "@/components/seo/OrganizationJsonLd";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
+import { CTA_PLACEMENTS } from "@/lib/analytics/cta";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
@@ -748,7 +749,7 @@ export default async function FitnessDataSyncPage({
         </h2>
         <p className="mt-4 text-text-secondary max-w-xl mx-auto">{tl(FINAL_CTA_BODY, lc)}</p>
         <div className="mt-8 flex justify-center">
-          <StoreButtonsRow locale={lc} className="justify-center" ctaLocation="fitness_data_sync" />
+          <StoreButtonsRow locale={lc} className="justify-center" ctaLocation={CTA_PLACEMENTS.fitnessDataSync} />
         </div>
       </section>
     </>

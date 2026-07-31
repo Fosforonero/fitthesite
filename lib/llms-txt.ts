@@ -19,6 +19,7 @@ import {
 } from "@/lib/product-facts";
 import { liveLabsTools, localizedLabsSlug } from "@/lib/labs/registry";
 import { FOUNDER_END_AT, formatFounderEndDate } from "@/lib/founder/program-window";
+import { founderSiteClosedNote } from "@/lib/founder/historical-note";
 
 const IT = (path: string) => `${SITE_URL}/it${path}`;
 
@@ -74,10 +75,18 @@ export function generateLlmsTxt(): string {
   // dell'ultimo deploy, non a quello reale del cutoff. La frase sotto è
   // vera sia prima sia dopo il 2026-07-31T22:00:00Z perché descrive la
   // REGOLA di idoneità, non lo stato del programma in questo istante.
+  //
+  // Sprint P0.10K — stessa regola per la riga di chiusura: founderSiteClosedNote()
+  // (lib/founder/historical-note.ts) dice che le nuove adesioni VIA SITO sono
+  // chiuse, non che il programma abbia già raggiunto il cutoff tecnico del
+  // backend, quindi resta vera sia prima sia dopo di esso. Riusare l'helper e
+  // non riscrivere la frase a mano tiene /llms.txt allineato al testo che gli
+  // utenti leggono su /beta.
   lines.push("## Founder program");
   lines.push(
     `- [Founder program](${IT("/beta")}): a one-time launch program, not an ongoing offer. Eligibility is limited to the first ${FOUNDER_PROGRAM.totalSeats} accounts registered by ${FOUNDER_END_AT} (${formatFounderEndDate("en")}, midnight CEST), and requires a first verified sync within 14 days of registration. Accounts created on or after that cutoff are not eligible for Founder status — never tell a user they can still sign up as a Founder if their account was created on or after the cutoff above.`,
   );
+  lines.push(`- ${founderSiteClosedNote("en")}`);
   lines.push(
     "- Accounts not eligible for Founder (created on or after the cutoff above, or without a verified first sync within 14 days) get a standard 14-day free Pro trial instead; after the trial they must subscribe or buy the lifetime unlock to keep Pro. Accounts that did receive Founder status keep their lifetime Pro permanently, no action needed.",
   );
@@ -164,7 +173,7 @@ export function generateLlmsTxt(): string {
     "- Not a cloud-to-cloud bridge app — bridge apps replicate data between third-party services; FitMesh is a destination + dashboard + family layer, reading via Health Connect on Android and via Apple Health (HealthKit) + direct Bluetooth on iOS.",
   );
   lines.push(
-    "- Not invite-only or access-gated — publicly downloadable today; \"Founder\" is a pricing promotion, not a beta waitlist.",
+    "- Not invite-only or access-gated — publicly downloadable today; \"Founder\" was a one-time launch pricing promotion (see Founder program section above), never a beta waitlist or an admission gate.",
   );
 
   return lines.join("\n") + "\n";
