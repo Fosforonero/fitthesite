@@ -20,10 +20,6 @@ describe("CTA_PLACEMENTS — vocabolario dei placement", () => {
     expect(new Set(values).size).toBe(values.length);
   });
 
-  it("distingue la card Free dalla card Prova 14 giorni", () => {
-    expect(CTA_PLACEMENTS.homepagePricingFree).not.toBe(CTA_PLACEMENTS.homepagePricingTrial);
-  });
-
   it("copre le CTA di navigazione (header desktop + menu mobile)", () => {
     expect(CTA_PLACEMENTS.headerPrimary).toBe("header_primary");
     expect(CTA_PLACEMENTS.mobileMenuPrimary).toBe("mobile_menu_primary");
