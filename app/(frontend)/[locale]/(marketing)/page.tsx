@@ -732,7 +732,7 @@ export default async function Home({
             </span>
             <h3 className="font-display text-lg font-semibold text-text-primary">{tl(HOMEPAGE_COPY.trialName, lc)}</h3>
             <p className="mt-1 text-sm text-text-muted">{tl(HOMEPAGE_COPY.trialTagline, lc)}</p>
-            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.freeLabel, lc)}</p>
+            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.trialPeriodLabel, lc)}</p>
             <ul className="mt-5 space-y-2.5 flex-1">
               {tll(PRICING_SECTION.proFeatures, lc).map((f) => (
                 <li key={f} className="flex gap-2 text-sm text-text-secondary">
