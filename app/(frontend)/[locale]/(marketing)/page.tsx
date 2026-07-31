@@ -684,14 +684,26 @@ export default async function Home({
             </Link>
           )}
         </div>
-        <div className="grid gap-5 md:grid-cols-3 items-stretch">
-          {/* Free */}
-          <div className="card p-7 flex flex-col">
-            <h3 className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.freeName, lc)}</h3>
-            <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.freeTagline, lc)}</p>
-            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-text-primary">{tl(PRICING_SECTION.freeLabel, lc)}</p>
+        <div className="grid gap-5 md:grid-cols-2 items-stretch max-w-3xl">
+          {/*
+           * 31/07 (Matteo, review visiva post-deploy): la vecchia card "Free"
+           * (freeName/freeTagline/freeLabel/freeFeatures) e questa erano la
+           * STESSA offerta — 14 giorni di prova Pro, poi si sceglie un piano
+           * — solo con stili e feature-list diverse: due card ridondanti
+           * l'una accanto all'altra. Rimossa la prima, resta solo questa
+           * (evidenziata, badge "Consigliato"). freeName/freeTagline/
+           * freeFeatures/freeLabel rimossi da lib/pricing-section.ts (zero
+           * altri consumer, grep verificato).
+           */}
+          <div className="relative card p-7 flex flex-col h-full border-brand-aqua/30 bg-brand-aqua/[0.06]">
+            <span className="absolute top-4 right-4 text-[10px] uppercase tracking-[0.18em] font-semibold text-[#050816] bg-brand-aqua rounded-pill px-2.5 py-1">
+              {tl(PRICING_SECTION.recommendedBadge, lc)}
+            </span>
+            <h3 className="font-display text-lg font-semibold text-text-primary">{tl(HOMEPAGE_COPY.trialName, lc)}</h3>
+            <p className="mt-1 text-sm text-text-muted">{tl(HOMEPAGE_COPY.trialTagline, lc)}</p>
+            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.trialPeriodLabel, lc)}</p>
             <ul className="mt-5 space-y-2.5 flex-1">
-              {tll(PRICING_SECTION.freeFeatures, lc).map((f) => (
+              {tll(PRICING_SECTION.trialFeatures, lc).map((f) => (
                 <li key={f} className="flex gap-2 text-sm text-text-secondary">
                   <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
                   <span>{f}</span>
@@ -699,9 +711,9 @@ export default async function Home({
               ))}
             </ul>
             <div className="mt-6">
-              {/* Fase 7: era "homepage_pricing", identico alla card Prova —
-                  i due segmenti erano indistinguibili in GA4. */}
-              <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.homepagePricingFree} />
+              {/* Fase 7: CTA "Prova 14 giorni" — e' la conversione del funnel
+                  post-Founder. */}
+              <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.homepagePricingTrial} />
             </div>
           </div>
           {/* Pro */}
@@ -720,32 +732,6 @@ export default async function Home({
                 </li>
               ))}
             </ul>
-          </div>
-          {/*
-           * Sprint P0.10K: terza card statica e permanente (Prova 14gg) —
-           * non piu' gated da FounderClientGate. Era l'unico `evergreen`,
-           * corretto sia prima sia dopo il cutoff.
-           */}
-          <div className="relative card p-7 flex flex-col h-full border-brand-aqua/30 bg-brand-aqua/[0.06]">
-            <span className="absolute top-4 right-4 text-[10px] uppercase tracking-[0.18em] font-semibold text-[#050816] bg-brand-aqua rounded-pill px-2.5 py-1">
-              {tl(PRICING_SECTION.recommendedBadge, lc)}
-            </span>
-            <h3 className="font-display text-lg font-semibold text-text-primary">{tl(HOMEPAGE_COPY.trialName, lc)}</h3>
-            <p className="mt-1 text-sm text-text-muted">{tl(HOMEPAGE_COPY.trialTagline, lc)}</p>
-            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.trialPeriodLabel, lc)}</p>
-            <ul className="mt-5 space-y-2.5 flex-1">
-              {tll(PRICING_SECTION.proFeatures, lc).map((f) => (
-                <li key={f} className="flex gap-2 text-sm text-text-secondary">
-                  <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6">
-              {/* Fase 7: CTA "Prova 14 giorni" — e' la conversione del funnel
-                  post-Founder, ora ha un placement proprio. */}
-              <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.homepagePricingTrial} />
-            </div>
           </div>
         </div>
       </section>

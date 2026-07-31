@@ -52,17 +52,20 @@ export const CTA_NO_STORE_DESTINATION = "none";
  * in GA4.
  *
  * I valori restano quelli gia' in produzione (`homepage_hero`,
- * `homepage_final_cta`, `beta_archive`, `fitness_data_sync`) tranne
- * `homepage_pricing`, che era ambiguo — lo stesso valore era usato sia
- * dalla card Free sia dalla card "Prova 14 giorni", rendendo impossibile
- * distinguere la CTA che oggi porta le conversioni. E' stato separato in
- * `homepage_pricing_free` / `homepage_pricing_trial`.
+ * `homepage_final_cta`, `beta_archive`, `fitness_data_sync`).
+ * `homepage_pricing` era ambiguo — lo stesso valore era usato sia dalla card
+ * Free sia dalla card "Prova 14 giorni" della sezione pricing, rendendo
+ * impossibile distinguere la CTA che portava le conversioni — separato in
+ * `homepage_pricing_free` / `homepage_pricing_trial` lo stesso giorno.
+ * Poi (stesso giorno, review visiva post-deploy di Matteo) la card Free e'
+ * stata rimossa perche' ridondante con la card Prova (stessa offerta, stili
+ * diversi): resta una sola card pricing evidenziata, `homepage_pricing_trial`
+ * — `homepage_pricing_free` rimosso, zero altri consumer.
  */
 export const CTA_PLACEMENTS = {
   headerPrimary: "header_primary",
   mobileMenuPrimary: "mobile_menu_primary",
   homepageHero: "homepage_hero",
-  homepagePricingFree: "homepage_pricing_free",
   homepagePricingTrial: "homepage_pricing_trial",
   homepageFinalCta: "homepage_final_cta",
   betaArchive: "beta_archive",

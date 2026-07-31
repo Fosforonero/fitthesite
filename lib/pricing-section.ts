@@ -53,6 +53,17 @@
  *    era gia' neutro ("Consigliato"/"Recommended") ma il nome continuava a
  *    parlare di Founder su una card che oggi e' la prova 14 giorni. Unico
  *    punto d'uso aggiornato: app/(frontend)/[locale]/(marketing)/page.tsx.
+ *
+ * 5. MERGE (stesso giorno, review visiva post-deploy di Matteo). Le note 1-4
+ *    sopra descrivono lo stato con TRE card pricing (Free/Pro/Prova 14gg):
+ *    le prime due erano la stessa offerta (14gg di prova Pro) con stili e
+ *    feature-list diversi, ridondanti fianco a fianco. Rimossa la card
+ *    "Free": `freeName`/`freeTagline`/`freeFeatures`/`freeLabel` eliminati
+ *    (zero altri consumer). Resta una sola card evidenziata, con un nuovo
+ *    `trialPeriodLabel` ("Periodo di prova", non piu' "Gratis": la vecchia
+ *    label confondeva la card con un piano gratuito permanente) e un nuovo
+ *    `trialFeatures` (= `proFeatures` senza la riga Mesh Famiglia, non
+ *    inclusa nella prova). Il pricing homepage e' oggi a 2 card, non 3.
  */
 import type { Localized, LocalizedList } from "@/lib/blog/types";
 
@@ -121,77 +132,6 @@ export const PRICING_SECTION = {
     fi: "Kokeile FitMesh Pro -versiota 14 päivää. Sen jälkeen tarvitaan osto tai tilaus, jotta voit jatkaa Pro-ominaisuuksien käyttöä.",
   } as Localized,
 
-  // ── Tier: Prova (14 giorni) ────────────────────────────────────────
-  /**
-   * Nome del tier. Provenienza: sostantivo "prova/trial" gia' usato per ogni
-   * locale in ABOUT_COPY.trialDesc e in historical-note STATEMENT
-   * (okres próbny / deneme / proefperiode / トライアル / 체험 / provperiod /
-   * prøveperiode / kokeilu).
-   */
-  freeName: {
-    it: "Prova",
-    en: "Trial",
-    es: "Prueba",
-    de: "Testphase",
-    pt: "Teste",
-    fr: "Essai",
-    pl: "Okres próbny",
-    tr: "Deneme",
-    nl: "Proefperiode",
-    ja: "トライアル",
-    ko: "체험",
-    sv: "Provperiod",
-    da: "Prøveperiode",
-    no: "Prøveperiode",
-    fi: "Kokeilu",
-  } as Localized,
-  /**
-   * Provenienza: ABOUT_COPY.trialDesc ("14 giorni: tutte le funzioni Pro...")
-   * e, per it/es/de/pt/fr, la clausola dei Termini ("prova gratuita di 14
-   * giorni con tutte le funzionalita' Pro attive"). La vecchia coda "Nessuna
-   * carta." e' stata rimossa: vedi nota 3 in testa al file.
-   */
-  freeTagline: {
-    it: "14 giorni con tutte le funzioni Pro.",
-    en: "14 days with all Pro features.",
-    es: "14 días con todas las funciones Pro.",
-    de: "14 Tage mit allen Pro-Funktionen.",
-    pt: "14 dias com todas as funções Pro.",
-    fr: "14 jours avec toutes les fonctions Pro.",
-    pl: "14 dni ze wszystkimi funkcjami Pro.",
-    tr: "14 gün boyunca tüm Pro özellikler.",
-    nl: "14 dagen met alle Pro-functies.",
-    ja: "14日間、Proの全機能が使えます。",
-    ko: "14일 동안 모든 Pro 기능을 이용할 수 있습니다.",
-    sv: "14 dagar med alla Pro-funktioner.",
-    da: "14 dage med alle Pro-funktioner.",
-    no: "14 dager med alle Pro-funksjoner.",
-    fi: "14 päivää kaikilla Pro-ominaisuuksilla.",
-  } as Localized,
-  /**
-   * Provenienza 9 locale nuove: ABOUT_COPY.trialDesc ("tutte le funzioni Pro",
-   * "storico completo"), dictionaries features.heading (parola "panel/
-   * dashboard/hallintapaneeli") e HOMEPAGE_COPY.trialTagline ("scegli il
-   * piano").
-   */
-  freeFeatures: {
-    it: ["Tutte le funzioni Pro", "Dashboard e storico completi", "Poi scegli un piano"],
-    en: ["All Pro features", "Full dashboard and history", "Then pick a plan"],
-    es: ["Todas las funciones Pro", "Dashboard e historial completos", "Luego eliges un plan"],
-    de: ["Alle Pro-Funktionen", "Volles Dashboard und Verlauf", "Dann wählst du einen Plan"],
-    pt: ["Todas as funções Pro", "Dashboard e histórico completos", "Depois escolhes um plano"],
-    fr: ["Toutes les fonctions Pro", "Tableau de bord et historique complets", "Ensuite choisissez un plan"],
-    pl: ["Wszystkie funkcje Pro", "Pełny panel i historia", "Potem wybierasz plan"],
-    tr: ["Tüm Pro özellikler", "Tam panel ve geçmiş", "Sonra bir plan seç"],
-    nl: ["Alle Pro-functies", "Volledig dashboard en geschiedenis", "Daarna kies je een plan"],
-    ja: ["Proの全機能", "ダッシュボードと全履歴", "その後プランを選択"],
-    ko: ["모든 Pro 기능", "대시보드와 전체 기록", "이후 요금제 선택"],
-    sv: ["Alla Pro-funktioner", "Fullständig dashboard och historik", "Välj sedan en plan"],
-    da: ["Alle Pro-funktioner", "Fuldt dashboard og historik", "Vælg derefter en plan"],
-    no: ["Alle Pro-funksjoner", "Fullt dashbord og historikk", "Velg deretter en plan"],
-    fi: ["Kaikki Pro-ominaisuudet", "Täysi hallintapaneeli ja historia", "Valitse sitten paketti"],
-  } as LocalizedList,
-
   // ── Tier: Pro ──────────────────────────────────────────────────────
   /**
    * "Pro" e' il nome commerciale del piano, identico in tutte le lingue del
@@ -248,25 +188,58 @@ export const PRICING_SECTION = {
    *    inventata;
    *  - Mesh Famiglia: ABOUT_COPY.familyHeading (pl/nl/ja/ko/sv/da/no/fi
    *    "Family Mesh", tr "Aile Mesh");
-   *  - caregiving: scegliere-smartwatch-dati-2026.ts + nordic-overlay.json;
    *  - export: dictionaries <loc>.json → app.settings.export.
+   *
+   * 31/07 (review visiva post-deploy di Matteo): "(caregiving)" -> "(coming
+   * soon)". Mesh Famiglia non e' ancora disponibile (COMING_SOON=true su
+   * app/(frontend)/[locale]/(marketing)/famiglia/page.tsx: "in sviluppo
+   * attivo, senza una data di rilascio confermata"), quindi elencarla come
+   * feature Pro con un descrittore funzionale ("caregiving") suggeriva che
+   * fosse gia' attivabile. Riusa verbatim la chiave dizionario esistente
+   * app.devices.coming_soon (lib/dictionaries/<loc>.json:126, mai consumata
+   * altrove nel sito, gia' su tutte e 15 le locale, gia' fra parentesi).
    */
   proFeatures: {
-    it: ["Storico illimitato", "Mesh Famiglia (caregiving)", "Export completo dei dati"],
-    en: ["Unlimited history", "Family Mesh (caregiving)", "Full data export"],
-    es: ["Historial ilimitado", "Mesh Familia (cuidado)", "Exportación completa de datos"],
-    de: ["Unbegrenzter Verlauf", "Family Mesh (Pflege)", "Vollständiger Datenexport"],
-    pt: ["Histórico ilimitado", "Mesh Família (cuidado)", "Exportação completa de dados"],
-    fr: ["Historique illimité", "Mesh Famille (aidant)", "Export complet des données"],
-    pl: ["Pełna historia", "Family Mesh (opieka)", "Pełny eksport danych"],
-    tr: ["Tam geçmiş", "Aile Mesh (bakım)", "Verilerin tam dışa aktarımı"],
-    nl: ["Volledige geschiedenis", "Family Mesh (zorg)", "Volledige export van je gegevens"],
-    ja: ["すべての履歴データ", "Family Mesh（ケア）", "全データのエクスポート"],
-    ko: ["전체 기록 데이터", "Family Mesh(케어)", "전체 데이터 내보내기"],
-    sv: ["Fullständig historik", "Family Mesh (omsorg)", "Fullständig export av dina data"],
-    da: ["Fuld historik", "Family Mesh (pleje)", "Fuld eksport af dine data"],
-    no: ["Full historikk", "Family Mesh (omsorg)", "Full eksport av dataene dine"],
-    fi: ["Täysi historia", "Family Mesh (hoiva)", "Kaikkien tietojesi vienti"],
+    it: ["Storico illimitato", "Mesh Famiglia (in arrivo)", "Export completo dei dati"],
+    en: ["Unlimited history", "Family Mesh (coming soon)", "Full data export"],
+    es: ["Historial ilimitado", "Mesh Familia (próximamente)", "Exportación completa de datos"],
+    de: ["Unbegrenzter Verlauf", "Family Mesh (demnächst verfügbar)", "Vollständiger Datenexport"],
+    pt: ["Histórico ilimitado", "Mesh Família (em breve)", "Exportação completa de dados"],
+    fr: ["Historique illimité", "Mesh Famille (bientôt disponible)", "Export complet des données"],
+    pl: ["Pełna historia", "Family Mesh (wkrótce)", "Pełny eksport danych"],
+    tr: ["Tam geçmiş", "Aile Mesh (yakında)", "Verilerin tam dışa aktarımı"],
+    nl: ["Volledige geschiedenis", "Family Mesh (binnenkort)", "Volledige export van je gegevens"],
+    ja: ["すべての履歴データ", "Family Mesh（近日公開）", "全データのエクスポート"],
+    ko: ["전체 기록 데이터", "Family Mesh(출시 예정)", "전체 데이터 내보내기"],
+    sv: ["Fullständig historik", "Family Mesh (kommer snart)", "Fullständig export av dina data"],
+    da: ["Fuld historik", "Family Mesh (kommer snart)", "Fuld eksport af dine data"],
+    no: ["Full historikk", "Family Mesh (kommer snart)", "Full eksport av dataene dine"],
+    fi: ["Täysi historia", "Family Mesh (tulossa pian)", "Kaikkien tietojesi vienti"],
+  } as LocalizedList,
+  /**
+   * Solo per la terza card (Prova 14gg): identica a `proFeatures` ma senza
+   * la riga Mesh Famiglia. 31/07 (Matteo): la funzione non e' inclusa nella
+   * prova, perche' non e' ancora attivabile da nessuno — quando lo sara',
+   * richiedera' comunque un acquisto/abbonamento attivo, non fa parte del
+   * periodo di prova gratuito. La card "Pro" (proFeatures) la elenca ancora,
+   * marcata "(coming soon)".
+   */
+  trialFeatures: {
+    it: ["Storico illimitato", "Export completo dei dati"],
+    en: ["Unlimited history", "Full data export"],
+    es: ["Historial ilimitado", "Exportación completa de datos"],
+    de: ["Unbegrenzter Verlauf", "Vollständiger Datenexport"],
+    pt: ["Histórico ilimitado", "Exportação completa de dados"],
+    fr: ["Historique illimité", "Export complet des données"],
+    pl: ["Pełna historia", "Pełny eksport danych"],
+    tr: ["Tam geçmiş", "Verilerin tam dışa aktarımı"],
+    nl: ["Volledige geschiedenis", "Volledige export van je gegevens"],
+    ja: ["すべての履歴データ", "全データのエクスポート"],
+    ko: ["전체 기록 데이터", "전체 데이터 내보내기"],
+    sv: ["Fullständig historik", "Fullständig export av dina data"],
+    da: ["Fuld historik", "Fuld eksport af dine data"],
+    no: ["Full historikk", "Full eksport av dataene dine"],
+    fi: ["Täysi historia", "Kaikkien tietojesi vienti"],
   } as LocalizedList,
 
   // ── Badge terza card pricing (prova 14gg) ───────────────────────────
@@ -295,42 +268,19 @@ export const PRICING_SECTION = {
     fi: "Suositeltu",
   } as Localized,
   /**
-   * Prezzo mostrato sulla card "Free" (prima card, non evidenziata): e' il
-   * costo dei 14 giorni, non un piano gratuito permanente (cfr. Termini:
-   * "non esiste un piano gratuito permanente"). Provenienza 9 locale nuove:
-   * HOMEPAGE_COPY.trialName ("14 dni za darmo", "14 gün ücretsiz",
-   * "14 dagen gratis", "14日間無料", "14일 무료", "14 dagar/dage/dager gratis",
-   * "14 päivää ilmaiseksi").
-   */
-  freeLabel: {
-    it: "Gratis",
-    en: "Free",
-    es: "Gratis",
-    de: "Gratis",
-    pt: "Grátis",
-    fr: "Gratuit",
-    pl: "Za darmo",
-    tr: "Ücretsiz",
-    nl: "Gratis",
-    ja: "無料",
-    ko: "무료",
-    sv: "Gratis",
-    da: "Gratis",
-    no: "Gratis",
-    fi: "Ilmainen",
-  } as Localized,
-  /**
-   * Prezzo mostrato SOLO sulla terza card, quella evidenziata ("Consigliato",
-   * HOMEPAGE_COPY.trialName/trialTagline) — distinta da `freeLabel` su
-   * richiesta di Matteo (31/07, review visiva post-deploy): "Gratis" confonde
-   * questa card col piano davvero gratuito della prima card. Qui il testo
-   * indica lo STATO (periodo di prova), non un prezzo.
-   * Provenienza: de/pl/nl/sv/da/no riusano `freeName` verbatim — in quelle
-   * lingue "Testphase"/"Okres próbny"/"Proefperiode"/"Provperiod"/
-   * "Prøveperiode" GIA' significa "periodo di prova", non serve altro.
-   * Le altre locale compongono `freeName` (Prova/Trial/Prueba/Teste/Essai/
-   * Deneme/トライアル/체험/Kokeilu) con la parola "periodo/period/período/
-   * süresi/期間/기간/aika" gia' usata altrove nel repo per lo stesso concetto.
+   * Prezzo mostrato sull'unica card pricing evidenziata ("Consigliato",
+   * HOMEPAGE_COPY.trialName/trialTagline). Su richiesta di Matteo (31/07,
+   * review visiva post-deploy): non "Gratis" (era il testo originale, ma
+   * suggeriva un piano gratuito permanente — questa e' una prova a tempo).
+   * Qui il testo indica lo STATO (periodo di prova), non un prezzo.
+   * Provenienza: de/pl/nl/sv/da/no riusano il sostantivo "prova/trial" gia'
+   * usato per ogni locale in ABOUT_COPY.trialDesc e historical-note STATEMENT
+   * ("Testphase"/"Okres próbny"/"Proefperiode"/"Provperiod"/"Prøveperiode")
+   * — in quelle lingue significa GIA' "periodo di prova", non serve altro.
+   * Le altre locale compongono lo stesso sostantivo (Prova/Trial/Prueba/
+   * Teste/Essai/Deneme/トライアル/체험/Kokeilu) con la parola "periodo/period/
+   * período/süresi/期間/기간/aika" gia' usata altrove nel repo per lo stesso
+   * concetto.
    */
   trialPeriodLabel: {
     it: "Periodo di prova",
