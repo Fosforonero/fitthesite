@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CTA_PLACEMENTS } from "@/lib/analytics/cta";
 import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import MockupShowcase from "@/components/MockupShowcase";
@@ -31,7 +32,6 @@ import { schemaLanguage } from "@/lib/seo/schema-language";
  */
 import { HOME_COMPLETE_LOCALES as COMPLETE_BODY_LOCALES } from "@/lib/content/static-page-locales";
 import { HOMEPAGE_COPY, tli } from "@/lib/content/homepage-copy";
-import { FounderClientGate } from "@/components/founder/FounderClientGate";
 import { LABS_TEASER_COPY } from "@/lib/content/labs-teaser-copy";
 import { liveLabsTools, localizedLabsSlug, lt as labsLt } from "@/lib/labs/registry";
 
@@ -165,7 +165,7 @@ export default async function Home({
        *  HERO
        *  Composizione asimmetrica: testo 7 colonne a sinistra, visual 5
        *  a destra. Sopra: badge "live", sotto: store + ghost CTA, sotto
-       *  ancora: micro social-proof row (founder slot, app score, eu).
+       *  ancora: micro social-proof row (Android + iOS, wearable, eu).
        *  ════════════════════════════════════════════════════════════ */}
       <section className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-14 sm:pt-24 pb-16 sm:pb-24">
         {/* Conic halo decoration behind the title */}
@@ -200,19 +200,7 @@ export default async function Home({
             </p>
 
             <div id="download" className="mt-9 flex flex-wrap items-center gap-3">
-              <StoreButtonsRow locale={lc} ctaLocation="homepage_hero" />
-              <FounderClientGate
-                founder={
-                  <Link
-                    href={`/${lc}/beta`}
-                    className="group inline-flex items-center gap-2 px-5 py-3 rounded-pill btn-ghost text-sm"
-                  >
-                    {tl(HOMEPAGE_COPY.founderCta, lc)}
-                    <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
-                  </Link>
-                }
-                evergreen={null}
-              />
+              <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.homepageHero} />
             </div>
 
             <p className="mt-5 text-xs text-text-muted">{t.hero.pricing}</p>
@@ -673,7 +661,7 @@ export default async function Home({
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
-       *  PRICING — Free / Pro / Founder (enfasi founder: Pro a vita gratis)
+       *  PRICING — Free / Pro / Prova 14gg
        *  ════════════════════════════════════════════════════════════ */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
         <div className="mb-10">
@@ -685,11 +673,6 @@ export default async function Home({
           </h2>
           <p className="mt-4 text-text-secondary max-w-2xl leading-relaxed">
             {tl(PRICING_SECTION.subhead, lc)}
-            <FounderClientGate
-              as="span"
-              founder={tl(PRICING_SECTION.subheadFounderSuffix, lc)}
-              evergreen={null}
-            />
           </p>
           {(lc === "it" || lc === "en") && (
             <Link
@@ -716,7 +699,9 @@ export default async function Home({
               ))}
             </ul>
             <div className="mt-6">
-              <StoreButtonsRow locale={lc} ctaLocation="homepage_pricing" />
+              {/* Fase 7: era "homepage_pricing", identico alla card Prova —
+                  i due segmenti erano indistinguibili in GA4. */}
+              <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.homepagePricingFree} />
             </div>
           </div>
           {/* Pro */}
@@ -736,57 +721,32 @@ export default async function Home({
               ))}
             </ul>
           </div>
-          {/* Terza card: Founder (aperto) o Prova 14gg (evergreen, post-cutoff) */}
-          <FounderClientGate
-            minHeightClassName="h-full"
-            founder={
-              <div className="relative card p-7 flex flex-col h-full border-brand-aqua/30 bg-brand-aqua/[0.06]">
-                <span className="absolute top-4 right-4 text-[10px] uppercase tracking-[0.18em] font-semibold text-[#050816] bg-brand-aqua rounded-pill px-2.5 py-1">
-                  {tl(PRICING_SECTION.founderBadge, lc)}
-                </span>
-                <h3 className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.founderName, lc)}</h3>
-                <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.founderTagline, lc)}</p>
-                <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.freeLabel, lc)}</p>
-                <p className="mt-1 text-xs text-text-secondary">{p("founderPromo", lc)}</p>
-                <ul className="mt-5 space-y-2.5 flex-1">
-                  {tll(PRICING_SECTION.founderFeatures, lc).map((f) => (
-                    <li key={f} className="flex gap-2 text-sm text-text-secondary">
-                      <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={`/${lc}/beta`}
-                  className="mt-6 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-pill btn-cta text-sm"
-                >
-                  {tl(PRICING_SECTION.founderCta, lc)}
-                  <span aria-hidden>→</span>
-                </Link>
-              </div>
-            }
-            evergreen={
-              <div className="relative card p-7 flex flex-col h-full border-brand-aqua/30 bg-brand-aqua/[0.06]">
-                <span className="absolute top-4 right-4 text-[10px] uppercase tracking-[0.18em] font-semibold text-[#050816] bg-brand-aqua rounded-pill px-2.5 py-1">
-                  {tl(PRICING_SECTION.founderBadge, lc)}
-                </span>
-                <h3 className="font-display text-lg font-semibold text-text-primary">{tl(HOMEPAGE_COPY.trialName, lc)}</h3>
-                <p className="mt-1 text-sm text-text-muted">{tl(HOMEPAGE_COPY.trialTagline, lc)}</p>
-                <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.freeLabel, lc)}</p>
-                <ul className="mt-5 space-y-2.5 flex-1">
-                  {tll(PRICING_SECTION.proFeatures, lc).map((f) => (
-                    <li key={f} className="flex gap-2 text-sm text-text-secondary">
-                      <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-6">
-                  <StoreButtonsRow locale={lc} ctaLocation="homepage_pricing" />
-                </div>
-              </div>
-            }
-          />
+          {/*
+           * Sprint P0.10K: terza card statica e permanente (Prova 14gg) —
+           * non piu' gated da FounderClientGate. Era l'unico `evergreen`,
+           * corretto sia prima sia dopo il cutoff.
+           */}
+          <div className="relative card p-7 flex flex-col h-full border-brand-aqua/30 bg-brand-aqua/[0.06]">
+            <span className="absolute top-4 right-4 text-[10px] uppercase tracking-[0.18em] font-semibold text-[#050816] bg-brand-aqua rounded-pill px-2.5 py-1">
+              {tl(PRICING_SECTION.recommendedBadge, lc)}
+            </span>
+            <h3 className="font-display text-lg font-semibold text-text-primary">{tl(HOMEPAGE_COPY.trialName, lc)}</h3>
+            <p className="mt-1 text-sm text-text-muted">{tl(HOMEPAGE_COPY.trialTagline, lc)}</p>
+            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.freeLabel, lc)}</p>
+            <ul className="mt-5 space-y-2.5 flex-1">
+              {tll(PRICING_SECTION.proFeatures, lc).map((f) => (
+                <li key={f} className="flex gap-2 text-sm text-text-secondary">
+                  <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
+                  <span>{f}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6">
+              {/* Fase 7: CTA "Prova 14 giorni" — e' la conversione del funnel
+                  post-Founder, ora ha un placement proprio. */}
+              <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.homepagePricingTrial} />
+            </div>
+          </div>
         </div>
       </section>
 
@@ -866,11 +826,7 @@ export default async function Home({
           />
           <div className="relative">
             <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-              <FounderClientGate
-                as="span"
-                founder={tl(HOMEPAGE_COPY.finalCtaBadgeLive, lc)}
-                evergreen="Android + iOS"
-              />
+              Android + iOS
             </p>
             <h2 className="mt-4 font-display text-display-lg font-semibold tracking-tightest text-text-primary text-balance">
               {t.final_cta.heading}
@@ -879,31 +835,10 @@ export default async function Home({
               {t.final_cta.description}
             </p>
             <div className="mt-9 flex flex-wrap justify-center items-center gap-3">
-              <FounderClientGate
-                founder={
-                  <Link
-                    href={`/${lc}/beta`}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-pill btn-cta text-sm"
-                  >
-                    {tl(HOMEPAGE_COPY.finalCtaButton, lc)}
-                    <span aria-hidden>→</span>
-                  </Link>
-                }
-                evergreen={null}
-              />
-              <StoreButtonsRow locale={lc} className="justify-center" ctaLocation="homepage_final_cta" />
+              <StoreButtonsRow locale={lc} className="justify-center" ctaLocation={CTA_PLACEMENTS.homepageFinalCta} />
             </div>
             <p className="mt-6 text-xs text-text-muted">
-              <FounderClientGate
-                as="span"
-                founder={
-                  <>
-                    {p("founderPromo", lc)}.{" "}
-                    {`${tl(HOMEPAGE_COPY.finalCtaAfterLaunch, lc)} ${p("fromLifetime", lc)}.`}
-                  </>
-                }
-                evergreen={`${tl(HOMEPAGE_COPY.trialTagline, lc)}. ${p("fromLifetime", lc)}.`}
-              />
+              {`${tl(HOMEPAGE_COPY.trialTagline, lc)}. ${p("fromLifetime", lc)}.`}
             </p>
           </div>
         </div>

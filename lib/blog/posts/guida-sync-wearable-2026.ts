@@ -1637,8 +1637,8 @@ export const post: BlogPost = {
         ja: "FitMesh Syncは誰でも無料でダウンロードでき、最初の1000名のfounder（2026年7月31日まで）にはさらに永久版Proも無料で付与されました。Google PlayのAndroidアプリ、ウェブダッシュボード付き。",
         ko: "FitMesh Sync는 누구나 무료로 다운로드할 수 있으며, 처음 1000명의 founder(2026년 7월 31일까지)에게는 평생 Pro도 무료로 제공되었습니다. Google Play의 Android 앱, 웹 대시보드 포함.",
       },
-      ctaLabel: { it: "Entra in beta", en: "Join the beta", es: "Únete a la beta", de: "Zur Beta anmelden", pt: "Entrar na beta", fr: "Rejoindre la bêta", pl: "Wejście w betę", tr: "Betale giriniz", nl: "Doe mee met de bèta", ja: "ベータに参加する", ko: "베타에 참여하기" },
-      ctaHref: { it: "/it/beta", en: "/en/beta" },
+      ctaLabel: { it: "Prova FitMesh gratuitamente", en: "Try FitMesh free", es: "Prueba FitMesh gratis", de: "Versuchen Sie FitMesh kostenlos", pt: "Experimente o FitMesh gratuitamente", fr: "Essayez FitMesh gratuitement", pl: "Spróbuj FitMesh za darmo", tr: "Ücretsiz olarak FitMesh'i deneyin", nl: "Probeer FitMesh gratis", ja: "無料で試す", ko: "무료로 FitMesh 시도해보기" },
+      ctaHref: { it: "/it#download", en: "/en#download" },
     },
     {
       type: "heading",

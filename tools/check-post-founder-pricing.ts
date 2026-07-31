@@ -10,11 +10,13 @@
  *  2. l'array Offer JSON-LD (appOffers) pubblica un prezzo diverso dal solo
  *     download gratuito — cioè se un secondo Offer con price 0 o "free"
  *     per lo sblocco Pro/lifetime venisse reintrodotto;
- *  3. una pagina marketing promette "gratis per sempre"/"free forever"/
- *     "lifetime free" ai NUOVI utenti (fuori da un blocco <FounderClientGate
- *     founder={...}> o dall'allow-list storica) — distinto dal claim
- *     Founder storico, che resta legittimo perché gated e riferito a un
- *     beneficio già concesso, non a un'offerta per chiunque arrivi oggi;
+ *  3. una superficie che presenta l'offerta CORRENTE (homepage, nav, menu
+ *     mobile, footer, sezione prezzi) promette "gratis per sempre"/"free
+ *     forever"/"lifetime free" — mai, in nessun caso, allow-list esclusa;
+ *  3b. un qualunque altro file di app/components/lib fa la stessa promessa
+ *     fuori dall'allow-list storica/legale — distinto dal claim Founder
+ *     storico, legittimo perché riferito a un beneficio già concesso e non
+ *     a un'offerta per chiunque arrivi oggi;
  *  4. lib/pricing.ts o lib/product-facts.ts duplicano un prezzo hardcodato
  *     al di fuori della SSOT (stesso principio del guardrail seo-truth
  *     esistente, qui ristretto al perimetro trial/Founder).
@@ -53,16 +55,50 @@ if (!appOffersMatch) {
   }
 }
 
-// ── 3: "gratis per sempre"/"free forever" ai nuovi utenti, fuori gate ────
+// ── 3: "gratis per sempre"/"free forever" come offerta corrente ─────────
+// Sprint P0.10K — LOGICA RISCRITTA. La versione precedente segnalava il
+// claim solo `if (!/<FounderClientGate/.test(content))`: era corretta
+// quando il gate esisteva ed era il modo legittimo di mostrare la variante
+// Founder, ma <FounderClientGate> non ha piu' alcun consumer pubblico
+// (chiusura commerciale del sito). Quella condizione oggi e' sempre vera,
+// quindi non filtra piu' nulla — e nel frattempo resta un escape hatch:
+// bastava scrivere la stringa "<FounderClientGate" ovunque nel file, anche
+// dentro un commento, per far tacere il guardrail su un claim di prezzo
+// falso. Qui il controllo non dipende piu' dall'esistenza di un
+// componente: l'invariante e' "nessun 'Pro a vita gratis' presentato come
+// offerta CORRENTE", verificata su due livelli (superfici dell'offerta
+// corrente, sempre; resto del sito, salvo allow-list storica/legale).
 const SCAN_DIRS = ["app", "components", "lib"];
 const SCAN_EXCLUDE_DIRS = new Set(["node_modules", ".next", ".git"]);
+// Superfici che presentano l'OFFERTA CORRENTE a chi arriva oggi: qui il
+// claim "gratis a vita" non è mai ammissibile, nemmeno come prosa storica,
+// perché il contesto è l'offerta in corso (trial 14gg -> acquisto o
+// abbonamento). Sono controllate PRIMA e l'allow-list non le copre: e' il
+// pezzo di protezione reale che si era perso quando il controllo dipendeva
+// da <FounderClientGate>. /beta non è qui: è l'archivio noindex del
+// programma, dove il riferimento storico è corretto per definizione.
+const CURRENT_OFFER_SURFACES = [
+  "app/(frontend)/[locale]/(marketing)/page.tsx",
+  "components/Header.tsx",
+  "components/Footer.tsx",
+  "components/MobileMenu.tsx",
+  // Moduli di sola definizione, ma delle stringhe che le superfici sopra
+  // renderizzano parola per parola: prima di P0.10K erano in allow-list con
+  // la motivazione "il rendering (page.tsx) è già gated", che oggi è falsa
+  // (nessun gate esiste più). Senza gate, una stringa sbagliata qui finisce
+  // dritta in pagina.
+  "lib/pricing-section.ts",
+  "lib/content/homepage-copy.ts",
+];
+
 const ALLOWED_FILES = new Set([
   "app/(frontend)/[locale]/(marketing)/terms/page.tsx",
   "lib/blog/posts/perche-diventare-founder-fitmesh.ts",
   "lib/blog/posts/fitmesh-gratis-prezzo-founder.ts",
+  // SSOT delle stringhe founderPromo/founderSeats. Resta ammessa: il
+  // divieto di USARLE su una superficie commerciale è verificato da
+  // founder:commercial-truth-check (check 2), che è il posto giusto.
   "lib/pricing.ts",
-  "lib/pricing-section.ts", // definizione delle stringhe, il rendering (page.tsx) è già gated
-  "lib/content/homepage-copy.ts",
   // Sprint P0.10E: è il file che RISOLVE il problema che questo guardrail
   // cerca, non un caso da segnalare. Contiene entrambe le varianti (aperto/
   // chiuso) di ogni frase Founder per tutte e 15 le locale e restituisce
@@ -71,7 +107,11 @@ const ALLOWED_FILES = new Set([
   // il programma è davvero aperto. Nessun punto di rendering: chi lo usa
   // (press/page.tsx) è già in questa allow-list.
   "lib/founder/historical-note.ts",
-  "app/(frontend)/[locale]/(marketing)/beta/page.tsx", // gated internamente, verificato da founder:commercial-truth-check
+  // Archivio storico del programma (noindex, follow): nessun form, nessuna
+  // CTA di adesione — invariante verificata da founder:commercial-truth-check
+  // e founder:metadata-invariant-check. Il riferimento al beneficio già
+  // concesso ai Founder esistenti è corretto qui.
+  "app/(frontend)/[locale]/(marketing)/beta/page.tsx",
   // Copy editoriale storica (post-cutoff): racconta un beneficio Founder
   // GIA' concesso ai primi 1000 iscritti, con la data di chiusura del
   // programma esplicita nel testo, quindi legge come fatto storico corretto
@@ -97,6 +137,20 @@ const ALLOWED_FILES = new Set([
 ]);
 const LIFETIME_FREE_RE = /gratis\s+per\s+sempre|free\s+forever|lifetime\s+pro\s+free|pro\s+a\s+vita\s+gratis/i;
 
+/**
+ * Rimuove commenti a blocco e a riga: quello che questo guardrail protegge è
+ * il COPY servito all'utente, non la prosa dei commenti. Un commento che
+ * spiega perché una frase è stata rimossa non è un claim di prezzo — e,
+ * simmetricamente, un commento non può più assolvere il codice sotto (era
+ * il caso con `<FounderClientGate` scritto in un commento).
+ *
+ * `[^:]` prima di `//` evita di tranciare la riga a partire da "https://",
+ * che nasconderebbe una violazione scritta dopo un URL.
+ */
+function stripComments(code: string): string {
+  return code.replace(/\/\*[\s\S]*?\*\//g, "").replace(/(^|[^:])\/\/.*$/gm, "$1");
+}
+
 function walk(dir: string, out: string[]) {
   let entries: fs.Dirent[];
   try {
@@ -115,14 +169,40 @@ function walk(dir: string, out: string[]) {
 const allFiles: string[] = [];
 for (const dir of SCAN_DIRS) walk(path.join(repoRoot, dir), allFiles);
 
+function lifetimeFreeLines(rel: string): number[] {
+  const full = path.join(repoRoot, rel);
+  if (!fs.existsSync(full)) return [];
+  const code = stripComments(fs.readFileSync(full, "utf8"));
+  const re = new RegExp(LIFETIME_FREE_RE.source, "gi");
+  const lines: number[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(code)) !== null) lines.push(code.slice(0, m.index).split("\n").length);
+  return lines;
+}
+
+// 3 — superfici dell'offerta corrente: nessuna deroga.
+for (const rel of CURRENT_OFFER_SURFACES) {
+  if (!fs.existsSync(path.join(repoRoot, rel))) {
+    errors.push(`Superficie mancante: ${rel} — se il file è stato spostato, aggiorna CURRENT_OFFER_SURFACES in questo guardrail.`);
+    continue;
+  }
+  const lines = lifetimeFreeLines(rel);
+  if (lines.length > 0) {
+    errors.push(
+      `${rel}: presenta "gratis per sempre"/Pro a vita gratis su una superficie dell'OFFERTA CORRENTE (righe ${lines.join(", ")}) — chi arriva oggi ha trial ${trialDaysMatch ? trialDaysMatch[1] : "14"} giorni, poi acquisto o abbonamento. Nessuna allow-list vale qui: il claim va rimosso, non esentato.`,
+    );
+  }
+}
+
+// 3b — resto del sito: ammesso solo alla prosa storica/legale in allow-list.
 for (const file of allFiles) {
   const rel = path.relative(repoRoot, file);
   if (ALLOWED_FILES.has(rel)) continue;
-  const content = fs.readFileSync(file, "utf8");
-  if (!LIFETIME_FREE_RE.test(content)) continue;
-  if (!/<FounderClientGate/.test(content)) {
+  if (CURRENT_OFFER_SURFACES.includes(rel)) continue; // già controllato sopra
+  const lines = lifetimeFreeLines(rel);
+  if (lines.length > 0) {
     errors.push(
-      `${rel}: promette "gratis per sempre"/lifetime Pro free senza <FounderClientGate> — se non è un beneficio Founder storico già gated, è un claim di prezzo falso per i nuovi utenti (trial 14gg -> pagamento, mai gratis a vita).`,
+      `${rel}: promette "gratis per sempre"/Pro a vita gratis (righe ${lines.join(", ")}) e non è nell'allow-list storica/legale — per i nuovi utenti è un claim di prezzo falso (trial 14gg -> pagamento, mai gratis a vita). Se è davvero prosa storica su un beneficio già concesso, va detto nel testo e il file va aggiunto ad ALLOWED_FILES con la motivazione.`,
     );
   }
 }
@@ -133,6 +213,6 @@ if (errors.length > 0) {
   process.exit(1);
 } else {
   console.log(
-    "✅ post-founder:pricing-check: trialDays SSOT presente (14), appOffers pubblica solo il download gratuito, nessun claim 'gratis a vita' fuori gate/allow-list.",
+    `✅ post-founder:pricing-check: trialDays SSOT presente (14), appOffers pubblica solo il download gratuito, nessun claim 'gratis a vita' sulle ${CURRENT_OFFER_SURFACES.length} superfici dell'offerta corrente né altrove fuori allow-list storica/legale.`,
   );
 }

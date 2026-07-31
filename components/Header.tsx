@@ -2,9 +2,9 @@ import Link from "next/link";
 import Logo from "./Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
 import MobileMenu from "./MobileMenu";
+import { CTA_IDS, CTA_PLACEMENTS } from "@/lib/analytics/cta";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
-import { FounderClientGate } from "@/components/founder/FounderClientGate";
 
 export default function Header({
   dict,
@@ -66,9 +66,8 @@ export default function Header({
           </Link>
           <Link
             href={`/${locale}/beta`}
-            className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden sm:inline-block relative"
+            className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden sm:inline-block"
           >
-            <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-brand-green animate-pulse motion-reduce:animate-none" />
             Beta
           </Link>
           <Link
@@ -83,28 +82,32 @@ export default function Header({
           >
             {dict.nav.privacy}
           </Link>
-          {/* CTA primaria desktop */}
-          <FounderClientGate
-            as="span"
-            founder={
-              <Link
-                href={`/${locale}/beta`}
-                className="ml-1 hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-pill btn-cta text-sm"
-              >
-                Founder
-                <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-              </Link>
-            }
-            evergreen={
-              <Link
-                href={`/${locale}#download`}
-                className="ml-1 hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-pill btn-cta text-sm"
-              >
-                {dict.nav.download}
-                <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
-              </Link>
-            }
-          />
+          {/*
+           * Sprint P0.10K: CTA primaria desktop, statica e permanente — non
+           * piu' gated da FounderClientGate. Prima del 31/07/2026 (chiusura
+           * commerciale anticipata rispetto al cutoff backend) questo era
+           * l'`evergreen` del gate; ora e' l'unico stato, sempre renderizzato.
+           * Copy localizzata via dict.nav.download (niente piu' testo
+           * hardcoded di acquisizione Founder) — resa allineata a
+           * MobileMenu.tsx.
+           *
+           * Sprint P0.10K — Fase 7: e' la CTA primaria del funnel ordinario,
+           * quindi va misurata come le altre. `data-cta-id`/
+           * `data-cta-placement` la agganciano al layer dichiarativo gia'
+           * esistente (OutboundTracker -> `cta_view`/`cta_click`); nessun
+           * meccanismo nuovo, nessun handler client, il componente resta un
+           * Server Component. Punta a `#download` (ancora interna), quindi
+           * NON emette `store_click`: quello parte dai badge store del blocco
+           * di destinazione.
+           */}
+          <Link
+            href={`/${locale}#download`}
+            data-cta-id={CTA_IDS.headerPrimary}
+            data-cta-placement={CTA_PLACEMENTS.headerPrimary}
+            className="ml-1 hidden md:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-pill btn-cta text-sm"
+          >
+            {dict.nav.download} →
+          </Link>
           <LanguageSwitcher current={locale} />
           <MobileMenu dict={dict} locale={locale} />
         </nav>

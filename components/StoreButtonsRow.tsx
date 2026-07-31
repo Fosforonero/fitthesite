@@ -7,6 +7,7 @@
  */
 import type { CSSProperties } from "react";
 
+import { storeButtonsCtaId, type CtaPlacement } from "@/lib/analytics/cta";
 import type { Locale } from "@/lib/i18n";
 import AppleStoreButton from "./AppleStoreButton";
 import PlayStoreButton from "./PlayStoreButton";
@@ -23,13 +24,22 @@ type Props = {
   style?: CSSProperties;
   /**
    * Sprint P0.10 — identifica dove vive questa CTA nel funnel (es.
-   * "homepage_hero", "homepage_pricing", "beta_archive"). Letto da
+   * "homepage_hero", "homepage_pricing_trial", "beta_archive"). Letto da
    * OutboundTracker via `closest("[data-cta-location]")` e propagato come
-   * `cta_location` nell'evento GA4 `store_click`. Opzionale: se assente,
-   * l'attributo non viene emesso e il click resta comunque tracciato
-   * (nessuna regressione per le chiamate esistenti non ancora annotate).
+   * `cta_location`/`placement` nell'evento GA4 `store_click`. Opzionale: se
+   * assente, gli attributi non vengono emessi e il click resta comunque
+   * tracciato (nessuna regressione per le chiamate esistenti non ancora
+   * annotate).
+   *
+   * Sprint P0.10K — Fase 7: tipizzata sul vocabolario chiuso
+   * `CtaPlacement` (lib/analytics/cta.ts). Un refuso ora rompe
+   * `tsc --noEmit` invece di produrre in silenzio un segmento orfano in
+   * GA4. Sempre in Fase 7 la row dichiara anche
+   * `data-cta-id`/`data-cta-placement`: cosi' i badge store emettono
+   * l'intero funnel `cta_view` -> `cta_click` -> `store_click` e non solo
+   * l'ultimo step.
    */
-  ctaLocation?: string;
+  ctaLocation?: CtaPlacement;
 };
 
 export default function StoreButtonsRow({
@@ -82,6 +92,8 @@ export default function StoreButtonsRow({
       className={`flex flex-wrap items-center gap-3 ${className}`}
       style={style}
       data-cta-location={ctaLocation}
+      data-cta-placement={ctaLocation}
+      data-cta-id={ctaLocation ? storeButtonsCtaId(ctaLocation) : undefined}
     >
       <PlayStoreButton
         disabled={playDisabled}

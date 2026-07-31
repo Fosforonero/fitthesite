@@ -38,7 +38,9 @@ const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.
  * flip `COMING_SOON` a `false` per riattivare la landing piena.
  *
  * Mantenuto l'URL stabile per SEO (Google ha già indicizzato) ma il body
- * mostra uno stato "in arrivo" con CTA waitlist via /it/beta.
+ * mostra uno stato "in arrivo" con CTA che rimanda al download dell'app
+ * (/it#download): /beta non è più una pagina di iscrizione (è l'archivio
+ * storico del programma Founder, chiuso), quindi non va più usata come CTA.
  */
 const COMING_SOON = true;
 
@@ -1019,20 +1021,20 @@ export async function generateMetadata({
         : "Family Mesh — Share health with your family | FitMesh Sync");
   const description = COMING_SOON
     ? (lc === "it"
-        ? "Mesh Famiglia: condividi passi, sonno e frequenza cardiaca con la tua famiglia in un'unica dashboard privacy-first. Feature in arrivo nei prossimi mesi: iscriviti alla waitlist per essere avvisato al lancio."
+        ? "Mesh Famiglia: condividi passi, sonno e frequenza cardiaca con la tua famiglia in un'unica dashboard privacy-first. Feature in arrivo nei prossimi mesi: scarica FitMesh Sync e prova gratis le funzioni già disponibili."
         : lc === "es"
-        ? "Mesh Familia: comparte pasos, sueño y frecuencia cardíaca con tu familia en un panel privado. Próximamente: únete a la lista de espera para recibir aviso en el lanzamiento."
+        ? "Mesh Familia: comparte pasos, sueño y frecuencia cardíaca con tu familia en un panel privado. Próximamente: descarga FitMesh Sync y prueba gratis las funciones ya disponibles."
         : lc === "de"
-        ? "Mesh Familie: Teile Schritte, Schlaf und Herzfrequenz mit deiner Familie in einem datenschutzfreundlichen Dashboard. Demnächst verfügbar: Trage dich in die Warteliste ein und erhalte eine Benachrichtigung zum Launch."
+        ? "Mesh Familie: Teile Schritte, Schlaf und Herzfrequenz mit deiner Familie in einem datenschutzfreundlichen Dashboard. Demnächst verfügbar: Lade FitMesh Sync herunter und teste die bereits verfügbaren Funktionen kostenlos."
         : lc === "pt"
-        ? "Mesh Família: compartilhe passos, sono e frequência cardíaca com sua família em um painel com privacidade em primeiro lugar. Em breve: entre na lista de espera para ser avisado no lançamento."
+        ? "Mesh Família: compartilhe passos, sono e frequência cardíaca com sua família em um painel com privacidade em primeiro lugar. Em breve: baixe o FitMesh Sync e experimente gratuitamente os recursos já disponíveis."
         : lc === "fr"
-        ? "Mesh Famille: partagez vos pas, votre sommeil et votre fréquence cardiaque avec votre famille dans un tableau de bord axé sur la confidentialité. Bientôt disponible: rejoignez la liste d'attente pour être informé au lancement."
+        ? "Mesh Famille: partagez vos pas, votre sommeil et votre fréquence cardiaque avec votre famille dans un tableau de bord axé sur la confidentialité. Bientôt disponible: téléchargez FitMesh Sync et essayez gratuitement les fonctionnalités déjà disponibles."
         : lc === "pl"
-        ? "Mesh Rodzina: dziel sie krokami, snem i tetnem z rodzina w jednym panelu z prywatnoscia na pierwszym miejscu. Wkrótce: dolacz do listy oczekujacych, aby otrzymac powiadomienie przy starcie."
+        ? "Mesh Rodzina: dziel sie krokami, snem i tetnem z rodzina w jednym panelu z prywatnoscia na pierwszym miejscu. Wkrótce: pobierz FitMesh Sync i wypróbuj za darmo funkcje, które sa juz dostepne."
         : lc === "tr"
-        ? "Mesh Aile: adimlarinizi, uykunuzu ve kalp hizinizi ailenizle gizlilik öncelikli tek bir panelde paylasin. Cok yakinda: lansmanda bildirim almak icin bekleme listesine kaydolun."
-        : "Family Mesh: share steps, sleep and heart rate with your family in one privacy-first dashboard. Coming in the next months: join the waitlist to be notified at launch.")
+        ? "Mesh Aile: adimlarinizi, uykunuzu ve kalp hizinizi ailenizle gizlilik öncelikli tek bir panelde paylasin. Cok yakinda: FitMesh Sync'i indirin ve mevcut özellikleri ücretsiz deneyin."
+        : "Family Mesh: share steps, sleep and heart rate with your family in one privacy-first dashboard. Coming in the next months: download FitMesh Sync and try the features already available for free.")
     : (lc === "it"
         ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, funzione Pro fino a 8 membri (14 giorni di prova gratis), niente posizione condivisa."
         : lc === "es"
@@ -1344,7 +1346,9 @@ export default async function FamigliaLanding({
 /**
  * Stato "in arrivo" della landing /famiglia. Mostrato quando COMING_SOON=true.
  * URL stabile per SEO (no redirect, no 404), preserva canonical e WebPage
- * JSON-LD. CTA → /[locale]/beta come waitlist proxy.
+ * JSON-LD. CTA → /[locale]#download (sezione download della homepage): non
+ * esiste una waitlist da riempire, l'invito è a scaricare l'app e provare
+ * fin da subito le funzioni già disponibili.
  */
 function ComingSoonState({
   lc,
@@ -1361,8 +1365,8 @@ function ComingSoonState({
     ? {
         kicker: "Mesh Famiglia",
         h1: "In arrivo: la salute di tutta la famiglia, in un'unica dashboard",
-        sub: "Stiamo finendo Mesh Famiglia: crei un gruppo e ogni membro condivide con gli altri passi, sonno e frequenza cardiaca, tutto in un'unica dashboard. Niente posizione condivisa, niente pubblicità. Iscriviti alla waitlist per essere avvisato al lancio.",
-        cta: "Iscriviti alla waitlist",
+        sub: "Stiamo finendo Mesh Famiglia: crei un gruppo e ogni membro condivide con gli altri passi, sonno e frequenza cardiaca, tutto in un'unica dashboard. Niente posizione condivisa, niente pubblicità. Nel frattempo scarica FitMesh Sync e prova gratis le funzioni già disponibili.",
+        cta: "Scarica FitMesh e prova gratis",
         secondary: "Nel frattempo: scarica FitMesh Sync su Android o iOS",
         why_h2: "Perché serve",
         why_items: [
@@ -1386,8 +1390,8 @@ function ComingSoonState({
     ? {
         kicker: "Mesh Familia",
         h1: "Próximamente: la salud de toda la familia, en un solo panel",
-        sub: "Estamos terminando Mesh Familia: creas un grupo y cada miembro comparte con los demás pasos, sueño y frecuencia cardíaca, todo en un único panel. Sin ubicación compartida, sin publicidad. Únete a la lista de espera para recibir aviso en el lanzamiento.",
-        cta: "Únete a la lista de espera",
+        sub: "Estamos terminando Mesh Familia: creas un grupo y cada miembro comparte con los demás pasos, sueño y frecuencia cardíaca, todo en un único panel. Sin ubicación compartida, sin publicidad. Mientras tanto, descarga FitMesh Sync y prueba gratis las funciones ya disponibles.",
+        cta: "Descarga FitMesh y pruébala gratis",
         secondary: "Mientras tanto: descarga FitMesh Sync en Android o iOS",
         why_h2: "Por qué lo necesitas",
         why_items: [
@@ -1410,8 +1414,8 @@ function ComingSoonState({
     : {
         kicker: "Family Mesh",
         h1: "Coming soon: your whole family's health, in one dashboard",
-        sub: "We're finishing Family Mesh: you create a group and every member shares steps, sleep, and heart rate with each other, all in one dashboard. No location sharing, no ads. Join the waitlist to be notified at launch.",
-        cta: "Join the waitlist",
+        sub: "We're finishing Family Mesh: you create a group and every member shares steps, sleep, and heart rate with each other, all in one dashboard. No location sharing, no ads. In the meantime, download FitMesh Sync and try the features already available for free.",
+        cta: "Download FitMesh and try it free",
         secondary: "Meanwhile: download FitMesh Sync on Android or iOS",
         why_h2: "Why it matters",
         why_items: [
@@ -1478,7 +1482,7 @@ function ComingSoonState({
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
-            href={`/${lc}/beta`}
+            href={`/${lc}#download`}
             className="inline-flex items-center justify-center rounded-full bg-brand-aqua text-bg-base px-6 py-3 text-sm font-semibold hover:bg-brand-aqua/90 transition"
           >
             {copy.cta}
@@ -1548,7 +1552,7 @@ function ComingSoonState({
         <p className="mt-5 text-text-secondary leading-relaxed">{copy.availability_body}</p>
         <div className="mt-8">
           <Link
-            href={`/${lc}/beta`}
+            href={`/${lc}#download`}
             className="inline-flex items-center justify-center rounded-full bg-brand-aqua text-bg-base px-6 py-3 text-sm font-semibold hover:bg-brand-aqua/90 transition"
           >
             {copy.cta}

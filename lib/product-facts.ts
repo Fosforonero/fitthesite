@@ -108,15 +108,26 @@ export const IOS_REGIONS_NOTE: Record<Locale, string> = {
 // ── Stato prodotto ──────────────────────────────────────────────────────────
 /**
  * Non è una closed beta: il download è pubblico (Play Store, App Store
- * incluse le storefront UE) e l'iscrizione a /beta è aperta a chiunque.
- * "Founder" è una promozione prezzo a tempo/posti limitati sopra un
- * prodotto già pubblico, non un programma a inviti.
+ * incluse le storefront UE) e nessuna funzione richiede un invito.
+ *
+ * Sprint P0.10K — chiusura commerciale del sito: `summary` finisce in
+ * /llms.txt (vedi lib/llms-txt.ts) e viene letto dagli assistenti AI come
+ * fatto, quindi non può più descrivere la promozione Founder come
+ * un'offerta disponibile — la versione precedente diceva "with an open
+ * early-adopter 'Founder' pricing promotion", cioè esattamente "puoi ancora
+ * aderire". Lo stato commerciale che il sito pubblica oggi è: prova Pro di
+ * 14 giorni, poi acquisto o abbonamento; le nuove adesioni Founder tramite
+ * il sito sono chiuse (stessa semantica di founderSiteClosedNote() in
+ * lib/founder/historical-note.ts — chiude il SITO, non anticipa il cutoff
+ * tecnico del backend). Backend, cutoff e Founder già concessi non sono
+ * toccati: `FOUNDER_PROGRAM` sotto resta la fonte dei fatti stabili del
+ * programma.
  */
 export const PRODUCT_STATUS = {
   stage: "public",
   isClosedBeta: false,
   summary:
-    "Publicly downloadable on Google Play and the App Store, including EU storefronts, with an open early-adopter 'Founder' pricing promotion — not invite-only or access-gated.",
+    "Publicly downloadable on Google Play and the App Store, including EU storefronts — not invite-only or access-gated. FitMesh Pro comes with a 14-day trial; after the trial, continuing to use Pro features requires a purchase or subscription. The early-adopter 'Founder' pricing promotion is not open to new sign-ups through the site.",
 } as const;
 
 // ── Capability truth layer (Sprint P0.6A) ───────────────────────────────────

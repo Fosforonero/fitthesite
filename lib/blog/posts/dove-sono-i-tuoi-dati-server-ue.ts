@@ -192,8 +192,8 @@ export const post: BlogPost = {
         it: "Server in UE, nessuna pubblicità, nessuna vendita dei dati. I primi 1000 iscritti founder (entro il 31 luglio 2026) hanno ricevuto il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa.",
         en: "EU servers, no ads, no data sold. The first 1,000 founder sign-ups (by July 31, 2026) got lifetime Pro free; everyone else gets a full 14-day trial.",
       },
-      ctaLabel: { it: "Unisciti alla beta →", en: "Join the beta →" },
-      ctaHref: { it: "/it/beta", en: "/en/beta" },
+      ctaLabel: { it: "Prova FitMesh gratuitamente →", en: "Try FitMesh free →" },
+      ctaHref: { it: "/it#download", en: "/en#download" },
     },
   ],
   faq: [

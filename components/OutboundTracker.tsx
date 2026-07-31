@@ -2,6 +2,13 @@
 
 import { useEffect } from "react";
 
+import {
+  CTA_CAMPAIGN,
+  CTA_NO_STORE_DESTINATION,
+  CTA_UNSPECIFIED,
+  resolveStoreLink,
+} from "@/lib/analytics/cta";
+
 /**
  * Traccia i click verso gli store (Google Play / App Store) come evento GA4
  * `store_click` (param `store_platform`). Listener delegato a livello documento:
@@ -12,11 +19,11 @@ import { useEffect } from "react";
  *
  * Sprint P0.10 (funnel post-Founder): aggiunge locale, cta_location (da
  * `data-cta-location` sull'antenato piu' vicino, vedi StoreButtonsRow),
- * store_destination (nome store leggibile) e campaign="post_founder" -
- * nessuna nuova route API, nessun dato sanitario, nessun identificatore
- * personale, zero polling: stesso listener client-side esistente, solo
- * parametri aggiuntivi sullo stesso evento. Un click store NON equivale a
- * un'installazione: resta un segnale di intento, non una conversione.
+ * store_destination (nome store leggibile) e la campagna — nessuna nuova
+ * route API, nessun dato sanitario, nessun identificatore personale, zero
+ * polling: stesso listener client-side esistente, solo parametri aggiuntivi
+ * sullo stesso evento. Un click store NON equivale a un'installazione:
+ * resta un segnale di intento, non una conversione.
  *
  * P1.4B: due nuovi eventi generici, indipendenti da `store_click` (che resta
  * SOLO per link reali verso play.google.com/apps.apple.com) - `cta_click`
@@ -28,6 +35,33 @@ import { useEffect } from "react";
  * layout, il suo useEffect non rigira ad ogni cambio pagina). Nessun dato
  * fisiologico/personale in nessuno dei due eventi: solo id/posizione CTA,
  * path pagina, locale.
+ *
+ * Sprint P0.10K — Fase 7 (allineamento del funnel post-Founder). L'audit
+ * aveva rilevato che `cta_view`/`cta_click` NON portavano `campaign` mentre
+ * `store_click` si': il funnel view -> click -> store non era segmentabile
+ * su una dimensione unica. Da qui:
+ *  - i tre eventi portano SEMPRE le stesse cinque dimensioni — `locale`,
+ *    `placement`, `store_destination`, `campaign`, `path`;
+ *  - `campaign` viene da un'unica costante condivisa (`CTA_CAMPAIGN` in
+ *    lib/analytics/cta.ts), mai piu' da una stringa inline;
+ *  - `placement` e' la dimensione unificata: i vecchi nomi divergenti
+ *    (`cta_location` su store_click, `cta_placement` su cta_*) restano
+ *    emessi come alias per non rompere le dimensioni GA4 gia' configurate,
+ *    ma trasportano lo stesso valore;
+ *  - idem per il path: `path` e' il nome unificato, `page_path` resta come
+ *    alias storico;
+ *  - `store_destination` vale `"none"` quando l'evento non risolve a un
+ *    singolo store (ogni `cta_view`, e i `cta_click` su CTA interne come
+ *    l'ancora `#download` di header e menu mobile): parametro sempre
+ *    presente invece che assente a intermittenza.
+ * Nessun nuovo meccanismo: resta l'unico layer dichiarativo esistente
+ * (`data-cta-id` / `data-cta-placement` / `data-cta-location`), tutto
+ * client-side, nessuna richiesta di rete e nessuna route resa dinamica.
+ *
+ * PRIVACY: la superficie dei dati NON viene ampliata. Gli eventi trasportano
+ * solo locale, posizione della CTA nel sito, store di destinazione,
+ * campagna e path della pagina. Nessun identificativo personale, nessun
+ * dato sanitario, nessun valore inserito dall'utente.
  *
  * P1.4B-A: `hr_zones_mode_select`, evento per il cambio di modalità FC max
  * nel calcolatore Zone di Frequenza Cardiaca (`data-hr-zones-mode-select`
@@ -46,32 +80,42 @@ export default function OutboundTracker() {
       return (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
     }
 
+    /**
+     * Placement della CTA: antenato piu' vicino (l'elemento stesso incluso)
+     * che dichiari `data-cta-placement` oppure `data-cta-location`. Regola
+     * unica per tutti e tre gli eventi, cosi' `cta_view`, `cta_click` e
+     * `store_click` sulla stessa CTA riportano lo stesso valore.
+     */
+    function placementOf(el: Element | null | undefined): string {
+      const holder = el?.closest?.("[data-cta-placement],[data-cta-location]");
+      if (!holder) return CTA_UNSPECIFIED;
+      return (
+        holder.getAttribute("data-cta-placement") ??
+        holder.getAttribute("data-cta-location") ??
+        CTA_UNSPECIFIED
+      );
+    }
+
     function onClick(e: MouseEvent) {
       const target = e.target as HTMLElement | null;
       const a = target?.closest?.("a");
       if (!a) return;
       const href = a.getAttribute("href") ?? "";
-      let store: "play" | "appstore" | null = null;
-      let storeDestination: string | null = null;
-      if (href.includes("play.google.com")) {
-        store = "play";
-        storeDestination = "Google Play";
-      } else if (href.includes("apps.apple.com")) {
-        store = "appstore";
-        storeDestination = "App Store";
-      }
+      const store = resolveStoreLink(href);
       if (!store) return;
       const gtag = gtagFn();
       if (typeof gtag === "function") {
-        const ctaLocationEl = a.closest("[data-cta-location]");
+        const placement = placementOf(a);
         gtag("event", "store_click", {
-          store_platform: store,
-          store_destination: storeDestination,
+          store_platform: store.platform,
+          store_destination: store.destination,
           link_url: href,
           page_path: window.location.pathname,
+          path: window.location.pathname,
           locale: currentLocale(),
-          cta_location: ctaLocationEl?.getAttribute("data-cta-location") ?? "unspecified",
-          campaign: "post_founder",
+          cta_location: placement,
+          placement,
+          campaign: CTA_CAMPAIGN,
         });
       }
     }
@@ -82,10 +126,17 @@ export default function OutboundTracker() {
       if (!ctaEl) return;
       const gtag = gtagFn();
       if (typeof gtag === "function") {
+        const placement = placementOf(ctaEl);
+        const anchor = target?.closest?.("a");
+        const store = anchor ? resolveStoreLink(anchor.getAttribute("href") ?? "") : null;
         gtag("event", "cta_click", {
           cta_id: ctaEl.getAttribute("data-cta-id"),
-          cta_placement: ctaEl.getAttribute("data-cta-placement") ?? "unspecified",
+          cta_placement: placement,
+          placement,
+          store_destination: store?.destination ?? CTA_NO_STORE_DESTINATION,
+          campaign: CTA_CAMPAIGN,
           page_path: window.location.pathname,
+          path: window.location.pathname,
           locale: currentLocale(),
         });
       }
@@ -119,10 +170,18 @@ export default function OutboundTracker() {
           io.unobserve(entry.target);
           const gtag = gtagFn();
           if (typeof gtag === "function") {
+            const placement = placementOf(entry.target);
             gtag("event", "cta_view", {
               cta_id: entry.target.getAttribute("data-cta-id"),
-              cta_placement: entry.target.getAttribute("data-cta-placement") ?? "unspecified",
+              cta_placement: placement,
+              placement,
+              // Una visualizzazione non ha uno store di destinazione: il
+              // parametro resta presente (funnel confrontabile) col valore
+              // esplicito "none".
+              store_destination: CTA_NO_STORE_DESTINATION,
+              campaign: CTA_CAMPAIGN,
               page_path: window.location.pathname,
+              path: window.location.pathname,
               locale: currentLocale(),
             });
           }
@@ -140,6 +199,20 @@ export default function OutboundTracker() {
 
     const mo = new MutationObserver((mutations) => {
       for (const m of mutations) {
+        // `data-cta-id` puo' comparire su un elemento GIA' nel DOM: e' il
+        // caso della CTA del menu mobile, che dichiara l'attributo solo
+        // quando il pannello e' aperto (da chiuso il pannello e' invisibile
+        // ma resta nel layout, e l'IntersectionObserver — che ignora
+        // opacity/visibility — emetterebbe una `cta_view` fantasma ad ogni
+        // caricamento su mobile). Senza osservare anche le mutazioni di
+        // attributo quella CTA non verrebbe mai agganciata.
+        if (m.type === "attributes") {
+          const el = m.target;
+          if (el instanceof Element && el.matches("[data-cta-id]") && !viewed.has(el)) {
+            io.observe(el);
+          }
+          continue;
+        }
         m.addedNodes.forEach((node) => {
           if (!(node instanceof Element)) return;
           if (node.matches?.("[data-cta-id]")) io.observe(node);
@@ -147,7 +220,12 @@ export default function OutboundTracker() {
         });
       }
     });
-    mo.observe(document.body, { childList: true, subtree: true });
+    mo.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["data-cta-id"],
+    });
 
     return () => {
       document.removeEventListener("click", onClick, true);

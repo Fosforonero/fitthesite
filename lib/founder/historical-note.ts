@@ -109,11 +109,55 @@ const STATEMENT: Record<string, string> = {
   fi: "Perustajakäyttäjän kelpoisuus rajoittuu ensimmäiseen 1 000 tiliin, jotka on rekisteröity viimeistään 31. heinäkuuta 2026, ja edellyttää aitoa ensimmäistä synkronointia 14 päivän kuluessa rekisteröitymisestä. 1. elokuuta 2026 tai sen jälkeen luodut tilit eivät ole oikeutettuja perustajakäyttäjän ohjelmaan: ne saavat 14 päivän ilmaisen Pro-kokeilun, jonka jälkeen tarvitaan osto tai tilaus.",
 };
 
+/**
+ * Sprint P0.10K (2026-07-31) — chiusura commerciale del sito ANTICIPATA
+ * rispetto al cutoff tecnico backend (2026-07-31T22:00:00Z): decisione di
+ * prodotto di Matteo di smettere di pubblicizzare/accettare nuove adesioni
+ * Founder dal sito ORE PRIMA del vero cutoff, senza toccare backend/
+ * Supabase/entitlement/finestra individuale dei 14gg.
+ *
+ * Questa frase è DIVERSA e più debole di "il programma è concluso" (STATEMENT
+ * sopra descrive gia' la regola di idoneita', invariante): dice solo che il
+ * SITO ha smesso di proporre l'adesione, non che il programma abbia gia'
+ * tecnicamente raggiunto il cutoff (falso nelle ore fra questo deploy e le
+ * 22:00 UTC di stasera). Rimane vera anche DOPO il cutoff reale (il sito non
+ * riapre mai le adesioni), quindi e' invariante rispetto al tempo esattamente
+ * come le altre frasi di questo file - nessun `new Date()`, nessun
+ * `isFounderProgramOpen`.
+ */
+const SITE_CLOSED_NOTE: Record<string, string> = {
+  it: "Le nuove adesioni tramite il sito sono chiuse. Chi ha già ottenuto lo status Founder lo mantiene invariato: la chiusura non revoca alcun beneficio già assegnato.",
+  en: "New sign-ups through the site are closed. Anyone who already has Founder status keeps it unchanged: closing new sign-ups doesn't revoke any benefit already granted.",
+  es: "Las nuevas adhesiones a través del sitio están cerradas. Quien ya tiene el estado Founder lo conserva sin cambios: el cierre no revoca ningún beneficio ya concedido.",
+  de: "Neue Anmeldungen über die Website sind geschlossen. Wer den Founder-Status bereits hat, behält ihn unverändert: Die Schließung widerruft keinen bereits gewährten Vorteil.",
+  pt: "As novas adesões através do site estão encerradas. Quem já tem o estado Founder mantém-no inalterado: o encerramento não revoga nenhum benefício já concedido.",
+  fr: "Les nouvelles inscriptions via le site sont closes. Quiconque a déjà le statut Founder le conserve inchangé : cette clôture ne révoque aucun avantage déjà accordé.",
+  pl: "Nowe zgloszenia przez witryne sa zamkniete. Kto juz ma status Founder, zachowuje go bez zmian: zamkniecie nie cofa zadnej juz przyznanej korzysci.",
+  tr: "Site üzerinden yeni kayitlar kapatildi. Halihazirda Kurucu (Founder) statüsüne sahip olanlar bunu degismeden korur: kapanis, daha önce verilmis hicbir faydayi geri almaz.",
+  nl: "Nieuwe aanmeldingen via de site zijn gesloten. Wie al Founder-status heeft, behoudt deze ongewijzigd: de sluiting trekt geen enkel al toegekend voordeel in.",
+  ja: "サイト経由の新規登録は終了しました。すでにファウンダー資格を得ている方はそのまま維持されます。締め切りによって、すでに付与された特典が取り消されることはありません。",
+  ko: "사이트를 통한 신규 가입은 마감되었습니다. 이미 파운더 자격을 얻은 분은 그대로 유지됩니다. 마감으로 인해 이미 부여된 혜택이 취소되지 않습니다.",
+  sv: "Nya anmälningar via sajten är stängda. Den som redan har grundarstatus behåller den oförändrad: stängningen återkallar ingen redan beviljad förmån.",
+  da: "Nye tilmeldinger via siden er lukket. Den, der allerede har grundlæggerstatus, beholder den uændret: lukningen tilbagekalder ingen allerede tildelt fordel.",
+  no: "Nye registreringer via nettstedet er stengt. Den som allerede har founder-status beholder den uendret: stengingen tilbakekaller ingen allerede tildelt fordel.",
+  fi: "Uudet rekisteröitymiset sivuston kautta on suljettu. Se, jolla on jo perustajakäyttäjän asema, säilyttää sen muuttumattomana: sulkeminen ei peruuta jo myönnettyä etua.",
+};
+
 const FALLBACK_LOCALE = "en";
 
 /** Frase da inserire in un paragrafo discorsivo (press kit, blog). Invariante: vera sia prima sia dopo il cutoff. */
 export function founderHistoricalClause(locale: string): string {
   return CLAUSE[locale] ?? CLAUSE[FALLBACK_LOCALE];
+}
+
+/**
+ * Sprint P0.10K — chiusura commerciale del SITO (non del programma/cutoff
+ * tecnico, vedi commento sopra su SITE_CLOSED_NOTE). Usata SOLO su /beta,
+ * dove serve dire esplicitamente che le adesioni via sito sono chiuse senza
+ * anticipare il vero cutoff backend.
+ */
+export function founderSiteClosedNote(locale: string): string {
+  return SITE_CLOSED_NOTE[locale] ?? SITE_CLOSED_NOTE[FALLBACK_LOCALE];
 }
 
 /** Valore breve per una riga "key facts" / tabella. Invariante. */
