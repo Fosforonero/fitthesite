@@ -295,11 +295,12 @@ export const PRICING_SECTION = {
     fi: "Suositeltu",
   } as Localized,
   /**
-   * Prezzo mostrato sulla card prova: e' il costo dei 14 giorni, non un piano
-   * gratuito permanente (cfr. Termini: "non esiste un piano gratuito
-   * permanente"). Provenienza 9 locale nuove: HOMEPAGE_COPY.trialName
-   * ("14 dni za darmo", "14 gün ücretsiz", "14 dagen gratis", "14日間無料",
-   * "14일 무료", "14 dagar/dage/dager gratis", "14 päivää ilmaiseksi").
+   * Prezzo mostrato sulla card "Free" (prima card, non evidenziata): e' il
+   * costo dei 14 giorni, non un piano gratuito permanente (cfr. Termini:
+   * "non esiste un piano gratuito permanente"). Provenienza 9 locale nuove:
+   * HOMEPAGE_COPY.trialName ("14 dni za darmo", "14 gün ücretsiz",
+   * "14 dagen gratis", "14日間無料", "14일 무료", "14 dagar/dage/dager gratis",
+   * "14 päivää ilmaiseksi").
    */
   freeLabel: {
     it: "Gratis",
@@ -317,5 +318,35 @@ export const PRICING_SECTION = {
     da: "Gratis",
     no: "Gratis",
     fi: "Ilmainen",
+  } as Localized,
+  /**
+   * Prezzo mostrato SOLO sulla terza card, quella evidenziata ("Consigliato",
+   * HOMEPAGE_COPY.trialName/trialTagline) — distinta da `freeLabel` su
+   * richiesta di Matteo (31/07, review visiva post-deploy): "Gratis" confonde
+   * questa card col piano davvero gratuito della prima card. Qui il testo
+   * indica lo STATO (periodo di prova), non un prezzo.
+   * Provenienza: de/pl/nl/sv/da/no riusano `freeName` verbatim — in quelle
+   * lingue "Testphase"/"Okres próbny"/"Proefperiode"/"Provperiod"/
+   * "Prøveperiode" GIA' significa "periodo di prova", non serve altro.
+   * Le altre locale compongono `freeName` (Prova/Trial/Prueba/Teste/Essai/
+   * Deneme/トライアル/체험/Kokeilu) con la parola "periodo/period/período/
+   * süresi/期間/기간/aika" gia' usata altrove nel repo per lo stesso concetto.
+   */
+  trialPeriodLabel: {
+    it: "Periodo di prova",
+    en: "Trial period",
+    es: "Período de prueba",
+    de: "Testphase",
+    pt: "Período de teste",
+    fr: "Période d'essai",
+    pl: "Okres próbny",
+    tr: "Deneme süresi",
+    nl: "Proefperiode",
+    ja: "トライアル期間",
+    ko: "체험 기간",
+    sv: "Provperiod",
+    da: "Prøveperiode",
+    no: "Prøveperiode",
+    fi: "Kokeiluaika",
   } as Localized,
 };
