@@ -82,6 +82,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // fonte di verità usata da generateStaticParams delle pagine Labs, così
     // sitemap e route non possono contraddirsi.
     { path: "/labs", indexableLocales: (lc) => LABS_LOCALES.includes(lc), xDefaultLocale: "en" },
+    // Sprint P0.11-A: /self-host esiste solo it/en (pagina di stato, non
+    // guida self-service) — stesso pattern di /labs sopra, coerente con
+    // generateStaticParams della pagina e con il collasso nel middleware.
+    { path: "/self-host", indexableLocales: (lc) => lc === "it" || lc === "en", xDefaultLocale: "en" },
     { path: "/blog" },
     { path: "/novita" },
     { path: "/support" },

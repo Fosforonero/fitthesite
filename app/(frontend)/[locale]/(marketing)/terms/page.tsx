@@ -131,8 +131,9 @@ function TermsIT() {
       <Section title="2. Cos'è FitMesh Sync">
         <p>
           FitMesh Sync è un'applicazione che legge dati di salute dal tuo dispositivo Android
-          (tramite Health Connect, Samsung Health Data SDK) e li sincronizza su un server di tua
-          scelta, permettendoti di visualizzarli in una dashboard web personale.
+          (tramite Health Connect, Samsung Health Data SDK) e li sincronizza sul backend cloud
+          gestito da FitMesh (Supabase, infrastruttura UE), permettendoti di visualizzarli in una
+          dashboard web personale.
         </p>
       </Section>
 
@@ -340,8 +341,9 @@ function TermsEN() {
       <Section title="2. What FitMesh Sync is">
         <p>
           FitMesh Sync is an application that reads health data from your Android device (via
-          Health Connect, Samsung Health Data SDK) and syncs it to a server of your choice,
-          allowing you to view it on a personal web dashboard.
+          Health Connect, Samsung Health Data SDK) and syncs it to FitMesh's managed cloud
+          backend (Supabase, EU infrastructure), allowing you to view it on a personal web
+          dashboard.
         </p>
       </Section>
 
@@ -545,8 +547,9 @@ function TermsES() {
       <Section title="2. Qué es FitMesh Sync">
         <p>
           FitMesh Sync es una aplicación que lee datos de salud de tu dispositivo Android (a través
-          de Health Connect y el Samsung Health Data SDK) y los sincroniza con el servidor que
-          elijas, permitiéndote consultarlos en un panel web personal.
+          de Health Connect y el Samsung Health Data SDK) y los sincroniza con el backend en la
+          nube gestionado por FitMesh (Supabase, infraestructura en la UE), permitiéndote
+          consultarlos en un panel web personal.
         </p>
       </Section>
 
@@ -758,8 +761,9 @@ function TermsDE() {
       <Section title="2. Was ist FitMesh Sync">
         <p>
           FitMesh Sync ist eine Anwendung, die Gesundheitsdaten von deinem Android-Gerät ausliest
-          (über Health Connect, Samsung Health Data SDK) und sie mit einem Server deiner Wahl
-          synchronisiert, sodass du sie in einem persönlichen Web-Dashboard einsehen kannst.
+          (über Health Connect, Samsung Health Data SDK) und sie mit dem von FitMesh verwalteten
+          Cloud-Backend (Supabase, EU-Infrastruktur) synchronisiert, sodass du sie in einem
+          persönlichen Web-Dashboard einsehen kannst.
         </p>
       </Section>
 
@@ -972,8 +976,9 @@ function TermsPT() {
       <Section title="2. O que é o FitMesh Sync">
         <p>
           FitMesh Sync é um aplicativo que lê dados de saúde do seu dispositivo Android (por meio
-          do Health Connect e do Samsung Health Data SDK) e os sincroniza com um servidor de sua
-          escolha, permitindo que você os visualize em um painel web pessoal.
+          do Health Connect e do Samsung Health Data SDK) e os sincroniza com o backend em nuvem
+          gerenciado pela FitMesh (Supabase, infraestrutura na UE), permitindo que você os
+          visualize em um painel web pessoal.
         </p>
       </Section>
 
@@ -1184,8 +1189,9 @@ function TermsFR() {
       <Section title="2. Qu'est-ce que FitMesh Sync">
         <p>
           FitMesh Sync est une application qui lit les données de santé de votre appareil Android
-          (via Health Connect et le Samsung Health Data SDK) et les synchronise avec un serveur de
-          votre choix, vous permettant de les consulter dans un tableau de bord web personnel.
+          (via Health Connect et le Samsung Health Data SDK) et les synchronise avec le backend
+          cloud géré par FitMesh (Supabase, infrastructure UE), vous permettant de les consulter
+          dans un tableau de bord web personnel.
         </p>
       </Section>
 

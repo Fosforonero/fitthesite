@@ -45,7 +45,7 @@
   "privacy_block": {
     "kicker": "Privacy-first",
     "heading": "Je gezondheidsdata is geen product.",
-    "description": "FitMesh Sync verkoopt, deelt of profileert nooit. Je data blijft op de server die jij kiest (je eigen NAS, je VPS, of ons gedeeld eindpunt). Jij bepaalt dit in de app-instellingen.",
+    "description": "FitMesh Sync verkoopt, deelt of profileert nooit. Je gegevens worden gesynchroniseerd met de door FitMesh beheerde cloud-backend (Supabase, EU-infrastructuur) — je kunt ze op elk moment verwijderen via de app-instellingen.",
     "cta": "Lees het privacybeleid"
   },
   "final_cta": {

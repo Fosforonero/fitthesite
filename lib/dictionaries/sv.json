@@ -45,7 +45,7 @@
   "privacy_block": {
     "kicker": "Integritet först",
     "heading": "Din hälsodata är inte en produkt.",
-    "description": "FitMesh Sync säljer, delar eller profilerar aldrig. Dina data stannar på servern du väljer (din NAS hemma, din VPS eller vår delade endpoint). Du bestämmer i appens inställningar.",
+    "description": "FitMesh Sync säljer, delar eller profilerar aldrig. Din data synkroniseras till FitMeshs hanterade molnbackend (Supabase, EU-infrastruktur) — du kan radera den när som helst i appens inställningar.",
     "cta": "Läs integritetspolicyn"
   },
   "final_cta": {

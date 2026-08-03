@@ -45,7 +45,7 @@
   "privacy_block": {
     "kicker": "Privacy-first",
     "heading": "I tuoi dati di salute non sono un prodotto.",
-    "description": "FitMesh Sync non vende, non condivide, non profila. I dati restano sul server che scegli tu (NAS di casa, VPS o il nostro endpoint condiviso): decidi tu nelle impostazioni dell'app.",
+    "description": "FitMesh Sync non vende, non condivide, non profila. I dati sono sincronizzati sul backend cloud gestito da FitMesh (Supabase, infrastruttura UE): puoi cancellarli in autonomia dalle impostazioni dell'app.",
     "cta": "Leggi la Privacy Policy"
   },
   "final_cta": {

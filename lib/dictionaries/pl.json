@@ -45,7 +45,7 @@
   "privacy_block": {
     "kicker": "Prywatność na pierwszym miejscu",
     "heading": "Twoje dane zdrowotne nie są produktem.",
-    "description": "FitMesh Sync nigdy nie sprzedaje, nie udostępnia i nie profiluje. Twoje dane pozostają na serwerze, który wybierasz (domowy NAS, VPS lub nasz wspólny endpoint). Decydujesz w ustawieniach aplikacji.",
+    "description": "FitMesh Sync nigdy nie sprzedaje, nie udostępnia i nie profiluje. Twoje dane są synchronizowane z zarządzanym przez FitMesh backendem w chmurze (Supabase, infrastruktura UE) — możesz je usunąć w dowolnym momencie w ustawieniach aplikacji.",
     "cta": "Przeczytaj Politykę Prywatności"
   },
   "final_cta": {

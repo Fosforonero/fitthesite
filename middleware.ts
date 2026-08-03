@@ -153,6 +153,29 @@ function canonicalizeNorwegianPrefix(pathname: string): string | null {
   return pathname.replace(NORWEGIAN_PREFIX_RE, '/no');
 }
 
+// Sprint P0.11-A: `/self-host` esiste solo in IT/EN (guida onesta, non
+// self-service). Le altre 13 locale devono collassare su EN in UN solo
+// hop, mai due — quindi questo controllo intercetta il path PRIMA della
+// negoziazione lingua generica (che altrimenti atterrerebbe su una delle
+// 15 locale complete, richiedendo un secondo redirect da li' a /en).
+// Ritorna il pathname di destinazione, o null se nessun redirect serve
+// (gia' su /it/self-host o /en/self-host).
+function selfHostRedirectTarget(pathname: string, request: NextRequest): string | null {
+  if (pathname === '/it/self-host' || pathname === '/en/self-host') return null;
+  if (pathname === '/self-host') {
+    const negotiated = resolveNegotiatedLocale({
+      cookieLocale: request.cookies.get(LOCALE_COOKIE_NAME)?.value,
+      acceptLanguage: request.headers.get('accept-language'),
+      country: request.headers.get('x-vercel-ip-country'),
+    });
+    return negotiated === 'it' ? '/it/self-host' : '/en/self-host';
+  }
+  for (const locale of LOCALES) {
+    if (pathname === `/${locale}/self-host`) return '/en/self-host';
+  }
+  return null;
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const host = request.headers.get('host') ?? '';
@@ -201,6 +224,18 @@ export async function middleware(request: NextRequest) {
     const targetUrl = new URL(request.nextUrl.toString());
     targetUrl.host = CANONICAL_HOST;
 
+    // P0.11-A: collassa host-swap + collasso locale di /self-host in UN hop
+    // (altrimenti apex+locale-non-IT/EN farebbe 2 hop: apex->www, poi
+    // www/<locale>/self-host -> www/en/self-host).
+    const apexSelfHostTarget = selfHostRedirectTarget(pathname, request);
+    if (apexSelfHostTarget !== null) {
+      targetUrl.pathname = apexSelfHostTarget;
+      const redirectResponse = NextResponse.redirect(targetUrl, 307);
+      redirectResponse.headers.set('Cache-Control', 'private, no-store');
+      redirectResponse.headers.set('Vary', 'Accept-Language, Cookie');
+      return stripClientHintHeaders(redirectResponse);
+    }
+
     if (needsLocalePrefix(pathname)) {
       const locale = resolveNegotiatedLocale({
         cookieLocale: request.cookies.get(LOCALE_COOKIE_NAME)?.value,
@@ -233,6 +268,20 @@ export async function middleware(request: NextRequest) {
       return stripClientHintHeaders(NextResponse.redirect(targetUrl, 308));
     }
     return stripClientHintHeaders(NextResponse.redirect(targetUrl, 301));
+  }
+
+  // P0.11-A: stesso collasso di /self-host, per le richieste gia' su www
+  // (host swap gia' avvenuto o mai servito, apex branch sopra non ha
+  // ritornato). Deve girare PRIMA della negoziazione lingua generica sotto,
+  // che userebbe tutte le 15 locale invece di limitarsi a IT/EN.
+  const selfHostTarget = selfHostRedirectTarget(pathname, request);
+  if (selfHostTarget !== null) {
+    const url = request.nextUrl.clone();
+    url.pathname = selfHostTarget;
+    const redirectResponse = NextResponse.redirect(url, 307);
+    redirectResponse.headers.set('Cache-Control', 'private, no-store');
+    redirectResponse.headers.set('Vary', 'Accept-Language, Cookie');
+    return stripClientHintHeaders(redirectResponse);
   }
 
   // Rate limit FIRST (P0-001 cybersec): blocca abuse-via-curl prima di
