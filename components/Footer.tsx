@@ -58,17 +58,12 @@ export default function Footer({
             <li><Link href={`/${locale}/about`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Chi siamo" : "About"}</Link></li>
             <li><Link href={`/${locale}/press`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Press" : "Press"}</Link></li>
             {/*
-             * Sprint P0.10K: link statico e permanente verso l'archivio
-             * /beta — non piu' gated da FounderClientGate (era l'unico
-             * `evergreen`, corretto sia prima sia dopo il cutoff: nessuna
-             * promo, nessun badge lampeggiante, nessun claim "Pro a vita
-             * gratis" incondizionato).
+             * Sprint P0.10L-A: rimosso il link "Founder" dalla navigazione
+             * (era classificazione B — non un'offerta, ma comunque un punto
+             * di navigazione verso il programma). /beta resta raggiungibile
+             * SOLO via URL diretto: pagina statica, 200, noindex/follow,
+             * fuori sitemap, invariata. Nessun link pubblico punta piu' qui.
              */}
-            <li>
-              <Link href={`/${locale}/beta`} className="text-text-secondary hover:text-text-primary transition">
-                Founder
-              </Link>
-            </li>
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
             <li><Link href={`/${locale}/support`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>
           </ul>

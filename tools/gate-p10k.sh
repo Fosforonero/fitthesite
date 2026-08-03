@@ -38,6 +38,10 @@ run "founder:commercial-truth-check" pnpm run founder:commercial-truth-check
 # commercial-truth (che resta la difesa sulle 5 superfici note) e prima del
 # build, perche' e' statico e costa secondi.
 run "founder:acquisition-surfaces-check" pnpm run founder:acquisition-surfaces-check
+# Sprint P0.10L-A: guardrail complementare, ambito "superfici commerciali"
+# (nav/homepage/pricing/landing CTA/FAQ) — vedi header dello script per il
+# gap specifico che colma rispetto ad acquisition-surfaces-check.
+run "founder:commercial-surfaces-check" pnpm run founder:commercial-surfaces-check
 run "founder:metadata-invariant-check" pnpm run founder:metadata-invariant-check
 run "founder:counter-check" pnpm run founder:counter-check
 run "post-founder:pricing-check" pnpm run post-founder:pricing-check

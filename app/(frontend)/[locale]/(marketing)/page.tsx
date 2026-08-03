@@ -740,10 +740,17 @@ export default async function Home({
        *  APPROFONDISCI — pillar + top article (internal linking SEO)
        *  ════════════════════════════════════════════════════════════ */}
       {(() => {
+        // Sprint P0.10L-A: "fitmesh-gratis-prezzo-founder" rimosso dai
+        // featured — la card mostrava hero.subtitle troncato da line-clamp-3
+        // PRIMA della clausola Founder (non visibile a un utente vedente,
+        // ma presente per intero in SSR/screen reader/crawler, classificato
+        // C nell'audit P0.10L). Minimo intervento strutturale: sostituito
+        // con una guida evergreen gia' tradotta, zero menzione Founder,
+        // corpo/slug/publishedAt dell'articolo Founder NON toccati altrove.
         const featuredSlugs = [
           "guida-sync-wearable-2026",
           "scegliere-smartwatch-dati-2026",
-          "fitmesh-gratis-prezzo-founder",
+          "come-funziona-fitmesh",
         ];
         const featured = featuredSlugs
           .map((s) => postsBySlug[s])
