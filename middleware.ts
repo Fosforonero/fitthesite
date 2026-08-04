@@ -399,7 +399,21 @@ export const config = {
     //    di sistema che non necessitano piu' di alcuna elaborazione qui
     //    (/api tranne i 3 endpoint rate-limited sotto, /cms, /oauth,
     //    /mockups, /delete-account, /self-host, /.well-known).
-    '/((?!_next/static|_next/image|favicon\\.ico|logo-.*|(?:it|en|es|de|pt|fr|pl|tr|nl|ja|ko|sv|da|no|fi)(?:/|$)|api(?:/|$)|cms(?:/|$)|oauth(?:/|$)|mockups(?:/|$)|delete-account(?:/|$)|self-host(?:/|$)|\\.well-known|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
+    //
+    //    Addendum Fluid CPU (post-P0.9): sitemap.xml, robots.txt, llms.txt
+    //    sono endpoint statici bare-top-level (metadata route/rewrite, vedi
+    //    app/sitemap.ts, app/robots.ts, next.config.mjs `rewrites()` per
+    //    /llms.txt -> /api/llms-txt) che PRIMA di questa riga matchavano
+    //    comunque il pattern sotto (l'esclusione per estensione copriva
+    //    solo le immagini, non .xml/.txt) — ogni richiesta, incluso ogni
+    //    crawl, invocava il middleware per poi fare no-op subito dentro
+    //    needsLocalePrefix(). Inventario completo verificato sul tree +
+    //    next.config.mjs rewrites() prima di questa modifica: nessun
+    //    manifest.json/webmanifest, nessun llms-full.txt, nessun rss.xml/
+    //    opensearch.xml esistono in questo repo — non aggiunti. feed.xml
+    //    esiste solo come /[locale]/blog/feed.xml, gia' escluso dal
+    //    prefisso locale sopra, nessuna nuova entry necessaria per quello.
+    '/((?!_next/static|_next/image|favicon\\.ico|logo-.*|sitemap\\.xml|robots\\.txt|llms\\.txt|(?:it|en|es|de|pt|fr|pl|tr|nl|ja|ko|sv|da|no|fi)(?:/|$)|api(?:/|$)|cms(?:/|$)|oauth(?:/|$)|mockups(?:/|$)|delete-account(?:/|$)|self-host(?:/|$)|\\.well-known|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)',
 
     // 3. Route protette (refresh sessione + verifica utente Supabase):
     //    /[locale]/app/* e /[locale]/admin/*. Un solo gruppo catturante
