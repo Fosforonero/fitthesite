@@ -104,6 +104,7 @@ export default async function SelfHostPage({
     isPartOf: { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: SITE_URL, name: "FitMesh Sync" },
     publisher: organizationCompactRef(),
     author: authorCompactNode(),
+    dateModified: c.lastUpdatedIso,
   };
 
   return (
@@ -114,7 +115,7 @@ export default async function SelfHostPage({
         items={[{ name: t(c.breadcrumbSelfHost, lc), path }]}
       />
 
-      <LegalPage kicker={t(c.kicker, lc)} title={t(c.h1, lc)} lastUpdated="">
+      <LegalPage kicker={t(c.kicker, lc)} title={t(c.h1, lc)} lastUpdated={t(c.lastUpdated, lc)}>
         <p>{t(c.intro, lc)}</p>
 
         <Section title={t(c.statusHeading, lc)}>

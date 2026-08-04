@@ -24,8 +24,24 @@
  * Se BASE_URL non e' impostata, esegue solo i controlli statici (utile in
  * CI/pre-commit senza un server in piedi) e lo dichiara esplicitamente,
  * cosi' un "verde" parziale non si spaccia per una verifica completa.
+ *
+ * Addendum P0.11-C (2026-08-04, correzioni pre-merge PR#39):
+ *  - Fase 2: freschezza date legali Privacy/Termini (vedi
+ *    runLegalDateFreshnessChecks piu' sotto — data visibile e dateModified
+ *    devono coincidere, e un contenuto cambiato senza bump data fallisce).
+ *  - Fase 3: rimossa la falsa promessa che export/cancellazione funzionino
+ *    "indipendentemente da dove e' configurato il backend" — vero solo sul
+ *    backend gestito FitMesh, non su un backend Supabase alternativo.
+ *  - Fase 4: sweep sitewide di claim assoluti "no trackers"/"no opaque
+ *    clouds" (root/marketing metadata, homepage/about, press kit, llms.txt,
+ *    product-facts, provider copy, blog), sostituiti con formulazioni
+ *    precise (SDK pubblicitario/di profilazione, vendita dati, Crashlytics
+ *    per diagnostica crash, FCM per notifiche push, backend cloud FitMesh
+ *    di default). STATIC_FILES e ABSOLUTE_CLAIM_PATTERNS estesi di
+ *    conseguenza per impedire la reintroduzione silenziosa.
  */
 import { readFileSync } from "node:fs";
+import { execSync } from "node:child_process";
 import { locales } from "@/lib/i18n";
 
 const BASE_URL = process.env.BASE_URL;
@@ -50,6 +66,35 @@ const STATIC_FILES = [
   "lib/blog/posts/esportare-dati-xiaomi-amazfit.ts",
   "lib/dictionaries/it.json",
   "lib/dictionaries/en.json",
+  // Addendum P0.11-C (Fase 4): "tagline" aveva "no opaque clouds" in tutte
+  // e 15 le lingue (trovato dal guardrail stesso — vedi report), non solo
+  // it/en. Le altre 13 mancavano dalla lista originale P0.11-A.
+  "lib/dictionaries/es.json",
+  "lib/dictionaries/de.json",
+  "lib/dictionaries/pt.json",
+  "lib/dictionaries/fr.json",
+  "lib/dictionaries/pl.json",
+  "lib/dictionaries/tr.json",
+  "lib/dictionaries/nl.json",
+  "lib/dictionaries/ja.json",
+  "lib/dictionaries/ko.json",
+  "lib/dictionaries/sv.json",
+  "lib/dictionaries/da.json",
+  "lib/dictionaries/no.json",
+  "lib/dictionaries/fi.json",
+  // Addendum P0.11-C (Fase 4) — sweep "no trackers"/"no opaque clouds"
+  // assoluti sitewide, sostituiti con formulazioni precise (nessun SDK
+  // pubblicitario/di profilazione, nessuna vendita dati, Crashlytics/FCM
+  // dichiarati). File toccati da quel sweep, monitorati contro regressione.
+  "app/(frontend)/[locale]/layout.tsx",
+  "app/(frontend)/[locale]/(marketing)/layout.tsx",
+  "app/(frontend)/[locale]/(marketing)/press/page.tsx",
+  "lib/llms-txt.ts",
+  "lib/product-facts.ts",
+  "lib/blog/posts/gdpr-dati-fitness-smartwatch.ts",
+  "lib/blog/posts/scegliere-smartwatch-dati-2026.ts",
+  "lib/blog/posts/health-connect-vs-samsung-health.ts",
+  "lib/blog/posts/vedere-dati-wearable-browser-pc.ts",
 ];
 
 // Secret/service-role: MAI in copy pubblico, a prescindere dal contesto.
@@ -82,6 +127,22 @@ const ABSOLUTE_CLAIM_PATTERNS: { re: RegExp; label: string }[] = [
   { re: /no external communication/i, label: '"no external communication"' },
   { re: /nulla raggiunge i nostri server/i, label: '"nulla raggiunge i nostri server"' },
   { re: /nothing reaches our servers/i, label: '"nothing reaches our servers"' },
+  // Addendum P0.11-C (Fase 4): promessa falsa di cancellazione self-host
+  // universale (corretta in lib/content/self-host-copy.ts — vedi dataParagraph).
+  { re: /funziona indipendentemente da dove è configurato il backend/i, label: '"funziona indipendentemente da dove è configurato il backend" (falso: export/cancellazione presuppongono lo schema del backend gestito FitMesh)' },
+  { re: /works regardless of where the backend is configured/i, label: '"works regardless of where the backend is configured" (stesso motivo)' },
+  // Addendum P0.11-C (Fase 4): sweep "no trackers"/"no opaque clouds" —
+  // claim assoluto, contraddetto da Firebase Crashlytics/FCM bundle e dal
+  // backend cloud FitMesh di default. La versione corretta e' SEMPRE scoped
+  // ("no AD trackers" / "no data SALE") — se questi pattern matchano di
+  // nuovo un testo senza quel qualificatore, e' una regressione.
+  { re: /\bno opaque clouds?\b/i, label: '"no opaque cloud(s)" (assoluto, contraddice il backend gestito FitMesh — vedi sweep Fase 4)' },
+  { re: /\bcloud opac[hoi]\b/i, label: '"cloud opaco/opachi" (assoluto italiano, stesso motivo)' },
+  // NB: usa un lookahead esplicito su spazio/punteggiatura/fine-stringa
+  // invece di \b finale — \b in JS e' ASCII-only e tratta "ó"/"ę"/ecc. come
+  // non-word, quindi "trackerów" (polacco) matcherebbe falsamente "tracker"
+  // come parola completa con un semplice \b.
+  { re: /\b(no|niente|zero)\s+trackers?(?=[\s,.!?;:)"'\]]|$)(?!\s*(pubblicitari|advertising|ads?\b))/i, label: '"no/niente/zero tracker(s)" senza qualificatore pubblicitario (assoluto — Crashlytics+FCM sono bundle nell\'app)' },
 ];
 
 function stripComments(src: string): string {
@@ -122,6 +183,78 @@ function runStaticChecks() {
       }
       for (const re of PRICE_PATTERNS) {
         if (re.test(stripped)) errors.push(`${relPath}: prezzo menzionato sulla pagina di stato self-host (pattern ${re})`);
+      }
+    }
+  }
+}
+
+// ── FASE statica — freschezza date legali (P0.11-C, Fase 2) ─────────────
+// Privacy e Termini mostrano una data visibile (LAST_UPDATED_*) e un
+// dateModified nel WebPage JSON-LD (LegalJsonLd): devono coincidere
+// semanticamente, e una revisione sostanziale del contenuto senza bump
+// della data deve far fallire il gate — e' successo una volta (16/22
+// giugno rimasti fermi mentre l'audit privacy FASE 3 cambiava il testo
+// sotto), non deve poter succedere di nuovo silenziosamente.
+const LEGAL_DATE_FILES = [
+  { path: "app/(frontend)/[locale]/(marketing)/privacy/page.tsx", label: "Privacy Policy" },
+  { path: "app/(frontend)/[locale]/(marketing)/terms/page.tsx", label: "Termini di Servizio" },
+];
+
+const MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+function parseEnglishDate(text: string): string | null {
+  const m = text.match(/([A-Za-z]+)\s+(\d{1,2}),\s+(\d{4})/);
+  if (!m) return null;
+  const mi = MONTHS_EN.findIndex((mo) => mo.toLowerCase() === m[1].toLowerCase());
+  if (mi === -1) return null;
+  return `${m[3]}-${String(mi + 1).padStart(2, "0")}-${String(Number(m[2])).padStart(2, "0")}`;
+}
+
+function stripDateDeclarations(content: string): string {
+  return content
+    .replace(/const LAST_UPDATED_\w+ = "[^"]*";/g, "")
+    .replace(/dateModified="[^"]*"/g, 'dateModified=""');
+}
+
+function runLegalDateFreshnessChecks() {
+  for (const { path, label } of LEGAL_DATE_FILES) {
+    let content: string;
+    try {
+      content = readFileSync(path, "utf-8");
+    } catch {
+      errors.push(`${path}: file non trovato (freschezza date legali)`);
+      continue;
+    }
+
+    const enMatch = content.match(/LAST_UPDATED_EN = "([^"]*)";/);
+    const dateModifiedMatch = content.match(/dateModified="(\d{4}-\d{2}-\d{2})"/);
+    if (!enMatch || !dateModifiedMatch) {
+      errors.push(`${path}: impossibile leggere LAST_UPDATED_EN o dateModified (formato inatteso — questo controllo va aggiornato insieme al file)`);
+      continue;
+    }
+    const visibleIso = parseEnglishDate(enMatch[1]);
+    if (!visibleIso) {
+      errors.push(`${path}: LAST_UPDATED_EN "${enMatch[1]}" non parsabile come data`);
+      continue;
+    }
+    if (visibleIso !== dateModifiedMatch[1]) {
+      errors.push(`${label} (${path}): data visibile (${visibleIso}, da "${enMatch[1]}") e dateModified (${dateModifiedMatch[1]}) non coincidono`);
+    }
+
+    // Staleness reale: contenuto cambiato rispetto a origin/main senza bump data.
+    let baseContent: string;
+    try {
+      baseContent = execSync(`git show origin/main:"${path}"`, { encoding: "utf-8", stdio: ["pipe", "pipe", "pipe"] });
+    } catch {
+      console.log(`   (nota: controllo staleness-vs-origin/main SALTATO per ${path} — origin/main non raggiungibile in questo ambiente, non dichiarato verde)`);
+      continue;
+    }
+    const strippedCurrent = stripDateDeclarations(content);
+    const strippedBase = stripDateDeclarations(baseContent);
+    if (strippedCurrent !== strippedBase) {
+      const baseDateModified = baseContent.match(/dateModified="(\d{4}-\d{2}-\d{2})"/)?.[1];
+      if (baseDateModified === dateModifiedMatch[1]) {
+        errors.push(`${label} (${path}): contenuto legale modificato rispetto a origin/main ma dateModified invariato (${dateModifiedMatch[1]}) — bump la data visibile e il dateModified`);
       }
     }
   }
@@ -217,6 +350,7 @@ async function runLiveChecks() {
 
 async function main() {
   runStaticChecks();
+  runLegalDateFreshnessChecks();
 
   if (!BASE_URL) {
     if (errors.length > 0) {

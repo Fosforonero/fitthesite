@@ -7,12 +7,12 @@ import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
 import { TraderIdentity } from "@/components/legal/TraderIdentity";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "16 giugno 2026";
-const LAST_UPDATED_EN = "June 16, 2026";
-const LAST_UPDATED_ES = "16 de junio de 2026";
-const LAST_UPDATED_DE = "16. Juni 2026";
-const LAST_UPDATED_PT = "16 de junho de 2026";
-const LAST_UPDATED_FR = "16 juin 2026";
+const LAST_UPDATED_IT = "4 agosto 2026";
+const LAST_UPDATED_EN = "August 4, 2026";
+const LAST_UPDATED_ES = "4 de agosto de 2026";
+const LAST_UPDATED_DE = "4. August 2026";
+const LAST_UPDATED_PT = "4 de agosto de 2026";
+const LAST_UPDATED_FR = "4 août 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -83,7 +83,7 @@ export default async function PrivacyPage({
   return (
     <>
       <Breadcrumbs items={[{ name: "Privacy Policy", path: `/${lc}/privacy` }]} locale={lc} />
-      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified="2026-06-16" />
+      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified="2026-08-04" />
       <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <PrivacyIT /> : lc === "es" ? <PrivacyES /> : lc === "de" ? <PrivacyDE /> : lc === "pt" ? <PrivacyPT /> : lc === "fr" ? <PrivacyFR /> : <PrivacyEN />}
       </LegalPage>

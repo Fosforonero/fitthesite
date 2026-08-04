@@ -32,7 +32,7 @@ export function generateLlmsTxt(): string {
 
   lines.push("# FitMesh Sync", "");
   lines.push(
-    `> FitMesh Sync mirrors smartwatch and wearable health data into a premium, privacy-first personal dashboard. Two separate platform architectures, not one: Android reads via Health Connect (${SUPPORTED_PROVIDERS_ANDROID.join(", ")}); iOS reads Apple Health (HealthKit) natively and connects directly via Bluetooth to the Colmi Ring (${SUPPORTED_PROVIDERS_IOS.join(", ")}) — iOS never goes through Health Connect, which is Android-only. EU servers, GDPR compliant. No opaque clouds, no trackers, no data brokers.`,
+    `> FitMesh Sync mirrors smartwatch and wearable health data into a premium, privacy-first personal dashboard. Two separate platform architectures, not one: Android reads via Health Connect (${SUPPORTED_PROVIDERS_ANDROID.join(", ")}); iOS reads Apple Health (HealthKit) natively and connects directly via Bluetooth to the Colmi Ring (${SUPPORTED_PROVIDERS_IOS.join(", ")}) — iOS never goes through Health Connect, which is Android-only. EU servers, GDPR compliant. No advertising or behavioral-profiling SDKs, no data sale, no data brokers. Firebase Crashlytics is used for crash/stability diagnostics and Firebase Cloud Messaging for push notifications; by default, synced health data is sent to FitMesh's managed cloud backend (Supabase, EU infrastructure).`,
   );
   lines.push("");
   lines.push(

@@ -6,12 +6,12 @@ import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
 import { TraderIdentity } from "@/components/legal/TraderIdentity";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "22 giugno 2026";
-const LAST_UPDATED_EN = "June 22, 2026";
-const LAST_UPDATED_ES = "22 de junio de 2026";
-const LAST_UPDATED_DE = "22. Juni 2026";
-const LAST_UPDATED_PT = "22 de junho de 2026";
-const LAST_UPDATED_FR = "22 juin 2026";
+const LAST_UPDATED_IT = "4 agosto 2026";
+const LAST_UPDATED_EN = "August 4, 2026";
+const LAST_UPDATED_ES = "4 de agosto de 2026";
+const LAST_UPDATED_DE = "4. August 2026";
+const LAST_UPDATED_PT = "4 de agosto de 2026";
+const LAST_UPDATED_FR = "4 août 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -89,7 +89,7 @@ export default async function TermsPage({
   return (
     <>
       <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/terms` }]} locale={lc} />
-      <LegalJsonLd locale={lc} path="/terms" name={t.legal.terms_title} dateModified="2026-06-22" />
+      <LegalJsonLd locale={lc} path="/terms" name={t.legal.terms_title} dateModified="2026-08-04" />
       <LegalPage kicker={t.legal.section} title={t.legal.terms_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <TermsIT /> :
          lc === "es" ? <TermsES /> :
