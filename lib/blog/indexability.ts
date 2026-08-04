@@ -45,8 +45,27 @@ export function isPostLocaleComplete(post: BlogPost, lc: Locale): boolean {
   return true;
 }
 
+/**
+ * Sprint P0.11-D1: varianti (post, locale) consolidate away da un redirect
+ * permanente verso un altro post — cannibalizzazione risolta accorpando due
+ * post sullo stesso topic (vedi `elderlyConsolidationRedirects` in
+ * next.config.mjs). La variante non è MAI raggiungibile come pagina 200 (il
+ * redirect statico di next.config.mjs intercetta la request prima del
+ * routing app-level, che quindi non la vede mai), quindi non deve MAI
+ * risultare indicizzabile: niente sitemap, niente hreflang, niente feed.
+ *
+ * Deve vivere QUI (unica fonte di verità) e non come caso speciale duplicato
+ * in sitemap.ts/blogLanguages()/feed.xml: il 04/08 sitemap.ts escludeva la
+ * variante ma blogLanguages() (hreflang) no, generando hreflang verso un URL
+ * 308 dalle altre varianti locale dello stesso post — regressione P0.11-D1.
+ */
+const CONSOLIDATED_AWAY_VARIANTS = new Set<string>([
+  "smartwatch-per-anziani-guida:en",
+]);
+
 /** True se la pagina `(post, locale)` è indicizzabile (NON esce `noindex`). */
 export function isBlogVariantIndexable(post: BlogPost, lc: Locale): boolean {
+  if (CONSOLIDATED_AWAY_VARIANTS.has(`${post.slug}:${lc}`)) return false;
   // it/en sono campi `required` nel tipo Localized: sempre presenti, mai fallback.
   if (lc === "it" || lc === "en") return true;
   return isPostLocaleComplete(post, lc);

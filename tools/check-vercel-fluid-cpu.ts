@@ -246,7 +246,15 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // POST /api/v1/auth/forgot-password. Necessariamente dinamica (rate limit
 // server-side stateful su Postgres, mai statica per definizione) — non una
 // regressione, una route reale in piu' rispetto al baseline P0.9/P0.10.
-const DYNAMIC_ROUTES_BASELINE = 57;
+// 57 -> 58 (2026-08-03, Sprint P0.11 self-host+privacy, verificato in questa
+// build): nuova /[locale]/self-host. E' un template parametrizzato per
+// definizione (segmento [locale]), quindi conta come "route dinamica" anche
+// se generateStaticParams() la limita di fatto a soli it/en (confermato: il
+// build la elenca "● (SSG)" per esattamente 2 path, /it/self-host e
+// /en/self-host — vedi tabella di build). Non una regressione: la pagina
+// stessa era gia' stata aggiunta nel commit P0.11 precedente a questo
+// addendum, la baseline qui sotto era semplicemente rimasta indietro.
+const DYNAMIC_ROUTES_BASELINE = 58;
 if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
   errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
 } else {
@@ -351,6 +359,34 @@ const syncRouteSrc = stripComments(read("app/api/v1/sync/route.ts") ?? "");
   }
 }
 
+// ── 15. Endpoint statici bare-top-level esclusi dal matcher (addendum
+//       pre-merge PR#39, Fluid CPU) ─────────────────────────────────────────
+// Prima di questa entry, sitemap.xml/robots.txt/llms.txt matchavano ancora
+// il pattern "deep link senza locale" (l'esclusione per estensione copriva
+// solo le immagini) — ogni richiesta, incluso ogni crawl, invocava il
+// middleware per poi fare no-op. Inventario verificato sul tree + su
+// next.config.mjs rewrites() prima della modifica: questi 3 sono gli UNICI
+// endpoint statici bare-top-level reali in questo repo — nessun
+// manifest.json/webmanifest, nessun llms-full.txt, nessun rss.xml/
+// opensearch.xml esistono, quindi non sono stati aggiunti "per sicurezza".
+{
+  const deepLinkPattern = middlewareConfig.matcher.find((m) => m.startsWith("/((?!"));
+  if (deepLinkPattern) {
+    const re = new RegExp(`^${deepLinkPattern}$`);
+    const STATIC_ENDPOINTS_MUST_BE_EXCLUDED = ["/sitemap.xml", "/robots.txt", "/llms.txt"];
+    for (const p of STATIC_ENDPOINTS_MUST_BE_EXCLUDED) {
+      if (re.test(p)) {
+        errors.push(`[static-endpoint-nel-middleware] il pattern "deep link senza locale" matcha ancora ${p} — questo endpoint statico deve restare escluso dal middleware (vedi addendum Fluid CPU pre-merge PR#39).`);
+      }
+    }
+    // Regressione opposta: non deve diventare un'esclusione troppo larga che
+    // nasconde deep-link legittimi che iniziano per lo stesso testo.
+    if (!re.test("/sitemap-guide") || !re.test("/robots-txt-explained")) {
+      errors.push("[static-endpoint-esclusione-troppo-larga] l'esclusione di sitemap.xml/robots.txt nel matcher sta escludendo anche deep-link che iniziano per lo stesso testo (es. /sitemap-guide) — deve matchare solo il file esatto.");
+    }
+  }
+}
+
 // ── Esito ────────────────────────────────────────────────────────────────
 if (errors.length > 0) {
   console.error(`❌ Vercel Fluid CPU guardrail: ${errors.length} problema/i`);
@@ -358,5 +394,5 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  "✅ Vercel Fluid CPU guardrail: nessun root/marketing layout usa Dynamic API, nessun force-dynamic marketing, x-fitmesh-locale assente, middleware non copre le 15 locale, ArticleMeta non chiama posts/stats, posts/stats resta un tombstone leggero, campione pagine pubbliche prerenderizzato, nessuna route privata diventata statica, /api/v1/sync fuori dal middleware con rate limit prima di auth/json, nessun log con identificatori.",
+  "✅ Vercel Fluid CPU guardrail: nessun root/marketing layout usa Dynamic API, nessun force-dynamic marketing, x-fitmesh-locale assente, middleware non copre le 15 locale, ArticleMeta non chiama posts/stats, posts/stats resta un tombstone leggero, campione pagine pubbliche prerenderizzato, nessuna route privata diventata statica, /api/v1/sync fuori dal middleware con rate limit prima di auth/json, nessun log con identificatori, sitemap.xml/robots.txt/llms.txt esclusi dal middleware senza esclusione troppo larga.",
 );

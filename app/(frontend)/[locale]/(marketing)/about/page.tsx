@@ -136,7 +136,13 @@ export default async function AboutPage({
           ))}
         </ul>
         <p className="mt-5 text-text-secondary leading-relaxed">
-          {tl(ABOUT_COPY.serverChoice, lc)}
+          {tl(ABOUT_COPY.serverChoice, lc)}{" "}
+          <Link
+            href={`/${lc}/self-host`}
+            className="text-brand-aqua hover:text-brand-green underline underline-offset-4"
+          >
+            {lc === "it" ? "Stato attuale del self-host →" : "Current self-hosting status →"}
+          </Link>
         </p>
 
         {/* ─── Dispositivi supportati ─── */}
@@ -219,12 +225,6 @@ export default async function AboutPage({
         </p>
         <p className="mt-4 text-text-secondary leading-relaxed">
           {tl(ABOUT_COPY.deleteAccountPrefix, lc)}
-          <a
-            href="mailto:privacy@fitmesh.fit"
-            className="text-brand-aqua hover:text-brand-green underline underline-offset-4"
-          >
-            privacy@fitmesh.fit
-          </a>
           {tl(ABOUT_COPY.deleteAccountSuffix, lc)}
           <Link
             href={`/${lc}/privacy`}

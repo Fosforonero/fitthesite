@@ -66,6 +66,49 @@ describe("middleware matcher — deep link pattern (regex puro)", () => {
     expect(re.test("/oauth/strava-callback")).toBe(false);
     expect(re.test("/mockups/dashboard")).toBe(false);
     expect(re.test("/.well-known/assetlinks.json")).toBe(false);
+    // Addendum pre-merge PR#39: /self-host bare deve rispondere 200 diretto
+    // sulla stringa letterale usata dall'app — stesso pattern non-i18n di
+    // /delete-account, quindi stessa esclusione dal matcher.
+    expect(re.test("/self-host")).toBe(false);
+    expect(re.test("/self-host/")).toBe(false);
+  });
+
+  it("excludes the real static top-level endpoints found in the tree (Fluid CPU addendum)", () => {
+    // Inventario verificato prima della modifica: app/sitemap.ts, app/robots.ts,
+    // e /llms.txt (rewrite in next.config.mjs -> /api/llms-txt) sono gli UNICI
+    // endpoint statici bare-top-level esistenti in questo repo. Prima di questa
+    // entry, l'esclusione per estensione copriva solo le immagini
+    // (svg/png/jpg/jpeg/gif/webp/ico), non .xml/.txt — ogni richiesta a questi
+    // 3 endpoint (incluso ogni crawl di un motore di ricerca) invocava il
+    // middleware per poi fare no-op subito dentro needsLocalePrefix().
+    expect(re.test("/sitemap.xml")).toBe(false);
+    expect(re.test("/robots.txt")).toBe(false);
+    expect(re.test("/llms.txt")).toBe(false);
+  });
+
+  it("does NOT exclude paths that merely start with these names as a substring", () => {
+    // Stesso principio dei due test 'de'/'no' e 'self-host' sopra: un
+    // ipotetico deep link che comincia per 'sitemap'/'robots'/'llms' ma non
+    // e' letteralmente l'endpoint statico deve restare negoziato normalmente.
+    expect(re.test("/sitemap-guide")).toBe(true);
+    expect(re.test("/robots-txt-explained")).toBe(true);
+    expect(re.test("/llms-full.txt")).toBe(true); // non esiste nel repo, non escluso "per sicurezza"
+  });
+
+  it("does NOT exclude a hypothetical manifest.json/webmanifest (not found in the tree — not added)", () => {
+    // Verificato: nessun app/manifest.ts, nessun manifest.json/webmanifest
+    // statico, nessuna rewrite in next.config.mjs per questi path. Se in
+    // futuro ne viene aggiunto uno reale, questo test deve essere aggiornato
+    // insieme al matcher, non anticipato ora senza il file che lo giustifichi.
+    expect(re.test("/manifest.json")).toBe(true);
+    expect(re.test("/manifest.webmanifest")).toBe(true);
+  });
+
+  it("does NOT falsely exclude paths that merely start with 'self-host' as a substring vs a real segment boundary", () => {
+    // Regression guard, stesso principio del test 'de' vs 'delete-account'
+    // sopra: 'self-host-guide' non e' la route /self-host, deve restare
+    // soggetto alla negoziazione lingua generica.
+    expect(re.test("/self-hosting-guide")).toBe(true);
   });
 
   it("excludes /api entirely (rate-limited endpoints are matched by their own explicit entries instead)", () => {

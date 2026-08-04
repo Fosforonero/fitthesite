@@ -1107,14 +1107,30 @@ export const post: BlogPost = {
         ja: "Samsung Health向けFitMesh Syncを見つける →",
         ko: "Samsung Health용 FitMesh Sync 알아보기 →",
       },
+      // Addendum P0.11-D: puntava a /sync/samsung-health, mai esistito
+      // (nessuna provider page con questo slug) — 404 su tutte le locale.
+      // Samsung Health e' l'app companion di Galaxy Watch: la provider page
+      // esistente semanticamente corretta e' /sync/galaxy-watch (stesso
+      // slug usato da lib/providers/data.ts, verificato 200 live).
+      // Tutte e 15 le locale esplicite (non solo it/en) per evitare che il
+      // fallback su ctaHref.it + relocalizzazione prefisso (BlogRenderer.tsx)
+      // rigeneri lo stesso link rotto per le locale non elencate qui.
       ctaHref: {
-        it: "/it/sync/samsung-health",
-        en: "/en/sync/samsung-health",
-        pl: "/pl/sync/samsung-health",
-        tr: "/tr/sync/samsung-health",
-        nl: "/nl/sync/samsung-health",
-        ja: "/ja/sync/samsung-health",
-        ko: "/ko/sync/samsung-health",
+        it: "/it/sync/galaxy-watch",
+        en: "/en/sync/galaxy-watch",
+        es: "/es/sync/galaxy-watch",
+        de: "/de/sync/galaxy-watch",
+        pt: "/pt/sync/galaxy-watch",
+        fr: "/fr/sync/galaxy-watch",
+        pl: "/pl/sync/galaxy-watch",
+        tr: "/tr/sync/galaxy-watch",
+        nl: "/nl/sync/galaxy-watch",
+        ja: "/ja/sync/galaxy-watch",
+        ko: "/ko/sync/galaxy-watch",
+        sv: "/sv/sync/galaxy-watch",
+        da: "/da/sync/galaxy-watch",
+        no: "/no/sync/galaxy-watch",
+        fi: "/fi/sync/galaxy-watch",
       },
     },
   ],

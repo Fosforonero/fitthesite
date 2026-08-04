@@ -45,7 +45,7 @@
   "privacy_block": {
     "kicker": "Privacy-first",
     "heading": "Your health data is not a product.",
-    "description": "FitMesh Sync never sells, shares or profiles. Your data stays on the server you choose (your home NAS, your VPS, or our shared endpoint). You decide in the app settings.",
+    "description": "FitMesh Sync never sells, shares or profiles. Your data syncs to FitMesh's managed cloud backend (Supabase, EU infrastructure) — you can delete it anytime from the app settings.",
     "cta": "Read the Privacy Policy"
   },
   "final_cta": {
@@ -53,7 +53,7 @@
     "description": "Download the app, grant Health Connect permissions, and in 30 seconds your data is live."
   },
   "footer": {
-    "tagline": "Sync your smartwatch data to a premium dashboard of your own. Privacy-first. No opaque clouds, no ad trackers.",
+    "tagline": "Sync your smartwatch data to a premium dashboard of your own. Privacy-first. No selling your data to third parties, no ad trackers.",
     "product": "Product",
     "legal": "Legal",
     "rights": "All rights reserved.",

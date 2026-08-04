@@ -45,7 +45,7 @@
   "privacy_block": {
     "kicker": "Privatliv først",
     "heading": "Dine sundhedsdata er ikke en vare.",
-    "description": "FitMesh Sync sælger, deler eller profilerer aldrig. Dine data bliver på den server, du vælger (din NAS derhjemme, din VPS eller vores delte endpoint). Du bestemmer i appens indstillinger.",
+    "description": "FitMesh Sync sælger, deler eller profilerer aldrig. Dine data synkroniseres til FitMeshs administrerede cloud-backend (Supabase, EU-infrastruktur) — du kan slette dem når som helst i appens indstillinger.",
     "cta": "Læs privatlivspolitikken"
   },
   "final_cta": {
@@ -53,7 +53,7 @@
     "description": "Download appen, giv Health Connect-tilladelser, og på 30 sekunder er dine data live."
   },
   "footer": {
-    "tagline": "Synkronisér dine smartwatch-data til dit eget premium-dashboard. Privatliv først. Ingen uigennemsigtige skyer, ingen reklametrackere.",
+    "tagline": "Synkronisér dine smartwatch-data til dit eget premium-dashboard. Privatliv først. Vi sælger aldrig dine data til tredjepart, ingen reklametrackere.",
     "product": "Produkt",
     "legal": "Juridisk",
     "rights": "Alle rettigheder forbeholdes.",

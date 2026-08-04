@@ -7,12 +7,12 @@ import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
 import { TraderIdentity } from "@/components/legal/TraderIdentity";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "16 giugno 2026";
-const LAST_UPDATED_EN = "June 16, 2026";
-const LAST_UPDATED_ES = "16 de junio de 2026";
-const LAST_UPDATED_DE = "16. Juni 2026";
-const LAST_UPDATED_PT = "16 de junho de 2026";
-const LAST_UPDATED_FR = "16 juin 2026";
+const LAST_UPDATED_IT = "4 agosto 2026";
+const LAST_UPDATED_EN = "August 4, 2026";
+const LAST_UPDATED_ES = "4 de agosto de 2026";
+const LAST_UPDATED_DE = "4. August 2026";
+const LAST_UPDATED_PT = "4 de agosto de 2026";
+const LAST_UPDATED_FR = "4 août 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -36,8 +36,8 @@ export async function generateMetadata(
     fi: "Tietosuojakäytäntö",
   };
   const desc: Record<Locale, string> = {
-    it: "Come FitMesh Sync raccoglie, utilizza e protegge i dati di salute. Conforme GDPR.",
-    en: "How FitMesh Sync collects, uses and safeguards health data. GDPR compliant.",
+    it: "Come FitMesh Sync raccoglie, utilizza e protegge i dati di salute: quali dati, dove sono conservati, con chi condivisi, come cancellarli. Conforme al GDPR.",
+    en: "How FitMesh Sync collects, uses and safeguards your health data: what's collected, where it's stored, who it's shared with, how to delete it. GDPR compliant.",
     es: "Cómo FitMesh Sync recopila, utiliza y protege tus datos de salud. Cumple el RGPD.",
     de: "Wie FitMesh Sync Gesundheitsdaten erhebt, nutzt und schützt. DSGVO-konform.",
     pt: "Como o FitMesh Sync coleta, usa e protege dados de saúde. Em conformidade com o GDPR.",
@@ -83,7 +83,7 @@ export default async function PrivacyPage({
   return (
     <>
       <Breadcrumbs items={[{ name: "Privacy Policy", path: `/${lc}/privacy` }]} locale={lc} />
-      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified="2026-06-16" />
+      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified="2026-08-04" />
       <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <PrivacyIT /> : lc === "es" ? <PrivacyES /> : lc === "de" ? <PrivacyDE /> : lc === "pt" ? <PrivacyPT /> : lc === "fr" ? <PrivacyFR /> : <PrivacyEN />}
       </LegalPage>
@@ -146,6 +146,7 @@ function PrivacyIT() {
           ["Visualizzazione", "permettere la visualizzazione dei dati sulla dashboard dell'app"],
           ["Supporto", "diagnosticare problemi tecnici quando ce li segnali via email"],
           ["Notifiche", "inviare avvisi configurabili (es. promemoria sync) tramite Firebase Cloud Messaging"],
+          ["Stabilità", "diagnosticare crash ed errori dell'app tramite Firebase Crashlytics"],
         ]} />
         <p className="text-text-primary font-medium">
           Non vendiamo, non condividiamo e non utilizziamo i tuoi dati per pubblicità o marketing.
@@ -165,6 +166,10 @@ function PrivacyIT() {
           I dati rimangono sul tuo dispositivo Android in una cache locale fino al momento della
           sincronizzazione. Dopo la conferma di ricezione, la cache locale viene svuotata.
         </p>
+        <p className="text-sm">
+          Esiste anche un meccanismo tecnico di self-host (backend Supabase alternativo scelto
+          dall'utente): vedi lo <Link href="/it/self-host" className="text-brand-aqua hover:text-brand-green underline underline-offset-4">stato attuale</Link>.
+        </p>
       </Section>
 
       <Section title="6. Trasferimento dati extra-UE">
@@ -177,6 +182,7 @@ function PrivacyIT() {
           ["Vercel (USA)", "edge runtime e logging delle richieste. Trasferimento basato su Standard Contractual Clauses (SCC) approvate dalla Commissione Europea (decisione 2021/914) e su Data Processing Addendum sottoscritto con Vercel"],
           ["Resend (USA)", "invio email transazionali (conferma signup beta, comunicazioni di supporto). Trasferimento basato su SCC + DPA"],
           ["Firebase Cloud Messaging (Google LLC, USA)", "trasporto delle notifiche push. Google aderisce alle SCC + Data Privacy Framework"],
+          ["Firebase Crashlytics (Google LLC, USA)", "diagnostica crash e stabilità dell'app. Google aderisce alle SCC + Data Privacy Framework"],
           ["Google Sign-In (Google LLC, USA)", "autenticazione opzionale tramite account Google. Trasferimento basato su SCC + DPF"],
         ]} />
         <p>
@@ -259,6 +265,7 @@ function PrivacyIT() {
           ["Vercel Inc.", "hosting API serverless (USA, edge globale), DPA firmato + SCC"],
           ["Resend, Inc.", "delivery email transazionali (USA), DPA + SCC"],
           ["Google LLC (Firebase Cloud Messaging)", "trasporto notifiche push (USA), DPA + SCC + DPF"],
+          ["Google LLC (Firebase Crashlytics)", "diagnostica crash app (USA), DPA + SCC + DPF"],
           ["Google LLC (Google Sign-In, opzionale)", "autenticazione OAuth (USA), DPA + SCC + DPF"],
           ["Google LLC (Google Play Billing)", "gestione acquisti in-app, soggetto a Google Play Terms"],
           ["Google Analytics 4 (solo sito web, opt-in)", "analytics anonimi attivati solo dopo consenso esplicito tramite cookie banner"],
@@ -364,6 +371,7 @@ function PrivacyEN() {
           ["Visualization", "display the data on the in-app dashboard"],
           ["Support", "diagnose technical issues when you report them by email"],
           ["Notifications", "deliver configurable reminders (e.g. sync nudges) via Firebase Cloud Messaging"],
+          ["Stability", "diagnose app crashes and errors via Firebase Crashlytics"],
         ]} />
         <p className="text-text-primary font-medium">
           We never sell, share or use your data for advertising or marketing.
@@ -381,6 +389,10 @@ function PrivacyEN() {
           Data stays on your Android device in a local cache until sync. After delivery is
           confirmed, the local cache is cleared.
         </p>
+        <p className="text-sm">
+          A technical self-hosting mechanism also exists (an alternate, user-chosen Supabase
+          backend): see its <Link href="/en/self-host" className="text-brand-aqua hover:text-brand-green underline underline-offset-4">current status</Link>.
+        </p>
       </Section>
 
       <Section title="6. International data transfers (outside the EU)">
@@ -393,6 +405,7 @@ function PrivacyEN() {
           ["Vercel (US)", "edge runtime and request logging. Transfer governed by Standard Contractual Clauses (SCC) approved by the European Commission (Decision 2021/914) and Data Processing Addendum signed with Vercel"],
           ["Resend (US)", "transactional email delivery (beta signup confirmation, support replies). Transfer governed by SCC + DPA"],
           ["Firebase Cloud Messaging (Google LLC, US)", "push notification transport. Google adheres to SCC + EU-US Data Privacy Framework"],
+          ["Firebase Crashlytics (Google LLC, US)", "app crash and stability diagnostics. Google adheres to SCC + EU-US Data Privacy Framework"],
           ["Google Sign-In (Google LLC, US)", "optional authentication via Google account. Transfer governed by SCC + DPF"],
         ]} />
         <p>
@@ -474,6 +487,7 @@ function PrivacyEN() {
           ["Vercel Inc.", "serverless API hosting (US, global edge), DPA signed + SCC"],
           ["Resend, Inc.", "transactional email delivery (US), DPA + SCC"],
           ["Google LLC (Firebase Cloud Messaging)", "push notification transport (US), DPA + SCC + DPF"],
+          ["Google LLC (Firebase Crashlytics)", "app crash diagnostics (US), DPA + SCC + DPF"],
           ["Google LLC (Google Sign-In, optional)", "OAuth authentication (US), DPA + SCC + DPF"],
           ["Google LLC (Google Play Billing)", "in-app purchase handling, subject to Google Play Terms"],
           ["Google Analytics 4 (website only, opt-in)", "anonymous analytics enabled only after explicit consent via the cookie banner"],
@@ -578,6 +592,7 @@ function PrivacyES() {
           ["Visualización", "mostrar los datos en el panel de la app"],
           ["Soporte", "diagnosticar problemas técnicos cuando nos los comunicas por correo electrónico"],
           ["Notificaciones", "enviarte recordatorios configurables (p. ej., avisos de sincronización) mediante Firebase Cloud Messaging"],
+          ["Estabilidad", "diagnosticar fallos y errores de la app mediante Firebase Crashlytics"],
         ]} />
         <p className="text-text-primary font-medium">
           No vendemos, compartimos ni utilizamos tus datos con fines publicitarios o de marketing.
@@ -597,6 +612,10 @@ function PrivacyES() {
           Los datos permanecen en tu dispositivo Android en una caché local hasta el momento de la
           sincronización. Tras confirmar la recepción, la caché local se vacía.
         </p>
+        <p className="text-sm">
+          También existe un mecanismo técnico de self-hosting (backend Supabase alternativo
+          elegido por el usuario): consulta su <Link href="/en/self-host" className="text-brand-aqua hover:text-brand-green underline underline-offset-4">estado actual</Link>.
+        </p>
       </Section>
 
       <Section title="6. Transferencias internacionales de datos (fuera de la UE)">
@@ -609,6 +628,7 @@ function PrivacyES() {
           ["Vercel (EE. UU.)", "edge runtime y registro de solicitudes. Transferencia basada en las Cláusulas Contractuales Tipo (CCT) aprobadas por la Comisión Europea (Decisión 2021/914) y en el Addendum de Procesamiento de Datos firmado con Vercel"],
           ["Resend (EE. UU.)", "envío de correos transaccionales (confirmación de registro beta, comunicaciones de soporte). Transferencia basada en CCT + DPA"],
           ["Firebase Cloud Messaging (Google LLC, EE. UU.)", "transporte de notificaciones push. Google se adhiere a las CCT + Marco de Privacidad de Datos UE-EE. UU."],
+          ["Firebase Crashlytics (Google LLC, EE. UU.)", "diagnóstico de fallos y estabilidad de la app. Google se adhiere a las CCT + Marco de Privacidad de Datos UE-EE. UU."],
           ["Google Sign-In (Google LLC, EE. UU.)", "autenticación opcional mediante cuenta de Google. Transferencia basada en CCT + DPF"],
         ]} />
         <p>
@@ -687,6 +707,7 @@ function PrivacyES() {
           ["Vercel Inc.", "alojamiento de API serverless (EE. UU., edge global), DPA firmado + CCT"],
           ["Resend, Inc.", "envío de correos transaccionales (EE. UU.), DPA + CCT"],
           ["Google LLC (Firebase Cloud Messaging)", "transporte de notificaciones push (EE. UU.), DPA + CCT + DPF"],
+          ["Google LLC (Firebase Crashlytics)", "diagnóstico de fallos de la app (EE. UU.), DPA + CCT + DPF"],
           ["Google LLC (Google Sign-In, opcional)", "autenticación OAuth (EE. UU.), DPA + CCT + DPF"],
           ["Google LLC (Google Play Billing)", "gestión de compras en la app, sujeto a los Términos de Google Play"],
           ["Google Analytics 4 (solo sitio web, opt-in)", "analítica anónima activada únicamente tras el consentimiento explícito mediante el banner de cookies"],
@@ -797,6 +818,7 @@ function PrivacyDE() {
           ["Visualisierung", "Darstellung der Daten auf der Dashboard-Ansicht der App"],
           ["Support", "Diagnose technischer Probleme, wenn Sie uns diese per E-Mail melden"],
           ["Benachrichtigungen", "Versand konfigurierbarer Erinnerungen (z. B. Sync-Hinweise) über Firebase Cloud Messaging"],
+          ["Stabilität", "App-Abstürze und Fehler über Firebase Crashlytics diagnostizieren"],
         ]} />
         <p className="text-text-primary font-medium">
           Wir verkaufen, teilen oder verwenden Ihre Daten nicht für Werbung oder Marketing.
@@ -816,6 +838,10 @@ function PrivacyDE() {
           Die Daten verbleiben bis zur Synchronisierung in einem lokalen Cache auf Ihrem
           Android-Gerät. Nach Empfangsbestätigung wird der lokale Cache geleert.
         </p>
+        <p className="text-sm">
+          Es gibt auch einen technischen Self-Hosting-Mechanismus (ein alternatives, selbst
+          gewähltes Supabase-Backend): siehe den <Link href="/en/self-host" className="text-brand-aqua hover:text-brand-green underline underline-offset-4">aktuellen Status</Link>.
+        </p>
       </Section>
 
       <Section title="6. Internationale Datenübermittlungen (außerhalb der EU)">
@@ -828,6 +854,7 @@ function PrivacyDE() {
           ["Vercel (USA)", "Edge-Runtime und Anfrage-Logging. Übermittlung auf Grundlage der von der Europäischen Kommission genehmigten Standardvertragsklauseln (SCC, Beschluss 2021/914) und eines mit Vercel unterzeichneten Datenverarbeitungsvertrags (DPA)"],
           ["Resend (USA)", "Versand transaktionaler E-Mails (Beta-Anmeldebestätigung, Support-Kommunikation). Übermittlung auf Grundlage von SCC + DPA"],
           ["Firebase Cloud Messaging (Google LLC, USA)", "Push-Benachrichtigungstransport. Google hält SCC und das EU-US Data Privacy Framework ein"],
+          ["Firebase Crashlytics (Google LLC, USA)", "App-Absturz- und Stabilitätsdiagnose. Google hält SCC und das EU-US Data Privacy Framework ein"],
           ["Google Sign-In (Google LLC, USA)", "optionale Authentifizierung über Google-Konto. Übermittlung auf Grundlage von SCC + DPF"],
         ]} />
         <p>
@@ -906,6 +933,7 @@ function PrivacyDE() {
           ["Vercel Inc.", "serverlose API-Hosting (USA, globale Edge), DPA unterzeichnet + SCC"],
           ["Resend, Inc.", "transaktionale E-Mail-Zustellung (USA), DPA + SCC"],
           ["Google LLC (Firebase Cloud Messaging)", "Push-Benachrichtigungstransport (USA), DPA + SCC + DPF"],
+          ["Google LLC (Firebase Crashlytics)", "App-Absturzdiagnose (USA), DPA + SCC + DPF"],
           ["Google LLC (Google Sign-In, optional)", "OAuth-Authentifizierung (USA), DPA + SCC + DPF"],
           ["Google LLC (Google Play Billing)", "Verwaltung von In-App-Käufen, unterliegt den Google Play-Nutzungsbedingungen"],
           ["Google Analytics 4 (nur Website, Opt-in)", "anonyme Analyse, nur nach ausdrücklicher Einwilligung über das Cookie-Banner aktiviert"],
@@ -1017,6 +1045,7 @@ function PrivacyPT() {
           ["Visualização", "exibir os dados no painel do app"],
           ["Suporte", "diagnosticar problemas técnicos quando você os reporta por e-mail"],
           ["Notificações", "enviar lembretes configuráveis (por exemplo, avisos de sincronização) via Firebase Cloud Messaging"],
+          ["Estabilidade", "diagnosticar falhas e erros do app via Firebase Crashlytics"],
         ]} />
         <p className="text-text-primary font-medium">
           Não vendemos, compartilhamos nem usamos seus dados para publicidade ou marketing.
@@ -1036,6 +1065,10 @@ function PrivacyPT() {
           Os dados permanecem no seu dispositivo Android em um cache local até o momento da
           sincronização. Após a confirmação de recebimento, o cache local é limpo.
         </p>
+        <p className="text-sm">
+          Também existe um mecanismo técnico de self-hosting (backend Supabase alternativo
+          escolhido pelo usuário): veja o <Link href="/en/self-host" className="text-brand-aqua hover:text-brand-green underline underline-offset-4">status atual</Link>.
+        </p>
       </Section>
 
       <Section title="6. Transferências internacionais de dados (fora da UE)">
@@ -1048,6 +1081,7 @@ function PrivacyPT() {
           ["Vercel (EUA)", "edge runtime e registro de requisições. Transferência baseada nas Cláusulas Contratuais Padrão (SCC) aprovadas pela Comissão Europeia (Decisão 2021/914) e no Adendo de Processamento de Dados assinado com a Vercel"],
           ["Resend (EUA)", "envio de e-mails transacionais (confirmação de cadastro beta, comunicações de suporte). Transferência baseada em SCC + DPA"],
           ["Firebase Cloud Messaging (Google LLC, EUA)", "transporte de notificações push. O Google adere às SCC e ao EU-US Data Privacy Framework"],
+          ["Firebase Crashlytics (Google LLC, EUA)", "diagnóstico de falhas e estabilidade do app. O Google adere às SCC e ao EU-US Data Privacy Framework"],
           ["Google Sign-In (Google LLC, EUA)", "autenticação opcional via conta Google. Transferência baseada em SCC + DPF"],
         ]} />
         <p>
@@ -1126,6 +1160,7 @@ function PrivacyPT() {
           ["Vercel Inc.", "hospedagem de API serverless (EUA, edge global), DPA assinado + SCC"],
           ["Resend, Inc.", "entrega de e-mails transacionais (EUA), DPA + SCC"],
           ["Google LLC (Firebase Cloud Messaging)", "transporte de notificações push (EUA), DPA + SCC + DPF"],
+          ["Google LLC (Firebase Crashlytics)", "diagnóstico de falhas do app (EUA), DPA + SCC + DPF"],
           ["Google LLC (Google Sign-In, opcional)", "autenticação OAuth (EUA), DPA + SCC + DPF"],
           ["Google LLC (Google Play Billing)", "gerenciamento de compras no app, sujeito aos Termos do Google Play"],
           ["Google Analytics 4 (somente site, opt-in)", "análise anônima ativada apenas após consentimento explícito via banner de cookies"],
@@ -1236,6 +1271,7 @@ function PrivacyFR() {
           ["Visualisation", "afficher les données sur le tableau de bord de l'application"],
           ["Support", "diagnostiquer les problèmes techniques lorsque vous nous les signalez par e-mail"],
           ["Notifications", "envoyer des rappels configurables (par exemple, rappels de synchronisation) via Firebase Cloud Messaging"],
+          ["Stabilité", "diagnostiquer les plantages et erreurs de l'application via Firebase Crashlytics"],
         ]} />
         <p className="text-text-primary font-medium">
           Nous ne vendons, ne partageons ni n'utilisons vos données à des fins publicitaires ou marketing.
@@ -1255,6 +1291,10 @@ function PrivacyFR() {
           Les données restent sur votre appareil Android dans un cache local jusqu'au moment de
           la synchronisation. Après confirmation de réception, le cache local est vidé.
         </p>
+        <p className="text-sm">
+          Il existe aussi un mécanisme technique de self-hosting (backend Supabase alternatif
+          choisi par l'utilisateur) : voir son <Link href="/en/self-host" className="text-brand-aqua hover:text-brand-green underline underline-offset-4">état actuel</Link>.
+        </p>
       </Section>
 
       <Section title="6. Transferts internationaux de données (hors UE)">
@@ -1267,6 +1307,7 @@ function PrivacyFR() {
           ["Vercel (États-Unis)", "edge runtime et journalisation des requêtes. Transfert encadré par les Clauses Contractuelles Types (CCT) approuvées par la Commission européenne (Décision 2021/914) et par l'Avenant sur le traitement des données signé avec Vercel"],
           ["Resend (États-Unis)", "envoi d'e-mails transactionnels (confirmation d'inscription bêta, communications de support). Transfert encadré par CCT + DPA"],
           ["Firebase Cloud Messaging (Google LLC, États-Unis)", "transport des notifications push. Google adhère aux CCT et au Cadre de protection des données UE-États-Unis"],
+          ["Firebase Crashlytics (Google LLC, États-Unis)", "diagnostic des plantages et de la stabilité de l'application. Google adhère aux CCT et au Cadre de protection des données UE-États-Unis"],
           ["Google Sign-In (Google LLC, États-Unis)", "authentification optionnelle via compte Google. Transfert encadré par CCT + DPF"],
         ]} />
         <p>
@@ -1345,6 +1386,7 @@ function PrivacyFR() {
           ["Vercel Inc.", "hébergement API serverless (États-Unis, edge global), DPA signé + CCT"],
           ["Resend, Inc.", "envoi d'e-mails transactionnels (États-Unis), DPA + CCT"],
           ["Google LLC (Firebase Cloud Messaging)", "transport des notifications push (États-Unis), DPA + CCT + DPF"],
+          ["Google LLC (Firebase Crashlytics)", "diagnostic des plantages de l'application (États-Unis), DPA + CCT + DPF"],
           ["Google LLC (Google Sign-In, optionnel)", "authentification OAuth (États-Unis), DPA + CCT + DPF"],
           ["Google LLC (Google Play Billing)", "gestion des achats intégrés, soumis aux Conditions d'utilisation de Google Play"],
           ["Google Analytics 4 (site web uniquement, opt-in)", "analyse anonyme activée uniquement après consentement explicite via la bannière de cookies"],

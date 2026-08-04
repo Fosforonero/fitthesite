@@ -45,7 +45,7 @@
   "privacy_block": {
     "kicker": "Gizlilik önce gelir",
     "heading": "Sağlık verileriniz bir ürün değildir.",
-    "description": "FitMesh Sync asla satmaz, paylaşmaz veya profil oluşturmaz. Verileriniz seçtiğiniz sunucuda kalır (ev NAS'ınız, VPS'iniz veya paylaşılan uç noktamız). Uygulama ayarlarından siz karar verirsiniz.",
+    "description": "FitMesh Sync asla satmaz, paylaşmaz veya profil oluşturmaz. Verileriniz FitMesh tarafından yönetilen bulut arka ucuna (Supabase, AB altyapısı) senkronize edilir — uygulama ayarlarından istediğiniz zaman silebilirsiniz.",
     "cta": "Gizlilik Politikasını Oku"
   },
   "final_cta": {
@@ -53,7 +53,7 @@
     "description": "Uygulamayı indirin, Health Connect izinlerini verin ve 30 saniyede verileriniz canlıya geçer."
   },
   "footer": {
-    "tagline": "Akıllı saat verilerinizi kendi premium panelinizle senkronize edin. Gizlilik önce gelir. Opak bulutlar yok, reklam takipçileri yok.",
+    "tagline": "Akıllı saat verilerinizi kendi premium panelinizle senkronize edin. Gizlilik önce gelir. Verilerinizi asla üçüncü taraflara satmayız, reklam takipçileri yok.",
     "product": "Ürün",
     "legal": "Yasal",
     "rights": "Tüm hakları saklıdır.",

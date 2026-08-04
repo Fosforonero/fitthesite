@@ -45,7 +45,7 @@
   "privacy_block": {
     "kicker": "Tietosuoja-ensin",
     "heading": "Terveysdatasi ei ole tuote.",
-    "description": "FitMesh Sync ei koskaan myy, jaa tai profiloitu. Tiedot pysyvät palvelimella, jonka valitset (kotiasuntosi NAS, omasi VPS tai yhteinen loppupiste). Päättää sovelluksen asetuksissa.",
+    "description": "FitMesh Sync ei koskaan myy, jaa eikä profiloi. Tietosi synkronoidaan FitMeshin hallinnoimaan pilvipalvelimeen (Supabase, EU-infrastruktuuri) — voit poistaa ne milloin tahansa sovelluksen asetuksista.",
     "cta": "Lue tietosuojakäytäntö"
   },
   "final_cta": {
@@ -53,7 +53,7 @@
     "description": "Lataa sovellus, anna Health Connect -oikeudet ja 30 sekunnissa tiedot ovat aktiivisia."
   },
   "footer": {
-    "tagline": "Synkronoi alykellon tiedot omalle premium-palkkiisi. Tietosuoja-ensin. Ei epäselviä pilvejä, ei mainonnan seurantaa.",
+    "tagline": "Synkronoi alykellon tiedot omalle premium-palkkiisi. Tietosuoja-ensin. Emme koskaan myy tietojasi kolmansille osapuolille, ei mainonnan seurantaa.",
     "product": "Tuote",
     "legal": "Oikeudet",
     "rights": "Kaikki oikeudet pidätetään.",
