@@ -8,6 +8,12 @@
  * "incolla URL e chiave" che gli utenti non potrebbero comunque usare.
  * Nessun "coming soon", nessuna roadmap, nessun prezzo: solo fatti
  * verificati sul codice attuale (vedi audit FASE 0/0B del mandato).
+ *
+ * Addendum (chiusura criteri pre-merge PR#39): la feature non è disponibile
+ * al pubblico, quindi ogni superficie self-host (bare /self-host, /it/self-host,
+ * /en/self-host) è noindex,follow e fuori sitemap — resta raggiungibile e
+ * linkata (da /about, /privacy), solo non proposta ai motori di ricerca come
+ * contenuto pubblico consumabile.
  */
 
 export type TwoLocale = "it" | "en";
@@ -57,6 +63,19 @@ export const SELF_HOST_COPY = {
   breadcrumbSelfHost: {
     it: "Self-host",
     en: "Self-hosting",
+  } satisfies LocalizedText,
+
+  // Addendum PR#39 — pagina bare /self-host (nessun prefisso locale):
+  // toggle client-side, stessa convenzione di DELETE_ACCOUNT_COPY.toggleLabel
+  // (mostra la lingua verso cui si passa, non quella corrente).
+  toggleLabel: {
+    it: "English",
+    en: "Italiano",
+  } satisfies LocalizedText,
+
+  permalinkPrefix: {
+    it: "Link diretti alle versioni complete: ",
+    en: "Direct links to the full versions: ",
   } satisfies LocalizedText,
 
   intro: {

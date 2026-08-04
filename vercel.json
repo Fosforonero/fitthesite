@@ -15,7 +15,7 @@
       "statusCode": 308
     },
     {
-      "source": "/:path((?:it|en|es|de|pt|fr|pl|tr|nl|ja|ko|sv|da|no|fi|cms|oauth|mockups|delete-account)(?:/.*)?)",
+      "source": "/:path((?:it|en|es|de|pt|fr|pl|tr|nl|ja|ko|sv|da|no|fi|cms|oauth|mockups|delete-account|self-host)(?:/.*)?)",
       "has": [{ "type": "host", "value": "fitmesh.fit" }],
       "destination": "https://www.fitmesh.fit/:path",
       "statusCode": 301

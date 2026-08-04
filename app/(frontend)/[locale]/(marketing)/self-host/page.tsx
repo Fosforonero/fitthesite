@@ -64,7 +64,11 @@ export async function generateMetadata({
       title,
       description,
     },
-    robots: { index: true, follow: true },
+    // Addendum pre-merge: la feature non è disponibile al pubblico, quindi
+    // questa pagina di stato è noindex (follow: i link interni verso /about,
+    // /privacy, /support restano seguibili). Vedi anche app/sitemap.ts
+    // (nessuna entry /self-host) e tools/check-self-host-privacy-truth.ts.
+    robots: { index: false, follow: true },
   };
 }
 

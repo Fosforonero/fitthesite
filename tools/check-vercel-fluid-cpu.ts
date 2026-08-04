@@ -246,7 +246,15 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // POST /api/v1/auth/forgot-password. Necessariamente dinamica (rate limit
 // server-side stateful su Postgres, mai statica per definizione) — non una
 // regressione, una route reale in piu' rispetto al baseline P0.9/P0.10.
-const DYNAMIC_ROUTES_BASELINE = 57;
+// 57 -> 58 (2026-08-03, Sprint P0.11 self-host+privacy, verificato in questa
+// build): nuova /[locale]/self-host. E' un template parametrizzato per
+// definizione (segmento [locale]), quindi conta come "route dinamica" anche
+// se generateStaticParams() la limita di fatto a soli it/en (confermato: il
+// build la elenca "● (SSG)" per esattamente 2 path, /it/self-host e
+// /en/self-host — vedi tabella di build). Non una regressione: la pagina
+// stessa era gia' stata aggiunta nel commit P0.11 precedente a questo
+// addendum, la baseline qui sotto era semplicemente rimasta indietro.
+const DYNAMIC_ROUTES_BASELINE = 58;
 if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
   errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
 } else {

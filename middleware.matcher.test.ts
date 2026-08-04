@@ -66,6 +66,18 @@ describe("middleware matcher — deep link pattern (regex puro)", () => {
     expect(re.test("/oauth/strava-callback")).toBe(false);
     expect(re.test("/mockups/dashboard")).toBe(false);
     expect(re.test("/.well-known/assetlinks.json")).toBe(false);
+    // Addendum pre-merge PR#39: /self-host bare deve rispondere 200 diretto
+    // sulla stringa letterale usata dall'app — stesso pattern non-i18n di
+    // /delete-account, quindi stessa esclusione dal matcher.
+    expect(re.test("/self-host")).toBe(false);
+    expect(re.test("/self-host/")).toBe(false);
+  });
+
+  it("does NOT falsely exclude paths that merely start with 'self-host' as a substring vs a real segment boundary", () => {
+    // Regression guard, stesso principio del test 'de' vs 'delete-account'
+    // sopra: 'self-host-guide' non e' la route /self-host, deve restare
+    // soggetto alla negoziazione lingua generica.
+    expect(re.test("/self-hosting-guide")).toBe(true);
   });
 
   it("excludes /api entirely (rate-limited endpoints are matched by their own explicit entries instead)", () => {
