@@ -89,8 +89,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open Graph image (1200×630, dinamica)",
-        href: "/opengraph-image",
+        label: "Open Graph image (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch icon (PNG)",
@@ -175,8 +175,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open Graph image (1200×630, dynamic)",
-        href: "/opengraph-image",
+        label: "Open Graph image (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch icon (PNG)",
@@ -261,8 +261,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Imagen Open Graph (1200×630, dinámica)",
-        href: "/opengraph-image",
+        label: "Imagen Open Graph (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch icon (PNG)",
@@ -347,8 +347,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open-Graph-Bild (1200×630, dynamisch)",
-        href: "/opengraph-image",
+        label: "Open-Graph-Bild (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple Touch Icon (PNG)",
@@ -433,8 +433,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Imagem Open Graph (1200×630, dinâmica)",
-        href: "/opengraph-image",
+        label: "Imagem Open Graph (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch icon (PNG)",
@@ -519,8 +519,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Image Open Graph (1200×630, dynamique)",
-        href: "/opengraph-image",
+        label: "Image Open Graph (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch icon (PNG)",
@@ -605,8 +605,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Obraz Open Graph (1200×630, dynamiczny)",
-        href: "/opengraph-image",
+        label: "Obraz Open Graph (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch icon (PNG)",
@@ -691,8 +691,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open Graph görseli (1200×630, dinamik)",
-        href: "/opengraph-image",
+        label: "Open Graph görseli (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch icon (PNG)",
@@ -777,8 +777,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open Graph-afbeelding (1200×630, dynamisch)",
-        href: "/opengraph-image",
+        label: "Open Graph-afbeelding (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch icon (PNG)",
@@ -863,8 +863,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open Graph画像（1200×630、動的）",
-        href: "/opengraph-image",
+        label: "Open Graph画像（1200×630、PNG）",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch icon（PNG）",
@@ -949,8 +949,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open Graph 이미지 (1200×630, 동적)",
-        href: "/opengraph-image",
+        label: "Open Graph 이미지 (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch icon (PNG)",
@@ -1035,8 +1035,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open Graph-bild (1200×630, dynamisk)",
-        href: "/opengraph-image",
+        label: "Open Graph-bild (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch-ikon (PNG)",
@@ -1121,8 +1121,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open Graph-billede (1200×630, dynamisk)",
-        href: "/opengraph-image",
+        label: "Open Graph-billede (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch-ikon (PNG)",
@@ -1207,8 +1207,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open Graph-bilde (1200×630, dynamisk)",
-        href: "/opengraph-image",
+        label: "Open Graph-bilde (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch-ikon (PNG)",
@@ -1293,8 +1293,8 @@ const COPY = {
         href: "/icon-square.png",
       },
       {
-        label: "Open Graph -kuva (1200×630, dynaaminen)",
-        href: "/opengraph-image",
+        label: "Open Graph -kuva (1200×630, PNG)",
+        href: "/press-og-card.png",
       },
       {
         label: "Apple touch -kuvake (PNG)",

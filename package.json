@@ -22,6 +22,7 @@
     "founder:acquisition-surfaces-check": "tsx tools/check-founder-acquisition-surfaces.ts",
     "founder:commercial-surfaces-check": "tsx tools/check-founder-commercial-surfaces.ts",
     "selfhost:privacy-truth-check": "tsx tools/check-self-host-privacy-truth.ts",
+    "seo:redirect-integrity-check": "tsx tools/check-seo-redirect-integrity.ts",
     "post-founder:pricing-check": "tsx tools/check-post-founder-pricing.ts",
     "ring-watch:claims-check": "tsx tools/check-ring-watch-article-claims.ts",
     "labs:katex-input-check": "tsx tools/check-katex-no-user-input.ts",

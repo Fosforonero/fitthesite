@@ -36,8 +36,8 @@ export async function generateMetadata(
     fi: "Tietosuojakäytäntö",
   };
   const desc: Record<Locale, string> = {
-    it: "Come FitMesh Sync raccoglie, utilizza e protegge i dati di salute. Conforme GDPR.",
-    en: "How FitMesh Sync collects, uses and safeguards health data. GDPR compliant.",
+    it: "Come FitMesh Sync raccoglie, utilizza e protegge i dati di salute: quali dati, dove sono conservati, con chi condivisi, come cancellarli. Conforme al GDPR.",
+    en: "How FitMesh Sync collects, uses and safeguards your health data: what's collected, where it's stored, who it's shared with, how to delete it. GDPR compliant.",
     es: "Cómo FitMesh Sync recopila, utiliza y protege tus datos de salud. Cumple el RGPD.",
     de: "Wie FitMesh Sync Gesundheitsdaten erhebt, nutzt und schützt. DSGVO-konform.",
     pt: "Como o FitMesh Sync coleta, usa e protege dados de saúde. Em conformidade com o GDPR.",

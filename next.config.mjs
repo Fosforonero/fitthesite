@@ -157,10 +157,46 @@ const nextConfig = {
       },
     ];
     const cannibalRedirects = [
-      ...cannibalRedirect('how-does-health-connect-work', 'come-funziona-health-connect'),
-      ...cannibalRedirect('what-is-hrv-heart-rate-variability', 'hrv-cose-significato-valori'),
-      ...cannibalRedirect('galaxy-watch-steps-not-syncing', 'passi-non-si-sincronizzano-galaxy-watch'),
-      ...cannibalRedirect('how-to-export-garmin-data', 'esportare-dati-garmin'),
+      // Addendum P0.11-D (2026-08-04): la coppia Health Connect NON era una
+      // vera cannibalizzazione — "how-does-health-connect-work" è sempre
+      // stato lo slug EN localizzato dello stesso post bilingue
+      // (lib/blog/slugs.ts: BLOG_SLUGS["come-funziona-health-connect"].en),
+      // mai un file/post separato. Il redirect EN sopra creava un loop
+      // infinito 308: questa entry mandava /en/.../how-does-health-connect-work
+      // -> /en/.../come-funziona-health-connect, poi resolveBlogPost() in
+      // app/(frontend)/[locale]/(marketing)/blog/[slug]/page.tsx vedeva che
+      // lo slug EN corretto per quel post è how-does-health-connect-work e
+      // rimandava indietro -> ciclo A->B->A. Rimossa SOLO la gamba /en/: la
+      // gamba /it/ resta (nessun loop lì, /it/blog/how-does-health-connect-work
+      // non e' mai lo slug corretto per nessuna locale quindi il redirect
+      // verso il post reale resta utile) e la vera pagina EN canonica
+      // (/en/blog/how-does-health-connect-work, 200 diretto, gia' cosi'
+      // secondo il registro slug corrente + sitemap.xml + data di
+      // pubblicazione piu' vecchia) resta raggiungibile senza redirect.
+      {
+        source: '/it/blog/how-does-health-connect-work',
+        destination: '/it/blog/come-funziona-health-connect',
+        permanent: true,
+      },
+      // Addendum P0.11-D: stesso bug di cannibalRedirect('how-does-health-...')
+      // sopra, trovato dal nuovo guardrail seo:redirect-integrity-check (non
+      // dal crawl originale) — cannibalRedirect() usa lo slug IT `winner`
+      // anche per la gamba /en/, ma lo slug EN corretto (lib/blog/slugs.ts)
+      // e' quasi sempre diverso da quello IT. Per queste 3 coppie non e' un
+      // loop infinito (a differenza di Health Connect) ma una catena a 2 hop
+      // reale: /en/blog/<loser> -> /en/blog/<winner-IT> -> resolveBlogPost()
+      // rimanda ANCORA verso lo slug EN vero. Gamba /it/ via helper generico
+      // (corretta, IT usa sempre il canonico), gamba /en/ esplicita verso lo
+      // slug EN realmente localizzato — 1 solo hop.
+      { source: '/it/blog/what-is-hrv-heart-rate-variability', destination: '/it/blog/hrv-cose-significato-valori', permanent: true },
+      { source: '/en/blog/what-is-hrv-heart-rate-variability', destination: '/en/blog/what-is-hrv-meaning-values', permanent: true },
+      { source: '/it/blog/galaxy-watch-steps-not-syncing', destination: '/it/blog/passi-non-si-sincronizzano-galaxy-watch', permanent: true },
+      { source: '/en/blog/galaxy-watch-steps-not-syncing', destination: '/en/blog/steps-not-syncing-galaxy-watch', permanent: true },
+      { source: '/it/blog/how-to-export-garmin-data', destination: '/it/blog/esportare-dati-garmin', permanent: true },
+      { source: '/en/blog/how-to-export-garmin-data', destination: '/en/blog/export-garmin-data', permanent: true },
+      // Questa coppia invece NON ha il bug: BLOG_SLUGS["sync-samsung-health-google-fit"].en
+      // e' "sync-samsung-health-google-fit" (self-mapping), quindi il winner
+      // IT-named E' gia' lo slug EN corretto — helper generico va bene.
       ...cannibalRedirect('sync-samsung-health-to-google-fit', 'sync-samsung-health-google-fit'),
     ];
 
@@ -173,7 +209,32 @@ const nextConfig = {
       { source: '/en/lp/health-sync-alternative', destination: '/en/integrations', permanent: true },
       // Blog post riscritto: alternative-health-sync-2026 -> alternative-app-sync-wearable-2026
       { source: '/it/blog/alternative-health-sync-2026', destination: '/it/blog/alternative-app-sync-wearable-2026', permanent: true },
-      { source: '/en/blog/alternative-health-sync-2026', destination: '/en/blog/alternative-app-sync-wearable-2026', permanent: true },
+      // Addendum P0.11-D: stesso bug delle entry cannibalRedirect sopra —
+      // lo slug EN corretto di alternative-app-sync-wearable-2026 e'
+      // wearable-sync-apps-alternatives-2026 (lib/blog/slugs.ts), non lo
+      // slug IT-named usato qui prima. Senza questa correzione la gamba /en/
+      // era una catena a 2 hop (trovato da seo:redirect-integrity-check).
+      { source: '/en/blog/alternative-health-sync-2026', destination: '/en/blog/wearable-sync-apps-alternatives-2026', permanent: true },
+    ];
+
+    // Cannibalization consolidation smartwatch-anziani EN (addendum P0.11-D,
+    // 2026-08-04): /en/blog/smartwatch-for-elderly-guide (post reale,
+    // lib/blog/posts/smartwatch-per-anziani-guida.ts) e
+    // /en/blog/best-smartwatch-for-elderly (lib/blog/posts/best-smartwatch-for-elderly.ts)
+    // sono due FILE distinti, entrambi 200, entrambi self-canonical, con
+    // title IT identico byte-per-byte in EN. GSC non disponibile in questa
+    // sessione. Winner = best-smartwatch-for-elderly: referenziato da un
+    // altro post (anello-smart-guida-completa.ts) mentre l'altro ha zero
+    // link interni in ingresso, ed è stato aggiornato più di recente
+    // (updatedAt 2026-06-16 contro 2026-05-23, mai toccato dopo la
+    // pubblicazione) — stesso publishedAt (2026-05-23) quindi la seniority
+    // non discrimina, ma linking interno + manutenzione recente sì.
+    // Scope SOLO EN: le altre 10 locale di smartwatch-per-anziani-guida
+    // (IT compreso) mostrano title diversi da quelli dell'equivalente
+    // locale di best-smartwatch-for-elderly (verificato live su IT/DE, non
+    // identici) — nessuna prova di duplicazione lì, nessuna modifica.
+    const elderlyConsolidationRedirects = [
+      { source: '/en/blog/smartwatch-for-elderly-guide', destination: '/en/blog/best-smartwatch-for-elderly', permanent: true },
     ];
 
     // Cannibalization consolidation (sprint P0.2 Fase 5, 2026-07-12): la
@@ -275,6 +336,8 @@ const nextConfig = {
       },
       // Blog cannibalization cleanup (vedi sopra).
       ...cannibalRedirects,
+      // Consolidamento smartwatch-anziani EN (vedi sopra).
+      ...elderlyConsolidationRedirects,
       // Brand standalone cleanup (vedi sopra).
       ...standaloneRedirects,
       // Cannibalization consolidation garmin-health-connect (vedi sopra).

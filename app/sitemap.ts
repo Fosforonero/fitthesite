@@ -130,7 +130,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       path: `/blog/${p.slug}`,
       localized: (lc) => `/blog/${localizedBlogSlug(p.slug, lc)}`,
       lastModified: new Date(p.updatedAt),
-      indexableLocales: (lc) => isBlogVariantIndexable(p, lc),
+      // Addendum P0.11-D: consolidamento smartwatch-anziani EN (vedi
+      // next.config.mjs elderlyConsolidationRedirects) — la variante EN di
+      // questo post ora redirige 308 verso best-smartwatch-for-elderly,
+      // quindi non è più una pagina 200 da indicizzare. Solo EN: le altre
+      // locale restano pagine reali e indicizzabili, invariate.
+      indexableLocales: (lc) =>
+        p.slug === "smartwatch-per-anziani-guida" && lc === "en"
+          ? false
+          : isBlogVariantIndexable(p, lc),
     });
   }
 
