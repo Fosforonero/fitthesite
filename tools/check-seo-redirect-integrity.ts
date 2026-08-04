@@ -10,8 +10,17 @@
  * `next.config.mjs`'s `redirects()` (non un parsing testuale — la fonte di
  * verita' e' la config reale usata da Vercel), e la simulazione del
  * redirect app-level per i post blog usa le stesse funzioni pure usate dal
- * routing reale (`canonicalFromBlogUrl`/`localizedBlogSlug`), non una
- * riscrittura parallela della logica.
+ * routing reale (`canonicalFromBlogUrl`/`localizedBlogSlug`/
+ * `isBlogVariantIndexable`), non una riscrittura parallela della logica.
+ *
+ * Micro-hotfix P0.11-D1 (2026-08-04): sitemap.ts aveva un caso speciale
+ * duplicato per escludere smartwatch-per-anziani-guida/en, ma blogLanguages()
+ * (hreflang in blog/[slug]/page.tsx) non lo conosceva — le altre varianti
+ * locale del post continuavano a dichiarare un hreflang EN verso l'alias
+ * ormai redirectato 308. La regola vive ora SOLO in
+ * lib/blog/indexability.ts (isBlogVariantIndexable), unica fonte di verità
+ * per sitemap/hreflang/feed: checkElderlyConsolidationIndexability e
+ * checkNoHreflangPointsToRedirectSource sotto verificano che non regredisca.
  *
  * Cosa NON viene segnalato come errore (per costruzione, non per eccezione
  * ad-hoc):
@@ -31,6 +40,7 @@ import { readFileSync, existsSync } from "node:fs";
 import config from "../next.config.mjs";
 import { canonicalFromBlogUrl, localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
+import { isBlogVariantIndexable } from "@/lib/blog/indexability";
 import { locales } from "@/lib/i18n";
 
 const errors: string[] = [];
@@ -141,18 +151,61 @@ function checkPressKitOgAssetIsStatic() {
   }
 }
 
-// ── Check E — cannibalizzazione smartwatch-anziani EN: la variante EN del
-// post "perdente" deve restare esclusa dalla sitemap ────────────────────
-function checkElderlyConsolidationSitemapExclusion() {
-  const sitemapPath = "app/sitemap.ts";
-  const content = readFileSync(sitemapPath, "utf-8");
-  if (!/smartwatch-per-anziani-guida.*&&.*lc === "en"\s*\n\s*\?\s*false/.test(content) &&
-      !content.includes('p.slug === "smartwatch-per-anziani-guida" && lc === "en"')) {
-    errors.push(`${sitemapPath}: manca l'esclusione sitemap della variante EN di smartwatch-per-anziani-guida (consolidamento Fase 5) — rischio di reintrodurre la cannibalizzazione in sitemap.xml`);
+// ── Check E — cannibalizzazione smartwatch-anziani EN: la regola di
+// esclusione deve vivere SOLO nella SSOT (lib/blog/indexability.ts), non
+// come caso speciale duplicato in sitemap.ts — altrimenti può divergere di
+// nuovo da hreflang/feed come successo il 04/08 (P0.11-D1) ────────────────
+function checkElderlyConsolidationIndexability() {
+  const loser = BLOG_POSTS_BY_SLUG["smartwatch-per-anziani-guida"];
+  const winner = BLOG_POSTS_BY_SLUG["best-smartwatch-for-elderly"];
+  if (!loser) {
+    errors.push('post "smartwatch-per-anziani-guida" non trovato in BLOG_POSTS_BY_SLUG');
+  } else if (isBlogVariantIndexable(loser, "en")) {
+    errors.push(
+      'lib/blog/indexability.ts: isBlogVariantIndexable(smartwatch-per-anziani-guida, "en") risulta true — deve essere false (consolidato verso best-smartwatch-for-elderly via redirect 308), altrimenti sitemap/hreflang/feed la trattano come pagina reale nonostante il redirect',
+    );
   }
+  if (!winner) {
+    errors.push('post "best-smartwatch-for-elderly" non trovato in BLOG_POSTS_BY_SLUG');
+  } else if (!isBlogVariantIndexable(winner, "en")) {
+    errors.push(
+      'lib/blog/indexability.ts: isBlogVariantIndexable(best-smartwatch-for-elderly, "en") risulta false — il post winner deve restare indicizzabile (200, self-canonical, in sitemap)',
+    );
+  }
+
   const configContent = readFileSync("next.config.mjs", "utf-8");
   if (!configContent.includes("smartwatch-for-elderly-guide") || !configContent.includes("best-smartwatch-for-elderly")) {
     errors.push("next.config.mjs: manca il redirect di consolidamento smartwatch-for-elderly-guide -> best-smartwatch-for-elderly");
+  }
+
+  const sitemapContent = readFileSync("app/sitemap.ts", "utf-8");
+  if (sitemapContent.includes('p.slug === "smartwatch-per-anziani-guida"')) {
+    errors.push(
+      "app/sitemap.ts: contiene di nuovo una condizione speciale duplicata per smartwatch-per-anziani-guida — la regola deve vivere SOLO in lib/blog/indexability.ts (SSOT), altrimenti rischia di divergere di nuovo da hreflang/feed",
+    );
+  }
+}
+
+// ── Check G — nessun hreflang generato da un post del blog punta a un URL
+// che è esso stesso un redirect source (3xx) in next.config.mjs. Rieseguito
+// con LA STESSA logica reale di blogLanguages() (isBlogVariantIndexable +
+// localizedBlogSlug), non una riscrittura parallela — generico: copre
+// qualunque futura coppia (post, locale) consolidata via redirect senza
+// essere esclusa correttamente da isBlogVariantIndexable ─────────────────
+function checkNoHreflangPointsToRedirectSource(redirects: Redirect[]) {
+  const redirectSources = new Set(
+    redirects.filter((r) => isLiteral(r.source)).map((r) => r.source),
+  );
+  for (const post of Object.values(BLOG_POSTS_BY_SLUG)) {
+    for (const l of locales) {
+      if (!isBlogVariantIndexable(post, l)) continue; // stessa condizione reale di blogLanguages()
+      const url = `/${l}/blog/${localizedBlogSlug(post.slug, l)}`;
+      if (redirectSources.has(url)) {
+        errors.push(
+          `hreflang: il post "${post.slug}" genererebbe un hreflang "${l}" verso "${url}", che è un redirect source in next.config.mjs (3xx) — la variante va esclusa da isBlogVariantIndexable (vedi lib/blog/indexability.ts)`,
+        );
+      }
+    }
   }
 }
 
@@ -213,7 +266,8 @@ async function main() {
   checkBlogRedirectDestinationsAreSingleHop(redirects);
   checkNoDeadSamsungHealthSyncLink();
   checkPressKitOgAssetIsStatic();
-  checkElderlyConsolidationSitemapExclusion();
+  checkElderlyConsolidationIndexability();
+  checkNoHreflangPointsToRedirectSource(redirects);
   checkMetaDescriptionLengths();
 
   if (!BASE_URL) {
@@ -232,7 +286,7 @@ async function main() {
     for (const e of errors) console.error(`  - ${e}`);
     process.exit(1);
   }
-  console.log(`✅ SEO redirect-integrity guardrail: statico (${redirects.length} redirect, nessun ciclo, nessuna catena blog >1 hop, nessun link morto /sync/samsung-health, asset press kit statico, consolidamento elderly, description 140-160) + live tutti verdi contro ${BASE_URL}.`);
+  console.log(`✅ SEO redirect-integrity guardrail: statico (${redirects.length} redirect, nessun ciclo, nessuna catena blog >1 hop, nessun link morto /sync/samsung-health, asset press kit statico, consolidamento elderly (SSOT + zero hreflang verso redirect source), description 140-160) + live tutti verdi contro ${BASE_URL}.`);
 }
 
 main().catch((err) => {
