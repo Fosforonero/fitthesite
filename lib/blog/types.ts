@@ -217,6 +217,14 @@ export interface BlogPost {
   /** Fonti primarie citate nel contenuto, emesse anche come `citation` nel JSON-LD. */
   sources?: string[];
   /**
+   * P1.6 Fase 2: `true` se il post cita già `sources` come link cliccabili
+   * scritti a mano nel corpo (pattern "Fonte: [Titolo](url), consultata il
+   * ..."), così la sezione "Fonti" condivisa (`components/blog/BlogSources.tsx`)
+   * non duplica le stesse fonti in fondo pagina. Assente/false (default) = la
+   * sezione condivisa renderizza `sources` automaticamente.
+   */
+  sourcesRenderedInline?: boolean;
+  /**
    * Brand citati nell'articolo. Footer disclaimer auto-inserito:
    * "non affiliato a {brand}, marchi citati...".
    */

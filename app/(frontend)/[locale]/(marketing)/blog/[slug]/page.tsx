@@ -7,6 +7,7 @@ import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogRenderer, renderMarkdownInline } from "@/components/blog/BlogRenderer";
+import { BlogSources } from "@/components/blog/BlogSources";
 import { ArticleMeta } from "@/components/blog/ArticleMeta";
 import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
@@ -699,6 +700,12 @@ export default async function BlogArticle({
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-4">
           <BlogRenderer sections={visibleBody} locale={lc} />
         </div>
+
+        {/* FONTI — P1.6 Fase 2: sezione condivisa, solo se post.sources esiste
+            e non è già citato inline nel corpo (sourcesRenderedInline). */}
+        {!post.sourcesRenderedInline && (
+          <BlogSources sources={post.sources} locale={lc} />
+        )}
 
         {/* FAQ */}
         {visibleFaq.length > 0 && (
