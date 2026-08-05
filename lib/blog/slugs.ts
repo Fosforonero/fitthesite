@@ -777,7 +777,11 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
   "sleep-score-regolarita-ritmo-circadiano": {
     en: "sleep-score-vs-circadian-score",
     es: "sleep-score-vs-circadian-score",
-    de: "sleep-score-vs-circadian-score",
+    // P1.5B Fase B: traduzione editoriale DE completa pubblicata, slug reale
+    // scelto (non traduzione letterale automatica) al posto del placeholder
+    // EN riusato dalle altre locale incomplete (vedi REDIRECT_INCOMPLETE_
+    // LOCALE_SLUGS in lib/blog/indexability.ts, invariato per es/pt/fr/...).
+    de: "sleep-score-was-er-wirklich-misst",
     pt: "sleep-score-vs-circadian-score",
     fr: "sleep-score-vs-circadian-score",
     pl: "sleep-score-vs-circadian-score",
@@ -789,7 +793,9 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
   "perche-zona-2-cambia-smartwatch-app": {
     en: "why-zone-2-differs-watches-apps",
     es: "why-zone-2-differs-watches-apps",
-    de: "why-zone-2-differs-watches-apps",
+    // P1.5B Fase B: stesso discorso di sleep-score-regolarita-ritmo-
+    // circadiano sopra, traduzione editoriale DE completa pubblicata.
+    de: "zone-2-unterschiede-smartwatch-app",
     pt: "why-zone-2-differs-watches-apps",
     fr: "why-zone-2-differs-watches-apps",
     pl: "why-zone-2-differs-watches-apps",
