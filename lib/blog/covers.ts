@@ -19,12 +19,16 @@ export type CoverType =
   | "metrics"
   | "troubleshooting"
   | "export"
-  | "watch";
+  | "watch"
+  | "healthconnect"
+  | "zone2"
+  | "circadian";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
 
-const COVER_FILE: Record<CoverType, string> = {
+/** Esportato per il guardrail `check-p15c-cover-map.ts` (esiste il file? duplicati?). */
+export const COVER_FILE: Record<CoverType, string> = {
   ring: "ring.webp",
   multidevice: "wearables.webp",
   sync: "devices.webp",
@@ -42,10 +46,29 @@ const COVER_FILE: Record<CoverType, string> = {
   // smartwatch rugged generico, nessun logo Samsung, nessuna copia esatta
   // di un prodotto reale, nessun testo incorporato.
   watch: "galaxy-watch-unpacked.webp",
+  // P1.5C Fase 1/2: 3 cover dedicate consegnate da Matteo (2026-08-05),
+  // NON riusate da altri post. Ledger completo (SHA-256, dimensioni,
+  // esito audit) in docs/seo/p15c-cover-image-ledger.md. Ognuna
+  // verificata: 1200x675, nessun logo/testo/watermark incorporato,
+  // nessun EXIF/XMP/ICC (verificato via Pillow), nessuna animazione
+  // (1 frame), nessuna licenza terze parti visibile. Un 4° file
+  // consegnato insieme a questi ("pillar fitmesh.webp") e' risultato
+  // BYTE-IDENTICO a zona2.webp (stesso SHA-256) ed e' stato scartato:
+  // mai copiato, rinominato, ne' referenziato qui o altrove.
+  healthconnect: "health-connect-sync-troubleshooting.webp",
+  zone2: "zone-2-different-devices.webp",
+  circadian: "sleep-score-circadian-rhythm.webp",
 };
 
-/** Assegnazione esplicita per slug (i 51 post attuali). */
-const POST_COVER: Record<string, CoverType> = {
+/**
+ * Assegnazione esplicita per slug. P1.5C: ogni post pubblicato ha una entry
+ * esplicita qui (nessuno resta sul fallback per-categoria sotto) — vedi
+ * `check-p15c-cover-map.ts`, che fallisce se un post pubblicato non ha una
+ * entry propria. Il fallback per-categoria resta come rete di sicurezza per
+ * post futuri non ancora triagati, non come stato normale.
+ */
+/** Esportato per il guardrail `check-p15c-cover-map.ts` (ogni post ha una entry propria?). */
+export const POST_COVER: Record<string, CoverType> = {
   "scrivere-dati-android-su-apple-salute": "platform",
   "da-android-a-iphone-dati-fitness": "platform",
   "anello-orologio-scenari-reali": "ring",
@@ -80,7 +103,10 @@ const POST_COVER: Record<string, CoverType> = {
   "fitbit-data-not-syncing-android": "troubleshooting",
   "best-health-data-sync-app-android": "compare",
   "smartwatch-estate-2026": "multidevice",
-  "health-connect-not-syncing": "troubleshooting",
+  // P1.5C: prima usava "troubleshooting" (gear.webp, condivisa con altri 3
+  // post). Ora cover dedicata: il post ha appena avuto il micro-fix CTR DE
+  // (P1.5B Fase A) e merita un'immagine propria invece di quella generica.
+  "health-connect-not-syncing": "healthconnect",
   "how-to-export-apple-health-data": "export",
   "smartwatch-per-anziani-guida": "compare",
   "esportare-dati-garmin": "export",
@@ -104,6 +130,27 @@ const POST_COVER: Record<string, CoverType> = {
   "efficienza-del-sonno-formula-calcolo": "sleep",
   "metriche-recupero-hrv-sonno-frequenza-cardiaca": "metrics",
   "galaxy-watch-ultra2-watch9-health-connect": "watch",
+
+  // P1.5C: nuove traduzioni DE (P1.5B Fase B), cover dedicate consegnate
+  // insieme a quella di health-connect-not-syncing sopra.
+  "sleep-score-regolarita-ritmo-circadiano": "circadian",
+  "perche-zona-2-cambia-smartwatch-app": "zone2",
+
+  // P1.5C: audit fallback silenzioso. Questi 4 post (2 sopra + 2 sotto,
+  // categoria "guides", che non ha un case dedicato in coverType() sotto)
+  // ricadevano TUTTI sul default ultimo "sync" (devices.webp), un cover
+  // generico e non pertinente al tema reale del post. Resi espliciti con un
+  // tipo coerente col contenuto.
+  "colmi-r09-temperatura-sviluppo": "ring", // post sul sensore temperatura dell'anello Colmi R09
+  "perche-diventare-founder-fitmesh": "dashboard", // stesso trattamento di fitmesh-gratis-prezzo-founder
+
+  // P1.5C: questi 3 ricadevano gia' sul fallback per-categoria (comparisons/
+  // news/privacy hanno un case dedicato in coverType()) e il risultato era
+  // gia' corretto: resi espliciti solo per rimuovere l'ambiguita', stesso
+  // file di prima, nessun cambio visivo.
+  "fitmesh-vs-alternative-sync": "compare",
+  "mesh-famiglia-lancio": "news",
+  "dove-sono-i-tuoi-dati-server-ue": "privacy",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */
