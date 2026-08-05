@@ -128,16 +128,22 @@ describe("FAQ locale-scoped", () => {
 });
 
 describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa `locales`)", () => {
-  // `health-connect-vs-samsung-health` e' l'UNICA eccezione intenzionale:
-  // e' esattamente il post su cui questo sprint ha applicato lo scoping
-  // (nuove sezioni it/en/de-only), quindi per lui es/pt/fr/... VEDONO MENO
-  // sezioni per design (mantengono il contenuto precedente, piu' corto) —
+  // `health-connect-vs-samsung-health` e' la PRIMA eccezione intenzionale:
+  // e' esattamente il post su cui P1.3M ha applicato lo scoping (nuove
+  // sezioni it/en/de-only), quindi per lui es/pt/fr/... VEDONO MENO sezioni
+  // per design (mantengono il contenuto precedente, piu' corto) —
   // verificato esplicitamente nel describe successivo, non qui.
-  const P1_3M_POST_SLUG = "health-connect-vs-samsung-health";
+  //
+  // `come-funziona-fitmesh` e' la SECONDA (P1.5B Fase C, 2026-08-05): stesso
+  // meccanismo, ma solo it/en (non de) — il pillar C0 ha deciso l'aggiornamento
+  // in place invece di un nuovo URL, con le nuove sezioni gated su
+  // locales:["it","en"] per non alterare le 4 locale es/de/pt/fr già
+  // pubblicate e complete.
+  const LOCALE_SCOPED_POST_SLUGS = new Set(["health-connect-vs-samsung-health", "come-funziona-fitmesh"]);
 
-  it("per ogni post NON toccato da P1.3M, filterBlogContentForLocale non rimuove NULLA (stesso output pre/post P1.3M)", () => {
+  it("per ogni post NON toccato da P1.3M/P1.5B-C, filterBlogContentForLocale non rimuove NULLA (stesso output di prima)", () => {
     for (const post of BLOG_POSTS) {
-      if (post.slug === P1_3M_POST_SLUG) continue;
+      if (LOCALE_SCOPED_POST_SLUGS.has(post.slug)) continue;
       for (const lc of ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const) {
         const filteredBody = filterBlogContentForLocale(post.body, lc);
         expect(filteredBody.length, `${post.slug}/${lc}: body non deve perdere sezioni`).toBe(post.body.length);
@@ -148,7 +154,7 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
   });
 
   it("health-connect-vs-samsung-health: it/en/de vedono PIU' sezioni delle altre locale (pillar esteso solo per loro, per design)", () => {
-    const post = BLOG_POSTS.find((p) => p.slug === P1_3M_POST_SLUG)!;
+    const post = BLOG_POSTS.find((p) => p.slug === "health-connect-vs-samsung-health")!;
     const itCount = filterBlogContentForLocale(post.body, "it").length;
     const esCount = filterBlogContentForLocale(post.body, "es").length;
     expect(itCount).toBeGreaterThan(esCount);
@@ -156,6 +162,26 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
     // persa in modo diverso l'una dall'altra: solo it/en/de sono estese).
     for (const lc of ["es", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const) {
       expect(filterBlogContentForLocale(post.body, lc).length, `${lc}`).toBe(esCount);
+    }
+  });
+
+  it("come-funziona-fitmesh: it/en vedono PIU' sezioni e FAQ delle altre locale (aggiornamento in place P1.5B Fase C, solo it/en)", () => {
+    const post = BLOG_POSTS.find((p) => p.slug === "come-funziona-fitmesh")!;
+    const itBodyCount = filterBlogContentForLocale(post.body, "it").length;
+    const esBodyCount = filterBlogContentForLocale(post.body, "es").length;
+    expect(itBodyCount).toBeGreaterThan(esBodyCount);
+    expect(filterBlogContentForLocale(post.body, "en").length).toBe(itBodyCount);
+    // es/de/pt/fr restano tutte allo STESSO conteggio tra loro: a differenza
+    // di health-connect-vs-samsung-health, qui de NON e' incluso nell'estensione.
+    for (const lc of ["es", "de", "pt", "fr"] as const) {
+      expect(filterBlogContentForLocale(post.body, lc).length, `body/${lc}`).toBe(esBodyCount);
+    }
+    const itFaqCount = filterBlogContentForLocale(post.faq ?? [], "it").length;
+    const esFaqCount = filterBlogContentForLocale(post.faq ?? [], "es").length;
+    expect(itFaqCount).toBeGreaterThan(esFaqCount);
+    expect(filterBlogContentForLocale(post.faq ?? [], "en").length).toBe(itFaqCount);
+    for (const lc of ["es", "de", "pt", "fr"] as const) {
+      expect(filterBlogContentForLocale(post.faq ?? [], lc).length, `faq/${lc}`).toBe(esFaqCount);
     }
   });
 

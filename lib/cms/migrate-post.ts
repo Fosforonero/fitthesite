@@ -149,6 +149,15 @@ export function sectionsToLexical(body: BlogSection[], lc: L): LexNode {
         // e' rappresentato dalla sua didascalia/alt come paragrafo. Le guide con
         // screenshot vivono nei file .ts statici, non nel CMS.
         return paragraphNode(s.caption ? pick(s.caption, lc) : pick(s.alt, lc));
+      case 'flow-diagram':
+        // P1.5C: il CMS non ha un blocco diagramma dedicato, stessa strategia
+        // di 'image' sopra — fallback a paragrafo testuale con le sequenze
+        // separate da "->". Le guide con diagrammi vivono nei file .ts
+        // statici, non nel CMS.
+        return paragraphNode(
+          (s.title ? `${pick(s.title, lc)}: ` : '') +
+            s.flows.map((f) => pickL(f.steps, lc).join(' -> ')).join('; '),
+        );
     }
   });
 

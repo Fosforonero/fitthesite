@@ -140,6 +140,20 @@ export type BlogSection = (
     }
   | {
       /**
+       * P1.5C: diagramma semantico di un percorso dati (sorgente -> canale ->
+       * destinazione), come sequenza HTML reale (`<ol>`/`<li>` + freccia SVG
+       * decorativa `aria-hidden`), MAI un'immagine generata — screen-reader
+       * friendly per costruzione (un `<ol>` annuncia "lista di N passi in
+       * ordine"), zero asset da mantenere. Ogni `flow` è una sequenza di 2+
+       * passi; più `flows` per rappresentare percorsi paralleli (es. una riga
+       * per sorgente).
+       */
+      type: "flow-diagram";
+      title?: Localized;
+      flows: Array<{ steps: LocalizedList }>;
+    }
+  | {
+      /**
        * Immagine inline (es. screenshot anonimizzato nelle guide "come funziona").
        * `src` = path in `public/` servito come `<img>` semplice (non next/image, per
        * non pagare l'ottimizzazione Vercel). `alt` obbligatorio (accessibilità +
