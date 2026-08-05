@@ -185,7 +185,7 @@ export const post: BlogPost = {
     it: "Health Connect non si sincronizza? Ecco 7 soluzioni verificate: permessi, ottimizzazione batteria, cache, impostazioni Samsung Health. Guida completa 2026.",
     en: "Health Connect not syncing? Here are 7 verified fixes: permissions, battery optimization, cache, Samsung Health settings. Complete troubleshooting guide 2026.",
     es: "¿Health Connect no sincroniza? Aquí tienes 7 soluciones verificadas: permisos, optimización de batería, caché, ajustes de Samsung Health. Guía completa 2026.",
-    de: "Health Connect synchronisiert nicht? Hier sind 7 geprüfte Lösungen: Berechtigungen, Akkuoptimierung, Cache, Samsung-Health-Einstellungen. Vollständige Anleitung 2026.",
+    de: "Samsung Health synchronisiert nicht mit Health Connect? Diese Anleitung zeigt 7 Lösungen für Berechtigungen, Akku, Cache und Verbindungsprobleme.",
     pt: "Health Connect não sincroniza? Veja 7 soluções verificadas: permissões, otimização de bateria, cache, configurações do Samsung Health. Guia completo 2026.",
     fr: "Health Connect ne se synchronise pas? Voici 7 solutions vérifiées: autorisations, optimisation de la batterie, cache, paramètres Samsung Health. Guide complet 2026.",
     pl: "Health Connect nie synchronizuje? Oto 7 sprawdzonych rozwiązań: uprawnienia, optymalizacja baterii, pamięć podręczna, ustawienia Samsung Health. Kompletny poradnik 2026.",
@@ -236,8 +236,14 @@ export const post: BlogPost = {
     },
   },
   // P0.8: <title> renderizzato nl superava 60 caratteri (77). H1 invariato.
+  // P1.5B: CTR DE basso (2.09%, GSC 26/07-01/08) — query dominante "samsung
+  // health synchronisiert nicht" (152 impr, CTR 0.66%) non rispecchiata nel
+  // <title> precedente ("Health Connect synchronisiert nicht..."). H1
+  // invariato, solo <title>/og:title/twitter:title/BlogPosting.headline
+  // (tutti derivati da blogSeoTitle) cambiano per DE.
   seoTitle: {
     nl: "Health Connect synchroniseert niet: 7 oplossingen",
+    de: "Samsung Health synchronisiert nicht: 7 Lösungen",
   },
   body: [
     {
