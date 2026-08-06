@@ -599,6 +599,9 @@ export const post: BlogPost = {
     "https://support.google.com/android/answer/12201232?hl=en",
     "https://support.google.com/android/answer/16786157?hl=en",
   ],
+  // P1.6 Fase 2: già citate come "Fonti primarie: [...]" scritte a mano nel
+  // corpo — non duplicare nella sezione "Fonti" condivisa.
+  sourcesRenderedInline: true,
   brandsMentioned: ["Google", "Android", "Health Connect"],
   ldType: "BlogPosting",
 };

@@ -453,6 +453,9 @@ export const post: BlogPost = {
     "https://developer.apple.com/documentation/healthkit",
     "https://developer.android.com/health-and-fitness/health-connect/aggregate-data",
   ],
+  // P1.6 Fase 2: già citate come link "Fonte: [...]" scritti a mano nel
+  // corpo — non duplicare nella sezione "Fonti" condivisa.
+  sourcesRenderedInline: true,
   brandsMentioned: ["Apple", "Samsung", "Colmi"],
   ldType: "BlogPosting",
 };
