@@ -139,7 +139,17 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
   // in place invece di un nuovo URL, con le nuove sezioni gated su
   // locales:["it","en"] per non alterare le 4 locale es/de/pt/fr già
   // pubblicate e complete.
-  const LOCALE_SCOPED_POST_SLUGS = new Set(["health-connect-vs-samsung-health", "come-funziona-fitmesh"]);
+  //
+  // `dati-anello-smart-apple-salute` e' la TERZA (P1.8S FASE 8, 2026-08-06):
+  // stesso meccanismo, solo it/en — consolidamento del ponte Apple Salute
+  // (no-Apple-Watch, matrice percorso dati, funzionalita' non replicate,
+  // limiti onesti, chi non ha bisogno) senza alterare le 9 locale già
+  // pubblicate e complete.
+  const LOCALE_SCOPED_POST_SLUGS = new Set([
+    "health-connect-vs-samsung-health",
+    "come-funziona-fitmesh",
+    "dati-anello-smart-apple-salute",
+  ]);
 
   it("per ogni post NON toccato da P1.3M/P1.5B-C, filterBlogContentForLocale non rimuove NULLA (stesso output di prima)", () => {
     for (const post of BLOG_POSTS) {
@@ -181,6 +191,25 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
     expect(itFaqCount).toBeGreaterThan(esFaqCount);
     expect(filterBlogContentForLocale(post.faq ?? [], "en").length).toBe(itFaqCount);
     for (const lc of ["es", "de", "pt", "fr"] as const) {
+      expect(filterBlogContentForLocale(post.faq ?? [], lc).length, `faq/${lc}`).toBe(esFaqCount);
+    }
+  });
+
+  it("dati-anello-smart-apple-salute: it/en vedono PIU' sezioni delle altre locale (consolidamento P1.8S FASE 8, solo it/en)", () => {
+    const post = BLOG_POSTS.find((p) => p.slug === "dati-anello-smart-apple-salute")!;
+    const itBodyCount = filterBlogContentForLocale(post.body, "it").length;
+    const esBodyCount = filterBlogContentForLocale(post.body, "es").length;
+    expect(itBodyCount).toBeGreaterThan(esBodyCount);
+    expect(filterBlogContentForLocale(post.body, "en").length).toBe(itBodyCount);
+    // Tutte le altre locale restano allo STESSO conteggio tra loro (nessuna
+    // persa in modo diverso l'una dall'altra: solo it/en sono estese).
+    for (const lc of ["es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const) {
+      expect(filterBlogContentForLocale(post.body, lc).length, `body/${lc}`).toBe(esBodyCount);
+    }
+    // Questo post non ha aggiunto nuove FAQ (solo body): faq deve restare
+    // invariata su TUTTE le locale, incluse it/en.
+    const esFaqCount = filterBlogContentForLocale(post.faq ?? [], "es").length;
+    for (const lc of ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const) {
       expect(filterBlogContentForLocale(post.faq ?? [], lc).length, `faq/${lc}`).toBe(esFaqCount);
     }
   });

@@ -615,6 +615,9 @@ export const post: BlogPost = {
       },
     },
   ],
-  related: ["scrivere-dati-android-su-apple-salute", "fitmesh-arriva-su-iphone", "how-to-export-apple-health-data"],
+  // P1.8S (2026-08-06): "scrivere-dati-android-su-apple-salute" consolidata
+  // (redirect 308) su "dati-anello-smart-apple-salute" — decisione editoriale
+  // di Matteo dopo audit cannibalizzazione, vedi next.config.mjs.
+  related: ["dati-anello-smart-apple-salute", "fitmesh-arriva-su-iphone", "how-to-export-apple-health-data"],
   brandsMentioned: ["Apple", "Samsung", "Garmin", "Fitbit", "Colmi"],
 };

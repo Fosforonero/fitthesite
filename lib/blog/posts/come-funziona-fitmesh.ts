@@ -1048,6 +1048,7 @@ export const post: BlogPost = {
     "come-funziona-health-connect",
     "vedere-dati-wearable-browser-pc",
     "fitmesh-gratis-prezzo-founder",
+    "fitmesh-samsung-health-usarli-insieme",
   ],
   // P1.5B Fase C: prima volta che questo post cita fonti primarie visibili
   // (documentazione ufficiale delle 3 piattaforme discusse nella nuova
@@ -1057,6 +1058,11 @@ export const post: BlogPost = {
     "https://developer.apple.com/documentation/healthkit",
     "https://developer.samsung.com/health/data/overview.html",
   ],
+  // P1.8S FASE 8 (2026-08-06): le 3 fonti sono gia' citate inline nel corpo
+  // (tabella sorgente/percorso/dati P1.5B Fase C): evita che il componente
+  // condiviso BlogSources le mostri una seconda volta (verificato da
+  // check-p16-visible-sources.ts per URL-overlap, 3/3).
+  sourcesRenderedInline: true,
   brandsMentioned: ["Colmi", "Samsung Health", "Google"],
   ldType: "BlogPosting",
 };

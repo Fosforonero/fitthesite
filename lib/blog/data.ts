@@ -15,6 +15,7 @@ import type { BlogPost, BlogCategory } from "./types";
 import { post as guidaSyncWearable2026 } from "./posts/guida-sync-wearable-2026";
 import { post as scegliereSmartwatchDati2026 } from "./posts/scegliere-smartwatch-dati-2026";
 import { post as healthConnectVsSamsungHealth } from "./posts/health-connect-vs-samsung-health";
+import { post as fitmeshSamsungHealthUsarliInsieme } from "./posts/fitmesh-samsung-health-usarli-insieme";
 import { post as backupGalaxyWatchPc } from "./posts/backup-galaxy-watch-pc";
 import { post as esportareDatiFitbitGoogle } from "./posts/esportare-dati-fitbit-google";
 import { post as vedereDatiWearableBrowserPc } from "./posts/vedere-dati-wearable-browser-pc";
@@ -46,7 +47,12 @@ import { post as datiAnelloSmartAppleSalute } from "./posts/dati-anello-smart-ap
 import { post as novitaAnelloColmiSonno } from "./posts/novita-anello-colmi-sonno";
 import { post as novitaDashboardMultiDevice } from "./posts/novita-dashboard-multi-device";
 import { post as novitaFitmeshAppStore } from "./posts/novita-fitmesh-su-app-store";
-import { post as scrivereDatiAndroidSuAppleSalute } from "./posts/scrivere-dati-android-su-apple-salute";
+// P1.8S (2026-08-06): "scrivere-dati-android-su-apple-salute" consolidata
+// (redirect 308, next.config.mjs) su "dati-anello-smart-apple-salute" dopo
+// audit cannibalizzazione + decisione editoriale di Matteo. File .ts lasciato
+// su disco (storia/audit), ma DEREGISTRATO da BLOG_POSTS: altrimenti resterebbe
+// nell'indice/sitemap con un URL che redirige altrove, e in RAW_POSTS senza
+// un import verrebbe comunque un errore di compilazione se rimanesse referenziato.
 import { post as daAndroidAIphoneDatiFitness } from "./posts/da-android-a-iphone-dati-fitness";
 import { post as anelloOrologioScenariReali } from "./posts/anello-orologio-scenari-reali";
 // Cluster anello smart
@@ -116,6 +122,7 @@ const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
   scegliereSmartwatchDati2026,
   healthConnectVsSamsungHealth,
+  fitmeshSamsungHealthUsarliInsieme,
   backupGalaxyWatchPc,
   esportareDatiFitbitGoogle,
   vedereDatiWearableBrowserPc,
@@ -147,7 +154,6 @@ const RAW_POSTS: BlogPost[] = [
   novitaAnelloColmiSonno,
   novitaDashboardMultiDevice,
   novitaFitmeshAppStore,
-  scrivereDatiAndroidSuAppleSalute,
   daAndroidAIphoneDatiFitness,
   anelloOrologioScenariReali,
   // Cluster anello smart

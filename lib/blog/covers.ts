@@ -22,7 +22,10 @@ export type CoverType =
   | "watch"
   | "healthconnect"
   | "zone2"
-  | "circadian";
+  | "circadian"
+  | "fitmeshOverview"
+  | "samsungTogether"
+  | "appleTogether";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -58,6 +61,17 @@ export const COVER_FILE: Record<CoverType, string> = {
   healthconnect: "health-connect-sync-troubleshooting.webp",
   zone2: "zone-2-different-devices.webp",
   circadian: "sleep-score-circadian-rhythm.webp",
+  // P1.8S/P1.8S-IMG (2026-08-06): 3 cover consegnate da Matteo, forense +
+  // gate visivo/semantico superati (verificate 1200x686 sorgente -> crop
+  // centrato 1200x675, no stretch, no alpha/EXIF/XMP, no loghi terzi).
+  // Un 4° asset consegnato insieme ("samsung-health-health-connect-flow.webp",
+  // destinato a health-connect-vs-samsung-health) e' stato SCARTATO (NO-GO):
+  // 2 delle icone nel telefono centrale somigliano troppo da vicino a
+  // marchi reali (icona verde ~ Health Connect, icona arancione ~ Strava)
+  // — non committato, non modificato alla cieca, cover esistente invariata.
+  fitmeshOverview: "how-fitmesh-works.webp",
+  samsungTogether: "fitmesh-samsung-health-together.webp",
+  appleTogether: "fitmesh-apple-health-together.webp",
 };
 
 /**
@@ -69,6 +83,10 @@ export const COVER_FILE: Record<CoverType, string> = {
  */
 /** Esportato per il guardrail `check-p15c-cover-map.ts` (ogni post ha una entry propria?). */
 export const POST_COVER: Record<string, CoverType> = {
+  // P1.8S (2026-08-06): nuovo articolo "perche' usare Samsung Health insieme
+  // a FitMesh" — cover dedicata, non riusata dal pillar architetturale
+  // health-connect-vs-samsung-health (che resta su "compare").
+  "fitmesh-samsung-health-usarli-insieme": "samsungTogether",
   "scrivere-dati-android-su-apple-salute": "platform",
   "da-android-a-iphone-dati-fitness": "platform",
   "anello-orologio-scenari-reali": "ring",
@@ -96,7 +114,10 @@ export const POST_COVER: Record<string, CoverType> = {
   "sync-them-all": "multidevice",
   "colmi-ring-fitmesh": "ring",
   "fitmesh-arriva-su-iphone": "platform",
-  "dati-anello-smart-apple-salute": "ring",
+  // P1.8S-IMG FASE 9 (2026-08-06): cover dedicata (fitmesh-apple-health-
+  // together.webp) al posto della generica "ring" — pagina bridge
+  // Apple Salute, winner della consolidazione cannibalizzazione P1.8S.
+  "dati-anello-smart-apple-salute": "appleTogether",
   "novita-anello-colmi-sonno": "sleep",
   "piu-smartwatch-insieme-dati-doppi": "multidevice",
   "novita-dashboard-multi-device": "dashboard",
@@ -126,7 +147,10 @@ export const POST_COVER: Record<string, CoverType> = {
   "fitmesh-gratis-prezzo-founder": "dashboard",
   "anello-colmi-r02-affidabile": "ring",
   "cambiare-smartwatch-senza-perdere-dati": "multidevice",
-  "come-funziona-fitmesh": "dashboard",
+  // P1.8S-IMG FASE 9 (2026-08-06): cover dedicata (how-fitmesh-works.webp)
+  // al posto della generica "dashboard" — il pillar del prodotto merita
+  // un'immagine propria dopo la revisione contenuto reale P1.5B Fase C.
+  "come-funziona-fitmesh": "fitmeshOverview",
   "efficienza-del-sonno-formula-calcolo": "sleep",
   "metriche-recupero-hrv-sonno-frequenza-cardiaca": "metrics",
   "galaxy-watch-ultra2-watch9-health-connect": "watch",
