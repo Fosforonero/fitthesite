@@ -219,9 +219,16 @@ for (let i = 0; i < lines.length; i++) {
 // riga) sia alle stringhe sv/da di nordic-overlay.json (per-stringa) —
 // sv/da sono locale live tramite l'overlay, un residuo li' sarebbe
 // invisibile se il controllo restasse limitato al solo file .ts.
-const BOTTLENECK_WORD = /(collo di bottiglia|bottleneck|cuello de botella|Flaschenhals|knelpunt|flaskhals|flaskehals)/i;
-const RECONNECT_WORD = /(riconnett|reconnect|reconecta|verbindet|opnieuw verbind|återanslut|genopret.{0,3}forbind)/i;
-const OPEN_APP_WORD = /(apr[ai].{0,3}(l'app|app)|open.{0,3}the app|open.{0,3}samsung health app|abre.{0,3}la app|öffnest|app te openen|opens? samsung health|öppnar.{0,3}(app|samsung health)|åbner.{0,3}(app|samsung health)|åbne.{0,3}(app|samsung health))/i;
+// FASE 4 (2026-08-06): "goulot d'étranglement"/"gargalo" (FR/PT) aggiunti —
+// fr/pt diventano locale live per questo post in questa stessa release, un
+// residuo a causa-singola li' sarebbe stato invisibile a questo check senza
+// i termini FR/PT (stesso bug-pattern gia' corretto per sv/da al punto 10).
+const BOTTLENECK_WORD = /(collo di bottiglia|bottleneck|cuello de botella|Flaschenhals|knelpunt|flaskhals|flaskehals|goulot d.étranglement|gargalo)/i;
+// "reconect" (radice, senza doppia n) copre le coniugazioni ES/PT
+// (reconecta/reconectou/reconectar/reconectando); "reconnect" (doppia n)
+// copre EN/FR (reconnect/reconnecte/reconnecter/reconnected).
+const RECONNECT_WORD = /(riconnett|reconnect|reconect|verbindet|opnieuw verbind|återanslut|genopret.{0,3}forbind)/i;
+const OPEN_APP_WORD = /(apr[ai].{0,3}(l'app|app)|open.{0,3}the app|open.{0,3}samsung health app|abre.{0,3}la app|öffnest|app te openen|opens? samsung health|öppnar.{0,3}(app|samsung health)|åbner.{0,3}(app|samsung health)|åbne.{0,3}(app|samsung health)|ouvre[zr]?.{0,25}samsung health|abr[ae].{0,25}samsung health)/i;
 const PULL_REFRESH_WORD = /pull-to-refresh/i;
 
 function countSamsungTriggers(text) {
@@ -245,8 +252,12 @@ for (let i = 0; i < lines.length; i++) {
 // permesso. Bug reale trovato: TL;DR e "In sintesi" lo dicevano senza
 // ancoraggio (leggibile come finestra mobile), mentre la FAQ era gia'
 // corretta fin dall'hotfix iniziale.
-const HISTORY_WINDOW_WORD = /(30 giorni|30 days|30 días|30 Tage|30 dagen|30 dagar|30 dage)/i;
-const HISTORY_ANCHOR_WORD = /(prima concessione|da quando ha ricevuto l'accesso|first permission grant|granted access|primera concesión|se le concedió el acceso|ersten? Berechtigungserteilung|Zeitpunkt der Berechtigungserteilung|eerste toestemming|moment van toegang|första behörigheten|åtkomst beviljades|første tilladelse|adgangen blev givet)/i;
+// FASE 4 (2026-08-06): "30 (derniers )?jours" (FR) e "30 dias" (PT) aggiunti
+// — fr/pt diventano locale live per questo post in questa release, un
+// residuo "finestra mobile da oggi" li' sarebbe stato invisibile senza
+// questi termini (stesso bug-pattern gia' corretto per sv/da al punto 12).
+const HISTORY_WINDOW_WORD = /(30 giorni|30 days|30 días|30 Tage|30 dagen|30 dagar|30 dage|30 (derniers )?jours|30 dias)/i;
+const HISTORY_ANCHOR_WORD = /(prima concessione|da quando ha ricevuto l'accesso|first permission grant|granted access|primera concesión|se le concedió el acceso|ersten? Berechtigungserteilung|Zeitpunkt der Berechtigungserteilung|eerste toestemming|moment van toegang|första behörigheten|åtkomst beviljades|første tilladelse|adgangen blev givet|première autorisation accordée|l'accès.{0,20}a été accordé|primeira concessão|acesso foi concedido)/i;
 
 for (let i = 0; i < lines.length; i++) {
   const line = lines[i];
