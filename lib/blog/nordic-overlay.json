@@ -9953,14 +9953,14 @@
         "Batterioptimering är en av de vanligaste orsakerna: den blockerar synkronisering i bakgrunden, det är inte ett Health Connect-fel.",
         "På Samsung består den specifika lösningen i att koppla bort och återansluta pipelinen Samsung Health → Health Connect i inställningarna.",
         "Att rensa Health Connect-cachen raderar inte dina data: det är säkert och löser ofta fel som beror på korrupta tillstånd (endast Android 13 och tidigare).",
-        "Återställning av historiska data sker INTE automatiskt: det beror på källappen (vissa skriver om historiken, andra inte) och på Health Connects behörighet för historisk läsning, som utan utökat tillstånd bara täcker de senaste 30 dagarna."
+        "Återställning av historiska data sker INTE automatiskt: det beror på källappen (vissa skriver om historiken, andra inte) och på Health Connects behörighet för historisk läsning, som utan utökat tillstånd bara täcker de 30 dagarna före den första behörigheten, inte ett rullande 30-dagarsfönster från idag."
       ],
       "da": [
         "Tjek først tre ting, i denne rækkefølge: tilladelserne i Health Connect, batterioptimeringen for de involverede apps, og om kildeappen har synkroniseret for nylig.",
         "Batterioptimering er en af de hyppigste årsager: den blokerer synkronisering i baggrunden, det er ikke en Health Connect-fejl.",
         "På Samsung består den konkrete løsning i at afbryde og genoprette forbindelsen til Samsung Health → Health Connect i indstillingerne.",
         "Når du rydder Health Connect-cachen, slettes dine data ikke: det er sikkert og løser ofte fejl forårsaget af en beskadiget tilstand (kun Android 13 og tidligere).",
-        "Gendannelse af historiske data sker IKKE automatisk: det afhænger af kildeappen (nogle omskriver historikken, andre ikke) og af Health Connects tilladelse til historisk læsning, som uden udvidet tilladelse kun dækker de seneste 30 dage."
+        "Gendannelse af historiske data sker IKKE automatisk: det afhænger af kildeappen (nogle omskriver historikken, andre ikke) og af Health Connects tilladelse til historisk læsning, som uden udvidet tilladelse kun dækker de 30 dage før den første tilladelse blev givet, ikke et glidende 30-dages vindue fra i dag."
       ]
     },
     "body.2.items": {
@@ -10099,14 +10099,14 @@
         "På Samsung består den specifika lösningen i att koppla bort och återansluta pipelinen Samsung Health → Health Connect från inställningarna för Samsung Health.",
         "Att rensa Health Connect-cachen raderar inte dina data: det är ofarligt att göra och löser ofta fel som beror på att systemet har skadats (endast Android 13 och tidigare).",
         "Om data fördröjs men inte uteblir beror problemet ofta på att batterioptimeringen blockerar synkroniseringen i bakgrunden, men det är inte den enda möjliga orsaken.",
-        "Återställning av historiska data sker inte automatiskt: det beror på källappen (vissa skriver om historiken i Health Connect, andra inte) och på Health Connects behörighet för historisk läsning, som utan utökat tillstånd bara visar de senaste 30 dagarna."
+        "Återställning av historiska data sker inte automatiskt: det beror på källappen (vissa skriver om historiken i Health Connect, andra inte) och på Health Connects behörighet för historisk läsning, som utan utökat tillstånd bara visar de 30 dagarna före den första behörigheten, inte ett rullande 30-dagarsfönster från idag."
       ],
       "da": [
         "De fleste synkroniseringsproblemer løses ved at udføre tre handlinger: Tjek tilladelserne i Health Connect, deaktiver batterioptimering for de pågældende apps, og tving kildeappen til at åbne.",
         "På Samsung består den konkrete løsning i at afbryde og genoprette forbindelsen til Samsung Health → Health Connect-rørledningen fra Samsung Health-indstillingerne.",
         "Når du rydder Health Connect-cachen, slettes dine data ikke: det er sikkert at gøre, og det løser ofte fejl forårsaget af en beskadiget tilstand (kun Android 13 og tidligere).",
         "Hvis dataene kommer med forsinkelse, men ikke mangler helt, skyldes problemet ofte, at batterioptimeringen blokerer synkroniseringen i baggrunden, men det er ikke den eneste mulige årsag.",
-        "Gendannelse af historiske data sker ikke automatisk: det afhænger af kildeappen (nogle omskriver historikken i Health Connect, andre ikke) og af Health Connects tilladelse til historisk læsning, som uden udvidet tilladelse kun viser de seneste 30 dage."
+        "Gendannelse af historiske data sker ikke automatisk: det afhænger af kildeappen (nogle omskriver historikken i Health Connect, andre ikke) og af Health Connects tilladelse til historisk læsning, som uden udvidet tilladelse kun viser de 30 dage før den første tilladelse blev givet, ikke et glidende 30-dages vindue fra i dag."
       ]
     }
   },

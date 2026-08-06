@@ -49,6 +49,17 @@
  *     (bug reale trovato durante la verifica pre-merge: flaskhalsen/
  *     flaskehalsen SV/DA avevano ancora la vecchia formulazione mentre la
  *     .ts era gia' corretta).
+ * 11. (ULTIMO CHECK 2026-08-06) "30 giorni"/"30 days"/equivalenti SENZA un
+ *     ancoraggio esplicito alla PRIMA concessione del permesso, nella stessa
+ *     riga del file .ts — Health Connect senza READ_HEALTH_DATA_HISTORY non
+ *     applica una finestra mobile "ultimi 30 giorni da oggi", ma impedisce
+ *     la lettura di dati anteriori ai 30 giorni precedenti la prima
+ *     concessione del permesso (bug reale trovato dall'ULTIMO CHECK pre-GO:
+ *     TL;DR e "In sintesi" lo dicevano senza ancoraggio, mentre la FAQ era
+ *     gia' corretta fin dall'hotfix iniziale).
+ * 12. Stesso controllo del punto 11, applicato a `lib/blog/nordic-overlay.json`
+ *     per sv/da (stesso motivo del punto 10: locale live tramite overlay,
+ *     invisibile a un controllo limitato al solo file .ts).
  *
  * Uso (Docker, nessun runtime locale):
  *   docker run --rm -v "$PWD":/app -w /app node:22 npx tsx tools/check-p17-health-connect-truth.ts
@@ -227,20 +238,67 @@ for (let i = 0; i < lines.length; i++) {
   }
 }
 
+// ── 11. "30 giorni"/equivalenti senza ancoraggio alla PRIMA concessione ──
+// ULTIMO CHECK 2026-08-06: senza READ_HEALTH_DATA_HISTORY, Health Connect
+// non applica una finestra mobile "ultimi 30 giorni da oggi" — impedisce la
+// lettura di dati anteriori ai 30 giorni precedenti la PRIMA concessione del
+// permesso. Bug reale trovato: TL;DR e "In sintesi" lo dicevano senza
+// ancoraggio (leggibile come finestra mobile), mentre la FAQ era gia'
+// corretta fin dall'hotfix iniziale.
+const HISTORY_WINDOW_WORD = /(30 giorni|30 days|30 días|30 Tage|30 dagen|30 dagar|30 dage)/i;
+const HISTORY_ANCHOR_WORD = /(prima concessione|da quando ha ricevuto l'accesso|first permission grant|granted access|primera concesión|se le concedió el acceso|ersten? Berechtigungserteilung|Zeitpunkt der Berechtigungserteilung|eerste toestemming|moment van toegang|första behörigheten|åtkomst beviljades|første tilladelse|adgangen blev givet)/i;
+
+for (let i = 0; i < lines.length; i++) {
+  const line = lines[i];
+  if (line.trim().startsWith("//")) continue;
+  if (!HISTORY_WINDOW_WORD.test(line)) continue;
+  if (!HISTORY_ANCHOR_WORD.test(line)) {
+    errors.push(`[finestra-storica-non-ancorata] riga ${i + 1}: menziona "30 giorni/days" senza ancorarli esplicitamente alla prima concessione del permesso (rischio di lettura come finestra mobile da oggi).`);
+  }
+}
+
+// ── 10/12 (overlay). Estrae {lang -> [testo, indice-o-null]} da un valore
+// overlay che puo' essere una stringa singola o un array di stringhe (es.
+// "tldr"/"body.N.items" sono array per lingua) — check 10 in una prima
+// versione iterava solo stringhe dirette e saltava silenziosamente i campi
+// array (bug reale: e' esattamente li' che viveva il residuo "30 giorni"
+// senza ancoraggio trovato dall'ULTIMO CHECK pre-GO).
+function* overlayTextEntries(byLang) {
+  for (const [lang, value] of Object.entries(byLang)) {
+    if (typeof value === "string") {
+      yield [lang, value, null];
+    } else if (Array.isArray(value)) {
+      // `yield` funziona solo nel corpo diretto del generatore, non dentro
+      // una callback annidata come .forEach(): bug reale trovato al primo
+      // avvio di questa funzione (esbuild: "yield is a reserved word").
+      for (let idx = 0; idx < value.length; idx++) {
+        if (typeof value[idx] === "string") yield [lang, value[idx], idx];
+      }
+    }
+  }
+}
+
 const overlayPath = path.join(repoRoot, "lib/blog/nordic-overlay.json");
+let overlayPostForChecks = null;
 if (fs.existsSync(overlayPath)) {
   const overlay = JSON.parse(fs.readFileSync(overlayPath, "utf8"));
-  const postOverlay = overlay["health-connect-not-syncing"];
-  if (postOverlay) {
-    for (const [fieldPath, byLang] of Object.entries(postOverlay)) {
-      if (typeof byLang !== "object" || byLang === null) continue;
-      for (const [lang, text] of Object.entries(byLang)) {
-        if (typeof text !== "string") continue;
-        if (!/Samsung Health/i.test(text) || !BOTTLENECK_WORD.test(text)) continue;
+  overlayPostForChecks = overlay["health-connect-not-syncing"];
+}
+if (overlayPostForChecks) {
+  for (const [fieldPath, byLang] of Object.entries(overlayPostForChecks)) {
+    if (typeof byLang !== "object" || byLang === null) continue;
+    for (const [lang, text, idx] of overlayTextEntries(byLang)) {
+      const loc = idx === null ? `"${fieldPath}"."${lang}"` : `"${fieldPath}"."${lang}"[${idx}]`;
+      // check 10
+      if (/Samsung Health/i.test(text) && BOTTLENECK_WORD.test(text)) {
         const triggerCount = countSamsungTriggers(text);
         if (triggerCount < 2) {
-          errors.push(`[samsung-causa-unica-overlay] nordic-overlay.json "${fieldPath}"."${lang}": solo ${triggerCount}/3 trigger citati — rischio formulazione a causa singola nel testo live sv/da.`);
+          errors.push(`[samsung-causa-unica-overlay] nordic-overlay.json ${loc}: solo ${triggerCount}/3 trigger citati — rischio formulazione a causa singola nel testo live sv/da.`);
         }
+      }
+      // check 12
+      if (HISTORY_WINDOW_WORD.test(text) && !HISTORY_ANCHOR_WORD.test(text)) {
+        errors.push(`[finestra-storica-non-ancorata-overlay] nordic-overlay.json ${loc}: menziona "30 giorni/dagar/dage" senza ancorarli alla prima concessione del permesso.`);
       }
     }
   }
