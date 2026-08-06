@@ -6,6 +6,13 @@ export const post: BlogPost = {
   publishedAt: "2026-05-22",
   updatedAt: "2026-07-16",
   readMinutes: 10,
+  // SPRINT PRE-FERIE addendum Bing (2026-08-06): title FR/PT renderizzati
+  // sopra 70 caratteri (Bing FailingUrls CSV, verificato live). H1/slug
+  // invariati, solo <title>/og:title/twitter:title/BlogPosting.headline.
+  seoTitle: {
+    fr: "Qu'est-ce que la HRV ? Signification et valeurs",
+    pt: "O que é HRV: significado e valores normais",
+  },
   tldr: {
     it: [
       "La HRV misura la variazione negli intervalli tra battiti (millisecondi), non la frequenza media: una variabilità più alta è spesso associata a un sistema nervoso autonomo ben regolato (non un problema cardiaco), ma dipende anche da metrica, durata della misurazione, sensore, algoritmo, contesto ed eventuali artefatti: non è una prova isolata.",

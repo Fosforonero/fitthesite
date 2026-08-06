@@ -6,6 +6,20 @@ export const post: BlogPost = {
   publishedAt: "2026-06-20",
   updatedAt: "2026-06-20",
   readMinutes: 7,
+  // SPRINT PRE-FERIE addendum Bing (2026-08-06): title NL renderizzato
+  // sopra 70 caratteri (Bing FailingUrls CSV, verificato live). H1/slug
+  // invariati, solo <title>/og:title/twitter:title/BlogPosting.headline.
+  // EN/DE deliberatamente ESCLUSI da questo fix su istruzione esplicita:
+  // "non correggere separatamente i due title Garmin/Samsung prima della
+  // FASE 6" (cannibalizzazione). Nota: verifica live in questa stessa
+  // sessione mostra che /en/blog/garmin-samsung-health-sync-guide e
+  // /de/blog/garmin-samsung-health-sync-guide fanno gia' 308 verso lo slug
+  // localizzato corretto (infrastruttura di redirect gia' funzionante,
+  // dato GSC duale = stale) — riportato nel report, non usato per
+  // sbloccare unilateralmente il fix qui.
+  seoTitle: {
+    nl: "Garmin met Samsung Health synchroniseren",
+  },
   hero: {
     kicker: {
         it: "Guida passo-passo",
