@@ -9826,8 +9826,8 @@
       "da": "Løsning 3: Tving synkronisering fra kildeappen"
     },
     "body.9.text": {
-      "sv": "Många appar (Samsung Health, Garmin Connect, Fitbit) skriver inte till Health Connect i realtid: de gör det med jämna mellanrum eller när de öppnas. Det räcker ofta att öppna appen manuellt och låta den uppdatera sig.",
-      "da": "Mange apps (Samsung Health, Garmin Connect, Fitbit) skriver ikke til Health Connect i realtid: de gør det med bestemte intervaller eller, når de åbnes. Det er ofte nok at åbne appen manuelt og lade den opdatere."
+      "sv": "Den vanligaste flaskhalsen är synkroniseringen klocka → telefon: för att spara batteri hämtar Samsung Health bara ny data från Galaxy Watch i vissa situationer som Samsung dokumenterar — till exempel när klockan återansluter till telefonen, när du öppnar appen Samsung Health, eller när du gör en pull-to-refresh på appens startskärm. Även datatypen spelar roll: kontinuerlig puls skickas medvetet med fördröjning för att spara batteri (manuella mätningar synkroniseras direkt), och sömndata bearbetas först när klockan återansluter till telefonen, vilket kan innebära ytterligare fördröjning. När Samsung Health väl har datan skriver appen den vanligtvis ganska snabbt till Health Connect, men Samsung garanterar ingen exakt tidsram — om siffrorna verkar gamla, prova att öppna Samsung Health, göra en pull-to-refresh eller trycka på ’Synkronisera nu’ innan du misstänker ett fel. Garmin Connect skriver efter varje lyckad klocksynkronisering, enkelriktat till Health Connect (den läser aldrig därifrån). Fitbit är numera appen Google Health (sedan 19 maj 2026): synkroniseringen med Health Connect ställs in därifrån. Källa: [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect), [Samsung Developers — Managing Sleep Data with Samsung Health and Health Connect](https://developer.samsung.com/health/blog/en/managing-sleep-data-with-samsung-health-and-health-connect), [Samsung Developers — Health Connect FAQ](https://developer.samsung.com/health/health-connect-faq.html) och [Google Health — övergången från Fitbit](https://support.google.com/googlehealth/answer/17068213), verifierade 2026-08-06.",
+      "da": "Den mest almindelige flaskehals er synkroniseringen ur → telefon: for at spare batteri henter Samsung Health kun nye data fra Galaxy Watch i bestemte situationer, som Samsung dokumenterer — for eksempel når uret genopretter forbindelsen til telefonen, når du åbner appen Samsung Health, eller når du laver et pull-to-refresh på appens startskærm. Datatypen spiller også en rolle: kontinuerlig puls sendes bevidst med forsinkelse for at spare batteri (manuelle målinger synkroniseres med det samme), og søvndata behandles først, når uret genopretter forbindelsen til telefonen, hvilket kan give yderligere forsinkelse. Når Samsung Health først har dataen, skriver appen den normalt ret hurtigt til Health Connect, men Samsung garanterer ikke en præcis tidsramme — hvis tallene ser forældede ud, så prøv at åbne Samsung Health, lave et pull-to-refresh eller trykke på ’Synkroniser nu’, før du mistænker en fejl. Garmin Connect skriver efter hver vellykket ursynkronisering, envejs til Health Connect (den læser aldrig derfra). Fitbit er nu appen Google Health (siden 19. maj 2026): synkroniseringen med Health Connect indstilles derfra. Kilde: [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect), [Samsung Developers — Managing Sleep Data with Samsung Health and Health Connect](https://developer.samsung.com/health/blog/en/managing-sleep-data-with-samsung-health-and-health-connect), [Samsung Developers — Health Connect FAQ](https://developer.samsung.com/health/health-connect-faq.html) og [Google Health — overgangen fra Fitbit](https://support.google.com/googlehealth/answer/17068213), verificeret 06-08-2026."
     },
     "body.11.text": {
       "sv": "Lösning 4: Rensa Health Connect-cachen",
@@ -9846,16 +9846,16 @@
       "da": "Løsning 5 (Samsung): direkte forbindelse Samsung Health → Health Connect"
     },
     "body.15.text": {
-      "sv": "På Samsung-enheter har Samsung Health en egen dedikerad överföringsväg till Health Connect, skild från den vanliga bakgrundssynkroniseringen. Om denna överföringsväg inte fungerar löser man problemet genom att koppla bort och ansluta igen:",
-      "da": "På Samsung-enheder har Samsung Health sin egen dedikerede pipeline til Health Connect, som er adskilt fra den normale baggrundssynkronisering. Hvis denne pipeline ikke fungerer, kan problemet løses ved at afbryde forbindelsen og oprette den igen:"
+      "sv": "På Samsung-enheter autoriseras kopplingen Samsung Health → Health Connect separat från appens allmänna behörigheter (det är en egen koppling, inte bara en inställning för bakgrundssynkronisering). Om du misstänker att den är trasig tvingar en frånkoppling och återanslutning fram en ren handskakning:",
+      "da": "På Samsung-enheder autoriseres forbindelsen Samsung Health → Health Connect separat fra appens generelle tilladelser (det er sin egen forbindelse, ikke bare en indstilling for baggrundssynkronisering). Hvis du har mistanke om, at den er brudt, gennemtvinger en afbrydelse og genoprettelse et rent nyt håndtryk:"
     },
     "body.17.text": {
       "sv": "Lösning 6: Uppdatera Health Connect till den senaste versionen",
       "da": "Løsning 6: Opdater Health Connect til den nyeste version"
     },
     "body.18.text": {
-      "sv": "Health Connect uppdateras via Play Store precis som vilken annan app som helst. Äldre versioner har kända synkroniseringsfel, särskilt när det gäller data under dagen och sömnsegment. En uppdatering löser många problem utan att du märker det.",
-      "da": "Health Connect Opdateres via Play Store ligesom enhver anden app. Ældre versioner har kendte synkroniseringsfejl, især med data fra løbet af dagen og søvnsegmenter. En opdatering løser mange problemer uden at man bemærker det."
+      "sv": "På Android 13 och tidigare uppdateras Health Connect via Play Store precis som vilken annan app som helst. Från och med Android 14 är det däremot en systemmodul (Google Play-systemuppdateringar), som uppdateras via Inställningar → System → Google Play-systemuppdatering: den visas inte i Play Stores uppdateringslista. En uppdatering löser vissa synkroniseringsproblem utan att du märker det.",
+      "da": "På Android 13 og tidligere opdateres Health Connect via Play Store ligesom enhver anden app. Fra Android 14 er det derimod et systemmodul (Google Play-systemopdateringer), som opdateres via Indstillinger → System → Google Play-systemopdatering: det vises ikke i Play Stores opdateringsliste. En opdatering løser nogle synkroniseringsproblemer uden at man bemærker det."
     },
     "body.20.text": {
       "sv": "Lösning 7: Återkalla och bevilja alla behörigheter på nytt (fullständig återställning)",
@@ -9918,8 +9918,8 @@
       "da": "Kan manglende data i Health Connect gendannes?"
     },
     "faq.2.a": {
-      "sv": "Det beror på. Om källappen (Samsung Health, Garmin Connect) har data i sin lokala databas erbjuder många appar en ”retroaktiv synkronisering” som skriver över historiska data till Health Connect. I Samsung Health: Inställningar → Health Connect → kan det finnas ett alternativ för ”Synkronisera historiska data”. I Garmin Connect: retroaktiv synkronisering är inte tillgänglig, men data finns kvar i Garmin:s moln även om de inte finns i HC.",
-      "da": "Det kommer an på. Hvis kildeappen (Samsung Health, Garmin Connect) har data i sin lokale database, tilbyder mange apps en »retroaktiv synkronisering«, der overskriver historiske data til Health Connect. I Samsung Health: Indstillinger → Health Connect → kan der være en indstilling kaldet 'Synkroniser historiske data'. I Garmin Connect: ikke tilgængeligt med tilbagevirkende kraft, men data forbliver i Garmin's cloud, selvom de ikke findes i HC."
+      "sv": "Det beror på, och det sker inte automatiskt. Om källappen aldrig skrev den datan till Health Connect finns det inget att återställa där: datan finns bara i källappen, om den finns alls. Om datan skrevs men läsappen inte har sett den än är den allmänna gränsen i Health Connect behörigheten för historisk läsning: utan den ser en app bara de senaste 30 dagarna från det att åtkomst beviljades. FitMesh Sync begär idag inte denna utökade behörighet: vid en stor historisk lucka är den mer tillförlitliga vägen att återansluta källappen (eller din ring/klocka) och låta den synkronisera på nytt, inte en inställning att ändra i FitMesh. För Samsung Health finns inget dokumenterat alternativ för 'historisk synkronisering'. I Garmin Connect varierar beteendet beroende på datatyp och appversion: det är inte garanterat, men inte heller uteslutet som en fast regel.",
+      "da": "Det kommer an på, og det sker ikke automatisk. Hvis kildeappen aldrig skrev de data til Health Connect, er der intet at gendanne der: dataene findes kun i kildeappen, hvis de overhovedet findes. Hvis dataene blev skrevet, men læseappen endnu ikke har set dem, er den generelle grænse i Health Connect tilladelsen til historisk læsning: uden den ser en app kun de seneste 30 dage fra det tidspunkt, adgangen blev givet. FitMesh Sync anmoder i dag ikke om denne udvidede tilladelse: ved et stort historisk hul er den mere pålidelige løsning at genforbinde kildeappen (eller din ring/ur) og lade den synkronisere igen, ikke en indstilling, der ændres i FitMesh. For Samsung Health er der ikke dokumenteret nogen dedikeret mulighed for 'historisk synkronisering'. I Garmin Connect varierer adfærden efter datatype og appversion: det er ikke garanteret, men heller ikke udelukket som en fast regel."
     },
     "faq.3.q": {
       "sv": "Kan det uppstå problem om flera appar skriver till Health Connect?",
@@ -9949,18 +9949,18 @@
     },
     "tldr": {
       "sv": [
-        "90 % av problemen löses genom tre åtgärder: kontrollera behörigheterna i Health Connect, inaktivera batterioptimeringen för de berörda apparna och tvinga fram öppningen av källappen.",
-        "Batterioptimering är den främsta orsaken (cirka 60 % av fallen): den blockerar synkronisering i bakgrunden, det är inte ett Health Connect-fel.",
+        "Kontrollera först tre saker, i denna ordning: behörigheterna i Health Connect, batterioptimeringen för de berörda apparna, och om källappen har synkroniserat nyligen.",
+        "Batterioptimering är en av de vanligaste orsakerna: den blockerar synkronisering i bakgrunden, det är inte ett Health Connect-fel.",
         "På Samsung består den specifika lösningen i att koppla bort och återansluta pipelinen Samsung Health → Health Connect i inställningarna.",
-        "Att rensa Health Connect-cachen raderar inte dina data: det är säkert och löser ofta fel som beror på korrupta tillstånd.",
-        "Osynkroniserade data lagras lokalt: när problemet är löst sker synkroniseringen automatiskt."
+        "Att rensa Health Connect-cachen raderar inte dina data: det är säkert och löser ofta fel som beror på korrupta tillstånd (endast Android 13 och tidigare).",
+        "Återställning av historiska data sker INTE automatiskt: det beror på källappen (vissa skriver om historiken, andra inte) och på Health Connects behörighet för historisk läsning, som utan utökat tillstånd bara täcker de 30 dagarna före den första behörigheten, inte ett rullande 30-dagarsfönster från idag."
       ],
       "da": [
-        "90 % af problemerne løses ved hjælp af tre handlinger: Kontroller tilladelserne i Health Connect, deaktiver batterioptimering for de pågældende apps, og åbn kildeappen manuelt.",
-        "Batterioptimering er den hyppigste årsag (ca. 60 % af tilfældene): Den blokerer synkronisering i baggrunden, det er ikke en Health Connect-fejl.",
-        "På Samsung består den konkrete løsning i at afbryde og genoprette forbindelsen til Samsung Health → Health Connect-rørledningen i indstillingerne.",
-        "Når du rydder Health Connect-cachen, slettes dine data ikke: Det er sikkert og løser ofte fejl forårsaget af en beskadiget tilstand.",
-        "Ikke-synkroniserede data akkumuleres lokalt: Når problemet er løst, sker der automatisk en eftersynkronisering."
+        "Tjek først tre ting, i denne rækkefølge: tilladelserne i Health Connect, batterioptimeringen for de involverede apps, og om kildeappen har synkroniseret for nylig.",
+        "Batterioptimering er en af de hyppigste årsager: den blokerer synkronisering i baggrunden, det er ikke en Health Connect-fejl.",
+        "På Samsung består den konkrete løsning i at afbryde og genoprette forbindelsen til Samsung Health → Health Connect i indstillingerne.",
+        "Når du rydder Health Connect-cachen, slettes dine data ikke: det er sikkert og løser ofte fejl forårsaget af en beskadiget tilstand (kun Android 13 og tidligere).",
+        "Gendannelse af historiske data sker IKKE automatisk: det afhænger af kildeappen (nogle omskriver historikken, andre ikke) og af Health Connects tilladelse til historisk læsning, som uden udvidet tilladelse kun dækker de 30 dage før den første tilladelse blev givet, ikke et glidende 30-dages vindue fra i dag."
       ]
     },
     "body.2.items": {
@@ -10095,18 +10095,18 @@
     },
     "body.28.items": {
       "sv": [
-        "90 % av synkroniseringsproblemen löses genom tre åtgärder: kontrollera behörigheterna i Health Connect, inaktivera batterioptimeringen för de berörda apparna och tvinga fram öppning av källappen.",
+        "De flesta synkroniseringsproblem löses genom tre åtgärder: kontrollera behörigheterna i Health Connect, inaktivera batterioptimeringen för de berörda apparna och tvinga fram öppning av källappen.",
         "På Samsung består den specifika lösningen i att koppla bort och återansluta pipelinen Samsung Health → Health Connect från inställningarna för Samsung Health.",
-        "Att rensa Health Connect-cachen raderar inte dina data: det är ofarligt att göra och löser ofta fel som beror på att systemet har skadats.",
-        "Om data fördröjs men inte uteblir beror problemet nästan alltid på att batterioptimeringen blockerar synkroniseringen i bakgrunden.",
-        "Osynkroniserade data lagras lokalt i Health Connect: när problemet är löst sker återfyllningen automatiskt."
+        "Att rensa Health Connect-cachen raderar inte dina data: det är ofarligt att göra och löser ofta fel som beror på att systemet har skadats (endast Android 13 och tidigare).",
+        "Om data fördröjs men inte uteblir beror problemet ofta på att batterioptimeringen blockerar synkroniseringen i bakgrunden, men det är inte den enda möjliga orsaken.",
+        "Återställning av historiska data sker inte automatiskt: det beror på källappen (vissa skriver om historiken i Health Connect, andra inte) och på Health Connects behörighet för historisk läsning, som utan utökat tillstånd bara visar de 30 dagarna före den första behörigheten, inte ett rullande 30-dagarsfönster från idag."
       ],
       "da": [
-        "90 % af synkroniseringsproblemerne løses ved at udføre tre handlinger: Tjek tilladelserne i Health Connect, deaktiver batterioptimering for de pågældende apps, og tving kildeappen til at åbne.",
+        "De fleste synkroniseringsproblemer løses ved at udføre tre handlinger: Tjek tilladelserne i Health Connect, deaktiver batterioptimering for de pågældende apps, og tving kildeappen til at åbne.",
         "På Samsung består den konkrete løsning i at afbryde og genoprette forbindelsen til Samsung Health → Health Connect-rørledningen fra Samsung Health-indstillingerne.",
-        "Når du rydder Health Connect-cachen, slettes dine data ikke: det er sikkert at gøre, og det løser ofte fejl forårsaget af en beskadiget tilstand.",
-        "Hvis dataene kommer med forsinkelse, men ikke mangler helt, skyldes problemet næsten altid, at batterioptimeringen blokerer synkroniseringen i baggrunden.",
-        "Ikke-synkroniserede data akkumuleres lokalt i Health Connect: Når problemet er løst, sker der automatisk en efterfyldning."
+        "Når du rydder Health Connect-cachen, slettes dine data ikke: det er sikkert at gøre, og det løser ofte fejl forårsaget af en beskadiget tilstand (kun Android 13 og tidligere).",
+        "Hvis dataene kommer med forsinkelse, men ikke mangler helt, skyldes problemet ofte, at batterioptimeringen blokerer synkroniseringen i baggrunden, men det er ikke den eneste mulige årsag.",
+        "Gendannelse af historiske data sker ikke automatisk: det afhænger af kildeappen (nogle omskriver historikken i Health Connect, andre ikke) og af Health Connects tilladelse til historisk læsning, som uden udvidet tilladelse kun viser de 30 dage før den første tilladelse blev givet, ikke et glidende 30-dages vindue fra i dag."
       ]
     }
   },

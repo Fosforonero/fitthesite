@@ -29,6 +29,12 @@ export const post: BlogPost = {
   updatedAt: "2026-07-12",
   pillar: true,
   readMinutes: 14,
+  // SPRINT PRE-FERIE addendum Bing (2026-08-06): title DE renderizzato
+  // sopra 70 caratteri (Bing FailingUrls CSV, verificato live). H1/slug
+  // invariati, solo <title>/og:title/twitter:title/BlogPosting.headline.
+  seoTitle: {
+    de: "Fitnessdaten zwischen Apps und Wearables syncen",
+  },
   tldr: {
     it: [
       "Quattro architetture diverse rispondono a bisogni diversi: health hub di sistema, bridge app, dashboard indipendente, export manuale o API. Scegli in base al problema, non al primo tool che trovi.",
