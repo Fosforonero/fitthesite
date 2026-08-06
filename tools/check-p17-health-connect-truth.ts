@@ -14,10 +14,9 @@
  *     e' senza il permesso di lettura storica esteso.
  *  2. "Samsung Health" abbinato a "tempo reale"/"real-time"/"Echtzeit"/
  *     "temps réel"/"tiempo real" nello stesso paragrafo — il testo corretto
- *     non ha mai bisogno di questa formulazione (fonte S2: il collo di
- *     bottiglia e' orologio→telefono, non la scrittura Samsung Health→
- *     Health Connect, che e' immediata ma non va descritta come "real-time"
- *     dell'intera pipeline).
+ *     non ha mai bisogno di questa formulazione (fonte S2: la scrittura
+ *     Samsung Health→Health Connect e' di norma rapida ma senza SLA
+ *     garantita, non va mai descritta come "real-time").
  *  3. "Fitbit" citato come app corrente senza "Google Health" nelle vicinanze
  *     (±2 righe) — dal 19/05/2026 l'app e' Google Health (fonte S3).
  *  4. Una frase assoluta bandita esplicitamente dall'addendum: "causa numero
@@ -35,6 +34,21 @@
  *  8. Un artefatto di corruzione testuale noto (KVKK al posto di "Health
  *     Connect", `__FENCE`, o la sequenza `},'` tipica delle corruzioni gia'
  *     trovate in TR/PL).
+ *  9. (MICRO-ADDENDUM 2026-08-06) "Samsung Health" + "collo di bottiglia"/
+ *     "bottleneck"/"cuello de botella"/"Flaschenhals"/"knelpunt" presentato
+ *     come causa UNICA della latenza — Samsung documenta 3 trigger diversi
+ *     (riconnessione, apertura app, pull-to-refresh: fonti S5/S6), quindi la
+ *     riga deve citare almeno 2 di questi 3 concetti (radice "riconnett"
+ *     o equivalente per lingua; apertura dell'app; pull-to-refresh) per
+ *     non tornare a una formulazione a causa singola.
+ * 10. (MICRO-ADDENDUM 2026-08-06) Stesso controllo del punto 9, applicato al
+ *     testo sv/da di `lib/blog/nordic-overlay.json` per questo post — sv/da
+ *     sono locale LIVE (`isPostTranslated===true`) tramite l'overlay, non
+ *     tramite questo file: un residuo di formulazione a causa singola li'
+ *     sarebbe invisibile a questo guardrail se limitato al solo file .ts
+ *     (bug reale trovato durante la verifica pre-merge: flaskhalsen/
+ *     flaskehalsen SV/DA avevano ancora la vecchia formulazione mentre la
+ *     .ts era gia' corretta).
  *
  * Uso (Docker, nessun runtime locale):
  *   docker run --rm -v "$PWD":/app -w /app node:22 npx tsx tools/check-p17-health-connect-truth.ts
@@ -183,6 +197,52 @@ for (let i = 0; i < lines.length; i++) {
   }
   if (/\},'/.test(lines[i])) {
     errors.push(`[corruzione-brace-quote] riga ${i + 1}: sequenza "}," ',' tipica delle corruzioni gia' viste in TR/PL.`);
+  }
+}
+
+// ── 9/10. Samsung Health + "collo di bottiglia" come causa UNICA ─────────
+// MICRO-ADDENDUM 2026-08-06: la latenza watch->telefono e' UNA possibile
+// causa fra piu' trigger documentati da Samsung (S5/S6), non l'unica causa
+// dimostrata. Richiede che il testo citi almeno 2 dei 3 trigger noti.
+// Estratta in funzione riusabile: si applica sia al file .ts (riga per
+// riga) sia alle stringhe sv/da di nordic-overlay.json (per-stringa) —
+// sv/da sono locale live tramite l'overlay, un residuo li' sarebbe
+// invisibile se il controllo restasse limitato al solo file .ts.
+const BOTTLENECK_WORD = /(collo di bottiglia|bottleneck|cuello de botella|Flaschenhals|knelpunt|flaskhals|flaskehals)/i;
+const RECONNECT_WORD = /(riconnett|reconnect|reconecta|verbindet|opnieuw verbind|återanslut|genopret.{0,3}forbind)/i;
+const OPEN_APP_WORD = /(apr[ai].{0,3}(l'app|app)|open.{0,3}the app|open.{0,3}samsung health app|abre.{0,3}la app|öffnest|app te openen|opens? samsung health|öppnar.{0,3}(app|samsung health)|åbner.{0,3}(app|samsung health)|åbne.{0,3}(app|samsung health))/i;
+const PULL_REFRESH_WORD = /pull-to-refresh/i;
+
+function countSamsungTriggers(text) {
+  return [RECONNECT_WORD, OPEN_APP_WORD, PULL_REFRESH_WORD].filter((re) => re.test(text)).length;
+}
+
+for (let i = 0; i < lines.length; i++) {
+  const line = lines[i];
+  if (line.trim().startsWith("//")) continue;
+  if (!/Samsung Health/i.test(line) || !BOTTLENECK_WORD.test(line)) continue;
+  const triggerCount = countSamsungTriggers(line);
+  if (triggerCount < 2) {
+    errors.push(`[samsung-causa-unica] riga ${i + 1}: "collo di bottiglia"/"bottleneck" con Samsung Health ma solo ${triggerCount}/3 trigger documentati citati (riconnessione/apertura app/pull-to-refresh) — rischio di tornare a una causa unica non dimostrata.`);
+  }
+}
+
+const overlayPath = path.join(repoRoot, "lib/blog/nordic-overlay.json");
+if (fs.existsSync(overlayPath)) {
+  const overlay = JSON.parse(fs.readFileSync(overlayPath, "utf8"));
+  const postOverlay = overlay["health-connect-not-syncing"];
+  if (postOverlay) {
+    for (const [fieldPath, byLang] of Object.entries(postOverlay)) {
+      if (typeof byLang !== "object" || byLang === null) continue;
+      for (const [lang, text] of Object.entries(byLang)) {
+        if (typeof text !== "string") continue;
+        if (!/Samsung Health/i.test(text) || !BOTTLENECK_WORD.test(text)) continue;
+        const triggerCount = countSamsungTriggers(text);
+        if (triggerCount < 2) {
+          errors.push(`[samsung-causa-unica-overlay] nordic-overlay.json "${fieldPath}"."${lang}": solo ${triggerCount}/3 trigger citati — rischio formulazione a causa singola nel testo live sv/da.`);
+        }
+      }
+    }
   }
 }
 

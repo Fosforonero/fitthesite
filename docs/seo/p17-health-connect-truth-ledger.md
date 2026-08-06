@@ -1,16 +1,40 @@
 # P0 Hotfix — Truth ledger: `health-connect-not-syncing`
 
 Branch: `hotfix/p17-health-connect-truth-fix` (isolato da `origin/main`, nessuna dipendenza da PR aperte).
-Data verifica: 2026-08-05. Ogni fonte primaria elencata sotto è stata aperta direttamente in questa sessione (WebFetch), non ricostruita a memoria.
+Data verifica iniziale: 2026-08-05. Data verifica pre-merge (MICRO-ADDENDUM): 2026-08-06. Ogni fonte primaria elencata sotto è stata aperta direttamente in questa sessione (WebFetch), non ricostruita a memoria.
 
 ## Fonti primarie aperte e verificate
 
 | # | Fonte | URL | Cosa conferma |
 |---|---|---|---|
 | S1 | Android Developers — Get started with Health Connect | https://developer.android.com/health-and-fitness/guides/health-connect/develop/get-started | Senza `PERMISSION_READ_HEALTH_DATA_HISTORY`, lettura limitata ai 30 giorni precedenti alla concessione del permesso |
-| S2 | Samsung Developers — Health Connect FAQ | https://developer.samsung.com/health/health-connect-faq.html | Orologio→telefono segue una policy propria (batteria); telefono→Health Connect è immediato quando il dato cambia |
+| S2 | Samsung Developers — Health Connect FAQ | https://developer.samsung.com/health/health-connect-faq.html | Orologio→telefono segue una policy propria (batteria); telefono→Health Connect è immediato quando il dato cambia, ma senza SLA garantita |
 | S3 | Google Health Help — passaggio da Fitbit | https://support.google.com/googlehealth/answer/17068213 | Rebrand Fitbit→Google Health dal 19/05/2026, rollout fino al 26/05/2026 |
 | S4 | Google Android Help — integrazione Health Connect in Android 14 | https://support.google.com/android/answer/14119325 | Da Android 14, Health Connect è un modulo di sistema (Google Play system update), non più un'app standalone da Play Store |
+| S5 | Samsung Developers — Accessing Samsung Health Data through Health Connect (blog) | https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect | 3 trigger documentati per il sync watch→app (riconnessione, apertura app, pull-to-refresh) + ritardo intenzionale della FC continua per batteria |
+| S6 | Samsung Developers — Managing Sleep Data with Samsung Health and Health Connect (blog) | https://developer.samsung.com/health/blog/en/managing-sleep-data-with-samsung-health-and-health-connect | Il sonno viene elaborato solo alla riconnessione, con ritardo aggiuntivo legato a "processor availability" |
+
+## MICRO-ADDENDUM pre-merge (2026-08-06): evidenze di chiusura
+
+### Punto 1 — permessi sulla build reale (non solo grep sorgente)
+
+Verifica forense approfondita read-only su AppFitmesh (workflow dedicato, agente separato, 44 tool call, 362s). Sintesi:
+
+**READ_HEALTH_DATA_HISTORY** — verdetto **confermato**, con evidenza molto più forte del grep iniziale:
+- Non dichiarato nel manifest sorgente dell'app (`flutter_app/android/app/src/main/AndroidManifest.xml`).
+- Non dichiarato nel manifest del plugin Flutter `health` 13.1.4 (`~/.pub-cache/hosted/pub.dev/health-13.1.4/android/src/main/AndroidManifest.xml`), che è **vuoto** — quindi non è un permesso che potrebbe arrivare "in silenzio" da una dipendenza, l'assenza è sotto il controllo diretto del progetto.
+- **Assente anche nel merged manifest reale** prodotto da una build Gradle precedente (`flutter_app/build/app/intermediates/merged_manifest/release/processReleaseMainManifest/AndroidManifest.xml`, build v186, 10/07).
+- **Assente nel dump `aapt2 dump permissions`** di un APK realmente compilato presente nel repo (`FitMesh-B2-coordinator-48eb5453.apk`, versionCode 189, versionName 3.9.8, package `com.fitmeshsync.app`).
+- Non richiesto a runtime nel codice: i metodi del plugin che lo esporrebbero (`isHealthDataHistoryAvailable()`, `requestHealthDataHistoryAuthorization()`, ecc.) esistono nella libreria ma non sono mai chiamati da FitMesh.
+- **Nuova sfumatura trovata** (non presente nella nota precedente, non inverte il verdetto): `HealthRepository.readLatestBiometrics()` richiede un intervallo di 365 giorni per WEIGHT/HEIGHT — senza il permesso esteso, questa lettura è oggi silenziosamente limitata alla finestra di 30 giorni di default di Health Connect. È un gap funzionale reale, non documentato altrove, segnalato a Matteo ma **non pubblicato nell'articolo** (non cambia il verdetto sull'istruzione utente, che resta falsa se dicesse di concedere un permesso che l'app non richiede).
+
+**READ_HEALTH_DATA_IN_BACKGROUND** — confermato **dichiarato, richiesto a runtime, e usato realmente** (non solo dichiarato "morto"): la gestione del rifiuto esiste esplicitamente (outcome dedicato `skip:bgPermNotGranted` in `background_sync.dart`, per non mascherare la causa come genericamente "nessun dato"). Nessuna modifica necessaria: l'articolo non fa affermazioni su questo permesso che richiedano correzione.
+
+Verdetto invariato: **confermato**, non cambiato dalla verifica più approfondita. Nessuna modifica a ledger/articolo/guardrail richiesta dal criterio "solo se cambia il verdetto" — questa sezione documenta la verifica più solida, non un cambio di conclusione. Dettaglio completo (merged manifest excerpt, dump aapt2, limiti) nel journal del workflow.
+
+### Punto 2 — Samsung Health: da causa unica a causa possibile
+
+Ricerca dedicata (WebFetch su 4 pagine ufficiali Samsung, non forum terze parti) ha confermato che "orologio→telefono" **non è l'unico collo di bottiglia documentato**. Samsung documenta esplicitamente 3 trigger per il sync watch→app (riconnessione, apertura app Samsung Health, pull-to-refresh) più variazioni per tipo di dato (FC continua ritardata per batteria, sonno elaborato solo alla riconnessione). Il paragrafo "Fix 3" è stato riformulato in it/en/es/de/nl per riflettere questi trigger multipli invece di presentare la riconnessione come causa dimostrata unica, aggiungendo 2 nuove fonti (S5, S6) alla citazione inline e a `sources[]`. La scrittura Samsung Health→Health Connect resta descritta come "di norma rapida" ma **non garantita**, mai "sempre immediata".
 
 ## Tabella claim → verdetto → correzione
 
@@ -36,6 +60,35 @@ Data verifica: 2026-08-05. Ogni fonte primaria elencata sotto è stata aperta di
 **2 locale senza overlay per questo post** (non bloccate da un bug, semplicemente mai tradotte lì): no, fi.
 
 Le correzioni di testo sono state comunque propagate anche a pt/fr/pl/tr/ja/ko per non lasciare una versione "vecchia e falsa" in sorgente in attesa dello sblocco futuro (FASE 3 di questo addendum: PT/FR in PR separata, sul testo CORRETTO, non sul draft precedente).
+
+### Punto 3 — Matrice di verifica live sulle 7 locale
+
+Costruita rifacendo il build produzione completo (verificato `.next/prerender-manifest.json` presente, il primo tentativo era stato interrotto a metà da un timeout del tool e va scartato) + `next start` locale + HTTP reale su tutte le 7 varianti.
+
+| Locale | Nessun residuo assoluto (real-time/causa-unica/%) | Fonte inline (6/6 URL) | Lingua corretta (no fallback EN) | FAQ visibile = 4 Question in JSON-LD | dateModified |
+|---|---|---|---|---|---|
+| it | ✅ | ✅ 6/6 | ✅ | ✅ | 2026-08-06 |
+| en | ✅ | ✅ 6/6 | ✅ | ✅ | 2026-08-06 |
+| es | ✅ | ✅ 6/6 | ✅ | ✅ | 2026-08-06 |
+| de | ✅ | ✅ 6/6 | ✅ | ✅ | 2026-08-06 |
+| nl | ✅ | ✅ 6/6 | ✅ | ✅ | 2026-08-06 |
+| sv | ✅ (fix applicato durante questa verifica, vedi sotto) | ✅ 6/6 | ✅ | ✅ | 2026-08-06 |
+| da | ✅ (fix applicato durante questa verifica, vedi sotto) | ✅ 6/6 | ✅ | ✅ | 2026-08-06 |
+
+**Bug trovato dalla matrice stessa**: sv/da sono locale live tramite `nordic-overlay.json`, non tramite il file `.ts` — la riscrittura Samsung Health del punto 2 era stata applicata solo al `.ts` (it/en/es/de/nl), lasciando sv/da con la vecchia formulazione a causa singola ("flaskhalsen är inte själva skrivningen... utan steget innan"). Corretto in `nordic-overlay.json` con traduzioni fedeli svedese/danese dello stesso testo multi-causa, verificato `isPostTranslated` ancora `true` per entrambe, aggiunto un guardrail dedicato (check 10) che scansiona anche l'overlay, non solo il file `.ts`.
+
+`dateModified: 2026-08-06` è corretto per tutte le 7 (non un falso "cambiato ovunque"): il contenuto è stato modificato oggi in tutte e 7, sia nel file `.ts` (it/en/es/de/nl) sia nell'overlay (sv/da).
+
+Note su PT/FR non ancora sbloccate: `isBlogVariantIndexable(post, "pl")` e `isBlogVariantIndexable(post, "tr")` verificati `false` (invariati) — vedi sezione dedicata sotto.
+
+## PL/TR: riparazioni non pubblicate (MICRO-ADDENDUM punto 4)
+
+Le due correzioni di corruzione testuale in polacco e turco elencate in tabella (4 occorrenze "KVKK"→"Health Connect" in TR, 2 intestazioni "Fix 2" riscritte PL/TR, 1 correzione aggiuntiva PL "Moż},'d powtarzać się"→"Mogą powodować duplikaty") sono **riparazioni di bug di testo pre-esistenti nel sorgente**, non un'attivazione di nuovo contenuto. Distinzione esplicita:
+
+- PL e TR **restano bloccate per l'indicizzazione** dalla stessa causa condivisa di pt/fr/ja/ko (`secondaryKeywords` 5/6 elementi) — questo hotfix non tocca quel gate.
+- `isBlogVariantIndexable(post, "pl")` e `isBlogVariantIndexable(post, "tr")` restano `false` prima e dopo questo hotfix (nessuna modifica al meccanismo di indicizzazione).
+- Le stringhe PL/TR corrette esistono nel sorgente `.ts` (quindi in git, in questa PR) ma **non sono servite pubblicamente**: nessuna pagina `/pl/blog/health-connect-not-syncing` o `/tr/blog/health-connect-not-syncing` è raggiungibile in produzione oggi, non compaiono in `sitemap.xml`, non hanno `hreflang` in uscita dalle pagine indicizzate.
+- Motivazione della riparazione comunque eseguita: un bug di corruzione testuale (non un claim fattuale) lasciato nel sorgente sarebbe stato ereditato tale e quale dalla futura PR di sblocco PL/TR, propagando il difetto invece di limitarsi a spostare il problema piu' avanti.
 
 ## Limiti ancora non verificabili
 
