@@ -80,6 +80,40 @@ const BING_TITLE_URLS = [
   "/nl/blog/health-connect-synchroniseert-niet",
 ];
 
+// SPRINT PRE-FERIE addendum Bing (2026-08-06): secondo export ufficiale
+// Bing Webmaster Tools "Download all" (17 righe,
+// fitmesh.fit_FailingUrls_8_6_2026 (1).csv, verificato 1:1 contro
+// fitmesh.fit_SEOAnalysisSummary_2026_08_06.csv) + 1 URL dal primo export
+// dello stesso giorno (fitmesh.fit_FailingUrls_8_6_2026.csv). Di 18 righe
+// totali:
+//  - 2 confermate live gia' conformi (dato Bing stale, NON nella lista qui
+//    sotto perche' non richiedono enforcement): /de/blog/health-connect-
+//    synchronisiert-nicht (57c) e /pl/blog/eksportuj-dane-garmin (51c).
+//  - 2 deliberatamente ESCLUSE in attesa della decisione di cannibalizzazione
+//    Garmin/Samsung (FASE 6): /en/blog/sync-garmin-samsung-health-guide e
+//    /de/blog/garmin-samsung-health-synchronisieren-anleitung — verifica
+//    live in questa sessione mostra che l'infrastruttura di redirect (308)
+//    gia' fa convergere le varianti duplicate su questi 2 URL come winner,
+//    ma il fix del title resta comunque rimandato su istruzione esplicita.
+//  - 14 corrette in questo sprint (13 dal secondo export + la ES del primo,
+//    quest'ultima gia' segnalata su PR #45 e ricontrollata dopo il merge).
+const BING_TITLE_URLS_AUG6 = [
+  "/de/blog/garmin-daten-exportieren",
+  "/fr/blog/quest-ce-que-hrv-signification-valeurs",
+  "/pt/blog/o-que-e-hrv-significado-valores",
+  "/de/blog/smartwatch-synchronisieren-dashboard-2026",
+  "/es/blog/sincronizar-datos-withings",
+  "/nl/blog/garmin-samsung-health-synchroniseren-gids",
+  "/de/blog/polar-health-connect-synchronisierung",
+  "/nl/blog/garmin-data-exporteren",
+  "/it/blog/huawei-health-health-connect-sincronizzazione",
+  "/sv/blog/esportare-dati-garmin",
+  "/de/blog/samsung-health-google-fit-synchronisieren",
+  "/de/blog/fitbit-daten-exportieren-nach-google",
+  "/de/blog/schritte-synchronisieren-galaxy-watch",
+  "/es/blog/health-connect-no-sincroniza",
+];
+
 // Le 28 URL description ufficiali. Una di queste (vedi
 // KNOWN_DESCRIPTION_REDIRECTS sotto) e' un vecchio slug che oggi risponde
 // con un redirect singolo verso lo slug locale corrente dello stesso post
@@ -322,9 +356,10 @@ async function main() {
   const duplicateTitleUrlCount = currentDuplicateTitleGroups.reduce((sum, g) => sum + Math.max(0, g.urls.length - 1), 0);
   const duplicateDescriptionUrlCount = currentDuplicateDescriptionGroups.reduce((sum, g) => sum + Math.max(0, g.urls.length - 1), 0);
 
-  // ── Le 10 URL Bing: title renderizzato ≤60c ──────────────────────────
+  // ── Le 10 URL Bing (23/07) + le 14 URL Bing (06/08): title renderizzato
+  // ≤60c. Stessa logica per identita' esatta di URL, non un conteggio.
   let bingTitleFailures = 0;
-  for (const pathname of BING_TITLE_URLS) {
+  for (const pathname of [...BING_TITLE_URLS, ...BING_TITLE_URLS_AUG6]) {
     const page = pages.find((p) => p.pathname === pathname);
     if (!page) {
       errors.push(`[bing-title-url-non-in-sitemap] ${pathname} non trovato in sitemap.xml — impossibile verificare`);
@@ -382,7 +417,15 @@ async function main() {
 
   // ── Debito sitewide preesistente: identita' stabile per URL ──────────
   const currentLongTitleUrls = pages
-    .filter((p) => p.title && !p.isRedirect && p.status === 200 && !BING_TITLE_URLS.includes(p.pathname) && unicodeLength(p.title) > 60)
+    .filter(
+      (p) =>
+        p.title &&
+        !p.isRedirect &&
+        p.status === 200 &&
+        !BING_TITLE_URLS.includes(p.pathname) &&
+        !BING_TITLE_URLS_AUG6.includes(p.pathname) &&
+        unicodeLength(p.title) > 60,
+    )
     .map((p) => p.pathname)
     .sort();
   const currentOutOfRangeDescriptionUrls = pages
@@ -432,8 +475,9 @@ async function main() {
   );
   const bingDescCompliant = BING_DESCRIPTION_URLS.length - bingDescFailures - bingDescClassifiedD;
   const bingDescCheckable = BING_DESCRIPTION_URLS.length - bingDescClassifiedD;
+  const bingTitleUrlsTotal = BING_TITLE_URLS.length + BING_TITLE_URLS_AUG6.length;
   console.log(
-    `10 URL Bing title: ${BING_TITLE_URLS.length - bingTitleFailures}/${BING_TITLE_URLS.length} ≤60c. 28 URL Bing description: ${bingDescCompliant}/${bingDescCheckable} in 140-160c (${bingDescClassifiedD} classificata/e D — redirect noto verso pagina viva, non una description da correggere).`,
+    `${bingTitleUrlsTotal} URL Bing title (10 del 23/07 + 14 del 06/08): ${bingTitleUrlsTotal - bingTitleFailures}/${bingTitleUrlsTotal} ≤60c. 28 URL Bing description: ${bingDescCompliant}/${bingDescCheckable} in 140-160c (${bingDescClassifiedD} classificata/e D — redirect noto verso pagina viva, non una description da correggere).`,
   );
   console.log(
     `Debito sitewide preesistente: ${currentLongTitleUrls.length} title >60c, ${currentOutOfRangeDescriptionUrls.length} description fuori 140-160c (baseline: ${baseline?.longTitleUrls ? `${baseline.longTitleUrls.length}/${baseline.outOfRangeDescriptionUrls.length}` : "assente o formato precedente"}).`,

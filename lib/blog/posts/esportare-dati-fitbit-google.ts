@@ -198,6 +198,9 @@ export const post: BlogPost = {
   // P0.8: <title> renderizzato en superava 60 caratteri (62). H1 invariato.
   seoTitle: {
     en: "Export Fitbit Data via Google Takeout (2026)",
+    // SPRINT PRE-FERIE addendum Bing (2026-08-06): title DE renderizzato
+    // sopra 70 caratteri (Bing FailingUrls CSV, verificato live).
+    de: "Fitbit-Daten zu Google Health exportieren",
   },
   body: [
     {

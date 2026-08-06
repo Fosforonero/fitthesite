@@ -262,6 +262,9 @@ export const post: BlogPost = {
   seoTitle: {
     nl: "Health Connect synchroniseert niet: 7 oplossingen",
     de: "Samsung Health synchronisiert nicht: 7 Lösungen",
+    // SPRINT PRE-FERIE addendum Bing (2026-08-06): title live 73 caratteri
+    // (Bing FailingUrls CSV, poi riverificato dopo il merge di PR #45).
+    es: "Health Connect no sincroniza: 7 soluciones (2026)",
   },
   body: [
     {
@@ -1544,6 +1547,12 @@ export const post: BlogPost = {
   // specifico che supportano — niente sezione fonti separata: qui non
   // esiste il componente di rendering automatico (introdotto in PR #44,
   // non disponibile su questo branch isolato da origin/main).
+  //
+  // Release B (2026-08-06): PR #44 (componente BlogSources condiviso) e'
+  // stata integrata in questa release insieme al truth-fix PR #45. Tutte
+  // e 6 le URL sopra sono gia' citate inline nel corpo (verificato dal
+  // guardrail check-p16-visible-sources.ts): sourcesRenderedInline=true
+  // evita la sezione "Fonti" automatica duplicata.
   sources: [
     "https://developer.android.com/health-and-fitness/guides/health-connect/develop/get-started",
     "https://developer.samsung.com/health/health-connect-faq.html",
@@ -1552,5 +1561,6 @@ export const post: BlogPost = {
     "https://support.google.com/googlehealth/answer/17068213",
     "https://support.google.com/android/answer/14119325",
   ],
+  sourcesRenderedInline: true,
   ldType: "BlogPosting",
 };

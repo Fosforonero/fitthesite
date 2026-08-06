@@ -17,6 +17,20 @@ export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) 
     locale === "it"
       ? "Dashboard dell'app FitMesh Sync con passi, battito, calorie, sonno e Recovery Index"
       : "FitMesh Sync app dashboard with steps, heart rate, calories, sleep and Recovery Index";
+  // Addendum Bing (2026-08-06): questo screenshot mostra contenuto reale e
+  // distinto dal phone frontale (confronto settimanale, allenamenti, grafico
+  // battito) — non e' un pattern/texture decorativo, quindi alt="" era un
+  // segnale "immagine senza testo alternativo" legittimo per Bing anche se
+  // l'elemento resta intenzionalmente aria-hidden (il contenitore <div>
+  // sotto, non questo file): il phone frontale porta gia' la descrizione
+  // primaria per la tecnologia assistiva, e l'aria-hidden evita di far
+  // leggere due mockup ridondanti in sequenza a uno screen reader. L'alt
+  // qui sotto resta comunque corretto e verificabile per i crawler che
+  // leggono l'HTML grezzo senza applicare l'albero di accessibilita'.
+  const weekAlt =
+    locale === "it"
+      ? "Panoramica settimanale FitMesh con attività, sonno e andamento del benessere"
+      : "FitMesh weekly overview showing activity, sleep and wellness trends";
 
   return (
     <div className="relative w-full max-w-[460px] mx-auto lg:mx-0 h-[520px] sm:h-[640px] lg:h-[720px]">
@@ -35,7 +49,7 @@ export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) 
         className="absolute hidden sm:block top-[70px] -right-[36px] lg:right-[-26px] w-[226px] rotate-[6deg] origin-bottom-left z-0 opacity-90"
         aria-hidden
       >
-        <PhoneFrame src={`${base}/week.jpg`} alt="" priority={false} />
+        <PhoneFrame src={`${base}/week.jpg`} alt={weekAlt} priority={false} />
       </div>
 
       {/* ── Phone A (fronte, dashboard) ── */}

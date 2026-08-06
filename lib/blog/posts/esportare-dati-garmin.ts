@@ -223,6 +223,13 @@ export const post: BlogPost = {
   // em dash vietato ("— kompletny przewodnik"). H1 invariato.
   seoTitle: {
     pl: "Eksport danych Garmin: GPX, TCX, FIT, CSV",
+    // SPRINT PRE-FERIE addendum Bing (2026-08-06): title DE/NL/SV
+    // renderizzati sopra 70 caratteri (Bing FailingUrls CSV, verificato
+    // live). H1/slug invariati, solo <title>/og:title/twitter:title/
+    // BlogPosting.headline.
+    de: "Garmin-Daten exportieren: GPX, TCX, FIT, CSV",
+    nl: "Garmin-gegevens exporteren: GPX, TCX, FIT, CSV",
+    sv: "Exportera Garmin-data: GPX, TCX, FIT, CSV",
   },
   body: [
     {

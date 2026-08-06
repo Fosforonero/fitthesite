@@ -234,6 +234,9 @@ export const post: BlogPost = {
   // P0.8: <title> renderizzato fr superava 60 caratteri (87). H1 invariato.
   seoTitle: {
     fr: "Galaxy Watch : pas non synchronisés, solution",
+    // SPRINT PRE-FERIE addendum Bing (2026-08-06): title DE renderizzato
+    // sopra 70 caratteri (Bing FailingUrls CSV, verificato live).
+    de: "Galaxy Watch: Schritte synchronisieren sich nicht",
   },
   body: [
     {

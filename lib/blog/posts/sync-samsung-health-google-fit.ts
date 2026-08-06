@@ -219,6 +219,9 @@ export const post: BlogPost = {
   // P0.8: <title> renderizzato en superava 60 caratteri (76). H1 invariato.
   seoTitle: {
     en: "Samsung Health to Google Fit Sync (2026)",
+    // SPRINT PRE-FERIE addendum Bing (2026-08-06): title DE renderizzato
+    // sopra 70 caratteri (Bing FailingUrls CSV, verificato live).
+    de: "Samsung Health mit Google Fit synchronisieren",
   },
   body: [
     {

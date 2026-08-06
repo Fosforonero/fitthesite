@@ -6,6 +6,12 @@ export const post: BlogPost = {
   publishedAt: "2026-06-18",
   updatedAt: "2026-06-18",
   readMinutes: 8,
+  // SPRINT PRE-FERIE addendum Bing (2026-08-06): title ES renderizzato
+  // sopra 70 caratteri (Bing FailingUrls CSV, verificato live). H1/slug
+  // invariati, solo <title>/og:title/twitter:title/BlogPosting.headline.
+  seoTitle: {
+    es: "Sincronizar datos de Withings en un solo panel",
+  },
   tldr: {
     it: [
       "Withings sincronizza peso, composizione corporea, attività e sonno verso la propria app Health Mate: da lì puoi portare tutto in una dashboard unificata.",
