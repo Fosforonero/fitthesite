@@ -294,6 +294,23 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "health-connect-douki-mondai-kaiketsu",
     ko: "health-connect-dongkihwa-munje-haegyeol",
   },
+  // P1.8S (2026-08-06): solo it/en hanno contenuto reale (regola esplicita
+  // dello sprint). Le altre 8 locale ricadono comunque sullo slug canonico
+  // (nessuna traduzione inventata): la pagina non e' comunque indicizzabile
+  // li' finche' non arriva contenuto reale (isBlogVariantIndexable la
+  // esclude in base al corpo, non allo slug).
+  "fitmesh-samsung-health-usarli-insieme": {
+    en: "fitmesh-vs-samsung-health",
+    es: "fitmesh-samsung-health-usarli-insieme",
+    de: "fitmesh-samsung-health-usarli-insieme",
+    pt: "fitmesh-samsung-health-usarli-insieme",
+    fr: "fitmesh-samsung-health-usarli-insieme",
+    pl: "fitmesh-samsung-health-usarli-insieme",
+    tr: "fitmesh-samsung-health-usarli-insieme",
+    nl: "fitmesh-samsung-health-usarli-insieme",
+    ja: "fitmesh-samsung-health-usarli-insieme",
+    ko: "fitmesh-samsung-health-usarli-insieme",
+  },
   "health-connect-vs-samsung-health": {
     en: "health-connect-vs-samsung-health",
     es: "health-connect-vs-samsung-health",

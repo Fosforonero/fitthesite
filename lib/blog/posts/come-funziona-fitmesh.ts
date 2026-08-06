@@ -9,8 +9,15 @@ export const post: BlogPost = {
   slug: "come-funziona-fitmesh",
   category: "guides",
   publishedAt: "2026-07-03",
-  updatedAt: "2026-07-03",
-  readMinutes: 7,
+  // P1.5B Fase C (2026-08-05): revisione contenuto reale (nuove sezioni
+  // it/en, non solo metadata) — updatedAt aggiornato, a differenza del
+  // micro-fix Fase A dove non andava toccato.
+  updatedAt: "2026-08-05",
+  // Non localizzato: riflette la lunghezza it/en (post-Fase C, più lungo).
+  // Leggera imprecisione per es/de/pt/fr (contenuto invariato, più corto) —
+  // accettata: campo cosmetico (tempo di lettura stimato), non un claim
+  // fattuale verificabile.
+  readMinutes: 11,
   hero: {
     kicker: {
       it: "Guida",
@@ -21,8 +28,13 @@ export const post: BlogPost = {
       fr: "Guide",
     },
     title: {
-      it: "Come funziona FitMesh: anello e orologio in un'unica dashboard",
-      en: "How FitMesh works: your ring and watch in one dashboard",
+      // P1.5B Fase C: titolo esteso da "come funziona" a "cos'è + come
+      // funziona" per riflettere la copertura ampliata (self-host,
+      // cancellazione, metriche non disponibili). Solo it/en: le altre 4
+      // locale non ricevono i nuovi contenuti in questo sprint, restano
+      // sul titolo/scopo originale invariato.
+      it: "Cos'è FitMesh e come funziona",
+      en: "What Is FitMesh and How Does It Work?",
       es: "Cómo funciona FitMesh: tu anillo y tu reloj en un solo panel",
       de: "So funktioniert FitMesh: Ring und Uhr in einem Dashboard",
       pt: "Como funciona o FitMesh: seu anel e seu relógio em um único painel",
@@ -38,8 +50,11 @@ export const post: BlogPost = {
     },
   },
   metaDescription: {
-    it: "Come funziona FitMesh Sync: legge l'anello Colmi via Bluetooth e lo smartwatch via Health Connect, unisce i dati senza doppioni in un'unica dashboard web. Guida con schermate reali.",
-    en: "How FitMesh Sync works: it reads the Colmi ring over Bluetooth and your smartwatch via Health Connect, merges data with no duplicates in one web dashboard. Guide with real screenshots.",
+    // P1.5B Fase C: solo it/en riportate a 140-160 caratteri (erano 181/184)
+    // e aggiornate per riflettere lo scope ampliato (privacy/cancellazione/
+    // limiti). es/de/pt/fr invariate: nessun nuovo contenuto per quelle locale.
+    it: "Cos'è FitMesh e come funziona: legge anello Colmi e smartwatch, unisce i dati senza doppioni in un'unica dashboard. Privacy, cancellazione e limiti spiegati.",
+    en: "What FitMesh is and how it works: reads your Colmi ring and smartwatch, merges data with no duplicates in one dashboard. Privacy, deletion and limits explained.",
     es: "Cómo funciona FitMesh Sync: lee el anillo Colmi por Bluetooth y el smartwatch mediante Health Connect, unifica los datos sin duplicados en un único panel web. Guía con capturas reales.",
     de: "So funktioniert FitMesh Sync: Es liest den Colmi-Ring über Bluetooth und deine Smartwatch über Health Connect und führt die Daten ohne Duplikate in einem Web-Dashboard zusammen. Anleitung mit echten Screenshots.",
     pt: "Como funciona o FitMesh Sync: lê o anel Colmi por Bluetooth e o smartwatch via Health Connect, une os dados sem duplicatas em um único painel na web. Guia com capturas de tela reais.",
@@ -113,42 +128,42 @@ export const post: BlogPost = {
     it: [
       "FitMesh Sync è un'app che raccoglie i dati dei tuoi wearable e li mostra in un'unica dashboard, sul telefono e sul web.",
       "Legge l'anello Colmi direttamente via Bluetooth e lo smartwatch tramite Health Connect su Android.",
-      "Unisce le fonti con la deduplicazione: lo stesso passo non viene mai contato due volte.",
+      "Unisce le fonti con la deduplicazione: quando più dispositivi registrano lo stesso dato, sceglie il valore migliore invece di sommarli.",
       "Per ogni metrica vedi da quale app arriva il dato (passi, sonno, frequenza cardiaca, SpO2).",
       "I dati restano sul tuo account nel cloud in UE. App Android disponibile ora; app iOS già live in tutti gli store supportati, incluse tutte le storefront dell'Unione Europea.",
     ],
     en: [
       "FitMesh Sync is an app that gathers your wearables' data and shows it in one dashboard, on your phone and on the web.",
       "It reads the Colmi ring directly over Bluetooth and your smartwatch through Health Connect on Android.",
-      "It merges the sources with deduplication: the same step is never counted twice.",
+      "It merges the sources with deduplication: when multiple devices record the same data, it picks the best value instead of adding them up.",
       "For each metric you can see which app provided the data (steps, sleep, heart rate, SpO2).",
       "Your data stays on your account in the EU cloud. Android app available now; the iOS app is already live in all supported storefronts, including the EU.",
     ],
     es: [
       "FitMesh Sync es una app que reúne los datos de tus wearables y los muestra en un único panel, en el móvil y en la web.",
       "Lee el anillo Colmi directamente por Bluetooth y el smartwatch a través de Health Connect en Android.",
-      "Unifica las fuentes con la deduplicación: el mismo paso nunca se cuenta dos veces.",
+      "Unifica las fuentes con la deduplicación: cuando varios dispositivos registran el mismo dato, elige el mejor valor en lugar de sumarlos.",
       "En cada métrica puedes ver de qué app procede el dato (pasos, sueño, frecuencia cardíaca, SpO2).",
       "Tus datos se quedan en tu cuenta, en la nube en la UE. App Android disponible ya; la app iOS ya está disponible en todas las tiendas compatibles, incluidas todas las tiendas de la Unión Europea.",
     ],
     de: [
       "FitMesh Sync ist eine App, die die Daten deiner Wearables sammelt und in einem einzigen Dashboard anzeigt, auf dem Handy und im Web.",
       "Sie liest den Colmi-Ring direkt über Bluetooth und deine Smartwatch über Health Connect unter Android.",
-      "Sie führt die Quellen per Deduplizierung zusammen: Derselbe Schritt wird nie doppelt gezählt.",
+      "Sie führt die Quellen per Deduplizierung zusammen: Wenn mehrere Geräte denselben Wert erfassen, wählt sie den besten Wert, statt sie zu addieren.",
       "Bei jeder Metrik siehst du, welche App die Daten geliefert hat (Schritte, Schlaf, Herzfrequenz, SpO2).",
       "Deine Daten bleiben in deinem Konto in der EU-Cloud. Android-App ab sofort verfügbar; die iOS-App ist bereits in allen unterstützten Stores live, einschließlich aller Storefronts der Europäischen Union.",
     ],
     pt: [
       "O FitMesh Sync é um app que reúne os dados dos seus wearables e mostra tudo em um único painel, no celular e na web.",
       "Ele lê o anel Colmi diretamente por Bluetooth e o smartwatch pelo Health Connect no Android.",
-      "Une as fontes com a deduplicação: o mesmo passo nunca é contado duas vezes.",
+      "Une as fontes com a deduplicação: quando vários dispositivos registram o mesmo dado, escolhe o melhor valor em vez de somá-los.",
       "Em cada métrica você vê de qual app veio o dado (passos, sono, frequência cardíaca, SpO2).",
       "Seus dados ficam na sua conta, na nuvem na UE. App Android disponível agora; app iOS já disponível em todas as lojas compatíveis, incluindo todas as lojas da União Europeia.",
     ],
     fr: [
       "FitMesh Sync est une app qui rassemble les données de vos wearables et les affiche dans un seul tableau de bord, sur votre téléphone et sur le web.",
       "Elle lit la bague Colmi directement via Bluetooth et votre montre connectée via Health Connect sur Android.",
-      "Elle fusionne les sources grâce à la déduplication : le même pas n'est jamais compté deux fois.",
+      "Elle fusionne les sources grâce à la déduplication : quand plusieurs appareils enregistrent la même donnée, elle retient la meilleure valeur au lieu de les additionner.",
       "Pour chaque mesure, vous voyez quelle app a fourni la donnée (pas, sommeil, fréquence cardiaque, SpO2).",
       "Vos données restent sur votre compte, dans le cloud en UE. App Android disponible maintenant ; app iOS déjà disponible dans toutes les boutiques prises en charge, y compris toutes les boutiques de l'Union européenne.",
     ],
@@ -279,6 +294,127 @@ export const post: BlogPost = {
       width: 720,
       height: 1560,
       narrow: true,
+    },
+    // P1.5B Fase C: sezione nuova, solo it/en (le altre 4 locale non
+    // ricevono i nuovi contenuti in questo sprint). Fa da "diagramma
+    // semantico dei percorsi" richiesto dal mandato in forma di tabella
+    // (nel codebase non esiste un block-type "diagram" nativo — vedi
+    // lib/blog/types.ts: aggiungerne uno sarebbe un cambio strutturale più
+    // ampio, non giustificato per un deliverable che resta in PR non
+    // mergiata). Copre esplicitamente il canale Samsung Health Data SDK
+    // diretto, mai menzionato altrove in questo post.
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "Da dove arriva ogni dato: sorgente, percorso, cosa raccoglie",
+        en: "Where each data point comes from: source, path, what it collects",
+      },
+    },
+    {
+      type: "paragraph",
+      locales: ["it", "en"],
+      text: {
+        it: "FitMesh non usa un solo canale per raccogliere i dati: ogni tipo di dispositivo passa da un percorso tecnico diverso. Ecco la mappa completa, sorgente per sorgente.",
+        en: "FitMesh doesn't use a single channel to collect data: each type of device goes through a different technical path. Here's the full map, source by source.",
+      },
+    },
+    // P1.5C: diagramma semantico del percorso dati come sequenza HTML reale
+    // (vedi BlogSection "flow-diagram" in lib/blog/types.ts, render in
+    // BlogRenderer.tsx) — non un'immagine generata. Stessi 5 percorsi
+    // rappresentati anche nella tabella sotto (mandato: diagramma E tabella
+    // come elementi distinti).
+    {
+      type: "flow-diagram",
+      locales: ["it", "en"],
+      title: {
+        it: "Percorso dati per sorgente",
+        en: "Data path by source",
+      },
+      flows: [
+        { steps: { it: ["Anello Colmi", "Bluetooth diretto", "FitMesh"], en: ["Colmi ring", "Direct Bluetooth", "FitMesh"] } },
+        { steps: { it: ["Smartwatch Android", "Health Connect", "FitMesh"], en: ["Android smartwatch", "Health Connect", "FitMesh"] } },
+        { steps: { it: ["Galaxy Watch", "Samsung Health Data SDK", "FitMesh"], en: ["Galaxy Watch", "Samsung Health Data SDK", "FitMesh"] } },
+        { steps: { it: ["Apple Watch", "Apple HealthKit", "FitMesh"], en: ["Apple Watch", "Apple HealthKit", "FitMesh"] } },
+        { steps: { it: ["Provider esterni", "API del provider", "FitMesh"], en: ["External providers", "Provider's own API", "FitMesh"] } },
+      ],
+    },
+    {
+      type: "table",
+      locales: ["it", "en"],
+      caption: {
+        it: "Sorgente, percorso tecnico e dati raccolti",
+        en: "Source, technical path and data collected",
+      },
+      headers: {
+        it: ["Sorgente", "Percorso", "Dati raccolti"],
+        en: ["Source", "Path", "Data collected"],
+      },
+      rows: [
+        {
+          it: ["Anello Colmi", "Bluetooth diretto (nessun intermediario)", "Passi, battito, SpO2, sonno con fasi, stress, batteria"],
+          en: ["Colmi ring", "Direct Bluetooth (no intermediary)", "Steps, heart rate, SpO2, sleep with stages, stress, battery"],
+        },
+        {
+          it: ["Smartwatch Android (generico)", "Health Connect", "Qualsiasi dato che il dispositivo scrive su Health Connect"],
+          en: ["Android smartwatch (generic)", "Health Connect", "Whatever data the device writes to Health Connect"],
+        },
+        {
+          it: ["Samsung Galaxy Watch", "Samsung Health Data SDK, canale diretto e in sola lettura, indipendente da Health Connect", "Passi, frequenza cardiaca, sonno"],
+          en: ["Samsung Galaxy Watch", "Samsung Health Data SDK, a direct read-only channel, independent of Health Connect", "Steps, heart rate, sleep"],
+        },
+        {
+          it: ["Apple Watch (iPhone)", "Apple HealthKit", "Passi, frequenza cardiaca, sonno, allenamenti"],
+          en: ["Apple Watch (iPhone)", "Apple HealthKit", "Steps, heart rate, sleep, workouts"],
+        },
+        {
+          it: ["Provider esterni (Strava, Suunto, Oura in arrivo)", "API del provider, collegamento dalla sezione provider esterni", "Allenamenti e metriche specifiche del provider collegato"],
+          en: ["External providers (Strava, Suunto, Oura coming soon)", "The provider's own API, connected from the external providers section", "Workouts and metrics specific to the connected provider"],
+        },
+      ],
+    },
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "Cosa non arriva mai a FitMesh",
+        en: "What never reaches FitMesh",
+      },
+    },
+    {
+      type: "paragraph",
+      locales: ["it", "en"],
+      text: {
+        it: "Non tutte le metriche che il tuo dispositivo misura arrivano a FitMesh: dipende da cosa il sistema operativo o l'app del produttore mette a disposizione. Alcuni esempi concreti: Apple Health non espone dati HRV a grana fine agli sviluppatori esterni, solo valori aggregati; Health Connect non include peso corporeo o HRV per alcuni produttori; alcune metriche proprietarie, per esempio punteggi di fitness calcolati internamente da un'app, restano dentro l'app originale e non vengono mai scritte su Health Connect o HealthKit, quindi FitMesh non le vede. FitMesh non inventa né stima i dati mancanti: se una metrica non arriva dal sistema operativo o dal provider, semplicemente non compare.",
+        en: "Not every metric your device measures makes it to FitMesh: it depends on what the operating system or the manufacturer's app actually exposes. A few concrete examples: Apple Health doesn't expose fine-grained HRV data to external developers, only aggregated values; Health Connect doesn't include body weight or HRV for some manufacturers; some proprietary metrics, for example fitness scores computed internally by an app, stay inside the original app and are never written to Health Connect or HealthKit, so FitMesh never sees them. FitMesh doesn't invent or estimate missing data: if a metric doesn't arrive from the OS or the provider, it simply doesn't show up.",
+      },
+    },
+    // P1.5C: CTA progressiva #1 verso /integrations (funnel: percorso dati ->
+    // integrazioni). Traccia cta_view/cta_click via data-cta-id/data-cta-placement
+    // (OutboundTracker.tsx), zero dati personali/sanitari nell'evento.
+    {
+      type: "cta",
+      locales: ["it", "en"],
+      title: {
+        it: "Vedi quali dispositivi si collegano davvero",
+        en: "See which devices actually connect",
+      },
+      body: {
+        it: "Non solo anello e smartwatch: FitMesh si integra anche con provider come Strava e Suunto. La pagina Integrazioni elenca tutto quello che puoi collegare oggi.",
+        en: "Not just ring and smartwatch: FitMesh also integrates with providers like Strava and Suunto. The Integrations page lists everything you can connect today.",
+      },
+      ctaLabel: {
+        it: "Vedi le integrazioni →",
+        en: "See integrations →",
+      },
+      ctaHref: {
+        it: "/it/integrations",
+        en: "/en/integrations",
+      },
+      ctaId: "blog-come-funziona-fitmesh-integrations-cta",
+      ctaPlacement: "blog_body_mid",
     },
     {
       type: "heading",
@@ -466,6 +602,27 @@ export const post: BlogPost = {
         ],
       },
     },
+    // P1.5B Fase C: solo it/en — dettaglio della prima sincronizzazione,
+    // testo-only (nessuno screenshot nuovo: il mandato vieta schermate
+    // inventate/AI e non è possibile generare qui uno screenshot reale
+    // dell'app).
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "La prima sincronizzazione, in dettaglio",
+        en: "Your first sync, in detail",
+      },
+    },
+    {
+      type: "paragraph",
+      locales: ["it", "en"],
+      text: {
+        it: "I 3 passi qui sopra bastano per iniziare, ma ecco cosa succede davvero al primo avvio. Su Android, quando apri FitMesh per la prima volta, il sistema ti chiede di autorizzare l'accesso a Health Connect: scegli quali categorie di dati condividere (passi, frequenza cardiaca, sonno, ecc.) e puoi cambiare idea in qualsiasi momento dalle impostazioni di Health Connect del telefono, non solo dentro FitMesh. Se hai un anello Colmi, il collegamento Bluetooth richiede che l'anello sia vicino e carico: la prima sincronizzazione dei dati storici, se l'anello li ha già registrati, può richiedere qualche minuto. Su iPhone, l'autorizzazione ad Apple Salute segue lo stesso principio: scegli quali categorie condividere, revocabile in qualsiasi momento dalle Impostazioni di iOS. In entrambi i casi, la prima dashboard che vedi potrebbe mostrare solo i dati degli ultimi giorni: lo storico più lontano si popola con le sincronizzazioni successive, non tutto insieme al primo avvio.",
+        en: "The 3 steps above are enough to get started, but here's what actually happens on first launch. On Android, when you open FitMesh for the first time, the system asks you to authorize access to Health Connect: you choose which data categories to share (steps, heart rate, sleep, and so on), and you can change your mind at any time from your phone's Health Connect settings, not just inside FitMesh. If you have a Colmi ring, the Bluetooth connection requires the ring to be nearby and charged: the first sync of historical data, if the ring has already recorded any, can take a few minutes. On iPhone, Apple Health authorization follows the same principle: you choose which categories to share, revocable at any time from iOS Settings. In both cases, the first dashboard you see might only show the last few days of data: older history fills in over subsequent syncs, not all at once on first launch.",
+      },
+    },
     {
       type: "heading",
       level: 2,
@@ -539,6 +696,29 @@ export const post: BlogPost = {
         },
       ],
     },
+    // P1.5C: CTA progressiva #2 verso /fitness-data-sync (funnel: compatibilità).
+    {
+      type: "cta",
+      locales: ["it", "en"],
+      title: {
+        it: "Controlla la compatibilità del tuo dispositivo",
+        en: "Check your device's compatibility",
+      },
+      body: {
+        it: "Guarda la tabella completa di provider e dispositivi supportati, cosa si sincronizza e cosa no, aggiornata regolarmente.",
+        en: "See the full table of supported providers and devices, what syncs and what doesn't, updated regularly.",
+      },
+      ctaLabel: {
+        it: "Guarda la compatibilità →",
+        en: "Check compatibility →",
+      },
+      ctaHref: {
+        it: "/it/fitness-data-sync",
+        en: "/en/fitness-data-sync",
+      },
+      ctaId: "blog-come-funziona-fitmesh-compatibility-cta",
+      ctaPlacement: "blog_body_mid",
+    },
     {
       type: "heading",
       level: 2,
@@ -560,6 +740,74 @@ export const post: BlogPost = {
         de: "Deine Gesundheitsdaten bleiben in deinem Konto, auf Servern in der Europäischen Union. FitMesh verkauft sie nicht und zeigt keine Werbung: Der Dienst finanziert sich über ein kleines Abo oder eine einmalige lebenslange Freischaltung, und die ersten 1.000 founder-Anmeldungen (bis 31. Juli 2026) haben Pro lebenslang gratis erhalten. Alle Details: [Ist FitMesh kostenlos? Preis und founder-Plätze](/de/blog/fitmesh-gratis-prezzo-founder).",
         pt: "Seus dados de saúde ficam na sua conta, em servidores na União Europeia. O FitMesh não os vende e não mostra anúncios: o serviço se mantém com uma pequena assinatura ou um desbloqueio vitalício, e os primeiros 1000 inscritos founder (até 31 de julho de 2026) ganharam o Pro vitalício de graça. Para os detalhes: [o FitMesh é grátis? preço e vagas founder](/pt/blog/fitmesh-gratis-prezzo-founder).",
         fr: "Vos données de santé restent sur votre compte, sur des serveurs situés dans l'Union européenne. FitMesh ne les vend pas et n'affiche aucune publicité : le service se finance par un petit abonnement ou un déblocage à vie, et les 1000 premiers inscrits founder (jusqu'au 31 juillet 2026) ont obtenu Pro à vie gratuitement. Pour les détails : [FitMesh est-il gratuit ? prix et places founder](/fr/blog/fitmesh-gratis-prezzo-founder).",
+      },
+    },
+    // P1.5B Fase C: solo it/en — cancellazione, self-host, scope negativo,
+    // fonti. Formulazioni allineate 1:1 a delete-account-copy.ts e
+    // self-host-copy.ts (letti direttamente, non parafrasati): non
+    // contraddicono i testi di riferimento su quelle pagine.
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "Cancellazione dati e account",
+        en: "Deleting your data and account",
+      },
+    },
+    {
+      type: "paragraph",
+      locales: ["it", "en"],
+      text: {
+        it: "Puoi cancellare l'account direttamente dall'app: essendo già autenticato sul dispositivo, la cancellazione è immediata. Le richieste inviate dalla dashboard web hanno invece un periodo di ripensamento di 24 ore prima di essere eseguite; quelle via email vengono eseguite dopo una verifica di identità. FitMesh non crea backup propri del database, ma il fornitore dell'infrastruttura può conservare copie tecniche di ripristino per un massimo di 7 giorni secondo il proprio ciclo interno; quei dati residui non vengono usati da FitMesh per il trattamento ordinario. Cancellare l'account FitMesh non tocca i dati che restano sui servizi terzi collegati (Health Connect, Apple Salute, Samsung Health, provider esterni): quelli si gestiscono separatamente, da ciascun servizio. Dettagli completi nella [pagina dedicata alla cancellazione account](/it/delete-account).",
+        en: "You can delete your account directly from the app: since you're already signed in on that device, deletion is immediate. Requests made from the web dashboard instead have a 24-hour grace period before they're carried out; requests by email are carried out after an identity check. FitMesh doesn't create its own database backups, but the infrastructure provider may retain technical recovery copies for up to 7 days under its own cycle; any residual data in those copies isn't used by FitMesh for normal processing. Deleting your FitMesh account doesn't touch the data that stays on connected third-party services (Health Connect, Apple Health, Samsung Health, external providers): those are managed separately, on each service. Full details on the [dedicated account deletion page](/en/delete-account).",
+      },
+    },
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "Self-host: stato reale oggi",
+        en: "Self-hosting: the real status today",
+      },
+    },
+    {
+      type: "paragraph",
+      locales: ["it", "en"],
+      text: {
+        it: "La possibilità di configurare un backend personalizzato (self-host) esiste nel software FitMesh, ma oggi non è un percorso pensato per il pubblico: è una capacità tecnica interna, con accesso riservato ad account admin. Il percorso di scrittura dei dati fitness passa comunque dall'infrastruttura gestita da FitMesh. Non è quindi un'alternativa self-service oggi disponibile: se ti interessa lo stato esatto, la [pagina dedicata](/it/self-host) lo spiega in dettaglio.",
+        en: "The ability to configure a custom backend (self-hosting) exists in the FitMesh software, but today it isn't a path meant for the public: it's an internal technical capability, gated to admin accounts. The fitness data write path still goes through FitMesh's managed infrastructure. It isn't a self-service alternative available today: if you want the exact current status, the [dedicated page](/en/self-host) explains it in detail.",
+      },
+    },
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "Cosa FitMesh non fa",
+        en: "What FitMesh doesn't do",
+      },
+    },
+    {
+      type: "paragraph",
+      locales: ["it", "en"],
+      text: {
+        it: "Per essere chiari su cosa FitMesh non è: non è un'intelligenza artificiale (la funzione \"Condividi con AI\" genera solo un testo con i tuoi dati, da incollare in un assistente esterno a tua scelta); non fa diagnosi né sostituisce il parere di un medico; non garantisce che ogni possibile doppione tra dispositivi venga sempre eliminato (la deduplicazione copre i casi più comuni, non è infallibile su ogni combinazione di fonti); non importa automaticamente ogni metrica proprietaria di ogni dispositivo, solo quelle che il sistema operativo o il provider rendono disponibili; e non offre oggi un percorso self-host aperto al pubblico.",
+        en: "To be clear about what FitMesh doesn't do: it isn't an AI (the \"Share with AI\" feature only generates a text with your data, to paste into an external assistant of your choice); it doesn't diagnose anything and doesn't replace a doctor's advice; it doesn't guarantee that every possible duplicate between devices is always eliminated (deduplication covers the most common cases, it isn't infallible across every combination of sources); it doesn't automatically import every proprietary metric from every device, only what the OS or provider makes available; and it doesn't offer a self-hosting path open to the public today.",
+      },
+    },
+    {
+      type: "callout",
+      variant: "info",
+      locales: ["it", "en"],
+      title: {
+        it: "Fonti e verifica",
+        en: "Sources and verification",
+      },
+      body: {
+        it: "Le informazioni tecniche su Health Connect, Apple HealthKit e Samsung Health Data SDK sono verificate contro la documentazione ufficiale delle rispettive piattaforme, controllata l'ultima volta il 5 agosto 2026: [Android Developers, Health Connect](https://developer.android.com/health-and-fitness/health-connect), [Apple Developer, HealthKit](https://developer.apple.com/documentation/healthkit), [Samsung Developer, Health Data SDK](https://developer.samsung.com/health/data/overview.html).",
+        en: "The technical information about Health Connect, Apple HealthKit, and Samsung Health Data SDK is verified against each platform's official documentation, last checked on August 5, 2026: [Android Developers, Health Connect](https://developer.android.com/health-and-fitness/health-connect), [Apple Developer, HealthKit](https://developer.apple.com/documentation/healthkit), [Samsung Developer, Health Data SDK](https://developer.samsung.com/health/data/overview.html).",
       },
     },
     {
@@ -596,6 +844,10 @@ export const post: BlogPost = {
         pt: "/pt#download",
         fr: "/fr#download",
       },
+      // P1.5C: id/placement aggiunti per il tracking cta_view/cta_click
+      // (mancavano su questo CTA da prima di questo sprint).
+      ctaId: "blog-come-funziona-fitmesh-final-cta",
+      ctaPlacement: "blog_body_end",
     },
   ],
   faq: [
@@ -673,12 +925,12 @@ export const post: BlogPost = {
     },
     {
       q: {
-        it: "Perché i dati non vengono contati due volte?",
-        en: "Why isn't data counted twice?",
-        es: "¿Por qué los datos no se cuentan dos veces?",
-        de: "Warum werden Daten nicht doppelt gezählt?",
-        pt: "Por que os dados não são contados duas vezes?",
-        fr: "Pourquoi les données ne sont-elles pas comptées deux fois ?",
+        it: "Come funziona la deduplicazione tra le fonti?",
+        en: "How does deduplication across sources work?",
+        es: "¿Cómo funciona la deduplicación entre fuentes?",
+        de: "Wie funktioniert die Deduplizierung über mehrere Quellen?",
+        pt: "Como funciona a deduplicação entre as fontes?",
+        fr: "Comment fonctionne la déduplication entre les sources ?",
       },
       a: {
         it: "Perché FitMesh applica una deduplicazione: se la stessa metrica arriva da più fonti nello stesso intervallo (per esempio anello e orologio), sceglie il dato migliore invece di sommarli. Nel Centro sincronizzazione vedi, per ogni metrica, da quale app proviene.",
@@ -743,6 +995,52 @@ export const post: BlogPost = {
         fr: "Oui. L'app Android est disponible maintenant et l'app iOS est déjà disponible sur l'App Store dans toutes les boutiques prises en charge, y compris les 27 pays de l'UE ; sur iPhone, elle lit directement Apple Health. Le tableau de bord web, en revanche, est déjà accessible depuis n'importe quel appareil avec votre compte, iPhone compris.",
       },
     },
+    // P1.5B Fase C: 4 nuove FAQ, solo it/en, ciascuna risponde direttamente
+    // a uno dei vincoli "non affermare" del mandato invece di ignorarlo.
+    {
+      q: {
+        it: "FitMesh elimina sempre tutti i doppioni tra dispositivi?",
+        en: "Does FitMesh always eliminate every duplicate between devices?",
+      },
+      a: {
+        it: "Nella maggior parte dei casi sì: quando più dispositivi registrano lo stesso dato nello stesso intervallo, la deduplicazione sceglie il valore migliore invece di sommarli. Non è però una garanzia assoluta su ogni possibile combinazione di fonti: casi limite, per esempio intervalli temporali molto ravvicinati ma non identici, possono comportarsi diversamente.",
+        en: "In most cases, yes: when multiple devices record the same data in the same interval, deduplication picks the best value instead of adding them up. It isn't an absolute guarantee across every possible combination of sources, though: edge cases, for example very close but not identical time intervals, can behave differently.",
+      },
+      locales: ["it", "en"],
+    },
+    {
+      q: {
+        it: "Posso cancellare account e dati?",
+        en: "Can I delete my account and data?",
+      },
+      a: {
+        it: "Sì, direttamente dall'app: la cancellazione dal telefono è immediata. Le richieste dalla dashboard web hanno un periodo di ripensamento di 24 ore; quelle via email vengono eseguite dopo una verifica di identità. Dettagli completi nella [pagina di cancellazione account](/it/delete-account).",
+        en: "Yes, directly from the app: deletion from your phone is immediate. Requests from the web dashboard have a 24-hour grace period; requests by email are carried out after an identity check. Full details on the [account deletion page](/en/delete-account).",
+      },
+      locales: ["it", "en"],
+    },
+    {
+      q: {
+        it: "Posso gestire io stesso il backend (self-host)?",
+        en: "Can I run my own backend (self-hosting)?",
+      },
+      a: {
+        it: "La capacità esiste nel software, ma oggi non è un percorso pensato per il pubblico: è riservata ad account admin, e il flusso di scrittura dei dati fitness passa comunque dall'infrastruttura FitMesh. Vedi lo [stato attuale del self-host](/it/self-host).",
+        en: "The capability exists in the software, but today it isn't a path meant for the public: it's restricted to admin accounts, and the fitness data write flow still goes through FitMesh's infrastructure. See the [current self-hosting status](/en/self-host).",
+      },
+      locales: ["it", "en"],
+    },
+    {
+      q: {
+        it: "FitMesh è un'intelligenza artificiale?",
+        en: "Is FitMesh an AI?",
+      },
+      a: {
+        it: "No. FitMesh è un'app di sincronizzazione e visualizzazione dati: unisce e mostra le tue metriche, non le interpreta con modelli di AI. La funzione \"Condividi con AI\" genera solo un testo con i tuoi dati da incollare in un assistente esterno a tua scelta, se lo desideri.",
+        en: "No. FitMesh is a data sync and visualization app: it merges and displays your metrics, it doesn't interpret them with AI models. The \"Share with AI\" feature only generates a text with your data to paste into an external assistant of your choice, if you want to.",
+      },
+      locales: ["it", "en"],
+    },
   ],
   related: [
     "colmi-ring-fitmesh",
@@ -750,7 +1048,21 @@ export const post: BlogPost = {
     "come-funziona-health-connect",
     "vedere-dati-wearable-browser-pc",
     "fitmesh-gratis-prezzo-founder",
+    "fitmesh-samsung-health-usarli-insieme",
   ],
+  // P1.5B Fase C: prima volta che questo post cita fonti primarie visibili
+  // (documentazione ufficiale delle 3 piattaforme discusse nella nuova
+  // tabella sorgente/percorso/dati). Verificate live il 5 agosto 2026.
+  sources: [
+    "https://developer.android.com/health-and-fitness/health-connect",
+    "https://developer.apple.com/documentation/healthkit",
+    "https://developer.samsung.com/health/data/overview.html",
+  ],
+  // P1.8S FASE 8 (2026-08-06): le 3 fonti sono gia' citate inline nel corpo
+  // (tabella sorgente/percorso/dati P1.5B Fase C): evita che il componente
+  // condiviso BlogSources le mostri una seconda volta (verificato da
+  // check-p16-visible-sources.ts per URL-overlap, 3/3).
+  sourcesRenderedInline: true,
   brandsMentioned: ["Colmi", "Samsung Health", "Google"],
   ldType: "BlogPosting",
 };

@@ -303,6 +303,28 @@ const nextConfig = {
       permanent: true,
     }));
 
+    // P1.8S (2026-08-06): audit cannibalizzazione FASE 0 ha trovato 2 pagine
+    // "ponte Apple Salute" competing per le stesse query (scrivere-dati-android-
+    // su-apple-salute.ts vs dati-anello-smart-apple-salute.ts). Decisione
+    // editoriale di Matteo: dati-anello-smart-apple-salute vince (link equity
+    // reale: /sync/apple-health + 2 altri post + FAQ + piu' lungo), nonostante
+    // il commit del 30/06 la chiamasse "flagship" — quella scelta editoriale
+    // non era mai stata resa vincolante con un canonical/redirect. Slug EN
+    // presi da lib/blog/slugs.ts (stesso bug-pattern gia' visto sopra: lo slug
+    // EN reale del winner NON e' lo slug IT-named).
+    const appleWriteBridgeConsolidationRedirects = [
+      {
+        source: '/it/blog/scrivere-dati-android-su-apple-salute',
+        destination: '/it/blog/dati-anello-smart-apple-salute',
+        permanent: true,
+      },
+      {
+        source: '/en/blog/write-android-data-to-apple-health',
+        destination: '/en/blog/smart-ring-data-apple-health',
+        permanent: true,
+      },
+    ];
+
     return [
       // L'apex `fitmesh.fit` -> `www.fitmesh.fit` NON e' piu' gestito qui
       // (P0.4C, incidente reload iOS Safari/Reddit, 2026-07-13): il redirect
@@ -344,6 +366,8 @@ const nextConfig = {
       ...garminSamsungConsolidationRedirects,
       // Slug IT fix (vedi sopra).
       ...itSlugFixRedirects,
+      // Consolidamento ponte Apple Salute (vedi sopra).
+      ...appleWriteBridgeConsolidationRedirects,
     ];
   },
 };

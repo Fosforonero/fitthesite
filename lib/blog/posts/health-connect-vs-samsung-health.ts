@@ -1604,6 +1604,7 @@ export const post: BlogPost = {
     },
   ],
   related: [
+    "fitmesh-samsung-health-usarli-insieme",
     "galaxy-watch-ultra2-watch9-health-connect",
     "come-funziona-health-connect",
     "google-health-google-fit",

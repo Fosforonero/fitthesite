@@ -53,17 +53,50 @@ const problems: string[] = [];
 
 async function main(): Promise<void> {
 
-/** Legge le dimensioni di un WebP a partire dal chunk VP8X (extended format). */
+/**
+ * Legge le dimensioni di un WebP. Supporta sia il formato esteso (VP8X,
+ * usato dalle cover P1.5C con ICC/metadata) sia il formato semplice lossy
+ * (VP8, prodotto normalmente da cwebp/ImageMagick quando il file NON ha
+ * bisogno di alpha/animazione/ICC — bug reale trovato in P1.8S-IMG: le 3
+ * cover normalizzate (crop 1200x686->1200x675 + strip metadata) erano
+ * WebP validi e corretti al 100%, ma finivano nel formato semplice, che
+ * questo parser rifiutava a priori come "impossibile leggere le
+ * dimensioni" — un file valido veniva scambiato per un file rotto).
+ */
 function webpDimensions(buf: Buffer): { width: number; height: number } | null {
   if (buf.length < 30) return null;
   if (buf.toString("ascii", 0, 4) !== "RIFF" || buf.toString("ascii", 8, 12) !== "WEBP") return null;
   const chunkFourCC = buf.toString("ascii", 12, 16);
-  if (chunkFourCC !== "VP8X") return null; // formato semplice (VP8/VP8L): non usato dalle cover attuali
-  // Chunk data inizia a offset 20 (dopo FourCC + size a 4 byte). Layout: 1
-  // byte flags, 3 riservati, 3 width-1 (LE), 3 height-1 (LE).
-  const width = buf.readUIntLE(24, 3) + 1;
-  const height = buf.readUIntLE(27, 3) + 1;
-  return { width, height };
+  if (chunkFourCC === "VP8X") {
+    // Chunk data inizia a offset 20 (dopo FourCC + size a 4 byte). Layout: 1
+    // byte flags, 3 riservati, 3 width-1 (LE), 3 height-1 (LE).
+    const width = buf.readUIntLE(24, 3) + 1;
+    const height = buf.readUIntLE(27, 3) + 1;
+    return { width, height };
+  }
+  if (chunkFourCC === "VP8 ") {
+    // Formato semplice lossy (RFC 6386 §9.1): dopo FourCC+size (8 byte),
+    // 3 byte frame tag, poi 3 byte start code (0x9d 0x01 0x2a), poi
+    // width/height a 2 byte LE ciascuno (14 bit valore + 2 bit scale,
+    // maschera 0x3FFF per isolare il valore).
+    if (buf.length < 30) return null;
+    const startCodeOk = buf[23] === 0x9d && buf[24] === 0x01 && buf[25] === 0x2a;
+    if (!startCodeOk) return null;
+    const width = buf.readUInt16LE(26) & 0x3fff;
+    const height = buf.readUInt16LE(28) & 0x3fff;
+    return { width, height };
+  }
+  if (chunkFourCC === "VP8L") {
+    // Formato semplice lossless (spec WebP lossless bitstream §2): dopo
+    // FourCC+size, 1 byte signature (0x2f), poi 4 byte little-endian che
+    // impacchettano 14 bit width-1 + 14 bit height-1 + 4 bit flag.
+    if (buf.length < 25 || buf[20] !== 0x2f) return null;
+    const bits = buf.readUInt32LE(21);
+    const width = (bits & 0x3fff) + 1;
+    const height = ((bits >> 14) & 0x3fff) + 1;
+    return { width, height };
+  }
+  return null; // container riconosciuto ma chunk immagine non gestito
 }
 
 // 1. Ogni post pubblicato ha una entry esplicita in POST_COVER.

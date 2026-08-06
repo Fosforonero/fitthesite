@@ -9,16 +9,26 @@ export const post: BlogPost = {
   // SPRINT PRE-FERIE addendum Bing (2026-08-06): title NL renderizzato
   // sopra 70 caratteri (Bing FailingUrls CSV, verificato live). H1/slug
   // invariati, solo <title>/og:title/twitter:title/BlogPosting.headline.
-  // EN/DE deliberatamente ESCLUSI da questo fix su istruzione esplicita:
+  // EN/DE deliberatamente ESCLUSI da quel fix su istruzione esplicita:
   // "non correggere separatamente i due title Garmin/Samsung prima della
-  // FASE 6" (cannibalizzazione). Nota: verifica live in questa stessa
-  // sessione mostra che /en/blog/garmin-samsung-health-sync-guide e
-  // /de/blog/garmin-samsung-health-sync-guide fanno gia' 308 verso lo slug
-  // localizzato corretto (infrastruttura di redirect gia' funzionante,
-  // dato GSC duale = stale) — riportato nel report, non usato per
-  // sbloccare unilateralmente il fix qui.
+  // FASE 6" (cannibalizzazione).
+  //
+  // FASE 6 (2026-08-06): verifica live ri-confermata DOPO il deploy di
+  // Release A+B — /en/blog/garmin-samsung-health-sync-guide e
+  // /de/blog/garmin-samsung-health-sync-guide fanno ANCORA 308 verso lo
+  // slug localizzato corretto (sync-garmin-samsung-health-guide /
+  // garmin-samsung-health-synchronisieren-anleitung): l'infrastruttura di
+  // redirect di resolveBlogPost() gestisce gia' da sola il pattern
+  // "slug canonico usato sotto una locale non canonica", quindi non esiste
+  // una cannibalizzazione ATTIVA da risolvere con un redirect — il dato
+  // GSC a doppia URL con click era stale/pre-fix. Nessuna consolidazione
+  // necessaria: le URL canoniche EN/DE sono le uniche raggiungibili come
+  // pagina 200, quindi il fix titolo qui e' sicuro (nessun rischio di
+  // correggere una pagina che sta per essere redirectata via).
   seoTitle: {
     nl: "Garmin met Samsung Health synchroniseren",
+    en: "Sync Garmin with Samsung Health and Health Connect",
+    de: "Garmin mit Samsung Health synchronisieren",
   },
   hero: {
     kicker: {

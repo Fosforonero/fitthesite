@@ -4,8 +4,12 @@ export const post: BlogPost = {
   slug: "dati-anello-smart-apple-salute",
   category: "guides",
   publishedAt: "2026-06-12",
-  updatedAt: "2026-06-12",
-  readMinutes: 8,
+  // P1.8S FASE 8 (2026-08-06): revisione contenuto reale (nuove sezioni
+  // it/en: no-Apple-Watch, matrice percorso dati, funzionalita' native non
+  // replicate, limiti onesti, chi non ha bisogno del ponte) — updatedAt
+  // aggiornato di conseguenza, non un touch cosmetico.
+  updatedAt: "2026-08-06",
+  readMinutes: 10,
   tldr: {
     it: [
       "FitMesh Sync legge i dati del tuo anello smart o smartwatch Android, li sincronizza sul cloud EU, e li scrive in Apple Salute via HealthKit: così chi ha due telefoni vede tutto in un posto solo.",
@@ -692,6 +696,176 @@ export const post: BlogPost = {
         ],
       },
     },
+    // P1.8S FASE 8 (2026-08-06): consolidamento del ponte Apple Salute dopo
+    // l'audit cannibalizzazione (questa pagina e' il winner, vedi
+    // next.config.mjs). Sezioni nuove SOLO it/en (regola esplicita dello
+    // sprint per contenuto product-led nuovo) — le altre 9 locale restano sul
+    // contenuto originale invariato, senza fallback EN scorretto (vedi
+    // `locales` su ciascun blocco, stesso meccanismo del pillar P1.5B Fase C).
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "Cosa il ponte NON fa: nessuna integrazione diretta con Apple Watch",
+        en: "What the bridge does NOT do: no direct Apple Watch integration",
+      },
+    },
+    {
+      type: "paragraph",
+      locales: ["it", "en"],
+      text: {
+        it: "Il ponte descritto in questa guida lavora in una sola direzione: dati di un device Android (Galaxy Watch, Wear OS, anello Colmi collegato via Android) verso Apple Salute su iPhone, tramite il cloud FitMesh. Non legge mai dati da Apple Watch: se possiedi un Apple Watch, quello scrive già nativamente e direttamente in Apple Salute tramite iOS, senza bisogno di alcun ponte. FitMesh non ha un'app per Apple Watch e non offre alcun modo di far arrivare i dati di Apple Watch su Android o altrove: quella direzione resta fuori scope, oggi e per design (Apple non espone un percorso equivalente in uscita da HealthKit verso app di terze parti su altre piattaforme).",
+        en: "The bridge described in this guide works in one direction only: data from an Android device (Galaxy Watch, Wear OS, a Colmi ring connected via Android) into Apple Health on iPhone, via the FitMesh cloud. It never reads data from Apple Watch: if you own an Apple Watch, it already writes natively and directly into Apple Health through iOS, no bridge needed. FitMesh has no Apple Watch app and offers no way to get Apple Watch data onto Android or anywhere else: that direction is out of scope, today and by design (Apple doesn't expose an equivalent outbound path from HealthKit to third-party apps on other platforms).",
+      },
+    },
+    {
+      type: "callout",
+      variant: "info",
+      locales: ["it", "en"],
+      title: {
+        it: "Hai solo un anello Colmi e un iPhone? Non ti serve questo ponte",
+        en: "Only have a Colmi ring and an iPhone? You don't need this bridge",
+      },
+      body: {
+        it: "Se non possiedi nessun telefono Android, il ponte descritto qui non si applica: l'anello Colmi si collega direttamente a FitMesh Sync su iPhone via Bluetooth, esattamente come farebbe su Android, e i suoi dati vanno dritti in Apple Salute senza passare dal cloud FitMesh. Questo ponte serve specificamente a chi ha un device Android (smartwatch o anello collegato via Android) e vuole vedere anche quei dati su un iPhone.",
+        en: "If you don't own any Android phone, the bridge described here doesn't apply to you: the Colmi ring connects directly to FitMesh Sync on iPhone over Bluetooth, exactly as it would on Android, and its data goes straight into Apple Health without passing through the FitMesh cloud at all. This bridge exists specifically for people with an Android device (a smartwatch or a ring connected via Android) who also want that data visible on an iPhone.",
+      },
+    },
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "Da dove arriva ogni dato: la mappa completa",
+        en: "Where each data point comes from: the full map",
+      },
+    },
+    {
+      type: "table",
+      locales: ["it", "en"],
+      caption: {
+        it: "Percorso dei dati verso Apple Salute, per scenario",
+        en: "Data path into Apple Health, by scenario",
+      },
+      headers: {
+        it: ["Scenario", "Percorso", "Passa dal ponte cloud FitMesh?"],
+        en: ["Scenario", "Path", "Goes through the FitMesh cloud bridge?"],
+      },
+      rows: [
+        {
+          it: ["Apple Watch", "Nativo, diretto in HealthKit (iOS)", "No — non serve, Apple lo fa già"],
+          en: ["Apple Watch", "Native, direct into HealthKit (iOS)", "No — not needed, Apple already does this"],
+        },
+        {
+          it: ["Anello Colmi + solo iPhone (nessun Android)", "Bluetooth diretto, FitMesh Sync iOS → HealthKit", "No — connessione diretta, il ponte non entra in gioco"],
+          en: ["Colmi ring + iPhone only (no Android)", "Direct Bluetooth, FitMesh Sync iOS → HealthKit", "No — direct connection, the bridge isn't involved"],
+        },
+        {
+          it: ["Galaxy Watch / Wear OS + Android + iPhone", "Health Connect (Android) → cloud FitMesh EU → HealthKit", "Sì — questo è il ponte descritto in questa guida"],
+          en: ["Galaxy Watch / Wear OS + Android + iPhone", "Health Connect (Android) → FitMesh EU cloud → HealthKit", "Yes — this is the bridge described in this guide"],
+        },
+        {
+          it: ["Anello Colmi + Android + iPhone", "Bluetooth (Android) → cloud FitMesh EU → HealthKit", "Sì — questo è il ponte descritto in questa guida"],
+          en: ["Colmi ring + Android + iPhone", "Bluetooth (Android) → FitMesh EU cloud → HealthKit", "Yes — this is the bridge described in this guide"],
+        },
+      ],
+    },
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "Funzionalità di Apple Salute che il ponte non replica",
+        en: "Apple Health features the bridge doesn't replicate",
+      },
+    },
+    {
+      type: "paragraph",
+      locales: ["it", "en"],
+      text: {
+        it: "Apple Salute è più di un contenitore di metriche: include funzioni che FitMesh non tenta di replicare, per scelta e perché richiedono un accesso al sistema che un'app di terze parti non ha.",
+        en: "Apple Health is more than a metrics container: it includes features FitMesh doesn't attempt to replicate, by choice and because they require system-level access a third-party app doesn't have.",
+      },
+    },
+    {
+      type: "list",
+      locales: ["it", "en"],
+      items: {
+        it: [
+          "**Medical ID**: i dati di emergenza visibili dalla schermata di blocco (allergie, condizioni, contatti) restano una funzione nativa di Apple, configurata dentro l'app Salute stessa.",
+          "**Cartelle cliniche (Health Records)**: l'importazione di referti e cronologia medica da ospedali/farmacie collegati resta un canale diretto tra Apple e i provider sanitari, non replicabile da FitMesh.",
+          "**Farmaci e promemoria**: la gestione di terapie e promemoria assunzione è una funzione nativa dell'app Salute, non un dato che il ponte scrive.",
+          "**Monitoraggio del ciclo mestruale**: è una funzione nativa gestita interamente dentro Apple Salute; il ponte non legge né scrive questi dati.",
+          "**Notifiche salute native di Apple Watch**: allerta frequenza cardiaca irregolare, rilevamento cadute, ECG richiedono l'hardware e il firmware di un Apple Watch fisico — un ponte dati non può generarle.",
+          "**Condivisione Salute (Health Sharing)** con familiari resta una funzione nativa Apple, indipendente da FitMesh.",
+          "**Dati diagnostici/clinici strutturati** (referti di laboratorio, imaging) non passano né dall'anello né dallo smartwatch, quindi non arrivano nemmeno tramite il ponte.",
+        ],
+        en: [
+          "**Medical ID**: emergency data visible from the lock screen (allergies, conditions, contacts) stays a native Apple feature, configured inside the Health app itself.",
+          "**Health Records**: importing clinical documents and medical history from connected hospitals/pharmacies remains a direct channel between Apple and healthcare providers, not something FitMesh can replicate.",
+          "**Medications and reminders**: managing treatments and dose reminders is a native Health app feature, not data the bridge writes.",
+          "**Menstrual cycle tracking**: a native feature handled entirely inside Apple Health; the bridge neither reads nor writes this data.",
+          "**Native Apple Watch health notifications**: irregular heart rhythm alerts, fall detection, ECG require the hardware and firmware of a physical Apple Watch — a data bridge can't generate them.",
+          "**Health Sharing** with family members remains a native Apple feature, independent of FitMesh.",
+          "**Structured diagnostic/clinical data** (lab reports, imaging) never passes through the ring or the smartwatch in the first place, so it doesn't arrive via the bridge either.",
+        ],
+      },
+    },
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "Altri limiti onesti del ponte",
+        en: "Other honest limits of the bridge",
+      },
+    },
+    {
+      type: "list",
+      locales: ["it", "en"],
+      items: {
+        it: [
+          "**HRV non viene scritta dal ponte**: i metodi di calcolo della variabilità della frequenza cardiaca differiscono tra sorgenti (RMSSD sul lato anello/Health Connect vs SDNN nativo di Apple Watch/HealthKit) — scriverla rischierebbe di mostrare un numero incoerente rispetto a un eventuale Apple Watch, quindi oggi non viene scritta.",
+          "**Nessuna app companion per Apple Watch**: il ponte non ha e non prevede un'estensione watchOS.",
+          "**Solo scrittura, mai lettura**: il ponte non riporta indietro su Android i dati che Apple Watch ha scritto in Apple Salute — è un percorso a senso unico.",
+          "**Non in tempo reale**: la scrittura avviene quando apri l'app FitMesh su iPhone, non in un vero background continuo (limite delle API HealthKit per app di terze parti, non una scelta di design di FitMesh).",
+        ],
+        en: [
+          "**HRV isn't written by the bridge**: heart rate variability calculation methods differ between sources (RMSSD on the ring/Health Connect side vs Apple Watch/HealthKit's native SDNN) — writing it would risk showing an inconsistent number next to any Apple Watch value, so it's not written today.",
+          "**No Apple Watch companion app**: the bridge has no watchOS extension and none is planned.",
+          "**Write-only, never read**: the bridge doesn't carry Apple Watch data written into Apple Health back out to Android — it's a one-way path.",
+          "**Not real-time**: writing happens when you open the FitMesh app on iPhone, not in true continuous background (a limit of HealthKit APIs for third-party apps, not a FitMesh design choice).",
+        ],
+      },
+    },
+    {
+      type: "heading",
+      level: 2,
+      locales: ["it", "en"],
+      text: {
+        it: "Chi non ha bisogno di questo ponte",
+        en: "Who doesn't need this bridge",
+      },
+    },
+    {
+      type: "list",
+      locales: ["it", "en"],
+      items: {
+        it: [
+          "Chi ha solo un Apple Watch (nessun device Android): i dati sono già nativi in Apple Salute, il ponte non aggiunge nulla.",
+          "Chi ha un anello Colmi ma nessun telefono Android: può collegarlo direttamente a FitMesh su iPhone via Bluetooth, senza passare dal cloud del ponte (vedi il riquadro sopra).",
+          "Chi non apre mai l'app Salute di iPhone: il ponte scrive dati che non guarderà mai — non c'è danno, ma nemmeno beneficio.",
+          "Chi cerca funzioni cliniche (Medical ID, cartelle sanitarie, farmaci, ciclo): quelle restano dentro Apple Salute nativamente, il ponte non le tocca (vedi sezione sopra).",
+        ],
+        en: [
+          "Anyone with only an Apple Watch (no Android device): the data is already native in Apple Health, the bridge adds nothing.",
+          "Anyone with a Colmi ring but no Android phone: it connects directly to FitMesh on iPhone over Bluetooth, without going through the bridge's cloud (see the box above).",
+          "Anyone who never opens the iPhone Health app: the bridge writes data they'll never look at — no harm, but no benefit either.",
+          "Anyone looking for clinical features (Medical ID, health records, medications, cycle tracking): those stay natively inside Apple Health, the bridge doesn't touch them (see section above).",
+        ],
+      },
+    },
     {
       type: "heading",
       level: 2,
@@ -987,5 +1161,14 @@ export const post: BlogPost = {
     "gdpr-dati-fitness-smartwatch",
   ],
   brandsMentioned: ["Apple", "Samsung"],
+  // P1.8S FASE 8 (2026-08-06): fonti primarie per le nuove sezioni
+  // (limiti HealthKit per app di terze parti, background delivery non
+  // continuo). Rese visibili dal componente condiviso BlogSources
+  // (nessuna citazione inline manuale in questo post, quindi
+  // sourcesRenderedInline resta assente/false — comportamento di default).
+  sources: [
+    "https://developer.apple.com/documentation/healthkit",
+    "https://developer.apple.com/documentation/healthkit/hkhealthstore/enablebackgrounddelivery(for:frequency:withcompletion:)",
+  ],
   ldType: "BlogPosting",
 };

@@ -85,6 +85,10 @@ function walkSection(s: BlogSection, base: string, out: Entry[]): void {
       list(`${base}.headers`, s.headers);
       s.rows.forEach((r, j) => list(`${base}.rows.${j}`, r));
       break;
+    case "flow-diagram":
+      if (s.title) loc(`${base}.title`, s.title);
+      s.flows.forEach((f, j) => list(`${base}.flows.${j}.steps`, f.steps));
+      break;
     case "comparison":
       loc(`${base}.aTitle`, s.aTitle);
       list(`${base}.aItems`, s.aItems);

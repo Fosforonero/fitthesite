@@ -349,6 +349,54 @@ export function BlogRenderer({
             );
           }
 
+          case "flow-diagram":
+            return (
+              <figure key={i} className="my-8">
+                {s.title && (
+                  <figcaption className="mb-4 text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
+                    {tl(s.title, locale)}
+                  </figcaption>
+                )}
+                <div className="space-y-3">
+                  {s.flows.map((flow, fi) => {
+                    const steps = tll(flow.steps, locale);
+                    return (
+                      <ol
+                        key={fi}
+                        className="flex flex-wrap items-center gap-2 text-sm"
+                      >
+                        {steps.map((step, si) => (
+                          <li key={si} className="flex items-center gap-2">
+                            <span className="rounded-pill border border-divider bg-bg-card/60 px-3 py-1.5 text-text-secondary leading-tight">
+                              {step}
+                            </span>
+                            {si < steps.length - 1 && (
+                              <svg
+                                aria-hidden
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                className="flex-none text-brand-aqua"
+                              >
+                                <path
+                                  d="M2 8h10M8 3l5 5-5 5"
+                                  stroke="currentColor"
+                                  strokeWidth="1.5"
+                                  fill="none"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                />
+                              </svg>
+                            )}
+                          </li>
+                        ))}
+                      </ol>
+                    );
+                  })}
+                </div>
+              </figure>
+            );
+
           case "image": {
             const alt = tl(s.alt, locale);
             const caption = s.caption ? tl(s.caption, locale) : null;
