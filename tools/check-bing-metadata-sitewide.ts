@@ -89,14 +89,18 @@ const BING_TITLE_URLS = [
 //  - 2 confermate live gia' conformi (dato Bing stale, NON nella lista qui
 //    sotto perche' non richiedono enforcement): /de/blog/health-connect-
 //    synchronisiert-nicht (57c) e /pl/blog/eksportuj-dane-garmin (51c).
-//  - 2 deliberatamente ESCLUSE in attesa della decisione di cannibalizzazione
-//    Garmin/Samsung (FASE 6): /en/blog/sync-garmin-samsung-health-guide e
-//    /de/blog/garmin-samsung-health-synchronisieren-anleitung — verifica
-//    live in questa sessione mostra che l'infrastruttura di redirect (308)
-//    gia' fa convergere le varianti duplicate su questi 2 URL come winner,
-//    ma il fix del title resta comunque rimandato su istruzione esplicita.
-//  - 14 corrette in questo sprint (13 dal secondo export + la ES del primo,
-//    quest'ultima gia' segnalata su PR #45 e ricontrollata dopo il merge).
+//  - FASE 6 (2026-08-06, ri-verificata DOPO il deploy di Release A+B):
+//    /en/blog/sync-garmin-samsung-health-guide e /de/blog/garmin-samsung-
+//    health-synchronisieren-anleitung erano state ESCLUSE dal fix in attesa
+//    della decisione di cannibalizzazione Garmin/Samsung. Verifica live
+//    ri-confermata: l'infrastruttura di redirect (308) di resolveBlogPost()
+//    fa gia' convergere da sola la variante "slug canonico sotto locale non
+//    canonica" su questi 2 URL come unico winner raggiungibile (200) —
+//    nessuna cannibalizzazione ATTIVA, il dato GSC a doppia URL era stale.
+//    Corrette anche loro in questo commit: ora incluse sotto.
+//  - 16 corrette in totale in questo sprint (13 dal secondo export + la ES
+//    del primo, gia' segnalata su PR #45 e ricontrollata dopo il merge, +
+//    le 2 Garmin/Samsung sbloccate dalla FASE 6).
 const BING_TITLE_URLS_AUG6 = [
   "/de/blog/garmin-daten-exportieren",
   "/fr/blog/quest-ce-que-hrv-signification-valeurs",
@@ -112,6 +116,8 @@ const BING_TITLE_URLS_AUG6 = [
   "/de/blog/fitbit-daten-exportieren-nach-google",
   "/de/blog/schritte-synchronisieren-galaxy-watch",
   "/es/blog/health-connect-no-sincroniza",
+  "/en/blog/sync-garmin-samsung-health-guide",
+  "/de/blog/garmin-samsung-health-synchronisieren-anleitung",
 ];
 
 // Le 28 URL description ufficiali. Una di queste (vedi
@@ -477,7 +483,7 @@ async function main() {
   const bingDescCheckable = BING_DESCRIPTION_URLS.length - bingDescClassifiedD;
   const bingTitleUrlsTotal = BING_TITLE_URLS.length + BING_TITLE_URLS_AUG6.length;
   console.log(
-    `${bingTitleUrlsTotal} URL Bing title (10 del 23/07 + 14 del 06/08): ${bingTitleUrlsTotal - bingTitleFailures}/${bingTitleUrlsTotal} ≤60c. 28 URL Bing description: ${bingDescCompliant}/${bingDescCheckable} in 140-160c (${bingDescClassifiedD} classificata/e D — redirect noto verso pagina viva, non una description da correggere).`,
+    `${bingTitleUrlsTotal} URL Bing title (10 del 23/07 + 16 del 06/08, incl. le 2 FASE 6 Garmin/Samsung): ${bingTitleUrlsTotal - bingTitleFailures}/${bingTitleUrlsTotal} ≤60c. 28 URL Bing description: ${bingDescCompliant}/${bingDescCheckable} in 140-160c (${bingDescClassifiedD} classificata/e D — redirect noto verso pagina viva, non una description da correggere).`,
   );
   console.log(
     `Debito sitewide preesistente: ${currentLongTitleUrls.length} title >60c, ${currentOutOfRangeDescriptionUrls.length} description fuori 140-160c (baseline: ${baseline?.longTitleUrls ? `${baseline.longTitleUrls.length}/${baseline.outOfRangeDescriptionUrls.length}` : "assente o formato precedente"}).`,
