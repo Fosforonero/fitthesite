@@ -311,6 +311,7 @@ export default async function NovitaIndex({
               <Link
                 key={p.slug}
                 href={`/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`}
+                prefetch={false}
                 className="card p-6 group hover:-translate-y-0.5 transition-transform flex flex-col"
               >
                 <div className="flex items-center gap-2 text-xs">

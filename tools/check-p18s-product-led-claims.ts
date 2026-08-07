@@ -49,11 +49,28 @@ const errors: string[] = [];
 const NEGATION_WINDOW = /\b(non|not|doesn't|don't|never|no\.|no,|nicht|pas|senza|without)\b/i;
 
 function checkLines(rel: string, lines: string[], startIdx: number, endIdx: number): void {
+  // P0.12 FASE 5 (06/08): il check originale saltava SOLO la riga di
+  // apertura letterale "q: {" — funzionava quando `q` era su una riga sola
+  // (`q: { it: "...", en: "..." },`), ma un `q:` multi-riga a 4 locale
+  // (it/en/de/fr, una per riga) faceva ricadere le righe successive nei
+  // check normali, con falsi positivi su domande FAQ che pongono un claim
+  // per poi negarlo nella risposta. Fix: track del brace-depth per saltare
+  // l'intero blocco `q: {...}`, indipendentemente da quante righe occupa.
+  let qBraceDepth = 0;
   for (let i = startIdx; i < endIdx; i++) {
     const line = lines[i];
     const trimmed = line.trim();
     if (trimmed.startsWith("//")) continue; // commento editoriale
-    if (/^q:\s*\{/.test(trimmed)) continue; // domanda FAQ: pattern sicuro, negata nella risposta
+
+    if (qBraceDepth > 0) {
+      qBraceDepth += (line.match(/\{/g)?.length ?? 0) - (line.match(/\}/g)?.length ?? 0);
+      continue; // dentro un blocco q: {...} multi-riga: domanda FAQ, pattern sicuro
+    }
+    if (/^q:\s*\{/.test(trimmed)) {
+      const depth = (line.match(/\{/g)?.length ?? 0) - (line.match(/\}/g)?.length ?? 0);
+      if (depth > 0) qBraceDepth = depth;
+      continue; // riga di apertura q:: domanda FAQ, pattern sicuro, negata nella risposta
+    }
 
     const window = lines.slice(Math.max(startIdx, i - 1), Math.min(endIdx, i + 2)).join(" ");
 

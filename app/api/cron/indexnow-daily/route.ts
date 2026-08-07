@@ -1,3 +1,16 @@
+/**
+ * SPRINT P0.12 (06/08): la schedule automatica giornaliera in vercel.json e'
+ * stata rimossa. Questa route pingava ogni giorno, incondizionatamente, 187
+ * pagine provider + 264 pagine modello + 22 pagine core (homepage/integrations,
+ * 11 locale) anche quando nulla era cambiato — piu' crawl di Bing/IndexNow su
+ * pagine statiche invariate significa piu' letture dalla cache ISR durevole,
+ * proprio nella finestra pre-ferie in cui vogliamo minimizzare il consumo.
+ * Il codice resta intatto e invocabile manualmente (Bearer CRON_SECRET) per
+ * pubblicazioni e deploy reali — vedi tools/indexnow-*.ts per gli script
+ * one-shot usati nei release recenti. Non e' piu' wired a nessuna schedule
+ * automatica. Guardrail: tools/check-p012-indexnow-cron.ts fallisce se la
+ * schedule automatica torna in vercel.json.
+ */
 import { NextResponse } from "next/server";
 import { pingIndexNow } from "@/lib/seo/indexnow";
 import { getBlogPosts } from "@/lib/blog/payload-source";

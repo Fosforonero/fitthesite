@@ -432,6 +432,7 @@ export default async function Home({
               <Link
                 key={p.slug}
                 href={`/${lc}/sync/${p.slug}`}
+                prefetch={false}
                 className="group card p-4 hover:-translate-y-1 transition-all flex flex-col items-center text-center gap-2 relative overflow-hidden"
               >
                 <div

@@ -450,6 +450,7 @@ export default async function ModelPage({
                 <Link
                   key={om.slug}
                   href={`/${lc}/sync/${p.slug}/${om.slug}`}
+                  prefetch={false}
                   className="bg-bg-secondary hover:bg-bg-tertiary rounded-xl px-4 py-3 transition-colors"
                 >
                   <div className="font-medium text-sm">{om.name}</div>

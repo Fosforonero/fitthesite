@@ -302,9 +302,11 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
   "fitmesh-samsung-health-usarli-insieme": {
     en: "fitmesh-vs-samsung-health",
     es: "fitmesh-samsung-health-usarli-insieme",
-    de: "fitmesh-samsung-health-usarli-insieme",
+    // P0.12 FASE 5 (06/08): slug reali per le traduzioni DE/FR appena
+    // pubblicate — non piu' placeholder non-live.
+    de: "samsung-health-und-fitmesh-gemeinsam-nutzen",
     pt: "fitmesh-samsung-health-usarli-insieme",
-    fr: "fitmesh-samsung-health-usarli-insieme",
+    fr: "utiliser-fitmesh-avec-samsung-health",
     pl: "fitmesh-samsung-health-usarli-insieme",
     tr: "fitmesh-samsung-health-usarli-insieme",
     nl: "fitmesh-samsung-health-usarli-insieme",
