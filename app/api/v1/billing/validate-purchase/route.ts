@@ -26,6 +26,10 @@ import {
   validateAppleReceipt,
 } from "@/lib/billing/app-store";
 import {
+  looksLikeJws,
+  verifyAppleJwsTransaction,
+} from "@/lib/billing/app-store-jws";
+import {
   type GoogleProductPurchase,
   type GoogleSubscriptionPurchase,
   readServiceAccount,
@@ -49,6 +53,15 @@ const payloadSchema = z.object({
   package_name: z.string().min(3).max(120),
   // Default android per retro-compatibilità coi client v137- già in giro.
   platform: z.enum(["android", "ios"]).default("android"),
+  // Su iOS il token ha DUE formati incompatibili e il client dichiara quale
+  // sta mandando, invece di lasciarcelo indovinare:
+  //   sk2_jws     StoreKit 2, il JWS della transazione (default del plugin
+  //               dalla 0.4.0, quindi tutti i client moderni)
+  //   app_receipt StoreKit 1, la ricevuta base64 → ramo verifyReceipt storico
+  // Default app_receipt: i client già in circolazione non mandano il campo, e
+  // sono esattamente quelli per cui il ramo storico era stato scritto. Il
+  // formato dichiarato viene comunque ricontrollato sulla forma del token.
+  token_format: z.enum(["sk2_jws", "app_receipt"]).default("app_receipt"),
 });
 
 type SubRow = {
@@ -142,11 +155,129 @@ function buildExpiredRow(args: {
   };
 }
 
-async function upsertSubscription(admin: Sb, row: SubRow): Promise<string | null> {
+/** Violazione di unicità Postgres: la transazione è già di qualcun altro. */
+const PG_UNIQUE_VIOLATION = "23505";
+
+type UpsertOutcome =
+  | { ok: true }
+  | { ok: false; alreadyLinked: true }
+  | { ok: false; alreadyLinked: false; message: string };
+
+/**
+ * `onConflict: "user_id"` rende idempotente la RIPRESENTAZIONE: lo stesso
+ * utente può mandare la stessa transazione dieci volte e resta una riga sola.
+ *
+ * Ma la tabella dichiara anche `unique (billing_source,
+ * external_subscription_id)` (migration 20260514120004): se un ALTRO utente
+ * prova a reclamare la stessa transazione Apple, l'insert viola quel vincolo.
+ * Prima diventava un 500 generico indistinguibile da un guasto del database;
+ * ora è un 409 esplicito. Il controllo è affidato al vincolo e non a una
+ * lettura preventiva perché così non c'è finestra di corsa fra due richieste
+ * simultanee.
+ */
+async function upsertSubscription(
+  admin: Sb,
+  row: SubRow,
+): Promise<UpsertOutcome> {
   const { error } = await admin
     .from("b2c_subscriptions")
     .upsert(row, { onConflict: "user_id" });
-  return error?.message ?? null;
+  if (!error) return { ok: true };
+  if (error.code === PG_UNIQUE_VIOLATION) {
+    return { ok: false, alreadyLinked: true };
+  }
+  return { ok: false, alreadyLinked: false, message: error.message };
+}
+
+/** Risposta da restituire se l'upsert non è andato a buon fine, altrimenti null. */
+function upsertFailureResponse(result: UpsertOutcome): Response | null {
+  if (result.ok) return null;
+  if (result.alreadyLinked) {
+    return jsonError(409, "purchase_already_linked");
+  }
+  return jsonError(500, "upsert_failed", result.message);
+}
+
+/**
+ * Esiti del ramo StoreKit 2, mappati su codici stabili.
+ *
+ * La distinzione che conta per il client non è "errore sì/no" ma "ha senso
+ * ritentare?":
+ *
+ *   400 jws_*                  rifiuto TERMINALE e verificato. Ritentare con
+ *                              lo stesso token non cambierà niente.
+ *   409 purchase_already_linked la transazione è di un altro account FitMesh.
+ *                              Terminale, ma è un caso suo, non un difetto.
+ *   503 apple_unavailable      Apple o la rete non hanno risposto. Da
+ *                              ritentare: NON è un acquisto invalido.
+ *   500 upsert_failed          il database non ha scritto. Da ritentare.
+ *
+ * Il JWS non compare mai nei log né in `raw_payload`.
+ */
+async function validateAppleJws(args: {
+  admin: Sb;
+  userId: string;
+  productId: string;
+  signedTransaction: string;
+  isSubscription: boolean;
+}): Promise<Response> {
+  const outcome = await verifyAppleJwsTransaction({
+    signedTransaction: args.signedTransaction,
+    expectedProductId: args.productId,
+  });
+
+  if (outcome.kind === "retryable") {
+    console.warn("[Billing] apple jws verification temporarily unavailable");
+    return jsonError(503, "apple_unavailable");
+  }
+  if (outcome.kind === "rejected") {
+    // Solo il motivo, mai il token.
+    console.warn(`[Billing] apple jws rejected reason=${outcome.reason}`);
+    return jsonError(400, outcome.reason);
+  }
+
+  const tx = outcome.tx;
+  const row: SubRow = {
+    user_id: args.userId,
+    billing_source: "apple_iap",
+    external_product_id: args.productId,
+    // originalTransactionId è stabile nel tempo: è la chiave giusta per
+    // riconoscere lo stesso acquisto a ogni ripresentazione.
+    external_subscription_id: tx.originalTransactionId,
+    external_order_id: tx.transactionId,
+    // Un non consumabile non scade. Se in futuro passasse di qui un
+    // abbonamento, il suo `expiresDate` andrebbe letto dal payload: oggi il
+    // tipo è già stato vincolato a NON_CONSUMABLE dal verificatore.
+    active_until: LIFETIME_SENTINEL,
+    auto_renewing: false,
+    state: "active",
+    raw_payload: {
+      source: "sk2_jws",
+      transaction_id: tx.transactionId,
+      original_transaction_id: tx.originalTransactionId,
+      product_id: tx.productId,
+      environment: tx.environment,
+      purchase_date_ms: tx.purchaseDateMs,
+      app_account_token: tx.appAccountToken,
+    },
+    last_notification_at: new Date().toISOString(),
+  };
+
+  const result = await upsertSubscription(args.admin, row);
+  if (!result.ok) {
+    if (result.alreadyLinked) {
+      console.warn("[Billing] apple jws purchase already linked to another user");
+      return jsonError(409, "purchase_already_linked");
+    }
+    return jsonError(500, "upsert_failed", result.message);
+  }
+
+  return jsonOk({
+    state: row.state,
+    active_until: row.active_until,
+    source: "apple_iap",
+    auto_renewing: row.auto_renewing,
+  });
 }
 
 export async function POST(req: Request): Promise<Response> {
@@ -164,7 +295,8 @@ export async function POST(req: Request): Promise<Response> {
   if (!parsed.success) {
     return jsonError(400, "invalid_payload", parsed.error.flatten());
   }
-  const { product_id, purchase_token, package_name, platform } = parsed.data;
+  const { product_id, purchase_token, package_name, platform, token_format } =
+    parsed.data;
   if (!KNOWN_PRODUCTS.has(product_id)) {
     return jsonError(400, "unknown_product");
   }
@@ -172,8 +304,28 @@ export async function POST(req: Request): Promise<Response> {
   const admin = createAdminClient() as unknown as Sb;
   const isSubscription = product_id === PRODUCT_SUBSCRIPTION;
 
-  // ── Ramo Apple (iOS) ─────────────────────────────────────────────────
+  // ── Ramo Apple StoreKit 2 (JWS) ──────────────────────────────────────
+  // È il ramo dei client moderni: il plugin usa StoreKit 2 di default dalla
+  // 0.4.0. Non richiede nessuna credenziale, solo i certificati root Apple.
+  if (platform === "ios" && token_format === "sk2_jws") {
+    return await validateAppleJws({
+      admin,
+      userId,
+      productId: product_id,
+      signedTransaction: purchase_token,
+      isSubscription,
+    });
+  }
+
+  // ── Ramo Apple legacy (ricevuta base64, verifyReceipt) ───────────────
+  // Solo per client realmente StoreKit 1 (iOS < 15). Invariato.
   if (platform === "ios") {
+    if (looksLikeJws(purchase_token)) {
+      // Il client ha dichiarato "ricevuta" e ha mandato un JWS: inoltrarlo a
+      // verifyReceipt produrrebbe un "ricevuta malformata" fuorviante, che è
+      // esattamente il difetto che questo P0 sta chiudendo.
+      return jsonError(400, "token_format_mismatch");
+    }
     if (!readAppleSharedSecret()) {
       console.warn("[Billing] APPLE_SHARED_SECRET missing — iOS IAP validation disabled");
       return jsonError(503, "app_store_not_configured");
@@ -204,8 +356,10 @@ export async function POST(req: Request): Promise<Response> {
           raw_payload: { tx, environment: result.environment },
           last_notification_at: new Date().toISOString(),
         };
-        const err = await upsertSubscription(admin, row);
-        if (err) return jsonError(500, "upsert_failed", err);
+        const failed = upsertFailureResponse(
+          await upsertSubscription(admin, row),
+        );
+        if (failed) return failed;
         return jsonOk({
           state: row.state,
           active_until: row.active_until,
@@ -252,8 +406,10 @@ export async function POST(req: Request): Promise<Response> {
           purchaseToken: purchase_token,
           data: result.data,
         });
-        const err = await upsertSubscription(admin, row);
-        if (err) return jsonError(500, "upsert_failed", err);
+        const failed = upsertFailureResponse(
+          await upsertSubscription(admin, row),
+        );
+        if (failed) return failed;
         return jsonOk({
           state: row.state,
           active_until: row.active_until,
@@ -297,8 +453,10 @@ export async function POST(req: Request): Promise<Response> {
         purchaseToken: purchase_token,
         data: result.data,
       });
-      const err = await upsertSubscription(admin, row);
-      if (err) return jsonError(500, "upsert_failed", err);
+      const failed = upsertFailureResponse(
+        await upsertSubscription(admin, row),
+      );
+      if (failed) return failed;
       return jsonOk({
         state: row.state,
         active_until: row.active_until,
