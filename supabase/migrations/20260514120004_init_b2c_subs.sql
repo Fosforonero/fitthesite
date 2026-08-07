@@ -32,12 +32,15 @@ create index b2c_subscriptions_state_idx
 -- Helper boolean predicato lifetime: active_until oltre 100 anni dal now()
 -- e' il sentinel "mai scade" (in pratica '9999-12-31').
 -- IMMUTABLE per essere usabile in CREATE INDEX, ma usato anche in WHERE.
-create or replace function public.is_b2c_lifetime(row public.b2c_subscriptions)
+-- Il parametro NON puo' chiamarsi `row`: e' parola riservata Postgres e lo
+-- statement e' un errore di sintassi (42601) su PG15 e PG17. Il nome `sub` e'
+-- quello della funzione realmente viva in produzione.
+create or replace function public.is_b2c_lifetime(sub public.b2c_subscriptions)
 returns boolean
 language sql
 immutable
 as $$
-  select row.active_until > '9000-01-01'::timestamptz;
+  select sub.active_until > '9000-01-01'::timestamptz;
 $$;
 
 create trigger trg_b2c_subscriptions_updated_at
