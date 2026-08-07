@@ -306,6 +306,34 @@ describe("abbonamento semestrale su iOS", () => {
   });
 });
 
+describe("isolamento produzione / sandbox al livello del route", () => {
+  it("JWS Sandbox respinto dalla verifica: nessuna riga, zero entitlement", async () => {
+    // In produzione il verificatore respinge le transazioni Sandbox. Qui si
+    // dimostra la conseguenza che conta: non arriva NIENTE al database.
+    mocks.verifyJws.mockResolvedValue({
+      kind: "rejected",
+      reason: "jws_sandbox_not_allowed",
+    });
+
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "sk2_jws",
+      }),
+    );
+
+    expect(res.status).toBe(400);
+    expect((await res.json()).error).toBe("jws_sandbox_not_allowed");
+    expect(
+      mocks.upsert,
+      "una transazione Sandbox non deve mai toccare b2c_subscriptions",
+    ).not.toHaveBeenCalled();
+  });
+});
+
 describe("il JWS non esce mai", () => {
   it("non compare né nei log né nella riga scritta", async () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});

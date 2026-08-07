@@ -7,7 +7,7 @@ import {
   VerificationStatus,
   type JWSTransactionDecodedPayload,
 } from "@apple/app-store-server-library";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 import {
   APPLE_APP_APPLE_ID,
@@ -16,6 +16,7 @@ import {
   evaluateDecodedTransaction,
   looksLikeJws,
   outcomeForVerificationError,
+  sandboxTransactionsAllowed,
   verifyAppleJwsTransaction,
   withDeadline,
 } from "./app-store-jws";
@@ -261,6 +262,86 @@ describe("di chi è la colpa quando la verifica non riesce", () => {
   });
 });
 
+/**
+ * ISOLAMENTO PRODUZIONE / SANDBOX.
+ *
+ * Una transazione Sandbox e' gratuita: la ottiene chiunque abbia un Apple ID di
+ * test. Accettarla in produzione significherebbe regalare un Pro a vita a chi
+ * sa come chiederlo. La decisione vive nell'ambiente del server, dove il client
+ * non arriva: non e' negoziabile via payload.
+ */
+describe("isolamento fra produzione e sandbox", () => {
+  const original = process.env.APPLE_ALLOW_SANDBOX;
+  afterEach(() => {
+    if (original === undefined) {
+      delete process.env.APPLE_ALLOW_SANDBOX;
+    } else {
+      process.env.APPLE_ALLOW_SANDBOX = original;
+    }
+  });
+
+  it("default: sandbox NON consentito, anche senza variabile impostata", () => {
+    delete process.env.APPLE_ALLOW_SANDBOX;
+    expect(sandboxTransactionsAllowed()).toBe(false);
+  });
+
+  it("solo il valore esplicito 'true' apre la porta", () => {
+    for (const value of ["", "false", "1", "yes", "TRUE"]) {
+      process.env.APPLE_ALLOW_SANDBOX = value;
+      expect(sandboxTransactionsAllowed()).toBe(false);
+    }
+    process.env.APPLE_ALLOW_SANDBOX = "true";
+    expect(sandboxTransactionsAllowed()).toBe(true);
+  });
+
+  it("JWS Sandbox in produzione: ZERO entitlement, nessun dato da scrivere", () => {
+    delete process.env.APPLE_ALLOW_SANDBOX;
+    const outcome = evaluateDecodedTransaction(
+      validPayload({ environment: Environment.SANDBOX }),
+      LIFETIME,
+    );
+    expect(outcome).toEqual({
+      kind: "rejected",
+      reason: "jws_sandbox_not_allowed",
+    });
+    // Nessuna transazione estratta = niente che possa finire in una riga.
+    expect(outcome).not.toHaveProperty("tx");
+  });
+
+  it("una transazione Sandbox altrimenti perfetta resta respinta", () => {
+    // Firma buona, prodotto giusto, tipo giusto, non revocata: l'unica cosa
+    // che non torna e' l'ambiente, e basta quella.
+    delete process.env.APPLE_ALLOW_SANDBOX;
+    const outcome = evaluateDecodedTransaction(
+      validPayload({
+        environment: Environment.SANDBOX,
+        appAccountToken: "4a1c7f9e-4b7a-4c3d-9f21-8b6d5e2a1c40",
+      }),
+      LIFETIME,
+    );
+    expect(outcome.kind).toBe("rejected");
+  });
+
+  it("in QA, con la variabile accesa, la stessa transazione passa", () => {
+    process.env.APPLE_ALLOW_SANDBOX = "true";
+    const outcome = evaluateDecodedTransaction(
+      validPayload({ environment: Environment.SANDBOX }),
+      LIFETIME,
+    );
+    expect(outcome.kind).toBe("ok");
+    if (outcome.kind === "ok") {
+      expect(outcome.tx.environment).toBe("Sandbox");
+    }
+  });
+
+  it("la produzione resta accettata a prescindere dalla variabile", () => {
+    delete process.env.APPLE_ALLOW_SANDBOX;
+    expect(evaluateDecodedTransaction(validPayload(), LIFETIME).kind).toBe("ok");
+    process.env.APPLE_ALLOW_SANDBOX = "true";
+    expect(evaluateDecodedTransaction(validPayload(), LIFETIME).kind).toBe("ok");
+  });
+});
+
 describe("tabella di decisione sulla transazione verificata", () => {
   it("transazione buona: passa e riporta gli identificativi", () => {
     const outcome = evaluateDecodedTransaction(validPayload(), LIFETIME);
@@ -330,17 +411,6 @@ describe("tabella di decisione sulla transazione verificata", () => {
         LIFETIME,
       ),
     ).toEqual({ kind: "rejected", reason: "jws_incomplete" });
-  });
-
-  it("sandbox riconosciuto e riportato come tale", () => {
-    const outcome = evaluateDecodedTransaction(
-      validPayload({ environment: Environment.SANDBOX }),
-      LIFETIME,
-    );
-    expect(outcome.kind).toBe("ok");
-    if (outcome.kind === "ok") {
-      expect(outcome.tx.environment).toBe("Sandbox");
-    }
   });
 
   it("appAccountToken riportato quando c'è, così il chiamante può verificarlo", () => {

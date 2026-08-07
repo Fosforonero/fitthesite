@@ -17,6 +17,8 @@
  *   21010 account non trovato / ricevuta non più valida
  */
 
+import { sandboxTransactionsAllowed } from "./app-store-jws";
+
 const PROD_URL = "https://buy.itunes.apple.com/verifyReceipt";
 const SANDBOX_URL = "https://sandbox.itunes.apple.com/verifyReceipt";
 const FETCH_TIMEOUT_MS = 4000;
@@ -108,6 +110,13 @@ export async function validateAppleReceipt(args: {
   let environment: "production" | "sandbox" = "production";
   let r = await postVerify(PROD_URL, args.receiptData, secret);
   if (r.data?.status === 21007) {
+    // Ricevuta Sandbox. Stessa separazione del ramo StoreKit 2: una ricevuta
+    // Sandbox e' gratuita per chiunque abbia un Apple ID di test, quindi in
+    // produzione va respinta senza scrivere niente. Il ripiego esiste solo
+    // dove l'ambiente lo consente esplicitamente.
+    if (!sandboxTransactionsAllowed()) {
+      return { kind: "error", status: 21007, body: "sandbox_not_allowed" };
+    }
     environment = "sandbox";
     r = await postVerify(SANDBOX_URL, args.receiptData, secret);
   }

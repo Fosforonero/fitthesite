@@ -35,6 +35,21 @@ export const APPLE_BUNDLE_ID = "com.fitmeshsync.app";
 export const APPLE_APP_APPLE_ID = 6779751708;
 
 /**
+ * Se questo ambiente accetta anche transazioni Sandbox.
+ *
+ * Assente o diverso da "true" = SOLO produzione. Il default e' il caso
+ * pericoloso, quindi il default e' il piu' restrittivo: una transazione
+ * Sandbox e' gratuita per chiunque abbia un Apple ID di test, e accettarla in
+ * produzione significherebbe regalare il Pro a vita a chi sa come chiederlo.
+ *
+ * Non e' il client a scegliere: la decisione vive nell'ambiente del server,
+ * dove il client non arriva.
+ */
+export function sandboxTransactionsAllowed(): boolean {
+  return process.env.APPLE_ALLOW_SANDBOX === "true";
+}
+
+/**
  * Motivi di rifiuto TERMINALI: ritentare con lo stesso token non cambia
  * l'esito. Sono stringhe stabili perche' il client ci si comporta in modo
  * diverso e la dashboard ci fa i conteggi: non vanno rinominate a cuor
@@ -47,7 +62,9 @@ export type AppleJwsRejection =
   | "jws_wrong_product"
   | "jws_wrong_type"
   | "jws_incomplete"
-  | "jws_revoked";
+  | "jws_revoked"
+  /** Transazione Sandbox arrivata a un ambiente che accetta solo produzione. */
+  | "jws_sandbox_not_allowed";
 
 export type VerifiedAppleTransaction = {
   transactionId: string;
@@ -150,6 +167,9 @@ function verifierFor(environment: Environment): SignedDataVerifier {
  * questa e' la regola da poter esercitare caso per caso in un test.
  */
 export function outcomeForVerificationError(e: unknown): AppleJwsOutcome {
+  if (e instanceof SandboxNotAllowed) {
+    return { kind: "rejected", reason: "jws_sandbox_not_allowed" };
+  }
   if (e instanceof VerificationDeadlineExceeded) {
     return { kind: "retryable" };
   }
@@ -243,6 +263,16 @@ export function evaluateDecodedTransaction(
   // La libreria gia' rifiuta un bundle id diverso; lo ricontrolliamo perche'
   // questa e' la porta d'ingresso di un entitlement a vita e un controllo in
   // piu' costa una riga.
+  // Seconda linea di difesa sull'ambiente. Il verificatore di produzione gia'
+  // rifiuta un payload Sandbox, ma questo e' il punto in cui si concede un
+  // diritto a vita: se un domani cambiasse il modo in cui si sceglie il
+  // verificatore, questo controllo resterebbe in piedi da solo.
+  if (
+    payload.environment === Environment.SANDBOX &&
+    !sandboxTransactionsAllowed()
+  ) {
+    return { kind: "rejected", reason: "jws_sandbox_not_allowed" };
+  }
   if (payload.bundleId !== APPLE_BUNDLE_ID) {
     return { kind: "rejected", reason: "jws_wrong_app" };
   }
@@ -275,10 +305,17 @@ export function evaluateDecodedTransaction(
   };
 }
 
+/** Sollevata quando un token Sandbox arriva a un ambiente solo-produzione. */
+class SandboxNotAllowed extends Error {}
+
 /**
- * Produzione prima, sandbox come ripiego: la stessa build gira in TestFlight e
- * in produzione e non sappiamo in anticipo da quale delle due arrivi il token.
- * E' lo stesso ordine che gia' seguiva il ramo verifyReceipt.
+ * Produzione prima; Sandbox SOLO se questo ambiente lo consente.
+ *
+ * La stessa build gira in TestFlight e in produzione, quindi non sappiamo in
+ * anticipo da quale delle due arrivi il token. Ma "non lo sappiamo" non
+ * significa "accettiamo entrambi": una transazione Sandbox e' gratuita, e in
+ * produzione va respinta senza scrivere niente. Il ripiego su Sandbox esiste
+ * solo dove `APPLE_ALLOW_SANDBOX` e' esplicitamente acceso, cioe' in QA.
  *
  * Solo `INVALID_ENVIRONMENT` fa scattare il secondo tentativo. Un errore di
  * firma non diventa valido cambiando ambiente, e ritentarlo nasconderebbe il
@@ -296,6 +333,7 @@ async function verifyAndDecodeAcrossEnvironments(
       e instanceof VerificationException &&
       e.status === VerificationStatus.INVALID_ENVIRONMENT
     ) {
+      if (!sandboxTransactionsAllowed()) throw new SandboxNotAllowed();
       return await verifierFor(Environment.SANDBOX).verifyAndDecodeTransaction(
         signedTransaction,
       );
