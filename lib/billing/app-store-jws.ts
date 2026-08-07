@@ -46,7 +46,27 @@ export const APPLE_APP_APPLE_ID = 6779751708;
  * dove il client non arriva.
  */
 export function sandboxTransactionsAllowed(): boolean {
-  return process.env.APPLE_ALLOW_SANDBOX === "true";
+  if (process.env.APPLE_ALLOW_SANDBOX !== "true") return false;
+  // Rete di sicurezza contro l'errore piu' facile da fare: accendere la
+  // variabile su un ambiente di prova che pero' punta ancora al database di
+  // produzione. In quel caso una transazione Sandbox scriverebbe un
+  // entitlement vero su un account vero. Qui il permesso decade da solo:
+  // meglio un test di QA che non parte di un Pro regalato in produzione.
+  return !pointsAtProductionDatabase();
+}
+
+/**
+ * Il progetto Supabase di produzione, riconosciuto dal suo riferimento
+ * nell'URL. Non e' un segreto (e' l'indirizzo pubblico dell'API) e sta qui
+ * apposta: serve a distinguere "sto scrivendo sui dati veri" da "sto scrivendo
+ * su una copia", che e' l'unica cosa che conta prima di aprire il ramo Sandbox.
+ */
+const PRODUCTION_SUPABASE_REF = "xcdyhkuyxukaifhhtadr";
+
+export function pointsAtProductionDatabase(): boolean {
+  return (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").includes(
+    PRODUCTION_SUPABASE_REF,
+  );
 }
 
 /**

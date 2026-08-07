@@ -334,6 +334,46 @@ describe("isolamento fra produzione e sandbox", () => {
     }
   });
 
+  it("variabile accesa ma database di produzione: il permesso decade", () => {
+    // L'errore piu' facile da fare: un ambiente di prova che punta ancora ai
+    // dati veri. Qui una Sandbox scriverebbe un entitlement vero su un account
+    // vero, quindi il permesso si spegne da solo.
+    const originalUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    process.env.APPLE_ALLOW_SANDBOX = "true";
+    process.env.NEXT_PUBLIC_SUPABASE_URL =
+      "https://xcdyhkuyxukaifhhtadr.supabase.co";
+    try {
+      expect(sandboxTransactionsAllowed()).toBe(false);
+      expect(
+        evaluateDecodedTransaction(
+          validPayload({ environment: Environment.SANDBOX }),
+          LIFETIME,
+        ),
+      ).toEqual({ kind: "rejected", reason: "jws_sandbox_not_allowed" });
+    } finally {
+      if (originalUrl === undefined) {
+        delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+      } else {
+        process.env.NEXT_PUBLIC_SUPABASE_URL = originalUrl;
+      }
+    }
+  });
+
+  it("variabile accesa su un database NON di produzione: consentito", () => {
+    const originalUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    process.env.APPLE_ALLOW_SANDBOX = "true";
+    process.env.NEXT_PUBLIC_SUPABASE_URL = "https://qa-project.supabase.co";
+    try {
+      expect(sandboxTransactionsAllowed()).toBe(true);
+    } finally {
+      if (originalUrl === undefined) {
+        delete process.env.NEXT_PUBLIC_SUPABASE_URL;
+      } else {
+        process.env.NEXT_PUBLIC_SUPABASE_URL = originalUrl;
+      }
+    }
+  });
+
   it("la produzione resta accettata a prescindere dalla variabile", () => {
     delete process.env.APPLE_ALLOW_SANDBOX;
     expect(evaluateDecodedTransaction(validPayload(), LIFETIME).kind).toBe("ok");
