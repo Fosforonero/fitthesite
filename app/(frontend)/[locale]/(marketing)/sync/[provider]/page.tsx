@@ -758,6 +758,7 @@ export default async function ProviderLanding({
                 <Link
                   key={post.slug}
                   href={`/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`}
+                  prefetch={false}
                   className="card p-6 hover:-translate-y-0.5 transition-transform group"
                 >
                   <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
@@ -793,6 +794,7 @@ export default async function ProviderLanding({
               <Link
                 key={r.slug}
                 href={`/${lc}/sync/${r.slug}`}
+                prefetch={false}
                 className="card p-5 hover:-translate-y-0.5 transition-transform"
               >
                 <div className="flex items-center gap-3">

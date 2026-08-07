@@ -258,6 +258,7 @@ export default async function IntegrationsHub({
                 <Link
                   key={p.slug}
                   href={`/${lc}/sync/${p.slug}`}
+                  prefetch={false}
                   className="group relative card p-6 overflow-hidden hover:-translate-y-1 transition-all duration-300"
                 >
                   <div

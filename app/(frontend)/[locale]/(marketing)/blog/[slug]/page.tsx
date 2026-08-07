@@ -834,6 +834,7 @@ export default async function BlogArticle({
                 <Link
                   key={r.slug}
                   href={`/${lc}/blog/${localizedBlogSlug(r.slug, lc)}`}
+                  prefetch={false}
                   className="card p-5 group hover:-translate-y-0.5 transition-transform"
                 >
                   <p className="text-xs text-brand-aqua font-medium">

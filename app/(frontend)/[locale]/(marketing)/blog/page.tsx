@@ -355,6 +355,7 @@ export default async function BlogIndex({
               <Link
                 key={p.slug}
                 href={`/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`}
+                prefetch={false}
                 className="card-glass p-7 sm:p-8 group hover:-translate-y-0.5 transition-transform relative overflow-hidden"
               >
                 <div
@@ -407,6 +408,7 @@ export default async function BlogIndex({
             <Link
               key={p.slug}
               href={`/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`}
+              prefetch={false}
               className="card p-6 group hover:-translate-y-0.5 transition-transform flex flex-col"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}

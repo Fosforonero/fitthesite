@@ -24,7 +24,7 @@ export default function Footer({
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 grid gap-12 sm:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-5">
-          <Link href={`/${locale}`} className="inline-block">
+          <Link href={`/${locale}`} prefetch={false} className="inline-block">
             <Logo variant="horizontal" size={42} />
           </Link>
           <p className="mt-5 text-sm text-text-secondary max-w-sm leading-relaxed">
@@ -47,16 +47,16 @@ export default function Footer({
           </div>
           <ul className="space-y-2.5">
             <li><a href={`/${locale}#features`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.features}</a></li>
-            <li><Link href={`/${locale}/famiglia`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Mesh Famiglia" : "Family Mesh"}</Link></li>
-            <li><Link href={`/${locale}/lp/due-telefoni`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Android + iPhone" : "Android + iPhone"}</Link></li>
-            <li><Link href={`/${locale}/integrations`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Integrazioni" : "Integrations"}</Link></li>
-            <li><Link href={`/${locale}/labs`} className="text-text-secondary hover:text-text-primary transition">FitMesh Labs</Link></li>
-            <li><Link href={`/${locale}/ai`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Condividi con AI" : "Share with AI"}</Link></li>
-            <li><Link href={`/${locale}/roadmap`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Roadmap" : "Roadmap"}</Link></li>
-            <li><Link href={`/${locale}/blog`} className="text-text-secondary hover:text-text-primary transition">Blog</Link></li>
-            <li><Link href={`/${locale}/novita`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Novità" : "What's New"}</Link></li>
-            <li><Link href={`/${locale}/about`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Chi siamo" : "About"}</Link></li>
-            <li><Link href={`/${locale}/press`} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Press" : "Press"}</Link></li>
+            <li><Link href={`/${locale}/famiglia`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Mesh Famiglia" : "Family Mesh"}</Link></li>
+            <li><Link href={`/${locale}/lp/due-telefoni`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Android + iPhone" : "Android + iPhone"}</Link></li>
+            <li><Link href={`/${locale}/integrations`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Integrazioni" : "Integrations"}</Link></li>
+            <li><Link href={`/${locale}/labs`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">FitMesh Labs</Link></li>
+            <li><Link href={`/${locale}/ai`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Condividi con AI" : "Share with AI"}</Link></li>
+            <li><Link href={`/${locale}/roadmap`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Roadmap" : "Roadmap"}</Link></li>
+            <li><Link href={`/${locale}/blog`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">Blog</Link></li>
+            <li><Link href={`/${locale}/novita`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Novità" : "What's New"}</Link></li>
+            <li><Link href={`/${locale}/about`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Chi siamo" : "About"}</Link></li>
+            <li><Link href={`/${locale}/press`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Press" : "Press"}</Link></li>
             {/*
              * Sprint P0.10L-A: rimosso il link "Founder" dalla navigazione
              * (era classificazione B — non un'offerta, ma comunque un punto
@@ -65,7 +65,7 @@ export default function Footer({
              * fuori sitemap, invariata. Nessun link pubblico punta piu' qui.
              */}
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
-            <li><Link href={`/${locale}/support`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>
+            <li><Link href={`/${locale}/support`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>
           </ul>
         </div>
 
@@ -74,11 +74,11 @@ export default function Footer({
             {dict.footer.legal}
           </div>
           <ul className="space-y-2.5">
-            <li><Link href={`/${locale}/privacy`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.privacy}</Link></li>
-            <li><Link href={`/${locale}/terms`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.terms}</Link></li>
-            <li><Link href={`/${locale}/cookies`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.cookies}</Link></li>
-            <li><Link href={`/${locale}/imprint`} className="text-text-secondary hover:text-text-primary transition">{IMPRINT_NAV_LABEL[locale]}</Link></li>
-            <li><Link href="/delete-account" className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Elimina account" : "Delete account"}</Link></li>
+            <li><Link href={`/${locale}/privacy`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.privacy}</Link></li>
+            <li><Link href={`/${locale}/terms`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.terms}</Link></li>
+            <li><Link href={`/${locale}/cookies`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.cookies}</Link></li>
+            <li><Link href={`/${locale}/imprint`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{IMPRINT_NAV_LABEL[locale]}</Link></li>
+            <li><Link href="/delete-account" prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Elimina account" : "Delete account"}</Link></li>
             <li>
               <a href="mailto:privacy@fitmesh.fit" className="text-text-secondary hover:text-text-primary transition font-mono text-xs">
                 privacy@fitmesh.fit

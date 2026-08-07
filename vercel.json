@@ -25,10 +25,6 @@
     {
       "path": "/api/cron/beta-welcome-emails",
       "schedule": "0 10 * * *"
-    },
-    {
-      "path": "/api/cron/indexnow-daily",
-      "schedule": "30 6 * * *"
     }
   ]
 }
