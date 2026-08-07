@@ -14,7 +14,10 @@ import {
   looksLikeJws,
   verifyAppleJwsTransaction,
 } from "./app-store-jws";
-import { APPLE_ROOT_CERTIFICATES } from "./apple-root-ca";
+import {
+  APPLE_ROOT_CERTIFICATES,
+  APPLE_ROOT_CERTIFICATE_SOURCES,
+} from "./apple-root-ca";
 
 const LIFETIME = "fitmesh_pro_lifetime";
 
@@ -34,22 +37,61 @@ function validPayload(
   };
 }
 
-describe("certificato root Apple", () => {
-  it("è davvero Apple Root CA G3 e non è stato sostituito", () => {
-    expect(APPLE_ROOT_CERTIFICATES).toHaveLength(1);
-    const der = APPLE_ROOT_CERTIFICATES[0]!;
-    const fingerprint = createHash("sha256").update(der).digest("hex");
-    expect(fingerprint).toBe(
-      "63343abfb89a6a03ebb57e9b3f5fa7be7c4f5c756f3017b3a8c488c3653e9179",
-    );
+describe("trust store Apple", () => {
+  /**
+   * Impronte fissate a mano dai certificati scaricati da Apple PKI il
+   * 07/08/2026 e verificate con `openssl x509 -fingerprint -sha256`. Sono
+   * qui, ripetute, apposta: se qualcuno sostituisse un blob nel modulo E
+   * l'impronta accanto, questo test resterebbe verde. Duplicarle qui
+   * significa che la sostituzione va fatta in due punti indipendenti.
+   */
+  const EXPECTED = [
+    {
+      name: "Apple Inc. Root Certificate",
+      subject: "Apple Root CA",
+      sha256:
+        "b0b1730ecbc7ff4505142c49f1295e6eda6bcaed7e2c68c5be91b5a11001f024",
+    },
+    {
+      name: "Apple Root CA - G2",
+      subject: "Apple Root CA - G2",
+      sha256:
+        "c2b9b042dd57830e7d117dac55ac8ae19407d38e41d88f3215bc3a890444a050",
+    },
+    {
+      name: "Apple Root CA - G3",
+      subject: "Apple Root CA - G3",
+      sha256:
+        "63343abfb89a6a03ebb57e9b3f5fa7be7c4f5c756f3017b3a8c488c3653e9179",
+    },
+  ] as const;
 
-    // Autofirmato e ancora valido: se scadesse, ogni verifica smetterebbe di
-    // funzionare e vogliamo accorgercene qui, non in produzione.
-    const cert = new X509Certificate(der);
-    expect(cert.subject).toContain("Apple Root CA - G3");
-    expect(cert.issuer).toBe(cert.subject);
-    expect(new Date(cert.validTo).getTime()).toBeGreaterThan(Date.now());
+  it("contiene esattamente i root pubblicati da Apple, nell'ordine atteso", () => {
+    expect(APPLE_ROOT_CERTIFICATE_SOURCES.map((c) => c.name)).toEqual(
+      EXPECTED.map((e) => e.name),
+    );
+    expect(APPLE_ROOT_CERTIFICATES).toHaveLength(EXPECTED.length);
   });
+
+  for (const [index, expected] of EXPECTED.entries()) {
+    it(`${expected.name}: impronta, identità e validità`, () => {
+      const source = APPLE_ROOT_CERTIFICATE_SOURCES[index]!;
+      const der = APPLE_ROOT_CERTIFICATES[index]!;
+
+      const fingerprint = createHash("sha256").update(der).digest("hex");
+      expect(fingerprint).toBe(expected.sha256);
+      // L'impronta dichiarata nel modulo deve combaciare col blob accanto.
+      expect(source.sha256).toBe(expected.sha256);
+
+      const cert = new X509Certificate(der);
+      expect(cert.subject).toContain(expected.subject);
+      // Root: autofirmato per definizione.
+      expect(cert.issuer).toBe(cert.subject);
+      // Se scadesse, ogni verifica smetterebbe di funzionare: meglio
+      // accorgersene qui che in produzione.
+      expect(new Date(cert.validTo).getTime()).toBeGreaterThan(Date.now());
+    });
+  }
 });
 
 describe("riconoscimento del formato", () => {
@@ -97,6 +139,53 @@ describe("verifica crittografica", () => {
 
     expect(outcome.kind).not.toBe("ok");
   });
+});
+
+/**
+ * PROVA POSITIVA REALE.
+ *
+ * Tutto il resto dimostra che un JWS falso viene respinto. Questo è l'unico
+ * test che dimostra il contrario, cioè che un JWS AUTENTICO di Apple attraversa
+ * davvero firma, catena e OCSP e arriva a `ok`. Nessun mock può dimostrarlo:
+ * serve una transazione vera, che si ottiene con un acquisto in Sandbox o
+ * TestFlight.
+ *
+ * Come si esegue, senza che il token finisca da nessuna parte:
+ *
+ *   FITMESH_SANDBOX_JWS='ey...' pnpm vitest run lib/billing/app-store-jws.test.ts
+ *
+ * Il token sta solo nell'ambiente del processo: non va nel repository, non nei
+ * log, non negli snapshot. Il test non lo stampa mai, nemmeno fallendo. Se la
+ * variabile non c'è il test viene saltato, e il salto è dichiarato nel nome
+ * così nessuno lo scambia per una prova che non è stata data.
+ */
+const SANDBOX_JWS = process.env.FITMESH_SANDBOX_JWS;
+
+describe("prova positiva con JWS Apple autentico", () => {
+  it.skipIf(!SANDBOX_JWS)(
+    "un JWS reale attraversa firma, catena e OCSP fino a ok",
+    async () => {
+      const outcome = await verifyAppleJwsTransaction({
+        signedTransaction: SANDBOX_JWS!,
+        expectedProductId: LIFETIME,
+      });
+
+      // Il messaggio di fallimento riporta solo l'esito, mai il token.
+      expect(
+        outcome.kind,
+        `esito inatteso: ${outcome.kind === "rejected" ? outcome.reason : outcome.kind}`,
+      ).toBe("ok");
+      if (outcome.kind === "ok") {
+        expect(outcome.tx.transactionId).toMatch(/^\d+$/);
+        expect(outcome.tx.originalTransactionId).toMatch(/^\d+$/);
+        expect(outcome.tx.productId).toBe(LIFETIME);
+        expect(["Sandbox", "Production"]).toContain(outcome.tx.environment);
+      }
+    },
+    // OCSP parla con Apple: la rete può essere lenta e il default di vitest è
+    // troppo stretto per una verifica che esce davvero su internet.
+    30_000,
+  );
 });
 
 describe("tabella di decisione sulla transazione verificata", () => {

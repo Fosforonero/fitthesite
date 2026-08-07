@@ -53,16 +53,43 @@ const payloadSchema = z.object({
   package_name: z.string().min(3).max(120),
   // Default android per retro-compatibilità coi client v137- già in giro.
   platform: z.enum(["android", "ios"]).default("android"),
-  // Su iOS il token ha DUE formati incompatibili e il client dichiara quale
-  // sta mandando, invece di lasciarcelo indovinare:
+  // Su iOS il token ha DUE formati incompatibili:
   //   sk2_jws     StoreKit 2, il JWS della transazione (default del plugin
   //               dalla 0.4.0, quindi tutti i client moderni)
   //   app_receipt StoreKit 1, la ricevuta base64 → ramo verifyReceipt storico
-  // Default app_receipt: i client già in circolazione non mandano il campo, e
-  // sono esattamente quelli per cui il ramo storico era stato scritto. Il
-  // formato dichiarato viene comunque ricontrollato sulla forma del token.
-  token_format: z.enum(["sk2_jws", "app_receipt"]).default("app_receipt"),
+  //
+  // OPZIONALE, e non con un default: la 189 già in store non manda questo
+  // campo e manda JWS. Un default `app_receipt` l'avrebbe respinta come
+  // formato sbagliato, cioè avrebbe impedito proprio al cliente che ha già
+  // pagato di recuperare l'acquisto con "Ripristina acquisti". Quando il campo
+  // manca si guarda la forma del token (vedi resolveIosTokenFormat).
+  token_format: z.enum(["sk2_jws", "app_receipt"]).optional(),
 });
+
+type IosTokenFormat = "sk2_jws" | "app_receipt";
+
+/**
+ * Quale ramo iOS usare per questo token.
+ *
+ * - formato dichiarato → si rispetta, e il token deve avere la forma giusta.
+ *   Un client che dichiara il falso viene respinto, non assecondato.
+ * - formato assente (client 189 e precedenti) → decide la forma del token.
+ *   La distinzione è netta e non euristica: un JWS è `header.payload.firma` in
+ *   base64url, una ricevuta App Store è base64 standard e non contiene punti.
+ */
+export function resolveIosTokenFormat(
+  declared: IosTokenFormat | undefined,
+  token: string,
+): { format: IosTokenFormat } | { mismatch: true } {
+  const hasJwsShape = looksLikeJws(token);
+  if (declared === "sk2_jws") {
+    return hasJwsShape ? { format: "sk2_jws" } : { mismatch: true };
+  }
+  if (declared === "app_receipt") {
+    return hasJwsShape ? { mismatch: true } : { format: "app_receipt" };
+  }
+  return { format: hasJwsShape ? "sk2_jws" : "app_receipt" };
+}
 
 type SubRow = {
   user_id: string;
@@ -168,12 +195,23 @@ type UpsertOutcome =
  * utente può mandare la stessa transazione dieci volte e resta una riga sola.
  *
  * Ma la tabella dichiara anche `unique (billing_source,
- * external_subscription_id)` (migration 20260514120004): se un ALTRO utente
- * prova a reclamare la stessa transazione Apple, l'insert viola quel vincolo.
- * Prima diventava un 500 generico indistinguibile da un guasto del database;
- * ora è un 409 esplicito. Il controllo è affidato al vincolo e non a una
- * lettura preventiva perché così non c'è finestra di corsa fra due richieste
- * simultanee.
+ * external_subscription_id)` (migration 20260514120004, presenza confermata in
+ * produzione il 07/08/2026): se un ALTRO utente prova a reclamare la stessa
+ * transazione Apple, l'insert viola quel vincolo. Prima diventava un 500
+ * generico indistinguibile da un guasto del database; ora è un 409 esplicito.
+ * Il controllo è affidato al vincolo e non a una lettura preventiva perché
+ * così non c'è finestra di corsa fra due richieste simultanee.
+ *
+ * LIMITE NOTO, da tenere presente prima di dire "la transazione è legata per
+ * sempre a quell'utente": l'upsert è su `user_id`, cioè una riga per utente. Se
+ * l'utente A presenta una nuova transazione, la sua riga viene SOSTITUITA e il
+ * vecchio `external_subscription_id` smette di esistere nella tabella — a quel
+ * punto il vincolo non lo protegge più e un utente B potrebbe reclamarlo.
+ * L'unicità qui garantisce "non contemporaneamente a due utenti", non
+ * "appartiene per sempre a uno". Per una proprietà immutabile nel tempo
+ * servirebbe un registro separato append-only degli acquisti verificati, che è
+ * una modifica di schema e non si fa dentro un hotfix. Vedi
+ * `AppFitmesh/docs/sprints/P0-apple-acquisto-non-servito.md`.
  */
 async function upsertSubscription(
   admin: Sb,
@@ -219,7 +257,6 @@ async function validateAppleJws(args: {
   userId: string;
   productId: string;
   signedTransaction: string;
-  isSubscription: boolean;
 }): Promise<Response> {
   const outcome = await verifyAppleJwsTransaction({
     signedTransaction: args.signedTransaction,
@@ -237,6 +274,27 @@ async function validateAppleJws(args: {
   }
 
   const tx = outcome.tx;
+
+  // Binding dell'account. Quando l'acquisto porta con sé l'identità FitMesh a
+  // cui appartiene, quella identità comanda: un acquisto di A non diventa di B
+  // solo perché B lo presenta. Senza questo controllo, due account FitMesh
+  // sullo stesso Apple ID (famiglia, telefono riutilizzato) potrebbero
+  // rubarsi l'entitlement a vicenda.
+  //
+  // Le transazioni legacy non hanno il token (il client non lo impostava): lì
+  // l'attribuzione la decide un'azione esplicita dell'utente — il tap su
+  // "Ripristina acquisti" — e il vincolo di unicità impedisce comunque che la
+  // stessa transazione finisca su due account.
+  // Confronto senza distinzione di maiuscole: è un UUID, e la forma con cui
+  // Apple lo restituisce non è qualcosa su cui vogliamo scommettere.
+  if (
+    tx.appAccountToken &&
+    tx.appAccountToken.toLowerCase() !== args.userId.toLowerCase()
+  ) {
+    console.warn("[Billing] apple jws appAccountToken does not match caller");
+    return jsonError(409, "purchase_belongs_to_other_account");
+  }
+
   const row: SubRow = {
     user_id: args.userId,
     billing_source: "apple_iap",
@@ -304,28 +362,37 @@ export async function POST(req: Request): Promise<Response> {
   const admin = createAdminClient() as unknown as Sb;
   const isSubscription = product_id === PRODUCT_SUBSCRIPTION;
 
-  // ── Ramo Apple StoreKit 2 (JWS) ──────────────────────────────────────
-  // È il ramo dei client moderni: il plugin usa StoreKit 2 di default dalla
-  // 0.4.0. Non richiede nessuna credenziale, solo i certificati root Apple.
-  if (platform === "ios" && token_format === "sk2_jws") {
-    return await validateAppleJws({
-      admin,
-      userId,
-      productId: product_id,
-      signedTransaction: purchase_token,
-      isSubscription,
-    });
-  }
-
-  // ── Ramo Apple legacy (ricevuta base64, verifyReceipt) ───────────────
-  // Solo per client realmente StoreKit 1 (iOS < 15). Invariato.
+  // ── Ramo Apple ───────────────────────────────────────────────────────
   if (platform === "ios") {
-    if (looksLikeJws(purchase_token)) {
-      // Il client ha dichiarato "ricevuta" e ha mandato un JWS: inoltrarlo a
-      // verifyReceipt produrrebbe un "ricevuta malformata" fuorviante, che è
-      // esattamente il difetto che questo P0 sta chiudendo.
+    const resolved = resolveIosTokenFormat(token_format, purchase_token);
+    if ("mismatch" in resolved) {
+      // Il client ha dichiarato un formato e ne ha mandato un altro. Inoltrare
+      // comunque produrrebbe un errore fuorviante ("ricevuta malformata"), che
+      // è esattamente ciò che ha tenuto nascosto questo difetto per due mesi.
       return jsonError(400, "token_format_mismatch");
     }
+
+    // StoreKit 2: nessuna credenziale, solo i root Apple pubblici.
+    if (resolved.format === "sk2_jws") {
+      if (isSubscription) {
+        // Fail-closed dichiarato: il verificatore accetta solo NON_CONSUMABLE.
+        // Un abbonamento finirebbe respinto con `jws_wrong_type`, un errore che
+        // fa sembrare corrotto l'acquisto invece di dire la verità, cioè che
+        // questa validazione non è ancora stata scritta. Vale anche che oggi
+        // `fitmesh_pro_sub` è respinto su App Store Connect e non è
+        // acquistabile su iOS.
+        return jsonError(400, "ios_subscription_not_supported");
+      }
+      return await validateAppleJws({
+        admin,
+        userId,
+        productId: product_id,
+        signedTransaction: purchase_token,
+      });
+    }
+
+    // ── Ramo legacy (ricevuta base64, verifyReceipt) ───────────────────
+    // Solo per client realmente StoreKit 1 (iOS < 15). Invariato.
     if (!readAppleSharedSecret()) {
       console.warn("[Billing] APPLE_SHARED_SECRET missing — iOS IAP validation disabled");
       return jsonError(503, "app_store_not_configured");

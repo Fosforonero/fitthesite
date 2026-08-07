@@ -78,9 +78,14 @@ export function looksLikeJws(token: string): boolean {
 }
 
 /**
- * `appAppleId` va passato in produzione e omesso in sandbox: e' quanto
- * prescrive la libreria (vedi il commento del suo costruttore). Le istanze si
- * riusano perche' mantengono una cache delle chiavi pubbliche gia' verificate.
+ * `appAppleId` va passato in produzione e omesso in sandbox, come prescrive il
+ * costruttore della libreria. Attenzione a cosa significa davvero: per le
+ * TRANSAZIONI non viene confrontato con niente (il payload non lo contiene) —
+ * serve solo se un domani verificheremo le notifiche server. Lo passiamo lo
+ * stesso per non lasciare l'istanza mal configurata il giorno che servira'.
+ *
+ * Le istanze si riusano perche' mantengono una cache delle chiavi pubbliche
+ * gia' verificate.
  */
 let productionVerifier: SignedDataVerifier | null = null;
 let sandboxVerifier: SignedDataVerifier | null = null;
@@ -125,14 +130,21 @@ function rejectionFor(status: VerificationStatus): AppleJwsRejection {
  * Verifica il JWS e ne estrae la transazione, controllando TUTTO quello che
  * deve tornare prima di concedere qualcosa:
  *
- *  1. firma e catena fino alla Apple Root CA G3      (libreria)
+ *  1. firma e catena fino a un root Apple            (libreria)
  *  2. ambiente produzione o sandbox                  (libreria, con fallback)
  *  3. bundle id `com.fitmeshsync.app`                (libreria + ricontrollo)
- *  4. Apple app id 6779751708                        (libreria, in produzione)
- *  5. product id uguale a quello richiesto           (qui)
- *  6. tipo non consumabile                           (qui)
- *  7. transaction id e original transaction id       (qui)
- *  8. nessuna revoca o rimborso                      (qui)
+ *  4. product id uguale a quello richiesto           (qui)
+ *  5. tipo non consumabile                           (qui)
+ *  6. transaction id e original transaction id       (qui)
+ *  7. nessuna revoca o rimborso                      (qui)
+ *
+ * NON verifica l'Apple app id numerico, e non puo': il payload di una
+ * transazione non lo contiene. `verifyAndDecodeTransaction` confronta solo
+ * bundle id e ambiente (letto nel sorgente della libreria 3.1.0). L'app id
+ * passato al costruttore serve a `verifyAndDecodeNotification`, cioe' alle
+ * App Store Server Notifications, che non abbiamo. Chi volesse un controllo
+ * numerico deve passare da un AppTransaction firmato: e' un lavoro a parte, e
+ * fingere che ci sia gia' sarebbe peggio che non averlo.
  *
  * L'`appAccountToken` viene restituito ma NON confrontato qui: l'attribuzione
  * a un utente e' una decisione del chiamante, che e' l'unico a sapere chi e'
