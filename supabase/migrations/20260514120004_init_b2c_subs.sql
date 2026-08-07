@@ -35,10 +35,13 @@ create index b2c_subscriptions_state_idx
 -- Il parametro NON puo' chiamarsi `row`: e' parola riservata Postgres e lo
 -- statement e' un errore di sintassi (42601) su PG15 e PG17. Il nome `sub` e'
 -- quello della funzione realmente viva in produzione.
+-- `set search_path` e' l'indurimento gia' presente sulla funzione viva in
+-- produzione: qui la baseline lo recupera, non lo introduce.
 create or replace function public.is_b2c_lifetime(sub public.b2c_subscriptions)
 returns boolean
 language sql
 immutable
+set search_path to 'public'
 as $$
   select sub.active_until > '9000-01-01'::timestamptz;
 $$;
