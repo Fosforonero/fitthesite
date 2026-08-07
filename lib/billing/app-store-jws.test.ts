@@ -3,6 +3,8 @@ import { X509Certificate, createHash } from "node:crypto";
 import {
   Environment,
   Type,
+  VerificationException,
+  VerificationStatus,
   type JWSTransactionDecodedPayload,
 } from "@apple/app-store-server-library";
 import { describe, expect, it } from "vitest";
@@ -10,9 +12,12 @@ import { describe, expect, it } from "vitest";
 import {
   APPLE_APP_APPLE_ID,
   APPLE_BUNDLE_ID,
+  VerificationDeadlineExceeded,
   evaluateDecodedTransaction,
   looksLikeJws,
+  outcomeForVerificationError,
   verifyAppleJwsTransaction,
+  withDeadline,
 } from "./app-store-jws";
 import {
   APPLE_ROOT_CERTIFICATES,
@@ -186,6 +191,74 @@ describe("prova positiva con JWS Apple autentico", () => {
     // troppo stretto per una verifica che esce davvero su internet.
     30_000,
   );
+});
+
+describe("budget di tempo", () => {
+  it("una verifica che non risponde entro il limite viene troncata", async () => {
+    // Un OCSP che non risponde mai: senza limite la funzione resterebbe
+    // appesa fino al timeout di piattaforma, che non produce una risposta
+    // strutturata.
+    const neverSettles = new Promise<string>(() => {});
+    await expect(withDeadline(neverSettles, 5)).rejects.toBeInstanceOf(
+      VerificationDeadlineExceeded,
+    );
+  });
+
+  it("una verifica che risponde in tempo passa intatta", async () => {
+    await expect(withDeadline(Promise.resolve("ok"), 1_000)).resolves.toBe(
+      "ok",
+    );
+  });
+});
+
+describe("di chi è la colpa quando la verifica non riesce", () => {
+  it("scadenza: ritentabile, mai un rifiuto dell'acquisto", () => {
+    expect(
+      outcomeForVerificationError(new VerificationDeadlineExceeded()),
+    ).toEqual({ kind: "retryable" });
+  });
+
+  it("errore dichiarato ritentabile da Apple (OCSP/rete): ritentabile", () => {
+    expect(
+      outcomeForVerificationError(
+        new VerificationException(
+          VerificationStatus.RETRYABLE_VERIFICATION_FAILURE,
+        ),
+      ),
+    ).toEqual({ kind: "retryable" });
+  });
+
+  it("errore sconosciuto e non tipizzato: ritentabile, si sbaglia dalla parte giusta", () => {
+    expect(outcomeForVerificationError(new Error("boom"))).toEqual({
+      kind: "retryable",
+    });
+    expect(outcomeForVerificationError("stringa qualunque")).toEqual({
+      kind: "retryable",
+    });
+  });
+
+  it("firma o catena non valide: rifiuto terminale", () => {
+    for (const status of [
+      VerificationStatus.VERIFICATION_FAILURE,
+      VerificationStatus.INVALID_CHAIN_LENGTH,
+      VerificationStatus.INVALID_CERTIFICATE,
+    ]) {
+      expect(
+        outcomeForVerificationError(new VerificationException(status)),
+      ).toEqual({ kind: "rejected", reason: "jws_signature_invalid" });
+    }
+  });
+
+  it("identità dell'app o ambiente sbagliati: rifiuto terminale dedicato", () => {
+    for (const status of [
+      VerificationStatus.INVALID_APP_IDENTIFIER,
+      VerificationStatus.INVALID_ENVIRONMENT,
+    ]) {
+      expect(
+        outcomeForVerificationError(new VerificationException(status)),
+      ).toEqual({ kind: "rejected", reason: "jws_wrong_app" });
+    }
+  });
 });
 
 describe("tabella di decisione sulla transazione verificata", () => {

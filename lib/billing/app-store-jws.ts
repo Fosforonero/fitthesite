@@ -73,6 +73,36 @@ export type AppleJwsOutcome =
  */
 const JWS_SHAPE = /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/;
 
+/**
+ * Budget massimo per l'intera verifica, OCSP compreso.
+ *
+ * Serve perche' i due limiti non sono compatibili: la libreria Apple aspetta
+ * fino a 30 secondi una risposta OCSP (`timeout: 30000` in `checkOCSPStatus`,
+ * verificato nel sorgente 3.1.0), mentre la funzione serverless che ci gira
+ * dentro non dichiara `maxDuration` e vive quindi col default di piattaforma,
+ * che e' molto piu' corto. Senza questo limite, un OCSP lento non produce il
+ * nostro 503 strutturato: produce un timeout di piattaforma, cioe' un errore
+ * che il client non sa leggere e da cui non impara niente.
+ *
+ * Cinque secondi sono larghi: le due richieste OCSP partono in parallelo e in
+ * condizioni normali rispondono in centinaia di millisecondi. E le chiavi
+ * pubbliche gia' verificate restano in cache, quindi il costo si paga solo a
+ * freddo.
+ */
+const VERIFICATION_DEADLINE_MS = 5_000;
+
+export class VerificationDeadlineExceeded extends Error {}
+
+export function withDeadline<T>(promise: Promise<T>, ms: number): Promise<T> {
+  let timer: ReturnType<typeof setTimeout>;
+  const deadline = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new VerificationDeadlineExceeded()), ms);
+  });
+  return Promise.race([promise, deadline]).finally(() =>
+    clearTimeout(timer),
+  ) as Promise<T>;
+}
+
 export function looksLikeJws(token: string): boolean {
   return JWS_SHAPE.test(token);
 }
@@ -108,6 +138,28 @@ function verifierFor(environment: Environment): SignedDataVerifier {
     APPLE_BUNDLE_ID,
   );
   return sandboxVerifier;
+}
+
+/**
+ * Che cosa fare di un errore sollevato durante la verifica.
+ *
+ * La distinzione che conta non e' "errore si'/no" ma "e' colpa dell'acquisto?".
+ * Scadenza, rete e OCSP irraggiungibile non dicono niente sull'acquisto:
+ * trattarli come rifiuti toglierebbe il Pro a chi ha pagato, che e' esattamente
+ * il difetto che questo P0 sta chiudendo. Sta a parte ed e' esportata perche'
+ * questa e' la regola da poter esercitare caso per caso in un test.
+ */
+export function outcomeForVerificationError(e: unknown): AppleJwsOutcome {
+  if (e instanceof VerificationDeadlineExceeded) {
+    return { kind: "retryable" };
+  }
+  if (e instanceof VerificationException) {
+    if (e.status === VerificationStatus.RETRYABLE_VERIFICATION_FAILURE) {
+      return { kind: "retryable" };
+    }
+    return { kind: "rejected", reason: rejectionFor(e.status) };
+  }
+  return { kind: "retryable" };
 }
 
 function rejectionFor(status: VerificationStatus): AppleJwsRejection {
@@ -153,6 +205,7 @@ function rejectionFor(status: VerificationStatus): AppleJwsRejection {
 export async function verifyAppleJwsTransaction(args: {
   signedTransaction: string;
   expectedProductId: string;
+  deadlineMs?: number;
 }): Promise<AppleJwsOutcome> {
   if (!looksLikeJws(args.signedTransaction)) {
     return { kind: "rejected", reason: "jws_malformed" };
@@ -160,17 +213,12 @@ export async function verifyAppleJwsTransaction(args: {
 
   let payload: JWSTransactionDecodedPayload;
   try {
-    payload = await verifyAndDecodeAcrossEnvironments(args.signedTransaction);
+    payload = await withDeadline(
+      verifyAndDecodeAcrossEnvironments(args.signedTransaction),
+      args.deadlineMs ?? VERIFICATION_DEADLINE_MS,
+    );
   } catch (e) {
-    if (e instanceof VerificationException) {
-      if (e.status === VerificationStatus.RETRYABLE_VERIFICATION_FAILURE) {
-        return { kind: "retryable" };
-      }
-      return { kind: "rejected", reason: rejectionFor(e.status) };
-    }
-    // Rete, OCSP irraggiungibile, imprevisti: non e' un acquisto invalido, e
-    // trattarlo come tale toglierebbe il Pro a chi ha pagato.
-    return { kind: "retryable" };
+    return outcomeForVerificationError(e);
   }
 
   return evaluateDecodedTransaction(payload, args.expectedProductId);
