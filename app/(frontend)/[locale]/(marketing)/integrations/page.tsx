@@ -7,6 +7,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { tl } from "@/lib/blog/types";
+import { providerLinkHref } from "@/lib/providers/indexability";
 import {
   PROVIDERS,
   categoryLabel,
@@ -254,10 +255,14 @@ export default async function IntegrationsHub({
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {group.items.map((p) => {
               const status = statusLabel(p.status, lc);
+              // Sprint P0.13: providerLinkHref — lc-diretto → EN-fallback →
+              // nascondi la card (mai un link verso una pagina noindex).
+              const href = providerLinkHref(p, lc);
+              if (!href) return null;
               return (
                 <Link
                   key={p.slug}
-                  href={`/${lc}/sync/${p.slug}`}
+                  href={href}
                   prefetch={false}
                   className="group relative card p-6 overflow-hidden hover:-translate-y-1 transition-all duration-300"
                 >

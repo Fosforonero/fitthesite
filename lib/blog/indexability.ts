@@ -28,6 +28,7 @@
 import type { Locale } from "@/lib/i18n";
 import { walkPost } from "@/lib/blog/nordic-overlay";
 import type { BlogPost } from "@/lib/blog/types";
+import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 
 /** True se OGNI campo traducibile applicabile a `lc` ha un valore per `lc` (nessun fallback en/it). */
 export function isPostLocaleComplete(post: BlogPost, lc: Locale): boolean {
@@ -93,3 +94,24 @@ export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
   "sleep-score-regolarita-ritmo-circadiano",
   "perche-zona-2-cambia-smartwatch-app",
 ]);
+
+/**
+ * Sprint P0.13: URL da usare per un link INTERNO (related, prev/next, grid)
+ * verso `post` nella locale corrente `lc` — unica fonte di verità per ogni
+ * componente che linka un post da un altro contesto (non la pagina del post
+ * stesso, che ha già `blogLanguages()`/`robots` sopra).
+ *
+ * Regola (stessa per tutte le famiglie di contenuto in P0.13): 1) variante
+ * `lc` indicizzabile → link diretto; 2) altrimenti variante EN indicizzabile
+ * → fallback su EN (mai un redirect nel mezzo); 3) altrimenti `null` — il
+ * chiamante DEVE nascondere il link, mai puntare a una pagina `noindex`.
+ */
+export function blogLinkHref(post: BlogPost, lc: Locale): string | null {
+  if (isBlogVariantIndexable(post, lc)) {
+    return `/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`;
+  }
+  if (lc !== "en" && isBlogVariantIndexable(post, "en")) {
+    return `/en/blog/${localizedBlogSlug(post.slug, "en")}`;
+  }
+  return null;
+}

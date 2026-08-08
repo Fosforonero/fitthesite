@@ -6,10 +6,14 @@ import { Fragment, type ReactNode } from "react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
-import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
+import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { PROVIDERS_BY_SLUG } from "@/lib/providers/data";
-import { PROVIDER_MODELS } from "@/lib/providers/models";
-import { isProviderModelVariantIndexable } from "@/lib/providers/indexability";
+import { PROVIDER_MODELS, type ProviderModel } from "@/lib/providers/models";
+import {
+  isProviderModelVariantIndexable,
+  providerModelLinkHref,
+  providerModelLanguages,
+} from "@/lib/providers/indexability";
 import { tl } from "@/lib/blog/types";
 import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
 import { APPLE_STORE_URL } from "@/lib/flags";
@@ -267,9 +271,9 @@ export async function generateMetadata({
       : { index: false, follow: true },
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: localeAlternates(
-        (l) => `${SITE_URL}/${l}/sync/${p.slug}/${m.slug}`,
-      ),
+      // Sprint P0.13: hreflang filtrato su isProviderModelVariantIndexable —
+      // stessa fonte di verità di robots/sitemap (vedi provider/page.tsx).
+      languages: providerModelLanguages(p, m),
     },
     openGraph: {
       type: "article",
@@ -301,7 +305,13 @@ export default async function ModelPage({
   if (!p || !m) notFound();
 
   const desc = m.description[lc] ?? m.description["en"] ?? "";
-  const otherModels = models.filter((x) => x.slug !== modelSlug).slice(0, 4);
+  // Sprint P0.13: providerModelLinkHref applica lc-diretto → EN-fallback →
+  // nascondi, stessa regola di blogLinkHref/providerLinkHref.
+  const otherModels = models
+    .filter((x) => x.slug !== modelSlug)
+    .map((om) => ({ model: om, href: providerModelLinkHref(p, om, lc) }))
+    .filter((x): x is { model: ProviderModel; href: string } => x.href !== null)
+    .slice(0, 4);
   const pageUrl = `${SITE_URL}/${lc}/sync/${p.slug}/${m.slug}`;
   const isLive = p.status === "live" || p.status === "live-basic" || p.status === "beta";
 
@@ -446,10 +456,10 @@ export default async function ModelPage({
               {t("otherModels", lc)} — {p.name}
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {otherModels.map((om) => (
+              {otherModels.map(({ model: om, href }) => (
                 <Link
                   key={om.slug}
-                  href={`/${lc}/sync/${p.slug}/${om.slug}`}
+                  href={href}
                   prefetch={false}
                   className="bg-bg-secondary hover:bg-bg-tertiary rounded-xl px-4 py-3 transition-colors"
                 >

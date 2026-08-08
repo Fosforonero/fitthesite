@@ -12,8 +12,9 @@ import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { WebSiteJsonLd } from "@/components/seo/WebSiteJsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
-import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
-import { tl, tll } from "@/lib/blog/types";
+import { blogLinkHref } from "@/lib/blog/indexability";
+import { providerLinkHref } from "@/lib/providers/indexability";
+import { tl, tll, type BlogPost } from "@/lib/blog/types";
 import { p } from "@/lib/pricing";
 import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
@@ -428,10 +429,14 @@ export default async function Home({
         <div className="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
           {PROVIDERS.map((p) => {
             const st = statusLabel(p.status, lc);
+            // Sprint P0.13: providerLinkHref — lc-diretto → EN-fallback →
+            // nascondi la card (mai un link verso una pagina noindex).
+            const providerHref = providerLinkHref(p, lc);
+            if (!providerHref) return null;
             return (
               <Link
                 key={p.slug}
-                href={`/${lc}/sync/${p.slug}`}
+                href={providerHref}
                 prefetch={false}
                 className="group card p-4 hover:-translate-y-1 transition-all flex flex-col items-center text-center gap-2 relative overflow-hidden"
               >
@@ -753,9 +758,12 @@ export default async function Home({
           "scegliere-smartwatch-dati-2026",
           "come-funziona-fitmesh",
         ];
+        // Sprint P0.13: blogLinkHref — lc-diretto → EN-fallback → nascondi.
         const featured = featuredSlugs
           .map((s) => postsBySlug[s])
-          .filter((p): p is NonNullable<typeof p> => p !== undefined);
+          .filter((p): p is NonNullable<typeof p> => p !== undefined)
+          .map((post) => ({ post, href: blogLinkHref(post, lc) }))
+          .filter((x): x is { post: BlogPost; href: string } => x.href !== null);
         if (featured.length === 0) return null;
         return (
           <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
@@ -777,10 +785,10 @@ export default async function Home({
               </Link>
             </div>
             <div className="grid gap-5 md:grid-cols-3">
-              {featured.map((post, i) => (
+              {featured.map(({ post, href }, i) => (
                 <Link
                   key={post.slug}
-                  href={`/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`}
+                  href={href}
                   className="card-glass p-7 group hover:-translate-y-0.5 transition-transform flex flex-col"
                   data-reveal
                   style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}

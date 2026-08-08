@@ -5,12 +5,20 @@ import type { BlogSection } from "@/lib/blog/types";
 import { tl, tll } from "@/lib/blog/types";
 import type { Locale } from "@/lib/i18n";
 import { localizedBlogSlug, localizedLandingSlug } from "@/lib/blog/slug-i18n";
+import { FITNESS_DATA_SYNC_COMPLETE_LOCALES } from "@/lib/content/static-page-locales";
 
 /**
  * Riscrive un href interno alla lingua corrente: normalizza il prefisso `/xx/`
  * e, per i link `/blog/<slug>` e `/lp/<slug>`, mappa lo slug canonico a quello
  * localizzato (i contenuti sono scritti con lo slug canonico IT). Evita il salto
  * via redirect 308 e mantiene i link coerenti per lingua. Link esterni invariati.
+ *
+ * Sprint P0.13: il fallback generico (ultima riga) fa uno swap cieco del
+ * prefisso locale — corretto per route che esistono in TUTTE le locale (es.
+ * `/beta`), ma produceva un 404 per `/fitness-data-sync`, che esiste SOLO in
+ * FITNESS_DATA_SYNC_COMPLETE_LOCALES (it/en/de/es). Caso esplicito: fuori da
+ * quel set, fallback su EN (sempre presente), stessa regola di
+ * `blogLinkHref`/`providerLinkHref` altrove in questo sprint.
  */
 function localizeInternalHref(href: string, locale: Locale): string {
   if (!href.startsWith("/")) return href;
@@ -22,6 +30,12 @@ function localizeInternalHref(href: string, locale: Locale): string {
         ? localizedBlogSlug(slug, locale)
         : localizedLandingSlug(slug, locale);
     return `/${locale}/${kind}/${localized}${rest}`;
+  }
+  const fds = href.match(/^\/(?:it|en|es|de|pt|fr)\/fitness-data-sync(.*)$/);
+  if (fds) {
+    const [, rest] = fds;
+    const target = FITNESS_DATA_SYNC_COMPLETE_LOCALES.includes(locale) ? locale : "en";
+    return `/${target}/fitness-data-sync${rest}`;
   }
   return href.replace(/^\/(it|en|es|de|pt|fr)(?=\/|$)/, `/${locale}`);
 }

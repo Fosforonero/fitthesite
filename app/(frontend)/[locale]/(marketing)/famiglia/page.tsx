@@ -22,7 +22,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
-import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
+import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { isLocaleInCopy } from "@/lib/content/page-copy-gate";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
@@ -979,6 +979,22 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
+/**
+ * Sprint P0.13: hreflang filtrato su isLocaleInCopy(COPY, lc) — la STESSA
+ * fonte di verità usata da `robots` sotto. COPY non è esportabile da un
+ * modulo page.tsx (vincolo Next.js), quindi questo helper resta locale come
+ * `blogLanguages()`/`landingLanguages()` in blog/[slug] e lp/[slug].
+ */
+function famigliaLanguages(): Record<string, string> {
+  const langs: Record<string, string> = {};
+  for (const l of locales) {
+    if (!isLocaleInCopy(COPY, l)) continue;
+    langs[l] = `${SITE_URL}/${l}/famiglia`;
+  }
+  langs["x-default"] = `${SITE_URL}/it/famiglia`;
+  return langs;
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -1061,7 +1077,13 @@ export async function generateMetadata({
     robots: isLocaleInCopy(COPY, lc) ? undefined : { index: false, follow: false },
     alternates: {
       canonical: `${SITE_URL}/${lc}/famiglia`,
-      languages: localeAlternates((l) => `${SITE_URL}/${l}/famiglia`),
+      // Sprint P0.13: hreflang filtrato sulla STESSA fonte di verità del
+      // robots sopra (isLocaleInCopy(COPY, lc)) — non FAMIGLIA_COMPLETE_LOCALES
+      // (il twin manuale usato solo da sitemap.ts, perché COPY non è
+      // esportabile da un modulo page.tsx). Prima: localeAlternates()
+      // generico emetteva hreflang anche verso le 7 locale noindex
+      // (nl/ja/ko/sv/da/no/fi) non coperte da COPY.
+      languages: famigliaLanguages(),
     },
     openGraph: {
       type: "website",

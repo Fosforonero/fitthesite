@@ -2,6 +2,10 @@ import Link from "next/link";
 import Logo from "./Logo";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { IMPRINT_NAV_LABEL } from "@/components/legal/TraderIdentity";
+import { LANDING_PAGES_BY_SLUG } from "@/lib/landing/data";
+import { landingLinkHref } from "@/lib/landing/indexability";
+import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
+import { famigliaLinkHref } from "@/lib/content/static-page-locales";
 
 export default function Footer({
   dict,
@@ -10,6 +14,14 @@ export default function Footer({
   dict: Dictionary;
   locale: Locale;
 }) {
+  // Sprint P0.13: landingLinkHref — lc-diretto (slug localizzato) →
+  // EN-fallback → nascondi. Prima linkava sempre lo slug canonico IT
+  // (`due-telefoni`), funzionante solo grazie al redirect 308 di
+  // lp/[slug]/page.tsx quando differiva dallo slug reale della locale —
+  // "mai un link che richieda un redirect" (FASE 3).
+  const dueTelefoni = LANDING_PAGES_BY_SLUG["due-telefoni"];
+  const dueTelefoniHref = dueTelefoni ? landingLinkHref(dueTelefoni, locale) : null;
+
   return (
     <footer className="relative mt-32 border-t border-white/[0.06]">
       {/* Top accent strip — same gradient as header for symmetry */}
@@ -47,10 +59,23 @@ export default function Footer({
           </div>
           <ul className="space-y-2.5">
             <li><a href={`/${locale}#features`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.features}</a></li>
-            <li><Link href={`/${locale}/famiglia`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Mesh Famiglia" : "Family Mesh"}</Link></li>
-            <li><Link href={`/${locale}/lp/due-telefoni`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Android + iPhone" : "Android + iPhone"}</Link></li>
+            {/* Sprint P0.13: era `/${locale}/famiglia` incondizionato — per
+                le 7 locale non coperte da COPY in famiglia/page.tsx
+                (nl/ja/ko/sv/da/no/fi) linkava una pagina noindex da qui,
+                pagina indicizzabile (anchor-verso-noindex, trovato dal
+                guardrail). famigliaLinkHref: lc-diretto→EN-fallback, mai
+                null perché EN è sempre in FAMIGLIA_COMPLETE_LOCALES. */}
+            <li><Link href={famigliaLinkHref(locale)} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Mesh Famiglia" : "Family Mesh"}</Link></li>
+            {dueTelefoniHref && (
+              <li><Link href={dueTelefoniHref} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Android + iPhone" : "Android + iPhone"}</Link></li>
+            )}
             <li><Link href={`/${locale}/integrations`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Integrazioni" : "Integrations"}</Link></li>
-            <li><Link href={`/${locale}/labs`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">FitMesh Labs</Link></li>
+            {/* Sprint P0.13: era `/${locale}/labs` — per le 13 locale fuori
+                it/en risolveva a una pagina che poi faceva 307 verso
+                /en/labs (Labs esiste solo it/en, vedi FASE 3 "mai un link
+                che richieda un redirect"). Allineato a Header/MobileMenu,
+                che già usavano resolveLabsLocale. */}
+            <li><Link href={`/${resolveLabsLocale(locale)}/labs`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">FitMesh Labs</Link></li>
             <li><Link href={`/${locale}/ai`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Condividi con AI" : "Share with AI"}</Link></li>
             <li><Link href={`/${locale}/roadmap`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Roadmap" : "Roadmap"}</Link></li>
             <li><Link href={`/${locale}/blog`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">Blog</Link></li>
@@ -60,9 +85,16 @@ export default function Footer({
             {/*
              * Sprint P0.10L-A: rimosso il link "Founder" dalla navigazione
              * (era classificazione B — non un'offerta, ma comunque un punto
-             * di navigazione verso il programma). /beta resta raggiungibile
-             * SOLO via URL diretto: pagina statica, 200, noindex/follow,
-             * fuori sitemap, invariata. Nessun link pubblico punta piu' qui.
+             * di navigazione verso il programma). Sprint P0.13: rimosso
+             * anche da Header/MobileMenu, stesso motivo. /beta resta
+             * raggiungibile SOLO via URL diretto: pagina statica, 200,
+             * noindex/follow, fuori sitemap, invariata. Nessun componente di
+             * navigazione punta piu' qui — RESIDUO NOTO: un callout nel
+             * corpo del post `fitmesh-sync-disponibile-google-play` linka
+             * ancora `/{locale}/beta` in 11 lingue (contenuto editoriale,
+             * fuori scope P0.13 — richiede una decisione di prodotto su cosa
+             * dire ora che il programma Founder e' chiuso, non una fix
+             * tecnica di navigazione; vedi report P0.13).
              */}
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
             <li><Link href={`/${locale}/support`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>

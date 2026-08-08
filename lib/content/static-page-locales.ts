@@ -30,13 +30,40 @@ export const ABOUT_TRANSLATED_LOCALES: readonly Locale[] = [
  * `sitemap.ts`. Deve restare allineata alle chiavi reali di `COPY` in
  * `press/page.tsx` / `famiglia/page.tsx`.
  */
+/**
+ * Sprint P0.13: riallineata a 15 locale dopo verifica diretta del contenuto
+ * (non solo presenza chiave) di `COPY` in `press/page.tsx` — sv/da/no/fi
+ * hanno title/description/body/CTA/JSON-LD reali e distinti, nessun fallback
+ * EN mascherato, canonical self-referenziante, `robots` già indicizzava
+ * queste 4 locale (isLocaleInCopy(COPY, lc) le trova complete): solo questa
+ * lista (usata esclusivamente da sitemap.ts) era rimasta indietro,
+ * escludendo dalla sitemap 4 pagine già live e indicizzabili. Nessuna nuova
+ * traduzione creata in questo sprint — allineamento della sola SSOT a
+ * contenuto già esistente.
+ */
 export const PRESS_COMPLETE_LOCALES: readonly Locale[] = [
-  "it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko",
+  "it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi",
 ];
 
 export const FAMIGLIA_COMPLETE_LOCALES: readonly Locale[] = [
   "it", "en", "es", "de", "pt", "fr", "pl", "tr",
 ];
+
+/**
+ * Sprint P0.13 (FASE 3): link interni verso /famiglia, indexability-aware
+ * sulla STESSA lista di FAMIGLIA_COMPLETE_LOCALES (quella già usata da
+ * sitemap.ts e — via isLocaleInCopy(COPY, lc), suo twin garantito allineato —
+ * da famiglia/page.tsx per robots/hreflang). lc-diretto se completo,
+ * altrimenti EN (sempre presente in FAMIGLIA_COMPLETE_LOCALES, quindi mai
+ * null): trovato da Footer.tsx che linkava `/${locale}/famiglia`
+ * incondizionatamente, producendo un anchor indicizzabile→noindex per le 7
+ * locale non coperte da COPY (nl/ja/ko/sv/da/no/fi).
+ */
+export function famigliaLinkHref(locale: Locale): string {
+  return FAMIGLIA_COMPLETE_LOCALES.includes(locale)
+    ? `/${locale}/famiglia`
+    : "/en/famiglia";
+}
 
 /**
  * Landing "fitness data sync" (sprint P0.2). Fase 3 ha pubblicato solo EN;

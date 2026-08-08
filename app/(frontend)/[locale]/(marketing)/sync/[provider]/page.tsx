@@ -6,16 +6,20 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
-import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
+import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import {
   PROVIDERS,
   PROVIDERS_BY_SLUG,
   type Provider,
 } from "@/lib/providers/data";
-import { isProviderVariantIndexable } from "@/lib/providers/indexability";
+import {
+  isProviderVariantIndexable,
+  providerLinkHref,
+  providerLanguages,
+} from "@/lib/providers/indexability";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
-import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
-import { tl, tll, categoryLabel as blogCategoryLabel } from "@/lib/blog/types";
+import { blogLinkHref } from "@/lib/blog/indexability";
+import { tl, tll, categoryLabel as blogCategoryLabel, type BlogPost } from "@/lib/blog/types";
 import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
 import { APPLE_STORE_URL } from "@/lib/flags";
 import { schemaLanguage } from "@/lib/seo/schema-language";
@@ -205,7 +209,11 @@ export async function generateMetadata({
       : { index: false, follow: true },
     alternates: {
       canonical: `${SITE_URL}${path}`,
-      languages: localeAlternates((l) => `${SITE_URL}/${l}/sync/${p.slug}`),
+      // Sprint P0.13: hreflang filtrato sulla stessa fonte di verità di
+      // robots/sitemap (isProviderVariantIndexable), non più il generico
+      // localeAlternates() che emetteva hreflang anche verso noindex — gap
+      // documentato in docs/seo/p012-fase3-sitemap-hreflang-gap.md.
+      languages: providerLanguages(p),
     },
     openGraph: {
       type: "article",
@@ -319,9 +327,14 @@ export default async function ProviderLanding({
       : null;
 
   // ── UI ───────────────────────────────────────────────────────────────
+  // Sprint P0.13: providerLinkHref applica lc-diretto → EN-fallback → nascondi,
+  // stessa regola di blogLinkHref sopra.
   const relatedProviders = PROVIDERS.filter(
     (x) => x.slug !== p.slug && x.category === p.category,
-  ).slice(0, 3);
+  )
+    .map((r) => ({ provider: r, href: providerLinkHref(r, lc) }))
+    .filter((x): x is { provider: Provider; href: string } => x.href !== null)
+    .slice(0, 3);
 
   const waitlistSubject = encodeURIComponent(
     `Waitlist ${p.name} — FitMesh Sync`,
@@ -744,9 +757,14 @@ export default async function ProviderLanding({
 
       {/* APPROFONDISCI — internal linking ai blog post correlati */}
       {p.relatedBlogSlugs && p.relatedBlogSlugs.length > 0 && (() => {
+        // Sprint P0.13: blogLinkHref è l'unica fonte di verità per "posso
+        // linkare questo post da qui nella locale corrente?" — stesso
+        // helper usato in blog/[slug]/page.tsx per related/prev/next.
         const relatedPosts = p.relatedBlogSlugs
           .map((s) => postsBySlug[s])
-          .filter((post): post is NonNullable<typeof post> => post !== undefined);
+          .filter((post): post is NonNullable<typeof post> => post !== undefined)
+          .map((post) => ({ post, href: blogLinkHref(post, lc) }))
+          .filter((x): x is { post: BlogPost; href: string } => x.href !== null);
         if (relatedPosts.length === 0) return null;
         return (
           <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
@@ -754,10 +772,10 @@ export default async function ProviderLanding({
               {t("Approfondisci", "Read more", "Saber más")}
             </h2>
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {relatedPosts.map((post) => (
+              {relatedPosts.map(({ post, href }) => (
                 <Link
                   key={post.slug}
-                  href={`/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`}
+                  href={href}
                   prefetch={false}
                   className="card p-6 hover:-translate-y-0.5 transition-transform group"
                 >
@@ -790,10 +808,10 @@ export default async function ProviderLanding({
             {t("Anche queste integrazioni", "Related integrations", "Integraciones relacionadas", "Gerelateerde integraties", "関連する連携", "관련 연동")}
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {relatedProviders.map((r) => (
+            {relatedProviders.map(({ provider: r, href }) => (
               <Link
                 key={r.slug}
-                href={`/${lc}/sync/${r.slug}`}
+                href={href}
                 prefetch={false}
                 className="card p-5 hover:-translate-y-0.5 transition-transform"
               >
