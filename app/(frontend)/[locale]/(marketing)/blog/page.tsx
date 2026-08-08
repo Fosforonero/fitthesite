@@ -5,9 +5,9 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
-import { categoryLabel, tl } from "@/lib/blog/types";
+import { categoryLabel, tl, type BlogPost } from "@/lib/blog/types";
 import { getBlogPosts } from "@/lib/blog/payload-source";
-import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
+import { blogLinkHref } from "@/lib/blog/indexability";
 import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
@@ -285,11 +285,23 @@ export default async function BlogIndex({
   const lc = locale as Locale;
   const t = I18N[lc];
 
-  const posts = await getBlogPosts();
-  const pillars = posts.filter((p) => p.pillar);
-  const others = posts.filter((p) => !p.pillar);
+  const allPosts = await getBlogPosts();
+  // Sprint P0.13 (MICRO-GATE P0.13A): l'indice del blog linkava OGNI post a
+  // TUTTE le locale incondizionatamente (via localizedBlogSlug, che
+  // localizza solo lo SLUG, non verifica l'indicizzabilità) — un crawl
+  // esaustivo post-merge ha trovato centinaia di anchor da questa pagina
+  // verso varianti noindex (es. /da/blog -> /da/blog/<slug-non-tradotto>).
+  // Stesso pattern lc-diretto→EN-fallback→nascondi già usato altrove in
+  // P0.13, applicato qui a MONTE (JSON-LD e griglie usano la stessa lista
+  // filtrata, non possono più divergere).
+  const posts: Array<{ post: BlogPost; href: string }> = allPosts
+    .map((p) => ({ post: p, href: blogLinkHref(p, lc) }))
+    .filter((x): x is { post: BlogPost; href: string } => x.href !== null);
+  const pillars = posts.filter((x) => x.post.pillar);
+  const others = posts.filter((x) => !x.post.pillar);
 
-  // JSON-LD Blog schema con ItemList di tutti gli articoli.
+  // JSON-LD Blog schema con ItemList — solo gli articoli realmente
+  // raggiungibili da questa pagina (stessa lista filtrata sopra).
   const itemListLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
@@ -297,10 +309,10 @@ export default async function BlogIndex({
     name: "FitMesh Sync Blog",
     inLanguage: schemaLanguage(lc),
     url: `${SITE_URL}/${lc}/blog`,
-    blogPost: posts.map((p) => ({
+    blogPost: posts.map(({ post: p, href }) => ({
       "@type": "BlogPosting",
       headline: tl(p.hero.title, lc),
-      url: `${SITE_URL}/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`,
+      url: `${SITE_URL}${href}`,
       datePublished: p.publishedAt,
       dateModified: p.updatedAt,
       description: tl(p.metaDescription, lc),
@@ -351,10 +363,10 @@ export default async function BlogIndex({
             {t.sectionPillar}
           </h2>
           <div className="grid gap-5 lg:grid-cols-2">
-            {pillars.map((p) => (
+            {pillars.map(({ post: p, href }) => (
               <Link
                 key={p.slug}
-                href={`/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`}
+                href={href}
                 prefetch={false}
                 className="card-glass p-7 sm:p-8 group hover:-translate-y-0.5 transition-transform relative overflow-hidden"
               >
@@ -404,10 +416,10 @@ export default async function BlogIndex({
           {t.sectionRecent}
         </h2>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {others.map((p) => (
+          {others.map(({ post: p, href }) => (
             <Link
               key={p.slug}
-              href={`/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`}
+              href={href}
               prefetch={false}
               className="card p-6 group hover:-translate-y-0.5 transition-transform flex flex-col"
             >

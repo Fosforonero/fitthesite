@@ -13,6 +13,7 @@ import {
   isProviderModelVariantIndexable,
   providerModelLinkHref,
   providerModelLanguages,
+  providerLinkHref,
 } from "@/lib/providers/indexability";
 import { tl } from "@/lib/blog/types";
 import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
@@ -305,6 +306,12 @@ export default async function ModelPage({
   if (!p || !m) notFound();
 
   const desc = m.description[lc] ?? m.description["en"] ?? "";
+  // MICRO-GATE P0.13A: breadcrumb + "back to provider" linkavano
+  // incondizionatamente `/${lc}/sync/${p.slug}` — la pagina modello può
+  // essere indicizzabile mentre il provider padre non lo è nella stessa
+  // locale (es. pl/galaxy-watch), trovato dal crawl esaustivo. mai null:
+  // providerLinkHref ricade su EN se lc non è indicizzabile.
+  const providerHref = providerLinkHref(p, lc) ?? `/en/sync/${p.slug}`;
   // Sprint P0.13: providerModelLinkHref applica lc-diretto → EN-fallback →
   // nascondi, stessa regola di blogLinkHref/providerLinkHref.
   const otherModels = models
@@ -363,7 +370,7 @@ export default async function ModelPage({
                 name: lc === "it" ? "Integrazioni" : lc === "es" ? "Integraciones" : lc === "de" ? "Integrationen" : lc === "pt" ? "Integrações" : lc === "fr" ? "Intégrations" : lc === "pl" ? "Integracje" : lc === "tr" ? "Entegrasyonlar" : lc === "nl" ? "Integraties" : lc === "ja" ? "連携" : lc === "ko" ? "통합" : "Integrations",
                 path: `/${lc}/integrations`,
               },
-              { name: p.name, path: `/${lc}/sync/${p.slug}` },
+              { name: p.name, path: providerHref },
               { name: m.name, path: `/${lc}/sync/${p.slug}/${m.slug}` },
             ]}
             locale={lc}
@@ -476,7 +483,7 @@ export default async function ModelPage({
         {/* Back to provider */}
         <section className="max-w-5xl mx-auto px-4 pb-6">
           <Link
-            href={`/${lc}/sync/${p.slug}`}
+            href={providerHref}
             className="text-accent-primary text-sm hover:underline"
           >
             ← {t("backToProvider", lc)} {p.name}

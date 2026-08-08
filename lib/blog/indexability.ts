@@ -26,9 +26,11 @@
  * a risultare incompleta come prima (nessuna eccezione sulla traduzione).
  */
 import type { Locale } from "@/lib/i18n";
-import { walkPost } from "@/lib/blog/nordic-overlay";
+import { walkPost, applyNordicOverlay, type NordicOverlay } from "@/lib/blog/nordic-overlay";
 import type { BlogPost } from "@/lib/blog/types";
-import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
+import { localizedBlogSlug, canonicalFromBlogUrl } from "@/lib/blog/slug-i18n";
+import { BLOG_POSTS } from "@/lib/blog/data";
+import nordicOverlayJson from "@/lib/blog/nordic-overlay.json";
 
 /** True se OGNI campo traducibile applicabile a `lc` ha un valore per `lc` (nessun fallback en/it). */
 export function isPostLocaleComplete(post: BlogPost, lc: Locale): boolean {
@@ -114,4 +116,54 @@ export function blogLinkHref(post: BlogPost, lc: Locale): string | null {
     return `/en/blog/${localizedBlogSlug(post.slug, "en")}`;
   }
   return null;
+}
+
+/**
+ * MICRO-GATE P0.13A: variante SINCRONA di `blogLinkHref`, per contesti che
+ * non possono `await` (link in-content dentro il corpo markdown dei post,
+ * renderizzati da `BlogRenderer`/`renderMarkdownInline`, funzioni sincrone
+ * chiamate decine di volte per pagina). Un crawl esaustivo post-merge P0.13
+ * ha trovato centinaia di anchor in-content verso varianti noindex — questi
+ * link facevano uno swap cieco dello slug (`localizedBlogSlug`) senza mai
+ * controllare l'indicizzabilità, perché l'unica via async (`getBlogPosts()`,
+ * merge con CMS) non è chiamabile da una funzione sincrona senza riscrivere
+ * l'intero albero di rendering come async.
+ *
+ * Copre SOLO `BLOG_POSTS` (i 51 post autorevoli in lib/blog/data.ts, oggi
+ * TUTTI i post pubblici) + overlay nordico applicato su una COPIA (mai gli
+ * oggetti condivisi di BLOG_POSTS, per non toccare lo stato mutato altrove
+ * da `payload-source.ts`). Se lo slug esiste SOLO nel CMS (nessuno slug oggi,
+ * ma teoricamente possibile in futuro), ritorna `undefined`: il chiamante
+ * DEVE trattarlo come "sconosciuto qui" e ricadere sul comportamento
+ * precedente (swap slug cieco), MAI come "nascondi" — non possiamo dichiarare
+ * noindex un post che non riusciamo a verificare qui.
+ */
+let syncPostsBySlugCache: Record<string, BlogPost> | null = null;
+function syncPostsBySlug(): Record<string, BlogPost> {
+  if (!syncPostsBySlugCache) {
+    syncPostsBySlugCache = {};
+    for (const p of BLOG_POSTS) {
+      const clone = structuredClone(p);
+      applyNordicOverlay(clone, nordicOverlayJson as NordicOverlay);
+      syncPostsBySlugCache[clone.slug] = clone;
+    }
+  }
+  return syncPostsBySlugCache;
+}
+
+export function blogLinkHrefSync(slug: string, lc: Locale): string | null | undefined {
+  const bySlug = syncPostsBySlug();
+  const post =
+    bySlug[slug] ??
+    // MICRO-GATE P0.13A: alcuni post scrivono in-content lo slug GIÀ
+    // localizzato per la lingua corrente (es. "/pl/blog/wiele-..."), non
+    // lo slug canonico IT — il lookup diretto sopra fallisce sempre in
+    // quel caso. canonicalFromBlogUrl fa il reverse-lookup (stessa tabella
+    // BLOG_SLUGS usata da localizedBlogSlug) prima di arrendersi.
+    (() => {
+      const canonical = canonicalFromBlogUrl(slug, lc);
+      return canonical ? bySlug[canonical] : undefined;
+    })();
+  if (!post) return undefined;
+  return blogLinkHref(post, lc);
 }

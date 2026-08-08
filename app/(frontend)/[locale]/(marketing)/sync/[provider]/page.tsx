@@ -18,6 +18,7 @@ import {
   providerLanguages,
 } from "@/lib/providers/indexability";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
+import { FITNESS_DATA_SYNC_COMPLETE_LOCALES } from "@/lib/content/static-page-locales";
 import { blogLinkHref } from "@/lib/blog/indexability";
 import { tl, tll, categoryLabel as blogCategoryLabel, type BlogPost } from "@/lib/blog/types";
 import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
@@ -243,6 +244,12 @@ export default async function ProviderLanding({
   const p = PROVIDERS_BY_SLUG[provider];
   if (!p) notFound();
   const postsBySlug = await getBlogPostsBySlug();
+  // MICRO-GATE P0.13A: era `/${lc}/fitness-data-sync` incondizionato — 404
+  // per le 11 locale fuori FITNESS_DATA_SYNC_COMPLETE_LOCALES (trovato dal
+  // crawl esaustivo, stesso fix già in integrations/homepage/BlogRenderer).
+  const fitnessDataSyncHref = FITNESS_DATA_SYNC_COMPLETE_LOCALES.includes(lc)
+    ? `/${lc}/fitness-data-sync`
+    : "/en/fitness-data-sync";
 
   // "isLive" = CTA primaria è Play Store. Sia `live` (nativo) sia `live-basic`
   // (via HC) sono usabili oggi → entrambi mostrano il bottone Play Store.
@@ -462,7 +469,7 @@ export default async function ProviderLanding({
               )}
             </p>
             <Link
-              href={`/${lc}/fitness-data-sync`}
+              href={fitnessDataSyncHref}
               className="mt-3 inline-flex items-center gap-1.5 text-xs text-text-muted hover:text-brand-aqua transition"
             >
               {t(

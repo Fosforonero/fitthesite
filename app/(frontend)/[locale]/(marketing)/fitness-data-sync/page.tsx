@@ -9,6 +9,8 @@ import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { CTA_PLACEMENTS } from "@/lib/analytics/cta";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/product-facts";
+import { PROVIDERS_BY_SLUG } from "@/lib/providers/data";
+import { providerLinkHref } from "@/lib/providers/indexability";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 import { FITNESS_DATA_SYNC_COMPLETE_LOCALES } from "@/lib/content/static-page-locales";
 import {
@@ -170,7 +172,22 @@ function StatusBadge({ status, lc }: { status: CompatibilityRow["status"]; lc: L
   );
 }
 
+// MICRO-GATE P0.13A: `row.detailHref` è salvato SENZA prefisso locale
+// (es. "/sync/strava", vedi lib/content/fitness-data-sync-copy.ts) — il
+// Link lo renderizzava letteralmente così, un URL senza locale che il
+// middleware ridirige (308) verso la locale rilevata. Trovato dal crawl
+// esaustivo. Aggiunge il prefisso corretto + verifica indicizzabilità
+// (stesso helper di provider/page.tsx altrove in questo sprint).
+function resolveDetailHref(detailHref: string | undefined, lc: Locale): string | null {
+  if (!detailHref) return null;
+  const slug = detailHref.replace(/^\/sync\//, "");
+  const provider = PROVIDERS_BY_SLUG[slug];
+  if (!provider) return null;
+  return providerLinkHref(provider, lc);
+}
+
 function CompatibilityCard({ row, lc }: { row: CompatibilityRow; lc: Locale }) {
+  const detailHref = resolveDetailHref(row.detailHref, lc);
   return (
     <details className="card p-5 group [&_summary::-webkit-details-marker]:hidden">
       <summary className="cursor-pointer flex items-start justify-between gap-4">
@@ -195,9 +212,9 @@ function CompatibilityCard({ row, lc }: { row: CompatibilityRow; lc: Locale }) {
         <p><span className="text-text-muted">{tl(FIELD_LABEL.syncFrequency, lc)}</span>{tl(row.syncFrequency, lc)}</p>
         <p><span className="text-text-muted">{tl(FIELD_LABEL.limitations, lc)}</span>{tl(row.limitations, lc)}</p>
         <p className="text-xs text-text-muted">{tl(FIELD_LABEL.lastVerified, lc)}{row.lastVerified}</p>
-        {row.detailHref && (
+        {detailHref && (
           <p className="pt-1">
-            <Link href={row.detailHref} className="text-brand-aqua hover:text-brand-green underline underline-offset-4">
+            <Link href={detailHref} className="text-brand-aqua hover:text-brand-green underline underline-offset-4">
               {tl(FIELD_LABEL.fullGuide, lc)}
             </Link>
           </p>

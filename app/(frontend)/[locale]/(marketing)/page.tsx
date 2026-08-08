@@ -31,7 +31,10 @@ import { schemaLanguage } from "@/lib/seo/schema-language";
  * untouched here since they already cover all 15 locales via the parent
  * `[locale]/layout.tsx` generateMetadata.
  */
-import { HOME_COMPLETE_LOCALES as COMPLETE_BODY_LOCALES } from "@/lib/content/static-page-locales";
+import {
+  HOME_COMPLETE_LOCALES as COMPLETE_BODY_LOCALES,
+  FITNESS_DATA_SYNC_COMPLETE_LOCALES,
+} from "@/lib/content/static-page-locales";
 import { HOMEPAGE_COPY, tli } from "@/lib/content/homepage-copy";
 import { LABS_TEASER_COPY } from "@/lib/content/labs-teaser-copy";
 import { liveLabsTools, localizedLabsSlug, lt as labsLt } from "@/lib/labs/registry";
@@ -107,6 +110,13 @@ export default async function Home({
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
   const postsBySlug = await getBlogPostsBySlug();
+  // MICRO-GATE P0.13A: era `/${lc}/fitness-data-sync` incondizionato —
+  // route esiste solo per FITNESS_DATA_SYNC_COMPLETE_LOCALES (it/en/de/es),
+  // 404 per le altre 11 (trovato dal crawl esaustivo). Stesso fix già
+  // applicato a integrations/page.tsx e BlogRenderer.tsx in questo sprint.
+  const fitnessDataSyncHref = FITNESS_DATA_SYNC_COMPLETE_LOCALES.includes(lc)
+    ? `/${lc}/fitness-data-sync`
+    : "/en/fitness-data-sync";
 
   // Curated subset (live + headline) for the inline ticker
   const tickerProviders = [
@@ -410,7 +420,7 @@ export default async function Home({
               {tl(HOMEPAGE_COPY.integrationsHeading, lc)}
             </h2>
             <Link
-              href={`/${lc}/fitness-data-sync`}
+              href={fitnessDataSyncHref}
               className="group mt-3 inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-brand-aqua transition"
             >
               {tl(HOMEPAGE_COPY.integrationsDashboardTeaser, lc)}
@@ -682,7 +692,16 @@ export default async function Home({
           </p>
           {(lc === "it" || lc === "en") && (
             <Link
-              href={`/${lc}/blog/fitmesh-gratis-prezzo-founder`}
+              href={
+                // MICRO-GATE P0.13A: "fitmesh-gratis-prezzo-founder" è lo
+                // slug CANONICO (IT); lo slug EN reale è
+                // "is-fitmesh-free-pricing-founder" (rinominato per SEO) —
+                // l'href hardcoded per EN produceva un 308 (trovato dal
+                // crawl esaustivo). blogLinkHref localizza correttamente.
+                (postsBySlug["fitmesh-gratis-prezzo-founder"] &&
+                  blogLinkHref(postsBySlug["fitmesh-gratis-prezzo-founder"], lc)) ||
+                `/${lc}/blog/fitmesh-gratis-prezzo-founder`
+              }
               className="mt-3 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition"
             >
               {lc === "it" ? "Guida completa ai prezzi" : "Full pricing guide"}

@@ -19,17 +19,4 @@ motivazione concreta (non solo "serve"), altrimenti il guardrail la rifiuta
 | `app/(frontend)/[locale]/auth/forgot-password/ForgotPasswordForm.tsx` | `/${locale}/auth/reset-password` | Continuazione dello stesso flusso di recupero password. |
 | `app/(frontend)/[locale]/auth/reset-password/ResetPasswordForm.tsx` | `/${locale}/auth/forgot-password` | Link di ritorno per richiedere un nuovo token se quello corrente è scaduto/invalido. |
 | `app/(frontend)/[locale]/admin/layout.tsx` | `/${lc}/admin/beta` | Nav interna del backoffice admin, non customer-facing; `/admin/*` non è mai un target di navigazione marketing. |
-
-## Residuo noto, NON in allowlist (richiede decisione di prodotto — vedi report P0.13)
-
-`lib/blog/posts/fitmesh-sync-disponibile-google-play.ts` contiene un callout
-in-content che linka `/{locale}/beta` in 11 lingue (contenuto editoriale
-pubblicato, non un componente di navigazione). Non è stato aggiunto
-all'allowlist perché non è un caso "utility noindex necessario" — è un CTA
-editoriale che ha smesso di avere senso ora che il programma Founder è
-chiuso e `/beta` non ha più form/CTA. Correggerlo richiede riscrivere una
-frase pubblicata in 11 lingue, il che è fuori dal perimetro tecnico di questo
-sprint (P0.13 non crea né modifica traduzioni di contenuto editoriale) ed è
-esplicitamente una decisione di prodotto (cosa dire ora al posto del CTA
-Founder), non una fix di crawl hygiene. Il guardrail lo rileva come
-violazione nota e documentata, non silenziata.
+| `lib/blog/posts/fitmesh-sync-disponibile-google-play.ts` (11 lingue) | `/${lc}/beta` | Riferimento storico genuino, non promozionale: la frase è narrata al **passato** ("i primi 1000 **hanno ricevuto** il Pro a vita", non un invito ad agire) e spiega ai lettori cosa fosse il programma Founder, rimandando alla pagina archivio per chi vuole i dettagli. `/beta` è deliberatamente `noindex,follow` da P0.10L-A (archivio storico, non più un funnel di iscrizione — nessun form/CTA residuo). Riclassificato da "residuo non allowlistato" ad allowlist esplicita in MICRO-GATE P0.13A dopo lettura diretta del testo pubblicato: non è un CTA Founder mascherato, è contenuto editoriale accurato che risponde a una domanda legittima del lettore ("esiste ancora questa offerta?"). Rimuoverlo o convertirlo in testo non cliccabile non guadagnerebbe crawl budget (il target è già noindex) e degraderebbe un percorso di lettura reale. |

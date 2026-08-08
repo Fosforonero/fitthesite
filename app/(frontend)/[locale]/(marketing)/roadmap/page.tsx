@@ -5,7 +5,8 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
-import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
+import { getBlogPostBySlug } from "@/lib/blog/payload-source";
+import { blogLinkHref } from "@/lib/blog/indexability";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 
@@ -783,6 +784,13 @@ export default async function RoadmapPage({
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
   const path = `/${lc}/roadmap`;
+  // Sprint P0.13 (MICRO-GATE P0.13A): era un link hardcoded
+  // `/${lc}/blog/${localizedBlogSlug("gdpr-dati-fitness-smartwatch", lc)}` —
+  // localizzava solo lo slug, non verificava l'indicizzabilità della
+  // variante locale (trovato dal crawl esaustivo: linkava noindex su
+  // da/fi/no). Stesso pattern lc-diretto→EN-fallback→nascondi.
+  const gdprPost = await getBlogPostBySlug("gdpr-dati-fitness-smartwatch");
+  const gdprHref = gdprPost ? blogLinkHref(gdprPost, lc) : null;
 
   // ItemList JSON-LD — utile per AI search & rich results
   const itemListLd = {
@@ -927,13 +935,15 @@ export default async function RoadmapPage({
           <p className="mt-3 text-sm text-text-secondary leading-relaxed">
             {tlr(HERO_COPY.disclaimerBody, lc)}
           </p>
-          <Link
-            href={`/${lc}/blog/${localizedBlogSlug("gdpr-dati-fitness-smartwatch", lc)}`}
-            className="mt-5 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
-          >
-            {tlr(HERO_COPY.gdprLinkText, lc)}
-            <span className="transition-transform group-hover:translate-x-1">→</span>
-          </Link>
+          {gdprHref && (
+            <Link
+              href={gdprHref}
+              className="mt-5 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
+            >
+              {tlr(HERO_COPY.gdprLinkText, lc)}
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </Link>
+          )}
         </div>
       </section>
 

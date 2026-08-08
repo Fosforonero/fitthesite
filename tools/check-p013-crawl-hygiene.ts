@@ -3,8 +3,9 @@
  * hreflang. Fallisce se:
  *  1. una URL della sitemap.xml live è redirect, 404, noindex, o ha
  *     canonical incompatibile (self-mismatch);
- *  2. un hreflang campionato punta a noindex, redirect, 404, o ha canonical
- *     diverso dall'URL dichiarato;
+ *  2. un hreflang, su OGNI pagina indicizzabile locale-prefissata (non un
+ *     campione), punta a noindex, redirect, 404, o ha canonical diverso
+ *     dall'URL dichiarato;
  *  3. /beta ricompare come link in Header.tsx o MobileMenu.tsx (statico,
  *     non richiede build — regressione da bloccare PRIMA del build);
  *  4. un file nell'allowlist utility-noindex
@@ -12,7 +13,19 @@
  *     motivazione (riga di tabella con colonna "Motivazione" vuota);
  *  5. sitemap.ts importa un predicato di indicizzabilità diverso da quello
  *     usato dalla page.tsx corrispondente per `robots` (drift strutturale
- *     fra le due fonti — dovrebbero SEMPRE essere la stessa funzione).
+ *     fra le due fonti — dovrebbero SEMPRE essere la stessa funzione);
+ *  6. un anchor interno, su OGNI pagina indicizzabile locale-prefissata (non
+ *     un campione), punta a noindex/redirect/404 senza allowlist motivata.
+ *
+ * MICRO-GATE P0.13A (2026-08-08): check 2 e 6 erano campionati su ~11
+ * pagine sorgente fisse. Un audit esaustivo post-merge (tutte le 1429
+ * pagine indicizzabili locale-prefissate, non solo il campione) ha trovato
+ * centinaia di violazioni reali che il campione non copriva (es. l'indice
+ * blog linkava ogni post a ogni locale incondizionatamente) — il campione
+ * dava "0 problemi" mentre il sito reale non lo era. Riscritti come
+ * esaustivi: leggono OGNI pagina html generata da .next/server/app (via
+ * prerender-manifest.json, zero rete) e risolvono i target sconosciuti con
+ * una singola fetch live per target unico (cache condivisa, non per-pagina).
  *
  * Design "mai un numero inventato": i check che richiedono build (.next) o
  * server (`next start` su BASE_URL) sono saltati con un warning esplicito se
@@ -39,6 +52,11 @@ const ALLOWLISTED_NOINDEX_TARGET_PATTERNS: RegExp[] = [
   /^\/[a-z]{2}\/self-host$/,
   /^\/[a-z]{2}\/auth\/(forgot|reset)-password$/,
   /^\/[a-z]{2}\/admin\/beta$/,
+  // MICRO-GATE P0.13A: riferimento storico genuino (narrazione al passato,
+  // non promozionale) nel post fitmesh-sync-disponibile-google-play (11
+  // lingue) verso l'archivio /beta, noindex,follow da P0.10L-A. Vedi
+  // docs/seo/p013-allowlist-utility-noindex-links.md.
+  /^\/[a-z]{2}\/beta$/,
 ];
 function isAllowlistedNoindexTarget(pathname: string): boolean {
   return ALLOWLISTED_NOINDEX_TARGET_PATTERNS.some((re) => re.test(pathname));
@@ -198,112 +216,136 @@ async function checkSitemapSample(): Promise<void> {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// CHECK 2 (richiede BASE_URL): hreflang campionato — ogni alternate 200,
-// indicizzabile, canonical self-referenziante.
+// Registro ESAUSTIVO letto da .next/server/app (via prerender-manifest.json,
+// zero rete) — usato sia da check 2 (hreflang) sia da check 6 (anchor),
+// MICRO-GATE P0.13A: sostituisce il campione fisso di ~11 pagine, che
+// nascondeva centinaia di violazioni reali fuori campione.
 // ─────────────────────────────────────────────────────────────────────────
-async function checkHreflangSample(urls: string[]): Promise<void> {
-  if (!BASE_URL) {
-    warnings.push("[base-url-assente] BASE_URL non impostato — check 2 (hreflang) saltato.");
-    return;
+interface PageInfo {
+  robots: string | null;
+  canonical: string | null;
+  hreflangs: Array<{ hreflang: string; href: string }>;
+  anchors: string[];
+  indexable: boolean;
+}
+
+function buildRegistry(): Map<string, PageInfo> | null {
+  const manifestPath = path.join(repoRoot, ".next/prerender-manifest.json");
+  if (!fs.existsSync(manifestPath)) return null;
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as { routes: Record<string, unknown> };
+  const registry = new Map<string, PageInfo>();
+  for (const routePath of Object.keys(manifest.routes)) {
+    const rel = routePath === "/" ? "/index" : routePath;
+    const htmlFile = path.join(repoRoot, ".next/server/app", `${rel}.html`);
+    if (!fs.existsSync(htmlFile)) continue;
+    const html = fs.readFileSync(htmlFile, "utf8");
+    const robots = extractMeta(html, /<meta name="robots" content="([^"]*)"/);
+    const canonical = extractMeta(html, /<link rel="canonical" href="([^"]*)"/);
+    const hreflangs = [...html.matchAll(/<link rel="alternate" hrefLang="([^"]+)" href="([^"]+)"\/?>/g)].map((m) => ({
+      hreflang: m[1],
+      href: m[2],
+    }));
+    const anchors = [...new Set([...html.matchAll(/<a[^>]+href="(\/[^"#?]*)"/g)].map((m) => m[1]))];
+    registry.set(routePath, { robots, canonical, hreflangs, anchors, indexable: !(robots && /noindex/.test(robots)) });
   }
-  for (const path_ of urls) {
-    const url = `${BASE_URL}${path_}`;
-    const r = await fetchHead(url);
-    if (!r) {
-      warnings.push(`[fetch-fallita] ${url} — rete non raggiungibile.`);
-      continue;
-    }
-    if (r.status !== 200) {
-      warnings.push(`[hreflang-source-non-200] ${url} risponde ${r.status} — impossibile leggere il suo hreflang, saltato.`);
-      continue;
-    }
-    const alternates = [...r.html.matchAll(/<link rel="alternate" hrefLang="([^"]+)" href="([^"]+)"/g)];
-    if (alternates.length === 0) {
-      warnings.push(`[hreflang-assente] ${url} non ha tag hreflang — verifica manuale consigliata.`);
-      continue;
-    }
-    for (const [, hreflang, target] of alternates) {
-      if (hreflang === "x-default") continue;
-      const tr = await fetchHead(target);
-      if (!tr) {
-        warnings.push(`[hreflang-target-fetch-fallita] ${url} → hreflang="${hreflang}" → ${target} non raggiungibile.`);
-        continue;
-      }
-      if (tr.status >= 300 && tr.status < 400) {
-        errors.push(`[hreflang-verso-redirect] ${url} → hreflang="${hreflang}" → ${target} risponde ${tr.status} (redirect).`);
-        continue;
-      }
-      if (tr.status !== 200) {
-        errors.push(`[hreflang-verso-non-200] ${url} → hreflang="${hreflang}" → ${target} risponde ${tr.status}.`);
-        continue;
-      }
-      const targetRobots = extractMeta(tr.html, /<meta name="robots" content="([^"]*)"/);
-      if (targetRobots && /noindex/.test(targetRobots)) {
-        errors.push(`[hreflang-verso-noindex] ${url} → hreflang="${hreflang}" → ${target} ha <meta robots content="${targetRobots}">.`);
-      }
-      const targetCanonical = extractMeta(tr.html, /<link rel="canonical" href="([^"]*)"/);
-      if (targetCanonical && targetCanonical.replace(/\/$/, "") !== target.replace(/\/$/, "")) {
-        errors.push(`[hreflang-target-canonical-mismatch] ${url} → hreflang="${hreflang}" → ${target}, canonical="${targetCanonical}".`);
-      }
-    }
+  return registry;
+}
+
+const SITE_ORIGIN = "https://www.fitmesh.fit";
+function toLocalPath(href: string): string | null {
+  if (href.startsWith(SITE_ORIGIN)) return href.slice(SITE_ORIGIN.length) || "/";
+  if (href.startsWith("/")) return href;
+  return null;
+}
+
+async function resolveTarget(
+  registry: Map<string, PageInfo>,
+  cache: Map<string, { status: number; robots: string | null; canonical: string | null }>,
+  pathname: string,
+): Promise<{ status: number; robots: string | null; canonical: string | null }> {
+  const cached = cache.get(pathname);
+  if (cached) return cached;
+  const norm = pathname.replace(/\/$/, "") || "/";
+  const fromRegistry = registry.get(pathname) ?? registry.get(norm);
+  let result: { status: number; robots: string | null; canonical: string | null };
+  if (fromRegistry) {
+    result = { status: 200, robots: fromRegistry.robots, canonical: fromRegistry.canonical };
+  } else if (!BASE_URL) {
+    result = { status: 0, robots: null, canonical: null };
+  } else {
+    const r = await fetchHead(`${BASE_URL}${pathname}`);
+    result = r
+      ? {
+          status: r.status,
+          robots: r.status === 200 ? extractMeta(r.html, /<meta name="robots" content="([^"]*)"/) : null,
+          canonical: r.status === 200 ? extractMeta(r.html, /<link rel="canonical" href="([^"]*)"/) : null,
+        }
+      : { status: 0, robots: null, canonical: null };
   }
-  console.log(`  [check-2] hreflang campionato su ${urls.length} pagine sorgente.`);
+  cache.set(pathname, result);
+  return result;
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// CHECK 3 (richiede BASE_URL): anchor interni da pagine marketing
-// indicizzabili — nessuno deve puntare a noindex/redirect/404 senza
-// allowlist motivata (FASE 5.3).
+// CHECK 2 (esaustivo, richiede build): hreflang su OGNI pagina indicizzabile
+// locale-prefissata — ogni alternate non-x-default 200, indicizzabile,
+// canonical self-referenziante.
 // ─────────────────────────────────────────────────────────────────────────
-async function checkAnchorsSample(sourcePaths: string[]): Promise<void> {
-  if (!BASE_URL) {
-    warnings.push("[base-url-assente] BASE_URL non impostato — check 3 (anchor→noindex) saltato.");
-    return;
+async function checkHreflangExhaustive(registry: Map<string, PageInfo>): Promise<void> {
+  const localeRe = /^\/[a-z]{2}(\/|$)/;
+  const sources = [...registry.entries()].filter(([p, info]) => localeRe.test(p) && info.indexable);
+  const cache = new Map<string, { status: number; robots: string | null; canonical: string | null }>();
+  let edges = 0;
+  for (const [src, info] of sources) {
+    for (const h of info.hreflangs) {
+      if (h.hreflang === "x-default") continue;
+      const local = toLocalPath(h.href);
+      if (!local) continue;
+      edges++;
+      const r = await resolveTarget(registry, cache, local);
+      if (r.status >= 300 && r.status < 400) {
+        errors.push(`[hreflang-verso-redirect] ${src} → hreflang="${h.hreflang}" → ${h.href} risponde ${r.status} (redirect).`);
+      } else if (r.status === 404) {
+        errors.push(`[hreflang-verso-404] ${src} → hreflang="${h.hreflang}" → ${h.href} risponde 404.`);
+      } else if (r.status === 200 && r.robots && /noindex/.test(r.robots)) {
+        errors.push(`[hreflang-verso-noindex] ${src} → hreflang="${h.hreflang}" → ${h.href} ha <meta robots content="${r.robots}">.`);
+      } else if (r.status === 200 && r.canonical && r.canonical.replace(/\/$/, "") !== `${SITE_ORIGIN}${local}`.replace(/\/$/, "")) {
+        errors.push(`[hreflang-target-canonical-mismatch] ${src} → hreflang="${h.hreflang}" → ${h.href}, canonical="${r.canonical}".`);
+      }
+    }
   }
-  const targetStatusCache = new Map<string, { status: number; robots: string | null }>();
-  for (const src of sourcePaths) {
-    const url = `${BASE_URL}${src}`;
-    const r = await fetchHead(url);
-    if (!r || r.status !== 200) {
-      warnings.push(`[anchor-source-non-200] ${url} non raggiungibile/200 — check 3 saltato per questa sorgente.`);
-      continue;
-    }
-    // FASE 5.3 riguarda pagine INDICIZZABILI che linkano noindex — una
-    // sorgente già noindex (es. /sv/famiglia, sv non è in
-    // FAMIGLIA_COMPLETE_LOCALES) che si auto-referenzia o linka un'altra
-    // pagina noindex non è la stessa classe di problema: saltata qui, non
-    // silenziata (il check 1/2 sopra la coprono comunque via sitemap/hreflang).
-    const sourceRobots = extractMeta(r.html, /<meta name="robots" content="([^"]*)"/);
-    if (sourceRobots && /noindex/.test(sourceRobots)) {
-      console.log(`  [check-3] ${src}: sorgente noindex, saltata (non è "pagina indicizzabile che linka noindex").`);
-      continue;
-    }
-    // Solo anchor interni relativi (href="/...") dentro <main>/<body>, non
-    // asset (img/script/link) né mailto/tel/http esterni.
-    const hrefs = [...r.html.matchAll(/<a[^>]+href="(\/[^"#?]*)"/g)].map((m) => m[1]);
-    const uniqueTargets = [...new Set(hrefs)];
-    let checkedForThisSource = 0;
-    for (const target of uniqueTargets) {
+  console.log(`  [check-2] hreflang: ${sources.length} pagine sorgente indicizzabili, ${edges} link hreflang verificati (esaustivo, non campionato).`);
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// CHECK 6 (esaustivo, richiede build): anchor interni da OGNI pagina
+// marketing indicizzabile locale-prefissata — nessuno deve puntare a
+// noindex/redirect/404 senza allowlist motivata (FASE 5.3).
+// ─────────────────────────────────────────────────────────────────────────
+async function checkAnchorsExhaustive(registry: Map<string, PageInfo>): Promise<void> {
+  const localeRe = /^\/[a-z]{2}(\/|$)/;
+  const sources = [...registry.entries()].filter(([p, info]) => localeRe.test(p) && info.indexable);
+  const cache = new Map<string, { status: number; robots: string | null; canonical: string | null }>();
+  let edges = 0;
+  let skippedNoindexSources = 0;
+  for (const [src, info] of sources) {
+    for (const target of info.anchors) {
       if (isAllowlistedNoindexTarget(target)) continue;
-      let info = targetStatusCache.get(target);
-      if (!info) {
-        const tr = await fetchHead(`${BASE_URL}${target}`);
-        info = tr
-          ? { status: tr.status, robots: extractMeta(tr.html, /<meta name="robots" content="([^"]*)"/) }
-          : { status: 0, robots: null };
-        targetStatusCache.set(target, info);
-      }
-      checkedForThisSource++;
-      if (info.status >= 300 && info.status < 400) {
-        errors.push(`[anchor-verso-redirect] ${src} linka ${target} che risponde ${info.status} — mai un link interno che richieda un redirect.`);
-      } else if (info.status === 404) {
+      edges++;
+      const r = await resolveTarget(registry, cache, target);
+      if (r.status >= 300 && r.status < 400) {
+        errors.push(`[anchor-verso-redirect] ${src} linka ${target} che risponde ${r.status} — mai un link interno che richieda un redirect.`);
+      } else if (r.status === 404) {
         errors.push(`[anchor-verso-404] ${src} linka ${target} che risponde 404.`);
-      } else if (info.status === 200 && info.robots && /noindex/.test(info.robots)) {
-        errors.push(`[anchor-verso-noindex] ${src} linka ${target} che ha <meta robots content="${info.robots}"> e non è nell'allowlist.`);
+      } else if (r.status === 200 && r.robots && /noindex/.test(r.robots)) {
+        errors.push(`[anchor-verso-noindex] ${src} linka ${target} che ha <meta robots content="${r.robots}"> e non è nell'allowlist.`);
       }
     }
-    console.log(`  [check-3] ${src}: ${uniqueTargets.length} anchor interni unici, ${checkedForThisSource} verificati (resto in cache/allowlist).`);
   }
+  for (const [, info] of registry) {
+    if (info.robots && /noindex/.test(info.robots)) skippedNoindexSources++;
+  }
+  console.log(`  [check-6] anchor: ${sources.length} pagine sorgente indicizzabili, ${edges} anchor verificati (esaustivo, non campionato; ${skippedNoindexSources} pagine noindex totali escluse come sorgente).`);
 }
 
 async function main(): Promise<void> {
@@ -311,23 +353,14 @@ async function main(): Promise<void> {
   checkAllowlistMotivated();
   checkSharedPredicateNoDrift();
   await checkSitemapSample();
-  // Campione mirato sulle superfici toccate da P0.13: provider senza
-  // traduzione completa, famiglia/press appena riallineate, blog DE/FR.
-  const sampleSourcePages = [
-    "/it",
-    "/it/blog",
-    "/it/sync/garmin",
-    "/it/famiglia",
-    "/sv/famiglia",
-    "/it/press",
-    "/sv/press",
-    "/it/integrations",
-    "/it/novita",
-    "/de/blog/samsung-health-und-fitmesh-gemeinsam-nutzen",
-    "/fr/blog/utiliser-fitmesh-avec-samsung-health",
-  ];
-  await checkHreflangSample(sampleSourcePages);
-  await checkAnchorsSample(sampleSourcePages);
+
+  const registry = buildRegistry();
+  if (!registry) {
+    warnings.push("[next-build-assente] .next/prerender-manifest.json non trovato — check 2/6 (hreflang/anchor esaustivi) saltati, nessun build disponibile.");
+  } else {
+    await checkHreflangExhaustive(registry);
+    await checkAnchorsExhaustive(registry);
+  }
 
   for (const w of warnings) console.warn("  ⚠ " + w);
 
