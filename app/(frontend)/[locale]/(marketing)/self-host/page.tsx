@@ -11,6 +11,7 @@ import { schemaLanguage } from "@/lib/seo/schema-language";
 import { SITE_URL } from "@/lib/product-facts";
 import { ogLocale, type Locale } from "@/lib/i18n";
 import { SELF_HOST_COPY, t, tl, type TwoLocale } from "@/lib/content/self-host-copy";
+import { resolveSelfHostLocale } from "@/lib/self-host/locale-redirect";
 
 /**
  * Sprint P0.11-A: /self-host esiste solo in IT/EN (vedi middleware.ts —
@@ -18,10 +19,13 @@ import { SELF_HOST_COPY, t, tl, type TwoLocale } from "@/lib/content/self-host-c
  * renderizzate qui). generateStaticParams limitato per coerenza col
  * routing reale: build non produce mai /de/self-host ecc. come pagina 200
  * a se stante.
+ *
+ * MICRO-GATE P0.13B: resolveSelfHostLocale spostata in
+ * lib/self-host/locale-redirect.ts (era locale a questo file, un modulo
+ * page.tsx non può esportarla) così i link diretti (about/page.tsx) possono
+ * calcolare il target finale invece di generare un href che questa stessa
+ * pagina poi reindirizza.
  */
-function resolveSelfHostLocale(locale: Locale): TwoLocale {
-  return locale === "it" ? "it" : "en";
-}
 
 export function generateStaticParams() {
   return (["it", "en"] as const).map((locale) => ({ locale }));

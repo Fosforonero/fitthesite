@@ -27,6 +27,15 @@
  * prerender-manifest.json, zero rete) e risolvono i target sconosciuti con
  * una singola fetch live per target unico (cache condivisa, non per-pagina).
  *
+ * MICRO-GATE P0.13B (stesso giorno): le 13 anchor /about→/self-host (una
+ * per locale non-it/en) risultavano "0 residuo" solo perché l'allowlist
+ * usava un pattern generico /^\/[a-z]{2}\/self-host$/ che esentava dal
+ * check ANCHE le varianti che self-host/page.tsx reindirizza a
+ * /en/self-host — un redirect interno evitabile mascherato da link diretto
+ * a utility noindex. Fix: about/page.tsx ora calcola l'href finale con
+ * resolveSelfHostLocale() (zero hop), e l'allowlist accetta solo
+ * /it/self-host e /en/self-host (le uniche pagine reali 200 noindex).
+ *
  * Design "mai un numero inventato": i check che richiedono build (.next) o
  * server (`next start` su BASE_URL) sono saltati con un warning esplicito se
  * l'infrastruttura non è disponibile, mai un pass silenzioso.
@@ -48,8 +57,15 @@ const BASE_URL = process.env.BASE_URL; // es. http://localhost:3413 (next start 
 // OGNI riga lì abbia una motivazione; questi pattern dicono al crawler quali target
 // noindex ignorare perché già documentati come intenzionali).
 const ALLOWLISTED_NOINDEX_TARGET_PATTERNS: RegExp[] = [
+  // MICRO-GATE P0.13B (2026-08-08): rimosso il pattern generico
+  // /^\/[a-z]{2}\/self-host$/ che stava qui accanto a questo. Copriva TUTTE
+  // le 15 locale indiscriminatamente, quindi esentava dal check anche le 13
+  // varianti (es/de/pt/fr/pl/tr/nl/ja/ko/sv/da/no/fi) che self-host/page.tsx
+  // reindirizza a /en/self-host — un redirect interno evitabile veniva
+  // silenziosamente allowlistato come se fosse un link diretto verso una
+  // utility noindex, invece di essere segnalato come [anchor-verso-redirect].
+  // Solo it/en sono pagine reali 200 noindex: unico target motivato.
   /^\/(it|en)\/self-host$/,
-  /^\/[a-z]{2}\/self-host$/,
   /^\/[a-z]{2}\/auth\/(forgot|reset)-password$/,
   /^\/[a-z]{2}\/admin\/beta$/,
   // MICRO-GATE P0.13A: riferimento storico genuino (narrazione al passato,
