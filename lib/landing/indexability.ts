@@ -9,6 +9,7 @@
 import type { Locale } from "@/lib/i18n";
 import { walkLanding } from "@/lib/landing/es-overlay";
 import type { LandingPage } from "@/lib/landing/data";
+import { localizedLandingSlug } from "@/lib/blog/slug-i18n";
 
 /** True se OGNI campo traducibile della LP ha un valore per `lc` (nessun fallback en/it). */
 export function isLandingLocaleComplete(lp: LandingPage, lc: Locale): boolean {
@@ -30,4 +31,21 @@ export function isLandingLocaleComplete(lp: LandingPage, lc: Locale): boolean {
 export function isLandingVariantIndexable(lp: LandingPage, lc: Locale): boolean {
   if (lc === "it" || lc === "en") return true;
   return isLandingLocaleComplete(lp, lc);
+}
+
+/**
+ * Sprint P0.13: URL da usare per un link INTERNO (Footer, in-content CTA via
+ * BlogRenderer) verso la landing `lp` nella locale corrente `lc`. Stessa
+ * regola di `blogLinkHref`/`providerLinkHref`: lc indicizzabile → diretto
+ * (slug localizzato); altrimenti EN indicizzabile → fallback EN; altrimenti
+ * null (nascondi — mai un link che passi per un redirect 308).
+ */
+export function landingLinkHref(lp: LandingPage, lc: Locale): string | null {
+  if (isLandingVariantIndexable(lp, lc)) {
+    return `/${lc}/lp/${localizedLandingSlug(lp.slug, lc)}`;
+  }
+  if (lc !== "en" && isLandingVariantIndexable(lp, "en")) {
+    return `/en/lp/${localizedLandingSlug(lp.slug, "en")}`;
+  }
+  return null;
 }

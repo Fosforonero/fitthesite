@@ -8,7 +8,7 @@ import {
 } from "@/lib/blog/slug-i18n";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { BlogRenderer } from "@/components/blog/BlogRenderer";
+import { BlogRenderer, localizeInternalHref } from "@/components/blog/BlogRenderer";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { tl } from "@/lib/blog/types";
@@ -264,7 +264,15 @@ export default async function LandingPage({
       : null;
 
   const primaryHref = tl(lp.hero.primaryCta.href, lc);
-  const secondaryHref = lp.hero.secondaryCta ? tl(lp.hero.secondaryCta.href, lc) : undefined;
+  // MICRO-GATE P0.13A: secondaryCta.href è un campo Localized hardcoded per
+  // locale (es. "/ko/sync/oura") su lp.hero, un percorso di rendering
+  // SEPARATO dal body (che passa da BlogRenderer) — non passava da nessun
+  // controllo di indicizzabilità. Trovato dal crawl esaustivo. Riusa
+  // localizeInternalHref (stessa SSOT di /blog, /lp, /sync, /fitness-data-sync
+  // altrove in questo sprint) sul valore già per-locale: se il target non è
+  // indicizzabile in nessuna variante, torna null e il bottone si nasconde.
+  const secondaryHrefRaw = lp.hero.secondaryCta ? tl(lp.hero.secondaryCta.href, lc) : undefined;
+  const secondaryHref = secondaryHrefRaw ? localizeInternalHref(secondaryHrefRaw, lc) : undefined;
 
   return (
     <>

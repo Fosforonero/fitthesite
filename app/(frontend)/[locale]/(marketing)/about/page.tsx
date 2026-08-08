@@ -21,6 +21,7 @@ import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { ABOUT_TRANSLATED_LOCALES } from "@/lib/content/static-page-locales";
 import { ABOUT_COPY } from "@/lib/content/about-copy";
 import { tl } from "@/lib/blog/types";
+import { resolveSelfHostLocale } from "@/lib/self-host/locale-redirect";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -137,8 +138,14 @@ export default async function AboutPage({
         </ul>
         <p className="mt-5 text-text-secondary leading-relaxed">
           {tl(ABOUT_COPY.serverChoice, lc)}{" "}
+          {/* MICRO-GATE P0.13B: /self-host esiste solo it/en — href diretto
+              via resolveSelfHostLocale invece di `/${lc}/self-host`
+              incondizionato, che per le altre 13 locale produceva un anchor
+              indicizzabile→redirect (la pagina self-host stessa reindirizza
+              a /en/self-host in un hop). Zero hop: il target finale è
+              calcolabile in anticipo, nessun redirect da attraversare. */}
           <Link
-            href={`/${lc}/self-host`}
+            href={`/${resolveSelfHostLocale(lc)}/self-host`}
             className="text-brand-aqua hover:text-brand-green underline underline-offset-4"
           >
             {lc === "it" ? "Stato attuale del self-host →" : "Current self-hosting status →"}

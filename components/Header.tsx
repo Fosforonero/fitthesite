@@ -64,12 +64,13 @@ export default function Header({
           >
             Labs
           </Link>
-          <Link
-            href={`/${locale}/beta`}
-            className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden sm:inline-block"
-          >
-            Beta
-          </Link>
+          {/*
+           * Sprint P0.13: rimosso il link "Beta" dalla navigazione desktop.
+           * /beta resta raggiungibile SOLO via URL diretto: pagina statica,
+           * 200, noindex/follow, fuori sitemap, archivio storico senza CTA
+           * Founder. Vedi anche Footer.tsx (rimosso in P0.10L-A) e
+           * MobileMenu.tsx (rimosso in questo stesso sprint).
+           */}
           <Link
             href={`/${locale}/support`}
             className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden md:inline-block"

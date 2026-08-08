@@ -5,8 +5,11 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
-import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { tl } from "@/lib/blog/types";
+import { getBlogPostBySlug } from "@/lib/blog/payload-source";
+import { blogLinkHref } from "@/lib/blog/indexability";
+import { providerLinkHref } from "@/lib/providers/indexability";
+import { FITNESS_DATA_SYNC_COMPLETE_LOCALES } from "@/lib/content/static-page-locales";
 import {
   PROVIDERS,
   categoryLabel,
@@ -109,6 +112,15 @@ export default async function IntegrationsHub({
   const lc = locale as Locale;
   const t = (it: string, en: string, es?: string, de?: string, pt?: string, fr?: string, nl?: string, ja?: string, ko?: string) =>
     lc === "it" ? it : lc === "es" ? (es ?? en) : lc === "de" ? (de ?? en) : lc === "pt" ? (pt ?? en) : lc === "fr" ? (fr ?? en) : lc === "nl" ? (nl ?? en) : lc === "ja" ? (ja ?? en) : lc === "ko" ? (ko ?? en) : en;
+  // Sprint P0.13 (MICRO-GATE P0.13A): entrambi i link sotto erano hardcoded
+  // (localizedBlogSlug + template literal diretto), trovati dal crawl
+  // esaustivo con centinaia di anchor verso varianti noindex/404. Stesso
+  // pattern lc-diretto→EN-fallback→nascondi già usato altrove in P0.13.
+  const guidaPost = await getBlogPostBySlug("guida-sync-wearable-2026");
+  const guidaHref = guidaPost ? blogLinkHref(guidaPost, lc) : null;
+  const fitnessDataSyncHref = FITNESS_DATA_SYNC_COMPLETE_LOCALES.includes(lc)
+    ? `/${lc}/fitness-data-sync`
+    : "/en/fitness-data-sync";
   // Group providers by category, in canonical order
   const grouped = CATEGORY_ORDER.map((category) => ({
     category,
@@ -254,10 +266,14 @@ export default async function IntegrationsHub({
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {group.items.map((p) => {
               const status = statusLabel(p.status, lc);
+              // Sprint P0.13: providerLinkHref — lc-diretto → EN-fallback →
+              // nascondi la card (mai un link verso una pagina noindex).
+              const href = providerLinkHref(p, lc);
+              if (!href) return null;
               return (
                 <Link
                   key={p.slug}
-                  href={`/${lc}/sync/${p.slug}`}
+                  href={href}
                   prefetch={false}
                   className="group relative card p-6 overflow-hidden hover:-translate-y-1 transition-all duration-300"
                 >
@@ -337,25 +353,27 @@ export default async function IntegrationsHub({
             )}
           </p>
           <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
+            {guidaHref && (
+              <Link
+                href={guidaHref}
+                className="inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
+              >
+                {t(
+                  "Approfondisci nella guida completa al sync wearable",
+                  "Read the complete guide to wearable sync",
+                  "Lee la guía completa de sincronización de wearables",
+                  undefined,
+                  undefined,
+                  undefined,
+                  "Lees de complete gids voor wearable sync",
+                  "ウェアラブルsyncの完全ガイドを読む",
+                  "웨어러블 동기화 전체 가이드 읽기",
+                )}
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </Link>
+            )}
             <Link
-              href={`/${lc}/blog/${localizedBlogSlug("guida-sync-wearable-2026", lc)}`}
-              className="inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
-            >
-              {t(
-                "Approfondisci nella guida completa al sync wearable",
-                "Read the complete guide to wearable sync",
-                "Lee la guía completa de sincronización de wearables",
-                undefined,
-                undefined,
-                undefined,
-                "Lees de complete gids voor wearable sync",
-                "ウェアラブルsyncの完全ガイドを読む",
-                "웨어러블 동기화 전체 가이드 읽기",
-              )}
-              <span className="transition-transform group-hover:translate-x-1">→</span>
-            </Link>
-            <Link
-              href={`/${lc}/fitness-data-sync`}
+              href={fitnessDataSyncHref}
               className="inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition group"
             >
               {t(

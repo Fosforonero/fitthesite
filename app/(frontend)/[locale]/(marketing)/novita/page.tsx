@@ -6,8 +6,8 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { getPostsByCategory } from "@/lib/blog/payload-source";
-import { tl } from "@/lib/blog/types";
-import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
+import { tl, type BlogPost } from "@/lib/blog/types";
+import { blogLinkHref } from "@/lib/blog/indexability";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 
@@ -250,7 +250,12 @@ export default async function NovitaIndex({
   const lc = locale as Locale;
   const t = I18N[lc];
 
-  const posts = await getPostsByCategory("news");
+  // Sprint P0.13: blogLinkHref filtra a monte (lc-diretto → EN-fallback →
+  // escludi) cosi' sia il grid visibile sia l'ItemList JSON-LD sotto restano
+  // coerenti — mai un item di lista che punta a una pagina noindex.
+  const posts = (await getPostsByCategory("news"))
+    .map((post) => ({ post, href: blogLinkHref(post, lc) }))
+    .filter((x): x is { post: BlogPost; href: string } => x.href !== null);
 
   const collectionLd = {
     "@context": "https://schema.org",
@@ -266,10 +271,10 @@ export default async function NovitaIndex({
     url: `${SITE_URL}/${lc}/novita`,
     mainEntity: {
       "@type": "ItemList",
-      itemListElement: posts.map((p, i) => ({
+      itemListElement: posts.map(({ post: p, href }, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        url: `${SITE_URL}/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`,
+        url: `${SITE_URL}${href}`,
         name: tl(p.hero.title, lc),
       })),
     },
@@ -307,10 +312,10 @@ export default async function NovitaIndex({
           <p className="text-text-secondary">{t.empty}</p>
         ) : (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((p) => (
+            {posts.map(({ post: p, href }) => (
               <Link
                 key={p.slug}
-                href={`/${lc}/blog/${localizedBlogSlug(p.slug, lc)}`}
+                href={href}
                 prefetch={false}
                 className="card p-6 group hover:-translate-y-0.5 transition-transform flex flex-col"
               >

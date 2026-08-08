@@ -12,8 +12,9 @@ import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { WebSiteJsonLd } from "@/components/seo/WebSiteJsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
-import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
-import { tl, tll } from "@/lib/blog/types";
+import { blogLinkHref } from "@/lib/blog/indexability";
+import { providerLinkHref } from "@/lib/providers/indexability";
+import { tl, tll, type BlogPost } from "@/lib/blog/types";
 import { p } from "@/lib/pricing";
 import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
@@ -30,7 +31,10 @@ import { schemaLanguage } from "@/lib/seo/schema-language";
  * untouched here since they already cover all 15 locales via the parent
  * `[locale]/layout.tsx` generateMetadata.
  */
-import { HOME_COMPLETE_LOCALES as COMPLETE_BODY_LOCALES } from "@/lib/content/static-page-locales";
+import {
+  HOME_COMPLETE_LOCALES as COMPLETE_BODY_LOCALES,
+  FITNESS_DATA_SYNC_COMPLETE_LOCALES,
+} from "@/lib/content/static-page-locales";
 import { HOMEPAGE_COPY, tli } from "@/lib/content/homepage-copy";
 import { LABS_TEASER_COPY } from "@/lib/content/labs-teaser-copy";
 import { liveLabsTools, localizedLabsSlug, lt as labsLt } from "@/lib/labs/registry";
@@ -106,6 +110,13 @@ export default async function Home({
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
   const postsBySlug = await getBlogPostsBySlug();
+  // MICRO-GATE P0.13A: era `/${lc}/fitness-data-sync` incondizionato —
+  // route esiste solo per FITNESS_DATA_SYNC_COMPLETE_LOCALES (it/en/de/es),
+  // 404 per le altre 11 (trovato dal crawl esaustivo). Stesso fix già
+  // applicato a integrations/page.tsx e BlogRenderer.tsx in questo sprint.
+  const fitnessDataSyncHref = FITNESS_DATA_SYNC_COMPLETE_LOCALES.includes(lc)
+    ? `/${lc}/fitness-data-sync`
+    : "/en/fitness-data-sync";
 
   // Curated subset (live + headline) for the inline ticker
   const tickerProviders = [
@@ -409,7 +420,7 @@ export default async function Home({
               {tl(HOMEPAGE_COPY.integrationsHeading, lc)}
             </h2>
             <Link
-              href={`/${lc}/fitness-data-sync`}
+              href={fitnessDataSyncHref}
               className="group mt-3 inline-flex items-center gap-1.5 text-sm text-text-secondary hover:text-brand-aqua transition"
             >
               {tl(HOMEPAGE_COPY.integrationsDashboardTeaser, lc)}
@@ -428,10 +439,14 @@ export default async function Home({
         <div className="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
           {PROVIDERS.map((p) => {
             const st = statusLabel(p.status, lc);
+            // Sprint P0.13: providerLinkHref — lc-diretto → EN-fallback →
+            // nascondi la card (mai un link verso una pagina noindex).
+            const providerHref = providerLinkHref(p, lc);
+            if (!providerHref) return null;
             return (
               <Link
                 key={p.slug}
-                href={`/${lc}/sync/${p.slug}`}
+                href={providerHref}
                 prefetch={false}
                 className="group card p-4 hover:-translate-y-1 transition-all flex flex-col items-center text-center gap-2 relative overflow-hidden"
               >
@@ -677,7 +692,16 @@ export default async function Home({
           </p>
           {(lc === "it" || lc === "en") && (
             <Link
-              href={`/${lc}/blog/fitmesh-gratis-prezzo-founder`}
+              href={
+                // MICRO-GATE P0.13A: "fitmesh-gratis-prezzo-founder" è lo
+                // slug CANONICO (IT); lo slug EN reale è
+                // "is-fitmesh-free-pricing-founder" (rinominato per SEO) —
+                // l'href hardcoded per EN produceva un 308 (trovato dal
+                // crawl esaustivo). blogLinkHref localizza correttamente.
+                (postsBySlug["fitmesh-gratis-prezzo-founder"] &&
+                  blogLinkHref(postsBySlug["fitmesh-gratis-prezzo-founder"], lc)) ||
+                `/${lc}/blog/fitmesh-gratis-prezzo-founder`
+              }
               className="mt-3 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition"
             >
               {lc === "it" ? "Guida completa ai prezzi" : "Full pricing guide"}
@@ -753,9 +777,12 @@ export default async function Home({
           "scegliere-smartwatch-dati-2026",
           "come-funziona-fitmesh",
         ];
+        // Sprint P0.13: blogLinkHref — lc-diretto → EN-fallback → nascondi.
         const featured = featuredSlugs
           .map((s) => postsBySlug[s])
-          .filter((p): p is NonNullable<typeof p> => p !== undefined);
+          .filter((p): p is NonNullable<typeof p> => p !== undefined)
+          .map((post) => ({ post, href: blogLinkHref(post, lc) }))
+          .filter((x): x is { post: BlogPost; href: string } => x.href !== null);
         if (featured.length === 0) return null;
         return (
           <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
@@ -777,10 +804,10 @@ export default async function Home({
               </Link>
             </div>
             <div className="grid gap-5 md:grid-cols-3">
-              {featured.map((post, i) => (
+              {featured.map(({ post, href }, i) => (
                 <Link
                   key={post.slug}
-                  href={`/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`}
+                  href={href}
                   className="card-glass p-7 group hover:-translate-y-0.5 transition-transform flex flex-col"
                   data-reveal
                   style={{ "--reveal-delay": `${i * 100}ms` } as React.CSSProperties}

@@ -22,9 +22,10 @@
  * Usato da `sync/[provider]/page.tsx` e `sync/[provider]/[model]/page.tsx`
  * (robots + hreflang) e da `sitemap.ts`: un solo helper, non possono divergere.
  */
-import type { Locale } from "@/lib/i18n";
+import { locales, type Locale } from "@/lib/i18n";
 import type { Provider } from "@/lib/providers/data";
 import type { ProviderModel } from "@/lib/providers/models";
+import { SITE_URL } from "@/lib/product-facts";
 
 type LocField = Partial<Record<Locale, string>> | undefined;
 
@@ -83,4 +84,61 @@ export function isProviderModelLocaleComplete(m: ProviderModel, lc: Locale): boo
 export function isProviderModelVariantIndexable(m: ProviderModel, lc: Locale): boolean {
   if (lc === "it" || lc === "en") return true;
   return isProviderModelLocaleComplete(m, lc);
+}
+
+/**
+ * Sprint P0.13: URL da usare per un link INTERNO (grid "altri provider",
+ * homepage, integrations, blog correlati) verso il provider `p` nella
+ * locale corrente `lc`. Stessa regola di `blogLinkHref`: lc indicizzabile →
+ * diretto; altrimenti EN indicizzabile → fallback EN; altrimenti null
+ * (nascondi, mai un redirect).
+ */
+export function providerLinkHref(p: Provider, lc: Locale): string | null {
+  if (isProviderVariantIndexable(p, lc)) return `/${lc}/sync/${p.slug}`;
+  if (lc !== "en" && isProviderVariantIndexable(p, "en")) return `/en/sync/${p.slug}`;
+  return null;
+}
+
+/** Stesso helper di `providerLinkHref`, per un modello di un provider (grid "altri modelli"). */
+export function providerModelLinkHref(
+  p: Provider,
+  m: ProviderModel,
+  lc: Locale,
+): string | null {
+  if (isProviderModelVariantIndexable(m, lc)) return `/${lc}/sync/${p.slug}/${m.slug}`;
+  if (lc !== "en" && isProviderModelVariantIndexable(m, "en"))
+    return `/en/sync/${p.slug}/${m.slug}`;
+  return null;
+}
+
+/**
+ * Sprint P0.13 FASE 4: hreflang filtrato per `/sync/[provider]` — stessa
+ * fonte di verità di `robots`/sitemap (`isProviderVariantIndexable`), non più
+ * il generico `localeAlternates()` che emetteva hreflang anche verso le
+ * varianti noindex (gap documentato in
+ * `docs/seo/p012-fase3-sitemap-hreflang-gap.md`, mai corretto prima d'ora).
+ * x-default = IT: sempre indicizzabile (it/en required), stesso pattern già
+ * in uso per blog (`blogLanguages`) e landing (`landingLanguages`) — scelta
+ * di coerenza sitewide, non introduce un x-default diverso per questa sola
+ * famiglia.
+ */
+export function providerLanguages(p: Provider): Record<string, string> {
+  const langs: Record<string, string> = {};
+  for (const l of locales) {
+    if (!isProviderVariantIndexable(p, l)) continue;
+    langs[l] = `${SITE_URL}/${l}/sync/${p.slug}`;
+  }
+  langs["x-default"] = `${SITE_URL}/it/sync/${p.slug}`;
+  return langs;
+}
+
+/** Stesso helper di `providerLanguages`, per `/sync/[provider]/[model]`. */
+export function providerModelLanguages(p: Provider, m: ProviderModel): Record<string, string> {
+  const langs: Record<string, string> = {};
+  for (const l of locales) {
+    if (!isProviderModelVariantIndexable(m, l)) continue;
+    langs[l] = `${SITE_URL}/${l}/sync/${p.slug}/${m.slug}`;
+  }
+  langs["x-default"] = `${SITE_URL}/it/sync/${p.slug}/${m.slug}`;
+  return langs;
 }

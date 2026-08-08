@@ -18,7 +18,7 @@ import {
   getRelatedPosts,
 } from "@/lib/blog/payload-source";
 import { resolveBlogPost } from "@/lib/blog/resolve";
-import { isBlogVariantIndexable, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "@/lib/blog/indexability";
+import { isBlogVariantIndexable, blogLinkHref, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "@/lib/blog/indexability";
 import { filterBlogContentForLocale } from "@/lib/blog/locale-filter";
 import type { BlogPost } from "@/lib/blog/types";
 import { SITE_URL } from "@/lib/product-facts";
@@ -569,16 +569,28 @@ export default async function BlogArticle({
         }
       : null;
 
-  const related = await getRelatedPosts(post.related);
+  // Sprint P0.13: `blogLinkHref` è l'unica fonte di verità per "posso linkare
+  // questo post da qui nella locale corrente?" — variante lc se indicizzabile,
+  // altrimenti EN se indicizzabile, altrimenti null (nascondi, mai un link
+  // verso una pagina noindex/che richieda un redirect).
+  const related = (await getRelatedPosts(post.related))
+    .map((r) => ({ post: r, href: blogLinkHref(r, lc) }))
+    .filter((x): x is { post: BlogPost; href: string } => x.href !== null);
 
   // Prev/next per data (successivo = piu' recente, precedente = piu' vecchio).
   const ordered = [...(await getBlogPosts())].sort(
     (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
   );
   const curIdx = ordered.findIndex((p) => p.slug === post.slug);
-  const newerPost = curIdx > 0 ? ordered[curIdx - 1] : null;
-  const olderPost =
+  const newerPostRaw = curIdx > 0 ? ordered[curIdx - 1] : null;
+  const olderPostRaw =
     curIdx >= 0 && curIdx < ordered.length - 1 ? ordered[curIdx + 1] : null;
+  const newerPost = newerPostRaw
+    ? { post: newerPostRaw, href: blogLinkHref(newerPostRaw, lc) }
+    : null;
+  const olderPost = olderPostRaw
+    ? { post: olderPostRaw, href: blogLinkHref(olderPostRaw, lc) }
+    : null;
 
   return (
     <>
@@ -830,10 +842,10 @@ export default async function BlogArticle({
               {t.relatedHeading}
             </h2>
             <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {related.slice(0, 3).map((r) => (
+              {related.slice(0, 3).map(({ post: r, href }) => (
                 <Link
                   key={r.slug}
-                  href={`/${lc}/blog/${localizedBlogSlug(r.slug, lc)}`}
+                  href={href}
                   prefetch={false}
                   className="card p-5 group hover:-translate-y-0.5 transition-transform"
                 >
@@ -852,36 +864,39 @@ export default async function BlogArticle({
           </section>
         )}
 
-        {/* PREV / NEXT — link interni con rel per i crawler */}
-        {(olderPost || newerPost) && (
+        {/* PREV / NEXT — link interni con rel per i crawler. Sprint P0.13:
+            nascosto (non fallback EN) se blogLinkHref non trova nemmeno la
+            variante EN indicizzabile — raro, ma older/newerPost.href puo'
+            essere null anche quando older/newerPost.post esiste. */}
+        {(olderPost?.href || newerPost?.href) && (
           <nav className="max-w-3xl mx-auto px-4 sm:px-6 pb-20 grid gap-4 sm:grid-cols-2">
-            {olderPost ? (
+            {olderPost?.href ? (
               <Link
                 rel="prev"
-                href={`/${lc}/blog/${localizedBlogSlug(olderPost.slug, lc)}`}
+                href={olderPost.href}
                 className="card p-5 group hover:-translate-y-0.5 transition-transform"
               >
                 <span className="text-xs text-text-muted" aria-hidden>
                   ←
                 </span>
                 <p className="mt-1 font-display text-base font-semibold tracking-tight text-text-primary group-hover:text-brand-aqua transition leading-snug line-clamp-2">
-                  {tl(olderPost.hero.title, lc)}
+                  {tl(olderPost.post.hero.title, lc)}
                 </p>
               </Link>
             ) : (
               <span />
             )}
-            {newerPost ? (
+            {newerPost?.href ? (
               <Link
                 rel="next"
-                href={`/${lc}/blog/${localizedBlogSlug(newerPost.slug, lc)}`}
+                href={newerPost.href}
                 className="card p-5 group hover:-translate-y-0.5 transition-transform sm:text-right"
               >
                 <span className="text-xs text-text-muted" aria-hidden>
                   →
                 </span>
                 <p className="mt-1 font-display text-base font-semibold tracking-tight text-text-primary group-hover:text-brand-aqua transition leading-snug line-clamp-2">
-                  {tl(newerPost.hero.title, lc)}
+                  {tl(newerPost.post.hero.title, lc)}
                 </p>
               </Link>
             ) : (

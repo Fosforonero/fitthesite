@@ -111,13 +111,10 @@ export default function MobileMenu({
           >
             Labs
           </Link>
-          <Link
-            href={`/${locale}/beta`}
-            className="px-3 py-3 rounded-xl text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"
-            onClick={() => setOpen(false)}
-          >
-            Beta
-          </Link>
+          {/*
+           * Sprint P0.13: rimosso il link "Beta" dalla navigazione mobile.
+           * /beta resta raggiungibile SOLO via URL diretto — vedi Header.tsx.
+           */}
           <Link
             href={`/${locale}/support`}
             className="px-3 py-3 rounded-xl text-text-secondary hover:text-text-primary hover:bg-white/5 transition-colors"

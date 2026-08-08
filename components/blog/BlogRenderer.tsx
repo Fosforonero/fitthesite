@@ -5,23 +5,126 @@ import type { BlogSection } from "@/lib/blog/types";
 import { tl, tll } from "@/lib/blog/types";
 import type { Locale } from "@/lib/i18n";
 import { localizedBlogSlug, localizedLandingSlug } from "@/lib/blog/slug-i18n";
+import { FITNESS_DATA_SYNC_COMPLETE_LOCALES } from "@/lib/content/static-page-locales";
+import { blogLinkHrefSync } from "@/lib/blog/indexability";
+import { landingLinkHref } from "@/lib/landing/indexability";
+import { LANDING_PAGES_BY_SLUG } from "@/lib/landing/data";
+import { providerLinkHref, providerModelLinkHref } from "@/lib/providers/indexability";
+import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
+import { PROVIDERS_BY_SLUG } from "@/lib/providers/data";
+import { PROVIDER_MODELS } from "@/lib/providers/models";
 
 /**
  * Riscrive un href interno alla lingua corrente: normalizza il prefisso `/xx/`
  * e, per i link `/blog/<slug>` e `/lp/<slug>`, mappa lo slug canonico a quello
  * localizzato (i contenuti sono scritti con lo slug canonico IT). Evita il salto
  * via redirect 308 e mantiene i link coerenti per lingua. Link esterni invariati.
+ *
+ * Sprint P0.13: il fallback generico (ultima riga) fa uno swap cieco del
+ * prefisso locale — corretto per route che esistono in TUTTE le locale (es.
+ * `/beta`), ma produceva un 404 per `/fitness-data-sync`, che esiste SOLO in
+ * FITNESS_DATA_SYNC_COMPLETE_LOCALES (it/en/de/es). Caso esplicito: fuori da
+ * quel set, fallback su EN (sempre presente), stessa regola di
+ * `blogLinkHref`/`providerLinkHref` altrove in questo sprint.
+ *
+ * MICRO-GATE P0.13A: i casi `/blog/<slug>` e `/lp/<slug>` sopra facevano lo
+ * STESSO swap cieco (solo slug, mai indicizzabilità) — un crawl esaustivo ha
+ * trovato centinaia di anchor in-content verso varianti noindex/redirect.
+ * Ora usano `blogLinkHrefSync`/`landingLinkHref` (stessa SSOT del resto di
+ * P0.13, variante sincrona per lo `/blog`: vedi commento su
+ * `blogLinkHrefSync`). Ritorna `null` SOLO quando lo slug è noto e la
+ * variante non è indicizzabile in nessuna locale (nemmeno EN, quasi mai) —
+ * il chiamante deve rendere testo non cliccabile, mai un link a noindex.
+ * Se lo slug non è verificabile qui (post CMS-only, `undefined`), ricade sul
+ * comportamento precedente invece di nascondere un link legittimo.
  */
-function localizeInternalHref(href: string, locale: Locale): string {
+export function localizeInternalHref(href: string, locale: Locale): string | null {
   if (!href.startsWith("/")) return href;
-  const m = href.match(/^\/(?:it|en|es|de|pt|fr)\/(blog|lp)\/([^/?#]+)(.*)$/);
+  // MICRO-GATE P0.13A: prefisso locale OPZIONALE in tutti i pattern sotto
+  // (`(?:[a-z]{2}\/)?`) — trovato dal crawl esaustivo del contenuto
+  // in-content scritto SENZA alcun prefisso (es. "/blog/da-android-a-iphone-dati-fitness",
+  // non "/it/blog/..."): il middleware lo intercetta e ridirige (308) verso
+  // la locale rilevata. Prima la regex richiedeva sempre un prefisso di 2
+  // lettere, quindi questi casi cadevano nel fallback generico in fondo,
+  // che non matcha un href senza prefisso e lo ritorna invariato.
+  const m = href.match(/^\/(?:[a-z]{2}\/)?(blog|lp)\/([^/?#]+)(.*)$/);
   if (m) {
     const [, kind, slug, rest] = m;
-    const localized =
-      kind === "blog"
-        ? localizedBlogSlug(slug, locale)
-        : localizedLandingSlug(slug, locale);
-    return `/${locale}/${kind}/${localized}${rest}`;
+    if (kind === "blog") {
+      const resolved = blogLinkHrefSync(slug, locale);
+      if (resolved !== undefined) return resolved ? `${resolved}${rest}` : null;
+      return `/${locale}/blog/${localizedBlogSlug(slug, locale)}${rest}`;
+    }
+    const lp = LANDING_PAGES_BY_SLUG[slug];
+    if (lp) {
+      const resolved = landingLinkHref(lp, locale);
+      return resolved ? `${resolved}${rest}` : null;
+    }
+    return `/${locale}/lp/${localizedLandingSlug(slug, locale)}${rest}`;
+  }
+  const fds = href.match(/^\/(?:[a-z]{2}\/)?fitness-data-sync(.*)$/);
+  if (fds) {
+    const [, rest] = fds;
+    const target = FITNESS_DATA_SYNC_COMPLETE_LOCALES.includes(locale) ? locale : "en";
+    return `/${target}/fitness-data-sync${rest}`;
+  }
+  // MICRO-GATE P0.13A: /labs esiste solo it/en (resolveLabsLocale) — il
+  // fallback generico in fondo riscriveva SEMPRE il prefisso sulla locale
+  // corrente anche quando il content author aveva già dichiarato
+  // esplicitamente "en" per una locale senza Labs (es. ctaHref.de =
+  // "/en/labs/..."), producendo "/de/labs/..." che poi ridirige 307 a
+  // singolo hop verso /en/labs/... — innocuo ma un redirect evitabile.
+  const labs = href.match(/^\/(?:[a-z]{2}\/)?labs(\/.*)?$/);
+  if (labs) {
+    const [, rest] = labs;
+    return `/${resolveLabsLocale(locale)}/labs${rest ?? ""}`;
+  }
+  // MICRO-GATE P0.13A: /delete-account vive FUORI da [locale]
+  // (app/(frontend)/delete-account/page.tsx, pagina unica senza varianti
+  // per lingua) — il contenuto la referenziava come "/it/delete-account" /
+  // "/en/delete-account" (404 reale, trovato dal crawl esaustivo). Nessun
+  // prefisso locale è mai corretto per questa route.
+  if (/^\/(?:[a-z]{2}\/)?delete-account(\/.*)?$/.test(href)) {
+    return href.replace(/^\/[a-z]{2}\//, "/");
+  }
+  // MICRO-GATE P0.13A: stesso swap cieco per /sync/<provider>[/<model>] —
+  // trovato dal crawl esaustivo su landing page in-content (es.
+  // /ko/lp/oura-ring-dongkihwa -> /ko/sync/oura, noindex in coreano).
+  // Slug provider/modello NON localizzati (invariati per locale, a
+  // differenza di blog/lp): solo indicizzabilità da verificare.
+  //
+  // Regex su QUALSIASI prefisso di 2 lettere (non solo it/en/es/de/pt/fr):
+  // `ctaHref` è un oggetto per-locale (`Record<Locale, string>`, vedi case
+  // "cta" sotto) — per le locale non-required il valore può arrivare qui
+  // GIÀ con il proprio prefisso (es. "/ko/sync/oura" quando locale="ko"),
+  // non necessariamente con un prefisso IT/EN-canonico da swap. La prima
+  // versione di questo fix restava sul vecchio pattern ristretto e non
+  // matchava mai per le locale extra-6, trovato dal secondo giro di crawl.
+  const sync = href.match(/^\/(?:[a-z]{2}\/)?sync\/([^/?#]+)(?:\/([^/?#]+))?(.*)$/);
+  if (sync) {
+    const [, providerSlug, modelSlug, rest] = sync;
+    const provider = PROVIDERS_BY_SLUG[providerSlug];
+    if (provider) {
+      if (modelSlug) {
+        const model = (PROVIDER_MODELS[providerSlug] ?? []).find((mm) => mm.slug === modelSlug);
+        if (model) {
+          const resolved = providerModelLinkHref(provider, model, locale);
+          return resolved ? `${resolved}${rest}` : null;
+        }
+      } else {
+        const resolved = providerLinkHref(provider, locale);
+        return resolved ? `${resolved}${rest}` : null;
+      }
+    }
+    // MICRO-GATE P0.13A: a differenza del blog (CMS async, "non trovato qui"
+    // può solo significare "non verificabile senza await"), PROVIDERS_BY_SLUG
+    // è un registro statico e completo — uno slug assente qui non esiste
+    // DAVVERO da nessuna parte. Trovato dal crawl esaustivo:
+    // "/sync/health-connect" non è mai stato un provider (è un valore del
+    // campo syncMechanism, non un'entità) — 3 landing page lo linkavano
+    // incondizionatamente, 404 reale anche su main. Testo non cliccabile
+    // invece di preservare un link morto.
+    return null;
   }
   return href.replace(/^\/(it|en|es|de|pt|fr)(?=\/|$)/, `/${locale}`);
 }
@@ -55,10 +158,17 @@ export function renderMarkdownInline(text: string, locale: Locale): ReactNode[] 
       const [, label, rawHref] = linkMatch;
       const isInternal = rawHref.startsWith("/");
       if (isInternal) {
+        const resolvedHref = localizeInternalHref(rawHref, locale);
+        // MICRO-GATE P0.13A: null = variante non indicizzabile in nessuna
+        // locale (nemmeno EN) — mai un link a noindex, testo non cliccabile
+        // preserva il contenuto editoriale senza spingere il crawler lì.
+        if (resolvedHref === null) {
+          return <Fragment key={i}>{label}</Fragment>;
+        }
         return (
           <Link
             key={i}
-            href={localizeInternalHref(rawHref, locale)}
+            href={resolvedHref}
             className="text-brand-aqua hover:text-brand-green underline-offset-2 hover:underline transition"
           >
             {label}
@@ -312,7 +422,7 @@ export function BlogRenderer({
             // /xx/ + slug localizzato per i link /blog e /lp (evita il redirect 308).
             const rawHref = (s.ctaHref as Record<string, string | undefined>)[locale] ?? s.ctaHref.it;
             const href = localizeInternalHref(rawHref, locale);
-            const isInternal = href.startsWith("/");
+            const isInternal = href !== null && href.startsWith("/");
             return (
               <aside
                 key={i}
@@ -326,25 +436,31 @@ export function BlogRenderer({
                 <p className="mt-3 text-text-secondary leading-relaxed">
                   {renderMarkdownInline(tl(s.body, locale), locale)}
                 </p>
-                <div className="mt-5">
-                  {isInternal ? (
-                    <Link
-                      href={href}
-                      className="inline-flex items-center px-5 py-2.5 rounded-pill btn-cta text-sm font-semibold"
-                    >
-                      {tl(s.ctaLabel, locale)}
-                    </Link>
-                  ) : (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center px-5 py-2.5 rounded-pill btn-cta text-sm font-semibold"
-                    >
-                      {tl(s.ctaLabel, locale)}
-                    </a>
-                  )}
-                </div>
+                {/* MICRO-GATE P0.13A: href null = target /blog o /lp non
+                    indicizzabile in nessuna locale (nemmeno EN) — bottone
+                    nascosto, titolo/corpo del CTA restano (mai un bottone
+                    che punti a noindex). */}
+                {href !== null && (
+                  <div className="mt-5">
+                    {isInternal ? (
+                      <Link
+                        href={href}
+                        className="inline-flex items-center px-5 py-2.5 rounded-pill btn-cta text-sm font-semibold"
+                      >
+                        {tl(s.ctaLabel, locale)}
+                      </Link>
+                    ) : (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center px-5 py-2.5 rounded-pill btn-cta text-sm font-semibold"
+                      >
+                        {tl(s.ctaLabel, locale)}
+                      </a>
+                    )}
+                  </div>
+                )}
               </aside>
             );
           }
