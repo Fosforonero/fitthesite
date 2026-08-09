@@ -27,6 +27,27 @@ if ! docker exec "$CID" true >/dev/null 2>&1; then
   exit 1
 fi
 
-docker cp "$DIR/10-functional-tests.sql" "$CID":/tmp/billing_claims_tests.sql >/dev/null
-docker exec -e PGPASSWORD=postgres "$CID" \
-  psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/billing_claims_tests.sql
+# Tutti e quattro i file, non solo il primo. Finche' la suite ne eseguiva uno
+# solo, gli altri tre esistevano sul disco e non venivano mai eseguiti: una
+# suite che copre meno di quanto sembra e' peggio di una che non esiste,
+# perche' il suo verde viene creduto.
+run_sql() {
+  echo ""
+  echo "### $1"
+  docker cp "$DIR/$1" "$CID":/tmp/suite_under_test.sql >/dev/null
+  docker exec -e PGPASSWORD=postgres "$CID" \
+    psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/suite_under_test.sql
+}
+
+run_sql 10-functional-tests.sql
+run_sql 20-ownership-persistence-tests.sql
+
+# Questi due aprono connessioni proprie: la corsa a due connessioni reali non
+# si puo' simulare dentro una singola sessione psql.
+echo ""
+echo "### 30-backfill-tests.sh"
+bash "$DIR/30-backfill-tests.sh"
+
+echo ""
+echo "### 40-concurrency.sh"
+bash "$DIR/40-concurrency.sh"
