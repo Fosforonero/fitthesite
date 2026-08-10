@@ -128,8 +128,8 @@ begin
   end if;
 
   -- Le chiavi sono ESATTAMENTE quelle costruite dalla funzione.
-  if (select count(*) from jsonb_object_keys(v_payload)) <> 8 then
-    raise exception 'raw_payload ha % chiavi invece di 8: %',
+  if (select count(*) from jsonb_object_keys(v_payload)) <> 6 then
+    raise exception 'raw_payload ha % chiavi invece di 6: %',
       (select count(*) from jsonb_object_keys(v_payload)), v_payload;
   end if;
 
@@ -153,7 +153,25 @@ begin
     raise exception 'il registro contiene % segreti', v_leak;
   end if;
 
-  raise notice 'sanificazione payload: 5 respinti, 1 claim legittimo, 0 segreti persistiti';
+  -- Uno SKU inventato ma con la forma giusta: la vecchia guardia lo accettava.
+  begin
+    perform public.claim_store_purchase(
+      p_billing_source        => 'apple_iap',
+      p_ownership_key         => '6000000000008888',
+      p_owner_user_id         => '00000000-0000-4000-8000-00000000da01'::uuid,
+      p_external_product_id   => 'fitmesh_pro_inventato',
+      p_environment           => 'production',
+      p_active_until          => now() + interval '1 day',
+      p_state                 => 'active',
+      p_auto_renewing         => false
+    );
+    raise exception 'ACCETTATO uno SKU non supportato con la forma giusta';
+  exception
+    when sqlstate '22023' then
+      null;  -- atteso: l allowlist e per SKU esatti, non per forma
+  end;
+
+  raise notice 'sanificazione payload: 5 respinti, SKU inventato respinto, 1 claim legittimo, 0 segreti persistiti';
 end $$;
 
 rollback;

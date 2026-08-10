@@ -515,18 +515,22 @@ begin
   -- segmenti lunghi (JWS), base64 lunghi (ricevute, purchase token), stringhe
   -- esadecimali lunghe (shared secret). Un identificativo di prodotto vero
   -- (fitmesh_pro_lifetime) non assomiglia a nessuna di queste.
-  -- Allowlist di FORMA, non blocklist. Una blocklist si scrive elencando i
-  -- travestimenti che ci vengono in mente, e ne resta sempre fuori uno: la
-  -- prima versione di questa guardia respingeva JWS, ricevute e purchase token
-  -- ma lasciava passare uno shared secret esadecimale e un header
-  -- "Bearer eyJ...", perche' nessuno dei due somiglia a cio' che stava
-  -- cercando.
+  -- Allowlist degli SKU ESATTI, non della forma.
   --
-  -- Un identificativo di prodotto FitMesh ha invece una forma nota e stretta:
-  -- prefisso dell'app, minuscole, cifre, underscore e punti, corto. Tutto cio'
-  -- che non ha questa forma non entra, qualunque cosa sia.
-  if p_external_product_id !~ '^fitmesh[a-z0-9_.]{1,56}$' then
-    raise exception 'claim_store_purchase: p_external_product_id "%" non ha la forma di un identificativo di prodotto FitMesh. Questo campo finisce in public.b2c_subscriptions.raw_payload, che l utente legge: ci entra solo cio che ha la forma attesa.', left(p_external_product_id, 32)
+  -- Questa guardia ha gia' sbagliato due volte, e ogni volta perche' era piu'
+  -- larga del necessario. Prima era una blocklist: respingeva JWS, ricevute e
+  -- purchase token, e lasciava passare uno shared secret esadecimale e un
+  -- header "Bearer eyJ...", perche' nessuno dei due somiglia a cio' che stava
+  -- cercando. Poi era una forma: '^fitmesh[a-z0-9_.]{1,56}$', che respinge i
+  -- travestimenti noti ma accetta comunque qualunque stringa nuova purche'
+  -- cominci per "fitmesh".
+  --
+  -- Gli SKU che vendiamo sono due, e sono noti. Elencarli e' l'unica versione
+  -- di questo controllo che non ha bisogno di indovinare niente: cio' che non
+  -- e' uno dei due non entra, punto. Aggiungerne uno richiede una migration, ed
+  -- e' voluto: un prodotto nuovo e' una decisione, non un dato che arriva.
+  if p_external_product_id not in ('fitmesh_pro_lifetime', 'fitmesh_pro_sub') then
+    raise exception 'claim_store_purchase: p_external_product_id "%" non e uno degli SKU supportati (fitmesh_pro_lifetime, fitmesh_pro_sub).', left(p_external_product_id, 40)
       using errcode = '22023';
   end if;
   if p_environment is null or p_environment not in ('production', 'sandbox') then
@@ -572,15 +576,22 @@ begin
   -- external_order_id e qualunque identificatore di transazione. Vivono gia'
   -- nelle loro colonne, e duplicarli qui allargherebbe la superficie senza
   -- aggiungere niente.
+  -- Campi espliciti, scelti uno per uno, e nessun input JSON libero. Ogni
+  -- valore qui dentro proviene da un parametro tipizzato che questa funzione
+  -- ha gia' validato: lo SKU e' uno dei due dell'allowlist, l'ambiente e' uno
+  -- dei due ammessi, la fonte e' uno dei due store.
+  --
+  -- Tutto il resto (scadenza, stato, rinnovo automatico, identificativi) vive
+  -- gia' in colonne proprie di public.b2c_subscriptions: ripeterlo qui non
+  -- aggiungerebbe niente e allargherebbe la superficie di una tabella che
+  -- l'utente legge.
   v_raw_payload := pg_catalog.jsonb_build_object(
     'source', 'claim_store_purchase',
     'contract_version', 1,
+    'ownership_key_derivation_version', 1,
     'billing_source', p_billing_source,
-    'external_product_id', p_external_product_id,
-    'environment', p_environment,
-    'state', p_state,
-    'auto_renewing', coalesce(p_auto_renewing, false),
-    'active_until', p_active_until
+    'product_id', p_external_product_id,
+    'environment', p_environment
   );
 
   -- Serializza i claim concorrenti sulla STESSA chiave. Il vincolo di
