@@ -34,24 +34,43 @@ declare
   v_ts timestamptz;
   v_ts2 timestamptz;
   v_passed int := 0;
+  v_scoperto text;
 begin
   -- ── CASO 4. A acquista T1, poi acquista una SECONDA transazione T2 ──────
   v := public.claim_store_purchase(
-    p_billing_source => 'apple_iap', p_ownership_key => t1, p_owner_user_id => a,
-    p_external_product_id => 'fitmesh_pro_lifetime', p_environment => 'production',
-    p_active_until => lifetime, p_state => 'active', p_auto_renewing => false,
-    p_external_transaction_id => t1, p_app_account_token => a,
-    p_external_subscription_id => t1);
+    p_billing_source => 'apple_iap',
+    p_ownership_key => t1,
+    p_owner_user_id => a,
+    p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'active',
+    p_active_until => lifetime,
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date',
+    p_external_transaction_id => t1,
+    p_app_account_token => a
+  );
   if v->>'outcome' <> 'claimed' then
     raise exception 'CASO 4: primo acquisto non riuscito, %', v;
   end if;
 
   v := public.claim_store_purchase(
-    p_billing_source => 'apple_iap', p_ownership_key => t2, p_owner_user_id => a,
-    p_external_product_id => 'fitmesh_pro_lifetime', p_environment => 'production',
-    p_active_until => lifetime, p_state => 'active', p_auto_renewing => false,
-    p_external_transaction_id => t2, p_app_account_token => a,
-    p_external_subscription_id => t2);
+    p_billing_source => 'apple_iap',
+    p_ownership_key => t2,
+    p_owner_user_id => a,
+    p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'active',
+    p_active_until => lifetime,
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date',
+    p_external_transaction_id => t2,
+    p_app_account_token => a
+  );
   if v->>'outcome' <> 'claimed' then
     raise exception 'CASO 4: la seconda transazione dello stesso utente doveva essere un claim nuovo, ottenuto %', v;
   end if;
@@ -66,33 +85,50 @@ begin
 
   -- ── CASO 5. IL CUORE DEL FIX ───────────────────────────────────────────
   -- Prima meta': dimostrare che la PRECONDIZIONE del difetto e' ancora
-  -- presente, cioe' che la proiezione da sola non protegge piu' T1.
-  -- L'upsert onConflict user_id ha SOSTITUITO la riga di A: adesso la
-  -- proiezione dice t2, e di t1 non c'e' piu' traccia. Il vincolo
-  -- unique (billing_source, external_subscription_id) su cui poggiava la
-  -- vecchia difesa non ha piu' niente da difendere.
+  -- presente, cioe' che la proiezione da sola non protegge uno dei due
+  -- acquisti di A.
   --
-  -- Questa assert non e' decorativa: se un giorno la proiezione smettesse di
-  -- essere sostituibile, questo caso fallirebbe e ci direbbe che il test non
-  -- sta piu' misurando il difetto che credeva di misurare.
+  -- Fino a B' la precondizione era piu' brutale: l'upsert su user_id
+  -- SOSTITUIVA la riga, quindi t1 spariva del tutto e restava t2. Da B' la
+  -- proiezione conserva il MIGLIORE diritto invece dell'ultimo scritto — ma
+  -- resta comunque una riga sola per utente, e quindi uno dei due acquisti non
+  -- e' rappresentato. Il vincolo unique (billing_source,
+  -- external_subscription_id), su cui poggiava la vecchia difesa, su quello
+  -- non ha niente da difendere.
+  --
+  -- Il test non presume piu' QUALE dei due resti: lo legge, e attacca l'altro.
+  -- Presumerlo lo renderebbe fragile rispetto a un criterio di precedenza che
+  -- puo' cambiare, e la cosa da provare non e' quale vince: e' che quello che
+  -- perde resti comunque di A.
+  select external_subscription_id into v_txt from public.b2c_subscriptions where user_id = a;
+  if v_txt not in (t1, t2) then
+    raise exception 'CASO 5: la proiezione di A non contiene ne'' T1 ne'' T2 (%)', v_txt;
+  end if;
+  v_scoperto := case when v_txt = t1 then t2 else t1 end;
+
   select count(*) into v_rows from public.b2c_subscriptions
-   where billing_source = 'apple_iap' and external_subscription_id = t1;
+   where billing_source = 'apple_iap' and external_subscription_id = v_scoperto;
   if v_rows <> 0 then
     raise exception
-      'CASO 5: precondizione non riprodotta. T1 e'' ancora nella proiezione (% righe): il test non sta piu'' esercitando il difetto HIGH.', v_rows;
-  end if;
-  select external_subscription_id into v_txt from public.b2c_subscriptions where user_id = a;
-  if v_txt is distinct from t2 then
-    raise exception 'CASO 5: la proiezione di A doveva essere stata sostituita da T2, trovato %', v_txt;
+      'CASO 5: precondizione non riprodotta. Entrambe le transazioni risultano in proiezione (% righe): il test non sta piu'' esercitando il difetto HIGH.', v_rows;
   end if;
 
-  -- Seconda meta': B prova a reclamare T1, che nessuna riga di proiezione
-  -- protegge piu'. Prima di questo registro sarebbe passato: era il difetto.
+  -- Seconda meta': B prova a reclamare la transazione SCOPERTA, quella che
+  -- nessuna riga di proiezione protegge. Prima di questo registro sarebbe
+  -- passata: era il difetto.
   v := public.claim_store_purchase(
-    p_billing_source => 'apple_iap', p_ownership_key => t1, p_owner_user_id => b,
-    p_external_product_id => 'fitmesh_pro_lifetime', p_environment => 'production',
-    p_active_until => lifetime, p_state => 'active', p_auto_renewing => false,
-    p_external_subscription_id => t1);
+    p_billing_source => 'apple_iap',
+    p_ownership_key => v_scoperto,
+    p_owner_user_id => b,
+    p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'active',
+    p_active_until => lifetime,
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date'
+  );
   if v->>'outcome' <> 'owned_by_other_user' then
     raise exception
       'CASO 5 FALLITO, DIFETTO HIGH APERTO: B ha reclamato la vecchia transazione di A. Esito %', v;
@@ -103,9 +139,9 @@ begin
 
   -- E non deve aver lasciato niente dietro di se'.
   select owner_user_id::text into v_txt from private.billing_purchase_claims
-   where billing_source = 'apple_iap' and ownership_key = t1;
+   where billing_source = 'apple_iap' and ownership_key = v_scoperto;
   if v_txt <> a::text then
-    raise exception 'CASO 5: il proprietario di T1 e'' cambiato in %', v_txt;
+    raise exception 'CASO 5: il proprietario della transazione scoperta e'' cambiato in %', v_txt;
   end if;
   select count(*) into v_rows from public.b2c_subscriptions where user_id = b;
   if v_rows <> 0 then
@@ -125,12 +161,20 @@ begin
 
   for i in 1..3 loop
     v := public.claim_store_purchase(
-      p_billing_source => 'apple_iap', p_ownership_key => t1, p_owner_user_id => a,
-      p_external_product_id => 'fitmesh_pro_lifetime', p_environment => 'production',
-      p_active_until => lifetime, p_state => 'active', p_auto_renewing => false,
-      p_external_transaction_id => '49000000000000' || i::text,
-      p_app_account_token => a,
-      p_external_subscription_id => t1);
+    p_billing_source => 'apple_iap',
+    p_ownership_key => t1,
+    p_owner_user_id => a,
+    p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'active',
+    p_active_until => lifetime,
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date',
+    p_external_transaction_id => '49000000000000' || i::text,
+    p_app_account_token => a
+  );
     if v->>'outcome' <> 'already_owned_by_same_user' then
       raise exception 'CASO 14: restore numero % doveva essere idempotente, ottenuto %', i, v;
     end if;
@@ -157,11 +201,20 @@ begin
   -- doppio tap, retry del client). Deve essere un no-op sul registro.
   select count(*) into v_rows from private.billing_purchase_claims;
   v := public.claim_store_purchase(
-    p_billing_source => 'apple_iap', p_ownership_key => t2, p_owner_user_id => a,
-    p_external_product_id => 'fitmesh_pro_lifetime', p_environment => 'production',
-    p_active_until => lifetime, p_state => 'active', p_auto_renewing => false,
-    p_external_transaction_id => t2, p_app_account_token => a,
-    p_external_subscription_id => t2);
+    p_billing_source => 'apple_iap',
+    p_ownership_key => t2,
+    p_owner_user_id => a,
+    p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'active',
+    p_active_until => lifetime,
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date',
+    p_external_transaction_id => t2,
+    p_app_account_token => a
+  );
   if v->>'outcome' <> 'already_owned_by_same_user' then
     raise exception 'CASO 15a: l''evento duplicato doveva essere idempotente, ottenuto %', v;
   end if;
@@ -172,44 +225,65 @@ begin
   v_passed := v_passed + 1;
 
   -- ── CASO 15b. Evento FUORI ORDINE ──────────────────────────────────────
-  -- Una notifica piu' VECCHIA che arriva dopo una piu' recente.
+  -- Una fotografia piu' VECCHIA che arriva dopo una piu' recente.
   --
-  -- Comportamento verificato, non desiderato: la PROPRIETA' regge (il registro
-  -- non si muove di un byte, ed e' cio' che questo lavoro doveva garantire),
-  -- ma la PROIEZIONE regredisce, perche' la RPC riscrive active_until e state
-  -- con quello che le viene passato, senza confronto con il valore presente.
+  -- Fino a B' questo caso fissava il comportamento REALE e sbagliato: la
+  -- proprieta' reggeva, ma la proiezione REGREDIVA, perche' la RPC riscriveva
+  -- state e active_until con qualunque cosa le venisse passata. Il commento di
+  -- allora diceva che se un giorno fosse arrivata una guardia questo caso
+  -- sarebbe fallito e andava aggiornato di proposito. E' quel giorno.
   --
-  -- Il test fissa il comportamento REALE invece di quello che vorremmo, perche'
-  -- la monotonia qui non e' ovviamente giusta: un rimborso, una revoca o un
-  -- chargeback DEVONO poter riportare indietro l'entitlement. "Non tornare mai
-  -- indietro" romperebbe proprio quei casi. La scelta fra ordinare gli eventi
-  -- nel backend (per esempio con signedDate/notification ordering) e mettere
-  -- una guardia nella RPC e' una decisione di prodotto aperta: vedi il report
-  -- della FASE 5. Se un giorno verra' presa, questo caso fallira' e andra'
-  -- aggiornato di proposito, che e' esattamente cio' che deve fare.
+  -- La guardia non e' "non tornare mai indietro", che avrebbe rotto rimborsi e
+  -- revoche: e' "non applicare un'evidenza piu' vecchia di quella registrata".
+  -- Indietro si torna eccome — ma solo con evidenza piu' recente, e per la
+  -- revoca c'e' una funzione dedicata (CASO 6 della matrice 50).
   v := public.claim_store_purchase(
-    p_billing_source => 'apple_iap', p_ownership_key => t2, p_owner_user_id => a,
-    p_external_product_id => 'fitmesh_pro_lifetime', p_environment => 'production',
-    p_active_until => '2026-01-01T00:00:00Z', p_state => 'expired', p_auto_renewing => false,
-    p_external_transaction_id => t2, p_app_account_token => a,
-    p_external_subscription_id => t2);
+    p_billing_source => 'apple_iap',
+    p_ownership_key => t2,
+    p_owner_user_id => a,
+    p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'expired',
+    -- La sentinella resta: un lifetime senza di essa viene respinto dal CHECK
+    -- billing_purchase_states_lifetime_sentinel_check PRIMA che la guardia di
+    -- freschezza possa dire la sua (l'INSERT valuta i vincoli sulla tupla
+    -- proposta, prima di risolvere il conflitto). Qui vogliamo esercitare la
+    -- freschezza, non il vincolo di forma: sono due difese diverse e vanno
+    -- misurate separatamente.
+    p_active_until => lifetime,
+    p_auto_renewing => false,
+    p_store_event_at => now() - interval '30 days',
+    p_store_event_source => 'apple_signed_date',
+    p_external_transaction_id => t2,
+    p_app_account_token => a
+  );
   if v->>'outcome' <> 'already_owned_by_same_user' then
     raise exception 'CASO 15b: atteso already_owned_by_same_user, ottenuto %', v;
   end if;
+  if (v->>'stateApplied')::boolean is not false then
+    raise exception 'CASO 15b: un evento di 30 giorni fa e'' stato applicato (stateApplied=%)', v->>'stateApplied';
+  end if;
 
-  -- La proprieta' NON si e' mossa: e' il punto che questo sprint deve tenere.
-  select owner_user_id::text, claimed_at into v_txt, v_ts2
+  -- La proprieta' non si e' mossa.
+  select owner_user_id::text into v_txt
     from private.billing_purchase_claims
    where billing_source = 'apple_iap' and ownership_key = t2;
   if v_txt <> a::text then
     raise exception 'CASO 15b: un evento fuori ordine ha cambiato il proprietario (%)', v_txt;
   end if;
 
-  -- La proiezione INVECE e' regredita. Documentato, non nascosto.
+  -- E nemmeno lo STATO: 'active' registrato prima resta, 'expired' vecchio no.
+  select state into v_txt from private.billing_purchase_states
+   where billing_source = 'apple_iap' and ownership_key = t2;
+  if v_txt <> 'active' then
+    raise exception 'CASO 15b: lo stato e'' regredito a % per un evento piu'' vecchio', v_txt;
+  end if;
+
+  -- E la proiezione non e' regredita: A resta con un diritto valido.
   select state into v_txt from public.b2c_subscriptions where user_id = a;
-  if v_txt <> 'expired' then
-    raise exception
-      'CASO 15b: atteso il comportamento reale (proiezione regredita a expired), trovato %. Se e'' stata introdotta una guardia di monotonia, aggiornare questo caso e il report FASE 5.', v_txt;
+  if v_txt <> 'active' then
+    raise exception 'CASO 15b: la proiezione e'' regredita a % per un evento fuori ordine', v_txt;
   end if;
   v_passed := v_passed + 1;
 

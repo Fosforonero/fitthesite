@@ -106,7 +106,7 @@ begin
 
   select has_function_privilege(
            'service_role',
-           'public.claim_store_purchase(text,text,uuid,text,text,timestamptz,text,boolean,text,uuid,text,text)'::regprocedure,
+           'public.claim_store_purchase(text,text,uuid,text,text,text,text,timestamptz,boolean,timestamptz,text,text,uuid)'::regprocedure,
            'EXECUTE')
     into v_puo;
   if not v_puo then

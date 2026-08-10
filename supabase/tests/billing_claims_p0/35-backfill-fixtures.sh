@@ -67,10 +67,20 @@ teardown() {
   # di nuovo reclamabili da chiunque. Su un database di prova e' cio' che
   # vogliamo; in produzione quella guardia e' esattamente cio' che deve
   # fermarci, e non va mai forzata senza aver esportato prima.
+  #
+  # Da B' gli oggetti sono due e l'ordine e' obbligatorio: lo STATO referenzia
+  # la PROPRIETA', quindi si annulla stato -> proprieta' e si ricrea
+  # proprieta' -> stato. Il rollback della proprieta' si RIFIUTA di girare
+  # finche' la tabella degli stati esiste, quindi sbagliare ordine non passa
+  # inosservato.
+  docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 -v states_rollback_force=1 \
+    < "$REPO_ROOT/supabase/rollback/20260810120000_billing_purchase_states_rollback.sql" >/dev/null 2>&1
   docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 -v claims_rollback_force=1 \
     < "$REPO_ROOT/supabase/rollback/20260808211929_billing_purchase_claims_registry_rollback.sql" >/dev/null 2>&1
   docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 \
     < "$REPO_ROOT/supabase/migrations/20260808211929_billing_purchase_claims_registry.sql" >/dev/null 2>&1
+  docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 \
+    < "$REPO_ROOT/supabase/migrations/20260810120000_billing_purchase_states.sql" >/dev/null 2>&1
   psql_q "delete from public.b2c_subscriptions
           where user_id in ('$U_SK2','$U_SK1','$U_GP','$U_FOUNDER','$U_TRIAL');" >/dev/null 2>&1
   psql_q "delete from auth.users

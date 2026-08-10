@@ -63,7 +63,17 @@ if ! docker exec "$CID" true >/dev/null 2>&1; then
 fi
 
 teardown() {
+  # Da B' gli stati vanno svuotati PRIMA dei claim: la chiave esterna e'
+  # ON DELETE RESTRICT. La prima versione di questo teardown non lo faceva, la
+  # DELETE sui claim falliva in silenzio (|| true), le righe diventavano
+  # tombstone alla cancellazione degli utenti e il giro SUCCESSIVO della suite
+  # ne trovava quattro che non aveva creato. Una suite che passa solo la prima
+  # volta e' una suite che non si puo' credere.
   docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -X -q \
+    -c "alter table private.billing_purchase_states disable trigger billing_purchase_states_forward_only;" \
+    -c "delete from private.billing_purchase_states
+         where ownership_key in (encode(sha256(convert_to('${GTOKEN}','UTF8')),'hex'), '${ATXN}', '${CONFLICT_KEY}');" \
+    -c "alter table private.billing_purchase_states enable trigger billing_purchase_states_forward_only;" \
     -c "alter table private.billing_purchase_claims disable trigger trg_billing_purchase_claims_immutable;" \
     -c "delete from private.billing_purchase_claims
          where ownership_key in (encode(sha256(convert_to('${GTOKEN}','UTF8')),'hex'), '${ATXN}', '${CONFLICT_KEY}');" \

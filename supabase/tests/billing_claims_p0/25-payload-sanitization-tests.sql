@@ -41,7 +41,7 @@ begin
   select count(*) into v_njsonb
   from pg_proc p
      , unnest(p.proargtypes) as t(oid)
-  where p.oid = 'public.claim_store_purchase(text,text,uuid,text,text,timestamptz,text,boolean,text,uuid,text,text)'::regprocedure
+  where p.oid = 'public.claim_store_purchase(text,text,uuid,text,text,text,text,timestamptz,boolean,timestamptz,text,text,uuid)'::regprocedure
     and t.oid = 'jsonb'::regtype;
 
   if v_njsonb <> 0 then
@@ -50,7 +50,7 @@ begin
 
   select count(*) into v_nparams
   from pg_proc p
-  where p.oid = 'public.claim_store_purchase(text,text,uuid,text,text,timestamptz,text,boolean,text,uuid,text,text)'::regprocedure;
+  where p.oid = 'public.claim_store_purchase(text,text,uuid,text,text,text,text,timestamptz,boolean,timestamptz,text,text,uuid)'::regprocedure;
 
   if v_nparams <> 1 then
     raise exception 'firma inattesa: la funzione non esiste con la firma senza payload';
@@ -63,21 +63,24 @@ begin
   for i in 1..5 loop
     begin
       perform public.claim_store_purchase(
-        p_billing_source        => 'apple_iap',
-        p_ownership_key         => '600000000000000' || i::text,
-        p_owner_user_id         => '00000000-0000-4000-8000-00000000da01'::uuid,
-        p_external_product_id   => case i
+    p_billing_source => 'apple_iap',
+    p_ownership_key => '600000000000000' || i::text,
+    p_owner_user_id => '00000000-0000-4000-8000-00000000da01'::uuid,
+    p_external_product_id => case i
                                      when 1 then v_jws
                                      when 2 then v_receipt
                                      when 3 then v_play_token
                                      when 4 then v_shared_secret
                                      else v_header
                                    end,
-        p_environment           => 'production',
-        p_active_until          => now() + interval '365 days',
-        p_state                 => 'active',
-        p_auto_renewing         => false
-      );
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'active',
+    p_active_until => now() + interval '365 days',
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date'
+  );
       -- NIENTE raise qui dentro: la prima versione di questo test segnalava
       -- l'accettazione con un'eccezione, che finiva dritta nel gestore
       -- `when others` sotto e veniva contata come RIFIUTO. Il test restava
@@ -106,17 +109,20 @@ begin
   -- che non sia stato costruito qui dentro.
   ---------------------------------------------------------------------------
   perform public.claim_store_purchase(
-    p_billing_source        => 'apple_iap',
-    p_ownership_key         => '6000000000009999',
-    p_owner_user_id         => '00000000-0000-4000-8000-00000000da01'::uuid,
-    p_external_product_id   => 'fitmesh_pro_lifetime',
-    p_environment           => 'production',
-    p_active_until          => now() + interval '3650 days',
-    p_state                 => 'active',
-    p_auto_renewing         => false,
-    p_external_transaction_id => v_jws,          -- non finisce in raw_payload
-    p_external_subscription_id => v_play_token,  -- va in una colonna sua
-    p_external_order_id     => v_receipt         -- idem
+    p_billing_source => 'apple_iap',
+    p_ownership_key => '6000000000009999',
+    p_owner_user_id => '00000000-0000-4000-8000-00000000da01'::uuid,
+    p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'active',
+    -- Sentinella, non "fra 10 anni": da B' un lifetime con una scadenza vera
+    -- viene respinto dal vincolo di forma, e il claim non scriverebbe niente.
+    p_active_until => '9999-12-31T23:59:59Z'::timestamptz,
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date',
+    p_external_transaction_id => v_jws
   );
 
   select raw_payload into v_payload
@@ -127,9 +133,15 @@ begin
     raise exception 'nessun payload scritto: il test non sta provando niente';
   end if;
 
-  -- Le chiavi sono ESATTAMENTE quelle costruite dalla funzione.
-  if (select count(*) from jsonb_object_keys(v_payload)) <> 6 then
-    raise exception 'raw_payload ha % chiavi invece di 6: %',
+  -- Le chiavi sono ESATTAMENTE quelle costruite dalla funzione. Da B' sono
+  -- nove invece di sei: si sono aggiunte purchase_kind, store_state e
+  -- store_event_source, tutte e tre derivate da parametri gia' validati e
+  -- nessuna capace di trasportare un valore libero. Il numero e' fissato di
+  -- proposito: una chiave in piu' che compare senza che nessuno l'abbia
+  -- decisa e' esattamente il modo in cui un segreto entra in una tabella che
+  -- l'utente legge.
+  if (select count(*) from jsonb_object_keys(v_payload)) <> 9 then
+    raise exception 'raw_payload ha % chiavi invece di 9: %',
       (select count(*) from jsonb_object_keys(v_payload)), v_payload;
   end if;
 
@@ -156,15 +168,18 @@ begin
   -- Uno SKU inventato ma con la forma giusta: la vecchia guardia lo accettava.
   begin
     perform public.claim_store_purchase(
-      p_billing_source        => 'apple_iap',
-      p_ownership_key         => '6000000000008888',
-      p_owner_user_id         => '00000000-0000-4000-8000-00000000da01'::uuid,
-      p_external_product_id   => 'fitmesh_pro_inventato',
-      p_environment           => 'production',
-      p_active_until          => now() + interval '1 day',
-      p_state                 => 'active',
-      p_auto_renewing         => false
-    );
+    p_billing_source => 'apple_iap',
+    p_ownership_key => '6000000000008888',
+    p_owner_user_id => '00000000-0000-4000-8000-00000000da01'::uuid,
+    p_external_product_id => 'fitmesh_pro_inventato',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'active',
+    p_active_until => now() + interval '1 day',
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date'
+  );
     raise exception 'ACCETTATO uno SKU non supportato con la forma giusta';
   exception
     when sqlstate '22023' then

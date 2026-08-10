@@ -27,7 +27,7 @@ if ! docker exec "$CID" true >/dev/null 2>&1; then
   exit 1
 fi
 
-# Tutti e quattro i file, non solo il primo. Finche' la suite ne eseguiva uno
+# Tutti i file, non solo il primo. Finche' la suite ne eseguiva uno
 # solo, gli altri tre esistevano sul disco e non venivano mai eseguiti: una
 # suite che copre meno di quanto sembra e' peggio di una che non esiste,
 # perche' il suo verde viene creduto.
@@ -43,6 +43,11 @@ run_sql 10-functional-tests.sql
 run_sql 20-ownership-persistence-tests.sql
 run_sql 25-payload-sanitization-tests.sql
 run_sql 45-advisor-exposure.sql
+# B': prima la baseline ROSSA (ricrea in transazione la funzione del commit
+# 262ade1 e dimostra che quegli scenari fallivano davvero), poi la matrice
+# della precedenza. L'ordine conta: la seconda si legge solo dopo la prima.
+run_sql 48-red-baseline-last-write-wins.sql
+run_sql 50-entitlement-precedence.sql
 
 # Questi due aprono connessioni proprie: la corsa a due connessioni reali non
 # si puo' simulare dentro una singola sessione psql.
@@ -57,3 +62,7 @@ bash "$DIR/35-backfill-fixtures.sh"
 echo ""
 echo "### 40-concurrency.sh"
 bash "$DIR/40-concurrency.sh"
+
+echo ""
+echo "### 55-concurrency-entitlement.sh"
+bash "$DIR/55-concurrency-entitlement.sh"

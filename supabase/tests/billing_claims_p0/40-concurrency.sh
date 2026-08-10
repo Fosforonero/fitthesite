@@ -53,7 +53,14 @@ teardown() {
   # committare, il trigger va disattivato per il tempo strettamente necessario
   # e poi RIATTIVATO. Questa e' l'unica ragione legittima per farlo, vale solo
   # sul database locale, e non deve comparire in nessuno script operativo.
+  #
+  # Da B' c'e' anche private.billing_purchase_states, che ha una chiave esterna
+  # ON DELETE RESTRICT verso il registro e un trigger che vieta la DELETE: va
+  # svuotata PRIMA, con la stessa disattivazione temporanea.
   docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -X -q \
+    -c "alter table private.billing_purchase_states disable trigger billing_purchase_states_forward_only;" \
+    -c "delete from private.billing_purchase_states where ownership_key = '${KEY}';" \
+    -c "alter table private.billing_purchase_states enable trigger billing_purchase_states_forward_only;" \
     -c "alter table private.billing_purchase_claims disable trigger trg_billing_purchase_claims_immutable;" \
     -c "delete from private.billing_purchase_claims where ownership_key = '${KEY}';" \
     -c "alter table private.billing_purchase_claims enable trigger trg_billing_purchase_claims_immutable;" \
@@ -85,12 +92,14 @@ CLAIM_SQL="select public.claim_store_purchase(
   p_ownership_key => '${KEY}',
   p_owner_user_id => '%s'::uuid,
   p_external_product_id => 'fitmesh_pro_lifetime',
+  p_purchase_kind => 'lifetime',
   p_environment => 'production',
-  p_active_until => '9999-12-31T23:59:59Z'::timestamptz,
   p_state => 'active',
+  p_active_until => '9999-12-31T23:59:59Z'::timestamptz,
   p_auto_renewing => false,
-  p_external_transaction_id => '%s',
-  p_external_subscription_id => '${KEY}');"
+  p_store_event_at => now(),
+  p_store_event_source => 'apple_signed_date',
+  p_external_transaction_id => '%s');"
 
 # shellcheck disable=SC2059
 docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -X -tA \

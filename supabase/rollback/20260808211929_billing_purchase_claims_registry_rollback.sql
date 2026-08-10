@@ -74,6 +74,20 @@ begin
   if v_rows > 0 then
     raise warning 'rollback forzato: % righe di proprieta'' stanno per essere eliminate.', v_rows;
   end if;
+
+  -- ── Ordine, da B' in avanti ────────────────────────────────────────────
+  -- private.billing_purchase_states referenzia questa tabella con una chiave
+  -- esterna ON DELETE RESTRICT. Il DROP TABLE piu' sotto fallirebbe comunque,
+  -- ma con un messaggio di Postgres che non dice cosa fare. Meglio fermarsi
+  -- qui e dirlo: prima si annulla lo STATO, poi la PROPRIETA'. Mai il
+  -- contrario, e mai con CASCADE — un CASCADE toglierebbe in silenzio la
+  -- chiave esterna dalla tabella degli stati, lasciandone in piedi una che
+  -- non e' piu' ancorata a nessun proprietario.
+  if to_regclass('private.billing_purchase_states') is not null then
+    raise exception
+      'rollback rifiutato: esiste ancora private.billing_purchase_states, che referenzia questa tabella. Eseguire PRIMA supabase/rollback/20260810120000_billing_purchase_states_rollback.sql, poi questo. Mai usare CASCADE per aggirarlo.'
+      using errcode = '42501';
+  end if;
 end $$;
 
 -- La funzione va rimossa per prima: e' l'unico scrittore del registro.

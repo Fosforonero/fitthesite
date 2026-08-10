@@ -53,13 +53,15 @@ begin
     p_ownership_key => k_a,
     p_owner_user_id => a,
     p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
     p_environment => 'production',
-    p_active_until => lifetime,
     p_state => 'active',
+    p_active_until => lifetime,
     p_auto_renewing => false,
+    p_store_event_at => now() - interval '1 hour',
+    p_store_event_source => 'apple_signed_date',
     p_external_transaction_id => k_a,
-    p_app_account_token => a,
-    p_external_subscription_id => k_a
+    p_app_account_token => a
   );
   if v->>'outcome' <> 'claimed' then
     raise exception 'TEST 1: atteso claimed, ottenuto %', v;
@@ -79,22 +81,31 @@ begin
   -- ── 2. Ripresentazione dello stesso utente (restore): idempotente.
   -- Il transactionId e' DIVERSO, come dopo un restore reale: non deve
   -- cambiare niente nel registro, ma la proiezione deve aggiornarsi.
+  --
+  -- Da B' l'aggiornamento dello stato avviene SOLO se l'evidenza portata e'
+  -- piu' recente di quella registrata. Qui lo e' di un'ora, come in un restore
+  -- vero; con due `now()` identici il secondo evento verrebbe scartato, ed e'
+  -- corretto che sia cosi': a parita' di timestamp non esiste un ordine.
   v := public.claim_store_purchase(
     p_billing_source => 'apple_iap',
     p_ownership_key => k_a,
     p_owner_user_id => a,
     p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
     p_environment => 'production',
-    p_active_until => lifetime,
     p_state => 'grace',
+    p_active_until => lifetime,
     p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date',
     p_external_transaction_id => '2000000999999999',
-    p_app_account_token => a,
-    p_external_subscription_id => k_a,
-    p_external_order_id => 'order-restore'
+    p_app_account_token => a
   );
   if v->>'outcome' <> 'already_owned_by_same_user' then
     raise exception 'TEST 2: atteso already_owned_by_same_user, ottenuto %', v;
+  end if;
+  if (v->>'stateApplied')::boolean is not true then
+    raise exception 'TEST 2: evidenza piu recente non applicata (stateApplied=%)', v->>'stateApplied';
   end if;
   select claimed_at, external_transaction_id into v_claimed_at_2, v_txt
     from private.billing_purchase_claims
@@ -117,11 +128,13 @@ begin
     p_ownership_key => k_a,
     p_owner_user_id => b,
     p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
     p_environment => 'production',
-    p_active_until => lifetime,
     p_state => 'active',
+    p_active_until => lifetime,
     p_auto_renewing => false,
-    p_external_subscription_id => k_a
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date'
   );
   if v->>'outcome' <> 'owned_by_other_user' then
     raise exception 'TEST 3: atteso owned_by_other_user, ottenuto %', v;
@@ -144,11 +157,13 @@ begin
     p_ownership_key => '2000000555555555',
     p_owner_user_id => c,
     p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
     p_environment => 'production',
-    p_active_until => lifetime,
     p_state => 'active',
+    p_active_until => lifetime,
     p_auto_renewing => false,
-    p_external_subscription_id => '2000000555555555'
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date'
   );
   if v->>'outcome' <> 'persistence_failed' then
     raise exception 'TEST 4: atteso persistence_failed, ottenuto %', v;
@@ -166,12 +181,14 @@ begin
     p_ownership_key => k_g,
     p_owner_user_id => b,
     p_external_product_id => 'fitmesh_pro_sub',
+    p_purchase_kind => 'subscription',
     p_environment => 'production',
-    p_active_until => now() + interval '30 days',
     p_state => 'active',
+    p_active_until => now() + interval '30 days',
     p_auto_renewing => true,
-    p_external_transaction_id => 'GPA.1111-2222-3333-44444',
-    p_external_subscription_id => 'token-play-in-chiaro-nella-proiezione'
+    p_store_event_at => now(),
+    p_store_event_source => 'google_backend_fetch',
+    p_external_transaction_id => 'GPA.1111-2222-3333-44444'
   );
   if v->>'outcome' <> 'claimed' then
     raise exception 'TEST 5: atteso claimed, ottenuto %', v;
@@ -185,11 +202,13 @@ begin
     p_ownership_key => 'abcdefghijklmnopqrstuvwxyz.AO-J1Ox_TOKEN_GREZZO_NON_HASHATO',
     p_owner_user_id => d,
     p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
     p_environment => 'production',
-    p_active_until => lifetime,
     p_state => 'active',
+    p_active_until => lifetime,
     p_auto_renewing => false,
-    p_external_subscription_id => 'qualcosa'
+    p_store_event_at => now(),
+    p_store_event_source => 'google_backend_fetch'
   );
   if v->>'outcome' <> 'persistence_failed' then
     raise exception 'TEST 6: un token grezzo deve essere respinto, ottenuto %', v;
@@ -205,12 +224,14 @@ begin
     p_ownership_key => '2000000777777777',
     p_owner_user_id => b,
     p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
     p_environment => 'production',
-    p_active_until => lifetime,
     p_state => 'active',
+    p_active_until => lifetime,
     p_auto_renewing => false,
-    p_external_transaction_id => k_a,          -- gia' usato dal claim di A
-    p_external_subscription_id => '2000000777777777'
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date',
+    p_external_transaction_id => k_a
   );
   if v->>'outcome' <> 'persistence_failed'
      or v->>'reason' <> 'projection_or_registry_unique_violation' then
@@ -224,15 +245,18 @@ begin
   -- ── 8. La RPC rifiuta i non-acquisti (trial, founder, grandfather)
   begin
     perform public.claim_store_purchase(
-      p_billing_source => 'trial',
-      p_ownership_key => 'x',
-      p_owner_user_id => a,
-      p_external_product_id => 'p',
-      p_environment => 'production',
-      p_active_until => lifetime,
-      p_state => 'active',
-      p_auto_renewing => false
-    );
+    p_billing_source => 'trial',
+    p_ownership_key => 'x',
+    p_owner_user_id => a,
+    p_external_product_id => 'p',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'active',
+    p_active_until => lifetime,
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => case when 'trial' = 'apple_iap' then 'apple_signed_date' else 'google_backend_fetch' end
+  );
     raise exception 'TEST 8: billing_source trial doveva essere rifiutato';
   exception
     when sqlstate '22023' then null;
@@ -242,16 +266,19 @@ begin
   -- ── 9. La RPC rifiuta un appAccountToken che contraddice il proprietario
   begin
     perform public.claim_store_purchase(
-      p_billing_source => 'apple_iap',
-      p_ownership_key => '2000000888888888',
-      p_owner_user_id => a,
-      p_external_product_id => 'fitmesh_pro_lifetime',
-      p_environment => 'production',
-      p_active_until => lifetime,
-      p_state => 'active',
-      p_auto_renewing => false,
-      p_app_account_token => b
-    );
+    p_billing_source => 'apple_iap',
+    p_ownership_key => '2000000888888888',
+    p_owner_user_id => a,
+    p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'production',
+    p_state => 'active',
+    p_active_until => lifetime,
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date',
+    p_app_account_token => b
+  );
     raise exception 'TEST 9: appAccountToken discordante doveva essere rifiutato';
   exception
     when sqlstate '22023' then null;
@@ -288,10 +315,27 @@ begin
   end;
   v_passed := v_passed + 1;
 
-  -- ── 13. Immutabilita': TRUNCATE
+  -- ── 13. Immutabilita': TRUNCATE, con DUE difese indipendenti
+  --
+  -- 13a. Da solo il registro non e' nemmeno troncabile: private.
+  --      billing_purchase_states lo referenzia (sqlstate 0A000, "cannot
+  --      truncate a table referenced in a foreign key constraint"). E' una
+  --      difesa che arriva prima del trigger, e vale la pena saperlo: se un
+  --      domani quella chiave esterna sparisse, resterebbe solo il trigger.
   begin
     truncate private.billing_purchase_claims;
-    raise exception 'TEST 13: la TRUNCATE doveva essere rifiutata';
+    raise exception 'TEST 13a: la TRUNCATE del solo registro doveva essere rifiutata';
+  exception
+    when sqlstate '0A000' then null;
+    when sqlstate '42501' then null;
+  end;
+
+  -- 13b. E troncando ENTRAMBE, cioe' aggirando la chiave esterna, deve
+  --      intervenire il trigger. Senza questo secondo caso il test misurerebbe
+  --      soltanto la FK e dichiarerebbe verde un trigger mai esercitato.
+  begin
+    truncate private.billing_purchase_states, private.billing_purchase_claims;
+    raise exception 'TEST 13b: la TRUNCATE di entrambe doveva essere rifiutata dal trigger';
   exception
     when sqlstate '42501' then null;
   end;
@@ -303,13 +347,15 @@ begin
     p_ownership_key => k_d,
     p_owner_user_id => d,
     p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
     p_environment => 'production',
-    p_active_until => lifetime,
     p_state => 'active',
+    p_active_until => lifetime,
     p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date',
     p_external_transaction_id => k_d,
-    p_app_account_token => d,
-    p_external_subscription_id => k_d
+    p_app_account_token => d
   );
   if v->>'outcome' <> 'claimed' then raise exception 'TEST 14: setup fallito, %', v; end if;
 
@@ -346,11 +392,13 @@ begin
     p_ownership_key => k_d,
     p_owner_user_id => b,
     p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
     p_environment => 'production',
-    p_active_until => lifetime,
     p_state => 'active',
+    p_active_until => lifetime,
     p_auto_renewing => false,
-    p_external_subscription_id => k_d
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date'
   );
   if v->>'outcome' <> 'owned_by_other_user' then
     raise exception 'TEST 15: una tombstone deve restare occupata, ottenuto %', v;
@@ -377,7 +425,7 @@ end $$;
 do $$
 declare
   v_sig constant text :=
-    'public.claim_store_purchase(text,text,uuid,text,text,timestamptz,text,boolean,text,uuid,text,text)';
+    'public.claim_store_purchase(text,text,uuid,text,text,text,text,timestamptz,boolean,timestamptz,text,text,uuid)';
   v_public_execute boolean;
 begin
   if has_function_privilege('anon', v_sig, 'execute') then
@@ -427,7 +475,7 @@ declare
 begin
   select coalesce(p.proconfig::text, '') into v_search_path
   from pg_proc p
-  where p.oid = 'public.claim_store_purchase(text,text,uuid,text,text,timestamptz,text,boolean,text,uuid,text,text)'::regprocedure;
+  where p.oid = 'public.claim_store_purchase(text,text,uuid,text,text,text,text,timestamptz,boolean,timestamptz,text,text,uuid)'::regprocedure;
   if v_search_path not like '%search_path%' then
     raise exception 'TEST 21: la RPC SECURITY DEFINER non ha un search_path fisso';
   end if;
@@ -443,17 +491,19 @@ end $$;
 set local role service_role;
 create temporary table t22_outcome on commit drop as
 select public.claim_store_purchase(
-  p_billing_source => 'apple_iap',
-  p_ownership_key => '2000000222222222',
-  p_owner_user_id => '00000000-0000-4000-8000-00000000000a',
-  p_external_product_id => 'fitmesh_pro_lifetime',
-  p_environment => 'sandbox',
-  p_active_until => '9999-12-31T23:59:59Z',
-  p_state => 'active',
-  p_auto_renewing => false,
-  p_external_transaction_id => '2000000222222222',
-  p_external_subscription_id => '2000000222222222'
-) as v;
+    p_billing_source => 'apple_iap',
+    p_ownership_key => '2000000222222222',
+    p_owner_user_id => '00000000-0000-4000-8000-00000000000a',
+    p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime',
+    p_environment => 'sandbox',
+    p_state => 'active',
+    p_active_until => '9999-12-31T23:59:59Z',
+    p_auto_renewing => false,
+    p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date',
+    p_external_transaction_id => '2000000222222222'
+  ) as v;
 reset role;
 
 do $$
