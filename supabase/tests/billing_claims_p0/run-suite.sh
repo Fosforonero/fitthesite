@@ -50,5 +50,9 @@ echo "### 30-backfill-tests.sh"
 bash "$DIR/30-backfill-tests.sh"
 
 echo ""
+echo "### 35-backfill-fixtures.sh"
+bash "$DIR/35-backfill-fixtures.sh"
+
+echo ""
 echo "### 40-concurrency.sh"
 bash "$DIR/40-concurrency.sh"
