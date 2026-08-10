@@ -71,7 +71,7 @@ teardown() {
     -c "delete from auth.users where id in ('${U_G}','${U_A}','${U_T}','${U_F}','${U_X}','${U_Y}','${U_S}');" \
     -c "alter table public.b2c_subscriptions drop constraint if exists b2c_subscriptions_billing_source_check;" \
     -c "alter table public.b2c_subscriptions add constraint b2c_subscriptions_billing_source_check
-          check (billing_source in ('google_play','apple_iap','stripe','trial'));" >/dev/null 2>&1 || true
+          check (billing_source in ('google_play','apple_iap','stripe','trial','founder_grant'));" >/dev/null 2>&1 || true
 }
 trap teardown EXIT
 teardown   # residui di un giro precedente
@@ -81,14 +81,15 @@ docker cp "$BACKFILL" "$CID":/tmp/bf_under_test.sql >/dev/null
 echo '################ CASI 9 e 10: backfill ################'
 
 # ── Fixture ─────────────────────────────────────────────────────────────────
-# Il CHECK di public.b2c_subscriptions in questo repository non ammette
-# 'founder_grant', ma la PRODUZIONE contiene 18 righe founder_grant: le
-# migration del repo non ricostruiscono lo schema reale. Per provare
-# l'esclusione bisogna quindi poter rappresentare la riga com'e' davvero la'.
-# Il CHECK viene allargato qui e RIPRISTINATO dal teardown.
-psql_quiet "alter table public.b2c_subscriptions drop constraint b2c_subscriptions_billing_source_check;
-            alter table public.b2c_subscriptions add constraint b2c_subscriptions_billing_source_check
-              check (billing_source in ('google_play','apple_iap','stripe','trial','founder_grant'));"
+# Qui c'era un workaround che allargava a mano il CHECK di b2c_subscriptions
+# per poter rappresentare una riga founder_grant, perche' le migration del
+# repository non ricostruivano il vincolo reale. Il teardown poi lo
+# RIPRISTINAVA nella forma sbagliata, e da li' il test successivo della suite
+# trovava uno schema che non ammetteva founder_grant e falliva.
+#
+# Il workaround e' stato rimosso: 20260810090000_schema_drift_realign.sql
+# ricostruisce il vincolo vero, quindi la riga founder e' rappresentabile senza
+# toccare niente. Il teardown ripristina ora la forma allineata.
 
 psql_quiet "insert into auth.users (id, email, created_at) values
   ('${U_G}','bf-google@test.local', now()), ('${U_A}','bf-apple@test.local', now()),
