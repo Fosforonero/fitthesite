@@ -79,24 +79,17 @@ teardown() {
 trap teardown EXIT
 teardown
 
-# ── Compensazione di un drift dichiarato ────────────────────────────────────
+# ── Nessuna compensazione: lo schema e' quello vero ─────────────────────────
+# Fino al 2026-08-10 qui c'era un ALTER che allineava a mano il vincolo
+# b2c_subscriptions_billing_source_check, perche' la ricostruzione locale non
+# ammetteva 'founder_grant' e la fixture founder non era nemmeno creabile.
 #
-# In PRODUZIONE il vincolo b2c_subscriptions_billing_source_check ammette
-# 'founder_grant' e ci sono 18 righe che lo usano. Nella ricostruzione locale
-# non lo ammette: la migration che lo ha aggiunto non e' nel repository.
-#
-# Senza compensare, questo test non potrebbe nemmeno CREARE una riga founder,
-# e proverebbe l'esclusione di una casistica che in produzione e' la piu'
-# numerosa. Si allinea quindi il vincolo locale a quello reale, dichiarandolo:
-# il drift resta un problema, ed e' documentato in
-# supabase/backfill/README-drift-schema.md, ma non deve rendere non provabile
-# proprio il caso che conta.
-psql_q "alter table public.b2c_subscriptions
-        drop constraint if exists b2c_subscriptions_billing_source_check;" >/dev/null
-psql_q "alter table public.b2c_subscriptions
-        add constraint b2c_subscriptions_billing_source_check
-        check (billing_source = any (array['google_play','apple_iap','stripe','trial','founder_grant']));" >/dev/null   || fail "impossibile allineare il vincolo al reale"
-echo "  (vincolo billing_source allineato alla produzione: drift dichiarato)"
+# Ora la migration 20260810090000_schema_drift_realign.sql ricostruisce il
+# vincolo reale, quindi il test gira sullo schema di produzione e l'esclusione
+# dei founder e' provata davvero, non su una forma aggiustata per l'occasione.
+if [ "$(psql_q "select position('founder_grant' in pg_get_constraintdef(oid)) from pg_constraint where conname='b2c_subscriptions_billing_source_check';")" = "0" ]; then
+  fail "il vincolo billing_source non ammette founder_grant: manca la migration di riallineamento"
+fi
 
 # ── Fixture ─────────────────────────────────────────────────────────────────
 psql_q "insert into auth.users (id, email, created_at) values
