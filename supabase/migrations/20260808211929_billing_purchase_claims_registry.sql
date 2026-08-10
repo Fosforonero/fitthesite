@@ -127,7 +127,7 @@ create table if not exists private.billing_purchase_claims (
   -- Momento del primo claim. Immutabile: le ripresentazioni successive dello
   -- stesso acquisto non lo spostano, altrimenti il registro racconterebbe
   -- l'ultima sincronizzazione invece della data in cui la proprieta' e' nata.
-  claimed_at timestamptz not null default now(),
+  claimed_at timestamptz not null default pg_catalog.now(),
 
   -- Valorizzato solo dalla tombstone. Vedi sezione 3 e retention policy.
   anonymized_at timestamptz null,
@@ -276,7 +276,7 @@ create or replace function private._billing_purchase_claims_immutable()
 returns trigger
 language plpgsql
 security invoker
-set search_path to pg_catalog
+set search_path to ''
 as $$
 begin
   if tg_op = 'DELETE' then
@@ -299,7 +299,7 @@ begin
   -- Unica transizione ammessa: anonimizzazione. Normalizzata qui perche' la
   -- RI action della FK aggiorna la sola colonna owner_user_id.
   if old.owner_user_id is not null and new.owner_user_id is null then
-    new.anonymized_at := coalesce(new.anonymized_at, old.anonymized_at, now());
+    new.anonymized_at := coalesce(new.anonymized_at, old.anonymized_at, pg_catalog.now());
     new.app_account_token := null;
     return new;
   end if;
@@ -333,7 +333,7 @@ create or replace function private._billing_purchase_claims_no_truncate()
 returns trigger
 language plpgsql
 security invoker
-set search_path to pg_catalog
+set search_path to ''
 as $$
 begin
   raise exception
@@ -466,15 +466,12 @@ create or replace function public.claim_store_purchase(
   -- riscriverebbe la semantica di righe gia' esistenti. Questo file non
   -- tocca dati esistenti.
   p_external_subscription_id text default null,
-  p_external_order_id text default null,
-  -- Scritto SOLO nella proiezione, dove gia' esiste ed e' gia' sanificato dal
-  -- backend. Nel registro non entra mai.
-  p_raw_payload jsonb default null
+  p_external_order_id text default null
 )
 returns jsonb
 language plpgsql
 security definer
-set search_path to pg_catalog, public, private
+set search_path to ''
 as $$
 declare
   v_existing_owner uuid;
@@ -484,6 +481,7 @@ declare
   v_outcome text;
   v_claimed_at timestamptz;
   v_projection_key text;
+  v_raw_payload jsonb;
   v_sqlstate text;
   v_message text;
   v_reason text;
@@ -504,6 +502,33 @@ begin
   if p_external_product_id is null or length(p_external_product_id) = 0 then
     raise exception 'claim_store_purchase: p_external_product_id obbligatorio' using errcode = '22004';
   end if;
+
+  -- Nessun valore a forma di segreto puo' entrare nella proiezione.
+  --
+  -- public.b2c_subscriptions e' LEGGIBILE dall'utente (policy "self reads own
+  -- b2c sub"), e tre di questi parametri finiscono dentro raw_payload. Non
+  -- basta che oggi il backend passi un identificativo di prodotto: se domani
+  -- qualcuno ci passa per sbaglio un JWS, una ricevuta App Store, un purchase
+  -- token o uno shared secret, quel segreto diventa leggibile via API.
+  --
+  -- La forma e' quella dei blob firmati e delle credenziali: due punti con
+  -- segmenti lunghi (JWS), base64 lunghi (ricevute, purchase token), stringhe
+  -- esadecimali lunghe (shared secret). Un identificativo di prodotto vero
+  -- (fitmesh_pro_lifetime) non assomiglia a nessuna di queste.
+  -- Allowlist di FORMA, non blocklist. Una blocklist si scrive elencando i
+  -- travestimenti che ci vengono in mente, e ne resta sempre fuori uno: la
+  -- prima versione di questa guardia respingeva JWS, ricevute e purchase token
+  -- ma lasciava passare uno shared secret esadecimale e un header
+  -- "Bearer eyJ...", perche' nessuno dei due somiglia a cio' che stava
+  -- cercando.
+  --
+  -- Un identificativo di prodotto FitMesh ha invece una forma nota e stretta:
+  -- prefisso dell'app, minuscole, cifre, underscore e punti, corto. Tutto cio'
+  -- che non ha questa forma non entra, qualunque cosa sia.
+  if p_external_product_id !~ '^fitmesh[a-z0-9_.]{1,56}$' then
+    raise exception 'claim_store_purchase: p_external_product_id "%" non ha la forma di un identificativo di prodotto FitMesh. Questo campo finisce in public.b2c_subscriptions.raw_payload, che l utente legge: ci entra solo cio che ha la forma attesa.', left(p_external_product_id, 32)
+      using errcode = '22023';
+  end if;
   if p_environment is null or p_environment not in ('production', 'sandbox') then
     raise exception 'claim_store_purchase: p_environment deve essere production o sandbox (ricevuto %)', p_environment
       using errcode = '22023';
@@ -523,15 +548,48 @@ begin
       using errcode = '22023';
   end if;
 
+  if p_environment is null or p_environment not in ('production', 'sandbox') then
+    raise exception 'claim_store_purchase: p_environment deve essere production o sandbox (ricevuto %)', p_environment
+      using errcode = '22023';
+  end if;
+
   v_projection_key := coalesce(p_external_subscription_id, p_ownership_key);
+
+  -- Il contenuto di raw_payload lo COSTRUISCE questa funzione, non lo riceve.
+  --
+  -- Prima era un parametro jsonb con scritto in un commento che il backend lo
+  -- passava gia' sanificato. Un commento non e' una garanzia: bastava un
+  -- chiamante distratto, o un domani in cui quel percorso cambia, e dentro
+  -- public.b2c_subscriptions.raw_payload (tabella che l'utente LEGGE, policy
+  -- "self reads own b2c sub") sarebbe finito un JWS, una ricevuta App Store o
+  -- un purchase token Play.
+  --
+  -- Costruendolo qui dentro, da parametri gia' tipizzati e gia' scritti in
+  -- colonne proprie, non esiste piu' nessun canale attraverso cui un segreto
+  -- possa arrivarci: non c'e' un parametro capace di trasportarlo.
+  --
+  -- Deliberatamente ASSENTI: ownership_key, external_subscription_id,
+  -- external_order_id e qualunque identificatore di transazione. Vivono gia'
+  -- nelle loro colonne, e duplicarli qui allargherebbe la superficie senza
+  -- aggiungere niente.
+  v_raw_payload := pg_catalog.jsonb_build_object(
+    'source', 'claim_store_purchase',
+    'contract_version', 1,
+    'billing_source', p_billing_source,
+    'external_product_id', p_external_product_id,
+    'environment', p_environment,
+    'state', p_state,
+    'auto_renewing', coalesce(p_auto_renewing, false),
+    'active_until', p_active_until
+  );
 
   -- Serializza i claim concorrenti sulla STESSA chiave. Il vincolo di
   -- unicita' resta l'ultima parola (e infatti e' gestito nell'handler sotto):
   -- il lock evita che due richieste simultanee dello stesso acquisto
   -- arrivino entrambe a leggere "non esiste" e producano una fra loro un
   -- errore invece di un esito pulito.
-  perform pg_advisory_xact_lock(
-    hashtext('billing-purchase-claim:' || p_billing_source || ':' || p_ownership_key)
+  perform pg_catalog.pg_advisory_xact_lock(
+    pg_catalog.hashtext('billing-purchase-claim:' || p_billing_source || ':' || p_ownership_key)
   );
 
   select c.owner_user_id, c.anonymized_at, c.claimed_at
@@ -548,7 +606,7 @@ begin
     else
       -- Altro utente, oppure tombstone di account cancellato. In entrambi i
       -- casi non e' di chi sta chiedendo, e non si scrive niente.
-      return jsonb_build_object(
+      return pg_catalog.jsonb_build_object(
         'outcome', 'owned_by_other_user',
         'billingSource', p_billing_source,
         'claimedAt', v_existing_claimed_at,
@@ -569,7 +627,7 @@ begin
       ) values (
         p_billing_source, p_ownership_key, p_external_transaction_id,
         p_external_product_id, p_owner_user_id, p_environment,
-        p_app_account_token, now()
+        p_app_account_token, pg_catalog.now()
       )
       returning claimed_at into v_claimed_at;
     end if;
@@ -581,7 +639,7 @@ begin
     ) values (
       p_owner_user_id, p_billing_source, p_external_product_id, v_projection_key,
       p_external_order_id, p_active_until, coalesce(p_auto_renewing, false), p_state,
-      p_raw_payload, now()
+      v_raw_payload, pg_catalog.now()
     )
     on conflict (user_id) do update set
       billing_source = excluded.billing_source,
@@ -604,7 +662,7 @@ begin
       --     esistesse e appartenente a un altro utente. Il backend puo'
       --     mappare questa reason su 409 invece che su 500.
       v_reason := 'projection_or_registry_unique_violation';
-      return jsonb_build_object(
+      return pg_catalog.jsonb_build_object(
         'outcome', 'persistence_failed',
         'reason', v_reason,
         'sqlstate', v_sqlstate,
@@ -612,7 +670,7 @@ begin
       );
     when others then
       get stacked diagnostics v_sqlstate = returned_sqlstate, v_message = message_text;
-      return jsonb_build_object(
+      return pg_catalog.jsonb_build_object(
         'outcome', 'persistence_failed',
         'reason', 'write_failed',
         'sqlstate', v_sqlstate,
@@ -620,7 +678,7 @@ begin
       );
   end;
 
-  return jsonb_build_object(
+  return pg_catalog.jsonb_build_object(
     'outcome', v_outcome,
     'billingSource', p_billing_source,
     'claimedAt', v_claimed_at,
@@ -630,15 +688,15 @@ end;
 $$;
 
 revoke all on function public.claim_store_purchase(
-  text, text, uuid, text, text, timestamptz, text, boolean, text, uuid, text, text, jsonb
+  text, text, uuid, text, text, timestamptz, text, boolean, text, uuid, text, text
 ) from public, anon, authenticated;
 
 grant execute on function public.claim_store_purchase(
-  text, text, uuid, text, text, timestamptz, text, boolean, text, uuid, text, text, jsonb
+  text, text, uuid, text, text, timestamptz, text, boolean, text, uuid, text, text
 ) to service_role;
 
 comment on function public.claim_store_purchase(
-  text, text, uuid, text, text, timestamptz, text, boolean, text, uuid, text, text, jsonb
+  text, text, uuid, text, text, timestamptz, text, boolean, text, uuid, text, text
 ) is
   'Sprint P0 Apple IAP: claim immutabile della proprieta'' di un acquisto '
   'store gia'' VERIFICATO dal backend, poi aggiornamento della proiezione '

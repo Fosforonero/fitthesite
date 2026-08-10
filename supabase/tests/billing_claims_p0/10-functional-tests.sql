@@ -377,7 +377,7 @@ end $$;
 do $$
 declare
   v_sig constant text :=
-    'public.claim_store_purchase(text,text,uuid,text,text,timestamptz,text,boolean,text,uuid,text,text,jsonb)';
+    'public.claim_store_purchase(text,text,uuid,text,text,timestamptz,text,boolean,text,uuid,text,text)';
   v_public_execute boolean;
 begin
   if has_function_privilege('anon', v_sig, 'execute') then
@@ -427,7 +427,7 @@ declare
 begin
   select coalesce(p.proconfig::text, '') into v_search_path
   from pg_proc p
-  where p.oid = 'public.claim_store_purchase(text,text,uuid,text,text,timestamptz,text,boolean,text,uuid,text,text,jsonb)'::regprocedure;
+  where p.oid = 'public.claim_store_purchase(text,text,uuid,text,text,timestamptz,text,boolean,text,uuid,text,text)'::regprocedure;
   if v_search_path not like '%search_path%' then
     raise exception 'TEST 21: la RPC SECURITY DEFINER non ha un search_path fisso';
   end if;

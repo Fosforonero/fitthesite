@@ -78,7 +78,7 @@ end $$;
 
 -- La funzione va rimossa per prima: e' l'unico scrittore del registro.
 drop function if exists public.claim_store_purchase(
-  text, text, uuid, text, text, timestamptz, text, boolean, text, uuid, text, text, jsonb
+  text, text, uuid, text, text, timestamptz, text, boolean, text, uuid, text, text
 );
 
 drop trigger if exists trg_billing_purchase_claims_immutable

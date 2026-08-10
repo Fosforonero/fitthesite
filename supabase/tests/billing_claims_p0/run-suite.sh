@@ -41,6 +41,7 @@ run_sql() {
 
 run_sql 10-functional-tests.sql
 run_sql 20-ownership-persistence-tests.sql
+run_sql 25-payload-sanitization-tests.sql
 
 # Questi due aprono connessioni proprie: la corsa a due connessioni reali non
 # si puo' simulare dentro una singola sessione psql.
