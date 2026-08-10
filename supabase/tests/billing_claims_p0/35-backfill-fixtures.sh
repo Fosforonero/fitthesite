@@ -52,10 +52,25 @@ K_SK1='1000000500000001'
 TOKEN_GP='hjklmnop.AO-J1OxK8vN2mQ4rT6uW8yA0bC2dE4fG6hI8jK0lM2nO4pQ6rS8t'
 
 teardown() {
-  psql_q "delete from private.billing_purchase_claims
-          where owner_user_id in ('$U_SK2','$U_SK1','$U_GP','$U_FOUNDER','$U_TRIAL')
-             or owner_user_id is null and external_product_id = 'fitmesh_pro_lifetime'
-                and ownership_key in ('$K_SK2','$K_SK1');" >/dev/null 2>&1
+  # Il registro NON si ripulisce con una DELETE, e non e' un difetto: il
+  # trigger di immutabilita' la rifiuta perche' cancellare una riga renderebbe
+  # quell'acquisto reclamabile da un altro utente. La prima versione di questo
+  # teardown ci provava lo stesso e mandava l'errore in /dev/null: le righe
+  # restavano, diventavano tombstone alla cancellazione degli utenti, e il
+  # test successivo della suite trovava quattro righe che non aveva creato.
+  #
+  # Per riportare il registro a vuoto si ricrea: rollback + migration. E' una
+  # cosa che si puo' fare solo su un database di prova, ed e' proprio la prova
+  # che sulla produzione non si potrebbe.
+  # -v claims_rollback_force=1 e' necessario: il rollback si RIFIUTA di
+  # eliminare una tabella non vuota, perche' farlo renderebbe quegli acquisti
+  # di nuovo reclamabili da chiunque. Su un database di prova e' cio' che
+  # vogliamo; in produzione quella guardia e' esattamente cio' che deve
+  # fermarci, e non va mai forzata senza aver esportato prima.
+  docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 -v claims_rollback_force=1 \
+    < "$REPO_ROOT/supabase/rollback/20260808211929_billing_purchase_claims_registry_rollback.sql" >/dev/null 2>&1
+  docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 \
+    < "$REPO_ROOT/supabase/migrations/20260808211929_billing_purchase_claims_registry.sql" >/dev/null 2>&1
   psql_q "delete from public.b2c_subscriptions
           where user_id in ('$U_SK2','$U_SK1','$U_GP','$U_FOUNDER','$U_TRIAL');" >/dev/null 2>&1
   psql_q "delete from auth.users
