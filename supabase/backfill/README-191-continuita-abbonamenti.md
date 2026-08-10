@@ -1,5 +1,12 @@
 # 191 — Continuità della proprietà negli upgrade di abbonamento Play
 
+> **Nota di rollback (2026-08-10).** Se questo fail-closed dovesse bloccare
+> acquisti legittimi, la risposta NON è un feature flag che riabilita le
+> scritture dirette: vedi `supabase/rollback/README-rollback-applicativo.md`.
+> Un flag che riporta all'upsert diretto su `b2c_subscriptions` (PK `user_id`,
+> una riga per utente) fa sparire le transazioni precedenti in modo permanente.
+
+
 Deciso il 2026-08-10, durante il P0 del registro di proprietà. **Non blocca la
 190**, ma va chiuso prima di offrire più di un piano su Android.
 
