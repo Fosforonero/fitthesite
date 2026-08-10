@@ -1,21 +1,37 @@
 /**
- * POST /api/v1/billing/validate-purchase — server-side IAP validation.
+ * POST /api/v1/billing/validate-purchase — validazione server-side degli
+ * acquisti in-app.
  *
- * Riceve un purchase token dal client Flutter, lo valida contro Google Play
- * Developer API, e UPSERT la row corrispondente in `public.b2c_subscriptions`.
+ * Riceve un token d'acquisto dal client Flutter, lo verifica contro Apple o
+ * Google, e SOLO DOPO passa il risultato a `public.claim_store_purchase`.
+ *
+ * QUESTA ROUTE NON SCRIVE PIU' `public.b2c_subscriptions`.
+ *
+ * Fino alla 189 lo faceva, con un upsert su `user_id`. Quella tabella ha una
+ * riga per utente: il secondo acquisto sostituiva il primo, l'identificativo
+ * della transazione precedente smetteva di esistere, e da quel momento un
+ * altro account poteva reclamarla. Adesso la proprieta' vive in un registro
+ * append-only, lo stato di ogni acquisto in una tabella sua, e
+ * `b2c_subscriptions` e' soltanto la PROIEZIONE del migliore diritto
+ * posseduto — derivata, mai storia primaria.
+ *
+ * Conseguenza visibile nel contratto: la risposta descrive l'ENTITLEMENT
+ * DELL'UTENTE, non l'acquisto appena presentato. Chi ripresenta un abbonamento
+ * scaduto mentre possiede un lifetime riceve "lifetime attivo", che e' la
+ * verita' su di lui.
  *
  * Risposte:
- *   200 { state, active_until, source: 'google_play', auto_renewing }
- *   400 invalid_payload | invalid_json | unknown_product
- *   401 missing/invalid token
- *   502 google_validation_failed     — Google ha risposto 4xx (non 410)
- *   503 google_play_not_configured   — env var mancante (dev/staging)
- *   500 upsert_failed | internal     — DB / unexpected
+ *   200 { state, active_until, source, auto_renewing }
+ *   400 invalid_payload | invalid_json | unknown_product | token_format_mismatch
+ *       | ios_subscription_not_supported | jws_* | purchase_not_in_receipt
+ *       | google_subscription_upgrade_chain_unsupported
+ *   401 sessione assente o scaduta
+ *   409 purchase_already_linked | purchase_belongs_to_other_account
+ *   500 claim_failed | internal            — da ritentare, niente e' stato scritto
+ *   502 apple_validation_failed | google_validation_failed
+ *   503 apple_unavailable | *_not_configured
  *
- * SLA: rispondiamo entro 5s. Timeout fetch verso Google = 4s.
- *
- * Idempotente: stesso purchase_token chiamato N volte → stesso risultato,
- * UPSERT on conflict (user_id) do update. Nessuna INSERT duplicata.
+ * SLA: risposta entro 5s. Timeout verso gli store 4s.
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
@@ -30,12 +46,26 @@ import {
   verifyAppleJwsTransaction,
 } from "@/lib/billing/app-store-jws";
 import {
+  type ClaimResult,
+  type ProjectedEntitlement,
+  type PurchaseKind,
+  type StoreEventSource,
+  type VerifiedPurchaseState,
+  claimStorePurchase,
+  recordStorePurchaseRevocation,
+} from "@/lib/billing/claim-purchase";
+import {
   type GoogleProductPurchase,
   type GoogleSubscriptionPurchase,
   readServiceAccount,
   validateProduct,
   validateSubscription,
 } from "@/lib/billing/google-play";
+import {
+  OwnershipKeyError,
+  appleOwnershipKey,
+  googleOwnershipKey,
+} from "@/lib/billing/ownership-key";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 type Sb = SupabaseClient;
@@ -66,6 +96,48 @@ const payloadSchema = z.object({
   token_format: z.enum(["sk2_jws", "app_receipt"]).optional(),
 });
 
+/**
+ * Campi che il client non deve poter mandare, e che vengono RESPINTI invece
+ * che ignorati.
+ *
+ * Zod di suo scarta le chiavi sconosciute, quindi un `ownership_key` inviato
+ * dal client oggi non arriverebbe comunque da nessuna parte. Ma "non viene
+ * letto" e "non e' accettato" sono due garanzie diverse: la prima dipende dal
+ * fatto che nessuno, mai, aggiunga quel campo allo schema. Respingere in modo
+ * esplicito rende l'eventuale tentativo visibile invece che silenzioso, e
+ * trasforma una futura svista in un errore immediato.
+ *
+ * Tutti questi valori li decide il server: la chiave di proprieta' si deriva
+ * dai dati verificati, il proprietario dalla sessione, lo stato e la scadenza
+ * dallo store, il payload lo costruisce la RPC.
+ */
+const REJECTED_CLIENT_FIELDS = [
+  "ownership_key",
+  "owner_user_id",
+  "user_id",
+  "billing_source",
+  "purchase_kind",
+  "state",
+  "active_until",
+  "auto_renewing",
+  "store_event_at",
+  "store_event_source",
+  "raw_payload",
+  "app_account_token",
+  "external_subscription_id",
+  "external_order_id",
+  "entitlement",
+] as const;
+
+export function findRejectedField(body: unknown): string | null {
+  if (body === null || typeof body !== "object" || Array.isArray(body)) return null;
+  const keys = new Set(Object.keys(body as Record<string, unknown>));
+  for (const f of REJECTED_CLIENT_FIELDS) {
+    if (keys.has(f)) return f;
+  }
+  return null;
+}
+
 type IosTokenFormat = "sk2_jws" | "app_receipt";
 
 /**
@@ -91,167 +163,79 @@ export function resolveIosTokenFormat(
   return { format: hasJwsShape ? "sk2_jws" : "app_receipt" };
 }
 
-type SubRow = {
-  user_id: string;
-  billing_source: "google_play" | "apple_iap";
-  external_product_id: string;
-  external_subscription_id: string;
-  external_order_id: string | null;
-  active_until: string;
-  auto_renewing: boolean;
-  state: "active" | "expired" | "cancelled" | "grace" | "on_hold" | "paused";
-  raw_payload: unknown;
-  last_notification_at: string | null;
-};
-
-function buildSubscriptionRow(args: {
-  userId: string;
-  productId: string;
-  purchaseToken: string;
-  data: GoogleSubscriptionPurchase;
-}): SubRow {
-  const { expiryTimeMillis, autoRenewing, orderId, cancelReason } = args.data;
-  const activeUntil = expiryTimeMillis
-    ? new Date(Number(expiryTimeMillis)).toISOString()
-    : new Date().toISOString();
-  const now = Date.now();
-  const expired = expiryTimeMillis ? Number(expiryTimeMillis) < now : true;
-  const cancelled = cancelReason !== undefined && cancelReason !== null;
-  const state: SubRow["state"] = expired
-    ? "expired"
-    : cancelled
-      ? "cancelled"
-      : "active";
-  return {
-    user_id: args.userId,
-    billing_source: "google_play",
-    external_product_id: args.productId,
-    external_subscription_id: args.purchaseToken,
-    external_order_id: orderId ?? null,
-    active_until: activeUntil,
-    auto_renewing: autoRenewing ?? false,
-    state,
-    raw_payload: args.data,
-    last_notification_at: new Date().toISOString(),
-  };
+function kindOf(productId: string): PurchaseKind {
+  return productId === PRODUCT_SUBSCRIPTION ? "subscription" : "lifetime";
 }
 
-function buildLifetimeRow(args: {
-  userId: string;
-  productId: string;
-  purchaseToken: string;
-  data: GoogleProductPurchase;
-}): SubRow {
-  const purchased = args.data.purchaseState === 0;
-  const cancelled = args.data.purchaseState === 1;
-  const state: SubRow["state"] = purchased
-    ? "active"
-    : cancelled
-      ? "cancelled"
-      : "active";
-  return {
-    user_id: args.userId,
-    billing_source: "google_play",
-    external_product_id: args.productId,
-    external_subscription_id: args.purchaseToken,
-    external_order_id: args.data.orderId ?? null,
-    active_until: LIFETIME_SENTINEL,
-    auto_renewing: false,
-    state,
-    raw_payload: args.data,
-    last_notification_at: new Date().toISOString(),
-  };
-}
-
-function buildExpiredRow(args: {
-  userId: string;
-  productId: string;
-  purchaseToken: string;
-}): SubRow {
-  return {
-    user_id: args.userId,
-    billing_source: "google_play",
-    external_product_id: args.productId,
-    external_subscription_id: args.purchaseToken,
-    external_order_id: null,
-    active_until: new Date(0).toISOString(),
-    auto_renewing: false,
-    state: "expired",
-    raw_payload: { reason: "google_410" },
-    last_notification_at: new Date().toISOString(),
-  };
-}
-
-/** Violazione di unicità Postgres: la transazione è già di qualcun altro. */
-const PG_UNIQUE_VIOLATION = "23505";
-
-type UpsertOutcome =
-  | { ok: true }
-  | { ok: false; alreadyLinked: true }
-  | { ok: false; alreadyLinked: false; message: string };
+// ── Traduzione dell'esito del claim in risposta HTTP ────────────────────────
 
 /**
- * `onConflict: "user_id"` rende idempotente la RIPRESENTAZIONE: lo stesso
- * utente può mandare la stessa transazione dieci volte e resta una riga sola.
+ * La risposta descrive l'entitlement dell'utente, non l'acquisto ricevuto.
  *
- * Ma la tabella dichiara anche `unique (billing_source,
- * external_subscription_id)` (migration 20260514120004, presenza confermata in
- * produzione il 07/08/2026): se un ALTRO utente prova a reclamare la stessa
- * transazione Apple, l'insert viola quel vincolo. Prima diventava un 500
- * generico indistinguibile da un guasto del database; ora è un 409 esplicito.
- * Il controllo è affidato al vincolo e non a una lettura preventiva perché
- * così non c'è finestra di corsa fra due richieste simultanee.
- *
- * LIMITE NOTO, da tenere presente prima di dire "la transazione è legata per
- * sempre a quell'utente": l'upsert è su `user_id`, cioè una riga per utente. Se
- * l'utente A presenta una nuova transazione, la sua riga viene SOSTITUITA e il
- * vecchio `external_subscription_id` smette di esistere nella tabella — a quel
- * punto il vincolo non lo protegge più e un utente B potrebbe reclamarlo.
- * L'unicità qui garantisce "non contemporaneamente a due utenti", non
- * "appartiene per sempre a uno". Per una proprietà immutabile nel tempo
- * servirebbe un registro separato append-only degli acquisti verificati, che è
- * una modifica di schema e non si fa dentro un hotfix. Vedi
- * `AppFitmesh/docs/sprints/P0-apple-acquisto-non-servito.md`.
+ * I quattro campi sono quelli che la 189 legge, negli stessi nomi e con gli
+ * stessi tipi: quella build e' ancora la piu' diffusa e non deve accorgersi
+ * di niente.
  */
-async function upsertSubscription(
-  admin: Sb,
-  row: SubRow,
-): Promise<UpsertOutcome> {
-  const { error } = await admin
-    .from("b2c_subscriptions")
-    .upsert(row, { onConflict: "user_id" });
-  if (!error) return { ok: true };
-  if (error.code === PG_UNIQUE_VIOLATION) {
-    return { ok: false, alreadyLinked: true };
-  }
-  return { ok: false, alreadyLinked: false, message: error.message };
+function okFromEntitlement(e: ProjectedEntitlement): Response {
+  return jsonOk({
+    state: e.state,
+    active_until: e.activeUntil,
+    source: e.source,
+    auto_renewing: e.autoRenewing,
+  });
 }
 
-/** Risposta da restituire se l'upsert non è andato a buon fine, altrimenti null. */
-function upsertFailureResponse(result: UpsertOutcome): Response | null {
-  if (result.ok) return null;
-  if (result.alreadyLinked) {
-    return jsonError(409, "purchase_already_linked");
+function responseForClaim(result: ClaimResult): Response {
+  switch (result.kind) {
+    case "ok":
+      if (!result.entitlement) {
+        // Il claim e' andato a buon fine ma la proiezione non ha prodotto
+        // niente di leggibile. Non e' una prova che il diritto esista, quindi
+        // non si risponde successo: si fa ritentare.
+        console.warn("[Billing] claim ok senza entitlement proiettato");
+        return jsonError(500, "claim_failed", { reason: "no_projection" });
+      }
+      return okFromEntitlement(result.entitlement);
+
+    case "conflict":
+      // `ownerDeleted` distingue "e' di un altro account vivo" da "l'account
+      // che lo possedeva e' stato cancellato". Per il client cambia poco — in
+      // entrambi i casi non e' suo — ma per il supporto cambia tutto.
+      return jsonError(409, "purchase_already_linked", {
+        owner_deleted: result.ownerDeleted,
+      });
+
+    case "persistence_failed":
+      console.warn(`[Billing] claim persistence_failed reason=${result.reason}`);
+      return jsonError(500, "claim_failed", { reason: result.reason });
+
+    case "unavailable":
+      console.warn(`[Billing] claim unavailable reason=${result.reason}`);
+      return jsonError(500, "claim_failed", { reason: "unavailable" });
   }
-  return jsonError(500, "upsert_failed", result.message);
 }
 
 /**
- * Esiti del ramo StoreKit 2, mappati su codici stabili.
- *
- * La distinzione che conta per il client non è "errore sì/no" ma "ha senso
- * ritentare?":
- *
- *   400 jws_*                  rifiuto TERMINALE e verificato. Ritentare con
- *                              lo stesso token non cambierà niente.
- *   409 purchase_already_linked la transazione è di un altro account FitMesh.
- *                              Terminale, ma è un caso suo, non un difetto.
- *   503 apple_unavailable      Apple o la rete non hanno risposto. Da
- *                              ritentare: NON è un acquisto invalido.
- *   500 upsert_failed          il database non ha scritto. Da ritentare.
- *
- * Il JWS non compare mai nei log né in `raw_payload`.
+ * Una chiave di proprieta' che non si riesce a derivare NON e' un acquisto
+ * invalido: e' un difetto nostro o un formato che non sappiamo leggere. Si
+ * risponde con un codice che il client classifica come difetto nostro, cosi'
+ * la transazione non viene chiusa e l'acquisto resta recuperabile.
  */
+function responseForOwnershipKeyError(e: OwnershipKeyError): Response {
+  console.warn(`[Billing] ownership key non derivabile: ${e.code}`);
+  switch (e.code) {
+    case "google_subscription_upgrade_chain_unsupported":
+      return jsonError(400, e.code);
+    case "apple_missing_original_transaction_id":
+    case "apple_malformed_original_transaction_id":
+      return jsonError(400, "jws_incomplete");
+    default:
+      return jsonError(500, "claim_failed", { reason: e.code });
+  }
+}
+
+// ── Ramo Apple StoreKit 2 (JWS) ─────────────────────────────────────────────
+
 async function validateAppleJws(args: {
   admin: Sb;
   userId: string;
@@ -267,6 +251,35 @@ async function validateAppleJws(args: {
     console.warn("[Billing] apple jws verification temporarily unavailable");
     return jsonError(503, "apple_unavailable");
   }
+
+  if (outcome.kind === "revoked") {
+    // Apple dichiara l'acquisto revocato o rimborsato. Verso il client e' un
+    // rifiuto terminale, come prima. Ma il fatto va anche REGISTRATO: senza,
+    // un lifetime rimborsato resterebbe per sempre il migliore diritto
+    // dell'utente e nessun acquisto successivo potrebbe riemergere.
+    //
+    // La registrazione non assegna proprieta' a nessuno e non dipende da chi
+    // sta chiamando: agisce sul proprietario gia' iscritto nel registro.
+    try {
+      await recordStorePurchaseRevocation(args.admin, {
+        billingSource: "apple_iap",
+        ownershipKey: appleOwnershipKey(outcome.tx.originalTransactionId),
+        productId: args.productId,
+        purchaseKind: kindOf(args.productId),
+        storeEventAt: new Date(outcome.revokedAtMs).toISOString(),
+        storeEventSource: "apple_signed_date",
+      });
+    } catch (e) {
+      // Non cambia la risposta: la revoca resta un rifiuto terminale anche se
+      // non siamo riusciti ad annotarla. Ma va vista.
+      console.error(
+        `[Billing] revoca non registrata: ${e instanceof Error ? e.name : "errore"}`,
+      );
+    }
+    console.warn("[Billing] apple jws rejected reason=jws_revoked");
+    return jsonError(400, "jws_revoked");
+  }
+
   if (outcome.kind === "rejected") {
     // Solo il motivo, mai il token.
     console.warn(`[Billing] apple jws rejected reason=${outcome.reason}`);
@@ -283,8 +296,8 @@ async function validateAppleJws(args: {
   //
   // Le transazioni legacy non hanno il token (il client non lo impostava): lì
   // l'attribuzione la decide un'azione esplicita dell'utente — il tap su
-  // "Ripristina acquisti" — e il vincolo di unicità impedisce comunque che la
-  // stessa transazione finisca su due account.
+  // "Ripristina acquisti" — e il registro impedisce comunque che la stessa
+  // transazione finisca su due account.
   // Confronto senza distinzione di maiuscole: è un UUID, e la forma con cui
   // Apple lo restituisce non è qualcosa su cui vogliamo scommettere.
   if (
@@ -295,48 +308,99 @@ async function validateAppleJws(args: {
     return jsonError(409, "purchase_belongs_to_other_account");
   }
 
-  const row: SubRow = {
-    user_id: args.userId,
-    billing_source: "apple_iap",
-    external_product_id: args.productId,
-    // originalTransactionId è stabile nel tempo: è la chiave giusta per
-    // riconoscere lo stesso acquisto a ogni ripresentazione.
-    external_subscription_id: tx.originalTransactionId,
-    external_order_id: tx.transactionId,
-    // Un non consumabile non scade. Se in futuro passasse di qui un
-    // abbonamento, il suo `expiresDate` andrebbe letto dal payload: oggi il
-    // tipo è già stato vincolato a NON_CONSUMABLE dal verificatore.
-    active_until: LIFETIME_SENTINEL,
-    auto_renewing: false,
-    state: "active",
-    raw_payload: {
-      source: "sk2_jws",
-      transaction_id: tx.transactionId,
-      original_transaction_id: tx.originalTransactionId,
-      product_id: tx.productId,
-      environment: tx.environment,
-      purchase_date_ms: tx.purchaseDateMs,
-      app_account_token: tx.appAccountToken,
-    },
-    last_notification_at: new Date().toISOString(),
-  };
-
-  const result = await upsertSubscription(args.admin, row);
-  if (!result.ok) {
-    if (result.alreadyLinked) {
-      console.warn("[Billing] apple jws purchase already linked to another user");
-      return jsonError(409, "purchase_already_linked");
-    }
-    return jsonError(500, "upsert_failed", result.message);
+  let ownershipKey: string;
+  try {
+    // originalTransactionId: l'UNICO identificatore Apple stabile a restore,
+    // reinstallazione, cambio device e rinnovo. Derivato qui dal payload gia'
+    // verificato crittograficamente, mai ricevuto dal client.
+    ownershipKey = appleOwnershipKey(tx.originalTransactionId);
+  } catch (e) {
+    if (e instanceof OwnershipKeyError) return responseForOwnershipKeyError(e);
+    throw e;
   }
 
-  return jsonOk({
-    state: row.state,
-    active_until: row.active_until,
-    source: "apple_iap",
-    auto_renewing: row.auto_renewing,
-  });
+  return responseForClaim(
+    await claimStorePurchase(args.admin, {
+      billingSource: "apple_iap",
+      ownershipKey,
+      ownerUserId: args.userId,
+      productId: args.productId,
+      purchaseKind: kindOf(args.productId),
+      environment: tx.environment === "Sandbox" ? "sandbox" : "production",
+      // Il verificatore accetta solo NON_CONSUMABLE: qui passa un lifetime, e
+      // un non consumabile non scade.
+      state: "active",
+      activeUntil: LIFETIME_SENTINEL,
+      autoRenewing: false,
+      storeEventAt: new Date(tx.signedDateMs).toISOString(),
+      storeEventSource: "apple_signed_date",
+      externalTransactionId: tx.transactionId,
+      appAccountToken: tx.appAccountToken,
+    }),
+  );
 }
+
+// ── Ramo Google ─────────────────────────────────────────────────────────────
+
+/** Stato e scadenza di un abbonamento Play, dai soli campi verificati. */
+function subscriptionFacts(data: GoogleSubscriptionPurchase): {
+  state: VerifiedPurchaseState;
+  activeUntil: string;
+  autoRenewing: boolean;
+} {
+  const { expiryTimeMillis, autoRenewing, cancelReason } = data;
+  const expiryMs = expiryTimeMillis ? Number(expiryTimeMillis) : null;
+  const activeUntil = new Date(expiryMs ?? Date.now()).toISOString();
+  const expired = expiryMs === null || expiryMs < Date.now();
+  const cancelled = cancelReason !== undefined && cancelReason !== null;
+  return {
+    // 'cancelled' con accesso ancora valido NON e' una revoca: chi ha disdetto
+    // usa cio' che ha pagato fino alla scadenza. La precedenza lo sa, e lo
+    // proietta come accesso attivo con auto_renewing=false.
+    state: expired ? "expired" : cancelled ? "cancelled" : "active",
+    activeUntil,
+    autoRenewing: autoRenewing ?? false,
+  };
+}
+
+/**
+ * Stato di un prodotto one-time Play.
+ *
+ * `purchaseState`: 0 acquistato, 1 annullato, 2 IN ATTESA.
+ *
+ * Il 2 prima veniva trattato come 'active', cioe' un acquisto il cui pagamento
+ * non e' ancora stato incassato concedeva subito un diritto a vita. Adesso
+ * diventa 'on_hold': la proprieta' viene comunque registrata — quella
+ * transazione e' sua e nessun altro deve poterla reclamare — ma il diritto
+ * arriva quando arriva il pagamento, non prima.
+ */
+function productFacts(data: GoogleProductPurchase): {
+  state: VerifiedPurchaseState;
+  activeUntil: string;
+} {
+  switch (data.purchaseState) {
+    case 0:
+      return { state: "active", activeUntil: LIFETIME_SENTINEL };
+    case 1:
+      return { state: "cancelled", activeUntil: LIFETIME_SENTINEL };
+    default:
+      return { state: "on_hold", activeUntil: LIFETIME_SENTINEL };
+  }
+}
+
+/**
+ * L'orologio con cui si ordinano gli stati Google.
+ *
+ * Play non espone ne' una versione monotona ne' un "last updated" sulla
+ * risorsa: non c'e' un timestamp dello store da leggere. Si usa quindi il
+ * NOSTRO, preso appena Google ha risposto 200, e lo si dichiara — perche' ogni
+ * chiamata e' un re-fetch dello stato corrente, e quindi l'ordine dei nostri
+ * fetch e' l'ordine reale degli stati. Confrontarlo con un timestamp Apple
+ * sarebbe scorretto, ed e' il vincolo sulla tabella a impedirlo.
+ */
+const GOOGLE_EVENT_SOURCE: StoreEventSource = "google_backend_fetch";
+
+// ── Handler ─────────────────────────────────────────────────────────────────
 
 export async function POST(req: Request): Promise<Response> {
   const auth = await requireUser(req);
@@ -349,6 +413,13 @@ export async function POST(req: Request): Promise<Response> {
   } catch {
     return jsonError(400, "invalid_json");
   }
+
+  const rejected = findRejectedField(body);
+  if (rejected) {
+    console.warn(`[Billing] campo privilegiato rifiutato: ${rejected}`);
+    return jsonError(400, "invalid_payload", { rejected_field: rejected });
+  }
+
   const parsed = payloadSchema.safeParse(body);
   if (!parsed.success) {
     return jsonError(400, "invalid_payload", parsed.error.flatten());
@@ -392,7 +463,7 @@ export async function POST(req: Request): Promise<Response> {
     }
 
     // ── Ramo legacy (ricevuta base64, verifyReceipt) ───────────────────
-    // Solo per client realmente StoreKit 1 (iOS < 15). Invariato.
+    // Solo per client realmente StoreKit 1 (iOS < 15).
     if (!readAppleSharedSecret()) {
       console.warn("[Billing] APPLE_SHARED_SECRET missing — iOS IAP validation disabled");
       return jsonError(503, "app_store_not_configured");
@@ -404,35 +475,50 @@ export async function POST(req: Request): Promise<Response> {
       });
       if (result.kind === "ok") {
         const tx = result.tx;
+
+        // `request_date_ms` e' l'orologio di Apple al momento della risposta,
+        // lo stesso di `signedDate` sul ramo JWS. Senza, questa evidenza non e'
+        // ordinabile rispetto a quelle gia' registrate: fail-closed, difetto
+        // nostro, transazione non chiusa.
+        if (result.requestDateMs === null) {
+          console.warn("[Billing] verifyReceipt senza request_date_ms: evidenza non ordinabile");
+          return jsonError(400, "jws_incomplete");
+        }
+
+        let ownershipKey: string;
+        try {
+          ownershipKey = appleOwnershipKey(tx.original_transaction_id);
+        } catch (e) {
+          if (e instanceof OwnershipKeyError) return responseForOwnershipKeyError(e);
+          throw e;
+        }
+
         const expiresMs = tx.expires_date_ms ? Number(tx.expires_date_ms) : null;
-        const expired = isSubscription && expiresMs !== null && expiresMs < Date.now();
-        const row: SubRow = {
-          user_id: userId,
-          billing_source: "apple_iap",
-          external_product_id: product_id,
-          // original_transaction_id è stabile attraverso i rinnovi → chiave
-          // idempotente naturale (la ricevuta intera cambia a ogni rinnovo).
-          external_subscription_id: tx.original_transaction_id,
-          external_order_id: tx.transaction_id ?? null,
-          active_until: isSubscription
-            ? new Date(expiresMs ?? Date.now()).toISOString()
-            : LIFETIME_SENTINEL,
-          auto_renewing: isSubscription ? result.autoRenewing : false,
-          state: expired ? "expired" : "active",
-          // Mai l'intera ricevuta (100KB+): solo la transazione rilevante.
-          raw_payload: { tx, environment: result.environment },
-          last_notification_at: new Date().toISOString(),
-        };
-        const failed = upsertFailureResponse(
-          await upsertSubscription(admin, row),
+        const expired =
+          isSubscription && expiresMs !== null && expiresMs < Date.now();
+
+        return responseForClaim(
+          await claimStorePurchase(admin, {
+            billingSource: "apple_iap",
+            ownershipKey,
+            ownerUserId: userId,
+            productId: product_id,
+            purchaseKind: kindOf(product_id),
+            environment: result.environment,
+            state: expired ? "expired" : "active",
+            activeUntil: isSubscription
+              ? new Date(expiresMs ?? Date.now()).toISOString()
+              : LIFETIME_SENTINEL,
+            autoRenewing: isSubscription ? result.autoRenewing : false,
+            storeEventAt: new Date(result.requestDateMs).toISOString(),
+            storeEventSource: "apple_request_date",
+            externalTransactionId: tx.transaction_id ?? null,
+            // StoreKit 1 non porta appAccountToken: l'attribuzione la decide
+            // il tap esplicito su "Ripristina acquisti", e il registro
+            // impedisce comunque che finisca su due account.
+            appAccountToken: null,
+          }),
         );
-        if (failed) return failed;
-        return jsonOk({
-          state: row.state,
-          active_until: row.active_until,
-          source: "apple_iap",
-          auto_renewing: row.auto_renewing,
-        });
       }
       if (result.kind === "not_found") {
         return jsonError(400, "purchase_not_in_receipt");
@@ -449,9 +535,6 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   // ── Ramo Google (Android) ────────────────────────────────────────────
-  // Fallback graceful: env var non settata. Restituiamo 503 con messaggio
-  // chiaro così il client può comportarsi di conseguenza (in dev cade su
-  // grant in-memory client-side).
   if (!readServiceAccount()) {
     console.warn(
       "[Billing] GOOGLE_PLAY_SERVICE_ACCOUNT_JSON missing — IAP validation disabled",
@@ -466,34 +549,50 @@ export async function POST(req: Request): Promise<Response> {
         subscriptionId: product_id,
         purchaseToken: purchase_token,
       });
+      const fetchedAt = new Date().toISOString();
+
       if (result.kind === "ok_subscription") {
-        const row = buildSubscriptionRow({
-          userId,
-          productId: product_id,
-          purchaseToken: purchase_token,
-          data: result.data,
-        });
-        const failed = upsertFailureResponse(
-          await upsertSubscription(admin, row),
+        let ownershipKey: string;
+        try {
+          // Il primo parametro non e' decorativo: pretendere il risultato gia'
+          // validato rende impossibile calcolare una chiave prima che Google
+          // abbia risposto 200.
+          ownershipKey = googleOwnershipKey(result, purchase_token);
+        } catch (e) {
+          if (e instanceof OwnershipKeyError) return responseForOwnershipKeyError(e);
+          throw e;
+        }
+        const facts = subscriptionFacts(result.data);
+        return responseForClaim(
+          await claimStorePurchase(admin, {
+            billingSource: "google_play",
+            ownershipKey,
+            ownerUserId: userId,
+            productId: product_id,
+            purchaseKind: "subscription",
+            environment: "production",
+            state: facts.state,
+            activeUntil: facts.activeUntil,
+            autoRenewing: facts.autoRenewing,
+            storeEventAt: fetchedAt,
+            storeEventSource: GOOGLE_EVENT_SOURCE,
+            externalTransactionId: result.data.orderId ?? null,
+            appAccountToken: null,
+          }),
         );
-        if (failed) return failed;
-        return jsonOk({
-          state: row.state,
-          active_until: row.active_until,
-          source: "google_play",
-          auto_renewing: row.auto_renewing,
-        });
       }
       if (result.kind === "expired") {
-        const row = buildExpiredRow({
-          userId,
-          productId: product_id,
-          purchaseToken: purchase_token,
-        });
-        await upsertSubscription(admin, row);
+        // 410 Gone: Play non riconosce piu' questo token. Non si scrive
+        // niente, e per una ragione precisa — la chiave di proprieta' Google si
+        // deriva solo da un 200, altrimenti basterebbe un token inventato per
+        // iscrivere una proprieta' nel registro, che e' append-only.
+        //
+        // Non serve nemmeno: la precedenza considera valido un abbonamento
+        // solo con `active_until > adesso`, quindi uno scaduto smette di
+        // contare da solo, senza che nessuno debba riscriverlo.
         return jsonOk({
           state: "expired",
-          active_until: row.active_until,
+          active_until: new Date(0).toISOString(),
           source: "google_play",
           auto_renewing: false,
         });
@@ -507,40 +606,45 @@ export async function POST(req: Request): Promise<Response> {
       return jsonError(500, "unexpected_result_kind");
     }
 
-    // Lifetime product
+    // Prodotto one-time (lifetime)
     const result = await validateProduct({
       packageName: package_name,
       productId: product_id,
       purchaseToken: purchase_token,
     });
+    const fetchedAt = new Date().toISOString();
+
     if (result.kind === "ok_product") {
-      const row = buildLifetimeRow({
-        userId,
-        productId: product_id,
-        purchaseToken: purchase_token,
-        data: result.data,
-      });
-      const failed = upsertFailureResponse(
-        await upsertSubscription(admin, row),
+      let ownershipKey: string;
+      try {
+        ownershipKey = googleOwnershipKey(result, purchase_token);
+      } catch (e) {
+        if (e instanceof OwnershipKeyError) return responseForOwnershipKeyError(e);
+        throw e;
+      }
+      const facts = productFacts(result.data);
+      return responseForClaim(
+        await claimStorePurchase(admin, {
+          billingSource: "google_play",
+          ownershipKey,
+          ownerUserId: userId,
+          productId: product_id,
+          purchaseKind: "lifetime",
+          environment: "production",
+          state: facts.state,
+          activeUntil: facts.activeUntil,
+          autoRenewing: false,
+          storeEventAt: fetchedAt,
+          storeEventSource: GOOGLE_EVENT_SOURCE,
+          externalTransactionId: result.data.orderId ?? null,
+          appAccountToken: null,
+        }),
       );
-      if (failed) return failed;
-      return jsonOk({
-        state: row.state,
-        active_until: row.active_until,
-        source: "google_play",
-        auto_renewing: false,
-      });
     }
     if (result.kind === "expired") {
-      const row = buildExpiredRow({
-        userId,
-        productId: product_id,
-        purchaseToken: purchase_token,
-      });
-      await upsertSubscription(admin, row);
       return jsonOk({
         state: "expired",
-        active_until: row.active_until,
+        active_until: new Date(0).toISOString(),
         source: "google_play",
         auto_renewing: false,
       });

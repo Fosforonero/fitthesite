@@ -94,10 +94,32 @@ export type VerifiedAppleTransaction = {
   appAccountToken: string | null;
   environment: "Production" | "Sandbox";
   purchaseDateMs: number | null;
+  /**
+   * `signedDate`: quando APPLE ha firmato QUESTA evidenza.
+   *
+   * Non e' la data d'acquisto e non e' l'ora del nostro server: e' l'orologio
+   * di Apple al momento in cui ha emesso questo JWS. Serve a ordinare due
+   * fotografie dello stesso acquisto, e quindi a impedire che una vecchia
+   * "attivo" arrivata in ritardo cancelli una revoca piu' recente.
+   *
+   * Obbligatorio: se manca, l'ordine non esiste e non si scrive niente.
+   */
+  signedDateMs: number;
 };
 
 export type AppleJwsOutcome =
   | { kind: "ok"; tx: VerifiedAppleTransaction }
+  /**
+   * Apple dichiara la transazione REVOCATA o RIMBORSATA, e il payload e'
+   * abbastanza completo da dire QUALE acquisto lo e'.
+   *
+   * Tenuto separato da `rejected` perche' le due cose da fare sono diverse:
+   * verso il client e' un rifiuto terminale come prima, ma verso il registro e'
+   * un FATTO da scrivere. Senza scriverlo, un lifetime rimborsato resterebbe
+   * per sempre il migliore diritto dell'utente e nessun acquisto successivo
+   * potrebbe emergere.
+   */
+  | { kind: "revoked"; tx: VerifiedAppleTransaction; revokedAtMs: number }
   | { kind: "rejected"; reason: AppleJwsRejection }
   /** Apple o la rete non hanno risposto: NON e' colpa dell'acquisto. */
   | { kind: "retryable" };
@@ -302,12 +324,43 @@ export function evaluateDecodedTransaction(
   if (payload.type !== Type.NON_CONSUMABLE) {
     return { kind: "rejected", reason: "jws_wrong_type" };
   }
-  if (payload.revocationDate != null || payload.revocationReason != null) {
-    return { kind: "rejected", reason: "jws_revoked" };
-  }
   const transactionId = payload.transactionId;
   const originalTransactionId = payload.originalTransactionId;
-  if (!transactionId || !originalTransactionId) {
+
+  // `signedDate` e' l'orologio con cui si ordinano due fotografie dello stesso
+  // acquisto. Senza, non si puo' dire quale delle due sia la piu' recente, e
+  // scrivere lo stesso significherebbe accettare che una "attivo" in ritardo
+  // cancelli una revoca. Manca solo per un difetto nostro o di Apple, quindi
+  // e' `jws_incomplete`: difetto nostro, transazione NON chiusa, l'acquisto
+  // resta recuperabile appena il difetto e' corretto.
+  const signedDateMs = payload.signedDate;
+
+  if (payload.revocationDate != null || payload.revocationReason != null) {
+    // Revocato. Se il payload porta anche gli identificatori e la data, il
+    // fatto si puo' REGISTRARE, e il diritto successivo dell'utente puo'
+    // riemergere. Se non li porta, resta il rifiuto secco di prima: non si
+    // inventa una chiave per scrivere una revoca su un acquisto che non
+    // sappiamo nominare.
+    if (!transactionId || !originalTransactionId || signedDateMs == null) {
+      return { kind: "rejected", reason: "jws_revoked" };
+    }
+    return {
+      kind: "revoked",
+      revokedAtMs: payload.revocationDate ?? signedDateMs,
+      tx: {
+        transactionId,
+        originalTransactionId,
+        productId: payload.productId ?? expectedProductId,
+        appAccountToken: payload.appAccountToken ?? null,
+        environment:
+          payload.environment === Environment.SANDBOX ? "Sandbox" : "Production",
+        purchaseDateMs: payload.purchaseDate ?? null,
+        signedDateMs,
+      },
+    };
+  }
+
+  if (!transactionId || !originalTransactionId || signedDateMs == null) {
     return { kind: "rejected", reason: "jws_incomplete" };
   }
 
@@ -321,6 +374,7 @@ export function evaluateDecodedTransaction(
       environment:
         payload.environment === Environment.SANDBOX ? "Sandbox" : "Production",
       purchaseDateMs: payload.purchaseDate ?? null,
+      signedDateMs,
     },
   };
 }

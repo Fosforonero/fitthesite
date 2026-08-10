@@ -16,7 +16,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => ({
   requireUser: vi.fn(),
   verifyJws: vi.fn(),
-  upsert: vi.fn(),
+  rpc: vi.fn(),
   validateAppleReceipt: vi.fn(),
   readAppleSharedSecret: vi.fn(),
 }));
@@ -37,10 +37,12 @@ vi.mock("@/lib/billing/app-store", () => ({
   validateAppleReceipt: mocks.validateAppleReceipt,
 }));
 
+// Il client admin non espone piu' `from(...).upsert(...)`: da B' la route non
+// scrive nessuna tabella. L'unico modo che ha di toccare i dati commerciali e'
+// la RPC, e questo mock lo rende letterale — se qualcuno reintroducesse una
+// scrittura diretta, qui esploderebbe invece di passare inosservata.
 vi.mock("@/lib/supabase/admin", () => ({
-  createAdminClient: () => ({
-    from: () => ({ upsert: mocks.upsert }),
-  }),
+  createAdminClient: () => ({ rpc: mocks.rpc }),
 }));
 
 import { POST } from "./route";
@@ -71,14 +73,36 @@ const okTransaction = {
     appAccountToken: null as string | null,
     environment: "Production" as const,
     purchaseDateMs: 1_754_400_000_000,
+    signedDateMs: 1_754_400_500_000,
   },
+};
+
+/** Cio' che la RPC restituisce su un claim riuscito: l'entitlement PROIETTATO. */
+const claimed = {
+  data: {
+    outcome: "claimed",
+    billingSource: "apple_iap",
+    stateApplied: true,
+    ownerDeleted: false,
+    entitlement: {
+      projected: true,
+      source: "apple_iap",
+      productId: LIFETIME,
+      state: "active",
+      activeUntil: "9999-12-31T23:59:59+00:00",
+      autoRenewing: false,
+      isLifetime: true,
+      protectedFounderRow: false,
+    },
+  },
+  error: null,
 };
 
 beforeEach(() => {
   vi.clearAllMocks();
   mocks.requireUser.mockResolvedValue({ userId: USER_ID });
   mocks.verifyJws.mockResolvedValue(okTransaction);
-  mocks.upsert.mockResolvedValue({ error: null });
+  mocks.rpc.mockResolvedValue(claimed);
   mocks.readAppleSharedSecret.mockReturnValue(null);
 });
 
@@ -99,7 +123,8 @@ describe("compatibilità con la build 189 già in store", () => {
       signedTransaction: JWS_TOKEN,
       expectedProductId: LIFETIME,
     });
-    expect(mocks.upsert).toHaveBeenCalledTimes(1);
+    expect(mocks.rpc).toHaveBeenCalledTimes(1);
+    expect(mocks.rpc.mock.calls[0]![0]).toBe("claim_store_purchase");
     const body = (await res.json()) as Record<string, unknown>;
     expect(body.source).toBe("apple_iap");
     expect(body.state).toBe("active");
@@ -185,7 +210,7 @@ describe("attribuzione dell'acquisto", () => {
 
     expect(res.status).toBe(409);
     expect((await res.json()).error).toBe("purchase_belongs_to_other_account");
-    expect(mocks.upsert).not.toHaveBeenCalled();
+    expect(mocks.rpc).not.toHaveBeenCalled();
   });
 
   it("appAccountToken del chiamante: accettato anche con maiuscole diverse", async () => {
@@ -208,8 +233,11 @@ describe("attribuzione dell'acquisto", () => {
   });
 
   it("transazione già collegata a un altro utente: 409 esplicito, non 500", async () => {
-    mocks.upsert.mockResolvedValue({
-      error: { code: "23505", message: "duplicate key value" },
+    // Non e' piu' un vincolo di unicita' che scatta per caso: e' un esito
+    // tipizzato del registro, deciso sotto lock e senza scrivere niente.
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "owned_by_other_user", ownerDeleted: false },
+      error: null,
     });
 
     const res = await POST(
@@ -243,7 +271,7 @@ describe("esiti che il client deve saper distinguere", () => {
 
     expect(res.status).toBe(503);
     expect((await res.json()).error).toBe("apple_unavailable");
-    expect(mocks.upsert).not.toHaveBeenCalled();
+    expect(mocks.rpc).not.toHaveBeenCalled();
   });
 
   it("rifiuto terminale del verificatore: 400 col motivo stabile", async () => {
@@ -267,8 +295,9 @@ describe("esiti che il client deve saper distinguere", () => {
   });
 
   it("database che non scrive: 500, così il client ritenta", async () => {
-    mocks.upsert.mockResolvedValue({
-      error: { code: "08006", message: "connection failure" },
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "persistence_failed", reason: "write_failed" },
+      error: null,
     });
 
     const res = await POST(
@@ -282,7 +311,7 @@ describe("esiti che il client deve saper distinguere", () => {
     );
 
     expect(res.status).toBe(500);
-    expect((await res.json()).error).toBe("upsert_failed");
+    expect((await res.json()).error).toBe("claim_failed");
   });
 });
 
@@ -328,8 +357,8 @@ describe("isolamento produzione / sandbox al livello del route", () => {
     expect(res.status).toBe(400);
     expect((await res.json()).error).toBe("jws_sandbox_not_allowed");
     expect(
-      mocks.upsert,
-      "una transazione Sandbox non deve mai toccare b2c_subscriptions",
+      mocks.rpc,
+      "una transazione Sandbox non deve mai arrivare al registro",
     ).not.toHaveBeenCalled();
   });
 });
@@ -360,7 +389,7 @@ describe("il JWS non esce mai", () => {
     error.mockRestore();
   });
 
-  it("raw_payload contiene gli identificativi, mai il token", async () => {
+  it("nessun argomento della RPC trasporta il token, e il payload non si passa piu'", async () => {
     await POST(
       req({
         product_id: LIFETIME,
@@ -371,12 +400,17 @@ describe("il JWS non esce mai", () => {
       }),
     );
 
-    const row = mocks.upsert.mock.calls[0]![0] as { raw_payload: unknown };
-    expect(JSON.stringify(row.raw_payload)).not.toContain(JWS_TOKEN);
-    expect(row.raw_payload).toMatchObject({
-      source: "sk2_jws",
-      transaction_id: "2000000900000001",
-    });
+    const args = mocks.rpc.mock.calls[0]![1] as Record<string, unknown>;
+    // Il JWS non compare da nessuna parte, in nessun campo.
+    expect(JSON.stringify(args)).not.toContain(JWS_TOKEN);
+    // E non esiste piu' un canale capace di trasportarlo: il payload della
+    // proiezione lo costruisce la RPC, non lo riceve.
+    expect(Object.keys(args)).not.toContain("p_raw_payload");
+    // La chiave di proprieta' e' l'originalTransactionId, derivata qui dal
+    // payload verificato — non un valore arrivato dal client.
+    expect(args.p_ownership_key).toBe("2000000900000001");
+    expect(args.p_store_event_source).toBe("apple_signed_date");
+    expect(args.p_owner_user_id).toBe(USER_ID);
   });
 });
 

@@ -38,6 +38,10 @@ function validPayload(
     transactionId: "2000000900000001",
     originalTransactionId: "2000000900000001",
     purchaseDate: 1_754_400_000_000,
+    // Orologio di Apple al momento della firma. Serve a ordinare due
+    // fotografie dello stesso acquisto: senza, non si puo' sapere quale sia la
+    // piu' recente, e una "attivo" in ritardo cancellerebbe una revoca.
+    signedDate: 1_754_400_500_000,
     environment: Environment.PRODUCTION,
     ...overrides,
   };
@@ -394,6 +398,7 @@ describe("tabella di decisione sulla transazione verificata", () => {
         appAccountToken: null,
         environment: "Production",
         purchaseDateMs: 1_754_400_000_000,
+        signedDateMs: 1_754_400_500_000,
       },
     });
   });
@@ -422,20 +427,51 @@ describe("tabella di decisione sulla transazione verificata", () => {
     expect(outcome).toEqual({ kind: "rejected", reason: "jws_wrong_type" });
   });
 
-  it("rimborsata: niente Pro, anche se tutto il resto torna", () => {
+  it("rimborsata: niente Pro, e il fatto e' registrabile", () => {
+    // Verso il client resta un rifiuto terminale (`jws_revoked`, il codice non
+    // cambia). Ma l'esito porta con se' QUALE acquisto e' stato revocato e
+    // quando, perche' senza registrarlo un lifetime rimborsato resterebbe per
+    // sempre il migliore diritto dell'utente e nessun acquisto successivo
+    // potrebbe riemergere.
     const outcome = evaluateDecodedTransaction(
       validPayload({ revocationDate: 1_754_500_000_000, revocationReason: 1 }),
       LIFETIME,
     );
-    expect(outcome).toEqual({ kind: "rejected", reason: "jws_revoked" });
+    expect(outcome.kind).toBe("revoked");
+    if (outcome.kind === "revoked") {
+      expect(outcome.revokedAtMs).toBe(1_754_500_000_000);
+      expect(outcome.tx.originalTransactionId).toBe("2000000900000001");
+    }
   });
 
-  it("revoca dichiarata dal solo motivo, senza data: comunque rifiutata", () => {
+  it("revoca dichiarata dal solo motivo: la data e' quella della firma", () => {
     const outcome = evaluateDecodedTransaction(
       validPayload({ revocationReason: 0 }),
       LIFETIME,
     );
-    expect(outcome).toEqual({ kind: "rejected", reason: "jws_revoked" });
+    expect(outcome.kind).toBe("revoked");
+    if (outcome.kind === "revoked") {
+      expect(outcome.revokedAtMs).toBe(1_754_400_500_000);
+    }
+  });
+
+  it("revocata ma senza identificativi: rifiuto secco, nessuna chiave inventata", () => {
+    // Non si registra una revoca su un acquisto che non sappiamo nominare.
+    expect(
+      evaluateDecodedTransaction(
+        validPayload({ revocationReason: 1, originalTransactionId: undefined }),
+        LIFETIME,
+      ),
+    ).toEqual({ kind: "rejected", reason: "jws_revoked" });
+  });
+
+  it("senza signedDate l'evidenza non e' ordinabile: fail-closed, difetto nostro", () => {
+    // `jws_incomplete` e non un rifiuto terminale: l'acquisto e' probabilmente
+    // sano e i soldi incassati, quindi la transazione NON si chiude e resta
+    // recuperabile appena il difetto e' corretto.
+    expect(
+      evaluateDecodedTransaction(validPayload({ signedDate: undefined }), LIFETIME),
+    ).toEqual({ kind: "rejected", reason: "jws_incomplete" });
   });
 
   it("senza identificativi non si scrive niente", () => {

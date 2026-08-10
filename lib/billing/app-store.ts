@@ -46,6 +46,14 @@ type AppleRenewalInfo = {
 
 type VerifyReceiptResponse = {
   status: number;
+  /**
+   * Orologio di APPLE al momento in cui ha risposto a questa verifica. E' il
+   * timestamp con cui si ordinano due fotografie dello stesso acquisto sul
+   * ramo StoreKit 1, ed e' lo stesso orologio di `signedDate` sul ramo JWS —
+   * quindi i due sono confrontabili fra loro, cosa che un orologio nostro non
+   * garantirebbe.
+   */
+  request_date_ms?: string;
   latest_receipt_info?: AppleTransaction[];
   pending_renewal_info?: AppleRenewalInfo[];
   receipt?: { in_app?: AppleTransaction[] };
@@ -58,6 +66,12 @@ export type AppStoreResult =
       tx: AppleTransaction;
       autoRenewing: boolean;
       environment: "production" | "sandbox";
+      /**
+       * `request_date_ms` della risposta. Obbligatorio a valle: senza non si
+       * puo' ordinare questa evidenza rispetto a quelle gia' registrate, e in
+       * dubbio non si scrive. Null quando Apple non lo manda.
+       */
+      requestDateMs: number | null;
     }
   | { kind: "not_found"; status: number }
   | { kind: "error"; status: number; body: string };
@@ -149,10 +163,15 @@ export async function validateAppleReceipt(args: {
       p.original_transaction_id === latest.original_transaction_id,
   );
 
+  const requestDateMs = r.data.request_date_ms != null
+    ? Number(r.data.request_date_ms)
+    : null;
+
   return {
     kind: "ok",
     tx: latest,
     autoRenewing: renewal?.auto_renew_status === "1",
     environment,
+    requestDateMs: Number.isFinite(requestDateMs as number) ? requestDateMs : null,
   };
 }
