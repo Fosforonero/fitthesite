@@ -51,6 +51,9 @@ run_sql 50-entitlement-precedence.sql
 # La finestra fra migration e deploy: si simula l'istante esatto in cui la
 # migration e' applicata e il backend in produzione e' ancora quello vecchio.
 run_sql 60-rollout-window.sql
+# Le finestre di crash che il database puo' dimostrare. Le altre cinque sono
+# argomentate in supabase/rollback/README-finestre-di-crash.md.
+run_sql 70-crash-windows.sql
 
 # Questi due aprono connessioni proprie: la corsa a due connessioni reali non
 # si puo' simulare dentro una singola sessione psql.
