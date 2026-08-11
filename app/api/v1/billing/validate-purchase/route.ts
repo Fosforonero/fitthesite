@@ -36,7 +36,7 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
-import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
+import { requireUser } from "@/lib/api/auth-helpers";
 import {
   readAppleSharedSecret,
   validateAppleReceipt,
@@ -62,6 +62,10 @@ import {
   validateSubscription,
 } from "@/lib/billing/google-play";
 import {
+  PURCHASE_DISPOSITION_CONTRACT_VERSION,
+  dispositionForCode,
+} from "@/lib/billing/purchase-disposition";
+import {
   OwnershipKeyError,
   appleOwnershipKey,
   googleOwnershipKey,
@@ -69,6 +73,39 @@ import {
 import { createAdminClient } from "@/lib/supabase/admin";
 
 type Sb = SupabaseClient;
+
+// ── Il contratto tipizzato e versionato ─────────────────────────────────────
+//
+// I campi che la 189 legge — `error`, `state`, `active_until`, `source`,
+// `auto_renewing` — restano dove sono, con gli stessi nomi e gli stessi tipi.
+// `contract_version` e `disposition` si AGGIUNGONO: una build che non li
+// conosce li ignora, ed e' esattamente cio' che fa la 189, che legge i campi
+// per nome senza validare la forma dell'oggetto.
+//
+// A che serve: fino alla 189 la decisione "questa transazione si chiude?" la
+// prendeva il client deducendola dal codice, con una lista che ne dichiarava
+// terminali tre di troppo. Il backend e' l'unico che sa perche' ha risposto
+// quel codice.
+
+function jsonError(status: number, code: string, details?: unknown): Response {
+  return new Response(
+    JSON.stringify({
+      error: code,
+      ...(details ? { details } : {}),
+      contract_version: PURCHASE_DISPOSITION_CONTRACT_VERSION,
+      disposition: dispositionForCode(code),
+    }),
+    { status, headers: { "content-type": "application/json" } },
+  );
+}
+
+function jsonOk(body: object, status = 200): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "content-type": "application/json" },
+  });
+}
+
 
 const PRODUCT_LIFETIME = "fitmesh_pro_lifetime";
 const PRODUCT_SUBSCRIPTION = "fitmesh_pro_sub";
@@ -177,11 +214,18 @@ function kindOf(productId: string): PurchaseKind {
  * di niente.
  */
 function okFromEntitlement(e: ProjectedEntitlement): Response {
+  // `verified` significa "il diritto esiste ADESSO", non "la chiamata e'
+  // riuscita". Un 200 che proietta un acquisto scaduto non ha concesso niente,
+  // e dirgli `verified` autorizzerebbe il client a chiudere una transazione
+  // per un diritto che non ha.
+  const attivo = e.state === "active" || e.state === "grace";
   return jsonOk({
     state: e.state,
     active_until: e.activeUntil,
     source: e.source,
     auto_renewing: e.autoRenewing,
+    contract_version: PURCHASE_DISPOSITION_CONTRACT_VERSION,
+    disposition: attivo ? "verified" : "retryable",
   });
 }
 
@@ -595,6 +639,8 @@ export async function POST(req: Request): Promise<Response> {
           active_until: new Date(0).toISOString(),
           source: "google_play",
           auto_renewing: false,
+          contract_version: PURCHASE_DISPOSITION_CONTRACT_VERSION,
+          disposition: "retryable",
         });
       }
       if (result.kind === "error") {
@@ -647,6 +693,8 @@ export async function POST(req: Request): Promise<Response> {
         active_until: new Date(0).toISOString(),
         source: "google_play",
         auto_renewing: false,
+        contract_version: PURCHASE_DISPOSITION_CONTRACT_VERSION,
+        disposition: "retryable",
       });
     }
     if (result.kind === "error") {

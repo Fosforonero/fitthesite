@@ -128,6 +128,90 @@ describe("compatibilità con la build 189 già in store", () => {
     const body = (await res.json()) as Record<string, unknown>;
     expect(body.source).toBe("apple_iap");
     expect(body.state).toBe("active");
+    // I quattro campi che la 189 legge, negli stessi nomi e tipi di sempre.
+    expect(body.active_until).toBe("9999-12-31T23:59:59+00:00");
+    expect(body.auto_renewing).toBe(false);
+    // E i due che si AGGIUNGONO: una build che non li conosce li ignora.
+    expect(body.contract_version).toBe(1);
+    expect(body.disposition).toBe("verified");
+  });
+
+  it("un 200 che proietta un diritto NON attivo non dice 'verified'", async () => {
+    // Dirgli verified autorizzerebbe il client a chiudere la transazione per
+    // un diritto che non ha.
+    mocks.rpc.mockResolvedValue({
+      data: {
+        outcome: "already_owned_by_same_user",
+        stateApplied: true,
+        entitlement: {
+          projected: true,
+          source: "google_play",
+          productId: "fitmesh_pro_sub",
+          state: "expired",
+          activeUntil: "2026-01-01T00:00:00+00:00",
+          autoRenewing: false,
+          isLifetime: false,
+          protectedFounderRow: false,
+        },
+      },
+      error: null,
+    });
+
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body.state).toBe("expired");
+    expect(body.disposition).toBe("retryable");
+  });
+
+  it("ogni risposta d'errore porta versione e disposizione", async () => {
+    mocks.verifyJws.mockResolvedValue({
+      kind: "rejected",
+      reason: "jws_malformed",
+    });
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+    const body = (await res.json()) as Record<string, unknown>;
+    // `error` resta dov'era: la 189 legge quello, e non deve accorgersi di
+    // niente.
+    expect(body.error).toBe("jws_malformed");
+    expect(body.contract_version).toBe(1);
+    // jws_malformed NON e' un rifiuto dimostrato dallo store: e' un difetto
+    // nostro, e chiudere la transazione cancellerebbe l'unica prova che resta.
+    expect(body.disposition).toBe("client_contract_error");
+  });
+
+  it("i campi privilegiati vengono RESPINTI, non ignorati", async () => {
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        // Il client prova a dichiarare di chi e' l'acquisto.
+        ownership_key: "2000000900000099",
+      }),
+    );
+
+    expect(res.status).toBe(400);
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body.error).toBe("invalid_payload");
+    expect(mocks.rpc).not.toHaveBeenCalled();
+    expect(mocks.verifyJws).not.toHaveBeenCalled();
   });
 
   it("payload senza token_format ma con ricevuta legacy: resta sul ramo storico", async () => {
