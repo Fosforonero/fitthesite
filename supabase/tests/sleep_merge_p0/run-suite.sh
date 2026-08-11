@@ -32,8 +32,16 @@ run_sql() {
     psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/sleep_suite_under_test.sql
 }
 
+# 30 installa lo script di riparazione dentro la propria transazione e lo
+# butta via col ROLLBACK: va copiato nel container prima, perche' `\i` legge
+# dal filesystem del server.
+docker cp "$REPO_ROOT/supabase/repair/20260811_sleep_stages_dedup.sql" \
+  "$CID":/tmp/repair_under_test.sql >/dev/null
+
 run_sql 10-helper-idempotency.sql
 run_sql 20-rpc-idempotency.sql
+run_sql 30-riparazione.sql
+run_sql 40-altre-metriche.sql
 
 echo ""
 echo "sleep_merge_p0: tutte verdi."
