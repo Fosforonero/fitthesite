@@ -54,6 +54,31 @@ Il passo 6 è l'unico irreversibile nel senso che conta: da lì in avanti una
 scrittura commerciale fuori dal registro è un errore, non un avviso. Va fatto
 **dopo** il deploy, mai prima.
 
+## Le quattro righe Google, verificate prima del backfill
+
+Controllate in **sola lettura** su produzione l'11/08/2026, con una query che
+restituisce solo conteggi e booleani: nessun purchase token, nessun
+identificativo, nessuna email.
+
+| Controllo | Atteso | Trovato |
+|---|---|---|
+| righe `google_play` | 4 | 4 |
+| token nulli, o con spazi | 0 | 0 |
+| valori **già** in forma di digest | 0 | 0 |
+| SKU fuori catalogo | 0 | 0 |
+| token distinti / utenti distinti / chiavi derivate distinte | 4 / 4 / 4 | 4 / 4 / 4 |
+| chiavi derivate che violerebbero il vincolo di forma | 0 | 0 |
+
+Il controllo che conta di più è il terzo. Se anche una sola riga contenesse già
+un digest a 64 esadecimali, il backfill lo ri-digerirebbe e produrrebbe una
+chiave che non corrisponde a nessun acquisto reale — un claim iscritto su una
+proprietà inesistente, in una tabella append-only. Nessuna lo contiene.
+
+Il registro in produzione **non esiste ancora**: la migration non è stata
+applicata. Quindi oggi tutte e quattro le righe sono "scoperte", ed è normale —
+è esattamente ciò che il backfill al passo 3 deve coprire, e ciò che il rifiuto
+del passo 6 controlla.
+
 ## Il primo rilascio è forward-only
 
 Non esiste ancora una versione precedente **nota-buona** del percorso ledger da
