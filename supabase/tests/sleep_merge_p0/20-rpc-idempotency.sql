@@ -161,23 +161,91 @@ begin
     end if;
   end;
 
-  -- ── R5. La finestra senza stadi non viene cancellata da un secondo sync ─
+  -- ── R5. Le finestre senza stadi non vengono cancellate ──────────────────
   -- Una fonte che riporta solo il totale (anello prima degli stadi, bucket
-  -- cumulativo Samsung) ha sleep_start_ms/sleep_end_ms ma nessuno stadio.
-  -- Il merge di due nulli non deve azzerare quegli estremi.
+  -- cumulativo Samsung) ha sleep_start_ms/sleep_end_ms ma nessuno stadio. Il
+  -- merge di due nulli non deve azzerare quegli estremi. Quattro scenari,
+  -- perche' il primo controllava solo l'inizio e solo il caso "stesso
+  -- payload": ne bastava uno diverso per non accorgersi di niente.
   declare
-    v_u3 uuid; v_d3 uuid; v_id3 bigint; v_ini bigint;
+    v_u3 uuid; v_d3 uuid; v_id3 bigint;
+    v_ini bigint; v_fin bigint; v_fail text := '';
   begin
     v_u3 := pg_temp.mk_user('solo-totale');
     v_d3 := pg_temp.mk_device(v_u3);
     perform set_config('request.jwt.claims', json_build_object('sub', v_u3::text, 'role','authenticated')::text, true);
+
+    -- (a) stesso payload due volte: inizio E fine intatti.
     v_id3 := public.upsert_fitness_metrics_v189(pg_temp.payload(v_u3, v_d3, null, v_start, v_start + 7200000, 120, v_start));
     perform public.upsert_fitness_metrics_v189(pg_temp.payload(v_u3, v_d3, null, v_start, v_start + 7200000, 120, v_start + 1000));
-    select sleep_start_ms into v_ini from public.fitness_metrics where id = v_id3;
-    if v_ini = v_start then
-      v_ok := v_ok + 1; raise notice '   R5  fonte con solo il totale: finestra intatta  OK';
+    select sleep_start_ms, sleep_end_ms into v_ini, v_fin from public.fitness_metrics where id = v_id3;
+    if v_ini is distinct from v_start then v_fail := v_fail || ' [a:inizio]'; end if;
+    if v_fin is distinct from v_start + 7200000 then v_fail := v_fail || ' [a:fine]'; end if;
+
+    -- (b) payload PIU' NUOVO con una finestra diversa: deve poter aggiornare
+    -- entrambi gli estremi, non restare congelato sul primo valore.
+    perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u3, v_d3, null, v_start + 100000, v_start + 8000000, 125, v_start + 90000000));
+    select sleep_start_ms, sleep_end_ms into v_ini, v_fin from public.fitness_metrics where id = v_id3;
+    if v_ini is distinct from v_start + 100000 then v_fail := v_fail || ' [b:inizio non aggiornato]'; end if;
+    if v_fin is distinct from v_start + 8000000 then v_fail := v_fail || ' [b:fine non aggiornata]'; end if;
+
+    -- (c) payload PIU' VECCHIO: non deve tirare indietro gli estremi.
+    perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u3, v_d3, null, v_start - 500000, v_start + 1000, 60, v_start - 90000000));
+    select sleep_start_ms, sleep_end_ms into v_ini, v_fin from public.fitness_metrics where id = v_id3;
+    if v_ini is distinct from v_start + 100000 then v_fail := v_fail || ' [c:inizio arretrato]'; end if;
+    if v_fin is distinct from v_start + 8000000 then v_fail := v_fail || ' [c:fine arretrata]'; end if;
+
+    -- (d) payload senza NESSUNA finestra e senza stadi: non cancella niente.
+    perform public.upsert_fitness_metrics_v189(jsonb_build_object(
+      'user_id', v_u3, 'device_id', v_d3, 'local_day_key', '2026-08-10',
+      'source', 'health_connect', 'source_device', 'watch', 'schema_version', 4,
+      'collected_at_ms', v_start + 95000000, 'steps', 3000,
+      'window_start_ms', v_start, 'window_end_ms', v_start + 99000000));
+    select sleep_start_ms, sleep_end_ms into v_ini, v_fin from public.fitness_metrics where id = v_id3;
+    if v_ini is distinct from v_start + 100000 then v_fail := v_fail || ' [d:inizio cancellato]'; end if;
+    if v_fin is distinct from v_start + 8000000 then v_fail := v_fail || ' [d:fine cancellata]'; end if;
+
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   R5  fonte con solo il totale: 4 scenari, estremi intatti OK';
     else
-      v_ko := v_ko + 1; raise notice '   R5  fonte con solo il totale                    KO   sleep_start_ms = %', coalesce(v_ini::text,'NULL');
+      v_ko := v_ko + 1; raise notice '   R5  fonte con solo il totale                    KO  %', v_fail;
+    end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
+  end;
+
+  -- ── R7. Quattro etichette sovrapposte non cancellano tre segmenti veri ──
+  -- Il caso P4b sul percorso RPC reale, non sul solo helper: la notte pulita
+  -- e' gia' in tabella, il payload contraddittorio arriva dopo e passa dalla
+  -- DO UPDATE. Nessuno dei quattro e' duplicato di un altro, quindi la
+  -- deduplica non li tocca: e' il ranking che deve rifiutarli.
+  declare
+    v_u4 uuid; v_d4 uuid; v_id4 bigint; v_st jsonb;
+    v_pulita jsonb := jsonb_build_array(
+      jsonb_build_object('startMs', v_start,           'endMs', v_start + 3600000, 'stage','light','sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 3600000, 'endMs', v_start + 7200000, 'stage','deep', 'sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 7200000, 'endMs', v_start + 10800000,'stage','rem',  'sessionIdx',0));
+    v_contraddittoria jsonb := jsonb_build_array(
+      jsonb_build_object('startMs', v_start, 'endMs', v_start + 3600000, 'stage','light','sessionIdx',0),
+      jsonb_build_object('startMs', v_start, 'endMs', v_start + 3600000, 'stage','deep', 'sessionIdx',0),
+      jsonb_build_object('startMs', v_start, 'endMs', v_start + 3600000, 'stage','rem',  'sessionIdx',0),
+      jsonb_build_object('startMs', v_start, 'endMs', v_start + 3600000, 'stage','awake','sessionIdx',0));
+  begin
+    v_u4 := pg_temp.mk_user('contraddittoria');
+    v_d4 := pg_temp.mk_device(v_u4);
+    perform set_config('request.jwt.claims', json_build_object('sub', v_u4::text, 'role','authenticated')::text, true);
+    v_id4 := public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u4, v_d4, v_pulita, v_start, v_start + 10800000, 180, v_start));
+    perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u4, v_d4, v_contraddittoria, v_start, v_start + 3600000, 60, v_start + 1000));
+    select sleep_stages into v_st from public.fitness_metrics where id = v_id4;
+    if jsonb_array_length(coalesce(v_st,'[]'::jsonb)) = 3
+       and (v_st->2->>'endMs')::bigint = v_start + 10800000 then
+      v_ok := v_ok + 1; raise notice '   R7  RPC: le tre reali sopravvivono alle quattro OK';
+    else
+      v_ko := v_ko + 1; raise notice '   R7  RPC: tre segmenti veri CANCELLATI           KO   % segmenti, fine %',
+        jsonb_array_length(coalesce(v_st,'[]'::jsonb)), coalesce((v_st->-1->>'endMs'),'?');
     end if;
     perform set_config('request.jwt.claims', json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
   end;
@@ -207,5 +275,5 @@ rollback;
 
 \echo ''
 \echo '=================================================='
-\echo 'sleep_merge_p0 / RPC completa: SEI CASI'
+\echo 'sleep_merge_p0 / RPC completa: SETTE CASI'
 \echo '=================================================='

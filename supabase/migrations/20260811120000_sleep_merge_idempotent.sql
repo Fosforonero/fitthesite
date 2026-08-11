@@ -119,13 +119,40 @@ grant execute on function internal._canonicalize_sleep_stages_jsonb(jsonb) to au
 comment on function internal._canonicalize_sleep_stages_jsonb(jsonb) is
   'Forma canonica di un array di stadi del sonno: scarta i segmenti non validi, normalizza startMs/endMs/sessionIdx a interi, deduplica per (sessionIdx, startMs, endMs, stage normalizzato). Unico canonicalizzatore lato server: usato sia dal percorso di INSERT sia da ogni candidato del merge.';
 
--- ── 2. Il merge, che ora raggruppa per lato ────────────────────────────────
--- L'unica differenza strutturale rispetto alla versione precedente e'
--- `with ordinality`: `side` distingue vecchio da nuovo anche quando i due
--- array sono lo stesso identico valore. Tutto il resto della semantica e'
--- invariato — unione a livello di sessione, la piu' ricca vince la
--- sovrapposizione, main_* dalla piu' ricca in assoluto, ri-tag cronologico —
--- perche' quella semantica non era in discussione.
+-- ── 2. Il merge: raggruppa per lato, e ordina per copertura ────────────────
+-- Due differenze rispetto alla versione precedente.
+--
+-- (a) `with ordinality`: `side` distingue vecchio da nuovo anche quando i due
+--     array sono lo stesso identico valore. E' la correzione del raddoppio.
+--
+-- (b) L'ordine dei candidati non e' piu' `jsonb_array_length desc`. Contare
+--     gli elementi misura la verbosita', non l'informazione: un candidato con
+--     quattro etichette contraddittorie sullo STESSO intervallo ne ha quattro,
+--     e batteva un candidato pulito con tre intervalli consecutivi reali. Si
+--     sovrappongono, quindi il pulito veniva scartato intero. La deduplica
+--     esatta non chiude quel caso, perche' i quattro segmenti sono diversi
+--     fra loro: differiscono nell'etichetta.
+--
+--     Il criterio ora e', in ordine:
+--       1. i candidati CONTRADDITTORI vanno per ultimi. Contraddittorio vuol
+--          dire che la somma delle durate supera la copertura reale, cioe'
+--          che dentro la stessa sessione due segmenti si accavallano. Un
+--          candidato cosi' non puo' scartarne uno pulito: e' il fail-closed.
+--          Se e' l'unico che copre quella finestra viene tenuto lo stesso,
+--          perche' buttarlo sarebbe perdere l'unica cosa che abbiamo.
+--       2. copertura temporale reale (unione degli intervalli), decrescente.
+--       3. numero di segmenti, decrescente: a parita' di copertura, piu'
+--          dettaglio e' meglio.
+--       4. il lato 1, cioe' quello gia' memorizzato: un pareggio non porta
+--          informazione nuova, e preferire il conservato rende l'operazione
+--          stabile sotto qualunque ordine di replay.
+--
+-- main_start_ms/main_end_ms restano invece sulla regola di prima (piu'
+-- segmenti, poi piu' lunga) applicata ai soli candidati SOPRAVVISSUTI. Quella
+-- scelta e' accoppiata a `mainSession` del client, e cambiarla qui vorrebbe
+-- dire aprire una divergenza fra i due lati per un problema che non e'
+-- questo. Il fail-closed la protegge comunque: un candidato contraddittorio
+-- che non e' sopravvissuto non puo' fornire la finestra.
 create or replace function internal._merge_sleep_stages_jsonb(old_stages jsonb, new_stages jsonb)
 returns jsonb
 language plpgsql
@@ -143,20 +170,11 @@ declare
   v_retagged jsonb;
   v_idx int := 0;
 begin
-  select array_agg(
-    jsonb_build_object('stages', stages, 'start_ms', start_ms, 'end_ms', end_ms)
-    -- A parita' di ricchezza vince il lato 1, cioe' quello gia' memorizzato:
-    -- un pareggio non porta informazione nuova, e preferire il conservato
-    -- rende l'operazione stabile sotto qualunque ordine di replay.
-    order by jsonb_array_length(stages) desc, (end_ms - start_ms) desc, side, start_ms
-  )
-  into v_grouped
-  from (
-    select
-      arr.side,
-      jsonb_agg(s.value order by (s.value->>'startMs')::bigint) as stages,
-      min((s.value->>'startMs')::bigint) as start_ms,
-      max((s.value->>'endMs')::bigint) as end_ms
+  with lati as (
+    select arr.side, s.value as seg,
+           (s.value->>'sessionIdx')::int as sess,
+           (s.value->>'startMs')::bigint as s0,
+           (s.value->>'endMs')::bigint   as s1
     from unnest(array[
            internal._canonicalize_sleep_stages_jsonb(old_stages),
            internal._canonicalize_sleep_stages_jsonb(new_stages)
@@ -166,8 +184,45 @@ begin
     -- che ogni elemento e' un oggetto con startMs/endMs interi ed
     -- endMs > startMs. Ripetere il controllo qui vorrebbe dire avere due
     -- definizioni di "valido" che possono divergere.
-    group by arr.side, (s.value->>'sessionIdx')::int
-  ) sessions;
+  ),
+  -- Copertura reale per candidato: unione degli intervalli con il massimo
+  -- corrente (gaps-and-islands). NON somma contro estensione totale: con un
+  -- buco nella notte la somma puo' restare sotto l'estensione pur avendo
+  -- segmenti accavallati, e la contraddizione passerebbe inosservata.
+  isole as (
+    select side, sess, s0, s1,
+           count(*) filter (where prev_max is null or s0 > prev_max)
+             over (partition by side, sess order by s0, s1 rows unbounded preceding) as isola
+    from (
+      select side, sess, s0, s1,
+             max(s1) over (partition by side, sess order by s0, s1
+                           rows between unbounded preceding and 1 preceding) as prev_max
+      from lati
+    ) o
+  ),
+  coperture as (
+    select side, sess, sum(b - a) as copertura_ms
+    from (select side, sess, isola, min(s0) as a, max(s1) as b from isole group by 1,2,3) i
+    group by side, sess
+  ),
+  candidati as (
+    select l.side, l.sess,
+           jsonb_agg(l.seg order by l.s0) as stages,
+           min(l.s0) as start_ms, max(l.s1) as end_ms,
+           count(*)::int as segmenti,
+           sum(l.s1 - l.s0) as somma_ms,
+           c.copertura_ms
+    from lati l
+    join coperture c on c.side = l.side and c.sess = l.sess
+    group by l.side, l.sess, c.copertura_ms
+  )
+  select array_agg(
+    jsonb_build_object('stages', stages, 'start_ms', start_ms, 'end_ms', end_ms,
+                       'segmenti', segmenti, 'copertura_ms', copertura_ms,
+                       'contraddittorio', somma_ms > copertura_ms)
+    order by (somma_ms > copertura_ms), copertura_ms desc, segmenti desc, side, start_ms)
+  into v_grouped
+  from candidati;
 
   if v_grouped is null then
     return null;
@@ -187,8 +242,13 @@ begin
     end if;
   end loop;
 
-  -- Piu' ricca in assoluto, prima del riordino cronologico qui sotto.
-  v_main := v_selected[1];
+  -- main_*: piu' segmenti, poi piu' lunga, fra i soli sopravvissuti. Regola
+  -- invariata rispetto a prima, deliberatamente (vedi intestazione).
+  select v into v_main from unnest(v_selected) as v
+  order by (v->>'segmenti')::int desc,
+           ((v->>'end_ms')::bigint - (v->>'start_ms')::bigint) desc,
+           (v->>'start_ms')::bigint
+  limit 1;
 
   select array_agg(v order by (v->>'start_ms')::bigint) into v_selected
   from unnest(v_selected) as v;
@@ -366,22 +426,28 @@ begin
         or (v_new_sleep_sessions = internal._sleep_session_count_jsonb(fitness_metrics.sleep_stages)
             and v_new_sleep_minutes > coalesce(fitness_metrics.sleep_minutes, 0))
       then excluded.sleep_minutes else fitness_metrics.sleep_minutes end,
-    -- Gli estremi: quando il merge sa ricalcolarli valgono i suoi, altrimenti
+    -- I tre campi del sonno in UNA sola assegnazione, da un sub-SELECT: il
+    -- merge viene cosi' calcolato una volta invece di tre. Misurato su una
+    -- notte reale da 94 segmenti: 7,3 ms per upsert con tre chiamate, di cui
+    -- 6,1 nelle chiamate stesse. Il merge era l'84% del costo.
+    --
+    -- Quando il merge sa ricalcolare gli estremi valgono i suoi; altrimenti
     -- si ricade sulla stessa regola collected_at_ms di ogni altro scalare.
     -- Prima, un merge senza stadi da nessuna parte scriveva null in colonna.
-    sleep_start_ms = coalesce(
-      (internal._merge_sleep_stages_jsonb(fitness_metrics.sleep_stages, excluded.sleep_stages)->>'main_start_ms')::bigint,
-      case when excluded.collected_at_ms >= fitness_metrics.collected_at_ms
-        then coalesce(excluded.sleep_start_ms, fitness_metrics.sleep_start_ms)
-        else fitness_metrics.sleep_start_ms end),
-    sleep_end_ms = coalesce(
-      (internal._merge_sleep_stages_jsonb(fitness_metrics.sleep_stages, excluded.sleep_stages)->>'main_end_ms')::bigint,
-      case when excluded.collected_at_ms >= fitness_metrics.collected_at_ms
-        then coalesce(excluded.sleep_end_ms, fitness_metrics.sleep_end_ms)
-        else fitness_metrics.sleep_end_ms end),
-    sleep_stages = coalesce(
-      internal._merge_sleep_stages_jsonb(fitness_metrics.sleep_stages, excluded.sleep_stages)->'stages',
-      fitness_metrics.sleep_stages)
+    (sleep_start_ms, sleep_end_ms, sleep_stages) = (
+      select
+        coalesce((q.m->>'main_start_ms')::bigint,
+          case when excluded.collected_at_ms >= fitness_metrics.collected_at_ms
+            then coalesce(excluded.sleep_start_ms, fitness_metrics.sleep_start_ms)
+            else fitness_metrics.sleep_start_ms end),
+        coalesce((q.m->>'main_end_ms')::bigint,
+          case when excluded.collected_at_ms >= fitness_metrics.collected_at_ms
+            then coalesce(excluded.sleep_end_ms, fitness_metrics.sleep_end_ms)
+            else fitness_metrics.sleep_end_ms end),
+        coalesce(q.m->'stages', fitness_metrics.sleep_stages)
+      from (select internal._merge_sleep_stages_jsonb(
+                     fitness_metrics.sleep_stages, excluded.sleep_stages) as m) q
+    )
   where fitness_metrics.user_id = auth.uid()
   returning id into v_id;
 

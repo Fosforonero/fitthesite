@@ -106,6 +106,62 @@ begin
       jsonb_array_length(coalesce(v_r,'[]'::jsonb));
   end if;
 
+  -- ── P4b. La ricchezza finta SENZA duplicati esatti ──────────────────────
+  -- Il caso che la sola deduplica non chiude, ed e' il piu' insidioso: quattro
+  -- segmenti DIVERSI fra loro (differiscono nell'etichetta) tutti sullo stesso
+  -- identico intervallo. Nessuno e' duplicato di un altro, quindi il
+  -- canonicalizzatore li tiene tutti e quattro. Contandoli, quel candidato ne
+  -- ha quattro contro i tre intervalli reali e consecutivi dell'altro: si
+  -- sovrappongono, vince lui, e tre segmenti veri spariscono.
+  -- Contare gli elementi misura la verbosita', non l'informazione.
+  v_r := pg_temp.stg(
+    '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0},
+      {"startMs":2000,"endMs":3000,"stage":"deep","sessionIdx":0},
+      {"startMs":3000,"endMs":4000,"stage":"rem","sessionIdx":0}]',
+    '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0},
+      {"startMs":1000,"endMs":2000,"stage":"deep","sessionIdx":0},
+      {"startMs":1000,"endMs":2000,"stage":"rem","sessionIdx":0},
+      {"startMs":1000,"endMs":2000,"stage":"awake","sessionIdx":0}]');
+  if jsonb_array_length(coalesce(v_r,'[]'::jsonb)) = 3
+     and (v_r->2->>'endMs')::bigint = 4000 then
+    v_ok := v_ok + 1; raise notice '   P4b quattro etichette sovrapposte non vincono    OK';
+  else
+    v_ko := v_ko + 1; raise notice '   P4b quattro etichette sovrapposte VINCONO       KO   % segmenti, fine %',
+      jsonb_array_length(coalesce(v_r,'[]'::jsonb)), coalesce((v_r->-1->>'endMs'),'?');
+  end if;
+
+  -- ── P4c. Ma se il contraddittorio e'' l'unico, non lo si butta ───────────
+  -- Fail-closed vuol dire "non sostituire un candidato pulito con quello
+  -- ambiguo", non "cancellare l'ambiguo". Se copre una finestra che nessun
+  -- altro copre, buttarlo sarebbe perdere l'unica cosa che abbiamo.
+  v_r := pg_temp.stg(
+    '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0},
+      {"startMs":1000,"endMs":2000,"stage":"deep","sessionIdx":0}]', null);
+  if jsonb_array_length(coalesce(v_r,'[]'::jsonb)) = 2 then
+    v_ok := v_ok + 1; raise notice '   P4c il contraddittorio solo non viene cancellato OK';
+  else
+    v_ko := v_ko + 1; raise notice '   P4c il contraddittorio solo                     KO   %',
+      jsonb_array_length(coalesce(v_r,'[]'::jsonb));
+  end if;
+
+  -- ── P4d. La copertura batte il conteggio anche senza contraddizioni ─────
+  -- Due candidati puliti sovrapposti: uno con due segmenti che coprono
+  -- 1000-9000, uno con tre segmentini che coprono 1000-4000. Prima vinceva il
+  -- secondo perche' ha piu' elementi, e si perdevano cinque secondi di notte.
+  v_r := pg_temp.stg(
+    '[{"startMs":1000,"endMs":5000,"stage":"light","sessionIdx":0},
+      {"startMs":5000,"endMs":9000,"stage":"deep","sessionIdx":0}]',
+    '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0},
+      {"startMs":2000,"endMs":3000,"stage":"deep","sessionIdx":0},
+      {"startMs":3000,"endMs":4000,"stage":"rem","sessionIdx":0}]');
+  if jsonb_array_length(coalesce(v_r,'[]'::jsonb)) = 2
+     and (v_r->1->>'endMs')::bigint = 9000 then
+    v_ok := v_ok + 1; raise notice '   P4d la copertura batte il conteggio             OK';
+  else
+    v_ko := v_ko + 1; raise notice '   P4d la copertura batte il conteggio             KO   % segmenti, fine %',
+      jsonb_array_length(coalesce(v_r,'[]'::jsonb)), coalesce((v_r->-1->>'endMs'),'?');
+  end if;
+
   -- ── P5. Dedup per (sessionIdx, startMs, endMs, stage normalizzato) ──────
   -- Dentro UN SOLO array: "Light" e "light" sono lo stesso segmento. Qui non
   -- c'e' nessuna sovrapposizione fra lati a salvare la situazione.
@@ -206,5 +262,5 @@ rollback;
 
 \echo ''
 \echo '=================================================='
-\echo 'sleep_merge_p0 / helper: NOVE PROPRIETA'''
+\echo 'sleep_merge_p0 / helper: TREDICI PROPRIETA'''
 \echo '=================================================='

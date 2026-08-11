@@ -42,6 +42,7 @@ run_sql 10-helper-idempotency.sql
 run_sql 20-rpc-idempotency.sql
 run_sql 30-riparazione.sql
 run_sql 40-altre-metriche.sql
+run_sql 50-smoke-authenticated.sql
 
 echo ""
 echo "sleep_merge_p0: tutte verdi."
