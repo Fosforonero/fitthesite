@@ -77,10 +77,16 @@ teardown() {
     < "$REPO_ROOT/supabase/rollback/20260810120000_billing_purchase_states_rollback.sql" >/dev/null 2>&1
   docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 -v claims_rollback_force=1 \
     < "$REPO_ROOT/supabase/rollback/20260808211929_billing_purchase_claims_registry_rollback.sql" >/dev/null 2>&1
-  docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 \
-    < "$REPO_ROOT/supabase/migrations/20260808211929_billing_purchase_claims_registry.sql" >/dev/null 2>&1
-  docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 \
-    < "$REPO_ROOT/supabase/migrations/20260810120000_billing_purchase_states.sql" >/dev/null 2>&1
+  # Si riapplicano TUTTE le migration del registro in ordine di nome, non un
+  # elenco scritto a mano. L'elenco a mano ha gia' fatto danno: ne conteneva
+  # due su tre, e la terza (la guardia sulla proiezione) ridefinisce
+  # _billing_project_entitlement. Riapplicando solo le prime due, la funzione
+  # RETROCEDEVA alla versione senza il permesso di scrittura, e il file
+  # 60-rollout-window falliva al giro successivo — con un errore che sembrava
+  # un difetto della guardia e invece era un difetto di questo teardown.
+  while IFS= read -r m; do
+    docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 < "$m" >/dev/null 2>&1
+  done < <(ls "$REPO_ROOT"/supabase/migrations/*.sql | awk -F/ '$NF >= "20260808211929"' | sort)
   psql_q "delete from public.b2c_subscriptions
           where user_id in ('$U_SK2','$U_SK1','$U_GP','$U_FOUNDER','$U_TRIAL');" >/dev/null 2>&1
   psql_q "delete from auth.users
@@ -109,7 +115,10 @@ psql_q "insert into auth.users (id, email, created_at) values
   ('$U_FOUNDER','founder@fixture.test',now()),
   ('$U_TRIAL','trial@fixture.test',now());" >/dev/null || fail "seed auth.users"
 
-psql_q "insert into public.b2c_subscriptions
+# Vedi la nota in 30-backfill-tests.sh: il seed rappresenta righe scritte
+# prima che il registro esistesse, quindi entra dalla porta della proiezione
+# invece di farsi iscrivere una proprieta' dalla guardia in compatibility.
+psql_q "begin; select set_config('billing.projection','on',true); insert into public.b2c_subscriptions
   (user_id, billing_source, external_product_id, external_subscription_id,
    external_order_id, active_until, auto_renewing, state)
  values
@@ -126,7 +135,8 @@ psql_q "insert into public.b2c_subscriptions
   ('$U_FOUNDER','founder_grant','fitmesh_pro_lifetime','founder-launch-1','',
    now()+interval '3650 days', false,'active'),
   ('$U_TRIAL','trial','fitmesh_pro_lifetime','trial-14-giorni','',
-   now()+interval '14 days', false,'active');" >/dev/null || fail "seed b2c_subscriptions"
+   now()+interval '14 days', false,'active');
+ commit;" >/dev/null || fail "seed b2c_subscriptions"
 
 # ── Chiavi attese, calcolate FUORI dal backfill ─────────────────────────────
 # Il digest lo calcola qui il database con la stessa primitiva che usa

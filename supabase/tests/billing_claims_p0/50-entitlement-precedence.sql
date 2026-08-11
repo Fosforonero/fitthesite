@@ -279,11 +279,19 @@ begin
   -- registro esistesse.
   v_a := pg_temp.mk_user('g13a');
   v_b := pg_temp.mk_user('g13b');
+  -- La riga di B va scritta SENZA passare dalla guardia della proiezione: in
+  -- compatibility il trigger le iscriverebbe una proprieta', il conflitto
+  -- verrebbe rilevato dal registro (esito owned_by_other_user, piu' pulito) e
+  -- questo caso smetterebbe di esercitare il rollback della persistenza.
+  -- Quello che serve qui e' proprio una riga SENZA proprieta': le quattro
+  -- google_play scritte in produzione prima che il registro esistesse.
+  perform set_config('billing.projection', 'on', true);
   insert into public.b2c_subscriptions (
     user_id, billing_source, external_product_id, external_subscription_id,
     active_until, auto_renewing, state)
   values (v_b, 'google_play', 'fitmesh_pro_sub', pg_temp.gkey('g13'),
           now() + interval '10 days', true, 'active');
+  perform set_config('billing.projection', 'off', true);
 
   v_r := pg_temp.claim(v_a, 'google_play', pg_temp.gkey('g13'), 'fitmesh_pro_sub', 'subscription', 'active', now() + interval '30 days', true);
   select count(*) into v_n from private.billing_purchase_claims where ownership_key = pg_temp.gkey('g13');

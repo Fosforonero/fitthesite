@@ -86,6 +86,18 @@ teardown() {
 trap teardown EXIT
 teardown   # residui di un giro precedente
 
+# Le righe seminate qui rappresentano lo stato PRIMA che il registro
+# esistesse: righe commerciali in proiezione senza nessuna proprieta'
+# registrata. Sono esattamente cio' che il backfill deve coprire.
+#
+# Da 20260810140000 la guardia sulla proiezione, in modalita' compatibility,
+# iscriverebbe la proprieta' al volo appena si scrive una riga commerciale — ed
+# e' cio' che deve fare in produzione. Ma qui vanificherebbe il test: il
+# backfill troverebbe tutto gia' coperto e non avrebbe niente da fare. Il seed
+# entra quindi dalla stessa porta della proiezione, che e' l'unico modo onesto
+# di ricreare una riga scritta quando quella porta non c'era.
+seed_legacy() { psql_quiet "begin; select set_config('billing.projection','on',true); $1 commit;"; }
+
 docker cp "$BACKFILL" "$CID":/tmp/bf_under_test.sql >/dev/null
 
 echo '################ CASI 9 e 10: backfill ################'
@@ -105,7 +117,7 @@ psql_quiet "insert into auth.users (id, email, created_at) values
   ('${U_G}','bf-google@test.local', now()), ('${U_A}','bf-apple@test.local', now()),
   ('${U_T}','bf-trial@test.local', now()),  ('${U_F}','bf-founder@test.local', now());"
 
-psql_quiet "insert into public.b2c_subscriptions
+seed_legacy "insert into public.b2c_subscriptions
    (user_id, billing_source, external_product_id, external_subscription_id, external_order_id, active_until, auto_renewing, state)
  values
    ('${U_G}','google_play','fitmesh_pro_sub','${GTOKEN}','GPA.1111-2222-3333-44444', now() + interval '30 days', true, 'active'),
@@ -162,7 +174,7 @@ echo "CASO 9c: PASS (secondo apply: 2 righe invariate, claimed_at non spostato)"
 # ── CONFLITTO: un acquisto gia' intestato a un altro utente ferma tutto ─────
 psql_quiet "insert into auth.users (id, email, created_at) values
   ('${U_X}','bf-conflict-proj@test.local', now()), ('${U_Y}','bf-conflict-reg@test.local', now());"
-psql_quiet "insert into public.b2c_subscriptions
+seed_legacy "insert into public.b2c_subscriptions
    (user_id, billing_source, external_product_id, external_subscription_id, active_until, auto_renewing, state)
  values ('${U_X}','apple_iap','fitmesh_pro_lifetime','${CONFLICT_KEY}','9999-12-31T23:59:59Z', false, 'active');"
 # il registro dice che quella transazione e' di un ALTRO utente
@@ -185,7 +197,7 @@ psql_quiet "alter table private.billing_purchase_claims disable trigger trg_bill
             delete from private.billing_purchase_claims where ownership_key='${CONFLICT_KEY}';
             alter table private.billing_purchase_claims enable trigger trg_billing_purchase_claims_immutable;"
 psql_quiet "insert into auth.users (id, email, created_at) values ('${U_S}','bf-stripe@test.local', now());"
-psql_quiet "insert into public.b2c_subscriptions
+seed_legacy "insert into public.b2c_subscriptions
    (user_id, billing_source, external_product_id, external_subscription_id, active_until, auto_renewing, state)
  values ('${U_S}','stripe','fitmesh_pro_sub','sub_stripe_123', now() + interval '30 days', true, 'active');"
 
