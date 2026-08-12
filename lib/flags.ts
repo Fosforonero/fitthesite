@@ -13,12 +13,9 @@ export const APPLE_APP_ID = "6779751708";
 export const APPLE_STORE_URL = `https://apps.apple.com/app/fitmesh-sync/id${APPLE_APP_ID}`;
 
 /**
- * r/FitMesh — community ufficiale su Reddit. Il subreddit è privato oggi
- * (2026-08-12): un link porterebbe a una pagina che chiede l'accesso.
- *
- * NON mettere a `true` finché Matteo non conferma che il subreddit è
- * pubblico. Governa TUTTE le superfici collegate (Footer, /support,
- * `sameAs` dell'Organization in JSON-LD) da un'unica fonte di verità —
- * un solo flip quando arriva il via libera, nessun posto dimenticato.
+ * r/FitMesh — community ufficiale su Reddit. Era privata (2026-08-12);
+ * Matteo ha confermato che è pubblica il 2026-08-12 (P0.14A) — attivata da
+ * qui, unica fonte di verità per Footer, /support e `sameAs` dell'Organization
+ * in JSON-LD: un solo flip, nessun posto dimenticato.
  */
-export const REDDIT_COMMUNITY_LIVE = false;
+export const REDDIT_COMMUNITY_LIVE = true;

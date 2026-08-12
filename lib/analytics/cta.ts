@@ -115,3 +115,35 @@ export function resolveStoreLink(href: string): StoreLink | null {
   }
   return null;
 }
+
+/**
+ * P0.14A — evento `external_community_click`, indipendente dal funnel
+ * store_click/cta_click/cta_view sopra (nessuna `campaign`: non è il
+ * funnel post-Founder). Dimensioni: `platform`, `placement`, `locale`,
+ * `path` — nessun'altra, per istruzione esplicita di Matteo.
+ */
+export type CommunityLink = {
+  platform: "reddit";
+};
+
+/**
+ * Riconosce un link d'uscita verso la community ufficiale dal solo href.
+ * Match sull'URL esatto (non un generico `includes("reddit.com")"): solo
+ * https://www.reddit.com/r/FitMesh/ deve emettere l'evento, non qualunque
+ * altro link Reddit che comparisse altrove sul sito (es. citazioni in
+ * articoli).
+ */
+export function resolveCommunityLink(href: string): CommunityLink | null {
+  if (href === "https://www.reddit.com/r/FitMesh/") {
+    return { platform: "reddit" };
+  }
+  return null;
+}
+
+/** Placement chiusi per `external_community_click` — Footer e /support. */
+export const COMMUNITY_PLACEMENTS = {
+  footer: "footer",
+  support: "support",
+} as const;
+
+export type CommunityPlacement = (typeof COMMUNITY_PLACEMENTS)[keyof typeof COMMUNITY_PLACEMENTS];
