@@ -476,17 +476,21 @@ begin
     end if;
   end;
 
-  -- ── P14. A pari merito, main_* viene dal lato gia' memorizzato ──────────
-  -- Due sessioni che non si sovrappongono, stesso numero di segmenti e stessa
-  -- durata: il ranking pareggia su entrambe le chiavi, e a decidere resta
-  -- `side, start_ms`.
+  -- ── P14. Fra sessioni DISGIUNTE a pari merito, il lato non conta ────────
+  -- Due sessioni che non si sovrappongono, stesso sonno canonico e stessa
+  -- finestra: lo spareggio e' sui DATI (finestra, poi inizio), non su quale
+  -- lato le ha portate.
   --
-  -- ONESTA' SU COSA COPRE: togliendo lo spareggio dalla migration questo test
-  -- resta VERDE (mutazione provata il 12/08/2026). L'ordine prodotto dal piano
-  -- coincide gia' con quello del lato, quindi lo spareggio non cambia il
-  -- comportamento osservabile: lo rende garantito invece che casuale. Qui si
-  -- pinna l'ESITO — a parita' vince il memorizzato, e invertendo i lati il
-  -- risultato si inverte — non il meccanismo con cui ci si arriva.
+  -- COSA E' CAMBIATO, E PERCHE' NON E' UNA REGRESSIONE. Fino alla 190 questo
+  -- test pinnava l'opposto: a parita' vinceva il lato memorizzato, quindi
+  -- merge(a,b) e merge(b,a) davano due `main_start_ms` diversi. Con la
+  -- separazione delle due decisioni quel pareggio e' rimasto dov'e' utile —
+  -- fra osservazioni SOVRAPPOSTE, dove serve a non far ballare la riga a ogni
+  -- sync, ed e' pinnato da P14b — ma non decide piu' QUALE SESSIONE E' LA
+  -- NOTTE. Li' scegliere in base al lato voleva dire che la stessa giornata,
+  -- riprodotta con i sync in ordine inverso, dava una notte diversa. Ora
+  -- l'esito dipende solo dai dati, ed e' una proprieta' piu' forte, non piu'
+  -- debole: merge(a,b) = merge(b,a).
   declare
     v_a jsonb := '[{"startMs":1000,"endMs":3000,"stage":"light","sessionIdx":0}]';
     v_b jsonb := '[{"startMs":50000,"endMs":52000,"stage":"light","sessionIdx":0}]';
@@ -494,11 +498,166 @@ begin
     v_r2 jsonb := internal._merge_sleep_stages_jsonb(v_b, v_a);
   begin
     if (v_r1->>'main_start_ms')::bigint = 1000
-       and (v_r2->>'main_start_ms')::bigint = 50000 then
-      v_ok := v_ok + 1; raise notice '   P14 a pari merito vince il lato memorizzato    OK';
+       and (v_r2->>'main_start_ms')::bigint = 1000
+       and v_r1 = v_r2 then
+      v_ok := v_ok + 1; raise notice '   P14 disgiunte a pari merito: esito indipendente dal lato OK';
     else
-      v_ko := v_ko + 1; raise notice '   P14 spareggio non deterministico               KO   % / %',
+      v_ko := v_ko + 1; raise notice '   P14 disgiunte a pari merito: esito dipende dal lato KO   % / %',
         v_r1->>'main_start_ms', v_r2->>'main_start_ms';
+    end if;
+  end;
+
+  -- ── P14b. Fra osservazioni SOVRAPPOSTE a pari merito vince il memorizzato ─
+  -- La meta' dello spareggio che aveva uno scopo, e che resta: due letture
+  -- della STESSA sessione, stesso numero di segmenti e stessa durata, ma
+  -- etichette diverse. Non si fondono (la vincente sopravvive intera) e a
+  -- vincere e' quella gia' in tabella, cosi' un ri-sync che non porta niente
+  -- di nuovo non riscrive la riga.
+  --
+  -- Il test e' nuovo: fino alla 190 questa proprieta' viaggiava dentro P14
+  -- insieme a quella delle disgiunte, e le due sono decisioni diverse.
+  declare
+    v_a jsonb := '[{"startMs":1000,"endMs":3000,"stage":"light","sessionIdx":0}]';
+    v_b jsonb := '[{"startMs":1000,"endMs":3000,"stage":"deep","sessionIdx":0}]';
+    v_r1 jsonb := internal._merge_sleep_stages_jsonb(v_a, v_b);
+    v_r2 jsonb := internal._merge_sleep_stages_jsonb(v_b, v_a);
+  begin
+    if jsonb_array_length(v_r1->'stages') = 1
+       and jsonb_array_length(v_r2->'stages') = 1
+       and (v_r1->'stages'->0->>'stage') = 'light'
+       and (v_r2->'stages'->0->>'stage') = 'deep' then
+      v_ok := v_ok + 1; raise notice '   P14b sovrapposte a pari merito: vince il memorizzato OK';
+    else
+      v_ko := v_ko + 1; raise notice '   P14b sovrapposte a pari merito                 KO   % / %',
+        v_r1->'stages'->0->>'stage', v_r2->'stages'->0->>'stage';
+    end if;
+  end;
+
+  -- ── P15. La durata dormita canonica: unione, mai somma ──────────────────
+  -- Le quattro proprieta' che rendono `_sleep_asleep_ms_jsonb` una misura di
+  -- DURATA e non di verbosita'. Senza queste, il criterio della principale
+  -- resterebbe manipolabile esattamente come quello che sostituisce.
+  declare
+    v_fail text := '';
+    -- Un wrapper che avvolge le proprie fasi: e' lo stesso tempo descritto due
+    -- volte, non il doppio del sonno.
+    v_wrap jsonb := '[{"startMs":0,"endMs":1000,"stage":"asleep","sessionIdx":0},
+                      {"startMs":0,"endMs":500,"stage":"deep","sessionIdx":0},
+                      {"startMs":500,"endMs":1000,"stage":"rem","sessionIdx":0}]';
+  begin
+    if internal._sleep_asleep_ms_jsonb(v_wrap) <> 1000 then
+      v_fail := v_fail || ' [wrapper+fasi raddoppia: ' || internal._sleep_asleep_ms_jsonb(v_wrap) || ']';
+    end if;
+    -- La veglia si sottrae al sonno che la contiene.
+    if internal._sleep_asleep_ms_jsonb(
+         '[{"startMs":0,"endMs":1000,"stage":"asleep","sessionIdx":0},
+           {"startMs":200,"endMs":400,"stage":"awake","sessionIdx":0}]') <> 800 then
+      v_fail := v_fail || ' [awake non sottratto]';
+    end if;
+    -- "A letto" e' un involucro, non una fase: non aggiunge sonno.
+    if internal._sleep_asleep_ms_jsonb(
+         '[{"startMs":0,"endMs":1000,"stage":"in_bed","sessionIdx":0}]') <> 0 then
+      v_fail := v_fail || ' [in_bed conta come sonno]';
+    end if;
+    -- Un'etichetta che non sappiamo leggere non puo' aumentare una durata
+    -- sanitaria. Il segmento resta nel payload: qui si decide solo un ordine.
+    if internal._sleep_asleep_ms_jsonb(
+         '[{"startMs":0,"endMs":1000,"stage":"boh","sessionIdx":0}]') <> 0 then
+      v_fail := v_fail || ' [etichetta ignota conta come sonno]';
+    end if;
+    -- Forme non-array e segmenti malformati non sollevano: stessa regola di
+    -- shape-safety di _sleep_session_count_jsonb (punto 6 dell'intestazione).
+    if internal._sleep_asleep_ms_jsonb('null'::jsonb) <> 0
+       or internal._sleep_asleep_ms_jsonb('{"a":1}'::jsonb) <> 0
+       or internal._sleep_asleep_ms_jsonb(
+            '[{"startMs":"x","endMs":"y","stage":"deep"}]') <> 0 then
+      v_fail := v_fail || ' [forma degenere non gestita]';
+    end if;
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   P15 durata dormita canonica: unione, mai somma  OK';
+    else
+      v_ko := v_ko + 1; raise notice '   P15 durata dormita canonica                    KO  %', v_fail;
+    end if;
+  end;
+
+  -- ── P16. Il wrapper da otto ore batte il pisolino dettagliato ───────────
+  -- IL caso della decisione: sessioni DISGIUNTE, una con un solo segmento
+  -- `asleep` da otto ore, l'altra con tre stadi da venti minuti in tutto.
+  --
+  -- RED misurato il 12/08/2026 sulla definizione precedente: vinceva il
+  -- pisolino (main_start = 36000000 invece di 0), perche' il ranking guardava
+  -- il numero di segmenti — 3 contro 1. Contare i segmenti misura la
+  -- verbosita' della fonte, non quanto si e' dormito.
+  declare
+    v_p jsonb := '[{"startMs":0,"endMs":28800000,"stage":"asleep","sessionIdx":0},
+                   {"startMs":36000000,"endMs":36400000,"stage":"light","sessionIdx":1},
+                   {"startMs":36400000,"endMs":36800000,"stage":"deep","sessionIdx":1},
+                   {"startMs":36800000,"endMs":37200000,"stage":"rem","sessionIdx":1}]';
+    -- Stesso contenuto, elementi in ordine inverso dentro l'array: l'esito non
+    -- puo' dipendere da come la fonte ha impaginato il JSON.
+    v_i jsonb := '[{"startMs":36800000,"endMs":37200000,"stage":"rem","sessionIdx":1},
+                   {"startMs":36400000,"endMs":36800000,"stage":"deep","sessionIdx":1},
+                   {"startMs":36000000,"endMs":36400000,"stage":"light","sessionIdx":1},
+                   {"startMs":0,"endMs":28800000,"stage":"asleep","sessionIdx":0}]';
+    v_r jsonb := internal._merge_sleep_stages_jsonb(v_p, v_p);
+    v_r2 jsonb := internal._merge_sleep_stages_jsonb(v_i, v_i);
+    v_fail text := '';
+  begin
+    if (v_r->>'main_start_ms')::bigint <> 0
+       or (v_r->>'main_end_ms')::bigint <> 28800000 then
+      v_fail := v_fail || ' [la principale non e'' il wrapper: ' || (v_r->>'main_start_ms') || ']';
+    end if;
+    if (select count(*) from jsonb_array_elements(v_r->'stages') s(value)
+        where (s.value->>'sessionIdx')::int = 0) <> 1 then
+      v_fail := v_fail || ' [l''indice 0 non e'' sul wrapper]';
+    end if;
+    -- Nessuna fusione artificiale: le due sessioni disgiunte restano due,
+    -- tutti e quattro i segmenti sopravvivono.
+    if jsonb_array_length(v_r->'stages') <> 4 then
+      v_fail := v_fail || ' [segmenti persi o fusi: ' || jsonb_array_length(v_r->'stages') || ']';
+    end if;
+    if v_r2 is distinct from v_r then
+      v_fail := v_fail || ' [l''ordine degli elementi in ingresso cambia l''esito]';
+    end if;
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   P16 wrapper 8h batte il pisolino dettagliato   OK';
+    else
+      v_ko := v_ko + 1; raise notice '   P16 principale scelta per verbosita''           KO  %', v_fail;
+    end if;
+  end;
+
+  -- ── P17. Fra osservazioni SOVRAPPOSTE la 189-RC2 non e' cambiata ────────
+  -- La contro-prova di P16: la nuova regola vale SOLO fra sessioni disgiunte.
+  -- Qui le due osservazioni coprono la stessa notte, e vince la piu' ricca —
+  -- intera, senza mescolare gli stadi delle due. Un wrapper generico da otto
+  -- ore NON deve battere le fasi dettagliate della stessa sessione, che pure
+  -- sommano meno sonno canonico di lui a causa delle veglie.
+  declare
+    -- Wrapper: 8h piene di sonno canonico, un segmento.
+    v_wrap jsonb := '[{"startMs":0,"endMs":28800000,"stage":"asleep","sessionIdx":0}]';
+    -- Fasi reali della STESSA notte: quattro segmenti, e con una veglia in
+    -- mezzo il sonno canonico e' MINORE di quello del wrapper.
+    v_fasi jsonb := '[{"startMs":0,"endMs":7200000,"stage":"light","sessionIdx":0},
+                      {"startMs":7200000,"endMs":10800000,"stage":"deep","sessionIdx":0},
+                      {"startMs":10800000,"endMs":14400000,"stage":"awake","sessionIdx":0},
+                      {"startMs":14400000,"endMs":28800000,"stage":"rem","sessionIdx":0}]';
+    v_r jsonb := internal._merge_sleep_stages_jsonb(v_wrap, v_fasi);
+    v_fail text := '';
+  begin
+    if jsonb_array_length(v_r->'stages') <> 4 then
+      v_fail := v_fail || ' [non ha vinto l''osservazione piu'' ricca: '
+                       || jsonb_array_length(v_r->'stages') || ' segmenti]';
+    end if;
+    -- Nessuna fusione stadio-per-stadio: il wrapper non sopravvive accanto
+    -- alle fasi, altrimenti l'ipnogramma sarebbe un ibrido mai misurato.
+    if exists (select 1 from jsonb_array_elements(v_r->'stages') s(value)
+               where s.value->>'stage' = 'asleep') then
+      v_fail := v_fail || ' [wrapper e fasi fusi insieme]';
+    end if;
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   P17 sovrapposte: ranking 189-RC2 invariato     OK';
+    else
+      v_ko := v_ko + 1; raise notice '   P17 sovrapposte: ranking alterato              KO  %', v_fail;
     end if;
   end;
 

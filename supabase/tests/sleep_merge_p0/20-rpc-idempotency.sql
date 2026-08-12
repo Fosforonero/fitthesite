@@ -498,6 +498,281 @@ begin
       v_ko := v_ko + 1; raise notice '   R6  sleep_minutes                               KO   %', v_min;
     end if;
   end;
+  -- ── R12. UN SOLO upsert basta: l'INSERT ri-tagga ────────────────────────
+  -- Il difetto che R11 non copriva, perche' R11 fa sempre due upsert. Qui il
+  -- payload arriva UNA volta sola, con il pisolino etichettato 0 e la notte
+  -- etichettata 1, e con `sleep_start_ms`/`sleep_end_ms` che descrivono la
+  -- notte. E' la forma di 3.749 righe su 5.709 in produzione.
+  --
+  -- RED misurato il 12/08/2026 sulla definizione precedente: dopo il primo
+  -- INSERT la riga aveva UN segmento con indice 0 (il pisolino) invece di sei,
+  -- e serviva un secondo upsert perche' il merge la rimettesse a posto. Un
+  -- utente che apriva l'app fra i due sync vedeva una notte da un'ora.
+  --
+  -- Si verifica anche la conseguenza: dopo il secondo upsert dello stesso
+  -- payload la riga non cambia piu'. Prima cambiava, ed e' la firma esatta del
+  -- difetto: l'idempotenza serviva a riparare il primo giro.
+  declare
+    v_u12 uuid; v_d12 uuid; v_id12 bigint;
+    v_st jsonb; v_st2 jsonb; v_ini bigint; v_fin bigint;
+    v_fail text := '';
+    v_notte_ini bigint := v_start + 10800000;
+    v_notte_fin bigint := v_start + 32400000;
+    -- Pisolino di un'ora, etichettato 0. Notte di sei ore, etichettata 1.
+    v_payload jsonb := jsonb_build_array(
+      jsonb_build_object('startMs', v_start,             'endMs', v_start + 3600000,  'stage','light','sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 10800000,  'endMs', v_start + 14400000, 'stage','light','sessionIdx',1),
+      jsonb_build_object('startMs', v_start + 14400000,  'endMs', v_start + 18000000, 'stage','deep', 'sessionIdx',1),
+      jsonb_build_object('startMs', v_start + 18000000,  'endMs', v_start + 21600000, 'stage','rem',  'sessionIdx',1),
+      jsonb_build_object('startMs', v_start + 21600000,  'endMs', v_start + 25200000, 'stage','light','sessionIdx',1),
+      jsonb_build_object('startMs', v_start + 25200000,  'endMs', v_start + 28800000, 'stage','deep', 'sessionIdx',1),
+      jsonb_build_object('startMs', v_start + 28800000,  'endMs', v_start + 32400000, 'stage','rem',  'sessionIdx',1));
+  begin
+    v_u12 := pg_temp.mk_user('insert-ritag');
+    v_d12 := pg_temp.mk_device(v_u12);
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', v_u12::text, 'role','authenticated')::text, true);
+
+    v_id12 := public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u12, v_d12, v_payload, v_notte_ini, v_notte_fin, 360, v_start));
+    select sleep_stages, sleep_start_ms, sleep_end_ms
+      into v_st, v_ini, v_fin from public.fitness_metrics where id = v_id12;
+
+    if (select count(*) from jsonb_array_elements(v_st) s(value)
+        where (s.value->>'sessionIdx')::int = 0) <> 6 then
+      v_fail := v_fail || ' [dopo UN upsert la sessione 0 non e'' la notte]';
+    end if;
+    if v_ini is distinct from v_notte_ini or v_fin is distinct from v_notte_fin then
+      v_fail := v_fail || ' [estremi non della notte]';
+    end if;
+    if jsonb_array_length(coalesce(v_st,'[]'::jsonb)) <> 7 then
+      v_fail := v_fail || ' [segmenti persi: ' || jsonb_array_length(coalesce(v_st,'[]'::jsonb)) || ']';
+    end if;
+
+    -- Secondo upsert identico: la riga resta esattamente la stessa.
+    perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u12, v_d12, v_payload, v_notte_ini, v_notte_fin, 360, v_start));
+    select sleep_stages into v_st2 from public.fitness_metrics where id = v_id12;
+    if v_st2 is distinct from v_st then
+      v_fail := v_fail || ' [il secondo sync cambia ancora la riga]';
+    end if;
+
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   R12 un solo INSERT ri-tagga la notte a 0        OK';
+    else
+      v_ko := v_ko + 1; raise notice '   R12 il primo INSERT persiste l''etichetta sbagliata KO  %', v_fail;
+    end if;
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
+  end;
+
+  -- ── R13. Il wrapper da 480 minuti batte il pisolino dettagliato ─────────
+  -- Sul percorso RPC vero, e in DUE sync — che e' l'unico modo per esercitare
+  -- davvero la scelta fra sessioni disgiunte. Con un upsert solo il payload
+  -- porta gia' le etichette giuste e il test non discriminerebbe niente: e'
+  -- stato verificato il 12/08/2026, la versione a un upsert passava anche
+  -- sulla definizione difettosa.
+  --
+  -- La forma e' quella reale: ogni sync vede UNA sessione e la dichiara
+  -- principale (`sessionIdx` 0 con la propria finestra), perche' dal suo punto
+  -- di vista e' l'unica che c'e'. E' il server a doverle mettere in fila.
+  --   - sync 1: la notte, un unico segmento `asleep` da otto ore;
+  --   - sync 2: un pisolino da venti minuti in tre fasi.
+  --
+  -- RED misurato il 12/08/2026 sulla definizione precedente: vinceva il
+  -- pisolino, perche' a parita' di dichiarazione decideva il numero di
+  -- segmenti — tre contro uno. Contare i segmenti misura la verbosita' della
+  -- fonte, non quanto si e' dormito.
+  --
+  -- Il caso viene provato nei due ordini di arrivo: l'esito non puo' dipendere
+  -- da quale sync e' arrivato prima.
+  declare
+    v_st jsonb; v_ini bigint; v_fin bigint;
+    v_fail text := '';
+    v_notte jsonb := jsonb_build_array(
+      jsonb_build_object('startMs', v_start, 'endMs', v_start + 28800000, 'stage','asleep','sessionIdx',0));
+    v_pisolino jsonb := jsonb_build_array(
+      jsonb_build_object('startMs', v_start + 36000000, 'endMs', v_start + 36400000, 'stage','light','sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 36400000, 'endMs', v_start + 36800000, 'stage','deep', 'sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 36800000, 'endMs', v_start + 37200000, 'stage','rem',  'sessionIdx',0));
+    v_ordini text[] := array['notte-poi-pisolino', 'pisolino-poi-notte'];
+    v_etichetta text;
+    v_u13 uuid; v_d13 uuid; v_id13 bigint;
+  begin
+    foreach v_etichetta in array v_ordini loop
+      v_u13 := pg_temp.mk_user(v_etichetta);
+      v_d13 := pg_temp.mk_device(v_u13);
+      perform set_config('request.jwt.claims',
+        json_build_object('sub', v_u13::text, 'role','authenticated')::text, true);
+
+      if v_etichetta = 'notte-poi-pisolino' then
+        v_id13 := public.upsert_fitness_metrics_v189(pg_temp.payload(
+          v_u13, v_d13, v_notte, v_start, v_start + 28800000, 480, v_start));
+        perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+          v_u13, v_d13, v_pisolino, v_start + 36000000, v_start + 37200000, 20, v_start + 1000));
+      else
+        v_id13 := public.upsert_fitness_metrics_v189(pg_temp.payload(
+          v_u13, v_d13, v_pisolino, v_start + 36000000, v_start + 37200000, 20, v_start));
+        perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+          v_u13, v_d13, v_notte, v_start, v_start + 28800000, 480, v_start + 1000));
+      end if;
+
+      select sleep_stages, sleep_start_ms, sleep_end_ms
+        into v_st, v_ini, v_fin from public.fitness_metrics where id = v_id13;
+
+      if (select count(*) from jsonb_array_elements(v_st) s(value)
+          where (s.value->>'sessionIdx')::int = 0) <> 1 then
+        v_fail := v_fail || ' [' || v_etichetta || ': l''indice 0 non e'' sul wrapper]';
+      end if;
+      if (select (s.value->>'sessionIdx')::int from jsonb_array_elements(v_st) s(value)
+          where (s.value->>'startMs')::bigint = v_start) <> 0 then
+        v_fail := v_fail || ' [' || v_etichetta || ': la notte non e'' la principale]';
+      end if;
+      if v_ini is distinct from v_start or v_fin is distinct from v_start + 28800000 then
+        v_fail := v_fail || ' [' || v_etichetta || ': estremi del pisolino invece che della notte]';
+      end if;
+      -- Nessuna fusione artificiale: le due sessioni disgiunte restano due.
+      if jsonb_array_length(coalesce(v_st,'[]'::jsonb)) <> 4 then
+        v_fail := v_fail || ' [' || v_etichetta || ': segmenti persi o fusi]';
+      end if;
+    end loop;
+
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   R13 wrapper 480min batte il pisolino a 3 fasi   OK';
+    else
+      v_ko := v_ko + 1; raise notice '   R13 principale scelta per verbosita''            KO  %', v_fail;
+    end if;
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
+  end;
+
+  -- ── R14. Notte con un pisolino PRIMA e uno DOPO, in un solo upsert ──────
+  -- Tre sessioni disgiunte. La notte deve restare 0 qualunque sia la sua
+  -- posizione nell'orologio, e i due pisolini prendono 1 e 2 in ordine
+  -- cronologico fra loro. Copre insieme il caso "pisolino precedente" e
+  -- "pisolino successivo", che sono lo stesso difetto visto da due lati.
+  --
+  -- Si verifica anche che l'ORDINE DEGLI ELEMENTI nell'array in ingresso non
+  -- conti: la stessa notte impaginata al contrario deve dare la stessa riga.
+  declare
+    v_u14 uuid; v_d14 uuid; v_id14 bigint; v_id14b bigint;
+    v_u14b uuid; v_d14b uuid;
+    v_st jsonb; v_stb jsonb; v_ini bigint; v_fin bigint; v_min int;
+    v_fail text := '';
+    v_notte_ini bigint := v_start + 10800000;
+    v_notte_fin bigint := v_start + 32400000;
+    -- Le etichette dei due pisolini arrivano in ordine NON cronologico (il
+    -- precedente ha 2, il successivo 1): e' quello che rende il caso una prova
+    -- e non una formalita'. Con le etichette gia' giuste il test passerebbe
+    -- anche sulla definizione difettosa, perche' l'INSERT le scriveva alla
+    -- lettera — verificato il 12/08/2026.
+    v_payload jsonb := jsonb_build_array(
+      -- pisolino precedente (1 ora), etichettato 2
+      jsonb_build_object('startMs', v_start,            'endMs', v_start + 3600000,  'stage','light','sessionIdx',2),
+      -- notte (6 ore)
+      jsonb_build_object('startMs', v_start + 10800000, 'endMs', v_start + 21600000, 'stage','light','sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 21600000, 'endMs', v_start + 28800000, 'stage','deep', 'sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 28800000, 'endMs', v_start + 32400000, 'stage','rem',  'sessionIdx',0),
+      -- pisolino successivo (1 ora), etichettato 1
+      jsonb_build_object('startMs', v_start + 43200000, 'endMs', v_start + 46800000, 'stage','light','sessionIdx',1));
+    v_invertito jsonb;
+  begin
+    select jsonb_agg(s.value order by s.ord desc) into v_invertito
+    from jsonb_array_elements(v_payload) with ordinality as s(value, ord);
+
+    v_u14 := pg_temp.mk_user('notte-fra-due-pisolini');
+    v_d14 := pg_temp.mk_device(v_u14);
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', v_u14::text, 'role','authenticated')::text, true);
+    v_id14 := public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u14, v_d14, v_payload, v_notte_ini, v_notte_fin, 360, v_start));
+    select sleep_stages, sleep_start_ms, sleep_end_ms, sleep_minutes
+      into v_st, v_ini, v_fin, v_min from public.fitness_metrics where id = v_id14;
+
+    -- Le tre cose che devono descrivere la STESSA sessione.
+    if (select count(*) from jsonb_array_elements(v_st) s(value)
+        where (s.value->>'sessionIdx')::int = 0) <> 3 then
+      v_fail := v_fail || ' [la sessione 0 non e'' la notte]';
+    end if;
+    if v_ini is distinct from v_notte_ini or v_fin is distinct from v_notte_fin then
+      v_fail := v_fail || ' [estremi non della notte]';
+    end if;
+    if v_min is distinct from 360 then
+      v_fail := v_fail || ' [minuti ' || coalesce(v_min::text,'null') || ']';
+    end if;
+    -- I pisolini restano due, numerati in ordine di orologio.
+    if (select (s.value->>'sessionIdx')::int
+        from jsonb_array_elements(v_st) s(value)
+        where (s.value->>'startMs')::bigint = v_start) <> 1
+       or (select (s.value->>'sessionIdx')::int
+           from jsonb_array_elements(v_st) s(value)
+           where (s.value->>'startMs')::bigint = v_start + 43200000) <> 2 then
+      v_fail := v_fail || ' [pisolini non numerati in ordine cronologico]';
+    end if;
+    if jsonb_array_length(coalesce(v_st,'[]'::jsonb)) <> 5 then
+      v_fail := v_fail || ' [segmenti persi]';
+    end if;
+
+    -- Stesso contenuto, array impaginato al contrario.
+    v_u14b := pg_temp.mk_user('notte-fra-due-pisolini-invertita');
+    v_d14b := pg_temp.mk_device(v_u14b);
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', v_u14b::text, 'role','authenticated')::text, true);
+    v_id14b := public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u14b, v_d14b, v_invertito, v_notte_ini, v_notte_fin, 360, v_start));
+    select sleep_stages into v_stb from public.fitness_metrics where id = v_id14b;
+    if v_stb is distinct from v_st then
+      v_fail := v_fail || ' [l''ordine degli elementi in ingresso cambia la riga]';
+    end if;
+
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   R14 notte fra due pisolini, ordine irrilevante  OK';
+    else
+      v_ko := v_ko + 1; raise notice '   R14 notte fra due pisolini                      KO  %', v_fail;
+    end if;
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
+  end;
+
+  -- ── R15. Senza finestra dichiarata, la dichiarazione si conserva ────────
+  -- La contro-prova del contratto, e il confine di cosa fa il server: quando
+  -- la fonte NON manda `sleep_start_ms`/`sleep_end_ms` non c'e' evidenza per
+  -- contraddire `sessionIdx`, e il server non la inventa. Qui il pisolino da
+  -- venti minuti e' dichiarato principale e resta principale, anche se la
+  -- sessione accanto contiene otto ore di sonno.
+  --
+  -- Non e' una svista: e' esattamente la differenza fra "trasportare una
+  -- dichiarazione" e "decidere al posto della fonte". Chi arbitra fra sessioni
+  -- di sorgenti diverse e' `sleep_fusion` lato client, non questa RPC.
+  declare
+    v_u15 uuid; v_d15 uuid; v_id15 bigint;
+    v_st jsonb;
+    v_payload jsonb := jsonb_build_array(
+      jsonb_build_object('startMs', v_start, 'endMs', v_start + 1200000, 'stage','light','sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 36000000, 'endMs', v_start + 64800000, 'stage','asleep','sessionIdx',1));
+  begin
+    v_u15 := pg_temp.mk_user('senza-finestra');
+    v_d15 := pg_temp.mk_device(v_u15);
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', v_u15::text, 'role','authenticated')::text, true);
+    -- Payload costruito a mano: senza sleep_start_ms/sleep_end_ms.
+    v_id15 := public.upsert_fitness_metrics_v189(jsonb_build_object(
+      'user_id', v_u15, 'device_id', v_d15, 'local_day_key', '2026-08-10',
+      'source', 'health_connect', 'source_device', 'watch', 'schema_version', 4,
+      'collected_at_ms', v_start, 'window_start_ms', v_start,
+      'window_end_ms', v_start + 86400000, 'sleep_minutes', 20,
+      'sleep_stages', v_payload));
+    select sleep_stages into v_st from public.fitness_metrics where id = v_id15;
+    if (select (s.value->>'sessionIdx')::int from jsonb_array_elements(v_st) s(value)
+        where (s.value->>'startMs')::bigint = v_start) = 0 then
+      v_ok := v_ok + 1; raise notice '   R15 senza finestra la dichiarazione si conserva OK';
+    else
+      v_ko := v_ko + 1; raise notice '   R15 il server ha ri-deciso senza evidenza       KO   %', v_st;
+    end if;
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
+  end;
+
   raise notice '';
   raise notice '   PASSATI: %   FALLITI: %', v_ok, v_ko;
   if v_ko > 0 then

@@ -230,19 +230,229 @@ grant execute on function internal._sleep_session_count_jsonb(jsonb) to authenti
 comment on function internal._sleep_session_count_jsonb(jsonb) is
   'Quante sessioni distinte (sessionIdx) contiene un array di stadi. Shape-safe: un sessionIdx assente vale 0 (forma legacy), uno presente ma illeggibile non conta e non solleva errori. Prima il cast era nudo e un segmento malformato faceva fallire l''intero upsert, non solo il sonno.';
 
+-- ── 2c. La durata dormita canonica ─────────────────────────────────────────
+-- Quanto SONNO contiene davvero una sessione: unione degli stadi di sonno meno
+-- unione delle veglie. Mai una somma.
+--
+-- Serve perche' le due decisioni del merge erano una sola, e non sono la
+-- stessa domanda:
+--
+--   - fra due OSSERVAZIONI SOVRAPPOSTE della stessa sessione (la copia vecchia
+--     e quella nuova) vince la piu' ricca, cioe' quella con piu' segmenti. E'
+--     il ranking della 189-RC2 e resta esattamente com'era: li' il numero di
+--     segmenti misura quanto dettaglio porta quella osservazione, ed e' la
+--     domanda giusta;
+--   - fra due SESSIONI DISGIUNTE (la notte e il pisolino) la domanda e'
+--     un'altra: quale delle due e' la notte. Li' il numero di segmenti misura
+--     la VERBOSITA' della fonte, non la durata del sonno, e sceglierla per
+--     conteggio dava esattamente il risultato assurdo che questo helper chiude:
+--     un pisolino da venti minuti spezzato in tre stadi batteva un wrapper
+--     `asleep` da otto ore, che di segmenti ne ha uno solo.
+--
+-- Il vocabolario e' lo stesso di `classifySleepStage` lato client
+-- (sleep_stage_durations.dart), e le tre categorie hanno conseguenze diverse:
+--   - sonno (`rem`, `deep`, `light`, `sleeping`, `asleep`): entra nell'unione;
+--   - veglia (`awake`, `out_of_bed`): viene sottratta;
+--   - involucro (`in_bed`) e fuori vocabolario: NON contano. "A letto" non e'
+--     una fase di sonno, e un'etichetta che non sappiamo leggere non puo'
+--     aumentare una durata sanitaria.
+--
+-- Qui il vocabolario non scarta niente: e' una metrica di ordinamento, non un
+-- filtro sui dati. I segmenti restano tutti nel payload qualunque etichetta
+-- portino — e' proprio la ragione per cui il server non puo' permettersi un
+-- vocabolario in scrittura ma puo' averne uno per decidere un ordine.
+--
+-- L'algoritmo e' una spazzata sugli estremi: +1/-1 all'apertura e alla
+-- chiusura di ogni intervallo, due contatori separati, e conta solo il tempo
+-- in cui almeno un sonno e' aperto e nessuna veglia lo e'. Lineare nel numero
+-- di segmenti (a meno dell'ordinamento), e per costruzione non puo' contare
+-- due volte lo stesso millisecondo: e' il tempo a scorrere, non gli intervalli
+-- a sommarsi.
+create or replace function internal._sleep_asleep_ms_jsonb(stages jsonb)
+returns bigint
+language sql
+immutable
+set search_path = pg_catalog, public
+as $$
+  with seg as (
+    select
+      lower(btrim(coalesce(s.value->>'stage', ''))) as chiave,
+      (s.value->>'startMs')::bigint as inizio,
+      (s.value->>'endMs')::bigint as fine
+    from jsonb_array_elements(
+      case when jsonb_typeof(stages) = 'array' then stages else '[]'::jsonb end
+    ) as s(value)
+    -- Le stesse guardie del canonicalizzatore. I chiamanti passano sempre
+    -- array gia' canonicalizzati, ma un cast nudo qui avrebbe la stessa
+    -- conseguenza documentata al punto 6 dell'intestazione: far fallire
+    -- l'upsert di tutta la giornata per un segmento malformato.
+    where jsonb_typeof(s.value) = 'object'
+      and (s.value->>'startMs') ~ '^-?[0-9]{1,15}$'
+      and (s.value->>'endMs') ~ '^-?[0-9]{1,15}$'
+      and (s.value->>'endMs')::bigint > (s.value->>'startMs')::bigint
+  ),
+  eventi as (
+    select inizio as t,  1 as d_sonno, 0 as d_veglia from seg
+      where chiave in ('rem', 'deep', 'light', 'sleeping', 'asleep')
+    union all
+    select fine   as t, -1 as d_sonno, 0 as d_veglia from seg
+      where chiave in ('rem', 'deep', 'light', 'sleeping', 'asleep')
+    union all
+    select inizio as t, 0 as d_sonno,  1 as d_veglia from seg
+      where chiave in ('awake', 'out_of_bed')
+    union all
+    select fine   as t, 0 as d_sonno, -1 as d_veglia from seg
+      where chiave in ('awake', 'out_of_bed')
+  ),
+  -- Un solo punto per istante: due aperture e una chiusura nello stesso
+  -- millisecondo devono valere come un unico evento, altrimenti la finestra
+  -- fra due righe con la stessa `t` sarebbe larga zero ma verrebbe valutata
+  -- con un contatore ancora incompleto.
+  per_istante as (
+    select t, sum(d_sonno) as d_sonno, sum(d_veglia) as d_veglia
+    from eventi group by t
+  ),
+  corrente as (
+    select
+      t,
+      sum(d_sonno)  over (order by t) as sonno_aperti,
+      sum(d_veglia) over (order by t) as veglie_aperte,
+      lead(t)       over (order by t) as t_successivo
+    from per_istante
+  )
+  select coalesce(
+    sum(t_successivo - t) filter (where sonno_aperti > 0 and veglie_aperte = 0),
+    0)::bigint
+  from corrente;
+$$;
+
+revoke all on function internal._sleep_asleep_ms_jsonb(jsonb) from public;
+revoke execute on function internal._sleep_asleep_ms_jsonb(jsonb) from anon;
+grant execute on function internal._sleep_asleep_ms_jsonb(jsonb) to authenticated;
+
+comment on function internal._sleep_asleep_ms_jsonb(jsonb) is
+  'Millisecondi di sonno realmente dormito in un array di stadi: unione degli stadi di sonno meno unione delle veglie, mai una somma. Involucri (in_bed) ed etichette fuori vocabolario non contano. Usato per decidere quale sessione DISGIUNTA sia la principale (la piu'' dormita), decisione distinta dal ranking fra osservazioni sovrapposte, che resta quello della 189-RC2 per numero di segmenti.';
+
+-- ── 2d. L'evidenza dichiarata: la finestra identifica la principale ────────
+-- Il server non decide quale sessione sia la notte: la conserva. Ma "conservare
+-- la dichiarazione" richiede di sapere QUAL E' la dichiarazione, e una fonte
+-- ne manda due che possono contraddirsi:
+--
+--   - `sessionIdx` sui segmenti;
+--   - `sleep_start_ms` / `sleep_end_ms`, che per contratto descrivono la sola
+--     sessione principale (e sono gli stessi estremi su cui il read-side
+--     calcola e mostra la notte, insieme a `sleep_minutes`).
+--
+-- Quando le due si contraddicono vince la finestra, e non e' una preferenza
+-- arbitraria: la finestra e' l'evidenza che il resto della riga usa davvero.
+-- Il caso misurato e' un payload con il pisolino etichettato 0, la notte
+-- etichettata 1, e `sleep_start_ms`/`sleep_end_ms` che descrivono la notte:
+-- tre indicatori su quattro dicono "la notte e' la principale", solo l'indice
+-- dice il contrario. E' la forma di 3.749 righe su 5.709 in produzione.
+--
+-- Quello che questa funzione NON fa, di proposito: non guarda quanti segmenti
+-- abbia una sessione, non guarda quanto si sia dormito, non sceglie fra
+-- sessioni. Sceglie solo QUALE sessione la fonte stessa stava descrivendo con
+-- la finestra che ha dichiarato — la sovrapposizione temporale maggiore — e
+-- solo se la risposta e' univoca. In ogni altro caso restituisce l'array
+-- com'e': senza evidenza chiara non si tocca la dichiarazione.
+create or replace function internal._retag_sleep_by_window_jsonb(
+  stages jsonb, evid_start bigint, evid_end bigint)
+returns jsonb
+language sql
+immutable
+set search_path = pg_catalog, public
+as $$
+  with base as (
+    select case when jsonb_typeof(stages) = 'array'
+                 and evid_start is not null
+                 and evid_end is not null
+                 and evid_end > evid_start
+                then stages end as v
+  ),
+  sess as (
+    select
+      (s.value->>'sessionIdx')::int as idx,
+      min((s.value->>'startMs')::bigint) as inizio,
+      max((s.value->>'endMs')::bigint) as fine
+    from base, lateral jsonb_array_elements(base.v) as s(value)
+    group by 1
+  ),
+  sovrapposizione as (
+    select idx, inizio,
+      greatest(0::bigint, least(fine, evid_end) - greatest(inizio, evid_start)) as ms
+    from sess
+  ),
+  -- Univoca o niente: se due sessioni condividono la sovrapposizione massima
+  -- la finestra non identifica nessuna delle due, e inventare uno spareggio
+  -- qui vorrebbe dire decidere al posto della fonte.
+  scelta as (
+    select idx from sovrapposizione
+    where ms > 0
+      and ms = (select max(ms) from sovrapposizione)
+      and (select count(*) from sovrapposizione x
+           where x.ms = (select max(ms) from sovrapposizione)) = 1
+  ),
+  mappa as (
+    select idx,
+      row_number() over (
+        order by (idx = (select idx from scelta)) desc, inizio) - 1 as nuovo
+    from sovrapposizione
+  )
+  select case
+    when not exists (select 1 from scelta) then stages
+    else (
+      select coalesce(jsonb_agg(
+               s.value || jsonb_build_object('sessionIdx', m.nuovo)
+               order by s.ord), '[]'::jsonb)
+      from jsonb_array_elements(stages) with ordinality as s(value, ord)
+      join mappa m on m.idx = (s.value->>'sessionIdx')::int
+    )
+  end;
+$$;
+
+revoke all on function internal._retag_sleep_by_window_jsonb(jsonb, bigint, bigint) from public;
+revoke execute on function internal._retag_sleep_by_window_jsonb(jsonb, bigint, bigint) from anon;
+grant execute on function internal._retag_sleep_by_window_jsonb(jsonb, bigint, bigint) to authenticated;
+
+comment on function internal._retag_sleep_by_window_jsonb(jsonb, bigint, bigint) is
+  'Allinea sessionIdx alla finestra dichiarata dalla fonte (sleep_start_ms/sleep_end_ms, che per contratto descrivono la sola sessione principale): la sessione con la maggiore sovrapposizione con quella finestra diventa 0, le altre 1..n in ordine cronologico. Non guarda ne'' il numero di segmenti ne'' la durata dormita: risolve solo la contraddizione fra le due dichiarazioni della stessa fonte. Se la finestra manca o non identifica una sessione sola, l''array torna invariato.';
+
 -- ── 3. Il merge: raggruppa per lato, sceglie come la 189-RC2 ───────────────
 -- Una sola differenza rispetto alla definizione live, ed e' la correzione del
 -- difetto: `with ordinality` fa si' che `side` distingua vecchio da nuovo
 -- anche quando i due array sono lo stesso identico valore.
 --
--- Il criterio di scelta fra candidati sovrapposti resta quello della 189-RC2:
+-- ── Due decisioni, non una ────────────────────────────────────────────────
+-- Fino alla 190 questa funzione ne prendeva due con lo stesso ordinamento, e
+-- solo una delle due era la domanda a cui quell'ordinamento risponde:
 --
---     order by jsonb_array_length(stages) desc, (end_ms - start_ms) desc
+--   1. QUALE OSSERVAZIONE VINCE fra due candidati che si SOVRAPPONGONO (la
+--      copia memorizzata e quella appena arrivata della stessa notte). Resta
+--      la semantica 189-RC2: `order by segmenti desc, (end_ms - start_ms)
+--      desc`, cioe' piu' segmenti e poi piu' lunga, e il vincitore sopravvive
+--      INTERO — nessuna fusione stadio-per-stadio, che produrrebbe un
+--      ipnogramma ibrido mai misurato da nessuno. Qui contare i segmenti e'
+--      la domanda giusta: misura quanto dettaglio porta quell'osservazione.
+--      L'unica aggiunta e' il pareggio, `side, start_ms` in coda, che a parita'
+--      preferisce il lato 1, cioe' il valore gia' memorizzato.
 --
--- cioe' piu' segmenti, poi piu' lunga. Qui `segmenti` e' lo stesso numero
--- (count(*) per lato e sessione dopo la canonicalizzazione). L'unica aggiunta
--- e' il pareggio: `side, start_ms` in coda, che a parita' preferisce il lato 1,
--- cioe' il valore gia' memorizzato.
+--   2. QUALE SESSIONE E' LA PRINCIPALE fra quelle DISGIUNTE sopravvissute (la
+--      notte contro il pisolino). Qui il conteggio dei segmenti misura la
+--      VERBOSITA' della fonte, non la durata del sonno, e usarlo era il
+--      difetto: `v_main := v_selected[1]` prendeva il primo del ranking di
+--      sopra, quindi un pisolino da venti minuti spezzato in tre stadi batteva
+--      un wrapper `asleep` da otto ore, che di segmenti ne ha uno. Ora vince
+--      la maggiore DURATA DORMITA CANONICA (internal._sleep_asleep_ms_jsonb),
+--      con spareggio deterministico sulla finestra valida e poi sull'inizio.
+--      E' lo stesso criterio, con lo stesso ordine di spareggi, gia' usato da
+--      `SonnoSamsung.kt` (`asleepMs`) e da `_buildSleep` lato client: gli
+--      strati adesso propongono e decidono con la stessa regola invece di
+--      contraddirsi.
+--
+-- Nessuna fusione artificiale: le due decisioni restano separate, e una
+-- sessione disgiunta non viene mai unita a un'altra per far quadrare un
+-- totale.
 --
 -- Va detto con precisione, perche' la versione entusiasta di questa frase non
 -- regge alla prova: togliendo lo spareggio la suite resta VERDE. L'ordine che
@@ -278,8 +488,15 @@ declare
   v_idx int := 1;
   v_tag int;
 begin
+  -- L'ordine di `v_grouped` e' e resta quello della DECISIONE 1 (chi vince fra
+  -- osservazioni sovrapposte): e' l'ordine in cui la spazzata piu' sotto
+  -- assegna le sopravvivenze. `asleep_ms` viaggia insieme al candidato ma non
+  -- entra qui: serve alla DECISIONE 2, che si prende dopo.
   select array_agg(
-    jsonb_build_object('stages', stages, 'start_ms', start_ms, 'end_ms', end_ms)
+    jsonb_build_object(
+      'stages', stages, 'start_ms', start_ms, 'end_ms', end_ms,
+      'asleep_ms', internal._sleep_asleep_ms_jsonb(stages),
+      'dichiarata', dichiarata)
     order by segmenti desc, (end_ms - start_ms) desc, side, start_ms
   )
   into v_grouped
@@ -289,7 +506,10 @@ begin
       jsonb_agg(s.value order by (s.value->>'startMs')::bigint) as stages,
       min((s.value->>'startMs')::bigint) as start_ms,
       max((s.value->>'endMs')::bigint) as end_ms,
-      count(*)::int as segmenti
+      count(*)::int as segmenti,
+      -- Se la fonte (o il merge precedente) aveva chiamato principale questa
+      -- sessione. E' la dichiarazione da conservare, non un criterio nostro.
+      (case when (s.value->>'sessionIdx')::int = 0 then 1 else 0 end) as dichiarata
     from unnest(array[
            internal._canonicalize_sleep_stages_jsonb(old_stages),
            internal._canonicalize_sleep_stages_jsonb(new_stages)
@@ -320,9 +540,39 @@ begin
     end if;
   end loop;
 
-  -- Il piu' ricco fra i sopravvissuti, prima del riordino cronologico:
-  -- v_selected conserva l'ordine del ranking, quindi [1] e' il vincitore.
-  v_main := v_selected[1];
+  -- DECISIONE 2, e solo ora: fra i sopravvissuti — che sono disgiunti per
+  -- costruzione, la spazzata di sopra ha gia' tolto le sovrapposizioni — la
+  -- principale e' quella che contiene piu' sonno realmente dormito.
+  --
+  -- Prima era `v_selected[1]`, cioe' il primo del ranking della DECISIONE 1:
+  -- il piu' verboso. Un wrapper `asleep` da otto ore ha un segmento solo e
+  -- perdeva contro qualunque pisolino dettagliato.
+  --
+  -- L'ordine delle chiavi dice chi comanda, ed e' la parte che conta:
+  --
+  --   1. `dichiarata`: una sessione che la fonte (o il merge precedente) aveva
+  --      gia' chiamato principale batte una che non lo era mai stata. Il server
+  --      conserva le dichiarazioni, non le rifa'. La contraddizione fra
+  --      `sessionIdx` e finestra dichiarata e' gia' stata risolta a monte da
+  --      internal._retag_sleep_by_window_jsonb, dove c'e' l'evidenza per farlo;
+  --   2. `asleep_ms`: quando le dichiarazioni pareggiano — e pareggiano sempre
+  --      quando i due lati portano ognuno la propria sessione 0, cioe' il caso
+  --      normale del pisolino che arriva in un sync successivo — decide il
+  --      sonno realmente dormito. Mai il numero di segmenti: quello misura la
+  --      verbosita' della fonte, ed e' cosi' che un pisolino da venti minuti
+  --      spezzato in tre stadi batteva un wrapper `asleep` da otto ore;
+  --   3. la finestra piu' ampia, poi l'inizio piu' vecchio: spareggi
+  --      deterministici sui dati. `start_ms` chiude il pareggio in modo totale
+  --      perche' fra i sopravvissuti e' univoco — due candidati che si
+  --      sovrappongono non sopravvivono entrambi, quindi non possono
+  --      condividere l'inizio.
+  select v into v_main
+  from unnest(v_selected) as v
+  order by (v->>'dichiarata')::int desc,
+           (v->>'asleep_ms')::bigint desc,
+           ((v->>'end_ms')::bigint - (v->>'start_ms')::bigint) desc,
+           (v->>'start_ms')::bigint
+  limit 1;
   v_main_start := (v_main->>'start_ms')::bigint;
 
   select array_agg(v order by (v->>'start_ms')::bigint) into v_selected
@@ -398,6 +648,7 @@ declare
   v_local_day_key text := p_row->>'local_day_key';
   v_id bigint;
   v_new_sleep_stages jsonb;
+  v_new_sleep_scelta jsonb;
   v_new_sleep_sessions int;
   v_new_sleep_minutes int;
 begin
@@ -420,6 +671,68 @@ begin
   v_new_sleep_stages := case when jsonb_typeof(p_row->'sleep_stages') = 'array'
     then internal._canonicalize_sleep_stages_jsonb(p_row->'sleep_stages')
     else null end;
+
+  -- Prima di ogni altra cosa, l'evidenza: la finestra dichiarata dice quale
+  -- sessione la fonte stava chiamando principale. Serve qui e non piu' in la'
+  -- perche' e' l'unico punto in cui `sleep_start_ms`/`sleep_end_ms` del payload
+  -- sono ancora disponibili accanto ai propri stadi — dentro il merge esistono
+  -- solo array di segmenti, e il merge non deve mettersi a indovinare.
+  --
+  -- L'evidenza vale solo per il payload in arrivo. Il lato memorizzato non la
+  -- riceve: la sua etichetta e' gia' il risultato di questa stessa decisione,
+  -- presa quando quel payload era il nuovo.
+  v_new_sleep_stages := internal._retag_sleep_by_window_jsonb(
+    v_new_sleep_stages,
+    (p_row->>'sleep_start_ms')::bigint,
+    (p_row->>'sleep_end_ms')::bigint);
+
+  -- Il ri-tag vale anche sul percorso di INSERT, non solo su quello di merge.
+  --
+  -- Canonicalizzare non basta: la forma canonica normalizza i campi e toglie i
+  -- duplicati, ma conserva le etichette di sessione cosi' come le manda il
+  -- client. Un client che spedisce il pisolino con `sessionIdx` 0 e la notte
+  -- con 1 vedeva quella forma persistita alla lettera, e serviva un SECONDO
+  -- upsert perche' il merge la rimettesse a posto. Non e' un caso di
+  -- laboratorio: e' la forma di 3.749 righe su 5.709 in produzione.
+  --
+  -- Perche' proprio `_merge_sleep_stages_jsonb(null, X)` invece di un ri-tag
+  -- scritto a parte: cosi' i due percorsi non possono divergere. Un ri-tag
+  -- separato sarebbe una seconda definizione di "chi e' la principale", e
+  -- questo intero P0 nasce dall'avere avuto quattro definizioni diverse. Con
+  -- `old` a null il merge ha un solo lato, quindi fa esattamente la selezione
+  -- e il ri-tag di quel lato — e per costruzione insert(X) produce ora la
+  -- stessa riga di insert(X) seguito da upsert(X): l'idempotenza al secondo
+  -- sync non e' piu' quella che ripara il primo.
+  --
+  -- Il costo, misurato e non nascosto: su un upsert che va in CONFLITTO — il
+  -- caso normale, cioe' ogni ri-sync della stessa giornata — questa chiamata
+  -- e' sprecata, perche' il ramo DO UPDATE rifara' comunque il merge sul
+  -- valore memorizzato. Il ramo VALUES viene valutato in ogni caso, quindi non
+  -- c'e' modo di saltarla senza sapere in anticipo se ci sara' conflitto.
+  --
+  -- Misurato il 12/08/2026 su una notte da 94 segmenti, 200 chiamate per
+  -- misura: merge(null, X) costa 2,1 ms, merge(X, X) 3,7 ms. Un upsert in
+  -- conflitto passa quindi da 3,7 a 5,8 ms di merge. E' un rincaro reale del
+  -- 57% su quella componente, e va detto invece di arrotondarlo a zero: si
+  -- paga perche' l'alternativa e' persistere un'etichetta sbagliata a ogni
+  -- prima scrittura e ripararla al sync dopo, e fra i due sync c'e' un utente
+  -- che apre l'app e vede una notte da un'ora.
+  --
+  -- La strada per non pagarlo esiste ed e' stata scartata di proposito:
+  -- scoprire con `xmax = 0` nel RETURNING se la riga e' stata inserita e fare
+  -- il ri-tag solo allora, con una UPDATE in coda. Costa zero sul percorso
+  -- normale, ma appoggia una garanzia di correttezza su un dettaglio
+  -- implementativo non documentato e scrive due volte la stessa riga. Se un
+  -- giorno 2 ms per upsert diventeranno un problema misurato, quella e' la
+  -- strada; oggi non lo sono.
+  v_new_sleep_scelta := case when v_new_sleep_stages is null then null
+    else internal._merge_sleep_stages_jsonb(null::jsonb, v_new_sleep_stages) end;
+  v_new_sleep_stages := coalesce(v_new_sleep_scelta->'stages', v_new_sleep_stages);
+
+  -- Il conteggio gira sul valore che finisce davvero in colonna, non su quello
+  -- prima della selezione: il lato memorizzato con cui verra' confrontato e'
+  -- sempre post-merge, quindi confrontarlo con un conteggio pre-selezione
+  -- vorrebbe dire mettere a confronto due cose contate in modo diverso.
   v_new_sleep_sessions := internal._sleep_session_count_jsonb(v_new_sleep_stages);
   v_new_sleep_minutes := coalesce((p_row->>'sleep_minutes')::int, 0);
 
@@ -442,7 +755,15 @@ begin
     (p_row->>'steps')::int, (p_row->>'heart_rate_bpm')::numeric, (p_row->>'resting_heart_rate_bpm')::int,
     (p_row->>'spo2_percent')::numeric, (p_row->>'calories_kcal')::numeric,
     (p_row->>'active_calories_kcal')::numeric, (p_row->>'sleep_minutes')::int,
-    (p_row->>'sleep_start_ms')::bigint, (p_row->>'sleep_end_ms')::bigint,
+    -- Stessa regola del ramo DO UPDATE: quando la selezione sa dire dove
+    -- comincia e finisce la sessione principale valgono i suoi estremi, non
+    -- quelli dichiarati. Altrimenti la riga appena inserita direbbe due cose
+    -- diverse su se stessa — gli stadi con indice 0 una sessione, gli estremi
+    -- un'altra — ed e' esattamente la contraddizione che questo P0 chiude.
+    coalesce((v_new_sleep_scelta->>'main_start_ms')::bigint,
+             (p_row->>'sleep_start_ms')::bigint),
+    coalesce((v_new_sleep_scelta->>'main_end_ms')::bigint,
+             (p_row->>'sleep_end_ms')::bigint),
     (p_row->>'distance_meters')::numeric, (p_row->>'hrv_rmssd')::int, (p_row->>'hrv_sdnn')::int,
     (p_row->>'stress_avg')::int, (p_row->>'vo2_max')::numeric, (p_row->>'floors_climbed')::int,
     (p_row->>'elevation_gained_meters')::numeric, (p_row->>'skin_temperature_c')::numeric,
