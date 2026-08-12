@@ -364,48 +364,115 @@ begin
     end if;
   end;
 
-  -- ── P13. LIMITE NOTO: il merge RI-NUMERA le sessioni ────────────────────
-  -- Il retagging finale assegna sessionIdx 0..n-1 in ordine CRONOLOGICO. Se
-  -- il client non le aveva numerate cosi', le etichette escono scambiate: il
-  -- contenuto e' intatto, ma l'uguaglianza JSON di merge(X,X) non vale.
+  -- ── P13. sessionIdx = 0 E' LA SESSIONE PRINCIPALE ───────────────────────
+  -- Non "quella che inizia prima". Il ri-tag assegnava l'indice per posizione
+  -- cronologica, e tre strati diversi leggono 0 come "notte principale": il
+  -- confine di serializzazione ci calcola sopra sleep_minutes, la dashboard e
+  -- la fusione lo dichiarano, row_collapse.dart ripete la numerazione.
   --
-  -- Non e' teorico. Distribuzione misurata in produzione l'11/08/2026 sulle
-  -- sequenze cronologiche degli indici: [1,0] su 3.086 righe, [1,0,2] su 560,
-  -- [1,2,0] su 102, contro [0,1] su 1.891 e [0,1,2] su 67. Tremilasettecento-
-  -- quarantanove righe multi-sessione su 5.709 hanno indici non cronologici.
+  -- La fixture e' il caso misurato: una notte da 360 minuti e un pisolino da
+  -- 60 che la PRECEDE cronologicamente. Prima il pisolino usciva con 0 e la
+  -- notte con 1, quindi il read-side leggeva una notte da 60 minuti e un
+  -- pisolino da 360. Distribuzione in produzione l'11/08/2026: 3.749 righe
+  -- multi-sessione su 5.709 hanno indici non cronologici ([1,0] su 3.086).
   --
-  -- Il retagging c'era gia' nella definizione viva e questo hotfix non lo
-  -- tocca. Il test esiste perche' nessuno se ne accorgesse leggendo P1: la
-  -- conseguenza vera e' che dopo un merge `sessionIdx = 0` vuol dire "la
-  -- sessione che inizia prima", non "la notte principale", e il read-side
-  -- calcola i minuti della notte proprio sulla sessione 0.
+  -- Il ranking NON cambia: chi sia la principale lo decide la stessa regola
+  -- della 189-RC2 (piu' segmenti, poi piu' lunga). Cambia solo l'etichetta.
   declare
-    v_fuori_ordine jsonb := '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":1},
-                              {"startMs":9000,"endMs":10000,"stage":"light","sessionIdx":0},
-                              {"startMs":10000,"endMs":11000,"stage":"deep","sessionIdx":0}]';
+    -- Pisolino: 0..60min, un segmento. Notte: 120min..480min, sei segmenti.
+    v_pisolino jsonb := '[{"startMs":0,"endMs":3600000,"stage":"light","sessionIdx":0}]';
+    v_notte jsonb := '[{"startMs":7200000, "endMs":10800000,"stage":"light","sessionIdx":0},
+                       {"startMs":10800000,"endMs":14400000,"stage":"deep", "sessionIdx":0},
+                       {"startMs":14400000,"endMs":18000000,"stage":"rem",  "sessionIdx":0},
+                       {"startMs":18000000,"endMs":21600000,"stage":"light","sessionIdx":0},
+                       {"startMs":21600000,"endMs":25200000,"stage":"deep", "sessionIdx":0},
+                       {"startMs":25200000,"endMs":28800000,"stage":"rem",  "sessionIdx":0}]';
     v_fail text := '';
-    v_uno jsonb;
-    v_due jsonb;
+    v_r jsonb;
+    v_stg jsonb;
+    v_ini bigint;
+    v_fin bigint;
+    v_a jsonb;
+    v_b jsonb;
   begin
-    v_uno := pg_temp.stg(v_fuori_ordine, v_fuori_ordine);
-    -- Il contenuto c'e' tutto: tre segmenti, nessuno inventato, nessuno perso.
-    if jsonb_array_length(v_uno) <> 3 then
-      v_fail := v_fail || ' [segmenti ' || jsonb_array_length(v_uno) || ']';
+    -- (a) pisolino prima, notte dopo: la notte esce con 0.
+    v_r := internal._merge_sleep_stages_jsonb(v_pisolino, v_notte);
+    v_stg := v_r->'stages';
+    if jsonb_array_length(v_stg) <> 7 then
+      v_fail := v_fail || ' [a:segmenti ' || jsonb_array_length(v_stg) || ']';
     end if;
-    -- Ma le etichette sono cambiate: chi era 1 ora e' 0, perche' inizia prima.
-    if (v_uno->0->>'startMs')::bigint <> 1000 or (v_uno->0->>'sessionIdx')::int <> 0 then
-      v_fail := v_fail || ' [il primo non e'' stato ri-numerato a 0]';
+    -- Il pisolino esce per primo (l'ordine di emissione resta cronologico) ma
+    -- con l'etichetta 1.
+    if (v_stg->0->>'startMs')::bigint <> 0 or (v_stg->0->>'sessionIdx')::int <> 1 then
+      v_fail := v_fail || ' [a:il pisolino non e'' 1]';
     end if;
-    if (v_uno->2->>'sessionIdx')::int <> 1 then
-      v_fail := v_fail || ' [l''ultimo non e'' stato ri-numerato a 1]';
+    if (v_stg->1->>'sessionIdx')::int <> 0 then
+      v_fail := v_fail || ' [a:la notte non e'' 0]';
     end if;
-    -- E dal secondo giro non si muove piu': converge, non oscilla.
-    v_due := pg_temp.stg(v_uno, v_uno);
-    if v_due <> v_uno then v_fail := v_fail || ' [non converge al secondo giro]'; end if;
+    -- (f) coerenza: gli estremi principali sono quelli della sessione 0.
+    select min((s.value->>'startMs')::bigint), max((s.value->>'endMs')::bigint)
+      into v_ini, v_fin
+      from jsonb_array_elements(v_stg) s(value)
+      where (s.value->>'sessionIdx')::int = 0;
+    if v_ini is distinct from (v_r->>'main_start_ms')::bigint
+       or v_fin is distinct from (v_r->>'main_end_ms')::bigint then
+      v_fail := v_fail || ' [a:main_* non e'' la sessione 0]';
+    end if;
+    if v_ini <> 7200000 or v_fin <> 28800000 then
+      v_fail := v_fail || ' [a:main_* non e'' la notte]';
+    end if;
+
+    -- (b) ordine degli input invertito: stesso risultato.
+    v_a := pg_temp.stg(v_pisolino, v_notte);
+    v_b := pg_temp.stg(v_notte, v_pisolino);
+    if v_a <> v_b then v_fail := v_fail || ' [b:l''ordine degli input conta]'; end if;
+
+    -- (c) merge(X,X) sulla forma canonica e secondo resync: invariato.
+    if pg_temp.stg(v_a, v_a) <> v_a then v_fail := v_fail || ' [c:merge(X,X)]'; end if;
+    if pg_temp.stg(pg_temp.stg(v_a, v_a), v_a) <> v_a then
+      v_fail := v_fail || ' [c:secondo resync]';
+    end if;
+
+    -- (d) old e new con le STESSE due sessioni, entrambe gia' etichettate
+    -- come le scriverebbe un client corretto (notte 0, pisolino 1):
+    -- invariato.
+    if pg_temp.stg(
+         v_a,
+         '[{"startMs":0,"endMs":3600000,"stage":"light","sessionIdx":1}]'::jsonb || v_notte
+       ) <> v_a then
+      v_fail := v_fail || ' [d:stesse due sessioni]';
+    end if;
+
     if v_fail = '' then
-      v_ok := v_ok + 1; raise notice '   P13 LIMITE: le sessioni vengono ri-numerate    OK (atteso)';
+      v_ok := v_ok + 1; raise notice '   P13 sessionIdx 0 = la sessione principale      OK';
     else
-      v_ko := v_ko + 1; raise notice '   P13 LIMITE: ri-numerazione cambiata            KO  %', v_fail;
+      v_ko := v_ko + 1; raise notice '   P13 sessionIdx 0 NON e'' la principale          KO  %', v_fail;
+    end if;
+  end;
+
+  -- ── P13b. Tre sessioni: 0 alla principale, 1 e 2 in ordine cronologico ──
+  -- Le NON principali restano numerate deterministicamente, e l'ordine e'
+  -- quello dell'orologio: e' l'unica parte del vecchio comportamento che
+  -- aveva senso, e resta.
+  declare
+    v_r jsonb;
+    v_fail text := '';
+  begin
+    v_r := pg_temp.stg(
+      -- Pisolino mattutino (1 segmento), notte piu' ricca (3), pisolino serale (1).
+      '[{"startMs":0,"endMs":1000,"stage":"light","sessionIdx":0}]',
+      '[{"startMs":5000,"endMs":6000,"stage":"light","sessionIdx":0},
+        {"startMs":6000,"endMs":7000,"stage":"deep","sessionIdx":0},
+        {"startMs":7000,"endMs":8000,"stage":"rem","sessionIdx":0},
+        {"startMs":20000,"endMs":21000,"stage":"light","sessionIdx":1}]');
+    -- Emissione cronologica: 0-1000 (mattutino), 5000-8000 (notte), 20000-21000.
+    if (v_r->0->>'sessionIdx')::int <> 1 then v_fail := v_fail || ' [mattutino non e'' 1]'; end if;
+    if (v_r->1->>'sessionIdx')::int <> 0 then v_fail := v_fail || ' [notte non e'' 0]'; end if;
+    if (v_r->-1->>'sessionIdx')::int <> 2 then v_fail := v_fail || ' [serale non e'' 2]'; end if;
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   P13b tre sessioni: 0 alla principale, poi 1 e 2 OK';
+    else
+      v_ko := v_ko + 1; raise notice '   P13b numerazione delle non principali          KO  %', v_fail;
     end if;
   end;
 
@@ -446,5 +513,5 @@ rollback;
 
 \echo ''
 \echo '=================================================='
-\echo 'sleep_merge_p0 / helper: DICIOTTO PROPRIETA'''
+\echo 'sleep_merge_p0 / helper: DICIANNOVE PROPRIETA'''
 \echo '=================================================='

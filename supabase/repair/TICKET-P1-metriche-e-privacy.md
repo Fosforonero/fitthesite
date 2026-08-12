@@ -96,6 +96,40 @@ introdurre una tolleranza silenziosa. È una decisione, non una svista da
 correggere di straforo, e va presa sapendo che il resto dello sprint sta
 andando nella direzione opposta ("eliminare tolleranze").
 
+### La prova che 189 e 190 non producono quelle forme
+
+Condizione posta il 12/08/2026 per lasciarli P1. Verificata sui tipi del
+modello, che sono il vincolo strutturale: nessuna di queste forme è
+esprimibile.
+
+| campo | tipo in `HealthSnapshot` | cosa può uscire da `jsonEncode` |
+|---|---|---|
+| `sleepMinutes` | `int` (non nullable) | solo un intero |
+| `sleepStartMillis` | `int?` | intero o assente |
+| `sleepEndMillis` | `int?` | intero o assente |
+| `sleepApneaDetected` | `bool?` | `true`/`false` o assente |
+
+Un `int` di Dart è a 64 bit, cioè esattamente il dominio di `bigint`: i due
+cast su `sleep_start_ms`/`sleep_end_ms` non possono andare fuori range. Un
+`bool?` non può diventare `"forse"`. Una virgola non può comparire in un
+`int`.
+
+Resta un solo caso aritmeticamente possibile: `sleep_minutes` oltre i
+2.147.483.647 di un `int4`. Serve una finestra di sonno lunga circa 4.000 anni,
+cioè timestamp corrotti a monte. In 190 non può più uscire, perché il guard lo
+limita al massimo di un `int4` prima di serializzare. In 189 poteva, ma in
+quello stesso scenario 189 falliva PRIMA, lato client: `reportedSleepMinutes.clamp(0, windowMinutes)`
+con una finestra negativa solleva `ArgumentError` dentro `toJson()`, quindi il
+giorno era già perso, per un'altra strada.
+
+L'app inoltre non chiama mai la RPC direttamente: passa da `/api/v1/sync`, che
+valida con Zod. I quattro cast restano raggiungibili solo da un chiamante che
+non è la nostra app.
+
+**Il che non li rende innocui.** Un campo del sonno malformato non dovrebbe
+poter abbattere passi, frequenza e calorie dell'intera giornata: la prova qui
+sopra dice che oggi non succede, non che il disegno sia giusto.
+
 ## P1 — Il payload del sonno non ha un tetto di dimensione
 
 Misurato lato client: 100.000 segmenti producono 6,6 MB di `sleepStagesJson`;

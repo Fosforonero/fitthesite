@@ -400,6 +400,90 @@ begin
     perform set_config('request.jwt.claims', json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
   end;
 
+  -- ── R11. sessionIdx 0 e' la NOTTE, anche se il pisolino la precede ─────
+  -- Il caso misurato, sul percorso RPC vero: una notte da 360 minuti e un
+  -- pisolino da 60 che cronologicamente la precede. Con il ri-tag posizionale
+  -- la riga finiva in tabella con il pisolino a 0 e la notte a 1, e il
+  -- read-side (che calcola i minuti della notte sulla sessione 0) leggeva una
+  -- notte da 60 minuti e un pisolino da 360.
+  --
+  -- Si verificano insieme le tre cose che devono restare la stessa sessione:
+  -- gli stadi con indice 0, sleep_start_ms/sleep_end_ms, e sleep_minutes.
+  declare
+    v_u8 uuid; v_d8 uuid; v_id8 bigint;
+    v_st jsonb; v_ini bigint; v_fin bigint; v_min int;
+    v_fail text := '';
+    -- Pisolino 0..60min. Notte 120min..480min, sei segmenti: piu' ricca,
+    -- quindi principale per la stessa regola della 189-RC2.
+    v_pisolino jsonb := jsonb_build_array(jsonb_build_object(
+      'startMs', v_start, 'endMs', v_start + 3600000, 'stage','light','sessionIdx',0));
+    v_notte jsonb := jsonb_build_array(
+      jsonb_build_object('startMs', v_start + 7200000,  'endMs', v_start + 10800000, 'stage','light','sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 10800000, 'endMs', v_start + 14400000, 'stage','deep', 'sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 14400000, 'endMs', v_start + 18000000, 'stage','rem',  'sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 18000000, 'endMs', v_start + 21600000, 'stage','light','sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 21600000, 'endMs', v_start + 25200000, 'stage','deep', 'sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 25200000, 'endMs', v_start + 28800000, 'stage','rem',  'sessionIdx',0));
+  begin
+    v_u8 := pg_temp.mk_user('notte-e-pisolino');
+    v_d8 := pg_temp.mk_device(v_u8);
+    perform set_config('request.jwt.claims', json_build_object('sub', v_u8::text, 'role','authenticated')::text, true);
+
+    -- (a) prima la notte, poi il pisolino.
+    v_id8 := public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u8, v_d8, v_notte, v_start + 7200000, v_start + 28800000, 360, v_start));
+    perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u8, v_d8, v_pisolino, v_start, v_start + 3600000, 60, v_start + 1000));
+    select sleep_stages, sleep_start_ms, sleep_end_ms, sleep_minutes
+      into v_st, v_ini, v_fin, v_min from public.fitness_metrics where id = v_id8;
+    if jsonb_array_length(coalesce(v_st,'[]'::jsonb)) <> 7 then
+      v_fail := v_fail || ' [a:segmenti ' || jsonb_array_length(coalesce(v_st,'[]'::jsonb)) || ']';
+    end if;
+    if (select count(*) from jsonb_array_elements(v_st) s(value)
+        where (s.value->>'sessionIdx')::int = 0) <> 6 then
+      v_fail := v_fail || ' [a:la sessione 0 non e'' la notte]';
+    end if;
+    if v_ini is distinct from v_start + 7200000 or v_fin is distinct from v_start + 28800000 then
+      v_fail := v_fail || ' [a:estremi non della notte]';
+    end if;
+    if v_min is distinct from 360 then v_fail := v_fail || ' [a:minuti ' || coalesce(v_min::text,'null') || ']'; end if;
+    -- Un resync dello stesso payload non deve spostare niente.
+    perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u8, v_d8, v_pisolino, v_start, v_start + 3600000, 60, v_start + 2000));
+    if (select sleep_stages from public.fitness_metrics where id = v_id8) is distinct from v_st then
+      v_fail := v_fail || ' [a:il resync sposta gli stadi]';
+    end if;
+
+    -- (b) ordine invertito: prima il pisolino, poi la notte. Stesso esito.
+    declare
+      v_u9 uuid := pg_temp.mk_user('pisolino-e-notte');
+      v_d9 uuid;
+      v_id9 bigint;
+      v_st2 jsonb; v_ini2 bigint; v_fin2 bigint; v_min2 int;
+    begin
+      v_d9 := pg_temp.mk_device(v_u9);
+      perform set_config('request.jwt.claims', json_build_object('sub', v_u9::text, 'role','authenticated')::text, true);
+      v_id9 := public.upsert_fitness_metrics_v189(pg_temp.payload(
+        v_u9, v_d9, v_pisolino, v_start, v_start + 3600000, 60, v_start));
+      perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+        v_u9, v_d9, v_notte, v_start + 7200000, v_start + 28800000, 360, v_start + 1000));
+      select sleep_stages, sleep_start_ms, sleep_end_ms, sleep_minutes
+        into v_st2, v_ini2, v_fin2, v_min2 from public.fitness_metrics where id = v_id9;
+      if v_st2 is distinct from v_st then v_fail := v_fail || ' [b:esito diverso dall''ordine (a)]'; end if;
+      if v_ini2 is distinct from v_start + 7200000 or v_fin2 is distinct from v_start + 28800000 then
+        v_fail := v_fail || ' [b:estremi non della notte]';
+      end if;
+      if v_min2 is distinct from 360 then v_fail := v_fail || ' [b:minuti ' || coalesce(v_min2::text,'null') || ']'; end if;
+    end;
+
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   R11 RPC: la sessione 0 e'' la notte, non la prima OK';
+    else
+      v_ko := v_ko + 1; raise notice '   R11 RPC: sessione 0 sbagliata                  KO  %', v_fail;
+    end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
+  end;
+
   -- ── R6. Il contratto di sleep_minutes NON cambia ────────────────────────
   -- Resta il totale autorevole dichiarato dalla fonte piu' ricca, mai la
   -- somma grezza degli stadi. Qui la notte dura 120 minuti dichiarati su una
@@ -425,5 +509,5 @@ rollback;
 
 \echo ''
 \echo '=================================================='
-\echo 'sleep_merge_p0 / RPC completa: DIECI CASI'
+\echo 'sleep_merge_p0 / RPC completa: UNDICI CASI'
 \echo '=================================================='

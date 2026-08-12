@@ -37,22 +37,22 @@
 --    tutti e due i percorsi.
 -- 2. Il merge raggruppa per LATO (`with ordinality`), non per valore: vecchio
 --    e nuovo restano candidati distinti anche quando sono identici, ed e'
---    l'unica ragione per cui il CONTENUTO di merge(X,X) e' quello di X.
+--    l'unica ragione per cui merge(X,X) = X.
 --
---    Attenzione a come e' scritta questa frase, perche' la versione breve
---    ("merge(X,X) = X") e' FALSA e lo e' su 3.749 righe di produzione. Il
---    merge, dopo aver scelto i candidati, ri-numera le sessioni superstiti in
---    ordine cronologico (`v_idx`, piu' sotto). Se il client non le aveva
---    numerate in ordine cronologico — e in produzione succede su 3.749 righe
---    multi-sessione su 5.709 — le etichette escono scambiate. I segmenti sono
---    gli stessi, nessuno si perde e nessuno si inventa, ma l'uguaglianza JSON
---    non vale e converge solo dal secondo giro.
---
---    Il retagging c'era gia' nella definizione viva e non viene toccato qui.
---    Ma la sua conseguenza va detta: `sessionIdx = 0` dopo un merge significa
---    "la sessione che inizia prima", non "la notte principale". Il client
---    scrive 0 per la notte e 1..n per i pisolini; dopo il primo ri-sync della
---    stessa giornata quel significato non e' piu' garantito. Pinnato da P13.
+-- 2b. `sessionIdx = 0` e' la sessione PRINCIPALE, non la prima in ordine di
+--    orologio. Il ri-tag assegnava l'indice per posizione cronologica, e
+--    questo rompeva un contratto che tre strati diversi davano per buono: il
+--    confine di serializzazione calcola sleep_minutes sulla sola sessione 0,
+--    la dashboard e la fusione dichiarano "0 = notte principale", e
+--    row_collapse.dart ripete la stessa numerazione. Con un pisolino
+--    pomeridiano cronologicamente precedente alla notte, una notte da 360
+--    minuti veniva letta come pisolino da 360 e il pisolino da 60 come notte.
+--    Misurato su produzione: 3.749 righe multi-sessione su 5.709 hanno indici
+--    non cronologici. Ora la sessione scelta come principale esce sempre con
+--    0, le altre con 1, 2, ... in ordine cronologico fra loro, e main_start_ms
+--    / main_end_ms / stadi-con-indice-zero vengono tutti dalla stessa
+--    sessione. Il RANKING non cambia: chi sia la principale lo decide la
+--    stessa regola della 189-RC2.
 -- 3. Ogni candidato viene canonicalizzato PRIMA che se ne confronti la
 --    ricchezza, cosi' il duplicato non puo' vincere un confronto che non
 --    merita.
@@ -120,13 +120,11 @@
 --     valore assurdo non puo' far esplodere il cast a bigint) ed
 --     endMs > startMs;
 --   - `sessionIdx` ASSENTE (chiave mancante o null JSON) vale 0: e' la forma
---     legacy, scritta prima di 8ca36f56. Per il client 0 e' la notte
---     principale — ma vedi il punto 2 dell'intestazione: dopo un merge
---     l'indice e' posizionale, non semantico, quindi qui 0 vuol dire soltanto
---     "prima sessione". PRESENTE ma negativo, frazionario, non numerico o
---     fuori range rende il segmento INVALIDO e lo scarta. Prima diventava 0 in
---     silenzio, cioe' un dato illeggibile finiva nella sessione su cui si
---     calcolano i minuti mostrati;
+--     legacy, scritta prima di 8ca36f56, e 0 vuol dire notte principale (vedi
+--     il punto 2b dell'intestazione). PRESENTE ma negativo, frazionario, non
+--     numerico o fuori range rende il segmento INVALIDO e lo scarta. Prima
+--     diventava 0 in silenzio, cioe' un dato illeggibile finiva nella sessione
+--     su cui si calcolano i minuti mostrati;
 --   - startMs/endMs/sessionIdx riscritti come interi normalizzati;
 --   - dedup per (sessionIdx, startMs, endMs, stage normalizzato): due
 --     etichette diverse sullo stesso minuto sono un dato contraddittorio e
@@ -271,12 +269,14 @@ declare
   v_grouped jsonb[];
   v_selected jsonb[] := '{}';
   v_main jsonb;
+  v_main_start bigint;
   v_cand jsonb;
   v_kept jsonb;
   v_overlaps boolean;
   v_final_stages jsonb := '[]'::jsonb;
   v_retagged jsonb;
-  v_idx int := 0;
+  v_idx int := 1;
+  v_tag int;
 begin
   select array_agg(
     jsonb_build_object('stages', stages, 'start_ms', start_ms, 'end_ms', end_ms)
@@ -323,17 +323,42 @@ begin
   -- Il piu' ricco fra i sopravvissuti, prima del riordino cronologico:
   -- v_selected conserva l'ordine del ranking, quindi [1] e' il vincitore.
   v_main := v_selected[1];
+  v_main_start := (v_main->>'start_ms')::bigint;
 
   select array_agg(v order by (v->>'start_ms')::bigint) into v_selected
   from unnest(v_selected) as v;
 
-  v_idx := 0;
+  -- Il ri-tag: la sessione PRINCIPALE prende sempre 0, le altre 1, 2, ... in
+  -- ordine cronologico fra loro. L'ordine di emissione dei segmenti resta
+  -- cronologico come prima: cambiano le etichette, non la sequenza.
+  --
+  -- Prima l'indice era puramente posizionale (0 alla sessione che iniziava
+  -- prima), e questo rompeva un contratto che tre strati diversi davano per
+  -- buono: il confine di serializzazione calcola sleep_minutes sulla sola
+  -- sessione 0, la dashboard e la fusione dichiarano "0 = notte principale",
+  -- e row_collapse.dart ripete la stessa numerazione. Con un pisolino
+  -- pomeridiano piu' vecchio della notte, una notte da 360 minuti diventava un
+  -- pisolino da 360 e il pisolino da 60 diventava la notte. Misurato su
+  -- produzione: 3.749 righe multi-sessione su 5.709 hanno indici non
+  -- cronologici, quindi non e' un caso di laboratorio.
+  --
+  -- `main_start_ms`, `main_end_ms` e gli stadi con indice 0 escono ora dalla
+  -- STESSA sessione, per costruzione: sono tutti e tre presi da `v_main`.
+  -- L'identita' e' `start_ms`, e per i sopravvissuti e' univoca: due candidati
+  -- che si sovrappongono non sopravvivono entrambi, quindi non possono
+  -- condividere l'inizio.
+  v_idx := 1;
   foreach v_cand in array v_selected loop
-    select coalesce(jsonb_agg(stage || jsonb_build_object('sessionIdx', v_idx)), '[]'::jsonb)
+    if (v_cand->>'start_ms')::bigint = v_main_start then
+      v_tag := 0;
+    else
+      v_tag := v_idx;
+      v_idx := v_idx + 1;
+    end if;
+    select coalesce(jsonb_agg(stage || jsonb_build_object('sessionIdx', v_tag)), '[]'::jsonb)
     into v_retagged
     from jsonb_array_elements(v_cand->'stages') as stage;
     v_final_stages := v_final_stages || v_retagged;
-    v_idx := v_idx + 1;
   end loop;
 
   return jsonb_build_object(
