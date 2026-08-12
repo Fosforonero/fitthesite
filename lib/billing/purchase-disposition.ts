@@ -77,8 +77,9 @@ export type PurchaseDispositionWire =
  * un codice che nessuno emette più. Una tabella che si aggiorna a mano
  * diverge; una che un test confronta con i sorgenti no.
  *
- * I TRE terminali sono tre, ed è un numero che va difeso: sono gli unici casi
- * in cui lo store ha DIMOSTRATO che il diritto non esiste. Tutto il resto —
+ * IL TERMINALE È UNO, ed è un numero che va difeso: è l'unico caso in cui lo
+ * store ha DIMOSTRATO che il diritto non esiste E in cui sappiamo che la
+ * transazione che stiamo chiudendo è proprio quella. Tutto il resto —
  * guasti, timeout, difetti nostri, conflitti, codici sconosciuti — lascia la
  * transazione aperta, perché una transazione aperta torna da sola al prossimo
  * avvio ed è la rete di sicurezza che non costa niente.
@@ -87,12 +88,34 @@ export const PURCHASE_DISPOSITION_CONTRACT: Readonly<
   Record<string, PurchaseDispositionWire>
 > = Object.freeze({
   // ── Lo store ha dimostrato che il diritto non esiste ────────────────────
-  /** La firma crittografica non regge: quel token non lo ha emesso Apple. */
-  jws_signature_invalid: "store_verified_terminal_rejection",
+  //
+  // UNO SOLO, e il motivo va letto prima di aggiungerne un secondo.
+  //
+  // Chiudere una transazione senza aver concesso il diritto richiede di sapere
+  // due cose: che quel diritto non esiste, e che la transazione che sto
+  // chiudendo è proprio quella. La seconda è la parte che si dimentica.
+  //
+  // Su `jws_revoked` la firma VERIFICA: è Apple a dichiarare la revoca, e il
+  // binding fra l'evidenza e la transazione lo stabilisce la firma stessa.
+  //
+  // Sugli altri due il binding manca, ma per DUE RAGIONI DIVERSE, e vanno
+  // tenute separate: una sola motivazione le copre male, ed è confutabile.
+  //
+  // `jws_signature_invalid`: la firma NON verifica, quindi il payload non può
+  // attestare niente su di sé, transactionId compreso. Quello che sappiamo è
+  // che il blob ricevuto non è utilizzabile — corruzione in transito, errore
+  // di codifica nostro — non che la transazione StoreKit sia nulla.
+  //
+  // `jws_wrong_app`: qui la firma VERIFICA, e il payload è autentico. Ma parla
+  // di un'ALTRA app, quindi non descrive la transazione locale che staremmo
+  // chiudendo: abbiamo mandato il blob sbagliato, e la transazione giusta è
+  // ancora lì, aperta e pagata.
+  //
+  // Sono quindi difetti NOSTRI: non si chiude niente, si sopprime per 24 ore
+  // (così non si ripresenta a ogni avvio) e si riparte da soli quando il
+  // difetto viene corretto.
   /** Apple dichiara la transazione REVOCATA o RIMBORSATA. I soldi sono già tornati. */
   jws_revoked: "store_verified_terminal_rejection",
-  /** Il bundle id dentro il token firmato è di un'altra app. */
-  jws_wrong_app: "store_verified_terminal_rejection",
 
   // ── La transazione è di qualcun altro ───────────────────────────────────
   purchase_already_linked: "account_conflict",
@@ -101,6 +124,26 @@ export const PURCHASE_DISPOSITION_CONTRACT: Readonly<
   // ── Difetti NOSTRI: formato, prodotto, contratto ────────────────────────
   // Ritentare identici darebbe la stessa risposta, quindi non si ritenta; ma
   // non si chiude nemmeno, perché l'acquisto dietro può essere sanissimo.
+  /**
+   * La firma non regge. Dice che il blob non è utilizzabile, NON che la
+   * transazione sia nulla: vedi la nota sopra sul binding.
+   */
+  jws_signature_invalid: "client_contract_error",
+  /**
+   * Il bundle id dentro il token è di un'altra app. Anche questo è un fatto
+   * sul blob: se abbiamo mandato il token sbagliato, la transazione giusta è
+   * ancora lì e va lasciata aperta.
+   */
+  jws_wrong_app: "client_contract_error",
+  /**
+   * Dipende da DOVE gira la build, non dall'acquisto: una transazione Sandbox
+   * presentata a un backend di produzione. È PERMANENTE per quella coppia
+   * build/backend — non si risolve da solo — quindi va nella classe che ha un
+   * freno: `retryable` non sopprime niente e chiederebbe al backend a ogni
+   * singolo avvio, per sempre. Chi lo incontra è chi testa da TestFlight e
+   * App Review, che compra in sandbox contro il backend di produzione.
+   */
+  jws_sandbox_not_allowed: "client_contract_error",
   jws_malformed: "client_contract_error",
   jws_incomplete: "client_contract_error",
   jws_wrong_product: "client_contract_error",
@@ -121,12 +164,6 @@ export const PURCHASE_DISPOSITION_CONTRACT: Readonly<
    * all'11/08/2026 il backend la dichiarava terminale.
    */
   purchase_not_in_receipt: "retryable",
-  /**
-   * Dipende da DOVE gira la build, non dall'acquisto: una transazione Sandbox
-   * presentata a un backend di produzione. Cambiare build lo risolve, e
-   * intanto l'acquisto resta valido nel suo ambiente.
-   */
-  jws_sandbox_not_allowed: "retryable",
   apple_unavailable: "retryable",
   apple_validation_failed: "retryable",
   google_validation_failed: "retryable",

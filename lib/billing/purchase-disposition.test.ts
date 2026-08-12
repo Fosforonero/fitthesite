@@ -114,17 +114,29 @@ describe("il contratto dei codici è esaustivo", () => {
 });
 
 describe("disposizione per codice", () => {
-  it("solo TRE codici sono rifiuti dimostrati dallo store", () => {
-    // Non uno di più. Ogni codice aggiunto qui chiude transazioni.
+  it("UN SOLO codice è un rifiuto dimostrato dallo store", () => {
+    // Non due. Chiudere una transazione senza aver concesso il diritto
+    // richiede di sapere che quel diritto non esiste E che la transazione che
+    // sto chiudendo è proprio quella: su `jws_revoked` il binding lo
+    // stabilisce la firma, che verifica. Su un rifiuto di firma no.
     const terminali = Object.entries(PURCHASE_DISPOSITION_CONTRACT)
       .filter(([, d]) => d === "store_verified_terminal_rejection")
       .map(([c]) => c)
       .sort();
-    expect(terminali).toEqual([
-      "jws_revoked",
-      "jws_signature_invalid",
-      "jws_wrong_app",
-    ]);
+    expect(terminali).toEqual(["jws_revoked"]);
+  });
+
+  it("un blob che non verifica non autorizza a chiudere niente", () => {
+    // Un token la cui firma non regge non può attestare niente su di sé,
+    // transactionId compreso. Quello che sappiamo è che il BLOB ricevuto non
+    // è utilizzabile, non che la transazione StoreKit sia nulla: corruzione
+    // in transito, errore di codifica nostro e scambio di token producono lo
+    // stesso codice, e in tutti e tre i casi l'acquisto sotto può essere
+    // pagato.
+    expect(dispositionForCode("jws_signature_invalid")).toBe(
+      "client_contract_error",
+    );
+    expect(dispositionForCode("jws_wrong_app")).toBe("client_contract_error");
   });
 
   it("purchase_not_in_receipt NON è un rifiuto dimostrato", () => {
@@ -134,25 +146,29 @@ describe("disposizione per codice", () => {
     expect(dispositionForCode("purchase_not_in_receipt")).toBe("retryable");
   });
 
-  it("i cinque jws_* che NON sono terminali non chiudono niente", () => {
+  it("i sette jws_* che NON sono terminali non chiudono niente", () => {
     for (const c of [
       "jws_malformed",
       "jws_incomplete",
       "jws_wrong_product",
       "jws_wrong_type",
+      "jws_signature_invalid",
+      "jws_wrong_app",
+      // Dipende da dove gira la build, non dall'acquisto — ed è PERMANENTE
+      // per quella coppia build/backend, quindi ha bisogno del freno di 24
+      // ore invece di chiedere a ogni avvio per sempre.
+      "jws_sandbox_not_allowed",
     ]) {
       expect(dispositionForCode(c), c).toBe("client_contract_error");
     }
-    // Dipende da dove gira la build, non dall'acquisto.
-    expect(dispositionForCode("jws_sandbox_not_allowed")).toBe("retryable");
   });
 
-  it("un prefisso jws_ non basta a decidere: cinque su otto non sono terminali", () => {
+  it("un prefisso jws_ non basta a decidere: sette su otto non sono terminali", () => {
     const jws = [...codiciDiRifiutoJws()];
     const terminali = jws.filter(
       (c) => dispositionForCode(c) === "store_verified_terminal_rejection",
     );
-    expect(terminali).toHaveLength(3);
+    expect(terminali).toEqual(["jws_revoked"]);
   });
 
   it("conflitto di account: terminale per questo account, non per la transazione", () => {

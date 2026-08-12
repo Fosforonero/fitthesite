@@ -235,7 +235,17 @@ export async function recordStorePurchaseRevocation(
 
   switch (outcome) {
     case "revoked":
+      // `applied` NON basta a dire che la revoca sia registrata: falso può
+      // voler dire "era già revocato" (persistito) oppure "non ho scritto".
+      // Su questo esito il client CHIUDE la transazione, quindi la differenza
+      // è tutta. È la RPC a dichiararlo con `persisted`; se un backend più
+      // vecchio non lo mandasse, non si dà per buono.
+      if (body?.persisted !== true) {
+        return { kind: "not_persisted", reason: "revocation_not_persisted" };
+      }
       return { kind: "recorded", applied: body?.applied === true };
+    case "not_persisted":
+      return { kind: "not_persisted", reason: "stale_or_unwritten" };
     case "unknown_purchase":
     case "owner_deleted":
       return { kind: "not_claimed", reason: outcome };

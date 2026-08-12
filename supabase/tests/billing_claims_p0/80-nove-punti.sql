@@ -220,6 +220,75 @@ begin
     raise notice '   G6c il backend puo'' dichiarare una fonte-segnaposto               KO';
   end if;
 
+  -- ══ R1. Una revoca in ritardo NON si scarta ══════════════════════════════
+  -- Trovato dalla review avversariale. `apple_request_date` e
+  -- `apple_signed_date` sono lo stesso orologio ma datano EVENTI DIVERSI:
+  -- il primo e' quando abbiamo chiesto NOI (adesso), il secondo su una revoca
+  -- e' quando APPLE ha deciso il rimborso, che e' sempre nel passato. Un
+  -- lifetime validato dal ramo legacy e poi rimborsato produceva quindi una
+  -- revoca piu' "vecchia" della validazione, scartata in silenzio: il cliente
+  -- teneva il Pro di un acquisto gia' rimborsato, e la route rispondeva
+  -- comunque il rifiuto TERMINALE, che chiude la transazione.
+  v_u := pg_temp.mk_user('r1');
+  perform public.claim_store_purchase(
+    p_billing_source => 'apple_iap', p_ownership_key => '4000000000000020',
+    p_owner_user_id => v_u, p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime', p_environment => 'production',
+    p_state => 'active', p_active_until => '9999-12-31T23:59:59Z',
+    p_auto_renewing => false, p_store_event_at => now(),
+    p_store_event_source => 'apple_request_date');
+
+  -- Apple ha deciso il rimborso tre giorni fa; lo sappiamo adesso.
+  v_r := public.record_store_purchase_revocation(
+    'apple_iap', '4000000000000020', 'fitmesh_pro_lifetime', 'lifetime',
+    now() - interval '3 days', 'apple_signed_date');
+
+  select state into v_txt from private.billing_purchase_states
+   where billing_source = 'apple_iap' and ownership_key = '4000000000000020';
+
+  if v_txt = 'revoked'
+     and (v_r->>'persisted')::boolean
+     and v_r->>'outcome' = 'revoked'
+     and not exists (select 1 from public.b2c_subscriptions t
+                     where t.user_id = v_u and t.state in ('active','grace')) then
+    v_ok := v_ok + 1;
+    raise notice '   R1  revoca in ritardo registrata, e il Pro tolto            OK';
+  else
+    v_ko := v_ko + 1;
+    raise notice '   R1  revoca in ritardo scartata                              KO   stato=% esito=%', v_txt, v_r->>'outcome';
+  end if;
+
+  -- ══ R1b. E una revoca gia' registrata resta persistita ═══════════════════
+  -- `applied=false` non deve piu' essere ambiguo: qui significa "era gia'
+  -- revocato", e il chiamante deve poterlo distinguere da "non ho scritto".
+  v_r := public.record_store_purchase_revocation(
+    'apple_iap', '4000000000000020', 'fitmesh_pro_lifetime', 'lifetime',
+    now(), 'apple_signed_date');
+  if v_r->>'outcome' = 'revoked'
+     and (v_r->>'persisted')::boolean
+     and not (v_r->>'applied')::boolean then
+    v_ok := v_ok + 1;
+    raise notice '   R1b gia'' revocato: applied falso ma persisted vero          OK';
+  else
+    v_ko := v_ko + 1;
+    raise notice '   R1b replay della revoca                                     KO   %', v_r::text;
+  end if;
+
+  -- ══ R2. Un revocato non riemerge per una scrittura della 189 ═════════════
+  -- La guardia consultava il registro solo per la PROPRIETA' e mai per lo
+  -- stato: una singola UPSERT del backend vecchio riportava ad 'active' una
+  -- riga che il registro dichiarava revocata. E durante la finestra di
+  -- compatibilita' l'app legge proprio quella riga.
+  perform pg_temp.scrittura_189(v_u, 'apple_iap', '4000000000000020');
+  select state into v_txt from public.b2c_subscriptions where user_id = v_u;
+  if v_txt <> 'active' then
+    v_ok := v_ok + 1;
+    raise notice '   R2  la 189 non fa riemergere un acquisto revocato           OK   proiettato "%"', v_txt;
+  else
+    v_ko := v_ko + 1;
+    raise notice '   R2  un acquisto revocato torna Pro con una UPSERT           KO';
+  end if;
+
   -- ══ G5. La guardia, nei quattro modi in cui si aggirava ══════════════════
   -- Da qui in strict. Il passaggio stesso e' una prova: dopo la correzione si
   -- rifiuta se qualcosa e' scoperto, e a questo punto del file non lo e'.

@@ -9,11 +9,12 @@
     "store_verified_terminal_rejection": "Lo store ha DIMOSTRATO che il diritto non esiste. Gli unici casi in cui la transazione si puo' chiudere senza aver concesso niente, e solo su iOS."
   },
   "codes": {
-    "jws_signature_invalid": "store_verified_terminal_rejection",
     "jws_revoked": "store_verified_terminal_rejection",
-    "jws_wrong_app": "store_verified_terminal_rejection",
     "purchase_already_linked": "account_conflict",
     "purchase_belongs_to_other_account": "account_conflict",
+    "jws_signature_invalid": "client_contract_error",
+    "jws_wrong_app": "client_contract_error",
+    "jws_sandbox_not_allowed": "client_contract_error",
     "jws_malformed": "client_contract_error",
     "jws_incomplete": "client_contract_error",
     "jws_wrong_product": "client_contract_error",
@@ -25,7 +26,6 @@
     "invalid_json": "client_contract_error",
     "google_subscription_upgrade_chain_unsupported": "client_contract_error",
     "purchase_not_in_receipt": "retryable",
-    "jws_sandbox_not_allowed": "retryable",
     "apple_unavailable": "retryable",
     "apple_validation_failed": "retryable",
     "google_validation_failed": "retryable",
@@ -153,7 +153,7 @@
       "body": {
         "error": "jws_sandbox_not_allowed",
         "contract_version": 1,
-        "disposition": "retryable"
+        "disposition": "client_contract_error"
       }
     },
     {
@@ -161,7 +161,7 @@
       "body": {
         "error": "jws_signature_invalid",
         "contract_version": 1,
-        "disposition": "store_verified_terminal_rejection"
+        "disposition": "client_contract_error"
       }
     },
     {
@@ -169,7 +169,7 @@
       "body": {
         "error": "jws_wrong_app",
         "contract_version": 1,
-        "disposition": "store_verified_terminal_rejection"
+        "disposition": "client_contract_error"
       }
     },
     {
@@ -237,5 +237,5 @@
       }
     }
   ],
-  "codes_sha256": "85bab682053763d2ea989506dca180a273798d6fce0fd1d4dce6f4ad004cc2cb"
+  "codes_sha256": "d7472992e5d68d2956d5eb843f62e8affc2cadb90297c4fb5223a298b102d4bf"
 }

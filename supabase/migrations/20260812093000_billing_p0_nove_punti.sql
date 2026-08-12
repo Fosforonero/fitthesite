@@ -134,6 +134,23 @@ begin
       using errcode = '42501';
   end if;
 
+  -- UNA REVOCA NON E' MAI UNA REGRESSIONE.
+  --
+  -- E' l'eccezione che la regola degli orologi non puo' esprimere, perche' la
+  -- regola confronta timestamp e questa e' una proprieta' dello STATO. Su una
+  -- revoca l'evidenza di Apple e' datata a quando APPLE ha deciso il rimborso,
+  -- che e' sempre nel passato — spesso prima della nostra ultima validazione,
+  -- che porta l'ora in cui abbiamo chiesto NOI. Ordinarle col tempo faceva
+  -- scartare la revoca in silenzio, e il cliente teneva il Pro di un acquisto
+  -- gia' rimborsato.
+  --
+  -- 'revoked' e' assorbente per QUELLA chiave, e una chiave e' un acquisto: un
+  -- riacquisto genera un originalTransactionId nuovo, quindi una chiave nuova.
+  -- Non c'e' niente da proteggere ordinando le revoche.
+  if new.state = 'revoked' and old.state <> 'revoked' then
+    return new;
+  end if;
+
   -- Prima si confrontava `new.store_event_at < old.store_event_at` e basta,
   -- cioe' due numeri che potevano venire da orologi diversi. Adesso decide la
   -- regola, che sa quali confronti hanno senso.
@@ -310,6 +327,26 @@ begin
     raise exception
       'public.b2c_subscriptions: la transazione presentata risulta di un altro account nel registro. Nessuna proiezione.'
       using errcode = '42501';
+  end if;
+
+  -- Un acquisto che il registro sa REVOCATO non torna Pro perche' il backend
+  -- vecchio lo ripresenta. La guardia consultava il registro solo per la
+  -- proprieta' e mai per lo stato: una singola UPSERT della 189 riportava a
+  -- 'active' una riga che il registro dichiarava revocata, e durante la
+  -- finestra di compatibilita' l'app legge proprio quella riga.
+  --
+  -- Non si solleva: un errore, con la 189 in giro, chiude la transazione. Si
+  -- lascia passare la scrittura proiettando lo stato VERO, che non concede
+  -- accesso.
+  if exists (
+    select 1 from private.billing_purchase_states s
+    where s.billing_source = new.billing_source
+      and s.ownership_key = v_key
+      and s.state = 'revoked'
+  ) then
+    raise warning 'guardia proiezione: acquisto revocato nel registro, proiettato come scaduto invece che attivo.';
+    new.state := 'expired';
+    new.auto_renewing := false;
   end if;
 
   v_kind := case when new.external_product_id = 'fitmesh_pro_sub'
@@ -620,6 +657,19 @@ begin
     pg_catalog.hashtext('billing-purchase-claim:' || p_billing_source || ':' || p_ownership_key)
   );
 
+  -- La riga di proiezione si blocca ADESSO, prima del registro, e non alla
+  -- fine dentro _billing_project_entitlement.
+  --
+  -- Gli advisory lock non bastavano, perche' la guardia di compatibilita' non
+  -- ne prende nessuno: una UPDATE della 189 su public.b2c_subscriptions blocca
+  -- la tupla PRIMA che parta il BEFORE trigger, e il trigger poi legge
+  -- billing_purchase_claims. Ordine b2c -> claims da una parte, claims -> b2c
+  -- dall'altra: un ABBA, riprodotto con due sessioni concorrenti, in cui la
+  -- vittima era il percorso NUOVO e a vincere era la scrittura della 189.
+  -- Prendendola qui, entrambi i percorsi vedono b2c prima di claims.
+  perform 1 from public.b2c_subscriptions t
+   where t.user_id = p_owner_user_id for update;
+
   select c.owner_user_id, c.anonymized_at, c.claimed_at
     into v_existing_owner, v_existing_anonymized_at, v_existing_claimed_at
   from private.billing_purchase_claims c
@@ -740,6 +790,7 @@ declare
   v_owner uuid;
   v_owner_recheck uuid;
   v_applied boolean := false;
+  v_persisted boolean := false;
   v_entitlement jsonb;
   v_sqlstate text;
   v_message text;
@@ -807,16 +858,40 @@ begin
     on conflict (billing_source, ownership_key) do update set
       state              = 'revoked',
       auto_renewing      = false,
-      store_event_at     = excluded.store_event_at,
-      store_event_source = excluded.store_event_source,
+      -- La freschezza avanza solo se l'evidenza e' davvero piu' recente: una
+      -- revoca vecchia registra il FATTO senza far arretrare l'orologio.
+      store_event_at     = greatest(private.billing_purchase_states.store_event_at,
+                                    excluded.store_event_at),
+      store_event_source = case
+        when excluded.store_event_at > private.billing_purchase_states.store_event_at
+        then excluded.store_event_source
+        else private.billing_purchase_states.store_event_source end,
       verified_at        = excluded.verified_at
-    where private._billing_evidenza_supera(
-            private.billing_purchase_states.store_event_source,
-            private.billing_purchase_states.store_event_at,
-            excluded.store_event_source,
-            excluded.store_event_at);
+    -- UNA REVOCA NON E' MAI UNA REGRESSIONE, e non si ordina col tempo.
+    --
+    -- Prima qui c'era la stessa regola di freschezza del claim, e il commento
+    -- diceva che le due sorgenti Apple sono "lo stesso orologio". Sono lo
+    -- stesso orologio ma datano EVENTI DIVERSI: `apple_request_date` e' quando
+    -- abbiamo chiesto NOI (cioe' adesso), `apple_signed_date` su una revoca e'
+    -- quando APPLE ha deciso il rimborso, che e' sempre nel passato. Un
+    -- lifetime validato dal ramo legacy e poi rimborsato produceva quindi una
+    -- revoca piu' "vecchia" della validazione, che veniva scartata in
+    -- silenzio: il cliente teneva il Pro di un acquisto gia' rimborsato.
+    --
+    -- Lo stato 'revoked' e' assorbente per QUELLA chiave, e una chiave e' un
+    -- acquisto: un riacquisto genera un originalTransactionId nuovo, quindi
+    -- una chiave nuova. Non c'e' niente da proteggere ordinando le revoche.
+    where private.billing_purchase_states.state <> 'revoked';
 
     v_applied := found;
+
+    -- `applied = false` non basta a dire che la revoca sia registrata: puo'
+    -- voler dire "era gia' revocato" (persistito) oppure "non ho scritto"
+    -- (non persistito). Chi legge deve poterli distinguere, perche' su questo
+    -- codice il client CHIUDE la transazione.
+    select s.state = 'revoked' into v_persisted
+    from private.billing_purchase_states s
+    where s.billing_source = p_billing_source and s.ownership_key = p_ownership_key;
 
     v_entitlement := private._billing_project_entitlement(v_owner);
 
@@ -831,9 +906,12 @@ begin
       );
   end;
 
+  -- L'esito distingue "la revoca e' nel registro" da "non sono riuscito a
+  -- scriverla". Solo il primo autorizza una risposta terminale al client.
   return pg_catalog.jsonb_build_object(
-    'outcome', 'revoked',
+    'outcome', case when v_persisted then 'revoked' else 'not_persisted' end,
     'applied', v_applied,
+    'persisted', coalesce(v_persisted, false),
     'entitlement', v_entitlement
   );
 end;

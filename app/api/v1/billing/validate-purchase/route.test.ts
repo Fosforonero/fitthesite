@@ -557,7 +557,7 @@ describe("revoca Apple: la risposta dipende da come e' andata la registrazione",
 
   it("registrata: 400 terminale, e la revoca e' finita nel registro", async () => {
     mocks.rpc.mockResolvedValue({
-      data: { outcome: "revoked", applied: true },
+      data: { outcome: "revoked", applied: true, persisted: true },
       error: null,
     });
 
@@ -579,8 +579,10 @@ describe("revoca Apple: la risposta dipende da come e' andata la registrazione",
   });
 
   it("gia' registrata: resta terminale, applied=false non e' un guasto", async () => {
+    // `applied: false` con `persisted: true` significa "era gia' revocato":
+    // la revoca E' nel registro, quindi il rifiuto terminale e' onesto.
     mocks.rpc.mockResolvedValue({
-      data: { outcome: "revoked", applied: false },
+      data: { outcome: "revoked", applied: false, persisted: true },
       error: null,
     });
 
@@ -615,6 +617,32 @@ describe("revoca Apple: la risposta dipende da come e' andata la registrazione",
     expect(res.status).toBe(503);
     expect(body.error).toBe("apple_unavailable");
     expect(body.disposition).toBe("retryable");
+  });
+
+  it("evidenza scartata (revoca non scritta): NON terminale", async () => {
+    // Il caso che la review avversariale ha trovato: `applied: false` senza
+    // `persisted` significava "non ho scritto niente", e la route rispondeva
+    // comunque jws_revoked, che e' terminale. Il cliente teneva il Pro di un
+    // acquisto rimborsato E chiudeva la transazione: la forma esatta del
+    // difetto del 5 agosto, con i ruoli invertiti.
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "revoked", applied: false, persisted: false },
+      error: null,
+    });
+
+    const res = await richiesta();
+    expect(res.status).toBe(503);
+    expect((await res.json()).disposition).toBe("retryable");
+  });
+
+  it("un backend che non dichiara `persisted` non viene creduto", async () => {
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "revoked", applied: true },
+      error: null,
+    });
+
+    const res = await richiesta();
+    expect(res.status).toBe(503);
   });
 
   it("database irraggiungibile: NON terminale", async () => {
