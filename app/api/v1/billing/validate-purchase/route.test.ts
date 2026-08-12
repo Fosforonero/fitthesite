@@ -515,3 +515,124 @@ describe("Android non è toccato", () => {
     expect((await res.json()).error).toBe("google_play_not_configured");
   });
 });
+
+/**
+ * PUNTO 7 DEL CANCELLO — una revoca che non e' stata registrata non e' un
+ * rifiuto dimostrato.
+ *
+ * Apple dichiara l'acquisto revocato o rimborsato. Verso il client e' un
+ * rifiuto terminale, e va bene: quel diritto non esiste. Ma il fatto va anche
+ * REGISTRATO, perche' l'utente potrebbe avere ancora il Pro proiettato da quel
+ * lifetime, e solo la registrazione fa ricalcolare la proiezione.
+ *
+ * Fino all'11/08/2026 la route provava a registrare, annotava l'eventuale
+ * errore in un log e rispondeva `jws_revoked` comunque. Il client chiudeva la
+ * transazione. Se la registrazione era fallita, quell'utente restava Pro con un
+ * acquisto rimborsato e non sarebbe mai piu' tornato a farcelo sapere: la
+ * transazione chiusa non si ripresenta.
+ */
+describe("revoca Apple: la risposta dipende da come e' andata la registrazione", () => {
+  const revocato = {
+    kind: "revoked" as const,
+    tx: okTransaction.tx,
+    revokedAtMs: 1_754_400_900_000,
+  };
+
+  function richiesta() {
+    return POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "sk2_jws",
+      }),
+    );
+  }
+
+  beforeEach(() => {
+    mocks.requireUser.mockResolvedValue({ userId: USER_ID });
+    mocks.verifyJws.mockResolvedValue(revocato);
+  });
+
+  it("registrata: 400 terminale, e la revoca e' finita nel registro", async () => {
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "revoked", applied: true },
+      error: null,
+    });
+
+    const res = await richiesta();
+    const body = await res.json();
+
+    expect(res.status).toBe(400);
+    expect(body.error).toBe("jws_revoked");
+    expect(body.disposition).toBe("store_verified_terminal_rejection");
+
+    expect(mocks.rpc).toHaveBeenCalledWith(
+      "record_store_purchase_revocation",
+      expect.objectContaining({
+        p_billing_source: "apple_iap",
+        p_ownership_key: "2000000900000001",
+        p_store_event_source: "apple_signed_date",
+      }),
+    );
+  });
+
+  it("gia' registrata: resta terminale, applied=false non e' un guasto", async () => {
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "revoked", applied: false },
+      error: null,
+    });
+
+    const res = await richiesta();
+    expect(res.status).toBe(400);
+    expect((await res.json()).error).toBe("jws_revoked");
+  });
+
+  it("acquisto mai reclamato: niente da togliere, resta terminale", async () => {
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "unknown_purchase", applied: false },
+      error: null,
+    });
+
+    const res = await richiesta();
+    expect(res.status).toBe(400);
+    expect((await res.json()).error).toBe("jws_revoked");
+  });
+
+  it("persistenza fallita: NON terminale, il client deve ritentare", async () => {
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "persistence_failed", reason: "write_failed" },
+      error: null,
+    });
+
+    const res = await richiesta();
+    const body = await res.json();
+
+    // Il diritto non viene concesso in nessun caso: la risposta resta un
+    // errore. Ma non e' terminale, quindi la transazione non si chiude e al
+    // prossimo giro la revoca viene registrata davvero.
+    expect(res.status).toBe(503);
+    expect(body.error).toBe("apple_unavailable");
+    expect(body.disposition).toBe("retryable");
+  });
+
+  it("database irraggiungibile: NON terminale", async () => {
+    mocks.rpc.mockResolvedValue({ data: null, error: { code: "PGRST000" } });
+
+    const res = await richiesta();
+    expect(res.status).toBe(503);
+    expect((await res.json()).disposition).toBe("retryable");
+  });
+
+  it("una risposta di forma sconosciuta non vale come registrazione", async () => {
+    // Non sapere leggere una risposta non e' una prova che la revoca sia stata
+    // scritta. E' lo stesso errore che il 5 agosto 2026 ha scambiato un
+    // silenzio per un successo.
+    mocks.rpc.mockResolvedValue({ data: { qualcosa: "di nuovo" }, error: null });
+
+    const res = await richiesta();
+    expect(res.status).toBe(503);
+    expect((await res.json()).disposition).toBe("retryable");
+  });
+});

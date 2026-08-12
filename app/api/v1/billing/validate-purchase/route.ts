@@ -304,8 +304,19 @@ async function validateAppleJws(args: {
     //
     // La registrazione non assegna proprieta' a nessuno e non dipende da chi
     // sta chiamando: agisce sul proprietario gia' iscritto nel registro.
+    //
+    // E LA RISPOSTA DIPENDE DA COME E' ANDATA. Fino all'11/08/2026 no: si
+    // provava a registrare, si annotava l'eventuale errore in un log, e si
+    // rispondeva comunque `jws_revoked`, che e' terminale. Il client chiudeva
+    // la transazione. Ma se la revoca non e' stata scritta, quell'utente tiene
+    // il Pro di un acquisto rimborsato — la proiezione non e' stata
+    // ricalcolata — e la transazione chiusa non tornera' mai piu' a darci una
+    // seconda occasione di accorgercene.
+    //
+    // Una revoca non persistita e' un silenzio, non un rifiuto dimostrato.
+    let registrazione: Awaited<ReturnType<typeof recordStorePurchaseRevocation>>;
     try {
-      await recordStorePurchaseRevocation(args.admin, {
+      registrazione = await recordStorePurchaseRevocation(args.admin, {
         billingSource: "apple_iap",
         ownershipKey: appleOwnershipKey(outcome.tx.originalTransactionId),
         productId: args.productId,
@@ -314,13 +325,22 @@ async function validateAppleJws(args: {
         storeEventSource: "apple_signed_date",
       });
     } catch (e) {
-      // Non cambia la risposta: la revoca resta un rifiuto terminale anche se
-      // non siamo riusciti ad annotarla. Ma va vista.
-      console.error(
-        `[Billing] revoca non registrata: ${e instanceof Error ? e.name : "errore"}`,
-      );
+      registrazione = {
+        kind: "not_persisted",
+        reason: e instanceof Error ? e.name : "throw",
+      };
     }
-    console.warn("[Billing] apple jws rejected reason=jws_revoked");
+
+    if (registrazione.kind === "not_persisted") {
+      console.error(`[Billing] revoca non registrata: ${registrazione.reason}`);
+      // Non e' un rifiuto: e' un guasto NOSTRO davanti a un fatto dello store.
+      // Il client riprova, e al prossimo giro la revoca viene registrata.
+      return jsonError(503, "apple_unavailable");
+    }
+
+    console.warn(
+      `[Billing] apple jws rejected reason=jws_revoked registrazione=${registrazione.kind}`,
+    );
     return jsonError(400, "jws_revoked");
   }
 

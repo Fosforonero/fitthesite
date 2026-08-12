@@ -185,6 +185,28 @@ export async function claimStorePurchase(
  * l'evidenza e' firmata dallo store, quindi vale a prescindere da chi la
  * consegna.
  */
+export type RevocationResult =
+  /**
+   * La revoca è REGISTRATA. `applied` distingue "l'ho scritta adesso" da "era
+   * già registrata": entrambe sono persistenza avvenuta.
+   */
+  | { kind: "recorded"; applied: boolean }
+  /**
+   * Quell'acquisto non è nel registro, o il suo proprietario è stato
+   * cancellato. Non c'è nessun entitlement da togliere e non c'è niente da
+   * persistere: non è un guasto.
+   */
+  | { kind: "not_claimed"; reason: string }
+  /**
+   * NON è stato scritto niente. È il caso che il punto 7 del cancello ha
+   * trovato scoperto: prima finiva qui dentro insieme al successo, e la route
+   * rispondeva comunque un rifiuto terminale. Una revoca non persistita più un
+   * rifiuto terminale significa che quell'utente tiene il Pro di un acquisto
+   * rimborsato e non tornerà mai più a farcelo sapere, perché la transazione
+   * l'ha chiusa.
+   */
+  | { kind: "not_persisted"; reason: string };
+
 export async function recordStorePurchaseRevocation(
   admin: SupabaseClient,
   input: {
@@ -195,7 +217,7 @@ export async function recordStorePurchaseRevocation(
     storeEventAt: string;
     storeEventSource: StoreEventSource;
   },
-): Promise<{ kind: "ok"; applied: boolean } | { kind: "unavailable" }> {
+): Promise<RevocationResult> {
   const { data, error } = await admin.rpc("record_store_purchase_revocation", {
     p_billing_source: input.billingSource,
     p_ownership_key: input.ownershipKey,
@@ -206,12 +228,25 @@ export async function recordStorePurchaseRevocation(
   });
   if (error) {
     console.error(`[Billing] revocation rpc error code=${error.code ?? "none"}`);
-    return { kind: "unavailable" };
+    return { kind: "not_persisted", reason: error.code ?? "rpc_error" };
   }
   const body = data as Record<string, unknown> | null;
   const outcome = typeof body?.outcome === "string" ? body.outcome : null;
-  // `unknown_purchase` e `owner_deleted` non sono guasti: sono risposte, e
-  // significano che non c'era nessun entitlement da togliere.
-  if (outcome === null) return { kind: "unavailable" };
-  return { kind: "ok", applied: body?.applied === true };
+
+  switch (outcome) {
+    case "revoked":
+      return { kind: "recorded", applied: body?.applied === true };
+    case "unknown_purchase":
+    case "owner_deleted":
+      return { kind: "not_claimed", reason: outcome };
+    case "persistence_failed":
+      return {
+        kind: "not_persisted",
+        reason: typeof body?.reason === "string" ? body.reason : "write_failed",
+      };
+    default:
+      // Una forma che non sappiamo leggere non è una prova che la revoca sia
+      // stata registrata.
+      return { kind: "not_persisted", reason: "unknown_outcome" };
+  }
 }

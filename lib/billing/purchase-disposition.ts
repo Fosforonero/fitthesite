@@ -26,6 +26,26 @@
  * tipi. Questi due si AGGIUNGONO. Una build che non li conosce li ignora, ed è
  * esattamente cosa fa la 189: legge `body['error']` e `body['active_until']`
  * per nome, senza validare la forma dell'oggetto.
+ *
+ * ── PERCHÉ LA TABELLA È UNA SOLA, ED ESAUSTIVA ─────────────────────────────
+ *
+ * Il punto 8 del cancello di ripresa diceva che backend e client concordavano
+ * solo sui codici esercitati. Era vero, e la divergenza più grave era questa:
+ * il backend dichiarava `purchase_not_in_receipt` come rifiuto VERIFICATO
+ * DALLO STORE, cioè il permesso di chiudere la transazione; il client lo
+ * classificava recuperabile. Vinceva il client — davanti a una contraddizione
+ * ricade su `retryable` — ma solo per la sua diffidenza, non perché il
+ * contratto fosse giusto.
+ *
+ * E il contratto era sbagliato dalla parte del backend. Una ricevuta App Store
+ * che non contiene la transazione cercata non è una prova che l'acquisto non
+ * esista: può essere una ricevuta non ancora aggiornata sul dispositivo, ed è
+ * proprio il caso in cui il cliente ha pagato. Non è un rifiuto dimostrato.
+ *
+ * Da qui in avanti i codici sono elencati TUTTI in una sola tabella, e un test
+ * strutturale legge i sorgenti che li emettono e verifica che nessuno manchi e
+ * che nessuno sia di troppo. Il default `retryable` resta, ma solo per i codici
+ * che non esistono ancora.
  */
 
 /** Cambiala solo se il SIGNIFICATO di una disposizione cambia, mai per aggiungerne una. */
@@ -50,43 +70,73 @@ export type PurchaseDispositionWire =
   | "store_verified_terminal_rejection";
 
 /**
- * I soli codici in cui lo store ha dimostrato che il diritto non esiste.
+ * OGNI codice che questo backend può restituire, e la sua disposizione.
  *
- * Elencati a mano, senza prefissi e senza pattern: degli otto codici `jws_*`
- * che questo backend emette, cinque NON sono terminali, e uno
- * `startsWith('jws_')` li butterebbe via tutti insieme.
+ * Esaustiva per costruzione: `purchase-disposition.test.ts` legge i sorgenti
+ * che emettono codici e fallisce se ne trova uno che non è qui, o se qui c'è
+ * un codice che nessuno emette più. Una tabella che si aggiorna a mano
+ * diverge; una che un test confronta con i sorgenti no.
+ *
+ * I TRE terminali sono tre, ed è un numero che va difeso: sono gli unici casi
+ * in cui lo store ha DIMOSTRATO che il diritto non esiste. Tutto il resto —
+ * guasti, timeout, difetti nostri, conflitti, codici sconosciuti — lascia la
+ * transazione aperta, perché una transazione aperta torna da sola al prossimo
+ * avvio ed è la rete di sicurezza che non costa niente.
  */
-const STORE_VERIFIED_TERMINAL = new Set<string>([
-  // La firma crittografica non regge: quel token non lo ha emesso Apple.
-  "jws_signature_invalid",
-  // Apple dichiara la transazione REVOCATA o RIMBORSATA. Non è un certificato
-  // revocato: è l'acquisto a essere stato annullato alla fonte.
-  "jws_revoked",
-  // La transazione non è della nostra app.
-  "jws_wrong_app",
-  // L'acquisto non è nella ricevuta presentata.
-  "purchase_not_in_receipt",
-]);
+export const PURCHASE_DISPOSITION_CONTRACT: Readonly<
+  Record<string, PurchaseDispositionWire>
+> = Object.freeze({
+  // ── Lo store ha dimostrato che il diritto non esiste ────────────────────
+  /** La firma crittografica non regge: quel token non lo ha emesso Apple. */
+  jws_signature_invalid: "store_verified_terminal_rejection",
+  /** Apple dichiara la transazione REVOCATA o RIMBORSATA. I soldi sono già tornati. */
+  jws_revoked: "store_verified_terminal_rejection",
+  /** Il bundle id dentro il token firmato è di un'altra app. */
+  jws_wrong_app: "store_verified_terminal_rejection",
 
-/** Difetti nostri: formato, prodotto, contratto. L'acquisto probabilmente è sano. */
-const CLIENT_CONTRACT_ERROR = new Set<string>([
-  "jws_malformed",
-  "jws_incomplete",
-  "jws_wrong_product",
-  "jws_wrong_type",
-  "jws_sandbox_not_allowed",
-  "token_format_mismatch",
-  "ios_subscription_not_supported",
-  "unknown_product",
-  "invalid_payload",
-  "invalid_json",
-  "google_subscription_upgrade_chain_unsupported",
-]);
+  // ── La transazione è di qualcun altro ───────────────────────────────────
+  purchase_already_linked: "account_conflict",
+  purchase_belongs_to_other_account: "account_conflict",
 
-const ACCOUNT_CONFLICT = new Set<string>([
-  "purchase_already_linked",
-  "purchase_belongs_to_other_account",
-]);
+  // ── Difetti NOSTRI: formato, prodotto, contratto ────────────────────────
+  // Ritentare identici darebbe la stessa risposta, quindi non si ritenta; ma
+  // non si chiude nemmeno, perché l'acquisto dietro può essere sanissimo.
+  jws_malformed: "client_contract_error",
+  jws_incomplete: "client_contract_error",
+  jws_wrong_product: "client_contract_error",
+  jws_wrong_type: "client_contract_error",
+  token_format_mismatch: "client_contract_error",
+  ios_subscription_not_supported: "client_contract_error",
+  unknown_product: "client_contract_error",
+  invalid_payload: "client_contract_error",
+  invalid_json: "client_contract_error",
+  google_subscription_upgrade_chain_unsupported: "client_contract_error",
+
+  // ── Silenzi: non sappiamo ancora niente ─────────────────────────────────
+  /**
+   * NON è un rifiuto dimostrato, ed è la correzione più importante di questa
+   * tabella. Una ricevuta App Store che non contiene la transazione cercata
+   * può essere una ricevuta non ancora aggiornata sul dispositivo: il caso in
+   * cui il cliente ha pagato e la prova arriverà al prossimo giro. Fino
+   * all'11/08/2026 il backend la dichiarava terminale.
+   */
+  purchase_not_in_receipt: "retryable",
+  /**
+   * Dipende da DOVE gira la build, non dall'acquisto: una transazione Sandbox
+   * presentata a un backend di produzione. Cambiare build lo risolve, e
+   * intanto l'acquisto resta valido nel suo ambiente.
+   */
+  jws_sandbox_not_allowed: "retryable",
+  apple_unavailable: "retryable",
+  apple_validation_failed: "retryable",
+  google_validation_failed: "retryable",
+  app_store_not_configured: "retryable",
+  google_play_not_configured: "retryable",
+  /** La persistenza non ha scritto: niente è stato salvato, ritentare è sicuro. */
+  claim_failed: "retryable",
+  internal: "retryable",
+  unexpected_result_kind: "retryable",
+});
 
 /**
  * Da un codice di errore alla disposizione.
@@ -97,8 +147,5 @@ const ACCOUNT_CONFLICT = new Set<string>([
  * cliente.
  */
 export function dispositionForCode(code: string): PurchaseDispositionWire {
-  if (STORE_VERIFIED_TERMINAL.has(code)) return "store_verified_terminal_rejection";
-  if (ACCOUNT_CONFLICT.has(code)) return "account_conflict";
-  if (CLIENT_CONTRACT_ERROR.has(code)) return "client_contract_error";
-  return "retryable";
+  return PURCHASE_DISPOSITION_CONTRACT[code] ?? "retryable";
 }
