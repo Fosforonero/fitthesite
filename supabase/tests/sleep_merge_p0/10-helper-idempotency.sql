@@ -190,6 +190,22 @@ begin
       jsonb_array_length(coalesce(v_r,'[]'::jsonb));
   end if;
 
+  -- ── P5c. A parita' di chiave sopravvive la PRIMA occorrenza ─────────────
+  -- Stessa regola del canonicalizzatore del client e della deduplica della
+  -- riparazione. Prima qui vinceva il minimo testuale e sul client il primo:
+  -- lo stesso identico input poteva produrre due risultati diversi a seconda
+  -- di chi lo toccava. Il campo `marcatore` esiste solo per rendere visibile
+  -- quale delle due copie e' sopravvissuta.
+  v_r := internal._canonicalize_sleep_stages_jsonb(
+    '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0,"marcatore":"primo"},
+      {"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0,"marcatore":"secondo"}]');
+  if jsonb_array_length(v_r) = 1 and (v_r->0->>'marcatore') = 'primo' then
+    v_ok := v_ok + 1; raise notice '   P5c a parita'' di chiave vince la prima copia    OK';
+  else
+    v_ko := v_ko + 1; raise notice '   P5c scelta del duplicato                        KO   % (%)',
+      jsonb_array_length(v_r), coalesce(v_r->0->>'marcatore','?');
+  end if;
+
   -- ── P6. Notte principale e pisolino sopravvivono entrambi ───────────────
   -- Arrivano da due sync diversi, entrambi taggati sessionIdx 0 dalla loro
   -- sorgente. Non si sovrappongono: devono restare due sessioni.
@@ -262,5 +278,5 @@ rollback;
 
 \echo ''
 \echo '=================================================='
-\echo 'sleep_merge_p0 / helper: TREDICI PROPRIETA'''
+\echo 'sleep_merge_p0 / helper: QUATTORDICI PROPRIETA'''
 \echo '=================================================='

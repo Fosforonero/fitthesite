@@ -85,12 +85,13 @@ as $$
   parsed as (
     select
       s.value as seg,
+      s.ord,
       case when (s.value->>'sessionIdx') ~ '^-?[0-9]{1,9}$'
            then (s.value->>'sessionIdx')::int else 0 end as session_idx,
       floor((s.value->>'startMs')::numeric)::bigint as start_ms,
       floor((s.value->>'endMs')::numeric)::bigint   as end_ms,
       lower(btrim(coalesce(s.value->>'stage', ''))) as stage_key
-    from src, lateral jsonb_array_elements(src.v) as s(value)
+    from src, lateral jsonb_array_elements(src.v) with ordinality as s(value, ord)
     where jsonb_typeof(s.value) = 'object'
       and (s.value->>'startMs') ~ '^-?[0-9]{1,15}(\.[0-9]+)?$'
       and (s.value->>'endMs')   ~ '^-?[0-9]{1,15}(\.[0-9]+)?$'
@@ -102,10 +103,12 @@ as $$
       session_idx, start_ms, end_ms, stage_key
     from parsed
     where end_ms > start_ms
-    -- `seg::text` come ultimo criterio: a parita' di chiave la copia scelta
-    -- deve essere sempre la stessa, altrimenti l'idempotenza dipenderebbe
-    -- dall'ordine di scansione.
-    order by session_idx, start_ms, end_ms, stage_key, seg::text
+    -- A parita' di chiave sopravvive la PRIMA occorrenza nell'array. Non e'
+    -- una scelta estetica: e' la stessa regola del canonicalizzatore del
+    -- client e della deduplica della riparazione. Tre posti che scelgono la
+    -- stessa copia, altrimenti lo stesso identico input darebbe payload
+    -- diversi a seconda di chi lo tocca per primo.
+    order by session_idx, start_ms, end_ms, stage_key, ord
   )
   select coalesce(
     jsonb_agg(canon_seg order by start_ms, end_ms, session_idx, stage_key),
