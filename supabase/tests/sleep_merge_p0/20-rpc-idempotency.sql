@@ -734,40 +734,110 @@ begin
       json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
   end;
 
-  -- ── R15. Senza finestra dichiarata, la dichiarazione si conserva ────────
-  -- La contro-prova del contratto, e il confine di cosa fa il server: quando
-  -- la fonte NON manda `sleep_start_ms`/`sleep_end_ms` non c'e' evidenza per
-  -- contraddire `sessionIdx`, e il server non la inventa. Qui il pisolino da
-  -- venti minuti e' dichiarato principale e resta principale, anche se la
-  -- sessione accanto contiene otto ore di sonno.
+  -- ── R15. Una riga LEGACY si ripara da sola al primo ri-sync ─────────────
+  -- Il caso piu' importante di tutta la suite, perche' riguarda dati che
+  -- esistono davvero: 3.749 righe su 5.709 in produzione hanno il pisolino
+  -- etichettato 0 e la notte etichettata 1, con `sleep_start_ms`/
+  -- `sleep_end_ms` che descrivono la notte. Nessuna migration le riscrive:
+  -- l'unica speranza che tornino giuste e' che un normale ri-sync le ripari.
   --
-  -- Non e' una svista: e' esattamente la differenza fra "trasportare una
-  -- dichiarazione" e "decidere al posto della fonte". Chi arbitra fra sessioni
-  -- di sorgenti diverse e' `sleep_fusion` lato client, non questa RPC.
+  -- Qui lo stato legacy viene scritto DIRETTAMENTE in tabella (come se fosse
+  -- stato memorizzato prima del fix), poi arriva un upsert normalissimo.
+  --
+  -- RED misurato il 12/08/2026 su una versione intermedia di questa stessa
+  -- correzione, quella che metteva la chiave `dichiarata` davanti al sonno
+  -- dormito: la riga NON si riparava, e non si sarebbe riparata mai, con
+  -- nessun numero di sync. La spazzata, a parita' di ricchezza, tiene la
+  -- versione gia' memorizzata di entrambe le sessioni — ed e' giusto cosi',
+  -- e' la stabilita' della riga — quindi entrambi i candidati superstiti
+  -- portavano l'etichetta vecchia e il pisolino restava "dichiarato
+  -- principale" in eterno. Il difetto non era piu' "la principale la sceglie
+  -- la verbosita'", era "la principale e' congelata sull'errore": peggio,
+  -- perche' non si autocorregge.
   declare
     v_u15 uuid; v_d15 uuid; v_id15 bigint;
+    v_st jsonb; v_ini bigint; v_fin bigint;
+    v_fail text := '';
+    v_notte_ini bigint := v_start + 10800000;
+    v_notte_fin bigint := v_start + 32400000;
+    -- Pisolino con l'indice 0, notte con l'indice 1: la forma legacy.
+    v_legacy jsonb := jsonb_build_array(
+      jsonb_build_object('startMs', v_start,            'endMs', v_start + 3600000,  'stage','light','sessionIdx',0),
+      jsonb_build_object('startMs', v_start + 10800000, 'endMs', v_start + 21600000, 'stage','light','sessionIdx',1),
+      jsonb_build_object('startMs', v_start + 21600000, 'endMs', v_start + 32400000, 'stage','deep', 'sessionIdx',1));
+  begin
+    v_u15 := pg_temp.mk_user('riga-legacy');
+    v_d15 := pg_temp.mk_device(v_u15);
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', v_u15::text, 'role','authenticated')::text, true);
+
+    insert into public.fitness_metrics (
+      user_id, device_id, schema_version, source, source_device, local_day_key,
+      window_start_ms, window_end_ms, collected_at_ms, received_at,
+      sleep_minutes, sleep_start_ms, sleep_end_ms, sleep_stages)
+    values (v_u15, v_d15, 4, 'health_connect', 'watch', '2026-08-10',
+            v_start, v_notte_fin, v_start, now(),
+            360, v_notte_ini, v_notte_fin, v_legacy)
+    returning id into v_id15;
+
+    -- Un ri-sync qualunque della stessa giornata.
+    perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u15, v_d15, v_legacy, v_notte_ini, v_notte_fin, 360, v_start + 1000));
+
+    select sleep_stages, sleep_start_ms, sleep_end_ms
+      into v_st, v_ini, v_fin from public.fitness_metrics where id = v_id15;
+    if (select count(*) from jsonb_array_elements(v_st) s(value)
+        where (s.value->>'sessionIdx')::int = 0) <> 2 then
+      v_fail := v_fail || ' [la riga legacy non si e'' riparata: la sessione 0 non e'' la notte]';
+    end if;
+    if v_ini is distinct from v_notte_ini or v_fin is distinct from v_notte_fin then
+      v_fail := v_fail || ' [estremi ancora del pisolino]';
+    end if;
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   R15 una riga legacy si ripara al primo ri-sync  OK';
+    else
+      v_ko := v_ko + 1; raise notice '   R15 la riga legacy resta sbagliata per sempre   KO  %', v_fail;
+    end if;
+    perform set_config('request.jwt.claims',
+      json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
+  end;
+
+  -- ── R16. Senza finestra dichiarata decide il sonno, non l'etichetta ─────
+  -- Il confine dichiarato del contratto. Quando la fonte non manda
+  -- `sleep_start_ms`/`sleep_end_ms` non esiste evidenza indipendente su quale
+  -- sessione sia la principale: resta solo `sessionIdx`, che pero' dopo il
+  -- primo giro e' l'eco di una decisione gia' presa, non una prova. Allora
+  -- decide il dato: fra sessioni disgiunte vince quella con piu' sonno reale.
+  --
+  -- Qui il pisolino da venti minuti arriva etichettato 0 e la notte da otto
+  -- ore etichettata 1: vince la notte. E' esattamente cio' che permette a R15
+  -- di riparare le righe vecchie, e va detto che il prezzo e' questo — una
+  -- fonte che insistesse a chiamare "principale" un pisolino, senza mandare
+  -- la finestra, non verrebbe assecondata.
+  declare
+    v_u16 uuid; v_d16 uuid; v_id16 bigint;
     v_st jsonb;
     v_payload jsonb := jsonb_build_array(
       jsonb_build_object('startMs', v_start, 'endMs', v_start + 1200000, 'stage','light','sessionIdx',0),
       jsonb_build_object('startMs', v_start + 36000000, 'endMs', v_start + 64800000, 'stage','asleep','sessionIdx',1));
   begin
-    v_u15 := pg_temp.mk_user('senza-finestra');
-    v_d15 := pg_temp.mk_device(v_u15);
+    v_u16 := pg_temp.mk_user('senza-finestra');
+    v_d16 := pg_temp.mk_device(v_u16);
     perform set_config('request.jwt.claims',
-      json_build_object('sub', v_u15::text, 'role','authenticated')::text, true);
+      json_build_object('sub', v_u16::text, 'role','authenticated')::text, true);
     -- Payload costruito a mano: senza sleep_start_ms/sleep_end_ms.
-    v_id15 := public.upsert_fitness_metrics_v189(jsonb_build_object(
-      'user_id', v_u15, 'device_id', v_d15, 'local_day_key', '2026-08-10',
+    v_id16 := public.upsert_fitness_metrics_v189(jsonb_build_object(
+      'user_id', v_u16, 'device_id', v_d16, 'local_day_key', '2026-08-10',
       'source', 'health_connect', 'source_device', 'watch', 'schema_version', 4,
       'collected_at_ms', v_start, 'window_start_ms', v_start,
       'window_end_ms', v_start + 86400000, 'sleep_minutes', 20,
       'sleep_stages', v_payload));
-    select sleep_stages into v_st from public.fitness_metrics where id = v_id15;
+    select sleep_stages into v_st from public.fitness_metrics where id = v_id16;
     if (select (s.value->>'sessionIdx')::int from jsonb_array_elements(v_st) s(value)
-        where (s.value->>'startMs')::bigint = v_start) = 0 then
-      v_ok := v_ok + 1; raise notice '   R15 senza finestra la dichiarazione si conserva OK';
+        where (s.value->>'startMs')::bigint = v_start + 36000000) = 0 then
+      v_ok := v_ok + 1; raise notice '   R16 senza finestra decide il sonno dormito     OK';
     else
-      v_ko := v_ko + 1; raise notice '   R15 il server ha ri-deciso senza evidenza       KO   %', v_st;
+      v_ko := v_ko + 1; raise notice '   R16 senza finestra ha vinto l''etichetta        KO   %', v_st;
     end if;
     perform set_config('request.jwt.claims',
       json_build_object('sub', v_u::text, 'role','authenticated')::text, true);

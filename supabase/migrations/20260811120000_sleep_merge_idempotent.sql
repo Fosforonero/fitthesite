@@ -495,8 +495,7 @@ begin
   select array_agg(
     jsonb_build_object(
       'stages', stages, 'start_ms', start_ms, 'end_ms', end_ms,
-      'asleep_ms', internal._sleep_asleep_ms_jsonb(stages),
-      'dichiarata', dichiarata)
+      'asleep_ms', internal._sleep_asleep_ms_jsonb(stages))
     order by segmenti desc, (end_ms - start_ms) desc, side, start_ms
   )
   into v_grouped
@@ -506,10 +505,7 @@ begin
       jsonb_agg(s.value order by (s.value->>'startMs')::bigint) as stages,
       min((s.value->>'startMs')::bigint) as start_ms,
       max((s.value->>'endMs')::bigint) as end_ms,
-      count(*)::int as segmenti,
-      -- Se la fonte (o il merge precedente) aveva chiamato principale questa
-      -- sessione. E' la dichiarazione da conservare, non un criterio nostro.
-      (case when (s.value->>'sessionIdx')::int = 0 then 1 else 0 end) as dichiarata
+      count(*)::int as segmenti
     from unnest(array[
            internal._canonicalize_sleep_stages_jsonb(old_stages),
            internal._canonicalize_sleep_stages_jsonb(new_stages)
@@ -548,28 +544,43 @@ begin
   -- il piu' verboso. Un wrapper `asleep` da otto ore ha un segmento solo e
   -- perdeva contro qualunque pisolino dettagliato.
   --
-  -- L'ordine delle chiavi dice chi comanda, ed e' la parte che conta:
+  -- Decide il SONNO REALMENTE DORMITO, poi la finestra piu' ampia, poi
+  -- l'inizio piu' vecchio. Tutte e tre le chiavi guardano i dati, nessuna
+  -- guarda le etichette.
   --
-  --   1. `dichiarata`: una sessione che la fonte (o il merge precedente) aveva
-  --      gia' chiamato principale batte una che non lo era mai stata. Il server
-  --      conserva le dichiarazioni, non le rifa'. La contraddizione fra
-  --      `sessionIdx` e finestra dichiarata e' gia' stata risolta a monte da
-  --      internal._retag_sleep_by_window_jsonb, dove c'e' l'evidenza per farlo;
-  --   2. `asleep_ms`: quando le dichiarazioni pareggiano — e pareggiano sempre
-  --      quando i due lati portano ognuno la propria sessione 0, cioe' il caso
-  --      normale del pisolino che arriva in un sync successivo — decide il
-  --      sonno realmente dormito. Mai il numero di segmenti: quello misura la
-  --      verbosita' della fonte, ed e' cosi' che un pisolino da venti minuti
-  --      spezzato in tre stadi batteva un wrapper `asleep` da otto ore;
-  --   3. la finestra piu' ampia, poi l'inizio piu' vecchio: spareggi
-  --      deterministici sui dati. `start_ms` chiude il pareggio in modo totale
-  --      perche' fra i sopravvissuti e' univoco — due candidati che si
-  --      sovrappongono non sopravvivono entrambi, quindi non possono
-  --      condividere l'inizio.
+  -- PERCHE' NON L'ETICHETTA, anche se il server "conserva le dichiarazioni".
+  -- Una versione intermedia di questa correzione metteva davanti a tutto una
+  -- chiave `dichiarata` (1 se quel candidato portava gia' `sessionIdx` 0), con
+  -- l'idea che il server trasporti le dichiarazioni invece di rifarle. Sembra
+  -- giusto e non lo e', ed e' stato misurato: sposta il difetto invece di
+  -- chiuderlo.
+  --
+  -- Il caso, provato il 12/08/2026 sulla RPC vera. Una riga legacy in
+  -- produzione ha il pisolino etichettato 0 e la notte etichettata 1 (3.749
+  -- righe su 5.709). Arriva un normale ri-sync: il payload viene ri-allineato
+  -- alla finestra dichiarata, quindi la NOTTE arriva con 0. Ma la spazzata di
+  -- sopra, a parita' di ricchezza, tiene la versione gia' MEMORIZZATA di
+  -- entrambe le sessioni — ed e' giusto che lo faccia, e' la stabilita' della
+  -- riga. Cosi' i due candidati superstiti portano tutti e due l'etichetta
+  -- vecchia, il pisolino resta "dichiarato principale", e la riga non si
+  -- ripara MAI: nessun numero di sync la sposta. Con la chiave `dichiarata`
+  -- davanti il difetto smetteva di essere "la principale la sceglie la
+  -- verbosita'" e diventava "la principale e' congelata sull'etichetta
+  -- sbagliata", che e' peggio, perche' non si auto-corregge.
+  --
+  -- La dichiarazione della fonte conta eccome, ma nel punto in cui e' ancora
+  -- evidenza e non eco di se stessa: all'ingresso, dove
+  -- internal._retag_sleep_by_window_jsonb la normalizza DENTRO i dati usando
+  -- la finestra dichiarata. Dopo quel passaggio l'etichetta non e' piu' una
+  -- prova indipendente — e' solo la copia di una decisione gia' presa, magari
+  -- presa male mesi fa.
+  --
+  -- `start_ms` chiude il pareggio in modo totale perche' fra i sopravvissuti
+  -- e' univoco: due candidati che si sovrappongono non sopravvivono entrambi,
+  -- quindi non possono condividere l'inizio.
   select v into v_main
   from unnest(v_selected) as v
-  order by (v->>'dichiarata')::int desc,
-           (v->>'asleep_ms')::bigint desc,
+  order by (v->>'asleep_ms')::bigint desc,
            ((v->>'end_ms')::bigint - (v->>'start_ms')::bigint) desc,
            (v->>'start_ms')::bigint
   limit 1;
