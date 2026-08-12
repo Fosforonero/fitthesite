@@ -1,4 +1,4 @@
--- P0 integrita' dati, 11/08/2026 — il merge del sonno duplica gli stadi.
+-- P0 integrita' dati, 11-12/08/2026 — il merge del sonno duplica gli stadi.
 --
 -- ── La causa, dimostrata ────────────────────────────────────────────────────
 -- internal._merge_sleep_stages_jsonb (definizione live, MD5
@@ -49,30 +49,64 @@
 --    Samsung) perdeva sleep_start_ms/sleep_end_ms al secondo sync della stessa
 --    giornata, perche' il merge di due nulli restituisce null e quel null
 --    finiva dritto in colonna.
+-- 6. internal._sleep_session_count_jsonb non fa piu' esplodere l'upsert. Il
+--    cast `(s.value->>'sessionIdx')::int` era senza guardia e la RPC lo
+--    chiamava sul payload GREZZO, prima di ogni canonicalizzazione: un
+--    `sessionIdx` non numerico, frazionario o fuori range faceva fallire
+--    l'intera transazione, quindi quel giorno perdeva anche passi, frequenza
+--    e calorie. Non era un difetto del sonno, era un difetto del sync.
+-- 7. Il merge viene calcolato UNA volta per upsert (assegnazione multi-colonna
+--    da un solo sub-SELECT) invece di tre, e il payload in ingresso viene
+--    canonicalizzato una volta sola invece di due.
 --
 -- ── Cosa NON cambia, deliberatamente ────────────────────────────────────────
+-- La semantica di scelta fra osservazioni resta quella della 189-RC2: quando
+-- due candidati si sovrappongono ne sopravvive UNO INTERO, quello con piu'
+-- segmenti (a parita', il piu' lungo). Non c'e' fusione stadio-per-stadio fra
+-- due osservazioni sovrapposte, e non deve essercene: produrrebbe un
+-- ipnogramma ibrido mai realmente misurato da nessuno.
+--
 -- sleep_minutes resta il totale autorevole dichiarato dalla fonte, con la
--- stessa regola richezza-vince di prima: non viene ricalcolato dalla somma
--- degli stadi, ne' qui ne' altrove. Anche i due internal._sleep_session_count_jsonb
--- restano sui valori grezzi: contano sessionIdx DISTINTI, quindi il raddoppio
--- non li ha mai toccati, e cambiarli sposterebbe un contratto che non e' rotto.
+-- stessa regola ricchezza-vince di prima: non viene ricalcolato dalla somma
+-- degli stadi, ne' qui ne' altrove.
+--
+-- ── Il limite noto, dichiarato ──────────────────────────────────────────────
+-- Questo hotfix corregge i DUPLICATI ESATTI. Non rende il merge "lossless" in
+-- generale, e chiamarlo cosi' sarebbe falso: due osservazioni sovrapposte ma
+-- non identiche restano un caso irrisolto, e la piu' verbosa vince anche
+-- quando la verbosita' viene da etichette contraddittorie sullo stesso
+-- intervallo. Contare i segmenti misura la verbosita', non l'informazione.
+-- Una ranking per copertura temporale era stata scritta e poi RITIRATA: chiude
+-- quel caso ma ne apre uno speculare (un unico segmento grossolano da otto ore
+-- batte quattordici stadi reali che ne coprono sette e mezza) e rende ogni
+-- notte Apple con envelope permanentemente perdente. Nessun criterio scalare
+-- chiude tutti e due i lati: serve una decisione di prodotto, ed e' fuori
+-- dalla 190.
 --
 -- Nessun dato viene riscritto da questa migration: corregge solo il
 -- comportamento futuro. La riparazione dello storico e' preparata a parte in
--- supabase/repair/, e non viene eseguita da qui.
+-- supabase/repair/, resta in NO-GO e non viene eseguita da qui.
 
 -- ── 1. Il canonicalizzatore, unico ─────────────────────────────────────────
 -- Regole, in quest'ordine:
---   - solo oggetti con startMs/endMs numerici interi (fino a 15 cifre, cosi'
---     un valore assurdo non puo' far esplodere il cast a bigint) ed
+--   - solo oggetti con startMs/endMs numerici (fino a 15 cifre, cosi' un
+--     valore assurdo non puo' far esplodere il cast a bigint) ed
 --     endMs > startMs;
---   - startMs/endMs/sessionIdx riscritti come interi normalizzati, cosi' il
---     valore memorizzato e' castabile per sempre e i confronti a valle non
---     possono piu' sollevare un errore su dati che arrivano dall'esterno;
+--   - `sessionIdx` ASSENTE (chiave mancante o null JSON) vale 0: e' la forma
+--     legacy, scritta prima di 8ca36f56, e significa "notte principale".
+--     PRESENTE ma negativo, frazionario, non numerico o fuori range rende il
+--     segmento INVALIDO e lo scarta. Prima diventava 0 in silenzio, cioe' un
+--     dato illeggibile veniva promosso a notte principale;
+--   - startMs/endMs/sessionIdx riscritti come interi normalizzati;
 --   - dedup per (sessionIdx, startMs, endMs, stage normalizzato): due
 --     etichette diverse sullo stesso minuto sono un dato contraddittorio e
 --     restano entrambe, perche' non sta a noi sceglierne una;
 --   - il resto dell'oggetto e' preservato integralmente, etichetta compresa.
+--
+-- Ogni cast e' dentro il proprio CASE con la guardia: la WHERE non basta,
+-- perche' nulla garantisce che un filtro venga valutato prima della proiezione
+-- dopo l'inlining delle CTE. Un cast guardato non puo' sollevare errori in
+-- nessun piano.
 create or replace function internal._canonicalize_sleep_stages_jsonb(stages jsonb)
 returns jsonb
 language sql
@@ -86,15 +120,18 @@ as $$
     select
       s.value as seg,
       s.ord,
-      case when (s.value->>'sessionIdx') ~ '^-?[0-9]{1,9}$'
-           then (s.value->>'sessionIdx')::int else 0 end as session_idx,
-      floor((s.value->>'startMs')::numeric)::bigint as start_ms,
-      floor((s.value->>'endMs')::numeric)::bigint   as end_ms,
+      case
+        when (s.value->>'sessionIdx') is null then 0
+        when (s.value->>'sessionIdx') ~ '^[0-9]{1,9}$' then (s.value->>'sessionIdx')::int
+        else null
+      end as session_idx,
+      case when (s.value->>'startMs') ~ '^-?[0-9]{1,15}(\.[0-9]+)?$'
+           then floor((s.value->>'startMs')::numeric)::bigint end as start_ms,
+      case when (s.value->>'endMs') ~ '^-?[0-9]{1,15}(\.[0-9]+)?$'
+           then floor((s.value->>'endMs')::numeric)::bigint end as end_ms,
       lower(btrim(coalesce(s.value->>'stage', ''))) as stage_key
     from src, lateral jsonb_array_elements(src.v) with ordinality as s(value, ord)
     where jsonb_typeof(s.value) = 'object'
-      and (s.value->>'startMs') ~ '^-?[0-9]{1,15}(\.[0-9]+)?$'
-      and (s.value->>'endMs')   ~ '^-?[0-9]{1,15}(\.[0-9]+)?$'
   ),
   deduped as (
     select distinct on (session_idx, start_ms, end_ms, stage_key)
@@ -102,7 +139,10 @@ as $$
         'startMs', start_ms, 'endMs', end_ms, 'sessionIdx', session_idx) as canon_seg,
       session_idx, start_ms, end_ms, stage_key
     from parsed
-    where end_ms > start_ms
+    where session_idx is not null
+      and start_ms is not null
+      and end_ms is not null
+      and end_ms > start_ms
     -- A parita' di chiave sopravvive la PRIMA occorrenza nell'array. Non e'
     -- una scelta estetica: e' la stessa regola del canonicalizzatore del
     -- client e della deduplica della riparazione. Tre posti che scelgono la
@@ -120,42 +160,67 @@ revoke all on function internal._canonicalize_sleep_stages_jsonb(jsonb) from pub
 grant execute on function internal._canonicalize_sleep_stages_jsonb(jsonb) to authenticated;
 
 comment on function internal._canonicalize_sleep_stages_jsonb(jsonb) is
-  'Forma canonica di un array di stadi del sonno: scarta i segmenti non validi, normalizza startMs/endMs/sessionIdx a interi, deduplica per (sessionIdx, startMs, endMs, stage normalizzato). Unico canonicalizzatore lato server: usato sia dal percorso di INSERT sia da ogni candidato del merge.';
+  'Forma canonica di un array di stadi del sonno: scarta i segmenti non validi (compreso un sessionIdx presente ma illeggibile, che non diventa piu'' 0 in silenzio), normalizza startMs/endMs/sessionIdx a interi, deduplica per (sessionIdx, startMs, endMs, stage normalizzato). Unico canonicalizzatore lato server: usato sia dal percorso di INSERT sia da ogni candidato del merge.';
 
--- ── 2. Il merge: raggruppa per lato, e ordina per copertura ────────────────
--- Due differenze rispetto alla versione precedente.
+-- ── 2. Il conteggio delle sessioni: shape-safe ─────────────────────────────
+-- Stesso contratto di prima (quanti sessionIdx DISTINTI ci sono), ma un
+-- segmento con sessionIdx illeggibile ora viene ignorato invece di far
+-- fallire la funzione. La RPC la chiama sul payload grezzo prima di
+-- qualunque canonicalizzazione: finche' il cast era nudo, un solo segmento
+-- malformato spedito da un client abortiva l'INTERO upsert di quel giorno —
+-- passi, frequenza e calorie compresi.
 --
--- (a) `with ordinality`: `side` distingue vecchio da nuovo anche quando i due
---     array sono lo stesso identico valore. E' la correzione del raddoppio.
+-- Stesse identiche regole del canonicalizzatore, cosi' i due non possono
+-- divergere su cosa sia una sessione: assente -> 0, `^[0-9]{1,9}$` -> valore,
+-- tutto il resto -> il segmento non conta come sessione.
+create or replace function internal._sleep_session_count_jsonb(stages jsonb)
+returns integer
+language sql
+immutable
+set search_path = pg_catalog, public
+as $$
+  select count(distinct
+    case
+      when (s.value->>'sessionIdx') is null then 0
+      when (s.value->>'sessionIdx') ~ '^[0-9]{1,9}$' then (s.value->>'sessionIdx')::int
+      else null
+    end)::int
+  from jsonb_array_elements(
+    case when jsonb_typeof(stages) = 'array' then stages else '[]'::jsonb end
+  ) as s(value)
+  where jsonb_typeof(s.value) = 'object';
+$$;
+
+revoke all on function internal._sleep_session_count_jsonb(jsonb) from public;
+grant execute on function internal._sleep_session_count_jsonb(jsonb) to authenticated;
+
+comment on function internal._sleep_session_count_jsonb(jsonb) is
+  'Quante sessioni distinte (sessionIdx) contiene un array di stadi. Shape-safe: un sessionIdx assente vale 0 (forma legacy), uno presente ma illeggibile non conta e non solleva errori. Prima il cast era nudo e un segmento malformato faceva fallire l''intero upsert, non solo il sonno.';
+
+-- ── 3. Il merge: raggruppa per lato, sceglie come la 189-RC2 ───────────────
+-- Una sola differenza rispetto alla definizione live, ed e' la correzione del
+-- difetto: `with ordinality` fa si' che `side` distingua vecchio da nuovo
+-- anche quando i due array sono lo stesso identico valore.
 --
--- (b) L'ordine dei candidati non e' piu' `jsonb_array_length desc`. Contare
---     gli elementi misura la verbosita', non l'informazione: un candidato con
---     quattro etichette contraddittorie sullo STESSO intervallo ne ha quattro,
---     e batteva un candidato pulito con tre intervalli consecutivi reali. Si
---     sovrappongono, quindi il pulito veniva scartato intero. La deduplica
---     esatta non chiude quel caso, perche' i quattro segmenti sono diversi
---     fra loro: differiscono nell'etichetta.
+-- Il criterio di scelta fra candidati sovrapposti resta quello della 189-RC2:
 --
---     Il criterio ora e', in ordine:
---       1. i candidati CONTRADDITTORI vanno per ultimi. Contraddittorio vuol
---          dire che la somma delle durate supera la copertura reale, cioe'
---          che dentro la stessa sessione due segmenti si accavallano. Un
---          candidato cosi' non puo' scartarne uno pulito: e' il fail-closed.
---          Se e' l'unico che copre quella finestra viene tenuto lo stesso,
---          perche' buttarlo sarebbe perdere l'unica cosa che abbiamo.
---       2. copertura temporale reale (unione degli intervalli), decrescente.
---       3. numero di segmenti, decrescente: a parita' di copertura, piu'
---          dettaglio e' meglio.
---       4. il lato 1, cioe' quello gia' memorizzato: un pareggio non porta
---          informazione nuova, e preferire il conservato rende l'operazione
---          stabile sotto qualunque ordine di replay.
+--     order by jsonb_array_length(stages) desc, (end_ms - start_ms) desc
 --
--- main_start_ms/main_end_ms restano invece sulla regola di prima (piu'
--- segmenti, poi piu' lunga) applicata ai soli candidati SOPRAVVISSUTI. Quella
--- scelta e' accoppiata a `mainSession` del client, e cambiarla qui vorrebbe
--- dire aprire una divergenza fra i due lati per un problema che non e'
--- questo. Il fail-closed la protegge comunque: un candidato contraddittorio
--- che non e' sopravvissuto non puo' fornire la finestra.
+-- cioe' piu' segmenti, poi piu' lunga. Qui `segmenti` e' lo stesso numero
+-- (count(*) per lato e sessione dopo la canonicalizzazione). L'unica aggiunta
+-- e' il pareggio: `side, start_ms` in coda rende deterministico un ordine che
+-- prima dipendeva dall'array_agg, e a parita' preferisce il lato 1, cioe' il
+-- valore gia' memorizzato. Un pareggio non porta informazione nuova, e
+-- preferire il conservato rende l'operazione stabile sotto qualunque ordine di
+-- replay. Non e' un cambio di semantica: sceglie fra candidati che prima
+-- venivano scelti a caso.
+--
+-- Un wrapper generico (un solo segmento "asleep" sull'intera notte) perde
+-- quindi contro le fasi dettagliate della stessa sessione, che sono di piu'.
+-- Se wrapper e fasi arrivano nello STESSO candidato restano entrambi, perche'
+-- buttarne uno qui sarebbe scegliere al posto della fonte: e' il confine di
+-- serializzazione del client a non contarli due volte (unione di intervalli,
+-- mai somma).
 create or replace function internal._merge_sleep_stages_jsonb(old_stages jsonb, new_stages jsonb)
 returns jsonb
 language plpgsql
@@ -173,59 +238,29 @@ declare
   v_retagged jsonb;
   v_idx int := 0;
 begin
-  with lati as (
-    select arr.side, s.value as seg,
-           (s.value->>'sessionIdx')::int as sess,
-           (s.value->>'startMs')::bigint as s0,
-           (s.value->>'endMs')::bigint   as s1
+  select array_agg(
+    jsonb_build_object('stages', stages, 'start_ms', start_ms, 'end_ms', end_ms)
+    order by segmenti desc, (end_ms - start_ms) desc, side, start_ms
+  )
+  into v_grouped
+  from (
+    select
+      arr.side,
+      jsonb_agg(s.value order by (s.value->>'startMs')::bigint) as stages,
+      min((s.value->>'startMs')::bigint) as start_ms,
+      max((s.value->>'endMs')::bigint) as end_ms,
+      count(*)::int as segmenti
     from unnest(array[
            internal._canonicalize_sleep_stages_jsonb(old_stages),
            internal._canonicalize_sleep_stages_jsonb(new_stages)
          ]) with ordinality as arr(val, side)
     cross join lateral jsonb_array_elements(arr.val) as s(value)
     -- Nessun filtro di validita' qui: il canonicalizzatore ha gia' garantito
-    -- che ogni elemento e' un oggetto con startMs/endMs interi ed
-    -- endMs > startMs. Ripetere il controllo qui vorrebbe dire avere due
-    -- definizioni di "valido" che possono divergere.
-  ),
-  -- Copertura reale per candidato: unione degli intervalli con il massimo
-  -- corrente (gaps-and-islands). NON somma contro estensione totale: con un
-  -- buco nella notte la somma puo' restare sotto l'estensione pur avendo
-  -- segmenti accavallati, e la contraddizione passerebbe inosservata.
-  isole as (
-    select side, sess, s0, s1,
-           count(*) filter (where prev_max is null or s0 > prev_max)
-             over (partition by side, sess order by s0, s1 rows unbounded preceding) as isola
-    from (
-      select side, sess, s0, s1,
-             max(s1) over (partition by side, sess order by s0, s1
-                           rows between unbounded preceding and 1 preceding) as prev_max
-      from lati
-    ) o
-  ),
-  coperture as (
-    select side, sess, sum(b - a) as copertura_ms
-    from (select side, sess, isola, min(s0) as a, max(s1) as b from isole group by 1,2,3) i
-    group by side, sess
-  ),
-  candidati as (
-    select l.side, l.sess,
-           jsonb_agg(l.seg order by l.s0) as stages,
-           min(l.s0) as start_ms, max(l.s1) as end_ms,
-           count(*)::int as segmenti,
-           sum(l.s1 - l.s0) as somma_ms,
-           c.copertura_ms
-    from lati l
-    join coperture c on c.side = l.side and c.sess = l.sess
-    group by l.side, l.sess, c.copertura_ms
-  )
-  select array_agg(
-    jsonb_build_object('stages', stages, 'start_ms', start_ms, 'end_ms', end_ms,
-                       'segmenti', segmenti, 'copertura_ms', copertura_ms,
-                       'contraddittorio', somma_ms > copertura_ms)
-    order by (somma_ms > copertura_ms), copertura_ms desc, segmenti desc, side, start_ms)
-  into v_grouped
-  from candidati;
+    -- che ogni elemento e' un oggetto con startMs/endMs interi, sessionIdx
+    -- leggibile ed endMs > startMs. Ripetere il controllo qui vorrebbe dire
+    -- avere due definizioni di "valido" che possono divergere.
+    group by arr.side, (s.value->>'sessionIdx')::int
+  ) sessions;
 
   if v_grouped is null then
     return null;
@@ -245,13 +280,9 @@ begin
     end if;
   end loop;
 
-  -- main_*: piu' segmenti, poi piu' lunga, fra i soli sopravvissuti. Regola
-  -- invariata rispetto a prima, deliberatamente (vedi intestazione).
-  select v into v_main from unnest(v_selected) as v
-  order by (v->>'segmenti')::int desc,
-           ((v->>'end_ms')::bigint - (v->>'start_ms')::bigint) desc,
-           (v->>'start_ms')::bigint
-  limit 1;
+  -- Il piu' ricco fra i sopravvissuti, prima del riordino cronologico:
+  -- v_selected conserva l'ordine del ranking, quindi [1] e' il vincitore.
+  v_main := v_selected[1];
 
   select array_agg(v order by (v->>'start_ms')::bigint) into v_selected
   from unnest(v_selected) as v;
@@ -276,10 +307,14 @@ $$;
 revoke all on function internal._merge_sleep_stages_jsonb(jsonb, jsonb) from public;
 grant execute on function internal._merge_sleep_stages_jsonb(jsonb, jsonb) to authenticated;
 
--- ── 3. La RPC: canonicalizza in INSERT, non cancella in UPDATE ─────────────
+-- ── 4. La RPC: canonicalizza in INSERT, non cancella in UPDATE ─────────────
 -- Stessa firma, stessi grant, stesso scoping RLS. Rispetto alla versione
 -- precedente cambiano tre punti e nessun altro:
---   - il valore scritto da INSERT passa dal canonicalizzatore;
+--   - il payload in ingresso viene canonicalizzato UNA volta, in una
+--     variabile, e da li' vanno sia il valore scritto da INSERT sia il
+--     conteggio delle sessioni. Prima il conteggio girava sul grezzo e la
+--     canonicalizzazione veniva rifatta nella VALUES: due letture diverse
+--     dello stesso payload, e la prima poteva abortire l'upsert;
 --   - i tre campi del sonno in DO UPDATE non accettano piu' un null del merge
 --     come "cancella", ma ricadono sul valore gia' memorizzato (e, per gli
 --     estremi, sulla stessa regola collected_at_ms usata da tutti gli altri
@@ -297,6 +332,7 @@ declare
   v_device_id uuid := (p_row->>'device_id')::uuid;
   v_local_day_key text := p_row->>'local_day_key';
   v_id bigint;
+  v_new_sleep_stages jsonb;
   v_new_sleep_sessions int;
   v_new_sleep_minutes int;
 begin
@@ -312,7 +348,14 @@ begin
     raise exception 'upsert_fitness_metrics_v189: local_day_key required' using errcode = '22004';
   end if;
 
-  v_new_sleep_sessions := internal._sleep_session_count_jsonb(p_row->'sleep_stages');
+  -- Canonicalizzato all'ingresso, una volta sola: una riga nuova non passa da
+  -- nessun merge, quindi un client che spedisce un array gia' duplicato la
+  -- scriveva gonfiata al primo colpo. Un non-array diventa null invece di
+  -- finire in colonna com'e'.
+  v_new_sleep_stages := case when jsonb_typeof(p_row->'sleep_stages') = 'array'
+    then internal._canonicalize_sleep_stages_jsonb(p_row->'sleep_stages')
+    else null end;
+  v_new_sleep_sessions := internal._sleep_session_count_jsonb(v_new_sleep_stages);
   v_new_sleep_minutes := coalesce((p_row->>'sleep_minutes')::int, 0);
 
   insert into public.fitness_metrics (
@@ -340,11 +383,7 @@ begin
     (p_row->>'elevation_gained_meters')::numeric, (p_row->>'skin_temperature_c')::numeric,
     (p_row->>'weight_kg')::numeric, (p_row->>'height_cm')::numeric, (p_row->>'bmi')::numeric,
     p_row->'intraday_steps', p_row->'intraday_hr', p_row->'intraday_calories',
-    -- Canonicalizzato all'ingresso: una riga nuova non passa da nessun merge.
-    -- Un array non-array diventa null invece di finire in colonna com'e'.
-    case when jsonb_typeof(p_row->'sleep_stages') = 'array'
-      then internal._canonicalize_sleep_stages_jsonb(p_row->'sleep_stages')
-      else null end,
+    v_new_sleep_stages,
     p_row->'exercise_sessions', p_row->>'source_device', p_row->>'source_package',
     (p_row->>'blood_pressure_systolic')::numeric, (p_row->>'blood_pressure_diastolic')::numeric,
     (p_row->>'blood_glucose_mgdl')::numeric, (p_row->>'water_ml')::int,
@@ -432,7 +471,9 @@ begin
     -- I tre campi del sonno in UNA sola assegnazione, da un sub-SELECT: il
     -- merge viene cosi' calcolato una volta invece di tre. Misurato su una
     -- notte reale da 94 segmenti: 7,3 ms per upsert con tre chiamate, di cui
-    -- 6,1 nelle chiamate stesse. Il merge era l'84% del costo.
+    -- 6,1 nelle chiamate stesse. Il merge era l'84% del costo della UPDATE,
+    -- ma il guadagno end-to-end misurato e' del 5%: il resto dell'upsert
+    -- domina, e la cifra isolata era gonfiata dall'overhead di chiamata.
     --
     -- Quando il merge sa ricalcolare gli estremi valgono i suoi; altrimenti
     -- si ricade sulla stessa regola collected_at_ms di ogni altro scalare.

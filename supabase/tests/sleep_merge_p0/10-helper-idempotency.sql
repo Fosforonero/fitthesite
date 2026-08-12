@@ -1,5 +1,5 @@
 -- ============================================================================
--- IL MERGE DEL SONNO — le otto proprieta' che deve avere, una per una
+-- IL MERGE DEL SONNO — le proprieta' che deve avere, una per una
 --
 -- Difetto dimostrato sulla definizione live (MD5 0df8a073ebe40610439f858ec3c49c59):
 --
@@ -15,6 +15,11 @@
 --
 -- Misurato: 2 segmenti -> 4 dopo merge(X,X) -> 4 stabile. Raddoppio esatto,
 -- deterministico, una volta sola.
+--
+-- ATTENZIONE alla lettura di questo file: la scelta fra due osservazioni
+-- SOVRAPPOSTE non e' cambiata rispetto alla 189-RC2 (vince intera quella con
+-- piu' segmenti). I casi che la esercitano sono etichettati LIMITE: pinnano il
+-- comportamento accettato per la 190, non una proprieta' desiderabile.
 --
 -- Tutto dentro una transazione chiusa da ROLLBACK.
 -- ============================================================================
@@ -32,6 +37,18 @@ create or replace function pg_temp.sess(a jsonb, b jsonb) returns int
 language sql as $$
   select count(distinct (s.value->>'sessionIdx')::int)::int
   from jsonb_array_elements(coalesce(internal._merge_sleep_stages_jsonb(a, b)->'stages', '[]'::jsonb)) s(value)
+$$;
+
+/** Il conteggio delle sessioni, ma catturando l'errore: ritorna -1 se solleva.
+    Serve a distinguere "vale 0" da "fa fallire l'upsert", che e' l'unica cosa
+    che conta per il difetto 6 dell'intestazione della migration. */
+create or replace function pg_temp.conta_sicuro(v jsonb) returns int
+language plpgsql as $$
+begin
+  return internal._sleep_session_count_jsonb(v);
+exception when others then
+  return -1;
+end;
 $$;
 
 do $$
@@ -90,7 +107,8 @@ begin
   -- Vecchio: tre segmenti reali su 1000-4000. Nuovo: un solo segmento vero,
   -- ripetuto quattro volte, su 1000-2000. Si sovrappongono, quindi ne
   -- sopravvive uno solo: senza canonicalizzazione vince il finto (4 > 3) e
-  -- due segmenti reali spariscono per sempre.
+  -- due segmenti reali spariscono per sempre. La deduplica esatta chiude
+  -- QUESTO caso: le quattro copie tornano una sola.
   v_r := pg_temp.stg(
     '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0},
       {"startMs":2000,"endMs":3000,"stage":"deep","sessionIdx":0},
@@ -106,14 +124,20 @@ begin
       jsonb_array_length(coalesce(v_r,'[]'::jsonb));
   end if;
 
-  -- ── P4b. La ricchezza finta SENZA duplicati esatti ──────────────────────
-  -- Il caso che la sola deduplica non chiude, ed e' il piu' insidioso: quattro
-  -- segmenti DIVERSI fra loro (differiscono nell'etichetta) tutti sullo stesso
-  -- identico intervallo. Nessuno e' duplicato di un altro, quindi il
-  -- canonicalizzatore li tiene tutti e quattro. Contandoli, quel candidato ne
-  -- ha quattro contro i tre intervalli reali e consecutivi dell'altro: si
-  -- sovrappongono, vince lui, e tre segmenti veri spariscono.
-  -- Contare gli elementi misura la verbosita', non l'informazione.
+  -- ── P4b. LIMITE NOTO E ACCETTATO: gli overlap non identici ──────────────
+  -- Quattro segmenti DIVERSI fra loro (differiscono nell'etichetta) tutti
+  -- sullo stesso identico intervallo. Nessuno e' duplicato di un altro,
+  -- quindi la deduplica esatta li tiene tutti e quattro; contandoli, quel
+  -- candidato ne ha quattro contro i tre intervalli reali e consecutivi
+  -- dell'altro, si sovrappongono, e vince lui.
+  --
+  -- Questo test NON pinna una proprieta' desiderabile: pinna cio' che la 190
+  -- fa, perche' cambiarlo richiede una decisione di prodotto che non e' di
+  -- questo hotfix. Un ranking per copertura temporale era stato scritto e poi
+  -- ritirato: chiudeva questo caso ma ne apriva uno speculare (un segmento
+  -- grossolano da otto ore che batte quattordici stadi reali). Se un giorno
+  -- questo test diventa rosso perche' qualcuno ha risolto gli overlap, e'
+  -- una buona notizia: si aggiorna qui e si scrive perche'.
   v_r := pg_temp.stg(
     '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0},
       {"startMs":2000,"endMs":3000,"stage":"deep","sessionIdx":0},
@@ -122,44 +146,31 @@ begin
       {"startMs":1000,"endMs":2000,"stage":"deep","sessionIdx":0},
       {"startMs":1000,"endMs":2000,"stage":"rem","sessionIdx":0},
       {"startMs":1000,"endMs":2000,"stage":"awake","sessionIdx":0}]');
-  if jsonb_array_length(coalesce(v_r,'[]'::jsonb)) = 3
-     and (v_r->2->>'endMs')::bigint = 4000 then
-    v_ok := v_ok + 1; raise notice '   P4b quattro etichette sovrapposte non vincono    OK';
+  if jsonb_array_length(coalesce(v_r,'[]'::jsonb)) = 4
+     and (v_r->-1->>'endMs')::bigint = 2000 then
+    v_ok := v_ok + 1; raise notice '   P4b LIMITE: overlap non identici irrisolti      OK (atteso)';
   else
-    v_ko := v_ko + 1; raise notice '   P4b quattro etichette sovrapposte VINCONO       KO   % segmenti, fine %',
+    v_ko := v_ko + 1; raise notice '   P4b LIMITE: comportamento cambiato              KO   % segmenti, fine %',
       jsonb_array_length(coalesce(v_r,'[]'::jsonb)), coalesce((v_r->-1->>'endMs'),'?');
   end if;
 
-  -- ── P4c. Ma se il contraddittorio e'' l'unico, non lo si butta ───────────
-  -- Fail-closed vuol dire "non sostituire un candidato pulito con quello
-  -- ambiguo", non "cancellare l'ambiguo". Se copre una finestra che nessun
-  -- altro copre, buttarlo sarebbe perdere l'unica cosa che abbiamo.
+  -- ── P4c. Il wrapper generico non batte le fasi dettagliate ──────────────
+  -- Alcune fonti scrivono sia un unico segmento che avvolge tutta la notte
+  -- sia le fasi REM/Leggero/Profondo. Il wrapper e' un contenitore, non una
+  -- misura: quando esistono le fasi della stessa sessione non deve vincere.
+  -- Il conteggio dei segmenti lo garantisce (1 contro 3) anche se il wrapper
+  -- copre piu' tempo.
   v_r := pg_temp.stg(
-    '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0},
-      {"startMs":1000,"endMs":2000,"stage":"deep","sessionIdx":0}]', null);
-  if jsonb_array_length(coalesce(v_r,'[]'::jsonb)) = 2 then
-    v_ok := v_ok + 1; raise notice '   P4c il contraddittorio solo non viene cancellato OK';
-  else
-    v_ko := v_ko + 1; raise notice '   P4c il contraddittorio solo                     KO   %',
-      jsonb_array_length(coalesce(v_r,'[]'::jsonb));
-  end if;
-
-  -- ── P4d. La copertura batte il conteggio anche senza contraddizioni ─────
-  -- Due candidati puliti sovrapposti: uno con due segmenti che coprono
-  -- 1000-9000, uno con tre segmentini che coprono 1000-4000. Prima vinceva il
-  -- secondo perche' ha piu' elementi, e si perdevano cinque secondi di notte.
-  v_r := pg_temp.stg(
-    '[{"startMs":1000,"endMs":5000,"stage":"light","sessionIdx":0},
-      {"startMs":5000,"endMs":9000,"stage":"deep","sessionIdx":0}]',
+    '[{"startMs":1000,"endMs":9000,"stage":"asleep","sessionIdx":0}]',
     '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0},
       {"startMs":2000,"endMs":3000,"stage":"deep","sessionIdx":0},
       {"startMs":3000,"endMs":4000,"stage":"rem","sessionIdx":0}]');
-  if jsonb_array_length(coalesce(v_r,'[]'::jsonb)) = 2
-     and (v_r->1->>'endMs')::bigint = 9000 then
-    v_ok := v_ok + 1; raise notice '   P4d la copertura batte il conteggio             OK';
+  if jsonb_array_length(coalesce(v_r,'[]'::jsonb)) = 3
+     and not (v_r::text like '%asleep%') then
+    v_ok := v_ok + 1; raise notice '   P4c il wrapper asleep non batte le fasi         OK';
   else
-    v_ko := v_ko + 1; raise notice '   P4d la copertura batte il conteggio             KO   % segmenti, fine %',
-      jsonb_array_length(coalesce(v_r,'[]'::jsonb)), coalesce((v_r->-1->>'endMs'),'?');
+    v_ko := v_ko + 1; raise notice '   P4c il wrapper asleep vince sulle fasi          KO   % segmenti',
+      jsonb_array_length(coalesce(v_r,'[]'::jsonb));
   end if;
 
   -- ── P5. Dedup per (sessionIdx, startMs, endMs, stage normalizzato) ──────
@@ -267,6 +278,92 @@ begin
       v_r->>'main_start_ms', v_r->>'main_end_ms';
   end if;
 
+  -- ── P10. sessionIdx ASSENTE = 0, forma legacy ───────────────────────────
+  -- Gli array scritti prima di 8ca36f56 (18/05) non hanno il campo. Valgono
+  -- notte principale, e devono continuare a valere notte principale.
+  v_r := internal._canonicalize_sleep_stages_jsonb(
+    '[{"startMs":1000,"endMs":2000,"stage":"light"},
+      {"startMs":2000,"endMs":3000,"stage":"deep","sessionIdx":null}]');
+  if jsonb_array_length(v_r) = 2
+     and (v_r->0->>'sessionIdx')::int = 0
+     and (v_r->1->>'sessionIdx')::int = 0 then
+    v_ok := v_ok + 1; raise notice '   P10 sessionIdx assente = 0 (legacy)             OK';
+  else
+    v_ko := v_ko + 1;
+    raise notice '   P10 sessionIdx assente                          KO   %', v_r;
+  end if;
+
+  -- ── P11. sessionIdx PRESENTE ma illeggibile scarta il segmento ──────────
+  -- Prima diventava 0 in silenzio: un dato che non sappiamo leggere veniva
+  -- promosso a notte principale, cioe' a quella su cui si calcolano i minuti
+  -- mostrati in dashboard. Negativo, frazionario, non numerico, fuori range,
+  -- di tipo sbagliato: nessuno di questi e' una sessione.
+  declare
+    v_fail text := '';
+    v_casi jsonb[] := array[
+      '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":-1}]'::jsonb,
+      '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":1.7}]'::jsonb,
+      '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":"abc"}]'::jsonb,
+      '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":9999999999}]'::jsonb,
+      '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":[1]}]'::jsonb,
+      '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":{"a":1}}]'::jsonb
+    ];
+    v_c jsonb;
+  begin
+    foreach v_c in array v_casi loop
+      if internal._canonicalize_sleep_stages_jsonb(v_c) <> '[]'::jsonb then
+        v_fail := v_fail || ' [' || (v_c->0->>'sessionIdx') || ']';
+      end if;
+    end loop;
+    -- E la stessa cosa attraverso il merge: il segmento illeggibile sparisce,
+    -- ma quello buono che gli sta accanto no.
+    v_r := pg_temp.stg(
+      '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":0},
+        {"startMs":2000,"endMs":3000,"stage":"deep","sessionIdx":-5}]', null);
+    if jsonb_array_length(coalesce(v_r,'[]'::jsonb)) <> 1 then
+      v_fail := v_fail || ' [merge tiene il segmento invalido]';
+    end if;
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   P11 sessionIdx illeggibile scarta il segmento   OK';
+    else
+      v_ko := v_ko + 1; raise notice '   P11 sessionIdx illeggibile                      KO  %', v_fail;
+    end if;
+  end;
+
+  -- ── P12. Il conteggio delle sessioni non fa piu' esplodere l'upsert ─────
+  -- Difetto 6 dell'intestazione: il cast era nudo e la RPC lo chiamava sul
+  -- payload GREZZO, quindi un solo sessionIdx malformato abortiva l'intera
+  -- transazione. Non era un difetto del sonno: quel giorno perdeva anche
+  -- passi, frequenza e calorie. `conta_sicuro` ritorna -1 se solleva.
+  declare
+    v_fail text := '';
+    v_casi jsonb[] := array[
+      '[{"startMs":1,"endMs":2,"sessionIdx":"abc"}]'::jsonb,
+      '[{"startMs":1,"endMs":2,"sessionIdx":1.7}]'::jsonb,
+      '[{"startMs":1,"endMs":2,"sessionIdx":[1]}]'::jsonb,
+      '[{"startMs":1,"endMs":2,"sessionIdx":99999999999999999999}]'::jsonb,
+      '[{"startMs":1,"endMs":2,"sessionIdx":-1}]'::jsonb
+    ];
+    v_c jsonb;
+  begin
+    foreach v_c in array v_casi loop
+      if pg_temp.conta_sicuro(v_c) < 0 then
+        v_fail := v_fail || ' [' || coalesce(v_c->0->>'sessionIdx','?') || ']';
+      end if;
+    end loop;
+    -- Il contratto resta quello: quante sessioni distinte ci sono davvero.
+    if pg_temp.conta_sicuro(X) <> 1 then v_fail := v_fail || ' [X non vale 1]'; end if;
+    if pg_temp.conta_sicuro('[{"startMs":1,"endMs":2},{"startMs":3,"endMs":4,"sessionIdx":1}]') <> 2 then
+      v_fail := v_fail || ' [assente+1 non vale 2]';
+    end if;
+    if pg_temp.conta_sicuro(null) <> 0 then v_fail := v_fail || ' [null non vale 0]'; end if;
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   P12 conteggio sessioni shape-safe               OK';
+    else
+      v_ko := v_ko + 1; raise notice '   P12 conteggio sessioni                          KO  %', v_fail;
+    end if;
+  end;
+
   raise notice '';
   raise notice '   PASSATI: %   FALLITI: %', v_ok, v_ko;
   if v_ko > 0 then
@@ -278,5 +375,5 @@ rollback;
 
 \echo ''
 \echo '=================================================='
-\echo 'sleep_merge_p0 / helper: QUATTORDICI PROPRIETA'''
+\echo 'sleep_merge_p0 / helper: SEDICI PROPRIETA'''
 \echo '=================================================='

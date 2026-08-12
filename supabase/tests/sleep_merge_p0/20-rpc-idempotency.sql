@@ -215,11 +215,17 @@ begin
     perform set_config('request.jwt.claims', json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
   end;
 
-  -- ── R7. Quattro etichette sovrapposte non cancellano tre segmenti veri ──
-  -- Il caso P4b sul percorso RPC reale, non sul solo helper: la notte pulita
-  -- e' gia' in tabella, il payload contraddittorio arriva dopo e passa dalla
-  -- DO UPDATE. Nessuno dei quattro e' duplicato di un altro, quindi la
-  -- deduplica non li tocca: e' il ranking che deve rifiutarli.
+  -- ── R7. LIMITE NOTO sul percorso RPC reale ──────────────────────────────
+  -- Il caso P4b non sul solo helper: la notte pulita e' gia' in tabella, il
+  -- payload contraddittorio arriva dopo e passa dalla DO UPDATE. Nessuno dei
+  -- quattro e' duplicato di un altro, quindi la deduplica non li tocca, e il
+  -- ranking per conteggio (semantica 189-RC2, confermata per la 190) li fa
+  -- vincere: quattro elementi contro tre.
+  --
+  -- Questo caso pinna il LIMITE accettato, non una proprieta' desiderabile.
+  -- Sta qui, sul percorso vero, perche' il giorno in cui gli overlap verranno
+  -- risolti si deve vedere subito che la riga in tabella cambia — non solo il
+  -- valore di ritorno di un helper.
   declare
     v_u4 uuid; v_d4 uuid; v_id4 bigint; v_st jsonb;
     v_pulita jsonb := jsonb_build_array(
@@ -240,12 +246,81 @@ begin
     perform public.upsert_fitness_metrics_v189(pg_temp.payload(
       v_u4, v_d4, v_contraddittoria, v_start, v_start + 3600000, 60, v_start + 1000));
     select sleep_stages into v_st from public.fitness_metrics where id = v_id4;
-    if jsonb_array_length(coalesce(v_st,'[]'::jsonb)) = 3
-       and (v_st->2->>'endMs')::bigint = v_start + 10800000 then
-      v_ok := v_ok + 1; raise notice '   R7  RPC: le tre reali sopravvivono alle quattro OK';
+    if jsonb_array_length(coalesce(v_st,'[]'::jsonb)) = 4
+       and (v_st->-1->>'endMs')::bigint = v_start + 3600000 then
+      v_ok := v_ok + 1; raise notice '   R7  LIMITE: overlap non identici irrisolti      OK (atteso)';
     else
-      v_ko := v_ko + 1; raise notice '   R7  RPC: tre segmenti veri CANCELLATI           KO   % segmenti, fine %',
+      v_ko := v_ko + 1; raise notice '   R7  LIMITE: comportamento cambiato              KO   % segmenti, fine %',
         jsonb_array_length(coalesce(v_st,'[]'::jsonb)), coalesce((v_st->-1->>'endMs'),'?');
+    end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
+  end;
+
+  -- ── R8. Un sessionIdx illeggibile non deve far cadere l'INTERO sync ─────
+  -- Il difetto piu' grave trovato dalla review, e non era del sonno: la RPC
+  -- chiamava internal._sleep_session_count_jsonb sul payload GREZZO, prima di
+  -- ogni canonicalizzazione, e quel cast era nudo. Un solo segmento con
+  -- sessionIdx "abc" / 1.7 / [1] / fuori range faceva fallire la transazione:
+  -- quel giorno l'utente perdeva anche passi, frequenza e calorie.
+  --
+  -- RED misurato l'11/08 sulla definizione live (MD5
+  -- bc8cac33caeaf777bd95738fd93c9cdd, identica a produzione): 5 forme su 5
+  -- sollevano 22P02 o 22003.
+  declare
+    v_u5 uuid; v_d5 uuid; v_id5 bigint;
+    v_passi int; v_fc numeric; v_kcal numeric; v_st jsonb;
+    v_fail text := '';
+    v_rotto jsonb := jsonb_build_array(
+      jsonb_build_object('startMs', v_start, 'endMs', v_start + 3600000, 'stage','light','sessionIdx','abc'),
+      jsonb_build_object('startMs', v_start + 3600000, 'endMs', v_start + 7200000, 'stage','deep','sessionIdx',0));
+  begin
+    v_u5 := pg_temp.mk_user('sessionidx-rotto');
+    v_d5 := pg_temp.mk_device(v_u5);
+    perform set_config('request.jwt.claims', json_build_object('sub', v_u5::text, 'role','authenticated')::text, true);
+
+    -- (a) percorso INSERT: la riga nasce, con tutto il resto delle metriche.
+    begin
+      v_id5 := public.upsert_fitness_metrics_v189(jsonb_build_object(
+        'user_id', v_u5, 'device_id', v_d5, 'local_day_key', '2026-08-10',
+        'source', 'health_connect', 'source_device', 'watch', 'schema_version', 4,
+        'collected_at_ms', v_start, 'window_start_ms', v_start, 'window_end_ms', v_start + 7200000,
+        'steps', 7777, 'heart_rate_bpm', 62, 'calories_kcal', 1900,
+        'sleep_stages', v_rotto, 'sleep_minutes', 120,
+        'sleep_start_ms', v_start, 'sleep_end_ms', v_start + 7200000));
+    exception when others then
+      v_fail := v_fail || ' [a:INSERT abortito ' || sqlstate || ']';
+    end;
+    if v_fail = '' then
+      select steps, heart_rate_bpm, calories_kcal, sleep_stages
+        into v_passi, v_fc, v_kcal, v_st
+        from public.fitness_metrics where id = v_id5;
+      if v_passi is distinct from 7777 then v_fail := v_fail || ' [a:passi persi]'; end if;
+      if v_fc is distinct from 62 then v_fail := v_fail || ' [a:FC persa]'; end if;
+      if v_kcal is distinct from 1900 then v_fail := v_fail || ' [a:calorie perse]'; end if;
+      -- Il segmento illeggibile e' scartato, quello buono resta.
+      if jsonb_array_length(coalesce(v_st,'[]'::jsonb)) <> 1 then
+        v_fail := v_fail || ' [a:stadi ' || jsonb_array_length(coalesce(v_st,'[]'::jsonb)) || ' invece di 1]';
+      end if;
+    end if;
+
+    -- (b) percorso DO UPDATE: stesso payload rotto su una riga che esiste gia'.
+    begin
+      perform public.upsert_fitness_metrics_v189(jsonb_build_object(
+        'user_id', v_u5, 'device_id', v_d5, 'local_day_key', '2026-08-10',
+        'source', 'health_connect', 'source_device', 'watch', 'schema_version', 4,
+        'collected_at_ms', v_start + 1000, 'window_start_ms', v_start, 'window_end_ms', v_start + 7200000,
+        'steps', 8888, 'sleep_stages', v_rotto, 'sleep_minutes', 120,
+        'sleep_start_ms', v_start, 'sleep_end_ms', v_start + 7200000));
+    exception when others then
+      v_fail := v_fail || ' [b:UPDATE abortito ' || sqlstate || ']';
+    end;
+    select steps into v_passi from public.fitness_metrics where id = v_id5;
+    if v_passi is distinct from 8888 then v_fail := v_fail || ' [b:passi non aggiornati]'; end if;
+
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   R8  sessionIdx illeggibile: il sync non cade    OK';
+    else
+      v_ko := v_ko + 1; raise notice '   R8  sessionIdx illeggibile ABORTISCE il sync    KO  %', v_fail;
     end if;
     perform set_config('request.jwt.claims', json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
   end;
@@ -275,5 +350,5 @@ rollback;
 
 \echo ''
 \echo '=================================================='
-\echo 'sleep_merge_p0 / RPC completa: SETTE CASI'
+\echo 'sleep_merge_p0 / RPC completa: OTTO CASI'
 \echo '=================================================='

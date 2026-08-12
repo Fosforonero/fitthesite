@@ -10,11 +10,14 @@ MD5 di public.upsert_fitness_metrics_v189 in produzione : 08619d98b1f8a7351839c8
 MD5 della baseline ricostruita in locale                : 08619d98b1f8a7351839c8f7af9e0ee0
 ```
 
-Diff `pg_get_functiondef` vecchia → nuova: **12 righe rimosse, 23 aggiunte**, e
-sono tre cose sole.
+Diff `pg_get_functiondef` vecchia → nuova: **13 righe rimosse, 36 aggiunte**
+(di cui 17 sono commenti), e sono tre cose sole.
 
-1. **INSERT canonicalizzato.** `p_row->'sleep_stages'` diventa
-   `case when jsonb_typeof(...) = 'array' then internal._canonicalize_sleep_stages_jsonb(...) else null end`.
+1. **Il payload canonicalizzato una volta, in una variabile.**
+   `v_new_sleep_stages` alimenta sia il valore scritto dall'INSERT sia il
+   conteggio delle sessioni. Prima il conteggio girava sul grezzo e la
+   canonicalizzazione veniva rifatta dentro la `VALUES`: due letture diverse
+   dello stesso payload, e la prima poteva abortire l'upsert.
 2. **Un commento riscritto** su `sleep_minutes`. Nessun cambiamento di codice:
    la regola è identica.
 3. **I tre campi del sonno in una sola assegnazione**, con i fallback che
@@ -24,6 +27,58 @@ Nient'altro è cambiato. Le 24 righe `case when excluded.collected_at_ms >= ...`
 degli altri scalari, il blocco `sleep_apnea_detected`, i due merge sorelle, i
 tre controlli di autorizzazione in testa e il `where user_id = auth.uid()`
 finale sono byte per byte gli stessi.
+
+### 1b. Lo stesso confronto sul merge
+
+Baseline `internal._merge_sleep_stages_jsonb`: MD5 `0df8a073ebe40610439f858ec3c49c59`
+in produzione, e la catena `084132 → 084840` ricostruita in locale dà lo stesso
+identico valore. Il repo qui riproduce la produzione.
+
+Diff: **12 righe rimosse, 16 aggiunte**, di cui 4 sono commenti.
+
+- `unnest(array[...]) with ordinality as arr(val, side)` al posto di
+  `unnest(array[...]) as arr`, e `group by arr.side, ...` al posto di
+  `group by arr, ...`. È la correzione del raddoppio, e da sola vale l'intera
+  P0.
+- I due lati passano dal canonicalizzatore prima di essere confrontati.
+- `order by segmenti desc, (end_ms - start_ms) desc, side, start_ms` al posto
+  di `order by jsonb_array_length(stages) desc, (end_ms - start_ms) desc`.
+  Le prime due chiavi sono le stesse: `segmenti` è `count(*)` per lato e
+  sessione, cioè lo stesso numero. `side, start_ms` in coda rende
+  deterministico un pareggio che prima veniva risolto dall'ordine di
+  `array_agg`, e a parità preferisce il lato già memorizzato.
+
+Il ciclo di selezione, la scelta di `v_main` e il ri-tag di `sessionIdx` sono
+byte per byte gli stessi.
+
+### 1c. Il conteggio delle sessioni: l'unico cambio di comportamento
+
+`internal._sleep_session_count_jsonb`, MD5 `bc8cac33caeaf777bd95738fd93c9cdd`,
+identico fra produzione e database locale. È l'unica delle tre funzioni il cui
+**contratto osservabile cambia**, e cambia perché era rotto:
+
+```
+select count(distinct coalesce((s.value->>'sessionIdx')::int, 0))
+```
+
+Il cast è nudo. RED misurato sulla definizione viva, cinque forme su cinque:
+
+| `sessionIdx` | esito |
+|---|---|
+| `"abc"` | ERRORE 22P02 |
+| `1.7` | ERRORE 22P02 |
+| `[1]` | ERRORE 22P02 |
+| `99999999999999999999` | ERRORE 22003 |
+| `{"a":1}` | ERRORE 22P02 |
+
+La RPC la chiamava sul payload **grezzo**, prima di ogni canonicalizzazione:
+un solo segmento malformato spedito da un client faceva fallire l'intera
+transazione, quindi quel giorno l'utente perdeva anche passi, frequenza
+cardiaca e calorie. Non era un difetto del sonno, era un difetto del sync.
+
+Dopo: le stesse cinque forme ritornano un numero, il segmento illeggibile non
+conta come sessione, e il caso è esercitato sul percorso RPC vero
+(`20-rpc-idempotency.sql`, R8) sia in INSERT sia in DO UPDATE.
 
 ## 2. Il costo, misurato
 
