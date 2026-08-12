@@ -37,7 +37,22 @@
 --    tutti e due i percorsi.
 -- 2. Il merge raggruppa per LATO (`with ordinality`), non per valore: vecchio
 --    e nuovo restano candidati distinti anche quando sono identici, ed e'
---    l'unica ragione per cui merge(X,X) = X.
+--    l'unica ragione per cui il CONTENUTO di merge(X,X) e' quello di X.
+--
+--    Attenzione a come e' scritta questa frase, perche' la versione breve
+--    ("merge(X,X) = X") e' FALSA e lo e' su 3.749 righe di produzione. Il
+--    merge, dopo aver scelto i candidati, ri-numera le sessioni superstiti in
+--    ordine cronologico (`v_idx`, piu' sotto). Se il client non le aveva
+--    numerate in ordine cronologico — e in produzione succede su 3.749 righe
+--    multi-sessione su 5.709 — le etichette escono scambiate. I segmenti sono
+--    gli stessi, nessuno si perde e nessuno si inventa, ma l'uguaglianza JSON
+--    non vale e converge solo dal secondo giro.
+--
+--    Il retagging c'era gia' nella definizione viva e non viene toccato qui.
+--    Ma la sua conseguenza va detta: `sessionIdx = 0` dopo un merge significa
+--    "la sessione che inizia prima", non "la notte principale". Il client
+--    scrive 0 per la notte e 1..n per i pisolini; dopo il primo ri-sync della
+--    stessa giornata quel significato non e' piu' garantito. Pinnato da P13.
 -- 3. Ogni candidato viene canonicalizzato PRIMA che se ne confronti la
 --    ricchezza, cosi' il duplicato non puo' vincere un confronto che non
 --    merita.
@@ -55,6 +70,18 @@
 --    `sessionIdx` non numerico, frazionario o fuori range faceva fallire
 --    l'intera transazione, quindi quel giorno perdeva anche passi, frequenza
 --    e calorie. Non era un difetto del sonno, era un difetto del sync.
+--
+--    Chiuso quel percorso, NON la classe. Restano quattro cast nudi sul
+--    payload, tutti preesistenti e tutti identici alla definizione viva:
+--    `sleep_minutes::int`, `sleep_start_ms::bigint`, `sleep_end_ms::bigint`,
+--    `sleep_apnea_detected::boolean`. Misurati sulla RPC vera: un
+--    `sleep_minutes` frazionario (420.5, cioe' un client che calcola i minuti
+--    in virgola mobile senza arrotondare) risponde 22P02 e aborta l'intero
+--    upsert. Lo schema Zod del sito li intercetta, ma il repo stesso
+--    documenta che la RPC e' invocabile direttamente. Sono registrati come P1
+--    in supabase/repair/TICKET-P1-metriche-e-privacy.md, non induriti qui:
+--    accettare 420.5 come 420 vuol dire introdurre una tolleranza, ed e' una
+--    decisione, non una svista da correggere di straforo.
 -- 7. Il merge viene calcolato UNA volta per upsert (assegnazione multi-colonna
 --    da un solo sub-SELECT) invece di tre, e il payload in ingresso viene
 --    canonicalizzato una volta sola invece di due.
@@ -93,10 +120,13 @@
 --     valore assurdo non puo' far esplodere il cast a bigint) ed
 --     endMs > startMs;
 --   - `sessionIdx` ASSENTE (chiave mancante o null JSON) vale 0: e' la forma
---     legacy, scritta prima di 8ca36f56, e significa "notte principale".
---     PRESENTE ma negativo, frazionario, non numerico o fuori range rende il
---     segmento INVALIDO e lo scarta. Prima diventava 0 in silenzio, cioe' un
---     dato illeggibile veniva promosso a notte principale;
+--     legacy, scritta prima di 8ca36f56. Per il client 0 e' la notte
+--     principale — ma vedi il punto 2 dell'intestazione: dopo un merge
+--     l'indice e' posizionale, non semantico, quindi qui 0 vuol dire soltanto
+--     "prima sessione". PRESENTE ma negativo, frazionario, non numerico o
+--     fuori range rende il segmento INVALIDO e lo scarta. Prima diventava 0 in
+--     silenzio, cioe' un dato illeggibile finiva nella sessione su cui si
+--     calcolano i minuti mostrati;
 --   - startMs/endMs/sessionIdx riscritti come interi normalizzati;
 --   - dedup per (sessionIdx, startMs, endMs, stage normalizzato): due
 --     etichette diverse sullo stesso minuto sono un dato contraddittorio e
@@ -157,6 +187,11 @@ as $$
 $$;
 
 revoke all on function internal._canonicalize_sleep_stages_jsonb(jsonb) from public;
+-- Esplicito anche su `anon`, non solo per effetto transitivo del revoke da
+-- PUBLIC: e' la convenzione fissata da 20260722111746 per questa esatta classe
+-- di helper, e una convenzione seguita da tutti tranne uno non e' piu' una
+-- convenzione. L'effetto e' identico, la verificabilita' no.
+revoke execute on function internal._canonicalize_sleep_stages_jsonb(jsonb) from anon;
 grant execute on function internal._canonicalize_sleep_stages_jsonb(jsonb) to authenticated;
 
 comment on function internal._canonicalize_sleep_stages_jsonb(jsonb) is
@@ -208,12 +243,17 @@ comment on function internal._sleep_session_count_jsonb(jsonb) is
 --
 -- cioe' piu' segmenti, poi piu' lunga. Qui `segmenti` e' lo stesso numero
 -- (count(*) per lato e sessione dopo la canonicalizzazione). L'unica aggiunta
--- e' il pareggio: `side, start_ms` in coda rende deterministico un ordine che
--- prima dipendeva dall'array_agg, e a parita' preferisce il lato 1, cioe' il
--- valore gia' memorizzato. Un pareggio non porta informazione nuova, e
--- preferire il conservato rende l'operazione stabile sotto qualunque ordine di
--- replay. Non e' un cambio di semantica: sceglie fra candidati che prima
--- venivano scelti a caso.
+-- e' il pareggio: `side, start_ms` in coda, che a parita' preferisce il lato 1,
+-- cioe' il valore gia' memorizzato.
+--
+-- Va detto con precisione, perche' la versione entusiasta di questa frase non
+-- regge alla prova: togliendo lo spareggio la suite resta VERDE. L'ordine che
+-- oggi produce il piano coincide gia' con quello del lato, quindi lo spareggio
+-- non cambia il comportamento osservabile. Cambia lo statuto: da coincidenza
+-- (l'ordine dei gruppi non e' specificato, e con un HashAggregate su piu' dati
+-- puo' non coincidere) a garanzia scritta. Il risultato che conta e' pinnato da
+-- P14, che verifica l'esito — a parita' vince il memorizzato — non il
+-- meccanismo.
 --
 -- Un wrapper generico (un solo segmento "asleep" sull'intera notte) perde
 -- quindi contro le fasi dettagliate della stessa sessione, che sono di piu'.

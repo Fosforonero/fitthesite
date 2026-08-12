@@ -72,6 +72,36 @@ file, in nessuno dei worktree.
 test e commenti di sprint precedenti, in almeno 5 file fra `lib/` e `test/`. È
 un problema diverso e precedente a questo sprint, e va deciso a parte.
 
+## P1 — Quattro cast nudi nella RPC possono ancora far cadere l'intero upsert
+
+Trovati dalla review avversariale del 12/08/2026, con riproduzione sulla RPC
+vera. Sono preesistenti e identici alla definizione viva: il fix del sonno ha
+indurito **solo** il percorso di `sessionIdx`.
+
+| campo | forma | esito |
+|---|---|---|
+| `sleep_minutes` | `420.5` | 22P02, upsert abortito |
+| `sleep_minutes` | `"n/d"` | 22P02, upsert abortito |
+| `sleep_start_ms` | `1.5` | 22P02, upsert abortito |
+| `sleep_start_ms` | 20 cifre | 22003, upsert abortito |
+| `sleep_apnea_detected` | `"forse"` | 22P02, upsert abortito |
+
+Ogni riga è un giorno intero perso: passi, frequenza e calorie compresi. La
+forma plausibile è `sleep_minutes: 420.5`, cioè un client che calcola i minuti
+in virgola mobile senza arrotondare. Lo schema Zod del sito la intercetta, ma
+il repo documenta che la RPC è invocabile direttamente.
+
+**Perché non l'ho corretto nel P0**: accettare `420.5` come `420` significa
+introdurre una tolleranza silenziosa. È una decisione, non una svista da
+correggere di straforo, e va presa sapendo che il resto dello sprint sta
+andando nella direzione opposta ("eliminare tolleranze").
+
+## P1 — Il payload del sonno non ha un tetto di dimensione
+
+Misurato lato client: 100.000 segmenti producono 6,6 MB di `sleepStagesJson`;
+300.000 elementi arrivano a 19,2 MB. Nessun crash, nessun limite, nessun
+rifiuto. Una notte reale ne ha meno di 200.
+
 ## P1 alto / privacy — identità dell'anello BLE
 
 Registrato a parte, con la catena verificata riga per riga:

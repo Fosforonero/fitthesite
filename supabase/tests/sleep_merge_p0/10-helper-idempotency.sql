@@ -364,6 +364,77 @@ begin
     end if;
   end;
 
+  -- ── P13. LIMITE NOTO: il merge RI-NUMERA le sessioni ────────────────────
+  -- Il retagging finale assegna sessionIdx 0..n-1 in ordine CRONOLOGICO. Se
+  -- il client non le aveva numerate cosi', le etichette escono scambiate: il
+  -- contenuto e' intatto, ma l'uguaglianza JSON di merge(X,X) non vale.
+  --
+  -- Non e' teorico. Distribuzione misurata in produzione l'11/08/2026 sulle
+  -- sequenze cronologiche degli indici: [1,0] su 3.086 righe, [1,0,2] su 560,
+  -- [1,2,0] su 102, contro [0,1] su 1.891 e [0,1,2] su 67. Tremilasettecento-
+  -- quarantanove righe multi-sessione su 5.709 hanno indici non cronologici.
+  --
+  -- Il retagging c'era gia' nella definizione viva e questo hotfix non lo
+  -- tocca. Il test esiste perche' nessuno se ne accorgesse leggendo P1: la
+  -- conseguenza vera e' che dopo un merge `sessionIdx = 0` vuol dire "la
+  -- sessione che inizia prima", non "la notte principale", e il read-side
+  -- calcola i minuti della notte proprio sulla sessione 0.
+  declare
+    v_fuori_ordine jsonb := '[{"startMs":1000,"endMs":2000,"stage":"light","sessionIdx":1},
+                              {"startMs":9000,"endMs":10000,"stage":"light","sessionIdx":0},
+                              {"startMs":10000,"endMs":11000,"stage":"deep","sessionIdx":0}]';
+    v_fail text := '';
+    v_uno jsonb;
+    v_due jsonb;
+  begin
+    v_uno := pg_temp.stg(v_fuori_ordine, v_fuori_ordine);
+    -- Il contenuto c'e' tutto: tre segmenti, nessuno inventato, nessuno perso.
+    if jsonb_array_length(v_uno) <> 3 then
+      v_fail := v_fail || ' [segmenti ' || jsonb_array_length(v_uno) || ']';
+    end if;
+    -- Ma le etichette sono cambiate: chi era 1 ora e' 0, perche' inizia prima.
+    if (v_uno->0->>'startMs')::bigint <> 1000 or (v_uno->0->>'sessionIdx')::int <> 0 then
+      v_fail := v_fail || ' [il primo non e'' stato ri-numerato a 0]';
+    end if;
+    if (v_uno->2->>'sessionIdx')::int <> 1 then
+      v_fail := v_fail || ' [l''ultimo non e'' stato ri-numerato a 1]';
+    end if;
+    -- E dal secondo giro non si muove piu': converge, non oscilla.
+    v_due := pg_temp.stg(v_uno, v_uno);
+    if v_due <> v_uno then v_fail := v_fail || ' [non converge al secondo giro]'; end if;
+    if v_fail = '' then
+      v_ok := v_ok + 1; raise notice '   P13 LIMITE: le sessioni vengono ri-numerate    OK (atteso)';
+    else
+      v_ko := v_ko + 1; raise notice '   P13 LIMITE: ri-numerazione cambiata            KO  %', v_fail;
+    end if;
+  end;
+
+  -- ── P14. A pari merito, main_* viene dal lato gia' memorizzato ──────────
+  -- Due sessioni che non si sovrappongono, stesso numero di segmenti e stessa
+  -- durata: il ranking pareggia su entrambe le chiavi, e a decidere resta
+  -- `side, start_ms`.
+  --
+  -- ONESTA' SU COSA COPRE: togliendo lo spareggio dalla migration questo test
+  -- resta VERDE (mutazione provata il 12/08/2026). L'ordine prodotto dal piano
+  -- coincide gia' con quello del lato, quindi lo spareggio non cambia il
+  -- comportamento osservabile: lo rende garantito invece che casuale. Qui si
+  -- pinna l'ESITO — a parita' vince il memorizzato, e invertendo i lati il
+  -- risultato si inverte — non il meccanismo con cui ci si arriva.
+  declare
+    v_a jsonb := '[{"startMs":1000,"endMs":3000,"stage":"light","sessionIdx":0}]';
+    v_b jsonb := '[{"startMs":50000,"endMs":52000,"stage":"light","sessionIdx":0}]';
+    v_r1 jsonb := internal._merge_sleep_stages_jsonb(v_a, v_b);
+    v_r2 jsonb := internal._merge_sleep_stages_jsonb(v_b, v_a);
+  begin
+    if (v_r1->>'main_start_ms')::bigint = 1000
+       and (v_r2->>'main_start_ms')::bigint = 50000 then
+      v_ok := v_ok + 1; raise notice '   P14 a pari merito vince il lato memorizzato    OK';
+    else
+      v_ko := v_ko + 1; raise notice '   P14 spareggio non deterministico               KO   % / %',
+        v_r1->>'main_start_ms', v_r2->>'main_start_ms';
+    end if;
+  end;
+
   raise notice '';
   raise notice '   PASSATI: %   FALLITI: %', v_ok, v_ko;
   if v_ko > 0 then
@@ -375,5 +446,5 @@ rollback;
 
 \echo ''
 \echo '=================================================='
-\echo 'sleep_merge_p0 / helper: SEDICI PROPRIETA'''
+\echo 'sleep_merge_p0 / helper: DICIOTTO PROPRIETA'''
 \echo '=================================================='

@@ -266,6 +266,14 @@ begin
   -- RED misurato l'11/08 sulla definizione live (MD5
   -- bc8cac33caeaf777bd95738fd93c9cdd, identica a produzione): 5 forme su 5
   -- sollevano 22P02 o 22003.
+  --
+  -- ONESTA' SU COSA COPRE QUESTO CASO: dopo il fix la RPC non chiama piu' il
+  -- conteggio sul payload grezzo, quindi rimettere il cast nudo dentro
+  -- internal._sleep_session_count_jsonb NON fa diventare rosso questo test —
+  -- fa diventare rossa P12, che e' il posto giusto. Qui si verifica una cosa
+  -- diversa e complementare: che l'upsert COMPLETO sopravviva a un payload
+  -- con sessionIdx illeggibile e che le altre metriche del giorno arrivino
+  -- comunque in tabella.
   declare
     v_u5 uuid; v_d5 uuid; v_id5 bigint;
     v_passi int; v_fc numeric; v_kcal numeric; v_st jsonb;
@@ -325,6 +333,73 @@ begin
     perform set_config('request.jwt.claims', json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
   end;
 
+  -- ── R9. Il conteggio delle sessioni gira sul payload CANONICALIZZATO ───
+  -- Cambiamento reale della RPC che nessun test osservava: prima
+  -- `v_new_sleep_sessions` contava sul payload grezzo. Qui il payload nuovo
+  -- DICHIARA due sessioni, ma quella in piu' e' fatta di un solo segmento
+  -- degenere (fine <= inizio) che la canonicalizzazione butta. Contando sul
+  -- grezzo sembrerebbe piu' ricco della riga memorizzata e ne sostituirebbe il
+  -- totale con uno piu' basso; contando sul canonicalizzato non lo e', e il
+  -- totale resta quello buono.
+  declare
+    v_u6 uuid; v_d6 uuid; v_id6 bigint; v_min int;
+  begin
+    v_u6 := pg_temp.mk_user('conteggio-canonico');
+    v_d6 := pg_temp.mk_device(v_u6);
+    perform set_config('request.jwt.claims', json_build_object('sub', v_u6::text, 'role','authenticated')::text, true);
+    v_id6 := public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u6, v_d6,
+      jsonb_build_array(jsonb_build_object(
+        'startMs', v_start, 'endMs', v_start + 7200000, 'stage','light','sessionIdx',0)),
+      v_start, v_start + 7200000, 120, v_start));
+    perform public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u6, v_d6,
+      jsonb_build_array(
+        jsonb_build_object('startMs', v_start, 'endMs', v_start + 3600000, 'stage','light','sessionIdx',0),
+        -- Sessione 1 dichiarata ma vuota: fine <= inizio.
+        jsonb_build_object('startMs', v_start + 9000000, 'endMs', v_start + 9000000, 'stage','light','sessionIdx',1)),
+      v_start, v_start + 3600000, 60, v_start + 1000));
+    select sleep_minutes into v_min from public.fitness_metrics where id = v_id6;
+    if v_min = 120 then
+      v_ok := v_ok + 1; raise notice '   R9  sessioni contate sul canonicalizzato       OK';
+    else
+      v_ko := v_ko + 1; raise notice '   R9  sessioni contate sul grezzo                KO   sleep_minutes %', v_min;
+    end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
+  end;
+
+  -- ── R10. Un merge che non produce stadi non azzera la colonna ──────────
+  -- Il fallback `coalesce(q.m->'stages', fitness_metrics.sleep_stages)` e'
+  -- raggiungibile solo quando il memorizzato e' gia' vuoto o interamente
+  -- invalido: con stadi validi in tabella il merge non restituisce mai null,
+  -- quindi R4 passava anche senza questo fallback. Qui la riga nasce con soli
+  -- segmenti degeneri (canonicalizzati a '[]'), e il sync successivo non porta
+  -- sonno: senza il coalesce la colonna diventerebbe null.
+  declare
+    v_u7 uuid; v_d7 uuid; v_id7 bigint; v_st jsonb;
+  begin
+    v_u7 := pg_temp.mk_user('merge-vuoto');
+    v_d7 := pg_temp.mk_device(v_u7);
+    perform set_config('request.jwt.claims', json_build_object('sub', v_u7::text, 'role','authenticated')::text, true);
+    v_id7 := public.upsert_fitness_metrics_v189(pg_temp.payload(
+      v_u7, v_d7,
+      jsonb_build_array(jsonb_build_object(
+        'startMs', v_start, 'endMs', v_start, 'stage','light','sessionIdx',0)),
+      v_start, v_start + 7200000, 120, v_start));
+    perform public.upsert_fitness_metrics_v189(jsonb_build_object(
+      'user_id', v_u7, 'device_id', v_d7, 'local_day_key', '2026-08-10',
+      'source', 'health_connect', 'source_device', 'watch', 'schema_version', 4,
+      'collected_at_ms', v_start + 1000, 'steps', 500,
+      'window_start_ms', v_start, 'window_end_ms', v_start + 7200000));
+    select sleep_stages into v_st from public.fitness_metrics where id = v_id7;
+    if v_st = '[]'::jsonb then
+      v_ok := v_ok + 1; raise notice '   R10 merge senza stadi: la colonna non si azzera OK';
+    else
+      v_ko := v_ko + 1; raise notice '   R10 merge senza stadi azzera la colonna        KO   %', coalesce(v_st::text,'null');
+    end if;
+    perform set_config('request.jwt.claims', json_build_object('sub', v_u::text, 'role','authenticated')::text, true);
+  end;
+
   -- ── R6. Il contratto di sleep_minutes NON cambia ────────────────────────
   -- Resta il totale autorevole dichiarato dalla fonte piu' ricca, mai la
   -- somma grezza degli stadi. Qui la notte dura 120 minuti dichiarati su una
@@ -350,5 +425,5 @@ rollback;
 
 \echo ''
 \echo '=================================================='
-\echo 'sleep_merge_p0 / RPC completa: OTTO CASI'
+\echo 'sleep_merge_p0 / RPC completa: DIECI CASI'
 \echo '=================================================='
