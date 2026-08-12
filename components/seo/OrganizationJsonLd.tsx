@@ -8,6 +8,8 @@ import {
   PLAY_STORE_URL,
   AVAILABILITY,
   ORG_DESCRIPTIONS,
+  REDDIT_URL,
+  REDDIT_COMMUNITY_LIVE,
 } from "@/lib/product-facts";
 
 /**
@@ -54,10 +56,19 @@ export function organizationJsonLdData(locale: Locale) {
       caption: "FitMesh Sync — app icon (FM monogram)",
     },
     image: `${SITE_URL}/icon-square.png`,
+    // r/FitMesh: gated su REDDIT_COMMUNITY_LIVE (lib/flags.ts) — il
+    // subreddit è privato oggi, dichiararlo qui prima dell'apertura
+    // pubblica non avrebbe senso (nulla da verificare per un crawler) e va
+    // sbloccato solo dopo conferma di Matteo. `sameAs` è l'unico beneficio
+    // SEO reale di questa integrazione: dichiara al motore che il profilo
+    // appartiene alla stessa entità del sito (consolidamento identità), non
+    // un canale che passa autorità di link (il link in Footer/#support è
+    // comunque nofollow/ugc).
     sameAs: [
       PLAY_STORE_URL,
       AVAILABILITY.ios.storeUrl,
       "https://www.fosforonero.com",
+      ...(REDDIT_COMMUNITY_LIVE ? [REDDIT_URL] : []),
     ],
     email: "hello@fitmesh.fit",
     founder: authorPersonNode(locale),

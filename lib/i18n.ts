@@ -178,6 +178,7 @@ export type Dictionary = {
       privacy: string;
       terms: string;
       cookies: string;
+      community: string;
     };
   };
   cookie_banner: {

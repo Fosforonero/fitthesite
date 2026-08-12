@@ -6,6 +6,8 @@ import { LANDING_PAGES_BY_SLUG } from "@/lib/landing/data";
 import { landingLinkHref } from "@/lib/landing/indexability";
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 import { famigliaLinkHref } from "@/lib/content/static-page-locales";
+import { REDDIT_URL, REDDIT_COMMUNITY_LIVE } from "@/lib/product-facts";
+import { COMMUNITY_PLACEMENTS } from "@/lib/analytics/cta";
 
 export default function Footer({
   dict,
@@ -98,6 +100,27 @@ export default function Footer({
              */}
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
             <li><Link href={`/${locale}/support`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>
+            {/* r/FitMesh — gated su REDDIT_COMMUNITY_LIVE (lib/flags.ts).
+                rel="noopener noreferrer", NIENTE nofollow/ugc: link
+                editoriale ufficiale controllato da FitMesh (non contenuto
+                inserito da utenti), non ha senso marcarlo come tale; non
+                passa comunque autorità per conto proprio — il beneficio SEO
+                reale di questa integrazione è il `sameAs` in
+                OrganizationJsonLd, non questo link. noreferrer: non invia
+                il Referer a Reddit all'apertura. */}
+            {REDDIT_COMMUNITY_LIVE && (
+              <li>
+                <a
+                  href={REDDIT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-cta-placement={COMMUNITY_PLACEMENTS.footer}
+                  className="text-text-secondary hover:text-text-primary transition"
+                >
+                  {dict.footer.links.community}
+                </a>
+              </li>
+            )}
           </ul>
         </div>
 

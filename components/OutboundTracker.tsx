@@ -7,6 +7,7 @@ import {
   CTA_NO_STORE_DESTINATION,
   CTA_UNSPECIFIED,
   resolveStoreLink,
+  resolveCommunityLink,
 } from "@/lib/analytics/cta";
 
 /**
@@ -69,6 +70,13 @@ import {
  * `mode` è SOLO uno dei tre valori enum ("tanaka"/"age220"/"measured"):
  * mai età, FC a riposo, FC massima o qualunque altro valore inserito
  * dall'utente.
+ *
+ * P0.14A: `external_community_click`, click sul link d'uscita verso la
+ * community ufficiale (oggi solo r/FitMesh, `resolveCommunityLink` in
+ * lib/analytics/cta.ts — match sull'URL esatto, non un generico
+ * `includes("reddit.com")`). Evento indipendente dal funnel store/cta:
+ * porta solo `platform`/`placement`/`locale`/`path`, niente `campaign`
+ * (non fa parte del funnel post-Founder).
  */
 export default function OutboundTracker() {
   useEffect(() => {
@@ -142,6 +150,31 @@ export default function OutboundTracker() {
       }
     }
 
+    /**
+     * P0.14A — `external_community_click`: click su un link d'uscita verso
+     * la community ufficiale (oggi solo r/FitMesh). Evento indipendente dal
+     * funnel store/cta sopra: niente `campaign` (non è il funnel
+     * post-Founder), solo `platform`/`placement`/`locale`/`path` per
+     * istruzione esplicita — nessun dato personale.
+     */
+    function onCommunityClick(e: MouseEvent) {
+      const target = e.target as HTMLElement | null;
+      const a = target?.closest?.("a");
+      if (!a) return;
+      const href = a.getAttribute("href") ?? "";
+      const community = resolveCommunityLink(href);
+      if (!community) return;
+      const gtag = gtagFn();
+      if (typeof gtag === "function") {
+        gtag("event", "external_community_click", {
+          platform: community.platform,
+          placement: placementOf(a),
+          path: window.location.pathname,
+          locale: currentLocale(),
+        });
+      }
+    }
+
     function onHrZonesModeSelect(e: MouseEvent) {
       const target = e.target as HTMLElement | null;
       const modeEl = target?.closest?.("[data-hr-zones-mode-select]") as HTMLElement | null;
@@ -158,6 +191,7 @@ export default function OutboundTracker() {
 
     document.addEventListener("click", onClick, true);
     document.addEventListener("click", onCtaClick, true);
+    document.addEventListener("click", onCommunityClick, true);
     document.addEventListener("click", onHrZonesModeSelect, true);
 
     // cta_view: una sola emissione per elemento, quando entra nel viewport.
@@ -230,6 +264,7 @@ export default function OutboundTracker() {
     return () => {
       document.removeEventListener("click", onClick, true);
       document.removeEventListener("click", onCtaClick, true);
+      document.removeEventListener("click", onCommunityClick, true);
       document.removeEventListener("click", onHrZonesModeSelect, true);
       io.disconnect();
       mo.disconnect();

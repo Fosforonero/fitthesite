@@ -3,7 +3,7 @@ import { cleanup, render } from "@testing-library/react";
 
 import OutboundTracker from "./OutboundTracker";
 import StoreButtonsRow from "./StoreButtonsRow";
-import { CTA_CAMPAIGN, CTA_IDS, CTA_PLACEMENTS } from "@/lib/analytics/cta";
+import { CTA_CAMPAIGN, CTA_IDS, CTA_PLACEMENTS, COMMUNITY_PLACEMENTS } from "@/lib/analytics/cta";
 
 /**
  * Fase 7 (funnel post-Founder): verifica che i TRE eventi del funnel
@@ -222,6 +222,71 @@ describe("privacy — superficie dei dati", () => {
     const params = gtagCalls().flatMap((c) => Object.keys(c[2]));
     expect(params.length).toBeGreaterThan(0);
     expect(params.filter((k) => !ALLOWED.has(k))).toEqual([]);
+  });
+});
+
+describe("P0.14A — external_community_click (r/FitMesh)", () => {
+  it("un click sul link Reddit del footer emette platform/placement/locale/path, nient'altro", () => {
+    render(
+      <>
+        <OutboundTracker />
+        <a
+          href="https://www.reddit.com/r/FitMesh/"
+          data-cta-placement={COMMUNITY_PLACEMENTS.footer}
+          onClick={(e) => e.preventDefault()}
+        >
+          Community
+        </a>
+      </>,
+    );
+
+    document.querySelector<HTMLAnchorElement>('a[href="https://www.reddit.com/r/FitMesh/"]')!.click();
+
+    const events = eventsNamed("external_community_click");
+    expect(events).toHaveLength(1);
+    // toEqual (non toMatchObject): prova che non ci sia NESSUN parametro
+    // oltre ai quattro dichiarati — niente campaign, niente id, niente PII.
+    expect(events[0]).toEqual({
+      platform: "reddit",
+      placement: COMMUNITY_PLACEMENTS.footer,
+      locale: "de",
+      path: "/de/preise",
+    });
+    // un link Reddit non è ne' una CTA ne' uno store: non deve mai comparire li'.
+    expect(eventsNamed("cta_click")).toHaveLength(0);
+    expect(eventsNamed("store_click")).toHaveLength(0);
+  });
+
+  it("il placement riflette /support quando dichiarato", () => {
+    render(
+      <>
+        <OutboundTracker />
+        <a
+          href="https://www.reddit.com/r/FitMesh/"
+          data-cta-placement={COMMUNITY_PLACEMENTS.support}
+          onClick={(e) => e.preventDefault()}
+        >
+          Community
+        </a>
+      </>,
+    );
+    document.querySelector<HTMLAnchorElement>("a")!.click();
+    expect(eventsNamed("external_community_click")[0]).toMatchObject({
+      placement: COMMUNITY_PLACEMENTS.support,
+    });
+  });
+
+  it("un link Reddit diverso da r/FitMesh (es. citato in un articolo) non emette l'evento", () => {
+    render(
+      <>
+        <OutboundTracker />
+        <a href="https://www.reddit.com/r/fitness/" onClick={(e) => e.preventDefault()}>
+          Altro subreddit
+        </a>
+      </>,
+    );
+    document.querySelector<HTMLAnchorElement>("a")!.click();
+    expect(eventsNamed("external_community_click")).toHaveLength(0);
   });
 });
 

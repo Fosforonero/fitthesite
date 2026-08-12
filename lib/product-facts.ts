@@ -32,7 +32,7 @@ import {
   PRICE_LIFETIME_IOS_RAW,
   PRICE_SUB_6M_RAW,
 } from "@/lib/pricing";
-import { APPLE_STORE_URL, APPLE_APP_ID } from "@/lib/flags";
+import { APPLE_STORE_URL, APPLE_APP_ID, REDDIT_COMMUNITY_LIVE } from "@/lib/flags";
 import { PROVIDERS, type ProviderStatus } from "@/lib/providers/data";
 
 // ── Identità e URL canonici ────────────────────────────────────────────────
@@ -46,6 +46,15 @@ export const PLAY_STORE_URL = `https://play.google.com/store/apps/details?id=${A
 // App Store: riesportato da lib/flags.ts, che resta l'unica fonte per
 // APPLE_APP_ID/APPLE_STORE_URL (governano anche lo Smart App Banner iOS).
 export { APPLE_STORE_URL, APPLE_APP_ID };
+
+/**
+ * r/FitMesh — community ufficiale su Reddit. Gate in lib/flags.ts
+ * (REDDIT_COMMUNITY_LIVE), riesportato qui per lo stesso motivo di
+ * APPLE_STORE_URL sopra: unica fonte di verità per Footer, /support e
+ * il `sameAs` dell'Organization in JSON-LD.
+ */
+export const REDDIT_URL = "https://www.reddit.com/r/FitMesh/";
+export { REDDIT_COMMUNITY_LIVE };
 
 // ── Disponibilità piattaforme ───────────────────────────────────────────────
 /**

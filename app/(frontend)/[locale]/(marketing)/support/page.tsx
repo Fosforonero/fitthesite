@@ -4,7 +4,8 @@ import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SUPPORT_FAQS } from "@/lib/content/faqs";
-import { SITE_URL } from "@/lib/product-facts";
+import { SITE_URL, REDDIT_URL, REDDIT_COMMUNITY_LIVE } from "@/lib/product-facts";
+import { COMMUNITY_PLACEMENTS } from "@/lib/analytics/cta";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 
 export async function generateMetadata(
@@ -188,6 +189,22 @@ export default async function SupportPage({
             {deleteAccountLinkText}
           </Link>
         </p>
+        {/* r/FitMesh — stessa etichetta l10n del Footer (t.footer.links.community,
+            dizionario condiviso), stesso gate REDDIT_COMMUNITY_LIVE e stesso
+            rel. Vedi components/Footer.tsx per la motivazione completa. */}
+        {REDDIT_COMMUNITY_LIVE && (
+          <p className="mt-2 text-sm">
+            <a
+              href={REDDIT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cta-placement={COMMUNITY_PLACEMENTS.support}
+              className="text-brand-aqua hover:text-brand-blue underline underline-offset-4"
+            >
+              r/FitMesh — {t.footer.links.community}
+            </a>
+          </p>
+        )}
       </header>
 
       <section className="space-y-3">
