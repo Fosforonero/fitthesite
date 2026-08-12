@@ -23,18 +23,38 @@ La regola che governa tutto: **una transazione si chiude solo quando il diritto
 
 ## Le dieci finestre
 
-| # | Dove muore | Stato | Perché converge lì |
-|---|---|---|---|
-| 1 | Dopo il pagamento allo store, prima che il client chiami il backend | **A** | La transazione non è mai stata chiusa. `purchaseStream` la riconsegna al prossimo avvio. |
-| 2 | Durante la verifica Apple/Google (rete, timeout, OCSP) | **A** | `retryable` → 503 → il client non chiude niente. Un silenzio non è un rifiuto. |
-| 3 | Dopo la verifica, prima della chiamata RPC | **A** | Nessuna scrittura è avvenuta. La verifica non ha effetti collaterali. |
-| 4 | Dentro la RPC, dopo il claim e prima della proiezione | **A** | Una sola transazione Postgres: il claim viene annullato insieme alla proiezione. Se restasse, ci sarebbe una proprietà assegnata a chi non ha il diritto — e quella persona non potrebbe nemmeno ritentare, perché la sua transazione risulterebbe già consumata. **Esercitato: F4.** |
-| 5 | Dentro la RPC, dopo la proiezione e prima del commit | **A** | Come sopra: senza commit non esiste niente. |
-| 6 | Dopo il commit, prima che la risposta arrivi al client | **B → C** | Il diritto c'è, la transazione è aperta. La ripresentazione dà `already_owned_by_same_user`, 200, e chiude. **Esercitato: F6.** |
-| 7 | Il client riceve 200 e muore prima di `completePurchase` | **B → C** | Identico a 6 dal lato server. Le ripresentazioni sono idempotenti e non producono conflitti verso il titolare. **Esercitato: F7.** |
-| 8 | Durante `completePurchase` | **B o C** | Se lo store non registra la chiusura, la transazione torna; se la registra, siamo in C. In entrambi i casi il diritto c'è già. |
-| 9 | Dopo `completePurchase`, prima di aggiornare lo stato locale in app | **C** | Lo stato locale non è la fonte di verità: `get_entitlement_status()` lo ricostruisce al prossimo avvio. |
-| 10 | Una richiesta partita **prima** di una revoca arriva **dopo** | **A** | La guardia di freschezza rifiuta un'evidenza più vecchia di quella registrata: un `active` in ritardo non resuscita una revoca. Senza, sarebbe **Y**. **Esercitato: F10.** |
+Dal 12/08/2026 sono esercitate tutte e dieci. Prima ne erano esercitate
+quattro e sei erano ARGOMENTATE — e due degli argomenti, per quanto corretti,
+descrivevano un comportamento che il codice non aveva.
+
+| # | Dove muore | Stato | Perché converge lì | Dove è esercitata |
+|---|---|---|---|---|
+| 1 | Dopo il pagamento allo store, prima che il client chiami il backend | **A** | La transazione non è mai stata chiusa. `purchaseStream` la riconsegna al prossimo avvio. | `purchase_crash_windows_test.dart` |
+| 2 | Durante la verifica Apple/Google (rete, timeout, OCSP) | **A** | `retryable` → 503 → il client non chiude niente. Un silenzio non è un rifiuto. | `route.test.ts` (F2, F2bis) |
+| 3 | Dopo la verifica, prima della chiamata RPC | **A** | Nessuna scrittura è avvenuta, e non è più un'affermazione: il test misura che al momento della verifica il client del database non è ancora stato toccato. | `route.test.ts` (F3) |
+| 4 | Dentro la RPC, dopo il claim e prima della proiezione | **A** | Una sola transazione Postgres: il claim viene annullato insieme alla proiezione. Se restasse, ci sarebbe una proprietà assegnata a chi non ha il diritto — e quella persona non potrebbe nemmeno ritentare, perché la sua transazione risulterebbe già consumata. | `70-crash-windows.sql` (F4) |
+| 5 | Dentro la RPC, dopo la proiezione e prima del commit | **A** | Senza commit non esiste niente. Riprodotta con un SAVEPOINT: la RPC completa davvero e poi la transazione che la conteneva viene annullata. | `70-crash-windows.sql` (F5) |
+| 6 | Dopo il commit, prima che la risposta arrivi al client | **B → C** | Il diritto c'è, la transazione è aperta. La ripresentazione dà `already_owned_by_same_user`, 200, e chiude. | `70-crash-windows.sql` (F6) |
+| 7 | Il client riceve 200 e muore prima di `completePurchase` | **B → C** | Identico a 6 dal lato server. Le ripresentazioni sono idempotenti e non producono conflitti verso il titolare. | `70-crash-windows.sql` (F7) |
+| 8 | Durante `completePurchase` | **B o C** | Se lo store non registra la chiusura, la transazione torna; se la registra, siamo in C. In entrambi i casi il diritto c'è già. | `purchase_crash_windows_test.dart` |
+| 9 | Dopo `completePurchase`, prima di aggiornare lo stato locale in app | **C** | Lo stato locale non è la fonte di verità: `get_entitlement_status()` lo ricostruisce al prossimo avvio. | `purchase_crash_windows_test.dart` |
+| 10 | Una richiesta partita **prima** di una revoca arriva **dopo** | **A** | La guardia di freschezza rifiuta un'evidenza più vecchia di quella registrata: un `active` in ritardo non resuscita una revoca. Senza, sarebbe **Y**. | `70-crash-windows.sql` (F10) |
+
+## Cosa hanno trovato, scrivendole
+
+Due finestre su sei non si comportavano come l'argomento diceva.
+
+**La 2.** Un'eccezione del verificatore JWS usciva dal route handler. Niente
+corpo, niente `error`, niente `disposition`: la 189, che legge quei campi per
+nome senza validare la forma, ne riceveva due null. Il ramo StoreKit 1 era
+protetto da sempre; quello StoreKit 2, che percorrono tutti i client moderni,
+no.
+
+**La 8.** `_finish` chiamava `completePurchase` senza protezione. Una
+`PlatformException` dello store usciva da `_handleVerifiedPurchase` e arrivava
+fino al gestore dello stream: tutto ciò che veniva dopo non veniva eseguito, e
+su un dispositivo vero diventava una segnalazione di crash per una situazione
+che questo documento descrive come normale.
 
 ## Perché X non è raggiungibile
 
