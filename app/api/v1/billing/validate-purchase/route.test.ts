@@ -703,3 +703,126 @@ describe("il contratto letto dalla 189 non si muove", () => {
     expect(body.disposition).toBe("client_contract_error");
   });
 });
+
+/**
+ * LE FINESTRE DI CRASH CHE VIVONO NEL BACKEND.
+ *
+ * Le dieci sono elencate in `supabase/rollback/README-finestre-di-crash.md`.
+ * Quattro le dimostra il database (F4, F5, F6/F7, F10), tre il client, e queste
+ * due stanno qui: sono le uniche in cui il processo puo' morire fra la verifica
+ * dello store e la prima scrittura.
+ *
+ * Fino all'12/08/2026 erano ARGOMENTATE, non esercitate. L'argomento era
+ * corretto — "la verifica non ha effetti collaterali" — ma era un'affermazione
+ * su codice che nessuno controllava, e un domani in cui la verifica cominciasse
+ * a scrivere qualcosa (una cache, un contatore, un audit) non se ne
+ * accorgerebbe nessuno.
+ */
+describe("finestre di crash: fra la verifica e la prima scrittura", () => {
+  beforeEach(() => {
+    mocks.requireUser.mockResolvedValue({ userId: USER_ID });
+    mocks.rpc.mockResolvedValue(claimed);
+  });
+
+  it("F2. il processo muore DURANTE la verifica: niente e' stato scritto", async () => {
+    // Rete, timeout, OCSP che non risponde. Il verificatore dichiara
+    // `retryable`, che non e' un rifiuto: e' un silenzio.
+    mocks.verifyJws.mockResolvedValue({ kind: "retryable" });
+
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+    const body = await res.json();
+
+    expect(res.status).toBe(503);
+    expect(body.error).toBe("apple_unavailable");
+    // La disposizione lo dice al client invece di lasciarglielo dedurre.
+    expect(body.disposition).toBe("retryable");
+    // Nessuna scrittura: la transazione resta aperta e torna da sola.
+    expect(mocks.rpc).not.toHaveBeenCalled();
+  });
+
+  it("F2bis. anche un'eccezione del verificatore non scrive niente", async () => {
+    // Un guasto che nemmeno il verificatore sa classificare non deve
+    // trasformarsi in un rifiuto dell'acquisto.
+    mocks.verifyJws.mockRejectedValue(new Error("connessione interrotta"));
+
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+
+    expect(res.status).toBeGreaterThanOrEqual(500);
+    expect((await res.json()).disposition).toBe("retryable");
+    expect(mocks.rpc).not.toHaveBeenCalled();
+  });
+
+  it("F3. la verifica non ha effetti collaterali: morire dopo non lascia niente", async () => {
+    // L'argomento della finestra 3 e' "nessuna scrittura e' avvenuta, perche'
+    // la verifica non ne fa". Qui l'argomento diventa una misura: al momento
+    // in cui il verificatore viene invocato, e per tutta la sua durata, il
+    // client del database non e' ancora stato toccato. Se un domani la
+    // verifica cominciasse a scrivere qualcosa, questo test diventerebbe
+    // rosso — ed e' l'unico modo di accorgersene.
+    let scrittureDuranteLaVerifica = -1;
+    mocks.verifyJws.mockImplementation(async () => {
+      scrittureDuranteLaVerifica = mocks.rpc.mock.calls.length;
+      return okTransaction;
+    });
+
+    await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+
+    expect(scrittureDuranteLaVerifica).toBe(0);
+    // E dopo, una sola: il claim. Non due, e non zero.
+    expect(mocks.rpc).toHaveBeenCalledTimes(1);
+    expect(mocks.rpc.mock.calls[0][0]).toBe("claim_store_purchase");
+  });
+});
+
+describe("un guasto interno non racconta niente di quello che aveva in mano", () => {
+  beforeEach(() => {
+    mocks.requireUser.mockResolvedValue({ userId: USER_ID });
+  });
+
+  it("il messaggio dell'eccezione non esce dal backend", async () => {
+    // I messaggi di eccezione dei client HTTP contengono spesso l'URL e il
+    // corpo della richiesta. Qui dentro passano un JWS e una ricevuta App
+    // Store: credenziali ripresentabili. Fino all'12/08/2026 il ramo Google e
+    // il ramo StoreKit 1 rimandavano il messaggio al dispositivo dentro
+    // `details`.
+    const segreto = "eyJhbGciOiJFUzI1NiJ9.PEZZO-DI-TOKEN.firma";
+    mocks.verifyJws.mockRejectedValue(new Error(`fallita con ${segreto}`));
+
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+    const testo = await res.text();
+
+    expect(res.status).toBe(500);
+    expect(testo).not.toContain(segreto);
+    expect(testo).not.toContain("PEZZO-DI-TOKEN");
+    expect(JSON.parse(testo).error).toBe("internal");
+    expect(JSON.parse(testo).disposition).toBe("retryable");
+  });
+});

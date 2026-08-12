@@ -102,7 +102,41 @@ begin
     raise notice '   F4  claim senza proiezione                      KO   esito=% claim=%', v_r->>'outcome', v_n;
   end if;
 
-  -- ── F5/F6. La risposta si perde per strada ─────────────────────────────
+  -- ── F5. Crash DOPO la proiezione e PRIMA del commit ────────────────────
+  -- Distinta da F4: li' a fallire era la proiezione, qui va tutto bene e a
+  -- mancare e' il commit. E' la finestra piu' facile da dare per scontata
+  -- ("senza commit non esiste niente") e quella in cui una svista costerebbe
+  -- di piu': se il claim sopravvivesse al rollback, quella transazione
+  -- risulterebbe consumata da un utente che non ha ricevuto il diritto, e non
+  -- potrebbe piu' essere reclamata da nessuno — nemmeno da lui.
+  --
+  -- Si riproduce con un SAVEPOINT: la RPC completa, scrive claim, stato e
+  -- proiezione, e poi la transazione che la conteneva viene annullata.
+  v_u := pg_temp.mk_user('f5');
+  begin
+    v_r := pg_temp.claim(v_u, '3000000000000005');
+    if v_r->>'outcome' <> 'claimed' or not pg_temp.ha_diritto(v_u) then
+      raise exception 'premessa F5 non valida: %', v_r->>'outcome';
+    end if;
+    -- Il processo muore qui, prima del COMMIT.
+    raise exception 'crash simulato dopo la proiezione';
+  exception
+    when others then null;
+  end;
+
+  select count(*) into v_n from private.billing_purchase_claims
+   where ownership_key = '3000000000000005';
+  if v_n = 0
+     and not exists (select 1 from private.billing_purchase_states where ownership_key = '3000000000000005')
+     and not pg_temp.ha_diritto(v_u) then
+    v_ok := v_ok + 1;
+    raise notice '   F5  crash prima del commit -> stato A            OK   claim, stato e proiezione annullati insieme';
+  else
+    v_ko := v_ko + 1;
+    raise notice '   F5  crash prima del commit                      KO   claim=% diritto=%', v_n, pg_temp.ha_diritto(v_u);
+  end if;
+
+  -- ── F6. La risposta si perde per strada ────────────────────────────────
   -- Il commit è avvenuto, il diritto esiste, ma il 200 non arriva al client
   -- (crash del processo, rete che cade, app uccisa). La transazione resta
   -- APERTA: stato B. Lo store la ripresenta, e la ripresentazione deve

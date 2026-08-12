@@ -518,12 +518,27 @@ export async function POST(req: Request): Promise<Response> {
         // acquistabile su iOS.
         return jsonError(400, "ios_subscription_not_supported");
       }
-      return await validateAppleJws({
-        admin,
-        userId,
-        productId: product_id,
-        signedTransaction: purchase_token,
-      });
+      // Il try NON e' decorativo. Senza, un'eccezione del verificatore usciva
+      // dal handler: niente corpo, niente `error`, niente `disposition`, e la
+      // 189 — che legge `body['error']` e `body['active_until']` per nome —
+      // riceveva due null. Il ramo StoreKit 1 qui sotto era protetto da
+      // sempre; questo, che e' quello che percorrono TUTTI i client moderni,
+      // no. Trovato dal test F2bis delle finestre di crash.
+      try {
+        return await validateAppleJws({
+          admin,
+          userId,
+          productId: product_id,
+          signedTransaction: purchase_token,
+        });
+      } catch (e) {
+        // Solo il NOME dell'eccezione. Il messaggio puo' contenere frammenti
+        // del token o della transazione, e questa e' una risposta che esce.
+        console.error(
+          `[Billing] apple jws internal error: ${e instanceof Error ? e.name : "errore"}`,
+        );
+        return jsonError(500, "internal");
+      }
     }
 
     // ── Ramo legacy (ricevuta base64, verifyReceipt) ───────────────────
@@ -592,9 +607,13 @@ export async function POST(req: Request): Promise<Response> {
       );
       return jsonError(502, "apple_validation_failed", { status: result.status });
     } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e);
-      console.error(`[Billing] apple internal error: ${msg}`);
-      return jsonError(500, "internal", msg);
+      // Il messaggio dell'eccezione NON esce. Nel ramo StoreKit 1 puo'
+      // contenere frammenti della ricevuta, che e' una credenziale
+      // ripresentabile, e questa e' una risposta che l'utente riceve.
+      console.error(
+        `[Billing] apple internal error: ${e instanceof Error ? e.name : "errore"}`,
+      );
+      return jsonError(500, "internal");
     }
   }
 
@@ -725,8 +744,12 @@ export async function POST(req: Request): Promise<Response> {
     }
     return jsonError(500, "unexpected_result_kind");
   } catch (e) {
-    const msg = e instanceof Error ? e.message : String(e);
-    console.error(`[Billing] internal error: ${msg}`);
-    return jsonError(500, "internal", msg);
+    // Come nel ramo Apple: solo il nome. Un messaggio di eccezione del client
+    // Play puo' contenere il purchase token, che e' una credenziale
+    // ripresentabile, e da qui uscirebbe verso il dispositivo.
+    console.error(
+      `[Billing] internal error: ${e instanceof Error ? e.name : "errore"}`,
+    );
+    return jsonError(500, "internal");
   }
 }
