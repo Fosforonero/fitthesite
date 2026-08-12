@@ -6,6 +6,7 @@ import { LANDING_PAGES_BY_SLUG } from "@/lib/landing/data";
 import { landingLinkHref } from "@/lib/landing/indexability";
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 import { famigliaLinkHref } from "@/lib/content/static-page-locales";
+import { REDDIT_URL, REDDIT_COMMUNITY_LIVE } from "@/lib/product-facts";
 
 export default function Footer({
   dict,
@@ -98,6 +99,26 @@ export default function Footer({
              */}
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
             <li><Link href={`/${locale}/support`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>
+            {/* r/FitMesh — gated su REDDIT_COMMUNITY_LIVE (lib/flags.ts):
+                il subreddit è privato oggi, un link porterebbe a una pagina
+                che chiede l'accesso. Va sbloccato solo dopo conferma di
+                Matteo che è pubblico. rel="nofollow ugc": link verso una
+                piattaforma di terzi con contenuto generato dagli utenti, non
+                passa autorità — il valore è indirizzare gli utenti e
+                consolidare l'identità di marca (vedi anche `sameAs` in
+                OrganizationJsonLd), non il ranking. */}
+            {REDDIT_COMMUNITY_LIVE && (
+              <li>
+                <a
+                  href={REDDIT_URL}
+                  target="_blank"
+                  rel="noopener nofollow ugc"
+                  className="text-text-secondary hover:text-text-primary transition"
+                >
+                  {dict.footer.links.community}
+                </a>
+              </li>
+            )}
           </ul>
         </div>
 
