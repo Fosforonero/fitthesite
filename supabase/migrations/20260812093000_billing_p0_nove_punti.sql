@@ -45,6 +45,23 @@
 -- non e' un'evidenza store, e va dichiarato per quello che e'.
 -- ============================================================================
 
+-- `store_event_at` e' la FRESCHEZZA DELLA FOTOGRAFIA (signedDate per il JWS,
+-- request_date per verifyReceipt): serve a ordinare fra loro le fotografie
+-- della stessa transazione, ed e' cio' che Apple documenta di usare.
+-- `revocation_at` e' il momento di EFFICACIA del rimborso, che e' un'altra
+-- cosa e non ordina niente.
+--
+-- Confonderli e' costato un difetto: la route passava `revokedAtMs` come
+-- orologio di ordinamento etichettandolo `apple_signed_date`, e una revoca
+-- risultava sempre piu' vecchia della validazione che la precedeva.
+alter table private.billing_purchase_states
+  add column if not exists revocation_at timestamptz null;
+
+comment on column private.billing_purchase_states.revocation_at is
+  'Momento in cui il rimborso e'' diventato efficace (revocationDate Apple / '
+  'cancellation_date_ms). Informativo: NON ordina le evidenze, che si '
+  'ordinano con store_event_at.';
+
 alter table private.billing_purchase_states
   drop constraint if exists billing_purchase_states_event_source_check;
 
@@ -77,8 +94,8 @@ comment on column private.billing_purchase_states.store_event_source is
  * regola che legge righe diventa un comportamento.
  */
 create or replace function private._billing_evidenza_supera(
-  p_vecchia_fonte text, p_vecchia_at timestamptz,
-  p_nuova_fonte text,   p_nuova_at timestamptz
+  p_vecchia_fonte text, p_vecchia_at timestamptz, p_vecchio_stato text,
+  p_nuova_fonte text,   p_nuova_at timestamptz,   p_nuovo_stato text
 )
 returns boolean
 language sql
@@ -87,28 +104,49 @@ set search_path to ''
 as $$
   select case
     -- Un segnaposto non cancella mai un'evidenza store, nemmeno se piu'
-    -- recente: e' proprio il caso in cui la 189 riscrive una riga vecchia
-    -- mentre l'acquisto e' gia' stato verificato dal percorso nuovo.
+    -- recente: e' il caso in cui la 189 riscrive una riga vecchia mentre
+    -- l'acquisto e' gia' stato verificato dal percorso nuovo.
     when p_nuova_fonte in ('projection_backfill', 'projection_compatibility')
      and p_vecchia_fonte not in ('projection_backfill', 'projection_compatibility')
       then false
-    -- Un'evidenza store supera sempre un segnaposto, anche se il suo timestamp
-    -- e' anteriore: i due valori non stanno sullo stesso orologio, e fra i due
-    -- l'unico che dice qualcosa sull'acquisto e' quello dello store.
+    -- Un'evidenza store supera sempre un segnaposto, anche se anteriore: i due
+    -- valori non stanno sullo stesso orologio, e fra i due solo quello dello
+    -- store dice qualcosa sull'acquisto.
     when p_vecchia_fonte in ('projection_backfill', 'projection_compatibility')
      and p_nuova_fonte not in ('projection_backfill', 'projection_compatibility')
       then true
-    -- Stessa classe di orologio: vale l'ordine del tempo. Le due sorgenti Apple
-    -- sono lo stesso orologio; una chiave appartiene a un solo store, quindi
-    -- Apple e Google non si incontrano mai qui (lo impone il CHECK sopra).
+    -- UNA REVOCA JWS NON SI ANNULLA CON UNA RICEVUTA LEGACY.
+    --
+    -- `revoked` NON e' assorbente: Apple prevede REFUND_REVERSED, cioe'
+    -- l'annullamento di un rimborso, e in quel caso l'accesso va RIPRISTINATO
+    -- sullo stesso originalTransactionId. Una fotografia JWS piu' recente
+    -- senza revoca deve quindi poter riattivare.
+    --
+    -- Ma verifyReceipt (StoreKit 1) non porta la stessa informazione: il suo
+    -- `request_date_ms` e' solo "quando abbiamo chiesto", e una sua risposta
+    -- successiva non e' una prova che il rimborso sia stato annullato. Da
+    -- sola non deve poter resuscitare un acquisto che il JWS dichiara
+    -- revocato.
+    when p_vecchio_stato = 'revoked'
+     and p_nuovo_stato <> 'revoked'
+     and p_vecchia_fonte = 'apple_signed_date'
+     and p_nuova_fonte = 'apple_request_date'
+      then false
+    -- Stessa classe di orologio: vince la fotografia piu' recente. E' la
+    -- regola che Apple documenta per ordinare le evidenze della stessa
+    -- transazione.
     else p_nuova_at > p_vecchia_at
   end;
 $$;
 
-comment on function private._billing_evidenza_supera(text, timestamptz, text, timestamptz) is
-  'Regola di precedenza fra due evidenze sullo stesso acquisto. Un segnaposto '
-  'perde sempre contro un''evidenza store, in entrambe le direzioni del tempo; '
-  'fra evidenze dello stesso orologio vince la piu'' recente.';
+drop function if exists private._billing_evidenza_supera(text, timestamptz, text, timestamptz);
+
+comment on function private._billing_evidenza_supera(text, timestamptz, text, text, timestamptz, text) is
+  'Precedenza fra due evidenze sullo stesso acquisto, ordinate per FRESCHEZZA '
+  'DELLA FOTOGRAFIA (store_event_at). Un segnaposto perde sempre contro '
+  'un''evidenza store; una ricevuta legacy non annulla una revoca JWS; per il '
+  'resto vince la fotografia piu'' recente. `revoked` NON e'' assorbente: '
+  'REFUND_REVERSED deve poter ripristinare l''accesso.';
 
 -- ============================================================================
 -- 2. SOLO IN AVANTI, MA SULL'OROLOGIO GIUSTO
@@ -134,29 +172,12 @@ begin
       using errcode = '42501';
   end if;
 
-  -- UNA REVOCA NON E' MAI UNA REGRESSIONE.
-  --
-  -- E' l'eccezione che la regola degli orologi non puo' esprimere, perche' la
-  -- regola confronta timestamp e questa e' una proprieta' dello STATO. Su una
-  -- revoca l'evidenza di Apple e' datata a quando APPLE ha deciso il rimborso,
-  -- che e' sempre nel passato — spesso prima della nostra ultima validazione,
-  -- che porta l'ora in cui abbiamo chiesto NOI. Ordinarle col tempo faceva
-  -- scartare la revoca in silenzio, e il cliente teneva il Pro di un acquisto
-  -- gia' rimborsato.
-  --
-  -- 'revoked' e' assorbente per QUELLA chiave, e una chiave e' un acquisto: un
-  -- riacquisto genera un originalTransactionId nuovo, quindi una chiave nuova.
-  -- Non c'e' niente da proteggere ordinando le revoche.
-  if new.state = 'revoked' and old.state <> 'revoked' then
-    return new;
-  end if;
-
   -- Prima si confrontava `new.store_event_at < old.store_event_at` e basta,
   -- cioe' due numeri che potevano venire da orologi diversi. Adesso decide la
   -- regola, che sa quali confronti hanno senso.
   if not private._billing_evidenza_supera(
-       old.store_event_source, old.store_event_at,
-       new.store_event_source, new.store_event_at) then
+       old.store_event_source, old.store_event_at, old.state,
+       new.store_event_source, new.store_event_at, new.state) then
     raise exception
       'private.billing_purchase_states: evidenza che non supera quella registrata (nuova %/% vs registrata %/%). Uno stato non regredisce, e un segnaposto non sovrascrive un''evidenza store.',
       new.store_event_source, new.store_event_at,
@@ -338,15 +359,29 @@ begin
   -- Non si solleva: un errore, con la 189 in giro, chiude la transazione. Si
   -- lascia passare la scrittura proiettando lo stato VERO, che non concede
   -- accesso.
+  -- Un acquisto che il registro sa REVOCATO non torna Pro perche' il backend
+  -- vecchio lo ripresenta.
+  --
+  -- Forzare `new.state := 'expired'` non bastava, ed era anzi pericoloso: la
+  -- proiezione ha UNA riga per utente, quindi la riga scaduta di K1 avrebbe
+  -- preso il posto di K2 — un secondo acquisto ancora valido dello stesso
+  -- utente — o di un Founder. Ripresentare un acquisto rimborsato non deve
+  -- poter togliere un diritto che il cliente ha davvero.
+  --
+  -- Si ricalcola quindi il MIGLIORE diritto posseduto dal registro, e si
+  -- SCARTA la scrittura del backend vecchio restituendo NULL: la riga resta
+  -- quella autorevole. Il chiamante non riceve un errore — con la 189 in giro
+  -- un errore chiude la transazione — vede solo zero righe toccate, che e'
+  -- esattamente cio' che sta chiedendo di ottenere.
   if exists (
     select 1 from private.billing_purchase_states s
     where s.billing_source = new.billing_source
       and s.ownership_key = v_key
       and s.state = 'revoked'
   ) then
-    raise warning 'guardia proiezione: acquisto revocato nel registro, proiettato come scaduto invece che attivo.';
-    new.state := 'expired';
-    new.auto_renewing := false;
+    raise warning 'guardia proiezione: acquisto revocato nel registro, scrittura scartata e proiezione ricalcolata dal registro.';
+    perform private._billing_project_entitlement(new.user_id);
+    return null;
   end if;
 
   v_kind := case when new.external_product_id = 'fitmesh_pro_sub'
@@ -728,8 +763,10 @@ begin
     where private._billing_evidenza_supera(
             private.billing_purchase_states.store_event_source,
             private.billing_purchase_states.store_event_at,
+            private.billing_purchase_states.state,
             excluded.store_event_source,
-            excluded.store_event_at);
+            excluded.store_event_at,
+            excluded.state);
 
     v_state_applied := found;
 
@@ -773,13 +810,26 @@ grant execute on function public.claim_store_purchase(
   text, text, uuid, text, text, text, text, timestamptz, boolean, timestamptz, text, text, uuid
 ) to service_role;
 
+-- La firma cambia (arriva `p_revocation_at`), quindi la vecchia va tolta: con
+-- due funzioni omonime a 6 e 7 argomenti, una chiamata a 6 diventa ambigua e
+-- Postgres la rifiuta.
+drop function if exists public.record_store_purchase_revocation(
+  text, text, text, text, timestamptz, text
+);
+
 create or replace function public.record_store_purchase_revocation(
   p_billing_source text,
   p_ownership_key text,
   p_external_product_id text,
   p_purchase_kind text,
+  -- FRESCHEZZA DELLA FOTOGRAFIA: signedDate del JWS che porta la revoca, o
+  -- request_date della risposta verifyReceipt. E' l'unico campo che ordina.
   p_store_event_at timestamptz,
-  p_store_event_source text
+  p_store_event_source text,
+  -- EFFICACIA del rimborso: revocationDate / cancellation_date_ms. Non ordina
+  -- niente, e va conservato perche' e' la data che conta per il supporto e
+  -- per la contabilita'.
+  p_revocation_at timestamptz default null
 )
 returns jsonb
 language plpgsql
@@ -845,7 +895,7 @@ begin
     insert into private.billing_purchase_states (
       billing_source, ownership_key, external_product_id, purchase_kind,
       state, active_until, auto_renewing,
-      store_event_at, store_event_source, verified_at
+      store_event_at, store_event_source, revocation_at, verified_at
     ) values (
       p_billing_source, p_ownership_key, p_external_product_id, p_purchase_kind,
       'revoked',
@@ -853,35 +903,29 @@ begin
            then '9999-12-31T23:59:59Z'::timestamptz
            else p_store_event_at end,
       false,
-      p_store_event_at, p_store_event_source, pg_catalog.now()
+      p_store_event_at, p_store_event_source,
+      coalesce(p_revocation_at, p_store_event_at), pg_catalog.now()
     )
     on conflict (billing_source, ownership_key) do update set
       state              = 'revoked',
       auto_renewing      = false,
-      -- La freschezza avanza solo se l'evidenza e' davvero piu' recente: una
-      -- revoca vecchia registra il FATTO senza far arretrare l'orologio.
-      store_event_at     = greatest(private.billing_purchase_states.store_event_at,
-                                    excluded.store_event_at),
-      store_event_source = case
-        when excluded.store_event_at > private.billing_purchase_states.store_event_at
-        then excluded.store_event_source
-        else private.billing_purchase_states.store_event_source end,
+      store_event_at     = excluded.store_event_at,
+      store_event_source = excluded.store_event_source,
+      revocation_at      = excluded.revocation_at,
       verified_at        = excluded.verified_at
-    -- UNA REVOCA NON E' MAI UNA REGRESSIONE, e non si ordina col tempo.
-    --
-    -- Prima qui c'era la stessa regola di freschezza del claim, e il commento
-    -- diceva che le due sorgenti Apple sono "lo stesso orologio". Sono lo
-    -- stesso orologio ma datano EVENTI DIVERSI: `apple_request_date` e' quando
-    -- abbiamo chiesto NOI (cioe' adesso), `apple_signed_date` su una revoca e'
-    -- quando APPLE ha deciso il rimborso, che e' sempre nel passato. Un
-    -- lifetime validato dal ramo legacy e poi rimborsato produceva quindi una
-    -- revoca piu' "vecchia" della validazione, che veniva scartata in
-    -- silenzio: il cliente teneva il Pro di un acquisto gia' rimborsato.
-    --
-    -- Lo stato 'revoked' e' assorbente per QUELLA chiave, e una chiave e' un
-    -- acquisto: un riacquisto genera un originalTransactionId nuovo, quindi
-    -- una chiave nuova. Non c'e' niente da proteggere ordinando le revoche.
-    where private.billing_purchase_states.state <> 'revoked';
+    -- Ordinata per fotografia, come tutto il resto. Non c'e' piu' nessuna
+    -- eccezione "la revoca vince sempre": con `store_event_at` finalmente
+    -- valorizzato col signedDate (e non col revocationDate, che e' anteriore
+    -- per costruzione) la revoca e' una fotografia recente e vince da sola.
+    -- E deve poter perdere: REFUND_REVERSED e' una fotografia ancora piu'
+    -- recente che ripristina l'accesso.
+    where private._billing_evidenza_supera(
+            private.billing_purchase_states.store_event_source,
+            private.billing_purchase_states.store_event_at,
+            private.billing_purchase_states.state,
+            excluded.store_event_source,
+            excluded.store_event_at,
+            excluded.state);
 
     v_applied := found;
 
@@ -918,9 +962,9 @@ end;
 $$;
 
 revoke all on function public.record_store_purchase_revocation(
-  text, text, text, text, timestamptz, text
+  text, text, text, text, timestamptz, text, timestamptz
 ) from public, anon, authenticated;
 
 grant execute on function public.record_store_purchase_revocation(
-  text, text, text, text, timestamptz, text
+  text, text, text, text, timestamptz, text, timestamptz
 ) to service_role;

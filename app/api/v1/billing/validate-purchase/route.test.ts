@@ -64,6 +64,14 @@ function req(body: Record<string, unknown>): Request {
   });
 }
 
+/**
+ * Come parla la 190: dichiara la versione del contratto. `req` resta il
+ * payload LETTERALE, che serve a riprodurre la 189 e le build precedenti.
+ */
+function req190(body: Record<string, unknown>): Request {
+  return req({ ...body, client_contract_version: 1 });
+}
+
 const okTransaction = {
   kind: "ok" as const,
   tx: {
@@ -216,7 +224,7 @@ describe("compatibilità con la build 189 già in store", () => {
 
   it("payload senza token_format ma con ricevuta legacy: resta sul ramo storico", async () => {
     const res = await POST(
-      req({
+      req190({
         product_id: LIFETIME,
         purchase_token: RECEIPT_TOKEN,
         package_name: "com.fitmeshsync.app",
@@ -344,7 +352,7 @@ describe("esiti che il client deve saper distinguere", () => {
     mocks.verifyJws.mockResolvedValue({ kind: "retryable" });
 
     const res = await POST(
-      req({
+      req190({
         product_id: LIFETIME,
         purchase_token: JWS_TOKEN,
         package_name: "com.fitmeshsync.app",
@@ -510,8 +518,9 @@ describe("Android non è toccato", () => {
     );
 
     expect(mocks.verifyJws).not.toHaveBeenCalled();
-    // Service account non configurato in test → 503 del ramo Google.
-    expect(res.status).toBe(503);
+    // Service account non configurato in test → 503 del ramo Google, attenuato
+    // a 502 perche' questo payload non dichiara la versione del contratto.
+    expect(res.status).toBe(502);
     expect((await res.json()).error).toBe("google_play_not_configured");
   });
 });
@@ -540,7 +549,7 @@ describe("revoca Apple: la risposta dipende da come e' andata la registrazione",
 
   function richiesta() {
     return POST(
-      req({
+      req190({
         product_id: LIFETIME,
         purchase_token: JWS_TOKEN,
         package_name: "com.fitmeshsync.app",
@@ -763,6 +772,11 @@ describe("finestre di crash: fra la verifica e la prima scrittura", () => {
         purchase_token: JWS_TOKEN,
         package_name: "com.fitmeshsync.app",
         platform: "ios",
+        token_format: "sk2_jws",
+        // Client 190: dichiara la versione del contratto, quindi riceve il 503
+        // pieno. Senza, verrebbe attenuato a 502 — vedi "il 503 non si dice a
+        // chi non sa gestirlo".
+        client_contract_version: 1,
       }),
     );
     const body = await res.json();
@@ -852,5 +866,136 @@ describe("un guasto interno non racconta niente di quello che aveva in mano", ()
     expect(testo).not.toContain("PEZZO-DI-TOKEN");
     expect(JSON.parse(testo).error).toBe("internal");
     expect(JSON.parse(testo).disposition).toBe("retryable");
+  });
+});
+
+/**
+ * IL 503 VERSO UN CLIENT CHE PRECEDE LA 190.
+ *
+ * Misurato sul sorgente della 189 in store: quella build chiude la transazione
+ * in ogni modo di guasto, ma i 5xx generici le costano tre tentativi con
+ * backoff — tre possibilita' che il guasto passi. Il 503 no: e' l'unico codice
+ * che mappa su `notConfigured`, si arrende al primo colpo e chiude.
+ *
+ * Il discriminante e' `token_format`, che la 189 non manda perche' il campo
+ * non esisteva. NON la forma del token: la 189 manda JWS come la 190.
+ */
+describe("il 503 non si dice a chi non sa gestirlo", () => {
+  beforeEach(() => {
+    mocks.requireUser.mockResolvedValue({ userId: USER_ID });
+    mocks.verifyJws.mockResolvedValue({ kind: "retryable" });
+  });
+
+  it("client 189 (senza token_format): 502, che gli concede tre tentativi", async () => {
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+    expect(res.status).toBe(502);
+    // Il codice e la disposizione non cambiano: cambia solo lo stato, che e'
+    // l'unica leva che abbiamo su una build che non si aggiorna.
+    const body = await res.json();
+    expect(body.error).toBe("apple_unavailable");
+    expect(body.disposition).toBe("retryable");
+  });
+
+  it("client 190 (che dichiara la versione): 503, col suo significato pieno", async () => {
+    const res = await POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "sk2_jws",
+      }),
+    );
+    expect(res.status).toBe(503);
+  });
+
+  it("189 ANDROID: anche li' il 503 diventa 502", async () => {
+    // La protezione non e' del ramo Apple: anche la 189 Android fa
+    // acknowledge dopo un errore, e acknowledge senza diritto concesso ci
+    // toglie pure il rimborso automatico di Play.
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: "play-token-senza-punti",
+        package_name: "com.fitmeshsync.app",
+        platform: "android",
+      }),
+    );
+    expect(res.status).toBe(502);
+    expect((await res.json()).error).toBe("google_play_not_configured");
+  });
+
+  it("190 Android: 503 pieno", async () => {
+    const res = await POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: "play-token-senza-punti",
+        package_name: "com.fitmeshsync.app",
+        platform: "android",
+      }),
+    );
+    expect(res.status).toBe(503);
+  });
+
+  it("anche la revoca non persistita rispetta la stessa regola", async () => {
+    mocks.verifyJws.mockResolvedValue({
+      kind: "revoked",
+      tx: okTransaction.tx,
+      revokedAtMs: 1_754_400_900_000,
+    });
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "revoked", applied: false, persisted: false },
+      error: null,
+    });
+
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+    expect(res.status).toBe(502);
+  });
+
+  it("la revoca passa il signedDate come freschezza e il revocationDate a parte", async () => {
+    // Erano scambiati: la route mandava `revokedAtMs` come orologio di
+    // ordinamento etichettandolo `apple_signed_date`, e ogni revoca risultava
+    // piu' vecchia della validazione che la precedeva.
+    mocks.verifyJws.mockResolvedValue({
+      kind: "revoked",
+      tx: okTransaction.tx,
+      revokedAtMs: 1_754_000_000_000,
+    });
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "revoked", applied: true, persisted: true },
+      error: null,
+    });
+
+    await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "sk2_jws",
+      }),
+    );
+
+    const args = mocks.rpc.mock.calls.find(
+      (c) => c[0] === "record_store_purchase_revocation",
+    )?.[1];
+    expect(args.p_store_event_at).toBe(
+      new Date(okTransaction.tx.signedDateMs).toISOString(),
+    );
+    expect(args.p_revocation_at).toBe(new Date(1_754_000_000_000).toISOString());
   });
 });

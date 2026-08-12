@@ -238,10 +238,14 @@ begin
     p_auto_renewing => false, p_store_event_at => now(),
     p_store_event_source => 'apple_request_date');
 
-  -- Apple ha deciso il rimborso tre giorni fa; lo sappiamo adesso.
+  -- Apple ha deciso il rimborso TRE GIORNI FA; la fotografia che ce lo dice e'
+  -- di adesso. Prima la route passava il revocationDate come orologio di
+  -- ordinamento, e la revoca risultava sempre piu' vecchia della validazione
+  -- che la precedeva: scartata in silenzio.
   v_r := public.record_store_purchase_revocation(
     'apple_iap', '4000000000000020', 'fitmesh_pro_lifetime', 'lifetime',
-    now() - interval '3 days', 'apple_signed_date');
+    now() + interval '10 seconds', 'apple_signed_date',
+    now() - interval '3 days');
 
   select state into v_txt from private.billing_purchase_states
    where billing_source = 'apple_iap' and ownership_key = '4000000000000020';
@@ -263,7 +267,8 @@ begin
   -- revocato", e il chiamante deve poterlo distinguere da "non ho scritto".
   v_r := public.record_store_purchase_revocation(
     'apple_iap', '4000000000000020', 'fitmesh_pro_lifetime', 'lifetime',
-    now(), 'apple_signed_date');
+    now() + interval '10 seconds', 'apple_signed_date',
+    now() - interval '3 days');
   if v_r->>'outcome' = 'revoked'
      and (v_r->>'persisted')::boolean
      and not (v_r->>'applied')::boolean then
@@ -272,6 +277,58 @@ begin
   else
     v_ko := v_ko + 1;
     raise notice '   R1b replay della revoca                                     KO   %', v_r::text;
+  end if;
+
+  -- ══ R1c. REFUND_REVERSED: l'accesso si ripristina ════════════════════════
+  -- Apple prevede l'annullamento di un rimborso, e in quel caso l'accesso va
+  -- ripristinato sullo STESSO originalTransactionId. `revoked` non puo' quindi
+  -- essere assorbente: una fotografia JWS piu' recente senza revoca deve poter
+  -- riattivare. E' il motivo per cui la freschezza e' il signedDate (la
+  -- fotografia) e non il revocationDate (l'efficacia del rimborso).
+  v_r := public.claim_store_purchase(
+    p_billing_source => 'apple_iap', p_ownership_key => '4000000000000020',
+    p_owner_user_id => v_u, p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime', p_environment => 'production',
+    p_state => 'active', p_active_until => '9999-12-31T23:59:59Z',
+    p_auto_renewing => false,
+    p_store_event_at => now() + interval '1 minute',
+    p_store_event_source => 'apple_signed_date');
+  select state into v_txt from private.billing_purchase_states
+   where billing_source = 'apple_iap' and ownership_key = '4000000000000020';
+  if v_txt = 'active'
+     and exists (select 1 from public.b2c_subscriptions t
+                 where t.user_id = v_u and t.state = 'active') then
+    v_ok := v_ok + 1;
+    raise notice '   R1c REFUND_REVERSED ripristina l''accesso                   OK';
+  else
+    v_ko := v_ko + 1;
+    raise notice '   R1c dopo una revoca l''accesso non torna piu''               KO   stato=%', v_txt;
+  end if;
+
+  -- ══ R1d. Ma una ricevuta legacy non annulla una revoca JWS ═══════════════
+  -- verifyReceipt non porta l'informazione "il rimborso e' stato annullato":
+  -- il suo request_date dice solo quando abbiamo chiesto. Da sola non deve
+  -- poter resuscitare un acquisto che il JWS dichiara revocato.
+  perform public.record_store_purchase_revocation(
+    'apple_iap', '4000000000000020', 'fitmesh_pro_lifetime', 'lifetime',
+    now() + interval '2 minutes', 'apple_signed_date',
+    now() - interval '3 days');
+  perform public.claim_store_purchase(
+    p_billing_source => 'apple_iap', p_ownership_key => '4000000000000020',
+    p_owner_user_id => v_u, p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime', p_environment => 'production',
+    p_state => 'active', p_active_until => '9999-12-31T23:59:59Z',
+    p_auto_renewing => false,
+    p_store_event_at => now() + interval '3 minutes',
+    p_store_event_source => 'apple_request_date');
+  select state into v_txt from private.billing_purchase_states
+   where billing_source = 'apple_iap' and ownership_key = '4000000000000020';
+  if v_txt = 'revoked' then
+    v_ok := v_ok + 1;
+    raise notice '   R1d una ricevuta legacy non annulla una revoca JWS          OK';
+  else
+    v_ko := v_ko + 1;
+    raise notice '   R1d la revoca JWS annullata da una ricevuta legacy          KO   stato=%', v_txt;
   end if;
 
   -- ══ R2. Un revocato non riemerge per una scrittura della 189 ═════════════
@@ -287,6 +344,73 @@ begin
   else
     v_ko := v_ko + 1;
     raise notice '   R2  un acquisto revocato torna Pro con una UPSERT           KO';
+  end if;
+
+  -- ══ R3. K1 revocato non porta via K2, che e' ancora valido ═══════════════
+  -- La proiezione ha UNA riga per utente. Forzare la riga di K1 a 'expired'
+  -- avrebbe preso il posto di K2 — un secondo acquisto dello stesso utente,
+  -- ancora attivo. Ripresentare un acquisto rimborsato non deve poter togliere
+  -- un diritto che il cliente ha davvero.
+  v_u := pg_temp.mk_user('r3');
+  perform public.claim_store_purchase(
+    p_billing_source => 'apple_iap', p_ownership_key => '4000000000000030',
+    p_owner_user_id => v_u, p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime', p_environment => 'production',
+    p_state => 'active', p_active_until => '9999-12-31T23:59:59Z',
+    p_auto_renewing => false, p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date');
+  perform public.record_store_purchase_revocation(
+    'apple_iap', '4000000000000030', 'fitmesh_pro_lifetime', 'lifetime',
+    now() + interval '1 minute', 'apple_signed_date', now());
+  -- K2: il secondo acquisto, sano.
+  perform public.claim_store_purchase(
+    p_billing_source => 'apple_iap', p_ownership_key => '4000000000000031',
+    p_owner_user_id => v_u, p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime', p_environment => 'production',
+    p_state => 'active', p_active_until => '9999-12-31T23:59:59Z',
+    p_auto_renewing => false, p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date');
+
+  -- La 189 ripresenta K1, che e' revocato.
+  perform pg_temp.scrittura_189(v_u, 'apple_iap', '4000000000000030');
+  select external_subscription_id || '/' || state into v_txt
+    from public.b2c_subscriptions where user_id = v_u;
+  if v_txt = '4000000000000031/active' then
+    v_ok := v_ok + 1;
+    raise notice '   R3  K1 revocato non porta via K2                            OK';
+  else
+    v_ko := v_ko + 1;
+    raise notice '   R3  ripresentare K1 revocato ha cambiato la proiezione      KO   %', v_txt;
+  end if;
+
+  -- ══ R3b. E nemmeno un Founder ════════════════════════════════════════════
+  v_u := pg_temp.mk_user('r3b');
+  perform public.claim_store_purchase(
+    p_billing_source => 'apple_iap', p_ownership_key => '4000000000000032',
+    p_owner_user_id => v_u, p_external_product_id => 'fitmesh_pro_lifetime',
+    p_purchase_kind => 'lifetime', p_environment => 'production',
+    p_state => 'active', p_active_until => '9999-12-31T23:59:59Z',
+    p_auto_renewing => false, p_store_event_at => now(),
+    p_store_event_source => 'apple_signed_date');
+  perform public.record_store_purchase_revocation(
+    'apple_iap', '4000000000000032', 'fitmesh_pro_lifetime', 'lifetime',
+    now() + interval '1 minute', 'apple_signed_date', now());
+  perform set_config('billing.projection', 'on', true);
+  update public.b2c_subscriptions
+     set billing_source = 'founder_grant', external_product_id = 'founder',
+         external_subscription_id = 'founder-' || v_u::text,
+         state = 'active', active_until = '9999-12-31T23:59:59Z'
+   where user_id = v_u;
+  perform set_config('billing.projection', 'off', true);
+
+  perform pg_temp.scrittura_189(v_u, 'apple_iap', '4000000000000032');
+  select billing_source into v_txt from public.b2c_subscriptions where user_id = v_u;
+  if v_txt = 'founder_grant' then
+    v_ok := v_ok + 1;
+    raise notice '   R3b K1 revocato non porta via un Founder                    OK';
+  else
+    v_ko := v_ko + 1;
+    raise notice '   R3b il Founder e'' stato sostituito                          KO   fonte=%', v_txt;
   end if;
 
   -- ══ G5. La guardia, nei quattro modi in cui si aggirava ══════════════════

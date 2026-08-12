@@ -40,7 +40,10 @@ function sorgente(relativo: string): string {
 function codiciLetteraliDellaRoute(): Set<string> {
   const src = sorgente("app/api/v1/billing/validate-purchase/route.ts");
   const out = new Set<string>();
-  for (const m of src.matchAll(/jsonError\(\s*\d{3}\s*,\s*"([a-z0-9_]+)"/g)) {
+  // Lo stato non e' sempre un letterale: `statusPerIlClient(503, …)` attenua
+  // il 503 verso i client che precedono la 190. Qui interessa il CODICE, che
+  // resta sempre una stringa letterale.
+  for (const m of src.matchAll(/jsonError\(\s*(?:[^,()]|\([^)]*\))+,\s*"([a-z0-9_]+)"/g)) {
     out.add(m[1]);
   }
   return out;
@@ -210,7 +213,12 @@ describe("lo stato HTTP dichiarato è quello che la route usa davvero", () => {
     // tabella che diverge. Qui la si confronta.
     const src = sorgente("app/api/v1/billing/validate-purchase/route.ts");
     const disallineati: string[] = [];
-    for (const m of src.matchAll(/jsonError\(\s*(\d{3})\s*,\s*"([a-z0-9_]+)"/g)) {
+    // Sia le chiamate con stato letterale sia quelle attenuate da
+    // `statusPerIlClient(<stato>, …)`: in entrambi i casi lo stato DICHIARATO
+    // e' quello che il contratto pubblica, e l'attenuazione lo abbassa solo
+    // per i client che non saprebbero gestirlo.
+    const chiamate = /jsonError\(\s*(?:statusPerIlClient\(\s*)?(\d{3})[^,]*,\s*"([a-z0-9_]+)"/g;
+    for (const m of src.matchAll(chiamate)) {
       const [, stato, code] = m;
       if (PURCHASE_HTTP_STATUS[code] !== Number(stato)) {
         disallineati.push(

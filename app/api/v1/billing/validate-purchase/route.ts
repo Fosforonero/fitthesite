@@ -99,6 +99,29 @@ function jsonError(status: number, code: string, details?: unknown): Response {
   );
 }
 
+/**
+ * Il 503 è la cosa PEGGIORE che si possa dire a un client che precede la 190.
+ *
+ * Misurato sul sorgente della 189 già in store: quella build chiude la
+ * transazione in ogni modo di guasto, senza eccezioni — ma i 5xx generici le
+ * costano 3 tentativi con backoff (400ms, 800ms), cioè tre possibilità che il
+ * guasto passi. Il 503 no: è l'unico codice che mappa su `notConfigured`, si
+ * arrende al primo colpo e chiude. Ogni 503 verso un 189 è una transazione
+ * persa con probabilità 1 su un blip che sarebbe stato transitorio.
+ *
+ * Il discriminante è `token_format`: la 189 non lo manda, perché il campo non
+ * esisteva. Non si usa la forma del token — la 189 manda JWS come la 190, e
+ * quindi non distinguerebbe niente.
+ *
+ * Non risolve il problema, lo attenua: non esiste uno status code che faccia
+ * tenere aperta la transazione a un 189. Nemmeno un 200 senza `active_until`,
+ * che lì diventa `malformed_response` e chiude lo stesso.
+ */
+function statusPerIlClient(status: number, clientLegacy: boolean): number {
+  if (status !== 503 || !clientLegacy) return status;
+  return 502;
+}
+
 function jsonOk(body: object, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
@@ -131,6 +154,14 @@ const payloadSchema = z.object({
   // pagato di recuperare l'acquisto con "Ripristina acquisti". Quando il campo
   // manca si guarda la forma del token (vedi resolveIosTokenFormat).
   token_format: z.enum(["sk2_jws", "app_receipt"]).optional(),
+  // VERSIONE DEL COMPORTAMENTO DEL CLIENT, non del formato del token.
+  //
+  // `token_format` descrive come e' fatto il payload Apple, e Android non lo
+  // manda affatto: usarlo per riconoscere una build vecchia funziona solo per
+  // meta' del parco. Questo campo lo manda la 190 su ENTRAMBE le piattaforme,
+  // e la sua ASSENZA e' cio' che identifica un client che precede il
+  // contratto delle disposizioni.
+  client_contract_version: z.number().int().min(1).max(9999).optional(),
 });
 
 /**
@@ -285,6 +316,8 @@ async function validateAppleJws(args: {
   userId: string;
   productId: string;
   signedTransaction: string;
+  /** Vero per i client che precedono la 190. Vedi statusPerIlClient. */
+  clientLegacy: boolean;
 }): Promise<Response> {
   const outcome = await verifyAppleJwsTransaction({
     signedTransaction: args.signedTransaction,
@@ -293,7 +326,10 @@ async function validateAppleJws(args: {
 
   if (outcome.kind === "retryable") {
     console.warn("[Billing] apple jws verification temporarily unavailable");
-    return jsonError(503, "apple_unavailable");
+    return jsonError(
+      statusPerIlClient(503, args.clientLegacy),
+      "apple_unavailable",
+    );
   }
 
   if (outcome.kind === "revoked") {
@@ -321,8 +357,13 @@ async function validateAppleJws(args: {
         ownershipKey: appleOwnershipKey(outcome.tx.originalTransactionId),
         productId: args.productId,
         purchaseKind: kindOf(args.productId),
-        storeEventAt: new Date(outcome.revokedAtMs).toISOString(),
+        // La FOTOGRAFIA e' il signedDate del JWS che porta la revoca; il
+        // revocationDate e' quando il rimborso e' diventato efficace, ed e'
+        // anteriore per costruzione. Scambiarli faceva risultare ogni revoca
+        // piu' vecchia della validazione che la precedeva, quindi scartata.
+        storeEventAt: new Date(outcome.tx.signedDateMs).toISOString(),
         storeEventSource: "apple_signed_date",
+        revocationAt: new Date(outcome.revokedAtMs).toISOString(),
       });
     } catch (e) {
       registrazione = {
@@ -335,7 +376,10 @@ async function validateAppleJws(args: {
       console.error(`[Billing] revoca non registrata: ${registrazione.reason}`);
       // Non e' un rifiuto: e' un guasto NOSTRO davanti a un fatto dello store.
       // Il client riprova, e al prossimo giro la revoca viene registrata.
-      return jsonError(503, "apple_unavailable");
+      return jsonError(
+        statusPerIlClient(503, args.clientLegacy),
+        "apple_unavailable",
+      );
     }
 
     console.warn(
@@ -488,14 +532,26 @@ export async function POST(req: Request): Promise<Response> {
   if (!parsed.success) {
     return jsonError(400, "invalid_payload", parsed.error.flatten());
   }
-  const { product_id, purchase_token, package_name, platform, token_format } =
-    parsed.data;
+  const {
+    product_id,
+    purchase_token,
+    package_name,
+    platform,
+    token_format,
+    client_contract_version,
+  } = parsed.data;
   if (!KNOWN_PRODUCTS.has(product_id)) {
     return jsonError(400, "unknown_product");
   }
 
   const admin = createAdminClient() as unknown as Sb;
   const isSubscription = product_id === PRODUCT_SUBSCRIPTION;
+
+  // Un client che non dichiara la versione del contratto e' un client che
+  // precede la 190: chiude la transazione in ogni modo di guasto, e sul 503
+  // lo fa senza nemmeno un tentativo. Vale su iOS E su Android — anche la 189
+  // Android fa acknowledge dopo un errore.
+  const clientLegacy = client_contract_version === undefined;
 
   // ── Ramo Apple ───────────────────────────────────────────────────────
   if (platform === "ios") {
@@ -530,6 +586,7 @@ export async function POST(req: Request): Promise<Response> {
           userId,
           productId: product_id,
           signedTransaction: purchase_token,
+          clientLegacy,
         });
       } catch (e) {
         // Solo il NOME dell'eccezione. Il messaggio puo' contenere frammenti
@@ -545,7 +602,10 @@ export async function POST(req: Request): Promise<Response> {
     // Solo per client realmente StoreKit 1 (iOS < 15).
     if (!readAppleSharedSecret()) {
       console.warn("[Billing] APPLE_SHARED_SECRET missing — iOS IAP validation disabled");
-      return jsonError(503, "app_store_not_configured");
+      return jsonError(
+        statusPerIlClient(503, clientLegacy),
+        "app_store_not_configured",
+      );
     }
     try {
       const result = await validateAppleReceipt({
@@ -622,7 +682,10 @@ export async function POST(req: Request): Promise<Response> {
     console.warn(
       "[Billing] GOOGLE_PLAY_SERVICE_ACCOUNT_JSON missing — IAP validation disabled",
     );
-    return jsonError(503, "google_play_not_configured");
+    return jsonError(
+      statusPerIlClient(503, clientLegacy),
+      "google_play_not_configured",
+    );
   }
 
   try {

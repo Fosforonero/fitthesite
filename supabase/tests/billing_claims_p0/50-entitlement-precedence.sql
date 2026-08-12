@@ -333,9 +333,18 @@ begin
   from information_schema.columns
   where table_schema = 'private' and table_name = 'billing_purchase_states';
 
+  -- `revocation_at` aggiunta il 12/08/2026, e la sua giustificazione e' che
+  -- senza di lei ne servivano due nello stesso campo. `store_event_at` e' la
+  -- FRESCHEZZA DELLA FOTOGRAFIA — il signedDate del JWS, cioe' cio' che Apple
+  -- documenta di usare per ordinare le evidenze della stessa transazione;
+  -- `revocation_at` e' il momento in cui il rimborso e' diventato EFFICACE,
+  -- che e' anteriore per costruzione. Metterli nella stessa colonna faceva
+  -- risultare ogni revoca piu' vecchia della validazione che la precedeva, e
+  -- quindi scartata in silenzio: il cliente teneva il Pro di un acquisto
+  -- rimborsato. E' una data, non un token.
   if v_cols <> 'billing_source, ownership_key, external_product_id, purchase_kind, '
              || 'state, active_until, auto_renewing, store_event_at, '
-             || 'store_event_source, verified_at' then
+             || 'store_event_source, verified_at, revocation_at' then
     raise exception 'le colonne di billing_purchase_states sono cambiate: %. Ogni colonna nuova va giustificata: questa tabella non deve poter trasportare un token.', v_cols;
   end if;
 

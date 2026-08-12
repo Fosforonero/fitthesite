@@ -214,8 +214,16 @@ export async function recordStorePurchaseRevocation(
     ownershipKey: string;
     productId: string;
     purchaseKind: PurchaseKind;
+    /** Freschezza della fotografia: signedDate del JWS, o request_date. */
     storeEventAt: string;
     storeEventSource: StoreEventSource;
+    /**
+     * Quando il rimborso e' diventato efficace (revocationDate /
+     * cancellation_date_ms). NON ordina: e' un fatto sull'acquisto, non una
+     * fotografia. Tenerli separati e' cio' che permette a REFUND_REVERSED di
+     * ripristinare l'accesso con una fotografia piu' recente.
+     */
+    revocationAt?: string | null;
   },
 ): Promise<RevocationResult> {
   const { data, error } = await admin.rpc("record_store_purchase_revocation", {
@@ -225,6 +233,7 @@ export async function recordStorePurchaseRevocation(
     p_purchase_kind: input.purchaseKind,
     p_store_event_at: input.storeEventAt,
     p_store_event_source: input.storeEventSource,
+    p_revocation_at: input.revocationAt ?? null,
   });
   if (error) {
     console.error(`[Billing] revocation rpc error code=${error.code ?? "none"}`);
