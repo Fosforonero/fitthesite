@@ -161,6 +161,13 @@ begin
     end;
 
     -- ── 5. Coperta la riga (e' cio' che fa il backfill), strict passa.
+    --
+    -- "Cio' che fa il backfill" e' DUE righe, non una. Fino all'11/08 questo
+    -- test ne scriveva una sola, e per una ragione onesta: il backfill vero ne
+    -- scriveva una sola. Era il punto 1 del cancello — un claim senza stato e'
+    -- invisibile a private._billing_project_entitlement, che entra da
+    -- billing_purchase_states — e il test lo riproduceva fedelmente invece di
+    -- accorgersene.
     insert into private.billing_purchase_claims (
       billing_source, ownership_key, external_product_id, owner_user_id,
       environment, claimed_at
@@ -168,6 +175,15 @@ begin
       'google_play',
       encode(sha256(convert_to('token-legacy-mai-registrato', 'UTF8')), 'hex'),
       'fitmesh_pro_sub', v_d, 'production', now()
+    );
+    insert into private.billing_purchase_states (
+      billing_source, ownership_key, external_product_id, purchase_kind,
+      state, active_until, auto_renewing, store_event_at, store_event_source
+    ) values (
+      'google_play',
+      encode(sha256(convert_to('token-legacy-mai-registrato', 'UTF8')), 'hex'),
+      'fitmesh_pro_sub', 'subscription',
+      'active', now() + interval '10 days', true, now(), 'projection_backfill'
     );
   end;
 

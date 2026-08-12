@@ -113,17 +113,29 @@ select
   s.external_subscription_id,
   s.external_order_id,
   s.state,
-  case s.billing_source
-    when 'google_play' then encode(sha256(convert_to(s.external_subscription_id, 'UTF8')), 'hex')
-    when 'apple_iap'   then s.external_subscription_id
-    -- Irraggiungibile finche' il WHERE sotto resta questo. Vale NULL e non
-    -- `s.external_subscription_id` di proposito: se un domani qualcuno
-    -- allargasse la WHERE a una fonte nuova senza deciderne prima la chiave di
-    -- proprieta', il fallback silenzioso scriverebbe nel registro un valore
-    -- che NON e' una chiave stabile. Con NULL interviene la validazione V3 e
-    -- il backfill si ferma dicendo perche'.
-    else null
-  end as ownership_key
+  s.active_until,
+  s.auto_renewing,
+  -- La derivazione NON e' scritta qui. Stava scritta tre volte identica — in
+  -- questo file, nella guardia della proiezione e nel controllo del passaggio
+  -- a strict — e una regola scritta tre volte e' una regola che prima o poi
+  -- diverge in uno dei tre posti. E' successo: le altre due riconoscevano una
+  -- chiave Google GIA' digerita (64 esadecimali) e la lasciavano stare, questa
+  -- no. Bastava che il percorso nuovo avesse riproiettato una riga — la
+  -- proiezione scrive l'ownership_key in external_subscription_id — perche' un
+  -- secondo giro di backfill ne calcolasse il digest DEL DIGEST e iscrivesse
+  -- nel registro una seconda proprieta', fasulla, per lo stesso utente. In una
+  -- tabella append-only, dove le righe non si cancellano.
+  --
+  -- Il test 11f (replay idempotente) lo ha trovato solo quando 11h ha
+  -- cominciato a far girare davvero il ricalcolo.
+  --
+  -- Vale NULL per le fonti che non sono acquisti store, di proposito: se un
+  -- domani qualcuno allargasse la WHERE a una fonte nuova senza deciderne
+  -- prima la chiave, un fallback silenzioso scriverebbe nel registro un valore
+  -- che NON e' una chiave stabile. Con NULL interviene la validazione V3 e il
+  -- backfill si ferma dicendo perche'.
+  private._billing_chiave_da_proiezione(
+    s.billing_source, s.external_subscription_id) as ownership_key
 from public.b2c_subscriptions s
 -- SOLO acquisti store. trial, founder_grant e grandfather non sono acquisti,
 -- non hanno una transazione e non hanno un proprietario da difendere da un
@@ -337,6 +349,68 @@ select billing_source, count(*) as claim_creati from _bf_inserted
 group by billing_source order by billing_source;
 
 -- ============================================================================
+-- 4b. LO STATO, SENZA IL QUALE IL CLAIM NON SERVE A NIENTE
+--
+-- La prima versione di questo file scriveva SOLO il registro. Sembrava
+-- prudente — meno scritture, meno rischio — ed era invece il difetto piu'
+-- costoso dei nove: private._billing_project_entitlement entra da
+-- private.billing_purchase_states e raggiunge il registro per chiave. Un
+-- acquisto con la proprieta' registrata ma senza stato non e' un acquisto
+-- coperto a meta': e' un acquisto INVISIBILE. Al primo ricalcolo — il prossimo
+-- claim dello stesso utente, una revoca, qualunque cosa — quel cliente non
+-- risulta possedere niente, e la proiezione lo dice.
+--
+-- LA FRESCHEZZA E' UN SEGNAPOSTO, E LO DICHIARA. Questi valori non vengono da
+-- un payload store: vengono da una riga di proiezione scritta mesi fa dal
+-- backend vecchio. Scriverli come se fossero l'orologio di Apple avrebbe
+-- murato uno stato inventato davanti all'evidenza vera — che, essendo del
+-- giorno dell'acquisto, e' ANTERIORE, e sarebbe stata rifiutata come una
+-- regressione. 'projection_backfill' lo dice, e
+-- private._billing_evidenza_supera fa il resto: qualunque evidenza store,
+-- anche piu' vecchia, supera un segnaposto; e nessun segnaposto sovrascrive
+-- un'evidenza store.
+--
+-- Idempotenza: `where not exists`, come per i claim.
+-- ============================================================================
+create temporary table _bf_states_inserted on commit drop as
+with ins as (
+  insert into private.billing_purchase_states (
+    billing_source, ownership_key, external_product_id, purchase_kind,
+    state, active_until, auto_renewing,
+    store_event_at, store_event_source, verified_at
+  )
+  select
+    c.billing_source,
+    c.ownership_key,
+    c.external_product_id,
+    case when c.external_product_id = 'fitmesh_pro_sub'
+         then 'subscription' else 'lifetime' end,
+    c.state,
+    -- Il vincolo di forma pretende la sentinella per un lifetime: senza,
+    -- is_b2c_lifetime() non lo riconoscerebbe una volta riproiettato. Le righe
+    -- legacy possono avere qualunque scadenza in quella colonna.
+    case when c.external_product_id <> 'fitmesh_pro_sub'
+              and c.active_until <= '9000-01-01'::timestamptz
+         then '9999-12-31T23:59:59Z'::timestamptz
+         else c.active_until end,
+    coalesce(c.auto_renewing, false),
+    now(), 'projection_backfill', now()
+  from _bf_candidates c
+  where not exists (
+    select 1 from private.billing_purchase_states s
+     where s.billing_source = c.billing_source
+       and s.ownership_key = c.ownership_key
+  )
+  returning billing_source, ownership_key
+)
+select * from ins;
+
+\echo ''
+\echo '=== STATI SCRITTI ORA ========================================='
+select billing_source, count(*) as stati_creati from _bf_states_inserted
+group by billing_source order by billing_source;
+
+-- ============================================================================
 -- 5. VERIFICA FINALE
 --
 -- Non "l'insert non ha dato errore" ma "ogni acquisto store della proiezione
@@ -346,6 +420,8 @@ group by billing_source order by billing_source;
 do $$
 declare
   v_mancanti int;
+  v_senza_stato int;
+  v_invisibili int;
   v_disallineati int;
   v_proiezione_prima bigint;
   v_proiezione_dopo bigint;
@@ -358,6 +434,34 @@ begin
   );
   if v_mancanti > 0 then
     raise exception 'VERIFICA FALLITA: % acquisti store restano senza claim.', v_mancanti;
+  end if;
+
+  select count(*) into v_senza_stato
+  from _bf_candidates c
+  where not exists (
+    select 1 from private.billing_purchase_states s
+     where s.billing_source = c.billing_source and s.ownership_key = c.ownership_key
+  );
+  if v_senza_stato > 0 then
+    raise exception 'VERIFICA FALLITA: % acquisti store restano senza stato, cioe'' invisibili al ricalcolo.', v_senza_stato;
+  end if;
+
+  -- La domanda vera non e' "esistono le righe" ma "il ricalcolo li vede".
+  -- Si controlla percorrendo la stessa catena che percorre
+  -- private._billing_project_entitlement: stato -> claim -> proprietario.
+  select count(*) into v_invisibili
+  from _bf_candidates c
+  where not exists (
+    select 1
+    from private.billing_purchase_states s
+    join private.billing_purchase_claims r
+      on r.billing_source = s.billing_source and r.ownership_key = s.ownership_key
+    where s.billing_source = c.billing_source
+      and s.ownership_key = c.ownership_key
+      and r.owner_user_id = c.user_id
+  );
+  if v_invisibili > 0 then
+    raise exception 'VERIFICA FALLITA: % acquisti non sono raggiungibili dal ricalcolo (stato -> claim -> proprietario).', v_invisibili;
   end if;
 
   select count(*) into v_disallineati

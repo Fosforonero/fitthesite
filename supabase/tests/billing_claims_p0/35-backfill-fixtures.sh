@@ -87,8 +87,9 @@ teardown() {
   while IFS= read -r m; do
     docker exec -i "$CID" psql -U postgres -q -v ON_ERROR_STOP=1 < "$m" >/dev/null 2>&1
   done < <(ls "$REPO_ROOT"/supabase/migrations/*.sql | awk -F/ '$NF >= "20260808211929"' | sort)
-  psql_q "delete from public.b2c_subscriptions
-          where user_id in ('$U_SK2','$U_SK1','$U_GP','$U_FOUNDER','$U_TRIAL');" >/dev/null 2>&1
+  psql_q "begin; select set_config('billing.projection','on',true);
+          delete from public.b2c_subscriptions
+          where user_id in ('$U_SK2','$U_SK1','$U_GP','$U_FOUNDER','$U_TRIAL'); commit;" >/dev/null 2>&1
   psql_q "delete from auth.users
           where id in ('$U_SK2','$U_SK1','$U_GP','$U_FOUNDER','$U_TRIAL');" >/dev/null 2>&1
 }
@@ -195,6 +196,58 @@ N=$(psql_q "select count(*) from private.billing_purchase_claims
 [ "$N" = "0" ] || fail "founder/trial hanno prodotto $N claim: non sono acquisti store"
 echo "CASO 11e: PASS (founder_grant e trial esclusi)"
 
+# ── CASO 11h. Il punto 1 del cancello: un claim senza stato e' invisibile ───
+#
+# La prima versione del backfill scriveva SOLO il registro. Sembrava prudente
+# ed era il difetto piu' costoso dei nove: private._billing_project_entitlement
+# entra da private.billing_purchase_states, non dai claim. Un acquisto con la
+# proprieta' registrata ma senza stato non e' coperto a meta': e' INVISIBILE, e
+# al primo ricalcolo quel cliente non risulta possedere niente.
+#
+# Non si verifica che le righe esistano, ma che il RICALCOLO le veda: e' la
+# domanda che conta, ed e' l'unica che sarebbe stata rossa prima.
+N=$(psql_q "select count(*) from private.billing_purchase_claims c
+            where c.owner_user_id in ('$U_SK2','$U_SK1','$U_GP')
+              and not exists (select 1 from private.billing_purchase_states s
+                              where s.billing_source = c.billing_source
+                                and s.ownership_key = c.ownership_key);")
+[ "$N" = "0" ] || fail "$N proprieta' backfillate restano senza stato: invisibili al ricalcolo"
+
+# La freschezza deve dichiararsi segnaposto. Se il backfill scrivesse
+# 'apple_signed_date' con il NOSTRO orologio, l'evidenza vera del giorno
+# dell'acquisto — che e' ANTERIORE — verrebbe poi rifiutata come regressione, e
+# lo stato reale di quell'acquisto non sarebbe piu' registrabile.
+N=$(psql_q "select count(*) from private.billing_purchase_states s
+            join private.billing_purchase_claims c
+              on c.billing_source = s.billing_source and c.ownership_key = s.ownership_key
+            where c.owner_user_id in ('$U_SK2','$U_SK1','$U_GP')
+              and s.store_event_source <> 'projection_backfill';")
+[ "$N" = "0" ] || fail "$N stati backfillati dichiarano un orologio store che non hanno"
+
+for U in "$U_SK2" "$U_SK1" "$U_GP"; do
+  P=$(psql_q "select private._billing_project_entitlement('$U')->>'projected';")
+  [ "$P" = "true" ] || fail "il ricalcolo non vede l'acquisto backfillato di $U (projected=$P)"
+done
+echo "CASO 11h: PASS (ogni proprieta' ha uno stato segnaposto, e il ricalcolo la vede)"
+
+# ── L'evidenza store vera supera il segnaposto, anche se anteriore ──────────
+# E' la conseguenza diretta del punto 6: i due timestamp non stanno sullo
+# stesso orologio, quindi non si confrontano. Senza questa regola il backfill
+# avrebbe murato uno stato dedotto davanti a ogni futuro rinnovo, scadenza o
+# rimborso di quell'acquisto.
+psql_q "select public.claim_store_purchase(
+          p_billing_source => 'apple_iap', p_ownership_key => '$K_SK2',
+          p_owner_user_id => '$U_SK2', p_external_product_id => 'fitmesh_pro_lifetime',
+          p_purchase_kind => 'lifetime', p_environment => 'production',
+          p_state => 'active', p_active_until => '9999-12-31T23:59:59Z',
+          p_auto_renewing => false, p_store_event_at => now() - interval '90 days',
+          p_store_event_source => 'apple_signed_date');" >/dev/null
+FONTE=$(psql_q "select store_event_source from private.billing_purchase_states
+                where billing_source='apple_iap' and ownership_key='$K_SK2';")
+[ "$FONTE" = "apple_signed_date" ] \
+  || fail "l'evidenza vera di Apple non ha superato il segnaposto (fonte=$FONTE)"
+echo "CASO 11i: PASS (l'evidenza store supera il segnaposto anche se anteriore)"
+
 # ── Replay: secondo apply identico, niente cambia ───────────────────────────
 PRIMA=$(psql_q "select string_agg(ownership_key || '|' || owner_user_id::text || '|' || claimed_at::text, ',' order by ownership_key)
                 from private.billing_purchase_claims
@@ -205,11 +258,13 @@ docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d postgres -X \
 DOPO=$(psql_q "select string_agg(ownership_key || '|' || owner_user_id::text || '|' || claimed_at::text, ',' order by ownership_key)
                from private.billing_purchase_claims
                where owner_user_id in ('$U_SK2','$U_SK1','$U_GP');")
-[ "$PRIMA" = "$DOPO" ] || fail "il replay ha cambiato qualcosa"
+[ "$PRIMA" = "$DOPO" ] || fail "il replay ha cambiato qualcosa
+  prima: $PRIMA
+  dopo:  $DOPO"
 N=$(psql_q "select count(*) from private.billing_purchase_claims
             where owner_user_id in ('$U_SK2','$U_SK1','$U_GP');")
 [ "$N" = "3" ] || fail "dopo il replay ci sono $N righe invece di 3"
-echo "CASO 11f: PASS (replay idempotente: chiavi, proprietari e claimed_at invariati)"
+echo "CASO 11f: PASS (replay idempotente ANCHE dopo un ricalcolo, che riscrive external_subscription_id con la chiave)"
 
 # ── Conflitto: la stessa chiave presentata da un altro account ──────────────
 # Non deve riassegnare niente, e non deve nemmeno passare inosservato.

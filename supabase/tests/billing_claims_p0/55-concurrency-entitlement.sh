@@ -56,7 +56,7 @@ teardown() {
     -c "alter table private.billing_purchase_claims disable trigger trg_billing_purchase_claims_immutable;" \
     -c "delete from private.billing_purchase_claims where ownership_key in ('${KL}','${KG}','${KG2}','${KL3}','${KG3}');" \
     -c "alter table private.billing_purchase_claims enable trigger trg_billing_purchase_claims_immutable;" \
-    -c "delete from public.b2c_subscriptions where user_id in ('${U1}','${U2}','${U3}');" \
+    -c "begin; select set_config('billing.projection','on',true); delete from public.b2c_subscriptions where user_id in ('${U1}','${U2}','${U3}'); commit;" \
     -c "delete from auth.users where id in ('${U1}','${U2}','${U3}');" >/dev/null 2>&1 || true
   rm -f "$OUT1" "$OUT2" "$OUT3" "$OUTB"
 }
@@ -179,7 +179,7 @@ echo '################ CASO 16: due transazioni, stesse chiavi, ordine opposto #
 # (lifetime, sub) e l'altra in ordine (sub, lifetime). Se i lock si prendessero
 # per chiave prima che per utente, questo e' il ciclo classico e Postgres
 # ucciderebbe una delle due con 40P01.
-psql_q "delete from public.b2c_subscriptions where user_id = '${U3}';" >/dev/null
+psql_q "begin; select set_config('billing.projection','on',true); delete from public.b2c_subscriptions where user_id = '${U3}'; commit;" >/dev/null
 
 TX_A="begin;
 $(claim_sql "$U3" apple_iap "$KL3" fitmesh_pro_lifetime lifetime active "'9999-12-31T23:59:59Z'::timestamptz")

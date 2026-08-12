@@ -191,8 +191,8 @@ STILL=$(psql_q "select owner_user_id from private.billing_purchase_claims where 
 echo "CONFLITTO: PASS (V5 ferma tutto, rumorosamente, senza sovrascrivere)"
 
 # ── FONTE NON GESTITA: stripe deve fermare tutto, non essere saltata ────────
-psql_quiet "delete from public.b2c_subscriptions where user_id='${U_X}';
-            delete from private.billing_purchase_claims where false;"
+psql_quiet "begin; select set_config('billing.projection','on',true);
+            delete from public.b2c_subscriptions where user_id='${U_X}'; commit;"
 psql_quiet "alter table private.billing_purchase_claims disable trigger trg_billing_purchase_claims_immutable;
             delete from private.billing_purchase_claims where ownership_key='${CONFLICT_KEY}';
             alter table private.billing_purchase_claims enable trigger trg_billing_purchase_claims_immutable;"

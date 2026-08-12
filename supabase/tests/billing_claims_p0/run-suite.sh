@@ -54,6 +54,9 @@ run_sql 60-rollout-window.sql
 # Le finestre di crash che il database puo' dimostrare. Le altre cinque sono
 # argomentate in supabase/rollback/README-finestre-di-crash.md.
 run_sql 70-crash-windows.sql
+# I nove punti del cancello di ripresa: la parte che il database dimostra.
+# L'ordine interno del file non e' quello dei numeri, e il file spiega perche'.
+run_sql 80-nove-punti.sql
 
 # Questi due aprono connessioni proprie: la corsa a due connessioni reali non
 # si puo' simulare dentro una singola sessione psql.
@@ -72,3 +75,10 @@ bash "$DIR/40-concurrency.sh"
 echo ""
 echo "### 55-concurrency-entitlement.sh"
 bash "$DIR/55-concurrency-entitlement.sh"
+
+# La corsa fra una scrittura di compatibilita' in volo e il passaggio a strict.
+# Anche questo apre connessioni proprie, e misura l'attesa: senza quella
+# misura, l'esito giusto potrebbe essere un caso.
+echo ""
+echo "### 85-corsa-strict.sh"
+bash "$DIR/85-corsa-strict.sh"
