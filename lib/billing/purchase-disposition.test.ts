@@ -14,8 +14,13 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import {
+  costruisciContratto,
+  digestDeiCodici,
+} from "../../tools/build-billing-contract";
+import {
   PURCHASE_DISPOSITION_CONTRACT,
   PURCHASE_DISPOSITION_CONTRACT_VERSION,
+  PURCHASE_HTTP_STATUS,
   dispositionForCode,
 } from "./purchase-disposition";
 
@@ -183,19 +188,96 @@ describe("disposizione per codice", () => {
   });
 });
 
-describe("il contratto è pubblicato, e il file pubblicato è quello vero", () => {
-  it("docs/billing/purchase-disposition-contract.json coincide con la tabella", () => {
-    // Il client Flutter vive in un altro repository e non può importare questo
-    // modulo. Il file JSON è il confine: qui si verifica che descriva davvero
-    // la tabella in vigore, e nel repository dell'app un test verifica che le
-    // sue tabelle Dart coincidano con lo stesso file. Senza questi due
-    // controlli, "backend e client concordano" resta un'affermazione.
-    const pubblicato = JSON.parse(
-      sorgente("docs/billing/purchase-disposition-contract.json"),
+describe("lo stato HTTP dichiarato è quello che la route usa davvero", () => {
+  it("ogni jsonError letterale ha lo stato che il contratto dichiara", () => {
+    // Una tabella di stati scritta a mano e mai confrontata coi sorgenti è una
+    // tabella che diverge. Qui la si confronta.
+    const src = sorgente("app/api/v1/billing/validate-purchase/route.ts");
+    const disallineati: string[] = [];
+    for (const m of src.matchAll(/jsonError\(\s*(\d{3})\s*,\s*"([a-z0-9_]+)"/g)) {
+      const [, stato, code] = m;
+      if (PURCHASE_HTTP_STATUS[code] !== Number(stato)) {
+        disallineati.push(
+          `${code}: route=${stato} contratto=${PURCHASE_HTTP_STATUS[code]}`,
+        );
+      }
+    }
+    expect(disallineati).toEqual([]);
+  });
+
+  it("ogni codice classificato ha uno stato dichiarato, e viceversa", () => {
+    expect(Object.keys(PURCHASE_HTTP_STATUS).sort()).toEqual(
+      Object.keys(PURCHASE_DISPOSITION_CONTRACT).sort(),
     );
+  });
+
+  it("le sole jsonError NON letterali sono le due note", () => {
+    // La scansione per letterali è esaustiva solo finché i codici sono
+    // letterali. Se qualcuno introducesse `jsonError(400, `jws_${x}`)` o una
+    // variabile nuova, l'esaustività diventerebbe una finzione: il test
+    // passerebbe conoscendo meno codici di quelli che esistono.
+    const src = sorgente("app/api/v1/billing/validate-purchase/route.ts");
+    const dinamiche = [
+      ...src.matchAll(/jsonError\(\s*\d{3}\s*,\s*([^"\s][^,)]*)/g),
+    ].map((m) => m[1].trim());
+    // `outcome.reason` copre i rifiuti JWS (tipo AppleJwsRejection),
+    // `e.code` i soli errori di chiave di proprietà.
+    expect(dinamiche.sort()).toEqual(["e.code", "outcome.reason"]);
+  });
+});
+
+describe("la fixture condivisa coi due repository", () => {
+  const pubblicato = JSON.parse(
+    sorgente("docs/billing/purchase-validation-contract.json"),
+  );
+
+  it("descrive la tabella in vigore, non una sua copia invecchiata", () => {
     expect(pubblicato.contract_version).toBe(
       PURCHASE_DISPOSITION_CONTRACT_VERSION,
     );
     expect(pubblicato.codes).toEqual(PURCHASE_DISPOSITION_CONTRACT);
+  });
+
+  it("contiene la risposta HTTP INTERA per ogni codice", () => {
+    // Il client non decide sul solo `error`: guarda stato, `disposition` e
+    // `contract_version` insieme. Una fixture che desse solo la mappa dei
+    // codici proverebbe metà del contratto.
+    const perCodice = new Map<string, { status: number; body: Record<string, unknown> }>(
+      (pubblicato.responses as { status: number; body: { error: string } }[]).map(
+        (r) => [r.body.error, r as { status: number; body: Record<string, unknown> }],
+      ),
+    );
+    expect(perCodice.size).toBe(Object.keys(PURCHASE_DISPOSITION_CONTRACT).length);
+    for (const [code, disposizione] of Object.entries(
+      PURCHASE_DISPOSITION_CONTRACT,
+    )) {
+      const r = perCodice.get(code);
+      expect(r, code).toBeDefined();
+      expect(r!.status, code).toBe(PURCHASE_HTTP_STATUS[code]);
+      expect(r!.body.disposition, code).toBe(disposizione);
+      expect(r!.body.contract_version, code).toBe(
+        PURCHASE_DISPOSITION_CONTRACT_VERSION,
+      );
+    }
+  });
+
+  it("il digest è il legame con la copia dell'app, e non è ricalcolato a caso", () => {
+    expect(pubblicato.codes_sha256).toBe(
+      digestDeiCodici(PURCHASE_DISPOSITION_CONTRACT),
+    );
+    // Se il digest fosse calcolato su una serializzazione non canonica,
+    // riordinare le chiavi lo cambierebbe senza che il contratto sia cambiato.
+    const riordinato = Object.fromEntries(
+      Object.entries(PURCHASE_DISPOSITION_CONTRACT).reverse(),
+    );
+    expect(digestDeiCodici(riordinato)).toBe(pubblicato.codes_sha256);
+  });
+
+  it("il file è esattamente quello che il generatore produce", () => {
+    const atteso = `${JSON.stringify(costruisciContratto(), null, 2)}\n`;
+    expect(readFileSync(
+      join(RADICE, "docs/billing/purchase-validation-contract.json"),
+      "utf8",
+    )).toBe(atteso);
   });
 });

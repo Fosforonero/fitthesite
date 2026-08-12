@@ -636,3 +636,70 @@ describe("revoca Apple: la risposta dipende da come e' andata la registrazione",
     expect((await res.json()).disposition).toBe("retryable");
   });
 });
+
+/**
+ * Il payload che la 189 LEGGE, campo per campo e tipo per tipo.
+ *
+ * La 189 e' la build piu' diffusa e non si aggiorna da sola. Legge
+ * `body['error']`, `body['state']`, `body['active_until']`, `body['source']` e
+ * `body['auto_renewing']` per nome, senza validare la forma dell'oggetto: un
+ * campo rinominato, sparito o cambiato di tipo non le da' un errore, le da' un
+ * `null` — e un `null` su `active_until` significa "nessun diritto" per un
+ * cliente che ha appena pagato.
+ *
+ * I campi nuovi (`contract_version`, `disposition`) si AGGIUNGONO e lei li
+ * ignora. Questo test esiste perche' "si aggiungono" resti vero.
+ */
+describe("il contratto letto dalla 189 non si muove", () => {
+  beforeEach(() => {
+    mocks.requireUser.mockResolvedValue({ userId: USER_ID });
+    mocks.verifyJws.mockResolvedValue(okTransaction);
+    mocks.rpc.mockResolvedValue(claimed);
+  });
+
+  it("il 200 porta i cinque campi storici, con i tipi di sempre", async () => {
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+    const body = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(typeof body.state).toBe("string");
+    expect(typeof body.active_until).toBe("string");
+    expect(typeof body.source).toBe("string");
+    expect(typeof body.auto_renewing).toBe("boolean");
+    // Su un successo `error` non c'e', ed e' cosi' che la 189 distingue.
+    expect("error" in body).toBe(false);
+
+    // I campi nuovi ci sono e non hanno preso il posto di nessuno.
+    expect(body.contract_version).toBe(1);
+    expect(typeof body.disposition).toBe("string");
+  });
+
+  it("su errore, `error` resta una stringa e i campi nuovi non la coprono", async () => {
+    mocks.verifyJws.mockResolvedValue({
+      kind: "rejected",
+      reason: "jws_malformed",
+    });
+
+    const res = await POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+    const body = await res.json();
+
+    expect(typeof body.error).toBe("string");
+    expect(body.error).toBe("jws_malformed");
+    expect(body.contract_version).toBe(1);
+    expect(body.disposition).toBe("client_contract_error");
+  });
+});

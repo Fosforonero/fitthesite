@@ -139,6 +139,47 @@ export const PURCHASE_DISPOSITION_CONTRACT: Readonly<
 });
 
 /**
+ * Lo STATO HTTP con cui ciascun codice arriva al client.
+ *
+ * Sta qui e non solo dentro la route per una ragione operativa: il client
+ * Flutter guarda anche lo stato, e il contratto pubblicato per l'altro
+ * repository deve poter descrivere la risposta INTERA, non solo il suo corpo.
+ * `purchase-disposition.test.ts` confronta ogni voce con la `jsonError(...)`
+ * vera dei sorgenti, quindi questa tabella non può divergere in silenzio.
+ */
+export const PURCHASE_HTTP_STATUS: Readonly<Record<string, number>> =
+  Object.freeze({
+    jws_signature_invalid: 400,
+    jws_revoked: 400,
+    jws_wrong_app: 400,
+
+    purchase_already_linked: 409,
+    purchase_belongs_to_other_account: 409,
+
+    jws_malformed: 400,
+    jws_incomplete: 400,
+    jws_wrong_product: 400,
+    jws_wrong_type: 400,
+    token_format_mismatch: 400,
+    ios_subscription_not_supported: 400,
+    unknown_product: 400,
+    invalid_payload: 400,
+    invalid_json: 400,
+    google_subscription_upgrade_chain_unsupported: 400,
+
+    purchase_not_in_receipt: 400,
+    jws_sandbox_not_allowed: 400,
+    apple_unavailable: 503,
+    apple_validation_failed: 502,
+    google_validation_failed: 502,
+    app_store_not_configured: 503,
+    google_play_not_configured: 503,
+    claim_failed: 500,
+    internal: 500,
+    unexpected_result_kind: 500,
+  });
+
+/**
  * Da un codice di errore alla disposizione.
  *
  * Il default è `retryable`, e non è pigrizia: un codice che non sappiamo
