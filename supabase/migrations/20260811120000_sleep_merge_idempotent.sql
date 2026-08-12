@@ -51,8 +51,13 @@
 --    non cronologici. Ora la sessione scelta come principale esce sempre con
 --    0, le altre con 1, 2, ... in ordine cronologico fra loro, e main_start_ms
 --    / main_end_ms / stadi-con-indice-zero vengono tutti dalla stessa
---    sessione. Il RANKING non cambia: chi sia la principale lo decide la
---    stessa regola della 189-RC2.
+--    sessione.
+--
+--    CHI sia la principale, invece, cambia regola — ed e' il punto 2c. Fino
+--    alla 190 la decideva il ranking 189-RC2, cioe' il numero di segmenti.
+--    Quel ranking risponde bene a un'altra domanda (quale OSSERVAZIONE
+--    sopravvive fra due che si sovrappongono) e resta li'; per dire quale
+--    SESSIONE DISGIUNTA sia la notte misurava la verbosita' della fonte.
 -- 3. Ogni candidato viene canonicalizzato PRIMA che se ne confronti la
 --    ricchezza, cosi' il duplicato non puo' vincere un confronto che non
 --    merita.
