@@ -136,7 +136,7 @@ teardown() {
      alter table private.billing_purchase_states enable trigger billing_purchase_states_forward_only;" >/dev/null 2>&1
   Q "delete from auth.users where id='${U}';" >/dev/null 2>&1
 }
-trap teardown EXIT
+trap teardown EXIT INT TERM
 
 seed_utente() {
   teardown
@@ -159,7 +159,11 @@ ripristina_modo() {
   Q "update private.billing_projection_guard_mode
      set mode='${MODO_INIZIALE}', note='86-ordine-lock teardown' where singleton;" >/dev/null 2>&1
 }
-trap 'teardown; ripristina_modo' EXIT
+# INT e TERM oltre a EXIT: questo test apre connessioni che dormono, quindi e'
+# il piu' probabile da interrompere a meta'. Un giro ucciso lasciava due claim
+# nel registro, e il test del backfill — che pretende la tabella VUOTA — falliva
+# al giro dopo per una ragione che non c'entrava niente con lui.
+trap 'teardown; ripristina_modo' EXIT INT TERM
 
 # ── Il corpo comune dei casi 1-3 ────────────────────────────────────────────
 #

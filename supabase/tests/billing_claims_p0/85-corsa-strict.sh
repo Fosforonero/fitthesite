@@ -40,7 +40,7 @@ teardown() {
   psql_q "update private.billing_projection_guard_mode
           set mode='compatibility', note='teardown 85-corsa-strict' where singleton;" >/dev/null 2>&1
 }
-trap teardown EXIT
+trap teardown EXIT INT TERM
 teardown
 
 echo "################ PUNTO 3: la corsa fra conteggio e passaggio a strict ################"
