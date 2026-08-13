@@ -38,6 +38,7 @@ import { z } from "zod";
 
 import { requireUser } from "@/lib/api/auth-helpers";
 import {
+  type AppleTransazioneAnnullata,
   readAppleSharedSecret,
   validateAppleReceipt,
 } from "@/lib/billing/app-store";
@@ -109,9 +110,11 @@ function jsonError(status: number, code: string, details?: unknown): Response {
  * arrende al primo colpo e chiude. Ogni 503 verso un 189 è una transazione
  * persa con probabilità 1 su un blip che sarebbe stato transitorio.
  *
- * Il discriminante è `token_format`: la 189 non lo manda, perché il campo non
- * esisteva. Non si usa la forma del token — la 189 manda JWS come la 190, e
- * quindi non distinguerebbe niente.
+ * Il discriminante è `client_contract_version`, che la 190 dichiara su iOS e su
+ * Android e che nessuna build precedente manda. Non si usa la forma del token
+ * (la 189 manda JWS come la 190, quindi non distinguerebbe niente) e non si usa
+ * più `token_format`: quello descrive il formato del payload Apple, Android non
+ * lo manda affatto, e avrebbe coperto metà del parco.
  *
  * Non risolve il problema, lo attenua: non esiste uno status code che faccia
  * tenere aperta la transazione a un 189. Nemmeno un 200 senza `active_until`,
@@ -448,6 +451,63 @@ async function validateAppleJws(args: {
   );
 }
 
+/**
+ * Registra i rimborsi StoreKit 1 trovati in una ricevuta.
+ *
+ * Ritorna `true` solo se OGNI revoca risulta PERSISTITA nel registro. Non
+ * "l'RPC non ha sollevato": la RPC distingue "era gia' revocato" da "non ho
+ * scritto", e su questa differenza il client decide se chiudere la
+ * transazione. Vedi lib/billing/claim-purchase.ts.
+ */
+async function registraAnnullate(
+  admin: Sb,
+  args: {
+    annullate: AppleTransazioneAnnullata[];
+    productId: string;
+    /** L'orologio di ORDINAMENTO: request_date_ms della risposta di Apple. */
+    requestDateMs: number;
+  },
+): Promise<boolean> {
+  let tutte = true;
+  for (const annullata of args.annullate) {
+    let ownershipKey: string;
+    try {
+      ownershipKey = appleOwnershipKey(annullata.originalTransactionId);
+    } catch {
+      console.warn("[Billing] rimborso con original_transaction_id fuori forma");
+      tutte = false;
+      continue;
+    }
+    try {
+      const esito = await recordStorePurchaseRevocation(admin, {
+        billingSource: "apple_iap",
+        ownershipKey,
+        productId: args.productId,
+        purchaseKind: kindOf(args.productId),
+        // FOTOGRAFIA: quando Apple ce l'ha detto. EFFICACIA: quando il
+        // rimborso e' avvenuto. La prima ordina, la seconda no — e' la stessa
+        // separazione del ramo JWS (signedDate / revocationDate).
+        storeEventAt: new Date(args.requestDateMs).toISOString(),
+        storeEventSource: "apple_request_date",
+        revocationAt: new Date(annullata.cancellationDateMs).toISOString(),
+      });
+      if (esito.kind !== "recorded") {
+        console.warn(`[Billing] revoca StoreKit 1 non registrata: ${esito.kind}`);
+        // `not_claimed` significa che quell'acquisto non e' nel registro:
+        // non c'e' niente da revocare e niente da recuperare. Non e' un
+        // guasto, ed e' l'unico esito diverso da 'recorded' che non lo e'.
+        if (esito.kind !== "not_claimed") tutte = false;
+      }
+    } catch (e) {
+      console.error(
+        `[Billing] revoca StoreKit 1 fallita: ${e instanceof Error ? e.name : "errore"}`,
+      );
+      tutte = false;
+    }
+  }
+  return tutte;
+}
+
 // ── Ramo Google ─────────────────────────────────────────────────────────────
 
 /** Stato e scadenza di un abbonamento Play, dai soli campi verificati. */
@@ -615,6 +675,27 @@ export async function POST(req: Request): Promise<Response> {
       if (result.kind === "ok") {
         const tx = result.tx;
 
+        // Un acquisto vivo NON cancella un rimborso trovato nella stessa
+        // ricevuta: sono due transazioni diverse, e il rimborso va registrato
+        // comunque. Se la registrazione non riesce si concede lo stesso il
+        // diritto, e la ragione va detta: il cliente ha davanti a se' un
+        // acquisto valido, e rifiutarglielo per un problema di contabilita' su
+        // una transazione VECCHIA sarebbe far pagare a lui un guasto nostro.
+        // La conseguenza — un rimborso non registrato che resta a contare —
+        // e' meno grave, e finisce nei log come tale.
+        if (result.annullate.length > 0 && result.requestDateMs !== null) {
+          const registrate = await registraAnnullate(admin, {
+            annullate: result.annullate,
+            productId: product_id,
+            requestDateMs: result.requestDateMs,
+          });
+          if (!registrate) {
+            console.error(
+              "[Billing] rimborso StoreKit 1 non registrato accanto a un acquisto vivo",
+            );
+          }
+        }
+
         // `request_date_ms` e' l'orologio di Apple al momento della risposta,
         // lo stesso di `signedDate` sul ramo JWS. Senza, questa evidenza non e'
         // ordinabile rispetto a quelle gia' registrate: fail-closed, difetto
@@ -658,6 +739,36 @@ export async function POST(req: Request): Promise<Response> {
             appAccountToken: null,
           }),
         );
+      }
+      if (result.kind === "revoked") {
+        // Nessun acquisto vivo per questo prodotto, e almeno uno annullato.
+        // Prima del 13/08/2026 questo ramo non esisteva e il caso finiva in
+        // `purchase_not_in_receipt`, cioe' fra i silenzi: il rimborso non
+        // veniva mai registrato e il lifetime rimborsato restava per sempre il
+        // migliore diritto del suo proprietario.
+        if (result.requestDateMs === null) {
+          console.warn("[Billing] rimborso StoreKit 1 senza request_date_ms: non ordinabile");
+          return jsonError(
+            statusPerIlClient(503, clientLegacy),
+            "apple_unavailable",
+          );
+        }
+        const tutteRegistrate = await registraAnnullate(admin, {
+          annullate: result.annullate,
+          productId: product_id,
+          requestDateMs: result.requestDateMs,
+        });
+        if (!tutteRegistrate) {
+          // Una revoca non scritta e' un silenzio, non un rifiuto dimostrato:
+          // stessa regola del ramo JWS. Rispondere terminale qui farebbe
+          // chiudere la transazione mentre il rimborso non e' registrato, e
+          // quella transazione non tornerebbe mai piu' a dircelo.
+          return jsonError(
+            statusPerIlClient(503, clientLegacy),
+            "apple_unavailable",
+          );
+        }
+        return jsonError(400, "purchase_revoked");
       }
       if (result.kind === "not_found") {
         return jsonError(400, "purchase_not_in_receipt");

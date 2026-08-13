@@ -77,9 +77,11 @@ export type PurchaseDispositionWire =
  * un codice che nessuno emette più. Una tabella che si aggiorna a mano
  * diverge; una che un test confronta con i sorgenti no.
  *
- * IL TERMINALE È UNO, ed è un numero che va difeso: è l'unico caso in cui lo
+ * I TERMINALI SONO DUE, ed è un numero che va difeso: sono i soli casi in cui lo
  * store ha DIMOSTRATO che il diritto non esiste E in cui sappiamo che la
- * transazione che stiamo chiudendo è proprio quella. Tutto il resto —
+ * transazione che stiamo chiudendo è proprio quella — la revoca dichiarata da
+ * Apple, sul ramo JWS (`jws_revoked`) e sul ramo StoreKit 1
+ * (`purchase_revoked`). Sono lo stesso fatto detto da due protocolli. Tutto il resto —
  * guasti, timeout, difetti nostri, conflitti, codici sconosciuti — lascia la
  * transazione aperta, perché una transazione aperta torna da sola al prossimo
  * avvio ed è la rete di sicurezza che non costa niente.
@@ -89,16 +91,19 @@ export const PURCHASE_DISPOSITION_CONTRACT: Readonly<
 > = Object.freeze({
   // ── Lo store ha dimostrato che il diritto non esiste ────────────────────
   //
-  // UNO SOLO, e il motivo va letto prima di aggiungerne un secondo.
+  // DUE, e sono lo stesso fatto detto da due protocolli. Il motivo va letto
+  // prima di aggiungerne un terzo.
   //
   // Chiudere una transazione senza aver concesso il diritto richiede di sapere
   // due cose: che quel diritto non esiste, e che la transazione che sto
   // chiudendo è proprio quella. La seconda è la parte che si dimentica.
   //
   // Su `jws_revoked` la firma VERIFICA: è Apple a dichiarare la revoca, e il
-  // binding fra l'evidenza e la transazione lo stabilisce la firma stessa.
+  // binding fra l'evidenza e la transazione lo stabilisce la firma stessa. Su
+  // `purchase_revoked` lo stabilisce l'enumerazione che Apple restituisce a
+  // verifyReceipt, transazione per transazione.
   //
-  // Sugli altri due il binding manca, ma per DUE RAGIONI DIVERSE, e vanno
+  // Sui due qui sotto il binding manca, ma per DUE RAGIONI DIVERSE, e vanno
   // tenute separate: una sola motivazione le copre male, ed è confutabile.
   //
   // `jws_signature_invalid`: la firma NON verifica, quindi il payload non può
@@ -116,6 +121,26 @@ export const PURCHASE_DISPOSITION_CONTRACT: Readonly<
   // difetto viene corretto.
   /** Apple dichiara la transazione REVOCATA o RIMBORSATA. I soldi sono già tornati. */
   jws_revoked: "store_verified_terminal_rejection",
+  /**
+   * Lo stesso fatto, dal ramo StoreKit 1: `cancellation_date_ms` valorizzato
+   * nella risposta di verifyReceipt.
+   *
+   * IL BINDING REGGE, ed e' il motivo per cui questo e' il SECONDO terminale e
+   * non un terzo silenzio. La risposta arriva da Apple su TLS ed enumera le
+   * transazioni della ricevuta che le abbiamo mandato, ciascuna col proprio
+   * `original_transaction_id`: quando dice "questa e' stata annullata", sta
+   * parlando di una transazione identificata, non di una generica.
+   *
+   * E l'obiezione che vale per `purchase_not_in_receipt` — la ricevuta sul
+   * dispositivo puo' essere vecchia — qui non si applica, perche' e'
+   * asimmetrica: una ricevuta non aggiornata puo' OMETTERE un rimborso, non
+   * inventarlo. L'assenza non prova niente; la presenza si'.
+   *
+   * Come per `jws_revoked`, la route lo restituisce SOLO dopo che la revoca
+   * risulta persistita nel registro. Se la scrittura non riesce risponde
+   * `apple_unavailable`, che e' un silenzio e non chiude niente.
+   */
+  purchase_revoked: "store_verified_terminal_rejection",
 
   // ── La transazione è di qualcun altro ───────────────────────────────────
   purchase_already_linked: "account_conflict",
@@ -188,6 +213,7 @@ export const PURCHASE_HTTP_STATUS: Readonly<Record<string, number>> =
   Object.freeze({
     jws_signature_invalid: 400,
     jws_revoked: 400,
+    purchase_revoked: 400,
     jws_wrong_app: 400,
 
     purchase_already_linked: 409,

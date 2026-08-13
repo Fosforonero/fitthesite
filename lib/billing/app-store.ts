@@ -59,6 +59,18 @@ type VerifyReceiptResponse = {
   receipt?: { in_app?: AppleTransaction[] };
 };
 
+/**
+ * Una transazione che Apple dichiara ANNULLATA: rimborsata dal supporto, o
+ * cancellata per una richiesta di famiglia. `cancellation_date_ms` e' il
+ * momento in cui il rimborso e' diventato efficace — l'equivalente StoreKit 1
+ * di `revocationDate` — e non e' un orologio di ordinamento: quello resta
+ * `request_date_ms` della risposta.
+ */
+export type AppleTransazioneAnnullata = {
+  originalTransactionId: string;
+  cancellationDateMs: number;
+};
+
 export type AppStoreResult =
   | {
       kind: "ok";
@@ -71,6 +83,30 @@ export type AppStoreResult =
        * puo' ordinare questa evidenza rispetto a quelle gia' registrate, e in
        * dubbio non si scrive. Null quando Apple non lo manda.
        */
+      requestDateMs: number | null;
+      /**
+       * Le transazioni annullate trovate nella STESSA ricevuta. Anche quando
+       * esiste un acquisto vivo, un rimborso precedente resta un fatto che va
+       * registrato: e' l'unica notizia che ne abbiamo, e senza Notifications V2
+       * nessuno ce la ripetera'.
+       */
+      annullate: AppleTransazioneAnnullata[];
+    }
+  | {
+      /**
+       * Nessun acquisto vivo per questo prodotto, e almeno uno annullato.
+       *
+       * Fino al 13/08/2026 questo caso non esisteva: il filtro scartava le
+       * transazioni con `cancellation_date_ms` insieme a quelle di un altro
+       * prodotto, la lista restava vuota e la ricevuta risultava `not_found`,
+       * cioe' `purchase_not_in_receipt` — un silenzio, che si ritenta. Un
+       * lifetime rimborsato restava percio' il migliore diritto del suo
+       * proprietario per sempre: nessuno lo revocava, perche' nessuno lo
+       * vedeva.
+       */
+      kind: "revoked";
+      annullate: AppleTransazioneAnnullata[];
+      environment: "production" | "sandbox";
       requestDateMs: number | null;
     }
   | { kind: "not_found"; status: number }
@@ -144,12 +180,45 @@ export async function validateAppleReceipt(args: {
 
   // Le transazioni vivono in latest_receipt_info (subs e anche IAP recenti);
   // i non-consumable storici possono stare solo in receipt.in_app.
-  const all: AppleTransaction[] = [
+  const delProdotto: AppleTransaction[] = [
     ...(r.data.latest_receipt_info ?? []),
     ...(r.data.receipt?.in_app ?? []),
-  ].filter((t) => t.product_id === args.productId && !t.cancellation_date_ms);
+  ].filter((t) => t.product_id === args.productId);
 
-  if (all.length === 0) return { kind: "not_found", status: 0 };
+  // Le due liste si separano, non si scarta piu' niente. Un rimborso e' un
+  // fatto DIMOSTRATO da Apple su una transazione identificata: buttarlo via
+  // insieme alle transazioni di un altro prodotto era la ragione per cui un
+  // acquisto rimborsato non veniva mai revocato.
+  const annullate: AppleTransazioneAnnullata[] = [];
+  const vive: AppleTransaction[] = [];
+  for (const t of delProdotto) {
+    const annullataMs = t.cancellation_date_ms ? Number(t.cancellation_date_ms) : null;
+    if (annullataMs !== null && Number.isFinite(annullataMs)) {
+      if (t.original_transaction_id) {
+        annullate.push({
+          originalTransactionId: t.original_transaction_id,
+          cancellationDateMs: annullataMs,
+        });
+      }
+      continue;
+    }
+    vive.push(t);
+  }
+
+  const requestDateMsGrezzo =
+    r.data.request_date_ms != null ? Number(r.data.request_date_ms) : null;
+  const requestDateMs = Number.isFinite(requestDateMsGrezzo as number)
+    ? requestDateMsGrezzo
+    : null;
+
+  if (vive.length === 0) {
+    if (annullate.length > 0) {
+      return { kind: "revoked", annullate, environment, requestDateMs };
+    }
+    return { kind: "not_found", status: 0 };
+  }
+
+  const all = vive;
 
   const latest = all.reduce((a, b) => {
     const ea = Number(a.expires_date_ms ?? a.purchase_date_ms ?? 0);
@@ -163,15 +232,12 @@ export async function validateAppleReceipt(args: {
       p.original_transaction_id === latest.original_transaction_id,
   );
 
-  const requestDateMs = r.data.request_date_ms != null
-    ? Number(r.data.request_date_ms)
-    : null;
-
   return {
     kind: "ok",
     tx: latest,
     autoRenewing: renewal?.auto_renew_status === "1",
     environment,
-    requestDateMs: Number.isFinite(requestDateMs as number) ? requestDateMs : null,
+    requestDateMs,
+    annullate,
   };
 }

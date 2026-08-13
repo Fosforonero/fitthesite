@@ -10,6 +10,7 @@
   },
   "codes": {
     "jws_revoked": "store_verified_terminal_rejection",
+    "purchase_revoked": "store_verified_terminal_rejection",
     "purchase_already_linked": "account_conflict",
     "purchase_belongs_to_other_account": "account_conflict",
     "jws_signature_invalid": "client_contract_error",
@@ -215,6 +216,14 @@
     {
       "status": 400,
       "body": {
+        "error": "purchase_revoked",
+        "contract_version": 1,
+        "disposition": "store_verified_terminal_rejection"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
         "error": "token_format_mismatch",
         "contract_version": 1,
         "disposition": "client_contract_error"
@@ -237,5 +246,5 @@
       }
     }
   ],
-  "codes_sha256": "d7472992e5d68d2956d5eb843f62e8affc2cadb90297c4fb5223a298b102d4bf"
+  "codes_sha256": "faff104518262765464e468f35ecff81cd5ba6d9ac30ddc4e294357ced6b4bd1"
 }

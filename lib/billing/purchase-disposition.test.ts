@@ -117,16 +117,25 @@ describe("il contratto dei codici è esaustivo", () => {
 });
 
 describe("disposizione per codice", () => {
-  it("UN SOLO codice è un rifiuto dimostrato dallo store", () => {
-    // Non due. Chiudere una transazione senza aver concesso il diritto
-    // richiede di sapere che quel diritto non esiste E che la transazione che
-    // sto chiudendo è proprio quella: su `jws_revoked` il binding lo
-    // stabilisce la firma, che verifica. Su un rifiuto di firma no.
+  it("i rifiuti dimostrati dallo store sono DUE, e sono lo stesso fatto", () => {
+    // Non tre, non quattro. Chiudere una transazione senza aver concesso il
+    // diritto richiede di sapere che quel diritto non esiste E che la
+    // transazione che sto chiudendo è proprio quella.
+    //
+    // `jws_revoked`: il binding lo stabilisce la firma, che verifica.
+    // `purchase_revoked`: il binding lo stabilisce Apple, che nella risposta a
+    // verifyReceipt enumera le transazioni della ricevuta ciascuna col proprio
+    // original_transaction_id e dice quale è stata annullata.
+    //
+    // Sono la stessa notizia — "Apple ha revocato questo acquisto" — detta da
+    // due protocolli. Un terzo terminale va aggiunto qui solo insieme
+    // all'argomento che regge il suo binding, e quell'argomento va scritto
+    // dove sta la tabella, non qui.
     const terminali = Object.entries(PURCHASE_DISPOSITION_CONTRACT)
       .filter(([, d]) => d === "store_verified_terminal_rejection")
       .map(([c]) => c)
       .sort();
-    expect(terminali).toEqual(["jws_revoked"]);
+    expect(terminali).toEqual(["jws_revoked", "purchase_revoked"]);
   });
 
   it("un blob che non verifica non autorizza a chiudere niente", () => {

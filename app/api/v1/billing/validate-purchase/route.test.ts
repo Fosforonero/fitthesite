@@ -999,3 +999,180 @@ describe("il 503 non si dice a chi non sa gestirlo", () => {
     expect(args.p_revocation_at).toBe(new Date(1_754_000_000_000).toISOString());
   });
 });
+
+describe("rimborso StoreKit 1: il ramo che prima non esisteva", () => {
+  const RIMBORSATO = "1000000222222222";
+  const QUANDO = 1_754_400_900_000;
+  const RISPOSTA = 1_754_401_000_000;
+
+  function richiesta189() {
+    // La 189: ricevuta StoreKit 1, nessuna versione di contratto dichiarata.
+    return POST(
+      req({
+        product_id: LIFETIME,
+        purchase_token: RECEIPT_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "app_receipt",
+      }),
+    );
+  }
+
+  beforeEach(() => {
+    mocks.requireUser.mockResolvedValue({ userId: USER_ID });
+    mocks.readAppleSharedSecret.mockReturnValue("segreto");
+    mocks.validateAppleReceipt.mockResolvedValue({
+      kind: "revoked",
+      annullate: [
+        { originalTransactionId: RIMBORSATO, cancellationDateMs: QUANDO },
+      ],
+      environment: "production",
+      requestDateMs: RISPOSTA,
+    });
+  });
+
+  it("registra la revoca con le DUE date separate, e risponde terminale", async () => {
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "revoked", applied: true, persisted: true },
+      error: null,
+    });
+
+    const res = await richiesta189();
+    const body = await res.json();
+
+    expect(mocks.rpc).toHaveBeenCalledWith(
+      "record_store_purchase_revocation",
+      expect.objectContaining({
+        p_billing_source: "apple_iap",
+        p_ownership_key: RIMBORSATO,
+        // FOTOGRAFIA: quando Apple ce l'ha detto. E' cio' che ordina.
+        p_store_event_at: new Date(RISPOSTA).toISOString(),
+        p_store_event_source: "apple_request_date",
+        // EFFICACIA: quando il rimborso e' avvenuto. Anteriore, e non ordina.
+        p_revocation_at: new Date(QUANDO).toISOString(),
+      }),
+    );
+
+    expect(res.status).toBe(400);
+    expect(body.error).toBe("purchase_revoked");
+    expect(body.disposition).toBe("store_verified_terminal_rejection");
+  });
+
+  it("revoca NON persistita: nessun terminale, e alla 189 il 503 diventa 502", async () => {
+    // Stessa regola del ramo JWS: una revoca non scritta e' un silenzio.
+    // Rispondere terminale qui farebbe chiudere la transazione mentre il
+    // rimborso non e' registrato, e quella transazione non tornerebbe mai piu'
+    // a dircelo.
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "not_persisted", applied: false, persisted: false },
+      error: null,
+    });
+
+    const res = await richiesta189();
+    const body = await res.json();
+
+    expect(res.status).toBe(502);
+    expect(body.error).toBe("apple_unavailable");
+    expect(body.disposition).toBe("retryable");
+  });
+
+  it("alla 190 lo stesso guasto resta un 503 tipizzato", async () => {
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "not_persisted", applied: false, persisted: false },
+      error: null,
+    });
+
+    const res = await POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: RECEIPT_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "app_receipt",
+      }),
+    );
+
+    expect(res.status).toBe(503);
+    expect((await res.json()).error).toBe("apple_unavailable");
+  });
+
+  it("senza request_date_ms non si scrive niente: l'evidenza non e' ordinabile", async () => {
+    mocks.validateAppleReceipt.mockResolvedValue({
+      kind: "revoked",
+      annullate: [
+        { originalTransactionId: RIMBORSATO, cancellationDateMs: QUANDO },
+      ],
+      environment: "production",
+      requestDateMs: null,
+    });
+
+    const res = await richiesta189();
+
+    expect(res.status).toBe(502); // 503 tradotto per la 189
+    expect((await res.json()).error).toBe("apple_unavailable");
+    expect(
+      mocks.rpc.mock.calls.filter(
+        (c) => c[0] === "record_store_purchase_revocation",
+      ),
+    ).toHaveLength(0);
+  });
+
+  it("acquisto vivo accanto a un rimborso: il diritto si concede E la revoca si registra", async () => {
+    mocks.validateAppleReceipt.mockResolvedValue({
+      kind: "ok",
+      tx: {
+        product_id: LIFETIME,
+        original_transaction_id: "1000000333333333",
+        transaction_id: "1000000333333333",
+        purchase_date_ms: String(RISPOSTA - 86_400_000),
+      },
+      autoRenewing: false,
+      environment: "production",
+      requestDateMs: RISPOSTA,
+      annullate: [
+        { originalTransactionId: RIMBORSATO, cancellationDateMs: QUANDO },
+      ],
+    });
+    mocks.rpc.mockImplementation(async (fn: string) =>
+      fn === "record_store_purchase_revocation"
+        ? { data: { outcome: "revoked", applied: true, persisted: true }, error: null }
+        : claimed,
+    );
+
+    const res = await richiesta189();
+
+    expect(res.status).toBe(200);
+    const chiamate = mocks.rpc.mock.calls.map((c) => c[0]);
+    expect(chiamate).toContain("record_store_purchase_revocation");
+    expect(chiamate).toContain("claim_store_purchase");
+  });
+
+  it("un rimborso non registrabile NON toglie il diritto a un acquisto vivo", async () => {
+    // Il cliente ha davanti a se' un acquisto valido. Rifiutarglielo per un
+    // problema di contabilita' su una transazione VECCHIA sarebbe fargli
+    // pagare un guasto nostro.
+    mocks.validateAppleReceipt.mockResolvedValue({
+      kind: "ok",
+      tx: {
+        product_id: LIFETIME,
+        original_transaction_id: "1000000333333333",
+        transaction_id: "1000000333333333",
+        purchase_date_ms: String(RISPOSTA - 86_400_000),
+      },
+      autoRenewing: false,
+      environment: "production",
+      requestDateMs: RISPOSTA,
+      annullate: [
+        { originalTransactionId: RIMBORSATO, cancellationDateMs: QUANDO },
+      ],
+    });
+    mocks.rpc.mockImplementation(async (fn: string) =>
+      fn === "record_store_purchase_revocation"
+        ? { data: { outcome: "not_persisted", applied: false, persisted: false }, error: null }
+        : claimed,
+    );
+
+    const res = await richiesta189();
+    expect(res.status).toBe(200);
+  });
+});
