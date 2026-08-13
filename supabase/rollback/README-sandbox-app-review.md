@@ -115,6 +115,18 @@ in `app/api/v1/billing/validate-purchase/route.test.ts`, gruppo "isolamento
 produzione / sandbox al livello del route", incluso il caso in cui un guasto
 della tabella **non** apre la Sandbox.
 
+## Vale anche su StoreKit 1
+
+FitMesh supporta ancora iOS 14, dove il plugin ricade su StoreKit 1 e manda una
+ricevuta invece di un JWS. Il percorso è lo stesso e con le stesse condizioni:
+Apple risponde `21007` ("questa ricevuta è Sandbox"), il backend chiede se
+quell'account è autorizzato e solo allora ripete la verifica accettando
+l'ambiente Sandbox. La chiave finisce nello stesso spazio separato.
+
+Dimenticarlo avrebbe lasciato fuori proprio un revisore su un dispositivo
+vecchio, cioè il caso meno prevedibile e più difficile da diagnosticare a
+distanza.
+
 ## Quello che questi test non provano
 
 Che il giro completo funzioni su un dispositivo reale con un Apple ID Sandbox

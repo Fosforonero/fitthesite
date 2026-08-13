@@ -1301,3 +1301,80 @@ describe("rimborso StoreKit 1: il ramo che prima non esisteva", () => {
     expect(res.status).toBe(200);
   });
 });
+
+describe("Sandbox anche su StoreKit 1: un revisore su iOS 14 esiste", () => {
+  function richiesta() {
+    return POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: RECEIPT_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "app_receipt",
+      }),
+    );
+  }
+
+  beforeEach(() => {
+    mocks.requireUser.mockResolvedValue({ userId: USER_ID });
+    mocks.readAppleSharedSecret.mockReturnValue("segreto");
+  });
+
+  it("revisore autorizzato: la ricevuta Sandbox passa, con la chiave separata", async () => {
+    mocks.validateAppleReceipt
+      .mockResolvedValueOnce({
+        kind: "error",
+        status: 21007,
+        body: "sandbox_not_allowed",
+      })
+      .mockResolvedValueOnce({
+        kind: "ok",
+        tx: {
+          product_id: LIFETIME,
+          original_transaction_id: "1000000777777777",
+          transaction_id: "1000000777777777",
+          purchase_date_ms: "1754400000000",
+        },
+        autoRenewing: false,
+        environment: "sandbox",
+        requestDateMs: 1_754_400_500_000,
+        annullate: [],
+      });
+    mocks.rpc.mockImplementation(async (fn: string) =>
+      fn === "is_sandbox_reviewer" ? { data: true, error: null } : claimed,
+    );
+
+    const res = await richiesta();
+
+    expect(res.status).toBe(200);
+    expect(mocks.validateAppleReceipt).toHaveBeenCalledTimes(2);
+    expect(mocks.validateAppleReceipt.mock.calls[1][0]).toMatchObject({
+      allowSandbox: true,
+    });
+    const claim = mocks.rpc.mock.calls.find(
+      (c) => c[0] === "claim_store_purchase",
+    );
+    expect(claim![1]).toMatchObject({
+      p_ownership_key: "sandbox:1000000777777777",
+      p_environment: "sandbox",
+    });
+  });
+
+  it("NON revisore: la ricevuta Sandbox resta rifiutata, e non si ritenta", async () => {
+    mocks.validateAppleReceipt.mockResolvedValue({
+      kind: "error",
+      status: 21007,
+      body: "sandbox_not_allowed",
+    });
+    mocks.rpc.mockResolvedValue({ data: false, error: null });
+
+    const res = await richiesta();
+
+    expect(res.status).toBe(502);
+    expect((await res.json()).error).toBe("apple_validation_failed");
+    expect(mocks.validateAppleReceipt).toHaveBeenCalledTimes(1);
+    expect(
+      mocks.rpc.mock.calls.map((c) => c[0]),
+    ).not.toContain("claim_store_purchase");
+  });
+});

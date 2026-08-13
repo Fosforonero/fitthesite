@@ -726,10 +726,29 @@ export async function POST(req: Request): Promise<Response> {
       );
     }
     try {
-      const result = await validateAppleReceipt({
+      let result = await validateAppleReceipt({
         receiptData: purchase_token,
         productId: product_id,
       });
+
+      // Lo stesso percorso Sandbox del ramo StoreKit 2, per la stessa ragione:
+      // un revisore su iOS 14 compra con StoreKit 1, e senza questo si
+      // vedrebbe rifiutare l'acquisto come prima. La domanda si fa solo dopo
+      // che Apple ha detto "questa ricevuta e' Sandbox" (status 21007), mai in
+      // anticipo.
+      if (
+        result.kind === "error" &&
+        result.status === 21007 &&
+        (await isSandboxReviewer(admin, userId))
+      ) {
+        console.warn("[Billing] ricevuta sandbox ammessa per revisore autorizzato");
+        result = await validateAppleReceipt({
+          receiptData: purchase_token,
+          productId: product_id,
+          allowSandbox: true,
+        });
+      }
+
       if (result.kind === "ok") {
         const tx = result.tx;
 
@@ -765,7 +784,12 @@ export async function POST(req: Request): Promise<Response> {
 
         let ownershipKey: string;
         try {
-          ownershipKey = appleOwnershipKey(tx.original_transaction_id);
+          // Stesso spazio separato del ramo JWS: la chiave di una transazione
+          // Sandbox non deve poter coincidere con quella di un acquisto vero.
+          ownershipKey = appleOwnershipKey(
+            tx.original_transaction_id,
+            result.environment,
+          );
         } catch (e) {
           if (e instanceof OwnershipKeyError) return responseForOwnershipKeyError(e);
           throw e;

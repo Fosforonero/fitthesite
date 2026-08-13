@@ -151,6 +151,18 @@ async function postVerify(
 export async function validateAppleReceipt(args: {
   receiptData: string;
   productId: string;
+  /**
+   * Permesso di accettare una ricevuta SANDBOX per QUESTA chiamata.
+   *
+   * Stesso significato che sul ramo StoreKit 2: non e' una scorciatoia
+   * dell'ambiente, e' il permesso di una persona che il chiamante ha gia'
+   * verificato lato server. Serve perche' un revisore su iOS 14 — dove il
+   * plugin ricade su StoreKit 1 — comprerebbe comunque in Sandbox, e senza
+   * questo si vedrebbe rifiutare l'acquisto esattamente come prima.
+   *
+   * Omesso, vale quello che dice l'ambiente: `false` in produzione.
+   */
+  allowSandbox?: boolean;
 }): Promise<AppStoreResult> {
   const secret = readAppleSharedSecret();
   if (!secret) {
@@ -164,7 +176,7 @@ export async function validateAppleReceipt(args: {
     // Sandbox e' gratuita per chiunque abbia un Apple ID di test, quindi in
     // produzione va respinta senza scrivere niente. Il ripiego esiste solo
     // dove l'ambiente lo consente esplicitamente.
-    if (!sandboxTransactionsAllowed()) {
+    if (!(args.allowSandbox ?? sandboxTransactionsAllowed())) {
       return { kind: "error", status: 21007, body: "sandbox_not_allowed" };
     }
     environment = "sandbox";
