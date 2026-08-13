@@ -82,3 +82,11 @@ bash "$DIR/55-concurrency-entitlement.sh"
 echo ""
 echo "### 85-corsa-strict.sh"
 bash "$DIR/85-corsa-strict.sh"
+
+# L'ordine dei lock, provato con l'UPSERT letterale della 189 e con la
+# cancellazione account. Tre e quattro sessioni reali: la pausa che serve a
+# fermare una funzione atomica a meta' arriva da un advisory lock tenuto da
+# fuori, non da una modifica al codice sotto prova.
+echo ""
+echo "### 86-ordine-lock.sh"
+bash "$DIR/86-ordine-lock.sh"

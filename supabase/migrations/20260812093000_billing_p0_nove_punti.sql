@@ -30,6 +30,67 @@
 -- ============================================================================
 
 -- ============================================================================
+-- L'ORDINE UNICO DEI LOCK
+--
+-- Tre percorsi scrivono lo stesso insieme di righe — il percorso nuovo
+-- (claim_store_purchase), la revoca (record_store_purchase_revocation) e il
+-- percorso di compatibilita' della 189 (la guardia _b2c_projection_guard) — e
+-- fino a questa modifica non prendevano i lock nello stesso ordine.
+--
+-- LE RISORSE, NELL'ORDINE IN CUI VANNO PRESE:
+--
+--   0  la riga di auth.users dell'utente                 (for key share)
+--   1  la riga di public.b2c_subscriptions dell'utente   (for update)
+--   2  gli advisory lock: prima l'utente, poi la chiave
+--   3  private.billing_purchase_claims, poi private.billing_purchase_states
+--
+-- IL GRADINO 0 NON E' DECORATIVO, ed e' stato trovato dopo il gradino 1: il
+-- registro ha una FK verso auth.users, quindi ogni `insert into
+-- billing_purchase_claims` prende da solo un `for key share` sulla riga
+-- utente. Chi cancella un account (`delete from auth.users`, cioe'
+-- auth.admin.deleteUser) quella riga la blocca per prima, e le due cascate che
+-- seguono — verso public.profiles/public.b2c_subscriptions e verso il registro
+-- — partono dopo. Ordine auth.users -> b2c da una parte, b2c -> auth.users
+-- dall'altra: un secondo ABBA, indipendente dal primo, con di nuovo
+-- claim_store_purchase come vittima. Prenderlo esplicitamente in cima e' il
+-- modo di metterlo nell'ordine giusto invece di subirlo dove capita.
+--
+-- PERCHE' b2c SUBITO DOPO, e non gli advisory che sarebbero piu' comodi: e'
+-- l'ultima risorsa davanti alla quale possiamo ancora metterci. Su una UPDATE
+-- di public.b2c_subscriptions l'executor blocca la tupla PRIMA di far partire
+-- il BEFORE trigger. Qualunque ordine che metta gli advisory davanti a b2c e'
+-- un ordine che il percorso di compatibilita' non puo' rispettare, quindi non
+-- e' un ordine.
+--
+-- QUEL CHE RESTA FUORI, detto invece che nascosto: una `UPDATE` diretta su
+-- public.b2c_subscriptions — non l'upsert della 189, che passa da INSERT, ma
+-- una UPDATE scritta a mano in console — blocca b2c prima che la guardia possa
+-- prendere auth.users, e in concorrenza con una cancellazione account puo'
+-- ancora andare in deadlock. Non e' un percorso di prodotto: nessuna route la
+-- emette. La conseguenza e' l'istruzione dell'amministratore che torna
+-- indietro, non un diritto perso.
+--
+-- IL DIFETTO CHE QUESTO CHIUDE, e che l'analisi precedente aveva mancato: la
+-- 189 non fa una UPDATE, fa `INSERT ... ON CONFLICT (user_id) DO UPDATE` —
+-- e' cio' che PostgREST genera per `.upsert(row, { onConflict: 'user_id' })`.
+-- In quella forma il BEFORE INSERT parte PRIMA della insert speculativa,
+-- quindi prima che esista un lock sulla riga in conflitto: la guardia toccava
+-- claims e states e solo dopo l'executor prendeva b2c. Ordine claims -> b2c da
+-- una parte, b2c -> claims dall'altra. Un ABBA vero, riprodotto con tre
+-- sessioni reali in tests/billing_claims_p0/86-ordine-lock.sh.
+--
+-- Correggere un solo lato non bastava: la 189 produce DUE ordini diversi a
+-- seconda della forma dell'istruzione (UPDATE => b2c per prima; UPSERT =>
+-- claims per prima), e nessun ordine scelto nel percorso nuovo puo' coincidere
+-- con entrambi. Per questo il lock su b2c si prende dentro la GUARDIA, in cima:
+-- e' l'unico punto che sta davanti a tutti e due.
+--
+-- Gli advisory lock restano, e restano dopo b2c: servono a serializzare fra
+-- loro claim e revoca sulla stessa chiave, cosa che i lock di riga non fanno
+-- quando la riga non esiste ancora.
+-- ============================================================================
+
+-- ============================================================================
 -- 1. IL VOCABOLARIO DELLA FRESCHEZZA, E LA COMPARABILITA' DEGLI OROLOGI
 --
 -- Il difetto: la guardia in compatibility scriveva `store_event_at = now()` —
@@ -291,6 +352,25 @@ begin
 
   -- ── Da qui: scrittura commerciale che NON viene dal registro ─────────────
   --
+  -- ORDINE UNICO DEI LOCK — gradino 1, ed e' QUI che l'ordine si decide per
+  -- tutti. Vedi il blocco "L'ORDINE UNICO DEI LOCK" in testa alla migration.
+  --
+  -- La 189 scrive con `INSERT ... ON CONFLICT (user_id) DO UPDATE`: in quella
+  -- forma il BEFORE INSERT parte PRIMA dell'insert speculativa, quindi prima
+  -- che l'executor abbia un lock sulla riga in conflitto. Senza questa riga la
+  -- guardia toccava claims e states per prima e b2c per ultima, all'incontrario
+  -- del percorso nuovo. 86-ordine-lock.sh lo riproduceva con tre sessioni
+  -- reali: deadlock, e la vittima era claim_store_purchase — cioe' il cliente
+  -- che aveva appena pagato.
+  --
+  -- Su una UPDATE questa riga non aggiunge niente (l'executor ha gia' la
+  -- tupla). Su una INSERT di un utente senza riga non blocca niente, perche'
+  -- non c'e' niente da bloccare: li' a serializzare restano l'indice unico su
+  -- user_id e gli advisory lock del percorso nuovo.
+  perform 1 from auth.users u where u.id = new.user_id for key share;
+  perform 1 from public.b2c_subscriptions t
+   where t.user_id = new.user_id for update;
+
   -- `for share` sulla riga del modo, e non una semplice lettura: e' cio' che
   -- chiude la corsa fra questa scrittura e il passaggio a strict. Finche'
   -- questa transazione non ha finito, set_billing_projection_guard_mode() —
@@ -467,6 +547,52 @@ drop trigger if exists trg_b2c_no_truncate on public.b2c_subscriptions;
 create trigger trg_b2c_no_truncate
   before truncate on public.b2c_subscriptions
   for each statement execute function private._b2c_no_truncate();
+
+-- ── ORDINE UNICO DEI LOCK — il terzo scrittore: la cancellazione account ────
+--
+-- `delete from auth.users where id = ...` — cioe' auth.admin.deleteUser(), che
+-- e' come cancella l'API di Supabase — scatena DUE RI action nello stesso
+-- statement: la cascata verso public.profiles (e da li' verso
+-- public.b2c_subscriptions) e il `set null` su private.billing_purchase_claims.
+-- L'ordine fra due RI action della stessa istruzione non e' documentato, quindi
+-- non e' un ordine su cui appoggiarsi: 86-ordine-lock.sh lo ha riprodotto con
+-- due sessioni reali e ha ottenuto un deadlock vero, con claim_store_purchase
+-- come vittima.
+--
+-- gdpr_process_deletions() non ha il problema perche' cancella prima
+-- public.profiles e poi auth.users, cioe' b2c prima di claims. Ma quella e'
+-- una proprieta' di UNA funzione, non della cancellazione: chiunque chiami
+-- l'API di Supabase la aggira senza saperlo.
+--
+-- Un BEFORE DELETE su auth.users parte prima di entrambe le cascate, ed e'
+-- l'unico punto in cui si puo' imporre "b2c per prima" a una cancellazione che
+-- non passa dal nostro codice. Non blocca niente e non decide niente: prende un
+-- lock e lascia proseguire.
+create or replace function private._billing_lock_prima_di_cancellare_utente()
+returns trigger
+language plpgsql
+security definer
+set search_path to ''
+as $$
+begin
+  perform 1 from public.b2c_subscriptions t where t.user_id = old.id for update;
+  return old;
+end;
+$$;
+
+revoke all on function private._billing_lock_prima_di_cancellare_utente()
+  from public, anon, authenticated, service_role;
+
+drop trigger if exists trg_billing_lock_before_user_delete on auth.users;
+create trigger trg_billing_lock_before_user_delete
+  before delete on auth.users
+  for each row execute function private._billing_lock_prima_di_cancellare_utente();
+
+comment on function private._billing_lock_prima_di_cancellare_utente() is
+  'Impone il gradino 1 dell''ordine unico dei lock (riga di public.b2c_subscriptions '
+  'per prima) anche alla cancellazione account, che passa da due RI action il cui '
+  'ordine reciproco non e'' documentato. Senza, claim_store_purchase e '
+  'auth.admin.deleteUser() vanno in deadlock: vedi 86-ordine-lock.sh caso 4b.';
 
 -- ============================================================================
 -- 4. IL PASSAGGIO A STRICT: LA COPERTURA E' DELLA TRANSAZIONE, NON DELL'UTENTE
@@ -687,23 +813,20 @@ begin
       using errcode = '22023';
   end if;
 
+  -- ORDINE UNICO DEI LOCK — gradini 0 e 1. Vedi il blocco "L'ORDINE UNICO DEI
+  -- LOCK" in testa a questa migration.
+  --
+  -- Il `for key share` su auth.users lo prenderebbe comunque la FK del
+  -- registro, ma alla fine e non all'inizio: prenderlo qui e' cio' che mette
+  -- questa transazione nello stesso ordine di una cancellazione account.
+  perform 1 from auth.users u where u.id = p_owner_user_id for key share;
+  perform 1 from public.b2c_subscriptions t
+   where t.user_id = p_owner_user_id for update;
+
   perform pg_catalog.pg_advisory_xact_lock(1, pg_catalog.hashtext(p_owner_user_id::text));
   perform pg_catalog.pg_advisory_xact_lock(
     pg_catalog.hashtext('billing-purchase-claim:' || p_billing_source || ':' || p_ownership_key)
   );
-
-  -- La riga di proiezione si blocca ADESSO, prima del registro, e non alla
-  -- fine dentro _billing_project_entitlement.
-  --
-  -- Gli advisory lock non bastavano, perche' la guardia di compatibilita' non
-  -- ne prende nessuno: una UPDATE della 189 su public.b2c_subscriptions blocca
-  -- la tupla PRIMA che parta il BEFORE trigger, e il trigger poi legge
-  -- billing_purchase_claims. Ordine b2c -> claims da una parte, claims -> b2c
-  -- dall'altra: un ABBA, riprodotto con due sessioni concorrenti, in cui la
-  -- vittima era il percorso NUOVO e a vincere era la scrittura della 189.
-  -- Prendendola qui, entrambi i percorsi vedono b2c prima di claims.
-  perform 1 from public.b2c_subscriptions t
-   where t.user_id = p_owner_user_id for update;
 
   select c.owner_user_id, c.anonymized_at, c.claimed_at
     into v_existing_owner, v_existing_anonymized_at, v_existing_claimed_at
@@ -877,6 +1000,14 @@ begin
   if v_owner is null then
     return pg_catalog.jsonb_build_object('outcome', 'owner_deleted', 'applied', false);
   end if;
+
+  -- ORDINE UNICO DEI LOCK — gradini 0 e 1, prima degli advisory. La lettura
+  -- del proprietario qui sopra e' una lettura semplice e non prende lock: puo'
+  -- essere stale, ed e' esattamente per questo che sotto c'e' una rilettura
+  -- dopo gli advisory. Vedi il blocco in testa alla migration.
+  perform 1 from auth.users u where u.id = v_owner for key share;
+  perform 1 from public.b2c_subscriptions t
+   where t.user_id = v_owner for update;
 
   perform pg_catalog.pg_advisory_xact_lock(1, pg_catalog.hashtext(v_owner::text));
   perform pg_catalog.pg_advisory_xact_lock(
