@@ -77,8 +77,24 @@ end $$;
 -- dimenticare accesa.
 drop trigger if exists billing_purchase_states_forward_only on private.billing_purchase_states;
 
+-- ENTRAMBE le firme, e il motivo va letto invece che dedotto.
+--
+-- Questo file nasce quando la revoca aveva SEI parametri. La migration
+-- 20260812093000 ne ha aggiunto un settimo (`p_revocation_at`, l'efficacia del
+-- rimborso, separata dalla freschezza della fotografia) e ha eliminato la
+-- vecchia, perche' due funzioni omonime a sei e sette argomenti rendono
+-- ambigua una chiamata a sei.
+--
+-- `drop function` con la firma sbagliata NON e' un errore rumoroso: e'
+-- `if exists`, quindi non trova niente e passa in silenzio. Il rollback
+-- sembrava riuscito e lasciava in piedi la funzione a sette argomenti, che
+-- dopo il `drop table` qui sotto avrebbe puntato a una tabella inesistente:
+-- non un ripristino, uno stato che non e' mai esistito.
 drop function if exists public.record_store_purchase_revocation(
   text, text, text, text, timestamptz, text
+);
+drop function if exists public.record_store_purchase_revocation(
+  text, text, text, text, timestamptz, text, timestamptz
 );
 drop function if exists public.claim_store_purchase(
   text, text, uuid, text, text, text, text, timestamptz, boolean, timestamptz, text, text, uuid
@@ -86,6 +102,11 @@ drop function if exists public.claim_store_purchase(
 drop function if exists private._billing_project_entitlement(uuid);
 drop table if exists private.billing_purchase_states;
 drop function if exists private._billing_purchase_states_forward_only();
+-- Introdotta da 20260812093000 e usata SOLO dal solo-in-avanti: senza la
+-- tabella non ha piu' niente da confrontare.
+drop function if exists private._billing_evidenza_supera(
+  text, timestamptz, text, text, timestamptz, text
+);
 
 commit;
 

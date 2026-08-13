@@ -90,3 +90,11 @@ bash "$DIR/85-corsa-strict.sh"
 echo ""
 echo "### 86-ordine-lock.sh"
 bash "$DIR/86-ordine-lock.sh"
+
+# I rollback, ESEGUITI. Dentro una transazione che si annulla, quindi il
+# database resta identico; ma i drop vengono provati per davvero, ed e' cosi'
+# che si e' scoperto che uno puntava a una firma che non esisteva piu' e che a
+# una migration mancava del tutto il rollback.
+echo ""
+echo "### 87-rollback-verificato.sh"
+bash "$DIR/87-rollback-verificato.sh"

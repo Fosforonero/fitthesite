@@ -125,3 +125,95 @@ su un acquisto vero non è nota-buona, è solo deployata.
   e ciò che viene sovrascritto non si recupera.
 - Eseguire il rollback distruttivo del registro. Cancellarlo rende ogni acquisto
   che conteneva di nuovo reclamabile dal primo account che lo presenta.
+
+---
+
+## Le conseguenze, senza attenuanti
+
+Questa sezione è scritta per essere letta durante un incidente, quindi non
+contiene "in genere", "dovrebbe" e "salvo casi". Ogni riga è una cosa che non si
+fa, con il motivo per cui non si fa.
+
+**Il 503 non è un interruttore.** Non si risponde 503 in massa per "fermare" le
+validazioni. Ogni client che precede la 190 chiude la transazione in ogni modo
+di guasto: un errore restituito in massa è una perdita di acquisti in massa. La
+traduzione 503 → 502 per i client legacy (`statusPerIlClient`) concede tre
+tentativi invece di zero. **Non li rende sicuri**: al terzo fallimento quella
+transazione viene chiusa lo stesso, e non esiste nessuno status code che faccia
+tenere aperta una transazione a una 189 — nemmeno un 200 senza `active_until`,
+che lì diventa `malformed_response` e chiude.
+
+**Non si torna a un backend che non conosce il registro.** Una versione
+precedente scrive `public.b2c_subscriptions` direttamente. Con la guardia in
+`strict` quelle scritture vengono respinte, e ogni rifiuto è una transazione
+chiusa senza diritto; con la guardia in `compatibility` passano, ma smettono di
+iscrivere la proprietà con le stesse garanzie del percorso nuovo. In entrambi i
+casi si sta scambiando un problema con uno peggiore.
+
+**Il backend nuovo si prova col payload LETTERALE della 189 prima di prendere
+traffico.** Non "con un payload equivalente": quello vero, senza
+`token_format` e senza `client_contract_version`, su iOS e su Android. I casi
+stanno in `app/api/v1/billing/validate-purchase/route.test.ts`, e il backend
+vecchio viene fatto girare contro il database nuovo in `route.db.test.ts`. Una
+compatibilità dedotta è già stata sbagliata due volte in questo lavoro: sulla
+forma dell'istruzione della 189 (era un upsert, non una UPDATE) e sul
+discriminante delle build vecchie (`token_format` copriva solo iOS).
+
+**L'intervallo fra migration applicata e deploy completato si tiene il più corto
+possibile.** In quella finestra le istanze vecchie parlano col database nuovo. È
+misurato, non ipotizzato (`route.db.test.ts`): la vecchia route risponde 200
+`state: active` per un acquisto revocato mentre il database dice `expired`, e
+risponde `apple_iap` a un Founder mentre il database tiene `founder_grant`. Il
+database non si corrompe in nessuno dei due casi — la guardia scarta la
+scrittura e ricalcola — ma **la risposta è falsa finché dura la finestra**. La
+falsità è sempre in eccesso, mai in difetto: nessun cliente perde un diritto che
+aveva, qualcuno può crederne di avere uno che non ha fino alla prima rilettura.
+
+**Durante un incidente senza un artefatto noto-buono si sospende la vendita.**
+Non si restituiscono errori di proposito per "far ritentare più tardi": vedi
+sopra, ritentare più tardi non è quello che fa la 189. Si toglie la
+disponibilità all'acquisto lato store e si corregge in avanti.
+
+**Il recupero della 189 resta manuale.** Un cliente che ha perso una transazione
+la riprende premendo "Ripristina acquisti", cioè compiendo un gesto che nessuno
+gli ha chiesto e di cui probabilmente non conosce l'esistenza. Questo percorso
+esiste e va detto al supporto, ma **non rende sicuro nessun nuovo fallimento**:
+è una riparazione, non una rete.
+
+### Il rischio residuo che non si chiude
+
+Finché la 189 è installata, ogni fallimento di validazione può costare una
+transazione. Nessuna delle correzioni di questo lavoro lo elimina, perché il
+codice che chiude la transazione è già sui telefoni. Le correzioni riducono la
+probabilità che il fallimento avvenga e la rendono recuperabile a mano; non
+rendono il rollout *fail-safe*, e **il rollout non va descritto così**.
+
+---
+
+## Il ciclo di vita delle revoche è INCOMPLETO, e va deciso a parte
+
+Quello che il backend sa fare oggi, provato: quando gli **arriva** una nuova
+evidenza — un JWS che dichiara la revoca, o una risposta `verifyReceipt` con
+`cancellation_date_ms` — la registra, ricalcola la proiezione e risponde
+terminale solo se la scrittura è andata a buon fine. Vale in entrambe le
+direzioni: un `REFUND_REVERSED` successivo riattiva l'accesso, perché
+l'ordinamento è sulla freschezza della fotografia.
+
+Quello che il backend **non** sa fare: accorgersene da solo.
+
+- **App Store Server Notifications V2 non è collegato.** Nessun endpoint
+  registrato, nessun handler, nessuna verifica di firma. Apple non ha dove
+  mandare `REFUNDED`, `REVOKE` o `REFUND_REVERSED`.
+- **Non c'è nessun polling.** Nessun job interroga periodicamente lo stato degli
+  acquisti già registrati.
+
+Conseguenza diretta: **un rimborso viene registrato solo quando quel cliente
+riapre l'app e ripresenta l'acquisto.** Se non la riapre più — ed è
+esattamente ciò che fa chi ha appena chiesto un rimborso — il lifetime
+rimborsato resta il suo migliore diritto a tempo indefinito. È un costo per noi,
+non un danno per lui, e per questo non blocca da solo la 190.
+
+**Da decidere con Matteo, separatamente**: se collegare Notifications V2 prima
+della 190 o farne il P0 della 191. Finché non è deciso, il ciclo di vita delle
+revoche **non va descritto come completo** in nessun documento, nota di rilascio
+o risposta al supporto.
