@@ -448,10 +448,135 @@ describe("isolamento produzione / sandbox al livello del route", () => {
 
     expect(res.status).toBe(400);
     expect((await res.json()).error).toBe("jws_sandbox_not_allowed");
+
+    // La sola RPC ammessa e' la domanda "questo account e' un revisore
+    // autorizzato?", che qui risponde no. Al REGISTRO non arriva niente.
+    const chiamate = mocks.rpc.mock.calls.map((c) => c[0]);
+    expect(chiamate).toEqual(["is_sandbox_reviewer"]);
     expect(
-      mocks.rpc,
-      "una transazione Sandbox non deve mai arrivare al registro",
-    ).not.toHaveBeenCalled();
+      chiamate,
+      "una transazione Sandbox non autorizzata non deve mai arrivare al registro",
+    ).not.toContain("claim_store_purchase");
+  });
+
+  it("revisore autorizzato: la Sandbox passa, e finisce in uno spazio suo", async () => {
+    // Il caso che rende iOS rilasciabile. Senza, il revisore di Apple
+    // completa l'acquisto e vede un paywall.
+    mocks.verifyJws
+      .mockResolvedValueOnce({ kind: "rejected", reason: "jws_sandbox_not_allowed" })
+      .mockResolvedValueOnce({
+        kind: "ok",
+        tx: {
+          ...okTransaction.tx,
+          environment: "Sandbox",
+          // Obbligatorio su questo percorso: senza, un account autorizzato
+          // potrebbe presentare la transazione Sandbox di chiunque altro.
+          appAccountToken: USER_ID,
+        },
+      });
+    mocks.rpc.mockImplementation(async (fn: string) =>
+      fn === "is_sandbox_reviewer" ? { data: true, error: null } : claimed,
+    );
+
+    const res = await POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "sk2_jws",
+      }),
+    );
+
+    expect(res.status).toBe(200);
+    expect(mocks.verifyJws).toHaveBeenCalledTimes(2);
+    // La seconda verifica apre la porta, non abbassa i controlli.
+    expect(mocks.verifyJws.mock.calls[1][0]).toMatchObject({ allowSandbox: true });
+
+    const claim = mocks.rpc.mock.calls.find(
+      (c) => c[0] === "claim_store_purchase",
+    );
+    expect(claim).toBeDefined();
+    expect(claim![1]).toMatchObject({
+      // Spazio separato: Sandbox e produzione numerano gli identificativi in
+      // modo indipendente, e senza prefisso una transazione di prova potrebbe
+      // rivendicare la proprieta' di un acquisto vero.
+      p_ownership_key: `sandbox:${okTransaction.tx.originalTransactionId}`,
+      p_environment: "sandbox",
+    });
+  });
+
+  it("revisore autorizzato ma Sandbox SENZA appAccountToken: respinta", async () => {
+    mocks.verifyJws
+      .mockResolvedValueOnce({ kind: "rejected", reason: "jws_sandbox_not_allowed" })
+      .mockResolvedValueOnce({
+        kind: "ok",
+        tx: { ...okTransaction.tx, environment: "Sandbox", appAccountToken: null },
+      });
+    mocks.rpc.mockImplementation(async (fn: string) =>
+      fn === "is_sandbox_reviewer" ? { data: true, error: null } : claimed,
+    );
+
+    const res = await POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "sk2_jws",
+      }),
+    );
+
+    expect(res.status).toBe(400);
+    expect(
+      mocks.rpc.mock.calls.map((c) => c[0]),
+    ).not.toContain("claim_store_purchase");
+  });
+
+  it("NON revisore: la seconda verifica non viene nemmeno tentata", async () => {
+    mocks.verifyJws.mockResolvedValue({
+      kind: "rejected",
+      reason: "jws_sandbox_not_allowed",
+    });
+    mocks.rpc.mockResolvedValue({ data: false, error: null });
+
+    const res = await POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "sk2_jws",
+      }),
+    );
+
+    expect(res.status).toBe(400);
+    expect(mocks.verifyJws).toHaveBeenCalledTimes(1);
+  });
+
+  it("un guasto della tabella dei revisori NON apre la Sandbox", async () => {
+    // In dubbio si risponde no: un guasto costa un revisore che non riesce a
+    // comprare, non un Pro a vita regalato a chiunque abbia un Apple ID di
+    // test.
+    mocks.verifyJws.mockResolvedValue({
+      kind: "rejected",
+      reason: "jws_sandbox_not_allowed",
+    });
+    mocks.rpc.mockResolvedValue({ data: null, error: { code: "42883" } });
+
+    const res = await POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        token_format: "sk2_jws",
+      }),
+    );
+
+    expect(res.status).toBe(400);
+    expect((await res.json()).error).toBe("jws_sandbox_not_allowed");
+    expect(mocks.verifyJws).toHaveBeenCalledTimes(1);
   });
 });
 

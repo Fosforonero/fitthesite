@@ -71,6 +71,7 @@ import {
   appleOwnershipKey,
   googleOwnershipKey,
 } from "@/lib/billing/ownership-key";
+import { isSandboxReviewer } from "@/lib/billing/sandbox-reviewers";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 type Sb = SupabaseClient;
@@ -322,10 +323,40 @@ async function validateAppleJws(args: {
   /** Vero per i client che precedono la 190. Vedi statusPerIlClient. */
   clientLegacy: boolean;
 }): Promise<Response> {
-  const outcome = await verifyAppleJwsTransaction({
+  let outcome = await verifyAppleJwsTransaction({
     signedTransaction: args.signedTransaction,
     expectedProductId: args.productId,
   });
+
+  // ── Il percorso Sandbox per App Review ──────────────────────────────────
+  //
+  // TestFlight e App Review comprano in SANDBOX contro il backend di
+  // PRODUZIONE. Rifiutare ogni Sandbox — che e' cio' che questo backend
+  // faceva — significa che il revisore di Apple completa l'acquisto e vede un
+  // paywall: con quel comportamento iOS non e' rilasciabile.
+  //
+  // Aprire l'AMBIENTE sarebbe peggio del problema, perche' una transazione
+  // Sandbox e' gratuita per chiunque abbia un Apple ID di test. L'apertura e'
+  // quindi della PERSONA, e la decide il server (migration 20260813103000).
+  //
+  // La domanda si fa SOLO qui, dopo un rifiuto per ambiente, e non prima di
+  // ogni verifica. Due motivi, entrambi pratici: un utente di produzione non
+  // paga nessuna interrogazione in piu', e il percorso normale resta
+  // esattamente quello di prima anche se un domani la tabella sparisse.
+  if (
+    outcome.kind === "rejected" &&
+    outcome.reason === "jws_sandbox_not_allowed" &&
+    (await isSandboxReviewer(args.admin, args.userId))
+  ) {
+    console.warn("[Billing] transazione sandbox ammessa per revisore autorizzato");
+    outcome = await verifyAppleJwsTransaction({
+      signedTransaction: args.signedTransaction,
+      expectedProductId: args.productId,
+      // Apre una porta, non abbassa un controllo: firma, bundle id, prodotto
+      // e tipo restano verificati esattamente come in produzione.
+      allowSandbox: true,
+    });
+  }
 
   if (outcome.kind === "retryable") {
     console.warn("[Billing] apple jws verification temporarily unavailable");
@@ -419,12 +450,39 @@ async function validateAppleJws(args: {
     return jsonError(409, "purchase_belongs_to_other_account");
   }
 
+  const inSandbox = tx.environment === "Sandbox";
+
+  // Sul percorso Sandbox il binding di account NON e' facoltativo.
+  //
+  // In produzione `appAccountToken` puo' mancare: le transazioni comprate da
+  // build che non lo impostavano non ce l'hanno, e li' l'attribuzione la
+  // decide un gesto esplicito dell'utente ("Ripristina acquisti") con il
+  // registro a impedire che finisca su due account.
+  //
+  // Qui no. Una transazione Sandbox e' gratuita per chiunque abbia un Apple ID
+  // di test: senza binding, un account autorizzato potrebbe presentare la
+  // transazione Sandbox di chiunque altro. E il permesso e' proprio di questo
+  // account, quindi pretendere che il token lo dica non toglie niente a
+  // nessuno — la build che il revisore usa lo imposta sempre.
+  if (inSandbox && !tx.appAccountToken) {
+    console.warn("[Billing] transazione sandbox senza appAccountToken");
+    return jsonError(400, "jws_incomplete");
+  }
+
   let ownershipKey: string;
   try {
     // originalTransactionId: l'UNICO identificatore Apple stabile a restore,
     // reinstallazione, cambio device e rinnovo. Derivato qui dal payload gia'
     // verificato crittograficamente, mai ricevuto dal client.
-    ownershipKey = appleOwnershipKey(tx.originalTransactionId);
+    //
+    // L'ambiente entra nella chiave: Sandbox e produzione numerano gli
+    // identificativi in spazi diversi, e due transazioni diverse possono
+    // averne uno uguale. Senza separazione una transazione di prova potrebbe
+    // rivendicare la proprieta' di un acquisto vero.
+    ownershipKey = appleOwnershipKey(
+      tx.originalTransactionId,
+      inSandbox ? "sandbox" : "production",
+    );
   } catch (e) {
     if (e instanceof OwnershipKeyError) return responseForOwnershipKeyError(e);
     throw e;
@@ -437,7 +495,7 @@ async function validateAppleJws(args: {
       ownerUserId: args.userId,
       productId: args.productId,
       purchaseKind: kindOf(args.productId),
-      environment: tx.environment === "Sandbox" ? "sandbox" : "production",
+      environment: inSandbox ? "sandbox" : "production",
       // Il verificatore accetta solo NON_CONSUMABLE: qui passa un lifetime, e
       // un non consumabile non scade.
       state: "active",

@@ -57,6 +57,9 @@ run_sql 70-crash-windows.sql
 # I nove punti del cancello di ripresa: la parte che il database dimostra.
 # L'ordine interno del file non e' quello dei numeri, e il file spiega perche'.
 run_sql 80-nove-punti.sql
+# Il percorso Sandbox per App Review: il permesso e' della persona, scade, e
+# non e' raggiungibile dal client.
+run_sql 88-sandbox-revisori.sql
 
 # Questi due aprono connessioni proprie: la corsa a due connessioni reali non
 # si puo' simulare dentro una singola sessione psql.

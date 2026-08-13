@@ -51,12 +51,32 @@ export class OwnershipKeyError extends Error {
  * un acquisto vero: si controlla solo cio' che renderebbe la chiave inservibile
  * (vuota, con spazi, o troppo lunga per la colonna).
  */
-export function appleOwnershipKey(originalTransactionId: string | undefined | null): string {
+export const SANDBOX_KEY_PREFIX = "sandbox:";
+
+export function appleOwnershipKey(
+  originalTransactionId: string | undefined | null,
+  /**
+   * L'ambiente della transazione. Non e' decorativo: Sandbox e produzione
+   * numerano gli `originalTransactionId` in spazi DIVERSI, quindi due
+   * transazioni diverse possono avere lo stesso identificativo. Il registro ha
+   * un vincolo di unicita' su (billing_source, ownership_key): senza
+   * separazione, una transazione di prova potrebbe rivendicare la proprieta'
+   * di un acquisto vero — o, altrettanto grave, farsi respingere come "gia' di
+   * un altro account" un acquisto legittimo.
+   *
+   * Il valore predefinito e' 'production' perche' e' cio' che erano tutte le
+   * chiavi scritte fino a qui: cambiare la forma di quelle esistenti
+   * significherebbe non riconoscere piu' gli acquisti gia' registrati.
+   */
+  environment: "production" | "sandbox" = "production",
+): string {
   if (!originalTransactionId) {
     throw new OwnershipKeyError("apple_missing_original_transaction_id");
   }
-  const key = originalTransactionId.trim();
-  if (key.length === 0 || key.length > 64 || /\s/.test(key)) {
+  const grezza = originalTransactionId.trim();
+  const key =
+    environment === "sandbox" ? `${SANDBOX_KEY_PREFIX}${grezza}` : grezza;
+  if (grezza.length === 0 || key.length > 64 || /\s/.test(key)) {
     throw new OwnershipKeyError("apple_malformed_original_transaction_id");
   }
   return key;

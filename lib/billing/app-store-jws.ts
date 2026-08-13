@@ -268,6 +268,20 @@ export async function verifyAppleJwsTransaction(args: {
   signedTransaction: string;
   expectedProductId: string;
   deadlineMs?: number;
+  /**
+   * Permesso di accettare una transazione SANDBOX per QUESTA chiamata.
+   *
+   * Non e' una scorciatoia dell'ambiente: e' il permesso di una persona
+   * specifica, che il chiamante ha gia' verificato lato server (vedi
+   * lib/billing/sandbox-reviewers.ts). Serve perche' TestFlight e App Review
+   * comprano in Sandbox contro il backend di produzione, e senza questo il
+   * revisore di Apple completa l'acquisto e vede un paywall.
+   *
+   * Omesso, vale quello che dice l'ambiente — cioe' `false` in produzione.
+   * Il payload viene comunque verificato per intero: firma, bundle id,
+   * prodotto e tipo. Questo apre una porta, non abbassa un controllo.
+   */
+  allowSandbox?: boolean;
 }): Promise<AppleJwsOutcome> {
   if (!looksLikeJws(args.signedTransaction)) {
     return { kind: "rejected", reason: "jws_malformed" };
@@ -276,14 +290,18 @@ export async function verifyAppleJwsTransaction(args: {
   let payload: JWSTransactionDecodedPayload;
   try {
     payload = await withDeadline(
-      verifyAndDecodeAcrossEnvironments(args.signedTransaction),
+      verifyAndDecodeAcrossEnvironments(args.signedTransaction, args.allowSandbox),
       args.deadlineMs ?? VERIFICATION_DEADLINE_MS,
     );
   } catch (e) {
     return outcomeForVerificationError(e);
   }
 
-  return evaluateDecodedTransaction(payload, args.expectedProductId);
+  return evaluateDecodedTransaction(
+    payload,
+    args.expectedProductId,
+    args.allowSandbox,
+  );
 }
 
 /**
@@ -301,6 +319,8 @@ export async function verifyAppleJwsTransaction(args: {
 export function evaluateDecodedTransaction(
   payload: JWSTransactionDecodedPayload,
   expectedProductId: string,
+  /** Vedi `verifyAppleJwsTransaction`. Omesso, decide l'ambiente. */
+  allowSandbox?: boolean,
 ): AppleJwsOutcome {
   // La libreria gia' rifiuta un bundle id diverso; lo ricontrolliamo perche'
   // questa e' la porta d'ingresso di un entitlement a vita e un controllo in
@@ -311,7 +331,7 @@ export function evaluateDecodedTransaction(
   // verificatore, questo controllo resterebbe in piedi da solo.
   if (
     payload.environment === Environment.SANDBOX &&
-    !sandboxTransactionsAllowed()
+    !(allowSandbox ?? sandboxTransactionsAllowed())
   ) {
     return { kind: "rejected", reason: "jws_sandbox_not_allowed" };
   }
@@ -397,6 +417,7 @@ class SandboxNotAllowed extends Error {}
  */
 async function verifyAndDecodeAcrossEnvironments(
   signedTransaction: string,
+  allowSandbox?: boolean,
 ): Promise<JWSTransactionDecodedPayload> {
   try {
     return await verifierFor(Environment.PRODUCTION).verifyAndDecodeTransaction(
@@ -407,7 +428,9 @@ async function verifyAndDecodeAcrossEnvironments(
       e instanceof VerificationException &&
       e.status === VerificationStatus.INVALID_ENVIRONMENT
     ) {
-      if (!sandboxTransactionsAllowed()) throw new SandboxNotAllowed();
+      if (!(allowSandbox ?? sandboxTransactionsAllowed())) {
+        throw new SandboxNotAllowed();
+      }
       return await verifierFor(Environment.SANDBOX).verifyAndDecodeTransaction(
         signedTransaction,
       );
