@@ -148,6 +148,84 @@ begin
   end if;
   raise notice 'P5 PASS: la rete di riserva chiude anche il caso in cui il client non torna';
 
+  -- ── P6: la rete NON cancella cio' che non e' riuscita ad applicare ───────
+  --
+  -- IL DIFETTO: la rete faceva `perform record_store_purchase_revocation(...)`
+  -- e poi cancellava. Ma quella RPC non solleva quando la scrittura fallisce:
+  -- cattura e risponde `persistence_failed`. Il valore buttato via significava
+  -- che la riga spariva lo stesso — e quella riga era l'ULTIMA copia di quel
+  -- rimborso, perche' la transazione del client era gia' stata chiusa.
+  --
+  -- Il guasto si produce sostituendo il proiettore con uno che solleva: e' il
+  -- modo piu' vicino a un guasto vero, e tocca esattamente il punto dove la
+  -- RPC cattura.
+  create temporary table t_proiettore on commit drop as
+  select pg_catalog.pg_get_functiondef(
+           'private._billing_project_entitlement(uuid)'::regprocedure) as def;
+
+  execute $mut$
+    create or replace function private._billing_project_entitlement(p_user_id uuid)
+    returns jsonb language plpgsql security definer set search_path to '' as $f$
+    begin
+      raise exception 'proiezione guasta (mutazione di prova)' using errcode = 'XX000';
+    end; $f$;
+  $mut$;
+
+  insert into private.billing_pending_revocations (
+    billing_source, ownership_key, external_product_id, purchase_kind,
+    store_event_at, store_event_source, revocation_at
+  ) values (
+    'apple_iap', v_chiave, 'fitmesh_pro_lifetime', 'lifetime',
+    now() + interval '10 hours', 'apple_signed_date', now()
+  );
+
+  perform private.billing_apply_pending_revocations();
+
+  select count(*) into v_attese
+  from private.billing_pending_revocations where ownership_key = v_chiave;
+  if v_attese <> 1 then
+    raise exception 'P6 FAIL: la rete ha cancellato una revoca che non era riuscita ad applicare (righe rimaste %)', v_attese;
+  end if;
+  raise notice 'P6 PASS: proiezione guasta, la revoca in attesa e'' ancora li''';
+
+  -- ── P7: al giro dopo, riparato il guasto, viene applicata ────────────────
+  execute (select def || ';' from t_proiettore);
+
+  perform private.billing_apply_pending_revocations();
+
+  select count(*) into v_attese
+  from private.billing_pending_revocations where ownership_key = v_chiave;
+  if v_attese <> 0 then
+    raise exception 'P7 FAIL: riparato il guasto, la revoca e'' rimasta in attesa (righe %)', v_attese;
+  end if;
+  select state into v_proiettato from public.b2c_subscriptions where user_id = v_utente;
+  if v_proiettato is distinct from 'expired' then
+    raise exception 'P7 FAIL: la revoca recuperata non ha tolto il diritto (proiezione "%")', v_proiettato;
+  end if;
+  raise notice 'P7 PASS: il secondo giro applica cio'' che il primo aveva conservato';
+
+  -- ── P8: una revoca SUPERATA non resta in attesa per sempre ───────────────
+  --
+  -- Chi si fa rimborsare e poi ricompra: la revoca ha perso il confronto, e ha
+  -- perso legittimamente. Senza questo ramo la riga verrebbe riprovata ogni
+  -- dieci minuti a vuoto, per sempre.
+  insert into private.billing_pending_revocations (
+    billing_source, ownership_key, external_product_id, purchase_kind,
+    store_event_at, store_event_source, revocation_at
+  ) values (
+    'apple_iap', v_chiave, 'fitmesh_pro_lifetime', 'lifetime',
+    now() - interval '10 days', 'apple_signed_date', now() - interval '10 days'
+  );
+
+  perform private.billing_apply_pending_revocations();
+
+  select count(*) into v_attese
+  from private.billing_pending_revocations where ownership_key = v_chiave;
+  if v_attese <> 0 then
+    raise exception 'P8 FAIL: una revoca superata da evidenza piu'' recente resta in attesa (righe %)', v_attese;
+  end if;
+  raise notice 'P8 PASS: superata da evidenza piu'' recente, smette di essere in attesa';
+
   -- Pulizia
   alter table private.billing_purchase_states disable trigger billing_purchase_states_forward_only;
   alter table private.billing_purchase_claims disable trigger trg_billing_purchase_claims_immutable;

@@ -115,17 +115,31 @@ in `app/api/v1/billing/validate-purchase/route.test.ts`, gruppo "isolamento
 produzione / sandbox al livello del route", incluso il caso in cui un guasto
 della tabella **non** apre la Sandbox.
 
-## Vale anche su StoreKit 1
+## Su StoreKit 1 NON vale, ed è una scelta
 
 FitMesh supporta ancora iOS 14, dove il plugin ricade su StoreKit 1 e manda una
-ricevuta invece di un JWS. Il percorso è lo stesso e con le stesse condizioni:
-Apple risponde `21007` ("questa ricevuta è Sandbox"), il backend chiede se
-quell'account è autorizzato e solo allora ripete la verifica accettando
-l'ambiente Sandbox. La chiave finisce nello stesso spazio separato.
+ricevuta invece di un JWS. **Lì il percorso Sandbox non esiste.**
 
-Dimenticarlo avrebbe lasciato fuori proprio un revisore su un dispositivo
-vecchio, cioè il caso meno prevedibile e più difficile da diagnosticare a
-distanza.
+Il motivo è la condizione 3: una ricevuta StoreKit 1 non contiene niente che
+leghi l'acquisto all'account FitMesh. Non è un dato che abbiamo dimenticato di
+leggere, è un dato che nel formato non c'è. Senza, un account autorizzato
+potrebbe presentare la ricevuta Sandbox di chiunque altro, e la Sandbox è
+gratuita per chiunque abbia un Apple ID di test.
+
+Fino al 14/08/2026 questo documento prometteva il contrario, e anche il codice
+ci provava: davanti a un `21007` chiedeva se l'account fosse autorizzato e
+ripeteva la verifica. La verifica riusciva, e poi il registro rifiutava il
+claim perché il legame di account mancava. Il revisore avrebbe visto un errore
+**dopo aver pagato**, che è peggio del rifiuto immediato. I test non se ne
+accorgevano perché simulavano la scrittura sul registro.
+
+### Cosa fare quindi, in pratica
+
+**App Review va fatto passare da un dispositivo iOS 15 o superiore**, dove il
+plugin usa StoreKit 2 e il token c'è. In pratica è quello che Apple usa, ma non
+è qualcosa su cui scommettere in silenzio: se una revisione dovesse fallire con
+un errore d'acquisto, la prima cosa da controllare è la versione di iOS indicata
+nel report.
 
 ## Quello che questi test non provano
 

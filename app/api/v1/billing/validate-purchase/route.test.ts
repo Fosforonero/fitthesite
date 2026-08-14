@@ -1398,7 +1398,13 @@ describe("rimborso StoreKit 1: il ramo che prima non esisteva", () => {
   });
 });
 
-describe("Sandbox anche su StoreKit 1: un revisore su iOS 14 esiste", () => {
+describe("StoreKit 1 e Sandbox: un percorso che NON esiste, e va detto", () => {
+  // Questo gruppo prima si chiamava "Sandbox anche su StoreKit 1: un revisore
+  // su iOS 14 esiste" e provava che la ricevuta Sandbox passava. Provava una
+  // cosa falsa, e ci riusciva perche' simulava il claim: il registro pretende
+  // `app_account_token` per ogni claim Sandbox, e una ricevuta StoreKit 1 non
+  // lo contiene. Contro il database vero quel percorso finiva con un rifiuto
+  // DOPO che il revisore aveva pagato.
   function richiesta() {
     return POST(
       req190({
@@ -1414,63 +1420,47 @@ describe("Sandbox anche su StoreKit 1: un revisore su iOS 14 esiste", () => {
   beforeEach(() => {
     mocks.requireUser.mockResolvedValue({ userId: USER_ID });
     mocks.readAppleSharedSecret.mockReturnValue("segreto");
-  });
-
-  it("revisore autorizzato: la ricevuta Sandbox passa, con la chiave separata", async () => {
-    mocks.validateAppleReceipt
-      .mockResolvedValueOnce({
-        kind: "error",
-        status: 21007,
-        body: "sandbox_not_allowed",
-      })
-      .mockResolvedValueOnce({
-        kind: "ok",
-        tx: {
-          product_id: LIFETIME,
-          original_transaction_id: "1000000777777777",
-          transaction_id: "1000000777777777",
-          purchase_date_ms: "1754400000000",
-        },
-        autoRenewing: false,
-        environment: "sandbox",
-        requestDateMs: 1_754_400_500_000,
-        annullate: [],
-      });
-    mocks.rpc.mockImplementation(async (fn: string) =>
-      fn === "is_sandbox_reviewer" ? { data: true, error: null } : claimed,
-    );
-
-    const res = await richiesta();
-
-    expect(res.status).toBe(200);
-    expect(mocks.validateAppleReceipt).toHaveBeenCalledTimes(2);
-    expect(mocks.validateAppleReceipt.mock.calls[1][0]).toMatchObject({
-      allowSandbox: true,
-    });
-    const claim = mocks.rpc.mock.calls.find(
-      (c) => c[0] === "claim_store_purchase",
-    );
-    expect(claim![1]).toMatchObject({
-      p_ownership_key: "sandbox:1000000777777777",
-      p_environment: "sandbox",
-    });
-  });
-
-  it("NON revisore: la ricevuta Sandbox resta rifiutata, e non si ritenta", async () => {
     mocks.validateAppleReceipt.mockResolvedValue({
       kind: "error",
       status: 21007,
-      body: "sandbox_not_allowed",
+      message: "sandbox receipt",
     });
+  });
+
+  it("la ricevuta Sandbox viene rifiutata anche a un revisore autorizzato", async () => {
+    // L'account E' un revisore autorizzato: e non cambia niente lo stesso.
+    mocks.rpc.mockResolvedValue({ data: true, error: null });
+
+    const res = await richiesta();
+
+    expect(res.status).not.toBe(200);
+    // E soprattutto: NON si ritenta accettando la Sandbox. Una sola chiamata.
+    expect(mocks.validateAppleReceipt).toHaveBeenCalledTimes(1);
+    expect(mocks.validateAppleReceipt).not.toHaveBeenCalledWith(
+      expect.objectContaining({ allowSandbox: true }),
+    );
+  });
+
+  it("non si iscrive nemmeno nel registro: nessun claim parte", async () => {
+    // L'account E' un revisore autorizzato: e non cambia niente lo stesso.
+    mocks.rpc.mockResolvedValue({ data: true, error: null });
+
+    await richiesta();
+
+    // Il difetto vero non era la risposta: era arrivare a chiedere al registro
+    // una scrittura che il registro rifiuta per costruzione.
+    expect(mocks.rpc).not.toHaveBeenCalledWith(
+      "claim_store_purchase",
+      expect.anything(),
+    );
+  });
+
+  it("un account qualunque riceve lo stesso trattamento", async () => {
     mocks.rpc.mockResolvedValue({ data: false, error: null });
 
     const res = await richiesta();
 
-    expect(res.status).toBe(502);
-    expect((await res.json()).error).toBe("apple_validation_failed");
+    expect(res.status).not.toBe(200);
     expect(mocks.validateAppleReceipt).toHaveBeenCalledTimes(1);
-    expect(
-      mocks.rpc.mock.calls.map((c) => c[0]),
-    ).not.toContain("claim_store_purchase");
   });
 });

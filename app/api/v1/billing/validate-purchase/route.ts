@@ -757,22 +757,30 @@ export async function POST(req: Request): Promise<Response> {
         productId: product_id,
       });
 
-      // Lo stesso percorso Sandbox del ramo StoreKit 2, per la stessa ragione:
-      // un revisore su iOS 14 compra con StoreKit 1, e senza questo si
-      // vedrebbe rifiutare l'acquisto come prima. La domanda si fa solo dopo
-      // che Apple ha detto "questa ricevuta e' Sandbox" (status 21007), mai in
-      // anticipo.
-      if (
-        result.kind === "error" &&
-        result.status === 21007 &&
-        (await isSandboxReviewer(admin, userId))
-      ) {
-        console.warn("[Billing] ricevuta sandbox ammessa per revisore autorizzato");
-        result = await validateAppleReceipt({
-          receiptData: purchase_token,
-          productId: product_id,
-          allowSandbox: true,
-        });
+      // ── SU STOREKIT 1 IL PERCORSO SANDBOX NON ESISTE, E VA DETTO QUI ─────
+      //
+      // Fino al 14/08/2026 questo ramo, davanti a uno status 21007, chiedeva
+      // se l'account fosse un revisore autorizzato e ripeteva la verifica
+      // accettando la Sandbox. Sembrava simmetrico al ramo StoreKit 2 ed era
+      // una promessa che non poteva essere mantenuta: il registro pretende
+      // `app_account_token` per ogni claim Sandbox, e una ricevuta StoreKit 1
+      // NON contiene niente che leghi l'acquisto all'account FitMesh. La
+      // verifica riusciva, il claim veniva rifiutato dal database, e il
+      // revisore vedeva un errore dopo aver pagato.
+      //
+      // I test della route non se ne accorgevano perche' simulavano il claim:
+      // rispondevano 200 a un percorso che contro il database vero non arriva
+      // mai in fondo.
+      //
+      // Quindi fail-closed, e dichiarato: su iOS 14 la Sandbox non e'
+      // acquistabile. La conseguenza operativa sta nel runbook — App Review va
+      // fatto passare da un dispositivo iOS 15+, dove il plugin usa StoreKit 2
+      // e il token c'e'. Fra "un revisore su iOS 14 non compra" e "esiste un
+      // percorso Sandbox senza legame di account", il primo si vede subito e
+      // si risolve con un dispositivo; il secondo e' una porta che non
+      // richiude nessuno.
+      if (result.kind === "error" && result.status === 21007) {
+        console.warn("[Billing] ricevuta sandbox su StoreKit 1: percorso non supportato");
       }
 
       if (result.kind === "ok") {
