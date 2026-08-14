@@ -331,6 +331,37 @@ begin
   delete from auth.users where id = v_utente;
 end $$;
 
+-- ── I DUE PERCORSI DI LETTURA, COME LI PERCORRE IL PRODOTTO ─────────────────
+--
+-- Nessuno dei due chiama il ricalcolo: e' esattamente il punto. Il primo e' la
+-- RPC del contratto, il secondo e' la lettura diretta della tabella che fa il
+-- client (SubscriptionsRepository.fetchActiveSubscription), nella sua forma
+-- esatta — stato attivo o grace, scadenza nel futuro.
+create or replace function pg_temp.kind_of(p_user uuid) returns text
+language plpgsql as $$
+declare v text;
+begin
+  perform set_config('request.jwt.claims',
+                     json_build_object('sub', p_user::text)::text, true);
+  select public.get_entitlement_status() ->> 'entitlementKind' into v;
+  perform set_config('request.jwt.claims', '', true);
+  return v;
+end $$;
+
+-- `clock_timestamp()` e non `now()`: il client legge con l'orologio del
+-- momento in cui chiede, mentre `now()` resta fermo all'inizio della
+-- transazione. Dentro un test che misura il passare del tempo, la differenza
+-- e' fra provare qualcosa e non provare niente.
+create or replace function pg_temp.lettura_diretta(p_user uuid) returns boolean
+language sql as $$
+  select exists (
+    select 1 from public.b2c_subscriptions t
+    where t.user_id = p_user
+      and t.state in ('active', 'grace')
+      and t.active_until > clock_timestamp()
+  );
+$$;
+
 -- ── S: il cancello Sandbox e' un vincolo della tabella ──────────────────────
 do $$
 declare
@@ -339,6 +370,10 @@ declare
   v_lifetime timestamptz := '9999-12-31T23:59:59Z';
   v_esito jsonb;
   v_stato text;
+  v_fino_a timestamptz;
+  v_permesso timestamptz;
+  v_chiave_proiettata text;
+  v_kind text;
 begin
   raise notice '########### CANCELLO SANDBOX SUL REGISTRO ###########';
 
@@ -426,34 +461,56 @@ begin
   if v_esito->>'outcome' <> 'claimed' then
     raise exception 'S13 FAIL: il revisore autorizzato non riesce a comprare (%)', v_esito->>'outcome';
   end if;
-  select state into v_stato from public.b2c_subscriptions where user_id = v_revisore;
+  select state, active_until into v_stato, v_fino_a
+  from public.b2c_subscriptions where user_id = v_revisore;
   if v_stato is distinct from 'active' then
     raise exception 'S13 FAIL: il revisore ha comprato ma la proiezione dice "%"', v_stato;
   end if;
-  raise notice 'S13 PASS: con tutte e tre le condizioni il revisore compra e vede il Pro';
 
-  -- ── S14: scaduto il permesso, sparisce anche il Pro che aveva concesso ──
+  -- IL DIRITTO NON SUPERA IL PERMESSO. Il registro dice 9999-12-31 perche' lo
+  -- store ha detto lifetime; la proiezione, che e' cio' che il prodotto legge,
+  -- non puo' dire la stessa cosa. Con 9999 la riga risulta lifetime a
+  -- `is_b2c_lifetime()` e nessuno dei due percorsi di lettura guarda oltre.
+  select expires_at into v_permesso
+  from private.billing_sandbox_reviewers where user_id = v_revisore;
+  if v_fino_a is distinct from v_permesso then
+    raise exception 'S13 FAIL: la proiezione Sandbox concede fino a % mentre il permesso finisce il % ', v_fino_a, v_permesso;
+  end if;
+  if exists (select 1 from public.b2c_subscriptions t
+             where t.user_id = v_revisore and public.is_b2c_lifetime(t)) then
+    raise exception 'S13 FAIL: un acquisto Sandbox risulta lifetime, quindi nessun lettore guardera'' la scadenza';
+  end if;
+  raise notice 'S13 PASS: il revisore compra, e il diritto dura quanto il permesso (non 9999)';
+
+  -- ── S14: togliere il permesso toglie il diritto, SENZA chiamare niente ──
   --
-  -- Il difetto: la scadenza toglieva il permesso e lasciava il diritto. Un
-  -- accesso temporaneo che diventa permanente perche' nessuno ha ricalcolato.
+  -- Il difetto: la scadenza toglieva il permesso e lasciava il diritto. La
+  -- prova precedente non lo vedeva perche' chiamava il ricalcolo A MANO subito
+  -- dopo: provava che il ricalcolo decide bene, non che parta. Qui non si
+  -- chiama niente — si sposta la scadenza e basta, che e' quello che fa
+  -- l'operatore in SQL.
   update private.billing_sandbox_reviewers
      set created_at = now() - interval '30 days',
          expires_at = now() - interval '1 second'
    where user_id = v_revisore;
 
-  perform private._billing_project_entitlement(v_revisore);
-
   select state into v_stato from public.b2c_subscriptions where user_id = v_revisore;
   if v_stato is distinct from 'expired' then
     raise exception 'S14 FAIL: permesso scaduto ma la proiezione dice ancora "%"', v_stato;
   end if;
-  raise notice 'S14 PASS: scaduto il permesso, il Pro Sandbox se ne va con lui';
+  if pg_temp.lettura_diretta(v_revisore) then
+    raise exception 'S14 FAIL: la lettura diretta della tabella concede ancora il Pro';
+  end if;
+  v_kind := pg_temp.kind_of(v_revisore);
+  if v_kind in ('lifetime', 'subscription') then
+    raise exception 'S14 FAIL: get_entitlement_status risponde ancora "%"', v_kind;
+  end if;
+  raise notice 'S14 PASS: tolto il permesso, i due percorsi di lettura negano subito';
 
   -- ── S15: il teardown non aspetta la scadenza ────────────────────────────
   update private.billing_sandbox_reviewers
      set created_at = now(), expires_at = now() + interval '7 days'
    where user_id = v_revisore;
-  perform private._billing_project_entitlement(v_revisore);
   select state into v_stato from public.b2c_subscriptions where user_id = v_revisore;
   if v_stato is distinct from 'active' then
     raise exception 'S15 setup FAIL: rinnovato il permesso, la proiezione dice "%"', v_stato;
@@ -481,6 +538,143 @@ begin
   delete from public.b2c_subscriptions where user_id in (v_revisore, v_normale);
   perform pg_catalog.set_config('billing.projection', 'off', true);
   delete from auth.users where id in (v_revisore, v_normale);
+end $$;
+
+-- ── S16-S17: LA SCADENZA CHE ARRIVA DA SOLA ─────────────────────────────────
+--
+-- Gli altri casi hanno tutti qualcuno che scrive: un permesso tolto, uno
+-- accorciato, un teardown. Questo no. Qui non succede niente — passa e basta
+-- il tempo — ed e' il caso che nessun trigger puo' vedere.
+--
+-- Sono DUE transazioni separate con un'attesa vera in mezzo, e non e' un
+-- dettaglio: dentro una sola transazione `now()` resta fermo all'istante in
+-- cui e' cominciata, quindi un `pg_sleep` non farebbe scadere niente e il
+-- test proverebbe soltanto se stesso.
+do $$
+declare
+  v_revisore uuid := '00000000-0000-4000-8000-00000000e013';
+  v_lifetime timestamptz := '9999-12-31T23:59:59Z';
+  v_esito jsonb;
+  v_stato text;
+  v_chiave text;
+begin
+  raise notice '########### LA SCADENZA CHE ARRIVA DA SOLA ###########';
+
+  alter table private.billing_purchase_states disable trigger billing_purchase_states_forward_only;
+  alter table private.billing_purchase_claims disable trigger trg_billing_purchase_claims_immutable;
+  delete from private.billing_purchase_states where ownership_key like '%810000000000%';
+  delete from private.billing_purchase_claims where ownership_key like '%810000000000%';
+  alter table private.billing_purchase_claims enable trigger trg_billing_purchase_claims_immutable;
+  alter table private.billing_purchase_states enable trigger billing_purchase_states_forward_only;
+  delete from private.billing_sandbox_reviewers where user_id = v_revisore;
+  perform pg_catalog.set_config('billing.projection', 'on', true);
+  delete from public.b2c_subscriptions where user_id = v_revisore;
+  perform pg_catalog.set_config('billing.projection', 'off', true);
+  delete from auth.users where id = v_revisore;
+  insert into auth.users (id, email, created_at)
+  values (v_revisore, 'rev-scadenza@test.local', now());
+
+  -- Un acquisto di PRODUZIONE valido, comprato davvero. E' il diritto che deve
+  -- tornare fuori quando il permesso Sandbox finisce: senza, "riproietta il
+  -- miglior diritto rimasto" resterebbe una frase.
+  v_esito := public.claim_store_purchase(
+    'apple_iap', '8100000000001', v_revisore, 'fitmesh_pro_sub', 'subscription',
+    'production', 'active', now() + interval '30 days', true,
+    now(), 'apple_signed_date', 'tx-s16-prod', v_revisore
+  );
+  if v_esito->>'outcome' <> 'claimed' then
+    raise exception 'S16 setup FAIL: l''acquisto di produzione non e'' entrato (%)', v_esito->>'outcome';
+  end if;
+
+  -- Il permesso Sandbox, che finisce fra tre secondi.
+  insert into private.billing_sandbox_reviewers (user_id, note, expires_at)
+  values (v_revisore, 'test scadenza naturale', now() + interval '3 seconds');
+
+  v_esito := public.claim_store_purchase(
+    'apple_iap', 'sandbox:8100000000002', v_revisore, 'fitmesh_pro_lifetime', 'lifetime',
+    'sandbox', 'active', v_lifetime, false,
+    now(), 'apple_signed_date', 'tx-s16-sbx', v_revisore
+  );
+  if v_esito->>'outcome' <> 'claimed' then
+    raise exception 'S16 setup FAIL: il claim Sandbox non e'' entrato (%)', v_esito->>'outcome';
+  end if;
+
+  select external_subscription_id, state into v_chiave, v_stato
+  from public.b2c_subscriptions where user_id = v_revisore;
+  if v_chiave not like 'sandbox:%' or v_stato is distinct from 'active' then
+    raise exception 'S16 setup FAIL: doveva vincere il Sandbox, la proiezione dice %/%', v_chiave, v_stato;
+  end if;
+  if not pg_temp.lettura_diretta(v_revisore) then
+    raise exception 'S16 setup FAIL: il permesso e'' valido ma la lettura diretta gia'' nega';
+  end if;
+end $$;
+
+-- Il tempo, quello vero. Tre secondi e mezzo su un permesso di tre secondi.
+select pg_sleep(3.5);
+
+do $$
+declare
+  v_revisore uuid := '00000000-0000-4000-8000-00000000e013';
+  v_stato text;
+  v_chiave text;
+  v_kind text;
+  v_riconciliati int;
+begin
+  -- ── S16: scaduto da solo, i due percorsi negano senza che giri niente ────
+  --
+  -- Nessuno ha chiamato il ricalcolo, nessun trigger e' partito, il job non e'
+  -- ancora girato. La riga in proiezione e' rimasta identica: e' `active_until`
+  -- limitato al permesso a farla negare, ed e' l'unica difesa che regge anche
+  -- se non gira niente.
+  if pg_temp.lettura_diretta(v_revisore) then
+    raise exception 'S16 FAIL: permesso scaduto e la lettura diretta della tabella concede ancora il Pro';
+  end if;
+  v_kind := pg_temp.kind_of(v_revisore);
+  if v_kind in ('lifetime', 'subscription') then
+    raise exception 'S16 FAIL: permesso scaduto e get_entitlement_status risponde "%"', v_kind;
+  end if;
+  raise notice 'S16 PASS: scaduto il permesso, i due percorsi negano per scadenza senza che giri niente';
+
+  -- ── S17: e il job rimette al suo posto il diritto vero ───────────────────
+  --
+  -- Premessa del caso: la riga proiettata e' ancora quella Sandbox, marcata
+  -- `active` su un diritto finito. Finche' resta li', quell'account non vede
+  -- l'abbonamento di produzione che ha davvero pagato — S16 lo ha appena
+  -- misurato: nega tutto, anche cio' che spetta.
+  select external_subscription_id, state into v_chiave, v_stato
+  from public.b2c_subscriptions where user_id = v_revisore;
+  if v_chiave not like 'sandbox:%' then
+    raise exception 'S17 premessa FAIL: qualcosa ha gia'' riproiettato (chiave %)', v_chiave;
+  end if;
+
+  select private.billing_reconcile_sandbox_projections() into v_riconciliati;
+  if v_riconciliati < 1 then
+    raise exception 'S17 FAIL: il job non ha riconciliato nessun account (%)', v_riconciliati;
+  end if;
+
+  select external_subscription_id, state into v_chiave, v_stato
+  from public.b2c_subscriptions where user_id = v_revisore;
+  if v_chiave is distinct from '8100000000001' or v_stato is distinct from 'active' then
+    raise exception 'S17 FAIL: il diritto di produzione non e'' tornato al suo posto (%/%)', v_chiave, v_stato;
+  end if;
+  v_kind := pg_temp.kind_of(v_revisore);
+  if v_kind is distinct from 'subscription' then
+    raise exception 'S17 FAIL: riproiettato, ma il contratto risponde "%"', v_kind;
+  end if;
+  raise notice 'S17 PASS: il job marca la riga scaduta e rimette davanti l''abbonamento di produzione';
+
+  -- Pulizia
+  alter table private.billing_purchase_states disable trigger billing_purchase_states_forward_only;
+  alter table private.billing_purchase_claims disable trigger trg_billing_purchase_claims_immutable;
+  delete from private.billing_purchase_states where ownership_key like '%810000000000%';
+  delete from private.billing_purchase_claims where ownership_key like '%810000000000%';
+  alter table private.billing_purchase_claims enable trigger trg_billing_purchase_claims_immutable;
+  alter table private.billing_purchase_states enable trigger billing_purchase_states_forward_only;
+  delete from private.billing_sandbox_reviewers where user_id = v_revisore;
+  perform pg_catalog.set_config('billing.projection', 'on', true);
+  delete from public.b2c_subscriptions where user_id = v_revisore;
+  perform pg_catalog.set_config('billing.projection', 'off', true);
+  delete from auth.users where id = v_revisore;
 end $$;
 
 \echo ''

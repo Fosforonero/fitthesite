@@ -48,6 +48,29 @@ Le quattro condizioni devono valere **tutte**:
    coincidere**: senza separazione una transazione di prova potrebbe
    rivendicare la proprietà di un acquisto vero.
 
+## Il diritto dura quanto il permesso, e questo si vede nei dati
+
+Il registro conserva quello che lo store ha detto, e lo store per un lifetime
+dice `9999-12-31`. La **proiezione** no: lì `active_until` viene limitato alla
+scadenza del permesso di quella persona.
+
+Non è una rifinitura, è ciò che fa negare l'accesso quando il permesso finisce.
+Con `9999-12-31` quella riga risulta lifetime a `is_b2c_lifetime()`, e nessuno
+dei due percorsi di lettura guarda oltre: né `get_entitlement_status()`, né
+l'app, che legge `b2c_subscriptions` direttamente con la propria RLS. Con la
+scadenza vera, tutti e due negano **da soli**, senza che debba girare niente.
+
+Le altre due strade servono per i casi che il solo passare del tempo non copre:
+
+- un permesso **tolto o accorciato** ricalcola l'entitlement di quell'account
+  nella stessa transazione, quindi non esiste un modo di togliere il permesso e
+  lasciare il diritto — nemmeno scrivendo a mano in SQL;
+- un permesso che **scade da solo** non fa cambiare nessuna riga, quindi in
+  proiezione resta scritto `active` su un diritto finito. Nessuno lo legge più
+  come valido, ma se quell'account ha un acquisto di produzione vero, quello non
+  gli torna davanti finché non passa il job `billing-reconcile-sandbox` (ogni
+  dieci minuti), che marca `expired` o riproietta il diritto migliore rimasto.
+
 In dubbio si risponde **no**. Un guasto della tabella o della funzione costa un
 revisore che non riesce a comprare — spiacevole e recuperabile — invece di un
 Pro a vita regalato.
@@ -92,6 +115,11 @@ delete from private.billing_sandbox_reviewers where user_id = '<id>';
 Non è obbligatorio — scade da solo — ma toglierlo subito è la cosa giusta:
 l'elenco deve contenere solo permessi che servono adesso.
 
+Quel `DELETE` **toglie anche il Pro** che il permesso aveva concesso, nella
+stessa transazione. Fino al 14/08/2026 non era così: questa riga di runbook
+diceva di fare la cosa che lasciava il diritto in piedi, e l'unico test che
+sembrava coprirlo chiamava il ricalcolo a mano subito dopo.
+
 ## Cosa NON fare
 
 - **Non** aggiungere l'account di un cliente vero. Riceverebbe il Pro da una
@@ -109,6 +137,13 @@ in cui questa difesa potrebbe cedere: elenco vuoto, permesso che tracima su un
 altro account, permesso scaduto, permesso eterno, nota vuota, permesso
 sopravvissuto alla cancellazione dell'account, e raggiungibilità dal client
 (funzione e tabella).
+
+La fine del permesso sta in `89-attesa-e-sandbox.sql`, casi S13-S17: che il
+diritto proiettato non superi la scadenza (S13), che togliere il permesso lo
+tolga subito su tutti e due i percorsi di lettura (S14), il teardown (S15), e
+il tempo che passa da solo (S16-S17) — due transazioni separate con
+un'attesa vera in mezzo, perché dentro una sola transazione `now()` resta fermo
+e un test del genere proverebbe soltanto sé stesso.
 
 Il percorso completo — rifiuto, domanda, seconda verifica, chiave separata — sta
 in `app/api/v1/billing/validate-purchase/route.test.ts`, gruppo "isolamento

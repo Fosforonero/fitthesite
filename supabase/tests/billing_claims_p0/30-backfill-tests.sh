@@ -125,16 +125,26 @@ seed_legacy "insert into public.b2c_subscriptions
    ('${U_T}','trial','fitmesh_trial','trial-${U_T}', null, now() + interval '7 days', false, 'active'),
    ('${U_F}','founder_grant','fitmesh_founder','founder-${U_F}', null, '9999-12-31T23:59:59Z', false, 'active');"
 
+# Le domande si fanno SULLA FIXTURE, non sul mondo.
+#
+# Prima erano `select count(*) from private.billing_purchase_claims`, cioe'
+# "quante righe esistono in tutto". Regge finche' il database e' solo di questo
+# test; il container locale pero' e' condiviso con altre linee di lavoro, e una
+# riga lasciata da qualcun altro faceva fallire il dry run con un messaggio che
+# accusava il backfill di aver scritto. Un test che dipende dal fatto che il
+# mondo sia vuoto non sta misurando il backfill.
+FIXTURE="owner_user_id in ('${U_G}','${U_A}','${U_T}','${U_F}')"
+
 # ── CASO 9a. DRY RUN: non deve scrivere niente ──────────────────────────────
 run_backfill dry > /tmp/bf_dry.out 2>&1 || fail "il dry run e' uscito con errore (vedi /tmp/bf_dry.out)"
-AFTER_DRY=$(psql_q "select count(*) from private.billing_purchase_claims;")
+AFTER_DRY=$(psql_q "select count(*) from private.billing_purchase_claims where ${FIXTURE};")
 [ "$AFTER_DRY" = "0" ] || fail "il DRY RUN ha scritto ${AFTER_DRY} righe: doveva fare rollback"
 grep -q 'DRY RUN' /tmp/bf_dry.out || fail "il dry run non ha dichiarato di essere un dry run"
 echo "CASO 9a: PASS (dry run, 0 righe scritte)"
 
 # ── CASO 9b. APPLY: scrive esattamente i due acquisti store ─────────────────
 run_backfill apply > /tmp/bf_apply1.out 2>&1 || fail "l'apply e' fallito (vedi /tmp/bf_apply1.out)"
-TOT=$(psql_q "select count(*) from private.billing_purchase_claims;")
+TOT=$(psql_q "select count(*) from private.billing_purchase_claims where ${FIXTURE};")
 [ "$TOT" = "2" ] || fail "attesi 2 claim dopo l'apply, trovati ${TOT}"
 
 GKEY=$(psql_q "select encode(sha256(convert_to('${GTOKEN}','UTF8')),'hex');")
@@ -162,10 +172,10 @@ EXCL=$(psql_q "select count(*) from private.billing_purchase_claims
 echo "CASO 10: PASS (trial e founder_grant esclusi)"
 
 # ── CASO 9c. IDEMPOTENZA: secondo apply, nessuna scrittura, niente si sposta ─
-BEFORE_SNAP=$(psql_q "select md5(string_agg(billing_source||ownership_key||coalesce(owner_user_id::text,'-')||claimed_at::text, '|' order by ownership_key)) from private.billing_purchase_claims;")
+BEFORE_SNAP=$(psql_q "select md5(string_agg(billing_source||ownership_key||coalesce(owner_user_id::text,'-')||claimed_at::text, '|' order by ownership_key)) from private.billing_purchase_claims where ${FIXTURE};")
 run_backfill apply > /tmp/bf_apply2.out 2>&1 || fail "il secondo apply e' fallito: il backfill non e' idempotente"
-TOT2=$(psql_q "select count(*) from private.billing_purchase_claims;")
-AFTER_SNAP=$(psql_q "select md5(string_agg(billing_source||ownership_key||coalesce(owner_user_id::text,'-')||claimed_at::text, '|' order by ownership_key)) from private.billing_purchase_claims;")
+TOT2=$(psql_q "select count(*) from private.billing_purchase_claims where ${FIXTURE};")
+AFTER_SNAP=$(psql_q "select md5(string_agg(billing_source||ownership_key||coalesce(owner_user_id::text,'-')||claimed_at::text, '|' order by ownership_key)) from private.billing_purchase_claims where ${FIXTURE};")
 [ "$TOT2" = "2" ] || fail "il secondo apply ha portato le righe a ${TOT2}"
 [ "$BEFORE_SNAP" = "$AFTER_SNAP" ] || fail "il secondo apply ha modificato righe esistenti (claimed_at o proprietario spostati)"
 grep -qE '\| *0$|delta' /tmp/bf_apply2.out || true
