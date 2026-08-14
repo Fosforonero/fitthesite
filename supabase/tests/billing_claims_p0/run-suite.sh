@@ -60,6 +60,9 @@ run_sql 80-nove-punti.sql
 # Il percorso Sandbox per App Review: il permesso e' della persona, scade, e
 # non e' raggiungibile dal client.
 run_sql 88-sandbox-revisori.sql
+# La revoca che aspetta il suo acquisto, e il cancello Sandbox come vincolo
+# della tabella invece che controllo della route.
+run_sql 89-attesa-e-sandbox.sql
 
 # Questi due aprono connessioni proprie: la corsa a due connessioni reali non
 # si puo' simulare dentro una singola sessione psql.
@@ -98,6 +101,12 @@ bash "$DIR/86-ordine-lock.sh"
 # database resta identico; ma i drop vengono provati per davvero, ed e' cosi'
 # che si e' scoperto che uno puntava a una firma che non esisteva piu' e che a
 # una migration mancava del tutto il rollback.
+# Il GDPR VERO contro il claim, con la mutazione che prova che il test sa
+# vedere il deadlock che dichiara di sorvegliare.
+echo ""
+echo "### 90-gdpr-ordine-lock.sh"
+bash "$DIR/90-gdpr-ordine-lock.sh"
+
 echo ""
 echo "### 87-rollback-verificato.sh"
 bash "$DIR/87-rollback-verificato.sh"

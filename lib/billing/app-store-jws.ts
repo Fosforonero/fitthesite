@@ -358,11 +358,22 @@ export function evaluateDecodedTransaction(
   if (payload.revocationDate != null || payload.revocationReason != null) {
     // Revocato. Se il payload porta anche gli identificatori e la data, il
     // fatto si puo' REGISTRARE, e il diritto successivo dell'utente puo'
-    // riemergere. Se non li porta, resta il rifiuto secco di prima: non si
-    // inventa una chiave per scrivere una revoca su un acquisto che non
-    // sappiamo nominare.
+    // riemergere.
+    //
+    // Se NON li porta, non e' `jws_revoked`. Sembrava la risposta ovvia — Apple
+    // dice revocato, noi diciamo revocato — ed era sbagliata per una ragione
+    // che si vede solo guardando cosa fa il client: `jws_revoked` e' terminale,
+    // quindi la transazione viene chiusa. Ma qui non abbiamo potuto scrivere
+    // NIENTE, perche' non sappiamo nominare l'acquisto: il diritto dell'utente
+    // resta quello di prima e non c'e' nessuna occasione futura di
+    // accorgercene.
+    //
+    // Un payload firmato da Apple senza `transactionId`,
+    // `originalTransactionId` o `signedDate` e' un difetto — nostro o loro —
+    // non un fatto sull'acquisto. Quindi `jws_incomplete`, che il client tratta
+    // come problema nostro e non chiude.
     if (!transactionId || !originalTransactionId || signedDateMs == null) {
-      return { kind: "rejected", reason: "jws_revoked" };
+      return { kind: "rejected", reason: "jws_incomplete" };
     }
     return {
       kind: "revoked",

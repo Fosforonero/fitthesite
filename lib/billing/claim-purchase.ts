@@ -90,6 +90,17 @@ export type ClaimResult =
   /** La transazione e' di un altro account FitMesh, o di un account cancellato. */
   | { kind: "conflict"; ownerDeleted: boolean }
   /**
+   * Il registro ha RIFIUTATO la scrittura per una ragione che non cambiera'
+   * ritentando: oggi e' il cancello Sandbox (transazione di prova presentata da
+   * un account che non e' un revisore autorizzato, o senza legame di account).
+   *
+   * Tenuto distinto da `persistence_failed` perche' le due cose portano a
+   * comportamenti opposti nel client: quello dice "riprova", questo dice
+   * "smetti". Un rifiuto travestito da guasto e' un ciclo di tentativi
+   * infiniti su una cosa che non sara' mai concessa.
+   */
+  | { kind: "rejected"; reason: string }
+  /**
    * Il database non ha scritto. Niente e' stato salvato — ne' la proprieta' ne'
    * lo stato — quindi ritentare e' sicuro e corretto.
    */
@@ -149,6 +160,13 @@ export async function claimStorePurchase(
     // Il messaggio non viene propagato al client: puo' contenere frammenti di
     // parametri, e questa e' una risposta che l'utente legge.
     console.error(`[Billing] claim rpc error code=${error.code ?? "none"}`);
+    // 42501 = insufficient_privilege. Lo solleva il cancello Sandbox sul
+    // registro, ed e' un NO definitivo: ritentare non lo fara' diventare un si'.
+    // Gli altri codici restano `unavailable`, cioe' ritentabili — un difetto
+    // nostro non deve far chiudere al client una transazione pagata.
+    if (error.code === "42501") {
+      return { kind: "rejected", reason: "sandbox_gate" };
+    }
     return { kind: "unavailable", reason: error.code ?? "rpc_error" };
   }
 
@@ -256,8 +274,22 @@ export async function recordStorePurchaseRevocation(
     case "not_persisted":
       return { kind: "not_persisted", reason: "stale_or_unwritten" };
     case "unknown_purchase":
+      // Terminale, e adesso lecito: la RPC scrive comunque la revoca in
+      // private.billing_pending_revocations, quindi il primo claim su quella
+      // chiave se la trovera' addosso. Se pero' quella scrittura non fosse
+      // dichiarata, non ci sarebbe nessuna prova che il fatto sia al sicuro, e
+      // chiudere la transazione tornerebbe a essere una scommessa.
+      if (body?.pendingRegistrata !== true) {
+        return { kind: "not_persisted", reason: "pending_non_registrata" };
+      }
+      return { kind: "not_claimed", reason: outcome };
     case "owner_deleted":
       return { kind: "not_claimed", reason: outcome };
+    case "claim_in_flight":
+      // Il claim ha committato mentre la revoca aspettava. Il fatto e' scritto
+      // in attesa, ma NON e' stato applicato: la risposta non e' terminale, e
+      // al giro dopo il percorso normale revoca davvero.
+      return { kind: "not_persisted", reason: "claim_in_flight" };
     case "persistence_failed":
       return {
         kind: "not_persisted",

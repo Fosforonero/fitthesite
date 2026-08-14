@@ -712,6 +712,39 @@ describe("revoca Apple: la risposta dipende da come e' andata la registrazione",
     );
   });
 
+  it("revoca SANDBOX: la chiave resta nello spazio sandbox, non tocca produzione", async () => {
+    // IL DIFETTO. Il claim namespacia la chiave (`sandbox:<id>`); la revoca no,
+    // passava l'`originalTransactionId` nudo. Sandbox e produzione numerano gli
+    // identificativi in spazi INDIPENDENTI e possono coincidere, quindi una
+    // revoca Sandbox faceva due danni insieme: non revocava il proprio
+    // acquisto (che nel registro sta sotto `sandbox:<id>`) e, a identificativo
+    // coincidente, revocava quello di un cliente vero che aveva pagato.
+    mocks.verifyJws.mockResolvedValue({
+      ...revocato,
+      tx: { ...okTransaction.tx, environment: "Sandbox" as const },
+    });
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "revoked", applied: true, persisted: true },
+      error: null,
+    });
+
+    await richiesta();
+
+    expect(mocks.rpc).toHaveBeenCalledWith(
+      "record_store_purchase_revocation",
+      expect.objectContaining({
+        p_ownership_key: "sandbox:2000000900000001",
+      }),
+    );
+    // E la controprova, che e' la meta' che conta: la chiave di produzione non
+    // dev'essere stata toccata da nessuna chiamata.
+    for (const [, args] of mocks.rpc.mock.calls) {
+      expect((args as { p_ownership_key?: string }).p_ownership_key).not.toBe(
+        "2000000900000001",
+      );
+    }
+  });
+
   it("gia' registrata: resta terminale, applied=false non e' un guasto", async () => {
     // `applied: false` con `persisted: true` significa "era gia' revocato":
     // la revoca E' nel registro, quindi il rifiuto terminale e' onesto.
@@ -725,15 +758,47 @@ describe("revoca Apple: la risposta dipende da come e' andata la registrazione",
     expect((await res.json()).error).toBe("jws_revoked");
   });
 
-  it("acquisto mai reclamato: niente da togliere, resta terminale", async () => {
+  it("acquisto mai reclamato: terminale SOLO se la revoca e' rimasta in attesa", async () => {
+    // `unknown_purchase` non significa piu' "non c'era niente da fare": la RPC
+    // scrive comunque la revoca in private.billing_pending_revocations, cosi'
+    // il primo claim su quella chiave se la trova addosso. E' quella scrittura
+    // a rendere lecito chiudere la transazione, quindi dev'essere DICHIARATA.
     mocks.rpc.mockResolvedValue({
-      data: { outcome: "unknown_purchase", applied: false },
+      data: { outcome: "unknown_purchase", applied: false, pendingRegistrata: true },
       error: null,
     });
 
     const res = await richiesta();
     expect(res.status).toBe(400);
     expect((await res.json()).error).toBe("jws_revoked");
+  });
+
+  it("acquisto mai reclamato e nemmeno messo in attesa: NON terminale", async () => {
+    // Un backend piu' vecchio, o una RPC che non ha scritto: senza la conferma
+    // dell'attesa, chiudere la transazione tornerebbe a essere una scommessa —
+    // il rimborso sparirebbe e il claim successivo darebbe il Pro.
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "unknown_purchase", applied: false },
+      error: null,
+    });
+
+    const res = await richiesta();
+    expect(res.status).toBe(503);
+    expect((await res.json()).error).toBe("apple_unavailable");
+  });
+
+  it("claim in volo: la revoca aspetta, e la risposta non chiude niente", async () => {
+    // Il claim ha committato mentre la revoca aspettava l'advisory lock. Il
+    // fatto e' al sicuro in attesa, ma NON e' stato applicato: se il client
+    // chiudesse qui, resterebbe un Pro attivo su un acquisto rimborsato.
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "claim_in_flight", applied: false, pendingRegistrata: true },
+      error: null,
+    });
+
+    const res = await richiesta();
+    expect(res.status).toBe(503);
+    expect((await res.json()).error).toBe("apple_unavailable");
   });
 
   it("persistenza fallita: NON terminale, il client deve ritentare", async () => {
@@ -1181,6 +1246,37 @@ describe("rimborso StoreKit 1: il ramo che prima non esisteva", () => {
     expect(res.status).toBe(400);
     expect(body.error).toBe("purchase_revoked");
     expect(body.disposition).toBe("store_verified_terminal_rejection");
+  });
+
+  it("ricevuta SANDBOX: la revoca resta nello spazio sandbox", async () => {
+    // Lo stesso difetto del ramo JWS, sul ramo StoreKit 1: `registraAnnullate`
+    // derivava la chiave senza ambiente. Una ricevuta Sandbox rimborsata
+    // andava quindi a colpire lo spazio di produzione, dove lo stesso
+    // `original_transaction_id` puo' appartenere a un cliente che ha pagato.
+    mocks.validateAppleReceipt.mockResolvedValue({
+      kind: "revoked",
+      annullate: [
+        { originalTransactionId: RIMBORSATO, cancellationDateMs: QUANDO },
+      ],
+      environment: "sandbox",
+      requestDateMs: RISPOSTA,
+    });
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "revoked", applied: true, persisted: true },
+      error: null,
+    });
+
+    await richiesta189();
+
+    expect(mocks.rpc).toHaveBeenCalledWith(
+      "record_store_purchase_revocation",
+      expect.objectContaining({ p_ownership_key: `sandbox:${RIMBORSATO}` }),
+    );
+    for (const [, args] of mocks.rpc.mock.calls) {
+      expect((args as { p_ownership_key?: string }).p_ownership_key).not.toBe(
+        RIMBORSATO,
+      );
+    }
   });
 
   it("revoca NON persistita: nessun terminale, e alla 189 il 503 diventa 502", async () => {

@@ -284,6 +284,14 @@ function responseForClaim(result: ClaimResult): Response {
         owner_deleted: result.ownerDeleted,
       });
 
+    case "rejected":
+      // Il registro ha detto NO, e ritentare non lo fara' cambiare idea: oggi
+      // e' il cancello Sandbox. Terminale di proposito — 400 e non 500 — cosi'
+      // il client smette invece di ripresentare all'infinito una transazione di
+      // prova che non sara' mai concessa a quell'account.
+      console.warn(`[Billing] claim rifiutato dal registro reason=${result.reason}`);
+      return jsonError(400, "purchase_not_allowed", { reason: result.reason });
+
     case "persistence_failed":
       console.warn(`[Billing] claim persistence_failed reason=${result.reason}`);
       return jsonError(500, "claim_failed", { reason: result.reason });
@@ -388,7 +396,16 @@ async function validateAppleJws(args: {
     try {
       registrazione = await recordStorePurchaseRevocation(args.admin, {
         billingSource: "apple_iap",
-        ownershipKey: appleOwnershipKey(outcome.tx.originalTransactionId),
+        // L'AMBIENTE ENTRA ANCHE QUI. Il claim namespacia la chiave e la revoca
+        // no: passava l'originalTransactionId nudo. Sandbox e produzione
+        // numerano gli identificativi in spazi indipendenti e possono
+        // coincidere, quindi una revoca Sandbox non revocava il proprio
+        // acquisto e, a identificativo coincidente, poteva revocare quello di
+        // un cliente vero.
+        ownershipKey: appleOwnershipKey(
+          outcome.tx.originalTransactionId,
+          outcome.tx.environment === "Sandbox" ? "sandbox" : "production",
+        ),
         productId: args.productId,
         purchaseKind: kindOf(args.productId),
         // La FOTOGRAFIA e' il signedDate del JWS che porta la revoca; il
@@ -524,13 +541,22 @@ async function registraAnnullate(
     productId: string;
     /** L'orologio di ORDINAMENTO: request_date_ms della risposta di Apple. */
     requestDateMs: number;
+    /**
+     * Da quale ambiente viene la ricevuta. NON e' un dettaglio diagnostico: e'
+     * meta' della chiave di proprieta'. Senza, una revoca Sandbox andava a
+     * cercare l'`originalTransactionId` nudo, cioe' lo spazio di produzione.
+     */
+    environment: "production" | "sandbox";
   },
 ): Promise<boolean> {
   let tutte = true;
   for (const annullata of args.annullate) {
     let ownershipKey: string;
     try {
-      ownershipKey = appleOwnershipKey(annullata.originalTransactionId);
+      ownershipKey = appleOwnershipKey(
+        annullata.originalTransactionId,
+        args.environment,
+      );
     } catch {
       console.warn("[Billing] rimborso con original_transaction_id fuori forma");
       tutte = false;
@@ -765,6 +791,7 @@ export async function POST(req: Request): Promise<Response> {
             annullate: result.annullate,
             productId: product_id,
             requestDateMs: result.requestDateMs,
+            environment: result.environment,
           });
           if (!registrate) {
             console.error(
@@ -839,6 +866,7 @@ export async function POST(req: Request): Promise<Response> {
           annullate: result.annullate,
           productId: product_id,
           requestDateMs: result.requestDateMs,
+          environment: result.environment,
         });
         if (!tutteRegistrate) {
           // Una revoca non scritta e' un silenzio, non un rifiuto dimostrato:

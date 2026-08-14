@@ -483,6 +483,10 @@ begin
 end $$;
 
 -- ── 22. Il percorso reale: la RPC chiamata DAL service_role.
+-- L'ambiente qui e' 'production' e non 'sandbox': questo caso parla di ACL, e
+-- l'ambiente era una scelta senza significato finche' non e' diventata una
+-- condizione (20260813150000, cancello Sandbox sul registro). Un valore messo
+-- a caso in un test e' un vincolo che nessuno sa di aver preso.
 -- Tutti i casi sopra girano come postgres, che scriverebbe comunque. Questo
 -- e' l'unico che dimostra la tesi della sezione ACL: il backend non ha alcun
 -- privilegio diretto sul registro (verificato al caso 20) e ci scrive lo
@@ -496,7 +500,7 @@ select public.claim_store_purchase(
     p_owner_user_id => '00000000-0000-4000-8000-00000000000a',
     p_external_product_id => 'fitmesh_pro_lifetime',
     p_purchase_kind => 'lifetime',
-    p_environment => 'sandbox',
+    p_environment => 'production',
     p_state => 'active',
     p_active_until => '9999-12-31T23:59:59Z',
     p_auto_renewing => false,
@@ -518,7 +522,7 @@ begin
   select count(*) into v_rows from private.billing_purchase_claims
    where ownership_key = '2000000222222222'
      and owner_user_id = '00000000-0000-4000-8000-00000000000a'
-     and environment = 'sandbox';
+     and environment = 'production';
   if v_rows <> 1 then
     raise exception 'TEST 22: il claim del service_role non e'' finito nel registro';
   end if;

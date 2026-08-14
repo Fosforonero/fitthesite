@@ -169,6 +169,24 @@ export const PURCHASE_DISPOSITION_CONTRACT: Readonly<
    * App Review, che compra in sandbox contro il backend di produzione.
    */
   jws_sandbox_not_allowed: "client_contract_error",
+  /**
+   * Il REGISTRO ha rifiutato la scrittura, e ritentare non la fara' passare:
+   * oggi vuol dire che una transazione Sandbox e' stata presentata da un
+   * account che non e' un revisore autorizzato, o senza il legame di account.
+   *
+   * NON e' un terzo terminale, e la differenza va tenuta ferma: i due terminali
+   * esistono perche' APPLE ha dimostrato che il diritto non esiste. Qui Apple
+   * non ha dimostrato niente — la transazione Sandbox e' reale — siamo NOI a
+   * non volerla accettare da quell'account. Chiuderla significherebbe buttare
+   * via una transazione valida sulla base di una nostra politica, e se la
+   * politica cambiasse (l'account viene autorizzato) non ci sarebbe piu' niente
+   * da riprendere.
+   *
+   * Sta con `jws_sandbox_not_allowed` perche' e' lo stesso guaio visto un
+   * gradino piu' avanti, e ha bisogno della stessa cosa: un freno che non
+   * ripresenti a ogni avvio, senza chiudere.
+   */
+  purchase_not_allowed: "client_contract_error",
   jws_malformed: "client_contract_error",
   jws_incomplete: "client_contract_error",
   jws_wrong_product: "client_contract_error",
@@ -232,6 +250,7 @@ export const PURCHASE_HTTP_STATUS: Readonly<Record<string, number>> =
 
     purchase_not_in_receipt: 400,
     jws_sandbox_not_allowed: 400,
+    purchase_not_allowed: 400,
     apple_unavailable: 503,
     apple_validation_failed: 502,
     google_validation_failed: 502,

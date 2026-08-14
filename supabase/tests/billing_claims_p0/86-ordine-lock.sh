@@ -109,6 +109,21 @@ select public.record_store_purchase_revocation(
 SQL
 }
 
+# Aspetta che una sessione sia DAVVERO in attesa di un lock, invece di sperare
+# che una pausa fissa basti. Guarda pg_stat_activity, cioe' il fatto.
+attendi_in_coda() { # attendi_in_coda <frammento-query> [secondi]
+  local frammento="$1" limite="${2:-15}" i=0 n
+  while [ "$i" -lt $((limite * 5)) ]; do
+    n=$(Q "select count(*) from pg_stat_activity
+            where state = 'active' and wait_event_type = 'Lock'
+              and query like '%${frammento}%'
+              and pid <> pg_backend_pid();")
+    [ "$n" != "0" ] && return 0
+    sleep 0.2; i=$((i + 1))
+  done
+  return 1
+}
+
 # Imposta PID_BG invece di stamparlo: `pid=$(bg ...)` farebbe partire il job
 # dentro una subshell, e la shell principale non potrebbe piu' aspettarlo
 # (wait su un non-figlio ritorna 127, e il test misurerebbe il nulla).
@@ -170,19 +185,32 @@ trap 'teardown; ripristina_modo' EXIT INT TERM
 # H tiene l'advisory dell'utente per 6 secondi. A parte a t=1 e si ferma con la
 # riga b2c in mano. B parte a t=2 e incontra A. A t=6 H molla e A riparte: se
 # gli ordini sono invertiti, il ciclo si chiude proprio qui.
-corsa() { # corsa <nome> <sql-A>
-  local nome="$1" sql_a="$2"
+corsa() { # corsa <nome> <sql-A> [frammento-query-A]
+  local nome="$1" sql_a="$2" frammento="${3:-claim_store_purchase}"
 
   local pid_h pid_a pid_b
   bg "${OUT}/${nome}-H.out" \
-    "begin; select pg_catalog.pg_advisory_xact_lock(1, pg_catalog.hashtext('${U}')); select pg_sleep(6); commit;"
+    "begin; select pg_catalog.pg_advisory_xact_lock(1, pg_catalog.hashtext('${U}')); select pg_sleep(8); commit;"
 
   pid_h=$PID_BG
   sleep 1
   bg "${OUT}/${nome}-A.out" "$sql_a"
 
   pid_a=$PID_BG
-  sleep 1
+  # NON `sleep 1`. La sequenza che questi casi vogliono e' "A entra in coda,
+  # POI arriva B", e con una pausa fissa non e' garantita: fra avviare
+  # `docker exec` e vedere la query in attesa passano centinaia di millisecondi
+  # variabili, e quando B arrivava per primo la corsa provava un'altra cosa
+  # senza dirlo. E' cosi' che il CASO 1M restava verde: B vinceva l'advisory,
+  # registrava lui la chiave, e A trovava tutto gia' fatto.
+  #
+  # Si aspetta il FATTO invece di sperarlo: A dev'essere visibile in
+  # pg_stat_activity mentre aspetta un lock.
+  attendi_in_coda "$frammento" || {
+    fail "${nome}: A non e' mai entrato in coda su un lock, la corsa non e' avvenuta"
+    wait "$pid_h" >/dev/null 2>&1; wait "$pid_a" >/dev/null 2>&1
+    return 1
+  }
   bg "${OUT}/${nome}-B.out" "$(upsert_189)"
 
   pid_b=$PID_BG
@@ -197,9 +225,25 @@ corsa() { # corsa <nome> <sql-A>
   for s in H A B; do
     if grep -qi 'deadlock detected' "${OUT}/${nome}-${s}.out"; then morto="${morto}${s} "; fi
   done
+  DEADLOCK_IN="$morto"
   if [ -n "$morto" ]; then
+    if [ "${ATTESO_DEADLOCK:-no}" = "si" ]; then return 1; fi
     fail "${nome}: DEADLOCK nelle sessioni ${morto}"
     grep -i -m2 'deadlock\|DETAIL' "${OUT}/${nome}-A.out" "${OUT}/${nome}-B.out" | sed 's/^/    /'
+    return 1
+  fi
+
+  # Nessun deadlock non basta: fino al 13/08/2026 questa funzione guardava SOLO
+  # la parola 'deadlock', quindi una sessione che moriva per qualunque altro
+  # motivo — un errore di sintassi nel SQL del test, un permesso mancante, una
+  # connessione caduta — passava per un successo. Un test che non sa distinguere
+  # "non e' successo il male" da "non e' successo niente" non prova niente.
+  if [ "${ATTESO_DEADLOCK:-no}" != "si" ] &&
+     { [ "$esito_h" -ne 0 ] || [ "$esito_a" -ne 0 ] || [ "$esito_b" -ne 0 ]; }; then
+    fail "${nome}: una sessione e' uscita con errore (H=${esito_h} A=${esito_a} B=${esito_b})"
+    for s in H A B; do
+      grep -i -m2 'ERROR\|FATAL' "${OUT}/${nome}-${s}.out" | sed "s/^/    ${s}: /"
+    done
     return 1
   fi
   return 0
@@ -250,11 +294,22 @@ echo "############### ORDINE DEI LOCK — tre sessioni reali ###############"
 # Questo controllo legge la definizione delle funzioni DAL DATABASE — non dal
 # file, che potrebbe non essere quello applicato — e verifica che dentro ogni
 # corpo i tre gradini compaiano nell'ordine dichiarato.
+#
+# I COMMENTI VANNO TOLTI PRIMA DI CERCARE. Fino al 13/08/2026 non lo erano, e
+# la cosa era invisibile perche' passava lo stesso: dentro claim_store_purchase
+# c'e' un commento che NOMINA il `for key share`, e sta qualche riga sopra
+# l'istruzione vera. `position()` trovava quello, cioe' il test misurava dove
+# fosse scritta la spiegazione invece di dove fosse il lock. Con la spiegazione
+# spostata sotto, o cancellata, il verdetto sarebbe cambiato senza che il
+# codice cambiasse — e viceversa.
 echo ""
 echo "CASO 0 — l'ordine dei gradini e' quello dichiarato, letto dal database"
 ORDINE=$(Q "
   with d as (
-    select p.proname::text as nome, pg_catalog.pg_get_functiondef(p.oid) as def
+    select p.proname::text as nome,
+           -- Via i commenti di riga: si cercano ISTRUZIONI, non prosa.
+           pg_catalog.regexp_replace(
+             pg_catalog.pg_get_functiondef(p.oid), '--[^\n]*', '', 'g') as def
     from pg_catalog.pg_proc p
     join pg_catalog.pg_namespace n on n.oid = p.pronamespace
     where (n.nspname, p.proname) in
@@ -314,6 +369,125 @@ if corsa "caso1" "$(claim_sql)"; then
   proiezione_coerente "caso1" && echo "CASO 1: PASS"
 fi
 
+# ── CASO 1M: la mutazione deve morire ───────────────────────────────────────
+#
+# Il CASO 1 dice "nessun deadlock". E' credibile solo se questa impalcatura sa
+# produrne uno: tre sessioni, due `sleep` e un advisory lock sono abbastanza
+# parti mobili perche' un test possa diventare verde per il motivo sbagliato —
+# le sessioni non si incrociano piu', e nessuno se ne accorge.
+#
+# Qui si prende la funzione VERA dal catalogo, le si tolgono i due gradini in
+# testa (cioe' la si riporta a com'era prima della correzione) e si rifa'
+# esattamente la corsa del CASO 1. Deve andare in deadlock. Se non ci va, il
+# fallimento e' di questo file, non del codice: significa che il CASO 1 non
+# sorveglia piu' niente.
+echo ""
+echo "CASO 1M — la versione senza i due gradini DEVE andare in deadlock"
+CLAIM_ORIGINALE=$(Q "select pg_catalog.pg_get_functiondef('public.claim_store_purchase(text,text,uuid,text,text,text,text,timestamptz,boolean,timestamptz,text,text,uuid)'::regprocedure);")
+[ -n "$CLAIM_ORIGINALE" ] || fatal "caso1M: claim_store_purchase non trovata nel catalogo"
+
+ripristina_claim() {
+  [ -n "${CLAIM_ORIGINALE:-}" ] || return 0
+  printf '%s;\n' "$CLAIM_ORIGINALE" > "${OUT}/claim-originale.sql"
+  docker cp "${OUT}/claim-originale.sql" "$CID":/tmp/claim-originale.sql >/dev/null 2>&1
+  docker exec -e PGPASSWORD=postgres "$CID" \
+    psql -U postgres -d postgres -X -q -f /tmp/claim-originale.sql >/dev/null 2>&1
+}
+# Il ripristino entra nei trap PRIMA di installare il mutante: se il test viene
+# ucciso a meta', il database non deve restare con una funzione mutilata.
+trap 'ripristina_claim; teardown; ripristina_modo' EXIT INT TERM
+
+printf '%s;\n' "$CLAIM_ORIGINALE" \
+  | perl -0pe 's/^\s*perform 1 from auth\.users u where u\.id = p_owner_user_id for key share;\s*$//m;
+               s/^\s*perform 1 from public\.b2c_subscriptions t\s*\n\s*where t\.user_id = p_owner_user_id for update;\s*$//m' \
+  > "${OUT}/claim-mutante.sql"
+# Si contano ISTRUZIONI, non prosa: dentro la funzione c'e' un commento che
+# nomina il `for key share`, e contarlo farebbe credere che la mutazione non
+# abbia funzionato. E' la stessa trappola del CASO 0, un livello piu' in la'.
+senza_commenti() { perl -pe 's/--.*//' "$1"; }
+GRADINI_PRIMA=$(printf '%s;\n' "$CLAIM_ORIGINALE" | perl -pe 's/--.*//' \
+  | grep -c 'for key share\|for update' || true)
+GRADINI_DOPO=$(senza_commenti "${OUT}/claim-mutante.sql" \
+  | grep -c 'for key share\|for update' || true)
+[ "$GRADINI_PRIMA" = "2" ] \
+  || fatal "caso1M: nella funzione vera i gradini dovevano essere 2, trovati ${GRADINI_PRIMA} — il testo e' cambiato, aggiornare il pattern"
+[ "$GRADINI_DOPO" = "0" ] \
+  || fatal "caso1M: la mutazione non ha tolto i due gradini (ne restano ${GRADINI_DOPO})"
+docker cp "${OUT}/claim-mutante.sql" "$CID":/tmp/claim-mutante.sql >/dev/null
+docker exec -e PGPASSWORD=postgres "$CID" \
+  psql -U postgres -d postgres -X -q -v ON_ERROR_STOP=1 -f /tmp/claim-mutante.sql >/dev/null \
+  || fatal "caso1M: installazione del mutante non riuscita"
+
+# ── La corsa del CASO 1M usa una pausa DIVERSA, e il motivo va scritto ─────
+#
+# Il primo tentativo riusava la corsa del CASO 1 (H tiene l'advisory, A poi B).
+# Con la mutazione installata il deadlock NON arrivava, e non perche' il codice
+# fosse a posto: perche' A e B finivano tutti e due in coda sullo stesso
+# advisory lock, e chi lo ottiene per primo quando H molla decide l'esito. Una
+# monetina. Se B vince, la sua guardia registra la chiave, A trova tutto fatto
+# e nessuno si contende niente.
+#
+# Qui la pausa e' sulla RIGA di b2c_subscriptions, e l'ordine di partenza e'
+# invertito. Cosi' il ciclo non e' possibile, e' OBBLIGATO:
+#
+#   H  tiene la riga b2c e dorme
+#   B  UPSERT 189 -> la guardia vuole la riga: si mette in coda, prima
+#   A  claim mutato -> l'advisory e' libero, se lo prende, scrive nel registro
+#      e alla proiezione vuole la riga: si mette in coda, seconda
+#   H  molla. La riga va a B, che era primo. B chiede l'advisory: ce l'ha A.
+#      A aspetta la riga: ce l'ha B.                              -> ciclo
+#
+# E la stessa corsa col codice VERO non puo' chiudere il ciclo, perche' A la
+# riga la chiede al gradino 1 — prima di prendere qualunque advisory — quindi
+# si limita ad accodarsi dietro B e ad aspettare il suo turno.
+corsa_riga_contesa() { # corsa_riga_contesa <nome>
+  local nome="$1" pid_h pid_a pid_b
+  bg "${OUT}/${nome}-H.out" \
+    "begin; select 1 from public.b2c_subscriptions where user_id='${U}' for update; select pg_sleep(8); commit;"
+  pid_h=$PID_BG
+  sleep 1
+  bg "${OUT}/${nome}-B.out" "$(upsert_189)"
+  pid_b=$PID_BG
+  attendi_in_coda "insert into public.b2c_subscriptions" || {
+    fail "${nome}: l'UPSERT 189 non e' mai entrato in coda sulla riga"
+    wait "$pid_h" >/dev/null 2>&1; wait "$pid_b" >/dev/null 2>&1
+    return 1
+  }
+  bg "${OUT}/${nome}-A.out" "$(claim_sql)"
+  pid_a=$PID_BG
+
+  wait "$pid_h" >/dev/null 2>&1
+  wait "$pid_a" >/dev/null 2>&1
+  wait "$pid_b" >/dev/null 2>&1
+
+  DEADLOCK_IN=""
+  for s in H A B; do
+    grep -qi 'deadlock detected' "${OUT}/${nome}-${s}.out" && DEADLOCK_IN="${DEADLOCK_IN}${s} "
+  done
+  [ -z "$DEADLOCK_IN" ]
+}
+
+seed_utente
+seed_acquisto_precedente
+if corsa_riga_contesa "caso1M"; then
+  fail "caso1M: la versione SENZA i gradini non ha prodotto deadlock: questa impalcatura non e' in grado di vedere il difetto che il CASO 1 dichiara di sorvegliare"
+else
+  echo "  deadlock nelle sessioni: ${DEADLOCK_IN}"
+  echo "CASO 1M: PASS (il difetto e' riproducibile, quindi il CASO 1 significa qualcosa)"
+fi
+ripristina_claim
+
+# ── CASO 1B: la stessa corsa, col codice VERO ──────────────────────────────
+echo ""
+echo "CASO 1B — la corsa che uccide il mutante, contro la funzione vera"
+seed_utente
+seed_acquisto_precedente
+if corsa_riga_contesa "caso1B"; then
+  proiezione_coerente "caso1B" && echo "CASO 1B: PASS"
+else
+  fail "caso1B: DEADLOCK nelle sessioni ${DEADLOCK_IN}"
+fi
+
 # ── CASO 2: la stessa corsa con la riga b2c ASSENTE ─────────────────────────
 #
 # Il gradino 1 non blocca niente quando la riga non c'e': l'ordine non e' piu'
@@ -335,7 +509,7 @@ echo "CASO 3 — UPSERT letterale 189 contro record_store_purchase_revocation"
 seed_utente
 seed_acquisto_precedente
 Q "$(claim_sql)" >/dev/null || fatal "seed del caso 3: la chiave da revocare non e' registrata"
-if corsa "caso3" "$(revoca_sql)"; then
+if corsa "caso3" "$(revoca_sql)" "record_store_purchase_revocation"; then
   # Qui la coerenza ha un contenuto in piu': l'UPSERT della 189 arriva DOPO la
   # revoca e prova a rimettere 'active'. La guardia deve scartarlo.
   STATO=$(Q "select state from private.billing_purchase_states

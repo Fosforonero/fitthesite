@@ -16,6 +16,7 @@
     "jws_signature_invalid": "client_contract_error",
     "jws_wrong_app": "client_contract_error",
     "jws_sandbox_not_allowed": "client_contract_error",
+    "purchase_not_allowed": "client_contract_error",
     "jws_malformed": "client_contract_error",
     "jws_incomplete": "client_contract_error",
     "jws_wrong_product": "client_contract_error",
@@ -208,6 +209,14 @@
     {
       "status": 400,
       "body": {
+        "error": "purchase_not_allowed",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
         "error": "purchase_not_in_receipt",
         "contract_version": 1,
         "disposition": "retryable"
@@ -246,5 +255,5 @@
       }
     }
   ],
-  "codes_sha256": "faff104518262765464e468f35ecff81cd5ba6d9ac30ddc4e294357ced6b4bd1"
+  "codes_sha256": "f8225a19e8c911af683513a1988eb5271d2a78df9a500f6d9269ef35bd160d51"
 }

@@ -455,14 +455,24 @@ describe("tabella di decisione sulla transazione verificata", () => {
     }
   });
 
-  it("revocata ma senza identificativi: rifiuto secco, nessuna chiave inventata", () => {
-    // Non si registra una revoca su un acquisto che non sappiamo nominare.
+  it("revocata ma senza identificativi: difetto NOSTRO, non un rifiuto terminale", () => {
+    // Non si registra una revoca su un acquisto che non sappiamo nominare: fin
+    // qui era gia' cosi'. Cambia il codice restituito, e non e' un dettaglio.
+    //
+    // Prima era `jws_revoked`, che sembrava la risposta ovvia — Apple dice
+    // revocato, noi diciamo revocato — ed era sbagliata guardando cosa fa il
+    // client: `jws_revoked` e' uno dei due TERMINALI, quindi la transazione
+    // viene chiusa. Ma su questo ramo non abbiamo potuto scrivere niente,
+    // perche' l'acquisto non e' nominabile: il diritto dell'utente resta quello
+    // di prima e la transazione chiusa non tornera' a darci una seconda
+    // occasione. Un terminale senza persistenza e' esattamente cio' che il
+    // punto 7 del cancello aveva vietato, sopravvissuto in un ramo secondario.
     expect(
       evaluateDecodedTransaction(
         validPayload({ revocationReason: 1, originalTransactionId: undefined }),
         LIFETIME,
       ),
-    ).toEqual({ kind: "rejected", reason: "jws_revoked" });
+    ).toEqual({ kind: "rejected", reason: "jws_incomplete" });
   });
 
   it("senza signedDate l'evidenza non e' ordinabile: fail-closed, difetto nostro", () => {
