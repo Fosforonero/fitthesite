@@ -226,6 +226,97 @@ begin
   end if;
   raise notice 'P8 PASS: superata da evidenza piu'' recente, smette di essere in attesa';
 
+  -- ── P9: un SEGNAPOSTO non consuma una revoca in attesa ───────────────────
+  --
+  -- IL DIFETTO (2a review): la postcondizione chiedeva `s.store_event_at >
+  -- r.store_event_at`, cioe' un confronto fra numeri, mentre in questo sistema
+  -- il confronto fra evidenze e' `_billing_evidenza_supera`. Un segnaposto
+  -- (`projection_backfill`) porta il timestamp del momento in cui l'abbiamo
+  -- dedotto, quindi e' quasi sempre PIU' RECENTE di una revoca vera: con il
+  -- confronto numerico bastava una riga scritta dal percorso vecchio per far
+  -- sparire l'ultima copia di un rimborso.
+  --
+  -- P6 non lo vedeva perche' li' lo stato registrato e' piu' VECCHIO della
+  -- revoca in attesa: il ramo sbagliato non veniva nemmeno raggiunto.
+  alter table private.billing_purchase_states disable trigger billing_purchase_states_forward_only;
+  update private.billing_purchase_states
+     set state = 'active',
+         store_event_source = 'projection_backfill',
+         store_event_at = now() + interval '20 hours',
+         revocation_at = null
+   where billing_source = 'apple_iap' and ownership_key = v_chiave;
+  alter table private.billing_purchase_states enable trigger billing_purchase_states_forward_only;
+
+  insert into private.billing_pending_revocations (
+    billing_source, ownership_key, external_product_id, purchase_kind,
+    store_event_at, store_event_source, revocation_at
+  ) values (
+    'apple_iap', v_chiave, 'fitmesh_pro_lifetime', 'lifetime',
+    now() + interval '15 hours', 'apple_signed_date', now()
+  );
+
+  -- Il guasto di scrittura: senza, la revoca verrebbe applicata (un'evidenza
+  -- store SUPERA un segnaposto) e il ramo della postcondizione non si
+  -- raggiungerebbe. E' lo scenario che la review descrive: "dopo un
+  -- persistence_failed".
+  execute $mut$
+    create or replace function private._billing_project_entitlement(p_user_id uuid)
+    returns jsonb language plpgsql security definer set search_path to '' as $f$
+    begin
+      raise exception 'proiezione guasta (mutazione di prova)' using errcode = 'XX000';
+    end; $f$;
+  $mut$;
+
+  perform private.billing_apply_pending_revocations();
+
+  select count(*) into v_attese
+  from private.billing_pending_revocations where ownership_key = v_chiave;
+  if v_attese <> 1 then
+    raise exception 'P9 FAIL: un segnaposto piu'' recente ha consumato l''ultima copia di un rimborso (righe rimaste %)', v_attese;
+  end if;
+  raise notice 'P9 PASS: un segnaposto non supera un''evidenza store, nemmeno per cancellarla';
+
+  execute (select def || ';' from t_proiettore);
+
+  -- ── P10: una RICEVUTA LEGACY non consuma una revoca JWS ──────────────────
+  --
+  -- Stesso difetto, seconda faccia. `apple_request_date` e' "quando abbiamo
+  -- chiesto", non una prova che il rimborso sia stato annullato: per contratto
+  -- non annulla una revoca firmata, e infatti la RPC non la applica. Ma la
+  -- postcondizione numerica la considerava vincente e buttava via la revoca.
+  --
+  -- Qui non serve nessun guasto: la RPC risponde `not_persisted` perche' ha
+  -- perso il confronto, che e' l'esito legittimo. E' proprio il caso in cui
+  -- l'esito da solo non basta a decidere, ed e' per questo che si chiede al
+  -- comparatore.
+  delete from private.billing_pending_revocations where ownership_key = v_chiave;
+
+  alter table private.billing_purchase_states disable trigger billing_purchase_states_forward_only;
+  update private.billing_purchase_states
+     set state = 'active',
+         store_event_source = 'apple_request_date',
+         store_event_at = now() + interval '30 hours',
+         revocation_at = null
+   where billing_source = 'apple_iap' and ownership_key = v_chiave;
+  alter table private.billing_purchase_states enable trigger billing_purchase_states_forward_only;
+
+  insert into private.billing_pending_revocations (
+    billing_source, ownership_key, external_product_id, purchase_kind,
+    store_event_at, store_event_source, revocation_at
+  ) values (
+    'apple_iap', v_chiave, 'fitmesh_pro_lifetime', 'lifetime',
+    now() + interval '25 hours', 'apple_signed_date', now()
+  );
+
+  perform private.billing_apply_pending_revocations();
+
+  select count(*) into v_attese
+  from private.billing_pending_revocations where ownership_key = v_chiave;
+  if v_attese <> 1 then
+    raise exception 'P10 FAIL: una ricevuta legacy piu'' recente ha consumato una revoca JWS (righe rimaste %)', v_attese;
+  end if;
+  raise notice 'P10 PASS: una ricevuta legacy non annulla una revoca JWS, nemmeno per cancellarla';
+
   -- Pulizia
   alter table private.billing_purchase_states disable trigger billing_purchase_states_forward_only;
   alter table private.billing_purchase_claims disable trigger trg_billing_purchase_claims_immutable;
