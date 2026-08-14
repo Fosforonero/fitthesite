@@ -753,6 +753,11 @@ export async function POST(req: Request): Promise<Response> {
     }
     try {
       let result = await validateAppleReceipt({
+        // FAIL-CLOSED DICHIARATO, non dedotto. Senza questo argomento la
+        // libreria ricade su `sandboxTransactionsAllowed()`, cioe' su una
+        // variabile d'ambiente: la difesa dipenderebbe da dove gira la build
+        // invece che da una decisione. Qui la decisione c'e' ed e' scritta.
+        allowSandbox: false,
         receiptData: purchase_token,
         productId: product_id,
       });
@@ -779,8 +784,20 @@ export async function POST(req: Request): Promise<Response> {
       // percorso Sandbox senza legame di account", il primo si vede subito e
       // si risolve con un dispositivo; il secondo e' una porta che non
       // richiude nessuno.
+      //
+      // La risposta e' `jws_sandbox_not_allowed` e non `apple_validation_failed`.
+      // Il nome ha un prefisso che qui suona fuori posto, ma il significato e'
+      // esattamente questo — "una transazione Sandbox presentata a un backend
+      // di produzione, permanente per quella coppia build/backend" — e il
+      // codice e' gia' noto sia al client 190 (che legge la disposizione) sia
+      // al client 189 (che ha una lista scritta a mano). Inventarne uno nuovo
+      // significherebbe che il 189 non lo riconosce e ricade su `retryable`,
+      // cioe' ritenta per sempre una cosa che non passera' mai.
+      // `apple_validation_failed`, che e' dove finiva prima, e' retryable per
+      // tutti e due: lo stesso ciclo infinito, ma senza nemmeno dirlo.
       if (result.kind === "error" && result.status === 21007) {
         console.warn("[Billing] ricevuta sandbox su StoreKit 1: percorso non supportato");
+        return jsonError(400, "jws_sandbox_not_allowed");
       }
 
       if (result.kind === "ok") {

@@ -46,6 +46,10 @@ vi.mock("@/lib/supabase/admin", () => ({
 }));
 
 import { POST } from "./route";
+import {
+  PURCHASE_DISPOSITION_CONTRACT_VERSION,
+  dispositionForCode,
+} from "@/lib/billing/purchase-disposition";
 
 const USER_ID = "4a1c7f9e-4b7a-4c3d-9f21-8b6d5e2a1c40";
 const OTHER_USER = "99999999-4b7a-4c3d-9f21-8b6d5e2a1c40";
@@ -1420,24 +1424,45 @@ describe("StoreKit 1 e Sandbox: un percorso che NON esiste, e va detto", () => {
   beforeEach(() => {
     mocks.requireUser.mockResolvedValue({ userId: USER_ID });
     mocks.readAppleSharedSecret.mockReturnValue("segreto");
+    // `body`, non `message`. Il tipo vero e'
+    // `{ kind: "error"; status: number; body: string }` (lib/billing/app-store.ts),
+    // e la route fa `result.body.slice(0, 200)` per il log.
+    //
+    // Con `message` questi test erano VERDI PER SBAGLIO: `body` era undefined,
+    // `.slice` sollevava un TypeError, il catch rispondeva 500 e l'unica
+    // asserzione — `status !== 200` — era soddisfatta da un errore interno.
+    // Passavano provando l'esatto contrario di quello che dicevano di provare.
+    // Da qui in poi si pretende la risposta per intero.
     mocks.validateAppleReceipt.mockResolvedValue({
       kind: "error",
       status: 21007,
-      message: "sandbox receipt",
+      body: "sandbox receipt",
     });
   });
+
+  /** La risposta attesa, in un posto solo: la pretendono tutti i casi. */
+  async function pretendiRifiutoDichiarato(res: Response) {
+    expect(res.status).toBe(400);
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body.error).toBe("jws_sandbox_not_allowed");
+    expect(body.contract_version).toBe(PURCHASE_DISPOSITION_CONTRACT_VERSION);
+    // client_contract_error: non si ritenta e NON si chiude. Una transazione
+    // Sandbox e' reale, e a rifiutarla siamo noi, non Apple.
+    expect(body.disposition).toBe("client_contract_error");
+  }
 
   it("la ricevuta Sandbox viene rifiutata anche a un revisore autorizzato", async () => {
     // L'account E' un revisore autorizzato: e non cambia niente lo stesso.
     mocks.rpc.mockResolvedValue({ data: true, error: null });
 
-    const res = await richiesta();
+    await pretendiRifiutoDichiarato(await richiesta());
 
-    expect(res.status).not.toBe(200);
-    // E soprattutto: NON si ritenta accettando la Sandbox. Una sola chiamata.
+    // Una sola verifica: non si ritenta accettando la Sandbox.
     expect(mocks.validateAppleReceipt).toHaveBeenCalledTimes(1);
-    expect(mocks.validateAppleReceipt).not.toHaveBeenCalledWith(
-      expect.objectContaining({ allowSandbox: true }),
+    // E il fail-closed e' DICHIARATO nella chiamata, non lasciato al default
+    // della libreria, che ricadrebbe su una variabile d'ambiente.
+    expect(mocks.validateAppleReceipt).toHaveBeenCalledWith(
+      expect.objectContaining({ allowSandbox: false }),
     );
   });
 
@@ -1445,22 +1470,36 @@ describe("StoreKit 1 e Sandbox: un percorso che NON esiste, e va detto", () => {
     // L'account E' un revisore autorizzato: e non cambia niente lo stesso.
     mocks.rpc.mockResolvedValue({ data: true, error: null });
 
-    await richiesta();
+    await pretendiRifiutoDichiarato(await richiesta());
 
     // Il difetto vero non era la risposta: era arrivare a chiedere al registro
     // una scrittura che il registro rifiuta per costruzione.
-    expect(mocks.rpc).not.toHaveBeenCalledWith(
-      "claim_store_purchase",
-      expect.anything(),
+    const claim = mocks.rpc.mock.calls.filter(
+      (c: unknown[]) => c[0] === "claim_store_purchase",
     );
+    expect(claim).toHaveLength(0);
   });
 
   it("un account qualunque riceve lo stesso trattamento", async () => {
     mocks.rpc.mockResolvedValue({ data: false, error: null });
 
-    const res = await richiesta();
+    await pretendiRifiutoDichiarato(await richiesta());
 
-    expect(res.status).not.toBe(200);
     expect(mocks.validateAppleReceipt).toHaveBeenCalledTimes(1);
+  });
+
+  it("non e' un guasto nostro: non risponde 5xx e non ritenta all'infinito", async () => {
+    // Prima di questa correzione il ramo cadeva in `apple_validation_failed`
+    // (502, retryable): un rifiuto permanente vestito da guasto temporaneo, che
+    // il client avrebbe ripresentato a ogni avvio per sempre.
+    mocks.rpc.mockResolvedValue({ data: false, error: null });
+
+    const res = await richiesta();
+    const body = (await res.json()) as Record<string, unknown>;
+
+    expect(res.status).toBeLessThan(500);
+    expect(body.error).not.toBe("apple_validation_failed");
+    expect(body.error).not.toBe("internal");
+    expect(dispositionForCode(String(body.error))).not.toBe("retryable");
   });
 });

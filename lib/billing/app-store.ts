@@ -6,12 +6,20 @@
  * Information → App-Specific Shared Secret).
  *
  * Flusso Apple canonico: si valida SEMPRE prima contro produzione; se la
- * ricevuta è sandbox Apple risponde status 21007 → retry su sandbox.
- * (Così la stessa build funziona in TestFlight/review e in produzione.)
+ * ricevuta è sandbox Apple risponde status 21007, e il flusso documentato da
+ * Apple vorrebbe che si ritentasse contro sandbox.
+ *
+ * QUI NON SI RITENTA, ed è una scelta. Una ricevuta StoreKit 1 non contiene
+ * niente che leghi l'acquisto all'account FitMesh, e il registro pretende quel
+ * legame per ogni acquisto Sandbox: la verifica riuscirebbe e il claim verrebbe
+ * rifiutato subito dopo, cioè un errore DOPO aver pagato. Il chiamante passa
+ * `allowSandbox: false` esplicito e la route risponde `jws_sandbox_not_allowed`.
+ * Vedi supabase/rollback/README-sandbox-app-review.md: App Review va fatto
+ * passare da iOS 15+, dove il plugin usa StoreKit 2 e il token c'è.
  *
  * Status codes verifyReceipt rilevanti:
  *   0     ok
- *   21007 ricevuta sandbox inviata a produzione → retry sandbox
+ *   21007 ricevuta sandbox inviata a produzione → qui: rifiuto dichiarato
  *   21008 ricevuta produzione inviata a sandbox (non ci capita col flusso sopra)
  *   21002/21003 ricevuta malformata/non autentica
  *   21010 account non trovato / ricevuta non più valida
