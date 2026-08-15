@@ -278,44 +278,71 @@ begin
 
   execute (select def || ';' from t_proiettore);
 
-  -- ── P10: una RICEVUTA LEGACY non consuma una revoca JWS ──────────────────
+  -- ── P10: una RICEVUTA LEGACY non sbarra la strada a una revoca JWS ───────
   --
-  -- Stesso difetto, seconda faccia. `apple_request_date` e' "quando abbiamo
-  -- chiesto", non una prova che il rimborso sia stato annullato: per contratto
-  -- non annulla una revoca firmata, e infatti la RPC non la applica. Ma la
-  -- postcondizione numerica la considerava vincente e buttava via la revoca.
+  -- LA VERSIONE PRECEDENTE DI QUESTO CASO ERA CIECA, e la cecita' costava un
+  -- rimborso. Asseriva che la riga in attesa SOPRAVVIVESSE, e sopravviveva:
+  -- passava. Ma nessuno guardava il diritto proiettato, e il diritto restava
+  -- `active` — per sempre, perche' quella revoca non poteva essere applicata
+  -- in nessun giro futuro. Per il cliente rimborsato, una revoca conservata e
+  -- mai applicata e una revoca buttata via sono la stessa cosa.
   --
-  -- Qui non serve nessun guasto: la RPC risponde `not_persisted` perche' ha
-  -- perso il confronto, che e' l'esito legittimo. E' proprio il caso in cui
-  -- l'esito da solo non basta a decidere, ed e' per questo che si chiede al
-  -- comparatore.
+  -- Il difetto stava nella REGOLA, non nella rete: `_billing_evidenza_supera`
+  -- diceva che una ricevuta legacy non annulla una revoca JWS gia' registrata,
+  -- ma taceva sul caso opposto, che finiva nel confronto fra timestamp. E il
+  -- piu' recente e' quasi sempre la ricevuta legacy, perche' `request_date` e'
+  -- l'istante in cui NOI abbiamo chiesto: basta che il cliente riapra l'app
+  -- dopo essere stato rimborsato.
+  --
+  -- Adesso la regola vale nei due versi e l'esito non dipende dall'ordine di
+  -- arrivo: la revoca si applica, e si asserisce il DIRITTO, non la riga.
   delete from private.billing_pending_revocations where ownership_key = v_chiave;
 
   alter table private.billing_purchase_states disable trigger billing_purchase_states_forward_only;
   update private.billing_purchase_states
      set state = 'active',
          store_event_source = 'apple_request_date',
-         store_event_at = now() + interval '30 hours',
+         store_event_at = now() - interval '1 hour',
          revocation_at = null
    where billing_source = 'apple_iap' and ownership_key = v_chiave;
   alter table private.billing_purchase_states enable trigger billing_purchase_states_forward_only;
+  perform private._billing_project_entitlement(v_utente);
 
+  select state into v_proiettato from public.b2c_subscriptions where user_id = v_utente;
+  if v_proiettato is distinct from 'active' then
+    raise exception 'P10 premessa FAIL: doveva esserci un Pro attivo da revocare (proiezione "%")', v_proiettato;
+  end if;
+
+  -- La revoca firmata da Apple, con signedDate ANTERIORE all'ultima
+  -- interrogazione verifyReceipt. E' l'ordine normale, non un caso di
+  -- laboratorio.
   insert into private.billing_pending_revocations (
     billing_source, ownership_key, external_product_id, purchase_kind,
     store_event_at, store_event_source, revocation_at
   ) values (
     'apple_iap', v_chiave, 'fitmesh_pro_lifetime', 'lifetime',
-    now() + interval '25 hours', 'apple_signed_date', now()
+    now() - interval '5 hours', 'apple_signed_date', now() - interval '5 hours'
   );
 
   perform private.billing_apply_pending_revocations();
 
+  select state into v_stato
+  from private.billing_purchase_states where ownership_key = v_chiave;
+  if v_stato is distinct from 'revoked' then
+    raise exception 'P10 FAIL: una ricevuta legacy piu'' recente ha impedito alla revoca JWS di entrare nel registro (stato "%")', v_stato;
+  end if;
+
+  select state into v_proiettato from public.b2c_subscriptions where user_id = v_utente;
+  if v_proiettato is distinct from 'expired' then
+    raise exception 'P10 FAIL: il cliente e'' stato rimborsato e il Pro e'' ancora "%"', v_proiettato;
+  end if;
+
   select count(*) into v_attese
   from private.billing_pending_revocations where ownership_key = v_chiave;
-  if v_attese <> 1 then
-    raise exception 'P10 FAIL: una ricevuta legacy piu'' recente ha consumato una revoca JWS (righe rimaste %)', v_attese;
+  if v_attese <> 0 then
+    raise exception 'P10 FAIL: la revoca e'' stata applicata ma resta in attesa (righe %)', v_attese;
   end if;
-  raise notice 'P10 PASS: una ricevuta legacy non annulla una revoca JWS, nemmeno per cancellarla';
+  raise notice 'P10 PASS: la revoca JWS entra anche se la ricevuta legacy e'' piu'' recente, e il Pro se ne va';
 
   -- Pulizia
   alter table private.billing_purchase_states disable trigger billing_purchase_states_forward_only;
