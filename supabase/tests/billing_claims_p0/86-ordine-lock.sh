@@ -409,8 +409,24 @@ GRADINI_PRIMA=$(printf '%s;\n' "$CLAIM_ORIGINALE" | perl -pe 's/--.*//' \
   | grep -c 'for key share\|for update' || true)
 GRADINI_DOPO=$(senza_commenti "${OUT}/claim-mutante.sql" \
   | grep -c 'for key share\|for update' || true)
-[ "$GRADINI_PRIMA" = "2" ] \
-  || fatal "caso1M: nella funzione vera i gradini dovevano essere 2, trovati ${GRADINI_PRIMA} — il testo e' cambiato, aggiornare il pattern"
+# Due cause possibili, e vanno dette entrambe. La prima volta che e' successo
+# il messaggio nominava solo il pattern, e ha mandato fuori strada per un
+# quarto d'ora: la causa vera era che una corsa PRECEDENTE di questo stesso
+# file era stata uccisa a meta' (il binario docker era andato in Abort trap) e
+# il suo `trap` di ripristino non era riuscito a girare, lasciando il MUTANTE
+# installato nel container condiviso. Zero gradini non vuol dire "il pattern e'
+# vecchio": vuol dire quasi sempre "qui dentro c'e' ancora la funzione mutilata
+# di ieri", e va rimessa a posto prima di qualunque altra conclusione.
+if [ "$GRADINI_PRIMA" != "2" ]; then
+  if [ "$GRADINI_PRIMA" = "0" ]; then
+    fatal "caso1M: la claim_store_purchase VIVA non ha nessun gradino di lock.
+       Non e' il pattern: e' il database. Quasi certamente una corsa precedente
+       di questo file e' stata interrotta e ha lasciato installato il mutante.
+       Ripristinare la funzione dalla migration che la definisce
+       (20260815120000_billing_autorita_unica_revoche.sql) e rilanciare."
+  fi
+  fatal "caso1M: nella funzione vera i gradini dovevano essere 2, trovati ${GRADINI_PRIMA} — il testo e' cambiato, aggiornare il pattern"
+fi
 [ "$GRADINI_DOPO" = "0" ] \
   || fatal "caso1M: la mutazione non ha tolto i due gradini (ne restano ${GRADINI_DOPO})"
 docker cp "${OUT}/claim-mutante.sql" "$CID":/tmp/claim-mutante.sql >/dev/null
