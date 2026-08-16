@@ -115,13 +115,31 @@ begin
       v_stato, v_attese, v_proiettato;
   end if;
 
-  if v_stato = 'active' and v_attese = 1 then
-    raise notice 'OK: il claim ha vinto ma la revoca resta in attesa (diritto "%")', v_proiettato;
-  elsif v_stato = 'revoked' then
-    raise notice 'OK: la revoca ha vinto (diritto "%")', v_proiettato;
-  else
-    raise exception 'FAIL: combinazione inattesa — stato "%", in attesa %', v_stato, v_attese;
+  -- A PARITA' DI EVIDENZA LA REVOCA VINCE, e questo caso lo pretende.
+  --
+  -- La prima stesura accettava anche "il claim ha vinto ma la revoca resta in
+  -- attesa": sembrava prudente, e invece era cieca due volte. Lasciava passare
+  -- il ritorno al maggiore STRETTO nel comparatore — con cui il rimborso non
+  -- entra mai e la riga viene ririprovata ogni dieci minuti per sempre, mentre
+  -- il cliente rimborsato resta Pro — e rendeva innocua la DELETE
+  -- incondizionata, perche' con la revoca applicata dall'UPSERT quella DELETE
+  -- non toglie piu' niente di importante. Due mutazioni sopravvivevano.
+  --
+  -- Un rimborso a parita' di istante non e' un caso ambiguo da conservare: e'
+  -- un rimborso. Va applicato.
+  if v_stato is distinct from 'revoked' then
+    raise exception
+      'FAIL: sul pareggio la revoca ha perso. Stato registrato "%", righe in attesa %, diritto proiettato "%". A parita'' di evidenza il rimborso deve vincere, altrimenti non entra mai e la riga resta bloccata a ogni giro del cron.',
+      v_stato, v_attese, v_proiettato;
   end if;
+  if v_attese <> 0 then
+    raise exception 'FAIL: revoca applicata ma la riga in attesa e'' ancora li'' (righe = %)', v_attese;
+  end if;
+  if v_proiettato is distinct from 'expired' then
+    raise exception 'FAIL: revoca applicata e il Pro e'' ancora "%"', v_proiettato;
+  end if;
+
+  raise notice 'OK: sul pareggio la revoca vince, la riga e'' consumata, il Pro e'' tolto';
 end $$;
 
 rollback;

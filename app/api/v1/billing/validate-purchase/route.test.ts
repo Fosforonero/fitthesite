@@ -19,7 +19,20 @@ const mocks = vi.hoisted(() => ({
   rpc: vi.fn(),
   validateAppleReceipt: vi.fn(),
   readAppleSharedSecret: vi.fn(),
+  readServiceAccount: vi.fn(),
+  validateProduct: vi.fn(),
+  validateSubscription: vi.fn(),
 }));
+
+vi.mock("@/lib/billing/google-play", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("@/lib/billing/google-play")>();
+  return {
+    ...actual,
+    readServiceAccount: mocks.readServiceAccount,
+    validateProduct: mocks.validateProduct,
+    validateSubscription: mocks.validateSubscription,
+  };
+});
 
 vi.mock("@/lib/api/auth-helpers", async (importOriginal) => {
   const actual = await importOriginal<typeof import("@/lib/api/auth-helpers")>();
@@ -1501,5 +1514,140 @@ describe("StoreKit 1 e Sandbox: un percorso che NON esiste, e va detto", () => {
     expect(body.error).not.toBe("apple_validation_failed");
     expect(body.error).not.toBe("internal");
     expect(dispositionForCode(String(body.error))).not.toBe("retryable");
+  });
+});
+
+/**
+ * LA MATRICE `purchaseState` DI GOOGLE, TUTTA E TRE.
+ *
+ * `purchaseState`: 0 acquistato, 1 ANNULLATO, 2 in attesa di pagamento.
+ *
+ * Il caso 1 entrava nel registro dal percorso della PROPRIETA' invece che da
+ * quello del RIMBORSO: `productFacts` restituiva `state: 'cancelled'` e la
+ * route chiamava `claim_store_purchase`. Due conseguenze, entrambe pesanti:
+ * le regole di precedenza fra evidenze vivono sul percorso della revoca e non
+ * venivano mai applicate, e un rimborso arrivato PRIMA del claim non aveva
+ * dove aspettare, perche' la rete di riserva la alimenta solo quel percorso.
+ *
+ * Ed e' il motivo per cui oggi lato Play non esiste NESSUN canale di revoca:
+ * ne' questo, ne' voidedPurchases, ne' RTDN.
+ */
+describe("Google: purchaseState 0 / 1 / 2", () => {
+  const GOOGLE_TOKEN = "token-play-abcdefghijklmnop";
+
+  function reqGoogle(): Request {
+    return req190({
+      product_id: LIFETIME,
+      purchase_token: GOOGLE_TOKEN,
+      package_name: "com.fitmeshsync.app",
+      platform: "android",
+    });
+  }
+
+  function rispostaPlay(purchaseState: 0 | 1 | 2) {
+    return {
+      kind: "ok_product" as const,
+      data: {
+        purchaseState,
+        orderId: "GPA.0000-0000-0000-00000",
+        purchaseTimeMillis: "1754400000000",
+        acknowledgementState: 1,
+      },
+    };
+  }
+
+  beforeEach(() => {
+    mocks.requireUser.mockResolvedValue({ userId: USER_ID });
+    mocks.readServiceAccount.mockReturnValue({
+      client_email: "test@esempio.invalid",
+      private_key: "chiave-finta",
+    });
+    mocks.rpc.mockResolvedValue({
+      data: {
+        outcome: "claimed",
+        billingSource: "google_play",
+        stateApplied: true,
+        ownerDeleted: false,
+        entitlement: {
+          projected: true,
+          source: "google_play",
+          productId: LIFETIME,
+          state: "active",
+          activeUntil: "9999-12-31T23:59:59+00:00",
+          autoRenewing: false,
+          isLifetime: true,
+          protectedFounderRow: false,
+        },
+      },
+      error: null,
+    });
+  });
+
+  it("0 acquistato: passa dal claim e concede il diritto", async () => {
+    mocks.validateProduct.mockResolvedValue(rispostaPlay(0));
+
+    const res = await POST(reqGoogle());
+    const body = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(body.state).toBe("active");
+    const chiamate = mocks.rpc.mock.calls.map((c) => c[0]);
+    expect(chiamate).toContain("claim_store_purchase");
+    expect(chiamate).not.toContain("record_store_purchase_revocation");
+  });
+
+  it("1 annullato: passa dalla REVOCA, mai dal claim, e non concede niente", async () => {
+    mocks.validateProduct.mockResolvedValue(rispostaPlay(1));
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "revoked", applied: true, persisted: true, entitlement: null },
+      error: null,
+    });
+
+    const res = await POST(reqGoogle());
+    const body = await res.json();
+
+    const chiamate = mocks.rpc.mock.calls.map((c) => c[0]);
+    expect(chiamate).toContain("record_store_purchase_revocation");
+    expect(chiamate).not.toContain("claim_store_purchase");
+
+    expect(res.status).toBe(200);
+    expect(body.state).not.toBe("active");
+    expect(body.state).toBe("expired");
+    // Terminale: insistere su un acquisto annullato non puo' servire, e la
+    // transazione va chiusa invece che ripresentata a ogni avvio.
+    expect(body.disposition).toBe("store_verified_terminal_rejection");
+  });
+
+  it("2 in attesa di pagamento: la proprieta' si registra, il diritto no", async () => {
+    mocks.validateProduct.mockResolvedValue(rispostaPlay(2));
+    mocks.rpc.mockResolvedValue({
+      data: {
+        outcome: "claimed",
+        billingSource: "google_play",
+        stateApplied: true,
+        ownerDeleted: false,
+        entitlement: {
+          projected: true,
+          source: "google_play",
+          productId: LIFETIME,
+          state: "on_hold",
+          activeUntil: "9999-12-31T23:59:59+00:00",
+          autoRenewing: false,
+          isLifetime: false,
+          protectedFounderRow: false,
+        },
+      },
+      error: null,
+    });
+
+    const res = await POST(reqGoogle());
+    const body = await res.json();
+
+    // La proprieta' SI registra: quella transazione e' sua e nessun altro
+    // deve poterla reclamare mentre il pagamento e' in corso.
+    expect(mocks.rpc.mock.calls.map((c) => c[0])).toContain("claim_store_purchase");
+    // Ma il diritto arriva col pagamento, non con la promessa.
+    expect(body.state).not.toBe("active");
+    expect(body.disposition).not.toBe("verified");
   });
 });

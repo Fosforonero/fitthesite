@@ -39,6 +39,11 @@ run_sql() {
     psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/suite_under_test.sql
 }
 
+# PRIMA DI TUTTO: che la suite esegua davvero cio' che il repository contiene.
+echo ""
+echo "### 00-guardrail-suite-completa.sh"
+bash "$DIR/00-guardrail-suite-completa.sh"
+
 run_sql 10-functional-tests.sql
 run_sql 20-ownership-persistence-tests.sql
 run_sql 25-payload-sanitization-tests.sql
@@ -63,6 +68,12 @@ run_sql 88-sandbox-revisori.sql
 # La revoca che aspetta il suo acquisto, e il cancello Sandbox come vincolo
 # della tabella invece che controllo della route.
 run_sql 89-attesa-e-sandbox.sql
+# Il PAREGGIO di store_event_at: il claim e la revoca nello stesso istante, che
+# e' cio' che la route legacy genera passando un solo requestDateMs a entrambe
+# le chiamate. Era RED e mai eseguito da nessuno.
+run_sql 91-red-pareggio-claim.sql
+# L'autorita' e' una sola, e nel dubbio la riga in attesa resta.
+run_sql 92-autorita-unica-revoche.sql
 
 # Questi due aprono connessioni proprie: la corsa a due connessioni reali non
 # si puo' simulare dentro una singola sessione psql.

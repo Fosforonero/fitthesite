@@ -1017,6 +1017,53 @@ export async function POST(req: Request): Promise<Response> {
         throw e;
       }
       const facts = productFacts(result.data);
+
+      // ANNULLATO NON E' UNO STATO DA RECLAMARE: E' UNA REVOCA.
+      //
+      // `purchaseState = 1` significa che Google ha annullato o rimborsato
+      // quell'acquisto. Finiva qui dentro come un claim con `state:
+      // 'cancelled'`, cioe' entrava nel registro dal percorso della
+      // PROPRIETA' invece che da quello del RIMBORSO. Le conseguenze sono
+      // due, ed entrambe pesano:
+      //
+      //   * le regole di precedenza fra evidenze — quelle che decidono se un
+      //     rimborso batte un acquisto e viceversa — vivono sul percorso
+      //     della revoca. Passando dal claim non venivano mai applicate;
+      //   * un rimborso che arriva PRIMA del claim non aveva dove aspettare:
+      //     la rete di riserva `billing_pending_revocations` la alimenta solo
+      //     il percorso della revoca.
+      //
+      // Su Apple questo percorso esiste da sempre (registraAnnullate). Su
+      // Google no, ed e' il motivo per cui oggi non esiste NESSUN canale di
+      // revoca lato Play: ne' questo, ne' voidedPurchases, ne' RTDN.
+      if (facts.state === "cancelled") {
+        const esito = await recordStorePurchaseRevocation(admin, {
+          billingSource: "google_play",
+          ownershipKey,
+          productId: product_id,
+          purchaseKind: "lifetime",
+          storeEventAt: fetchedAt,
+          storeEventSource: GOOGLE_EVENT_SOURCE,
+          // Play non espone quando l'annullamento e' diventato efficace su
+          // questa risorsa: si dichiara solo la freschezza della fotografia.
+          revocationAt: null,
+        });
+        // Nessun 200 "active": l'acquisto e' annullato. La risposta non e'
+        // nemmeno un errore del client — la validazione ha funzionato, la
+        // risposta e' che quel diritto non c'e'.
+        return jsonOk({
+          state: "expired",
+          active_until: new Date(0).toISOString(),
+          source: "google_play",
+          auto_renewing: false,
+          contract_version: PURCHASE_DISPOSITION_CONTRACT_VERSION,
+          // Terminale: insistere su un acquisto annullato non puo' servire.
+          // La transazione va chiusa, non ripresentata.
+          disposition:
+            esito.kind === "recorded" ? "store_verified_terminal_rejection" : "retryable",
+        });
+      }
+
       return responseForClaim(
         await claimStorePurchase(admin, {
           billingSource: "google_play",
