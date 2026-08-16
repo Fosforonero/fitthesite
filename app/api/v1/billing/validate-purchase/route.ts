@@ -172,6 +172,40 @@ export async function POST(req: Request): Promise<Response> {
   const admin = createAdminClient() as unknown as Sb;
   const isSubscription = product_id === PRODUCT_SUBSCRIPTION;
 
+  // ── La traccia del tentativo, PRIMA di provare a validare ───────────────
+  //
+  // Da qui in giu' ci sono quattordici punti di ritorno, e almeno cinque
+  // possono lasciare l'utente pagato e non servito: lo store che risponde 502,
+  // la ricevuta che non contiene l'acquisto, e soprattutto `upsert_failed` —
+  // lo store ha confermato e noi non siamo riusciti a scrivere. In nessuno di
+  // quei casi restava traccia sul server: solo un log su Vercel, che scade.
+  // E' gia' costato un cliente.
+  //
+  // Si scrive PRIMA della validazione di proposito. Scriverla dopo perderebbe
+  // esattamente i casi che deve catturare.
+  //
+  // QUESTO BLOCCO NON PUO' CAMBIARE L'ESITO DELLA RICHIESTA. L'unico modo in
+  // cui puo' fallire e' non lasciando la traccia; non deve mai essere il
+  // motivo per cui un pagamento non va a buon fine. Per questo l'errore si
+  // registra e si prosegue, invece di propagarlo.
+  // La tabella vive in `private`, che non e' esposto all'API: si passa da una
+  // funzione in `public` concessa alla sola service_role, cosi' nessun client
+  // puo' scrivere tentativi a nome di altri.
+  try {
+    const { error: tracciaErr } = await admin.rpc("registra_tentativo_acquisto", {
+      p_user_id: userId,
+      p_piattaforma: platform,
+      p_product_id: product_id,
+    });
+    if (tracciaErr) {
+      console.error("[Billing] traccia_tentativo_fallita", { code: tracciaErr.code });
+    }
+  } catch (e) {
+    console.error("[Billing] traccia_tentativo_eccezione", {
+      tipo: e instanceof Error ? e.name : "sconosciuto",
+    });
+  }
+
   // ── Ramo Apple (iOS) ─────────────────────────────────────────────────
   if (platform === "ios") {
     if (!readAppleSharedSecret()) {
