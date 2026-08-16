@@ -31,7 +31,16 @@ fi
 # solo, gli altri tre esistevano sul disco e non venivano mai eseguiti: una
 # suite che copre meno di quanto sembra e' peggio di una che non esiste,
 # perche' il suo verde viene creduto.
+# REGISTRO DI ESECUZIONE. Ogni file che gira davvero finisce qui dentro, e in
+# fondo al file il guardrail lo confronta col contenuto della directory.
+#
+# Prima il guardrail cercava i NOMI dentro questo script: commentare una riga
+# lasciandone il nome bastava a spegnerla senza che nessuno se ne accorgesse.
+# Un nome scritto e' un'intenzione; questo elenco e' un fatto.
+ESEGUITI=""
+
 run_sql() {
+  ESEGUITI="$ESEGUITI $1"
   echo ""
   echo "### $1"
   docker cp "$DIR/$1" "$CID":/tmp/suite_under_test.sql >/dev/null
@@ -39,10 +48,19 @@ run_sql() {
     psql -U postgres -d postgres -v ON_ERROR_STOP=1 -f /tmp/suite_under_test.sql
 }
 
+# Gemella per i file .sh: prima erano nove coppie echo/bash scritte a mano, e
+# cancellare la riga `bash` lasciando l'`echo` stampava l'intestazione di un
+# file che non girava. Con una funzione sola, l'intestazione e l'esecuzione non
+# si possono piu' separare.
+run_sh() {
+  ESEGUITI="$ESEGUITI $1"
+  echo ""
+  echo "### $1"
+  bash "$DIR/$1"
+}
+
 # PRIMA DI TUTTO: che la suite esegua davvero cio' che il repository contiene.
-echo ""
-echo "### 00-guardrail-suite-completa.sh"
-bash "$DIR/00-guardrail-suite-completa.sh"
+run_sh 00-guardrail-suite-completa.sh
 
 run_sql 10-functional-tests.sql
 run_sql 20-ownership-persistence-tests.sql
@@ -77,36 +95,24 @@ run_sql 92-autorita-unica-revoche.sql
 
 # Questi due aprono connessioni proprie: la corsa a due connessioni reali non
 # si puo' simulare dentro una singola sessione psql.
-echo ""
-echo "### 30-backfill-tests.sh"
-bash "$DIR/30-backfill-tests.sh"
+run_sh 30-backfill-tests.sh
 
-echo ""
-echo "### 35-backfill-fixtures.sh"
-bash "$DIR/35-backfill-fixtures.sh"
+run_sh 35-backfill-fixtures.sh
 
-echo ""
-echo "### 40-concurrency.sh"
-bash "$DIR/40-concurrency.sh"
+run_sh 40-concurrency.sh
 
-echo ""
-echo "### 55-concurrency-entitlement.sh"
-bash "$DIR/55-concurrency-entitlement.sh"
+run_sh 55-concurrency-entitlement.sh
 
 # La corsa fra una scrittura di compatibilita' in volo e il passaggio a strict.
 # Anche questo apre connessioni proprie, e misura l'attesa: senza quella
 # misura, l'esito giusto potrebbe essere un caso.
-echo ""
-echo "### 85-corsa-strict.sh"
-bash "$DIR/85-corsa-strict.sh"
+run_sh 85-corsa-strict.sh
 
 # L'ordine dei lock, provato con l'UPSERT letterale della 189 e con la
 # cancellazione account. Tre e quattro sessioni reali: la pausa che serve a
 # fermare una funzione atomica a meta' arriva da un advisory lock tenuto da
 # fuori, non da una modifica al codice sotto prova.
-echo ""
-echo "### 86-ordine-lock.sh"
-bash "$DIR/86-ordine-lock.sh"
+run_sh 86-ordine-lock.sh
 
 # I rollback, ESEGUITI. Dentro una transazione che si annulla, quindi il
 # database resta identico; ma i drop vengono provati per davvero, ed e' cosi'
@@ -114,10 +120,13 @@ bash "$DIR/86-ordine-lock.sh"
 # una migration mancava del tutto il rollback.
 # Il GDPR VERO contro il claim, con la mutazione che prova che il test sa
 # vedere il deadlock che dichiara di sorvegliare.
-echo ""
-echo "### 90-gdpr-ordine-lock.sh"
-bash "$DIR/90-gdpr-ordine-lock.sh"
+run_sh 90-gdpr-ordine-lock.sh
 
-echo ""
-echo "### 87-rollback-verificato.sh"
-bash "$DIR/87-rollback-verificato.sh"
+run_sh 87-rollback-verificato.sh
+
+# ULTIMA ISTRUZIONE, e deve restare l'ultima: il conto si chiude qui.
+#
+# Il guardrail riceve il registro di cio' che e' stato eseguito davvero e lo
+# confronta con la directory. Se un file esiste e non e' passato di qui, la
+# suite fallisce — anche se il suo nome comparisse altrove in questo script.
+bash "$DIR/00-guardrail-suite-completa.sh" --eseguiti $ESEGUITI
