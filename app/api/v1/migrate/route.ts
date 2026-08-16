@@ -30,6 +30,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 
 import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
+import { sanitizeSourceDevice } from "@/lib/health/source-device";
 
 // database.types stale — vedi sync/route.ts
 type Sb = SupabaseClient;
@@ -172,7 +173,9 @@ function mapLegacyRecord(
     intraday_calories: get("intradayCalories") ?? get("intraday_calories"),
     sleep_stages: get("sleepStages") ?? get("sleep_stages"),
     exercise_sessions: get("exerciseSessionsJson") ?? get("exercise_sessions"),
-    source_device: get("sourceDevice") ?? get("source_device"),
+    source_device: sanitizeSourceDevice(
+      (get("sourceDevice") ?? get("source_device")) as string | null,
+    ),
     source_package: get("sourcePackage") ?? get("source_package"),
   };
 }

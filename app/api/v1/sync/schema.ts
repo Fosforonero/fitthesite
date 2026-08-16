@@ -5,6 +5,8 @@
  */
 import { z } from "zod";
 
+import { sanitizeSourceDevice } from "@/lib/health/source-device";
+
 /** Parsa stringhe JSON in oggetti, passa through se già objects/arrays. */
 function _parseJsonString(val: unknown): unknown {
   if (typeof val !== "string") return val;
@@ -264,7 +266,10 @@ export function buildFitnessMetricsRow(
     intraday_calories: p.intradayCaloriesJson ?? p.intradayCalories ?? null,
     sleep_stages: p.sleepStagesJson ?? p.sleepStages ?? null,
     exercise_sessions: p.exerciseSessionsJson ?? null,
-    source_device: p.sourceDevice ?? null,
+    // Il nome del dispositivo arriva come lo ha scritto l'utente e contiene
+    // quasi sempre il suo nome di battesimo. Si toglie QUI, all'ingresso:
+    // e' l'unico punto che vale anche per le app gia' installate.
+    source_device: sanitizeSourceDevice(p.sourceDevice),
     source_package: p.sourcePackage ?? null,
     hr_source_name: p.hrSourceName ?? null,
     hr_source_quality: p.hrSourceQuality ?? null,
