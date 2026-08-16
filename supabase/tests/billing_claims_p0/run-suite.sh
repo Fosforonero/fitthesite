@@ -92,6 +92,9 @@ run_sql 89-attesa-e-sandbox.sql
 run_sql 91-red-pareggio-claim.sql
 # L'autorita' e' una sola, e nel dubbio la riga in attesa resta.
 run_sql 92-autorita-unica-revoche.sql
+# Il pareggio nel verso OPPOSTO: un `active` non riaccende un rimborso. 91 non
+# lo osserva mai, perche' costruisce il pareggio con l'acquisto non reclamato.
+run_sql 93-pareggio-verso-opposto.sql
 
 # Questi due aprono connessioni proprie: la corsa a due connessioni reali non
 # si puo' simulare dentro una singola sessione psql.
