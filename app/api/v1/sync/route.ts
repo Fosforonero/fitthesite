@@ -103,6 +103,34 @@ export async function POST(req: Request) {
   const sb = auth.supabase as unknown as Sb;
   mark("auth", tAuth);
 
+  // ── 1.5. Diritto a scrivere dati salute ─────────────────────────────
+  //
+  // Questo NON e' la difesa: la difesa sono le policy RLS, che chiamano la
+  // stessa funzione e reggono anche se domani nasce un endpoint nuovo o un
+  // client alternativo (migration 20260816150000, provata impersonando utenti
+  // veri). Qui si traduce quel rifiuto in una risposta che l'app sa leggere,
+  // invece di un errore di permesso dentro l'upsert.
+  //
+  // Si blocca l'INGRESSO, non l'accesso: le SELECT restano aperte, quindi chi
+  // perde il diritto continua a vedere il proprio storico e puo' tornare.
+  // Il pairing non passa di qui.
+  //
+  // In caso di guasto della RPC si LASCIA PASSARE: le policy negano comunque,
+  // e negare per un errore di rete significherebbe togliere il servizio a chi
+  // paga per un difetto nostro. La difesa che non si puo' aggirare sta sotto.
+  const tEntitlement = performance.now();
+  const { data: haDiritto, error: entErr } = await sb.rpc(
+    "user_has_active_entitlement",
+    { p_user_id: userId },
+  );
+  mark("entitlement", tEntitlement);
+
+  if (entErr) {
+    console.error("[sync] entitlement_check_failed", { code: entErr.code });
+  } else if (haDiritto !== true) {
+    return jsonError(403, "entitlement_required");
+  }
+
   // ── 2. Device lookup ────────────────────────────────────────────────
   const fingerprint = req.headers.get("x-device-fingerprint");
   if (!fingerprint) return jsonError(400, "missing_device_fingerprint");

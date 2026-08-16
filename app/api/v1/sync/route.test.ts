@@ -19,6 +19,7 @@ const mocks = vi.hoisted(() => ({
   upsertMetrics: vi.fn(),
   upsertWorkouts: vi.fn(),
   founderRpc: vi.fn(),
+  entitlementRpc: vi.fn(),
   deviceUpdateEq: vi.fn(),
   limitSync: vi.fn(),
 }));
@@ -70,6 +71,7 @@ vi.mock("@supabase/supabase-js", () => {
       rpc: (name: string, params: unknown) => {
         if (name === "upsert_fitness_metrics_v189") return mocks.upsertMetrics(params);
         if (name === "upsert_workouts_v189") return mocks.upsertWorkouts(params);
+        if (name === "user_has_active_entitlement") return mocks.entitlementRpc(params);
         return mocks.founderRpc(name, params);
       },
     }),
@@ -114,6 +116,7 @@ describe("POST /api/v1/sync — Founder P0 RPC wiring (route reale, non solo hel
       data: { id: "device-1", os_version: null },
       error: null,
     });
+    mocks.entitlementRpc.mockResolvedValue({ data: true, error: null });
     mocks.upsertMetrics.mockResolvedValue({ data: 42, error: null });
     mocks.upsertWorkouts.mockResolvedValue({ data: 1, error: null });
     mocks.deviceUpdateEq.mockResolvedValue({ data: null, error: null });
@@ -258,6 +261,7 @@ describe("Sprint 189-RC2 — canonical upsert wiring", () => {
       data: { id: "device-1", os_version: null },
       error: null,
     });
+    mocks.entitlementRpc.mockResolvedValue({ data: true, error: null });
     mocks.upsertMetrics.mockResolvedValue({ data: 42, error: null });
     mocks.upsertWorkouts.mockResolvedValue({ data: 1, error: null });
     mocks.founderRpc.mockResolvedValue({ data: { transitionAccepted: true }, error: null });
@@ -363,6 +367,7 @@ describe("Sprint P0.10C — rate limit spostato nella route (prima di auth/devic
       error: null,
     });
     mocks.deviceMaybeSingle.mockResolvedValue({ data: { id: "device-1", os_version: null }, error: null });
+    mocks.entitlementRpc.mockResolvedValue({ data: true, error: null });
     mocks.upsertMetrics.mockResolvedValue({ data: 42, error: null });
     mocks.upsertWorkouts.mockResolvedValue({ data: 1, error: null });
     mocks.deviceUpdateEq.mockResolvedValue({ data: null, error: null });
@@ -425,5 +430,74 @@ describe("Sprint P0.10C — rate limit spostato nella route (prima di auth/devic
 
     expect(res.status).toBe(200);
     expect(mocks.getUser).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("P0 — senza diritto non entrano dati salute nuovi", () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    mocks.limitSync.mockResolvedValue({ allowed: true, limit: 60, remaining: 59 });
+    mocks.getUser.mockResolvedValue({
+      data: { user: { id: "11111111-1111-4111-8111-111111111111" } },
+      error: null,
+    });
+    mocks.deviceMaybeSingle.mockResolvedValue({
+      data: { id: "22222222-2222-4222-8222-222222222222", os_version: "Android 14" },
+      error: null,
+    });
+    mocks.entitlementRpc.mockResolvedValue({ data: true, error: null });
+    mocks.upsertMetrics.mockResolvedValue({ data: 42, error: null });
+    mocks.upsertWorkouts.mockResolvedValue({ data: 1, error: null });
+    mocks.founderRpc.mockResolvedValue({ data: { transitionAccepted: true }, error: null });
+    mocks.deviceUpdateEq.mockResolvedValue({ data: null, error: null });
+  });
+
+  it("prova scaduta: 403 entitlement_required, e NIENTE viene scritto", async () => {
+    mocks.entitlementRpc.mockResolvedValue({ data: false, error: null });
+
+    const res = await POST(makeRequest(BASE_PAYLOAD));
+
+    expect(res.status).toBe(403);
+    expect((await res.json()).error).toBe("entitlement_required");
+    // Il punto non e' il codice di stato: e' che l'ingest non parta.
+    expect(mocks.upsertMetrics).not.toHaveBeenCalled();
+    expect(mocks.upsertWorkouts).not.toHaveBeenCalled();
+  });
+
+  it("founder o pagante: passa e scrive esattamente come prima", async () => {
+    const res = await POST(makeRequest(BASE_PAYLOAD));
+
+    expect(res.status).toBe(200);
+    expect(mocks.upsertMetrics).toHaveBeenCalledTimes(1);
+  });
+
+  it("il controllo chiede il diritto DELL'UTENTE AUTENTICATO, non uno dichiarato dal client", async () => {
+    // Se un giorno l'identita' arrivasse dal corpo della richiesta, questo
+    // caso morirebbe. Il diritto si valuta su chi ha il token, sempre.
+    await POST(makeRequest({ ...BASE_PAYLOAD, userId: "33333333-3333-4333-8333-333333333333" }));
+
+    expect(mocks.entitlementRpc).toHaveBeenCalledWith({
+      p_user_id: "11111111-1111-4111-8111-111111111111",
+    });
+  });
+
+  it("se il controllo va in errore si LASCIA PASSARE, perche' sotto c'e' la RLS", async () => {
+    // Negare per un guasto nostro significherebbe togliere il servizio a chi
+    // paga. Le policy negano comunque: la difesa non e' questa.
+    mocks.entitlementRpc.mockResolvedValue({ data: null, error: { code: "57014" } });
+
+    const res = await POST(makeRequest(BASE_PAYLOAD));
+
+    expect(res.status).toBe(200);
+    expect(mocks.upsertMetrics).toHaveBeenCalledTimes(1);
+  });
+
+  it("il diritto si controlla PRIMA di scrivere, non dopo", async () => {
+    mocks.entitlementRpc.mockResolvedValue({ data: false, error: null });
+    await POST(makeRequest(BASE_PAYLOAD));
+
+    const ordine = mocks.entitlementRpc.mock.invocationCallOrder[0];
+    expect(ordine).toBeDefined();
+    expect(mocks.upsertMetrics.mock.invocationCallOrder).toHaveLength(0);
   });
 });
