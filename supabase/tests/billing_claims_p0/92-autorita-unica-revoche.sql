@@ -147,4 +147,59 @@ begin
   raise notice 'B PASS: la DELETE vive solo dentro private._billing_consuma_pending';
 end $$;
 
+
+-- ── C. Nessuno riscrive a mano la regola di precedenza ─────────────────────
+--
+-- La sorella di B, sull'altra meta' del problema. B impedisce una seconda
+-- CANCELLAZIONE; questo impedisce una seconda REGOLA.
+--
+-- Sono due difetti diversi con la stessa forma, e li abbiamo visti entrambi:
+-- 20260814080000 confrontava `s.store_event_at > r.store_event_at`, equivalente
+-- al comparatore il giorno in cui fu scritto, ed e' diventato sbagliato quando
+-- al comparatore sono stati aggiunti i rami dei segnaposto e della revoca JWS.
+-- L'UPSERT sulle pending aveva la stessa forma, con `<`.
+--
+-- Una copia della regola non diverge quando la scrivi. Diverge quando cambi
+-- l'originale, e a quel punto nessuno si ricorda che esisteva.
+do $$
+declare
+  r record;
+  v_fuori text[] := '{}';
+begin
+  raise notice '########### UNA SOLA REGOLA DI PRECEDENZA ###########';
+
+  for r in
+    select n.nspname || '.' || p.proname as nome, l.riga
+    from pg_proc p
+    join pg_namespace n on n.oid = p.pronamespace,
+    lateral (
+      select btrim(x) as riga
+      from regexp_split_to_table(p.prosrc, E'\n') x
+      -- Due valori di evidenza messi a confronto direttamente.
+      where lower(x) ~ 'store_event_at\s*[<>]'
+        -- I commenti non sono codice: una riga che comincia per `--` racconta,
+        -- non decide. Senza questa riga il controllo segnala il commento
+        -- storico dentro il trigger forward-only, che e' un falso positivo.
+        and btrim(x) not like '--%'
+    ) l
+    where n.nspname in ('public', 'private', 'internal')
+  loop
+    -- UNICA ECCEZIONE AMMESSA, e con la ragione scritta accanto: il controllo
+    -- di sanita' sul futuro dentro claim_store_purchase. Non confronta due
+    -- evidenze fra loro, confronta UNA evidenza con l'orologio, e serve a
+    -- rifiutare un timestamp che nessuno store puo' aver prodotto.
+    if r.riga not like '%pg_catalog.now()%' then
+      v_fuori := array_append(v_fuori, r.nome || ' -> ' || left(r.riga, 90));
+    end if;
+  end loop;
+
+  if array_length(v_fuori, 1) > 0 then
+    raise exception
+      'C FAIL: % confronti fra evidenze scritti a mano invece di chiamare private._billing_evidenza_supera: %',
+      array_length(v_fuori, 1), array_to_string(v_fuori, ' | ');
+  end if;
+
+  raise notice 'C PASS: la precedenza la decide solo _billing_evidenza_supera';
+end $$;
+
 rollback;
