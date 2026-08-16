@@ -13,8 +13,25 @@
 --    Questo non si prova leggendo i file delle migration: quelle sono storia,
 --    e le vecchie contengono legittimamente la DELETE che oggi non si deve
 --    piu' fare. Si prova sui corpi VIVI in pg_proc, che sono cio' che gira.
---    Esaustivo, non campionato, e non si puo' aggirare aggiungendo una
---    funzione nuova: la troverebbe comunque.
+--    Esaustivo sulle funzioni, non campionato.
+--
+--    NON e' inaggirabile, e la prima stesura lo dichiarava. Una review l'ha
+--    smentita con quattro esche: ne vedeva DUE su quattro. Sfuggivano
+--    `set search_path to 'private'` seguito da una DELETE non qualificata, e
+--    la qualificazione spezzata su due righe — dove la normalizzazione degli
+--    spazi non salvava il caso, lo CREAVA, trasformando `private.\n  tabella`
+--    in `private. tabella`. Entrambe sono SQL valido.
+--
+--    Adesso il confronto e' una espressione regolare che ammette `only`, la
+--    qualificazione facoltativa, gli spazi attorno al punto e le virgolette.
+--    Restano fuori portata forme piu' ostinate — SQL costruito a runtime ed
+--    eseguito con EXECUTE, o un altro nome di schema in search_path — e non
+--    si dichiara di coprirle. La rete definitiva sarebbe un trigger
+--    BEFORE DELETE con un lasciapassare `set local` riservato all'autorita'.
+--
+--    B2 verifica che questo controllo sappia davvero vedere cio' che sorveglia,
+--    con quattro esche costruite apposta: senza, un controllo che non trova
+--    niente e un controllo rotto hanno lo stesso aspetto.
 --
 -- Tutto dentro una transazione chiusa da ROLLBACK: il container e' condiviso.
 -- ============================================================================
@@ -121,8 +138,12 @@ begin
     where n.nspname in ('public', 'private', 'internal')
       -- Il corpo, normalizzato: spazi variabili e a capo non devono far
       -- sfuggire una scrittura. Si cerca la tabella, non una formattazione.
+      --
+      -- La forma ammette `only`, lo schema facoltativo (una DELETE non
+      -- qualificata sotto `set search_path to 'private'` colpisce la stessa
+      -- tabella), gli spazi attorno al punto e le virgolette.
       and regexp_replace(lower(p.prosrc), '\s+', ' ', 'g')
-          like '%delete from private.billing_pending_revocations%'
+          ~ 'delete +from +(only +)?("?private"? *\. *)?"?billing_pending_revocations"?'
   loop
     if r.nome <> 'private._billing_consuma_pending' then
       v_fuori := array_append(v_fuori, r.nome);
@@ -145,6 +166,65 @@ begin
   end if;
 
   raise notice 'B PASS: la DELETE vive solo dentro private._billing_consuma_pending';
+end $$;
+
+
+-- ── B2. Il controllo sa vedere cio' che sorveglia ──────────────────────────
+--
+-- Un controllo che non trova niente e un controllo rotto danno lo stesso
+-- esito. Qui si creano quattro funzioni-esca, ognuna con una forma diversa
+-- della stessa scrittura, e si pretende che le trovi TUTTE E QUATTRO. Le due
+-- di mezzo sono esattamente quelle con cui la review ha aggirato la versione
+-- precedente. Le esche vivono dentro la transazione e spariscono col ROLLBACK.
+do $$
+declare
+  v_viste int;
+  v_attese int := 4;
+begin
+  raise notice '########### IL CONTROLLO SA VEDERE? ###########';
+
+  -- 1. forma canonica
+  execute $esca$
+    create or replace function private._esca_1() returns void language plpgsql as $f$
+    begin delete from private.billing_pending_revocations where false; end $f$
+  $esca$;
+
+  -- 2. non qualificata, sotto search_path: colpisce la stessa tabella
+  execute $esca$
+    create or replace function private._esca_2() returns void language plpgsql
+    set search_path to 'private' as $f$
+    begin delete from billing_pending_revocations where false; end $f$
+  $esca$;
+
+  -- 3. qualificazione spezzata su due righe: la normalizzazione degli spazi
+  --    la trasforma in `private. billing_pending_revocations`
+  execute $esca$
+    create or replace function private._esca_3() returns void language plpgsql as $f$
+    begin delete from private.
+      billing_pending_revocations where false; end $f$
+  $esca$;
+
+  -- 4. con ONLY e le virgolette
+  execute $esca$
+    create or replace function private._esca_4() returns void language plpgsql as $f$
+    begin delete from only "private"."billing_pending_revocations" where false; end $f$
+  $esca$;
+
+  select count(*) into v_viste
+  from pg_proc p
+  join pg_namespace n on n.oid = p.pronamespace
+  where n.nspname in ('public', 'private', 'internal')
+    and p.proname like '\_esca\_%'
+    and regexp_replace(lower(p.prosrc), '\s+', ' ', 'g')
+        ~ 'delete +from +(only +)?("?private"? *\. *)?"?billing_pending_revocations"?';
+
+  if v_viste <> v_attese then
+    raise exception
+      'B2 FAIL: il controllo vede % esche su %. Le forme che gli sfuggono sono scritture reali sulla tabella, e un controllo che non le vede dichiara una copertura che non ha.',
+      v_viste, v_attese;
+  end if;
+
+  raise notice 'B2 PASS: tutte e % le forme della stessa scrittura vengono viste', v_attese;
 end $$;
 
 
