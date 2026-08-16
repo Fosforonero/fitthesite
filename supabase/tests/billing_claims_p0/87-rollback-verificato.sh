@@ -81,7 +81,8 @@ echo "oggetti billing presenti prima: ${N_PRIMA}"
 # I tre rollback in ordine inverso di applicazione, piu' il controllo finale,
 # tutto in una transazione sola che si annulla.
 SENZA_TRANSAZIONE=$(
-  for f in 20260815120000_billing_autorita_unica_revoche_rollback.sql \
+  for f in 20260816120000_billing_consuma_pending_senza_ramo_irraggiungibile_rollback.sql \
+           20260815120000_billing_autorita_unica_revoche_rollback.sql \
            20260814160000_billing_sandbox_scadenza_effettiva_rollback.sql \
            20260813150000_billing_gate_avversariale_rollback.sql \
            20260813103000_billing_sandbox_reviewers_rollback.sql \
