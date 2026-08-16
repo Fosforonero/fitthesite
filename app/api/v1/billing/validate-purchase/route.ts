@@ -1059,8 +1059,23 @@ export async function POST(req: Request): Promise<Response> {
           contract_version: PURCHASE_DISPOSITION_CONTRACT_VERSION,
           // Terminale: insistere su un acquisto annullato non puo' servire.
           // La transazione va chiusa, non ripresentata.
+          //
+          // Si esclude dal terminale SOLO `not_persisted`, esattamente come il
+          // ramo Apple (:426 e :583). Prima si richiedeva `recorded`, e cosi'
+          // il caso piu' comune — acquisto annullato che nessuno ha mai
+          // reclamato — rispondeva `retryable`, cioe' proprio lo scenario che
+          // questa riga dichiarava di aver chiuso.
+          //
+          // `not_claimed` e' sicuro da chiudere perche' il fatto e' comunque
+          // al sicuro: `unknown_purchase` ci arriva solo con la pending
+          // registrata (claim-purchase.ts:282), e `owner_deleted` non ha
+          // nessuno a cui dare il diritto. Tutto cio' che non garantisce una
+          // scrittura — pending non registrata, claim_in_flight,
+          // persistence_failed, forma illeggibile — e' gia' `not_persisted`.
           disposition:
-            esito.kind === "recorded" ? "store_verified_terminal_rejection" : "retryable",
+            esito.kind === "not_persisted"
+              ? "retryable"
+              : "store_verified_terminal_rejection",
         });
       }
 

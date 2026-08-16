@@ -1618,6 +1618,80 @@ describe("Google: purchaseState 0 / 1 / 2", () => {
     expect(body.disposition).toBe("store_verified_terminal_rejection");
   });
 
+  // ── La disposizione del ramo Google, gemella di quella Apple ─────────────
+  //
+  // Apple esclude dal terminale SOLO `not_persisted` (route.ts:426 e :583).
+  // Google pretendeva `recorded`, quindi il caso piu' comune — un acquisto
+  // annullato che nessuno ha mai reclamato — rispondeva `retryable`, cioe'
+  // proprio lo scenario che quella riga dichiarava di aver chiuso. Questi
+  // quattro casi fissano la simmetria.
+
+  it("1 annullato e mai reclamato, revoca messa in attesa: TERMINALE", async () => {
+    // La RPC scrive comunque la revoca fra le pending, quindi il primo claim
+    // su quella chiave se la trovera' addosso: il fatto e' al sicuro e la
+    // transazione si puo' chiudere.
+    mocks.validateProduct.mockResolvedValue(rispostaPlay(1));
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "unknown_purchase", applied: false, pendingRegistrata: true },
+      error: null,
+    });
+
+    const body = await (await POST(reqGoogle())).json();
+    expect(body.state).toBe("expired");
+    expect(body.disposition).toBe("store_verified_terminal_rejection");
+  });
+
+  it("1 annullato e mai reclamato, revoca NON messa in attesa: ritentabile", async () => {
+    // Senza la conferma dell'attesa non c'e' nessuna prova che il rimborso sia
+    // al sicuro: chiudere la transazione lo farebbe sparire, e il claim
+    // successivo darebbe il Pro a un acquisto annullato.
+    mocks.validateProduct.mockResolvedValue(rispostaPlay(1));
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "unknown_purchase", applied: false },
+      error: null,
+    });
+
+    const body = await (await POST(reqGoogle())).json();
+    expect(body.disposition).toBe("retryable");
+  });
+
+  it("1 annullato con un claim in volo: ritentabile, non terminale", async () => {
+    // Il claim ha committato mentre la revoca aspettava: il fatto e' scritto
+    // in attesa ma NON applicato. Al giro dopo il percorso normale revoca
+    // davvero, quindi la transazione non va chiusa adesso.
+    mocks.validateProduct.mockResolvedValue(rispostaPlay(1));
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "claim_in_flight", applied: false },
+      error: null,
+    });
+
+    const body = await (await POST(reqGoogle())).json();
+    expect(body.disposition).toBe("retryable");
+  });
+
+  it("1 annullato di un proprietario cancellato: terminale", async () => {
+    // Non c'e' nessuno a cui dare il diritto e niente da recuperare.
+    mocks.validateProduct.mockResolvedValue(rispostaPlay(1));
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "owner_deleted", applied: false },
+      error: null,
+    });
+
+    const body = await (await POST(reqGoogle())).json();
+    expect(body.disposition).toBe("store_verified_terminal_rejection");
+  });
+
+  it("1 annullato con la scrittura fallita: ritentabile", async () => {
+    mocks.validateProduct.mockResolvedValue(rispostaPlay(1));
+    mocks.rpc.mockResolvedValue({
+      data: { outcome: "persistence_failed", reason: "deadlock" },
+      error: null,
+    });
+
+    const body = await (await POST(reqGoogle())).json();
+    expect(body.disposition).toBe("retryable");
+  });
+
   it("2 in attesa di pagamento: la proprieta' si registra, il diritto no", async () => {
     mocks.validateProduct.mockResolvedValue(rispostaPlay(2));
     mocks.rpc.mockResolvedValue({

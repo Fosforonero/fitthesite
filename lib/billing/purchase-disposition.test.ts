@@ -94,7 +94,13 @@ function disposizioniSuDuecentoDellaRoute(): Set<string> {
   // Con un ternario annidato il taglio al primo `?` lascerebbe dentro la
   // condizione del secondo: il controllo fallirebbe a voce alta invece di
   // tacere, ed e' il verso giusto in cui sbagliare.
-  for (const m of src.matchAll(/disposition:\s*([^,\n]*(?:\n[^,\n]*)?),/g)) {
+  // Il valore arriva fino alla virgola che CHIUDE la proprieta', cioe' la
+  // prima seguita da un a capo. Una versione precedente leggeva al massimo due
+  // righe, e si e' rotta il giorno stesso in cui il ternario del ramo Google e'
+  // stato riformattato su quattro: ha smesso di vedere un terminale che c'era.
+  // Ha fallito in chiuso — l'insieme atteso qui sotto se n'e' accorto — ma
+  // dipendere dalla formattazione era il difetto.
+  for (const m of src.matchAll(/disposition:\s*([\s\S]*?),\s*\n/g)) {
     const valore = m[1];
     const rami = valore.includes("?") ? valore.slice(valore.indexOf("?")) : valore;
     for (const lit of rami.matchAll(/"([a-z0-9_]+)"/g)) out.add(lit[1]);
