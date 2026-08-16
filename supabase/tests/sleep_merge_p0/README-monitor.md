@@ -178,3 +178,87 @@ finding separato e non e' stato ancora indagato.
 Il difetto vicino a questa misura e' un altro e ha il suo caso in
 `60-finestra-awake.sql`: gli awake ai bordi **allargano** la finestra
 calcolata dal server.
+
+---
+
+# APPLICATO IN PRODUZIONE — 2026-08-16 08:07:09.651542+00
+
+`internal._merge_sleep_stages_jsonb` sostituita nel progetto `xcdyhkuyxukaifhhtadr`.
+
+| | |
+|---|---|
+| migration | `20260816090000_sleep_merge_no_duplicazione` (commit `f35d6ea`) |
+| md5 prima | `0df8a073ebe40610439f858ec3c49c59` |
+| md5 dopo | `4d0905d26813b730baee585511e31df0` |
+| **deploy_at** | **`2026-08-16 08:07:09.651542+00`** |
+
+Controllo immediato dopo l'applicazione, su letterali sintetici (funzione pura,
+nessun dato utente letto): `f(a,a)` = 3 segmenti (prima 6), `f(sporco,pulito)` =
+3, primo inserimento = 3, finestra `[1000, 50000]` invariata.
+
+## Misura di partenza, presa alle 08:05:59+00 (48 ore prima)
+
+| righe con sonno | righe duplicate | quota | copie in eccesso |
+|---|---|---|---|
+| 222 | 176 | **79,3%** | 8.968 |
+
+## LA QUERY DI USCITA
+
+Questa, e solo questa, decide se il difetto e' chiuso. `deploy_at` e' fisso:
+non va sostituito con `now() - interval '...'`, che rimescolerebbe righe scritte
+prima del deploy dentro il gate.
+
+```sql
+with seg as (
+  select fm.id, fm.source, fm.received_at, e.value as v
+  from public.fitness_metrics fm
+  cross join lateral jsonb_array_elements(fm.sleep_stages) as e(value)
+  where jsonb_typeof(fm.sleep_stages) = 'array'
+    and fm.received_at >= timestamptz '2026-08-16 08:07:09.651542+00'
+),
+per_riga as (
+  select id, source, received_at::date as giorno, count(*) as segmenti,
+         count(distinct (
+           coalesce((v->>'sessionIdx')::int,0)::text ||'|'||
+           (v->>'startMs') ||'|'|| (v->>'endMs') ||'|'||
+           lower(btrim(coalesce(v->>'stage','')))
+         )) as distinti
+  from seg group by 1,2,3
+)
+select giorno, coalesce(source,'(nessuna)') as sorgente,
+       count(*) as righe_con_sonno,
+       count(*) filter (where segmenti > distinti) as righe_duplicate,
+       sum(segmenti - distinti) as copie_in_eccesso
+from per_riga
+group by 1,2
+order by 1 desc, 3 desc;
+```
+
+**Criterio di uscita: `righe_duplicate = 0` e `copie_in_eccesso = 0` su TUTTE le
+sorgenti, per PIU' GIORNI consecutivi.**
+
+Un risultato vuoto non e' uno zero: significa che non e' ancora arrivata nessuna
+riga con sonno. Va letto come «non misurabile», non come «pulito». Controllare
+sempre anche `righe_con_sonno`.
+
+## Regola di processo, ripetuta qui perche' e' gia' stata infranta una volta
+
+Le note della 3.9.8 hanno dichiarato risolto questo difetto il 23 luglio. Tre
+settimane dopo era vivo sul 79% delle righe. **Nessuna nota di rilascio, nessun
+post e nessun annuncio prima che questa query sia a zero per piu' giorni.**
+
+## Cosa questa applicazione NON ha chiuso
+
+Restano aperti, con i loro RED, e non vanno descritti come risolti:
+
+- i risvegli ai bordi allargano la finestra calcolata dal server
+  (`60-finestra-awake.sql`);
+- quale sessione sia la "principale" e' un contratto ambiguo, ed e' una
+  decisione di prodotto;
+- la riparazione dello storico non e' partita: richiede il GO esplicito di
+  Matteo, e non prima che questa query sia a zero.
+
+Nota utile per dimensionare la riparazione storica: la correzione **ripara da
+sola** le righe gia' sporche alla prima sincronizzazione utile (caso E2 di
+`80-rpc-end-to-end.sql`, verificato sulla RPC vera). La riparazione storica
+serve quindi solo alle righe di chi non sincronizza piu' quel giorno.
