@@ -81,7 +81,7 @@ export function costruisciContratto() {
       client_contract_error:
         "Difetto NOSTRO di formato, prodotto o contratto. L'acquisto e' probabilmente sano: non si chiude.",
       store_verified_terminal_rejection:
-        "Lo store ha DIMOSTRATO che il diritto non esiste. Gli unici casi in cui la transazione si puo' chiudere senza aver concesso niente, e solo su iOS.",
+        "Lo store ha DIMOSTRATO che il diritto non esiste. Gli unici casi in cui la transazione si puo' chiudere senza aver concesso niente. Emesso su iOS (ricevuta o JWS che nega il diritto) e su Google Play (purchaseState=1, acquisto annullato, con la revoca registrata).",
     },
     codes: codici,
     responses: risposte,

@@ -76,6 +76,32 @@ function codiciChiaveDiProprieta(): Set<string> {
   return out;
 }
 
+/// I `disposition` che la route emette su 200, cioe' dentro le risposte di
+/// SUCCESSO. I tre presidi che esistevano guardavano solo `jsonError(...)` e la
+/// tabella: un terminale nato dentro un `jsonOk` era invisibile a tutti e tre,
+/// ed e' successo — `store_verified_terminal_rejection` sul ramo Google e'
+/// arrivato senza che nessun controllo strutturale se ne accorgesse, mentre il
+/// contratto pubblicato continuava a dire "e solo su iOS".
+function disposizioniSuDuecentoDellaRoute(): Set<string> {
+  const src = sorgente("app/api/v1/billing/validate-purchase/route.ts");
+  const out = new Set<string>();
+  // Si prende il valore dopo `disposition:` fino alla virgola di fine
+  // proprieta'. Se e' un ternario si scarta la CONDIZIONE e si tengono i due
+  // rami: `esito.kind === "recorded" ? "x" : "y"` deve dare x e y, non
+  // "recorded" — che e' cio' che confronta, non cio' che emette. Senza questo
+  // taglio il controllo segnala un valore che la route non manda a nessuno.
+  //
+  // Con un ternario annidato il taglio al primo `?` lascerebbe dentro la
+  // condizione del secondo: il controllo fallirebbe a voce alta invece di
+  // tacere, ed e' il verso giusto in cui sbagliare.
+  for (const m of src.matchAll(/disposition:\s*([^,\n]*(?:\n[^,\n]*)?),/g)) {
+    const valore = m[1];
+    const rami = valore.includes("?") ? valore.slice(valore.indexOf("?")) : valore;
+    for (const lit of rami.matchAll(/"([a-z0-9_]+)"/g)) out.add(lit[1]);
+  }
+  return out;
+}
+
 describe("il contratto dei codici è esaustivo", () => {
   it("ogni codice che la route può restituire è classificato esplicitamente", () => {
     const emessi = codiciLetteraliDellaRoute();
@@ -312,5 +338,36 @@ describe("la fixture condivisa coi due repository", () => {
       join(RADICE, "docs/billing/purchase-validation-contract.json"),
       "utf8",
     )).toBe(atteso);
+  });
+});
+
+describe("i terminali emessi su 200 sono dichiarati", () => {
+  it("la route non emette disposizioni che il contratto non conosce", () => {
+    const emesse = disposizioniSuDuecentoDellaRoute();
+    for (const d of emesse) {
+      expect(
+        Object.keys(costruisciContratto().dispositions).includes(d),
+        `la route emette disposition="${d}" su una risposta 200, e il contratto non la dichiara`,
+      ).toBe(true);
+    }
+  });
+
+  it("l'insieme emesso su 200 è esattamente quello atteso", () => {
+    // Un quinto valore, o la sparizione di uno di questi tre, va deciso e non
+    // subito: entrambe le direzioni cambiano cosa l'app fa della transazione.
+    expect([...disposizioniSuDuecentoDellaRoute()].sort()).toEqual([
+      "retryable",
+      "store_verified_terminal_rejection",
+      "verified",
+    ]);
+  });
+
+  it("il rifiuto dimostrato NON è più descritto come esclusivo di iOS", () => {
+    // Il testo pubblicato diceva "e solo su iOS" mentre il ramo Google lo
+    // emetteva gia'. E' dato che l'altro repository consuma, non prosa.
+    const testo = costruisciContratto().dispositions
+      .store_verified_terminal_rejection;
+    expect(testo).not.toMatch(/solo su iOS/i);
+    expect(testo).toMatch(/Google Play/);
   });
 });
