@@ -10,6 +10,12 @@ const nextConfig = {
   // workspace root sbagliata (file tracing/output errati). Root esplicita.
   outputFileTracingRoot: path.dirname(fileURLToPath(import.meta.url)),
 
+  // Tree-shaking mirato per `motion` (Framer): importa solo i moduli usati,
+  // tiene il chunk fuori dal critical path dell'hero. Vedi components/motion/.
+  experimental: {
+    optimizePackageImports: ["motion"],
+  },
+
   /**
    * Redirect 308 permanenti per gli URL marketing senza prefix locale.
    *

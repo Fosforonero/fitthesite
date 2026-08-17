@@ -40,6 +40,13 @@
   --fm-gradient-cta:   linear-gradient(90deg,  #21E6C1 0%, #1DA1FF 100%);
   --fm-gradient-page:  linear-gradient(180deg, #0B1023 0%, #050816 100%);
 
+  /* ── DEPTH & GLOW (atmosfera, dark-only — vedi BRAND.md §8) ──────────
+   * Layer decorativi a basso alpha + blur generoso. Sempre dietro al
+   * contenuto e con pointer-events:none lato componente. Niente neon. */
+  --fm-glow-brand: radial-gradient(closest-side, rgba(33,230,193,0.18), transparent 70%);
+  --fm-glow-soft:  radial-gradient(closest-side, rgba(29,161,255,0.14), transparent 72%);
+  --fm-glow-green: radial-gradient(closest-side, rgba(124,255,91,0.14), transparent 72%);
+
   /* ── SPACING (4-pt baseline) ────────────────────────────────────── */
   --fm-space-1:  4px;
   --fm-space-2:  8px;
@@ -65,10 +72,13 @@
   --fm-shadow-cta:   0 6px 24px -8px rgba(33,230,193,0.35), 0 2px 0 rgba(255,255,255,0.06) inset;
 
   /* ── MOTION ─────────────────────────────────────────────────────── */
-  --fm-ease-ios:     cubic-bezier(0.32, 0.72, 0, 1);
+  --fm-ease-ios:     cubic-bezier(0.32, 0.72, 0, 1);   /* default UI */
+  --fm-ease-out:     cubic-bezier(0.16, 1, 0.3, 1);    /* expo-out, reveal/scroll */
   --fm-duration-fast:   150ms;
   --fm-duration-normal: 220ms;
   --fm-duration-slow:   400ms;
+  --fm-duration-reveal: 820ms;   /* scroll reveal di sezione (più "lungo"/premium) */
+  --fm-reveal-distance: 34px;    /* translateY iniziale del reveal (chiaramente percepibile) */
 
   /* ── TYPOGRAPHY (set via next/font on the site) ────────────────── */
   /* CJK fallbacks: Hiragino (macOS/iOS ja), Apple SD Gothic Neo (macOS/iOS ko),
@@ -86,5 +96,7 @@
     --fm-duration-fast:   0ms;
     --fm-duration-normal: 0ms;
     --fm-duration-slow:   0ms;
+    --fm-duration-reveal: 0ms;
+    --fm-reveal-distance: 0px;
   }
 }

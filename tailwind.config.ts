@@ -56,6 +56,11 @@ const config: Config = {
         "brand-gradient": "linear-gradient(135deg, #7CFF5B 0%, #21E6C1 45%, #1DA1FF 100%)",
         "cta-gradient":   "linear-gradient(90deg, #21E6C1 0%, #1DA1FF 100%)",
         "page-gradient":  "linear-gradient(180deg, #0B1023 0%, #050816 100%)",
+        // ── Depth glows (atmosfera dark-only, vedi BRAND.md §8) ───────────
+        // Usare su layer decorativi con pointer-events-none + blur. No neon.
+        "glow-brand": "var(--fm-glow-brand)",
+        "glow-soft":  "var(--fm-glow-soft)",
+        "glow-green": "var(--fm-glow-green)",
       },
 
       boxShadow: {
@@ -80,10 +85,13 @@ const config: Config = {
 
       fontSize: {
         // Modular scale — type system from BRAND.md
-        "display-xl": ["clamp(2rem, 6vw, 4.25rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
-        "display-lg": ["clamp(2.25rem, 5vw, 3.25rem)", { lineHeight: "1.08", letterSpacing: "-0.02em" }],
-        "display":    ["clamp(1.875rem, 4vw, 2.5rem)",  { lineHeight: "1.1",  letterSpacing: "-0.015em" }],
-        "metric":     ["clamp(1.75rem, 3.5vw, 2.25rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
+        // display-2xl = scala cinematografica per gli hero. Min basso (2.5rem)
+        // per non rompere de/CJK; accoppiare sempre con text-balance.
+        "display-2xl": ["clamp(2.5rem, 8vw, 6rem)",    { lineHeight: "0.95", letterSpacing: "-0.03em" }],
+        "display-xl":  ["clamp(2.25rem, 7vw, 4.75rem)", { lineHeight: "1.02", letterSpacing: "-0.025em" }],
+        "display-lg":  ["clamp(2.25rem, 5vw, 3.25rem)", { lineHeight: "1.08", letterSpacing: "-0.02em" }],
+        "display":     ["clamp(1.875rem, 4vw, 2.5rem)",  { lineHeight: "1.1",  letterSpacing: "-0.015em" }],
+        "metric":      ["clamp(1.75rem, 3.5vw, 2.25rem)", { lineHeight: "1.05", letterSpacing: "-0.02em" }],
       },
 
       letterSpacing: {
@@ -91,8 +99,10 @@ const config: Config = {
       },
 
       transitionTimingFunction: {
-        // iOS-feel default for motion
+        // iOS-feel default for UI motion
         "ios": "cubic-bezier(0.32, 0.72, 0, 1)",
+        // Expo-out — reveal/scroll cinematici (vedi BRAND.md §11)
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },

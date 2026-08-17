@@ -11,7 +11,22 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 import { createClient } from '@/lib/supabase/server';
 
-const LOCALES = ['it', 'en', 'es', 'de', 'pt', 'fr'] as const;
+// Tenere in sync con `lib/i18n.ts` (locales). Se qui manca una locale, il link
+// di conferma email per quella lingua ricade su 'it' anche se l'app la passa
+// corretta (era il bug per cui pl/tr/nl/ja/ko finivano in italiano).
+const LOCALES = [
+  'it',
+  'en',
+  'es',
+  'de',
+  'pt',
+  'fr',
+  'pl',
+  'tr',
+  'nl',
+  'ja',
+  'ko',
+] as const;
 
 function safeLocale(l: string | undefined): string {
   return l && (LOCALES as readonly string[]).includes(l) ? l : 'it';

@@ -208,18 +208,69 @@ html[lang="nl"] {
 }
 
 /* ─────────────────────────────────────────────────────────────────────
- * Subtle reveal-on-load. Sections that opt in via [data-reveal] fade
- * up in sequence. No JS. Triggers immediately on first paint.
+ * Scroll reveal. Le sezioni che fanno opt-in via [data-reveal] partono
+ * leggermente più in basso e sfumano in vista quando entrano nel viewport.
+ *
+ * Strategia CWV / SEO-safe (vedi BRAND.md §11):
+ * - SENZA JS o con reduced-motion → contenuto SEMPRE visibile. Il gating
+ *   dell'opacità è attivo SOLO quando `html.reveal-ready` è presente
+ *   (classe aggiunta da uno script inline PRIMA del paint, vedi
+ *   RevealObserver) → niente FOUC, niente contenuto invisibile ai crawler.
+ * - `RevealObserver` (un solo IntersectionObserver globale) aggiunge
+ *   `.is-visible` quando l'elemento entra in vista → le sezioni restano
+ *   server component, nessun client boundary per sezione.
+ * - LCP: gli elementi above-the-fold (hero) usano [data-reveal="instant"]
+ *   per rivelarsi subito, senza mai partire da opacity:0.
+ * - Stagger: usare `--reveal-delay` inline, oppure [data-reveal-stagger]
+ *   sul contenitore (RevealObserver assegna i delay ai figli [data-reveal]).
  * ──────────────────────────────────────────────────────────────────── */
 [data-reveal] {
+  transition:
+    opacity var(--fm-duration-reveal, 700ms) var(--fm-ease-out),
+    transform var(--fm-duration-reveal, 700ms) var(--fm-ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal-ready [data-reveal]:not(.is-visible):not([data-reveal="instant"]) {
   opacity: 0;
-  transform: translateY(14px);
-  animation: fm-reveal 0.9s var(--fm-ease-ios) forwards;
-  animation-delay: var(--reveal-delay, 0ms);
+  transform: translateY(var(--fm-reveal-distance, 16px));
+  will-change: opacity, transform;
 }
-@keyframes fm-reveal {
-  to { opacity: 1; transform: translateY(0); }
+[data-reveal].is-visible { opacity: 1; transform: none; }
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Hero intro — entrata cinematografica "a cascata" al load (stile agency).
+ * I figli diretti di .hero-intro salgono e sfumano in sequenza. Gated da
+ * .reveal-ready (no-JS → visibile) e disattivato con reduced-motion.
+ * Solo l'hero usa questo (above-the-fold, una volta sola).
+ * ──────────────────────────────────────────────────────────────────── */
+.reveal-ready .hero-intro > * {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: fm-hero-rise 0.9s var(--fm-ease-out) both;
 }
+.hero-intro > *:nth-child(1) { animation-delay: 0.05s; }
+.hero-intro > *:nth-child(2) { animation-delay: 0.16s; }
+.hero-intro > *:nth-child(3) { animation-delay: 0.28s; }
+.hero-intro > *:nth-child(4) { animation-delay: 0.40s; }
+.hero-intro > *:nth-child(5) { animation-delay: 0.52s; }
+.hero-intro > *:nth-child(6) { animation-delay: 0.62s; }
+@keyframes fm-hero-rise {
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-intro > * { opacity: 1 !important; transform: none !important; animation: none !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Lenis smooth scroll — regole richieste dalla libreria (vedi SmoothScroll).
+ * Attive solo quando Lenis aggiunge la classe `lenis` su <html>.
+ * ──────────────────────────────────────────────────────────────────── */
+html.lenis,
+html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: clip; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
 
 /* Floating slow drift — usato per decoration orbs nei background */
 @keyframes fm-float {
@@ -250,7 +301,6 @@ html[lang="nl"] {
 .glow-pulse { animation: fm-glow-pulse 2.2s ease-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal],
   .animate-float,
   .animate-marquee,
   .text-brand-gradient,
@@ -258,5 +308,11 @@ html[lang="nl"] {
   .caret-blink {
     animation: none !important;
   }
-  [data-reveal] { opacity: 1; transform: none; }
+  /* Reduced motion: nessun reveal, contenuto sempre visibile a prescindere
+     da reveal-ready / is-visible (override del gating sopra). */
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }

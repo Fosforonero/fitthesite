@@ -5,6 +5,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CookieBanner from "@/components/CookieBanner";
 import MarketingBackdrop from "@/components/MarketingBackdrop";
+import MotionProvider from "@/components/motion/MotionProvider";
+import RevealObserver from "@/components/motion/RevealObserver";
+import SmoothScroll from "@/components/motion/SmoothScroll";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { PRICE_LIFETIME_ANDROID_RAW } from "@/lib/pricing";
 import { TRADER, TRADER_POSTAL_ADDRESS } from "@/lib/legal/trader";
@@ -267,11 +270,23 @@ export default async function LocaleLayout({
 
   return (
     <>
+      {/* Attiva il gating dei reveal PRIMA del paint (no FOUC): senza questo
+          script (JS off / reduced-motion) tutto il contenuto resta visibile.
+          Vedi RevealObserver + globals.css ([data-reveal]). */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: "document.documentElement.classList.add('reveal-ready')",
+        }}
+      />
       <JsonLd data={jsonLd} />
-      <MarketingBackdrop />
-      <Header dict={dict} locale={lc} />
-      <main className="flex-1">{children}</main>
-      <Footer dict={dict} locale={lc} />
+      <MotionProvider>
+        <MarketingBackdrop />
+        <Header dict={dict} locale={lc} />
+        <main className="flex-1">{children}</main>
+        <Footer dict={dict} locale={lc} />
+      </MotionProvider>
+      <RevealObserver />
+      <SmoothScroll />
       <CookieBanner dict={dict} />
     </>
   );

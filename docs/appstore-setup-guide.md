@@ -105,6 +105,11 @@ Unlimited, permanent access to all FitMesh Sync Pro features. Advanced dashboard
 
 ## 3. App Metadata — Scheda App Store
 
+> Stato 29/06/2026: app approvata da Apple. Per i testi da pubblicare usare
+> come unica fonte corrente
+> `AppFitmesh/docs/appstore/ios-app-store-description.md`. I blocchi storici
+> sotto restano come riferimento della submission, ma non vanno reincollati.
+
 ### Percorso
 `App → App Store → Italian (Primary) / English (United Kingdom)`
 

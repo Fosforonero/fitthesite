@@ -152,7 +152,8 @@ Display per: titoli, valori metric, statement. Inter per tutto il resto.
 
 | Token            | Mobile           | Desktop        | Line-height | Letter-spacing |
 |------------------|------------------|----------------|-------------|----------------|
-| `text-display-xl` | 44 → 68 px (clamp) | 68 px          | 1.05        | -0.02em        |
+| `text-display-2xl`| 40 → 96 px (clamp) | 96 px         | 0.95        | -0.03em        |
+| `text-display-xl` | 36 → 76 px (clamp) | 76 px          | 1.02        | -0.025em       |
 | `text-display-lg` | 36 → 52 px (clamp) | 52 px          | 1.08        | -0.02em        |
 | `text-display`    | 30 → 40 px (clamp) | 40 px          | 1.1         | -0.015em       |
 | `text-metric`     | 28 → 36 px (clamp) | 36 px          | 1.05        | -0.02em        |
@@ -176,8 +177,20 @@ Niente font-weight 800/900 sul sito. Lo riserviamo solo al logo.
 ### Letter-spacing rule
 
 Headline grandi (`display-*` e `metric`) usano sempre letter-spacing negativo
-(da `-0.015em` a `-0.025em`) per il look Apple-like. Label uppercase usano
+(da `-0.015em` a `-0.03em`) per il look Apple-like. Label uppercase usano
 tracking ampio (`0.18em`–`0.22em`).
+
+### Display scale & lingue (regola anti-overflow)
+
+`display-2xl` è la scala "cinematografica" riservata agli **hero**. È volutamente
+oversize: per restare safe su tutte le 11 lingue:
+
+- Il `clamp()` ha **min basso** (40px): tedesco e parole composte lunghe non
+  devono mai forzare overflow orizzontale. Accoppiare sempre con `text-balance`.
+- **CJK (ja/ko):** il letter-spacing negativo NON si applica — è già neutralizzato
+  globalmente in `globals.css` (`html[lang="ja"|"ko"]`, line-height 1.75). Non
+  reintrodurre tracking negativo inline sui display per queste lingue.
+- Mai usare `display-2xl` per testo di paragrafo o blocchi multi-riga lunghi.
 
 ---
 
@@ -231,6 +244,21 @@ Vietato:
 - Drop shadow pesanti tipo "elevation 24" di Material
 - Glow neon sui contenuti (solo su CTA, e sottile)
 - Ombre nere puro alpha 0.8+
+
+### Depth & glow (atmosfera, dark-only)
+
+Per il look "agency" premium la profondità arriva da **layer atmosferici**, non da
+colori più accesi. Token centralizzati in `design-tokens.css` (non ripetere inline):
+
+```css
+--fm-glow-brand:  radial-gradient(closest-side, rgba(33,230,193,0.18), transparent 70%);
+--fm-glow-soft:   radial-gradient(closest-side, rgba(29,161,255,0.14), transparent 72%);
+--fm-halo-hero:   conic-gradient(from 200deg at 50% 50%, …) + blur(48px);  /* vedi .halo-conic */
+```
+
+Regole: alpha sempre basso (≤0.22), `blur` generoso (≥40px), `pointer-events:none`,
+sempre dietro al contenuto (`z-index` negativo o `-z-10`). Mai glow saturi/neon sul
+testo. Gli orb decorativi rispettano `prefers-reduced-motion` (niente drift).
 
 ---
 
@@ -353,21 +381,37 @@ Per stati sonno specificamente:
 ```
 --fm-duration-fast:   150ms   (hover, tap)
 --fm-duration-normal: 220ms   (transizioni state)
---fm-duration-slow:   400ms   (modal, route)
+--fm-duration-slow:   400ms   (modal, route, page transition)
+--fm-duration-reveal: 700ms   (scroll reveal di sezione)
 ```
 
 ### Easing
 
 ```
---fm-ease-ios: cubic-bezier(0.32, 0.72, 0, 1)
+--fm-ease-ios:  cubic-bezier(0.32, 0.72, 0, 1)    /* default UI, iOS feel */
+--fm-ease-out:  cubic-bezier(0.16, 1, 0.3, 1)     /* reveal/scroll cinematici (expo-out) */
 ```
 
-Default per tutto. iOS feel. Mai usare `linear` su transizioni UI.
+Default UI = `ios`. Per i reveal allo scroll e l'intro hero usare `out` (expo-out,
+più "lungo" e premium). Mai usare `linear` su transizioni UI (ok solo per marquee).
+
+### Motion library (scroll-driven & orchestrazione)
+
+- **Libreria:** `motion` (Framer Motion) caricata via `LazyMotion`/`domAnimation`
+  (lazy, fuori dal critical path). Usata SOLO per parallax (`useScroll`/`useTransform`),
+  intro hero e page transition. I micro-effetti (hover, shimmer, marquee) restano **CSS**.
+- **Reveal allo scroll:** gestito via `[data-reveal]` + un singolo IntersectionObserver
+  globale (`RevealObserver`), così le sezioni restano server component (no client
+  boundary per sezione). Vedi `globals.css`.
+- **CWV:** l'elemento LCP (hero) non deve partire da `opacity:0`; usare intro
+  transform-only o reveal istantaneo above-the-fold.
 
 ### Reduced motion
 
-Tutti i CSS rispettano `prefers-reduced-motion: reduce` — le variabili di
-durata vengono azzerate a 0ms (vedi `design-tokens.css`).
+Tutti i CSS rispettano `prefers-reduced-motion: reduce` — le variabili di durata
+vengono azzerate a 0ms (vedi `design-tokens.css`) e i `[data-reveal]` restano
+visibili. I componenti `motion` usano `useReducedMotion()` per disattivare gli
+spostamenti. Senza JS, tutto il contenuto è comunque visibile (no FOUC).
 
 ---
 

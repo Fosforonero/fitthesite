@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getDictionary, locales, type Locale } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
+import DeviceShowcase from "@/components/sections/DeviceShowcase";
 import MockupShowcase from "@/components/MockupShowcase";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { IosAwareText } from "@/components/IosAwareText";
@@ -142,8 +143,10 @@ export default async function Home({
         />
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          {/* Left: text & CTAs */}
-          <div className="lg:col-span-7" data-reveal style={{ "--reveal-delay": "0ms" } as React.CSSProperties}>
+          {/* Left: text & CTAs — reveal "instant" (LCP) + intro "a cascata"
+              (.hero-intro): badge → headline → desc → CTA → prezzo → trust
+              salgono in sequenza al load. Vedi globals.css. */}
+          <div className="lg:col-span-7 hero-intro" data-reveal="instant">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-pill border border-white/10 bg-white/[0.03] text-[11px] text-text-secondary backdrop-blur-sm">
               <span className="relative flex w-1.5 h-1.5">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75 animate-ping" />
@@ -152,7 +155,7 @@ export default async function Home({
               <span className="tracking-wide">{t.hero.badge}</span>
             </div>
 
-            <h1 className="mt-7 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-3xl text-balance">
+            <h1 className="mt-7 font-display text-display-2xl font-semibold tracking-tightest text-text-primary max-w-3xl text-balance">
               {t.hero.heading_1}
               <br className="hidden sm:inline" />{" "}
               <span className="text-brand-gradient">{t.hero.heading_accent}</span>
@@ -204,9 +207,11 @@ export default async function Home({
             </ul>
           </div>
 
-          {/* Right: phone mockup */}
-          <div className="lg:col-span-5" data-reveal style={{ "--reveal-delay": "150ms" } as React.CSSProperties}>
-            <HeroVisual locale={lc === "it" ? "it" : "en"} />
+          {/* Right: phone mockup — glow brand + parallax misurato (DeviceShowcase) */}
+          <div className="lg:col-span-5" data-reveal="instant">
+            <DeviceShowcase glow="brand" parallax={28}>
+              <HeroVisual locale={lc === "it" ? "it" : "en"} />
+            </DeviceShowcase>
           </div>
         </div>
       </section>
@@ -278,7 +283,7 @@ export default async function Home({
           <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
             {t.features.kicker}
           </p>
-          <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
+          <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
             {t.features.heading}
           </h2>
         </div>
@@ -336,7 +341,7 @@ export default async function Home({
           <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
             {lc === "it" ? "Come funziona" : lc === "es" ? "Cómo funciona" : "How it works"}
           </p>
-          <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
+          <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
             {lc === "it"
               ? "Trenta secondi. Niente di più."
               : lc === "es"
@@ -398,7 +403,7 @@ export default async function Home({
             <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
               {lc === "it" ? "Integrazioni" : lc === "es" ? "Integraciones" : "Integrations"}
             </p>
-            <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
+            <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
               {lc === "it"
                 ? "Funziona con quello che hai già."
                 : lc === "es"
@@ -470,7 +475,7 @@ export default async function Home({
               <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
                 {t.privacy_block.kicker}
               </p>
-              <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
+              <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
                 {t.privacy_block.heading}
               </h2>
               <p className="mt-5 text-text-secondary text-lg leading-relaxed">
@@ -545,7 +550,7 @@ export default async function Home({
           <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
             {tl(PRICING_SECTION.kicker, lc)}
           </p>
-          <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
+          <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
             {tl(PRICING_SECTION.heading, lc)}
           </h2>
           <p className="mt-4 text-text-secondary max-w-2xl leading-relaxed">
@@ -634,7 +639,7 @@ export default async function Home({
                 <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
                   {lc === "it" ? "Approfondisci" : lc === "es" ? "Más información" : "Read more"}
                 </p>
-                <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
+                <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary max-w-2xl text-balance">
                   {lc === "it"
                     ? "Guide e confronti per scegliere bene."
                     : lc === "es"
@@ -701,7 +706,7 @@ export default async function Home({
                 coming={lc === "it" ? "Android live · iOS in arrivo · 1000 founder" : lc === "es" ? "Android disponible · iOS próximamente · 1000 founders" : "Android live · iOS coming · 1000 founders"}
               />
             </p>
-            <h2 className="mt-4 font-display text-display-lg font-semibold tracking-tightest text-text-primary text-balance">
+            <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
               {t.final_cta.heading}
             </h2>
             <p className="mt-5 text-lg text-text-secondary max-w-xl mx-auto leading-relaxed">
