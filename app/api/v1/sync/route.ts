@@ -38,6 +38,7 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { jsonError, jsonOk, requireUser } from "@/lib/api/auth-helpers";
 import { buildRateLimitResponse, limitSync } from "@/lib/rate-limit/limiter";
 
+import { concediPonteIos } from "./cessione-ios";
 import {
   derivePlatform,
   resolveFounderGrantStatus,
@@ -128,7 +129,13 @@ export async function POST(req: Request) {
   if (entErr) {
     console.error("[sync] entitlement_check_failed", { code: entErr.code });
   } else if (haDiritto !== true) {
-    return jsonError(403, "entitlement_required");
+    // Prima di negare l'ingresso: se e' un utente iOS, la mancanza di diritto
+    // puo' essere un difetto nostro e non un mancato pagamento. Vedi
+    // ./cessione-ios.ts per il perche'. La funzione verifica da sola la
+    // piattaforma e concede una volta sola; se ritorna false si nega come
+    // prima.
+    const ponte = await concediPonteIos(userId);
+    if (!ponte) return jsonError(403, "entitlement_required");
   }
 
   // ── 2. Device lookup ────────────────────────────────────────────────

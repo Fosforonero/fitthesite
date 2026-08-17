@@ -22,6 +22,14 @@ const mocks = vi.hoisted(() => ({
   entitlementRpc: vi.fn(),
   deviceUpdateEq: vi.fn(),
   limitSync: vi.fn(),
+  concediPonteIos: vi.fn(),
+}));
+
+// La cessione iOS e' mockata qui per isolare il RAMO della route (nega, o
+// concede e prosegue) dalla decisione, che vive nella funzione Postgres e ha
+// le sue guardie li' (gia' con diritto / non iOS / ponte gia' concesso).
+vi.mock("./cessione-ios", () => ({
+  concediPonteIos: (userId: string) => mocks.concediPonteIos(userId),
 }));
 
 // Sprint P0.10C — il rate limit vive ora dentro la route stessa (spostato
@@ -450,10 +458,15 @@ describe("P0 — senza diritto non entrano dati salute nuovi", () => {
     mocks.upsertWorkouts.mockResolvedValue({ data: 1, error: null });
     mocks.founderRpc.mockResolvedValue({ data: { transitionAccepted: true }, error: null });
     mocks.deviceUpdateEq.mockResolvedValue({ data: null, error: null });
+    // Predefinito: la cessione NON concede. Cosi' ogni test che non la
+    // riguarda vede esattamente il comportamento di prima, e chi vuole il
+    // ramo nuovo deve chiederlo esplicitamente.
+    mocks.concediPonteIos.mockResolvedValue(false);
   });
 
   it("prova scaduta: 403 entitlement_required, e NIENTE viene scritto", async () => {
     mocks.entitlementRpc.mockResolvedValue({ data: false, error: null });
+    mocks.concediPonteIos.mockResolvedValue(false);
 
     const res = await POST(makeRequest(BASE_PAYLOAD));
 
@@ -462,6 +475,32 @@ describe("P0 — senza diritto non entrano dati salute nuovi", () => {
     // Il punto non e' il codice di stato: e' che l'ingest non parta.
     expect(mocks.upsertMetrics).not.toHaveBeenCalled();
     expect(mocks.upsertWorkouts).not.toHaveBeenCalled();
+  });
+
+  it("iOS senza diritto: la cessione lo fa passare e l'ingest parte", async () => {
+    // Un cliente ha pagato su App Store e non ha ricevuto Pro, perche' il
+    // percorso che scrive `apple_iap` non e' mai riuscito (zero righe su 24 in
+    // b2c_subscriptions). Finche' resta cosi', su iOS si cede in favore
+    // dell'utente: meglio concedere a qualcuno con la prova scaduta che
+    // togliere il servizio a chi ha pagato.
+    mocks.entitlementRpc.mockResolvedValue({ data: false, error: null });
+    mocks.concediPonteIos.mockResolvedValue(true);
+
+    const res = await POST(makeRequest(BASE_PAYLOAD));
+
+    expect(res.status).toBe(200);
+    expect(mocks.upsertMetrics).toHaveBeenCalled();
+  });
+
+  // Il caso "la cessione va in errore" NON si prova qui: mockare il modulo
+  // toglierebbe proprio il try/catch che lo rende innocuo. Sta in
+  // ./cessione-ios.test.ts, contro il modulo vero.
+
+  it("la cessione non viene nemmeno tentata su chi ha gia' diritto", async () => {
+    const res = await POST(makeRequest(BASE_PAYLOAD));
+
+    expect(res.status).toBe(200);
+    expect(mocks.concediPonteIos).not.toHaveBeenCalled();
   });
 
   it("founder o pagante: passa e scrive esattamente come prima", async () => {
