@@ -135,7 +135,23 @@ export async function POST(req: Request) {
     // piattaforma e concede una volta sola; se ritorna false si nega come
     // prima.
     const ponte = await concediPonteIos(userId);
-    if (!ponte) return jsonError(403, "entitlement_required");
+    if (!ponte) {
+      // Blocco 3 (sprint "prova scaduta"): il corpo del 403 ora porta un
+      // messaggio vero, non solo il code. NON ha alcun effetto visibile
+      // sull'app già installata oggi: sync_repository.dart#_humanizeDioError
+      // mappa status==403 sulla stringa fissa l10n.syncErrorAccessDenied
+      // ("Accesso negato.") senza mai leggere questo corpo — verificato
+      // riga per riga, nessun punto del client legge response.data per un
+      // 403. Questo campo è terreno pronto per una futura versione
+      // dell'app che lo legga, zero costo lato server, zero promesse per
+      // chi ha la app di oggi. L'impatto reale immediato passa dalla
+      // pagina (/prova-scaduta) e dalla mail, non da questo testo.
+      return jsonError(
+        403,
+        "entitlement_required",
+        "La tua prova gratuita è finita. Vai su fitmesh.fit/it/prova-scaduta per vedere come continuare.",
+      );
+    }
   }
 
   // ── 2. Device lookup ────────────────────────────────────────────────

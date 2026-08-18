@@ -152,6 +152,19 @@
       "cancel": "Annulla",
       "delete_scheduled_title": "Richiesta ricevuta",
       "delete_scheduled_body": "La cancellazione richiesta dalla dashboard diventerà eseguibile dopo 24 ore e verrà elaborata durante il successivo ciclo automatico."
+    },
+    "trialExpired": {
+      "title": "La tua prova gratuita è finita",
+      "iosBody": "Il tuo accesso continua comunque: stiamo sistemando gli acquisti sull'App Store, e nel frattempo non perdi nulla. Non devi fare niente, l'app funziona già come prima.",
+      "iosNote": "Se in futuro vorrai un abbonamento pagato direttamente su App Store, ti avviseremo qui appena sarà pronto.",
+      "androidBody": "Qui puoi continuare subito.",
+      "androidCta": "Apri il Play Store",
+      "androidHint": "Se hai già FitMesh installata, aprila direttamente dal telefono e completa l'acquisto da lì.",
+      "choosePrompt": "Che telefono usi?",
+      "chooseIos": "iPhone",
+      "chooseAndroid": "Android",
+      "supportPrompt": "Domande?",
+      "supportCta": "Scrivi al supporto"
     }
   },
   "admin": {
