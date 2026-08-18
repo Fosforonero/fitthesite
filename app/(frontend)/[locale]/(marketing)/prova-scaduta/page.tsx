@@ -58,7 +58,9 @@ import { PLAY_STORE_URL, SITE_URL } from "@/lib/product-facts";
  *    database — lavoro futuro, non blocca questa release. Nel frattempo il
  *    ripiego per ogni locale del sito che non ha ancora `app.trialExpired`
  *    tradotto è l'inglese (vedi sotto), mai l'italiano: è la lingua del
- *    brand, non un fallback universale.
+ *    brand, non un fallback universale. Il blocco in fallback porta
+ *    `lang="en"` (WCAG 3.1.2, vedi nel componente) — `lang` descrive il
+ *    contenuto, non la route.
  *
  * 5. Slug singolo. "prova-scaduta" resta invariato in ogni lingua — è
  *    noindex, non viene mai digitato, e si raggiunge solo da un link
@@ -105,12 +107,17 @@ function resolveLocale(locale: string): Locale {
 /** Copy della sezione per la lingua richiesta, o l'inglese se quel locale
  * non ha ancora `app.trialExpired` tradotto. Un solo posto dove vive la
  * copia inglese (dictionaries/en.json) — niente stringhe duplicate cablate
- * nel JSX che possono scollarsi dal dizionario vero nel tempo. */
+ * nel JSX che possono scollarsi dal dizionario vero nel tempo.
+ *
+ * `isFallback` dice se quella copia è davvero nella lingua di `lc` o è
+ * inglese travestito — serve a marcare correttamente `lang` sul blocco di
+ * contenuto (vedi WCAG 3.1.2 Language of Parts più sotto nel componente):
+ * `lang` descrive la lingua del testo, non il locale della route. */
 async function resolveTrialExpiredCopy(lc: Locale) {
   const t = await getDictionary(lc);
-  if (t.app?.trialExpired) return t.app.trialExpired;
+  if (t.app?.trialExpired) return { copy: t.app.trialExpired, isFallback: false };
   const en = await getDictionary("en");
-  return en.app.trialExpired;
+  return { copy: en.app.trialExpired, isFallback: true };
 }
 
 export async function generateMetadata({
@@ -139,7 +146,7 @@ export default async function TrialExpiredPage({
   const { locale } = await params;
   const { p } = await searchParams;
   const lc = resolveLocale(locale);
-  const te = await resolveTrialExpiredCopy(lc);
+  const { copy: te, isFallback } = await resolveTrialExpiredCopy(lc);
   const platform = resolvePlatform(p);
 
   const showIos = platform === "ios" || platform === null;
@@ -147,7 +154,18 @@ export default async function TrialExpiredPage({
   const neutral = platform === null;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+    <div
+      className="max-w-2xl mx-auto px-4 sm:px-6 py-16 sm:py-24"
+      // WCAG 3.1.2 Language of Parts: `lang` sul documento (impostato dal
+      // layout da `lc`) resta quello della route perché nav/footer sono
+      // davvero tradotti. Ma quando questo blocco è in fallback il TESTO
+      // dentro è inglese, non `lc` — un lettore di schermo o un traduttore
+      // che leggesse `lang="sv"` qui pronuncerebbe/tradurrebbe inglese come
+      // se fosse svedese. `lang` descrive la lingua del contenuto, non la
+      // cartella in cui vive il file: regola generale, non specifica di
+      // questa pagina — ogni futuro fallback va marcato allo stesso modo.
+      lang={isFallback ? "en" : undefined}
+    >
       <h1 className="font-display text-display-md font-semibold tracking-tightest text-text-primary">
         {te?.title ?? "Your free trial has ended"}
       </h1>
