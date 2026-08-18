@@ -154,6 +154,8 @@
       "delete_scheduled_body": "The deletion requested from the dashboard becomes eligible to run after 24 hours and will be processed during the next automatic cycle."
     },
     "trialExpired": {
+      "metaTitle": "Your trial has ended — FitMesh Sync",
+      "metaDescription": "What happens to your FitMesh Sync access now that your free trial has ended.",
       "title": "Your free trial has ended",
       "iosBody": "Your access keeps working: we're fixing purchases on the App Store, and in the meantime you don't lose anything. You don't need to do anything — the app works exactly as before.",
       "iosNote": "If in the future you'd like a subscription paid directly through the App Store, we'll let you know here as soon as it's ready.",

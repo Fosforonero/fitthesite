@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { getDictionary, locales, type Locale } from "@/lib/i18n";
+import { getDictionary, locales, ogLocale, type Locale } from "@/lib/i18n";
 import { PLAY_STORE_URL, SITE_URL } from "@/lib/product-facts";
 
 /**
@@ -120,6 +120,11 @@ async function resolveTrialExpiredCopy(lc: Locale) {
   return { copy: en.app.trialExpired, isFallback: true };
 }
 
+/** Title/description del `<head>` erano rimasti fuori dal ripiego (trovato
+ * da Matteo il 18/08: `<title>` italiano su /en/, dove il corpo aveva già
+ * la traduzione vera — la matrice di verifica copriva corpo/lang/robots/`?p=`
+ * ma non title/description, perché non si vedono guardando la pagina).
+ * Stessa fonte e stesso ripiego del corpo: `resolveTrialExpiredCopy`. */
 export async function generateMetadata({
   params,
 }: {
@@ -127,12 +132,34 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const lc = resolveLocale(locale);
+  const path = `/${lc}/prova-scaduta`;
+  const { copy: te } = await resolveTrialExpiredCopy(lc);
+  const title = te.metaTitle;
+  const description = te.metaDescription;
+
   return {
-    title: "La tua prova è finita — FitMesh Sync",
-    description:
-      "Cosa succede al tuo accesso FitMesh Sync ora che la prova gratuita è finita.",
+    title,
+    description,
     robots: { index: false, follow: true },
-    alternates: { canonical: `${SITE_URL}/${lc}/prova-scaduta` },
+    alternates: { canonical: `${SITE_URL}${path}` },
+    // openGraph/twitter esplicitati (non ereditati dal layout marketing,
+    // che altrimenti mette il pitch generico del sito nella lingua della
+    // route — es. svedese generico sotto un <title> italiano su un corpo
+    // inglese, tre lingue sulla stessa pagina). Stesso pattern di
+    // /self-host: title/description ripetuti, non un secondo testo OG.
+    openGraph: {
+      type: "website",
+      url: `${SITE_URL}${path}`,
+      title,
+      description,
+      siteName: "FitMesh Sync",
+      locale: ogLocale[lc],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 

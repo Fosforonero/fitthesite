@@ -154,6 +154,8 @@
       "delete_scheduled_body": "La cancellazione richiesta dalla dashboard diventerà eseguibile dopo 24 ore e verrà elaborata durante il successivo ciclo automatico."
     },
     "trialExpired": {
+      "metaTitle": "La tua prova è finita — FitMesh Sync",
+      "metaDescription": "Cosa succede al tuo accesso FitMesh Sync ora che la prova gratuita è finita.",
       "title": "La tua prova gratuita è finita",
       "iosBody": "Il tuo accesso continua comunque: stiamo sistemando gli acquisti sull'App Store, e nel frattempo non perdi nulla. Non devi fare niente, l'app funziona già come prima.",
       "iosNote": "Se in futuro vorrai un abbonamento pagato direttamente su App Store, ti avviseremo qui appena sarà pronto.",
