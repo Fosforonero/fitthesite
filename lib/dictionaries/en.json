@@ -152,6 +152,19 @@
       "cancel": "Cancel",
       "delete_scheduled_title": "Request received",
       "delete_scheduled_body": "The deletion requested from the dashboard becomes eligible to run after 24 hours and will be processed during the next automatic cycle."
+    },
+    "trialExpired": {
+      "title": "Your free trial has ended",
+      "iosBody": "Your access keeps working: we're fixing purchases on the App Store, and in the meantime you don't lose anything. You don't need to do anything — the app works exactly as before.",
+      "iosNote": "If in the future you'd like a subscription paid directly through the App Store, we'll let you know here as soon as it's ready.",
+      "androidBody": "You can continue right away here.",
+      "androidCta": "Open Play Store",
+      "androidHint": "If you already have FitMesh installed, open it directly on your phone and complete the purchase from there.",
+      "choosePrompt": "Which phone do you use?",
+      "chooseIos": "iPhone",
+      "chooseAndroid": "Android",
+      "supportPrompt": "Questions?",
+      "supportCta": "Contact support"
     }
   },
   "admin": {

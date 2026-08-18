@@ -36,15 +36,37 @@ import { PLAY_STORE_URL, SITE_URL } from "@/lib/product-facts";
  *    organici (nessun param) si mostrano ENTRAMBE le strade in modo
  *    neutro — mai indovinare, nemmeno via User-Agent.
  *
- * 4. Solo IT per ora. I 12 utenti reali (senza diritto + almeno una riga
- *    fitness_metrics a source non nullo) sono TUTTI locale 'it' — 0 su 12
- *    in altre lingue. Tradurre in 13 lingue una pagina con una decina di
- *    lettori possibili è lavoro speso male; il routing [locale] esiste già
- *    e permette di aggiungere lingue quando servirà davvero, senza
- *    rifare nulla. Vedi generateStaticParams sotto.
+ * 4. Lingue: IT + EN ora, non "solo IT". La versione precedente diceva che
+ *    i 12 utenti reali erano "tutti locale it" — falso: quel numero veniva
+ *    da `profiles.locale`, colonna NOT NULL con DEFAULT 'it' che il client
+ *    non sovrascrive mai (572/573 righe sono il default, non una misura).
+ *    Stesso difetto su `profiles.time_zone` (572/573 = 'Europe/Rome' di
+ *    default) — l'indagine sui pisolini l'ha scoperto derivando il fuso
+ *    orario vero per utente altrove e trovando che solo 104/253 sono
+ *    davvero UTC+2. Una colonna sempre uguale al suo default è peggio di
+ *    una colonna assente: dà una risposta plausibile a chiunque la
+ *    interroghi e nessuno la rimette in discussione.
  *
- * 5. Noindex. Pagina transazionale, non contenuto editoriale — stesso
- *    trattamento di /self-host.
+ *    Quante lingue oltre l'inglese non si decide dal fuso orario: verificato
+ *    il 18/08 (vedi memoria `i18n-language-signal-weak-proxy`) che è un
+ *    segnale forte solo per il 21% degli utenti (intervallo largo altrove =
+ *    assenza di informazione, non stima) e comunque ambiguo sul blocco più
+ *    numeroso (UTC+1/+2 copre IT/DE/FR/ES/PL/NL/SV/NO). Conferma che EN dopo
+ *    IT è giustificato (~1/3 dei fissabili è fuori Europa), non quale sia la
+ *    terza lingua. Quella risposta sta in App Store Connect / Play Console
+ *    (lingua e paese per installazione, su tutti gli utenti), non nel
+ *    database — lavoro futuro, non blocca questa release. Nel frattempo il
+ *    ripiego per ogni locale del sito che non ha ancora `app.trialExpired`
+ *    tradotto è l'inglese (vedi sotto), mai l'italiano: è la lingua del
+ *    brand, non un fallback universale.
+ *
+ * 5. Slug singolo. "prova-scaduta" resta invariato in ogni lingua — è
+ *    noindex, non viene mai digitato, e si raggiunge solo da un link
+ *    costruito dall'app o da una mail. Slug localizzati moltiplicherebbero
+ *    i modi in cui quel link può rompersi, per un beneficio di
+ *    indicizzazione che con noindex non esiste.
+ *
+ * 6. Noindex. Pagina transazionale, non contenuto editoriale.
  */
 
 const PLATFORMS = ["ios", "android"] as const;
@@ -57,10 +79,38 @@ function resolvePlatform(p: string | string[] | undefined): Platform | null {
     : null;
 }
 
-/** Solo IT: nessun utente reale in altre lingue oggi. Aggiungere qui quando
- * arriva una traduzione reale in dictionaries/<locale>.json. */
+/** Tutte le 15 lingue del sito — come la maggior parte delle pagine
+ * marketing (about, integrations, novita, blog…), NON come /self-host,
+ * /labs o /fitness-data-sync, che restano deliberatamente it/en perché lì
+ * una lingua non coperta non deve produrre alcuna pagina pubblica. Qui il
+ * caso è diverso: la pagina è noindex per ogni locale (punto 6 sopra, non
+ * solo per le nordiche di `UNTRANSLATED_CONTENT_LOCALES`), quindi mostrare
+ * inglese sotto un URL non ancora tradotto non ha il costo SEO che ha
+ * altrove — e il ripiego runtime (`resolveTrialExpiredCopy` sotto) lo rende
+ * comunque corretto, mai più italiano cablato a chi non lo parla. */
 export function generateStaticParams() {
-  return [{ locale: "it" }];
+  return locales.map((locale) => ({ locale }));
+}
+
+/** Risolve `lc` per una request: locale valido → se stesso, altrimenti
+ * inglese. Mai italiano come ripiego per una lingua sconosciuta — l'italiano
+ * è la lingua del brand (default del *sito*), non il ripiego universale
+ * per contenuto mancante. */
+function resolveLocale(locale: string): Locale {
+  return (locales as readonly string[]).includes(locale)
+    ? (locale as Locale)
+    : "en";
+}
+
+/** Copy della sezione per la lingua richiesta, o l'inglese se quel locale
+ * non ha ancora `app.trialExpired` tradotto. Un solo posto dove vive la
+ * copia inglese (dictionaries/en.json) — niente stringhe duplicate cablate
+ * nel JSX che possono scollarsi dal dizionario vero nel tempo. */
+async function resolveTrialExpiredCopy(lc: Locale) {
+  const t = await getDictionary(lc);
+  if (t.app?.trialExpired) return t.app.trialExpired;
+  const en = await getDictionary("en");
+  return en.app.trialExpired;
 }
 
 export async function generateMetadata({
@@ -69,9 +119,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const lc: Locale = (locales as readonly string[]).includes(locale)
-    ? (locale as Locale)
-    : "it";
+  const lc = resolveLocale(locale);
   return {
     title: "La tua prova è finita — FitMesh Sync",
     description:
@@ -90,11 +138,8 @@ export default async function TrialExpiredPage({
 }) {
   const { locale } = await params;
   const { p } = await searchParams;
-  const lc: Locale = (locales as readonly string[]).includes(locale)
-    ? (locale as Locale)
-    : "it";
-  const t = await getDictionary(lc);
-  const te = t.app?.trialExpired;
+  const lc = resolveLocale(locale);
+  const te = await resolveTrialExpiredCopy(lc);
   const platform = resolvePlatform(p);
 
   const showIos = platform === "ios" || platform === null;
@@ -104,7 +149,7 @@ export default async function TrialExpiredPage({
   return (
     <div className="max-w-2xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
       <h1 className="font-display text-display-md font-semibold tracking-tightest text-text-primary">
-        {te?.title ?? "La tua prova gratuita è finita"}
+        {te?.title ?? "Your free trial has ended"}
       </h1>
 
       <div className="mt-10 space-y-6">
@@ -117,11 +162,11 @@ export default async function TrialExpiredPage({
             )}
             <p className="text-text-secondary">
               {te?.iosBody ??
-                "Il tuo accesso continua comunque: stiamo sistemando gli acquisti sull'App Store, e nel frattempo non perdi nulla. Non devi fare niente, l'app funziona già come prima."}
+                "Your access keeps working: we're fixing purchases on the App Store, and in the meantime you don't lose anything. You don't need to do anything — the app works exactly as before."}
             </p>
             <p className="mt-3 text-sm text-text-muted">
               {te?.iosNote ??
-                "Se in futuro vorrai un abbonamento pagato direttamente su App Store, ti avviseremo qui appena sarà pronto."}
+                "If in the future you'd like a subscription paid directly through the App Store, we'll let you know here as soon as it's ready."}
             </p>
           </section>
         )}
@@ -134,7 +179,7 @@ export default async function TrialExpiredPage({
               </p>
             )}
             <p className="text-text-secondary">
-              {te?.androidBody ?? "Qui puoi continuare subito."}
+              {te?.androidBody ?? "You can continue right away here."}
             </p>
             <a
               href={PLAY_STORE_URL}
@@ -142,20 +187,20 @@ export default async function TrialExpiredPage({
               rel="noopener noreferrer"
               className="mt-5 inline-flex px-5 py-2.5 rounded-pill bg-brand-gradient text-bg-dark text-sm font-semibold hover:opacity-90 transition"
             >
-              {te?.androidCta ?? "Apri il Play Store"}
+              {te?.androidCta ?? "Open Play Store"}
             </a>
             <p className="mt-3 text-sm text-text-muted">
               {te?.androidHint ??
-                "Se hai già FitMesh installata, aprila direttamente dal telefono e completa l'acquisto da lì."}
+                "If you already have FitMesh installed, open it directly on your phone and complete the purchase from there."}
             </p>
           </section>
         )}
       </div>
 
       <p className="mt-10 text-sm text-text-muted">
-        {te?.supportPrompt ?? "Domande?"}{" "}
+        {te?.supportPrompt ?? "Questions?"}{" "}
         <a href={`/${lc}/support`} className="underline hover:text-text-secondary">
-          {te?.supportCta ?? "Scrivi al supporto"}
+          {te?.supportCta ?? "Contact support"}
         </a>
       </p>
     </div>
