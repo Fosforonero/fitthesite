@@ -113,3 +113,4 @@ OK   20260825120005_grant_pro_to_email_lifetime.sql
 OK   20260825120006_dashboard_snapshot_pro_attivi.sql
 OK   20260825120007_claim_group_invite_cap_su_ruolo_attivo.sql
 OK   20260825120008_entitlement_core_ramo_appreview_in_testa.sql
+OK   20260825120009_finestra_sonno_senza_awake_ai_bordi.sql

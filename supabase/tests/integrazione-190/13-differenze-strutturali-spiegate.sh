@@ -55,6 +55,10 @@ REGISTRO=(
   # il ramo appReview di entitlement_core, spostato in testa in produzione il
   # 18/08 e mai registrato. Applicata al vivo, la forward-only e' un no-op.
   "L|entitlement_core corpo (ramo appReview in testa)|20260825120008_entitlement_core_ramo_appreview_in_testa.sql|appReview"
+  # L'ottava, aggiunta il 25/08 con la chiusura di 3A: gli estremi della notte
+  # principale escludono gli awake ai bordi. Misurato in produzione prima di
+  # scriverla: 418 notti su 1.038 in 7 giorni, 40,3%.
+  "L|_merge_sleep_stages_jsonb corpo (finestra senza awake ai bordi)|20260825120009_finestra_sonno_senza_awake_ai_bordi.sql|sleep_start_ms"
 )
 
 # verifica_voce: 0 se la spiegazione regge, 1 altrimenti. Stampa il verdetto.
