@@ -18,7 +18,14 @@ const SLUG = "health-connect-not-syncing";
 const EXPECTED_H1_DE =
   "Health Connect synchronisiert nicht: 7 Lösungen, die funktionieren (2026)";
 const EXPECTED_PUBLISHED_AT = "2026-05-30";
-const EXPECTED_UPDATED_AT = "2026-07-13"; // invariato: la modifica e' solo metadata.
+// P1.8A (2026-08-25): pin aggiornato — il vincolo "solo metadata" di questo
+// guardrail valeva per lo sprint P1.5B; da allora P1.7 (2026-08-06, truth-fix
+// contenuti) e P1.8A (2026-08-25, truth-fix + QA multilingua) hanno
+// legittimamente cambiato il CONTENUTO, quindi updatedAt si e' mosso di
+// nuovo per un motivo reale, non per errore. Questo pin esisteva gia' rotto
+// (fermo al 2026-07-13) al momento del baseline P1.8A: era debito pre-
+// esistente segnalato ma non causato da questo sprint.
+const EXPECTED_UPDATED_AT = "2026-08-25";
 const EXPECTED_SOLUTION_COUNT = 7;
 
 const post = BLOG_POSTS.find((p) => p.slug === SLUG);

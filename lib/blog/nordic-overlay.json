@@ -6390,8 +6390,8 @@
       "da": "Sådan synkroniseres Garmin med Samsung Health og Health Connect i 2026"
     },
     "hero.subtitle": {
-      "sv": "Garmin och Samsung Health kommunicerar inte direkt med varandra. Här är den fullständiga konfigurationen för att få dina data att automatiskt överföras till båda plattformarna.",
-      "da": "Garmin og Samsung Health kommunikerer ikke direkte med hinanden. Her er den komplette opsætning, der sikrer, at dine data automatisk overføres til begge platforme."
+      "sv": "Garmin och Samsung Health kommunicerar inte direkt med varandra. Här är den fullständiga konfigurationen för att få dina data att överföras till båda plattformarna.",
+      "da": "Garmin og Samsung Health kommunikerer ikke direkte med hinanden. Her er den komplette opsætning, der sikrer, at dine data overføres til begge platforme."
     },
     "metaDescription": {
       "sv": "Garmin Connect och Samsung Health synkroniseras inte direkt. Den här guiden visar steg för steg hur du kopplar ihop dem via Health Connect på Android.",
@@ -6402,32 +6402,32 @@
       "da": "synkronisering af Garmin, Samsung Health og Android"
     },
     "body.0.text": {
-      "sv": "Garmin Connect och Samsung Health är två av de mest populära träningsplattformarna på Android, men de har aldrig kommunicerat direkt med varandra. I åratal var den enda lösningen en app från tredje part eller manuell dataexport. Sedan Android Health Connect blev det standardiserade synkroniseringslagret har situationen förändrats. Båda apparna skriver nu till och läser från Health Connect, som fungerar som en bro. Den här guiden visar hur du konfigurerar det på rätt sätt.",
-      "da": "Garmin Connect og Samsung Health er to af de mest populære fitness-økosystemer på Android, men de har aldrig kommunikeret direkte med hinanden. I årevis var den eneste løsning en tredjepartsapp eller manuel dataeksport. Siden Android's Health Connect blev det standardiserede synkroniseringslag, har situationen ændret sig. Begge apps skriver nu til og læser fra Health Connect, som fungerer som broen. Denne vejledning viser dig, hvordan du konfigurerer det korrekt."
+      "sv": "Garmin Connect och Samsung Health är två av de mest använda träningsplattformarna på Android, men de har aldrig kommunicerat direkt med varandra. I åratal var den enda lösningen en app från tredje part eller manuell dataexport. Sedan Android Health Connect blev det standardiserade synkroniseringslagret har situationen förändrats. Garmin Connect skriver dina data till Health Connect; Samsung Health kan både läsa från och skriva till Health Connect. Tillsammans fungerar de som en bro. Den här guiden visar hur du konfigurerar det på rätt sätt.",
+      "da": "Garmin Connect og Samsung Health er to af de mest udbredte fitness-økosystemer på Android, men de har aldrig kommunikeret direkte med hinanden. I årevis var den eneste løsning en tredjepartsapp eller manuel dataeksport. Siden Android's Health Connect blev det standardiserede synkroniseringslag, har situationen ændret sig. Garmin Connect skriver dine data til Health Connect; Samsung Health kan både læse fra og skrive til Health Connect. Sammen fungerer de som broen. Denne vejledning viser dig, hvordan du konfigurerer det korrekt."
     },
     "body.1.text": {
       "sv": "Hur synkroniseringen fungerar (och vad den inte omfattar)",
       "da": "Sådan fungerer synkroniseringen (og hvad den ikke omfatter)"
     },
     "body.2.text": {
-      "sv": "Health Connect är inte en app som behandlar dina data. Det är en lokal databas på din Android-enhet som appar kan läsa från och skriva till, med ditt tillstånd. Garmin Connect skriver in dina tränings-, sömn- och hälsodata till den. Samsung Health kan läsa dessa data från den, och vice versa. Begränsningen är att endast de datatyper som Health Connect stöder synkroniseras. Garmin-specifika mått som Body Battery, Stress och Intensity Minutes ingår inte i de vanliga Health Connect-datatyperna, så de finns endast i Garmin Connect.",
-      "da": "Health Connect er ikke en app, der behandler dine data. Det er en lokal database på din Android-enhed, som apps kan læse fra og skrive til med din tilladelse. Garmin Connect skriver dine trænings-, søvn- og sundhedsdata til den. Samsung Health kan læse disse data fra den, og omvendt. Begrænsningen er, at kun de datatyper, som Health Connect understøtter, synkroniseres. Garmin-specifikke målinger som Body Battery, Stress og Intensity Minutes er ikke en del af de standard Health Connect-datatyper, så de forbliver udelukkende i Garmin Connect."
+      "sv": "Health Connect är inte en app som behandlar dina data. Det är en lokal databas på din Android-enhet som appar kan läsa från och skriva till, med ditt tillstånd. Garmin Connect skriver in dina tränings-, sömn- och hälsodata till den (endast i en riktning: Garmin Connect läser aldrig från Health Connect). Samsung Health kan läsa dessa data från den, och även skriva till den. Begränsningen är att endast de datatyper som Health Connect stöder synkroniseras. Garmin-specifika mått som Body Battery, Stress och Intensity Minutes ingår inte i de vanliga Health Connect-datatyperna, så de finns endast i Garmin Connect. Källa: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) · [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect).",
+      "da": "Health Connect er ikke en app, der behandler dine data. Det er en lokal database på din Android-enhed, som apps kan læse fra og skrive til med din tilladelse. Garmin Connect skriver dine trænings-, søvn- og sundhedsdata til den (kun i én retning: Garmin Connect læser aldrig fra Health Connect). Samsung Health kan læse disse data fra den, og også skrive til den. Begrænsningen er, at kun de datatyper, som Health Connect understøtter, synkroniseres. Garmin-specifikke målinger som Body Battery, Stress og Intensity Minutes er ikke en del af de standard Health Connect-datatyper, så de forbliver udelukkende i Garmin Connect. Kilde: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) · [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect)."
     },
     "body.3.title": {
       "sv": "Vad synkroniseras och vad synkroniseras inte",
       "da": "Hvad der synkroniseres, og hvad der ikke synkroniseres"
     },
     "body.3.body": {
-      "sv": "Synkroniseras via Health Connect: steg, kalorier, sömnfaser, puls, SpO2, aktiv energi, träningspass (typ, varaktighet, distans). Synkroniserar INTE: Garmin Body Battery, Garmin stresspoäng, intensitetsminuter, träningsbelastning, träningseffekt.",
-      "da": "Synkroniseres via Health Connect: skridt, kalorier, søvnfaser, puls, SpO2, aktiv energi, træningspas (type, varighed, distance). Synkroniserer IKKE: Garmin Body Battery, Garmin stressscore, intensitetsminutter, træningsbelastning, træningseffekt."
+      "sv": "Synkroniseras via Health Connect: steg, kalorier, sömnfaser, puls, aktiv energi, träningspass (typ, varaktighet, distans). Synkroniserar INTE: Garmin Body Battery, Garmin stresspoäng, intensitetsminuter, träningsbelastning, träningseffekt.",
+      "da": "Synkroniseres via Health Connect: skridt, kalorier, søvnfaser, puls, aktiv energi, træningspas (type, varighed, distance). Synkroniserer IKKE: Garmin Body Battery, Garmin stressscore, intensitetsminutter, træningsbelastning, træningseffekt."
     },
     "body.4.text": {
       "sv": "Steg 1: Kontrollera att Health Connect är installerat",
       "da": "Trin 1: Kontroller, at Health Connect er installeret"
     },
     "body.5.text": {
-      "sv": "I Android 14 och senare är Health Connect en systemapp som redan är installerad. I Android 13 och tidigare söker du efter ”Health Connect” i Play Store och installerar den officiella Google-appen. Öppna den en gång för att initialisera datalagret.",
-      "da": "På Android 14 og nyere er Health Connect en systemapp, som allerede er installeret. På Android 13 og ældre skal du søge efter 'Health Connect' i Play Store og installere den officielle Google-app. Åbn den én gang for at initialisere datalageret."
+      "sv": "I Android 14 och senare är Health Connect en systemapp som redan är installerad. I Android 13 och tidigare söker du efter ”Health Connect” i Play Store och installerar den officiella Google-appen. Öppna den en gång för att initialisera datalagret. Obs: Garmin Connects egen delningsfunktion för Health Connect kräver specifikt Android 14 eller senare (källa: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5): 'This feature is only available on Android 14 and above').",
+      "da": "På Android 14 og nyere er Health Connect en systemapp, som allerede er installeret. På Android 13 og ældre skal du søge efter 'Health Connect' i Play Store og installere den officielle Google-app. Åbn den én gang for at initialisere datalageret. Bemærk: Garmin Connects egen delefunktion til Health Connect kræver specifikt Android 14 eller nyere (kilde: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5): 'This feature is only available on Android 14 and above')."
     },
     "body.6.text": {
       "sv": "Steg 2: bevilja Garmin skrivbehörighet",
@@ -6478,8 +6478,8 @@
       "da": "Vil historiske Garmin-data blive vist i Samsung Health, når jeg har konfigureret dette?"
     },
     "faq.1.a": {
-      "sv": "Vanligtvis ja. Garmin Connect fyller normalt i flera veckors historiska data till Health Connect efter att du först har aktiverat integrationen. Den exakta mängden beror på datatypen och Garmin Connect-versionen.",
-      "da": "Normalt ja. Garmin Connect indlæser typisk flere ugers historiske data til Health Connect, efter at du første gang har aktiveret integrationen. Det nøjagtige antal afhænger af datatypen og Garmin Connect-versionen."
+      "sv": "Vanligtvis ja: Garmin Connect fyller oftast i en del historiska data till Health Connect strax efter att du först har aktiverat integrationen, men Garmin dokumenterar varken den exakta mängden eller tidsåtgången, så alla specifika siffror bör ses som ungefärliga.",
+      "da": "Normalt ja: Garmin Connect indlæser som regel en del historiske data til Health Connect kort efter, at du første gang har aktiveret integrationen, men Garmin dokumenterer hverken den præcise mængde eller tidsforbruget, så eventuelle konkrete tal her bør opfattes som omtrentlige."
     },
     "faq.2.q": {
       "sv": "Fungerar det här på iOS?",
@@ -6521,14 +6521,14 @@
       "sv": [
         "Garmin och Samsung Health har ingen direkt integration. Bron är Health Connect.",
         "Du måste aktivera skrivbehörighet för Health Connect i Garmin Connect och läsbehörighet för Samsung Health.",
-        "När enheten väl är inställd synkroniseras steg, sömn, puls och träningspass automatiskt inom några minuter.",
-        "FitMesh kan läsa från båda källorna samtidigt om du använder både en Garmin-enhet och en Galaxy Watch."
+        "När enheten väl är inställd synkroniseras steg, sömn, puls och träningspass automatiskt varje gång din Garmin-enhet synkroniserar med telefonen och du öppnar Samsung Health — det är ingen kontinuerlig bakgrundsprocess.",
+        "FitMesh kan visa data från både en Garmin-enhet och en Galaxy Watch samtidigt — båda går via Health Connect."
       ],
       "da": [
         "Garmin og Samsung Health er ikke direkte forbundet. Broen er Health Connect.",
         "Du skal aktivere Health Connect skrivetilladelser i Garmin Connect og læsetilladelser i Samsung Health.",
-        "Når enheden er sat op, synkroniseres skridt, søvn, puls og træningspas automatisk inden for få minutter.",
-        "FitMesh kan læse fra begge kilder på samme tid, hvis du bruger både en Garmin-enhed og en Galaxy Watch."
+        "Når enheden er sat op, synkroniseres skridt, søvn, puls og træningspas automatisk, hver gang din Garmin-enhed synkroniserer med telefonen, og du åbner Samsung Health — det er ikke en vedvarende baggrundsproces.",
+        "FitMesh kan vise data fra både en Garmin-enhed og en Galaxy Watch på samme tid — begge går via Health Connect."
       ]
     },
     "body.7.items": {
@@ -6537,14 +6537,14 @@
         "Gå till huvudmenyn (tre punkter eller hamburgerikonen, uppe till vänster).",
         "Tryck på ”Health Connect” eller sök efter det under Inställningar.",
         "Tryck på ”Anslut” och bevilja alla begärda behörigheter: steg, sömn, hjärtfrekvens, träningspass, kroppsmått.",
-        "Garmin Connect kommer från och med nu att börja skriva data till Health Connect. Historiska data (från tidigare veckor) fylls vanligtvis i inom några timmar."
+        "Garmin Connect kommer från och med nu att börja skriva data till Health Connect. Vanligtvis fylls även viss historisk data i, men Garmin dokumenterar varken den exakta mängden eller tidsåtgången."
       ],
       "da": [
         "Åbn Garmin Connect på din telefon.",
         "Gå til hovedmenuen (de tre prikker eller hamburger-ikonet øverst til venstre).",
         "Tryk på 'Health Connect' eller søg efter det under Indstillinger.",
         "Tryk på »Forbind«, og giv tilladelse til alle de anmodede tilladelser: skridt, søvn, puls, træningspas, kropsmål.",
-        "Garmin Connect vil fra nu af begynde at skrive data til Health Connect. Historiske data (fra de seneste uger) indlæses typisk inden for et par timer."
+        "Garmin Connect vil fra nu af begynde at skrive data til Health Connect. Som regel indlæses der også noget historisk data, men Garmin dokumenterer hverken den præcise mængde eller tidsforbruget."
       ]
     },
     "body.9.items": {
@@ -6565,13 +6565,13 @@
     },
     "body.11.items": {
       "sv": [
-        "Vänta 5 till 15 minuter efter installationen innan du kontrollerar. Synkroniseringen sker inte omedelbart.",
+        "Se till att din Garmin-enhet har synkroniserats med Garmin Connect-appen minst en gång, och öppna sedan Samsung Health — synkroniseringen garanteras inte bara genom att vänta.",
         "Öppna Samsung Health och gå till Aktivitet. Där bör du se stegantalet från din Garmin-enhet.",
         "Kontrollera startskärmen Samsung Health för sömndata. Om du sov med din Garmin-enhet bör gårdagens sömnfaser visas.",
         "Om data saknas, öppna Health Connect, gå till ”Data och åtkomst” och kontrollera att Garmin Connect finns med som datakälla med skrivbehörighet för varje datatyp som du förväntar dig."
       ],
       "da": [
-        "Vent 5 til 15 minutter efter opsætningen, før du tjekker. Synkroniseringen sker ikke med det samme.",
+        "Sørg for, at din Garmin-enhed har synkroniseret med Garmin Connect-appen mindst én gang, og åbn derefter Samsung Health — synkronisering er ikke garanteret, bare fordi du venter.",
         "Åbn Samsung Health og gå til »Aktivitet«. Her bør du kunne se antallet af skridt fra din Garmin-enhed.",
         "Tjek startskærmen Samsung Health for søvndata. Hvis du sov med din Garmin-enhed, bør nattens søvnfaser være vist.",
         "Hvis der mangler data, skal du åbne Health Connect, gå til »Data og adgang« og kontrollere, at Garmin Connect er angivet som datakilde med skrivetilladelser for hver af de datatyper, du forventer."
@@ -9802,8 +9802,8 @@
       "da": "Health Connect synkroniserer ikke"
     },
     "body.0.text": {
-      "sv": "90 % av problemen med att Health Connect inte synkroniseras har en enkel orsak: saknade behörigheter eller batterioptimering som stänger av bakgrundssynkroniseringen. Den här guiden följer den rätta felsökningsordningen, från det vanligaste till det minst vanliga problemet, så att du kan lösa det på 5 minuter utan att behöva installera om någonting.",
-      "da": "90 % af problemerne med Health Connect, der ikke synkroniseres, har en simpel årsag: manglende tilladelser eller batterioptimering, der forhindrer synkronisering i baggrunden. Denne vejledning følger den korrekte rækkefølge for fejlfinding, fra det mest til det mindst hyppige problem, så du kan løse det på 5 minutter uden at geninstallere noget."
+      "sv": "De flesta problem med att Health Connect inte synkroniseras har en enkel orsak: saknade behörigheter eller batterioptimering som stänger av bakgrundssynkroniseringen. Den här guiden följer den rätta felsökningsordningen, från det vanligaste till det minst vanliga problemet, utan att du behöver installera om någonting.",
+      "da": "De fleste problemer med Health Connect, der ikke synkroniseres, har en simpel årsag: manglende tilladelser eller batterioptimering, der forhindrer synkronisering i baggrunden. Denne vejledning følger den korrekte rækkefølge for fejlfinding, fra det mest til det mindst hyppige problem, uden at du behøver geninstallere noget."
     },
     "body.1.text": {
       "sv": "För det första: identifiera det exakta symptomet",
@@ -9870,8 +9870,8 @@
       "da": "Batterioptimering er den vigtigste årsag, ikke en fejl"
     },
     "body.23.body": {
-      "sv": "Enligt vår erfarenhet av hundratals rapporter om synkroniseringsfel är batterioptimering orsaken i 60 % av fallen: Android sätter appar i bakgrunden i djupviloläge, synkroniseringen avbryts och data verkar ”försvinna”. Det är varken ett Health Connect-fel eller ett problem med din klocka. Lösningen (att undanta appar från optimeringen) verkar trivial men löser de flesta fallen. Gör det innan du provar något annat.",
-      "da": "Vores erfaring med hundredvis af rapporter om synkroniseringsfejl viser, at batterioptimering er årsagen i 60 % af tilfældene: Android sætter baggrundsapps i dyb søvn, synkroniseringen stopper, og dataene ser ud til at »forsvinde«. Det er hverken en Health Connect-fejl eller et problem med dit ur. Løsningen (at undtage apps fra optimeringen) virker triviel, men løser de fleste tilfælde. Gør det, før du prøver noget andet."
+      "sv": "Enligt vår erfarenhet av rapporter om synkroniseringsfel är batterioptimering en vanlig orsak: Android sätter appar i bakgrunden i djupviloläge, synkroniseringen avbryts och data verkar ”försvinna”. Det är varken ett Health Connect-fel eller ett problem med din klocka. Lösningen (att undanta appar från optimeringen) verkar trivial men löser problemet i många fall. Gör det innan du provar något annat.",
+      "da": "Vores erfaring med rapporter om synkroniseringsfejl viser, at batterioptimering er en almindelig årsag: Android sætter baggrundsapps i dyb søvn, synkroniseringen stopper, og dataene ser ud til at »forsvinde«. Det er hverken en Health Connect-fejl eller et problem med dit ur. Løsningen (at undtage apps fra optimeringen) virker triviel, men løser problemet i mange tilfælde. Gør det, før du prøver noget andet."
     },
     "body.24.text": {
       "sv": "När problemet inte ligger i din telefon",

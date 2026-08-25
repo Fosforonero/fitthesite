@@ -15,92 +15,102 @@ import type { BlogPost } from "../types";
 // ("causa numero uno", "risolve la maggioranza", "5 minuti") ammorbiditi.
 // Corretti anche 4 artefatti di corruzione testuale nel locale TR
 // (sostituzioni errate di "Health Connect" con "KVKK", indipendenti dal
-// fact-check). PT/FR restano NON sbloccate per l'indicizzazione finché non
-// è verificata la loro completezza rispetto a questa base corretta (FASE
-// C1 ancora da chiudere).
+// fact-check).
+//
+// CORREZIONE SPRINT P1.8A (2026-08-25): il commento precedente diceva
+// "PT/FR restano NON sbloccate... FASE C1 ancora da chiudere" — falso da
+// verificare, non solo stale: `isBlogVariantIndexable()` eseguito
+// direttamente (non dedotto dai commenti) conferma che PT e FR sono
+// INDEXABLE oggi, cosi' come li vede la sitemap live e l'hreflang in
+// produzione. La lista reale delle locale indicizzabili per questo slug e'
+// it/en/es/de/pt/fr/nl (via campi nativi) + sv/da (via overlay nordico
+// completo su nordic-overlay.json) = 9 locale live; pl/tr/ja/ko/no/fi
+// restano bozze noindex (completamento campi insufficiente), corrette solo
+// per errori fattuali/corruzioni gia' presenti, senza sbloccarle. Vedi il
+// report dello sprint P1.8A per la matrice completa prima/dopo.
 export const post: BlogPost = {
   slug: "health-connect-not-syncing",
   category: "guides",
   publishedAt: "2026-05-30",
-  updatedAt: "2026-08-06",
+  updatedAt: "2026-08-25",
   readMinutes: 8,
   tldr: {
     it: [
       "Controlla prima tre cose, in quest'ordine: i permessi in Health Connect, l'ottimizzazione batteria per le app coinvolte, e se l'app sorgente ha sincronizzato di recente.",
       "L'ottimizzazione batteria è una delle cause più frequenti: blocca il sync in background, non è un bug di Health Connect.",
       "Su Samsung, il fix specifico è disconnettere e riconnettere la pipeline Samsung Health → Health Connect dalle impostazioni.",
-      "Svuotare la cache di Health Connect non cancella i dati: è sicuro e risolve spesso gli errori di stato corrotto (solo su Android 13 e precedenti: da Android 14 Health Connect è un modulo di sistema senza voce cache separata).",
+      "Svuotare la cache di Health Connect non cancella i dati: è sicuro e risolve spesso gli errori di stato corrotto (solo su Android 13 e precedenti: da Android 14 Health Connect è un modulo di sistema e potrebbe non mostrare più una voce cache separata nelle impostazioni).",
       "Il recupero dei dati storici NON è automatico: dipende dall'app sorgente (alcune riscrivono lo storico, altre no) e dal permesso di lettura storica di Health Connect, che senza autorizzazione estesa copre solo i 30 giorni precedenti alla prima concessione del permesso, non un limite mobile di 30 giorni da oggi.",
     ],
     en: [
       "Check three things first, in this order: permissions in Health Connect, battery optimization for the apps involved, and whether the source app has synced recently.",
       "Battery optimization is one of the most frequent causes: it blocks background sync, it's not a Health Connect bug.",
       "On Samsung, the specific fix is disconnecting and reconnecting the Samsung Health → Health Connect pipeline from settings.",
-      "Clearing the Health Connect cache does not delete your data: it's safe and often fixes corrupted state errors (Android 13 and earlier only: on Android 14+ Health Connect is a system module with no separate cache entry).",
+      "Clearing the Health Connect cache does not delete your data: it's safe and often fixes corrupted state errors (Android 13 and earlier only: on Android 14+ Health Connect is a system module and may no longer show a separate cache entry in Settings).",
       "Historical data recovery is NOT automatic: it depends on the source app (some rewrite history, others don't) and on Health Connect's history-read permission, which without the extended grant only covers the 30 days preceding the app's first permission grant, not a rolling 30-day window from today.",
     ],
     es: [
       "Comprueba antes tres cosas, en este orden: los permisos en Health Connect, la optimización de batería para las apps involucradas, y si la app de origen sincronizó recientemente.",
       "La optimización de batería es una de las causas más frecuentes: bloquea la sincronización en segundo plano. No es un error de Health Connect.",
       "En Samsung, la solución específica es desconectar y volver a conectar el enlace Samsung Health → Health Connect desde los ajustes.",
-      "Vaciar la caché de Health Connect no elimina tus datos: es seguro y con frecuencia soluciona errores de estado corrupto (solo en Android 13 y anteriores: desde Android 14 Health Connect es un módulo del sistema sin una opción de caché independiente).",
+      "Vaciar la caché de Health Connect no elimina tus datos: es seguro y con frecuencia soluciona errores de estado corrupto (solo en Android 13 y anteriores: desde Android 14 Health Connect es un módulo del sistema y es posible que ya no muestre una opción de caché independiente en Ajustes).",
       "La recuperación de datos históricos NO es automática: depende de la app de origen (algunas reescriben el historial, otras no) y del permiso de lectura histórica de Health Connect, que sin autorización ampliada solo cubre los 30 días anteriores a la primera concesión del permiso, no una ventana móvil de 30 días desde hoy.",
     ],
     de: [
       "Prüfen Sie zuerst drei Dinge, in dieser Reihenfolge: die Berechtigungen in Health Connect, die Akkuoptimierung für die betroffenen Apps, und ob die Quell-App kürzlich synchronisiert hat.",
       "Die Akkuoptimierung ist eine der häufigsten Ursachen: Sie unterbricht die Synchronisierung im Hintergrund. Das ist kein Fehler von Health Connect.",
       "Auf Samsung-Geräten ist die spezifische Lösung, die Verbindung Samsung Health → Health Connect in den Einstellungen zu trennen und erneut herzustellen.",
-      "Den Cache von Health Connect zu leeren löscht keine Daten: Es ist sicher und behebt häufig Fehler durch einen beschädigten Zustand (nur unter Android 13 und älter: ab Android 14 ist Health Connect ein Systemmodul ohne eigenen Cache-Eintrag).",
+      "Den Cache von Health Connect zu leeren löscht keine Daten: Es ist sicher und behebt häufig Fehler durch einen beschädigten Zustand (nur unter Android 13 und älter: ab Android 14 ist Health Connect ein Systemmodul und zeigt möglicherweise keinen eigenen Cache-Eintrag mehr in den Einstellungen an).",
       "Die Wiederherstellung historischer Daten erfolgt NICHT automatisch: Sie hängt von der Quell-App ab (manche schreiben den Verlauf neu, andere nicht) und von der Berechtigung für den Verlaufszugriff von Health Connect, die ohne erweiterte Freigabe nur die 30 Tage vor der ersten Berechtigungserteilung abdeckt, nicht ein gleitendes 30-Tage-Fenster ab heute.",
     ],
     pt: [
       "Verifique antes três coisas, nesta ordem: as permissões no Health Connect, a otimização de bateria para os apps envolvidos, e se o app de origem sincronizou recentemente.",
       "A otimização de bateria é uma das causas mais comuns: ela bloqueia a sincronização em segundo plano. Não é um bug do Health Connect.",
       "Em dispositivos Samsung, a solução específica é desconectar e reconectar o pipeline Samsung Health → Health Connect nas configurações.",
-      "Limpar o cache do Health Connect não apaga seus dados: é seguro e frequentemente resolve erros de estado corrompido (apenas no Android 13 e anteriores: a partir do Android 14 o Health Connect é um módulo do sistema sem uma opção de cache separada).",
+      "Limpar o cache do Health Connect não apaga seus dados: é seguro e frequentemente resolve erros de estado corrompido (apenas no Android 13 e anteriores: a partir do Android 14 o Health Connect é um módulo do sistema e pode não mostrar mais uma opção de cache separada nas Configurações).",
       "A recuperação de dados históricos NÃO é automática: depende do app de origem (alguns reescrevem o histórico, outros não) e da permissão de leitura do histórico do Health Connect, que sem autorização estendida cobre apenas os 30 dias anteriores à primeira concessão da permissão ao app, não uma janela móvel de 30 dias a partir de hoje.",
     ],
     fr: [
       "Vérifiez d'abord trois choses, dans cet ordre: les autorisations dans Health Connect, l'optimisation de la batterie pour les applications concernées, et si l'application source a synchronisé récemment.",
       "L'optimisation de la batterie est l'une des causes les plus fréquentes: elle bloque la synchronisation en arrière-plan. Ce n'est pas un bug de Health Connect.",
       "Sur Samsung, la solution spécifique consiste à déconnecter puis reconnecter le pipeline Samsung Health vers Health Connect depuis les paramètres.",
-      "Vider le cache de Health Connect ne supprime pas vos données: c'est une opération sûre qui résout souvent les erreurs d'état corrompu (Android 13 et versions antérieures uniquement: à partir d'Android 14, Health Connect est un module système sans entrée de cache distincte).",
+      "Vider le cache de Health Connect ne supprime pas vos données: c'est une opération sûre qui résout souvent les erreurs d'état corrompu (Android 13 et versions antérieures uniquement: à partir d'Android 14, Health Connect est un module système et il se peut qu'il n'affiche plus d'entrée de cache distincte dans les paramètres).",
       "La récupération des données historiques n'est PAS automatique: elle dépend de l'application source (certaines réécrivent l'historique, d'autres non) et de l'autorisation de lecture de l'historique de Health Connect, qui sans autorisation étendue ne couvre que les 30 jours précédant la première autorisation accordée à l'application, et non une fenêtre glissante de 30 jours à partir d'aujourd'hui.",
     ],
     pl: [
       "Sprawdź najpierw trzy rzeczy, w tej kolejności: uprawnienia w Health Connect, optymalizację baterii dla zaangażowanych aplikacji oraz czy aplikacja źródłowa synchronizowała się niedawno.",
       "Optymalizacja baterii to jedna z najczęstszych przyczyn: blokuje synchronizację w tle. To nie jest błąd Health Connect.",
       "Na urządzeniach Samsung konkretnym rozwiązaniem jest rozłączenie i ponowne połączenie potoku Samsung Health - Health Connect w ustawieniach.",
-      "Wyczyszczenie pamięci podręcznej Health Connect nie usuwa Twoich danych: jest bezpieczne i często naprawia błędy uszkodzonego stanu (tylko Android 13 i starsze: od Androida 14 Health Connect jest modułem systemu bez osobnej pozycji pamięci podręcznej).",
-      "Odzyskiwanie danych historycznych NIE jest automatyczne: zależy od aplikacji źródłowej (niektóre nadpisują historię, inne nie) oraz od uprawnienia odczytu historii Health Connect, które bez rozszerzonej zgody obejmuje tylko ostatnie 30 dni.",
+      "Wyczyszczenie pamięci podręcznej Health Connect nie usuwa Twoich danych: jest bezpieczne i często naprawia błędy uszkodzonego stanu (tylko Android 13 i starsze: od Androida 14 Health Connect jest modułem systemu i może nie pokazywać już osobnej pozycji pamięci podręcznej w ustawieniach).",
+      "Odzyskiwanie danych historycznych NIE jest automatyczne: zależy od aplikacji źródłowej (niektóre nadpisują historię, inne nie) oraz od uprawnienia odczytu historii Health Connect, które bez rozszerzonej zgody obejmuje tylko 30 dni poprzedzających pierwsze udzielenie uprawnienia, a nie ruchome okno 30 dni liczone od dzisiaj.",
     ],
     tr: [
       "Önce şu üç şeyi kontrol edin, bu sırayla: Health Connect'teki izinler, ilgili uygulamalar için pil optimizasyonu ve kaynak uygulamanın yakın zamanda senkronize olup olmadığı.",
       "Pil optimizasyonu en yaygın nedenlerden biridir: arka plan senkronizasyonunu engeller. Bu bir Health Connect hatası değildir.",
       "Samsung'da özel çözüm, ayarlardan Samsung Health - Health Connect bağlantısını kesip yeniden bağlamaktır.",
-      "Health Connect önbelleğini temizlemek verilerinizi silmez: güvenlidir ve genellikle bozuk durum hatalarını düzeltir (yalnızca Android 13 ve öncesi: Android 14'ten itibaren Health Connect ayrı bir önbellek seçeneği olmayan bir sistem modülüdür).",
-      "Geçmiş veri kurtarma OTOMATİK DEĞİLDİR: kaynak uygulamaya bağlıdır (bazıları geçmişi yeniden yazar, bazıları yazmaz) ve Health Connect'in geçmiş okuma iznine bağlıdır; genişletilmiş izin olmadan yalnızca son 30 günü kapsar.",
+      "Health Connect önbelleğini temizlemek verilerinizi silmez: güvenlidir ve genellikle bozuk durum hatalarını düzeltir (yalnızca Android 13 ve öncesi: Android 14'ten itibaren Health Connect bir sistem modülüdür ve ayarlarda artık ayrı bir önbellek seçeneği göstermeyebilir).",
+      "Geçmiş veri kurtarma OTOMATİK DEĞİLDİR: kaynak uygulamaya bağlıdır (bazıları geçmişi yeniden yazar, bazıları yazmaz) ve Health Connect'in geçmiş okuma iznine bağlıdır; genişletilmiş izin olmadan yalnızca iznin ilk kez verildiği tarihten önceki 30 günü kapsar, bugünden geriye giden hareketli bir pencere değildir.",
     ],
     nl: [
       "Controleer eerst drie dingen, in deze volgorde: de rechten in Health Connect, batterijoptimalisatie voor de betrokken apps, en of de bronapp recent heeft gesynchroniseerd.",
       "Batterijoptimalisatie is een van de meest voorkomende oorzaken: het blokkeert synchronisatie op de achtergrond, dat is geen Health Connect-bug.",
       "Op Samsung is de specifieke oplossing het verbreken en opnieuw verbinden van de Samsung Health naar Health Connect-pipeline via de instellingen.",
-      "De cache van Health Connect leegmaken verwijdert geen gegevens: het is veilig en lost vaak fouten door een beschadigde status op (alleen Android 13 en ouder: vanaf Android 14 is Health Connect een systeemmodule zonder aparte cache-optie).",
+      "De cache van Health Connect leegmaken verwijdert geen gegevens: het is veilig en lost vaak fouten door een beschadigde status op (alleen Android 13 en ouder: vanaf Android 14 is Health Connect een systeemmodule en toont mogelijk geen aparte cache-optie meer in de instellingen).",
       "Het herstellen van historische gegevens gaat NIET automatisch: het hangt af van de bronapp (sommige herschrijven de geschiedenis, andere niet) en van het recht voor toegang tot de geschiedenis van Health Connect, dat zonder uitgebreide toestemming alleen de 30 dagen vóór de eerste toestemming dekt, geen glijdend venster van 30 dagen vanaf vandaag.",
     ],
     ja: [
       "まず次の3つを順番に確認してください：Health Connectの権限、関係するアプリのバッテリー最適化、ソースアプリが最近同期したかどうか。",
       "バッテリー最適化は最も多い原因の一つです：バックグラウンド同期をブロックしますが、これはHealth Connectのバグではありません。",
       "Samsungでは、設定からSamsung HealthとHealth Connectのパイプラインを切断して再接続するのが具体的な解決策です。",
-      "Health Connectのキャッシュをクリアしてもデータは削除されません：安全であり、破損した状態のエラーを修正することが多いです（Android 13以前のみ対象：Android 14以降、Health Connectは独立したキャッシュ項目を持たないシステムモジュールです）。",
-      "過去データの復元は自動ではありません：ソースアプリ次第であり（履歴を書き直すアプリもあれば、書き直さないアプリもあります）、Health Connectの履歴読み取り権限にも左右されます。この権限を拡張しない限り、直近30日分しかカバーされません。",
+      "Health Connectのキャッシュをクリアしてもデータは削除されません：安全であり、破損した状態のエラーを修正することが多いです（Android 13以前のみ対象:Android 14以降、Health Connectはシステムモジュールであり、設定に独立したキャッシュ項目が表示されない場合があります)。",
+      "過去データの復元は自動ではありません：ソースアプリ次第であり（履歴を書き直すアプリもあれば、書き直さないアプリもあります）、Health Connectの履歴読み取り権限にも左右されます。この権限を拡張しない限り、最初に権限を付与した時点より前の30日間しかカバーされません(今日を起点とする移動する30日間ではありません)。",
     ],
     ko: [
       "먼저 다음 세 가지를 순서대로 확인하세요: Health Connect의 권한, 관련 앱의 배터리 최적화, 소스 앱이 최근에 동기화되었는지 여부.",
       "배터리 최적화는 가장 흔한 원인 중 하나입니다: 백그라운드 동기화를 차단하며, 이는 Health Connect의 버그가 아닙니다.",
       "Samsung에서는 설정에서 Samsung Health와 Health Connect 파이프라인을 끊었다가 다시 연결하는 것이 구체적인 해결책입니다.",
-      "Health Connect 캐시를 지워도 데이터는 삭제되지 않습니다: 안전하며 손상된 상태 오류를 자주 수정합니다(Android 13 이하에서만 해당: Android 14부터는 별도 캐시 항목이 없는 시스템 모듈입니다).",
-      "과거 데이터 복구는 자동이 아닙니다: 소스 앱에 따라 다르며(기록을 다시 쓰는 앱도 있고 그렇지 않은 앱도 있음), Health Connect의 기록 읽기 권한에도 좌우됩니다. 확장 권한이 없으면 최근 30일만 포함됩니다.",
+      "Health Connect 캐시를 지워도 데이터는 삭제되지 않습니다: 안전하며 손상된 상태 오류를 자주 수정합니다(Android 13 이하에서만 해당: Android 14부터는 시스템 모듈이며, 설정에 별도 캐시 항목이 표시되지 않을 수 있습니다).",
+      "과거 데이터 복구는 자동이 아닙니다: 소스 앱에 따라 다르며(기록을 다시 쓰는 앱도 있고 그렇지 않은 앱도 있음), Health Connect의 기록 읽기 권한에도 좌우됩니다. 확장 권한이 없으면 최초로 권한을 부여한 시점 이전 30일만 포함되며, 오늘부터의 이동식 30일 창이 아닙니다.",
     ],
   },
   primaryKeyword: {
@@ -262,6 +272,18 @@ export const post: BlogPost = {
   // invariato, solo <title>/og:title/twitter:title/BlogPosting.headline
   // (tutti derivati da blogSeoTitle) cambiano per DE.
   seoTitle: {
+    // P1.8A (2026-08-25): EN non aveva override, ricadeva su hero.title +
+    // " · FitMesh" = 62 caratteri (>60). CTR EN sotto media sito (1.42% vs
+    // 1.74% pesato sui click reali, GSC ultimi 3 mesi) su 11869 impression
+    // — volume alto, giustifica l'intervento.
+    //
+    // MICRO-GATE P1.8A-A (2026-08-25), secondo giro: "7 fixes that work"
+    // prometteva che le soluzioni funzionano in modo universale (claim
+    // assoluto non verificabile). Sostituito con "Android fixes": stessa
+    // query dominante "health connect not syncing" intatta in testa,
+    // aggiunge il contesto Android, niente promessa di efficacia. 41
+    // caratteri (51 col suffisso " · FitMesh" renderizzato).
+    en: "Health Connect not syncing: Android fixes",
     nl: "Health Connect synchroniseert niet: 7 oplossingen",
     de: "Samsung Health synchronisiert nicht: 7 Lösungen",
     // SPRINT PRE-FERIE addendum Bing (2026-08-06): title live 73 caratteri
@@ -280,15 +302,15 @@ export const post: BlogPost = {
       text: {
         it: "I problemi di Health Connect che non si sincronizza hanno spesso una causa individuabile: permessi mancanti, ottimizzazione batteria che blocca il sync in background, o un'app sorgente che non si è ancora ricollegata. Questa guida segue un ordine di diagnosi dal più al meno frequente, senza bisogno di reinstallare nulla.",
         en: "Health Connect not syncing problems often have an identifiable cause: missing permissions, battery optimization blocking background sync, or a source app that hasn't reconnected yet. This guide follows a diagnostic order from most to least frequent, without needing to reinstall anything.",
-        es: "La mayoría de los problemas de Health Connect que no sincroniza tienen una causa sencilla: permisos que faltan u optimización de batería que interrumpe la sincronización en segundo plano. Esta guía sigue el orden correcto de diagnóstico, del problema más frecuente al menos frecuente, para que puedas resolverlo en 5 minutos sin reinstalar nada.",
-        de: "Die meisten Probleme mit Health Connect, das nicht synchronisiert, haben eine einfache Ursache: fehlende Berechtigungen oder die Akkuoptimierung, die die Hintergrundsynchronisierung blockiert. Diese Anleitung folgt der richtigen Diagnoseabfolge, vom häufigsten zum seltensten Problem, sodass Sie es in 5 Minuten beheben können, ohne irgendetwas neu zu installieren.",
-        pt: "A maioria dos problemas de sincronização do Health Connect tem uma causa simples: permissões ausentes ou a otimização de bateria bloqueando a sincronização em segundo plano. Este guia segue a ordem de diagnóstico correta, do problema mais frequente ao menos frequente, para que você resolva em 5 minutos sem precisar reinstalar nada.",
-        fr: "La plupart des problèmes de synchronisation de Health Connect ont une cause simple: des autorisations manquantes ou l'optimisation de la batterie qui bloque la synchronisation en arrière-plan. Ce guide suit l'ordre de diagnostic correct, du problème le plus fréquent au moins fréquent, afin que vous puissiez résoudre le problème en 5 minutes sans réinstaller quoi que ce soit.",
-        pl: "Większość problemów z synchronizacją Health Connect ma prostą przyczynę: brakujące uprawnienia lub optymalizacja baterii blokująca synchronizację w tle. Ten poradnik prowadzi we właściwej kolejności diagnostyki, od najczęstszego do najrzadszego problemu, dzięki czemu możesz rozwiązać problem w 5 minut bez reinstalowania czegokolwiek.",
-        tr: "Health Connect senkronizasyon sorunlarının çoğunun basit bir nedeni vardır: eksik izinler veya arka plan senkronizasyonunu engelleyen pil optimizasyonu. Bu rehber, en sık karşılaşılandan en nadir görülene doğru doğru tanı sırasını izler; böylece hiçbir şeyi yeniden yüklemeden sorunu 5 dakikada çözebilirsiniz.",
-        nl: "De meeste Health Connect-synchronisatieproblemen hebben een eenvoudige oorzaak: ontbrekende rechten of batterijoptimalisatie die de synchronisatie op de achtergrond blokkeert. Deze handleiding volgt de juiste diagnostische volgorde, van het meest tot het minst voorkomende probleem, zodat je het in 5 minuten kunt oplossen zonder iets opnieuw te installeren.",
-        ja: "Health Connectの同期問題の多くには単純な原因があります：権限の不足またはバックグラウンド同期を妨げるバッテリー最適化。このガイドは最も頻繁な問題から最も少ない問題まで正しい診断順序に従うため、何も再インストールせずに5分で解決できます。",
-        ko: "Health Connect 동기화 문제의 대부분은 단순한 원인이 있습니다: 권한 누락 또는 백그라운드 동기화를 차단하는 배터리 최적화. 이 가이드는 가장 빈번한 문제부터 가장 드문 문제까지 올바른 진단 순서를 따르므로, 아무것도 재설치하지 않고 5분 안에 해결할 수 있습니다.",
+        es: "La mayoría de los problemas de Health Connect que no sincroniza tienen una causa sencilla: permisos que faltan u optimización de batería que interrumpe la sincronización en segundo plano. Esta guía sigue el orden correcto de diagnóstico, del problema más frecuente al menos frecuente, sin necesidad de reinstalar nada.",
+        de: "Die meisten Probleme mit Health Connect, das nicht synchronisiert, haben eine einfache Ursache: fehlende Berechtigungen oder die Akkuoptimierung, die die Hintergrundsynchronisierung blockiert. Diese Anleitung folgt der richtigen Diagnoseabfolge, vom häufigsten zum seltensten Problem, ohne dass Sie irgendetwas neu installieren müssen.",
+        pt: "A maioria dos problemas de sincronização do Health Connect tem uma causa simples: permissões ausentes ou a otimização de bateria bloqueando a sincronização em segundo plano. Este guia segue a ordem de diagnóstico correta, do problema mais frequente ao menos frequente, sem precisar reinstalar nada.",
+        fr: "La plupart des problèmes de synchronisation de Health Connect ont une cause simple: des autorisations manquantes ou l'optimisation de la batterie qui bloque la synchronisation en arrière-plan. Ce guide suit l'ordre de diagnostic correct, du problème le plus fréquent au moins fréquent, sans avoir besoin de réinstaller quoi que ce soit.",
+        pl: "Większość problemów z synchronizacją Health Connect ma prostą przyczynę: brakujące uprawnienia lub optymalizacja baterii blokująca synchronizację w tle. Ten poradnik prowadzi we właściwej kolejności diagnostyki, od najczęstszego do najrzadszego problemu, bez konieczności reinstalowania czegokolwiek.",
+        tr: "Health Connect senkronizasyon sorunlarının çoğunun basit bir nedeni vardır: eksik izinler veya arka plan senkronizasyonunu engelleyen pil optimizasyonu. Bu rehber, en sık karşılaşılandan en nadir görülene doğru doğru tanı sırasını izler; hiçbir şeyi yeniden yüklemenize gerek kalmaz.",
+        nl: "De meeste Health Connect-synchronisatieproblemen hebben een eenvoudige oorzaak: ontbrekende rechten of batterijoptimalisatie die de synchronisatie op de achtergrond blokkeert. Deze handleiding volgt de juiste diagnostische volgorde, van het meest tot het minst voorkomende probleem, zonder dat je iets opnieuw hoeft te installeren.",
+        ja: "Health Connectの同期問題の多くには単純な原因があります:権限の不足またはバックグラウンド同期を妨げるバッテリー最適化。このガイドは最も頻繁な問題から最も少ない問題まで正しい診断順序に従うため、何も再インストールする必要はありません。",
+        ko: "Health Connect 동기화 문제의 대부분은 단순한 원인이 있습니다: 권한 누락 또는 백그라운드 동기화를 차단하는 배터리 최적화. 이 가이드는 가장 빈번한 문제부터 가장 드문 문제까지 올바른 진단 순서를 따르므로, 아무것도 재설치할 필요가 없습니다.",
       },
     },
     {
@@ -516,8 +538,8 @@ export const post: BlogPost = {
         de: "Die Akkuoptimierung von Android ist der stille Killer der Hintergrundsynchronisierung. Wenn Android eine App in den Tiefschlaf versetzt, kann sie weder aus Health Connect lesen noch darin schreiben. Die Lösung: Schließen Sie sowohl die Quell-App (Samsung Health, Garmin Connect) als auch die Lese-App von der Optimierung aus.",
         pt: "A otimização de bateria do Android é a principal sabotadora silenciosa da sincronização em segundo plano. Quando o Android coloca um app em modo de hibernação profunda, ele não consegue ler nem gravar no Health Connect. A solução: exclua da otimização tanto o app de origem (Samsung Health, Garmin Connect) quanto o app de leitura.",
         fr: "L'optimisation de la batterie d'Android est l'ennemi silencieux de la synchronisation en arrière-plan. Quand Android met une application en veille profonde, celle-ci ne peut ni lire ni écrire dans Health Connect. La solution: excluez de l'optimisation à la fois l'application source (Samsung Health, Garmin Connect) et l'application de lecture.",
-        pl: "Optymalizacja baterii Androida to cichy zabójca synchronizacji w tle. Gdy Android uśpi aplikację, nie może ona ani odczytywać, ani zapisywać danych w Health Connect. Rozwiązanie: wyklucz z optymalizacji zarówno aplikację źródłową (Samsung Health, Garmin Connect), jak i aplikację odczytującą.",
-        tr: "Android'in pil optimizasyonu, arka plan senkronizasyonunun sessiz katilidir. Android bir uygulamayı derin uyku moduna geçirdiğinde, uygulama Health Connect'e ne okuyabilir ne de yazabilir. Çözüm: hem kaynak uygulamayı (Samsung Health, Garmin Connect) hem de okuma uygulamasını optimizasyon dışında tutun.",
+        pl: "Optymalizacja baterii Androida to cichy zabójca synchronizacji w tle. Gdy Android usypia aplikację, nie może ona ani odczytywać, ani zapisywać danych w Health Connect. Rozwiązanie: wyklucz z optymalizacji zarówno aplikację źródłową (Samsung Health, Garmin Connect), jak i aplikację odczytującą.",
+        tr: "Android'in pil optimizasyonu, arka plan senkronizasyonunun sessiz katilidir. Android bir uygulamayı derin uyku moduna geçirdiğinde, uygulama Health Connect'i ne okuyabilir ne de yazabilir. Çözüm: hem kaynak uygulamayı (Samsung Health, Garmin Connect) hem de okuma uygulamasını optimizasyon dışında tutun.",
         nl: "De batterijoptimalisatie van Android is de stille moordenaar van synchronisatie op de achtergrond. Wanneer Android een app in diepe slaap zet, kan die app niet lezen van of schrijven naar Health Connect. De oplossing: sluit zowel de bronapp (Samsung Health, Garmin Connect) als de leesapp uit van optimalisatie.",
         ja: "Androidのバッテリー最適化はバックグラウンド同期の静かな殺し屋です。Androidがアプリをディープスリープ状態にすると、Health Connectの読み書きができなくなります。解決策：ソースアプリ（Samsung Health、Garmin Connect）と読み取りアプリの両方を最適化から除外します。",
         ko: "Android의 배터리 최적화는 백그라운드 동기화의 조용한 킬러입니다. Android가 앱을 깊은 수면 상태로 전환하면 Health Connect에서 읽거나 쓸 수 없습니다. 해결책: 소스 앱(Samsung Health, Garmin Connect)과 읽기 앱 모두를 최적화에서 제외합니다.",
@@ -943,17 +965,17 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Su Android 13 e precedenti, Health Connect si aggiorna tramite il Play Store come qualsiasi altra app. Da Android 14, invece, è un modulo di sistema (Google Play system updates) aggiornato da Impostazioni → Sistema → Aggiornamento di sistema Google Play: non comparirà nell'elenco aggiornamenti del Play Store. Aggiornare risolve alcuni problemi di sync silenziosamente. Fonte: [Google — Integrazione di Health Connect in Android 14](https://support.google.com/android/answer/14119325), consultata il 05/08/2026.",
-        en: "On Android 13 and earlier, Health Connect updates via Play Store like any other app. From Android 14 onward, it's a system module (Google Play system updates), updated from Settings → System → Google Play system update: it won't show up in the Play Store's update list. Updating silently fixes some sync issues. Source: [Google — About Health Connect integration to Android 14](https://support.google.com/android/answer/14119325), consulted 2026-08-05.",
-        es: "En Android 13 y anteriores, Health Connect se actualiza a través de Google Play como cualquier otra app. Desde Android 14, en cambio, es un módulo del sistema (actualizaciones del sistema de Google Play), que se actualiza desde Ajustes → Sistema → Actualización del sistema de Google Play: no aparecerá en la lista de actualizaciones de Google Play. Actualizar resuelve algunos problemas de sincronización de forma silenciosa. Fuente: [Google — Integración de Health Connect en Android 14](https://support.google.com/android/answer/14119325), consultada el 05/08/2026.",
-        de: "Unter Android 13 und älter wird Health Connect wie jede andere App über den Play Store aktualisiert. Ab Android 14 ist es dagegen ein Systemmodul (Google-Play-Systemupdates), das über Einstellungen → System → Google-Play-Systemupdate aktualisiert wird: Es erscheint nicht in der Update-Liste des Play Store. Ein Update behebt manche Synchronisierungsprobleme im Hintergrund. Quelle: [Google — Health Connect-Integration in Android 14](https://support.google.com/android/answer/14119325), abgerufen am 05.08.2026.",
-        pt: "No Android 13 e versões anteriores, o Health Connect é atualizado pelo Google Play como qualquer outro app. A partir do Android 14, porém, é um módulo do sistema (atualizações do sistema do Google Play), atualizado em Configurações → Sistema → Atualização do sistema do Google Play: não aparecerá na lista de atualizações da Google Play. Atualizar resolve alguns problemas de sincronização silenciosamente.",
-        fr: "Sous Android 13 et versions antérieures, Health Connect se met à jour via Google Play comme n'importe quelle autre application. À partir d'Android 14, il s'agit d'un module système (mises à jour système Google Play), mis à jour depuis Paramètres → Système → Mise à jour du système Google Play: il n'apparaîtra pas dans la liste des mises à jour de Google Play. Une mise à jour résout certains problèmes de synchronisation de manière silencieuse.",
-        pl: "Na Androidzie 13 i starszych Health Connect aktualizuje się przez Google Play jak każda inna aplikacja. Od Androida 14 jest to natomiast moduł systemowy (aktualizacje systemowe Google Play), aktualizowany z Ustawienia → System → Aktualizacja systemu Google Play: nie pojawi się na liście aktualizacji Google Play. Aktualizacja po cichu rozwiązuje niektóre problemy z synchronizacją.",
-        tr: "Android 13 ve öncesinde Health Connect, Play Store üzerinden diğer uygulamalar gibi güncellenir. Android 14'ten itibaren ise bir sistem modülüdür (Google Play sistem güncellemeleri) ve Ayarlar → Sistem → Google Play sistem güncellemesi üzerinden güncellenir: Play Store'un güncelleme listesinde görünmez. Güncelleme, bazı senkronizasyon sorunlarını sessizce çözer.",
-        nl: "Op Android 13 en ouder wordt Health Connect bijgewerkt via de Play Store, net als elke andere app. Vanaf Android 14 is het echter een systeemmodule (Google Play-systeemupdates), bijgewerkt via Instellingen → Systeem → Google Play-systeemupdate: het verschijnt niet in de updatelijst van de Play Store. Een update lost sommige synchronisatieproblemen ongemerkt op. Bron: [Google — Health Connect-integratie in Android 14](https://support.google.com/android/answer/14119325), geraadpleegd op 05-08-2026.",
-        ja: "Android 13以前では、Health ConnectはPlay Storeで他のアプリと同様に更新されます。Android 14以降ではシステムモジュール（Google Playシステムアップデート）となり、設定 → システム → Google Playシステムアップデートから更新されます：Play Storeの更新リストには表示されません。更新により、一部の同期問題が自動的に解決されることがあります。",
-        ko: "Android 13 이하에서는 Health Connect가 다른 앱과 마찬가지로 Play 스토어를 통해 업데이트됩니다. Android 14부터는 시스템 모듈(Google Play 시스템 업데이트)이 되어 설정 → 시스템 → Google Play 시스템 업데이트에서 업데이트됩니다: Play 스토어의 업데이트 목록에는 표시되지 않습니다. 업데이트하면 일부 동기화 문제가 자동으로 해결됩니다.",
+        it: "Su Android 13 e precedenti, Health Connect si aggiorna tramite il Play Store come qualsiasi altra app: cercalo e aggiornalo se disponibile. Da Android 14, Health Connect è un modulo di sistema e si aggiorna da solo, senza bisogno di un intervento manuale — a questo punto l'azione utile è controllare invece gli aggiornamenti delle app connesse (Samsung Health, Garmin Connect o altre nella tua catena di sync), che restano app normali del Play Store su qualsiasi versione di Android. Fonte: [Android Developers — Migrazione di Health Connect da Android 13 a 14](https://developer.android.com/health-and-fitness/health-connect/migration/android-13-to-14), consultata il 25/08/2026.",
+        en: "On Android 13 and earlier, Health Connect updates via Play Store like any other app: search for it and update if available. From Android 14 onward, Health Connect is a system module and updates itself, with no manual action needed — what's worth checking at that point is whether the connected apps (Samsung Health, Garmin Connect, or others in your sync chain) have updates available, since those remain regular Play Store apps on any Android version. Source: [Android Developers — Migrate Health Connect from Android 13 to 14](https://developer.android.com/health-and-fitness/health-connect/migration/android-13-to-14), consulted 2026-08-25.",
+        es: "En Android 13 y anteriores, Health Connect se actualiza a través de Google Play como cualquier otra app: búscala y actualízala si hay una versión disponible. Desde Android 14, Health Connect es un módulo del sistema y se actualiza solo, sin necesidad de intervención manual — lo que vale la pena comprobar en ese caso son las actualizaciones de las apps conectadas (Samsung Health, Garmin Connect u otras en tu cadena de sincronización), que siguen siendo apps normales de Google Play en cualquier versión de Android. Fuente: [Android Developers — Migración de Health Connect de Android 13 a 14](https://developer.android.com/health-and-fitness/health-connect/migration/android-13-to-14), consultada el 25/08/2026.",
+        de: "Unter Android 13 und älter wird Health Connect wie jede andere App über den Play Store aktualisiert: Suchen Sie danach und aktualisieren Sie, falls verfügbar. Ab Android 14 ist Health Connect ein Systemmodul und aktualisiert sich selbst, ohne manuellen Eingriff — sinnvoll ist an dieser Stelle, stattdessen zu prüfen, ob für die verbundenen Apps (Samsung Health, Garmin Connect oder andere in Ihrer Synchronisierungskette) Updates verfügbar sind, denn diese bleiben auf jeder Android-Version normale Play-Store-Apps. Quelle: [Android Developers — Health Connect von Android 13 auf 14 migrieren](https://developer.android.com/health-and-fitness/health-connect/migration/android-13-to-14), abgerufen am 25.08.2026.",
+        pt: "No Android 13 e versões anteriores, o Health Connect é atualizado pelo Google Play como qualquer outro app: procure por ele e atualize se disponível. A partir do Android 14, o Health Connect é um módulo do sistema e se atualiza sozinho, sem necessidade de ação manual — o que vale a pena verificar nesse caso são as atualizações dos apps conectados (Samsung Health, Garmin Connect ou outros na sua cadeia de sincronização), que continuam sendo apps normais do Google Play em qualquer versão do Android.",
+        fr: "Sous Android 13 et versions antérieures, Health Connect se met à jour via Google Play comme n'importe quelle autre application: recherchez-le et mettez-le à jour si disponible. À partir d'Android 14, Health Connect est un module système et se met à jour lui-même, sans action manuelle nécessaire — ce qui vaut la peine d'être vérifié à ce stade, ce sont les mises à jour des applications connectées (Samsung Health, Garmin Connect ou d'autres dans votre chaîne de synchronisation), qui restent des applications Google Play classiques sur toute version d'Android.",
+        pl: "Na Androidzie 13 i starszych Health Connect aktualizuje się przez Google Play jak każda inna aplikacja: wyszukaj ją i zaktualizuj, jeśli jest dostępna. Od Androida 14 Health Connect jest modułem systemowym i aktualizuje się samodzielnie, bez potrzeby ręcznej interwencji — warto w takim razie sprawdzić aktualizacje aplikacji połączonych (Samsung Health, Garmin Connect lub innych w łańcuchu synchronizacji), które pozostają zwykłymi aplikacjami Google Play na każdej wersji Androida.",
+        tr: "Android 13 ve öncesinde Health Connect, Play Store üzerinden diğer uygulamalar gibi güncellenir: arayın ve varsa güncelleyin. Android 14'ten itibaren Health Connect bir sistem modülüdür ve kendi kendine güncellenir, manuel işlem gerekmez — bu noktada kontrol etmeye değer olan, bağlı uygulamaların (Samsung Health, Garmin Connect veya senkronizasyon zincirinizdeki diğerleri) güncellemesi olup olmadığıdır; bunlar her Android sürümünde normal Play Store uygulaması olarak kalır.",
+        nl: "Op Android 13 en ouder wordt Health Connect bijgewerkt via de Play Store, net als elke andere app: zoek ernaar en werk bij indien beschikbaar. Vanaf Android 14 is Health Connect een systeemmodule en werkt zichzelf bij, zonder handmatige actie — wat dan de moeite waard is om te controleren, zijn updates voor de gekoppelde apps (Samsung Health, Garmin Connect of andere apps in je synchronisatieketen), die op elke Android-versie gewone Play Store-apps blijven. Bron: [Android Developers — Health Connect migreren van Android 13 naar 14](https://developer.android.com/health-and-fitness/health-connect/migration/android-13-to-14), geraadpleegd op 25-08-2026.",
+        ja: "Android 13以前では、Health ConnectはPlay Storeで他のアプリと同様に検索して更新できます。Android 14以降ではHealth Connectはシステムモジュールとなり、手動操作なしで自動的に更新されます — この場合に確認する価値があるのは、接続されたアプリ(Samsung Health、Garmin Connect、または同期チェーン内の他のアプリ)に更新があるかどうかです。これらはどのAndroidバージョンでも通常のPlay Storeアプリのままです。",
+        ko: "Android 13 이하에서는 Health Connect가 다른 앱과 마찬가지로 Play 스토어를 통해 검색하고 업데이트할 수 있습니다. Android 14부터는 Health Connect가 시스템 모듈이 되어 수동 조작 없이 스스로 업데이트됩니다 — 이 경우 확인할 가치가 있는 것은 연결된 앱(Samsung Health, Garmin Connect 또는 동기화 체인의 다른 앱)에 업데이트가 있는지 여부이며, 이들은 어떤 Android 버전에서도 일반 Play 스토어 앱으로 남습니다.",
       },
     },
     {
@@ -991,14 +1013,14 @@ export const post: BlogPost = {
           "Faites de même pour Samsung Health, Garmin Connect ou toute autre application de votre chaîne de synchronisation.",
         ],
         pl: [
-          "Otwórz **Google Play Store** → kliknij na swoje ikonie profilu → **Zarządzaj aplikacjami i urządzeniem**.",
-          "Szukaj Health Connect i aktualizuj, jeśli jest dostępne.",
-          "Wykonaj to samo dla Samsung Health, Garmin Connect, lub dowolnej innej-app w twojej łańcuchu synchronizacji.",
+          "Otwórz **Google Play Store** → stuknij swoją ikonę profilu → **Zarządzaj aplikacjami i urządzeniem**.",
+          "Wyszukaj **Health Connect** i zaktualizuj, jeśli jest dostępna.",
+          "Zrób to samo dla Samsung Health, Garmin Connect lub dowolnej innej aplikacji w Twoim łańcuchu synchronizacji.",
         ],
         tr: [
-          "Aç **Play Store** → profiliconunuzu tıklayın → **Uygulama ve Cihaz Yönetimi**.",
-          "Ara **Health Connect** ve mevcut ise güncelleyin.",
-          "Aynı şeyi Samsung Health, Garmin Connect, veya sinchro nesnemiz içindeki diğer herhangi bir uygulama için yap.",
+          "**Play Store**'u açın → profil simgenize dokunun → **Uygulama ve cihaz yönetimi**.",
+          "**Health Connect**'i arayın ve varsa güncelleyin.",
+          "Samsung Health, Garmin Connect veya senkronizasyon zincirinizdeki diğer herhangi bir uygulama için de aynısını yapın.",
         ],
         nl: [
           "Open de **Play Store** → tik op je profielpictogram → **Apps en apparaat beheren**.",
@@ -1027,8 +1049,8 @@ export const post: BlogPost = {
         de: "Lösung 7: Alle Berechtigungen widerrufen und erneut erteilen (vollständiger Reset)",
         pt: "Solução 7: Revogue e conceda novamente todas as permissões (reset completo)",
         fr: "Solution 7: Révoquer et réaccorder toutes les autorisations (réinitialisation complète)",
-        pl: "Poprawa 7: Anuluj i przy😊ezdaj wszystkie uprawnienia (pleśniecie pełne)",
-        tr: "Düzeltme 7: Tüm izinleri iptal ve yeniden ver (tam sıfırlama)",
+        pl: "Rozwiązanie 7: Cofnij i przyznaj ponownie wszystkie uprawnienia (pełny reset)",
+        tr: "Çözüm 7: Tüm izinleri iptal edin ve yeniden verin (tam sıfırlama)",
         nl: "Oplossing 7: Alle rechten intrekken en opnieuw verlenen (volledige reset)",
         ja: "修正7：すべての権限を取り消して再付与する（完全リセット）",
         ko: "해결책 7: 모든 권한 취소 및 재부여 (전체 초기화)",
@@ -1043,7 +1065,7 @@ export const post: BlogPost = {
         de: "Wenn keine der anderen Lösungen geholfen hat, liegt das Problem möglicherweise in einem beschädigten Berechtigungsstatus. Die Lösung ist ein vollständiger Verbindungsreset:",
         pt: "Se nenhuma das soluções anteriores funcionou, o problema pode estar em um estado de permissão corrompido. A solução é um reset completo da conexão:",
         fr: "Si aucune des solutions précédentes n'a fonctionné, le problème se trouve peut-être dans un état d'autorisation corrompu. La solution est une réinitialisation complète de la connexion:",
-        pl: "Jeżeli żaden z innych napraw nie przyniósł rezultatu, problem może wynikać z uszkodzonego stanu uprawnień. Rozwiązanie to pełne wylogowanie połączenia:\nRODO;",
+        pl: "Jeżeli żadne z innych rozwiązań nie przyniosło rezultatu, problem może wynikać z uszkodzonego stanu uprawnień. Rozwiązanie to pełny reset połączenia:",
         tr: "Diğer çözümlerin hiçbiri işe yaramadıysa sorun bozulmuş bir izin durumundan kaynaklanıyor olabilir. Çözüm, bağlantıyı tamamen sıfırlamaktır:",
         nl: "Als geen van de andere oplossingen heeft gewerkt, kan het probleem in een beschadigde rechtenstatus zitten. De oplossing is een volledige verbindingsreset:",
         ja: "他の修正がどれも効果がなかった場合、問題は権限の破損した状態にある可能性があります。解決策は完全な接続リセットです：",
@@ -1097,18 +1119,18 @@ export const post: BlogPost = {
           "Attendez 5 à 10 minutes pour la première synchronisation.",
         ],
         pl: [
-          "W **Health Connect** → **Dostęp do aplikacji i danych** → znajdź problematycznąapp.",
-          "Dotknij app → **Usuń dostęp**.",
-          "Rozwij app problematyczną → wyszukaj w ustawieniach sekcję Health Connect.",
-          "Dotknij 'Połącz z Health Connect' lub równoważne → ponownie udziel wszystkich uprawnień.",
-          "Oczekuj 5-10 minut na pierwsze synchronizowanie.",
+          "W **Health Connect** → **Dostęp do aplikacji i danych** → znajdź problematyczną aplikację.",
+          "Stuknij aplikację → **Usuń dostęp**.",
+          "Otwórz ponownie problematyczną aplikację → znajdź w ustawieniach sekcję Health Connect.",
+          "Stuknij 'Połącz z Health Connect' lub równoważne → ponownie udziel wszystkich uprawnień.",
+          "Poczekaj 5-10 minut na pierwszą synchronizację.",
         ],
         tr: [
-          "Health Connect → **Uygulama izinleri** → sorunlu uygulamayı bul.",
-          "Tıkla uygulama → **ErişimİndenKaldır**.",
-          "Uygulamayı yeniden aç → ayarlar bölümünde Health Connect bölümüne ara.",
-          "Tıklayınız 'Bağlantıya Bağlan' veya benzeri → tekrar tüm izinleri ver.",
-          "İlk senkronizasyon için 5-10 dakika bekle.",
+          "**Health Connect** → **Uygulama izinleri** → sorunlu uygulamayı bulun.",
+          "Uygulamaya dokunun → **Erişimi kaldır**.",
+          "Sorunlu uygulamayı yeniden açın → ayarlarında Health Connect bölümünü bulun.",
+          "'Health Connect'e Bağlan' veya benzerine dokunun → tüm izinleri tekrar verin.",
+          "İlk senkronizasyon için 5-10 dakika bekleyin.",
         ],
         nl: [
           "In **Health Connect** → **App-rechten** → zoek de problematische app.",
@@ -1141,26 +1163,26 @@ export const post: BlogPost = {
         en: "Battery optimization is a common cause, not a bug",
         es: "La optimización de batería es una causa frecuente, no un error de la app",
         de: "Akkuoptimierung ist eine häufige Ursache, kein Fehler der App",
-        pt: "A otimização de bateria é a causa principal, não um bug do app",
-        fr: "L'optimisation de la batterie est la cause principale, pas un bug de l'application",
-        pl: "Optymalizacja baterii jest najważniejszą przyczyną, a nie błąd",
-        tr: "Günlük bateri optimizasyonu en önemli neden, hata değildür.",
+        pt: "A otimização de bateria é uma causa frequente, não um bug do app",
+        fr: "L'optimisation de la batterie est une cause fréquente, pas un bug de l'application",
+        pl: "Optymalizacja baterii jest częstą przyczyną, a nie błędem",
+        tr: "Pil optimizasyonu yaygın bir nedendir, hata değildir.",
         nl: "Batterijoptimalisatie is een veelvoorkomende oorzaak, geen bug",
-        ja: "バッテリー最適化が最大の原因であり、バグではない",
-        ko: "배터리 최적화가 가장 큰 원인이며, 버그가 아님",
+        ja: "バッテリー最適化はよくある原因であり、バグではない",
+        ko: "배터리 최적화는 흔한 원인이며, 버그가 아님",
       },
       body: {
         it: "Una causa frequente è l'ottimizzazione batteria: Android può mettere in deep sleep le app in background, il sync si interrompe, e i dati sembrano 'spariti'. Non è un bug di Health Connect, né del tuo orologio. Il fix (escludere le app dall'ottimizzazione) è semplice da provare e in molti casi risolve il problema. Vale la pena provarlo prima di controlli più complessi.",
         en: "A common cause is battery optimization: Android can put background apps into deep sleep, sync stops, and data seems to 'disappear'. It's not a Health Connect bug, nor a problem with your watch. The fix (excluding apps from optimization) is simple to try and often resolves the issue. It's worth trying before more involved troubleshooting.",
         es: "Una causa frecuente es la optimización de batería: Android puede poner en suspensión profunda las apps en segundo plano, la sincronización se detiene y los datos parecen 'desaparecer'. No es un error de Health Connect ni de tu reloj. La solución (excluir las apps de la optimización) es sencilla de probar y en muchos casos resuelve el problema. Merece la pena intentarla antes de pasos más complejos.",
         de: "Eine häufige Ursache ist die Akkuoptimierung: Android kann Hintergrund-Apps in den Tiefschlaf versetzen, die Synchronisierung stoppt, und die Daten scheinen 'verschwunden'. Das ist kein Fehler von Health Connect, noch ein Problem mit Ihrer Uhr. Die Lösung (Apps von der Optimierung ausschließen) ist einfach auszuprobieren und behebt das Problem in vielen Fällen. Es lohnt sich, sie vor aufwendigeren Schritten zu versuchen.",
-        pt: "De longe, a causa mais comum é a otimização de bateria: o Android coloca os apps em segundo plano em hibernação profunda, a sincronização para e os dados parecem ter 'desaparecido'. Não é um bug do Health Connect nem um problema com seu relógio. A solução (excluir os apps da otimização) parece simples, mas resolve a maioria dos casos. Faça isso antes de tentar qualquer outra coisa.",
-        fr: "De loin, la cause la plus fréquente est l'optimisation de la batterie: Android met les applications en arrière-plan en veille profonde, la synchronisation s'arrête et les données semblent 'disparaître'. Ce n'est pas un bug de Health Connect, ni un problème avec votre montre. La solution (exclure les applications de l'optimisation) paraît anodine, mais elle résout la majorité des cas. Appliquez-la avant d'essayer autre chose.",
-        pl: "Zdecydowanie najczęstszą przyczyną jest optymalizacja baterii: Android wprowadza aplikacje w tle w tryb głębokiego uśpienia, synchronizacja się zatrzymuje, a dane wydają się 'zniknięte'. To nie jest błąd Health Connect ani Twojego smartwatcha. Poprawka (wykluczenie aplikacji z optymalizacji) wydaje się prosta, ale rozwiązuje większość przypadków. Zrób to, zanim spróbujesz czegokolwiek innego.",
-        tr: "En yaygın neden, açık ara farkla, pil optimizasyonudur: Android arka planda çalışan uygulamaları derin uykuya alır, senkronizasyon durur ve veriler 'kaybolmuş' gibi görünür. Bu, Health Connect'in veya saatinizin bir hatası değildir. Çözüm (uygulamaları optimizasyondan hariç tutmak) önemsiz görünse de çoğu durumu çözer. Başka bir şey denemeden önce bunu yapın.",
+        pt: "Uma causa frequente é a otimização de bateria: o Android coloca os apps em segundo plano em hibernação profunda, a sincronização para e os dados parecem ter 'desaparecido'. Não é um bug do Health Connect nem um problema com seu relógio. A solução (excluir os apps da otimização) parece simples, mas resolve o problema em muitos casos. Vale a pena tentar antes de qualquer outra coisa.",
+        fr: "Une cause fréquente est l'optimisation de la batterie: Android met les applications en arrière-plan en veille profonde, la synchronisation s'arrête et les données semblent 'disparaître'. Ce n'est pas un bug de Health Connect, ni un problème avec votre montre. La solution (exclure les applications de l'optimisation) paraît anodine, mais elle résout le problème dans de nombreux cas. Cela vaut la peine de l'essayer avant autre chose.",
+        pl: "Częstą przyczyną jest optymalizacja baterii: Android wprowadza aplikacje w tle w tryb głębokiego uśpienia, synchronizacja się zatrzymuje, a dane wydają się 'zniknięte'. To nie jest błąd Health Connect ani Twojego smartwatcha. Poprawka (wykluczenie aplikacji z optymalizacji) wydaje się prosta i rozwiązuje wiele przypadków. Warto ją wypróbować przed czymkolwiek innym.",
+        tr: "Yaygın bir neden pil optimizasyonudur: Android arka planda çalışan uygulamaları derin uykuya alır, senkronizasyon durur ve veriler 'kaybolmuş' gibi görünür. Bu, Health Connect'in veya saatinizin bir hatası değildir. Çözüm (uygulamaları optimizasyondan hariç tutmak) önemsiz görünse de çoğu durumu çözer, hepsini değil. Başka bir şey denemeden önce bunu deneyin.",
         nl: "Een veelvoorkomende oorzaak is batterijoptimalisatie: Android kan achtergrondapps in diepe slaap zetten, de synchronisatie stopt en gegevens lijken 'verdwenen'. Het is geen Health Connect-bug, noch een probleem met je horloge. De oplossing (apps uitsluiten van optimalisatie) is eenvoudig te proberen en lost het probleem in veel gevallen op. Het is de moeite waard om dit te proberen vóór meer ingewikkelde stappen.",
-        ja: "圧倒的に多い原因はバッテリー最適化です：Androidがバックグラウンドアプリをディープスリープにし、同期が停止して、データが「消えた」ように見えます。これはHealth Connectのバグでも、腕時計の問題でもありません。解決策（アプリを最適化から除外する）は些細に見えますが、ほとんどのケースを解決します。他の何かを試す前にこれを行ってください。",
-        ko: "가장 흔한 원인은 단연 배터리 최적화입니다: Android가 백그라운드 앱을 깊은 수면 상태로 전환하고, 동기화가 중지되며, 데이터가 '사라진' 것처럼 보입니다. 이는 Health Connect의 버그도, 스마트워치의 문제도 아닙니다. 해결책(앱을 최적화에서 제외)이 사소해 보이지만 대부분의 경우를 해결합니다. 다른 것을 시도하기 전에 이것을 먼저 하세요.",
+        ja: "よくある原因はバッテリー最適化です：Androidがバックグラウンドアプリをディープスリープにし、同期が停止して、データが「消えた」ように見えます。これはHealth Connectのバグでも、腕時計の問題でもありません。解決策(アプリを最適化から除外する)は些細に見えますが、多くのケースを解決します。他の何かを試す前にこれを行ってください。",
+        ko: "흔한 원인은 배터리 최적화입니다: Android가 백그라운드 앱을 깊은 수면 상태로 전환하고, 동기화가 중지되며, 데이터가 '사라진' 것처럼 보입니다. 이는 Health Connect의 버그도, 스마트워치의 문제도 아닙니다. 해결책(앱을 최적화에서 제외)이 사소해 보이지만 많은 경우를 해결합니다. 다른 것을 시도하기 전에 이것을 먼저 해보세요.",
       },
     },
     {
@@ -1189,8 +1211,8 @@ export const post: BlogPost = {
         de: "Wenn Sie alle obigen Lösungen ausprobiert haben und das Problem weiterhin besteht, könnte es sich um einen serverseitigen Ausfall der Quell-App (Samsung Health, Garmin Connect) oder um einen Fehler in Ihrer spezifischen Android-Version handeln. In diesem Fall:",
         pt: "Se você já tentou todas as soluções acima e o problema persiste, pode ser uma interrupção do servidor do app de origem (Samsung Health, Garmin Connect) ou um bug na sua versão específica do Android. Nesse caso:",
         fr: "Si vous avez essayé toutes les solutions ci-dessus et que le problème persiste, il peut s'agir d'une interruption côté serveur de l'application source (Samsung Health, Garmin Connect) ou d'un bug dans votre version spécifique d'Android. Dans ce cas:",
-        pl: "Jeśli spróbowałeś wszystkich powyższych napraw i problem nadal występuje, może to być server-side interruption aplikacji źródłowej (Samsung Health, Garmin Connect) lub błąd w konkretnej wersji Android. W tym przypadku:",
-        tr: "Eğer yukarıdaki tüm düzeltilmeleri denendiniz ve sorun hala devam ediyor, bu durumda app kaynak (Samsung Health, Garmin Connect) tarafında sunucu tarafı bir kesinti veya belirli bir sürümünde (Android) olan bir hatayı bulabilirsiniz. Bu tür durumlarda:",
+        pl: "Jeśli spróbowałeś wszystkich powyższych rozwiązań i problem nadal występuje, może to być awaria po stronie serwera aplikacji źródłowej (Samsung Health, Garmin Connect) lub błąd w konkretnej wersji Androida. W tym przypadku:",
+        tr: "Yukarıdaki tüm çözümleri denediyseniz ve sorun hâlâ devam ediyorsa, bu durum kaynak uygulamanın (Samsung Health, Garmin Connect) sunucu tarafında yaşadığı bir kesintiden veya kullandığınız belirli Android sürümündeki bir hatadan kaynaklanıyor olabilir. Bu durumda:",
         nl: "Als je alle bovenstaande oplossingen hebt geprobeerd en het probleem blijft bestaan, kan het een server-side storing zijn van de bronapp (Samsung Health, Garmin Connect) of een bug in je specifieke Android-versie. In dat geval:",
         ja: "上記の修正をすべて試してもまだ問題が続く場合、ソースアプリ（Samsung Health、Garmin Connect）のサーバー側の障害か、特定のAndroidバージョンのバグである可能性があります。その場合：",
         ko: "위의 모든 해결책을 시도했는데도 문제가 지속된다면, 소스 앱(Samsung Health, Garmin Connect)의 서버 측 장애이거나 특정 Android 버전의 버그일 수 있습니다. 그 경우:",
@@ -1236,16 +1258,16 @@ export const post: BlogPost = {
           "En attendant, les données s'accumulent localement dans Health Connect: elles ne sont pas perdues, simplement pas encore synchronisées vers le cloud.",
         ],
         pl: [
-          "Szukaj na Redditzie (r/GalaxyWatch, r/AndroidHealth), jeśli inni mają ten sam problem: często pojawia się wzorzec.",
+          "Szukaj na Reddicie (r/GalaxyWatch, r/AndroidHealth), jeśli inni mają ten sam problem: często pojawia się wzorzec.",
           "Sprawdź stronę stanu aplikacji źródłowej, jeśli jest dostępna.",
-          "Zgłoś błąd za pomocą_feedback_app__.",
-          "Jako tymczasowy workarund, dane akumuluje się lokalnie w Health Connect, nie są stracone, tylko nie są synchronizowane z chmury.",
+          "Zgłoś błąd przez formularz opinii w aplikacji.",
+          "Jako tymczasowe obejście, dane gromadzą się lokalnie w Health Connect — nie są stracone, tylko jeszcze nie zsynchronizowane z chmurą.",
         ],
         tr: [
-          "Ara araReddit (r/GalaxyWatch, r/AndroidSağlık) benzer bir sorunu diğerlerinin de yaşadığını kontrol edin: sıkça bir desen ortaya çıkar.",
-          "Kontrol et giyilebilir cihaz uygulaması kaynak durum sayfasını, eğer mevcutsa.",
-          "Hatayı uygulama aracılığıyla bildir.",
-          "Görünüşe göre geçici bir çözüm olarak, veriler yerel olarak Health Connect içinde toplanır, kaybedilmezler sadece clouğa doğru synkronize edilmemektedir.",
+          "Reddit'te (r/GalaxyWatch, r/AndroidHealth) başkalarının aynı sorunu yaşayıp yaşamadığına bakın: sıklıkla bir desen ortaya çıkar.",
+          "Varsa, kaynak uygulamanın durum sayfasını kontrol edin.",
+          "Hatayı, uygulamanın geri bildirim özelliği üzerinden bildirin.",
+          "Geçici çözüm olarak, veriler yerel olarak Health Connect içinde birikir: kaybolmazlar, sadece henüz buluta senkronize edilmemişlerdir.",
         ],
         nl: [
           "Zoek op Reddit (r/GalaxyWatch, r/AndroidHealth) of anderen hetzelfde probleem hebben: er komt vaak een patroon naar voren.",
@@ -1334,14 +1356,14 @@ export const post: BlogPost = {
           "Na Samsungu konkretnym rozwiązaniem jest rozłączenie i ponowne podłączenie łańcucha Samsung Health → Health Connect z ustawień Samsung Health.",
           "Wyczyszczenie bufora Health Connect nie usuwa danych: jest to bezpieczne i często rozwiązuje błędy uszkodzonego stanu (tylko Android 13 i starsze).",
           "Jeśli dane są opóźnione, ale nie brakuje ich, często problemem jest optymalizacja baterii blokująca synchronizację w tle, ale to nie jedyna możliwa przyczyna.",
-          "Odzyskiwanie danych historycznych nie jest automatyczne: zależy od aplikacji źródłowej (niektóre nadpisują historię w Health Connect, inne nie) oraz od uprawnienia odczytu historii Health Connect, które bez rozszerzonej zgody pokazuje tylko ostatnie 30 dni.",
+          "Odzyskiwanie danych historycznych nie jest automatyczne: zależy od aplikacji źródłowej (niektóre nadpisują historię w Health Connect, inne nie) oraz od uprawnienia odczytu historii Health Connect, które bez rozszerzonej zgody pokazuje tylko 30 dni poprzedzających pierwsze udzielenie uprawnienia, a nie ruchome okno 30 dni liczone od dzisiaj.",
         ],
         tr: [
           "Senkronizasyon sorunlarının çoğu üç eylemle çözülür: Health Connect izinlerini kontrol etmek, ilgili uygulamalar için pil optimizasyonunu devre dışı bırakmak ve kaynak uygulamayı zorla açmak.",
           "Samsung'da özel çözüm, Samsung Health ayarlarından Samsung Health → Health Connect bağlantısını kesip yeniden bağlamaktır.",
           "Health Connect önbelleğini temizlemek verileri silmez: bunu yapmak güvenli ve genellikle bozuk durum hatalarını çözer (yalnızca Android 13 ve öncesi).",
           "Veriler gecikiyor ama eksik değilse, sorun genellikle arka plan senkronizasyonunu engelleyen pil optimizasyonudur, ancak tek olası neden bu değildir.",
-          "Geçmiş veri kurtarma otomatik değildir: kaynak uygulamaya bağlıdır (bazıları Health Connect'te geçmişi yeniden yazar, bazıları yazmaz) ve Health Connect'in geçmiş okuma iznine bağlıdır; genişletilmiş izin olmadan yalnızca son 30 günü gösterir.",
+          "Geçmiş veri kurtarma otomatik değildir: kaynak uygulamaya bağlıdır (bazıları Health Connect'te geçmişi yeniden yazar, bazıları yazmaz) ve Health Connect'in geçmiş okuma iznine bağlıdır; genişletilmiş izin olmadan yalnızca iznin ilk kez verildiği tarihten önceki 30 günü gösterir, bugünden geriye giden hareketli bir pencere değildir.",
         ],
         nl: [
           "De meeste synchronisatieproblemen worden opgelost door drie acties: controleer rechten in Health Connect, schakel batterijoptimalisatie uit voor de betrokken apps, open de bronapp geforceerd.",
@@ -1355,19 +1377,25 @@ export const post: BlogPost = {
           "Samsungでは、Samsung Healthの設定からSamsung Health → Health Connectパイプラインを切断して再接続するのが具体的な解決策です。",
           "Health Connectのキャッシュをクリアしてもデータは削除されません：安全であり、破損した状態のエラーを修正することが多いです（Android 13以前のみ対象）。",
           "データが遅延しているが存在しないわけではない場合、多くはバックグラウンド同期をブロックするバッテリー最適化が原因ですが、唯一の原因とは限りません。",
-          "過去データの復元は自動ではありません：ソースアプリ次第であり（Health Connect上の履歴を書き直すアプリもあれば、書き直さないアプリもあります）、Health Connectの履歴読み取り権限にも左右されます。この権限を拡張しない限り、直近30日分しか表示されません。",
+          "過去データの復元は自動ではありません：ソースアプリ次第であり（Health Connect上の履歴を書き直すアプリもあれば、書き直さないアプリもあります）、Health Connectの履歴読み取り権限にも左右されます。この権限を拡張しない限り、最初に権限を付与した時点より前の30日間しか表示されません(今日を起点とする移動する30日間ではありません)。",
         ],
         ko: [
           "동기화 문제의 대부분은 세 가지 작업으로 해결됩니다: Health Connect에서 권한 확인, 관련 앱의 배터리 최적화 비활성화, 소스 앱 강제 열기.",
           "Samsung에서는 Samsung Health 설정에서 Samsung Health → Health Connect 파이프라인을 끊었다가 다시 연결하는 것이 구체적인 해결책입니다.",
           "Health Connect 캐시를 지워도 데이터는 삭제되지 않습니다: 안전하며 손상된 상태 오류를 자주 수정합니다(Android 13 이하에서만 해당).",
           "데이터가 지연되지만 없는 것은 아니라면, 문제는 흔히 백그라운드 동기화를 차단하는 배터리 최적화이지만, 유일한 원인은 아닙니다.",
-          "과거 데이터 복구는 자동이 아닙니다: 소스 앱에 따라 다르며(Health Connect의 기록을 다시 쓰는 앱도 있고 그렇지 않은 앱도 있음), Health Connect의 기록 읽기 권한에도 좌우됩니다. 확장 권한이 없으면 최근 30일만 표시됩니다.",
+          "과거 데이터 복구는 자동이 아닙니다: 소스 앱에 따라 다르며(Health Connect의 기록을 다시 쓰는 앱도 있고 그렇지 않은 앱도 있음), Health Connect의 기록 읽기 권한에도 좌우됩니다. 확장 권한이 없으면 최초로 권한을 부여한 시점 이전 30일만 표시되며, 오늘부터의 이동식 30일 창이 아닙니다.",
         ],
       },
     },
     {
       type: "cta",
+      // P1.8A (2026-08-25): ctaId/ctaPlacement aggiunti — assenti prima,
+      // quindi questa CTA non emetteva cta_view/cta_click. Riusa il
+      // meccanismo di tracking gia' esistente (OutboundTracker via
+      // data-cta-id/data-cta-placement), nessun evento nuovo introdotto.
+      ctaId: "blog-health-connect-not-syncing-integrations-cta",
+      ctaPlacement: "blog_body_end",
       title: {
         it: "Vuoi un sync più resiliente?",
         en: "Want more resilient sync?",
@@ -1375,8 +1403,8 @@ export const post: BlogPost = {
         de: "Möchten Sie eine robustere Synchronisierung?",
         pt: "Quer uma sincronização mais robusta?",
         fr: "Vous souhaitez une synchronisation plus fiable?",
-        pl: "Czy chcesz bardziej wytrzymalą synchronizację?",
-        tr: "Uygun bir senkronizasyonu istiyorum?",
+        pl: "Czy chcesz bardziej wytrzymałą synchronizację?",
+        tr: "Daha dayanıklı bir senkronizasyon mu istiyorsunuz?",
         nl: "Wil je een robuustere synchronisatie?",
         ja: "より安定した同期を望みますか？",
         ko: "더 탄력적인 동기화를 원하세요?",
@@ -1388,7 +1416,7 @@ export const post: BlogPost = {
         de: "FitMesh Sync ist darauf ausgelegt, auch unter nicht idealen Bedingungen zu funktionieren: automatische Wiederholungsversuche, Toleranz gegenüber Verbindungslücken und ein sichtbares In-App-Protokoll, um nachzuvollziehen, was synchronisiert wurde und was nicht. Wenn Ihre Gesundheitsdaten wichtig sind, lohnt es sich, sie an einem Ort zu haben, der nicht von einer einzigen Cloud abhängt.",
         pt: "O FitMesh Sync foi projetado para funcionar mesmo em condições não ideais: tentativas automáticas, tolerância a falhas de conectividade e um registro visível no app para entender o que foi sincronizado e o que não foi. Se seus dados de saúde são importantes, vale ter um lugar que não dependa de uma única nuvem.",
         fr: "FitMesh Sync est conçu pour fonctionner même dans des conditions non idéales: nouvelles tentatives automatiques, tolérance aux coupures de connectivité et un journal visible dans l'application pour comprendre ce qui a été synchronisé et ce qui ne l'a pas été. Si vos données de santé sont importantes, il vaut la peine de les avoir dans un endroit qui ne dépend pas d'un seul cloud.",
-        pl: "FitMesh Sync jest zaprojektowany do pracy również w nieidealfalibowych warunkach: automatyczne ponowienie, wytrzymałość wobec dziur w połączeniach, oraz widoczny log w aplikacji, aby móc zrozumieć, co zostało zsynchronizowane, a co nie. Jeśli Twoje dane zdrowotne są ważne, warto mieć je w miejscu, które nie zależy od jednego tylko chmury.",
+        pl: "FitMesh Sync jest zaprojektowany do pracy również w nieidealnych warunkach: automatyczne ponawianie prób, tolerancja na przerwy w łączności oraz widoczny log w aplikacji, aby móc zrozumieć, co zostało zsynchronizowane, a co nie. Jeśli Twoje dane zdrowotne są ważne, warto mieć je w miejscu, które nie zależy od jednej tylko chmury.",
         tr: "FitMesh Sync, ideal olmayan koşullarda bile çalışacak şekilde tasarlanmıştır: otomatik yeniden deneme, bağlantı kopukluklarına tolerans ve neyin senkronize edildiğini, neyin edilmediğini anlamak için uygulama içinde görünen bir günlük. Sağlık verileriniz önemliyse, onları tek bir buluta bağımlı olmayan bir yerde tutmaya değer.",
         nl: "FitMesh Sync is ontworpen om ook in niet-ideale omstandigheden te werken: automatische herpoging, tolerantie voor verbindingsonderbrekingen en een zichtbaar in-app-logboek om te begrijpen wat er wel en niet is gesynchroniseerd. Als je gezondheidsgegevens belangrijk zijn, is het de moeite waard ze op een plek te hebben die niet van een enkele cloud afhankelijk is.",
         ja: "FitMesh Syncは理想的でない条件でも動作するように設計されています：自動リトライ、接続ギャップへの耐性、同期されたものとされなかったものを理解するためのアプリ内の見えるログ。健康データが重要なら、単一のクラウドに依存しない場所に保存する価値があります。",
@@ -1401,8 +1429,8 @@ export const post: BlogPost = {
         de: "FitMesh Sync entdecken →",
         pt: "Conheça o FitMesh Sync →",
         fr: "Découvrir FitMesh Sync →",
-        pl: "Znajdź FitMesh Sync →",
-        tr: "Keşfet FitMesh Sync →",
+        pl: "Poznaj FitMesh Sync →",
+        tr: "FitMesh Sync'i keşfedin →",
         nl: "Ontdek FitMesh Sync →",
         ja: "FitMesh Syncについて →",
         ko: "FitMesh Sync 알아보기 →",
@@ -1448,8 +1476,8 @@ export const post: BlogPost = {
         de: "Die Galaxy Watch schreibt nicht direkt in Health Connect: Sie tut dies über Samsung Health. Wenn Samsung Health keine Schreibberechtigungen für Health Connect hat, kommen die Watch-Daten nicht an. Prüfen Sie: Samsung Health → Einstellungen → Health Connect → sicherstellen, dass es verbunden ist und alle Datentypen aktiviert sind.",
         pt: "O Galaxy Watch não grava diretamente no Health Connect: faz isso pelo Samsung Health. Se o Samsung Health não tiver permissões de gravação no Health Connect, os dados do relógio não chegarão. Verifique: Samsung Health → Configurações → Health Connect → certifique-se de que está conectado e que todos os tipos de dados estão ativados.",
         fr: "La Galaxy Watch n'écrit pas directement dans Health Connect: elle le fait via Samsung Health. Si Samsung Health n'a pas les autorisations d'écriture dans Health Connect, les données de la montre n'arriveront pas. Vérifiez: Samsung Health → Paramètres → Health Connect → assurez-vous qu'il est connecté et que tous les types de données sont activés.",
-        pl: "Galaxy Watch nie pisze bezpośrednio na Health Connect: to robi poprzez Samsung Health. Jeśli Samsung Health nie ma uprawnień do zapisu na Health Connect, dane z Smartwatcha nie dotrą. Sprawdź: Samsung Health → Ustawienia → Health Connect → upewnij się, że jest połączony i że wszystkie typy danych są włączone.",
-        tr: "Galaxy Watch doğrudan Health Connect'e yazmaz: bunu Samsung Health aracılığıyla yapar. Samsung Health'e Health Connect için yazma izni verilmediyse, Watch'ten gelen veriler ulaşmaz. Kontrol et: Samsung Health → Ayarlar → Health Connect → bağlantının etkin olduğundan ve tüm veri türlerinin açık olduğundan emin ol.",
+        pl: "Galaxy Watch nie pisze bezpośrednio na Health Connect: to robi poprzez Samsung Health. Jeśli Samsung Health nie ma uprawnień do zapisu na Health Connect, dane ze smartwatcha nie dotrą. Sprawdź: Samsung Health → Ustawienia → Health Connect → upewnij się, że jest połączony i że wszystkie typy danych są włączone.",
+        tr: "Galaxy Watch doğrudan Health Connect'e yazmaz: bunu Samsung Health aracılığıyla yapar. Samsung Health'e Health Connect için yazma izni verilmediyse, Watch'ten gelen veriler ulaşmaz. Kontrol edin: Samsung Health → Ayarlar → Health Connect → bağlantının etkin olduğundan ve tüm veri türlerinin açık olduğundan emin olun.",
         nl: "Galaxy Watch schrijft niet rechtstreeks naar Health Connect: dat doet het via Samsung Health. Als Samsung Health geen schrijfrechten heeft voor Health Connect, komen de Watch-gegevens niet aan. Controleer: Samsung Health → Instellingen → Health Connect → zorg ervoor dat het verbonden is en dat alle gegevenstypen ingeschakeld zijn.",
         ja: "Galaxy WatchはHealth Connectに直接書き込まない：Samsung Healthを通じて行います。Samsung HealthがHealth Connectに書き込み権限を持っていない場合、Watchのデータは届きません。確認：Samsung Health → 設定 → Health Connect → 接続されており、すべてのデータタイプが有効であることを確認。",
         ko: "Galaxy Watch는 Health Connect에 직접 쓰지 않습니다: Samsung Health를 통해 씁니다. Samsung Health에 Health Connect에 대한 쓰기 권한이 없으면 Watch 데이터가 도착하지 않습니다. 확인: Samsung Health → 설정 → Health Connect → 연결되어 있고 모든 데이터 유형이 활성화되어 있는지 확인.",
@@ -1476,8 +1504,8 @@ export const post: BlogPost = {
         de: "Ja. Google Fit war Googles frühere Gesundheitsplattform (wird derzeit eingestellt). Health Connect ist der neue einheitliche Android-Standard, 2022 eingeführt und nun nativ in Android 14 integriert. Google Fit und Health Connect sind separate Systeme: Eine App kann in eines, das andere oder beide schreiben. Bei Synchronisierungsproblemen prüfen Sie, welches die Quell-App verwendet.",
         pt: "Sim. O Google Fit era a plataforma de saúde anterior do Google (atualmente sendo descontinuada). O Health Connect é o novo padrão unificado do Android, lançado em 2022 e agora nativo no Android 14. Google Fit e Health Connect são sistemas separados: um app pode gravar em um, no outro ou em ambos. Se tiver problemas de sincronização, verifique qual deles o app de origem utiliza.",
         fr: "Oui. Google Fit était la précédente plateforme de santé de Google (en cours de retrait). Health Connect est le nouveau standard Android unifié, lancé en 2022 et désormais intégré nativement à Android 14. Google Fit et Health Connect sont des systèmes distincts: une application peut écrire dans l'un, l'autre ou les deux. En cas de problème de synchronisation, vérifiez lequel utilise l'application source.",
-        pl: "Tak. Google Fit była poprzednią platformą zdrowia firmy Google (obecnie w zakończeniu działań). Health Connect to nowy unifikowany standard RODO wprowadzony w 2022 roku, stający się częścią naturalnej integracji w Android 14. Google Fit i Health Connect są oddzielnymi systemami: aplikacja może pisać do jednego z nich, drugiego lub obu. Jeśli masz problemy z synchronizacją, sprawdź, który z nich używa źródłowa aplikacja.",
-        tr: "Evet. Google Fit daha önce Google'in sağlık platformu idi (şimdi kullanılmıyor). Health Connect 2022'de tanıtıldı ve Android 14'nün organik bir parçası haline geldi. Google Fit ve Health Connect ayrı sistemlerdir: bir uygulama hangisini kullanıyorsa, o üzerinde yazabilir. Sincronizasyon sorunlarına rastladığınızda, hangisinin kullanıldığını kontrol edin.",
+        pl: "Tak. Google Fit był poprzednią platformą zdrowia firmy Google (obecnie w trakcie wygaszania). Health Connect to nowy unifikowany standard Android wprowadzony w 2022 roku, teraz natywnie zintegrowany w Android 14. Google Fit i Health Connect są oddzielnymi systemami: aplikacja może zapisywać w jednym z nich, w drugim lub w obu. Jeśli masz problemy z synchronizacją, sprawdź, którego z nich używa aplikacja źródłowa.",
+        tr: "Evet. Google Fit, Google'ın önceki sağlık platformuydu (şu anda kullanımdan kaldırılıyor). Health Connect, 2022'de piyasaya sürülen yeni birleşik Android standardıdır ve artık Android 14'ün yerel bir parçasıdır. Google Fit ve Health Connect ayrı sistemlerdir: bir uygulama birine, diğerine veya her ikisine de yazabilir. Senkronizasyon sorunları yaşıyorsanız, kaynak uygulamanın hangisini kullandığını kontrol edin.",
         nl: "Ja. Google Fit was het vorige gezondheidsplatform van Google (momenteel wordt het stopgezet). Health Connect is de nieuwe uniforme Android-standaard, gelanceerd in 2022 en nu ingebouwd in Android 14. Google Fit en Health Connect zijn aparte systemen: een app kan naar een, de andere, of beide schrijven. Als je synchronisatieproblemen hebt, controleer dan welke de bronapp gebruikt.",
         ja: "はい。Google FitはGoogleの以前の健康プラットフォームでした（現在は廃止されつつあります）。Health Connectは2022年に発売された新しい統合Androidスタンダードで、Android 14にネイティブになりました。Google FitとHealth Connectは別々のシステムです：アプリは一方、他方、または両方に書き込めます。同期の問題がある場合は、ソースアプリがどちらを使用しているか確認してください。",
         ko: "예. Google Fit는 Google의 이전 건강 플랫폼이었습니다(현재 지원 종료 중). Health Connect는 2022년에 출시된 새로운 통합 Android 표준으로, 현재 Android 14에 기본 내장되어 있습니다. Google Fit와 Health Connect는 별도의 시스템입니다: 앱은 하나, 다른 하나, 또는 둘 다에 쓸 수 있습니다. 동기화 문제가 있으면 소스 앱이 어느 것을 사용하는지 확인하세요.",
@@ -1491,7 +1519,7 @@ export const post: BlogPost = {
         de: "Können fehlende Daten in Health Connect wiederhergestellt werden?",
         pt: "Os dados ausentes no Health Connect podem ser recuperados?",
         fr: "Les données manquantes dans Health Connect peuvent-elles être récupérées?",
-        pl: "Dane brakujące w Health Connect mogą być odzyskane?",
+        pl: "Czy brakujące dane w Health Connect mogą zostać odzyskane?",
         tr: "Eksik verilerin Health Connect içindeki bilgileri kazanılabiliyor mu?",
         nl: "Kunnen ontbrekende gegevens in Health Connect worden hersteld?",
         ja: "Health Connectにある欠けているデータを回復できますか？",
@@ -1519,8 +1547,8 @@ export const post: BlogPost = {
         de: "Verursachen mehrere Apps, die in Health Connect schreiben, Probleme?",
         pt: "Vários apps gravando no Health Connect causam problemas?",
         fr: "Plusieurs applications écrivant dans Health Connect causent-elles des problèmes?",
-        pl: "Czy bardziej aplikacje pisane na Health Connect powodują problemy?",
-        tr: "Giyilebilir cihazlar üzerinde daha fazla uygulama yazılması sorun yaratır mı?",
+        pl: "Czy wiele aplikacji piszących do Health Connect powoduje problemy?",
+        tr: "Health Connect'e birden fazla uygulama yazması sorun yaratır mı?",
         nl: "Veroorzaken meerdere apps die naar Health Connect schrijven problemen?",
         ja: "複数のアプリがHealth Connectに書き込むと問題が起きますか？",
         ko: "여러 앱이 Health Connect에 쓰면 문제가 발생하나요?",
@@ -1532,8 +1560,8 @@ export const post: BlogPost = {
         de: "Sie können Duplikate verursachen. Wenn Garmin Connect und Samsung Health beide 'Schritte' für dasselbe Stundenintervall schreiben, kann Health Connect zwei Einträge für dieselben Daten enthalten. Die meisten Lese-Apps verarbeiten Duplikate, aber nicht alle. Wenn Sie sehr hohe Schrittzahlen oder doppelte Daten sehen, prüfen Sie, welche Apps Schreibberechtigungen haben, und erwägen Sie, das Schreiben für die Duplikate zu deaktivieren.",
         pt: "Podem causar duplicatas. Se o Garmin Connect e o Samsung Health gravarem 'Passos' para o mesmo intervalo horário, o Health Connect pode conter dois registros para o mesmo dado. A maioria dos apps de leitura gerencia a deduplicação, mas nem todos. Se você ver contagens de passos muito altas ou dados duplicados, verifique quais apps têm permissão de gravação e considere desativar a gravação das duplicatas.",
         fr: "Elles peuvent provoquer des doublons. Si Garmin Connect et Samsung Health écrivent tous les deux des 'Pas' pour le même intervalle horaire, Health Connect peut contenir deux enregistrements pour la même donnée. La plupart des applications de lecture gèrent la déduplication, mais pas toutes. Si vous constatez des comptages de pas très élevés ou des données en double, vérifiez quelles applications ont l'autorisation d'écriture et envisagez de désactiver l'écriture pour les doublons.",
-        pl: "Mogą powodować duplikaty. Jeśli Garmin Connect i Samsung Health zapisują oba 'Kroki' dla tego samego okresu godzinowego, Health Connect może zawierać dwa rekordy dla tej samej informacji. Większość aplikacji odczytujących obsługuje deduplikację, ale nie wszystkie. Jeśli zauważasz bardzo wysokie wartości kroków lub powtarzające się dane, sprawdź, które aplikacje mają uprawnienie do zapisu, i rozważ wyłączenie zapisu z duplikujących się aplikacji.",
-        tr: "Yenileri oluşturabilir. Eğer Garmin Connect ve Samsung Health aynı saat aralığını her ikisi de 'Adımlar' olarak yazarsa, Health Connect aynı veriyi iki kez içerebilir. Çoğu aday okuma uygulaması yeniden kopyalandan kurtarma işlemi yapar, ancak tümü bunu yapmaz. Yüksek ad sayıları veya tekrarlanan verileri görürseniz, hangi uygulamaların yazma iznine sahip olduğuna bakıp, gerekirse yazılmayan tekrarlananlara yazma izni vermeyi düşünebilirsiniz.",
+        pl: "Mogą powodować duplikaty. Jeśli zarówno Garmin Connect, jak i Samsung Health zapisują 'Kroki' dla tego samego przedziału godzinowego, Health Connect może zawierać dwa rekordy dla tych samych danych. Większość aplikacji odczytujących obsługuje deduplikację, ale nie wszystkie. Jeśli zauważasz bardzo wysokie wartości kroków lub powtarzające się dane, sprawdź, które aplikacje mają uprawnienie do zapisu, i rozważ wyłączenie zapisu z duplikujących się aplikacji.",
+        tr: "Yinelenen (kopya) kayıtlara yol açabilir. Garmin Connect ve Samsung Health aynı saatlik aralık için ikisi de 'Adımlar' yazarsa, Health Connect aynı veri için iki kayıt içerebilir. Çoğu okuma uygulaması bu yinelenen kayıtları ayıklar, ama hepsi değil. Çok yüksek adım sayıları veya yinelenen veriler görürseniz, hangi uygulamaların yazma izni olduğunu kontrol edin ve yinelenen kaynaklardan yazmayı devre dışı bırakmayı düşünün.",
         nl: "Ze kunnen duplicaten veroorzaken. Als Garmin Connect en Samsung Health allebei 'Stappen' schrijven voor hetzelfde uurinterval, kan Health Connect twee records bevatten voor dezelfde data. De meeste leesapps verwerken deduplicatie, maar niet alle. Als je zeer hoge stapentelling of dubbele data ziet, controleer dan welke apps schrijfrechten hebben en overweeg het schrijven van de duplicaten uit te schakelen.",
         ja: "重複を引き起こす可能性があります。Garmin ConnectとSamsung Healthが同じ時間帯に「歩数」を両方書き込んだ場合、Health Connectは同じデータに対して2つのレコードを持つ可能性があります。ほとんどの読み取りアプリは重複排除を処理しますが、すべてではありません。非常に高い歩数や重複データが見られる場合は、どのアプリが書き込み権限を持つか確認し、重複しているアプリからの書き込みを無効にすることを検討してください。",
         ko: "중복을 유발할 수 있습니다. Garmin Connect와 Samsung Health가 모두 같은 시간 간격에 '걸음 수'를 쓴다면, Health Connect는 같은 데이터에 대해 두 개의 레코드를 포함할 수 있습니다. 대부분의 읽기 앱은 중복 제거를 처리하지만, 전부는 아닙니다. 매우 높은 걸음 수 또는 중복 데이터가 보이면 어떤 앱이 쓰기 권한을 가지고 있는지 확인하고 중복 앱의 쓰기를 비활성화하는 것을 고려하세요.",
@@ -1544,8 +1572,13 @@ export const post: BlogPost = {
     "come-funziona-health-connect",
     "passi-non-si-sincronizzano-galaxy-watch",
     "health-connect-vs-samsung-health",
+    // P1.8A (2026-08-25): linking bidirezionale — l'articolo Garmin/Samsung
+    // gia' linkava qui (il suo `related` include "health-connect-not-
+    // syncing"), il verso opposto mancava. Pagina indicizzabile, 200 diretta,
+    // topicamente pertinente (stesso collo di bottiglia Health Connect).
+    "garmin-samsung-health-sync-guide",
   ],
-  brandsMentioned: ["Google", "Samsung", "Garmin", "Fitbit"],
+  brandsMentioned: ["Google", "Google Health", "Samsung", "Garmin", "Fitbit"],
   // P0 hotfix truth-fix (2026-08-05): fonti primarie aperte e verificate
   // direttamente (non da memoria) a supporto dei claim su permesso di
   // lettura storica/limite 30gg, tempistica di scrittura Samsung Health→
@@ -1567,7 +1600,7 @@ export const post: BlogPost = {
     "https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect",
     "https://developer.samsung.com/health/blog/en/managing-sleep-data-with-samsung-health-and-health-connect",
     "https://support.google.com/googlehealth/answer/17068213",
-    "https://support.google.com/android/answer/14119325",
+    "https://developer.android.com/health-and-fitness/health-connect/migration/android-13-to-14",
   ],
   sourcesRenderedInline: true,
   ldType: "BlogPosting",

@@ -30,7 +30,15 @@ const ROUTE_CASES: RouteCase[] = [
   { path: "/de/fitness-data-sync", family: "fitness-data-sync" },
   { path: "/es/fitness-data-sync", family: "fitness-data-sync" },
   { path: "/en/blog/multiple-smartwatches-duplicate-data", family: "blog" },
-  { path: "/en/lp/backup-galaxy-watch", family: "lp" },
+  // Micro-gate P1.8A-A (2026-08-25): questa riga puntava al vecchio alias
+  // "/en/lp/backup-galaxy-watch", oggi un redirect 308 intenzionale verso
+  // la destinazione canonica sotto. `fetch()` segue i redirect di default,
+  // quindi il check funzionava comunque — ma verificava implicitamente
+  // anche la catena di redirect, non il suo compito (metadata social sulla
+  // pagina reale). Puntato ora alla destinazione canonica 200: la verifica
+  // del vecchio alias resta compito di check-seo-redirect-integrity.ts
+  // (grafo redirect statico), non di questo script (fetch HTTP live).
+  { path: "/en/lp/galaxy-watch-backup", family: "lp" },
   { path: "/en/sync/galaxy-watch", family: "sync-provider" },
 ];
 
