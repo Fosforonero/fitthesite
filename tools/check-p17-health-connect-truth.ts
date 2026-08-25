@@ -83,9 +83,9 @@ const lines = content.split("\n");
 // ── 1. Backfill "automatico" senza negazione vicina ──────────────────────
 // Scoperto SOLO nel contesto storico/backfill (non deve bannare "retry
 // automatico" della resilienza di FitMesh, che e' un claim diverso e vero).
-const AUTOMATIC_WORD = /(automatico|automatically|automatisch|automatique|automático|automatisk)/i;
-const NEGATION_WORD = /\b(non|not|isn't|doesn't|nicht|pas|no|niet|não|nie)\b/i;
-const HISTORY_CONTEXT_WORD = /(storic|recover|recuper|backfill|cronologia|history|30 giorni|30 days|30 dias|30 días|30 Tage)/i;
+const AUTOMATIC_WORD = /(automatico|automatically|automatisch|automatique|automático|automatisk|automatycznie|automatyczn|otomatik|自動的|자동으로|자동)/i;
+const NEGATION_WORD = /\b(non|not|isn't|doesn't|nicht|pas|no|niet|não|nie)\b|değil|ではない|ではありません|아닙니다|아닌/i;
+const HISTORY_CONTEXT_WORD = /(storic|recover|recuper|backfill|cronologia|history|30 giorni|30 days|30 dias|30 días|30 Tage|30 dni|30 gün|30日|30일)/i;
 for (let i = 0; i < lines.length; i++) {
   const trimmed = lines[i].trim();
   if (trimmed.startsWith("//")) continue; // commento editoriale, non testo pubblicato
@@ -94,8 +94,15 @@ for (let i = 0; i < lines.length; i++) {
   let m: RegExpExecArray | null;
   const re = new RegExp(AUTOMATIC_WORD.source, "gi");
   while ((m = re.exec(line))) {
+    // ADDENDUM P1.8A: finestra allargata dopo il match (5 -> 40 caratteri).
+    // TR/JA/KO sono lingue a negazione POST-posta ("otomatik değildir" =
+    // automatico+non-e', "自動ではありません" = automatico+non), quindi la
+    // negazione vive DOPO la parola "automatico", non prima come in IT/EN/
+    // FR/ES/DE/PT. La finestra +5 originale (pensata per IT/EN) tagliava
+    // fuori "아닙니다"/"değildir"/"ではありません" quasi sempre, producendo
+    // falsi positivi su testo gia' corretto.
     const windowStart = Math.max(0, m.index - 40);
-    const window = line.slice(windowStart, m.index + m[0].length + 5);
+    const window = line.slice(windowStart, m.index + m[0].length + 40);
     if (!NEGATION_WORD.test(window)) {
       errors.push(
         `[backfill-automatico-senza-negazione] riga ${i + 1}: "${window.trim()}" — "automatico" senza negazione nella finestra circostante (contesto storico/backfill).`,
@@ -133,6 +140,36 @@ const BANNED_ABSOLUTES: Array<{ re: RegExp; label: string }> = [
   { re: /by far the most common cause/i, label: "by-far-most-common-cause" },
   { re: /risolve la maggioranza dei casi/i, label: "risolve-maggioranza-casi" },
   { re: /resolves the majority of cases/i, label: "resolves-majority-cases" },
+  // ADDENDUM P1.8A (2026-08-25): equivalenti PT/FR/PL/TR/JA/KO trovati vivi
+  // (non IT/EN) in queste 6 locale — la lista precedente era IT/EN-only per
+  // costruzione e non li intercettava affatto.
+  { re: /\bde longe\b/i, label: "de-longe-pt" },
+  { re: /\bde loin\b/i, label: "de-loin-fr" },
+  { re: /\bzdecydowanie\b/i, label: "zdecydowanie-pl" },
+  { re: /açık ara farkla/i, label: "acik-ara-farkla-tr" },
+  { re: /圧倒的/i, label: "attoutekiteki-ja" },
+  { re: /\b단연\b/i, label: "danyeon-ko" },
+  { re: /\ba causa principal\b/i, label: "causa-principal-pt" },
+  { re: /\bla cause principale\b/i, label: "cause-principale-fr" },
+  { re: /najważniejszą przyczyną/i, label: "najwazniejsza-przyczyna-pl" },
+  { re: /en önemli neden/i, label: "en-onemli-neden-tr" },
+  { re: /最大の原因/i, label: "saidai-no-gen-in-ja" },
+  { re: /가장 큰 원인/i, label: "gajang-keun-wonin-ko" },
+  { re: /\ba maioria dos casos\b/i, label: "maioria-dos-casos-pt" },
+  { re: /\bla majorité des cas\b/i, label: "majorite-des-cas-fr" },
+  { re: /większość przypadków/i, label: "wiekszosc-przypadkow-pl" },
+  { re: /çoğu durumu çözer(?!.{0,20}hepsini değil)/i, label: "cogu-durumu-cozer-unqualified-tr" },
+  { re: /ほとんどのケースを解決/i, label: "hotondo-no-keesu-ja" },
+  { re: /대부분의 경우를 해결/i, label: "daebubun-ui-gyeongu-ko" },
+  // ADDENDUM P1.8A: forma numerica di "5 minuti" come tempo-di-risoluzione
+  // (non generico "aspetta N minuti" operativo, che resta legittimo altrove
+  // nel file — es. "aspetta 5-10 minuti per il primo sync" dopo un reset
+  // permessi e' un'istruzione diversa e vera). Richiede "5" + "minut*" nella
+  // STESSA riga di un verbo di risoluzione, in una qualsiasi lingua coperta.
+  {
+    re: /\b5\s*(minuti|minutes|minutos|Minuten|minut|dakika|dakikada|분)\b(?=.{0,60}(risolv|solve|löst|resolv|résout|rozwiąz|çöz|解決|해결))|(?:risolv|solve|löst|resolv|résout|rozwiąz|çöz|解決|해결).{0,60}\b5\s*(minuti|minutes|minutos|Minuten|minut|dakika|dakikada|분)\b/i,
+    label: "5-minuti-tempo-risoluzione",
+  },
 ];
 for (let i = 0; i < lines.length; i++) {
   if (lines[i].trim().startsWith("//")) continue; // commento editoriale che documenta lo storico del fix
@@ -256,8 +293,20 @@ for (let i = 0; i < lines.length; i++) {
 // — fr/pt diventano locale live per questo post in questa release, un
 // residuo "finestra mobile da oggi" li' sarebbe stato invisibile senza
 // questi termini (stesso bug-pattern gia' corretto per sv/da al punto 12).
-const HISTORY_WINDOW_WORD = /(30 giorni|30 days|30 días|30 Tage|30 dagen|30 dagar|30 dage|30 (derniers )?jours|30 dias)/i;
-const HISTORY_ANCHOR_WORD = /(prima concessione|da quando ha ricevuto l'accesso|first permission grant|granted access|primera concesión|se le concedió el acceso|ersten? Berechtigungserteilung|Zeitpunkt der Berechtigungserteilung|eerste toestemming|moment van toegang|första behörigheten|åtkomst beviljades|første tilladelse|adgangen blev givet|première autorisation accordée|l'accès.{0,20}a été accordé|primeira concessão|acesso foi concedido)/i;
+// ADDENDUM P1.8A (2026-08-25): "30 dni"(PL)/"30 gün"(TR)/"30日"(JA)/"30일"(KO)
+// aggiunti — la lista precedente era IT/EN/ES/DE/NL/SV/DA/FR/PT-only per
+// costruzione: il residuo "finestra mobile" era gia' vivo in questi 4 file
+// (TL;DR + "In sintesi") e invisibile a questo guardrail prima di ora.
+const HISTORY_WINDOW_WORD = /(30 giorni|30 days|30 días|30 Tage|30 dagen|30 dagar|30 dage|30 (derniers )?jours|30 dias|30 dni|30 gün|30日|30일)/i;
+// ADDENDUM P1.8A: pattern PL/TR/JA/KO allargati dalla forma esatta scritta
+// nei MIEI edit ("pierwsze udzielenie uprawnienia" ecc.) alla radice
+// concettuale "accesso/permesso + concesso/dato" — il testo PREESISTENTE
+// nella FAQ di questi 4 file usava gia' un ancoraggio corretto ma con
+// parole diverse ("od momentu przyznania dostępu" / "erişim verildiği
+// andan itibaren" / "アクセスが許可された時点から" / "접근 권한이 부여된
+// 시점부터"), e la prima versione di questo pattern non lo riconosceva —
+// falso positivo trovato sulla FAQ, che era gia' corretta.
+const HISTORY_ANCHOR_WORD = /(prima concessione|da quando ha ricevuto l'accesso|first permission grant|granted access|primera concesión|se le concedió el acceso|ersten? Berechtigungserteilung|Zeitpunkt der Berechtigungserteilung|eerste toestemming|moment van toegang|första behörigheten|åtkomst beviljades|första gången|första tillfället|første tilladelse|adgangen blev givet|première autorisation accordée|l'accès.{0,20}a été accordé|primeira concessão|acesso foi concedido|udzielenie uprawnienia|przyznania dostępu|udzielenia dostępu|verildiği andan|(izin|iznin).{0,20}verildiği|eri[şs]im.{0,20}verildiği|権限を付与した時点|許可された時点|権限が.{0,10}付与された|권한을 부여한 시점|권한이.{0,10}부여된|허용된 시점)/i;
 
 for (let i = 0; i < lines.length; i++) {
   const line = lines[i];
@@ -265,6 +314,91 @@ for (let i = 0; i < lines.length; i++) {
   if (!HISTORY_WINDOW_WORD.test(line)) continue;
   if (!HISTORY_ANCHOR_WORD.test(line)) {
     errors.push(`[finestra-storica-non-ancorata] riga ${i + 1}: menziona "30 giorni/days" senza ancorarli esplicitamente alla prima concessione del permesso (rischio di lettura come finestra mobile da oggi).`);
+  }
+}
+
+// ── 13. Emoji in righe di testo pubblicabile ──────────────────────────────
+// ADDENDUM P1.8A: trovato un emoji incollato dentro una parola in PL
+// ("przy😊ezdaj"). Nessuna riga di corpo/TL;DR/FAQ di questo articolo
+// tecnico dovrebbe mai contenere un emoji.
+// NOTA: range ristretto ai soli blocchi Unicode "pittografici" reali
+// (emoticon/simboli/trasporti/pittogrammi supplementari). Un primo tentativo
+// includeva anche Arrows (U+2190-21FF) e Misc Symbols (U+2600-27BF): il
+// file usa "→" ovunque per i percorsi di navigazione UI ("Impostazioni →
+// Sistema → ..."), quindi quel range dava ~150 falsi positivi su ogni
+// freccia legittima. Ristretto al solo blocco che conteneva l'emoji reale
+// trovato in PL (😊, U+1F60A).
+const EMOJI_RANGE = /[\u{1F300}-\u{1FAFF}]/u;
+for (let i = 0; i < lines.length; i++) {
+  const line = lines[i];
+  if (line.trim().startsWith("//")) continue;
+  if (EMOJI_RANGE.test(line)) {
+    errors.push(`[emoji-in-testo] riga ${i + 1}: contiene un emoji — nessun emoji e' previsto in questo articolo.`);
+  }
+}
+
+// ── 14. Acronimi di legge sulla privacy fuori contesto ────────────────────
+// ADDENDUM P1.8A: "RODO" (GDPR polacco) e "KVKK" (legge turca) trovati come
+// sostituzioni corrotte di "Health Connect"/"Android" in PL, non solo nei 4
+// artefatti TR gia' noti. Nessuno dei due acronimi ha una ragione legittima
+// di comparire in un articolo di troubleshooting Health Connect.
+for (let i = 0; i < lines.length; i++) {
+  const line = lines[i];
+  if (line.trim().startsWith("//")) continue;
+  if (/\bRODO\b/.test(line)) {
+    errors.push(`[corruzione-rodo] riga ${i + 1}: trovato "RODO" (probabile corruzione, non ha contesto legittimo in questo articolo).`);
+  }
+  if (/\bKVKK\b/.test(line)) {
+    errors.push(`[corruzione-kvkk-linea] riga ${i + 1}: trovato "KVKK" (probabile corruzione, non ha contesto legittimo in questo articolo).`);
+  }
+}
+
+// ── 15. Placeholder/artefatti a doppio underscore non risolti ─────────────
+// ADDENDUM P1.8A: questo sito usa SOLO **bold** come light-markdown (vedi
+// commento di lib/blog/types.ts) — MAI underscore per corsivo o enfasi.
+// Qualunque sequenza __qualcosa__ o _parola_ dentro il testo pubblicabile e'
+// per definizione un artefatto di template/traduzione non risolto (trovato
+// live in PL: "**_feedback_app__**").
+for (let i = 0; i < lines.length; i++) {
+  const line = lines[i];
+  if (line.trim().startsWith("//")) continue;
+  if (/_{2,}|\b_[a-zA-Z]+_\b/.test(line)) {
+    errors.push(`[placeholder-underscore] riga ${i + 1}: sequenza underscore non prevista dal light-markdown del sito (solo **bold** e' ammesso).`);
+  }
+}
+
+// ── 16. Nomi di subreddit letterali non tradotti ───────────────────────────
+// ADDENDUM P1.8A: "r/AndroidHealth" tradotto in "r/AndroidSağlık" (TR) punta
+// a un subreddit inesistente — i nomi community sono stringhe letterali,
+// mai da tradurre. Whitelist dei subreddit realmente citati nel file.
+const KNOWN_SUBREDDITS = new Set(["r/AndroidHealth", "r/GalaxyWatch"]);
+for (let i = 0; i < lines.length; i++) {
+  const line = lines[i];
+  if (line.trim().startsWith("//")) continue;
+  // \b prima di "r": senza, "fr/integrations" (locale "fr" + path) e
+  // "saatler/günler" (testo TR con uno slash generico) matchavano come
+  // falsi subreddit — trovato come falso positivo al primo giro di questo
+  // check. Richiede maiuscola dopo la "r" (i subreddit reali sono
+  // CamelCase), cosi' non intercetta piu' testo comune con uno slash.
+  const matches = line.matchAll(/\br\/[A-ZÀ-Ý][A-Za-zÀ-ÿğüşöçıİĞÜŞÖÇ]*/g);
+  for (const m of matches) {
+    if (!KNOWN_SUBREDDITS.has(m[0])) {
+      errors.push(`[subreddit-non-letterale] riga ${i + 1}: "${m[0]}" non e' nella whitelist dei subreddit noti — probabile traduzione errata di un nome community, che deve restare letterale.`);
+    }
+  }
+}
+
+// ── 17. Contraddizione Android 13-/14+ specifica gia' trovata e corretta ──
+// ADDENDUM P1.8A (Fix 6): il paragrafo diceva che l'aggiornamento non
+// comparirebbe nell'elenco del Play Store, mentre gli step immediatamente
+// successivi dicevano di cercarlo nel Play Store. Guardia di regressione
+// sulla frase esatta rimossa, per lingua.
+const PLAY_STORE_CONTRADICTION = /non comparirà nell'elenco aggiornamenti del Play Store|won't show up in the Play Store's update list|no aparecerá en la lista de actualizaciones|erscheint nicht in der Update-Liste des Play Store|não aparecerá na lista de atualizações|n'apparaîtra pas dans la liste des mises à jour|nie pojawi się na liście aktualizacji|güncelleme listesinde görünmez|verschijnt niet in de updatelijst|更新リストには表示されません|업데이트 목록에는 표시되지 않습니다/i;
+for (let i = 0; i < lines.length; i++) {
+  const line = lines[i];
+  if (line.trim().startsWith("//")) continue;
+  if (PLAY_STORE_CONTRADICTION.test(line)) {
+    errors.push(`[android14-play-store-contraddizione] riga ${i + 1}: e' tornata la frase che contraddice gli step "cerca su Play Store e aggiorna" subito dopo.`);
   }
 }
 
@@ -310,6 +444,28 @@ if (overlayPostForChecks) {
       // check 12
       if (HISTORY_WINDOW_WORD.test(text) && !HISTORY_ANCHOR_WORD.test(text)) {
         errors.push(`[finestra-storica-non-ancorata-overlay] nordic-overlay.json ${loc}: menziona "30 giorni/dagar/dage" senza ancorarli alla prima concessione del permesso.`);
+      }
+      // ADDENDUM P1.8A: check 6 (percentuali) esteso all'overlay — trovato
+      // vivo "90 %" in sv/da (body.0.text), invisibile perche' i check
+      // originali 4/6 leggevano solo il file .ts, mai nordic-overlay.json.
+      if (/\d+\s?%/.test(text)) {
+        errors.push(`[percentuale-non-documentata-overlay] nordic-overlay.json ${loc}: contiene una percentuale numerica non prevista da nessuna fonte S1-S4.`);
+      }
+      // ADDENDUM P1.8A: check 4 (assoluti banditi) esteso all'overlay.
+      for (const { re, label } of BANNED_ABSOLUTES) {
+        if (re.test(text)) {
+          errors.push(`[assoluto-bandito-overlay:${label}] nordic-overlay.json ${loc}: "${text.slice(0, 120)}"`);
+        }
+      }
+      // ADDENDUM P1.8A: emoji/RODO/KVKK/underscore estesi all'overlay.
+      if (EMOJI_RANGE.test(text)) {
+        errors.push(`[emoji-in-testo-overlay] nordic-overlay.json ${loc}: contiene un emoji.`);
+      }
+      if (/\bRODO\b/.test(text) || /\bKVKK\b/.test(text)) {
+        errors.push(`[corruzione-acronimo-privacy-overlay] nordic-overlay.json ${loc}: trovato RODO/KVKK fuori contesto.`);
+      }
+      if (/_{2,}|\b_[a-zA-Z]+_\b/.test(text)) {
+        errors.push(`[placeholder-underscore-overlay] nordic-overlay.json ${loc}: sequenza underscore non prevista dal light-markdown del sito.`);
       }
     }
   }
