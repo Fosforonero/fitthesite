@@ -88,10 +88,12 @@
 -- una volta, ed e' idempotente: se la correzione c'e' gia', esce senza fare
 -- nulla.
 --
--- NESSUNA RIPARAZIONE STORICA. Le 418 notti gia' scritte non vengono toccate:
--- guariscono da sole al primo sync successivo, come e' successo per la
--- duplicazione del 16/08. Una migrazione di massa su fitness_metrics richiede
--- il GO esplicito di Matteo.
+-- NESSUNA RIPARAZIONE STORICA. Le 418 notti gia' scritte non vengono toccate.
+-- Sono RIPARABILI al prossimo sync di quel giorno, non gia' riparate: le notti
+-- degli utenti che non torneranno a sincronizzare quel giorno restano
+-- storicamente sbagliate. Servono tre cose distinte e questa migration e' solo
+-- la prima: ingest nuovo corretto, monitor post-deploy, riparazione storica
+-- separata dopo giorni puliti e con il GO esplicito di Matteo.
 
 do $migrazione$
 declare

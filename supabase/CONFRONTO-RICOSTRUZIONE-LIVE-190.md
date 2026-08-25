@@ -177,8 +177,16 @@ funzione servono anche a scegliere la sessione principale, a rilevare le
 sovrapposizioni e a riordinare cronologicamente. Il diff sul corpo vivo tocca
 **esattamente le tre ancore e nient'altro**.
 
-Nessuna riparazione storica: le 418 notti gia' scritte guariscono al primo
-sync successivo, come per la duplicazione del 16/08.
+Nessuna riparazione storica in questa migration. Le 418 notti gia' scritte
+sono **riparabili** al prossimo sync di quel giorno, non gia' riparate: la
+differenza non e' verbale. Le notti degli utenti che non sincronizzeranno piu'
+quel giorno **restano storicamente sbagliate**. Dire «guariscono da sole»
+dichiarerebbe chiuso un problema che e' chiuso solo per chi torna.
+
+Restano quindi tre cose distinte: **ingest nuovo corretto** (questa
+migration), **monitor post-deploy** che misuri la discesa del 40,3%, e
+**riparazione storica separata**, che non parte senza giorni puliti
+consecutivi e senza il GO esplicito di Matteo.
 
 ## WG1: il muro regge, e non per assenza di traffico
 
