@@ -32,6 +32,35 @@
  *   401 missing/invalid token
  *   404 device_not_paired
  *   500 server_error
+ *
+ * ── BLOCCO 1, sblocco freeze del 18/08/2026 ─────────────────────────────
+ *
+ * Raffica di 500 iniziata alle 10:38 UTC, muta su tutti e tre i fronti:
+ * nessuna eccezione non gestita in Vercel, nessuna riga di console accanto
+ * ai 500 nei log, nessun ERROR in Postgres negli stessi istanti. La rotta
+ * cattura (o restituisce) 500 senza scrivere niente da nessuna parte — non
+ * un log difficile da trovare, un log che non esiste.
+ *
+ * Questo blocco RENDE VISIBILE, non ripara: nessuna logica esistente e'
+ * stata toccata, solo aggiunta una riga di log su ogni punto che puo'
+ * restituire 500, piu' un catch esterno che prima non esisteva (la
+ * funzione non aveva NESSUN try/catch a livello di handler: requireUser,
+ * la RPC entitlement, concediPonteIos, il Promise.all dei workout e
+ * l'update finale del device potevano lanciare senza che nulla li
+ * intercettasse, cadendo sul default silenzioso di Next — coerente con
+ * tutti e tre i sintomi osservati).
+ *
+ * Ogni log passa da logSync500 sotto: stessa forma ("[sync] 500" + fase +
+ * durata dall'ingresso + tipo/messaggio/stack dell'errore + un id di
+ * correlazione PER RICHIESTA, non per utente). Niente userId/deviceId/
+ * fingerprint/email/token/payload/body — vincolo esplicito di Matteo E
+ * gia' imposto da tools/check-sync-log-privacy.ts (Sprint P0.10B FASE 2)
+ * su ogni console.* di questo file, senza eccezioni. L'id di correlazione
+ * e' quindi un UUID generato per-richiesta: non permette di riunire
+ * tentativi diversi dello stesso client (richiederebbe un identificatore
+ * stabile, che qui e' vietato), ma disambigua con precisione quale
+ * richiesta ha prodotto quale riga di log quando incrociato con l'accesso
+ * HTTP di Vercel sullo stesso istante.
  */
 import type { SupabaseClient } from "@supabase/supabase-js";
 
@@ -70,6 +99,42 @@ type Sb = SupabaseClient;
 // discutere compressione/payload delta con l'agente app.
 const SYNC_PROFILE_SAMPLE_RATE = 0.05;
 
+/**
+ * Unico punto di log per ogni 500 di questa rotta (Blocco 1, vedi sopra).
+ * Accetta sia veri `Error` (hanno name/message/stack) sia gli oggetti
+ * `{message, code}` di PostgREST/Supabase (nessuno stack reale) sia
+ * qualunque altra cosa venga lanciata — non si assume mai la forma
+ * dell'errore, solo che vada reso leggibile senza rischiare un crash nel
+ * log stesso.
+ */
+function logSync500(
+  requestId: string,
+  phase: string,
+  durationMs: number,
+  err: unknown,
+) {
+  const isRealError = err instanceof Error;
+  const errorName = isRealError
+    ? err.name
+    : err && typeof err === "object" && "code" in err
+      ? String((err as { code?: unknown }).code)
+      : typeof err;
+  const errorMessage =
+    err && typeof err === "object" && "message" in err
+      ? String((err as { message?: unknown }).message)
+      : String(err);
+  const errorStack = isRealError ? err.stack : undefined;
+
+  console.error("[sync] 500", {
+    requestId,
+    phase,
+    durationMs,
+    errorName,
+    errorMessage,
+    errorStack,
+  });
+}
+
 export async function POST(req: Request) {
   const tStart = performance.now();
   const timingsMs: Record<string, number> = {};
@@ -79,6 +144,12 @@ export async function POST(req: Request) {
   const requestBytesHeader = req.headers.get("content-length");
   const requestBytes = requestBytesHeader ? Number(requestBytesHeader) : null;
   const contentEncoding = req.headers.get("content-encoding") ?? "none";
+
+  // Blocco 1: id di correlazione per-richiesta (non per-utente, vedi
+  // commento in testa al file) + fase corrente, aggiornata ad ogni
+  // passaggio per finire nel log se qualcosa fallisce.
+  const requestId = crypto.randomUUID();
+  let phase = "rate_limit";
 
   // ── 0. Rate limit (Sprint P0.10C FASE 1) ───────────────────────────
   // Spostato dal Middleware: prima viveva li' (config.matcher includeva
@@ -96,252 +167,285 @@ export async function POST(req: Request) {
     return buildRateLimitResponse(rateLimitResult);
   }
 
-  // ── 1. Auth ─────────────────────────────────────────────────────────
-  const tAuth = performance.now();
-  const auth = await requireUser(req);
-  if (auth instanceof Response) return auth;
-  const { userId } = auth;
-  const sb = auth.supabase as unknown as Sb;
-  mark("auth", tAuth);
-
-  // ── 1.5. Diritto a scrivere dati salute ─────────────────────────────
-  //
-  // Questo NON e' la difesa: la difesa sono le policy RLS, che chiamano la
-  // stessa funzione e reggono anche se domani nasce un endpoint nuovo o un
-  // client alternativo (migration 20260816150000, provata impersonando utenti
-  // veri). Qui si traduce quel rifiuto in una risposta che l'app sa leggere,
-  // invece di un errore di permesso dentro l'upsert.
-  //
-  // Si blocca l'INGRESSO, non l'accesso: le SELECT restano aperte, quindi chi
-  // perde il diritto continua a vedere il proprio storico e puo' tornare.
-  // Il pairing non passa di qui.
-  //
-  // In caso di guasto della RPC si LASCIA PASSARE: le policy negano comunque,
-  // e negare per un errore di rete significherebbe togliere il servizio a chi
-  // paga per un difetto nostro. La difesa che non si puo' aggirare sta sotto.
-  const tEntitlement = performance.now();
-  const { data: haDiritto, error: entErr } = await sb.rpc(
-    "user_has_active_entitlement",
-    { p_user_id: userId },
-  );
-  mark("entitlement", tEntitlement);
-
-  if (entErr) {
-    console.error("[sync] entitlement_check_failed", { code: entErr.code });
-  } else if (haDiritto !== true) {
-    // Prima di negare l'ingresso: se e' un utente iOS, la mancanza di diritto
-    // puo' essere un difetto nostro e non un mancato pagamento. Vedi
-    // ./cessione-ios.ts per il perche'. La funzione verifica da sola la
-    // piattaforma e concede una volta sola; se ritorna false si nega come
-    // prima.
-    const ponte = await concediPonteIos(userId);
-    if (!ponte) {
-      // Blocco 3 (sprint "prova scaduta"): il corpo del 403 ora porta un
-      // messaggio vero, non solo il code. NON ha alcun effetto visibile
-      // sull'app già installata oggi: sync_repository.dart#_humanizeDioError
-      // mappa status==403 sulla stringa fissa l10n.syncErrorAccessDenied
-      // ("Accesso negato.") senza mai leggere questo corpo — verificato
-      // riga per riga, nessun punto del client legge response.data per un
-      // 403. Questo campo è terreno pronto per una futura versione
-      // dell'app che lo legga, zero costo lato server, zero promesse per
-      // chi ha la app di oggi. L'impatto reale immediato passa dalla
-      // pagina (/prova-scaduta) e dalla mail, non da questo testo.
-      return jsonError(
-        403,
-        "entitlement_required",
-        "La tua prova gratuita è finita. Vai su fitmesh.fit/it/prova-scaduta per vedere come continuare.",
-      );
-    }
-  }
-
-  // ── 2. Device lookup ────────────────────────────────────────────────
-  const fingerprint = req.headers.get("x-device-fingerprint");
-  if (!fingerprint) return jsonError(400, "missing_device_fingerprint");
-
-  const tDeviceLookup = performance.now();
-  const { data: device, error: devErr } = await sb
-    .from("devices")
-    .select("id, os_version")
-    .eq("user_id", userId)
-    .eq("device_fingerprint", fingerprint)
-    .is("revoked_at", null)
-    .maybeSingle();
-  mark("deviceLookup", tDeviceLookup);
-
-  if (devErr) return jsonError(500, "device_lookup_failed", devErr.message);
-  if (!device) return jsonError(404, "device_not_paired");
-
-  // ── 3. Validation payload ──────────────────────────────────────────
-  // Guardia memory-DoS: req.json() carica tutto in RAM prima di Zod. Un
-  // payload legittimo (snapshot giornaliera + intraday + workout) sta ben
-  // sotto i 500KB; oltre 2MB è patologico → 413 prima del parse.
-  const contentLength = Number(req.headers.get("content-length") ?? 0);
-  if (contentLength > 2 * 1024 * 1024) {
-    return jsonError(413, "payload_too_large");
-  }
-  let body: unknown;
-  const tJsonParse = performance.now();
+  // Blocco 1: da qui in poi TUTTO passa da un solo catch esterno — prima
+  // non esisteva nessuna protezione fra questo punto e la fine della
+  // funzione. Nessuna riga di logica sotto e' stata cambiata, solo
+  // avvolta, con l'aggiunta di due log espliciti sui due punti che
+  // restituivano gia' 500 esplicitamente ma senza scrivere nulla (device
+  // lookup, upsert metriche).
   try {
-    body = await req.json();
-  } catch {
-    return jsonError(400, "invalid_json");
-  }
-  mark("jsonParse", tJsonParse);
+    // ── 1. Auth ─────────────────────────────────────────────────────────
+    phase = "auth";
+    const tAuth = performance.now();
+    const auth = await requireUser(req);
+    if (auth instanceof Response) return auth;
+    const { userId } = auth;
+    const sb = auth.supabase as unknown as Sb;
+    mark("auth", tAuth);
 
-  const tZodValidate = performance.now();
-  const parsed = payloadSchema.safeParse(body);
-  mark("zodValidate", tZodValidate);
-  if (!parsed.success) {
-    // Log dettagli validation per debug futuro (visibile in Vercel logs).
-    // Solo NOMI dei campi ricevuti (schema, non dati sanitari) — calcolati
-    // qui fuori dalla console.error per tenere il payload grezzo fuori
-    // dall'argomento del log (vedi sync:log-privacy-check).
-    const receivedFieldNames = Object.keys(body as object).slice(0, 30);
-    console.error("[sync] invalid_payload", {
-      issues: parsed.error.issues,
-      sampleKeys: receivedFieldNames,
-    });
-    return jsonError(400, "invalid_payload", parsed.error.flatten());
-  }
-  const p = parsed.data;
-
-  // ── 4. UPSERT fitness_metrics (Sprint 189-RC2: canonical row per
-  // user/device/source/day, no more one-row-per-sync append — see
-  // upsert_fitness_metrics_v189 in migration
-  // 20260722062946_fitness_metrics_canonical_upsert.sql for the merge
-  // semantics). SECURITY INVOKER: runs as this request's authenticated user,
-  // enforced by the same RLS policies a raw insert/update would hit.
-  const tBuildRow = performance.now();
-  const fitnessMetricsRow = buildFitnessMetricsRow(p, { userId, deviceId: device.id });
-  mark("buildFitnessMetricsRow", tBuildRow);
-
-  const tUpsertMetrics = performance.now();
-  const { data: metricsId, error: insErr } = await sb.rpc(
-    "upsert_fitness_metrics_v189",
-    { p_row: fitnessMetricsRow },
-  );
-  mark("upsertFitnessMetrics", tUpsertMetrics);
-
-  if (insErr) return jsonError(500, "insert_metrics_failed", insErr.message);
-
-  // ── 4.5. Founder P0: grant first-sync-success (best-effort) ─────────
-  // La route resta valida anche se questa chiamata fallisce: l'ingest dati
-  // e' gia' committato al passo 4. Chiamata SEMPRE, indipendentemente da
-  // osVersion (P0.4): platform e' solo telemetria, mai un requisito.
-  let founderGrant: FounderGrantStatus = "retry_needed";
-  const platform =
-    derivePlatform(p.osVersion) ??
-    derivePlatform((device as { os_version?: string | null }).os_version);
-  const tFounder = performance.now();
-  try {
-    const { data: transitionResult, error: transitionErr } = await sb.rpc(
-      "record_first_sync_transition",
-      {
-        p_device_fingerprint: fingerprint,
-        p_state: "success",
-        p_platform: platform,
-        p_app_version: p.appVersion ?? null,
-      },
+    // ── 1.5. Diritto a scrivere dati salute ─────────────────────────────
+    //
+    // Questo NON e' la difesa: la difesa sono le policy RLS, che chiamano la
+    // stessa funzione e reggono anche se domani nasce un endpoint nuovo o un
+    // client alternativo (migration 20260816150000, provata impersonando utenti
+    // veri). Qui si traduce quel rifiuto in una risposta che l'app sa leggere,
+    // invece di un errore di permesso dentro l'upsert.
+    //
+    // Si blocca l'INGRESSO, non l'accesso: le SELECT restano aperte, quindi chi
+    // perde il diritto continua a vedere il proprio storico e puo' tornare.
+    // Il pairing non passa di qui.
+    //
+    // In caso di guasto della RPC si LASCIA PASSARE: le policy negano comunque,
+    // e negare per un errore di rete significherebbe togliere il servizio a chi
+    // paga per un difetto nostro. La difesa che non si puo' aggirare sta sotto.
+    phase = "entitlement";
+    const tEntitlement = performance.now();
+    const { data: haDiritto, error: entErr } = await sb.rpc(
+      "user_has_active_entitlement",
+      { p_user_id: userId },
     );
-    if (transitionErr) {
-      // Sprint P0.10B FASE 2: nessun identificatore nel log (né deviceId né
-      // altro) — solo nome evento + codice errore Postgres/PostgREST, non
-      // identificante di per sé (es. "23503", "P0001").
-      console.error("[sync] first_sync_transition_failed", {
-        code: transitionErr.code,
+    mark("entitlement", tEntitlement);
+
+    if (entErr) {
+      console.error("[sync] entitlement_check_failed", { code: entErr.code });
+    } else if (haDiritto !== true) {
+      // Prima di negare l'ingresso: se e' un utente iOS, la mancanza di diritto
+      // puo' essere un difetto nostro e non un mancato pagamento. Vedi
+      // ./cessione-ios.ts per il perche'. La funzione verifica da sola la
+      // piattaforma e concede una volta sola; se ritorna false si nega come
+      // prima.
+      phase = "cessione_ios";
+      const ponte = await concediPonteIos(userId);
+      if (!ponte) {
+        // Blocco 3 (sprint "prova scaduta"): il corpo del 403 ora porta un
+        // messaggio vero, non solo il code. NON ha alcun effetto visibile
+        // sull'app già installata oggi: sync_repository.dart#_humanizeDioError
+        // mappa status==403 sulla stringa fissa l10n.syncErrorAccessDenied
+        // ("Accesso negato.") senza mai leggere questo corpo — verificato
+        // riga per riga, nessun punto del client legge response.data per un
+        // 403. Questo campo è terreno pronto per una futura versione
+        // dell'app che lo legga, zero costo lato server, zero promesse per
+        // chi ha la app di oggi. L'impatto reale immediato passa dalla
+        // pagina (/prova-scaduta) e dalla mail, non da questo testo.
+        return jsonError(
+          403,
+          "entitlement_required",
+          "La tua prova gratuita è finita. Vai su fitmesh.fit/it/prova-scaduta per vedere come continuare.",
+        );
+      }
+    }
+
+    // ── 2. Device lookup ────────────────────────────────────────────────
+    phase = "device_lookup";
+    const fingerprint = req.headers.get("x-device-fingerprint");
+    if (!fingerprint) return jsonError(400, "missing_device_fingerprint");
+
+    const tDeviceLookup = performance.now();
+    const { data: device, error: devErr } = await sb
+      .from("devices")
+      .select("id, os_version")
+      .eq("user_id", userId)
+      .eq("device_fingerprint", fingerprint)
+      .is("revoked_at", null)
+      .maybeSingle();
+    mark("deviceLookup", tDeviceLookup);
+
+    if (devErr) {
+      logSync500(requestId, phase, Math.round(performance.now() - tStart), devErr);
+      return jsonError(500, "device_lookup_failed", devErr.message);
+    }
+    if (!device) return jsonError(404, "device_not_paired");
+
+    // ── 3. Validation payload ──────────────────────────────────────────
+    // Guardia memory-DoS: req.json() carica tutto in RAM prima di Zod. Un
+    // payload legittimo (snapshot giornaliera + intraday + workout) sta ben
+    // sotto i 500KB; oltre 2MB è patologico → 413 prima del parse.
+    phase = "json_parse";
+    const contentLength = Number(req.headers.get("content-length") ?? 0);
+    if (contentLength > 2 * 1024 * 1024) {
+      return jsonError(413, "payload_too_large");
+    }
+    let body: unknown;
+    const tJsonParse = performance.now();
+    try {
+      body = await req.json();
+    } catch {
+      return jsonError(400, "invalid_json");
+    }
+    mark("jsonParse", tJsonParse);
+
+    phase = "zod_validate";
+    const tZodValidate = performance.now();
+    const parsed = payloadSchema.safeParse(body);
+    mark("zodValidate", tZodValidate);
+    if (!parsed.success) {
+      // Log dettagli validation per debug futuro (visibile in Vercel logs).
+      // Solo NOMI dei campi ricevuti (schema, non dati sanitari) — calcolati
+      // qui fuori dalla console.error per tenere il payload grezzo fuori
+      // dall'argomento del log (vedi sync:log-privacy-check).
+      const receivedFieldNames = Object.keys(body as object).slice(0, 30);
+      console.error("[sync] invalid_payload", {
+        issues: parsed.error.issues,
+        sampleKeys: receivedFieldNames,
       });
+      return jsonError(400, "invalid_payload", parsed.error.flatten());
+    }
+    const p = parsed.data;
+
+    // ── 4. UPSERT fitness_metrics (Sprint 189-RC2: canonical row per
+    // user/device/source/day, no more one-row-per-sync append — see
+    // upsert_fitness_metrics_v189 in migration
+    // 20260722062946_fitness_metrics_canonical_upsert.sql for the merge
+    // semantics). SECURITY INVOKER: runs as this request's authenticated user,
+    // enforced by the same RLS policies a raw insert/update would hit.
+    phase = "upsert_metrics";
+    const tBuildRow = performance.now();
+    const fitnessMetricsRow = buildFitnessMetricsRow(p, { userId, deviceId: device.id });
+    mark("buildFitnessMetricsRow", tBuildRow);
+
+    const tUpsertMetrics = performance.now();
+    const { data: metricsId, error: insErr } = await sb.rpc(
+      "upsert_fitness_metrics_v189",
+      { p_row: fitnessMetricsRow },
+    );
+    mark("upsertFitnessMetrics", tUpsertMetrics);
+
+    if (insErr) {
+      logSync500(requestId, phase, Math.round(performance.now() - tStart), insErr);
+      return jsonError(500, "insert_metrics_failed", insErr.message);
+    }
+
+    // ── 4.5. Founder P0: grant first-sync-success (best-effort) ─────────
+    // La route resta valida anche se questa chiamata fallisce: l'ingest dati
+    // e' gia' committato al passo 4. Chiamata SEMPRE, indipendentemente da
+    // osVersion (P0.4): platform e' solo telemetria, mai un requisito.
+    phase = "founder_grant";
+    let founderGrant: FounderGrantStatus = "retry_needed";
+    const platform =
+      derivePlatform(p.osVersion) ??
+      derivePlatform((device as { os_version?: string | null }).os_version);
+    const tFounder = performance.now();
+    try {
+      const { data: transitionResult, error: transitionErr } = await sb.rpc(
+        "record_first_sync_transition",
+        {
+          p_device_fingerprint: fingerprint,
+          p_state: "success",
+          p_platform: platform,
+          p_app_version: p.appVersion ?? null,
+        },
+      );
+      if (transitionErr) {
+        // Sprint P0.10B FASE 2: nessun identificatore nel log (né deviceId né
+        // altro) — solo nome evento + codice errore Postgres/PostgREST, non
+        // identificante di per sé (es. "23503", "P0001").
+        console.error("[sync] first_sync_transition_failed", {
+          code: transitionErr.code,
+        });
+        founderGrant = resolveFounderGrantStatus(null, true);
+      } else {
+        founderGrant = resolveFounderGrantStatus(
+          transitionResult as Record<string, unknown> | null,
+          false,
+        );
+      }
+    } catch {
+      console.error("[sync] first_sync_transition_exception");
       founderGrant = resolveFounderGrantStatus(null, true);
-    } else {
-      founderGrant = resolveFounderGrantStatus(
-        transitionResult as Record<string, unknown> | null,
-        false,
+    }
+    mark("founder", tFounder);
+
+    // ── 5. UPSERT workouts da exercise_sessions (Sprint 189-RC2 Blocker 2) ──
+    // public.workouts is read by ExportDataClient.tsx (GDPR Art. 20 export),
+    // so this write stays (an earlier pass of this sprint removed it on a
+    // false "write-only/dead table" premise, reverted after adversarial
+    // review). Was a raw INSERT: every re-sync of an already-finished workout
+    // (a full-day HealthConnect/HealthKit re-read resending the same session)
+    // appended a fresh duplicate row forever — 30,575 rows for 4,345 distinct
+    // (user, device, start_ms, end_ms, type) identities as of this audit,
+    // ~86% duplicates. Now calls upsert_workouts_v189 (migration
+    // 20260722084223_workouts_canonical_upsert.sql): identical retries land on
+    // the same row, later syncs enrich title/duration/distance/calories/HR
+    // without erasing what a previous sync already populated. Each session
+    // upserted independently and best-effort (one failing must not fail the
+    // others or the main sync, which already committed at step 4).
+    phase = "workout_upsert";
+    const tWorkoutUpsert = performance.now();
+    if (p.exerciseSessionsJson && p.exerciseSessionsJson.length > 0) {
+      await Promise.all(
+        p.exerciseSessionsJson.map((s) =>
+          sb
+            .rpc("upsert_workouts_v189", {
+              p_row: {
+                user_id: userId,
+                device_id: device.id,
+                start_ms: s.startMs,
+                end_ms: s.endMs,
+                type: s.type ?? null,
+                title: s.title ?? null,
+                duration_min: s.durationMin ?? null,
+                distance_meters: s.distanceMeters ?? null,
+                calories_kcal: s.caloriesKcal ?? null,
+                hr_avg: s.hrAvg ?? null,
+                hr_max: s.hrMax ?? null,
+                hr_min: s.hrMin ?? null,
+                pace_sec_per_km: s.paceSecPerKm ?? null,
+              },
+            })
+            .then(({ error }) => {
+              if (error) {
+                // Sprint P0.10B FASE 2: nessun identificatore — solo evento + codice.
+                console.error("[sync] upsert_workouts_failed", {
+                  code: error.code,
+                });
+              }
+            }),
+        ),
       );
     }
-  } catch {
-    console.error("[sync] first_sync_transition_exception");
-    founderGrant = resolveFounderGrantStatus(null, true);
-  }
-  mark("founder", tFounder);
+    mark("workoutUpsert", tWorkoutUpsert);
 
-  // ── 5. UPSERT workouts da exercise_sessions (Sprint 189-RC2 Blocker 2) ──
-  // public.workouts is read by ExportDataClient.tsx (GDPR Art. 20 export),
-  // so this write stays (an earlier pass of this sprint removed it on a
-  // false "write-only/dead table" premise, reverted after adversarial
-  // review). Was a raw INSERT: every re-sync of an already-finished workout
-  // (a full-day HealthConnect/HealthKit re-read resending the same session)
-  // appended a fresh duplicate row forever — 30,575 rows for 4,345 distinct
-  // (user, device, start_ms, end_ms, type) identities as of this audit,
-  // ~86% duplicates. Now calls upsert_workouts_v189 (migration
-  // 20260722084223_workouts_canonical_upsert.sql): identical retries land on
-  // the same row, later syncs enrich title/duration/distance/calories/HR
-  // without erasing what a previous sync already populated. Each session
-  // upserted independently and best-effort (one failing must not fail the
-  // others or the main sync, which already committed at step 4).
-  const tWorkoutUpsert = performance.now();
-  if (p.exerciseSessionsJson && p.exerciseSessionsJson.length > 0) {
-    await Promise.all(
-      p.exerciseSessionsJson.map((s) =>
-        sb
-          .rpc("upsert_workouts_v189", {
-            p_row: {
-              user_id: userId,
-              device_id: device.id,
-              start_ms: s.startMs,
-              end_ms: s.endMs,
-              type: s.type ?? null,
-              title: s.title ?? null,
-              duration_min: s.durationMin ?? null,
-              distance_meters: s.distanceMeters ?? null,
-              calories_kcal: s.caloriesKcal ?? null,
-              hr_avg: s.hrAvg ?? null,
-              hr_max: s.hrMax ?? null,
-              hr_min: s.hrMin ?? null,
-              pace_sec_per_km: s.paceSecPerKm ?? null,
-            },
-          })
-          .then(({ error }) => {
-            if (error) {
-              // Sprint P0.10B FASE 2: nessun identificatore — solo evento + codice.
-              console.error("[sync] upsert_workouts_failed", {
-                code: error.code,
-              });
-            }
-          }),
-      ),
-    );
-  }
-  mark("workoutUpsert", tWorkoutUpsert);
+    // ── 6. Touch device.last_seen_at + app/os version ──────────────────
+    phase = "device_update";
+    const tDeviceUpdate = performance.now();
+    await sb
+      .from("devices")
+      .update({
+        last_seen_at: new Date().toISOString(),
+        ...(p.appVersion ? { app_version: p.appVersion } : {}),
+        ...(p.osVersion ? { os_version: p.osVersion } : {}),
+      })
+      .eq("id", (device as { id: string }).id);
+    mark("deviceUpdate", tDeviceUpdate);
 
-  // ── 6. Touch device.last_seen_at + app/os version ──────────────────
-  const tDeviceUpdate = performance.now();
-  await sb
-    .from("devices")
-    .update({
-      last_seen_at: new Date().toISOString(),
-      ...(p.appVersion ? { app_version: p.appVersion } : {}),
-      ...(p.osVersion ? { os_version: p.osVersion } : {}),
-    })
-    .eq("id", (device as { id: string }).id);
-  mark("deviceUpdate", tDeviceUpdate);
+    mark("total", tStart);
+    // Campionato, PII-free: durate per fase + l'esito Founder (gia' pubblico
+    // nella risposta sotto) + dimensione richiesta letta SOLO da
+    // Content-Length (mai da JSON.stringify(body), P0.10C FASE 3) + status.
+    // Nessun body/UUID/fingerprint/email/token/metrica/localita' nel log.
+    if (Math.random() < SYNC_PROFILE_SAMPLE_RATE) {
+      console.info("[sync] phase_timings_ms", {
+        ...timingsMs,
+        founderGrant,
+        requestBytes,
+        contentEncoding,
+        status: 200,
+      });
+    }
 
-  mark("total", tStart);
-  // Campionato, PII-free: durate per fase + l'esito Founder (gia' pubblico
-  // nella risposta sotto) + dimensione richiesta letta SOLO da
-  // Content-Length (mai da JSON.stringify(body), P0.10C FASE 3) + status.
-  // Nessun body/UUID/fingerprint/email/token/metrica/localita' nel log.
-  if (Math.random() < SYNC_PROFILE_SAMPLE_RATE) {
-    console.info("[sync] phase_timings_ms", {
-      ...timingsMs,
+    return jsonOk({
+      ok: true,
+      metricsId: metricsId as number | null,
       founderGrant,
-      requestBytes,
-      contentEncoding,
-      status: 200,
     });
+  } catch (err) {
+    // Blocco 1: prima di questo catch, un'eccezione qui (requireUser,
+    // l'RPC entitlement, concediPonteIos, il Promise.all dei workout,
+    // l'update finale del device — nessuno di questi era protetto) cadeva
+    // sul comportamento di default di Next senza lasciare traccia in
+    // nessuno dei tre posti dove si e' cercata. Ora viene sempre loggata e
+    // trasformata in una risposta esplicita, mai lasciata al framework.
+    logSync500(requestId, phase, Math.round(performance.now() - tStart), err);
+    return jsonError(500, "server_error");
   }
-
-  return jsonOk({
-    ok: true,
-    metricsId: metricsId as number | null,
-    founderGrant,
-  });
 }
