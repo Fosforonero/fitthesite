@@ -1,0 +1,41 @@
+-- ── MIGRATION STORICA SANITIZZATA — NON REPLICA IL CORPO REMOTO ────────────
+--
+-- Questo file NON esegue niente. Occupa la versione `20260524104251`, che in
+-- produzione risulta applicata, senza portarne il contenuto in git.
+--
+-- PERCHE': gli statement remoti contengono **diciassette indirizzi email
+-- personali in chiaro**, la lista bianca dei founder della prima ora. E' il
+-- caso piu' grave dei due incontrati nella riconciliazione: non un indirizzo
+-- ripetuto, ma diciassette persone distinte.
+--
+-- IMPRONTA DEL CORPO REMOTO:
+--
+--     statements[1]            6680 byte
+--     md5(statements[1])       a32534decf6279c9597fe88047a7bece
+--     md5 normalizzato         e742c9785b6d82088100db01c63fb859  (5689 caratteri)
+--
+-- COSA FACEVA, senza gli indirizzi:
+--
+--     create table if not exists public.founder_grants
+--     create policy founder_grants_service_only
+--     create or replace function public._apply_founder_grant
+--     create or replace function public.claim_founder_grant_if_eligible
+--
+-- La tabella conteneva la lista bianca; le due funzioni concedevano il ruolo
+-- founder a chi vi compariva.
+--
+-- COSA LA SOSTITUISCE: la struttura (tabella, policy, funzioni) va ricreata da
+-- una migration forward-only **senza dati**, e la lista degli aventi diritto
+-- resta dove gia' vive, cioe' nelle righe di produzione, che non sono materia
+-- di questo repository. Una migration che porta con se' l'elenco delle persone
+-- confonde lo schema con il contenuto.
+--
+-- CONSEGUENZA DICHIARATA: fino alla forward-only una ricostruzione da zero non
+-- produce questi oggetti. La differenza e' voluta e va nell'elenco delle
+-- differenze residue.
+--
+-- Classificazione nel manifesto: `sanitized_historical`. Non `exact`.
+
+do $$ begin
+  raise notice 'migration storica sanitizzata: nessuna operazione, vedi intestazione';
+end $$;
