@@ -15,7 +15,8 @@ fi
 
 FILE=(01-test-is-admin.sql 02-controllo-positivo-ricorsione.sql
       05-test-has-role.sql 06-test-grant-pro-to-email.sql
-      07-test-dashboard-snapshot.sql)
+      07-test-dashboard-snapshot.sql 08-test-claim-group-invite-cap.sql
+      09-test-founder-due-proprieta.sql)
 
 verdi=0; rossi=0
 for f in "${FILE[@]}"; do

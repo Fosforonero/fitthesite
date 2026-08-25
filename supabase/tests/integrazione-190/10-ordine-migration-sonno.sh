@@ -4,7 +4,7 @@
 #
 # ── COSA PROVA ─────────────────────────────────────────────────────────────
 #
-# `20260817090000_finestra_sonno_una_sola_regola.sql` (su main) non riscrive
+# `20260817073706_finestra_sonno_una_sola_regola.sql` non riscrive
 # `public.upsert_fitness_metrics_v189` da capo: legge il sorgente vivo con
 # `pg_get_functiondef`, cerca due ancore e **si rifiuta di procedere se
 # un'ancora non compare esattamente una volta**.
@@ -41,7 +41,12 @@ cd "$REPO_ROOT" || exit 2
 
 REF_FILONE="${REF_FILONE:-p0/sleep-merge-idempotency}"
 MIG_0811="supabase/migrations/20260811120000_sleep_merge_idempotent.sql"
-MIG_0817="supabase/migrations/20260817090000_finestra_sonno_una_sola_regola.sql"
+# RINOMINATA durante la riconciliazione del 25/08/2026: il file si chiamava
+# 20260817090000_..., ma la versione registrata nel remoto e applicata in
+# produzione e' 20260817073706. Il vecchio nome faceva uscire questo script
+# con 2 («test nel posto sbagliato»), che a un chiamante distratto sembra il
+# rosso atteso: un rosso per il motivo sbagliato inganna quanto un verde falso.
+MIG_0817="supabase/migrations/20260817073706_finestra_sonno_una_sola_regola.sql"
 
 # Le due ancore, copiate verbatim dalla 0817.
 ANCORA_FINESTRA="    (p_row->>'sleep_start_ms')::bigint, (p_row->>'sleep_end_ms')::bigint,"
@@ -52,7 +57,15 @@ fallimenti=0
 echo "== ordine migration sonno: 0811 (filone) prima di 0817 (main) =="
 
 if ! git cat-file -e "HEAD:$MIG_0817" 2>/dev/null; then
-  echo "  ERRORE: $MIG_0817 non e' su questo ramo. Test nel posto sbagliato."
+  echo "  SONDA ROTTA (uscita 2, NON il rosso atteso): $MIG_0817 non e' su"
+  echo "  questo ramo. Questo non e' un verdetto sul conflitto: e' il test che"
+  echo "  non trova cio' che deve esaminare."
+  altro="$(git ls-tree --name-only HEAD supabase/migrations/ \
+           | grep -F 'finestra_sonno_una_sola_regola' || true)"
+  if [ -n "$altro" ]; then
+    echo "  Sul ramo c'e' pero': $altro"
+    echo "  Probabile rinomina: aggiornare MIG_0817 in questo script."
+  fi
   exit 2
 fi
 if ! git cat-file -e "$REF_FILONE:$MIG_0811" 2>/dev/null; then
@@ -104,4 +117,8 @@ if [ "$fallimenti" -gt 0 ]; then
   exit 1
 fi
 echo "VERDE: l'ordine delle migration regge."
+echo "Attenzione a come si legge: questo script usa 1 per il rosso vero e 2 per"
+echo "la sonda rotta. Un chiamante che tratta «non zero» come «rosso atteso»"
+echo "non distingue i due casi, ed e' esattamente l'errore che ha nascosto la"
+echo "rinomina del 25/08."
 exit 0
