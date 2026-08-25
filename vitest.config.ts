@@ -27,6 +27,15 @@ export default defineConfig({
     environmentMatchGlobs: [["**/*.test.tsx", "jsdom"]],
     setupFiles: ["./vitest.setup.ts"],
     include: ["**/*.test.ts", "**/*.test.tsx"],
-    exclude: ["node_modules/**", ".next/**"],
+    // `.claude/**` contiene i worktree degli agenti: checkout completi di
+    // altri rami, dentro il repository e ignorati da git. Senza questa riga
+    // vitest li scandiva, e la suite eseguiva 6.478 file di cui 6.444
+    // provenienti da rami che non sono questo — misurato il 25/08/2026.
+    //
+    // Un gate di release che dice «suite verde» mentre esegue in maggioranza
+    // test di altri rami non misura questo ramo. Poteva nascondere un rosso
+    // vero sotto migliaia di verdi altrui, e produrre un rosso da un ramo
+    // vecchio senza che nessuno capisse da dove venisse.
+    exclude: ["node_modules/**", ".next/**", ".claude/**", "**/.claude/**"],
   },
 });

@@ -1,3 +1,4 @@
+private._b2c_no_truncate()|cb2bda1efe9c4411d537339c1b8189f8
 private._b2c_projection_guard()|35044b942da0794832e5c1ed5aee9222
 private._billing_cancello_sandbox()|5b95960001a4996d31e03cdfc9346499
 private._billing_chiave_da_proiezione(p_billing_source text, p_external_subscription_id text)|6345bdddef3ddac72453b9164a1fa378

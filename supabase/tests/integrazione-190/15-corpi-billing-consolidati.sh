@@ -36,7 +36,7 @@ Q="select n.nspname||'.'||p.proname||'('||pg_get_function_identity_arguments(p.o
 md5(regexp_replace(regexp_replace(lower(pg_get_functiondef(p.oid)),'--[^'||chr(10)||']*','','g'),'\s+','','g'))
 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
 where p.prokind='f' and n.nspname in ('private','public')
-  and (p.proname like '%billing%' or p.proname in ('claim_store_purchase','record_store_purchase_revocation','is_sandbox_reviewer','_b2c_projection_guard'))
+  and (p.proname like '%billing%' or p.proname in ('claim_store_purchase','record_store_purchase_revocation','is_sandbox_reviewer','_b2c_projection_guard','_b2c_no_truncate'))
 order by 1;"
 
 OSSERVATO="$(mktemp)"
