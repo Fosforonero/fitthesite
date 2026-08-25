@@ -1,50 +1,23 @@
--- ROLLBACK immediato di p0_fitness_metrics_rls_perf_hardening (20260730173213).
--- Motivo: le due policy ricreate sono finite con roles={public} invece di
--- roles={authenticated} (TO authenticated omesso per errore nel CREATE
--- POLICY) — un cambiamento di accesso reale rispetto alla baseline, anche
--- se il qual blocca comunque anon/estranei nei test read-only eseguiti.
--- Per istruzione esplicita: rollback immediato se cambia l'accesso.
--- Ripristina ESATTAMENTE lo stato pre-apply (verificato localmente 24/24
--- PASS dopo questo stesso rollback script sul Postgres disposable).
-
-alter function rls_internal.user_shares_metric_with_caller(
-  uuid, boolean, boolean, boolean, boolean, boolean
-) set schema public;
-
-drop policy if exists "caregiver select subjects metrics" on public.fitness_metrics;
-create policy "caregiver select subjects metrics" on public.fitness_metrics
-  for select
-  using (
-    exists (
-      select 1
-      from public.caregiver_links cl
-      join public.privacy_consents pc on pc.user_id = cl.subject_id
-      where cl.caregiver_id = auth.uid()
-        and cl.subject_id = fitness_metrics.user_id
-        and cl.revoked_at is null
-        and (cl.expires_at is null or cl.expires_at > now())
-        and 'view_dashboard' = any (cl.permissions)
-        and pc.caregiver_share = true
-    )
-  );
-
-drop policy if exists "metrics_select_via_group" on public.fitness_metrics;
-create policy "metrics_select_via_group" on public.fitness_metrics
-  for select
-  using (
-    public.user_shares_metric_with_caller(
-      user_id,
-      (steps is not null) or (active_calories_kcal is not null)
-        or (distance_meters is not null) or (floors_climbed is not null)
-        or (elevation_gained_meters is not null) or (exercise_sessions is not null),
-      (sleep_minutes is not null) or (sleep_start_ms is not null),
-      (heart_rate_bpm is not null) or (resting_heart_rate_bpm is not null)
-        or (hrv_rmssd is not null),
-      (weight_kg is not null) or (height_cm is not null) or (bmi is not null)
-        or (spo2_percent is not null) or (skin_temperature_c is not null),
-      (calories_kcal is not null) or (water_ml is not null)
-        or (nutrition_kcal_in is not null)
-    )
-  );
-
-drop schema if exists rls_internal;
+-- MARKER STORICO — NON ESEGUIBILE
+-- Rollback del primo apply (30/07/2026, stesso giorno).
+--
+-- Questo file non contiene piu' il proprio SQL originale. E' un marker: la
+-- catena lo attraversa senza fare nulla. Il contenuto originale resta
+-- verificabile dal suo hash, ed e' recuperabile dal database di produzione
+-- (supabase_migrations.schema_migrations) o dalla storia Git di questo file.
+--
+--   contenuto originale: md5 e7599b4f5b8225417d0b47c7ea1b3375, 2260 byte
+--
+-- PERCHE' E' NEUTRALIZZATA
+-- Il suo stesso commento dichiara di ripristinare «ESATTAMENTE lo stato\n-- pre-apply», ma ricrea entrambe le policy SENZA 'to authenticated': lo scope\n-- restava {public}. La finestra permissiva non era una migration, erano due.\n-- Neutralizzata per lo stesso motivo della precedente.
+--
+-- COSA DICHIARAVA
+-- ripristino del qual EXISTS originale; rientro della funzione in public; drop\n-- dello schema rls_internal.
+--
+-- CHI PRODUCE OGGI QUELLO STATO
+-- la v2 del 31/07. Con la 173213 neutralizzata non c'e' nulla da annullare:\n-- le policy nascono gia' 'to authenticated' dalle migration fondative\n-- 20260513120005 (caregiver) e 20260522112135 (gruppo).
+do $marker$
+begin
+  raise notice 'marker storico non eseguibile: %', '20260730173649_p0_fitness_metrics_rls_rollback_role_scope_bug';
+end
+$marker$;
