@@ -218,3 +218,37 @@ toccato da questo branch: il valore su `origin/main` e su questo branch e'
 strutturalmente identico, non solo per campionamento. Non corretto in questo
 micro-gate (fuori perimetro P1.8B, sarebbe scope creep) — riportato qui in modo
 trasparente come richiesto, con regola/URL/identità pre-dopo allegati alla PR.
+
+## GO condizionato — subtitle Fitbit/Pixel Watch (25/08/2026)
+
+Ultimo punto minimo prima del GO merge: il subtitle (11 locale) diceva ancora
+"Google Health legge e scrive dati selezionati con Fitbit, Pixel Watch e, tramite
+Health Connect, con altri dispositivi Android" — una formulazione che, letta senza
+il resto della frase, suggerisce che Google Health scriva dati sanitari verso
+Fitbit/Pixel Watch stessi (falso: sono le fonti first-party, non un canale su cui
+Google Health scrive). Riscritto: "Fitbit e Pixel Watch sincronizzano direttamente
+i propri dati first-party con Google Health. Su Android, Google Health può inoltre
+leggere e scrivere determinati tipi di dato di altri dispositivi tramite Health
+Connect; su iPhone importa i dati da Apple Health ma non li scrive ancora
+indietro." — adattato naturalmente nelle 11 locale.
+
+Verificate anche le altre 5 sedi indicate (TL;DR, tabella entità, diagramma,
+FAQ, callout): nessuna conteneva la stessa formulazione — la tabella descrive
+"dati first-party Fitbit/Pixel Watch" come origine dato (corretto, non una
+frase di scrittura), il diagramma mostra "Fitbit o Pixel Watch → Google Health
+(dati first-party)" (corretto, direzione di lettura), gli altri riferimenti
+sono condizioni utente ("se usi solo Fitbit o Pixel Watch...") senza claim di
+scrittura. Nessuna modifica necessaria in quei 5 punti.
+
+H1, slug, publishedAt e metadata non toccati (non richiesto da questa correzione).
+
+Gate rieseguito da zero dopo il fix: `git diff --check` pulito, tsc pulito,
+556/556 Vitest, guardrail P1.8B esteso verde, verifica testuale programmatica
+sulle 11 locale (vecchia frase assente, nuova frase presente esattamente 1
+volta per locale), build di produzione pulita (necessaria una seconda build
+in questo round perché il fix del subtitle è arrivato dopo la prima verifica
+live — la prima build/server di questo round serviva ancora il contenuto
+pre-fix, rilevato e corretto prima di procedere), 22/22 URL dirette 200,
+42/42 QA cross-browser, FAQ JSON-LD 8/8, sitemap 22 URL con lastmod
+2026-08-25, locale indexable 11/11 invariato via `isBlogVariantIndexable()`
+diretta sui post reali. Rendering confermato manualmente su IT/EN/JA.
