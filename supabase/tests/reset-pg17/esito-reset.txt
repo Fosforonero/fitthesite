@@ -108,3 +108,6 @@ OK   20260825120000_is_admin_su_user_roles.sql
 OK   20260825120001_scope_ruoli_e_revoche.sql
 OK   20260825120002_initplan_select_own_metrics.sql
 OK   20260825120003_indice_user_received_fuori_banda.sql
+OK   20260825120004_has_role_onora_scadenza.sql
+OK   20260825120005_grant_pro_to_email_lifetime.sql
+OK   20260825120006_dashboard_snapshot_pro_attivi.sql

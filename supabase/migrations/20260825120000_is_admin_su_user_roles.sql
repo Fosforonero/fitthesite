@@ -74,10 +74,22 @@
 --
 -- In piu' has_role ha `search_path = public, auth` ed e' concessa ad anon.
 --
--- Nella stessa scansione risultano senza controllo di scadenza anche
--- public.delete_current_user, public.get_dashboard_snapshot e
--- public.grant_pro_to_email. Registrato come osservazione: non si toccano
--- qui, e oggi non hanno effetto perche' i ruoli 'pro' scaduti sono zero.
+-- CORREZIONE a una nota della prima stesura di questo file. Diceva che
+-- public.delete_current_user era «senza controllo di scadenza». E' falso, ed
+-- era un falso positivo della sonda: quella funzione NON legge ruoli. Fa
+-- `update public.user_roles set granted_by = null where granted_by = uid`,
+-- cioe' anonimizza il riferimento a chi aveva concesso i ruoli prima di
+-- cancellare l'utente. E' una mutazione su una colonna di provenienza, non un
+-- controllo di autorizzazione, e expires_at non c'entra. Nessuna modifica.
+-- Era finita nell'elenco solo perche' il suo corpo contiene la stringa
+-- «user_roles»: cercare il nome di una tabella non e' cercare una lettura.
+--
+-- I due consumatori con un difetto REALE sono altri, e hanno una forward-only
+-- ciascuno: public.grant_pro_to_email (20260825120005) e
+-- public.get_dashboard_snapshot (20260825120006). has_role, che e'
+-- l'autorita' generale, sta in 20260825120004.
+-- L'inventario completo e classificato e' in
+-- supabase/INVENTARIO-USER-ROLES-190.md.
 --
 -- ============================================================================
 -- PERCHE' NON RICORRE, E COSA LO GARANTISCE DAVVERO
