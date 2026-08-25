@@ -1,0 +1,259 @@
+{
+  "_": "Fixture contrattuale CONDIVISA fra il backend (repository fitthesite) e l'app Flutter (repository AppFitmesh). Non e' documentazione: entrambi i lati la eseguono. Rigenerare con `npx tsx tools/build-billing-contract.ts` e copiare il file identico in AppFitmesh/flutter_app/test/features/billing/contract/.",
+  "contract_version": 1,
+  "dispositions": {
+    "verified": "Diritto concesso e persistito.",
+    "retryable": "Silenzio, non rifiuto: rete, timeout, 5xx, persistenza fallita, configurazione mancante. La transazione resta aperta.",
+    "account_conflict": "La transazione e' di un altro account FitMesh. Terminale per questo account, ma la transazione non si chiude.",
+    "client_contract_error": "Difetto NOSTRO di formato, prodotto o contratto. L'acquisto e' probabilmente sano: non si chiude.",
+    "store_verified_terminal_rejection": "Lo store ha DIMOSTRATO che il diritto non esiste. Gli unici casi in cui la transazione si puo' chiudere senza aver concesso niente. Emesso su iOS (ricevuta o JWS che nega il diritto) e su Google Play (purchaseState=1, acquisto annullato, con la revoca registrata)."
+  },
+  "codes": {
+    "jws_revoked": "store_verified_terminal_rejection",
+    "purchase_revoked": "store_verified_terminal_rejection",
+    "purchase_already_linked": "account_conflict",
+    "purchase_belongs_to_other_account": "account_conflict",
+    "jws_signature_invalid": "client_contract_error",
+    "jws_wrong_app": "client_contract_error",
+    "jws_sandbox_not_allowed": "client_contract_error",
+    "purchase_not_allowed": "client_contract_error",
+    "jws_malformed": "client_contract_error",
+    "jws_incomplete": "client_contract_error",
+    "jws_wrong_product": "client_contract_error",
+    "jws_wrong_type": "client_contract_error",
+    "token_format_mismatch": "client_contract_error",
+    "ios_subscription_not_supported": "client_contract_error",
+    "unknown_product": "client_contract_error",
+    "invalid_payload": "client_contract_error",
+    "invalid_json": "client_contract_error",
+    "google_subscription_upgrade_chain_unsupported": "client_contract_error",
+    "purchase_not_in_receipt": "retryable",
+    "apple_unavailable": "retryable",
+    "apple_validation_failed": "retryable",
+    "google_validation_failed": "retryable",
+    "app_store_not_configured": "retryable",
+    "google_play_not_configured": "retryable",
+    "claim_failed": "retryable",
+    "internal": "retryable",
+    "unexpected_result_kind": "retryable"
+  },
+  "responses": [
+    {
+      "status": 503,
+      "body": {
+        "error": "app_store_not_configured",
+        "contract_version": 1,
+        "disposition": "retryable"
+      }
+    },
+    {
+      "status": 503,
+      "body": {
+        "error": "apple_unavailable",
+        "contract_version": 1,
+        "disposition": "retryable"
+      }
+    },
+    {
+      "status": 502,
+      "body": {
+        "error": "apple_validation_failed",
+        "contract_version": 1,
+        "disposition": "retryable"
+      }
+    },
+    {
+      "status": 500,
+      "body": {
+        "error": "claim_failed",
+        "contract_version": 1,
+        "disposition": "retryable"
+      }
+    },
+    {
+      "status": 503,
+      "body": {
+        "error": "google_play_not_configured",
+        "contract_version": 1,
+        "disposition": "retryable"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "google_subscription_upgrade_chain_unsupported",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 502,
+      "body": {
+        "error": "google_validation_failed",
+        "contract_version": 1,
+        "disposition": "retryable"
+      }
+    },
+    {
+      "status": 500,
+      "body": {
+        "error": "internal",
+        "contract_version": 1,
+        "disposition": "retryable"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "invalid_json",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "invalid_payload",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "ios_subscription_not_supported",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "jws_incomplete",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "jws_malformed",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "jws_revoked",
+        "contract_version": 1,
+        "disposition": "store_verified_terminal_rejection"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "jws_sandbox_not_allowed",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "jws_signature_invalid",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "jws_wrong_app",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "jws_wrong_product",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "jws_wrong_type",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 409,
+      "body": {
+        "error": "purchase_already_linked",
+        "contract_version": 1,
+        "disposition": "account_conflict"
+      }
+    },
+    {
+      "status": 409,
+      "body": {
+        "error": "purchase_belongs_to_other_account",
+        "contract_version": 1,
+        "disposition": "account_conflict"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "purchase_not_allowed",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "purchase_not_in_receipt",
+        "contract_version": 1,
+        "disposition": "retryable"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "purchase_revoked",
+        "contract_version": 1,
+        "disposition": "store_verified_terminal_rejection"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "token_format_mismatch",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    },
+    {
+      "status": 500,
+      "body": {
+        "error": "unexpected_result_kind",
+        "contract_version": 1,
+        "disposition": "retryable"
+      }
+    },
+    {
+      "status": 400,
+      "body": {
+        "error": "unknown_product",
+        "contract_version": 1,
+        "disposition": "client_contract_error"
+      }
+    }
+  ],
+  "codes_sha256": "f8225a19e8c911af683513a1988eb5271d2a78df9a500f6d9269ef35bd160d51"
+}
