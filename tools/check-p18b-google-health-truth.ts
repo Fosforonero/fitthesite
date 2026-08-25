@@ -32,6 +32,20 @@
  * 12. Un URL in `sources` non citato come stringa letterale nel corpo
  *     (fonte fantasma).
  *
+ * Estensione micro-gate P1.8B-A (25/08/2026), verifica indipendente:
+ * 14. Google Health descritto come SCRIVE/esporta dati verso Apple Health
+ *     (falso: al momento della verifica legge solo, non scrive ancora).
+ * 15. Apple Health descritta come bidirezionale/"entrambe le direzioni"
+ *     (solo Health Connect lo e' davvero; Apple Health e' oggi lettura sola).
+ * 16. La scadenza delle Google Fit APIs (fine 2026) applicata all'app
+ *     consumer Google Fit invece che alle sole API per sviluppatori.
+ * 17. Migrazione/chiusura dell'app consumer Google Fit dichiarata
+ *     "completata"/"conclusa" entro una data, invece che solo annunciata.
+ * 18. Rollout Fitbit->Google Health dichiarato su "tutti gli account" (la
+ *     fonte dice "per la maggior parte degli utenti" tra il 19 e il 26/05).
+ * 19. Prova gratuita Google Health Premium presentata come garantita a
+ *     tutti, senza menzione di idoneita'/variabilita' per paese o account.
+ *
  * Uso (Docker, nessun runtime locale):
  *   docker run --rm -v "$PWD":/app -w /app node:22 npx tsx tools/check-p18b-google-health-truth.ts
  */
@@ -243,6 +257,137 @@ for (const TARGET of TARGETS) {
       }
     }
   }
+
+  // ── 14/15. Apple Health: scrittura o bidirezionalita' false ─────────────
+  // Check 14 e' ANCORATO al soggetto "Google Health"/"Google Saúde": richiede
+  // Google Health ... verbo-di-scrittura ... Apple Health nella stessa
+  // porzione di frase (gap stretti), non un generico verbo di scrittura
+  // ovunque vicino ad "Apple Health" — la prima versione (finestra libera
+  // di 120 caratteri intorno ad "Apple Health") falso-positivava su "Garmin
+  // Connect ha permesso di SCRITTURA verso Health Connect/Apple Health"
+  // (soggetto Garmin, non Google Health: e' vero e va bene) e su "esporta
+  // la cronologia con Google Takeout" (nessun collegamento con Apple
+  // Health). Negazione cercata sull'intero span del match (m[0]), perche'
+  // in tedesco/altre lingue la negazione puo' cadere fra il verbo e "Apple
+  // Health" ("schreibt aber noch keine Daten zurück nach Apple Health"),
+  // non subito prima del verbo.
+  // Gap fra "Google Health" e il verbo, e fra il verbo e "Apple Health":
+  // escluso ; e ；(oltre a . e 。) per non attraversare un confine di
+  // clausola — "Google Health legge...via HC; su iPhone legge da AH, ma non
+  // scrive..." NON deve essere letto come un unico span (falso positivo
+  // trovato: NL "...lezen én schrijven via Health Connect op Android; op
+  // iPhone leest het uit Apple Health" senza negazione nello stesso span
+  // perche' il "maar schrijft nog niet terug" era DOPO il punto successivo).
+  const WRITE_VERB_SRC = "scrive|scrivere|writes?|writing|schreibt|escribe|escribir|grava|gravar|écrit|écrire|zapisuje|zapisywać|yazar|yazıyor|schrijft|schrijven|esporta|export(?:s|ing|a)?|書き込|쓰기|쓰다";
+  // Soggetto concorrente che puo' comparire fra "Google Health/Saúde" e il
+  // verbo (es. "...ao Google Saúde se o Garmin Connect gravar..."): se
+  // presente, il vero soggetto del verbo e' quello, non Google Health —
+  // falso positivo trovato nella FAQ "Perche' Garmin non appare".
+  const COMPETING_WRITER_SUBJECT = /Garmin(?:\s*Connect)?|Polar(?:\s*Flow)?|Samsung\s*Health|third[\s-]?party\s*app|terze\s*parti|app\s*sorgente|source\s*app|app\s*terze/i;
+  const GH_WRITES_TO_AH = new RegExp(`(Google\\s*Health|Google\\s*Saúde)([^.。;；]{0,100})\\b(?:${WRITE_VERB_SRC})\\b([^.。;；]{0,120})Apple\\s*Health`, "gi");
+  const BIDIRECTIONAL_WORD = /entrambe\s*le\s*direzioni|both\s*directions|bidirectional|bidirezionale|beide\s*Richtungen|ambas\s*direcciones|nas\s*duas\s*direções|deux\s*sens|obu\s*kierunkach|her\s*iki\s*yönde|beide\s*richtingen|双方向|양방향/i;
+  const NEG_WORD_AH = /\b(non|not|noch\s*nicht|todavía\s*no|ainda\s*não|ne\s*.{0,3}pas|pas\s*encore|jeszcze\s*nie|henüz|nog\s*(niet|geen)|doesn't|does\s*not|n['’]|kein|keine)\b|まだ|아직/i;
+  const APPLE_HEALTH_WORD = /Apple\s*Health/g;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.trim().startsWith("//")) continue;
+    let gm: RegExpExecArray | null;
+    GH_WRITES_TO_AH.lastIndex = 0;
+    while ((gm = GH_WRITES_TO_AH.exec(line))) {
+      const gapBeforeVerb = gm[2] ?? "";
+      if (COMPETING_WRITER_SUBJECT.test(gapBeforeVerb)) continue;
+      if (!NEG_WORD_AH.test(gm[0])) {
+        errors.push(`[apple-health-scrive-falso] ${TARGET}:${i + 1}: Google Health descritto come scrive/esporta verso Apple Health senza negazione nello stesso passaggio — al momento della verifica legge solo, non scrive ancora indietro.`);
+        break;
+      }
+    }
+    let am: RegExpExecArray | null;
+    APPLE_HEALTH_WORD.lastIndex = 0;
+    while ((am = APPLE_HEALTH_WORD.exec(line))) {
+      const windowStart = Math.max(0, am.index - 120);
+      const windowEnd = Math.min(line.length, am.index + am[0].length + 120);
+      const window = line.slice(windowStart, windowEnd);
+      if (BIDIRECTIONAL_WORD.test(window) && !NEG_WORD_AH.test(window)) {
+        errors.push(`[apple-health-bidirezionale-falso] ${TARGET}:${i + 1}: Apple Health descritta come bidirezionale/"entrambe le direzioni" senza negazione vicina — solo Health Connect lo e', Apple Health e' oggi lettura sola.`);
+        break;
+      }
+    }
+  }
+
+  // ── 16. Scadenza Google Fit APIs applicata all'app consumer ─────────────
+  // Per FRASE (come il check 6): una frase che nomina "Google Fit" con una
+  // data di fine-2026 E un verbo di sostituzione/chiusura, ma SENZA la
+  // parola "API"/"APIs" nella stessa frase, ha quasi certamente trasferito
+  // la scadenza delle API allo shutdown dell'app consumer (vietato: nessuna
+  // data di chiusura per l'app consumer e' stata pubblicata da Google).
+  const END_2026_WORD = /fine\s*del\s*2026|fine\s*2026|end\s*of\s*2026|antes\s*de\s*que\s*termine\s*2026|fin\s*de\s*2026|Ende\s*2026|até\s*o\s*fim\s*de\s*2026|d'ici\s*fin\s*2026|końca\s*2026\s*r\.|2026\s*sonuna\s*kadar|tegen\s*eind\s*2026|2026年末|2026년\s*말/i;
+  const GOOGLE_FIT_APP_WORD = /\bGoogle\s*Fit\b(?!\s*APIs?)/i;
+  const REPLACE_CLOSE_VERB = /sostitui|replac|reemplaz|ersetz|remplac|zastąp|değiştir|vervang|置き換え|대체|chius|shut\s*down|shutdown|cierra|schließ|ferme|zamkn|kapan|sluit|閉鎖|폐쇄/i;
+  const API_WORD_BOUND = /\bAPIs?\b/i;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.trim().startsWith("//")) continue;
+    const sentences = line.split(/(?<=[.。])\s+/);
+    for (const sentence of sentences) {
+      if (
+        END_2026_WORD.test(sentence) &&
+        GOOGLE_FIT_APP_WORD.test(sentence) &&
+        REPLACE_CLOSE_VERB.test(sentence) &&
+        !API_WORD_BOUND.test(sentence)
+      ) {
+        errors.push(`[google-fit-api-scadenza-su-consumer] ${TARGET}:${i + 1}: la scadenza "fine 2026" delle Google Fit APIs applicata all'app consumer Google Fit — nessuna data di chiusura per l'app consumer e' stata pubblicata.`);
+        break;
+      }
+    }
+  }
+
+  // ── 17. Migrazione/chiusura app consumer dichiarata completata ──────────
+  const MIGRATION_COMPLETE_WORD = /completat|completed|concluí|conclu|terminée|terminada|abgeschlossen|zakończon|tamamlandı|voltooid|完了|완료/i;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.trim().startsWith("//")) continue;
+    const sentences = line.split(/(?<=[.。])\s+/);
+    for (const sentence of sentences) {
+      if (GOOGLE_FIT_APP_WORD.test(sentence) && END_2026_WORD.test(sentence) && MIGRATION_COMPLETE_WORD.test(sentence)) {
+        errors.push(`[migrazione-consumer-completata-falso] ${TARGET}:${i + 1}: migrazione/chiusura dell'app consumer Google Fit dichiarata completata entro una data — nessuna fonte ufficiale lo conferma.`);
+        break;
+      }
+    }
+  }
+
+  // ── 18. Rollout dichiarato su "tutti gli account" ────────────────────────
+  const ALL_ACCOUNTS_WORD = /tutti\s*gli\s*account|all\s*accounts|todas\s*las\s*cuentas|alle\s*Konten|todas\s*as\s*contas|tous\s*les\s*comptes|wszystkie\s*konta|tüm\s*hesap|alle\s*accounts|全アカウント|모든\s*계정/i;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.trim().startsWith("//")) continue;
+    if (ALL_ACCOUNTS_WORD.test(line)) {
+      errors.push(`[rollout-tutti-account-falso] ${TARGET}:${i + 1}: rollout Fitbit->Google Health dichiarato su "tutti gli account" — la fonte dice "per la maggior parte degli utenti".`);
+    }
+  }
+
+  // ── 19. Prova Premium presentata come universale ─────────────────────────
+  // Finestra ampia (±250 caratteri) intorno a ogni menzione della durata
+  // della prova gratuita: deve comparire una parola di idoneita'/
+  // variabilita' nella stessa finestra, altrimenti la prova e' presentata
+  // come garanzia universale (falso: e' per account nuovi/di ritorno
+  // risultati idonei, varia per paese e account).
+  const TRIAL_DURATION_WORD = /3\s*mesi|3-month|3\s*meses|dreimonatige|drei\s*Monate|3\s*mois|3-miesięczny|3\s*aylık|3\s*maanden|3か月|3개월/g;
+  const ELIGIBILITY_WORD = /idone|eligib|elegib|berechtigt|kwalifik|uygun|aanmerking|対象|자격|garantit|garanti|gwarant|guarante|varia|varies|variiert|değişir|verschilt|zależy|異なり|다릅|varía|zależ/i;
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.trim().startsWith("//")) continue;
+    let tm: RegExpExecArray | null;
+    TRIAL_DURATION_WORD.lastIndex = 0;
+    while ((tm = TRIAL_DURATION_WORD.exec(line))) {
+      const windowStart = Math.max(0, tm.index - 250);
+      const windowEnd = Math.min(line.length, tm.index + tm[0].length + 250);
+      const window = line.slice(windowStart, windowEnd);
+      if (!ELIGIBILITY_WORD.test(window)) {
+        errors.push(`[premium-prova-universale] ${TARGET}:${i + 1}: prova gratuita Google Health Premium menzionata senza idoneita'/variabilita' vicina — rischio di presentarla come garantita a tutti.`);
+        break;
+      }
+    }
+  }
 }
 
 // ── 13. Nessuno sblocco accidentale di locale (verificato a parte con
@@ -255,5 +400,5 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  "✅ P1.8B guardrail: nessuna regressione su solo-Fitbit-Pixel/terze-parti-negate/Strava-diretto/Strava-storico/Sleep-Cardio-terze/confusione-API/migrazione-completa-falsa/FitMesh-Google-Health-diretto/build-interna/TrainingPeaks-vivo/claim-medici/title-assoluto/fonti-fantasma.",
+  "✅ P1.8B guardrail: nessuna regressione su solo-Fitbit-Pixel/terze-parti-negate/Strava-diretto/Strava-storico/Sleep-Cardio-terze/confusione-API/migrazione-completa-falsa/FitMesh-Google-Health-diretto/build-interna/TrainingPeaks-vivo/claim-medici/title-assoluto/fonti-fantasma/Apple-Health-scrive/Apple-Health-bidirezionale/Google-Fit-API-scadenza-su-consumer/migrazione-consumer-completata/rollout-tutti-account/premium-prova-universale.",
 );

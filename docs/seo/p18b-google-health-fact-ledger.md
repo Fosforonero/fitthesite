@@ -117,3 +117,104 @@ Audit read-only, nessun commit importato (`git show` soltanto, nessun checkout/s
 - **Superato**: la data "Fitbit Web API supportata fino a fine 2026, nessun giorno pubblicato" trovata da quel branch (luglio) è ora **superata** dalla fonte aggiornata (settembre 2026 esplicito, vedi D2).
 - **Respinto**: il claim specifico che quel branch aveva corretto non è più presente nel testo attuale di `google-health-google-fit.ts` — verificato per grep sul file live, testo già diverso/riscritto indipendentemente in un commit successivo non collegato a quel branch.
 - **Nessun commit importato**: slug, redirect, metadata, traduzioni, updatedAt e claim FitMesh restano quelli verificati da zero in questo sprint.
+
+## Micro-gate P1.8B-A (25/08/2026) — verifica indipendente, 4 correzioni fattuali
+
+Un secondo controllo indipendente sulla PR #57 ha trovato 4 errori fattuali residui
+non catturati dal gate originale del P1.8B. Tutti verificati contro le fonti ufficiali
+(fetch diretto, citazioni verbatim) e corretti nelle 11 locale.
+
+**1. Apple Health non è bidirezionale.** Il testo diceva "Google Health può leggere
+e scrivere... tramite Health Connect o Apple Health" — falso per Apple Health. Fonte:
+[Google Health Help Center](https://support.google.com/googlehealth/answer/17037331?hl=en-CA),
+verbatim: *"The Google Health app only reads data from Apple Health to consolidate
+your metrics. It does not write or export any of your data back to the Apple Health
+app yet."* Corretto ovunque (subtitle, TL;DR, tabella entità, diagramma flusso,
+paragrafo Health Connect/Apple Health, con citazione inline) per distinguere: Health
+Connect (Android) è **davvero** bidirezionale, opt-in per tipo dato; Apple Health
+(iOS) è **oggi solo lettura**. La frase di roadmap Google ("will be added later this
+year") non è stata pubblicata — descritto solo lo stato attuale, come richiesto.
+Nuova fonte in `sources[]`: `support.google.com/googlehealth/answer/17037331`.
+
+**2. Migrazione consumer Google Fit fusa con la scadenza delle API.** Il testo diceva
+"Google Fit... sarà sostituito da Google Health entro la fine del 2026" — fonde due
+fatti distinti. Fonti: [blog.google](https://blog.google/products-and-platforms/products/google-health/google-health-fitbit/)
+(*"We'll invite Google Fit users to migrate their data into Google Health app later
+this year"* — nessuna data di chiusura) e [developer.android.com](https://developer.android.com/health-and-fitness/health-connect/migration/fit)
+(*"The Google Fit APIs will be supported until the end of 2026"* — solo le API).
+Corretto in tutte le occorrenze consumer-facing (TL;DR, paragrafo storia, tabella
+entità, lista migrazione, FAQ): ora dice solo che Google inviterà gli utenti a
+migrare "più avanti nel 2026", senza data di chiusura app o completamento migrazione.
+"Fine del 2026" resta **esclusivamente** nel contesto delle Google Fit APIs (tabella
+riga API, paragrafo sviluppatori) — non toccato, era già corretto.
+
+**3. Rollout non è "tutti gli account".** Fonte: [Google Health Help Center](https://support.google.com/googlehealth/answer/17068213)
+distingue *"Starting May 19, 2026, the Fitbit app will become the Google Health
+app"* (inizio rollout) da *"For most people, your app will update automatically...
+between May 19th and May 26th"* (non tutti, la maggior parte). Corretto in TL;DR e
+paragrafo storia (11 locale): "tutti gli account" → "per la maggior parte degli
+utenti".
+
+**4. Claim promozionali non idonei/non universali.** Google Health Premium (prova
+gratuita di 3 mesi): mantenuta la durata dove è il punto centrale della frase
+(sezione Limiti, FAQ prezzo) ma con caveat esplicito di idoneità/variabilità per
+paese e account; omessa nel paragrafo tangenziale sulla storia dell'app (dove non
+serve all'intento della frase). Record medici "solo USA": bullet **rimosso** dalla
+lista Limiti (nessuna citazione a supporto nel testo originale, distinzione
+provider/Health Connect/inserimento-manuale non verificabile in questo micro-gate —
+omissione esplicitamente autorizzata da Matteo se appesantisce l'articolo).
+
+**Guardrail esteso** (`tools/check-p18b-google-health-truth.ts`, check 14-19): Apple
+Health scrive/bidirezionale, scadenza Google Fit APIs applicata al consumer,
+migrazione consumer dichiarata completata, rollout "tutti gli account", Premium
+presentata come universale. 4 negative test reali eseguiti (A. Apple Health
+write-back, B. chiusura consumer entro fine 2026, C. rollout tutti gli account, D.
+Premium prova universale) — tutti catturati con il tag atteso, ripristino
+byte-identico confermato via sha256 dopo ognuno (`be9bddd6...fd641b`).
+
+**Gate completo rieseguito**: tsc pulito; 556/556 test Vitest; guardrail P1.8B
+esteso verde; `check-translation-corruption.ts` verde (118 file, 56164 stringhe);
+`check-p18s-product-led-claims.ts` verde; 1 build di produzione pulita; `next
+start` + verifica HTTP diretta delle 22 URL (11+11, tutte 200 dirette, nessun
+redirect); QA cross-browser Chromium+WebKit × 3 viewport × 7 URL = 42/42 verdi;
+FAQ JSON-LD verificata (8 domande, corrispondenza 1:1 con il markup visibile);
+sitemap 1382 URL totali, 11+11 per i due articoli target (invariato); locale
+indexable riverificato via `isBlogVariantIndexable()` diretta sui post reali:
+**11/11 invariato** per entrambi gli articoli (sv/da/no/fi correttamente noindex,
+nessun overlay nordico, nessuno sblocco accidentale).
+
+Anomalia pre-esistente non toccata da questa correzione: la risposta FAQ "Google
+Health è lo stesso di Google Fit?" in locale ES conteneva testo fuori tema (menzione
+di Google Health Coach/Premium non pertinente alla domanda, probabile artefatto di
+assemblaggio del pass precedente) — normalizzata sullo stesso schema delle altre
+10 locale nello stesso passaggio, dato che toccava comunque il claim Premium (punto 4).
+
+### Baseline Bing non bloccante (`check-bing-metadata-sitewide.ts`), 7 segnalazioni
+
+Rieseguito contro un `next start` reale su questo branch. 7 problemi, tutti tag
+`regressione-*` "nuovo, non presente in baseline" — cioè debito non ancora tracciato
+in `docs/seo/bing-metadata-baseline.json`, non una regressione introdotta da questo
+branch:
+
+| Regola | URL | Valore |
+|---|---|---|
+| `regressione-title-sitewide` | `/fr/blog/utiliser-fitmesh-avec-samsung-health` | title fuori soglia (>60c) |
+| `regressione-description-sitewide` | `/da/press` | description fuori 140-160c |
+| `regressione-description-sitewide` | `/fi/press` | description fuori 140-160c |
+| `regressione-description-sitewide` | `/no/press` | description fuori 140-160c |
+| `regressione-description-sitewide` | `/sv/press` | description fuori 140-160c |
+| `regressione-title-duplicato` | `/da/press` | title duplicato: "Presse og mediekit: FitMesh Sync" |
+| `regressione-title-duplicato` | `/no/press` | title duplicato: "Presse og mediekit: FitMesh Sync" |
+
+**Identità prima/dopo**: `git diff origin/main --stat` su questo branch tocca
+esattamente 6 file — i 2 post blog target, 2 doc (`p18b-google-health-fact-ledger.md`,
+`p18d-google-health-not-syncing-brief.md`) e 2 tool nuovi
+(`check-p18b-google-health-truth.ts`, `check-p18b-playwright-qa.ts`). Nessuno di
+questi tocca `app/(frontend)/[locale]/(marketing)/press`, `lib/blog/slugs.ts` (dove
+vive lo slug FR di samsung-health) o `docs/seo/bing-metadata-baseline.json` (diff
+vuoto, confermato). Il rendering di `/da/press`, `/fi/press`, `/no/press`, `/sv/press`
+e dell'articolo FR Samsung Health e' funzione pura del loro codice sorgente, non
+toccato da questo branch: il valore su `origin/main` e su questo branch e'
+strutturalmente identico, non solo per campionamento. Non corretto in questo
+micro-gate (fuori perimetro P1.8B, sarebbe scope creep) — riportato qui in modo
+trasparente come richiesto, con regola/URL/identità pre-dopo allegati alla PR.
