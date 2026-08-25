@@ -84,6 +84,11 @@ REGISTRO=(
   "F|trg_billing_purchase_claims_immutable (assente in produzione)|20260825130100_billing_autorita_canonica.sql|trg_billing_purchase_claims_immutable"
   "F|billing_purchase_states_forward_only (assente in produzione)|20260825130100_billing_autorita_canonica.sql|billing_purchase_states_forward_only"
   "F|trg_billing_cancello_sandbox (assente in produzione)|20260825130100_billing_autorita_canonica.sql|trg_billing_cancello_sandbox"
+  # F5 — le notifiche degli store. Lavoro nuovo: non consolida niente, perche'
+  # ne' la produzione ne' il ramo hanno mai avuto un percorso per riceverle.
+  "C|billing_store_notifications (assente in produzione)|20260825130400_billing_notifiche_store.sql|billing_store_notifications"
+  "A|apri_notifica_store (assente in produzione)|20260825130400_billing_notifiche_store.sql|apri_notifica_store"
+  "A|chiudi_notifica_store (assente in produzione)|20260825130400_billing_notifiche_store.sql|chiudi_notifica_store"
   #
   # `get_entitlement_status` NON compare in questo elenco, e la sua assenza e'
   # deliberata: il filone la ridefinisce, e quella ridefinizione non entra. La

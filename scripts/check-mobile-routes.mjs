@@ -27,6 +27,14 @@ const ADMIN_ALLOWLIST = new Set([
   // Contatori pubblici aggregati (nessun dato utente, nessun contesto RLS):
   // service_role serve per contare/incrementare righe cross-utente.
   "app/api/v1/posts/stats/route.ts",
+  "app/api/v1/posts/stats/route.ts",
+  // Notifiche degli store (2026-08-25). Sono chiamate DA Apple e DA Google,
+  // senza nessuna sessione utente: non esiste un client user-bound da usare.
+  // L'autenticita' non viene da un header ma dalla firma del payload —
+  // catena x5c fino ai root Apple per l'una, token OIDC di Google per
+  // l'altra — ed e' verificata prima di qualunque scrittura.
+  "app/api/v1/billing/notifications/apple/route.ts",
+  "app/api/v1/billing/notifications/google/route.ts",
 ]);
 
 function walk(dir) {
@@ -59,11 +67,15 @@ for (const file of routes) {
     );
   }
 
-  if (rel.includes("/webhook/")) {
+  // Non solo `/webhook/`: due endpoint pubblici che possono REVOCARE un
+  // diritto vivevano sotto `/notifications/` e sfuggivano a questa regola per
+  // il solo nome della cartella. Una regola che dipende da come si chiama una
+  // directory non e' una regola.
+  if (rel.includes("/webhook/") || rel.includes("/notifications/")) {
     // Verifica riconosciuta: funzione verify*/requireUser, OPPURE auth via
     // secret condiviso/firma (x-webhook-secret, *_WEBHOOK_SECRET, signature/hmac).
     const hasVerify =
-      /\bverify[A-Z]\w*\s*\(|\brequireUser\s*\(|WEBHOOK_SECRET|x-webhook-secret|x-[a-z-]*signature|\bhmac/i.test(
+      /\bverify[A-Z]\w*\s*\(|\bverifica[A-Z]\w*\s*\(|\brequireUser\s*\(|WEBHOOK_SECRET|x-webhook-secret|x-[a-z-]*signature|\bhmac/i.test(
         src,
       );
     if (!hasVerify) {
