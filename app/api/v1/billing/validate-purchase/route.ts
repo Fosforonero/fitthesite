@@ -166,6 +166,18 @@ const payloadSchema = z.object({
   // e la sua ASSENZA e' cio' che identifica un client che precede il
   // contratto delle disposizioni.
   client_contract_version: z.number().int().min(1).max(9999).optional(),
+  // CORRELAZIONE DEL SINGOLO TENTATIVO.
+  //
+  // Il client non puo' chiudere una transazione fidandosi di uno stato HTTP:
+  // deve sapere che QUESTA risposta appartiene a QUELLA richiesta. Senza,
+  // una risposta arrivata fuori ordine — o la risposta a un tentativo
+  // precedente, con un altro account — autorizzerebbe il finish di una
+  // transazione che nessuno ha validato.
+  //
+  // Casuale, generato dal client a ogni tentativo, senza nessun significato.
+  // Non identifica una persona ne' un dispositivo: identifica un tentativo, ed
+  // e' proprio la cosa che `X-Device-Fingerprint` non sa distinguere.
+  request_id: z.string().min(8).max(64).regex(/^[A-Za-z0-9_-]+$/).optional(),
 });
 
 /**
@@ -654,7 +666,7 @@ const GOOGLE_EVENT_SOURCE: StoreEventSource = "google_backend_fetch";
 
 // ── Handler ─────────────────────────────────────────────────────────────────
 
-export async function POST(req: Request): Promise<Response> {
+async function gestisci(req: Request): Promise<Response> {
   const auth = await requireUser(req);
   if (auth instanceof Response) return auth;
   const { userId } = auth;
@@ -1158,5 +1170,66 @@ export async function POST(req: Request): Promise<Response> {
       `[Billing] internal error: ${e instanceof Error ? e.name : "errore"}`,
     );
     return jsonError(500, "internal");
+  }
+}
+
+/**
+ * L'involucro che lega ogni risposta alla richiesta che l'ha prodotta.
+ *
+ * PERCHE' UN INVOLUCRO E NON QUATTORDICI MODIFICHE
+ * ------------------------------------------------
+ * `gestisci` ha quattordici punti di ritorno. Aggiungere due campi a ognuno
+ * significherebbe dimenticarne uno, e il ramo dimenticato sarebbe proprio
+ * quello raro — cioe' quello in cui un client, non riconoscendo la propria
+ * richiesta, chiuderebbe una transazione che nessuno ha validato. Qui il punto
+ * e' uno solo, e non si puo' saltare.
+ *
+ * COSA AGGIUNGE
+ * -------------
+ * `request_id`: l'eco del correlatore che il client ha mandato. Il client
+ * chiude la transazione SOLO se torna identico a quello che ha spedito. Una
+ * risposta fuori ordine, o la risposta a un tentativo precedente fatto con un
+ * altro account, smette di essere indistinguibile da quella giusta.
+ *
+ * `product_id`: l'eco del prodotto validato, perche' il client possa
+ * verificare che sia la stessa transazione che ha in mano.
+ *
+ * NON cambia mai lo stato ne' i campi esistenti: una build che non li conosce
+ * li ignora, ed e' esattamente cio' che fa la 189.
+ */
+export async function POST(req: Request): Promise<Response> {
+  let correlatore: string | null = null;
+  let prodotto: string | null = null;
+  try {
+    const copia = (await req.clone().json()) as Record<string, unknown>;
+    if (typeof copia.request_id === "string") correlatore = copia.request_id;
+    if (typeof copia.product_id === "string") prodotto = copia.product_id;
+  } catch {
+    // Corpo illeggibile: `gestisci` rispondera' `invalid_json`, e non c'e'
+    // niente da fare eco. L'involucro non deve MAI essere il motivo per cui
+    // una richiesta fallisce.
+  }
+
+  const res = await gestisci(req);
+  if (correlatore === null && prodotto === null) return res;
+
+  const tipo = res.headers.get("content-type") ?? "";
+  if (!tipo.includes("application/json")) return res;
+
+  try {
+    const corpo = (await res.clone().json()) as Record<string, unknown>;
+    return new Response(
+      JSON.stringify({
+        ...corpo,
+        ...(correlatore !== null ? { request_id: correlatore } : {}),
+        ...(prodotto !== null ? { product_id: prodotto } : {}),
+      }),
+      { status: res.status, headers: { "content-type": "application/json" } },
+    );
+  } catch {
+    // Se il corpo non si rilegge, si restituisce l'originale intatto. Meglio
+    // una risposta senza eco — che il client tratta come non conclusiva e
+    // quindi NON chiude — di nessuna risposta.
+    return res;
   }
 }

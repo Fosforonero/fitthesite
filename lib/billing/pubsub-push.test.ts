@@ -19,7 +19,9 @@ const ISSUER = "https://accounts.google.com";
 const AUDIENCE = "https://www.fitmesh.fit/api/v1/billing/notifications/google";
 const SERVICE_ACCOUNT = "rtdn@fitmesh.iam.gserviceaccount.com";
 
-let privateKey: CryptoKey;
+// `generateKeyPair` restituisce `KeyLike`, non `CryptoKey`: il tipo cambia con
+// il runtime, e fissarlo a mano lo faceva divergere dalla libreria.
+let privateKey: Awaited<ReturnType<typeof generateKeyPair>>["privateKey"];
 let jwks: JSONWebKeySet;
 
 vi.mock("jose", async (originale) => {
@@ -31,7 +33,10 @@ vi.mock("jose", async (originale) => {
   };
 });
 
-async function token(claims: Record<string, unknown> = {}, chiave = privateKey) {
+async function token(
+  claims: Record<string, unknown> = {},
+  chiave: typeof privateKey = privateKey,
+) {
   return new SignJWT({
     email: SERVICE_ACCOUNT,
     email_verified: true,

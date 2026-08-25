@@ -1751,3 +1751,71 @@ describe("Google: purchaseState 0 / 1 / 2", () => {
     expect(body.disposition).not.toBe("verified");
   });
 });
+
+describe("l'eco che lega la risposta alla richiesta", () => {
+  it("torna su una risposta di successo", async () => {
+    const res = await POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        request_id: "abcd1234efgh5678",
+      }),
+    );
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body.request_id).toBe("abcd1234efgh5678");
+    expect(body.product_id).toBe(LIFETIME);
+  });
+
+  it("torna anche su un rifiuto: e' li' che serve di piu'", async () => {
+    // Un client che non riconosce la propria richiesta non deve chiudere la
+    // transazione. Se l'eco mancasse proprio sugli errori, il caso in cui
+    // conta sarebbe l'unico scoperto.
+    const res = await POST(
+      req190({
+        product_id: "prodotto_che_non_esiste",
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        request_id: "abcd1234efgh5678",
+      }),
+    );
+    expect(res.status).toBe(400);
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body.error).toBe("unknown_product");
+    expect(body.request_id).toBe("abcd1234efgh5678");
+  });
+
+  it("senza request_id la risposta resta quella di prima", async () => {
+    // La 189 non lo manda. Non deve cambiare niente per lei.
+    const res = await POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+      }),
+    );
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body.request_id).toBeUndefined();
+    expect(body.disposition).toBeDefined();
+  });
+
+  it("un request_id malformato viene rifiutato, non fatto eco", async () => {
+    // Se passasse, il client lo riconoscerebbe come proprio: l'eco diventerebbe
+    // un canale per far dire al server quello che il client vuole sentirsi dire.
+    const res = await POST(
+      req190({
+        product_id: LIFETIME,
+        purchase_token: JWS_TOKEN,
+        package_name: "com.fitmeshsync.app",
+        platform: "ios",
+        request_id: "con spazi e simboli!",
+      }),
+    );
+    expect(res.status).toBe(400);
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body.error).toBe("invalid_payload");
+  });
+});
