@@ -1,0 +1,1 @@
+ALTER TABLE payload.posts_locales ADD COLUMN IF NOT EXISTS body jsonb;
