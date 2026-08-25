@@ -1,0 +1,184 @@
+# Far comprare App Review — la procedura, e perché è fatta così
+
+## Il problema in una riga
+
+TestFlight e App Review comprano in **Sandbox** contro il backend di
+**produzione**. Un backend che rifiuta ogni transazione Sandbox fa completare
+l'acquisto al revisore di Apple e poi gli mostra un paywall. Con quel
+comportamento iOS non è rilasciabile, indipendentemente da tutto il resto.
+
+## Perché non si accende `APPLE_ALLOW_SANDBOX` in produzione
+
+Perché una transazione Sandbox è **gratuita** per chiunque abbia un Apple ID di
+test. Aprire l'ambiente significa regalare il Pro a vita a chiunque sappia
+chiederlo, e non c'è nessun modo di distinguere a posteriori chi ha pagato da
+chi no.
+
+C'è anche una rete già in piedi: `sandboxTransactionsAllowed()` si spegne da
+sola quando `NEXT_PUBLIC_SUPABASE_URL` punta al progetto di produzione, proprio
+per l'errore più facile da fare — accendere la variabile su un ambiente di
+prova che però scrive sul database vero.
+
+## Come funziona invece
+
+L'apertura è **della persona**, non dell'ambiente, e la decide il server.
+
+`private.billing_sandbox_reviewers` elenca gli account autorizzati. Il client
+non la legge e non la scrive: sta in `private`, PostgREST non la espone, e
+l'unica porta è `public.is_sandbox_reviewer(uuid)`, concessa al solo
+`service_role`.
+
+Quando arriva una transazione Sandbox, il backend la respinge come sempre; poi,
+**solo a quel punto**, chiede se quell'account è autorizzato. Se lo è, rifà la
+verifica accettando l'ambiente Sandbox. Un utente di produzione non paga nessuna
+interrogazione in più, e il percorso normale resta quello di prima.
+
+Le quattro condizioni devono valere **tutte**:
+
+1. l'account è nell'elenco e non è scaduto;
+2. il JWS verifica per intero — firma, bundle id, prodotto, tipo. Questo apre
+   una porta, non abbassa un controllo;
+3. il JWS porta `appAccountToken` e coincide con l'utente autenticato. Qui è
+   **obbligatorio**, mentre in produzione può mancare (le transazioni comprate
+   da build che non lo impostavano non ce l'hanno). Senza, un account
+   autorizzato potrebbe presentare la transazione Sandbox di chiunque altro;
+4. la proprietà entra nel registro con la chiave in uno spazio suo —
+   `sandbox:<originalTransactionId>` — e `environment = 'sandbox'`. Sandbox e
+   produzione numerano gli identificativi in modo indipendente e **possono
+   coincidere**: senza separazione una transazione di prova potrebbe
+   rivendicare la proprietà di un acquisto vero.
+
+## Il diritto dura quanto il permesso, e questo si vede nei dati
+
+Il registro conserva quello che lo store ha detto, e lo store per un lifetime
+dice `9999-12-31`. La **proiezione** no: lì `active_until` viene limitato alla
+scadenza del permesso di quella persona.
+
+Non è una rifinitura, è ciò che fa negare l'accesso quando il permesso finisce.
+Con `9999-12-31` quella riga risulta lifetime a `is_b2c_lifetime()`, e nessuno
+dei due percorsi di lettura guarda oltre: né `get_entitlement_status()`, né
+l'app, che legge `b2c_subscriptions` direttamente con la propria RLS. Con la
+scadenza vera, tutti e due negano **da soli**, senza che debba girare niente.
+
+Le altre due strade servono per i casi che il solo passare del tempo non copre:
+
+- un permesso **tolto o accorciato** ricalcola l'entitlement di quell'account
+  nella stessa transazione, quindi non esiste un modo di togliere il permesso e
+  lasciare il diritto — nemmeno scrivendo a mano in SQL;
+- un permesso che **scade da solo** non fa cambiare nessuna riga, quindi in
+  proiezione resta scritto `active` su un diritto finito. Nessuno lo legge più
+  come valido, ma se quell'account ha un acquisto di produzione vero, quello non
+  gli torna davanti finché non passa il job `billing-reconcile-sandbox` (ogni
+  dieci minuti), che marca `expired` o riproietta il diritto migliore rimasto.
+
+In dubbio si risponde **no**. Un guasto della tabella o della funzione costa un
+revisore che non riesce a comprare — spiacevole e recuperabile — invece di un
+Pro a vita regalato.
+
+## La procedura, prima di sottomettere
+
+Serve l'`user_id` dell'account che il revisore userà. È l'account demo indicato
+ad Apple nelle note di revisione (`appreview.demo@fitmesh.fit` alla build 190).
+
+```sql
+-- 1. trovare l'id
+select id, email from auth.users where email = 'appreview.demo@fitmesh.fit';
+
+-- 2. autorizzarlo, con una nota che si capisca fra sei mesi e una scadenza
+--    che copra la revisione con margine
+insert into private.billing_sandbox_reviewers (user_id, note, expires_at)
+values (
+  '<id del passo 1>',
+  'revisione Apple build 190',
+  now() + interval '30 days'
+)
+on conflict (user_id) do update
+  set note = excluded.note,
+      created_at = now(),
+      expires_at = excluded.expires_at;
+
+-- 3. controllare che il backend lo veda
+select public.is_sandbox_reviewer('<id del passo 1>');  -- deve dare true
+```
+
+Il massimo consentito è **90 giorni**, e il vincolo lo impone il database. Non è
+una scomodità: un permesso senza scadenza sopravvive alla revisione che lo ha
+chiesto e nessuno si ricorda di toglierlo. È così che un accesso temporaneo
+diventa una porta aperta.
+
+## Dopo l'approvazione
+
+```sql
+delete from private.billing_sandbox_reviewers where user_id = '<id>';
+```
+
+Non è obbligatorio — scade da solo — ma toglierlo subito è la cosa giusta:
+l'elenco deve contenere solo permessi che servono adesso.
+
+Quel `DELETE` **toglie anche il Pro** che il permesso aveva concesso, nella
+stessa transazione. Fino al 14/08/2026 non era così: questa riga di runbook
+diceva di fare la cosa che lasciava il diritto in piedi, e l'unico test che
+sembrava coprirlo chiamava il ricalcolo a mano subito dopo.
+
+## Cosa NON fare
+
+- **Non** aggiungere l'account di un cliente vero. Riceverebbe il Pro da una
+  transazione gratuita, e la cosa resterebbe scritta nel registro come acquisto
+  Sandbox: un giorno qualcuno dovrà spiegarla.
+- **Non** allungare la scadenza "così non ci pensiamo più". È esattamente il
+  modo in cui questa difesa smette di difendere.
+- **Non** accendere `APPLE_ALLOW_SANDBOX` in produzione per fare prima. Vedi
+  sopra: apre a tutti.
+
+## Come si verifica che regga
+
+`supabase/tests/billing_claims_p0/88-sandbox-revisori.sql` copre gli otto modi
+in cui questa difesa potrebbe cedere: elenco vuoto, permesso che tracima su un
+altro account, permesso scaduto, permesso eterno, nota vuota, permesso
+sopravvissuto alla cancellazione dell'account, e raggiungibilità dal client
+(funzione e tabella).
+
+La fine del permesso sta in `89-attesa-e-sandbox.sql`, casi S13-S17: che il
+diritto proiettato non superi la scadenza (S13), che togliere il permesso lo
+tolga subito su tutti e due i percorsi di lettura (S14), il teardown (S15), e
+il tempo che passa da solo (S16-S17) — due transazioni separate con
+un'attesa vera in mezzo, perché dentro una sola transazione `now()` resta fermo
+e un test del genere proverebbe soltanto sé stesso.
+
+Il percorso completo — rifiuto, domanda, seconda verifica, chiave separata — sta
+in `app/api/v1/billing/validate-purchase/route.test.ts`, gruppo "isolamento
+produzione / sandbox al livello del route", incluso il caso in cui un guasto
+della tabella **non** apre la Sandbox.
+
+## Su StoreKit 1 NON vale, ed è una scelta
+
+FitMesh supporta ancora iOS 14, dove il plugin ricade su StoreKit 1 e manda una
+ricevuta invece di un JWS. **Lì il percorso Sandbox non esiste.**
+
+Il motivo è la condizione 3: una ricevuta StoreKit 1 non contiene niente che
+leghi l'acquisto all'account FitMesh. Non è un dato che abbiamo dimenticato di
+leggere, è un dato che nel formato non c'è. Senza, un account autorizzato
+potrebbe presentare la ricevuta Sandbox di chiunque altro, e la Sandbox è
+gratuita per chiunque abbia un Apple ID di test.
+
+Fino al 14/08/2026 questo documento prometteva il contrario, e anche il codice
+ci provava: davanti a un `21007` chiedeva se l'account fosse autorizzato e
+ripeteva la verifica. La verifica riusciva, e poi il registro rifiutava il
+claim perché il legame di account mancava. Il revisore avrebbe visto un errore
+**dopo aver pagato**, che è peggio del rifiuto immediato. I test non se ne
+accorgevano perché simulavano la scrittura sul registro.
+
+### Cosa fare quindi, in pratica
+
+**App Review va fatto passare da un dispositivo iOS 15 o superiore**, dove il
+plugin usa StoreKit 2 e il token c'è. In pratica è quello che Apple usa, ma non
+è qualcosa su cui scommettere in silenzio: se una revisione dovesse fallire con
+un errore d'acquisto, la prima cosa da controllare è la versione di iOS indicata
+nel report.
+
+## Quello che questi test non provano
+
+Che il giro completo funzioni su un dispositivo reale con un Apple ID Sandbox
+vero. Nessun test automatico può firmare un JWS Sandbox autentico. Prima della
+sottomissione va fatto **a mano**, da TestFlight, con l'account demo
+autorizzato: comprare, e vedere il Pro comparire.

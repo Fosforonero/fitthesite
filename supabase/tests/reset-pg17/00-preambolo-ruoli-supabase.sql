@@ -67,14 +67,37 @@ create table if not exists auth.identities (
   updated_at timestamptz
 );
 
+-- ATTENZIONE: questa e' una SIMULAZIONE, e deve somigliare alla cosa vera.
+--
+-- Fino al 25/08/2026 leggeva soltanto `request.jwt.claim.sub` (singolare,
+-- puntato). La produzione legge ENTRAMBE le forme in coalesce, e la seconda —
+-- `request.jwt.claims`, il JSON intero — e' quella che PostgREST imposta
+-- davvero e quella che i test usano per dichiarare un'identita'.
+--
+-- Conseguenza del difetto: qualunque test che dichiarasse l'identita' con
+-- `set_config('request.jwt.claims', ...)` vedeva `auth.uid()` nullo. Le
+-- funzioni che rifiutano un chiamante non autenticato rispondevano «Not
+-- authenticated», e un test che si aspettasse un DINIEGO sarebbe passato per
+-- il motivo sbagliato — cioe' il peggiore dei verdi.
+--
+-- Copiata dalla definizione viva letta in produzione il 25/08/2026, non
+-- ricostruita a memoria.
 create or replace function auth.uid() returns uuid
 language sql stable as $$
-  select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid
+  select
+  coalesce(
+    nullif(current_setting('request.jwt.claim.sub', true), ''),
+    (nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'sub')
+  )::uuid
 $$;
 
 create or replace function auth.role() returns text
 language sql stable as $$
-  select nullif(current_setting('request.jwt.claim.role', true), '')
+  select
+  coalesce(
+    nullif(current_setting('request.jwt.claim.role', true), ''),
+    (nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role')
+  )
 $$;
 
 create or replace function auth.jwt() returns jsonb
@@ -175,3 +198,25 @@ alter default privileges in schema public
   grant all on tables to anon, authenticated, service_role;
 alter default privileges in schema public
   grant all on sequences to anon, authenticated, service_role;
+
+-- ── Il registro delle migration, come lo tiene Supabase ─────────────────────
+--
+-- Aggiunto il 25/08/2026. Non serve alla ricostruzione — il runner applica i
+-- file in ordine e non consulta nessun registro — ma serve a cio' che gira
+-- DOPO: gli script di rollback tolgono da qui la riga della migration che
+-- annullano, e senza la tabella fallivano con «relation does not exist».
+--
+-- Un rollback che non si puo' provare non e' un rollback: e' un file.
+--
+-- Forma copiata dalla definizione viva letta in produzione, non inventata:
+-- chiave primaria su `version`, piu' i cinque campi che la CLI valorizza.
+create schema if not exists supabase_migrations;
+
+create table if not exists supabase_migrations.schema_migrations (
+  version         text primary key,
+  statements      text[],
+  name            text,
+  created_by      text,
+  idempotency_key text,
+  rollback        text[]
+);

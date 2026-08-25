@@ -42,6 +42,71 @@
 
 CREATE TRIGGER trg_billing_lock_before_user_delete BEFORE DELETE ON auth.users FOR EACH ROW EXECUTE FUNCTION private._billing_lock_prima_di_cancellare_utente();
 
+-- ── E il pezzo che il trigger da solo NON risolve ───────────────────────────
+--
+-- Il trigger su `auth.users` arriva troppo tardi per la cancellazione GDPR, e
+-- il motivo sta in una chiave esterna:
+--
+--     b2c_subscriptions.user_id → profiles(id) ON DELETE CASCADE
+--
+-- `gdpr_process_deletions` cancella prima `public.profiles`. Quel DELETE
+-- CASCADE prende un lock esclusivo su `b2c_subscriptions` PRIMA che
+-- `auth.users` venga toccato, e quindi prima che il trigger esista come
+-- concetto. L'ordine effettivo diventa b2c → auth.users, cioe' l'inverso di
+-- quello di `claim_store_purchase`, e due transazioni concorrenti sullo stesso
+-- utente si incrociano.
+--
+-- Misurato, non dedotto: il caso 1 di `90-gdpr-ordine-lock.sh` andava in
+-- deadlock, con `deadlock detected ... while locking tuple in relation
+-- "b2c_subscriptions"` dentro `claim_store_purchase`.
+--
+-- La correzione e' prendere i due lock in testa, nello stesso ordine di tutti
+-- gli altri. `for update` e non `for key share` sulla riga utente: chi sta
+-- cancellando ha bisogno di quella riga in esclusiva, e prendersela subito
+-- evita l'aggiornamento del lock a meta' strada, che e' il vero generatore del
+-- ciclo.
+--
+-- IL FILTRO CHE ME LO AVEVA NASCOSTO
+-- ----------------------------------
+-- Avevo concluso che il filone non toccasse `gdpr_process_deletions` cercando
+-- la parola «billing» nel suo corpo. Non c'e', e non serve che ci sia: le due
+-- righe che il filone aggiunge nominano `auth.users` e `b2c_subscriptions`.
+-- Cercare per nome invece che per comportamento ha gia' sbagliato tre volte in
+-- questo sprint.
+do $$
+declare
+  v_def text;
+  v_ancora constant text := '      delete from public.profiles where id = uid;';
+  v_nuovo constant text :=
+    '      perform 1 from auth.users u where u.id = uid for update;' || chr(10) ||
+    '      perform 1 from public.b2c_subscriptions t where t.user_id = uid for update;' || chr(10) ||
+    '      delete from public.profiles where id = uid;';
+  v_prima int;
+begin
+  select pg_catalog.pg_get_functiondef(p.oid) into v_def
+  from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+  where n.nspname = 'public' and p.proname = 'gdpr_process_deletions';
+
+  if v_def is null then
+    raise exception 'F4: public.gdpr_process_deletions non esiste';
+  end if;
+
+  if pg_catalog.strpos(v_def, 'for update') > 0 then
+    raise notice 'F4: i lock ci sono gia'', nessuna modifica.';
+    return;
+  end if;
+
+  -- Conteggio letterale, non regex: l'ancora contiene un punto e virgola e dei
+  -- punti, e una regex li interpreterebbe.
+  v_prima := (pg_catalog.length(v_def) - pg_catalog.length(pg_catalog.replace(v_def, v_ancora, ''))) / pg_catalog.length(v_ancora);
+  if v_prima <> 1 then
+    raise exception 'F4: l''ancora del GDPR compare % volte invece di 1', v_prima;
+  end if;
+
+  execute pg_catalog.replace(v_def, v_ancora, v_nuovo);
+  raise notice 'F4: lock canonici aggiunti a gdpr_process_deletions.';
+end $$;
+
 -- ── Postcondizione ──────────────────────────────────────────────────────────
 do $$
 declare
