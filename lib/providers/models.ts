@@ -1866,18 +1866,23 @@ export const PROVIDER_MODELS: Record<string, ProviderModel[]> = {
             ja: "Pixel Watch 2は新しいGoogle Healthアプリとどのように動作しますか？",
             ko: "Pixel Watch 2가 새로운 Google Health 앱과 호환되나요?",
           },
+          // P1.8C: era "FitMesh reads ALL your Pixel Watch 2 data" (overclaim
+          // #8 confermato) e la locale ES fondeva Google Health con Health
+          // Connect (la domanda chiede di Google Health, la vecchia risposta
+          // rispondeva solo di Health Connect). Riscritto: FitMesh legge SOLO
+          // i tipi di dato autorizzati (mai "tutti"), e distingue le due entita'.
           a: {
-            it: "Sì. Il Pixel Watch 2 è profondamente integrato con Google Health, che ha sostituito Google Fit. Scrive anche in Health Connect, quindi FitMesh legge tutti i dati del tuo Pixel Watch 2. Puoi eseguire sia Google Health che FitMesh contemporaneamente.",
-            en: "Yes. Pixel Watch 2 is deeply integrated with Google Health, which replaced Google Fit. It also writes to Health Connect, so FitMesh reads all your Pixel Watch 2 data. You can run both Google Health and FitMesh simultaneously.",
-            es: "Sí. El Pixel Watch 2 está profundamente integrado con Health Connect, que reemplazó a Google Fit. También registra en Health Connect, por lo que FitMesh lee todos tus datos del Pixel Watch 2. Puedes ejecutar tanto Health Connect como FitMesh simultáneamente.",
-            de: "Ja. Pixel Watch 2 ist tief integriert in die Google Health, die Google Fit ersetzt hat. Es schreibt auch in Health Connect, sodass FitMesh alle Daten von Pixel Watch 2 liest. Sie können beide Google Health und FitMesh gleichzeitig laufen lassen.",
-            pt: "Sim. O Pixel Watch 2 está profundamente integrado ao aplicativo de Saúde do Google, que substituiu o Google Fit. Ele também escreve para a Health Connect, então o FitMesh lê todos os dados do seu Pixel Watch 2. Você pode executar tanto o aplicativo de Saúde do Google quanto o FitMesh simultaneamente.",
-            fr: "Oui. Le Pixel Watch 2 est profondément intégré à l'application de santé Google, qui a remplacé Google Fit. Il écrit également vers Health Connect, donc FitMesh lit toutes les données du Pixel Watch 2. Vous pouvez exécuter simultanément l'application de santé Google et FitMesh.",
-            pl: "Tak. Pixel Watch 2 jest głęboko zintegrowany z Google Health, która zastąpiła Google Fit. Zapisuje również dane do Health Connect, dzięki czemu FitMesh odczytuje wszystkie dane z Twojego Pixel Watch 2. Możesz jednocześnie korzystać zarówno z Google Health, jak i z FitMesh.",
-            tr: "Evet. Pixel Watch 2, Google Health ile derinlemesine entegre olup, bu Google Fit'in yerini aldığı bir uygulamadır. Ayrıca Health Connect'e da yazar, bu nedenle FitMesh tüm Pixel Watch 2 verilerini okuyabilir. Her iki uygulamayı aynı anda çalıştırabilirsiniz.",
-            nl: "Ja. Pixel Watch 2 is diep geïntegreerd met Google Health, dat heeft Google Fit vervangen. Het schrijft ook naar Health Connect, zodat FitMesh alle Pixel Watch 2-data leest. U kunt beide Google Health en FitMesh tegelijkertijd uitvoeren.",
-            ja: "はい。Pixel Watch 2はGoogle Healthと深く統合されており、これはGoogle Fitを置き換えたものです。また、Health Connectにも書き込みますので、FitMeshはすべてのPixel Watch 2データを読み取ります。Google HealthとFitMeshは同時に動作させることができます。",
-            ko: "네. Pixel Watch 2는 Google Health와 깊게 통합되어 있으며 Google Fit을 대체했습니다. 또한 Health Connect에도 작성되기 때문에 FitMesh는 모든 Pixel Watch 2 데이터를 읽습니다. Google Health와 FitMesh를 동시에 실행할 수 있습니다.",
+            it: "Sì. Il Pixel Watch 2 sincronizza con l'app Google Health (che ha sostituito Fitbit da maggio 2026), che scrive i tuoi dati su Health Connect. FitMesh legge da lì i tipi di dato che hai autorizzato: passi, frequenza cardiaca, sonno con le fasi, calorie e altro. Puoi usare Google Health e FitMesh insieme senza conflitti.",
+            en: "Yes. Pixel Watch 2 syncs with the Google Health app (which replaced Fitbit as of May 2026), which writes your data to Health Connect. FitMesh reads from there the data types you've authorized: steps, heart rate, sleep with stages, calories, and more. You can use Google Health and FitMesh together without conflicts.",
+            es: "Sí. El Pixel Watch 2 se sincroniza con la app Google Health (que sustituyó a Fitbit a partir de mayo de 2026), que escribe tus datos en Health Connect. FitMesh lee desde ahí los tipos de datos que hayas autorizado: pasos, frecuencia cardíaca, sueño con fases, calorías y más. Puedes usar Google Health y FitMesh juntos sin conflictos.",
+            de: "Ja. Die Pixel Watch 2 synchronisiert sich mit der Google Health App (die Fitbit ab Mai 2026 ersetzt hat), die deine Daten in Health Connect schreibt. FitMesh liest von dort die Datentypen aus, die du autorisiert hast: Schritte, Herzfrequenz, Schlaf mit Schlafphasen, Kalorien und mehr. Du kannst Google Health und FitMesh gemeinsam ohne Konflikte nutzen.",
+            pt: "Sim. O Pixel Watch 2 sincroniza com o app Google Health (que substituiu o Fitbit a partir de maio de 2026), que grava seus dados no Health Connect. O FitMesh lê a partir de lá os tipos de dados que você autorizou: passos, frequência cardíaca, sono com fases, calorias e mais. Você pode usar o Google Health e o FitMesh juntos, sem conflitos.",
+            fr: "Oui. La Pixel Watch 2 se synchronise avec l'application Google Health (qui a remplacé Fitbit depuis mai 2026), qui écrit vos données dans Health Connect. FitMesh y lit les types de données que vous avez autorisés : pas, fréquence cardiaque, sommeil avec phases, calories et plus encore. Vous pouvez utiliser Google Health et FitMesh ensemble sans conflit.",
+            pl: "Tak. Pixel Watch 2 synchronizuje się z aplikacją Google Health (która zastąpiła Fitbit od maja 2026 roku), a ta zapisuje dane w Health Connect. FitMesh odczytuje stamtąd autoryzowane przez Ciebie typy danych: kroki, tętno, sen z fazami, kalorie i inne. Możesz używać Google Health i FitMesh razem, bez konfliktów.",
+            tr: "Evet. Pixel Watch 2, verilerinizi Health Connect'e yazan Google Health uygulamasıyla (Mayıs 2026 itibarıyla Fitbit'in yerini aldı) senkronize olur. FitMesh, izin verdiğiniz veri türlerini (adımlar, kalp atış hızı, evrelere ayrılmış uyku, kaloriler ve daha fazlası) oradan okur. Google Health ve FitMesh'i herhangi bir çakışma olmadan birlikte kullanabilirsiniz.",
+            nl: "Ja. De Pixel Watch 2 synchroniseert met de Google Health-app (die Fitbit sinds mei 2026 heeft vervangen), die je gegevens naar Health Connect schrijft. FitMesh leest daarvandaan de gegevenstypen die je hebt goedgekeurd: stappen, hartslag, slaap met slaapfasen, calorieën en meer. Je kunt Google Health en FitMesh zonder conflicten samen gebruiken.",
+            ja: "はい。Pixel Watch 2はGoogle Healthアプリ（2026年5月にFitbitに代わって導入されました）と同期し、そのアプリがデータをHealth Connectに書き込みます。FitMeshはそこから、あなたが許可したデータの種類（歩数、心拍数、睡眠のステージ、カロリーなど）を読み取ります。Google HealthとFitMeshは競合することなく併用できます。",
+            ko: "네. Pixel Watch 2는 Google Health 앱(2026년 5월부로 Fitbit을 대체했습니다)과 동기화되며, 이 앱이 데이터를 Health Connect에 기록합니다. FitMesh는 사용자가 허용한 데이터 유형인 걸음 수, 심박수, 수면 단계, 칼로리 등을 그곳에서 읽어옵니다. Google Health와 FitMesh를 충돌 없이 함께 사용할 수 있습니다.",
           },
         },
         {
@@ -1967,20 +1972,20 @@ export const PROVIDER_MODELS: Record<string, ProviderModel[]> = {
       faq: [
         {
           q: {
-            it: "La Pixel Watch 3 scrive i dati di perdita della deteczione del battito cardiaco su Health Connect?",
+            it: "Il Pixel Watch 3 scrive i dati di rilevamento della perdita del battito cardiaco su Health Connect?",
             en: "Does Pixel Watch 3 write loss of pulse detection data to Health Connect?",
             es: "¿Escribe el Pixel Watch 3 los datos de detección de pérdida del pulso a Health Connect?",
             de: "Schreibt der Pixel Watch 3 Daten zur Verlusterkennung des Pulsfunkens in Health Connect?",
             pt: "O Pixel Watch 3 grava os dados de detecção de perda do pulso no Health Connect?",
             fr: "La montre Pixel Watch 3 enregistre-t-elle les données de détection de perte du pouls dans Health Connect ?",
             pl: "Czy Pixel Watch 3 zapisuje dane dotyczące stracenia detekcji pulsy do Health Connect?",
-            tr: "Pixel Watch 3 3. Eksik kalp atış tespiti verisini Health Connect'a yazır mı?",
+            tr: "Pixel Watch 3, kalp atışı kaybı tespiti verisini Health Connect'e yazar mı?",
             nl: "Heeft de Pixel Watch 3 de detectie van verlies van polsslag gegevens geschreven naar Health Connect?",
             ja: "Pixel Watch 3はHealth Connectに脈拍失敗検出データを記録しますか？",
             ko: "Pixel Watch 3는 심박 소실 감지 데이터를 Health Connect에 기록하나요?",
           },
           a: {
-            it: "La deteczione del battito cardiaco è una funzionalità di sicurezza che attiva chiamate d'emergenza. Non scrive i dati come metriche di salute standard (tasso di battiti, sonno, passi). I dati di salute standard vengono scritti normalmente su Health Connect.",
+            it: "Il rilevamento della perdita del battito cardiaco è una funzionalità di sicurezza che attiva chiamate d'emergenza. Non scrive i dati come metriche di salute standard (frequenza cardiaca, sonno, passi). I dati di salute standard vengono scritti normalmente su Health Connect.",
             en: "Loss of pulse detection is a safety feature that triggers emergency calls. It does not write data to Health Connect as a regular health metric. Standard health data (heart rate, sleep, steps) writes to Health Connect normally.",
             es: "La detección de pérdida del pulso es una característica de seguridad que activa llamadas de emergencia. No se escriben estos datos como métrica de salud regular en Health Connect. Los datos estándar de salud (ritmo cardíaco, sueño, pasos) se escriben normalmente en Health Connect.",
             de: "Verlusterkennung des Pulsfunkens ist eine Sicherheitsfunktion, die Notrufe auslöst. Es schreibt keine Daten zu Health Connect als normales Gesundheitsmesswert. Standardgesundheitsdaten (Herzfrequenz, Schlaf, Schritte) werden normal in Health Connect geschrieben.",
@@ -2003,7 +2008,7 @@ export const PROVIDER_MODELS: Record<string, ProviderModel[]> = {
             fr: "Quelle est la différence entre la montre Pixel Watch 3 et la montre Pixel Watch 3 XL pour Health Connect ?",
             pl: "Jakie jest różnice między Pixel Watch 3 a Pixel Watch 3 XL dla Health Connect?",
             tr: "Pixel Watch 3 ve Pixel Watch 3 XL için Health Connect'de ne tür bir fark var?",
-            nl: "Wat is de verschilentrekking tussen de Pixel Watch 3 en de Pixel Watch 3 XL voor Health Connect?",
+            nl: "Wat is het verschil tussen de Pixel Watch 3 en de Pixel Watch 3 XL voor Health Connect?",
             ja: "Pixel Watch 3とPixel Watch 3 XLはHealth Connectでどのような違いがありますか？",
             ko: "Health Connect 측면에서 Pixel Watch 3와 Pixel Watch 3 XL의 차이는 무엇인가요?",
           },

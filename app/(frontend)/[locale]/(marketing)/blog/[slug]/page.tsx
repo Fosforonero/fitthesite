@@ -9,7 +9,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { BlogRenderer, renderMarkdownInline } from "@/components/blog/BlogRenderer";
 import { BlogSources } from "@/components/blog/BlogSources";
 import { ArticleMeta } from "@/components/blog/ArticleMeta";
-import { coverSrc, COVER_W, COVER_H } from "@/lib/blog/covers";
+import { coverSrc, coverAlt, coverCaption, COVER_W, COVER_H } from "@/lib/blog/covers";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { blogSeoTitle, categoryLabel, tl, tll } from "@/lib/blog/types";
 import {
@@ -536,6 +536,10 @@ export default async function BlogArticle({
       url: `${SITE_URL}${coverSrc(post)}`,
       width: COVER_W,
       height: COVER_H,
+      // P1.8C: caption solo se il post ne ha scritta una reale per questa
+      // locale (coverCaption(post, lc) torna undefined altrimenti — lo
+      // spread condizionale evita una chiave `caption: undefined` nel JSON).
+      ...(coverCaption(post, lc) && { caption: coverCaption(post, lc) }),
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": `${SITE_URL}${path}` },
     // E-E-A-T su YMYL: nodi COMPATTI ma completi (stesso @id della versione
@@ -659,15 +663,25 @@ export default async function BlogArticle({
 
         {/* COVER */}
         <div className="max-w-3xl mx-auto px-4 sm:px-6 mb-8">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={coverSrc(post)}
-            alt={tl(post.hero.title, lc)}
-            width={COVER_W}
-            height={COVER_H}
-            decoding="async"
-            className="w-full h-auto rounded-card border border-white/5"
-          />
+          <figure>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={coverSrc(post)}
+              alt={coverAlt(post, lc)}
+              width={COVER_W}
+              height={COVER_H}
+              decoding="async"
+              className="w-full h-auto rounded-card border border-white/5"
+            />
+            {/* P1.8C: caption reale opzionale, solo se il post l'ha scritta
+                per questa locale — stesso pattern di figcaption già in uso
+                per le immagini inline in BlogRenderer.tsx. */}
+            {coverCaption(post, lc) && (
+              <figcaption className="mt-2 text-center text-sm text-text-secondary">
+                {coverCaption(post, lc)}
+              </figcaption>
+            )}
+          </figure>
         </div>
 
         {/* TL;DR — il succo in 10 secondi. Un solo box per post: NON aggiungere un

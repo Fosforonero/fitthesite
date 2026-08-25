@@ -681,7 +681,15 @@ export default async function ProviderLanding({
           </h2>
 
           <h3 className="mt-8 text-lg font-semibold text-text-primary">
-            {t("Setup in 5 minuti", "5-minute setup", "Configuración en 5 minutos", "Instellen in 5 minuten", "5分でセットアップ", "5분 내 설정")}
+            {/* P1.8C: era "Setup in 5 minuti" — tempo assoluto non sostenuto
+                (bug di verita' gia' esistente su OGNI provider, non solo
+                Pixel/Wear OS). Vedi docs/seo/p18c-pixel-watch-wear-os-fact-ledger.md
+                Fase 4: nessuna fonte lo sostiene, e per pixel-watch era in
+                contraddizione interna con la stessa pagina (techNote
+                dichiara 15-30 min di latenza dati). Corretto qui, una volta
+                sola per tutti i provider — non e' il nuovo modello
+                editoriale FASE 5 (quello resta pilota Pixel/Wear OS). */}
+            {t("Come collegarlo", "How to connect it", "Cómo conectarlo", "Zo verbind je het", "接続方法", "연결 방법")}
           </h3>
           <ol className="mt-4 space-y-3 text-text-secondary">
             {tll(p.setupGuide.steps, lc).map((step, i) => (
@@ -848,14 +856,17 @@ export default async function ProviderLanding({
             : t("Vuoi essere avvisato?", "Want to be notified?", "¿Quieres que te avisemos?", "Wil je een melding?", "通知を受け取りますか？", "알림을 받으시겠어요?")}
         </h2>
         <p className="mt-4 text-text-secondary max-w-xl mx-auto">
+          {/* P1.8C: era "...e in 30 secondi i tuoi dati sono live" — stesso
+              bug di tempo assoluto non sostenuto del bottone hero sopra,
+              corretto una volta per tutti i provider. */}
           {isLive
             ? t(
-                "Scarica FitMesh Sync, autorizza Health Connect, e in 30 secondi i tuoi dati sono live.",
-                "Download FitMesh Sync, grant Health Connect permissions, and your data is live in 30 seconds.",
-                "Descarga FitMesh Sync, autoriza Health Connect y en 30 segundos tus datos estarán disponibles.",
-                "Download FitMesh Sync, geef Health Connect toestemming en je data is in 30 seconden live.",
-                "FitMesh SyncをダウンロードしてHealth Connectを許可すると、30秒でデータがライブになります。",
-                "FitMesh Sync를 다운로드하고 Health Connect 권한을 허용하면 30초 안에 데이터가 실시간으로 동기화됩니다.",
+                "Scarica FitMesh Sync e autorizza Health Connect: i tuoi dati iniziano a comparire in dashboard al sync successivo.",
+                "Download FitMesh Sync and authorize Health Connect: your data starts appearing on the dashboard at the next sync.",
+                "Descarga FitMesh Sync y autoriza Health Connect: tus datos empiezan a aparecer en el panel en la siguiente sincronización.",
+                "Download FitMesh Sync en geef Health Connect toestemming: je data verschijnt op het dashboard bij de volgende sync.",
+                "FitMesh SyncをダウンロードしてHealth Connectを許可すると、次回の同期でデータがダッシュボードに表示されます。",
+                "FitMesh Sync를 다운로드하고 Health Connect 권한을 허용하면 다음 동기화 시 데이터가 대시보드에 표시됩니다.",
               )
             : t(
                 `Lascia la tua email e ti avvisiamo non appena l'integrazione ${p.name} sarà disponibile. Niente newsletter, niente spam: solo l'annuncio.`,
