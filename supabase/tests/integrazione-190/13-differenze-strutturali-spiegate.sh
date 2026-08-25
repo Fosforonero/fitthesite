@@ -59,8 +59,39 @@ REGISTRO=(
   # principale escludono gli awake ai bordi. Misurato in produzione prima di
   # scriverla: 418 notti su 1.038 in 7 giorni, 40,3%.
   "L|_merge_sleep_stages_jsonb corpo (finestra senza awake ai bordi)|20260825120009_finestra_sonno_senza_awake_ai_bordi.sql|sleep_start_ms"
+  # ── IL REGISTRO DEGLI ACQUISTI (F1 e F2, 25/08) ───────────────────────────
+  # Da qui in avanti la ricostruzione ha PIU' oggetti della produzione, non
+  # oggetti diversi. E' la prima volta in questo sprint: fino a ieri ogni
+  # differenza era una deriva da riconciliare, questa e' lavoro nuovo che non
+  # e' ancora stato spedito.
+  #
+  # Il delta e' interamente nominato, e va tenuto nominato: +5 tabelle,
+  # +18 funzioni, +5 trigger, piu' i loro indici e vincoli. Chi esegue il
+  # confronto 03/04 dopo F1 e F2 lo trovera' rosso, e deve trovarlo rosso:
+  # significa che la produzione non ha ancora il registro. Diventera' verde
+  # con il deploy, non prima, e nessuno deve "aggiustarlo" nel frattempo.
+  "C|billing_purchase_claims (assente in produzione)|20260825130000_billing_registro_fondamenta.sql|billing_purchase_claims"
+  "C|billing_purchase_states (assente in produzione)|20260825130000_billing_registro_fondamenta.sql|billing_purchase_states"
+  "C|billing_pending_revocations (assente in produzione)|20260825130000_billing_registro_fondamenta.sql|billing_pending_revocations"
+  "C|billing_projection_guard_mode (assente in produzione)|20260825130000_billing_registro_fondamenta.sql|billing_projection_guard_mode"
+  "C|billing_sandbox_reviewers (assente in produzione)|20260825130000_billing_registro_fondamenta.sql|billing_sandbox_reviewers"
+  "A|claim_store_purchase (assente in produzione)|20260825130100_billing_autorita_canonica.sql|claim_store_purchase"
+  "A|record_store_purchase_revocation (assente in produzione)|20260825130100_billing_autorita_canonica.sql|record_store_purchase_revocation"
+  "A|_billing_project_entitlement (assente in produzione)|20260825130100_billing_autorita_canonica.sql|_billing_project_entitlement"
+  "A|_billing_evidenza_supera (assente in produzione)|20260825130100_billing_autorita_canonica.sql|_billing_evidenza_supera"
+  "A|_billing_consuma_pending (assente in produzione)|20260825130100_billing_autorita_canonica.sql|_billing_consuma_pending"
+  "A|is_sandbox_reviewer (assente in produzione)|20260825130100_billing_autorita_canonica.sql|is_sandbox_reviewer"
+  "F|trg_billing_purchase_claims_immutable (assente in produzione)|20260825130100_billing_autorita_canonica.sql|trg_billing_purchase_claims_immutable"
+  "F|billing_purchase_states_forward_only (assente in produzione)|20260825130100_billing_autorita_canonica.sql|billing_purchase_states_forward_only"
+  "F|trg_billing_cancello_sandbox (assente in produzione)|20260825130100_billing_autorita_canonica.sql|trg_billing_cancello_sandbox"
+  #
+  # `get_entitlement_status` NON compare in questo elenco, e la sua assenza e'
+  # deliberata: il filone la ridefinisce, e quella ridefinizione non entra. La
+  # sua versione reimplementa la scala dei diritti in linea invece di delegare
+  # a `entitlement_core`, cioe' l'architettura precedente al 16/08. Se un
+  # giorno comparisse una differenza di categoria L su `get_entitlement_status`,
+  # non e' una voce da aggiungere qui: e' una regressione da fermare.
 )
-
 # verifica_voce: 0 se la spiegazione regge, 1 altrimenti. Stampa il verdetto.
 # E' una funzione e non codice in linea perche' il controllo positivo in fondo
 # deve poter esercitare ESATTAMENTE questa logica su una voce falsa. Un
