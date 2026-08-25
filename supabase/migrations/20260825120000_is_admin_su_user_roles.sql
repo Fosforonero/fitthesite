@@ -1,7 +1,8 @@
 -- Forward-only: public.is_admin() smette di leggere una email incorporata e
--- passa a public.user_roles come unica autorita'.
+-- passa a public.user_roles come unica autorita', ONORANDO LA SCADENZA.
 --
--- NON APPLICATA. Nessuna mutazione remota da questa sessione.
+-- NON APPLICATA IN PRODUZIONE. Nessuna mutazione remota.
+-- Esercitata localmente: gira nel reset completo su Postgres 17 usa-e-getta.
 --
 -- ============================================================================
 -- PERCHE'
@@ -15,15 +16,40 @@
 -- configurazione nuova.
 --
 -- ============================================================================
+-- L'AUTORITA' E' LA RIGA ATTIVA, NON LA RIGA
+-- ============================================================================
+-- `public.user_roles` ha una colonna `expires_at`, aggiunta da
+-- 20260610121037_user_roles_expiry. Un ruolo con `expires_at` nel passato e'
+-- SCADUTO e non concede piu' niente. L'autorita' e' quindi:
+--
+--   ur.role = 'admin'
+--   and (ur.expires_at is null or ur.expires_at > now())
+--
+-- Vale in ENTRAMBI i punti di questo file, e non solo nella funzione:
+-- il conteggio preliminare deve contare gli admin ATTIVI, altrimenti una
+-- riga scaduta soddisferebbe il vincolo «esattamente due» e farebbe passare
+-- un'applicazione che invece va fermata. Un ruolo scaduto non diventa valido
+-- perche' e' comodo per un controllo.
+--
+-- Attivi e scaduti si contano SEPARATAMENTE, e il messaggio li riporta
+-- entrambi: «zero admin» e «due admin, tutti scaduti» sono due situazioni
+-- diverse e vanno distinte a chi legge l'errore.
+--
+-- Misurato in produzione il 25/08/2026: admin attivi 2, admin scaduti 0,
+-- entrambe le righe con `expires_at` NULL, cioe' permanenti. Oggi quindi la
+-- correzione non cambia il comportamento. Cambia il significato del vincolo,
+-- e protegge il giorno in cui una concessione admin verra' data a termine.
+--
+-- ============================================================================
 -- IL CAMBIO DI ACCESSO, DICHIARATO E NON NASCOSTO
 -- ============================================================================
 -- Misurato in produzione il 25/08/2026:
 --
 --   - la whitelist incorporata contiene 1 indirizzo, e corrisponde a 1
 --     utente reale;
---   - quell'utente HA GIA' una riga role='admin' in user_roles: il
+--   - quell'utente HA GIA' una riga role='admin' attiva in user_roles: il
 --     passaggio non toglie l'accesso a nessuno;
---   - ma le righe role='admin' sono DUE. La seconda porta la nota
+--   - ma le righe role='admin' ATTIVE sono DUE. La seconda porta la nota
 --     «admin completo (sito+app), autorizzato da mat.pizzi 2026-05-27» e
 --     NON e' nella whitelist.
 --
@@ -33,9 +59,25 @@
 -- enforcement non ha mai onorato. Ma resta un cambio di accesso, e la regola
 -- di questo progetto e' esplicita: rollback immediato se cambia l'accesso.
 --
--- Per questo il blocco di verifica sotto ABORTA se le righe admin non sono
+-- Per questo il blocco di verifica sotto ABORTA se gli admin ATTIVI non sono
 -- esattamente due: applicare questa migration deve restare un atto
 -- consapevole, non una sorpresa.
+--
+-- ============================================================================
+-- PERCHE' NON SI RIUSA has_role('admin')
+-- ============================================================================
+-- Non e' una preferenza di stile. `public.has_role` legge user_roles e NON
+-- guarda `expires_at`: verificato nel catalogo di produzione il 25/08/2026,
+-- il suo corpo non nomina quella colonna. Riusarla qui avrebbe ereditato
+-- esattamente il difetto che questa migration corregge, dentro la funzione
+-- scritta per correggerlo.
+--
+-- In piu' has_role ha `search_path = public, auth` ed e' concessa ad anon.
+--
+-- Nella stessa scansione risultano senza controllo di scadenza anche
+-- public.delete_current_user, public.get_dashboard_snapshot e
+-- public.grant_pro_to_email. Registrato come osservazione: non si toccano
+-- qui, e oggi non hanno effetto perche' i ruoli 'pro' scaduti sono zero.
 --
 -- ============================================================================
 -- PERCHE' NON RICORRE, E COSA LO GARANTISCE DAVVERO
@@ -67,23 +109,28 @@
 -- Per questo il controllo qui sotto non usa un indicatore indiretto: dopo
 -- aver creato la funzione la CHIAMA. Se ricorre, la transazione fallisce e
 -- niente resta applicato.
---
--- Per lo stesso motivo non si riusa has_role('admin'): aggiungerebbe
--- un'indirezione le cui proprieta' di sicurezza andrebbero riverificate, e
--- has_role ha search_path=public,auth ed e' concessa ad anon.
 -- ============================================================================
 
 do $verifica$
 declare
-  v_admin  integer;
-  v_utenti integer;
+  v_attivi  integer;
+  v_scaduti integer;
+  v_utenti  integer;
 begin
   if to_regclass('public.user_roles') is null then
     raise exception 'is_admin/user_roles: public.user_roles non esiste. Fermarsi.';
   end if;
 
   select count(*) into v_utenti from auth.users;
-  select count(*) into v_admin  from public.user_roles where role = 'admin';
+
+  -- Attivi e scaduti contati separatamente, sulla stessa autorita' che usera'
+  -- la funzione. Non sommarli: una riga scaduta non e' un admin.
+  select
+    count(*) filter (where ur.expires_at is null or ur.expires_at > now()),
+    count(*) filter (where ur.expires_at is not null and ur.expires_at <= now())
+    into v_attivi, v_scaduti
+  from public.user_roles ur
+  where ur.role = 'admin';
 
   -- Installazione nuova: nessun utente, quindi nessun accesso da preservare
   -- e nessuno da chiudere fuori. I controlli sui dati non si applicano.
@@ -92,23 +139,26 @@ begin
       'is_admin/user_roles: database vuoto (zero utenti), controlli sui dati saltati. '
       'Su un database nuovo il primo admin va inserito in user_roles a mano.';
   else
-    if v_admin = 0 then
+    if v_attivi = 0 then
       raise exception
-        'is_admin/user_roles: % utenti ma zero righe role=''admin''. Applicare questa '
-        'migration chiuderebbe fuori tutti dall''amministrazione. Inserire prima le righe.',
-        v_utenti;
+        'is_admin/user_roles: % utenti e zero admin ATTIVI (righe admin scadute: %). '
+        'Applicare questa migration chiuderebbe fuori tutti dall''amministrazione. '
+        'Una riga scaduta non conta: rinnovarla o inserirne una valida prima di procedere.',
+        v_utenti, v_scaduti;
     end if;
 
-    if v_admin <> 2 then
+    if v_attivi <> 2 then
       raise exception
-        'is_admin/user_roles: righe role=''admin'' attese 2, trovate %. Il numero e'' '
-        'cambiato dopo la verifica del 25/08/2026: rivedere CHI guadagna accesso '
-        'prima di procedere, e aggiornare questo numero solo dopo averlo deciso.',
-        v_admin;
+        'is_admin/user_roles: admin ATTIVI attesi 2, trovati % (piu'' % scaduti). '
+        'Il numero e'' cambiato dopo la verifica del 25/08/2026: rivedere CHI '
+        'guadagna o perde accesso prima di procedere, e aggiornare questo numero '
+        'solo dopo averlo deciso.',
+        v_attivi, v_scaduti;
     end if;
 
-    raise notice 'is_admin/user_roles: precondizioni verificate (% righe admin su % utenti).',
-      v_admin, v_utenti;
+    raise notice
+      'is_admin/user_roles: precondizioni verificate (% admin attivi, % scaduti, su % utenti).',
+      v_attivi, v_scaduti, v_utenti;
   end if;
 end
 $verifica$;
@@ -126,6 +176,9 @@ as $$
       select 1 from public.user_roles ur
       where ur.user_id = auth.uid()
         and ur.role = 'admin'
+        -- Un ruolo scaduto non concede niente. Togliere questa riga e' il
+        -- difetto che il controllo positivo dei test riproduce apposta.
+        and (ur.expires_at is null or ur.expires_at > now())
     )
   end;
 $$;
@@ -138,10 +191,11 @@ grant execute on function public.is_admin() to authenticated;
 grant execute on function public.is_admin() to service_role;
 
 comment on function public.is_admin() is
-  'true se l''utente autenticato ha role=admin in public.user_roles. '
-  'Autorita'' unica: user_roles. Nessuna email incorporata. '
-  'SECURITY DEFINER di postgres: la lettura di user_roles bypassa RLS, '
-  'evitando la ricorsione con le policy admin di quella stessa tabella.';
+  'true se l''utente autenticato ha in public.user_roles una riga role=admin '
+  'NON SCADUTA (expires_at nullo oppure futuro). Autorita'' unica: user_roles. '
+  'Nessuna email incorporata. SECURITY DEFINER di postgres: la lettura di '
+  'user_roles bypassa RLS, evitando la ricorsione con le policy admin di '
+  'quella stessa tabella.';
 
 -- ============================================================================
 -- CONTROLLO DOPO LA CREAZIONE — comportamento, non indicatori indiretti
@@ -151,10 +205,11 @@ declare
   v_owner    name;
   v_bypassa  boolean;
   v_secdef   boolean;
+  v_corpo    text;
   v_risposta boolean;
 begin
-  select r.rolname, (r.rolsuper or r.rolbypassrls), p.prosecdef
-    into v_owner, v_bypassa, v_secdef
+  select r.rolname, (r.rolsuper or r.rolbypassrls), p.prosecdef, pg_get_functiondef(p.oid)
+    into v_owner, v_bypassa, v_secdef, v_corpo
   from pg_proc p
   join pg_namespace n on n.oid = p.pronamespace
   join pg_roles r on r.oid = p.proowner
@@ -163,6 +218,21 @@ begin
 
   if not v_secdef then
     raise exception 'is_admin: non e'' SECURITY DEFINER. Con SECURITY INVOKER ricorre.';
+  end if;
+
+  -- Postcondizione sulla scadenza: la funzione deve leggere user_roles E
+  -- guardare expires_at. Senza la seconda meta', un admin scaduto resterebbe
+  -- admin, ed e' esattamente cio' che questa migration esiste per impedire.
+  if v_corpo !~ 'user_roles' then
+    raise exception 'is_admin: non legge public.user_roles.';
+  end if;
+  if v_corpo !~ 'expires_at' then
+    raise exception
+      'is_admin: il corpo non nomina expires_at. Un ruolo admin scaduto '
+      'continuerebbe a concedere accesso.';
+  end if;
+  if v_corpo ~ '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' then
+    raise exception 'is_admin: il corpo contiene un indirizzo email.';
   end if;
 
   if not v_bypassa and not exists (
@@ -188,7 +258,8 @@ begin
   end;
 
   raise notice
-    'is_admin: SECURITY DEFINER di %, bypassa RLS, chiamata di prova completata (ha risposto %).',
+    'is_admin: SECURITY DEFINER di %, bypassa RLS, onora expires_at, chiamata di '
+    'prova completata (ha risposto %).',
     v_owner, v_risposta;
 end
 $dopo$;
