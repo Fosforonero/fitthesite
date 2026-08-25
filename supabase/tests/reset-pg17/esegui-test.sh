@@ -23,7 +23,8 @@ FILE=(01-test-is-admin.sql 02-controllo-positivo-ricorsione.sql
       07-test-dashboard-snapshot.sql 08-test-claim-group-invite-cap.sql
       09-test-founder-due-proprieta.sql
       10-test-entitlement-core-appreview.sql
-      11-test-finestra-awake.sql)
+      11-test-finestra-awake.sql
+      12-test-notifiche-store.sql)
 
 verdi=0; rossi=0
 for f in "${FILE[@]}"; do

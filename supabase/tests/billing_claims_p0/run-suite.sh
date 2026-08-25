@@ -61,6 +61,29 @@ run_sh() {
 }
 
 # PRIMA DI TUTTO: che la suite esegua davvero cio' che il repository contiene.
+# PRECONDIZIONE: schema pulito.
+#
+# `87-rollback-verificato.sh` esegue i rollback per davvero, e quelli si
+# rifiutano — giustamente — di eliminare tabelle che contengono righe. Se
+# questa suite gira su un database su cui e' gia' passato qualcos'altro,
+# fallisce per lo stato ereditato e non per un difetto, e il messaggio che
+# stampa manda a cercare nel posto sbagliato.
+#
+# Meglio dirlo qui, in una riga, che farlo scoprire in fondo a duecento righe
+# di output.
+SPORCO=$(docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d "$DBN" -X -tA -c "
+  select coalesce(sum(n), 0) from (
+    select count(*) as n from private.billing_purchase_claims
+    union all select count(*) from private.billing_purchase_states
+    union all select count(*) from private.billing_pending_revocations
+  ) t;" 2>/dev/null)
+if [ "${SPORCO:-0}" != "0" ]; then
+  echo "PRECONDIZIONE NON SODDISFATTA: il registro contiene gia' ${SPORCO} righe." >&2
+  echo "Questa suite pretende uno schema pulito. Rieseguire prima:" >&2
+  echo "  supabase/tests/reset-pg17/esegui-reset.sh" >&2
+  exit 1
+fi
+
 run_sh 00-guardrail-suite-completa.sh
 
 # 87 PRIMA di tutto il resto, e non per gusto dell'ordine.
