@@ -5,8 +5,13 @@
 # risulterebbe verde.
 set -uo pipefail
 QUI="$(cd "$(dirname "$0")" && pwd)"
-CONT="pg17-190-reset"
-DB="ricostruzione"
+# CONT_NAME sovrascrivibile dall'ambiente: serve al controllo positivo in
+# 12-controllo-positivo-runner-reset.sh, che punta questo runner a un
+# container inesistente e pretende un'uscita non zero. Un runner che non
+# ha mai dimostrato di sapersi accorgere di un database assente non e'
+# distinguibile da uno che non guarda affatto.
+CONT="${CONT_NAME:-pg17-190-reset}"
+DB="${DB_NAME:-ricostruzione}"
 
 if ! docker exec "$CONT" psql -U postgres -d "$DB" -t -A -c "select 1" >/dev/null 2>&1; then
   echo "ROSSO: il container $CONT non risponde. Eseguire prima esegui-reset.sh."
@@ -16,7 +21,8 @@ fi
 FILE=(01-test-is-admin.sql 02-controllo-positivo-ricorsione.sql
       05-test-has-role.sql 06-test-grant-pro-to-email.sql
       07-test-dashboard-snapshot.sql 08-test-claim-group-invite-cap.sql
-      09-test-founder-due-proprieta.sql)
+      09-test-founder-due-proprieta.sql
+      10-test-entitlement-core-appreview.sql)
 
 verdi=0; rossi=0
 for f in "${FILE[@]}"; do

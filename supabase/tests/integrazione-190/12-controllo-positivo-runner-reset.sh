@@ -10,9 +10,19 @@
 # per ERROR o FATAL passava per OK; e a fine corsa lo script usciva con 0
 # anche con fallimenti contati. Tre modi indipendenti di dare un falso verde.
 #
-# Qui si punta il runner a una directory con dentro UNA migration
-# deliberatamente invalida e si pretende un'uscita non zero. Poi lo si lascia
-# correre sulla catena vera.
+# Quattro rami, perche' un runner puo' dare un falso verde in quattro modi:
+#   A) una migration invalida in mezzo alla catena  -> deve uscire non zero
+#      e deve CONTARE bene: 2 applicate, 1 fallita, non 0 e non tutte.
+#   B) la catena vera                                -> deve uscire zero.
+#   C) docker irraggiungibile                        -> deve uscire non zero.
+#      E' il caso che il 25/08 ha smascherato la vecchia logica: con Colima
+#      fermo rispondeva «113 applicate, 0 fallite» e uscita 0, senza aver
+#      eseguito una riga di SQL.
+#   D) il container dei test assente                 -> esegui-test.sh deve
+#      uscire non zero invece di dichiarare sette file verdi sul nulla.
+#
+# C e D provano la stessa cosa da due lati: che il verde dipenda da un
+# database realmente raggiungibile e non dall'assenza di righe di errore.
 set -uo pipefail
 QUI="$(cd "$(dirname "$0")" && pwd)"
 RUNNER="$QUI/../reset-pg17/esegui-reset.sh"
@@ -85,6 +95,68 @@ else
   echo "  verde: la catena vera si applica, uscita 0."
 fi
 rm -f "$OUT"
+
+# ---------------------------------------------------------------------------
+# C) docker irraggiungibile -> il runner del reset deve uscire NON zero
+#
+# Si sposta DOCKER_HOST su un socket che non esiste. Non si ferma Colima e non
+# si tocca nessun container vero: il resto della macchina continua a lavorare.
+# ---------------------------------------------------------------------------
+echo
+echo "=== C) runner del reset con docker irraggiungibile ==="
+OUTC="$(mktemp)"
+DOCKER_HOST="unix:///tmp/socket-che-non-esiste-$$.sock" \
+  CONT_NAME="pg17-190-sonda-c" ESITO_FILE="$(mktemp)" \
+  "$RUNNER" > "$OUTC" 2>&1
+codice_c=$?
+sed 's/^/    /' "$OUTC" | head -4
+echo "    uscita del runner: $codice_c"
+if [ "$codice_c" -eq 0 ]; then
+  echo "  ROSSO: il runner ha risposto 0 senza poter parlare con docker."
+  echo "         E' esattamente il falso verde del 25/08: un riepilogo di migration"
+  echo "         applicate senza che nessuna sia stata applicata."
+  esito=1
+else
+  echo "  verde: senza docker il runner esce $codice_c e non conta niente."
+fi
+# e non deve aver stampato un riepilogo di successo
+if grep -qE '^=== [0-9]+ applicate, 0 fallite ===' "$OUTC"; then
+  echo "  ROSSO: ha comunque stampato un riepilogo di sole applicate."
+  esito=1
+else
+  echo "  verde: nessun riepilogo di sole applicate."
+fi
+rm -f "$OUTC"
+
+# ---------------------------------------------------------------------------
+# D) container dei test assente -> esegui-test.sh deve uscire NON zero
+# ---------------------------------------------------------------------------
+echo
+echo "=== D) runner dei test su un container che non esiste ==="
+TESTRUNNER="$QUI/../reset-pg17/esegui-test.sh"
+if [ ! -x "$TESTRUNNER" ]; then
+  echo "  ROSSO: $TESTRUNNER non e' eseguibile."
+  esito=1
+else
+  OUTD="$(mktemp)"
+  CONT_NAME="pg17-container-inesistente-$$" "$TESTRUNNER" > "$OUTD" 2>&1
+  codice_d=$?
+  sed 's/^/    /' "$OUTD" | head -4
+  echo "    uscita del runner dei test: $codice_d"
+  if [ "$codice_d" -eq 0 ]; then
+    echo "  ROSSO: la suite si e' dichiarata eseguita senza un database."
+    esito=1
+  else
+    echo "  verde: senza container la suite esce $codice_d."
+  fi
+  if grep -qE 'file verdi' "$OUTD"; then
+    echo "  ROSSO: ha comunque stampato un conteggio di file verdi."
+    esito=1
+  else
+    echo "  verde: nessun conteggio di file verdi."
+  fi
+  rm -f "$OUTD"
+fi
 
 echo
 [ "$esito" -eq 0 ] && echo "ESITO: verde" || echo "ESITO: rosso"
