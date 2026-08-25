@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: "google-fit-api-dismissione-2026",
   category: "guides",
   publishedAt: "2026-06-16",
-  updatedAt: "2026-07-10",
+  updatedAt: "2026-08-25",
   readMinutes: 8,
   ldType: "BlogPosting",
   primaryKeyword: {
@@ -518,6 +518,36 @@ export const post: BlogPost = {
           "**Health Services**: 시계에서 직접 실행되며 운동 중 실시간 데이터가 필요한 앱을 위한 Wear OS의 센서 및 알고리즘 계층입니다.",
           "**공식 가이드**: API별 전체 마이그레이션 지도는 [developer.android.com](https://developer.android.com/health-and-fitness/health-connect/migration/fit)에서 확인할 수 있습니다.",
         ],
+      },
+    },
+    {
+      type: "callout",
+      variant: "info",
+      title: {
+        it: "Fitbit Web API, Google Health API, Google Fit APIs: tre nomi, due dismissioni diverse",
+        en: "Fitbit Web API, Google Health API, Google Fit APIs: three names, two different deprecations",
+        es: "Fitbit Web API, Google Health API, Google Fit APIs: tres nombres, dos retiradas distintas",
+        de: "Fitbit Web API, Google Health API, Google Fit APIs: drei Namen, zwei verschiedene Abschaltungen",
+        pt: "Fitbit Web API, Google Health API, Google Fit APIs: três nomes, dois encerramentos diferentes",
+        fr: "Fitbit Web API, Google Health API, Google Fit APIs : trois noms, deux arrêts différents",
+        pl: "Fitbit Web API, Google Health API, Google Fit APIs: trzy nazwy, dwie różne dezaktywacje",
+        tr: "Fitbit Web API, Google Health API, Google Fit APIs: üç isim, iki farklı kapanış",
+        nl: "Fitbit Web API, Google Health API, Google Fit APIs: drie namen, twee verschillende uitfaseringen",
+        ja: "Fitbit Web API、Google Health API、Google Fit APIs：3つの名前、2つの異なる終了",
+        ko: "Fitbit Web API, Google Health API, Google Fit APIs: 세 가지 이름, 두 가지 다른 폐지",
+      },
+      body: {
+        it: "Non vanno confusi tra loro. La legacy Fitbit Web API sarà dismessa a settembre 2026: da allora non sincronizzerà più dati da o verso gli utenti Fitbit (fonte: [Google for Developers](https://developers.google.com/health/about?hl=en), consultata il 25/08/2026). Il suo successore diretto è la Google Health API citata sopra, descritta da Google come la stessa Fitbit Web API migliorata e rinominata. Le Google Fit APIs di questa pagina (Fit REST, Recording, History, Sensor, Session) sono invece un percorso di dismissione separato, con una scadenza propria: fine 2026, nessun giorno esatto pubblicato, iscrizioni gia' chiuse dal 1 maggio 2024. Le due scadenze non vanno fuse in una sola. Per una guida completa su Google Health, Google Fit e Health Connect dal punto di vista dell'utente finale, vedi [Google Health vs Google Fit: differenze e come migrare](/it/blog/google-health-google-fit).",
+        en: "These shouldn't be confused with one another. The legacy Fitbit Web API is being retired in September 2026: after that it will no longer sync data to or from Fitbit users (source: [Google for Developers](https://developers.google.com/health/about?hl=en), consulted 2026-08-25). Its direct successor is the Google Health API mentioned above, which Google describes as the same Fitbit Web API improved and renamed. The Google Fit APIs on this page (Fit REST, Recording, History, Sensor, Session) are a separate deprecation path, with their own deadline: end of 2026, no exact day published, sign-ups already closed since May 1, 2024. The two deadlines shouldn't be merged into one. For a full guide to Google Health, Google Fit, and Health Connect from an end-user perspective, see [Google Health vs Google Fit: differences and how to migrate](/en/blog/google-health-replaces-google-fit).",
+        es: "No hay que confundirlos entre si. La Fitbit Web API heredada se retirara en septiembre de 2026: a partir de entonces dejara de sincronizar datos hacia o desde los usuarios de Fitbit (fuente: [Google for Developers](https://developers.google.com/health/about?hl=en), consultada el 25/08/2026). Su sucesora directa es la Google Health API mencionada arriba, descrita por Google como la misma Fitbit Web API mejorada y renombrada. Las Google Fit APIs de esta pagina (Fit REST, Recording, History, Sensor, Session) son en cambio una via de retirada separada, con su propio plazo: fin de 2026, sin dia exacto publicado, con las inscripciones ya cerradas desde el 1 de mayo de 2024. Los dos plazos no deben fusionarse. Para una guia completa sobre Google Health, Google Fit y Health Connect desde la perspectiva del usuario final, consulta [Google Health vs Google Fit: diferencias y como migrar](/es/blog/google-health-reemplaza-google-fit).",
+        de: "Die beiden sollten nicht verwechselt werden. Die veraltete Fitbit Web API wird im September 2026 abgeschaltet: Danach synchronisiert sie keine Daten mehr von oder zu Fitbit-Nutzern (Quelle: [Google for Developers](https://developers.google.com/health/about?hl=en), abgerufen am 25.08.2026). Ihr direkter Nachfolger ist die oben genannte Google Health API, die Google als dieselbe, verbesserte und umbenannte Fitbit Web API beschreibt. Die Google Fit APIs auf dieser Seite (Fit REST, Recording, History, Sensor, Session) sind dagegen ein separater Abschaltungspfad mit eigener Frist: Ende 2026, kein genauer Tag veroeffentlicht, Anmeldungen bereits seit dem 1. Mai 2024 geschlossen. Die beiden Fristen duerfen nicht vermischt werden. Eine vollstaendige Anleitung zu Google Health, Google Fit und Health Connect aus Endnutzersicht findest du unter [Google Health vs Google Fit: Unterschiede und wie du migrierst](/de/blog/google-health-ersetzt-google-fit).",
+        pt: "Nao devem ser confundidos entre si. A Fitbit Web API legada sera desativada em setembro de 2026: a partir dai, ela deixara de sincronizar dados de ou para usuarios do Fitbit (fonte: [Google for Developers](https://developers.google.com/health/about?hl=en), consultada em 25/08/2026). Sua sucessora direta e a Google Health API mencionada acima, descrita pelo Google como a mesma Fitbit Web API aprimorada e renomeada. As Google Fit APIs desta pagina (Fit REST, Recording, History, Sensor, Session) sao, por outro lado, um caminho de descontinuacao separado, com prazo proprio: final de 2026, sem dia exato publicado, com inscricoes ja encerradas desde 1 de maio de 2024. Os dois prazos nao devem ser fundidos. Para um guia completo sobre Google Health, Google Fit e Health Connect do ponto de vista do usuario final, veja [Google Health vs Google Fit: diferencas e como migrar](/pt/blog/google-health-substitui-google-fit).",
+        fr: "Il ne faut pas les confondre entre elles. La Fitbit Web API historique sera retiree en septembre 2026 : a partir de la, elle ne synchronisera plus de donnees vers ou depuis les utilisateurs Fitbit (source : [Google for Developers](https://developers.google.com/health/about?hl=en), consultee le 25/08/2026). Sa remplacante directe est l'API Google Health mentionnee plus haut, decrite par Google comme la meme Fitbit Web API ameliorée et renommee. Les API Google Fit de cette page (Fit REST, Recording, History, Sensor, Session) constituent en revanche un chemin d'arret distinct, avec sa propre echeance : fin 2026, aucune date precise publiee, inscriptions deja closes depuis le 1er mai 2024. Les deux echeances ne doivent pas etre confondues. Pour un guide complet sur Google Health, Google Fit et Health Connect du point de vue de l'utilisateur final, voir [Google Health vs Google Fit : differences et comment migrer](/fr/blog/google-health-remplace-google-fit).",
+        pl: "Nie nalezy ich ze soba mylic. Przestarzale Fitbit Web API zostanie wycofane we wrzesniu 2026 r.: od tego momentu nie bedzie juz synchronizowac danych od ani do uzytkownikow Fitbit (zrodlo: [Google for Developers](https://developers.google.com/health/about?hl=en), sprawdzono 25.08.2026). Jego bezposrednim nastepca jest wspomniane wyzej Google Health API, ktore Google opisuje jako to samo Fitbit Web API, ulepszone i przemianowane. Google Fit APIs opisane na tej stronie (Fit REST, Recording, History, Sensor, Session) to natomiast osobna sciezka wycofania, z wlasnym terminem: koniec 2026 r., bez opublikowanego dokladnego dnia, rejestracje zamkniete juz od 1 maja 2024 r. Tych dwoch terminow nie nalezy laczyc w jeden. Pelny przewodnik po Google Health, Google Fit i Health Connect z perspektywy uzytkownika koncowego znajdziesz w [Google Health vs Google Fit: roznice i jak migrowac](/pl/blog/google-health-zastepuje-google-fit).",
+        tr: "Bunlar birbiriyle karistirilmamalidir. Eski Fitbit Web API, Eylul 2026'da kullanimdan kaldirilacak: bundan sonra Fitbit kullanicilarindan veya kullanicilarina veri senkronize etmeyecek (kaynak: [Google for Developers](https://developers.google.com/health/about?hl=en), erisim tarihi 25.08.2026). Dogrudan haleti yukarida bahsedilen Google Health API'dir; Google bunu, iyilestirilmis ve yeniden adlandirilmis ayni Fitbit Web API olarak tanimlar. Bu sayfadaki Google Fit API'leri (Fit REST, Recording, History, Sensor, Session) ise ayri bir kullanimdan kaldirma sureci olup kendi son tarihine sahiptir: 2026 sonu, kesin bir gun yayinlanmadi, kayitlar 1 Mayis 2024'ten beri zaten kapali. Bu iki son tarih birlestirilmemelidir. Google Health, Google Fit ve Health Connect hakkinda son kullanici acisindan kapsamli bir rehber icin bkz. [Google Health ve Google Fit: farklar ve nasil gecis yapilir](/tr/blog/google-health-google-fit-yerine-geciyor).",
+        nl: "Deze mogen niet met elkaar worden verward. De verouderde Fitbit Web API wordt in september 2026 uitgefaseerd: daarna synchroniseert deze geen gegevens meer van of naar Fitbit-gebruikers (bron: [Google for Developers](https://developers.google.com/health/about?hl=en), geraadpleegd op 25-08-2026). De directe opvolger is de hierboven genoemde Google Health API, die Google omschrijft als dezelfde, verbeterde en hernoemde Fitbit Web API. De Google Fit API's op deze pagina (Fit REST, Recording, History, Sensor, Session) vormen daarentegen een apart uitfaseringstraject, met een eigen deadline: eind 2026, geen exacte dag gepubliceerd, aanmeldingen al gesloten sinds 1 mei 2024. Deze twee deadlines mogen niet worden samengevoegd. Voor een volledige gids over Google Health, Google Fit en Health Connect vanuit het perspectief van de eindgebruiker, zie [Google Health versus Google Fit: verschillen en hoe je migreert](/nl/blog/google-health-vervangt-google-fit).",
+        ja: "これらは互いに混同すべきではありません。旧来の Fitbit Web API は2026年9月に廃止されます。それ以降、Fitbit ユーザーとの間でデータが同期されなくなります（出典：[Google for Developers](https://developers.google.com/health/about?hl=en)、2026年8月25日確認）。その直接の後継が上記の Google Health API で、Google はこれを改良され改称された同じ Fitbit Web API と説明しています。一方、このページの Google Fit APIs（Fit REST、Recording、History、Sensor、Session）は別の廃止経路であり、独自の期限があります。2026年末まで、正確な日付は未公表、新規登録は2024年5月1日時点ですでに終了しています。この2つの期限を混同してはいけません。エンドユーザー視点での Google Health、Google Fit、Health Connect の完全ガイドは [Google Health と Google Fit：違いと移行方法](/ja/blog/google-health-google-fit-daigae) を参照してください。",
+        ko: "이 둘은 서로 혼동하면 안 됩니다. 레거시 Fitbit Web API는 2026년 9월에 폐지됩니다. 이후로는 Fitbit 사용자와 데이터를 동기화하지 않습니다(출처: [Google for Developers](https://developers.google.com/health/about?hl=en), 확인일 2026-08-25). 그 직접적인 후속작은 위에서 언급한 Google Health API로, Google은 이를 개선되고 이름이 변경된 동일한 Fitbit Web API라고 설명합니다. 이 페이지의 Google Fit API(Fit REST, Recording, History, Sensor, Session)는 별도의 폐지 경로이며 자체 기한이 있습니다. 2026년 말까지이며 정확한 날짜는 공개되지 않았고, 신규 등록은 이미 2024년 5월 1일부터 마감되었습니다. 이 두 기한을 하나로 합치면 안 됩니다. 최종 사용자 관점에서 Google Health, Google Fit, Health Connect에 대한 전체 가이드는 [Google Health와 Google Fit: 차이점과 마이그레이션 방법](/ko/blog/google-health-google-fit-daechae)을 참고하세요.",
       },
     },
     {
@@ -1162,6 +1192,15 @@ export const post: BlogPost = {
     "come-funziona-health-connect",
     "sync-samsung-health-google-fit",
     "alternative-app-sync-wearable-2026",
+    // P1.8B: link bidirezionale con il pillar consumer (che gia' linkava qui,
+    // ma non il contrario).
+    "google-health-google-fit",
   ],
-  brandsMentioned: ["Google Fit", "Health Connect"],
+  // P1.8B: aggiunta citazione inline sulla dismissione Fitbit Web API
+  // (settembre 2026, developers.google.com/health/about) — sourcesRenderedInline
+  // perche' e' gia' citata a testo nel nuovo callout, non serve una sezione
+  // "Fonti" separata per questa singola URL.
+  sources: ["https://developers.google.com/health/about?hl=en"],
+  sourcesRenderedInline: true,
+  brandsMentioned: ["Google Fit", "Google Health", "Health Connect"],
 };
