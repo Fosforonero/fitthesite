@@ -274,10 +274,16 @@ export const post: BlogPost = {
   seoTitle: {
     // P1.8A (2026-08-25): EN non aveva override, ricadeva su hero.title +
     // " · FitMesh" = 62 caratteri (>60). CTR EN sotto media sito (1.42% vs
-    // ~1.7-1.8%, GSC ultimi 3 mesi) su 11869 impression — volume alto,
-    // giustifica l'intervento. Tolto solo "(2026)": la query dominante
-    // "health connect not syncing" resta intatta in testa al title.
-    en: "Health Connect not syncing: 7 fixes that work",
+    // 1.74% pesato sui click reali, GSC ultimi 3 mesi) su 11869 impression
+    // — volume alto, giustifica l'intervento.
+    //
+    // MICRO-GATE P1.8A-A (2026-08-25), secondo giro: "7 fixes that work"
+    // prometteva che le soluzioni funzionano in modo universale (claim
+    // assoluto non verificabile). Sostituito con "Android fixes": stessa
+    // query dominante "health connect not syncing" intatta in testa,
+    // aggiunge il contesto Android, niente promessa di efficacia. 41
+    // caratteri (51 col suffisso " · FitMesh" renderizzato).
+    en: "Health Connect not syncing: Android fixes",
     nl: "Health Connect synchroniseert niet: 7 oplossingen",
     de: "Samsung Health synchronisiert nicht: 7 Lösungen",
     // SPRINT PRE-FERIE addendum Bing (2026-08-06): title live 73 caratteri

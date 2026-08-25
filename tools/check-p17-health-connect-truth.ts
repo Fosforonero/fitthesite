@@ -60,6 +60,18 @@
  * 12. Stesso controllo del punto 11, applicato a `lib/blog/nordic-overlay.json`
  *     per sv/da (stesso motivo del punto 10: locale live tramite overlay,
  *     invisibile a un controllo limitato al solo file .ts).
+ * 18. (MICRO-GATE P1.8A-A, secondo giro, 2026-08-25) Il blocco `seoTitle`
+ *     conteneva "7 fixes that work": promette che le soluzioni funzionano
+ *     in modo universale, un claim assoluto non verificabile — corretto in
+ *     "Android fixes" (query invariata, contesto Android, niente promessa
+ *     di efficacia). Guardia di regressione su "N fixes/solutions/
+ *     soluzioni ... that work(s)" e affini (garantito/guaranteed/100%
+ *     effective/always works), cercati SOLO dentro il blocco `seoTitle`
+ *     (non nel corpo, dove "qui trovi 7 soluzioni" resta testo legittimo:
+ *     e' la promessa di efficacia nel TITLE il problema, non il numero).
+ *     `seoTitle` non ha chiavi sv/da in nordic-overlay.json per questo
+ *     post (verificato: sv/da ricadono su hero.title via la catena di
+ *     fallback, non su seoTitle.en) — nessuna estensione overlay necessaria.
  *
  * Uso (Docker, nessun runtime locale):
  *   docker run --rm -v "$PWD":/app -w /app node:22 npx tsx tools/check-p17-health-connect-truth.ts
@@ -399,6 +411,25 @@ for (let i = 0; i < lines.length; i++) {
   if (line.trim().startsWith("//")) continue;
   if (PLAY_STORE_CONTRADICTION.test(line)) {
     errors.push(`[android14-play-store-contraddizione] riga ${i + 1}: e' tornata la frase che contraddice gli step "cerca su Play Store e aggiorna" subito dopo.`);
+  }
+}
+
+// ── 18. Efficacia assoluta bandita nel blocco `seoTitle` ──────────────────
+// Regressione specifica: "7 fixes that work" prometteva efficacia
+// universale nel <title> renderizzato. Scope volutamente ristretto al solo
+// blocco seoTitle (stesso pattern di estrazione del check 7 su `sources`)
+// — "qui trovi 7 soluzioni" nel corpo del post resta testo legittimo,
+// il problema e' la promessa di efficacia nel title, non il numero in se'.
+const seoTitleMatch = content.match(/seoTitle:\s*\{([\s\S]*?)\n\s*\},/);
+if (seoTitleMatch) {
+  const ABSOLUTE_EFFICACY_TITLE = /\d+\s*(fixes?|solutions?|soluzioni|soluciones|Lösungen|solutions|oplossingen|rozwiązań|çözüm|解決策|해결책)\s*that\s*(actually\s*|really\s*)?work(s)?\b|works?\s*every\s*time\b|guaranteed\s*to\s*work|100%\s*(effective|efficac)/i;
+  const seoTitleLines = seoTitleMatch[0].split("\n");
+  const offset = content.slice(0, seoTitleMatch.index).split("\n").length - 1;
+  for (let j = 0; j < seoTitleLines.length; j++) {
+    if (seoTitleLines[j].trim().startsWith("//")) continue; // commento editoriale, non testo pubblicato
+    if (ABSOLUTE_EFFICACY_TITLE.test(seoTitleLines[j])) {
+      errors.push(`[title-efficacia-assoluta] riga ${offset + j + 1}: il blocco seoTitle promette efficacia universale ("...that work(s)"/garantito/100% effective) — claim non verificabile, gia' rimosso una volta.`);
+    }
   }
 }
 
