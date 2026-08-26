@@ -41,8 +41,9 @@
 # lascia comunque uno stato coerente. Per questo si controlla PRIMA il 40P01.
 set -uo pipefail
 
-CID="${SUPABASE_DB_CONTAINER:-supabase_db_fitmesh}"
-DBN="${SUPABASE_DB_NAME:-postgres}"
+# Nessun bersaglio predefinito: la guardia impone le due variabili, rifiuta il
+# container condiviso, e pretende PG17 piu' la sentinella dell'ambiente isolato.
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/bersaglio.sh"
 Q() { docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d "$DBN" -X -tA -c "$1"; }
 FAIL_COUNT=0
 fail()  { echo "  FAIL - $1"; FAIL_COUNT=$((FAIL_COUNT + 1)); }

@@ -128,3 +128,31 @@ echo
 echo "=== $ok applicate, $ko fallite ==="
 echo "dettaglio in $ESITO"
 [ "$ko" -eq 0 ] || exit 1
+
+# ----------------------------------------------------------------------------
+# LA SENTINELLA
+#
+# Dice a chiunque legga questo database che e' l'ambiente isolato costruito per
+# la release, e non un container qualsiasi che si chiama nel modo giusto. La
+# guardia in supabase/tests/bersaglio.sh la pretende prima di lasciar girare
+# qualunque test che scrive.
+#
+# Contiene la baseline live usata per definire l'insieme pending, cosi' chi
+# legge l'intestazione di un test sa contro cosa sta misurando.
+# ----------------------------------------------------------------------------
+docker exec -i "$CONT" psql -U postgres -d "$DB" -v ON_ERROR_STOP=1 -q <<'SENTINELLA' >/dev/null 2>&1
+create schema if not exists private;
+create table if not exists private.ambiente_isolato_release (
+  release   text        not null,
+  baseline  text        not null,
+  creato_at timestamptz not null default now()
+);
+delete from private.ambiente_isolato_release;
+insert into private.ambiente_isolato_release (release, baseline) values ('190', '20260818084202');
+SENTINELLA
+codice_sent=$?
+if [ "$codice_sent" -ne 0 ]; then
+  echo "ROSSO: sentinella non creata (psql ha risposto $codice_sent). I test che scrivono rifiuteranno questo bersaglio."
+  exit 1
+fi
+echo "sentinella: private.ambiente_isolato_release, release 190, baseline 20260818084202"

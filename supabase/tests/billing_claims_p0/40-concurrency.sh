@@ -33,8 +33,9 @@
 # ============================================================================
 set -euo pipefail
 
-CID="${SUPABASE_DB_CONTAINER:-supabase_db_fitmesh}"
-DBN="${SUPABASE_DB_NAME:-postgres}"
+# Nessun bersaglio predefinito: la guardia impone le due variabili, rifiuta il
+# container condiviso, e pretende PG17 piu' la sentinella dell'ambiente isolato.
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/bersaglio.sh"
 UA='00000000-0000-4000-8000-00000000c001'
 UB='00000000-0000-4000-8000-00000000c002'
 KEY='6000000000000001'

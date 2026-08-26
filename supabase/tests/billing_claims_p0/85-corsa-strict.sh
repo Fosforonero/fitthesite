@@ -22,8 +22,9 @@
 # resta scoperta: e' il caso che il passaggio a strict deve vedere.
 set -uo pipefail
 
-CID="${SUPABASE_DB_CONTAINER:-supabase_db_fitmesh}"
-DBN="${SUPABASE_DB_NAME:-postgres}"
+# Nessun bersaglio predefinito: la guardia impone le due variabili, rifiuta il
+# container condiviso, e pretende PG17 piu' la sentinella dell'ambiente isolato.
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/bersaglio.sh"
 psql_q() { docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d "$DBN" -X -tA -c "$1"; }
 fail()   { echo "CORSA STRICT: FAIL - $1"; exit 1; }
 

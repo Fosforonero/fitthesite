@@ -33,8 +33,9 @@
 # modifica applicata al loro contenuto, ed e' meccanica.
 set -uo pipefail
 
-CID="${SUPABASE_DB_CONTAINER:-supabase_db_fitmesh}"
-DBN="${SUPABASE_DB_NAME:-postgres}"
+# Nessun bersaglio predefinito: la guardia impone le due variabili, rifiuta il
+# container condiviso, e pretende PG17 piu' la sentinella dell'ambiente isolato.
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/bersaglio.sh"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../rollback" && pwd)"
 FAIL=0
 fail() { echo "  FAIL - $1"; FAIL=$((FAIL + 1)); }

@@ -25,8 +25,9 @@ set -uo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 BACKFILL="$REPO_ROOT/supabase/backfill/20260808_billing_purchase_claims_backfill.sql"
-CID="${SUPABASE_DB_CONTAINER:-supabase_db_fitmesh}"
-DBN="${SUPABASE_DB_NAME:-postgres}"
+# Nessun bersaglio predefinito: la guardia impone le due variabili, rifiuta il
+# container condiviso, e pretende PG17 piu' la sentinella dell'ambiente isolato.
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/bersaglio.sh"
 
 psql_q() { docker exec -e PGPASSWORD=postgres "$CID" psql -U postgres -d "$DBN" -X -tA -c "$1"; }
 fail()   { echo "FIXTURE TEST: FAIL - $1"; exit 1; }

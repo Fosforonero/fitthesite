@@ -20,8 +20,9 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 DIR="$REPO_ROOT/supabase/tests/billing_claims_p0"
-CID="${SUPABASE_DB_CONTAINER:-supabase_db_fitmesh}"
-DBN="${SUPABASE_DB_NAME:-postgres}"
+# Nessun bersaglio predefinito: la guardia impone le due variabili, rifiuta il
+# container condiviso, e pretende PG17 piu' la sentinella dell'ambiente isolato.
+source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/bersaglio.sh"
 
 if ! docker exec "$CID" true >/dev/null 2>&1; then
   echo "Container '$CID' non raggiungibile. Avviare prima lo stack locale con 'supabase start'." >&2
@@ -83,6 +84,11 @@ if [ "${SPORCO:-0}" != "0" ]; then
   echo "  supabase/tests/reset-pg17/esegui-reset.sh" >&2
   exit 1
 fi
+
+# Prima di tutto: la guardia sul bersaglio sa dire di no?
+# Una suite che scrive non deve nemmeno cominciare se il bersaglio non e'
+# dimostrabilmente l'ambiente isolato della release.
+run_sh 00-controllo-bersaglio.sh
 
 run_sh 00-guardrail-suite-completa.sh
 
