@@ -1,18 +1,39 @@
 /* ────────────────────────────────────────────────────────────────────────────
- * COPIA LETTERALE del route handler della 189, preso da `main`.
+ * COPIA DEL ROUTE REALMENTE DISTRIBUITO, subito prima della 190.
  *
- * Non e' una ricostruzione: e' `git show main:app/api/v1/billing/
- * validate-purchase/route.ts`, byte per byte da qui in giu'. Serve a far
- * girare il backend VECCHIO contro il database NUOVO e guardare che cosa
- * risponde davvero, invece di dedurlo.
+ * Repository : github.com/Fosforonero/fitthesite
+ * Percorso   : app/api/v1/billing/validate-purchase/route.ts
+ * Commit     : f8d54c00c1cbe92ee42d64d9a251e2d11693be0e
+ * SHA-256    : 45d705bbcc8b8df9a24a466ad22567036a34cb52b3c8a51c9cab55f78f959e3e
+ * Deployment : dpl_GCWKSwUsAoBHbjHzyjL1nT645xSA (produzione, pronto il
+ *              2026-08-26T14:31:37Z)
  *
- * L'impronta della copia e' in route-189.sha256 e un test la ricontrolla: se
- * `main` cambia, questo file diventa una bugia e il test lo dice.
+ * «REALMENTE DISTRIBUITO» E' STATO VERIFICATO, NON DEDOTTO. L'alias
+ * www.fitmesh.fit e' stato risolto e restituisce quel deployment; il commit
+ * e' quello che il deployment dichiara. Non e' stato assunto che origin/main
+ * sia la produzione: capita che coincidano, e oggi coincidono, ma e' un fatto
+ * misurato e non una regola.
  *
- * L'unica riga aggiunta e' questa intestazione, che sta PRIMA del contenuto
- * copiato e non ne fa parte (l'impronta si calcola sul resto).
+ * COSA CONTIENE IN PIU' DELLA COPIA STORICA: 4e04ea8 (16/08, «chi paga da oggi
+ * non si perde piu'»), che scrive la traccia del tentativo PRIMA della
+ * validazione. Sono le sole 34 righe di differenza; fra 4e04ea8 e questo
+ * commit il file non e' cambiato, e le due impronte sono identiche.
+ *
+ * A COSA SERVE: e' il backend che un telefono fermo alla v3.9.8+189 incontra
+ * OGGI. La suite che la usa BLOCCA il rilascio.
+ *
+ * SI AGGIORNA quando la produzione cambia, e solo insieme al manifesto: il
+ * commit, l'impronta e il deployment si riscrivono in un commit che si vede.
+ *
+ * COSA NON E' CONGELATO: solo QUESTO file viene dal commit dichiarato. I moduli
+ * che importa sono quelli di oggi; nella suite che la usa i tre che contano
+ * sono mockati.
+ *
+ * Rigenerabile con: bash tools/rigenera-fixture-billing.sh
+ * L'intestazione qui sopra sta PRIMA della copia e non ne fa parte: l'impronta
+ * si calcola da «INIZIO COPIA LETTERALE» in giu'.
  * ──────────────────────────────────────────────────────────────────────────── */
-// @ts-nocheck -- il codice della 189 va conservato com'era, non adattato.
+// @ts-nocheck -- e' una copia del route distribuito, non va adattata.
 /* INIZIO COPIA LETTERALE */
 /**
  * POST /api/v1/billing/validate-purchase — server-side IAP validation.
@@ -187,6 +208,40 @@ export async function POST(req: Request): Promise<Response> {
 
   const admin = createAdminClient() as unknown as Sb;
   const isSubscription = product_id === PRODUCT_SUBSCRIPTION;
+
+  // ── La traccia del tentativo, PRIMA di provare a validare ───────────────
+  //
+  // Da qui in giu' ci sono quattordici punti di ritorno, e almeno cinque
+  // possono lasciare l'utente pagato e non servito: lo store che risponde 502,
+  // la ricevuta che non contiene l'acquisto, e soprattutto `upsert_failed` —
+  // lo store ha confermato e noi non siamo riusciti a scrivere. In nessuno di
+  // quei casi restava traccia sul server: solo un log su Vercel, che scade.
+  // E' gia' costato un cliente.
+  //
+  // Si scrive PRIMA della validazione di proposito. Scriverla dopo perderebbe
+  // esattamente i casi che deve catturare.
+  //
+  // QUESTO BLOCCO NON PUO' CAMBIARE L'ESITO DELLA RICHIESTA. L'unico modo in
+  // cui puo' fallire e' non lasciando la traccia; non deve mai essere il
+  // motivo per cui un pagamento non va a buon fine. Per questo l'errore si
+  // registra e si prosegue, invece di propagarlo.
+  // La tabella vive in `private`, che non e' esposto all'API: si passa da una
+  // funzione in `public` concessa alla sola service_role, cosi' nessun client
+  // puo' scrivere tentativi a nome di altri.
+  try {
+    const { error: tracciaErr } = await admin.rpc("registra_tentativo_acquisto", {
+      p_user_id: userId,
+      p_piattaforma: platform,
+      p_product_id: product_id,
+    });
+    if (tracciaErr) {
+      console.error("[Billing] traccia_tentativo_fallita", { code: tracciaErr.code });
+    }
+  } catch (e) {
+    console.error("[Billing] traccia_tentativo_eccezione", {
+      tipo: e instanceof Error ? e.name : "sconosciuto",
+    });
+  }
 
   // ── Ramo Apple (iOS) ─────────────────────────────────────────────────
   if (platform === "ios") {

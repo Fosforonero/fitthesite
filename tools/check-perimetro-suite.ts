@@ -128,8 +128,8 @@ function raccoltaDaVitest(): Raccolta {
         maxBuffer: 256 * 1024 * 1024,
         stdio: ["ignore", "pipe", "pipe"],
         // RICHIEDI_DB=1 trasforma in FALLIMENTO il salto silenzioso dei test
-        // contro il database (vedi test/legacy-189/vendored.test.ts): in
-        // release, «il container non risponde» non e' una scusa.
+        // contro il database (vedi test/billing-route-fixtures/manifesto.test.ts):
+        // in release, «il container non risponde» non e' una scusa.
         env: RELEASE ? { ...process.env, RICHIEDI_DB: "1" } : process.env,
       },
     );

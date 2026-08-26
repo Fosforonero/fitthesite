@@ -103,30 +103,35 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Storia completa: test/legacy-189/vendored.test.ts confronta la copia
-          # letterale della route 189 con quella di `main` (`git show main:...`).
-          # Con il checkout superficiale predefinito quel ref non esiste, e il
-          # test fallisce per assenza della storia invece che per una copia
+          # Storia completa: le copie congelate in test/billing-route-fixtures/
+          # si verificano contro i COMMIT COMPLETI dichiarati nel manifesto. Col
+          # checkout superficiale predefinito quegli oggetti non esistono, e il
+          # test fallirebbe per assenza della storia invece che per una copia
           # divergente — cioe' per il motivo sbagliato.
+          #
+          # Prima qui si recuperava il ref `main`, perche' il vecchio test si
+          # confrontava con un branch. Non piu': un branch si muove, e infatti
+          # si era mosso.
           fetch-depth: 0
 
-      - name: Il ref `main` deve esserci davvero
+      - name: I commit congelati delle fixture devono esserci
         run: |
           set -uo pipefail
-          if git rev-parse --verify --quiet main >/dev/null; then
-            echo "main gia' presente: $(git rev-parse --short main)"
-            exit 0
-          fi
-          # `if ! cmd` invece di leggere $? dopo (shellcheck SC2181): e' la
-          # stessa disciplina di catturare l'esito prima di ogni filtro.
-          if ! git fetch --no-tags origin main:main || ! git rev-parse --verify --quiet main >/dev/null; then
-            echo "ROSSO: non sono riuscito a ottenere il ref «main»."
-            echo "       La copia letterale della 189 si confronta con main: senza"
-            echo "       quel ref il test non misura niente, e un rosso li' direbbe"
-            echo "       «la copia e' divergente» quando il problema e' il checkout."
+          mancanti=0
+          while read -r sha file; do
+            if git cat-file -e "${sha}^{commit}" 2>/dev/null; then
+              echo "ok       ${file} <- ${sha}"
+            else
+              echo "ROSSO    ${file}: il commit ${sha} non e' nell'archivio."
+              mancanti=1
+            fi
+          done < <(python3 -c "import json;[print(f['commit'],f['file']) for f in json.load(open('test/billing-route-fixtures/manifesto.json'))['fixture']]")
+          if [ "${mancanti}" -ne 0 ]; then
+            echo "       Senza quegli oggetti la verifica di provenienza non misura"
+            echo "       niente, e un rosso li' direbbe «la copia e' divergente»"
+            echo "       quando il problema e' il checkout."
             exit 1
           fi
-          echo "main recuperato da origin: $(git rev-parse --short main)"
 
       - name: actionlint sui workflow
         # Un workflow rotto non puo' validare se stesso: se lo si spezza, non
@@ -148,6 +153,37 @@ jobs:
         with:
           node-version-file: ".nvmrc"
 
+      - name: Le tre dichiarazioni di Node devono combaciare
+        # `.nvmrc` diceva «22», che congela solo la major: due esecuzioni a
+        # distanza di un mese avrebbero potuto usare due Node diversi e
+        # chiamarsi entrambe «toolchain congelata». Adesso `.nvmrc` porta la
+        # versione ESATTA ed e' l'unica autorita'; `engines` dichiara il
+        # pavimento vero, che non e' un'opinione ma il requisito di pnpm
+        # 11.15.0 (`engines.node: >=22.13`). Prima diceva `>=20`, cioe'
+        # permetteva un'installazione che non puo' funzionare.
+        run: |
+          set -uo pipefail
+          atteso="$(tr -d ' \t\n\r' < .nvmrc)"
+          effettivo="$(node -p "process.versions.node")"
+          pavimento="$(node -p "require('./package.json').engines.node")"
+          echo ".nvmrc=${atteso}  node=${effettivo}  engines.node=${pavimento}"
+          if [ "${atteso}" != "${effettivo}" ]; then
+            echo "ROSSO: .nvmrc chiede ${atteso} e gira ${effettivo}."
+            exit 1
+          fi
+          if ! node -e "
+            const [a,b,c] = process.versions.node.split('.').map(Number);
+            const m = require('./package.json').engines.node.match(/>=\s*(\d+)\.(\d+)\.(\d+)/);
+            if (!m) { console.error('engines.node non e\' un pavimento leggibile'); process.exit(1); }
+            const [x,y,z] = m.slice(1).map(Number);
+            const ok = a > x || (a === x && (b > y || (b === y && c >= z)));
+            process.exit(ok ? 0 : 1);
+          "; then
+            echo "ROSSO: ${effettivo} non soddisfa engines.node ${pavimento}."
+            exit 1
+          fi
+          echo "le tre dichiarazioni combaciano"
+
       - name: pnpm congelato (packageManager di package.json)
         # La prima esecuzione di questo workflow, il 26/08/2026, e' morta qui
         # con un `No such built-in module: node:sqlite` incomprensibile. La
@@ -156,9 +192,10 @@ jobs:
         # Le due dichiarazioni del repository erano incompatibili fra loro, e
         # nessuno se n'era accorto perche' nessuna CI eseguiva niente.
         #
-        # `.nvmrc` e' stato portato a 22. Il controllo qui sotto resta perche'
-        # la prossima volta il messaggio deve dire QUALE delle due
-        # dichiarazioni non torna, invece di uno stack trace di corepack.
+        # `.nvmrc` e' stato portato alla versione esatta e `engines` al
+        # pavimento vero. Il controllo qui sotto resta perche' la prossima volta
+        # il messaggio deve dire QUALE delle dichiarazioni non torna, invece di
+        # uno stack trace di corepack.
         run: |
           set -uo pipefail
           atteso="$(node -p "require('./package.json').packageManager")"
