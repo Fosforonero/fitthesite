@@ -53,7 +53,10 @@ select riga from (
   from pg_catalog.pg_trigger t
   join pg_catalog.pg_class c on c.oid = t.tgrelid
   join pg_catalog.pg_namespace n on n.oid = c.relnamespace
-  where not t.tgisinternal and n.nspname in ('public', 'private', 'internal', 'rls_internal')
+  -- `auth` compreso: il trigger di F4 sta su auth.users, e senza questo schema
+  -- l'impronta non lo vedeva. L'ho scoperto derivando il delta delle sei
+  -- forward-only e trovandone sette trigger invece di otto.
+  where not t.tgisinternal and n.nspname in ('public', 'private', 'internal', 'rls_internal', 'auth')
 
   union all
   select 'tab ' || n.nspname || '.' || c.relname
