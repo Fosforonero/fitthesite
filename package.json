@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
+    "suite:perimetro-check": "tsx tools/check-perimetro-suite.ts",
     "seo:truth-check": "tsx tools/check-llms-consistency.ts",
     "labs:truth-check": "tsx tools/check-labs-truth.ts",
     "labs:privacy-check": "tsx tools/check-labs-privacy.ts",

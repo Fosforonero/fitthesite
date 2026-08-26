@@ -21,18 +21,43 @@
  */
 import { execFileSync } from "node:child_process";
 
-const CID = process.env.SUPABASE_DB_CONTAINER ?? "supabase_db_fitmesh";
+/**
+ * BERSAGLIO — dichiarato, mai dedotto (INFRA-5, 26/08/2026).
+ *
+ * Fino a oggi queste due costanti avevano un valore di ripiego, e il ripiego
+ * era il contenitore CONDIVISO `supabase_db_fitmesh` sul database `postgres`.
+ * Un `pnpm test` lanciato senza pensarci puntava li' — e questi test scrivono
+ * e ripuliscono. Oggi fallivano su una relazione mancante, il che e' fortuna,
+ * non progetto.
+ *
+ * La stessa regola era gia' stata decisa per la suite SQL
+ * (`supabase/tests/bersaglio.sh`): il bersaglio si dichiara, i nomi condivisi
+ * o di produzione si rifiutano ad alta voce, e se non c'e' un bersaglio non si
+ * indovina — si dice che non c'e'.
+ */
+const CID = process.env.SUPABASE_DB_CONTAINER ?? "";
+const DBN = process.env.SUPABASE_DB_NAME ?? "";
+
+/** Nomi che non possono MAI essere il bersaglio di un test che scrive. */
+const VIETATI = [/supabase_db/i, /prod/i, /production/i, /live/i, /fitmesh_db/i];
+
+export class BersaglioVietato extends Error {}
 
 /**
- * Il nome del database, parametrizzabile come il contenitore.
- *
- * Serviva: il contenitore condiviso `supabase_db_fitmesh` usa `postgres`,
- * quello usa-e-getta della ricostruzione PG17 usa `ricostruzione`. Senza
- * questa variabile i test contro il database potevano girare SOLO sul
- * condiviso, cioe' su uno schema di provenienza ignota — e un verde contro uno
- * schema che non si e' costruiti non dice a quale schema si riferisce.
+ * Rifiuto RUMOROSO, non silenzioso: un bersaglio vietato non deve tradursi in
+ * uno skip: qualcuno lo leggerebbe come «questi test non servono qui».
  */
-const DBN = process.env.SUPABASE_DB_NAME ?? "postgres";
+function verificaBersaglio(): void {
+  if (!CID || !DBN) return; // nessun bersaglio dichiarato: gestito da databaseRaggiungibile
+  const colpevole = VIETATI.find((r) => r.test(CID) || r.test(DBN));
+  if (colpevole) {
+    throw new BersaglioVietato(
+      `bersaglio rifiutato: container="${CID}" database="${DBN}" combacia con ${colpevole}. ` +
+        "Questi test scrivono: possono girare solo sul PG17 isolato della release " +
+        "(vedi supabase/tests/esegui-tutto.sh), mai sul contenitore condiviso.",
+    );
+  }
+}
 
 export class PsqlError extends Error {}
 
@@ -65,11 +90,30 @@ export function sql(query: string): string {
   }
 }
 
+/**
+ * «Disponibile» vuol dire: un bersaglio e' stato DICHIARATO, non e' vietato, e
+ * risponde. Prima voleva dire soltanto «un psql qualsiasi risponde», che era
+ * vero anche contro il contenitore condiviso.
+ *
+ * Quando manca la dichiarazione i test si saltano, e il motivo viene stampato:
+ * uno skip muto e' indistinguibile da un verde.
+ */
 export function databaseRaggiungibile(): boolean {
+  if (!CID || !DBN) {
+    console.warn(
+      "[test/db] SALTATI: nessun bersaglio dichiarato. " +
+        "Servono SUPABASE_DB_CONTAINER e SUPABASE_DB_NAME, e devono puntare al " +
+        "PG17 isolato della release (supabase/tests/esegui-tutto.sh). " +
+        "Nessun ripiego sul contenitore condiviso.",
+    );
+    return false;
+  }
+  verificaBersaglio(); // lancia: un bersaglio vietato non e' uno skip
   try {
     sql("select 1");
     return true;
   } catch {
+    console.warn(`[test/db] SALTATI: il bersaglio dichiarato non risponde (container="${CID}" database="${DBN}").`);
     return false;
   }
 }
