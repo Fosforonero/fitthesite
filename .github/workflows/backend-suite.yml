@@ -86,15 +86,30 @@ jobs:
           node-version-file: ".nvmrc"
 
       - name: pnpm congelato (packageManager di package.json)
+        # La prima esecuzione di questo workflow, il 26/08/2026, e' morta qui
+        # con un `No such built-in module: node:sqlite` incomprensibile. La
+        # causa vera stava due righe sopra: `.nvmrc` diceva 20 e
+        # `packageManager` chiedeva pnpm 11.15, che pretende Node >= 22.13.
+        # Le due dichiarazioni del repository erano incompatibili fra loro, e
+        # nessuno se n'era accorto perche' nessuna CI eseguiva niente.
+        #
+        # `.nvmrc` e' stato portato a 22. Il controllo qui sotto resta perche'
+        # la prossima volta il messaggio deve dire QUALE delle due
+        # dichiarazioni non torna, invece di uno stack trace di corepack.
         run: |
-          set -euo pipefail
+          set -uo pipefail
           atteso="$(node -p "require('./package.json').packageManager")"
-          echo "packageManager dichiarato: ${atteso}"
+          echo "node $(node --version) (da .nvmrc), packageManager dichiarato: ${atteso}"
           corepack enable
-          corepack prepare "${atteso}" --activate
-          effettivo="pnpm@$(pnpm --version)"
-          if [ "${effettivo}" != "${atteso}" ]; then
-            echo "ROSSO: pnpm ${effettivo}, atteso ${atteso}."
+          corepack prepare "${atteso}" --activate > /tmp/corepack.txt 2>&1
+          codice=$?
+          cat /tmp/corepack.txt
+          effettivo="pnpm@$(pnpm --version 2>/dev/null)"
+          if [ "${codice}" -ne 0 ] || [ "${effettivo}" != "${atteso}" ]; then
+            echo "ROSSO: pnpm effettivo «${effettivo}», atteso «${atteso}»."
+            echo "       Le due dichiarazioni del repository devono combaciare:"
+            echo "       .nvmrc = $(cat .nvmrc)   package.json packageManager = ${atteso}"
+            grep -i "requires at least" /tmp/corepack.txt || true
             exit 1
           fi
           echo "pnpm ${effettivo}, come dichiarato"
