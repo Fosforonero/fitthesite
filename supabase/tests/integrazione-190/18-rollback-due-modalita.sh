@@ -97,13 +97,16 @@ rollback_sei() {
   return 0
 }
 
-residui_append_only() {
-  docker exec "$CONT" psql -U postgres -d "$1" -X -tA -c "
-    select coalesce(string_agg(n.nspname||'.'||c.relname||'='||
-      (xpath('/row/cnt/text()', query_to_xml(format('select count(*) as cnt from %I.%I', n.nspname, c.relname), false, true, '')))[1]::text, ', '), '')
-    from pg_class c join pg_namespace n on n.oid=c.relnamespace
-    where n.nspname='private' and c.relkind='r' and c.relname like 'billing%';" 2>/dev/null
-}
+# Residui nelle append-only: si confrontano le RIGHE dell'impronta, non i nomi
+# delle tabelle.
+#
+# La prima stesura filtrava `private` per prefisso `billing%` e dichiarava
+# sopravvissute due tabelle che esistevano PRIMA delle sei
+# (billing_pagamenti_segnalati, billing_tentativi_acquisto). Il confronto
+# d'impronta diceva «identica» e il mio filtro diceva «residui»: aveva ragione
+# l'impronta. E' la stessa classe di errore contro cui questo file mette in
+# guardia, commessa dentro questo file.
+righe_impronta() { printf '%s\n' "$1" | grep '^righe '; }
 
 for MODO in autocommit transazione; do
   DB="due_modi_$MODO"
@@ -124,6 +127,7 @@ for MODO in autocommit transazione; do
       esito=1; break
     fi
     echo "  2. giro $GIRO apply: $NA -> $NB righe (+$((NB-NA)))"
+    [ "$GIRO" -eq 1 ] && printf '%s\n' "$B" > "/tmp/18-dopo-apply-$MODO.txt"
 
     if ! rollback_sei "$DB" "$MODO"; then echo "  ROSSO  giro $GIRO: rollback fallito"; esito=1; break; fi
     C="$(impronta "$DB")"
@@ -135,15 +139,45 @@ for MODO in autocommit transazione; do
       esito=1; break
     fi
 
-    R="$(residui_append_only "$DB")"
-    if [ -n "$R" ]; then
-      echo "  ROSSO  giro $GIRO: tabelle billing sopravvissute al rollback: $R"; esito=1; break
+    if [ "$(righe_impronta "$C")" != "$(righe_impronta "$A")" ]; then
+      echo "  ROSSO  giro $GIRO: conteggi delle append-only cambiati dopo il rollback."
+      diff <(righe_impronta "$A") <(righe_impronta "$C") | head -6 | sed 's/^/         /'
+      esito=1; break
     fi
-    echo "  4. giro $GIRO: nessun residuo append-only"
+    echo "  4. giro $GIRO: append-only invariate ($(righe_impronta "$A" | grep -c .) tabelle confrontate riga per riga)"
+    [ "$GIRO" -eq 2 ] && echo "  5. secondo giro completato: apply/rollback deterministico"
   done
-  echo "  5. secondo giro completato: apply/rollback deterministico"
   docker exec "$CONT" psql -U postgres -d postgres -q -c "drop database if exists $DB;" >/dev/null 2>&1
 done
+
+# ── Il confronto FRA le due modalita' ──────────────────────────────────────
+#
+# Ogni modalita' che torna al proprio punto di partenza non prova che le due
+# arrivino allo STESSO schema. Un file con `begin;`/`rollback;` nudi applica il
+# proprio corpo in autocommit e lo scarta dentro una transazione esterna, e in
+# entrambi i casi psql esce 0 e l'impronta ha lo stesso NUMERO di righe: cambia
+# il corpo di una funzione, non il conteggio.
+#
+# Senza questo confronto il runner sarebbe verde proprio sul difetto per cui e'
+# stato scritto.
+echo
+echo "=================== le due modalita' arrivano allo stesso schema? ==================="
+if [ -f /tmp/18-dopo-apply-autocommit.txt ] && [ -f /tmp/18-dopo-apply-transazione.txt ]; then
+  if diff -q /tmp/18-dopo-apply-autocommit.txt /tmp/18-dopo-apply-transazione.txt >/dev/null; then
+    echo "  ok     impronta post-apply identica nelle due modalita'"
+  else
+    echo "  ROSSO  le due modalita' NON applicano lo stesso schema:"
+    diff /tmp/18-dopo-apply-autocommit.txt /tmp/18-dopo-apply-transazione.txt \
+      | grep -E '^[<>]' | head -8 | cut -c1-140 | sed 's/^/         /'
+    echo "         Una migration il cui effetto dipende da come il runner la esegue"
+    echo "         non e' applicabile in sicurezza: la CLI Supabase non espone il"
+    echo "         controllo della transazione, quindi la modalita' non si sceglie."
+    esito=1
+  fi
+else
+  echo "  ROSSO  manca l'impronta post-apply di una delle due modalita': niente da confrontare."
+  esito=1
+fi
 
 echo
 [ "$esito" -ne 0 ] && { echo "ROSSO: apply/rollback non equivalenti nelle due modalita'."; exit 1; }

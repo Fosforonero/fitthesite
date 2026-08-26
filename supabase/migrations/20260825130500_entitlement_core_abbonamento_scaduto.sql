@@ -97,29 +97,38 @@ end $$;
 
 -- ── Postcondizione: la funzione RISPONDE, e risponde diversamente ───────────
 --
--- Dentro una transazione che si annulla, e non e' un dettaglio di stile.
+-- Dentro un sotto-blocco che si annulla, e non e' un dettaglio di stile.
 --
--- La prima versione di questa postcondizione lasciava dietro di se' un claim
--- in `private.billing_purchase_claims`: la fixture usa `google_play`, e la
--- guardia sulla proiezione in modalita' compatibility registra all'indietro
--- ogni scrittura commerciale. Il registro e' append-only per costruzione — un
+-- La prima versione lasciava dietro di se' un claim in
+-- `private.billing_purchase_claims`: la fixture usa `google_play`, e la guardia
+-- sulla proiezione in modalita' compatibility registra all'indietro ogni
+-- scrittura commerciale. Il registro e' append-only per costruzione — un
 -- trigger vieta DELETE e UPDATE — quindi quella riga non si poteva nemmeno
 -- togliere: restava nello schema di OGNI ricostruzione.
 --
--- L'ho scoperto perche' un test della suite avversariale pretendeva
--- esattamente un claim google e ne trovava due. Il test aveva ragione, e il
--- secondo claim era mio.
+-- La seconda versione avvolgeva tutto in `begin;` ... `rollback;` nudi. In
+-- autocommit funzionava. Dentro una transazione ESTERNA — ed e' cosi' che un
+-- runner puo' eseguire il file, senza che si possa scegliere — quel `rollback;`
+-- annullava l'INTERA transazione, correzione compresa, e psql usciva 0 lo
+-- stesso: la migration risultava applicata e non aveva cambiato niente.
+-- Misurato: `18-rollback-due-modalita.sh` trovava entitlement_core con due
+-- corpi diversi nelle due modalita'.
+--
+-- Questa versione non apre nessuna transazione. Un sotto-blocco PL/pgSQL con
+-- EXCEPTION crea un SAVEPOINT implicito: si solleva una sentinella alla fine e
+-- la si cattura, e tutto cio' che il sotto-blocco ha scritto viene annullato
+-- senza dipendere da come il file e' eseguito. Provato in entrambe le
+-- modalita': stessa correzione applicata, zero residui.
 --
 -- Non si puo' evitare la fixture commerciale: il ramo che questa migration
 -- corregge esclude di proposito `trial` e `founder_grant`, quindi provarlo con
 -- una fonte non commerciale non proverebbe niente.
-begin;
-
 do $$
 declare
   v_u uuid := 'f6000000-0000-0000-0000-000000000001'::uuid;
   v_kind text;
 begin
+ begin
   insert into auth.users (id, email) values (v_u, 'f6-postcondizione@esempio.invalid')
     on conflict (id) do nothing;
   insert into public.profiles (id, email) values (v_u, 'f6-postcondizione@esempio.invalid')
@@ -163,6 +172,13 @@ begin
   delete from auth.users where id = v_u;
 
   raise notice 'F6: scaduto nega, valido concede.';
-end $$;
 
-rollback;
+  -- La sentinella: annulla il sotto-blocco e con lui ogni riga della fixture,
+  -- comprese quelle che il registro append-only non lascerebbe cancellare.
+  raise exception 'F6_ANNULLA_FIXTURE';
+ exception
+  when others then
+   if sqlerrm <> 'F6_ANNULLA_FIXTURE' then raise; end if;
+ end;
+ raise notice 'F6: postcondizione superata, fixture annullata, nessun residuo.';
+end $$;
