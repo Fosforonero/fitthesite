@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { locales, localeNames, localeFlags, type Locale } from "@/lib/i18n";
 import { LOCALE_COOKIE_NAME } from "@/lib/locale-negotiation";
+import { CANONICAL_HOST } from "@/lib/site-url";
 
 /**
  * Persiste la scelta esplicita dell'utente: prevale su IP/Accept-Language
@@ -18,20 +19,14 @@ function persistLocaleChoice(locale: Locale) {
 
 type LocaleOption = { locale: Locale; href: string };
 
-/**
- * Host canonico del sito — stesso valore letterale di `SITE_URL`
- * (`lib/product-facts.ts`), duplicato qui come stringa minima invece di
- * importare quel modulo in un componente client (porta con sé `PROVIDERS` e
- * altri dati non necessari qui). `blogLanguages()`/`localeAlternates()`
- * emettono SEMPRE hreflang assoluti su questo host, anche quando la pagina è
- * servita da un'origine diversa (preview Vercel, `next start` locale): senza
- * questo confronto aggiuntivo, un controllo basato solo su
- * `window.location.origin` scarterebbe come "host esterno" ogni alternate
- * reale su qualunque ambiente non-produzione — comportamento fail-closed
- * corretto in astratto, ma che nasconderebbe il fix proprio durante la QA su
- * preview. Se `SITE_URL` cambia, aggiornare anche questa costante.
- */
-const CANONICAL_HOST = "www.fitmesh.fit";
+// CANONICAL_HOST (da `lib/site-url.ts`, derivato da SITE_URL — non un
+// secondo letterale): `blogLanguages()`/`localeAlternates()` emettono SEMPRE
+// hreflang assoluti su questo host, anche quando la pagina è servita da
+// un'origine diversa (preview Vercel, `next start` locale). Senza questo
+// confronto aggiuntivo, un controllo basato solo su `window.location.origin`
+// scarterebbe come "host esterno" ogni alternate reale su qualunque ambiente
+// non-produzione — fail-closed corretto in astratto, ma che nasconderebbe il
+// fix proprio durante la QA su preview.
 
 /**
  * Vero per un articolo blog (`/xx/blog/qualcosa`, con `qualcosa` presente):

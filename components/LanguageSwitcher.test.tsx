@@ -3,6 +3,12 @@ import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/re
 
 import LanguageSwitcher from "./LanguageSwitcher";
 import { LOCALE_COOKIE_NAME } from "@/lib/locale-negotiation";
+// MICRO-GATE P0.14-A: gli host dei fixture derivano da SITE_URL (la stessa
+// SSOT che il componente importa via lib/site-url.ts, CANONICAL_HOST), non
+// da un letterale "https://www.fitmesh.fit" duplicato qui — se il
+// componente e i fixture divergessero (es. CANONICAL_HOST tornasse un
+// letterale indipendente), questi test lo scoprirebbero.
+import { SITE_URL } from "@/lib/site-url";
 
 /**
  * SPRINT P0.14 — guardrail permanente del selettore lingua.
@@ -92,9 +98,9 @@ describe("LanguageSwitcher — SPRINT P0.14", () => {
   it("1. blog con IT/EN/DE: mostra solo IT/EN/DE, ogni href e' lo slug localizzato dell'hreflang", async () => {
     mockPathname = "/it/blog/articolo-slug-it";
     setHeadAlternates([
-      { hreflang: "it", href: "https://www.fitmesh.fit/it/blog/articolo-slug-it" },
-      { hreflang: "en", href: "https://www.fitmesh.fit/en/blog/article-slug-en" },
-      { hreflang: "de", href: "https://www.fitmesh.fit/de/blog/artikel-slug-de" },
+      { hreflang: "it", href: `${SITE_URL}/it/blog/articolo-slug-it` },
+      { hreflang: "en", href: `${SITE_URL}/en/blog/article-slug-en` },
+      { hreflang: "de", href: `${SITE_URL}/de/blog/artikel-slug-de` },
     ]);
     render(<LanguageSwitcher current="it" />);
     await waitFor(() => expect(document.head.querySelector('link[hreflang="de"]')).not.toBeNull());
@@ -110,8 +116,8 @@ describe("LanguageSwitcher — SPRINT P0.14", () => {
   it("2. locale incompleta/noindex assente dagli alternate: non compare nel menu", async () => {
     mockPathname = "/it/blog/articolo-slug-it";
     setHeadAlternates([
-      { hreflang: "it", href: "https://www.fitmesh.fit/it/blog/articolo-slug-it" },
-      { hreflang: "en", href: "https://www.fitmesh.fit/en/blog/article-slug-en" },
+      { hreflang: "it", href: `${SITE_URL}/it/blog/articolo-slug-it` },
+      { hreflang: "en", href: `${SITE_URL}/en/blog/article-slug-en` },
     ]);
     render(<LanguageSwitcher current="it" />);
     await waitFor(() => expect(document.head.querySelector('link[hreflang="en"]')).not.toBeNull());
@@ -126,8 +132,8 @@ describe("LanguageSwitcher — SPRINT P0.14", () => {
   it("3. x-default: ignorato, non e' mai un'opzione selezionabile", async () => {
     mockPathname = "/it/blog/articolo-slug-it";
     setHeadAlternates([
-      { hreflang: "it", href: "https://www.fitmesh.fit/it/blog/articolo-slug-it" },
-      { hreflang: "x-default", href: "https://www.fitmesh.fit/it/blog/articolo-slug-it" },
+      { hreflang: "it", href: `${SITE_URL}/it/blog/articolo-slug-it` },
+      { hreflang: "x-default", href: `${SITE_URL}/it/blog/articolo-slug-it` },
     ]);
     render(<LanguageSwitcher current="it" />);
     await waitFor(() => expect(document.head.querySelectorAll('link[rel="alternate"]').length).toBe(2));
@@ -140,7 +146,7 @@ describe("LanguageSwitcher — SPRINT P0.14", () => {
   it("4. URL esterno malevolo: ignorato anche con hreflang valido", async () => {
     mockPathname = "/it/blog/articolo-slug-it";
     setHeadAlternates([
-      { hreflang: "it", href: "https://www.fitmesh.fit/it/blog/articolo-slug-it" },
+      { hreflang: "it", href: `${SITE_URL}/it/blog/articolo-slug-it` },
       { hreflang: "en", href: "https://evil.example.com/en/blog/article-slug-en" },
     ]);
     render(<LanguageSwitcher current="it" />);
@@ -155,9 +161,9 @@ describe("LanguageSwitcher — SPRINT P0.14", () => {
   it("5. duplicate: deduplicate deterministicamente (prima occorrenza vince)", async () => {
     mockPathname = "/it/blog/articolo-slug-it";
     setHeadAlternates([
-      { hreflang: "en", href: "https://www.fitmesh.fit/en/blog/article-slug-en-PRIMO" },
-      { hreflang: "en", href: "https://www.fitmesh.fit/en/blog/article-slug-en-SECONDO" },
-      { hreflang: "it", href: "https://www.fitmesh.fit/it/blog/articolo-slug-it" },
+      { hreflang: "en", href: `${SITE_URL}/en/blog/article-slug-en-PRIMO` },
+      { hreflang: "en", href: `${SITE_URL}/en/blog/article-slug-en-SECONDO` },
+      { hreflang: "it", href: `${SITE_URL}/it/blog/articolo-slug-it` },
     ]);
     render(<LanguageSwitcher current="it" />);
     await waitFor(() => expect(document.head.querySelectorAll('link[rel="alternate"]').length).toBe(3));
@@ -182,8 +188,8 @@ describe("LanguageSwitcher — SPRINT P0.14", () => {
   it("7. pagina non-blog con alternate: usa gli alternate, non lo swap del prefisso", async () => {
     mockPathname = "/it/support";
     setHeadAlternates([
-      { hreflang: "it", href: "https://www.fitmesh.fit/it/support" },
-      { hreflang: "en", href: "https://www.fitmesh.fit/en/support" },
+      { hreflang: "it", href: `${SITE_URL}/it/support` },
+      { hreflang: "en", href: `${SITE_URL}/en/support` },
     ]);
     render(<LanguageSwitcher current="it" />);
     await waitFor(() => expect(document.head.querySelectorAll('link[rel="alternate"]').length).toBe(2));
@@ -208,8 +214,8 @@ describe("LanguageSwitcher — SPRINT P0.14", () => {
   it("9. soft navigation fra due post: al secondo post non restano le destinazioni del primo", async () => {
     mockPathname = "/it/blog/primo-articolo";
     setHeadAlternates([
-      { hreflang: "it", href: "https://www.fitmesh.fit/it/blog/primo-articolo" },
-      { hreflang: "en", href: "https://www.fitmesh.fit/en/blog/first-article" },
+      { hreflang: "it", href: `${SITE_URL}/it/blog/primo-articolo` },
+      { hreflang: "en", href: `${SITE_URL}/en/blog/first-article` },
     ]);
     const { rerender } = render(<LanguageSwitcher current="it" />);
     await waitFor(() => expect(document.head.querySelectorAll('link[rel="alternate"]').length).toBe(2));
@@ -219,8 +225,8 @@ describe("LanguageSwitcher — SPRINT P0.14", () => {
     // il nuovo pathname — stesso ordine qui.
     mockPathname = "/it/blog/secondo-articolo";
     setHeadAlternates([
-      { hreflang: "it", href: "https://www.fitmesh.fit/it/blog/secondo-articolo" },
-      { hreflang: "de", href: "https://www.fitmesh.fit/de/blog/zweiter-artikel" },
+      { hreflang: "it", href: `${SITE_URL}/it/blog/secondo-articolo` },
+      { hreflang: "de", href: `${SITE_URL}/de/blog/zweiter-artikel` },
     ]);
     rerender(<LanguageSwitcher current="it" />);
     await waitFor(() => expect(document.head.querySelector('link[hreflang="de"]')).not.toBeNull());

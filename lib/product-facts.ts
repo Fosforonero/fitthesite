@@ -34,10 +34,15 @@ import {
 } from "@/lib/pricing";
 import { APPLE_STORE_URL, APPLE_APP_ID, REDDIT_COMMUNITY_LIVE } from "@/lib/flags";
 import { PROVIDERS, type ProviderStatus } from "@/lib/providers/data";
+import { SITE_URL } from "@/lib/site-url";
 
 // ── Identità e URL canonici ────────────────────────────────────────────────
 
-export const SITE_URL = "https://www.fitmesh.fit";
+// Riesportata da lib/site-url.ts (SSOT, modulo client-safe minimale) — non
+// ridichiarata qui, per non avere due letterali "https://www.fitmesh.fit" da
+// tenere sincronizzati a mano. Tutti gli importer esistenti
+// (`from "@/lib/product-facts"`) restano invariati.
+export { SITE_URL };
 export const PRODUCT_NAME = "FitMesh Sync";
 
 export const ANDROID_PACKAGE = "com.fitmeshsync.app";
