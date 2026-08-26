@@ -1975,7 +1975,47 @@ export const PROVIDERS: Provider[] = [
       ja: "同期チェーン：OnePlus Watch/Band → OHealth → Health Connect → FitMesh。一般的な遅延は5〜15分です。FitMeshはHealth Connectから睡眠データを汎用的に読み取ります。OHealthが睡眠ステージ(浅い/深い/REM)も書き込む場合、FitMeshはそれを表示します。OnePlusは、OHealthがモデルごとにどの粒度でデータをエクスポートするかを公式には文書化していません。",
       ko: "동기화 체인: OnePlus Watch/Band → OHealth → Health Connect → FitMesh. 일반적인 지연 시간은 5-15분입니다. FitMesh는 Health Connect에서 수면 데이터를 범용적으로 읽습니다. OHealth가 수면 단계(얕은 수면/깊은 수면/REM)도 기록하면 FitMesh가 이를 표시합니다. OnePlus는 모델별로 OHealth가 내보내는 세분성을 공식적으로 문서화하지 않습니다.",
     },
-    dataTypes: STD_DATA_TYPES({ vo2max: false, spo2: true }),
+    // P0.15-A: override locale e minimale, SOLO per questo provider — non
+    // tocca STD_DATA_TYPES (usata da altri 15 provider, fuori scope).
+    // 1. Pill "sleep": la label condivisa "Sonno con fasi"/"Sleep with
+    //    stages" e' incondizionata e contraddice il copy corretto in P0.15
+    //    (FAQ/syncedData/technicalNotes, tutti condizionali: "se OHealth
+    //    scrive anche le fasi..."). La pill deve comunicare solo la
+    //    capacita' dimostrata (sonno, non le fasi); la condizione resta
+    //    nella prosa, dove puo' essere qualificata correttamente.
+    // 2. Pill "spo2": l'override esplicito a true non ha prova nella pagina
+    //    specifiche ufficiale OnePlus Watch 2 (sourcesBlock, fonte 1) — la
+    //    sezione "Sensors" elenca esplicitamente "Accelerometer, gyroscope,
+    //    optical heart rate sensor, geomagnetic sensor, light sensor,
+    //    barometer": NESSUN sensore SpO2/pulsossimetro. Riportato a false
+    //    (default STD_DATA_TYPES) per assenza di prova, non per prova di
+    //    assenza — vedi ledger, sezione "Pill dati supportati".
+    // steps/hr/calories/distance/workouts restano true: confermati dalla
+    // pagina prodotto generica OnePlus Health ("Record your daily activity,
+    // heart rate, sleep, and other data" + "Track your workout routes,
+    // steps, distance, and calories burned") e dalla pagina Watch 2 (GPS
+    // dual-frequency, optical heart rate sensor). vo2max resta false
+    // (nessuna menzione in nessuna fonte OnePlus).
+    dataTypes: STD_DATA_TYPES({ vo2max: false, spo2: false }).map((d) =>
+      d.key === "sleep"
+        ? {
+            ...d,
+            label: {
+              it: "Sonno",
+              en: "Sleep",
+              es: "Sueño",
+              de: "Schlaf",
+              pt: "Sono",
+              fr: "Sommeil",
+              pl: "Sen",
+              tr: "Uyku",
+              nl: "Slaap",
+              ja: "睡眠",
+              ko: "수면",
+            },
+          }
+        : d,
+    ),
     faqs: [
       {
         q: {
@@ -2183,6 +2223,11 @@ export const PROVIDERS: Provider[] = [
       // P0.15: la riga "sonno" era "durata totale e ora inizio/fine" —
       // corretto in forma condizionale, coerente con la FAQ #2 e con
       // technicalNotes (stessa fonte di verità, vedi commento sopra la FAQ).
+      // P0.15-A: rimossa la riga SpO₂ — nessuna prova di sensore SpO2 nella
+      // pagina specifiche ufficiale OnePlus Watch 2 (Sensors: accelerometer,
+      // gyroscope, optical heart rate sensor, geomagnetic sensor, light
+      // sensor, barometer — nessun pulsossimetro), coerente con dataTypes
+      // (spo2: false) sopra.
       syncedData: {
         it: [
           "Passi giornalieri",
@@ -2191,7 +2236,6 @@ export const PROVIDERS: Provider[] = [
           "Calorie attive e basali",
           "Distanza",
           "Allenamenti (tipo, durata, kcal)",
-          "SpO₂ notturno (se attivato su OnePlus Watch)",
         ],
         en: [
           "Daily steps",
@@ -2200,7 +2244,6 @@ export const PROVIDERS: Provider[] = [
           "Active and basal calories",
           "Distance",
           "Workouts (type, duration, kcal)",
-          "Overnight SpO₂ (if enabled on OnePlus Watch)",
         ],
         de: [
           "Tägliche Schritte",
@@ -2209,7 +2252,6 @@ export const PROVIDERS: Provider[] = [
           "Aktive und Grundumsatz-Kalorien",
           "Distanz",
           "Trainings (Typ, Dauer, kcal)",
-          "Nächtliches SpO₂ (wenn auf der OnePlus Watch aktiviert)",
         ],
         pt: [
           "Passos diários",
@@ -2218,7 +2260,6 @@ export const PROVIDERS: Provider[] = [
           "Calorias ativas e basais",
           "Distância",
           "Treinos (tipo, duração, kcal)",
-          "SpO₂ noturno (se ativado no OnePlus Watch)",
         ],
         fr: [
           "Pas quotidiens",
@@ -2227,7 +2268,6 @@ export const PROVIDERS: Provider[] = [
           "Calories actives et de base",
           "Distance",
           "Séances d'entraînement (type, durée, kcal)",
-          "SpO₂ nocturne (si activé sur le OnePlus Watch)",
         ],
         pl: [
           "Codzienne kroki",
@@ -2236,7 +2276,6 @@ export const PROVIDERS: Provider[] = [
           "Kalorie aktywne i podstawowe",
           "Dystans",
           "Treningi (typ, czas trwania, kcal)",
-          "Nocne SpO₂ (jeśli włączone na OnePlus Watch)",
         ],
         tr: [
           "Günlük adımlar",
@@ -2245,7 +2284,6 @@ export const PROVIDERS: Provider[] = [
           "Aktif ve bazal kalori",
           "Mesafe",
           "Antrenmanlar (tür, süre, kcal)",
-          "Gece SpO₂ (OnePlus Watch'ta etkinleştirilmişse)",
         ],
         nl: [
           "Dagelijkse stappen",
@@ -2254,7 +2292,6 @@ export const PROVIDERS: Provider[] = [
           "Actieve en basale calorieën",
           "Afstand",
           "Trainingen (type, duur, kcal)",
-          "Nachtelijke SpO₂ (indien ingeschakeld op de OnePlus Watch)",
         ],
         ja: [
           "日次歩数",
@@ -2263,7 +2300,6 @@ export const PROVIDERS: Provider[] = [
           "活動カロリーと基礎カロリー",
           "距離",
           "ワークアウト（種類、時間、kcal）",
-          "夜間SpO₂（OnePlus Watchで有効化されている場合）",
         ],
         ko: [
           "일별 걸음 수",
@@ -2272,7 +2308,6 @@ export const PROVIDERS: Provider[] = [
           "활동 칼로리 및 기초 칼로리",
           "거리",
           "운동(종류, 시간, kcal)",
-          "야간 SpO₂(OnePlus Watch에서 활성화된 경우)",
         ],
       },
       troubleshooting: [
@@ -2372,16 +2407,16 @@ export const PROVIDERS: Provider[] = [
             ko: "몇 주 이전 데이터가 보이지 않습니다",
           },
           a: {
-            it: "Health Connect mostra a una app appena collegata solo circa 30 giorni prima del momento in cui hai concesso il permesso, non 30 giorni da oggi. Se hai appena collegato FitMesh, lo storico precedente potrebbe non essere leggibile indipendentemente da cosa OHealth abbia registrato.",
-            en: "Health Connect only exposes to a newly-connected app roughly the last 30 days counted from the moment you granted the permission, not 30 days from today. If you just connected FitMesh, earlier history may not be readable regardless of what OHealth recorded.",
-            de: "Health Connect zeigt einer neu verbundenen App nur die letzten rund 30 Tage ab dem Zeitpunkt der Berechtigung, nicht 30 Tage ab heute. Wenn du FitMesh gerade erst verbunden hast, ist älterer Verlauf möglicherweise nicht lesbar, unabhängig davon, was OHealth aufgezeichnet hat.",
-            pt: "O Health Connect só disponibiliza a um app recém-conectado cerca dos últimos 30 dias a partir do momento em que concedeste a permissão, não 30 dias a partir de hoje. Se acabaste de conectar o FitMesh, o histórico anterior pode não estar legível, independentemente do que o OHealth tenha registado.",
-            fr: "Health Connect n'expose à une application tout juste connectée qu'environ les 30 derniers jours à partir du moment où vous avez accordé l'autorisation, pas 30 jours à partir d'aujourd'hui. Si vous venez de connecter FitMesh, l'historique antérieur peut ne pas être lisible, quel que soit ce qu'OHealth a enregistré.",
-            pl: "Health Connect udostępnia nowo połączonej aplikacji tylko około 30 ostatnich dni licząc od chwili przyznania uprawnienia, a nie 30 dni od dziś. Jeśli dopiero co połączyłeś FitMesh, wcześniejsza historia może być nieczytelna, niezależnie od tego, co zarejestrował OHealth.",
-            tr: "Health Connect, yeni bağlanan bir uygulamaya bugünden değil, izni verdiğin andan itibaren yaklaşık son 30 günü gösterir. FitMesh'i yeni bağladıysan, OHealth'in kaydettiklerinden bağımsız olarak daha eski geçmiş okunamayabilir.",
-            nl: "Health Connect toont een nieuw gekoppelde app alleen ongeveer de laatste 30 dagen vanaf het moment waarop je de toestemming hebt verleend, niet 30 dagen vanaf vandaag. Als je FitMesh net hebt gekoppeld, is oudere geschiedenis mogelijk niet leesbaar, ongeacht wat OHealth heeft geregistreerd.",
-            ja: "Health Connectは、新しく接続されたアプリに対して、今日から30日間ではなく、権限を許可した時点から遡っておよそ30日分のデータしか公開しません。FitMeshを接続したばかりの場合、OHealthが記録していた内容に関わらず、それ以前の履歴は読み取れないことがあります。",
-            ko: "Health Connect는 새로 연결된 앱에 오늘부터가 아니라 권한을 부여한 시점부터 약 30일 치 데이터만 제공합니다. FitMesh를 방금 연결했다면 OHealth가 기록한 내용과 상관없이 이전 기록은 읽을 수 없을 수 있습니다.",
+            it: "Senza il permesso speciale READ_HEALTH_DATA_HISTORY (che FitMesh non richiede nella release pubblica), Health Connect mostra a un'app appena connessa solo i dati dei 30 giorni precedenti la prima concessione del permesso, più i dati nuovi da quel momento in poi. Non è un limite di OnePlus: vale per qualsiasi fonte Health Connect. Se disinstalli e reinstalli concedendo di nuovo il permesso, il riferimento riparte dalla nuova data (fonte: documentazione ufficiale Android Health Connect).",
+            en: "Without the special READ_HEALTH_DATA_HISTORY permission (which FitMesh doesn't request in the public release), Health Connect only shows a newly-connected app the 30 days of data before the first time the permission was granted, plus new data from that point on. This isn't a OnePlus limit: it applies to any Health Connect source. If you uninstall and reinstall, granting the permission again, the reference restarts from the new date (source: official Android Health Connect documentation).",
+            de: "Ohne die spezielle Berechtigung READ_HEALTH_DATA_HISTORY (die FitMesh in der öffentlichen Version nicht anfordert) zeigt Health Connect einer neu verbundenen App nur die 30 Tage an Daten vor dem ersten Erteilen der Berechtigung an, plus neue Daten ab diesem Zeitpunkt. Das ist keine Einschränkung von OnePlus: Sie gilt für jede Health-Connect-Quelle. Wenn du deinstallierst und neu installierst und die Berechtigung erneut erteilst, beginnt der Bezug ab dem neuen Datum (Quelle: offizielle Android-Health-Connect-Dokumentation).",
+            pt: "Sem a permissão especial READ_HEALTH_DATA_HISTORY (que o FitMesh não solicita na versão pública), o Health Connect só mostra a um app recém-conectado os 30 dias de dados anteriores à primeira concessão da permissão, mais os dados novos a partir desse momento. Não é um limite da OnePlus: aplica-se a qualquer fonte do Health Connect. Se desinstalares e reinstalares, concedendo a permissão novamente, a referência reinicia a partir da nova data (fonte: documentação oficial do Android Health Connect).",
+            fr: "Sans l'autorisation spéciale READ_HEALTH_DATA_HISTORY (que FitMesh ne demande pas dans la version publique), Health Connect ne montre à une application tout juste connectée que les 30 jours de données précédant la première fois où l'autorisation a été accordée, plus les nouvelles données à partir de ce moment. Ce n'est pas une limite d'OnePlus : elle s'applique à toute source Health Connect. Si vous désinstallez puis réinstallez en accordant à nouveau l'autorisation, la référence repart de la nouvelle date (source : documentation officielle Android Health Connect).",
+            pl: "Bez specjalnego uprawnienia READ_HEALTH_DATA_HISTORY (którego FitMesh nie żąda w wersji publicznej), Health Connect pokazuje nowo połączonej aplikacji tylko 30 dni danych sprzed pierwszego przyznania uprawnienia, plus nowe dane od tego momentu. To nie jest ograniczenie OnePlus: dotyczy każdego źródła Health Connect. Jeśli odinstalujesz i zainstalujesz ponownie, przyznając uprawnienie od nowa, punkt odniesienia zaczyna się od nowej daty (źródło: oficjalna dokumentacja Android Health Connect).",
+            tr: "Özel READ_HEALTH_DATA_HISTORY izni olmadan (FitMesh bunu herkese açık sürümde istemez), Health Connect yeni bağlanan bir uygulamaya yalnızca iznin ilk verildiği andan önceki 30 günlük veriyi, artı o andan sonraki yeni verileri gösterir. Bu bir OnePlus sınırı değildir: herhangi bir Health Connect kaynağı için geçerlidir. Uygulamayı kaldırıp yeniden yükleyip izni tekrar verirsen, referans yeni tarihten itibaren yeniden başlar (kaynak: resmi Android Health Connect belgeleri).",
+            nl: "Zonder de speciale machtiging READ_HEALTH_DATA_HISTORY (die FitMesh in de publieke versie niet aanvraagt), toont Health Connect een nieuw gekoppelde app alleen de 30 dagen aan gegevens vóór het eerste moment waarop de machtiging werd verleend, plus nieuwe gegevens vanaf dat moment. Dit is geen beperking van OnePlus: het geldt voor elke Health Connect-bron. Als je verwijdert en opnieuw installeert en de machtiging opnieuw verleent, begint het referentiepunt vanaf de nieuwe datum (bron: officiële Android Health Connect-documentatie).",
+            ja: "特別な権限READ_HEALTH_DATA_HISTORYがない場合(FitMeshは公開版でこれを要求しません)、Health Connectは新しく接続されたアプリに対し、権限が最初に許可された時点より前の30日分のデータと、それ以降の新しいデータのみを表示します。これはOnePlusの制限ではなく、どのHealth Connectソースにも当てはまります。アンインストールして再インストールし、権限を再度許可した場合、基準日は新しい日付から再スタートします(出典:Android Health Connect公式ドキュメント)。",
+            ko: "특수 권한 READ_HEALTH_DATA_HISTORY가 없으면(FitMesh는 공개 버전에서 이 권한을 요청하지 않습니다), Health Connect는 새로 연결된 앱에 권한이 처음 부여된 시점 이전 30일 치 데이터와 그 이후의 새 데이터만 제공합니다. 이는 OnePlus의 제한이 아니라 모든 Health Connect 소스에 적용됩니다. 앱을 삭제 후 재설치하여 권한을 다시 부여하면 기준일은 새 날짜부터 다시 시작됩니다(출처: Android Health Connect 공식 문서).",
           },
         },
       ],
@@ -2414,18 +2449,20 @@ export const PROVIDERS: Provider[] = [
     // page.tsx). Vedi docs/seo/p015-oneplus-health-truth-ledger.md.
     editorialTemplateV2: true,
     verdict: {
+      // P0.15-A: rimosso "SpO2" (nessuna prova di sensore SpO2 nella pagina
+      // specifiche ufficiale OnePlus Watch 2 — vedi dataTypes sopra).
       worksIf: {
-        it: "Hai un OnePlus Watch o OnePlus Band collegato a OHealth sul telefono, usi Android 9 o successivo e vuoi vedere passi, sonno, frequenza cardiaca e SpO2 insieme agli altri dispositivi che usi, in un'unica dashboard.",
-        en: "You have a OnePlus Watch or OnePlus Band linked to OHealth on your phone, use Android 9 or later, and want to see steps, sleep, heart rate, and SpO2 alongside the other devices you use, in one dashboard.",
-        es: "Tienes un OnePlus Watch o OnePlus Band vinculado a OHealth en el teléfono, usas Android 9 o posterior y quieres ver pasos, sueño, frecuencia cardíaca y SpO2 junto con los demás dispositivos que usas, en un único panel.",
-        de: "Du hast eine OnePlus Watch oder ein OnePlus Band, die/das auf dem Telefon mit OHealth verbunden ist, nutzt Android 9 oder neuer und möchtest Schritte, Schlaf, Herzfrequenz und SpO2 zusammen mit deinen anderen Geräten in einem einzigen Dashboard sehen.",
-        pt: "Tens um OnePlus Watch ou OnePlus Band associado ao OHealth no telemóvel, usas Android 9 ou posterior e queres ver passos, sono, frequência cardíaca e SpO2 junto com os outros dispositivos que usas, num único dashboard.",
-        fr: "Vous avez une OnePlus Watch ou une OnePlus Band associée à OHealth sur votre téléphone, vous utilisez Android 9 ou une version ultérieure, et vous voulez voir les pas, le sommeil, la fréquence cardiaque et le SpO2 avec vos autres appareils, dans un tableau de bord unique.",
-        pl: "Masz OnePlus Watch lub OnePlus Band połączony z OHealth na telefonie, używasz Androida 9 lub nowszego i chcesz widzieć kroki, sen, tętno i SpO2 razem z innymi urządzeniami, których używasz, w jednym panelu.",
-        tr: "Telefonunda OHealth'e bağlı bir OnePlus Watch veya OnePlus Band'in varsa, Android 9 veya üzerini kullanıyorsan ve adım, uyku, kalp atış hızı ve SpO2 verilerini kullandığın diğer cihazlarla birlikte tek bir gösterge panelinde görmek istiyorsan.",
-        nl: "Je hebt een OnePlus Watch of OnePlus Band gekoppeld aan OHealth op je telefoon, gebruikt Android 9 of hoger en wilt stappen, slaap, hartslag en SpO2 samen met je andere apparaten in één dashboard zien.",
-        ja: "スマートフォン上でOHealthに連携したOnePlus WatchまたはOnePlus Bandを持っていて、Android 9以降を使用しており、歩数、睡眠、心拍数、SpO2を使っている他のデバイスと一緒に1つのダッシュボードで見たい場合。",
-        ko: "휴대폰에서 OHealth에 연결된 OnePlus Watch 또는 OnePlus Band를 사용하고, Android 9 이상을 사용하며, 걸음 수, 수면, 심박수, SpO2를 사용 중인 다른 기기들과 함께 하나의 대시보드에서 보고 싶은 경우.",
+        it: "Hai un OnePlus Watch o OnePlus Band collegato a OHealth sul telefono, usi Android 9 o successivo e vuoi vedere passi, sonno, frequenza cardiaca e calorie insieme agli altri dispositivi che usi, in un'unica dashboard.",
+        en: "You have a OnePlus Watch or OnePlus Band linked to OHealth on your phone, use Android 9 or later, and want to see steps, sleep, heart rate, and calories alongside the other devices you use, in one dashboard.",
+        es: "Tienes un OnePlus Watch o OnePlus Band vinculado a OHealth en el teléfono, usas Android 9 o posterior y quieres ver pasos, sueño, frecuencia cardíaca y calorías junto con los demás dispositivos que usas, en un único panel.",
+        de: "Du hast eine OnePlus Watch oder ein OnePlus Band, die/das auf dem Telefon mit OHealth verbunden ist, nutzt Android 9 oder neuer und möchtest Schritte, Schlaf, Herzfrequenz und Kalorien zusammen mit deinen anderen Geräten in einem einzigen Dashboard sehen.",
+        pt: "Tens um OnePlus Watch ou OnePlus Band associado ao OHealth no telemóvel, usas Android 9 ou posterior e queres ver passos, sono, frequência cardíaca e calorias junto com os outros dispositivos que usas, num único dashboard.",
+        fr: "Vous avez une OnePlus Watch ou une OnePlus Band associée à OHealth sur votre téléphone, vous utilisez Android 9 ou une version ultérieure, et vous voulez voir les pas, le sommeil, la fréquence cardiaque et les calories avec vos autres appareils, dans un tableau de bord unique.",
+        pl: "Masz OnePlus Watch lub OnePlus Band połączony z OHealth na telefonie, używasz Androida 9 lub nowszego i chcesz widzieć kroki, sen, tętno i kalorie razem z innymi urządzeniami, których używasz, w jednym panelu.",
+        tr: "Telefonunda OHealth'e bağlı bir OnePlus Watch veya OnePlus Band'in varsa, Android 9 veya üzerini kullanıyorsan ve adım, uyku, kalp atış hızı ve kalori verilerini kullandığın diğer cihazlarla birlikte tek bir gösterge panelinde görmek istiyorsan.",
+        nl: "Je hebt een OnePlus Watch of OnePlus Band gekoppeld aan OHealth op je telefoon, gebruikt Android 9 of hoger en wilt stappen, slaap, hartslag en calorieën samen met je andere apparaten in één dashboard zien.",
+        ja: "スマートフォン上でOHealthに連携したOnePlus WatchまたはOnePlus Bandを持っていて、Android 9以降を使用しており、歩数、睡眠、心拍数、カロリーを使っている他のデバイスと一緒に1つのダッシュボードで見たい場合。",
+        ko: "휴대폰에서 OHealth에 연결된 OnePlus Watch 또는 OnePlus Band를 사용하고, Android 9 이상을 사용하며, 걸음 수, 수면, 심박수, 칼로리를 사용 중인 다른 기기들과 함께 하나의 대시보드에서 보고 싶은 경우.",
       },
       skipIf: {
         it: "Ti basta OHealth da sola e non usi altri wearable insieme al tuo OnePlus, oppure ti serve una conferma garantita delle fasi del sonno: OnePlus non documenta pubblicamente se OHealth le scrive in Health Connect.",
@@ -2446,67 +2483,67 @@ export const PROVIDERS: Provider[] = [
         "OnePlus Watch o OnePlus Band collegato a OHealth sul telefono.",
         "OHealth richiede Android 8.0 o successivo con Google Play Services 23.45.23 o successivo (fonte: pagina specifiche ufficiale OnePlus Watch 2); Health Connect richiede Android 9 (API 28) o successivo ed è integrato di sistema da Android 14, altrimenti va installato dal Play Store.",
         "Autorizzazione Health Connect concessa a FitMesh per i tipi di dato che vuoi sincronizzare.",
-        "Storico leggibile: circa 30 giorni prima del momento in cui concedi il permesso, non 30 giorni da oggi.",
+        "Storico leggibile: senza il permesso speciale READ_HEALTH_DATA_HISTORY (che FitMesh non richiede nella release pubblica), Health Connect espone di default fino a 30 giorni di dati precedenti alla prima concessione del permesso, più i dati nuovi da quel momento in poi. Non è un limite specifico di OnePlus: vale per qualsiasi fonte Health Connect. Se disinstalli e reinstalli concedendo di nuovo il permesso, il riferimento dei 30 giorni riparte dalla nuova data (fonte: documentazione ufficiale Android Health Connect).",
       ],
       en: [
         "OnePlus Watch or OnePlus Band linked to OHealth on your phone.",
         "OHealth requires Android 8.0 or later with Google Play Services 23.45.23 or later (source: OnePlus Watch 2's official specs page); Health Connect itself requires Android 9 (API 28) or later and is a system module from Android 14, otherwise it's installed from the Play Store.",
         "Health Connect permission granted to FitMesh for the data types you want to sync.",
-        "Readable history: roughly 30 days before the moment you grant the permission, not 30 days from today.",
+        "Readable history: without the special READ_HEALTH_DATA_HISTORY permission (which FitMesh doesn't request in the public release), Health Connect exposes by default up to 30 days of data before the first time the permission is granted, plus new data from that point on. This isn't a OnePlus-specific limit: it applies to any Health Connect source. If you uninstall and reinstall, granting the permission again, the 30-day reference restarts from the new date (source: official Android Health Connect documentation).",
       ],
       es: [
         "OnePlus Watch o OnePlus Band vinculado a OHealth en el teléfono.",
         "OHealth requiere Android 8.0 o posterior con Google Play Services 23.45.23 o posterior (fuente: página de especificaciones oficial del OnePlus Watch 2); Health Connect en sí requiere Android 9 (API 28) o posterior y está integrado en el sistema desde Android 14, en versiones anteriores hay que instalarlo desde Play Store.",
         "Autorización de Health Connect concedida a FitMesh para los tipos de datos que quieras sincronizar.",
-        "Historial legible: aproximadamente 30 días antes del momento en que concedes el permiso, no 30 días desde hoy.",
+        "Historial legible: sin el permiso especial READ_HEALTH_DATA_HISTORY (que FitMesh no solicita en la versión pública), Health Connect expone por defecto hasta 30 días de datos anteriores a la primera vez que se concede el permiso, más los datos nuevos a partir de ese momento. No es un límite específico de OnePlus: se aplica a cualquier fuente de Health Connect. Si desinstalas y reinstalas, concediendo el permiso de nuevo, la referencia de 30 días se reinicia desde la nueva fecha (fuente: documentación oficial de Android Health Connect).",
       ],
       de: [
         "OnePlus Watch oder OnePlus Band, verbunden mit OHealth auf dem Telefon.",
         "OHealth benötigt Android 8.0 oder neuer mit Google Play Services 23.45.23 oder neuer (Quelle: offizielle Spezifikationsseite der OnePlus Watch 2); Health Connect selbst benötigt Android 9 (API 28) oder neuer und ist ab Android 14 fest ins System integriert, sonst wird es aus dem Play Store installiert.",
         "Health Connect-Berechtigung, die FitMesh für die gewünschten Datentypen erteilt wurde.",
-        "Lesbarer Verlauf: etwa 30 Tage vor dem Zeitpunkt, an dem du die Berechtigung erteilst, nicht 30 Tage ab heute.",
+        "Lesbarer Verlauf: Ohne die spezielle Berechtigung READ_HEALTH_DATA_HISTORY (die FitMesh in der öffentlichen Version nicht anfordert) zeigt Health Connect standardmäßig bis zu 30 Tage an Daten vor dem ersten Erteilen der Berechtigung an, plus neue Daten ab diesem Zeitpunkt. Das ist keine OnePlus-spezifische Einschränkung: Sie gilt für jede Health-Connect-Quelle. Wenn du deinstallierst und neu installierst und die Berechtigung erneut erteilst, beginnt der 30-Tage-Bezug ab dem neuen Datum (Quelle: offizielle Android-Health-Connect-Dokumentation).",
       ],
       pt: [
         "OnePlus Watch ou OnePlus Band associado ao OHealth no telemóvel.",
         "O OHealth exige Android 8.0 ou posterior com Google Play Services 23.45.23 ou posterior (fonte: página de especificações oficial do OnePlus Watch 2); o Health Connect em si exige Android 9 (API 28) ou posterior e está integrado no sistema a partir do Android 14, caso contrário é instalado a partir da Play Store.",
         "Autorização do Health Connect concedida ao FitMesh para os tipos de dados que queres sincronizar.",
-        "Histórico legível: cerca de 30 dias antes do momento em que concedes a permissão, não 30 dias a partir de hoje.",
+        "Histórico legível: sem a permissão especial READ_HEALTH_DATA_HISTORY (que o FitMesh não solicita na versão pública), o Health Connect expõe por padrão até 30 dias de dados anteriores à primeira concessão da permissão, mais os dados novos a partir desse momento. Não é um limite específico da OnePlus: aplica-se a qualquer fonte do Health Connect. Se desinstalares e reinstalares, concedendo a permissão novamente, a referência de 30 dias reinicia a partir da nova data (fonte: documentação oficial do Android Health Connect).",
       ],
       fr: [
         "OnePlus Watch ou OnePlus Band associée à OHealth sur le téléphone.",
         "OHealth nécessite Android 8.0 ou version ultérieure avec Google Play Services 23.45.23 ou version ultérieure (source : page de spécifications officielle de la OnePlus Watch 2) ; Health Connect lui-même nécessite Android 9 (API 28) ou version ultérieure et est intégré au système à partir d'Android 14, sinon il s'installe depuis le Play Store.",
         "Autorisation Health Connect accordée à FitMesh pour les types de données que vous voulez synchroniser.",
-        "Historique lisible : environ 30 jours avant le moment où vous accordez l'autorisation, pas 30 jours à partir d'aujourd'hui.",
+        "Historique lisible : sans l'autorisation spéciale READ_HEALTH_DATA_HISTORY (que FitMesh ne demande pas dans la version publique), Health Connect expose par défaut jusqu'à 30 jours de données antérieures à la première fois où l'autorisation est accordée, plus les nouvelles données à partir de ce moment. Ce n'est pas une limite spécifique à OnePlus : elle s'applique à toute source Health Connect. Si vous désinstallez puis réinstallez en accordant à nouveau l'autorisation, la référence de 30 jours repart de la nouvelle date (source : documentation officielle Android Health Connect).",
       ],
       pl: [
         "OnePlus Watch lub OnePlus Band połączony z OHealth na telefonie.",
         "OHealth wymaga Androida 8.0 lub nowszego z Usługami Google Play w wersji 23.45.23 lub nowszej (źródło: oficjalna strona specyfikacji OnePlus Watch 2); sam Health Connect wymaga Androida 9 (API 28) lub nowszego i jest zintegrowany z systemem od Androida 14, w przeciwnym razie trzeba go zainstalować z Play Store.",
         "Uprawnienie Health Connect przyznane FitMesh dla typów danych, które chcesz synchronizować.",
-        "Historia możliwa do odczytu: około 30 dni przed momentem, w którym udzielasz uprawnienia, a nie 30 dni od dziś.",
+        "Historia możliwa do odczytu: bez specjalnego uprawnienia READ_HEALTH_DATA_HISTORY (którego FitMesh nie żąda w wersji publicznej), Health Connect domyślnie udostępnia do 30 dni danych sprzed pierwszego przyznania uprawnienia, plus nowe dane od tego momentu. To nie jest ograniczenie specyficzne dla OnePlus: dotyczy każdego źródła Health Connect. Jeśli odinstalujesz i zainstalujesz ponownie, przyznając uprawnienie od nowa, punkt odniesienia 30 dni zaczyna się od nowej daty (źródło: oficjalna dokumentacja Android Health Connect).",
       ],
       tr: [
         "Telefondaki OHealth'e bağlı bir OnePlus Watch veya OnePlus Band.",
         "OHealth, Android 8.0 veya üzerini ve Google Play Hizmetleri 23.45.23 veya üzerini gerektirir (kaynak: OnePlus Watch 2'nin resmi teknik özellikler sayfası); Health Connect'in kendisi Android 9 (API 28) veya üzerini gerektirir ve Android 14'ten itibaren sisteme dahildir, aksi halde Play Store'dan kurulması gerekir.",
         "Senkronize etmek istediğin veri türleri için FitMesh'e verilmiş Health Connect izni.",
-        "Okunabilir geçmiş: bugünden değil, izni verdiğin andan geriye yaklaşık 30 gün.",
+        "Okunabilir geçmiş: özel READ_HEALTH_DATA_HISTORY izni olmadan (FitMesh bunu herkese açık sürümde istemez), Health Connect varsayılan olarak iznin ilk verildiği andan önceki en fazla 30 günlük veriyi, artı o andan sonraki yeni verileri gösterir. Bu OnePlus'a özgü bir sınır değildir: herhangi bir Health Connect kaynağı için geçerlidir. Uygulamayı kaldırıp yeniden yükleyip izni tekrar verirsen, 30 günlük referans yeni tarihten itibaren yeniden başlar (kaynak: resmi Android Health Connect belgeleri).",
       ],
       nl: [
         "OnePlus Watch of OnePlus Band gekoppeld aan OHealth op je telefoon.",
         "OHealth vereist Android 8.0 of hoger met Google Play-services 23.45.23 of hoger (bron: officiële specificatiepagina van de OnePlus Watch 2); Health Connect zelf vereist Android 9 (API 28) of hoger en is vanaf Android 14 in het systeem geïntegreerd, anders wordt het via de Play Store geïnstalleerd.",
         "Health Connect-toestemming verleend aan FitMesh voor de gegevenstypen die je wilt synchroniseren.",
-        "Leesbare geschiedenis: ongeveer 30 dagen vóór het moment waarop je de toestemming verleent, niet 30 dagen vanaf vandaag.",
+        "Leesbare geschiedenis: zonder de speciale machtiging READ_HEALTH_DATA_HISTORY (die FitMesh in de publieke versie niet aanvraagt), toont Health Connect standaard tot 30 dagen aan gegevens vóór het eerste moment waarop de machtiging wordt verleend, plus nieuwe gegevens vanaf dat moment. Dit is geen OnePlus-specifieke beperking: het geldt voor elke Health Connect-bron. Als je verwijdert en opnieuw installeert en de machtiging opnieuw verleent, begint het referentiepunt van 30 dagen vanaf de nieuwe datum (bron: officiële Android Health Connect-documentatie).",
       ],
       ja: [
         "スマートフォン上でOHealthに連携したOnePlus WatchまたはOnePlus Band。",
         "OHealthにはAndroid 8.0以降とGoogle Playサービス23.45.23以降が必要です(出典：OnePlus Watch 2の公式スペックページ)。Health Connect自体はAndroid 9(API 28)以降が必要で、Android 14からはシステムに統合されていますが、それ以前はPlay Storeからインストールする必要があります。",
         "同期したいデータの種類について、FitMeshにHealth Connectの権限を与えていること。",
-        "読み取れる履歴は、今日からではなく、許可を与えた時点からおよそ30日分です。",
+        "読み取れる履歴: 特別な権限READ_HEALTH_DATA_HISTORYがない場合(FitMeshは公開版でこれを要求しません)、Health Connectはデフォルトで、権限が最初に許可された時点より前の最大30日分のデータに加え、それ以降の新しいデータを公開します。これはOnePlus固有の制限ではなく、どのHealth Connectソースにも当てはまります。アンインストールして再インストールし、権限を再度許可した場合、30日間の基準日は新しい日付から再スタートします(出典:Android Health Connect公式ドキュメント)。",
       ],
       ko: [
         "휴대폰에서 OHealth에 연동된 OnePlus Watch 또는 OnePlus Band.",
         "OHealth는 Android 8.0 이상과 Google Play 서비스 23.45.23 이상이 필요합니다(출처: OnePlus Watch 2 공식 사양 페이지). Health Connect 자체는 Android 9(API 28) 이상이 필요하며 Android 14부터 시스템에 통합되어 있고, 그 이전 버전에서는 Play 스토어에서 설치해야 합니다.",
         "동기화하려는 데이터 유형에 대해 FitMesh에 부여된 Health Connect 권한.",
-        "읽을 수 있는 기록 범위: 오늘부터가 아니라 권한을 부여한 시점부터 약 30일입니다.",
+        "읽을 수 있는 기록: 특수 권한 READ_HEALTH_DATA_HISTORY가 없으면(FitMesh는 공개 버전에서 이 권한을 요청하지 않습니다), Health Connect는 기본적으로 권한이 처음 부여된 시점 이전의 최대 30일 치 데이터와 그 이후의 새 데이터를 제공합니다. 이는 OnePlus에만 해당하는 제한이 아니라 모든 Health Connect 소스에 적용됩니다. 앱을 삭제 후 재설치하여 권한을 다시 부여하면 30일 기준일은 새 날짜부터 다시 시작됩니다(출처: Android Health Connect 공식 문서).",
       ],
     },
     dataPath: {
@@ -2717,12 +2754,17 @@ export const PROVIDERS: Provider[] = [
         "여러 웨어러블을 함께 사용할 경우, FitMesh는 지표마다 하나의 대표 소스만 선택합니다. 두 기기의 걸음 수를 합산하지 않습니다.",
       ],
     },
+    // P0.15-A: aggiunta developer.android.com/.../read-data — fonte precisa
+    // per il comportamento READ_HEALTH_DATA_HISTORY/reinstallazione citato
+    // inline in requirements + troubleshooting (l'articolo support.google.com
+    // resta per il contesto generale di sincronizzazione, non lo sostituisce).
     sourcesBlock: {
       verifiedOn: "2026-08-26",
       sources: [
         "https://www.oneplus.com/us/oneplus-watch-2/specs",
         "https://developer.android.com/health-and-fitness/health-connect/features/sleep-sessions",
         "https://developer.android.com/health-and-fitness/health-connect",
+        "https://developer.android.com/health-and-fitness/health-connect/read-data",
         "https://support.google.com/android/answer/12201227?hl=en",
       ],
     },

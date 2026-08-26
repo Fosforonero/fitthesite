@@ -36,6 +36,19 @@
  * 12. (Strutturale) Una variante locale con fallback EN indicizzabile sotto
  *     un'altra locale (stessa fonte di verità di isProviderVariantIndexable,
  *     nessuna assunzione duplicata).
+ * 13. (Strutturale, P0.15-A) La pill "sleep" del provider risolto a runtime
+ *     NON deve coincidere con la label incondizionata condivisa da
+ *     STD_DATA_TYPES ("Sonno con fasi"/"Sleep with stages") — impedisce un
+ *     ritorno indiretto alla label bandita se in futuro qualcuno rimuove
+ *     l'override `.map()` e torna a `STD_DATA_TYPES(...)` nudo (quella
+ *     stringa non e' testo dentro il blocco oneplus-health, vive nella
+ *     funzione condivisa altrove nel file: un controllo per-riga come i
+ *     punti 1-9 non la vedrebbe mai, serve leggere il valore risolto).
+ * 14. (Strutturale, P0.15-A) La pill "spo2" del provider risolto a runtime
+ *     deve restare `supported: false` — nessuna prova di sensore SpO2 nella
+ *     pagina specifiche ufficiale OnePlus Watch 2 (Sensors: accelerometer,
+ *     gyroscope, optical heart rate sensor, geomagnetic sensor, light
+ *     sensor, barometer — nessun pulsossimetro).
  *
  * Uso (Docker, nessun runtime locale): npx tsx tools/check-oneplus-health-claims.ts
  */
@@ -205,6 +218,38 @@ if (!provider) {
   for (const lc of locales) {
     if (lc === "it" || lc === "en") continue;
     isProviderVariantIndexable(provider, lc);
+  }
+
+  // ── 13. Pill "sleep" risolta a runtime: mai la label incondizionata
+  // condivisa da STD_DATA_TYPES. Confronto sul VALORE risolto, non sul
+  // testo sorgente — l'unico modo di intercettare una rimozione silenziosa
+  // dell'override `.map()` (la stringa bandita non vive nel blocco
+  // oneplus-health, vive nella funzione condivisa altrove nel file).
+  const BANNED_SLEEP_LABEL: Record<string, string> = {
+    it: "Sonno con fasi",
+    en: "Sleep with stages",
+  };
+  const sleepType = provider.dataTypes.find((d) => d.key === "sleep");
+  if (!sleepType) {
+    errors.push('[sleep-pill-assente] nessun dataType con key "sleep" trovato per oneplus-health');
+  } else {
+    for (const [lc, banned] of Object.entries(BANNED_SLEEP_LABEL)) {
+      const actual = (sleepType.label as Record<string, string | undefined>)[lc];
+      if (actual === banned) {
+        errors.push(
+          `[sleep-pill-label-incondizionata] label.${lc} = "${actual}" — identica al default condiviso STD_DATA_TYPES, l'override P0.15-A e' stato rimosso o bypassato`,
+        );
+      }
+    }
+  }
+
+  // ── 14. Pill "spo2" risolta a runtime: deve restare non supportata —
+  // nessuna prova di sensore SpO2 nella fonte ufficiale OnePlus Watch 2.
+  const spo2Type = provider.dataTypes.find((d) => d.key === "spo2");
+  if (spo2Type?.supported === true) {
+    errors.push(
+      '[spo2-senza-prova] dataTypes "spo2".supported è tornato a true senza una fonte ufficiale che confermi il sensore su OnePlus Watch/Band (vedi commento P0.15-A sopra dataTypes)',
+    );
   }
 }
 
