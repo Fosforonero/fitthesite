@@ -33,6 +33,20 @@ import path from "node:path";
 const RADICE = path.resolve(__dirname, "..");
 const CONF = path.join(RADICE, "tools", "perimetro-suite.conf");
 
+/**
+ * MODALITA' RELEASE (INFRA-5B).
+ *
+ * In locale `pnpm test` puo' saltare i test contro il database: dichiara il
+ * motivo e va bene cosi'. In un gate di release no: uno skip ambientale li'
+ * significa che sei test non sono stati eseguiti, e un verde che non dice
+ * quante cose ha guardato puo' averne guardate zero.
+ *
+ * Qui il bersaglio e' obbligatorio, gli skip ambientali sono rossi, e gli
+ * unici skip tollerati sono quelli DICHIARATI in perimetro-suite.conf con il
+ * loro motivo.
+ */
+const RELEASE = process.argv.includes("--release");
+
 let uscita = 0;
 const ok = (m: string) => console.log(`  ok     ${m}`);
 const rosso = (m: string) => {
@@ -40,16 +54,25 @@ const rosso = (m: string) => {
   uscita = 1;
 };
 
-function leggiConf(): { file: number; test: number; saltati: number } {
+type Conf = { file: number; test: number; saltati: number; skipAutorizzati: string[] };
+
+function leggiConf(): Conf {
   const testo = readFileSync(CONF, "utf8");
+  const righe = testo.split("\n");
   const num = (chiave: string) => {
-    const riga = testo.split("\n").find((l) => l.startsWith(`${chiave}=`));
+    const riga = righe.find((l) => l.startsWith(`${chiave}=`));
     if (!riga) throw new Error(`manca '${chiave}=' in ${CONF}`);
     const v = Number(riga.slice(chiave.length + 1).trim());
     if (!Number.isInteger(v) || v < 0) throw new Error(`'${chiave}' non e' un intero: ${riga}`);
     return v;
   };
-  return { file: num("file"), test: num("test"), saltati: num("saltati") };
+  const skipAutorizzati = righe
+    .filter((l) => l.startsWith("skip_autorizzato="))
+    .map((l) => l.slice("skip_autorizzato=".length).trim())
+    .filter(Boolean);
+  return RELEASE
+    ? { file: num("file"), test: num("test_release"), saltati: num("saltati_release"), skipAutorizzati }
+    : { file: num("file"), test: num("test"), saltati: num("saltati"), skipAutorizzati };
 }
 
 /** Elenco derivato dal catalogo di git, non dichiarato a mano. */
@@ -61,7 +84,13 @@ function attesiDaGit(): string[] {
   return out.split("\n").map((r) => r.trim()).filter(Boolean).sort();
 }
 
-type Raccolta = { file: string[]; casi: number; saltati: number; esito: number };
+type Raccolta = {
+  file: string[];
+  casi: number;
+  saltati: number;
+  saltatiPerFile: Map<string, number>;
+  esito: number;
+};
 
 /**
  * Si usa il RAPPORTO DELL'ESECUZIONE, non `vitest list`.
@@ -92,7 +121,16 @@ function raccoltaDaVitest(): Raccolta {
         "--reporter=json",
         `--outputFile=${rapporto}`,
       ],
-      { cwd: RADICE, encoding: "utf8", maxBuffer: 256 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"] },
+      {
+        cwd: RADICE,
+        encoding: "utf8",
+        maxBuffer: 256 * 1024 * 1024,
+        stdio: ["ignore", "pipe", "pipe"],
+        // RICHIEDI_DB=1 trasforma in FALLIMENTO il salto silenzioso dei test
+        // contro il database (vedi test/legacy-189/vendored.test.ts): in
+        // release, «il container non risponde» non e' una scusa.
+        env: RELEASE ? { ...process.env, RICHIEDI_DB: "1" } : process.env,
+      },
     );
   } catch (e) {
     // L'esito si cattura QUI, prima di qualunque lettura: un rosso della suite
@@ -113,11 +151,14 @@ function raccoltaDaVitest(): Raccolta {
     ),
   ].sort();
   const casi = risultati.reduce((n, r) => n + (r.assertionResults?.length ?? 0), 0);
-  const saltati = risultati.reduce(
-    (n, r) => n + (r.assertionResults ?? []).filter((a) => a.status === "pending" || a.status === "skipped").length,
-    0,
-  );
-  return { file, casi, saltati, esito };
+  const perFile = new Map<string, number>();
+  for (const r of risultati) {
+    const nome = r.name ? (path.isAbsolute(r.name) ? path.relative(RADICE, r.name) : r.name) : "?";
+    const n = (r.assertionResults ?? []).filter((a) => a.status === "pending" || a.status === "skipped").length;
+    if (n > 0) perFile.set(nome, (perFile.get(nome) ?? 0) + n);
+  }
+  const saltati = [...perFile.values()].reduce((a, b) => a + b, 0);
+  return { file, casi, saltati, saltatiPerFile: perFile, esito };
 }
 
 /** Estratta per poterla vedere fallire: vedi il controllo positivo. */
@@ -197,6 +238,37 @@ function verifica(): Raccolta {
   } else {
     ok(`file al numero congelato (${atteso.file})`);
   }
+  if (RELEASE) {
+    const cid = process.env.SUPABASE_DB_CONTAINER ?? "";
+    const dbn = process.env.SUPABASE_DB_NAME ?? "";
+    if (!cid || !dbn) {
+      rosso(
+        "modalita' release senza bersaglio: servono SUPABASE_DB_CONTAINER e " +
+          "SUPABASE_DB_NAME. Senza, i sei test contro il database si salterebbero " +
+          "e il gate direbbe verde su una suite incompleta.",
+      );
+    } else if (/supabase_db|prod|production|live|fitmesh_db/i.test(cid) || /supabase_db|prod|production|live|fitmesh_db/i.test(dbn)) {
+      rosso(`bersaglio non isolato: container="${cid}" database="${dbn}"`);
+    } else {
+      ok(`bersaglio isolato dichiarato: container="${cid}" database="${dbn}"`);
+    }
+
+    // Ogni salto va giustificato per NOME DI FILE. Un file non dichiarato che
+    // salta e' uno skip ambientale, e in release e' rosso.
+    const ambientali = [...raccolta.saltatiPerFile.entries()].filter(
+      ([f]) => !atteso.skipAutorizzati.includes(f),
+    );
+    if (ambientali.length > 0) {
+      rosso(`${ambientali.length} file hanno skip AMBIENTALI (non autorizzati in perimetro-suite.conf):`);
+      ambientali.forEach(([f, n]) => console.log(`         ${f}: ${n} test saltati`));
+    } else {
+      ok("zero skip ambientali: tutti i salti sono fra quelli dichiarati e motivati");
+    }
+    for (const [f, n] of raccolta.saltatiPerFile) {
+      if (atteso.skipAutorizzati.includes(f)) console.log(`         skip autorizzato: ${f} (${n})`);
+    }
+  }
+
   if (raccolta.saltati !== atteso.saltati) {
     rosso(
       `test saltati ${raccolta.saltati}, congelati ${atteso.saltati}. ` +
@@ -302,17 +374,17 @@ function controlloPositivo(): number {
   }
 }
 
-const modo = process.argv[2] ?? "";
+const modo = (process.argv[2] ?? "") === "--release" ? (process.argv[3] ?? "") : (process.argv[2] ?? "");
 if (modo === "--controllo-positivo") {
   const e = controlloPositivo();
   console.log();
   if (e === 0 && !process.exitCode) console.log("VERDE: il perimetro esclude cio' che deve e raccoglie cio' che deve.");
   process.exit(e || process.exitCode || 0);
-} else if (modo) {
-  console.log("uso: tsx tools/check-perimetro-suite.ts [--controllo-positivo]");
+} else if (modo && modo !== "--release") {
+  console.log("uso: tsx tools/check-perimetro-suite.ts [--release] [--controllo-positivo]");
   process.exit(2);
 } else {
-  console.log("== perimetro della suite vitest ==");
+  console.log(`== perimetro della suite vitest${RELEASE ? " — MODALITA' RELEASE" : ""} ==`);
   verifica();
   console.log();
   console.log(uscita === 0 ? "VERDE: perimetro conforme." : "ROSSO: perimetro non conforme.");

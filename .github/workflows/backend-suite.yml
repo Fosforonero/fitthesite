@@ -1,0 +1,148 @@
+# ============================================================================
+# CI BACKEND — perimetro, tipi e suite completa su un PG17 EFFIMERO.
+#
+# COSA NON FA, ed e' la parte importante
+# --------------------------------------
+# Non distribuisce niente. Nessun deploy Vercel, nessun `next build`, nessun
+# upload di artefatti, nessun artefatto di rilascio. I permessi del token sono
+# di sola lettura. Il database e' un container creato e distrutto qui dentro:
+# ne' il Supabase condiviso ne' quello live vengono mai toccati — la guardia in
+# supabase/tests/bersaglio.sh rifiuta per nome qualunque bersaglio che assomigli
+# al condiviso o alla produzione, e pretende una sentinella che solo il harness
+# di test sa creare.
+#
+# PERCHE' ESISTE
+# --------------
+# Fino al 26/08/2026 nessuna CI eseguiva questa suite: `fitthesite/.github/`
+# conteneva un solo workflow, che non lancia i test. E' la stessa forma del
+# difetto trovato sul lato app, dove il workflow Flutter puntava a una
+# directory con zero file tracciati e quindi non partiva mai. Una suite che
+# nessuno esegue non e' un cancello.
+#
+# IL GATE VERO E' UNO SCRIPT, NON QUESTO FILE
+# -------------------------------------------
+# `tools/gate-release-suite.sh` fa tutto: costruisce il PG17, applica le 122
+# migration, crea la sentinella, esegue la suite in modalita' release (zero
+# skip ambientali) e distrugge il database verificando che sia sparito. Lo
+# stesso comando si lancia in locale. Se la CI e' rossa e il locale e' verde,
+# la differenza sta nell'ambiente e si cerca li', invece di indovinare.
+# ============================================================================
+name: Backend — perimetro, tipi e suite
+
+on:
+  pull_request:
+    paths: &percorsi
+      - "app/**"
+      - "components/**"
+      - "lib/**"
+      - "test/**"
+      - "tools/**"
+      - "supabase/**"
+      - "middleware.ts"
+      - "middleware.matcher.test.ts"
+      - "suite-scope.test.ts"
+      - "vitest.config.ts"
+      - "vitest.setup.ts"
+      - "tsconfig.json"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/backend-suite.yml"
+  push:
+    branches:
+      - "integra/**"
+      - "preservazione/**"
+      - "hotfix/**"
+    paths: *percorsi
+
+# Sola lettura: questo workflow non deve poter scrivere niente, da nessuna parte.
+permissions:
+  contents: read
+
+concurrency:
+  group: backend-suite-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  suite:
+    name: Perimetro, tipi e suite su PG17 effimero
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # Il bersaglio e' dichiarato QUI, una volta, e non ha valori di ripiego
+      # da nessun'altra parte. Nomi deliberatamente lontani da qualunque cosa
+      # somigli al condiviso: la guardia li rifiuterebbe comunque per nome.
+      CONT_NAME: pg17-ci-effimero
+      SUPABASE_DB_CONTAINER: pg17-ci-effimero
+      SUPABASE_DB_NAME: ricostruzione
+      COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node congelato (.nvmrc)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: pnpm congelato (packageManager di package.json)
+        run: |
+          set -euo pipefail
+          atteso="$(node -p "require('./package.json').packageManager")"
+          echo "packageManager dichiarato: ${atteso}"
+          corepack enable
+          corepack prepare "${atteso}" --activate
+          effettivo="pnpm@$(pnpm --version)"
+          if [ "${effettivo}" != "${atteso}" ]; then
+            echo "ROSSO: pnpm ${effettivo}, atteso ${atteso}."
+            exit 1
+          fi
+          echo "pnpm ${effettivo}, come dichiarato"
+
+      - name: Dipendenze dal lockfile
+        run: pnpm install --frozen-lockfile
+
+      - name: TypeScript
+        # Niente lint: in questo repository ESLint non e' installato ne'
+        # configurato (`next lint` chiederebbe di configurarlo, in modo
+        # interattivo). Introdurlo e' una decisione a se', con il suo arretrato.
+        run: npx tsc --noEmit
+
+      - name: Il bersaglio non e' mai il Supabase condiviso
+        run: |
+          set -euo pipefail
+          for v in "${SUPABASE_DB_CONTAINER}" "${SUPABASE_DB_NAME}"; do
+            case "$v" in
+              *supabase_db*|*prod*|*production*|*live*|*fitmesh_db*)
+                echo "ROSSO: bersaglio vietato «${v}»."; exit 1 ;;
+            esac
+          done
+          echo "bersaglio: ${SUPABASE_DB_CONTAINER}/${SUPABASE_DB_NAME}"
+
+      - name: Gate di release — PG17 effimero, migration, sentinella, suite
+        # Un solo comando, lo stesso che si lancia in locale. Costruisce il
+        # database, applica la catena, crea la sentinella, esegue la suite in
+        # modalita' release (zero skip ambientali, i sei test contro il
+        # database eseguiti davvero) e verifica il conteggio congelato di file
+        # e test. Fallisce su zero test, su deriva, su skip ambientali e su
+        # bersaglio non isolato.
+        run: bash tools/gate-release-suite.sh --costruisci
+
+      - name: Pulizia, sempre
+        if: always()
+        run: |
+          docker rm -f "${CONT_NAME}" >/dev/null 2>&1 || true
+          rimasti="$(docker ps -aq -f "name=^${CONT_NAME}$" | wc -l | tr -d ' ')"
+          echo "container residui con quel nome: ${rimasti}"
+          if [ "${rimasti}" != "0" ]; then
+            echo "ROSSO: il container effimero e' sopravvissuto."
+            exit 1
+          fi
+
+      - name: Referto
+        if: always()
+        run: |
+          echo "node:  $(node --version)"
+          echo "pnpm:  $(pnpm --version)"
+          echo "gate:  tools/gate-release-suite.sh"
+          echo "deploy: nessuno. Questo workflow non distribuisce e non carica artefatti."
