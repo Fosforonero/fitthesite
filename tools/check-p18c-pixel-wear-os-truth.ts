@@ -225,11 +225,34 @@ if (!/iosDisabled=\{!platforms\.includes\("ios"\)\}/.test(pageSrc)) {
   errors.push('[cta-platform-aware-regresso] sync/[provider]/page.tsx: il blocco "CTA dopo la matrice" non calcola più iosDisabled da platforms — rischio di mostrare il pulsante App Store su un blocco Android-only.');
 }
 
+// ── 12. seoTitle renderizzato ≤ 60 caratteri (blog/[slug]/page.tsx
+// concatena sempre " · FitMesh", +10 caratteri) — bug reale trovato in
+// QA browser Playwright durante questo stesso sprint: una prima stesura
+// di seoTitle.en contava solo la stringa base (57) e ignorava il
+// suffisso, arrivando a 67 caratteri renderizzati. Scope volutamente
+// limitato ai 2 post di questo sprint (non un audit sitewide dei 65
+// post, fuori mandato qui).
+const TITLE_SUFFIX = " · FitMesh";
+for (const rel of MAIN_SCOPE_FILES) {
+  const src = fs.readFileSync(path.join(repoRoot, rel), "utf8");
+  const seoTitleMatch = src.match(/seoTitle:\s*\{([^}]*)\}/s);
+  if (!seoTitleMatch) continue;
+  const localeStringRe = /(\w+):\s*"((?:[^"\\]|\\.)*)"/g;
+  let m: RegExpExecArray | null;
+  while ((m = localeStringRe.exec(seoTitleMatch[1]))) {
+    const [, lc, value] = m;
+    const rendered = value.replace(/\\"/g, '"').length + TITLE_SUFFIX.length;
+    if (rendered > 60) {
+      errors.push(`[seotitle-troppo-lungo] ${rel} seoTitle.${lc}: ${rendered} caratteri renderizzati (con " · FitMesh") — oltre il limite di 60.`);
+    }
+  }
+}
+
 if (errors.length > 0) {
   console.error(`❌ P1.8C guardrail (Pixel Watch / Wear OS / articolo API): ${errors.length} problemi.\n`);
   for (const e of errors) console.error("  " + e);
   process.exit(1);
 }
 console.log(
-  "✅ P1.8C guardrail: nessuna regressione su Galaxy-Watch-in-Pixel/token-corrotto-sitewide(con 4 debiti pre-esistenti tracciati fuori perimetro)/roadmap-OAuth-Fitbit-falsa/tempo-assoluto/overclaim-tutti-i-dati/Fitbit-Web-API-non-distinta/tachicardia-come-metrica/KVKK-RODO/Pixel-Zamanlayici/Pixel-Watch-5-presente/CTA-platform-aware.",
+  "✅ P1.8C guardrail: nessuna regressione su Galaxy-Watch-in-Pixel/token-corrotto-sitewide(con 4 debiti pre-esistenti tracciati fuori perimetro)/roadmap-OAuth-Fitbit-falsa/tempo-assoluto/overclaim-tutti-i-dati/Fitbit-Web-API-non-distinta/tachicardia-come-metrica/KVKK-RODO/Pixel-Zamanlayici/Pixel-Watch-5-presente/CTA-platform-aware/seoTitle-renderizzato-60c.",
 );

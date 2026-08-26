@@ -254,7 +254,15 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // /en/self-host — vedi tabella di build). Non una regressione: la pagina
 // stessa era gia' stata aggiunta nel commit P0.11 precedente a questo
 // addendum, la baseline qui sotto era semplicemente rimasta indietro.
-const DYNAMIC_ROUTES_BASELINE = 58;
+// 58 -> 59 (scoperto durante il gate FASE 10 P1.8C, 26/08/2026, NON causato
+// da questo sprint): nuova /[locale]/prova-scaduta (filone "prova-scaduta"
+// chiuso prima di P1.8C — vedi git log, commit tra c2d687f e b8dc4e1).
+// Qualunque pagina sotto /[locale]/ conta come "route dinamica" in questo
+// manifest per via del solo segmento [locale], anche se e' interamente
+// statica: la baseline era rimasta indietro di una pagina, non un
+// regresso di questo sprint (verificato: `git diff origin/main --name-status`
+// di questo sprint non aggiunge ne' rimuove nessun page.tsx/route.ts).
+const DYNAMIC_ROUTES_BASELINE = 59;
 if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
   errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
 } else {

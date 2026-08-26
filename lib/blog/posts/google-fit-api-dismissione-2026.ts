@@ -107,11 +107,15 @@ export const post: BlogPost = {
   // varianti, tutte a CTR 0%, posizione ~6-10): il title precedente non
   // menzionava mai "Health Connect", presente nel meta description ma non
   // nel <title> renderizzato. H1 (hero.title.en), slug e publishedAt
-  // invariati. Prima: "Google Fit API deprecation 2026: how to migrate"
-  // (47 caratteri). Dopo: 57 caratteri, resta descrittivo, non assoluto,
-  // non clickbait.
+  // invariati. Conteggio sul <title> RENDERIZZATO (blog/[slug]/page.tsx
+  // concatena sempre " · FitMesh", +10 caratteri — trovato in QA
+  // browser Playwright dopo una prima stesura che contava solo la
+  // stringa base ed eccedeva i 60 caratteri renderizzati). Prima:
+  // "Google Fit API deprecation 2026: how to migrate · FitMesh" (57
+  // renderizzati). Dopo: 57 renderizzati (stesso budget), aggiunge
+  // "Health Connect" restando descrittivo, non assoluto, non clickbait.
   seoTitle: {
-    en: "Google Fit API Deprecation 2026: Health Connect Migration",
+    en: "Google Fit API Deprecation 2026: Health Connect",
   },
   metaDescription: {
     it: "Le API di Google Fit chiudono entro fine 2026 (nessun giorno esatto pubblicato): cosa cambia, come si distinguono Health Connect, Google Health API e Health Services, e come FitMesh Sync aiuta a unire i tuoi wearable in un unico pannello.",
