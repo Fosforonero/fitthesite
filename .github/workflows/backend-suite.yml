@@ -30,8 +30,15 @@
 name: Backend — perimetro, tipi e suite
 
 on:
+  # Niente ancore YAML (&x / *x): GitHub Actions non le supporta ufficialmente,
+  # e il 26/08/2026 un push che toccava SOLO questo file non ha prodotto nessun
+  # run mentre push precedenti l'avevano fatto. L'elenco e' ripetuto due volte
+  # di proposito: due liste identiche e visibili valgono piu' di una lista sola
+  # che a volte non viene risolta. `test/ci-backend.test.ts` verifica che
+  # restino uguali.
+  workflow_dispatch:
   pull_request:
-    paths: &percorsi
+    paths:
       - "app/**"
       - "components/**"
       - "lib/**"
@@ -46,14 +53,30 @@ on:
       - "tsconfig.json"
       - "package.json"
       - "pnpm-lock.yaml"
+      - ".nvmrc"
       - ".github/workflows/backend-suite.yml"
   push:
     branches:
       - "integra/**"
       - "preservazione/**"
       - "hotfix/**"
-    paths: *percorsi
-
+    paths:
+      - "app/**"
+      - "components/**"
+      - "lib/**"
+      - "test/**"
+      - "tools/**"
+      - "supabase/**"
+      - "middleware.ts"
+      - "middleware.matcher.test.ts"
+      - "suite-scope.test.ts"
+      - "vitest.config.ts"
+      - "vitest.setup.ts"
+      - "tsconfig.json"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".nvmrc"
+      - ".github/workflows/backend-suite.yml"
 # Sola lettura: questo workflow non deve poter scrivere niente, da nessuna parte.
 permissions:
   contents: read

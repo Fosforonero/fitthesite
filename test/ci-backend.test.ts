@@ -80,6 +80,19 @@ describe("CI backend", () => {
     expect(wf).toContain("corepack prepare");
   });
 
+  it("non usa ancore YAML, e le due liste di percorsi restano identiche", () => {
+    // GitHub Actions non supporta ufficialmente le ancore YAML. Il 26/08/2026
+    // un push che toccava SOLO il workflow non ha prodotto nessun run, mentre
+    // push precedenti l'avevano fatto: il filtro `paths` scritto con un alias
+    // non veniva risolto. Le due liste sono ripetute per esteso, e questo test
+    // impedisce che divergano in silenzio — che e' il prezzo della ripetizione.
+    expect(wfAttivo, "ancora YAML nel workflow").not.toMatch(/^\s*\w+:\s*&\w/m);
+    expect(wfAttivo, "alias YAML nel workflow").not.toMatch(/:\s*\*\w+\s*$/m);
+    const liste = [...wfAttivo.matchAll(/paths:\n((?:\s+- ".*"\n)+)/g)].map((m) => m[1]);
+    expect(liste, "attese due liste di percorsi (pull_request e push)").toHaveLength(2);
+    expect(liste[0]).toBe(liste[1]);
+  });
+
   it("controllo positivo: queste asserzioni sanno guardare il file giusto", () => {
     // Se il file fosse vuoto o fosse un altro, i `toContain` qui sopra
     // fallirebbero tutti; se cercassi una stringa mai esistita, passerebbero
