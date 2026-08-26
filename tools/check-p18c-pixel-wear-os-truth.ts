@@ -187,15 +187,18 @@ if (!/Pixel\s*Watch\s*5/.test(articleSrc)) {
 }
 
 // ── 2. Token corrotto }}; / }};; — SITEWIDE, con allowlist esatto ────────
-// Le 4 righe seguenti sono debito PRE-ESISTENTE trovato durante l'audit
-// P1.8C ma FUORI dal suo perimetro (amazfit-zepp, fitbit, colmi-ring,
-// apple-health — mai pixel-watch/wear-os). Confronto per contenuto
-// ESATTO: qualunque modifica a queste righe (anche solo per riformattarle)
-// toglie l'esenzione e il check torna a fallire finche' non e' un fix vero.
+// MICRO-GATE P1.8C-A: delle 4 righe pre-esistenti fuori perimetro trovate
+// nell'audit P1.8C originale, 3 sono state verificate (isProviderVariantIndexable
+// = true, PL pubblico e indicizzabile) e corrette con revisione semantica
+// completa (non solo rimozione del token) — amazfit-zepp, fitbit, colmi-ring.
+// Debito ora a ZERO per queste tre. Resta allowlistata SOLO apple-health:
+// isProviderVariantIndexable(appleHealth, "pl") = false — tagline/longDesc
+// non hanno affatto una chiave "pl" (mancano del tutto, non solo questa FAQ),
+// quindi l'intera variante PL e' gia' noindex indipendentemente da questo
+// token. Per mandato del micro-gate: "documenta la prova ma non sbloccarla"
+// — non fixata qui, ma tracciata per confronto ESATTO cosi' una modifica
+// futura a questa riga richiede una decisione consapevole.
 const KNOWN_PRE_EXISTING_CORRUPTED_TOKENS = new Set<string>([
-  '          pl: "FitMesh importuje dane etapów snu (ciemne, głębokie, REM) z device Amazfit poprzez Health Connect. Punkty PAI (Osobisty Indeks Aktywności) są własnością Zepp i nie są dostępne w Health Connect ani w FitMesh. Kroki, }};",',
-  '          pl: "Przez Health Connect, FitMesh importuje kroki, }};",',
-  '          pl: "FitMesh czyta kroki, }};",',
   '          pl: "Tak. Gdy zainstalujesz FitMesh na swoim iPhone z dostępem do Apple Health, on odczyta wszystkie dane wykryte przez Twoje Apple Watch – w tym pętle aktywności, }};",',
 ]);
 const CORRUPTED_TOKEN_TARGETS = [
@@ -212,6 +215,11 @@ for (const rel of CORRUPTED_TOKEN_TARGETS) {
   const lines = fs.readFileSync(full, "utf8").split("\n");
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
+    // MICRO-GATE P1.8C-A: un commento che CITA il pattern (es. per
+    // documentare un fix, come questo stesso file fa) non e' una
+    // corruzione — trovato come falso positivo su se stesso quando i
+    // commenti dei fix PL hanno iniziato a menzionare "}};" come esempio.
+    if (line.trim().startsWith("//")) continue;
     if (!line.includes("}};")) continue;
     if (KNOWN_PRE_EXISTING_CORRUPTED_TOKENS.has(line)) continue; // debito tracciato, non di questo sprint
     errors.push(`[token-corrotto] ${rel}:${i + 1}: contiene "}};" o "}};;" dentro una stringa — token di template rotto, frase probabilmente troncata.`);
@@ -254,5 +262,5 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  "✅ P1.8C guardrail: nessuna regressione su Galaxy-Watch-in-Pixel/token-corrotto-sitewide(con 4 debiti pre-esistenti tracciati fuori perimetro)/roadmap-OAuth-Fitbit-falsa/tempo-assoluto/overclaim-tutti-i-dati/Fitbit-Web-API-non-distinta/tachicardia-come-metrica/KVKK-RODO/Pixel-Zamanlayici/Pixel-Watch-5-presente/CTA-platform-aware/seoTitle-renderizzato-60c.",
+  "✅ P1.8C guardrail: nessuna regressione su Galaxy-Watch-in-Pixel/token-corrotto-sitewide (debito 25/08 su amazfit-zepp/fitbit/colmi-ring corretto in micro-gate P1.8C-A, resta 1 solo debito tracciato fuori perimetro su apple-health, PL non indicizzabile)/roadmap-OAuth-Fitbit-falsa/tempo-assoluto/overclaim-tutti-i-dati/Fitbit-Web-API-non-distinta/tachicardia-come-metrica/KVKK-RODO/Pixel-Zamanlayici/Pixel-Watch-5-presente/CTA-platform-aware/seoTitle-renderizzato-60c.",
 );

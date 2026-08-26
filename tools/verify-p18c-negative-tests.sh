@@ -117,6 +117,23 @@ else
   FAIL=$((FAIL+1))
 fi
 
+# 7. MICRO-GATE P1.8C-A: debito zero su amazfit-zepp/fitbit/colmi-ring dopo
+#    il fix — un regresso del token corrotto su uno di questi 3 provider
+#    (ora RIMOSSI dall'allowlist) deve tornare a fallire il guardrail,
+#    non essere silenziosamente coperto da una vecchia esenzione.
+run_case \
+  "Regresso token corrotto su colmi-ring (rimosso dall'allowlist nel fix P1.8C-A)" \
+  "lib/providers/data.ts" \
+  'python3 -c "
+p = \"lib/providers/data.ts\"
+s = open(p, encoding=\"utf-8\").read()
+old = \"FitMesh odczytuje z Colmi Ring kroki, tętno\"
+new = \"FitMesh odczytuje z Colmi Ring kroki, \" + chr(125)+chr(125)+chr(59) + \" tętno\"
+assert old in s, \"marker non trovato\"
+open(p, \"w\", encoding=\"utf-8\").write(s.replace(old, new, 1))
+"' \
+  "npx tsx tools/check-p18c-pixel-wear-os-truth.ts"
+
 echo ""
 echo "════════════════════════════════════════"
 echo "Negative test P1.8C: $PASS scenario(i) FAIL→ripristino→PASS corretti, $FAIL problemi."

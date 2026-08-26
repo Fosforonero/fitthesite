@@ -2472,7 +2472,14 @@ export const PROVIDERS: Provider[] = [
           de: "FitMesh importiert Schlafphasendaten (leichter, tief, REM) von Amazfit über Health Connect. Die PAI (Personal Activity Intelligence)-Punktzahl ist urheberrechtlich geschützt und verfügbar in Health Connect oder FitMesh. Schritte, Herzrate, Kalorien und Trainingsdaten werden vollständig unterstützt.",
           pt: "O FitMesh importa os dados de fases de sono (leve, profunda, REM) do Amazfit pelo meio do Health Connect. A pontuação PAI (Personal Activity Intelligence) é propriedade do Zepp e não está disponível no Health Connect ou no FitMesh. Passos, frequência cardíaca, calorias e treinos são totalmente suportados.",
           fr: "FitMesh importe les données des stades du sommeil (légers, profonds, REM) depuis l'Amazfit via Health Connect. Le PAI (Intelligence Activité Personnelle) est une propriété de Zepp et n'est pas disponible dans Health Connect ou FitMesh. Les pas, la fréquence cardiaque, les calories brûlées et les entraînements sont entièrement pris en charge.",
-          pl: "FitMesh importuje dane etapów snu (ciemne, głębokie, REM) z device Amazfit poprzez Health Connect. Punkty PAI (Osobisty Indeks Aktywności) są własnością Zepp i nie są dostępne w Health Connect ani w FitMesh. Kroki, }};",
+          // MICRO-GATE P1.8C-A: era troncato a meta' frase da un token di template rotto
+          // (chiusura di interpolazione rimasta nel testo pubblico) e
+          // "ciemne" traduceva erroneamente "leggero"
+          // (light sleep) con "scuro/buio" — corretto sul significato delle
+          // altre locale (leggero/deep/REM, Passi/battito/calorie/allenamenti
+          // completamente supportati). PL indicizzabile e pubblico
+          // (isProviderVariantIndexable=true), verificato prima del fix.
+          pl: "FitMesh importuje dane o fazach snu (lekki, głęboki, REM) z Twojego urządzenia Amazfit przez Health Connect. Wskaźnik PAI (Personal Activity Intelligence) należy do aplikacji Zepp i nie jest dostępny w Health Connect ani w FitMesh. Kroki, tętno, spalone kalorie i treningi są w pełni obsługiwane.",
           tr: "FitMesh, Amazfit'ten Zepp aracılığıyla Health Connect'den gelen uyku aşamalarını (sıcak, derin, REN) alır. PAI (Kişisel Eylem İletişimi) puanı Zepp'ın sahibi bir bilgi tipidir ve Health Connect'te veya FitMesh'te mevcut değildir. Adım, kalp atış hızı, kalori ve egzersizler tam olarak desteklenmektedir.",
           nl: "FitMesh importeert slaapfasegegevens (licht, diep, REM) van Amazfit via Health Connect. De PAI (Persoonlijke Activiteitsintelligentie) score is eigenaar van Zepp en is niet beschikbaar in Health Connect of FitMesh. Stappen, hartslag, calorieën en trainingen zijn volledig ondersteund.",
           ja: "FitMeshはHealth Connectを通じてAmazfitから睡眠ステージデータ（浅い睡眠、深い睡眠、REM）をインポートします。PAI（Personal Activity Intelligence）スコアはZeppの所有権にあるため、Health ConnectまたはFitMeshでは利用できません。歩数、心拍数、カロリー、およびワークアウトは完全に対応しています。",
@@ -2995,7 +3002,10 @@ export const PROVIDERS: Provider[] = [
           de: "Über Health Connect importiert FitMesh über Health Connect Schritte, Herzfrequenz, aktive Kalorien, Schlafphasen, Entfernung und Workouts aus Fitbit. Wenn die direkte OAuth-Integration verfügbar ist, wird FitMesh auch Zugriff auf HRV, Stress-Management-Score, Tagesbereitschaft und feinere Daten haben.",
           pt: "Por meio da Conectividade de Saúde, o FitMesh importa passos, frequência cardíaca, calorias ativas, fases do sono, distância e treinos do Fitbit. Quando a integração OAuth nativa for lançada, o FitMesh também terá acesso a HRV, Ponto de Gerenciamento de Estresse Diário, Prontidão Diária e dados mais detalhados.",
           fr: "Via Health Connect, FitMesh importe les pas, le taux cardiaque, les calories brûlées actives, les phases du sommeil, la distance et les entraînements à partir de Fitbit. Lorsque l'intégration OAuth directe sera lancée, FitMesh pourra également accéder à l'HRV, au Score de Gestion du Stress, à la Prêt quotidien et à des données plus fines.",
-          pl: "Przez Health Connect, FitMesh importuje kroki, }};",
+          // MICRO-GATE P1.8C-A: era troncato a meta' frase da un token di template rotto (chiusura di interpolazione rimasta nel testo pubblico) — completato
+          // sul significato delle altre locale. PL indicizzabile e
+          // pubblico, verificato prima del fix.
+          pl: "Przez Health Connect FitMesh importuje z Fitbit kroki, tętno, aktywne kalorie, fazy snu, dystans i treningi. Gdy zostanie uruchomiona bezpośrednia integracja OAuth, FitMesh będzie mógł uzyskać dostęp również do HRV, wskaźnika zarządzania stresem, gotowości dziennej i bardziej szczegółowych danych.",
           tr: "Health Connect üzerinden, Fitmesh adımları, kalp atış hızı, aktif kaloriler, uyku dörtlüğü, mesafe ve egzersizleri imported ediyor. Doğrudan OAuth entegrasyonu açıklandığında, Fitmesh ayrıca HRV, Stres Yönetimi Puanı, Günlük Hazırlık gibi daha ayrıntılı verilere erişim de sağlayacaktır.",
           nl: "Via Health Connect importeert FitMesh stappen, hartslag, actieve calorieën, slaapfasen, afstand en trainingen van Fitbit. Met de directe OAuth-integratie zal FitMesh ook toegang hebben tot HRV, Stress Management Score, Daily Readiness en fijnere data.",
           ja: "Health Connect経由で、FitMeshはFitbitからステップ数、心拍数、アクティブカロリー、睡眠ステージ、距離、およびワークアウトデータをインポートします。直接のOAuth統合がリリースされると、FitMeshはHRV、ストレス管理スコア、Daily Readiness、およびより詳細なデータにもアクセスできるようになります。",
@@ -6446,7 +6456,10 @@ export const PROVIDERS: Provider[] = [
           de: "FitMesh liest Schritte, Herzfrequenz, SpO₂ (Sauerstoffgehalt im Blut), Schlafphasen (leicht, tief, REM, aufgewacht), Kalorien und Stressindex vom Colmi Ring. HRV (RMSSD) ist auch verfügbar. Hinweis: Hauttemperatur steht derzeit nicht zur Verfügung bei aktuellen Colmi Hardwaremodellen.",
           pt: "O FitMesh lê passos, frequência cardíaca, SpO₂ (oxigênio sanguíneo), fases do sono (leve, profundo, REM, acordado), calorias e índice de estresse do Colmi Ring. HRV (RMSSD) também está disponível. Observação: a temperatura cutânea não está disponível no hardware atual do Colmi Ring.",
           fr: "FitMesh lit les pas, la fréquence cardiaque, SpO₂ (oxygène dans le sang), les stades du sommeil (léger, profond, REM, éveillé), les calories et l'indice de stress à partir du Colmi Ring. HRV (RMSSD) est également disponible. Note : la température cutanée n'est pas disponible sur les appareils Colmi actuels.",
-          pl: "FitMesh czyta kroki, }};",
+          // MICRO-GATE P1.8C-A: era troncato a meta' frase da un token di template rotto (chiusura di interpolazione rimasta nel testo pubblico) — completato
+          // sul significato delle altre locale. PL indicizzabile e
+          // pubblico, verificato prima del fix.
+          pl: "FitMesh odczytuje z Colmi Ring kroki, tętno, SpO₂ (utlenowanie krwi), fazy snu (lekki, głęboki, REM, czuwanie), kalorie i wskaźnik stresu. Dostępne jest również HRV (RMSSD). Uwaga: temperatura skóry nie jest obecnie dostępna w bieżącym sprzęcie Colmi.",
           tr: "FitMesh, adımlar, kalp hızı, SpO₂ (sütun damar akisi), uyku seviyeleri (beyaz, derin, REM, uyan), kalori ve stres indeksini okuyar. HRV (RMSSD) de mevcuttur. Dikkat: kütlesi güncel Colmi cihazlarda bulunmamaktadır.",
           nl: "FitMesh leest stapjes, hartslag, SpO₂ (bloedzuurstof), slaapfasen (licht, diep, REM, wakker), kalorien en stressindex af vanuit de Colmi Ring. HRV (RMSSD) is ook beschikbaar. Let op: huidstemperatuur is momenteel niet beschikbaar op het Colmi hardware.",
           ja: "FitMeshは、ステップ数、心拍数、SpO₂（血液酸素）、睡眠ステージ（浅い睡眠、深い睡眠、レム睡眠、覚醒）、カロリー、ストレス指数をColmi Ringから読み取ります。HRV（RMSSD）も利用可能です。注意：現在のColmiハードウェアでは皮膚温度は利用できません。",
