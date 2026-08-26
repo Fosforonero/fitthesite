@@ -44,11 +44,35 @@
  *     stringa non e' testo dentro il blocco oneplus-health, vive nella
  *     funzione condivisa altrove nel file: un controllo per-riga come i
  *     punti 1-9 non la vedrebbe mai, serve leggere il valore risolto).
- * 14. (Strutturale, P0.15-A) La pill "spo2" del provider risolto a runtime
- *     deve restare `supported: false` — nessuna prova di sensore SpO2 nella
- *     pagina specifiche ufficiale OnePlus Watch 2 (Sensors: accelerometer,
- *     gyroscope, optical heart rate sensor, geomagnetic sensor, light
- *     sensor, barometer — nessun pulsossimetro).
+ * 14. (Strutturale, MICRO-GATE P0.15-B — RETTIFICATA) La pill "spo2" deve
+ *     restare `supported: true`: il Watch 2 ha un pulsossimetro reale
+ *     (pagina /global/oneplus-watch-2/specs, sourcesBlock fonte 1;
+ *     corroborato da recensioni indipendenti). Il valore P0.15-A precedente
+ *     (`false`) era una conclusione errata basata su una fonte incompleta
+ *     (/us/, la cui sezione Sensors omette il pulsossimetro) — vedi
+ *     docs/seo/p015-oneplus-health-truth-ledger.md, sezione RETTIFICA.
+ * 15. (Strutturale, P0.15-B) Ogni pill con `supported: true` (tranne
+ *     "vo2max", gestita a parte dal punto 16) deve portare
+ *     `status: "conditional"` — nessuna fonte ufficiale conferma il passo
+ *     "C" (OHealth scrive su Health Connect) per NESSUNA metrica OnePlus,
+ *     solo un annuncio generico e non qualificato dell'integrazione. Un
+ *     valore `true` senza `status: "conditional"` ripeterebbe l'errore
+ *     originale: il dispositivo misura non implica che OHealth esporti.
+ * 16. (Strutturale, P0.15-B) La pill "vo2max" deve restare
+ *     `supported: false`, SENZA condizionale: qui il passo "D" fallisce in
+ *     modo assoluto (il plugin Flutter "health" 13.1.4 non espone
+ *     `HealthDataType.VO2_MAX`, verificato in health_repository.dart — un
+ *     limite del motore di lettura, non un fatto su OnePlus).
+ * 17. (P0.15-B) Negazione assoluta del sensore SpO2/pulsossimetro del
+ *     dispositivo ("OnePlus Watch 2 non ha un pulsossimetro" e varianti) —
+ *     il claim retrattato da questo micro-gate: il sensore esiste
+ *     (pagina /global/specs, recensioni indipendenti).
+ * 18. (P0.15-B) "OnePlus non documenta le fasi del sonno" in senso
+ *     ASSOLUTO (senza nominare l'esportazione/Health Connect/OHealth
+ *     scrive vicino al claim) — falso: OnePlus documenta le fasi come
+ *     funzione di prodotto (specs page). Cio' che non documenta e' SE/COME
+ *     OHealth le esporta su Health Connect: quel claim piu' preciso resta
+ *     permesso.
  *
  * Uso (Docker, nessun runtime locale): npx tsx tools/check-oneplus-health-claims.ts
  */
@@ -109,7 +133,7 @@ lines.forEach((line, i) => {
 // docs/seo/p015-oneplus-health-truth-ledger.md), non solo "se/if".
 const SLEEP_STAGE_TERMS = /fasi del sonno|sleep stages?|fases del sue[nñ]o|schlafphasen|fases do sono|phases de sommeil|stades de sommeil|fazy snu|uyku evreleri|uyku a[şs]amalar[ıi]|slaapfasen|slapenfases|睡眠ステージ|수면 단계/i;
 const CONDITIONAL_NEARBY =
-  /\bse\b|\bif\b|\bsi\b|\bwenn\b|\bsofern\b|\bjeśli\b|\bjesli\b|\byazarsa\b|\bals\b|\bwanneer\b|\bquando\b|\bwhen\b|\bcuando\b|\bquand\b|\bgdy\b|\bdipend|\bdepend|\bdoku?ment|documenta|documente|documenteert|belge|dokumentiert|文書化|문서화|とき|場合|때|하면|non ha codice|has no.{0,20}code|specific.{0,20}code|nessun.{0,20}codice|non esiste una verifica|there'?s no per-model|no per-model|non garantisc|doesn'?t guarantee/i;
+  /\bse\b|\bif\b|\bsi\b|\bwenn\b|\bsofern\b|\bjeśli\b|\bjesli\b|\byazarsa\b|\bals\b|\bwanneer\b|\bquando\b|\bwhen\b|\bcuando\b|\bquand\b|\bgdy\b|\bdipend|\bdepend|\bhängt\b|\bdépend|\bbağlı|\bhangt\b|\bzależy\b|\bdoku?ment|documenta|documente|documenteert|belge|dokumentiert|文書化|문서화|とき|場合|때|하면|によって異なる|異なります|다릅니다|따라 다름|non ha codice|has no.{0,20}code|specific.{0,20}code|nessun.{0,20}codice|non esiste una verifica|there'?s no per-model|no per-model|non garantisc|doesn'?t guarantee/i;
 lines.forEach((line, i) => {
   if (isCommentLine(line)) return;
   if (line.includes("?")) return; // domanda FAQ, non un'affermazione
@@ -117,6 +141,39 @@ lines.forEach((line, i) => {
   if (!CONDITIONAL_NEARBY.test(line)) {
     errors.push(`[sleep-stages-non-condizionato] riga ${i + 1}: "${line.trim().slice(0, 160)}"`);
   }
+});
+
+// ── 17. (P0.15-B) Negazione assoluta del sensore SpO2/pulsossimetro ──────
+// Il claim retrattato: il Watch 2 HA un pulsossimetro reale (pagina
+// /global/specs, sourcesBlock fonte 1). Copre IT/EN più le varianti piu'
+// probabili nelle altre lingue di questo sprint.
+const DEVICE_SPO2_NEGATION =
+  /non ha (?:un |alcun )?(?:pulsossimetro|sensore (?:di )?(?:spo2|spo₂|ossigeno))|nessun (?:sensore )?(?:pulsossimetro|spo2|spo₂)|does(?:n'?t| not) have (?:a |any )?(?:pulse oximeter|spo2 sensor|spo₂ sensor|blood oxygen sensor)|(?:has |with )?no pulse oximeter|lacks? (?:a |an )?pulse oximeter|kein(?:en)? pulsoximeter|sans pulsoxym[eè]tre|sem oxímetro|pulsossimetro assente/i;
+lines.forEach((line, i) => {
+  if (isCommentLine(line)) return;
+  if (DEVICE_SPO2_NEGATION.test(line)) {
+    errors.push(`[spo2-negazione-dispositivo] riga ${i + 1}: "${line.trim().slice(0, 160)}"`);
+  }
+});
+
+// ── 18. (P0.15-B) "OnePlus non documenta le fasi del sonno" ASSOLUTO ─────
+// Falso: OnePlus documenta le fasi come funzione di prodotto (specs page).
+// Il claim corretto e piu' preciso — "non documenta SE/COME OHealth le
+// esporta su Health Connect" — resta permesso: fallisce solo quando la
+// negazione compare SENZA alcun riferimento vicino all'esportazione/
+// Health Connect/scrittura, cioe' quando suona come "la funzione non e'
+// documentata" invece di "l'esportazione non e' documentata".
+const DOC_NEGATION =
+  /non documenta|doesn'?t document|does not document|nie dokumentuje|ne documente pas|dokumentiert.{0,20}nicht|não documenta|belgelemez|documenteert niet/i;
+const EXPORT_QUALIFIER_NEARBY =
+  /esport|export|health connect|scrive|writes?\b|dettagli|detail|granularit|schreibt|écrit|grava|yazar|schrijft|zapisuje|pisze/i;
+lines.forEach((line, i) => {
+  if (isCommentLine(line)) return;
+  if (line.includes("?")) return;
+  if (!SLEEP_STAGE_TERMS.test(line)) return;
+  if (!DOC_NEGATION.test(line)) return;
+  if (EXPORT_QUALIFIER_NEARBY.test(line)) return; // qualificato correttamente sull'esportazione
+  errors.push(`[fasi-sonno-non-documentate-assoluto] riga ${i + 1}: "${line.trim().slice(0, 160)}"`);
 });
 
 // ── 3. Bidirezionalità non dimostrata (FitMesh scrive su Health Connect) ─
@@ -243,12 +300,41 @@ if (!provider) {
     }
   }
 
-  // ── 14. Pill "spo2" risolta a runtime: deve restare non supportata —
-  // nessuna prova di sensore SpO2 nella fonte ufficiale OnePlus Watch 2.
+  // ── 14. (RETTIFICATA P0.15-B) Pill "spo2" risolta a runtime: deve
+  // restare supported:true — il Watch 2 ha un pulsossimetro reale (pagina
+  // /global/specs, sourcesBlock fonte 1; corroborato da recensioni
+  // indipendenti). Il valore P0.15-A (false) era una conclusione errata
+  // basata sulla pagina /us/, la cui sezione Sensors omette il
+  // pulsossimetro — vedi ledger, sezione RETTIFICA.
   const spo2Type = provider.dataTypes.find((d) => d.key === "spo2");
-  if (spo2Type?.supported === true) {
+  if (spo2Type?.supported !== true) {
     errors.push(
-      '[spo2-senza-prova] dataTypes "spo2".supported è tornato a true senza una fonte ufficiale che confermi il sensore su OnePlus Watch/Band (vedi commento P0.15-A sopra dataTypes)',
+      '[spo2-falsa-negazione] dataTypes "spo2".supported non e\' true: il Watch 2 ha un pulsossimetro reale, vedi ledger sezione RETTIFICA P0.15-B (non ripetere l\'errore basato sulla fonte /us/ incompleta)',
+    );
+  }
+
+  // ── 15. (P0.15-B) Ogni pill supported:true (tranne "vo2max", vedi 16)
+  // deve portare status:"conditional" — nessuna fonte ufficiale conferma
+  // il passo "C" (OHealth scrive su Health Connect) per NESSUNA metrica
+  // OnePlus. Un `true` senza "conditional" ripeterebbe l'errore originale:
+  // dispositivo-misura non implica OHealth-esporta.
+  for (const d of provider.dataTypes) {
+    if (d.key === "vo2max") continue;
+    if (d.supported === true && d.status !== "conditional") {
+      errors.push(
+        `[pill-supported-senza-condizionale] dataTypes."${d.key}".supported=true ma status non e' "conditional" — nessuna fonte ufficiale conferma il passo C (OHealth scrive su Health Connect) per questa metrica`,
+      );
+    }
+  }
+
+  // ── 16. (P0.15-B) La pill "vo2max" deve restare supported:false, SENZA
+  // condizionale: qui il passo "D" fallisce in modo assoluto (il plugin
+  // Flutter "health" 13.1.4 non espone HealthDataType.VO2_MAX, verificato
+  // in health_repository.dart — limite del motore, non fatto su OnePlus).
+  const vo2maxType = provider.dataTypes.find((d) => d.key === "vo2max");
+  if (vo2maxType?.supported !== false) {
+    errors.push(
+      '[vo2max-supportato-senza-prova] dataTypes "vo2max".supported deve restare false: il plugin health 13.1.4 non espone VO2_MAX, indipendentemente dalla fonte',
     );
   }
 }

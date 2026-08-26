@@ -72,3 +72,66 @@ Codice FitMesh letto in **due alberi**, entrambi allo stesso commit del wrapper 
 - Non è stato possibile confermare via fonte ufficiale OnePlus/OPPO se OHealth scriva effettivamente `SleepSessionRecord.Stage` (vs. solo il totale) per il Watch 2/2R/Band — dichiarato esplicitamente **non verificabile** nel copy corretto, non risolto con un'affermazione in un senso o nell'altro.
 - Non è stato possibile determinare se `com.oneplus.health.international` ("OnePlus Health") e `com.heytap.health.international` (OHealth) siano lo stesso prodotto sotto due nomi regionali o due app distinte — irrilevante per i claim corretti (nessuno dipendeva da questa distinzione), segnalato come nota per un futuro sprint se necessario.
 - Il bug INC-HC-WRITE-01 (scrittura Android one-shot) è confermato nel codice ma il suo piano di correzione è privato: questo sprint **non lo tocca** (FUORI SCOPE esplicito "modifiche all'app") e lo cita solo come prova a supporto del divieto di claim bidirezionali.
+
+## RETTIFICA MICRO-GATE P0.15-B (26/08/2026)
+
+Una review esterna alla PR #60 ha identificato un **errore fattuale nuovo**, introdotto dal micro-gate P0.15-A dello stesso giorno: la conclusione "OnePlus Watch 2 non ha alcun pulsossimetro" (usata per riportare `dataTypes.spo2.supported` a `false`) è **falsa**. Questa sezione documenta la causa, la correzione e la matrice di verifica più rigorosa (A/B/C/D) applicata a tutte le pill per evitare che lo stesso errore si ripeta su altre metriche.
+
+### La conclusione errata e la sua causa
+
+P0.15-A si basava su un'unica fonte: `https://www.oneplus.com/us/oneplus-watch-2/specs` (pagina di mercato USA), la cui sezione "Sensors" elenca "Accelerometer, gyroscope, optical heart rate sensor, geomagnetic sensor, light sensor, barometer" — **nessun pulsossimetro**. Due fetch separati di quella stessa pagina, in momenti diversi, hanno riprodotto la stessa assenza: non un errore di estrazione dello strumento, ma una pagina di mercato genuinamente incompleta rispetto ad altre pagine dello stesso prodotto:
+
+- `https://www.oneplus.com/global/oneplus-watch-2/specs` elenca esplicitamente **"optical pulse oximeter"** nei Sensors, più "Blood oxygen monitoring: single point, all day" e "Sleep stages (deep, light, REM, waking) ... blood oxygen" nella sezione sonno.
+- `https://www.oneplus.com/by/oneplus-watch-2/specs` (la pagina citata dalla review) riporta lo stesso elenco.
+- `https://www.oneplus.com/global/oneplus-watch-2` (pagina prodotto) cita "VO2 Max, Heart Rate, and SpO2 (blood oxygen level)".
+- Recensioni indipendenti corroborano il sensore fisico: *"The OnePlus Watch 2 does pack an SpO2 sensor, which measured in line with my Apple Watch Ultra 2"* (Android Central, recensione OnePlus Watch 2).
+
+**Lezione**: una dichiarazione di ASSENZA ("il dispositivo non ha X") basata su un'unica pagina regionale ufficiale non è prova sufficiente — richiede una verifica incrociata su almeno un secondo mercato e una fonte indipendente prima di essere pubblicata. `sourcesBlock` ora cita `/global/oneplus-watch-2/specs` al posto di `/us/`.
+
+### Il problema era più ampio: la matrice A/B/C/D
+
+La review ha rilevato che la stessa conflazione logica (il dispositivo misura ⇒ OHealth lo esporta su Health Connect) era già presente nelle altre 5 pill dichiarate "confermate" da P0.15-A (passi, frequenza cardiaca, calorie, distanza, allenamenti): nessuna fonte ufficiale conferma, per NESSUNA metrica specifica, che OHealth la scriva su Health Connect. L'unica conferma ufficiale è generica e non qualificata per metrica: *"OHealth app supports Google Health Connect service"* (oneplus.com/global/specs) e il comunicato OnePlus al MWC 2024 (*"OnePlus Watch 2 and the OHealth app now support Health Connect by Android"*, senza elenco dati).
+
+Per rendere la verifica sistematica e ripetibile, ogni metrica è stata valutata su 4 livelli distinti:
+
+- **A** — il dispositivo la misura (fonte: pagine prodotto/specifiche ufficiali OnePlus).
+- **B** — OHealth la mostra nella propria app (fonte: descrizione Play Store, marketing ufficiale).
+- **C** — OHealth la SCRIVE su Health Connect (fonte richiesta: annuncio/documentazione ufficiale per QUESTA metrica).
+- **D** — FitMesh la legge da Health Connect (fonte: `health_repository.dart`, generico, nessun codice OnePlus-specifico — verificato su v3.9.8+189).
+
+Una pill può dichiararsi sincronizzata OnePlus→FitMesh solo se C e D sono entrambi provati. Risultato: **C non è mai provato per nessuna metrica**.
+
+| Metrica | A (misura) | B (mostra in OHealth) | C (OHealth scrive su HC) | D (FitMesh legge) | Stato pill risultante |
+|---|---|---|---|---|---|
+| Passi | ✅ oneplus.com | ✅ Play Store ("tracks your daily activities") | ❌ nessuna fonte per metrica | ✅ `STEPS` | conditional |
+| Frequenza cardiaca | ✅ oneplus.com (sensore ottico) | ✅ Play Store ("all-day heart rate monitoring") | ❌ nessuna fonte per metrica | ✅ `HEART_RATE` | conditional |
+| Sonno (totale) | ✅ oneplus.com | ✅ Play Store ("tracks your sleep") | ❌ nessuna fonte per metrica | ✅ `SLEEP_ASLEEP` | conditional (label pill: "Sonno") |
+| Fasi del sonno | ✅ oneplus.com/global/specs ("Sleep stages: deep, light, REM, waking") | ✅ stessa fonte, funzione di prodotto | ❌ nessuna fonte ufficiale (vedi nota terzi sotto) | ✅ `SLEEP_REM/DEEP/LIGHT/AWAKE` se la fonte li scrive | conditional (nessuna label dedicata: "fasi" resta nella prosa, condizionale) |
+| Calorie | ✅ oneplus.com | plausibile ("daily activities"), non citata esplicitamente | ❌ nessuna fonte per metrica | ✅ `ACTIVE_ENERGY_BURNED`/`TOTAL_CALORIES_BURNED` | conditional |
+| Distanza | ✅ oneplus.com (pagina prodotto OnePlus Health) | — | ❌ nessuna fonte per metrica | ✅ `DISTANCE_DELTA` | conditional (label pill: "Distanza", non più "Distanza & GPS") |
+| GPS/percorso allenamento | — nessuna fonte diretta | — | ❌ | ❌ Health Connect Android non ha un tipo dato per la traccia GPS (nessun `ExerciseRoute` letto da FitMesh) | non disponibile in nessun caso — rimosso dalla label, nuova bullet in `limitations` |
+| Allenamenti | ✅ oneplus.com ("100+ sports modes", "workout guidance") | ✅ Play Store ("provides workout guidance") | ❌ nessuna fonte per metrica | ✅ `WORKOUT` | conditional |
+| SpO₂ | ✅ oneplus.com/global/specs ("optical pulse oximeter", "Blood oxygen monitoring") | ✅ Play Store ("Tracks your SpO2 data") | ❌ nessuna fonte per metrica | ✅ `BLOOD_OXYGEN` | conditional — **rettificato da `false` a `true`+conditional** |
+| VO₂ max | ✅ marketing OnePlus Watch 2R / stampa | plausibile (dashboard OHealth cita VO2 Max) | ❌ | ❌ il plugin Flutter "health" 13.1.4 non espone `HealthDataType.VO2_MAX` | non supportato — D fallisce in modo assoluto (limite del motore, non un fatto su OnePlus) |
+| Frequenza respiratoria | ✅ marketing OnePlus Watch 3 | — | ❌ | letto genericamente (`RESPIRATORY_RATE`), non è una pill su questo provider | nessuna pill, nessuna modifica |
+| HRV | ✅ marketing stress OHealth | — | ❌ | letto genericamente (`HEART_RATE_VARIABILITY_RMSSD`), non è una pill su questo provider | nessuna pill, nessuna modifica |
+
+**Nota su una fonte terza in conflitto**: un vendor commerciale B2B (Sahha.ai, che dichiara un'integrazione tecnica diretta con l'export Health Connect di OHealth) afferma che la categoria "Sleep" esportata da OHealth si limiti a un singolo record `sleep_duration`, senza fasi — un segnale in **conflitto** con l'assenza di prova ufficiale in un senso o nell'altro. Non è una fonte primaria/ufficiale: riportata qui solo per trasparenza, non usata per dichiarare le fasi né presenti né assenti nel copy pubblico.
+
+### Semantica finale delle pill (estensione dati, non solo copy)
+
+- **Verde** (`supported:true`, nessun `status`) = disponibile e confermato dalla fonte ufficiale. Nessuna pill OnePlus è in questo stato: nessuna metrica ha prova "C" ufficiale.
+- **Ambra** (`supported:true`, `status:"conditional"`) = FitMesh sa leggerlo da Health Connect se OHealth lo scrive; nessuna fonte pubblica conferma che OHealth lo scriva sempre per questo dispositivo. Si applica a passi, frequenza cardiaca, sonno, calorie, distanza, allenamenti, SpO₂.
+- **Grigio** (`supported:false`) = non disponibile in nessun caso. Si applica solo a VO₂ max (limite del plugin "health" 13.1.4, non un fatto su OnePlus).
+- Estensione minimale e retrocompatibile sul tipo `Provider`: nuovo campo opzionale `dataTypes[].status?: "conditional"`. Quando assente (il default per gli altri 17 provider), `supported` mantiene il significato binario di sempre — nessuna modifica retroattiva per chi non lo imposta. Il rendering (`page.tsx`, blocco `editorialTemplateV2`) aggiunge un terzo colore (ambra, `#FFB547`) e aggiorna la legenda a tre stati; il blocco legacy (non-V2, usato dagli altri 16 provider) resta identico.
+
+### Locale interessate
+
+Tutte le 11 locale indicizzabili (it, en, es, de, pt, fr, pl, tr, nl, ja, ko): `dataTypes`, `longDesc`, `techNote`, FAQ #2, `setupGuide.syncedData`, `dataPath.steps`, `useCases`, `limitations`, `sourcesBlock` riscritti in tutte e 11 con la stessa logica. Le 4 locale nordiche (sv, da, no, fi) restano noindex, non toccate (invariato da P0.15).
+
+### Limiti residui
+
+- Nessuna fonte ufficiale, per nessuna metrica, conferma il passo "C": non è un limite risolvibile con più ricerca (OnePlus/Heytap non pubblicano un elenco per-metrica dell'export Health Connect) — la pill "conditional" e il testo lo dichiarano esplicitamente, invece di forzare un verdetto assoluto.
+- Il segnale del vendor terzo (Sahha.ai) sulle fasi del sonno resta a fonte singola e non verificabile: riportato solo in questo ledger, non usato nel copy pubblico.
+- L'esistenza di due package Android per OHealth/"OnePlus Health" (nota già presente nella sezione "Limiti" originale di P0.15) resta non risolta, irrilevante per i claim qui corretti.
+- Guardrail aggiornato con 4 nuove regole strutturali/testuali (spo2 rettificata, conditional generalizzato a tutte le pill tranne vo2max, negazione assoluta del sensore SpO2, "fasi non documentate" in senso assoluto) e verificato con 4 negative test reali sul file vero (non stringhe sintetiche), ripristino byte-identico confermato via SHA-256 dopo ciascuno.

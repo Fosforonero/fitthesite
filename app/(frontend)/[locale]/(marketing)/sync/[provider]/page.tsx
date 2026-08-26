@@ -654,12 +654,12 @@ export default async function ProviderLanding({
             </h2>
             <p className="mt-2 text-text-secondary max-w-2xl">
               {t(
-                "I tipi di dato che FitMesh può leggere da questa integrazione. Pallino verde = supportato, grigio = non disponibile da questa fonte.",
-                "The data types FitMesh can read from this integration. Green dot = supported, grey = not available from this source.",
-                "Los tipos de datos que FitMesh puede leer de esta integración. Punto verde = disponible, gris = no disponible desde esta fuente.",
-                "De gegevenstypen die FitMesh van deze integratie kan lezen. Groene stip = ondersteund, grijs = niet beschikbaar.",
-                "この連携からFitMeshが読み取れるデータタイプ。緑の点 = 対応、グレー = この連携からは利用不可。",
-                "이 연동에서 FitMesh가 읽을 수 있는 데이터 유형. 녹색 점 = 지원, 회색 = 이 소스에서 불가.",
+                "I tipi di dato che FitMesh può leggere da questa integrazione. Verde = disponibile e confermato dalla fonte ufficiale. Ambra = FitMesh sa leggerlo se l'app companion lo scrive su Health Connect, ma nessuna fonte pubblica conferma che questa fonte lo faccia sempre. Grigio = non disponibile da questa fonte.",
+                "The data types FitMesh can read from this integration. Green = available and confirmed by the official source. Amber = FitMesh can read it if the companion app writes it to Health Connect, but no public source confirms this specific source always does. Grey = not available from this source.",
+                "Los tipos de datos que FitMesh puede leer de esta integración. Verde = disponible y confirmado por la fuente oficial. Ámbar = FitMesh puede leerlo si la app complementaria lo escribe en Health Connect, pero ninguna fuente pública confirma que esta fuente lo haga siempre. Gris = no disponible desde esta fuente.",
+                "De gegevenstypen die FitMesh van deze integratie kan lezen. Groen = beschikbaar en bevestigd door de officiële bron. Amber = FitMesh kan het lezen als de companion-app het naar Health Connect schrijft, maar geen enkele publieke bron bevestigt dat deze bron dat altijd doet. Grijs = niet beschikbaar vanuit deze bron.",
+                "この連携からFitMeshが読み取れるデータタイプ。緑 = 公式ソースにより確認済みで利用可能。アンバー = コンパニオンアプリがHealth Connectに書き込めばFitMeshは読み取れますが、このソースが常にそうすることを確認できる公開情報はありません。グレー = この連携からは利用不可。",
+                "이 연동에서 FitMesh가 읽을 수 있는 데이터 유형. 녹색 = 공식 소스로 확인되어 사용 가능. 호박색 = 컴패니언 앱이 Health Connect에 기록하면 FitMesh가 읽을 수 있지만, 이 소스가 항상 그렇게 한다는 공개 확인은 없습니다. 회색 = 이 소스에서는 사용할 수 없음.",
               )}
             </p>
             <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -673,8 +673,8 @@ export default async function ProviderLanding({
                   <span
                     className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                     style={{
-                      background: d.supported ? "#31E981" : "#556078",
-                      boxShadow: d.supported ? "0 0 10px #31E98155" : "none",
+                      background: d.status === "conditional" ? "#FFB547" : d.supported ? "#31E981" : "#556078",
+                      boxShadow: d.status === "conditional" ? "0 0 10px #FFB54755" : d.supported ? "0 0 10px #31E98155" : "none",
                     }}
                   />
                   <span className="text-sm text-text-primary">{tl(d.label, lc)}</span>
