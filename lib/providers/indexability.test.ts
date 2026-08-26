@@ -70,6 +70,38 @@ describe("providerLanguages non emette mai hreflang verso una variante non indic
     expect(langs.en).toBeDefined();
   });
 
+  /**
+   * SPRINT P0.14, addendum punto 7 — gate permanente su un debito
+   * documentato e NON toccato da questo branch: la FAQ PL di "apple-health"
+   * contiene un token di template corrotto rimasto nella stringa tradotta
+   * ("}};", vedi `lib/providers/data.ts`, FAQ Apple Watch). Oggi PL non è
+   * indicizzabile per QUEST'ALTRA ragione (altri campi PL incompleti sullo
+   * stesso provider) — un caso, non ancora questo — quindi il gate reale è
+   * DUE controlli indipendenti: (a) il token corrotto è ancora lì (se sparisce
+   * senza che nessuno lo segnali qui, il test fallisce e lo fa notare); (b) PL
+   * resta comunque non indicizzabile finché quel token non è sostituito con
+   * testo reale — anche se in futuro tutti gli ALTRI campi PL diventassero
+   * completi. Se (a) diventa falso perché il token è stato corretto, questo
+   * test va aggiornato per verificare solo (b) (o rimosso se il debito è
+   * chiuso altrove con un proprio test).
+   */
+  it("apple-health/pl: il token di template corrotto nella FAQ resta un blocco esplicito all'indicizzazione (debito documentato, fuori scope)", () => {
+    const provider = PROVIDERS.find((p) => p.slug === "apple-health");
+    expect(provider, "provider apple-health non trovato nel catalogo").toBeDefined();
+    if (!provider) return;
+
+    const corruptedFaq = provider.faqs.find((f) => typeof f.a.pl === "string" && f.a.pl.includes("}};"));
+    expect(
+      corruptedFaq,
+      "il token di template corrotto ('}};') non è più presente: il debito potrebbe essere stato risolto — aggiornare/rimuovere questo test, non lasciarlo verde per il motivo sbagliato.",
+    ).toBeDefined();
+
+    expect(
+      isProviderVariantIndexable(provider, "pl"),
+      "apple-health/pl è diventato indicizzabile: verificare che il token corrotto sia stato sostituito con testo reale prima di lasciar passare questa variante.",
+    ).toBe(false);
+  });
+
   it("i due provider pilota FASE 5 P1.8C (pixel-watch, wear-os) sono indicizzabili in tutte le 11 locale attese", () => {
     const EXPECTED_INDEXABLE: Locale[] = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"];
     for (const slug of ["pixel-watch", "wear-os"]) {
