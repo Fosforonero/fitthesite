@@ -18,7 +18,7 @@ import {
   getRelatedPosts,
 } from "@/lib/blog/payload-source";
 import { resolveBlogPost } from "@/lib/blog/resolve";
-import { isBlogVariantIndexable, blogLinkHref, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "@/lib/blog/indexability";
+import { isBlogVariantIndexable, blogLinkHref, blogLanguages, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "@/lib/blog/indexability";
 import { filterBlogContentForLocale } from "@/lib/blog/locale-filter";
 import type { BlogPost } from "@/lib/blog/types";
 import { SITE_URL } from "@/lib/product-facts";
@@ -31,20 +31,6 @@ export async function generateStaticParams() {
   return slugs.flatMap((slug) =>
     locales.map((locale) => ({ locale, slug: localizedBlogSlug(slug, locale) })),
   );
-}
-
-/** hreflang alternates: ogni lingua → il suo slug localizzato; x-default = IT. */
-function blogLanguages(post: BlogPost): Record<string, string> {
-  const langs: Record<string, string> = {};
-  for (const l of locales) {
-    // Salta le varianti nordiche non tradotte (sono `noindex`): l'hreflang non
-    // deve puntare a pagine escluse dall'indice. Stessa fonte di verità di
-    // robots e sitemap.
-    if (!isBlogVariantIndexable(post, l)) continue;
-    langs[l] = `${SITE_URL}/${l}/blog/${localizedBlogSlug(post.slug, l)}`;
-  }
-  langs["x-default"] = `${SITE_URL}/it/blog/${post.slug}`;
-  return langs;
 }
 
 export async function generateMetadata({

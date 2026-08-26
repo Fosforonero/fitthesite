@@ -25,12 +25,13 @@
  * riguarda; una locale INCLUSA ma priva della traduzione richiesta continua
  * a risultare incompleta come prima (nessuna eccezione sulla traduzione).
  */
-import type { Locale } from "@/lib/i18n";
+import { locales, type Locale } from "@/lib/i18n";
 import { walkPost, applyNordicOverlay, type NordicOverlay } from "@/lib/blog/nordic-overlay";
 import type { BlogPost } from "@/lib/blog/types";
 import { localizedBlogSlug, canonicalFromBlogUrl } from "@/lib/blog/slug-i18n";
 import { BLOG_POSTS } from "@/lib/blog/data";
 import nordicOverlayJson from "@/lib/blog/nordic-overlay.json";
+import { SITE_URL } from "@/lib/product-facts";
 
 /** True se OGNI campo traducibile applicabile a `lc` ha un valore per `lc` (nessun fallback en/it). */
 export function isPostLocaleComplete(post: BlogPost, lc: Locale): boolean {
@@ -72,6 +73,30 @@ export function isBlogVariantIndexable(post: BlogPost, lc: Locale): boolean {
   // it/en sono campi `required` nel tipo Localized: sempre presenti, mai fallback.
   if (lc === "it" || lc === "en") return true;
   return isPostLocaleComplete(post, lc);
+}
+
+/**
+ * Sprint P0.14: estratta da `blog/[slug]/page.tsx` (era una funzione locale
+ * non esportata) per diventare l'UNICA fonte di verità condivisa fra
+ * hreflang (uso originale) e il selettore lingua dell'header
+ * (`@header/blog/[slug]/page.tsx`) — stesso identico calcolo, non una
+ * seconda mappa locale→slug mantenuta a mano in due posti.
+ *
+ * URL assoluti (SITE_URL) perché l'uso originale è hreflang; il chiamante
+ * del selettore lingua li userà come href relativi al sito, comunque validi
+ * per un tag <a>.
+ */
+export function blogLanguages(post: BlogPost): Record<string, string> {
+  const langs: Record<string, string> = {};
+  for (const l of locales) {
+    // Salta le varianti nordiche non tradotte (sono `noindex`): l'hreflang non
+    // deve puntare a pagine escluse dall'indice. Stessa fonte di verità di
+    // robots e sitemap.
+    if (!isBlogVariantIndexable(post, l)) continue;
+    langs[l] = `${SITE_URL}/${l}/blog/${localizedBlogSlug(post.slug, l)}`;
+  }
+  langs["x-default"] = `${SITE_URL}/it/blog/${post.slug}`;
+  return langs;
 }
 
 /**

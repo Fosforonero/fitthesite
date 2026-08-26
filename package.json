@@ -39,7 +39,8 @@
     "blog:locale-near-miss-check": "tsx tools/check-blog-locale-near-miss.ts",
     "vercel:fluid-check": "tsx tools/check-vercel-fluid-cpu.ts",
     "sync:log-privacy-check": "tsx tools/check-sync-log-privacy.ts",
-    "p14b:hardening-check": "tsx tools/check-p14b-hardening.ts"
+    "p14b:hardening-check": "tsx tools/check-p14b-hardening.ts",
+    "lang-switcher:http-check": "tsx tools/check-language-switcher-http.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.85.1",
