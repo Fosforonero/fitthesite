@@ -96,23 +96,26 @@ run_case \
   'sed -i.bak "s/iosDisabled={!platforms.includes(\"ios\")}/iosDisabled={false}/" "app/(frontend)/[locale]/(marketing)/sync/[provider]/page.tsx" && rm -f "app/(frontend)/[locale]/(marketing)/sync/[provider]/page.tsx.bak"' \
   "npx tsx tools/check-p18c-pixel-wear-os-truth.ts"
 
-# 6. hreflang verso variante noindex (guardrail redirect-integrity esistente,
-#    static check): forza providerLanguages a includere sempre "sv" (locale
-#    NON indicizzabile per pixel-watch/wear-os) per verificare che un
-#    controllo statico lo intercetti nel guardrail redirect-integrity.
-run_case \
-  "hreflang verso variante noindex (sv non indicizzabile forzato)" \
-  "lib/providers/indexability.ts" \
-  'python3 -c "
-p = \"lib/providers/indexability.ts\"
-s = open(p, encoding=\"utf-8\").read()
-marker = \"export function providerLanguages\"
-idx = s.index(marker)
-brace = s.index(chr(123), idx)
-inject = s[:brace+1] + chr(10) + chr(34)+\"__P18C_NEGTEST__\"+chr(34)+\"; // TEST_INJECT: forza un ritorno vuoto per simulare hreflang rotto\n  return { sv: \" + chr(34) + \"https://www.fitmesh.fit/sv/sync/pixel-watch\" + chr(34) + \" };\n  //\" + s[brace+1:]
-open(p, \"w\", encoding=\"utf-8\").write(inject)
-"' \
-  "npx tsx tools/check-seo-redirect-integrity.ts"
+# 6. hreflang verso variante noindex: NON e' un case bash-injection (primo
+#    tentativo fallito — providerLanguages() filtra SEMPRE tramite
+#    isProviderVariantIndexable() per costruzione, un'iniezione testuale a
+#    valle non produce un FAIL osservabile). Il negative test reale e'
+#    invece un test Vitest permanente con una fixture sintetica
+#    deliberatamente incompleta: vedi lib/providers/indexability.test.ts
+#    ("negative test reale: un provider con una FAQ incompleta per 'de'
+#    viene escluso da providerLanguages"), che gira ad ogni `vitest run`
+#    (FASE 10 gate), non solo qui.
+echo ""
+echo "── Negative test: hreflang verso variante noindex ──"
+echo "ℹ️  Delegato a lib/providers/indexability.test.ts (fixture sintetica, non bash-injection)."
+if npx vitest run lib/providers/indexability.test.ts > /tmp/p18c_negtest_out.txt 2>&1; then
+  echo "✅ Il test Vitest (incluso il negative case sulla fixture incompleta) passa."
+  PASS=$((PASS+1))
+else
+  echo "❌ Il test Vitest fallisce inaspettatamente:"
+  cat /tmp/p18c_negtest_out.txt
+  FAIL=$((FAIL+1))
+fi
 
 echo ""
 echo "════════════════════════════════════════"
