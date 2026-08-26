@@ -18,13 +18,44 @@ if ! docker exec "$CONT" psql -U postgres -d "$DB" -t -A -c "select 1" >/dev/nul
   exit 1
 fi
 
-FILE=(01-test-is-admin.sql 02-controllo-positivo-ricorsione.sql
-      05-test-has-role.sql 06-test-grant-pro-to-email.sql
-      07-test-dashboard-snapshot.sql 08-test-claim-group-invite-cap.sql
-      09-test-founder-due-proprieta.sql
-      10-test-entitlement-core-appreview.sql
-      11-test-finestra-awake.sql
-      12-test-notifiche-store.sql)
+# ----------------------------------------------------------------------------
+# L'elenco si DERIVA dalla cartella. Un array scritto a mano non si accorge di
+# un file nuovo: e' lo stesso difetto per cui il rollback di F5 e' rimasto
+# fuori dal gate per un intero sprint.
+#
+# Cio' che non e' un test va escluso QUI, con la sua ragione. Se un .sql non e'
+# ne' eseguito ne' escluso, il runner diventa rosso: un file di test che nessuno
+# esegue e' peggio di un file che manca, perche' sembra copertura.
+# ----------------------------------------------------------------------------
+declare -a ESCLUSI=(
+  "00-preambolo-ruoli-supabase.sql|lo applica esegui-reset.sh prima della catena, non e' un test"
+  "03-impronta-strutturale.sql|strumento di confronto, lo chiama il gate di integrazione"
+  "04-righe-categoria.sql|strumento di confronto, lo chiama il gate di integrazione"
+  "impronta-completa.sql|strumento di footprint, non contiene asserzioni"
+)
+escluso() {
+  local f="$1" voce
+  for voce in "${ESCLUSI[@]}"; do [ "${voce%%|*}" = "$f" ] && return 0; done
+  return 1
+}
+
+FILE=()
+for percorso in "$QUI"/*.sql; do
+  f="$(basename "$percorso")"
+  escluso "$f" && continue
+  FILE+=("$f")
+done
+
+if [ "${#FILE[@]}" -eq 0 ]; then
+  echo "ROSSO: zero file di test trovati. Il runner non ha misurato niente."
+  exit 1
+fi
+echo "== ${#FILE[@]} file di test derivati dalla cartella; ${#ESCLUSI[@]} esclusi con ragione =="
+for voce in "${ESCLUSI[@]}"; do
+  f="${voce%%|*}"; perche="${voce#*|}"
+  [ -f "$QUI/$f" ] || { echo "ROSSO: escluso un file che non esiste: $f"; exit 1; }
+  echo "   escluso  $f  ($perche)"
+done
 
 verdi=0; rossi=0
 for f in "${FILE[@]}"; do
