@@ -70,6 +70,15 @@ export const CTA_PLACEMENTS = {
   homepageFinalCta: "homepage_final_cta",
   betaArchive: "beta_archive",
   fitnessDataSync: "fitness_data_sync",
+  // FASE 7 P1.8C: le tre StoreButtonsRow di /sync/[provider] non avevano
+  // ctaLocation (nessun data-cta-* emesso, cta_view/cta_click orfani per
+  // l'intero funnel di 19 pagine provider). "Traccia almeno: CTA store
+  // hero; CTA dopo la matrice; CTA finale" — un solo placement per
+  // posizione, condiviso da tutti i provider (non uno per-provider: la
+  // dimensione "provider" e' gia' distinguibile dal path/pagina).
+  syncProviderHero: "sync_provider_hero",
+  syncProviderMidMatrix: "sync_provider_mid_matrix",
+  syncProviderFinalCta: "sync_provider_final_cta",
 } as const;
 
 export type CtaPlacement = (typeof CTA_PLACEMENTS)[keyof typeof CTA_PLACEMENTS];

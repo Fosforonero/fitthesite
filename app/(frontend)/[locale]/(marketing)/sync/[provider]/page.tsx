@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
+import { CTA_PLACEMENTS } from "@/lib/analytics/cta";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import {
   PROVIDERS,
@@ -18,6 +19,7 @@ import {
   providerLanguages,
 } from "@/lib/providers/indexability";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
+import { BlogSources } from "@/components/blog/BlogSources";
 import { FITNESS_DATA_SYNC_COMPLETE_LOCALES } from "@/lib/content/static-page-locales";
 import { blogLinkHref } from "@/lib/blog/indexability";
 import { tl, tll, categoryLabel as blogCategoryLabel, type BlogPost } from "@/lib/blog/types";
@@ -157,6 +159,16 @@ function categoryLabel(
     "phone-only": { it: "Solo telefono", en: "Phone-only", es: "Solo teléfono", de: "Nur Smartphone", pt: "Somente telefone", fr: "Téléphone uniquement", nl: "Alleen smartphone", ja: "スマートフォンのみ", ko: "스마트폰 전용" },
   };
   return (map[category] as Record<string, string>)[lc] ?? map[category].en;
+}
+
+/** Blocco 12 FASE 5: stessa funzione di formatDate del blog post page. */
+function formatDate(iso: string, lc: Locale): string {
+  const d = new Date(iso);
+  return d.toLocaleDateString(schemaLanguage(lc), {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 }
 
 export function generateStaticParams() {
@@ -417,7 +429,7 @@ export default async function ProviderLanding({
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               {isLive ? (
-                <StoreButtonsRow locale={lc} />
+                <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.syncProviderHero} />
               ) : (
                 <a
                   href={waitlistHref}
@@ -525,41 +537,219 @@ export default async function ProviderLanding({
         </div>
       </section>
 
-      {/* DATA TYPES GRID */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
-        <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-          {t("Dati supportati", "Supported data", "Datos disponibles", "Ondersteunde gegevens", "サポートされているデータ", "지원 데이터")}
-        </h2>
-        <p className="mt-2 text-text-secondary max-w-2xl">
-          {t(
-            "I tipi di dato che FitMesh può leggere da questa integrazione. Pallino verde = supportato, grigio = non disponibile da questa fonte.",
-            "The data types FitMesh can read from this integration. Green dot = supported, grey = not available from this source.",
-            "Los tipos de datos que FitMesh puede leer de esta integración. Punto verde = disponible, gris = no disponible desde esta fuente.",
-            "De gegevenstypen die FitMesh van deze integratie kan lezen. Groene stip = ondersteund, grijs = niet beschikbaar.",
-            "この連携からFitMeshが読み取れるデータタイプ。緑の点 = 対応、グレー = この連携からは利用不可。",
-            "이 연동에서 FitMesh가 읽을 수 있는 데이터 유형. 녹색 점 = 지원, 회색 = 이 소스에서 불가.",
-          )}
-        </p>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {p.dataTypes.map((d) => (
-            <div
-              key={d.key}
-              className={`card p-4 flex items-center gap-3 ${
-                d.supported ? "" : "opacity-50"
-              }`}
-            >
-              <span
-                className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                style={{
-                  background: d.supported ? "#31E981" : "#556078",
-                  boxShadow: d.supported ? "0 0 10px #31E98155" : "none",
-                }}
-              />
-              <span className="text-sm text-text-primary">{tl(d.label, lc)}</span>
+      {/* DATA TYPES GRID — estratto in variabile: FASE 5 P1.8C lo riposiziona
+          dopo "percorso dati" SOLO per i provider col nuovo template
+          (editorialTemplateV2). Per tutti gli altri resta esattamente qui,
+          posizione e markup invariati. */}
+      {(() => {
+        const dataTypesSection = (
+          <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
+            <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
+              {t("Dati supportati", "Supported data", "Datos disponibles", "Ondersteunde gegevens", "サポートされているデータ", "지원 데이터")}
+            </h2>
+            <p className="mt-2 text-text-secondary max-w-2xl">
+              {t(
+                "I tipi di dato che FitMesh può leggere da questa integrazione. Pallino verde = supportato, grigio = non disponibile da questa fonte.",
+                "The data types FitMesh can read from this integration. Green dot = supported, grey = not available from this source.",
+                "Los tipos de datos que FitMesh puede leer de esta integración. Punto verde = disponible, gris = no disponible desde esta fuente.",
+                "De gegevenstypen die FitMesh van deze integratie kan lezen. Groene stip = ondersteund, grijs = niet beschikbaar.",
+                "この連携からFitMeshが読み取れるデータタイプ。緑の点 = 対応、グレー = この連携からは利用不可。",
+                "이 연동에서 FitMesh가 읽을 수 있는 데이터 유형. 녹색 점 = 지원, 회색 = 이 소스에서 불가.",
+              )}
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {p.dataTypes.map((d) => (
+                <div
+                  key={d.key}
+                  className={`card p-4 flex items-center gap-3 ${
+                    d.supported ? "" : "opacity-50"
+                  }`}
+                >
+                  <span
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                    style={{
+                      background: d.supported ? "#31E981" : "#556078",
+                      boxShadow: d.supported ? "0 0 10px #31E98155" : "none",
+                    }}
+                  />
+                  <span className="text-sm text-text-primary">{tl(d.label, lc)}</span>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
+        );
+        return !p.editorialTemplateV2 ? dataTypesSection : null;
+      })()}
+
+      {/* ═══ FASE 5 P1.8C — blocchi 2-4 del nuovo modello editoriale, pilota
+          Pixel Watch/Wear OS (gated su editorialTemplateV2, opzionali). ═══ */}
+      {p.editorialTemplateV2 && (
+        <>
+          {/* Blocco 2: verdetto "funziona se... / non ti serve se..." */}
+          {p.verdict && (
+            <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-8">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-card border border-divider bg-gradient-to-br from-success/5 to-bg-card p-6">
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-success font-semibold">
+                    {t("Funziona se", "Works if", "Funciona si", "Werkt als", "こんな場合に機能します", "이런 경우 작동합니다")}
+                  </p>
+                  <p className="mt-3 text-text-secondary leading-relaxed">{tl(p.verdict.worksIf, lc)}</p>
+                </div>
+                <div className="rounded-card border border-divider bg-bg-card/60 p-6">
+                  <p className="text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
+                    {t("Probabilmente non ti serve se", "You probably don't need it if", "Probablemente no lo necesitas si", "Je hebt het waarschijnlijk niet nodig als", "こんな場合はおそらく不要です", "이런 경우 필요하지 않을 수 있습니다")}
+                  </p>
+                  <p className="mt-3 text-text-secondary leading-relaxed">{tl(p.verdict.skipIf, lc)}</p>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Blocco 3: requisiti */}
+          {p.requirements && (
+            <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-8">
+              <h2 className="font-display text-xl font-semibold tracking-tightest text-text-primary">
+                {t("Requisiti", "Requirements", "Requisitos", "Vereisten", "必要条件", "요구 사항")}
+              </h2>
+              <ul className="mt-4 space-y-2">
+                {tll(p.requirements, lc).map((r, i) => (
+                  <li key={i} className="flex items-start gap-2 text-text-secondary">
+                    <span className="text-brand-aqua mt-1">•</span>
+                    <span>{renderInlineBold(r)}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Blocco 4: percorso dati */}
+          {p.dataPath && (
+            <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-8">
+              <h2 className="font-display text-xl font-semibold tracking-tightest text-text-primary">
+                {t("Percorso dei dati", "Data path", "Recorrido de los datos", "Datapad", "データの経路", "데이터 경로")}
+              </h2>
+              <p className="mt-3 text-text-secondary leading-relaxed">{tl(p.dataPath.intro, lc)}</p>
+              <ol className="mt-5 space-y-3">
+                {tll(p.dataPath.steps, lc).map((step, i) => (
+                  <li key={i} className="flex gap-4">
+                    <span className="flex-none w-7 h-7 rounded-full bg-brand-aqua/15 text-brand-aqua text-sm font-semibold flex items-center justify-center">
+                      {i + 1}
+                    </span>
+                    <span className="leading-relaxed text-text-secondary">{renderInlineBold(step)}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+        </>
+      )}
+
+      {/* DATA TYPES GRID — nuova posizione (blocco 5), solo per editorialTemplateV2 */}
+      {(() => {
+        if (!p.editorialTemplateV2) return null;
+        return (
+          <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
+            <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
+              {t("Dati supportati", "Supported data", "Datos disponibles", "Ondersteunde gegevens", "サポートされているデータ", "지원 데이터")}
+            </h2>
+            <p className="mt-2 text-text-secondary max-w-2xl">
+              {t(
+                "I tipi di dato che FitMesh può leggere da questa integrazione. Pallino verde = supportato, grigio = non disponibile da questa fonte.",
+                "The data types FitMesh can read from this integration. Green dot = supported, grey = not available from this source.",
+                "Los tipos de datos que FitMesh puede leer de esta integración. Punto verde = disponible, gris = no disponible desde esta fuente.",
+                "De gegevenstypen die FitMesh van deze integratie kan lezen. Groene stip = ondersteund, grijs = niet beschikbaar.",
+                "この連携からFitMeshが読み取れるデータタイプ。緑の点 = 対応、グレー = この連携からは利用不可。",
+                "이 연동에서 FitMesh가 읽을 수 있는 데이터 유형. 녹색 점 = 지원, 회색 = 이 소스에서 불가.",
+              )}
+            </p>
+            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {p.dataTypes.map((d) => (
+                <div
+                  key={d.key}
+                  className={`card p-4 flex items-center gap-3 ${
+                    d.supported ? "" : "opacity-50"
+                  }`}
+                >
+                  <span
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                    style={{
+                      background: d.supported ? "#31E981" : "#556078",
+                      boxShadow: d.supported ? "0 0 10px #31E98155" : "none",
+                    }}
+                  />
+                  <span className="text-sm text-text-primary">{tl(d.label, lc)}</span>
+                </div>
+              ))}
+            </div>
+            {/* CTA contestuale "dopo la matrice" (analytics FASE 7 + CTA
+                platform-aware FASE 5): questo blocco descrive il percorso
+                Android/Health Connect, quindi nasconde il pulsante App
+                Store quando il provider e' Android-only — non tocca
+                hero/CTA finale (componente condiviso con gli altri 17
+                provider, "non cambiare le altre landing senza un audit
+                specifico"). */}
+            {isLive && (
+              <div className="mt-8">
+                <StoreButtonsRow
+                  locale={lc}
+                  iosDisabled={!platforms.includes("ios")}
+                  ctaLocation={CTA_PLACEMENTS.syncProviderMidMatrix}
+                />
+              </div>
+            )}
+          </section>
+        );
+      })()}
+
+      {p.editorialTemplateV2 && (
+        <>
+          {/* Blocco 6: valore concreto di FitMesh (casi d'uso) */}
+          {p.useCases && (
+            <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-8">
+              <h2 className="font-display text-xl font-semibold tracking-tightest text-text-primary">
+                {t("A cosa serve davvero", "What it's actually good for", "Para qué sirve realmente", "Waar het echt goed voor is", "実際に役立つこと", "실제로 유용한 점")}
+              </h2>
+              <ul className="mt-4 space-y-2">
+                {tll(p.useCases, lc).map((u, i) => (
+                  <li key={i} className="flex items-start gap-2 text-text-secondary">
+                    <span className="text-brand-aqua mt-1">•</span>
+                    <span>{renderInlineBold(u)}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {/* Blocco 7: screenshot reale — SOLO se un asset vero e' stato fornito. */}
+          {p.screenshot && (
+            <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-8">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={p.screenshot.src}
+                alt={tl(p.screenshot.alt, lc)}
+                className="rounded-card border border-divider w-full h-auto"
+              />
+            </section>
+          )}
+
+          {/* Blocco 8: limiti onesti */}
+          {p.limitations && (
+            <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-8">
+              <h2 className="font-display text-xl font-semibold tracking-tightest text-text-primary">
+                {t("Limiti", "Limitations", "Límites", "Beperkingen", "制限事項", "제한 사항")}
+              </h2>
+              <ul className="mt-4 space-y-2">
+                {tll(p.limitations, lc).map((l, i) => (
+                  <li key={i} className="flex items-start gap-2 text-text-secondary">
+                    <span className="text-text-muted mt-1">•</span>
+                    <span>{renderInlineBold(l)}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </>
+      )}
 
       {/* LIVE-BASIC: cosa funziona oggi / cosa aggiungerà OAuth */}
       {isLiveBasic && p.viaHC && (
@@ -656,15 +846,23 @@ export default async function ProviderLanding({
         </section>
       )}
 
-      {/* TECH NOTE */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
-        <div className="rounded-card border border-divider bg-gradient-to-br from-bg-card to-bg-secondary p-6 sm:p-8">
-          <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-            {t("Nota tecnica", "Technical note", "Nota técnica", "Technische opmerking", "技術的なメモ", "기술 참고 사항")}
-          </p>
-          <p className="mt-3 text-text-secondary leading-relaxed">{tl(p.techNote, lc)}</p>
-        </div>
-      </section>
+      {/* TECH NOTE — nascosta per editorialTemplateV2: il contenuto e'
+          gia' coperto (in modo piu' strutturato) dal blocco 4 "percorso
+          dati" sopra. Mostrarla anche qui duplicherebbe la stessa
+          informazione, contro la regola FASE 5 "ogni sezione deve
+          aggiungere un'informazione distinta". p.techNote resta popolato
+          (non e' un campo morto: e' comunque letto altrove se in futuro
+          serve), semplicemente non renderizzato qui per questi 2 provider. */}
+      {!p.editorialTemplateV2 && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
+          <div className="rounded-card border border-divider bg-gradient-to-br from-bg-card to-bg-secondary p-6 sm:p-8">
+            <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
+              {t("Nota tecnica", "Technical note", "Nota técnica", "Technische opmerking", "技術的なメモ", "기술 참고 사항")}
+            </p>
+            <p className="mt-3 text-text-secondary leading-relaxed">{tl(p.techNote, lc)}</p>
+          </div>
+        </section>
+      )}
 
       {/* SETUP GUIDE (optional) */}
       {p.setupGuide && (
@@ -681,7 +879,15 @@ export default async function ProviderLanding({
           </h2>
 
           <h3 className="mt-8 text-lg font-semibold text-text-primary">
-            {t("Setup in 5 minuti", "5-minute setup", "Configuración en 5 minutos", "Instellen in 5 minuten", "5分でセットアップ", "5분 내 설정")}
+            {/* P1.8C: era "Setup in 5 minuti" — tempo assoluto non sostenuto
+                (bug di verita' gia' esistente su OGNI provider, non solo
+                Pixel/Wear OS). Vedi docs/seo/p18c-pixel-watch-wear-os-fact-ledger.md
+                Fase 4: nessuna fonte lo sostiene, e per pixel-watch era in
+                contraddizione interna con la stessa pagina (techNote
+                dichiara 15-30 min di latenza dati). Corretto qui, una volta
+                sola per tutti i provider — non e' il nuovo modello
+                editoriale FASE 5 (quello resta pilota Pixel/Wear OS). */}
+            {t("Come collegarlo", "How to connect it", "Cómo conectarlo", "Zo verbind je het", "接続方法", "연결 방법")}
           </h3>
           <ol className="mt-4 space-y-3 text-text-secondary">
             {tll(p.setupGuide.steps, lc).map((step, i) => (
@@ -760,6 +966,41 @@ export default async function ProviderLanding({
             ))}
           </div>
         </section>
+      )}
+
+      {/* Blocco 12 (FASE 5): fonti visibili + data di verifica. Riusa
+          <BlogSources>, stessa logica di dominio-come-label del blog —
+          niente titolo remoto inventato. Contiene anche il link
+          fitness-data-sync obbligatorio da FASE 7 (#6): "landing
+          Pixel/Wear OS -> fitness-data-sync nella locale corretta o
+          fallback EN diretto" — fitnessDataSyncHref e' gia' calcolato in
+          cima al componente con lo stesso fallback usato dall'hero. */}
+      {p.editorialTemplateV2 && p.sourcesBlock && (
+        <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-4 pb-4">
+          <p className="text-xs text-text-muted">
+            {t(
+              `Verificato il ${formatDate(p.sourcesBlock.verifiedOn, lc)}.`,
+              `Verified on ${formatDate(p.sourcesBlock.verifiedOn, lc)}.`,
+              `Verificado el ${formatDate(p.sourcesBlock.verifiedOn, lc)}.`,
+              `Geverifieerd op ${formatDate(p.sourcesBlock.verifiedOn, lc)}.`,
+              `${formatDate(p.sourcesBlock.verifiedOn, lc)}に確認済み。`,
+              `${formatDate(p.sourcesBlock.verifiedOn, lc)}에 확인됨.`,
+            )}{" "}
+            <Link href={fitnessDataSyncHref} className="text-brand-aqua hover:text-brand-green underline-offset-2 hover:underline transition">
+              {t(
+                "Come si confronta con le altre architetture di sync →",
+                "How this compares to other sync architectures →",
+                "Cómo se compara con otras arquitecturas de sincronización →",
+                "Hoe dit zich verhoudt tot andere sync-architecturen →",
+                "他の同期アーキテクチャとの比較 →",
+                "다른 동기화 아키텍처와의 비교 →",
+              )}
+            </Link>
+          </p>
+        </section>
+      )}
+      {p.editorialTemplateV2 && (
+        <BlogSources sources={p.sourcesBlock?.sources} locale={lc} />
       )}
 
       {/* APPROFONDISCI — internal linking ai blog post correlati */}
@@ -848,14 +1089,17 @@ export default async function ProviderLanding({
             : t("Vuoi essere avvisato?", "Want to be notified?", "¿Quieres que te avisemos?", "Wil je een melding?", "通知を受け取りますか？", "알림을 받으시겠어요?")}
         </h2>
         <p className="mt-4 text-text-secondary max-w-xl mx-auto">
+          {/* P1.8C: era "...e in 30 secondi i tuoi dati sono live" — stesso
+              bug di tempo assoluto non sostenuto del bottone hero sopra,
+              corretto una volta per tutti i provider. */}
           {isLive
             ? t(
-                "Scarica FitMesh Sync, autorizza Health Connect, e in 30 secondi i tuoi dati sono live.",
-                "Download FitMesh Sync, grant Health Connect permissions, and your data is live in 30 seconds.",
-                "Descarga FitMesh Sync, autoriza Health Connect y en 30 segundos tus datos estarán disponibles.",
-                "Download FitMesh Sync, geef Health Connect toestemming en je data is in 30 seconden live.",
-                "FitMesh SyncをダウンロードしてHealth Connectを許可すると、30秒でデータがライブになります。",
-                "FitMesh Sync를 다운로드하고 Health Connect 권한을 허용하면 30초 안에 데이터가 실시간으로 동기화됩니다.",
+                "Scarica FitMesh Sync e autorizza Health Connect: i tuoi dati iniziano a comparire in dashboard al sync successivo.",
+                "Download FitMesh Sync and authorize Health Connect: your data starts appearing on the dashboard at the next sync.",
+                "Descarga FitMesh Sync y autoriza Health Connect: tus datos empiezan a aparecer en el panel en la siguiente sincronización.",
+                "Download FitMesh Sync en geef Health Connect toestemming: je data verschijnt op het dashboard bij de volgende sync.",
+                "FitMesh SyncをダウンロードしてHealth Connectを許可すると、次回の同期でデータがダッシュボードに表示されます。",
+                "FitMesh Sync를 다운로드하고 Health Connect 권한을 허용하면 다음 동기화 시 데이터가 대시보드에 표시됩니다.",
               )
             : t(
                 `Lascia la tua email e ti avvisiamo non appena l'integrazione ${p.name} sarà disponibile. Niente newsletter, niente spam: solo l'annuncio.`,
@@ -868,7 +1112,7 @@ export default async function ProviderLanding({
         </p>
         <div className="mt-8 flex justify-center">
           {isLive ? (
-            <StoreButtonsRow locale={lc} className="justify-center" />
+            <StoreButtonsRow locale={lc} className="justify-center" ctaLocation={CTA_PLACEMENTS.syncProviderFinalCta} />
           ) : (
             <a
               href={waitlistHref}

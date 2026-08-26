@@ -4,6 +4,8 @@
  * miniatura nell'index, cover nell'header, e `image` nel JSON-LD.
  * File in `public/blog/covers/`.
  */
+import type { Locale } from "@/lib/i18n";
+import { tl } from "./types";
 import type { BlogPost } from "./types";
 
 export type CoverType =
@@ -25,7 +27,10 @@ export type CoverType =
   | "circadian"
   | "fitmeshOverview"
   | "samsungTogether"
-  | "appleTogether";
+  | "appleTogether"
+  | "pixelWatch"
+  | "googleHealthSync"
+  | "apiMigration";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -72,6 +77,20 @@ export const COVER_FILE: Record<CoverType, string> = {
   fitmeshOverview: "how-fitmesh-works.webp",
   samsungTogether: "fitmesh-samsung-health-together.webp",
   appleTogether: "fitmesh-apple-health-together.webp",
+  // P1.8C (2026-08-25): 3 cover consegnate da Matteo da /Users/matteo/Downloads
+  // (pixel-watch-5.webp, google-health-google-fit.webp, migrazione-api-salute.webp),
+  // NON riusate da altri post. Ledger completo (SHA-256, dimensioni, esito
+  // audit, esito gate marchio) in docs/seo/p18c-cover-image-ledger.md. Ognuna
+  // verificata: WebP reale 1200x675 esatti (VP8 lossy semplice, non VP8X),
+  // singolo frame, nessun alpha, nessun EXIF/XMP/ICC, nessun testo/watermark
+  // incorporato, crop sicuro mobile/desktop. pixel-watch-health-connect-sync
+  // ha in piu' superato un gate marchio dedicato sul simbolo centrale
+  // (identificazione cieca + confronto strutturale con Meta/Threads/Airbnb/
+  // Peloton/Google Health Connect/Google Fit: tutti "rischio-basso", nessun
+  // "rischio-medio"/"rischio-alto" — GO documentato nel ledger).
+  pixelWatch: "pixel-watch-health-connect-sync.webp",
+  googleHealthSync: "google-health-multi-source-sync.webp",
+  apiMigration: "google-fit-api-migration.webp",
 };
 
 /**
@@ -91,7 +110,12 @@ export const POST_COVER: Record<string, CoverType> = {
   "da-android-a-iphone-dati-fitness": "platform",
   "anello-orologio-scenari-reali": "ring",
   "novita-fitmesh-su-app-store": "news",
-  "google-health-google-fit": "sync",
+  // P1.8C (2026-08-25): cover dedicata (google-health-multi-source-sync.webp)
+  // al posto della generica "sync" (devices.webp, condivisa con 9 altri
+  // post). Solo il cover cambia — testo/H1/title/updatedAt di questo post
+  // restano invariati per vincolo esplicito dello sprint (post appena
+  // riscritto in P1.8B/PR #57).
+  "google-health-google-fit": "googleHealthSync",
   "huawei-health-health-connect-sincronizzazione": "sync",
   "garmin-body-battery-health-connect": "troubleshooting",
   "polar-health-connect-sync": "sync",
@@ -102,9 +126,14 @@ export const POST_COVER: Record<string, CoverType> = {
   "oura-ring-health-connect-android": "ring",
   "esportare-dati-xiaomi-amazfit": "export",
   "sincronizzare-withings": "sync",
-  "dati-pixel-watch-dashboard": "dashboard",
+  // P1.8C (2026-08-25): cover dedicata (Pixel Watch reale, non lo smartwatch
+  // rugged generico di "dashboard") — vedi nota sul gate marchio in COVER_FILE.
+  "dati-pixel-watch-dashboard": "pixelWatch",
   "anello-smart-guida-completa": "ring",
-  "google-fit-api-dismissione-2026": "sync",
+  // P1.8C (2026-08-25): cover dedicata (google-fit-api-migration.webp) al
+  // posto della generica "sync" — il tema del post e' la migrazione API, non
+  // un generico "sincronizzazione dispositivi".
+  "google-fit-api-dismissione-2026": "apiMigration",
   "novita-fonte-del-dato": "news",
   "fitmesh-sync-disponibile-google-play": "news",
   "anello-vs-smartwatch": "compare",
@@ -192,4 +221,24 @@ export function coverType(post: BlogPost): CoverType {
 /** URL relativo della cover (per next/image). */
 export function coverSrc(post: BlogPost): string {
   return `/blog/covers/${COVER_FILE[coverType(post)]}`;
+}
+
+/**
+ * P1.8C: alt text della cover per `lc`. Se il post ha scritto a mano un
+ * `coverAlt` per QUESTA locale, lo usa (deve descrivere l'immagine, non
+ * ripetere l'H1/keyword). Altrimenti ricade sul comportamento storico
+ * (identico all'H1, `hero.title`) — nessun post esistente cambia risultato.
+ */
+export function coverAlt(post: BlogPost, lc: Locale): string {
+  return post.coverAlt?.[lc] ?? tl(post.hero.title, lc);
+}
+
+/**
+ * P1.8C: caption della cover per `lc`, solo se il post ne ha scritta una
+ * REALE per questa locale — mai generata a riempimento. `undefined` = non
+ * mostrare alcuna caption (comportamento storico per tutti i post che non
+ * definiscono `coverCaption`).
+ */
+export function coverCaption(post: BlogPost, lc: Locale): string | undefined {
+  return post.coverCaption?.[lc];
 }

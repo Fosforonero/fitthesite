@@ -245,6 +245,20 @@ export interface BlogPost {
   brandsMentioned?: string[];
   /** Tipo di JSON-LD da emettere. Default: "BlogPosting". */
   ldType?: "Article" | "BlogPosting";
+  /**
+   * P1.8C: alt text della cover, per le sole locale dove è stato scritto a
+   * mano (descrive l'IMMAGINE, non ripete l'H1/keyword). `Partial<Record<...>>`
+   * come `seoTitle`: opt-in sparso, mai un oggetto da riempire per forza per
+   * i post vecchi. Locale assenti da questa mappa ricadono sul comportamento
+   * storico (`hero.title` come alt) — vedi `coverAlt()` in `lib/blog/covers.ts`.
+   */
+  coverAlt?: Partial<Record<Locale, string>>;
+  /**
+   * P1.8C: caption opzionale della cover, mostrata sotto l'immagine e nel
+   * JSON-LD `ImageObject.caption` SOLO quando reale (non generata a
+   * riempimento). Stesso pattern sparso di `coverAlt`.
+   */
+  coverCaption?: Partial<Record<Locale, string>>;
 }
 
 export const CATEGORY_LABEL: Record<BlogCategory, Localized> = {
