@@ -30,6 +30,37 @@ export interface ProviderFAQ {
   a: { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string; pl?: string; tr?: string; nl?: string; ja?: string; ko?: string };
 }
 
+/** Stringa localizzata sparsa (it/en obbligatorie, resto opzionale — stesso pattern del resto del file). */
+type I18nStr = { it: string; en: string; es?: string; de?: string; pt?: string; fr?: string; pl?: string; tr?: string; nl?: string; ja?: string; ko?: string };
+/** Lista localizzata sparsa. */
+type I18nList = { it: string[]; en: string[]; es?: string[]; de?: string[]; pt?: string[]; fr?: string[]; pl?: string[]; tr?: string[]; nl?: string[]; ja?: string[]; ko?: string[] };
+
+/**
+ * FASE 5 P1.8C — nuovo modello editoriale delle landing, blocchi opzionali.
+ * Ogni campo e' indipendentemente opzionale: una pagina che non li imposta
+ * mantiene il rendering precedente, senza fallback inglesi nascosti o
+ * sezioni vuote. Il rendering effettivo dei blocchi nuovi e' comunque
+ * gated da `Provider.editorialTemplateV2` (vedi sotto) — pilotato solo su
+ * pixel-watch e wear-os, non un rollout globale.
+ */
+export interface ProviderVerdict {
+  /** "Funziona se..." — condizione reale, un paragrafo breve. */
+  worksIf: I18nStr;
+  /** "Probabilmente non ti serve se..." — chi non ha bisogno di FitMesh qui. */
+  skipIf: I18nStr;
+}
+export interface ProviderSourcesBlock {
+  /** Data di verifica ISO (es. "2026-08-25"), non localizzata. */
+  verifiedOn: string;
+  /**
+   * Fonti visibili in pagina (non solo JSON-LD) — url raggiungibile 200.
+   * Stesso formato/componente di `BlogPost.sources` (solo URL, mai un
+   * titolo remoto non verificato): riusa `<BlogSources>`, non duplica la
+   * logica di rendering.
+   */
+  sources: string[];
+}
+
 export interface Provider {
   /** URL slug — minuscolo, no spazi, no diacritici. Stabile (è SEO-critical). */
   slug: string;
@@ -98,6 +129,29 @@ export interface Provider {
    * dalle landing /sync ai cornerstone /blog.
    */
   relatedBlogSlugs?: string[];
+
+  // ── FASE 5 P1.8C: nuovo modello editoriale, pilota Pixel Watch/Wear OS ──
+  /**
+   * Opt-in esplicito al nuovo modello editoriale (verdetto, requisiti,
+   * percorso dati, casi d'uso, limiti, fonti visibili, CTA dopo la
+   * matrice dati). Omesso per i provider esistenti: nessun cambiamento di
+   * rendering. Vedi FASE 5 del brief P1.8C — pilota, non rollout globale.
+   */
+  editorialTemplateV2?: boolean;
+  /** Blocco 2: "funziona se... / non ti serve se...". */
+  verdict?: ProviderVerdict;
+  /** Blocco 3: requisiti minimi (bullet list). */
+  requirements?: I18nList;
+  /** Blocco 4: percorso dati — intro + passi ordinati "dove nasce -> dove passa -> dove arriva". */
+  dataPath?: { intro: I18nStr; steps: I18nList };
+  /** Blocco 6: casi d'uso concreti (bullet list), non generici. */
+  useCases?: I18nList;
+  /** Blocco 7: screenshot reale, mai un mock. Opzionale — nessun asset non equivale a placeholder. */
+  screenshot?: { src: string; alt: I18nStr };
+  /** Blocco 8: limiti onesti — cosa non arriva o non fa. */
+  limitations?: I18nList;
+  /** Blocco 12: fonti visibili + data di verifica. */
+  sourcesBlock?: ProviderSourcesBlock;
 }
 
 export interface ProviderSetupGuide {
@@ -874,7 +928,148 @@ export const PROVIDERS: Provider[] = [
       ja: ["Wear OSダッシュボード同期", "Pixel Watchウェブダッシュボード", "Wear OS Health Connect"],
       ko: ["wear os 대시보드 동기화", "pixel watch 웹 대시보드", "wear os health connect"],
     },
-    relatedBlogSlugs: ["guida-sync-wearable-2026", "come-funziona-health-connect", "health-connect-not-syncing", "best-health-data-sync-app-android"],
+    // FASE 7 P1.8C: "dati-pixel-watch-dashboard" aggiunto — link obbligatorio
+    // landing Wear OS -> articolo Pixel (era gia' presente il link verso
+    // la guida Health Connect, mancava quello verso l'articolo Pixel).
+    relatedBlogSlugs: ["dati-pixel-watch-dashboard", "guida-sync-wearable-2026", "come-funziona-health-connect", "health-connect-not-syncing", "best-health-data-sync-app-android"],
+    // FASE 5 P1.8C: nuovo modello editoriale, pilota (con pixel-watch).
+    // IT/EN autorati a mano su docs/seo/p18c-pixel-watch-wear-os-fact-ledger.md,
+    // altre locale tradotte+verificate in adversarial review.
+    editorialTemplateV2: true,
+    verdict: {
+      worksIf: {
+        it: "Il tuo smartwatch Wear OS scrive dati su Health Connect, direttamente o tramite l'app del produttore (Fitbit/Google Health per Pixel Watch, Galaxy Wearable per Samsung, altre app per altri brand), e vuoi vederli insieme agli altri dispositivi che usi.",
+        en: "Your Wear OS smartwatch writes data to Health Connect, either directly or through the manufacturer's app (Fitbit/Google Health for Pixel Watch, Galaxy Wearable for Samsung, other apps for other Wear OS brands), and you want to see it alongside the other devices you use.",
+        es: "Tu smartwatch Wear OS escribe datos en Health Connect, directamente o mediante la app del fabricante (Fitbit/Google Health para Pixel Watch, Galaxy Wearable para Samsung, otras apps para otras marcas), y quieres verlos junto con los demás dispositivos que usas.",
+        de: "Deine Wear OS-Smartwatch schreibt Daten in Health Connect, entweder direkt oder über die App des Herstellers (Fitbit/Google Health für Pixel Watch, Galaxy Wearable für Samsung, andere Apps für andere Marken), und du möchtest sie zusammen mit deinen anderen Geräten sehen.",
+        pt: "O teu smartwatch Wear OS escreve dados no Health Connect, diretamente ou através da app do fabricante (Fitbit/Google Health para o Pixel Watch, Galaxy Wearable para a Samsung, outras apps para outras marcas), e queres vê-los junto com os outros dispositivos que usas.",
+        fr: "Votre montre connectée Wear OS écrit des données dans Health Connect, directement ou via l'application du fabricant (Fitbit/Google Health pour Pixel Watch, Galaxy Wearable pour Samsung, d'autres applications pour d'autres marques), et vous voulez les voir avec les autres appareils que vous utilisez.",
+        pl: "Twój smartwatch z Wear OS zapisuje dane w Health Connect, bezpośrednio albo przez aplikację producenta (Fitbit/Google Health dla Pixel Watch, Galaxy Wearable dla Samsung, inne aplikacje dla innych marek), i chcesz widzieć je razem z innymi urządzeniami, których używasz.",
+        tr: "Wear OS akıllı saatin, doğrudan ya da üreticinin uygulaması üzerinden (Pixel Watch için Fitbit/Google Health, Samsung için Galaxy Wearable, diğer markalar için farklı uygulamalar) Health Connect'e veri yazıyorsa ve bu verileri kullandığın diğer cihazlarla birlikte görmek istiyorsan.",
+        nl: "Je Wear OS-smartwatch schrijft gegevens naar Health Connect, rechtstreeks of via de app van de fabrikant (Fitbit/Google Health voor Pixel Watch, Galaxy Wearable voor Samsung, andere apps voor andere merken), en je wilt ze samen zien met de andere apparaten die je gebruikt.",
+        ja: "お使いのWear OSスマートウォッチが、直接またはメーカーのアプリ(Pixel Watchの場合はFitbit/Google Health、Samsungの場合はGalaxy Wearable、他のブランドの場合は各社のアプリ)経由でHealth Connectにデータを書き込んでおり、それを使っている他のデバイスのデータと一緒に見たい場合。",
+        ko: "사용 중인 Wear OS 스마트워치가 Health Connect에 직접, 또는 제조사 앱(Pixel Watch는 Fitbit/Google Health, 삼성은 Galaxy Wearable, 다른 브랜드는 각 앱)을 통해 데이터를 기록하고, 이 데이터를 사용 중인 다른 기기들과 함께 보고 싶은 경우.",
+      },
+      skipIf: {
+        it: "Il tuo Wear OS non passa da Health Connect (alcuni produttori tengono i dati solo nella propria app), oppure ti basta un'unica app del produttore senza confrontare più dispositivi.",
+        en: "Your Wear OS device doesn't route through Health Connect (some manufacturers keep data only in their own app), or a single manufacturer app is enough for you without comparing multiple devices.",
+        es: "Tu Wear OS no pasa por Health Connect (algunos fabricantes mantienen los datos solo en su propia app), o te basta con una única app del fabricante sin comparar varios dispositivos.",
+        de: "Deine Wear OS-Smartwatch läuft nicht über Health Connect (manche Hersteller behalten die Daten nur in der eigenen App), oder dir reicht eine einzige Hersteller-App, ohne mehrere Geräte zu vergleichen.",
+        pt: "O teu Wear OS não passa pelo Health Connect (alguns fabricantes mantêm os dados só na própria app), ou então basta-te uma única app do fabricante sem comparar vários dispositivos.",
+        fr: "Votre Wear OS ne passe pas par Health Connect (certains fabricants conservent les données uniquement dans leur propre application), ou une seule application du fabricant vous suffit, sans comparer plusieurs appareils.",
+        pl: "Twój zegarek z Wear OS nie przechodzi przez Health Connect (niektórzy producenci trzymają dane tylko we własnej aplikacji), albo wystarczy Ci jedna aplikacja producenta bez porównywania kilku urządzeń.",
+        tr: "Wear OS saatin Health Connect üzerinden geçmiyorsa (bazı üreticiler verileri yalnızca kendi uygulamasında tutar) ya da birden fazla cihazı karşılaştırmadan tek bir üretici uygulaması sana yetiyorsa.",
+        nl: "Je Wear OS-horloge loopt niet via Health Connect (sommige fabrikanten houden de gegevens alleen in hun eigen app), of je hebt genoeg aan één app van de fabrikant zonder meerdere apparaten te vergelijken.",
+        ja: "お使いのWear OSがHealth Connectを経由しない場合(一部のメーカーは自社アプリ内にのみデータを保持します)、または複数のデバイスを比較する必要がなく、メーカー純正アプリ1つだけで十分な場合。",
+        ko: "사용 중인 Wear OS 기기가 Health Connect를 거치지 않는 경우(일부 제조사는 데이터를 자사 앱에만 보관합니다), 또는 여러 기기를 비교할 필요 없이 제조사 앱 하나만으로 충분한 경우.",
+      },
+    },
+    requirements: {
+      it: [
+        "Uno smartwatch Wear OS il cui produttore scrive su Health Connect: verificalo nell'app del produttore prima di aspettarti dati in FitMesh.",
+        "Telefono Android 9 (API 28) o successivo per FitMesh; Health Connect è integrato di sistema da Android 14, va installato dal Play Store su versioni precedenti.",
+        "Autorizzazione Health Connect concessa a FitMesh per i tipi di dato che vuoi sincronizzare.",
+      ],
+      en: [
+        "A Wear OS smartwatch whose manufacturer writes to Health Connect: check the manufacturer's app before expecting data in FitMesh.",
+        "Android 9 (API 28) or later for FitMesh; Health Connect is a system module from Android 14, on earlier versions it's installed from the Play Store.",
+        "Health Connect permission granted to FitMesh for the data types you want to sync.",
+      ],
+      es: ["Un smartwatch Wear OS cuyo fabricante escriba en Health Connect: verifícalo en la app del fabricante antes de esperar ver datos en FitMesh.", "Teléfono con Android 9 (API 28) o posterior para FitMesh; Health Connect está integrado en el sistema desde Android 14, en versiones anteriores hay que instalarlo desde Play Store.", "Autorización de Health Connect concedida a FitMesh para los tipos de datos que quieras sincronizar."],
+      de: ["Eine Wear OS-Smartwatch, deren Hersteller in Health Connect schreibt: Prüfe das in der Hersteller-App, bevor du Daten in FitMesh erwartest.", "Ein Android-Telefon mit Version 9 (API 28) oder neuer für FitMesh; Health Connect ist ab Android 14 fest ins System integriert, bei älteren Versionen muss es aus dem Play Store installiert werden.", "Health Connect-Berechtigung, die FitMesh für die Datentypen erteilt wurde, die du synchronisieren möchtest."],
+      pt: ["Um smartwatch Wear OS cujo fabricante escreva no Health Connect: verifica isto na app do fabricante antes de esperares dados no FitMesh.", "Telemóvel Android 9 (API 28) ou posterior para o FitMesh; o Health Connect está integrado no sistema a partir do Android 14, em versões anteriores tem de ser instalado a partir da Play Store.", "Autorização do Health Connect concedida ao FitMesh para os tipos de dados que queres sincronizar."],
+      fr: ["Une montre connectée Wear OS dont le fabricant écrit dans Health Connect : vérifiez-le dans l'application du fabricant avant de vous attendre à voir des données dans FitMesh.", "Téléphone Android 9 (API 28) ou version ultérieure pour FitMesh ; Health Connect est intégré au système à partir d'Android 14, il doit être installé depuis le Play Store sur les versions antérieures.", "Autorisation Health Connect accordée à FitMesh pour les types de données que vous voulez synchroniser."],
+      pl: ["Smartwatch z Wear OS, którego producent zapisuje dane w Health Connect: sprawdź to w aplikacji producenta, zanim spodziewasz się danych w FitMesh.", "Telefon z Androidem 9 (API 28) lub nowszym dla FitMesh; Health Connect jest zintegrowany z systemem od Androida 14, na wcześniejszych wersjach trzeba go zainstalować z Play Store.", "Uprawnienie Health Connect przyznane FitMesh dla typów danych, które chcesz synchronizować."],
+      tr: ["Üreticisi Health Connect'e veri yazan bir Wear OS akıllı saat: FitMesh'te veri beklemeden önce bunu üreticinin uygulamasından doğrula.", "FitMesh için Android 9 (API 28) veya üzeri bir telefon; Health Connect, Android 14'ten itibaren sisteme dahildir, önceki sürümlerde Play Store'dan kurulması gerekir.", "Senkronize etmek istediğin veri türleri için FitMesh'e verilmiş Health Connect izni."],
+      nl: ["Een Wear OS-smartwatch waarvan de fabrikant naar Health Connect schrijft: controleer dit in de app van de fabrikant voordat je gegevens in FitMesh verwacht.", "Telefoon met Android 9 (API 28) of hoger voor FitMesh; Health Connect is vanaf Android 14 in het systeem geïntegreerd, op eerdere versies moet het via de Play Store worden geïnstalleerd.", "Health Connect-toestemming verleend aan FitMesh voor de gegevenstypen die je wilt synchroniseren."],
+      ja: ["メーカーがHealth Connectにデータを書き込むWear OSスマートウォッチであること。FitMeshにデータが表示されると期待する前に、メーカーのアプリで確認してください。", "FitMeshにはAndroid 9(API 28)以降のスマートフォンが必要です。Health ConnectはAndroid 14からシステムに統合されていますが、それより前のバージョンではPlay Storeからインストールする必要があります。", "同期したいデータの種類について、FitMeshにHealth Connectの許可を与えていること。"],
+      ko: ["제조사가 Health Connect에 데이터를 기록하는 Wear OS 스마트워치: FitMesh에 데이터가 나타나기를 기대하기 전에 제조사 앱에서 이를 먼저 확인하세요.", "FitMesh를 사용하려면 Android 9(API 28) 이상 휴대폰이 필요합니다. Health Connect는 Android 14부터 시스템에 통합되어 있으며, 이전 버전에서는 Play Store에서 설치해야 합니다.", "동기화하려는 데이터 유형에 대해 FitMesh에 Health Connect 권한을 부여해야 합니다."],
+    },
+    dataPath: {
+      intro: {
+        it: "Il percorso varia da produttore a produttore: ogni orologio Wear OS passa dalla propria app companion prima di arrivare a Health Connect, mai direttamente a FitMesh.",
+        en: "The path varies by manufacturer: every Wear OS watch goes through its own companion app before reaching Health Connect, never directly to FitMesh.",
+        es: "El camino varía según el fabricante: cada reloj Wear OS pasa por su propia app complementaria antes de llegar a Health Connect, nunca directamente a FitMesh.",
+        de: "Der Weg unterscheidet sich je nach Hersteller: Jede Wear OS-Smartwatch läuft über ihre eigene Begleit-App, bevor die Daten Health Connect erreichen, nie direkt zu FitMesh.",
+        pt: "O percurso varia de fabricante para fabricante: cada relógio Wear OS passa pela sua própria app companion antes de chegar ao Health Connect, nunca diretamente ao FitMesh.",
+        fr: "Le parcours varie d'un fabricant à l'autre : chaque montre Wear OS passe par sa propre application compagnon avant d'arriver à Health Connect, jamais directement à FitMesh.",
+        pl: "Ścieżka różni się w zależności od producenta: każdy zegarek z Wear OS przechodzi przez własną aplikację towarzyszącą, zanim trafi do Health Connect, nigdy bezpośrednio do FitMesh.",
+        tr: "Bu yol üreticiden üreticiye değişir: her Wear OS saat, Health Connect'e ulaşmadan önce kendi companion uygulamasından geçer, hiçbir zaman doğrudan FitMesh'e gitmez.",
+        nl: "Het traject verschilt per fabrikant: elk Wear OS-horloge gaat via zijn eigen companion-app voordat het bij Health Connect terechtkomt, nooit rechtstreeks naar FitMesh.",
+        ja: "経路はメーカーごとに異なります。どのWear OSウォッチも、Health Connectに届く前に必ず自社のコンパニオンアプリを経由し、FitMeshに直接届くことはありません。",
+        ko: "경로는 제조사마다 다릅니다. 모든 Wear OS 워치는 Health Connect에 도달하기 전에 자체 컴패니언 앱을 거치며, FitMesh로 직접 연결되는 경우는 없습니다.",
+      },
+      steps: {
+        it: [
+          "Lo smartwatch registra i dati e li invia all'app companion del produttore (varia per brand: Fitbit/Google Health per Pixel Watch, Galaxy Wearable per Samsung, altre app per altri Wear OS).",
+          "L'app companion scrive su Health Connect, se il produttore lo supporta.",
+          "FitMesh legge da Health Connect con la tua autorizzazione esplicita, per tipo di dato.",
+          "I dati appaiono in dashboard al sync successivo.",
+        ],
+        en: [
+          "The smartwatch records data and sends it to the manufacturer's companion app (varies by brand: Fitbit/Google Health for Pixel Watch, Galaxy Wearable for Samsung, other apps for other Wear OS devices).",
+          "The companion app writes to Health Connect, if the manufacturer supports it.",
+          "FitMesh reads from Health Connect with your explicit permission, per data type.",
+          "Your data shows up on the dashboard at the next sync.",
+        ],
+        es: ["El smartwatch registra los datos y los envía a la app complementaria del fabricante (varía según la marca: Fitbit/Google Health para Pixel Watch, Galaxy Wearable para Samsung, otras apps para otros Wear OS).", "La app complementaria escribe en Health Connect, si el fabricante lo admite.", "FitMesh lee desde Health Connect con tu autorización explícita, por tipo de dato.", "Los datos aparecen en el panel en la siguiente sincronización."],
+        de: ["Die Smartwatch erfasst die Daten und sendet sie an die Begleit-App des Herstellers (je nach Marke unterschiedlich: Fitbit/Google Health für Pixel Watch, Galaxy Wearable für Samsung, andere Apps für andere Wear OS-Geräte).", "Die Begleit-App schreibt in Health Connect, sofern der Hersteller das unterstützt.", "FitMesh liest aus Health Connect, mit deiner ausdrücklichen Berechtigung, pro Datentyp.", "Die Daten erscheinen im Dashboard bei der nächsten Synchronisierung."],
+        pt: ["O smartwatch regista os dados e envia-os para a app companion do fabricante (varia por marca: Fitbit/Google Health para o Pixel Watch, Galaxy Wearable para a Samsung, outras apps para outros Wear OS).", "A app companion escreve no Health Connect, se o fabricante o suportar.", "O FitMesh lê do Health Connect com a tua autorização explícita, por tipo de dado.", "Os dados aparecem no dashboard na sincronização seguinte."],
+        fr: ["La montre connectée enregistre les données et les envoie à l'application compagnon du fabricant (variable selon la marque : Fitbit/Google Health pour Pixel Watch, Galaxy Wearable pour Samsung, d'autres applications pour d'autres Wear OS).", "L'application compagnon écrit dans Health Connect, si le fabricant le prend en charge.", "FitMesh lit depuis Health Connect avec votre autorisation explicite, par type de donnée.", "Les données apparaissent dans le tableau de bord à la synchronisation suivante."],
+        pl: ["Smartwatch rejestruje dane i wysyła je do aplikacji towarzyszącej producenta (zależnie od marki: Fitbit/Google Health dla Pixel Watch, Galaxy Wearable dla Samsung, inne aplikacje dla innych zegarków z Wear OS).", "Aplikacja towarzysząca zapisuje dane w Health Connect, jeśli producent to obsługuje.", "FitMesh odczytuje dane z Health Connect za Twoją wyraźną zgodą, osobno dla każdego typu danych.", "Dane pojawiają się w panelu przy kolejnej synchronizacji."],
+        tr: ["Akıllı saat verileri kaydeder ve üreticinin companion uygulamasına gönderir (markaya göre değişir: Pixel Watch için Fitbit/Google Health, Samsung için Galaxy Wearable, diğer Wear OS cihazları için farklı uygulamalar).", "Companion uygulama, üretici destekliyorsa Health Connect'e veri yazar.", "FitMesh, senin açık iznine bağlı olarak, veri türü başına Health Connect'ten okur.", "Veriler bir sonraki senkronizasyonda gösterge panelinde görünür."],
+        nl: ["De smartwatch registreert de gegevens en stuurt ze naar de companion-app van de fabrikant (verschilt per merk: Fitbit/Google Health voor Pixel Watch, Galaxy Wearable voor Samsung, andere apps voor andere Wear OS-horloges).", "De companion-app schrijft naar Health Connect, als de fabrikant dit ondersteunt.", "FitMesh leest uit Health Connect met jouw expliciete toestemming, per gegevenstype.", "De gegevens verschijnen in het dashboard bij de volgende synchronisatie."],
+        ja: ["スマートウォッチがデータを記録し、メーカーのコンパニオンアプリに送信します(ブランドによって異なり、Pixel WatchならFitbit/Google Health、SamsungならGalaxy Wearable、他のWear OSでは各社のアプリになります)。", "メーカーが対応している場合、コンパニオンアプリがHealth Connectにデータを書き込みます。", "FitMeshは、データの種類ごとに明示的な許可を得たうえで、Health Connectからデータを読み取ります。", "データは次回の同期時にダッシュボードに表示されます。"],
+        ko: ["스마트워치가 데이터를 기록하여 제조사의 컴패니언 앱으로 전송합니다(브랜드마다 다름: Pixel Watch는 Fitbit/Google Health, 삼성은 Galaxy Wearable, 다른 Wear OS 기기는 각 앱).", "제조사가 이를 지원하는 경우, 컴패니언 앱이 Health Connect에 데이터를 기록합니다.", "FitMesh는 데이터 유형별로 부여한 명시적 권한에 따라 Health Connect에서 데이터를 읽어옵니다.", "데이터는 다음 동기화 시 대시보드에 표시됩니다."],
+      },
+    },
+    useCases: {
+      it: [
+        "Confrontare i dati del tuo Wear OS con altri wearable (anello, altro smartwatch) in un'unica dashboard.",
+        "Mantenere uno storico continuo anche cambiando smartwatch Wear OS, finché il nuovo device scrive sugli stessi tipi Health Connect.",
+      ],
+      en: [
+        "Compare your Wear OS data with other wearables (a ring, another smartwatch) in a single dashboard.",
+        "Keep a continuous history even when switching Wear OS watches, as long as the new device writes to the same Health Connect types.",
+      ],
+      es: ["Comparar los datos de tu Wear OS con otros wearables (anillo, otro smartwatch) en un único panel.", "Mantener un historial continuo aunque cambies de smartwatch Wear OS, siempre que el nuevo dispositivo escriba en los mismos tipos de Health Connect."],
+      de: ["Die Daten deiner Wear OS-Smartwatch mit anderen Wearables (Ring, andere Smartwatch) in einem einzigen Dashboard vergleichen.", "Einen durchgehenden Verlauf behalten, auch wenn du die Wear OS-Smartwatch wechselst, solange das neue Gerät in dieselben Health Connect-Datentypen schreibt."],
+      pt: ["Comparar os dados do teu Wear OS com outros wearables (anel, outro smartwatch) num único dashboard.", "Manter um histórico contínuo mesmo ao mudar de smartwatch Wear OS, desde que o novo dispositivo escreva nos mesmos tipos do Health Connect."],
+      fr: ["Comparer les données de votre Wear OS avec d'autres appareils connectés (bague, autre montre connectée) dans un tableau de bord unique.", "Conserver un historique continu même en changeant de montre connectée Wear OS, tant que le nouvel appareil écrit sur les mêmes types Health Connect."],
+      pl: ["Porównywanie danych z Twojego zegarka Wear OS z innymi urządzeniami ubieralnymi (pierścieniem, innym smartwatchem) w jednym panelu.", "Zachowanie ciągłej historii nawet przy zmianie smartwatcha z Wear OS, dopóki nowe urządzenie zapisuje te same typy danych w Health Connect."],
+      tr: ["Wear OS verilerini diğer giyilebilir cihazlarla (yüzük, başka bir akıllı saat) tek bir gösterge panelinde karşılaştırmak.", "Yeni cihaz aynı Health Connect veri türlerine yazdığı sürece, Wear OS akıllı saatini değiştirsen bile kesintisiz bir geçmiş tutmak."],
+      nl: ["De gegevens van je Wear OS-horloge vergelijken met andere wearables (ring, andere smartwatch) in één dashboard.", "Een doorlopende geschiedenis behouden, ook als je van Wear OS-smartwatch wisselt, zolang het nieuwe apparaat naar dezelfde Health Connect-gegevenstypen schrijft."],
+      ja: ["Wear OSのデータを、他のウェアラブル(リング、別のスマートウォッチなど)のデータと1つのダッシュボードで比較できます。", "新しいデバイスが同じHealth Connectのデータ種別に書き込む限り、Wear OSスマートウォッチを買い替えても履歴を途切れさせずに保てます。"],
+      ko: ["Wear OS 데이터를 다른 웨어러블(반지, 다른 스마트워치)과 하나의 대시보드에서 비교할 수 있습니다.", "새 기기가 동일한 Health Connect 데이터 유형에 기록하는 한, Wear OS 스마트워치를 바꾸더라도 연속된 기록을 유지할 수 있습니다."],
+    },
+    limitations: {
+      it: [
+        "Non tutti gli smartwatch Wear OS scrivono su Health Connect: dipende dall'app companion del produttore.",
+        "Le metriche disponibili variano per produttore: alcuni condividono sonno con fasi e HRV, altri solo passi e frequenza cardiaca.",
+        "Le funzioni calcolate lato produttore (coaching, punteggi proprietari) restano nella loro app; FitMesh vede solo i dati grezzi sottostanti.",
+      ],
+      en: [
+        "Not every Wear OS smartwatch writes to Health Connect: it depends on the manufacturer's companion app.",
+        "Available metrics vary by manufacturer: some share sleep stages and HRV, others only steps and heart rate.",
+        "Manufacturer-side calculated features (coaching, proprietary scores) stay in their own app; FitMesh only sees the underlying raw data.",
+      ],
+      es: ["No todos los smartwatch Wear OS escriben en Health Connect: depende de la app complementaria del fabricante.", "Las métricas disponibles varían según el fabricante: algunos comparten sueño con fases y HRV, otros solo pasos y frecuencia cardíaca.", "Las funciones calculadas por el fabricante (coaching, puntuaciones propias) permanecen en su propia app; FitMesh solo ve los datos brutos subyacentes."],
+      de: ["Nicht jede Wear OS-Smartwatch schreibt in Health Connect: Das hängt von der Begleit-App des Herstellers ab.", "Die verfügbaren Messwerte unterscheiden sich je nach Hersteller: Manche teilen Schlaf mit Phasen und HRV, andere nur Schritte und Herzfrequenz.", "Funktionen, die der Hersteller selbst berechnet (Coaching, herstellereigene Bewertungen), bleiben in dessen App; FitMesh sieht nur die zugrunde liegenden Rohdaten."],
+      pt: ["Nem todos os smartwatches Wear OS escrevem no Health Connect: depende da app companion do fabricante.", "As métricas disponíveis variam consoante o fabricante: alguns partilham sono com fases e HRV, outros só passos e frequência cardíaca.", "As funcionalidades calculadas do lado do fabricante (coaching, pontuações próprias) ficam na respetiva app; o FitMesh vê apenas os dados brutos subjacentes."],
+      fr: ["Toutes les montres connectées Wear OS n'écrivent pas dans Health Connect : cela dépend de l'application compagnon du fabricant.", "Les métriques disponibles varient selon le fabricant : certains partagent le sommeil avec les phases et la HRV, d'autres seulement les pas et la fréquence cardiaque.", "Les fonctions calculées côté fabricant (coaching, scores propriétaires) restent dans leur application ; FitMesh ne voit que les données brutes sous-jacentes."],
+      pl: ["Nie wszystkie smartwatche z Wear OS zapisują dane w Health Connect: zależy to od aplikacji towarzyszącej producenta.", "Dostępne metryki różnią się w zależności od producenta: niektórzy udostępniają sen z fazami i HRV, inni tylko kroki i tętno.", "Funkcje obliczane po stronie producenta (coaching, własne wskaźniki) pozostają w jego aplikacji; FitMesh widzi tylko leżące u ich podstaw dane surowe."],
+      tr: ["Tüm Wear OS akıllı saatleri Health Connect'e veri yazmaz: bu, üreticinin companion uygulamasına bağlıdır.", "Kullanılabilir metrikler üreticiye göre değişir: bazıları evrelere ayrılmış uyku ve HRV paylaşır, bazıları yalnızca adım ve kalp atış hızı paylaşır.", "Üretici tarafında hesaplanan işlevler (koçluk, kendine özgü puanlar) kendi uygulamalarında kalır; FitMesh yalnızca bunların altındaki ham verileri görür."],
+      nl: ["Niet alle Wear OS-smartwatches schrijven naar Health Connect: dat hangt af van de companion-app van de fabrikant.", "De beschikbare meetwaarden verschillen per fabrikant: sommige delen slaap met fasen en HRV, andere alleen stappen en hartslag.", "Functies die door de fabrikant worden berekend (coaching, eigen scores) blijven in hun eigen app; FitMesh ziet alleen de onderliggende ruwe gegevens."],
+      ja: ["すべてのWear OSスマートウォッチがHealth Connectに書き込むわけではありません。これはメーカーのコンパニオンアプリ次第です。", "利用できる指標はメーカーによって異なります。睡眠ステージやHRVまで共有するメーカーもあれば、歩数と心拍数のみのメーカーもあります。", "メーカー側で計算される機能(コーチング、独自のスコアなど)はそのメーカーのアプリ内にとどまり、FitMeshが見られるのはその元になる生データのみです。"],
+      ko: ["모든 Wear OS 스마트워치가 Health Connect에 데이터를 기록하는 것은 아닙니다. 이는 제조사의 컴패니언 앱에 따라 다릅니다.", "제공되는 지표는 제조사마다 다릅니다. 일부는 수면 단계와 HRV까지 공유하지만, 일부는 걸음 수와 심박수만 공유합니다.", "제조사 측에서 계산되는 기능(코칭, 자체 점수)은 해당 앱에만 남아 있습니다. FitMesh는 그 바탕이 되는 원시 데이터만 확인할 수 있습니다."],
+    },
+    sourcesBlock: {
+      verifiedOn: "2026-08-25",
+      sources: [
+        "https://developer.android.com/health-and-fitness/guides/health-connect",
+        "https://developer.android.com/health-and-fitness/guides/health-connect/plan/data-types",
+      ],
+    },
   },
   {
     slug: "pixel-watch",
@@ -1377,6 +1572,150 @@ export const PROVIDERS: Provider[] = [
       },
     },
     relatedBlogSlugs: ["dati-pixel-watch-dashboard", "guida-sync-wearable-2026", "health-connect-not-syncing"],
+    // FASE 5 P1.8C: nuovo modello editoriale, pilota (con wear-os).
+    editorialTemplateV2: true,
+    verdict: {
+      worksIf: {
+        it: "Hai un Pixel Watch (qualsiasi generazione, 1-5) collegato all'app Fitbit o Google Health sul telefono, usi Android 9 o successivo e vuoi vedere passi, sonno con fasi, frequenza cardiaca, HRV e SpO2 insieme agli altri dispositivi che usi, in un'unica dashboard.",
+        en: "You have a Pixel Watch (any generation, 1-5) linked to the Fitbit or Google Health app on your phone, use Android 9 or later, and want to see steps, sleep with stages, heart rate, HRV, and SpO2 alongside the other devices you use, in one dashboard.",
+        es: "Tienes un Pixel Watch (cualquier generación, 1-5) vinculado a la app Fitbit o Google Health en el teléfono, usas Android 9 o posterior y quieres ver pasos, sueño con fases, frecuencia cardíaca, HRV y SpO2 junto con los demás dispositivos que usas, en un único panel.",
+        de: "Du hast eine Pixel Watch (jede Generation, 1 bis 5), die auf dem Telefon mit der Fitbit- oder Google Health-App verbunden ist, nutzt Android 9 oder neuer und möchtest Schritte, Schlaf mit Phasen, Herzfrequenz, HRV und SpO2 zusammen mit deinen anderen Geräten in einem einzigen Dashboard sehen.",
+        pt: "Tens um Pixel Watch (qualquer geração, 1-5) associado à app Fitbit ou Google Health no telemóvel, usas Android 9 ou posterior e queres ver passos, sono com fases, frequência cardíaca, HRV e SpO2 junto com os outros dispositivos que usas, num único dashboard.",
+        fr: "Vous avez une Pixel Watch (n'importe quelle génération, de 1 à 5) associée à l'application Fitbit ou Google Health sur votre téléphone, vous utilisez Android 9 ou une version ultérieure, et vous voulez voir les pas, le sommeil avec les phases, la fréquence cardiaque, la HRV et la SpO2 avec les autres appareils que vous utilisez, dans un tableau de bord unique.",
+        pl: "Masz Pixel Watch (dowolnej generacji, 1-5) połączony z aplikacją Fitbit lub Google Health na telefonie, używasz Androida 9 lub nowszego i chcesz widzieć kroki, sen z fazami, tętno, HRV i SpO2 razem z innymi urządzeniami, których używasz, w jednym panelu.",
+        tr: "Telefonundaki Fitbit veya Google Health uygulamasına bağlı bir Pixel Watch'ın (herhangi bir nesil, 1-5) varsa, Android 9 veya üzerini kullanıyorsan ve adım, evrelere ayrılmış uyku, kalp atış hızı, HRV ve SpO2 verilerini kullandığın diğer cihazlarla birlikte tek bir gösterge panelinde görmek istiyorsan.",
+        nl: "Je hebt een Pixel Watch (elke generatie, 1 tot 5) gekoppeld aan de Fitbit- of Google Health-app op je telefoon, gebruikt Android 9 of hoger en wilt stappen, slaap met fasen, hartslag, HRV en SpO2 samen met je andere apparaten in één dashboard zien.",
+        ja: "Pixel Watch(世代を問わず1から5のいずれか)をスマートフォン上のFitbitまたはGoogle Healthアプリに連携させており、Android 9以降を使用していて、歩数、睡眠ステージ、心拍数、HRV、SpO2を、使っている他のデバイスのデータと一緒に1つのダッシュボードで見たい場合。",
+        ko: "휴대폰에서 Fitbit 또는 Google Health 앱에 연결된 Pixel Watch(1~5세대 모두 해당)를 사용하고, Android 9 이상을 사용하며, 걸음 수, 수면 단계, 심박수, HRV, SpO2를 사용 중인 다른 기기들과 함께 하나의 대시보드에서 보고 싶은 경우.",
+      },
+      skipIf: {
+        it: "Ti basta guardare i dati solo nell'app Google Health e non usi altri wearable insieme al Pixel Watch, oppure ti servono VO2max e il percorso GPS dei workout: questi due dati non arrivano a FitMesh su Android.",
+        en: "A single Google Health app is enough for you and you don't use other wearables alongside the Pixel Watch, or you need VO2max and workout GPS routes: neither reaches FitMesh on Android.",
+        es: "Te basta con ver los datos solo en la app Google Health y no usas otros wearables junto con el Pixel Watch, o necesitas el VO2max y el recorrido GPS de los entrenamientos: estos dos datos no llegan a FitMesh en Android.",
+        de: "Dir reicht es, die Daten nur in der Google Health-App anzusehen, und du nutzt neben der Pixel Watch keine weiteren Wearables, oder du brauchst VO2max und die GPS-Strecke deiner Trainingseinheiten: Diese beiden Daten kommen unter Android nicht bei FitMesh an.",
+        pt: "Basta-te ver os dados só na app Google Health e não usas outros wearables junto com o Pixel Watch, ou então precisas do VO2max e do percurso GPS dos treinos: estes dois dados não chegam ao FitMesh no Android.",
+        fr: "Il vous suffit de consulter les données uniquement dans l'application Google Health et vous n'utilisez pas d'autres appareils connectés avec la Pixel Watch, ou vous avez besoin du VO2max et du tracé GPS des entraînements : ces deux données n'arrivent pas à FitMesh sur Android.",
+        pl: "Wystarczy Ci przeglądanie danych wyłącznie w aplikacji Google Health i nie używasz innych urządzeń ubieralnych razem z Pixel Watch, albo potrzebujesz VO2max i trasy GPS treningów: te informacje nie trafiają do FitMesh na Androidzie.",
+        tr: "Verilere yalnızca Google Health uygulamasında bakmak sana yetiyorsa ve Pixel Watch'ın yanında başka bir giyilebilir cihaz kullanmıyorsan, ya da antrenmanlarının VO2max ve GPS rotasına ihtiyacın varsa: bu iki veri Android'de FitMesh'e ulaşmaz.",
+        nl: "Je hebt genoeg aan het bekijken van de gegevens alleen in de Google Health-app en gebruikt geen andere wearables naast de Pixel Watch, of je hebt VO2max en de GPS-route van je trainingen nodig: deze twee gegevens komen op Android niet in FitMesh terecht.",
+        ja: "Google Healthアプリだけでデータを見れば十分で、Pixel Watch以外のウェアラブルを併用していない場合、またはVO2maxやワークアウトのGPS経路が必要な場合。これら2つのデータはAndroidではFitMeshに届きません。",
+        ko: "Google Health 앱에서만 데이터를 확인해도 충분하고 Pixel Watch 외에 다른 웨어러블을 함께 사용하지 않는 경우, 또는 VO2max와 운동의 GPS 경로가 필요한 경우: 이 두 데이터는 Android에서 FitMesh로 전달되지 않습니다.",
+      },
+    },
+    requirements: {
+      it: [
+        "Pixel Watch (1, 2, 3, 4 o 5) associato all'app Fitbit o Google Health sul telefono.",
+        "Telefono Android 9 (API 28) o successivo per FitMesh; Health Connect è integrato di sistema da Android 14, va installato dal Play Store su versioni precedenti.",
+        "Autorizzazione Health Connect concessa a FitMesh per i tipi di dato che vuoi sincronizzare (passi, frequenza cardiaca, sonno, HRV, SpO2, allenamenti).",
+        "Storico leggibile: 30 giorni prima del momento in cui concedi il permesso, non 30 giorni da oggi.",
+      ],
+      en: [
+        "Pixel Watch (1, 2, 3, 4, or 5) linked to the Fitbit or Google Health app on your phone.",
+        "Android 9 (API 28) or later for FitMesh; Health Connect is a system module from Android 14, on earlier versions it's installed from the Play Store.",
+        "Health Connect permission granted to FitMesh for the data types you want to sync (steps, heart rate, sleep, HRV, SpO2, workouts).",
+        "Readable history: 30 days before the moment you grant the permission, not 30 days from today.",
+      ],
+      es: ["Pixel Watch (1, 2, 3, 4 o 5) vinculado a la app Fitbit o Google Health en el teléfono.", "Teléfono con Android 9 (API 28) o posterior para FitMesh; Health Connect está integrado en el sistema desde Android 14, en versiones anteriores hay que instalarlo desde Play Store.", "Autorización de Health Connect concedida a FitMesh para los tipos de datos que quieras sincronizar (pasos, frecuencia cardíaca, sueño, HRV, SpO2, entrenamientos).", "Historial legible: 30 días antes del momento en que concedes el permiso, no 30 días desde hoy."],
+      de: ["Pixel Watch (1, 2, 3, 4 oder 5), verbunden mit der Fitbit- oder Google Health-App auf dem Telefon.", "Ein Android-Telefon mit Version 9 (API 28) oder neuer für FitMesh; Health Connect ist ab Android 14 fest ins System integriert, bei älteren Versionen muss es aus dem Play Store installiert werden.", "Health Connect-Berechtigung, die FitMesh für die Datentypen erteilt wurde, die du synchronisieren möchtest (Schritte, Herzfrequenz, Schlaf, HRV, SpO2, Trainingseinheiten).", "Lesbarer Verlauf: 30 Tage vor dem Zeitpunkt, an dem du die Berechtigung erteilst, nicht 30 Tage ab heute."],
+      pt: ["Pixel Watch (1, 2, 3, 4 ou 5) associado à app Fitbit ou Google Health no telemóvel.", "Telemóvel Android 9 (API 28) ou posterior para o FitMesh; o Health Connect está integrado no sistema a partir do Android 14, em versões anteriores tem de ser instalado a partir da Play Store.", "Autorização do Health Connect concedida ao FitMesh para os tipos de dados que queres sincronizar (passos, frequência cardíaca, sono, HRV, SpO2, treinos).", "Histórico legível: 30 dias antes do momento em que concedes a permissão, não 30 dias a partir de hoje."],
+      fr: ["Pixel Watch (1, 2, 3, 4 ou 5) associée à l'application Fitbit ou Google Health sur le téléphone.", "Téléphone Android 9 (API 28) ou version ultérieure pour FitMesh ; Health Connect est intégré au système à partir d'Android 14, il doit être installé depuis le Play Store sur les versions antérieures.", "Autorisation Health Connect accordée à FitMesh pour les types de données que vous voulez synchroniser (pas, fréquence cardiaque, sommeil, HRV, SpO2, entraînements).", "Historique lisible : 30 jours avant le moment où vous accordez l'autorisation, pas 30 jours à partir d'aujourd'hui."],
+      pl: ["Pixel Watch (1, 2, 3, 4 lub 5) powiązany z aplikacją Fitbit lub Google Health na telefonie.", "Telefon z Androidem 9 (API 28) lub nowszym dla FitMesh; Health Connect jest zintegrowany z systemem od Androida 14, na wcześniejszych wersjach trzeba go zainstalować z Play Store.", "Uprawnienie Health Connect przyznane FitMesh dla typów danych, które chcesz synchronizować (kroki, tętno, sen, HRV, SpO2, treningi).", "Historia możliwa do odczytu: 30 dni przed momentem, w którym udzielasz uprawnienia, a nie 30 dni od dziś."],
+      tr: ["Telefondaki Fitbit veya Google Health uygulamasıyla ilişkilendirilmiş bir Pixel Watch (1, 2, 3, 4 veya 5).", "FitMesh için Android 9 (API 28) veya üzeri bir telefon; Health Connect, Android 14'ten itibaren sisteme dahildir, önceki sürümlerde Play Store'dan kurulması gerekir.", "Senkronize etmek istediğin veri türleri (adım, kalp atış hızı, uyku, HRV, SpO2, antrenmanlar) için FitMesh'e verilmiş Health Connect izni.", "Okunabilir geçmiş: bugünden geriye 30 gün değil, izni verdiğin andan geriye 30 gün."],
+      nl: ["Pixel Watch (1, 2, 3, 4 of 5) gekoppeld aan de Fitbit- of Google Health-app op je telefoon.", "Telefoon met Android 9 (API 28) of hoger voor FitMesh; Health Connect is vanaf Android 14 in het systeem geïntegreerd, op eerdere versies moet het via de Play Store worden geïnstalleerd.", "Health Connect-toestemming verleend aan FitMesh voor de gegevenstypen die je wilt synchroniseren (stappen, hartslag, slaap, HRV, SpO2, trainingen).", "Leesbare geschiedenis: 30 dagen vóór het moment waarop je de toestemming verleent, niet 30 dagen vanaf vandaag."],
+      ja: ["スマートフォン上のFitbitまたはGoogle Healthアプリに関連付けられたPixel Watch(1、2、3、4、5のいずれか)。", "FitMeshにはAndroid 9(API 28)以降のスマートフォンが必要です。Health ConnectはAndroid 14からシステムに統合されていますが、それより前のバージョンではPlay Storeからインストールする必要があります。", "同期したいデータの種類(歩数、心拍数、睡眠、HRV、SpO2、ワークアウト)について、FitMeshにHealth Connectの許可を与えていること。", "読み取れる履歴は、許可を与えた時点から遡って30日分であり、今日から遡って30日分ではありません。"],
+      ko: ["휴대폰에서 Fitbit 또는 Google Health 앱에 연동된 Pixel Watch(1, 2, 3, 4 또는 5세대).", "FitMesh를 사용하려면 Android 9(API 28) 이상 휴대폰이 필요합니다. Health Connect는 Android 14부터 시스템에 통합되어 있으며, 이전 버전에서는 Play Store에서 설치해야 합니다.", "동기화하려는 데이터 유형(걸음 수, 심박수, 수면, HRV, SpO2, 운동)에 대해 FitMesh에 Health Connect 권한을 부여해야 합니다.", "읽을 수 있는 기록 범위: 오늘부터 30일이 아니라, 권한을 부여한 시점부터 이전 30일입니다."],
+    },
+    dataPath: {
+      intro: {
+        it: "I dati del tuo Pixel Watch passano da un'app companion Google prima di arrivare a Health Connect: FitMesh non si collega mai direttamente al Pixel Watch o a un server Google.",
+        en: "Your Pixel Watch's data passes through a Google companion app before reaching Health Connect: FitMesh never connects directly to the Pixel Watch or to a Google server.",
+        es: "Los datos de tu Pixel Watch pasan por una app complementaria de Google antes de llegar a Health Connect: FitMesh nunca se conecta directamente al Pixel Watch ni a un servidor de Google.",
+        de: "Die Daten deiner Pixel Watch laufen über eine Begleit-App von Google, bevor sie Health Connect erreichen: FitMesh verbindet sich nie direkt mit der Pixel Watch oder einem Google-Server.",
+        pt: "Os dados do teu Pixel Watch passam por uma app companion da Google antes de chegarem ao Health Connect: o FitMesh nunca se liga diretamente ao Pixel Watch nem a um servidor da Google.",
+        fr: "Les données de votre Pixel Watch passent par une application compagnon Google avant d'arriver à Health Connect : FitMesh ne se connecte jamais directement à la Pixel Watch ni à un serveur Google.",
+        pl: "Dane z Twojego Pixel Watch przechodzą przez aplikację towarzyszącą Google, zanim trafią do Health Connect: FitMesh nigdy nie łączy się bezpośrednio z Pixel Watch ani z serwerem Google.",
+        tr: "Pixel Watch verilerin, Health Connect'e ulaşmadan önce bir Google companion uygulamasından geçer: FitMesh hiçbir zaman doğrudan Pixel Watch'a veya bir Google sunucusuna bağlanmaz.",
+        nl: "De gegevens van je Pixel Watch gaan via een Google-companion-app voordat ze bij Health Connect terechtkomen: FitMesh maakt nooit rechtstreeks verbinding met de Pixel Watch of met een server van Google.",
+        ja: "Pixel Watchのデータは、Health Connectに届く前にGoogleのコンパニオンアプリを経由します。FitMeshがPixel WatchやGoogleのサーバーに直接接続することはありません。",
+        ko: "Pixel Watch의 데이터는 Health Connect에 도달하기 전에 Google 컴패니언 앱을 거칩니다. FitMesh는 Pixel Watch나 Google 서버에 직접 연결되는 일이 없습니다.",
+      },
+      steps: {
+        it: [
+          "Il Pixel Watch registra passi, frequenza cardiaca, sonno e altri sensori e li invia all'app companion (Fitbit o Google Health) sul telefono.",
+          "L'app companion scrive questi dati su Health Connect, il livello di sincronizzazione di sistema Android.",
+          "FitMesh legge da Health Connect, con la tua autorizzazione esplicita per ogni tipo di dato.",
+          "I dati appaiono in dashboard al sync successivo (automatico ogni 15-360 minuti a tua scelta, oppure subito con \"Sincronizza ora\").",
+        ],
+        en: [
+          "The Pixel Watch records steps, heart rate, sleep, and other sensors and sends them to the companion app (Fitbit or Google Health) on your phone.",
+          "The companion app writes this data to Health Connect, Android's system sync layer.",
+          "FitMesh reads from Health Connect, with your explicit permission for each data type.",
+          "Your data shows up on the dashboard at the next sync (automatic every 15-360 minutes, your choice, or right away with \"Sync now\").",
+        ],
+        es: ["El Pixel Watch registra pasos, frecuencia cardíaca, sueño y otros sensores y los envía a la app complementaria (Fitbit o Google Health) en el teléfono.", "La app complementaria escribe estos datos en Health Connect, la capa de sincronización de sistema de Android.", "FitMesh lee desde Health Connect, con tu autorización explícita para cada tipo de dato.", "Los datos aparecen en el panel en la siguiente sincronización (automática cada 15-360 minutos a tu elección, o al instante con \"Sincronizar ahora\")."],
+        de: ["Die Pixel Watch erfasst Schritte, Herzfrequenz, Schlaf und weitere Sensordaten und sendet sie an die Begleit-App (Fitbit oder Google Health) auf dem Telefon.", "Die Begleit-App schreibt diese Daten in Health Connect, die systemweite Synchronisierungsebene von Android.", "FitMesh liest aus Health Connect, mit deiner ausdrücklichen Berechtigung für jeden Datentyp.", "Die Daten erscheinen im Dashboard bei der nächsten Synchronisierung (automatisch alle 15 bis 360 Minuten nach deiner Wahl, oder sofort mit „Jetzt synchronisieren“)."],
+        pt: ["O Pixel Watch regista passos, frequência cardíaca, sono e outros sensores e envia-os para a app companion (Fitbit ou Google Health) no telemóvel.", "A app companion escreve estes dados no Health Connect, a camada de sincronização de sistema do Android.", "O FitMesh lê do Health Connect, com a tua autorização explícita para cada tipo de dado.", "Os dados aparecem no dashboard na sincronização seguinte (automática a cada 15-360 minutos à tua escolha, ou de imediato com \"Sincronizar agora\")."],
+        fr: ["La Pixel Watch enregistre les pas, la fréquence cardiaque, le sommeil et d'autres capteurs, et les envoie à l'application compagnon (Fitbit ou Google Health) sur le téléphone.", "L'application compagnon écrit ces données dans Health Connect, la couche de synchronisation système d'Android.", "FitMesh lit depuis Health Connect, avec votre autorisation explicite pour chaque type de donnée.", "Les données apparaissent dans le tableau de bord à la synchronisation suivante (automatique toutes les 15 à 360 minutes selon votre choix, ou immédiatement avec « Synchroniser maintenant »)."],
+        pl: ["Pixel Watch rejestruje kroki, tętno, sen i dane z innych czujników i wysyła je do aplikacji towarzyszącej (Fitbit lub Google Health) na telefonie.", "Aplikacja towarzysząca zapisuje te dane w Health Connect, systemowej warstwie synchronizacji Androida.", "FitMesh odczytuje dane z Health Connect za Twoją wyraźną zgodą dla każdego typu danych.", "Dane pojawiają się w panelu przy kolejnej synchronizacji (automatycznej co 15-360 minut, do wyboru, albo natychmiast po wybraniu \"Synchronizuj teraz\")."],
+        tr: ["Pixel Watch adım, kalp atış hızı, uyku ve diğer sensör verilerini kaydeder ve telefondaki companion uygulamaya (Fitbit veya Google Health) gönderir.", "Companion uygulama bu verileri, Android'in sistem senkronizasyon katmanı olan Health Connect'e yazar.", "FitMesh, her veri türü için senin açık iznine bağlı olarak Health Connect'ten okur.", "Veriler bir sonraki senkronizasyonda gösterge panelinde görünür (seçimine göre 15-360 dakikada bir otomatik, ya da \"Şimdi senkronize et\" ile hemen)."],
+        nl: ["De Pixel Watch registreert stappen, hartslag, slaap en andere sensorgegevens en stuurt ze naar de companion-app (Fitbit of Google Health) op je telefoon.", "De companion-app schrijft deze gegevens naar Health Connect, de systeemlaag van Android voor synchronisatie.", "FitMesh leest uit Health Connect, met jouw expliciete toestemming voor elk gegevenstype.", "De gegevens verschijnen in het dashboard bij de volgende synchronisatie (automatisch elke 15 tot 360 minuten naar keuze, of direct met \"Nu synchroniseren\")."],
+        ja: ["Pixel Watchが歩数、心拍数、睡眠などのセンサーデータを記録し、スマートフォン上のコンパニオンアプリ(FitbitまたはGoogle Health)に送信します。", "コンパニオンアプリが、Androidのシステム同期レイヤーであるHealth Connectにこれらのデータを書き込みます。", "FitMeshは、データの種類ごとに明示的な許可を得たうえで、Health Connectからデータを読み取ります。", "データは次回の同期時にダッシュボードに表示されます(15分から360分の間で選択できる自動同期、または「今すぐ同期」ですぐに反映することもできます)。"],
+        ko: ["Pixel Watch가 걸음 수, 심박수, 수면 등 여러 센서 데이터를 기록하여 휴대폰의 컴패니언 앱(Fitbit 또는 Google Health)으로 전송합니다.", "컴패니언 앱은 이 데이터를 Android 시스템의 동기화 계층인 Health Connect에 기록합니다.", "FitMesh는 각 데이터 유형에 대해 부여한 명시적 권한에 따라 Health Connect에서 데이터를 읽어옵니다.", "데이터는 다음 동기화 시 대시보드에 표시됩니다(선택한 주기에 따라 15~360분마다 자동으로, 또는 \"지금 동기화\"로 즉시)."],
+      },
+    },
+    useCases: {
+      it: [
+        "Vedere sonno, frequenza cardiaca e HRV del Pixel Watch nello stesso grafico degli altri dispositivi che usi (anello, altro smartwatch, bilancia).",
+        "Mantenere uno storico continuo anche se cambi wearable: i dati restano nella tua dashboard FitMesh, non solo nell'app del produttore.",
+        "Confrontare le notti tra periodi diversi con un'unica fonte, invece di aprire più app.",
+      ],
+      en: [
+        "See your Pixel Watch's sleep, heart rate, and HRV on the same chart as the other devices you use (a ring, another smartwatch, a scale).",
+        "Keep a continuous history even if you switch wearables: the data stays in your FitMesh dashboard, not just in the manufacturer's app.",
+        "Compare nights across different periods from a single source, instead of opening multiple apps.",
+      ],
+      es: ["Ver el sueño, la frecuencia cardíaca y el HRV del Pixel Watch en el mismo gráfico que los demás dispositivos que usas (anillo, otro smartwatch, báscula).", "Mantener un historial continuo aunque cambies de wearable: los datos permanecen en tu panel de FitMesh, no solo en la app del fabricante.", "Comparar las noches entre distintos periodos con una única fuente, en lugar de abrir varias apps."],
+      de: ["Schlaf, Herzfrequenz und HRV der Pixel Watch im selben Diagramm wie deine anderen Geräte sehen (Ring, andere Smartwatch, Waage).", "Einen durchgehenden Verlauf behalten, auch wenn du das Wearable wechselst: Die Daten bleiben in deinem FitMesh-Dashboard, nicht nur in der Hersteller-App.", "Nächte über verschiedene Zeiträume mit einer einzigen Quelle vergleichen, statt mehrere Apps zu öffnen."],
+      pt: ["Ver o sono, a frequência cardíaca e o HRV do Pixel Watch no mesmo gráfico dos outros dispositivos que usas (anel, outro smartwatch, balança).", "Manter um histórico contínuo mesmo que mudes de wearable: os dados ficam no teu dashboard FitMesh, não só na app do fabricante.", "Comparar noites entre períodos diferentes com uma única fonte, em vez de abrir várias apps."],
+      fr: ["Voir le sommeil, la fréquence cardiaque et la HRV de la Pixel Watch dans le même graphique que les autres appareils que vous utilisez (bague, autre montre connectée, balance).", "Conserver un historique continu même si vous changez d'appareil connecté : les données restent dans votre tableau de bord FitMesh, pas seulement dans l'application du fabricant.", "Comparer les nuits entre différentes périodes avec une seule source, au lieu d'ouvrir plusieurs applications."],
+      pl: ["Zobaczenie snu, tętna i HRV z Pixel Watch na tym samym wykresie co inne urządzenia, których używasz (pierścień, inny smartwatch, waga).", "Zachowanie ciągłej historii nawet po zmianie urządzenia ubieralnego: dane pozostają w Twoim panelu FitMesh, a nie tylko w aplikacji producenta.", "Porównywanie nocy między różnymi okresami z jednego źródła, zamiast otwierać kilka aplikacji."],
+      tr: ["Pixel Watch'ın uyku, kalp atış hızı ve HRV verilerini kullandığın diğer cihazlarla (yüzük, başka bir akıllı saat, tartı) aynı grafikte görmek.", "Giyilebilir cihazını değiştirsen bile kesintisiz bir geçmiş tutmak: veriler yalnızca üreticinin uygulamasında değil, FitMesh gösterge panelinde de kalır.", "Birden fazla uygulama açmak yerine, farklı dönemler arasındaki geceleri tek bir kaynaktan karşılaştırmak."],
+      nl: ["Slaap, hartslag en HRV van de Pixel Watch in dezelfde grafiek zien als je andere apparaten (ring, andere smartwatch, weegschaal).", "Een doorlopende geschiedenis behouden, ook als je van wearable wisselt: de gegevens blijven in je FitMesh-dashboard staan, niet alleen in de app van de fabrikant.", "Nachten tussen verschillende periodes vergelijken met één bron, in plaats van meerdere apps te openen."],
+      ja: ["Pixel Watchの睡眠、心拍数、HRVを、使っている他のデバイス(リング、別のスマートウォッチ、体重計など)と同じグラフで見られます。", "ウェアラブルを買い替えても履歴を途切れさせずに保てます。データはメーカーのアプリだけでなく、FitMeshのダッシュボードにも残ります。", "複数のアプリを開くことなく、1つの情報源で異なる期間の夜を比較できます。"],
+      ko: ["Pixel Watch의 수면, 심박수, HRV를 사용 중인 다른 기기(반지, 다른 스마트워치, 체중계)와 같은 그래프에서 볼 수 있습니다.", "웨어러블을 바꾸더라도 연속된 기록을 유지할 수 있습니다. 데이터는 제조사 앱뿐 아니라 FitMesh 대시보드에도 남아 있습니다.", "여러 앱을 열어볼 필요 없이 하나의 소스로 서로 다른 기간의 밤을 비교할 수 있습니다."],
+    },
+    limitations: {
+      it: [
+        "VO2max non arriva a FitMesh: Health Connect su Android non espone questo dato dal Pixel Watch in questo percorso.",
+        "Il percorso GPS dei tuoi allenamenti resta nell'app Google Health: Health Connect non ha un tipo di dato per la traccia GPS su questo device.",
+        "Le funzioni calcolate da Google Health (analisi del sonno con Health Coach, i riepiloghi mensili di Pixel Watch 5) restano nell'app Google: FitMesh vede solo i dati grezzi da cui partono.",
+        "Con più wearable insieme, FitMesh sceglie una sola fonte vincente per ogni metrica: non somma i passi di due dispositivi.",
+      ],
+      en: [
+        "VO2max doesn't reach FitMesh: Health Connect on Android doesn't expose this data from the Pixel Watch on this path.",
+        "Your workouts' GPS route stays in the Google Health app: Health Connect has no data type for GPS tracks on this device.",
+        "Features calculated by Google Health (sleep analysis with Health Coach, Pixel Watch 5's monthly summaries) stay in the Google app: FitMesh only sees the raw data they're built from.",
+        "With multiple wearables at once, FitMesh picks a single winning source per metric: it doesn't add up steps from two devices.",
+      ],
+      es: ["El VO2max no llega a FitMesh: Health Connect en Android no expone este dato del Pixel Watch en este recorrido.", "El recorrido GPS de tus entrenamientos permanece en la app Google Health: Health Connect no tiene un tipo de dato para la traza GPS en este dispositivo.", "Las funciones calculadas por Google Health (análisis del sueño con Health Coach, los resúmenes mensuales de Pixel Watch 5) permanecen en la app Google: FitMesh solo ve los datos brutos de los que parten.", "Con varios wearables a la vez, FitMesh elige una única fuente ganadora para cada métrica: no suma los pasos de dos dispositivos."],
+      de: ["VO2max kommt nicht bei FitMesh an: Health Connect stellt diesen Wert unter Android auf diesem Weg nicht von der Pixel Watch bereit.", "Die GPS-Strecke deiner Trainingseinheiten bleibt in der Google Health-App: Health Connect hat für dieses Gerät keinen Datentyp für die GPS-Spur.", "Funktionen, die Google Health selbst berechnet (Schlafanalyse mit Health Coach, die monatlichen Zusammenfassungen der Pixel Watch 5), bleiben in der Google-App: FitMesh sieht nur die zugrunde liegenden Rohdaten, aus denen sie entstehen.", "Bei mehreren Wearables gleichzeitig wählt FitMesh für jede Metrik eine einzige führende Quelle aus: Es addiert nicht die Schritte von zwei Geräten."],
+      pt: ["O VO2max não chega ao FitMesh: o Health Connect no Android não expõe este dado do Pixel Watch neste percurso.", "O percurso GPS dos teus treinos fica na app Google Health: o Health Connect não tem um tipo de dado para o traçado GPS neste dispositivo.", "As funcionalidades calculadas pela Google Health (análise do sono com o Health Coach, os resumos mensais do Pixel Watch 5) ficam na app da Google: o FitMesh vê apenas os dados brutos de onde partem.", "Com vários wearables ao mesmo tempo, o FitMesh escolhe apenas uma fonte vencedora para cada métrica: não soma os passos de dois dispositivos."],
+      fr: ["Le VO2max n'arrive pas à FitMesh : Health Connect sur Android n'expose pas cette donnée depuis la Pixel Watch sur ce parcours.", "Le tracé GPS de vos entraînements reste dans l'application Google Health : Health Connect n'a pas de type de donnée pour le tracé GPS sur cet appareil.", "Les fonctions calculées par Google Health (analyse du sommeil avec Health Coach, les récapitulatifs mensuels de Pixel Watch 5) restent dans l'application Google : FitMesh ne voit que les données brutes dont elles partent.", "Avec plusieurs appareils connectés utilisés ensemble, FitMesh choisit une seule source gagnante par métrique : il n'additionne pas les pas de deux appareils."],
+      pl: ["VO2max nie trafia do FitMesh: Health Connect na Androidzie nie udostępnia tej informacji z Pixel Watch na tej ścieżce.", "Trasa GPS Twoich treningów pozostaje w aplikacji Google Health: Health Connect nie ma typu danych dla śladu GPS na tym urządzeniu.", "Funkcje obliczane przez Google Health (analiza snu z Health Coach, miesięczne podsumowania Pixel Watch 5) pozostają w aplikacji Google: FitMesh widzi tylko dane surowe, z których one wychodzą.", "Przy kilku urządzeniach ubieralnych naraz FitMesh wybiera jedno zwycięskie źródło dla każdej metryki: nie sumuje kroków z dwóch urządzeń."],
+      tr: ["VO2max FitMesh'e ulaşmaz: Android'de Health Connect, bu veriyi Pixel Watch'tan bu yol üzerinden dışarı açmaz.", "Antrenmanlarının GPS rotası Google Health uygulamasında kalır: Health Connect'te bu cihaz için GPS rotasına ait bir veri türü yoktur.", "Google Health tarafından hesaplanan işlevler (Health Coach ile uyku analizi, Pixel Watch 5'in aylık özetleri) Google uygulamasında kalır: FitMesh yalnızca bunların dayandığı ham verileri görür.", "Birden fazla giyilebilir cihaz birlikte kullanıldığında, FitMesh her metrik için tek bir kazanan kaynak seçer: iki cihazın adımlarını toplamaz."],
+      nl: ["VO2max komt niet in FitMesh terecht: Health Connect op Android geeft dit gegeven van de Pixel Watch in dit traject niet door.", "De GPS-route van je trainingen blijft in de Google Health-app: Health Connect heeft geen gegevenstype voor de GPS-track op dit apparaat.", "Functies die door Google Health worden berekend (slaapanalyse met Health Coach, de maandoverzichten van Pixel Watch 5) blijven in de Google-app: FitMesh ziet alleen de ruwe gegevens waarop ze zijn gebaseerd.", "Bij meerdere wearables tegelijk kiest FitMesh voor elke meetwaarde één winnende bron: het telt niet de stappen van twee apparaten bij elkaar op."],
+      ja: ["VO2maxはFitMeshに届きません。この経路では、AndroidのHealth ConnectはPixel Watchからのこのデータを公開していません。", "ワークアウトのGPS経路はGoogle Healthアプリ内にとどまります。Health Connectには、このデバイスのGPS軌跡用のデータ種別が存在しません。", "Google Healthが計算する機能(Health Coachによる睡眠分析、Pixel Watch 5の月次レポートなど)はGoogleのアプリ内にとどまり、FitMeshが見られるのはその元になる生データのみです。", "複数のウェアラブルを併用している場合、FitMeshは指標ごとに採用する情報源を1つだけ選びます。2台のデバイスの歩数を合算することはありません。"],
+      ko: ["VO2max는 FitMesh로 전달되지 않습니다. Android의 Health Connect는 이 경로에서 Pixel Watch의 해당 데이터를 제공하지 않습니다.", "운동의 GPS 경로는 Google Health 앱에만 남아 있습니다. Health Connect에는 이 기기의 GPS 경로를 위한 데이터 유형이 없습니다.", "Google Health가 계산하는 기능(Health Coach의 수면 분석, Pixel Watch 5의 월간 요약)은 Google 앱에만 남아 있습니다. FitMesh는 그 바탕이 되는 원시 데이터만 확인할 수 있습니다.", "여러 웨어러블을 함께 사용할 경우, FitMesh는 지표마다 하나의 대표 소스만 선택합니다. 두 기기의 걸음 수를 합산하지 않습니다."],
+    },
+    sourcesBlock: {
+      verifiedOn: "2026-08-25",
+      sources: [
+        "https://blog.google/products-and-platforms/devices/pixel/pixel-watch-5/",
+        "https://support.google.com/googlehealth/answer/14506680?hl=en-GB_ALL",
+        "https://developer.android.com/health-and-fitness/guides/health-connect/plan/data-types",
+        "https://developer.android.com/health-and-fitness/guides/health-connect",
+      ],
+    },
   },
   {
     slug: "xiaomi-mi-band",

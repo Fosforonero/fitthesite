@@ -99,9 +99,27 @@ export const post: BlogPost = {
       "wie Sie von Google Fit migrieren",
     ],
   },
+  // FASE 4 P1.8C (2026-08-25): seoTitle.en aggiunto su verifica GSC reale
+  // (export fitmesh.fit ultimi 3 mesi, pagina /en/blog/google-fit-shutting-down-alternative:
+  // 1.443 impression, 8 click, CTR 0,55%, posizione media 7,94). La query
+  // dominante per impression e' un cluster ripetuto "google fit api(s)
+  // deprecat(ed/ion) ... health connect ... [2026] official" (decine di
+  // varianti, tutte a CTR 0%, posizione ~6-10): il title precedente non
+  // menzionava mai "Health Connect", presente nel meta description ma non
+  // nel <title> renderizzato. H1 (hero.title.en), slug e publishedAt
+  // invariati. Prima: "Google Fit API deprecation 2026: how to migrate"
+  // (47 caratteri). Dopo: 57 caratteri, resta descrittivo, non assoluto,
+  // non clickbait.
+  seoTitle: {
+    en: "Google Fit API Deprecation 2026: Health Connect Migration",
+  },
   metaDescription: {
     it: "Le API di Google Fit chiudono entro fine 2026 (nessun giorno esatto pubblicato): cosa cambia, come si distinguono Health Connect, Google Health API e Health Services, e come FitMesh Sync aiuta a unire i tuoi wearable in un unico pannello.",
-    en: "Google Fit's APIs are shutting down by the end of 2026 (no exact day published): what changes, how Health Connect, the Google Health API, and Health Services differ, and how FitMesh Sync unites your wearables in one dashboard.",
+    // FASE 4 P1.8C: accorciata da 226 a 159 caratteri (soglia 140-160,
+    // FASE 8): il testo precedente troncava in SERP. Stessa promessa
+    // fattuale (nessuna data esatta pubblicata), entita' distinte
+    // preservate (Health Connect / Google Health API).
+    en: "Google Fit's APIs are being deprecated by end of 2026 (no exact day published). How Health Connect and the Google Health API differ, and how to migrate safely.",
     es: "Las API de Google Fit cierran antes de finales de 2026 (sin fecha exacta publicada): qué cambia, en qué se diferencian Health Connect, la Google Health API y Health Services, y cómo FitMesh Sync une tus wearables en un panel único.",
     de: "Die Google Fit APIs werden bis Ende 2026 eingestellt (kein genauer Tag veröffentlicht): was sich ändert, wie sich Health Connect, die Google Health API und Health Services unterscheiden, und wie FitMesh Sync deine Wearables in einem Dashboard vereint.",
     pt: "As APIs do Google Fit encerram até o final de 2026 (nenhum dia exato publicado): o que muda, como se diferenciam Health Connect, a Google Health API e o Health Services, e como o FitMesh Sync une seus wearables em um único painel.",
