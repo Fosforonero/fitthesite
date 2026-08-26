@@ -250,30 +250,70 @@ describe.skipIf(!disponibile)("client 189 -> live pre-190 -> candidata 190", () 
     });
   });
 
-  // ══ L'INVARIANTE, SU TUTTI GLI SCENARI E SU ENTRAMBI I CLIENT ═════════════
-  it("la candidata non dichiara mai un diritto che il database non possiede", async () => {
-    const scenari: { nome: string; monta: () => void }[] = [
-      { nome: "revocato senza alternative", monta: () => { banco.registra(K1, 3); banco.revoca(K1); } },
-      { nome: "revocato con K2 valido", monta: () => { banco.registra(K1, 4); banco.registra(K2, 3); banco.revoca(K1); } },
-      { nome: "mai visto prima", monta: () => {} },
-      { nome: "gia' registrato e attivo", monta: () => { banco.registra(K1, 3); } },
-    ];
-    const client: { nome: string; fai: () => Request }[] = [
-      { nome: "189", fai: richiesta189 },
-      { nome: "190", fai: richiesta190 },
-    ];
+  // ══ L'INVARIANTE, OTTO CASI NOMINATI ══════════════════════════════════════
+  //
+  // Era un solo `it` che ciclava 2 client x 4 scenari: otto montaggi del banco
+  // e otto risposte, circa venticinque `docker exec psql` dentro un unico caso.
+  // In locale 3,3-4,1 s contro i 5 s di timeout predefinito di vitest; sul
+  // runner GitHub sforava, e il gate diceva soltanto `Error: STACK_TRACE_ERROR`
+  // — che e' come il rapporto JSON serializza un timeout.
+  //
+  // Adesso sono otto casi separati. Non e' un timeout alzato: e' lo stesso
+  // lavoro diviso per otto, quindi ognuno sta ampiamente sotto il limite
+  // PREDEFINITO e nessun timeout locale serve. Se un giorno servisse, va
+  // dichiarato sul singolo caso e motivato col numero di processi, mai alzando
+  // quello globale — che nasconderebbe la lentezza di tutti gli altri.
+  //
+  // Il `beforeEach` monta gia' un banco pulito con l'utente, e vitest esegue i
+  // casi di un file in sequenza: l'ordine sequenziale serve qui, perche' gli
+  // otto casi condividono l'unico database del run.
+  //
+  // Asserzione IDENTICA a prima, scritta una volta sola: se venisse ricopiata
+  // otto volte, prima o poi otto copie direbbero otto cose leggermente diverse.
+  const MONTAGGI: Record<string, () => void> = {
+    "revocato senza alternative": () => {
+      banco.registra(K1, 3);
+      banco.revoca(K1);
+    },
+    "revocato con K2 valido": () => {
+      banco.registra(K1, 4);
+      banco.registra(K2, 3);
+      banco.revoca(K1);
+    },
+    "mai visto prima": () => {},
+    "gia' registrato e attivo": () => {
+      banco.registra(K1, 3);
+    },
+  };
 
-    for (const c of client) {
-      for (const s of scenari) {
-        banco.pulisci();
-        banco.creaUtente();
-        s.monta();
-        const r = await leggi(await postCandidata(c.fai()));
-        expect(
-          dichiaraUnDiritto(r.status, r.body) && !banco.ilDatabasePossiedeUnDiritto(),
-          `client ${c.nome}, scenario "${s.nome}": la risposta dichiara un diritto che il database non ha (${JSON.stringify(r.body)})`,
-        ).toBe(false);
-      }
-    }
-  });
+  async function invariante(
+    cliente: "189" | "190",
+    scenario: keyof typeof MONTAGGI,
+  ): Promise<void> {
+    MONTAGGI[scenario]();
+    const fai = cliente === "189" ? richiesta189 : richiesta190;
+    const r = await leggi(await postCandidata(fai()));
+    expect(
+      dichiaraUnDiritto(r.status, r.body) && !banco.ilDatabasePossiedeUnDiritto(),
+      `client ${cliente}, scenario "${scenario}": la risposta dichiara un diritto che il database non ha (${JSON.stringify(r.body)})`,
+    ).toBe(false);
+  }
+
+  const CASI: { cliente: "189" | "190"; scenario: keyof typeof MONTAGGI }[] = [
+    { cliente: "189", scenario: "revocato senza alternative" },
+    { cliente: "189", scenario: "revocato con K2 valido" },
+    { cliente: "189", scenario: "mai visto prima" },
+    { cliente: "189", scenario: "gia' registrato e attivo" },
+    { cliente: "190", scenario: "revocato senza alternative" },
+    { cliente: "190", scenario: "revocato con K2 valido" },
+    { cliente: "190", scenario: "mai visto prima" },
+    { cliente: "190", scenario: "gia' registrato e attivo" },
+  ];
+
+  it.each(CASI)(
+    "invariante — client $cliente, $scenario: mai un diritto che il database non possiede",
+    async ({ cliente, scenario }) => {
+      await invariante(cliente, scenario);
+    },
+  );
 });

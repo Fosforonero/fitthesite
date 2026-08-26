@@ -108,17 +108,70 @@ type Raccolta = {
  * due cose restano separate — e in piu' l'esito e' quello vero della suite.
  * `--run` e' esplicito: una suite in watch, in un gate, resterebbe appesa.
  */
+/**
+ * Il MOTIVO di un fallimento, e non «STACK_TRACE_ERROR».
+ *
+ * Il rapporto JSON di vitest e' la fonte giusta per la struttura e per l'esito,
+ * ma per certe classi di errore — i timeout in primo luogo — mette in
+ * `failureMessages` il segnaposto `Error: STACK_TRACE_ERROR`. Il reporter
+ * umano invece scrive «Test timed out in 5000ms». Quindi: prima il JSON, e se
+ * dice il segnaposto si va a prendere la riga vera dall'uscita umana.
+ */
+function causaDi(
+  a: { title?: string; failureMessages?: string[] },
+  umano: string,
+): string {
+  const dalJson = (a.failureMessages ?? []).join(" | ").split("\n")[0]?.trim() ?? "";
+  if (dalJson && !dalJson.includes("STACK_TRACE_ERROR")) return dalJson;
+
+  const titolo = a.title ?? "";
+  const i = titolo ? umano.indexOf(titolo) : -1;
+  if (i >= 0) {
+    for (const riga of umano.slice(i + titolo.length, i + titolo.length + 1200).split("\n")) {
+      const t = riga.trim();
+      if (!t) continue;
+      if (/^(AssertionError|[A-Za-z]*Error|→)/.test(t)) return t;
+    }
+  }
+  return dalJson || "(motivo non riportato dal reporter)";
+}
+
+/**
+ * Un gate stampa in CI, e in CI i log restano. Qui passa un messaggio di
+ * asserzione, che puo' contenere il corpo di una risposta: si oscura tutto cio'
+ * che somiglia a un token, a un identificativo o a un payload PRIMA di
+ * stamparlo. Meglio un motivo un po' piu' povero che un token nei log.
+ */
+function sanifica(s: string): string {
+  return s
+    .replace(/[A-Za-z0-9_-]{16,}\.[A-Za-z0-9_-]{16,}\.[A-Za-z0-9_-]{8,}/g, "«jws»")
+    .replace(/[\w.+-]+@[\w-]+\.[\w.-]+/g, "«email»")
+    .replace(/\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi, "«uuid»")
+    .replace(/\{[^{}]{40,}\}/g, "«corpo»")
+    .replace(/\b[A-Za-z0-9+/]{40,}={0,2}\b/g, "«opaco»")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 240);
+}
+
 function raccoltaDaVitest(): Raccolta {
   const rapporto = path.join(RADICE, "node_modules", ".cache", "perimetro-suite.json");
   mkdirSync(path.dirname(rapporto), { recursive: true });
   rmSync(rapporto, { force: true });
   let esito = 0;
+  // Due reporter, di proposito. Quello JSON da' la struttura (file, casi,
+  // saltati, esito). Quello umano da' il MOTIVO: il rapporto JSON serializza
+  // un timeout come `Error: STACK_TRACE_ERROR`, che non dice niente — e in CI
+  // non c'e' nessun altro posto dove andarlo a leggere, perche' non si
+  // caricano artefatti. Misurato il 26/08/2026 forzando `--testTimeout=1200`.
+  let uscita = "";
   try {
-    execFileSync(
+    uscita = execFileSync(
       "node",
       [
         path.join(RADICE, "node_modules", "vitest", "vitest.mjs"),
         "--run",
+        "--reporter=default",
         "--reporter=json",
         `--outputFile=${rapporto}`,
       ],
@@ -136,13 +189,24 @@ function raccoltaDaVitest(): Raccolta {
   } catch (e) {
     // L'esito si cattura QUI, prima di qualunque lettura: un rosso della suite
     // non deve trasformarsi in un verde del perimetro.
-    esito = (e as { status?: number }).status ?? 1;
+    const err = e as { status?: number; stdout?: string | Buffer; stderr?: string | Buffer };
+    esito = err.status ?? 1;
+    uscita = `${String(err.stdout ?? "")}\n${String(err.stderr ?? "")}`;
   }
+  // Via i codici colore prima di cercarci dentro: con le sequenze ANSI in
+  // mezzo, un `indexOf` sul nome del test trova il nulla.
+  const umano = uscita.replace(/\u001b\[[0-9;]*m/g, "");
   if (!existsSync(rapporto)) throw new Error(`vitest non ha prodotto ${rapporto}`);
   const json = JSON.parse(readFileSync(rapporto, "utf8")) as {
     testResults?: Array<{
       name?: string;
-      assertionResults?: Array<{ status?: string; fullName?: string; title?: string; failureMessages?: string[] }>;
+      assertionResults?: Array<{
+        status?: string;
+        fullName?: string;
+        title?: string;
+        duration?: number;
+        failureMessages?: string[];
+      }>;
     }>;
   };
   const risultati = json.testResults ?? [];
@@ -172,8 +236,11 @@ function raccoltaDaVitest(): Raccolta {
     const nome = r.name ? (path.isAbsolute(r.name) ? path.relative(RADICE, r.name) : r.name) : "?";
     for (const a of r.assertionResults ?? []) {
       if (a.status === "failed") {
-        const motivo = (a.failureMessages ?? []).join(" | ").split("\n")[0]?.slice(0, 240) ?? "";
-        falliti.push(`${nome} > ${(a.fullName ?? a.title ?? "?").slice(0, 160)}\n           ${motivo}`);
+        const durata = typeof a.duration === "number" ? ` [${Math.round(a.duration)}ms]` : "";
+        const motivo = sanifica(causaDi(a, umano));
+        falliti.push(
+          `${nome} > ${(a.fullName ?? a.title ?? "?").slice(0, 160)}${durata}\n           ${motivo}`,
+        );
       }
     }
   }
