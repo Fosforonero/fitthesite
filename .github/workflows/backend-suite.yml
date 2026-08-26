@@ -79,6 +79,30 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Storia completa: test/legacy-189/vendored.test.ts confronta la copia
+          # letterale della route 189 con quella di `main` (`git show main:...`).
+          # Con il checkout superficiale predefinito quel ref non esiste, e il
+          # test fallisce per assenza della storia invece che per una copia
+          # divergente — cioe' per il motivo sbagliato.
+          fetch-depth: 0
+
+      - name: Il ref `main` deve esserci davvero
+        run: |
+          set -uo pipefail
+          if git rev-parse --verify --quiet main >/dev/null; then
+            echo "main gia' presente: $(git rev-parse --short main)"
+            exit 0
+          fi
+          git fetch --no-tags origin main:main
+          if [ $? -ne 0 ] || ! git rev-parse --verify --quiet main >/dev/null; then
+            echo "ROSSO: non sono riuscito a ottenere il ref «main»."
+            echo "       La copia letterale della 189 si confronta con main: senza"
+            echo "       quel ref il test non misura niente, e un rosso li' direbbe"
+            echo "       «la copia e' divergente» quando il problema e' il checkout."
+            exit 1
+          fi
+          echo "main recuperato da origin: $(git rev-parse --short main)"
 
       - name: Node congelato (.nvmrc)
         uses: actions/setup-node@v4
