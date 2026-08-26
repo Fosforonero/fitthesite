@@ -14,6 +14,12 @@
 -- ACL), policy RLS, trigger, tabelle e colonne, indici, privilegi su tabelle,
 -- job cron, e il conteggio delle righe nelle tabelle di registro append-only.
 --
+-- ESCLUSA di proposito: private.ambiente_isolato_release. E' la sentinella
+-- dell'ambiente di prova, la crea SOLO l'harness e non deve esistere in
+-- produzione. Se entrasse nell'impronta, ogni confronto con la produzione
+-- riporterebbe una differenza che non e' una differenza dello schema. Che
+-- nessuna migration la crei lo verifica 22-sentinella-solo-harness.sh.
+--
 -- Emette una riga per oggetto, ordinata. Il chiamante ne fa il diff o il md5.
 -- ============================================================================
 \pset tuples_only on
@@ -66,6 +72,7 @@ select riga from (
   from pg_catalog.pg_class c
   join pg_catalog.pg_namespace n on n.oid = c.relnamespace
   where c.relkind in ('r', 'p') and n.nspname in ('public', 'private', 'internal', 'rls_internal')
+    and c.relname <> 'ambiente_isolato_release'
 
   union all
   select 'col ' || n.nspname || '.' || c.relname || '.' || a.attname
@@ -78,6 +85,7 @@ select riga from (
   left join pg_catalog.pg_attrdef d on d.adrelid = a.attrelid and d.adnum = a.attnum
   where a.attnum > 0 and not a.attisdropped
     and c.relkind in ('r', 'p') and n.nspname in ('public', 'private', 'internal', 'rls_internal')
+    and c.relname <> 'ambiente_isolato_release'
 
   union all
   select 'idx ' || schemaname || '.' || indexname || ' def=' || md5(indexdef)
@@ -111,5 +119,6 @@ select riga from (
   from pg_catalog.pg_class c
   join pg_catalog.pg_namespace n on n.oid = c.relnamespace
   where c.relkind = 'r' and n.nspname in ('private', 'internal')
+    and c.relname <> 'ambiente_isolato_release'
 
 ) s order by riga;

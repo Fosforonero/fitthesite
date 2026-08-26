@@ -87,6 +87,37 @@ done
 
 echo
 
+# ----------------------------------------------------------------------------
+# PULIZIA — il database isolato non sopravvive a questa esecuzione.
+#
+# 16-mutazioni-billing.sh lascia due righe nel registro append-only, e append-only
+# significa che nessuno puo' toglierle. Se il database restasse in piedi, la
+# prossima esecuzione della suite avversariale troverebbe il registro gia'
+# scritto e si rifiuterebbe di partire — oppure, peggio, qualcuno alzerebbe la
+# soglia della precondizione per farla passare, e da quel momento il conteggio
+# non misurerebbe piu' niente.
+#
+# Distruggerlo e' la scelta onesta: il prossimo giro riparte dalla catena.
+# ----------------------------------------------------------------------------
+echo
+echo "############ pulizia ############"
+if docker exec "$SUPABASE_DB_CONTAINER" psql -U postgres -d postgres -q \
+     -c "drop database if exists $SUPABASE_DB_NAME;" >/dev/null 2>&1; then
+  ancora="$(docker exec "$SUPABASE_DB_CONTAINER" psql -U postgres -d postgres -X -tAc \
+    "select count(*) from pg_database where datname = '$SUPABASE_DB_NAME'" 2>/dev/null)"
+  if [ "$ancora" = "0" ]; then
+    echo "  ok         database isolato «${SUPABASE_DB_NAME}» distrutto"
+  else
+    echo "  ROSSO      «${SUPABASE_DB_NAME}» esiste ancora dopo la drop: la prossima"
+    echo "             esecuzione troverebbe il registro gia' scritto."
+    esito=1
+  fi
+else
+  echo "  ROSSO      drop del database isolato fallita"
+  esito=1
+fi
+
 echo
 [ "$esito" -ne 0 ] && { echo "ROSSO: qualcosa non e' verde. I log completi sono in /tmp/et-*.txt"; exit 1; }
 echo "VERDE: suite SQL, gate di integrazione e suite avversariale, tutto verde sul bersaglio dichiarato."
+echo "       Il database isolato e' stato distrutto: il prossimo giro riparte dalla catena."
