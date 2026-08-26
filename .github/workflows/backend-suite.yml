@@ -117,8 +117,9 @@ jobs:
             echo "main gia' presente: $(git rev-parse --short main)"
             exit 0
           fi
-          git fetch --no-tags origin main:main
-          if [ $? -ne 0 ] || ! git rev-parse --verify --quiet main >/dev/null; then
+          # `if ! cmd` invece di leggere $? dopo (shellcheck SC2181): e' la
+          # stessa disciplina di catturare l'esito prima di ogni filtro.
+          if ! git fetch --no-tags origin main:main || ! git rev-parse --verify --quiet main >/dev/null; then
             echo "ROSSO: non sono riuscito a ottenere il ref «main»."
             echo "       La copia letterale della 189 si confronta con main: senza"
             echo "       quel ref il test non misura niente, e un rosso li' direbbe"
@@ -126,6 +127,21 @@ jobs:
             exit 1
           fi
           echo "main recuperato da origin: $(git rev-parse --short main)"
+
+      - name: actionlint sui workflow
+        # Un workflow rotto non puo' validare se stesso: se lo si spezza, non
+        # parte proprio. Questo passo serve al caso utile, cioe' la PR che lo
+        # modifica: li' gira ancora la versione buona, e la modifica viene
+        # controllata prima di entrare.
+        run: |
+          set -uo pipefail
+          docker run --rm -v "${PWD}:/repo" -w /repo rhysd/actionlint:1.7.7 -color
+          esito=$?
+          if [ "${esito}" -ne 0 ]; then
+            echo "ROSSO: actionlint ha trovato problemi nei workflow (uscita ${esito})."
+            exit 1
+          fi
+          echo "actionlint: nessun problema"
 
       - name: Node congelato (.nvmrc)
         uses: actions/setup-node@v4
@@ -174,8 +190,10 @@ jobs:
         run: |
           set -euo pipefail
           for v in "${SUPABASE_DB_CONTAINER}" "${SUPABASE_DB_NAME}"; do
+            # `*prod*` copre gia' `*production*`: elencarli entrambi farebbe dire
+            # a shellcheck che il secondo non puo' mai combaciare (SC2222).
             case "$v" in
-              *supabase_db*|*prod*|*production*|*live*|*fitmesh_db*)
+              *supabase_db*|*prod*|*live*|*fitmesh_db*)
                 echo "ROSSO: bersaglio vietato «${v}»."; exit 1 ;;
             esac
           done
