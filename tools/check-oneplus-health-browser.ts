@@ -14,6 +14,14 @@
  *  - selettore lingua P0.14 (readAlternatesFromHead) ancora funzionante su
  *    questa pagina: il menu apre, mostra le locale reali lette dagli
  *    hreflang della pagina (non un elenco hardcoded), e il click naviga.
+ *  - (MICRO-GATE P0.15-C) ogni pill "Dati supportati" ha un nome
+ *    accessibile "[metrica] — [stato]" (role="group"+aria-label) e il
+ *    pallino colorato e' aria-hidden — lo stato non dipende solo dal
+ *    colore. Verificato sulle 4 locale rappresentative sopra.
+ *  - (MICRO-GATE P0.15-C) l'etichetta di stato ("Condizionale"/"Non
+ *    supportato") e' realmente tradotta su tutte le 11 locale
+ *    indicizzabili, nessun fallback EN silenzioso per DE/PT/FR/PL/TR — un
+ *    passaggio Chromium/desktop separato, dedicato, non uno stress test.
  *
  * Richiede il server locale in ascolto (BASE_URL, default http://localhost:3915).
  * Uso: BASE_URL=http://localhost:3915 npx tsx tools/check-oneplus-health-browser.ts
@@ -121,6 +129,30 @@ async function runFor(browserName: "chromium" | "webkit", browser: Browser) {
         errors.push(`${label} bottone selettore lingua non trovato`);
       }
 
+      // ── MICRO-GATE P0.15-C: stato pill leggibile da testo/nome
+      // accessibile, non solo colore. Ogni pill "Dati supportati" deve
+      // avere role="group" + aria-label "[metrica] — [stato]", e il
+      // pallino colorato dev'essere aria-hidden (decorativo).
+      const pillAccessibility = await page.evaluate(() => {
+        const groups = [...document.querySelectorAll('section [role="group"][aria-label]')];
+        return groups.map((g) => ({
+          ariaLabel: g.getAttribute("aria-label") ?? "",
+          dotHidden: g.querySelector('[aria-hidden="true"]') !== null,
+        }));
+      });
+      if (pillAccessibility.length === 0) {
+        errors.push(`${label} nessuna pill dati supportati con role="group"+aria-label trovata`);
+      } else {
+        for (const pill of pillAccessibility) {
+          if (!pill.ariaLabel.includes("—")) {
+            errors.push(`${label} pill senza nome accessibile "[metrica] — [stato]": "${pill.ariaLabel}"`);
+          }
+          if (!pill.dotHidden) {
+            errors.push(`${label} pill senza pallino aria-hidden: "${pill.ariaLabel}"`);
+          }
+        }
+      }
+
       if (consoleErrors.length > 0) {
         errors.push(`${label} ${consoleErrors.length} errori console: ${consoleErrors.slice(0, 3).join(" | ")}`);
       }
@@ -130,12 +162,42 @@ async function runFor(browserName: "chromium" | "webkit", browser: Browser) {
   }
 }
 
+// ── MICRO-GATE P0.15-C: la legenda a 3 stati e l'etichetta di stato per
+// pill devono essere realmente tradotte nelle 11 locale indicizzabili, non
+// un fallback EN silenzioso (rischio specifico per DE/PT/FR/PL/TR, che il
+// campione di 4 locale sopra non copre). Non e' uno stress test di
+// rendering (quello resta sulle 4 locale rappresentative): un solo
+// browser, un solo viewport, verifica solo la traduzione del testo.
+const ALL_INDEXABLE_LOCALES = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const;
+async function checkAccessibilityAcrossAllLocales(browser: Browser) {
+  for (const lc of ALL_INDEXABLE_LOCALES) {
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    await page.goto(`${BASE_URL}/${lc}/sync/oneplus-health`, { waitUntil: "networkidle" });
+    checks++;
+    const pills = await page.evaluate(() => {
+      const groups = [...document.querySelectorAll('section [role="group"][aria-label]')];
+      return groups.map((g) => g.getAttribute("aria-label") ?? "");
+    });
+    if (pills.length === 0) {
+      errors.push(`[a11y-locale/${lc}] nessuna pill con aria-label trovata`);
+    }
+    for (const label of pills) {
+      if (lc !== "en" && /—\s*(Conditional|Not supported|Verified)\s*$/.test(label)) {
+        errors.push(`[a11y-locale/${lc}] etichetta di stato non tradotta (fallback EN silenzioso): "${label}"`);
+      }
+    }
+    await context.close();
+  }
+}
+
 (async () => {
   const cr = await chromium.launch();
   const wk = await webkit.launch();
   try {
     await runFor("chromium", cr);
     await runFor("webkit", wk);
+    await checkAccessibilityAcrossAllLocales(cr);
   } finally {
     await cr.close();
     await wk.close();
@@ -146,5 +208,5 @@ async function runFor(browserName: "chromium" | "webkit", browser: Browser) {
     for (const e of errors) console.error(`  - ${e}`);
     process.exit(1);
   }
-  console.log(`✅ OnePlus Health browser guardrail OK: ${checks} combinazioni (browser×locale×viewport) verificate, zero overflow, FAQ=JSON-LD, fonti visibili, CTA presente, selettore lingua P0.14 funzionante.`);
+  console.log(`✅ OnePlus Health browser guardrail OK: ${checks} combinazioni verificate (24 browser×locale×viewport + 11 locale accessibilita'), zero overflow, FAQ=JSON-LD, fonti visibili, CTA presente, selettore lingua P0.14 funzionante, pill accessibili (nome "[metrica] — [stato]", pallino aria-hidden), etichetta di stato tradotta su tutte le 11 locale.`);
 })();

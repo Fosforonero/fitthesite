@@ -73,6 +73,11 @@
  *     funzione di prodotto (specs page). Cio' che non documenta e' SE/COME
  *     OHealth le esporta su Health Connect: quel claim piu' preciso resta
  *     permesso.
+ * 19. (Strutturale, MICRO-GATE P0.15-C) Nessun consumer pubblico (scan su
+ *     TUTTO il repo — app/, components/, lib/, non solo oneplus-health) che
+ *     legge sia `dataTypes` sia `.supported` puo' ignorare `.status`/
+ *     "conditional": altrimenti tratterebbe silenziosamente una pill
+ *     condizionale come verificata solo perche' supported=true.
  *
  * Uso (Docker, nessun runtime locale): npx tsx tools/check-oneplus-health-claims.ts
  */
@@ -335,6 +340,45 @@ if (!provider) {
   if (vo2maxType?.supported !== false) {
     errors.push(
       '[vo2max-supportato-senza-prova] dataTypes "vo2max".supported deve restare false: il plugin health 13.1.4 non espone VO2_MAX, indipendentemente dalla fonte',
+    );
+  }
+}
+
+// ── 19. (Strutturale, MICRO-GATE P0.15-C) Nessun consumer pubblico di
+// `dataTypes`/`supported` ignora `status:"conditional"` — scan statico su
+// TUTTO il repo (app/, components/, lib/; non solo il blocco oneplus-health,
+// non i guardrail in tools/), perche' il rischio non e' nel copy ma in un
+// futuro secondo consumer che legga `.supported` per decidere se una pill
+// e' "verificata" senza mai controllare `.status`. Regola: se un file legge
+// sia `.dataTypes` sia `.supported`, deve anche referenziare `.status`
+// (in combinazione con la parola "conditional") da qualche parte — altrimenti
+// tratterebbe silenziosamente una pill condizionale come verificata solo
+// perche' supported=true. Non e' un controllo esaustivo (regex, non un vero
+// analizzatore semantico), ma cattura esattamente il pattern di errore
+// descritto: un consumer che smonta `dataTypes` e branch-a solo su `supported`.
+function walkTsFiles(dir: string, out: string[]) {
+  if (!fs.existsSync(dir)) return;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (entry.name === "node_modules" || entry.name === ".next" || entry.name.startsWith(".")) continue;
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walkTsFiles(full, out);
+    else if (/\.(ts|tsx)$/.test(entry.name)) out.push(full);
+  }
+}
+const consumerFiles: string[] = [];
+walkTsFiles(path.join(repoRoot, "app"), consumerFiles);
+walkTsFiles(path.join(repoRoot, "components"), consumerFiles);
+walkTsFiles(path.join(repoRoot, "lib"), consumerFiles);
+
+for (const file of consumerFiles) {
+  if (file.includes(`${path.sep}tools${path.sep}`)) continue; // i guardrail non sono consumer pubblici
+  const src = fs.readFileSync(file, "utf8");
+  const readsDataTypesAndSupported = /\.dataTypes\b/.test(src) && /\.supported\b/.test(src);
+  if (!readsDataTypesAndSupported) continue;
+  const awareOfConditionalStatus = /\.status\b/.test(src) && /conditional/i.test(src);
+  if (!awareOfConditionalStatus) {
+    errors.push(
+      `[consumer-ignora-status] ${path.relative(repoRoot, file)} legge dataTypes/.supported ma non referenzia mai .status/"conditional" — rischio di trattare una pill condizionale come verificata solo perche' supported=true`,
     );
   }
 }

@@ -274,6 +274,42 @@ export default async function ProviderLanding({
   const t = (it: string, en: string, es: string, nl?: string, ja?: string, ko?: string) =>
     lc === "it" ? it : lc === "es" ? es : lc === "nl" ? (nl ?? en) : lc === "ja" ? (ja ?? en) : lc === "ko" ? (ko ?? en) : en;
 
+  // MICRO-GATE P0.15-C: la legenda a 3 stati e l'etichetta di stato per pill
+  // devono essere localizzate nelle 11 locale indicizzabili, non un fallback
+  // EN silenzioso come `t()` sopra (che copre solo it/es/nl/ja/ko, tutto il
+  // resto — incluse de/pt/fr/pl/tr — ricade su `en`). Le 4 locale nordiche
+  // (sv/da/no/fi) restano su EN: sono noindex per questo provider, fuori
+  // scope (nessuna entry esiste per queste lingue, invariato da P0.15).
+  const DATATYPE_LEGEND: Record<string, string> = {
+    it: "I tipi di dato che FitMesh può leggere da questa integrazione. Verde = disponibile e confermato dalla fonte ufficiale. Ambra = FitMesh sa leggerlo se l'app companion lo scrive su Health Connect, ma nessuna fonte pubblica conferma che questa fonte lo faccia sempre. Grigio = non disponibile da questa fonte.",
+    en: "The data types FitMesh can read from this integration. Green = available and confirmed by the official source. Amber = FitMesh can read it if the companion app writes it to Health Connect, but no public source confirms this specific source always does. Grey = not available from this source.",
+    es: "Los tipos de datos que FitMesh puede leer de esta integración. Verde = disponible y confirmado por la fuente oficial. Ámbar = FitMesh puede leerlo si la app complementaria lo escribe en Health Connect, pero ninguna fuente pública confirma que esta fuente lo haga siempre. Gris = no disponible desde esta fuente.",
+    de: "Die Datentypen, die FitMesh aus dieser Integration lesen kann. Grün = verfügbar und von der offiziellen Quelle bestätigt. Bernstein = FitMesh kann es lesen, wenn die Companion-App es in Health Connect schreibt, aber keine öffentliche Quelle bestätigt, dass diese Quelle das immer tut. Grau = von dieser Quelle nicht verfügbar.",
+    pt: "Os tipos de dados que o FitMesh pode ler desta integração. Verde = disponível e confirmado pela fonte oficial. Âmbar = o FitMesh consegue ler se a app companion o gravar no Health Connect, mas nenhuma fonte pública confirma que esta fonte o faça sempre. Cinzento = não disponível a partir desta fonte.",
+    fr: "Les types de données que FitMesh peut lire depuis cette intégration. Vert = disponible et confirmé par la source officielle. Ambre = FitMesh peut le lire si l'application companion l'écrit dans Health Connect, mais aucune source publique ne confirme que cette source le fait toujours. Gris = non disponible depuis cette source.",
+    pl: "Typy danych, które FitMesh może odczytać z tej integracji. Zielony = dostępne i potwierdzone przez oficjalne źródło. Bursztynowy = FitMesh może to odczytać, jeśli aplikacja towarzysząca zapisuje to w Health Connect, ale żadne publiczne źródło nie potwierdza, że to źródło robi to zawsze. Szary = niedostępne z tego źródła.",
+    tr: "FitMesh'in bu entegrasyondan okuyabildiği veri türleri. Yeşil = mevcut ve resmi kaynak tarafından doğrulanmış. Kehribar = eşlik uygulaması bunu Health Connect'e yazarsa FitMesh okuyabilir, ancak hiçbir kamuya açık kaynak bu kaynağın bunu her zaman yaptığını doğrulamaz. Gri = bu kaynaktan mevcut değil.",
+    nl: "De gegevenstypen die FitMesh van deze integratie kan lezen. Groen = beschikbaar en bevestigd door de officiële bron. Amber = FitMesh kan het lezen als de companion-app het naar Health Connect schrijft, maar geen enkele publieke bron bevestigt dat deze bron dat altijd doet. Grijs = niet beschikbaar vanuit deze bron.",
+    ja: "この連携からFitMeshが読み取れるデータタイプ。緑 = 公式ソースにより確認済みで利用可能。アンバー = コンパニオンアプリがHealth Connectに書き込めばFitMeshは読み取れますが、このソースが常にそうすることを確認できる公開情報はありません。グレー = この連携からは利用不可。",
+    ko: "이 연동에서 FitMesh가 읽을 수 있는 데이터 유형. 녹색 = 공식 소스로 확인되어 사용 가능. 호박색 = 컴패니언 앱이 Health Connect에 기록하면 FitMesh가 읽을 수 있지만, 이 소스가 항상 그렇게 한다는 공개 확인은 없습니다. 회색 = 이 소스에서는 사용할 수 없음.",
+  };
+  const dataTypeLegend = DATATYPE_LEGEND[lc] ?? DATATYPE_LEGEND.en;
+
+  const DATATYPE_STATUS_LABEL: Record<string, { verified: string; conditional: string; unsupported: string }> = {
+    it: { verified: "Verificato", conditional: "Condizionale", unsupported: "Non supportato" },
+    en: { verified: "Verified", conditional: "Conditional", unsupported: "Not supported" },
+    es: { verified: "Verificado", conditional: "Condicional", unsupported: "No compatible" },
+    de: { verified: "Verifiziert", conditional: "Bedingt", unsupported: "Nicht unterstützt" },
+    pt: { verified: "Verificado", conditional: "Condicional", unsupported: "Não suportado" },
+    fr: { verified: "Vérifié", conditional: "Conditionnel", unsupported: "Non pris en charge" },
+    pl: { verified: "Zweryfikowano", conditional: "Warunkowo", unsupported: "Nieobsługiwane" },
+    tr: { verified: "Doğrulandı", conditional: "Koşullu", unsupported: "Desteklenmiyor" },
+    nl: { verified: "Geverifieerd", conditional: "Voorwaardelijk", unsupported: "Niet ondersteund" },
+    ja: { verified: "確認済み", conditional: "条件付き", unsupported: "非対応" },
+    ko: { verified: "확인됨", conditional: "조건부", unsupported: "지원되지 않음" },
+  };
+  const dataTypeStatusLabel = DATATYPE_STATUS_LABEL[lc] ?? DATATYPE_STATUS_LABEL.en;
+
   // ── JSON-LD ──────────────────────────────────────────────────────────
   // Piattaforma-aware: la maggior parte dei provider è Android-only (Health
   // Connect), ma "apple-health" è iOS-only e "colmi-ring" funziona su
@@ -652,34 +688,41 @@ export default async function ProviderLanding({
             <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
               {t("Dati supportati", "Supported data", "Datos disponibles", "Ondersteunde gegevens", "サポートされているデータ", "지원 데이터")}
             </h2>
-            <p className="mt-2 text-text-secondary max-w-2xl">
-              {t(
-                "I tipi di dato che FitMesh può leggere da questa integrazione. Verde = disponibile e confermato dalla fonte ufficiale. Ambra = FitMesh sa leggerlo se l'app companion lo scrive su Health Connect, ma nessuna fonte pubblica conferma che questa fonte lo faccia sempre. Grigio = non disponibile da questa fonte.",
-                "The data types FitMesh can read from this integration. Green = available and confirmed by the official source. Amber = FitMesh can read it if the companion app writes it to Health Connect, but no public source confirms this specific source always does. Grey = not available from this source.",
-                "Los tipos de datos que FitMesh puede leer de esta integración. Verde = disponible y confirmado por la fuente oficial. Ámbar = FitMesh puede leerlo si la app complementaria lo escribe en Health Connect, pero ninguna fuente pública confirma que esta fuente lo haga siempre. Gris = no disponible desde esta fuente.",
-                "De gegevenstypen die FitMesh van deze integratie kan lezen. Groen = beschikbaar en bevestigd door de officiële bron. Amber = FitMesh kan het lezen als de companion-app het naar Health Connect schrijft, maar geen enkele publieke bron bevestigt dat deze bron dat altijd doet. Grijs = niet beschikbaar vanuit deze bron.",
-                "この連携からFitMeshが読み取れるデータタイプ。緑 = 公式ソースにより確認済みで利用可能。アンバー = コンパニオンアプリがHealth Connectに書き込めばFitMeshは読み取れますが、このソースが常にそうすることを確認できる公開情報はありません。グレー = この連携からは利用不可。",
-                "이 연동에서 FitMesh가 읽을 수 있는 데이터 유형. 녹색 = 공식 소스로 확인되어 사용 가능. 호박색 = 컴패니언 앱이 Health Connect에 기록하면 FitMesh가 읽을 수 있지만, 이 소스가 항상 그렇게 한다는 공개 확인은 없습니다. 회색 = 이 소스에서는 사용할 수 없음.",
-              )}
-            </p>
+            <p className="mt-2 text-text-secondary max-w-2xl">{dataTypeLegend}</p>
             <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {p.dataTypes.map((d) => (
-                <div
-                  key={d.key}
-                  className={`card p-4 flex items-center gap-3 ${
-                    d.supported ? "" : "opacity-50"
-                  }`}
-                >
-                  <span
-                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                    style={{
-                      background: d.status === "conditional" ? "#FFB547" : d.supported ? "#31E981" : "#556078",
-                      boxShadow: d.status === "conditional" ? "0 0 10px #FFB54755" : d.supported ? "0 0 10px #31E98155" : "none",
-                    }}
-                  />
-                  <span className="text-sm text-text-primary">{tl(d.label, lc)}</span>
-                </div>
-              ))}
+              {p.dataTypes.map((d) => {
+                const metricLabel = tl(d.label, lc);
+                const statusKey = d.status === "conditional" ? "conditional" : d.supported ? "verified" : "unsupported";
+                const statusText = dataTypeStatusLabel[statusKey];
+                return (
+                  <div
+                    key={d.key}
+                    role="group"
+                    aria-label={`${metricLabel} — ${statusText}`}
+                    className={`card p-4 flex items-center gap-3 ${d.supported ? "" : "opacity-50"}`}
+                  >
+                    {/* Il colore non e' l'unico veicolo dello stato: il nome
+                        accessibile del gruppo lo dichiara per esteso
+                        ("[metrica] — [stato]"), il pallino e' decorativo. */}
+                    <span
+                      aria-hidden="true"
+                      className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                      style={{
+                        background: d.status === "conditional" ? "#FFB547" : d.supported ? "#31E981" : "#556078",
+                        boxShadow: d.status === "conditional" ? "0 0 10px #FFB54755" : d.supported ? "0 0 10px #31E98155" : "none",
+                      }}
+                    />
+                    <span className="text-sm text-text-primary">
+                      {metricLabel}
+                      {statusKey !== "verified" && (
+                        <span aria-hidden="true" className="block text-[10px] uppercase tracking-wide text-text-muted">
+                          {statusText}
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                );
+              })}
             </div>
             {/* CTA contestuale "dopo la matrice" (analytics FASE 7 + CTA
                 platform-aware FASE 5): questo blocco descrive il percorso
