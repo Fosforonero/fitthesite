@@ -89,6 +89,7 @@ type Raccolta = {
   casi: number;
   saltati: number;
   saltatiPerFile: Map<string, number>;
+  falliti: string[];
   esito: number;
 };
 
@@ -139,7 +140,10 @@ function raccoltaDaVitest(): Raccolta {
   }
   if (!existsSync(rapporto)) throw new Error(`vitest non ha prodotto ${rapporto}`);
   const json = JSON.parse(readFileSync(rapporto, "utf8")) as {
-    testResults?: Array<{ name?: string; assertionResults?: Array<{ status?: string }> }>;
+    testResults?: Array<{
+      name?: string;
+      assertionResults?: Array<{ status?: string; fullName?: string; title?: string; failureMessages?: string[] }>;
+    }>;
   };
   const risultati = json.testResults ?? [];
   const file = [
@@ -158,7 +162,22 @@ function raccoltaDaVitest(): Raccolta {
     if (n > 0) perFile.set(nome, (perFile.get(nome) ?? 0) + n);
   }
   const saltati = [...perFile.values()].reduce((a, b) => a + b, 0);
-  return { file, casi, saltati, saltatiPerFile: perFile, esito };
+
+  // Chi ha fallito, e perche'. Un gate che dice «la suite e' rossa» e basta
+  // costringe chi legge a rieseguire tutto altrove per scoprire cosa: in CI,
+  // dove il rapporto non viene caricato da nessuna parte (di proposito: niente
+  // upload di artefatti), quel «altrove» non esiste.
+  const falliti: string[] = [];
+  for (const r of risultati) {
+    const nome = r.name ? (path.isAbsolute(r.name) ? path.relative(RADICE, r.name) : r.name) : "?";
+    for (const a of r.assertionResults ?? []) {
+      if (a.status === "failed") {
+        const motivo = (a.failureMessages ?? []).join(" | ").split("\n")[0]?.slice(0, 240) ?? "";
+        falliti.push(`${nome} > ${(a.fullName ?? a.title ?? "?").slice(0, 160)}\n           ${motivo}`);
+      }
+    }
+  }
+  return { file, casi, saltati, saltatiPerFile: perFile, falliti, esito };
 }
 
 /** Estratta per poterla vedere fallire: vedi il controllo positivo. */
@@ -181,7 +200,9 @@ function verifica(): Raccolta {
   );
   console.log(`  la suite ha risposto: ${raccolta.esito}`);
   if (raccolta.esito !== 0) {
-    rosso("la suite e' rossa: il perimetro puo' anche essere giusto, il verde non c'e'");
+    rosso(`la suite e' rossa (${raccolta.falliti.length} test falliti): il perimetro puo' anche essere giusto, il verde non c'e'`);
+    raccolta.falliti.slice(0, 15).forEach((f) => console.log(`         ${f}`));
+    if (raccolta.falliti.length > 15) console.log(`         ... e altri ${raccolta.falliti.length - 15}`);
   }
 
   // 1) mai zero: una suite vuota passa sempre
