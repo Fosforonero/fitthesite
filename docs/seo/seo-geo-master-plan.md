@@ -459,6 +459,64 @@ poca differenziazione possibile per FitMesh.
   un futuro sprint i18n dedicato (vedi anche
   `tools/check-translation-corruption.ts`, che copre pattern noti ma non
   garantisce di catturare ogni caso).
+- **Language switcher: naive path-swap rompe la navigazione cross-locale
+  su 60/65 post del blog (2026-08-26, scoperto durante browser QA del
+  micro-gate P1.8C-A, guardrail assente).** `components/LanguageSwitcher.tsx`
+  (usato da `Header.tsx` su ogni pagina, inclusi tutti i post blog)
+  sostituisce SOLO il segmento locale nel path corrente
+  (`/en/blog/<slug-en>` → `/it/blog/<slug-en>`) senza risolvere lo slug
+  localizzato reale della lingua di destinazione. Per i 60 post su 65 la
+  cui slug varia per locale (misurato programmaticamente su
+  `BLOG_SLUGS`/`BLOG_POSTS`), cliccare la lingua nel menu produce un 404
+  reale (confermato live: build+`next start`, `curl` su
+  `/it/blog/google-fit-shutting-down-alternative` → HTTP 404; stesso esito
+  su un post pre-esistente scelto a caso,
+  `/it/blog/sync-smartwatch-dashboard-2026` → 404). Non e' un problema di
+  un singolo post: e' strutturale al componente condiviso. Fix corretto:
+  il componente deve ricevere un resolver locale-consapevole del tipo di
+  pagina corrente (blog post → `blogLinkHref(post, targetLocale)`,
+  provider → `providerLinkHref(p, targetLocale)`, landing →
+  `localizedLandingSlug`, pagina statica → path invariato), non un
+  path-swap generico — root cause non ancora investigata a fondo, serve
+  uno sprint dedicato. **Non corretto in P1.8C-A**: fuori mandato del
+  micro-gate, componente condiviso da OGNI pagina del sito, rischio troppo
+  alto per un fix non pianificato. Nessun guardrail automatico lo cattura
+  oggi (`check-seo-redirect-integrity.ts` verifica redirect statici e
+  hreflang, non i link generati client-side dal selettore lingua) — anche
+  questo va nel prossimo sprint. Severita' alta: e' la UX di cambio lingua
+  primaria del sito, non una singola pagina di contenuto.
+- **FASE 11 P1.8C — handoff sulle prossime 5 landing candidate** (analisi
+  eseguita 26/08/2026 durante lo sprint P1.8C, dati GSC reali ultimi 3
+  mesi forniti da Matteo; dettaglio completo riga-per-riga nel corpo della
+  PR #58, non duplicato qui): `/en/sync/oneplus-health` (282 impr., pos.
+  7,54) **raccomandato AGGIORNARE — classificato come prossimo
+  truth-hotfix P0**: overclaim grammaticalmente scorretto IT ("tutti i
+  metriche") e una contraddizione fattuale interna reale sulla stessa
+  pagina indicizzabile (il badge/FAQ promettono le fasi del sonno, il
+  blocco setupGuide.syncedData ne elenca la sola durata totale), più un
+  claim "confermato da beta founder maggio 2026" mai tracciato in nessun
+  fact-ledger — tutti su pagina EN/IT pubblica e indicizzabile.
+  `/en/sync/colmi-ring` (222 impr.), `/en/sync/xiaomi-mi-band` (152 impr.,
+  0% CTR) e `/en/sync/apple-health` (78 impr.) restano AGGIORNARE a
+  priorità inferiore; `/en/fitness-data-sync` (155 impr.) da rivedere per
+  consolidamento/cannibalizzazione con le landing provider. Nessuna delle
+  5 raccomandata per noindex.
+- **Corruzione escape Unicode JA/KO sul pillar `google-health-google-fit.ts`**
+  (trovata nell'audit P1.8C 25/08/2026, riverificata nel micro-gate
+  P1.8C-A 26/08/2026): 26 righe (13 coppie ja/ko) contengono un doppio
+  backslash (`"\\u3068"` invece di `"と"`), che renderizza come
+  sequenza ASCII letterale (`と`) invece del carattere reale. Non è un
+  dettaglio di solo codice sorgente: le righe coinvolte sono `heading`
+  visibili (h2 di sezione) e un blocco `cta`, JA/KO **sono indicizzabili**
+  per questo post (`isBlogVariantIndexable` verificato) — corruzione
+  realmente visibile nell'HTML pubblico per i lettori giapponesi/coreani,
+  non solo un problema di stile del sorgente. Trovata anche, nello stesso
+  file, la stessa promessa "circa 30 secondi" per la configurazione
+  (ES/DE/FR/PL/TR/NL almeno) già corretta altrove nel sito (template
+  condiviso `sync/[provider]/page.tsx`, P1.8C) ma non qui — verificare
+  tutte le locale del CTA di questo pillar nello stesso sprint di
+  correzione. **Non corretto in P1.8C**: il mandato originale limitava le
+  modifiche a questo articolo alla sola cover.
 
 ## 7. YMYL e medical review
 
