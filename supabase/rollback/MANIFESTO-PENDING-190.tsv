@@ -8,8 +8,12 @@
 # BASELINE LIVE CONGELATA: 20260818084202
 #   E' la versione massima presente in supabase_migrations.schema_migrations in
 #   produzione, letta in sola lettura il 26/08/2026. Le 89 registrate finiscono
-#   li'. Il repo ne ha 122: le 16 elencate sotto sono quelle che il deploy
+#   li'. Il repo ne ha 123: le 17 elencate sotto sono quelle che il deploy
 #   applicherebbe.
+#
+#   Aggiornato il 27/08/2026: 122 -> 123 file, 16 -> 17 pending, con l'aggiunta
+#   di 20260827120000 (S2-SERVER). La baseline live NON e' cambiata: resta
+#   20260818084202.
 #
 # CLASSIFICAZIONE
 #   190-richiesta   la 190 ha bisogno del suo effetto
@@ -53,3 +57,4 @@ e2580fe648d8e51f7d16b791ac269c230ebbe0d8242a596879bf4812ba6756f4	20260825130200_
 cf1d871527f0ca42e8413a5f8ca15d4e9c52fa61d15514cb9910e1a1c213505a	20260825130300_billing_ordine_lock_e_gdpr	3B	190-richiesta	F4: ordine unico dei lock; MODIFICA gdpr_process_deletions, che preesiste
 231db9c1c6ca0bee3cf5b1e42154b02e9d605ee15f1ee8346233080ffe127dba	20260825130400_billing_notifiche_store	3B	190-richiesta	F5: registro delle notifiche store, apri/chiudi idempotenti
 9217d732a19cab2295e8ac1ae5382bc2c40a2385faa5fbfb983c371b90ab22a0	20260825130500_entitlement_core_abbonamento_scaduto	3B	190-richiesta	F6: MODIFICA private.entitlement_core, che preesiste. Nel corpo vivo 'active_until > v_now' non compare. Impronta ricongelata il 26/08 dopo aver tolto begin/rollback nudi dalla postcondizione: il gate 19 se n'e' accorto da solo, come deve
+e489cd31d4a04dd66afcde0c2b1e78ae88006a4dbb15433cef4945d66d77b09c	20260827120000_sonno_indice_segue_la_principale	S2-SERVER	190-richiesta	MODIFICA internal._merge_sleep_stages_jsonb, che preesiste: sessionIdx segue la sessione principale invece della posizione cronologica. Nel corpo vivo la stringa "L'INDICE SEGUE LA PRINCIPALE" non compare (verificato in sola lettura il 27/08). Non tocca nessuna riga: le righe gia' scritte guariscono al sync successivo

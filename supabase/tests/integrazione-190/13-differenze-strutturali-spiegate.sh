@@ -59,6 +59,11 @@ REGISTRO=(
   # principale escludono gli awake ai bordi. Misurato in produzione prima di
   # scriverla: 418 notti su 1.038 in 7 giorni, 40,3%.
   "L|_merge_sleep_stages_jsonb corpo (finestra senza awake ai bordi)|20260825120009_finestra_sonno_senza_awake_ai_bordi.sql|sleep_start_ms"
+  # Seconda modifica allo STESSO corpo, 27/08: la finestra veniva dalla
+  # sessione piu' ricca e `sessionIdx` dalla posizione cronologica. Due voci
+  # per lo stesso oggetto non sono un doppione: sono due differenze distinte,
+  # e ognuna deve avere la sua migration.
+  "L|_merge_sleep_stages_jsonb corpo (indice segue la principale)|20260827120000_sonno_indice_segue_la_principale.sql|sessionIdx"
   # ── IL REGISTRO DEGLI ACQUISTI (F1 e F2, 25/08) ───────────────────────────
   # Da qui in avanti la ricostruzione ha PIU' oggetti della produzione, non
   # oggetti diversi. E' la prima volta in questo sprint: fino a ieri ogni

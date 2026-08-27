@@ -147,3 +147,62 @@ La nuova migration del sonno deve essere **successiva a tutte quelle vive**. Con
 il registro in questo stato, «tutte quelle vive» non e' una lista che il repo
 conosca: la conosce solo il database. Creare adesso la migration del sonno
 significherebbe sceglierne il timestamp guardando il posto sbagliato.
+
+---
+
+## S2-SERVER — `20260827120000_sonno_indice_segue_la_principale` (27/08/2026)
+
+**Scritta e verificata, NON applicata.** Apply, canary e monitor post-deploy
+restano umani.
+
+`internal._merge_sleep_stages_jsonb` prende la finestra dalla sessione piu'
+**ricca** (`v_main := v_selected[1]`) e poi riordina per **orologio**,
+attaccando `sessionIdx` per **posizione**. Quando le due sessioni coincidono
+non si vede niente; quando non coincidono — un pisolino che precede la notte —
+la riga dice due cose diverse su se stessa.
+
+**RED riprodotto sulla produzione viva, in sola lettura** (la funzione e'
+IMMUTABLE e pura: si sonda con letterali sintetici senza scrivere). Ingresso:
+pisolino [0, 1.200.000], notte [7.200.000, 36.000.000].
+
+| campo | valore |
+|---|---|
+| `main_start_ms` / `main_end_ms` | 7.200.000 / 36.000.000 — **la notte** |
+| finestra di chi ha `sessionIdx = 0` | 0 / 1.200.000 — **il pisolino** |
+| segmenti con `sessionIdx = 0` | 1 (la notte ne ha 3) |
+| la riga e' coerente | **no** |
+
+Precondizioni verificate sul corpo vivo: ancora presente **1** volta,
+`v_main := v_selected[1];` **1** volta, token del rilevamento di
+sovrapposizione **1** volta, correzione non ancora applicata.
+
+**Cosa cambia:** solo l'ordine in cui le sessioni tenute vengono numerate — la
+principale in testa, le altre cronologicamente dopo. **Non** cambia quale
+sessione e' la principale, il rilevamento di sovrapposizione, quali sessioni
+sopravvivono, la finestra in uscita, la deduplica finale. Con una notte sola
+l'uscita e' identica a prima.
+
+**Nessuna riparazione storica.** Zero righe toccate: le righe gia' scritte
+guariscono al sync successivo.
+
+**Prove:**
+
+| gate | esito |
+|---|---|
+| reset PG17 da zero | **123 migration applicate, 0 fallite** |
+| `reset-pg17/esegui-test.sh` | **13 file verdi, 0 rossi** |
+| `15-test-indice-segue-principale.sql` | 6 controlli + controllo positivo |
+| `11-test-finestra-awake.sql` **dopo** questa migration | verde, controllo positivo compreso — la correzione degli awake **non** e' annullata |
+| `18-rollback-due-modalita.sh` | apply e rollback verdi **in autocommit e in transazione esterna**, due giri per modalita', impronta identica |
+| `13` / `14` confronto strutturale | verdi, con la nuova voce nel registro |
+| `19-insieme-pending.sh` | verde, 17 pending dichiarate (era 16) |
+| mutazione «principale in coda» | **morde**: `sessionIdx 0` torna sul pisolino |
+
+**Un gate corretto, non aggirato.** `10-ordine-migration-sonno.sh` pretendeva
+che `20260825120009` fosse l'**ultima** migration a toccare il merge. E'
+un'invariante scritta su un nome: la prima correzione legittima successiva la
+rende rossa, e a quel punto o si blocca il lavoro o si allarga il nome, cioe'
+si disinnesca il gate. Ora pretende che ogni migration successiva sul merge
+sia **dichiarata con la sua ragione**, e la conservazione della correzione e'
+provata a runtime da `11-test-finestra-awake.sql` sulla catena completa. Le due
+mutazioni (voce tolta, voce residua) rendono entrambe rosso il gate.

@@ -120,17 +120,59 @@ if [ ! -f "$MIG/$DOPO_ANCORE" ]; then
   echo "          (418 notti su 1.038 in 7 giorni) non e' chiuso da nessuna parte."
   esito=1
 else
-  ultima_merge=""
+  # ── CORREZIONE 27/08: l'invariante era scritta su un NOME ────────────────
+  #
+  # Prima qui si pretendeva che $DOPO_ANCORE fosse l'ULTIMA migration a
+  # toccare il merge. E' un'invariante che scade da sola: la prima correzione
+  # legittima successiva la fa diventare rossa, e a quel punto o si blocca il
+  # lavoro o si allarga il nome — cioe' si disinnesca il gate.
+  #
+  # La proprieta' che serve davvero non e' "nessuno viene dopo": e' "chi viene
+  # dopo non annulla la correzione, e nessuno arriva in silenzio". Quindi:
+  #
+  #   1. ogni migration che tocca il merge DOPO le ancore deve essere in
+  #      questo elenco, con la sua ragione scritta accanto. Una nuova che non
+  #      c'e' rende rosso il gate esattamente come prima;
+  #   2. la conservazione della correzione e' provata a RUNTIME, non qui:
+  #      `reset-pg17/11-test-finestra-awake.sql` gira DOPO l'intera catena, e
+  #      la sua asserzione e' proprio che gli awake ai bordi non spostino piu'
+  #      la finestra. Se una migration successiva la annullasse, quel test
+  #      diventerebbe rosso. Un controllo testuale qui non potrebbe saperlo:
+  #      queste migration sostituiscono stringhe dentro il corpo VIVO, e il
+  #      loro effetto non si legge dal file.
+  #
+  # Formato: nome_file|ragione
+  AMMESSE_DOPO=(
+    "20260827120000_sonno_indice_segue_la_principale.sql|S2-SERVER: sessionIdx segue la sessione principale invece della posizione cronologica. Non tocca gli estremi: sostituisce solo il riordino, e pretende che il rilevamento di sovrapposizione resti invariato."
+  )
+  dopo_le_ancore=0
   for f in "$MIG"/*.sql; do
-    if grep -qiE "internal\._merge_sleep_stages_jsonb" "$f"; then ultima_merge="$(basename "$f")"; fi
+    nome="$(basename "$f")"
+    grep -qiE "internal\._merge_sleep_stages_jsonb" "$f" || continue
+    [ "$nome" \> "$DOPO_ANCORE" ] || continue
+    dopo_le_ancore=$((dopo_le_ancore+1))
+    ammessa=0
+    for voce in "${AMMESSE_DOPO[@]}"; do
+      [ "${voce%%|*}" = "$nome" ] && ammessa=1 && break
+    done
+    if [ "$ammessa" -eq 1 ]; then
+      echo "  ok      $nome tocca il merge dopo la correzione, ed e' dichiarata"
+    else
+      echo "  ROSSO   $nome tocca il merge DOPO $DOPO_ANCORE e non e' dichiarata."
+      echo "          Aggiungila a AMMESSE_DOPO con la ragione, dopo aver verificato"
+      echo "          che 11-test-finestra-awake.sql resti verde sulla catena completa."
+      esito=1
+    fi
   done
-  if [ "$ultima_merge" = "$DOPO_ANCORE" ]; then
-    echo "  ok      l'ultima migration che tocca il merge e' $DOPO_ANCORE"
-  else
-    echo "  ROSSO   l'ultima che tocca il merge e' $ultima_merge, non $DOPO_ANCORE."
-    echo "          Qualcosa viene dopo la correzione e potrebbe annullarla."
-    esito=1
+  if [ "$dopo_le_ancore" -eq 0 ]; then
+    echo "  ok      nessuna migration tocca il merge dopo $DOPO_ANCORE"
   fi
+  # Una voce dell'elenco che non esiste piu' sul disco e' un residuo: va tolta,
+  # altrimenti l'elenco smette di descrivere la realta'.
+  for voce in "${AMMESSE_DOPO[@]}"; do
+    n="${voce%%|*}"
+    [ -f "$MIG/$n" ] || { echo "  ROSSO   voce residua: $n e' dichiarata ma non esiste sul disco."; esito=1; }
+  done
 fi
 
 # ---------------------------------------------------------------------------
