@@ -123,10 +123,44 @@ end $$;
 -- Non si puo' evitare la fixture commerciale: il ramo che questa migration
 -- corregge esclude di proposito `trial` e `founder_grant`, quindi provarlo con
 -- una fonte non commerciale non proverebbe niente.
+--
+-- LA TERZA VERSIONE: LA POSTCONDIZIONE NON VERIFICAVA NIENTE (M13, 28/08/2026)
+-- ---------------------------------------------------------------------------
+-- Le due asserzioni leggevano `private.entitlement_core(v_u) ->> 'entitlementKind'`.
+-- Ma `entitlement_core` costruisce il proprio JSON con la chiave **`kind`**
+-- (20260816124508, riga ~211); `entitlementKind` e' il nome che le da'
+-- `public.get_entitlement_status` quando ribattezza il campo per il client
+-- (stessa migration, riga ~334). Da un JSON che non ha quella chiave, `->>`
+-- risponde NULL — e in SQL:
+--
+--     NULL in ('lifetime','subscription')  ->  NULL, mai TRUE
+--     NULL <> 'subscription'               ->  NULL, non TRUE
+--
+-- e un `if` entra solo su TRUE. Nessuno dei due `raise` poteva scattare:
+-- ENTRAMBE le asserzioni passavano sempre, su qualunque risposta.
+--
+-- Misurato, non dedotto. Alterando il corpo vivo di `entitlement_core` perche'
+-- rispondesse sempre `subscription` — cioe' concedendo il Pro all'abbonamento
+-- SCADUTO, il difetto esatto che questa migration esiste per chiudere — il file
+-- stampava «F6: scaduto nega, valido concede» e psql usciva **0**. Idem
+-- forzando `none` (nega anche il valido) e idem togliendo del tutto la chiave
+-- `kind`.
+--
+-- La correzione non e' solo il nome giusto. Un confronto che si tace quando il
+-- valore manca e' lo stesso difetto in attesa di ripetersi al prossimo
+-- rinominamento, quindi qui sotto:
+--   1. la chiave viene PRETESA (`? 'kind'`), non solo letta;
+--   2. i confronti usano `is distinct from`, che su NULL vale TRUE e ferma;
+--   3. c'e' un CONTROLLO POSITIVO differenziale: le due letture — scaduto e
+--      valido — devono risultare DIVERSE fra loro. E' l'unica asserzione che
+--      non puo' passare a vuoto: con due NULL `is not distinct from` vale TRUE
+--      e la migration si ferma. Da sola avrebbe fermato M13.
 do $$
 declare
   v_u uuid := 'f6000000-0000-0000-0000-000000000001'::uuid;
-  v_kind text;
+  v_core jsonb;
+  v_scaduto text;
+  v_valido text;
 begin
  begin
   insert into auth.users (id, email) values (v_u, 'f6-postcondizione@esempio.invalid')
@@ -146,19 +180,52 @@ begin
         external_product_id = excluded.external_product_id,
         external_subscription_id = excluded.external_subscription_id;
 
-  v_kind := private.entitlement_core(v_u) ->> 'entitlementKind';
-  if v_kind in ('lifetime', 'subscription') then
-    raise exception 'F6: abbonamento scaduto e l''autorita'' risponde ancora «%»', v_kind;
+  v_core := private.entitlement_core(v_u);
+  -- La chiave si PRETENDE, non si spera. Se il nucleo la ribattezzasse, questa
+  -- migration deve fermarsi, non diventare cieca in silenzio.
+  -- `jsonb_exists` e non l'operatore `?`: alcuni driver leggono `?` come
+  -- segnaposto di parametro, e un file di migration non puo' dipendere da chi
+  -- lo esegue. E' la stessa lezione dei `begin`/`rollback` nudi qui sopra.
+  if not pg_catalog.jsonb_exists(v_core, 'kind') then
+    raise exception 'F6: private.entitlement_core non espone la chiave «kind» (ha risposto %). Senza quella chiave la postcondizione non confronta niente.', v_core;
+  end if;
+  v_scaduto := v_core ->> 'kind';
+  if v_scaduto is null then
+    raise exception 'F6: private.entitlement_core risponde «kind» nullo sull''abbonamento scaduto. Un confronto contro NULL non asserisce niente.';
   end if;
 
-  -- b) valida: accesso concesso. Controllo positivo.
+  if v_scaduto in ('lifetime', 'subscription') then
+    raise exception 'F6: abbonamento scaduto e l''autorita'' risponde ancora «%»', v_scaduto;
+  end if;
+
+  -- b) valida: accesso concesso.
   update public.b2c_subscriptions
      set active_until = pg_catalog.now() + interval '30 days'
    where user_id = v_u;
 
-  v_kind := private.entitlement_core(v_u) ->> 'entitlementKind';
-  if v_kind <> 'subscription' then
-    raise exception 'F6: abbonamento VALIDO e l''autorita'' risponde «%». Nega tutto, quindi non verifica niente.', v_kind;
+  v_core := private.entitlement_core(v_u);
+  if not pg_catalog.jsonb_exists(v_core, 'kind') then
+    raise exception 'F6: private.entitlement_core non espone la chiave «kind» sull''abbonamento valido (ha risposto %).', v_core;
+  end if;
+  v_valido := v_core ->> 'kind';
+
+  -- `is distinct from` e non `<>`: su NULL il secondo vale NULL, l'`if` non
+  -- entra, e l'asserzione tace proprio quando avrebbe piu' ragione di parlare.
+  if v_valido is distinct from 'subscription' then
+    raise exception 'F6: abbonamento VALIDO e l''autorita'' risponde «%». Nega tutto, quindi non verifica niente.', coalesce(v_valido, '<null>');
+  end if;
+
+  -- c) BACKSTOP: le due letture devono essere DIVERSE fra loro.
+  --    Detto onestamente: cosi' com'e' scritto qui sopra questo `raise` non e'
+  --    raggiungibile — se (a) e (b) valgono entrambe, `v_scaduto` non puo'
+  --    essere uguale a `v_valido`. Sta qui lo stesso perche' e' l'unica
+  --    asserzione del blocco che non puo' passare a vuoto: `is not distinct
+  --    from` scatta anche su due NULL, dove `=` tacerebbe. Se un domani
+  --    qualcuno indebolisse (a) o (b) — o le riportasse a leggere una chiave
+  --    che non esiste, che e' M13 — questa resta accesa. Il costo e' zero, il
+  --    difetto che copre e' gia' costato una postcondizione intera.
+  if v_scaduto is not distinct from v_valido then
+    raise exception 'F6: l''autorita'' risponde «%» sia sull''abbonamento scaduto sia su quello valido. La postcondizione non sta distinguendo i due casi: non verifica niente.', coalesce(v_scaduto, '<null>');
   end if;
 
   -- Ordine obbligato dalla guardia sulla proiezione, che rifiuta la DELETE di
@@ -171,7 +238,9 @@ begin
   delete from public.b2c_subscriptions where user_id = v_u;
   delete from auth.users where id = v_u;
 
-  raise notice 'F6: scaduto nega, valido concede.';
+  -- La notice riporta i due valori MISURATI, non una frase fissa: cosi' un
+  -- verde si puo' leggere, invece di doverlo credere.
+  raise notice 'F6: scaduto risponde «%», valido risponde «%».', v_scaduto, v_valido;
 
   -- La sentinella: annulla il sotto-blocco e con lui ogni riga della fixture,
   -- comprese quelle che il registro append-only non lascerebbe cancellare.

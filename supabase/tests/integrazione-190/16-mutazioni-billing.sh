@@ -45,7 +45,7 @@ SONDA="${1:-}"
 if [ "$SONDA" = "--autocontrollo" ]; then
   echo "== autocontrollo: il gate sa diventare rosso? =="
   fallito=0
-  for sonda in --sonda-inesistente --sonda-sopravvissuta; do
+  for sonda in --sonda-inesistente --sonda-sopravvissuta --sonda-prova-mancante; do
     uscita="$(bash "$0" "$sonda" 2>&1)"; codice=$?
     if [ "$codice" -eq 0 ]; then
       echo "  ROSSO  $sonda: il gate e' uscito 0. Non sa fallire."
@@ -60,7 +60,7 @@ if [ "$SONDA" = "--autocontrollo" ]; then
     echo "ROSSO: l'autocontrollo e' fallito. Il verde di questo runner non vale niente."
     exit 1
   fi
-  echo "VERDE: entrambe le sonde rendono rosso il gate."
+  echo "VERDE: tutte le sonde rendono rosso il gate."
   exit 0
 fi
 
@@ -72,15 +72,73 @@ corpo() {
       where n.nspname='$1' and p.proname='$2' limit 1;"
 }
 
+# ----------------------------------------------------------------------------
+# `esegui_file` deve tenere separati DUE esiti che non sono la stessa cosa:
+#
+#   «il test e' stato eseguito ed e' fallito»  -> la mutazione e' stata UCCISA
+#   «il test non e' stato eseguito»            -> la mutazione non e' stata
+#                                                 nemmeno provata
+#
+# Fino al 28/08/2026 non lo faceva. Quando il file di prova non esisteva,
+# `esegui_file` stampava «ROSSO file di prova non trovato» e restituiva 2; il
+# chiamante guardava solo `[ "$codice" -eq 0 ]`, quindi il 2 finiva nel ramo
+# `else` e stampava «ok ... uccisa da ...», senza toccare `$esito`. Il verdetto
+# usciva VERDE e il gate usciva 0.
+#
+# Misurato: aggiungendo una mutazione VERA (entitlement_core senza il controllo
+# sul tempo) provata con `99-questo-file-di-prova-non-esiste.sql`, lo script
+# stampava la riga ROSSO e subito sotto «ok ... uccisa da 99-questo-file-di-
+# prova-non-esiste.sql», poi «VERDE: 5 mutazioni, tutte realmente uccise»,
+# exit 0. Il gate che deve dimostrare che i test sanno fallire contava come
+# «difetto ucciso» un test che non era mai partito.
+#
+# L'esito ora NON passa dal codice di ritorno, che e' ambiguo per costruzione:
+# passa da `$PROVA_ESEGUITA`, che vale 1 solo se il test e' davvero partito.
+# `$PROVA_MOTIVO` dice perche' no, quando no.
+# ----------------------------------------------------------------------------
+PROVA_ESEGUITA=0
+PROVA_MOTIVO=""
+
 esegui_file() {
-  local f="$1" percorso
-  percorso="$(dove "$f")" || { echo "  ROSSO  file di prova non trovato: $f"; return 2; }
+  local f="$1" percorso codice
+  PROVA_ESEGUITA=0
+  PROVA_MOTIVO=""
+
+  percorso="$(dove "$f")" || { PROVA_MOTIVO="file di prova non trovato: $f"; return 1; }
+
   if [ "${f##*.}" = "sql" ]; then
-    docker cp "$percorso" "$CONT":/tmp/mut.sql >/dev/null 2>&1
-    docker exec "$CONT" psql -U postgres -d "$DB" -X -q -v ON_ERROR_STOP=1 -f /tmp/mut.sql >/dev/null 2>&1
-  else
-    SUPABASE_DB_CONTAINER="$CONT" SUPABASE_DB_NAME="$DB" bash "$percorso" >/dev/null 2>&1
+    # Nome unico: con un nome fisso, una `docker cp` fallita lasciava in piedi
+    # il file della mutazione PRECEDENTE e psql eseguiva quello — un test verde
+    # sul file sbagliato, che e' un altro modo di non provare niente.
+    local remoto="/tmp/mut-$$-$provate.sql"
+    if ! docker cp "$percorso" "$CONT":"$remoto" >/dev/null 2>&1; then
+      PROVA_MOTIVO="docker cp fallita: la prova $f non e' arrivata nel contenitore $CONT"
+      return 1
+    fi
+    docker exec "$CONT" psql -U postgres -d "$DB" -X -q -v ON_ERROR_STOP=1 -f "$remoto" >/dev/null 2>&1
+    codice=$?
+    docker exec "$CONT" rm -f "$remoto" >/dev/null 2>&1
+    # Codici di psql: 0 = tutto bene; 3 = errore NELLO SCRIPT con
+    # ON_ERROR_STOP, cioe' il test e' partito e ha fallito; 1 = psql stesso non
+    # e' riuscito a partire; 2 = connessione persa. 125/126/127 vengono da
+    # docker, non da psql. Solo 0 e 3 dicono che il test e' stato eseguito.
+    case "$codice" in
+      0|3) PROVA_ESEGUITA=1 ;;
+      *)   PROVA_MOTIVO="psql/docker uscito $codice: il test non e' partito (1=psql, 2=connessione, 125-127=docker)" ;;
+    esac
+    return "$codice"
   fi
+
+  SUPABASE_DB_CONTAINER="$CONT" SUPABASE_DB_NAME="$DB" bash "$percorso" >/dev/null 2>&1
+  codice=$?
+  # Per uno script: 126 = non eseguibile, 127 = comando non trovato, 125 =
+  # docker. Sono i modi in cui non e' partito. Tutto il resto — 0 compreso — e'
+  # un verdetto che il test ha davvero espresso.
+  case "$codice" in
+    125|126|127) PROVA_MOTIVO="lo script di prova e' uscito $codice: non e' partito" ;;
+    *)           PROVA_ESEGUITA=1 ;;
+  esac
+  return "$codice"
 }
 
 esito=0
@@ -125,12 +183,24 @@ mutazione() {
 
   esegui_file "$prova"
   local codice=$?
+  local eseguita="$PROVA_ESEGUITA" motivo="$PROVA_MOTIVO"
 
   # Ripristino PRIMA del verdetto.
   printf '%s' "$originale" | docker exec -i "$CONT" psql -U postgres -d "$DB" -X -q -v ON_ERROR_STOP=1 >/dev/null 2>&1
   local ripristinata=$?
   if [ "$ripristinata" -ne 0 ]; then
     echo "  ROSSO  $nome: RIPRISTINO FALLITO. Il database resta mutato: rieseguire esegui-reset.sh."
+    esito=1
+    non_esercitate=$((non_esercitate+1))
+    return
+  fi
+
+  # PRIMA di leggere il verdetto del test, si pretende che un verdetto ci sia.
+  # Un test che non e' partito non ha ne' ucciso ne' risparmiato niente, e
+  # scambiarlo per «uccisa» e' il difetto che questo runner esiste per impedire.
+  if [ "$eseguita" -ne 1 ]; then
+    echo "  ROSSO  $nome: la prova NON e' stata eseguita ($motivo)."
+    echo "         Non e' una mutazione uccisa: e' una mutazione mai provata."
     esito=1
     non_esercitate=$((non_esercitate+1))
     return
@@ -176,8 +246,8 @@ mutazione "in_corso confuso con gia_applicata" \
 # ============================================================================
 # LE SONDE, e l'autocontrollo che le usa
 #
-# Un gate che non si e' mai visto fallire non e' un gate. Queste due sonde
-# esercitano i due modi in cui il verdetto deve diventare rosso, e
+# Un gate che non si e' mai visto fallire non e' un gate. Queste tre sonde
+# esercitano i tre modi in cui il verdetto deve diventare rosso, e
 # `--autocontrollo` pretende che ciascuna esca davvero non zero.
 # ============================================================================
 case "$SONDA" in
@@ -197,6 +267,16 @@ case "$SONDA" in
       's/and b\.active_until > v_now//g' \
       12-test-notifiche-store.sql
     ;;
+  --sonda-prova-mancante)
+    # M30. Mutazione VERA — la stessa della riga 1, quella che il gate sa
+    # uccidere — ma il file di prova non esiste. Prima del 28/08/2026 questa
+    # sonda usciva 0 stampando «ok ... uccisa da 99-questo-file-di-prova-non-
+    # esiste.sql»: il gate contava per «difetto ucciso» un test mai partito.
+    mutazione "SONDA: file di prova inesistente" \
+      private entitlement_core \
+      's/and b\.active_until > v_now//g' \
+      99-questo-file-di-prova-non-esiste.sql
+    ;;
   "") : ;;
   --autocontrollo) : ;;
   *) echo "ROSSO: argomento sconosciuto: $SONDA"; exit 2 ;;
@@ -206,7 +286,7 @@ esac
 # IL VERDETTO
 #
 # Fino al 25/08/2026 questo blocco guardava SOLO $sopravvissute. Ma la funzione
-# `mutazione` imposta `esito=1` in CINQUE rami e tocca `$sopravvissute` in UNO
+# `mutazione` imposta `esito=1` in piu' rami e tocca `$sopravvissute` in UNO
 # solo: funzione assente, sed inerte, corpo non compilabile e ripristino fallito
 # stampavano ROSSO e poi cadevano dritti nel «VERDE», con uscita 0.
 #
@@ -215,8 +295,15 @@ esac
 # uccise», exit 0. Lo strumento il cui unico mestiere e' dimostrare che i test
 # sanno fallire non sapeva fallire lui.
 #
-# Ora il verdetto guarda tutte e tre le cose, e `--autocontrollo` in fondo
-# pretende che ciascuna sappia davvero rendere rosso il gate.
+# Il 28/08/2026 ne restava un sesto, dello stesso identico tipo (M30): il file
+# di prova MANCANTE. `esegui_file` restituiva 2, e il chiamante trattava come
+# «uccisa» qualunque uscita diversa da 0 — 2 compreso. La riga «ROSSO file di
+# prova non trovato» veniva stampata e non toccava niente. Un test mai partito
+# passava per un difetto ucciso, e il gate usciva verde.
+#
+# Ora l'esecuzione del test non si deduce piu' dal suo codice di uscita: la
+# dichiara `$PROVA_ESEGUITA`. E `--autocontrollo` in fondo pretende che
+# ciascuna delle tre sonde sappia davvero rendere rosso il gate.
 # ============================================================================
 verdetto() {
   echo
@@ -232,7 +319,8 @@ verdetto() {
   fi
   if [ "$esito" -ne 0 ]; then
     echo "ROSSO: $non_esercitate mutazioni non sono state esercitate davvero."
-    echo "Funzione assente, sed inerte, corpo non compilabile o ripristino fallito:"
+    echo "Funzione assente, sed inerte, corpo non compilabile, ripristino fallito"
+    echo "o prova mai eseguita (file mancante, psql non partito, docker rotto):"
     echo "i ROSSO sopra dicono quale. Una mutazione mai esercitata NON e' una"
     echo "mutazione uccisa, e contarla come tale e' esattamente il difetto che"
     echo "questo controllo esiste per impedire."
