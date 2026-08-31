@@ -38,6 +38,23 @@ set -uo pipefail
 source "$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/bersaglio.sh"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../rollback" && pwd)"
 FAIL=0
+
+# ── L'ELENCO NON PUO' PIU' INVECCHIARE IN SILENZIO ─────────────────────────
+#
+# Il difetto (3B-H07): l'elenco qui sotto e' cablato a mano, e per settimane e'
+# rimasto fermo a `20260816120000` mentre in `supabase/rollback/` arrivavano
+# file nuovi. Un rollback che nessuno esegue non e' un rollback verificato — che
+# e' esattamente la frase in testa a questo file, applicata al file stesso.
+#
+# La guardia confronta nei DUE sensi l'insieme esercitato con quello presente su
+# disco, meno le rollback del bundle 190: quelle non si esercitano qui, perche'
+# le loro migration non sono ancora applicate e questo gate gira sulla
+# ricostruzione. Sono provate dal kit (`06-rollback.sh`,
+# `07-prova-completa-pg17.sh`), in due strati, come dichiara
+# MANIFESTO-MIGRATION-190-V2.md.
+#
+# Aggiungere una rollback e dimenticare di esercitarla ora e' un ROSSO.
+PENDING_190="20260825130000 20260825130100 20260825130200 20260825130300 20260827120000"
 fail() { echo "  FAIL - $1"; FAIL=$((FAIL + 1)); }
 
 docker exec "$CID" true >/dev/null 2>&1 || { echo "ROLLBACK: container non raggiungibile"; exit 1; }
@@ -82,6 +99,56 @@ echo "oggetti billing presenti prima: ${N_PRIMA}"
 #
 # I tre rollback in ordine inverso di applicazione, piu' il controllo finale,
 # tutto in una transazione sola che si annulla.
+ESERCITATE="20260816120000_billing_consuma_pending_senza_ramo_irraggiungibile_rollback.sql
+20260815120000_billing_autorita_unica_revoche_rollback.sql
+20260814160000_billing_sandbox_scadenza_effettiva_rollback.sql
+20260813150000_billing_gate_avversariale_rollback.sql
+20260813103000_billing_sandbox_reviewers_rollback.sql
+20260812093000_billing_p0_nove_punti_rollback.sql
+20260810140000_b2c_projection_guard_rollback.sql
+20260810120000_billing_purchase_states_rollback.sql
+20260808211929_billing_purchase_claims_registry_rollback.sql"
+
+# ── LA TERZA CATEGORIA, E PERCHE' ESISTE ───────────────────────────────────
+#
+# Questi due rollback NON sono eseguibili in questa catena, e lo dicono da se':
+# alzano un'eccezione che dichiara la propria precondizione.
+#
+#   20260816200000 -> «ROLLBACK INCOMPLETO: il contratto punta ancora al nucleo,
+#                      che questo file ha appena eliminato. get_entitlement_status()
+#                      e' ROTTA finche' non esegui 20260729161245_…»
+#   20260817090000 -> stessa forma, due `raise` propri
+#
+# Non sono rollback rotti: sono rollback con una precondizione, e vanno provati
+# ciascuno nella propria sequenza, non incatenati agli altri dieci dentro
+# un'unica transazione. Metterli nella catena la fa fallire — misurato, non
+# supposto: e' il rosso che ha prodotto questa riga.
+#
+# Restano dichiarati qui, invece che semplicemente assenti, perche' l'assenza
+# silenziosa e' esattamente il difetto che questa guardia esiste per impedire.
+CON_PRECONDIZIONE="20260816200000_entitlement_una_sola_regola_rollback.sql
+20260817090000_finestra_sonno_una_sola_regola_rollback.sql"
+
+ESCLUDI=$(echo "$PENDING_190" | tr ' ' '\n' | sed '/^$/d' | sed 's/^/^/')
+SU_DISCO=$(cd "$DIR" && ls *_rollback.sql 2>/dev/null | grep -v -f <(echo "$ESCLUDI") | sort)
+ATTESE=$(printf '%s\n%s\n' "$ESERCITATE" "$CON_PRECONDIZIONE" | sed '/^$/d' | sort)
+
+MANCANTI=$(comm -23 <(echo "$SU_DISCO") <(echo "$ATTESE"))
+FANTASMA=$(comm -13 <(echo "$SU_DISCO") <(echo "$ATTESE"))
+if [ -n "$MANCANTI" ]; then
+  echo "ROSSO: rollback presenti su disco e MAI esercitate da questo gate:"
+  echo "$MANCANTI" | sed 's/^/  /'
+  echo "  (dichiararle in PENDING_190 se il bundle non e' applicato, o in"
+  echo "   CON_PRECONDIZIONE se il file dichiara una precondizione propria)"
+  FAIL=1
+fi
+if [ -n "$FANTASMA" ]; then
+  echo "ROSSO: l'elenco esercitato nomina file che non esistono piu':"
+  echo "$FANTASMA" | sed 's/^/  /'
+  FAIL=1
+fi
+[ "$FAIL" -eq 0 ] && echo "elenco rollback allineato al disco: $(echo "$SU_DISCO" | wc -l | tr -d ' ') file ($(echo "$CON_PRECONDIZIONE" | wc -l | tr -d ' ') con precondizione, provati a parte)"
+
 SENZA_TRANSAZIONE=$(
   for f in 20260816120000_billing_consuma_pending_senza_ramo_irraggiungibile_rollback.sql \
            20260815120000_billing_autorita_unica_revoche_rollback.sql \
