@@ -179,22 +179,51 @@ export function looksLikeJws(token: string): boolean {
 let productionVerifier: SignedDataVerifier | null = null;
 let sandboxVerifier: SignedDataVerifier | null = null;
 
+/**
+ * Costruisce un verificatore su un insieme di root DICHIARATO.
+ *
+ * Esiste separata da `verifierFor` per una ragione sola, ed e' M17: fino al
+ * 31/08/2026 nessun test dimostrava che i byte dei root Apple arrivassero
+ * davvero dentro `SignedDataVerifier`. Il test negativo usava `x5c: []`, che
+ * inciampa nel controllo di lunghezza della catena e non raggiunge mai
+ * l'ancoraggio: una catena BEN FORMATA e autofirmata da chiunque sarebbe stata
+ * accettata e la suite sarebbe rimasta verde.
+ *
+ * Con questa funzione un test puo' costruire una catena sintetica vera —
+ * radice, intermedio, foglia, firme reali — e provare le due cose che contano:
+ * che ancorata ai root Apple venga RIFIUTATA, e che ancorata alla propria
+ * radice il rifiuto NON sia piu' quello dell'ancoraggio. Senza la seconda, il
+ * primo rosso non distingue «catena non ancorata» da «catena rotta».
+ *
+ * Il percorso di produzione non passa di qui con root diversi: `verifierFor`
+ * le passa sempre e sole `APPLE_ROOT_CERTIFICATES`.
+ */
+export function verificatoreConRadici(
+  radici: Buffer[],
+  environment: Environment,
+): SignedDataVerifier {
+  return environment === Environment.PRODUCTION
+    ? new SignedDataVerifier(
+        radici,
+        true,
+        Environment.PRODUCTION,
+        APPLE_BUNDLE_ID,
+        APPLE_APP_APPLE_ID,
+      )
+    : new SignedDataVerifier(radici, true, Environment.SANDBOX, APPLE_BUNDLE_ID);
+}
+
 function verifierFor(environment: Environment): SignedDataVerifier {
   if (environment === Environment.PRODUCTION) {
-    productionVerifier ??= new SignedDataVerifier(
+    productionVerifier ??= verificatoreConRadici(
       APPLE_ROOT_CERTIFICATES,
-      true,
       Environment.PRODUCTION,
-      APPLE_BUNDLE_ID,
-      APPLE_APP_APPLE_ID,
     );
     return productionVerifier;
   }
-  sandboxVerifier ??= new SignedDataVerifier(
+  sandboxVerifier ??= verificatoreConRadici(
     APPLE_ROOT_CERTIFICATES,
-    true,
     Environment.SANDBOX,
-    APPLE_BUNDLE_ID,
   );
   return sandboxVerifier;
 }
