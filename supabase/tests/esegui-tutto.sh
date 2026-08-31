@@ -79,11 +79,49 @@ grep -E 'file verdi' /tmp/et-sql.txt | tail -1 | sed 's/^/             /'
 
 echo
 echo "############ gate di integrazione ############"
+AUTOC="$QUI/integrazione-190/23-autocontrolli.sh"
 for f in "$QUI"/integrazione-190/*.sh; do
+  # Il runner degli autocontrolli ha una sezione tutta sua, subito sotto: qui
+  # lo si salta per non eseguirlo due volte.
+  [ "$f" = "$AUTOC" ] && continue
   bash "$f" >/dev/null 2>&1; c=$?
   riga "$([ $c -eq 0 ] && echo ok || echo KO)" "$(basename "$f")" "$c"
   [ $c -ne 0 ] && esito=1
 done
+
+# ----------------------------------------------------------------------------
+# GLI AUTOCONTROLLI — la sezione che mancava.
+#
+# Il ciclo qui sopra invoca ogni gate SENZA argomenti. Sei di loro sanno anche
+# mettersi alla prova da soli (`--autocontrollo`: rompono la propria difesa e
+# pretendono di diventare rossi), e fino al 31/08/2026 quella prova non e' mai
+# stata eseguita da nessuna esecuzione della suite. La capacita' di fallire era
+# scritta nel codice e misurata in nessun posto — cioe' esattamente la forma di
+# verde che quei gate esistono per impedire, applicata a loro stessi.
+#
+# Il runner e' invocato per NOME e non trovato per glob: se sparisse, il glob
+# non se ne accorgerebbe e la suite resterebbe verde con sei prove in meno.
+# ----------------------------------------------------------------------------
+echo
+echo "############ autocontrolli dei gate ############"
+if [ ! -f "$AUTOC" ]; then
+  riga "KO" "23-autocontrolli.sh (ASSENTE)" "-"
+  echo "             Il runner degli autocontrolli non c'e'. Nessuno starebbe"
+  echo "             verificando che i gate sappiano diventare rossi."
+  esito=1
+else
+  bash "$AUTOC" > /tmp/et-autoc.txt 2>&1; c=$?
+  riga "$([ $c -eq 0 ] && echo ok || echo KO)" "23-autocontrolli.sh" "$c"
+  tail -1 /tmp/et-autoc.txt | sed 's/^/             /'
+  [ $c -ne 0 ] && { esito=1; sed 's/^/             | /' /tmp/et-autoc.txt; }
+
+  # E il runner stesso sa fallire? Tre sonde: un gate il cui autocontrollo
+  # fallisce, uno scollegato dall'elenco, uno che ha perso il proprio.
+  bash "$AUTOC" --autocontrollo > /tmp/et-autoc-cp.txt 2>&1; c=$?
+  riga "$([ $c -eq 0 ] && echo ok || echo KO)" "23-autocontrolli.sh --autocontrollo" "$c"
+  tail -1 /tmp/et-autoc-cp.txt | sed 's/^/             /'
+  [ $c -ne 0 ] && { esito=1; sed 's/^/             | /' /tmp/et-autoc-cp.txt; }
+fi
 
 echo
 

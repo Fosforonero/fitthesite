@@ -28,13 +28,20 @@ const ADMIN_ALLOWLIST = new Set([
   // service_role serve per contare/incrementare righe cross-utente.
   "app/api/v1/posts/stats/route.ts",
   "app/api/v1/posts/stats/route.ts",
-  // Notifiche degli store (2026-08-25). Sono chiamate DA Apple e DA Google,
-  // senza nessuna sessione utente: non esiste un client user-bound da usare.
-  // L'autenticita' non viene da un header ma dalla firma del payload —
-  // catena x5c fino ai root Apple per l'una, token OIDC di Google per
-  // l'altra — ed e' verificata prima di qualunque scrittura.
-  "app/api/v1/billing/notifications/apple/route.ts",
-  "app/api/v1/billing/notifications/google/route.ts",
+  // Le due route delle notifiche degli store (2026-08-25) erano qui. Sono
+  // uscite dalla 190 il 31/08/2026 insieme a F5 e F6: un canale asincrono che
+  // revoca un diritto senza che nessun percorso server prolunghi `active_until`
+  // al rinnovo introduce «ha pagato il rinnovo e perde Pro», ed e' l'esito che
+  // la decisione esiste per non introdurre.
+  //
+  // Una voce di allowlist che nomina un file inesistente non fa fallire
+  // niente — `walk()` cammina i file reali — e proprio per questo restava a
+  // dichiarare che due route esistono quando non esistono piu'.
+  //
+  // La clausola `/notifications/` piu' sotto RESTA, e non e' una svista: e'
+  // una regola sulla FORMA di un endpoint, non su questi due file. Toglierla
+  // significherebbe che la prossima route sotto `/notifications/` nasce senza
+  // che nessuno le chieda una verifica.
 ]);
 
 function walk(dir) {

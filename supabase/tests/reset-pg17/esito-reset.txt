@@ -118,6 +118,4 @@ OK   20260825130000_billing_registro_fondamenta.sql
 OK   20260825130100_billing_autorita_canonica.sql
 OK   20260825130200_billing_guardia_proiezione.sql
 OK   20260825130300_billing_ordine_lock_e_gdpr.sql
-OK   20260825130400_billing_notifiche_store.sql
-OK   20260825130500_entitlement_core_abbonamento_scaduto.sql
 OK   20260827120000_sonno_indice_segue_la_principale.sql

@@ -646,21 +646,73 @@ declare
   v_chiave text;
   v_kind text;
   v_riconciliati int;
+  v_f6 boolean;
 begin
-  -- ── S16: scaduto da solo, i due percorsi negano senza che giri niente ────
+  -- ── S16: scaduto da solo, e i due percorsi NON dicono la stessa cosa ─────
   --
   -- Nessuno ha chiamato il ricalcolo, nessun trigger e' partito, il job non e'
-  -- ancora girato. La riga in proiezione e' rimasta identica: e' `active_until`
-  -- limitato al permesso a farla negare, ed e' l'unica difesa che regge anche
-  -- se non gira niente.
+  -- ancora girato. La riga in proiezione e' rimasta identica.
+  --
+  -- PRIMO PERCORSO — la lettura diretta della tabella, cioe' la query che fa
+  -- davvero il client. Nega, e nega per una difesa che la 190 spedisce: la
+  -- proiezione LIMITA `active_until` al permesso Sandbox (il `least()` in
+  -- `_billing_project_entitlement`). Questa meta' non dipende da F6 e non ha
+  -- mai dipeso da F6, anche se il commento che stava qui diceva il contrario.
   if pg_temp.lettura_diretta(v_revisore) then
     raise exception 'S16 FAIL: permesso scaduto e la lettura diretta della tabella concede ancora il Pro';
   end if;
-  v_kind := pg_temp.kind_of(v_revisore);
-  if v_kind in ('lifetime', 'subscription') then
-    raise exception 'S16 FAIL: permesso scaduto e get_entitlement_status risponde "%"', v_kind;
+
+  -- SECONDO PERCORSO — `get_entitlement_status`, che passa da
+  -- `private.entitlement_core`. Qui la risposta dipende da F6, e la 190 NON
+  -- applica F6.
+  --
+  -- La scelta di come scrivere questo caso conta piu' del caso stesso. Fino al
+  -- 30/08/2026 asseriva che ANCHE questo percorso negasse, e quell'asserzione
+  -- passava solo perche' F6 era nell'insieme pending. Il giorno
+  -- dell'esclusione sarebbe diventata rossa, e sarebbe stata letta come un
+  -- difetto scoperto invece che come il perimetro che era stato deciso.
+  --
+  -- Non si toglie l'asserzione: si LEGGE il corpo vivo e si pretende la cosa
+  -- giusta nei due casi. La condizione non e' inventata qui — e' la stessa
+  -- stringa con cui la postcondizione di F6 dichiara se stessa applicata.
+  select pg_catalog.strpos(pg_catalog.pg_get_functiondef(p.oid),
+                           'b.active_until > v_now') > 0
+    into v_f6
+  from pg_catalog.pg_proc p
+  join pg_catalog.pg_namespace n on n.oid = p.pronamespace
+  where n.nspname = 'private' and p.proname = 'entitlement_core'
+  limit 1;
+
+  if v_f6 is null then
+    raise exception 'S16 FAIL: private.entitlement_core non esiste. Non e'' un perimetro diverso, e'' un database rotto.';
   end if;
-  raise notice 'S16 PASS: scaduto il permesso, i due percorsi negano per scadenza senza che giri niente';
+
+  v_kind := pg_temp.kind_of(v_revisore);
+
+  if v_f6 then
+    -- F6 applicata: entrambi i percorsi devono negare. E' l'S16 storico.
+    if v_kind in ('lifetime', 'subscription') then
+      raise exception 'S16 FAIL: F6 e'' applicata e get_entitlement_status risponde ancora "%"', v_kind;
+    end if;
+    raise notice 'S16 PASS (con F6): scaduto il permesso, i DUE percorsi negano senza che giri niente';
+  else
+    -- 190: F6 esclusa. Il percorso RPC continua a concedere, e questo e' il
+    -- RESIDUO DICHIARATO dell'esclusione — non un difetto trovato qui.
+    --
+    -- Va asserito, non taciuto. Un residuo che nessuno misura e' un residuo
+    -- che nessuno vede ne' sparire ne' peggiorare: se un giorno questo ramo
+    -- diventasse rosso, vorrebbe dire che qualcosa ha cambiato l'autorita'
+    -- dell'entitlement senza passare da qui, ed e' esattamente il momento in
+    -- cui qualcuno deve venire a leggere.
+    --
+    -- Perche' 'subscription' e non 'lifetime': la proiezione ha gia' limitato
+    -- `active_until` al permesso, quindi `is_b2c_lifetime()` e' falsa e
+    -- `entitlement_core` cade nel ramo a tempo. Concede lo stesso.
+    if v_kind not in ('lifetime', 'subscription') then
+      raise exception 'S16 FAIL: senza F6 il residuo dichiarato e'' che get_entitlement_status conceda ancora; risponde invece "%". Il perimetro e'' cambiato: rileggerlo prima di toccare questo test.', v_kind;
+    end if;
+    raise notice 'S16 PASS (senza F6, perimetro 190): la lettura diretta nega per scadenza; l''RPC concede ancora "%" — residuo dichiarato dell''esclusione di F6, non un difetto', v_kind;
+  end if;
 
   -- ── S17: e il job rimette al suo posto il diritto vero ───────────────────
   --

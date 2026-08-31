@@ -40,11 +40,30 @@ pending() {
 }
 
 # Le sonde dell'autocontrollo alterano cio' che il gate vede, non il disco.
+#
+# I DUE BERSAGLI, e perche' sono cambiati il 31/08/2026
+# -----------------------------------------------------
+# Fino al 30/08 le due sonde erano cablate su F5 (20260825130400) e F6
+# (20260825130500), cioe' esattamente le due migration che la 190 ha poi
+# escluso. Il giorno dell'esclusione sarebbe successo questo: `grep -v` non
+# avrebbe trovato niente da togliere, `sed` niente da riscrivere, le due sonde
+# sarebbero uscite 0 e `--autocontrollo` avrebbe dichiarato «il gate non sa
+# fallire» — oppure, peggio, qualcuno avrebbe letto quel rosso come un difetto
+# del gate invece che come una sonda spuntata.
+#
+# Ora puntano a due migration che restano nella 190: F1 (le fondamenta del
+# registro) e F4 (l'ordine dei lock). Restano DUE bersagli distinti, come
+# prima: una sola migration per entrambe renderebbe le due sonde dipendenti
+# dallo stesso file.
+#
+# E soprattutto: ogni sonda VERIFICA DI AVER MORSO. Una sonda che non altera
+# niente non e' una prova riuscita, e' una prova che non e' partita — lo
+# stesso difetto che M30 ha appena chiuso nel gate 16. Qui fallisce chiusa.
 SONDA_EXTRA=""; SONDA_SALTA=""; SONDA_HASH=""
 case "$MODO" in
   --sonda-nuova)    SONDA_EXTRA="0000000000000000000000000000000000000000000000000000000000000000	20260826999999_migration_mai_dichiarata" ;;
-  --sonda-mancante) SONDA_SALTA="20260825130400_billing_notifiche_store" ;;
-  --sonda-modificata) SONDA_HASH="20260825130500_entitlement_core_abbonamento_scaduto" ;;
+  --sonda-mancante) SONDA_SALTA="20260825130000_billing_registro_fondamenta" ;;
+  --sonda-modificata) SONDA_HASH="20260825130300_billing_ordine_lock_e_gdpr" ;;
   --autocontrollo)
     echo "== autocontrollo: il gate sa diventare rosso? =="
     fallito=0
@@ -65,9 +84,22 @@ case "$MODO" in
 esac
 
 DISCO="$(pending)"
+PRIMA="$DISCO"
 [ -n "$SONDA_EXTRA" ] && DISCO="$(printf '%s\n%s\n' "$DISCO" "$SONDA_EXTRA" | sort -k2)"
 [ -n "$SONDA_SALTA" ] && DISCO="$(printf '%s\n' "$DISCO" | grep -v "$SONDA_SALTA")"
 [ -n "$SONDA_HASH" ]  && DISCO="$(printf '%s\n' "$DISCO" | sed "s|^[0-9a-f]\{64\}\(.*$SONDA_HASH\)|deadbeef00000000000000000000000000000000000000000000000000000000\1|")"
+
+# La sonda ha morso? Se il bersaglio non e' piu' nell'insieme pending —
+# perche' e' stato escluso, rinominato o gia' registrato — l'alterazione e'
+# inerte e il gate resterebbe verde per la ragione sbagliata. Un
+# `--autocontrollo` che legge quel verde direbbe «il gate non sa fallire»
+# senza saper dire che il difetto sta nella sonda, non nel gate.
+if [ -n "$MODO" ] && [ "$DISCO" = "$PRIMA" ]; then
+  echo "ROSSO: la sonda $MODO non ha alterato l'insieme pending."
+  echo "       Il bersaglio che nomina non e' (piu') fra le migration pending:"
+  echo "       la sonda e' spuntata e non sta provando niente sul gate."
+  exit 1
+fi
 
 DICH="$(grep -v '^#' "$MANIFESTO" | grep -v '^[[:space:]]*$' | awk -F'\t' 'NF>=5 {print $1"\t"$2}' | sort -k2)"
 

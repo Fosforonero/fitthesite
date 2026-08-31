@@ -217,11 +217,46 @@ mutazione() {
 
 echo "== mutazioni sull'autorita' del billing =="
 
-# 1. L'autorita' smette di guardare il tempo. E' esattamente il difetto che F6
-#    ha chiuso: uno stato ancora 'active' con la scadenza nel passato.
-mutazione "entitlement_core senza il controllo sul tempo" \
-  private entitlement_core \
-  's/and b\.active_until > v_now//g' \
+# ============================================================================
+# LE DUE MUTAZIONI CHE NON CI SONO PIU', E COSA LE HA SOSTITUITE
+#
+# Il 31/08/2026 la 190 ha escluso F5 e F6 come unita' indivisibile insieme ai
+# due canali asincroni. Due delle quattro mutazioni di questo gate mordevano
+# proprio su quelle:
+#
+#   «entitlement_core senza il controllo sul tempo» — il `sed` cercava
+#   `and b.active_until > v_now`, che nel corpo vivo esiste SOLO se F6 e'
+#   applicata. Senza F6 il sed e' inerte, e il gate cade nel ramo «la
+#   mutazione non ha modificato il corpo»: rosso, e rosso per il perimetro,
+#   non per un difetto.
+#
+#   «in_corso confuso con gia_applicata» — mutava `public.apri_notifica_store`,
+#   che nasce da F5 e senza F5 non esiste: ramo «la funzione non esiste».
+#
+# E' una PERDITA DI COPERTURA REALE, e va detta invece che subita: il gate
+# scendeva da quattro mutazioni a due.
+#
+# Al loro posto ne e' entrata UNA che morde su codice che la 190 spedisce
+# davvero, e che protegge la stessa proprieta' di prodotto che F6 proteggeva
+# per un'altra strada: un permesso Sandbox scaduto non deve concedere il Pro.
+# Il gate resta quindi a TRE mutazioni, non a due.
+# ============================================================================
+
+# 1. Il diritto Sandbox smette di essere limitato dal permesso.
+#
+#    Il registro dice 9999-12-31 perche' lo store ha detto lifetime, ed e'
+#    vero; ma un lifetime Sandbox e' gratuito e dura quanto il permesso di chi
+#    lo ha presentato. Senza il `least()` la riga proiettata risulta lifetime a
+#    tutti e due i percorsi di lettura, e un revisore con il permesso scaduto
+#    tiene il Pro per sempre.
+#
+#    La uccide S16 di 89-attesa-e-sandbox.sql, attraverso la LETTURA DIRETTA
+#    della tabella — cioe' la query che fa davvero il client. E' la meta' di
+#    S16 che NON dipende da F6, ed e' il motivo per cui questa mutazione puo'
+#    stare qui mentre l'altra non poteva.
+mutazione "il diritto Sandbox supera il permesso" \
+  private _billing_project_entitlement \
+  's/least\(v_active_until, coalesce\(v_win\.permesso_fino_a, v_now\)\)/v_active_until/' \
   89-attesa-e-sandbox.sql
 
 # 2. La precedenza temporale invertita: l'evidenza piu' vecchia vince.
@@ -236,12 +271,6 @@ mutazione "guardia sulla proiezione resa permissiva" \
   "s/raise exception/raise notice/g" \
   60-rollout-window.sql
 
-# 4. Il registro delle notifiche confonde «riconsegna mai chiusa» con «gia'
-#    applicata»: l'effetto di una notifica morta a meta' andrebbe perso.
-mutazione "in_corso confuso con gia_applicata" \
-  public apri_notifica_store \
-  "s/return 'in_corso';/return 'gia_applicata';/" \
-  12-test-notifiche-store.sql
 
 # ============================================================================
 # LE SONDE, e l'autocontrollo che le usa
@@ -262,19 +291,36 @@ case "$SONDA" in
   --sonda-sopravvissuta)
     # Mutazione vera e compilabile, ma provata con un file che non la copre:
     # il test resta verde, quindi la mutazione SOPRAVVIVE.
+    #
+    # Bersaglio cambiato il 31/08/2026. Prima mutava `entitlement_core` con il
+    # `sed` di F6 e la provava con il test di F5: entrambi usciti dalla 190,
+    # quindi la sonda sarebbe finita nel ramo «sed inerte» — non zero, ma per
+    # un motivo che non ha niente a che vedere con «la mutazione sopravvive».
+    # Una sonda che diventa rossa per la ragione sbagliata non prova il ramo
+    # che dovrebbe provare.
+    #
+    # Ora muta `_billing_evidenza_supera` (F2, resta) e la prova con un test
+    # del sonno, che e' verde e non guarda il billing nemmeno di striscio.
     mutazione "SONDA: mutazione non coperta dal test" \
-      private entitlement_core \
-      's/and b\.active_until > v_now//g' \
-      12-test-notifiche-store.sql
+      private _billing_evidenza_supera \
+      's/p_nuova_at > p_vecchia_at/p_nuova_at < p_vecchia_at/g' \
+      11-test-finestra-awake.sql
     ;;
   --sonda-prova-mancante)
-    # M30. Mutazione VERA — la stessa della riga 1, quella che il gate sa
-    # uccidere — ma il file di prova non esiste. Prima del 28/08/2026 questa
-    # sonda usciva 0 stampando «ok ... uccisa da 99-questo-file-di-prova-non-
-    # esiste.sql»: il gate contava per «difetto ucciso» un test mai partito.
+    # M30. Mutazione VERA — una che il gate sa uccidere — ma il file di prova
+    # non esiste. Prima del 28/08/2026 questa sonda usciva 0 stampando «ok ...
+    # uccisa da 99-questo-file-di-prova-non-esiste.sql»: il gate contava per
+    # «difetto ucciso» un test mai partito.
+    #
+    # Bersaglio cambiato il 31/08/2026, e qui la ragione e' piu' insidiosa che
+    # per le altre: con il `sed` di F6 questa sonda sarebbe uscita 1 lo stesso
+    # — ma dal ramo «sed inerte», senza mai arrivare a `esegui_file`. Avrebbe
+    # dichiarato che il gate sa vedere una prova mancante SENZA averlo mai
+    # verificato, e M30 sarebbe tornato invisibile dietro un rosso che sembra
+    # giusto. Ora muta una funzione che c'e' e che il sed cambia davvero.
     mutazione "SONDA: file di prova inesistente" \
-      private entitlement_core \
-      's/and b\.active_until > v_now//g' \
+      private _billing_evidenza_supera \
+      's/p_nuova_at > p_vecchia_at/p_nuova_at < p_vecchia_at/g' \
       99-questo-file-di-prova-non-esiste.sql
     ;;
   "") : ;;

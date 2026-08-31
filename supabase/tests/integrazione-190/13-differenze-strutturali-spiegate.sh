@@ -89,11 +89,20 @@ REGISTRO=(
   "F|trg_billing_purchase_claims_immutable (assente in produzione)|20260825130100_billing_autorita_canonica.sql|trg_billing_purchase_claims_immutable"
   "F|billing_purchase_states_forward_only (assente in produzione)|20260825130100_billing_autorita_canonica.sql|billing_purchase_states_forward_only"
   "F|trg_billing_cancello_sandbox (assente in produzione)|20260825130100_billing_autorita_canonica.sql|trg_billing_cancello_sandbox"
-  # F5 — le notifiche degli store. Lavoro nuovo: non consolida niente, perche'
-  # ne' la produzione ne' il ramo hanno mai avuto un percorso per riceverle.
-  "C|billing_store_notifications (assente in produzione)|20260825130400_billing_notifiche_store.sql|billing_store_notifications"
-  "A|apri_notifica_store (assente in produzione)|20260825130400_billing_notifiche_store.sql|apri_notifica_store"
-  "A|chiudi_notifica_store (assente in produzione)|20260825130400_billing_notifiche_store.sql|chiudi_notifica_store"
+  # F5 — le notifiche degli store. Qui c'erano tre voci: la tabella
+  # `billing_store_notifications` e le due RPC `apri_notifica_store` /
+  # `chiudi_notifica_store`. Sono uscite dalla 190 il 31/08/2026 con i due
+  # canali asincroni che le usavano.
+  #
+  # Vanno tolte da questo registro e non semplicemente commentate altrove:
+  # `verifica_voce` esce 1 quando «la migration citata non esiste», quindi
+  # lasciarle avrebbe reso ROSSO questo gate per una differenza che non esiste
+  # piu'. Il referto del perimetro elencava quattro gate da toccare; questo era
+  # il quinto, e non lo aveva visto nessuno.
+  #
+  # Le tre differenze non si sono spostate altrove: NON esistono piu'. La
+  # ricostruzione non crea piu' quegli oggetti, quindi non c'e' nessuna
+  # differenza da spiegare.
   #
   # `get_entitlement_status` NON compare in questo elenco, e la sua assenza e'
   # deliberata: il filone la ridefinisce, e quella ridefinizione non entra. La

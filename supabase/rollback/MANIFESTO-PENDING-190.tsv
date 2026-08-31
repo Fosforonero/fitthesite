@@ -15,6 +15,31 @@
 #   di 20260827120000 (S2-SERVER). La baseline live NON e' cambiata: resta
 #   20260818084202.
 #
+#   Aggiornato il 31/08/2026: 123 -> 121 file, 17 -> 15 pending. Escono, come
+#   unita' indivisibile decisa fuori da qui:
+#     20260825130400_billing_notifiche_store            (F5)
+#     20260825130500_entitlement_core_abbonamento_scaduto (F6)
+#
+#   F6 rende `active_until` VINCOLANTE dentro private.entitlement_core, e nella
+#   190 nessun percorso server prolunga `active_until` al rinnovo: una
+#   SUBSCRIPTION_RENEWED muore sul ramo `voided`. Applicarla introdurrebbe «ha
+#   pagato il rinnovo e perde Pro». Misurato in sola lettura sul catalogo di
+#   produzione il 28/08: righe con state in ('active','grace') e active_until
+#   <= now() = ZERO su 30. Escluderla non toglie il Pro a nessuno oggi; il
+#   primo giorno in cui il difetto potrebbe materializzarsi e' il 27/02/2027,
+#   su una sola riga (`fitmesh_pro_sub`, auto_renewing).
+#
+#   F5 esce con lei perche' e' il substrato di database dei due canali
+#   asincroni (App Store Server Notifications V2 e Google RTDN), che escono
+#   dalla 190 nella stessa decisione: la sua tabella resterebbe con zero
+#   scrittori e le sue due RPC con zero chiamanti. Non farebbe danno — non
+#   farebbe niente — e direbbe il falso sul perimetro.
+#
+#   La baseline live NON e' cambiata: resta 20260818084202. L'autorita'
+#   dell'entitlement esce dalla 190 con lo stesso md5 con cui vi e' entrata,
+#   8c7caad78b24cb882a94ff553a26f994, che e' anche il punto d'arrivo dichiarato
+#   di 20260825120008: la no-op resta confermata da entrambi i capi.
+#
 # CLASSIFICAZIONE
 #   190-richiesta   la 190 ha bisogno del suo effetto
 #   no-op           la produzione ha gia' quell'effetto: applicarla non cambia nulla
@@ -55,6 +80,4 @@ ce50eae20db211e58d96078c8420c2b0dbd1e6d1e386b58024de9a455c162b7a	20260825130000_
 ac30ad6811127f8d9dd09bed459f5f763e8898b3442a819a03da08bc3f5a927c	20260825130100_billing_autorita_canonica	3B	190-richiesta	F2: diciotto funzioni, cinque trigger, ACL generate dal catalogo
 e2580fe648d8e51f7d16b791ac269c230ebbe0d8242a596879bf4812ba6756f4	20260825130200_billing_guardia_proiezione	3B	190-richiesta	F3: guardia sulla proiezione b2c e divieto di TRUNCATE
 cf1d871527f0ca42e8413a5f8ca15d4e9c52fa61d15514cb9910e1a1c213505a	20260825130300_billing_ordine_lock_e_gdpr	3B	190-richiesta	F4: ordine unico dei lock; MODIFICA gdpr_process_deletions, che preesiste
-231db9c1c6ca0bee3cf5b1e42154b02e9d605ee15f1ee8346233080ffe127dba	20260825130400_billing_notifiche_store	3B	190-richiesta	F5: registro delle notifiche store, apri/chiudi idempotenti
-9217d732a19cab2295e8ac1ae5382bc2c40a2385faa5fbfb983c371b90ab22a0	20260825130500_entitlement_core_abbonamento_scaduto	3B	190-richiesta	F6: MODIFICA private.entitlement_core, che preesiste. Nel corpo vivo 'active_until > v_now' non compare. Impronta ricongelata il 26/08 dopo aver tolto begin/rollback nudi dalla postcondizione: il gate 19 se n'e' accorto da solo, come deve
 e489cd31d4a04dd66afcde0c2b1e78ae88006a4dbb15433cef4945d66d77b09c	20260827120000_sonno_indice_segue_la_principale	S2-SERVER	190-richiesta	MODIFICA internal._merge_sleep_stages_jsonb, che preesiste: sessionIdx segue la sessione principale invece della posizione cronologica. Nel corpo vivo la stringa "L'INDICE SEGUE LA PRINCIPALE" non compare (verificato in sola lettura il 27/08). Non tocca nessuna riga: le righe gia' scritte guariscono al sync successivo
