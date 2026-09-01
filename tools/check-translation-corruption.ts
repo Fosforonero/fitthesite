@@ -24,6 +24,29 @@
  *     deve comparire mai, in nessuna lingua.
  *  3. [template-leak]  segnaposto di template rimasti non sostituiti nel testo
  *     visibile: "__XXX__", "[[XXX]]", "<<XXX>>".
+ *  4. [double-escaped-unicode] sequenze unicode con DOPPIO escape
+ *     (`\\uXXXX` nel sorgente — due backslash letterali seguiti da "u" e 4
+ *     cifre esadecimali) invece del singolo escape reale (`\uXXXX`) che il
+ *     motore JS decodifica a runtime nel carattere vero. Bug reale di
+ *     QUESTA PR (hotfix/google-health-ja-ko-unicode-escape): 20 stringhe
+ *     ja/ko in lib/blog/posts/google-health-google-fit.ts renderizzavano
+ *     testo letterale "\uXXXX" invece dei caratteri giapponesi/coreani
+ *     veri. Guardrail permanente aggiunto qui insieme al fix, cosi' che
+ *     una regressione futura (in questo file o altrove nei TARGETS sotto)
+ *     fallisca il gate invece di ripassare inosservata come nel bug
+ *     originale. Nessuna esclusione ad hoc per regex/test/documentazione/
+ *     fixture serve qui: il controllo scansiona SOLO le stringhe dentro
+ *     una chiave di locale nota nei TARGETS sotto (contenuto editoriale),
+ *     non l'intero file — un file di test o un tool che manipola escape
+ *     non rientra mai in questi TARGETS, quindi non può mai generare un
+ *     falso positivo per costruzione, non per un'esclusione scritta a
+ *     mano. Il pattern distingue correttamente le due forme perché
+ *     `readStringLiteral` copia l'escape letteralmente cosi' come appare
+ *     nel sorgente (non lo decodifica): un singolo `\uXXXX` sorgente
+ *     produce nel valore estratto UN SOLO backslash prima di "u", un
+ *     doppio `\\uXXXX` sorgente ne produce DUE — il pattern richiede
+ *     esplicitamente due backslash letterali, quindi non può mai scattare
+ *     sulla forma corretta.
  *
  * Uso (Docker, nessun runtime locale):
  *   docker run --rm -v "$PWD":/app -w /app node:22 npx -y tsx tools/check-translation-corruption.ts
@@ -46,6 +69,11 @@ const LEAK_PATTERNS: { label: string; re: RegExp }[] = [
   { label: "template-leak:underscore", re: /__[A-Z]+__/ },
   { label: "template-leak:bracket", re: /\[\[[A-Z]+\]\]/ },
   { label: "template-leak:angle", re: /<<[A-Z_0-9]+>>/ },
+  // Due backslash letterali (non uno) prima di "u"+4 hex: vedi commento in
+  // testa al file. `readStringLiteral` preserva l'escape così com'è nel
+  // sorgente, quindi questo pattern non può mai scattare su un vero singolo
+  // escape `\uXXXX` (quello ha un solo backslash nel valore estratto).
+  { label: "double-escaped-unicode", re: /\\\\u[0-9a-fA-F]{4}/ },
 ];
 
 const TARGETS = [
