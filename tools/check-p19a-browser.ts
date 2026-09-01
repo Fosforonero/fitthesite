@@ -117,6 +117,41 @@ async function readDataLayer(page: import("playwright").Page): Promise<unknown[]
   return page.evaluate(() => ((window as unknown as { dataLayer?: unknown[][] }).dataLayer ?? []));
 }
 
+// FASE 13: spot-check esplicito IT/DE/JA (oltre a EN sopra) sullo stesso
+// articolo — modulo store-aware presente, zero overflow, icona Reddit con
+// testo visibile nella lingua della pagina, nessun fallback EN sui link.
+const LOCALE_SPOT_CHECKS = [
+  { locale: "it", path: "/it/blog/health-connect-not-syncing" },
+  { locale: "de", path: "/de/blog/health-connect-synchronisiert-nicht" },
+  { locale: "ja", path: "/ja/blog/health-connect-douki-mondai-kaiketsu" },
+];
+async function checkLocaleSpotChecks(browser: Browser) {
+  for (const { locale, path } of LOCALE_SPOT_CHECKS) {
+    checks++;
+    const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+    const page = await context.newPage();
+    await page.goto(`${BASE_URL}${path}`, { waitUntil: "networkidle" });
+    const label = `[locale-spotcheck/${locale}]`;
+
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1);
+    if (overflow) errors.push(`${label} overflow orizzontale`);
+
+    const module = page.locator('aside[data-cta-content-cluster]').first();
+    if ((await module.count()) === 0) errors.push(`${label} nessun modulo fitmesh-editorial-cta trovato`);
+    else if ((await module.locator('[data-cta-target-type="store"]').count()) === 0) {
+      errors.push(`${label} modulo senza StoreButtonsRow`);
+    }
+
+    await page.goto(`${BASE_URL}/${locale}`, { waitUntil: "networkidle" });
+    const redditLink = page.locator('a[href="https://www.reddit.com/r/FitMesh/"]').first();
+    if ((await redditLink.count()) > 0) {
+      const text = (await redditLink.textContent())?.trim() ?? "";
+      if (text.length === 0) errors.push(`${label} footer: link Reddit senza testo visibile`);
+    }
+    await context.close();
+  }
+}
+
 async function checkConsentAndDedup(browser: Browser) {
   checks++;
   const context = await browser.newContext();
@@ -185,6 +220,7 @@ async function checkConsentAndDedup(browser: Browser) {
     await checkModuleRendering("webkit", wk);
     await checkRedditIcon("chromium", cr);
     await checkRedditIcon("webkit", wk);
+    await checkLocaleSpotChecks(cr);
     await checkConsentAndDedup(cr);
   } finally {
     await cr.close();
