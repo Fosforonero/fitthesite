@@ -41,12 +41,99 @@ set -uo pipefail
 umask 077
 
 BASE_URL="${BASE_URL:-https://www.fitmesh.fit}"
+MODO="${1:-}"
 esito=0
 ok()    { echo "  ok     $*"; }
 rosso() { echo "  ROSSO  $*"; esito=1; }
 
+# ── I DUE STRATI, E PERCHE' SONO SEPARATI ─────────────────────────────────
+#
+# `--senza-credenziali` prova cio' che si puo' provare senza un account: che
+# le due route ESISTANO sul deploy e rifiutino in modo TIPIZZATO. Non prova
+# che la migration sia viva — per quello serve scrivere una riga — ma
+# distingue un deploy che ha le route da uno che non le ha, e un rifiuto
+# pulito da un 502.
+#
+# Senza argomenti si esegue il canary completo, che ha bisogno delle
+# credenziali. `--chiedi` le domanda a schermo con eco spenta: non compaiono
+# in argv, non finiscono nella cronologia della shell, non toccano il disco.
+CHIEDI=""
+if [ "$MODO" = "--chiedi" ]; then
+  # Due valori soli. L'impronta del device NON si chiede: si ricava dopo il
+  # login leggendo `devices` con il JWT dell'utente stesso — nessuno la sa a
+  # memoria, e farla digitare a mano e' il modo piu' rapido per sbagliarla.
+  printf 'email account canary: ' >&2; read -rs CANARY_EMAIL    </dev/tty; echo >&2
+  printf 'password: '            >&2; read -rs CANARY_PASSWORD </dev/tty; echo >&2
+  export CANARY_EMAIL CANARY_PASSWORD
+  CHIEDI=1; MODO=""
+fi
+
+# SUPABASE_URL e la chiave anon non sono segreti: la chiave anon e' pubblica
+# per costruzione (finisce nel bundle del browser). Si leggono da .env.local
+# se non sono gia' nell'ambiente, cosi' chi esegue deve digitare solo i tre
+# valori che contano.
+if [ -z "${SUPABASE_URL:-}" ] || [ -z "${SUPABASE_ANON_KEY:-}" ]; then
+  ENVF="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/.env.local"
+  if [ -r "$ENVF" ]; then
+    : "${SUPABASE_URL:=$(grep -m1 '^NEXT_PUBLIC_SUPABASE_URL=' "$ENVF" | cut -d= -f2- | tr -d '"'"'"'')}"
+    : "${SUPABASE_ANON_KEY:=$(grep -m1 '^NEXT_PUBLIC_SUPABASE_ANON_KEY=' "$ENVF" | cut -d= -f2- | tr -d '"'"'"'')}"
+  fi
+fi
+
+# Il canary deve colpire la PRODUZIONE. Se `.env.local` puntasse allo stack
+# locale — che su questa macchina e' acceso — tutte le prove sarebbero verdi
+# su un database che non e' quello di nessuno.
+PROGETTO_PROD="xcdyhkuyxukaifhhtadr"
+if [ -n "${SUPABASE_URL:-}" ] && ! printf '%s' "$SUPABASE_URL" | grep -q "$PROGETTO_PROD"; then
+  echo "ROSSO: SUPABASE_URL non punta al progetto di produzione." >&2
+  echo "       Un canary verde su un altro database non prova niente." >&2
+  exit 2
+fi
+
+# ── strato senza credenziali ──────────────────────────────────────────────
+if [ "$MODO" = "--senza-credenziali" ]; then
+  echo "############ CANARY 190 — strato senza credenziali — $BASE_URL ############"
+  echo
+  echo "Prova che le route ESISTANO e rifiutino in modo tipizzato."
+  echo "NON prova che le migration siano vive: per quello serve scrivere, e"
+  echo "quindi un account. Questo strato non lo sostituisce."
+  echo
+
+  # `/` risponde 307: e' il redirect di locale, non un errore. Cio' che conta
+  # e' dove si arriva. La prima stesura pretendeva 200 sulla radice e
+  # dichiarava rosso il comportamento normale del sito.
+  LET=$(curl -sSL --max-time 30 -o /dev/null -w '%{http_code} %{url_effective}' "$BASE_URL/")
+  C=${LET%% *}; DOVE=${LET#* }
+  [ "$C" = "200" ] && ok "il sito risponde 200 su $DOVE (dalla radice, seguendo il redirect di locale)" \
+                   || rosso "il sito risponde HTTP $C su $DOVE"
+
+  for r in "/api/v1/sync" "/api/v1/billing/validate-purchase"; do
+    RISP=$(curl -sS --max-time 30 -X POST "$BASE_URL$r" \
+           -H 'content-type: application/json' -d '{}' -w $'\n%{http_code}')
+    COD=${RISP##*$'\n'}; CORPO=${RISP%$'\n'*}
+    case "$COD" in
+      401) ok "POST $r -> 401, la route c'e' e chiede l'autenticazione" ;;
+      404) rosso "POST $r -> 404: la route NON e' su questo deploy" ;;
+      50*) rosso "POST $r -> $COD: la route c'e' ma esplode prima di autenticare"
+           printf '%s\n' "$CORPO" | head -2 | sed 's/^/         /' ;;
+      *)   rosso "POST $r -> $COD invece di 401"
+           printf '%s\n' "$CORPO" | head -2 | sed 's/^/         /' ;;
+    esac
+    if printf '%s' "$CORPO" | grep -q '21002'; then
+      rosso "21002 nel corpo di $r: e' la firma di verifyReceipt, il P0 della 189"
+    fi
+  done
+
+  echo
+  [ "$esito" -ne 0 ] && { echo "ROSSO: lo strato senza credenziali non e' verde."; exit 1; }
+  echo "VERDE: le due route esistono sul deploy e rifiutano in modo tipizzato."
+  echo "       Restano da eseguire i passi A e B, che richiedono l'account canary:"
+  echo "         bash tools/canary-190.sh --chiedi"
+  exit 0
+fi
+
 manca() { echo "ROSSO: manca la variabile $1. Il canary non si esegue a meta'." >&2; exit 2; }
-for v in CANARY_EMAIL CANARY_PASSWORD CANARY_FINGERPRINT SUPABASE_URL SUPABASE_ANON_KEY; do
+for v in CANARY_EMAIL CANARY_PASSWORD SUPABASE_URL SUPABASE_ANON_KEY; do
   [ -n "${!v:-}" ] || manca "$v"
 done
 
@@ -77,6 +164,35 @@ UID_CANARY=$(printf '%s' "$CORPO" | python3 -c 'import sys,json; print(json.load
 [ -n "$JWT" ] && [ -n "$UID_CANARY" ] || { echo "ROSSO: login senza token." >&2; exit 1; }
 unset CORPO
 ok "login canary riuscito"
+
+# ── l'impronta del device ──────────────────────────────────────────────────
+#
+# /sync pretende un `X-Device-Fingerprint` che corrisponda a una riga di
+# `devices` non revocata per questo utente: senza, risponde 404 e il canary si
+# fermerebbe senza aver provato niente. Si legge con il JWT dell'utente — RLS
+# lascia vedere solo i propri device — invece di farla digitare.
+if [ -z "${CANARY_FINGERPRINT:-}" ]; then
+  DEVS=$(curl -sS --max-time 30 \
+    -H "apikey: $SUPABASE_ANON_KEY" -H "authorization: Bearer $JWT" \
+    "$SUPABASE_URL/rest/v1/devices?select=device_fingerprint,source_type,revoked_at,last_seen_at&order=last_seen_at.desc")
+  CANARY_FINGERPRINT=$(printf '%s' "$DEVS" | python3 -c '
+import sys, json
+try: righe = json.load(sys.stdin)
+except Exception: righe = []
+vivi = [d for d in righe if isinstance(d, dict) and not d.get("revoked_at") and d.get("device_fingerprint")]
+print(vivi[0]["device_fingerprint"] if vivi else "")')
+  N=$(printf '%s' "$DEVS" | python3 -c 'import sys,json
+try: print(len(json.load(sys.stdin)))
+except Exception: print(0)')
+  if [ -n "$CANARY_FINGERPRINT" ]; then
+    # Mai per esteso: solo quanto basta a riconoscerla se serve confrontarla.
+    ok "impronta device ricavata dall'account ($N device visibili, si usa il piu' recente non revocato, ...${CANARY_FINGERPRINT: -4})"
+  else
+    echo "ROSSO: nessun device non revocato su questo account: /sync risponderebbe 404." >&2
+    echo "       Accoppia il telefono nell'app, oppure passa CANARY_FINGERPRINT." >&2
+    exit 1
+  fi
+fi
 
 # ── A. sync ────────────────────────────────────────────────────────────────
 echo
@@ -129,7 +245,7 @@ fi
 GIORNO=$(python3 -c "import datetime,sys; print(datetime.datetime.fromtimestamp(int(sys.argv[1])/1000, datetime.timezone.utc).date())" "$NOT_I")
 RILETTA=$(printf '%s' "$CORPO" >/dev/null; curl -sS --max-time 30 \
   -H "apikey: $SUPABASE_ANON_KEY" -H "authorization: Bearer $JWT" \
-  "$SUPABASE_URL/rest/v1/fitness_metrics?user_id=eq.$UID_CANARY&local_day_key=eq.$GIORNO&select=id,collected_at_ms,sleep_stages,sleep_start_ms,sleep_end_ms")
+  "$SUPABASE_URL/rest/v1/fitness_metrics?user_id=eq.$UID_CANARY&local_day_key=eq.$GIORNO&source=eq.canary_190&select=id,collected_at_ms,sleep_stages,sleep_start_ms,sleep_end_ms")
 
 python3 - "$RILETTA" "$PIS_I" "$PIS_F" "$NOT_I" "$NOT_F" <<'PY'
 import json, sys
@@ -199,7 +315,7 @@ ID=$(printf '%s' "$RILETTA" | python3 -c 'import sys,json; r=json.load(sys.stdin
 if [ -n "$ID" ]; then
   C=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 -X DELETE \
       -H "apikey: $SUPABASE_ANON_KEY" -H "authorization: Bearer $JWT" \
-      "$SUPABASE_URL/rest/v1/fitness_metrics?id=eq.$ID")
+      "$SUPABASE_URL/rest/v1/fitness_metrics?id=eq.$ID&source=eq.canary_190")
   case "$C" in
     2[0-9][0-9]) ok "riga canary cancellata" ;;
     *) echo "  ATTENZIONE  la riga canary NON e' stata cancellata (HTTP $C)."
