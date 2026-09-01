@@ -635,6 +635,13 @@ export const post: BlogPost = {
         nl: "Zie je Oura Ring-gegevens zonder de app te openen",
         ja: "アプリを開かずにOura Ringのデータを見る",
         ko: "앱을 열지 않고 Oura Ring 데이터 확인하기",
+        // RETTIFICA GO/NO-GO P1.9 — FASE 5 (2026-09-01): stesso motivo di
+        // galaxy-ring-android-health-connect.ts — sv/da mancavano qui pur
+        // essendo l'articolo indicizzabile in entrambe le locale, trovato
+        // dal guardrail check-p19a-funnel-module.ts #11 (cta-locale-gap) al
+        // primo rebase di questo branch sul main post-#62.
+        sv: "Se dina Oura Ring-data utan att öppna appen",
+        da: "Se dine Oura Ring-data uden at åbne appen",
       },
       body: {
         it: "FitMesh legge sonno, HRV e passi dal tuo Oura Ring tramite Health Connect — confermati dalla documentazione ufficiale Oura. SpO2 e temperatura cutanea restano un'eccezione onesta: Oura non li documenta come esportati, quindi non prometti nulla che non possiamo confermare.",
@@ -648,6 +655,8 @@ export const post: BlogPost = {
         nl: "FitMesh leest slaap, HRV en stappen van je Oura Ring via Health Connect — bevestigd door Oura's eigen documentatie. SpO2 en huidtemperatuur zijn de eerlijke uitzondering: Oura documenteert ze niet als geëxporteerd, dus beloven we niets wat we niet kunnen bevestigen.",
         ja: "FitMeshはHealth Connectを通じてOura Ringから睡眠、HRV、歩数を読み取ります — Oura公式の文書で確認済みです。SpO2と皮膚温度は正直な例外です：Ouraはこれらをエクスポート対象として文書化していないため、確認できないことを約束しません。",
         ko: "FitMesh는 Health Connect를 통해 Oura Ring에서 수면, HRV, 걸음 수를 읽습니다 — Oura의 공식 문서로 확인됨. SpO2와 피부 온도는 정직한 예외입니다: Oura는 이를 내보내기 대상으로 문서화하지 않으므로, 확인할 수 없는 것을 약속하지 않습니다.",
+        sv: "FitMesh läser sömn, HRV och steg från din Oura Ring via Health Connect — bekräftat av Ouras egen dokumentation. SpO2 och hudtemperatur är det ärliga undantaget: Oura dokumenterar inte att de exporteras, så vi lovar inget vi inte kan bekräfta.",
+        da: "FitMesh læser søvn, HRV og skridt fra din Oura Ring via Health Connect — bekræftet af Ouras egen dokumentation. SpO2 og hudtemperatur er den ærlige undtagelse: Oura dokumenterer ikke, at de eksporteres, så vi lover ikke noget, vi ikke kan bekræfte.",
       },
       benefits: {
         it: [
@@ -705,6 +714,16 @@ export const post: BlogPost = {
           "SpO2나 피부 온도는 내보내기 대상으로 문서화되지 않아 약속하지 않음",
           "FitMesh에서 데이터를 보는 데 Oura 구독이 필요하지 않음",
         ],
+        sv: [
+          "Sömn, HRV och steg bekräftat av Ouras egen dokumentation",
+          "Inga löften om SpO2 eller hudtemperatur, ej dokumenterat som exporterat",
+          "Ingen Oura-prenumeration krävs för att se dina data i FitMesh",
+        ],
+        da: [
+          "Søvn, HRV og skridt bekræftet af Ouras egen dokumentation",
+          "Ingen løfter om SpO2 eller hudtemperatur, ikke dokumenteret som eksporteret",
+          "Intet Oura-abonnement krævet for at se dine data i FitMesh",
+        ],
       },
       secondaryLabel: {
         it: "Vedi tutte le integrazioni",
@@ -718,6 +737,8 @@ export const post: BlogPost = {
         nl: "Bekijk alle integraties",
         ja: "すべての連携を見る",
         ko: "모든 연동 보기",
+        sv: "Se alla integrationer",
+        da: "Se alle integrationer",
       },
       secondaryHref: {
         it: "/it/integrations",

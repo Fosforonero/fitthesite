@@ -15,8 +15,6 @@ import { providerLinkHref, providerModelLinkHref } from "@/lib/providers/indexab
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 import { PROVIDERS_BY_SLUG } from "@/lib/providers/data";
 import { PROVIDER_MODELS } from "@/lib/providers/models";
-import { CTA_PLACEMENTS, TARGET_TYPES } from "@/lib/analytics/cta";
-import StoreButtonsRow from "@/components/StoreButtonsRow";
 
 /**
  * Riscrive un href interno alla lingua corrente: normalizza il prefisso `/xx/`

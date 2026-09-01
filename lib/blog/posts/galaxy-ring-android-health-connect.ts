@@ -715,6 +715,15 @@ export const post: BlogPost = {
         nl: "Zie je Galaxy Ring-gegevens samen met de rest",
         ja: "Galaxy Ringのデータを他の情報と一緒に見る",
         ko: "Galaxy Ring 데이터를 다른 정보와 함께 확인하세요",
+        // RETTIFICA GO/NO-GO P1.9 — FASE 5 (2026-09-01): sv/da mancavano da
+        // questo blocco pur essendo l'articolo indicizzabile in entrambe
+        // (overlay nordico su hero/body/faq) — trovato dal guardrail
+        // check-p19a-funnel-module.ts #11 (cta-locale-gap) al primo rebase
+        // di questo branch sul main post-#62, che ha portato quel controllo
+        // qui per la prima volta. Stesso identico bug gia' corretto in
+        // health-connect-not-syncing.ts/garmin-samsung-health-sync-guide.ts.
+        sv: "Se dina Galaxy Ring-data tillsammans med allt annat",
+        da: "Se dine Galaxy Ring-data sammen med alt det andet",
       },
       body: {
         it: "FitMesh legge sonno, SpO2 e attività dal tuo Galaxy Ring tramite Health Connect. L'HRV resta un'eccezione onesta: Samsung non ne documenta la scrittura su Health Connect, quindi non prometti nulla che non possiamo confermare.",
@@ -728,6 +737,8 @@ export const post: BlogPost = {
         nl: "FitMesh leest slaap, SpO2 en activiteit van je Galaxy Ring via Health Connect. HRV is de eerlijke uitzondering: Samsung documenteert het schrijven naar Health Connect niet, dus beloven we niets wat we niet kunnen bevestigen.",
         ja: "FitMeshはHealth Connectを通じてGalaxy Ringから睡眠、SpO2、活動量を読み取ります。HRVは正直な例外です：SamsungはHealth Connectへの書き込みを文書化していないため、確認できないことを約束しません。",
         ko: "FitMesh는 Health Connect를 통해 Galaxy Ring에서 수면, SpO2, 활동 데이터를 읽습니다. HRV는 정직한 예외입니다: Samsung은 Health Connect에 기록된다고 문서화하지 않으므로, 확인할 수 없는 것을 약속하지 않습니다.",
+        sv: "FitMesh läser sömn, SpO2 och aktivitet från din Galaxy Ring via Health Connect. HRV är det ärliga undantaget: Samsung dokumenterar inte att det skrivs till Health Connect, så vi lovar inget vi inte kan bekräfta.",
+        da: "FitMesh læser søvn, SpO2 og aktivitet fra din Galaxy Ring via Health Connect. HRV er den ærlige undtagelse: Samsung dokumenterer ikke, at det skrives til Health Connect, så vi lover ikke noget, vi ikke kan bekræfte.",
       },
       benefits: {
         it: [
@@ -785,6 +796,16 @@ export const post: BlogPost = {
           "Galaxy Watch도 함께 사용하는 경우 출처가 명확함",
           "HRV처럼 확인되지 않은 데이터는 약속하지 않음",
         ],
+        sv: [
+          "Sömn, SpO2 och aktivitet bekräftat via Health Connect",
+          "Tydlig källa om du även använder en Galaxy Watch",
+          "Inga löften om obekräftade data som HRV",
+        ],
+        da: [
+          "Søvn, SpO2 og aktivitet bekræftet via Health Connect",
+          "Tydelig kilde, hvis du også bruger et Galaxy Watch",
+          "Ingen løfter om ubekræftede data som HRV",
+        ],
       },
       secondaryLabel: {
         it: "Vedi tutte le integrazioni",
@@ -798,6 +819,8 @@ export const post: BlogPost = {
         nl: "Bekijk alle integraties",
         ja: "すべての連携を見る",
         ko: "모든 연동 보기",
+        sv: "Se alla integrationer",
+        da: "Se alle integrationer",
       },
       secondaryHref: {
         it: "/it/integrations",
