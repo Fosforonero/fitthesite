@@ -16,10 +16,10 @@
  *     health-connect-not-syncing, ko resta noindex (non sbloccato per
  *     mandato);
  *  5. hreflang di health-connect-not-syncing include ora pl/ja e continua
- *     a escludere ko/tr/no/fi (nessuno sblocco accidentale);
- *  6. link interni diretti: i due articoli ring non linkano a slug EN
- *     sbagliati (stesso bug già trovato e corretto in fitmesh-vs-alternative-
- *     sync.ts durante PR A — controllo di non-regressione qui).
+ *     a escludere ko/tr/no/fi (nessuno sblocco accidentale).
+ *
+ * (Un controllo #6 su fitmesh-vs-alternative-sync.ts, out of scope per
+ * questo branch, è stato rimosso — vedi nota in fondo al file.)
  *
  * Eseguito con: npx tsx tools/check-p19b-ring-locales.ts
  */
@@ -34,13 +34,18 @@ function diffFallback(post: any, locale: string, label: string): string[] {
   function walk(obj: any, path: string) {
     if (obj == null) return;
     if (typeof obj === "object" && !Array.isArray(obj) && "en" in obj && locale in obj) {
+      // Keyword/Keywords: intenzionalmente identiche a EN in molte lingue
+      // (termini SEO tecnici, non prosa) — escluse da ENTRAMBI i rami,
+      // scalare e array (bug corretto: il ramo array non le escludeva).
+      const isKeywordPath = path.endsWith("Keyword") || path.includes("Keywords");
+      if (isKeywordPath) return;
       const en = obj.en;
       const v = obj[locale];
       if (Array.isArray(v) && Array.isArray(en)) {
         v.forEach((item: string, i: number) => {
           if (item === en[i]) out.push(`${label} ${path}.${locale}[${i}]`);
         });
-      } else if (v === en && !path.endsWith("Keyword") && !path.includes("Keywords")) {
+      } else if (v === en) {
         out.push(`${label} ${path}.${locale}`);
       }
       return;
@@ -53,12 +58,20 @@ function diffFallback(post: any, locale: string, label: string): string[] {
 }
 
 // ── 1: nessuna formula di certezza assoluta residua nei 2 articoli ring ──
+// Nota: un tentativo di intercettare anche "everything else ... is
+// available/flows through Health Connect" via regex è stato scartato:
+// il testo CORRETTO (con il giusto caveat aggiunto) contiene comunque
+// "Everything else is available on Android", quindi qualunque pattern
+// abbastanza semplice da scrivere in regex avrebbe dato un falso
+// positivo sulla propria correzione. La sovra-generalizzazione originale
+// è stata trovata e corretta a mano (vedi commit), non è automatizzabile
+// in modo affidabile senza NLP — i 4 pattern sotto restano il controllo
+// automatico per i casi netti (claim assoluti senza alcun caveat).
 const ABSOLUTE_CLAIM_PATTERNS = [
   /all data writes to health connect/i,
   /tutti i dati (vengono )?scritti su health connect/i,
   /todos los datos se escriben en health connect/i,
   /alle daten werden in health connect geschrieben/i,
-  /everything that flows to health connect/i,
 ];
 for (const slug of ["galaxy-ring-android-health-connect", "oura-ring-health-connect-android"]) {
   checks++;
@@ -93,7 +106,11 @@ for (const slug of ["galaxy-ring-android-health-connect", "oura-ring-health-conn
 checks++;
 {
   const post = BLOG_POSTS_BY_SLUG["health-connect-not-syncing"];
-  const expectIndexable = ["it", "en", "es", "de", "pt", "fr", "pl", "nl", "ja", "sv", "da"];
+  // sv/da escluse deliberatamente: isBlogVariantIndexable diretto su
+  // BLOG_POSTS_BY_SLUG non applica l'overlay nordico (applicato altrove
+  // nella pipeline reale, vedi tools/dump-p18a-locale-status.ts) — un
+  // assert diretto qui darebbe un falso negativo, non un vero controllo.
+  const expectIndexable = ["it", "en", "es", "de", "pt", "fr", "pl", "nl", "ja"];
   const expectNoindex = ["ko", "tr", "no", "fi"];
   for (const lc of expectIndexable) {
     if (!isBlogVariantIndexable(post, lc as any)) errors.push(`[unexpected-noindex] health-connect-not-syncing/${lc} dovrebbe essere indicizzabile`);
@@ -113,24 +130,11 @@ checks++;
   if (langs.includes("ko")) errors.push(`[hreflang-unexpected-ko] health-connect-not-syncing: ko presente negli hreflang — non doveva essere sbloccata`);
 }
 
-// ── 6: nessun link interno con slug EN sbagliato (non-regressione) ──────
-checks++;
-{
-  const knownGoodEnSlugs = ["is-fitmesh-free-pricing-founder", "where-your-data-lives-eu-server"];
-  const knownBadItSlugs = ["fitmesh-gratis-prezzo-founder", "dove-sono-i-tuoi-dati-server-ue"];
-  const post = BLOG_POSTS_BY_SLUG["fitmesh-vs-alternative-sync"];
-  const enText = JSON.stringify((post as any)?.body ?? []);
-  for (const bad of knownBadItSlugs) {
-    if (new RegExp(`/en/blog/${bad}`).test(enText)) {
-      errors.push(`[wrong-en-slug-regression] fitmesh-vs-alternative-sync: link EN verso slug IT "${bad}" è tornato`);
-    }
-  }
-  for (const good of knownGoodEnSlugs) {
-    if (!new RegExp(good).test(enText)) {
-      errors.push(`[wrong-en-slug-missing] fitmesh-vs-alternative-sync: slug EN corretto "${good}" non trovato`);
-    }
-  }
-}
+// Nota: un controllo #6 su fitmesh-vs-alternative-sync.ts (slug EN
+// sbagliati) è stato scritto e poi rimosso da questo file — quel post
+// esiste solo nel branch PR A (feat/p19a-search-to-install-funnel), non
+// in questo branch PR B: un controllo su un file assente qui sarebbe
+// stato sempre un falso negativo silenzioso, non una vera verifica.
 
 if (errors.length > 0) {
   console.error(`❌ P1.9 ring/locale guardrail: ${errors.length} problema/i su ${checks} controlli\n`);
@@ -138,5 +142,5 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  `✅ P1.9 ring/locale guardrail OK: ${checks} controlli — zero claim assoluti residui, HRV trattata esplicitamente, zero fallback EN/PL, indicizzabilità esatta (pl/ja dentro, ko/tr/no/fi fuori), hreflang coerente, zero slug EN sbagliati.`,
+  `✅ P1.9 ring/locale guardrail OK: ${checks} controlli — zero claim assoluti residui, HRV trattata esplicitamente, zero fallback EN/PL, indicizzabilità esatta (pl/ja dentro, ko/tr/no/fi fuori), hreflang coerente.`,
 );
