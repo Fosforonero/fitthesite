@@ -164,6 +164,7 @@ export const post: BlogPost = {
       "samsung health nie synchronizuje z health connect",
       "kroki nie wyświetlają się w health connect",
       "jak naprawić health connect",
+      "rozwiązywanie problemów google health connect",
     ],
     tr: [
       "health connect çalışmıyor",
@@ -186,6 +187,7 @@ export const post: BlogPost = {
       "samsung health health connectと同期しない",
       "歩数がhealth connectに表示されない",
       "health connect 同期の修正方法",
+      "google health connect トラブルシューティング",
     ],
     ko: [
       "health connect 작동 안함",
