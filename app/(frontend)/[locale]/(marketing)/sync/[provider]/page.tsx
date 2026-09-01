@@ -82,6 +82,10 @@ function statusLabel(
       color: "#21E6C1",
     },
     beta: { it: "Beta", en: "Beta", es: "Beta", de: "Beta", pt: "Beta", fr: "Beta", nl: "Beta", ja: "Beta", ko: "Beta", color: "#FFB547" },
+    // P1.9 FASE 2: stessa aggiunta di lib/providers/data.ts:statusLabel —
+    // le due mappe sono duplicate (debito noto, non risolto qui: fuori
+    // scope unificarle in questo giro), tenute allineate a mano.
+    "limited-beta": { it: "Accesso limitato", en: "Limited access", es: "Acceso limitado", de: "Eingeschränkter Zugang", pt: "Acesso limitado", fr: "Accès limité", nl: "Beperkte toegang", ja: "限定アクセス", ko: "제한된 접근", color: "#FFB547" },
     "roadmap-q3": {
       it: "In arrivo Q3 2026",
       en: "Coming Q3 2026",

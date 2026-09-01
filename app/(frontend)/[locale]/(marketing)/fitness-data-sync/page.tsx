@@ -57,6 +57,8 @@ const STATUS_LABEL: Record<CompatibilityRow["status"], Localized> = {
   "in-development": { it: "In sviluppo", en: "In development", es: "En desarrollo", de: "In Entwicklung" },
   roadmap: { it: "Roadmap", en: "Roadmap", es: "Roadmap", de: "Roadmap" },
   beta: { it: "Beta", en: "Beta", es: "Beta", de: "Beta" },
+  // P1.9 FASE 2 (2026-09-01): oggi solo Strava.
+  "limited-beta": { it: "Accesso limitato", en: "Limited access", es: "Acceso limitado", de: "Eingeschränkter Zugang" },
 };
 
 const STATUS_COLOR: Record<CompatibilityRow["status"], string> = {
@@ -64,6 +66,7 @@ const STATUS_COLOR: Record<CompatibilityRow["status"], string> = {
   "in-development": "#38BDF8",
   roadmap: "#94A3B8",
   beta: "#F5A623",
+  "limited-beta": "#FFB547",
 };
 
 const DIRECTION_LABEL: Record<CompatibilityRow["direction"], Localized> = {

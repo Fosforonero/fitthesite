@@ -16,9 +16,11 @@
  * app/.../fitness-data-sync/page.tsx) — cadono su EN via tl().
  *
  * Verità commerciale alla base di questo contenuto (verificata nel codice
- * dell'app, non assunta): Strava legge in live oggi, l'invio verso Strava è
- * in sviluppo (buildWriteAuthorizationUrl() non ha ancora un trigger UI
- * verificato su device reale); TrainingPeaks non è ancora funzionante
+ * dell'app, non assunta): Strava legge in modo affidabile per gli account
+ * già connessi, ma l'accesso a NUOVE connessioni è limitato (approvazione
+ * Strava, P1.9 FASE 2 2026-09-01 — non era così finché non corretto qui);
+ * l'invio verso Strava è in sviluppo (buildWriteAuthorizationUrl() non ha
+ * ancora un trigger UI verificato su device reale); TrainingPeaks non è ancora funzionante
  * end-to-end; Health Connect e Apple Health hanno write-back reale,
  * opt-in, off di default, con timing diverso per piattaforma (Android:
  * export singolo per attivazione toggle; iOS: re-export a ogni sync). Data
@@ -64,7 +66,13 @@ export type IntegrationStatus =
   | "live"
   | "in-development"
   | "roadmap"
-  | "beta";
+  | "beta"
+  // P1.9 FASE 2 (2026-09-01): distinto da "beta" sopra apposta (qui "beta"
+  // significa "solo bridge generico", il contrario della situazione di
+  // Strava: OAuth dedicato reale, che funziona per chi è già connesso, ma
+  // nuove connessioni sono soggette ad approvazione esterna). Oggi usato
+  // solo per Strava.
+  | "limited-beta";
 
 export interface CompatibilityRow {
   /** Nome del brand/servizio — non tradotto (nome proprio). */
@@ -141,14 +149,18 @@ export const DETAILED_COMPATIBILITY: CompatibilityRow[] = [
       es: "Se obtiene en cada sincronización de la app",
       de: "Wird bei jeder App-Synchronisierung abgerufen",
     },
-    status: "live",
+    // P1.9 FASE 2 (2026-09-01): era "live" — corretto in base a
+    // docs/seo/capability-promotion-checklist.md ("già live e verificato"
+    // vale SOLO per la lettura di account già connessi; nuove connessioni
+    // restano soggette ad approvazione Strava, nessun numero pubblicato).
+    status: "limited-beta",
     limitations: {
-      it: "Solo lettura oggi. L'invio degli allenamenti registrati da FitMesh verso Strava è in sviluppo e non ancora disponibile nell'app.",
-      en: "Read only today. Sending FitMesh-recorded workouts back to Strava is in development and not yet available in the app.",
-      es: "Solo lectura hoy. El envío de entrenamientos registrados por FitMesh a Strava está en desarrollo y aún no disponible en la app.",
-      de: "Heute nur Lesen. Das Senden von FitMesh-aufgezeichneten Workouts an Strava ist in Entwicklung und in der App noch nicht verfügbar.",
+      it: "Accesso limitato: la lettura funziona per gli account già collegati, ma le nuove connessioni sono soggette all'approvazione di Strava. L'invio degli allenamenti registrati da FitMesh verso Strava è in sviluppo e non ancora disponibile nell'app.",
+      en: "Limited access: reading works for accounts already connected, but new connections are subject to Strava's approval. Sending FitMesh-recorded workouts back to Strava is in development and not yet available in the app.",
+      es: "Acceso limitado: la lectura funciona para las cuentas ya conectadas, pero las nuevas conexiones están sujetas a la aprobación de Strava. El envío de entrenamientos registrados por FitMesh a Strava está en desarrollo y aún no disponible en la app.",
+      de: "Eingeschränkter Zugang: Das Lesen funktioniert für bereits verbundene Konten, neue Verbindungen bedürfen jedoch der Freigabe durch Strava. Das Senden von FitMesh-aufgezeichneten Workouts an Strava ist in Entwicklung und in der App noch nicht verfügbar.",
     },
-    lastVerified: "2026-07-12",
+    lastVerified: "2026-09-01",
     detailHref: "/sync/strava",
   },
   {

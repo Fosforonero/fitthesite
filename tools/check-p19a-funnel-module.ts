@@ -160,19 +160,19 @@ for (const post of BLOG_POSTS) {
 }
 
 // ── 9: Strava — disponibilità generale / limite numerico pubblicato ─────
-// Debito NOTO, già trovato e segnalato durante lo sprint P1.9 (2026-09-01),
-// proposto come P0 separato — NON corretto qui per istruzione esplicita
-// ("non correggerlo silenziosamente dentro P1.9"). Questo allowlist
-// documenta ESATTAMENTE dove vive oggi, cosi' una regressione nuova altrove
-// fa fallire il gate invece di sparire nel rumore.
-const STRAVA_LIVE_KNOWN_DEBT: Array<{ file: string; note: string }> = [
-  { file: "lib/providers/data.ts", note: "status: \"live\" per Strava (provider entry + badge pubblico su /sync/strava e /integrations)" },
-  { file: "lib/content/fitness-data-sync-copy.ts", note: "IntegrationStatus \"live\" nella matrice di compatibilità" },
-  { file: "lib/content/about-copy.ts", note: "Strava elencato in \"Supportati nativamente\"" },
-  { file: "lib/llms-txt.ts", note: "\"Strava read is live via OAuth\" su /llms.txt" },
-  { file: "lib/blog/posts/alternative-app-sync-wearable-2026.ts", note: "\"OAuth già attivo\"/\"live OAuth ... already active\" per Strava" },
-  { file: "lib/blog/posts/google-health-google-fit.ts", note: "sezione 'Quando FitMesh può aggiungere valore': lettura Strava 'già attiva via OAuth' + flusso di scrittura descritto come funzionante — errore fattuale grave, proposto come P0 separato" },
-];
+// MICRO-GATE P1.9-A FASE 2 (2026-09-01) — il debito sotto era stato trovato
+// e deliberatamente NON corretto in P1.9 ("proposto come P0 separato"): quel
+// P0 è stato risolto in questa stessa fase (status Strava → "limited-beta"
+// in lib/providers/data.ts e lib/content/fitness-data-sync-copy.ts, testo
+// riscritto in lib/llms-txt.ts, lib/blog/posts/alternative-app-sync-
+// wearable-2026.ts, lib/blog/posts/google-health-google-fit.ts). Verificato
+// con questo stesso pattern che tutti e 6 i file ex-allowlist sono ora puliti
+// (zero match), quindi l'allowlist è stata rimossa: il controllo è ora a
+// tolleranza zero su tutto il repo, nessuna eccezione. Il guardrail
+// sitewide più ampio (numeric-limit / approval-timeline / general-
+// availability, con guardia di negazione) vive in
+// tools/check-llms-consistency.ts; questo resta un secondo strato più
+// stretto e mirato allo stesso rischio.
 const STRAVA_GENERAL_AVAILABILITY = /strava[^.]{0,80}(già attiva|already active|is live|live via oauth|disponibile ora|available now)/i;
 const STRAVA_NUMERIC_LIMIT = /\b10\s*(atlet[ei]|athletes?)\b/i;
 
@@ -188,7 +188,6 @@ function walkSourceFiles(dir: string, out: string[] = []): string[] {
 
 checks++;
 {
-  const allowlistRel = new Set(STRAVA_LIVE_KNOWN_DEBT.map((d) => d.file));
   const scanDirs = ["app", "components", "lib"];
   for (const dir of scanDirs) {
     const dirPath = path.join(ROOT, dir);
@@ -197,10 +196,10 @@ checks++;
       const rel = path.relative(ROOT, file).split(path.sep).join("/");
       const content = fs.readFileSync(file, "utf8");
       if (STRAVA_NUMERIC_LIMIT.test(content)) {
-        errors.push(`[strava-numeric-limit] ${rel}: limite numerico Strava pubblicato — VIETATO in ogni caso, nessun allowlist`);
+        errors.push(`[strava-numeric-limit] ${rel}: limite numerico Strava pubblicato — VIETATO in ogni caso, nessuna eccezione`);
       }
-      if (STRAVA_GENERAL_AVAILABILITY.test(content) && !allowlistRel.has(rel)) {
-        errors.push(`[strava-general-availability-NEW] ${rel}: nuova occorrenza di Strava presentata come disponibile in generale, fuori dall'allowlist del debito noto`);
+      if (STRAVA_GENERAL_AVAILABILITY.test(content)) {
+        errors.push(`[strava-general-availability] ${rel}: Strava presentata come disponibile in generale — VIETATO in ogni caso, nessuna eccezione (stato reale: limited-beta)`);
       }
     }
   }
@@ -256,5 +255,5 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  `✅ P1.9 funnel module guardrail OK: ${checks} controlli — struttura CTA (no duplicati, no CTA-prima-risposta, ≤3 benefici, content_cluster valido), CTA sempre store-aware/tracciata, payload GA4 chiuso, zero overclaim/denigrazione nel modulo, Strava debito noto invariato (nessuna nuova occorrenza), icona Reddit presente con testo sempre visibile e URL/target/rel invariati.`,
+  `✅ P1.9 funnel module guardrail OK: ${checks} controlli — struttura CTA (no duplicati, no CTA-prima-risposta, ≤3 benefici, content_cluster valido), CTA sempre store-aware/tracciata, payload GA4 chiuso, zero overclaim/denigrazione nel modulo, Strava a tolleranza zero su disponibilità generale/limite numerico (debito P0 risolto in MICRO-GATE P1.9-A FASE 2, nessuna eccezione residua), icona Reddit presente con testo sempre visibile e URL/target/rel invariati.`,
 );

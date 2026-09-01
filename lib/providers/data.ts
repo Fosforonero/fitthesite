@@ -14,6 +14,14 @@ export type ProviderStatus =
   | "live" // Supportato nativamente (es. Galaxy Watch via Samsung Health → HC)
   | "live-basic" // Funziona oggi via Health Connect al livello base, OAuth ufficiale in arrivo per dati avanzati
   | "beta" // Implementato ma in test
+  // P1.9 FASE 2 (2026-09-01): distinto da "beta" apposta — "beta" resta il
+  // significato generico già in uso (oggi solo Suunto), questo copre un
+  // caso diverso: capacità tecnica verificata (lettura funziona per chi è
+  // già connesso) ma disponibilità dell'accesso stesso limitata da un
+  // vincolo lato piattaforma esterna (revisione/approvazione in corso),
+  // non da un bug o da funzionalità incompleta lato FitMesh. Introdotto per
+  // Strava — vedi doc/seo/... e la nota nel provider stesso per il perché.
+  | "limited-beta"
   | "roadmap-q3" // Pianificato Q3 2026 (NO path HC, serve OAuth)
   | "roadmap-q4" // Pianificato Q4 2026 (NO path HC, serve OAuth)
   | "coming-soon"; // In arrivo (data TBD — es. BLE diretto, feature sperimentali)
@@ -4563,7 +4571,14 @@ export const PROVIDERS: Provider[] = [
     name: "Strava",
     vendor: "Strava",
     category: "fitness-platform",
-    status: "live",
+    // P1.9 FASE 2 (2026-09-01): era "live" dal 12/07/2026, mai corretto.
+    // Verità (vedi docs/seo/capability-promotion-checklist.md, "già live e
+    // verificato" solo per la lettura OAuth): la lettura funziona per gli
+    // account già collegati, ma nuove connessioni restano soggette a un
+    // processo di approvazione lato Strava — nessun numero pubblicato, per
+    // istruzione esplicita. La scrittura (re-auth + activity:write) resta
+    // al gate 1 di 9 nello stesso documento, mai stata "live".
+    status: "limited-beta",
     platforms: ["android", "ios"],
     brandColor: "#FC4C02",
     initial: "S",
@@ -4581,17 +4596,17 @@ export const PROVIDERS: Provider[] = [
       ko: "Strava 활동을 FitMesh 대시보드에서 확인.",
     },
     longDesc: {
-      it: "FitMesh legge le tue corse, pedalate, nuotate e camminate registrate su Strava e le mostra nella dashboard insieme ai dati degli altri dispositivi, con GPS track, dislivello, ritmo medio, calorie e frequenza cardiaca per ogni segmento.",
-      en: "FitMesh reads your runs, rides, swims and walks recorded on Strava and shows them on your dashboard alongside data from your other devices, with GPS tracks, elevation, average pace, calories and heart rate for each segment.",
-      es: "FitMesh lee tus carreras, salidas en bici, sesiones de natación y caminatas registradas en Strava y las muestra en tu panel junto con los datos de tus otros dispositivos, con rutas GPS, desnivel, ritmo medio, calorías y frecuencia cardíaca de cada segmento.",
-      de: "FitMesh liest deine auf Strava aufgezeichneten Läufe, Radtouren, Schwimmeinheiten und Spaziergänge und zeigt sie zusammen mit den Daten deiner anderen Geräte im Dashboard, mit GPS-Tracks, Höhenprofil, Durchschnittstempo, Kalorien und Herzfrequenz für jedes Segment.",
-      pt: "O FitMesh lê suas corridas, pedaladas, natações e caminhadas registradas no Strava e as exibe no painel junto com os dados dos seus outros dispositivos, com GPS, desnível, ritmo médio, calorias e frequência cardíaca por segmento.",
-      fr: "FitMesh lit vos courses, sorties vélo, nages et marches enregistrées sur Strava et les affiche sur votre tableau de bord aux côtés des données de vos autres appareils, avec traces GPS, dénivelé, allure moyenne, calories et fréquence cardiaque pour chaque segment.",
-      pl: "FitMesh odczytuje Twoje biegi, przejażdżki, pływania i spacery zapisane w Strava i pokazuje je w panelu razem z danymi z innych urządzeń, z trasami GPS, przewyższeniem, średnim tempem, kaloriami i tętnem dla każdego segmentu.",
-      tr: "FitMesh, Strava'da kaydedilen koşularınızı, bisiklet turlarınızı, yüzme seanslarınızı ve yürüyüşlerinizi okur ve diğer cihazlarınızın verileriyle birlikte panelinizde gösterir, her segment için GPS izleri, yükseklik, ortalama hız, kalori ve kalp atış hızı dahil.",
-      nl: "FitMesh leest je op Strava geregistreerde runs, fietstochten, zwemsessies en wandelingen en toont ze in je dashboard naast data van je andere apparaten, met GPS-tracks, hoogteverschil, gemiddeld tempo, calorieën en hartslag per segment.",
-      ja: "FitMeshはStravaに記録されたランニング、サイクリング、スイミング、ウォーキングを読み取り、他のデバイスのデータと一緒にダッシュボードに表示します。各セグメントのGPSトラック、高度、平均ペース、カロリー、心拍数を含みます。",
-      ko: "FitMesh는 Strava에 기록된 달리기, 자전거 타기, 수영, 걷기를 읽어 다른 기기의 데이터와 함께 대시보드에 표시합니다. 각 구간의 GPS 트랙, 고도, 평균 페이스, 칼로리, 심박수를 포함합니다.",
+      it: "FitMesh legge le tue corse, pedalate, nuotate e camminate registrate su Strava e le mostra nella dashboard insieme ai dati degli altri dispositivi, con GPS track, dislivello, ritmo medio, calorie e frequenza cardiaca per ogni segmento. L'accesso è oggi limitato: la lettura funziona per gli account già collegati, ma le nuove connessioni sono soggette all'approvazione di Strava.",
+      en: "FitMesh reads your runs, rides, swims and walks recorded on Strava and shows them on your dashboard alongside data from your other devices, with GPS tracks, elevation, average pace, calories and heart rate for each segment. Access is currently limited: reading works for accounts already connected, but new connections are subject to Strava's approval.",
+      es: "FitMesh lee tus carreras, salidas en bici, sesiones de natación y caminatas registradas en Strava y las muestra en tu panel junto con los datos de tus otros dispositivos, con rutas GPS, desnivel, ritmo medio, calorías y frecuencia cardíaca de cada segmento. El acceso es actualmente limitado: la lectura funciona para las cuentas ya conectadas, pero las nuevas conexiones están sujetas a la aprobación de Strava.",
+      de: "FitMesh liest deine auf Strava aufgezeichneten Läufe, Radtouren, Schwimmeinheiten und Spaziergänge und zeigt sie zusammen mit den Daten deiner anderen Geräte im Dashboard, mit GPS-Tracks, Höhenprofil, Durchschnittstempo, Kalorien und Herzfrequenz für jedes Segment. Der Zugang ist derzeit eingeschränkt: Das Lesen funktioniert für bereits verbundene Konten, neue Verbindungen bedürfen jedoch der Freigabe durch Strava.",
+      pt: "O FitMesh lê suas corridas, pedaladas, natações e caminhadas registradas no Strava e as exibe no painel junto com os dados dos seus outros dispositivos, com GPS, desnível, ritmo médio, calorias e frequência cardíaca por segmento. O acesso está atualmente limitado: a leitura funciona para contas já conectadas, mas novas conexões dependem da aprovação da Strava.",
+      fr: "FitMesh lit vos courses, sorties vélo, nages et marches enregistrées sur Strava et les affiche sur votre tableau de bord aux côtés des données de vos autres appareils, avec traces GPS, dénivelé, allure moyenne, calories et fréquence cardiaque pour chaque segment. L'accès est actuellement limité : la lecture fonctionne pour les comptes déjà connectés, mais les nouvelles connexions sont soumises à l'approbation de Strava.",
+      pl: "FitMesh odczytuje Twoje biegi, przejażdżki, pływania i spacery zapisane w Strava i pokazuje je w panelu razem z danymi z innych urządzeń, z trasami GPS, przewyższeniem, średnim tempem, kaloriami i tętnem dla każdego segmentu. Dostęp jest obecnie ograniczony: odczyt działa dla kont już połączonych, ale nowe połączenia wymagają zatwierdzenia przez Stravę.",
+      tr: "FitMesh, Strava'da kaydedilen koşularınızı, bisiklet turlarınızı, yüzme seanslarınızı ve yürüyüşlerinizi okur ve diğer cihazlarınızın verileriyle birlikte panelinizde gösterir, her segment için GPS izleri, yükseklik, ortalama hız, kalori ve kalp atış hızı dahil. Erişim şu anda sınırlıdır: okuma zaten bağlı hesaplar için çalışır, ancak yeni bağlantılar Strava'nın onayına tabidir.",
+      nl: "FitMesh leest je op Strava geregistreerde runs, fietstochten, zwemsessies en wandelingen en toont ze in je dashboard naast data van je andere apparaten, met GPS-tracks, hoogteverschil, gemiddeld tempo, calorieën en hartslag per segment. De toegang is momenteel beperkt: lezen werkt voor reeds gekoppelde accounts, maar nieuwe koppelingen zijn onderworpen aan goedkeuring door Strava.",
+      ja: "FitMeshはStravaに記録されたランニング、サイクリング、スイミング、ウォーキングを読み取り、他のデバイスのデータと一緒にダッシュボードに表示します。各セグメントのGPSトラック、高度、平均ペース、カロリー、心拍数を含みます。現在アクセスは限定的です：読み取りはすでに接続済みのアカウントでは機能しますが、新規接続はStravaの承認が必要です。",
+      ko: "FitMesh는 Strava에 기록된 달리기, 자전거 타기, 수영, 걷기를 읽어 다른 기기의 데이터와 함께 대시보드에 표시합니다. 각 구간의 GPS 트랙, 고도, 평균 페이스, 칼로리, 심박수를 포함합니다. 현재 접근은 제한적입니다: 이미 연결된 계정은 읽기가 작동하지만, 새로운 연결은 Strava의 승인이 필요합니다.",
     },
     techNote: {
       it: "OAuth 2.0 + Strava API v3. Sincronizzazione ad ogni apertura app (non webhook in tempo reale). Quota gratuita 1000 attività/24h, sufficiente per uso personale.",
@@ -4624,17 +4639,17 @@ export const PROVIDERS: Provider[] = [
           ko: "FitMesh가 Strava와 통합되나요?",
         },
         a: {
-          it: "Sì. FitMesh si collega direttamente all'API di Strava: puoi vedere le tue attività, i percorsi e i dati sulle prestazioni in un'unica dashboard insieme ai dati degli altri dispositivi e app per la salute.",
-          en: "Yes. FitMesh connects directly to the Strava API: you can view your Strava activities, routes and performance data in one dashboard alongside data from your other health apps and wearables.",
-          es: "Sí. FitMesh se conecta directamente a la API de Strava: puedes ver tus actividades, rutas y datos de rendimiento de Strava en un solo panel junto con los datos de tus otras apps y dispositivos de salud.",
-          de: "Ja. FitMesh verbindet sich direkt mit der Strava-API: Du siehst deine Strava-Aktivitäten, Routen und Leistungsdaten in einem Dashboard zusammen mit Daten aus deinen anderen Gesundheits-Apps und Wearables.",
-          pt: "Sim. O FitMesh se conecta diretamente à API do Strava: você pode ver suas atividades, rotas e dados de desempenho do Strava em um único painel junto aos dados dos seus outros apps e dispositivos de saúde.",
-          fr: "Oui. FitMesh se connecte directement à l'API Strava : vous pouvez voir vos activités, itinéraires et données de performance Strava dans un seul tableau de bord aux côtés des données de vos autres applications et appareils de santé.",
-          pl: "Tak. FitMesh łączy się bezpośrednio z API Strava: możesz zobaczyć swoje aktywności, trasy i dane o wynikach ze Strava w jednym panelu razem z danymi z innych aplikacji zdrowotnych i urządzeń.",
-          tr: "Evet. FitMesh doğrudan Strava API'sine bağlanır: Strava aktivitelerinizi, rotalarınızı ve performans verilerinizi diğer sağlık uygulamalarınız ve cihazlarınızın verileriyle birlikte tek bir panelde görebilirsiniz.",
-          nl: "Ja. FitMesh maakt rechtstreeks verbinding met de Strava API: je ziet je Strava-activiteiten, routes en prestatiegegevens in één dashboard naast data van je andere gezondheidsapps en apparaten.",
-          ja: "はい。FitMeshはStrava APIに直接接続します。他の健康アプリやウェアラブルのデータと一緒に、Stravaのアクティビティ、ルート、パフォーマンスデータを1つのダッシュボードで確認できます。",
-          ko: "예. FitMesh는 Strava API에 직접 연결됩니다. 다른 건강 앱 및 웨어러블 데이터와 함께 Strava 활동, 경로, 성과 데이터를 하나의 대시보드에서 확인할 수 있습니다.",
+          it: "Sì, ma con accesso limitato: FitMesh si collega direttamente all'API di Strava e la lettura funziona per gli account già collegati, mostrando attività, percorsi e dati sulle prestazioni in un'unica dashboard insieme agli altri dispositivi. Nuove connessioni sono soggette all'approvazione di Strava.",
+          en: "Yes, with limited access: FitMesh connects directly to the Strava API and reading works for accounts already connected, showing activities, routes and performance data in one dashboard alongside your other devices. New connections are subject to Strava's approval.",
+          es: "Sí, con acceso limitado: FitMesh se conecta directamente a la API de Strava y la lectura funciona para las cuentas ya conectadas, mostrando actividades, rutas y datos de rendimiento en un solo panel junto con tus otros dispositivos. Las nuevas conexiones están sujetas a la aprobación de Strava.",
+          de: "Ja, mit eingeschränktem Zugang: FitMesh verbindet sich direkt mit der Strava-API, und das Lesen funktioniert für bereits verbundene Konten — Aktivitäten, Routen und Leistungsdaten erscheinen in einem Dashboard zusammen mit deinen anderen Geräten. Neue Verbindungen bedürfen der Freigabe durch Strava.",
+          pt: "Sim, com acesso limitado: o FitMesh conecta-se diretamente à API do Strava e a leitura funciona para contas já conectadas, mostrando atividades, rotas e dados de desempenho num único painel junto aos seus outros dispositivos. Novas conexões dependem da aprovação da Strava.",
+          fr: "Oui, avec un accès limité : FitMesh se connecte directement à l'API Strava et la lecture fonctionne pour les comptes déjà connectés, affichant activités, itinéraires et données de performance dans un même tableau de bord aux côtés de vos autres appareils. Les nouvelles connexions sont soumises à l'approbation de Strava.",
+          pl: "Tak, z ograniczonym dostępem: FitMesh łączy się bezpośrednio z API Strava, a odczyt działa dla kont już połączonych, pokazując aktywności, trasy i dane o wynikach w jednym panelu razem z innymi urządzeniami. Nowe połączenia wymagają zatwierdzenia przez Stravę.",
+          tr: "Evet, sınırlı erişimle: FitMesh doğrudan Strava API'sine bağlanır ve okuma zaten bağlı hesaplar için çalışır; aktiviteler, rotalar ve performans verileri diğer cihazlarınızla birlikte tek bir panelde görünür. Yeni bağlantılar Strava'nın onayına tabidir.",
+          nl: "Ja, met beperkte toegang: FitMesh maakt rechtstreeks verbinding met de Strava API en lezen werkt voor reeds gekoppelde accounts, met activiteiten, routes en prestatiegegevens in één dashboard naast je andere apparaten. Nieuwe koppelingen zijn onderworpen aan goedkeuring door Strava.",
+          ja: "はい、限定的なアクセスです。FitMeshはStrava APIに直接接続し、読み取りはすでに接続済みのアカウントで機能します。他のデバイスと一緒に、アクティビティ、ルート、パフォーマンスデータを1つのダッシュボードで確認できます。新規接続にはStravaの承認が必要です。",
+          ko: "예, 제한된 접근입니다. FitMesh는 Strava API에 직접 연결되며, 이미 연결된 계정은 읽기가 작동하여 다른 기기와 함께 활동, 경로, 성과 데이터를 하나의 대시보드에서 확인할 수 있습니다. 새로운 연결은 Strava의 승인이 필요합니다.",
         },
       },
       {
@@ -4666,31 +4681,40 @@ export const PROVIDERS: Provider[] = [
         },
       },
       {
+        // P1.9 FASE 2 (2026-09-01): riscritta per intero — la versione
+        // precedente descriveva la lettura OAuth come un lancio FUTURO
+        // ("quando sarà disponibile"/"when it launches"), in contraddizione
+        // diretta con la FAQ sopra (e con docs/seo/capability-promotion-
+        // checklist.md) che dichiara la lettura OAuth già live e verificata
+        // dal 12/07/2026. Corretto al presente per la lettura; la
+        // scrittura (invio allenamenti verso Strava) resta esplicitamente
+        // "in sviluppo", mai "live" — è ferma al gate 1 di 9 nello stesso
+        // documento.
         q: {
-          it: "Quali dati di Strava sincronizzerà FitMesh?",
-          en: "What Strava data will FitMesh sync?",
-          es: "¿Qué datos de Strava sincronizará FitMesh?",
-          de: "Welche Strava-Daten werden von FitMesh synchronisiert?",
-          pt: "Qual dados do Strava o FitMesh sincronizará?",
-          fr: "Quelles données Strava sera-t-il possible d'importer avec FitMesh ?",
-          pl: "Jakie dane Strava bedą synchronizowane przez FitMesh?",
-          tr: "FitMesh hangi Strava verilerini eşsizleme yapacak?",
-          nl: "Wat zal FitMesh synchroniseren bij Strava?",
-          ja: "FitMeshはStravaからどのデータを同期しますか？",
-          ko: "FitMesh가 Strava에서 동기화할 데이터는 무엇인가요?",
+          it: "Quali dati legge FitMesh da Strava, e può anche inviarli?",
+          en: "What Strava data does FitMesh read, and can it send data too?",
+          es: "¿Qué datos lee FitMesh de Strava, y también puede enviarlos?",
+          de: "Welche Strava-Daten liest FitMesh, und kann es auch Daten senden?",
+          pt: "Que dados o FitMesh lê do Strava, e também consegue enviá-los?",
+          fr: "Quelles données Strava FitMesh lit-il, et peut-il aussi en envoyer ?",
+          pl: "Jakie dane Strava odczytuje FitMesh i czy może je też wysyłać?",
+          tr: "FitMesh Strava'dan hangi verileri okur, veri gönderebilir mi?",
+          nl: "Welke Strava-gegevens leest FitMesh, en kan het ook gegevens versturen?",
+          ja: "FitMeshはStravaからどのデータを読み取りますか。データの送信もできますか？",
+          ko: "FitMesh는 Strava에서 어떤 데이터를 읽나요? 데이터를 보낼 수도 있나요?",
         },
         a: {
-          it: "Quando sarà disponibile l'integrazione OAuth con Strava, FitMesh importerà le attività (corse, ciclismo, nuoto, ecc.), i dati dei percorsi, le zone della velocità/potenza, gli omaggi e i tempi delle sezioni. Potrai vedere il tuo carico di allenamento e la tua volume di allenamento insieme ai dati del sonno e della ripresa dal tuo dispositivo per la salute.",
-          en: "When Strava OAuth integration launches, FitMesh will import activities (run, ride, swim, etc.), route data, pace/power zones, kudos, and segment times. You'll be able to see your training load and volume alongside sleep and recovery data from your wearable.",
-          es: "Cuando se lance la integración de OAuth de Strava, FitMesh importará las actividades (correr, montar, nadar, etc.), los datos del itinerario, las zonas de ritmo/poder, kudos y tiempos de segmentos. Podrás ver tu carga de entrenamiento y volumen junto con los datos de sueño y recuperación de tus wearables.",
-          de: "Wenn die OAuth-Integration von Strava startet, wird FitMesh Aktivitäten (Laufen, Radfahren, Schwimmen usw.), Routendaten, Tempo/Leistungsbereiche, Lob und Zeitabschnitte für Segmente importieren können. Sie werden Ihre Trainingsbelastung und -volumen sehen können, zusammen mit Schlaf- und Wiederherstellungsdaten aus Ihrem Wearable-Gerät.",
-          pt: "Quando a integração OAuth do Strava for lançada, o FitMesh importará atividades (corrida, ciclismo, natação, etc.), dados das rotas, zonas de velocidade/potência, kudos e tempos de segmentos. Você verá sua carga treinamental e volume de treino ao lado dos dados de sono e recuperação de seu wearable.",
-          fr: "Lorsque l'intégration OAuth de Strava lancera, FitMesh importerait des activités (course, vélo, natation, etc.), les données des itinéraires, les zones de vitesse/puissance, les kudos et les temps de segments. Vous pourriez voir votre charge d'entraînement et le volume total d'entrainement à côté des données de sommeil et de récupération provenant de votre matériel intelligent.",
-          pl: "Gdy zacznie działać integracja OAuth Strava, FitMesh przekształci aktywności (bieganie, jazda na rowerze, pływanie itp.), dane trasy, zony prędkości/mocności, użycia i czasów segmentów. Możesz zobaczyć swój obciążenie treningowe oraz objętość wraz z danymi o senie i powrotnej regeneracji z Twojego smartwarsem.",
-          tr: "OAuth tümleştirme başladığında, FitMesh aktiviteler (yürüme, yürüme, yüzme vb.), yolu, hız/puzağız, kudos ve kesim zamanlarını alacaktır. Eğitim yükünüzü ve hacmini uygulardan uyku ve geri dönüş verilerinizle birlikte görebilirsiniz.",
-          nl: "Zodra de OAuth-integratie met Strava start, zal FitMesh activiteiten (lopen, fietsen, zwemmen, etc.), routegegevens, snelheids/persoonlijke zones, kudos en segmenttijden importeren. Je kunt je trainingsbelasting en -volume zien naast slaap- en hersteldata van je draagbare apparaat.",
-          ja: "Strava OAuthの統合が開始されると、FitMeshは（ラン、ライド、スイムなど）アクティビティ、ルートデータ、ペース/パワーのゾーン、称賛（kudos）、セグメントタイムをインポートします。ウェアラブルデバイスから取得した睡眠や回復データと並んで、トレーニングの負荷と量を確認いただけます。",
-          ko: "Strava OAuth 통합이 출시되면 FitMesh는 활동(달리기, 자전거, 수영 등), 경로 데이터, 속도/파워 존, 칭찬, 세그먼트 시간을 가져옵니다. 웨어러블 기기에서 수집된 수면 및 회복 데이터와 함께 훈련 부하 및 수량을 볼 수 있게 됩니다.",
+          it: "Per gli account già collegati, FitMesh legge le attività (corse, ciclismo, nuoto, ecc.), i dati dei percorsi, le zone di ritmo/potenza e i tempi dei segmenti, mostrando carico e volume di allenamento insieme al sonno e al recupero dal tuo dispositivo. L'invio di allenamenti verso Strava (scrittura) è invece in sviluppo e non ancora disponibile.",
+          en: "For accounts already connected, FitMesh reads activities (run, ride, swim, etc.), route data, pace/power zones, and segment times, showing training load and volume alongside sleep and recovery from your wearable. Sending workouts to Strava (write) is still in development and not yet available.",
+          es: "Para las cuentas ya conectadas, FitMesh lee las actividades (correr, montar, nadar, etc.), los datos del itinerario, las zonas de ritmo/potencia y los tiempos de segmentos, mostrando la carga y el volumen de entrenamiento junto con el sueño y la recuperación de tu wearable. Enviar entrenamientos a Strava (escritura) sigue en desarrollo y todavía no está disponible.",
+          de: "Für bereits verbundene Konten liest FitMesh Aktivitäten (Laufen, Radfahren, Schwimmen usw.), Routendaten, Tempo-/Leistungsbereiche und Segmentzeiten und zeigt Trainingsbelastung und -volumen zusammen mit Schlaf- und Erholungsdaten aus deinem Wearable. Das Senden von Workouts an Strava (Schreiben) befindet sich noch in Entwicklung und ist noch nicht verfügbar.",
+          pt: "Para contas já conectadas, o FitMesh lê atividades (corrida, ciclismo, natação, etc.), dados das rotas, zonas de ritmo/potência e tempos de segmentos, mostrando carga e volume de treino junto com o sono e a recuperação do seu wearable. Enviar treinos para o Strava (escrita) ainda está em desenvolvimento e não está disponível.",
+          fr: "Pour les comptes déjà connectés, FitMesh lit les activités (course, vélo, natation, etc.), les données d'itinéraires, les zones de vitesse/puissance et les temps de segments, en affichant la charge et le volume d'entraînement aux côtés du sommeil et de la récupération de votre appareil. L'envoi d'entraînements vers Strava (écriture) est encore en développement et pas encore disponible.",
+          pl: "Dla kont już połączonych FitMesh odczytuje aktywności (bieganie, jazda na rowerze, pływanie itp.), dane trasy, strefy tempa/mocy i czasy segmentów, pokazując obciążenie i objętość treningową razem ze snem i regeneracją z Twojego urządzenia. Wysyłanie treningów do Strava (zapis) jest wciąż w fazie rozwoju i nie jest jeszcze dostępne.",
+          tr: "Zaten bağlı hesaplar için FitMesh, aktiviteleri (koşu, bisiklet, yüzme vb.), rota verilerini, hız/güç bölgelerini ve segment sürelerini okur; antrenman yükünü ve hacmini cihazınızdaki uyku ve toparlanma verileriyle birlikte gösterir. Antrenmanların Strava'ya gönderilmesi (yazma) hâlâ geliştirme aşamasındadır ve henüz kullanılamaz.",
+          nl: "Voor reeds gekoppelde accounts leest FitMesh activiteiten (lopen, fietsen, zwemmen, enz.), routegegevens, tempo-/vermogenszones en segmenttijden, en toont trainingsbelasting en -volume naast slaap- en herstelgegevens van je wearable. Het versturen van trainingen naar Strava (schrijven) is nog in ontwikkeling en nog niet beschikbaar.",
+          ja: "すでに接続済みのアカウントでは、FitMeshはアクティビティ（ラン、ライド、スイムなど）、ルートデータ、ペース/パワーゾーン、セグメントタイムを読み取り、ウェアラブルの睡眠・回復データと合わせてトレーニング負荷と量を表示します。Stravaへのワークアウト送信（書き込み）はまだ開発中で、利用できません。",
+          ko: "이미 연결된 계정의 경우 FitMesh는 활동(달리기, 자전거, 수영 등), 경로 데이터, 페이스/파워 존, 세그먼트 시간을 읽어 웨어러블의 수면 및 회복 데이터와 함께 훈련 부하와 양을 표시합니다. Strava로 운동 데이터를 보내는 기능(쓰기)은 아직 개발 중이며 이용할 수 없습니다.",
         },
       },
     ],
@@ -7623,6 +7647,9 @@ export function statusLabel(
       color: "#21E6C1",
     },
     beta: { it: "Beta", en: "Beta", es: "Beta", de: "Beta", pt: "Beta", fr: "Beta", nl: "Beta", ja: "ベータ", ko: "베타", color: "#FFB547" },
+    // P1.9 FASE 2: "accesso limitato" — distinto da "beta" generico, vedi
+    // commento sul tipo ProviderStatus per il perché.
+    "limited-beta": { it: "Accesso limitato", en: "Limited access", es: "Acceso limitado", de: "Eingeschränkter Zugang", pt: "Acesso limitado", fr: "Accès limité", nl: "Beperkte toegang", ja: "限定アクセス", ko: "제한된 접근", color: "#FFB547" },
     "roadmap-q3": { it: "In arrivo Q3 2026", en: "Coming Q3 2026", es: "Próximamente 3T 2026", de: "Kommt Q3 2026", pt: "Em breve T3 2026", fr: "Bientôt T3 2026", nl: "Komt Q3 2026", ja: "2026年Q3公開予定", ko: "2026년 Q3 출시 예정", color: "#38BDF8" },
     "roadmap-q4": { it: "In arrivo Q4 2026", en: "Coming Q4 2026", es: "Próximamente 4T 2026", de: "Kommt Q4 2026", pt: "Em breve T4 2026", fr: "Bientôt T4 2026", nl: "Komt Q4 2026", ja: "2026年Q4公開予定", ko: "2026년 Q4 출시 예정", color: "#A78BFA" },
     "coming-soon": { it: "In arrivo", en: "Coming soon", es: "Próximamente", de: "Demnächst", pt: "Em breve", fr: "Bientôt", nl: "Binnenkort", ja: "近日公開", ko: "출시 예정", color: "#7CFF5B" },

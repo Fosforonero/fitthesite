@@ -144,14 +144,30 @@ export function generateLlmsTxt(): string {
   lines.push(
     `- Data sources supported on iOS today (Apple Health + direct Bluetooth, no Health Connect): ${SUPPORTED_PROVIDERS_IOS.join(", ")}.`,
   );
-  if (ROADMAP_PROVIDERS_ANDROID.length > 0) {
+  // P1.9 FASE 2 (2026-09-01): "limited-beta" (oggi solo Strava) non è un
+  // vero "roadmap, not yet live" — la lettura funziona già per gli account
+  // collegati, solo l'accesso a NUOVE connessioni è limitato da
+  // un'approvazione lato piattaforma esterna. Separato dal resto del
+  // roadmap (feature non ancora iniziate) per non descriverlo come se non
+  // funzionasse affatto oggi.
+  const limitedBetaAndroid = ROADMAP_PROVIDERS_ANDROID.filter((p) => p.status === "limited-beta");
+  const limitedBetaIos = ROADMAP_PROVIDERS_IOS.filter((p) => p.status === "limited-beta");
+  const trueRoadmapAndroid = ROADMAP_PROVIDERS_ANDROID.filter((p) => p.status !== "limited-beta");
+  const trueRoadmapIos = ROADMAP_PROVIDERS_IOS.filter((p) => p.status !== "limited-beta");
+  if (trueRoadmapAndroid.length > 0) {
     lines.push(
-      `- On the Android roadmap, not yet live: ${ROADMAP_PROVIDERS_ANDROID.map((p) => `${p.name} (${p.status})`).join(", ")}.`,
+      `- On the Android roadmap, not yet live: ${trueRoadmapAndroid.map((p) => `${p.name} (${p.status})`).join(", ")}.`,
     );
   }
-  if (ROADMAP_PROVIDERS_IOS.length > 0) {
+  if (trueRoadmapIos.length > 0) {
     lines.push(
-      `- On the iOS roadmap, not yet live: ${ROADMAP_PROVIDERS_IOS.map((p) => `${p.name} (${p.status})`).join(", ")}.`,
+      `- On the iOS roadmap, not yet live: ${trueRoadmapIos.map((p) => `${p.name} (${p.status})`).join(", ")}.`,
+    );
+  }
+  if (limitedBetaAndroid.length > 0 || limitedBetaIos.length > 0) {
+    const names = [...new Set([...limitedBetaAndroid, ...limitedBetaIos].map((p) => p.name))];
+    lines.push(
+      `- Limited access (not a roadmap item, not fully live either): ${names.join(", ")}. Reading works for accounts already connected; new connections require approval from the external platform. No numeric cap or approval timeline is published.`,
     );
   }
   lines.push(
@@ -161,7 +177,7 @@ export function generateLlmsTxt(): string {
     "- Privacy: GDPR-compliant, EU-only data storage, no third-party analytics on health data, no advertising IDs collected.",
   );
   lines.push(
-    `- Export / write-back status (see ${SITE_URL}/it/fitness-data-sync for the full matrix): Strava read is live via OAuth. Strava write, TrainingPeaks (PAT + TCX dispatch), RideWithGPS (TCX dispatch), and Google Drive export are implemented in the app but still in development — not yet verified end to end on a physical device. Health Connect write-back on Android and Apple Health write-back on iOS are live, opt-in, and off by default: Android exports once when the toggle is activated, iOS re-exports after every successful sync. Never describe FitMesh as a general "bidirectional sync" or "universal bridge" — direction is per integration.`,
+    `- Export / write-back status (see ${SITE_URL}/it/fitness-data-sync for the full matrix): Strava read works via OAuth for accounts already connected, but access is limited — new connections require approval from Strava, no numeric cap or approval timeline is published, and it must never be described as generally available. Strava write, TrainingPeaks (PAT + TCX dispatch), RideWithGPS (TCX dispatch), and Google Drive export are implemented in the app but still in development — not yet verified end to end on a physical device. Health Connect write-back on Android and Apple Health write-back on iOS are live, opt-in, and off by default: Android exports once when the toggle is activated, iOS re-exports after every successful sync. Never describe FitMesh as a general "bidirectional sync" or "universal bridge" — direction is per integration.`,
   );
   lines.push("");
 
