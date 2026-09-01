@@ -11610,10 +11610,10 @@
       "no": "Har du allerede en smartklokke og vil bare ha et ryddig dashbord?"
     },
     "body.36.body": {
-      "sv": "FitMesh Sync läser från Health Connect (alla Android-wearables) och planerar OAuth för Garmin, Polar, Oura, Withings, Strava. 30 sekunders installation, inga annonser, inga spårare.",
-      "da": "FitMesh Sync læser fra Health Connect (enhver Android-wearable) og planlægger OAuth til Garmin, Polar, Oura, Withings, Strava. 30 sekunders opsætning, ingen reklamer, ingen trackere.",
-      "fi": "FitMesh Sync lukee Health Connect -palvelusta (mikä tahansa Android-puettava) ja suunnittelee OAuth-integraatioita seuraaville palveluille: Garmin, Polar, Oura, Withings ja Strava. 30 sekunnin käyttöönotto, ei mainoksia, ei seurantaa.",
-      "no": "FitMesh Sync leser fra Health Connect (alle bærbare Android-enheter) og planlegger OAuth for Garmin, Polar, Oura, Withings, Strava. 30 sekunders oppsett, ingen annonser, ingen sporere."
+      "sv": "FitMesh Sync läser från Health Connect (alla Android-wearables, inklusive Garmin, Polar, Withings) och har redan ett aktivt OAuth med Strava (åtkomsten är begränsad — nya anslutningar kräver Stravas godkännande). OAuth för Oura är fortfarande på väg. 30 sekunders installation, inga annonser, inga spårare.",
+      "da": "FitMesh Sync læser fra Health Connect (alle Android-wearables, inklusive Garmin, Polar, Withings) og har allerede en aktiv OAuth-forbindelse med Strava (adgangen er begrænset — nye forbindelser kræver Stravas godkendelse). OAuth til Oura er stadig på vej. 30 sekunders opsætning, ingen reklamer, ingen trackere.",
+      "fi": "FitMesh Sync lukee Health Connect -palvelusta (kaikki Android-puettavat, mukaan lukien Garmin, Polar, Withings) ja sillä on jo aktiivinen OAuth-yhteys Stravaan (pääsy on rajoitettu — uudet yhteydet vaativat Stravan hyväksynnän). OAuth Ouralle on vielä tulossa. 30 sekunnin käyttöönotto, ei mainoksia, ei seurantaa.",
+      "no": "FitMesh Sync leser fra Health Connect (alle bærbare Android-enheter, inkludert Garmin, Polar, Withings) og har allerede en aktiv OAuth-tilkobling med Strava (tilgangen er begrenset — nye tilkoblinger krever godkjenning fra Strava). OAuth for Oura kommer fortsatt. 30 sekunders oppsett, ingen annonser, ingen sporere."
     },
     "body.36.ctaLabel": {
       "sv": "Se alla integrationer",
