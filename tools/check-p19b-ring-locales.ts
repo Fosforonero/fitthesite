@@ -16,15 +16,24 @@
  *     health-connect-not-syncing, ko resta noindex (non sbloccato per
  *     mandato);
  *  5. hreflang di health-connect-not-syncing include ora pl/ja e continua
- *     a escludere ko/tr/no/fi (nessuno sblocco accidentale).
+ *     a escludere ko/tr/no/fi (nessuno sblocco accidentale);
+ *  6. i due blocchi fitmesh-editorial-cta introdotti in questo branch
+ *     (galaxy-ring, oura-ring) rispettano le stesse regole strutturali di
+ *     PR A: un solo blocco per placement, benefici <=3, contentCluster nel
+ *     vocabolario chiuso, e NESSUN claim FitMesh su SpO2/temperatura
+ *     cutanea nel testo del modulo (le due metriche esplicitamente
+ *     derubricate da questo stesso sprint — se ricomparissero nel modulo
+ *     sarebbe una regressione diretta sul motivo per cui esiste il modulo).
  *
- * (Un controllo #6 su fitmesh-vs-alternative-sync.ts, out of scope per
- * questo branch, è stato rimosso — vedi nota in fondo al file.)
+ * (Un controllo su fitmesh-vs-alternative-sync.ts, out of scope per questo
+ * branch, è stato rimosso — vedi nota in fondo al file.)
  *
  * Eseguito con: npx tsx tools/check-p19b-ring-locales.ts
  */
 import { BLOG_POSTS_BY_SLUG } from "../lib/blog/data";
 import { isBlogVariantIndexable, blogLanguages } from "../lib/blog/indexability";
+import { CONTENT_CLUSTERS } from "../lib/analytics/cta";
+import type { BlogSection } from "../lib/blog/types";
 
 let errors: string[] = [];
 let checks = 0;
@@ -130,11 +139,47 @@ checks++;
   if (langs.includes("ko")) errors.push(`[hreflang-unexpected-ko] health-connect-not-syncing: ko presente negli hreflang — non doveva essere sbloccata`);
 }
 
-// Nota: un controllo #6 su fitmesh-vs-alternative-sync.ts (slug EN
-// sbagliati) è stato scritto e poi rimosso da questo file — quel post
-// esiste solo nel branch PR A (feat/p19a-search-to-install-funnel), non
-// in questo branch PR B: un controllo su un file assente qui sarebbe
-// stato sempre un falso negativo silenzioso, non una vera verifica.
+// ── 6: struttura dei blocchi fitmesh-editorial-cta introdotti qui ───────
+// Intercetta la costruzione "FitMesh legge ... SpO2 ... temperatura
+// cutanea" nella STESSA frase (fino al primo punto) — la formula del
+// vecchio claim falso. Non intercetta menzioni di SpO2/temperatura come
+// eccezione dichiarata (frase separata, senza il verbo "legge/reads"
+// davanti) — verificato a mano contro il testo reale del modulo attuale.
+const FALSE_CLAIM_IN_CTA = /\b(reads?|legge|lee|liest|lit|odczytuje|okur|leest|读み取り)\b[^.]{0,80}\bSpO2\b[^.]{0,60}(skin temperature|temperatura cutanea|temperatura de la piel|Hauttemperatur|température de la peau|temperatura skóry|cilt sıcaklığı|huidtemperatuur|皮膚温度|피부 온도)/i;
+for (const slug of ["galaxy-ring-android-health-connect", "oura-ring-health-connect-android"]) {
+  checks++;
+  const post = BLOG_POSTS_BY_SLUG[slug] as { body: BlogSection[] } | undefined;
+  if (!post) continue;
+  const ctaBlocks = post.body.filter(
+    (s): s is Extract<BlogSection, { type: "fitmesh-editorial-cta" }> => s.type === "fitmesh-editorial-cta",
+  );
+  if (ctaBlocks.length === 0) {
+    errors.push(`[cta-missing] ${slug}: nessun blocco fitmesh-editorial-cta trovato`);
+    continue;
+  }
+  const seenPlacements = new Set<string>();
+  for (const s of ctaBlocks) {
+    if (seenPlacements.has(s.placement)) errors.push(`[cta-duplicate-placement] ${slug}: più blocchi con placement="${s.placement}"`);
+    seenPlacements.add(s.placement);
+    if (!(Object.values(CONTENT_CLUSTERS) as string[]).includes(s.contentCluster)) {
+      errors.push(`[cta-unknown-cluster] ${slug}: contentCluster "${s.contentCluster}" non nel vocabolario`);
+    }
+    for (const lc of ["it", "en"] as const) {
+      const list = s.benefits?.[lc];
+      if (list && list.length > 3) errors.push(`[cta-benefits-max-3] ${slug} (${lc}): ${list.length} benefici`);
+      const text = `${s.title[lc]} ${s.body[lc]} ${(list ?? []).join(" ")}`;
+      if (FALSE_CLAIM_IN_CTA.test(text)) {
+        errors.push(`[cta-false-claim] ${slug} (${lc}): il modulo cita insieme SpO2 e temperatura cutanea come se fossero entrambe confermate — regressione sulla rettifica di questo sprint`);
+      }
+    }
+  }
+}
+
+// Nota: un controllo su fitmesh-vs-alternative-sync.ts (slug EN sbagliati)
+// è stato scritto e poi rimosso da questo file — quel post esiste solo nel
+// branch PR A (feat/p19a-search-to-install-funnel), non in questo branch
+// PR B: un controllo su un file assente qui sarebbe stato sempre un falso
+// negativo silenzioso, non una vera verifica.
 
 if (errors.length > 0) {
   console.error(`❌ P1.9 ring/locale guardrail: ${errors.length} problema/i su ${checks} controlli\n`);
@@ -142,5 +187,5 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  `✅ P1.9 ring/locale guardrail OK: ${checks} controlli — zero claim assoluti residui, HRV trattata esplicitamente, zero fallback EN/PL, indicizzabilità esatta (pl/ja dentro, ko/tr/no/fi fuori), hreflang coerente.`,
+  `✅ P1.9 ring/locale guardrail OK: ${checks} controlli — zero claim assoluti residui, HRV trattata esplicitamente, zero fallback EN/PL, indicizzabilità esatta (pl/ja dentro, ko/tr/no/fi fuori), hreflang coerente, struttura CTA valida (no duplicati, ≤3 benefici, nessun claim SpO2+temperatura insieme).`,
 );
