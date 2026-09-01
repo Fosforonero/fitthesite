@@ -33,6 +33,19 @@
  *     accompagnante (mai icon-only), URL identico tra footer/support/
  *     JSON-LD sameAs (nessuna divergenza), stesso data-cta-placement/rel/
  *     target di sempre (nessuna regressione di tracking o comportamento).
+ * 11. parità locale del modulo: nessuna locale in cui l'articolo è
+ *     indicizzabile (overlay nordico incluso) può lasciare il blocco
+ *     fitmesh-editorial-cta privo di traduzione — fallback EN altrimenti
+ *     silenzioso, mai dichiarato da un marcatore (quello esiste solo per
+ *     `secondaryHref`, non per title/body/benefits/secondaryLabel).
+ * 12. unicità intra-pagina di `data-cta-id`: nessuna pagina-post può
+ *     renderizzare due elementi con lo stesso `data-cta-id` calcolato — la
+ *     dedup di OutboundTracker (`cta_view`, chiave `data-cta-id` scoperta
+ *     per page-view) collasserebbe due CTA semanticamente diverse in una
+ *     sola impression se mai accadesse. Verificato sull'unione dei due tipi
+ *     che possono emettere `data-cta-id` nel corpo di un post ("cta" legacy
+ *     + "fitmesh-editorial-cta"), con la STESSA derivazione usata a runtime
+ *     (`storeButtonsCtaId`/BlogRenderer.tsx) — non una reimplementazione.
  *
  * Eseguito con: npx tsx tools/check-p19a-funnel-module.ts
  */
@@ -40,8 +53,12 @@ import fs from "node:fs";
 import path from "node:path";
 
 import { BLOG_POSTS } from "../lib/blog/data";
-import { CONTENT_CLUSTERS } from "../lib/analytics/cta";
+import { CONTENT_CLUSTERS, CTA_PLACEMENTS, storeButtonsCtaId } from "../lib/analytics/cta";
 import type { BlogSection } from "../lib/blog/types";
+import { applyNordicOverlay, type NordicOverlay } from "../lib/blog/nordic-overlay";
+import { isBlogVariantIndexable } from "../lib/blog/indexability";
+import { locales } from "../lib/i18n";
+import nordicOverlayJson from "../lib/blog/nordic-overlay.json";
 
 const ROOT = path.resolve(__dirname, "..");
 let errors: string[] = [];
@@ -249,11 +266,98 @@ checks++;
   }
 }
 
+// ── 11: parità locale del modulo — nessun fallback EN silenzioso ────────
+// ADDENDUM P1.9 (2026-09-01): `walkPost`/`walkSection` (nordic-overlay.ts)
+// non hanno un case per "fitmesh-editorial-cta" — il modulo NON è coperto
+// dall'overlay nordico, quindi la sua indicizzabilità nel `switch` di
+// `isPostLocaleComplete` è indipendente dalle proprie traduzioni. Trovato
+// perché health-connect-not-syncing e garmin-samsung-health-sync-guide
+// erano già indicizzabili in sv/da (overlay applicato su hero/body/faq)
+// mentre il blocco CTA aggiunto in questo sprint aveva solo it/en/es/de/
+// pt/fr/pl/tr/nl/ja/ko: sv/da mostravano il modulo in inglese dentro una
+// pagina altrimenti completamente tradotta — nessun marcatore "(EN)" lo
+// segnalava (quel marcatore copre solo `secondaryHref`, non title/body/
+// benefits/secondaryLabel). Confrontare sempre con l'articolo DOPO overlay
+// (mai BLOG_POSTS grezzo): un audit ad-hoc che lo saltò produsse un
+// conteggio artificialmente basso (7/11 invece di 9/13) letto come
+// possibile regressione — non lo era, ma l'indagine ha scoperto questo
+// problema reale e distinto, ora corretto e guardato qui in permanenza.
+checks++;
+{
+  const overlaidPosts = BLOG_POSTS.map((p) => {
+    const clone = structuredClone(p);
+    applyNordicOverlay(clone, nordicOverlayJson as NordicOverlay);
+    return clone;
+  });
+
+  for (const post of overlaidPosts) {
+    for (const s of post.body) {
+      if (s.type !== "fitmesh-editorial-cta") continue;
+      const indexableLocales = locales.filter((lc) => isBlogVariantIndexable(post, lc));
+      const ctaLocales = new Set(
+        (Object.keys(s.title) as (keyof typeof s.title)[]).filter((lc) => s.title[lc]),
+      );
+      for (const lc of indexableLocales) {
+        if (!ctaLocales.has(lc)) {
+          errors.push(
+            `[cta-locale-gap] ${post.slug} (${lc}): l'articolo è indicizzabile in questa locale ma il modulo fitmesh-editorial-cta non ha una traduzione — cadrebbe in fallback EN silenzioso senza marcatore`,
+          );
+        }
+      }
+    }
+  }
+}
+
+// ── 12: unicità intra-pagina di data-cta-id (no doppia semantica sotto lo stesso id) ─
+checks++;
+{
+  type IdSource = { id: string; from: string };
+  for (const post of BLOG_POSTS) {
+    const ids: IdSource[] = [];
+    for (const s of post.body) {
+      if (s.type === "cta") {
+        // ctaId/ctaPlacement sono opzionali (P1.4B): quando assenti React
+        // omette del tutto l'attributo, quindi l'elemento non compare mai
+        // sotto il selettore `[data-cta-id]` di OutboundTracker — includerlo
+        // qui produrrebbe un falso positivo ("undefined" contro "undefined").
+        if (s.ctaId != null) ids.push({ id: s.ctaId, from: `cta legacy (placement="${s.ctaPlacement}")` });
+      }
+      if (s.type === "fitmesh-editorial-cta") {
+        const placementValue =
+          s.placement === "after_solution"
+            ? CTA_PLACEMENTS.blogEditorialAfterSolution
+            : CTA_PLACEMENTS.blogEditorialArticleEnd;
+        ids.push({
+          id: storeButtonsCtaId(placementValue),
+          from: `fitmesh-editorial-cta primaria (placement="${s.placement}", cluster="${s.contentCluster}")`,
+        });
+        if (s.secondaryHref && s.secondaryLabel) {
+          ids.push({
+            id: `${placementValue}__secondary__${s.contentCluster}`,
+            from: `fitmesh-editorial-cta secondaria (placement="${s.placement}", cluster="${s.contentCluster}")`,
+          });
+        }
+      }
+    }
+    const seen = new Map<string, string>();
+    for (const { id, from } of ids) {
+      const prior = seen.get(id);
+      if (prior) {
+        errors.push(
+          `[cta-id-collision] ${post.slug}: data-cta-id="${id}" condiviso da [${prior}] e [${from}] — OutboundTracker li tratterebbe come la stessa CTA`,
+        );
+      } else {
+        seen.set(id, from);
+      }
+    }
+  }
+}
+
 if (errors.length > 0) {
   console.error(`❌ P1.9 funnel module guardrail: ${errors.length} problema/i su ${checks} controlli\n`);
   for (const e of errors) console.error(`  - ${e}`);
   process.exit(1);
 }
 console.log(
-  `✅ P1.9 funnel module guardrail OK: ${checks} controlli — struttura CTA (no duplicati, no CTA-prima-risposta, ≤3 benefici, content_cluster valido), CTA sempre store-aware/tracciata, payload GA4 chiuso, zero overclaim/denigrazione nel modulo, Strava a tolleranza zero su disponibilità generale/limite numerico (debito P0 risolto in MICRO-GATE P1.9-A FASE 2, nessuna eccezione residua), icona Reddit presente con testo sempre visibile e URL/target/rel invariati.`,
+  `✅ P1.9 funnel module guardrail OK: ${checks} controlli — struttura CTA (no duplicati, no CTA-prima-risposta, ≤3 benefici, content_cluster valido), CTA sempre store-aware/tracciata, payload GA4 chiuso, zero overclaim/denigrazione nel modulo, Strava a tolleranza zero su disponibilità generale/limite numerico (debito P0 risolto in MICRO-GATE P1.9-A FASE 2, nessuna eccezione residua), icona Reddit presente con testo sempre visibile e URL/target/rel invariati, zero locale indicizzabili (overlay nordico incluso) prive di traduzione del modulo editoriale, zero collisioni intra-pagina di data-cta-id.`,
 );

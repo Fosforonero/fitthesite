@@ -768,6 +768,12 @@ export const post: BlogPost = {
         nl: "Zie je Garmin- en Samsung-gegevens op één plek",
         ja: "GarminとSamsungのデータをひとつの場所で",
         ko: "Garmin과 Samsung 데이터를 한 곳에서",
+        // ADDENDUM P1.9 (2026-09-01): stesso motivo di health-connect-not-syncing.ts —
+        // sv/da mancavano qui pur essendo l'articolo già indicizzabile in
+        // entrambe le locale (overlay nordico), producendo fallback EN
+        // silenzioso nel modulo dentro una pagina altrimenti completa.
+        sv: "Se dina Garmin- och Samsung-data på ett ställe",
+        da: "Se dine Garmin- og Samsung-data ét sted",
       },
       body: {
         it: "FitMesh non risolve i doppioni o i ritardi tra Garmin Connect e Samsung Health a monte — quello resta un problema di configurazione dei due. Ma legge da Health Connect in modo generico e mostra i dati di entrambi i dispositivi in un'unica vista, con la fonte indicata quando più di uno scrive lo stesso tipo di dato.",
@@ -781,6 +787,8 @@ export const post: BlogPost = {
         nl: "FitMesh lost geen dubbele of vertraagde gegevens tussen Garmin Connect en Samsung Health bij de bron op — dat blijft een configuratiekwestie tussen de twee. Maar het leest generiek uit Health Connect en toont de gegevens van beide apparaten in één overzicht, met de bron zichtbaar wanneer meer dan één hetzelfde gegevenstype schrijft.",
         ja: "FitMeshはGarmin ConnectとSamsung Healthの間で発生する重複や遅延を大元で解決するものではありません——それは両者の設定上の問題のままです。ただしHealth Connectを汎用的に読み取り、複数のデバイスが同じ種類のデータを書き込む場合は出典を示しながら、両方のデータをひとつのビューにまとめて表示します。",
         ko: "FitMesh는 Garmin Connect와 Samsung Health 사이의 중복이나 지연된 데이터를 근본적으로 해결하지 않습니다 — 그건 둘 사이의 설정 문제로 남습니다. 하지만 Health Connect를 범용적으로 읽어와 두 기기의 데이터를 하나의 화면에 보여주며, 같은 종류의 데이터를 여러 기기가 기록할 때 출처를 표시합니다.",
+        sv: "FitMesh löser inte dubbletter eller fördröjda data mellan Garmin Connect och Samsung Health i grunden — det förblir en konfigurationsfråga mellan de två. Men det läser generiskt från Health Connect och visar båda enheternas data i en enda vy, med källan angiven när fler än en skriver samma typ av data.",
+        da: "FitMesh løser ikke dubletter eller forsinkede data mellem Garmin Connect og Samsung Health i grunden — det er fortsat et konfigurationsspørgsmål mellem de to. Men det læser generisk fra Health Connect og viser begge enheders data i én visning, med kilden angivet, når mere end én skriver den samme type data.",
       },
       benefits: {
         it: [
@@ -838,6 +846,16 @@ export const post: BlogPost = {
           "Garmin이나 Samsung 전용 코드가 아닌 범용 방식으로 Health Connect를 읽음",
           "두 기기가 같은 종류의 데이터(예: 걸음 수)를 기록해도 출처가 명확함",
         ],
+        sv: [
+          "Källattribution: du vet alltid vilken enhet varje siffra kommer från",
+          "Läser generiskt från Health Connect, inte med Garmin- eller Samsung-specifik kod",
+          "Tydlig källa även när båda skriver samma typ av data (t.ex. steg)",
+        ],
+        da: [
+          "Kildetilskrivning: du ved altid, hvilken enhed hvert tal kommer fra",
+          "Læser generisk fra Health Connect, ikke med Garmin- eller Samsung-specifik kode",
+          "Tydelig kilde, selv når begge skriver den samme type data (f.eks. skridt)",
+        ],
       },
       secondaryLabel: {
         it: "Vedi la pagina Garmin",
@@ -851,6 +869,8 @@ export const post: BlogPost = {
         nl: "Bekijk de Garmin-pagina",
         ja: "Garminのページを見る",
         ko: "Garmin 페이지 보기",
+        sv: "Se Garmin-sidan",
+        da: "Se Garmin-siden",
       },
       secondaryHref: {
         it: "/it/sync/garmin",

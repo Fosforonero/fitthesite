@@ -1410,6 +1410,16 @@ export const post: BlogPost = {
         nl: "Zodra je gegevens binnenkomen, wil je ze op één plek zien?",
         ja: "データが届いたら、ひとつの場所でまとめて見たいですか？",
         ko: "데이터가 도착하면 한 곳에서 모두 보고 싶으신가요?",
+        // ADDENDUM P1.9 (2026-09-01): sv/da mancavano da questo blocco pur
+        // essendo l'articolo già indicizzabile in entrambe (overlay nordico
+        // su hero/body/faq) — il modulo cadeva in fallback EN silenzioso
+        // dentro una pagina altrimenti completamente tradotta. Trovato
+        // riconciliando una discrepanza 9→7/13→11 nel conteggio locale
+        // indicizzabili: causa A (audit letto senza overlay), non causa B
+        // (nessuna regressione di indicizzabilità), ma l'indagine ha
+        // scoperto questo secondo problema reale e distinto.
+        sv: "När dina data väl har kommit fram, vill du se allt på ett ställe?",
+        da: "Når dine data først er kommet frem, vil du gerne se dem samlet ét sted?",
       },
       body: {
         it: "FitMesh Sync non ripara un collegamento a monte rotto — quello resta tra il tuo dispositivo e Health Connect. Ma una volta che i dati arrivano, li organizza in un'unica dashboard leggibile, indicando la provenienza quando più fonti scrivono lo stesso tipo di dato.",
@@ -1423,6 +1433,8 @@ export const post: BlogPost = {
         nl: "FitMesh Sync repareert geen kapotte verbinding stroomopwaarts — dat blijft tussen je toestel en Health Connect. Maar zodra de gegevens binnenkomen, ordent het ze in één overzichtelijk dashboard, met de bron zichtbaar wanneer meer dan één app hetzelfde gegevenstype schrijft.",
         ja: "FitMesh Syncは上流の壊れた接続を修復するものではありません——それはあなたのデバイスとHealth Connectの間の問題です。ただしデータが届けば、複数のアプリが同じ種類のデータを書き込んでいる場合に出典を示しながら、ひとつの見やすいダッシュボードに整理します。",
         ko: "FitMesh Sync는 상류의 끊어진 연결을 고치지 않습니다 — 그건 기기와 Health Connect 사이의 문제입니다. 하지만 데이터가 도착하면, 같은 종류의 데이터를 여러 앱이 기록할 때 출처를 표시하며 하나의 읽기 쉬운 대시보드로 정리합니다.",
+        sv: "FitMesh Sync lagar inte en trasig uppströmsanslutning — det är fortfarande en fråga mellan din enhet och Health Connect. Men när data väl har kommit fram organiserar FitMesh den i en enda lättläst översikt och visar källan när fler än en app skriver samma typ av data.",
+        da: "FitMesh Sync reparerer ikke en defekt forbindelse længere oppe i kæden — det er stadig et anliggende mellem din enhed og Health Connect. Men når dataene først er kommet frem, organiserer FitMesh dem i ét overskueligt dashboard og viser kilden, når mere end én app skriver den samme type data.",
       },
       benefits: {
         it: [
@@ -1480,6 +1492,16 @@ export const post: BlogPost = {
           "앱 내에서 보이는 동기화 로그: 무엇이 언제 도착했는지 항상 확인 가능",
           "여러 기기가 같은 종류의 데이터를 기록할 때 명확한 출처 표시",
         ],
+        sv: [
+          "Läser generiskt från Health Connect: ingen skör integration per enskild enhetsmodell",
+          "Synlig synkroniseringslogg i appen: du vet alltid vad som kom in och när",
+          "Tydlig källa när fler än en enhet skriver samma typ av data",
+        ],
+        da: [
+          "Læser generisk fra Health Connect: ingen skrøbelig integration pr. enkelt enhedsmodel",
+          "Synlig synkroniseringslog i appen: du ved altid, hvad der er kommet ind, og hvornår",
+          "Tydelig kilde, når mere end én enhed skriver den samme type data",
+        ],
       },
       secondaryLabel: {
         it: "Vedi tutte le integrazioni",
@@ -1493,6 +1515,8 @@ export const post: BlogPost = {
         nl: "Bekijk alle integraties",
         ja: "すべての連携を見る",
         ko: "모든 연동 보기",
+        sv: "Se alla integrationer",
+        da: "Se alle integrationer",
       },
       secondaryHref: {
         it: "/it/integrations",
