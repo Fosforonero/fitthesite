@@ -3,8 +3,11 @@
  * (`fitmesh-editorial-cta`, lib/blog/types.ts) e igiene del funnel
  * SEO->installazione introdotto in questo sprint.
  *
- * Copre, con negative test reali documentati in
- * docs/seo/p19a-funnel-guardrail-negative-tests.md:
+ * Copre (i negative test reali di ogni controllo — mutazione che fa
+ * fallire il gate, poi restore byte-identico verificato via hash — sono
+ * eseguiti al momento dell'introduzione del controllo e sintetizzati
+ * nella descrizione/nei commit della PR corrispondente, non in un file
+ * di log separato nel repo):
  *  1. una sola CTA per placement per post (no duplicazione);
  *  2. nessun blocco fitmesh-editorial-cta prima del primo heading
  *     dell'articolo (euristica strutturale per "non prima della risposta" —
