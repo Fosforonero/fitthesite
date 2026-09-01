@@ -225,13 +225,51 @@ export default function OutboundTracker() {
     document.addEventListener("click", onCommunityClick, true);
     document.addEventListener("click", onHrZonesModeSelect, true);
 
-    // cta_view: una sola emissione per elemento, quando entra nel viewport.
-    const viewed = new WeakSet<Element>();
+    // cta_view: una sola emissione per CTA logica per page view, quando
+    // entra nel viewport.
+    //
+    // ADDENDUM P1.9 (2026-09-01) — contratto esplicito, chiarito dopo un
+    // dubbio sulla granularita' del dedup:
+    //  1. piu' callback IntersectionObserver sullo stesso elemento, stessa
+    //     page view -> un solo evento;
+    //  2. il MutationObserver che ri-esamina lo stesso elemento -> nessun
+    //     duplicato (io.observe() su un target gia' osservato e' un no-op
+    //     per spec, e il gate sotto e' comunque una seconda barriera);
+    //  3. una sostituzione INVOLONTARIA dello stesso nodo DOM durante il
+    //     rendering della MEDESIMA pagina (es. un remount React senza una
+    //     vera navigazione) -> nessun doppio evento;
+    //  4. una visita reale successiva alla stessa CTA, dopo una navigazione
+    //     genuina e un ritorno (stesso URL o no), PUO' generare una nuova
+    //     impression, una sola volta per quella nuova page view.
+    //
+    // Un WeakSet chiavato sul nodo DOM soddisfaceva 1-2 ma non 3 (un nodo
+    // sostituito e' un nuovo oggetto, quindi il WeakSet lo tratterebbe come
+    // "mai visto" anche senza navigazione) — e un Set persistente chiavato
+    // su un ID stabile per tutta la vita del componente (montato una sola
+    // volta nel root layout, sopravvive a ogni navigazione client-side)
+    // soddisfarebbe 1-3 ma violerebbe 4 (deduplicherebbe per sempre,
+    // sottostimando le visite reali).
+    //
+    // Soluzione: `viewedThisPageView` e' chiavato sul `data-cta-id` stabile
+    // (non sul nodo), ma viene AZZERATO ogni volta che viene rilevata una
+    // navigazione genuina. Il rilevamento riusa il MutationObserver gia'
+    // esistente sotto (che gia' spara a ogni cambio pagina client-side,
+    // perche' Next.js sostituisce l'albero dei componenti) invece di
+    // registrare un listener history/popstate dedicato: confronta
+    // `window.location.pathname` con l'ultimo valore visto ALL'INIZIO di
+    // ogni burst di mutazioni. Una sequenza A -> B -> A produce due
+    // confronti "diverso dall'ultimo" (A!=B, poi B!=A), quindi la seconda
+    // visita ad A riparte con uno stato vuoto — impression nuova concessa,
+    // non deduplicata per sempre.
+    let lastPathname = window.location.pathname;
+    let viewedThisPageView = new Set<string>();
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (!entry.isIntersecting || viewed.has(entry.target)) continue;
-          viewed.add(entry.target);
+          if (!entry.isIntersecting) continue;
+          const ctaId = entry.target.getAttribute("data-cta-id") ?? "";
+          if (viewedThisPageView.has(ctaId)) continue;
+          viewedThisPageView.add(ctaId);
           io.unobserve(entry.target);
           const gtag = gtagFn();
           if (typeof gtag === "function") {
@@ -259,12 +297,21 @@ export default function OutboundTracker() {
 
     function observeWithin(root: ParentNode) {
       root.querySelectorAll?.("[data-cta-id]").forEach((el) => {
-        if (!viewed.has(el)) io.observe(el);
+        const ctaId = el.getAttribute("data-cta-id") ?? "";
+        if (!viewedThisPageView.has(ctaId)) io.observe(el);
       });
     }
     observeWithin(document);
 
     const mo = new MutationObserver((mutations) => {
+      // Rilevamento navigazione: riusa questo stesso MutationObserver
+      // (Next.js sostituisce l'albero DOM a ogni navigazione client-side,
+      // quindi questo callback spara comunque) invece di un listener
+      // history/popstate dedicato. Vedi il commento sopra `viewedThisPageView`.
+      if (window.location.pathname !== lastPathname) {
+        lastPathname = window.location.pathname;
+        viewedThisPageView = new Set<string>();
+      }
       for (const m of mutations) {
         // `data-cta-id` puo' comparire su un elemento GIA' nel DOM: e' il
         // caso della CTA del menu mobile, che dichiara l'attributo solo
@@ -275,14 +322,18 @@ export default function OutboundTracker() {
         // attributo quella CTA non verrebbe mai agganciata.
         if (m.type === "attributes") {
           const el = m.target;
-          if (el instanceof Element && el.matches("[data-cta-id]") && !viewed.has(el)) {
+          const ctaId = el instanceof Element ? (el.getAttribute("data-cta-id") ?? "") : "";
+          if (el instanceof Element && el.matches("[data-cta-id]") && !viewedThisPageView.has(ctaId)) {
             io.observe(el);
           }
           continue;
         }
         m.addedNodes.forEach((node) => {
           if (!(node instanceof Element)) return;
-          if (node.matches?.("[data-cta-id]")) io.observe(node);
+          if (node.matches?.("[data-cta-id]")) {
+            const ctaId = node.getAttribute("data-cta-id") ?? "";
+            if (!viewedThisPageView.has(ctaId)) io.observe(node);
+          }
           observeWithin(node);
         });
       }

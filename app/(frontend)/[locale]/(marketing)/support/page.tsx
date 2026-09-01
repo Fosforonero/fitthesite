@@ -197,13 +197,19 @@ export default async function SupportPage({
           <p className="mt-2 text-sm">
             {/* P1.9 FASE 7: icona ufficiale come asset locale, sempre
                 accanto al testo "r/FitMesh — ..." già presente — mai
-                icon-only. Stesso href/target/rel/data-cta-placement. */}
+                icon-only. Stesso href/target/rel/data-cta-placement.
+                ADDENDUM P1.9 (2026-09-01): stessa area cliccabile a 44px
+                del Footer (py-3 -my-3, vedi components/Footer.tsx per la
+                motivazione completa) — <a> resta inline-flex, quindi il suo
+                margine negativo non collassa con il margin-top del <p>
+                genitore (il collasso dei margini riguarda box di livello
+                block, non contenitori inline-level). */}
             <a
               href={REDDIT_URL}
               target="_blank"
               rel="noopener noreferrer"
               data-cta-placement={COMMUNITY_PLACEMENTS.support}
-              className="inline-flex items-center gap-1.5 py-0.5 text-brand-aqua hover:text-brand-blue underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
+              className="inline-flex items-center gap-1.5 py-3 -my-3 text-brand-aqua hover:text-brand-blue underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
             >
               <RedditIcon className="h-4 w-4 flex-shrink-0" />
               r/FitMesh — {t.footer.links.community}

@@ -475,6 +475,18 @@ export function BlogRenderer({
               ? ((s.secondaryHref as Record<string, string | undefined>)[locale] ?? s.secondaryHref.it)
               : undefined;
             const secondaryHref = rawSecondaryHref ? localizeInternalHref(rawSecondaryHref, locale) : undefined;
+            // ADDENDUM P1.9 (2026-09-01): localizeInternalHref ricalcola sempre
+            // il prefisso in base all'indicizzabilità reale della destinazione
+            // (SSOT provider/blog/landing), non un semplice swap — per una
+            // destinazione non indicizzabile nella locale corrente, il
+            // fallback è esplicitamente EN (mai un'altra locale, mai un 404).
+            // Quel fallback deve però essere dichiarato: senza indicazione
+            // visibile, un'etichetta localizzata che porta a una pagina
+            // inglese è indistinguibile da un link normale. Basta il testo
+            // visibile stesso — è già accessibile, nessun aria-label extra
+            // necessario.
+            const secondaryHrefIsEnglishFallback =
+              locale !== "en" && typeof secondaryHref === "string" && secondaryHref.startsWith("/en/");
             const benefits = s.benefits ? tll(s.benefits, locale) : [];
             const ctaPlacementValue =
               s.placement === "after_solution"
@@ -515,6 +527,9 @@ export function BlogRenderer({
                       className="inline-flex items-center gap-1 text-sm font-semibold text-brand-aqua hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
                     >
                       {tl(s.secondaryLabel, locale)}
+                      {secondaryHrefIsEnglishFallback && (
+                        <span className="text-text-secondary font-normal">(EN)</span>
+                      )}
                       <span aria-hidden="true">→</span>
                     </Link>
                   )}
