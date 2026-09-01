@@ -4,6 +4,8 @@ import { Fragment, type ReactNode } from "react";
 import type { BlogSection } from "@/lib/blog/types";
 import { tl, tll } from "@/lib/blog/types";
 import type { Locale } from "@/lib/i18n";
+import { CTA_PLACEMENTS, TARGET_TYPES } from "@/lib/analytics/cta";
+import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { localizedBlogSlug, localizedLandingSlug } from "@/lib/blog/slug-i18n";
 import { FITNESS_DATA_SYNC_COMPLETE_LOCALES } from "@/lib/content/static-page-locales";
 import { blogLinkHrefSync } from "@/lib/blog/indexability";
@@ -461,6 +463,77 @@ export function BlogRenderer({
                     )}
                   </div>
                 )}
+              </aside>
+            );
+          }
+
+          case "fitmesh-editorial-cta": {
+            // P1.9 FASE 3. Stesso pattern di localizzazione href del blocco
+            // "cta" sopra (fallback diretto su `it`, non su `tl()`, per non
+            // rischiare un href EN quando la locale corrente manca il campo).
+            const rawSecondaryHref = s.secondaryHref
+              ? ((s.secondaryHref as Record<string, string | undefined>)[locale] ?? s.secondaryHref.it)
+              : undefined;
+            const secondaryHref = rawSecondaryHref ? localizeInternalHref(rawSecondaryHref, locale) : undefined;
+            // ADDENDUM P1.9 (2026-09-01): localizeInternalHref ricalcola sempre
+            // il prefisso in base all'indicizzabilità reale della destinazione
+            // (SSOT provider/blog/landing), non un semplice swap — per una
+            // destinazione non indicizzabile nella locale corrente, il
+            // fallback è esplicitamente EN (mai un'altra locale, mai un 404).
+            // Quel fallback deve però essere dichiarato: senza indicazione
+            // visibile, un'etichetta localizzata che porta a una pagina
+            // inglese è indistinguibile da un link normale. Basta il testo
+            // visibile stesso — è già accessibile, nessun aria-label extra
+            // necessario.
+            const secondaryHrefIsEnglishFallback =
+              locale !== "en" && typeof secondaryHref === "string" && secondaryHref.startsWith("/en/");
+            const benefits = s.benefits ? tll(s.benefits, locale) : [];
+            const ctaPlacementValue =
+              s.placement === "after_solution"
+                ? CTA_PLACEMENTS.blogEditorialAfterSolution
+                : CTA_PLACEMENTS.blogEditorialArticleEnd;
+            return (
+              <aside
+                key={i}
+                data-cta-content-cluster={s.contentCluster}
+                data-cta-placement={ctaPlacementValue}
+                className="my-10 rounded-card border border-divider bg-gradient-to-br from-brand-aqua/10 to-brand-green/5 p-6 sm:p-8"
+              >
+                <h4 className="font-display text-xl sm:text-2xl font-semibold text-text-primary tracking-tight">
+                  {tl(s.title, locale)}
+                </h4>
+                <p className="mt-3 text-text-secondary leading-relaxed">
+                  {renderMarkdownInline(tl(s.body, locale), locale)}
+                </p>
+                {benefits.length > 0 && (
+                  <ul className="mt-4 space-y-1.5">
+                    {benefits.slice(0, 3).map((b, bi) => (
+                      <li key={bi} className="flex items-start gap-2 text-sm text-text-secondary">
+                        <span aria-hidden="true" className="mt-0.5 text-brand-green">
+                          ✓
+                        </span>
+                        <span>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
+                  <StoreButtonsRow locale={locale} ctaLocation={ctaPlacementValue} />
+                  {secondaryHref !== null && secondaryHref !== undefined && s.secondaryLabel && (
+                    <Link
+                      href={secondaryHref}
+                      data-cta-id={`${ctaPlacementValue}__secondary__${s.contentCluster}`}
+                      data-cta-target-type={TARGET_TYPES.internalLanding}
+                      className="inline-flex items-center gap-1 text-sm font-semibold text-brand-aqua hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
+                    >
+                      {tl(s.secondaryLabel, locale)}
+                      {secondaryHrefIsEnglishFallback && (
+                        <span className="text-text-secondary font-normal">(EN)</span>
+                      )}
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  )}
+                </div>
               </aside>
             );
           }

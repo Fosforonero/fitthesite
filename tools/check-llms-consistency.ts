@@ -394,18 +394,19 @@ if (PRICING_FACTS.subSixMonths.amount !== "1.19") {
   problems.push(`[product-facts] PRICING_FACTS.subSixMonths.amount is "${PRICING_FACTS.subSixMonths.amount}", expected "1.19".`);
 }
 
-// 7d. Strava: READ è live oggi (OAuth read), non roadmap Q3 2026. Il WRITE
-// (invio allenamenti a Strava) resta "in development" finché non supera la
-// checklist di promozione (docs/seo/capability-promotion-checklist.md) —
-// vedi sezione 8 sotto per il controllo dedicato che impedisce di descrivere
-// Strava come "live" per la scrittura.
-// Controllo strutturale (fonte di verità) + scansione testuale di regressione
-// sulla frase specifica corretta in questo sprint.
+// 7d. Strava: P1.9 FASE 2 (2026-09-01) — CORREZIONE del controllo stesso.
+// Il controllo precedente (sprint P0.2, 2026-07-12) asseriva
+// `strava.status === "live"`, assumendo che READ via OAuth = disponibilità
+// generale. Falso: docs/seo/capability-promotion-checklist.md dice "già
+// live e verificato" SOLO per la lettura su account GIÀ connessi — nuove
+// connessioni restano soggette all'approvazione di Strava (LIMITED_BETA),
+// nessun numero pubblicato. Il WRITE (invio allenamenti) resta "in
+// development" — invariato, vedi sezione 8 sotto.
 const strava = PROVIDERS.find((p) => p.slug === "strava");
 if (!strava) {
   problems.push('[providers] No provider with slug "strava" found in PROVIDERS.');
-} else if (strava.status !== "live") {
-  problems.push(`[providers] strava status is "${strava.status}", expected "live" — Strava has a real production OAuth client ID (build-with-secrets.sh) and a live READ integration in the Flutter app (strava_provider.dart). Write (sending workouts to Strava) is implemented but not yet reachable from any UI screen — describe it as "in development", never as live/read+write.`);
+} else if (strava.status !== "limited-beta") {
+  problems.push(`[providers] strava status is "${strava.status}", expected "limited-beta" — read via OAuth works for accounts already connected (verified, real production client ID, strava_provider.dart), but new connections require Strava's approval (LIMITED_BETA, no published cap). Never "live" (overclaims general availability) and never a roadmap status like "coming-soon"/"roadmap-q3" (undersells — it already works for connected accounts). Write remains "in development" regardless.`);
 }
 
 // 7e. TrainingPeaks: integrazione reale (export TCX via Personal Access
@@ -419,6 +420,11 @@ const CAPABILITY_DEAD_PHRASES: { label: string; needle: string }[] = [
   { label: "TrainingPeaks not planned (en)", needle: "no planned TrainingPeaks integration" },
   { label: "TrainingPeaks non previsto (it)", needle: "non c'è un'integrazione TrainingPeaks pianificata" },
   { label: "unqualified read-only dashboard claim (en)", needle: "FitMesh is a read-only dashboard" },
+  // P1.9 FASE 2 (2026-09-01): guardia contro la regressione appena corretta
+  // — l'estremo OPPOSTO di "roadmap Q3 2026" sopra è altrettanto sbagliato.
+  { label: "Strava già attiva senza qualifica (it)", needle: "sincronizzazione in lettura con Strava è già attiva via OAuth" },
+  { label: "Strava read already active unqualified (en)", needle: "read syncing with Strava is already active via OAuth" },
+  { label: "Strava re-auth flow descritto come funzionante (en)", needle: "the app prompts you to re-authorize when you try to send a workout" },
 ];
 
 for (const file of filesToScan) {
@@ -431,38 +437,6 @@ for (const file of filesToScan) {
   }
 }
 
-// "Strava" + "Q3 2026"/"roadmap" nello stesso punto di testo è il pattern
-// invertito che questo sprint ha corretto ovunque: Strava è live, non
-// roadmap. Scansione di prossimità (non frase fissa) per coprire varianti
-// non elencate sopra letteralmente.
-//
-// Esclusioni necessarie (falsi positivi verificati durante questo stesso
-// sprint):
-//  - Oura resta correttamente roadmap ("Strava ... (Oura in arrivo)" o
-//    "Strava. L'OAuth per Oura è ancora in arrivo"): se "Oura" appare tra
-//    "Strava" e la parola-roadmap matchata, la frase riguarda Oura, non
-//    Strava — non è un falso claim su Strava.
-//  - Elenco generico di nomi provider in meta description ("Strava, Polar,
-//    Oura, Withings. Stato live e roadmap aggiornata."): non è una claim
-//    per-provider, quindi si richiede che non ci sia un punto fermo tra
-//    "Strava" e la parola-roadmap (stessa frase, non due frasi diverse).
-const STRAVA_ROADMAP_WINDOW = 60;
-for (const file of filesToScan) {
-  const content = fs.readFileSync(file, "utf-8");
-  const rel = path.relative(repoRoot, file);
-  const stravaRe = /Strava/g;
-  let sMatch: RegExpExecArray | null;
-  while ((sMatch = stravaRe.exec(content)) !== null) {
-    const windowText = content.slice(sMatch.index, Math.min(content.length, sMatch.index + STRAVA_ROADMAP_WINDOW));
-    const roadmapMatch = windowText.match(/Q3 2026|roadmap|in arrivo|coming soon|não planejado|nicht geplant/i);
-    if (!roadmapMatch) continue;
-    const between = windowText.slice(0, roadmapMatch.index);
-    if (/Oura/i.test(between)) continue; // la frase-roadmap riguarda Oura, non Strava
-    if (/\./.test(between)) continue; // parola-roadmap in una frase successiva, non la stessa claim
-    if (/OAuth,\s*/i.test(windowText)) continue; // "Strava... OAuth, attivo/live today" — pattern corretto
-    problems.push(`[strava-roadmap scan] ${rel} has "Strava" near a roadmap/Q3-2026/coming-soon phrase within ${STRAVA_ROADMAP_WINDOW} chars — Strava is live today, this reads as the pre-sprint stale claim: "...${windowText.replace(/\s+/g, " ")}..."`);
-  }
-}
 
 // ── 8. Sprint P0.2 Fase 3 — granularità live/roadmap/read/write/export ────
 // Il sito non deve mai usare "bidirectional sync" come claim generale su
@@ -491,8 +465,7 @@ for (const file of filesToScan) {
 
   // Hedge multilingua (Fase 7 dello sprint ha tradotto la matrice
   // /fitness-data-sync a mano in it/en/es/de — "in sviluppo"/"in Entwicklung"/
-  // "en desarrollo" sono hedge validi tanto quanto l'inglese "in development",
-  // stesso pattern già usato dallo scanner Strava-roadmap qui sopra).
+  // "en desarrollo" sono hedge validi tanto quanto l'inglese "in development").
   const DEST_HEDGE_RE = /development|roadmap|not yet|coming|sviluppo|Entwicklung|desarrollo|noch nicht|aún no|ancora|todavía/i;
   for (const dest of UNVERIFIED_DESTINATIONS) {
     const destRe = new RegExp(dest.replace(/\s+/g, "\\s+"), "g");
@@ -523,6 +496,83 @@ const EXTRA_SCAN_FILES = [
 ].filter((f) => fs.existsSync(f));
 const filesToScanWithExtras = [...filesToScan, ...EXTRA_SCAN_FILES];
 
+// P1.9 FASE 2 (2026-09-01) — SOSTITUISCE lo scanner "Strava è live, non
+// roadmap" (sprint P0.2, 2026-07-12): quell'assunzione era sbagliata alla
+// radice, vedi il controllo strutturale sopra. Nuovo guardrail sitewide,
+// per il contratto pubblico Strava. Usa filesToScanWithExtras (non
+// filesToScan) perché lib/llms-txt.ts e lib/blog/nordic-overlay.json —
+// entrambi toccati da questa stessa fase — vivono fuori da SCAN_DIRS e
+// sarebbero altrimenti invisibili a questo guardrail:
+//  - nessun claim di disponibilità generale ("already active"/"già attiva"/
+//    "disponibile per tutti" senza la qualifica di accesso limitato vicina);
+//  - nessun limite numerico pubblicato (es. "10 atleti"/"10 athletes");
+//  - nessuna promessa di tempi/approvazione futura ("verrà approvato entro",
+//    "approval expected by", roadmap/timeline per l'approvazione stessa).
+// "OAuth"/"già attiva"/"already active" restano ammessi SOLO se la qualifica
+// di accesso limitato compare nella stessa finestra di testo.
+const STRAVA_WINDOW = 220;
+const STRAVA_NUMERIC_LIMIT_RE = /\b\d{1,3}\s*(atlet[ei]|athletes?|utenti|users|slot|posti)\b/i;
+const STRAVA_APPROVAL_TIMELINE_RE = /approva(to|zione).{0,30}(entro|per il|Q[1-4]\s*20\d\d)|approv(ed|al).{0,30}(by|within|Q[1-4]\s*20\d\d)|tempi di approvazione|approval (timeline|eta)/i;
+const STRAVA_GENERAL_AVAILABILITY_RE = /(già attiva?|already active|disponibile per tutti|generally available|available to everyone|senza restrizioni)/i;
+const STRAVA_LIMITED_QUALIFIER_RE = /accesso limitato|limited access|acceso limitado|eingeschränkt|accès limité|dostęp.{0,10}(ograniczon|limitowan)|erişim sınırlı|beperkte toegang|限定アクセス|アクセスが限定的|접근이? 제한적|approvazione di strava|strava'?s? approval|aprobación de strava|freigabe durch strava|approbation de strava|zatwierdzenia przez strav|strava'?nın onayına|goedkeuring van strava/i;
+// Le due regex sopra (approval-timeline, general-availability) matchano anche
+// la FRASE-GUARDRAIL onesta che questo stesso guardrail deve poter scrivere
+// di sé stesso, es. "no numeric cap or approval timeline is published" o
+// "must never be described as generally available" (vedi lib/llms-txt.ts,
+// scritto in questa stessa fase): senza guardia, il guardrail si
+// autobloccherebbe sulla propria frase di divieto. Stesso principio già
+// usato da free-plan/vo2max/background-sync-absolute scan in questo file:
+// una negazione immediatamente prima del match rende la frase un divieto
+// onesto, non una violazione.
+const STRAVA_NEGATION_WINDOW = 45;
+const STRAVA_NEGATION_RE = /\bno\b|\bnever\b|\bnon\b|\bmai\b|\bnessun[oa]?\b|\bnot\b|n't\b|\bdoesn't\b|\bdoes not\b|\bmust never\b|\bkein(e|er|em|en)?\b|\bpas de\b|\bningún\b|\bnenhum\b|\bjamais\b/i;
+
+for (const file of filesToScanWithExtras) {
+  // Nessuna esclusione per .json: lib/blog/nordic-overlay.json contiene testo
+  // Strava reale (SV/DA/FI/NO) e va scandito come qualunque altro file — il
+  // regex opera su testo grezzo, le virgolette JSON non lo confondono.
+  const content = fs.readFileSync(file, "utf-8");
+  const rel = path.relative(repoRoot, file);
+
+  if (STRAVA_NUMERIC_LIMIT_RE.test(content) && /strava/i.test(content)) {
+    // Solo se il numero e "Strava" condividono davvero la stessa frase/contesto —
+    // riusa la finestra invece di un match sitewide indipendente.
+    const numRe = new RegExp(STRAVA_NUMERIC_LIMIT_RE.source, "gi");
+    let nMatch: RegExpExecArray | null;
+    while ((nMatch = numRe.exec(content)) !== null) {
+      const around = content.slice(Math.max(0, nMatch.index - STRAVA_WINDOW), nMatch.index + STRAVA_WINDOW);
+      if (/strava/i.test(around)) {
+        problems.push(`[strava-numeric-limit] ${rel} publishes a numeric cap near "Strava": "...${around.replace(/\s+/g, " ").slice(0, 160)}..." — no numeric limit may ever be published.`);
+      }
+    }
+  }
+
+  const stravaRe = /Strava/g;
+  let sMatch: RegExpExecArray | null;
+  while ((sMatch = stravaRe.exec(content)) !== null) {
+    const windowStart = Math.max(0, sMatch.index - 20);
+    const windowText = content.slice(windowStart, Math.min(content.length, sMatch.index + STRAVA_WINDOW));
+
+    const timelineMatch = windowText.match(STRAVA_APPROVAL_TIMELINE_RE);
+    if (timelineMatch) {
+      const absMatchStart = windowStart + timelineMatch.index!;
+      const negWindow = content.slice(Math.max(0, absMatchStart - STRAVA_NEGATION_WINDOW), absMatchStart);
+      if (!STRAVA_NEGATION_RE.test(negWindow)) {
+        problems.push(`[strava-approval-timeline] ${rel} promises an approval timeline near "Strava": "...${windowText.replace(/\s+/g, " ").slice(0, 160)}..." — never publish approval timing/ETA.`);
+      }
+    }
+
+    const gaMatch = windowText.match(STRAVA_GENERAL_AVAILABILITY_RE);
+    if (gaMatch && !STRAVA_LIMITED_QUALIFIER_RE.test(windowText)) {
+      const absMatchStart = windowStart + gaMatch.index!;
+      const negWindow = content.slice(Math.max(0, absMatchStart - STRAVA_NEGATION_WINDOW), absMatchStart);
+      if (!STRAVA_NEGATION_RE.test(negWindow)) {
+        problems.push(`[strava-general-availability] ${rel} has "Strava" near an unqualified availability claim ("${gaMatch[0]}") with no limited-access qualifier in the same window: "...${windowText.replace(/\s+/g, " ").slice(0, 160)}..."`);
+      }
+    }
+  }
+}
+
 // ── 9. VO2 max ban (legge dalla capability truth layer) ────────────────────
 // Lo stato reale vive in lib/product-facts.ts (CAPABILITY_STATUS.vo2max), non
 // hardcodato qui: se un giorno Build 189/190 verifica che health espone
@@ -546,9 +596,7 @@ const filesToScanWithExtras = [...filesToScan, ...EXTRA_SCAN_FILES];
 // veniva scambiato per un claim sul VO2 max solo perché una frase onesta
 // successiva ("Il VO2 Max non viene letto da FitMesh oggi") cadeva nella
 // stessa finestra. Fix: il match di capacità deve stare nella STESSA frase
-// del termine VO2 max (nessun punto/esclamativo/interrogativo tra i due),
-// stesso principio già usato dallo scanner Strava-roadmap più sotto in
-// questo file ("se c'è un punto fermo tra i due, sono frasi diverse").
+// del termine VO2 max (nessun punto/esclamativo/interrogativo tra i due).
 const VO2_RE = /VO2\s*max|VO₂\s*max|VO2max/gi;
 const VO2_PROXIMITY_WINDOW = 150;
 const VO2_CAPABILITY_ACTIVE_RE = /\bFitMesh\b([^.?!]{0,40}?)\b(reads|legge|shows|mostra|displays|visualizza|imports|importa|tracks|sincronizza|syncs)\b/gi;

@@ -79,9 +79,48 @@ export const CTA_PLACEMENTS = {
   syncProviderHero: "sync_provider_hero",
   syncProviderMidMatrix: "sync_provider_mid_matrix",
   syncProviderFinalCta: "sync_provider_final_cta",
+  // P1.9 FASE 3: modulo editoriale FitMesh nel blog (blocco
+  // "fitmesh-editorial-cta", lib/blog/types.ts). Due sole posizioni ammesse
+  // dal mandato, condivise da tutte le famiglie di pagine — la famiglia si
+  // distingue con `content_cluster` sotto, non con un placement per famiglia
+  // (stessa logica di syncProviderHero/... sopra: "provider"/"cluster" è già
+  // una dimensione propria, non va duplicata nel placement).
+  blogEditorialAfterSolution: "blog_editorial_after_solution",
+  blogEditorialArticleEnd: "blog_editorial_article_end",
 } as const;
 
 export type CtaPlacement = (typeof CTA_PLACEMENTS)[keyof typeof CTA_PLACEMENTS];
+
+/**
+ * P1.9 FASE 6 — dimensione `content_cluster`: quale famiglia editoriale ha
+ * generato l'evento, per distinguere il funnel per cluster di intento senza
+ * bisogno di un placement diverso per famiglia (vedi commento sopra).
+ * Chiuso apposta, stesso motivo di CTA_PLACEMENTS. Nessun dato sanitario o
+ * identificativo: solo il nome del cluster editoriale.
+ */
+export const CONTENT_CLUSTERS = {
+  healthConnectTroubleshooting: "health_connect_troubleshooting",
+  garminSamsungHealth: "garmin_samsung_health",
+  googleHealthVsFit: "google_health_vs_fit",
+  smartRingHealthConnect: "smart_ring_health_connect",
+  fitmeshVsAlternatives: "fitmesh_vs_alternatives",
+  multiDeviceDedup: "multi_device_dedup",
+} as const;
+
+export type ContentCluster = (typeof CONTENT_CLUSTERS)[keyof typeof CONTENT_CLUSTERS];
+
+/**
+ * P1.9 FASE 6 — dimensione `target_type`: cosa risolve la CTA cliccata.
+ * "store" è sempre emesso da StoreButtonsRow (vedi il suo
+ * `data-cta-target-type` fisso); "internal_landing" va dichiarato a mano
+ * sul singolo link secondario (es. verso /sync/[provider] o /integrations).
+ */
+export const TARGET_TYPES = {
+  store: "store",
+  internalLanding: "internal_landing",
+} as const;
+
+export type TargetType = (typeof TARGET_TYPES)[keyof typeof TARGET_TYPES];
 
 /**
  * `data-cta-id` delle due CTA di navigazione (header desktop + menu mobile).

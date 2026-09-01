@@ -1389,68 +1389,138 @@ export const post: BlogPost = {
       },
     },
     {
-      type: "cta",
-      // P1.8A (2026-08-25): ctaId/ctaPlacement aggiunti — assenti prima,
-      // quindi questa CTA non emetteva cta_view/cta_click. Riusa il
-      // meccanismo di tracking gia' esistente (OutboundTracker via
-      // data-cta-id/data-cta-placement), nessun evento nuovo introdotto.
-      ctaId: "blog-health-connect-not-syncing-integrations-cta",
-      ctaPlacement: "blog_body_end",
+      // P1.9 FASE 3/4 (2026-09-01): sostituisce il blocco "cta" (P1.8A) con
+      // il modulo editoriale condiviso — CTA primaria store-aware invece di
+      // un solo link, benefici verificati, link secondario a /integrations
+      // mantenuto. Stessa posizione (fine articolo, prima della FAQ), stesso
+      // problema aggredito. Contratto d'intento "troubleshooting": FitMesh
+      // organizza ciò che arriva davvero, non ripara Health Connect.
+      type: "fitmesh-editorial-cta",
+      contentCluster: "health_connect_troubleshooting",
+      placement: "article_end",
       title: {
-        it: "Vuoi un sync più resiliente?",
-        en: "Want more resilient sync?",
-        es: "¿Quieres una sincronización más fiable?",
-        de: "Möchten Sie eine robustere Synchronisierung?",
-        pt: "Quer uma sincronização mais robusta?",
-        fr: "Vous souhaitez une synchronisation plus fiable?",
-        pl: "Czy chcesz bardziej wytrzymałą synchronizację?",
-        tr: "Daha dayanıklı bir senkronizasyon mu istiyorsunuz?",
-        nl: "Wil je een robuustere synchronisatie?",
-        ja: "より安定した同期を望みますか？",
-        ko: "더 탄력적인 동기화를 원하세요?",
+        it: "Una volta che i dati arrivano, vuoi vederli in un posto solo?",
+        en: "Once your data arrives, want to see it all in one place?",
+        es: "Cuando los datos por fin llegan, ¿quieres verlos en un solo lugar?",
+        de: "Sobald die Daten ankommen, möchten Sie sie an einem Ort sehen?",
+        pt: "Quando os dados finalmente chegam, quer vê-los num só lugar?",
+        fr: "Une fois vos données arrivées, voulez-vous les voir au même endroit?",
+        pl: "Gdy dane w końcu dotrą, chcesz widzieć je w jednym miejscu?",
+        tr: "Veriler ulaştığında hepsini tek bir yerde görmek ister misiniz?",
+        nl: "Zodra je gegevens binnenkomen, wil je ze op één plek zien?",
+        ja: "データが届いたら、ひとつの場所でまとめて見たいですか？",
+        ko: "데이터가 도착하면 한 곳에서 모두 보고 싶으신가요?",
+        // ADDENDUM P1.9 (2026-09-01): sv/da mancavano da questo blocco pur
+        // essendo l'articolo già indicizzabile in entrambe (overlay nordico
+        // su hero/body/faq) — il modulo cadeva in fallback EN silenzioso
+        // dentro una pagina altrimenti completamente tradotta. Trovato
+        // riconciliando una discrepanza 9→7/13→11 nel conteggio locale
+        // indicizzabili: causa A (audit letto senza overlay), non causa B
+        // (nessuna regressione di indicizzabilità), ma l'indagine ha
+        // scoperto questo secondo problema reale e distinto.
+        sv: "När dina data väl har kommit fram, vill du se allt på ett ställe?",
+        da: "Når dine data først er kommet frem, vil du gerne se dem samlet ét sted?",
       },
       body: {
-        it: "FitMesh Sync è progettato per lavorare anche in condizioni non ideali: retry automatico, tolleranza ai buchi di connettività, e log visibile nell'app per capire cosa è stato sincronizzato e cosa no. Se i tuoi dati salute sono importanti, vale averli in un posto che non dipende da un singolo cloud.",
-        en: "FitMesh Sync is designed to work even in non-ideal conditions: automatic retry, connectivity gap tolerance, and a visible in-app log to understand what was synced and what wasn't. If your health data matters, it's worth having it in a place that doesn't depend on a single cloud.",
-        es: "FitMesh Sync está diseñado para funcionar incluso en condiciones no ideales: reintentos automáticos, tolerancia a cortes de conectividad y un registro visible dentro de la app para saber qué se sincronizó y qué no. Si tus datos de salud son importantes, vale la pena tenerlos en un lugar que no dependa de una sola nube.",
-        de: "FitMesh Sync ist darauf ausgelegt, auch unter nicht idealen Bedingungen zu funktionieren: automatische Wiederholungsversuche, Toleranz gegenüber Verbindungslücken und ein sichtbares In-App-Protokoll, um nachzuvollziehen, was synchronisiert wurde und was nicht. Wenn Ihre Gesundheitsdaten wichtig sind, lohnt es sich, sie an einem Ort zu haben, der nicht von einer einzigen Cloud abhängt.",
-        pt: "O FitMesh Sync foi projetado para funcionar mesmo em condições não ideais: tentativas automáticas, tolerância a falhas de conectividade e um registro visível no app para entender o que foi sincronizado e o que não foi. Se seus dados de saúde são importantes, vale ter um lugar que não dependa de uma única nuvem.",
-        fr: "FitMesh Sync est conçu pour fonctionner même dans des conditions non idéales: nouvelles tentatives automatiques, tolérance aux coupures de connectivité et un journal visible dans l'application pour comprendre ce qui a été synchronisé et ce qui ne l'a pas été. Si vos données de santé sont importantes, il vaut la peine de les avoir dans un endroit qui ne dépend pas d'un seul cloud.",
-        pl: "FitMesh Sync jest zaprojektowany do pracy również w nieidealnych warunkach: automatyczne ponawianie prób, tolerancja na przerwy w łączności oraz widoczny log w aplikacji, aby móc zrozumieć, co zostało zsynchronizowane, a co nie. Jeśli Twoje dane zdrowotne są ważne, warto mieć je w miejscu, które nie zależy od jednej tylko chmury.",
-        tr: "FitMesh Sync, ideal olmayan koşullarda bile çalışacak şekilde tasarlanmıştır: otomatik yeniden deneme, bağlantı kopukluklarına tolerans ve neyin senkronize edildiğini, neyin edilmediğini anlamak için uygulama içinde görünen bir günlük. Sağlık verileriniz önemliyse, onları tek bir buluta bağımlı olmayan bir yerde tutmaya değer.",
-        nl: "FitMesh Sync is ontworpen om ook in niet-ideale omstandigheden te werken: automatische herpoging, tolerantie voor verbindingsonderbrekingen en een zichtbaar in-app-logboek om te begrijpen wat er wel en niet is gesynchroniseerd. Als je gezondheidsgegevens belangrijk zijn, is het de moeite waard ze op een plek te hebben die niet van een enkele cloud afhankelijk is.",
-        ja: "FitMesh Syncは理想的でない条件でも動作するように設計されています：自動リトライ、接続ギャップへの耐性、同期されたものとされなかったものを理解するためのアプリ内の見えるログ。健康データが重要なら、単一のクラウドに依存しない場所に保存する価値があります。",
-        ko: "FitMesh Sync는 이상적이지 않은 조건에서도 작동하도록 설계되었습니다: 자동 재시도, 연결 공백 허용, 동기화된 것과 그렇지 않은 것을 이해하기 위한 앱 내 가시적 로그. 건강 데이터가 중요하다면, 단일 클라우드에 의존하지 않는 곳에 보관할 가치가 있습니다.",
+        it: "FitMesh Sync non ripara un collegamento a monte rotto — quello resta tra il tuo dispositivo e Health Connect. Ma una volta che i dati arrivano, li organizza in un'unica dashboard leggibile, indicando la provenienza quando più fonti scrivono lo stesso tipo di dato.",
+        en: "FitMesh Sync doesn't fix a broken upstream connection — that stays between your device and Health Connect. But once the data arrives, it organizes it into one readable dashboard, showing the source when more than one app writes the same data type.",
+        es: "FitMesh Sync no repara un fallo de conexión previo — eso queda entre tu dispositivo y Health Connect. Pero cuando los datos llegan, los organiza en un único panel legible, mostrando la procedencia cuando más de una fuente escribe el mismo tipo de dato.",
+        de: "FitMesh Sync repariert keine defekte vorgelagerte Verbindung — das bleibt zwischen Ihrem Gerät und Health Connect. Sobald die Daten aber ankommen, organisiert FitMesh sie in einem übersichtlichen Dashboard und zeigt die Quelle, wenn mehr als eine App denselben Datentyp schreibt.",
+        pt: "O FitMesh Sync não conserta uma ligação a montante quebrada — isso fica entre o seu dispositivo e o Health Connect. Mas quando os dados chegam, ele organiza-os num único painel legível, mostrando a origem quando mais de uma fonte escreve o mesmo tipo de dado.",
+        fr: "FitMesh Sync ne répare pas une connexion en amont défaillante — cela reste entre votre appareil et Health Connect. Mais une fois les données arrivées, il les organise dans un tableau de bord lisible, en indiquant la source quand plusieurs applications écrivent le même type de donnée.",
+        pl: "FitMesh Sync nie naprawia zepsutego połączenia u źródła — to zostaje między Twoim urządzeniem a Health Connect. Ale gdy dane już dotrą, porządkuje je w jednym czytelnym panelu, pokazując źródło, gdy ten sam typ danych zapisuje więcej niż jedna aplikacja.",
+        tr: "FitMesh Sync, yukarı akıştaki bozuk bir bağlantıyı onarmaz — bu, cihazınız ile Health Connect arasında kalır. Ama veriler ulaştığında, aynı veri türünü birden fazla kaynak yazdığında kaynağı göstererek onları tek bir okunabilir panoda düzenler.",
+        nl: "FitMesh Sync repareert geen kapotte verbinding stroomopwaarts — dat blijft tussen je toestel en Health Connect. Maar zodra de gegevens binnenkomen, ordent het ze in één overzichtelijk dashboard, met de bron zichtbaar wanneer meer dan één app hetzelfde gegevenstype schrijft.",
+        ja: "FitMesh Syncは上流の壊れた接続を修復するものではありません——それはあなたのデバイスとHealth Connectの間の問題です。ただしデータが届けば、複数のアプリが同じ種類のデータを書き込んでいる場合に出典を示しながら、ひとつの見やすいダッシュボードに整理します。",
+        ko: "FitMesh Sync는 상류의 끊어진 연결을 고치지 않습니다 — 그건 기기와 Health Connect 사이의 문제입니다. 하지만 데이터가 도착하면, 같은 종류의 데이터를 여러 앱이 기록할 때 출처를 표시하며 하나의 읽기 쉬운 대시보드로 정리합니다.",
+        sv: "FitMesh Sync lagar inte en trasig uppströmsanslutning — det är fortfarande en fråga mellan din enhet och Health Connect. Men när data väl har kommit fram organiserar FitMesh den i en enda lättläst översikt och visar källan när fler än en app skriver samma typ av data.",
+        da: "FitMesh Sync reparerer ikke en defekt forbindelse længere oppe i kæden — det er stadig et anliggende mellem din enhed og Health Connect. Men når dataene først er kommet frem, organiserer FitMesh dem i ét overskueligt dashboard og viser kilden, når mere end én app skriver den samme type data.",
       },
-      ctaLabel: {
-        it: "Scopri FitMesh Sync →",
-        en: "Learn about FitMesh Sync →",
-        es: "Descubre FitMesh Sync →",
-        de: "FitMesh Sync entdecken →",
-        pt: "Conheça o FitMesh Sync →",
-        fr: "Découvrir FitMesh Sync →",
-        pl: "Poznaj FitMesh Sync →",
-        tr: "FitMesh Sync'i keşfedin →",
-        nl: "Ontdek FitMesh Sync →",
-        ja: "FitMesh Syncについて →",
-        ko: "FitMesh Sync 알아보기 →",
+      benefits: {
+        it: [
+          "Legge da Health Connect in modo generico: nessuna integrazione fragile per singolo modello",
+          "Log di sincronizzazione visibile nell'app: sai sempre cosa è arrivato e quando",
+          "Provenienza chiara quando più dispositivi scrivono lo stesso tipo di dato",
+        ],
+        en: [
+          "Reads from Health Connect generically: no fragile per-device integration",
+          "Visible in-app sync log: you always know what arrived and when",
+          "Clear source shown when more than one device writes the same data type",
+        ],
+        es: [
+          "Lee desde Health Connect de forma genérica: sin integraciones frágiles por modelo",
+          "Registro de sincronización visible en la app: siempre sabes qué llegó y cuándo",
+          "Procedencia clara cuando más de un dispositivo escribe el mismo tipo de dato",
+        ],
+        de: [
+          "Liest generisch aus Health Connect: keine fragile Integration pro Gerätemodell",
+          "Sichtbares In-App-Sync-Protokoll: Sie wissen immer, was wann angekommen ist",
+          "Klare Quellenanzeige, wenn mehr als ein Gerät denselben Datentyp schreibt",
+        ],
+        pt: [
+          "Lê do Health Connect de forma genérica: sem integrações frágeis por modelo",
+          "Registo de sincronização visível na app: sabe sempre o que chegou e quando",
+          "Origem clara quando mais de um dispositivo escreve o mesmo tipo de dado",
+        ],
+        fr: [
+          "Lit Health Connect de façon générique: aucune intégration fragile par modèle",
+          "Journal de synchronisation visible dans l'app: vous savez toujours ce qui est arrivé et quand",
+          "Source claire quand plusieurs appareils écrivent le même type de donnée",
+        ],
+        pl: [
+          "Odczytuje dane z Health Connect w sposób ogólny: bez kruchych integracji dla pojedynczych modeli",
+          "Widoczny w aplikacji log synchronizacji: zawsze wiesz, co i kiedy dotarło",
+          "Czytelne źródło, gdy więcej niż jedno urządzenie zapisuje ten sam typ danych",
+        ],
+        tr: [
+          "Health Connect'ten genel biçimde okur: cihaz modeline özel kırılgan entegrasyon yok",
+          "Uygulama içinde görünen senkronizasyon günlüğü: neyin ne zaman ulaştığını her zaman bilirsiniz",
+          "Birden fazla cihaz aynı veri türünü yazdığında net kaynak gösterimi",
+        ],
+        nl: [
+          "Leest generiek uit Health Connect: geen kwetsbare integratie per apparaatmodel",
+          "Zichtbaar synchronisatielogboek in de app: je weet altijd wat en wanneer er is binnengekomen",
+          "Duidelijke bron wanneer meer dan één apparaat hetzelfde gegevenstype schrijft",
+        ],
+        ja: [
+          "Health Connectから汎用的に読み取り：機種ごとの壊れやすい個別対応が不要",
+          "アプリ内に見える同期ログ：何がいつ届いたか常に把握できる",
+          "複数のデバイスが同じ種類のデータを書き込む場合、出典を明示",
+        ],
+        ko: [
+          "Health Connect에서 범용적으로 읽음: 기기별 취약한 개별 연동 불필요",
+          "앱 내에서 보이는 동기화 로그: 무엇이 언제 도착했는지 항상 확인 가능",
+          "여러 기기가 같은 종류의 데이터를 기록할 때 명확한 출처 표시",
+        ],
+        sv: [
+          "Läser generiskt från Health Connect: ingen skör integration per enskild enhetsmodell",
+          "Synlig synkroniseringslogg i appen: du vet alltid vad som kom in och när",
+          "Tydlig källa när fler än en enhet skriver samma typ av data",
+        ],
+        da: [
+          "Læser generisk fra Health Connect: ingen skrøbelig integration pr. enkelt enhedsmodel",
+          "Synlig synkroniseringslog i appen: du ved altid, hvad der er kommet ind, og hvornår",
+          "Tydelig kilde, når mere end én enhed skriver den samme type data",
+        ],
       },
-      ctaHref: {
+      secondaryLabel: {
+        it: "Vedi tutte le integrazioni",
+        en: "See all integrations",
+        es: "Ver todas las integraciones",
+        de: "Alle Integrationen ansehen",
+        pt: "Ver todas as integrações",
+        fr: "Voir toutes les intégrations",
+        pl: "Zobacz wszystkie integracje",
+        tr: "Tüm entegrasyonları görün",
+        nl: "Bekijk alle integraties",
+        ja: "すべての連携を見る",
+        ko: "모든 연동 보기",
+        sv: "Se alla integrationer",
+        da: "Se alle integrationer",
+      },
+      secondaryHref: {
         it: "/it/integrations",
         en: "/en/integrations",
-        es: "/es/integrations",
-        de: "/de/integrations",
-        pt: "/pt/integrations",
-        fr: "/fr/integrations",
-        pl: "/pl/integrations",
-        tr: "/tr/integrations",
-        nl: "/nl/integrations",
-        ja: "/ja/integrations",
-        ko: "/ko/integrations",
-        sv: "/sv/integrations",
-        da: "/da/integrations",
-        no: "/no/integrations",
-        fi: "/fi/integrations",
       },
     },
   ],

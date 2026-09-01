@@ -203,6 +203,11 @@ describe("privacy — superficie dei dati", () => {
       "campaign",
       "path",
       "page_path",
+      // P1.9 FASE 6: content_cluster (famiglia editoriale) e target_type
+      // (store vs internal_landing) — entrambi vocabolari chiusi, nessun
+      // dato sanitario/identificativo, vedi lib/analytics/cta.ts.
+      "content_cluster",
+      "target_type",
     ]);
 
     render(
@@ -287,6 +292,148 @@ describe("P0.14A — external_community_click (r/FitMesh)", () => {
     );
     document.querySelector<HTMLAnchorElement>("a")!.click();
     expect(eventsNamed("external_community_click")).toHaveLength(0);
+  });
+});
+
+describe("ADDENDUM P1.9 — contratto cta_view (dedup per page view, non per sempre)", () => {
+  it("piu' callback IntersectionObserver sullo stesso elemento, stessa page view -> un solo evento", () => {
+    render(
+      <>
+        <OutboundTracker />
+        <a href="/de#download" data-cta-id={CTA_IDS.headerPrimary} data-cta-placement={CTA_PLACEMENTS.headerPrimary}>
+          Download
+        </a>
+      </>,
+    );
+    const io = latestObserver();
+    const cta = document.querySelector(`[data-cta-id="${CTA_IDS.headerPrimary}"]`)!;
+    io.enter(cta);
+    io.enter(cta);
+    io.enter(cta);
+    expect(eventsNamed("cta_view")).toHaveLength(1);
+  });
+
+  it("il MutationObserver che ri-esamina lo stesso elemento non produce un doppio evento", async () => {
+    render(
+      <>
+        <OutboundTracker />
+        <a href="/de#download" data-cta-id={CTA_IDS.headerPrimary} data-cta-placement={CTA_PLACEMENTS.headerPrimary}>
+          Download
+        </a>
+      </>,
+    );
+    const io = latestObserver();
+    const cta = document.querySelector(`[data-cta-id="${CTA_IDS.headerPrimary}"]`)!;
+    io.enter(cta);
+    expect(eventsNamed("cta_view")).toHaveLength(1);
+
+    // Forza il MutationObserver a rigirare (una mutazione qualsiasi altrove
+    // nel DOM), poi simula una ri-osservazione dello STESSO elemento gia'
+    // visto: deve restare un solo evento.
+    const filler = document.createElement("div");
+    document.body.appendChild(filler);
+    await flushMutations();
+    io.observe(cta); // idempotente per spec, ma il gate e' comunque nel callback IO
+    io.enter(cta);
+    expect(eventsNamed("cta_view")).toHaveLength(1);
+  });
+
+  it("una sostituzione involontaria dello stesso nodo (stessa page view, nessuna navigazione) non produce un doppio evento", async () => {
+    const { container } = render(
+      <>
+        <OutboundTracker />
+        <div id="host">
+          <a href="/de#download" data-cta-id={CTA_IDS.headerPrimary} data-cta-placement={CTA_PLACEMENTS.headerPrimary}>
+            Download
+          </a>
+        </div>
+      </>,
+    );
+    const io = latestObserver();
+    const original = document.querySelector(`[data-cta-id="${CTA_IDS.headerPrimary}"]`)!;
+    io.enter(original);
+    expect(eventsNamed("cta_view")).toHaveLength(1);
+
+    // Sostituisce il nodo DOM con un elemento NUOVO ma con lo stesso
+    // data-cta-id — simula un remount React senza alcuna navigazione
+    // (stesso pathname, nessun window.history.pushState). L'ID stabile,
+    // non l'identita' dell'oggetto DOM, e' cio' che deve deduplicare qui.
+    const host = container.querySelector("#host")!;
+    host.innerHTML = "";
+    const replacement = document.createElement("a");
+    replacement.setAttribute("href", "/de#download");
+    replacement.setAttribute("data-cta-id", CTA_IDS.headerPrimary);
+    replacement.setAttribute("data-cta-placement", CTA_PLACEMENTS.headerPrimary);
+    host.appendChild(replacement);
+    await flushMutations();
+
+    expect(io.observed.has(replacement)).toBe(false); // non ri-osservato: gia' visto in questa page view
+    // Anche se qualcosa forzasse comunque un enter() sul nodo nuovo, il
+    // gate per data-cta-id deve sopprimerlo.
+    io.enter(replacement);
+    expect(eventsNamed("cta_view")).toHaveLength(1);
+  });
+
+  it("una navigazione genuina (pathname cambia) seguita da un ritorno concede una nuova impression una sola volta — non deduplica per sempre", async () => {
+    render(
+      <>
+        <OutboundTracker />
+        <a href="/de#download" data-cta-id={CTA_IDS.headerPrimary} data-cta-placement={CTA_PLACEMENTS.headerPrimary}>
+          Download
+        </a>
+      </>,
+    );
+    const io = latestObserver();
+    const cta = document.querySelector(`[data-cta-id="${CTA_IDS.headerPrimary}"]`)!;
+    io.enter(cta);
+    expect(eventsNamed("cta_view")).toHaveLength(1);
+
+    // Naviga altrove (URL diverso) e forza il MutationObserver a rigirare —
+    // sul branch reale questo avviene perche' Next.js sostituisce l'intero
+    // albero dei componenti a ogni navigazione client-side; qui basta una
+    // mutazione qualsiasi per far scattare il rilevamento del cambio path.
+    window.history.pushState({}, "", "/de/altra-pagina");
+    document.body.appendChild(document.createElement("div"));
+    await flushMutations();
+
+    // Torna alla pagina originale — stesso URL della prima visita, ma e'
+    // una SECONDA page view: la CTA deve poter generare un'impression nuova.
+    window.history.pushState({}, "", "/de/preise");
+    document.body.appendChild(document.createElement("div"));
+    await flushMutations();
+
+    // Sulla pagina reale il remount di Next.js ri-osserverebbe l'elemento
+    // automaticamente; qui lo si osserva di nuovo esplicitamente per
+    // simulare lo stesso effetto senza un vero router.
+    io.observe(cta);
+    io.enter(cta);
+
+    const views = eventsNamed("cta_view");
+    expect(views).toHaveLength(2);
+    expect(views[1]).toMatchObject({ cta_id: CTA_IDS.headerPrimary, path: "/de/preise" });
+  });
+
+  it("non deduplica per sempre l'intera sessione: una terza page view della stessa CTA continua a contare", async () => {
+    render(
+      <>
+        <OutboundTracker />
+        <a href="/de#download" data-cta-id={CTA_IDS.headerPrimary} data-cta-placement={CTA_PLACEMENTS.headerPrimary}>
+          Download
+        </a>
+      </>,
+    );
+    const io = latestObserver();
+    const cta = document.querySelector(`[data-cta-id="${CTA_IDS.headerPrimary}"]`)!;
+
+    for (const path of ["/de/pagina-a", "/de/pagina-b", "/de/pagina-a"]) {
+      window.history.pushState({}, "", path);
+      document.body.appendChild(document.createElement("div"));
+      await flushMutations();
+      io.observe(cta);
+      io.enter(cta);
+    }
+
+    expect(eventsNamed("cta_view")).toHaveLength(3);
   });
 });
 

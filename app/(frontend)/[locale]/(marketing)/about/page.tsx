@@ -174,7 +174,16 @@ export default async function AboutPage({
                 "Garmin Forerunner/Fenix/Venu (via Garmin Connect)",
                 "Polar Vantage/Grit X (via Polar Flow)",
                 "Withings Body+/ScanWatch (via Health Mate)",
-                "Strava (via OAuth)",
+                // P1.9 FASE 2 (2026-09-01): "Strava (via OAuth)" rimosso da
+                // questo gruppo — devicesIntro sopra dice "tutto ciò che
+                // scrive su Health Connect è supportato nativamente", ma
+                // Strava non passa da Health Connect (OAuth diretto) ed è
+                // oggi ad accesso limitato (nuove connessioni soggette ad
+                // approvazione Strava), quindi non appartiene a nessuno dei
+                // due gruppi di questa pagina. Il contesto (panoramica
+                // "About", non la matrice di compatibilità) non richiede di
+                // spiegare la sfumatura qui: chi vuole il dettaglio trova
+                // lo stato corretto su /integrations e /sync/strava.
               ],
               color: "#31E981",
             },

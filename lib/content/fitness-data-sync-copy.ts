@@ -16,9 +16,16 @@
  * app/.../fitness-data-sync/page.tsx) — cadono su EN via tl().
  *
  * Verità commerciale alla base di questo contenuto (verificata nel codice
- * dell'app, non assunta): Strava legge in live oggi, l'invio verso Strava è
- * in sviluppo (buildWriteAuthorizationUrl() non ha ancora un trigger UI
- * verificato su device reale); TrainingPeaks non è ancora funzionante
+ * dell'app, non assunta): Strava legge in modo affidabile per gli account
+ * già connessi, ma l'accesso a NUOVE connessioni è limitato (approvazione
+ * Strava, P1.9 FASE 2 2026-09-01 — non era così finché non corretto qui);
+ * l'invio verso Strava non è raggiungibile nella release pubblica
+ * (v3.9.8+189): uploadActivity() esiste ed è cablato in
+ * settings_screen.dart, ma buildWriteAuthorizationUrl() non è mai invocato
+ * da nessuna UI — nessun utente reale ottiene lo scope activity:write. Mai
+ * "in sviluppo" nel testo pubblico: quella parola presume un impegno
+ * attivo non verificato, solo la presenza di codice inutilizzato lo è.
+ * TrainingPeaks non è ancora funzionante
  * end-to-end; Health Connect e Apple Health hanno write-back reale,
  * opt-in, off di default, con timing diverso per piattaforma (Android:
  * export singolo per attivazione toggle; iOS: re-export a ogni sync). Data
@@ -64,7 +71,13 @@ export type IntegrationStatus =
   | "live"
   | "in-development"
   | "roadmap"
-  | "beta";
+  | "beta"
+  // P1.9 FASE 2 (2026-09-01): distinto da "beta" sopra apposta (qui "beta"
+  // significa "solo bridge generico", il contrario della situazione di
+  // Strava: OAuth dedicato reale, che funziona per chi è già connesso, ma
+  // nuove connessioni sono soggette ad approvazione esterna). Oggi usato
+  // solo per Strava.
+  | "limited-beta";
 
 export interface CompatibilityRow {
   /** Nome del brand/servizio — non tradotto (nome proprio). */
@@ -141,14 +154,18 @@ export const DETAILED_COMPATIBILITY: CompatibilityRow[] = [
       es: "Se obtiene en cada sincronización de la app",
       de: "Wird bei jeder App-Synchronisierung abgerufen",
     },
-    status: "live",
+    // P1.9 FASE 2 (2026-09-01): era "live" — corretto in base a
+    // docs/seo/capability-promotion-checklist.md ("già live e verificato"
+    // vale SOLO per la lettura di account già connessi; nuove connessioni
+    // restano soggette ad approvazione Strava, nessun numero pubblicato).
+    status: "limited-beta",
     limitations: {
-      it: "Solo lettura oggi. L'invio degli allenamenti registrati da FitMesh verso Strava è in sviluppo e non ancora disponibile nell'app.",
-      en: "Read only today. Sending FitMesh-recorded workouts back to Strava is in development and not yet available in the app.",
-      es: "Solo lectura hoy. El envío de entrenamientos registrados por FitMesh a Strava está en desarrollo y aún no disponible en la app.",
-      de: "Heute nur Lesen. Das Senden von FitMesh-aufgezeichneten Workouts an Strava ist in Entwicklung und in der App noch nicht verfügbar.",
+      it: "Accesso limitato: la lettura funziona per gli account già collegati, ma le nuove connessioni sono soggette all'approvazione di Strava. L'app pubblicata non espone ancora l'autorizzazione necessaria per inviare a Strava gli allenamenti registrati da FitMesh.",
+      en: "Limited access: reading works for accounts already connected, but new connections are subject to Strava's approval. The published app doesn't yet expose the authorization needed to send FitMesh-recorded workouts back to Strava.",
+      es: "Acceso limitado: la lectura funciona para las cuentas ya conectadas, pero las nuevas conexiones están sujetas a la aprobación de Strava. La app publicada aún no ofrece la autorización necesaria para enviar a Strava los entrenamientos registrados por FitMesh.",
+      de: "Eingeschränkter Zugang: Das Lesen funktioniert für bereits verbundene Konten, neue Verbindungen bedürfen jedoch der Freigabe durch Strava. Die veröffentlichte App bietet noch keine Möglichkeit, von FitMesh aufgezeichnete Workouts an Strava zu senden.",
     },
-    lastVerified: "2026-07-12",
+    lastVerified: "2026-09-01",
     detailHref: "/sync/strava",
   },
   {
@@ -656,10 +673,10 @@ export const FITNESS_DATA_SYNC_FAQ: FaqEntry[] = [
       de: "Kann FitMesh meine Daten in andere Apps schreiben?",
     },
     a: {
-      it: "In modo limitato e opt-in. FitMesh può scrivere i suoi dati deduplicati e fusi su Health Connect (Android) e Apple Health (iOS), disattivato di default finché non lo attivi in Impostazioni. Inviare singoli allenamenti a Strava, TrainingPeaks o piattaforme di allenamento simili è una capacità separata e più ristretta, ancora in sviluppo per alcune destinazioni. Non è una funzione generica \"sync ovunque\": controlla la tabella di compatibilità per ciò che è effettivamente disponibile oggi per la destinazione che hai in mente.",
-      en: "In a limited, opt-in way. FitMesh can write its deduplicated, fused data back to Health Connect (Android) and Apple Health (iOS), off by default until you turn it on in Settings. Sending individual workouts to Strava, TrainingPeaks or similar training platforms is a separate, narrower capability that's still in development for some destinations. This isn't a general-purpose \"sync to anywhere\" feature: check the compatibility table for what's actually available today for the destination you have in mind.",
-      es: "De forma limitada y opt-in. FitMesh puede escribir sus datos deduplicados y fusionados de vuelta en Health Connect (Android) y Apple Health (iOS), desactivado por defecto hasta que lo actives en Ajustes. Enviar entrenamientos individuales a Strava, TrainingPeaks o plataformas de entrenamiento similares es una capacidad separada y más limitada, todavía en desarrollo para algunos destinos. Esto no es una función genérica de \"sincronizar a cualquier lugar\": consulta la tabla de compatibilidad para ver qué está realmente disponible hoy para el destino que tienes en mente.",
-      de: "Auf begrenzte, Opt-in-Weise. FitMesh kann seine deduplizierten, fusionierten Daten zurück in Health Connect (Android) und Apple Health (iOS) schreiben, standardmäßig deaktiviert, bis du es in den Einstellungen aktivierst. Das Senden einzelner Workouts an Strava, TrainingPeaks oder ähnliche Trainingsplattformen ist eine separate, engere Fähigkeit, die für manche Ziele noch in Entwicklung ist. Das ist keine allgemeine \"Sync überallhin\"-Funktion: Prüfe die Kompatibilitätstabelle, was für das gewünschte Ziel heute tatsächlich verfügbar ist.",
+      it: "In modo limitato e opt-in. FitMesh può scrivere i suoi dati deduplicati e fusi su Health Connect (Android) e Apple Health (iOS), disattivato di default finché non lo attivi in Impostazioni. Inviare singoli allenamenti è una capacità separata e più ristretta: verso Strava l'app pubblicata non espone ancora l'autorizzazione necessaria; verso TrainingPeaks o piattaforme simili è ancora in sviluppo. Non è una funzione generica \"sync ovunque\": controlla la tabella di compatibilità per ciò che è effettivamente disponibile oggi per la destinazione che hai in mente.",
+      en: "In a limited, opt-in way. FitMesh can write its deduplicated, fused data back to Health Connect (Android) and Apple Health (iOS), off by default until you turn it on in Settings. Sending individual workouts is a separate, narrower capability: to Strava, the published app doesn't yet expose the authorization needed; to TrainingPeaks or similar platforms it's still in development. This isn't a general-purpose \"sync to anywhere\" feature: check the compatibility table for what's actually available today for the destination you have in mind.",
+      es: "De forma limitada y opt-in. FitMesh puede escribir sus datos deduplicados y fusionados de vuelta en Health Connect (Android) y Apple Health (iOS), desactivado por defecto hasta que lo actives en Ajustes. Enviar entrenamientos individuales es una capacidad separada y más limitada: hacia Strava, la app publicada aún no ofrece la autorización necesaria; hacia TrainingPeaks o plataformas similares sigue en desarrollo. Esto no es una función genérica de \"sincronizar a cualquier lugar\": consulta la tabla de compatibilidad para ver qué está realmente disponible hoy para el destino que tienes en mente.",
+      de: "Auf begrenzte, Opt-in-Weise. FitMesh kann seine deduplizierten, fusionierten Daten zurück in Health Connect (Android) und Apple Health (iOS) schreiben, standardmäßig deaktiviert, bis du es in den Einstellungen aktivierst. Das Senden einzelner Workouts ist eine separate, engere Fähigkeit: An Strava bietet die veröffentlichte App noch keine Möglichkeit, dies zu autorisieren; an TrainingPeaks oder ähnliche Plattformen befindet es sich noch in Entwicklung. Das ist keine allgemeine \"Sync überallhin\"-Funktion: Prüfe die Kompatibilitätstabelle, was für das gewünschte Ziel heute tatsächlich verfügbar ist.",
     },
   },
 ];

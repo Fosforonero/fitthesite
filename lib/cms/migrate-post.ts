@@ -144,6 +144,23 @@ export function sectionsToLexical(body: BlogSection[], lc: L): LexNode {
           ctaLabel: pick(s.ctaLabel, lc),
           ctaHref: pick(s.ctaHref, lc),
         });
+      case 'fitmesh-editorial-cta':
+        // P1.9: nessun blockType Payload dedicato ancora — stessa strategia
+        // di 'image'/'flow-diagram' sopra, campi grezzi preservati 1:1 cosi'
+        // una migrazione futura non perde dati anche senza un blocco CMS
+        // apposito. Il rendering live non passa da qui (BlogRenderer legge
+        // i file .ts statici direttamente).
+        return blockNode({
+          id: `${lc}-${index}`,
+          blockType: 'fitmeshEditorialCta',
+          contentCluster: s.contentCluster,
+          placement: s.placement,
+          title: pick(s.title, lc),
+          body: pick(s.body, lc),
+          benefits: pickL(s.benefits, lc).map((item) => ({ item })),
+          secondaryLabel: s.secondaryLabel ? pick(s.secondaryLabel, lc) : undefined,
+          secondaryHref: s.secondaryHref ? pick(s.secondaryHref, lc) : undefined,
+        });
       case 'image':
         // Il CMS non ha un blocco immagine dedicato: in migrazione lo screenshot
         // e' rappresentato dalla sua didascalia/alt come paragrafo. Le guide con

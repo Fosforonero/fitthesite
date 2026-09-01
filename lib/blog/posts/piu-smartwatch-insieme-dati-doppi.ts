@@ -471,20 +471,39 @@ export const post: BlogPost = {
       },
     },
     {
-      type: "cta",
+      // P1.9 FASE 3/4: sostituisce il blocco "cta" — stessa posizione (dopo
+      // la spiegazione tecnica, prima di checklist/fonti/FAQ), stesso link
+      // alla matrice reale. Contratto "multi-device": provenienza/priorità/
+      // dedup citate solo perché confermate nella sezione sopra di questo
+      // stesso articolo ("Come FitMesh gestisce sorgenti sovrapposte").
+      type: "fitmesh-editorial-cta",
+      contentCluster: "multi_device_dedup",
+      placement: "after_solution",
       title: {
-        it: "Vuoi capire quali integrazioni leggono, scrivono o sono ancora in sviluppo?",
-        en: "Want to see which integrations read, write, or remain in development?",
+        it: "Provenienza chiara quando più dispositivi scrivono lo stesso dato",
+        en: "Clear source when more than one device writes the same data",
       },
       body: {
-        it: "La matrice FitMesh separa direzione, stato reale e piattaforma per ogni integrazione, con una data di verifica esplicita.",
-        en: "The FitMesh compatibility matrix separates direction, real-world status, and platform for every integration, with an explicit verification date.",
+        it: "FitMesh mostra la provenienza di ogni valore e applica priorità/deduplicazione quando più fonti coprono lo stesso intervallo — esattamente il comportamento descritto sopra, non una promessa nuova.",
+        en: "FitMesh shows the source of every value and applies priority/deduplication when more than one source covers the same window — exactly the behavior described above, not a new promise.",
       },
-      ctaLabel: {
+      benefits: {
+        it: [
+          "Priorità e deduplicazione quando più fonti si sovrappongono",
+          "Provenienza visibile per ogni valore in dashboard",
+          "Matrice di compatibilità con data di verifica esplicita per ogni integrazione",
+        ],
+        en: [
+          "Priority and deduplication when sources overlap",
+          "Source visible for every value in the dashboard",
+          "Compatibility matrix with an explicit verification date for every integration",
+        ],
+      },
+      secondaryLabel: {
         it: "Vedi la matrice di compatibilità",
         en: "See the compatibility matrix",
       },
-      ctaHref: {
+      secondaryHref: {
         it: "/it/fitness-data-sync",
         en: "/en/fitness-data-sync",
       },

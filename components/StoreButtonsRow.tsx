@@ -94,6 +94,10 @@ export default function StoreButtonsRow({
       data-cta-location={ctaLocation}
       data-cta-placement={ctaLocation}
       data-cta-id={ctaLocation ? storeButtonsCtaId(ctaLocation) : undefined}
+      // P1.9 FASE 6: sempre "store", indipendentemente da ctaLocation — una
+      // row di badge store è per definizione una CTA verso lo store. Letto
+      // da OutboundTracker per il campo content_cluster/target_type.
+      data-cta-target-type="store"
     >
       <PlayStoreButton
         disabled={playDisabled}

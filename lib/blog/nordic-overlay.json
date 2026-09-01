@@ -11311,7 +11311,7 @@
         "[Garmin](/en/sync/garmin): grundläggande funktioner tillgängliga idag via HC, Body Battery/Training Load kommer under tredje kvartalet 2026.",
         "[Polar](/en/sync/polar): Basic-versionen lanseras idag via HC, Accesslink OAuth kommer under fjärde kvartalet 2026.",
         "[Withings](/en/sync/withings): Basic idag via HC, API v2 OAuth ingår i utvecklingsplanen för fjärde kvartalet 2026.",
-        "[Strava](/en/sync/strava): Endast OAuth, lanseras under tredje kvartalet 2026.",
+        "[Strava](/en/sync/strava): OAuth aktivt för läsning, men åtkomsten är begränsad — nya anslutningar kräver godkännande från Strava.",
         "[Oura Ring](/en/sync/oura): Endast OAuth, lanseras under fjärde kvartalet 2026.",
         "[Huawei](/en/sync/huawei): Health Kit OAuth, under utvärdering."
       ],
@@ -11324,7 +11324,7 @@
         "[Garmin](/en/sync/garmin): basale i dag via HC, Body Battery/Training Load kommer i Q3 2026.",
         "[Polar](/en/sync/polar): basale i dag via HC, Accesslink OAuth kommer i Q4 2026.",
         "[Withings](/en/sync/withings): basale i dag via HC, API v2 OAuth på roadmap for Q4 2026.",
-        "[Strava](/en/sync/strava): kun OAuth, kommer i Q3 2026.",
+        "[Strava](/en/sync/strava): OAuth aktivt til læsning, men adgangen er begrænset — nye forbindelser kræver godkendelse fra Strava.",
         "[Oura Ring](/en/sync/oura): kun OAuth, kommer i Q4 2026.",
         "[Huawei](/en/sync/huawei): Health Kit OAuth, under evaluering."
       ],
@@ -11337,7 +11337,7 @@
         "[Garmin](/en/sync/garmin): perustiedot tänään HC:n kautta, Body Battery/Training Load tulossa Q3 2026.",
         "[Polar](/en/sync/polar): perustiedot tänään HC:n kautta, Accesslink OAuth tulossa Q4 2026.",
         "[Withings](/en/sync/withings): perustiedot tänään HC:n kautta, API v2 OAuth Q4 2026 -tiekartalla.",
-        "[Strava](/en/sync/strava): vain OAuth, tulossa Q3 2026.",
+        "[Strava](/en/sync/strava): OAuth aktiivinen lukua varten, mutta pääsy on rajoitettu — uudet yhteydet vaativat Stravan hyväksynnän.",
         "[Oura Ring](/en/sync/oura): vain OAuth, tulossa Q4 2026.",
         "[Huawei](/en/sync/huawei): Health Kit OAuth, arvioinnissa."
       ],
@@ -11350,7 +11350,7 @@
         "[Garmin](/en/sync/garmin): grunnleggende i dag via HC, Body Battery/Training Load kommer Q3 2026.",
         "[Polar](/en/sync/polar): grunnleggende i dag via HC, Accesslink OAuth kommer Q4 2026.",
         "[Withings](/en/sync/withings): grunnleggende i dag via HC, API v2 OAuth på veikartet for Q4 2026.",
-        "[Strava](/en/sync/strava): kun OAuth, kommer Q3 2026.",
+        "[Strava](/en/sync/strava): OAuth aktivt for lesing, men tilgangen er begrenset — nye tilkoblinger krever godkjenning fra Strava.",
         "[Oura Ring](/en/sync/oura): kun OAuth, kommer Q4 2026.",
         "[Huawei](/en/sync/huawei): Health Kit OAuth, under vurdering."
       ]
@@ -11610,10 +11610,10 @@
       "no": "Har du allerede en smartklokke og vil bare ha et ryddig dashbord?"
     },
     "body.36.body": {
-      "sv": "FitMesh Sync läser från Health Connect (alla Android-wearables) och planerar OAuth för Garmin, Polar, Oura, Withings, Strava. 30 sekunders installation, inga annonser, inga spårare.",
-      "da": "FitMesh Sync læser fra Health Connect (enhver Android-wearable) og planlægger OAuth til Garmin, Polar, Oura, Withings, Strava. 30 sekunders opsætning, ingen reklamer, ingen trackere.",
-      "fi": "FitMesh Sync lukee Health Connect -palvelusta (mikä tahansa Android-puettava) ja suunnittelee OAuth-integraatioita seuraaville palveluille: Garmin, Polar, Oura, Withings ja Strava. 30 sekunnin käyttöönotto, ei mainoksia, ei seurantaa.",
-      "no": "FitMesh Sync leser fra Health Connect (alle bærbare Android-enheter) og planlegger OAuth for Garmin, Polar, Oura, Withings, Strava. 30 sekunders oppsett, ingen annonser, ingen sporere."
+      "sv": "FitMesh Sync läser från Health Connect (alla Android-wearables, inklusive Garmin, Polar, Withings) och har redan ett aktivt OAuth med Strava (åtkomsten är begränsad — nya anslutningar kräver Stravas godkännande). OAuth för Oura är fortfarande på väg. 30 sekunders installation, inga annonser, inga spårare.",
+      "da": "FitMesh Sync læser fra Health Connect (alle Android-wearables, inklusive Garmin, Polar, Withings) og har allerede en aktiv OAuth-forbindelse med Strava (adgangen er begrænset — nye forbindelser kræver Stravas godkendelse). OAuth til Oura er stadig på vej. 30 sekunders opsætning, ingen reklamer, ingen trackere.",
+      "fi": "FitMesh Sync lukee Health Connect -palvelusta (kaikki Android-puettavat, mukaan lukien Garmin, Polar, Withings) ja sillä on jo aktiivinen OAuth-yhteys Stravaan (pääsy on rajoitettu — uudet yhteydet vaativat Stravan hyväksynnän). OAuth Ouralle on vielä tulossa. 30 sekunnin käyttöönotto, ei mainoksia, ei seurantaa.",
+      "no": "FitMesh Sync leser fra Health Connect (alle bærbare Android-enheter, inkludert Garmin, Polar, Withings) og har allerede en aktiv OAuth-tilkobling med Strava (tilgangen er begrenset — nye tilkoblinger krever godkjenning fra Strava). OAuth for Oura kommer fortsatt. 30 sekunders oppsett, ingen annonser, ingen sporere."
     },
     "body.36.ctaLabel": {
       "sv": "Se alla integrationer",
@@ -12972,7 +12972,7 @@
     },
     "body.13.items": {
       "sv": [
-        "**FitMesh Sync**: hämtar data från Health Connect (alla Android-kompatibla bärbara enheter) och OAuth-plan för Garmin/Polar/Oura/Withings/Strava år 2026. Webbaserad kontrollpanel + Android-app. Engångspris.",
+        "**FitMesh Sync**: hämtar data från Health Connect (alla Android-kompatibla bärbara enheter), med redan aktivt OAuth för Garmin, Polar och Withings (Oura kommer snart). Strava har begränsad åtkomst: läsningen fungerar för redan anslutna konton, nya anslutningar kräver Stravas godkännande. Webbaserad kontrollpanel + Android-app. Engångspris.",
         "**Welltory**: App för iOS och Android med kontrollpanel och HRV-baserad coaching. Premiumtjänst med prenumeration.",
         "**Heads Up Health**: en teknisk översiktspanel som stöder över 50 källor, däribland CGM- och laboratoriedata. Utvecklad för biohackare. Abonnemang.",
         "**Bearable**: app för att följa symtom och humör med import av hälsodata. Med särskilt fokus på psykisk hälsa. Freemium.",

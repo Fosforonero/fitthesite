@@ -8,6 +8,7 @@ import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 import { famigliaLinkHref } from "@/lib/content/static-page-locales";
 import { REDDIT_URL, REDDIT_COMMUNITY_LIVE } from "@/lib/product-facts";
 import { COMMUNITY_PLACEMENTS } from "@/lib/analytics/cta";
+import RedditIcon from "@/components/RedditIcon";
 
 export default function Footer({
   dict,
@@ -110,13 +111,32 @@ export default function Footer({
                 il Referer a Reddit all'apertura. */}
             {REDDIT_COMMUNITY_LIVE && (
               <li>
+                {/* P1.9 FASE 7: icona ufficiale aggiunta come asset locale
+                    (RedditIcon.tsx), sempre accanto al testo — mai
+                    icon-only. Stesso href/target/rel/data-cta-placement di
+                    prima, nessun cambio di comportamento tracciato.
+                    ADDENDUM P1.9 (2026-09-01): area cliccabile portata a
+                    44px esatti (WCAG 2.5.5/HIG) con py-3 (12px sopra/sotto,
+                    text-sm a 20px di line-height => 44px totali) compensato
+                    da -my-3 sullo stesso elemento — il padding espande
+                    l'hit-area del link, il margine negativo annulla lo
+                    stesso spazio nel flusso del layout, cosi' lo
+                    space-y-2.5 della <ul> (10px) resta visivamente
+                    invariato e icona/testo non cambiano dimensione.
+                    L'espansione (12px) supera di 2px il gap sopra
+                    (10px) verso "Support", che non ha padding proprio:
+                    overlap minimo alla giunzione, non un vero doppio
+                    target — accettabile, non elimina la cliccabilita' di
+                    "Support". Ultimo item della lista: nessun vincolo
+                    sotto. */}
                 <a
                   href={REDDIT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cta-placement={COMMUNITY_PLACEMENTS.footer}
-                  className="text-text-secondary hover:text-text-primary transition"
+                  className="inline-flex items-center gap-1.5 py-3 -my-3 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
                 >
+                  <RedditIcon className="h-4 w-4 flex-shrink-0" />
                   {dict.footer.links.community}
                 </a>
               </li>
