@@ -33,6 +33,7 @@
 import { BLOG_POSTS_BY_SLUG } from "../lib/blog/data";
 import { isBlogVariantIndexable, blogLanguages } from "../lib/blog/indexability";
 import { CONTENT_CLUSTERS } from "../lib/analytics/cta";
+import { blogSeoTitle } from "../lib/blog/types";
 import type { BlogSection } from "../lib/blog/types";
 
 let errors: string[] = [];
@@ -175,6 +176,84 @@ for (const slug of ["galaxy-ring-android-health-connect", "oura-ring-health-conn
   }
 }
 
+// ── 7: fonti inline REALMENTE presenti, per-locale, per pl/ja su
+//      health-connect-not-syncing — non il controllo cross-locale di
+//      tools/check-p16-visible-sources.ts (quello concatena TUTTE le
+//      stringhe di TUTTE le locale con Object.values(l): un URL presente
+//      solo in EN basta a farlo passare anche se pl/ja non lo linkano mai
+//      — esattamente il gap che ha permesso allo sblocco pl/ja di questo
+//      sprint di restare privo di fonti visibili finché non verificato a
+//      mano in FASE 3 del MICRO-GATE P1.9-A). Questo controllo è
+//      volutamente ristretto a pl/ja su QUESTO slug (le due locale che
+//      QUESTO sprint rende indicizzabili) e non esteso sitewide: irrigidire
+//      check-p16 per tutte le locale di tutti i post richiederebbe un
+//      audit di regressione su contenuto non toccato da questo sprint,
+//      fuori scope.
+checks++;
+{
+  const post = BLOG_POSTS_BY_SLUG["health-connect-not-syncing"] as any;
+  const sources: string[] = post?.sources ?? [];
+  for (const lc of ["pl", "ja"] as const) {
+    const strings: string[] = [];
+    const pushLocalized = (l: any) => {
+      if (!l) return;
+      const v = l[lc];
+      if (typeof v === "string") strings.push(v);
+      if (Array.isArray(v)) strings.push(...v.filter((x) => typeof x === "string"));
+    };
+    for (const s of post.body as any[]) {
+      if ("text" in s) pushLocalized(s.text);
+      if ("body" in s) pushLocalized(s.body);
+      if ("title" in s && s.title) pushLocalized(s.title);
+      if ("caption" in s && s.caption) pushLocalized(s.caption);
+    }
+    for (const f of post.faq ?? []) pushLocalized(f.a);
+    const joined = strings.join(" ");
+    const missing = sources.filter((u) => !joined.includes(u));
+    if (missing.length > 0) {
+      errors.push(`[inline-source-per-locale] health-connect-not-syncing (${lc}): ${missing.length}/${sources.length} URL di sources NON compaiono come link nel testo ${lc} stesso: ${missing.join(", ")}`);
+    }
+  }
+}
+
+// ── 8: nessun claim assoluto tipo "N soluzioni CHE FUNZIONANO" nel
+//      seoTitle di pl/ja — P1.8A-A aveva già escluso questa formula da
+//      EN/nl/de/es/fr/pt (vedi commenti sopra il campo seoTitle); pl/ja
+//      erediterebbero lo stesso claim assoluto via fallback su hero.title
+//      se il loro override sparisse. Pattern needle-based, non regex
+//      generica, per restare mirato esattamente alla formula già corretta
+//      altrove invece di bloccare frasi oneste che menzionano "funziona".
+const ABSOLUTE_TITLE_NEEDLES: { locale: string; needle: string }[] = [
+  { locale: "pl", needle: "które działają" },
+  { locale: "ja", needle: "効果のある" },
+];
+checks++;
+{
+  const post = BLOG_POSTS_BY_SLUG["health-connect-not-syncing"] as any;
+  for (const { locale, needle } of ABSOLUTE_TITLE_NEEDLES) {
+    const title: string = post.seoTitle?.[locale] ?? "";
+    if (title.includes(needle)) {
+      errors.push(`[seotitle-absolute-claim] health-connect-not-syncing seoTitle.${locale} contiene "${needle}" — claim assoluto di efficacia già escluso da P1.8A-A per le altre lingue`);
+    }
+  }
+}
+
+// ── 9: titolo renderizzato (seoTitle + " · FitMesh") entro il limite del
+//      sito (60 caratteri, stessa soglia usata da tutti i commenti P0.8/
+//      P1.5B/P1.8A/P1.8A-A sopra in questo stesso file) per pl/ja.
+const TITLE_SUFFIX = " · FitMesh";
+const TITLE_LIMIT = 60;
+checks++;
+{
+  const post = BLOG_POSTS_BY_SLUG["health-connect-not-syncing"] as any;
+  for (const lc of ["pl", "ja"] as const) {
+    const rendered = blogSeoTitle(post, lc) + TITLE_SUFFIX;
+    if (rendered.length > TITLE_LIMIT) {
+      errors.push(`[title-too-long] health-connect-not-syncing (${lc}): titolo renderizzato "${rendered}" è ${rendered.length} caratteri, oltre il limite di ${TITLE_LIMIT}`);
+    }
+  }
+}
+
 // Nota: un controllo su fitmesh-vs-alternative-sync.ts (slug EN sbagliati)
 // è stato scritto e poi rimosso da questo file — quel post esiste solo nel
 // branch PR A (feat/p19a-search-to-install-funnel), non in questo branch
@@ -187,5 +266,5 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  `✅ P1.9 ring/locale guardrail OK: ${checks} controlli — zero claim assoluti residui, HRV trattata esplicitamente, zero fallback EN/PL, indicizzabilità esatta (pl/ja dentro, ko/tr/no/fi fuori), hreflang coerente, struttura CTA valida (no duplicati, ≤3 benefici, nessun claim SpO2+temperatura insieme).`,
+  `✅ P1.9 ring/locale guardrail OK: ${checks} controlli — zero claim assoluti residui, HRV trattata esplicitamente, zero fallback EN/PL, indicizzabilità esatta (pl/ja dentro, ko/tr/no/fi fuori), hreflang coerente, struttura CTA valida (no duplicati, ≤3 benefici, nessun claim SpO2+temperatura insieme), fonti inline per-locale verificate su pl/ja, nessun claim assoluto "che funzionano" nel seoTitle pl/ja, titolo renderizzato entro 60 caratteri.`,
 );
