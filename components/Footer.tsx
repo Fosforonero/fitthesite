@@ -8,6 +8,7 @@ import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 import { famigliaLinkHref } from "@/lib/content/static-page-locales";
 import { REDDIT_URL, REDDIT_COMMUNITY_LIVE } from "@/lib/product-facts";
 import { COMMUNITY_PLACEMENTS } from "@/lib/analytics/cta";
+import RedditIcon from "@/components/RedditIcon";
 
 export default function Footer({
   dict,
@@ -110,13 +111,20 @@ export default function Footer({
                 il Referer a Reddit all'apertura. */}
             {REDDIT_COMMUNITY_LIVE && (
               <li>
+                {/* P1.9 FASE 7: icona ufficiale aggiunta come asset locale
+                    (RedditIcon.tsx), sempre accanto al testo — mai
+                    icon-only. Stesso href/target/rel/data-cta-placement di
+                    prima, nessun cambio di comportamento tracciato. Il
+                    padding verticale allarga il touch target oltre la sola
+                    riga di testo. */}
                 <a
                   href={REDDIT_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cta-placement={COMMUNITY_PLACEMENTS.footer}
-                  className="text-text-secondary hover:text-text-primary transition"
+                  className="inline-flex items-center gap-1.5 py-0.5 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
                 >
+                  <RedditIcon className="h-4 w-4 flex-shrink-0" />
                   {dict.footer.links.community}
                 </a>
               </li>

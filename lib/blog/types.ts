@@ -12,6 +12,7 @@
  * stringhe è ammesso solo `**bold**` light-markdown via `renderInlineBold`.
  */
 import type { Locale } from "@/lib/i18n";
+import type { ContentCluster } from "@/lib/analytics/cta";
 
 export type Localized = {
   it: string;
@@ -137,6 +138,31 @@ export type BlogSection = (
       ctaHref: Localized;
       ctaId?: string;
       ctaPlacement?: string;
+    }
+  | {
+      /**
+       * P1.9 FASE 3 — modulo editoriale FitMesh per il funnel SEO→installazione.
+       * Diverso dal blocco "cta" generico sopra: la CTA primaria è SEMPRE
+       * StoreButtonsRow (store/platform-aware per costruzione, non un href
+       * generico), supporta fino a 3 benefici verificati, e un link
+       * secondario opzionale verso la landing/pagina di verità tecnica
+       * pertinente. `contentCluster` alimenta la dimensione analytics
+       * omonima (lib/analytics/cta.ts); `placement` accetta solo le due
+       * posizioni ammesse dal mandato — un solo blocco per posizione per
+       * post, verificato da tools/check-p19a-funnel-module.ts (non dal
+       * sistema di tipi: TS non può contare le occorrenze in un array).
+       *
+       * `benefits`: al massimo 3 voci, ciascuna un fatto verificato (non uno
+       * slogan) — enforced dal guardrail, non dal tipo.
+       */
+      type: "fitmesh-editorial-cta";
+      contentCluster: ContentCluster;
+      placement: "after_solution" | "article_end";
+      title: Localized;
+      body: Localized;
+      benefits: LocalizedList;
+      secondaryHref?: Localized;
+      secondaryLabel?: Localized;
     }
   | {
       /**

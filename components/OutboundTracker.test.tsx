@@ -203,6 +203,11 @@ describe("privacy — superficie dei dati", () => {
       "campaign",
       "path",
       "page_path",
+      // P1.9 FASE 6: content_cluster (famiglia editoriale) e target_type
+      // (store vs internal_landing) — entrambi vocabolari chiusi, nessun
+      // dato sanitario/identificativo, vedi lib/analytics/cta.ts.
+      "content_cluster",
+      "target_type",
     ]);
 
     render(

@@ -7,6 +7,7 @@ import { SUPPORT_FAQS } from "@/lib/content/faqs";
 import { SITE_URL, REDDIT_URL, REDDIT_COMMUNITY_LIVE } from "@/lib/product-facts";
 import { COMMUNITY_PLACEMENTS } from "@/lib/analytics/cta";
 import { schemaLanguage } from "@/lib/seo/schema-language";
+import RedditIcon from "@/components/RedditIcon";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -194,13 +195,17 @@ export default async function SupportPage({
             rel. Vedi components/Footer.tsx per la motivazione completa. */}
         {REDDIT_COMMUNITY_LIVE && (
           <p className="mt-2 text-sm">
+            {/* P1.9 FASE 7: icona ufficiale come asset locale, sempre
+                accanto al testo "r/FitMesh — ..." già presente — mai
+                icon-only. Stesso href/target/rel/data-cta-placement. */}
             <a
               href={REDDIT_URL}
               target="_blank"
               rel="noopener noreferrer"
               data-cta-placement={COMMUNITY_PLACEMENTS.support}
-              className="text-brand-aqua hover:text-brand-blue underline underline-offset-4"
+              className="inline-flex items-center gap-1.5 py-0.5 text-brand-aqua hover:text-brand-blue underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
             >
+              <RedditIcon className="h-4 w-4 flex-shrink-0" />
               r/FitMesh — {t.footer.links.community}
             </a>
           </p>

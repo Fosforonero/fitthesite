@@ -164,7 +164,20 @@ export const post: BlogPost = {
       type: "paragraph",
       text: {
         it: "FitMesh Sync legge i dati via Health Connect su Android o direttamente dall'anello Colmi via Bluetooth, li deduplica quando più fonti coprono lo stesso intervallo, e li mostra sia nell'app sia in una dashboard web vera, accessibile da qualsiasi browser con lo stesso account. È quindi più vicino nell'impostazione a FitnessSyncer che a Health Sync o Gadgetbridge: c'è un secondo posto dove guardare i tuoi dati, non solo un ponte tra due app. La differenza è dove vivono i dati e come si paga il servizio: server nell'Unione Europea, trattamento conforme al GDPR, nessuna pubblicità nell'app, nessuna vendita dei dati a terzi. Il servizio si sostiene con un prezzo diretto (un piccolo abbonamento o uno sblocco a vita), non monetizzando i tuoi dati. I primi 1000 iscritti founder (entro il 31 luglio 2026) hanno ottenuto il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa prima di decidere. Il dettaglio del modello di prezzo è nella guida [FitMesh è gratis? Prezzo e posti founder](/it/blog/fitmesh-gratis-prezzo-founder), e il dettaglio su dove vivono i dati e come vengono trattati secondo il GDPR è nella guida [Dove sono i tuoi dati e perché un server in UE conta](/it/blog/dove-sono-i-tuoi-dati-server-ue).",
-        en: "FitMesh Sync reads data via Health Connect on Android or directly from the Colmi ring over Bluetooth, deduplicates it when multiple sources cover the same window, and shows it both in the app and in a real web dashboard, reachable from any browser with the same account. So in setup it's closer to FitnessSyncer than to Health Sync or Gadgetbridge: there's a second place to actually look at your data, not just a bridge between two apps. The difference is where the data lives and how the service is paid for: servers in the European Union, GDPR-compliant handling, no ads in the app, no data sold to third parties. The service is funded by a direct price (a small subscription or a lifetime unlock), not by monetizing your data. The first 1,000 founder sign-ups (by July 31, 2026) got lifetime Pro free; everyone else gets a full 14-day trial before deciding. The full pricing model is in the guide [Is FitMesh free? Pricing and founder spots](/en/blog/fitmesh-gratis-prezzo-founder), and the detail on where the data lives and how it's handled under GDPR is in [Where your data actually lives, and why an EU server matters](/en/blog/dove-sono-i-tuoi-dati-server-ue).",
+        en: "FitMesh Sync reads data via Health Connect on Android or directly from the Colmi ring over Bluetooth, deduplicates it when multiple sources cover the same window, and shows it both in the app and in a real web dashboard, reachable from any browser with the same account. So in setup it's closer to FitnessSyncer than to Health Sync or Gadgetbridge: there's a second place to actually look at your data, not just a bridge between two apps. The difference is where the data lives and how the service is paid for: servers in the European Union, GDPR-compliant handling, no ads in the app, no data sold to third parties. The service is funded by a direct price (a small subscription or a lifetime unlock), not by monetizing your data. The first 1,000 founder sign-ups (by July 31, 2026) got lifetime Pro free — that program is now closed to new sign-ups; everyone else gets a full 14-day trial before deciding. The full pricing model is in the guide [Is FitMesh free? Pricing and founder spots](/en/blog/is-fitmesh-free-pricing-founder), and the detail on where the data lives and how it's handled under GDPR is in [Where your data actually lives, and why an EU server matters](/en/blog/where-your-data-lives-eu-server).",
+      },
+    },
+    {
+      // P1.9 FASE 5 — completa i requisiti mancanti trovati dall'audit:
+      // per-chi-NON-e-adatto esplicito, self-host (limitato, non
+      // self-service — testo cauto per non introdurre una nuova
+      // imprecisione), elenco reale degli ecosistemi via link a
+      // /integrations, link a /privacy. Nessuna nuova comparazione
+      // denigratoria: stesso tono onesto del resto dell'articolo.
+      type: "paragraph",
+      text: {
+        it: "FitMesh Sync non è per tutti. Se non usi Android né un anello Colmi, o se il tuo unico obiettivo è collegare due app già esistenti senza guardare mai una dashboard, una delle tre alternative sopra probabilmente ti serve meglio. Esiste anche un percorso self-host per chi vuole puntare il software a un proprio backend, ma **è un meccanismo limitato per uso tecnico, non un'opzione self-service pensata per chiunque**: scrittura, export e cancellazione dei dati restano comunque legati al backend gestito da FitMesh (dettagli nella pagina [self-host](/it/self-host)). Per l'elenco completo e sempre aggiornato degli ecosistemi che FitMesh legge davvero — Health Connect, Apple Health, e le integrazioni dirette come gli anelli Colmi — vedi la pagina [Integrazioni](/it/integrations). La gestione dei dati secondo il GDPR è descritta anche nella pagina [Privacy](/it/privacy).",
+        en: "FitMesh Sync isn't for everyone. If you don't use Android or a Colmi ring, or if all you want is to connect two existing apps without ever looking at a dashboard, one of the three alternatives above is probably a better fit. There's also a self-host path for people who want to point the software at their own backend, but **it's a limited mechanism for technical use, not a self-service option meant for everyone**: writing, export and deletion of data still go through FitMesh's managed backend either way (details on the [self-host](/en/self-host) page). For the full, always-current list of ecosystems FitMesh actually reads from — Health Connect, Apple Health, and direct integrations like Colmi rings — see the [Integrations](/en/integrations) page. GDPR data handling is also described on the [Privacy](/en/privacy) page.",
       },
     },
     {
@@ -222,17 +235,42 @@ export const post: BlogPost = {
       },
     },
     {
-      type: "cta",
+      // P1.9 FASE 3/4/5: sostituisce il blocco "cta" — CTA store-aware,
+      // niente riferimento al programma founder (chiuso, per non ripetere
+      // il rischio segnalato dall'audit di leggerlo come offerta attiva),
+      // link secondario a /integrations. Contratto "confronti": FitMesh è
+      // complementare/una delle opzioni, non l'unica scelta sensata.
+      type: "fitmesh-editorial-cta",
+      contentCluster: "fitmesh_vs_alternatives",
+      placement: "article_end",
       title: {
-        it: "Prova FitMesh Sync e guarda dove vivono i tuoi dati",
-        en: "Try FitMesh Sync and see exactly where your data lives",
+        it: "Se lo spazio di FitMesh ti sembra quello giusto",
+        en: "If FitMesh's space sounds like the right fit",
       },
       body: {
-        it: "Dashboard web e app, server in UE, nessuna pubblicità, nessuna vendita dei dati. I primi 1000 iscritti founder (entro il 31 luglio 2026) hanno ottenuto il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa.",
-        en: "Web dashboard and app, EU servers, no ads, no data sold. The first 1,000 founder sign-ups (by July 31, 2026) got lifetime Pro free; everyone else gets a full 14-day trial.",
+        it: "Nessuna delle quattro opzioni di questo confronto è sbagliata: dipende da cosa ti serve davvero. Se cerchi una dashboard web reale con i dati su server europei trattati secondo il GDPR, prova FitMesh Sync con 14 giorni di prova completa.",
+        en: "None of the four options in this comparison is wrong: it depends on what you actually need. If you're after a real web dashboard with your data on European servers handled under GDPR, try FitMesh Sync with a full 14-day trial.",
       },
-      ctaLabel: { it: "Prova FitMesh gratuitamente →", en: "Try FitMesh free →" },
-      ctaHref: { it: "/it#download", en: "/en#download" },
+      benefits: {
+        it: [
+          "Dashboard web vera, non solo un bridge tra due app",
+          "Server nell'Unione Europea, trattamento conforme al GDPR",
+          "Nessuna pubblicità, nessuna vendita dei dati a terzi",
+        ],
+        en: [
+          "A real web dashboard, not just a bridge between two apps",
+          "Servers in the European Union, GDPR-compliant handling",
+          "No ads, no data sold to third parties",
+        ],
+      },
+      secondaryLabel: {
+        it: "Vedi tutte le integrazioni",
+        en: "See all integrations",
+      },
+      secondaryHref: {
+        it: "/it/integrations",
+        en: "/en/integrations",
+      },
     },
   ],
   faq: [

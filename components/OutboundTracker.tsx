@@ -6,6 +6,7 @@ import {
   CTA_CAMPAIGN,
   CTA_NO_STORE_DESTINATION,
   CTA_UNSPECIFIED,
+  TARGET_TYPES,
   resolveStoreLink,
   resolveCommunityLink,
 } from "@/lib/analytics/cta";
@@ -104,6 +105,29 @@ export default function OutboundTracker() {
       );
     }
 
+    /**
+     * P1.9 FASE 6 — `content_cluster`: antenato più vicino con
+     * `data-cta-content-cluster` (dichiarato sul wrapper del modulo
+     * editoriale, `fitmesh-editorial-cta` in BlogRenderer). Assente per ogni
+     * CTA pre-esistente: nessuna modifica al payload di quelle CTA.
+     */
+    function contentClusterOf(el: Element | null | undefined): string {
+      const holder = el?.closest?.("[data-cta-content-cluster]");
+      return holder?.getAttribute("data-cta-content-cluster") ?? CTA_UNSPECIFIED;
+    }
+
+    /**
+     * P1.9 FASE 6 — `target_type`: antenato più vicino con
+     * `data-cta-target-type` ("store" fisso su StoreButtonsRow, oppure
+     * "internal_landing" dichiarato a mano sul link secondario del modulo
+     * editoriale). Assente per ogni CTA pre-esistente diversa da
+     * StoreButtonsRow.
+     */
+    function targetTypeOf(el: Element | null | undefined): string {
+      const holder = el?.closest?.("[data-cta-target-type]");
+      return holder?.getAttribute("data-cta-target-type") ?? CTA_UNSPECIFIED;
+    }
+
     function onClick(e: MouseEvent) {
       const target = e.target as HTMLElement | null;
       const a = target?.closest?.("a");
@@ -124,6 +148,11 @@ export default function OutboundTracker() {
           cta_location: placement,
           placement,
           campaign: CTA_CAMPAIGN,
+          // P1.9 FASE 6: sempre "none"/"store" per le CTA pre-esistenti che
+          // non dichiarano data-cta-content-cluster (nessun cambio di
+          // significato), popolato per il modulo editoriale nuovo.
+          content_cluster: contentClusterOf(a),
+          target_type: TARGET_TYPES.store,
         });
       }
     }
@@ -146,6 +175,8 @@ export default function OutboundTracker() {
           page_path: window.location.pathname,
           path: window.location.pathname,
           locale: currentLocale(),
+          content_cluster: contentClusterOf(ctaEl),
+          target_type: store ? TARGET_TYPES.store : targetTypeOf(ctaEl),
         });
       }
     }
@@ -217,6 +248,8 @@ export default function OutboundTracker() {
               page_path: window.location.pathname,
               path: window.location.pathname,
               locale: currentLocale(),
+              content_cluster: contentClusterOf(entry.target),
+              target_type: targetTypeOf(entry.target),
             });
           }
         }
