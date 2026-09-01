@@ -119,3 +119,7 @@ OK   20260825130100_billing_autorita_canonica.sql
 OK   20260825130200_billing_guardia_proiezione.sql
 OK   20260825130300_billing_ordine_lock_e_gdpr.sql
 OK   20260827120000_sonno_indice_segue_la_principale.sql
+OK   20260901121214_dashboard_snapshot_admin_wrapper.sql
+OK   20260901121244_dashboard_snapshot_admin_wrapper_revoke_anon.sql
+OK   20260901121909_dashboard_snapshot_add_analytics_extras.sql
+OK   20260901151500_dashboard_snapshot_pro_attivi_con_extras.sql

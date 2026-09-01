@@ -59,15 +59,16 @@ pending() {
 # E soprattutto: ogni sonda VERIFICA DI AVER MORSO. Una sonda che non altera
 # niente non e' una prova riuscita, e' una prova che non e' partita — lo
 # stesso difetto che M30 ha appena chiuso nel gate 16. Qui fallisce chiusa.
-SONDA_EXTRA=""; SONDA_SALTA=""; SONDA_HASH=""
+SONDA_EXTRA=""; SONDA_SALTA=""; SONDA_HASH=""; SONDA_CONSUNTIVO=""
 case "$MODO" in
+  --sonda-consuntivo) SONDA_CONSUNTIVO=1 ;;
   --sonda-nuova)    SONDA_EXTRA="0000000000000000000000000000000000000000000000000000000000000000	20260826999999_migration_mai_dichiarata" ;;
   --sonda-mancante) SONDA_SALTA="20260825130000_billing_registro_fondamenta" ;;
   --sonda-modificata) SONDA_HASH="20260825130300_billing_ordine_lock_e_gdpr" ;;
   --autocontrollo)
     echo "== autocontrollo: il gate sa diventare rosso? =="
     fallito=0
-    for s in --sonda-nuova --sonda-mancante --sonda-modificata; do
+    for s in --sonda-nuova --sonda-mancante --sonda-modificata --sonda-consuntivo; do
       out="$(bash "$0" "$s" 2>&1)"; c=$?
       if [ "$c" -eq 0 ]; then
         echo "  ROSSO  $s: uscito 0. Il gate non sa fallire."
@@ -94,7 +95,7 @@ PRIMA="$DISCO"
 # inerte e il gate resterebbe verde per la ragione sbagliata. Un
 # `--autocontrollo` che legge quel verde direbbe «il gate non sa fallire»
 # senza saper dire che il difetto sta nella sonda, non nel gate.
-if [ -n "$MODO" ] && [ "$DISCO" = "$PRIMA" ]; then
+if [ -n "$MODO" ] && [ -z "$SONDA_CONSUNTIVO" ] && [ "$DISCO" = "$PRIMA" ]; then
   echo "ROSSO: la sonda $MODO non ha alterato l'insieme pending."
   echo "       Il bersaglio che nomina non e' (piu') fra le migration pending:"
   echo "       la sonda e' spuntata e non sta provando niente sul gate."
@@ -145,9 +146,91 @@ echo
 echo "== classificazione dichiarata =="
 grep -v '^#' "$MANIFESTO" | awk -F'\t' 'NF>=5 {print "  " $4 "  " $2}' | sort | sed 's/  */ /2'
 
+# ── IL CONSUNTIVO DELLA FINESTRA ───────────────────────────────────────────
+#
+# La classificazione dice cosa si VOLEVA fare il 26/08. Non e' il consuntivo:
+# tre migration classificate «190-richiesta» sono poi uscite dall'allowlist e
+# non sono mai state applicate. Un manifesto che si fermasse alla
+# classificazione direbbe che sono dodici le richieste e nove le applicate, e
+# non permetterebbe di accorgersene.
+#
+# Le quattro righe REGISTRATE/NON REGISTRATE dichiarano cosa e' STATO fatto, e
+# qui si pretende che PARTIZIONINO l'insieme pending: ogni versione in
+# esattamente una, nessuna fuori, nessuna in due. Poi si controlla che i conti
+# tornino fra loro.
+#
+# Cosa NON prova questo gate: che il registro VIVO contenga davvero quelle 101
+# versioni. Qui non c'e' database. Quella prova la da' il gate finale, in sola
+# lettura, sull'insieme esatto.
+echo
+echo "== consuntivo della finestra 190 =="
+leggi_elenco() { grep -m1 "^# $1:" "$MANIFESTO" | sed "s/^# $1: *//" | tr ' ' '\n' | sed '/^$/d' | sort; }
+leggi_numero() { grep -m1 "^# $1:" "$MANIFESTO" | sed "s/^# $1: *//" | tr -d '[:space:]'; }
+
+D_TOT="$(leggi_numero 'REGISTRATE IN PRODUZIONE AL TERMINE DELLA FINESTRA')"
+D_BASE="$(leggi_numero 'BASELINE REGISTRATE PRIMA DELLA FINESTRA')"
+D_DELTA="$(leggi_numero 'DELTA FINESTRA 190')"
+# La sonda del consuntivo non tocca il disco: falsifica il numero DICHIARATO,
+# che e' l'unica cosa che questa parte del gate misura.
+[ -n "$SONDA_CONSUNTIVO" ] && D_DELTA=$((D_DELTA + 1))
+E_REL="$(leggi_elenco 'RELEASE 190 REGISTRATE')"
+E_DASH="$(leggi_elenco 'DASHBOARD FUORI BANDA REGISTRATE')"
+E_NO="$(leggi_elenco 'NON REGISTRATE PER SCELTA')"
+E_191="$(leggi_elenco 'NON REGISTRATE, FUTURE (PENDING_191)')"
+
+if [ -z "$D_TOT" ] || [ -z "$D_BASE" ] || [ -z "$D_DELTA" ] || [ -z "$E_REL" ] || [ -z "$E_DASH" ] || [ -z "$E_191" ]; then
+  echo "  ROSSO  il manifesto non dichiara il consuntivo (totale, baseline, delta, i tre elenchi)."
+  echo "         Senza consuntivo il gate non sa distinguere cio' che e' registrato da cio' che non lo e'."
+  esito=1
+else
+  n_rel=$(printf '%s\n' "$E_REL" | grep -c .)
+  n_dash=$(printf '%s\n' "$E_DASH" | grep -c .)
+  n_no=$(printf '%s\n' "$E_NO" | grep -c .)
+  n_191=$(printf '%s\n' "$E_191" | grep -c .)
+
+  # 1. partizione: ogni versione pending in esattamente un elenco
+  VERSIONI="$(printf '%s\n' "$DICH" | cut -f2 | sed 's/_.*//' | sort)"
+  UNIONE="$(printf '%s\n%s\n%s\n%s\n' "$E_REL" "$E_DASH" "$E_NO" "$E_191" | sed '/^$/d' | sort)"
+  DOPPIE="$(printf '%s\n' "$UNIONE" | uniq -d)"
+  if [ -n "$DOPPIE" ]; then
+    echo "  ROSSO  versioni dichiarate in due elenchi diversi: $(printf '%s ' $DOPPIE)"
+    esito=1
+  fi
+  if [ "$VERSIONI" != "$(printf '%s\n' "$UNIONE" | uniq)" ]; then
+    echo "  ROSSO  il consuntivo non partiziona l'insieme pending:"
+    diff <(printf '%s\n' "$VERSIONI") <(printf '%s\n' "$UNIONE" | uniq) \
+      | sed 's/^</         solo sul disco: /; s/^>/         solo nel consuntivo: /' | grep ':' | head -8
+    esito=1
+  else
+    echo "  ok     partizione: $n_rel release + $n_dash dashboard + $n_no escluse + $n_191 future = $(printf '%s\n' "$VERSIONI" | grep -c .) pending"
+  fi
+
+  # 2. i conti fra loro
+  if [ "$((n_rel + n_dash))" -ne "${D_DELTA:-0}" ]; then
+    echo "  ROSSO  delta dichiarato $D_DELTA, ma gli elenchi ne contano $((n_rel + n_dash)) ($n_rel + $n_dash)."
+    esito=1
+  elif [ "$((D_BASE + D_DELTA))" -ne "${D_TOT:-0}" ]; then
+    echo "  ROSSO  $D_BASE + $D_DELTA <> $D_TOT: il totale dichiarato non torna."
+    esito=1
+  else
+    echo "  ok     registrate in produzione ... $D_TOT   ($D_BASE baseline + $D_DELTA finestra)"
+    echo "  ok     delta della finestra ....... $D_DELTA   ($n_rel release + $n_dash dashboard fuori banda)"
+    echo "  ok     future, non registrate .... $n_191   PENDING_191, fuori dal registro per scelta"
+  fi
+
+  # 3. l'elenco PENDING_191 e la classificazione delle righe devono coincidere
+  CLASS_191="$(grep -v '^#' "$MANIFESTO" | awk -F'\t' 'NF>=5 && $4=="PENDING_191" {print $2}' | sed 's/_.*//' | sort)"
+  if [ "$CLASS_191" != "$E_191" ]; then
+    echo "  ROSSO  l'elenco PENDING_191 e le righe classificate PENDING_191 non coincidono:"
+    diff <(printf '%s\n' "$E_191") <(printf '%s\n' "$CLASS_191") | sed 's/^/         /' | head -6
+    esito=1
+  fi
+fi
+
 echo
 if [ "$esito" -ne 0 ]; then
   echo "ROSSO: l'insieme pending non coincide col manifesto congelato. Il deploy si ferma."
   exit 1
 fi
-echo "VERDE: $n_dich migration pending, tutte dichiarate e con impronta invariata."
+echo "VERDE: $n_dich migration pending, tutte dichiarate e con impronta invariata;"
+echo "       consuntivo coerente: ${D_TOT:-?} registrate, ${D_DELTA:-?} nella finestra, ${n_191:-?} futura non registrata."

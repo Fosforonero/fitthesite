@@ -111,14 +111,33 @@ done | tee /tmp/orfani-17.txt
 grep -q ROSSO /tmp/orfani-17.txt 2>/dev/null && esito=1
 
 # 5 — ogni voce deve essere davvero eseguita da 18-rollback-due-modalita.sh.
+#
+# La prima stesura si accontentava di `grep -q MANIFESTO` nel sorgente del
+# runner: verificava che la parola comparisse, non che l'elenco coincidesse.
+# Un runner che legge il manifesto e poi applica una glob diversa — cioe'
+# esattamente quello che 18 ha fatto per una settimana — passava.
+#
+# Ora si confrontano gli INSIEMI, nei due sensi, chiedendo al runner la sua
+# dichiarazione. Il runner, a sua volta, verifica in fondo che l'insieme
+# dichiarato sia quello eseguito: la catena regge da capo a fondo.
 ESEC="$QUI/18-rollback-due-modalita.sh"
 if [ ! -f "$ESEC" ]; then
   rosso "il runner 18-rollback-due-modalita.sh non esiste: nessuna voce e' eseguita."
 else
-  while read -r v; do [ -n "$v" ] || continue
-    grep -q "MANIFESTO" "$ESEC" || rosso "il runner non legge il manifesto: l'elenco tornerebbe a mano."
-    break
-  done <<<"$DICHIARATE"
+  DICH_18="$(bash "$ESEC" --dichiara 2>&1)"
+  if [ $? -ne 0 ]; then
+    rosso "il runner non sa dichiarare cosa esercita:
+$(printf '%s\n' "$DICH_18" | sed 's/^/         /')"
+  else
+    ATTESI="$(while read -r v; do [ -n "$v" ] || continue; echo "${v}_rollback.sql"; done <<<"$DICHIARATE" | sort)"
+    DICH_18="$(printf '%s\n' "$DICH_18" | sed '/^$/d' | sort)"
+    if [ "$ATTESI" != "$DICH_18" ]; then
+      rosso "il runner non esercita l'insieme del manifesto:
+$(diff <(printf '%s\n' "$ATTESI") <(printf '%s\n' "$DICH_18") | sed 's/^/         /')"
+    else
+      echo "  ok     il runner 18 dichiara ed esercita gli stessi $(printf '%s\n' "$ATTESI" | grep -c .) rollback del manifesto"
+    fi
+  fi
 fi
 
 # Cio' che sta fuori ambito ma non ha rollback: dichiarato, non nascosto.
@@ -130,8 +149,10 @@ ls -1 "$MIG"/*.sql | while read -r f; do
   awk -v v="$v" -v c="$CONFINE" 'BEGIN{exit !(v+0 < c+0 && v+0 > 20260818084202)}' || continue
   [ -f "$ROLL/${b}_rollback.sql" ] || echo "  (fuori ambito) $b"
 done
-echo "  Sono le forward-only del filone precedente, oltre l'ultima migration"
-echo "  registrata in produzione (20260818084202). Non le copre questo gate."
+echo "  Sono le forward-only del filone precedente: sopra la baseline"
+echo "  20260818084202 e sotto il confine $CONFINE del blocco 3B."
+echo "  Non le copre questo gate, e sei di esse restano ESCLUSE anche"
+echo "  dall'apply (120002, 120003, 120005, 120006, 120007, 120008)."
 
 echo
 if [ "$esito" -ne 0 ]; then

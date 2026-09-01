@@ -47,14 +47,46 @@ FAIL=0
 # e' esattamente la frase in testa a questo file, applicata al file stesso.
 #
 # La guardia confronta nei DUE sensi l'insieme esercitato con quello presente su
-# disco, meno le rollback del bundle 190: quelle non si esercitano qui, perche'
-# le loro migration non sono ancora applicate e questo gate gira sulla
-# ricostruzione. Sono provate dal kit (`06-rollback.sh`,
-# `07-prova-completa-pg17.sh`), in due strati, come dichiara
-# MANIFESTO-MIGRATION-190-V2.md.
+# disco, meno le rollback che un ALTRO gate esercita: quelle non si esercitano
+# qui, perche' appartengono alla catena forward-only del blocco 3B e vanno
+# provate nelle due modalita' di transazione, che e' il mestiere del gate 18.
 #
-# Aggiungere una rollback e dimenticare di esercitarla ora e' un ROSSO.
-PENDING_190="20260825130000 20260825130100 20260825130200 20260825130300 20260827120000"
+# Aggiungere una rollback e dimenticare di esercitarla ovunque e' un ROSSO.
+#
+# ── PERCHE' L'ESCLUSIONE NON E' PIU' UN ELENCO ────────────────────────────
+#
+# Fino al 01/09/2026 qui c'era una riga cablata:
+#
+#   PENDING_190="20260825130000 20260825130100 20260825130200 20260825130300 20260827120000"
+#
+# cioe' la stessa forma di difetto che questo blocco esiste per impedire, un
+# piano piu' su: un elenco a mano che nessuno aggiorna. Quando il blocco 3B ha
+# preso le tre migration dashboard, l'elenco e' rimasto a cinque e il gate e'
+# diventato rosso — bene — ma la correzione ovvia (aggiungerne tre) avrebbe
+# rimesso in piedi lo stesso invecchiamento.
+#
+# L'esclusione ora e' una RELAZIONE VERIFICABILE, non una dichiarazione:
+# si CHIEDE al gate 18 quali file esercita, e lui lo deriva dal manifesto con
+# lo stesso codice che poi li esegue. Il gate 18, dal canto suo, confronta in
+# fondo l'insieme dichiarato con quello eseguito. Quindi:
+#
+#   escluso qui  <=>  dichiarato da 18  <=>  eseguito da 18
+#
+# Se 18 smette di esercitare un file, la sua dichiarazione si accorcia, quel
+# file ricompare fra i MANCANTI di questo gate, e questo gate diventa rosso.
+# Nessuna delle due parti puo' invecchiare da sola.
+RUNNER_18="$(cd "$(dirname "${BASH_SOURCE[0]}")/../integrazione-190" && pwd)/18-rollback-due-modalita.sh"
+if [ ! -x "$RUNNER_18" ] && [ ! -f "$RUNNER_18" ]; then
+  echo "ROSSO: 18-rollback-due-modalita.sh non esiste: l'esclusione non e' verificabile."
+  echo "       Senza di lui questo gate non sa quali rollback sono esercitati altrove."
+  exit 1
+fi
+ESERCITATE_DA_18="$(bash "$RUNNER_18" --dichiara 2>&1)" || {
+  echo "ROSSO: il gate 18 non sa dichiarare cosa esercita:"
+  printf '%s\n' "$ESERCITATE_DA_18" | sed 's/^/       /'
+  exit 1
+}
+[ -n "$ESERCITATE_DA_18" ] || { echo "ROSSO: il gate 18 dichiara un insieme vuoto."; exit 1; }
 fail() { echo "  FAIL - $1"; FAIL=$((FAIL + 1)); }
 
 docker exec "$CID" true >/dev/null 2>&1 || { echo "ROLLBACK: container non raggiungibile"; exit 1; }
@@ -129,17 +161,38 @@ ESERCITATE="20260816120000_billing_consuma_pending_senza_ramo_irraggiungibile_ro
 CON_PRECONDIZIONE="20260816200000_entitlement_una_sola_regola_rollback.sql
 20260817090000_finestra_sonno_una_sola_regola_rollback.sql"
 
-ESCLUDI=$(echo "$PENDING_190" | tr ' ' '\n' | sed '/^$/d' | sed 's/^/^/')
-SU_DISCO=$(cd "$DIR" && ls *_rollback.sql 2>/dev/null | grep -v -f <(echo "$ESCLUDI") | sort)
+ALTROVE=$(printf '%s\n' "$ESERCITATE_DA_18" | sed '/^$/d' | sort -u)
+SU_DISCO=$(cd "$DIR" && ls *_rollback.sql 2>/dev/null | sort | grep -vxF -f <(printf '%s\n' "$ALTROVE"))
 ATTESE=$(printf '%s\n%s\n' "$ESERCITATE" "$CON_PRECONDIZIONE" | sed '/^$/d' | sort)
+
+# Un file non puo' essere esercitato in due catene diverse e dirsi provato in
+# entrambe: o e' nella catena billing di questo gate, o e' nel blocco 3B del
+# gate 18. Se comparisse in tutte e due, una delle due dichiarazioni mente.
+DOPPI=$(comm -12 <(printf '%s\n' "$ALTROVE") <(printf '%s\n' "$ATTESE"))
+if [ -n "$DOPPI" ]; then
+  echo "ROSSO: rollback dichiarati sia qui sia dal gate 18:"
+  printf '%s\n' "$DOPPI" | sed 's/^/  /'
+  FAIL=1
+fi
+
+# L'esclusione dev'essere ANCORATA al disco: se il gate 18 nominasse file che
+# qui non esistono, l'insieme escluso sarebbe fittizio e la relazione vuota.
+FUORI_DISCO=$(comm -23 <(printf '%s\n' "$ALTROVE") <(cd "$DIR" && ls *_rollback.sql 2>/dev/null | sort))
+if [ -n "$FUORI_DISCO" ]; then
+  echo "ROSSO: il gate 18 dichiara rollback che non stanno in supabase/rollback/:"
+  printf '%s\n' "$FUORI_DISCO" | sed 's/^/  /'
+  FAIL=1
+fi
+echo "esercitati altrove (gate 18, derivati dal manifesto 3B): $(printf '%s\n' "$ALTROVE" | grep -c .) file"
 
 MANCANTI=$(comm -23 <(echo "$SU_DISCO") <(echo "$ATTESE"))
 FANTASMA=$(comm -13 <(echo "$SU_DISCO") <(echo "$ATTESE"))
 if [ -n "$MANCANTI" ]; then
   echo "ROSSO: rollback presenti su disco e MAI esercitate da questo gate:"
   echo "$MANCANTI" | sed 's/^/  /'
-  echo "  (dichiararle in PENDING_190 se il bundle non e' applicato, o in"
-  echo "   CON_PRECONDIZIONE se il file dichiara una precondizione propria)"
+  echo "  (esercitarle qui, oppure dichiararle nel MANIFESTO-3B.txt perche' le"
+  echo "   eserciti il gate 18, oppure in CON_PRECONDIZIONE se il file dichiara"
+  echo "   una precondizione propria)"
   FAIL=1
 fi
 if [ -n "$FANTASMA" ]; then

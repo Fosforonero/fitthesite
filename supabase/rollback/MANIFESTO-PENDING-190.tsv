@@ -41,9 +41,45 @@
 #   di 20260825120008: la no-op resta confermata da entrambi i capi.
 #
 # CLASSIFICAZIONE
-#   190-richiesta   la 190 ha bisogno del suo effetto
-#   no-op           la produzione ha gia' quell'effetto: applicarla non cambia nulla
-#   da-escludere    non deve arrivare al deploy
+#   190-richiesta        la 190 ha bisogno del suo effetto
+#   no-op                la produzione ha gia' quell'effetto: applicarla non cambia nulla
+#   da-escludere         non deve arrivare al deploy
+#   applicata-fuori-banda  gia' registrata in produzione da un altro scrittore
+#                        durante la finestra, poi riconciliata nel repository
+#   PENDING_191          esiste sul disco, NON deve essere registrata nella 190
+#
+# ============================================================================
+# IL CONSUNTIVO DELLA FINESTRA — dichiarato qui, verificato dal gate 19
+# ============================================================================
+# La classificazione dice cosa si VOLEVA fare. Le tre righe qui sotto dicono
+# cosa e' STATO fatto, e sono l'unica parte di questo file che il gate 19
+# controlla per partizione: ogni voce del manifesto deve stare in esattamente
+# una di esse.
+#
+# La 190 e' stata applicata il 01/09/2026. Delle dodici classificate
+# «190-richiesta» ne sono state registrate NOVE: 120005, 120006 e 120007 sono
+# uscite dall'allowlist con le altre cinque, e restano sul disco non applicate.
+# La classificazione originale non viene riscritta — dice il vero sul 26/08 —
+# ma non e' piu' il consuntivo, e il consuntivo e' questo:
+#
+# REGISTRATE IN PRODUZIONE AL TERMINE DELLA FINESTRA: 101
+# BASELINE REGISTRATE PRIMA DELLA FINESTRA: 89
+# DELTA FINESTRA 190: 12
+# RELEASE 190 REGISTRATE: 20260825120000 20260825120001 20260825120004 20260825120009 20260825130000 20260825130100 20260825130200 20260825130300 20260827120000
+# DASHBOARD FUORI BANDA REGISTRATE: 20260901121214 20260901121244 20260901121909
+# NON REGISTRATE PER SCELTA: 20260825120002 20260825120003 20260825120005 20260825120006 20260825120007 20260825120008
+# NON REGISTRATE, FUTURE (PENDING_191): 20260901151500
+#
+# Le tre dashboard sono state scritte in produzione il 01/09/2026 da
+# mat.pizzi@gmail.com attraverso la Dashboard, mentre la finestra era aperta.
+# Non erano nell'allowlist e non sono state applicate da qui: sono state
+# RICONCILIATE, cioe' i file originali sono stati ritrovati e confrontati byte
+# per byte con `supabase_migrations.schema_migrations.statements`. Il registro
+# non e' stato toccato.
+#
+# Il «101» di questa riga e' una dichiarazione: la PROVA che il registro vivo
+# contiene esattamente queste 101 versioni la da' il gate finale, in sola
+# lettura contro il database (89 + 9 + 3, insieme esatto, escluse assenti).
 #
 # COME E' STATA DECISA
 #   Confrontando il FOOTPRINT COMPLETO dell'oggetto vivo con quello del
@@ -81,3 +117,7 @@ ac30ad6811127f8d9dd09bed459f5f763e8898b3442a819a03da08bc3f5a927c	20260825130100_
 e2580fe648d8e51f7d16b791ac269c230ebbe0d8242a596879bf4812ba6756f4	20260825130200_billing_guardia_proiezione	3B	190-richiesta	F3: guardia sulla proiezione b2c e divieto di TRUNCATE
 cf1d871527f0ca42e8413a5f8ca15d4e9c52fa61d15514cb9910e1a1c213505a	20260825130300_billing_ordine_lock_e_gdpr	3B	190-richiesta	F4: ordine unico dei lock; MODIFICA gdpr_process_deletions, che preesiste
 e489cd31d4a04dd66afcde0c2b1e78ae88006a4dbb15433cef4945d66d77b09c	20260827120000_sonno_indice_segue_la_principale	S2-SERVER	190-richiesta	MODIFICA internal._merge_sleep_stages_jsonb, che preesiste: sessionIdx segue la sessione principale invece della posizione cronologica. Nel corpo vivo la stringa "L'INDICE SEGUE LA PRINCIPALE" non compare (verificato in sola lettura il 27/08). Non tocca nessuna riga: le righe gia' scritte guariscono al sync successivo
+f7376901d7f260d204d928890be4536aab9c9143ce77598bbdcac16ac7d6d48f	20260901121214_dashboard_snapshot_admin_wrapper	dashboard-fuori-banda-01set	applicata-fuori-banda	Crea public.get_dashboard_snapshot_admin(date), wrapper SECURITY DEFINER che controlla is_admin prima di chiamare get_dashboard_snapshot. Applicata in produzione il 01/09/2026 dalla Dashboard, fuori dall'allowlist. File ritrovato e confrontato byte per byte con lo `statements` registrato
+63edcbff7137a66368d2696ad7bbf8d3656f8da7af6f7a83d54c15e8be738ae4	20260901121244_dashboard_snapshot_admin_wrapper_revoke_anon	dashboard-fuori-banda-01set	applicata-fuori-banda	SICUREZZA. Revoca EXECUTE ad anon sul wrapper appena creato. Verificato in sola lettura sul catalogo vivo: nessuna concessione ad anon ne' a PUBLIC su get_dashboard_snapshot_admin. Stesso confronto byte per byte
+1f702ba9ba5b0781f504c0a44d13459dd18ae87e8c68cd60566ca132342a70d6	20260901121909_dashboard_snapshot_add_analytics_extras	dashboard-fuori-banda-01set	applicata-fuori-banda	Aggiunge la chiave 'extras' a get_dashboard_snapshot (time-to-convert, sync-gap per settimana, retention per coorte, churn). Additiva: zero delle 25 chiavi precedenti perse fra le 70 vive. md5 del corpo vivo f53b80ca007a26d944e5f93427cdab62, identico al file. NOTA: ridefinisce la funzione INTERA partendo da 20260818084202, quindi riporta i quattro conteggi Pro senza filtro di scadenza. Il debito e' chiuso da 20260901151500, non da qui
+d10ce5badd6af8838d0a6ffd817d76a57a5512376b0bac199fa296e0c1cef26a	20260901151500_dashboard_snapshot_pro_attivi_con_extras	191	PENDING_191	Compone gli extras di 121909 con l'esclusione dei Pro scaduti di 20260825120006 e le due chiavi storiche. NON deve essere registrata nella 190: il registro vivo si ferma a 101. Rollback dedicato che ripristina 121909 (md5 f53b80ca007a26d944e5f93427cdab62), non 20260818084202
