@@ -12972,7 +12972,7 @@
     },
     "body.13.items": {
       "sv": [
-        "**FitMesh Sync**: hämtar data från Health Connect (alla Android-kompatibla bärbara enheter) och OAuth-plan för Garmin/Polar/Oura/Withings/Strava år 2026. Webbaserad kontrollpanel + Android-app. Engångspris.",
+        "**FitMesh Sync**: hämtar data från Health Connect (alla Android-kompatibla bärbara enheter), med redan aktivt OAuth för Garmin, Polar och Withings (Oura kommer snart). Strava har begränsad åtkomst: läsningen fungerar för redan anslutna konton, nya anslutningar kräver Stravas godkännande. Webbaserad kontrollpanel + Android-app. Engångspris.",
         "**Welltory**: App för iOS och Android med kontrollpanel och HRV-baserad coaching. Premiumtjänst med prenumeration.",
         "**Heads Up Health**: en teknisk översiktspanel som stöder över 50 källor, däribland CGM- och laboratoriedata. Utvecklad för biohackare. Abonnemang.",
         "**Bearable**: app för att följa symtom och humör med import av hälsodata. Med särskilt fokus på psykisk hälsa. Freemium.",
