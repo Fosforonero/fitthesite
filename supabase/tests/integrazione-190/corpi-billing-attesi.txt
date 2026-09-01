@@ -1,0 +1,19 @@
+private._b2c_no_truncate()|cb2bda1efe9c4411d537339c1b8189f8
+private._b2c_projection_guard()|35044b942da0794832e5c1ed5aee9222
+private._billing_cancello_sandbox()|5b95960001a4996d31e03cdfc9346499
+private._billing_chiave_da_proiezione(p_billing_source text, p_external_subscription_id text)|6345bdddef3ddac72453b9164a1fa378
+private._billing_consuma_pending(p_billing_source text, p_ownership_key text, p_store_event_at timestamp with time zone)|975075f3b86cea68cfcf5ac419700fdd
+private._billing_evidenza_supera(p_vecchia_fonte text, p_vecchia_at timestamp with time zone, p_vecchio_stato text, p_nuova_fonte text, p_nuova_at timestamp with time zone, p_nuovo_stato text)|d48cae7fd983feafe264f1338a061a3a
+private._billing_lock_prima_di_cancellare_utente()|69ad68e9ee41d67ccc8403fab535960d
+private._billing_permesso_sandbox_cambiato()|55e6fd4b638a8bbb2c92d5c4ab628b78
+private._billing_project_entitlement(p_user_id uuid)|a344b7755cb197fc676090aa9f9a47a7
+private._billing_purchase_claims_immutable()|212c9740e0f282766e2ff3e45e715bf4
+private._billing_purchase_claims_no_truncate()|b2d1d9e4a88a6cf7a07fd759512a1b01
+private._billing_purchase_states_forward_only()|2e79ff470388e677fe338b36f929f8f6
+private.billing_apply_pending_revocations(p_max integer)|969d32e94b3b958aa011270c45e683ea
+private.billing_reconcile_sandbox_projections(p_max integer)|1e6d0213c007ea94871844cf4dc40c80
+private.billing_teardown_sandbox_reviewer(p_user_id uuid)|ca89031f86006eb71f7e9a16d7f92ccb
+private.set_billing_projection_guard_mode(p_mode text, p_note text)|a9a462948af1d0a42f95820d9b223d15
+public.claim_store_purchase(p_billing_source text, p_ownership_key text, p_owner_user_id uuid, p_external_product_id text, p_purchase_kind text, p_environment text, p_state text, p_active_until timestamp with time zone, p_auto_renewing boolean, p_store_event_at timestamp with time zone, p_store_event_source text, p_external_transaction_id text, p_app_account_token uuid)|45c6f524fd9f51e4b7d7c1a9115c6e3e
+public.is_sandbox_reviewer(p_user_id uuid)|2f98b543a0c7f136b963de3c221f4218
+public.record_store_purchase_revocation(p_billing_source text, p_ownership_key text, p_external_product_id text, p_purchase_kind text, p_store_event_at timestamp with time zone, p_store_event_source text, p_revocation_at timestamp with time zone)|fed4483c47824f99eb4faac49d21c041

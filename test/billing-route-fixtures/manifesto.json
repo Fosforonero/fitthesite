@@ -1,0 +1,48 @@
+{
+  "$commento": [
+    "Manifesto delle copie congelate di validate-purchase/route.ts.",
+    "L'AUTORITA' E' IL COMMIT COMPLETO, mai un branch: `main` locale era",
+    "rimasto indietro di 194 commit e il vecchio confronto passava proprio per",
+    "questo. Un ref che si muove non puo' fare da testimone.",
+    "Chi modifica una fixture aggiorna qui commit, impronta e deployment, in un",
+    "commit che si vede. tools/rigenera-fixture-billing.sh rigenera i file da",
+    "questi commit e rifiuta di scrivere se l'impronta non torna."
+  ],
+  "repository": "github.com/Fosforonero/fitthesite",
+  "percorso_origine": "app/api/v1/billing/validate-purchase/route.ts",
+  "marcatore": "/* INIZIO COPIA LETTERALE */",
+  "fixture": [
+    {
+      "file": "route-189-at-release.vendored.ts",
+      "commit": "62bd53a9907f0b3bb1e8806ab4a9bede718884f6",
+      "sha256": "4deb3daee0e30bffe43089d49960a5c13fc9219cbb61b960c858b24c53b3dd9b",
+      "righe": 335,
+      "deployment": {
+        "id": "dpl_Ff5nrBgE8EovLPiJLnLBHGuoE1M8",
+        "target": "production",
+        "url": "fitmesh-site-mozbrmv26-matpizzi-gmailcoms-projects.vercel.app",
+        "pronto_utc": "2026-07-22T09:07:11Z"
+      },
+      "ancoraggio": "produzione servita al momento del tag v3.9.8+189 (2026-07-22T10:39:20Z); il deployment era pronto 92 minuti prima",
+      "scopo": "documentare e riprodurre il difetto originale della 189",
+      "immutabile": true,
+      "decide_il_rilascio": false
+    },
+    {
+      "file": "route-live-pre190.vendored.ts",
+      "commit": "f8d54c00c1cbe92ee42d64d9a251e2d11693be0e",
+      "sha256": "45d705bbcc8b8df9a24a466ad22567036a34cb52b3c8a51c9cab55f78f959e3e",
+      "righe": 369,
+      "deployment": {
+        "id": "dpl_GCWKSwUsAoBHbjHzyjL1nT645xSA",
+        "target": "production",
+        "url": "fitmesh-site-86u56mh4l-matpizzi-gmailcoms-projects.vercel.app",
+        "pronto_utc": "2026-08-26T14:31:37Z"
+      },
+      "ancoraggio": "deployment risolto dall'alias www.fitmesh.fit il 2026-08-26; origin/main coincideva, ma e' un fatto misurato e non una regola",
+      "scopo": "il backend che un client v3.9.8+189 incontra oggi",
+      "immutabile": false,
+      "decide_il_rilascio": true
+    }
+  ]
+}

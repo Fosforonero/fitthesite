@@ -1,0 +1,13 @@
+# Manifesto canonico delle forward-only del blocco 3B.
+# DERIVATO dal disco, non scritto a mano: rigenerare con --rigenera.
+# Ambito: ogni migration con versione >= 20260825130000.
+# Ogni voce DEVE avere un file <nome>_rollback.sql in supabase/rollback/.
+20260825130000_billing_registro_fondamenta
+20260825130100_billing_autorita_canonica
+20260825130200_billing_guardia_proiezione
+20260825130300_billing_ordine_lock_e_gdpr
+20260827120000_sonno_indice_segue_la_principale
+20260901121214_dashboard_snapshot_admin_wrapper
+20260901121244_dashboard_snapshot_admin_wrapper_revoke_anon
+20260901121909_dashboard_snapshot_add_analytics_extras
+20260901151500_dashboard_snapshot_pro_attivi_con_extras

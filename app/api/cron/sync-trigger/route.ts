@@ -15,13 +15,17 @@
  * Se due invocazioni arrivano in rapida sequenza, il device riceve 2 push
  * → 2 sync. L'app dedup-a su (user_id, day) lato Supabase quindi no double-count.
  *
- * Audit log: ogni invocazione scrive una row in sync_events con counters.
+ * Audit log: NON scrive in sync_events. Quella tabella e' vuota e nessuno la
+ * scrive, ne' qui ne' nell'app; la versione precedente di questa riga
+ * prometteva il contrario. Le uniche tracce sono i log Vercel e il JSON di
+ * risposta, che porta conteggi tipizzati e mai un token.
  */
 import { NextResponse } from "next/server";
 import type { SupabaseClient } from "@supabase/supabase-js";
 
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getFcmMessaging, isFcmConfigured } from "@/lib/fcm/admin";
+import { costruisciPushSync, type ContiTick } from "./payload";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -35,6 +39,9 @@ type DeviceRow = {
   fcm_token: string;
   device_fingerprint: string;
   app_version: string | null;
+  // BG1: e' il dato autorevole da cui si decide se il messaggio va costruito
+  // per iOS o per Android. Senza, il push iOS nasceva senza blocco APNs.
+  os_version: string | null;
 };
 
 const MAX_DEVICES_PER_TICK = 500; // FCM sendEach batch limit
@@ -74,7 +81,7 @@ export async function POST(req: Request) {
 
   const { data: rows, error: qErr } = await sb
     .from("devices")
-    .select("id, user_id, fcm_token, device_fingerprint, app_version")
+    .select("id, user_id, fcm_token, device_fingerprint, app_version, os_version")
     .not("fcm_token", "is", null)
     .is("revoked_at", null)
     .gte("last_seen_at", freshnessCutoff)
@@ -92,27 +99,44 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true, sent: 0, failed: 0, total: 0 });
   }
 
-  // FCM HTTP v1 API: sendEach accetta fino a 500 messaggi distinti per chiamata.
-  // Ogni messaggio ha il suo token (no multicast topic, push individuali).
+  // FCM HTTP v1 API: sendEach accetta fino a 500 messaggi distinti per
+  // chiamata. Ogni messaggio ha il suo token (no multicast topic).
+  //
+  // BG1: la costruzione vive in `payload.ts`, pura e testata, e decide il
+  // ramo dalla piattaforma. Un dispositivo che non sappiamo classificare
+  // viene SALTATO e contato — non riceve un push mal formato.
   const messaging = getFcmMessaging();
-  const messages = devices.map((d) => ({
-    token: d.fcm_token,
-    data: {
-      action: "sync_now",
-      reason: "scheduled",
-      // Timestamp utile per dedup lato client se ricevesse push duplicati.
-      ts: Math.floor(Date.now() / 1000).toString(),
-    },
-    android: {
-      // Priorita' alta = sveglia il device anche in Doze (consumato dal
-      // quota FCM "high priority" — Google limita ~2 push/giorno per app
-      // a priorita' high senza notifica utente. Sotto soglia per noi.)
-      priority: "high" as const,
-      // TTL: se il device e' offline, FCM tiene il msg per 1h max — oltre
-      // diventa stale (l'ora successiva arrivera' un nuovo trigger comunque).
-      ttl: 60 * 60 * 1000,
-    },
-  }));
+  const messages = [];
+  // Indici allineati a `messages`: senza questa lista parallela, saltare
+  // anche un solo dispositivo disallineerebbe `responses[idx]` da
+  // `devices[idx]`, e il cleanup dei token morti colpirebbe il device
+  // sbagliato.
+  const inviatiA: DeviceRow[] = [];
+  const conti: ContiTick = {
+    inviati: 0,
+    falliti: 0,
+    saltatiPiattaformaIgnota: 0,
+    saltatiTokenAssente: 0,
+    totaleCandidati: devices.length,
+  };
+
+  for (const d of devices) {
+    const esito = costruisciPushSync({
+      token: d.fcm_token,
+      osVersion: d.os_version,
+    });
+    if (esito.tipo === "saltato") {
+      if (esito.motivo === "piattaforma_ignota") conti.saltatiPiattaformaIgnota++;
+      else conti.saltatiTokenAssente++;
+      continue;
+    }
+    messages.push(esito.messaggio);
+    inviatiA.push(d);
+  }
+
+  if (messages.length === 0) {
+    return NextResponse.json({ ok: true, sent: 0, failed: 0, total: 0, conti });
+  }
 
   let sent = 0;
   let failed = 0;
@@ -131,15 +155,18 @@ export async function POST(req: Request) {
           code === "messaging/registration-token-not-registered" ||
           code === "messaging/invalid-registration-token"
         ) {
-          failureTokens.push(devices[idx].fcm_token);
+          failureTokens.push(inviatiA[idx].fcm_token);
         }
       }
     });
   } catch (err) {
+    // Mai il messaggio dell'errore: l'SDK ci mette dentro la richiesta, e la
+    // richiesta contiene i token. Solo il nome della classe, che basta a
+    // distinguere una rete caduta da una credenziale sbagliata.
     return NextResponse.json(
       {
         error: "fcm_send_failed",
-        details: err instanceof Error ? err.message : String(err),
+        detailType: err instanceof Error ? err.constructor.name : typeof err,
       },
       { status: 502 },
     );
@@ -160,11 +187,16 @@ export async function POST(req: Request) {
   // (la table e' user-bound per eventi sync del singolo device, non per cron
   // a livello system).
 
+  conti.inviati = sent;
+  conti.falliti = failed;
   return NextResponse.json({
     ok: true,
     sent,
     failed,
     invalidated: failureTokens.length,
     total: devices.length,
+    // Conteggi tipizzati: chi e' stato saltato, e perche'. Nessun token,
+    // nessun uid, nessuna impronta di dispositivo.
+    conti,
   });
 }

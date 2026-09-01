@@ -132,7 +132,13 @@ function PrivacyIT() {
           ["Altri parametri", "saturazione ossigeno (SpO₂), temperatura cutanea, dislivello"],
           ["Sessioni di esercizio", "tipo di attività, durata, distanza, calorie"],
           ["Account", "indirizzo email (per autenticazione tramite Supabase Auth) e identificativo dispositivo"],
+          ["Contenuti scritti da te", "titolo e note degli allenamenti: testo libero, memorizzato sul nostro backend e collegato al tuo account"],
+          ["Acquisti", "cronologia degli acquisti in-app, tentativi di acquisto e stato dell'abbonamento, collegati al tuo account"],
+          ["Identificatori", "identificativo dell'installazione, token di notifica push e identificativo dell'account: sono memorizzati insieme, quindi collegati alla tua identita'"],
         ]} />
+        <p className="text-text-primary font-medium">
+          I dati di salute e attivita' sono collegati al tuo account: ogni misura e' memorizzata insieme al tuo identificativo utente. Google Sign-In, se lo usi, dichiara di raccogliere per proprio conto nome, email, numero di telefono, posizione approssimativa, identificatori e dati d'uso, in parte per finalita' analitiche proprie di Google.
+        </p>
         <Callout>
           Importante: questi dati vengono letti solo dai servizi di salute già presenti sul tuo
           dispositivo e solo dopo che hai concesso esplicitamente i permessi necessari.
@@ -184,6 +190,8 @@ function PrivacyIT() {
           ["Firebase Cloud Messaging (Google LLC, USA)", "trasporto delle notifiche push. Google aderisce alle SCC + Data Privacy Framework"],
           ["Firebase Crashlytics (Google LLC, USA)", "diagnostica crash e stabilità dell'app. Google aderisce alle SCC + Data Privacy Framework"],
           ["Google Sign-In (Google LLC, USA)", "autenticazione opzionale tramite account Google. Trasferimento basato su SCC + DPF"],
+          ["Firebase Installations (Google LLC, USA)", "identificativo tecnico dell'installazione, usato da Crashlytics e dalle notifiche. Il fornitore lo dichiara come dato diagnostico"],
+          ["OpenStreetMap Foundation (Regno Unito)", "quando apri la mappa di un allenamento, l'app scarica i riquadri della mappa dai loro server: la richiesta rivela la zona che stai guardando. Il percorso registrato NON viene mai inviato: resta sul dispositivo"],
         ]} />
         <p>
           Prima di trasferire dati verso gli USA abbiamo valutato il rischio (Transfer Impact
@@ -357,7 +365,13 @@ function PrivacyEN() {
           ["Other metrics", "oxygen saturation (SpO₂), skin temperature, elevation gain"],
           ["Exercise sessions", "activity type, duration, distance, calories"],
           ["Account", "email address (Supabase Auth) and device identifier"],
+          ["Content you write", "workout title and notes: free text, stored on our backend and linked to your account"],
+          ["Purchases", "in-app purchase history, purchase attempts and subscription status, linked to your account"],
+          ["Identifiers", "installation identifier, push notification token and account identifier: stored together, therefore linked to your identity"],
         ]} />
+        <p className="text-text-primary font-medium">
+          Health and fitness data are linked to your account: every measurement is stored together with your user identifier. Google Sign-In, if you use it, declares that it collects on its own behalf name, email, phone number, coarse location, identifiers and usage data, partly for Google's own analytics purposes.
+        </p>
         <Callout>
           Important: this data is read only from health services already present on your device
           and only after you have explicitly granted the required permissions.
@@ -407,6 +421,8 @@ function PrivacyEN() {
           ["Firebase Cloud Messaging (Google LLC, US)", "push notification transport. Google adheres to SCC + EU-US Data Privacy Framework"],
           ["Firebase Crashlytics (Google LLC, US)", "app crash and stability diagnostics. Google adheres to SCC + EU-US Data Privacy Framework"],
           ["Google Sign-In (Google LLC, US)", "optional authentication via Google account. Transfer governed by SCC + DPF"],
+          ["Firebase Installations (Google LLC, US)", "technical installation identifier used by Crashlytics and notifications. The provider declares it as diagnostic data"],
+          ["OpenStreetMap Foundation (United Kingdom)", "when you open a workout map, the app downloads map tiles from their servers: the request reveals the area you are viewing. The recorded route is NEVER sent: it stays on the device"],
         ]} />
         <p>
           Before transferring data to the US we performed a Transfer Impact Assessment: data
@@ -577,7 +593,13 @@ function PrivacyES() {
           ["Otros parámetros", "saturación de oxígeno (SpO₂), temperatura cutánea, desnivel"],
           ["Sesiones de entrenamiento", "tipo de actividad, duración, distancia, calorías"],
           ["Cuenta", "dirección de correo electrónico (para autenticación mediante Supabase Auth) e identificador de dispositivo"],
+          ["Contenido escrito por ti", "título y notas de los entrenamientos: texto libre, almacenado en nuestro backend y vinculado a tu cuenta"],
+          ["Compras", "historial de compras dentro de la app, intentos de compra y estado de la suscripción, vinculados a tu cuenta"],
+          ["Identificadores", "identificador de la instalación, token de notificaciones push e identificador de la cuenta: se almacenan juntos, por lo que están vinculados a tu identidad"],
         ]} />
+        <p className="text-text-primary font-medium">
+          Los datos de salud y actividad están vinculados a tu cuenta: cada medición se almacena junto con tu identificador de usuario. Google Sign-In, si lo usas, declara recopilar por su cuenta nombre, correo, número de teléfono, ubicación aproximada, identificadores y datos de uso, en parte con fines analíticos propios de Google.
+        </p>
         <Callout>
           Importante: estos datos se leen únicamente desde los servicios de salud ya presentes en
           tu dispositivo y solo después de que hayas concedido explícitamente los permisos
@@ -630,6 +652,8 @@ function PrivacyES() {
           ["Firebase Cloud Messaging (Google LLC, EE. UU.)", "transporte de notificaciones push. Google se adhiere a las CCT + Marco de Privacidad de Datos UE-EE. UU."],
           ["Firebase Crashlytics (Google LLC, EE. UU.)", "diagnóstico de fallos y estabilidad de la app. Google se adhiere a las CCT + Marco de Privacidad de Datos UE-EE. UU."],
           ["Google Sign-In (Google LLC, EE. UU.)", "autenticación opcional mediante cuenta de Google. Transferencia basada en CCT + DPF"],
+          ["Firebase Installations (Google LLC, EE. UU.)", "identificador técnico de la instalación, usado por Crashlytics y las notificaciones. El proveedor lo declara como dato de diagnóstico"],
+          ["OpenStreetMap Foundation (Reino Unido)", "cuando abres el mapa de un entrenamiento, la app descarga los mosaicos del mapa de sus servidores: la solicitud revela la zona que estás viendo. La ruta registrada NUNCA se envía: permanece en el dispositivo"],
         ]} />
         <p>
           Antes de transferir datos a EE. UU. realizamos una Evaluación de Impacto de la
@@ -803,7 +827,13 @@ function PrivacyDE() {
           ["Weitere Parameter", "Sauerstoffsättigung (SpO₂), Hauttemperatur, Höhenunterschied"],
           ["Trainingseinheiten", "Aktivitätstyp, Dauer, Distanz, Kalorien"],
           ["Konto", "E-Mail-Adresse (zur Authentifizierung über Supabase Auth) und Gerätekennung"],
+          ["Von dir verfasste Inhalte", "Titel und Notizen zu Trainings: Freitext, auf unserem Backend gespeichert und mit deinem Konto verknüpft"],
+          ["Käufe", "Verlauf der In-App-Käufe, Kaufversuche und Abonnementstatus, mit deinem Konto verknüpft"],
+          ["Kennungen", "Installationskennung, Push-Benachrichtigungstoken und Kontokennung: gemeinsam gespeichert und daher mit deiner Identität verknüpft"],
         ]} />
+        <p className="text-text-primary font-medium">
+          Gesundheits- und Fitnessdaten sind mit deinem Konto verknüpft: jede Messung wird zusammen mit deiner Nutzerkennung gespeichert. Google Sign-In erklärt, sofern du es nutzt, in eigenem Namen Name, E-Mail, Telefonnummer, ungefähren Standort, Kennungen und Nutzungsdaten zu erheben, teilweise für eigene Analysezwecke von Google.
+        </p>
         <Callout>
           Wichtig: Diese Daten werden ausschließlich aus bereits auf Ihrem Gerät vorhandenen
           Gesundheitsdiensten gelesen und nur nachdem Sie die erforderlichen Berechtigungen
@@ -856,6 +886,8 @@ function PrivacyDE() {
           ["Firebase Cloud Messaging (Google LLC, USA)", "Push-Benachrichtigungstransport. Google hält SCC und das EU-US Data Privacy Framework ein"],
           ["Firebase Crashlytics (Google LLC, USA)", "App-Absturz- und Stabilitätsdiagnose. Google hält SCC und das EU-US Data Privacy Framework ein"],
           ["Google Sign-In (Google LLC, USA)", "optionale Authentifizierung über Google-Konto. Übermittlung auf Grundlage von SCC + DPF"],
+          ["Firebase Installations (Google LLC, USA)", "technische Installationskennung, von Crashlytics und den Benachrichtigungen verwendet. Der Anbieter deklariert sie als Diagnosedaten"],
+          ["OpenStreetMap Foundation (Vereinigtes Königreich)", "wenn du die Karte eines Trainings öffnest, lädt die App die Kartenkacheln von deren Servern: die Anfrage verrät den betrachteten Bereich. Die aufgezeichnete Route wird NIE gesendet: sie bleibt auf dem Gerät"],
         ]} />
         <p>
           Vor der Übermittlung von Daten in die USA haben wir eine Übertragungsfolgenabschätzung
@@ -1031,7 +1063,13 @@ function PrivacyPT() {
           ["Outros parâmetros", "saturação de oxigênio (SpO₂), temperatura da pele, ganho de elevação"],
           ["Sessões de treino", "tipo de atividade, duração, distância, calorias"],
           ["Conta", "endereço de e-mail (para autenticação via Supabase Auth) e identificador do dispositivo"],
+          ["Conteúdo escrito por ti", "título e notas dos treinos: texto livre, armazenado no nosso backend e associado à tua conta"],
+          ["Compras", "histórico de compras na app, tentativas de compra e estado da subscrição, associados à tua conta"],
+          ["Identificadores", "identificador da instalação, token de notificações push e identificador da conta: são armazenados em conjunto, portanto associados à tua identidade"],
         ]} />
+        <p className="text-text-primary font-medium">
+          Os dados de saúde e atividade estão associados à tua conta: cada medição é armazenada junto com o teu identificador de utilizador. O Google Sign-In, se o usares, declara recolher por conta própria nome, e-mail, número de telefone, localização aproximada, identificadores e dados de utilização, em parte para fins analíticos do próprio Google.
+        </p>
         <Callout>
           Importante: esses dados são lidos apenas dos serviços de saúde já presentes no seu
           dispositivo e somente após você ter concedido explicitamente as permissões necessárias.
@@ -1083,6 +1121,8 @@ function PrivacyPT() {
           ["Firebase Cloud Messaging (Google LLC, EUA)", "transporte de notificações push. O Google adere às SCC e ao EU-US Data Privacy Framework"],
           ["Firebase Crashlytics (Google LLC, EUA)", "diagnóstico de falhas e estabilidade do app. O Google adere às SCC e ao EU-US Data Privacy Framework"],
           ["Google Sign-In (Google LLC, EUA)", "autenticação opcional via conta Google. Transferência baseada em SCC + DPF"],
+          ["Firebase Installations (Google LLC, EUA)", "identificador técnico da instalação, usado pelo Crashlytics e pelas notificações. O fornecedor declara-o como dado de diagnóstico"],
+          ["OpenStreetMap Foundation (Reino Unido)", "quando abres o mapa de um treino, a app descarrega os mosaicos do mapa dos servidores deles: o pedido revela a zona que estás a ver. O percurso registado NUNCA é enviado: fica no dispositivo"],
         ]} />
         <p>
           Antes de transferir dados para os EUA, realizamos uma Avaliação de Impacto da
@@ -1256,7 +1296,13 @@ function PrivacyFR() {
           ["Autres paramètres", "saturation en oxygène (SpO₂), température cutanée, dénivelé"],
           ["Séances d'entraînement", "type d'activité, durée, distance, calories"],
           ["Compte", "adresse e-mail (pour l'authentification via Supabase Auth) et identifiant de l'appareil"],
+          ["Contenus que tu rédiges", "titre et notes des séances : texte libre, stocké sur notre backend et lié à ton compte"],
+          ["Achats", "historique des achats intégrés, tentatives d'achat et état de l'abonnement, liés à ton compte"],
+          ["Identifiants", "identifiant d'installation, jeton de notification push et identifiant de compte : stockés ensemble, donc liés à ton identité"],
         ]} />
+        <p className="text-text-primary font-medium">
+          Les données de santé et d'activité sont liées à ton compte : chaque mesure est stockée avec ton identifiant utilisateur. Google Sign-In, si tu l'utilises, déclare collecter pour son propre compte nom, e-mail, numéro de téléphone, position approximative, identifiants et données d'usage, en partie à des fins analytiques propres à Google.
+        </p>
         <Callout>
           Important: ces données sont lues uniquement depuis les services de santé déjà présents
           sur votre appareil et seulement après que vous avez accordé explicitement les
@@ -1309,6 +1355,8 @@ function PrivacyFR() {
           ["Firebase Cloud Messaging (Google LLC, États-Unis)", "transport des notifications push. Google adhère aux CCT et au Cadre de protection des données UE-États-Unis"],
           ["Firebase Crashlytics (Google LLC, États-Unis)", "diagnostic des plantages et de la stabilité de l'application. Google adhère aux CCT et au Cadre de protection des données UE-États-Unis"],
           ["Google Sign-In (Google LLC, États-Unis)", "authentification optionnelle via compte Google. Transfert encadré par CCT + DPF"],
+          ["Firebase Installations (Google LLC, États-Unis)", "identifiant technique d'installation, utilisé par Crashlytics et les notifications. Le fournisseur le déclare comme donnée de diagnostic"],
+          ["OpenStreetMap Foundation (Royaume-Uni)", "quand tu ouvres la carte d'une séance, l'app télécharge les tuiles depuis leurs serveurs : la requête révèle la zone que tu consultes. Le parcours enregistré n'est JAMAIS envoyé : il reste sur l'appareil"],
         ]} />
         <p>
           Avant de transférer des données vers les États-Unis, nous avons réalisé une Évaluation

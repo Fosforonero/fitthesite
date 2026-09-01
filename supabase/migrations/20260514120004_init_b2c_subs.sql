@@ -32,12 +32,12 @@ create index b2c_subscriptions_state_idx
 -- Helper boolean predicato lifetime: active_until oltre 100 anni dal now()
 -- e' il sentinel "mai scade" (in pratica '9999-12-31').
 -- IMMUTABLE per essere usabile in CREATE INDEX, ma usato anche in WHERE.
-create or replace function public.is_b2c_lifetime(row public.b2c_subscriptions)
+create or replace function public.is_b2c_lifetime(sub public.b2c_subscriptions)
 returns boolean
 language sql
 immutable
 as $$
-  select row.active_until > '9000-01-01'::timestamptz;
+  select sub.active_until > '9000-01-01'::timestamptz;
 $$;
 
 create trigger trg_b2c_subscriptions_updated_at
@@ -48,7 +48,7 @@ comment on table public.b2c_subscriptions is
   'B2C consumer subs. Lifetime = active_until > 9000-01-01 (sentinel). Trial 7gg = billing_source=trial.';
 
 comment on function public.is_b2c_lifetime is
-  'TRUE se row e lifetime (active_until oltre il 9000). Immutable.';
+  'TRUE se sub e lifetime (active_until oltre il 9000). Immutable.';
 
 -- ─── RLS b2c_subscriptions ────────────────────────────────
 alter table public.b2c_subscriptions enable row level security;
