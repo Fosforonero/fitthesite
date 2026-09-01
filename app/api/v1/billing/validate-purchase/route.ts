@@ -213,7 +213,11 @@ const REJECTED_CLIENT_FIELDS = [
   "entitlement",
 ] as const;
 
-export function findRejectedField(body: unknown): string | null {
+// Non esportata: in un file `route.ts` Next.js ammette solo gli handler HTTP e
+// pochi campi di configurazione, e un export estraneo fa fallire il build con
+// «"findRejectedField" is not a valid Route export field». Nessuno la importa
+// da fuori: l'`export` era gratuito.
+function findRejectedField(body: unknown): string | null {
   if (body === null || typeof body !== "object" || Array.isArray(body)) return null;
   const keys = new Set(Object.keys(body as Record<string, unknown>));
   for (const f of REJECTED_CLIENT_FIELDS) {
@@ -233,7 +237,8 @@ type IosTokenFormat = "sk2_jws" | "app_receipt";
  *   La distinzione è netta e non euristica: un JWS è `header.payload.firma` in
  *   base64url, una ricevuta App Store è base64 standard e non contiene punti.
  */
-export function resolveIosTokenFormat(
+// Non esportata, stessa ragione di findRejectedField: e' usata solo qui sotto.
+function resolveIosTokenFormat(
   declared: IosTokenFormat | undefined,
   token: string,
 ): { format: IosTokenFormat } | { mismatch: true } {
