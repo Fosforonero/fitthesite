@@ -867,6 +867,13 @@ export const post: BlogPost = {
         },
     },
   ],
+  // P1.9 FASE 9 (2026-09-01): fonti usate per la rettifica della matrice
+  // A/B/C/D — assenti prima di questo sprint. Renderizzate in fondo pagina
+  // dal blocco condiviso BlogSources.tsx.
+  sources: [
+    "https://support.ouraring.com/hc/en-us/articles/10786105824531-Health-Connect-by-Android-Integration",
+    "https://developer.android.com/health-and-fitness/health-connect/features/skin-temperature",
+  ],
   brandsMentioned: ["Oura"],
   related: ["anello-smart-guida-completa", "tracciare-sonno-anello", "sleep-tracker-comparison-2026"],
 };

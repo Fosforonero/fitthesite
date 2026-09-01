@@ -947,6 +947,14 @@ export const post: BlogPost = {
         },
     },
   ],
+  // P1.9 FASE 9 (2026-09-01): fonti usate per la rettifica della matrice
+  // A/B/C/D — assenti prima di questo sprint (nessun claim era verificabile
+  // dal lettore). Renderizzate in fondo pagina dal blocco condiviso
+  // BlogSources.tsx (sourcesRenderedInline non impostato = default false).
+  sources: [
+    "https://www.samsung.com/us/support/answer/ANS10003278/",
+    "https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect",
+  ],
   brandsMentioned: ["Samsung"],
   related: ["anello-vs-smartwatch", "anello-smart-guida-completa", "health-connect-vs-samsung-health"],
 };
