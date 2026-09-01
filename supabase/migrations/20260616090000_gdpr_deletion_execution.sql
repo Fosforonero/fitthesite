@@ -1,57 +1,23 @@
--- GDPR art.17 — esecuzione automatica delle richieste di cancellazione.
--- Sostituisce il flusso Edge Function `execute-deletion` mai deployato
--- (vedi migration 20260513120007, cron 'process-deletions' rimasto disabilitato).
--- Approccio: funzione Postgres + pg_cron, niente dipendenze HTTP/secret.
--- Applicato in prod via Supabase MCP il 2026-06-16 (apply_migration).
-
--- Esegue le richieste scadute (grace 24h). Cancella public.profiles (cascade su
--- TUTTI i dati utente: fitness_metrics, workouts, devices, caregiver_links,
--- b2c_subscriptions, settings, consents, ruoli, ...) + auth.users (identità).
--- audit_logs/sync_events vanno a SET NULL (traccia anonima preservata).
--- Exception-safe per riga (es. gyms.owner ON DELETE RESTRICT non blocca il batch).
--- search_path vuoto = hardening (tutto schema-qualified).
-create or replace function public.gdpr_process_deletions()
-returns integer
-language plpgsql
-security definer
-set search_path = ''
-as $$
-declare
-  uid uuid;
-  n integer := 0;
+-- MARKER STORICO — NON ESEGUIBILE
+-- Duplicato locale di due migration gia' applicate.
+--
+-- Questo file non contiene piu' il proprio SQL originale. E' un marker: la
+-- catena lo attraversa senza fare nulla. Il contenuto originale resta
+-- verificabile dal suo hash, ed e' recuperabile dal database di produzione
+-- (supabase_migrations.schema_migrations) o dalla storia Git di questo file.
+--
+--   contenuto originale: md5 9f76e70f485f290876d79e305b62f247, 2003 byte
+--
+-- PERCHE' E' NEUTRALIZZATA
+-- Il corpo della funzione e' identico, tolti i commenti, alla remota\n-- 20260616065134; il blocco cron e' gia' coperto dalla remota 20260616070752.\n-- Entrambe applicate in produzione, il job 'process-deletions' e' vivo.
+--
+-- COSA DICHIARAVA
+-- public.gdpr_process_deletions() e la schedulazione cron 'process-deletions'\n-- ogni 10 minuti. Entrambi VIVI in produzione.
+--
+-- CHI PRODUCE OGGI QUELLO STATO
+-- 20260616065134_gdpr_process_deletions_function.sql per la funzione e\n-- 20260616070752_schedule_process_deletions_cron.sql per il cron.
+do $marker$
 begin
-  for uid in
-    select pc.user_id
-    from public.privacy_consents pc
-    where pc.data_deletion_requested_at is not null
-      and pc.data_deletion_completed_at is null
-      and pc.data_deletion_requested_at < now() - interval '24 hours'
-  loop
-    begin
-      delete from public.profiles where id = uid;
-      delete from auth.users where id = uid;
-      n := n + 1;
-    exception when others then
-      raise warning 'gdpr deletion skipped for %: %', uid, sqlerrm;
-    end;
-  end loop;
-  return n;
-end;
-$$;
-
-revoke all on function public.gdpr_process_deletions() from public, anon, authenticated;
-
--- Cron ogni 10 min (così la promessa "entro 24h" regge: richiesta + 24h grace,
--- poi prossimo tick entro minuti).
-do $$
-begin
-  if exists (select 1 from cron.job where jobname = 'process-deletions') then
-    perform cron.unschedule('process-deletions');
-  end if;
-end $$;
-
-select cron.schedule(
-  'process-deletions',
-  '*/10 * * * *',
-  $$ select public.gdpr_process_deletions(); $$
-);
+  raise notice 'marker storico non eseguibile: %', '20260616090000_gdpr_deletion_execution';
+end
+$marker$;

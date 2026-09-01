@@ -27,6 +27,21 @@ const ADMIN_ALLOWLIST = new Set([
   // Contatori pubblici aggregati (nessun dato utente, nessun contesto RLS):
   // service_role serve per contare/incrementare righe cross-utente.
   "app/api/v1/posts/stats/route.ts",
+  "app/api/v1/posts/stats/route.ts",
+  // Le due route delle notifiche degli store (2026-08-25) erano qui. Sono
+  // uscite dalla 190 il 31/08/2026 insieme a F5 e F6: un canale asincrono che
+  // revoca un diritto senza che nessun percorso server prolunghi `active_until`
+  // al rinnovo introduce «ha pagato il rinnovo e perde Pro», ed e' l'esito che
+  // la decisione esiste per non introdurre.
+  //
+  // Una voce di allowlist che nomina un file inesistente non fa fallire
+  // niente — `walk()` cammina i file reali — e proprio per questo restava a
+  // dichiarare che due route esistono quando non esistono piu'.
+  //
+  // La clausola `/notifications/` piu' sotto RESTA, e non e' una svista: e'
+  // una regola sulla FORMA di un endpoint, non su questi due file. Toglierla
+  // significherebbe che la prossima route sotto `/notifications/` nasce senza
+  // che nessuno le chieda una verifica.
 ]);
 
 function walk(dir) {
@@ -59,11 +74,15 @@ for (const file of routes) {
     );
   }
 
-  if (rel.includes("/webhook/")) {
+  // Non solo `/webhook/`: due endpoint pubblici che possono REVOCARE un
+  // diritto vivevano sotto `/notifications/` e sfuggivano a questa regola per
+  // il solo nome della cartella. Una regola che dipende da come si chiama una
+  // directory non e' una regola.
+  if (rel.includes("/webhook/") || rel.includes("/notifications/")) {
     // Verifica riconosciuta: funzione verify*/requireUser, OPPURE auth via
     // secret condiviso/firma (x-webhook-secret, *_WEBHOOK_SECRET, signature/hmac).
     const hasVerify =
-      /\bverify[A-Z]\w*\s*\(|\brequireUser\s*\(|WEBHOOK_SECRET|x-webhook-secret|x-[a-z-]*signature|\bhmac/i.test(
+      /\bverify[A-Z]\w*\s*\(|\bverifica[A-Z]\w*\s*\(|\brequireUser\s*\(|WEBHOOK_SECRET|x-webhook-secret|x-[a-z-]*signature|\bhmac/i.test(
         src,
       );
     if (!hasVerify) {

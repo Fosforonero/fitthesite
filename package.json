@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
+    "suite:perimetro-check": "tsx tools/check-perimetro-suite.ts",
     "seo:truth-check": "tsx tools/check-llms-consistency.ts",
     "labs:truth-check": "tsx tools/check-labs-truth.ts",
     "labs:privacy-check": "tsx tools/check-labs-privacy.ts",
@@ -45,6 +46,7 @@
     "oneplus-health:browser-check": "tsx tools/check-oneplus-health-browser.ts"
   },
   "dependencies": {
+    "@apple/app-store-server-library": "^3.1.0",
     "@payloadcms/db-postgres": "^3.85.1",
     "@payloadcms/email-resend": "^3.85.1",
     "@payloadcms/next": "^3.85.1",
@@ -81,7 +83,7 @@
     "vitest": "^3.2.4"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.13.0"
   },
   "packageManager": "pnpm@11.15.0"
 }
