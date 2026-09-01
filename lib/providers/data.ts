@@ -4687,9 +4687,13 @@ export const PROVIDERS: Provider[] = [
         // diretta con la FAQ sopra (e con docs/seo/capability-promotion-
         // checklist.md) che dichiara la lettura OAuth già live e verificata
         // dal 12/07/2026. Corretto al presente per la lettura; la
-        // scrittura (invio allenamenti verso Strava) resta esplicitamente
-        // "in sviluppo", mai "live" — è ferma al gate 1 di 9 nello stesso
-        // documento.
+        // scrittura resta descritta per lo stato attuale verificato sul
+        // binario pubblico (v3.9.8+189): uploadActivity() esiste ed è
+        // cablato in settings_screen.dart, ma buildWriteAuthorizationUrl()
+        // non è mai invocato da nessuna UI — nessun utente reale può
+        // ottenere lo scope activity:write. Mai "in sviluppo" nel testo
+        // pubblico: quella parola presume un impegno attivo che non è
+        // stato verificato, solo la presenza di codice inutilizzato.
         q: {
           it: "Quali dati legge FitMesh da Strava, e può anche inviarli?",
           en: "What Strava data does FitMesh read, and can it send data too?",
@@ -4704,17 +4708,17 @@ export const PROVIDERS: Provider[] = [
           ko: "FitMesh는 Strava에서 어떤 데이터를 읽나요? 데이터를 보낼 수도 있나요?",
         },
         a: {
-          it: "Per gli account già collegati, FitMesh legge le attività (corse, ciclismo, nuoto, ecc.), i dati dei percorsi, le zone di ritmo/potenza e i tempi dei segmenti, mostrando carico e volume di allenamento insieme al sonno e al recupero dal tuo dispositivo. L'invio di allenamenti verso Strava (scrittura) è invece in sviluppo e non ancora disponibile.",
-          en: "For accounts already connected, FitMesh reads activities (run, ride, swim, etc.), route data, pace/power zones, and segment times, showing training load and volume alongside sleep and recovery from your wearable. Sending workouts to Strava (write) is still in development and not yet available.",
-          es: "Para las cuentas ya conectadas, FitMesh lee las actividades (correr, montar, nadar, etc.), los datos del itinerario, las zonas de ritmo/potencia y los tiempos de segmentos, mostrando la carga y el volumen de entrenamiento junto con el sueño y la recuperación de tu wearable. Enviar entrenamientos a Strava (escritura) sigue en desarrollo y todavía no está disponible.",
-          de: "Für bereits verbundene Konten liest FitMesh Aktivitäten (Laufen, Radfahren, Schwimmen usw.), Routendaten, Tempo-/Leistungsbereiche und Segmentzeiten und zeigt Trainingsbelastung und -volumen zusammen mit Schlaf- und Erholungsdaten aus deinem Wearable. Das Senden von Workouts an Strava (Schreiben) befindet sich noch in Entwicklung und ist noch nicht verfügbar.",
-          pt: "Para contas já conectadas, o FitMesh lê atividades (corrida, ciclismo, natação, etc.), dados das rotas, zonas de ritmo/potência e tempos de segmentos, mostrando carga e volume de treino junto com o sono e a recuperação do seu wearable. Enviar treinos para o Strava (escrita) ainda está em desenvolvimento e não está disponível.",
-          fr: "Pour les comptes déjà connectés, FitMesh lit les activités (course, vélo, natation, etc.), les données d'itinéraires, les zones de vitesse/puissance et les temps de segments, en affichant la charge et le volume d'entraînement aux côtés du sommeil et de la récupération de votre appareil. L'envoi d'entraînements vers Strava (écriture) est encore en développement et pas encore disponible.",
-          pl: "Dla kont już połączonych FitMesh odczytuje aktywności (bieganie, jazda na rowerze, pływanie itp.), dane trasy, strefy tempa/mocy i czasy segmentów, pokazując obciążenie i objętość treningową razem ze snem i regeneracją z Twojego urządzenia. Wysyłanie treningów do Strava (zapis) jest wciąż w fazie rozwoju i nie jest jeszcze dostępne.",
-          tr: "Zaten bağlı hesaplar için FitMesh, aktiviteleri (koşu, bisiklet, yüzme vb.), rota verilerini, hız/güç bölgelerini ve segment sürelerini okur; antrenman yükünü ve hacmini cihazınızdaki uyku ve toparlanma verileriyle birlikte gösterir. Antrenmanların Strava'ya gönderilmesi (yazma) hâlâ geliştirme aşamasındadır ve henüz kullanılamaz.",
-          nl: "Voor reeds gekoppelde accounts leest FitMesh activiteiten (lopen, fietsen, zwemmen, enz.), routegegevens, tempo-/vermogenszones en segmenttijden, en toont trainingsbelasting en -volume naast slaap- en herstelgegevens van je wearable. Het versturen van trainingen naar Strava (schrijven) is nog in ontwikkeling en nog niet beschikbaar.",
-          ja: "すでに接続済みのアカウントでは、FitMeshはアクティビティ（ラン、ライド、スイムなど）、ルートデータ、ペース/パワーゾーン、セグメントタイムを読み取り、ウェアラブルの睡眠・回復データと合わせてトレーニング負荷と量を表示します。Stravaへのワークアウト送信（書き込み）はまだ開発中で、利用できません。",
-          ko: "이미 연결된 계정의 경우 FitMesh는 활동(달리기, 자전거, 수영 등), 경로 데이터, 페이스/파워 존, 세그먼트 시간을 읽어 웨어러블의 수면 및 회복 데이터와 함께 훈련 부하와 양을 표시합니다. Strava로 운동 데이터를 보내는 기능(쓰기)은 아직 개발 중이며 이용할 수 없습니다.",
+          it: "Per gli account già collegati, FitMesh legge le attività (corse, ciclismo, nuoto, ecc.), i dati dei percorsi, le zone di ritmo/potenza e i tempi dei segmenti, mostrando carico e volume di allenamento insieme al sonno e al recupero dal tuo dispositivo. L'app pubblicata non espone ancora l'autorizzazione necessaria per inviare allenamenti a Strava (scrittura).",
+          en: "For accounts already connected, FitMesh reads activities (run, ride, swim, etc.), route data, pace/power zones, and segment times, showing training load and volume alongside sleep and recovery from your wearable. The published app doesn't yet expose the authorization needed to send workouts to Strava (write).",
+          es: "Para las cuentas ya conectadas, FitMesh lee las actividades (correr, montar, nadar, etc.), los datos del itinerario, las zonas de ritmo/potencia y los tiempos de segmentos, mostrando la carga y el volumen de entrenamiento junto con el sueño y la recuperación de tu wearable. La app publicada aún no ofrece la autorización necesaria para enviar entrenamientos a Strava (escritura).",
+          de: "Für bereits verbundene Konten liest FitMesh Aktivitäten (Laufen, Radfahren, Schwimmen usw.), Routendaten, Tempo-/Leistungsbereiche und Segmentzeiten und zeigt Trainingsbelastung und -volumen zusammen mit Schlaf- und Erholungsdaten aus deinem Wearable. Die veröffentlichte App bietet noch keine Möglichkeit, das Senden von Workouts an Strava (Schreiben) zu autorisieren.",
+          pt: "Para contas já conectadas, o FitMesh lê atividades (corrida, ciclismo, natação, etc.), dados das rotas, zonas de ritmo/potência e tempos de segmentos, mostrando carga e volume de treino junto com o sono e a recuperação do seu wearable. O app publicado ainda não oferece a autorização necessária para enviar treinos ao Strava (escrita).",
+          fr: "Pour les comptes déjà connectés, FitMesh lit les activités (course, vélo, natation, etc.), les données d'itinéraires, les zones de vitesse/puissance et les temps de segments, en affichant la charge et le volume d'entraînement aux côtés du sommeil et de la récupération de votre appareil. L'application publiée n'offre pas encore l'autorisation nécessaire pour envoyer des entraînements vers Strava (écriture).",
+          pl: "Dla kont już połączonych FitMesh odczytuje aktywności (bieganie, jazda na rowerze, pływanie itp.), dane trasy, strefy tempa/mocy i czasy segmentów, pokazując obciążenie i objętość treningową razem ze snem i regeneracją z Twojego urządzenia. Opublikowana aplikacja nie udostępnia jeszcze autoryzacji potrzebnej do wysyłania treningów do Strava (zapis).",
+          tr: "Zaten bağlı hesaplar için FitMesh, aktiviteleri (koşu, bisiklet, yüzme vb.), rota verilerini, hız/güç bölgelerini ve segment sürelerini okur; antrenman yükünü ve hacmini cihazınızdaki uyku ve toparlanma verileriyle birlikte gösterir. Yayınlanan uygulama, antrenmanların Strava'ya gönderilmesi (yazma) için gereken yetkilendirmeyi henüz sunmuyor.",
+          nl: "Voor reeds gekoppelde accounts leest FitMesh activiteiten (lopen, fietsen, zwemmen, enz.), routegegevens, tempo-/vermogenszones en segmenttijden, en toont trainingsbelasting en -volume naast slaap- en herstelgegevens van je wearable. De gepubliceerde app biedt nog geen manier om het versturen van trainingen naar Strava (schrijven) te autoriseren.",
+          ja: "すでに接続済みのアカウントでは、FitMeshはアクティビティ（ラン、ライド、スイムなど）、ルートデータ、ペース/パワーゾーン、セグメントタイムを読み取り、ウェアラブルの睡眠・回復データと合わせてトレーニング負荷と量を表示します。公開中のアプリには、Stravaへのワークアウト送信（書き込み）を認可する手段がまだありません。",
+          ko: "이미 연결된 계정의 경우 FitMesh는 활동(달리기, 자전거, 수영 등), 경로 데이터, 페이스/파워 존, 세그먼트 시간을 읽어 웨어러블의 수면 및 회복 데이터와 함께 훈련 부하와 양을 표시합니다. 배포된 앱은 Strava로 운동 데이터를 보내는 기능(쓰기)에 필요한 인증 권한을 아직 제공하지 않습니다.",
         },
       },
     ],

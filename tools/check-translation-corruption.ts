@@ -27,26 +27,32 @@
  *  4. [double-escaped-unicode] sequenze unicode con DOPPIO escape
  *     (`\\uXXXX` nel sorgente — due backslash letterali seguiti da "u" e 4
  *     cifre esadecimali) invece del singolo escape reale (`\uXXXX`) che il
- *     motore JS decodifica a runtime nel carattere vero. Bug reale di
- *     QUESTA PR (hotfix/google-health-ja-ko-unicode-escape): 20 stringhe
- *     ja/ko in lib/blog/posts/google-health-google-fit.ts renderizzavano
- *     testo letterale "\uXXXX" invece dei caratteri giapponesi/coreani
- *     veri. Guardrail permanente aggiunto qui insieme al fix, cosi' che
- *     una regressione futura (in questo file o altrove nei TARGETS sotto)
- *     fallisca il gate invece di ripassare inosservata come nel bug
- *     originale. Nessuna esclusione ad hoc per regex/test/documentazione/
- *     fixture serve qui: il controllo scansiona SOLO le stringhe dentro
- *     una chiave di locale nota nei TARGETS sotto (contenuto editoriale),
- *     non l'intero file — un file di test o un tool che manipola escape
- *     non rientra mai in questi TARGETS, quindi non può mai generare un
- *     falso positivo per costruzione, non per un'esclusione scritta a
- *     mano. Il pattern distingue correttamente le due forme perché
- *     `readStringLiteral` copia l'escape letteralmente cosi' come appare
- *     nel sorgente (non lo decodifica): un singolo `\uXXXX` sorgente
- *     produce nel valore estratto UN SOLO backslash prima di "u", un
- *     doppio `\\uXXXX` sorgente ne produce DUE — il pattern richiede
- *     esplicitamente due backslash letterali, quindi non può mai scattare
- *     sulla forma corretta.
+ *     motore JS decodifica a runtime nel carattere vero. Bug reale trovato
+ *     nel MICRO-GATE P1.9-A (2026-09-01): 20 stringhe ja/ko in
+ *     lib/blog/posts/google-health-google-fit.ts renderizzavano testo
+ *     letterale "\uXXXX" invece dei caratteri giapponesi/coreani veri —
+ *     fix e guardrail nati isolati in PR #61
+ *     (hotfix/google-health-ja-ko-unicode-escape), ora presenti anche qui
+ *     dopo il rebase di questo branch (PR #62) sul nuovo main successivo
+ *     al merge di #61 (ordine deciso in MICRO-GATE P1.9-A FASE 1). Nessuna
+ *     esclusione ad hoc per regex/test/documentazione/fixture serve qui:
+ *     il controllo scansiona SOLO le stringhe dentro una chiave di locale
+ *     nota nei TARGETS sotto (contenuto editoriale), non l'intero file —
+ *     un file di test o un tool che manipola escape non rientra mai in
+ *     questi TARGETS, quindi non può mai generare un falso positivo per
+ *     costruzione, non per un'esclusione scritta a mano. Il pattern
+ *     distingue correttamente le due forme perché `readStringLiteral`
+ *     copia l'escape letteralmente cosi' come appare nel sorgente (non lo
+ *     decodifica): un singolo `\uXXXX` sorgente produce nel valore
+ *     estratto UN SOLO backslash prima di "u", un doppio `\\uXXXX`
+ *     sorgente ne produce DUE — il pattern richiede esplicitamente due
+ *     backslash letterali, quindi non può mai scattare sulla forma
+ *     corretta.
+ *
+ *     STATO POST-REBASE (01/09/2026): #61 è mergiato (a1ec92b) e questo
+ *     branch vi ha fatto rebase — zero hit attesi ovunque, incluso
+ *     google-health-google-fit.ts. Un hit qui ora sarebbe una regressione
+ *     reale, non un residuo noto.
  *
  * Uso (Docker, nessun runtime locale):
  *   docker run --rm -v "$PWD":/app -w /app node:22 npx -y tsx tools/check-translation-corruption.ts
