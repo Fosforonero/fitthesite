@@ -440,28 +440,28 @@ const DOESNT_TITLE: Localized = {
 const DOESNT_ITEMS: LocalizedList = {
   it: [
     "Non sincronizza ogni app fitness con ogni altra. Controlla la tabella di compatibilità per la fonte o destinazione specifica di cui hai bisogno.",
-    "Inviare allenamenti a Strava, TrainingPeaks o RideWithGPS è ancora in sviluppo, non disponibile oggi. Salvare gli export direttamente su Google Drive è anch'esso in sviluppo; usa il foglio di condivisione nel frattempo.",
+    "Inviare allenamenti: verso Strava l'app pubblicata non espone ancora l'autorizzazione necessaria; verso TrainingPeaks o RideWithGPS è ancora in sviluppo, non disponibile oggi. Salvare gli export direttamente su Google Drive è anch'esso in sviluppo; usa il foglio di condivisione nel frattempo.",
     "Il write-back verso Health Connect e Apple Health non copre ogni metrica (nessuna scrittura HRV su nessuna delle due piattaforme, nessuna scrittura del peso su Android).",
     "Il timing del write-back differisce per piattaforma: Health Connect (Android) esporta una volta per attivazione dell'interruttore, non continuamente; Apple Health (iOS) ri-esporta dopo ogni sync riuscito.",
     "L'export in formato FIT non è disponibile (licenza); GPX e TCX sì.",
   ],
   en: [
     "It doesn't sync every fitness app to every other fitness app. Check the compatibility table for the specific source or destination you need.",
-    "Sending workouts to Strava, TrainingPeaks or RideWithGPS is still in development, not available today. Saving exports directly to Google Drive is also in development; use the share sheet instead.",
+    "Sending workouts: to Strava, the published app doesn't yet expose the authorization needed; to TrainingPeaks or RideWithGPS it's still in development, not available today. Saving exports directly to Google Drive is also in development; use the share sheet instead.",
     "Write-back to Health Connect and Apple Health doesn't cover every metric (no HRV write on either platform, no weight write on Android).",
     "Write-back timing differs by platform: Health Connect (Android) exports once per toggle activation, not continuously; Apple Health (iOS) re-exports after every successful sync.",
     "FIT file export isn't available (licensing); GPX and TCX are.",
   ],
   es: [
     "No sincroniza cada app de fitness con cualquier otra. Consulta la tabla de compatibilidad para la fuente o destino específico que necesitas.",
-    "Enviar entrenamientos a Strava, TrainingPeaks o RideWithGPS todavía está en desarrollo, no disponible hoy. Guardar exportaciones directamente en Google Drive también está en desarrollo; usa la hoja de compartir mientras tanto.",
+    "Enviar entrenamientos: a Strava, la app publicada aún no ofrece la autorización necesaria; a TrainingPeaks o RideWithGPS todavía está en desarrollo, no disponible hoy. Guardar exportaciones directamente en Google Drive también está en desarrollo; usa la hoja de compartir mientras tanto.",
     "El write-back hacia Health Connect y Apple Health no cubre todas las métricas (sin escritura de HRV en ninguna de las dos plataformas, sin escritura de peso en Android).",
     "El momento del write-back difiere según la plataforma: Health Connect (Android) exporta una vez por activación del interruptor, no continuamente; Apple Health (iOS) vuelve a exportar después de cada sincronización exitosa.",
     "La exportación en formato FIT no está disponible (licencia); GPX y TCX sí.",
   ],
   de: [
     "Es synchronisiert nicht jede Fitness-App mit jeder anderen. Prüfe die Kompatibilitätstabelle für die spezifische Quelle oder das Ziel, das du brauchst.",
-    "Das Senden von Workouts an Strava, TrainingPeaks oder RideWithGPS ist noch in Entwicklung, heute nicht verfügbar. Das direkte Speichern von Exporten in Google Drive ist ebenfalls in Entwicklung; nutze stattdessen das Freigabeblatt.",
+    "Das Senden von Workouts: An Strava bietet die veröffentlichte App noch keine Möglichkeit, dies zu autorisieren; an TrainingPeaks oder RideWithGPS ist es noch in Entwicklung, heute nicht verfügbar. Das direkte Speichern von Exporten in Google Drive ist ebenfalls in Entwicklung; nutze stattdessen das Freigabeblatt.",
     "Write-back zu Health Connect und Apple Health deckt nicht jede Metrik ab (kein HRV-Schreiben auf beiden Plattformen, kein Gewichts-Schreiben auf Android).",
     "Das Write-back-Timing unterscheidet sich je nach Plattform: Health Connect (Android) exportiert einmal pro Schalteraktivierung, nicht fortlaufend; Apple Health (iOS) exportiert nach jeder erfolgreichen Synchronisierung erneut.",
     "FIT-Datei-Export ist nicht verfügbar (Lizenzierung); GPX und TCX schon.",

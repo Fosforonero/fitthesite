@@ -19,8 +19,11 @@ import type { BlogPost } from "../types";
  * lingua propria; la nuova sezione "quattro architetture" per quelle 7
  * locale mostra il testo EN (fallback tl()) finché la Fase 7 non estende
  * la traduzione. Vedi tools/check-llms-consistency.ts per il motivo per cui
- * Strava/TrainingPeaks/RideWithGPS/Google Drive restano "in development"
- * in questo articolo.
+ * TrainingPeaks/RideWithGPS/Google Drive restano "in development" in
+ * questo articolo. Strava è un caso diverso corretto in MICRO-GATE
+ * P1.9-A: mai "in development" (dedotto dalla sola presenza di codice,
+ * non una decisione verificata) — lettura ad accesso limitato, scrittura
+ * non raggiungibile nella release pubblica (nessuna UI la autorizza).
  */
 export const post: BlogPost = {
   slug: "guida-sync-wearable-2026",
