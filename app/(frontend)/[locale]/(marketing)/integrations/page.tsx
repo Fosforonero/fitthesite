@@ -142,15 +142,26 @@ export default async function IntegrationsHub({
     name: t("Integrazioni FitMesh Sync", "FitMesh Sync Integrations", "Integraciones FitMesh Sync", "FitMesh Sync Integrationen", "Integrações FitMesh Sync", "Intégrations FitMesh Sync", "FitMesh Sync Integraties", "FitMesh Sync 連携", "FitMesh Sync 연동"),
     url: `${SITE_URL}/${lc}/integrations`,
     inLanguage: schemaLanguage(lc),
-    hasPart: PROVIDERS.map((p) => ({
-      "@type": "SoftwareApplication",
-      name: `FitMesh Sync — ${p.name}`,
-      url: `${SITE_URL}/${lc}/sync/${p.slug}`,
-      applicationCategory: "HealthApplication",
-      operatingSystem: (p.platforms ?? ["android"])
-        .map((plat) => (plat === "ios" ? "IOS" : "ANDROID"))
-        .join(", "),
-    })),
+    // P0.16: prima mappava PROVIDERS incondizionatamente, citando come url
+    // la pagina /{lc}/sync/{slug} anche quando NON e' indicizzabile per lc —
+    // su sv/da/no/fi (nessun provider tradotto) le 17 entry puntavano TUTTE
+    // a pagine noindex (bug reale, trovato dal guardrail P0.16). Stessa
+    // fonte di verita' e stesso fallback EN gia' usati dai link visibili in
+    // pagina (providerLinkHref): se nemmeno l'EN e' indicizzabile, il
+    // provider e' escluso da hasPart invece di puntare a una pagina morta.
+    hasPart: PROVIDERS.map((p) => {
+      const href = providerLinkHref(p, lc);
+      if (!href) return null;
+      return {
+        "@type": "SoftwareApplication",
+        name: `FitMesh Sync — ${p.name}`,
+        url: `${SITE_URL}${href}`,
+        applicationCategory: "HealthApplication",
+        operatingSystem: (p.platforms ?? ["android"])
+          .map((plat) => (plat === "ios" ? "IOS" : "ANDROID"))
+          .join(", "),
+      };
+    }).filter((entry): entry is NonNullable<typeof entry> => entry !== null),
   };
 
   return (

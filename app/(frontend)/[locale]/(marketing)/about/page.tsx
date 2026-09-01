@@ -85,7 +85,12 @@ export default async function AboutPage({
       name: "FitMesh Sync",
       applicationCategory: "HealthApplication",
       operatingSystem: (["android", "ios"] as const).map((plat) => (plat === "ios" ? "IOS" : "ANDROID")).join(", "),
-      offers: (["android", "ios"] as const).flatMap((plat) => appOffers(plat)),
+      // P0.16: appOffers() ritorna sempre lo stesso Offer indipendentemente
+      // dalla piattaforma (ignora il parametro) — un flatMap su due
+      // piattaforme duplicava letteralmente lo stesso nodo Offer nell'array
+      // (confermato live su /en/about e nel tree JSON di Google Rich Results
+      // Test). Stesso fix gia' applicato in sync/[provider]/page.tsx.
+      offers: appOffers("android"),
     },
   };
 
