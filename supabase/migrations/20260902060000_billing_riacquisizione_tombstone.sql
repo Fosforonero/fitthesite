@@ -526,5 +526,4 @@ begin
     'entitlement', v_entitlement
   );
 end;
-$function$
-
+$function$;
