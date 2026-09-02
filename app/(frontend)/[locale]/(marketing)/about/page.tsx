@@ -7,7 +7,7 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { p } from "@/lib/pricing";
-import { SITE_URL, appOffers } from "@/lib/product-facts";
+import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 
@@ -73,20 +73,23 @@ export default async function AboutPage({
 
   const lifetimeBothShort = p("lifetimeBothShort", lc);
 
-  // AboutPage JSON-LD per knowledge graph
+  // P0.16-B: `mainEntity` era un SoftwareApplication incompleto (mai
+  // `offers.price`... in realta' l'aveva, ma mai `aggregateRating`/`review`,
+  // entrambi REQUIRED per il rich result Software App secondo la
+  // documentazione ufficiale Google — nessuno store da' oggi un rating
+  // pubblico, stabile e onestamente sitewide, vedi guardrail). Rimosso
+  // finche' non esiste un dato reale: l'entita' principale di questa pagina
+  // e' l'azienda/prodotto FitMesh, gia' rappresentata per intero da
+  // `<OrganizationJsonLd>` qui sotto — `mainEntity` ora vi punta per @id
+  // invece di ridefinire un secondo nodo incompleto (organizationCompactRef
+  // userebbe lo stesso @id ma duplicherebbe i campi: qui basta il riferimento).
   const aboutLd = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     name: tl(ABOUT_COPY.jsonLdName, lc),
     url: `${SITE_URL}${path}`,
     inLanguage: schemaLanguage(lc),
-    mainEntity: {
-      "@type": "SoftwareApplication",
-      name: "FitMesh Sync",
-      applicationCategory: "HealthApplication",
-      operatingSystem: (["android", "ios"] as const).map((plat) => (plat === "ios" ? "IOS" : "ANDROID")).join(", "),
-      offers: (["android", "ios"] as const).flatMap((plat) => appOffers(plat)),
-    },
+    mainEntity: { "@id": `${SITE_URL}#organization` },
   };
 
   return (

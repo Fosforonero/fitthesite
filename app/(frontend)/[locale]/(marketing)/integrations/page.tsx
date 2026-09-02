@@ -142,15 +142,31 @@ export default async function IntegrationsHub({
     name: t("Integrazioni FitMesh Sync", "FitMesh Sync Integrations", "Integraciones FitMesh Sync", "FitMesh Sync Integrationen", "Integrações FitMesh Sync", "Intégrations FitMesh Sync", "FitMesh Sync Integraties", "FitMesh Sync 連携", "FitMesh Sync 연동"),
     url: `${SITE_URL}/${lc}/integrations`,
     inLanguage: schemaLanguage(lc),
-    hasPart: PROVIDERS.map((p) => ({
-      "@type": "SoftwareApplication",
-      name: `FitMesh Sync — ${p.name}`,
-      url: `${SITE_URL}/${lc}/sync/${p.slug}`,
-      applicationCategory: "HealthApplication",
-      operatingSystem: (p.platforms ?? ["android"])
-        .map((plat) => (plat === "ios" ? "IOS" : "ANDROID"))
-        .join(", "),
-    })),
+    // P0.16 (bug): prima mappava PROVIDERS incondizionatamente, citando come
+    // url la pagina /{lc}/sync/{slug} anche quando NON e' indicizzabile per
+    // lc — su sv/da/no/fi (nessun provider tradotto) le 17 entry puntavano
+    // TUTTE a pagine noindex. Fix: stessa fonte di verita' e stesso fallback
+    // EN gia' usati dai link visibili in pagina (providerLinkHref); se
+    // nemmeno l'EN e' indicizzabile, il provider e' escluso invece di
+    // puntare a una pagina morta.
+    //
+    // P0.16-B (rimodellazione): il tipo era SoftwareApplication, ma questi
+    // 17 nodi per pagina non hanno mai avuto `offers.price` (required) ne'
+    // aggregateRating/review (required) — la stessa app ripetuta 17 volte
+    // con un nome diverso, senza nessuna delle proprieta' che la
+    // renderebbero un'entita' SoftwareApplication valida per il rich
+    // result. WebPage rappresenta esattamente cio' che ogni entry e'
+    // davvero: un link a una pagina reale del sito, nome + url, senza
+    // inventare un tipo "applicazione" incompleto per farlo.
+    hasPart: PROVIDERS.map((p) => {
+      const href = providerLinkHref(p, lc);
+      if (!href) return null;
+      return {
+        "@type": "WebPage",
+        name: `FitMesh Sync — ${p.name}`,
+        url: `${SITE_URL}${href}`,
+      };
+    }).filter((entry): entry is NonNullable<typeof entry> => entry !== null),
   };
 
   return (

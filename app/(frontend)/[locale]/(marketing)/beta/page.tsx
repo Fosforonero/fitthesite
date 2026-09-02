@@ -5,7 +5,6 @@ import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { MobileApplicationJsonLd } from "@/components/seo/MobileApplicationJsonLd";
 import { CTA_PLACEMENTS } from "@/lib/analytics/cta";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/product-facts";
@@ -153,7 +152,9 @@ export default async function BetaPage({
           url: `${SITE_URL}/${lc}/beta`,
         }}
       />
-      <MobileApplicationJsonLd locale={lc} />
+      {/* P0.16-B: MobileApplicationJsonLd rimosso (nodo senza aggregateRating/
+         review, required per il rich result) — questa pagina e' comunque
+         noindex,follow, quindi zero impatto sull'aspetto nei risultati. */}
 
       {/* Page-local atmospheric layers (sopra al MarketingBackdrop globale) */}
       <div

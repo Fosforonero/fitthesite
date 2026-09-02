@@ -7,7 +7,6 @@ import MockupShowcase from "@/components/MockupShowcase";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import TrustBadges from "@/components/TrustBadges";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { MobileApplicationJsonLd } from "@/components/seo/MobileApplicationJsonLd";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { WebSiteJsonLd } from "@/components/seo/WebSiteJsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
@@ -125,8 +124,8 @@ export default async function Home({
   ];
 
   // JSON-LD WebPage specifico per la home: linka esplicitamente l'@graph
-  // (Org + WebSite + MobileApp) del layout via @id reference, e dichiara
-  // primaryImageOfPage + isPartOf per knowledge graph cleaner.
+  // (Org + WebSite) via @id reference, e dichiara primaryImageOfPage +
+  // isPartOf per knowledge graph cleaner.
   const homeLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -144,7 +143,11 @@ export default async function Home({
       : "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one privacy-first global dashboard: steps, heart rate, sleep, recovery and trends.",
     inLanguage: schemaLanguage(lc),
     isPartOf: { "@id": `${SITE_URL}#website` },
-    about: { "@id": `${SITE_URL}#mobile-app` },
+    // P0.16-B: puntava a `#mobile-app` (MobileApplicationJsonLd, rimosso —
+    // nodo incompleto senza aggregateRating/review, required per il rich
+    // result). L'entita' di cui questa pagina parla e' l'azienda/prodotto,
+    // gia' rappresentata per intero da <OrganizationJsonLd> qui sotto.
+    about: { "@id": `${SITE_URL}#organization` },
     primaryImageOfPage: {
       "@type": "ImageObject",
       url: `${SITE_URL}/opengraph-image`,
@@ -171,7 +174,6 @@ export default async function Home({
       <WebSiteJsonLd locale={lc} />
       <JsonLd data={homeLd} />
       <JsonLd data={homeBreadcrumbLd} />
-      <MobileApplicationJsonLd locale={lc} />
       {/* ════════════════════════════════════════════════════════════════
        *  HERO
        *  Composizione asimmetrica: testo 7 colonne a sinistra, visual 5

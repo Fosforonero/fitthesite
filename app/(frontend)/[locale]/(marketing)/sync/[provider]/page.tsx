@@ -23,8 +23,7 @@ import { BlogSources } from "@/components/blog/BlogSources";
 import { FITNESS_DATA_SYNC_COMPLETE_LOCALES } from "@/lib/content/static-page-locales";
 import { blogLinkHref } from "@/lib/blog/indexability";
 import { tl, tll, categoryLabel as blogCategoryLabel, type BlogPost } from "@/lib/blog/types";
-import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
-import { APPLE_STORE_URL } from "@/lib/flags";
+import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 import { toMetaDescription } from "@/lib/seo/meta-description";
 
@@ -315,30 +314,26 @@ export default async function ProviderLanding({
   const dataTypeStatusLabel = DATATYPE_STATUS_LABEL[lc] ?? DATATYPE_STATUS_LABEL.en;
 
   // ── JSON-LD ──────────────────────────────────────────────────────────
-  // Piattaforma-aware: la maggior parte dei provider è Android-only (Health
-  // Connect), ma "apple-health" è iOS-only e "colmi-ring" funziona su
-  // entrambe (BLE diretto) — p.platforms lo dichiara esplicitamente (default
-  // ["android"] se omesso). Prima questo blocco era hardcoded "ANDROID" +
-  // Play Store per OGNI provider, incluse le pagine apple-health/colmi-ring.
+  // P0.16-B: era SoftwareApplication — required aggregateRating/review per
+  // il rich result Software App (documentazione ufficiale Google), che
+  // nessuno store da' oggi in modo pubblico, stabile e onestamente
+  // sitewide (vedi guardrail). Rimosso finche' non esiste un dato reale:
+  // WebPage rappresenta correttamente cio' che questa pagina e' davvero
+  // (una pagina informativa sulla sincronizzazione con questo provider),
+  // senza dichiarare un tipo "applicazione" incompleto.
   const path = `/${lc}/sync/${p.slug}`;
   const platforms = p.platforms ?? ["android"];
   const softwareLd = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
+    "@type": "WebPage",
     name: `FitMesh Sync — ${p.name}`,
-    applicationCategory: "HealthApplication",
-    operatingSystem: platforms.map((plat) => (plat === "ios" ? "IOS" : "ANDROID")).join(", "),
     description: tl(p.longDesc, lc),
     url: `${SITE_URL}${path}`,
     inLanguage: schemaLanguage(lc),
-    // appOffers() ritorna sempre lo stesso free-download Offer indipendentemente
-    // dalla piattaforma: niente flatMap multi-piattaforma, altrimenti duplica il nodo.
-    offers: appOffers(platforms[0]),
-    // downloadUrl: solo per provider single-platform — con due piattaforme
-    // (colmi-ring) non c'è un unico store "giusto" da linkare qui.
-    ...(platforms.length === 1 && {
-      downloadUrl: platforms[0] === "ios" ? APPLE_STORE_URL : PLAY_URL,
-    }),
+    // P0.16-B punto 4: collegamento semantico semplice verso il prodotto,
+    // invece di un secondo SoftwareApplication incompleto — stesso pattern
+    // gia' usato da homeLd.isPartOf.
+    isPartOf: { "@id": `${SITE_URL}#website` },
   };
 
   const faqLd =

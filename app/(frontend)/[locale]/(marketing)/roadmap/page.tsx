@@ -2,13 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { getBlogPostBySlug } from "@/lib/blog/payload-source";
 import { blogLinkHref } from "@/lib/blog/indexability";
 import { SITE_URL } from "@/lib/product-facts";
-import { schemaLanguage } from "@/lib/seo/schema-language";
 
 /**
  * Locales with fully translated body content on this page (COLUMNS/STATUS_BADGE
@@ -792,26 +790,20 @@ export default async function RoadmapPage({
   const gdprPost = await getBlogPostBySlug("gdpr-dati-fitness-smartwatch");
   const gdprHref = gdprPost ? blogLinkHref(gdprPost, lc) : null;
 
-  // ItemList JSON-LD — utile per AI search & rich results
-  const itemListLd = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: tlr(HERO_COPY.jsonLdName, lc),
-    url: `${SITE_URL}${path}`,
-    inLanguage: schemaLanguage(lc),
-    itemListElement: COLUMNS.flatMap((col, ci) =>
-      col.items.map((it, ii) => ({
-        "@type": "ListItem",
-        position: ci * 100 + ii + 1,
-        name: tlr(it.title, lc),
-        description: tlr(it.desc, lc),
-      })),
-    ),
-  };
+  // P0.16: l'ItemList JSON-LD qui e' stato rimosso — le colonne della
+  // roadmap sono blurb di feature nella stessa pagina, non entita' con una
+  // destinazione propria (nessun `url` reale per voce, e inventare una route
+  // solo per il markup e' vietato). Verificato con Google Rich Results Test
+  // su /de/roadmap: l'ItemList non veniva nemmeno rilevato come dato
+  // strutturato (solo Breadcrumb compariva) — zero beneficio, e la mancanza
+  // di `url` per voce lo rendeva comunque un candidato Carousel non valido.
+  // Restano solo `<head>` metadata (title/description via generateMetadata,
+  // NON JSON-LD) e BreadcrumbList (via <Breadcrumbs>, sotto): non c'e' un
+  // nodo WebPage/Organization scritto qui — se in futuro ne serve uno,
+  // aggiungerlo esplicitamente invece di assumerlo presente.
 
   return (
     <>
-      <JsonLd data={itemListLd} />
       <Breadcrumbs
         items={[{ name: tlr(HERO_COPY.breadcrumb, lc), path }]}
         locale={lc}
