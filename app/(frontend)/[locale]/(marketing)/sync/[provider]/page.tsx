@@ -330,6 +330,10 @@ export default async function ProviderLanding({
     description: tl(p.longDesc, lc),
     url: `${SITE_URL}${path}`,
     inLanguage: schemaLanguage(lc),
+    // P0.16-B punto 4: collegamento semantico semplice verso il prodotto,
+    // invece di un secondo SoftwareApplication incompleto — stesso pattern
+    // gia' usato da homeLd.isPartOf.
+    isPartOf: { "@id": `${SITE_URL}#website` },
   };
 
   const faqLd =

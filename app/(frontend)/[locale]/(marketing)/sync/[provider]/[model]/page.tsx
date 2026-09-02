@@ -349,6 +349,9 @@ export default async function ModelPage({
     description: desc,
     inLanguage: schemaLanguage(lc),
     url: pageUrl,
+    // P0.16-B punto 4: collegamento semantico semplice verso il prodotto,
+    // invece di un secondo SoftwareApplication incompleto.
+    isPartOf: { "@id": `${SITE_URL}#website` },
   };
 
   return (
