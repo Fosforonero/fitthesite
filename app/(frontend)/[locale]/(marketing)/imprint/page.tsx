@@ -126,7 +126,10 @@ export async function generateMetadata(
   const { locale } = await params;
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
-    title: IMPRINT_NAV_LABEL[lc],
+    // P0.17: stesso suffisso " · FitMesh" del blog, calcolato qui SOLO per
+    // il <title> metadata — IMPRINT_NAV_LABEL[lc] resta invariata ovunque
+    // altro (H1 e breadcrumb, sotto), perche' e' la stessa costante condivisa.
+    title: `${IMPRINT_NAV_LABEL[lc]} · FitMesh`,
     description: DESC[lc],
     alternates: {
       canonical: `${SITE_URL}/${lc}/imprint`,

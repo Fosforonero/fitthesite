@@ -54,7 +54,12 @@ export async function generateMetadata(
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
-    title: titles[lc],
+    // P0.17: "Privacy Policy" da solo e' generico (identico su migliaia di
+    // altri siti) — stesso suffisso " · FitMesh" gia' usato per ogni post
+    // del blog (vedi blog/[slug]/page.tsx), qui applicato SOLO al <title>
+    // metadata. L'H1 (t.legal.privacy_title, sotto) resta invariato: e'
+    // una fonte diversa, non tocca questa stringa.
+    title: `${titles[lc]} · FitMesh`,
     description: desc[lc],
     alternates: {
       canonical: `${SITE_URL}/${lc}/privacy`,

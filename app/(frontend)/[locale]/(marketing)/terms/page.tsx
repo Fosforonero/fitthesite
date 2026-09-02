@@ -53,7 +53,9 @@ export async function generateMetadata(
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
-    title: titles[lc],
+    // P0.17: stesso suffisso " · FitMesh" del blog, solo sul <title>
+    // metadata — l'H1 (t.legal.terms_title, sotto) e' una fonte diversa.
+    title: `${titles[lc]} · FitMesh`,
     description: desc[lc],
     alternates: {
       canonical: `${SITE_URL}/${lc}/terms`,
