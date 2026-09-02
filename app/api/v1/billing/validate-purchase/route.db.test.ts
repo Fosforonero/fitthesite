@@ -38,6 +38,7 @@ import {
   LIFETIME,
   creaBanco,
   dichiaraUnDiritto,
+  esegui,
   esigiModoCompatibilita,
   leggi,
   richiesta189,
@@ -314,6 +315,107 @@ describe.skipIf(!disponibile)("client 189 -> live pre-190 -> candidata 190", () 
     "invariante — client $cliente, $scenario: mai un diritto che il database non possiede",
     async ({ cliente, scenario }) => {
       await invariante(cliente, scenario);
+    },
+  );
+});
+
+/**
+ * CASO 4 — un JWS rifiutato non arriva MAI al registro.
+ *
+ * L'ordine dentro la route e' cio' che rende sicura tutta la porta aperta
+ * dalla riacquisizione: `claim_store_purchase` riassegna una tombstone a chi
+ * presenta un JWS valido, e l'unico motivo per cui questo non e' un varco e'
+ * che la verifica viene PRIMA. Se un giorno qualcuno invertisse i due passi,
+ * chiunque conoscesse una ownership key potrebbe prendersi l'acquisto di un
+ * altro.
+ *
+ * Non si prova con una spia sulla funzione: si prova con gli EFFETTI. Se la
+ * RPC non e' stata chiamata, nel registro non c'e' niente di nuovo — ed e'
+ * una prova che regge anche se domani il claim passasse da un'altra strada.
+ */
+describe("caso 4 — la verifica viene prima del registro", () => {
+  it.runIf(disponibile)(
+    "JWS rifiutato: nessun claim, nessuno stato, nessuna riacquisizione — solo la traccia del tentativo",
+    async () => {
+      montaBanco();
+      esigiModoCompatibilita();
+      mocks.verifyJws.mockResolvedValue({ kind: "rejected", reason: "jws_untrusted" });
+
+      const claimPrima = esegui("select count(*) from private.billing_purchase_claims");
+      const statiPrima = esegui("select count(*) from private.billing_purchase_states");
+      const riacqPrima = esegui("select count(*) from private.billing_riacquisizioni");
+
+      const r = await leggi(await postCandidata(richiesta190()));
+
+      expect(r.status).toBe(400);
+      expect(esegui("select count(*) from private.billing_purchase_claims")).toBe(claimPrima);
+      expect(esegui("select count(*) from private.billing_purchase_states")).toBe(statiPrima);
+      expect(esegui("select count(*) from private.billing_riacquisizioni")).toBe(riacqPrima);
+
+      // La telemetria del tentativo invece DEVE esserci: si scrive prima di
+      // qualunque giudizio, ed e' l'unica scrittura ammessa su questo ramo.
+      expect(
+        Number(
+          esegui(
+            `select count(*) from private.billing_tentativi_acquisto where user_id = '${U}'`,
+          ),
+        ),
+      ).toBeGreaterThan(0);
+    },
+  );
+});
+
+/**
+ * CORREZIONE 1 — il PRIMO «Ripristina acquisti» deve bastare.
+ *
+ * La RPC risponde `reclaimed_after_owner_deletion` quando riassegna una
+ * tombstone. Se il backend non conosce quell'esito lo tratta come ignoto e
+ * risponde 503: il diritto e' stato scritto, ma l'utente vede un errore e
+ * deve toccare il pulsante una seconda volta perche' il secondo giro torni
+ * `already_owned_by_same_user`. Un recupero che funziona solo al secondo
+ * tentativo non e' un recupero: e' un difetto con un rimedio nascosto.
+ */
+describe("correzione 1 — riacquisizione riconosciuta al primo colpo", () => {
+  it.runIf(disponibile)(
+    "tombstone + JWS valido: la PRIMA chiamata risponde 200 e dichiara il Lifetime",
+    async () => {
+      montaBanco();
+      esigiModoCompatibilita();
+
+      // Il claim nasce di un altro utente, che poi cancella il proprio
+      // account: e' la tombstone di Katie, riprodotta con i meccanismi veri.
+      const vecchio = "00000000-0000-4000-8000-00000000e099";
+      esegui(
+        `insert into auth.users (id, email, created_at)
+         values ('${vecchio}', 'tomb-route@test.local', now() - interval '400 days')`,
+      );
+      esegui(
+        `select public.claim_store_purchase('apple_iap','${K1}','${vecchio}',
+           'fitmesh_pro_lifetime','lifetime','production','active',
+           '9999-12-31T23:59:59Z',false, now() - interval '6 hours',
+           'apple_signed_date','${K1}', null)`,
+      );
+      esegui(`delete from auth.users where id = '${vecchio}'`);
+      expect(
+        esegui(
+          `select owner_user_id is null and anonymized_at is not null
+             from private.billing_purchase_claims
+            where billing_source='apple_iap' and ownership_key='${K1}'`,
+        ),
+      ).toBe("t");
+
+      const r = await leggi(await postCandidata(richiesta190()));
+
+      expect(r.status).toBe(200);
+      expect(dichiaraUnDiritto(r.status, r.body)).toBe(true);
+      expect(r.body.state).toBe("active");
+      expect(banco.ilDatabasePossiedeUnDiritto()).toBe(true);
+      expect(
+        esegui(
+          `select owner_user_id::text from private.billing_purchase_claims
+            where billing_source='apple_iap' and ownership_key='${K1}'`,
+        ),
+      ).toBe(U);
     },
   );
 });

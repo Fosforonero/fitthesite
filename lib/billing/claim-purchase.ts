@@ -82,7 +82,20 @@ export type ProjectedEntitlement = {
 export type ClaimResult =
   | {
       kind: "ok";
-      outcome: "claimed" | "already_owned_by_same_user";
+      /**
+       * `reclaimed_after_owner_deletion`: la transazione era una tombstone —
+       * il proprietario precedente aveva cancellato il proprio account — ed e'
+       * tornata a chi ne ha appena dimostrato il possesso con un JWS Apple
+       * valido. Per il chiamante e' un successo pieno quanto gli altri due, e
+       * deve esserlo al PRIMO tentativo: trattarlo come esito ignoto
+       * significava rispondere 503 e costringere l'utente a un secondo
+       * «Ripristina acquisti» per vedersi riconoscere quello che aveva gia'
+       * ottenuto.
+       */
+      outcome:
+        | "claimed"
+        | "already_owned_by_same_user"
+        | "reclaimed_after_owner_deletion";
       /** Falso quando l'evidenza portata era piu' vecchia di quella registrata. */
       stateApplied: boolean;
       entitlement: ProjectedEntitlement | null;
@@ -176,6 +189,7 @@ export async function claimStorePurchase(
   switch (outcome) {
     case "claimed":
     case "already_owned_by_same_user":
+    case "reclaimed_after_owner_deletion":
       return {
         kind: "ok",
         outcome,

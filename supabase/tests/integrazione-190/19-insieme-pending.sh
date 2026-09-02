@@ -177,6 +177,7 @@ E_REL="$(leggi_elenco 'RELEASE 190 REGISTRATE')"
 E_DASH="$(leggi_elenco 'DASHBOARD FUORI BANDA REGISTRATE')"
 E_NO="$(leggi_elenco 'NON REGISTRATE PER SCELTA')"
 E_191="$(leggi_elenco 'NON REGISTRATE, FUTURE (PENDING_191)')"
+E_ATT="$(leggi_elenco 'NON REGISTRATE, IN ATTESA DI AUTORIZZAZIONE')"
 
 if [ -z "$D_TOT" ] || [ -z "$D_BASE" ] || [ -z "$D_DELTA" ] || [ -z "$E_REL" ] || [ -z "$E_DASH" ] || [ -z "$E_191" ]; then
   echo "  ROSSO  il manifesto non dichiara il consuntivo (totale, baseline, delta, i tre elenchi)."
@@ -187,10 +188,11 @@ else
   n_dash=$(printf '%s\n' "$E_DASH" | grep -c .)
   n_no=$(printf '%s\n' "$E_NO" | grep -c .)
   n_191=$(printf '%s\n' "$E_191" | grep -c .)
+  n_att=$(printf '%s\n' "$E_ATT" | grep -c .)
 
   # 1. partizione: ogni versione pending in esattamente un elenco
   VERSIONI="$(printf '%s\n' "$DICH" | cut -f2 | sed 's/_.*//' | sort)"
-  UNIONE="$(printf '%s\n%s\n%s\n%s\n' "$E_REL" "$E_DASH" "$E_NO" "$E_191" | sed '/^$/d' | sort)"
+  UNIONE="$(printf '%s\n%s\n%s\n%s\n%s\n' "$E_REL" "$E_DASH" "$E_NO" "$E_191" "$E_ATT" | sed '/^$/d' | sort)"
   DOPPIE="$(printf '%s\n' "$UNIONE" | uniq -d)"
   if [ -n "$DOPPIE" ]; then
     echo "  ROSSO  versioni dichiarate in due elenchi diversi: $(printf '%s ' $DOPPIE)"
@@ -202,7 +204,7 @@ else
       | sed 's/^</         solo sul disco: /; s/^>/         solo nel consuntivo: /' | grep ':' | head -8
     esito=1
   else
-    echo "  ok     partizione: $n_rel release + $n_dash dashboard + $n_no escluse + $n_191 future = $(printf '%s\n' "$VERSIONI" | grep -c .) pending"
+    echo "  ok     partizione: $n_rel release + $n_dash dashboard + $n_no escluse + $n_191 future + $n_att in attesa = $(printf '%s\n' "$VERSIONI" | grep -c .) pending"
   fi
 
   # 2. i conti fra loro
