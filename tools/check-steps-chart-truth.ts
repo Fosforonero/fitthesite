@@ -73,8 +73,82 @@
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { execSync } from "node:child_process";
+import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
+import { isBlogVariantIndexable } from "@/lib/blog/indexability";
+import { applyNordicOverlay, type NordicOverlay } from "@/lib/blog/nordic-overlay";
+import nordicOverlayJson from "@/lib/blog/nordic-overlay.json";
+import type { Locale } from "@/lib/i18n";
 
 const errors: string[] = [];
+// MICRO-GATE PR #66-A: violazioni su una variante (post, locale) NON
+// indicizzabile (bozza/noindex, redirect-away) non bloccano il merge — ma
+// vanno elencate esplicitamente, mai silenziate, e SE quella locale diventa
+// indicizzabile la stessa violazione torna automaticamente in `errors` al
+// run successivo (la classificazione e' ricalcolata ogni volta dalla SSOT
+// reale, mai una allowlist statica).
+const draftWarnings: string[] = [];
+
+// ── Locale-awareness per lib/blog/posts/*.ts: una stringa "vietata" dentro
+// una variante non indicizzabile e' un problema di bozza, non di verita'
+// pubblica. Per ogni match determiniamo (a) quale locale lo racchiude
+// (scansione all'indietro del piu' vicino `lc: "` prima del match) e (b) se
+// quel post+locale e' REALMENTE indicizzabile (isBlogVariantIndexable sulla
+// stessa fonte di verita' usata dal sito, overlay nordico incluso).
+const LOCALE_CODES = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi"] as const;
+const LOCALE_KEY_BEFORE_RE = new RegExp(`\\b(${LOCALE_CODES.join("|")}):\\s*["'\`\\[]`, "g");
+
+const postWithOverlayCache = new Map<string, ReturnType<typeof BLOG_POSTS_BY_SLUG[string]> | null>();
+function getPostWithOverlay(slug: string) {
+  if (postWithOverlayCache.has(slug)) return postWithOverlayCache.get(slug)!;
+  const original = BLOG_POSTS_BY_SLUG[slug];
+  if (!original) {
+    postWithOverlayCache.set(slug, null);
+    return null;
+  }
+  const clone = structuredClone(original);
+  applyNordicOverlay(clone, nordicOverlayJson as unknown as NordicOverlay);
+  postWithOverlayCache.set(slug, clone);
+  return clone;
+}
+
+const BLOG_POST_FILE_RE = /(?:^|\/)lib\/blog\/posts\/([a-z0-9-]+)\.ts$/;
+
+/** Ultima occorrenza di "lc: " PRIMA di `idx`, entro una finestra ragionevole (i campi piu' lunghi osservati sono ~1000 caratteri). */
+function localeForMatch(content: string, idx: number): Locale | null {
+  const preWin = content.slice(Math.max(0, idx - 2000), idx);
+  const re = new RegExp(LOCALE_KEY_BEFORE_RE.source, "g");
+  let last: RegExpExecArray | null = null;
+  let mm: RegExpExecArray | null;
+  while ((mm = re.exec(preWin))) last = mm;
+  return last ? (last[1] as Locale) : null;
+}
+
+/**
+ * Instrada una violazione: se il file e' un post del blog e riusciamo a
+ * determinare sia lo slug sia la locale del match, controlliamo la SSOT
+ * reale. Indicizzabile (o locale non determinabile / post non trovato, per
+ * restare fail-closed) -> errore bloccante come sempre. Non indicizzabile
+ * (bozza, redirect-away) -> warning non bloccante, elencato esplicitamente.
+ */
+function report(file: string, idx: number, content: string, message: string): void {
+  const full = `${file}: ${message}`;
+  const fileMatch = BLOG_POST_FILE_RE.exec(file);
+  if (fileMatch) {
+    const slug = fileMatch[1];
+    const post = getPostWithOverlay(slug);
+    const lc = localeForMatch(content, idx);
+    if (post && lc) {
+      const indexable = isBlogVariantIndexable(post, lc);
+      if (!indexable) {
+        draftWarnings.push(`${full} [locale "${lc}", NON indicizzabile: bozza/redirect-away, non bloccante]`);
+        return;
+      }
+      errors.push(`${full} [locale "${lc}", indicizzabile: violazione pubblica]`);
+      return;
+    }
+  }
+  errors.push(full); // non un post del blog, o locale/slug non determinabile: fail-closed, sempre bloccante
+}
 
 function trackedFiles(patterns: string): string[] {
   return execSync(`git ls-files ${patterns}`, { cwd: process.cwd(), encoding: "utf8" })
@@ -127,15 +201,22 @@ function checkStepsHighestValueWinsFraming() {
     const content = readFileSync(file, "utf8");
     let m: RegExpExecArray | null;
 
-    // 1a. Costruzione esplicita "quella col/con il X piu' alto" / "with the highest X".
+    // 1a. Costruzione esplicita "quella col/con il X piu' alto" / "with the
+    // highest X". NEGAZIONE (trovata DAVVERO in due post reali durante
+    // MICRO-GATE PR #66-A, entrambi corretti): puo' precedere ("non
+    // semplicemente quella con il numero piu' alto") o SEGUIRE il match
+    // ("scegliere il dispositivo con il numero piu' alto NON sarebbe stata
+    // la scelta giusta") — si controllano entrambe le finestre.
+    const A1_NEGATION_RE = /\b(non|not|doesn'?t|does\s+not|never|mai|wouldn'?t|would\s+not|n['’]?[eé]st\s+pas)\b/i;
     const withRe = new RegExp(WITH_HIGHEST_RE.source, "gi");
     while ((m = withRe.exec(content))) {
       if (isCommentLine(content, m.index)) continue;
+      const preWin1a = content.slice(Math.max(0, m.index - 40), m.index);
+      const postWin1a = content.slice(m.index + m[0].length, m.index + m[0].length + 60);
+      if (A1_NEGATION_RE.test(preWin1a) || A1_NEGATION_RE.test(postWin1a)) continue; // negato prima o dopo = corretto
       const win = windowAround(content, m.index, m[0].length, 250);
       if (!hasStepsContext(win)) continue;
-      errors.push(
-        `${file}: framing "valore/totale piu' alto vince" sui passi ("${m[0].trim()}") — contesto: "...${trimSnippet(win)}..."`,
-      );
+      report(file, m.index, content, `framing "valore/totale piu' alto vince" sui passi ("${m[0].trim()}") — contesto: "...${trimSnippet(win)}..."`);
     }
 
     // 1b. Verbo di "vittoria" (vince/prende/sceglie/usa/wins/picks/...) che
@@ -154,7 +235,18 @@ function checkStepsHighestValueWinsFraming() {
     // deve scattare. Senza questi due controlli il guardrail avrebbe
     // rifiutato esattamente la formulazione corretta usata nelle correzioni
     // P1.9-10 (bug trovato e fissato in questa stessa sessione).
+    //
+    // NEGAZIONE COMPOSTA "non X ne'/né Y" (MICRO-GATE PR #66-A, trovata
+    // DAVVERO in 3 correzioni reali: "non mostra la somma ne sceglie a caso
+    // il numero piu alto"): il "non" che nega il verbo di vittoria puo'
+    // stare MOLTO prima (attaccato al primo verbo della coppia, non al
+    // secondo), con "ne"/"né" a fare da ponte subito prima del verbo di
+    // vittoria. "ne"/"né" da soli sono ambigui in italiano (pronome vs
+    // negazione), quindi si richiede SEMPRE anche un "non" in una finestra
+    // piu' ampia prima - mai "ne"/"né" da soli come prova di negazione.
     const NEGATION_BEFORE_VERB_RE = /\b(non|not|doesn'?t|does\s+not|never|mai)\b/i;
+    const NE_BRIDGE_RE = /\bn[eé]\s*$/i;
+    const NON_FAR_BEFORE_RE = /\bnon\b/i;
     const altoRe = new RegExp(ALTO_HIGHEST_RE.source, "gi");
     while ((m = altoRe.exec(content))) {
       if (isCommentLine(content, m.index)) continue;
@@ -166,13 +258,17 @@ function checkStepsHighestValueWinsFraming() {
       if (lastVerbIdx === -1) continue; // nessun verbo di vittoria PRIMA di "alto" — descrittivo, non framing
       const preVerb = preWin.slice(Math.max(0, lastVerbIdx - 20), lastVerbIdx);
       if (NEGATION_BEFORE_VERB_RE.test(preVerb)) continue; // "non prende/sceglie/usa...piu' alto" = corretto
+      const verbAbsoluteIdx = Math.max(0, m.index - 60) + lastVerbIdx; // posizione assoluta del verbo in `content`
+      const bridgeWin = content.slice(Math.max(0, verbAbsoluteIdx - 6), verbAbsoluteIdx);
+      if (NE_BRIDGE_RE.test(bridgeWin)) {
+        const farBeforeWin = content.slice(Math.max(0, verbAbsoluteIdx - 80), verbAbsoluteIdx - 6);
+        if (NON_FAR_BEFORE_RE.test(farBeforeWin)) continue; // "non ... ne/né sceglie...piu' alto" = negazione composta, corretto
+      }
       const nearWin = windowAround(content, m.index, m[0].length, 60);
       if (HR_WORDS_RE.test(nearWin) && !hasStepsContext(nearWin)) continue; // frequenza cardiaca puo' legittimamente avere un "vince"/"piu' alto" suo
       const bigWin = windowAround(content, m.index, m[0].length, 250);
       if (!hasStepsContext(bigWin)) continue;
-      errors.push(
-        `${file}: framing "vince/prende/usa il valore piu' alto" sui passi (vicino a "${m[0]}") — contesto: "...${trimSnippet(bigWin)}..."`,
-      );
+      report(file, m.index, content, `framing "vince/prende/usa il valore piu' alto" sui passi (vicino a "${m[0]}") — contesto: "...${trimSnippet(bigWin)}..."`);
     }
   }
 }
@@ -201,9 +297,7 @@ function checkNoHourlyDedupFramingForSteps() {
       if (!ARBITRATION_GATE_RE.test(win)) continue; // solo un riferimento temporale, non un claim di arbitraggio
       if (HR_WORDS_RE.test(win) && !hasStepsContext(win)) continue; // per-ora legittimo sulla frequenza cardiaca
       if (!hasStepsContext(win)) continue;
-      errors.push(
-        `${file}: deduplicazione per-ora/per-intervallo applicata ai passi cumulativi ("${m[0].trim()}") — i passi giornalieri si arbitrano per GIORNO, non per ora (la frequenza cardiaca puo' esserlo, i passi no). Contesto: "...${trimSnippet(win)}..."`,
-      );
+      report(file, m.index, content, `deduplicazione per-ora/per-intervallo applicata ai passi cumulativi ("${m[0].trim()}") — i passi giornalieri si arbitrano per GIORNO, non per ora (la frequenza cardiaca puo' esserlo, i passi no). Contesto: "...${trimSnippet(win)}..."`);
     }
   }
 }
@@ -223,9 +317,7 @@ function checkNeverCountedTwiceUnqualified() {
       if (isCommentLine(content, m.index)) continue;
       const win = windowAround(content, m.index, m[0].length, 150);
       if (ABSOLUTE_QUALIFIER_RE.test(win)) continue;
-      errors.push(
-        `${file}: "${m[0].trim()}" — claim assoluto ("mai"/"never"/"non") senza qualificazione vicina (es. "quasi sempre", "nella maggior parte dei casi", "edge case") entro ~150 caratteri. Contesto: "...${trimSnippet(win)}..."`,
-      );
+      report(file, m.index, content, `"${m[0].trim()}" — claim assoluto ("mai"/"never"/"non") senza qualificazione vicina (es. "quasi sempre", "nella maggior parte dei casi", "edge case") entro ~150 caratteri. Contesto: "...${trimSnippet(win)}..."`);
     }
   }
 }
@@ -257,9 +349,7 @@ function checkDashedLineNotGoal() {
       // immediatamente a ridosso del match appartiene alla stessa frase).
       const afterGoal = win.slice(goalMatch.index + goalMatch[0].length, goalMatch.index + goalMatch[0].length + 15);
       if (/^[^.]{0,12}\?/.test(afterGoal)) continue; // "obiettivo di passi?" = domanda, non affermazione
-      errors.push(
-        `${file}: la linea tratteggiata del grafico passi e' descritta come "obiettivo"/"goal" invece che media personale. Contesto: "...${trimSnippet(win)}..."`,
-      );
+      report(file, m.index, content, `la linea tratteggiata del grafico passi e' descritta come "obiettivo"/"goal" invece che media personale. Contesto: "...${trimSnippet(win)}..."`);
     }
   }
 }
@@ -280,9 +370,7 @@ function checkHourlyChartAlwaysAvailable() {
       if (!ALWAYS_SHOWN_RE.test(win200)) continue;
       const win350 = windowAround(content, m.index, m[0].length, 350);
       if (HIDE_MENTION_RE.test(win350)) continue; // gia' documenta che puo' non comparire
-      errors.push(
-        `${file}: grafico orario passi descritto come sempre disponibile/mostrato senza menzionare che puo' essere nascosto. Contesto: "...${trimSnippet(win200)}..."`,
-      );
+      report(file, m.index, content, `grafico orario passi descritto come sempre disponibile/mostrato senza menzionare che puo' essere nascosto. Contesto: "...${trimSnippet(win200)}..."`);
     }
   }
 }
@@ -300,9 +388,7 @@ function checkNoEightyPercentThresholdOnStepsChart() {
       const win = windowAround(content, m.index, m[0].length, 200);
       if (!/grafico|chart/i.test(win)) continue; // "80%" non legato a nessun grafico (es. accuratezza sonno) — fuori scope
       if (!hasStepsContext(win)) continue;
-      errors.push(
-        `${file}: soglia "80%" citata vicino a "grafico"/"chart" + passi/steps — rimossa dal codice (commit 56ec3d77), non deve tornare nei contenuti. Contesto: "...${trimSnippet(win)}..."`,
-      );
+      report(file, m.index, content, `soglia "80%" citata vicino a "grafico"/"chart" + passi/steps — rimossa dal codice (commit 56ec3d77), non deve tornare nei contenuti. Contesto: "...${trimSnippet(win)}..."`);
     }
   }
 }
@@ -319,9 +405,7 @@ function checkNoMaxMinLineOnStepsChart() {
       if (isCommentLine(content, m.index)) continue;
       const win = windowAround(content, m.index, m[0].length, 200);
       if (!hasStepsContext(win)) continue;
-      errors.push(
-        `${file}: "${m[0]}" (linea del massimo/minimo) sul grafico passi — rimosse dal codice, resta solo la media personale. Contesto: "...${trimSnippet(win)}..."`,
-      );
+      report(file, m.index, content, `"${m[0]}" (linea del massimo/minimo) sul grafico passi — rimosse dal codice, resta solo la media personale. Contesto: "...${trimSnippet(win)}..."`);
     }
   }
 }
@@ -341,9 +425,7 @@ function checkNoSumAllSourcesForSteps() {
       if (SUM_NEGATION_RE.test(preWin)) continue; // "FitMesh NON somma tutte le fonti" = corretto (e' la verita')
       const win = windowAround(content, m.index, m[0].length, 200);
       if (!hasStepsContext(win)) continue;
-      errors.push(
-        `${file}: "${m[0]}" — implica somma indiscriminata di tutte le fonti per i passi, FitMesh non lo fa mai (sceglie una sorgente, non somma). Contesto: "...${trimSnippet(win)}..."`,
-      );
+      report(file, m.index, content, `"${m[0]}" — implica somma indiscriminata di tutte le fonti per i passi, FitMesh non lo fa mai (sceglie una sorgente, non somma). Contesto: "...${trimSnippet(win)}..."`);
     }
   }
 }
@@ -446,6 +528,81 @@ async function runNegativeTests() {
     "  ok     controllo anti falso-positivo 2 (domanda FAQ \"...e' il mio obiettivo?\" smontata nella risposta, " + fileA3 + "): NON segnalata, ripristinato byte-identico",
   );
 
+  // MICRO-GATE PR #66-A — controllo anti falso-positivo 3: negazione DOPO il
+  // match nel check 1a ("scegliere il dispositivo con il numero piu' alto
+  // NON sarebbe stata la scelta giusta") - trovata DAVVERO in
+  // anello-orologio-scenari-reali.ts prima del fix.
+  const fileA4 = "lib/content/fitness-data-sync-copy.ts";
+  const originalA4 = rf(fileA4, "utf8");
+  const anchorA4 =
+    "sceglie la fonte più completa o accurata e riempie i buchi dalle altre, invece di contare due volte.";
+  const injectedA4 =
+    anchorA4 + " Per i passi, scegliere la fonte con il numero più alto non sarebbe stata la scelta giusta.";
+  const mutatedA4 = originalA4.replace(anchorA4, injectedA4);
+  if (mutatedA4 === originalA4) throw new Error("controllo anti falso-positivo 3: la sostituzione non ha trovato nulla da mutare — ancora cambiata?");
+  wf(fileA4, mutatedA4);
+  errors.length = 0;
+  checkStepsHighestValueWinsFraming();
+  const falsePositive3 = errors.some((e) => e.includes(fileA4));
+  wf(fileA4, originalA4);
+  const restoredA4 = rf(fileA4, "utf8") === originalA4;
+  if (falsePositive3) throw new Error("controllo anti falso-positivo 3 FALLITO: \"...con il numero piu' alto NON sarebbe stata la scelta giusta\" (negazione dopo) e' stata segnalata come violazione");
+  if (!restoredA4) throw new Error("controllo anti falso-positivo 3: restore non byte-identico!");
+  errors.length = 0;
+  console.log(
+    "  ok     controllo anti falso-positivo 3 (check 1a, negazione DOPO il match \"...piu' alto NON sarebbe la scelta giusta\", " + fileA4 + "): NON segnalata, ripristinato byte-identico",
+  );
+
+  // MICRO-GATE PR #66-A — controllo anti falso-positivo 4: negazione composta
+  // "non X ne/né VERBO...piu' alto" nel check 1b - trovata DAVVERO 3 volte in
+  // dati-pixel-watch-dashboard.ts prima del fix ("non mostra la somma ne
+  // sceglie a caso il numero piu alto").
+  const fileA5 = "lib/content/fitness-data-sync-copy.ts";
+  const originalA5 = rf(fileA5, "utf8");
+  const anchorA5 =
+    "sceglie la fonte più completa o accurata e riempie i buchi dalle altre, invece di contare due volte.";
+  const injectedA5 =
+    anchorA5 + " Per i passi non mostra la somma ne sceglie a caso il numero piu alto.";
+  const mutatedA5 = originalA5.replace(anchorA5, injectedA5);
+  if (mutatedA5 === originalA5) throw new Error("controllo anti falso-positivo 4: la sostituzione non ha trovato nulla da mutare — ancora cambiata?");
+  wf(fileA5, mutatedA5);
+  errors.length = 0;
+  checkStepsHighestValueWinsFraming();
+  const falsePositive4 = errors.some((e) => e.includes(fileA5));
+  wf(fileA5, originalA5);
+  const restoredA5 = rf(fileA5, "utf8") === originalA5;
+  if (falsePositive4) throw new Error("controllo anti falso-positivo 4 FALLITO: negazione composta \"non...ne sceglie...piu' alto\" e' stata segnalata come violazione");
+  if (!restoredA5) throw new Error("controllo anti falso-positivo 4: restore non byte-identico!");
+  errors.length = 0;
+  console.log(
+    "  ok     controllo anti falso-positivo 4 (check 1b, negazione composta \"non...ne sceglie...piu' alto\", " + fileA5 + "): NON segnalata, ripristinato byte-identico",
+  );
+
+  // MICRO-GATE PR #66-A — controllo positivo: "ne sceglie...piu' alto" SENZA
+  // un "non" vicino deve continuare a essere rilevato (prova che il fix del
+  // ponte ne/né non abbia introdotto un falso negativo che nasconde
+  // violazioni reali con quella struttura sintattica).
+  const fileA6 = "lib/content/fitness-data-sync-copy.ts";
+  const originalA6 = rf(fileA6, "utf8");
+  const anchorA6 =
+    "sceglie la fonte più completa o accurata e riempie i buchi dalle altre, invece di contare due volte.";
+  const injectedA6 =
+    anchorA6 + " Per i passi, FitMesh ne sceglie il valore piu alto tra le fonti.";
+  const mutatedA6 = originalA6.replace(anchorA6, injectedA6);
+  if (mutatedA6 === originalA6) throw new Error("controllo positivo (ne senza non): la sostituzione non ha trovato nulla da mutare — ancora cambiata?");
+  wf(fileA6, mutatedA6);
+  errors.length = 0;
+  checkStepsHighestValueWinsFraming();
+  const caughtA6 = errors.some((e) => e.includes(fileA6));
+  wf(fileA6, originalA6);
+  const restoredA6 = rf(fileA6, "utf8") === originalA6;
+  if (!caughtA6) throw new Error("controllo positivo (ne senza non) FALLITO: \"FitMesh ne sceglie il valore piu alto\" (nessun \"non\" nelle vicinanze, violazione reale) NON e' stato rilevato - il fix del ponte ne/né ha introdotto un falso negativo");
+  if (!restoredA6) throw new Error("controllo positivo (ne senza non): restore non byte-identico!");
+  errors.length = 0;
+  console.log(
+    "  ok     controllo positivo (\"ne sceglie...piu' alto\" SENZA \"non\" vicino continua a essere rilevato, " + fileA6 + "): rilevato, ripristinato byte-identico",
+  );
+
   // Negativo pattern 2 — dedup "per quell'ora" applicata ai passi.
   const fileB = "lib/blog/posts/piu-smartwatch-insieme-dati-doppi.ts";
   const originalB = rf(fileB, "utf8");
@@ -485,6 +642,68 @@ async function runNegativeTests() {
   console.log(
     "  ok     negative test 3 (pattern 3, \"mai contato due volte\" senza qualificazione, " + fileC + "): rilevato, ripristinato byte-identico",
   );
+
+  // MICRO-GATE PR #66-A — Negativo pattern 4: violazione in una locale
+  // INDICIZZABILE di un post reale (it, sempre indicizzabile) deve bloccare
+  // (finire in `errors`), con la locale corretta nel messaggio.
+  const fileD = "lib/blog/posts/novita-fonte-del-dato.ts";
+  const originalD = rf(fileD, "utf8");
+  const anchorD = 'it: "Vedi la fonte di ogni dato",';
+  const injectedD = 'it: "Vedi la fonte di ogni dato. Per i passi vince il valore più alto tra le fonti.",';
+  const mutatedD = originalD.replace(anchorD, injectedD);
+  if (mutatedD === originalD) throw new Error("negative test 4: la sostituzione non ha trovato nulla da mutare — ancora cambiata?");
+  wf(fileD, mutatedD);
+  errors.length = 0;
+  draftWarnings.length = 0;
+  postWithOverlayCache.clear();
+  checkStepsHighestValueWinsFraming();
+  const caught4 = errors.some((e) => e.includes(fileD) && e.includes('locale "it"'));
+  const wronglyDrafted4 = draftWarnings.some((e) => e.includes(fileD));
+  wf(fileD, originalD);
+  postWithOverlayCache.clear();
+  const restored4 = rf(fileD, "utf8") === originalD;
+  if (!caught4) throw new Error("negative test 4 FALLITO: violazione in locale \"it\" (sempre indicizzabile) di un post reale non e' finita in errors con la locale corretta");
+  if (wronglyDrafted4) throw new Error("negative test 4 FALLITO: una violazione su \"it\" (sempre indicizzabile) e' finita in draftWarnings invece che in errors");
+  if (!restored4) throw new Error("negative test 4: restore non byte-identico!");
+  errors.length = 0;
+  draftWarnings.length = 0;
+  console.log(
+    "  ok     negative test 4 (locale-awareness: violazione su \"it\" indicizzabile blocca, " + fileD + "): rilevato in errors con locale corretta, ripristinato byte-identico",
+  );
+
+  // MICRO-GATE PR #66-A — Negativo pattern 5: la STESSA violazione, ma in una
+  // locale NON indicizzabile di un post reale (es su piu-smartwatch-insieme-
+  // dati-doppi.ts, dove solo it/en sono indicizzabili) NON deve bloccare -
+  // deve finire in draftWarnings, elencata esplicitamente, mai silenziata.
+  const fileE = "lib/blog/posts/piu-smartwatch-insieme-dati-doppi.ts";
+  const originalE = rf(fileE, "utf8");
+  // NOTA: il check 1 riconosce solo pattern IT/EN ("piu' alto"/"highest"),
+  // non "mas alto" spagnolo - qui serve solo a provare l'instradamento per
+  // locale (quale campo la contiene), non la copertura linguistica del
+  // pattern stesso, quindi si inietta la stessa frase italiana gia' nota ma
+  // sotto una chiave "es:" per simulare una bozza spagnola con quel testo.
+  const anchorE = 'it: "Health Connect passi e allenamenti duplicati", en: "Health Connect duplicate steps and workouts",';
+  const injectedE = anchorE + ' es: "Per i passi vince il valore più alto tra le fonti.",';
+  const mutatedE = originalE.replace(anchorE, injectedE);
+  if (mutatedE === originalE) throw new Error("negative test 5: la sostituzione non ha trovato nulla da mutare — ancora cambiata?");
+  wf(fileE, mutatedE);
+  errors.length = 0;
+  draftWarnings.length = 0;
+  postWithOverlayCache.clear();
+  checkStepsHighestValueWinsFraming();
+  const wronglyBlocked5 = errors.some((e) => e.includes(fileE));
+  const warnedAsDraft5 = draftWarnings.some((e) => e.includes(fileE) && e.includes('locale "es"') && e.includes("NON indicizzabile"));
+  wf(fileE, originalE);
+  postWithOverlayCache.clear();
+  const restored5 = rf(fileE, "utf8") === originalE;
+  if (wronglyBlocked5) throw new Error("negative test 5 FALLITO: una violazione su \"es\" (NON indicizzabile per questo post) ha bloccato il gate invece di finire in draftWarnings");
+  if (!warnedAsDraft5) throw new Error("negative test 5 FALLITO: la violazione su \"es\" non indicizzabile non e' comparsa in draftWarnings come atteso");
+  if (!restored5) throw new Error("negative test 5: restore non byte-identico!");
+  errors.length = 0;
+  draftWarnings.length = 0;
+  console.log(
+    "  ok     negative test 5 (locale-awareness: violazione su \"es\" NON indicizzabile non blocca, elencata in draftWarnings, " + fileE + "): ripristinato byte-identico",
+  );
 }
 
 async function main() {
@@ -503,8 +722,19 @@ async function main() {
 
   runAllChecks();
 
+  // Le violazioni su varianti (post, locale) NON indicizzabili (bozze,
+  // redirect-away) sono sempre elencate esplicitamente, MAI silenziate - ma
+  // non bloccano da sole il gate. Il ricalcolo e' sempre dal vivo sulla SSOT
+  // reale: se una di queste locale diventa indicizzabile, la stessa stringa
+  // ricompare automaticamente in errors al run successivo (nessuna allowlist
+  // statica che possa restare disallineata dallo stato vero del sito).
+  if (draftWarnings.length > 0) {
+    console.warn(`⚠️  ${draftWarnings.length} violazione/i SOLO su bozze non indicizzabili (non bloccante, elencata per trasparenza):`);
+    for (const w of draftWarnings) console.warn(`  - ${w}`);
+  }
+
   if (errors.length > 0) {
-    console.error(`❌ Guardrail meccanismo passi: ${errors.length} problema/i`);
+    console.error(`❌ Guardrail meccanismo passi: ${errors.length} problema/i su varianti PUBBLICHE indicizzabili (o file non-blog dove ogni occorrenza e' sempre pubblica)`);
     for (const e of errors) console.error(`  - ${e}`);
     process.exit(1);
   }
@@ -512,10 +742,12 @@ async function main() {
   await runNegativeTests();
 
   console.log(
-    "✅ Guardrail meccanismo passi: nessun framing 'valore/totale piu' alto vince' sui passi, nessuna dedup per-ora/per-intervallo " +
+    "✅ Guardrail meccanismo passi: zero violazioni su varianti indicizzabili sitewide. " +
+      "Nessun framing 'valore/totale piu' alto vince' sui passi, nessuna dedup per-ora/per-intervallo " +
       "sui passi cumulativi, nessun 'mai contato due volte' senza qualificazione, nessuna linea tratteggiata spacciata per obiettivo, " +
       "nessun grafico orario passi descritto come sempre disponibile, nessuna soglia 80% sul grafico passi, nessuna linea del " +
-      "massimo/minimo, nessuna somma indiscriminata di tutte le fonti per i passi.",
+      "massimo/minimo, nessuna somma indiscriminata di tutte le fonti per i passi." +
+      (draftWarnings.length > 0 ? ` (${draftWarnings.length} violazione/i residua/e SOLO su bozze non indicizzabili, elencate sopra, non bloccante.)` : ""),
   );
 }
 

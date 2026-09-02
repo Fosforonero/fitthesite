@@ -3,6 +3,10 @@ import type { BlogPost } from "../types";
 export const post: BlogPost = {
   slug: "steps-total-vs-hourly-chart",
   category: "guides",
+  // MICRO-GATE PR #66-A: placeholder alla data di scrittura di questa bozza.
+  // OBBLIGATORIO aggiornare publishedAt (e se serve updatedAt) alla vera
+  // data di pubblicazione IMMEDIATAMENTE PRIMA del merge, se questo avviene
+  // in un giorno diverso — mai lasciare una data automatica non verificata.
   publishedAt: "2026-09-02",
   updatedAt: "2026-09-02",
   readMinutes: 6,
@@ -383,6 +387,14 @@ export const post: BlogPost = {
       },
     },
   ],
+  // P1.9-10: alt reale della cover, scritto a mano nelle 4 locale pubblicate.
+  // Descrive l'IMMAGINE (non ripete l'H1/keyword) - vedi coverAlt() in covers.ts.
+  coverAlt: {
+    it: "Illustrazione di smartwatch e smart ring che inviano dati a un telefono, con confronto tra totale dei passi e grafico orario.",
+    en: "Illustration of a smartwatch and smart ring sending data to a phone, with a comparison between the daily step total and hourly chart.",
+    de: "Illustration einer Smartwatch und eines Smart Rings, die Daten an ein Smartphone senden, mit Vergleich von Tagesschritten und Stundendiagramm.",
+    fr: "Illustration d'une montre connectée et d'une bague connectée envoyant des données à un téléphone, avec comparaison du total quotidien et du graphique horaire.",
+  },
   related: [
     "novita-fonte-del-dato",
     "fitmesh-samsung-health-usarli-insieme",
