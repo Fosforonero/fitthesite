@@ -16,8 +16,7 @@ import {
   providerLinkHref,
 } from "@/lib/providers/indexability";
 import { tl } from "@/lib/blog/types";
-import { SITE_URL, PLAY_STORE_URL as PLAY_URL, appOffers } from "@/lib/product-facts";
-import { APPLE_STORE_URL } from "@/lib/flags";
+import { SITE_URL, PLAY_STORE_URL as PLAY_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 import { toMetaDescription } from "@/lib/seo/meta-description";
 
@@ -338,22 +337,18 @@ export default async function ModelPage({
       }
     : null;
 
-  const modelPlatforms = p.platforms ?? ["android"];
+  // P0.16-B: era SoftwareApplication — required aggregateRating/review per
+  // il rich result Software App, che nessuno store da' oggi in modo
+  // pubblico, stabile e onestamente sitewide (vedi guardrail). Rimosso
+  // finche' non esiste un dato reale: WebPage rappresenta correttamente
+  // cio' che questa pagina e' davvero.
   const appSchema = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
+    "@type": "WebPage",
     name: `FitMesh Sync — ${m.name}`,
-    applicationCategory: "HealthApplication",
-    operatingSystem: modelPlatforms.map((plat) => (plat === "ios" ? "IOS" : "ANDROID")).join(", "),
     description: desc,
     inLanguage: schemaLanguage(lc),
     url: pageUrl,
-    // appOffers() ritorna sempre lo stesso free-download Offer indipendentemente
-    // dalla piattaforma: niente flatMap multi-piattaforma, altrimenti duplica il nodo.
-    offers: appOffers(modelPlatforms[0]),
-    ...(modelPlatforms.length === 1 && {
-      downloadUrl: modelPlatforms[0] === "ios" ? APPLE_STORE_URL : PLAY_URL,
-    }),
   };
 
   return (

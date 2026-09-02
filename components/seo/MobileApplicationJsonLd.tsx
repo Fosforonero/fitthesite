@@ -16,6 +16,21 @@ import {
 } from "@/lib/product-facts";
 
 /**
+ * P0.16-B (02/09/2026): il componente `<MobileApplicationJsonLd>` qui sotto
+ * NON e' piu' montato su nessuna pagina (era su homepage e /beta) — ne'
+ * `MobileApplication` ne' `SoftwareApplication` hanno mai avuto
+ * `aggregateRating`/`review`, entrambi REQUIRED per il rich result Software
+ * App secondo la documentazione ufficiale Google, e nessuno store da' oggi
+ * un rating pubblico, stabile e onestamente sitewide. Rimane rimosso finche'
+ * non esiste un dato reale (vedi la matrice/decisione nel PR #64).
+ *
+ * `mobileApplicationJsonLdData()` resta invece IN USO da
+ * `tools/check-llms-consistency.ts`, che lo usa come snapshot puro per
+ * verificare che le descrizioni/featureList platform-specific non
+ * contraddicano `lib/product-facts.ts` — un controllo di veridicita' dei
+ * fatti prodotto, indipendente dal fatto che il nodo sia mai emesso in una
+ * pagina reale. Non rimuovere questo file: rimuoverebbe anche quel check.
+ *
  * MobileApplication — SOLO su homepage, /beta (pagina di download/signup) e
  * altre pagine prodotto esplicite. Mai nel layout globale: prima veniva
  * emessa su ogni pagina marketing, inclusi tutti gli articoli del blog
