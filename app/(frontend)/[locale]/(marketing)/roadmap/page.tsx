@@ -797,8 +797,10 @@ export default async function RoadmapPage({
   // su /de/roadmap: l'ItemList non veniva nemmeno rilevato come dato
   // strutturato (solo Breadcrumb compariva) — zero beneficio, e la mancanza
   // di `url` per voce lo rendeva comunque un candidato Carousel non valido.
-  // WebPage (metadata) + Breadcrumb restano, sono gli unici dati strutturati
-  // pertinenti per questa pagina.
+  // Restano solo `<head>` metadata (title/description via generateMetadata,
+  // NON JSON-LD) e BreadcrumbList (via <Breadcrumbs>, sotto): non c'e' un
+  // nodo WebPage/Organization scritto qui — se in futuro ne serve uno,
+  // aggiungerlo esplicitamente invece di assumerlo presente.
 
   return (
     <>

@@ -2,16 +2,31 @@
  * Guardrail P0.16 — dati strutturati JSON-LD.
  *
  * Nasce da un audit reale del 02/09/2026 su segnalazione Semrush (~100 pagine
- * con problemi su `SoftwareApplication`, ItemList/Carousel su /roadmap,
- * peso HTML). Verificato punto per punto con Schema.org Validator e Google
- * Rich Results Test PRIMA di scrivere qualunque check qui sotto — non si
- * indovina cosa Google considera un errore:
+ * con problemi su `SoftwareApplication`, ItemList/Carousel su /roadmap, peso
+ * HTML). Verificato con Schema.org Validator e Google Rich Results Test — e
+ * RETTIFICATO il 02/09/2026 dopo un errore di lettura della documentazione
+ * ufficiale Google, corretto qui prima che finisse in produzione:
  *
- *  - `aggregateRating` mancante su SoftwareApplication e' segnalato da Google
- *    come "Campo mancante (facoltativo)": l'elemento resta "1 elemento
- *    valido rilevato", NON un errore di eligibility. Per questo il check qui
- *    sotto VIETA aggregateRating/review finche' non esiste un rating reale,
- *    pubblico, verificabile — non li richiede.
+ *  - RETTIFICA: la documentazione ufficiale
+ *    (developers.google.com/search/docs/appearance/structured-data/software-app)
+ *    elenca "Rating or review" fra le proprieta' REQUIRED per il rich result
+ *    Software App — non facoltative. Le linee guida generali
+ *    (.../sd-policies) sono esplicite: "Items that are missing required
+ *    properties are not eligible for rich results." Rich Results Test su
+ *    /en/about mostra "1 elemento valido rilevato" + "Campo mancante
+ *    'aggregateRating' (facoltativo)" sul singolo campo — ma quel "facoltativo"
+ *    e' scritto perche' basta UNO fra aggregateRating/review, non perche' la
+ *    coppia intera sia opzionale. "Elemento valido" certifica che il tool non
+ *    ha trovato errori di FORMATO (JSON valido, tipi/proprieta' riconosciuti),
+ *    NON che l'elemento sia idoneo al rich result specifico: lo stesso Google
+ *    lo scrive a chiare lettere ("Google does not guarantee that your
+ *    structured data will show up in search results, even if your page is
+ *    marked up correctly"). Quindi, oggi: SoftwareApplication su queste
+ *    pagine e' sintatticamente valido (0 errori Schema.org Validator) ma NON
+ *    idoneo al rich result Software App (manca sia aggregateRating sia
+ *    review) — e questo non ha alcun effetto diretto su indicizzazione o
+ *    ranking organico (i problemi di dati strutturati riguardano solo
+ *    l'aspetto nei risultati di ricerca, mai il ranking in se').
  *  - L'ItemList di /roadmap non ha `url` per voce (le colonne sono blurb di
  *    feature nella stessa pagina, non entita' con una destinazione propria):
  *    Google Rich Results Test su /de/roadmap non lo rileva AFFATTO come dato
@@ -21,8 +36,15 @@
  *    TUTTE le 15 locale, mai gated) emette un CollectionPage.hasPart con UN
  *    SoftwareApplication per TUTTI i 17 provider, senza filtrare per
  *    `isProviderVariantIndexable(p, lc)` — su sv/da/no/fi (nessun provider
- *    tradotto) le 17 entry puntano TUTTE a pagine noindex. Confermato live:
- *    /fr/integrations cita /fr/sync/apple-health, che e' `noindex,follow`.
+ *    tradotto) le 17 entry puntavano TUTTE a pagine noindex. Confermato live:
+ *    /fr/integrations citava /fr/sync/apple-health, che e' `noindex,follow`.
+ *
+ * Questo guardrail non dichiara MAI un elemento "eligible"/"idoneo" al rich
+ * result: verifica solo cose falsificabili (allowlist di superfici, nessun
+ * rating inventato, hasPart mai verso noindex, Offer/ItemList corretti).
+ * L'idoneita' reale al rich result Software App resta una decisione
+ * prodotto — vedi la matrice delle 468 istanze nel PR — non qualcosa che
+ * questo script possa certificare.
  *
  * Tutti i controlli sono STATICI (nessun server richiesto): importano ed
  * eseguono le stesse fonti di verita' usate dalle pagine reali
@@ -37,9 +59,11 @@ import { isProviderVariantIndexable } from "@/lib/providers/indexability";
 const errors: string[] = [];
 
 // ── Check A — SoftwareApplication SOLO sulle superfici allowlistate ─────────
-// Un file nuovo che aggiunge SoftwareApplication fuori da qui e' una
-// decisione (FASE 1, opzione B) che va presa di proposito, non un accidente
-// di copia-incolla da un altro blocco JSON-LD.
+// Non e' un endorsement di queste 4 superfici ne' un obbligo a conservarle:
+// e' solo change-tracking. Un file nuovo che aggiunge SoftwareApplication
+// fuori da qui e' una decisione presa di proposito, non un accidente di
+// copia-incolla — e togliere una delle 4 esistenti (vedi la matrice delle
+// 468 istanze nel PR) significa semplicemente restringere questa lista.
 const SOFTWARE_APPLICATION_ALLOWLIST = [
   "app/(frontend)/[locale]/(marketing)/about/page.tsx",
   "app/(frontend)/[locale]/(marketing)/integrations/page.tsx",
@@ -74,10 +98,15 @@ function checkSoftwareApplicationAllowlist() {
 }
 
 // ── Check B — nessun aggregateRating/review senza revisione esplicita ──────
-// FASE 1: nessun rating pubblico stabile su entrambi gli store (App Store:
-// "non abbastanza valutazioni per una panoramica" al 02/09/2026; Google Play:
-// 5,0/40 recensioni ma un solo store non basta per un claim sitewide). Se e
-// quando arriva un dato reale e visibile in pagina, questo check va aggiornato
+// FASE 1: aggregateRating/review sono REQUIRED per l'idoneita' al rich
+// result Software App (documentazione ufficiale Google), quindi la loro
+// assenza e' un limite reale, non una scelta indolore — ma nessuno dei due
+// store da' oggi un numero pubblico, stabile e onestamente sitewide: App
+// Store (02/09/2026) "non ha abbastanza valutazioni per una panoramica";
+// Google Play ha 5,0/40 ma UN solo store non basta per un claim sitewide, e
+// mediare i due o inventare una recensione redazionale sarebbe un dato falso
+// nel markup. Meglio non idoneo al rich result che falso. Se e quando arriva
+// un dato reale, pubblico e visibile in pagina, questo check va aggiornato
 // ESPLICITAMENTE (mai un valore silenzioso).
 function checkNoUnverifiedRatingClaims() {
   const { execSync } = require("node:child_process") as typeof import("node:child_process");
