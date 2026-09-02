@@ -248,6 +248,15 @@ function checkDashedLineNotGoal() {
       if (!goalMatch) continue;
       const negWin = win.slice(Math.max(0, goalMatch.index - 30), goalMatch.index + goalMatch[0].length + 15);
       if (GOAL_NEGATION_RE.test(negWin)) continue; // "non e' un obiettivo" = corretto (e' la media personale)
+      // Domanda FAQ che POSA l'equivoco per poi smontarlo nella risposta
+      // ("La linea tratteggiata e' il mio obiettivo di passi?" -> risposta
+      // "No. E' la tua media personale...") e' corretta per costruzione: una
+      // domanda non e' un'affermazione. Riconosciuta dal punto interrogativo
+      // entro pochi caratteri dopo "obiettivo"/"goal" (i "?" delle altre
+      // locale della stessa entry "q:" possono comparire dopo, ma quello
+      // immediatamente a ridosso del match appartiene alla stessa frase).
+      const afterGoal = win.slice(goalMatch.index + goalMatch[0].length, goalMatch.index + goalMatch[0].length + 15);
+      if (/^[^.]{0,12}\?/.test(afterGoal)) continue; // "obiettivo di passi?" = domanda, non affermazione
       errors.push(
         `${file}: la linea tratteggiata del grafico passi e' descritta come "obiettivo"/"goal" invece che media personale. Contesto: "...${trimSnippet(win)}..."`,
       );
@@ -408,6 +417,33 @@ async function runNegativeTests() {
   errors.length = 0;
   console.log(
     "  ok     controllo anti falso-positivo (frase negata corretta \"non prende...piu' alto: sceglie...\", " + fileA2 + "): NON segnalata, ripristinato byte-identico",
+  );
+
+  // Controllo anti falso-positivo 2 — una FAQ che POSA la domanda "la linea
+  // tratteggiata del grafico passi è il mio obiettivo?" per poi smontarla
+  // nella risposta ("No. È la tua media personale...") NON deve far scattare
+  // il check 4: una domanda non è un'affermazione. Trovato DAVVERO nel nuovo
+  // articolo steps-total-vs-hourly-chart.ts (la sua FAQ pone esattamente
+  // questa domanda) prima del fix al riconoscimento del punto interrogativo.
+  const fileA3 = "lib/content/fitness-data-sync-copy.ts";
+  const originalA3 = rf(fileA3, "utf8");
+  const anchorA3 =
+    "sceglie la fonte più completa o accurata e riempie i buchi dalle altre, invece di contare due volte.";
+  const injectedA3 =
+    anchorA3 + " FAQ sui passi: \"La linea tratteggiata del grafico passi è il mio obiettivo?\" No, è la tua media personale.";
+  const mutatedA3 = originalA3.replace(anchorA3, injectedA3);
+  if (mutatedA3 === originalA3) throw new Error("controllo anti falso-positivo 2: la sostituzione non ha trovato nulla da mutare — ancora cambiata?");
+  wf(fileA3, mutatedA3);
+  errors.length = 0;
+  checkDashedLineNotGoal();
+  const falsePositive2 = errors.some((e) => e.includes(fileA3));
+  wf(fileA3, originalA3);
+  const restoredA3 = rf(fileA3, "utf8") === originalA3;
+  if (falsePositive2) throw new Error("controllo anti falso-positivo 2 FALLITO: una domanda FAQ che pone \"e' il mio obiettivo?\" per poi negarlo nella risposta e' stata segnalata come violazione");
+  if (!restoredA3) throw new Error("controllo anti falso-positivo 2: restore non byte-identico!");
+  errors.length = 0;
+  console.log(
+    "  ok     controllo anti falso-positivo 2 (domanda FAQ \"...e' il mio obiettivo?\" smontata nella risposta, " + fileA3 + "): NON segnalata, ripristinato byte-identico",
   );
 
   // Negativo pattern 2 — dedup "per quell'ora" applicata ai passi.

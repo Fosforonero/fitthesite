@@ -828,15 +828,22 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
   // irraggiungibili finche' il contenuto non e' tradotto (redirect a /en).
   "steps-total-vs-hourly-chart": {
     en: "steps-total-vs-hourly-chart",
-    es: "total-pasos-no-coincide-grafico-horario",
     de: "schritte-gesamt-stimmt-nicht-mit-stundendiagramm-ueberein",
-    pt: "total-passos-nao-coincide-grafico-horario",
     fr: "total-pas-ne-correspond-pas-au-graphique-horaire",
-    pl: "suma-krokow-nie-zgadza-sie-z-wykresem-godzinowym",
-    tr: "adim-toplami-saatlik-grafikle-uyusmuyor",
-    nl: "totaal-stappen-komt-niet-overeen-met-uurgrafiek",
-    ja: "hosuu-goukei-ga-jikanbetsu-gurafu-to-icchi-shinai",
-    ko: "geoleumsu-hapgyega-siganbyeol-geulaepeuwa-ilchihaji-anhneun",
+    // es/pt/pl/tr/nl/ja/ko: NON tradotti (REDIRECT_INCOMPLETE_LOCALE_SLUGS in
+    // indexability.ts li porta a /en). Stesso valore del canonico invece di
+    // uno slug tradotto-ma-irraggiungibile - stesso pattern gia' in uso per
+    // galaxy-watch-ultra2-watch9-health-connect sopra: uno slug diverso dal
+    // canonico qui genererebbe un redirect 308 (verso quello slug) SEGUITO
+    // da un secondo redirect 307 (quello slug -> /en), due hop invece di uno
+    // solo verso una pagina che comunque non esiste ancora in quella lingua.
+    es: "steps-total-vs-hourly-chart",
+    pt: "steps-total-vs-hourly-chart",
+    pl: "steps-total-vs-hourly-chart",
+    tr: "steps-total-vs-hourly-chart",
+    nl: "steps-total-vs-hourly-chart",
+    ja: "steps-total-vs-hourly-chart",
+    ko: "steps-total-vs-hourly-chart",
   },
 };
 
