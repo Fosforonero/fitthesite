@@ -69,6 +69,14 @@
 # DASHBOARD FUORI BANDA REGISTRATE: 20260901121214 20260901121244 20260901121909
 # NON REGISTRATE PER SCELTA: 20260825120002 20260825120003 20260825120005 20260825120006 20260825120007 20260825120008
 # NON REGISTRATE, FUTURE (PENDING_191): 20260901151500
+# NON REGISTRATE, IN ATTESA DI AUTORIZZAZIONE: 20260902060000
+#
+# La quinta riga e' nata il 02/09/2026 e dice una cosa che le altre quattro non
+# sapevano dire: una migration finita, provata e ferma sul disco perche' chi
+# decide non ha ancora dato il via. Non e' «esclusa per scelta» — quella e' una
+# decisione presa — e non e' «futura», perche' riguarda questa release.
+# Metterla in uno dei due elenchi esistenti avrebbe fatto passare il gate
+# raccontando il falso.
 #
 # Le tre dashboard sono state scritte in produzione il 01/09/2026 da
 # mat.pizzi@gmail.com attraverso la Dashboard, mentre la finestra era aperta.
@@ -121,3 +129,4 @@ f7376901d7f260d204d928890be4536aab9c9143ce77598bbdcac16ac7d6d48f	20260901121214_
 63edcbff7137a66368d2696ad7bbf8d3656f8da7af6f7a83d54c15e8be738ae4	20260901121244_dashboard_snapshot_admin_wrapper_revoke_anon	dashboard-fuori-banda-01set	applicata-fuori-banda	SICUREZZA. Revoca EXECUTE ad anon sul wrapper appena creato. Verificato in sola lettura sul catalogo vivo: nessuna concessione ad anon ne' a PUBLIC su get_dashboard_snapshot_admin. Stesso confronto byte per byte
 1f702ba9ba5b0781f504c0a44d13459dd18ae87e8c68cd60566ca132342a70d6	20260901121909_dashboard_snapshot_add_analytics_extras	dashboard-fuori-banda-01set	applicata-fuori-banda	Aggiunge la chiave 'extras' a get_dashboard_snapshot (time-to-convert, sync-gap per settimana, retention per coorte, churn). Additiva: zero delle 25 chiavi precedenti perse fra le 70 vive. md5 del corpo vivo f53b80ca007a26d944e5f93427cdab62, identico al file. NOTA: ridefinisce la funzione INTERA partendo da 20260818084202, quindi riporta i quattro conteggi Pro senza filtro di scadenza. Il debito e' chiuso da 20260901151500, non da qui
 d10ce5badd6af8838d0a6ffd817d76a57a5512376b0bac199fa296e0c1cef26a	20260901151500_dashboard_snapshot_pro_attivi_con_extras	191	PENDING_191	Compone gli extras di 121909 con l'esclusione dei Pro scaduti di 20260825120006 e le due chiavi storiche. NON deve essere registrata nella 190: il registro vivo si ferma a 101. Rollback dedicato che ripristina 121909 (md5 f53b80ca007a26d944e5f93427cdab62), non 20260818084202
+7f6c79ba9075f68eb3099f9992b1b7370b0e68853b57025d96a2523149feb17c	20260902060000_billing_riacquisizione_tombstone	P0-restore-tombstone	190-richiesta	Apre UNA transizione nel registro dei claim: una tombstone (owner NULL + anonymized_at valorizzato) torna a chi presenta un JWS Apple valido per la stessa chiave. Perimetro ristretto a billing_source=apple_iap E p_app_account_token IS NULL, cioe' la classe legacy senza token. Aggiunge private.billing_riacquisizioni (audit append-only, nessun segreto). MODIFICA public.claim_store_purchase e private._billing_purchase_claims_immutable, che preesistono. Rollback dedicato che ripristina entrambi i corpi e lo verifica

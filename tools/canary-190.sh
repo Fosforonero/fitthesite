@@ -133,30 +133,65 @@ if [ "$MODO" = "--senza-credenziali" ]; then
 fi
 
 manca() { echo "ROSSO: manca la variabile $1. Il canary non si esegue a meta'." >&2; exit 2; }
-for v in CANARY_EMAIL CANARY_PASSWORD SUPABASE_URL SUPABASE_ANON_KEY; do
+for v in SUPABASE_URL SUPABASE_ANON_KEY; do
   [ -n "${!v:-}" ] || manca "$v"
 done
+# Due ingressi possibili per la sessione, e uno solo va usato:
+#   - email + password: il percorso normale, `--chiedi`;
+#   - CANARY_JWT: una sessione gia' ottenuta altrove.
+# Da qui in giu' il codice e' lo stesso: RLS, impronta letta dai propri device,
+# scrittura e cancellazione filtrate su source=canary_190.
+if [ -z "${CANARY_JWT:-}" ]; then
+  for v in CANARY_EMAIL CANARY_PASSWORD; do
+    [ -n "${!v:-}" ] || manca "$v"
+  done
+fi
 
 # curl -K -: la configurazione arriva da stdin, quindi il token non finisce
 # mai in argv e non si vede in `ps`.
-chiama() { # chiama <metodo> <url> <header-extra...> ; corpo su stdin
-  local metodo="$1" url="$2"; shift 2
+# chiama <metodo> <url> <corpo> <header-extra...>
+#
+# Il corpo NON puo' arrivare da stdin: stdin e' gia' occupato da `-K -`, che e'
+# il modo in cui i token restano fuori da argv e da `ps`. La prima stesura
+# faceva entrambe le cose e curl leggeva la configurazione, lasciando il corpo
+# VUOTO: la route rispondeva `invalid_json` e il canary lo prendeva per un
+# rifiuto tipizzato. Era un verde per la ragione sbagliata — provava che la
+# route rifiuta un corpo vuoto, non che rifiuta un token malformato.
+#
+# Il corpo puo' stare in argv: e' un payload di prova, non un segreto. I
+# token restano dove stavano, nella configurazione su stdin.
+chiama() {
+  local metodo="$1" url="$2" corpo="$3"; shift 3
   local cfg="" h
   for h in "$@"; do cfg="${cfg}header = \"${h}\""$'\n'; done
   cfg="${cfg}header = \"content-type: application/json\""$'\n'
   printf '%s' "$cfg" | curl -sS -K - --max-time 30 -X "$metodo" "$url" \
-    -d @- -w $'\n%{http_code}'
+    --data-binary "$corpo" -w $'\n%{http_code}'
 }
 
 echo "############ CANARY 190 — $BASE_URL ############"
 echo
 
 # ── login ──────────────────────────────────────────────────────────────────
-RISP=$(printf '{"email":%s,"password":%s}' \
-        "$(printf '%s' "$CANARY_EMAIL"    | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')" \
-        "$(printf '%s' "$CANARY_PASSWORD" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')" \
-      | chiama POST "$SUPABASE_URL/auth/v1/token?grant_type=password" \
-               "apikey: $SUPABASE_ANON_KEY")
+if [ -n "${CANARY_JWT:-}" ]; then
+  # Sessione fornita: si chiede a Supabase CHI e', con la sessione stessa. Non
+  # si decodifica il token in locale — quello direbbe cosa c'e' scritto dentro,
+  # non che il server lo accetti.
+  JWT="$CANARY_JWT"
+  ME=$(curl -sS --max-time 30 -H "apikey: $SUPABASE_ANON_KEY" \
+       -H "authorization: Bearer $JWT" "$SUPABASE_URL/auth/v1/user" -w $'\n%{http_code}')
+  COD=${ME##*$'\n'}; CORPO=${ME%$'\n'*}
+  case "$COD" in 2[0-9][0-9]) : ;; *) echo "ROSSO: la sessione fornita non e' valida (HTTP $COD)" >&2; exit 1 ;; esac
+  UID_CANARY=$(printf '%s' "$CORPO" | python3 -c 'import sys,json; print(json.load(sys.stdin).get("id",""))')
+  unset CORPO ME
+  [ -n "$UID_CANARY" ] || { echo "ROSSO: sessione senza utente." >&2; exit 1; }
+  ok "sessione fornita, valida e riconosciuta dal server"
+else
+RISP=$(chiama POST "$SUPABASE_URL/auth/v1/token?grant_type=password" \
+        "$(printf '{"email":%s,"password":%s}' \
+           "$(printf '%s' "$CANARY_EMAIL"    | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')" \
+           "$(printf '%s' "$CANARY_PASSWORD" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')")" \
+        "apikey: $SUPABASE_ANON_KEY")
 COD=${RISP##*$'\n'}; CORPO=${RISP%$'\n'*}
 case "$COD" in 2[0-9][0-9]) : ;; *) echo "ROSSO: login dell'account canary: HTTP $COD" >&2; exit 1 ;; esac
 JWT=$(printf '%s' "$CORPO" | python3 -c 'import sys,json; print(json.load(sys.stdin).get("access_token",""))')
@@ -164,6 +199,7 @@ UID_CANARY=$(printf '%s' "$CORPO" | python3 -c 'import sys,json; print(json.load
 [ -n "$JWT" ] && [ -n "$UID_CANARY" ] || { echo "ROSSO: login senza token." >&2; exit 1; }
 unset CORPO
 ok "login canary riuscito"
+fi
 
 # ── l'impronta del device ──────────────────────────────────────────────────
 #
@@ -172,9 +208,18 @@ ok "login canary riuscito"
 # fermerebbe senza aver provato niente. Si legge con il JWT dell'utente — RLS
 # lascia vedere solo i propri device — invece di farla digitare.
 if [ -z "${CANARY_FINGERPRINT:-}" ]; then
+  # Il filtro su user_id e' ESPLICITO, non delegato a RLS.
+  #
+  # `devices` ha due policy di SELECT: «users select own devices» con
+  # user_id = auth.uid(), e «admin select all devices» con is_admin(). Su un
+  # account amministratore la seconda vince e la query senza filtro torna
+  # TUTTI i device del progetto — 792 invece di 8, misurato. Il canary
+  # sceglieva allora il piu' recente device di CHIUNQUE, e /sync rispondeva
+  # 404 device_not_paired. RLS faceva il suo lavoro: era la query a chiedere
+  # la cosa sbagliata.
   DEVS=$(curl -sS --max-time 30 \
     -H "apikey: $SUPABASE_ANON_KEY" -H "authorization: Bearer $JWT" \
-    "$SUPABASE_URL/rest/v1/devices?select=device_fingerprint,source_type,revoked_at,last_seen_at&order=last_seen_at.desc")
+    "$SUPABASE_URL/rest/v1/devices?user_id=eq.$UID_CANARY&select=device_fingerprint,source_type,revoked_at,last_seen_at&order=last_seen_at.desc")
   CANARY_FINGERPRINT=$(printf '%s' "$DEVS" | python3 -c '
 import sys, json
 try: righe = json.load(sys.stdin)
@@ -230,7 +275,7 @@ print(json.dumps({
 PY
 )
 
-RISP=$(printf '%s' "$PAYLOAD" | chiama POST "$BASE_URL/api/v1/sync" \
+RISP=$(chiama POST "$BASE_URL/api/v1/sync" "$PAYLOAD" \
         "authorization: Bearer $JWT" "x-device-fingerprint: $CANARY_FINGERPRINT")
 COD=${RISP##*$'\n'}; CORPO=${RISP%$'\n'*}
 if [ "$COD" = "200" ]; then ok "1. HTTP 200"
@@ -242,10 +287,15 @@ else
   esac
 fi
 
-GIORNO=$(python3 -c "import datetime,sys; print(datetime.datetime.fromtimestamp(int(sys.argv[1])/1000, datetime.timezone.utc).date())" "$NOT_I")
+# Il giorno NON si indovina: il server ricava `local_day_key` da
+# `collectedAtMillis`, non dall'inizio della notte. La prima stesura lo
+# calcolava dall'inizio — 22:00 di ieri — mentre la riga finiva sul giorno di
+# `collected_at`, cioe' oggi: la rilettura trovava zero righe mentre la riga
+# c'era eccome, e il residuo la contava. Si rilegge per SORGENTE.
+GIORNO="(derivato dal server)"
 RILETTA=$(printf '%s' "$CORPO" >/dev/null; curl -sS --max-time 30 \
   -H "apikey: $SUPABASE_ANON_KEY" -H "authorization: Bearer $JWT" \
-  "$SUPABASE_URL/rest/v1/fitness_metrics?user_id=eq.$UID_CANARY&local_day_key=eq.$GIORNO&source=eq.canary_190&select=id,collected_at_ms,sleep_stages,sleep_start_ms,sleep_end_ms")
+  "$SUPABASE_URL/rest/v1/fitness_metrics?user_id=eq.$UID_CANARY&source=eq.canary_190&select=id,local_day_key,collected_at_ms,sleep_stages,sleep_start_ms,sleep_end_ms&order=received_at.desc&limit=1")
 
 python3 - "$RILETTA" "$PIS_I" "$PIS_F" "$NOT_I" "$NOT_F" <<'PY'
 import json, sys
@@ -291,8 +341,22 @@ PY
 # ── B. billing ─────────────────────────────────────────────────────────────
 echo
 echo "== B. POST /api/v1/billing/validate-purchase — token malformato =="
-RISP=$(printf '{"platform":"ios","product_id":"fitmesh_pro_lifetime","purchase_token":"non-e-un-jws-ne-una-ricevuta","token_format":"sk2_jws","request_id":"canary-190"}' \
-       | chiama POST "$BASE_URL/api/v1/billing/validate-purchase" "authorization: Bearer $JWT")
+RISP=$(chiama POST "$BASE_URL/api/v1/billing/validate-purchase" \
+       '{"platform":"ios","product_id":"fitmesh_pro_lifetime","package_name":"com.fitmeshsync.app","purchase_token":"non-e-un-jws-ne-una-ricevuta-ma-lungo-abbastanza-da-superare-il-minimo","token_format":"sk2_jws","request_id":"canary-190"}' \
+       "authorization: Bearer $JWT")
+
+# Un corpo vuoto NON deve poter passare per un rifiuto tipizzato: se la route
+# risponde `invalid_json` significa che il payload non e' arrivato, e il
+# controllo B non sta misurando il token.
+if printf '%s' "${RISP%$'\n'*}" | grep -q 'invalid_json'; then
+  rosso "il corpo non e' arrivato alla route (invalid_json): il controllo B non misura il token"
+fi
+# Un rifiuto per campo MANCANTE non dice niente sul token: il payload deve
+# essere valido in tutto tranne che nel token, altrimenti si prova la
+# validazione di forma invece dell'instradamento JWS.
+if printf '%s' "${RISP%$'\n'*}" | grep -q '"Required"'; then
+  rosso "payload incompleto: la route rifiuta un campo mancante, non il token"
+fi
 COD=${RISP##*$'\n'}; CORPO=${RISP%$'\n'*}
 echo "         HTTP $COD"
 printf '%s\n' "$CORPO" | head -3 | sed 's/^/         /'
@@ -316,11 +380,25 @@ if [ -n "$ID" ]; then
   C=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 -X DELETE \
       -H "apikey: $SUPABASE_ANON_KEY" -H "authorization: Bearer $JWT" \
       "$SUPABASE_URL/rest/v1/fitness_metrics?id=eq.$ID&source=eq.canary_190")
-  case "$C" in
-    2[0-9][0-9]) ok "riga canary cancellata" ;;
-    *) echo "  ATTENZIONE  la riga canary NON e' stata cancellata (HTTP $C)."
-       echo "              Resta su $UID_CANARY, giorno $GIORNO. Va tolta a mano." ;;
-  esac
+  # Il codice HTTP non prova la cancellazione: `fitness_metrics` non ha
+  # NESSUNA policy DELETE per `authenticated`, quindi zero righe corrispondono
+  # e PostgREST risponde 204 lo stesso. La prima stesura leggeva quel 204 e
+  # dichiarava «riga cancellata» mentre la riga era ancora li'. Si RILEGGE.
+  RIMASTE=$(curl -sS --max-time 30 \
+    -H "apikey: $SUPABASE_ANON_KEY" -H "authorization: Bearer $JWT" \
+    "$SUPABASE_URL/rest/v1/fitness_metrics?user_id=eq.$UID_CANARY&source=eq.canary_190&select=id" \
+    | python3 -c 'import sys,json
+try:
+    d=json.load(sys.stdin); print(len(d) if isinstance(d,list) else -1)
+except Exception: print(-1)')
+  if [ "$RIMASTE" = "0" ]; then
+    ok "riga canary cancellata (riletta: zero righe)"
+  else
+    echo "  ATTENZIONE  la riga canary NON e' stata cancellata (DELETE HTTP $C, righe rimaste $RIMASTE)."
+    echo "              L'utente non ha una policy DELETE su fitness_metrics: serve"
+    echo "              il percorso amministrativo, filtrando su source=canary_190."
+    esito=1
+  fi
 else
   echo "  ATTENZIONE  nessun id da cancellare: la riga non e' stata riletta."
 fi

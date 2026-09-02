@@ -123,3 +123,4 @@ OK   20260901121214_dashboard_snapshot_admin_wrapper.sql
 OK   20260901121244_dashboard_snapshot_admin_wrapper_revoke_anon.sql
 OK   20260901121909_dashboard_snapshot_add_analytics_extras.sql
 OK   20260901151500_dashboard_snapshot_pro_attivi_con_extras.sql
+OK   20260902060000_billing_riacquisizione_tombstone.sql

@@ -203,7 +203,8 @@ fi
 [ "$FAIL" -eq 0 ] && echo "elenco rollback allineato al disco: $(echo "$SU_DISCO" | wc -l | tr -d ' ') file ($(echo "$CON_PRECONDIZIONE" | wc -l | tr -d ' ') con precondizione, provati a parte)"
 
 SENZA_TRANSAZIONE=$(
-  for f in 20260816120000_billing_consuma_pending_senza_ramo_irraggiungibile_rollback.sql \
+  for f in 20260902060000_billing_riacquisizione_tombstone_rollback.sql \
+           20260816120000_billing_consuma_pending_senza_ramo_irraggiungibile_rollback.sql \
            20260815120000_billing_autorita_unica_revoche_rollback.sql \
            20260814160000_billing_sandbox_scadenza_effettiva_rollback.sql \
            20260813150000_billing_gate_avversariale_rollback.sql \
@@ -251,13 +252,13 @@ begin
     from pg_catalog.pg_class c
     join pg_catalog.pg_namespace n on n.oid = c.relnamespace
     where n.nspname = 'private' and c.relkind = 'r' and c.relname like 'billing%'
-      -- Non tutto cio' che si chiama `billing%` appartiene a questo stack.
+      -- Non tutto cio' che si chiama 'billing%' appartiene a questo stack.
       -- Queste tre nascono altrove e DEVONO sopravvivere al rollback del
       -- registro degli acquisti:
-      --   * `billing_tentativi_acquisto` e `billing_pagamenti_segnalati` sono
+      --   * 'billing_tentativi_acquisto' e 'billing_pagamenti_segnalati' sono
       --     del 16/08, vivono in produzione da prima, e non hanno niente a che
       --     fare con i claim;
-      --   * `billing_store_notifications` e' delle notifiche degli store
+      --   * 'billing_store_notifications' e' delle notifiche degli store
       --     (F5), che hanno un rollback proprio.
       -- Il controllo cercava per prefisso del nome, ed e' lo stesso errore che
       -- in questo sprint ha gia' prodotto tre conclusioni sbagliate.
