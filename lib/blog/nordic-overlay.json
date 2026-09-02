@@ -6892,8 +6892,8 @@
       "da": "Nu vises fusionen i trinoversigten"
     },
     "body.4.text": {
-      "sv": "Det finns en konkret uppdatering: diagrammet över steg per timme visar nu samma sammanställning. För varje timme anges vilken enhet som mätte (ring eller klocka), och summan av timmarna stämmer överens med dagstotalen. Det är samma logik som för timvis hjärtfrekvens, tillämpad på steg: du ser inte längre bara en total, utan hur den byggdes upp, timme för timme.",
-      "da": "Der er en konkret opdatering: Diagrammet over skridt pr. time viser nu den samme sammenlægning. Hver time angiver, hvilket device der har foretaget målingen (ring eller ur), og summen af timerne svarer til det daglige totalantal. Det er den samme logik som for den timelige puls, blot anvendt på skridt: Du ser ikke længere kun et samlet tal, men kan se, hvordan det er opbygget, time for time."
+      "sv": "Det finns en konkret uppdatering: när det är tillgängligt visar diagrammet över steg per timme vilken enhet som mätte varje timme (ring eller klocka). Diagrammet visas bara när summan av timmarna exakt matchar dagens officiella totalsumma. Om det inte stämmer tvingar FitMesh inte fram diagrammet, utan visar ändå dagens totalsumma. Det är samma transparensprincip som för timvis puls, tillämpad på steg: när diagrammet visas ser du hur totalsumman byggdes upp, timme för timme.",
+      "da": "Der er en konkret opdatering: Når det er tilgængeligt, viser diagrammet over skridt pr. time, hvilken enhed der målte hver time (ring eller ur). Diagrammet vises kun, når summen af timerne præcist matcher dagens officielle totalantal. Hvis det ikke stemmer, tvinger FitMesh det ikke frem, men viser stadig dagens totalantal. Det er samme gennemsigtighedsprincip som for den timelige puls, anvendt på skridt: Når diagrammet vises, kan du se, hvordan totalantallet blev opbygget, time for time."
     },
     "body.5.text": {
       "sv": "Ingen dubbelräkning",
@@ -9457,25 +9457,25 @@
     },
     "body.5.items": {
       "sv": [
-        "**Identifierar överlappningar.** För varje tidsintervall undersöker FitMesh Sync hur många källor som har registrerat samma mätvärde.",
-        "**Väljer den bästa källan.** Bland källor som överlappar varandra använder appen den som har de mest fullständiga eller mest exakta uppgifterna för det aktuella intervallet.",
-        "**Visar ett enskilt värde.** Siffran som visas på instrumentpanelen är alltid det bästa enskilda värdet, inte summan."
+        "**Tittar på hela dagen, inte enskilda timmar.** När flera källor täcker samma dag jämför FitMesh Sync uppgifterna för hela dagen, inte timme för timme.",
+        "**Väljer den mest konsekventa källan, inte den högsta siffran.** Värdena från olika källor läggs inte ihop och den högsta siffran väljs inte per automatik: appen använder källan med bäst timtäckning och mest konsekventa uppgifter för den dagen.",
+        "**Om ett tillförlitligt val inte går att göra sägs det.** Om två källor ger mycket olika siffror för samma dag och inget kriterium gör det möjligt att välja tillförlitligt, markeras dagen som osäker i stället för att låta en slumpmässig siffra vinna."
       ],
       "da": [
-        "**Identificerer overlapninger.** For hvert tidsinterval registrerer FitMesh Sync, hvor mange kilder der har registreret den samme måleværdi.",
-        "**Vælger den bedste kilde.** Blandt overlappende kilder bruger appen den kilde, der har de mest komplette eller mest nøjagtige data for det pågældende tidsinterval.",
-        "**Viser en enkelt værdi.** Det tal, du ser på dashboardet, er altid den bedste enkeltværdi, ikke summen."
+        "**Ser på hele dagen, ikke enkelte timer.** Når flere kilder dækker den samme dag, sammenligner FitMesh Sync data for hele dagen, ikke time for time.",
+        "**Vælger den mest konsistente kilde, ikke det højeste tal.** Værdierne fra de forskellige kilder lægges ikke sammen, og den højeste værdi vælges ikke automatisk: appen bruger den kilde, der har den bedste timedækning og de mest konsistente data for den dag.",
+        "**Hvis der ikke kan træffes et pålideligt valg, vises det.** Hvis to kilder giver meget forskellige tal for den samme dag, og intet kriterium gør det muligt at træffe et pålideligt valg, forbliver dagen markeret som usikker i stedet for at lade et tilfældigt tal vinde."
       ]
     },
     "body.10.items": {
       "sv": [
         "**Smartklocka på dagen, ring på natten.** Steg under dagen registreras av smartklockan. Sömn registreras av Colmi-ringen. Översiktspanelen visar båda utan att den ena skriver över den andra.",
-        "**Två smartklockor samtidigt.** Om du bär båda samtidigt använder appen stegantalet från den källa som genererade de högsta eller mest fullständiga uppgifterna för den timmen, inte summan av dem.",
+        "**Två smartklockor samtidigt.** Om du bär båda samma dag lägger FitMesh Sync inte ihop stegen från de två enheterna och väljer inte bara den högsta siffran: för den dagen används källan med bäst timtäckning och mest konsekventa uppgifter. I de sällsynta fall då ingen källa är tydligt mer tillförlitlig markeras dagen som osäker.",
         "**Byte av övervakningsgrupp mitt i året.** Data från den första övervakningsgruppen för tidigare månader och den nya övervakningsgruppen för efterföljande månader visas som en sammanhängande linje i den historiska översikten."
       ],
       "da": [
         "**Smartwatch om dagen, ring om natten.** Skridt i løbet af dagen vises på smartwatchet. Søvn vises på Colmi-ringen. Oversigtsskærmen viser begge dele, uden at det ene overskriver det andet.",
-        "**To smartwatches på samme tid.** Hvis du bærer begge i samme tidsvindue, bruger appen skridtantallet fra den kilde, der har leveret de højeste eller mest komplette data for den pågældende time – ikke summen af de to.",
+        "**To smartwatches på samme tid.** Hvis du bærer begge samme dag, lægger FitMesh Sync ikke skridtene fra de to enheder sammen og vælger ikke bare det højeste tal: for den dag bruges den kilde, der har den bedste timedækning og de mest konsistente data. I de sjældne tilfælde, hvor ingen kilde er tydeligt mere pålidelig, forbliver dagen markeret som usikker.",
         "**Skift af ur midt på året.** Data fra det første ur for de foregående måneder og det nye ur for de efterfølgende måneder vises som en sammenhængende linje i den historiske oversigt."
       ]
     }

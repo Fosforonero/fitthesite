@@ -823,6 +823,21 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "why-zone-2-differs-watches-apps",
     ko: "why-zone-2-differs-watches-apps",
   },
+  // P1.9-10 (02/09/2026): pubblicato solo it/en/de/fr (REDIRECT_INCOMPLETE_LOCALE_SLUGS
+  // in indexability.ts) - es/pt/pl/tr/nl/ja/ko qui sotto sono slug reali ma
+  // irraggiungibili finche' il contenuto non e' tradotto (redirect a /en).
+  "steps-total-vs-hourly-chart": {
+    en: "steps-total-vs-hourly-chart",
+    es: "total-pasos-no-coincide-grafico-horario",
+    de: "schritte-gesamt-stimmt-nicht-mit-stundendiagramm-ueberein",
+    pt: "total-passos-nao-coincide-grafico-horario",
+    fr: "total-pas-ne-correspond-pas-au-graphique-horaire",
+    pl: "suma-krokow-nie-zgadza-sie-z-wykresem-godzinowym",
+    tr: "adim-toplami-saatlik-grafikle-uyusmuyor",
+    nl: "totaal-stappen-komt-niet-overeen-met-uurgrafiek",
+    ja: "hosuu-goukei-ga-jikanbetsu-gurafu-to-icchi-shinai",
+    ko: "geoleumsu-hapgyega-siganbyeol-geulaepeuwa-ilchihaji-anhneun",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {
