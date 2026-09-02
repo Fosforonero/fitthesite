@@ -7,12 +7,14 @@ import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
 import { TraderIdentity } from "@/components/legal/TraderIdentity";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "4 agosto 2026";
-const LAST_UPDATED_EN = "August 4, 2026";
-const LAST_UPDATED_ES = "4 de agosto de 2026";
-const LAST_UPDATED_DE = "4. August 2026";
-const LAST_UPDATED_PT = "4 de agosto de 2026";
-const LAST_UPDATED_FR = "4 août 2026";
+// P1.9-10 (2026-09-02): testo GPS/OSM corretto (distinzione traccia locale vs
+// backup iOS vs tile OSM) - data reale della modifica, non un touch cosmetico.
+const LAST_UPDATED_IT = "2 settembre 2026";
+const LAST_UPDATED_EN = "September 2, 2026";
+const LAST_UPDATED_ES = "2 de septiembre de 2026";
+const LAST_UPDATED_DE = "2. September 2026";
+const LAST_UPDATED_PT = "2 de setembro de 2026";
+const LAST_UPDATED_FR = "2 septembre 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -88,7 +90,7 @@ export default async function PrivacyPage({
   return (
     <>
       <Breadcrumbs items={[{ name: "Privacy Policy", path: `/${lc}/privacy` }]} locale={lc} />
-      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified="2026-08-04" />
+      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified="2026-09-02" />
       <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <PrivacyIT /> : lc === "es" ? <PrivacyES /> : lc === "de" ? <PrivacyDE /> : lc === "pt" ? <PrivacyPT /> : lc === "fr" ? <PrivacyFR /> : <PrivacyEN />}
       </LegalPage>
@@ -196,7 +198,7 @@ function PrivacyIT() {
           ["Firebase Crashlytics (Google LLC, USA)", "diagnostica crash e stabilità dell'app. Google aderisce alle SCC + Data Privacy Framework"],
           ["Google Sign-In (Google LLC, USA)", "autenticazione opzionale tramite account Google. Trasferimento basato su SCC + DPF"],
           ["Firebase Installations (Google LLC, USA)", "identificativo tecnico dell'installazione, usato da Crashlytics e dalle notifiche. Il fornitore lo dichiara come dato diagnostico"],
-          ["OpenStreetMap Foundation (Regno Unito)", "quando apri la mappa di un allenamento, l'app scarica i riquadri della mappa dai loro server: la richiesta rivela la zona che stai guardando. Il percorso registrato NON viene mai inviato: resta sul dispositivo"],
+          ["OpenStreetMap Foundation (Regno Unito)", "quando apri la mappa di un allenamento, l'app richiede direttamente a OpenStreetMap i riquadri necessari per l'area visualizzata: OpenStreetMap può ricevere l'indirizzo IP, i riquadri richiesti e altri dati tecnici della richiesta, secondo la privacy policy OSMF. FitMesh non carica questa traccia GPS sui propri server ne' la invia a OpenStreetMap: viene conservata nel database locale dell'app. Su iPhone, questo database locale puo' essere incluso nei backup iCloud o nei backup del dispositivo gestiti da Apple, in base alle impostazioni del dispositivo"],
         ]} />
         <p>
           Prima di trasferire dati verso gli USA abbiamo valutato il rischio (Transfer Impact
@@ -427,7 +429,7 @@ function PrivacyEN() {
           ["Firebase Crashlytics (Google LLC, US)", "app crash and stability diagnostics. Google adheres to SCC + EU-US Data Privacy Framework"],
           ["Google Sign-In (Google LLC, US)", "optional authentication via Google account. Transfer governed by SCC + DPF"],
           ["Firebase Installations (Google LLC, US)", "technical installation identifier used by Crashlytics and notifications. The provider declares it as diagnostic data"],
-          ["OpenStreetMap Foundation (United Kingdom)", "when you open a workout map, the app downloads map tiles from their servers: the request reveals the area you are viewing. The recorded route is NEVER sent: it stays on the device"],
+          ["OpenStreetMap Foundation (United Kingdom)", "when you open a workout map, the app requests the map tiles it needs directly from OpenStreetMap for the area you are viewing: OpenStreetMap may receive your IP address, the tiles requested, and other technical request data, under the OSMF privacy policy. FitMesh does not upload this GPS track to its own servers or send it to OpenStreetMap: it is kept in the app's local database. On iPhone, this local database can be included in iCloud backups or in device backups managed by Apple, depending on your device settings"],
         ]} />
         <p>
           Before transferring data to the US we performed a Transfer Impact Assessment: data
@@ -658,7 +660,7 @@ function PrivacyES() {
           ["Firebase Crashlytics (Google LLC, EE. UU.)", "diagnóstico de fallos y estabilidad de la app. Google se adhiere a las CCT + Marco de Privacidad de Datos UE-EE. UU."],
           ["Google Sign-In (Google LLC, EE. UU.)", "autenticación opcional mediante cuenta de Google. Transferencia basada en CCT + DPF"],
           ["Firebase Installations (Google LLC, EE. UU.)", "identificador técnico de la instalación, usado por Crashlytics y las notificaciones. El proveedor lo declara como dato de diagnóstico"],
-          ["OpenStreetMap Foundation (Reino Unido)", "cuando abres el mapa de un entrenamiento, la app descarga los mosaicos del mapa de sus servidores: la solicitud revela la zona que estás viendo. La ruta registrada NUNCA se envía: permanece en el dispositivo"],
+          ["OpenStreetMap Foundation (Reino Unido)", "cuando abres el mapa de un entrenamiento, la app solicita directamente a OpenStreetMap los mosaicos necesarios para el área que estás viendo: OpenStreetMap puede recibir tu dirección IP, los mosaicos solicitados y otros datos técnicos de la solicitud, según la política de privacidad de la OSMF. FitMesh no carga esta traza GPS en sus propios servidores ni la envía a OpenStreetMap: se conserva en la base de datos local de la app. En iPhone, esta base de datos local puede incluirse en las copias de seguridad de iCloud o en las copias de seguridad del dispositivo gestionadas por Apple, según los ajustes de tu dispositivo"],
         ]} />
         <p>
           Antes de transferir datos a EE. UU. realizamos una Evaluación de Impacto de la
@@ -892,7 +894,7 @@ function PrivacyDE() {
           ["Firebase Crashlytics (Google LLC, USA)", "App-Absturz- und Stabilitätsdiagnose. Google hält SCC und das EU-US Data Privacy Framework ein"],
           ["Google Sign-In (Google LLC, USA)", "optionale Authentifizierung über Google-Konto. Übermittlung auf Grundlage von SCC + DPF"],
           ["Firebase Installations (Google LLC, USA)", "technische Installationskennung, von Crashlytics und den Benachrichtigungen verwendet. Der Anbieter deklariert sie als Diagnosedaten"],
-          ["OpenStreetMap Foundation (Vereinigtes Königreich)", "wenn du die Karte eines Trainings öffnest, lädt die App die Kartenkacheln von deren Servern: die Anfrage verrät den betrachteten Bereich. Die aufgezeichnete Route wird NIE gesendet: sie bleibt auf dem Gerät"],
+          ["OpenStreetMap Foundation (Vereinigtes Königreich)", "wenn du die Karte eines Trainings öffnest, fordert die App die benötigten Kartenkacheln direkt bei OpenStreetMap für den angezeigten Bereich an: OpenStreetMap kann dabei deine IP-Adresse, die angeforderten Kacheln und weitere technische Daten der Anfrage erhalten, gemäß der Datenschutzrichtlinie der OSMF. FitMesh lädt diese GPS-Aufzeichnung nicht auf eigene Server hoch und sendet sie auch nicht an OpenStreetMap: Sie wird in der lokalen Datenbank der App gespeichert. Auf dem iPhone kann diese lokale Datenbank je nach Geräteeinstellungen in iCloud-Backups oder in von Apple verwaltete Gerätebackups einbezogen werden"],
         ]} />
         <p>
           Vor der Übermittlung von Daten in die USA haben wir eine Übertragungsfolgenabschätzung
@@ -1127,7 +1129,7 @@ function PrivacyPT() {
           ["Firebase Crashlytics (Google LLC, EUA)", "diagnóstico de falhas e estabilidade do app. O Google adere às SCC e ao EU-US Data Privacy Framework"],
           ["Google Sign-In (Google LLC, EUA)", "autenticação opcional via conta Google. Transferência baseada em SCC + DPF"],
           ["Firebase Installations (Google LLC, EUA)", "identificador técnico da instalação, usado pelo Crashlytics e pelas notificações. O fornecedor declara-o como dado de diagnóstico"],
-          ["OpenStreetMap Foundation (Reino Unido)", "quando abres o mapa de um treino, a app descarrega os mosaicos do mapa dos servidores deles: o pedido revela a zona que estás a ver. O percurso registado NUNCA é enviado: fica no dispositivo"],
+          ["OpenStreetMap Foundation (Reino Unido)", "quando abres o mapa de um treino, a app solicita diretamente ao OpenStreetMap os mosaicos necessários para a área que estás a ver: o OpenStreetMap pode receber o teu endereço IP, os mosaicos solicitados e outros dados técnicos do pedido, de acordo com a política de privacidade da OSMF. O FitMesh não carrega este percurso GPS nos seus próprios servidores nem o envia ao OpenStreetMap: é conservado na base de dados local da app. No iPhone, esta base de dados local pode ser incluída nas cópias de segurança do iCloud ou nas cópias de segurança do dispositivo geridas pela Apple, consoante as definições do teu dispositivo"],
         ]} />
         <p>
           Antes de transferir dados para os EUA, realizamos uma Avaliação de Impacto da
@@ -1361,7 +1363,7 @@ function PrivacyFR() {
           ["Firebase Crashlytics (Google LLC, États-Unis)", "diagnostic des plantages et de la stabilité de l'application. Google adhère aux CCT et au Cadre de protection des données UE-États-Unis"],
           ["Google Sign-In (Google LLC, États-Unis)", "authentification optionnelle via compte Google. Transfert encadré par CCT + DPF"],
           ["Firebase Installations (Google LLC, États-Unis)", "identifiant technique d'installation, utilisé par Crashlytics et les notifications. Le fournisseur le déclare comme donnée de diagnostic"],
-          ["OpenStreetMap Foundation (Royaume-Uni)", "quand tu ouvres la carte d'une séance, l'app télécharge les tuiles depuis leurs serveurs : la requête révèle la zone que tu consultes. Le parcours enregistré n'est JAMAIS envoyé : il reste sur l'appareil"],
+          ["OpenStreetMap Foundation (Royaume-Uni)", "quand tu ouvres la carte d'une séance, l'app demande directement à OpenStreetMap les tuiles nécessaires pour la zone affichée : OpenStreetMap peut recevoir ton adresse IP, les tuiles demandées et d'autres données techniques de la requête, selon la politique de confidentialité de l'OSMF. FitMesh ne charge pas ce tracé GPS sur ses propres serveurs et ne l'envoie pas non plus à OpenStreetMap : il est conservé dans la base de données locale de l'app. Sur iPhone, cette base de données locale peut être incluse dans les sauvegardes iCloud ou dans les sauvegardes de l'appareil gérées par Apple, selon les réglages de ton appareil"],
         ]} />
         <p>
           Avant de transférer des données vers les États-Unis, nous avons réalisé une Évaluation
