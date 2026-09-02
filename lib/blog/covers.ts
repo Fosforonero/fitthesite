@@ -204,6 +204,13 @@ export const POST_COVER: Record<string, CoverType> = {
   "fitmesh-vs-alternative-sync": "compare",
   "mesh-famiglia-lancio": "news",
   "dove-sono-i-tuoi-dati-server-ue": "privacy",
+
+  // P1.9-10 (2026-09-02): riuso "troubleshooting" (gear.webp, gia' condivisa
+  // con garmin-body-battery-health-connect e altri) come placeholder ragionato
+  // - il tema (diagnosticare un disallineamento grafico/totale) e' coerente
+  // con le cover gia' assegnate a quel tipo. FASE 7: valutare una cover
+  // dedicata, vedi prompt proposto nel report - NON generata qui.
+  "steps-total-vs-hourly-chart": "troubleshooting",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */

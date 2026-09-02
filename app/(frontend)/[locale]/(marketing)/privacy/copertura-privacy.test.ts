@@ -72,10 +72,18 @@ describe("la privacy policy nomina cio' che l'app raccoglie", () => {
         );
       });
 
-      it("nomina il percorso registrato e dice che NON viene inviato", () => {
-        // La distinzione che conta: le tile escono, il percorso no. Una policy
-        // che dicesse solo «usiamo le mappe» lascerebbe credere il contrario.
-        expect(corpo).toMatch(/NON viene mai inviato|NEVER sent|NUNCA se envía|NIE gesendet|NUNCA é enviado|JAMAIS envoyé/);
+      it("nomina il percorso registrato e dice che non viene caricato sui server FitMesh ne' inviato a OpenStreetMap", () => {
+        // La distinzione che conta: le tile escono, il percorso no verso
+        // NESSUNO dei due destinatari (backend FitMesh, OpenStreetMap).
+        expect(corpo).toMatch(/non carica questa traccia GPS sui propri server|does not upload this GPS track to its own servers|no carga esta traza GPS en sus propios servidores|lädt diese GPS-Aufzeichnung nicht auf eigene Server hoch|não carrega este percurso GPS nos seus próprios servidores|ne charge pas ce tracé GPS sur ses propres serveurs/);
+      });
+
+      it("dichiara l'eccezione reale: il DB locale iOS puo' finire nei backup di sistema Apple", () => {
+        // P1.9-10 (02/09/2026): "resta sul dispositivo" era troppo assoluto -
+        // fitmesh_cache.sqlite non ha isExcludedFromBackup su iOS, quindi puo'
+        // uscire dal dispositivo tramite backup iCloud/Finder gestito da Apple
+        // (non un upload al backend FitMesh: e' un canale diverso, e va detto).
+        expect(corpo).toMatch(/backup iCloud|iCloud backups|copias de seguridad de iCloud|iCloud-Backups|cópias de segurança do iCloud|sauvegardes iCloud/);
       });
 
       it("nomina gli identificatori, gli acquisti e i contenuti scritti", () => {
