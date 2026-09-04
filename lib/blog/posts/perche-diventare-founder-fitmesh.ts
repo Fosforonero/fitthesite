@@ -208,8 +208,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Se vuoi il quadro completo sul modello di prezzo, inclusi i dettagli sulla prova di 14 giorni e su cosa include il Pro, c'è la guida [FitMesh è gratis? Prezzo e prova di 14 giorni](/it/blog/fitmesh-gratis-prezzo-founder). E se vuoi sapere cosa succede ai tuoi dati una volta collegato un wearable, la risposta diretta è nella guida [Dove vivono i tuoi dati](/it/blog/dove-sono-i-tuoi-dati-server-ue).",
-        en: "For the full picture on the pricing model, including the details of the 14-day trial and what Pro includes, there's the guide [Is FitMesh free? Pricing and the 14-day trial](/en/blog/fitmesh-gratis-prezzo-founder). And if you want to know what happens to your data once you connect a wearable, the direct answer is in the guide [Where your data actually lives](/en/blog/dove-sono-i-tuoi-dati-server-ue).",
+        it: "Se vuoi il quadro completo sul modello di prezzo, inclusi i dettagli sulla prova di 14 giorni e su cosa include il Pro, c'è la guida [FitMesh è gratis? Prezzo e prova di 14 giorni](/it/blog/fitmesh-gratis-prezzo-founder). E se vuoi sapere cosa succede ai tuoi dati una volta collegato un wearable, la risposta è nella [Privacy Policy](/it/privacy).",
+        en: "For the full picture on the pricing model, including the details of the 14-day trial and what Pro includes, there's the guide [Is FitMesh free? Pricing and the 14-day trial](/en/blog/fitmesh-gratis-prezzo-founder). And if you want to know what happens to your data once you connect a wearable, the answer is in our [Privacy Policy](/en/privacy).",
       },
     },
     {

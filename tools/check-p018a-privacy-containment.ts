@@ -116,14 +116,25 @@ const FILES: Array<{
   {
     path: "lib/llms-txt.ts",
     categories: ["gdpr_as_certification", "eu_servers_exclusive"],
-    // riga 139: disclosure tecnica fattuale gia' rivista in P0.18A-A
-    // ("backend on Supabase Postgres (Frankfurt, EU)") — stesso genere della
-    // tabella sub-processor di privacy/page.tsx, non un claim di
-    // esclusivita' marketing; verificato riga per riga.
-    skipLines: [139],
+    // MICRO-GATE P0.18A-B (04/09/2026): riga 139 ("backend on Supabase
+    // Postgres (Frankfurt, EU)") e riga 35 ("Supabase, EU infrastructure")
+    // erano state giudicate legittime in P0.18A-A per analogia con la
+    // tabella sub-processor di privacy/page.tsx — riesame piu' severo: a
+    // differenza di privacy.tsx, questo file non discloso MAI, in nessun
+    // punto, i sub-processor USA (Vercel/Resend/Firebase/Google Sign-In)
+    // che compaiono nella stessa pagina/documento; un lettore (umano o un
+    // agente IA, il pubblico dichiarato di questo file) non ha modo di
+    // sapere qui che il resto del backend NON e' esclusivamente UE.
+    // Rimosse entrambe le clausole geografiche, nessuna sostituzione.
   },
   { path: "lib/product-facts.ts", categories: ["gdpr_as_certification", "eu_servers_exclusive"] }, // altissima diffusione: importato da quasi ogni pagina marketing
   { path: "lib/landing/data.ts", categories: ["gdpr_as_certification", "eu_servers_exclusive"] }, // 6508 righe, FAQ riusate da /lp/[slug]
+  // MICRO-GATE P0.18A-B (04/09/2026): layer di gap-fill spagnolo per le
+  // landing page, SEPARATO da data.ts (lib/landing/es-overlay.ts), mai
+  // enumerato da nessun fix precedente — scoperto solo dalla scansione
+  // esaustiva dell'HTML costruito. 7 claim "servidor/nube en la UE
+  // (Fráncfort/Frankfurt)" rimossi su 5 landing page.
+  { path: "lib/landing/es-overlay.json", categories: ["eu_servers_exclusive"] },
 
   // ── 18 blog post (17 dal primo giro P0.18A-A + 1 trovato nella scansione
   // finale). dove-sono-i-tuoi-dati-server-ue.ts è ESCLUSO di proposito: il
@@ -246,7 +257,7 @@ const ACTUALLY_PRIVATE_RE =
  * 9 superfici coperte qui sono già state ripulite: qualunque occorrenza
  * residua è una regressione. */
 const EU_SERVERS_RE =
-  /\b(server[i]?\s+(in\s+)?(UE|EU)\b|EU\s+servers?\b|servidor(es)?\s+(en|na)\s+la?\s?UE\b|EU-Server\b|EU-servrar\b|EU-servere\b|EU-palvelimet\b|serveurs?\s+(en\s+)?UE\b|serwery\s+w\s+UE\b|AB\s+sunucular[ıi]\b|Avrupa.{0,15}sunucu\w*|EU-servers?\b|EU-cloud\b|EU\s+cloud\b|cloud\s+FitMesh\s+EU\b|FitMesh\s+EU\s+cloud\b|server\s+europe[oi]\b|European\s+servers?\b|europ[äae]ische[nr]?\s+server|servidores?\s+europeos|servidores?\s+europeus|serveurs?\s+europ[ée]ens|europejskie\s+serwery|europeiske\s+server\w*|europ[äaæ]iske?\s+server\w*|eurooppalais\w*\s+palvelim\w*|Frankfurt|Francoforte|Francfort|Fráncfort|EUサーバー|ヨーロッパ.{0,5}サーバー|欧州.{0,5}サーバー|EU\s*서버|유럽\s*서버)/gi;
+  /\b(server[i]?\s+(in\s+)?(UE|EU)\b|EU\s+servers?\b|servidor(es)?\s+(en|na|de)\s+la?\s?UE\b|nube\s+europea\b|EU-Server\b|EU-servrar\b|EU-servere\b|EU-palvelimet\b|serveurs?\s+(en\s+)?UE\b|serwery\s+w\s+UE\b|AB\s+sunucular[ıi]\b|Avrupa.{0,15}sunucu\w*|EU-servers?\b|EU-cloud\b|EU\s+cloud\b|cloud\s+FitMesh\s+EU\b|FitMesh\s+EU\s+cloud\b|server\s+europe[oi]\b|European\s+servers?\b|europ[äae]ische[nr]?\s+server|servidores?\s+europeos|servidores?\s+europeus|serveurs?\s+europ[ée]ens|europejskie\s+serwery|europeiske\s+server\w*|europ[äaæ]iske?\s+server\w*|eurooppalais\w*\s+palvelim\w*|Frankfurt|Francoforte|Francfort|Fráncfort|EUサーバー|ヨーロッパ.{0,5}サーバー|欧州.{0,5}サーバー|EU\s*서버|유럽\s*서버)/gi;
 
 /** Categoria 4: "non raccogliamo dati"/"data not collected" assoluto. */
 const DATA_NOT_COLLECTED_RE =

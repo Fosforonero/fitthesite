@@ -32,7 +32,7 @@ export function generateLlmsTxt(): string {
 
   lines.push("# FitMesh Sync", "");
   lines.push(
-    `> FitMesh Sync mirrors smartwatch and wearable health data into a premium, privacy-first personal dashboard. Two separate platform architectures, not one: Android reads via Health Connect (${SUPPORTED_PROVIDERS_ANDROID.join(", ")}); iOS reads Apple Health (HealthKit) natively and connects directly via Bluetooth to the Colmi Ring (${SUPPORTED_PROVIDERS_IOS.join(", ")}) — iOS never goes through Health Connect, which is Android-only. No advertising or behavioral-profiling SDKs, no data sale, no data brokers. Firebase Crashlytics is used for crash/stability diagnostics and Firebase Cloud Messaging for push notifications; by default, synced health data is sent to FitMesh's managed cloud backend (Supabase, EU infrastructure).`,
+    `> FitMesh Sync mirrors smartwatch and wearable health data into a premium, privacy-first personal dashboard. Two separate platform architectures, not one: Android reads via Health Connect (${SUPPORTED_PROVIDERS_ANDROID.join(", ")}); iOS reads Apple Health (HealthKit) natively and connects directly via Bluetooth to the Colmi Ring (${SUPPORTED_PROVIDERS_IOS.join(", ")}) — iOS never goes through Health Connect, which is Android-only. No advertising or behavioral-profiling SDKs, no data sale, no data brokers. Firebase Crashlytics is used for crash/stability diagnostics and Firebase Cloud Messaging for push notifications; by default, synced health data is sent to FitMesh's managed cloud backend (Supabase).`,
   );
   lines.push("");
   lines.push(
@@ -136,7 +136,7 @@ export function generateLlmsTxt(): string {
     `- Pricing: the app itself is free to download. FitMesh Pro is an in-app purchase, either a lifetime unlock or a 6-month subscription alternative. Reference launch price in EUR: ${fmtEur(PRICING_FACTS.lifetimeAndroid.amount)} lifetime on Android, ${fmtEur(PRICING_FACTS.lifetimeIos.amount)} lifetime on iOS, ${fmtEur(PRICING_FACTS.subSixMonths.amount)} every 6 months. Outside the eurozone, the price shown is the store's own localized price for that market and currency, not a verified 1:1 conversion of the EUR figure. ${PRICING_FACTS.trialDays}-day full trial before any paywall, then subscribe or buy lifetime to keep Pro. The one-time Founder launch program (see Founder program section above) is limited to accounts registered by ${FOUNDER_END_AT}; it is not an ongoing offer — never present it as available to an account created on or after that cutoff.`,
   );
   lines.push(
-    "- Architecture: native Android app reading via the Health Connect API; native iOS app reading Apple Health (HealthKit) natively and connecting directly via Bluetooth to the Colmi Ring (no Health Connect involvement on iOS — that API is Android-only); backend on Supabase Postgres (Frankfurt, EU); marketing site on Vercel.",
+    "- Architecture: native Android app reading via the Health Connect API; native iOS app reading Apple Health (HealthKit) natively and connecting directly via Bluetooth to the Colmi Ring (no Health Connect involvement on iOS — that API is Android-only); backend on Supabase Postgres; marketing site on Vercel.",
   );
   lines.push(
     `- Data sources supported on Android today (via Health Connect): ${SUPPORTED_PROVIDERS_ANDROID.join(", ")}.`,
