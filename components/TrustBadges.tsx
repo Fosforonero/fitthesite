@@ -5,106 +5,76 @@ type Variant = "default" | "compact";
 const COPY = {
   it: {
     madeIn: "Made in Italy",
-    serverEu: "Server in UE",
-    gdpr: "Privacy GDPR",
     indie: "Indie dev",
     title: "Costruito con attenzione",
   },
   en: {
     madeIn: "Made in Italy",
-    serverEu: "EU servers",
-    gdpr: "GDPR privacy",
     indie: "Indie dev",
     title: "Built with care",
   },
   es: {
     madeIn: "Made in Italy",
-    serverEu: "Servidores en la UE",
-    gdpr: "Privacidad GDPR",
     indie: "Indie dev",
     title: "Hecho con cuidado",
   },
   de: {
     madeIn: "Made in Italy",
-    serverEu: "Server in der EU",
-    gdpr: "Datenschutz DSGVO",
     indie: "Indie dev",
     title: "Mit Sorgfalt entwickelt",
   },
   pt: {
     madeIn: "Made in Italy",
-    serverEu: "Servidores na UE",
-    gdpr: "Privacidade LGPD/GDPR",
     indie: "Indie dev",
     title: "Feito com cuidado",
   },
   fr: {
     madeIn: "Made in Italy",
-    serverEu: "Serveurs dans l'UE",
-    gdpr: "Confidentialité RGPD",
     indie: "Indie dev",
     title: "Conçu avec soin",
   },
   pl: {
     madeIn: "Made in Italy",
-    serverEu: "Serwery w UE",
-    gdpr: "Prywatność RODO",
     indie: "Indie dev",
     title: "Zbudowany z troską",
   },
   tr: {
     madeIn: "Made in Italy",
-    serverEu: "AB Sunucuları",
-    gdpr: "Gizlilik KVKK/GDPR",
     indie: "Indie dev",
     title: "Özenle geliştirildi",
   },
   nl: {
     madeIn: "Made in Italy",
-    serverEu: "EU-servers",
-    gdpr: "Privacy AVG/GDPR",
     indie: "Indie dev",
     title: "Gebouwd met zorg",
   },
   ja: {
     madeIn: "Made in Italy",
-    serverEu: "EUサーバー",
-    gdpr: "GDPRプライバシー",
     indie: "インディー開発",
     title: "丁寧に作られました",
   },
   ko: {
     madeIn: "Made in Italy",
-    serverEu: "EU 서버",
-    gdpr: "GDPR 개인정보",
     indie: "인디 개발",
     title: "정성껏 만들었습니다",
   },
   sv: {
     madeIn: "Made in Italy",
-    serverEu: "EU-servrar",
-    gdpr: "GDPR-integritet",
     indie: "Indie-utvecklare",
     title: "Byggd med omsorg",
   },
   da: {
     madeIn: "Made in Italy",
-    serverEu: "EU-servere",
-    gdpr: "GDPR-privatliv",
     indie: "Indie-udvikler",
     title: "Bygget med omhu",
   },
   no: {
     madeIn: "Made in Italy",
-    serverEu: "EU-servere",
-    gdpr: "GDPR-personvern",
     indie: "Indie-utvikler",
     title: "Bygget med omtanke",
   },
   fi: {
     madeIn: "Made in Italy",
-    serverEu: "EU-palvelimet",
-    gdpr: "GDPR-yksityisyys",
     indie: "Indie-kehittäjä",
     title: "Rakennettu huolella",
   },
@@ -129,35 +99,6 @@ export default function TrustBadges({
           <rect x="0" y="0" width="8" height="16" fill="#009246" />
           <rect x="8" y="0" width="8" height="16" fill="#FFFFFF" />
           <rect x="16" y="0" width="8" height="16" fill="#CE2B37" />
-        </svg>
-      ),
-    },
-    {
-      label: t.serverEu,
-      // cerchio stelle UE simplified
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-4 h-4 shrink-0" aria-hidden>
-          <circle cx="12" cy="12" r="11" fill="#003399" />
-          <g fill="#FFCC00">
-            <circle cx="12" cy="4" r="1" />
-            <circle cx="18" cy="7" r="1" />
-            <circle cx="20" cy="13" r="1" />
-            <circle cx="17" cy="18" r="1" />
-            <circle cx="12" cy="20" r="1" />
-            <circle cx="7" cy="18" r="1" />
-            <circle cx="4" cy="13" r="1" />
-            <circle cx="6" cy="7" r="1" />
-          </g>
-        </svg>
-      ),
-    },
-    {
-      label: t.gdpr,
-      // shield check
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 shrink-0 text-brand-aqua" aria-hidden>
-          <path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z" />
-          <path d="M9 12l2 2 4-4" />
         </svg>
       ),
     },

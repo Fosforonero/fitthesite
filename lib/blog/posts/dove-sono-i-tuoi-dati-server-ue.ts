@@ -6,6 +6,24 @@ import type { BlogPost } from "../types";
  * sul modello (server UE, no ads, no vendita dati) e collega il piccolo
  * prezzo del Pro al perché NON serve monetizzare i dati per sostenersi.
  * it/en; gli altri locali si aggiungono dopo.
+ *
+ * RITIRATO TEMPORANEAMENTE — MICRO-GATE P0.18A-B (04/09/2026). Questo file
+ * NON è più raggiungibile come pagina 200: tutte le 15 varianti locale
+ * fanno redirect 307 verso la Privacy Policy localizzata
+ * (`withdrawnEuServerArticleRedirects` in next.config.mjs, intercettato
+ * prima del routing app-level) e sono escluse da sitemap/hreflang/related
+ * posts/feed (`WITHDRAWN_PENDING_APP_MATRIX_VARIANTS` in
+ * lib/blog/indexability.ts). Motivo: titolo, H1, slug e ogni sezione
+ * asseriscono "i tuoi dati sono su server nell'Unione Europea" senza mai
+ * ammettere possibili trasferimenti extra-UE — a differenza della tabella
+ * sub-processor di /privacy, che lo ammette esplicitamente — e
+ * MATRIX_COMPLETE_FOR_SITE resta NO. Il contenuto sotto NON è stato
+ * modificato (resta quello originale, per poterlo riusare/riscrivere
+ * quando la matrice sarà completa): non fidarsi di questo commento da solo
+ * per concludere che il file è davvero morto ovunque — verificare sempre
+ * ogni import di questo post (related arrays, prev/next by date, CMS
+ * merge) prima di riattivarlo, per lo stesso motivo per cui il COPY
+ * object di famiglia/page.tsx si è rivelato non del tutto morto.
  */
 export const post: BlogPost = {
   slug: "dove-sono-i-tuoi-dati-server-ue",
@@ -219,10 +237,10 @@ export const post: BlogPost = {
       },
     },
     {
-      q: { it: "FitMesh è conforme al GDPR?", en: "Is FitMesh GDPR compliant?" },
+      q: { it: "Come tratta i dati FitMesh rispetto al GDPR?", en: "How does FitMesh handle data under GDPR?" },
       a: {
-        it: "Sì. Il trattamento segue il GDPR: puoi vedere, esportare o cancellare i tuoi dati quando vuoi. Il dettaglio completo è nella guida su GDPR e dati fitness.",
-        en: "Yes. Data handling follows GDPR: you can view, export or delete your data whenever you want. Full detail is in the guide on GDPR and fitness data.",
+        it: "Il trattamento tiene conto del GDPR: puoi vedere, esportare o cancellare i tuoi dati quando vuoi. Il dettaglio completo è nella guida su GDPR e dati fitness.",
+        en: "Data handling takes GDPR into account: you can view, export or delete your data whenever you want. Full detail is in the guide on GDPR and fitness data.",
       },
     },
     {

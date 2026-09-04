@@ -67,9 +67,32 @@ const CONSOLIDATED_AWAY_VARIANTS = new Set<string>([
   "smartwatch-per-anziani-guida:en",
 ]);
 
+/**
+ * MICRO-GATE P0.18A-B (04/09/2026): "dove-sono-i-tuoi-dati-server-ue" ritirato
+ * TEMPORANEAMENTE (non una fusione/cannibalizzazione permanente come
+ * CONSOLIDATED_AWAY_VARIANTS sopra) — titolo, H1, slug e ogni sezione
+ * dell'articolo sono costruiti sul claim "i tuoi dati sono su server
+ * nell'Unione Europea", mai qualificato (a differenza della tabella
+ * sub-processor di /privacy, che ammette esplicitamente possibili
+ * trasferimenti extra-UE). MATRIX_COMPLETE_FOR_SITE = NO: nessuna prova che
+ * copra l'intero articolo. Rimuovere solo le frasi di esclusività avrebbe
+ * svuotato/contraddetto il titolo e l'intera tesi (opzione 1 del micro-gate
+ * scartata per questo motivo) — redirect 307 (next.config.mjs,
+ * `withdrawnEuServerArticleRedirects`) verso la Privacy Policy localizzata,
+ * reversibile quando la matrice sarà completa. Tutte le 15 locale, non solo
+ * quelle indicizzabili: le altre 13 erano già pubblicamente raggiungibili
+ * (noindex,follow, contenuto EN di fallback) e mostravano lo stesso claim.
+ */
+const WITHDRAWN_PENDING_APP_MATRIX_VARIANTS = new Set<string>(
+  ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi"].map(
+    (lc) => `dove-sono-i-tuoi-dati-server-ue:${lc}`,
+  ),
+);
+
 /** True se la pagina `(post, locale)` è indicizzabile (NON esce `noindex`). */
 export function isBlogVariantIndexable(post: BlogPost, lc: Locale): boolean {
   if (CONSOLIDATED_AWAY_VARIANTS.has(`${post.slug}:${lc}`)) return false;
+  if (WITHDRAWN_PENDING_APP_MATRIX_VARIANTS.has(`${post.slug}:${lc}`)) return false;
   // it/en sono campi `required` nel tipo Localized: sempre presenti, mai fallback.
   if (lc === "it" || lc === "en") return true;
   return isPostLocaleComplete(post, lc);

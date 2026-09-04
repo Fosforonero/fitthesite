@@ -23,6 +23,7 @@
     "founder:acquisition-surfaces-check": "tsx tools/check-founder-acquisition-surfaces.ts",
     "founder:commercial-surfaces-check": "tsx tools/check-founder-commercial-surfaces.ts",
     "selfhost:privacy-truth-check": "tsx tools/check-self-host-privacy-truth.ts",
+    "p018a:privacy-containment-check": "tsx tools/check-p018a-privacy-containment.ts",
     "seo:redirect-integrity-check": "tsx tools/check-seo-redirect-integrity.ts",
     "seo:structured-data-check": "tsx tools/check-p016-structured-data.ts",
     "post-founder:pricing-check": "tsx tools/check-post-founder-pricing.ts",

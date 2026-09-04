@@ -146,7 +146,7 @@ function CookiesIT() {
         <p>
           Usiamo Google Analytics 4 (proprietà{" "}
           <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) con
-          configurazione GDPR-compliant: <strong className="text-text-primary">Consent Mode v2</strong>,
+          configurazione: <strong className="text-text-primary">Consent Mode v2</strong>,
           IP anonymization (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
           advertising signals disattivati. Dettagli completi sull'utilizzo di Google:{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
@@ -231,7 +231,7 @@ function CookiesEN() {
         <p>
           We use Google Analytics 4 (property{" "}
           <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) with
-          GDPR-compliant configuration: <strong className="text-text-primary">Consent Mode v2</strong>,
+          configuration: <strong className="text-text-primary">Consent Mode v2</strong>,
           IP anonymization (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
           advertising signals disabled. Full Google privacy details:{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
@@ -316,7 +316,7 @@ function CookiesES() {
         <p>
           Usamos Google Analytics 4 (propiedad{" "}
           <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) con
-          configuración compatible con el RGPD: <strong className="text-text-primary">Consent Mode v2</strong>,
+          configuración: <strong className="text-text-primary">Consent Mode v2</strong>,
           anonimización de IP (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
           señales publicitarias desactivadas. Información completa sobre el uso de datos por parte de Google:{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
@@ -402,7 +402,7 @@ function CookiesDE() {
         <p>
           Wir verwenden Google Analytics 4 (Property{" "}
           <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) mit
-          DSGVO-konformer Konfiguration: <strong className="text-text-primary">Consent Mode v2</strong>,
+          Konfiguration: <strong className="text-text-primary">Consent Mode v2</strong>,
           IP-Anonymisierung (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
           Werbesignale deaktiviert. Vollständige Datenschutzinformationen von Google:{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
@@ -574,7 +574,7 @@ function CookiesFR() {
         <p>
           Nous utilisons Google Analytics 4 (propriété{" "}
           <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) avec
-          une configuration conforme au RGPD: <strong className="text-text-primary">Consent Mode v2</strong>,
+          une configuration: <strong className="text-text-primary">Consent Mode v2</strong>,
           anonymisation de l'IP (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
           signaux publicitaires désactivés. Informations complètes sur la confidentialité Google:{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.

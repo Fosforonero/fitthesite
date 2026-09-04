@@ -325,6 +325,51 @@ const nextConfig = {
       },
     ];
 
+    // MICRO-GATE P0.18A-B (04/09/2026): "dove sono i tuoi dati / server UE"
+    // ritirato TEMPORANEAMENTE — non una fusione/cannibalizzazione (per
+    // questo `permanent: false`, unico redirect 307 di questo file: tutti
+    // gli altri sono 308 permanenti perché consolidano contenuto verso
+    // un'altra pagina viva per sempre). Titolo, H1, slug e ogni sezione
+    // dell'articolo asseriscono "server nell'Unione Europea" senza mai
+    // ammettere trasferimenti extra-UE, e MATRIX_COMPLETE_FOR_SITE = NO non
+    // lo copre. Rimuovere solo le frasi di esclusività avrebbe svuotato il
+    // titolo stesso ("perché un server in UE conta") — vedi
+    // lib/blog/indexability.ts (WITHDRAWN_PENDING_APP_MATRIX_VARIANTS) per
+    // l'esclusione gemella da sitemap/hreflang/related/feed. Verso la
+    // Privacy Policy localizzata, non verso un'altra spiegazione inventata
+    // sulla localizzazione dei dati. Tutte le 15 locale: le 13 non
+    // indicizzabili (noindex,follow, fallback EN) erano comunque
+    // pubblicamente raggiungibili e mostravano lo stesso claim. Slug da
+    // lib/blog/slugs.ts; sv/da/no/fi non hanno una voce propria per questo
+    // post, quindi restano sullo slug canonico (stesso pattern di
+    // googleFitApiSlugByLocale sopra). Rimuovere questo blocco e la voce
+    // gemella in indexability.ts quando la matrice sarà completa e
+    // l'articolo verrà riscritto o ripubblicato con decisione editoriale.
+    const withdrawnEuServerArticleSlugsByLocale = {
+      it: 'dove-sono-i-tuoi-dati-server-ue',
+      en: 'where-your-data-lives-eu-server',
+      es: 'donde-estan-tus-datos-servidor-ue',
+      de: 'wo-deine-daten-sind-eu-server',
+      pt: 'onde-estao-seus-dados-servidor-ue',
+      fr: 'ou-sont-tes-donnees-serveur-ue',
+      pl: 'gdzie-sa-twoje-dane-serwer-ue',
+      tr: 'verilerin-nerede-ab-sunucusu',
+      nl: 'waar-staan-je-gegevens-eu-server',
+      ja: 'data-hokanbasho-eu-server',
+      ko: 'data-jeojanwichi-eu-seobeo',
+      sv: 'dove-sono-i-tuoi-dati-server-ue',
+      da: 'dove-sono-i-tuoi-dati-server-ue',
+      no: 'dove-sono-i-tuoi-dati-server-ue',
+      fi: 'dove-sono-i-tuoi-dati-server-ue',
+    };
+    const withdrawnEuServerArticleRedirects = Object.entries(
+      withdrawnEuServerArticleSlugsByLocale,
+    ).map(([lc, slug]) => ({
+      source: `/${lc}/blog/${slug}`,
+      destination: `/${lc}/privacy`,
+      permanent: false,
+    }));
+
     return [
       // L'apex `fitmesh.fit` -> `www.fitmesh.fit` NON e' piu' gestito qui
       // (P0.4C, incidente reload iOS Safari/Reddit, 2026-07-13): il redirect
@@ -368,6 +413,8 @@ const nextConfig = {
       ...itSlugFixRedirects,
       // Consolidamento ponte Apple Salute (vedi sopra).
       ...appleWriteBridgeConsolidationRedirects,
+      // Ritiro temporaneo "dove sono i tuoi dati / server UE" (vedi sopra).
+      ...withdrawnEuServerArticleRedirects,
     ];
   },
 };

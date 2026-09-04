@@ -83,9 +83,32 @@ describe("blogLanguages() — SSOT esaustiva selettore lingua / hreflang (SPRINT
     });
   }
 
+  // MICRO-GATE P0.18A-B (04/09/2026): unica eccezione nota e documentata
+  // all'invariante "it/en sempre indicizzabili" — l'intero post e' stato
+  // ritirato TEMPORANEAMENTE (redirect 307 verso la Privacy Policy
+  // localizzata, tutte le 15 locale) perche' titolo/H1/slug/ogni sezione
+  // assertivano "server nell'Unione Europea" senza mai ammettere possibili
+  // trasferimenti extra-UE — vedi WITHDRAWN_PENDING_APP_MATRIX_VARIANTS in
+  // indexability.ts e withdrawnEuServerArticleRedirects in next.config.mjs.
+  // Non aggiungere qui altri slug senza lo stesso redirect gemello.
+  const WITHDRAWN_SLUGS_ALWAYS_INDEXABLE_EXCEPTION = new Set<string>([
+    "dove-sono-i-tuoi-dati-server-ue",
+  ]);
+
   it("almeno una locale (it) e' sempre indicizzabile per ogni post: il selettore non e' mai vuoto sul post stesso", () => {
     for (const post of BLOG_POSTS) {
+      if (WITHDRAWN_SLUGS_ALWAYS_INDEXABLE_EXCEPTION.has(post.slug)) continue;
       expect(isBlogVariantIndexable(post, "it"), `${post.slug}: IT dovrebbe essere sempre indicizzabile`).toBe(true);
     }
+  });
+
+  it("dove-sono-i-tuoi-dati-server-ue e' ritirato in TUTTE le locale (nessuna eccezione it/en)", () => {
+    const post = BLOG_POSTS.find((p) => p.slug === "dove-sono-i-tuoi-dati-server-ue");
+    expect(post, "il post deve ancora esistere nel registro (contenuto conservato, solo non servito)").toBeDefined();
+    if (!post) return;
+    for (const lc of locales) {
+      expect(isBlogVariantIndexable(post, lc), `${post.slug}/${lc}: deve essere noindex (redirect 307 attivo)`).toBe(false);
+    }
+    expect(Object.keys(blogLanguages(post)).length, "blogLanguages() deve essere vuoto salvo x-default").toBeLessThanOrEqual(1);
   });
 });

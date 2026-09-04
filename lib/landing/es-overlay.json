@@ -106,7 +106,7 @@
     "faq.1.q": "¿FitMesh iOS requiere suscripción?",
     "faq.1.a": "Puedes probarlo todo gratis durante 14 días. Después eliges: una suscripción ligera cada 6 meses o un desbloqueo de por vida con un pago único (al precio de lanzamiento), así que la suscripción no es obligatoria. El objetivo es seguir siendo accesible: un panel de salud no debería costar tanto como un servicio de streaming.",
     "faq.2.q": "¿Están seguros mis datos de Apple Health con FitMesh?",
-    "faq.2.a": "Los datos se transmiten mediante HTTPS y se almacenan en una base de datos Postgres protegida por RLS (Row Level Security): cada usuario solo ve sus propios datos. El servidor está en la UE (Fráncfort). Puedes eliminar todo de nuestros servidores en cualquier momento con 'Eliminar cuenta y datos' en la app. La política de privacidad está disponible en fitmesh.fit.",
+    "faq.2.a": "Los datos se transmiten mediante HTTPS y se almacenan en una base de datos Postgres protegida por RLS (Row Level Security): cada usuario solo ve sus propios datos. Puedes eliminar todo de nuestros servidores en cualquier momento con 'Eliminar cuenta y datos' en la app. La política de privacidad está disponible en fitmesh.fit.",
     "secondaryKeywords": [
       "panel web apple health",
       "ver datos apple health en pc",
@@ -123,7 +123,7 @@
       "**Usuarios de iPhone + Apple Watch**: historial web accesible desde un PC sin usar la app Apple Health.",
       "**Multi-wearable en iPhone**: Garmin para correr + Apple Watch para el día a día, FitMesh los unifica.",
       "**Cuidadores de familiares con iPhone**: panel compartido para ver los datos de salud de tus seres queridos.",
-      "**Quienes quieran una copia de seguridad independiente**: copia de los datos de Apple Health en un servidor de la UE (Fráncfort), no en la nube de Apple."
+      "**Quienes quieran una copia de seguridad independiente**: copia de los datos de Apple Health, no en la nube de Apple."
     ]
   },
   "backup-galaxy-watch": {
@@ -180,7 +180,7 @@
     "metaDescription": "La misma cuenta de FitMesh en Android y iPhone: un panel de salud unificado, nube en la UE, GDPR. Incluye puente con Apple Health: sueño y pasos de tu anillo inteligente en iOS, sin duplicados.",
     "primaryKeyword": "fitmesh dos teléfonos una cuenta",
     "body.0.text": "Muchas personas usan dos teléfonos: uno Android para el trabajo y un iPhone personal, o al revés. O has cambiado de sistema operativo y quieres conservar tu historial de datos de salud. O quieres que los datos de tu anillo inteligente Colmi (conectado por Bluetooth a Android) también aparezcan en el iPhone, dentro de Apple Health, sin exportaciones manuales.",
-    "body.1.text": "FitMesh Sync resuelve todo esto con una única estructura: una cuenta en la nube, dos apps (Android y iOS ya disponibles), un puente hacia Apple Health. Los datos son tuyos, se almacenan en la UE y son accesibles desde cualquier navegador.",
+    "body.1.text": "FitMesh Sync resuelve todo esto con una única estructura: una cuenta en la nube, dos apps (Android y iOS ya disponibles), un puente hacia Apple Health. Los datos son tuyos, accesibles desde cualquier navegador.",
     "body.2.text": "Cómo funciona el multi-dispositivo",
     "body.4.text": "El puente con Apple Health (opcional en iOS)",
     "body.5.text": "El punto más solicitado: \"¿los datos de mi anillo Android aparecen en Apple Health?\". Sí, a través del puente de FitMesh. Cuando usas FitMesh en el iPhone con un anillo Colmi, la app escribe los datos en Apple Health: sueño con fases (ligero, profundo, REM), pasos, frecuencia cardiaca. Así los ves en la app Salud de Apple, en Fitness y en cualquier otra app autorizada para Apple Health.",
@@ -201,7 +201,7 @@
     "faq.3.q": "¿FitMesh iOS está disponible en la App Store?",
     "faq.3.a": "Sí. FitMesh iOS ya está disponible en el App Store, en toda la UE. Descárgala directamente desde el App Store e inicia sesión con tu cuenta de FitMesh.",
     "faq.4.q": "¿Mis datos de salud están seguros al usar dos teléfonos?",
-    "faq.4.a": "Sí. Todos los datos se almacenan en un único servidor de la UE (Fráncfort), cifrados en tránsito (HTTPS) y en reposo. Cada cuenta está aislada con Row Level Security: ningún otro usuario puede ver tus datos. Puedes eliminarlo todo en cualquier momento desde la sección 'Eliminar cuenta y datos' de la app.",
+    "faq.4.a": "Sí. Todos los datos se almacenan cifrados en tránsito (HTTPS) y en reposo. Cada cuenta está aislada con Row Level Security: ningún otro usuario puede ver tus datos. Puedes eliminarlo todo en cualquier momento desde la sección 'Eliminar cuenta y datos' de la app.",
     "faq.5.q": "¿El anillo Colmi funciona tanto en Android como en iPhone?",
     "faq.5.a": "Sí. El anillo Colmi se conecta por Bluetooth a la app de FitMesh en ambas plataformas. En Android y en iPhone ya está disponible en producción. Los datos que recoge el anillo (sueño con fases, pasos, BPM) se sincronizan con tu cuenta en la nube y, en iOS, se escriben en Apple Health.",
     "secondaryKeywords": [
@@ -217,7 +217,7 @@
       "**Android: lectura nativa desde Health Connect**: en Android, FitMesh lee los datos de Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit y cualquier app que escriba en Health Connect. Los datos se actualizan al abrir la app, y en segundo plano cada 15-30 minutos aproximadamente si desactivas la optimización de batería (el sistema puede retrasarlo igualmente).",
       "**iOS: lectura nativa desde Apple Health (HealthKit)**: en el iPhone, FitMesh accede a Apple Health con los permisos que elijas. Lee lo que Apple Health ya recopila: pasos del iPhone, datos del Apple Watch y cualquier app autorizada.",
       "**Anillo Colmi en ambas plataformas**: el anillo inteligente Colmi se conecta por Bluetooth a la app de FitMesh, tanto en Android como en iPhone. Los datos (sueño con fases, pasos, frecuencia cardiaca) se sincronizan con tu cuenta en la nube y, en iOS, se escriben en Apple Health.",
-      "**Nube en la UE, GDPR**: todos los datos se almacenan en servidores de la UE (Fráncfort). Cifrado en tránsito y en reposo, Row Level Security, eliminación completa de la cuenta bajo demanda."
+      "Cifrado en tránsito y en reposo, Row Level Security, eliminación completa de la cuenta bajo demanda."
     ],
     "body.8.items": [
       "**No escribe en Health Connect**: la escritura en Health Connect (Android) está en la hoja de ruta, pero todavía no está disponible. Hoy FitMesh lee de Health Connect, no escribe en él.",
@@ -295,7 +295,7 @@
     "body.2.items": [
       "Panel web sencillo accesible desde PC, tablet y móvil",
       "Sincronización periódica a través de Health Connect (Fitbit app → HC → FitMesh), al abrir la app o en segundo plano best-effort",
-      "Historial almacenado en nuestro backend de la UE (Fráncfort)",
+      "Historial almacenado en nuestro backend",
       "Exportación de datos CSV/JSON cuando quieras",
       "Sin Fitbit Premium, sin suscripción a FitMesh",
       "Hoja de ruta: integración OAuth de la Fitbit Web API para fases de sueño detalladas y carga retroactiva de 12 meses"
@@ -409,7 +409,7 @@
     ],
     "body.5.items": [
       "**Triatletas y corredores con varios dispositivos**: Polar para el entrenamiento específico, Galaxy Watch u otro para el uso diario: FitMesh los unifica.",
-      "**Quienes quieren una copia de seguridad independiente de Polar**: historial de entrenamientos en una nube europea (Frankfurt) que no depende de las decisiones corporativas de Polar.",
+      "**Quienes quieren una copia de seguridad independiente de Polar**: historial de entrenamientos que no depende de las decisiones corporativas de Polar.",
       "**Quienes analizan datos en el PC**: panel web accesible desde el navegador, sin necesidad de abrir la app de Polar en el móvil.",
       "**Quienes usan Polar sin suscripción premium**: FitMesh no requiere Polar premium para los datos vía Health Connect."
     ]

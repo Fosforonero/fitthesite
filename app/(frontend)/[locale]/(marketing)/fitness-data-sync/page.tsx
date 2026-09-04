@@ -426,10 +426,10 @@ const PRIVACY_TITLE: Localized = {
   de: "Datenschutz, Speicherung und Export",
 };
 const PRIVACY_BODY: Localized = {
-  it: "I tuoi dati sono conservati su server UE. Controlli ogni interruttore di write-back individualmente, e puoi esportare i tuoi allenamenti come file GPX o TCX in qualsiasi momento (funzione Pro) tramite il foglio di condivisione nativo, per tenere una copia tua fuori da FitMesh. Salvare gli export direttamente su Google Drive è in sviluppo.",
-  en: "Your data is stored on EU servers. You control every write-back toggle individually, and you can export your own workouts as GPX or TCX files at any time (a Pro feature) via the native share sheet, to keep your own copy outside FitMesh. Saving exports directly to Google Drive is in development.",
-  es: "Tus datos se almacenan en servidores de la UE. Controlas cada interruptor de write-back individualmente, y puedes exportar tus propios entrenamientos como archivos GPX o TCX en cualquier momento (función Pro) mediante la hoja de compartir nativa, para tener tu propia copia fuera de FitMesh. Guardar exportaciones directamente en Google Drive está en desarrollo.",
-  de: "Deine Daten werden auf EU-Servern gespeichert. Du steuerst jeden Write-back-Schalter einzeln, und du kannst deine eigenen Workouts jederzeit als GPX- oder TCX-Dateien exportieren (eine Pro-Funktion) über das native Freigabeblatt, um eine eigene Kopie außerhalb von FitMesh zu behalten. Das direkte Speichern von Exporten in Google Drive ist in Entwicklung.",
+  it: "Controlli ogni interruttore di write-back individualmente, e puoi esportare i tuoi allenamenti come file GPX o TCX in qualsiasi momento (funzione Pro) tramite il foglio di condivisione nativo, per tenere una copia tua fuori da FitMesh. Salvare gli export direttamente su Google Drive è in sviluppo.",
+  en: "You control every write-back toggle individually, and you can export your own workouts as GPX or TCX files at any time (a Pro feature) via the native share sheet, to keep your own copy outside FitMesh. Saving exports directly to Google Drive is in development.",
+  es: "Controlas cada interruptor de write-back individualmente, y puedes exportar tus propios entrenamientos como archivos GPX o TCX en cualquier momento (función Pro) mediante la hoja de compartir nativa, para tener tu propia copia fuera de FitMesh. Guardar exportaciones directamente en Google Drive está en desarrollo.",
+  de: "Du steuerst jeden Write-back-Schalter einzeln, und du kannst deine eigenen Workouts jederzeit als GPX- oder TCX-Dateien exportieren (eine Pro-Funktion) über das native Freigabeblatt, um eine eigene Kopie außerhalb von FitMesh zu behalten. Das direkte Speichern von Exporten in Google Drive ist in Entwicklung.",
 };
 const DOESNT_TITLE: Localized = {
   it: "Cosa FitMesh non fa",

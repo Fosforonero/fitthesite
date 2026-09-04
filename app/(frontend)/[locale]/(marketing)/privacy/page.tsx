@@ -7,12 +7,25 @@ import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
 import { TraderIdentity } from "@/components/legal/TraderIdentity";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "4 agosto 2026";
-const LAST_UPDATED_EN = "August 4, 2026";
-const LAST_UPDATED_ES = "4 de agosto de 2026";
-const LAST_UPDATED_DE = "4. August 2026";
-const LAST_UPDATED_PT = "4 de agosto de 2026";
-const LAST_UPDATED_FR = "4 août 2026";
+/**
+ * P0.18A-A (MICRO-GATE): fonte unica della data machine-readable, usata SOLO
+ * da LegalJsonLd.dateModified qui sotto. Le 6 stringhe LAST_UPDATED_* restano
+ * separate perché sono testo umano localizzato (non derivabile 1:1 da un ISO),
+ * ma sono state verificate manualmente coerenti con questa stessa data.
+ * ATTENZIONE: se il merge di questa PR avviene in una data diversa da quella
+ * qui sotto, questa costante E le 6 stringhe LAST_UPDATED_* vanno aggiornate
+ * alla vera data di merge PRIMA di mergiare, e il gate (in particolare
+ * selfhost:privacy-truth-check e seo:redirect-integrity-check) va rieseguito.
+ * Non lasciare una data falsa: rappresenta quando il contenuto legale è
+ * davvero cambiato, non quando è stato scritto il codice.
+ */
+const LEGAL_DATE_ISO = "2026-09-04";
+const LAST_UPDATED_IT = "4 settembre 2026";
+const LAST_UPDATED_EN = "September 4, 2026";
+const LAST_UPDATED_ES = "4 de septiembre de 2026";
+const LAST_UPDATED_DE = "4. September 2026";
+const LAST_UPDATED_PT = "4 de setembro de 2026";
+const LAST_UPDATED_FR = "4 septembre 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -36,21 +49,21 @@ export async function generateMetadata(
     fi: "Tietosuojakäytäntö",
   };
   const desc: Record<Locale, string> = {
-    it: "Come FitMesh Sync raccoglie, utilizza e protegge i dati di salute: quali dati, dove sono conservati, con chi condivisi, come cancellarli. Conforme al GDPR.",
-    en: "How FitMesh Sync collects, uses and safeguards your health data: what's collected, where it's stored, who it's shared with, how to delete it. GDPR compliant.",
-    es: "Cómo FitMesh Sync recopila, utiliza y protege tus datos de salud. Cumple el RGPD.",
-    de: "Wie FitMesh Sync Gesundheitsdaten erhebt, nutzt und schützt. DSGVO-konform.",
-    pt: "Como o FitMesh Sync coleta, usa e protege dados de saúde. Em conformidade com o GDPR.",
-    fr: "Comment FitMesh Sync collecte, utilise et protège vos données de santé. Conforme au RGPD.",
-    pl: "Jak FitMesh Sync zbiera, wykorzystuje i chroni dane zdrowotne. Zgodnosc z RODO.",
-    tr: "FitMesh Sync'in saglik verilerini nasil topladigini, kullandigini ve korudugunu aciklar. GDPR uyumlu.",
-    nl: "Hoe FitMesh Sync gezondheidsgegevens verzamelt, gebruikt en beschermt. AVG-conform.",
-    ja: "FitMesh Syncが健康データをどのように収集、使用、保護するか。GDPR準拠。",
-    ko: "FitMesh Sync가 건강 데이터를 수집, 사용 및 보호하는 방법. GDPR 준수.",
-    sv: "Hur FitMesh Sync samlar in, använder och skyddar hälsodata. GDPR-kompatibel.",
-    da: "Hvordan FitMesh Sync indsamler, bruger og beskytter sundhedsdata. GDPR-kompatibel.",
-    no: "Hvordan FitMesh Sync samler inn, bruker og beskytter helsedata. GDPR-kompatibel.",
-    fi: "Miten FitMesh Sync kerää, käyttää ja suojaa terveystietoja. GDPR-yhteensopiva.",
+    it: "Come FitMesh Sync raccoglie, utilizza e protegge i dati di salute: quali dati, dove sono conservati, con chi condivisi, come e quando cancellarli.",
+    en: "How FitMesh Sync collects, uses and safeguards your health data: what's collected, where it's stored, who it's shared with, how to delete it.",
+    es: "Cómo FitMesh Sync recopila, utiliza y protege tus datos de salud.",
+    de: "Wie FitMesh Sync Gesundheitsdaten erhebt, nutzt und schützt.",
+    pt: "Como o FitMesh Sync coleta, usa e protege dados de saúde.",
+    fr: "Comment FitMesh Sync collecte, utilise et protège vos données de santé.",
+    pl: "Jak FitMesh Sync zbiera, wykorzystuje i chroni dane zdrowotne.",
+    tr: "FitMesh Sync'in saglik verilerini nasil topladigini, kullandigini ve korudugunu aciklar.",
+    nl: "Hoe FitMesh Sync gezondheidsgegevens verzamelt, gebruikt en beschermt.",
+    ja: "FitMesh Syncが健康データをどのように収集、使用、保護するか。",
+    ko: "FitMesh Sync가 건강 데이터를 수집, 사용 및 보호하는 방법.",
+    sv: "Hur FitMesh Sync samlar in, använder och skyddar hälsodata.",
+    da: "Hvordan FitMesh Sync indsamler, bruger og beskytter sundhedsdata.",
+    no: "Hvordan FitMesh Sync samler inn, bruker og beskytter helsedata.",
+    fi: "Miten FitMesh Sync kerää, käyttää ja suojaa terveystietoja.",
   };
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   return {
@@ -88,7 +101,7 @@ export default async function PrivacyPage({
   return (
     <>
       <Breadcrumbs items={[{ name: "Privacy Policy", path: `/${lc}/privacy` }]} locale={lc} />
-      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified="2026-08-04" />
+      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified={LEGAL_DATE_ISO} />
       <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <PrivacyIT /> : lc === "es" ? <PrivacyES /> : lc === "de" ? <PrivacyDE /> : lc === "pt" ? <PrivacyPT /> : lc === "fr" ? <PrivacyFR /> : <PrivacyEN />}
       </LegalPage>
@@ -209,7 +222,7 @@ function PrivacyIT() {
 
       <Section title="7. Conservazione dei dati (retention)">
         <List items={[
-          ["Metriche di salute", "conservate finché l'account utente è attivo. La cancellazione dell'account viene eseguita automaticamente entro 24 ore dalla richiesta (processo pianificato attivo), che elimina definitivamente i dati di salute associati"],
+          ["Metriche di salute", "conservate finché l'account utente è attivo. La cancellazione segue le procedure descritte nella pagina di cancellazione account (fitmesh.fit/delete-account), che elimina definitivamente i dati di salute associati"],
           ["Log applicativi e sync log", "conservati 90 giorni a fini di troubleshooting, poi eliminati automaticamente"],
           ["Email di contatto (privacy/support)", "conservate 24 mesi per garantire continuità del supporto, poi cancellate"],
           ["Copie di sicurezza del database", "FitMesh non crea né conserva attualmente backup separati del database. Il fornitore del database può conservare copie tecniche di ripristino della piattaforma per un massimo di 7 giorni. Eventuali dati residui presenti in tali copie dopo la cancellazione dell'account non vengono utilizzati da FitMesh per il trattamento ordinario e vengono eliminati alla scadenza del ciclo del fornitore"],
@@ -248,7 +261,7 @@ function PrivacyIT() {
         <List items={[
           ["Accedere", "richiedere una copia dei tuoi dati salvati sui nostri sistemi"],
           ["Rettificare", "correggere dati inesatti o incompleti"],
-          ["Cancellare", "richiedere la cancellazione completa del tuo account e dei dati associati. La richiesta viene eseguita automaticamente entro 24 ore"],
+          ["Cancellare", "richiedere la cancellazione completa del tuo account e dei dati associati, con tempistiche diverse a seconda del canale: vedi la pagina di cancellazione account (fitmesh.fit/delete-account)"],
           ["Limitare", "richiedere la limitazione del trattamento in casi specifici"],
           ["Portabilità", "esportare tutti i tuoi dati in autonomia, in formato JSON strutturato, dalla pagina export disponibile nell'area utente (/app/export)"],
           ["Opporsi", "opporti al trattamento per motivi legittimi"],
@@ -439,7 +452,7 @@ function PrivacyEN() {
 
       <Section title="7. Data retention">
         <List items={[
-          ["Health metrics", "kept while the user account is active. Account deletion runs automatically within 24 hours of the request (active scheduled job), permanently erasing the associated health data"],
+          ["Health metrics", "kept while the user account is active. Deletion follows the procedure described on the account deletion page (fitmesh.fit/delete-account), which permanently erases the associated health data"],
           ["Application and sync logs", "kept for 90 days for troubleshooting, then automatically purged"],
           ["Contact emails (privacy/support)", "kept for 24 months to ensure support continuity, then deleted"],
           ["Database backups", "FitMesh does not currently create or retain separate database backups. The database provider may retain platform recovery copies for up to 7 days. Any data remaining in those copies after account deletion is not used by FitMesh for normal processing and expires with the provider's backup cycle"],
@@ -478,7 +491,7 @@ function PrivacyEN() {
         <List items={[
           ["Access", "request a copy of your data stored on our systems"],
           ["Rectify", "correct inaccurate or incomplete data"],
-          ["Delete", "request full deletion of your account and associated data. The request is executed automatically within 24 hours"],
+          ["Delete", "request full deletion of your account and associated data, with timing that depends on the channel used: see the account deletion page (fitmesh.fit/delete-account)"],
           ["Restrict", "request restriction of processing in specific cases"],
           ["Portability", "export all of your data yourself, in a structured JSON format, from the export page in the user area (/app/export)"],
           ["Object", "object to processing for legitimate reasons"],
@@ -671,7 +684,7 @@ function PrivacyES() {
 
       <Section title="7. Conservación de los datos">
         <List items={[
-          ["Métricas de salud", "conservadas mientras la cuenta del usuario esté activa. La eliminación de la cuenta se ejecuta automáticamente en un plazo de 24 horas desde la solicitud (proceso programado activo), que borra de forma definitiva los datos de salud asociados"],
+          ["Métricas de salud", "conservadas mientras la cuenta del usuario esté activa. La eliminación sigue el proceso descrito en la página de eliminación de cuenta (fitmesh.fit/delete-account), que borra de forma definitiva los datos de salud asociados"],
           ["Registros de aplicación y sincronización", "conservados 90 días con fines de diagnóstico y, después, eliminados automáticamente"],
           ["Correos de contacto (privacidad/soporte)", "conservados 24 meses para garantizar la continuidad del soporte y, después, eliminados"],
           ["Copias de seguridad de la base de datos", "FitMesh no crea ni conserva actualmente copias de seguridad de la base de datos independientes. El proveedor de la base de datos puede conservar copias técnicas de recuperación de la plataforma durante un máximo de 7 días. Los datos que puedan quedar en esas copias tras la eliminación de la cuenta no se utilizan para el tratamiento habitual y caducan con el ciclo de copias de seguridad del proveedor"],
@@ -710,7 +723,7 @@ function PrivacyES() {
         <List items={[
           ["Acceder", "solicitar una copia de tus datos almacenados en nuestros sistemas"],
           ["Rectificar", "corregir datos inexactos o incompletos"],
-          ["Suprimir", "solicitar la eliminación completa de tu cuenta y de los datos asociados. La solicitud se ejecuta automáticamente en un plazo de 24 horas"],
+          ["Suprimir", "solicitar la eliminación completa de tu cuenta y de los datos asociados, con plazos que dependen del canal usado: consulta la página de eliminación de cuenta (fitmesh.fit/delete-account)"],
           ["Limitar", "solicitar la limitación del tratamiento en casos específicos"],
           ["Portabilidad", "exportar todos tus datos por ti mismo, en formato JSON estructurado, desde la página de exportación disponible en el área de usuario (/app/export)"],
           ["Oponerte", "oponerte al tratamiento por motivos legítimos"],
@@ -905,7 +918,7 @@ function PrivacyDE() {
 
       <Section title="7. Datenspeicherdauer (Retention)">
         <List items={[
-          ["Gesundheitsmetriken", "gespeichert solange das Nutzerkonto aktiv ist. Die Kontolöschung erfolgt automatisch innerhalb von 24 Stunden nach Anfrage (aktiver geplanter Prozess) und löscht die zugehörigen Gesundheitsdaten endgültig"],
+          ["Gesundheitsmetriken", "gespeichert solange das Nutzerkonto aktiv ist. Die Löschung folgt dem auf der Seite zur Kontolöschung (fitmesh.fit/delete-account) beschriebenen Ablauf und löscht die zugehörigen Gesundheitsdaten endgültig"],
           ["Anwendungs- und Sync-Logs", "90 Tage zur Fehlerbehebung aufbewahrt, danach automatisch gelöscht"],
           ["Kontakt-E-Mails (Datenschutz/Support)", "24 Monate zur Sicherstellung des Support-Kontinuums aufbewahrt, danach gelöscht"],
           ["Datenbank-Sicherungskopien", "FitMesh erstellt oder speichert derzeit keine eigenen Datenbank-Sicherungskopien. Der Datenbankanbieter kann technische Wiederherstellungskopien der Plattform bis zu 7 Tage lang aufbewahren. Verbleibende Daten in diesen Kopien werden nach der Kontolöschung nicht von FitMesh für die normale Verarbeitung genutzt und verfallen mit dem Sicherungszyklus des Anbieters"],
@@ -944,7 +957,7 @@ function PrivacyDE() {
         <List items={[
           ["Auskunft", "eine Kopie Ihrer bei uns gespeicherten Daten anzufordern"],
           ["Berichtigung", "unrichtige oder unvollständige Daten zu korrigieren"],
-          ["Löschung", "die vollständige Löschung Ihres Kontos und der zugehörigen Daten zu verlangen. Die Anfrage wird automatisch innerhalb von 24 Stunden ausgeführt"],
+          ["Löschung", "die vollständige Löschung Ihres Kontos und der zugehörigen Daten zu verlangen, mit einer Dauer, die vom genutzten Kanal abhängt: siehe die Seite zur Kontolöschung (fitmesh.fit/delete-account)"],
           ["Einschränkung", "in bestimmten Fällen die Einschränkung der Verarbeitung zu verlangen"],
           ["Datenübertragbarkeit", "alle Ihre Daten selbst in strukturiertem JSON-Format aus der Export-Seite im Nutzerbereich (/app/export) zu exportieren"],
           ["Widerspruch", "der Verarbeitung aus legitimen Gründen zu widersprechen"],
@@ -1140,7 +1153,7 @@ function PrivacyPT() {
 
       <Section title="7. Retenção de dados">
         <List items={[
-          ["Métricas de saúde", "mantidas enquanto a conta do usuário estiver ativa. A exclusão da conta é executada automaticamente em até 24 horas após a solicitação (processo agendado ativo), eliminando definitivamente os dados de saúde associados"],
+          ["Métricas de saúde", "mantidas enquanto a conta do usuário estiver ativa. A exclusão segue o processo descrito na página de exclusão de conta (fitmesh.fit/delete-account), eliminando definitivamente os dados de saúde associados"],
           ["Logs de aplicação e sincronização", "mantidos por 90 dias para fins de diagnóstico, depois excluídos automaticamente"],
           ["E-mails de contato (privacidade/suporte)", "mantidos por 24 meses para garantir a continuidade do suporte, depois excluídos"],
           ["Backups do banco de dados", "A FitMesh não cria nem mantém atualmente cópias de segurança separadas do banco de dados. O fornecedor do banco de dados pode manter cópias técnicas de recuperação da plataforma por até 7 dias. Os dados que permaneçam nessas cópias após a eliminação da conta não são utilizados pela FitMesh para o tratamento normal e expiram com o ciclo de backup do fornecedor"],
@@ -1179,7 +1192,7 @@ function PrivacyPT() {
         <List items={[
           ["Acesso", "solicitar uma cópia dos seus dados armazenados nos nossos sistemas"],
           ["Retificação", "corrigir dados inexatos ou incompletos"],
-          ["Exclusão", "solicitar a exclusão completa da sua conta e dos dados associados. A solicitação é executada automaticamente em até 24 horas"],
+          ["Exclusão", "solicitar a exclusão completa da sua conta e dos dados associados, com prazos que dependem do canal usado: consulte a página de exclusão de conta (fitmesh.fit/delete-account)"],
           ["Limitação", "solicitar a limitação do tratamento em casos específicos"],
           ["Portabilidade", "exportar todos os seus dados por conta própria, em formato JSON estruturado, na página de exportação disponível na área do usuário (/app/export)"],
           ["Oposição", "se opor ao tratamento por motivos legítimos"],
@@ -1374,7 +1387,7 @@ function PrivacyFR() {
 
       <Section title="7. Conservation des données">
         <List items={[
-          ["Métriques de santé", "conservées tant que le compte utilisateur est actif. La suppression du compte est exécutée automatiquement dans les 24 heures suivant la demande (processus planifié actif), supprimant définitivement les données de santé associées"],
+          ["Métriques de santé", "conservées tant que le compte utilisateur est actif. La suppression suit la procédure décrite sur la page de suppression de compte (fitmesh.fit/delete-account), qui supprime définitivement les données de santé associées"],
           ["Journaux applicatifs et de synchronisation", "conservés 90 jours à des fins de diagnostic, puis supprimés automatiquement"],
           ["E-mails de contact (confidentialité/support)", "conservés 24 mois pour assurer la continuité du support, puis supprimés"],
           ["Sauvegardes de la base de données", "FitMesh ne crée ni ne conserve actuellement de sauvegardes distinctes de la base de données. Le fournisseur de la base de données peut conserver des copies techniques de récupération de la plateforme pendant un maximum de 7 jours. Les données éventuellement restantes dans ces copies après la suppression du compte ne sont pas utilisées par FitMesh pour le traitement normal et expirent avec le cycle de sauvegarde du fournisseur"],
@@ -1413,7 +1426,7 @@ function PrivacyFR() {
         <List items={[
           ["Accès", "demander une copie de vos données stockées dans nos systèmes"],
           ["Rectification", "corriger des données inexactes ou incomplètes"],
-          ["Effacement", "demander la suppression complète de votre compte et des données associées. La demande est exécutée automatiquement dans les 24 heures"],
+          ["Effacement", "demander la suppression complète de votre compte et des données associées, avec un délai qui dépend du canal utilisé: voir la page de suppression de compte (fitmesh.fit/delete-account)"],
           ["Limitation", "demander la limitation du traitement dans des cas spécifiques"],
           ["Portabilité", "exporter toutes vos données vous-même, au format JSON structuré, depuis la page d'export disponible dans l'espace utilisateur (/app/export)"],
           ["Opposition", "vous opposer au traitement pour des raisons légitimes"],

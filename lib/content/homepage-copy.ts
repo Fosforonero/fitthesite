@@ -22,21 +22,21 @@ export function tli<T>(l: LocalizedItems<T>, lc: Locale): T {
 
 export const HOMEPAGE_COPY = {
   leadSentence: {
-    it: "FitMesh Sync è la dashboard che unisce i dati di Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit e altri wearable Android in un'unica vista privacy-first, con server in UE.",
-    en: "FitMesh Sync is the dashboard that brings Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit and other Android wearables into one privacy-first view, with EU servers.",
-    es: "FitMesh Sync es el panel que unifica los datos de Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit y otros wearables Android en una sola vista privacy-first, con servidores en la UE.",
-    de: "FitMesh Sync ist das Dashboard, das Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit und andere Android-Wearables in einer datenschutzfreundlichen Ansicht vereint – mit Servern in der EU.",
-    pt: "O FitMesh Sync é o dashboard que reúne o Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit e outros wearables Android numa única vista com privacidade em primeiro lugar, com servidores na UE.",
-    fr: "FitMesh Sync est le tableau de bord qui réunit Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit et d'autres objets connectés Android dans une seule interface centrée sur la confidentialité, hébergée sur des serveurs européens.",
-    pl: "FitMesh Sync to panel, który zbiera dane z Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit i innych opasek na Androida w jednym miejscu – z dbałością o prywatność i serwerami w UE.",
-    tr: "FitMesh Sync; Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit ve diğer Android giyilebilir cihazlarınızı, AB sunucularında barındırılan ve gizliliği önceleyen tek bir panelde bir araya getiren gösterge panelidir.",
-    nl: "FitMesh Sync is het dashboard dat Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit en andere Android-wearables samenbrengt in één privacyvriendelijk overzicht, met servers in de EU.",
-    ja: "FitMesh Syncは、Galaxy Watch、Wear OS、Mi Band、Garmin、Fitbitなど各種Androidウェアラブルのデータをひとつにまとめ、EUサーバーでプライバシーを守りながら表示するダッシュボードです。",
-    ko: "FitMesh Sync는 Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit 등 안드로이드 웨어러블 데이터를 하나의 화면에 모아, EU 서버에서 프라이버시를 최우선으로 안전하게 보여주는 대시보드입니다.",
-    sv: "FitMesh Sync är instrumentpanelen som samlar Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit och andra Android-wearables i en enda integritetsfokuserad vy, med servrar i EU.",
-    da: "FitMesh Sync er dashboardet, der samler Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit og andre Android-wearables i ét privatlivsvenligt overblik, med servere i EU.",
-    no: "FitMesh Sync er dashbordet som samler Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit og andre wearables for Android i én personvernvennlig oversikt – med servere i EU.",
-    fi: "FitMesh Sync on hallintapaneeli, joka kokoaa Galaxy Watchin, Wear OS:n, Mi Bandin, Garminin, Fitbitin ja muiden Android-puettavien tiedot yhteen näkymään, joka asettaa yksityisyyden etusijalle ja toimii EU-palvelimilla.",
+    it: "FitMesh Sync è la dashboard che unisce i dati di Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit e altri wearable Android in un'unica vista privacy-first.",
+    en: "FitMesh Sync is the dashboard that brings Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit and other Android wearables into one privacy-first view.",
+    es: "FitMesh Sync es el panel que unifica los datos de Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit y otros wearables Android en una sola vista privacy-first.",
+    de: "FitMesh Sync ist das Dashboard, das Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit und andere Android-Wearables in einer datenschutzfreundlichen Ansicht vereint.",
+    pt: "O FitMesh Sync é o dashboard que reúne o Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit e outros wearables Android numa única vista com privacidade em primeiro lugar.",
+    fr: "FitMesh Sync est le tableau de bord qui réunit Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit et d'autres objets connectés Android dans une seule interface centrée sur la confidentialité.",
+    pl: "FitMesh Sync to panel, który zbiera dane z Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit i innych opasek na Androida w jednym miejscu – z dbałością o prywatność.",
+    tr: "FitMesh Sync; Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit ve diğer Android giyilebilir cihazlarınızı, gizliliği önceleyen tek bir panelde bir araya getiren gösterge panelidir.",
+    nl: "FitMesh Sync is het dashboard dat Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit en andere Android-wearables samenbrengt in één privacyvriendelijk overzicht.",
+    ja: "FitMesh Syncは、Galaxy Watch、Wear OS、Mi Band、Garmin、Fitbitなど各種Androidウェアラブルのデータをひとつにまとめ、プライバシーを守りながら表示するダッシュボードです。",
+    ko: "FitMesh Sync는 Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit 등 안드로이드 웨어러블 데이터를 하나의 화면에 모아, 프라이버시를 최우선으로 안전하게 보여주는 대시보드입니다.",
+    sv: "FitMesh Sync är instrumentpanelen som samlar Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit och andra Android-wearables i en enda integritetsfokuserad vy.",
+    da: "FitMesh Sync er dashboardet, der samler Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit og andre Android-wearables i ét privatlivsvenligt overblik.",
+    no: "FitMesh Sync er dashbordet som samler Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit og andre wearables for Android i én personvernvennlig oversikt.",
+    fi: "FitMesh Sync on hallintapaneeli, joka kokoaa Galaxy Watchin, Wear OS:n, Mi Bandin, Garminin, Fitbitin ja muiden Android-puettavien tiedot yhteen näkymään, joka asettaa yksityisyyden etusijalle.",
   } satisfies Localized,
 
   /**
@@ -115,24 +115,6 @@ export const HOMEPAGE_COPY = {
     da: "Understøttede wearables",
     no: "Støttede wearables",
     fi: "Tuettua puettavaa laitetta",
-  } satisfies Localized,
-
-  euServersLabel: {
-    it: "Server in UE · GDPR",
-    en: "EU servers · GDPR",
-    es: "Servidores en la UE · GDPR",
-    de: "EU-Server · DSGVO",
-    pt: "Servidores na UE · RGPD",
-    fr: "Serveurs UE · RGPD",
-    pl: "Serwery w UE · RODO",
-    tr: "AB sunucuları · KVKK",
-    nl: "EU-servers · AVG",
-    ja: "EUサーバー・GDPR",
-    ko: "EU 서버 · GDPR",
-    sv: "EU-servrar · GDPR",
-    da: "EU-servere · GDPR",
-    no: "EU-servere · GDPR",
-    fi: "EU-palvelimet · GDPR",
   } satisfies Localized,
 
   worksWithKicker: {
@@ -354,79 +336,49 @@ export const HOMEPAGE_COPY = {
 
   privacyPoints: {
     it: [
-      { t: "Server in UE", d: "Postgres su infrastruttura europea." },
       { t: "Zero tracker pubblicitari", d: "I tuoi dati salute non alimentano nessun algoritmo pubblicitario. Niente profilazione." },
-      { t: "Cancellazione in 24h", d: "Un click in app, e tutto è cancellato. Compliance GDPR completa." },
     ],
     en: [
-      { t: "EU servers", d: "Postgres on European infrastructure." },
       { t: "Zero ad trackers", d: "Your health data feeds no advertising algorithm. No cross-site tracking." },
-      { t: "Delete in 24h", d: "One click in-app, everything gone. Full GDPR compliance." },
     ],
     es: [
-      { t: "Servidores en la UE", d: "Postgres en infraestructura europea." },
       { t: "Cero rastreadores publicitarios", d: "Tus datos de salud no alimentan ningún algoritmo publicitario. Sin perfilado." },
-      { t: "Eliminación en 24 h", d: "Un clic en la app y todo desaparece. Cumplimiento total del RGPD." },
     ],
     de: [
-      { t: "EU-Server", d: "Postgres auf europäischer Infrastruktur." },
       { t: "Keine Werbetracker", d: "Deine Gesundheitsdaten fließen in keinen Werbealgorithmus. Kein seitenübergreifendes Tracking." },
-      { t: "Löschung in 24 Std.", d: "Ein Klick in der App, alles verschwindet. Vollständig DSGVO-konform." },
     ],
     pt: [
-      { t: "Servidores na UE", d: "Postgres em infraestrutura europeia." },
       { t: "Zero rastreadores publicitários", d: "Os teus dados de saúde não alimentam nenhum algoritmo publicitário. Sem rastreamento entre sites." },
-      { t: "Elimina em 24h", d: "Um clique na app e está tudo apagado. Conformidade total com o RGPD." },
     ],
     fr: [
-      { t: "Serveurs UE", d: "Postgres sur infrastructure européenne." },
       { t: "Zéro traceur publicitaire", d: "Vos données de santé n'alimentent aucun algorithme publicitaire. Pas de suivi entre sites." },
-      { t: "Suppression en 24h", d: "Un clic dans l'application, tout disparaît. Conformité RGPD totale." },
     ],
     pl: [
-      { t: "Serwery w UE", d: "Postgres na europejskiej infrastrukturze." },
       { t: "Zero trackerów reklamowych", d: "Twoje dane zdrowotne nie zasilają żadnego algorytmu reklamowego. Bez śledzenia między witrynami." },
-      { t: "Usunięcie w 24h", d: "Jedno kliknięcie w aplikacji i wszystko znika. Pełna zgodność z RODO." },
     ],
     tr: [
-      { t: "AB sunucuları", d: "Avrupa altyapısında Postgres." },
       { t: "Sıfır reklam izleyicisi", d: "Sağlık verileriniz hiçbir reklam algoritmasını beslemez. Siteler arası takip yok." },
-      { t: "24 saatte sil", d: "Uygulama içinde tek tıkla her şey silinir. Tam KVKK uyumluluğu." },
     ],
     nl: [
-      { t: "EU-servers", d: "Postgres op Europese infrastructuur." },
       { t: "Geen advertentietrackers", d: "Je gezondheidsgegevens voeden geen advertentiealgoritme. Geen cross-site tracking." },
-      { t: "Verwijderd binnen 24u", d: "Eén klik in de app, alles verdwijnt. Volledig AVG-compliant." },
     ],
     ja: [
-      { t: "EUサーバー", d: "欧州のインフラで稼働するPostgres。" },
       { t: "広告トラッカーゼロ", d: "健康データが広告アルゴリズムに使われることはありません。クロスサイトトラッキングもありません。" },
-      { t: "24時間で削除", d: "アプリ内でワンクリック、すべて消去されます。GDPRに完全準拠。" },
     ],
     ko: [
-      { t: "EU 서버", d: "유럽 인프라의 Postgres." },
       { t: "광고 트래커 없음", d: "건강 데이터가 광고 알고리즘에 쓰이지 않습니다. 교차 사이트 추적도 없습니다." },
-      { t: "24시간 내 완전 삭제", d: "앱 안에서 클릭 한 번이면 전부 삭제됩니다. GDPR을 완벽히 준수합니다." },
     ],
     sv: [
-      { t: "EU-servrar", d: "Postgres på europeisk infrastruktur." },
       { t: "Inga annonsspårare", d: "Din hälsodata matar ingen annonsalgoritm. Ingen spårning mellan webbplatser." },
-      { t: "Radera inom 24 timmar", d: "Ett klick i appen, allt försvinner. Fullt GDPR-kompatibel." },
     ],
     da: [
-      { t: "EU-servere", d: "Postgres på europæisk infrastruktur." },
       { t: "Ingen annoncetrackere", d: "Dine sundhedsdata fodrer ingen reklamealgoritme. Ingen tracking på tværs af sider." },
-      { t: "Slet på 24 timer", d: "Ét klik i appen, og alt er væk. Fuld GDPR-overholdelse." },
     ],
     no: [
-      { t: "EU-servere", d: "Postgres på europeisk infrastruktur." },
       { t: "Ingen annonsesporing", d: "Helsedataene dine mater ingen annonsealgoritme. Ingen sporing på tvers av nettsteder." },
-      { t: "Slett på 24 timer", d: "Ett klikk i appen, og alt er borte. Fullt i tråd med GDPR." },
     ],
     fi: [
-      { t: "EU-palvelimet", d: "Postgres eurooppalaisella infrastruktuurilla." },
       { t: "Nolla mainosseurantaa", d: "Terveystietosi eivät ruoki yhtään mainosalgoritmia. Ei sivustojen välistä seurantaa." },
-      { t: "Poisto 24 tunnissa", d: "Yksi klikkaus sovelluksessa, ja kaikki on poissa. Täysi GDPR-vaatimustenmukaisuus." },
     ],
   } as LocalizedItems<PrivacyPoint[]>,
 

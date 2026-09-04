@@ -6,12 +6,24 @@ import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
 import { TraderIdentity } from "@/components/legal/TraderIdentity";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "4 agosto 2026";
-const LAST_UPDATED_EN = "August 4, 2026";
-const LAST_UPDATED_ES = "4 de agosto de 2026";
-const LAST_UPDATED_DE = "4. August 2026";
-const LAST_UPDATED_PT = "4 de agosto de 2026";
-const LAST_UPDATED_FR = "4 août 2026";
+/**
+ * P0.18A-A (MICRO-GATE): fonte unica della data machine-readable, usata SOLO
+ * da LegalJsonLd.dateModified qui sotto. Le 6 stringhe LAST_UPDATED_* restano
+ * separate perché sono testo umano localizzato (non derivabile 1:1 da un ISO),
+ * ma sono state verificate manualmente coerenti con questa stessa data.
+ * ATTENZIONE: se il merge di questa PR avviene in una data diversa da quella
+ * qui sotto, questa costante E le 6 stringhe LAST_UPDATED_* vanno aggiornate
+ * alla vera data di merge PRIMA di mergiare, e il gate va rieseguito. Non
+ * lasciare una data falsa: rappresenta quando il contenuto legale è
+ * davvero cambiato, non quando è stato scritto il codice.
+ */
+const LEGAL_DATE_ISO = "2026-09-04";
+const LAST_UPDATED_IT = "4 settembre 2026";
+const LAST_UPDATED_EN = "September 4, 2026";
+const LAST_UPDATED_ES = "4 de septiembre de 2026";
+const LAST_UPDATED_DE = "4. September 2026";
+const LAST_UPDATED_PT = "4 de setembro de 2026";
+const LAST_UPDATED_FR = "4 septembre 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -91,7 +103,7 @@ export default async function TermsPage({
   return (
     <>
       <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/terms` }]} locale={lc} />
-      <LegalJsonLd locale={lc} path="/terms" name={t.legal.terms_title} dateModified="2026-08-04" />
+      <LegalJsonLd locale={lc} path="/terms" name={t.legal.terms_title} dateModified={LEGAL_DATE_ISO} />
       <LegalPage kicker={t.legal.section} title={t.legal.terms_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <TermsIT /> :
          lc === "es" ? <TermsES /> :
@@ -190,8 +202,9 @@ function TermsIT() {
         </p>
         <p>
           Puoi esportare tutti i tuoi dati in formato JSON e richiedere la cancellazione dell'account
-          in autonomia dall'area utente. La cancellazione viene eseguita automaticamente entro 24 ore
-          e rimuove definitivamente i dati associati. Maggiori dettagli nella{" "}
+          in autonomia dall'area utente, con tempistiche diverse a seconda del canale: vedi la{" "}
+          <a href="/delete-account" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">pagina di cancellazione account</a>
+          . La cancellazione rimuove definitivamente i dati associati. Maggiori dettagli nella{" "}
           <a href="/it/privacy" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Privacy Policy</a>.
         </p>
       </Section>
@@ -398,8 +411,9 @@ function TermsEN() {
         </p>
         <p>
           You can export all of your data in JSON format and request account deletion yourself from
-          the user area. Deletion runs automatically within 24 hours and permanently removes the
-          associated data. More details in our{" "}
+          the user area, with timing that depends on the channel used: see the{" "}
+          <a href="/delete-account" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">account deletion page</a>
+          . Deletion permanently removes the associated data. More details in our{" "}
           <a href="/en/privacy" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Privacy Policy</a>.
         </p>
       </Section>
@@ -608,8 +622,9 @@ function TermsES() {
         </p>
         <p>
           Puedes exportar todos tus datos en formato JSON y solicitar la eliminación de la cuenta
-          por ti mismo desde el área de usuario. La eliminación se ejecuta automáticamente en un
-          plazo de 24 horas y borra de forma definitiva los datos asociados. Más detalles en nuestra{" "}
+          por ti mismo desde el área de usuario, con plazos que dependen del canal usado: consulta la{" "}
+          <a href="/delete-account" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">página de eliminación de cuenta</a>
+          . La eliminación borra de forma definitiva los datos asociados. Más detalles en nuestra{" "}
           <a href="/es/privacy" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Política de privacidad</a>.
         </p>
       </Section>
@@ -823,8 +838,9 @@ function TermsDE() {
         </p>
         <p>
           Du kannst alle deine Daten im JSON-Format exportieren und die Kontolöschung selbstständig
-          im Nutzerbereich beantragen. Die Löschung erfolgt automatisch innerhalb von 24 Stunden
-          und entfernt die zugehörigen Daten dauerhaft. Weitere Details findest du in unserer{" "}
+          im Nutzerbereich beantragen, mit einer Dauer, die vom genutzten Kanal abhängt: siehe die{" "}
+          <a href="/delete-account" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Seite zur Kontolöschung</a>
+          . Die Löschung entfernt die zugehörigen Daten dauerhaft. Weitere Details findest du in unserer{" "}
           <a href="/de/privacy" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Datenschutzerklärung</a>.
         </p>
       </Section>
@@ -1038,8 +1054,9 @@ function TermsPT() {
         </p>
         <p>
           Você pode exportar todos os seus dados em formato JSON e solicitar a exclusão da conta
-          diretamente na área do usuário. A exclusão é executada automaticamente em até 24 horas e
-          remove permanentemente os dados associados. Mais detalhes em nossa{" "}
+          diretamente na área do usuário, com prazos que dependem do canal usado: consulte a{" "}
+          <a href="/delete-account" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">página de exclusão de conta</a>
+          . A exclusão remove permanentemente os dados associados. Mais detalhes em nossa{" "}
           <a href="/pt/privacy" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Política de Privacidade</a>.
         </p>
       </Section>
@@ -1251,9 +1268,10 @@ function TermsFR() {
         </p>
         <p>
           Vous pouvez exporter toutes vos données au format JSON et demander la suppression de
-          votre compte directement depuis l'espace utilisateur. La suppression est effectuée
-          automatiquement dans les 24 heures et efface définitivement les données associées. Plus
-          de détails dans notre{" "}
+          votre compte directement depuis l'espace utilisateur, avec un délai qui dépend du canal
+          utilisé: voir la{" "}
+          <a href="/delete-account" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">page de suppression de compte</a>
+          . La suppression efface définitivement les données associées. Plus de détails dans notre{" "}
           <a href="/fr/privacy" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">Politique de confidentialité</a>.
         </p>
       </Section>
