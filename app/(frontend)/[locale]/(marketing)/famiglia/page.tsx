@@ -1398,7 +1398,7 @@ function ComingSoonState({
           },
           {
             title: "Privacy by design",
-            body: "Niente posizione GPS condivisa, niente broker dati, niente profilazione ads. Dati cifrati, server in Europa (Francoforte), GDPR-compliant.",
+            body: "Niente posizione GPS condivisa, niente broker dati, niente profilazione ads. Dati cifrati, server in Europa (Francoforte).",
           },
           {
             title: "Multi-vendor, niente lock-in",
@@ -1423,7 +1423,7 @@ function ComingSoonState({
           },
           {
             title: "Privacidad por diseño",
-            body: "Sin ubicación GPS compartida, sin intermediarios de datos, sin publicidad basada en perfiles. Datos cifrados, servidores en Europa (Fráncfort), cumple el RGPD.",
+            body: "Sin ubicación GPS compartida, sin intermediarios de datos, sin publicidad basada en perfiles. Datos cifrados, servidores en Europa (Fráncfort).",
           },
           {
             title: "Multi-dispositivo, sin ataduras",
@@ -1447,7 +1447,7 @@ function ComingSoonState({
           },
           {
             title: "Privacy by design",
-            body: "No GPS location sharing, no data brokers, no ad profiling. Data encrypted, servers in Europe (Frankfurt), GDPR-compliant.",
+            body: "No GPS location sharing, no data brokers, no ad profiling. Data encrypted, servers in Europe (Frankfurt).",
           },
           {
             title: "Multi-vendor, no lock-in",

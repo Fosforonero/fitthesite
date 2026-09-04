@@ -135,8 +135,8 @@ export const SELF_HOST_COPY = {
   } satisfies LocalizedText,
 
   dataParagraph: {
-    it: "Sul backend gestito da FitMesh, puoi sempre esportare o cancellare i tuoi dati sincronizzati e il tuo account dall'app, in autonomia, con cancellazione automatica entro 24 ore. Su un backend Supabase alternativo questo non è oggi un percorso supportato end-to-end: le funzioni di export e cancellazione dell'app presuppongono lo schema e le funzioni del backend gestito FitMesh, che non vengono replicate automaticamente su un progetto Supabase diverso. Per i dettagli completi vedi la",
-    en: "On FitMesh's managed backend, you can always export or delete your synced data and account from within the app, on your own, with automatic deletion within 24 hours. On an alternative Supabase backend this isn't today a supported end-to-end path: the app's export and deletion functions rely on the managed FitMesh backend's schema and functions, which aren't automatically replicated on a different Supabase project. For full details, see the",
+    it: "Sul backend gestito da FitMesh, puoi sempre esportare o cancellare i tuoi dati sincronizzati e il tuo account dall'app, in autonomia. Su un backend Supabase alternativo questo non è oggi un percorso supportato end-to-end: le funzioni di export e cancellazione dell'app presuppongono lo schema e le funzioni del backend gestito FitMesh, che non vengono replicate automaticamente su un progetto Supabase diverso. Per i dettagli completi vedi la",
+    en: "On FitMesh's managed backend, you can always export or delete your synced data and account from within the app, on your own. On an alternative Supabase backend this isn't today a supported end-to-end path: the app's export and deletion functions rely on the managed FitMesh backend's schema and functions, which aren't automatically replicated on a different Supabase project. For full details, see the",
   } satisfies LocalizedText,
 
   privacyPolicyLink: {

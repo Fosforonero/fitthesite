@@ -219,7 +219,7 @@ export default async function Home({
             <p className="mt-5 text-xs text-text-muted">{t.hero.pricing}</p>
 
             {/* Trust strip — 3 tiny metrics inline */}
-            <ul className="mt-10 grid grid-cols-3 max-w-md gap-6 text-left">
+            <ul className="mt-10 grid grid-cols-2 max-w-md gap-6 text-left">
               <li>
                 <p className="font-display text-2xl font-semibold text-text-primary tracking-tightest">
                   Android + iOS
@@ -236,14 +236,6 @@ export default async function Home({
                   {tl(HOMEPAGE_COPY.wearablesSupportedLabel, lc)}
                 </p>
               </li>
-              <li>
-                <p className="font-display text-2xl font-semibold text-text-primary tracking-tightest">
-                  🇪🇺
-                </p>
-                <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
-                  {tl(HOMEPAGE_COPY.euServersLabel, lc)}
-                </p>
-              </li>
             </ul>
           </div>
 
@@ -254,7 +246,10 @@ export default async function Home({
         </div>
       </section>
 
-      {/* Trust signals (E-E-A-T): Made in Italy · EU servers · GDPR · Indie. */}
+      {/* Trust signals (E-E-A-T): Made in Italy · Indie.
+       * P0.18A (2026-09-04): rimossi da qui e da TrustBadges.tsx i due badge
+       * geografico e normativo — bollini di certificazione senza prova, non
+       * piu' usati come trust marker finche' non c'e' una matrice verificata. */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-8">
         <TrustBadges locale={lc === "it" ? "it" : "en"} />
       </section>
