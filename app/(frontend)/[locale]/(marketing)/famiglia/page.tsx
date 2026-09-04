@@ -144,7 +144,7 @@ const COPY = {
       {
         q: "I dati salute dei miei familiari sono al sicuro?",
         a:
-          "Sì. Tutto cifrato HTTPS/TLS. Storage su Supabase EU (Francoforte). Accesso vincolato al gruppo specifico via Row-Level Security Postgres. Niente broker dati, niente pubblicita' profilata. Conformita' GDPR full.",
+          "Sì. Tutto cifrato HTTPS/TLS. Accesso vincolato al gruppo specifico via Row-Level Security Postgres. Niente broker dati, niente pubblicita' profilata.",
       },
       {
         q: "E' un dispositivo medico?",
@@ -260,7 +260,7 @@ const COPY = {
       {
         q: "Are my family's health data safe?",
         a:
-          "Yes. Everything is encrypted via HTTPS/TLS. Storage on Supabase EU (Frankfurt). Access bound to the specific group via Row-Level Security in Postgres. No data brokers, no profiling ads. Full GDPR compliance.",
+          "Yes. Everything is encrypted via HTTPS/TLS. Access bound to the specific group via Row-Level Security in Postgres. No data brokers, no profiling ads.",
       },
       {
         q: "Is this a medical device?",
@@ -376,7 +376,7 @@ const COPY = {
       {
         q: "¿Los datos de salud de mis familiares están seguros?",
         a:
-          "Sí. Todo cifrado mediante HTTPS/TLS. Almacenamiento en Supabase EU (Fráncfort). Acceso restringido al grupo específico mediante Row-Level Security en Postgres. Sin intermediarios de datos, sin publicidad basada en perfiles. Cumplimiento total del RGPD.",
+          "Sí. Todo cifrado mediante HTTPS/TLS. Acceso restringido al grupo específico mediante Row-Level Security en Postgres. Sin intermediarios de datos, sin publicidad basada en perfiles.",
       },
       {
         q: "¿Es un dispositivo médico?",
@@ -1398,7 +1398,7 @@ function ComingSoonState({
           },
           {
             title: "Privacy by design",
-            body: "Niente posizione GPS condivisa, niente broker dati, niente profilazione ads. Dati cifrati, server in Europa (Francoforte).",
+            body: "Niente posizione GPS condivisa, niente broker dati, niente profilazione ads. Dati cifrati.",
           },
           {
             title: "Multi-vendor, niente lock-in",
@@ -1423,7 +1423,7 @@ function ComingSoonState({
           },
           {
             title: "Privacidad por diseño",
-            body: "Sin ubicación GPS compartida, sin intermediarios de datos, sin publicidad basada en perfiles. Datos cifrados, servidores en Europa (Fráncfort).",
+            body: "Sin ubicación GPS compartida, sin intermediarios de datos, sin publicidad basada en perfiles. Datos cifrados.",
           },
           {
             title: "Multi-dispositivo, sin ataduras",
@@ -1447,7 +1447,7 @@ function ComingSoonState({
           },
           {
             title: "Privacy by design",
-            body: "No GPS location sharing, no data brokers, no ad profiling. Data encrypted, servers in Europe (Frankfurt).",
+            body: "No GPS location sharing, no data brokers, no ad profiling. Data encrypted.",
           },
           {
             title: "Multi-vendor, no lock-in",

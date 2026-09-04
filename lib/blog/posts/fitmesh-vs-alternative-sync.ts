@@ -58,14 +58,14 @@ export const post: BlogPost = {
       "Health Sync è un traduttore puro tra piattaforme (Garmin, Fitbit, Samsung Health, Google Fit e altre): nessuna dashboard propria, elaborazione sul telefono, acquisto una tantum economico.",
       "FitnessSyncer ha una vera dashboard web multi-fonte come FitMesh, ma i dati sono conservati su server negli Stati Uniti, non in UE.",
       "Gadgetbridge è open-source, gratuito e non manda mai dati online per progetto (niente permesso Internet): la scelta più coerente per chi vuole zero cloud, al costo di nessuna dashboard web.",
-      "FitMesh Sync copre lo spazio intermedio: dashboard web e app, server nell'Unione Europea con trattamento conforme al GDPR, pagamento diretto invece di pubblicità o vendita dati.",
+      "FitMesh Sync copre lo spazio intermedio: dashboard web e app, pagamento diretto invece di pubblicità o vendita dati.",
       "Non c'è una risposta valida per tutti: se vuoi zero cloud a ogni costo, Gadgetbridge resta la scelta più onesta, anche secondo noi.",
     ],
     en: [
       "Health Sync is a pure translator between platforms (Garmin, Fitbit, Samsung Health, Google Fit and more): no dashboard of its own, processing happens on the phone, cheap one-time purchase.",
       "FitnessSyncer has a real multi-source web dashboard like FitMesh, but the data is stored on servers in the United States, not the EU.",
       "Gadgetbridge is open-source, free, and by design never sends data online (no Internet permission at all): the most consistent choice if you want zero cloud, at the cost of no web dashboard.",
-      "FitMesh Sync sits in the middle ground: web dashboard and app, servers in the European Union with GDPR-compliant handling, a direct price instead of ads or data sales.",
+      "FitMesh Sync sits in the middle ground: web dashboard and app, a direct price instead of ads or data sales.",
       "There's no one-size-fits-all answer here: if you want zero cloud no matter what, Gadgetbridge remains the more honest choice, even by our own admission.",
     ],
   },
@@ -82,8 +82,8 @@ export const post: BlogPost = {
       variant: "info",
       title: { it: "Risposta rapida", en: "Quick answer" },
       body: {
-        it: "Health Sync traduce dati tra app senza dashboard propria. FitnessSyncer ha una dashboard web ma i dati vivono negli Stati Uniti. Gadgetbridge non manda mai nulla online, ma non ha una dashboard web. FitMesh Sync ha dashboard web e app, server in UE con GDPR reale, e un prezzo diretto invece di pubblicità o vendita dati.",
-        en: "Health Sync translates data between apps with no dashboard of its own. FitnessSyncer has a web dashboard, but the data lives in the United States. Gadgetbridge never sends anything online, but has no web dashboard. FitMesh Sync has both a web dashboard and an app, EU servers with real GDPR handling, and a direct price instead of ads or data sales.",
+        it: "Health Sync traduce dati tra app senza dashboard propria. FitnessSyncer ha una dashboard web ma i dati vivono negli Stati Uniti. Gadgetbridge non manda mai nulla online, ma non ha una dashboard web. FitMesh Sync ha dashboard web e app, con un prezzo diretto invece di pubblicità o vendita dati.",
+        en: "Health Sync translates data between apps with no dashboard of its own. FitnessSyncer has a web dashboard, but the data lives in the United States. Gadgetbridge never sends anything online, but has no web dashboard. FitMesh Sync has both a web dashboard and an app, with a direct price instead of ads or data sales.",
       },
     },
     {
@@ -126,8 +126,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Il punto di differenza più netto è dove vivono i dati. La privacy policy di FitnessSyncer dichiara esplicitamente che i dati sono \"raccolti e conservati su server negli Stati Uniti\", ospitati su cloud terzi come AWS, Grafana e Linode. Aderisce ai framework EU-U.S. Data Privacy Framework, UK Extension e Swiss-U.S. DPF (il meccanismo legale che permette il trasferimento di dati europei verso server USA), ma non abbiamo trovato, nel testo della loro policy, una dichiarazione esplicita di conformità GDPR: solo il riferimento al DPF. Non generalizziamo quindi una conformità GDPR che loro stessi non dichiarano. La policy afferma anche chiaramente di non vendere i dati personali a terzi, e condivide dati con sub-processor operativi dichiarati (Stripe/Apple Pay per i pagamenti, Atlassian per il supporto, Mailgun per le email, Google Analytics e altri per le analitiche). Il confronto onesto con FitMesh non è \"vendono i tuoi dati\", che non è vero, ma \"i dati sono ospitati negli USA sotto DPF, non su server europei sotto GDPR diretto\".",
-        en: "The sharpest point of difference is where the data lives. FitnessSyncer's privacy policy explicitly states data is \"collected and stored on servers in the United States\", hosted across third-party cloud providers like AWS, Grafana and Linode. It participates in the EU-U.S. Data Privacy Framework, its UK Extension, and the Swiss-U.S. DPF (the legal mechanism that allows EU-origin personal data to be transferred to US servers), but we found no explicit \"we are GDPR-compliant\" statement in the policy text itself, only the DPF framework reference. So we won't attribute a GDPR-compliance claim to them that they don't make themselves. The policy also clearly states they do not sell personal information to third parties, and it names operational sub-processors it shares data with (Stripe/Apple Pay for payments, Atlassian for support, Mailgun for email, Google Analytics and others for analytics). The honest contrast with FitMesh isn't \"they sell your data\", which isn't true, but \"the data is hosted in the US under DPF, not on European servers under direct GDPR\".",
+        it: "Il punto di differenza più netto è dove vivono i dati. La privacy policy di FitnessSyncer dichiara esplicitamente che i dati sono \"raccolti e conservati su server negli Stati Uniti\", ospitati su cloud terzi come AWS, Grafana e Linode. Aderisce ai framework EU-U.S. Data Privacy Framework, UK Extension e Swiss-U.S. DPF (il meccanismo legale che permette il trasferimento di dati europei verso server USA), ma non abbiamo trovato, nel testo della loro policy, una dichiarazione esplicita di conformità GDPR: solo il riferimento al DPF. Non generalizziamo quindi una conformità GDPR che loro stessi non dichiarano. La policy afferma anche chiaramente di non vendere i dati personali a terzi, e condivide dati con sub-processor operativi dichiarati (Stripe/Apple Pay per i pagamenti, Atlassian per il supporto, Mailgun per le email, Google Analytics e altri per le analitiche). Il confronto onesto con FitMesh non è \"vendono i tuoi dati\", che non è vero, ma \"i dati sono ospitati negli USA sotto DPF\".",
+        en: "The sharpest point of difference is where the data lives. FitnessSyncer's privacy policy explicitly states data is \"collected and stored on servers in the United States\", hosted across third-party cloud providers like AWS, Grafana and Linode. It participates in the EU-U.S. Data Privacy Framework, its UK Extension, and the Swiss-U.S. DPF (the legal mechanism that allows EU-origin personal data to be transferred to US servers), but we found no explicit \"we are GDPR-compliant\" statement in the policy text itself, only the DPF framework reference. So we won't attribute a GDPR-compliance claim to them that they don't make themselves. The policy also clearly states they do not sell personal information to third parties, and it names operational sub-processors it shares data with (Stripe/Apple Pay for payments, Atlassian for support, Mailgun for email, Google Analytics and others for analytics). The honest contrast with FitMesh isn't \"they sell your data\", which isn't true, but \"the data is hosted in the US under DPF\".",
       },
     },
     {
@@ -163,8 +163,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "FitMesh Sync legge i dati via Health Connect su Android o direttamente dall'anello Colmi via Bluetooth, li deduplica quando più fonti coprono lo stesso intervallo, e li mostra sia nell'app sia in una dashboard web vera, accessibile da qualsiasi browser con lo stesso account. È quindi più vicino nell'impostazione a FitnessSyncer che a Health Sync o Gadgetbridge: c'è un secondo posto dove guardare i tuoi dati, non solo un ponte tra due app. La differenza è dove vivono i dati e come si paga il servizio: server nell'Unione Europea, trattamento conforme al GDPR, nessuna pubblicità nell'app, nessuna vendita dei dati a terzi. Il servizio si sostiene con un prezzo diretto (un piccolo abbonamento o uno sblocco a vita), non monetizzando i tuoi dati. I primi 1000 iscritti founder (entro il 31 luglio 2026) hanno ottenuto il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa prima di decidere. Il dettaglio del modello di prezzo è nella guida [FitMesh è gratis? Prezzo e posti founder](/it/blog/fitmesh-gratis-prezzo-founder), e il dettaglio su dove vivono i dati e come vengono trattati secondo il GDPR è nella guida [Dove sono i tuoi dati e perché un server in UE conta](/it/blog/dove-sono-i-tuoi-dati-server-ue).",
-        en: "FitMesh Sync reads data via Health Connect on Android or directly from the Colmi ring over Bluetooth, deduplicates it when multiple sources cover the same window, and shows it both in the app and in a real web dashboard, reachable from any browser with the same account. So in setup it's closer to FitnessSyncer than to Health Sync or Gadgetbridge: there's a second place to actually look at your data, not just a bridge between two apps. The difference is where the data lives and how the service is paid for: servers in the European Union, GDPR-compliant handling, no ads in the app, no data sold to third parties. The service is funded by a direct price (a small subscription or a lifetime unlock), not by monetizing your data. The first 1,000 founder sign-ups (by July 31, 2026) got lifetime Pro free — that program is now closed to new sign-ups; everyone else gets a full 14-day trial before deciding. The full pricing model is in the guide [Is FitMesh free? Pricing and founder spots](/en/blog/is-fitmesh-free-pricing-founder), and the detail on where the data lives and how it's handled under GDPR is in [Where your data actually lives, and why an EU server matters](/en/blog/where-your-data-lives-eu-server).",
+        it: "FitMesh Sync legge i dati via Health Connect su Android o direttamente dall'anello Colmi via Bluetooth, li deduplica quando più fonti coprono lo stesso intervallo, e li mostra sia nell'app sia in una dashboard web vera, accessibile da qualsiasi browser con lo stesso account. È quindi più vicino nell'impostazione a FitnessSyncer che a Health Sync o Gadgetbridge: c'è un secondo posto dove guardare i tuoi dati, non solo un ponte tra due app. La differenza è come si paga il servizio: nessuna pubblicità nell'app, nessuna vendita dei dati a terzi. Il servizio si sostiene con un prezzo diretto (un piccolo abbonamento o uno sblocco a vita), non monetizzando i tuoi dati. I primi 1000 iscritti founder (entro il 31 luglio 2026) hanno ottenuto il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa prima di decidere. Il dettaglio del modello di prezzo è nella guida [FitMesh è gratis? Prezzo e posti founder](/it/blog/fitmesh-gratis-prezzo-founder), e il dettaglio su dove vivono i dati e come vengono trattati è nella guida [Dove sono i tuoi dati](/it/blog/dove-sono-i-tuoi-dati-server-ue).",
+        en: "FitMesh Sync reads data via Health Connect on Android or directly from the Colmi ring over Bluetooth, deduplicates it when multiple sources cover the same window, and shows it both in the app and in a real web dashboard, reachable from any browser with the same account. So in setup it's closer to FitnessSyncer than to Health Sync or Gadgetbridge: there's a second place to actually look at your data, not just a bridge between two apps. The difference is how the service is paid for: no ads in the app, no data sold to third parties. The service is funded by a direct price (a small subscription or a lifetime unlock), not by monetizing your data. The first 1,000 founder sign-ups (by July 31, 2026) got lifetime Pro free — that program is now closed to new sign-ups; everyone else gets a full 14-day trial before deciding. The full pricing model is in the guide [Is FitMesh free? Pricing and founder spots](/en/blog/is-fitmesh-free-pricing-founder), and the detail on where the data lives and how it's handled is in [Where your data actually lives](/en/blog/where-your-data-lives-eu-server).",
       },
     },
     {
@@ -176,8 +176,8 @@ export const post: BlogPost = {
       // denigratoria: stesso tono onesto del resto dell'articolo.
       type: "paragraph",
       text: {
-        it: "FitMesh Sync non è per tutti. Se non usi Android né un anello Colmi, o se il tuo unico obiettivo è collegare due app già esistenti senza guardare mai una dashboard, una delle tre alternative sopra probabilmente ti serve meglio. Esiste anche un percorso self-host per chi vuole puntare il software a un proprio backend, ma **è un meccanismo limitato per uso tecnico, non un'opzione self-service pensata per chiunque**: scrittura, export e cancellazione dei dati restano comunque legati al backend gestito da FitMesh (dettagli nella pagina [self-host](/it/self-host)). Per l'elenco completo e sempre aggiornato degli ecosistemi che FitMesh legge davvero — Health Connect, Apple Health, e le integrazioni dirette come gli anelli Colmi — vedi la pagina [Integrazioni](/it/integrations). La gestione dei dati secondo il GDPR è descritta anche nella pagina [Privacy](/it/privacy).",
-        en: "FitMesh Sync isn't for everyone. If you don't use Android or a Colmi ring, or if all you want is to connect two existing apps without ever looking at a dashboard, one of the three alternatives above is probably a better fit. There's also a self-host path for people who want to point the software at their own backend, but **it's a limited mechanism for technical use, not a self-service option meant for everyone**: writing, export and deletion of data still go through FitMesh's managed backend either way (details on the [self-host](/en/self-host) page). For the full, always-current list of ecosystems FitMesh actually reads from — Health Connect, Apple Health, and direct integrations like Colmi rings — see the [Integrations](/en/integrations) page. GDPR data handling is also described on the [Privacy](/en/privacy) page.",
+        it: "FitMesh Sync non è per tutti. Se non usi Android né un anello Colmi, o se il tuo unico obiettivo è collegare due app già esistenti senza guardare mai una dashboard, una delle tre alternative sopra probabilmente ti serve meglio. Esiste anche un percorso self-host per chi vuole puntare il software a un proprio backend, ma **è un meccanismo limitato per uso tecnico, non un'opzione self-service pensata per chiunque**: scrittura, export e cancellazione dei dati restano comunque legati al backend gestito da FitMesh (dettagli nella pagina [self-host](/it/self-host)). Per l'elenco completo e sempre aggiornato degli ecosistemi che FitMesh legge davvero — Health Connect, Apple Health, e le integrazioni dirette come gli anelli Colmi — vedi la pagina [Integrazioni](/it/integrations). La gestione dei dati è descritta anche nella pagina [Privacy](/it/privacy).",
+        en: "FitMesh Sync isn't for everyone. If you don't use Android or a Colmi ring, or if all you want is to connect two existing apps without ever looking at a dashboard, one of the three alternatives above is probably a better fit. There's also a self-host path for people who want to point the software at their own backend, but **it's a limited mechanism for technical use, not a self-service option meant for everyone**: writing, export and deletion of data still go through FitMesh's managed backend either way (details on the [self-host](/en/self-host) page). For the full, always-current list of ecosystems FitMesh actually reads from — Health Connect, Apple Health, and direct integrations like Colmi rings — see the [Integrations](/en/integrations) page. Data handling is also described on the [Privacy](/en/privacy) page.",
       },
     },
     {
@@ -204,8 +204,8 @@ export const post: BlogPost = {
           en: ["Gadgetbridge", "No, in-app charts only", "No cloud: no Internet permission by design", "Yes, AGPLv3", "Free (donation-based)"],
         },
         {
-          it: ["FitMesh Sync", "Sì, app + dashboard web", "Server nell'Unione Europea, GDPR", "No, chiuso", "Abbonamento leggero o sblocco a vita; primi 1000 founder gratis a vita (entro il 31 luglio 2026)"],
-          en: ["FitMesh Sync", "Yes, app + web dashboard", "Servers in the European Union, GDPR", "No, closed", "Light subscription or lifetime unlock; first 1,000 founders free for life (by July 31, 2026)"],
+          it: ["FitMesh Sync", "Sì, app + dashboard web", "Trattamento descritto nella pagina Privacy", "No, chiuso", "Abbonamento leggero o sblocco a vita; primi 1000 founder gratis a vita (entro il 31 luglio 2026)"],
+          en: ["FitMesh Sync", "Yes, app + web dashboard", "Handling described on the Privacy page", "No, closed", "Light subscription or lifetime unlock; first 1,000 founders free for life (by July 31, 2026)"],
         },
       ],
     },
@@ -224,13 +224,13 @@ export const post: BlogPost = {
           "**Ti serve solo far parlare due ecosistemi già in uso** (es. Garmin verso Google Fit) senza volerne uno nuovo da guardare: Health Sync è la scelta più mirata ed economica.",
           "**Vuoi una dashboard web multi-fonte e non ti preoccupa dove sono ospitati i dati**: FitnessSyncer fa esattamente questo, con un piano gratuito limitato per iniziare.",
           "**Vuoi zero cloud, a ogni costo, anche rinunciando a una dashboard web e ad alcuni insight**: Gadgetbridge è la scelta più coerente e onesta delle quattro, anche secondo noi.",
-          "**Vuoi una dashboard web vera, ma con i dati su server europei trattati secondo il GDPR, senza pubblicità né vendita dati**: è lo spazio in cui si posiziona FitMesh Sync.",
+          "**Vuoi una dashboard web vera, senza pubblicità né vendita dati**: è lo spazio in cui si posiziona FitMesh Sync.",
         ],
         en: [
           "**You just need two ecosystems you already use to talk to each other** (e.g. Garmin to Google Fit) without wanting a new one to look at: Health Sync is the most targeted, cheapest choice.",
           "**You want a multi-source web dashboard and don't mind where the data is hosted**: FitnessSyncer does exactly this, with a limited free tier to start.",
           "**You want zero cloud, no matter what, even giving up a web dashboard and some insight**: Gadgetbridge is the most consistent, honest choice of the four, even by our own admission.",
-          "**You want a real web dashboard, but with the data on European servers handled under GDPR, with no ads and no data sold**: that's the space FitMesh Sync occupies.",
+          "**You want a real web dashboard, with no ads and no data sold**: that's the space FitMesh Sync occupies.",
         ],
       },
     },
@@ -248,18 +248,16 @@ export const post: BlogPost = {
         en: "If FitMesh's space sounds like the right fit",
       },
       body: {
-        it: "Nessuna delle quattro opzioni di questo confronto è sbagliata: dipende da cosa ti serve davvero. Se cerchi una dashboard web reale con i dati su server europei trattati secondo il GDPR, prova FitMesh Sync con 14 giorni di prova completa.",
-        en: "None of the four options in this comparison is wrong: it depends on what you actually need. If you're after a real web dashboard with your data on European servers handled under GDPR, try FitMesh Sync with a full 14-day trial.",
+        it: "Nessuna delle quattro opzioni di questo confronto è sbagliata: dipende da cosa ti serve davvero. Se cerchi una dashboard web reale, prova FitMesh Sync con 14 giorni di prova completa.",
+        en: "None of the four options in this comparison is wrong: it depends on what you actually need. If you're after a real web dashboard, try FitMesh Sync with a full 14-day trial.",
       },
       benefits: {
         it: [
           "Dashboard web vera, non solo un bridge tra due app",
-          "Server nell'Unione Europea, trattamento conforme al GDPR",
           "Nessuna pubblicità, nessuna vendita dei dati a terzi",
         ],
         en: [
           "A real web dashboard, not just a bridge between two apps",
-          "Servers in the European Union, GDPR-compliant handling",
           "No ads, no data sold to third parties",
         ],
       },
@@ -277,15 +275,15 @@ export const post: BlogPost = {
     {
       q: { it: "FitMesh Sync sostituisce Health Sync, FitnessSyncer o Gadgetbridge?", en: "Does FitMesh Sync replace Health Sync, FitnessSyncer or Gadgetbridge?" },
       a: {
-        it: "Non necessariamente. Se ti serve solo un bridge puro tra due ecosistemi, Health Sync resta più mirato. Se vuoi zero cloud assoluto, Gadgetbridge resta la scelta più coerente. FitMesh Sync copre chi vuole una dashboard web reale con dati su server europei e trattamento GDPR.",
-        en: "Not necessarily. If all you need is a pure bridge between two ecosystems, Health Sync remains more targeted. If you want absolute zero cloud, Gadgetbridge remains the more consistent choice. FitMesh Sync serves people who want a real web dashboard with data on European servers and GDPR handling.",
+        it: "Non necessariamente. Se ti serve solo un bridge puro tra due ecosistemi, Health Sync resta più mirato. Se vuoi zero cloud assoluto, Gadgetbridge resta la scelta più coerente. FitMesh Sync copre chi vuole una dashboard web reale.",
+        en: "Not necessarily. If all you need is a pure bridge between two ecosystems, Health Sync remains more targeted. If you want absolute zero cloud, Gadgetbridge remains the more consistent choice. FitMesh Sync serves people who want a real web dashboard.",
       },
     },
     {
       q: { it: "Gadgetbridge è più sicuro di FitMesh Sync?", en: "Is Gadgetbridge more secure than FitMesh Sync?" },
       a: {
-        it: "Sul piano \"zero dati inviati online\", sì: Gadgetbridge per progetto non ha il permesso Internet, quindi non può mandare nulla in rete. È il compromesso opposto: nessuna dashboard web, nessun insight aggregato nel tempo. FitMesh Sync invece invia i dati (necessariamente, per mostrarli in dashboard) ma li tratta su server UE secondo il GDPR, senza venderli né usarli per pubblicità.",
-        en: "On the 'zero data sent online' axis, yes: Gadgetbridge by design has no Internet permission, so it can't send anything over the network. It's the opposite trade-off: no web dashboard, no aggregated insight over time. FitMesh Sync does send data (necessarily, to show it in a dashboard), but handles it on EU servers under GDPR, without selling it or using it for ads.",
+        it: "Sul piano \"zero dati inviati online\", sì: Gadgetbridge per progetto non ha il permesso Internet, quindi non può mandare nulla in rete. È il compromesso opposto: nessuna dashboard web, nessun insight aggregato nel tempo. FitMesh Sync invece invia i dati (necessariamente, per mostrarli in dashboard) ma li tratta senza venderli né usarli per pubblicità.",
+        en: "On the 'zero data sent online' axis, yes: Gadgetbridge by design has no Internet permission, so it can't send anything over the network. It's the opposite trade-off: no web dashboard, no aggregated insight over time. FitMesh Sync does send data (necessarily, to show it in a dashboard), but handles it without selling it or using it for ads.",
       },
     },
     {

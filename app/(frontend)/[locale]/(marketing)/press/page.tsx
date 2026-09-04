@@ -50,24 +50,24 @@ const COPY = {
     blurb50: {
       title: "50 parole",
       body:
-        "FitMesh Sync è un'app Android e iOS che unifica i dati di salute di Galaxy Watch, Mi Band, Polar, Garmin, Fitbit e altri wearable in una dashboard premium. Privacy-first, server in UE, sviluppata in Italia. Funziona via Health Connect (Android) e Apple Salute (iOS) senza tracker pubblicitari o broker dati. Disponibile su Google Play e App Store da giugno 2026; l'app iOS è disponibile, incluse tutte le storefront dell'Unione Europea.",
+        "FitMesh Sync è un'app Android e iOS che unifica i dati di salute di Galaxy Watch, Mi Band, Polar, Garmin, Fitbit e altri wearable in una dashboard premium. Privacy-first, sviluppata in Italia. Funziona via Health Connect (Android) e Apple Salute (iOS) senza tracker pubblicitari o broker dati. Disponibile su Google Play e App Store da giugno 2026; l'app iOS è disponibile, incluse tutte le storefront dell'Unione Europea.",
     },
     blurb100: {
       title: "100 parole",
       body:
-        "FitMesh Sync è un'app Android e iOS sviluppata in Italia da Matteo Pizzi (Fosforonero) per unificare in una sola dashboard premium i dati di salute provenienti da tutti gli smartwatch e fitness band sul mercato. Su Android lavora come destinazione di Health Connect, quindi è compatibile out-of-the-box con Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei e Oura, senza bisogno di OAuth per ognuno; su iOS legge direttamente da Apple Salute e si connette via Bluetooth all'anello Colmi. Privacy-first: server EU, zero broker dati. Disponibile su Google Play e App Store da giugno 2026 (l'app iOS è disponibile, incluse tutte le storefront UE); in arrivo Mesh Famiglia, la funzione per condividere i dati di salute con la propria famiglia.",
+        "FitMesh Sync è un'app Android e iOS sviluppata in Italia da Matteo Pizzi (Fosforonero) per unificare in una sola dashboard premium i dati di salute provenienti da tutti gli smartwatch e fitness band sul mercato. Su Android lavora come destinazione di Health Connect, quindi è compatibile out-of-the-box con Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei e Oura, senza bisogno di OAuth per ognuno; su iOS legge direttamente da Apple Salute e si connette via Bluetooth all'anello Colmi. Privacy-first: zero broker dati. Disponibile su Google Play e App Store da giugno 2026 (l'app iOS è disponibile, incluse tutte le storefront UE); in arrivo Mesh Famiglia, la funzione per condividere i dati di salute con la propria famiglia.",
     },
     blurb200: {
       title: "200 parole (profilo completo)",
       body:
-        `FitMesh Sync nasce in Italia nel 2026 dalla frustrazione di uno sviluppatore (Matteo Pizzi, studio Fosforonero) che possiede un Galaxy Watch, la moglie usa una Mi Band, la madre un Withings. Ogni brand chiude i propri dati nella propria app. Nessuno offre una vista unificata premium. FitMesh risolve esattamente questo: leggendo da Health Connect (lo standard Android che dal 2024 raccoglie i dati di praticamente tutti i wearable), aggrega passi, frequenza cardiaca, sonno, calorie, workout e altre metriche in una dashboard nativa Flutter pensata per la lettura quotidiana, non per il sysadmin. Privacy-first dal primo commit: server europei (Supabase Francoforte), zero broker dati, zero tracker pubblicitari. La differenziazione strategica rispetto alle bridge app cloud-to-cloud del settore è che FitMesh non è un router silenzioso di dati: è una destinazione. I dati sono archiviati, visualizzati con grafici curati, e condivisibili tra i membri della stessa famiglia (Mesh Famiglia): ognuno condivide i propri dati con gli altri, in un'unica dashboard. L'app è disponibile su Google Play e App Store: ${founderHistoricalClause("it")}. L'app iOS è disponibile, incluse tutte le storefront dei 27 paesi UE.`,
+        `FitMesh Sync nasce in Italia nel 2026 dalla frustrazione di uno sviluppatore (Matteo Pizzi, studio Fosforonero) che possiede un Galaxy Watch, la moglie usa una Mi Band, la madre un Withings. Ogni brand chiude i propri dati nella propria app. Nessuno offre una vista unificata premium. FitMesh risolve esattamente questo: leggendo da Health Connect (lo standard Android che dal 2024 raccoglie i dati di praticamente tutti i wearable), aggrega passi, frequenza cardiaca, sonno, calorie, workout e altre metriche in una dashboard nativa Flutter pensata per la lettura quotidiana, non per il sysadmin. Privacy-first dal primo commit: zero broker dati, zero tracker pubblicitari. La differenziazione strategica rispetto alle bridge app cloud-to-cloud del settore è che FitMesh non è un router silenzioso di dati: è una destinazione. I dati sono archiviati, visualizzati con grafici curati, e condivisibili tra i membri della stessa famiglia (Mesh Famiglia): ognuno condivide i propri dati con gli altri, in un'unica dashboard. L'app è disponibile su Google Play e App Store: ${founderHistoricalClause("it")}. L'app iOS è disponibile, incluse tutte le storefront dei 27 paesi UE.`,
     },
 
     keyFactsTitle: "Key facts",
     keyFacts: [
       { label: "Lancio", value: "Pubblica su Google Play e App Store da giugno 2026 · iOS live in tutta l'UE" },
       { label: "Piattaforme", value: "Android + iOS (live, incluse tutte le storefront UE)" },
-      { label: "Country", value: "Italia · server UE (Francoforte)" },
+      { label: "Country", value: "Italia" },
       { label: "Tecnologie", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Wearable supportati", value: `${PROVIDERS.length}+ brand via Health Connect, espandibili` },
       { label: "Pricing", value: `Prova 14 giorni, poi Pro ${PRICING.fromLifetime.it} una tantum (Android ${PRICING.lifetimeAndroid.it} · iPhone ${PRICING.lifetimeIos.it}) o ${PRICING.subSixMonthsLabel.it}` },
@@ -106,7 +106,7 @@ const COPY = {
       "Come Health Connect ha cambiato l'ecosistema wearable Android dal 2024, e cosa significa per consumer e dev",
       "Condivisione familiare: vedere i dati di salute di chi ami in un'unica dashboard, senza GPS né app invasive (Mesh Famiglia)",
       `Perché ${founderHistoricalClause("it")}: un'alternativa storica all'hype da abbonamento, anche nelle app fitness`,
-      "Sviluppare un'app salute in Italia: server EU, sovranità dati come differenziatore",
+      "Sviluppare un'app salute in Italia: sovranità dati come differenziatore",
     ],
 
     trademarkNote:
@@ -136,24 +136,24 @@ const COPY = {
     blurb50: {
       title: "50 words",
       body:
-        "FitMesh Sync is an Android and iOS app that unifies health data from Galaxy Watch, Mi Band, Polar, Garmin, Fitbit and other wearables into one premium dashboard. Privacy-first, EU servers, built in Italy. Runs on Health Connect (Android) and Apple Health (iOS) with no ad trackers or data brokers. Available on Google Play and the App Store since June 2026; the iOS app is available, including all European Union storefronts.",
+        "FitMesh Sync is an Android and iOS app that unifies health data from Galaxy Watch, Mi Band, Polar, Garmin, Fitbit and other wearables into one premium dashboard. Privacy-first, built in Italy. Runs on Health Connect (Android) and Apple Health (iOS) with no ad trackers or data brokers. Available on Google Play and the App Store since June 2026; the iOS app is available, including all European Union storefronts.",
     },
     blurb100: {
       title: "100 words",
       body:
-        "FitMesh Sync is an Android and iOS app developed in Italy by Matteo Pizzi (Fosforonero) to unify in a single premium dashboard the health data coming from every smartwatch and fitness band on the market. On Android it works as a Health Connect destination, compatible out-of-the-box with Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei and Oura, without requiring per-brand OAuth; on iOS it reads directly from Apple Health and connects over Bluetooth to the Colmi ring. Privacy-first: EU servers, no data brokers. Available on Google Play and the App Store since June 2026 (the iOS app is available, including all EU storefronts); Family Mesh, the feature to share health data with your own family, is coming next.",
+        "FitMesh Sync is an Android and iOS app developed in Italy by Matteo Pizzi (Fosforonero) to unify in a single premium dashboard the health data coming from every smartwatch and fitness band on the market. On Android it works as a Health Connect destination, compatible out-of-the-box with Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei and Oura, without requiring per-brand OAuth; on iOS it reads directly from Apple Health and connects over Bluetooth to the Colmi ring. Privacy-first: no data brokers. Available on Google Play and the App Store since June 2026 (the iOS app is available, including all EU storefronts); Family Mesh, the feature to share health data with your own family, is coming next.",
     },
     blurb200: {
       title: "200 words (full profile)",
       body:
-        `FitMesh Sync was born in Italy in 2026 from the frustration of one developer (Matteo Pizzi, studio Fosforonero) who owns a Galaxy Watch, his wife uses a Mi Band, his mother a Withings. Every brand locks its own data inside its own app. Nobody offers a unified premium view. FitMesh solves exactly this: by reading from Health Connect (the Android standard that since 2024 collects data from virtually all wearables), it aggregates steps, heart rate, sleep, calories, workouts and other metrics into a native Flutter dashboard designed for daily reading, not for sysadmins. Privacy-first from the first commit: European servers (Supabase Frankfurt), no data brokers, no ad trackers. The strategic differentiation versus cloud-to-cloud bridge apps in the category is that FitMesh is not a silent data router: it is a destination. Data is stored, visualized with curated charts, and shared between members of the same family (Family Mesh): everyone shares their own data with the others, in one dashboard. The app is available on Google Play and the App Store: ${founderHistoricalClause("en")}. The iOS app is live in all supported storefronts, including the EU.`,
+        `FitMesh Sync was born in Italy in 2026 from the frustration of one developer (Matteo Pizzi, studio Fosforonero) who owns a Galaxy Watch, his wife uses a Mi Band, his mother a Withings. Every brand locks its own data inside its own app. Nobody offers a unified premium view. FitMesh solves exactly this: by reading from Health Connect (the Android standard that since 2024 collects data from virtually all wearables), it aggregates steps, heart rate, sleep, calories, workouts and other metrics into a native Flutter dashboard designed for daily reading, not for sysadmins. Privacy-first from the first commit: no data brokers, no ad trackers. The strategic differentiation versus cloud-to-cloud bridge apps in the category is that FitMesh is not a silent data router: it is a destination. Data is stored, visualized with curated charts, and shared between members of the same family (Family Mesh): everyone shares their own data with the others, in one dashboard. The app is available on Google Play and the App Store: ${founderHistoricalClause("en")}. The iOS app is live in all supported storefronts, including the EU.`,
     },
 
     keyFactsTitle: "Key facts",
     keyFacts: [
       { label: "Launch", value: "Public on Google Play and the App Store since June 2026 · iOS live across the EU" },
       { label: "Platforms", value: "Android + iOS (live, including all EU storefronts)" },
-      { label: "Country", value: "Italy · EU servers (Frankfurt)" },
+      { label: "Country", value: "Italy" },
       { label: "Tech stack", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Wearables supported", value: `${PROVIDERS.length}+ brands via Health Connect, expandable` },
       { label: "Pricing", value: `14-day trial, then Pro ${PRICING.fromLifetime.en} one-time (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) or ${PRICING.subSixMonthsLabel.en}` },
@@ -192,7 +192,7 @@ const COPY = {
       "How Health Connect changed the Android wearable ecosystem since 2024, and what it means for consumers and devs",
       "Family sharing: see the health data of people you care about in one dashboard, without GPS or invasive apps (Family Mesh)",
       `Why ${founderHistoricalClause("en")}: a look back at an alternative to subscription hype, even in fitness apps`,
-      "Building a health app in Italy: EU servers, data sovereignty as a differentiator",
+      "Building a health app in Italy: data sovereignty as a differentiator",
     ],
 
     trademarkNote:
@@ -222,24 +222,24 @@ const COPY = {
     blurb50: {
       title: "50 palabras",
       body:
-        "FitMesh Sync es una app Android e iOS que unifica los datos de salud de Galaxy Watch, Mi Band, Polar, Garmin, Fitbit y otros wearables en un único panel premium. Privacidad por diseño, servidores en la UE, desarrollada en Italia. Funciona con Health Connect (Android) y Apple Salud (iOS) sin rastreadores publicitarios ni intermediarios de datos. Disponible en Google Play y App Store desde junio de 2026; la app iOS está disponible, incluidas todas las tiendas de la Unión Europea.",
+        "FitMesh Sync es una app Android e iOS que unifica los datos de salud de Galaxy Watch, Mi Band, Polar, Garmin, Fitbit y otros wearables en un único panel premium. Privacidad por diseño, desarrollada en Italia. Funciona con Health Connect (Android) y Apple Salud (iOS) sin rastreadores publicitarios ni intermediarios de datos. Disponible en Google Play y App Store desde junio de 2026; la app iOS está disponible, incluidas todas las tiendas de la Unión Europea.",
     },
     blurb100: {
       title: "100 palabras",
       body:
-        "FitMesh Sync es una app Android e iOS desarrollada en Italia por Matteo Pizzi (Fosforonero) para unificar en un solo panel premium los datos de salud de todos los smartwatches y pulseras de actividad del mercado. En Android funciona como destino de Health Connect, por lo que es compatible de entrada con Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei y Oura, sin necesidad de autenticación individual por marca; en iOS lee directamente de Apple Salud y se conecta por Bluetooth al anillo Colmi. Privacidad por diseño: servidores en la UE, sin intermediarios de datos. Disponible en Google Play y App Store desde junio de 2026 (la app iOS está disponible, incluidas todas las tiendas de la UE); Mesh Familia, la función para compartir datos de salud con tu propia familia, llega próximamente.",
+        "FitMesh Sync es una app Android e iOS desarrollada en Italia por Matteo Pizzi (Fosforonero) para unificar en un solo panel premium los datos de salud de todos los smartwatches y pulseras de actividad del mercado. En Android funciona como destino de Health Connect, por lo que es compatible de entrada con Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei y Oura, sin necesidad de autenticación individual por marca; en iOS lee directamente de Apple Salud y se conecta por Bluetooth al anillo Colmi. Privacidad por diseño: sin intermediarios de datos. Disponible en Google Play y App Store desde junio de 2026 (la app iOS está disponible, incluidas todas las tiendas de la UE); Mesh Familia, la función para compartir datos de salud con tu propia familia, llega próximamente.",
     },
     blurb200: {
       title: "200 palabras (perfil completo)",
       body:
-        `FitMesh Sync nació en Italia en 2026 de la frustración de un desarrollador (Matteo Pizzi, estudio Fosforonero) que tiene un Galaxy Watch, cuya esposa usa una Mi Band y cuya madre tiene un Withings. Cada marca encierra sus datos en su propia app. Nadie ofrece una vista unificada premium. FitMesh resuelve exactamente eso: leyendo desde Health Connect (el estándar Android que desde 2024 recoge datos de prácticamente todos los wearables), agrega pasos, frecuencia cardíaca, sueño, calorías, entrenamientos y otras métricas en un panel nativo Flutter pensado para la lectura diaria, no para administradores de sistemas. Privacidad por diseño desde el primer commit: servidores europeos (Supabase Fráncfort), sin intermediarios de datos, sin rastreadores publicitarios. La diferenciación estratégica frente a las apps puente entre ecosistemas de salud del sector es que FitMesh no es un enrutador silencioso de datos: es un destino. Los datos se almacenan, se visualizan con gráficas cuidadas y, a medio plazo, se comparten entre los miembros de la misma familia (Mesh Familia): cada uno comparte sus propios datos con los demás, en un único panel. La app está disponible en Google Play y App Store: ${founderHistoricalClause("es")}. La app iOS está disponible, incluidas todas las tiendas de los 27 países de la UE.`,
+        `FitMesh Sync nació en Italia en 2026 de la frustración de un desarrollador (Matteo Pizzi, estudio Fosforonero) que tiene un Galaxy Watch, cuya esposa usa una Mi Band y cuya madre tiene un Withings. Cada marca encierra sus datos en su propia app. Nadie ofrece una vista unificada premium. FitMesh resuelve exactamente eso: leyendo desde Health Connect (el estándar Android que desde 2024 recoge datos de prácticamente todos los wearables), agrega pasos, frecuencia cardíaca, sueño, calorías, entrenamientos y otras métricas en un panel nativo Flutter pensado para la lectura diaria, no para administradores de sistemas. Privacidad por diseño desde el primer commit: sin intermediarios de datos, sin rastreadores publicitarios. La diferenciación estratégica frente a las apps puente entre ecosistemas de salud del sector es que FitMesh no es un enrutador silencioso de datos: es un destino. Los datos se almacenan, se visualizan con gráficas cuidadas y, a medio plazo, se comparten entre los miembros de la misma familia (Mesh Familia): cada uno comparte sus propios datos con los demás, en un único panel. La app está disponible en Google Play y App Store: ${founderHistoricalClause("es")}. La app iOS está disponible, incluidas todas las tiendas de los 27 países de la UE.`,
     },
 
     keyFactsTitle: "Datos clave",
     keyFacts: [
       { label: "Lanzamiento", value: "Disponible en Google Play y App Store desde junio de 2026 · iOS disponible en toda la UE" },
       { label: "Plataformas", value: "Android + iOS (disponible, incluidas todas las tiendas de la UE)" },
-      { label: "País", value: "Italia · servidores en la UE (Fráncfort)" },
+      { label: "País", value: "Italia" },
       { label: "Tecnologías", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Wearables compatibles", value: `Más de ${PROVIDERS.length} marcas vía Health Connect, ampliable` },
       { label: "Precio", value: `Prueba de 14 días, luego Pro ${PRICING.fromLifetime.es} pago único (Android ${PRICING.lifetimeAndroid.es} · iPhone ${PRICING.lifetimeIos.es}) o ${PRICING.subSixMonthsLabel.es}` },
@@ -278,7 +278,7 @@ const COPY = {
       "Cómo Health Connect transformó el ecosistema de wearables Android desde 2024, y qué significa para usuarios y desarrolladores",
       "Compartir en familia: ver los datos de salud de las personas que te importan en un único panel, sin GPS ni apps invasivas (Mesh Familia)",
       `Por qué ${founderHistoricalClause("es")}: una alternativa histórica al modelo de suscripción, también en apps de salud`,
-      "Desarrollar una app de salud en Italia: servidores en la UE y soberanía de datos como diferenciador",
+      "Desarrollar una app de salud en Italia: soberanía de datos como diferenciador",
     ],
 
     trademarkNote:
@@ -308,24 +308,24 @@ const COPY = {
     blurb50: {
       title: "50 Wörter",
       body:
-        "FitMesh Sync ist eine Android- und iOS-App, die Gesundheitsdaten von Galaxy Watch, Mi Band, Polar, Garmin, Fitbit und anderen Wearables in einem einzigen Premium-Dashboard vereint. Datenschutz zuerst, Server in der EU, entwickelt in Italien. Läuft über Health Connect (Android) und Apple Health (iOS) ohne Werbetracker oder Datenvermittler. Seit Juni 2026 auf Google Play und im App Store verfügbar; die iOS-App ist verfügbar, einschließlich aller Storefronts der Europäischen Union.",
+        "FitMesh Sync ist eine Android- und iOS-App, die Gesundheitsdaten von Galaxy Watch, Mi Band, Polar, Garmin, Fitbit und anderen Wearables in einem einzigen Premium-Dashboard vereint. Datenschutz zuerst, entwickelt in Italien. Läuft über Health Connect (Android) und Apple Health (iOS) ohne Werbetracker oder Datenvermittler. Seit Juni 2026 auf Google Play und im App Store verfügbar; die iOS-App ist verfügbar, einschließlich aller Storefronts der Europäischen Union.",
     },
     blurb100: {
       title: "100 Wörter",
       body:
-        "FitMesh Sync ist eine Android- und iOS-App, entwickelt in Italien von Matteo Pizzi (Fosforonero), um die Gesundheitsdaten aller Smartwatches und Fitness-Tracker auf dem Markt in einem einzigen Premium-Dashboard zu vereinen. Auf Android fungiert die App als Health-Connect-Ziel und ist damit direkt kompatibel mit Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei und Oura, ohne dass für jede Marke eine separate Anmeldung nötig ist; auf iOS liest sie direkt aus Apple Health und verbindet sich per Bluetooth mit dem Colmi-Ring. Datenschutz zuerst: EU-Server, keine Datenvermittler. Seit Juni 2026 auf Google Play und im App Store verfügbar (die iOS-App ist verfügbar, einschließlich aller EU-Storefronts); Mesh Familie, die Funktion zum Teilen von Gesundheitsdaten mit der eigenen Familie, folgt demnächst.",
+        "FitMesh Sync ist eine Android- und iOS-App, entwickelt in Italien von Matteo Pizzi (Fosforonero), um die Gesundheitsdaten aller Smartwatches und Fitness-Tracker auf dem Markt in einem einzigen Premium-Dashboard zu vereinen. Auf Android fungiert die App als Health-Connect-Ziel und ist damit direkt kompatibel mit Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei und Oura, ohne dass für jede Marke eine separate Anmeldung nötig ist; auf iOS liest sie direkt aus Apple Health und verbindet sich per Bluetooth mit dem Colmi-Ring. Datenschutz zuerst: keine Datenvermittler. Seit Juni 2026 auf Google Play und im App Store verfügbar (die iOS-App ist verfügbar, einschließlich aller EU-Storefronts); Mesh Familie, die Funktion zum Teilen von Gesundheitsdaten mit der eigenen Familie, folgt demnächst.",
     },
     blurb200: {
       title: "200 Wörter (vollständiges Profil)",
       body:
-        `FitMesh Sync entstand 2026 in Italien aus der Frustration eines Entwicklers (Matteo Pizzi, Studio Fosforonero), der selbst eine Galaxy Watch trägt, dessen Frau eine Mi Band nutzt und dessen Mutter ein Withings-Gerät verwendet. Jede Marke schließt ihre Daten in der eigenen App ein. Niemand bietet eine vereinte Premium-Ansicht. FitMesh löst genau dieses Problem: Die App liest aus Health Connect (dem Android-Standard, der seit 2024 Daten von nahezu allen Wearables sammelt) und aggregiert Schritte, Herzfrequenz, Schlaf, Kalorien, Trainings und weitere Metriken in einem nativen Flutter-Dashboard, das für die tägliche Nutzung konzipiert ist, nicht für Systemadministratoren. Datenschutz von Anfang an: europäische Server (Supabase Frankfurt), keine Datenvermittler, keine Werbetracker. Der strategische Unterschied zu Cloud-zu-Cloud-Brückenapps der Branche: FitMesh ist kein stiller Datenrouter, sondern ein Ziel. Daten werden gespeichert, mit sorgfältig gestalteten Diagrammen visualisiert und zwischen Mitgliedern derselben Familie geteilt (Mesh Familie): Jeder teilt seine eigenen Daten mit den anderen, in einem gemeinsamen Dashboard. Die App ist auf Google Play und im App Store verfügbar: ${founderHistoricalClause("de")}. Die iOS-App ist verfügbar, einschließlich aller Storefronts der 27 EU-Länder.`,
+        `FitMesh Sync entstand 2026 in Italien aus der Frustration eines Entwicklers (Matteo Pizzi, Studio Fosforonero), der selbst eine Galaxy Watch trägt, dessen Frau eine Mi Band nutzt und dessen Mutter ein Withings-Gerät verwendet. Jede Marke schließt ihre Daten in der eigenen App ein. Niemand bietet eine vereinte Premium-Ansicht. FitMesh löst genau dieses Problem: Die App liest aus Health Connect (dem Android-Standard, der seit 2024 Daten von nahezu allen Wearables sammelt) und aggregiert Schritte, Herzfrequenz, Schlaf, Kalorien, Trainings und weitere Metriken in einem nativen Flutter-Dashboard, das für die tägliche Nutzung konzipiert ist, nicht für Systemadministratoren. Datenschutz von Anfang an: keine Datenvermittler, keine Werbetracker. Der strategische Unterschied zu Cloud-zu-Cloud-Brückenapps der Branche: FitMesh ist kein stiller Datenrouter, sondern ein Ziel. Daten werden gespeichert, mit sorgfältig gestalteten Diagrammen visualisiert und zwischen Mitgliedern derselben Familie geteilt (Mesh Familie): Jeder teilt seine eigenen Daten mit den anderen, in einem gemeinsamen Dashboard. Die App ist auf Google Play und im App Store verfügbar: ${founderHistoricalClause("de")}. Die iOS-App ist verfügbar, einschließlich aller Storefronts der 27 EU-Länder.`,
     },
 
     keyFactsTitle: "Key Facts",
     keyFacts: [
       { label: "Start", value: "Seit Juni 2026 auf Google Play und im App Store verfügbar · iOS live in der gesamten EU" },
       { label: "Plattformen", value: "Android + iOS (live, einschließlich aller EU-Storefronts)" },
-      { label: "Land", value: "Italien · EU-Server (Frankfurt)" },
+      { label: "Land", value: "Italien" },
       { label: "Technologien", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Unterstützte Wearables", value: `${PROVIDERS.length}+ Marken über Health Connect, erweiterbar` },
       { label: "Preis", value: `14 Tage testen, dann Pro ${PRICING.fromLifetime.de} einmalig (Android ${PRICING.lifetimeAndroid.de} · iPhone ${PRICING.lifetimeIos.de}) oder ${PRICING.subSixMonthsLabel.de}` },
@@ -364,7 +364,7 @@ const COPY = {
       "Wie Health Connect das Android-Wearable-Ökosystem seit 2024 verändert hat und was das für Verbraucher und Entwickler bedeutet",
       "Familien-Sharing: die Gesundheitsdaten der Menschen, die dir wichtig sind, in einem Dashboard sehen, ohne GPS oder invasive Apps (Mesh Familie)",
       `Warum ${founderHistoricalClause("de")}: ein historischer Blick auf eine Alternative zum Abo-Modell, auch bei Fitness-Apps`,
-      "Eine Gesundheits-App in Italien entwickeln: EU-Server und Datensouveränität als Alleinstellungsmerkmal",
+      "Eine Gesundheits-App in Italien entwickeln: Datensouveränität als Alleinstellungsmerkmal",
     ],
 
     trademarkNote:
@@ -394,24 +394,24 @@ const COPY = {
     blurb50: {
       title: "50 palavras",
       body:
-        "FitMesh Sync é um app Android e iOS que unifica dados de saúde do Galaxy Watch, Mi Band, Polar, Garmin, Fitbit e outros wearables em um único painel premium. Privacidade em primeiro lugar, servidores na UE, desenvolvido na Itália. Funciona via Health Connect (Android) e Apple Health (iOS) sem rastreadores publicitários ou intermediários de dados. Disponível no Google Play e na App Store desde junho de 2026; o app iOS está disponível, incluindo todas as lojas da União Europeia.",
+        "FitMesh Sync é um app Android e iOS que unifica dados de saúde do Galaxy Watch, Mi Band, Polar, Garmin, Fitbit e outros wearables em um único painel premium. Privacidade em primeiro lugar, desenvolvido na Itália. Funciona via Health Connect (Android) e Apple Health (iOS) sem rastreadores publicitários ou intermediários de dados. Disponível no Google Play e na App Store desde junho de 2026; o app iOS está disponível, incluindo todas as lojas da União Europeia.",
     },
     blurb100: {
       title: "100 palavras",
       body:
-        "FitMesh Sync é um app Android e iOS desenvolvido na Itália por Matteo Pizzi (Fosforonero) para unificar em um único painel premium os dados de saúde de todos os smartwatches e pulseiras fitness do mercado. No Android funciona como destino do Health Connect, sendo compatível de forma nativa com Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei e Oura, sem autenticação individual por marca; no iOS lê diretamente do Apple Health e conecta via Bluetooth ao anel Colmi. Privacidade em primeiro lugar: servidores na UE, sem intermediários de dados. Disponível no Google Play e na App Store desde junho de 2026 (o app iOS está disponível, incluindo todas as lojas da UE); o Mesh Família, a função para compartilhar dados de saúde com a própria família, chega em breve.",
+        "FitMesh Sync é um app Android e iOS desenvolvido na Itália por Matteo Pizzi (Fosforonero) para unificar em um único painel premium os dados de saúde de todos os smartwatches e pulseiras fitness do mercado. No Android funciona como destino do Health Connect, sendo compatível de forma nativa com Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei e Oura, sem autenticação individual por marca; no iOS lê diretamente do Apple Health e conecta via Bluetooth ao anel Colmi. Privacidade em primeiro lugar: sem intermediários de dados. Disponível no Google Play e na App Store desde junho de 2026 (o app iOS está disponível, incluindo todas as lojas da UE); o Mesh Família, a função para compartilhar dados de saúde com a própria família, chega em breve.",
     },
     blurb200: {
       title: "200 palavras (perfil completo)",
       body:
-        `FitMesh Sync nasceu na Itália em 2026 da frustração de um desenvolvedor (Matteo Pizzi, estúdio Fosforonero) que tem um Galaxy Watch, cuja esposa usa uma Mi Band e cuja mãe usa um Withings. Cada marca guarda seus dados dentro do próprio app. Ninguém oferece uma visão unificada premium. FitMesh resolve exatamente isso: lendo do Health Connect (o padrão Android que desde 2024 coleta dados de praticamente todos os wearables), ele agrega passos, frequência cardíaca, sono, calorias, treinos e outras métricas em um painel Flutter nativo pensado para a leitura diária, não para administradores de sistemas. Privacidade desde o primeiro commit: servidores europeus (Supabase Frankfurt), sem intermediários de dados, sem rastreadores publicitários. A diferenciação estratégica em relação aos apps de ponte entre ecossistemas do setor é que o FitMesh não é um roteador silencioso de dados: é um destino. Os dados são armazenados, visualizados com gráficos cuidadosamente elaborados e, a médio prazo, compartilhados entre os membros da mesma família (Mesh Família): cada um compartilha seus próprios dados com os demais, em um único painel. O app está disponível no Google Play e na App Store: ${founderHistoricalClause("pt")}. O app iOS está disponível, incluindo todas as lojas dos 27 países da UE.`,
+        `FitMesh Sync nasceu na Itália em 2026 da frustração de um desenvolvedor (Matteo Pizzi, estúdio Fosforonero) que tem um Galaxy Watch, cuja esposa usa uma Mi Band e cuja mãe usa um Withings. Cada marca guarda seus dados dentro do próprio app. Ninguém oferece uma visão unificada premium. FitMesh resolve exatamente isso: lendo do Health Connect (o padrão Android que desde 2024 coleta dados de praticamente todos os wearables), ele agrega passos, frequência cardíaca, sono, calorias, treinos e outras métricas em um painel Flutter nativo pensado para a leitura diária, não para administradores de sistemas. Privacidade desde o primeiro commit: sem intermediários de dados, sem rastreadores publicitários. A diferenciação estratégica em relação aos apps de ponte entre ecossistemas do setor é que o FitMesh não é um roteador silencioso de dados: é um destino. Os dados são armazenados, visualizados com gráficos cuidadosamente elaborados e, a médio prazo, compartilhados entre os membros da mesma família (Mesh Família): cada um compartilha seus próprios dados com os demais, em um único painel. O app está disponível no Google Play e na App Store: ${founderHistoricalClause("pt")}. O app iOS está disponível, incluindo todas as lojas dos 27 países da UE.`,
     },
 
     keyFactsTitle: "Dados principais",
     keyFacts: [
       { label: "Lançamento", value: "Disponível no Google Play e na App Store desde junho de 2026 · iOS disponível em toda a UE" },
       { label: "Plataformas", value: "Android + iOS (disponível, incluindo todas as lojas da UE)" },
-      { label: "País", value: "Itália · servidores na UE (Frankfurt)" },
+      { label: "País", value: "Itália" },
       { label: "Tecnologias", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Wearables compatíveis", value: `Mais de ${PROVIDERS.length} marcas via Health Connect, expansível` },
       { label: "Preço", value: `Teste de 14 dias, depois Pro ${PRICING.fromLifetime.pt} pagamento único (Android ${PRICING.lifetimeAndroid.pt} · iPhone ${PRICING.lifetimeIos.pt}) ou ${PRICING.subSixMonthsLabel.pt}` },
@@ -450,7 +450,7 @@ const COPY = {
       "Como o Health Connect transformou o ecossistema de wearables Android desde 2024 e o que isso significa para consumidores e desenvolvedores",
       "Compartilhamento familiar: ver os dados de saúde de quem você ama em um único painel, sem GPS nem apps invasivos (Mesh Família)",
       `Porque ${founderHistoricalClause("pt")}: uma alternativa histórica ao modelo de assinatura, mesmo em apps de saúde`,
-      "Desenvolver um app de saúde na Itália: servidores na UE e soberania dos dados como diferencial",
+      "Desenvolver um app de saúde na Itália: soberania dos dados como diferencial",
     ],
 
     trademarkNote:
@@ -480,24 +480,24 @@ const COPY = {
     blurb50: {
       title: "50 mots",
       body:
-        "FitMesh Sync est une application Android et iOS qui unifie les données de santé du Galaxy Watch, Mi Band, Polar, Garmin, Fitbit et d'autres appareils connectés dans un seul tableau de bord premium. Confidentialité par conception, serveurs en UE, développé en Italie. Fonctionne via Health Connect (Android) et Apple Santé (iOS) sans traceurs ni courtiers de données. Disponible sur Google Play et l'App Store depuis juin 2026 ; l'app iOS est disponible, y compris dans toutes les boutiques de l'Union européenne.",
+        "FitMesh Sync est une application Android et iOS qui unifie les données de santé du Galaxy Watch, Mi Band, Polar, Garmin, Fitbit et d'autres appareils connectés dans un seul tableau de bord premium. Confidentialité par conception, développé en Italie. Fonctionne via Health Connect (Android) et Apple Santé (iOS) sans traceurs ni courtiers de données. Disponible sur Google Play et l'App Store depuis juin 2026 ; l'app iOS est disponible, y compris dans toutes les boutiques de l'Union européenne.",
     },
     blurb100: {
       title: "100 mots",
       body:
-        "FitMesh Sync est une application Android et iOS développée en Italie par Matteo Pizzi (Fosforonero) pour unifier dans un seul tableau de bord premium les données de santé de toutes les montres connectées et bracelets fitness du marché. Sur Android, elle fonctionne comme destination Health Connect, compatible d'emblée avec Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei et Oura, sans authentification individuelle par marque ; sur iOS, elle lit directement Apple Santé et se connecte en Bluetooth à l'anneau Colmi. Confidentialité par conception : serveurs UE, aucun courtier de données. Disponible sur Google Play et l'App Store depuis juin 2026 (l'app iOS est disponible, y compris dans toutes les boutiques de l'UE) ; Mesh Famille, la fonction pour partager les données de santé avec sa propre famille, arrive prochainement.",
+        "FitMesh Sync est une application Android et iOS développée en Italie par Matteo Pizzi (Fosforonero) pour unifier dans un seul tableau de bord premium les données de santé de toutes les montres connectées et bracelets fitness du marché. Sur Android, elle fonctionne comme destination Health Connect, compatible d'emblée avec Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei et Oura, sans authentification individuelle par marque ; sur iOS, elle lit directement Apple Santé et se connecte en Bluetooth à l'anneau Colmi. Confidentialité par conception : aucun courtier de données. Disponible sur Google Play et l'App Store depuis juin 2026 (l'app iOS est disponible, y compris dans toutes les boutiques de l'UE) ; Mesh Famille, la fonction pour partager les données de santé avec sa propre famille, arrive prochainement.",
     },
     blurb200: {
       title: "200 mots (profil complet)",
       body:
-        `FitMesh Sync est né en Italie en 2026 de la frustration d'un développeur (Matteo Pizzi, studio Fosforonero) qui possède une Galaxy Watch, dont la femme utilise une Mi Band et dont la mère utilise un Withings. Chaque marque enferme ses données dans sa propre application. Personne ne propose une vue unifiée premium. FitMesh résout exactement ce problème : en lisant depuis Health Connect (la norme Android qui, depuis 2024, collecte les données de pratiquement tous les appareils connectés), il agrège pas, fréquence cardiaque, sommeil, calories, séances d'entraînement et d'autres métriques dans un tableau de bord Flutter natif conçu pour une lecture quotidienne, pas pour des administrateurs systèmes. Confidentialité dès le premier commit : serveurs européens (Supabase Francfort), aucun courtier de données, aucun traceur publicitaire. La différenciation stratégique par rapport aux applications pont entre écosystèmes de santé du secteur est que FitMesh n'est pas un routeur de données silencieux : c'est une destination. Les données sont stockées, visualisées avec des graphiques soignés et, à moyen terme, partagées entre membres d'une même famille (Mesh Famille) : chacun partage ses propres données avec les autres, dans un tableau de bord unique. L'application est disponible sur Google Play et l'App Store : ${founderHistoricalClause("fr")}. L'app iOS est disponible, y compris dans toutes les boutiques des 27 pays de l'UE.`,
+        `FitMesh Sync est né en Italie en 2026 de la frustration d'un développeur (Matteo Pizzi, studio Fosforonero) qui possède une Galaxy Watch, dont la femme utilise une Mi Band et dont la mère utilise un Withings. Chaque marque enferme ses données dans sa propre application. Personne ne propose une vue unifiée premium. FitMesh résout exactement ce problème : en lisant depuis Health Connect (la norme Android qui, depuis 2024, collecte les données de pratiquement tous les appareils connectés), il agrège pas, fréquence cardiaque, sommeil, calories, séances d'entraînement et d'autres métriques dans un tableau de bord Flutter natif conçu pour une lecture quotidienne, pas pour des administrateurs systèmes. Confidentialité dès le premier commit : aucun courtier de données, aucun traceur publicitaire. La différenciation stratégique par rapport aux applications pont entre écosystèmes de santé du secteur est que FitMesh n'est pas un routeur de données silencieux : c'est une destination. Les données sont stockées, visualisées avec des graphiques soignés et, à moyen terme, partagées entre membres d'une même famille (Mesh Famille) : chacun partage ses propres données avec les autres, dans un tableau de bord unique. L'application est disponible sur Google Play et l'App Store : ${founderHistoricalClause("fr")}. L'app iOS est disponible, y compris dans toutes les boutiques des 27 pays de l'UE.`,
     },
 
     keyFactsTitle: "Informations clés",
     keyFacts: [
       { label: "Lancement", value: "Disponible sur Google Play et l'App Store depuis juin 2026 · iOS disponible dans toute l'UE" },
       { label: "Plateformes", value: "Android + iOS (disponible, y compris dans toutes les boutiques de l'UE)" },
-      { label: "Pays", value: "Italie · serveurs UE (Francfort)" },
+      { label: "Pays", value: "Italie" },
       { label: "Technologies", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Appareils compatibles", value: `Plus de ${PROVIDERS.length} marques via Health Connect, extensible` },
       { label: "Tarif", value: `Essai de 14 jours, puis Pro ${PRICING.fromLifetime.fr} paiement unique (Android ${PRICING.lifetimeAndroid.fr} · iPhone ${PRICING.lifetimeIos.fr}) ou ${PRICING.subSixMonthsLabel.fr}` },
@@ -536,7 +536,7 @@ const COPY = {
       "Comment Health Connect a transformé l'écosystème des appareils connectés Android depuis 2024, et ce que cela signifie pour les consommateurs et les développeurs",
       "Partage familial : voir les données de santé des personnes qui comptent pour vous dans un seul tableau de bord, sans GPS ni applications intrusives (Mesh Famille)",
       `Pourquoi ${founderHistoricalClause("fr")} : un regard historique sur une alternative au modèle par abonnement, y compris dans les applications de santé`,
-      "Développer une application de santé en Italie : serveurs UE et souveraineté des données comme facteur de différenciation",
+      "Développer une application de santé en Italie : souveraineté des données comme facteur de différenciation",
     ],
 
     trademarkNote:
@@ -566,24 +566,24 @@ const COPY = {
     blurb50: {
       title: "50 slow",
       body:
-        "FitMesh Sync to aplikacja Android i iOS, która laczy dane zdrowotne z Galaxy Watch, Mi Band, Polar, Garmin, Fitbit i innych urzadzen w jednym panelu premium. Prywatnosc na pierwszym miejscu, serwery w UE, stworzona we Wloszech. Dziala przez Health Connect (Android) i Apple Zdrowie (iOS) bez trackerów reklamowych ani brokerów danych. Dostepna w Google Play i App Store od czerwca 2026; aplikacja iOS jest dostepna, we wszystkich sklepach Unii Europejskiej.",
+        "FitMesh Sync to aplikacja Android i iOS, która laczy dane zdrowotne z Galaxy Watch, Mi Band, Polar, Garmin, Fitbit i innych urzadzen w jednym panelu premium. Prywatnosc na pierwszym miejscu, stworzona we Wloszech. Dziala przez Health Connect (Android) i Apple Zdrowie (iOS) bez trackerów reklamowych ani brokerów danych. Dostepna w Google Play i App Store od czerwca 2026; aplikacja iOS jest dostepna, we wszystkich sklepach Unii Europejskiej.",
     },
     blurb100: {
       title: "100 slow",
       body:
-        "FitMesh Sync to aplikacja Android i iOS stworzona we Wloszech przez Matteo Pizzi (Fosforonero), aby w jednym panelu premium zlaczyc dane zdrowotne ze wszystkich smartwatchy i opasek fitness dostepnych na rynku. Na Androidzie dziala jako miejsce docelowe Health Connect, wiec jest od razu zgodna z Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei i Oura, bez koniecznosci indywidualnego OAuth dla kazdej marki; na iOS odczytuje dane bezposrednio z Apple Zdrowie i laczy sie przez Bluetooth z pierscieniem Colmi. Prywatnosc na pierwszym miejscu: serwery UE, zero brokerów danych. Dostepna w Google Play i App Store od czerwca 2026 (aplikacja iOS jest dostepna, we wszystkich sklepach UE); Mesh Rodzina, funkcja do dzielenia sie danymi zdrowotnymi z wlasna rodzina, jest w drodze.",
+        "FitMesh Sync to aplikacja Android i iOS stworzona we Wloszech przez Matteo Pizzi (Fosforonero), aby w jednym panelu premium zlaczyc dane zdrowotne ze wszystkich smartwatchy i opasek fitness dostepnych na rynku. Na Androidzie dziala jako miejsce docelowe Health Connect, wiec jest od razu zgodna z Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei i Oura, bez koniecznosci indywidualnego OAuth dla kazdej marki; na iOS odczytuje dane bezposrednio z Apple Zdrowie i laczy sie przez Bluetooth z pierscieniem Colmi. Prywatnosc na pierwszym miejscu: zero brokerów danych. Dostepna w Google Play i App Store od czerwca 2026 (aplikacja iOS jest dostepna, we wszystkich sklepach UE); Mesh Rodzina, funkcja do dzielenia sie danymi zdrowotnymi z wlasna rodzina, jest w drodze.",
     },
     blurb200: {
       title: "200 slow (pelny profil)",
       body:
-        `FitMesh Sync powstal we Wloszech w 2026 roku z frustracji jednego programisty (Matteo Pizzi, studio Fosforonero), który posiada Galaxy Watch, jego zona uzywa Mi Band, a jego matka Withings. Kazda marka zamyka swoje dane we wlasnej aplikacji. Nikt nie oferuje zunifikowanego widoku premium. FitMesh rozwiazuje dokladnie ten problem: czytajac z Health Connect (standard Androida, który od 2024 gromadzi dane praktycznie ze wszystkich urzadzen), agreguje kroki, tetno, sen, kalorie, treningi i inne metryki w natywnym panelu Flutter zaprojektowanym do codziennego czytania, a nie dla administratorów systemów. Prywatnosc od pierwszego commita: europejskie serwery (Supabase Frankfurt), zero brokerów danych, zero trackerów reklamowych. Strategiczna róznica w stosunku do aplikacji mostów cloud-to-cloud w tej kategorii polega na tym, ze FitMesh nie jest cichym routerem danych: jest miejscem docelowym. Dane sa przechowywane, wizualizowane w starannie opracowanych wykresach i udostepniane miedzy czlonkami tej samej rodziny (Mesh Rodzina): kazdy dzieli sie swoimi danymi z pozostalymi, w jednym wspólnym panelu. Aplikacja jest dostepna w Google Play i App Store: ${founderHistoricalClause("pl")}. Aplikacja iOS jest dostepna, we wszystkich sklepach 27 krajów UE.`,
+        `FitMesh Sync powstal we Wloszech w 2026 roku z frustracji jednego programisty (Matteo Pizzi, studio Fosforonero), który posiada Galaxy Watch, jego zona uzywa Mi Band, a jego matka Withings. Kazda marka zamyka swoje dane we wlasnej aplikacji. Nikt nie oferuje zunifikowanego widoku premium. FitMesh rozwiazuje dokladnie ten problem: czytajac z Health Connect (standard Androida, który od 2024 gromadzi dane praktycznie ze wszystkich urzadzen), agreguje kroki, tetno, sen, kalorie, treningi i inne metryki w natywnym panelu Flutter zaprojektowanym do codziennego czytania, a nie dla administratorów systemów. Prywatnosc od pierwszego commita: zero brokerów danych, zero trackerów reklamowych. Strategiczna róznica w stosunku do aplikacji mostów cloud-to-cloud w tej kategorii polega na tym, ze FitMesh nie jest cichym routerem danych: jest miejscem docelowym. Dane sa przechowywane, wizualizowane w starannie opracowanych wykresach i udostepniane miedzy czlonkami tej samej rodziny (Mesh Rodzina): kazdy dzieli sie swoimi danymi z pozostalymi, w jednym wspólnym panelu. Aplikacja jest dostepna w Google Play i App Store: ${founderHistoricalClause("pl")}. Aplikacja iOS jest dostepna, we wszystkich sklepach 27 krajów UE.`,
     },
 
     keyFactsTitle: "Kluczowe fakty",
     keyFacts: [
       { label: "Premiera", value: "Dostepna w Google Play i App Store od czerwca 2026 · iOS dostepny w calej UE" },
       { label: "Platformy", value: "Android + iOS (dostepny, we wszystkich sklepach UE)" },
-      { label: "Kraj", value: "Wlochy · serwery UE (Frankfurt)" },
+      { label: "Kraj", value: "Wlochy" },
       { label: "Technologie", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Obslugiwane urzadzenia", value: `Ponad ${PROVIDERS.length} marek przez Health Connect, rozszerzalne` },
       { label: "Cena", value: `14 dni próbny, potem Pro ${PRICING.fromLifetime.pl} jednorazowo (Android ${PRICING.lifetimeAndroid.pl} · iPhone ${PRICING.lifetimeIos.pl}) lub ${PRICING.subSixMonthsLabel.pl}` },
@@ -622,7 +622,7 @@ const COPY = {
       "Jak Health Connect zmienil ekosystem urzadzen Android od 2024 roku i co oznacza to dla uzytkowników i programistów",
       "Dzielenie sie danymi w rodzinie: zobacz dane zdrowotne bliskich w jednym panelu, bez GPS ani inwazyjnych aplikacji (Mesh Rodzina)",
       `Dlaczego ${founderHistoricalClause("pl")}: historyczna alternatywa dla hype'u subskrypcyjnego, nawet w aplikacjach fitness`,
-      "Tworzenie aplikacji zdrowotnej we Wloszech: serwery UE i suwerennosc danych jako wyróznnik",
+      "Tworzenie aplikacji zdrowotnej we Wloszech: suwerennosc danych jako wyróznnik",
     ],
 
     trademarkNote:
@@ -652,24 +652,24 @@ const COPY = {
     blurb50: {
       title: "50 kelime",
       body:
-        "FitMesh Sync, Galaxy Watch, Mi Band, Polar, Garmin, Fitbit ve diger giyilebilir cihazlardaki saglik verilerini tek bir premium panelde birlestiren bir Android ve iOS uygulamasidir. Gizlilik öncelikli, AB sunuculari, Italya'da gelistirildi. Izleyici veya veri brokeri olmaksizin Health Connect (Android) ve Apple Saglik (iOS) üzerinden calisir. Haziran 2026'dan itibaren Google Play ve App Store'da mevcut; iOS uygulamasi Avrupa Birligi'ndeki tüm magazalar dahil olmak üzere kullanilabilir.",
+        "FitMesh Sync, Galaxy Watch, Mi Band, Polar, Garmin, Fitbit ve diger giyilebilir cihazlardaki saglik verilerini tek bir premium panelde birlestiren bir Android ve iOS uygulamasidir. Gizlilik öncelikli, Italya'da gelistirildi. Izleyici veya veri brokeri olmaksizin Health Connect (Android) ve Apple Saglik (iOS) üzerinden calisir. Haziran 2026'dan itibaren Google Play ve App Store'da mevcut; iOS uygulamasi Avrupa Birligi'ndeki tüm magazalar dahil olmak üzere kullanilabilir.",
     },
     blurb100: {
       title: "100 kelime",
       body:
-        "FitMesh Sync, Matteo Pizzi (Fosforonero) tarafindan Italya'da gelistirilmis, piyasadaki tüm akilli saatler ve fitness bantlarindan gelen saglik verilerini tek bir premium panelde birlestirmek icin tasarlanmis bir Android ve iOS uygulamasidir. Android'de Health Connect hedefi olarak calistiginden Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei ve Oura ile her marka icin ayri OAuth gerekmeksizin kullanim disinda uyumludur; iOS'ta ise dogrudan Apple Saglik'ten okur ve Colmi yüzügüne Bluetooth üzerinden baglanir. Gizlilik öncelikli: AB sunuculari, veri brokeri yok. Haziran 2026'dan itibaren Google Play ve App Store'da mevcut (iOS uygulamasi AB'deki tüm magazalar dahil olmak üzere kullanilabilir); kendi ailenizle saglik verilerini paylasma özelligi Mesh Aile en kisa sürede geliyor.",
+        "FitMesh Sync, Matteo Pizzi (Fosforonero) tarafindan Italya'da gelistirilmis, piyasadaki tüm akilli saatler ve fitness bantlarindan gelen saglik verilerini tek bir premium panelde birlestirmek icin tasarlanmis bir Android ve iOS uygulamasidir. Android'de Health Connect hedefi olarak calistiginden Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei ve Oura ile her marka icin ayri OAuth gerekmeksizin kullanim disinda uyumludur; iOS'ta ise dogrudan Apple Saglik'ten okur ve Colmi yüzügüne Bluetooth üzerinden baglanir. Gizlilik öncelikli: veri brokeri yok. Haziran 2026'dan itibaren Google Play ve App Store'da mevcut (iOS uygulamasi AB'deki tüm magazalar dahil olmak üzere kullanilabilir); kendi ailenizle saglik verilerini paylasma özelligi Mesh Aile en kisa sürede geliyor.",
     },
     blurb200: {
       title: "200 kelime (tam profil)",
       body:
-        `FitMesh Sync, Galaxy Watch sahibi olan, esinin Mi Band kullandigi ve annesinin Withings kullandigi bir gelistiricinin (Matteo Pizzi, Fosforonero stüdyosu) hayal kirikligi sonucu 2026 yilinda Italya'da dogdu. Her marka verilerini kendi uygulamasinda kilitledi. Kimse birlesik premium görünüm sunmuyor. FitMesh tam olarak bunu cözüyor: Health Connect'ten (2024'ten itibaren neredeyse tüm giyilebilirlerden veri toplayan Android standardi) okuyarak adimlari, kalp hizini, uykuyu, kalorileri, antrenmanlarini ve diger metrikleri sistem yöneticileri icin degil günlük okuma icin tasarlanmis yerel Flutter panelinde topluyor. Ilk commit'ten itibaren gizlilik öncelikli: Avrupa sunuculari (Supabase Frankfurt), veri brokeri yok, reklam izleyicisi yok. Sektördeki cloud-to-cloud köprü uygulamalarından stratejik farki su: FitMesh sessiz bir veri yönlendiricisi degil, bir varış noktasidir. Veriler depolanir, özenle hazirlanmis grafiklerle görsellestirilir ve ayni ailenin üyeleri arasinda paylasilir (Mesh Aile): herkes kendi verilerini digerleriyle tek bir panelde paylasir. Uygulama Google Play ve App Store'da mevcut: ${founderHistoricalClause("tr")}. iOS uygulamasi AB'deki 27 ülkenin tüm magazalari dahil olmak üzere kullanilabilir.`,
+        `FitMesh Sync, Galaxy Watch sahibi olan, esinin Mi Band kullandigi ve annesinin Withings kullandigi bir gelistiricinin (Matteo Pizzi, Fosforonero stüdyosu) hayal kirikligi sonucu 2026 yilinda Italya'da dogdu. Her marka verilerini kendi uygulamasinda kilitledi. Kimse birlesik premium görünüm sunmuyor. FitMesh tam olarak bunu cözüyor: Health Connect'ten (2024'ten itibaren neredeyse tüm giyilebilirlerden veri toplayan Android standardi) okuyarak adimlari, kalp hizini, uykuyu, kalorileri, antrenmanlarini ve diger metrikleri sistem yöneticileri icin degil günlük okuma icin tasarlanmis yerel Flutter panelinde topluyor. Ilk commit'ten itibaren gizlilik öncelikli: veri brokeri yok, reklam izleyicisi yok. Sektördeki cloud-to-cloud köprü uygulamalarından stratejik farki su: FitMesh sessiz bir veri yönlendiricisi degil, bir varış noktasidir. Veriler depolanir, özenle hazirlanmis grafiklerle görsellestirilir ve ayni ailenin üyeleri arasinda paylasilir (Mesh Aile): herkes kendi verilerini digerleriyle tek bir panelde paylasir. Uygulama Google Play ve App Store'da mevcut: ${founderHistoricalClause("tr")}. iOS uygulamasi AB'deki 27 ülkenin tüm magazalari dahil olmak üzere kullanilabilir.`,
     },
 
     keyFactsTitle: "Temel bilgiler",
     keyFacts: [
       { label: "Lansman", value: "Haziran 2026'dan itibaren Google Play ve App Store'da · iOS tüm AB'de yayinda" },
       { label: "Platformlar", value: "Android + iOS (yayinda; AB'deki tüm magazalar dahil)" },
-      { label: "Ülke", value: "Italya · AB sunuculari (Frankfurt)" },
+      { label: "Ülke", value: "Italya" },
       { label: "Teknoloji yigini", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Desteklenen giyilebilirler", value: `Health Connect üzerinden ${PROVIDERS.length}'dan fazla marka, genisletilebilir` },
       { label: "Fiyatlandirma", value: `14 günlük deneme, sonra Pro ${PRICING.fromLifetime.tr} tek seferlik (Android ${PRICING.lifetimeAndroid.tr} · iPhone ${PRICING.lifetimeIos.tr}) veya ${PRICING.subSixMonthsLabel.tr}` },
@@ -708,7 +708,7 @@ const COPY = {
       "Health Connect, 2024'ten bu yana Android giyilebilir ekosistemini nasil degistirdi ve bu tüketiciler ile gelistiriciler icin ne anlama geliyor",
       "Aile ici paylasim: önemsedigin kisilerin saglik verilerini tek bir panelde görmek, GPS veya invasif uygulamalar olmadan (Mesh Aile)",
       `Neden ${founderHistoricalClause("tr")}: abonelik cilginligina tarihi bir alternatif, fitness uygulamalarinda bile`,
-      "Italya'da saglik uygulamasi gelistirmek: AB sunuculari ve farklilik olarak veri egemenligi",
+      "Italya'da saglik uygulamasi gelistirmek: farklilik olarak veri egemenligi",
     ],
 
     trademarkNote:
@@ -738,24 +738,24 @@ const COPY = {
     blurb50: {
       title: "50 woorden",
       body:
-        "FitMesh Sync is een Android- en iOS-app die de gezondheidsdata van Galaxy Watch, Mi Band, Polar, Garmin, Fitbit en andere wearables samenbrengt in één premium dashboard. Privacy-first, EU-servers, gebouwd in Italië. Werkt via Health Connect (Android) en Apple Gezondheid (iOS) zonder advertentietrackers of databrokers. Beschikbaar op Google Play en de App Store sinds juni 2026; de iOS-app is beschikbaar, inclusief alle winkels van de Europese Unie.",
+        "FitMesh Sync is een Android- en iOS-app die de gezondheidsdata van Galaxy Watch, Mi Band, Polar, Garmin, Fitbit en andere wearables samenbrengt in één premium dashboard. Privacy-first, gebouwd in Italië. Werkt via Health Connect (Android) en Apple Gezondheid (iOS) zonder advertentietrackers of databrokers. Beschikbaar op Google Play en de App Store sinds juni 2026; de iOS-app is beschikbaar, inclusief alle winkels van de Europese Unie.",
     },
     blurb100: {
       title: "100 woorden",
       body:
-        "FitMesh Sync is een Android- en iOS-app, ontwikkeld in Italië door Matteo Pizzi (Fosforonero), om de gezondheidsdata van elke smartwatch en fitnessband op de markt samen te brengen in één premium dashboard. Op Android werkt de app als Health Connect-bestemming en is daardoor meteen compatibel met Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei en Oura, zonder aparte OAuth per merk; op iOS leest de app rechtstreeks uit Apple Gezondheid en verbindt via Bluetooth met de Colmi-ring. Privacy-first: EU-servers, geen databrokers. Beschikbaar op Google Play en de App Store sinds juni 2026 (de iOS-app is beschikbaar, inclusief alle winkels van de EU); Familie Mesh, de functie om gezondheidsdata met je eigen gezin te delen, komt binnenkort.",
+        "FitMesh Sync is een Android- en iOS-app, ontwikkeld in Italië door Matteo Pizzi (Fosforonero), om de gezondheidsdata van elke smartwatch en fitnessband op de markt samen te brengen in één premium dashboard. Op Android werkt de app als Health Connect-bestemming en is daardoor meteen compatibel met Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei en Oura, zonder aparte OAuth per merk; op iOS leest de app rechtstreeks uit Apple Gezondheid en verbindt via Bluetooth met de Colmi-ring. Privacy-first: geen databrokers. Beschikbaar op Google Play en de App Store sinds juni 2026 (de iOS-app is beschikbaar, inclusief alle winkels van de EU); Familie Mesh, de functie om gezondheidsdata met je eigen gezin te delen, komt binnenkort.",
     },
     blurb200: {
       title: "200 woorden (volledig profiel)",
       body:
-        `FitMesh Sync ontstond in 2026 in Italië uit de frustratie van één ontwikkelaar (Matteo Pizzi, studio Fosforonero) die een Galaxy Watch draagt, wiens vrouw een Mi Band gebruikt en wiens moeder een Withings heeft. Elk merk sluit zijn data op in de eigen app. Niemand biedt een verenigd premium overzicht. FitMesh lost precies dat op: door uit te lezen van Health Connect (de Android-standaard die sinds 2024 data van vrijwel alle wearables verzamelt) bundelt de app stappen, hartslag, slaap, calorieën, trainingen en andere metrieken in een native Flutter-dashboard, ontworpen voor dagelijks gebruik, niet voor systeembeheerders. Privacy-first vanaf de eerste commit: Europese servers (Supabase Frankfurt), geen databrokers, geen advertentietrackers. Het strategische verschil met cloud-naar-cloud bridge-apps in de categorie is dat FitMesh geen stille datarouter is: het is een bestemming. Data wordt opgeslagen, gevisualiseerd met zorgvuldige grafieken en gedeeld tussen leden van hetzelfde gezin (Familie Mesh): iedereen deelt zijn eigen data met de anderen, in één dashboard. De app is beschikbaar op Google Play en de App Store: ${founderHistoricalClause("nl")}. De iOS-app is beschikbaar, inclusief alle winkels van de 27 EU-landen.`,
+        `FitMesh Sync ontstond in 2026 in Italië uit de frustratie van één ontwikkelaar (Matteo Pizzi, studio Fosforonero) die een Galaxy Watch draagt, wiens vrouw een Mi Band gebruikt en wiens moeder een Withings heeft. Elk merk sluit zijn data op in de eigen app. Niemand biedt een verenigd premium overzicht. FitMesh lost precies dat op: door uit te lezen van Health Connect (de Android-standaard die sinds 2024 data van vrijwel alle wearables verzamelt) bundelt de app stappen, hartslag, slaap, calorieën, trainingen en andere metrieken in een native Flutter-dashboard, ontworpen voor dagelijks gebruik, niet voor systeembeheerders. Privacy-first vanaf de eerste commit: geen databrokers, geen advertentietrackers. Het strategische verschil met cloud-naar-cloud bridge-apps in de categorie is dat FitMesh geen stille datarouter is: het is een bestemming. Data wordt opgeslagen, gevisualiseerd met zorgvuldige grafieken en gedeeld tussen leden van hetzelfde gezin (Familie Mesh): iedereen deelt zijn eigen data met de anderen, in één dashboard. De app is beschikbaar op Google Play en de App Store: ${founderHistoricalClause("nl")}. De iOS-app is beschikbaar, inclusief alle winkels van de 27 EU-landen.`,
     },
 
     keyFactsTitle: "Kerngegevens",
     keyFacts: [
       { label: "Lancering", value: "Publiek op Google Play en de App Store sinds juni 2026 · iOS live in de hele EU" },
       { label: "Platforms", value: "Android + iOS (live, inclusief alle winkels van de EU)" },
-      { label: "Land", value: "Italië · EU-servers (Frankfurt)" },
+      { label: "Land", value: "Italië" },
       { label: "Technologie", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Ondersteunde wearables", value: `${PROVIDERS.length}+ merken via Health Connect, uitbreidbaar` },
       { label: "Prijs", value: `14 dagen proberen, daarna Pro ${PRICING.fromLifetime.en} eenmalig (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) of ${PRICING.subSixMonthsLabel.en}` },
@@ -794,7 +794,7 @@ const COPY = {
       "Hoe Health Connect het Android-wearable-ecosysteem sinds 2024 veranderde, en wat dat betekent voor consumenten en ontwikkelaars",
       "Gezinsdeling: de gezondheidsdata van wie je dierbaar is in één dashboard zien, zonder GPS of opdringerige apps (Familie Mesh)",
       `Waarom ${founderHistoricalClause("nl")}: een historisch alternatief voor de abonnementshype, ook in fitness-apps`,
-      "Een gezondheidsapp bouwen in Italië: EU-servers en datasoevereiniteit als onderscheidend kenmerk",
+      "Een gezondheidsapp bouwen in Italië: datasoevereiniteit als onderscheidend kenmerk",
     ],
 
     trademarkNote:
@@ -824,24 +824,24 @@ const COPY = {
     blurb50: {
       title: "50語",
       body:
-        "FitMesh Syncは、Galaxy Watch、Mi Band、Polar、Garmin、Fitbitなどのウェアラブルの健康データを1つのプレミアムダッシュボードに統合するAndroid・iOSアプリです。プライバシーファースト、EUサーバー、イタリア開発。広告トラッカーやデータブローカーなしでHealth Connect(Android)とApple ヘルスケア(iOS)を介して動作します。2026年6月よりGoogle PlayとApp Storeで提供中。iOS版はEU域内を含め利用可能です。",
+        "FitMesh Syncは、Galaxy Watch、Mi Band、Polar、Garmin、Fitbitなどのウェアラブルの健康データを1つのプレミアムダッシュボードに統合するAndroid・iOSアプリです。プライバシーファースト、イタリア開発。広告トラッカーやデータブローカーなしでHealth Connect(Android)とApple ヘルスケア(iOS)を介して動作します。2026年6月よりGoogle PlayとApp Storeで提供中。iOS版はEU域内を含め利用可能です。",
     },
     blurb100: {
       title: "100語",
       body:
-        "FitMesh Syncは、市場のあらゆるスマートウォッチやフィットネスバンドからの健康データを1つのプレミアムダッシュボードに統合するため、Matteo Pizzi（Fosforonero）がイタリアで開発したAndroid・iOSアプリです。Androidでは、Health Connectの保存先として動作するため、Galaxy Watch、Mi Band、Polar、Garmin、Fitbit、Withings、Honor、Huawei、OuraとブランドごとのOAuthなしで標準対応します。iOSでは、Apple ヘルスケアから直接読み取り、BluetoothでColmiリングに接続します。プライバシーファースト：EUサーバー、データブローカーなし。2026年6月よりGoogle PlayとApp Storeで提供中(iOS版はEU域内を含め利用可能です)。家族と健康データを共有するMesh Family機能も近日登場。",
+        "FitMesh Syncは、市場のあらゆるスマートウォッチやフィットネスバンドからの健康データを1つのプレミアムダッシュボードに統合するため、Matteo Pizzi（Fosforonero）がイタリアで開発したAndroid・iOSアプリです。Androidでは、Health Connectの保存先として動作するため、Galaxy Watch、Mi Band、Polar、Garmin、Fitbit、Withings、Honor、Huawei、OuraとブランドごとのOAuthなしで標準対応します。iOSでは、Apple ヘルスケアから直接読み取り、BluetoothでColmiリングに接続します。プライバシーファースト：データブローカーなし。2026年6月よりGoogle PlayとApp Storeで提供中(iOS版はEU域内を含め利用可能です)。家族と健康データを共有するMesh Family機能も近日登場。",
     },
     blurb200: {
       title: "200語（フルプロフィール）",
       body:
-        `FitMesh Syncは2026年、Galaxy Watchを使い、妻はMi Band、母はWithingsを使う開発者（Matteo Pizzi、Fosforoneroスタジオ）の不満からイタリアで生まれました。各ブランドはデータを自社アプリ内に閉じ込めます。誰も統合されたプレミアムなビューを提供していません。FitMeshはまさにこれを解決します。Health Connect（2024年以降、ほぼすべてのウェアラブルのデータを集めるAndroidの標準）から読み取り、歩数・心拍数・睡眠・カロリー・ワークアウトなどの指標を、システム管理者向けではなく日々の閲覧のために設計されたネイティブFlutterダッシュボードに集約します。最初のコミットからプライバシーファースト：欧州サーバー（Supabaseフランクフルト）、データブローカーなし、広告トラッカーなし。同カテゴリのクラウド間ブリッジアプリとの戦略的な違いは、FitMeshが静かなデータルーターではなく「保存先」である点です。データは保存され、丁寧なグラフで可視化され、同じ家族のメンバー間で共有できます（Mesh Family）：それぞれが自分のデータを他のメンバーと共有し、ひとつのダッシュボードにまとまります。アプリはGoogle PlayとApp Storeで提供中：${founderHistoricalClause("ja")}。iOS版はEU加盟27か国を含め利用可能です。`,
+        `FitMesh Syncは2026年、Galaxy Watchを使い、妻はMi Band、母はWithingsを使う開発者（Matteo Pizzi、Fosforoneroスタジオ）の不満からイタリアで生まれました。各ブランドはデータを自社アプリ内に閉じ込めます。誰も統合されたプレミアムなビューを提供していません。FitMeshはまさにこれを解決します。Health Connect（2024年以降、ほぼすべてのウェアラブルのデータを集めるAndroidの標準）から読み取り、歩数・心拍数・睡眠・カロリー・ワークアウトなどの指標を、システム管理者向けではなく日々の閲覧のために設計されたネイティブFlutterダッシュボードに集約します。最初のコミットからプライバシーファースト：データブローカーなし、広告トラッカーなし。同カテゴリのクラウド間ブリッジアプリとの戦略的な違いは、FitMeshが静かなデータルーターではなく「保存先」である点です。データは保存され、丁寧なグラフで可視化され、同じ家族のメンバー間で共有できます（Mesh Family）：それぞれが自分のデータを他のメンバーと共有し、ひとつのダッシュボードにまとまります。アプリはGoogle PlayとApp Storeで提供中：${founderHistoricalClause("ja")}。iOS版はEU加盟27か国を含め利用可能です。`,
     },
 
     keyFactsTitle: "主要データ",
     keyFacts: [
       { label: "ローンチ", value: "2026年6月よりGoogle PlayとApp Storeで公開 · iOSはEU全域で提供中" },
       { label: "プラットフォーム", value: "Android + iOS（配信中、EU域内を含む）" },
-      { label: "国", value: "イタリア · EUサーバー（フランクフルト）" },
+      { label: "国", value: "イタリア" },
       { label: "技術スタック", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "対応ウェアラブル", value: `Health Connect経由で${PROVIDERS.length}ブランド以上、拡張可能` },
       { label: "価格", value: `14日間トライアル、その後Pro ${PRICING.fromLifetime.en} 買い切り（Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}）または ${PRICING.subSixMonthsLabel.en}` },
@@ -880,7 +880,7 @@ const COPY = {
       "Health Connectが2024年以降にAndroidウェアラブルのエコシステムをどう変えたか、そして消費者と開発者にとっての意味",
       "家族間シェア：大切な人の健康データをひとつのダッシュボードで見る、GPSや侵襲的なアプリなしで（Mesh Family）",
       `なぜ${founderHistoricalClause("ja")}のか：フィットネスアプリにおけるサブスク偏重への歴史的な代替案`,
-      "イタリアで健康アプリを開発する：差別化要因としてのEUサーバー・データ主権",
+      "イタリアで健康アプリを開発する：差別化要因としてのデータ主権",
     ],
 
     trademarkNote:
@@ -910,24 +910,24 @@ const COPY = {
     blurb50: {
       title: "50단어",
       body:
-        "FitMesh Sync는 Galaxy Watch, Mi Band, Polar, Garmin, Fitbit 등 웨어러블의 건강 데이터를 하나의 프리미엄 대시보드로 통합하는 Android 및 iOS 앱입니다. 프라이버시 우선, EU 서버, 이탈리아에서 개발. 광고 트래커나 데이터 브로커 없이 Health Connect(Android)와 Apple 건강(iOS)을 통해 작동합니다. 2026년 6월부터 Google Play와 App Store에서 이용 가능; iOS 앱은 EU 지역을 포함하여 이용 가능합니다.",
+        "FitMesh Sync는 Galaxy Watch, Mi Band, Polar, Garmin, Fitbit 등 웨어러블의 건강 데이터를 하나의 프리미엄 대시보드로 통합하는 Android 및 iOS 앱입니다. 프라이버시 우선, 이탈리아에서 개발. 광고 트래커나 데이터 브로커 없이 Health Connect(Android)와 Apple 건강(iOS)을 통해 작동합니다. 2026년 6월부터 Google Play와 App Store에서 이용 가능; iOS 앱은 EU 지역을 포함하여 이용 가능합니다.",
     },
     blurb100: {
       title: "100단어",
       body:
-        "FitMesh Sync는 시장의 모든 스마트워치와 피트니스 밴드의 건강 데이터를 하나의 프리미엄 대시보드로 통합하기 위해 Matteo Pizzi(Fosforonero)가 이탈리아에서 개발한 Android 및 iOS 앱입니다. Android에서는 Health Connect 대상으로 작동하므로 Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei, Oura와 브랜드별 OAuth 없이 기본 호환되며, iOS에서는 Apple 건강에서 직접 읽고 블루투스로 Colmi 링에 연결됩니다. 프라이버시 우선: EU 서버, 데이터 브로커 없음. 2026년 6월부터 Google Play와 App Store에서 이용 가능(iOS 앱은 EU 지역을 포함하여 이용 가능); 가족과 건강 데이터를 공유하는 Mesh Family 기능이 곧 출시됩니다.",
+        "FitMesh Sync는 시장의 모든 스마트워치와 피트니스 밴드의 건강 데이터를 하나의 프리미엄 대시보드로 통합하기 위해 Matteo Pizzi(Fosforonero)가 이탈리아에서 개발한 Android 및 iOS 앱입니다. Android에서는 Health Connect 대상으로 작동하므로 Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei, Oura와 브랜드별 OAuth 없이 기본 호환되며, iOS에서는 Apple 건강에서 직접 읽고 블루투스로 Colmi 링에 연결됩니다. 프라이버시 우선: 데이터 브로커 없음. 2026년 6월부터 Google Play와 App Store에서 이용 가능(iOS 앱은 EU 지역을 포함하여 이용 가능); 가족과 건강 데이터를 공유하는 Mesh Family 기능이 곧 출시됩니다.",
     },
     blurb200: {
       title: "200단어 (전체 프로필)",
       body:
-        `FitMesh Sync는 Galaxy Watch를 쓰고, 아내는 Mi Band, 어머니는 Withings를 사용하는 한 개발자(Matteo Pizzi, Fosforonero 스튜디오)의 불만에서 2026년 이탈리아에서 탄생했습니다. 각 브랜드는 자사 앱 안에 데이터를 가둡니다. 통합된 프리미엄 뷰를 제공하는 곳은 없습니다. FitMesh는 바로 이 문제를 해결합니다. Health Connect(2024년부터 사실상 모든 웨어러블의 데이터를 모으는 Android 표준)에서 읽어, 걸음 수·심박수·수면·칼로리·운동 등의 지표를 시스템 관리자가 아닌 일상적인 열람을 위해 설계된 네이티브 Flutter 대시보드로 집계합니다. 첫 커밋부터 프라이버시 우선: 유럽 서버(Supabase 프랑크푸르트), 데이터 브로커 없음, 광고 트래커 없음. 동종 클라우드 간 브리지 앱과의 전략적 차이는 FitMesh가 조용한 데이터 라우터가 아니라 목적지라는 점입니다. 데이터는 저장되고, 정성스러운 차트로 시각화되며, 같은 가족 구성원 간에 공유할 수 있습니다(Mesh Family): 각자 자신의 데이터를 다른 구성원과 공유하며, 하나의 대시보드에 모입니다. 앱은 Google Play와 App Store에서 이용 가능합니다: ${founderHistoricalClause("ko")}. iOS 앱은 EU 27개국 전역을 포함하여 이용 가능합니다.`,
+        `FitMesh Sync는 Galaxy Watch를 쓰고, 아내는 Mi Band, 어머니는 Withings를 사용하는 한 개발자(Matteo Pizzi, Fosforonero 스튜디오)의 불만에서 2026년 이탈리아에서 탄생했습니다. 각 브랜드는 자사 앱 안에 데이터를 가둡니다. 통합된 프리미엄 뷰를 제공하는 곳은 없습니다. FitMesh는 바로 이 문제를 해결합니다. Health Connect(2024년부터 사실상 모든 웨어러블의 데이터를 모으는 Android 표준)에서 읽어, 걸음 수·심박수·수면·칼로리·운동 등의 지표를 시스템 관리자가 아닌 일상적인 열람을 위해 설계된 네이티브 Flutter 대시보드로 집계합니다. 첫 커밋부터 프라이버시 우선: 데이터 브로커 없음, 광고 트래커 없음. 동종 클라우드 간 브리지 앱과의 전략적 차이는 FitMesh가 조용한 데이터 라우터가 아니라 목적지라는 점입니다. 데이터는 저장되고, 정성스러운 차트로 시각화되며, 같은 가족 구성원 간에 공유할 수 있습니다(Mesh Family): 각자 자신의 데이터를 다른 구성원과 공유하며, 하나의 대시보드에 모입니다. 앱은 Google Play와 App Store에서 이용 가능합니다: ${founderHistoricalClause("ko")}. iOS 앱은 EU 27개국 전역을 포함하여 이용 가능합니다.`,
     },
 
     keyFactsTitle: "핵심 정보",
     keyFacts: [
       { label: "출시", value: "2026년 6월부터 Google Play와 App Store에 공개 · iOS EU 전역에서 출시" },
       { label: "플랫폼", value: "Android + iOS (출시됨; EU 지역 포함)" },
-      { label: "국가", value: "이탈리아 · EU 서버 (프랑크푸르트)" },
+      { label: "국가", value: "이탈리아" },
       { label: "기술 스택", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "지원 웨어러블", value: `Health Connect를 통해 ${PROVIDERS.length}개 이상 브랜드, 확장 가능` },
       { label: "가격", value: `14일 체험판, 이후 Pro ${PRICING.fromLifetime.en} 일회성 (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) 또는 ${PRICING.subSixMonthsLabel.en}` },
@@ -966,7 +966,7 @@ const COPY = {
       "Health Connect가 2024년 이후 Android 웨어러블 생태계를 어떻게 바꿨고, 소비자와 개발자에게 무엇을 의미하는가",
       "가족 공유: 소중한 사람의 건강 데이터를 하나의 대시보드에서 확인하기, GPS나 침해적인 앱 없이 (Mesh Family)",
       `${founderHistoricalClause("ko")} 이유: 피트니스 앱에서도 구독 과열에 대한 역사적 대안`,
-      "이탈리아에서 건강 앱을 개발하기: 차별화 요소로서의 EU 서버, 데이터 주권",
+      "이탈리아에서 건강 앱을 개발하기: 차별화 요소로서의 데이터 주권",
     ],
 
     trademarkNote:
@@ -996,24 +996,24 @@ const COPY = {
     blurb50: {
       title: "50 ord",
       body:
-        "FitMesh Sync är en Android- och iOS-app som samlar hälsodata från Galaxy Watch, Mi Band, Polar, Garmin, Fitbit och andra wearables i en enda premiuminstrumentpanel. Integritetsfokuserad, EU-servrar, byggd i Italien. Bygger på Health Connect (Android) och Apple Hälsa (iOS), utan annonsspårare eller datamäklare. Tillgänglig på Google Play och App Store sedan juni 2026; iOS-appen är tillgänglig, inklusive samtliga butiker inom EU.",
+        "FitMesh Sync är en Android- och iOS-app som samlar hälsodata från Galaxy Watch, Mi Band, Polar, Garmin, Fitbit och andra wearables i en enda premiuminstrumentpanel. Integritetsfokuserad, byggd i Italien. Bygger på Health Connect (Android) och Apple Hälsa (iOS), utan annonsspårare eller datamäklare. Tillgänglig på Google Play och App Store sedan juni 2026; iOS-appen är tillgänglig, inklusive samtliga butiker inom EU.",
     },
     blurb100: {
       title: "100 ord",
       body:
-        "FitMesh Sync är en Android- och iOS-app utvecklad i Italien av Matteo Pizzi (Fosforonero) för att samla hälsodata från i princip alla smartwatchar och träningsband på marknaden i en enda premiuminstrumentpanel. På Android fungerar appen som en Health Connect-destination och är kompatibel direkt ur lådan med Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei och Oura, utan att kräva OAuth för varje enskilt märke; på iOS läser den direkt från Apple Hälsa och ansluter via Bluetooth till Colmi-ringen. Integritetsfokuserad: EU-servrar, inga datamäklare. Tillgänglig på Google Play och App Store sedan juni 2026 (iOS-appen är tillgänglig, inklusive samtliga butiker inom EU); Family Mesh, funktionen för att dela hälsodata med den egna familjen, är på väg härnäst.",
+        "FitMesh Sync är en Android- och iOS-app utvecklad i Italien av Matteo Pizzi (Fosforonero) för att samla hälsodata från i princip alla smartwatchar och träningsband på marknaden i en enda premiuminstrumentpanel. På Android fungerar appen som en Health Connect-destination och är kompatibel direkt ur lådan med Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei och Oura, utan att kräva OAuth för varje enskilt märke; på iOS läser den direkt från Apple Hälsa och ansluter via Bluetooth till Colmi-ringen. Integritetsfokuserad: inga datamäklare. Tillgänglig på Google Play och App Store sedan juni 2026 (iOS-appen är tillgänglig, inklusive samtliga butiker inom EU); Family Mesh, funktionen för att dela hälsodata med den egna familjen, är på väg härnäst.",
     },
     blurb200: {
       title: "200 ord (fullständig profil)",
       body:
-        `FitMesh Sync föddes i Italien 2026 ur en enda utvecklares frustration (Matteo Pizzi, studio Fosforonero), som själv äger en Galaxy Watch, vars fru använder en Mi Band och vars mamma har en Withings. Varje märke låser in sin egen data i sin egen app. Ingen erbjuder en samlad premiumvy. Det är precis det FitMesh löser: genom att läsa från Health Connect (Androids standard som sedan 2024 samlar in data från i princip alla wearables) samlar appen steg, puls, sömn, kalorier, träningspass och andra mätvärden i en nativ Flutter-instrumentpanel designad för daglig avläsning, inte för systemadministratörer. Integritetsfokuserad från första commit: europeiska servrar (Supabase Frankfurt), inga datamäklare, inga annonsspårare. Den strategiska skillnaden mot moln-till-moln-brygg-appar i kategorin är att FitMesh inte bara är en tyst datarouter: det är en destination. Data lagras, visualiseras med genomarbetade diagram och delas mellan medlemmar i samma familj (Family Mesh): alla delar sin egen data med de andra, i en gemensam instrumentpanel. Appen finns tillgänglig på Google Play och App Store: ${founderHistoricalClause("sv")}. iOS-appen är tillgänglig, inklusive samtliga butiker i alla 27 EU-länder.`,
+        `FitMesh Sync föddes i Italien 2026 ur en enda utvecklares frustration (Matteo Pizzi, studio Fosforonero), som själv äger en Galaxy Watch, vars fru använder en Mi Band och vars mamma har en Withings. Varje märke låser in sin egen data i sin egen app. Ingen erbjuder en samlad premiumvy. Det är precis det FitMesh löser: genom att läsa från Health Connect (Androids standard som sedan 2024 samlar in data från i princip alla wearables) samlar appen steg, puls, sömn, kalorier, träningspass och andra mätvärden i en nativ Flutter-instrumentpanel designad för daglig avläsning, inte för systemadministratörer. Integritetsfokuserad från första commit: inga datamäklare, inga annonsspårare. Den strategiska skillnaden mot moln-till-moln-brygg-appar i kategorin är att FitMesh inte bara är en tyst datarouter: det är en destination. Data lagras, visualiseras med genomarbetade diagram och delas mellan medlemmar i samma familj (Family Mesh): alla delar sin egen data med de andra, i en gemensam instrumentpanel. Appen finns tillgänglig på Google Play och App Store: ${founderHistoricalClause("sv")}. iOS-appen är tillgänglig, inklusive samtliga butiker i alla 27 EU-länder.`,
     },
 
     keyFactsTitle: "Nyckelfakta",
     keyFacts: [
       { label: "Lansering", value: "Publik på Google Play och App Store sedan juni 2026 · iOS lanserad i hela EU" },
       { label: "Plattformar", value: "Android + iOS (lanserad, inklusive samtliga butiker inom EU)" },
-      { label: "Land", value: "Italien · EU-servrar (Frankfurt)" },
+      { label: "Land", value: "Italien" },
       { label: "Teknikstack", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Wearables som stöds", value: `${PROVIDERS.length}+ märken via Health Connect, utbyggbart` },
       { label: "Prissättning", value: `14 dagars provperiod, sedan Pro ${PRICING.fromLifetime.en} som engångsköp (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) eller ${PRICING.subSixMonthsLabel.en}` },
@@ -1052,7 +1052,7 @@ const COPY = {
       "Hur Health Connect har förändrat Androids wearable-ekosystem sedan 2024, och vad det betyder för konsumenter och utvecklare",
       "Familjedelning: se hälsodata för dem du bryr dig om i en och samma instrumentpanel, utan GPS eller integritetskränkande appar (Family Mesh)",
       `Varför ${founderHistoricalClause("sv")}: ett historiskt alternativ till prenumerationshypen, även i träningsappar`,
-      "Att bygga en hälsoapp i Italien: EU-servrar och datasuveränitet som konkurrensfördel",
+      "Att bygga en hälsoapp i Italien: datasuveränitet som konkurrensfördel",
     ],
 
     trademarkNote:
@@ -1082,24 +1082,24 @@ const COPY = {
     blurb50: {
       title: "50 ord",
       body:
-        "FitMesh Sync er en Android- og iOS-app, der samler sundhedsdata fra Galaxy Watch, Mi Band, Polar, Garmin, Fitbit og andre wearables i ét premium-dashboard. Privatlivsorienteret, EU-servere, udviklet i Italien. Kører via Health Connect (Android) og Apple Sundhed (iOS) uden annoncetrackere eller datamæglere. Tilgængelig på Google Play og App Store siden juni 2026; iOS-appen er tilgængelig, herunder i alle butikker i Den Europæiske Union.",
+        "FitMesh Sync er en Android- og iOS-app, der samler sundhedsdata fra Galaxy Watch, Mi Band, Polar, Garmin, Fitbit og andre wearables i ét premium-dashboard. Privatlivsorienteret, udviklet i Italien. Kører via Health Connect (Android) og Apple Sundhed (iOS) uden annoncetrackere eller datamæglere. Tilgængelig på Google Play og App Store siden juni 2026; iOS-appen er tilgængelig, herunder i alle butikker i Den Europæiske Union.",
     },
     blurb100: {
       title: "100 ord",
       body:
-        "FitMesh Sync er en Android- og iOS-app udviklet i Italien af Matteo Pizzi (Fosforonero) for at samle sundhedsdata fra alle smartwatches og fitnessbånd på markedet i ét premium-dashboard. På Android fungerer appen som en Health Connect-destination og er kompatibel ud af boksen med Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei og Oura, uden behov for OAuth pr. mærke; på iOS læser den direkte fra Apple Sundhed og forbinder via Bluetooth til Colmi-ringen. Privatlivsorienteret: EU-servere, ingen datamæglere. Tilgængelig på Google Play og App Store siden juni 2026 (iOS-appen er tilgængelig, herunder i alle EU-butikker); Family Mesh, funktionen til at dele sundhedsdata med din egen familie, er på vej.",
+        "FitMesh Sync er en Android- og iOS-app udviklet i Italien af Matteo Pizzi (Fosforonero) for at samle sundhedsdata fra alle smartwatches og fitnessbånd på markedet i ét premium-dashboard. På Android fungerer appen som en Health Connect-destination og er kompatibel ud af boksen med Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei og Oura, uden behov for OAuth pr. mærke; på iOS læser den direkte fra Apple Sundhed og forbinder via Bluetooth til Colmi-ringen. Privatlivsorienteret: ingen datamæglere. Tilgængelig på Google Play og App Store siden juni 2026 (iOS-appen er tilgængelig, herunder i alle EU-butikker); Family Mesh, funktionen til at dele sundhedsdata med din egen familie, er på vej.",
     },
     blurb200: {
       title: "200 ord (fuld profil)",
       body:
-        `FitMesh Sync opstod i Italien i 2026 ud af én udviklers (Matteo Pizzi, studiet Fosforonero) frustration: han selv har et Galaxy Watch, hans kone bruger et Mi Band, hans mor et Withings-ur. Hvert mærke låser sine egne data inde i sin egen app. Ingen tilbyder et samlet premium-overblik. Det er præcis det, FitMesh løser: ved at læse fra Health Connect (Androids standard, der siden 2024 samler data fra stort set alle wearables) samler appen skridt, puls, søvn, kalorier, træningspas og andre målinger i et nativt Flutter-dashboard designet til daglig brug, ikke til systemadministratorer. Privatlivsorienteret fra første commit: europæiske servere (Supabase Frankfurt), ingen datamæglere, ingen annoncetrackere. Den strategiske forskel i forhold til cloud-til-cloud bridge-apps i kategorien er, at FitMesh ikke er en stille datarouter: det er en destination. Data gemmes, visualiseres med udvalgte grafer og deles mellem medlemmer af samme familie (Family Mesh): alle deler deres egne data med de andre, i ét dashboard. Appen findes på Google Play og App Store: ${founderHistoricalClause("da")}. iOS-appen er tilgængelig, herunder i alle butikker i de 27 EU-lande.`,
+        `FitMesh Sync opstod i Italien i 2026 ud af én udviklers (Matteo Pizzi, studiet Fosforonero) frustration: han selv har et Galaxy Watch, hans kone bruger et Mi Band, hans mor et Withings-ur. Hvert mærke låser sine egne data inde i sin egen app. Ingen tilbyder et samlet premium-overblik. Det er præcis det, FitMesh løser: ved at læse fra Health Connect (Androids standard, der siden 2024 samler data fra stort set alle wearables) samler appen skridt, puls, søvn, kalorier, træningspas og andre målinger i et nativt Flutter-dashboard designet til daglig brug, ikke til systemadministratorer. Privatlivsorienteret fra første commit: ingen datamæglere, ingen annoncetrackere. Den strategiske forskel i forhold til cloud-til-cloud bridge-apps i kategorien er, at FitMesh ikke er en stille datarouter: det er en destination. Data gemmes, visualiseres med udvalgte grafer og deles mellem medlemmer af samme familie (Family Mesh): alle deler deres egne data med de andre, i ét dashboard. Appen findes på Google Play og App Store: ${founderHistoricalClause("da")}. iOS-appen er tilgængelig, herunder i alle butikker i de 27 EU-lande.`,
     },
 
     keyFactsTitle: "Nøglefakta",
     keyFacts: [
       { label: "Lancering", value: "Offentlig på Google Play og App Store siden juni 2026 · iOS live i hele EU" },
       { label: "Platforme", value: "Android + iOS (live, herunder i alle EU-butikker)" },
-      { label: "Land", value: "Italien · EU-servere (Frankfurt)" },
+      { label: "Land", value: "Italien" },
       { label: "Teknologi", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Understøttede wearables", value: `${PROVIDERS.length}+ mærker via Health Connect, kan udvides` },
       { label: "Priser", value: `14 dages prøveperiode, derefter Pro ${PRICING.fromLifetime.en} som engangskøb (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) eller ${PRICING.subSixMonthsLabel.en}` },
@@ -1138,7 +1138,7 @@ const COPY = {
       "Hvordan Health Connect ændrede Androids wearable-økosystem siden 2024, og hvad det betyder for forbrugere og udviklere",
       "Familiedeling: se sundhedsdata for dem, du holder af, i ét dashboard, uden GPS eller invasive apps (Family Mesh)",
       `Hvorfor ${founderHistoricalClause("da")}: et historisk alternativ til abonnementshypen, også i fitness-apps`,
-      "At bygge en sundhedsapp i Italien: EU-servere og datasuverænitet som differentiator",
+      "At bygge en sundhedsapp i Italien: datasuverænitet som differentiator",
     ],
 
     trademarkNote:
@@ -1168,24 +1168,24 @@ const COPY = {
     blurb50: {
       title: "50 ord",
       body:
-        "FitMesh Sync er en Android- og iOS-app som samler helsedata fra Galaxy Watch, Mi Band, Polar, Garmin, Fitbit og andre wearables i ett premium-dashbord. Personvernfokusert, EU-servere, bygget i Italia. Kjører på Health Connect (Android) og Apple Helse (iOS), uten annonsesporere eller datameglere. Tilgjengelig på Google Play og App Store siden juni 2026; iOS-appen er tilgjengelig, inkludert i alle butikker i EU.",
+        "FitMesh Sync er en Android- og iOS-app som samler helsedata fra Galaxy Watch, Mi Band, Polar, Garmin, Fitbit og andre wearables i ett premium-dashbord. Personvernfokusert, bygget i Italia. Kjører på Health Connect (Android) og Apple Helse (iOS), uten annonsesporere eller datameglere. Tilgjengelig på Google Play og App Store siden juni 2026; iOS-appen er tilgjengelig, inkludert i alle butikker i EU.",
     },
     blurb100: {
       title: "100 ord",
       body:
-        "FitMesh Sync er en Android- og iOS-app utviklet i Italia av Matteo Pizzi (Fosforonero) for å samle helsedataene fra alle smartklokker og treningsarmbånd på markedet i ett eneste premium-dashbord. På Android er appen en Health Connect-mottaker, kompatibel rett ut av boksen med Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei og Oura, uten behov for OAuth per merke; på iOS leser den direkte fra Apple Helse og kobler til Colmi-ringen via Bluetooth. Personvernfokusert: EU-servere, ingen datameglere. Tilgjengelig på Google Play og App Store siden juni 2026 (iOS-appen er tilgjengelig, inkludert i alle EU-butikker); Family Mesh, funksjonen for å dele helsedata med egen familie, kommer snart.",
+        "FitMesh Sync er en Android- og iOS-app utviklet i Italia av Matteo Pizzi (Fosforonero) for å samle helsedataene fra alle smartklokker og treningsarmbånd på markedet i ett eneste premium-dashbord. På Android er appen en Health Connect-mottaker, kompatibel rett ut av boksen med Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Honor, Huawei og Oura, uten behov for OAuth per merke; på iOS leser den direkte fra Apple Helse og kobler til Colmi-ringen via Bluetooth. Personvernfokusert: ingen datameglere. Tilgjengelig på Google Play og App Store siden juni 2026 (iOS-appen er tilgjengelig, inkludert i alle EU-butikker); Family Mesh, funksjonen for å dele helsedata med egen familie, kommer snart.",
     },
     blurb200: {
       title: "200 ord (fullstendig profil)",
       body:
-        `FitMesh Sync ble født i Italia i 2026 ut av frustrasjonen til én utvikler (Matteo Pizzi, studio Fosforonero) som selv har en Galaxy Watch, mens kona bruker en Mi Band og moren en Withings. Hvert merke låser sine egne data inne i sin egen app. Ingen tilbyr en samlet premium-visning. Det er akkurat dette FitMesh løser: ved å lese fra Health Connect (Android-standarden som siden 2024 samler data fra så godt som alle wearables), samler appen skritt, puls, søvn, kalorier, treningsøkter og andre målinger i ett nativt Flutter-dashbord designet for daglig bruk, ikke for systemadministratorer. Personvernfokusert fra første kodelinje: europeiske servere (Supabase Frankfurt), ingen datameglere, ingen annonsesporere. Den strategiske forskjellen sammenlignet med andre bro-apper i kategorien, som kun kobler sky til sky, er at FitMesh ikke er en stille dataruter, men et mål i seg selv. Dataene lagres, visualiseres med gjennomarbeidede grafer, og deles mellom medlemmer av samme familie (Family Mesh): alle deler sine egne data med de andre, i ett dashbord. Appen er tilgjengelig på Google Play og App Store: ${founderHistoricalClause("no")}. iOS-appen er tilgjengelig, inkludert i alle butikker i de 27 EU-landene.`,
+        `FitMesh Sync ble født i Italia i 2026 ut av frustrasjonen til én utvikler (Matteo Pizzi, studio Fosforonero) som selv har en Galaxy Watch, mens kona bruker en Mi Band og moren en Withings. Hvert merke låser sine egne data inne i sin egen app. Ingen tilbyr en samlet premium-visning. Det er akkurat dette FitMesh løser: ved å lese fra Health Connect (Android-standarden som siden 2024 samler data fra så godt som alle wearables), samler appen skritt, puls, søvn, kalorier, treningsøkter og andre målinger i ett nativt Flutter-dashbord designet for daglig bruk, ikke for systemadministratorer. Personvernfokusert fra første kodelinje: ingen datameglere, ingen annonsesporere. Den strategiske forskjellen sammenlignet med andre bro-apper i kategorien, som kun kobler sky til sky, er at FitMesh ikke er en stille dataruter, men et mål i seg selv. Dataene lagres, visualiseres med gjennomarbeidede grafer, og deles mellom medlemmer av samme familie (Family Mesh): alle deler sine egne data med de andre, i ett dashbord. Appen er tilgjengelig på Google Play og App Store: ${founderHistoricalClause("no")}. iOS-appen er tilgjengelig, inkludert i alle butikker i de 27 EU-landene.`,
     },
 
     keyFactsTitle: "Nøkkelfakta",
     keyFacts: [
       { label: "Lansering", value: "Offentlig på Google Play og App Store siden juni 2026 · iOS live i hele EU" },
       { label: "Plattformer", value: "Android + iOS (live, inkludert i alle EU-butikker)" },
-      { label: "Land", value: "Italia · EU-servere (Frankfurt)" },
+      { label: "Land", value: "Italia" },
       { label: "Teknologi", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Støttede wearables", value: `${PROVIDERS.length}+ merker via Health Connect, med rom for flere` },
       { label: "Priser", value: `14 dagers prøveperiode, deretter Pro ${PRICING.fromLifetime.en} engangsbeløp (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) eller ${PRICING.subSixMonthsLabel.en}` },
@@ -1224,7 +1224,7 @@ const COPY = {
       "Hvordan Health Connect har endret Androids wearable-økosystem siden 2024, og hva det betyr for forbrukere og utviklere",
       "Familiedeling: se helsedataene til folk du bryr deg om i ett dashbord, uten GPS eller inntrengende apper (Family Mesh)",
       `Hvorfor ${founderHistoricalClause("no")}: et historisk alternativ til abonnementshypen, også i treningsapper`,
-      "Å bygge en helseapp i Italia: EU-servere og datasuverenitet som differensiator",
+      "Å bygge en helseapp i Italia: datasuverenitet som differensiator",
     ],
 
     trademarkNote:
@@ -1254,24 +1254,24 @@ const COPY = {
     blurb50: {
       title: "50 sanaa",
       body:
-        "FitMesh Sync on Android- ja iOS-sovellus, joka yhdistää Galaxy Watchin, Mi Bandin, Polarin, Garminin, Fitbitin ja muiden puettavien laitteiden terveystiedot yhteen premium-koontinäyttöön. Yksityisyys edellä, EU-palvelimet, rakennettu Italiassa. Toimii Health Connectin (Android) ja Apple Terveyden (iOS) päällä – ei mainosseurantaa eikä datanvälittäjiä. Saatavilla Google Playssa ja App Storessa kesäkuusta 2026 alkaen; iOS-sovellus on saatavilla, mukaan lukien kaikki EU:n kaupat.",
+        "FitMesh Sync on Android- ja iOS-sovellus, joka yhdistää Galaxy Watchin, Mi Bandin, Polarin, Garminin, Fitbitin ja muiden puettavien laitteiden terveystiedot yhteen premium-koontinäyttöön. Yksityisyys edellä, rakennettu Italiassa. Toimii Health Connectin (Android) ja Apple Terveyden (iOS) päällä – ei mainosseurantaa eikä datanvälittäjiä. Saatavilla Google Playssa ja App Storessa kesäkuusta 2026 alkaen; iOS-sovellus on saatavilla, mukaan lukien kaikki EU:n kaupat.",
     },
     blurb100: {
       title: "100 sanaa",
       body:
-        "FitMesh Sync on Matteo Pizzin (Fosforonero) Italiassa kehittämä Android- ja iOS-sovellus, joka kokoaa markkinoiden kaikkien älykellojen ja aktiivisuusrannekkeiden terveystiedot yhteen premium-koontinäyttöön. Androidilla se toimii Health Connect -kohteena ja on suoraan yhteensopiva Galaxy Watchin, Mi Bandin, Polarin, Garminin, Fitbitin, Withingsin, Honorin, Huawein ja Ouran kanssa ilman erillistä OAuth-kirjautumista jokaiselle merkille; iOS:ssä se lukee suoraan Apple Terveydestä ja muodostaa Bluetooth-yhteyden Colmi-sormukseen. Yksityisyys edellä: EU-palvelimet, ei datanvälittäjiä. Saatavilla Google Playssa ja App Storessa kesäkuusta 2026 alkaen (iOS-sovellus on saatavilla, mukaan lukien kaikki EU:n kaupat); seuraavaksi tulossa Family Mesh, ominaisuus terveystietojen jakamiseen oman perheen kesken.",
+        "FitMesh Sync on Matteo Pizzin (Fosforonero) Italiassa kehittämä Android- ja iOS-sovellus, joka kokoaa markkinoiden kaikkien älykellojen ja aktiivisuusrannekkeiden terveystiedot yhteen premium-koontinäyttöön. Androidilla se toimii Health Connect -kohteena ja on suoraan yhteensopiva Galaxy Watchin, Mi Bandin, Polarin, Garminin, Fitbitin, Withingsin, Honorin, Huawein ja Ouran kanssa ilman erillistä OAuth-kirjautumista jokaiselle merkille; iOS:ssä se lukee suoraan Apple Terveydestä ja muodostaa Bluetooth-yhteyden Colmi-sormukseen. Yksityisyys edellä: ei datanvälittäjiä. Saatavilla Google Playssa ja App Storessa kesäkuusta 2026 alkaen (iOS-sovellus on saatavilla, mukaan lukien kaikki EU:n kaupat); seuraavaksi tulossa Family Mesh, ominaisuus terveystietojen jakamiseen oman perheen kesken.",
     },
     blurb200: {
       title: "200 sanaa (täysi esittely)",
       body:
-        `FitMesh Sync syntyi Italiassa vuonna 2026 yhden kehittäjän (Matteo Pizzi, studio Fosforonero) turhautumisesta: hänellä itsellään on Galaxy Watch, vaimolla Mi Band ja äidillä Withings. Jokainen merkki lukitsee omat tietonsa omaan sovellukseensa, eikä kukaan tarjoa yhtenäistä premium-näkymää. Juuri tämän FitMesh ratkaisee: lukemalla tiedot Health Connectista (Android-standardi, joka on vuodesta 2024 kerännyt dataa käytännössä kaikista puettavista laitteista), se kokoaa askeleet, sykkeen, unen, kalorit, treenit ja muut mittarit natiiviin Flutter-koontinäyttöön, joka on suunniteltu päivittäiseen lukemiseen – ei ylläpitäjille. Yksityisyys on ollut lähtökohtana ensimmäisestä commitista lähtien: eurooppalaiset palvelimet (Supabase Frankfurt), ei datanvälittäjiä eikä mainosseurantaa. Strateginen ero verrattuna kategorian pilvestä-pilveen-siltasovelluksiin on se, ettei FitMesh ole hiljainen datareititin – se on määränpää. Tiedot tallennetaan, visualisoidaan huolella suunnitelluilla kaavioilla ja jaetaan saman perheen jäsenten kesken (Family Mesh): jokainen jakaa omat tietonsa muille yhdessä koontinäytössä. Sovellus on saatavilla Google Playssa ja App Storessa: ${founderHistoricalClause("fi")}. iOS-sovellus on saatavilla, mukaan lukien kaikkien 27 EU-maan kaupat.`,
+        `FitMesh Sync syntyi Italiassa vuonna 2026 yhden kehittäjän (Matteo Pizzi, studio Fosforonero) turhautumisesta: hänellä itsellään on Galaxy Watch, vaimolla Mi Band ja äidillä Withings. Jokainen merkki lukitsee omat tietonsa omaan sovellukseensa, eikä kukaan tarjoa yhtenäistä premium-näkymää. Juuri tämän FitMesh ratkaisee: lukemalla tiedot Health Connectista (Android-standardi, joka on vuodesta 2024 kerännyt dataa käytännössä kaikista puettavista laitteista), se kokoaa askeleet, sykkeen, unen, kalorit, treenit ja muut mittarit natiiviin Flutter-koontinäyttöön, joka on suunniteltu päivittäiseen lukemiseen – ei ylläpitäjille. Yksityisyys on ollut lähtökohtana ensimmäisestä commitista lähtien: ei datanvälittäjiä eikä mainosseurantaa. Strateginen ero verrattuna kategorian pilvestä-pilveen-siltasovelluksiin on se, ettei FitMesh ole hiljainen datareititin – se on määränpää. Tiedot tallennetaan, visualisoidaan huolella suunnitelluilla kaavioilla ja jaetaan saman perheen jäsenten kesken (Family Mesh): jokainen jakaa omat tietonsa muille yhdessä koontinäytössä. Sovellus on saatavilla Google Playssa ja App Storessa: ${founderHistoricalClause("fi")}. iOS-sovellus on saatavilla, mukaan lukien kaikkien 27 EU-maan kaupat.`,
     },
 
     keyFactsTitle: "Keskeiset faktat",
     keyFacts: [
       { label: "Julkaisu", value: "Julkinen Google Playssa ja App Storessa kesäkuusta 2026 · iOS julkaistu koko EU:ssa" },
       { label: "Alustat", value: "Android + iOS (julkaistu, mukaan lukien kaikki EU:n kaupat)" },
-      { label: "Maa", value: "Italia · EU-palvelimet (Frankfurt)" },
+      { label: "Maa", value: "Italia" },
       { label: "Teknologiat", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Tuetut laitteet", value: `${PROVIDERS.length}+ merkkiä Health Connectin kautta, laajennettavissa` },
       { label: "Hinnoittelu", value: `14 päivän kokeilu, sen jälkeen Pro ${PRICING.fromLifetime.en} kertamaksuna (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) tai ${PRICING.subSixMonthsLabel.en}` },
@@ -1310,7 +1310,7 @@ const COPY = {
       "Miten Health Connect muutti Androidin puettavien laitteiden ekosysteemin vuodesta 2024 lähtien – ja mitä se merkitsee kuluttajille ja kehittäjille",
       "Perheen kesken jakaminen: näe läheistesi terveystiedot yhdessä koontinäytössä ilman GPS-seurantaa tai tunkeilevia sovelluksia (Family Mesh)",
       `Miksi ${founderHistoricalClause("fi")}: historiallinen vaihtoehto tilausbuumille myös kuntoilusovelluksissa`,
-      "Terveyssovelluksen rakentaminen Italiassa: EU-palvelimet ja datan suvereniteetti kilpailuetuna",
+      "Terveyssovelluksen rakentaminen Italiassa: datan suvereniteetti kilpailuetuna",
     ],
 
     trademarkNote:

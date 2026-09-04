@@ -219,10 +219,10 @@ export const post: BlogPost = {
       },
     },
     {
-      q: { it: "FitMesh è conforme al GDPR?", en: "Is FitMesh GDPR compliant?" },
+      q: { it: "Come tratta i dati FitMesh rispetto al GDPR?", en: "How does FitMesh handle data under GDPR?" },
       a: {
-        it: "Sì. Il trattamento segue il GDPR: puoi vedere, esportare o cancellare i tuoi dati quando vuoi. Il dettaglio completo è nella guida su GDPR e dati fitness.",
-        en: "Yes. Data handling follows GDPR: you can view, export or delete your data whenever you want. Full detail is in the guide on GDPR and fitness data.",
+        it: "Il trattamento tiene conto del GDPR: puoi vedere, esportare o cancellare i tuoi dati quando vuoi. Il dettaglio completo è nella guida su GDPR e dati fitness.",
+        en: "Data handling takes GDPR into account: you can view, export or delete your data whenever you want. Full detail is in the guide on GDPR and fitness data.",
       },
     },
     {

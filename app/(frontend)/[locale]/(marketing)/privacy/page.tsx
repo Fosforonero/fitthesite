@@ -7,6 +7,19 @@ import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
 import { TraderIdentity } from "@/components/legal/TraderIdentity";
 
 const SITE_URL = "https://www.fitmesh.fit";
+/**
+ * P0.18A-A (MICRO-GATE): fonte unica della data machine-readable, usata SOLO
+ * da LegalJsonLd.dateModified qui sotto. Le 6 stringhe LAST_UPDATED_* restano
+ * separate perché sono testo umano localizzato (non derivabile 1:1 da un ISO),
+ * ma sono state verificate manualmente coerenti con questa stessa data.
+ * ATTENZIONE: se il merge di questa PR avviene in una data diversa da quella
+ * qui sotto, questa costante E le 6 stringhe LAST_UPDATED_* vanno aggiornate
+ * alla vera data di merge PRIMA di mergiare, e il gate (in particolare
+ * selfhost:privacy-truth-check e seo:redirect-integrity-check) va rieseguito.
+ * Non lasciare una data falsa: rappresenta quando il contenuto legale è
+ * davvero cambiato, non quando è stato scritto il codice.
+ */
+const LEGAL_DATE_ISO = "2026-09-04";
 const LAST_UPDATED_IT = "4 settembre 2026";
 const LAST_UPDATED_EN = "September 4, 2026";
 const LAST_UPDATED_ES = "4 de septiembre de 2026";
@@ -88,7 +101,7 @@ export default async function PrivacyPage({
   return (
     <>
       <Breadcrumbs items={[{ name: "Privacy Policy", path: `/${lc}/privacy` }]} locale={lc} />
-      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified="2026-09-04" />
+      <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified={LEGAL_DATE_ISO} />
       <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <PrivacyIT /> : lc === "es" ? <PrivacyES /> : lc === "de" ? <PrivacyDE /> : lc === "pt" ? <PrivacyPT /> : lc === "fr" ? <PrivacyFR /> : <PrivacyEN />}
       </LegalPage>

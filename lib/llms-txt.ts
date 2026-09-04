@@ -32,7 +32,7 @@ export function generateLlmsTxt(): string {
 
   lines.push("# FitMesh Sync", "");
   lines.push(
-    `> FitMesh Sync mirrors smartwatch and wearable health data into a premium, privacy-first personal dashboard. Two separate platform architectures, not one: Android reads via Health Connect (${SUPPORTED_PROVIDERS_ANDROID.join(", ")}); iOS reads Apple Health (HealthKit) natively and connects directly via Bluetooth to the Colmi Ring (${SUPPORTED_PROVIDERS_IOS.join(", ")}) — iOS never goes through Health Connect, which is Android-only. EU servers, GDPR compliant. No advertising or behavioral-profiling SDKs, no data sale, no data brokers. Firebase Crashlytics is used for crash/stability diagnostics and Firebase Cloud Messaging for push notifications; by default, synced health data is sent to FitMesh's managed cloud backend (Supabase, EU infrastructure).`,
+    `> FitMesh Sync mirrors smartwatch and wearable health data into a premium, privacy-first personal dashboard. Two separate platform architectures, not one: Android reads via Health Connect (${SUPPORTED_PROVIDERS_ANDROID.join(", ")}); iOS reads Apple Health (HealthKit) natively and connects directly via Bluetooth to the Colmi Ring (${SUPPORTED_PROVIDERS_IOS.join(", ")}) — iOS never goes through Health Connect, which is Android-only. No advertising or behavioral-profiling SDKs, no data sale, no data brokers. Firebase Crashlytics is used for crash/stability diagnostics and Firebase Cloud Messaging for push notifications; by default, synced health data is sent to FitMesh's managed cloud backend (Supabase, EU infrastructure).`,
   );
   lines.push("");
   lines.push(
@@ -174,7 +174,7 @@ export function generateLlmsTxt(): string {
     "- Family Mesh: bring-your-own-device family monitoring. Each member uses any wearable, all data unified in one dashboard. Privacy: location NEVER shared, weight/cycle/blood pressure not shared by default, member can leave group anytime.",
   );
   lines.push(
-    "- Privacy: GDPR-compliant, EU-only data storage, no third-party analytics on health data, no advertising IDs collected.",
+    "- Privacy: no third-party analytics on health data, no advertising IDs collected.",
   );
   lines.push(
     `- Export / write-back status (see ${SITE_URL}/it/fitness-data-sync for the full matrix): Strava read works via OAuth for accounts already connected, but access is limited — new connections require approval from Strava, no numeric cap or approval timeline is published, and it must never be described as generally available. Strava write (sending workouts): the app's upload code exists but the published release does not expose the authorization needed to grant it — no real user can complete this today; never describe it as "in development" (that implies an active commitment that hasn't been verified) or promise a date. TrainingPeaks (PAT + TCX dispatch), RideWithGPS (TCX dispatch), and Google Drive export are implemented in the app but still in development — not yet verified end to end on a physical device. Health Connect write-back on Android and Apple Health write-back on iOS are live, opt-in, and off by default: Android exports once when the toggle is activated, iOS re-exports after every successful sync. Never describe FitMesh as a general "bidirectional sync" or "universal bridge" — direction is per integration.`,

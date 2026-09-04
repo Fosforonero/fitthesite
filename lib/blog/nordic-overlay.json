@@ -341,7 +341,7 @@
     },
     "faq.0.a": {
       "sv": "Nej. Dina data finns i FitMesh:s EU-moln, inte på den gamla telefonen. Logga in med samma konto på iPhone så får du tillbaka dem.",
-      "da": "Nej. Dine data ligger i FitMesh’s EU-cloud, ikke på den gamle telefon. Log ind med den samme konto på din iPhone, så får du dem tilbage."
+      "da": "Nej. Dine data ligger i FitMesh’s cloud, ikke på den gamle telefon. Log ind med den samme konto på din iPhone, så får du dem tilbage."
     },
     "faq.1.q": {
       "sv": "Måste jag behålla Android-telefonen?",
@@ -1857,7 +1857,7 @@
     },
     "body.21.body": {
       "sv": "FitMesh Sync ansluts till Withings via standardplattformar (Health Connect på Android, HealthKit på iOS): du behöver varken ansluta ditt Withings-konto direkt eller dela inloggningsuppgifterna till Health Mate. Så här fungerar det: Withings skriver till Health Connect/HealthKit, FitMesh Sync läser därifrån. Du har alltid kontroll över dina data, som lagras i ett moln med europeiska servrar.",
-      "da": "FitMesh Sync forbinder til Withings via standardplatforme (Health Connect på Android, HealthKit på iOS): Du behøver ikke at forbinde din Withings-konto direkte eller dele dine Health Mate-loginoplysninger. Forløbet er som følger: Withings skriver til Health Connect/HealthKit, og FitMesh Sync læser dataene derfra. Dine data forbliver altid under din kontrol i en cloud med europæiske servere."
+      "da": "FitMesh Sync forbinder til Withings via standardplatforme (Health Connect på Android, HealthKit på iOS): Du behøver ikke at forbinde din Withings-konto direkte eller dele dine Health Mate-loginoplysninger. Forløbet er som følger: Withings skriver til Health Connect/HealthKit, og FitMesh Sync læser dataene derfra. Dine data forbliver altid under din kontrol."
     },
     "body.22.title": {
       "sv": "Vill du se Withings vikt, sömn och aktivitet på en och samma översiktssida?",
@@ -1865,7 +1865,7 @@
     },
     "body.22.body": {
       "sv": "FitMesh Sync samlar in data från Health Connect och HealthKit (där Withings skriver automatiskt) och sammanställer dem i en webbpanel som är tillgänglig via webbläsaren. Ingen manuell export, inga extra appar: det fungerar från det ögonblick du godkänner Health Connect för första gången. Europeiska servrar, EU:s integritetsskydd, inget abonnemang krävs för att komma igång.",
-      "da": "FitMesh Sync indsamler data fra Health Connect og HealthKit (hvor Withings skriver automatisk) og samler dem i et web-dashboard, der er tilgængeligt via browseren. Ingen manuel eksport, ingen ekstra apps: Det fungerer fra det øjeblik, du godkender Health Connect for første gang. Europæiske servere, EU-databeskyttelse, intet abonnement kræves for at komme i gang."
+      "da": "FitMesh Sync indsamler data fra Health Connect og HealthKit (hvor Withings skriver automatisk) og samler dem i et web-dashboard, der er tilgængeligt via browseren. Ingen manuel eksport, ingen ekstra apps: Det fungerer fra det øjeblik, du godkender Health Connect for første gang. EU-databeskyttelse, intet abonnement kræves for at komme i gang."
     },
     "body.22.ctaLabel": {
       "sv": "Ladda ner FitMesh och prova gratis",
@@ -3447,7 +3447,7 @@
     },
     "body.11.text": {
       "sv": "FitMesh Sync är en av de Android-appar som läser data direkt från Health Connect: den tar emot data från Galaxy Watch, Garmin och alla bärbara enheter som skriver till Health Connect, sammanställer den utan dubbletter och visar den i en webbpanel som är tillgänglig via webbläsare. Data bearbetas på europeiska servrar med uttrycklig efterlevnad av GDPR. Det är inte det enda alternativet i denna kategori, men det är ett bra exempel på hur en synkroniseringsapp bör fungera tekniskt sett: ingen Bluetooth som alltid är på, ingen datautvinning, inga proprietära API:er.",
-      "da": "FitMesh Sync er en af de Android-apps, der læser direkte fra Health Connect: Den modtager data fra Galaxy Watch, Garmin og ethvert wearable, der skriver til Health Connect, samler dataene uden dubletter og viser dem i et webdashboard, der er tilgængeligt via en browser. Dataene behandles på europæiske servere i fuld overensstemmelse med GDPR. Det er ikke den eneste mulighed i denne kategori, men det er et godt eksempel på, hvordan en synkroniseringsapp bør fungere rent teknisk: ingen Bluetooth, der altid er tændt, ingen dataudtræk, ingen proprietære API'er."
+      "da": "FitMesh Sync er en af de Android-apps, der læser direkte fra Health Connect: Den modtager data fra Galaxy Watch, Garmin og ethvert wearable, der skriver til Health Connect, samler dataene uden dubletter og viser dem i et webdashboard, der er tilgængeligt via en browser. Det er ikke den eneste mulighed i denne kategori, men det er et godt eksempel på, hvordan en synkroniseringsapp bør fungere rent teknisk: ingen Bluetooth, der altid er tændt, ingen dataudtræk, ingen proprietære API'er."
     },
     "body.12.text": {
       "sv": "Sammanfattningsvis",
@@ -3458,8 +3458,8 @@
       "da": "Leder du efter en synkroniseringsapp, der understøtter Health Connect indbygget?"
     },
     "body.14.body": {
-      "sv": "FitMesh Sync ansluter direkt till Health Connect, sammanställer data från Galaxy Watch, Garmin och andra bärbara enheter utan dubbletter och visar den i en webbaserad instrumentpanel som är tillgänglig från vilken webbläsare som helst. Data lagras på EU-servrar och uppfyller kraven i GDPR.",
-      "da": "FitMesh Sync opretter direkte forbindelse til Health Connect, samler data fra Galaxy Watch, Garmin og andre bærbare enheder uden dubletter og viser dem i et webbaseret kontrolpanel, der kan tilgås fra enhver browser. Data lagres på EU-servere og overholder GDPR."
+      "sv": "FitMesh Sync ansluter direkt till Health Connect, sammanställer data från Galaxy Watch, Garmin och andra bärbara enheter utan dubbletter och visar den i en webbaserad instrumentpanel som är tillgänglig från vilken webbläsare som helst.",
+      "da": "FitMesh Sync opretter direkte forbindelse til Health Connect, samler data fra Galaxy Watch, Garmin og andre bærbare enheder uden dubletter og viser dem i et webbaseret kontrolpanel, der kan tilgås fra enhver browser."
     },
     "body.14.ctaLabel": {
       "sv": "Prova FitMesh Sync →",
@@ -6031,7 +6031,7 @@
       "da": [
         "**Én konto til både Android og iPhone**: Log ind med det samme Google- eller Apple-login, og få adgang til det samme kontrolpanel på begge telefoner og i browseren.",
         "**Apple Health skrivebro** (tilvalg): Data fra dit Android-smartur eller din Android-ring sendes via skyen og skrives ind i Apple Health uden dubletter.",
-        "**EU-cloud og GDPR**: Dataene lagres i europæiske datacentre, der overholder GDPR. Der sælges ikke data til tredjeparter.",
+        "**Databeskyttelse**: Der sælges ikke data til tredjeparter.",
         "**Colmi ring via Bluetooth**: iOS-appen aflæser Colmi R02/R03-smartringen via direkte BLE, ligesom Android-versionen."
       ]
     }
@@ -7919,7 +7919,7 @@
     },
     "body.19.text": {
       "sv": "Att samla allt på ett ställe är bara meningsfullt om det stället är säkert. FitMesh:s hälsodata lagras på europeiska servrar, är endast tillgängliga för dig via ditt konto, säljs eller delas aldrig med tredje part, och det finns inga annonsspårare. Radering av konto och data sker inom 48 timmar, enligt kraven i GDPR.",
-      "da": "Det giver kun mening at samle alt ét sted, hvis det sted er sikkert. FitMeshs sundhedsdata opbevares på europæiske servere, er kun tilgængelige for dig via din konto, sælges eller deles aldrig med tredjeparter, og der er ingen annoncesporere. Sletning af konto og data sker inden for 48 timer, som krævet af GDPR."
+      "da": "Det giver kun mening at samle alt ét sted, hvis det sted er sikkert. FitMeshs sundhedsdata er kun tilgængelige for dig via din konto, sælges eller deles aldrig med tredjeparter, og der er ingen annoncesporere. Proceduren for sletning af konto og data er beskrevet på fitmesh.fit/delete-account."
     },
     "body.20.title": {
       "sv": "Samla alla dina enheter på ett ställe",
@@ -7990,7 +7990,7 @@
         "Én FitMesh-konto fungerer på Android og iPhone (iOS findes på App Store), med valgfri Apple Health-bro.",
         "Smart fusion: For hver måleværdi og hvert tidsvindue vælges den bedste kilde – aldrig summen af to.",
         "Jo flere enheder du tilslutter, desto mere komplet bliver dit kontrolpanel: Hver enhed udfylder de sektioner, der før var tomme.",
-        "Data opbevares på europæiske servere, deles aldrig med tredjeparter, fuld GDPR overholdelse."
+        "Dine data deles aldrig med tredjeparter."
       ]
     },
     "body.7.headers": {
@@ -8346,9 +8346,9 @@
       "no": "Er dataene mine private? Hvor havner de?"
     },
     "faq.4.a": {
-      "sv": "Data läses in via Bluetooth direkt på din telefon och skickas endast till Supabase-backenden för ditt FitMesh-konto, på servrar inom EU. Uppgifterna passerar inte genom ringtillverkarens servrar. Ditt konto är personligt och delar inte data med tredje part utan ditt uttryckliga samtycke. Fullt GDPR-kompatibelt.",
-      "da": "Dataene læses via Bluetooth direkte på din telefon og sendes udelukkende til Supabase-backend’en for din FitMesh-konto, som er placeret på servere i EU. De passerer ikke gennem ringproducentens servere. Din konto er personlig, og der deles ikke data med tredjeparter uden dit udtrykkelige samtykke. Fuldt GDPR-kompatibel.",
-      "fi": "Tiedot luetaan Bluetoothin kautta suoraan puhelimeesi ja lähetetään vain FitMesh-tilisi Supabase-taustajärjestelmään, EU:ssa sijaitseville palvelimille. Ne eivät kulje sormuksen valmistajan palvelinten kautta. Tilisi on henkilökohtainen eikä jaa tietoja kolmansille osapuolille ilman nimenomaista suostumustasi. Täysin GDPR-yhteensopiva.",
+      "sv": "Data läses in via Bluetooth direkt på din telefon och skickas endast till Supabase-backenden för ditt FitMesh-konto. Uppgifterna passerar inte genom ringtillverkarens servrar. Ditt konto är personligt och delar inte data med tredje part utan ditt uttryckliga samtycke.",
+      "da": "Dataene læses via Bluetooth direkte på din telefon og sendes udelukkende til Supabase-backend’en for din FitMesh-konto. De passerer ikke gennem ringproducentens servere. Din konto er personlig, og der deles ikke data med tredjeparter uden dit udtrykkelige samtykke.",
+      "fi": "Tiedot luetaan Bluetoothin kautta suoraan puhelimeesi ja lähetetään vain FitMesh-tilisi Supabase-taustajärjestelmään. Ne eivät kulje sormuksen valmistajan palvelinten kautta. Tilisi on henkilökohtainen eikä jaa tietoja kolmansille osapuolille ilman nimenomaista suostumustasi.",
       "no": "Dataene leses via Bluetooth direkte på telefonen din og sendes kun til Supabase-backenden til FitMesh-kontoen din, på servere i EU. De går ikke gjennom ringprodusentens servere. Kontoen din er personlig og deler ikke data med tredjeparter uten ditt uttrykkelige samtykke. Fullt ut i samsvar med GDPR."
     },
     "secondaryKeywords": {
@@ -8863,10 +8863,10 @@
       ],
       "da": [
         "FitMesh Sync er nu LIVE på App Store til iPhone: Log ind med Google eller Apple, Apple Health/HealthKit-afspilning, synkronisering i skyen, Colmi-ringetone via Bluetooth. Tilgængelig i alle understøttede lande, inklusive alle 27 EU-lande.",
-        "Én konto fungerer på både Android og iPhone: kontrolpanelet er det samme på begge telefoner, og dataene hentes fra den samme EU-cloud.",
+        "Én konto fungerer på både Android og iPhone: kontrolpanelet er det samme på begge telefoner, og dataene hentes fra den samme cloud.",
         "Hovedfunktion: Apple Health-skrivebroen (skal aktiveres). Data fra dit Android-smartur eller din smartring sendes via FitMesh-skyen og skrives ind i Apple Health uden dubletter.",
         "Brugere med to telefoner (f.eks. Android + iPhone) kan se ring-sleep og skridt fra uret direkte i Apple Health/Fitness-appen.",
-        "EU-cloud, GDPR, intet salg af data til tredjeparter. Forbindelsen er baseret på tilvalg: hvis Apple Health allerede har disse data, vil FitMesh ikke overskrive dem. Ingen dubletter."
+        "Cloud, intet salg af data til tredjeparter. Forbindelsen er baseret på tilvalg: hvis Apple Health allerede har disse data, vil FitMesh ikke overskrive dem. Ingen dubletter."
       ]
     },
     "body.3.items": {
@@ -8924,7 +8924,7 @@
       ],
       "da": [
         "FitMesh Sync er nu tilgængelig på App Store til iPhone i alle understøttede lande, inklusive alle 27 EU-lande.",
-        "Én konto, to telefoner: det samme kontrolpanel på Android og iPhone, data fra den samme EU-cloud.",
+        "Én konto, to telefoner: det samme kontrolpanel på Android og iPhone, data fra den samme cloud.",
         "Apple Health-broen (opt-in) overfører data fra dit Android-wearable til iPhone-appen »Sundhed«: søvn med søvnfaser, skridt, aktivitet – uden dubletter.",
         "EU/GDPR privatliv: ingen salg af data, opt-in-mekanisme, kan til enhver tid tilbagekaldes."
       ]
@@ -8945,7 +8945,7 @@
     },
     "metaDescription": {
       "sv": "Så här överför FitMesh Sync data från din smarta ring eller Android-smartklocka till Apple Health: bro med aktivt samtycke, inga dubbletter, sömn med olika faser. EU:s integritetsskydd, GDPR. Komplett guide.",
-      "da": "Sådan overfører FitMesh Sync data fra din smartring eller dit Android-smartur til Apple Health: opt-in-bro, ingen dubletter, søvn med faser. EU-databeskyttelse, GDPR. Komplet guide."
+      "da": "Sådan overfører FitMesh Sync data fra din smartring eller dit Android-smartur til Apple Health: opt-in-bro, ingen dubletter, søvn med faser. Komplet guide."
     },
     "primaryKeyword": {
       "sv": "data från smarta ringar i Apple Health",
@@ -9118,7 +9118,7 @@
       ],
       "da": [
         "**Dataindsamling på Android**: FitMesh Sync læser data fra dit Android-wearable (via Health Connect til Galaxy Watch, via Bluetooth til Colmi-ringen) og uploader dem til EU-skyen.",
-        "**FitMesh EU-cloud**: Data arkiveres med tidsstempel, kilde, datatype og brugerkonto. Cloud-tjenesten standardiserer formaterne på tværs af forskellige kilder.",
+        "**FitMesh cloud**: Data arkiveres med tidsstempel, kilde, datatype og brugerkonto. Cloud-tjenesten standardiserer formaterne på tværs af forskellige kilder.",
         "**iOS-appen er aktiv**: Når du åbner FitMesh på din iPhone (eller appen kører i baggrunden), tjekker den, hvilke data der er tilgængelige i skyen for din konto.",
         "**Kontrol af dubletter**: For hver tilgængelig datapost kontrollerer appen, om Apple Health allerede har en oplysning for det pågældende tidsinterval. Hvis ja, springer den over. Hvis nej, skriver den oplysningen ind.",
         "**Målrettet skrivning**: skriver kun de manglende data til Apple Health. Hvis Apple Watch allerede har registreret søvn fra kl. 23.00 til kl. 07.00, rører FitMesh ikke ved disse timer.",
@@ -13153,7 +13153,7 @@
       "sv": "Vill du ha en lösning som minimerar datapipeline?"
     },
     "body.25.body": {
-      "sv": "FitMesh Sync läser in data från Health Connect (på enheten) och lagrar dem på en Supabase-backend som är hostad i EU (Frankfurt). Ingen annonsteknik, inga dataviderasäljare, åtkomst och radering med ett enda klick."
+      "sv": "FitMesh Sync läser in data från Health Connect (på enheten) och lagrar dem på en Supabase-backend. Ingen annonsteknik, inga dataviderasäljare; raderingsprocessen beskrivs på fitmesh.fit/delete-account."
     },
     "body.25.ctaLabel": {
       "sv": "Läs vår integritetspolicy"
@@ -13174,7 +13174,7 @@
       "sv": "Är appen FitMesh Sync kompatibel med GDPR?"
     },
     "faq.2.a": {
-      "sv": "Ja. Tydlig integritetspolicy, backend på Supabase i Frankfurt (EU), detaljerat samtycke i appen, radering av data med ett klick via inställningarna, ingen delning av data till tredjepartsannonsteknik, inga påträngande analysspårare. Arkitektur utformad med integritet som utgångspunkt."
+      "sv": "Ja. Tydlig integritetspolicy, backend på Supabase, detaljerat samtycke i appen, raderingsprocessen beskrivs på fitmesh.fit/delete-account, ingen delning av data till tredjepartsannonsteknik, inga påträngande analysspårare. Arkitektur utformad med integritet som utgångspunkt."
     },
     "secondaryKeywords": {
       "sv": [
