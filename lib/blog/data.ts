@@ -13,6 +13,7 @@
 
 import type { BlogPost, BlogCategory } from "./types";
 import { post as stepsTotalVsHourlyChart } from "./posts/steps-total-vs-hourly-chart";
+import { post as novitaPassiPiuAffidabili } from "./posts/novita-passi-piu-affidabili";
 import { post as guidaSyncWearable2026 } from "./posts/guida-sync-wearable-2026";
 import { post as scegliereSmartwatchDati2026 } from "./posts/scegliere-smartwatch-dati-2026";
 import { post as healthConnectVsSamsungHealth } from "./posts/health-connect-vs-samsung-health";
@@ -201,6 +202,7 @@ const RAW_POSTS: BlogPost[] = [
   sleepScoreRegolaritaRitmoCircadiano,
   percheZona2CambiaSmartwatchApp,
   stepsTotalVsHourlyChart,
+  novitaPassiPiuAffidabili,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

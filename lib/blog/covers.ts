@@ -215,6 +215,10 @@ export const POST_COVER: Record<string, CoverType> = {
   // P1.9-10 (2026-09-02): cover dedicata (steps-total-vs-hourly-chart.webp),
   // non piu' il placeholder "troubleshooting"/gear.webp.
   "steps-total-vs-hourly-chart": "stepsChart",
+  // MICRO-GATE PR#66-B (08/09/2026): voce /novita gemella dello stesso
+  // argomento — riusa la stessa cover reale invece di un placeholder, nessun
+  // nuovo asset immagine disponibile per questo containment.
+  "novita-passi-piu-affidabili": "stepsChart",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */

@@ -624,10 +624,16 @@ async function runNegativeTests() {
   );
 
   // Negativo pattern 3 — "mai contato due volte" senza qualificazione vicina.
+  // ANCORA AGGIORNATA (MICRO-GATE PR#66-B, 08/09/2026): "Compliance GDPR
+  // esplicita:" e' stata rimossa da questa frase in P0.18A-A (gia' su main
+  // prima di questo ramo, deriva pre-esistente non causata da PR #66) — la
+  // frase ora finisce con "Ogni utente...", non piu' con "Compliance GDPR".
+  // Stesso punto di inserimento (subito dopo "in un'unica dashboard."),
+  // stessa frase iniettata, solo l'ancora e' aggiornata al testo reale.
   const fileC = "lib/content/about-copy.ts";
   const originalC = rf(fileC, "utf8");
-  const anchorC = "in un'unica dashboard. Compliance GDPR";
-  const injectedC = "in un'unica dashboard. Il passo non viene mai contato due volte. Compliance GDPR";
+  const anchorC = "in un'unica dashboard. Ogni utente";
+  const injectedC = "in un'unica dashboard. Il passo non viene mai contato due volte. Ogni utente";
   const mutatedC = originalC.replace(anchorC, injectedC);
   if (mutatedC === originalC) throw new Error("negative test 3: la sostituzione non ha trovato nulla da mutare — ancora cambiata?");
   wf(fileC, mutatedC);

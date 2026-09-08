@@ -3,12 +3,11 @@ import type { BlogPost } from "../types";
 export const post: BlogPost = {
   slug: "steps-total-vs-hourly-chart",
   category: "guides",
-  // MICRO-GATE PR #66-A: placeholder alla data di scrittura di questa bozza.
-  // OBBLIGATORIO aggiornare publishedAt (e se serve updatedAt) alla vera
-  // data di pubblicazione IMMEDIATAMENTE PRIMA del merge, se questo avviene
-  // in un giorno diverso — mai lasciare una data automatica non verificata.
-  publishedAt: "2026-09-02",
-  updatedAt: "2026-09-02",
+  // MICRO-GATE PR#66-B (08/09/2026): data aggiornata alla vera data di
+  // pubblicazione (merge), come richiesto dal commento precedente — non e'
+  // rimasta la data di scrittura della bozza (02/09/2026).
+  publishedAt: "2026-09-08",
+  updatedAt: "2026-09-08",
   readMinutes: 6,
   // Titolo SEO alternativo (< H1): H1 resta la domanda per intero, il title
   // renderizzato usa la forma breve. Il renderer aggiunge " · FitMesh" UNA

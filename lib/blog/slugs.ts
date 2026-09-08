@@ -845,6 +845,22 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "steps-total-vs-hourly-chart",
     ko: "steps-total-vs-hourly-chart",
   },
+  // MICRO-GATE PR#66-B (08/09/2026): stesso pattern del post gemello sopra —
+  // pubblicato solo it/en/de/fr (REDIRECT_INCOMPLETE_LOCALE_SLUGS in
+  // indexability.ts), es/pt/pl/tr/nl/ja/ko usano il canonico per lo stesso
+  // motivo (redirect a singolo hop verso /en, mai due).
+  "novita-passi-piu-affidabili": {
+    en: "more-reliable-steps-update",
+    de: "zuverlaessigere-schritte-update",
+    fr: "pas-plus-fiables-mise-a-jour",
+    es: "novita-passi-piu-affidabili",
+    pt: "novita-passi-piu-affidabili",
+    pl: "novita-passi-piu-affidabili",
+    tr: "novita-passi-piu-affidabili",
+    nl: "novita-passi-piu-affidabili",
+    ja: "novita-passi-piu-affidabili",
+    ko: "novita-passi-piu-affidabili",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {

@@ -145,6 +145,9 @@ export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
   "perche-zona-2-cambia-smartwatch-app",
   // P1.9-10 (02/09/2026): pubblicazione iniziale it/en/de/fr, stesso meccanismo.
   "steps-total-vs-hourly-chart",
+  // MICRO-GATE PR#66-B (08/09/2026): voce /novita gemella, stesso perimetro
+  // di lingue e stesso meccanismo.
+  "novita-passi-piu-affidabili",
 ]);
 
 /**

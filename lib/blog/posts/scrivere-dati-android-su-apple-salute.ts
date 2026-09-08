@@ -4,7 +4,12 @@ export const post: BlogPost = {
   slug: "scrivere-dati-android-su-apple-salute",
   category: "guides",
   publishedAt: "2026-06-30",
-  updatedAt: "2026-06-30",
+  // MICRO-GATE PR#66-B (08/09/2026): updatedAt mancava — la correzione
+  // "in most cases"/"nella maggior parte dei casi" sul ponte di scrittura
+  // Apple Salute e' la stessa passata editoriale del 02/09/2026 applicata
+  // agli altri post di questo branch (vedi date sorelle), non un touch di
+  // oggi: data storicamente corretta, non quella del merge.
+  updatedAt: "2026-09-02",
   ldType: "BlogPosting",
   readMinutes: 7,
   primaryKeyword: {
