@@ -823,6 +823,44 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "why-zone-2-differs-watches-apps",
     ko: "why-zone-2-differs-watches-apps",
   },
+  // P1.9-10 (02/09/2026): pubblicato solo it/en/de/fr (REDIRECT_INCOMPLETE_LOCALE_SLUGS
+  // in indexability.ts) - es/pt/pl/tr/nl/ja/ko qui sotto sono slug reali ma
+  // irraggiungibili finche' il contenuto non e' tradotto (redirect a /en).
+  "steps-total-vs-hourly-chart": {
+    en: "steps-total-vs-hourly-chart",
+    de: "schritte-gesamt-stimmt-nicht-mit-stundendiagramm-ueberein",
+    fr: "total-pas-ne-correspond-pas-au-graphique-horaire",
+    // es/pt/pl/tr/nl/ja/ko: NON tradotti (REDIRECT_INCOMPLETE_LOCALE_SLUGS in
+    // indexability.ts li porta a /en). Stesso valore del canonico invece di
+    // uno slug tradotto-ma-irraggiungibile - stesso pattern gia' in uso per
+    // galaxy-watch-ultra2-watch9-health-connect sopra: uno slug diverso dal
+    // canonico qui genererebbe un redirect 308 (verso quello slug) SEGUITO
+    // da un secondo redirect 307 (quello slug -> /en), due hop invece di uno
+    // solo verso una pagina che comunque non esiste ancora in quella lingua.
+    es: "steps-total-vs-hourly-chart",
+    pt: "steps-total-vs-hourly-chart",
+    pl: "steps-total-vs-hourly-chart",
+    tr: "steps-total-vs-hourly-chart",
+    nl: "steps-total-vs-hourly-chart",
+    ja: "steps-total-vs-hourly-chart",
+    ko: "steps-total-vs-hourly-chart",
+  },
+  // MICRO-GATE PR#66-B (08/09/2026): stesso pattern del post gemello sopra —
+  // pubblicato solo it/en/de/fr (REDIRECT_INCOMPLETE_LOCALE_SLUGS in
+  // indexability.ts), es/pt/pl/tr/nl/ja/ko usano il canonico per lo stesso
+  // motivo (redirect a singolo hop verso /en, mai due).
+  "novita-passi-piu-affidabili": {
+    en: "more-reliable-steps-update",
+    de: "zuverlaessigere-schritte-update",
+    fr: "pas-plus-fiables-mise-a-jour",
+    es: "novita-passi-piu-affidabili",
+    pt: "novita-passi-piu-affidabili",
+    pl: "novita-passi-piu-affidabili",
+    tr: "novita-passi-piu-affidabili",
+    nl: "novita-passi-piu-affidabili",
+    ja: "novita-passi-piu-affidabili",
+    ko: "novita-passi-piu-affidabili",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {

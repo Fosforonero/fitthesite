@@ -30,7 +30,8 @@ export type CoverType =
   | "appleTogether"
   | "pixelWatch"
   | "googleHealthSync"
-  | "apiMigration";
+  | "apiMigration"
+  | "stepsChart";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -91,6 +92,12 @@ export const COVER_FILE: Record<CoverType, string> = {
   pixelWatch: "pixel-watch-health-connect-sync.webp",
   googleHealthSync: "google-health-multi-source-sync.webp",
   apiMigration: "google-fit-api-migration.webp",
+  // P1.9-10 (2026-09-02): cover dedicata consegnata da Matteo per
+  // steps-total-vs-hourly-chart, 1200x675 esatti (VP8X, nessun alpha/EXIF/
+  // XMP/animazione: byte flags a zero, verificato con xxd), 78.936 byte,
+  // nessun testo/logo incorporato. Sostituisce il placeholder "troubleshooting"
+  // (gear.webp) assegnato prima che l'asset fosse disponibile.
+  stepsChart: "steps-total-vs-hourly-chart.webp",
 };
 
 /**
@@ -204,6 +211,14 @@ export const POST_COVER: Record<string, CoverType> = {
   "fitmesh-vs-alternative-sync": "compare",
   "mesh-famiglia-lancio": "news",
   "dove-sono-i-tuoi-dati-server-ue": "privacy",
+
+  // P1.9-10 (2026-09-02): cover dedicata (steps-total-vs-hourly-chart.webp),
+  // non piu' il placeholder "troubleshooting"/gear.webp.
+  "steps-total-vs-hourly-chart": "stepsChart",
+  // MICRO-GATE PR#66-B (08/09/2026): voce /novita gemella dello stesso
+  // argomento — riusa la stessa cover reale invece di un placeholder, nessun
+  // nuovo asset immagine disponibile per questo containment.
+  "novita-passi-piu-affidabili": "stepsChart",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */

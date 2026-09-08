@@ -13,10 +13,10 @@
       "fi": "Kuinka siirtää Android-älylaitteesi tiedot Apple Health-sovellukseen"
     },
     "hero.subtitle": {
-      "sv": "Apple Health visar endast vad din iPhone och Apple Watch registrerar. FitMesh lägger även in dina Galaxy Watch- eller Colmi-ringdata i den, via en opt-in-brygga som inte skapar dubbletter och aldrig räknar samma aktivitet två gånger.",
-      "da": "Apple Health viser kun det, som din iPhone og dit Apple Watch registrerer. FitMesh indlæser også dine Galaxy Watch- eller Colmi-ringdata via en opt-in-bro, der ikke skaber dubletter og aldrig tæller den samme aktivitet to gange.",
-      "no": "Apple Health viser kun det som iPhone-en og Apple Watch-en din registrerer. FitMesh legger også inn dataene fra ringene dine Galaxy Watch eller Colmi i den, via en brofunksjon som man må velge å bruke, og som ikke skaper duplikater og aldri teller den samme aktiviteten to ganger.",
-      "fi": "Apple Health näyttää vain sen, mitä iPhone ja Apple Watch tallentavat. FitMesh tallentaa siihen myös Galaxy Watch- tai Colmi-renkaan tiedot sellaisen valinnaisen yhdyskäytävän kautta, joka ei luo päällekkäisiä tietoja eikä koskaan laske samaa toimintaa kahdesti."
+      "sv": "Apple Health visar endast vad din iPhone och Apple Watch registrerar. FitMesh lägger även in dina Galaxy Watch- eller Colmi-ringdata i den, via en opt-in-brygga som är byggd för att inte skapa dubbletter och i de flesta fall inte räkna samma aktivitet två gånger.",
+      "da": "Apple Health viser kun det, som din iPhone og dit Apple Watch registrerer. FitMesh indlæser også dine Galaxy Watch- eller Colmi-ringdata via en opt-in-bro, der er lavet til ikke at skabe dubletter og i de fleste tilfælde ikke tælle den samme aktivitet to gange.",
+      "no": "Apple Health viser kun det som iPhone-en og Apple Watch-en din registrerer. FitMesh legger også inn dataene fra ringene dine Galaxy Watch eller Colmi i den, via en brofunksjon som man må velge å bruke, laget for å ikke skape duplikater og i de fleste tilfeller ikke telle den samme aktiviteten to ganger.",
+      "fi": "Apple Health näyttää vain sen, mitä iPhone ja Apple Watch tallentavat. FitMesh tallentaa siihen myös Galaxy Watch- tai Colmi-renkaan tiedot sellaisen valinnaisen yhdyskäytävän kautta, joka on suunniteltu olemaan luomatta päällekkäisiä tietoja ja useimmissa tapauksissa olemaan laskematta samaa toimintaa kahdesti."
     },
     "metaDescription": {
       "sv": "Apple Health känner inte igen din Android-barbara enhet. FitMesh överför sömn, vilopuls, SpO2, vikt, steg, sträcka och kalorier från din Galaxy Watch eller Colmi-ring till Apple Health, efter samtycke och utan dubbletter.",
@@ -109,10 +109,10 @@
       "fi": "Aiheuttaako se päällekkäisyyksiä kokonaissummissani?"
     },
     "faq.1.a": {
-      "sv": "Nej. Steg anges endast i timmar om Apple Health inte har någon annan källa, och sömn endast om den saknas. Samma aktivitet räknas aldrig två gånger.",
-      "da": "Nej. Skridt angives kun i timer, hvis Apple Health ikke har nogen anden kilde, og søvn angives kun, hvis den mangler. Den samme aktivitet tælles aldrig to gange.",
-      "no": "Nei. Antall skritt angis kun i timer når Apple Health ikke har noen annen kilde, og søvn angis kun hvis denne opplysningen mangler. Den samme aktiviteten telles aldri to ganger.",
-      "fi": "Ei. Askelmäärät ilmoitetaan tunteina vain silloin, kun Apple Health:lla ei ole muuta lähdettä, ja unen määrä ilmoitetaan vain, jos sitä ei ole ilmoitettu. Samaa toimintaa ei lasketa koskaan kahdesti."
+      "sv": "Nej. Steg skrivs dag för dag, endast när Apple Health inte redan har en bättre källa för den dagen, och sömn endast om den saknas. I de flesta fall räknas samma aktivitet inte två gånger.",
+      "da": "Nej. Skridt skrives dag for dag, kun når Apple Health ikke allerede har en bedre kilde til den dag, og søvn kun, hvis den mangler. I de fleste tilfælde tælles den samme aktivitet ikke to gange.",
+      "no": "Nei. Skritt skrives dag for dag, kun når Apple Health ikke allerede har en bedre kilde for den dagen, og søvn kun hvis denne opplysningen mangler. I de fleste tilfeller telles den samme aktiviteten ikke to ganger.",
+      "fi": "Ei. Askeleet kirjataan päivä kerrallaan, vain silloin, kun Apple Health:lla ei ole jo parempaa lähdettä kyseiselle päivälle, ja unen määrä ilmoitetaan vain, jos sitä ei ole ilmoitettu. Useimmissa tapauksissa samaa toimintaa ei lasketa kahdesti."
     },
     "faq.2.q": {
       "sv": "Vilka klockor och ringar fungerar det med?",
@@ -173,28 +173,28 @@
         "På iPhone visar Apple Health endast data från iPhone och Apple Watch: dina data för ring Galaxy Watch eller Colmi saknas.",
         "Nästan alla appar läser endast från Apple Health. FitMesh skriver även data från din Android-bärbara enhet till den, om du väljer att tillåta det.",
         "Den registrerar sömn i olika faser, vilopuls, SpO2, vikt, steg, sträcka och förbrända kalorier.",
-        "Den skriver inte om det som Apple Health redan innehåller och räknar aldrig samma aktivitet två gånger.",
+        "Den skriver inte om det som Apple Health redan innehåller och räknar i de flesta fall inte samma aktivitet två gånger.",
         "iOS-appen är live på App Store i alla länder som stöds, inklusive samtliga 27 EU-länder."
       ],
       "da": [
         "På iPhone viser Apple Health kun data fra iPhone og Apple Watch: dine data fra ring Galaxy Watch eller Colmi mangler.",
         "Næsten alle apps læser kun fra Apple Health. FitMesh skriver også data fra dit Android-wearable til det – hvis du giver dit samtykke.",
         "Den registrerer søvn i faser, hvilepuls, SpO2, vægt, skridt, distance og forbrændte kalorier.",
-        "Den overskriver ikke det, som Apple Health allerede indeholder, og tæller aldrig den samme aktivitet to gange.",
+        "Den overskriver ikke det, som Apple Health allerede indeholder, og tæller i de fleste tilfælde ikke den samme aktivitet to gange.",
         "iOS-appen er nu tilgængelig på App Store i alle understøttede lande, inklusive alle 27 EU-lande."
       ],
       "no": [
         "På iPhone viser Apple Health kun data fra iPhone og Apple Watch: dataene fra ringene Galaxy Watch eller Colmi mangler.",
         "Nesten alle apper leser kun fra Apple Health. FitMesh skriver også data fra Android-wearable-enheten din inn i den – dette må du aktivere selv.",
         "Den registrerer søvn med søvnfaser, hvilepuls, SpO2, vekt, skritt, distanse og forbrente kalorier.",
-        "Den overskriver ikke det som allerede står i Apple Health, og teller aldri den samme aktiviteten to ganger.",
+        "Den overskriver ikke det som allerede står i Apple Health, og teller i de fleste tilfeller ikke den samme aktiviteten to ganger.",
         "iOS-appen er nå tilgjengelig på App Store i alle land som støttes, inkludert alle de 27 EU-landene."
       ],
       "fi": [
         "iPhonessa Apple Health näyttää vain iPhonen ja Apple Watchin tiedot: Galaxy Watch- tai Colmi-soittorengastiedot puuttuvat.",
         "Lähes kaikki sovellukset lukevat tietoja vain Apple Health:sta. FitMesh tallentaa sinne myös Android-älylaitteesi tiedot, mikäli olet antanut siihen suostumuksesi.",
         "Se tallentaa unen vaiheet, leposykkeen, SpO2, painon, askelmäärän, matkan ja aktiivisen kalorinkulutuksen.",
-        "Se ei korvaa sitä, mitä Apple Health:ssa jo on, eikä se koskaan laske samaa toimintaa kahdesti.",
+        "Se ei korvaa sitä, mitä Apple Health:ssa jo on, eikä se useimmissa tapauksissa laske samaa toimintaa kahdesti.",
         "iOS-sovellus on jo saatavilla App Storessa kaikissa tuetuissa maissa, mukaan lukien kaikki 27 EU-maata."
       ]
     },
@@ -204,7 +204,7 @@
         "Vilopuls.",
         "SpO2 (syrehalt i blodet).",
         "Vikt.",
-        "Steg, endast under de timmar då Apple Health inte redan har en annan källa.",
+        "Steg, dag för dag, endast när Apple Health inte redan har en bättre källa för den dagen.",
         "Avstånd att gå och springa.",
         "Aktiva kalorier."
       ],
@@ -213,7 +213,7 @@
         "Hvilepuls.",
         "SpO2 (iltindhold i blodet).",
         "Vægt.",
-        "Skridt, dog kun i de timer, hvor Apple Health ikke allerede har en anden kilde.",
+        "Skridt, dag for dag, kun når Apple Health ikke allerede har en bedre kilde til den dag.",
         "Afstand til fods og i løb.",
         "Aktive kalorier."
       ],
@@ -222,7 +222,7 @@
         "Hvilepuls.",
         "SpO2 (oksygen i blodet).",
         "Vekt.",
-        "Skritt, kun i de timene hvor Apple Health ikke allerede har en annen kilde.",
+        "Skritt, dag for dag, kun når Apple Health ikke allerede har en bedre kilde for den dagen.",
         "Gang- og løpeavstand.",
         "Aktive kalorier."
       ],
@@ -231,7 +231,7 @@
         "Leposyke.",
         "SpO2 (veren happipitoisuus).",
         "Paino.",
-        "Askeleet, mutta vain niissä tunneissa, joissa Apple Health:lla ei ole vielä toista lähdettä.",
+        "Askeleet, päivä kerrallaan, vain silloin, kun Apple Health:lla ei ole jo parempaa lähdettä kyseiselle päivälle.",
         "Kävely- ja juoksumatka.",
         "Aktiiviset kalorit."
       ]
@@ -239,25 +239,25 @@
     "body.6.items": {
       "sv": [
         "FitMesh läser inte in de data som den redan har skrivit till Apple Health på nytt, så ingenting upprepas.",
-        "Steg läggs endast till under de timmar då Apple Health inte har någon annan källa, så att samma aktivitet aldrig räknas två gånger.",
+        "Steg läggs till dag för dag, endast när Apple Health inte redan har en bättre källa för den dagen, så att du i de flesta fall inte räknar samma aktivitet två gånger.",
         "Sov endast om det saknas: om Apple Health redan har en sömn för den natten, lämnar FitMesh det som det är.",
         "Den skriver in samma värde som du ser i instrumentpanelen, det som kommer från den mest tillförlitliga källan."
       ],
       "da": [
         "FitMesh læser ikke de data, den allerede har skrevet til Apple Health, igen, så der gentages intet.",
-        "Skridt tælles kun med i de timer, hvor Apple Health ikke har nogen anden kilde, så den samme aktivitet aldrig tælles to gange.",
+        "Skridt tilføjes dag for dag, kun når Apple Health ikke allerede har en bedre kilde til den dag, så du i de fleste tilfælde ikke tæller den samme aktivitet to gange.",
         "Sov kun, hvis det mangler: hvis Apple Health allerede har en søvn for den pågældende nat, lader FitMesh det være.",
         "Den skriver den samme værdi, som du ser i kontrolpanelet – nemlig den fra den mest pålidelige kilde."
       ],
       "no": [
         "FitMesh leser ikke inn dataene den allerede har skrevet til Apple Health på nytt, så ingenting blir gjentatt.",
-        "Skritt legges kun til i de timene hvor Apple Health ikke har noen annen kilde, slik at den samme aktiviteten aldri telles to ganger.",
+        "Skritt legges til dag for dag, kun når Apple Health ikke allerede har en bedre kilde for den dagen, slik at du i de fleste tilfeller ikke teller den samme aktiviteten to ganger.",
         "Sov bare hvis det mangler: hvis Apple Health allerede har «sove» for den natten, lar FitMesh det være som det er.",
         "Den skriver inn den samme verdien som du ser i oversikten, nemlig den fra den mest pålitelige kilden."
       ],
       "fi": [
         "FitMesh ei lue uudelleen tietoja, jotka se on jo kirjoittanut Apple Health:aan, joten mitään ei toisteta.",
-        "Askelia lisätään vain niihin tunteihin, joissa Apple Health:lla ei ole muuta lähdettä, joten samaa toimintaa ei lasketa koskaan kahdesti.",
+        "Askelia lisätään päivä kerrallaan, vain silloin, kun Apple Health:lla ei ole jo parempaa lähdettä kyseiselle päivälle, joten useimmissa tapauksissa samaa toimintaa ei lasketa kahdesti.",
         "Nuku vain, jos se puuttuu: jos Apple Health:ssa on jo merkitty yöunet kyseiselle yölle, FitMesh jättää sen ennalleen.",
         "Se tallentaa saman arvon, jonka näet hallintapaneelissa – eli sen, joka on peräisin luotettavimmasta lähteestä."
       ]
@@ -460,8 +460,8 @@
       "da": "Den dag, der lærte os mest"
     },
     "body.6.text": {
-      "sv": "En riktig dag: titta på klockan och ringen samtidigt från morgonen, sedan en timme vid havet med bara ringen, och sedan båda igen. Att lägga ihop siffrorna skulle ha blåst upp totalsumman. Att bortse från ringen skulle ha raderat timmen vid havet. Det rätta svaret är inte «vilken enhet som vinner», utan «vem som mätte, timme för timme». Den där timmen vid havet räknas med en gång, på rätt plats.",
-      "da": "En rigtig dag: se og ring sammen fra om morgenen, derefter en time ved havet kun med ringen, og så begge dele igen. Hvis man havde lagt dem sammen, ville det have forhøjet det samlede tal. Hvis man havde set bort fra ringen, ville timen ved havet være blevet slettet. Det rigtige svar er ikke «hvilken enhed vinder», men «hvem der målte, time for time». Den time ved havet tæller kun én gang, på det rigtige sted."
+      "sv": "En riktig dag: klocka och ring tillsammans större delen av morgonen, sedan en timme vid havet med bara ringen, och sedan båda igen. Att lägga ihop dem hade blåst upp totalsumman, och att bara välja den enhet som visar högst siffra hade inte heller varit rätt val. Eftersom ringen satt på hela dagen, även under den där timmen vid havet, använder FitMesh ringen som enda källa för dagens stegtotal, i stället för att byta enhet timme för timme. I de flesta fall är källan med den mest fullständiga och jämna täckningen för den dagen rätt val. På en dag då de två enheterna visar väldigt olika siffror och ingen av dem tydligt täcker mer, markeras den dagen som osäker i stället för att gissa.",
+      "da": "En rigtig dag: ur og ring sammen det meste af morgenen, derefter en time ved havet kun med ringen, og så begge igen. At lægge dem sammen ville have oppustet totalen, og bare at vælge den enhed, der viser det højeste tal, ville heller ikke have været det rigtige valg. Fordi ringen sad på hele dagen, også i den time ved havet, bruger FitMesh ringen som eneste kilde til dagens samlede antal skridt, i stedet for at skifte enhed time for time. I de fleste tilfælde er kilden med den mest fuldstændige og jævne dækning den dag det rigtige valg. På en dag hvor de to enheder viser meget forskellige tal, og ingen af dem tydeligvis dækker mere, markeres den dag som usikker i stedet for at gætte."
     },
     "body.7.title": {
       "sv": "Läs mer",
@@ -496,8 +496,8 @@
       "da": "Hvis jeg har to enheder på samtidig, bliver skridtene så talt to gange?"
     },
     "faq.1.a": {
-      "sv": "Nej. För varje timme väljs en enda enhet ut, så samma aktivitet räknas aldrig med två gånger.",
-      "da": "Nej. Der vælges én enhed pr. time, så den samme aktivitet aldrig tælles med to gange."
+      "sv": "I de flesta fall nej. För varje dag väljer FitMesh en enda källa för dina steg, den som är mest konsekvent och har bäst täckning den dagen, inte helt enkelt den med det högre talet. Om två källor ger mycket olika siffror och ingen av dem är tydligt mer tillförlitlig, markeras den dagen som osäker i stället för att gissa.",
+      "da": "I de fleste tilfælde nej. For hver dag vælger FitMesh én kilde til dine skridt, den der er mest konsekvent og har den bedste dækning den dag, ikke bare den med det højeste tal. Hvis to kilder giver meget forskellige tal, og ingen af dem tydeligvis er mere pålidelig, markeres den dag som usikker i stedet for at gætte."
     },
     "faq.2.q": {
       "sv": "Fungerar det på samma sätt på Android och iPhone?",
@@ -527,13 +527,13 @@
       "sv": [
         "Flera enheter, en enda dag: dina bärbara enheter lämnar över stafettpinnen istället för att konkurrera med varandra.",
         "Dusch, havet, nattladdning, en glömd klocka: ringen skyddar klockan under de stunder då den är avstängd.",
-        "Samma steg räknas aldrig två gånger.",
+        "I de flesta fall räknas inte samma steg två gånger.",
         "Det fungerar på samma sätt på både Android och iPhone, utan att man behöver ställa in någonting."
       ],
       "da": [
         "Flere enheder, én dag: Dine bærbare enheder giver stafetten videre i stedet for at konkurrere med hinanden.",
         "Brusebad, havet, opladning om natten, et glemt ur: ringen dækker de øjeblikke, hvor uret er slukket.",
-        "De samme trin tælles aldrig to gange.",
+        "I de fleste tilfælde tælles de samme skridt ikke to gange.",
         "Det fungerer på samme måde på både Android og iPhone, og der er intet, der skal konfigureres."
       ]
     },
@@ -6892,8 +6892,8 @@
       "da": "Nu vises fusionen i trinoversigten"
     },
     "body.4.text": {
-      "sv": "Det finns en konkret uppdatering: diagrammet över steg per timme visar nu samma sammanställning. För varje timme anges vilken enhet som mätte (ring eller klocka), och summan av timmarna stämmer överens med dagstotalen. Det är samma logik som för timvis hjärtfrekvens, tillämpad på steg: du ser inte längre bara en total, utan hur den byggdes upp, timme för timme.",
-      "da": "Der er en konkret opdatering: Diagrammet over skridt pr. time viser nu den samme sammenlægning. Hver time angiver, hvilket device der har foretaget målingen (ring eller ur), og summen af timerne svarer til det daglige totalantal. Det er den samme logik som for den timelige puls, blot anvendt på skridt: Du ser ikke længere kun et samlet tal, men kan se, hvordan det er opbygget, time for time."
+      "sv": "Det finns en konkret uppdatering: när det är tillgängligt visar diagrammet över steg per timme vilken enhet som mätte varje timme (ring eller klocka). Diagrammet visas bara när summan av timmarna exakt matchar dagens officiella totalsumma. Om det inte stämmer tvingar FitMesh inte fram diagrammet, utan visar ändå dagens totalsumma. Det är samma transparensprincip som för timvis puls, tillämpad på steg: när diagrammet visas ser du hur totalsumman byggdes upp, timme för timme.",
+      "da": "Der er en konkret opdatering: Når det er tilgængeligt, viser diagrammet over skridt pr. time, hvilken enhed der målte hver time (ring eller ur). Diagrammet vises kun, når summen af timerne præcist matcher dagens officielle totalantal. Hvis det ikke stemmer, tvinger FitMesh det ikke frem, men viser stadig dagens totalantal. Det er samme gennemsigtighedsprincip som for den timelige puls, anvendt på skridt: Når diagrammet vises, kan du se, hvordan totalantallet blev opbygget, time for time."
     },
     "body.5.text": {
       "sv": "Ingen dubbelräkning",
@@ -9457,25 +9457,25 @@
     },
     "body.5.items": {
       "sv": [
-        "**Identifierar överlappningar.** För varje tidsintervall undersöker FitMesh Sync hur många källor som har registrerat samma mätvärde.",
-        "**Väljer den bästa källan.** Bland källor som överlappar varandra använder appen den som har de mest fullständiga eller mest exakta uppgifterna för det aktuella intervallet.",
-        "**Visar ett enskilt värde.** Siffran som visas på instrumentpanelen är alltid det bästa enskilda värdet, inte summan."
+        "**Tittar på hela dagen, inte enskilda timmar.** När flera källor täcker samma dag jämför FitMesh Sync uppgifterna för hela dagen, inte timme för timme.",
+        "**Väljer den mest konsekventa källan, inte den högsta siffran.** Värdena från olika källor läggs inte ihop och den högsta siffran väljs inte per automatik: appen använder källan med bäst timtäckning och mest konsekventa uppgifter för den dagen.",
+        "**Om ett tillförlitligt val inte går att göra sägs det.** Om två källor ger mycket olika siffror för samma dag och inget kriterium gör det möjligt att välja tillförlitligt, markeras dagen som osäker i stället för att låta en slumpmässig siffra vinna."
       ],
       "da": [
-        "**Identificerer overlapninger.** For hvert tidsinterval registrerer FitMesh Sync, hvor mange kilder der har registreret den samme måleværdi.",
-        "**Vælger den bedste kilde.** Blandt overlappende kilder bruger appen den kilde, der har de mest komplette eller mest nøjagtige data for det pågældende tidsinterval.",
-        "**Viser en enkelt værdi.** Det tal, du ser på dashboardet, er altid den bedste enkeltværdi, ikke summen."
+        "**Ser på hele dagen, ikke enkelte timer.** Når flere kilder dækker den samme dag, sammenligner FitMesh Sync data for hele dagen, ikke time for time.",
+        "**Vælger den mest konsistente kilde, ikke det højeste tal.** Værdierne fra de forskellige kilder lægges ikke sammen, og den højeste værdi vælges ikke automatisk: appen bruger den kilde, der har den bedste timedækning og de mest konsistente data for den dag.",
+        "**Hvis der ikke kan træffes et pålideligt valg, vises det.** Hvis to kilder giver meget forskellige tal for den samme dag, og intet kriterium gør det muligt at træffe et pålideligt valg, forbliver dagen markeret som usikker i stedet for at lade et tilfældigt tal vinde."
       ]
     },
     "body.10.items": {
       "sv": [
         "**Smartklocka på dagen, ring på natten.** Steg under dagen registreras av smartklockan. Sömn registreras av Colmi-ringen. Översiktspanelen visar båda utan att den ena skriver över den andra.",
-        "**Två smartklockor samtidigt.** Om du bär båda samtidigt använder appen stegantalet från den källa som genererade de högsta eller mest fullständiga uppgifterna för den timmen, inte summan av dem.",
+        "**Två smartklockor samtidigt.** Om du bär båda samma dag lägger FitMesh Sync inte ihop stegen från de två enheterna och väljer inte bara den högsta siffran: för den dagen används källan med bäst timtäckning och mest konsekventa uppgifter. I de sällsynta fall då ingen källa är tydligt mer tillförlitlig markeras dagen som osäker.",
         "**Byte av övervakningsgrupp mitt i året.** Data från den första övervakningsgruppen för tidigare månader och den nya övervakningsgruppen för efterföljande månader visas som en sammanhängande linje i den historiska översikten."
       ],
       "da": [
         "**Smartwatch om dagen, ring om natten.** Skridt i løbet af dagen vises på smartwatchet. Søvn vises på Colmi-ringen. Oversigtsskærmen viser begge dele, uden at det ene overskriver det andet.",
-        "**To smartwatches på samme tid.** Hvis du bærer begge i samme tidsvindue, bruger appen skridtantallet fra den kilde, der har leveret de højeste eller mest komplette data for den pågældende time – ikke summen af de to.",
+        "**To smartwatches på samme tid.** Hvis du bærer begge samme dag, lægger FitMesh Sync ikke skridtene fra de to enheder sammen og vælger ikke bare det højeste tal: for den dag bruges den kilde, der har den bedste timedækning og de mest konsistente data. I de sjældne tilfælde, hvor ingen kilde er tydeligt mere pålidelig, forbliver dagen markeret som usikker.",
         "**Skift af ur midt på året.** Data fra det første ur for de foregående måneder og det nye ur for de efterfølgende måneder vises som en sammenhængende linje i den historiske oversigt."
       ]
     }
