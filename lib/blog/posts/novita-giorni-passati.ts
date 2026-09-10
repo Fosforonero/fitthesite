@@ -17,10 +17,12 @@ import type { BlogPost } from "../types";
  * del 401 a tre stati non confermata — resta una domanda aperta
  * all'agente app, non una dipendenza di questa PR).
  *
- * publishedAt/updatedAt: placeholder alla data di preparazione. Da
- * impostare alla data REALE di pubblicazione (dopo disponibilità Android
- * verificata e GO esplicito di Matteo) — OBBLIGATORIO aggiornare
- * immediatamente prima della pubblicazione, non lasciare questa data.
+ * publishedAt/updatedAt: GO PUBBLICAZIONE (10/09/2026, stesso giorno della
+ * preparazione) — data reale di pubblicazione, non più un placeholder.
+ * Disponibilità store riverificata a questa stessa data/ora: iOS live sulla
+ * 3.10.0 ("1 h fa"), Android ancora sulla 3.9.9 — nota esplicita nel corpo
+ * dell'articolo (primo blocco, callout "Disponibilità"), senza promesse di
+ * tempi, come da mandato.
  */
 export const post: BlogPost = {
   slug: "novita-giorni-passati",
@@ -122,6 +124,27 @@ export const post: BlogPost = {
     },
   },
   body: [
+    {
+      // GO PUBBLICAZIONE (10/09/2026): disponibilità store asimmetrica al
+      // momento della pubblicazione — iOS live, Android ancora sulla 3.9.9.
+      // Nota esplicita, senza promesse di tempi, per mandato. Da rimuovere
+      // quando anche Android sarà verificato live sulla 3.10.0 (non
+      // automatico: richiede una modifica successiva esplicita).
+      type: "callout",
+      variant: "info",
+      title: {
+        it: "Disponibilità",
+        en: "Availability",
+        de: "Verfügbarkeit",
+        fr: "Disponibilité",
+      },
+      body: {
+        it: "Disponibile su iOS. L'aggiornamento per Android è in arrivo.",
+        en: "Available on iOS. The Android update is on its way.",
+        de: "Verfügbar auf iOS. Das Update für Android ist unterwegs.",
+        fr: "Disponible sur iOS. La mise à jour pour Android est en route.",
+      },
+    },
     {
       type: "paragraph",
       text: {
