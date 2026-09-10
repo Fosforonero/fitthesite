@@ -148,6 +148,10 @@ export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
   // MICRO-GATE PR#66-B (08/09/2026): voce /novita gemella, stesso perimetro
   // di lingue e stesso meccanismo.
   "novita-passi-piu-affidabili",
+  // SPRINT novità 3.10.0/191 (10/09/2026): voce /novita gemella, stesso
+  // perimetro di lingue (it/en/de/fr) e stesso meccanismo — nessuna lingua
+  // aggiuntiva sbloccata rispetto ai due post precedenti.
+  "novita-giorni-passati",
 ]);
 
 /**

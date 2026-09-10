@@ -219,6 +219,12 @@ export const POST_COVER: Record<string, CoverType> = {
   // argomento — riusa la stessa cover reale invece di un placeholder, nessun
   // nuovo asset immagine disponibile per questo containment.
   "novita-passi-piu-affidabili": "stepsChart",
+  // SPRINT novità 3.10.0/191 (10/09/2026): nessun asset dedicato al tema
+  // "navigazione giorni passati" disponibile — riuso l'illustrazione
+  // astratta generica "dashboard" (chiave esistente, già usata da altri
+  // post news/ecosystem), NON uno screenshot che finga di mostrare la UI
+  // reale. Segnalato a Matteo come scelta di ripiego, non ideale.
+  "novita-giorni-passati": "dashboard",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */

@@ -861,6 +861,22 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "novita-passi-piu-affidabili",
     ko: "novita-passi-piu-affidabili",
   },
+  // SPRINT novità 3.10.0/191 (10/09/2026): stesso pattern dei due post
+  // gemelli sopra — pubblicato solo it/en/de/fr (REDIRECT_INCOMPLETE_LOCALE_SLUGS
+  // in indexability.ts), le altre locale usano il canonico per lo stesso
+  // motivo (redirect a singolo hop verso /en, mai due).
+  "novita-giorni-passati": {
+    en: "past-days-clearer-data",
+    de: "vergangene-tage-klarere-daten",
+    fr: "jours-passes-donnees-plus-claires",
+    es: "novita-giorni-passati",
+    pt: "novita-giorni-passati",
+    pl: "novita-giorni-passati",
+    tr: "novita-giorni-passati",
+    nl: "novita-giorni-passati",
+    ja: "novita-giorni-passati",
+    ko: "novita-giorni-passati",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {
