@@ -13305,5 +13305,229 @@
         "Health Connect är den mest integritetsvänliga Android-konfigurationen som finns: data lagras på enheten och varje app måste begära behörighet för varje enskild datatyp."
       ]
     }
+  },
+  "nuova-apple-health-rende-inutili-altre-app": {
+    "hero.kicker": {
+      "sv": "Analys",
+      "da": "Analyse"
+    },
+    "hero.title": {
+      "sv": "Gör nya Apple Hälsa andra appar överflödiga? Det här vet vi hittills",
+      "da": "Vil den nye Apple Sundhed gøre andre apps overflødige? Det ved vi indtil videre"
+    },
+    "hero.subtitle": {
+      "sv": "Apple har tillkännagett en betydligt mer ambitiös Hälsa-app. Det går ännu inte att verifiera den i skarpt, publikt bruk: här är vad som har presenterats, vad som redan är tekniskt dokumenterat, och vad som fortfarande är okänt.",
+      "da": "Apple har annonceret en langt mere ambitiøs Sundhed-app. Det er endnu ikke muligt at afprøve den i den endelige, offentlige version: her er, hvad der er blevet præsenteret, hvad der allerede er teknisk dokumenteret, og hvad der stadig er uvist."
+    },
+    "metaDescription": {
+      "sv": "Apple har tillkännagett en ny Hälsa-app med Insights och Longevity: vad vi vet, vad som saknar dokumentation, och var FitMesh fortfarande gör nytta för flera enheter.",
+      "da": "Apple har annonceret en redesignet Sundhed-app med Insights og Longevity: hvad vi ved, hvad der ikke er dokumenteret, og hvor FitMesh stadig gør nytte."
+    },
+    "primaryKeyword": {
+      "sv": "nya apple hälsa ersätter träningsappar",
+      "da": "apple sundhed vs fitness apps"
+    },
+    "secondaryKeywords": {
+      "sv": [
+        "ny apple hälsa tillkännagivande",
+        "readiness health age longevity apple",
+        "apple hälsa healthkit tredjepartsappar",
+        "fitmesh jämfört med apple hälsa"
+      ],
+      "da": [
+        "apple sundhed redesign annonceret",
+        "readiness health age longevity apple",
+        "apple sundhed healthkit tredjepartsapps",
+        "fitmesh vs apple sundhed"
+      ]
+    },
+    "tldr": {
+      "sv": [
+        "Apple har tillkännagett (9/9 2026) en helt omdesignad Hälsa-app, med flikarna Insights och Longevity — men den är inte tillgänglig än: den kommer senare under 2026, inledningsvis bara på amerikansk engelska, separat från lanseringen av iOS 27 den 14/9.",
+        "En iPhone/iPad med stöd för Apple Intelligence krävs för hela appen; vissa funktioner (puls var 5:e sekund, mer frekvent HRV, Steg-komplikationen på urtavlan) kräver dessutom Apple Watch Series 12 eller Ultra 4.",
+        "Apples utvecklardokumentation visar i dagsläget inget som tyder på att Readiness eller Health Age exponeras via HealthKit till tredjepartsappar: inget tyder på att de kan läsas utanför Hälsa-appen.",
+        "FitMesh, i sin publika utgåva 3.10.0, läser — med användarens tillstånd — prov av de HealthKit-typer som stöds (steg, puls, sömn och annat), utan att begränsa sig till källan Apple Watch, och kan skriva vissa mätvärden till Apple Hälsa när det uttryckligen aktiveras, med angivna begränsningar.",
+        "FitMeshs roll förblir tydligt avgränsad: Apple Hälsa är Apple-ekosystemets arkiv och analys av data som når HealthKit, medan FitMesh är en plattformsoberoende dashboard kopplad till kontot, med en valfri brygga till vissa mätvärden som stöds."
+      ],
+      "da": [
+        "Apple annoncerede (9/9/2026) en fuldstændig redesignet Sundhed-app, med fanerne Insights og Longevity — men den er endnu ikke tilgængelig: den kommer senere i 2026, i første omgang kun på amerikansk engelsk, adskilt fra udgivelsen af iOS 27 den 14/9.",
+        "Hele appen kræver en iPhone/iPad med understøttelse af Apple Intelligence; nogle funktioner (puls hvert 5. sekund, hyppigere HRV, Skridt-komplikationen på urskiven) kræver derudover Apple Watch Series 12 eller Ultra 4.",
+        "Ifølge Apples udviklerdokumentation fremgår det i dag ikke, at Readiness og Health Age er eksponeret via HealthKit til tredjepartsapps: intet tyder på, at de kan læses uden for Sundhed-appen.",
+        "FitMesh læser i den offentlige udgivelse 3.10.0 — efter brugerens godkendelse — datapunkter for de understøttede HealthKit-typer (skridt, puls, søvn og andre), uden at begrænse dem til kilden Apple Watch, og kan skrive nogle målinger til Apple Sundhed ved eksplicit aktivering, med angivne begrænsninger.",
+        "FitMeshs rolle forbliver adskilt: Apple Sundhed er Apple-økosystemets arkiv og analyse af de data, der når HealthKit, mens FitMesh er en tværplatforms dashboard knyttet til kontoen, med en valgfri bro til nogle understøttede målinger."
+      ]
+    },
+    "body.0.text": {
+      "sv": "Nya Apple Hälsa gör inte alla andra appar överflödiga — men den kan minska behovet av rena analysappar för den som enbart använder Apple-produkter. Den 9 september 2026 tillkännagav Apple en genomgripande omdesign av Hälsa-appen, tillsammans med de nya Apple Watch Series 12 och Ultra 4: dagliga poäng, en långsiktig hälsoanalys, till och med kopplade blodprov. Frågan kvarstår vad det betyder för appar som idag samlar data från flera enheter — FitMesh inräknat: det beror på vad du äger, och på vissa punkter har Apple själv ännu inte varit tydligt.",
+      "da": "Den nye Apple Sundhed (Apple Health) gør ikke alle andre apps overflødige — men den kan mindske behovet for rene analyseapps i et scenarie med udelukkende Apple-udstyr. Den 9. september 2026 annoncerede Apple en gennemgribende redesign af Sundhed-appen, sammen med de nye Apple Watch Series 12 og Ultra 4: daglige scorer, en langsigtet sundhedsanalyse, og ligefrem tilknyttede blodprøver. Det er stadig relevant at spørge, hvad det betyder for de apps, der i dag samler data fra flere enheder — FitMesh inklusive: det afhænger af, hvad du selv ejer, og på nogle punkter har Apple selv endnu ikke været tydelig."
+    },
+    "body.1.text": {
+      "sv": "Vad Apple har tillkännagett — och när den faktiskt kommer",
+      "da": "Hvad Apple har annonceret, og hvornår det reelt kommer"
+    },
+    "body.2.text": {
+      "sv": "En viktig och ofta missförstådd skillnad: Apple har tillkännagett att **iOS 27** och **watchOS 27** blir tillgängliga från den 14 september 2026, men **den omdesignade Hälsa-appen är en separat sak** som ännu inte finns tillgänglig. Apple skriver uttryckligen att den kommer \"later this year\" (senare under 2026), inledningsvis bara på amerikansk engelska, med fler språk senare — inget exakt datum har angetts. Källa: [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/), 9 september 2026.",
+      "da": "Der er en vigtig skelnen, som ofte forveksles: Apple har annonceret, at **iOS 27** og **watchOS 27** er tilgængelige fra den 14. september 2026, men **den redesignede Sundhed-app er noget andet og separat**, som endnu ikke er tilgængelig. Apple skriver eksplicit, at den kommer \"later this year\" (senere i 2026), i første omgang kun på amerikansk engelsk, med flere sprog senere — der er ikke oplyst nogen præcis dato. Kilde: [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/), 9. september 2026."
+    },
+    "body.3.text": {
+      "sv": "Enligt det Apple har presenterat kräver den omdesignade appen en iPhone eller iPad med stöd för Apple Intelligence för att kunna användas i sin helhet — inte bara för enskilda funktioner. Kravet på Apple Watch varierar däremot beroende på funktion: **Health Age**, till exempel, kräver \"Apple Watch\" i allmänhet, utan att ett specifikt modellnamn anges. Vissa funktioner kopplade till de nya sensorerna (se nedan) kräver däremot specifikt Series 12 eller Ultra 4.",
+      "da": "Ifølge det, Apple har præsenteret, kræver den redesignede app en iPhone eller iPad med understøttelse af Apple Intelligence for at kunne bruges i sin helhed — ikke kun til enkelte funktioner. Kravet til Apple Watch varierer derimod fra funktion til funktion: **Health Age** kræver for eksempel blot \"Apple Watch\" generelt, uden at angive en bestemt model. Nogle funktioner knyttet til de nye sensorer (se nedenfor) kræver derimod specifikt Series 12 eller Ultra 4."
+    },
+    "body.4.text": {
+      "sv": "Insights, Longevity, Health Age, Readiness: fyra olika saker",
+      "da": "Insights, Longevity, Health Age, Readiness: fire forskellige ting"
+    },
+    "body.5.text": {
+      "sv": "Det är termer som överlappar i kommunikationen men som syftar på olika saker. **Insights** är en flik för vardagsvyn: den visar en sammanfattning som uppdateras under dagens gång kring hjärta, sömn, readiness, aktivitet, vitalparametrar och menscykel, plus ett avsnitt kallat \"For You\" med personliga rekommendationer. **Longevity** är en separat flik för det långsiktiga perspektivet: den analyserar longitudinella data om hjärthälsa, sömn, mentalt välbefinnande, rörelse, ämnesomsättning, hörsel och kost. **Health Age** är en poäng inuti fliken Longevity, inte en egen flik: enligt Apple \"använder Apple Watch-data för att visa hur dina mätvärden förhåller sig till din kronologiska ålder\", med VO2 max, vilopuls, sömn och HRV som indata, samt labbdata som användaren kan lägga till manuellt (A1c, LDL). **Readiness** är en daglig poäng från 0 till 10 (Recover / Pace Yourself / Ready / Go For It), beräknad på klockan utifrån senaste aktivitet, träningsbelastning, vitalparametrar och sömnpoäng, som sedan visas i fliken Insights. Källor: [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/) och [Apple Newsroom — Introducing Apple Watch Series 12, with the all-new Health Sensing System](https://www.apple.com/newsroom/2026/09/introducing-apple-watch-series-12-with-the-all-new-health-sensing-system/), 9 september 2026.",
+      "da": "Det er begreber, der overlapper i kommunikationen, men som dækker over forskellige ting. **Insights** er en fane til det daglige overblik: den viser et resumé, der opdateres i løbet af dagen, med hjerte, søvn, readiness, aktivitet, vitale værdier og menstruationscyklus, plus en \"For You\"-sektion med personlige anbefalinger. **Longevity** er en separat fane til det langsigtede overblik: den analyserer longitudinelle data om hjerte, søvn, mental trivsel, bevægelse, stofskifte, hørelse og ernæring. **Health Age** er en score inde i Longevity-fanen, ikke en fane for sig selv: ifølge Apple \"bruger den data fra Apple Watch til at vise, hvordan dine målinger ligger i forhold til din kronologiske alder\", med VO2 max, hvilepuls, søvn og HRV som input, plus laboratoriedata, som brugeren selv kan tilføje manuelt (A1c, LDL). **Readiness** er en daglig score fra 0 til 10 (Recover / Pace Yourself / Ready / Go For It), der beregnes på uret ud fra nylig aktivitet, træningsbelastning, vitale værdier og søvnscore, og som derefter vises i Insights-fanen. Kilder: [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/) og [Apple Newsroom — Introducing Apple Watch Series 12, with the all-new Health Sensing System](https://www.apple.com/newsroom/2026/09/introducing-apple-watch-series-12-with-the-all-new-health-sensing-system/), 9. september 2026."
+    },
+    "body.6.title": {
+      "sv": "Vad som specifikt kräver den nya hårdvaran",
+      "da": "Hvad den nye hardware specifikt kræver"
+    },
+    "body.6.body": {
+      "sv": "Series 12/Ultra 4 introducerar ett S11-chip som möjliggör pulsmätning var 5:e sekund (istället för ungefär en mätning var 5:e minut) och HRV upp till 24 gånger oftare, plus en Steg-komplikation i realtid på urtavlan. Apple presenterar Readiness som introducerad tillsammans med dessa två modeller, men — till skillnad från andra funktioner som Audio Intelligence, för vilken Apple uttryckligen skriver \"kräver Apple Watch Series 12 eller Ultra 4\" — har vi inte hittat en lika uttrycklig formulering som binder Readiness till just den hårdvaran. Det är en starkt underförstådd exklusivitet, inte uttalad med samma tydliga formel.",
+      "da": "Series 12/Ultra 4 introducerer en S11-chip, der muliggør pulsmåling hvert 5. sekund (mod cirka én måling hvert 5. minut før) og HRV op til 24 gange oftere, samt en Skridt-komplikation i realtid på urskiven. Apple præsenterer Readiness som introduceret sammen med disse to modeller, men — i modsætning til andre funktioner som Audio Intelligence, hvor Apple eksplicit skriver \"kræver Apple Watch Series 12 eller Ultra 4\" — har vi ikke fundet en tilsvarende eksplicit sætning, der binder Readiness til den hardware. Det er en stærkt underforstået eksklusivitet, ikke angivet med samme klare formulering."
+    },
+    "body.7.text": {
+      "sv": "Vad vi fortfarande inte vet",
+      "da": "Hvad vi stadig ikke ved"
+    },
+    "body.8.text": {
+      "sv": "När Apple beskriver fliken Longevity i sin helhet skriver de att användaren kan se \"vad som påverkar deras långsiktiga hälsa baserat på data från iPhone, Apple Watch, AirPods och kliniska journaler, samt från tredjepartsappar och -enheter\". Det är det enda uttryckliga omnämnandet av tredjepartsdata i hela tillkännagivandet — men det avser fliken Longevity i allmänhet, inte specifikt hur algoritmen för Health Age beräknas, vilken i samma meddelande beskrivs som baserad på \"Apple Watch-data\". Apple förtydligar inte kopplingen mellan de två formuleringarna: **att tredjepartsdata nämns i helhetsbilden av Longevity bevisar inte att den datan används i Health Age, Readiness eller någon annan specifik algoritm** — det är en fråga som uttryckligen förblir öppen, inte ett fastslaget faktum åt något håll. Det enda exakt angivna undantaget gäller testet för att uppskatta VO2 max, där Apple uttryckligen även tillåter \"en tredjepartsenhet för pulsmätning\", utöver Apple Watch och AirPods Pro 3.",
+      "da": "Når Apple taler om Longevity-fanen som helhed, skriver de, at brugeren kan se \"hvad der påvirker deres langsigtede sundhed, baseret på data fra iPhone, Apple Watch, AirPods og kliniske journaler, samt fra tredjepartsapps og -enheder\". Det er den eneste eksplicitte omtale af tredjepartsdata i hele annonceringen — men den refererer til Longevity-fanen generelt, ikke specifikt til, hvordan Health Age-algoritmen beregnes, som i samme meddelelse beskrives som baseret på \"data fra Apple Watch\". Apple gør ikke forbindelsen mellem de to udsagn klar: **at nævne tredjepartsdata i det samlede billede af Longevity beviser ikke, at de data indgår i Health Age, Readiness eller nogen anden specifik algoritme** — det er et spørgsmål, der eksplicit står åbent, ikke et fastlagt faktum i den ene eller anden retning. Den eneste undtagelse, der er præcist angivet, gælder testen til at estimere VO2 max, hvor Apple eksplicit også tillader \"en tredjeparts pulsmåler\", ud over Apple Watch og AirPods Pro 3."
+    },
+    "body.9.text": {
+      "sv": "På det tekniska planet ger Apples utvecklardokumentation ännu inget svar: en genomgång av det fullständiga indexet över HealthKit-typer (`HKQuantityTypeIdentifier` och `HKCategoryTypeIdentifier`) och den officiella ändringsloggen den 11 september 2026 visar att **ingen identifierare för Readiness, Health Age, fliken Longevity eller Sleep Score finns med**. Den senaste posten i HealthKits ändringslogg är fortfarande daterad juni 2026. Ett delvis undantag: en ny, verklig identifierare har dykt upp, `heartRateVariabilityRMSSD`, men utan någon publicerad textbeskrivning — deklarerad i SDK:n, ännu inte dokumenterad i löptext, och det är oklart om den motsvarar det Apple kallar \"Recovery HRV\". Källa: [Apple Developer — HealthKit, typindex](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier) och [HealthKit-ändringslogg](https://developer.apple.com/documentation/updates/healthkit), kontrollerade den 11 september 2026. I avsaknad av ett publikt API finns det i dagsläget inga belägg för att Readiness eller Health Age kan läsas av en tredjepartsapp — men inte heller något som visar att de aldrig kommer att kunna det: det är ett sakläge som behöver kontrolleras igen när (och om) en mer fullständig dokumentation kommer, inte något att utgå från redan nu.",
+      "da": "På det tekniske plan hjælper Apples udviklerdokumentation endnu ikke med at afklare tvivlen: ved gennemgang af det fulde indeks over HealthKit-typer (`HKQuantityTypeIdentifier` og `HKCategoryTypeIdentifier`) og den officielle changelog den 11. september 2026 **findes der ingen identifikator for Readiness, Health Age, Longevity-fanen eller Sleep Score**. Den seneste post i HealthKit-changeloggen er stadig dateret juni 2026. Én delvis undtagelse: en ny, reel identifikator, `heartRateVariabilityRMSSD`, er dukket op, men uden nogen udgivet beskrivelse — deklareret i SDK'et, endnu ikke dokumenteret i prosa, og det er uklart, om den svarer til det, Apple kalder \"Recovery HRV\". Kilde: [Apple Developer — HealthKit, indeks over identifikatorer](https://developer.apple.com/documentation/healthkit/hkquantitytypeidentifier) og [HealthKit-changelog](https://developer.apple.com/documentation/updates/healthkit), tjekket den 11. september 2026. Uden en offentlig API er der i dag ingen beviser for, at Readiness eller Health Age kan læses af en tredjepartsapp — men heller ikke for, at det aldrig vil ske: det er en tilstand, der skal efterprøves igen, når (og hvis) der kommer en mere fuldstændig dokumentation, ikke et faktum at satse på nu."
+    },
+    "body.10.text": {
+      "sv": "Vad FitMesh redan gör idag, verifierat i koden för 3.10.0",
+      "da": "Hvad FitMesh allerede gør i dag, verificeret i koden til 3.10.0"
+    },
+    "body.11.text": {
+      "sv": "Till skillnad från funktioner som har tillkännagetts men ännu inte lanserats går det här att verifiera: i den publika utgåvan 3.10.0 läser FitMesh på iPhone — efter att användaren gett tillstånd — prov av de HealthKit-typer som stöds (steg, puls, sömn, SpO2, kalorier, vikt och annat), utan att begränsa sig till enbart källan Apple Watch: läsningen filtrerar inte efter källa. När flera källor ska vägas mot varandra känner appen uttryckligen igen dussintals källnamn från tredjepartsappar och -enheter (Samsung Health, Garmin, Fitbit, Amazfit, Huawei, Polar, Oura, Whoop, Suunto, Colmi-ringen och andra) — inte någon direktkoppling mellan FitMesh och dessa tillverkare, utan data som samma appar skriver in i Apple Hälsa och som FitMesh sedan läser därifrån. För en fullständig genomgång av hur mekanismen fungerar, inklusive vad bryggan INTE gör, se [data från smarta ringar i Apple Hälsa](/sv/blog/dati-anello-smart-apple-salute).",
+      "da": "I modsætning til funktioner, der er annonceret, men endnu ikke udgivet, kan dette efterprøves: i den offentlige 3.10.0-udgivelse læser FitMesh på iPhone — efter brugerens godkendelse — datapunkter for de understøttede HealthKit-typer (skridt, puls, søvn, SpO2, kalorier, vægt og andre), uden at begrænse dem til kun Apple Watch som kilde: læsningen filtrerer ikke efter kilde. Når appen arbitrerer mellem flere kilder, genkender den eksplicit snesevis af kildenavne fra tredjepartsapps og -enheder (Samsung Health, Garmin, Fitbit, Amazfit, Huawei, Polar, Oura, Whoop, Suunto, Colmi-ringen og andre) — ikke en direkte forbindelse mellem FitMesh og de producenter, men data, som de samme apps skriver ind i Apple Sundhed, og som FitMesh derefter læser derfra. For hele mekanismen i detaljer, inklusive hvad broen IKKE gør, se [data fra smart ring i Apple Sundhed](/da/blog/dati-anello-smart-apple-salute)."
+    },
+    "body.12.text": {
+      "sv": "När det gäller skrivning — alltid via ett uttryckligt aktivt val (avstängt som standard) och aldrig i realtid — kan FitMesh skicka steg, distans och aktiva kalorier till Apple Hälsa (bara den del som saknas jämfört med vad som redan finns där, aldrig en summering), samt vilopuls, SpO2 och vikt (men bara om det inte redan finns data från en annan källa den dagen). **Appen skriver aldrig HRV** — molnet beräknar RMSSD medan HealthKit på iOS exponerar SDNN, ett annat mått, och att skriva det skulle ge ett felaktigt värde — och **sömn är för närvarande avaktiverat** i väntan på att ett känt fel ska åtgärdas. Det finns ingen historisk bakåtfyllning vid skrivning: bara innevarande dag. För hur du istället exporterar din data FRÅN Apple Hälsa (native XML, CSV för läkaren, eller en webbdashboard), se [så exporterar du data från Apple Hälsa](/sv/blog/how-to-export-apple-health-data).",
+      "da": "På skrivesiden, altid ved eksplicit aktivering (slået fra som standard) og aldrig i realtid, kan FitMesh sende skridt, distance og aktive kalorier til Apple Sundhed (kun den manglende andel i forhold til det, der allerede findes, aldrig en sum), samt hvilepuls, SpO2 og vægt (men kun hvis der ikke allerede findes data fra en anden kilde den dag). **Appen skriver aldrig HRV** — cloud'en beregner RMSSD, mens HealthKit på iOS eksponerer SDNN, en anden målestørrelse, og at skrive den ville give en forkert værdi — og **søvn er i øjeblikket deaktiveret**, mens en kendt fejl afventer rettelse. Der er ingen historisk backfill ved skrivning: kun den aktuelle dag. For hvordan du i stedet eksporterer dine data FRA Apple Sundhed (native XML, CSV til lægen, eller webdashboard), se [sådan eksporterer du data fra Apple Sundhed](/da/blog/how-to-export-apple-health-data)."
+    },
+    "body.13.text": {
+      "sv": "Tre praktiska scenarier",
+      "da": "Tre praktiske scenarier"
+    },
+    "body.14.items": {
+      "sv": [
+        "**Endast Apple** (iPhone + Apple Watch, ingen annan enhet): det här är scenariot där den nya Hälsa-appen, när den väl kommer, troligen redan kommer att täcka det mesta av vad du behöver direkt i appen — Insights, Readiness och Health Age är utformade just för det här användningsfallet. Ärligt talat är det här scenariot där FitMesh tillför minst.",
+        "**Blandat ekosystem** (Apple tillsammans med en enhet som inte är från Apple — en Garmin, en Samsung Galaxy Watch, en smart ring): här är skillnaden fortfarande tydlig. Den omdesignade Hälsa-appen analyserar, enligt vad som presenterats hittills, din data för att ge dig insikter — men beskriver ingen mekanism för att sammanföra och deduplicera olika källor på samma sätt som FitMesh redan gör idag.",
+        "**Plattformsbyte** (till exempel från Android till iPhone, eller tvärtom): historiken som FitMesh redan har samlat in förblir kopplad till ditt konto, inte till den fysiska enheten — oavsett vilken inbyggd Hälsa-app du använder efter bytet."
+      ],
+      "da": [
+        "**Kun Apple** (iPhone + Apple Watch, ingen andre enheder): dette er det scenarie, hvor den nye Sundhed-app, når den kommer, sandsynligvis allerede vil dække det meste af, hvad du har brug for, nativt — Insights, Readiness og Health Age er netop skabt til denne brug. Det er ærligt talt det scenarie, hvor FitMesh tilføjer mindst værdi.",
+        "**Blandet økosystem** (Apple sammen med en enhed uden for Apple — en Garmin, et Samsung Galaxy Watch, en smart ring): her er forskellen fortsat tydelig. Den redesignede Sundhed-app analyserer, ud fra det der er præsenteret indtil videre, dine data for at give dig indsigter — appen beskriver ikke en mekanisme til at samle og deduplikere heterogene kilder på samme måde, som FitMesh allerede gør i dag.",
+        "**Platformsskift** (for eksempel fra Android til iPhone, eller omvendt): den historik, FitMesh allerede har indsamlet, forbliver knyttet til din konto, ikke til den fysiske enhed — uanset hvilken native Sundhed-app du bruger efter skiftet."
+      ]
+    },
+    "body.15.caption": {
+      "sv": "Apple Hälsa enligt tillkännagivandet, FitMesh 3.10.0, och vad som fortfarande är okänt",
+      "da": "Apple Sundhed som annonceret, FitMesh 3.10.0, og hvad der stadig er uvist"
+    },
+    "body.15.headers": {
+      "sv": [
+        "Aspekt",
+        "Apple Hälsa (tillkännagiven)",
+        "FitMesh 3.10.0",
+        "Ännu inte känt"
+      ],
+      "da": [
+        "Aspekt",
+        "Apple Sundhed (annonceret)",
+        "FitMesh 3.10.0",
+        "Endnu ikke kendt"
+      ]
+    },
+    "body.15.rows.0": {
+      "sv": [
+        "Tillgänglighet",
+        "Tillkännagiven 9/9 2026, ännu inte publik",
+        "Redan i publik utgåva",
+        "Exakt lanseringsdatum"
+      ],
+      "da": [
+        "Tilgængelighed",
+        "Annonceret 9/9-2026, endnu ikke offentlig",
+        "Allerede i offentlig udgivelse",
+        "Præcis lanceringsdato"
+      ]
+    },
+    "body.15.rows.1": {
+      "sv": [
+        "Poängen Readiness / Health Age",
+        "Presenterade, endast i den inbyggda Hälsa-appen",
+        "Läses inte, inget angivet stöd",
+        "Om och när ett publikt API kommer"
+      ],
+      "da": [
+        "Readiness-/Health Age-scorer",
+        "Præsenteret, kun i den native Sundhed-app",
+        "Læses ikke, ingen understøttelse angivet",
+        "Om/hvornår en offentlig API kommer"
+      ]
+    },
+    "body.15.rows.2": {
+      "sv": [
+        "Data från enheter som inte är från Apple",
+        "Ingen sammanslagningsmekanism beskriven hittills",
+        "Läses från HealthKit om den redan finns där, vägs mellan flera källor",
+        "Om den kommer att ingå i de inbyggda poängen"
+      ],
+      "da": [
+        "Data fra ikke-Apple-enheder",
+        "Ingen samlingsmekanisme beskrevet indtil videre",
+        "Læses fra HealthKit, når de allerede findes der, arbitreret mellem kilder",
+        "Om de vil indgå i de native scorer"
+      ]
+    },
+    "body.16.text": {
+      "sv": "Slutsatsen, i fyra lager",
+      "da": "Konklusionen, i fire lag"
+    },
+    "body.17.text": {
+      "sv": "Om man skiljer på vad Apple har tillkännagett, vad som redan är dokumenterat i API:et, vad vi fortfarande inte vet, och vad FitMesh faktiskt gör idag, framträder följande bild: **när Apple Hälsa väl blir tillgänglig kommer den att bli betydligt mer heltäckande och kan minska behovet av vissa rena analysappar. Den kommer dock inte automatiskt att ersätta verktyg som kopplar samman olika enheter, källor och plattformar.** Det första lagret (tillkännagivandet) är ambitiöst men ännu inte verifierbart i publikt bruk. Det andra lagret (API:et): den 11 september 2026 hade vi inte hittat något dokumenterat publikt HealthKit-API för Readiness eller Health Age, och FitMesh anger inte idag stöd för något av dem. Det tredje lagret (de öppna frågorna) handlar framför allt om huruvida och hur data från enheter som inte är från Apple kommer att ingå i dessa poäng: vi vet inte, och vi skriver inte som om vi visste. Det fjärde lagret — det enda som med säkerhet går att verifiera idag — handlar om rollerna: Apple Hälsa är Apple-ekosystemets arkiv och analys av den data som når HealthKit, medan FitMesh, i sin publika utgåva, är en plattformsoberoende dashboard kopplad till kontot som redan samlar Apple- och icke-Apple-källor på ett och samma ställe, med en valfri brygga till vissa mätvärden som stöds. Det är åtskilda roller, inte nödvändigtvis i konkurrens med varandra.",
+      "da": "Ved at adskille, hvad Apple har annonceret, hvad der allerede er dokumenteret i API'et, hvad vi stadig ikke ved, og hvad FitMesh rent faktisk gør i dag: **når den bliver tilgængelig, vil Apple Sundhed blive langt mere komplet og kan mindske behovet for nogle rene analyseapps. Den vil dog ikke automatisk erstatte de værktøjer, der forbinder forskellige enheder, kilder og platforme.** Det første lag (annonceringen) er ambitiøst, men endnu ikke efterprøvet i offentlig brug. Det andet lag (API'erne): den 11. september 2026 kunne vi ikke finde nogen dokumenteret offentlig HealthKit-API for Readiness eller Health Age, og FitMesh angiver i dag ikke understøttelse af nogen af delene. Det tredje lag (de åbne spørgsmål) handler primært om, hvorvidt og hvordan data fra ikke-Apple-enheder vil indgå i disse scorer: det ved vi ikke, og vi skriver det ikke, som om vi gjorde. Det fjerde lag — det eneste, der kan efterprøves med sikkerhed i dag — handler om rollerne: Apple Sundhed er Apple-økosystemets arkiv og analyse af de data, der når HealthKit; FitMesh er i sin offentlige udgivelse en tværplatforms dashboard knyttet til kontoen, som allerede samler Apple- og ikke-Apple-kilder ét sted, med en valgfri bro til nogle understøttede målinger. Det er adskilte roller, ikke nødvendigvis i konkurrence."
+    },
+    "faq.0.q": {
+      "sv": "Är den nya Hälsa-appen tillgänglig än?",
+      "da": "Er den nye Sundhed-app tilgængelig allerede?"
+    },
+    "faq.0.a": {
+      "sv": "Nej. Apple tillkännagav den 9 september 2026 och meddelade att den kommer senare under 2026, inledningsvis bara på amerikansk engelska — separat från iOS 27 och watchOS 27, vars tillgänglighet Apple har meddelat från och med den 14 september 2026. Inget exakt datum har angetts för den nya Hälsa-appen.",
+      "da": "Nej. Apple annoncerede den den 9. september 2026 og har oplyst, at den kommer senere i 2026, i første omgang kun på amerikansk engelsk — adskilt fra iOS 27 og watchOS 27, hvis tilgængelighed Apple annoncerede fra den 14. september 2026. Der er ikke oplyst nogen præcis dato for den nye Sundhed-app."
+    },
+    "faq.1.q": {
+      "sv": "Behöver jag en Apple Watch Series 12 eller Ultra 4 för att använda den?",
+      "da": "Skal jeg have en Apple Watch Series 12 eller Ultra 4 for at bruge den?"
+    },
+    "faq.1.a": {
+      "sv": "Inte för appen som helhet: du behöver en iPhone eller iPad med stöd för Apple Intelligence, men Health Age, till exempel, kräver bara \"Apple Watch\" i allmänhet. Vissa funktioner kopplade till de nya sensorerna (puls var 5:e sekund, mer frekvent HRV, Steg-komplikationen) kräver däremot specifikt Series 12 eller Ultra 4.",
+      "da": "Ikke for appen som helhed: du skal have en iPhone/iPad med understøttelse af Apple Intelligence, men Health Age kræver for eksempel kun \"Apple Watch\" generelt. Nogle funktioner knyttet til de nye sensorer (puls hvert 5. sekund, hyppigere HRV, Skridt-komplikationen) kræver derimod specifikt Series 12 eller Ultra 4."
+    },
+    "faq.2.q": {
+      "sv": "Kommer FitMesh att kunna läsa Readiness eller Health Age?",
+      "da": "Vil FitMesh kunne læse Readiness eller Health Age?"
+    },
+    "faq.2.a": {
+      "sv": "Inte i dagsläget. Vid kontrollen den 11 september 2026 listade Apples utvecklardokumentation inget publikt HealthKit-API för någon av dessa två mätvärden. Om och när Apple publicerar ett sådant måste det kontrolleras på nytt — vi tar det inte för givet nu.",
+      "da": "Ikke på nuværende tidspunkt. Ved gennemgangen den 11. september 2026 viser Apples udviklerdokumentation ingen offentlig HealthKit-API for nogen af de to målinger. Hvis og når Apple udgiver en, skal det efterprøves igen — det antager vi ikke nu."
+    },
+    "faq.3.q": {
+      "sv": "Om jag bara har Apple-enheter, behöver jag ändå FitMesh?",
+      "da": "Hvis jeg kun har Apple-enheder, har jeg så stadig brug for FitMesh?"
+    },
+    "faq.3.a": {
+      "sv": "Ärligt talat, förmodligen mindre. Om du bara använder iPhone och Apple Watch är den nya Hälsa-appen — när den väl kommer — utformad just för det användningsfallet och kan redan täcka det mesta av vad du behöver direkt i appen.",
+      "da": "Ærligt talt, sandsynligvis mindre. Hvis du kun bruger iPhone og Apple Watch, er den nye Sundhed-app — når den kommer — designet netop til det brugsscenarie og vil formentlig allerede kunne dække det meste af, hvad du har brug for, nativt."
+    }
   }
 }
