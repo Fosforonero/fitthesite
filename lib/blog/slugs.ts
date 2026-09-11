@@ -877,6 +877,22 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "novita-giorni-passati",
     ko: "novita-giorni-passati",
   },
+  // SPRINT P1.21 (11/09/2026): pubblicazione iniziale it/en/de/fr, stesso
+  // meccanismo dei due post /novita gemelli sopra (REDIRECT_INCOMPLETE_LOCALE_SLUGS
+  // in indexability.ts) — la profondità di sourcing (fonti Apple in inglese,
+  // verificate puntualmente) sconsiglia l'espansione alle altre locale ora.
+  "nuova-apple-health-rende-inutili-altre-app": {
+    en: "will-new-apple-health-replace-other-apps",
+    de: "ersetzt-neue-apple-health-andere-apps",
+    fr: "nouvelle-apple-sante-remplace-autres-apps",
+    es: "nuova-apple-health-rende-inutili-altre-app",
+    pt: "nuova-apple-health-rende-inutili-altre-app",
+    pl: "nuova-apple-health-rende-inutili-altre-app",
+    tr: "nuova-apple-health-rende-inutili-altre-app",
+    nl: "nuova-apple-health-rende-inutili-altre-app",
+    ja: "nuova-apple-health-rende-inutili-altre-app",
+    ko: "nuova-apple-health-rende-inutili-altre-app",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {
